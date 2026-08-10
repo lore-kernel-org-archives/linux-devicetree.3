@@ -1,70 +1,67 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013063.outbound.protection.outlook.com [52.101.83.63])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010023.outbound.protection.outlook.com [52.101.193.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7C04334D6
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF46F435AAF;
+	Mon, 10 Aug 2026 19:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786388158; cv=fail; b=ETFlP0K8dafjmIXuaP2qruSbkmVD0Gfh36JHAcKSiLBka6FcboN4rYXa1iS/1PXqb2YFOB2te9hc4Xy5nWr9FP+lXQpxcmK1CtH/xPQXGFy/mTOJFc2+H3Jh8kEtdVce/xBhZu6Y96VJXbqczYodABj2CvDwSJ7ODJODRjrx4FE=
+	t=1786388470; cv=fail; b=my+m+AxREnmpRtLFMifM+/RpoRHBp++QqdxOrueDOFLGgSoMBh5kcqQhYJ6EdORmheWjoBFCABq/1gVzOLg3Mi1XiEzn4rR/0Yzdc8wnt/xuKqwB7Sj+4cTUczJlwTYtoCnKvYL11APiNrXoCsz6psXgNgeCqaH4ehodZY6ux18=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786388158; c=relaxed/simple;
-	bh=N15rASonoNBro7PFug9coQE5OXX/mBJ+XQ2cBZ3YiqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=kPbxcuatMg7JbKPdKu1obhI10BY16SkkkAdzZz+7RHHYwfACOinIOxJqgsKJKqS82MUinZQorPNNQURBMtuJfx+U6IUm+xdKtvCP6ZZlcF5OJHF+Nez9MIV3oqeIco90a30xSqMbzXN6Ie9L/49D+HXQiZy1+mzp/1RBM0RZIi8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=AycMrBah; arc=fail smtp.client-ip=52.101.83.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1786388470; c=relaxed/simple;
+	bh=R3JdePGdBbqlld/d1P2fLfrmQTDs/CRHlkG4osGEQ1g=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=lOkYkf1ti/2wJgUa4VdncgOWNRxXltXK39tB1THtTz5sbwsuTyTTBN4ZV9GwRfoGczJxJeveaBy4CmHXoA9/nZwbyfg7bgYBuXxcsIpX47ZLKldHVou9mjpeR3dx4QRpXPu4d1P1a6gHbOoCo6D7r2LRPqSmbr7tXj/cs9z3eQo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=A90lcRC3; arc=fail smtp.client-ip=52.101.193.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="AycMrBah"
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="A90lcRC3"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JI8dW+SLyvJTaajYNDCsc00ItUI2L+oB+MkUrwGOAwDgH0o+hHUZm9m4bZAxNAGE+ecH/F57j+cZl+rdOnSS9hi+8Kg2jx0gcTUvRWxx2DViT9WGaJPQ3m34eF9AJB/G8Z/AQ+h3xdXy0vzRt1mVQpWvD+RJ6PytRfbf0DXngDem19/5fwG/MvYzIxoCxbVfdzYV4NXTXDggcYh/loNC52SdVpb2ZuVq/TSIbXIpVu281+/0gf3Ke+2EWGX7R+Y2+J8auJ6mpLjcSSgxu0cd2z6UnlRlXEoMaKMrkU0PPPn1jEmptQKGr7zW3rCfUvLlSP3ElgbFWi2XJ8EnJQ4y2A==
+ b=Z3p47x2u35uMB15qoMQL8XTUuut/ypess0Bk+/pd+aLI2zhxE5+4RmtzH3xjCbpKauPjFDAs7DXGUtChdPAGX/YzYEWXn6/Is+avnM5hNkl72Z/R8hIHBFEB2ZsBgslyguWV3tiSik+H3K+R3UMhXfmXtKX7VwNNsxdTRmAvPuT3CbuwJu0lyIDxujy57RzKQfykLiqgS91dkM+RUoYBrHmwzK2t/laD+7U2xhD3tVtNDsuGRwPyG7C5E5742JYGWblZxhn2suRJF66fBO3mrDipkjIyKLD18reY9L+tvWZU5mMjtZT3GNYZWZy19057dY1f5GEp9m9Rr3F+lVZ/oA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IArVwXYwjEGECSoVaoRUnmVvYIRHXD17uUKSYepuT60=;
- b=LQmbUvZ0Qbtm89RaLoqIevVNClD8l+kCfybCvEs3JlSd9pPrBA+G4BY3d5LJnZObb9zqcSWAcMBE4wynyUuelq81owtO4dCw3zRkXSmUUQy/tuRFsXiJ1fikwjnbtLesD0yCMI5k/12m4pp5GLuzjPbhmMsFHwrFjv2RWaz46aqUR3aIn0xSKPCbypK0uxr4Yh623MjldzDDRoJGj66pi9JzyhWck5KTMX/S6u1zrGlCgJRgZZjr68zuJ+5XiguqBDLq6KP2UBh57zOkBGiKOV/j5iX8YW3eFbKH+NOw1cA/VQoDqS1X7zteB5jrv1KhRYIiEztr34IHLFlHrKIjUQ==
+ bh=YdfVAZ1CyKV/uo/M/5XuIOunUh+nRNtvuAH/U+O2PrI=;
+ b=dES9WcMUV1Xfp7ZMvXJrWavHdwLrE4B8xngek+zHX2cVJLhC5nj0QxApKArP8LCTs3DxLVDmAIv5kTAs72ztlopBdnrerkBFc6ZVbH89n0yXX8tl1p7kO0sRskBmXfZJyPExRZmCT0Cr1U2fCWucg4Taeh0TLytxm956Kxi4eYgf4vcPNvYhR9iZRh8xEJCbrP96jIZCSrzRVQNRhSurwRt4Pu2SJbe0dIV7vxfR2AWSeAVQ+sCIcFlG2Rz37cUVdbWzj+ys3en3ongGCpKwaLjihKHBF9SkPNN+xDZ8nwGI69Km7DdfIxXRQpIqFLjgFnePzn/2aUkowUxfcsDtJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IArVwXYwjEGECSoVaoRUnmVvYIRHXD17uUKSYepuT60=;
- b=AycMrBahCmZZi/MAEY/TzqBnSs5v8XiqGTHYV5YoDgGDofYc7TgKJIUMfkU28N1LVRprwMH/mGzrHDzO0TEUh73b8GfG8rTg504KZTvADIKA1JUSpNa51bjDMQx3WZ/glQ6781co/g75LruSL5fmqV7YcOvMUu6rjR5mwMO6ftXk3TtCdZ5eK2W4pUyaV6LDXFRTTHg68FEqsxj2aGFtoQfU78TtCGIKjmHp+fu4I4Z+v7MdpSYTgcaNLFlZDDVoo5jKswf4Zf1vtjw5ygatlM895PFDrXyfRZ8HEEl/tH+LcuoRr9phY2fnVeUlWOlkRzKFPiF+aLJRrKBceyj0Og==
+ bh=YdfVAZ1CyKV/uo/M/5XuIOunUh+nRNtvuAH/U+O2PrI=;
+ b=A90lcRC3tk6BnbqZewj2KBK4Rm6pVDnX1SMjRWQ+4uqRgcLhNF9tLf1EVVdnji0MdXRIstPDNZZzwpCoUTO/LoJjAUdYA3x/jAGCOhuBXoR+dvq3fnJMYfdmvQV+kdj9/fgVZGg7a7rilIn9bdYRvODstbYqeX4nE7JPKtk4vyiBX2fHvjdx7KZEWT/xH+BUVg42hWi64suKmfTaFfXoYv1gLAxDPb4vgFz6z6MtEhQiKyN2sd+BSC6+GmHUUf0OGsTTipkof9v+u9wLBxodSCrZShVNf7M2jyUQTidUn+BJl2wm0NblSmY6nhh+OWWNhovekgaZFQGyRKGQZxfgmA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI1PR04MB7149.eurprd04.prod.outlook.com (2603:10a6:800:12e::22) with
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
+ by CH4PR03MB7676.namprd03.prod.outlook.com (2603:10b6:610:237::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 18:55:51 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 18:55:51 +0000
-Date: Mon, 10 Aug 2026 13:55:41 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev
-Subject: Re: [PATCH v3 6/7] ARM: dts: nxp: imx6qdl-pico: Replace
- clock-frequency in camera sensor node
-Message-ID: <anoerXCIlB8tTgiC@SMW015318>
-References: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
- <20260810180604.3034255-7-laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810180604.3034255-7-laurent.pinchart@ideasonboard.com>
-X-ClientProxiedBy: SN7P220CA0014.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:806:123::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ 2026 19:00:34 +0000
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 19:00:34 +0000
+From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+To: linux-mmc@vger.kernel.org
+Cc: ulfh@kernel.org,
+	adrian.hunter@intel.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	p.zabel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/8] mmc: sdhci-cadence: add SD6HC support and Agilex5 enablement
+Date: Mon, 10 Aug 2026 12:00:14 -0700
+Message-Id: <20260810190025.25045-1-tanmay.kathpalia@altera.com>
+X-Mailer: git-send-email 2.32.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0079.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::24) To DM4PR03MB6208.namprd03.prod.outlook.com
+ (2603:10b6:5:39c::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,103 +69,180 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB7149:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3727854a-6f26-4a24-2c80-08def710ff72
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|CH4PR03MB7676:EE_
+X-MS-Office365-Filtering-Correlation-Id: c00a930f-27c3-4dff-2651-08def711a7f2
+X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|7416014|376014|23010399003|1800799024|18002099003|22082099003|4143699003|56012099006|10067099003|11063799006;
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|6133799003|10067099003|56012099006|11063799006|55112099003|18002099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	bEsWb/9squaUU4KoqWr+Cs3FOk9oeyGZdaOjOs4FQKVITDoZfE1K0lwYw5W+gmz6yFd4CnEQ5LOpFjPjvnL9JjReir/ihVxqJIEPNLUeXplxhuGWIdqbACdGdjknMcsQHXEap26YYuki8jT5zA7nDIBdSCrhQTrGjl3t1N8TaLReMtjcEcQ0DlxpLoIQqtSum4yKd/1XsWzP5c3JlGfLbjED4YC0niJFEdwZonFHxeqFpVLEE30q5yOgtdM3k9cARXZUghcsEw2YR7y2T7Hs5hWaK3iBoA754Jj5CvoaJK6VCv2Ze77AeOCrc4lh8t1KnrF1sA0OrJMEDfZ9NfR4mvj/nR/cRuqUAzVfSkUL0xmNIyeSAjxmld8FY9VmX7l16yRQIQndgud1KpKMl9GiuvXzVot3bB0O3lUVIvZOcblm8Q9hkoq0lOIRF0DUt05DTv3paiGMiMIkNTrkPpABWTnc70BWO3QLPBvvXuqFL1WLTWuo33Gishq2j+AINWTnkt6lgotGLso/fmNquYvWL2H72q969nPtgvVLntE6OV+K3DO9XPvyj23mhs/ZZ7800L6bqt0B0IOVdCWSDxtAWjbYs2FhCQgtZD80mViQHXAWZYHVVrRqR91GS6sSJTq79ByykomvZivKv+eknZ/WrHuP6JUhzGsSHdLyFUk3nIU=
+	0U4PR6aH7GgUcbgIALDFjvBxI6n69Mqq0ZF1M68AI1hUsGw7SP0NiveCJQDqPvl6eB0vjY04NIJyslolfzMUxpZQCjYuNlHdAhF/96PqCBvKK6vdywjVs5peAdIzI0LZTLvhXBUzw6d29OcEeXrIqoH+8SNg8q0y0XK4bl8c9hXegKdGHAgVo8JrlJbuQQo7vMexjlyzmtvacWlSC9bIdvHM2XaQHVxBA+Ii02sfD7DfdSTdYrixSoz7yIl73laXQYQxX+9rpa8kFnF0yHa/chnGDaPNNK/ho1mPuk/ZJiQqOC18Ssxbp+5Vai/MXki+uzVzldIczml/d5CsQzAk84sIPGuSJaTbdanWxLDMU++uNE2kqq8XtVOJcqRSuZbmS7U5vjFSa449n8qP3e2xzembq7XjcILfCTLkbwXNRIiASOfMNC9Iz8JIAyKdsQgxcNN/CvhQ5uM4ZfB09jj9+U9HzUpjBEU5/MJj7B1YAgHGs7LiTxTMrZzZ2PMXWSWZarcR4K0vU8USMgmMYMupxbBl82FrjSs7cN7cAV8qDB7jK1IzVF1FLQ/1PiKAyE57GHqFgzEggNAvmAg3gQct5ExSJX54sL+yVlMkFdARPGkmV8D/0qBxQgImPFfAZs70e80ofmtHN/HiNnevRNUu1eiouWvJ5p0n6lc3v8doCWY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(4143699003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(55112099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vG7fc7TRxHewlrn52A+u3Q6qGSfHThnEZc6r+mMMGvdwDhOiNehdN5RtRZq0?=
- =?us-ascii?Q?HD10RT1vJF9vu+iJLksRF5t4K4oRqKLZqNMrTA4C1Za9JzxAB4IUktWXgqky?=
- =?us-ascii?Q?Fsd4fUlUjQKUGd3rOqg7+qguFTRIQL5Bp12/dnmMuwMlWlqg7qah2pBkysAb?=
- =?us-ascii?Q?8+TGcb1sh8ckr9xcfceG9VWhqNRD8UPsZ5w++UVWehkp4PY7k/e4MmRKeo8K?=
- =?us-ascii?Q?lFjsV7HYhnrX+DPRaHTD0bzZVovYUvmO2cgQR4KmLW9diB37SXJiIHtOmILp?=
- =?us-ascii?Q?BJhx+y4H8VtcowrmQJugzEjcu8ScIVaeBS3MEUwsTyKzdz4KsOaHE2lZv66O?=
- =?us-ascii?Q?3IeiBcBklamT/29jj5t6pIZNcv3eDiDkr8VOi+Vq5WxNfT0EvUMXq4T0UCZC?=
- =?us-ascii?Q?81hQd98dHWNTvu5JgZvfAkTCS7zo9VxOxe4xhVwgsvml6Aed/JZqkuLfVzlf?=
- =?us-ascii?Q?Z9KCTOcw32xZ2eTzZ2u0ENt0uZBTVsjz//ZdqBrCnIKrwrULkNZ51YGZ3Cnm?=
- =?us-ascii?Q?e90RAbJACsiz8qcI49giWpulSIM3j1q8aLJJmiSVW2ETD/UMi1a3/B7Bif+e?=
- =?us-ascii?Q?1u6uEF/ZZq540XJsZelaZaw48ct23PlBHDqwNJ5OoCTLD7FZJ5kOAaa7YBE7?=
- =?us-ascii?Q?6MFA2f/3w3FoOzZRaJGv9FCVdKOabN+2kf0wFeTKITq+dvqV+JUhpRkY6XAR?=
- =?us-ascii?Q?6l9Hef0BogrggjLZjzfZvmMVs2EUWfijEnfa6UtLwM7P0YFw2cJvbD41tcnB?=
- =?us-ascii?Q?PAYSE+sMmu2QIprKD5jFulohf8qJBHCpDefQlLNItXmrKLf53cveWlBbumZB?=
- =?us-ascii?Q?hLuJ4xIgw7sT5QpCRZbLDWVN3SVpLxOd/jRW62zmfAERO0FhUDk1rM+ro2H5?=
- =?us-ascii?Q?mm49fidjgwnVY8bY5z/f8+9oZZ8PuFnw1FxEjvMXCV6pid/NISvnM531Zt4B?=
- =?us-ascii?Q?arPlMV+BAkGQXcjnaBm/xyS2W0TAR6QdbAUkP7WE2xU0l22vniYDH8vEJuIw?=
- =?us-ascii?Q?Vf7RJLffHrprOXK30R6iJP8GGDwIME7fiC8RKkIGVqnI9vazv/aNJzMGLkRc?=
- =?us-ascii?Q?/vLp/R7uq4ugZZ5xVhMvk/4MUj1NHW5zIC9NBSf74Xwwlif/lMU8XZYHKNBD?=
- =?us-ascii?Q?BSLdIbmakI5gR4rR7iPHf9gO/rvQE3XNwwqbboCZcg/Usjz5rOhuEx2fKcy6?=
- =?us-ascii?Q?BwMJzjb3fijV1IwrRiiCVfCPr6MyH3oFxF2KzK44onLivivlmI9GaIB/akdn?=
- =?us-ascii?Q?0nwKUK1/suBFch8mH1ahgPTwZaQqBsNi3W2u7psmU5EEabSOB4AeSq3zRvA8?=
- =?us-ascii?Q?2zioQdMXqVFEoj0EwEadSRsVN6ZL+9bUb0bG6rV6Vh8AcD/7Sbo9xIsUg4sq?=
- =?us-ascii?Q?MU9pn0zlg0wCHvrawHG92J6ZaA9AhRloX4vO0+u5Iid+WGuB7T6el7fl1Ivd?=
- =?us-ascii?Q?5X/AqN3NAV7rDCOquYG/z1ws+q13U0PQMaelweOxzyg1xp++4shQc3sNmKTT?=
- =?us-ascii?Q?TsZvwgb/QRaIvFj5vKTGLw2MAzn8QN8BZbuueYSkMNglROZRFSryz3utbP+n?=
- =?us-ascii?Q?LN6CO2T8ccwmuyjkFwWSPaAZY3ZlsotKPou3TvO29bJElHv9gncL98/B9uxm?=
- =?us-ascii?Q?9YA+Kj+vUv3PpvtLzIpDh+x9vpxQ4W/7dQOF0qntn+3rkDRGAZrBt/RuxpCe?=
- =?us-ascii?Q?ZZZ8WYXk36yLLQ6xX+JyirL75739CE5hp8YWyfOgJ8SXbZIF7I8uLr7HF6xC?=
- =?us-ascii?Q?cgOOSxYyblfYRn/wXmPNZVArz0XXcbDkje4BzVVwNM/m6luqnNWI?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3727854a-6f26-4a24-2c80-08def710ff72
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+	=?us-ascii?Q?ML6AfK7EHgQa8dthNsv2TuM0Id6iktcnBGogQUTzCSLg+sD86kRivlXmCcW1?=
+ =?us-ascii?Q?aMsOiuPIJh+O/yXAYiZQyYeg6ulEcdugB5s8UzCmXd75WOQcfZgdIbMjxRF3?=
+ =?us-ascii?Q?ixSfPiPBLB/Bbo6tNBIYY4yCbWRsQUi1pei5NeBCwHwCnS6kUUqFF8IDnPr+?=
+ =?us-ascii?Q?kvcJTa2sNsQv+WQZfgbtWbBNCHGjc8naeaZ6KVTrXS00n8DPpwLAxldUMojt?=
+ =?us-ascii?Q?2v4QmD4V2LdxsE1ro4Du7UNMF6rqXP+wXY40K1y3iW8CxL/ElZxd5GcXiIBa?=
+ =?us-ascii?Q?Ur4tMn9jqWQ8JNGLoAIcG0uJINLM1nnCw87Ubf17aWbnQbCW8XABzLmLCzX+?=
+ =?us-ascii?Q?L6a1/H+zidRn7NQp2cVc+7+YH3lSSV7Zicn+DpvcJHwGNokfHFInCf0YE0RT?=
+ =?us-ascii?Q?bUteBTlBlawIhYDuX+HhVeEmRsFIopCUB4d0Jf906gXxNtIfoXmdI7oMXgFO?=
+ =?us-ascii?Q?MuPGP9YuGoZIDqaqDQY/eYmvStVn4Nk1U7FaxHegPKQmQzlr1Sbg+D/IqKGB?=
+ =?us-ascii?Q?mMIGRpQD9x5E7nomghsb7Xqly1WJuGf8qHYq9H2aZ+oWcOlMHoEhku2aJan1?=
+ =?us-ascii?Q?EYRqyJ2nlnYqkO84ARQOqeBU2xI2gSWMatHQjKWwiygMJo/Si/8KVf2nXtb8?=
+ =?us-ascii?Q?q5pJJv3VCBZIyImiYq9d18O+f4X4q/t+5RBQuAk12P50BcgR6mgzg+cjAttm?=
+ =?us-ascii?Q?HfuZU809gPykL8IEs+LrpnK7+nH59BpEEiSeE95l0qFsx/rrxl2a2jfdP+Zi?=
+ =?us-ascii?Q?DM073vnDUrMDCui/hG7FBK44IQgu7NKADM3dezCr4UnkKW2xBnJ1oDgCThrs?=
+ =?us-ascii?Q?B8g5BKyqU4KmjGDvaOQPvmD8mjpoBqA+jX/yYrLfX1P/cpSOEkE/UfTiEV91?=
+ =?us-ascii?Q?bNLfmuc1Zgv49lDDqxtkAsqYXgYIBGPZDzWa8vyt6kzXoUA+Bw8OwefrMOlx?=
+ =?us-ascii?Q?Magwq/6EbXXlNlFQUkMdmvYqraCGUno8lt9QK2MO1gax+X7mM8sJLt1g0WtY?=
+ =?us-ascii?Q?HluTkf/QnRSbs6AHBj19oUIREzT1xjk7S0cpa2BqzG6qaL09ZcX8BNHFXpyz?=
+ =?us-ascii?Q?QdSzi87RONbWIzHDCyGaqMafNidM7x6b/Xm11ZNe+s9Nsx1uzjSiQyMnr9hT?=
+ =?us-ascii?Q?LljL5NfxcKh7YOaUMVQTFDrHas5tdsHan9CVhlA6YAppn6/UEC46zFI5H3pE?=
+ =?us-ascii?Q?otZ8LIM6j2tZiPTjRR2X4ITKLmiQNc4MaEsg/rIMAhLWIEouteTt3kTh2H4y?=
+ =?us-ascii?Q?OG/T8vf6lQOzhT1BiKNzFs60+1bA497s8bhOI8x9eTGmXv3BjLqbMeDezY6L?=
+ =?us-ascii?Q?SFkSemfmWthd1C3D86sVQAa+U2/SVeuP00PzLm1sbP/ojkK6TlnfF53P6Szw?=
+ =?us-ascii?Q?18yi4BPi3Y6h7/Q5a/buSPvp0AXYIrZp8XXoio5jgGALBUYiHxT1e0I7UjyP?=
+ =?us-ascii?Q?984MCcjQFvBtBD5uWn3tJ+dI/24yhavYfytVbNZjyNelUFRrzVlgauWsVddi?=
+ =?us-ascii?Q?3zPrh8I2N3FYOoEclQNB81pYgxvbuQNaNuAzqKx1Lk/j40/SCDxf6hYYv68o?=
+ =?us-ascii?Q?laA+3iAcOZXKaU0qGu8no88NMQhIiBv+ElTpUVD8jRfBVVYWikVfOqBEAu/b?=
+ =?us-ascii?Q?AfVSz574NVYDUqEmvg9pM4jV3X99BDcsMcfomtzR97D/9L1SGDiwhGyZAyBD?=
+ =?us-ascii?Q?ygrg3gEhr1+DyK+tLDvHkg4PlveFIZxpI18ZDxosCVgeWZ7EYoxBS8H5NOdZ?=
+ =?us-ascii?Q?mnubJGkcJuSwTIksYtvyLus6GHR/URs=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c00a930f-27c3-4dff-2651-08def711a7f2
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 18:55:51.3337
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 19:00:33.9609
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y0DYMuJFTX7so9mFCz/weDnPG3FyyuVUWYzlVyUp7MTnQYQq2uIKC2Ca2Lse/Ilio1wWhDsVzGiL/+aLnb3ovEyAMmOFEkDcsRsY7f/QaXXk8vlybllRB/8jEmRGVhI0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7149
+X-MS-Exchange-CrossTenant-UserPrincipalName: C4Wmlv+yW9wY/JEkPNRKorhI8dBun1e61n8q3dG3Dahm4n/5OUvq2mc3mFgBb5PV1jZNa6sFVEMiWA+jcEbgnzz4zjo+bPcAcq9ECifVPoA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR03MB7676
 
-On Mon, Aug 10, 2026 at 09:06:03PM +0300, Laurent Pinchart wrote:
-> The clock-frequency for camera sensors has been deprecated in favour of
-> the assigned-clocks and assigned-clock-rates properties. Replace it in
-> the device tree.
+This series adds support for the Cadence SD6HC (sixth-generation) SDHCI
+controller and enables it on Altera Agilex5 SoCs.
 
-Remove "clock-frequency" may break back compatiblity.
+The SD6HC PHY architecture differs substantially from the SD4HC: it
+requires dedicated per-speed-mode IO cell timing parameters and a
+DLL-based delay line to achieve correct signal margins across all speed
+grades from Default Speed through HS400. These are programmed through a
+new sdhci-cadence-phy-v6.c file; shared driver infrastructure lives in
+sdhci-cadence-core.c.
 
-A similar case
-https://lore.kernel.org/imx/20d37ab7-308e-4f07-96dc-7ae011af76d0@kernel.org/
-https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quoll/
+Note: this series depends on commit ab45ecfab540 ("dt-bindings: reset:
+altr: add COMBOPHY_RESET for Agilex5"), which is already in mainline via
+the reset tree. It is not yet in mmc/next; apply or merge that commit
+when building/testing this series on top of mmc/next. The previous v1/v2
+reset binding patch is therefore omitted from this series.
 
-Need provide judgement in commit message about impact of break ABI.
+Patch 1: DT binding
+  Adds a dedicated cdns,sd6hc.yaml binding with SD6HC compatible strings,
+  clock/reset/IOMMU constraints, and PHY timing properties.
 
-Frank
+Patches 2-4: Device tree
+  Patch 2 adds the SD6HC controller node to the Agilex5 SoC DTSI and
+  enables SD card operation (4-bit, SDR104, 200 MHz) on the SOCDK board
+  with GPIO-switched IO-voltage regulation.
+  Patch 3 registers the intel,socfpga-agilex5-socdk-emmc board variant
+  in the arm/altera binding.
+  Patch 4 adds socfpga_agilex5_socdk_emmc.dts for eMMC-only operation
+  (8-bit, HS200/HS400, 1.8 V IO, 200 MHz).
 
->
-> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> ---
-> Changes since v1:
->
-> - Drop added blank line
-> ---
->  arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> index ca4cb986efbc..0cc05d084f9b 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> @@ -233,7 +233,9 @@ camera@3c {
->  		pinctrl-0 = <&pinctrl_ov5645>;
->  		reg = <0x3c>;
->  		clocks = <&clks IMX6QDL_CLK_CKO2>;
-> -		clock-frequency = <24000000>;
-> +		assigned-clocks = <&clks IMX6QDL_CLK_CKO2>;
-> +		assigned-clock-rates = <24000000>;
-> +
->  		vdddo-supply = <&reg_1p8v>;
->  		vdda-supply = <&reg_2p8v>;
->  		vddd-supply = <&reg_1p5v>;
-> --
-> Regards,
->
-> Laurent Pinchart
->
->
+Patches 5-8: Driver
+  Patch 5 renames SD4HC-specific functions and structures with a "cdns4"
+  prefix to separate them from shared driver paths.
+  Patch 6 encapsulates SD4HC PHY probing in sdhci_cdns4_phy_probe() and
+  makes every of_device_id entry carry explicit platform data, removing
+  the silent fallback.
+  Patch 7 introduces the SD6HC PHY driver (sdhci-cadence-phy-v6.c): DLL
+  lock/bypass, per-speed-mode IO cell timing, tuning, and HW reset. The
+  common driver core selects between v4 and v6 PHY operations based on
+  the SDHCI specification version reported by the controller, and
+  reprograms the PHY from set_clock and set_uhs_signaling.
+  Patch 8 adds the Agilex5 platform overlay under altr,agilex5-sd6hc:
+  40-bit DMA mask for the SMMU address space, quirks for
+  CAP_CLOCK_BASE_BROKEN, PRESET_VALUE_BROKEN, ACMD23_BROKEN and
+  MULTIBLOCK_READ_ACMD12, .get_max_clock set to
+  sdhci_pltfm_clk_get_max_clock, and an init hook that asserts and
+  deasserts the three named resets together.
+
+Tested on Agilex5 SOCDK:
+  - SD card: Default Speed, High Speed, SDR25, SDR50, SDR104
+  - eMMC daughter board: HS200, HS400
+
+Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+
+---
+Changes in v4:
+
+  [bindings]
+  - Require the three named resets (sdhc-reset, combophy, sdmmc-ocp) for
+    SD6HC nodes. Agilex5 is the first platform using this binding, so the
+    Agilex5-only if/then is dropped; a later SoC with different reset
+    requirements can reintroduce a compatible-based constraint (patch 1).
+
+  [dts]
+  - Note in the commit message that DMA for this controller needs the
+    SMMU (stream ID 5) (patch 2).
+
+  [drivers]
+  - Add sdhci_cdns6_set_clock() so PHY timings are programmed on clock
+    changes (including initial 400 kHz discovery), preferring
+    mmc->actual_clock over ios.clock; share the path with
+    set_uhs_signaling via sdhci_cdns6_phy_reconfigure() (patches 7/8).
+  - Skip redundant PHY reprogramming when mode, rate, and enhanced
+    strobe are unchanged; invalidate cached t_sdclk on failure or
+    clock-disable (patch 7).
+  - Use ios->timing in hs400_enhanced_strobe instead of hardcoding
+    MMC_TIMING_MMC_HS400 (patch 7).
+  - Program tuning delays with a DLL reset cycle instead of calling
+    full phy_init() (patch 7).
+  - Cap dll_max_value at 255 in DLL bypass mode so the delay cannot
+    wrap when stored in an 8-bit field (patch 7).
+  - Reject cdns,delay-element-ps = 0 and fall back to the default with
+    a warning (patch 7).
+  - Pulse Agilex5 resets with reset_control_bulk_* instead of three
+    separate reset_control handles (patch 8).
+  - Collect Acked-by tags from Adrian Hunter (patches 5-8) and Conor
+    Dooley (patch 3).
+
+Link V3: https://lore.kernel.org/linux-mmc/20260724145009.7456-1-tanmay.kathpalia@altera.com/
+Link V2: https://lore.kernel.org/linux-mmc/20260627201457.12318-1-tanmay.kathpalia@altera.com/
+Link V1: https://lore.kernel.org/linux-mmc/20260511202132.5597-1-tanmay.kathpalia@altera.com/
+
+Tanmay Kathpalia (8):
+  dt-bindings: mmc: add Cadence SD6HC binding
+  arm64: dts: agilex5: add SD/eMMC host controller
+  dt-bindings: arm: altera: add Agilex5 SOCDK eMMC board variant
+  arm64: dts: agilex5: add SOCDK eMMC daughter board
+  mmc: sdhci-cadence: rename SD4HC symbols for SD6HC groundwork
+  mmc: sdhci-cadence: refactor driver structure for V6 controller
+    support
+  mmc: sdhci-cadence: add Cadence SD6HC support
+  mmc: sdhci-cadence: add Altera Agilex5 SD6HC support
+
+ .../devicetree/bindings/arm/altera.yaml       |   1 +
+ .../devicetree/bindings/mmc/cdns,sd6hc.yaml   | 102 ++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/intel/Makefile            |   1 +
+ .../arm64/boot/dts/intel/socfpga_agilex5.dtsi |  25 +
+ .../boot/dts/intel/socfpga_agilex5_socdk.dts  |  38 +-
+ .../dts/intel/socfpga_agilex5_socdk_emmc.dts  | 127 +++
+ drivers/mmc/host/Makefile                     |   1 +
+ .../{sdhci-cadence.c => sdhci-cadence-core.c} | 290 ++++--
+ drivers/mmc/host/sdhci-cadence-phy-v6.c       | 975 ++++++++++++++++++
+ drivers/mmc/host/sdhci-cadence.h              | 118 +++
+ 11 files changed, 1613 insertions(+), 72 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+ create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_emmc.dts
+ rename drivers/mmc/host/{sdhci-cadence.c => sdhci-cadence-core.c} (68%)
+ create mode 100644 drivers/mmc/host/sdhci-cadence-phy-v6.c
+ create mode 100644 drivers/mmc/host/sdhci-cadence.h
+
+-- 
+2.43.7
