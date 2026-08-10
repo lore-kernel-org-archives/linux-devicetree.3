@@ -1,110 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CFD414A11
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:58:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF19A40BCDA;
+	Mon, 10 Aug 2026 14:59:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786373918; cv=none; b=LouFoNHAwAipWtq8vtgbHZKbRmVKipxEVsBwhVhBIdEf1XtbKutRIArXgw06QcWwjZ3bb1E2xwFWIUinVU/zgHCz73zpYskgAAzGv+savmzEcARkyi9MQx2cPs/EFQhLD/h9xUsCkYF+Qp+f8+8amgEwgOUDpXY1GjYhITLIFZk=
+	t=1786373966; cv=none; b=TbHa8ZkW3Xe/n5laJt9nbwuTbfxXqLLYAeqlyejkwZKJB6x0sPyTBM55KxMPmroAFxOUy5pH8yu88SyUAjcRsG++kdUV8Y6PYyN0JZriXdLYhRxILupfnVfVLhACK6xcz7LUv2TEF3T0j2Kpns3Kxjxqpwin4xn/SjAy9P/oHDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786373918; c=relaxed/simple;
-	bh=usng40myqxQ7JUonPgsUO8n4mUM1rRieLBStfKSpukk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pDGBLa8iv5UNRNsk34q6lqw+twk4h8+2rdBBDZpypdvHHMBrBPuxTpgJw+QI2Zc90BJpdfTPBgrMMDuHLWeRI0fikRa+z0WbkSX0JXODk4FX0bgZrjGXrytF8dyfnjJkLphBPAy7rajtlETadAZ2psm+bmO+tlrEDdnm1zq6Wxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FRdnjdmY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786373966; c=relaxed/simple;
+	bh=IHe+iekkZIpD0neGrMyMer28T5XcL0bxBrC3IQ2O0aQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Ns398NCRt9r5j3TZ/VBUFL7VCJM7FzAbECgEU9EHpOyeULX9QmitUrqIZfgmzl9lxDMFqFDyeRC5shDCbzf5th7iXxnakge0dVizL+sbwIJCWCvWqHsyv6UaqofEe/iAdTqnIfo0KfsDtQvSSgdcc9zt5AkFRucMIwE1hmAb3G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V/dYtS6i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FRdnjdmY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457031F000E9;
-	Mon, 10 Aug 2026 14:58:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V/dYtS6i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4F81F00A3A;
+	Mon, 10 Aug 2026 14:59:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786373911;
-	bh=IPRVzV9ad4Ky84rrtHKcAKyABZMCGSFx6Ieo6hVnCsM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FRdnjdmY8xUHyZSuvR1y6amHQfZBjvHa+JRNcq2utj669uu3OIt3r80LxWZyxGhbU
-	 gshfF9CSpnEs+8k7/jXOwivazJsPlYxxbqwEt3Ah3sEBr1aqnfA9XQ7zmCveOnsutK
-	 CPZqUAk66qEtektcf4+UVkaNySSVgQsMXdh26Eq9X/PhDZhaKbdRv2k8GifhaTjnY1
-	 q2IOC6Jp6wX/xF4uWooC/WQ34DzsoHh8npbIjv5dGBcNqRmhL6ecRox0gcxrF/7Kxv
-	 Kr7WIJHbVYcyQxg6Hb9Spu3S47t+zoYP9e77gMsMyfGBA0nVc4j+M6mT3H9DimFiA2
-	 g9rDmAxzW1oKg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] iio: adc: add Axiado SARADC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260810-axiado-ax3000-ax3005-saradc-v5-2-bb0df3ecedaa@axiado.com>
-References: <20260810-axiado-ax3000-ax3005-saradc-v5-0-bb0df3ecedaa@axiado.com>
- <20260810-axiado-ax3000-ax3005-saradc-v5-2-bb0df3ecedaa@axiado.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 14:58:30 +0000
-Message-Id: <20260810145831.457031F000E9@smtp.kernel.org>
+	s=k20260515; t=1786373958;
+	bh=ys1aNXfackETLgPvVRA8MSu79rLpecF8Yf/cnO1Gaao=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=V/dYtS6iJo8senKp13lhrmwlT8xA+1U6HjjlD+//A2SwhejyBOryc4MKyLBwVy9Xu
+	 9lHQ7ilL12qzrI22qBbA7VLP99qhz/lUMAfhciVbEzcnmY/q1QGuvJ91oiUu+mpmBq
+	 09XZBaY5/QCLmCS32t7cEfSMnSM9gQufkR9l8w00PDA1ltynhBlzD2W27mc6TRTTUQ
+	 ZrBaQ/cErqtK68f06py0yUCN2PyRHebV0wbMUMlwF1Oyrvf1C+wH0AAUJJ31pyzzlE
+	 rHjoDImKBk3jAB71tSyFC1oKqRKrjQW/1mDmgfuLo57xTbxVYW2kx/J3r5XMRLC5XI
+	 /7Nd4QNrtSdHw==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Mattijs Korpershoek
+ <mkorpershoek@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: phy: Add sa8255p high-speed USB PHY
+In-Reply-To: <20260804-active-sensible-reindeer-f459a3@quoll>
+References: <20260730-phy-qcom-snps-femto-v2-8255-v1-0-8b8bf5105a68@kernel.org>
+ <20260730-phy-qcom-snps-femto-v2-8255-v1-1-8b8bf5105a68@kernel.org>
+ <20260804-active-sensible-reindeer-f459a3@quoll>
+Date: Mon, 10 Aug 2026 16:59:15 +0200
+Message-ID: <87a4qu2f98.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The ADC conversion delay calculation ignores the configured samp=
-ling time (or oversampling), potentially causing premature reads.
---
+On Tue, Aug 04, 2026 at 10:07, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
---- Patch [2]: [PATCH v5 2/2] iio: adc: add Axiado SARADC driver ---
-commit d29fd02ad40c12a8c4f338bf8bdde17a93221079
-Author: Petar Stepanovic <pstepanovic@axiado.com>
+> On Thu, Jul 30, 2026 at 03:58:14PM +0200, Mattijs Korpershoek wrote:
+>> SA8255p platform abstracts resources such as clocks, interconnect and
+>> GPIO pins configuration in Firmware. SCMI power protocol is used to
+>> request resource configurations.
+>> 
+>> Two power domains can be requested: transfer and core.
+>> transfer controls clocks and interconnects and core controls
+>> the GDSC, resets and TLMM (GPIOs).
+>> 
+>> Add a new binding for the Qualcomm SA8255p Synopsys Femto High-Speed
+>> USB PHY V2 found in SA8255P.
+>> 
+>> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+>> ---
+>>  .../bindings/phy/qcom,sa8255p-usb-hs-phy.yaml      | 52 ++++++++++++++++++++++
+>>  1 file changed, 52 insertions(+)
+>> 
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,sa8255p-usb-hs-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sa8255p-usb-hs-phy.yaml
+>> new file mode 100644
+>> index 000000000000..09f7ca6e7f72
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,sa8255p-usb-hs-phy.yaml
+>> @@ -0,0 +1,52 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/phy/qcom,sa8255p-usb-hs-phy.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm SA8255p Synopsys Femto High-Speed USB PHY V2
+>> +
+>> +maintainers:
+>> +  - Mattijs Korpershoek <mkorpershoek@kernel.org>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: qcom,sa8255p-usb-hs-phy
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  "#phy-cells":
+>> +    const: 0
+>> +
+>> +  power-domains:
+>> +    maxItems: 2
+>> +
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: transfer
+>> +      - const: core
+>
+> Here and in your other binding you call these 'transfer' and 'core' but
+> all other bindings call them 'power' and 'perf'. Why this difference?
 
-iio: adc: add Axiado SARADC driver
+Thanks for the question. I had to do some digging because I did not know
+the answer to this.
 
-Add support for the SARADC controller found on Axiado AX3000 and
-AX3005 SoCs. The driver supports single-shot voltage reads through
-the IIO subsystem.
+Per my understanding, the SCMI firmware (in my case, gearvm) exposes
+multiple protocols identified by a protocol_id.
 
-> diff --git a/drivers/iio/adc/axiado_saradc.c b/drivers/iio/adc/axiado_sar=
-adc.c
-> new file mode 100644
-> index 0000000000000..daa98dd2f1761
-> --- /dev/null
-> +++ b/drivers/iio/adc/axiado_saradc.c
+For example, power domains have protocol_id=0x11 and and performance
+domain have protocol_id=0x13. This is defined in ARM's den0056 spec:
+https://support.arm.com/documentation/den0056/f/
 
-[ ... ]
+Each USB phy has 2 distinct power domains.
+This can be observed at runtime from linux via:
 
-> +static int axiado_saradc_conversion(struct axiado_saradc *info,
-> +				    struct iio_chan_spec const *chan, int *val)
-> +{
-> +	unsigned long usecs;
-> +	unsigned int regval;
-> +	int ret;
-> +
-> +	guard(mutex)(&info->lock);
-> +
-> +	/* Select the channel to be used and trigger conversion */
-> +	ret =3D regmap_write(info->regmap, AX_SARADC_MANUAL_CTRL_REG,
-> +			   AX_SARADC_MANUAL_CTRL_ENABLE |
-> +			   FIELD_PREP(AX_SARADC_MANUAL_CTRL_CH_SEL_MASK, chan->channel));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Hardware requires 13 conversion cycles at clk_rate */
-> +	usecs =3D DIV_ROUND_UP(AX_SARADC_CONV_CYCLES * USEC_PER_SEC,
-> +			     info->clk_rate);
-> +	fsleep(usecs + AX_SARADC_CONV_DELAY_MARGIN_US);
+/sys/kernel/debug/pm_genpd # grep 'scmi-power-usb0.*phy.*' pm_genpd_summary
+scmi-power-usb0-ss-phy-pm       off-0                           0
+scmi-power-usb0-ss-phy-rpm      off-0                           0
+scmi-power-usb0-hs-phy-pm       off-0                           0
+scmi-power-usb0-hs-phy-rpm      off-0                           0
 
-[Severity: Medium]
-Does this wait time calculation need to account for the configured sampling
-time?
+In the case of the other bindings - for example i2c - there is only one
+power domain (0x11) and one perf domain (protocol_id 0x13):
 
-In axiado_saradc_probe(), AX_SARADC_GLOBAL_CTRL_SAMPLE_MASK is configured to
-AX_SARADC_GLOBAL_CTRL_SAMPLE_16 (which selects 16 samples). Calculating the
-wait strictly as 13 conversion cycles seems to ignore the extra time needed
-for these 16 samples.
+/sys/kernel/debug/pm_genpd # grep i2c0 pm_genpd_summary
+scmi-perf-i2c0_7                on                              0
+scmi-power-i2c0                 off-0                           0
 
-At lower clock rates, could the sleep finish before the conversion actually
-completes and lead to premature reads?
+I hope that explains the naming difference. Please let me know if this
+is still unclear.
 
-> +
-> +	ret =3D regmap_read(info->regmap, AX_SARADC_DOUT_REG, &regval);
+> What are these domains responsible for?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-axiado-ax3=
-000-ax3005-saradc-v5-0-bb0df3ecedaa@axiado.com?part=3D2
+If we take the example of the high-speed (hs) phy, we can see that on
+the firmware side, the only difference is the -pm or -rpm suffix.
+When Linux requests scmi-power-usb0-hs-phy-pm (mapped to 'core' in the
+bindings), the SCMI firmware (gearvm) will interact with the reset line,
+the clks and the regulator.
+When requesting scmi-power-usb0-hs-phy-rpms (mapped to 'transfer' in the
+bindings), the SCMI firmware will only interact with the USB clocks
+(reset and regulators remain unchanged).
+
+>
+> Commit msg is pretty useless here - repeats the diff. I can read the
+> diff but I still do not understand why such naming.
+
+'core' controls reset, clocks and regulators.
+'transfer' only controls clocks. Putting 'transfer' to 'off' is
+interesting in case of runtime suspend/resume as it cuts the data
+transfer (by disabling usb clock)
+
+Is it more clear that way?
+
+>
+> And why core is not the first one? It clearly feels like the power
+> domain thus the main one.
+
+The order is based on how it's defined in the SCMI firmware. It's not a
+problem to put 'core' first as power-domain-names property is only used
+by the linux driver. Only the SCMI channel (in my case 12) and domain
+indices (0,1) matter here.
+
+>
+> Best regards,
+> Krzysztof
