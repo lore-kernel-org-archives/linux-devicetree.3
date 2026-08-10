@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB43E38CFED;
-	Mon, 10 Aug 2026 18:11:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B055641168B;
+	Mon, 10 Aug 2026 18:11:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786385493; cv=none; b=hYrRli+viT+iqYSgdRy3jAjmwXOPzQEOeeD3EciMigLcHCEqMiiFSHUn/0zVMemyfXGM9e63r9xwnSwHpc69pu5cLoie3i3poFc7bxRSeU3nKI+8PQaCu2sbguHOdGiTr9NAbgbxc+vohcw6wHMfgVctMyzkzyq6iYSQtZkYLAY=
+	t=1786385519; cv=none; b=PR4sZcUY0ZD4TVfzxpDM/vqPPmRQr+8KLSi0xYORUs19cUSO27HCnvWYBkfcrjF/s26fl5V9JRWhd07IG8cNJauk1gcJKe5RA0oiSHALUikVR1HHgYC1iVKzW4mBj8YXpWs/or58U53CeFGzHTlbr+hxGQ86vQvW3ZaiiacZemA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786385493; c=relaxed/simple;
-	bh=heCtpCzkANyhlU5fizbsCab1SmgkihIwmwisItapitk=;
+	s=arc-20240116; t=1786385519; c=relaxed/simple;
+	bh=RrvoLnqQxE/e2WS8Q/GCYzTeWhrDvHju7YEphRsosyM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GFH/KnXoStrjMUyy1SCL/krEPrHPrddit1byA0sRmihUgAmu5zkwzahbptD+Hp42LHyas9zwmyPw9AyTuiBmxdhr9Vfu/aNNjyTieprOOw3tUR/xkLXKIkaBkTW24GXsKXdkjS+bbnXEry/pDw4OxbNRiFvPcFXCJjcukHgMYY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUBvcIA1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cHDPR+0skG09fo6bLqyQmMrl/g8+AueznYTqbbKpnyJjDAgc409oKIRNMyU2JYVdu5cBem5T1PQhvldFnAIjUW9wDOWyVPJoM+x2K8T7LrGZ30vzLVypFeLDr9Osm3vIi3GqoTJKlKCLHcADU6Sg9gtOhq60WxduXGNsEwyWWuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YbBt6/vV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUBvcIA1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A691F000E9;
-	Mon, 10 Aug 2026 18:11:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YbBt6/vV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095B71F00A3E;
+	Mon, 10 Aug 2026 18:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786385491;
-	bh=D6TX/9LyL1eS+5/jXDkAhG9bK+yYQ6SySzT1s0P1K9M=;
+	s=k20260515; t=1786385517;
+	bh=kaWzpB554MYcNVDlKFU9XLv8frA/WcmGb+8iMsVqF0o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IUBvcIA13ucoJ91F1HZFQPyXNn3zm67cpxKfFkuqwc1M5DTKYgRMKm6+p0RbP9M5W
-	 ORI/Z+TG78HBYuQCrY4HvXRZt+2NJsShXVlgSnb+hx5AuYHEzl20F/dxeEBZ8feOmC
-	 ej9ydT3jDg0ur3UWsckLVSBLhI7OzmBuxl2VSvUcr4rstdiEglpICIsdUltyZ6tDFo
-	 N7iUCINaBARl2c9VOML6K9eLxcis0HzFhzqOnxPQW7Ij3RGiowzpHrVDIhpez4Hglz
-	 VuDfLJuvvtNwCJiaqYxI4yzErgPzIHQeimvAS9bwciiDPKGrLGH3/HBOTvPOtAz4Xe
-	 ztoEvTmkUYhKw==
+	b=YbBt6/vV35+RIXLZXKWr0WhVg1jMw5ehrTcuqRY45cQMjjbbGkA95tE3AAf2wzSVP
+	 34QLgL34e4A+eoUTEA3Yj5bSMlSK8SlJjI+Ffz/YcgLFPJgnKAy07XgFrFbEDbE5vH
+	 qj3z02Wc45vSxniw4qJMZK6zLWK44F0CZM0TqSAb6e08fS1fn44bujg3FQn/nWeKVi
+	 bZ5a4pwERN71BX2dZn2dO0fVpKAaVIi/8pYNm6KjnJNpxkstkM3kKzT56YYUxpb/GM
+	 bGEwODf1ZzjziX7Kar2MbJdKzyKCmuivPpQxa1jJfz45M6fx3y2GLr2/ZDdppc0bsu
+	 8UeI9uad51ehw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/7] ARM: dts: nxp: imx6qdl-wandboard: Replace
+Subject: Re: [PATCH v3 6/7] ARM: dts: nxp: imx6qdl-pico: Replace
  clock-frequency in camera sensor node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
-Cc: imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260810180604.3034255-8-laurent.pinchart@ideasonboard.com>
+Cc: robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
+In-Reply-To: <20260810180604.3034255-7-laurent.pinchart@ideasonboard.com>
 References: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
- <20260810180604.3034255-8-laurent.pinchart@ideasonboard.com>
+ <20260810180604.3034255-7-laurent.pinchart@ideasonboard.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 18:11:30 +0000
-Message-Id: <20260810181131.29A691F000E9@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 18:11:56 +0000
+Message-Id: <20260810181157.095B71F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,29 +47,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The patch introduces a blank line in the device tree node, directly=
- contradicting the "Changes since v1" section of the commit message which s=
-tates "- Drop added blank line".
+- [Low] The patch adds a blank line despite the changelog explicitly statin=
+g it was dropped in v2.
 --
 
---- Patch [7]: [PATCH v3 7/7] ARM: dts: nxp: imx6qdl-wandboard: Replace clo=
-ck-frequency in camera sensor node ---
-commit c2dd0680ebe87860961c5447228271fe2e5bfa7b
+--- Patch [6]: [PATCH v3 6/7] ARM: dts: nxp: imx6qdl-pico: Replace clock-fr=
+equency in camera sensor node ---
+commit 71890897809f09d8572aca4c1562adf06208b09e
 Author: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-ARM: dts: nxp: imx6qdl-wandboard: Replace clock-frequency in camera sensor =
-node
+ARM: dts: nxp: imx6qdl-pico: Replace clock-frequency in camera sensor node
 
-This commit replaces the deprecated clock-frequency property with
-assigned-clocks and assigned-clock-rates for the camera sensor node
-in the device tree.
+The clock-frequency property for camera sensors is deprecated. This commit
+replaces it with assigned-clocks and assigned-clock-rates in the device tree
+configuration.
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi b/arch/arm/=
-boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
-> index 26489eccd5fbe..f3aaca039953b 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
-> @@ -137,7 +137,9 @@ camera@3c {
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi b/arch/arm/boot/=
+dts/nxp/imx/imx6qdl-pico.dtsi
+> index ca4cb986efbc2..0cc05d084f9bf 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
+> @@ -233,7 +233,9 @@ camera@3c {
 >  		pinctrl-0 =3D <&pinctrl_ov5645>;
 >  		reg =3D <0x3c>;
 >  		clocks =3D <&clks IMX6QDL_CLK_CKO2>;
@@ -79,11 +77,9 @@ boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
 > +
 
 [Severity: Low]
-This isn't a bug, but the "Changes since v1" section of the commit message
-states "- Drop added blank line". It looks like the blank line was still
-accidentally included here in the camera@3c node. Should this line be remov=
-ed
-to match the changelog?
+This isn't a bug, but the patch changelog mentions dropping the added blank
+line for v2. It appears the blank line still made it into this version.=20
+Was this left in by accident?
 
 >  		vdddo-supply =3D <&reg_1p8v>;
 >  		vdda-supply =3D <&reg_2p8v>;
@@ -91,4 +87,4 @@ to match the changelog?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810180604.3034=
-255-1-laurent.pinchart@ideasonboard.com?part=3D7
+255-1-laurent.pinchart@ideasonboard.com?part=3D6
