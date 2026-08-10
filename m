@@ -1,194 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B982D3F8241
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 17:49:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A5F2135838F;
+	Mon, 10 Aug 2026 18:03:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786384151; cv=none; b=s4fwEc8GrEd3GiNJaXz47Yvq9YzXeA760EAS+6CwxNm9RExDcqf2lM0tPyk88gjVXFKG1ZVELb98gm5ciOpHnioNrl7hZUZdrKPYTW8ZGzeigTEQmThN1n53X1+vci57slZG7ySOZZmhd5SfFDcvQYIxGu4TGvcBJcAD8dKMi0k=
+	t=1786385007; cv=none; b=ZkH00qFsyPWYgSBS8Mt0bf34QQdWW5c4BW8V5bNsS4sTCCpxJcIMIA258RBpTa4vGFUyexFwtFauoOaTdsR/Dz7d8a8PFsHnJwpjYgGkVkg0Vq5Y3iKhAUB1WyEezlHbAcG8YmxdGAv7ML5pCzz9tPpTEw7mlEzY6m8f/24shIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786384151; c=relaxed/simple;
-	bh=VCTbwWqXH9cFfjCXKR0gSianYDN40Ae7UmpPlk85nY8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ubmYQ1qNSwQaGwqSJrm3oUD3DQyVXUHfbBqIml7uB1g7a4h+Llat4FBvQNBMmjmgt4RizhCCfNk0DVmImVrWSvQTaMmC56c+NaIITlrYDwej3beJeRLikQAh7DLl8Ci7wESnIy6ACHuC6V9hWZBJpUkqgQKJCdu/G0U5PLg2DFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iBgEcy3t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786385007; c=relaxed/simple;
+	bh=iqkN+MCW+ZeceZp70Va10kFXV0Ae5WHVvuwaPIe0BHo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cdwH4Eh/3HWmnFil4MD1TEhYT/N7QjYoMqMGg/Y/+5amBSsMy9WWLqrDruqYoa7ds98utxjCce1AftMpV+RjukaEVDyBp80DoV7CUEhzy3oUIdysG+aMYqJwNrcJQ9yNhdGVg1pofIr3HPFhSyxGnhqRkKEQjMNZPtFD1hGv/7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=uV1lkrJp; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iBgEcy3t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090F41F000E9;
-	Mon, 10 Aug 2026 17:49:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786384150;
-	bh=sxyf0WMpGR52iPlz+44fqbmgrVPayKILK+o1SOWoDcQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iBgEcy3tlu+aImA0hUB02Aj/hgxecU4MKVmsUW5HX30u2Wt8+53qpOkRi/qlTBZKP
-	 NP8OQ9LMml3Tr3J1Cpekk0rJ1bQehdVvLBrZMLaXysnBwB8Px8BbHGUpJJAKmlWbdc
-	 x+Ix0ia8M34WO3kyX+PdqQTBUkAVbk1W9czX/QlRUuxPoqwqvEFbJEQ7/25EhWBlHx
-	 9yIoOAw0XdUiLzrKuocW1D1e4p1A2E9ulkjlWoJhGIqQRllzthisgBwds4qqbmwbzV
-	 P+O86QEmvB/6CB43wYDShZJy4H6JAYU2Km7wSJJyoV+Yh08jpV8BnhlFVN9KhAyHn2
-	 sCtUUGh4HgW4g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/7] arm64: dts: qcom: Add LeEco Le2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adam Skladowski" <a39.skl@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260810-next-patches-v1-5-79a779d76173@gmail.com>
-References: <20260810-next-patches-v1-0-79a779d76173@gmail.com>
- <20260810-next-patches-v1-5-79a779d76173@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 17:49:09 +0000
-Message-Id: <20260810174910.090F41F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="uV1lkrJp"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2326A14BF;
+	Mon, 10 Aug 2026 11:03:21 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 569D43F86F;
+	Mon, 10 Aug 2026 11:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1786385005; bh=iqkN+MCW+ZeceZp70Va10kFXV0Ae5WHVvuwaPIe0BHo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=uV1lkrJpi27dsmHgqVdZoC6YQCyQqxSaQ4yha6qZ7KhlAJxrIDRQ7I0y21VRFW17J
+	 RBEcQdiTYv/CD02/lNqrWcMPmlupTvriCJENfZLQutIB80r7ao1/vEYQqcRn9psAX2
+	 3XCJGvAL0qtR7C89llo/aN1FRO+uKq9uZRsjOnZU=
+Message-ID: <530dbb40-e7e2-4121-a5eb-5f16152fd11b@arm.com>
+Date: Mon, 10 Aug 2026 19:03:20 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] Add arm-smmu-v3 support for instcfg data override
+ feature
+To: Rob Herring <robh@kernel.org>, Peter Griffin <peter.griffin@linaro.org>
+Cc: Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Pranjal Shrivastava <praan@google.com>,
+ Daniel Mentz <danielmentz@google.com>, Mostafa Saleh <smostafa@google.com>,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel-team@android.com, tudor.ambarus@linaro.org, andre.draszik@linaro.org,
+ willmcvicker@google.com, jyescas@google.com
+References: <20260724-arm-smmu-v3-instcfg-override-v1-0-e7acf4a8a525@linaro.org>
+ <amYIuhYenP4-qHyV@willie-the-truck>
+ <0b7c0272-5506-4aee-82b3-76a78f2b39dc@arm.com>
+ <CADrjBPqZFDvyLFpDy1YP9qrMNUCtZYtJhiaDd0iTnmB4ZYO8GQ@mail.gmail.com>
+ <20260807224745.GA2180415-robh@kernel.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260807224745.GA2180415-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Touchscreen and USB nodes are missing `pinctrl` properties, `reset=
--gpios`, and use invalid downstream interrupt flags.
-- [High] The eMMC controller (`sdhc_1`) lacks required `non-removable` and =
-`bus-width =3D <8>` properties.
-- [Medium] Missing `no-map` property in the `cont_splash_mem` reserved-memo=
-ry region.
-- [Medium] Unimplemented features claimed in the commit message (Volume Dow=
-n key and WLED).
-- [Low] Attempting to delete a non-existent device tree node breaks the bui=
-ld.
-- [Low] The `ramoops` node has a `reg` property but lacks a unit address in=
- its node name.
---
+On 07/08/2026 11:47 pm, Rob Herring wrote:
+> On Fri, Aug 07, 2026 at 04:25:11PM +0100, Peter Griffin wrote:
+>> Hi Will & Robin,
+>>
+>> Thank you both for your review feedback.
+>>
+>> On Mon, 27 Jul 2026 at 11:53, Robin Murphy <robin.murphy@arm.com> wrote:
+>>>
+>>> On 26/07/2026 2:16 pm, Will Deacon wrote:
+>>>> On Fri, Jul 24, 2026 at 01:39:41PM +0100, Peter Griffin wrote:
+>>>>> These two patches add support for a new "arm,instdata-override" DT property
+>>>>> that enables the override of the instruction/data attribute of incoming
+>>>>> traffic to Data by setting the INSTCFG override bits.
+>>>>>
+>>>>> It is intended to be specified when the smmu can't guarantee that these
+>>>>> attributes are provided correctly from the client device.
+>>>>
+>>>> This is going to need an in-tree user and a much more detailed
+>>>> description of what is being worked around before we consider this for
+>>>> inclusion.
+>>
+>> Regarding an in-tree user, I haven't sent the Device Tree (DT) patch
+>> yet for Laguna SoC which adds the smmu nodes and this property because
+>> 1) I want to land the initial SoC/board DT first
+>> 2) I want agreement on the DT property name. Currently I used
+>> "arm,instdata-override" which is what downstream used. However, since
+>> this is intended to work around silicon errata something like
+>> "google,lga-instcfg-data-override" might be more appropriate?
+> 
+> Shrug.
+> 
+> Really, this is why we want SoC specific compatibles so work-arounds can
+> be added without DT updates. But we've generally avoided doing that for
+> SMMU for whatever reasons. Just make the property clearly sound like a
+> mistake, not a feature you might want to use. I'd keep the arm prefix
+> just so the next vendor thinks they can't use 'google' and creates the
+> same property with their vendor prefix.
 
---- Patch [5]: [PATCH 5/7] arm64: dts: qcom: Add LeEco Le2 ---
-commit d23816b713fe6e13030690c43966d4d9b18f3739
-Author: Adam Skladowski <a39.skl@gmail.com>
+I dunno, I'd be inclined to keep it more vendor/SoC-specific and tied to 
+the problem more than one (of potentially several) specific workaround - 
+if we did ever want to support using the INSTCFG/PRIVCFG/MEMCFG 
+overrides per their full architectural intent, they are per-StreamID 
+controls so as such would really want to be encoded in an additional 
+#iommu-cell (or at worst maybe a property on the client device node).
 
-arm64: dts: qcom: Add LeEco Le2
+Frankly for a workaround condition to just blanket-apply to every SMMU 
+instance in a particular SoC, I'm honestly thinking that just whacking 
+an of_machine_is_compatible() in the driver isn't necessarily the worst 
+idea either - after all we do already have the ACPI equivalent of that 
+for some of the HiSilicon stuff, it's just hidden in the IORT code (and 
+OK it's used for the SMMU PMUs rather than the actual SMMU devices 
+themselves, but still...)
 
-This patch adds a devicetree for the LeEco Le2 smartphone based on the MSM8=
-976
-SoC. It claims support for peripherals such as I2C, Power/Volume keys,
-regulators, WLED, WCNSS, and GPU.
-
-> Supported functionality as of this initial submission:
-> * I2C peripherals (Touchscreen,Audio amp, Haptics, Extcon, Led)
-> * Power Button, Volume Keys
-
-[Severity: Medium]
-The commit message lists Volume Keys, but only the Volume Up key is defined
-in the patch. Was the Volume Down key inadvertently omitted?
-
-> * Regulators (PM8950)
-> * WLED (PMI8950)
-
-[Severity: Medium]
-The commit message lists WLED, but the pmi8950_wled node below lacks
-a status =3D "okay" property to enable it. Does the WLED function work as i=
-s?
-
-[ ... ]
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts
-[ ... ]
-> +	reserved-memory {
-> +
-> +		ramoops {
-> +			compatible =3D "ramoops";
-> +			no-map;
-> +			reg =3D <0 0x9ff00000 0 0x100000>;
-
-[Severity: Low]
-Does this node need a unit address in its name to match the reg property
-(e.g., ramoops@9ff00000)? Without it, the device tree compiler will generate
-a build warning.
-
-> +			record-size =3D <0x10000>;
-> +			console-size =3D <0x60000>;
-> +			ftrace-size =3D <0x10000>;
-> +			pmsg-size =3D <0x20000>;
-> +			ecc-size =3D <16>;
-> +		};
-> +
-> +		/delete-node/ memory@83000000;
-
-[Severity: Low]
-Could this /delete-node/ cause a fatal dtc build failure?
-
-The memory@83000000 node does not appear to exist in the included
-msm8976.dtsi or PMIC include files.
-
-> +
-> +		cont_splash_mem: memory@82000000 {
-> +			reg =3D <0x0 0x82000000 0x0 0x2800000>;
-> +		};
-
-[Severity: Medium]
-Should the cont_splash_mem node include the no-map property?
-
-Without it, the kernel maps the region as standard cacheable RAM, which can
-cause speculative data aborts, caching issues, or visual corruption if the
-bootloader leaves the display controller scanning out from this memory.
-
-[ ... ]
-> +&blsp1_i2c4 {
-> +	status =3D "okay";
-> +
-> +	rmi4-i2c-dev@4b {
-> +		reg =3D <0x4b>;
-> +		compatible =3D "syna,rmi4-i2c";
-> +		interrupts-extended =3D <&tlmm 65 0x2008>;
-
-[Severity: High]
-Does this use an invalid downstream interrupt flag?=20
-
-0x2008 is usually a downstream wakeup flag that the upstream kernel masks,
-meaning it won't be recognized as a wakeup source.
-
-Also, are the pinctrl-names, pinctrl-0, and reset-gpios properties missing
-here?=20
-
-Without pinctrl, the interrupt pin (gpio65) lacks a pull-up, which can cause
-an interrupt storm, and without reset-gpios, the controller might not probe
-properly. The ts_int_default and ts_reset_active pinctrl states defined bel=
-ow
-appear to be unused.
-
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-[ ... ]
-> +&blsp2_i2c2 {
-> +	status =3D "okay";
-[ ... ]
-> +	tiusb320: tusb320@47 {
-> +		compatible =3D "ti,tusb320";
-> +		reg =3D <0x47>;
-> +		interrupts-extended =3D <&tlmm 21 IRQ_TYPE_EDGE_RISING>;
-> +	};
-
-[Severity: High]
-Is a pinctrl configuration missing for this interrupt pin?
-
-[ ... ]
-> +&sdhc_1 {
-> +	vmmc-supply =3D <&pm8950_l8>;
-> +	vqmmc-supply =3D <&pm8950_l5>;
-> +
-> +	status =3D "okay";
-> +};
-
-[Severity: High]
-Should this eMMC controller node include the non-removable and bus-width =
-=3D <8>
-properties?
-
-Because it is not marked as non-removable, the MMC core may treat it as a
-hot-pluggable SD card and poll for Card Detect, causing boot delays. Missing
-the bus-width property can also degrade storage throughput by restricting it
-to 4-bit or 1-bit mode.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-next-patch=
-es-v1-0-79a779d76173@gmail.com?part=3D5
+Thanks,
+Robin.
