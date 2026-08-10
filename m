@@ -1,36 +1,36 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFFB39CD0C
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E612139E18F;
+	Mon, 10 Aug 2026 07:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786345907; cv=none; b=KOV8CRK8kuCylSTnbHsVW79jssGB4xV3/cJkrUrwAhjIZFdnq0ryt2dxvI4GMZIBw2XHJhXm8YsNvV7WKaWULiRLmIdFWP6CeO4P76q4JPMvruo6rFPW6QbTuJUrv/Jp1Pw5euZb3ngI3xiX325xd018pFwlwAc3KGgwc85852A=
+	t=1786345910; cv=none; b=uYvxaq9LFgaFuotCfwqZCzAq1ltCNasOAk9VKKosFYRsNlMRYFy+TL+2zCuPLOlGBS/KFsT+V6I4rRhmKfDrGc+4QoAZImDgHpBc8/CKnwDXlV9Hn4Z53gwQ15y1YDkR/ZwD/TCkliMIxsLTffV34MuD4sRoqesJrtWahGqzuko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786345907; c=relaxed/simple;
-	bh=F9lYzQYBV4rdrm8+CCNUXv+vH8ZdQtu6K5jyUBLPq9o=;
+	s=arc-20240116; t=1786345910; c=relaxed/simple;
+	bh=MHC5aV5SMMBfeFSCNY6iiEEcKVKPNClqISFwzfmtIyQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gr+aEMJ4JJltRztkpN6FZr9UdcJUQHSANbhayFQ6Wwfyj/tpMnjL59vDnXLHapkWddfrXE1pWSxKtt2GWqiDnIRQVGiSosKztgNVgTGFdSsUVua926eOL0M76dsaLnO8FzF/6ekCIZwicPNQQSWTKMu5W4wGI46nQk8umiTMDW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=1L6w4Lze; arc=none smtp.client-ip=79.135.106.112
+	 In-Reply-To:To:Cc; b=BfOO7AVLRg/d1ZVJmFfoFHXVfOwPzB/8d3lY2xy5NQEZZoweCaadNmgxsamIKO7EPyv/h0LFCSdToDYeg9qUh5yTqUqeset+Ld8mKcaylbXCSs0pst0MrXuTzjckoiL0KhDcd/NMjq0WOGrZQ0X2WNOE64yZM3rRivDBoKG2Hy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=uQGya3i3; arc=none smtp.client-ip=79.135.106.111
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="1L6w4Lze"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="uQGya3i3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1786345898; x=1786605098;
-	bh=7EbwT3kcuIbHkNv76PkN6NvSRUGu0kVYK1LAoZO9lwQ=;
+	s=protonmail; t=1786345896; x=1786605096;
+	bh=9YVDtdcEd5Nd048NuhxRqCbC6EfupvQuMHS0NxuWB6Y=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=1L6w4LzeKhzKvrPLqsWldeuRz/5DjBbaZ4WwS3TffTXc7gKkVFbpTMlpwY7BoR/CF
-	 ze0kdPLgEIdPYO0fWlf05Q/JhVRZFZwq5kzXhoY8RJcMwAqdUf/aW1p0bbOnU+CHmj
-	 CcmQcZaq4ckzxrxtczv9hz/McB+SNdPTVUIoxpt5hTDuLlL3vNmwsSXNbeBPIAL7rH
-	 BSE5p3LpJ0hr8tZ17liIhIEEZiSyY2euf2wLOXUiWzYTR/Zxms3YxsfIuLrnUGO66w
-	 x9bvA6QWj2OMeNkG80hwL+RHL8pZnrew/i2x3syVr/B+tUb5HvJ7lW2silzRKzrBQH
-	 frsH/68Z0joOA==
-X-Pm-Submission-Id: 4hJQsh6BXxz2Sd3g
+	b=uQGya3i3wDhiBlWR3AIEr9Q69OxtBJxVkiHKCNIPsIGcYHr29xrpc6un98kRA8Cib
+	 9aZUVGL/QNRdGpBsxnRx/qYrqzEAERYWHkxSlCwUuzjUAhUo8RuO3ehx4ySdR8pLb8
+	 ju1oQvadlFHfk2oP5a+y7W2Lm5/InQd88vDnX4iF2YZNF49Ak2L8Wwbyd1/JJ42Ak7
+	 G7CcpOTLFhqB+GpIVOpKg/CLnnY7dwpeRXmJQWn6BrvfAGMlbSal29egKUXIPBn2Lq
+	 pTmxLljNXreDp0Maasb/PCMjxM5C7wXGF/qsxQbei+LRWUv6GluxwE+nVeCylPCrNG
+	 VGAiESpg+S1qw==
+X-Pm-Submission-Id: 4hJQsf5w8qz1DDs7
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 10 Aug 2026 09:11:16 +0200
-Subject: [PATCH v4 6/7] iio: light: ltr501: Add ltr329 driver support
+Date: Mon, 10 Aug 2026 09:11:15 +0200
+Subject: [PATCH v4 5/7] iio: light: ltr501: Fix duplicated error message
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,8 +38,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260810-liteon-ltr329-v4-6-8bd3dfd15280@geanix.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260810-liteon-ltr329-v4-5-8bd3dfd15280@geanix.com>
 References: <20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com>
 In-Reply-To: <20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -54,157 +54,44 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Yangtao Li <frank.li@vivo.com>
 Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>
+ Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786345884; l=4545;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786345884; l=1021;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=F9lYzQYBV4rdrm8+CCNUXv+vH8ZdQtu6K5jyUBLPq9o=;
- b=NpnuAbfRIQUp+qW444lRQ17/oIs9n5cwDZ8kDDJElfhq9HuOM8s8pv6HpQeVNUHWjbqdT8hwi
- XGp+SLfqy9jBrXMvDPQm09FfKMGVbyVo6EVqJPTjJPd+hwDqm3U1Bcv
+ bh=MHC5aV5SMMBfeFSCNY6iiEEcKVKPNClqISFwzfmtIyQ=;
+ b=WNNjGWfh0CIiryM+iBqFLNNYQfiMBvixQ0Aofhj3EAVP/N5VwhQxs8wmcmzUVhCVXLZ6fggkq
+ +UzFfwr/32ECOHfJP9d2mjgpGy2t4whJLkOoGEbgu5kcDw2RDNceirP
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-This adds support for the LTR-329ALS-01 chip, which is similar to
-LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
-have.
+The dev_err() message was causing duplicated error messages, as
+devm_request_threaded_irq() calls dev_err_probe() on failure.
 
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Fixes: 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()")
+Cc: stable@vger.kernel.org
 Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/iio/light/ltr501.c | 48 ++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 42 insertions(+), 6 deletions(-)
+ drivers/iio/light/ltr501.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index b36bd10a0262..cd5ff00ef5e2 100644
+index 7746d374688f..b36bd10a0262 100644
 --- a/drivers/iio/light/ltr501.c
 +++ b/drivers/iio/light/ltr501.c
-@@ -9,6 +9,7 @@
-  * TODO: IR LED characteristics
-  */
- 
-+#include <linux/array_size.h>
- #include <linux/module.h>
- #include <linux/i2c.h>
- #include <linux/err.h>
-@@ -94,6 +95,7 @@ enum {
- 	ltr559,
- 	ltr301,
- 	ltr303,
-+	ltr329,
- };
- 
- struct ltr501_gain {
-@@ -140,6 +142,7 @@ struct ltr501_chip_info {
- 	u8 als_mode_active;
- 	u8 als_gain_mask;
- 	u8 als_gain_shift;
-+	bool no_irq_support;
- 	struct iio_chan_spec const *channels;
- 	const int no_channels;
- 	const struct iio_info *info;
-@@ -178,6 +181,11 @@ static const struct ltr501_samp_table ltr501_ps_samp_table[] = {
- 			{500000, 2000000}
- };
- 
-+static bool ltr501_has_irq_support(const struct ltr501_chip_info *info)
-+{
-+	return !info->no_irq_support;
-+}
-+
- static int ltr501_match_samp_freq(const struct ltr501_samp_table *tab,
- 					   int len, int val, int val2)
- {
-@@ -821,6 +829,9 @@ static int __ltr501_write_raw(struct iio_dev *indio_dev,
- 			if (ret < 0)
- 				return ret;
- 
-+			if (!ltr501_has_irq_support(info))
-+				return ret;
-+
- 			/* update persistence count when changing frequency */
- 			ret = ltr501_write_intr_prst(data, chan->type,
- 						     0, data->als_period);
-@@ -840,6 +851,9 @@ static int __ltr501_write_raw(struct iio_dev *indio_dev,
- 			if (ret < 0)
- 				return ret;
- 
-+			if (!ltr501_has_irq_support(info))
-+				return ret;
-+
- 			/* update persistence count when changing frequency */
- 			ret = ltr501_write_intr_prst(data, chan->type,
- 						     0, data->ps_period);
-@@ -1257,6 +1271,18 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
- 		.channels = ltr301_channels,
- 		.no_channels = ARRAY_SIZE(ltr301_channels),
- 	},
-+	[ltr329] = {
-+		.partid = 0x0A,
-+		.als_gain = ltr559_als_gain_tbl,
-+		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
-+		.als_mode_active = BIT(0),
-+		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
-+		.als_gain_shift = 2,
-+		.no_irq_support = true,
-+		.info_no_irq = &ltr301_info_no_irq,
-+		.channels = ltr301_channels,
-+		.no_channels = ARRAY_SIZE(ltr301_channels),
-+	},
- };
- 
- static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
-@@ -1369,13 +1395,15 @@ static int ltr501_init(struct ltr501_data *data)
- 
- 	data->ps_contr = status | LTR501_CONTR_ACTIVE;
- 
--	ret = ltr501_read_intr_prst(data, IIO_INTENSITY, &data->als_period);
--	if (ret < 0)
--		return ret;
-+	if (ltr501_has_irq_support(data->chip_info)) {
-+		ret = ltr501_read_intr_prst(data, IIO_INTENSITY, &data->als_period);
-+		if (ret < 0)
-+			return ret;
- 
--	ret = ltr501_read_intr_prst(data, IIO_PROXIMITY, &data->ps_period);
--	if (ret < 0)
--		return ret;
-+		ret = ltr501_read_intr_prst(data, IIO_PROXIMITY, &data->ps_period);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
- 	return ltr501_write_contr(data, data->als_contr, data->ps_contr);
- }
-@@ -1531,6 +1559,12 @@ static int ltr501_probe(struct i2c_client *client)
- 		return ret;
- 
- 	if (client->irq > 0) {
-+		if (!ltr501_has_irq_support(data->chip_info)) {
-+			ret = dev_err_probe(&client->dev, -EINVAL,
-+					    "chip does not support irq\n");
-+			goto powerdown_on_error;
-+		}
-+
- 		ret = devm_request_threaded_irq(&client->dev, client->irq,
- 						NULL, ltr501_interrupt_handler,
- 						IRQF_TRIGGER_FALLING |
-@@ -1601,6 +1635,7 @@ static const struct i2c_device_id ltr501_id[] = {
- 	{ .name = "ltr559", .driver_data = ltr559 },
- 	{ .name = "ltr301", .driver_data = ltr301 },
- 	{ .name = "ltr303", .driver_data = ltr303 },
-+	{ .name = "ltr329", .driver_data = ltr329 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ltr501_id);
-@@ -1610,6 +1645,7 @@ static const struct of_device_id ltr501_of_match[] = {
- 	{ .compatible = "liteon,ltr559", },
- 	{ .compatible = "liteon,ltr301", },
- 	{ .compatible = "liteon,ltr303", },
-+	{ .compatible = "liteon,ltr329", },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ltr501_of_match);
+@@ -1537,11 +1537,8 @@ static int ltr501_probe(struct i2c_client *client)
+ 						IRQF_ONESHOT,
+ 						"ltr501_thresh_event",
+ 						indio_dev);
+-		if (ret) {
+-			dev_err(&client->dev, "request irq (%d) failed\n",
+-				client->irq);
++		if (ret)
+ 			goto powerdown_on_error;
+-		}
+ 	} else {
+ 		indio_dev->info = data->chip_info->info_no_irq;
+ 	}
 
 -- 
 2.55.0
