@@ -1,31 +1,31 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2251433027
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDD143550C
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:06:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786385181; cv=none; b=QpDZUMk187UU9I083PhPm+9+/A0QsNkndb476mqWCrvwMYvfAvg8dVyHafrOjtyfYgOQi1TNMgLaYCh4dONbRa+gyC1d98E5CrzzIX4qPlGoEeobdpKpsDfs1W8MZxchlEQbCmULpJyTyQ/0sm/Q8dkQj+xarMd9EAdMY0pOcgU=
+	t=1786385181; cv=none; b=qmJO6cvYmLhjsJ7M02EXYsaej5gbiJaE59tdEM4BxOMLHIApdFk73mADCRyvPZkAgVTFm/VEeencA/QPnv7yTRDf4EAn0izgMxliKz8XlUEd9YeFiv1/nXfQwhW8hjQjytcpNJ0ZmrQX96mB/jZdgwsLg3ecZlEXa1v/vA5LzSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786385181; c=relaxed/simple;
-	bh=RjZzlaebzxRzYkIyzsrEy+VoPDIAk3bf2qODIVtd/x0=;
+	bh=VoKs/vs0Yoa0Ku217aS9X2uwwR1NzngZqp5D+Jvkkf4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WlpC+7w3aoC3ztRwpB8ZJ0T3rPsbxtEWQtnbMEklX6Naon7U+um+PGzFeOaetXJsvEIeNus0AKIja8lsBuQU+Invv0ETBgPHwIGWikz9ruk20lt6MdN2JrpXM/Bw/CwD/IZzvjHIy7w3PO6ZzAalLR/V5JGiu/wQSRC15VjWysg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=b+rPujPd; arc=none smtp.client-ip=213.167.242.64
+	 MIME-Version; b=hrBXs8Zc2WWzVbOXG7RAA1wkspmM7g+j80y8uqxK49L2dgpYxf/LX3acZDwDvdjHsDRLH0byBufZNlZjgx6kcwGGzVWMX9RaV8Bdr7ak0nCYkyB8VB4UsoVJ/zJTRc0/nS+j06gH0azmrTiXiDcSraSNeG6LKn+Zh7IhTgFHeuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=avupD7zb; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="b+rPujPd"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="avupD7zb"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9F34D1D98;
-	Mon, 10 Aug 2026 20:04:59 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DF7A938D0;
+	Mon, 10 Aug 2026 20:05:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786385099;
-	bh=RjZzlaebzxRzYkIyzsrEy+VoPDIAk3bf2qODIVtd/x0=;
+	s=mail; t=1786385101;
+	bh=VoKs/vs0Yoa0Ku217aS9X2uwwR1NzngZqp5D+Jvkkf4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=b+rPujPdKwdRwtbpP0WA2ymMtesh1qRg9SQztYNWQ49SGh/cZ48/ce8/rnxklYuE2
-	 kMqS2QWmD6fooACJ0tmP6MwKc5xcZ+BsZvV9PQ+0Wn/vn8qh72q7kQBPZOkyhcOPND
-	 KNlazpHZ8pUH4Umy45KT1P5PkaOivEw9k/DNZK7E=
+	b=avupD7zbgNPJhog1mkyEkbxxBzL83VdHulBZ+A8AnF0Z1rbiYQgGIFO7vXBElpsj6
+	 MroTyGghzmv0sScKkco5Dy7Ae2b+uzMKgTLs8m1bAgVMCBgdUQKpIuKmbhZT+MwtL4
+	 mDTTq9d3yWjnteguwvDc7ACEU/SUxOVy9AVAB+Eo=
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -39,9 +39,9 @@ Cc: devicetree@vger.kernel.org,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Fabio Estevam <festevam@gmail.com>,
 	imx@lists.linux.dev
-Subject: [PATCH v3 6/7] ARM: dts: nxp: imx6qdl-pico: Replace clock-frequency in camera sensor node
-Date: Mon, 10 Aug 2026 21:06:03 +0300
-Message-ID: <20260810180604.3034255-7-laurent.pinchart@ideasonboard.com>
+Subject: [PATCH v3 7/7] ARM: dts: nxp: imx6qdl-wandboard: Replace clock-frequency in camera sensor node
+Date: Mon, 10 Aug 2026 21:06:04 +0300
+Message-ID: <20260810180604.3034255-8-laurent.pinchart@ideasonboard.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
 References: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
@@ -63,14 +63,14 @@ Changes since v1:
 
 - Drop added blank line
 ---
- arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi | 4 +++-
+ arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-index ca4cb986efbc..0cc05d084f9b 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-@@ -233,7 +233,9 @@ camera@3c {
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
+index 26489eccd5fb..f3aaca039953 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
+@@ -137,7 +137,9 @@ camera@3c {
  		pinctrl-0 = <&pinctrl_ov5645>;
  		reg = <0x3c>;
  		clocks = <&clks IMX6QDL_CLK_CKO2>;
