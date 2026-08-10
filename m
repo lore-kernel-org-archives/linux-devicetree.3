@@ -1,199 +1,157 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023134.outbound.protection.outlook.com [52.101.127.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3035A37FF40;
-	Mon, 10 Aug 2026 06:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.134
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786343057; cv=fail; b=AAU8hAzwz4y8GMMYRZXsYaEPALyt7EZ5h5Op3KkrY2yHKE+nU5LH9pXH/VUrMIYBRBhCbrL2ElxWN80dBo3cA/g/eRkNCWb6sgQh9D9pWT8ppQRJHjPqyMxZjRRyKqGWp+n5UvO7e13C9pU324vUpUV8FUKfYv7m0MPeGhUsJGM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786343057; c=relaxed/simple;
-	bh=ybLbPPF3QfwXuKFhDDSQEGJ1Mv/q7ZvZDiz8u1e3sBs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Mj/tBdds+xX1IFwZeYrTRAoxgqR3oBBWcruQ/CKOh7AgWrc92eJP8O4fRZnCWkhMDWpKKvS9e5oyWAEhfZGVD/6PbJRoNJtuT/ZgbE8bodN8IpxMnaMk4InjczVzBvDtfMq3SOXvvpM4BtQKQ3lskjnw8tMa5goxCbn77DWE07s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=RlG5M1J5; arc=fail smtp.client-ip=52.101.127.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6953803D7
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 06:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786343215; cv=none; b=Peunu3nuejBuWISGrVHBBP8aAn8rpwNy0Xkm/QybYwYdBLsnn9WE52qNfDhZJgsevZk9Rh2HzUTGYPPn5NgJ7JsBpA0a12fKTlRyJqGELcQS854XfuoQy1LF91EPnu4uOTUz5E3rneA3xmojNjoSUvLWlHOYqetODvqPbCdOjWc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786343215; c=relaxed/simple;
+	bh=kRrtrrpvePVbIOrdQv/XCZUG1O7W4sPdKWhYuBPfgDA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EVtfk7xuOVi7AIHFzowebPyrGfCf/4B0KDXYSp+CulF2T/qsIOH+2dIygIpETOWsWldAkGYIHHPRUbmysnf3FgOZD43YPOdDRO3i6XRbV3JAJvzuQ6HvTxg64ovku+UAsJugHoEigImp+mlHwzlQRh2S8hieCf0DTl2x0fmPA4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HwtJ8JoL; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="RlG5M1J5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g4NPLqaf7CX59gVv2LxvWlAmreKzyCYKM/zCgmLqs4jz2UyN88wvT2xYQKga0p8LMoOBtMG4QBWDHmYmZtADSLfOV1bSHnAZFwjaRibCDOPHTA5Wzw5x2h6ER+ockF4myJgDn46R9EE5lRY7NS6ALprfhPGmf3vfUrK+PR6KJOtVolsI6nZfoIoouoZpJSAaIrmvrkel5CMtjdH+FihoudPpvyYqjKC30jwAdsSZvLnlIFPR0fo32rtjueBskZYUD2ExJaRlyFEwxCSuCLH2dZaw/4KDovXy8y8u4nKCpqlbyP+HgwjTeerpH+jLew9iM0k1im2ixhPyKqTaG3amQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ybLbPPF3QfwXuKFhDDSQEGJ1Mv/q7ZvZDiz8u1e3sBs=;
- b=WW2xLJUrepwc7/9kKYx1wXr/TdBklonM9XKDmh2XA9DfFx1QpJ9haGSQMw1Z+2fw1b7wGQ3RqYlRBhS4IYq0hyIiVXhscyvhN4BZgK8r8eZqvaevmhpqAFdta5aMIl1QCQhOTFCWdAGqrJxwDURY1HwQf4cfKUxzLci1mpKll5zjKUD2/y32aMmGbzEF8SGOCbGtDJjDpv0ElGYwUcNNv70LcCpBm06GBewbkzptncVHZROlwb2/2Og6B0g3r3yc260hzYWpgCWkxid5bF1q5g93V84HcCxq7n09w9gh1a033RlZBV/NwmOuAZ+ZlRHzeRP/no2LTfFWUfQ80Bg8sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ybLbPPF3QfwXuKFhDDSQEGJ1Mv/q7ZvZDiz8u1e3sBs=;
- b=RlG5M1J5BU990ntHcSFp83d7LLj1lR0UCEHwSlHC58siYhs3DrrdqhNOvxEC1F6mTNh7JGFbw2keKXHdwS0z50+0/rPjYyC9BIJD+k2qhDLEmHHGCc5gRTkkrLUa3f4MP97yVAbSxnZxjtujR29fdcUpGlRQxQquXaCAs+lm1eUetkXLO1AFESUhpYvDv3FmcrWNLsjigm8MLB6tbIMgZ5SoCsFeNoLh2Veu62Ilias90zmncLHf350oFaEA4JmC0/v4EiogOzxz65x888iCZ2rayBCZ8HUOYV3HVUxzft3leXpFpHzhG6EQYuTr4TBk78X7LXaQs6+/DiNqGWW/hA==
-Received: from TY0PR06MB6855.apcprd06.prod.outlook.com (2603:1096:405:13::10)
- by SE3PR06MB8408.apcprd06.prod.outlook.com (2603:1096:101:32c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 06:24:11 +0000
-Received: from TY0PR06MB6855.apcprd06.prod.outlook.com
- ([fe80::9405:99c0:aadd:7e05]) by TY0PR06MB6855.apcprd06.prod.outlook.com
- ([fe80::9405:99c0:aadd:7e05%5]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 06:24:11 +0000
-From: YC Hsieh <yc_hsieh@aspeedtech.com>
-To: Lee Jones <lee@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew
- Jeffery <andrew@codeconstruct.com.au>, ChiaWei Wang
-	<chiawei_wang@aspeedtech.com>, Corey Minyard <corey@minyard.net>, Andrew
- Jeffery <andrew@aj.id.au>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "openipmi-developer@lists.sourceforge.net"
-	<openipmi-developer@lists.sourceforge.net>
-Subject: Re: [PATCH RFC 1/2] dt-bindings: mfd: aspeed-lpc: Document lpcN alias
- for multi-instance SoCs
-Thread-Topic: [PATCH RFC 1/2] dt-bindings: mfd: aspeed-lpc: Document lpcN
- alias for multi-instance SoCs
-Thread-Index: AQHdGmSNPNVIJAn/I0uFrmGW71QRFLaRGueAgAXPdmk=
-Date: Mon, 10 Aug 2026 06:24:10 +0000
-Message-ID:
- <TY0PR06MB6855FDB0FC2A4353DC96C00D93DE2@TY0PR06MB6855.apcprd06.prod.outlook.com>
-References:
- <20260723-upstream_kcs_multiple_lpc-v1-0-d918b5270b86@aspeedtech.com>
- <20260723-upstream_kcs_multiple_lpc-v1-1-d918b5270b86@aspeedtech.com>
- <20260806133111.GF2869284@google.com>
-In-Reply-To: <20260806133111.GF2869284@google.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY0PR06MB6855:EE_|SE3PR06MB8408:EE_
-x-ms-office365-filtering-correlation-id: a8c9bf6c-cd75-4da3-3a64-08def6a7fdb1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|22082099003|18002099003|56012099006|38070700021|6133799003|10067099003|4143699003;
-x-microsoft-antispam-message-info:
- buXNcVuxOD+/44YUk9Zm0t5bP/8/iNpoSIjhEi3XOB4zyyCzymzz0/Rxzb2cZC8en+2HSExad9YjFBc80DFuTfD8S8NdwikPoowkmKVKOSKy3x5TBItSAOX7GSh72k0vnruXVld93I6GmQiQ21Zk7SFo3mG0YJ5A3zvygCsxWeIFP1GuOu7NwOK7BlOtFBMNv2lE6nsHxYLsXB3vwYNnnehrSx/eQ1rVyqvMhXpJgOmM+faij95uisQF9lRAbZxxf14SdKG7Ly/MTuP1hEmiT3jAS7yrWt5c+JDyAGYJ4KiuHsBXRC1BQceiWaxnTOsq+86DS1CCglvOpdBE5mDh7LBVYUdpYEtRCuS500hKhCQLCPadM9lYDbW/RureJ1BoUEdoN/9nl6KZbEAdvmPCQYNqCgx9v0us9+DvGjjiMMfdP3/EBjTKur6obt4+DIWB0H3+spmLVetidczsXN7G4CpiaWpiZkkm4lAriaKtZLfHb+zinJ/wONiQ8LohWvFAvBW50DLjUkFNfNlCfMQDNzaSMweU7rfON7CSl/X0h/z19gamiWgPkO+vDGQhRjTtgNcaKX8b3m/SAXM0M0bbCfnBkJ7Cz+HRehS76P/MDuKZFBiQlKGM4jhf7VulDtdEWrnC8YU9Oc8+oRM5P90nqvd7u5iPeHHiSNLbKV2wOvzdYiIzPiRBhIV5A847MnKJGIVyCsxtlyQ86Q8UsteBFty5P1dlXs1wwXCNMIGgZtI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY0PR06MB6855.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(38070700021)(6133799003)(10067099003)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?dNAgwsCPMBfbZOj2UdtEniW9RdBGZo+dVy7m0gvRoTr2amSVFJKTkkbEU3?=
- =?iso-8859-1?Q?eHaUwMvxVf63NpT3YJulZZwL0nE0GN6OgQmlnURgg8hVBv8mJwPKmzxWuv?=
- =?iso-8859-1?Q?d1PuVBWfQWP3hs329VjZEaUnZv+lfdGeYryszkrZg2yag0bjky8KFjdX+j?=
- =?iso-8859-1?Q?v5zjD1ukG8CAxFIxblLFaTKe4TIa9Od5Wfg6Xp+rlt2KYuGoynE/osxSDc?=
- =?iso-8859-1?Q?J3AchzyWOW6JwArkDLAF1AZbvv+LGfY5an1siI2xKk27ce1AwpeCe3R8O5?=
- =?iso-8859-1?Q?OW109qgnnx8vp5xpbIqz3pUHB9sjjMrGLUoj403QOJAo0MLNfvuZK5uV7F?=
- =?iso-8859-1?Q?9ePY15ketw4OgAMFJtJwg76h9cYDlv29jGPY0pFwS553MPQtxA3ULEHj5a?=
- =?iso-8859-1?Q?o7gAuRlvckREsunPDkAwhwbtdS6b5/ShS44d5xFZmqoWzfzMj1iJFfipsR?=
- =?iso-8859-1?Q?AZ3vnywPTyLDbZDklA1GHIiWNOkvZhBZU2McGqSooHFEKBX3/Pjp+14Et+?=
- =?iso-8859-1?Q?pipIRdc4KBwhCC1FaZu1uAgyE5jniyLHx9aKrCFQhrfsdZHNI974tc/Tdr?=
- =?iso-8859-1?Q?FWuqRGKMYAvuPrLlwjA/dV5ysgQFkco6iVqIdIPDiubdZQgFvzXIYxP4iy?=
- =?iso-8859-1?Q?zpn7envAuxekp6ljdAb7ngJuTKe+//RxGXZOBSSDZkx3HgrXyYxX0skZ3y?=
- =?iso-8859-1?Q?LeHto0wCHDrth7Dn7g1PeJTng8kGhJLte2zNrdpo++VdKiSPYt6D4DOcSa?=
- =?iso-8859-1?Q?XxvsdX3Md7A3w8q467vzGWzP/X3P3SqkFWzcO9OBGmYC/ihrA+H2MaR1NW?=
- =?iso-8859-1?Q?bJdoiZt2U5jqbr5bllC/MLOnF+OACQr5bOAZixg07MJ8wSFGnxiVT0qpGv?=
- =?iso-8859-1?Q?AMX+ek1J+oXl/lKhGQwJy8wtiqWablFXIezLH13d8YDGBpC5CVnh7diAvt?=
- =?iso-8859-1?Q?TaCVX+uh4MVrBs3xVyHIC2tIkT5XoIv+Em9kMm7t/rN9vHmGmAlxdob7lz?=
- =?iso-8859-1?Q?V67X/SVUfoDy2dkoJthJpQMpnpXb53kH0UrgU1pL9m+mi/pikkx8Ix4X0l?=
- =?iso-8859-1?Q?sKujC8hCNgz+GQKRFpRLQoLGWb1UJPPqpNZSujySdeKQkPs+qQCvrX4yhG?=
- =?iso-8859-1?Q?ot0JAraWfBJY4yxnVv2JyTnsTWdfVP6P1HeZw5+50EkC52jjx6F+CnIoWl?=
- =?iso-8859-1?Q?Lsvr2gAV1xZZNV7MdYZcjLVGvXCUm2IZSeNtB/3AfBZjh77Y6lK0dCvWwn?=
- =?iso-8859-1?Q?skfIgfjQx5/T8oY8ypmmCtOqFXQiA6CyEyGWB/d+AxqtOU5jDXWjSd1KlL?=
- =?iso-8859-1?Q?hAmUTwF/Z3nyQQSKABvQpahO2c/APmLms+5/oPfzapax2ZT6c+IgqdeveI?=
- =?iso-8859-1?Q?RuAGQL1b/7NExdNhPSG5CoKsE7QJupOzDIpwOpGCiS0sjsod4wQCjdq0Jh?=
- =?iso-8859-1?Q?YjcrOe/xwIwC4L/pziR0Hg4WTKf607Jbzy/8O8dtXky0HQT8iAiZyaq8ZR?=
- =?iso-8859-1?Q?PCRZq6gKjDnB0kJG3lX3h5LCjyWApfmdr3PUiDmji9rpVgoG2Z+gPQHXqO?=
- =?iso-8859-1?Q?nNUVG1rv8knbVfN30z+wmgtbux4pTy9qwqdQMyPDzPs78o3VaWw6WTYGFA?=
- =?iso-8859-1?Q?h16Jyo0zz3SutwCMOffRkPqXxgdRIEfQZ9RIBDaxtravBZf4NdfBRK3nxC?=
- =?iso-8859-1?Q?z2qvwKBgdlnqQ4D0Xe6endj5DdnTVrmnAl4qjvdMPKDZVhoVgFMKR6PeIB?=
- =?iso-8859-1?Q?4QJdZtMwqZDcUg5PyfCtbRWCDF1tKJsgDpnSGraFrc9JJxc7dHeiHpr5ZV?=
- =?iso-8859-1?Q?LzmQ4Of/bw=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HwtJ8JoL"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso1464903a91.3
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 23:26:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786343213; x=1786948013; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7XW7zVNksQuGLw3m1ipcozoM64brr/gJX+tqNumdacU=;
+        b=HwtJ8JoLyynZH7K3lmtYpM68O9lFG0bgZnsC9sFdMlYMSLE0BBofyB96MJsT+bVKal
+         Zy3KAMJdkKWEPiaDsK0peKUh5c8vpteB3IxKBLf/Bvt8L0uSHYeehtY/IJthMOv1+eWk
+         zNudrnzc20JZPJ9qUW7HE8snTNtQGlSF3fH8oxtfLnics9Ksh5wZYp5RXQI/tSYtL95H
+         V3WtUDo46KCDOXhVbkKAYomc2J2x8egUYTygqp6Y3B2XxCFhfbHhxNoa4wEr+u/LD/x8
+         6SIo8Kq2Br92uTekGcrYP2t8TrDv2ySHNsDls0CHWltfRw8mtIiLYMIpnMQyyyPTaRBb
+         ALHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786343213; x=1786948013;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7XW7zVNksQuGLw3m1ipcozoM64brr/gJX+tqNumdacU=;
+        b=YPX29mXfzU7ViBcrA2ftFLFPmUZHV5HpKWnnC5RVU+JbnCx3gV04H00+bLyx4p+ioB
+         CY8VrbEYf5qeTHpVWl+wL8hHm4rC5pVQQjZ0g4oRpONY0QwiwSyzE+7WdpQQeJKbW8q9
+         GRau/fxRav6FUB+zchdLaUMGcqJYiL8hHuqocxCAwtNTIudxaRqUBihb+5NkQavUFCIY
+         cj8BI2ZWo53OqcnUWroDQgAKeCg6+8lWftT/aMHf3SsIA0WXhjPwC9lnlp2hBG5aREzk
+         XY7t+qTj29Dde2fjuENzq7Ky1uWaHXt0kYaW/rlGAlBcm6inbLPu6iVVih+pnthkc+3m
+         2E/w==
+X-Forwarded-Encrypted: i=1; AHgh+RpN3eUDf3dqq+D1aTErb4JzlQpUThGOU1GYZ9t7aAHoUnx15MNANrjf9RGvkBFhbaXJCmCn/51YCDJY@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZYK/kcCVkGaAKvVJUVNnrkPkeKkxW3j/tdiiII1w70H3ISO2n
+	Ys7kPt5gvTfgvi2loRZWV7RDQzNp2Ysxr68ZRlINesO08wvJI7txZz0y
+X-Gm-Gg: AR+sD10/ya29unbMLdATE2ZostnhwaqSjDRjozC/aAxaDJu4Yk0NgrDt9f1c9ylv6sx
+	jRwbcaczJbwS0vBXYLs1FC9LPPUUXFrQt6wcTP/Py5DFBoA5cy02eCpIKl+FbwvFgCqIZ/Ma2C+
+	2Zs+nv6Yrd33ynEj4+j9Wnd5IMy+PSVJXd4ovaTRo7x0wAVh2sTHRN85aymThZncppZkJmzrmGK
+	hgFPmUmF1lh04kg6kKb2DRkmnW0f1k3HvNmPCGmVxpvfUM62IvfbdKcaJBydJd98DRb2Pmn3vkl
+	eGILZ8LhPUn8cGOQkorXgeLTg7N0pequTuKJT1bTVQtiHBuJkkRjbZ2N45KN526oM0SH0fLxHV1
+	qWuMusOZhlZjn/N0NCbTiHq6aIit3LF8EC90+JTnPMW+u2GG3siXtqlkFAjrOjqr2bMsv2AUrjH
+	Py5FnR8FqgGTssraQ6NFrIyf/NRFvcLBmRmiIp7oLSBU4ltSP8YcYEg6LnFdTi
+X-Received: by 2002:a17:90b:1808:b0:38d:e658:5959 with SMTP id 98e67ed59e1d1-3903c545edamr36471872a91.5.1786343213083;
+        Sun, 09 Aug 2026 23:26:53 -0700 (PDT)
+Received: from thefoxflat ([2404:c0:7028:5cc2:3516:bc05:bd3c:bdb])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925fa4fc7fsm11138390a91.0.2026.08.09.23.26.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 09 Aug 2026 23:26:52 -0700 (PDT)
+From: kyufie <imkyufie@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kyufie <imkyufie@gmail.com>
+Subject: [PATCH] arm64: dts: qcom: Add notification LED, vibrator, and UART support for Xiaomi Redmi 5A (riva)
+Date: Mon, 10 Aug 2026 13:26:12 +0700
+Message-ID: <20260810062611.735673-2-imkyufie@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY0PR06MB6855.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8c9bf6c-cd75-4da3-3a64-08def6a7fdb1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2026 06:24:10.8787
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZWYBxJh+9KCPLNYxclwbtiLFXi+diNOftUtemk2tIsHBU54XMkUPlbx2PnHaWWisCLsR1rSMFlRie1OFXfhI1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8408
+Content-Transfer-Encoding: 8bit
 
-On Thu, 23 Jul 2026, Yu-Che Hsieh wrote:=0A=
-=0A=
->> Some SoCs (e.g. AST2700) expose more than one physical LPC controller=0A=
->> instance. Downstream devices such as KCS channels need a stable,=0A=
->> globally-unique index derived from which LPC controller instance they=0A=
->> belong to, so document the "lpcN" alias convention on the LPC=0A=
->> controller node that lets DT authors assign a fixed index per=0A=
->> instance, mirroring the existing alias-based numbering convention used=
-=0A=
->> by mmc/i2c/spi/serial.=0A=
->>=0A=
->> Signed-off-by: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>=0A=
-=0A=
-> Why is this RFC?=A0 What's stopping me from applying this now?=0A=
-=0A=
-Thanks, there is no blocker. =0A=
-=0A=
-I marked it as RFC to gather feedback on the alias-based =0A=
-numbering convention for LPC controllers before submitting =0A=
-it as a regular patch.=0A=
-=0A=
-If the approach looks acceptable, I'm happy to resend it =0A=
-without the RFC tag.=0A=
-=0A=
->> ---=0A=
->>=A0 Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml | 7 +++++++=0A=
->>=A0 1 file changed, 7 insertions(+)=0A=
->>=0A=
->> diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml b/Doc=
-umentation/devicetree/bindings/mfd/aspeed-lpc.yaml=0A=
->> index cbc3a2485a2f..81c12e0fb312 100644=0A=
->> --- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml=0A=
->> +++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml=0A=
->> @@ -35,6 +35,13 @@ description:=0A=
->>=A0=A0=A0 configuration, therefore the host portion of the controller is =
-exposed as a=0A=
->>=A0=A0=A0 syscon as a means to arbitrate access.=0A=
->>=A0=0A=
->> +=A0 On SoCs that expose more than one LPC controller instance, it is po=
-ssible to=0A=
->> +=A0 assign a fixed index to a given instance (and thus to downstream de=
-vices=0A=
->> +=A0 such as KCS channels that must be uniquely identified system-wide) =
-by=0A=
->> +=A0 defining an "lpcN" alias for it in the /aliases device tree node. I=
-f no such=0A=
-> +=A0 alias is present, the SoC is treated as having a single LPC controll=
-er=0A=
->> +=A0 instance.=0A=
->> +=0A=
->>=A0 properties:=0A=
->>=A0=A0=A0 compatible:=0A=
->>=A0=A0=A0=A0=A0 items:=0A=
->>=0A=
->> --=0A=
->> 2.34.1=0A=
->>=0A=
---=0A=
-=0A=
-Yu-Che=0A=
-=0A=
+This patch adds support for:
+- Controlling the notification LED.
+- Controlling the haptic vibrator.
+- Communicating through serial port exposed as test points at the front and
+  rear side of the phone's PCB.
+
+Signed-off-by: kyufie <imkyufie@gmail.com>
+---
+ .../boot/dts/qcom/msm8917-xiaomi-riva.dts     | 36 +++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
+index 4ea4fbdb5..e74433f89 100644
+--- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
++++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
+@@ -5,6 +5,7 @@
+ 
+ /dts-v1/;
+ 
++#include <dt-bindings/leds/common.h>
+ #include "msm8917-xiaomi-wingtech.dtsi"
+ 
+ / {
+@@ -13,6 +14,10 @@ / {
+ 
+ 	qcom,board-id = <0x1000b 1>, <0x1000b 2>;
+ 
++	chosen {
++		stdout-path = &blsp1_uart2;
++	};
++
+ 	battery: battery {
+ 		compatible = "simple-battery";
+ 		charge-full-design-microamp-hours = <3000000>;
+@@ -23,6 +28,37 @@ battery: battery {
+ 		charge-term-current-microamp = <60000>;
+ 		voltage-min-design-microvolt = <3400000>;
+ 	};
++
++	vibrator {
++		compatible = "gpio-vibrator";
++		enable-gpios = <&tlmm 97 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++&blsp1_i2c2 {
++	status = "okay";
++
++	led-controller@45 {
++		compatible = "awinic,aw2013";
++		reg = <0x45>;
++		vcc-supply = <&pm8937_l10>;
++		vio-supply = <&pm8937_l5>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		status = "okay";
++
++		led@0 {
++			reg = <0>;
++			led-max-microamp = <5000>;
++			function = LED_FUNCTION_INDICATOR;
++			color = <LED_COLOR_ID_WHITE>;
++		};
++	};
++};
++
++&blsp1_uart2 {
++	status = "okay";
+ };
+ 
+ &blsp2_i2c1 {
+
+base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
+-- 
+2.55.0
+
