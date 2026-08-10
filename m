@@ -1,161 +1,205 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232BA430309
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 17:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0B1386C1E
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 17:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786382589; cv=none; b=SlmzZfJdVH0Iz61sKJrLKsrhmwWVA2B8An7tPgPfDLUzSHJg11yiK8ZzrTS+uTmGBvovNX+M5hQlNQQpqDHNK1vm+ZBLRPZfLcP+S8+Vu+rD1NnEOnVCFZn8ubRLtU/ZsBQQ6tYqiJpV91CZPz4olLHFBvb7a/O9EidTyF0dcok=
+	t=1786382966; cv=none; b=V36D96iGK25qMPsLAO5dlNOEPJzWYOsC4mxjmtax6vNfnxSom7JUAnH5Dz7WoVTF/KFbbyIGMAtjN5t+Ev9O7kpe2wCAERIVejOPPi0s4i6pcWP1A8wHyVPMr2C26At/lQ3JxZimeVJPU6EyZOs/8j5ajWXa5qkrYC73QS9gUc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786382589; c=relaxed/simple;
-	bh=7JJFZM5gaiNG8foKIaR3aWW27HrxrqA/Bk/MUvmEgGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ojLNdR6KKM0iypDM4ELlEDMMm052O4dM2NqmxDOQPr2ZQiXyc+mlxzUKCjZntIU67RpZ4dNujabwq3hZQNWW3lfgB6SFqbLJX1NR83dEQVQIOHH/ejx19F1yo/r9ki/ftoG9d21WWSUnAyfLv4I8FBkNP355a8n0AeIQG5B7gNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SjztdEI2; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786382966; c=relaxed/simple;
+	bh=Ox3BQxy33rzGehWh2cUhEUbBpbMJt7u13m3lAb7l4Is=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=npdrLQU8hCpggMncm6//vUjitGLKpMkdquStdOpmTrIjLM/0QWXUQ9VZDLC2IjAGdC71ak1q93+HAgNdJ5Gwt10GhCtR2n/Zwqso6/ECj/7A46y42/LvzdvcrYPiWakQPdBW6OWQp5AZrA2PAq8KmCxpUSsRTw1rzZcwPi4ekcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMJd3ZqY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SjztdEI2"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f71156e1aso861842f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:23:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786382586; x=1786987386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ENzVokBmSnuN9bqw0Tbgo5j7dr6hE7iZRXU8UDONpzw=;
-        b=SjztdEI2so6ztFVfvBM+TWQypaiFJIXcp0Wed2j9J/1KOThoxh1VXee5F8X4dFLdOF
-         SEBmcubOI6aUZEbpAnlw8ydJh2YyMOox8OZXPBwjYPWs35rahInrEPLrWDn6e3QYtsjM
-         hjEqdwu8TcnNJmj58AW87YfsEjSZB9zaD8neDY/5rfrdTpg/K9AZdBYpqS817dcn/X6/
-         4GBUEWOGyCcfl6aUFLG06mUkQFOuSF2yoj4e8/vkVVKT2Q8unV4dB6mVvj768VMwAlDm
-         euDmW0nbZwL/dd6A1J7oMS1DeoYE//oZbq2BKnWjaFwqf+1vp1ViV5dbRdUqG+K1DNrY
-         On7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786382586; x=1786987386;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ENzVokBmSnuN9bqw0Tbgo5j7dr6hE7iZRXU8UDONpzw=;
-        b=pbp2Q/E2IcyKGGNpR9/DB001K193M5Ccg75AmkXE5yiDD2ex4Img7vHb/Ja6cHo1Ml
-         dTahca7rmXGPYeGcGy5aLmmtgWNENPESoSj6bkhFxAVtVqgHlAcV5V4jVttpe7nDpTpL
-         b77Utk+waZ6aBrE1PzB8mFjefqz8+9tFz57xG+Ymd09aMi+XcDd3Zo1Qzjcvpsy1fTz3
-         lyznUjQdorr4YxAcvean9wiNCNLha8iG5q2iKMTkMsXietnGvHvIPiUrG+TD+Vna6gtm
-         51egVS86H7/PbjgvwrH5GGnkXyrJ6LufyVXPoL02vYm6P3X2vNq/wZEXI2wNe3zBJUdW
-         ef/Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rqy7pZuRz7r/pVyKarCCYaQonBK6IEr/Im9DcqCHOUqljdZNrnoQQwRH5DzZPCz6vErqqYDtJXnRIcx@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWzgh0VumtmsJUHclFvj6/cg6q+etI15fjll3VvYIJIthWwmF2
-	pIjK93ApWALsCBUu0X0l6gMGwfwdeP3BMJ+3x/p4Swc3OET8/uPEvrFQ
-X-Gm-Gg: AR+sD10lJZ67wjcVoKVgKs+dBDE/R5bgz7tqfhr4cSQ3L8Ej6Tw7KwS8EITscBrYJ4G
-	4fN8bWFBHBfMF0Tn06gZnUUoSGXyQnVH552ALAgUlyKGqPLV5R2w/8eX4NyXxgMZzUNuQCAkqpm
-	b69ODkQgpCVzbG0tBc+co+Zj+j8S6iKmYc154/ldh9TduXZhKa8BHdpEITsYCmzYaGmpU2hweMG
-	hr/jCEBG1icz0YzdfuL1+pkUyvehLA8p7xWENY0DRqXx7aDwPruJJ1298f7E/fgp7cbvW/qRtmp
-	qUxzoVqmBJiB0SdaS3buIPnjpxkeTOSZozWULOl7NblwdFsP/KbuNsc+mhrf6W2IjgVDaQDcSbX
-	k4SMQGrDitc6hKXYnDNRn6g0p5wemETcscOo2BT+y5+VTOqNGCl6JDxg7UEed4PD9qGlJq7WfQO
-	fyBnRbPoCj9WkN755jaToam1GBEunGru+q7+RQ2ZYnNWMaBu6FJ/xZ4Ol/puWtXGem0wqKJl+ap
-	SWy2P/krqw752mQKVNc2/LJYqU92MkQow==
-X-Received: by 2002:a5d:5985:0:b0:47f:b452:49f1 with SMTP id ffacd0b85a97d-48130e7e7dbmr32190829f8f.2.1786382586047;
-        Mon, 10 Aug 2026 10:23:06 -0700 (PDT)
-Received: from localhost.localdomain ([2a0d:3344:2841:7708:a101:2b8a:f76:a00f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021fb89bsm34651555f8f.30.2026.08.10.10.23.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 10:23:05 -0700 (PDT)
-From: =?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
-To: wens@kernel.org
-Cc: andre.przywara@arm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
-Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
-Date: Mon, 10 Aug 2026 19:22:54 +0200
-Message-ID: <20260810172254.468732-1-juanmanuellopezcarrillo@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAGb2v64bTO-uG=QrtVDfHF=qnGtF5LMitagD1zfNEYSAqOzvXQ@mail.gmail.com>
-References: <20260721223956.13665-1-andre.przywara@arm.com> <c539e5c4-f21e-49a1-b0e3-d35f42893fc4@arm.com> <CAGb2v67CGcaQmSz_tTbSTQ7dzfCV2+7i5t_34iHKmyU05h-yRQ@mail.gmail.com> <20260803153519.262827-1-juanmanuellopezcarrillo@gmail.com> <CAGb2v64Ty3HkBbb5A=ZL6QUAVD6bugG0hcYykCmh-KUsVwzwRw@mail.gmail.com> <CAGb2v64bTO-uG=QrtVDfHF=qnGtF5LMitagD1zfNEYSAqOzvXQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMJd3ZqY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1DC1F000E9;
+	Mon, 10 Aug 2026 17:29:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786382965;
+	bh=lde1Wn/rjdG1fctVL0DBCM8zAY7q5tacJPoWEQujYGI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aMJd3ZqY6UID/wH5Ib8lDB2jMDCRRCB4FDNxuGP7ZU00dDaV+nw7/7R75u0hzi7tM
+	 NApS3l6dBmEvvkDoLbSdVyGQP1CoHQRYmuSt6TEo78LwZUFT/R/K0aaqQdkm/PyGg+
+	 GOAqfQ4odCuhcOd1IeEZfsxCf4OsaADepCM3UrfficNhnYsY5svltliiS0le8YBZ43
+	 b/nj04U3phV6/4Sn+9yk9X0gf54t0Dam9/mZTU7t9ITelt7YVjxoQGJa8ngrkRk5mI
+	 1DcpbfYo7WrYjgSIZwjlXG+uQyZdETFz26iGE5wpnkrD+BGCdooKMXZn28Dg5reX10
+	 vYzXeWVnVYLLw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/7] arm64: dts: qcom: Add Motorola One
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Adam Skladowski" <a39.skl@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260810-next-patches-v1-3-79a779d76173@gmail.com>
+References: <20260810-next-patches-v1-0-79a779d76173@gmail.com>
+ <20260810-next-patches-v1-3-79a779d76173@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 17:29:23 +0000
+Message-Id: <20260810172925.3D1DC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Chen-Yu,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Missing `vdd_l23-supply` parent supply linkage for the PM8953 L23 =
+regulator.
+- [High] Missing `vcc-supply` for the Novatek touchscreen.
+- [High] The `fcs,fusb302` device specifies an incorrect interrupt polarity=
+ (`IRQ_TYPE_EDGE_RISING`) for its INT_N pin.
+- [Medium] Mismatch between the configured Audio Front End (AFE) DAI, physi=
+cal GPIO pin functions, and unused pinctrl nodes for the MI2S interface.
+- [Low] Misleading node name `pn533@28` for an NXP NCI compatible device.
+--
 
-Sorry for the slow reply, and thanks for taking the time to measure this.
+--- Patch [3]: [PATCH 3/7] arm64: dts: qcom: Add Motorola One ---
+commit 3b67d53db687653cc242076136d9090f07f776ff
+Author: Adam Skladowski <a39.skl@gmail.com>
 
-> On my Orange Pi 4A, running iperf3 [...] 4A as client: ~180 Mbps
-> 4A as client but with reverse transfer (-R): ~520 Mbps
-> Something is definitely off. I don't know what though.
+arm64: dts: qcom: Add Motorola One
 
-I cannot reproduce that here. Since you asked with iperf3, here are iperf3
-numbers from my Orange Pi 4A, and one measurement that I think is more
-useful than the throughput itself.
+Add a devicetree for the Motorola One smartphone, which is based
+on the Jacala/MSM8953 SoC.
 
-Bench: direct Cat 5e cable between the board and my PC, no switch in
-between, link negotiated at 1000/full. iperf3 3.18 and Debian 13 on both,
-board at 10.42.0.52, PC at 10.42.0.1. Kernel is my own 6.18.40 tree.
+> diff --git a/arch/arm64/boot/dts/qcom/msm8953-motorola-deen.dts b/arch/ar=
+m64/boot/dts/qcom/msm8953-motorola-deen.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8953-motorola-deen.dts
 
-  board -> PC   (iperf3 -c 10.42.0.1 -t 10)        943 / 941 Mbits/s
-  PC -> board   (iperf3 -c 10.42.0.1 -t 10 -R)     930 / 928 Mbits/s
+[ ... ]
 
-Retr 0 in both directions, and rx_errors, rx_dropped, tx_errors,
-tx_dropped and rx_crc_errors all still 0 afterwards.
+> +&i2c_1 {
+> +	status =3D "disabled";
+> +
+> +	typec-portc@22 {
+> +		compatible =3D "fcs,fusb302";
+> +		reg =3D <0x22>;
+> +		interrupts-extended =3D <&tlmm 9 IRQ_TYPE_EDGE_RISING>;
 
-The number I would look at is the cost: sustaining 943 Mbits/s takes
-about 3% of the eight cores here, which is roughly a quarter of one A55,
-with ~8500 eth0 interrupts per second. The little cluster was pinned at
-1416 MHz for that run.
+[Severity: High]
+The FUSB302 INT_N pin is an active-low open-drain output, but this interrupt
+is configured as IRQ_TYPE_EDGE_RISING.
 
-So on this board the link is not expensive to saturate, and that is the
-part worth comparing with yours. If one core on your 4A is at 100% si/sy
-during the run, we are looking at a CPU-side limit; if no core is busy,
-the CPU is not the story at all and it is somewhere in the MAC, the PHY
-link or the path. That single observation would split the problem in two,
-and it costs you one `top` next to the iperf3 run.
+Will the host miss interrupts since the FUSB302 holds the line low until
+cleared, causing a deadlock while the host waits for a rising edge?
 
-There is one difference between our setups that I can name precisely. On
-plain v7.2-rc7 there is nothing for cpufreq to attach to on this SoC:
+Does this regression break Type-C functionality like PD negotiation and
+role swapping?
 
-  - drivers/clk/sunxi-ng only builds the main, MCU and R CCUs for the
-    A523, so there is no CPU clock controller;
-  - the cpu@N nodes in sun55i-a523.dtsi are bare "arm,cortex-a55" plus
-    psci, with no operating-points-v2, no clocks and no cpu-map;
-  - sun50i-cpufreq-nvmem matches h6, a100, h616, h618 and h700, not the
-    A523.
+[ ... ]
 
-My tree carries all three out of tree, so the cores scale here and on
-plain mainline they stay wherever the bootloader left them: mainline
-U-Boot 2026.07 hands mine off at 768 MHz.
+> +&i2c_3 {
+> +	status =3D "okay";
+> +
+> +	touchscreen@62 {
+> +		compatible =3D "novatek,nt36672a-ts";
+> +		reg =3D <0x62>;
+> +
+> +		interrupts-extended =3D <&tlmm 65 IRQ_TYPE_EDGE_RISING>;
+> +		reset-gpios =3D <&tlmm 64 GPIO_ACTIVE_LOW>;
+> +
+> +		iovcc-supply =3D <&pm8953_l6>;
 
-I want to argue against my own suggestion, though, because the numbers
-above do not fully support it. If saturating the link costs a quarter of
-one A55 at 1416 MHz, the same work at 768 MHz should cost roughly 44% of
-one core, which still leaves headroom. Falling to 180 Mbits/s would need
-about five times the per-byte cost, and the clock ratio only accounts for
-1.8x of that. So the missing cpufreq support may well be a contributing
-factor, but on its own it does not explain your number.
+[Severity: High]
+Does the novatek,nt36672a-ts driver also require a vcc-supply to be
+specified here?
 
-What I can do, if it is useful to you: rerun exactly the above on the
-same board and cable on top of v7.2-rc7, twice. Once with just your
-withstand fix, which is the smallest thing that gives me a working link
-there, and once with that plus only the CPU clock controller and the OPP
-tables. Same base, same config, one variable. I would report throughput
-per direction, scaling_cur_freq during the run and per-core softirq,
-which should at least tell us how much of the gap the clock can account
-for.
+Omitting it means devm_regulator_bulk_get() might fall back to a dummy
+regulator, preventing the physical analog power rail from being enabled.
+Does this cause a regression where touchscreen initialization fails?
 
-To match your setup as closely as I can: which kernel and defconfig are
-you running on the 4A, what MTU, which governor, and is the 5 Plus the
-iperf3 server in both directions?
+> +
+> +		pinctrl-0 =3D <&ts_reset_default &ts_int_default>;
 
-Cheers,
-Juan
+[ ... ]
+
+> +&i2c_5 {
+> +	status =3D "okay";
+> +
+> +	npc100: pn533@28 {
+> +		compatible =3D "nxp,nxp-nci-i2c";
+
+[Severity: Low]
+Since the compatible string specifies a generic nxp,nxp-nci-i2c controller,
+should this node be named with a generic device class like nfc@28 instead of
+a specific chip name like pn533@28 to avoid a naming regression?
+
+> +
+> +		reg =3D <0x28>;
+
+[ ... ]
+
+> +&q6afedai {
+> +	dai@22 {
+> +		reg =3D <QUATERNARY_MI2S_RX>;
+> +		qcom,sd-lines =3D <0>;
+> +	};
+
+[Severity: Medium]
+Is the Audio Front End configured correctly here?
+
+This q6afedai node specifies QUATERNARY_MI2S_RX, but the mi2s_sec_act pinct=
+rl
+states added below configure pins 135-138 with the sec_mi2s function.
+
+Could this interface mismatch cause an audio regression on this port?
+
+[ ... ]
+
+> +&rpm_requests {
+> +	regulators {
+> +		compatible =3D "qcom,rpm-pm8953-regulators";
+> +		vdd_s1-supply =3D <&vph_pwr>;
+[ ... ]
+> +		vdd_l8_l11_l12_l13_l14_l15-supply =3D <&vph_pwr>;
+> +		vdd_l9_l10_l17_l18_l22-supply =3D <&vph_pwr>;
+> +
+> +		pm8953_s1: s1 {
+
+[Severity: High]
+Is there a missing vdd_l23-supply linkage in this parent supply mapping blo=
+ck?
+
+Without mapping vdd_l23-supply to pm8953_s3, the regulator framework is
+unaware of the dependency. If the system disables L1, L2, and L3, the PMIC
+core might power down S3, starving L23 of its input voltage.
+
+Does this regression lead to a hardware brownout?
+
+[ ... ]
+
+> +		pm8953_l22: l22 {
+> +			regulator-always-on;
+> +			regulator-min-microvolt =3D <2800000>;
+> +			regulator-max-microvolt =3D <2850000>;
+> +		};
+> +
+> +		pm8953_l23: l23 {
+> +			regulator-min-microvolt =3D <975000>;
+> +			regulator-max-microvolt =3D <1225000>;
+> +		};
+
+[ ... ]
+
+> +&tlmm {
+> +	gpio-reserved-ranges =3D <96 4>, <111 1>, <126 1>;
+[ ... ]
+> +	mi2s_sec_act: mi2s-quat-active-state {
+> +		pins =3D "gpio135", "gpio136", "gpio137", "gpio138";
+> +		function =3D "sec_mi2s";
+> +		drive-strength =3D <8>;
+> +	};
+
+[Severity: Medium]
+These secondary MI2S pinctrl states appear to be unreferenced dead code.
+Should they be tied to the DAI node above to prevent a configuration
+regression?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-next-patch=
+es-v1-0-79a779d76173@gmail.com?part=3D3
