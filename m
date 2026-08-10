@@ -1,245 +1,114 @@
-Received: from out-2z4y-a162.jellyfish.systems (out-2z4y-a162.jellyfish.systems [198.54.127.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E753BE647
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:10:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA163BBFB3
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:13:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786360220; cv=none; b=C+3nPTHBJxY+ykjG8dFnPqTpdquE64sxshvB1kRMY6naFVyx927O0uQ4ObaY2dPCftR8ZW35NL5aSCqChR+r1sPHw6kgko5x8SHB90wCGYkVyOm1JHhbkR3rkPiPyR4CKI2GGAA7oUn06ejRBbs7VhTa2tOCKgZ6lBeWlguxx3A=
+	t=1786360423; cv=none; b=n0C9uCgVHN9FETkZ9JA5NCc1a3qB228k3fHis8GDsTFBAC9JBW4cT9uea3HTPG6LvKpjvuSA+3T95pUdijgi2RvLZ09MEHQ3BogcZhbgFBIlu/08GFLcHIzUsE2P9hgNeZ4pUNykVByBT7vuIbTNhL9dHsIh5zTk0VU0Bi28Uh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786360220; c=relaxed/simple;
-	bh=sBvM+tDWMz5O+hEmeCj8uf9pMYKp0SvqXvWOJDd2SQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nVWDsQXJgSEtTmX7cszlu+q372Y2f6OWplrkKlFmV9KoWtTFzvUlCgnhJoSZca2dLqlvl3rn8SVBwDQpcAQ+eJhKZRRo89Zdzqpkkw8V8VUvfR8xc8L5uvYvXezxl6TVT6QHwurS8ifvoUqwjzBcuSaK1vbezgYLsGigEsNlqZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hJX2f5Tmmz8sWP;
-	Mon, 10 Aug 2026 11:04:42 +0000 (UTC)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Subject: [PATCH 2/3] iio: light: stk3310: add per-chip match data
-Date: Mon, 10 Aug 2026 13:04:22 +0200
-Message-ID: <20260810110423.41697-3-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260810110423.41697-1-jorijnvdgraaf@catcrafts.net>
-References: <20260810110423.41697-1-jorijnvdgraaf@catcrafts.net>
+	s=arc-20240116; t=1786360423; c=relaxed/simple;
+	bh=zmSsve8sqEAbwl4nnNRwu7JWxP6gMcHDO/OKh1VH84E=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SPEtGJtu+TLb5ZdNP5UNhCimdEZfHgPGhxhhwaBxitZMxHhfDjyjVvvZqVfP9eKa/7wMcXTfeMYixuHVkIXsugc7/NV5F04x42Ov3CELUexWUZxKcT32hDjislt7fK03sP4KWiVV/fn+6Y7EBOvnQkzmjFHX+KWb1PjO9piTtlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nw+HtS8H; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nw+HtS8H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741EB1F0155B
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:13:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786360422;
+	bh=apJ+Wd3xen3OiCkSn7zvoO866Ug5lbpClYMSDMZySoE=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Nw+HtS8HuhE+MDZdUnvaFuTM7dmOwksv1xz+De2T1NseC4/RztBkdOOCQkkp2mUOv
+	 EbpqK10RGM++KomkBX/jFgCsn1Y7mc/s3lCC2X7QNMkgDS2bJI3ycMrbr3hoKFumYI
+	 54VuZ5MqcmylwH/XCmAKTnHRZYkRxHQeq+cu1G9GKmNZ9BcWTztdwa4ydU+knzwrqY
+	 j2QxQ6Zd3pJh+XHZfK0PnaXuD8+zU1z3xDbWc3XroDAYlDQHu6Dcj/dwF1bjmAs0Sr
+	 +j5KMRc73vSfY9kJt/uEafqLtfPnctafHIZCoRMEswKTC9feCAJvh4J8meFxiHaa80
+	 lR0LlGQh0fNkw==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b00d083818so3519259e87.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 04:13:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rrvjy72YZP6kBsk6Jp2Nto3rSr6MAKWR9by3qYyfc29d2ch2w4Ps6un4uOBP0iGdwYvHf4449+3X1/v@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKBirgx6ovn0emJwgbCZ5Vd3L7yJzf+X9CZfdndPiXMUDNYZrK
+	SUk/WvsuNpSaxmdqL5BmkXc4eVODHKZ2x1KXJfdqsBFJOQ15meH0jDytrbTYJZkAxXi7D1ry5ty
+	uJxDv9V7bPiL50jcZNOw1vfLGLbd2LQo3WZ1XNRp/aA==
+X-Received: by 2002:a05:6512:3986:b0:5ae:9be8:1ad7 with SMTP id
+ 2adb3069b0e04-5b30c156af4mr3019492e87.18.1786360421140; Mon, 10 Aug 2026
+ 04:13:41 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 10 Aug 2026 06:13:39 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 10 Aug 2026 06:13:39 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260804-b4-sgmiieth_serdes_regulator-v2-1-c4bc688177dd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: jorijnvdgraaf@catcrafts.net
+References: <20260804-b4-sgmiieth_serdes_regulator-v2-0-c4bc688177dd@oss.qualcomm.com>
+ <20260804-b4-sgmiieth_serdes_regulator-v2-1-c4bc688177dd@oss.qualcomm.com>
+Date: Mon, 10 Aug 2026 06:13:39 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Mf1Mk03YXa0aYPSwMr+iZxtUKaQR6Erp3m0oO=g1U4Qpg@mail.gmail.com>
+X-Gm-Features: AUfX_mxgJ-CVdRVanRZmxExwdSzq95SDKkVdHawKuf8WIZ0HaFMuUt_H9gU2wxc
+Message-ID: <CAMRc=Mf1Mk03YXa0aYPSwMr+iZxtUKaQR6Erp3m0oO=g1U4Qpg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy:
+ add named voltage rails and deprecate phy-supply
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Wasim Nazir <wasim.nazir@oss.qualcomm.com>, 
+	Mohd Ayaan Anwar <quic_mohdayaa@quicinc.com>, Umang Chheda <umang.chheda@oss.qualcomm.com>, 
+	Yijie Yang <quic_yijiyang@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Introduce a chip_info structure carrying the device name and channel
-specification, attach it to every i2c, OF and ACPI table entry, and let
-probe take it from the match data. Clients instantiated through the
-sysfs new_device interface under the lowercase compatible-derived name
-have no firmware node and do not match the uppercase id table entries,
-so absent match data falls back to the original chip data. The channel
-data registers move into .address and the shared channel definitions
-into macros.
+On Mon, 3 Aug 2026 21:27:57 +0200, Mohd Ayaan Anwar
+<mohd.anwar@oss.qualcomm.com> said:
+> The Qualcomm SGMII SerDes PHY has two distinct voltage supply rails,
+> vdda-0p9 and vdda-1p2. The binding incorrectly described only a single
+> generic supply via 'phy-supply'.
+>
+> Deprecate 'phy-supply' and instead add two named supply properties. The
+> 0.9V rail draws a peak current of 46 mA and the 1.2V rail draws 15 mA.
+>
+> Fixes: 97b795125704 ("dt-bindings: phy: describe the Qualcomm SGMII PHY")
+> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml
+> index 90fc8c039219c739eae05cc17108a9a2fc6193df..e573abcb937df914ced25ec87add7955bbba7b87 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml
+> @@ -35,6 +35,17 @@ properties:
+>    phy-supply:
+>      description:
+>        Phandle to a regulator that provides power to the PHY.
+> +    deprecated: true
+> +
+> +  vdda-0p9-supply:
+> +    description:
+> +      Phandle to a 0.9V regulator supply to the PHY, which draws a peak
+> +      current of 46 mA.
+> +
+> +  vdda-1p2-supply:
+> +    description:
+> +      Phandle to a 1.2V regulator supply to the PHY, which draws a peak
+> +      current of 15 mA.
+>
+>    "#phy-cells":
+>      const: 0
+>
+> --
+> 2.34.1
+>
+>
 
-This is a preparatory change for a variant that provides more channels
-than the existing parts. No functional change.
-
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
----
- drivers/iio/light/stk3310.c | 107 +++++++++++++++++++++++-------------
- 1 file changed, 69 insertions(+), 38 deletions(-)
-
-diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
-index 7c8a1d2b2ed0..249396b9bf80 100644
---- a/drivers/iio/light/stk3310.c
-+++ b/drivers/iio/light/stk3310.c
-@@ -181,24 +181,48 @@ static const struct iio_chan_spec_ext_info stk3310_ext_info[] = {
- 	{ }
- };
- 
-+#define STK3310_LIGHT_CHANNEL {				\
-+	.type = IIO_LIGHT,				\
-+	.address = STK3310_REG_ALS_DATA_MSB,		\
-+	.info_mask_separate =				\
-+		BIT(IIO_CHAN_INFO_RAW) |		\
-+		BIT(IIO_CHAN_INFO_SCALE) |		\
-+		BIT(IIO_CHAN_INFO_INT_TIME),		\
-+}
-+
-+#define STK3310_PROXIMITY_CHANNEL {			\
-+	.type = IIO_PROXIMITY,				\
-+	.address = STK3310_REG_PS_DATA_MSB,		\
-+	.info_mask_separate =				\
-+		BIT(IIO_CHAN_INFO_RAW) |		\
-+		BIT(IIO_CHAN_INFO_SCALE) |		\
-+		BIT(IIO_CHAN_INFO_INT_TIME),		\
-+	.event_spec = stk3310_events,			\
-+	.num_event_specs = ARRAY_SIZE(stk3310_events),	\
-+	.ext_info = stk3310_ext_info,			\
-+}
-+
- static const struct iio_chan_spec stk3310_channels[] = {
--	{
--		.type = IIO_LIGHT,
--		.info_mask_separate =
--			BIT(IIO_CHAN_INFO_RAW) |
--			BIT(IIO_CHAN_INFO_SCALE) |
--			BIT(IIO_CHAN_INFO_INT_TIME),
--	},
--	{
--		.type = IIO_PROXIMITY,
--		.info_mask_separate =
--			BIT(IIO_CHAN_INFO_RAW) |
--			BIT(IIO_CHAN_INFO_SCALE) |
--			BIT(IIO_CHAN_INFO_INT_TIME),
--		.event_spec = stk3310_events,
--		.num_event_specs = ARRAY_SIZE(stk3310_events),
--		.ext_info = stk3310_ext_info,
--	}
-+	STK3310_LIGHT_CHANNEL,
-+	STK3310_PROXIMITY_CHANNEL,
-+};
-+
-+/**
-+ * struct stk3310_chip_info - chip-specific data
-+ * @name: device name reported to the IIO core
-+ * @channels: channel specification
-+ * @num_channels: number of channels
-+ */
-+struct stk3310_chip_info {
-+	const char			*name;
-+	const struct iio_chan_spec	*channels __counted_by_ptr(num_channels);
-+	unsigned int			num_channels;
-+};
-+
-+static const struct stk3310_chip_info stk3310_chip_info = {
-+	.name = STK3310_DRIVER_NAME,
-+	.channels = stk3310_channels,
-+	.num_channels = ARRAY_SIZE(stk3310_channels),
- };
- 
- static IIO_CONST_ATTR(in_illuminance_scale_available, STK3310_SCALE_AVAILABLE);
-@@ -370,7 +394,6 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
- 			    struct iio_chan_spec const *chan,
- 			    int *val, int *val2, long mask)
- {
--	u8 reg;
- 	__be16 buf;
- 	int ret;
- 	unsigned int index;
-@@ -382,13 +405,9 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
--		if (chan->type == IIO_LIGHT)
--			reg = STK3310_REG_ALS_DATA_MSB;
--		else
--			reg = STK3310_REG_PS_DATA_MSB;
--
- 		mutex_lock(&data->lock);
--		ret = regmap_bulk_read(data->regmap, reg, &buf, sizeof(buf));
-+		ret = regmap_bulk_read(data->regmap, chan->address, &buf,
-+				       sizeof(buf));
- 		if (ret < 0) {
- 			dev_err(&client->dev, "register read failed\n");
- 			mutex_unlock(&data->lock);
-@@ -635,10 +654,22 @@ static irqreturn_t stk3310_irq_event_handler(int irq, void *private)
- 
- static int stk3310_probe(struct i2c_client *client)
- {
-+	const struct stk3310_chip_info *chip_info;
- 	int ret;
- 	struct iio_dev *indio_dev;
- 	struct stk3310_data *data;
- 
-+	chip_info = i2c_get_match_data(client);
-+	if (!chip_info) {
-+		/*
-+		 * Clients instantiated through the sysfs new_device
-+		 * interface under the lowercase compatible-derived name
-+		 * have no firmware node and do not match the uppercase
-+		 * id table entries.
-+		 */
-+		chip_info = &stk3310_chip_info;
-+	}
-+
- 	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
- 	if (!indio_dev)
- 		return -ENOMEM;
-@@ -657,10 +688,10 @@ static int stk3310_probe(struct i2c_client *client)
- 		return ret;
- 
- 	indio_dev->info = &stk3310_info;
--	indio_dev->name = STK3310_DRIVER_NAME;
-+	indio_dev->name = chip_info->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
--	indio_dev->channels = stk3310_channels;
--	indio_dev->num_channels = ARRAY_SIZE(stk3310_channels);
-+	indio_dev->channels = chip_info->channels;
-+	indio_dev->num_channels = chip_info->num_channels;
- 
- 	ret = stk3310_init(indio_dev);
- 	if (ret < 0)
-@@ -766,28 +797,28 @@ static DEFINE_SIMPLE_DEV_PM_OPS(stk3310_pm_ops, stk3310_suspend,
- 				stk3310_resume);
- 
- static const struct i2c_device_id stk3310_i2c_id[] = {
--	{ .name = "STK3013" },
--	{ .name = "STK3310" },
--	{ .name = "STK3311" },
--	{ .name = "STK3335" },
-+	{ .name = "STK3013", .driver_data = (kernel_ulong_t)&stk3310_chip_info },
-+	{ .name = "STK3310", .driver_data = (kernel_ulong_t)&stk3310_chip_info },
-+	{ .name = "STK3311", .driver_data = (kernel_ulong_t)&stk3310_chip_info },
-+	{ .name = "STK3335", .driver_data = (kernel_ulong_t)&stk3310_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, stk3310_i2c_id);
- 
- static const struct acpi_device_id stk3310_acpi_id[] = {
--	{"STK3013", 0},
--	{"STK3310", 0},
--	{"STK3311", 0},
-+	{"STK3013", (kernel_ulong_t)&stk3310_chip_info},
-+	{"STK3310", (kernel_ulong_t)&stk3310_chip_info},
-+	{"STK3311", (kernel_ulong_t)&stk3310_chip_info},
- 	{ }
- };
- 
- MODULE_DEVICE_TABLE(acpi, stk3310_acpi_id);
- 
- static const struct of_device_id stk3310_of_match[] = {
--	{ .compatible = "sensortek,stk3013", },
--	{ .compatible = "sensortek,stk3310", },
--	{ .compatible = "sensortek,stk3311", },
--	{ .compatible = "sensortek,stk3335", },
-+	{ .compatible = "sensortek,stk3013", .data = &stk3310_chip_info },
-+	{ .compatible = "sensortek,stk3310", .data = &stk3310_chip_info },
-+	{ .compatible = "sensortek,stk3311", .data = &stk3310_chip_info },
-+	{ .compatible = "sensortek,stk3335", .data = &stk3310_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, stk3310_of_match);
--- 
-2.55.0
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
