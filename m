@@ -1,247 +1,109 @@
-Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C3B40B364;
-	Mon, 10 Aug 2026 17:10:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.20.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2585133A03F;
+	Mon, 10 Aug 2026 17:12:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786381838; cv=none; b=DTyIlkiECBt6k1JQmBl0rxqQSrqe/MQuBqbx9sBHMg9yX++kzqE4VKh4mscB97oEwDXQ/OpAnJ6aIbSlNwRusjxV9eyPdfAsvL2y5fSojTrr9xkODMY52HwrAGZxzD9EzfS5GURtIHOlQfyAJSU3yAIRxgVk1gWJu5pJHhvlsS0=
+	t=1786381938; cv=none; b=Fpuju0peNxRRe00+4wnAs6q4nFsnSglqvpnQlE68cqqNSWUs6wYtK9su1ul95XCXZFAG1Kg9tWhkC45hFtF9T8BK/KWkwoPpyNooUI4k6Qsil49T72b8+31J6y7S08VlBxPpnaAEdLwxnP8Bmbvj6onUXBAnTMSHZMiDfXnzPi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786381838; c=relaxed/simple;
-	bh=U05IaZCt9defcc1yBLtFROR8MKd1m0y3f66KSqzwKso=;
+	s=arc-20240116; t=1786381938; c=relaxed/simple;
+	bh=mceccNaaWmcchg9L8ED4lJf/FLN7OSM0KRweOSQ6BlY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SpzblldMddXrMEE3fYbofRMcRtEKO3VvQWZnWf0537BPj3ziDqnGjr7yVxd/bR5vsy0RRC1rCAmOQphuys1mJBltlLeTyTn0+3DAHirdjoveMoZsrAp60NXOJVkEvXOKjzQOryWXztzYTIrzcwbjcE3SmrSlRG88pJ4ReXs2vek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io; spf=pass smtp.mailfrom=dewith.io; dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b=pb3nrYYW; arc=none smtp.client-ip=157.90.20.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dewith.io
+	 Content-Type:Content-Disposition:In-Reply-To; b=toCgr5KbcyUonHfyGJzEwIJh7rCWJYQL59uIqS7j4Pb7xOS0d1j5421EB7pnXmAajzRLgkegUAhPWneMGJ/YQ7Lrns/6LdqczfpjV3U4kzX9UHkcEB+YjGAhkJd1pYJSad6BYj2svDqNTCYbEDQCTBfbXA6rwmd1loI/vojnXvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PjGA/P24; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b="pb3nrYYW"
-Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by meve.dewith.io (Postfix) with ESMTPSA id 4A7F31FC16;
-	Mon, 10 Aug 2026 17:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default;
-	t=1786381828;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zRlDAn2w48ZOZSZja/33WF3x7tTj9Ajju1bg/9k60To=;
-	b=pb3nrYYWp3nNM+k9njiYwFJaTuEL9Ade7KEZPKnuZ+jtdjeD8fwDTt0KqqaeJxucPeNAHL
-	ehglFj142Zbwq0lELcvxmtSBzHjLCNHBhsIVOlbqE4UfKx9lfRN8q1GDMmKduoBYg1Anfr
-	j812+YNlLlQi/oYgc4zNqXYxZTf6Zss=
-Date: Mon, 10 Aug 2026 19:10:22 +0200
-From: Wim de With <wf@dewith.io>
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 2/2] backlight: Add support for Orient Chip OCP8178
-Message-ID: <anoF_hOjV-BRvYBI@dewith.io>
-References: <20260806201541.101304-1-wf@dewith.io>
- <20260806201541.101304-3-wf@dewith.io>
- <anm3DY86P_TGxj3a@aspen.lan>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PjGA/P24"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5881F000E9;
+	Mon, 10 Aug 2026 17:12:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786381936;
+	bh=fVrGGL5Q0nSgj2p380L09qPkXcrVRBJyN66cazrVrMM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PjGA/P24nLObN/Vr0Bxq12S0QmU7205Y8TzFWVr4OpTB51Nd4GtcEPxwaNVh5NLY/
+	 Hk870KboTaYos41UywIijUWP3lCPNOr3XiUbNzg2JR+WFmMUJ01xs9HHUosv/IG7HD
+	 bj54JiKJBhSDlWThr6gedepNZrPRdreI5HoQdfLV/WE5NWmWa654WjYcXxrPStliRh
+	 p2Zj5kFWg6+KNdbmipxEEADZGm1w8pFmFt5//PmCO7lY3AUodjHHKu/fLekg1Dtan4
+	 Za+sUxmqcSAJSMiDJEfrQzAMrReqclqt8FH7is5NZlviPAdg/Rf7Vy633pOmQOqCsk
+	 QhAXbL278yMcQ==
+Date: Mon, 10 Aug 2026 19:12:06 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [PATCH v7 14/16] power: sequencing: pcie-m2: Split Bluetooth
+ unit based on interface
+Message-ID: <ns5zexfsbin4om3klprrh4v2xfvhhg5nztbbf5neakyuwq47bc@mckelf2d5x5f>
+References: <20260724084328.3943997-1-wenst@chromium.org>
+ <20260724084328.3943997-15-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <anm3DY86P_TGxj3a@aspen.lan>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260724084328.3943997-15-wenst@chromium.org>
 
-Thanks for the review.
-
-On Mon, Aug 10, 2026 at 12:33:33PM +0100, Daniel Thompson wrote:
-> On Thu, Aug 06, 2026 at 10:15:41PM +0200, Wim de With wrote:
-> > +static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
-> > +{
-> > +	unsigned long flags;
-> > +
-> > +	gpiod_set_value(ocp8178->gpiod, 1);
-> > +	udelay(OCP8178_1W_T_START_US);
-> > +
-> > +	local_irq_save(flags);
-> > +
-> > +	for (int i = 7; i >= 0; i--) {
-> > +		if ((value >> i) & 1) {
-> > +			gpiod_set_value(ocp8178->gpiod, 0);
-> > +			udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
-> > +			gpiod_set_value(ocp8178->gpiod, 1);
-> > +			udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
-> > +		} else {
-> > +			gpiod_set_value(ocp8178->gpiod, 0);
-> > +			udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
-> > +			gpiod_set_value(ocp8178->gpiod, 1);
-> > +			udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
-> > +		}
-> > +	}
-> > +
-> > +	gpiod_set_value(ocp8178->gpiod, 0);
-> > +
-> > +	local_irq_restore(flags);
-> > +
-> > +	udelay(OCP8178_1W_T_EOS_US);
+On Fri, Jul 24, 2026 at 04:43:23PM +0800, Chen-Yu Tsai wrote:
+> Some UART / serdev based Bluetooth drivers need to be able to reset the
+> hardware during initialization or recovery. This is not possible with
+> the current power sequencing API if a unit is shared between USB and
+> UART interfaces.
 > 
-> Given this happens after we restore local irqs this should probably be
-> fsleep().
- 
-This one is wrong, the IRQs should be restored after this delay and
-following GPIO set, as noted by Sashiko.
-
-> > +	gpiod_set_value(ocp8178->gpiod, 1);
-> > +}
-> > +
-> > +static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
-> > +{
-> > +	u8 data = 0;
-> > +
-> > +	dev_dbg(ocp8178->dev, "setting brightness to %u\n", brightness);
+> For now, split the Bluetooth unit into two, one for each interface.
+> This allows either interface to independently toggle the power, with
+> the last action prevailing, thereby unbreaking the Qualcomm Bluetooth
+> serdev driver. This is also needed for the Realtek Bluetooth serdev
+> driver (hci_h5).
 > 
-> Do we really need the dev_dbg() here?
-
-We don't, it adds no value. I'll remove it in v2.
-
-> > +
-> > +	data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
-> > +	data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
-> > +
-> > +	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
-> > +	ocp8178_bl_write_u8(ocp8178, data);
-> > +}
-> > +
-> > +static int ocp8178_bl_update_status(struct backlight_device *bl)
-> > +{
-> > +	struct ocp8178_bl *ocp8178 = bl_get_data(bl);
-> > +	u8 brightness = backlight_get_brightness(bl);
-> > +
-> > +	/*
-> > +	 * Setting brightness to 0 turns the backlight off but retains the
-> > +	 * onewire mode. If we disable the controller, we would need to enable
-> > +	 * the onewire mode again.
-> > +	 */
-> > +	if (backlight_is_blank(bl))
-> > +		brightness = 0;
+> Having independent control from either interface unfortunately means
+> that userspace is able to shut down the controller from sysfs using
+> the USB port's "disable" setting without the serdev driver knowing
+> about it. On the USB side, independent control is also desired, as it
+> allows the USB core to power cycle the port/device during faults, and
+> for userspace to initiate reset and recovery using the aforementioned
+> "disable" setting. However when USB is used, a serdev device is not
+> created, and there is no conflicting usage, which allows the power
+> sequencing to work even without the split unit.
 > 
-> This is not needed. It will happen inside backlight_get_brightness().
-
-Will remove in v2.
-
-> > +
-> > +	ocp8178_bl_set_brightness(ocp8178, brightness);
-> > +	return 0;
-> > +}
-> > +
-> > +static const struct backlight_ops ocp8178_bl_ops = {
-> > +	.options	= BL_CORE_SUSPENDRESUME,
-> > +	.update_status	= ocp8178_bl_update_status,
-> > +};
-> > +
-> > +static int ocp8178_bl_probe(struct platform_device *pdev)
-> > +{
-> > +	struct device *dev = &pdev->dev;
-> > +	struct backlight_device *bl;
-> > +	struct backlight_properties props;
-> > +	struct ocp8178_bl *ocp8178;
-> > +	u32 max_brightness, brightness;
-> > +	int ret, retries;
-> > +
-> > +	ocp8178 = devm_kzalloc(dev, sizeof(*ocp8178), GFP_KERNEL);
-> > +	if (!ocp8178)
-> > +		return -ENOMEM;
-> > +
-> > +	ocp8178->dev = dev;
-> > +
-> > +	ret = device_property_read_u32(dev, "max-brightness", &max_brightness);
-> > +	if (ret)
-> > +		max_brightness = OCP8178_MAX_BRIGHTNESS;
-> > +	if (max_brightness > OCP8178_MAX_BRIGHTNESS) {
-> > +		dev_warn(dev, "max brightness exceeds hardware limit\n");
-> > +		max_brightness = OCP8178_MAX_BRIGHTNESS;
-> > +	}
-> > +
-> > +	ret = device_property_read_u32(dev, "default-brightness", &brightness);
-> > +	if (ret)
-> > +		brightness = max_brightness;
-> > +	if (brightness > max_brightness) {
-> > +		dev_warn(dev, "default brightness exceeds max brightness\n");
-> > +		brightness = max_brightness;
-> > +	}
-> > +
-> > +	ocp8178->gpiod = devm_gpiod_get(dev, "enable", GPIOD_OUT_LOW);
-> > +	if (IS_ERR(ocp8178->gpiod))
-> > +		return dev_err_probe(dev, PTR_ERR(ocp8178->gpiod),
-> > +				     "gpio missing or invalid\n");
-> > +	gpiod_set_consumer_name(ocp8178->gpiod, dev_name(dev));
-> > +
-> > +	for (retries = 0; retries < OCP8178_1W_INIT_MAX_RETRIES; retries++) {
-> > +		ret = ocp8178_bl_enable_onewire(ocp8178);
-> > +		if (!ret)
-> > +			break;
-> > +		if (ret != -EAGAIN)
-> > +			return ret;
-> > +		msleep(OCP8178_1W_INIT_SLEEP_MS);
+> Suggested-by: Wei Deng <wei.deng@oss.qualcomm.com>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Changes since v4:
+> - New patch
 > 
-> fsleep()?
-
-Sure, and I'll make the udelay() for the ~100 us in the initialization
-use usleep_range because those timings aren't that precise.
-
+> This patch is _not_ squashed into the previous to provide clear context
+> on the change, and the less than perfect nature of it.
 > 
-> > +	}
-> > +	if (retries >= OCP8178_1W_INIT_MAX_RETRIES)
-> > +		return dev_err_probe(dev, -ETIMEDOUT,
-> > +				     "failed to initialize onewire protocol");
-> > +
-> > +	props = (typeof(props)){
-> > +		.type		= BACKLIGHT_RAW,
-> > +		.brightness	= brightness,
-> > +		.max_brightness = max_brightness,
-> > +		.power		= BACKLIGHT_POWER_ON,
-> > +		.scale		= BACKLIGHT_SCALE_NON_LINEAR,
-> > +	};
-> > +
-> > +	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ocp8178,
-> > +					    &ocp8178_bl_ops, &props);
-> > +	if (IS_ERR(bl))
-> > +		return dev_err_probe(dev, PTR_ERR(bl),
-> > +				     "failed to register backlight\n");
-> > +
-> > +	platform_set_drvdata(pdev, bl);
-> > +	backlight_update_status(bl);
-> > +
-> > +	dev_info(dev, "probed, brightness=%u/%u\n", brightness, max_brightness);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static const struct of_device_id ocp8178_bl_of_match[] = {
-> > +	{ .compatible = "ocs,ocp8178" },
-> > +	{ /* sentinel */ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, ocp8178_bl_of_match);
-> > +
-> > +static struct platform_driver ocp8178_bl_driver = {
-> > +	.driver		= {
-> > +		.name		= "ocp8178-bl",
-> > +		.of_match_table	= ocp8178_bl_of_match,
-> > +	},
-> > +	.probe		= ocp8178_bl_probe,
-> > +};
+> I think what we need in this case is some sort of lockout. The serdev
+> consumer would want "exclusive" access, locking out the USB consumer,
+> which can tolerate "shared" access.
 > 
-> I'm with Uwe on the indentation here. No padding needed after the
-> = IMHO.
+> Something similar would be needed for the WiFi if we ever add support
+> for SDIO for toggling the state of W_DISABLE#1. At least the SDIO and
+> PCIe reset signals are separate.
 
-Will fix in v2.
+I don't think PCIe/SDIO suffers from the same issue as USB/BT. But anyhow, I
+think it is OK to have this patch as an interim solution, but we should try to
+model the BT control in a proper manner. I'd fancy adding TODO instead of XXX in
+the comments. But nevertheless,
 
-> 
-> Daniel.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Regards,
-Wim
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
