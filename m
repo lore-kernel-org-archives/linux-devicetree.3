@@ -1,51 +1,57 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E75418A28;
-	Mon, 10 Aug 2026 14:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232884052A4;
+	Mon, 10 Aug 2026 14:55:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786373635; cv=none; b=Jf3EwMX1HH1Mn3iolyCUx+pd/pWjsgp6vseWLwAk+fey9yYqMbUvLqOUfcO5NCNdKuX0d8CmMQK9HUsqSmmFHjfxn+LzRQIN5QcG1/u0NTnWozcs/B40HAUOiPvU/ulUC/H11hEwP0lcrPospS7n+1jjnSiHx+CJFmSuAYXHJRM=
+	t=1786373702; cv=none; b=OmlyV9qXlGd1aWw0sX6moPFp01TVlHB6pjMOk0ShXfYwArpTRqrA0NPI5UMezZHYsOk9bM6QPi/GNlA3jfRMHEyyr3FH8XHGaovX1Zl9zBuoiQmH4kfRd5DZY53klhWxjLLxN3HR/Bc4opt8HwV+a5xC0shPheorXUpVuDXoI/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786373635; c=relaxed/simple;
-	bh=B9LQgQMizP+fya2lUXNzY3fLDpvw1cVEV7tcGkNgAKc=;
+	s=arc-20240116; t=1786373702; c=relaxed/simple;
+	bh=HhTFujIplQ+QkXrasiGzjfFn7Cxe+llMwgzuECPk/o4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z6Qw2f3PeG0Hr97ihMZQTTTAEeuiPhm4c14ShXH30e2nezbl/WVeOlCISHeH2lMjqkHxpyTjBPT9x8HQ+4YN6KMDCwIZknCXMoTD7osE42Pv4uilUpCTurAtTAtRcrgL24QdUQB6vuJD9VDelEvXJqGEo3y52VnP5kSYjngUX2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=D75cIULQ; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=GURsQ2T4ZY8Nh2WtVEz3ub5goxg3afUrMwpfgYGmLaJYBlt5i87Kzx0nZWuNB+Ij4TPDP/G2GSiXuNegC0MClORuB7mRoq4cq3CmslCb4YOOb4LQQbX7BkjMfa5k4yum9Yiiw4cOh+5bZVtSYD7s70e1fX13qTrASstmdiSMjT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cA4fOepS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="D75cIULQ"
-Received: from francesco-nb (93-35-5-212.ip52.fastwebnet.it [93.35.5.212])
-	by mail11.truemail.it (Postfix) with ESMTPA id 5FD451F984;
-	Mon, 10 Aug 2026 16:53:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1786373629;
-	bh=MBAEe+UU9sXt1mvWPEutfdPd4IyZkVpv9j0uHiyaduk=; h=From:To:Subject;
-	b=D75cIULQ0Rp3v1r6vpLPeYGJO9yd7yOg0JwOVTpZOUo9s7BNTQxXZsID72rXGPmnK
-	 PSct2MRsC/CbqERvtCHgT1+XGTC9Sltogr0RccCVTTQchnZRdANhrYREUI0e3OKsWz
-	 uL+W1VCh/SQ8L3ZAafBIvp9JDMMdw+5f6A015pgZk3lih0jWIz4QIW0o7jnO/AKuMo
-	 gvS15TFZHBoJuSyoL1fWx++YPplmef0KeaHJU/DCig8KTeaJeLPn6llsC3naRzJits
-	 upBsMzju5GjriFbRU2A3iIZMyn18soM/pV9rMPnVSabfJA60W/bvLL/O/SmO621vlX
-	 /A4wMJ0xfhaFg==
-Date: Mon, 10 Aug 2026 16:53:46 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank.Li@oss.nxp.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/3] ARM: dts: imx7d-colibri-emmc: Add Toradex
- Displays 7" Parallel
-Message-ID: <20260810145346.GB81453@francesco-nb>
-References: <20260723105225.194366-1-francesco@dolcini.it>
- <178604616242.431490.2877142775301570674.b4-ty@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cA4fOepS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F0E1F000E9;
+	Mon, 10 Aug 2026 14:55:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786373700;
+	bh=IePcMhimiO4bG8MZLgXj0Mzb3WEI4wgOXRrJsnP050U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cA4fOepSlxC6CBDbTfrdfIWZcYuymLzs3oq03p5izsC9edhhWk1TOkW+brDxdSeC8
+	 Fc0GojCmB6dWCQqdRzy1uTe+OmrLVob2S8+uk6OMtyfUjtpAxT+NUZkfGWHbWeDG1u
+	 3uowUO9PQqRAhAcQMp4goIo5Exs43zaC0enbSeJpIbNS1VPzxmN1j2UYQGtJx4H83+
+	 Iakuh76SACNBUx/TReGc2PIerNLZuih0tWGkfzh0b7ZKh2OqOEvvUcGw8rqNiEOGXc
+	 2iPB9L/fxvo9ohNbMDziIToltTYtJQm44NJOuoafDOMv9En2mI40wk3KrBlXlOxf5Z
+	 qUBuCtVOjp1Tw==
+Date: Mon, 10 Aug 2026 09:54:59 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Emil Renner Berthing <kernel@esmil.dk>,
+	Michal Simek <michal.simek@amd.com>,
+	Drew Fustini <dfustini@oss.tenstorrent.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>,
+	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, devicetree@vger.kernel.org,
+	E Shattow <e@freeshell.de>, Joel Stanley <jms@oss.tenstorrent.com>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	Guodong Xu <guodong@riscstar.com>, Icenowy Zheng <uwu@icenowy.me>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org,
+	Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Anup Patel <anup@brainfault.org>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>
+Subject: Re: [PATCH v3 2/5] dt-bindings: interrupt-controller: Add StarFive
+ JHB100 plic
+Message-ID: <178637369862.1615335.12680863675336505769.robh@kernel.org>
+References: <20260806122553.182449-1-changhuang.liang@starfivetech.com>
+ <20260806122553.182449-3-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,33 +60,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178604616242.431490.2877142775301570674.b4-ty@b4>
+In-Reply-To: <20260806122553.182449-3-changhuang.liang@starfivetech.com>
 
-Hello Frank,
 
-On Thu, Aug 06, 2026 at 03:56:41PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On Thu, 06 Aug 2026 05:25:50 -0700, Changhuang Liang wrote:
+> From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
 > 
+> Add compatible string for StarFive JHB100 plic.
 > 
-> On Thu, 23 Jul 2026 12:52:16 +0200, Francesco Dolcini wrote:
-> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> >
-> > This series adds device tree overlays to support the Toradex 7" DPI displays to
-> > the Toradex Colibri iMX7 SoM (eMMC variant).
-> >
-> > Francesco Dolcini (3):
-> >   ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 7"
-> >     Parallel
-> >   ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 7"
-> >     Parallel with Touch Adapter
-> >   ARM: dts: imx7d-colibri-emmc: Add Toradex Resistive Touch Display 7"
-> >     Parallel
-> >
-> > [...]
+> Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Reviewed-by: Hal Feng <hal.feng@starfivetech.com>
+> ---
+>  .../bindings/interrupt-controller/sifive,plic-1.0.0.yaml         | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Applied to imx/dt-indend, thanks!
 
-What's the status of this? I do not see them in linux-next.
-
-Francesco
+Applied, thanks!
 
