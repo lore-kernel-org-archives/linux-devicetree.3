@@ -1,195 +1,334 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFBD358399;
-	Mon, 10 Aug 2026 15:36:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704223BED55
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:36:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786376191; cv=none; b=Ed5r5CfcxEPJMSvEDz3jepzvQFApGIX3x4fa8JZ1lzHN572bDJbLtrQWb50R2WBcPw+zipFl1uOSLaNmAc+eF0/k9yiIVvZav+6PvT5ETlr8N1KKn9OD4FbAmvTn7+R5doE7Hpr2xlf5sV+eGWC5TDZ9HscEKHDZy8+L/jkOE30=
+	t=1786376197; cv=none; b=Irv3/o2bF7uSENuHA16E/bM2+5KeW4HWGMsIo449Wpgqw0ZyMwHXuHomSmxr3g15rBd3Umafrrb7GAQLUOr925uuUcTfAdrXs89+9JxlmmX3ONqe4WajR17aroiQyQfX6AOtP3lpi7o/vey4O69i+sKnKfNxv4QdToa5OtVt0SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786376191; c=relaxed/simple;
-	bh=ILFB4/u2sVdwjrER7sNLEb7ru10nvyn/GzohSKaaCco=;
+	s=arc-20240116; t=1786376197; c=relaxed/simple;
+	bh=TRJjLHtCsToVd/QCNMxQHbYB/WrztedBDXxNeI7F9xU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NwTw45nbwYReRVlPDw2bvs+3zDV7k8nHRHmriD83OPMmlsMb4z82sXDGL6O9yp42ChH1KCEZfpIVRHs7EQtiSfTRQ+Nov3111V4ampxP8TQVzkh261b4Ij8MRRoZCDZFYGOgd2HplNE+E8hXEvIClEOcqXkcyf/A/cWnYmFRqbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jb6qTlEI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XKpOZd8WLCdXkSWCEaptoA78fmNvT+5303qs0i6A8XrkfUgGW7BS9OBprVSb/qNUqsSsZia5Fwki1HmfK7LEQV7KegYwsil+HMB8rZu2v3Bhtjx5D9bSRBPnZPZdXMto5HFSCXcHqRWnyviZbAi8uGSSiWrpJPZluE6RR/v0jgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWT63DcS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jb6qTlEI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD85A1F000E9;
-	Mon, 10 Aug 2026 15:36:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWT63DcS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D61331F000E9;
+	Mon, 10 Aug 2026 15:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786376189;
-	bh=LGFGii2vnLYhDpEoYl6XTr2pwivNBxmxwsVjry/k6YU=;
+	s=k20260515; t=1786376196;
+	bh=ywTqWnGkBqubfedqdTjVX/LIapym0F6hzKGgsb5cRRA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jb6qTlEI+30P/GRsWRb+smu8Cn6zLes2yH/0bAyStX0KN8efCXLk2DhREwhc4qf21
-	 wr0Xrh/JERsCIpKJl+JL0HrDQtGd7bzydbDqaTTOQ/IIPgtV4RD+sPEF0cGqoS5DL5
-	 WsfMUqnbuxFkH6eNZi588qB4xmU9GGD/vDaSOOfvu82csTwu+3s95hrwtiIfPb51Up
-	 PuAjk2D9uz4D566rNRmQyrYTTLa1nkjGn+N1tQaQ5D3I5qNRPEXU9g6MUjw1LDkRm7
-	 3l3nAL8YUKUjJ9d7l0knqHc8Bpc+BRd4NArSgwMmousDgv315tKyz4/61XBGpXQvTP
-	 JxAqC7xOYRhgQ==
+	b=RWT63DcSIOAlZR6udCiPwI963h84jMHNfI370N7HoDvxrmqUhJz+76Ga6HoJ2r8wh
+	 VpDk/lGaa0D4GyDoV3Gs41fFE9BoGWafV48oVg6mwRBHxpLNgxvyFU4aHBBCWuACHx
+	 os+ECMW0imnzcoyVGZjpDwSzRE+AFOlFv+3VnWDImVQYdv+/6JPHrSUl9Pm4lwW8Sc
+	 4xLaVK+Do2Zl5o+1o10IQxvY2HAwk6R5ElVShC+VwsohfsyiG02TQU/mrHZCrpGsju
+	 lDGI8vGN27rZ3ScDa8nafyvyVcGLqXxVIEsgCYsW6z4LxSY1UuDn6lMPfS4opC9sLN
+	 GO3SuY9w+QfYQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 01/19] dmaengine: ti: k3-udma: Fix sporadic crash on
- AM62x
+Subject: Re: [PATCH v5 02/14] hwtracing: gtrace: Initial implementation of
+ gtrace framework
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260810151423.1948224-2-s-adivi@ti.com>
-References: <20260810151423.1948224-1-s-adivi@ti.com>
- <20260810151423.1948224-2-s-adivi@ti.com>
+To: "Mayuresh Chitale" <mayuresh.chitale@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260810152223.3946743-3-mayuresh.chitale@oss.qualcomm.com>
+References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-3-mayuresh.chitale@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 15:36:27 +0000
-Message-Id: <20260810153628.DD85A1F000E9@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 15:36:35 +0000
+Message-Id: <20260810153635.D61331F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The driver restricts MSI controller retrieval to the 'msi-parent' =
-DT binding variant by directly calling `of_msi_get_domain()`, causing failu=
-res on platforms using the 'msi-map' binding.
-- [High] The patch claims to fix a sporadic crash by zero-initializing `rin=
-g_init_data`, but this is a placebo fix because all fields of the struct ar=
-e already explicitly initialized. The true memory corruption bug remains un=
-addressed.
-- [High] Incorrect use of `INIT_DELAYED_WORK_ONSTACK` for a dynamically all=
-ocated work structure causes debug object memory leaks and overwrite warnin=
-gs.
-- [High] DMA mappings created in `udma_setup_rx_flush` are permanently leak=
-ed on probe failure.
-- [High] Background work `ud->purge_work` is not canceled on probe failure,=
- risking Use-After-Free.
+- [High] Use-After-Free due to missing cleanup of upstream connections upon=
+ component unregistration.
+- [High] Topology validation failure and missing `dest_comp` assignment lea=
+d to registration rejection and NULL pointer dereferences.
+- [High] Exported lookup APIs return unreferenced device pointers, causing =
+Use-After-Free risks.
+- [High] Unbalanced refcounts and memory leak when multiple components bind=
+ to the same CPU.
+- [High] Strict probe order dependency silently breaks topology building.
+- [High] Infinite recursion during graph traversal leads to kernel stack ov=
+erflow.
+- [High] ID matching logic ignores version comparisons and terminates prema=
+turely.
+- [High] Unconditional NULL pointer dereference if driver lacks `id_table`.
+- [Medium] Deadlock risk by holding subsystem mutex during device_register.
 --
 
---- Patch [1]: [PATCH v8 01/19] dmaengine: ti: k3-udma: Fix sporadic crash =
-on AM62x ---
-commit b87c41f67fa8026f26760de8230ab1ebfd627cb1
-Author: Vignesh Raghavendra <vigneshr@ti.com>
+--- Patch [2]: [PATCH v5 02/14] hwtracing: gtrace: Initial implementation o=
+f gtrace framework ---
+commit 9dea7b9c99e06842582e974d2b7070319605798a
+Author: Anup Patel <anup.patel@oss.qualcomm.com>
 
-    dmaengine: ti: k3-udma: Fix sporadic crash on AM62x
-   =20
-    ring_init_data is declared on stack and thus can contain garbage which
-    can lead to k3_ringacc_dmarings use junk address for ringrt base leading
-    to below crash during ring pop
+hwtracing: gtrace: Initial implementation of gtrace framework
 
-[Severity: High]
-This is a pre-existing issue, but does this commit message accurately
-describe the root cause of the crash?
+This patch introduces a generic hardware trace framework (gtrace). It provi=
+des
+a bus and topology management helpers for trace components to interact acro=
+ss
+different architectures.
 
-Looking at the code, all fields of k3_ringacc_init_data (tisci,
-tisci_dev_id, and num_rings) are unconditionally assigned before
-k3_ringacc_dmarings_init() is called. Furthermore, k3_ringacc_dmarings_init=
-()
-does not read 'ringrt base' from this struct, but fetches it via
-devm_platform_ioremap_resource_byname().
-
-Could initializing this struct with { 0 } be acting as a placebo that masks
-a true memory corruption or stack buffer overflow by altering the compiler's
-stack layout?
+> --- /dev/null
+> +++ b/drivers/hwtracing/gtrace/gtrace-core.c
 
 [ ... ]
-> diff --git a/drivers/dma/ti/k3-udma.c b/drivers/dma/ti/k3-udma.c
-> index fb21e0df5ab7b..48f4db777d924 100644
-> --- a/drivers/dma/ti/k3-udma.c
-> +++ b/drivers/dma/ti/k3-udma.c
-> @@ -5484,7 +5484,7 @@ static int udma_probe(struct platform_device *pdev)
->  	if (ud->match_data->type =3D=3D DMA_TYPE_UDMA) {
->  		ud->ringacc =3D of_k3_ringacc_get_by_phandle(dev->of_node, "ti,ringacc=
-");
->  	} else {
-> -		struct k3_ringacc_init_data ring_init_data;
-> +		struct k3_ringacc_init_data ring_init_data =3D { 0 };
-> =20
->  		ring_init_data.tisci =3D ud->tisci_rm.tisci;
->  		ring_init_data.tisci_dev_id =3D ud->tisci_rm.tisci_dev_id;
+
+> +const struct gtrace_component_id *gtrace_match_id(struct gtrace_componen=
+t *comp,
+> +                                               const struct gtrace_compo=
+nent_id *ids)
+> +{
+> +     const struct gtrace_component_id *id;
+> +
+> +     for (id =3D ids; id->version; id++) {
+> +             if (comp->id.type !=3D id->type)
+> +                     continue;
+> +
+> +             return id;
+> +     }
+> +
+> +     return NULL;
+> +}
 
 [Severity: High]
-This is a pre-existing issue, but are we leaving a true root cause unaddres=
-sed
-here since the struct is completely initialized immediately after this line?
+Does this loop use the version field as a termination sentinel instead of
+evaluating it? If a driver defines a component with version 0, it appears
+the loop will terminate prematurely.=20
 
+Also, it looks like a version comparison against comp->id.version is missin=
+g=20
+entirely, which might cause it to match any version of a given type.
 
-[Severity: High]
-This is a pre-existing issue, but does this code properly handle platforms
-using the 'msi-map' DT binding variant?
+[ ... ]
 
-drivers/dma/ti/k3-udma.c:udma_probe() {
-    ...
-    dev->msi.domain =3D of_msi_get_domain(dev, dev->of_node, DOMAIN_BUS_TI_=
-SCI_INTA_MSI);
-    ...
-}
-
-Calling of_msi_get_domain() directly only iterates 'msi-parent' phandles.
-Could this cause MSI allocation failures on platforms that map device IDs
-using 'msi-map'?
-
+> +static int gtrace_match_device(struct device *dev, const struct device_d=
+river *drv)
+> +{
+> +     const struct gtrace_driver *gtdrv =3D to_gtrace_driver(drv);
+> +     struct gtrace_component *comp =3D to_gtrace_component(dev);
+> +
+> +     return gtrace_match_id(comp, gtdrv->id_table) ? 1 : 0;
+> +}
 
 [Severity: High]
-This is a pre-existing issue, but is it safe to use INIT_DELAYED_WORK_ONSTA=
-CK()
-for a work structure that is part of a dynamically allocated object?
+If a driver is registered on this bus without an id_table (for example, mat=
+ching
+solely by ACPI or OF tables), will passing a NULL id_table here lead to a
+NULL pointer dereference when gtrace_match_id() evaluates its loop conditio=
+n?
 
-drivers/dma/ti/k3-udma.c:bcdma_alloc_chan_resources() {
-    ...
-    INIT_DELAYED_WORK_ONSTACK(&uc->tx_drain.work, udma_check_tx_completion);
-    ...
-}
+[ ... ]
 
-The INIT_DELAYED_WORK_ONSTACK() macro is intended for stack variables and
-requires a matching destroy_delayed_work_on_stack(). Since uc is heap-alloc=
-ated
-and destroy_delayed_work_on_stack() is never called, could this lead to deb=
-ug
-object memory leaks and ODEBUG overwrite warnings?
-
-This same pattern also appears in pktdma_alloc_chan_resources().
-
-
-[Severity: High]
-This is a pre-existing issue, but are the DMA mappings created in
-udma_setup_rx_flush() properly unmapped on probe failure paths?
-
-drivers/dma/ti/k3-udma.c:udma_setup_rx_flush() {
-    ...
-    rx_flush->buffer_paddr =3D dma_map_single(dev, rx_flush->buffer_vaddr,
-                                            rx_flush->buffer_size,
-                                            DMA_TO_DEVICE);
-    ...
-}
-
-If an error occurs later in udma_setup_rx_flush(), or if udma_probe()
-subsequently fails and returns an error:
-
-drivers/dma/ti/k3-udma.c:udma_probe() {
-    ...
-    return ret;
-}
-
-These DMA mappings appear to permanently leak, as they are not managed by
-devres and are not unmapped before returning.
-
+> +struct gtrace_component *gtrace_find_by_fwnode(struct fwnode_handle *fwn=
+ode)
+> +{
+> +     struct gtrace_fwnode_match_data d =3D { .fwnode =3D fwnode, .match =
+=3D NULL };
+> +     int ret;
+> +
+> +     ret =3D bus_for_each_dev(&gtrace_bustype, NULL, &d, gtrace_match_fw=
+node);
+> +     if (ret < 0)
+> +             return ERR_PTR(ret);
+> +
+> +     return d.match;
+> +}
 
 [Severity: High]
-This is a pre-existing issue, but is there a risk of a use-after-free if
-the device is unregistered on probe failure?
+Since bus_for_each_dev() drops its temporary reference upon returning, does
+returning d.match directly leave the caller with an unreferenced raw pointe=
+r?
+Could this lead to a use-after-free if the component is unregistered
+concurrently?
 
-drivers/dma/ti/k3-udma.c:udma_probe() {
-    ...
-    dma_async_device_unregister(&ud->ddev);
-    ...
-}
+[ ... ]
 
-If of_dma_controller_register() fails after dma_async_device_register(),
-the DMA channels are briefly exposed. If a client requests a channel and
-schedules ud->purge_work before the device is unregistered, could the
-asynchronous work execute on the devres-managed ud structure after it has
-been freed, since cancel_work_sync(&ud->purge_work) is not called?
+> +struct gtrace_component *gtrace_cpu_source(unsigned int cpu)
+> +{
+> +     if (!cpu_present(cpu))
+> +             return NULL;
+> +
+> +     return per_cpu(gtrace_cpu_source_comp, cpu);
+> +}
+
+[Severity: High]
+Similar to the fwnode lookup above, should this function return a referenced
+device pointer? Exposing the unreferenced component might cause a
+use-after-free if the component is suddenly unregistered by another thread.
+
+[ ... ]
+
+> +static int gtrace_setup_inconn(struct device *dev, void *data)
+> +{
+> +     struct gtrace_component *comp =3D to_gtrace_component(dev);
+> +     struct gtrace_platform_data *pdata =3D comp->pdata;
+> +     struct gtrace_connection *conn =3D data;
+> +     int i;
+> +
+> +     if (device_match_fwnode(&comp->dev, conn->dest_fwnode)) {
+> +             for (i =3D 0; i < pdata->nr_inconns; i++) {
+> +                     if (pdata->inconns[i])
+> +                             continue;
+> +                     pdata->inconns[i] =3D conn;
+> +                     return 1;
+> +             }
+> +     }
+
+[Severity: High]
+While this properly links the connection into the destination's inconns arr=
+ay,
+should it also assign conn->dest_comp =3D comp? If conn->dest_comp remains
+unassigned (NULL), won't later graph traversals encounter a NULL pointer
+dereference?
+
+[ ... ]
+
+> +static int gtrace_setup_inconns_from_outconns(struct gtrace_component *c=
+omp)
+> +{
+> +     struct gtrace_platform_data *pdata =3D comp->pdata;
+> +     struct gtrace_connection *conn;
+> +     int i, ret;
+> +
+> +     lockdep_assert_held(&gtrace_mutex);
+> +
+> +     for (i =3D 0; i < pdata->nr_outconns; i++) {
+> +             conn =3D pdata->outconns[i];
+> +             ret =3D bus_for_each_dev(&gtrace_bustype, NULL, conn, gtrac=
+e_setup_inconn);
+> +             if (ret < 0) {
+> +                     gtrace_cleanup_inconns_from_outconns(comp);
+> +                     return ret;
+> +             }
+> +     }
+
+[Severity: High]
+If a destination component has not probed yet, bus_for_each_dev() will retu=
+rn 0.
+Will treating 0 as a success leave this connection permanently incomplete,
+since the framework does not appear to re-evaluate bidirectional matches or
+request probe deferrals?
+
+[ ... ]
+
+> +struct gtrace_component *gtrace_register_component(struct gtrace_compone=
+nt_id *id,
+> +                                                const char *name,
+> +                                                struct gtrace_platform_d=
+ata *pdata)
+> +{
+> +     struct gtrace_connection *conn;
+> +     struct gtrace_component *comp;
+> +     int i, ret =3D 0;
+> +
+> +     if (!id || id->type >=3D GTRACE_COMPONENT_TYPE_MAX) {
+> +             ret =3D -EINVAL;
+> +             goto err_out;
+> +     }
+> +
+> +     if (!pdata || !pdata->dev) {
+> +             ret =3D -EINVAL;
+> +             goto err_out;
+> +     }
+> +
+> +     for (i =3D 0; i < pdata->nr_inconns; i++) {
+> +             if (pdata->inconns[i]) {
+> +                     ret =3D -EINVAL;
+> +                     goto err_out;
+> +             }
+> +     }
+> +
+> +     for (i =3D 0; i < pdata->nr_outconns; i++) {
+> +             conn =3D pdata->outconns[i];
+> +             if (!conn || conn->src_port < 0 || conn->src_comp ||
+> +                 !device_match_fwnode(pdata->dev, conn->src_fwnode) ||
+> +                 conn->dest_port < 0 || !conn->dest_fwnode || !conn->des=
+t_comp) {
+> +                     ret =3D -EINVAL;
+> +                     goto err_out;
+> +             }
+> +     }
+
+[Severity: High]
+During component registration, won't the !conn->dest_comp check always fail
+here since the dynamic discovery hasn't had a chance to run yet? This appea=
+rs
+to reject registration for any component that has output connections.
+
+[ ... ]
+
+> +     mutex_lock(&gtrace_mutex);
+> +
+> +     ret =3D device_register(&comp->dev);
+
+[Severity: Medium]
+Calling device_register() triggers a synchronous driver probe. If the drive=
+r's
+probe routine calls back into an exported framework API that also attempts =
+to
+acquire gtrace_mutex, could this result in a deadlock?
+
+[ ... ]
+
+> +     if (comp->pdata->bound_cpu >=3D 0) {
+> +             gtrace_get_component(comp);
+> +             per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cpu) =3D=
+ comp;
+> +     }
+
+[Severity: High]
+If multiple components bind to the same CPU, does blindly overwriting this
+per-CPU pointer without releasing the previously bound component lead to a
+memory leak?
+
+[ ... ]
+
+> +void gtrace_unregister_component(struct gtrace_component *comp)
+> +{
+> +     struct gtrace_component *c;
+> +
+> +     mutex_lock(&gtrace_mutex);
+> +
+> +     if (comp->pdata->bound_cpu >=3D 0) {
+> +             c =3D per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cp=
+u);
+> +             per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cpu) =3D=
+ NULL;
+> +             gtrace_put_component(c);
+> +     }
+
+[Severity: High]
+If an old component's CPU slot was overwritten by a newer component (leaking
+the original reference as mentioned above), could putting the current occup=
+ant
+here cause us to prematurely free the newer component?
+
+> +
+> +     gtrace_cleanup_inconns_from_outconns(comp);
+> +     device_unregister(&comp->dev);
+
+[Severity: High]
+This cleans up downstream outconns, but what about upstream components that
+connect to this component? If upstream nodes retain dangling pointers to th=
+is
+freed component, could it cause a use-after-free during graph traversal?
+
+One additional question regarding graph traversals: when recursively walkin=
+g the
+graph topology across connections, it doesn't appear that visited nodes are
+tracked. If hardware topology tables are misconfigured with a cycle
+(e.g., A -> B -> A), could this trigger infinite recursion and overflow the
+kernel stack?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
-224-1-s-adivi@ti.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810152223.3946=
+743-1-mayuresh.chitale@oss.qualcomm.com?part=3D2
