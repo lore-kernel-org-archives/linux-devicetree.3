@@ -1,63 +1,64 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB9C44236C
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 19:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6729437450
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 19:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786390816; cv=none; b=PoSysZrMuPMTWnaRZaNUk3URx0uz0BnJbZ2IzVSb4BgudZeY8hHxzlvFmEzNxplNkCh1IGmjQFD+nolTdJk3OdSFFk4uc68aFcaG1CI8mweR4VRP2MzMkL3EjPfVua3cLrbKr+g63S0F7A6/0kmEcp9PHwS8gDSE5qjspn1OAPw=
+	t=1786390818; cv=none; b=Qxezv2yVIulZzSSdxRo9jKQVeuNkXVTLKy9m3fgcdROVdVjoNoDwzkOpeXRkbENLKiWMi6/85mUbHNEtyr8KMKaJmhXBQZ9pUXZiyq7AqPIdfgfrbj4hbvBkkFpypeVfi5iuIJy+69XB1eUB6rokjCGZR5y3ZX1XsqL1UgiLzqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786390816; c=relaxed/simple;
-	bh=08UtlehfK03KUSQwevWJqiUxLKsv8IURriGU2uZB4o8=;
+	s=arc-20240116; t=1786390818; c=relaxed/simple;
+	bh=7zftsifT1TeOCwtPU5cqKvqhs764DJUWLd8kYg26RIk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WuWnY2jvOOe2ZzzsWHondPwNMLbkgg5oqAHFiakrMBSeNy3hWL+eFr5/3C3wV+mKzpkbsJvQ8gdWiF5JFtUtSqTp+JJ40M8AMebDH0AZSwYkFW6z1ohsNH2wWVf68ut10ZsFjo1wRkdhOTGAxo8KmTRUjbNrBpfHFTN6EOvBSNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pQK58+xt; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=c/JXzvR8/+xEI1Z/fJoU/JuJeYQ91eeutiBvGwtk/3J1+3qXJ03NIdq9Q8vi3elzAea32tLICU6aS3Dyluo4At9cYjTqQL/8xi6Y5kde+m9muSy7OZbHmfFmjrV4ZfbVKmu1M6jv5rhsxgFgXbmYQx3cUyENo1W4mhCNZWaS4iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y3+SV9JA; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pQK58+xt"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4798bea72f9so1345369f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:40:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y3+SV9JA"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47fe377a217so22283f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:40:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786390809; x=1786995609; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786390812; x=1786995612; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yFhi9f2vBNbbKbsB00RQsZsEKX9ezsH2FMVXNlaSZW0=;
-        b=pQK58+xtN8eLJbFkYRVM3lKUfL+OHC5eLpP9fLBoYWpTfQUXbZ7Kgv8RUGPSYNPQJM
-         EP/EMryHMrIrLoo6bQSNmi4StUMVyD3rTml80e3x9iyiWs/1/uqr4xwbEEQsRfnyGWbC
-         NGB+CDC8L69OH/tqtDWSnfUo8Vk7VgOJAxWmU1Yn5685/wYue/MfFjbaL7Sfa+LQK8n0
-         sqL1yMNPxTQ08QBHZ8m+WJDurdeK4R6uYNC11daVlrRSTKsrTv8pExjuypxPm32OIlWU
-         SG3P6Me7YIFRBRzDxwNaeJyQ4JzFndUws6EfPjP1W+oF9fvv1XCnIXLeId4I3Ujf3mAl
-         7JgQ==
+        bh=Km3JbJM3tHI5y78m8g9L0NcliILGFksyyeAC4KOBDJY=;
+        b=Y3+SV9JAcjKaN0JGHPK/bPP0KMTQpx2EA6W+O1xTFxxPXKcHvpuccSCiOvPPJH6mq5
+         KRFZ34k6cc5rpLrwGWMgsbVaz0i1H+uqZ2c4PPZKhAzli1TE+HAP/ARCnZwmKZ5C/L8n
+         hqUClVsczyQUbrAHKRNGMqCqS+yAPxKQcnFNNMkxHMS4I5PIjZRnrv6fLEWaSmQIBK9D
+         ZPPlD4FTH9T1XURa/ckfsJJTgq3XfEhBS8DrrBjGRP9k2gofM8+cmMgaFdYTfPovcUNZ
+         J42MQVimFH1ad6Kjo8wmK+o95NfC5B0xAFmxkZ9UI+1/5t/lY0rSxwVX4rAtPsW5Jl/S
+         w/sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786390809; x=1786995609;
+        d=1e100.net; s=20251104; t=1786390812; x=1786995612;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yFhi9f2vBNbbKbsB00RQsZsEKX9ezsH2FMVXNlaSZW0=;
-        b=Ym35aDa8gY+pwh+pOQMPOEuEsJXx/9fFw/us4/GKIYLS2aWr1wCWvkY4bsyXYWqKHW
-         Voa07FdRmyKpHakUrkaYMwsELewvYByA8HzG0Xun+uLlEgfjjcvudG+V6DUoq8x55ohJ
-         /Hql09L2Pm3/pEsHKg8USxnGyuvPCO3kho1mo70sHGhaTNY4kRMKLB+75zc4suJO9VFh
-         dQItM7fAOVSWl29CUETuq5kOID30U4v26f8JTuo/x5irlbbKx654odPZxpOVq+UBNfEy
-         VgLXogCKDOg8NEbXDn+KMNszR0bfFFd9gRR0EMVat/HVKLVs2pu9jBwtrIweG2Y4ZGR7
-         L3+w==
-X-Forwarded-Encrypted: i=1; AHgh+Rpk3YRtPM62KPi7zdI8h2LiOgy4waXQhHndy5mVkZzvGMyQtbHVgmb3iEIqK57W+sQ/kQ/AkUWte5zw@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/cCqB76wtkcIiv1GZSG2G3niX0C2Plq5VjCN7+2M/Re4542+x
-	IjcfuM8OAmO1iP4kLilvNoTihbYplODcMSfNbBpmI1KDAzo4s3tmD/OU
-X-Gm-Gg: AR+sD10eC2m0UDQBbhODOd0mtc8lZpx47+WXWChM1KyNiNL/TaUi5c+SXFx7+jKxnqK
-	7xqKKK8oHXo7fFvybuqp/s+jegVlrWyDbJCrZ4P18yV/urQUFOyzcLquO/dWPWQ84tUQ5my/w6j
-	ZKmOILBNv1mlkAbZaS5SKe9Pk/SXuP0Fqb0Z9zQDRq2W0IzVJ7e3+oH8+Qaxb0EgWg1cua3G+sB
-	BTRPJRGCRhxh4Yxzd3KOraD2BhHQGhgdT8Xta/8JCT0WoYky1HCaWm+/JUBeAf6GAax7UYI55E+
-	j3P24cq8mjj+me3QbogGSYKVZAeWdUeZOPMYfLG7nEMCfYkRSTA1jM38hgTjL26K5TZIYgV/NKL
-	Vhp6h80F3qrIpMEW/UKrNlrRxp7GjHmykDiAHKe7llXygNFchThIYpazWoykyhlHJBoFCky/VXY
-	BzK8laRYkrOgQ4RPpZ7gk16myXu82MIkE9PCtUUUFpM599NtBPKR60ferMNjLsbZU=
-X-Received: by 2002:a05:6000:41f7:b0:47f:95ce:6f48 with SMTP id ffacd0b85a97d-481455df5afmr6870669f8f.11.1786390809120;
-        Mon, 10 Aug 2026 12:40:09 -0700 (PDT)
+        bh=Km3JbJM3tHI5y78m8g9L0NcliILGFksyyeAC4KOBDJY=;
+        b=kvOeH6TCe9BdMwCckdE8dxlCTXsZohcfdMC/G1bki2TusyXbVWFG2JUr/ls/hb3yDu
+         L4GOgyWb3eucww41OIBH5+k8nn/i3W2iys+NL1Ka+CsEfj3maykaAhf/t1HbnpjlJcxJ
+         jdhFcionNfb5vC8d8MVhystQ4F852nIcl0/2fp0mJPEHypJdU5tJ/qQuvoTReP49IYWi
+         bBnEkckcki4KHDNV3R/T8q+duh+G4qneto/Ln/Ff9rxyjPfubxvY8BSl8MrTN6POYHnH
+         QlfgrR1oyoiYcrb7PazDe8GcAhZXTthzE/c5CJPr7xdEft5onv0fw6Bh6WVZeZak6yBt
+         VmrQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqPPhmJiIFN4apDynDeUCOcH1Pmt+5cLi2olhzDBPxn2fxLPrsso9A/2Pzqfanwel49Amyw2TUr8m7a@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYdyM29tCz7j6ULomyRT0mqVNDOkdqG8lLySjYCEAxPq2aqYcY
+	ZVBvh4WN2o9dC+6w1KD2NctmZU4VZoFdQRUOR9feMI+a6TPnA+3Bxl0n
+X-Gm-Gg: AR+sD106ZvYpZCjrxxbCVRGpqxR6QUhl0Fk4p07FCJRB/XHZllTTzAHCWACp4II5mnS
+	qpJOP1OpcGKRHr7a5xWMwLUCoupsuNWI3JnFuURAlhHi8NMUE6dtqQ94qfdB6Mntw+fjeJ4JPRQ
+	ttC7TscsuLT/bHc4DAVb7pCTMfIPK+eYE2p15T5aCrx8BEZziFxSZ2WEYxiCpIBPAhADbam0NcW
+	A+CMTJrR8N8QkQSa4cTsVuZzooRKC8/dXfr5oKm9xs9ttHQF8VyYI6ikKPQtDiLke4AMJ3ugcna
+	87FgIEIi9G8OsdqYkspprB4I+x5L33nRGwCQvsxyDqjdtCtKLO2FmZUUNcxQZ8wmgUFysA0RX1x
+	Adg14bBpGIIDa+S8CYrtIwfkBmcSXXj8IK2Quyubc8vN3ViUtj6lC6WPWoGIzsUPW03LYhATuAm
+	gKZV+mBBjOh9fDALdTzL1dB4NZ0OKs1JaCBsY++Kpxpm/5K/WCmQbForXr/eioxK23ySyTRugRE
+	Q4tlaV8y2lwZw==
+X-Received: by 2002:a5d:6f0c:0:b0:47e:9f16:c0bf with SMTP id ffacd0b85a97d-47fec63e205mr73032320f8f.30.1786390812379;
+        Mon, 10 Aug 2026 12:40:12 -0700 (PDT)
 Received: from antoniarch ([78.213.94.207])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021506cbsm39291689f8f.14.2026.08.10.12.40.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021506cbsm39291689f8f.14.2026.08.10.12.40.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 12:40:08 -0700 (PDT)
+        Mon, 10 Aug 2026 12:40:12 -0700 (PDT)
 From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: alexandre.belloni@bootlin.com,
 	robh@kernel.org,
@@ -67,9 +68,9 @@ Cc: linux-rtc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v4 5/9] rtc: abx80x: add irq to struct abx80x_priv
-Date: Mon, 10 Aug 2026 21:38:22 +0200
-Message-ID: <20260810193826.210683-6-apokusinski01@gmail.com>
+Subject: [PATCH v4 7/9] rtc: abx80x: replace read-modify-write pattern with regmap helpers
+Date: Mon, 10 Aug 2026 21:38:24 +0200
+Message-ID: <20260810193826.210683-8-apokusinski01@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260810193826.210683-1-apokusinski01@gmail.com>
 References: <20260810193826.210683-1-apokusinski01@gmail.com>
@@ -81,82 +82,266 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This way the irq number is not tied to the i2c_client and can be
-easily accessed also in the case of ABX81X SPI clocks.
+Before introducing the regmap usage in the driver, updating specific
+bits of a register was performed using the read-modify-write pattern.
+Now, the functions regmap_update_bits() and regmap_write_bits() can
+be used to simplify the code.
 
 Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 ---
- drivers/rtc/rtc-abx80x.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ drivers/rtc/rtc-abx80x.c | 135 ++++++++++-----------------------------
+ 1 file changed, 35 insertions(+), 100 deletions(-)
 
 diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-index 485d1ea08030..12a4dbfec639 100644
+index 5d41882f3c70..ab88af43b4fa 100644
 --- a/drivers/rtc/rtc-abx80x.c
 +++ b/drivers/rtc/rtc-abx80x.c
-@@ -135,6 +135,7 @@ struct abx80x_priv {
- 	struct i2c_client *client;
- 	struct watchdog_device wdog;
- 	struct mutex lock;
-+	int irq;
- };
- 
- static int abx80x_write_config_key(struct i2c_client *client, u8 key)
-@@ -305,11 +306,12 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
- static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
+@@ -232,7 +232,7 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
  {
- 	struct i2c_client *client = to_i2c_client(dev);
-+	struct abx80x_priv *priv = i2c_get_clientdata(client);
- 	unsigned char buf[7];
+ 	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	unsigned char buf[8];
+-	int err, flags;
++	int err;
  
- 	int irq_mask, err;
- 
--	if (client->irq <= 0)
-+	if (priv->irq <= 0)
+ 	if (tm->tm_year < 100)
  		return -EINVAL;
+@@ -256,18 +256,11 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ 	}
  
- 	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
-@@ -341,7 +343,7 @@ static int abx80x_set_alarm(struct device *dev, struct rtc_wkalrm *t)
- 	u8 alarm[6];
- 	int err;
+ 	/* Clear the OF bit of Oscillator Status Register */
+-	err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
++	err = regmap_update_bits(priv->regmap, ABX8XX_REG_OSS, ABX8XX_OSS_OF, 0);
+ 	if (err < 0)
+-		return err;
+-
+-	err = regmap_write(priv->regmap, ABX8XX_REG_OSS,
+-			   flags & ~ABX8XX_OSS_OF);
+-	if (err < 0) {
+ 		dev_err(dev, "Unable to write oscillator status register\n");
+-		return err;
+-	}
  
--	if (client->irq <= 0)
-+	if (priv->irq <= 0)
+-	return 0;
++	return err;
+ }
+ 
+ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+@@ -378,7 +371,6 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
+ {
+ 	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	unsigned int flags = 0;
+-	int retval;
+ 
+ 	if ((autocalibration != 0) && (autocalibration != 1024) &&
+ 	    (autocalibration != 512)) {
+@@ -386,12 +378,6 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
  		return -EINVAL;
+ 	}
  
- 	alarm[0] = 0x0;
-@@ -947,6 +949,7 @@ static int abx80x_probe(struct i2c_client *client)
+-	guard(mutex)(&priv->lock);
+-
+-	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
+-	if (retval < 0)
+-		return retval;
+-
+ 	if (autocalibration == 0) {
+ 		flags &= ~(ABX8XX_OSC_ACAL_512 | ABX8XX_OSC_ACAL_1024);
+ 	} else if (autocalibration == 1024) {
+@@ -403,13 +389,15 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
+ 		flags |= (ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512);
+ 	}
  
- 	priv->rtc->ops = &abx80x_rtc_ops;
- 	priv->client = client;
-+	priv->irq = client->irq;
- 	err = devm_mutex_init(&client->dev, &priv->lock);
- 	if (err)
++	guard(mutex)(&priv->lock);
++
+ 	/* Unlock write access to Oscillator Control Register */
+ 	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
+ 		return -EIO;
+ 
+-	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
+-
+-	return retval;
++	return regmap_write_bits(priv->regmap, ABX8XX_REG_OSC,
++				 ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512,
++				 flags);
+ }
+ 
+ static int abx80x_rtc_get_autocalibration(struct device *dev)
+@@ -473,7 +461,6 @@ static ssize_t oscillator_store(struct device *dev,
+ {
+ 	struct abx80x_priv *priv = dev_get_drvdata(dev->parent);
+ 	int retval, rc_mode = 0;
+-	unsigned int flags;
+ 
+ 	if (strncmp(buf, "rc", 2) == 0) {
+ 		rc_mode = 1;
+@@ -486,24 +473,14 @@ static ssize_t oscillator_store(struct device *dev,
+ 
+ 	guard(mutex)(&priv->lock);
+ 
+-	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
+-	if (retval < 0)
+-		return retval;
+-
+-	if (rc_mode == 0)
+-		flags &= ~(ABX8XX_OSC_OSEL);
+-	else
+-		flags |= (ABX8XX_OSC_OSEL);
+-
+ 	/* Unlock write access on Oscillator Control register */
+ 	if (abx80x_write_config_key(dev->parent, ABX8XX_CFG_KEY_OSC) < 0)
+ 		return -EIO;
+ 
+-	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
+-	if (retval < 0) {
++	retval = regmap_write_bits(priv->regmap, ABX8XX_REG_OSC, ABX8XX_OSC_OSEL,
++				   rc_mode == 0 ? 0 : (ABX8XX_OSC_OSEL));
++	if (retval < 0)
+ 		dev_err(dev, "Failed to write Oscillator Control register\n");
+-		return retval;
+-	}
+ 
+ 	return retval ? retval : count;
+ }
+@@ -573,18 +550,11 @@ static int abx80x_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
+ 
+ 	case RTC_VL_CLR:
+ 		scoped_guard(mutex, &priv->lock) {
+-			err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
+-			if (err < 0)
+-				return err;
+-
+-			status &= ~ABX8XX_STATUS_BLF;
+-
+-			err = regmap_write(priv->regmap, ABX8XX_REG_STATUS, status);
+-			if (err < 0)
+-				return err;
++			err = regmap_update_bits(priv->regmap, ABX8XX_REG_STATUS,
++						 ABX8XX_STATUS_BLF, 0);
+ 		}
+ 
+-		return 0;
++		return err;
+ 
+ 	default:
+ 		return -ENOIOCTLCMD;
+@@ -841,7 +811,6 @@ static int abx80x_probe(struct i2c_client *client)
+ 	struct device_node *np = client->dev.of_node;
+ 	struct abx80x_priv *priv;
+ 	int i, err, trickle_cfg = -EINVAL;
+-	unsigned int data;
+ 	char buf[7];
+ 	unsigned int part = (uintptr_t)i2c_get_match_data(client);
+ 	unsigned int partnumber;
+@@ -891,14 +860,9 @@ static int abx80x_probe(struct i2c_client *client)
+ 	dev_info(&client->dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
+ 		 partnumber, majrev, minrev, lot, wafer, uid);
+ 
+-	err = regmap_read(regmap, ABX8XX_REG_CTRL1, &data);
+-	if (err < 0) {
+-		dev_err(&client->dev, "Unable to read control register\n");
+-		return -EIO;
+-	}
+-
+-	err = regmap_write(regmap, ABX8XX_REG_CTRL1,
+-			   (data & ~(ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST)) | ABX8XX_CTRL_WRITE);
++	err = regmap_update_bits(regmap, ABX8XX_REG_CTRL1,
++				 ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST | ABX8XX_CTRL_WRITE,
++				 ABX8XX_CTRL_WRITE);
+ 	if (err < 0) {
+ 		dev_err(&client->dev, "Unable to write control register\n");
+ 		return -EIO;
+@@ -912,30 +876,10 @@ static int abx80x_probe(struct i2c_client *client)
+ 		 * register is set. RV-1805-C3 datasheet indicates that
+ 		 * the bit should be cleared in section 11h - Control2.
+ 		 */
+-		err = regmap_read(regmap, ABX8XX_REG_CTRL2, &data);
+-		if (err < 0) {
+-			dev_err(&client->dev,
+-				"Unable to read control2 register\n");
+-			return -EIO;
+-		}
+-
+-		err = regmap_write(regmap, ABX8XX_REG_CTRL2,
+-				   data & ~ABX8XX_CTRL2_RSVD);
+-		if (err < 0) {
+-			dev_err(&client->dev,
+-				"Unable to write control2 register\n");
+-			return -EIO;
+-		}
+-
+-		/*
+-		 * Avoid extra power leakage. The RV1805 uses smaller
+-		 * 10pin package and the EXTI input is not present.
+-		 * Disable it to avoid leakage.
+-		 */
+-		err = regmap_read(regmap, ABX8XX_REG_OUT_CTRL, &data);
++		err = regmap_update_bits(regmap, ABX8XX_REG_CTRL2,
++					 ABX8XX_CTRL2_RSVD, 0);
+ 		if (err < 0) {
+-			dev_err(&client->dev,
+-				"Unable to read output control register\n");
++			dev_err(&client->dev, "Unable to write control2 register\n");
+ 			return -EIO;
+ 		}
+ 
+@@ -946,8 +890,14 @@ static int abx80x_probe(struct i2c_client *client)
+ 		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
+ 			return -EIO;
+ 
+-		err = regmap_write(regmap, ABX8XX_REG_OUT_CTRL,
+-				   data | ABX8XX_OUT_CTRL_EXDS);
++		/*
++		 * Avoid extra power leakage. The RV1805 uses smaller
++		 * 10pin package and the EXTI input is not present.
++		 * Disable it to avoid leakage.
++		 */
++		err = regmap_write_bits(regmap, ABX8XX_REG_OUT_CTRL,
++					ABX8XX_OUT_CTRL_EXDS,
++					ABX8XX_OUT_CTRL_EXDS);
+ 		if (err < 0) {
+ 			dev_err(&client->dev,
+ 				"Unable to write output control register\n");
+@@ -998,33 +948,18 @@ static int abx80x_probe(struct i2c_client *client)
  		return err;
-@@ -994,19 +997,19 @@ static int abx80x_probe(struct i2c_client *client)
+ 
+ 	/* Disable unused interrupts */
+-	err = regmap_read(regmap, ABX8XX_REG_IRQ, &data);
+-	if (err < 0) {
+-		dev_err(&client->dev, "Unable to read irq register\n");
+-		return -EIO;
+-	}
+-
+-	err = regmap_write(regmap, ABX8XX_REG_IRQ,
+-			   data & ~(ABX8XX_IRQ_EX1E |
+-				    ABX8XX_IRQ_EX2E |
+-				    ABX8XX_IRQ_TIE |
+-				    ABX8XX_IRQ_BLIE));
+-	if (err < 0) {
+-		dev_err(&client->dev, "Unable to write irq register\n");
+-		return -EIO;
+-	}
+-
+-	err = regmap_read(regmap, ABX8XX_REG_OSC, &data);
++	err = regmap_update_bits(regmap, ABX8XX_REG_IRQ,
++				 ABX8XX_IRQ_EX1E | ABX8XX_IRQ_EX2E |
++				 ABX8XX_IRQ_TIE | ABX8XX_IRQ_BLIE, 0);
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to read Oscillator Control register\n");
++		dev_err(&client->dev, "Unable to update irq register\n");
  		return -EIO;
  	}
  
--	if (client->irq > 0) {
--		dev_info(&client->dev, "IRQ %d supplied\n", client->irq);
--		err = devm_request_threaded_irq(&client->dev, client->irq, NULL,
-+	if (priv->irq > 0) {
-+		dev_info(&client->dev, "IRQ %d supplied\n", priv->irq);
-+		err = devm_request_threaded_irq(&client->dev, priv->irq, NULL,
- 						abx80x_handle_irq,
- 						IRQF_SHARED | IRQF_ONESHOT,
- 						"abx8xx",
- 						client);
- 		if (err) {
- 			dev_err(&client->dev, "unable to request IRQ, alarms disabled\n");
--			client->irq = 0;
-+			priv->irq = 0;
- 		}
+-	err = regmap_write(regmap, ABX8XX_REG_OSC,
+-			   data & ~(ABX8XX_OSC_ACIE |
+-				    ABX8XX_OSC_OFIE));
++	err = regmap_update_bits(regmap, ABX8XX_REG_OSC,
++				 ABX8XX_OSC_ACIE | ABX8XX_OSC_OFIE, 0);
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to write Oscillator Control register\n");
++		dev_err(&client->dev, "Unable to update Oscillator Control register\n");
+ 		return -EIO;
  	}
--	if (client->irq <= 0)
-+	if (priv->irq <= 0)
- 		clear_bit(RTC_FEATURE_ALARM, priv->rtc->features);
  
- 	err = rtc_add_group(priv->rtc, &rtc_calib_attr_group);
 -- 
 2.55.0
 
