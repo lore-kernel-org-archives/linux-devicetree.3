@@ -1,64 +1,64 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3934B40DB51
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD2840F744
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786375608; cv=none; b=ROVuIprCcwSS1dWNQELVL6sVyHzQomxClboYTLfAFfegq2A0Pbgd94R/tSaSDlQhnp2aq3EQi15p/5yNtC/HCUgxh1orq3EGnXCKp90MB4WdG+Xls4sTddcNZnuZR+n20c3nKMLr6E3DtAJmP8YSYHLPQFgN0+iIjMbkCjgxEbY=
+	t=1786375610; cv=none; b=Y2eNiRqmzvCBGCRZxDT0kLKrHM/I+4LpymODGumKzn8eVRB44uP03uRQl71L063y60+pJVZqmipHcq8vT0J0H6N/9L0UrK4/apML4ymg8LYpJorUeAp3FBenPqGkeGpcg/ssS3XkS6+X6YjDjOwVnZaEyPa/XCcYLCRyW4d5z7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786375608; c=relaxed/simple;
-	bh=qojpEXZM1zqUcd4Hb1bZu7Wvi6ygJ+VZs++N+cOMmOY=;
+	s=arc-20240116; t=1786375610; c=relaxed/simple;
+	bh=AHmaNY7nawOxPlTyMrh+owRJ7CVGAzGmrCiWsozDwmg=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E/tP8jYLR3rmkz+8k+rK0nD+oUz6uk88iB4ye449539uJUt2HIh8P8fOS9oBgXF44xDew9+q9L6gciaDa0Z5wIsid4GpS0wvkkiqJsETNwfRA4MnQA7kp1iZPid2KtSwShejzWxjAmixTYUAhv/cCXEmYEyi5h67Pu28wqVuel8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QCUH2meg; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=Dd0E8Bym3YL7rJHDt/sut3d86pskK5mPf7LPt4FA433OSUiAG54FoGfWGmbecC6RILwwuARBP7Z6lIz0kVGGLYeyxZVrw/vuUUuMYFnADeg0xBxrNlpnj0f1xgIZZHVeff54rA3G4frE/7sAbhiJmy1YqYrCTs/ELg76ZPEGyAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lOK4MEZl; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QCUH2meg"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f96c5b722so1127164f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:26:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lOK4MEZl"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f904e80eeso1631036f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:26:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786375605; x=1786980405; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786375607; x=1786980407; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=8CIp/0d4M5gEc+Mi2m/WthSFXtXGevzphjUBHHQhGts=;
-        b=QCUH2meg+Bw/U/bZQFOOBvv0YifsKLY2F4ZvbUsUBCV4QNzCUGbc0dJL/Yx8rXOB2u
-         RLGqLqxFCVvlWw9++tWka6USfxAJvSYxac3A12W6BedVgia3qZDLWAXmCHQMWURmTxpK
-         asAAYFCj4fQH50OJ5+87jOwCL92h2J231hYSs2l8v+EW3kjK8iy/OHOqcB0oUICbM9b0
-         Tq9xGlsISPMRZjCrcbRC9IXmo2V7lfCOlQo+uS9y+iJRrp/Xj9/F3ea9tJj2vY61RDRh
-         7mAxjum818tKJuhl43PhiQGOMdqQUsjnS68gaPlDd/3X9YMkIKaPeg8FJnOAqTtUFxJj
-         pWqg==
+        bh=CmMtw0/76OA+jV/NNsKwfa9KgyRSKCj+2VWv5bnUCFY=;
+        b=lOK4MEZlp/u58X7ZJ8qx4yjbnnHwRrcOLfSkhkg37QHO3qjO8PkbARY3tx+p0Cdpp7
+         lN65qU5Bbw7ExKrB2qF7Qs1cW9BGZxXVXUZo3jtHWl/gE88FxsJjUitXgMySK4Kv7HZv
+         5Zm3shqWf1/f+aF58VZbl4JKF4/CoycJzFWcEfRuJpGqfMuHNpfywcqOSkodLuOvolBN
+         ZLZWlC1FCkLeOAF6NzVCtp1e25rpzpnti73JAVm3AWx6whtCIi+mZpx2pMjlM88MLVUP
+         UAffpADKzV5xnMhCoUCU0yBXsO7PruwUdcLfdlaeKt4zNNwRjTZq33m6YqYJwA+wVm94
+         DKLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786375605; x=1786980405;
+        d=1e100.net; s=20251104; t=1786375607; x=1786980407;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=8CIp/0d4M5gEc+Mi2m/WthSFXtXGevzphjUBHHQhGts=;
-        b=YHvPpllwkIpyXnz9IvuVdz27P8vtfkiHXw2+pRUx31fozd7AMWBP+DqtFZSaPcaE99
-         wfJ3KhK6x2mgbh37ujBe0b4WZvB1ApZP9ildgCC/VhwYZ9yQ1rGpYvX4CGIxWWPjjvBK
-         AsZZb5oNSh/MUESIZAyLnvl9vz4jTneh01+R/dGMzTwbj3yQz11xlY2+Dm1WPT3scQt7
-         9Pw0+M8kEqhfc9BmZMEy9AoEB6i+jmiERg6sh1I6Xeo21+1lQbe/sUZSgRxlEknlPH7S
-         F1wWXOrkRAO+2zVWw59xLu9ebk46htAzFRVrUoczew3SZtHP1kF/zMjbk6H6LwZDCQ1m
-         sqow==
-X-Forwarded-Encrypted: i=1; AHgh+RpmJEtLAV27qKUXDLj7lAYDRQhFlY+Hp5cqjmDO3pm+wyQuSkxijXsQu2vDcUgQVgiFjCjV7Kyrh8zk@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVy7GbvNdHSHVyAEIwb8eSIRZ/opnL059flIlbumGX9H+YQzzP
-	KCH2ZrYsoUC0Algc11KMdOFbYrR6oP76ijepvVJSnjMZnMuD4NUeFi+n
-X-Gm-Gg: AR+sD11yaydS4atUn82M7rnc49+reT8Cv98Wgd3C7Ddt38mq5b7PF0Y+9MR0w64ZNwr
-	5TyCKIcN8TVvCXKosbiOsQI+/osYu5mQB5fBWEWu1aelPn+BpONKwJ2PlJ/lIpJ2oG3ahfXKsX0
-	NQ5lQ3f1wm3JY7wUL8tJva8BP95A24q/kHjxO7pvrqWc9ca8De12CZH13ePYSSkrsHuoqmmmAf6
-	gzvZGBcqaYwneXY3DrlcohhQ7ig8v+C34h4z6B4COyAcAPdl7AhlIZ2MRm8bUR/XPxS8TkoY/kF
-	gUvfdcoeMAmC+lwzXnVbPE3iTIiIyxpSv/dqqF/gMJx+/KKm+Cv9OBSEaHuGOJqF0hSs3CsW2mm
-	fa7aRi8zA68/hu7ETsxQVYSXzXRWHU01djYansuD6nz4vTLEZN27SeZk8CI8Oyj9dtGl/XKqPck
-	WxbIspGEWHsASnRtutvvvM4Mhk/7vQutgesR36/Fuc797YVc0Joh9QjDvdlkuVv3ORjTIr1f9P2
-	sIaMzAV+xzFqDm88952wQH7e/MC+SF41xXEbEnCAUX81z+8
-X-Received: by 2002:a05:6000:29c3:b0:47f:fe45:e597 with SMTP id ffacd0b85a97d-481455c8dc6mr3299302f8f.3.1786375605322;
-        Mon, 10 Aug 2026 08:26:45 -0700 (PDT)
+        bh=CmMtw0/76OA+jV/NNsKwfa9KgyRSKCj+2VWv5bnUCFY=;
+        b=dlmbXJSL3dmTiOTMpDpuPWX+a2xtiyzoA4SskfN7SrDWf1KE6us3eAOPiQv7tSTZZB
+         oU+mSSX9YQ35PkRRczF//j19iL2pK/4TrbIye7+eHROMLFWeAKVnumtVNU/AZp+5ZEoo
+         0HbnBwR8RHJ+B7LpFeDRvNof4XxyhtcmdX8E9ZNO9kqbznxFnw95FoGcna/mIqq4CD1d
+         21JVmFDxXlGCmpyFlajXtkuTjn3DTq79ercLeu7TNqNtC2HWJeLJhN590ouFSAdbPalZ
+         UrqOnY8mMD7hotxL26ppdbGY6Sud1odSL8DJnUyJ3o/f0On7dlQuH/Hto/IH4O4O2YG5
+         DRwQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrkq3sD79/0KBBC3uSFxepcJBY7a9cELH6JL5rKmYYEQReTcDSOUq3ELNIXIWpcubVWKD4YPjwsBom4@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPHrBjpw+ikJCz/DGpzBvNigNNS9chkB05V3JntIMPIQIsmJLr
+	DRKDCJQrRDPvGpVJU/Dt5KzimAkMLm3anVVg8/DVM4J3Z5y0+lJGKqRX
+X-Gm-Gg: AR+sD13yxo1uaBrdqhNNrgaxuUQFYb5fwd98u/0aRT3UNr91C5uQtERtUmedoqSH3j0
+	sXWxKJf5LeYOzEceCtou3ajdzdK9iVyiE+IA32hR2ZmswZK2SMGKqyRgznVYnMCwYDjU5LXNJH/
+	SYOU/RUlo1G1qrxZp+xsUTg90FBHuaWnPXABDxRZUXF7do7DD6OKPpXS9qR4/hn17l3S+Nfo5Zv
+	H+J52sHEl4+TWa40iDoT/lxQM0rlrCC7Cq8aGOE4Zr45pT9vdwuoXWF19OaEXLx1mxATSVFZoJj
+	3WLL7fTRJMl6gE801ahlUzu6FHuN3NyVRgGqGKqMx1imyhu77v3pgNBffezUrzhh1wDh4EOdtp/
+	IX5sS3hpV+Pm4JU0SuXN1f2jy6A57QMPxjhJaDsb0IASy6hfdD0Llot/NtQExc4MgLcuhZPsNqd
+	TS6os3Zy6Gvty9cG2nP53sSv+ai9ri5mRj0EwhE88sQiuyF5amshiXNVZN9TY/Q/wM5Wq0W/yDt
+	YNG0lDxQl6dAlIEqqIGE8zD1YHGBi4HzbHvXS84Lp4L636q
+X-Received: by 2002:a05:6000:290a:b0:47f:9283:1fbe with SMTP id ffacd0b85a97d-47fec475828mr65854797f8f.0.1786375607021;
+        Mon, 10 Aug 2026 08:26:47 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-87-20-3-207.retail.telecomitalia.it. [87.20.3.207])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-480021e8cd0sm34952469f8f.17.2026.08.10.08.26.43
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-480021e8cd0sm34952469f8f.17.2026.08.10.08.26.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 08:26:44 -0700 (PDT)
+        Mon, 10 Aug 2026 08:26:46 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jiri Slaby <jirislaby@kernel.org>,
@@ -82,9 +82,9 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-serial@vger.kernel.org
-Subject: [PATCH v5 1/3] dt-bindings: serial: 8250: Reorganize compatible to single enum
-Date: Mon, 10 Aug 2026 17:26:33 +0200
-Message-ID: <20260810152636.658955-2-ansuelsmth@gmail.com>
+Subject: [PATCH v5 2/3] dt-bindings: serial: 8250: Add Airoha compatibles
+Date: Mon, 10 Aug 2026 17:26:34 +0200
+Message-ID: <20260810152636.658955-3-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260810152636.658955-1-ansuelsmth@gmail.com>
 References: <20260810152636.658955-1-ansuelsmth@gmail.com>
@@ -96,51 +96,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of declaring each single compatible string with a const, move them
-to a single enum and reorder them.
+From: Benjamin Larsson <benjamin.larsson@genexis.eu>
 
-First put the generic ns one and then follow alphabetical order.
+The Airoha SoC family have a mostly 16550-compatible UART
+and High-Speed UART hardware with the exception of custom
+baud rate settings register.
 
+Signed-off-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- .../devicetree/bindings/serial/8250.yaml      | 27 ++++++++++---------
- 1 file changed, 14 insertions(+), 13 deletions(-)
+ Documentation/devicetree/bindings/serial/8250.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index bb7b9c87a807..039bd392f876 100644
+index 039bd392f876..9a3f596f8a0e 100644
 --- a/Documentation/devicetree/bindings/serial/8250.yaml
 +++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -99,19 +99,20 @@ allOf:
- properties:
-   compatible:
-     oneOf:
--      - const: ns8250
--      - const: ns16450
--      - const: ns16550
--      - const: ns16550a
--      - const: ns16850
--      - const: aspeed,ast2400-vuart
--      - const: aspeed,ast2500-vuart
--      - const: intel,xscale-uart
--      - const: mrvl,pxa-uart
--      - const: nuvoton,wpcm450-uart
--      - const: nuvoton,npcm750-uart
--      - const: nvidia,tegra20-uart
--      - const: nxp,lpc3220-uart
-+      - enum:
-+          - ns8250
-+          - ns16450
-+          - ns16550
-+          - ns16550a
-+          - ns16850
-+          - aspeed,ast2400-vuart
-+          - aspeed,ast2500-vuart
-+          - intel,xscale-uart
-+          - mrvl,pxa-uart
-+          - nuvoton,npcm750-uart
-+          - nuvoton,wpcm450-uart
-+          - nvidia,tegra20-uart
-+          - nxp,lpc3220-uart
+@@ -105,6 +105,8 @@ properties:
+           - ns16550
+           - ns16550a
+           - ns16850
++          - airoha,an7581-hsuart
++          - airoha,en7523-uart
+           - aspeed,ast2400-vuart
+           - aspeed,ast2500-vuart
+           - intel,xscale-uart
+@@ -113,6 +115,9 @@ properties:
+           - nuvoton,wpcm450-uart
+           - nvidia,tegra20-uart
+           - nxp,lpc3220-uart
++      - items:
++          - const: airoha,an7581-uart
++          - const: airoha,en7523-uart
        - items:
            - enum:
                - exar,xr16l2552
