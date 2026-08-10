@@ -1,65 +1,48 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A49437448;
-	Mon, 10 Aug 2026 18:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E62943802B;
+	Mon, 10 Aug 2026 18:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786386891; cv=none; b=rNhPYjReHa66xiTi8+xLgf3V5tN4AXXuSBYs28Wj/6tsyXW/TU4ILIRJhWTKBrbMhjl81UJcBIhFG9OqrrLizDNrsnQjfrtUkLcTVG0mBgXkiwq4BykRRBB21ggBRt12iIJOLRgKIlRlyUPOH2KkqICMvjp5RA20veu2gBvOQ9Y=
+	t=1786386935; cv=none; b=pY36XyZE4SoFN8C85porNq+KjS29CBZ6wLcxuDZ5uWSO5s4TzAd5l9bAadGYngHHvQ3p6e5/m+4NhFfXOhZGpDZOO2vxse9FMrgit8DYJfx1efO8sDLUdhv+XOt6MpHsXV76qR+/lbttMydpi+8tPxJ9pjzUAOtLXvPE3zefQz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786386891; c=relaxed/simple;
-	bh=w7E9hKgMW1GqumxvPPfpkzjLh2yL0WE6NH8MkvAqG5U=;
+	s=arc-20240116; t=1786386935; c=relaxed/simple;
+	bh=nvuI13/LGBv0RGYETa+J5+rfACdZHAHlV+Vu4HnaQTw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qMKC1GDQOw4AHzl21wKHOxNBH3bOfkVXv74cevgWKnIcbMmNYkZyYraXxrzFzLOvrHYy2RGhxz0O+JuOYBY+w5/jtwnX4HnomhE4yAQSdmxTjL4WqNYUvqsEa868xsDF2Bj+mKEKULLv8OkhlhZUjEg9yegZ6fgOn8dhePsazjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DarhLggS; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rHJG3YOd6k3crOxMsznl785u0VAgaj5BsnwodO37iICpyhjBPsqCzFS3qevga1eXLUeei8yPd4ai8Jr4gLbLlx5wfO5ajkMm1MyBNrMWbiC/oR9PJUbCvj/eaH54SawKU6DL5uay9b3kXbfXle1ccR2r+NieRv7wHehI6KASNzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYmWygaB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DarhLggS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786386889; x=1817922889;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=w7E9hKgMW1GqumxvPPfpkzjLh2yL0WE6NH8MkvAqG5U=;
-  b=DarhLggS/vOzLIKzvHdTDCU/Lv2q7XJ02hmmtkkHV9KH3ilkJkHf5hwZ
-   gfU7M4+rVKRMUx0+/Tj4z7Y5OgPwd7phKNhQE6UZF4Mt8JKxPiMxi14Q9
-   Z4nPTA8Cq5PWMqxZaKxDW9QaJZOfiOuiljSBTaxhpQyVAKLLJooEqqsJh
-   VK+3yQVGAIq9TeLy5zWqLYONXixk7mxf2mE8GLenedRxwuFFvraBscMq6
-   /cpbNoG5wBhHxdEmnHBF8jLjfxx1HOBcJ7NQHL6TN8a8vL04Z6z9B4FT7
-   n0CenyZRf/ZVAZPO/KLxXv8s7YIEwCvL9SfOVEf/CKHOIjQUC65GlMHIe
-   g==;
-X-CSE-ConnectionGUID: 2M2m2xilTzeC3W/uIyjaeg==
-X-CSE-MsgGUID: 6QbpG5UpRreSp/2sJYVuGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="97564762"
-X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
-   d="scan'208";a="97564762"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 11:34:48 -0700
-X-CSE-ConnectionGUID: ZREt/oXqRduguFrIQ3mNZg==
-X-CSE-MsgGUID: 0pJK7HhYQL2j8XyViBIZoQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
-   d="scan'208";a="293041329"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.99])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 11:34:45 -0700
-Date: Mon, 10 Aug 2026 21:34:42 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>
-Subject: Re: [PATCH 2/3] iio: light: stk3310: add per-chip match data
-Message-ID: <anoZwgq6ZO_VY064@ashevche-desk.local>
-References: <20260810110423.41697-1-jorijnvdgraaf@catcrafts.net>
- <20260810110423.41697-3-jorijnvdgraaf@catcrafts.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYmWygaB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757FF1F000E9;
+	Mon, 10 Aug 2026 18:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786386933;
+	bh=tnho4rrrB5eB1gkI1817NuCvPB/07wS2vcTVe6IMdjg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aYmWygaBYAucXKZxr787sYh3qGARvpJY86Je5DMJbNxZnDYa7l4yTzD28oj2EN7My
+	 o16ZB4rA22AlKYA1iX9FaZmrfdsNTTCRTV/WPlPJ+6NU/tSdl9trogupy27ac8akVw
+	 W1jOqDlWA8sH77vJPHLrtw6E86dVQl2szMWzkz/N+Pn21+3nd0BYPRu0vrADgp1aZR
+	 mXeB39csRtttxUctgTLpcq4/b+87TcJ/JiL/l+vE1aoILzVQeZ/fJMzc9+zpd+N2bC
+	 1U/Rz+ddRw9ycDmW3gcRoKL/nZYv4fIDIb3qawaUhEkTHEwMD8kW9Lya/1AXaY6amD
+	 XXQqwkfHzAXJw==
+Date: Mon, 10 Aug 2026 13:35:32 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Manikandan Muralidharan <manikandan.m@microchip.com>
+Cc: conor+dt@kernel.org, mwalle@kernel.org, richardcochran@gmail.com,
+	richard@nod.at, linux-mtd@lists.infradead.org, pratyush@kernel.org,
+	nicolas.ferre@microchip.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	takahiro.kuwano@infineon.com, miquel.raynal@bootlin.com,
+	alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
+	linusw@kernel.org, vigneshr@ti.com, srini@kernel.org,
+	linux-arm-kernel@lists.infradead.org, michael@walle.cc,
+	krzk+dt@kernel.org, linux@armlinux.org.uk, arnd@arndb.de
+Subject: Re: [PATCH v6 2/7] dt-bindings: nvmem: layouts: add Microchip/SST
+ SFDP EUI layout
+Message-ID: <178638693216.2623305.17648873474456731679.robh@kernel.org>
+References: <20260729043026.1811147-1-manikandan.m@microchip.com>
+ <20260729043026.1811147-3-manikandan.m@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,61 +51,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260810110423.41697-3-jorijnvdgraaf@catcrafts.net>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260729043026.1811147-3-manikandan.m@microchip.com>
 
-On Mon, Aug 10, 2026 at 01:04:22PM +0200, Jorijn van der Graaf wrote:
-> Introduce a chip_info structure carrying the device name and channel
-> specification, attach it to every i2c, OF and ACPI table entry, and let
-> probe take it from the match data. Clients instantiated through the
-> sysfs new_device interface under the lowercase compatible-derived name
-> have no firmware node and do not match the uppercase id table entries,
-> so absent match data falls back to the original chip data. The channel
-> data registers move into .address and the shared channel definitions
-> into macros.
+
+On Wed, 29 Jul 2026 10:00:21 +0530, Manikandan Muralidharan wrote:
+> Add a binding for the NVMEM layout that exposes the factory-programmed
+> EUI-48 identifier from the Microchip/SST vendor-specific SFDP parameter
+> table (e.g. SST26VF064BEUI) as a "mac-address" NVMEM cell, and reference
+> it from nvmem-layout.yaml.
 > 
-> This is a preparatory change for a variant that provides more channels
-> than the existing parts. No functional change.
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
+> ---
+>  .../layouts/microchip,sst26vf-sfdp-eui.yaml   | 60 +++++++++++++++++++
+>  .../bindings/nvmem/layouts/nvmem-layout.yaml  |  1 +
+>  2 files changed, 61 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
+> 
 
-...
-
-> +		ret = regmap_bulk_read(data->regmap, chan->address, &buf,
-> +				       sizeof(buf));
-
-I would add
-
-	struct regmap *map = data->regmap;
-
-and make this on a single line.
-
->  		if (ret < 0) {
->  			dev_err(&client->dev, "register read failed\n");
-
-...
-
-> +	chip_info = i2c_get_match_data(client);
-> +	if (!chip_info) {
-> +		/*
-> +		 * Clients instantiated through the sysfs new_device
-> +		 * interface under the lowercase compatible-derived name
-> +		 * have no firmware node and do not match the uppercase
-> +		 * id table entries.
-> +		 */
-> +		chip_info = &stk3310_chip_info;
-
-This is an interesting comment and approach.
-
-> +	}
-
-- Where does this lowercase come from? Is it Linux forced conversion?
-- What's wrong with simply failing the probe?
-
-As far as I understand the problem is preexisted. Or was there any default
-taken? How do we know that the chosen default is a good one?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
