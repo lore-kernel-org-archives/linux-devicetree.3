@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490793D0BE9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480203D0934;
 	Mon, 10 Aug 2026 12:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786363810; cv=none; b=fVsZDyDlocoLHMApspYxQevdAkd3ZR92EcYWGw64KVhgUjaFGc8Z8zsrULMVbyMgp/vQeNiBDbG2IHY+kVqOKJYj9WbSqW15b6nq3FGxPjOBriL+bBPbAIdw2zjGj72YgAG4VEyuwzXIn85RtA4btq1XKUP7FlmOZc7cQwb64NY=
+	t=1786363810; cv=none; b=OeZhQyqp+bdiRb4eKn+qEvHdXv2UaeQeXQnl4WKCY8FRrHtwQlIaOTDJW/XQxxPVtbaW4FseYWhCnVFX1mYucXMYFOJaxuZhLXHRqTMbsv65TD09zDLoRIbvlbEy1EN32ApL93OFrSaI7oNYV3uNO284o6vcJlJVOIKhbLqTcAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786363810; c=relaxed/simple;
-	bh=4AhIU7paKP+4zIyqwRVCjFlL8baFK0VWf5Xqf9HLh0c=;
+	bh=nM1PWXa4lYq/cgb4yvF1TdmldcWZBOEN5InNv/mhbUE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=u7NN3ntUiuLNPLRrxbUuq2Z2l14oImSFl2hIvXIsb9yC6o/wNRna4Zdrp+5PPKlNenWDN96u5G2dZOpy1oZibp8IFGUHJZdJZjTXXR5wWCee4FpZnw8fJBrkjcuPiiLZV3ngZ6IB3MbpLtCCBtg7TSP/Onkbbgokkx76uiPhXGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gt/QYLDq; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=RGg6zQTv+S1Qs4qjTcqtoNhCSCjZYMyfGIUC9j8rnjcC6Fud2lZPoD6IxO6BGrJ7xcvmLPJmeHGeVqsokWe49QtQ2wCxT8H9jferFwu0Q2Rr82qEf60xhgGyOIuO5Dthl3bwvNDBULtaJW5GlColqiuJmq3C50zhnr0gN1FpWzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFxhvbxO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gt/QYLDq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1AE93C2BCFD;
-	Mon, 10 Aug 2026 12:10:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFxhvbxO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F0504C2BCF7;
+	Mon, 10 Aug 2026 12:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786363810;
-	bh=4AhIU7paKP+4zIyqwRVCjFlL8baFK0VWf5Xqf9HLh0c=;
+	bh=nM1PWXa4lYq/cgb4yvF1TdmldcWZBOEN5InNv/mhbUE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Gt/QYLDq331jEv1E/do6FmNzo9bzHI9rLNsXg76UjbDZfV6+HFgVd361x61Do51L9
-	 zr4F1uVmmCD4wyvnquq43zKfPM6F2gYQbSlYCTtv3ydITF75k83upV91fgenpaSP5P
-	 yMztYeybrRrKlrNTFDSZUF7dQ+SQHyx6cQWyFQtLOjWrlzEC1bIwL0S3B+3B0ItqVR
-	 Q1bKBQnLeB1O+cdmU9s3xYavlvfWfiaDpNOBnntimtAnWm0DHQV5eFjx5fDjLKpc9m
-	 Qw983q265c1GFyhVYN1kZ6HRCe7mvn/8NaZQ+6c/WNHmU6y6PuX5D+0SlOwWgwliO+
-	 c654AkI/wAxgw==
+	b=KFxhvbxOtD9s3AUuziuPtGwpan5u1vpcZ5K1ER1kHe7oyQlB2oI9Vyr7EHCMgjzIE
+	 NdAXKjv07LT5GC9Pkuu1COWYHOrinkeMPyuKMDVmBMb6IIES4yKGbD5t0NcOZv0cgl
+	 eQAlG8XTqI4uHwnicDb5HkWT58s9P4MSh+Zolf9IF/guqwvyiB38ti/rrWLzfzEjUw
+	 i1J90PYgtVEy0Go1v2bpBwcx9OpxC4VvT9CmFdzuh2+p3SJsakRwIzf0rjrEsqcWQR
+	 qNv1OcL3TPpSu1Jp5Bq9XtO5rSLBgiw3+VHIjNxcr71ZH1umgN8XytXVPa3Tsps4mg
+	 LO7Bj7b0cDmpA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1824C5B569;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CEEFDC5AD55;
 	Mon, 10 Aug 2026 12:10:09 +0000 (UTC)
 From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
-Date: Mon, 10 Aug 2026 20:10:11 +0800
-Subject: [PATCH v3 3/5] phy: rockchip-samsung-dcphy: factor MIPI D-PHY
- power on/off into helpers
+Date: Mon, 10 Aug 2026 20:10:09 +0800
+Subject: [PATCH v3 1/5] dt-bindings: phy: Add PHY_TYPE_DSI and PHY_TYPE_CSI
+ definitions
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-dcphy-rx-v1-v3-3-a2d25c29adfc@gmail.com>
+Message-Id: <20260810-dcphy-rx-v1-v3-1-a2d25c29adfc@gmail.com>
 References: <20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com>
 In-Reply-To: <20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -56,11 +56,11 @@ Cc: Michael Riesch <michael.riesch@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786363808; l=2833;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786363808; l=1446;
  i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=KTWIu7JKaaQ7XBkf3u7iorhkMyVw5yi2Dq6JGKsEO8E=;
- b=XG6qusYZ28b7SLCI4va8Ob/qRskpAUJSaaJPh1jpmqAmt+ZStqyTC5lbWy1I6AjsbQcV4Ikly
- RF6x7wVog+2BLmGkqjBfYGiymht9evfs5pP7QpT2oJr+37FZWQizWqH
+ bh=yX+Aw6/XUvA1SbeyNubPWl5XW6aN2m0eVjxRYZI5gIA=;
+ b=4aCumODizHp/0+Hq+N/EYjbiAEapkkPUyOcUW07Flm83L46zefGGyxpT8zUzlVt9PUjX6QgP5
+ QpmragoUJcRDxevQwKP9jpx98f0g5iV8WttupdaLa4snYnZ9yF1wA1c
 X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
  pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
 X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
@@ -70,92 +70,41 @@ Reply-To: jason98166@gmail.com
 
 From: Jason Yang <jason98166@gmail.com>
 
-To prepare for adding a receiver (CSI) PHY next to the existing
-transmitter (DSI) one, rename the transmitter power-on helper to
-samsung_mipi_dphy_tx_power_on() and gather its teardown into a new
-samsung_mipi_dphy_tx_power_off(), so transmitter and receiver can
-later be powered on and off through symmetric helpers.
+MIPI D-PHY and C-PHY blocks are increasingly direction-agnostic: the
+same PHY IP can drive a MIPI DSI display or receive from a MIPI CSI-2
+camera, and combo blocks like the Samsung IP on RK3588 expose both
+directions to independent consumers at the same time. A binding that
+needs to tell the two consumers apart has nothing generic to reach
+for: most constants in this header name a protocol (PHY_TYPE_USB3,
+PHY_TYPE_DP, ...), while the MIPI entries name only the electrical
+layer.
 
-With both arms of the type switch reduced to plain returns, turn it
-into an early guard for the not yet supported C-PHY and drop the
-unreachable trailing return.
+Add PHY_TYPE_DSI and PHY_TYPE_CSI to select a PHY by the MIPI
+protocol it speaks, which also implies the direction. They do not
+replace PHY_TYPE_DPHY/PHY_TYPE_CPHY, which remain the right choice
+where the cell selects the electrical layer. First user is the
+Rockchip RK3588 MIPI DC-PHY binding.
 
-No functional change intended.
-
+Suggested-by: Michael Riesch <michael.riesch@collabora.com>
 Signed-off-by: Jason Yang <jason98166@gmail.com>
 Assisted-by: Claude:claude-fable-5
 ---
- drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 33 +++++++++++------------
- 1 file changed, 15 insertions(+), 18 deletions(-)
+ include/dt-bindings/phy/phy.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-index cbd780556da8..99ca0e1cc574 100644
---- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-@@ -1332,7 +1332,7 @@ samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
- 	regmap_write(samsung->regmap, DPHY_MD3_TIME_CON4, 0x1f4);
- }
+diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
+index 979b5dfd8353..8ee3f88e6d80 100644
+--- a/include/dt-bindings/phy/phy.h
++++ b/include/dt-bindings/phy/phy.h
+@@ -24,6 +24,8 @@
+ #define PHY_TYPE_CPHY		11
+ #define PHY_TYPE_USXGMII	12
+ #define PHY_TYPE_XAUI		13
++#define PHY_TYPE_DSI		14
++#define PHY_TYPE_CSI		15
  
--static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
-+static int samsung_mipi_dphy_tx_power_on(struct samsung_mipi_dcphy *samsung)
- {
- 	int ret;
- 
-@@ -1358,6 +1358,14 @@ static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
- 	return 0;
- }
- 
-+static int samsung_mipi_dphy_tx_power_off(struct samsung_mipi_dcphy *samsung)
-+{
-+	samsung_mipi_dphy_lane_disable(samsung);
-+	samsung_mipi_dcphy_pll_disable(samsung);
-+
-+	return 0;
-+}
-+
- static int samsung_mipi_dcphy_power_on(struct phy *phy)
- {
- 	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
-@@ -1366,33 +1374,22 @@ static int samsung_mipi_dcphy_power_on(struct phy *phy)
- 	udelay(1);
- 	reset_control_deassert(samsung->apb_rst);
- 
--	switch (samsung->type) {
--	case PHY_TYPE_DPHY:
--		return samsung_mipi_dphy_power_on(samsung);
--	default:
--		/* CPHY part to be implemented later */
-+	/* CPHY part to be implemented later */
-+	if (samsung->type != PHY_TYPE_DPHY)
- 		return -EOPNOTSUPP;
--	}
- 
--	return 0;
-+	return samsung_mipi_dphy_tx_power_on(samsung);
- }
- 
- static int samsung_mipi_dcphy_power_off(struct phy *phy)
- {
- 	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
- 
--	switch (samsung->type) {
--	case PHY_TYPE_DPHY:
--		samsung_mipi_dphy_lane_disable(samsung);
--		break;
--	default:
--		/* CPHY part to be implemented later */
-+	/* CPHY part to be implemented later */
-+	if (samsung->type != PHY_TYPE_DPHY)
- 		return -EOPNOTSUPP;
--	}
- 
--	samsung_mipi_dcphy_pll_disable(samsung);
--
--	return 0;
-+	return samsung_mipi_dphy_tx_power_off(samsung);
- }
- 
- static int
+ #define PHY_POL_NORMAL		0
+ #define PHY_POL_INVERT		1
 
 -- 
 2.43.0
