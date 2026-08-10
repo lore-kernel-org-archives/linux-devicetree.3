@@ -1,148 +1,146 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ABEB738E129;
-	Mon, 10 Aug 2026 17:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8398D4248AE
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 17:18:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786382224; cv=none; b=ikjiuJ2doOreaks6yKPNScNZwGumdffAe4fJLP/A6ppdPpKzCTa4rrUlYUkHs8Vn4sIj8xQGhWF8N3IxyWlEIrxiGtrQy1UJ6I3v0zGZQ4vy2RyebZQqd69GCGIZar59E54Eg3NgRyvyOP4S8ewiKwMUxcePBh+CF0AYE5U2E2I=
+	t=1786382292; cv=none; b=Jp9G6xzPOHq9caBSG5TZybQxymdrnofW5CLwpWajf3l7kggiTBkqm/f7dBeDmFOWkSAJNq0eLXbw2nwCqzJ8RACk+PYwC6WdFxAnrlJ+20B7IduU9w0yHK2MBT32e24cA4My7/Tl9Mub/DyJ7D3j4yB9gjZ0ugRYBlwJFfJwavk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786382224; c=relaxed/simple;
-	bh=0bVvXIx8KWhgK4X84+7K0kxtx1IFrC/NFT7STqVMwiw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G+id3cK2PMn/VlZh+c+UMNykbE77cSA6CypgGPI5/79XbaIbtthm2pnKy3LUv8k3ZbvbYsjbeJLbo1T71FgAosSwa7kmDRqkNBhTNNPeW0Yx3N4eukk8ndcVL1GdBE6R2avfFqA0cgAW1toscWMzicqpKa+74KTrA4TRnBsrrBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=c+BrrfAC; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786382292; c=relaxed/simple;
+	bh=Ci1XaFzRBv/qpXZwP21pNljumVkUJ79fkDCBQF3hafY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YWt3JOxOs2jPeqZHmBFZ4Atgy9xTvdFZNBKgqQiQjsa1gIy0pzkeU3/qOCv8R2qSR24LnQ/uyZB++AdaRUvBDumZtYqAWEdNPs2Um97vxUjT7Mtmt34HkDtYbg38G9mgpmMYpPZM0qH8ACR48TzmELfWRaXCOskx+PpqNYsXXxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XKoi7lVl; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Tk5nG4P4; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="c+BrrfAC"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BDDD814BF;
-	Mon, 10 Aug 2026 10:16:56 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F4B23F632;
-	Mon, 10 Aug 2026 10:16:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786382220; bh=0bVvXIx8KWhgK4X84+7K0kxtx1IFrC/NFT7STqVMwiw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=c+BrrfAC17BNePDSGhiLYFazAIUh6R4smxAykXhY/36GHerYa79otAGaIdIK0J1px
-	 HuzgIbWscOUsd3c1sHy3XFZ3HBcRFeltPkH5Y3gDJFBZbYtECIBLutHbkK8z1/XH4J
-	 LtpKlGnWrUGXJ4+hfzeENIJoz5bCp4dIRVgVor2A=
-Message-ID: <77edba4a-b6b0-4b50-9328-7c177a0af283@arm.com>
-Date: Mon, 10 Aug 2026 18:16:56 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XKoi7lVl";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Tk5nG4P4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786382290;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=e60Y2Hd3VNcQx2rW0XYN6hHI/hSb69wpEJYZUkdU7+s=;
+	b=XKoi7lVl79VoUOkSHi6ykZuixBJ4ebXIC2mYA2rPo3hPr5fsPKe8mmqYQzCcQlr0D2EPkO
+	LSKtlxnst0qNm1P8RnN5WFu6Wcvm9PAZ2LQ5AswLBUfKbvJPNtyfjTOlGOrUND5IbI6vCG
+	nA1n8NBrtFD5TLachLd7zWvYpUqLsQ0=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-611-NaCS5bMpMMCEO2HMaZMlYA-1; Mon, 10 Aug 2026 13:18:04 -0400
+X-MC-Unique: NaCS5bMpMMCEO2HMaZMlYA-1
+X-Mimecast-MFC-AGG-ID: NaCS5bMpMMCEO2HMaZMlYA_1786382284
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-81bee860fb7so60668607b3.3
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:18:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1786382284; x=1786987084; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=e60Y2Hd3VNcQx2rW0XYN6hHI/hSb69wpEJYZUkdU7+s=;
+        b=Tk5nG4P4jUSvmLWVX4rJqIwOUN1/aEp+++F3gNCKjkD+sCb7SJmiHu9bmz2bd9ktHD
+         JxW79x77QlRsd4OX7db3HT3vuqyT4cxRG8D8Nk4p8+72h/BwOyb6VuIqZTDVrzWYswjw
+         6xRTS5LQZGYSRiSYTALyh3h7j6sfTBC6sTFSqVrpEvPnFK7/WncX3G1b5lyxRNxM5Ft+
+         FqaOH4uCch+hqUF0JKZKnt8bbntDh5w9WWXXTD45kF0Nw7JhrExoJ19C2tpzJGb7x6jN
+         3V2VL1ZpIDFRyd2cz9+GL7EOOjVOqbTO2W1iTYhyYvYAF3D8BebURw+WZopXFWrtJLcy
+         n9bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786382284; x=1786987084;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e60Y2Hd3VNcQx2rW0XYN6hHI/hSb69wpEJYZUkdU7+s=;
+        b=jc/eqWDmRsnj76ktvjFPY1ybc74XI9fhBejuxWePW7GDLAA6fTWRpAvxeXHA4m6kv7
+         cswTk6rWnJ9YasWjfJnjYnwHq1No9hmorDES2IKWsRjkKvALjucWfzPj5rfHr07ZNiqe
+         jGIa7mwcDIJ2sR1FbVRS+miF9ha/OTZtIShNqsMUNnVzP1HW5mR1Yi0P5IjoyQW6ewwk
+         soMl4BXWsOHocgemgjhdAG6ABYBoOcz5qkje7WszQyTIme3+fkJLFbT4hwFlEeaLgaIj
+         9ZgoebaGSJbEy/6SACV+v84PIuc28sATYmQWbPPHc1NXGvtij6x8+KnGffjEorNI5pdY
+         /7EA==
+X-Forwarded-Encrypted: i=1; AHgh+RpmWr/zXUvSaIz2SfT3eSz2POrnSalMI+uw01gbJL0vc3MzH4WwlxEQqWlaz0FhhdOGgLHakVxgQOzw@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx++bw1czAnuFLuThLDVbc7znl+F5ROAeXo9CYuGqZJw1QtQvwL
+	lJGxsPq6BP8xGpGtMtVLQRfogTJQpXwLs28LuVou+o7BEzARCoxuXI9xi1xB0lZSoLbEWtjx6Lh
+	i4cUvcwkdk0Xj05cFS0KvUyL8jypXkWc+fAmJvXJ+2HNmTJF1kjYbg1gKDYxHet8=
+X-Gm-Gg: AR+sD10WqLBc97pQyCWELp3gpUrIFxa7QC5gffDxjAXuMSkmvX98WRVNiGWBuiso1WX
+	y739ibPknfsz6ig/DXrUF+m/AkFgs1cHVbwIzmtWq9wkk0/DEBm9JdeYPVeuXu0jV+OHXLtc5Bb
+	7hK2q73JE+48kJ91jvB5yw0pgo9cxePRmvT08TrPTFZ3wuuipgBETGnA9eoPkX2IvsY/sXySJP2
+	CdgC7Tn4t3B1ptiayvtiSANTBhZ/3XWsqlHDkD7JnXP6AH+YI4ZIYKmnmnSiiHaW02NOa6QZoKX
+	gskQmpMsXwR8MtZuV6lCg+c9UDzg78jTPajfcqYTCc2wYAknuPvJ+wyfcMm5TqA0fUtCQxQBo8J
+	Aerk8OMEw+/XsEz78yBSuuz3ly+CFUEJkebM=
+X-Received: by 2002:a05:690c:9a84:b0:81e:bd02:b02c with SMTP id 00721157ae682-825728d1963mr135364597b3.1.1786382283703;
+        Mon, 10 Aug 2026 10:18:03 -0700 (PDT)
+X-Received: by 2002:a05:690c:9a84:b0:81e:bd02:b02c with SMTP id 00721157ae682-825728d1963mr135364137b3.1.1786382283255;
+        Mon, 10 Aug 2026 10:18:03 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-823f75c1c17sm60279477b3.47.2026.08.10.10.18.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 10:18:02 -0700 (PDT)
+Date: Mon, 10 Aug 2026 13:17:59 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Luo Jie <jie.luo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
+	quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
+Subject: Re: [PATCH v2 03/12] clk: divider: Introduce
+ CLK_DIVIDER_EVEN_INTEGERS_NO_OFFSET flag
+Message-ID: <anoHx6sbVKn0GVlk@redhat.com>
+References: <20260806-qcom_ipq5210_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com>
+ <20260806-qcom_ipq5210_cmnpll-v2-3-cce718b8ec17@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add arm-smmu-v3 support for instcfg data override
- feature
-To: Will Deacon <will@kernel.org>, Peter Griffin <peter.griffin@linaro.org>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Pranjal Shrivastava <praan@google.com>,
- Daniel Mentz <danielmentz@google.com>, Mostafa Saleh <smostafa@google.com>,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-team@android.com, tudor.ambarus@linaro.org, andre.draszik@linaro.org,
- willmcvicker@google.com, jyescas@google.com
-References: <20260724-arm-smmu-v3-instcfg-override-v1-0-e7acf4a8a525@linaro.org>
- <amYIuhYenP4-qHyV@willie-the-truck>
- <0b7c0272-5506-4aee-82b3-76a78f2b39dc@arm.com>
- <CADrjBPqZFDvyLFpDy1YP9qrMNUCtZYtJhiaDd0iTnmB4ZYO8GQ@mail.gmail.com>
- <anmvW1LkypAGW6Sc@willie-the-truck>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <anmvW1LkypAGW6Sc@willie-the-truck>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-3-cce718b8ec17@oss.qualcomm.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On 10/08/2026 12:00 pm, Will Deacon wrote:
-> On Fri, Aug 07, 2026 at 04:25:11PM +0100, Peter Griffin wrote:
->> On Mon, 27 Jul 2026 at 11:53, Robin Murphy <robin.murphy@arm.com> wrote:
->>>
->>> On 26/07/2026 2:16 pm, Will Deacon wrote:
->>>> On Fri, Jul 24, 2026 at 01:39:41PM +0100, Peter Griffin wrote:
->>>>> These two patches add support for a new "arm,instdata-override" DT property
->>>>> that enables the override of the instruction/data attribute of incoming
->>>>> traffic to Data by setting the INSTCFG override bits.
->>>>>
->>>>> It is intended to be specified when the smmu can't guarantee that these
->>>>> attributes are provided correctly from the client device.
->>>>
->>>> This is going to need an in-tree user and a much more detailed
->>>> description of what is being worked around before we consider this for
->>>> inclusion.
->>
->> Regarding an in-tree user, I haven't sent the Device Tree (DT) patch
->> yet for Laguna SoC which adds the smmu nodes and this property because
->> 1) I want to land the initial SoC/board DT first
->> 2) I want agreement on the DT property name. Currently I used
->> "arm,instdata-override" which is what downstream used. However, since
->> this is intended to work around silicon errata something like
->> "google,lga-instcfg-data-override" might be more appropriate?
->>
->> For Laguna SoC the first in-tree user of this is the amb_smmu smmu
->> instance which is used by the Synopsis dwc3 IP. The Laguna dwc3 glue
->> driver is already upstream at drivers/usb/dwc3/dwc3-google.c
->>
->>>>
->>>> In particular, if a particular client is emitting data reads as
->>>> instructions, then a better work around would be to avoid mapping its
->>>> domains using IOMMU_NOEXEC. But I can't tell what's going on from the
->>>> limited description provided here.
->>>
->>> Unless it's also emitting the privileged bit and thus falling foul of
->>> the implicit Unpriv-W -> Priv-XN rule, but then we also have the means
->>> to deal with devices which actually do that themselves (hello pl330...),
->>> so that would seemingly only leave the case of some innocent piece of
->>> AMBA-interfaced IP which doesn't expect to need special attributes, but
->>> the system integrator has gone out of their way to tie the AxPROT bits
->>> to some wacky value, which I would put in "erratum workaround" territory.
->>>
->>
->> You're correct Robin. It is an erratum workaround for the Laguna SoC
->> due to some custom usage of the AxPROT bits which differs from the
->> standard ARM SMMU handling for Privileged/Unprivileged and
->> Instruction/Data transaction attributes. The effect is all
->> transactions appear to the SMMU as "Privileged Instruction" accesses.
-> 
-> Ah, so this sounds like what Robin was worried about.
-> 
->> The software workaround in this series enables the SMMU's INSTCFG
->> override feature to ignore the incoming value and treat all SMMU
->> transactions as "Data".
->>
->> One small clarification: in the cover letter I incorrectly said this
->> was set only for some SMMU IP instances, but that is incorrect. It is
->> actually set on *all* arm-smmu-v3 IP instances in the Laguna SoC.
->>
->> Does the above provide the additional detail you need Will?
-> 
-> So it sounds like using the instcfg override on this hardware still breaks
-> IOMMU_PRIV and IOMMU_NOEXEC:
-> 
->    1. If you don't pass IOMMU_PRIV, you still get privileged transactions
+Hi Luo,
 
-However this is inherently true of VMSA stage 1 anyway - I admit I had 
-to double-check, but we don't have any user-only permissions (other than 
-perhaps execute as implied by explicit or implicit PXN). IOMMU_PRIV can 
-only _remove_ unprivileged access.
-
->    2. If you don't pass IOMMU_NOEXEC, you do not get execute permission
+On Thu, Aug 06, 2026 at 11:53:07PM -0700, Luo Jie wrote:
+> Some hardware dividers derive an even divisor directly from the raw
+> register value, i.e. divisor = 2 * val, with no +1 offset. This differs
+> from CLK_DIVIDER_EVEN_INTEGERS, which is one-based (divisor = 2 *
+> (val + 1)).
 > 
-> Is that correct?
+> Add CLK_DIVIDER_EVEN_INTEGERS_NO_OFFSET for this variant, updating
+> _get_maxdiv()/_get_div()/_get_val() accordingly. _is_valid_div() is
+> extended to also reject odd divisors, since _get_val()'s `div >> 1`
+> would otherwise silently decode them to the wrong even value (e.g. 3
+> -> 1 -> 2).
 > 
-> Perhaps it would be better to override PRIVCFG to force unprivileged,
-> then reject IOMMU_PRIV and ignore IOMMU_NOEXEC?
+> To avoid regressing rate requests that previously computed an odd
+> divisor (which used to succeed with a silently wrong rate), round to
+> the nearest even divisor in _div_round_up(), _div_round_closest(), and
+> _next_div(), mirroring how CLK_DIVIDER_POWER_OF_TWO already rounds to
+> the nearest power of two.
+> 
+> Also guard divider_ro_determine_rate() against a zero divisor, which
+> can occur from an unprogrammed/reset register, the same way
+> divider_recalc_rate() already does: WARN unless CLK_DIVIDER_ALLOW_ZERO
+> is set, and return -EINVAL.
+> 
+> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
 
- From what Daniel said, it sounds like the privileged attribute is still 
-the doing of the device itself rather than the integration issue in this 
-case, so while nobbling PRIVCFG might also achieve the end result of 
-making IOMMU_READ | IOMMU_WRITE pages mostly not fault on reads, it 
-seems less appropriate as a workaround. Particularly since IOMMU_PRIV is 
-exposed via a general DMA API attribute, while IOMMU_NOEXEC is only 
-accessible to dedicated IOMMU API/io-pgtable users.
+One of the other patches in your series says:
 
-Thanks,
-Robin.
+    The NSS (network subsystem) clock is derived from the CMN PLL output
+    divided by 2 and then further divided by a configurable 6-bit divider.
+
+Can you register a fixed-factor-clock parent with /2, then use
+CLK_DIVIDER_ONE_BASED? That should yield the same results and it may
+more accurately represent the hardware as well.
+
+Brian
+
