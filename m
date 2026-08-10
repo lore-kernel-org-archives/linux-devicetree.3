@@ -1,126 +1,97 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFBC39FCDC
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786346840; cv=pass; b=iYaS55F69BTYpuyl37Xewh0QuqExgKWn9OqcENoO2GffO/4HBGN4Q3JIjv3Hit1RSFbzSxjN0N4ErKPPuTK/7jeWFhMpnkXFyrgW4m9AiOpLxFEGWQAuPHaW/zylV44S8CR6IjK/QEV56tPhNfbITQrVqxDrZoX6Y0t4XLsAz2U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786346840; c=relaxed/simple;
-	bh=+DtkcWXpgSVoe05+cxu51zHZ9Mzah1+nKac2Hu8aixI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Kg0jBZXnERaqXJNGZDZxrfCFVuAMJkyQz9I/Vlj4VRUU0zCgUygD4MifvHJ/pcaBoWuDvT4BqWPwPx/IuINpUzGMvfQLZUhfRQmsbUaRDqSmv1aal7pVYSl7NeCjnoWvUCDA69t3mT/q2+6TY3UamZgNMUMQK5+5rV+brFkJx4Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fjfczn5/; arc=pass smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D94353A60;
+	Mon, 10 Aug 2026 07:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786347165; cv=none; b=mMcwC0NOUmQqJEOdY+2OksRjxmP5m5RS0yqBl6Y9hDCESGwutS1aMVBHutLkYVvh+oICVdkeGxL1/+GFHdKvOSgYoEH5Cq5JpPPW8mOn/+6hwPju5M0EZCGA46pgzAdRR0AxqH6s1+GAuGN7m5GKCIo53l4muzDahX3Paxp3oNY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786347165; c=relaxed/simple;
+	bh=3TGFlPgAJB1XJ2S22zKpSve6oasatRD0oXn0iV6g3Io=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IkyLavtcCIAyP3YPBsZW9M2XyF7eUF3GmYcZgjJf2fVmSU1tYXu34gHbrGCY24e5xVKKO33/J4nkFUHbVGEggs+Fs4qW1AH0HxEi0BdBFbvFoafRT+ms2A1udXzc1PCur1leJ80rblzNuT9/PC1fGQhhHrEO24JwjFyVqUjWhis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KFbrS3hG; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fjfczn5/"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-527e352a167so9048431cf.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 00:27:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786346838; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hIhS3UxiKxnbakHg+tazzPasLbaxilyNCN3y3XWUZwKFWxfgknjr+wDOEwFjvrViks
-         2+fY9Den5K1uBmCD4e4Kx01gt/eNjCZSZOuVkRD6GOGupO4mAy7kZi+ytyllklAjGl3H
-         AuYU+tR1DAICGH7VyYEcuy7Pb1fodP5kw4hxVk7C41lwd97NGsl0nJxqcIgvOMeEXFOy
-         yGlczfN3ZdnNil+xQo/c7EAHP/BO0lIwmIpsjMmy86FWIhvsKoiToQTwKGpVYLI3zWmP
-         I/OrSJUeAa8Ev1ApgpqyT3OB/sRXFfjAgPrgUKLgnaB/W+JwtrMhwoR8XNKmo2V3xFOu
-         OMhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+DtkcWXpgSVoe05+cxu51zHZ9Mzah1+nKac2Hu8aixI=;
-        fh=1PmKpRz0h9q8mS6DwGjXKl3hDjW3jDk+tklMx1xA13g=;
-        b=dMGzNIYc6rObw8P8KTW6/zLdlik6/B+RKvJ1IyOdspBslxkNlDOKPp9SDSlOM7KqM5
-         zD/3DiMQtNUM/dQZK//SXALh84JHGeHFqwOMoxCZPFWO6iOUxTE90DKGyUjL2xtRujA5
-         g05EPo6oI9pXtxJ+LZ+XpvBzVP3u/cXZ/izzWwp6CPBptN3OhfG9sk3BVEcnI+FqOW06
-         rCqHfVXaj9RhlyH3QvD8SCPJfl0/se4CkuMM3ODtN6rV/QxGKWmyD7tbdkVyBuLUjCEs
-         Z7r5oYEkOLtVipq2VwBPNRL4mVnSZax1H2maHxTZA0wDDtfXZCJw86nqlR1ptLfjqnDP
-         Vnnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786346838; x=1786951638; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+DtkcWXpgSVoe05+cxu51zHZ9Mzah1+nKac2Hu8aixI=;
-        b=fjfczn5/m3A9OTGOrEoQNFczrr3KaaLT4YBaQUDmrOylTOObyoch9+VHPD8I4Rab6x
-         Z9IlJ8sfYXoF8a1qbkZThAfApSj2mUSRGJr2T5Ydrh/njP8m2tj+B2aT0JlvPAZwCOEm
-         xSxH96g+oBwIOzMzlujcPzhRzIWKga4TFloDkgwMnZbX3gYznELVdSRIdVH0hyaPAt7a
-         MPgl6aUmqY8HX2ysJ/P8LmC+ChDAJhccLlt0wepFgEV8K6726l0jRzGZJGkgCLeQReI8
-         fr+QNxo7/NiLmtK+cwGlZRJYHQnPUwF0J0H8Znwbhl4p1IG32rIiRjqlbQdJSF/2DSFy
-         aIEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786346838; x=1786951638;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+DtkcWXpgSVoe05+cxu51zHZ9Mzah1+nKac2Hu8aixI=;
-        b=A04DJYdbNhtSq+pMKTUzQLUtTInyEUOvsLGFMDz8uHVV5MkOuRCWJDvS5X3rY32XSc
-         yyeN4rmJ0eIXMR2MEowyBh6uZky3Kfc7bdthLkFbgYgliR0EQxmjiA8/Nr3xnPXqEBL3
-         pLSrZ5XWMnNblUyGf2MrzbwyL8XsDLYX+QTronHwhCnsWIx7nwdHJqxamP3Oa1TAUpBM
-         EL38/uOqFLjs1XPnUGDTxmmMNoHgSOj90DC9sCsnNbnOB8VvLSMbgLJoq7jrzEbIrGVJ
-         ewW6pDJI7czCGSwXuudlzxt5XSE/5if0wB4XpMx2GcA35m0Z8dU521tNaszG979u3yx+
-         XNLw==
-X-Forwarded-Encrypted: i=1; AHgh+RrtciYmay53rS2yeMZR5M6l9apwLK2PsD+E2iXseQvx71GMkYMEPJkheWIXm6xM9DECbUckqTNLRR1S@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfIyCt0AQ7sAFU7y9h0Mg59DZEIRK4aMSlMlv5sUOQS1PMJNbB
-	PoHNThRvpj5vOOEHkWCA6q2tt5EJDOi8h6dD91fCwAqPPF5PK1g7x/TQHkpF/8vJe/V/KY9IDlo
-	0vMvJ6GZw8Xo+Bij9pSStqX5LDwx4Ldc=
-X-Gm-Gg: AR+sD11DTZTLYhiA9TA25OHCrQ55oPaWv5GPqfoq34Qa+6XYlBqREcSxVJuYd9jSgOW
-	B8DYVMGcr+zBTH/IR0uBPsdPb0Bqpo5Ba1PZV+rVrzfdIOD6N0XypPZE03PJxksoEIEj42ABTAt
-	quGbvpLRCvHV9O68EsFn+uwMAEVrSJ71fifcpu9U1OZNxxHxZoNLmnpjIxybwVqv/GS4WTSxI0K
-	YvbXUYs37oWDMFeGmBOKUDqEvlNPSh3v9Wjx/GeKsfIRtmimTfzhGL87NwNKPFgrAuDJI9LHD21
-	V3JvQULHj/mpKb5q7r43vYePOHqBanKlabkCLZ6yqg==
-X-Received: by 2002:a05:622a:2b4e:b0:51c:17cd:1fd4 with SMTP id
- d75a77b69052e-52ce622aad1mr426354311cf.41.1786346837843; Mon, 10 Aug 2026
- 00:27:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KFbrS3hG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786347164; x=1817883164;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3TGFlPgAJB1XJ2S22zKpSve6oasatRD0oXn0iV6g3Io=;
+  b=KFbrS3hGZEb7J0fhW/lzpE8yaWfdWiFDob4u1bIzAByMgtvx07jHFsTl
+   Zj+iwJvj7t3lCgZOtwU6UsNKqOrWrSZO1oDN4mwJxmKxOz0XlNAq+3uSa
+   knk3VNxieSJHcgPLxrnrOTm1D62QMOCnyx7zrW0AsNbvLJOlu1tO9Kogi
+   YC8TTYAQ8x/w0PbI2/5M+f16gHzCCNmCrAKfFRG6Oks/6f3XloBiAVM1Y
+   Ur3m5Z/Lg7TOH4auLn59EIoD2zS3zQUz/WFqMAewwAvXF/Q8Oc1Y2B2Ta
+   3H35ylTm00rvC5OwsSdNuurMU+OqJFVsMD1zle2lzRsfK7yyGMzLD4Znu
+   A==;
+X-CSE-ConnectionGUID: LonsxN+ySmSdZNZHJogV7Q==
+X-CSE-MsgGUID: 4GtsimJJQ2arSJHVst/6aw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="90738858"
+X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; 
+   d="scan'208";a="90738858"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 00:32:08 -0700
+X-CSE-ConnectionGUID: qBB2uY2ORJCTa/sU/SP/CQ==
+X-CSE-MsgGUID: 3y0qq3kGR1OUDo6Spn0cwg==
+X-ExtLoop1: 1
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.99])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 00:32:03 -0700
+Date: Mon, 10 Aug 2026 10:32:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>,
+	Prasad Bolisetty <pbolisetty@axiado.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: adc: add Axiado SARADC driver
+Message-ID: <anl-cYX-wUQr_Pvb@ashevche-desk.local>
+References: <20260716-axiado-ax3000-ax3005-saradc-v4-0-810527a9d27f@axiado.com>
+ <20260716-axiado-ax3000-ax3005-saradc-v4-2-810527a9d27f@axiado.com>
+ <alnpMFK6_ZkdWlLi@ashevche-desk.local>
+ <de947dc3-6d02-43de-a9e5-7f1e950231b9@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1786262697.git.naseefkm@gmail.com> <CAD++jLkpcQkdN5DgCp61OANFhodoQyAUAb2WF4CyNYv=0xVsyQ@mail.gmail.com>
-In-Reply-To: <CAD++jLkpcQkdN5DgCp61OANFhodoQyAUAb2WF4CyNYv=0xVsyQ@mail.gmail.com>
-From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Date: Mon, 10 Aug 2026 09:27:04 +0200
-X-Gm-Features: AUfX_mxJ04kaXTJmP1OVrdQLPid7YkYxdoDRvjl11jvmxSghogHNPP37XYst2dw
-Message-ID: <CA+_ehUwO0WEiDGE18a=v=ZjJhpZB_KVP=m-Cog7K9Cm-zZV6EQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] pinctrl: airoha: add EcoNet EN7528 pin controller support
-To: Linus Walleij <linusw@kernel.org>
-Cc: Ahmed Naseef <naseefkm@gmail.com>, linux-gpio@vger.kernel.org, 
-	Benjamin Larsson <benjamin.larsson@genexis.eu>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
-	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>, Rob Herring <robh@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <de947dc3-6d02-43de-a9e5-7f1e950231b9@axiado.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Il giorno lun 10 ago 2026 alle ore 09:23 Linus Walleij
-<linusw@kernel.org> ha scritto:
->
-> Hi Ahmed,
->
-> thanks for your patches!
->
-> On Sun, Aug 9, 2026 at 10:05=E2=80=AFAM Ahmed Naseef <naseefkm@gmail.com>=
- wrote:
->
-> > The series is based on linux-pinctrl/for-next, as it depends on the
-> > per-SoC driver split and on the CHIP SCU lookup by "airoha,chip-scu"
-> > phandle that landed there.
->
-> If we can get a speedy review on these patches I don't mind merging
-> them for v7.3 already, it's nice to get some movement on all the
-> nice Airoha silicon.
->
+On Tue, Jul 28, 2026 at 08:58:10AM +0200, Petar Stepanovic wrote:
+> On 7/17/2026 10:34 AM, Andy Shevchenko wrote:
 
-Hi Linus,
+...
 
-I wonder if the same speed treatment can be done also for the clock driver =
-and
-also dts?
-There are a few patch there that are currently blocking usb phy and pcie...
+> >> +static const struct regmap_config axiado_saradc_regmap_config = {
+> >> +     .reg_bits = 32,
+> >> +     .val_bits = 32,
+> >> +     .reg_stride = 4,
+> >> +     .max_register = AX_SARADC_DOUT_REG,
+> > No cache?
+> 
+> No cache is intentional. The registers represent transient control, status,
+> and conversion data, so accesses should always go directly to the hardware.
+> Since REGCACHE_NONE is the default, it is not specified explicitly.
+
+Perhaps add a short comment here to summarise the above?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
