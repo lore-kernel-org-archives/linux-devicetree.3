@@ -1,68 +1,68 @@
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B627E369D63
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434C8429020
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786380141; cv=none; b=HVjiX63zvX3FPTAgu/nZhIFGU4hUvxFi4S2p7gHwzqQfSy1HSN8lrXJQpUFv+ib93c6HEXjiX016CJkDZWYpg9ucuBeqVt/eoWTpUnmDyKl/h4vrQp/REYob0XRNYVoaYp/YLgaO2cizS8iupnfgzmmyGsuSsDsogc0Jpkw3F/I=
+	t=1786380162; cv=none; b=Z7N9dz1iA+7rkpIAALHkoF2pP6Fbt/d0IxVleHo7Av1dlopt/YQ1EFPew/S0S0gkqqhje0oaJJ334Uch5kybSj5oOlB/25RyhamgLiE8lQtae7WrpFVYXeNwFyjDLbOv2XozQ9eBI8DrEwTZSe47/NJFnja/tAwtTj8SO4FHAO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786380141; c=relaxed/simple;
-	bh=UraNGmZFA5REm5mXU8cijvRUoAo6cvI2W9iHwqUD45g=;
+	s=arc-20240116; t=1786380162; c=relaxed/simple;
+	bh=BHyJkKWPtabg9chKvlw5ajLWZWczWFC02vAW2qDPPtw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NqhpvxRpTRoFLjo4BxKbJALeOjdeSYdSn0Q6GrklSopcL0e2dckerbdDksCfLHMpvmruZyXHJSDHd5Ih6sHY2tm8tSQBCVtbXr2MvjYvwpczgV8Iflbq+GF2HxZp+vMPWT7Ro3BnI0C1TOtI6L/tSUPUe7hzyBpgjyRxNKm30RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QVL7N2Lf; arc=none smtp.client-ip=209.85.167.173
+	 In-Reply-To:Content-Type; b=WuW0ssiWGvcoc0nmluPeFfE8B3cZtC5GCrqpnQR6QQVk9KZQ+wswOFeWZ4hY8E2tP+seXGS2AIhsyppyh2rZukOaolLdSjyAXY5BCq+za4Jcmw5DnMe6BtKZnFRddergz+q3KMgMWn6B5Oda7owVlfnontyL21NMT35UMm31Dpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=OTcBvOkb; arc=none smtp.client-ip=209.85.161.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QVL7N2Lf"
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4a483a552efso527350b6e.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:42:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="OTcBvOkb"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6b051b557f6so1109301eaf.2
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:42:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786380138; x=1786984938; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1786380156; x=1786984956; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4CrwjdneBCLq2MjyKhUL/tcV1sygNbjbpu5GnTQQd44=;
-        b=QVL7N2Lfjlmjxiv1+cn9tFernccaVe8QfmO14LEc7AmROiH+NYCEh6jeiR1MoPpx5K
-         4x9iToehymnSIgSfIOaQPvsrVZvz6458O+0ndqjnnPl+wzQi2pgg5UalsmxKnli8vd59
-         qL8bLs0Hktu6xc2Ge8a+CZp6rWMKjXd15t1oKdmGxlZTCG1Kd+vDRpucDRwXmGvAB2Q3
-         I4l1tLKh3WO7mnh7GLpOEIFnfFq2Vsx03JLEA7Lk3R89Ygcli+QlT2/n40A7UNJJR80v
-         AJ3sVHvEUC/q0+nOCjK2MMzSiWtMQH8MjvUhAO7BmgVMZ6MnVT2tLB4WFkMkruT3pYv5
-         IwLg==
+        bh=MH5p5bgeIASO8oIGcJrEMux/A5GCFedD9u/VSUjCZzM=;
+        b=OTcBvOkb9/qG+lSWL2VHfpGH8kWkXmgR67QGvpX79BL/8675QAMuvnraG87EFPua6Q
+         g/wgvhgylk+JVQ6Ac9vu2GvKjE6RAQfO3NRM0qUoSbuQkfJuvu+rVKIJ/n14WkxiF/c+
+         fYw9/25CcyO505609HjOkYpMdRVI+tj7nlR2BEpn+0RxYZx6bZ/hbLEz5KSOg5p40QiS
+         z6OrsJ1uRklWZGLCp7yHQvKZOPFcQXvtzjJbawcwhn3xyk+c1jiZT4BQyXIkQQurwVMQ
+         uvhfWmQ1gDwxjSlW3sZ9OnuCEFlsNoE+3e7mMduz7l06jA8zxOPSRMRXOCDiq7M627yF
+         aMwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786380138; x=1786984938;
+        d=1e100.net; s=20251104; t=1786380156; x=1786984956;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4CrwjdneBCLq2MjyKhUL/tcV1sygNbjbpu5GnTQQd44=;
-        b=P/t7nvHjJ45puRjGwyeHpSawWeipxoSflXiTi4CW4c/g2PllZgXApSruN9OnLQVqaX
-         mA9pNgg3zQ2BY6jEo8EQAcZKfa6OjhlciH+p1trHqmHFBqZc7DalT+KUgNwevtBX9pq8
-         OQhC+vkDm8SheJd/Nn/+EBjQdN3mTaTrKWnths54W51nRbvEODE0e8FlWAHko/jUd+UN
-         kf2qsLXdBe8gDijxcB9uRiw7nZjciJ7MjMLosT8ZFj4RSNsoYfzbRsMfhlF4L0LAJZI9
-         92Lv8FAMOCGShJdHBabxaYpk4+vi/jwtzda/QJztLHMIyA0x5dFTvoXfZ8C8RA4cg7xG
-         bZYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrCPa3lOr3jXU1FqzWIxIPAg5CqW8/bpM+cLDo/5ktbhAoK1s21ngTUhtPLUJnyHpjMQh0YLjfwgZJA@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSLf3VnW6wmbeF1VSlmUvDr2++3LdflcGZjTH7Dl6eB0AbOOcn
-	6A6TLd4x+Pf7HT82MTevj97IhzJoNZhF5b9vhnBV4w7VxambQ9t03gV9RxGb5ZWgVuU=
-X-Gm-Gg: AR+sD12WWZ8XpsNrStb/nVCJSU/zLyKRFbeAknbg3OlwQI7NC8XtYeSOHE+lgGCwG0B
-	i03AkvajpuZhLUBEkA6fbpZthNwDTki3PXCGpky+x9D8Rv94f8t4bmtoXuNMWmSzuUa855KYlmV
-	expLSk1Cjh6VhOrfzDrVDQOFzGF7c6oerJXtWQfeCGcMrfSeIGnEEKSVC++aFYG1HK54dUTxxQL
-	yJUooctkU+POO50Xxya+1kmaraRcHTij+Gglq+5TTaCQrhrIyXfn81RrB4SFGsPdgyeP0Yqdin2
-	wbumdLg9UfwVjCz4e4a1z9m3nhIb7wo4esXENuz7tttwIhvVExmfmAfqZffAyaWRkqlLN0Yj21W
-	kxTOQjAT0pd0RmIrRanAHy0nhEFqc2189iu06KUMw62Q4gn6+3vbCKn4BP3kiJR8SnDLhyQDiJM
-	MeWZ9lR+DktdlvADhdPwgNThdFcivq2H8ZSgQABbFUIy2vNPdJ5ziOHPnUkopKMwz9c9nKhh0HW
-	3KL1BEfOLXu+DDupJ5phdAJzLPbfk7PTLl89rc=
-X-Received: by 2002:a05:6808:bc8:b0:4a4:c12:49d9 with SMTP id 5614622812f47-4b1e770811cmr1551304b6e.3.1786380138504;
-        Mon, 10 Aug 2026 09:42:18 -0700 (PDT)
+        bh=MH5p5bgeIASO8oIGcJrEMux/A5GCFedD9u/VSUjCZzM=;
+        b=WZo54i0ZwVLpLMLvDE+Bfkv1UJ3n5ddNoRTkvZvymtFr++L/Ti65Dracx/V39L0pfd
+         dsu9kzE58A1N7TvSj8Qtevt7gMwRv0kLHakliWMkJ1W+/TzyosWM1Nf164wCRA0GRWcV
+         3sUomeX75hDeEvb94ZrntDEh+1LT/xuDl8n+En37+b56L3IvBDhEIjaLh8k2PYhmcxq3
+         4tzuoPX/z67NNgAXpXomt0pIliB1NFgSwYbJdRBt2n0tCWg6yjxChwYhGcJmjsxued3k
+         NC/oVmsJ/2swQLJWo9QuwLnFNsOpVeo9lH8vz2oic6hS/vosOBu3rwivMPmKlZKiVccZ
+         rXFA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+vvKqqNwgiukSfr8Z2JfaertZkaprg5WT6ZZDLxz+ELTKjFC+RRpwR5IE+9ZSV+269wzLcyFtQX1m@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqGhi7lscnFJrMDN4Ql22C2PVEnHdi5vq/BEMch34IT+5IWtHB
+	jF4L27dd4wzDr6VmX9q5mnSF+vQj5jy08TA6lI4UUvbedlIe3NCI8vA0CIg3pABp5xg=
+X-Gm-Gg: AR+sD10EEKq0Nq1o8fnaESWJAkoabZpH+K2wYsjt9+sEzJLjU2D3kfYTIt+KFqnqCaF
+	0wre4Ygf6QSLNBNEFm2fyW+W1eOd4+0FQFIs4uM8SH16ycttgaYKZSJu2TzyySmj0zbQp8ghL/z
+	l7CppLa4glVJre1s5t9xP13uewShcDyevaek8W5N3iHuBtWIsQ9vwHDQz0Z927X+9dzVc/fkX+r
+	8WxuiVrFrDbOSZ84V9E82x3fWBNLa0vT52Eu3TziMswnbGJ2ojYWa5cnaOBzdFhIEvwfYpKTT9U
+	WoDvtWrhJ+kfxh5xbMq9P3HiRoA4WixVeDv7CB4cxaYMXUwZH5lwialXUIu6yyKgFXOVBg9zcyO
+	gOzfuBPf1djALiEUOmapIXffEqzXQ+8iwfMyuHQpZWJ5IXbt3Z9fKd8TU1KxAuM7ZLj/akDikz2
+	ghH0Z6HMMfYvk56QBz84+RLT875fNqNlS9r9Im9bDmGovpbsEws254PdXcin3JtsJAd/pB+EohB
+	xiV4wM/tuUX5PKb2HiE7EU5FAvH9bFPoqXflIg=
+X-Received: by 2002:a05:6820:1c8a:b0:6ae:5250:dd1c with SMTP id 006d021491bc7-6b035366c4bmr12452912eaf.29.1786380156501;
+        Mon, 10 Aug 2026 09:42:36 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:e05b:7923:cf50:e4cf? ([2600:8803:e7e4:500:e05b:7923:cf50:e4cf])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1af06d90dsm7404797b6e.3.2026.08.10.09.42.17
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b0512521a1sm5971037eaf.5.2026.08.10.09.42.35
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 09:42:18 -0700 (PDT)
-Message-ID: <4de0742d-c17f-4d0a-aab1-35870eee053a@baylibre.com>
-Date: Mon, 10 Aug 2026 11:42:17 -0500
+        Mon, 10 Aug 2026 09:42:36 -0700 (PDT)
+Message-ID: <7a42a318-780d-4bd0-baf1-55d030b39233@baylibre.com>
+Date: Mon, 10 Aug 2026 11:42:35 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] iio: adc: Add TI ADS126X ADC family support
+Subject: Re: [PATCH v3 2/9] iio: adc: add the ti-ads1262 driver
 To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
@@ -80,50 +80,76 @@ Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org
 References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
- <9c2e2c46-32de-4e8a-88c3-bfc2cfe8157c@baylibre.com>
- <DKK9T3XRZJEV.R83PII0D35H@gmail.com>
+ <20260807-ads126x-v3-2-f89925d72792@gmail.com>
+ <ad95afb4-e667-4290-8878-fdd7067f20fe@baylibre.com>
+ <DKK9QWYHOBOT.2VD8XMZTE65H4@gmail.com>
 Content-Language: en-US
 From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DKK9T3XRZJEV.R83PII0D35H@gmail.com>
+In-Reply-To: <DKK9QWYHOBOT.2VD8XMZTE65H4@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/9/26 3:29 AM, Kurt Borja wrote:
-> On Sat Aug 8, 2026 at 1:37 PM -05, David Lechner wrote:
+On 8/9/26 3:26 AM, Kurt Borja wrote:
+> On Sat Aug 8, 2026 at 1:39 PM -05, David Lechner wrote:
 >> On 8/7/26 10:58 PM, Kurt Borja wrote:
+>>> Add the ti-ads1262 driver with initial support for the primary ADC
+>>> (ADC1). The ADS1263 auxiliary ADC (ADC2) is handled by a separate driver
+>>> and interoperability considerations were taken into account.
 >>
 
 ...
 
+>>> +static int ads1262_dev_reset(struct ads1262 *st)
+>>> +{
+>>> +	int ret;
+>>> +
+>>> +	if (st->reset_gpiod) {
+>>> +		ret = gpiod_set_value_cansleep(st->reset_gpiod, 1);
+>>> +		if (ret)
+>>> +			return ret;
+>>> +
+>>> +		/*
+>>> +		 * The RESET pulse timing requirement is 4 clock cycles, at the
+>>> +		 * minimum clock rate this is 4 microseconds.
+>>> +		 */
+>>> +		fsleep(4);
 >>
->> And the driver also allows using an hrtimer trigger to do single-shot
->> samples for cases where one doesn't want to sample as fast as possible
->> in continuous mode. This would be more useful to someone who just cares
->> about sample rate and not about filtering.
+>> How long do we have to hold reset before the chip powers down?
 > 
-> Why did you go for this instead of just leaving the continuous mode
-> running and reading on each trigger?
+> For power down 65536 clk cycles. Less than that is simple reset.
 
-The hrtimer trigger allows more than one channel to be enabled, so we
-have to do all of the channel setup for the next channel before we
-can send the start command to trigger the next conversion. Doing it
-this way eliminates the possibility of not being able to update all
-of the settings in between the DRDY interrupts.
-
-For cases where we only want to read one channel, then we can use
-the DRDY trigger instead of an hrtimer trigger. Since we don't have
-to change channel config in that case, if we miss a DRDY interrupt
-because we took to long to start the I2C transfer, it isn't a big
-deal, we just drop a sample.
+How long is 65536 clk cycles in microseconds at the fasted clock rate?
+Hopefully won't accidentally shut down the chip here even if fsleep()
+goes significantly longer than requested.
 
 > 
+> [...]
+> 
+>>> +static int ads1262_wait_for_conversion(struct ads1262 *st)
+>>> +{
+>>> +	u64 max_lat_ms;
+>>> +	long ret;
+>>> +
+>>> +	/*
+>>> +	 * The first conversion latency is affected by the channel's data rate,
+>>> +	 * filter, the configurable conversion delay and whether chop mode
+>>> +	 * and/or IDAC rotation mode are enabled.
+>>> +	 *
+>>> +	 * The worst possible latency is calculated by taking the lowest data
+>>> +	 * rate (2.5 SPS) and the sinc4 filter. This gives a latency of 1600 ms
+>>> +	 * (Table 9-13). Then we scale it by the actual clock rate and multiply
+>>> +	 * by 4 to account for chop and IDAC rotation modes (Equation 20).
+>>> +	 */
+>>> +	max_lat_ms = 4 * div_u64(mul_u32_u32(1600, 7372800), st->clk_rate);
 >>
->> Just posted the series yesterday:
->> https://lore.kernel.org/linux-iio/20260807-iio-adc-ti-ads112c14-filter-support-v1-0-4d3ba00caf18@baylibre.com/T/#t
+>> These are constant values, so don't need mul_u32_u32(). Also, given the wide
+>> range of possible sampling rates, I would include the current sampling rate
+>> in the calculation. No need to wate 1.6 seconds for something that should
+>> take a few 10s of microseconds.
 > 
-> Can you Cc me this series too? The settlingtime stuff is something I'll
-> implement too.
-
-Yes, I meant to. It was late on a Friday when I sent it and I didn't
-the best job checking all of the details like that.
+> Can we leave it like this until I implement the settlingtime? That way I
+> can calculate the actual first conversion latency.
+> 
+Sure. Just maybe mention it below the --- in the comment message on the
+next revision to remind us.
 
