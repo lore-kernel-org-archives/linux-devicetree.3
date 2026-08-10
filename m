@@ -1,187 +1,202 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4DF44604F;
-	Mon, 10 Aug 2026 20:52:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0C13644CA;
+	Mon, 10 Aug 2026 20:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.169
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786395154; cv=fail; b=E8tgpJzTPk3+X/A0aNloTZaoVWxk4fvFmYfsUsY6sB5cremsatQp8274jbL/WFXsVp256IQaGZUL01IHN/L+Pr9S3mKUeWfvcEx7fjCVCsQgNnZ3dEslxIrURBOvQZDojG2rOtO9yWgGueDWbyWBDQsUTT8KwP7d7qQs2l4V6A8=
+	t=1786395504; cv=pass; b=ZLUuMggZoXVqnhCxz6F2lP91Elm0VAVL9BqAU69QrFtcdHHv2ejDJ48aZhdXnMuo0U3ZuPgQdZPK3vITJvD06XVWj69WKewKsz/h9aXBo6TzHjF3haES2aFS0JtnSnOzxuOmc+vO9pv7wlpFxyGiUda1EnUzA3ixSDdzT0AA+rs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786395154; c=relaxed/simple;
-	bh=k58pMCQPEPA28Qq+0VXYsbvboKkYzpps8bzs7o8IHoE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cuuIEqyrG3r4QvcMiATU74c5rsRnxHa6lfLgnkEpyz2j9CsbPcISwmQuDM+cy9XadHm0EHtcxzLXapIbtvJ/9pxa9iLENsguWDxH0cLuznSEBYs2NFomfKb9NQW53UdDp8KeNXyuf7YunQVfx05ZDfXhi19vMfFXjXO0w1Mp6M4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=SXSOOh3i; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=l1Ub9wtH; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1786395504; c=relaxed/simple;
+	bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=MF89f/CQqsJCvL4xNkEZydCPdRRH/eD5nEee10JVBOIVpprFCO6vd3m4FuLWSO5g5vRzFfDzAfXCf2bTQaGCuV50j4af02G458V++Hzcsj39zsJKsoYsdKXlcF9FXm4w187gGR4ZAgnlxRPrMLkm0bvr0TYQccvO4qnKPl7An4Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=PsP/bxV0; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=ol9sAKua; arc=pass smtp.client-ip=81.169.146.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="SXSOOh3i";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="l1Ub9wtH"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 67AJjQQr3700986;
-	Mon, 10 Aug 2026 15:52:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=h+OVnkF7JERHCEra2CKswAF0y0ZGu6Tp5lLq6Q1HX
-	Ao=; b=SXSOOh3iQs3zClsVpuGBhRbFvSvUP9BSKVtjP4Tt9hLv9MTDciK+PrSut
-	mU4gkX+7i2Hwu1mz8ejK/LIUJ0J7a7Zs4I81NbCr+aylcNpwPO7KxJH0aYHSAXxw
-	AoKaBb4+6ej3ZfIeJ5yo4nU7Xw3AITiXYOM4L7Mfqyonp5/R74w0IEa6AdjQk0vX
-	9FFvWroOprtw9bdkkYvUGQdkiZ9539NShdm3WjRq1czQ9Rmptuo8EUKavHlezgUc
-	ORRLaGNdTpcQaB0Pw387nNBTZMy5lyQvWG28f0KM2yuCM9bNCEAvlm+U8enwLnTW
-	LKkdxb6DPHRUhSDMSDoO+KUgxzERA==
-Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010061.outbound.protection.outlook.com [40.93.198.61])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4fydkwv0ad-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 10 Aug 2026 15:52:29 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e0ojxbfoR3R6Vo5eZYmo9R8qLPzIt7sWLAUZeq0y9zrLkKU8oSswzYWbOSsQHC8CN3VMi7z9JfIRGcdf/KXOu2t7xcxr5nDWBTLoFk+N0Xzth+8clpFxXAQmvIM7eiCaUcKEIF5fOFcmhdXKBXIwJHtBc4m9i/5TL6GWNcYSpABC2JXNdwqdaYVJg5xFatB4EWJ3PyZRPkuAwW4qhDai8+Ry6WGGuZ9kB2OntTJabCiP4LH1yb6C0PSwsaGXHq09CpBckqnC4vpT5Gwg59Lfqw8BYInj+l90LVSXjFBXt+wU8L2Uzta6sm65ZX5fFHWghbn8kALrF+5K2YorZU7o0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h+OVnkF7JERHCEra2CKswAF0y0ZGu6Tp5lLq6Q1HXAo=;
- b=EbQMpAKC3mFZIoD1mVSrKfGE+vYvWNAHLtlxsxzegt93ws10dXlzexx68TJ+6DQMJhjcu4l56kPh8RIoM+gFUQ+l8GN/WYek+MrC8uoC48DdAzn0soelSdOBDBemeMdctPLkcydMCT4grApEnmXISfRweV2E/ejwAj+U+wPoSwj7vY2G+ZUkr9x3Pdcmd+lQ3qvdN4+vD4D2uzjQpp2MZ5I2r+9la4IL4PnD8K6ADWyZBgRkkJectnOFGE4dKMJZ55Dud2/iKPc88bvRMlaN7bmn+8WL/gwupWh/2IVteuRbrXZVeCnvrsI8D1QcLCyUaXcT8D89mmCnnhh4dcO8DQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h+OVnkF7JERHCEra2CKswAF0y0ZGu6Tp5lLq6Q1HXAo=;
- b=l1Ub9wtHIfM6hSkPXfS9Q+a5jS1+9+0K1n6Olp+ANadM/yOKMfUTV16SW91rC9pUoqplDq9ar0UaEcYEFUyWw49jowbzMlf5+v0qNeQHmlwERCa+mL72fYui35ttg4386YUw4XsTybOnta6rKptMS5xAHxgb1Z0w+mTlY2flcr0=
-Received: from PH0PR07CA0030.namprd07.prod.outlook.com (2603:10b6:510:5::35)
- by SA3PR10MB7022.namprd10.prod.outlook.com (2603:10b6:806:317::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 20:52:25 +0000
-Received: from CY4PEPF0000EE3C.namprd03.prod.outlook.com
- (2603:10b6:510:5:cafe::a8) by PH0PR07CA0030.outlook.office365.com
- (2603:10b6:510:5::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
- 10 Aug 2026 20:52:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CY4PEPF0000EE3C.mail.protection.outlook.com (10.167.242.13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 20:52:23 +0000
-Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 10 Aug
- 2026 15:52:17 -0500
-Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 10 Aug
- 2026 15:52:17 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Mon, 10 Aug 2026 15:52:17 -0500
-Received: from b-brnich.dhcp.ti.com (b-brnich.dhcp.ti.com [128.247.75.1])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67AKq8Sj3838072;
-	Mon, 10 Aug 2026 15:52:17 -0500
-From: Brandon Brnich <b-brnich@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <afd@ti.com>, <b-brnich@ti.com>
-Subject: [PATCH v2 6/6] arm64: dts: ti: k3-am62p-j722s-common-main: Assign SRAM to VPU node
-Date: Mon, 10 Aug 2026 15:52:06 -0500
-Message-ID: <20260810205206.685971-7-b-brnich@ti.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260810205206.685971-1-b-brnich@ti.com>
-References: <20260810205206.685971-1-b-brnich@ti.com>
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="PsP/bxV0";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="ol9sAKua"
+ARC-Seal: i=1; a=rsa-sha256; t=1786395414; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=t2BQl9Z8KeurTNXDux1Cx0A8Bjn5K0igXQw7bigsJM3q6Fu18PGX6fQ8shpduQ2qp9
+    kojVa+x45LQPfZEA7f21vmALVD24IAPFWurY/6pZjrRMtWvkYIWYRxp6gKPf+fLOGsSl
+    kVsyrHPDywUYKyqNnyR9GXUPh19Yz1q6Gqukf+lmS9AnuahB/U1XVVZKSS0hLRmaqCkE
+    0N9c9YRybc2rxxFMk31QEfKmbi869/LgVytFIpDjRQnEkDQaa6uBwwiQom/I2JaRLoEo
+    HKsxaYV0a401CR32Zo4qSYOLi1oTrRJyJBpWn4BiGW6G0SOuZGtogL9eW4MayGFUM5NT
+    LR7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786395414;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
+    b=Dwyj4QBN67/T9pzAOzwI1/AJhjzygobZHUmTcKODeVjNNEWKSV73ese/v4lua+h54C
+    IoGUXYfXo1dcUm6YCznSLE5tI2CwV5ca4KM+zS4VK4uVDykY+/5TW/lSMxDCkmTFd329
+    aHnbS5D6ENGua0gnvcq6s96Tp3XMeRV4H2ichflsdisgRE01IPVSdqL79XlpTDEAXg12
+    efmtlwOw9200KHv86Zp3TLhuxI8zUdS8mnTPzmwM1Sec0g8zCfBsTIZ3vG7RmmcHcxvK
+    tPTphRF5vVjbqPstelrDB1lv/Csoj//SX/yYxh/qQf23AX4v4YY7pFx7k5BuQfC3DPzy
+    7OXQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786395414;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
+    b=PsP/bxV0DkARdQeMAEKbfJPJg42HksHI8mlHtlKGDLalnkZ7cIXtbWwJ8LdE7DB99M
+    IIfb2bPHCNo1n8eCFg3PDJO55f0wEdVCy4Hlj8e9VrqLUhmh+LPpel1ZHgOBjIfR2WXF
+    5DV01vxRyuEGon6/1hhSINkJRmXOOTeKgrhyjj5VVzKXcz4fRAUawT+xQLdsxJxX+1K9
+    qHY3mrD4msgpzTNz6d8JL36TJcOrnyYROQ2y6rtb6lYNmnmlSe7AtpWh31Og8Do3WDBX
+    pMTRi48cpor8XLotO1HUL59BLznYwONrDYakOLuV9NNlZRVJDj1yyMUzFkSLgHvFK6G0
+    OJIg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786395414;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
+    b=ol9sAKuaZNHWsPcZa7fLcth6fUGMED5C+eqhENktvwwMT/CtFPT0K86CugHMLpZSaJ
+    zfejHdUcnNxS2MSRKNAQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTipoGmsiNZ9v/oGyp26o/Wi+pVFrZX1Db5b3z"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.5.6 AUTH)
+    with ESMTPSA id Q58eac27AKuqiaO
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Mon, 10 Aug 2026 22:56:52 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3C:EE_|SA3PR10MB7022:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a49f506-196e-427f-db5d-08def7214767
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	boHEIUetyg0rF4L0hRK2CU6Fswl7+VUn/6Nqi7Y7MGo+0lmZR8DpGhPYmwAbWk2NxLthoj9ZbfjWwYqWgDmkJ/moQWM/KrvYPFko9whf0t07k1yuODijfUBoZIch+DmQc0wSCmR2ginDaSBjfmEHpePZ7yEhITZ8fLZb9XMeNf1Y/S2Q5IDGYEjkquY+z4I22LIibUak5LH9AuZGc5dAVdAeRB3ZHdmqvmsRJQ2smflMG/iTzu+xXHtTZRAoSRNRPheErwsNW41ajti/nw/2YtoiVb05LntFu5WYGNHsXdlOJ86aiS8B/v1/8XTf/l7F1iOmDpTxGQiJDkMlJIfiH5n4fSzJwC9bNSU1ra6q0Vg8KvmqJ3J/8gjQiCoZwTZGgONPABFRqPcqseWkIpT2yauyXg2pnNOsJ/SsMnAneZ6U+vAodXnvVzuV1FYrzdRT8ZV/vIzO3/m7FaTRbq3t541P3mOXXPZsRlMLVMwo3TIALxPQ9zXXxnhc7vBy/x4fHN8a5Amudy/nV8RWLRUFuMkE2TLS/fIEZGQ7n8YdzUfffDi7y9eTEyxnRanGb6mjvAEoQcTG9Nao3Fbb2KyxBJd4N2loH+HVmPJ/+mpSldRFH3T7vqfCpCbMk3hPPi/wtPzOQaWaLIytPNkBjKyr//8JXN/5SBd3GGu6EGQv6wSsa2rHUen/3ItEF7tjfeUglJ5IzgEU20rMv8IwDQyL/A==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NUMLfBv3cMCOk3qHnpl//a3kuyZhbbEKDeJf8r5oUY39yzC3PCtIAaz9LEwiEuJiKRDIjzex3+pa+tqbL0MW5N9rbzk81LrpzPlHrTcLl9jW/SBpDRyNMwofN3ZrtxE0Zsi9D3mmWW3sAJMPQGmwT8GxhAgD2UfKNkAIIRLVEe0z6oppxkynw2PA38F1yaac3ghuah2Ouqvlfb6SlS/ZEDnaXrzCxNvflSlO5888cTcXNgqG4l9zcBYXVbzEDO0dlcutxFJG0/chii6KsW6LFBhPNwTPUQvz+fEhaDE0wkGJDe4FFWRNfwpBkY5RyAfxPonmKyCtH1P4EfHIPBYlC1j9ybaQDfex9lyQPBJumBOJJmws85JZVu7V5R7e/XrZBx9cWYA86NtCC1ZioU+E9y1TznmFL4L3HQYLkPSDRIDS0Q7QGFwbLosM49WutDnU
-X-Exchange-RoutingPolicyChecked:
-	egFeED6tJAEQVmddayHaGR3XIpazFRFvegu/asUwsVdLxyXDu4L27CZq4DilCj5BWUyFlUl7Fe+OxeP1z8pkriPSsfwNk4vyx6zc4ZbFENQcx3S2B1MWQPeOKXU/UYDNMqO9KYGnsb5544461aN+Peg7zNu39B3jMC9K4eyksDaDhOBAu0Hlt/h3eixCMq6EKjfgBIslhiaQziTwHdNfwksZy78Ao5J+IZj5Hc0hzjzeV1YmfTmXxZWvHGyuCN8kdsG/g184LYY+GJDVWTlYWgrLKCVzZtOTi6p2O+awO33W/nukO4m0mIjCCm7g/QubXXWAmMCvv65FDytH/5kp+g==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 20:52:23.6268
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a49f506-196e-427f-db5d-08def7214767
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3C.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR10MB7022
-X-Proofpoint-GUID: Y9GPKZRsa1Fz--nASefZwF08bUiNaE3K
-X-Proofpoint-ORIG-GUID: Y9GPKZRsa1Fz--nASefZwF08bUiNaE3K
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDE3NiBTYWx0ZWRfX3LJ4KlyaVOMZ
- 4Q0PiR0UQLn6cBypFhXoW8C2YeIjs5Lbu1rnT4RrdXkI2NsG3LGYY02fwlLRZufIzKBJosdPd/O
- 8/eRn63r2F6mR6dncQuNTnzLqyZgZWmwQRmH9Gj/+ZBpFarI5EKo/TsJ+RS57eBp8XmyLPHL4bL
- ycNItEJlSGs+saaq4RKuyD/BJFUfveo2ny3oSv+z3QCTW/6zeJgjO2x1i3ZBF6cqAmnVWVBayxK
- xYF2abtUlibmW+In+VSl/K6LJKDrmNx3Clh8uYkq07vubCqt1RWwXY1mFy8qIBBK8/yOnaVq40N
- 6xSFjJc7zETI3gpMiEoyuigii5Hnm4ZVM9Wt8Knu0GQM/+wj0eSXG3sTUXUXd+cO2tRfzAdHw/Z
- PI3SbGH9PQXr6JOJ+T1lCpBnvMMuDse9x7QDY+C8S4bX1RYsxn4PEpc6JlwxqcS7j0O1YQtG3VJ
- IGb4YE6dp//9u8tvRug==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDE3NiBTYWx0ZWRfXy/RP1PF1E2I1
- qhdMIb/rNW2DJiniLt4H4ChHW7ZsGlHUvqfVXzfxo6vPZgb2PaIHWmj3xf/N+lyMevgFLj6EKXB
- sTxeoI/M8EqvP52kH6rmNvy0FB4jR7Q=
-X-Authority-Analysis: v=2.4 cv=F8FnsKhN c=1 sm=1 tr=0 ts=6a7a3a0d cx=c_pps
- a=tFiMKzbuKqM0PzijJMXBtQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Sv0fKeRqtYgA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
- a=sozttTNsAAAA:8 a=s826d0Vf4ljoQKYSzyQA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_05,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 phishscore=0 clxscore=1015 spamscore=0 bulkscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608100176
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [Letux-kernel] [PATCH 15/16] backlight: remove pandora_bl
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20260810223413.01af9a6d@kemnade.info>
+Date: Mon, 10 Aug 2026 22:56:41 +0200
+Cc: linux-fbdev@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Tony Lindgren <tony@atomide.com>,
+ dri-devel@lists.freedesktop.org,
+ Niranjan H Y <niranjan.hy@ti.com>,
+ Sen Wang <sen@ti.com>,
+ Rob Herring <robh@kernel.org>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Helge Deller <deller@gmx.de>,
+ Lee Jones <lee@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ linux-omap@vger.kernel.org,
+ Daniel Thompson <danielt@kernel.org>,
+ Grazvydas Ignotas <notasas@gmail.com>,
+ devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ mfd@lists.linux.dev,
+ linux-sound@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Roger Quadros <rogerq@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org,
+ kernel@pyra-handheld.com,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <38ED9D73-7BF3-4005-8E1C-4F7125906A20@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
+ <anmpiADsvzW39DNx@aspen.lan>
+ <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
+ <20260810143914.64d29a5c@kemnade.info>
+ <2C9844A3-3C4C-48E6-863D-BF8328CEE540@goldelico.com>
+ <92FE1162-8C61-4186-B073-6AB4B2BDA640@goldelico.com>
+ <20260810223413.01af9a6d@kemnade.info>
+To: Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 
-The Wave5 VPU supports connecting to on-chip SRAM through its secondary
-AXI interface. This allows temporal buffers to be stored on a per-stream
-basis, reducing DDR memory traffic.
 
-Signed-off-by: Brandon Brnich <b-brnich@ti.com>
----
- arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-index f130c7cb998d7..61e3588bbfdc5 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-@@ -1117,6 +1117,7 @@ vpu: video-codec@30210000 {
- 		interrupts = <GIC_SPI 225 IRQ_TYPE_LEVEL_HIGH>;
- 		clocks = <&k3_clks 204 2>;
- 		power-domains = <&k3_pds 204 TI_SCI_PD_EXCLUSIVE>;
-+		sram = <&oc_sram>;
- 	};
- 
- 	hsm: remoteproc@43c00000 {
--- 
-2.43.0
+> Am 10.08.2026 um 22:34 schrieb Andreas Kemnade <andreas@kemnade.info>:
+>=20
+> On Mon, 10 Aug 2026 20:30:13 +0200
+> "H. Nikolaus Schaller" <hns@goldelico.com> wrote:
+>=20
+>>>=20
+>>> Yes that is what I mean. It needs to be ported somewhere. If it can =
+be ported to
+>>> some compatible =3D "pwm_bl_for_tps61161" or what fits best it will =
+be fine. Or it
+>>> could be in some compatible =3D "pandora_bl" driver.
+>>>=20
+>>> Has to be worked out when the development machines are not blocked =
+by 3 or 4 other
+>>> projects already running in parallel :) =20
+>>=20
+>> Nevertheless I did a quick look into the pandora_bl driver structure.
+>>=20
+>> Here are my findings:
+>> - the code fragment is part of pandora_backlight_update_status()
+>> - priv->old_state remembers if brighness was set to 0 or not
+>> - so this code triggers on any change from bright =3D 0 to bright > 0
+>> - the pandora_bl driver is the only one to use TWL_MODULE_PWM besides =
+twl-pwm
+>>=20
+>> So the most natural way of transplanting this appears to me:
+>> - add this logic to the twl-pwm driver
+>=20
+> That chip could be connected to any pwm driver, so
+> it does not make sense to have that in a pwm driver.
+
+Well, the chip does not need a driver, at all - at least in PWM case.
+The missing piece is just about doing proper startup into PWM mode.
+
+> So it belongs into a backlight driver.
+
+Interesting how contrary requirements can be judged :) Especially
+for such simple things that apparently even work without any driver.
+
+> And since it shared so much
+> code with the pwm_bl, it could be extended.
+
+But how do you give the chip driver access to twl4030 registers?
+Or make it universal so that it works on any PWM generator? Any ideas?
+
+> The compatible should have pwm in the name to be able to also add
+> a w1 driver later.
+
+Ok, that is an argument to be considered.
+
+But: for multi-protocol chips (think of SPI and I2C) there are
+usually two drivers (or glue code for a core driver) for each
+protocol. So we can have one driver when connected to PWM and
+another being an EasyScale (which is not the standard one-wire
+protocol) driver.
+
+BTW: I am still not convinced that the chip needs an EasyScale
+client driver at all. The protocol is similar to an UART with
+fixed bit format. So this rather needs a generic host driver. Not a
+client driver. Something like baclkight levels -> easy-scale.
+Then you can connect any compatible chip.
+
+But even in this case the hardware connection requires you to
+patch or piggy-back that into the twl4030 pwm driver because that
+is the connection given by the Pandora hardware.
+
+So why not generating the simple startup sequence in the PWM driver?
+KISS...
+
+BR,
+Nikolaus
 
