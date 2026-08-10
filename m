@@ -1,192 +1,257 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7034D437128
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:30:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786386654; cv=none; b=gOClw9Nx8jCSxk0kXf1ApTPgbCYByVt/fxjrpxAUYtaHKMJ+lwCjBk1/Z1oiOe5taDFj3Ji2HzwSQ/f/HGeMXZHLOp/dlAdX7KU/PDkiXYqhaw8sT49MUTFMgiNgGVqcHUMa6zR5cIDm1cw7I0e48NYzGHRZRBs9XIAPpzMfmDA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786386654; c=relaxed/simple;
-	bh=LL8LPc2ObMc8bS8GZmSlJQ5MV4/P3HeJezRLr9CAz78=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fu38IVHAOj1OuY8wz1XlVRKGgL4LG+8S0qRNQAe5iTApH8rtQjpiW8SihSo77nmZ9ODazR4pci500xJYH3Igq/2CLhSeyVyckwSKtOoZraMEc9Go4Wvazhm3WjJQom0Hiq6eKs3yUGhx48cOy7ZRf+C1Ic6k7zsHuLlQOXBU4Yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X0jXxhdb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TY0ZW4lB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D346242D65;
+	Mon, 10 Aug 2026 18:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786386817; cv=pass; b=t19lYx3RKkGvEgGeTTTN2Jy9qqrb39nFAXu/6I2/JIpZQL2eg40niG0UX29Ruh9sJ/sVQrR1iY9hkr4aIxyuSMkrtmmPB8EphwJvQzEQv0RdXO25c6h06FKzTh/LwOM75+Zk5x7wB52l6gHnt5xU//3yceOeg3TZtcTV9JIlQS4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786386817; c=relaxed/simple;
+	bh=Y0lggjtUq7t4FnGr3h+/8GK5Aapn1d7YcvCZUb9d1Uc=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=QpAr0y5LMZp72dUB3xTNikNRPfu8SFB0HMTL401cAWgw5ihdsa/5ZgHMkAu4W+74cziCCcZ2yFbx7pLN2MzkygAr7feVpfWz5+1kFn3hRmZjn1TkKZSQFDn2uHRA4B8w9BjvGbmRlbrhGYPRz9LIxj9kgp8fLzGNwtP+yMiVe1Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=ljQniUtz; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=dMb3aEkL; arc=pass smtp.client-ip=81.169.146.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X0jXxhdb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TY0ZW4lB"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AGssdQ1936316
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:30:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=x9vEpcP9MBZXX1DkqscHr3
-	laUSulESbFw0jUXKtXHN0=; b=X0jXxhdb/ND2LqZjtyO2bCnNSJZvfElgczmCrh
-	iTRSAYLbrLtXx8HyHSewokymlkI1Rvoz8cunz0pfOWv+3AZFstPYJQc9AtWtFn8u
-	ysjKrlJr24L83gNm2aVTDVqpKKY9xubcJ6wJLH41PMUnJwbzAFLZo4Ja/2NUdzBG
-	e3Ydn0HQSNaskW0LFoY1PMYJkXUdg3cX+GjLOoZM/Rf5TKtCgsvYWsYTbXA+w4W6
-	Y3QjDu08HUjhwqhEXfwGM+xG/1mVcYj6Gx7ic8p1pD5KNyVQIMnuZWf1Qtqf0Gcw
-	po6m+vclwkeuyjlsqQwiHjJ9J/f+0j9BLmwBdot4vBzwxUhw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyjk60d6g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:30:52 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38fcaa5f82cso2283874a91.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:30:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786386651; x=1786991451; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=x9vEpcP9MBZXX1DkqscHr3laUSulESbFw0jUXKtXHN0=;
-        b=TY0ZW4lBPd9f72UY9Nq4XM4X3XCacEX0HhgENeCfQZ1lpviED+y2A8RGOt4LbBrTSa
-         q6+0JEFtACNKwwH641BvRDTtbMXCpW5I4bzR3WoE8xuTZ1IqSlIbUVgU6AGXShZ8ehtd
-         D/l8juVYfO0lWoqJLzbih1d4wv8IjRfmpjz0As61Bp+xoXW+d/25VaCFmKHegB65yIB3
-         FVthe116F7s9WrCYL3hUMh5jTax4DivFg5ZZ/iJWzUTASlllybWxTWr3rQ5octM6DghF
-         WVv4PusFPibmnXwHrTrRYzyElXyI0ighHs6tCMde8NSnsmquEvd9Qaz5aLUoNP9CSyvS
-         ptAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786386651; x=1786991451;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=x9vEpcP9MBZXX1DkqscHr3laUSulESbFw0jUXKtXHN0=;
-        b=iWM1TK27xMMRrzEUQpcIeo1TOlq/y0JwjVEKuJE56ON7KR6I1g4kuD5jQG1COJkK0r
-         QfWRJWC3Ymzcs5z4JGqpjZxQzHQ9zhbwKsUkPLxIINIBRpETD6ddAjR1J7O+3K630gy2
-         7iLbDLf2JEYxKddm5OSbq7GQACIGqDldddyvo2PXiVqdj6TlbFmgf/eB/W/4Op10nAg7
-         LV61XK+1Ra/o/Gvm9QNqnFeOlBXQzplPhvb3tliojouGmhBJ/kVOGHeC5tV4NuZQMnc8
-         /Fex4aZznFu90ye/njSCY8ZI1EX0n/p/n9YnSHRei/YjCPBBTMc0v/d/wzdRZFhnyT79
-         F5vQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq116hNSjtWy50nkyWzKoY8G30bshaaS8G1OCklZMC2OVV3HACa040q/6uLvhXB+o153Sqop3pIaYy5@vger.kernel.org
-X-Gm-Message-State: AOJu0YymNXNf5KJ1aHcyY3urquL9x9+t0HwIYiBodcxK/W/YKsmVHJQY
-	dnQ4s/MVxAQHsDlh1HhmCVSbuwBcSzwuLW1dSDRiMpDzAJf3GHQyV5T95FFc2n5jtmmaN3jvZ/0
-	Cg0rfFRRxbia2UBQ8NOxC2Qf3r5fYZ8OksrWBUdCFuJ+TG6hCv0YPKQLxsydPFx3a
-X-Gm-Gg: AR+sD11sP4MBMGJVNbeT9Xs7W/fkeBBxfn/5PLGFqo3huo+G1xcHFC8JRj2arnG9EMR
-	mGwB2dCbivLhcnQ06O3k7Z/xg4mTzTnid56S60IMTnM7QmOqMP/ZCaaXmF9YU2DaPyfIvk9DlP2
-	chX9ol5vzvZXYW5eZCMOrpJkL2Sq+MdL0hNfxozw59AAH1NcAg27MQn71ndYllQVkEadZYb8RHC
-	phQ4YMhhnc5dECq8fJ/jgLMXEAriDK21O5GtA6hdpzMyL5j/AnxxzyWjhFFhf4K9TMm8zbvTokn
-	vzI9emODMSmcHJ8nETVUZAGv/94OVxCO81vmfXWDg0PPdUSYsA+1RXGjYucd9T+5+1K+OEB+KIm
-	oWaXNv6dUXjFNnPL/ejGpa0OZKUbtVPeBYQHd
-X-Received: by 2002:a17:90b:1c87:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-392cca14ae2mr3125040a91.13.1786386651387;
-        Mon, 10 Aug 2026 11:30:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:1c87:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-392cca14ae2mr3124963a91.13.1786386650815;
-        Mon, 10 Aug 2026 11:30:50 -0700 (PDT)
-Received: from hu-vdadhani-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392d534abfasm526427a91.11.2026.08.10.11.30.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 11:30:50 -0700 (PDT)
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Date: Tue, 11 Aug 2026 00:00:44 +0530
-Subject: [PATCH] arm64: dts: qcom: qcs6490-rb3gen2: Increase MCP2518FD SPI
- frequency to 17MHz
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="ljQniUtz";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="dMb3aEkL"
+ARC-Seal: i=1; a=rsa-sha256; t=1786386626; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=mz82WlIZan4fdradr0G0GV3tyuUfiq4KtXMHRclOx5h0EVDg/01VH3IXOSMdBKq0Nz
+    RpA2X6GcOkMpsV1v1b2PtMoe1oID9L4A28OzKnTkCaM8b8im7d/V7bG0bMa9WAhMdMcE
+    MWuULX81LacRG2Ro1KCA3TsNPHiRfdYwllSQPVRrgrovLJGw4OwVZF/Ps8CW1uKgaWGL
+    4Z9tMoINerl59ecIOopZlH2yS7wibGsEem3VRKaRlxq7RMfncpMqYM0TysUUcNyHaC3e
+    WYdkO9bs9z1YA5XiTusw4BwJLKjAY1BRWJVk6ysU3GM3gUHW+i+D7EgXOybYJ8pVKg/R
+    iCPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786386626;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Y0lggjtUq7t4FnGr3h+/8GK5Aapn1d7YcvCZUb9d1Uc=;
+    b=BdNoX7e1nAB5IzdQHcDbAB/bVxkFYnYZPy2aXCmx7pyjhGMj/Vhmoje+EmZmFkecrz
+    le3csCEPySzasspnAyAExXrFw7WKX9zfAFHm+CDuy87JN9xRoNjYUOGSzclHKL04+XcM
+    1tVcABBIoW2vRl0CCs0fBIkyJ6FlghaOgboTL/htO1ER2dZEpyRxKHXb+3lX9ht6ocOJ
+    REYZKmzeoT/m/N+DiGZv5W1JibEDPMzB0CVBcqzuxFOHWViLBQZ3+RWOkHnjm7t4yLpJ
+    Jw3fdXqOU/qXnDSXW3qDYk4KcMfwD/nZdPDxq6tWwz/mHvJfiR+74tt7bs7JTQIwBRJ/
+    DRaA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786386626;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Y0lggjtUq7t4FnGr3h+/8GK5Aapn1d7YcvCZUb9d1Uc=;
+    b=ljQniUtzrPH2m+M6l4jZSMuX3O3WCuc1I+Sflkhg2jefmDsFT2nV3M/ziNtjNlhZmX
+    jYY4ZIVVXURLDIuLDbsEU07ahP6eDA0Jw+AriHYveH3AGK4tyN1UVFhy37+Ep67gTtsS
+    ZnNLw5Pw7prMoJDHCc/Y8SEsiw4H4C1bE6NngaNLkN5VHq3hoN4qpZmqc2kpESB0t/lh
+    tQWTMN0GUu1F8OMtWpzp8HsZkaGZ4xMHp254c0XM6mtuCxaTWjgkg6qGrnDdDC4GhU6r
+    aPgkjOT32puRm7n+XWHTqng9V9ae3jXi05R1lXZlIOfcUZWLCMYbLh46sPOx6MsDtRA1
+    OXdA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786386626;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Y0lggjtUq7t4FnGr3h+/8GK5Aapn1d7YcvCZUb9d1Uc=;
+    b=dMb3aEkL+xg1cxalBAaM/8Z1E2miIaNANpAVl9947lRoZbqdOKy8hsYWLsSfEjREKF
+    jZP6rL2OFErxCAB+VkBA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTipoGmsiNZ9v/oGyp26o/Wi+pVFrZX1Db5b3z"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.5.6 AUTH)
+    with ESMTPSA id Q58eac27AIUNiJm
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Mon, 10 Aug 2026 20:30:23 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-kodiak-spi-can-17mhz-freq-v1-1-1d99e360a7da@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIANMYemoC/yXMQQ6CMBBA0auQWTtJBxItXsW4KGUqA7FgBwiRc
- HerLt/i/x2Uk7DCtdgh8SoqY8ygUwG+c/HBKG02lKY8G0sGh7EVN6BOgt5FpMuze2NI/EJvK2K
- ydeWChdxPiYNsv/ft/rcuTc9+/g7hOD7NHb/hfQAAAA==
-X-Change-ID: 20260810-kodiak-spi-can-17mhz-freq-c831e1893af8
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786386647; l=1536;
- i=viken.dadhaniya@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=LL8LPc2ObMc8bS8GZmSlJQ5MV4/P3HeJezRLr9CAz78=;
- b=qnlIGP3jkkLKYwseC7o8Dl0SGgmXfy/9v/sbEaRRMcNBNsZJBrLTdnpJvV0K6LlJfG4jWCqXa
- mjeH6DoorDlC0T+gvO2dmaYTO1zS0AfTVCm28Rg7Y8va2aLO1JrxG7o
-X-Developer-Key: i=viken.dadhaniya@oss.qualcomm.com; a=ed25519;
- pk=C39f+LOIGhh/02LQpT46TsUSXRvBn9qXC8Xb26KJ44Y=
-X-Authority-Analysis: v=2.4 cv=Nb3WEWD4 c=1 sm=1 tr=0 ts=6a7a18dc cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=80-5jTl7eJ6bZoIGBT0A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: hmIXosU42efM02BIq-FWlrowTWhJBcZ8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDE1OCBTYWx0ZWRfXx+Kqo3iy7m5R
- MoqKLR8QUy32PBO5v+cWj9qe4uyMNAHD06qncHrfyvcAXaMSj6Eib20HTgr4S93a4PxIEfE2ZfE
- SfsuWBcjeVqc4VUqoM4jIed/oYb4lSM=
-X-Proofpoint-GUID: hmIXosU42efM02BIq-FWlrowTWhJBcZ8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDE1OCBTYWx0ZWRfX3KLHgvEIIdwV
- 03dIDFZocNC3lJIBuerWFfDJqDka90w09vYVNe0Dcve2sJvy3DVWn7qqsnXznf/MGmQeS+hSNNz
- DiakGOyhDzj5ZWK9ccLw+0npv9n4y+zBxL5lzYK5G2z6j9VN1h1s83QSagkvTj9VhqmTnfNT3wc
- vV+cNwxQWXsK0827asR9rq7xxYgtQAZBo22HvO+9xTgk9g4ZDPVuBDtovAYd0xw/FRS+J19/3kO
- hrYiWQ+p3CbzwaZNeZtvKRsLCxCIBA5T5G+F11ZXIQxnFr6vfuF28wRjj8C7RjX0Uov5Q/qkkj1
- X+EraXAOhIYNupBBq02kDCRLD5wK/ketZNziEXuw7Y4R9ZF8glrgR2lsguhXDd86vwrlFp+ie8z
- ZBeiG1/VZX1k/i4l32HoC97d0q9MIaQryghoqP7xq4BkgGC3+0fOnPZveWZhPo899SIkTqYSvsr
- LhbWm3TPgMlW/8/PNsg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_04,2026-08-10_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 suspectscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608100158
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH 15/16] backlight: remove pandora_bl
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <2C9844A3-3C4C-48E6-863D-BF8328CEE540@goldelico.com>
+Date: Mon, 10 Aug 2026 20:30:13 +0200
+Cc: Daniel Thompson <danielt@kernel.org>,
+ Grond <grond66@riseup.net>,
+ Stefan Leichter <sle85276@gmx.de>,
+ Grazvydas Ignotas <notasas@gmail.com>,
+ Tony Lindgren <tony@atomide.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ Helge Deller <deller@gmx.de>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Sen Wang <sen@ti.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Niranjan H Y <niranjan.hy@ti.com>,
+ letux-kernel@openphoenux.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org,
+ linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org,
+ kernel@pyra-handheld.com,
+ mfd@lists.linux.dev
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <92FE1162-8C61-4186-B073-6AB4B2BDA640@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
+ <anmpiADsvzW39DNx@aspen.lan>
+ <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
+ <20260810143914.64d29a5c@kemnade.info>
+ <2C9844A3-3C4C-48E6-863D-BF8328CEE540@goldelico.com>
+To: Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 
-The MCP2518FD CAN controller is limited to 14MHz because higher SPI
-frequencies are unreliable with the current SPI3 pin drive strength.
 
-Set the SPI3 data, clock and chip-select lines to 8mA drive strength and
-raise spi-max-frequency to 17MHz, the maximum allowed by the MCP2518FD
-errata:
 
-  0.85 * Fosc / 2 = 0.85 * 40MHz / 2 = 17MHz
+> Am 10.08.2026 um 15:23 schrieb H. Nikolaus Schaller =
+<hns@goldelico.com>:
+>=20
+>=20
+>=20
+>> Am 10.08.2026 um 14:39 schrieb Andreas Kemnade =
+<andreas@kemnade.info>:
+>>=20
+>> On Mon, 10 Aug 2026 12:45:16 +0200
+>> "H. Nikolaus Schaller" <hns@goldelico.com> wrote:
+>>=20
+>>> Hi Daniel,
+>>>=20
+>>>> Am 10.08.2026 um 12:35 schrieb Daniel Thompson =
+<danielt@kernel.org>:
+>>>>=20
+>>>> On Sat, Jul 11, 2026 at 08:02:02AM +0200, H. Nikolaus Schaller =
+wrote: =20
+>>>>> Retire the platform specific pandora backlight driver since
+>>>>> it can now be replaced by twl_pm and device tree.
+>>>>>=20
+>>>>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com> =20
+>>>>=20
+>>>> Yay!
+>>>>=20
+>>>> Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> =20
+>>>=20
+>>> Well, there were some good comments by Sahiko to the prerequisites =
+of this patch,
+>>> because it has one speciality the PWM BL driver does not handle =
+(avoid
+>>> interpretation of PWM signals as W1 protocol).
 
-Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Here is the report: =
+https://sashiko.dev/#/patchset/cover.1783749722.git.hns@goldelico.com?part=
+=3D15
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index 90f2eebc349f..eb8d83317f36 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -1105,6 +1105,16 @@ &pon_resin {
- 	status = "okay";
- };
- 
-+&qup_spi3_cs {
-+	drive-strength = <8>;
-+	bias-disable;
-+};
-+
-+&qup_spi3_data_clk {
-+	drive-strength = <8>;
-+	bias-disable;
-+};
-+
- &qup_uart7_cts {
- 	/*
- 	 * Configure a bias-bus-hold on CTS to lower power
-@@ -1233,7 +1243,7 @@ can@0 {
- 		reg = <0>;
- 		interrupts-extended = <&tlmm 7 IRQ_TYPE_LEVEL_LOW>;
- 		clocks = <&mcp2518fd_osc>;
--		spi-max-frequency = <14000000>;
-+		spi-max-frequency = <17000000>;
- 		vdd-supply = <&vreg_l11c_2p8>;
- 		microchip,xstbyen;
- 	};
+>>>=20
+>>> I haven't found time to work on this, so we can't remove this yet.
+>>>=20
+>>> In the end it may either remain a pandora_bl driver (converted to =
+DT)
+>>> or become a patch for something else.
+>>>=20
+>> But then it is a TPS61161 on top of PWM, not a pandora driver.
+>> And then there might be just a quirk for that chip in the pwm_bl =
+using
+>> triggered by a compatible. I guess the quirk is this:
+>>=20
+>>=20
+>> if (priv->old_state =3D=3D PANDORABL_WAS_OFF) {
+>> - /*
+>> - * set PWM duty cycle to max. TPS61161 seems to use this
+>> - * to calibrate it's PWM sensitivity when it starts.
+>> - */
+>> - twl_i2c_write_u8(TWL_MODULE_PWM, MAX_VALUE, TWL_PWM0_OFF);
+>> -
+>> - /* first enable clock, then PWM0 out */
+>> - twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_GPBR1);
+>> - r &=3D ~PWM0_ENABLE;
+>> - r |=3D PWM0_CLK_ENABLE;
+>> - twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
+>> - r |=3D PWM0_ENABLE;
+>> - twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
+>> -
+>> - /*
+>> - * TI made it very easy to enable digital control, so easy that
+>> - * it often triggers unintentionally and disabes PWM control,
+>> - * so wait until 1 wire mode detection window ends.
+>> - */
+>> - usleep_range(2000, 10000);
+>> - }
+>>=20
 
----
-base-commit: 0f6da28aab51b16762ed82e8fdeaa5042da45b08
-change-id: 20260810-kodiak-spi-can-17mhz-freq-c831e1893af8
+Exactly. The Sashiko comment to this section was:
 
-Best regards,
---  
-Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+When switching to the generic pwm-backlight driver, how is the TPS61161
+initialized into PWM mode? Because the TPS61161 shares its EN pin for =
+both 1-wire
+EasyScale digital control and PWM control, the removed pandora_bl driver =
+included this
+hardware workaround to force a 100% PWM duty cycle and sleep for 2-10ms =
+at
+startup. Without this initialization pulse, could the TPS61161 =
+misinterpret the initial
+PWM signal as a 1-wire EasyScale command and disable PWM control, =
+preventing
+the backlight from turning on properly?
+
+Well, I didn't see this but it would be on the safe side to have it.
+
+>=20
+> Yes that is what I mean. It needs to be ported somewhere. If it can be =
+ported to
+> some compatible =3D "pwm_bl_for_tps61161" or what fits best it will be =
+fine. Or it
+> could be in some compatible =3D "pandora_bl" driver.
+>=20
+> Has to be worked out when the development machines are not blocked by =
+3 or 4 other
+> projects already running in parallel :)
+
+Nevertheless I did a quick look into the pandora_bl driver structure.
+
+Here are my findings:
+- the code fragment is part of pandora_backlight_update_status()
+- priv->old_state remembers if brighness was set to 0 or not
+- so this code triggers on any change from bright =3D 0 to bright > 0
+- the pandora_bl driver is the only one to use TWL_MODULE_PWM besides =
+twl-pwm
+
+So the most natural way of transplanting this appears to me:
+- add this logic to the twl-pwm driver
+- add a propery to escribe this special need (e.g. "disable-easyscale")
+- use this to triger the extra code in case this flag is set
+- and if the pwm duty cycle changes from permanently off to real PWM
+- this should obviously go into twl_pwm_config() to detect through =
+duty_ns
+- alternativey it might be possible to handle everything in =
+twl4030_pwm_enable
+
+Suggestions welcome.
+
+BR,
+Nikolaus
 
