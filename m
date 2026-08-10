@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0460388E55;
-	Mon, 10 Aug 2026 07:55:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D091DDA18;
+	Mon, 10 Aug 2026 07:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786348533; cv=none; b=GO1/4iehCnuXkqtxEEIB6itWx08zAO1TclaGHnjjdN+bnzxJEkKYU/4lT52e0587y1DTOWrDztzLeJmYRGZFLoVrKPmbxxUxy46kg55I/nfEe+DZQGAY8XcuJNzcDa0Y1B6qb0916V2fiKvnHVmxF6wMIEbjk+TRyApdP1As5YU=
+	t=1786348767; cv=none; b=QH+A08ZnOD1BW0GY46Qw48Xm6Dkl6rwvd4Z9/SShSftLyPh63a0dvEx4q02a4k3kIIP7ksXbJqd2UBGOoq3AViU2fplHEQZNPM1n+4YOlawUeL/yzcQ6BKmighYbfkmRyAmROolwg+9mLZoegwB8LBTdm0sMgeZ2ZKsXi7LbYz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786348533; c=relaxed/simple;
-	bh=S4dZUy84ansteXj3J/r2ZjzvSdLzFwEggQRJhGWqFH0=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=KZiJ3Q0YvXlO2hkJFSguA+G5FasCxLw5MqI271Mz0QQRqBddJ1qgTP9zikb+/8EYMPR9yQIt8CQLVJW1EQTk4CwA+4XP/WEnE8LBWzIpA2oSz4eK4ZKOd0dz4VgzlcCWIvIROhgWuveYgCRLQq9Yz/hqHSkprIvIGx6YzP1h1B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LpGXD7q9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786348767; c=relaxed/simple;
+	bh=nO6rLw9lb79JeosjQImJ0ccUes1FZjcWX+Pj/sO21nM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BANuNG7JLoo2SsZkECosQhRvEn0YXTeSzh8BgiHd8kgc4319hQRA3Kqt/I/ALqUsGrLwNlJ47R6slHeJWJ3cq1ZgvcYoaoGul2FEKwI7rIF8MZKIT2LcBzBvM5MJVWhqcOJhIeeWEjiUIVsqHzR1SyRHangPnQRdI8BWp8xT8uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I+N7gk6s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LpGXD7q9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C29E1F000E9;
-	Mon, 10 Aug 2026 07:55:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I+N7gk6s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1666E1F000E9;
+	Mon, 10 Aug 2026 07:59:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786348532;
-	bh=kBLbIMgTXqINzSs76AQPCvPUga9OZFpNe9a8KjfvCuw=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=LpGXD7q9dZZxtKlc5vTIWPheMBSrbxk8BWAVqruydo8JBkbpot8OkXjSNIT0EGIp7
-	 DRc7lFbPbtvPoAQtQyCZVW/dyEkvEX1u1Kqb0/MArv1CXrBFmb6/Gltg0C/fupwf39
-	 5mhfR1OXhAFH7Mh6Vo/SUWS1ap569zup/F/S/ZVKy7Ul4NpcwEJOIewaI6cNWo3yL7
-	 t3C/zXIv/MBQzw26/qTohklhh0jBrK3xT2R8erD4Utkbtc3V/QYrQoDiFePbjbwo/c
-	 TS6f8JXK1XrSKs8qLt7Hc6kVMmtGbzySuZPTJ4PFNFcf2W5KRt4u1tDpD8q2fDDZXF
-	 VWdmWvZlXVaNA==
-Message-ID: <f2183f1f-f690-4721-9e91-4fefd56d1b89@kernel.org>
-Date: Mon, 10 Aug 2026 09:55:25 +0200
+	s=k20260515; t=1786348766;
+	bh=P27qAVT77kvl9fg4eXWL9CT6nQpZIU/wG6WI/N4Smg4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=I+N7gk6sq1C3mYJnSjXujowwjo1nWWELBrHSJ81qVihYYy4OAVO4+2FlZvhgbZdFY
+	 tMeckEzDSm3NIoQuJL1lmBAUMZl1iaqaLwViM9s54OpMk8kGTBy/hGt1jUqBuUGaH/
+	 Ay38L67wVqblH6YvsenjwgJGAaAqb+JnyOMFkifFmlBPsEHHEN8XnBv2LyfalwyLrj
+	 LRnOUEpXxEtEdw6FDy4omidPccXbjozyiJ1K8dgL2yuSFInnRnuB6CtENh6k4XchXk
+	 KCMItpSKHp8h3/JbQc6LX9nbddd/sv/k1Dw2sQKsiA7xjPBieic66kf8vsEXlIJDw6
+	 YeL0umAblrVsg==
+Message-ID: <105fcc5b-e1d9-4bd8-a697-2d68e185aa38@kernel.org>
+Date: Mon, 10 Aug 2026 09:59:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,18 +37,20 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH net-next v3 2/3] dt-bindings: net: wiznet,w5100: add
  link-gpios
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Netdev <netdev@vger.kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net>
  <20260806-wiznet-link-gpio-v3-2-532d4a143805@marmottus.net>
  <20260810-arrogant-anteater-of-economy-ef2078@quoll>
+ <9e8fb566-e372-4519-ac0b-b8ca6de275e3@app.fastmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -93,47 +95,30 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260810-arrogant-anteater-of-economy-ef2078@quoll>
+In-Reply-To: <9e8fb566-e372-4519-ac0b-b8ca6de275e3@app.fastmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/08/2026 09:43, Krzysztof Kozlowski wrote:
-> On Thu, Aug 06, 2026 at 05:00:01PM +0200, Arthur Crépin Leblond wrote:
->> Add the link-gpios property which describes an optional GPIO line that
->> can be wired to the LINKLED pin of the w5500 as an interrupt to detect
->> link status changes.
+On 10/08/2026 09:53, Arnd Bergmann wrote:
+> On Mon, Aug 10, 2026, at 09:43, Krzysztof Kozlowski wrote:
+>> On Thu, Aug 06, 2026 at 05:00:01PM +0200, Arthur Crépin Leblond wrote:
+>>>  
+>>> +  link-gpios:
+>>> +    description:
+>>> +      An optional GPIO line that can be wired to the LINKLED pin of the w5500
+>>> +      as an interrupt to detect link status changes.
 >>
->> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
->> ---
->>  Documentation/devicetree/bindings/net/wiznet,w5100.yaml | 7 +++++++
->>  1 file changed, 7 insertions(+)
+>> The message is confusing. If you describe it from the host (system point
+>> of view), then interrupts are not GPIOs but "interrupts".
 >>
->> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
->> index 641c9ddbde9e..cebf437ad3c4 100644
->> --- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
->> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
->> @@ -35,6 +35,12 @@ properties:
->>        however, board designs may need to limit this value.
->>      maximum: 80000000
->>  
->> +  link-gpios:
->> +    description:
->> +      An optional GPIO line that can be wired to the LINKLED pin of the w5500
->> +      as an interrupt to detect link status changes.
+>> But maybe this is OUT GPIO from the system to the device?
 > 
-> The message is confusing. If you describe it from the host (system point
-> of view), then interrupts are not GPIOs but "interrupts".
-> 
-> But maybe this is OUT GPIO from the system to the device?
-> 
+> From the device point of view, it's an LED output, but from the
+> system side we should describe it as an IRQ_TYPE_EDGE_BOTH
+> "interrupts" property rather than a gpio line.
 
-So I read your driver and hardware datasheet. This is not an interrupt,
-just output pin, so drop the "interrupt" wording here.
-
-This output pin can be wired to LED or to GPIO on the host side, so
-ideally this would be mutually exclusive, but representing this as GPIO
-is fine for now. Description could be:
-"Active low LINKLED output pin reporting status of the link"
+Then probably we should list all four other pins as well (speed, duplex
+and active).
 
 Best regards,
 Krzysztof
