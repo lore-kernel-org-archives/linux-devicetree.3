@@ -1,190 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45442363C75;
-	Mon, 10 Aug 2026 17:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232BA430309
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 17:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786382455; cv=none; b=udMgyL0tlikUZgyibG0LVPjy403FsR3QfgmKrN2AjpWZYPjbkvepkaNpmvgSokyMfMOK8BrsFl3/mY7kUKZ+J7yQ9JymyJXkKr966uIGlDUcmEdZ/MAQio5xDI3yScUb7KRYPeF0Dq1qb+iH7IMkysJvMqs+qvGclO7LIz02Alo=
+	t=1786382589; cv=none; b=SlmzZfJdVH0Iz61sKJrLKsrhmwWVA2B8An7tPgPfDLUzSHJg11yiK8ZzrTS+uTmGBvovNX+M5hQlNQQpqDHNK1vm+ZBLRPZfLcP+S8+Vu+rD1NnEOnVCFZn8ubRLtU/ZsBQQ6tYqiJpV91CZPz4olLHFBvb7a/O9EidTyF0dcok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786382455; c=relaxed/simple;
-	bh=b8U61I8U+pXiZOhugm9hn4TcNffMep9S/iFL+fm3y2w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FSTF37v6+75j7ak+0Yq5I5TI6NcCb99rkSNP1GnnMnCjhKyYE2/Pm4x51GGTYrNBFiQguMJNSnKl3aDxDImcjvzIMYCEVkNuRCZNvt+ixLoaVl4RlVZ4oMRQnikdiFmFK1cQ4YbsxtwdNZXLLy+xYPbEXWKbCB+PhLA6JwXtqtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8oaKLPJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786382589; c=relaxed/simple;
+	bh=7JJFZM5gaiNG8foKIaR3aWW27HrxrqA/Bk/MUvmEgGk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ojLNdR6KKM0iypDM4ELlEDMMm052O4dM2NqmxDOQPr2ZQiXyc+mlxzUKCjZntIU67RpZ4dNujabwq3hZQNWW3lfgB6SFqbLJX1NR83dEQVQIOHH/ejx19F1yo/r9ki/ftoG9d21WWSUnAyfLv4I8FBkNP355a8n0AeIQG5B7gNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SjztdEI2; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8oaKLPJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11341F000E9;
-	Mon, 10 Aug 2026 17:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786382451;
-	bh=jEh3ZorWlAwQDHaDMh1BWutAJBwz0a3ej5Meo/CoAgc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n8oaKLPJ/Ww2LqSxXW58R48nYZ8Be4wE9gjxOvsr51Qszs4YhkIvCmWLMsXajPqBF
-	 pl3ukjdwVbTYDHJBo7zBzyDi6Ohzyp1DtZV+SykYfMMUWecCrvrlFkYd7MPoya4Z9q
-	 hNM9/rxhmxDdum9EBvivzBwss9AAkSdUll3cAl02G3j+vE41Kncz8Rv2YWg5U/L45e
-	 eMgHqDKy9M+hFmjgk97NNyu2tINeaILLpSBAvgzOK3NrtilH8q1zhxMoxZwmxcIVM/
-	 ynqdooKJId39q4lkE6DMAxsBeWZqRhMdVx6bJg40pnOt+SC/OiDK/qiv6rkitRbjyI
-	 2V224suDe7rQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 18/19] dmaengine: ti: k3-udma-v2: Update glue layer
- to support PKTDMA V2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, dmaengine@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260810151423.1948224-19-s-adivi@ti.com>
-References: <20260810151423.1948224-1-s-adivi@ti.com>
- <20260810151423.1948224-19-s-adivi@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 17:20:50 +0000
-Message-Id: <20260810172050.D11341F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SjztdEI2"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f71156e1aso861842f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:23:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786382586; x=1786987386; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ENzVokBmSnuN9bqw0Tbgo5j7dr6hE7iZRXU8UDONpzw=;
+        b=SjztdEI2so6ztFVfvBM+TWQypaiFJIXcp0Wed2j9J/1KOThoxh1VXee5F8X4dFLdOF
+         SEBmcubOI6aUZEbpAnlw8ydJh2YyMOox8OZXPBwjYPWs35rahInrEPLrWDn6e3QYtsjM
+         hjEqdwu8TcnNJmj58AW87YfsEjSZB9zaD8neDY/5rfrdTpg/K9AZdBYpqS817dcn/X6/
+         4GBUEWOGyCcfl6aUFLG06mUkQFOuSF2yoj4e8/vkVVKT2Q8unV4dB6mVvj768VMwAlDm
+         euDmW0nbZwL/dd6A1J7oMS1DeoYE//oZbq2BKnWjaFwqf+1vp1ViV5dbRdUqG+K1DNrY
+         On7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786382586; x=1786987386;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ENzVokBmSnuN9bqw0Tbgo5j7dr6hE7iZRXU8UDONpzw=;
+        b=pbp2Q/E2IcyKGGNpR9/DB001K193M5Ccg75AmkXE5yiDD2ex4Img7vHb/Ja6cHo1Ml
+         dTahca7rmXGPYeGcGy5aLmmtgWNENPESoSj6bkhFxAVtVqgHlAcV5V4jVttpe7nDpTpL
+         b77Utk+waZ6aBrE1PzB8mFjefqz8+9tFz57xG+Ymd09aMi+XcDd3Zo1Qzjcvpsy1fTz3
+         lyznUjQdorr4YxAcvean9wiNCNLha8iG5q2iKMTkMsXietnGvHvIPiUrG+TD+Vna6gtm
+         51egVS86H7/PbjgvwrH5GGnkXyrJ6LufyVXPoL02vYm6P3X2vNq/wZEXI2wNe3zBJUdW
+         ef/Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rqy7pZuRz7r/pVyKarCCYaQonBK6IEr/Im9DcqCHOUqljdZNrnoQQwRH5DzZPCz6vErqqYDtJXnRIcx@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWzgh0VumtmsJUHclFvj6/cg6q+etI15fjll3VvYIJIthWwmF2
+	pIjK93ApWALsCBUu0X0l6gMGwfwdeP3BMJ+3x/p4Swc3OET8/uPEvrFQ
+X-Gm-Gg: AR+sD10lJZ67wjcVoKVgKs+dBDE/R5bgz7tqfhr4cSQ3L8Ej6Tw7KwS8EITscBrYJ4G
+	4fN8bWFBHBfMF0Tn06gZnUUoSGXyQnVH552ALAgUlyKGqPLV5R2w/8eX4NyXxgMZzUNuQCAkqpm
+	b69ODkQgpCVzbG0tBc+co+Zj+j8S6iKmYc154/ldh9TduXZhKa8BHdpEITsYCmzYaGmpU2hweMG
+	hr/jCEBG1icz0YzdfuL1+pkUyvehLA8p7xWENY0DRqXx7aDwPruJJ1298f7E/fgp7cbvW/qRtmp
+	qUxzoVqmBJiB0SdaS3buIPnjpxkeTOSZozWULOl7NblwdFsP/KbuNsc+mhrf6W2IjgVDaQDcSbX
+	k4SMQGrDitc6hKXYnDNRn6g0p5wemETcscOo2BT+y5+VTOqNGCl6JDxg7UEed4PD9qGlJq7WfQO
+	fyBnRbPoCj9WkN755jaToam1GBEunGru+q7+RQ2ZYnNWMaBu6FJ/xZ4Ol/puWtXGem0wqKJl+ap
+	SWy2P/krqw752mQKVNc2/LJYqU92MkQow==
+X-Received: by 2002:a5d:5985:0:b0:47f:b452:49f1 with SMTP id ffacd0b85a97d-48130e7e7dbmr32190829f8f.2.1786382586047;
+        Mon, 10 Aug 2026 10:23:06 -0700 (PDT)
+Received: from localhost.localdomain ([2a0d:3344:2841:7708:a101:2b8a:f76:a00f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021fb89bsm34651555f8f.30.2026.08.10.10.23.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 10:23:05 -0700 (PDT)
+From: =?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
+To: wens@kernel.org
+Cc: andre.przywara@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
+Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
+Date: Mon, 10 Aug 2026 19:22:54 +0200
+Message-ID: <20260810172254.468732-1-juanmanuellopezcarrillo@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAGb2v64bTO-uG=QrtVDfHF=qnGtF5LMitagD1zfNEYSAqOzvXQ@mail.gmail.com>
+References: <20260721223956.13665-1-andre.przywara@arm.com> <c539e5c4-f21e-49a1-b0e3-d35f42893fc4@arm.com> <CAGb2v67CGcaQmSz_tTbSTQ7dzfCV2+7i5t_34iHKmyU05h-yRQ@mail.gmail.com> <20260803153519.262827-1-juanmanuellopezcarrillo@gmail.com> <CAGb2v64Ty3HkBbb5A=ZL6QUAVD6bugG0hcYykCmh-KUsVwzwRw@mail.gmail.com> <CAGb2v64bTO-uG=QrtVDfHF=qnGtF5LMitagD1zfNEYSAqOzvXQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Hardware TX and RX channels are left enabled if the V2 autopairing=
- process times out, leading to potential DMA Use-After-Free.
-- [Low] Unmet direct dependency for `TI_K3_RINGACC` when `TI_K3_UDMA_V2` is=
- selected.
---
+Hi Chen-Yu,
 
---- Patch [18]: [PATCH v8 18/19] dmaengine: ti: k3-udma-v2: Update glue lay=
-er to support PKTDMA V2 ---
-commit 679ff99789e75f58a08b38ae95963dd08f423c94
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+Sorry for the slow reply, and thanks for taking the time to measure this.
 
-dmaengine: ti: k3-udma-v2: Update glue layer to support PKTDMA V2
-   =20
-Update glue layer to support PKTDMA V2 for non DMAengine users.
-The updates include handling absence of TISCI, direct IRQs, and
-Autopair: Lack of PSIL pair.
+> On my Orange Pi 4A, running iperf3 [...] 4A as client: ~180 Mbps
+> 4A as client but with reverse transfer (-R): ~520 Mbps
+> Something is definitely off. I don't know what though.
 
-> diff --git a/drivers/dma/ti/Kconfig b/drivers/dma/ti/Kconfig
-> index 40713bd1e8e9b..ada2ea8aca4b0 100644
-> --- a/drivers/dma/ti/Kconfig
-> +++ b/drivers/dma/ti/Kconfig
-> @@ -68,7 +68,7 @@ config TI_K3_UDMA_COMMON
->  config TI_K3_UDMA_GLUE_LAYER
->  	tristate "Texas Instruments UDMA Glue layer for non DMAengine users"
->  	depends on ARCH_K3 || COMPILE_TEST
-> -	depends on TI_K3_UDMA
-> +	depends on TI_K3_UDMA || TI_K3_UDMA_V2
+I cannot reproduce that here. Since you asked with iperf3, here are iperf3
+numbers from my Orange Pi 4A, and one measurement that I think is more
+useful than the throughput itself.
 
-[Severity: Low]
-Does selecting TI_K3_UDMA_V2 cause an unmet dependency warning?
+Bench: direct Cat 5e cable between the board and my PC, no switch in
+between, link negotiated at 1000/full. iperf3 3.18 and Debian 13 on both,
+board at 10.42.0.52, PC at 10.42.0.1. Kernel is my own 6.18.40 tree.
 
-TI_K3_UDMA_V2 selects TI_K3_RINGACC but lacks the depends on
-TI_SCI_INTA_IRQCHIP dependency required by TI_K3_RINGACC.
+  board -> PC   (iperf3 -c 10.42.0.1 -t 10)        943 / 941 Mbits/s
+  PC -> board   (iperf3 -c 10.42.0.1 -t 10 -R)     930 / 928 Mbits/s
 
->  	help
->  	  Say y here to support the K3 NAVSS DMA glue interface
->  	  If unsure, say N.
+Retr 0 in both directions, and rx_errors, rx_dropped, tx_errors,
+tx_dropped and rx_crc_errors all still 0 afterwards.
 
-[ ... ]
+The number I would look at is the cost: sustaining 943 Mbits/s takes
+about 3% of the eight cores here, which is roughly a quarter of one A55,
+with ~8500 eth0 interrupts per second. The little cluster was pinned at
+1416 MHz for that run.
 
-> diff --git a/drivers/dma/ti/k3-udma-glue.c b/drivers/dma/ti/k3-udma-glue.c
-> index bec4deb480e60..9b9921e904bc2 100644
-> --- a/drivers/dma/ti/k3-udma-glue.c
-> +++ b/drivers/dma/ti/k3-udma-glue.c
+So on this board the link is not expensive to saturate, and that is the
+part worth comparing with yours. If one core on your 4A is at 100% si/sy
+during the run, we are looking at a CPU-side limit; if no core is busy,
+the CPU is not the story at all and it is somewhere in the MAC, the PHY
+link or the path. That single observation would split the problem in two,
+and it costs you one `top` next to the iperf3 run.
 
-[ ... ]
+There is one difference between our setups that I can name precisely. On
+plain v7.2-rc7 there is nothing for cpufreq to attach to on this SoC:
 
-> @@ -525,21 +539,38 @@ int k3_udma_glue_enable_tx_chn(struct k3_udma_glue_=
-tx_channel *tx_chn)
->  {
->  	int ret;
-> =20
-> -	ret =3D xudma_navss_psil_pair(tx_chn->common.udmax,
-> -				    tx_chn->common.src_thread,
-> -				    tx_chn->common.dst_thread);
-> -	if (ret) {
-> -		dev_err(tx_chn->common.dev, "PSI-L request err %d\n", ret);
-> -		return ret;
-> -	}
-> +	if (tx_chn->common.udmax->match_data->version =3D=3D K3_UDMA_V1) {
+  - drivers/clk/sunxi-ng only builds the main, MCU and R CCUs for the
+    A523, so there is no CPU clock controller;
+  - the cpu@N nodes in sun55i-a523.dtsi are bare "arm,cortex-a55" plus
+    psci, with no operating-points-v2, no clocks and no cpu-map;
+  - sun50i-cpufreq-nvmem matches h6, a100, h616, h618 and h700, not the
+    A523.
 
-[ ... ]
+My tree carries all three out of tree, so the cores scale here and on
+plain mainline they stay wherever the bootloader left them: mainline
+U-Boot 2026.07 hands mine off at 768 MHz.
 
-> +	} else {
-> +		u32 val;
-> +
-> +		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
-> +				    UDMA_CHAN_RT_CTL_AUTOPAIR | UDMA_CHAN_RT_CTL_EN);
-> +
-> +		ret =3D read_poll_timeout(xudma_tchanrt_read, val,
-> +					val & (UDMA_CHAN_RT_CTL_PAIR_COMPLETE |
-> +					       UDMA_CHAN_RT_CTL_PAIR_TIMEOUT),
-> +					100, 500, false,
-> +					tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG);
-> +		if (ret || (val & UDMA_CHAN_RT_CTL_PAIR_TIMEOUT)) {
-> +			dev_err(tx_chn->common.dev, "TX channel autopair timeout\n");
-> +			return -ETIMEDOUT;
-> +		}
+I want to argue against my own suggestion, though, because the numbers
+above do not fully support it. If saturating the link costs a quarter of
+one A55 at 1416 MHz, the same work at 768 MHz should cost roughly 44% of
+one core, which still leaves headroom. Falling to 180 Mbits/s would need
+about five times the per-byte cost, and the clock ratio only accounts for
+1.8x of that. So the missing cpufreq support may well be a contributing
+factor, but on its own it does not explain your number.
 
-[Severity: High]
-If the autopairing times out, does this leave the TX channel enabled?
+What I can do, if it is useful to you: rerun exactly the above on the
+same board and cable on top of v7.2-rc7, twice. Once with just your
+withstand fix, which is the smallest thing that gives me a working link
+there, and once with that plus only the CPU clock controller and the OPP
+tables. Same base, same config, one variable. I would report throughput
+per direction, scaling_cur_freq during the run and per-core softirq,
+which should at least tell us how much of the gap the clock can account
+for.
 
-Since UDMA_CHAN_RT_CTL_EN was set before the timeout and is not cleared on
-this error path, could the hardware eventually pair and perform DMA accesses
-to freed memory if callers assume a failure means the channel is inactive?
+To match your setup as closely as I can: which kernel and defconfig are
+you running on the 4A, what MTU, which governor, and is the 5 Plus the
+iperf3 server in both directions?
 
-> +	}
-> =20
->  	k3_udma_glue_dump_tx_rt_chn(tx_chn, "txchn en");
->  	return 0;
-
-[ ... ]
-
-> @@ -1406,21 +1481,38 @@ int k3_udma_glue_enable_rx_chn(struct k3_udma_glu=
-e_rx_channel *rx_chn)
->  	if (rx_chn->flows_ready < rx_chn->flow_num)
->  		return -EINVAL;
-> =20
-> -	ret =3D xudma_navss_psil_pair(rx_chn->common.udmax,
-> -				    rx_chn->common.src_thread,
-> -				    rx_chn->common.dst_thread);
-> -	if (ret) {
-> -		dev_err(rx_chn->common.dev, "PSI-L request err %d\n", ret);
-> -		return ret;
-> -	}
-> +	if (rx_chn->common.udmax->match_data->version =3D=3D K3_UDMA_V1) {
-
-[ ... ]
-
-> +	} else {
-> +		u32 val;
-> +
-> +		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG,
-> +				    UDMA_CHAN_RT_CTL_AUTOPAIR | UDMA_CHAN_RT_CTL_EN);
-> +
-> +		ret =3D read_poll_timeout(xudma_rchanrt_read, val,
-> +					val & (UDMA_CHAN_RT_CTL_PAIR_COMPLETE |
-> +					       UDMA_CHAN_RT_CTL_PAIR_TIMEOUT),
-> +					100, 500, false,
-> +					rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG);
-> +		if (ret || (val & UDMA_CHAN_RT_CTL_PAIR_TIMEOUT)) {
-> +			dev_err(rx_chn->common.dev, "RX channel autopair timeout\n");
-> +			return -ETIMEDOUT;
-> +		}
-
-[Severity: High]
-Similarly for the RX channel, if the autopairing times out, does this return
--ETIMEDOUT without disabling the hardware channel?
-
-Could this lead to memory corruption if the hardware operates after the dri=
-ver
-has freed the associated ring buffers?
-
-> +	}
-> =20
->  	k3_udma_glue_dump_rx_rt_chn(rx_chn, "rxrt en");
->  	return 0;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
-224-1-s-adivi@ti.com?part=3D18
+Cheers,
+Juan
