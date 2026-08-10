@@ -1,63 +1,63 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BA021A447
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918CC3E763B
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786370461; cv=none; b=a7IWVH7MA+Ep4YxXUrDwB5ldOKxHpAdO0KdTfEtrR16ueC0K0vkIetD3ZXcBz7O8nhHNm2zfMulRoqJVr5xRxXlv7VKPxLWs+hAQavNrjMeV3glHHEvdq9RY08lYnpFQCGmctf18YzsYeH7KIoUzWYmT1EwdlZ62d67qp1Ax8mI=
+	t=1786370462; cv=none; b=J+xgdnddytMtjdeqcVKNrt/RXduL8p75NW248BGROipCOe83WxnEx+yqvFl0eFNlXHGyFLPjnjhM0NMZ9VDJ3ukb0dOlHFRU1rwjSmbYLN14APrkfFq2akIlhn95Uq24p+yYOjgKv5/ko9fwjwRdZ+mlJgq1qgspnLG6WyT8yK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786370461; c=relaxed/simple;
-	bh=iUsMkpvBNFRusFAlt82Y749Vr0lq7pl4RQpg0fTX1zA=;
+	s=arc-20240116; t=1786370462; c=relaxed/simple;
+	bh=XDDiz/yiOtFtArn41FvfVWo2uGNLrJxECtnaVDV1qIs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q9M+QTfL5PqR9e1t05RqU+Vl965rXnCA9hmM3j2MaiWN9OVLCHST7UxUU8dYsqmR/4ikUYb7YPzytncCuczAvxtLx392gBAjFHXrNTFujkE4Hn3jtzXunuO6h3pD7o3V5RujW2vb+B9e+YSKkBrZDgrB5kRH5tQ3cAzE1iW5M+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lYvtwx3B; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=ExS/Aihct6W0aOBFxocwzSwYNGrSHxPDRJXqIvYup882t2GbKjyVT3opNjCkUS5d5gLCoeMs36dAOR7UKCQLmWFP55sSrJFd6lrppbkB5OWWekVNhlX/BK7OYwxar0hMVGdBKW2peTUfEBei0LsFfx5qsicCe07nA0GenmHeAJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mHqao8s4; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lYvtwx3B"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-495635a85d2so17244245e9.0
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:00:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mHqao8s4"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-495635a85d2so17244475e9.0
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:01:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786370458; x=1786975258; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786370459; x=1786975259; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hSq7OZ0xeIWTiSwoTzu6Q+tT3niFPej9d4P2mwNfxe8=;
-        b=lYvtwx3BshLBPVH0Zls+ffLXkB1iOOkpiOHFfkRBKFG8Z8E0lknQoL6UxShnnQ2TzG
-         tvT3vy5jOzqoejRAb4URpCLsyM9dn5JkI7idj/H8J6JQaOfxy9x1la86wVZWk7RF201B
-         5JZH9tjWL97Swhmw7ojBtnihRb/jrfWDMB9+1XiFlTbqPDVzpcQp8Kh57XQG4oCtKmk0
-         LA843LoX6KFBPfXj5n/ShrF25MmW1eO1JRFIe7Put28vKdx5R/OMwxCYG8r4rE53E/LW
-         taO2c9MZpoLllyQKXPwtbI6HZFqDReR5zq6vvSJiZRq+k5gVEwwNbD4Y3LkeeYZ+f31U
-         lxXA==
+        bh=w2RxGy/HDr+ZHJEDxF0FWSRtIXjBooh011FJ3fxMxJo=;
+        b=mHqao8s4oODJ6g3XaJ2kgNM3SrYx4VAc9mld4v+ZhlIK16OnCql0eZUopGAi0TD28Y
+         aRCS1p2dx/UAtieBCDT7jKpzI8Hoqg2Gp5N7gaoKxsZoPqxDVEjjB3qSS6wbMHyFwdr6
+         Jdz5kg0gRiszt2dN7JZhzBi6QfVnPuNqQrhso21Qzeyhi9tVt8GhtTrQAU5WIIopvdcS
+         1AJkwBH7kTxPv6KbN9iGGRDH45u2Yz+Vpp3c4g+XzuKJkHIL2wrYeF9ZYC5PXbrgZSKu
+         MHuSrR4ijavaE4gKCRLfUyjEUNC1ENQClCC3abVYyJhx9e73jklTQ4ei84T5/MQ1VTAc
+         gtng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786370458; x=1786975258;
+        d=1e100.net; s=20251104; t=1786370459; x=1786975259;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hSq7OZ0xeIWTiSwoTzu6Q+tT3niFPej9d4P2mwNfxe8=;
-        b=tXYhq12IAZ+U4vH+TrKKhqnVTw0ZtV4gDPvlt2dho5f2cBm6Ka4i+VoWZ/sk2C5WPS
-         PHWOyF56FmV2h9dyQ8/AAZvG3Ir1RsaXmsyTYyMz2DJd2MjEckqI3Z29WDBKK7EvT5hp
-         6RB4LUgXjHs5xjGSV/LkmWGaaHUnP4h6RU2vGo3hkoGQPEkhrv2KwepkSZVi763irLtc
-         jVzGMyXeGMMZTHVZ4A8kNZ5xTFjFvzxeyh233uhoCeyOpIMAxM9YF5sDoUAyDPCcsMvk
-         1rCFtoJP9Ud0/txd3nI3g/pYI9KjrDIIz6RHhVjZmeuo0SeK1tvLtOE+l9CIK7zz3bcx
-         pxmA==
-X-Forwarded-Encrypted: i=1; AHgh+RqMec+Yepd93CG3uI+1lfBrzukModyA+XcKObXprsK5MOLhMHrndKCzlbven9zpWhRJDLjl8YIssNz+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy5Lf5OubOnj/LZj4v+UctqI8dyTucoMrUtrK/SgxT49aKGQS5B
-	cn3ZRs37jWHgjY7cc8f9iQH1NP78+mPqHXjkmNhZ2xNmRuPLEtbTkEoM
-X-Gm-Gg: AR+sD12tXYyKQkVRvPaz/pfkAXH0r/lcKU224RrRh2+ixWyeHTCuF+qhR7gZf7Jj/Ov
-	ioR3b+82flNcytlOTucHIbVWa2Ar9yQPCydGuNPPG07fvZf8idqawnmvmivCsK/y5JmJwgVg+jh
-	QVIlrA1Onwjz1AkZ1j+n1XHiCKw/Sr16QN60NTr3ounA7GGfwNChtqtQq920lfQWtLHuhG1Wewi
-	tok1mPZD8FMX8hKTOEJApOOp2L/s9NU/k9rKsUGE5kyWooj9FiOMtOmCfVXNbddzuDurWJk2mOa
-	fHURPzZK1SsO3xlEgMdB6++sHdnbXWqoqND1RKokFFECoCck6a1uTy7WZ/VmMy2uGtZikokaC/4
-	c/lJ+YVbf+M55D+ESz6klB1JPoCUjBcLemPCvmsTGK0CbukO0/f0aC6Avkv70UUHWe3t29+umXW
-	pm6wdFKBY7br1J8I7Y9r5dr8PzO14XW4nvwiz3/u1vwxl5e/NV5DQAeE0QGwbI4g2J8Ec=
-X-Received: by 2002:a05:600c:620e:b0:495:6274:56c2 with SMTP id 5b1f17b1804b1-4994e70a6f5mr708499675e9.2.1786370457505;
-        Mon, 10 Aug 2026 07:00:57 -0700 (PDT)
+        bh=w2RxGy/HDr+ZHJEDxF0FWSRtIXjBooh011FJ3fxMxJo=;
+        b=Wr3lylqFRJR0vWU226SmTNAenTZur2cx3kQCL0kD9RQR1jlNwhe5UihMW1TEwPLfK3
+         aNmpfv4LPWRWlVW8gDNsRf0HCsgdbyLTMvvFY0fbwFQ+fjayXQCVAIA8xRkN1bDujMxI
+         yFSzdRfe+/K/D0iknfx+8jYzNj+x8YNzZwA2GGjrJimfXJakeQoYcAFZ7EcsaAoD1PaE
+         tYVErZPbK0Xqv/ouOPpyK+akAsssd2Jk7BJbBrbNJWNBRAZQdxablztzounmvQLSnM5F
+         LYIQmwVTfUje15MPJs1N7WLZnU3DOkCaKfwxQPkQYOpxe3m8yCELLOIr5+TyNIl0Fzax
+         s3kA==
+X-Forwarded-Encrypted: i=1; AHgh+RpJBrnhS/EUpIgaTYF+YOR+7/Vwmt3Dn4WtDC5wbMr4ekS++KdChnsZPVK02Vegoo1U+/L1jFjCemhH@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRcHVNO9C+UptuEDeuFaAFYOYfH1pSQwopom2LwlUW2p8mIFAt
+	wkiagt8yUoa0l8MqCJkX0yP400qixQrzcSEUQI02BjbffpI10hHCqUzh
+X-Gm-Gg: AR+sD12S6vwm//50hmhJpfv6bn3z9Am6D1FSiQ2xRarfFO+zi2TpTaW5NlayP8kezWv
+	AHZyGltfc38ZJ7SQX8mA0aFiGDci8vCf8zyEHB8gMlvauohVvBsgtZu+RYeh1Pp9E8Rthld/sZi
+	zhfmBVAzjeS98Sd1FW52Qtfz3HwE3XmYwQjXQembaqhwBBSbOQEcIsf+2iQFyg1iHl2H8E7Jl7/
+	HzUG3ovz70pmKy7SeS7zqez9MUqDhPhx1KSctksAuIumF563gOgYeBkxDnulCprsgwAsCo/JrD9
+	8qQ5bvhsJhgoRwjM5NhTScVcyHIb8KUeUPf0zTcFJYGc4EiE0IYRVaeo7lq2NClHUQJ/guaEm6+
+	CbtpHS3VZYvE1nmI2W8IVEaB5sIz2sd00rXLLRse638g7YW3ClAnewZ1GIkhygS1azHvoycLNRq
+	+4ibJNMqi7ns+EkmN8T9ApUwnx8Us8PeRIQowWfqM8c9kqofOgrExbJ2Xr5JAhM9joj1c=
+X-Received: by 2002:a05:600c:4692:b0:498:162a:dbda with SMTP id 5b1f17b1804b1-4994e714b73mr549213325e9.5.1786370458470;
+        Mon, 10 Aug 2026 07:00:58 -0700 (PDT)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995c7b2b68sm291661565e9.4.2026.08.10.07.00.56
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995c7b2b68sm291661565e9.4.2026.08.10.07.00.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 07:00:56 -0700 (PDT)
+        Mon, 10 Aug 2026 07:00:58 -0700 (PDT)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: Shawn Guo <shawnguo@kernel.org>,
 	Sascha Hauer <s.hauer@pengutronix.de>,
@@ -71,9 +71,9 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] ARM: dts: vf-colibri: name the SODIMM gpio lines
-Date: Mon, 10 Aug 2026 16:00:52 +0200
-Message-ID: <20260810140053.2793495-3-mehmet.fide@gmail.com>
+Subject: [PATCH 3/3] ARM: dts: vf: add Iris carrier board support for Colibri VF50 and VF61
+Date: Mon, 10 Aug 2026 16:00:53 +0200
+Message-ID: <20260810140053.2793495-4-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260810140053.2793495-1-mehmet.fide@gmail.com>
 References: <20260810140053.2793495-1-mehmet.fide@gmail.com>
@@ -87,182 +87,222 @@ Content-Transfer-Encoding: 8bit
 
 From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-The Colibri modules expose most of their GPIOs on numbered SODIMM pins,
-and the i.MX ones already carry those numbers as gpio-line-names, so the
-gpiod tools print SODIMM_43 rather than a bank and an offset. Do the same
-for the Vybrid modules.
+Mainline carries Iris device trees for every i.MX Colibri but none for the
+Vybrid ones, so a VF50 or VF61 on that carrier has nothing to boot with
+except the eval board tree, which describes different hardware.
 
-The 99 names come from the pinout table of the Colibri VFxx datasheet
-(Toradex 101355). Verified on a Colibri VF50, where gpioinfo now names
-every pin the datasheet lists.
+Add the carrier, following the layout of the i.MX Iris trees: a common
+dtsi and one dts per module. It enables the microSD slot, the three UARTs,
+SPI, Ethernet, USB and the M41T0 clock on the carrier, switches USB host
+VBUS through a regulator on SODIMM 129, and hogs the two GPIOs that turn
+the RS232 transceivers on, SODIMM 102 and 104. The touchscreen is an
+add-on rather than part of the board, so it is left out.
+
+This describes an Iris V1.1. A V2.0 carries the same signals on the same
+pins; what it adds, and what this does not describe, is the regulator on
+SODIMM 100 that can cut power to the uSD slot.
+
+Tested on a Colibri VF50 on an Iris V1.1 running 6.18: Ethernet at
+100Mbps/Full, a USB dongle enumerating once the VBUS regulator is in
+place, the RTC read back over i2c0, all three UARTs, the SPI controller
+registering, the microSD slot, and both hogs holding their pins.
 
 Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
 ---
- arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi | 144 +++++++++++++++++++++++
- 1 file changed, 144 insertions(+)
+ arch/arm/boot/dts/nxp/vf/Makefile             |   2 +
+ arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi | 125 ++++++++++++++++++
+ .../boot/dts/nxp/vf/vf500-colibri-iris.dts    |  14 ++
+ .../boot/dts/nxp/vf/vf610-colibri-iris.dts    |  13 ++
+ 4 files changed, 154 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
+ create mode 100644 arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
 
-diff --git a/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi b/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-index 74afc7b..04b5d53 100644
---- a/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-+++ b/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-@@ -170,6 +170,120 @@
- 	status = "okay";
- };
- 
+diff --git a/arch/arm/boot/dts/nxp/vf/Makefile b/arch/arm/boot/dts/nxp/vf/Makefile
+index 0a4a7f9..47be8bc 100644
+--- a/arch/arm/boot/dts/nxp/vf/Makefile
++++ b/arch/arm/boot/dts/nxp/vf/Makefile
+@@ -1,8 +1,10 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_SOC_VF610) += \
+ 	vf500-colibri-eval-v3.dtb \
++	vf500-colibri-iris.dtb \
+ 	vf610-bk4.dtb \
+ 	vf610-colibri-eval-v3.dtb \
++	vf610-colibri-iris.dtb \
+ 	vf610m4-colibri.dtb \
+ 	vf610-cosmic.dtb \
+ 	vf610m4-cosmic.dtb \
+diff --git a/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi b/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
+new file mode 100644
+index 0000000..d0fa107
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
+@@ -0,0 +1,125 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright 2026 Mehmet Fide
++ *
++ * Toradex Iris carrier board V1.1, common part for Colibri VF50 and VF61.
++ *
++ * The Colibri modules are pin compatible, so the carrier signals sit on the
++ * same SODIMM pins as they do for the i.MX modules, whose Iris device trees
++ * are already upstream. The two SODIMM pins below are taken from the Colibri
++ * VFxx datasheet (102 -> PTA12 -> PORT0[5], 104 -> PTD28 -> PORT2[2]).
++ *
++ * An Iris V2.0 carries the same signals on the same pins, so everything here
++ * works on it as well. What it adds is a regulator on SODIMM 100 that can cut
++ * power to the uSD slot, which this file does not describe.
++ */
++
++/ {
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	reg_5v0: regulator-5v0 {
++		compatible = "regulator-fixed";
++		regulator-name = "5V";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++	};
++
++	reg_usbh_vbus: regulator-usbh-vbus {
++		compatible = "regulator-fixed";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_usbh1_reg>;
++		regulator-name = "VCC_USB[1-4]";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* SODIMM 129, USBH_PEN */
++		vin-supply = <&reg_5v0>;
++	};
++};
++
 +&gpio0 {
-+	gpio-line-names = "",
-+			  "",
-+			  "SODIMM_89",
-+			  "",
-+			  "",
-+			  "SODIMM_102",
-+			  "SODIMM_18",
-+			  "SODIMM_134",
-+			  "SODIMM_16",
-+			  "SODIMM_14",
-+			  "SODIMM_23",
-+			  "",
-+			  "",
-+			  "",
-+			  "SODIMM_47",
-+			  "SODIMM_190",
-+			  "SODIMM_192",
-+			  "SODIMM_49",
-+			  "SODIMM_51",
-+			  "SODIMM_53",
-+			  "SODIMM_37",
-+			  "SODIMM_29",
-+			  "",
-+			  "SODIMM_30",
-+			  "SODIMM_20",
-+			  "SODIMM_24",
-+			  "SODIMM_21",
-+			  "SODIMM_19",
-+			  "SODIMM_94",
-+			  "SODIMM_81",
-+			  "SODIMM_28";
++	/*
++	 * The RS232 transceivers on the carrier are switched on by these two
++	 * lines. Delete the hog to turn a transceiver off from userspace.
++	 * The pin group belongs to the gpio controller rather than to iomuxc,
++	 * which would depend on its own child and log a dependency cycle.
++	 */
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_iris_uart1_tx_on>;
++
++	uart1-tx-on-hog {
++		gpio-hog;
++		gpios = <5 GPIO_ACTIVE_HIGH>;	/* SODIMM 102 */
++		output-high;
++	};
 +};
 +
-+&gpio1 {
-+	gpio-line-names = "SODIMM_35",
-+			  "SODIMM_33",
-+			  "SODIMM_27",
-+			  "SODIMM_25",
-+			  "SODIMM_196",
-+			  "SODIMM_194",
-+			  "SODIMM_63",
-+			  "SODIMM_55",
-+			  "SODIMM_65",
-+			  "SODIMM_45",
-+			  "SODIMM_43",
-+			  "SODIMM_73",
-+			  "SODIMM_77",
-+			  "SODIMM_71",
-+			  "SODIMM_98",
-+			  "SODIMM_101",
-+			  "SODIMM_103",
-+			  "SODIMM_79",
-+			  "SODIMM_97",
-+			  "",
-+			  "",
-+			  "SODIMM_85",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "SODIMM_106";
++&gpio2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_iris_uart25_tx_on>;
++
++	uart25-tx-on-hog {
++		gpio-hog;
++		gpios = <2 GPIO_ACTIVE_HIGH>;	/* SODIMM 104 */
++		output-high;
++	};
 +};
 +
-+&gpio3 {
-+	gpio-line-names = "SODIMM_105",
-+			  "",
-+			  "SODIMM_93",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "SODIMM_95",
-+			  "SODIMM_22",
-+			  "SODIMM_68",
-+			  "SODIMM_82",
-+			  "SODIMM_56",
-+			  "SODIMM_131",
-+			  "SODIMM_44",
-+			  "SODIMM_144",
-+			  "SODIMM_146",
-+			  "SODIMM_52",
-+			  "SODIMM_54",
-+			  "SODIMM_66",
-+			  "SODIMM_64",
-+			  "SODIMM_57",
-+			  "SODIMM_61",
-+			  "SODIMM_140",
-+			  "SODIMM_142",
-+			  "SODIMM_80",
-+			  "SODIMM_46",
-+			  "SODIMM_62",
-+			  "SODIMM_48",
-+			  "SODIMM_74",
-+			  "SODIMM_50",
-+			  "SODIMM_136",
-+			  "SODIMM_138";
++&iomuxc {
++	pinctrl_iris_uart1_tx_on: irisuart1txongrp {
++		fsl,pins = <
++			VF610_PAD_PTA12__GPIO_5		0x22ef
++		>;
++	};
++
++	pinctrl_iris_uart25_tx_on: irisuart25txongrp {
++		fsl,pins = <
++			VF610_PAD_PTD28__GPIO_66	0x22ef
++		>;
++	};
 +};
 +
-+&gpio4 {
-+	gpio-line-names = "SODIMM_76",
-+			  "SODIMM_70",
-+			  "SODIMM_60",
-+			  "SODIMM_58",
-+			  "SODIMM_78",
-+			  "SODIMM_72",
-+			  "SODIMM_96";
++/* Colibri SSP, on the extension connector */
++&dspi1 {
++	status = "okay";
 +};
 +
- &gpio2 {
- 	/*
- 	 * EXT_IO_0..2 belong to no device, so hog the pin group here rather
-@@ -177,6 +291,36 @@
- 	 */
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio_ext>;
++&esdhc1 {
++	status = "okay";
++};
 +
-+	gpio-line-names = "SODIMM_69",
-+			  "SODIMM_99",
-+			  "SODIMM_104",
-+			  "SODIMM_107",
-+			  "SODIMM_127",
-+			  "SODIMM_184",
-+			  "SODIMM_186",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "SODIMM_38",
-+			  "SODIMM_36",
-+			  "SODIMM_34",
-+			  "SODIMM_32",
-+			  "SODIMM_129",
-+			  "SODIMM_86",
-+			  "SODIMM_90",
-+			  "SODIMM_92",
-+			  "SODIMM_88",
-+			  "SODIMM_133",
-+			  "SODIMM_135",
-+			  "SODIMM_188",
-+			  "SODIMM_75",
-+			  "SODIMM_100";
- };
- 
- &iomuxc {
++&fec1 {
++	status = "okay";
++};
++
++&i2c0 {
++	status = "okay";
++
++	/* M41T0M6 real time clock on the carrier */
++	rtc@68 {
++		compatible = "st,m41t0";
++		reg = <0x68>;
++	};
++};
++
++&uart0 {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&uart2 {
++	status = "okay";
++};
++
++&usbdev0 {
++	status = "okay";
++};
++
++&usbh1 {
++	vbus-supply = <&reg_usbh_vbus>;
++	status = "okay";
++};
+diff --git a/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts b/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
+new file mode 100644
+index 0000000..53dd252
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright 2026 Mehmet Fide
++ */
++
++/dts-v1/;
++#include "vf500-colibri.dtsi"
++#include "vf-colibri-iris.dtsi"
++
++/ {
++	model = "Toradex Colibri VF50 on Iris Carrier Board";
++	compatible = "toradex,vf500-colibri_vf50-on-iris", "toradex,vf500-colibri_vf50", "fsl,vf500";
++};
++
+diff --git a/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts b/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
+new file mode 100644
+index 0000000..2882c87
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright 2026 Mehmet Fide
++ */
++
++/dts-v1/;
++#include "vf610-colibri.dtsi"
++#include "vf-colibri-iris.dtsi"
++
++/ {
++	model = "Toradex Colibri VF61 on Iris Carrier Board";
++	compatible = "toradex,vf610-colibri_vf61-on-iris", "toradex,vf610-colibri_vf61", "fsl,vf610";
++};
 -- 
 2.54.0
 
