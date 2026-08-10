@@ -1,87 +1,215 @@
-Received: from vinatta.cz (vinatta.cz [37.205.8.231])
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78483277CAD;
-	Mon, 10 Aug 2026 05:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.205.8.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AC035C695
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 05:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786340317; cv=none; b=nl/e/0VAwSGPlJOGimRZH3ZA6KOtwtenko1ih04xfiPfJr/1WW+KxiQyWkP3Arvk20IFfy1ZcdP9wYgrkFPmJQV9elGFfs/nqiskq2gerZy6mQt3lJnXx4IY57fCleKME0KXmIa+nlFg9IMroQGY1NWxKVXhdqjG/FsKKWjcZAY=
+	t=1786340518; cv=none; b=roazVOmB0sgKibYtlELoRr7GpHQCv9m7/wxsHglHd3q6XbQC8c/G5KqGGRfkRvpqOi4X9ZNl3dO6o106q8gAhtfQqklLviASU1lr9XFRR9FvkJ1Tbk80tNS7dIRC85WMSmbawJvsHYDMOnyb5M4ngpMgOjluHIxlqsbKBl2dHsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786340317; c=relaxed/simple;
-	bh=rdgatJqXq09iZfF8MwWC7oqz/aY6pcVLm3L68LKTsVg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Cc:Subject:
-	 References:In-Reply-To; b=JoxB2a0jm2ITwXeFGUgkvKyb/YD5N++vfrX/89XdxlwiDfyCc+aOA1EOFnWmKcSBnB9nd5LRDsyDQFmyQq50SQPU4wy8c73tyrCJr2Wq0jpVcbdXYsBW1sYNgP8LoxZkLJUMvqWJRUV58IZ2YAmPjwDckBa2ylNgoaNET+5fj8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz; spf=pass smtp.mailfrom=vinatta.cz; dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b=oGxaFSkb; arc=none smtp.client-ip=37.205.8.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinatta.cz
+	s=arc-20240116; t=1786340518; c=relaxed/simple;
+	bh=D0o5SJTwXluNVzLqxh1DrcA6buYS0D5p+5EasedrgvY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jH2S/IXvh3v8ga4IunyocJHuHEf8Ys7dqjVKiimLLZMeuRokQejXsgfvZBTNju657X40Wyp4rY66Djq1wUWbUBkH9BTLsOyZAXoKXkbZ0K5h18MzgHbeRWXblz8n1M0Aj1Qnc9fvRwpygeMekOPP3j3RA1N/v7nnvvep5SuzNhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZL7O7pi; arc=none smtp.client-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b="oGxaFSkb"
-DKIM-Signature: a=rsa-sha256; bh=rdgatJqXq09iZfF8MwWC7oqz/aY6pcVLm3L68LKTsVg=;
- c=relaxed/relaxed; d=vinatta.cz;
- h=Subject:Subject:Sender:To:To:Cc:Cc:From:From:Date:Date:MIME-Version:MIME-Version:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Reply-To:In-Reply-To:In-Reply-To:Message-Id:Message-Id:References:References:Autocrypt:Openpgp;
- i=@vinatta.cz; s=default; t=1786339366; v=1; x=1786771366;
- b=oGxaFSkb04TgaZtwxVkxckf1o7rYI9s9/g6I7Of/SalSoGIexeWIuZlUoEHf73s0Nz8+hSCO
- 2mOt9PDjshw9LrKOukPYyHWII+Uck9dHlxrom4H64jN1o5BFdzzPoa9+IFdmpBoKBQDBVl16dQs
- hC35Gafs18KqAAzWU46laRUuSsP4DfzpJLci/N+VWs3zQRlDEPttvBsDAEekZmzC1nzttaILjwY
- yZau2lTDM6Ymsd74zl4KX0Y06mN6FNZrSkv1WFxAl0CftJlHdo4eL5z7SAml85Z/PAHHrPlxTBn
- GrKqIEVA05Te3hkgHF92CN9f233BrkQuCP+yRINYgmKHA==
-Received: by vinatta.cz (envelope-sender <karel@vinatta.cz>) with ESMTPS id
- 15759296; Mon, 10 Aug 2026 07:22:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZL7O7pi"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b15dcaca31so1382410e87.0
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 22:41:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786340514; x=1786945314; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9P5dyYkRO7MIgVHZdpUNXFuXh3XDJtlZIqvMU+tJYAw=;
+        b=LZL7O7piLNcBxxrD0luSvFKF3hrDQDtbRiJHs05xH2olstLO7L0RQkdU26kMh7yYeH
+         5WXIL/1UbkBB8BKWm++s0SDb1yBYEldY24uTXoY1P5mMw/eBYn4p1srX+hAVn+TGBxeq
+         n+CtJh1pKSKfD9Zk1vOElECZ3Er/IujDBXp2O+rcc//Qb6QA+vt/oWtnKV5ir9q8XXj0
+         nI3ygrd+Vvusif5J9wC4tpOn4IttlVkTAt6jIEPppIw8XlIcR/05+3oo7POkOcC6txWt
+         SNk46RJGZ20lVNq86szezulcAbs5ebm7In86OMDNZINZPXWD4ek2GA3sIPnMtdKZyq9x
+         gdlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786340514; x=1786945314;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9P5dyYkRO7MIgVHZdpUNXFuXh3XDJtlZIqvMU+tJYAw=;
+        b=HFUVRTbhhhV4jWp36ga4GPHJIrhH3j8plyL8qY0tUPDTQlpPtazCWpa337KVqYOIvK
+         0DQOQOlBsb7QhYbY39mShJdq3ZcihLAOKiLnyQqSM3FZ5jxdeEUhYi8IZPWz22iauAYq
+         eWlyAf+djXqLPR5jYX2oXdye3YTh2mpOeXF5Nk2C/HpAATmEwdtgT8fR4O7GE3a9Ber3
+         FqbFRnm/xNtjWulBoyR1EnCCj/UIjl+OUxy5sLezW059s6jlDWE3Q2bvwpywjNeK7J6z
+         3C+c+n3CEtw2mVSQmhqxpl65f2lFIviXznqS2tVqQZ8dHYHWuT1hxzR5GLhijvJUNIpj
+         Mayg==
+X-Forwarded-Encrypted: i=1; AHgh+RqBpw46drTH2n+PDp3iw/fAkIurSkj61ExxmPX7LDrj82CBRzn6tcICjcMv53Niwdjpi97Gr8yeT7qH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzapu1iCBQzcbzlqD9eGDq1aXg8Kh8oRmI5wDii8JmCs18jPrxa
+	ddJHF5WhdT+qVgzMCeW2BH641eMuKm7L/Y/2kpaZ+wYHB5ZQ7UCq3sDX
+X-Gm-Gg: AR+sD10zGNlEB97rilox9DzWHu/5B5hrI2QHCYvQkm/fd5a7rnh4Qdt1MyBuWLpBPX0
+	1q5Px2ysQ2EIT8+e9bSiEjaOnF8IUTWyrJwxPD6D5Uyb8Wuif+5Xm4tSyxV8qQXhtvRV0v1oypa
+	T3oXJpgyfYrLKrMKUo/ghBaHWSW96fpiGeajvgBmi61kXEYiTeNlzRW1EJTZLMXrKsu8OWa6Im5
+	mNBzG6QRSHhZs5nlGX33NrSjn7gCSKAdsADjVxwMDN+QclHhqu4Nh7MIbohTEQRq2CgiPrz2Id1
+	EpNC99YkNl/+5MY04jn/0afwsCMpx2BiPYNovAW3q6FPk33m1IoqFTYLgZyhBjmo75geExwVjYV
+	M7t3M8rM7V5+Q/Kk5jeW1/CeUve14TVocLM4DdsGCmCLl3QdI4jpSbUKtfR6pb0Qt3gZreGdDQy
+	hdqKXxnTiAwc7Totf4ra8QCMnH/ZutIxsOtvcwwP5b0oy7O7FmnY5WaQ/GH3Oi2nj8I+7afeeQN
+	9LcAfUVW45oBpku43C5MhZoFRSNdEM5LyOj9TR74X0RkA==
+X-Received: by 2002:a05:6512:39d1:b0:5b2:add9:d073 with SMTP id 2adb3069b0e04-5b2f4cdbf98mr5877083e87.46.1786340514174;
+        Sun, 09 Aug 2026 22:41:54 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b304fd20a7sm1813835e87.11.2026.08.09.22.41.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 09 Aug 2026 22:41:53 -0700 (PDT)
+Message-ID: <e58db15b-9b31-42d9-b9f2-df792dd08804@gmail.com>
+Date: Mon, 10 Aug 2026 08:41:52 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 10 Aug 2026 07:22:34 +0200
-Message-Id: <DKL0GAHVZF2H.1PCBLWAT453SS@matfyz.cz>
-To: "Johannes Berg" <johannes@sipsolutions.net>
-From: "Karel Balej" <balejk@matfyz.cz>
-Cc: "Brian Norris" <briannorris@chromium.org>, "Francesco Dolcini"
- <francesco@dolcini.it>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>, "Andrew Lunn"
- <andrew@lunn.ch>, "Gregory Clement" <gregory.clement@bootlin.com>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>, "Ulf Hansson"
- <ulf.hansson@linaro.org>, "Frank Li" <Frank.Li@nxp.com>,
- <linux-wireless@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-mmc@vger.kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
- <phone-devel@vger.kernel.org>, "Jeff Chen" <jeff.chen_1@nxp.com>, "Peng
- Fan" <peng.fan@nxp.com>, <david@ixit.cz>
-Subject: Re: [DONOTAPPLY RFC PATCH v2 0/4] WiFi support for
- samsung,coreprimevelte
-References: <20251026182602.26464-1-balejk@matfyz.cz>
- <DEJL1ATTQMVE.120JV9YW59I27@matfyz.cz>
- <aSnWYS2g5slVFaSk@gaggiata.pivistrello.it>
- <DI5L100Q1RKO.1A68EJIPWYSRC@matfyz.cz>
- <DIKSVZCAQES1.35I4QY11LBVNV@matfyz.cz>
-In-Reply-To: <DIKSVZCAQES1.35I4QY11LBVNV@matfyz.cz>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/10] dt-bindings: mfd: common ROHM PMIC properties
+To: Linus Walleij <linusw@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-rtc@vger.kernel.org
+References: <cover.1785838584.git.mazziesaccount@gmail.com>
+ <838486b443af9188410d8b802a818dc0af20ea9d.1785838585.git.mazziesaccount@gmail.com>
+ <CAD++jLky237PRXNmyURjNEOPPgFV00ox1HBeBev=qADxKM3nWQ@mail.gmail.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <CAD++jLky237PRXNmyURjNEOPPgFV00ox1HBeBev=qADxKM3nWQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Johannes,
+On 07/08/2026 23:23, Linus Walleij wrote:
+> Hi Matti,
+> 
+> thanks for your patch (and the other comments in reply to the
+> old review).
 
-Karel Balej, 2026-05-17T10:14:58+02:00:
-> Karel Balej, 2026-04-29T12:55:23+02:00:
->> what are the options here now? Would it be possible to make an
->> exception and accept the patches without the firmware being in
->> linux-firmware? This is an old device with no mainstream audience so I
->> expect everyone who will want to use it will be able to supply the
->> firmware themselves and it would be great to not have to keep the
->> patches in a fork, especially when trying to build on top of them
->> further (such as to fix the driver-firmware incompatibilities discussed
->> in one of the patches of this series).
->
-> would you please let us know whether there is any chance an exception
-> could be made for this chip regarding the firmware or whether there is
-> any other way to upstream the support?
+Nope. Thank You for taking the time to do the review - and read my replies!
 
-I still haven't heard from you, could you please have a look and let us
-know if there is any way forward?
+> 
+> On Tue, Aug 4, 2026 at 12:20 PM Matti Vaittinen
+> <matti.vaittinen@linux.dev> wrote:
+> 
+>> Sometimes the existing properties aren't 100% what reviewers would
+>> prefer. When issues are minor or just cosmetic, changing the existing
+>> properties is not feasible. Reviewers can't be expected to know which
+>> properties are new, and which are existing - and this can lead to
+>> unnecessary review discussion wasting time and energy from everyone.
+>>
+>> Adding a common file for re-used ROHM PMIC properties should make it
+>> clearly visible that a property is re-used, when a new PMIC binding
+>> refers to this file instead of (re-)describing all the existing
+>> bindings. This will also help keeping the common properties identical
+>> across the variants.
+>>
+>> Add new file listing commonly used ROHM PMIC properties.
+> 
+> I see the upside of this, the DT binding maintainers will decide
+> on it. It has the upside you describe, but it has the downside that
+> new components will always (ab-)use the old properties maybe
+> even when there would be a good opportunity to modernize
+> the syntax, and then the reviewers will not catch it.
 
-The support for the chip has been out of tree for over two and a half
-years now.
+I see your point :) I am not intending to "completely hide" these 
+properties from the reviewers. Please, see below.
 
-Thank you,
-Karel
+> But well, maybe that is not a big deal in the universe.
+> 
+> What about patching those old bindings:
+> Documentation/devicetree/bindings/mfd/rohm,bd71815-pmic.yaml:
+> rohm,clkout-open-drain:
+> Documentation/devicetree/bindings/mfd/rohm,bd71828-pmic.yaml:
+> rohm,clkout-open-drain:
+> Documentation/devicetree/bindings/mfd/rohm,bd72720-pmic.yaml:
+> rohm,clkout-open-drain:
+> ...to include this file as part of this patch, and delete the old defines from
+> those three files?
+
+I am patching them. I, however, am not planning to delete the properties 
+completely (the comment above about not hiding properties from 
+reviewers). For example, the bd71815 and bd71828, do not support (at 
+least all) of the OTP configured pins which are also declared here. 
+Thus, I don't want to allow those unsupported pin properties for them.
+
+My plan is to keep the "additionalProperties: false", and require the 
+supported properties to be explicitly listed in the 
+rohm,bd71828-pmic.yaml and rohm,bd72720-pmic.yaml. And, when the types, 
+descriptions, and allowed values (when common for all PMICs) are in the 
+referenced file, the rohm,bdXXXX-pmic.yaml can become quite simple:
+
+rohm,clkout-open-drain: true;
+
+Enough to remind reviewers that there is legacy - and allow reviewers as 
+well as authors to re-evaluate the properties - while also pointing out 
+that this is existing stuff. (And allow validator scripts to catch use 
+of unsupported common properties - at least if this works as I think it 
+does).
+
+> Then it is clear what is going on.
+> 
+> Maybe this happens in later patches, but anyway it should be part
+> of this patch I think.
+
+I somehow thought it'd be clearer to split the changes in own patches - 
+but I am fully Ok with squashing these if it is preferred way.
+
+>> +properties:
+>> +  rohm,clkout-open-drain:
+>> +    description: clk32kout mode. Set to 1 for "open-drain" or 0 for "cmos"
+>> +      a.k.a "push-pull".
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    maximum: 1
+> 
+> Yeah I see now that this is already in use in three other bindings...
+> 
+> Today we would for a new component use something like
+> rohm,clkout-drive-mode = "drive-push-pull";
+> rohm,clkout-drive-mode = "drive-open-drain";
+> reflecting pin control.
+> 
+> I do understand the idea to keep using the same bindings
+> for all of Rohm MFDs. But when a completely new design
+> arrives with many new properties etc, maybe we can think
+> of something new?
+
+In case of the "rohm,clkout-open-drain" - AFAIR it is not used from new 
+drivers, but the new PMICs which are added, are supported by the same 
+MFD driver. I am not too keen on changing the property values in this 
+driver (because it'd require every user to update their dtses - which 
+feels like a source of problems). Nor am I too excited about supporting 
+old and new values in this driver as it makes the driver (in my opinion 
+unnecessarily) more complex.
+
+What comes to using something else for completely new designs - I'd say 
+(a bit cautiously) that changing the properties there is fine. 
+Cautiously because it is still dancing between "what users have used to 
+see" Vs. "what feels like best course of action - Today" ;) Cautiously 
+also because we don't probably want to support multiple vendor specific 
+properties for same purpose - at least not in a long run.
+
+Yours,
+	-- Matti
+
+Ps, planning to join ELCE/Plumbers this year? It'd be about a time to 
+meet you in person :)
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
