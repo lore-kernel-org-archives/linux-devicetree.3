@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E204391E64
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573053C4B6F
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:55:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786362923; cv=none; b=DzpRHII19ZrME7dnV5895DLjtf2Yud2JDspj1ZF+mdnfXgpdonBnnHUe2MSXYzVR8yiM+K+W6TCxFm5ln0S5zVU4SdUVl+31TqUxj9tCDA0nxkOOCYnRgLDFXpJUwVSOESpg0U9w2TaXJslc0oJp2mCFxO/pdmIa/jwLrSVsT8c=
+	t=1786362944; cv=none; b=oS8/bW1mQG5TK3hAP+LCDAPJNwNmGZQe8otnxnI20/35WvS7lxsdcpOlFAuduJhcQpJPwMD/AKylrnoM+ZvIhLiC9n4tHFd5EB6vb/5gkiynp8gT5FAR9de3m8s2eHBRx/ogB58s+zI9y9q3NizMrtYYukaA1RI8O1PHCniQV+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786362923; c=relaxed/simple;
-	bh=f6+rTbced+tErfZ5ypUahdCLnrNk4X/IaM2kYJy5ebs=;
+	s=arc-20240116; t=1786362944; c=relaxed/simple;
+	bh=ntMlaomOJIStMWIqtSinqtNYWfmg2/h5aK3qEQCNoRg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AcZ+S/qOKUaDwGXFBYbQaja6lD60p/3X+evuxAO72PAd040cgqhFLduJMsZfm9Ryz4k0QtLPxuRD2AFYpc8tI5aV6F/Kmw1k3ZJalIKyei+cwsAEzVTseJroBr1Egenk7Wkec4LN3u1/avJFR/gpAD5ddtnr7aIz3Vlg6WPhbT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aCWTyxkZ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BSvex3MUdmCYlrK9mQaqXdM/MAC5IGyz+AHAYSQWvE1t2tnQg2UO40CGd7Of1UeM6eSj/8HQoZ7hraywpySMgoLhJKJwWDKudrvBstrRAr8ZYx5+9ftQIr72r72BHwsC8YGcriHUi1HZPuhi5K7kwal4ShqAfOcj5hGiO/rKjeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSv9aYcS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aCWTyxkZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF2BC1F00A3A;
-	Mon, 10 Aug 2026 11:55:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSv9aYcS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F901F00A3A;
+	Mon, 10 Aug 2026 11:55:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786362922;
-	bh=9lY3xQK/PzI5Vm2s5fXeUH8oDn2PkGuAFLDjgit5a/Q=;
+	s=k20260515; t=1786362943;
+	bh=cKrABHrG1URoVHmNUXzbctcoKvWMWWizUuygAXE5HBc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aCWTyxkZB+3P90m7ClD4mE71i4SRe8pka8Nfhlf5OCqOnVidiIcMzGH6j1mZ7M50o
-	 lVyV936ozK4TOcPx21Wo5AFmLi7ndOGLD0eX7ttp/99sF7sHQZDUdoEtASOkZPF9z+
-	 4SzZWS6oQS3bvTBFyKLI1YC+DsEvUqVFv8bM9lpoP3UyE8B9scLpuNQuWM+60sc0P/
-	 hDdCArio3BEmyJHMYUa09Y+PVqsOsZ1s3Pq/4WLecm82vLw8Ymv+MHoy8ri6Bcwxfe
-	 a8CwklDtltJnNzMesNTzbpjQZChvp+L9sSIaPZ01xRr2a2uMZ4b8CiQqR8n1deVlXg
-	 PKE8dibMC+Lig==
+	b=lSv9aYcS+2DXlgbPH+1fCLfwZIJ/CGi7KubH1joviSZfNpaYRbDgjLjBXdNvfs+kt
+	 +AmhHCteAXY3xyacWehWdaf334ERnwl3CIWwWxlOod04VSaSksl0hsgZNC34P1ugsi
+	 8JfxxyRjD7Fkv248zTZ8lZCIlNVQjoUlQcPZxlq1dcweOxRzd7k6hXYsLPnFlz0Lsm
+	 bp6zWzP0LXe0HNE8mhIe9XhrZHvVUn/a4tae1uPuIXqdumMYxrYVdZkK+ZK4MNcYuW
+	 IT19bnMx61D34qjWLiq1N4yoYMsQwOQafIm9ShR061tiqTJW8JWwLK1Za61QyQXUTc
+	 KZeFMWNEqjMsQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 RESEND 1/6] arm64: dts: qcom: Add device tree for
- Nord SoC series
+Subject: Re: [PATCH v10 RESEND 3/6] arm64: dts: qcom: Add device tree for
+ Nord Embedded variant
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260810114313.776563-2-shengchao.guo@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260810114313.776563-4-shengchao.guo@oss.qualcomm.com>
 References: <20260810114313.776563-1-shengchao.guo@oss.qualcomm.com>
- <20260810114313.776563-2-shengchao.guo@oss.qualcomm.com>
+ <20260810114313.776563-4-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 11:55:21 +0000
-Message-Id: <20260810115521.CF2BC1F00A3A@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 11:55:42 +0000
+Message-Id: <20260810115543.02F901F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,108 +47,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Missing `cpu-idle-states` property in CPU nodes and incorrect use =
-of `domain-idle-states` in CPU power domains.
-- [High] All secondary high-temperature thermal trip points are incorrectly=
- configured as `type =3D "passive"` instead of `type =3D "critical"`.
+- [Medium] Copy-paste errors in multiple QUP0 pin configurations (SE1 and S=
+E5) result in duplicate or incorrect pin assignments, causing mapping confl=
+icts.
+- [Low] Inconsistent node names for `opp2` and `opp3` in the `rpmhpd_opp_ta=
+ble`.
 --
 
---- Patch [1]: [PATCH v10 RESEND 1/6] arm64: dts: qcom: Add device tree for=
- Nord SoC series ---
-commit 6e2b5a047ad42d9b919ebd0fbf1f8ae98bae9bab
+--- Patch [3]: [PATCH v10 RESEND 3/6] arm64: dts: qcom: Add device tree for=
+ Nord Embedded variant ---
+commit 643aac7df3bbbfb1eafbf771684900c0a9c93646
 Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-arm64: dts: qcom: Add device tree for Nord SoC series
 
-This commit adds the base device tree include for the Qualcomm Nord SoC
-series. It describes core components including 18 Oryon CPU cores,
-GICv3, TLMM, thermal sensors, SMMU, QUPv3, SCMI, watchdog, and timers.
+arm64: dts: qcom: Add device tree for Nord Embedded variant
 
-> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
-m/nord.dtsi
+Unlike the GearVM variant, Nord Embedded variant has platform resources
+directly controlled by the operating system. Add a separate dtsi file
+extending the existing top-level nord.dtsi with nodes representing these
+peripherals as well as describing how they are wired up.
+
+> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boo=
+t/dts/qcom/nord-embedded.dtsi
 > new file mode 100644
+> index 0000000000000..f27ccc6f56dbf
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-> @@ -0,0 +1,4623 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or subsidiaries.
-> + */
-> +
+> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+
 [ ... ]
-> +	cpus {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <0>;
-> +
-> +		cpu0: cpu@0 {
-> +			device_type =3D "cpu";
-> +			compatible =3D "qcom,oryon-1-5";
-> +			reg =3D <0x0 0x0>;
-> +			enable-method =3D "psci";
-> +			power-domains =3D <&cpu0_pd>;
-> +			power-domain-names =3D "psci";
-> +			next-level-cache =3D <&l2_0>;
-> +			clocks =3D <&cpu_perf 0>;
-> +			#cooling-cells =3D <2>;
 
-[Severity: High]
-Should this CPU node (and the other CPU nodes) include the cpu-idle-states
-property? Without it, the cpuidle framework may not discover and register
-the CPU idle states, which could prevent the cores from entering deep idle
-states and lead to excessive power consumption.
-
-> +
-> +			l2_0: l2-cache {
-[ ... ]
-> +	psci {
-> +		compatible =3D "arm,psci-1.0";
-> +		method =3D "smc";
-> +
-> +		cpu0_pd: power-domain-cpu0 {
-> +			#power-domain-cells =3D <0>;
-> +			power-domains =3D <&cluster0_pd>;
-> +			domain-idle-states =3D <&core_off_c4>;
-                        ^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Does passing an arm,idle-state node here violate the DT schema? It appears
-that domain-idle-states expects a genpd domain-idle-state cluster state,
-rather than a CPU idle state.
-
-> +		};
-[ ... ]
-> +	thermal_zones: thermal-zones {
-> +		ddr-0-0-thermal {
-> +			polling-delay-passive =3D <0>;
-> +			polling-delay =3D <0>;
-> +			thermal-sensors =3D <&tsens0 0>;
-> +
-> +			trips {
-> +				trip-point0 {
-> +					temperature =3D <105000>;
-> +					hysteresis =3D <10000>;
-> +					type =3D "passive";
+> +				rpmhpd_opp_min_svs: opp-1 {
+> +					opp-level =3D <RPMH_REGULATOR_LEVEL_MIN_SVS>;
 > +				};
 > +
-> +				trip-point1 {
-> +					temperature =3D <115000>;
-> +					hysteresis =3D <10000>;
-> +					type =3D "passive";
-                                        ^^^^
+> +				rpmhpd_opp_low_svs: opp2 {
 
-[Severity: High]
-Should this extreme temperature trip point be marked as "critical" instead
-of "passive"?
+[Severity: Low]
+This isn't a bug, but should this node be named opp-2 instead of opp2 to
+match the opp-<number> naming convention used by the other nodes in this
+table?
 
-If the SoC reaches 115C or 125C, a passive trip point will only instruct
-the thermal framework to throttle via cooling devices. It won't trigger an
-emergency shutdown, which might leave the hardware vulnerable to physical
-damage from overheating. Is this pattern intentional across all the
-thermal zones defined in this file?
-
+> +					opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
 > +				};
-> +			};
+> +
+> +				rpmhpd_opp_svs: opp3 {
+
+[Severity: Low]
+Similarly, should this be named opp-3?
+
+> +					opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
+> +				};
+> +
+> +				rpmhpd_opp_svs_l1: opp-4 {
+
+[ ... ]
+
+> +	qup_i2c1_default: qup-i2c1-default-state {
+> +		pins =3D "gpio111", "gpio112";
+> +		function =3D "qup0_se1";
+
+[Severity: Medium]
+Should these pins be swapped for SE1? This reuses the exact layout of SE0
+(gpio111, gpio112) without swapping the data/CS or TX/RX pins, which might
+cause routing conflicts on the shared 4-pin block.
+
+> +		drive-strength =3D <2>;
+> +		bias-pull-up;
+> +	};
+
+[ ... ]
+
+> +	qup_spi1_default: qup-spi1-default-state {
+> +		data-pins {
+> +			pins =3D "gpio109", "gpio111", "gpio112";
+> +			function =3D "qup0_se1";
+
+[Severity: Medium]
+Do these data-pins conflict with SE0? It looks like this configuration uses
+the exact same pins (gpio109, gpio111, gpio112) as qup_spi0_default without
+swapping assignments for the shared 4-pin block.
+
+> +			drive-strength =3D <6>;
+> +			bias-disable;
 > +		};
+
+[ ... ]
+
+> +	qup_spi5_default: qup-spi5-default-state {
+> +		data-pins {
+> +			pins =3D "gpio109", "gpio121", "gpio122";
+> +			function =3D "qup0_se5";
+
+[Severity: Medium]
+Is it intentional to include gpio109 here? It appears to incorrectly mix
+the SE0 pin (gpio109) with the dedicated SE5 pins (gpio121, gpio122).
+
+> +			drive-strength =3D <6>;
+> +			bias-disable;
+> +		};
+
+[ ... ]
+
+> +	qup_uart1_default: qup-uart1-default-state {
+> +		pins =3D "gpio109", "gpio110";
+> +		function =3D "qup0_se1";
+
+[Severity: Medium]
+Should these pins be swapped for SE1? This reuses the exact layout of SE0
+(gpio109, gpio110) without swapping the TX/RX assignments.
+
+> +		drive-strength =3D <2>;
+> +		bias-disable;
+> +	};
+
+[ ... ]
+
+> +	qup_uart5_default: qup-uart5-default-state {
+> +		pins =3D "gpio109", "gpio110";
+> +		function =3D "qup0_se5";
+
+[Severity: Medium]
+Does this configuration incorrectly claim the SE0 pins? It seems to use
+gpio109 and gpio110 instead of SE5's own dedicated pins.
+
+> +		drive-strength =3D <2>;
+> +		bias-disable;
+> +	};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810114313.7765=
-63-1-shengchao.guo@oss.qualcomm.com?part=3D1
+63-1-shengchao.guo@oss.qualcomm.com?part=3D3
