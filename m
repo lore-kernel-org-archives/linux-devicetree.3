@@ -1,97 +1,118 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53C8F37E5D7;
-	Mon, 10 Aug 2026 07:51:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79D73839B7;
+	Mon, 10 Aug 2026 07:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786348315; cv=none; b=eIMHKLdYgKaUSJABiQ1d9IKv4hetVEl9N3udRzlKx0UEoka1fOVkPpi9uy9rAZA4Mfg9GjjUNMQ0F3WvxlFzZL76oSlvqTnwCatA89dlUZwhMIYOmvnOIkQ1mHCyLOICYCB2MpKXwAwOAGKJtczk+2xnlCgK9FUoBfdxPxzl+UQ=
+	t=1786348419; cv=none; b=Ar1IbEGrM4veV1rMl9kLWgLsQL2gXJxEGigl0Ew+ErGq6yMDNuUVQ+iwWdFCRfMfUdhskHnkNFGu8PIn9uDAGYrq8Hbvk978+kxElIAVT3weG+8HZx/Qs/N9SHhvpcxPHvdemcIB6jspRK2+vBgCe/9U/BABxQ56znh9f/Rjy4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786348315; c=relaxed/simple;
-	bh=9QyzrGwtsAeFA6AEPpKbURPN5nrm65NIvoeoDNJNCmk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nWrNoM8td9R6fRj2nZHQ51y48EINJsnFB9gyPVILQRdly5xO7xlm1D6mlny4aqoMazokVS0+AbG1ciIgB03E1lJ42jx9vKooRWVzde6ZCH1DMpUZSPhw8PUoMq1ipVuyFP9DdFJFGPEAccdUj7c9+XRYD4I3UMzNLiUv0cH/YhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8Dx8+kTg3lqvdsLAA--.28037S3;
-	Mon, 10 Aug 2026 15:51:47 +0800 (CST)
-Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJDxesQOg3lqooAqAA--.20187S3;
-	Mon, 10 Aug 2026 15:51:47 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-To: Hongliang Wang <wanghongliang@loongson.cn>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v9 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
-Date: Mon, 10 Aug 2026 15:49:26 +0800
-Message-Id: <20260810074927.25284-2-wanghongliang@loongson.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260810074927.25284-1-wanghongliang@loongson.cn>
-References: <20260810074927.25284-1-wanghongliang@loongson.cn>
+	s=arc-20240116; t=1786348419; c=relaxed/simple;
+	bh=nMZrEt1Xx2wttWxdikFSYeWvFbbsZATKRUOwyBwFIcw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=GWcHUUTCKmrNjlVKJL882eIsHlyGvXTf4vRl/1Gj9CAxrv0tlg7wAS6gHmPifok7X22AhXY+93zPDP1eaRO6ecMW8aVUcwZNqanyC7YizMmUN595vkRi/6zxAhnMEO5lCDxCRnupmDWYxuiXRx9G6AABPhAaPcnfXHRdrD7t8/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=aX61iko2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZVIvd2NZ; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="aX61iko2";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZVIvd2NZ"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id B9FB71400079;
+	Mon, 10 Aug 2026 03:53:35 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 10 Aug 2026 03:53:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1786348415;
+	 x=1786434815; bh=runD0U6EWuHy0e8dF08rJ7oF2cXWENn2Kbh9AqCq5wQ=; b=
+	aX61iko21XS2w+ehKVVG5600g4ulzyQwiFLE5k0LLiUGlUX1u4UOqcrkRBv7DI9d
+	2ledx8RN0pFMhahErPM9IBabBK45TGzk0JBEpJCOAI47Blg+S4Pod3TM4XCjrL3N
+	dSzK9A+pF/Q5aYg75pvmR+g7mTiZNNmvcYNBIO7/22dpL4OQf2YaodENUUQC4Un3
+	DY7gq8Zj13zfNx9USrKY8vbdz/zUd3Lm/9cv3ly1kxqN1g0iRHgUJ9fPEnEvBwKv
+	OakNcTgbR8HBkqgYjbBQ1kjQ3CvNxlepjxl7rhfyQ4EmD6J3qNxt0O28QXjL9H4r
+	J24elYfCgMd24tOTFUU15g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786348415; x=
+	1786434815; bh=runD0U6EWuHy0e8dF08rJ7oF2cXWENn2Kbh9AqCq5wQ=; b=Z
+	VIvd2NZnccN1aq8Gg0awnAgQFEldXpmwUXTryoptmnk55oYwfbIRoxkIJ+uHmvp5
+	4icIH12WWerTfWBDaC/cMtR16Iaulqy/CBmNeg0j2a7lcDjGGfSUxiVgMvpiy8cW
+	atwUyBsCYFq514tvPth+81WIP6Pc/EWnbKn97qAhwHxnlCvSo8/vz+lEwRRv+2K1
+	GQi7H7ovjkB2wDRdVWtmjoqvggpcJBzUCjDSOahXlMURj9olsbwFisw2x7ESNPve
+	JX6ixYcyH2lA9Jj1xyTqx0piohUqxkrZbyHMcIgFP1IPL0wn9T5oN/LoSVbpxuR2
+	nD+H2sMbgccu2hZpjBuvQ==
+X-ME-Sender: <xms:eIN5anSCCh5v7FYK8y2dpH458eukVQtWKBUBG9YI1irFkO6Y_upyJw>
+    <xme:eIN5ajmXLPLVYywd3sGTWKrnyAzrhS-rtRtBUxL--LrLIobSMmf39qDI7ecwzak7V
+    nmqrLuOftqQaSP2rWzZvlbD4qnmrMNQ_tjdWQPVnhLsxFgSWyYNdnlX>
+X-ME-Proxy-Cause: dmFkZTG3KJHUy5DZByjZ18dD0N4Bjz8bSsstts7L8TWP0BmgEF+vmOwPbQ3C3vJIpS2wNT
+    WxdrMKu++JrIpcluQK1nHCn3vp5K5hYnF9VQ2/As3M8fkqKY8j+Ilt81by6hexQ6yZFslq
+    1xvHFZG+4gp9qtk+ETFsw+e5qRhKDUEICQdL9IwU14W/5Tl3Ck66224px795utxM2cb9WT
+    y9gMrgpQukFkbk+tiacfvFAanTx0PjhKIi4Pp0Axa1j2xYMCB4rbAhd0FAikWA8MbDuxq8
+    l/RFpzNObSXnOllZAJHH9GzWSbs/LdHBoCiKXHdHhzVoKZOKdZhVu6vKPcguttrQmEcxX5
+    zMW9r1LWyeZe+o3w0TzU6S+xU9RfeCsMTd1bsA7kyPffdkAf9UO42/G8qYhBMIct+VRbKN
+    3gvsL2W0SlYvQAPvUCMD4dNN6t5QplzdP1ajXJDZl5xSXg9Xx/fYWFACQ4LP7YdI0yQSWK
+    RObZ7aJorUJ7czBRnTH9hpMr57XlYV8o6gXWD7ROLCpEcgZyPc1XeMfu7KIvCbBxoFY2BM
+    u0TDUzOehxNByoAZwaYZ1AbdLOOAvDlcTGAaaIaI4RfyBGOXA8JqK7KrOYlFkZTeOP5N2Z
+    P3sCPFYDf+Qc3EITFAE9qgvl5q7+FKp1Nidcql5bs7vqFhh8FxZ2xxdCoBiA
+X-ME-Proxy: <xmx:e4N5aqB8kUMFImQJHNcdcYFQ_DG3i3G12dLYI4u3Nmbz5f-3GfHAHg>
+    <xmx:e4N5aoPDL7yUCT111I8YHaN3rjVr3vtbsy0By6db-am3vbpta2IXPA>
+    <xmx:e4N5amM-OaidR6gI8U5CPhuuy22c2zMMBobBv0OOYZmSFVyFeJemWw>
+    <xmx:e4N5aqLJMJzPP2elJ4xPhVXfYOwuEdOrFiiLectB0vU57SMhLe0baQ>
+    <xmx:f4N5at4ElwPqWsfHhzCoBBCYccNHfvIBK5vz_dDcHkxFHnaGjMP4048p>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id B99CF32A006A; Mon, 10 Aug 2026 03:53:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxesQOg3lqooAqAA--.20187S3
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj9xXoW7Gr17ur43Kw47trW8JFW7WrX_yoWkZFXEka
-	4xAw18GrsxAF1Fg3yqvF4xJr43Ja42y3WrC3WUCF4vya4Ut345GFykJ343Ar4fWrsxu3W3
-	uFs7GrZ3Za1fKosvyTuYvTs0mTUanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbS8YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
-	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
-	JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jrcTPUUUUU=
+X-ThreadId: A9hGE10fN-aw
+Date: Mon, 10 Aug 2026 09:53:08 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>,
+ =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
+Cc: "Andrew Lunn" <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, Netdev <netdev@vger.kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <9e8fb566-e372-4519-ac0b-b8ca6de275e3@app.fastmail.com>
+In-Reply-To: <20260810-arrogant-anteater-of-economy-ef2078@quoll>
+References: <20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net>
+ <20260806-wiznet-link-gpio-v3-2-532d4a143805@marmottus.net>
+ <20260810-arrogant-anteater-of-economy-ef2078@quoll>
+Subject: Re: [PATCH net-next v3 2/3] dt-bindings: net: wiznet,w5100: add link-gpios
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Add clocks and clock-frequency properties to examples.
+On Mon, Aug 10, 2026, at 09:43, Krzysztof Kozlowski wrote:
+> On Thu, Aug 06, 2026 at 05:00:01PM +0200, Arthur Cr=C3=A9pin Leblond w=
+rote:
+>> =20
+>> +  link-gpios:
+>> +    description:
+>> +      An optional GPIO line that can be wired to the LINKLED pin of =
+the w5500
+>> +      as an interrupt to detect link status changes.
+>
+> The message is confusing. If you describe it from the host (system poi=
+nt
+> of view), then interrupts are not GPIOs but "interrupts".
+>
+> But maybe this is OUT GPIO from the system to the device?
 
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
----
- Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+From the device point of view, it's an LED output, but from the
+system side we should describe it as an IRQ_TYPE_EDGE_BOTH
+"interrupts" property rather than a gpio line.
 
-diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-index ee09c6d9c5f0..0beb7f2515c8 100644
---- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
-@@ -37,11 +37,14 @@ unevaluatedProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/loongson,ls2k-clk.h>
-     #include <dt-bindings/interrupt-controller/irq.h>
- 
-     i2c0: i2c@1fe21000 {
-         compatible = "loongson,ls2k-i2c";
-         reg = <0x1fe21000 0x8>;
-+        clock-frequency = <100000>;
-+        clocks = <&clk LOONGSON2_APB_CLK>;
-         interrupt-parent = <&extioiic>;
-         interrupts = <22 IRQ_TYPE_LEVEL_LOW>;
-         #address-cells = <1>;
--- 
-2.47.2
-
+     Arnd
