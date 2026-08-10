@@ -1,178 +1,131 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9001A3AE706
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786358215; cv=pass; b=mUjCC2zJPRnq3nyCW9zP5bp0Hp9xF3dmf+Wh8sXvXISfs+MrJol7N/ZQz0OAx/Rj7zhpuPXg785zoVtanYGBiFGfqNquOdxvAZFL9n6dfxtFykxfUoLg7Tjo31iPL02VXnqpRJCRZJ2teW1Cuq1gNZgI7AJmzIqr/POWnnH6ea8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786358215; c=relaxed/simple;
-	bh=EoJjq+T7VyGPNATN8SO5bqxvJfuZRwCFmI4lyyJXJ0o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BF4L9YSL/STIFM6dve6STR/X+7tuXrQwg7BBo/mO+D95UGLYzBk19A7JnNYeZQYLFGeVn5xF51TFyF5r90Vp40tex+sJjseEVjU86kvmjkOT2I5ejtBNRi006TY5WY02Ly4aRaqFkFhUPfyghnKfsCOpT9KtYj7jYrgxgVBjcaY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=WBYhzMr4; arc=pass smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8598391E64
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786358499; cv=none; b=KJ+wSxiUYiASVMAmxIj5I26RbBSEVh650nLqXEicXiYBCz7+bSmQOVpA96EQ2vfWGjUccH7rzHFHXFkjYBh9Yg6be+BMN9+BVi494i5WLUswhnvFd93kbQYQyhBqW29IFZyY2EKf0DUcjaMj+uQz9v6y/CYikTDTg3+e8vkHvh8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786358499; c=relaxed/simple;
+	bh=b6EUBmm7isqZxvrcdT236gSZAY8yrhfX8QlX0pXzIdM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Zcq5VSfKMd25NDSIeLPaUgcZDtCAHGZxKJCXS2iYSkjJCrnBTSnvGY5CX6Tz7LJN+DfKarH4/i3CeJPB5GLszyW5U5ZFkIFsxW7YLQxa6rPKzOLtNeIX7O5SwSG9MSFKWHAI+iNXWoFpw6YHVwQ/RE4FbWC3lBZYtB3CdxccC9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n0yJQfE6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="WBYhzMr4"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47fd4531020so953650f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 03:36:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786358212; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mKG9XBH63PL2h+zEcJWcZXKrNgNeVkAdqMngViv7Y5t08eFdaKsW6fgZD+KMq7XzYI
-         yBuGi1tq+xJYowDmoWbhd6pNy3hrR9dC1HjkZGjWXE+QJS1DmS6RSpgkHzZWCpt3k6gR
-         0nY2tmieql9Qx9Inx6XsmN24RHNX1ALAQKJ6WLWL6Tc8XjHN55BQ3zdI4+O522urd8KQ
-         ypL+Vr9Ztolb5XTlrewzd19HQf3pusxkeoX1taH4QT2n+0QtTCVJGiSYhoN/x+l2kycW
-         TkbOx5naPYPfyiMMX7G2Pn3YZhlyweGQw+l+NgeD/cH7+1nuncL6kTwGRtxq87EaNX1R
-         osyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JZiFErJumO4f6l/jB3Vv8dc/wBPU8PfaQ8eqWXYPx/g=;
-        fh=KzTV1+QnpQyG9PBOhxwFSn0IXVZRiJY/q9l+wKhkuyE=;
-        b=nqiVhekhBVROaPNYOVeZY+DwOIal3/4vBoItjKlIJ7SXrHM8nQpjfwq/XhDxH/fm0a
-         j1Ti9PGg+sxcOiIr4s4UHNB17W7TfFBr8AsOn7GjXNrSlGrxnvcPv60FTGlDDL6McMor
-         5aLQwTu6PGsbKF7Xh9fIIEWjIRa74hTAPq74g+mrLE3iBIJhA7Poh8/9NiNqwGFPGDEo
-         +0lDJ8+PcigRXnDlpFYLZFcWNIFs5lzD+VSUjZiwo+2x9oU2vfdtzjdRU6uPb5NUXask
-         xfRVTIpFKm3tgwAy05QbvTaTJj9cDcFDirhKq4bVXDehUwpXHS/pc/VWce0gtv/BsKeP
-         rOhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1786358212; x=1786963012; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JZiFErJumO4f6l/jB3Vv8dc/wBPU8PfaQ8eqWXYPx/g=;
-        b=WBYhzMr4Cf+6KEWTSh3811AVodQnmLtOhN/fXj7ACc5pC4j3KNdC9Q9nfSyO89paK+
-         EVsFDZpuwLSzi/JjV4jcVkadqxYf3WrIFbAjE64nqj6Y9nWMt4OQGtPTXnXRn02e4BLg
-         3JuXEXqorbjU6OrFdhbzOdSqfA2ncm4cSap0ij3kBHiE0ypSzPm4YX4LSS3OYj5AXTWe
-         eE4bH54u7VqtNddKi8nmHBWHTvw6GRppBYdMI6sk97sb/Toqd4swPPvhMGvlNDbuWf2X
-         x/dhcYQiPcm9g9pRlGFqnU2bqhx+b1a9qlj32VOZ/HDYfCXWwPkja55oQIMEqe3uDsgA
-         0Jkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786358212; x=1786963012;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JZiFErJumO4f6l/jB3Vv8dc/wBPU8PfaQ8eqWXYPx/g=;
-        b=W0EAxM8G7ulB8N2G+yvJ3INbq/rAiSUoovRCBnuz3TFbRnekpYkVzezyhm8KchnjGJ
-         rnbmS24C/c2OlhEx+X2ZX2t9UECGLpP1Re9FQ/fZ0HXUQPEb0T4U2lhnSmJbhfmKguJ4
-         8Bgonb39EQ2rEsOc0LrB3q3JPizWwLISkYsKh42I3NoUQPICBI8471DKC5pOjCmkK7jr
-         9AtbcRZvycTkDkbYq36X4xPeTmKIWJ4U5h0CTfTVcbuugq0EEqmXN6O6YzDaBbPKecaN
-         DnGzEs6g290wqtt70ICi2fH9O5TBvorIiBvAz15k+xaoQur+YTrMkVc3A/kPx8nKhLSg
-         hetg==
-X-Forwarded-Encrypted: i=1; AHgh+RrEt7OTFfT8O6huRPTCQ4HE4xfKpkPR7ytIhb360MCX49Vg7Pbc7P0NVI9nhbVLvYMJUUNi8Xe/Dn4V@vger.kernel.org
-X-Gm-Message-State: AOJu0YzsQ1a5W3Kf7t2MbvNqpu4o4hlFv6C9XjHfvU8UGg4cMaXq7kDo
-	TCmFwFrkcd94IMNPKdJaqlzT1mWVXert9w8uGrb3ldQ+lBdUiLUrNrC5zR35wZb4pTl4qLgLg1t
-	892C7hzeoY08jGeIPWASTDoQdVnBLFlOcs6j4rJJB1Q==
-X-Gm-Gg: AR+sD10EXQGih5SaNwueD2amTX5yTmPfmLMc81v3seXgplZyQONBJ7ivp3b7rcJtHV4
-	FVvfzbbLenmsOv3d1au13FU4K/XNmW5QohsUPhiaknU+nDPdogKR+v77flzcxPuiRD3rJsa9bgR
-	+D95YuoCQf4d/6Y4nPA6lh9JV6aKNk+Lc+TAn3FKLmtDqeMt6A6VK+5v4DUlTVFjxyJGeuoEgme
-	hcjPfjGh/zKBJDRB00v4t26S2FgDNM5x4DpWdcnIehhValLk/kzNwv+EH4xHzJJTeB2IwTAxbuK
-	QOX0N8DfYQvwVjxqxSEHdNYgL2FvVk4KlzJMTLXkCEb3T1TKdtdtSVxosXoN0AKvpaTdNRT/P7B
-	BeSFgQP816EZnJ6s5NUekYZ1YR2D9FQ==
-X-Received: by 2002:adf:e012:0:20b0:47f:959f:f69c with SMTP id
- ffacd0b85a97d-481455ce280mr1198921f8f.7.1786358211845; Mon, 10 Aug 2026
- 03:36:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n0yJQfE6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8A91F00A3D;
+	Mon, 10 Aug 2026 10:41:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786358497;
+	bh=6vgNrVDergVV34xIB78ZUXhCkNjZOQ6tucWSvMaP4qg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=n0yJQfE6O44C1ybFyPRROzIF1lsBcBU1wKWgfmpuSOx07VgsswNiiEBxEolkrAm/5
+	 WXAfN+guSYCboZ2JvLzl/LPSTSnHIqv5o6kgwfyUi3JUF+f5mmrM0ctboe60qiDbzG
+	 /MzsPkuVANzaLMXfUtHoCkU7mrF2wFDnB3f3YnF7bdJ1G9vxxR79+VDDZv4q5Zolpe
+	 ssEQWfIhxWBUoEQmdJrJlE687/t4VXlLNFYUkwmVcVOOyGb1EY4JpoVCh2MEkAJopd
+	 189OlNin/Ze2PtS6RVwmshQ5kx0IN6IBqA0pbMn4XVGmfDOZA5iIeingLJKepZtExD
+	 1HzfppxnfzAZg==
+Message-ID: <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
+Date: Mon, 10 Aug 2026 12:41:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1785932211.git.gregoire.layet@9elements.com>
- <51db5e5bb5bf44dd5ab893b8d547291f04e1d3c7.1785932211.git.gregoire.layet@9elements.com>
- <178609182923.193353.7287772568467157519.b4-review@b4>
-In-Reply-To: <178609182923.193353.7287772568467157519.b4-review@b4>
-From: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
-Date: Mon, 10 Aug 2026 12:36:39 +0200
-X-Gm-Features: AUfX_mzXwFrJ-NjND3MQzEP6QwRNrCstHPVctQ1cLuVCmYnxx742CiD2MW3y8Ss
-Message-ID: <CAFi2wKZdJ3LxJVDqC2K79T0JhoOOWSj=ZmL9pB+Lka_aXDXatQ@mail.gmail.com>
-Subject: Re: [PATCH v5 4/6] soc: mfd: add ASPEED AST2600 PCIe BMC device driver
-To: Tan Siewert <tan.siewert@9elements.com>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
-	devicetree@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
-	=?UTF-8?Q?Gr=C3=A9goire_Layet?= <git@gregoirelayet.com>, andrew@lunn.ch, 
-	jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, ninad@linux.ibm.com, 
-	anirudhsriniv@gmail.com, linux-serial@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
+To: Leander Kieweg <kieweg.leander@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, u.kleine-koenig@baylibre.com
+References: <20260730173643.256052-1-kieweg.leander@gmail.com>
+ <20260730173643.256052-2-kieweg.leander@gmail.com>
+ <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
+ <CAMwcS0hupV50NEOX1Fsi_tzRYXBecaummjAm=CFHO7xOT1uUXw@mail.gmail.com>
+ <c5f760db-2235-44c1-899c-b6ac023b3233@kernel.org>
+ <CAMwcS0jTwpigztHBTLv_sgFNLK0ERHDMzMGsBdi7josLHw56-g@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAMwcS0jTwpigztHBTLv_sgFNLK0ERHDMzMGsBdi7josLHw56-g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> > +
-> > +static int aspeed_pci_bmc_device_setup_vuart(struct pci_dev *pdev,
-> > +                                          struct aspeed_pci_bmc_dev *p=
-ci_bmc_dev)
-> > +{
-> > +     resource_size_t bar =3D pci_resource_start(pdev, 1);
-> > +     struct plat_serial8250_port *port;
-> > +     u16 vuart_ioport;
-> > +     unsigned int i;
-> > +
-> > +     for (i =3D 0; i < ASPEED_BMC_VUART; i++) {
-> > +             port =3D &pci_bmc_dev->uart[i];
-> > +
-> > +             /* ASPEED BMC device shift addresses by 2 to the left */
-> > +             vuart_ioport =3D vuart_port_addr[i] << 2;
-> > +
-> > +             port->mapbase =3D bar + vuart_ioport;
-> > +             port->uartclk =3D 115200 * 16;
-> > +             port->irq =3D pci_irq_vector(pdev, vuart_msi_index[i]);
-> > +             port->iotype =3D UPIO_MEM32;
-> > +             port->type =3D PORT_16550A;
-> > +             port->flags |=3D (UPF_IOREMAP | UPF_FIXED_PORT | UPF_FIXE=
-D_TYPE);
-> > +             port->regshift =3D 2;
-> > +     }
-> > +
-> > +     pci_bmc_dev->cell =3D (struct mfd_cell) {
-> > +             .name           =3D "serial8250",
-> > +             .platform_data  =3D pci_bmc_dev->uart,
-> > +             .pdata_size     =3D sizeof(pci_bmc_dev->uart),
-> > +     };
->
-> In the commit message you're describing that the MFD driver will be used =
-for
-> setting up MSI interrupts:
-> > It doesn't bind the whole PCIe resource to allow each sub-driver to bin=
-d the
-> > needed addresses.
->
-> But you're adding the UART devices here which now means that the core dri=
-ver is
-> doing more than MSI interrupt init.
+On 05/08/2026 21:12, Leander Kieweg wrote:
+>> openrisc is arch.
+>> opencores is entire org. Are you saying that "Glanda" is this one:
+>> https://www.glanda.com.au/
+>> and opencores releases entire SoCs, thus they integrate their own IPs
+>> there into final product. I agree though, that opencores should not
+>> define standalone generic compatibles.
+> 
+> Fair, those precedents don't really hold up then.
+> 
+> No relation to glanda.com.au, I wasn't even aware of that company.
+> This is just a personal hobby project, not a company or organization.
+> 
+> Given that, what would you suggest instead? I'm open to using a
+> board-specific compatible as the primary match as discussed, or
+> whatever naming scheme you'd consider appropriate for an individual's
+> hobby project.
 
-I might have misunderstood but this is creating the UART device by
-using the 'serial8250' driver.
+I am fine with small projects, till we do not have surge of them because
+anyone clones some project and vibe-codes new soft-core.
 
-> the core driver is doing more than MSI interrupt init.
+Projects run on your personal github, without any organization, do not
+get their own vendor prefix. Why? Because then you come with another
+project and want one more prefix... Personal vendor prefix would be
+fine, but different thing: this repo for your design was created a few
+months ago, with one contributor and ~70 commits. This means it is very
+new, without users.
 
-Yes, as the core driver should add the devices with the right drivers.
-I will add this in the commit message.
+What is the benefit of having it in Linux kernel for the community? Who
+needs this, outside of you?
 
-> Suggestion from my side would be to have an array of `mfd_cell` where you=
- define
-> which devices are part of the MFD,
-
-There is already such an array, it is a one element array as only the
-VUART is done.
-'struct mfd_cell cell; ' will become an real array when KCS will be
-added afterwards.
-
-This is not an 2 cell array for the 2 VUART as the 'serial8250'
-manages the two VUART on its own.
-From what I have researched, this was the way to add UART devices from
-an MFD driver.
-
-> and your VUART lives in another driver.
-> See `ls2k-bmc-core` for example.
-
-The UART already lives in another driver: the 'serial8250' driver.
-
-Regards,
-Gr=C3=A9goire
+Best regards,
+Krzysztof
