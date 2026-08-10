@@ -1,94 +1,131 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2D43DDB04
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 13:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5794E37DAAD;
+	Mon, 10 Aug 2026 13:11:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786367452; cv=none; b=m32lq9HUBAdet14W3eqOCjKC7HqskAGdTMOcrFlPFfrr5IAjjaQQuDEvBK5/EmLeJqI1K8zdynoa5WZMilv4YjYHGl7mkyyTPaUQu6mwRf2wz+22OOIsV5q2PTIvS3BzrGet6eFwa2LRJzIM7yJ2Xt4w+UMpEnxW2yJ3PN+yzqg=
+	t=1786367479; cv=none; b=UwjHvm3LlWq/AI8QcX+y5ZWjms7ixiCopEQFqIr3LurfCvfH+ddVjebE+aUT+aAiWpQVt2e5YjWX+l9mQkpVsD/hAffT/UgIfXNWNePh8C6zAiyI8W1UlwdRXYjJZHxmuqfcvBvVchbCp5QDvaJqRb8U2TqDQKqfA6Od8Ty1O0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786367452; c=relaxed/simple;
-	bh=2r7bq6KL02axoZE6CT8IKT3dwmXpJ4hSMNS66xkXyNc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IDqMyLhWl7aGAEUMAvdJky/MYjjc/miIXcTMJsojCfEV80cd7rP+KjImCsAFYUkdU1usC1L9PwKwXt0Yr/+OwawFCvds8C/w6CjvO6pTw3NabAsJi41ZpGj/F8nDUt8CJUUySpps1sb48hz8wkCDn9R8RRD2ob4VkkVUiT1uNm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5c38568d9e1so762021e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 06:10:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786367449; x=1786972249;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8/+iWq3CnWCpUvZjLzYfFVfgHXscPUpSCMFbxB55MUg=;
-        b=dPWu8c2lQBN7zwJ1oPPXrt90KPnvQzzda6gWMcVz7KtU9G+5HYYats34Mtx5BceSZt
-         RNzpX+dG3C70crqeUgHkAFe9kyAJ0A39dOBzMoz2pK6255jsy2CmzDe5KfFVijUPm4gM
-         hg6lNZiatW8dXHWXN5LmFFyFNsAuaO4aIZJpmgMnIUm6nF8ZVEMzh+/+UXCsTzL/Zoj4
-         oFDh51b920W3r6YROyJd5D6r68UvXtpgHfTTxiJjQ/RxtD67sY0K0JOJh7IdthOvCrGt
-         G5JOySwlx6z1pEFd+aE3OV37TDY5o4y0q1H1okQD3js5Kl6nJv5vDKpOFk4jJ+tAHnrA
-         cAwA==
-X-Forwarded-Encrypted: i=1; AHgh+RrStUaPKfYYUesIDa2TeXaz7hb3KPLcXkKDWCUEEQ+1raRxkOUeFbPnvCCMDhKpUFIGLt4elKZCD6Dd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz66si49PMQVXhV6nv2KpFJClz+Pfxd0zJIG69t6BAN0ILQIqLZ
-	y6JaPmvHYu4UWBVHbIWk+yZkJto5LTeQH5Er5zy8h8KjQGuNSjslgyiPev45Dg2w
-X-Gm-Gg: AR+sD10orBZSD9QWsyjlQEJ9elPB7lmtDZ4LpWo0k7ZUc2NPZNM22tZRZ6wnIyGS6aE
-	spH/E0r+uv1iB1FFMX0bzOo7TnFv1c1AYBDrzQHrkC50eMhW63Ti+pof6EP3ri2Lbd1CRuGQ9CS
-	7LZgYaM4d5T0ExnYD7GyAQqscARyT6iww+rW3NGkZ+6ybZoqAf2ABq9/LO1U5+t434UWnX1yuen
-	3bAiQb4C6tLkqoOOeziv4NT22AKI214EY/s1LfwitDFzTbLnsuJuv5dLuF0PFHuq2jTIzoK+han
-	+R6CZ2KV3NtgVpx/7N2+ODC1ENWAlf9Jp/XiF8WZBDoRAQeOerTzGegHzg8hhPzMkkeZAZ3PLn3
-	URnRhhjesLU+bWYD5MHAokBKcmTYAJk/TV1dlzCoa51Qns/46T47eWEmpsSp8J9NI56JDMXJHG8
-	rE13anBXKB6QynHsgxRA1QSR2C2usHnf7VIvwXdsU2NfdtOfqRJEj2SsOIC+bwLjkk/Yk6pz5Zc
-	VtnsuJYix3T0bHD58TC/pPDdw==
-X-Received: by 2002:a05:6102:3f0d:b0:738:84c:6b3 with SMTP id ada2fe7eead31-768e5d22ae9mr310787137.3.1786367449404;
-        Mon, 10 Aug 2026 06:10:49 -0700 (PDT)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-979f2e7af1asm3429466241.5.2026.08.10.06.10.49
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 06:10:49 -0700 (PDT)
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-74aa416ebb1so282241137.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 06:10:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rrxy5YDEg3dPCBk18yJ4YHdMZtnm5ZB+606GiblwCiT7HtV6js6e5oXB59agzPXBM3uYzL068Q3yns3@vger.kernel.org
-X-Received: by 2002:a05:6102:4426:b0:738:cdc6:f59a with SMTP id
- ada2fe7eead31-768e8119a58mr269915137.9.1786367448880; Mon, 10 Aug 2026
- 06:10:48 -0700 (PDT)
+	s=arc-20240116; t=1786367479; c=relaxed/simple;
+	bh=DPW6Kx+DWMW2tIghPUJOCOK4IRG//DzkIpSdE8rCNzs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PG9LfuB+BBmLv5h/19TRhctUiqdMu+rUD7Cz8H8Z7dZUpMIsdN69cQXrpzjfRgs3VBQ2I8mVDHpDMRbVPSTar5GdCOkLA5CM/TmABUkfxwhMVrsmTG8DIVzeFGNU6LaSoxxRxrtq5np+71oRhpD7tcjLGwfbp2jr3Ozn5wcqk4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hh5EJRco; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hh5EJRco"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369F81F000E9;
+	Mon, 10 Aug 2026 13:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786367478;
+	bh=gdej33EGvlPcyqEmOz8WM60J5amgNtjcc+zyrNlgDes=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hh5EJRcoKNujZbMcGm792PF2XV5/liEwqYwbs+XLOnMBg6UL0L9DQXfJkiDdzgksw
+	 yuvrPzyZmceU56j6haejBeGP25JcWkL0V8gcszgJOSsr8N8MmzHtvXYZKLJN3zPEoO
+	 ngVTzCvZFoSPQL9XMEBuMPUc6aOgpvA/twJSLpYlshlo9EGmhwMT/8KthX1XCxucJm
+	 B3nggGTpjSWkBDyUMkDyY7YrwjLbwF+WJYpP9AZH7SKR9a3eRVdZ+nHn3uz2D6ut1r
+	 460TIgc6VAYCdh3lQ5YqNPcJw9S0hUiD275k4JfQ3Dj5pElnZxVJPdoBzBwBRM/gwX
+	 +l4SsoKS+QNXg==
+Date: Mon, 10 Aug 2026 08:11:12 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	venkata.valluru@oss.qualcomm.com, vishnu.saini@oss.qualcomm.com, 
+	Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: hamoa-iot-evk: Add eDP display
+ overlay
+Message-ID: <annMk4RnQKl51Oug@baldur>
+References: <20260806-edp_overlay_for-next-v1-0-c3aebbc81f38@oss.qualcomm.com>
+ <20260806-edp_overlay_for-next-v1-1-c3aebbc81f38@oss.qualcomm.com>
+ <anUgxo3BPt74Wx7K@baldur>
+ <anWsrXO9RztrF5H4@hu-anantiwa-hyd.qualcomm.com>
+ <anZGDietz47mE2wp@baldur>
+ <anmKUoLFSDpgOjoE@hu-anantiwa-hyd.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715105306.25147-4-wsa+renesas@sang-engineering.com> <20260715105306.25147-5-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260715105306.25147-5-wsa+renesas@sang-engineering.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 10 Aug 2026 15:10:36 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXEn1GAOdvPRDmE2ggKMTzVc6ev68AsLtVf+=in3oG0Xw@mail.gmail.com>
-X-Gm-Features: AUfX_mxn_8ZKs3vTmsJga6rdas_YJzmUEfjEtxmDZON3NmbE2TI0KK5PUwUGLsQ
-Message-ID: <CAMuHMdXEn1GAOdvPRDmE2ggKMTzVc6ev68AsLtVf+=in3oG0Xw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ARM: dts: renesas: lager: specify correct connector
- for i2cexio0 bus
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anmKUoLFSDpgOjoE@hu-anantiwa-hyd.qualcomm.com>
 
-On Wed, 15 Jul 2026 at 12:53, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> It is located on EXIO connector C, not A.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+On Mon, Aug 10, 2026 at 01:52:42PM +0530, Anand Tiwari wrote:
+> On Fri, Aug 07, 2026 at 04:01:05PM -0500, Bjorn Andersson wrote:
+> > On Fri, Aug 07, 2026 at 03:30:13PM +0530, Anand Tiwari wrote:
+> > > On Thu, Aug 06, 2026 at 07:05:37PM -0500, Bjorn Andersson wrote:
+> > > > On Thu, Aug 06, 2026 at 10:01:20PM +0530, Anand Tiwari wrote:
+> > > > > Move the eDP panel configuration and related power, backlight, and pinctrl
+> > > > > nodes into a separate overlay. Keep the base DTB suitable for headless
+> > > > > variants and provide a composite DTB for headed variants.
+> > > > 
+> > > > To quote:
+> > > > https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
+> > > > 
+> > > > """
+> > > > Describe your problem. Whether your patch is a one-line bug fix or 5000
+> > > > lines of a new feature, there must be an underlying problem that
+> > > > motivated you to do this work. Convince the reviewer that there is a
+> > > > problem worth fixing and that it makes sense for them to read past the
+> > > > first paragraph.
+> > > > """
+> > > > 
+> > > > In fact, I'm not even able to guess what the problem you're fixing here.
+> > > > 
+> > > > Regards,
+> > > > Bjorn
+> > > >
+> > > 
+> > > The problem is that the base device trees currently describe the eDP
+> > > display hardware unconditionally. However, Hamoa and Purwa IoT EVKs
+> > > are also available in headless variants without an eDP panel.
+> > > 
+> > > With current base DTBs, headless variants are not stable where eDP panel is not
+> > > physically connected with board and userspace is trying to use it.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+If this is the configuration that is shipping, then it better be
+stable...
 
-Gr{oetje,eeting}s,
+> > > 
+> > > This series fixes the inaccurate hardware description by keeping the
+> > > base DTBs limited to hardware common to both variants and moving the
+> > > eDP-specific nodes into separate overlays. The base DTB can therefore
+> > > be used for headless variants, while the overlay is selected for
+> > > headed variants.
+> > >  
+> > 
+> > I see, then it seems your change does make sense. I don't understand why
+> > you didn't explained this in the commit message though.
+> >
+> 
+> I will update the commit msg with details, currently details added only in 
+> series cover letter. 
+> 
+> > 
+> > I further do not understand how it can be that nobody noticed that the
+> > display was missing on their Hamoa EVK during the 11 months since I
+> > merged the offending patch - this is completely unacceptable.
+> > 
+> > Regards,
+> > Bjorn
+> >
+> 
+> Internally, we have always required the eDP panel to be connected during 
+> testing. In theory, this platform is expected to have a display attached 
+> by default.
+> 1. The only difference is that the eDP connector on this board is externally 
+> accessible and can be disconnected quite easily.
+> 2. Also, only the boards shipped to customers are delivered without an eDP 
+> panel attached by default, which is why this requirement exists. 
 
-                        Geert
+In particular since you're shipping it without display, that is the
+configuration that should be the dts (and that you should test...).
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Common additional configurations can then be added as overlays - while
+the developer can add their own overlays as needed.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Regards,
+Bjorn
