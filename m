@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457FC23815B
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:47:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2159828B7EA
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786376854; cv=none; b=WlO77WpWu5ZY1STu1aUh7M8rERMEFjiiyYpg517xrhv46m+cvDY5fTMr1v5kS/GAiK+OzQa1THz90uldmIu2+n/R/xi9rjepW/FCMWQVGmZ1qn8HJ6hehR3Y43IfDk7vnaTkrznKDLfzpU1H3GlNV5GTm5cjtqg2t6he3Kddfic=
+	t=1786376896; cv=none; b=JI3Vtk4ZOtpxxv+2UzObd4wVVUQ5Di3VdHEw1OdroaC0fGip1aJKSAKNwn36NGOfw/QzQWWOi1cYWrUc7GRNaYCl7I4HPvlFUWsho8ut38Sx7bfcg5geWoIpRx5IAZAKH8fSRp78p75t5XctRaA3hUScwz27QcmliW9loKn1xq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786376854; c=relaxed/simple;
-	bh=0dVPCAuhSGHbUFd+C4ng0IhUzomJz20RkE+bf7YKyTo=;
+	s=arc-20240116; t=1786376896; c=relaxed/simple;
+	bh=dquFBDCizMGwl5LrvVgMWRVAZkeb7n45Om4b33RXeok=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Dvk1kr60Gpbeg+Uzpa0B/YtaWTqclqOlx+bRMdqt8uAQ8gWjMa+gQZ4TmnEDcUXqpbZYimZsmUlTzKoXNYMYClpx2AAmxQHZdeH2OCOP3Fhw7OA/z/M8RMQK4rpXmbsF7gjnDesRwMKHHVt22QikPMav9W8xSdKZ0Ou5x0d2eRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sm8V3ZsA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FD12eRhbJYXL6lvZa/BPN7eLTR5SUqJWhuwVFWXCvWulhGCWb5SSqfRCkcQg6bFIwu39YY18/ONp59F2rhs0GVD30TWuBjLGCDmtAuEKFNWskENvNbupdxe2P2aBd2sAIcq5hiyGovX19Q2tLHjy9QslJILe2xYlL2ZtpIPo+6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MmMsng+/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sm8V3ZsA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C771F000E9;
-	Mon, 10 Aug 2026 15:47:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MmMsng+/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51491F000E9;
+	Mon, 10 Aug 2026 15:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786376853;
-	bh=Ec6QoLmmWKnvbpQI1giFwtBve4SfOuB5jqHuea3Sac8=;
+	s=k20260515; t=1786376895;
+	bh=KxkMlkWWG5X2vkA3QDxWQF+0KQSgZaAGGHjQ9S89Itc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Sm8V3ZsACs2KA+v8aGhoKEhGNx11tZOFnyJBPSlrvYSjYgyleVeoPvo3Bz7FRGf0d
-	 RqlJqU8V66gTymYES1KJ7f1hpve/7VvNllPCFm0S7tpNl2Zlq4LwlfsydWNX1qQz3i
-	 SBd8DroKf9CsSHAIdgejgkMCzzm6KorZQX0Fw0vn1GHVn6KPMWMjSGDJ4S9qIVH+nE
-	 5yqqijeo36d/fb2HLN8AaHj1sbxUXe12L6hlzhuV7ObVgemlEV6gZs+cDZQvRneyAR
-	 iUYnsQPYD0+nk/PI39VuzW9n0XBKopRDOtG6nvXD2xNQVLOxRShWaBVFJiUAJxtDZQ
-	 ryB4O2qkTV/+Q==
+	b=MmMsng+/69MzbDmcICVpvZcH8zRgLWCMNkA8LGIu7LNNsW+KRv5nuo+c8AH2sM38U
+	 p6NIiDW0+5f7JPj898TL7sJFlNKQHvRsg+tL4OlsbBakROy80+6r+WYpGJudentKcH
+	 2LAxKI2kb2/+hMsJFmnjARzu+5/UAaV19k8quD3rAKddnhPzMJcr3PkITBzxauKzSv
+	 5chobmxfDnVxAPY/JAaJrlPRy7g3AOND17oGYZEhLbgObTw3TIbAWJzUO57caD+wbo
+	 USxrTrQuIhKYQ9cU4vmAcukupRvgw8JrX8sVBLa6YvOFAPhBq5C04B7WNfZQwHrWJZ
+	 cjRL//GsB0ZWA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver
+Subject: Re: [PATCH v5 11/14] gtrace: Add perf driver for tracing using perf
+ tool
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mayuresh Chitale" <mayuresh.chitale@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260810152223.3946743-12-mayuresh.chitale@oss.qualcomm.com>
 References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
- <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-12-mayuresh.chitale@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 15:47:32 +0000
-Message-Id: <20260810154732.E0C771F000E9@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 15:48:13 +0000
+Message-Id: <20260810154814.C51491F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,366 +47,289 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 10 potential issue=
 (s) to consider:
-- [High] Modifying DMA pointers and size after allocation causes a DMA API =
-violation upon freeing and out-of-bounds memory accesses.
-- [High] Missing bounds check on the hardware write pointer (`wp`) allows a=
-rbitrary out-of-bounds kernel memory reads.
-- [High] Trusting hardware limit registers unconditionally overwrites `priv=
-->size`, allowing hardware to inflate buffer bounds.
-- [High] Trusting hardware limit registers can result in a zero-sized buffe=
-r, triggering a division-by-zero panic.
-- [High] Using signed `int` for lengths in `tbuf_to_pbuf_copy` causes an in=
-teger overflow when bounds exceed 2GB.
-- [Medium] Bitwise OR operations update configuration fields without cleari=
-ng previous bit values, leaving old configurations active.
-- [Medium] The driver does not export its component ID table, preventing au=
-tomatic module loading.
-- [Medium] Buffer truncation logic error when hardware clamps the limit add=
-ress.
-- [Medium] Missing synchronization protecting shared ramsink state in `copy=
-to_auxbuf`.
-- [Low] Format String Type Mismatch using `%pad` for `u64` variables.
+- [High] Unchecked return value of alloc_percpu() leads to NULL pointer der=
+eference on allocation failure.
+- [High] gtrace_setup_aux() checks for !path instead of IS_ERR(path), stori=
+ng error pointers that cause crashes later.
+- [High] Skipped CPUs are not cleared from event_data->mask, causing valida=
+tion bypass and NULL pointer dereferences in cleanup.
+- [High] The virtual memory mapped via vmap() for the AUX buffer is never u=
+nmapped, permanently leaking vmalloc space.
+- [High] Error paths in gtrace_event_start() and gtrace_event_stop() return=
+ directly without calling perf_aux_output_end(), leaking the active AUX buf=
+fer handle.
+- [High] gtrace_event_stop() passes uninitialized size and format variables=
+ to the perf core if gtrace_path_copyto_auxbuf() fails.
+- [High] gtrace_path_start and gtrace_path_stop abort on the first componen=
+t error without rolling back already-modified components.
+- [High] Lock ordering violation: gtrace_event_stop() acquires a spinlock_t=
+ inside the PMU stop callback, violating wait-context nesting.
+- [High] Module unload race in gtrace_perf_exit() with pending asynchronous=
+ work leads to use-after-free of module text.
+- [Medium] The dynamically allocated pagelist array is permanently leaked o=
+n the success path of gtrace_setup_aux().
 --
 
---- Patch [9]: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver ---
-commit 07a5e011c3c5f12851ee9400f1bd383cb0538970
+--- Patch [11]: [PATCH v5 11/14] gtrace: Add perf driver for tracing using =
+perf tool ---
+commit 7444340c1bfa224d9b35f7fb63e614992d6414e2
 Author: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 
-gtrace: Add RISC-V Trace ramsink driver
+gtrace: Add perf driver for tracing using perf tool
+   =20
+Add perf driver for the gtrace similar to ARM Coresight and Hisilicon
+PTT drivers. The driver adds 'gtrace' event descriptor which can be used
+by the perf tool to record the trace data. The actual data format depends
+on type of encoder device and optionally the PMU specific trace format
+type.
 
-This patch adds the initial implementation of the RISC-V E-Trace ramsink
-driver. The ramsink stores trace data into a system memory buffer for perf
-AUX buffer usage.
-
-> diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtraci=
-ng/gtrace/rvtrace-ramsink.c
+> diff --git a/drivers/hwtracing/gtrace/gtrace-perf.c b/drivers/hwtracing/g=
+trace/gtrace-perf.c
 > new file mode 100644
-> index 0000000000000..7ed25cf364a71
+> index 0000000000000..ed9155bbbdb7a
 > --- /dev/null
-> +++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+> +++ b/drivers/hwtracing/gtrace/gtrace-perf.c
+> @@ -0,0 +1,347 @@
 [ ... ]
-> +static void tbuf_to_pbuf_copy(struct trace_buf *src, struct trace_buf *d=
-st, size_t size)
+> +static void *alloc_event_data(int cpu)
 > +{
-> +	int bytes_dst, bytes_src, bytes;
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Does this code risk integer overflow if the lengths exceed 2GB?
-
-The variables bytes, bytes_dst, and bytes_src are declared as signed int,
-while the lengths they represent (like dst->len and src->len) are size_t
-and can legally exceed 2GB. If dst->len - dst->cur exceeds 2GB, the
-subtraction overflows the 32-bit int into a negative number.
-
-Could this negative number pass the bytes_dst < bytes_src check and be
-supplied to memcpy(), which implicitly casts it to a huge size_t value
-causing a fatal out-of-bounds copy?
-
-> +	void *dst_addr, *src_addr;
+> +	struct gtrace_event_data *event_data;
+> +	cpumask_t *mask;
 > +
-> +	/* If destination cannot hold entire source buffer then write only the =
-latest data. */
-> +	if (dst->len < size) {
-> +		src->cur =3D (src->cur + size - dst->len) % src->len;
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Could this result in a division-by-zero panic?
-
-If the hardware limit register readback exactly equals priv->start,
-rvtrace_ramsink_setup_buf() will update priv->end =3D priv->start, making
-priv->size =3D 0.
-
-Upon the next perf AUX buffer read, rvtrace_ramsink_copyto_auxbuf() will pa=
-ss
-priv->size (0) as src.len to tbuf_to_pbuf_copy(). This would cause the modu=
-lo
-operation here to divide by zero.
-
-> +		size =3D dst->len;
-> +	}
+> +	event_data =3D kzalloc_obj(*event_data);
+> +	if (!event_data)
+> +		return NULL;
 > +
-> +	while (size) {
-[ ... ]
-> +		if (src->len - src->cur < size)
-> +			bytes_src =3D src->len - src->cur;
-> +		else
-> +			bytes_src =3D size;
-> +		bytes =3D bytes_dst < bytes_src ? bytes_dst : bytes_src;
-> +		memcpy(dst_addr, src_addr, bytes);
-> +		dst->cur =3D (dst->cur + bytes) % dst->len;
-> +		src->cur =3D (src->cur + bytes) % src->len;
-> +		size -=3D bytes;
-> +	}
+> +	/* Update mask as per selected CPUs */
+> +	mask =3D &event_data->mask;
+> +	if (cpu !=3D -1)
+> +		cpumask_set_cpu(cpu, mask);
+> +	else
+> +		cpumask_copy(mask, cpu_present_mask);
+> +
+> +	event_data->path =3D alloc_percpu(struct gtrace_path *);
+> +	return event_data;
 > +}
-> +
-> +static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *com=
-p,
-> +					    struct gtrace_perf_auxbuf *buf,
-> +					    u64 *format)
-> +{
-> +	struct rvtrace_ramsink_priv *priv =3D dev_get_drvdata(&comp->dev);
-> +	struct trace_buf src, dst;
-> +	u32 wp_low, wp_high;
-> +	size_t bytes =3D 0;
-> +	bool wrap;
-> +	u64 wp;
-> +
-> +	dst.base =3D buf->base;
-> +	dst.len =3D buf->length;
-> +	dst.cur =3D buf->pos;
-> +	src.base =3D priv->va;
-> +	src.len =3D priv->size;
-> +	wp_low =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_WPLOW_OFF);
-> +	wp_high =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_WPHIGH_OFF);
-> +	wp =3D (u64)(wp_high) << 32 | wp_low;
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 [Severity: High]
-Does this implicitly trust the hardware read value without bounds validatio=
-n?
+Can alloc_percpu() fail here?=20
 
-If a faulty hardware component returns a value outside the physical buffer
-bounds, or if concurrent accesses cause a race, the calculations like
-bytes =3D wp - priv->prev_wp could underflow or overflow.
+If it returns a NULL pointer, event_data->path will be NULL. Later in
+gtrace_setup_aux(), this pointer is passed to per_cpu_ptr(), which blindly
+adds the CPU offset to the NULL pointer and generates an invalid kernel
+address, resulting in an oops on dereference.
 
-This would allow tbuf_to_pbuf_copy() to copy arbitrary out-of-bounds kernel
-memory directly into the perf AUX buffer, leaking kernel memory to userspac=
-e.
-
-> +	wrap =3D wp & RVTRACE_RAMSINK_WPLOW_WRAP;
-> +	wp &=3D ~RVTRACE_RAMSINK_WPLOW_WRAP;
-> +	if (wrap) {
 [ ... ]
-> +	} else {
-> +		src.cur =3D  priv->prev_wp - priv->start;
-> +		bytes =3D wp - priv->prev_wp;
-> +		priv->prev_wp =3D wp;
-                ^^^^^^^^^^^^^^^^^^^
+> +static void free_event_data(struct work_struct *work)
+> +{
+> +	struct gtrace_event_data *event_data;
+> +	struct gtrace_path *path;
+> +	cpumask_t *mask;
+> +	int cpu;
+> +
+> +	event_data =3D container_of(work, struct gtrace_event_data, work);
+> +	mask =3D &event_data->mask;
+> +	for_each_cpu(cpu, mask) {
+> +		path =3D *gtrace_event_cpu_path_ptr(event_data, cpu);
+> +		gtrace_destroy_path(path);
+> +	}
+
+[Severity: High]
+When gtrace_setup_aux() skips CPUs due to initialization failures (e.g., if
+gtrace_cpu_source() returns NULL), it leaves those CPUs in the mask.=20
+
+Will this loop blindly pass uninitialized or NULL paths to
+gtrace_destroy_path(), causing a NULL pointer dereference when accessing
+path->comp_list?
+
+> +	free_percpu(event_data->path);
+> +	kfree(event_data);
+> +}
+
+[Severity: High]
+Looking at the setup path in gtrace_setup_aux(), the buffer is mapped using
+vmap(), but this cleanup function does not call vunmap(event_data->buf.base=
+).
+
+Will this permanently leak the vmalloc space each time a session is destroy=
+ed?
+
+[ ... ]
+> +static void *gtrace_setup_aux(struct perf_event *event, void **pages,
+> +			       int nr_pages, bool overwrite)
+> +{
+[ ... ]
+> +	/*
+> +	 * Create the path for each CPU in the mask. In case of any failure ski=
+p the CPU
+> +	 */
+> +	for_each_cpu(cpu, mask) {
+> +		struct gtrace_component *src;
+> +		struct gtrace_path *path;
+> +
+> +		src =3D gtrace_cpu_source(cpu);
+> +		if (!src)
+> +			continue;
+> +
+> +		path =3D gtrace_create_path(src, NULL, GTRACE_COMPONENT_MODE_PERF);
+> +		if (!path)
+> +			continue;
+
+[Severity: High]
+When skipping a CPU due to these error paths, should the CPU be cleared from
+event_data->mask?=20
+
+Leaving it in the mask bypasses the check for valid CPUs below and causes
+the cleanup function to operate on uninitialized pointers.
+
+[Severity: High]
+Does gtrace_create_path() return NULL on failure? Looking at its
+implementation, it returns an error pointer like ERR_PTR(-ENOMEM).
+
+Using !path here evaluates to false for error pointers, storing an invalid
+pointer that will later cause a kernel panic when dereferenced.
+
+> +
+> +		*gtrace_event_cpu_path_ptr(event_data, cpu) =3D path;
+> +	}
+[ ... ]
+> +	pagelist =3D kcalloc(nr_pages, sizeof(*pagelist), GFP_KERNEL);
+> +	if (!pagelist)
+> +		goto err;
+> +
+> +	for (i =3D 0; i < nr_pages; i++)
+> +		pagelist[i] =3D virt_to_page(pages[i]);
+> +
+> +	event_data->buf.base =3D vmap(pagelist, nr_pages, VM_MAP, PAGE_KERNEL);
+> +	if (!event_data->buf.base) {
+> +		kfree(pagelist);
+> +		goto err;
+> +	}
+> +
+> +	event_data->buf.nr_pages =3D nr_pages;
+> +	event_data->buf.length =3D nr_pages * PAGE_SIZE;
+> +	event_data->buf.pos =3D 0;
+> +	return event_data;
 
 [Severity: Medium]
-Is there missing synchronization protecting this shared ramsink state?
+Is the pagelist array leaked on this success path?=20
 
-If rvtrace_ramsink_copyto_auxbuf() is executed concurrently, data races
-on priv->prev_wp could result in length underflows and corrupted hardware
-write pointers. Is a spinlock necessary to protect this component's
-shared state?
+The error path correctly frees it, but it appears vmap() only maps the pages
+without taking ownership of the array itself.
 
-> +	}
-> +
-> +	tbuf_to_pbuf_copy(&src, &dst, bytes);
-> +	dev_dbg(&comp->dev, "Copied %zu bytes\n", bytes);
-> +	*format =3D PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE;
-> +	return bytes;
-> +}
-> +
-> +static int rvtrace_ramsink_setup_buf(struct gtrace_component *comp,
-> +				     struct rvtrace_ramsink_priv *priv)
-> +{
-> +	struct device *pdev =3D comp->pdata->dev;
-> +	u64 start_min, limit_max, end;
-> +	u32 low, high;
-> +	int ret;
 [ ... ]
-> +	priv->va =3D dma_alloc_coherent(pdev, priv->size, &priv->start, GFP_KER=
-NEL);
-> +	if (!priv->va)
-> +		return -ENOMEM;
+> +static void gtrace_event_start(struct perf_event *event, int flags)
+> +{
+[ ... ]
+> +	event_data =3D perf_aux_output_begin(handle, event);
+> +	if (!event_data)
+> +		goto fail;
 > +
-> +	priv->end =3D priv->start + priv->size;
-> +	priv->prev_wp =3D priv->start;
-> +	if (priv->end <=3D start_min || priv->start >=3D limit_max) {
-> +		dma_free_coherent(pdev, priv->size, priv->va, priv->start);
-> +		dev_err(&comp->dev, "DMA memory not addressable by device\n");
-> +		return -EINVAL;
+> +	if (!cpumask_test_cpu(cpu, &event_data->mask))
+> +		goto out;
+> +
+> +	event_data->buf.pos =3D handle->head % event_data->buf.length;
+> +	path =3D *gtrace_event_cpu_path_ptr(event_data, cpu);
+> +	if (!path) {
+> +		pr_err("Error. Path not found\n");
+> +		return;
 > +	}
-> +
-> +	/* Setup ram sink start addresses */
-> +	if (priv->start < start_min) {
-> +		dev_warn(&comp->dev, "Ramsink start address updated from %pad to %pad\=
-n",
-> +			 &priv->start, &start_min);
-                                       ^^^^^^^^^^
-
-[Severity: Low]
-Does this code use an incorrect format string for start_min?
-
-start_min is of type u64, but %pad requires a pointer to dma_addr_t or
-phys_addr_t. On 32-bit architectures where dma_addr_t is 32-bit, printk
-will dereference the pointer as a 32-bit type, reading only half of the
-u64 variable, resulting in incorrect log output.
-
-> +		priv->va +=3D start_min - priv->start;
-> +		priv->start =3D start_min;
-                ^^^^^^^^^^^^^^^^^^^^^^^^
 
 [Severity: High]
-Can modifying these DMA pointers cause a DMA API violation later?
+Because perf_aux_output_begin() successfully acquired a handle to the AUX
+ring buffer, does this error path need to call perf_aux_output_end() before
+returning? Returning directly leaves the ring buffer permanently locked.
 
-When rvtrace_ramsink_cleanup() later passes these modified pointers to
-dma_free_coherent(), it violates the DMA API, which strictly requires the
-exact virtual and physical addresses originally returned by
-dma_alloc_coherent().
-
-This can lead to a kernel panic on driver unbind. Also, because priv->size
-is not reduced, operations accessing priv->start + priv->size will overflow
-the allocated DMA buffer bounds.
-
-> +	}
 > +
-> +	gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_RAMSINK=
-_STARTLOW_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_RAMSINK=
-_STARTHIGH_OFF);
-> +	gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_RAMSINK=
-_WPLOW_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_RAMSINK=
-_WPHIGH_OFF);
-> +	/* Setup ram sink limit addresses */
-> +	if (priv->end > limit_max) {
-> +		dev_warn(&comp->dev, "Ramsink limit address updated from %pad to %pad\=
-n",
-> +			 &priv->end, &limit_max);
-> +		priv->end =3D limit_max;
-> +		priv->size =3D priv->end - priv->start;
+> +	if (gtrace_path_start(path)) {
+> +		pr_err("Error. Tracing not started\n");
+> +		return;
 > +	}
-> +
-> +	/* Limit address needs to be set to end - mem_access_width to avoid ove=
-rflow */
-> +	end =3D priv->end - priv->mem_acc_width;
-> +	gtrace_write32(comp->pdata, lower_32_bits(end), RVTRACE_RAMSINK_LIMITLO=
-W_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(end), RVTRACE_RAMSINK_LIMITHI=
-GH_OFF);
-> +	low =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	high =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	end =3D (u64)(high) << 32 | low;
-> +	if (end !=3D (priv->end - 4)) {
-> +		dev_warn(&comp->dev, "Ramsink limit address updated from %pad to %pad\=
-n",
-> +			 &priv->end, &end);
-                                     ^^^^
-
-[Severity: Low]
-Does this code use an incorrect format string for end?
-
-end is of type u64, but %pad requires a pointer to dma_addr_t or
-phys_addr_t.
-
-> +		priv->end =3D end;
-> +		priv->size =3D priv->end - priv->start;
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 [Severity: High]
-Does this trust the hardware limit registers to unconditionally overwrite
-priv->size?
+Looking at gtrace_path_start(), if a component fails to start in the middle
+of its initialization loop, it returns an error immediately.=20
 
-If the hardware returns a value much larger than the original 1MB DMA
-allocation, the software size limits are inflated. Subsequent trace data
-copies will read past the 1MB physical buffer, leaking surrounding kernel
-memory into the user perf stream.
+Does this lack of rollback strand previously started hardware components in=
+ an
+active state?
 
-[Severity: Medium]
-Additionally, does this introduce a buffer truncation logic error?
-
-The driver subtracted 4 (priv->mem_acc_width) to avoid hardware wrap
-overflow. If the hardware clamps this limit and returns a different value,
-shrinking priv->end to the raw hardware return value recalculates
-priv->size without adding those 4 bytes back.
-
-This can cause the software ring buffer math to wrap before reading the
-final 4 bytes of trace data written by the hardware, leading to data loss.
-
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int rvtrace_ramsink_setup(struct gtrace_component *comp)
-> +{
-> +	struct rvtrace_ramsink_priv *priv;
-> +	u32 trram_ctrl;
-> +	int ret;
 [ ... ]
-> +	trram_ctrl =3D gtrace_read32(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET=
-);
-> +	trram_ctrl |=3D priv->mode << RVTRACE_RAMSINK_CTRL_MODE_SHIFT;
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: Medium]
-Should the existing bits be cleared before ORing the new values?
-
-Because the driver doesn't clear the existing bits, a previously set bit
-might remain set even if the new mode evaluates to 0, leaving the hardware
-improperly configured.
-
-> +	gtrace_write32(comp->pdata, trram_ctrl, RVTRACE_COMPONENT_CTRL_OFFSET);
-> +	trram_ctrl =3D gtrace_read32(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET=
-);
-> +	dev_dbg(&comp->dev, "mode: %s\n", (trram_ctrl >> RVTRACE_RAMSINK_CTRL_M=
-ODE_SHIFT) & 0x1 ?
-> +		 "SMEM" : "SRAM");
-> +
-> +	trram_ctrl |=3D priv->stop_on_wrap << RVTRACE_RAMSINK_CTRL_STP_WRAP_SHI=
-FT;
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^^
-
-[Severity: Medium]
-Similarly, does the stop-on-wrap bitfield need to be cleared before
-being updated?
-
-> +	gtrace_write32(comp->pdata, trram_ctrl, RVTRACE_COMPONENT_CTRL_OFFSET);
-> +
-> +	ret =3D rvtrace_ramsink_setup_buf(comp, priv);
-> +	if (!ret)
-> +		dev_set_drvdata(&comp->dev, priv);
-> +
-> +	return ret;
-> +}
-> +
-> +static void rvtrace_ramsink_cleanup(struct gtrace_component *comp)
+> +static void gtrace_event_stop(struct perf_event *event, int mode)
 > +{
-> +	struct rvtrace_ramsink_priv *priv =3D dev_get_drvdata(&comp->dev);
-> +
-> +	dma_free_coherent(comp->pdata->dev, priv->size, priv->va, priv->start);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^
+[ ... ]
+> +	/* stop tracing */
+> +	path =3D *gtrace_event_cpu_path_ptr(event_data, cpu);
+> +	if (!path) {
+> +		pr_err("Error. Path not found\n");
+> +		return;
+> +	}
 
 [Severity: High]
-As mentioned earlier, if priv->va, priv->start, or priv->size were modified
-in rvtrace_ramsink_setup_buf(), won't this pass illegally shifted pointers
-to the DMA API and cause a kernel panic?
-
-> +}
-[ ... ]
-> +static const struct gtrace_component_id rvtrace_ramsink_ids[] =3D {
-> +	{ .type =3D GTRACE_RVTRACE_RAMSINK,
-> +	  .version =3D rvtrace_component_mkversion(1, 0), },
-> +	{},
-> +};
-        ^^
-
-[Severity: Medium]
-Should this ID table be exported?
-
-Without a MODULE_DEVICE_TABLE declaration, the driver will not be
-autoloaded when compatible hardware is present on the system.
+If we hit this error path after an active handle is established, do we need
+to call perf_aux_output_end() to properly close the session?
 
 > +
-> +static struct gtrace_driver rvtrace_ramsink_driver =3D {
-> +	.id_table =3D rvtrace_ramsink_ids,
-> +	.copyto_auxbuf =3D rvtrace_ramsink_copyto_auxbuf,
-> +	.stop =3D rvtrace_ramsink_stop,
-> +	.start =3D rvtrace_ramsink_start,
-> +	.probe =3D rvtrace_ramsink_probe,
-> +	.remove =3D rvtrace_ramsink_remove,
-> +	.driver =3D {
-> +		.name =3D "rvtrace-ramsink",
-> +	},
-> +};
+> +	if (gtrace_path_stop(path)) {
+> +		pr_err("Error. Tracing not stopped\n");
+> +		return;
+> +	}
+
+[Severity: High]
+Similar to gtrace_path_start(), gtrace_path_stop() aborts its loop early
+if a single component fails to stop. Could this leave hardware components
+running indefinitely?
+
+> +
+> +	event->hw.state =3D PERF_HES_STOPPED;
+> +	if (handle->event && (mode & PERF_EF_UPDATE)) {
+> +		if (WARN_ON_ONCE(handle->event !=3D event))
+> +			return;
+> +		spin_lock(&perf_buf_lock);
+
+[Severity: High]
+Is it safe to acquire perf_buf_lock here?=20
+
+The perf events core invokes PMU stop callbacks with a raw_spinlock_t held.
+Acquiring a regular spinlock_t while holding a raw lock is an invalid
+wait-context nesting order and will trigger a BUG on PREEMPT_RT kernels.
+
+> +		ret =3D gtrace_path_copyto_auxbuf(path, &event_data->buf, &size, &form=
+at);
+> +		spin_unlock(&perf_buf_lock);
+> +		WARN_ON_ONCE(ret);
+> +		if (READ_ONCE(handle->event)) {
+> +			/* Tag the AUX data with the format reported by the sink. */
+> +			perf_aux_output_flag(handle, format);
+> +			if (size > handle->size) {
+> +				size =3D handle->size;
+> +				perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
+> +			}
+> +			perf_aux_output_end(handle, size);
+
+[Severity: High]
+If gtrace_path_copyto_auxbuf() returns an error, size and format might
+remain uninitialized.=20
+
+Since this code emits a warning but continues execution, will it pass
+stack-garbage values to perf_aux_output_flag() and perf_aux_output_end(),
+corrupting the ring buffer head pointer?
+
+[ ... ]
+> +void __exit gtrace_perf_exit(void)
+> +{
+> +	perf_pmu_unregister(&gtrace_pmu);
+> +}
+
+[Severity: High]
+The driver schedules asynchronous work items via schedule_work(&event_data-=
+>work)
+to clean up event data.=20
+
+Does this exit function need to call flush_work() or flush_scheduled_work()
+before returning? If the module unloads while work is pending, the workqueue
+thread will execute freed memory.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810152223.3946=
-743-1-mayuresh.chitale@oss.qualcomm.com?part=3D9
+743-1-mayuresh.chitale@oss.qualcomm.com?part=3D11
