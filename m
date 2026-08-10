@@ -1,103 +1,105 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5AF411A0A
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 19:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1328B43B6C9
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 19:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786388886; cv=none; b=nAs/lgpe2OtZPmVC8jTAQFw6M8dCfdB6CNYDwXYgfcabRZqCAVIC90dDFPGbLJTNnWFg9YipPtPTJ0jqY/IOoaOl1nA/5dndIhXIHTOw1hwJYwQ1bG/41kGQnJXGuknyIX9Dc5rqJAQ2uiv8M/jftgQxgI/c7CIFp0df2P78O40=
+	t=1786389044; cv=none; b=UbwDRhNUUfv3Cx9NcU+sdAVt8gO7xSoM9z1swiQPFVDX7jUo89ixRPEjxO5mzqsyx7OAqwvvcuUyWJVjfjtdou+lPU7TydLRodFahWW1skctaMdoQAb24rLMkMgLZSIYEtfgRBJAAPnG4O1vATh4Dyiq4aBoxrkPi9rEeB6S9AU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786388886; c=relaxed/simple;
-	bh=YCD8HcEbS+FxeNcV5DFf41UK3cMSUjhcxM/ZFXnWEHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WQdyXBAmFscdGYlVNGLvx4hNr1XaQkuG1pQGIKC3JU4NUw3sULPenqaX/FREuw/555RCIGglrt4nveXf0NNQsjK6ElUncXgn5RzcubByqmAr8/ZGw0eaOddVcEUwOD0YZbMLfy1aiM233uqN0j7mYLspTtxgAIj9V7uinaFZLYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ItX0Fu+Q; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1786389044; c=relaxed/simple;
+	bh=pXb/GWNBhCMdL7y1Eh9j0os/mOf7zHMgfy7Mf6hwVLQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rNzOwNJiQq0cctHoPzQ14kUDsF5Ck+hef9rx8QB9IRgqkAKvXxfWY0m6Iw+Mvy0sLQWIyCXw/S486j4yFGOHMVj6bfCpboSo9cFRkhQdXa6ueBVS3FoH/u5O9nIKI1SqNHfmYl2GIjNXShA6vWrVh7aGs0paTmPcvH2IOyaQkyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBClld5R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ItX0Fu+Q"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 301CFBB;
-	Mon, 10 Aug 2026 21:06:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786388808;
-	bh=YCD8HcEbS+FxeNcV5DFf41UK3cMSUjhcxM/ZFXnWEHI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ItX0Fu+QMKOQQW0pRKRRp8VdpUUM8PNxp9yxk5cc1dbCOV2KAgXMleEkoH+6lSjHt
-	 eLWMlNNQ/69P0MUJwr0R4me0BjUh5hWZRaOgynvODjnF8Pud9w9cYSUauYElN+Rfoz
-	 FnmEIZJYAdbFUcDgEOkUoZV9GgQuSE6fO0vdujKg=
-Date: Mon, 10 Aug 2026 22:08:00 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev
-Subject: Re: [PATCH v3 6/7] ARM: dts: nxp: imx6qdl-pico: Replace
- clock-frequency in camera sensor node
-Message-ID: <20260810190800.GA3046075@killaraus.ideasonboard.com>
-References: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
- <20260810180604.3034255-7-laurent.pinchart@ideasonboard.com>
- <anoerXCIlB8tTgiC@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBClld5R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535A31F000E9;
+	Mon, 10 Aug 2026 19:10:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786389040;
+	bh=sZanrv+bSbAn8xlMBWJGJnwOsBOLoIL4rUffEdpB5Lc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fBClld5RUj4ib2qG1CLinY9ehgqpsAXUnkTM4qzevlHu2qtB6RsdTRinYoRnM63ah
+	 jsGUubw3nU/Ftzcn1qZGc77m+/vwu5pu2790s2rAqaaC5wE+ddPatfy/ucuPaL2fvS
+	 A9T5Wo/IobuNW98SRdb+8Rf4JkYi4Eppgl2YVXaZ9YFizNmp2S4Eadmlszqi3THFQ2
+	 AMLmBefbfttUsuozs/HgGkD/DlExUn4nsWaMeFK4v4R/p5+v+HF+1HsZ8QutXQuR5w
+	 eKM0CdQjZG2bTUf54YIIIgXV2rA/+u8WIcZdhv+A7D8SE0X7ol4sMqwCnAGk29IhVh
+	 dxul8GjCxvFew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/8] dt-bindings: arm: altera: add Agilex5 SOCDK eMMC
+ board variant
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tanmay Kathpalia" <tanmay.kathpalia@altera.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260810190025.25045-4-tanmay.kathpalia@altera.com>
+References: <20260810190025.25045-1-tanmay.kathpalia@altera.com>
+ <20260810190025.25045-4-tanmay.kathpalia@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 19:10:39 +0000
+Message-Id: <20260810191040.535A31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <anoerXCIlB8tTgiC@SMW015318>
 
-On Mon, Aug 10, 2026 at 01:55:41PM -0500, Frank Li wrote:
-> On Mon, Aug 10, 2026 at 09:06:03PM +0300, Laurent Pinchart wrote:
-> > The clock-frequency for camera sensors has been deprecated in favour of
-> > the assigned-clocks and assigned-clock-rates properties. Replace it in
-> > the device tree.
-> 
-> Remove "clock-frequency" may break back compatiblity.
-> 
-> A similar case
-> https://lore.kernel.org/imx/20d37ab7-308e-4f07-96dc-7ae011af76d0@kernel.org/
-> https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quoll/
-> 
-> Need provide judgement in commit message about impact of break ABI.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Device Tree compilation will fail due to the undefined macro `COMBO=
+PHY_RESET` in the `emmc` node.
+--
 
-What ABI breakage ? The latest kernel supports the updated bindings
-(merged in commit aa1826696a55 ("dt-bindings: media: Deprecate
-clock-frequency property for camera sensors") in v6.18).
+--- Patch [3]: [PATCH v4 3/8] dt-bindings: arm: altera: add Agilex5 SOCDK e=
+MMC board variant ---
+commit a686e27903fc966d624926fbeae5d10fa6638ad7
+Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
 
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > ---
-> > Changes since v1:
-> >
-> > - Drop added blank line
-> > ---
-> >  arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> > index ca4cb986efbc..0cc05d084f9b 100644
-> > --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> > +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> > @@ -233,7 +233,9 @@ camera@3c {
-> >  		pinctrl-0 = <&pinctrl_ov5645>;
-> >  		reg = <0x3c>;
-> >  		clocks = <&clks IMX6QDL_CLK_CKO2>;
-> > -		clock-frequency = <24000000>;
-> > +		assigned-clocks = <&clks IMX6QDL_CLK_CKO2>;
-> > +		assigned-clock-rates = <24000000>;
-> > +
-> >  		vdddo-supply = <&reg_1p8v>;
-> >  		vdda-supply = <&reg_2p8v>;
-> >  		vddd-supply = <&reg_1p5v>;
+dt-bindings: arm: altera: add Agilex5 SOCDK eMMC board variant
 
--- 
-Regards,
+Document the Agilex5 SoCDK with the eMMC daughter card, which uses the
+shared HPS SD/eMMC host for onboard eMMC instead of an SD slot.
 
-Laurent Pinchart
+> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Document=
+ation/devicetree/bindings/arm/altera.yaml
+> index 0b418d9d60dbd..ce3a8c1679e57 100644
+> --- a/Documentation/devicetree/bindings/arm/altera.yaml
+> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
+> @@ -112,6 +112,7 @@ properties:
+>                - intel,socfpga-agilex5-socdk
+>                - intel,socfpga-agilex5-socdk-013b
+>                - intel,socfpga-agilex5-socdk-debug
+> +              - intel,socfpga-agilex5-socdk-emmc
+[Severity: Low]
+Does this new variant introduce a regression when compiling the emmc node in
+socfpga_agilex5.dtsi?
+
+It appears that Device Tree compilation will fail due to the undefined macro
+COMBOPHY_RESET in the emmc node.
+
+In arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi:
+
+		emmc: mmc@10808000 {
+			compatible =3D "altr,agilex5-sd6hc", "cdns,sd6hc";
+			...
+			resets =3D <&rst SDMMC_RESET>, <&rst COMBOPHY_RESET>,
+				 <&rst SDMMC_OCP_RESET>;
+
+The resets property uses the COMBOPHY_RESET macro which is not defined in
+dt-bindings/reset/altr,rst-mgr-s10.h or anywhere else in the tree. Because
+the C preprocessor leaves undefined macros unexpanded, executing the dtbs m=
+ake
+target will result in a syntax error when the compiler expects integer cell
+references.
+
+Should this macro be added to the reset bindings, or is a different reset
+intended here?
+
+>                - intel,socfpga-agilex5-socdk-modular
+>                - intel,socfpga-agilex5-socdk-nand
+>            - const: intel,socfpga-agilex5
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810190025.2504=
+5-1-tanmay.kathpalia@altera.com?part=3D3
