@@ -1,160 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68823B7B9D;
-	Mon, 10 Aug 2026 11:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910E03BB9ED;
+	Mon, 10 Aug 2026 11:28:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786361256; cv=none; b=OYSHaP7e9uyoZ3JVZ+g7qcEyM7GD1Z9lV8NYFfcuLGN3cYK7zZEyUJWMlN54ctfzNho3KDVyk78wb1N2JK+bhotTH83ysM8r+Q0m2JbzRln5b5dkDecQZTS+dzCLpju8Tx7G4i8+O3infHSypJ79baDkVH4goCQjkyqnmZ28u0E=
+	t=1786361285; cv=none; b=sqvAUzBh47s7TrImH0qnme5xW2asQuYKArd/A0OsNd9Y7+Hpidhmcy+AWTYdmUXx8Yvj9WumK2fvR0lIsYWwI3J6zQb4OnLjtGOL8OXf2Gm6RUKkZ/CJ8WtiLsvymq7vOEXRK/bFSzC/fLtglBbn3UCrnxDRa1k0o5xxOers6Q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786361256; c=relaxed/simple;
-	bh=ZT9m/aP+rPy+qblr6MRLE+2fnVOzTXlRpVhTl9EtaLg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a5u48rt/L7Xk4oxLiB8WG/JclRLVhHrcYrV9/PBdLiN51aX0woh9nfvl39bP87lUmTihN9KTl+I3m69AN6wwxFdRkHEPC9bIHqkOGLKtv5m3V1FgDhu2gKlWnIP5zWXoxcwd8vqhSB4PhcY+/LE1CnOOnS1EHrnjfka2CO/nQjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TD52UFvb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786361285; c=relaxed/simple;
+	bh=+qn5uvdz54R7OXbPO7SM0CitO63HvTA7YF8rmOzNXoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L4FeGyHNUrSOcdPOkHUH8OVB0iZvgyX+VfKtpsVscx0CFT1br1sPWRBkSJBMlRuUE/En7l8AxCdZo6lRLk1RnsqQ0z0TBeOnjtdcPOKkj2K+HsaivtT8tBL4TUYlLBzEIu1O75+TlSOu5DoxKRPsVHs3dz1/s22NYZzGobanHOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kzw3aZoN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TD52UFvb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4071F000E9;
-	Mon, 10 Aug 2026 11:27:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786361254;
-	bh=ef8gGpgByE68SRajlMKVl/YCh1rGsczGv2/5b09nooc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TD52UFvbTk4Vwu0MpW/BVmfIFceOlXCqIlmAD3WhGXotRMxBldc9nVZ1kGvvD3CvS
-	 P0wXkb0YBmBt2cKWHN4fbNqHvhsvPOy9owInbXkPsf3Vur/qTRWPJv/ylr4CVcivyT
-	 2MyTnG9+7UWIIEy0xa67UbuPsOctke9tkaskTxka27ah2hSEoURQfv6V3RGvSzZIfw
-	 n1F/K0mzB3B/4mSfxWiw0LZbxPLnQd4AbZOg3WBiCTME+zltjhp5KOsIIyoHi5mcsX
-	 LIprK0nD1whnwuKhbIhRkRAsPXC+nym0YJCZV4D8yMIoEuKg4Rkm8LgcZe7IerP2+n
-	 yDKkzEjifro9w==
-Message-ID: <d5325391-1457-4a47-b15e-afb1a26d00bc@kernel.org>
-Date: Mon, 10 Aug 2026 13:27:25 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kzw3aZoN"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67A9SKNt2341903;
+	Mon, 10 Aug 2026 11:27:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=H0NKqQtzSnk
+	PjFUMFltWTCYP2upTtwJOXyI49W39z7Q=; b=kzw3aZoNM0eBwLuO203DKz7AUvS
+	SdkYipvOQJQhjpxQ+QybrwJytcrsbOykGnCNzadHktL8qrmh1ss3Ibtp/P9PbqT7
+	B1QXNS+XaUUSS+9ushebus5j9GNToTzx6BfuJSqvKV+vc9QyKSRIPaNEwPKtLv36
+	S3YoIfHK1XX5UoXmLXZYnaiSoTQyN9dVhM6gH9E4SoTfqGRkz6zLBaqdadudFlLu
+	Y4y1gZhZpeEWi3MoRg2dbcZy9lJ3i1IMUyGUE5AcGi7uCp79r/S48P1qeaeUIZHj
+	e5E4CxbVMxP5RKPOSLFQTjjA7VrDvNNytbmUBtbYtl8cu9H0nx3K2PPyD1w==
+Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fy19kj87m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 10 Aug 2026 11:27:58 +0000 (GMT)
+Received: from pps.filterd (APTAIPPMTA01.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67ABRu41004196;
+	Mon, 10 Aug 2026 11:27:56 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 4fwwhj4wag-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 10 Aug 2026 11:27:56 +0000 (GMT)
+Received: from APTAIPPMTA01.qualcomm.com (APTAIPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67ABRua0004178;
+	Mon, 10 Aug 2026 11:27:56 GMT
+Received: from cse-cd02-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 67ABRtmf004165
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 10 Aug 2026 11:27:56 +0000 (GMT)
+Received: by cse-cd02-lnx.qualcomm.com (Postfix, from userid 4438065)
+	id 800B548E21; Mon, 10 Aug 2026 19:27:54 +0800 (CST)
+From: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v1 2/4] phy: qcom: qmp-pcie: Add qref and refgen regulator vote for QCS8300 and SA8775p PHY
+Date: Mon, 10 Aug 2026 19:27:33 +0800
+Message-ID: <20260810112735.1326807-3-ziyue.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260810112735.1326807-1-ziyue.zhang@oss.qualcomm.com>
+References: <20260810112735.1326807-1-ziyue.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
- compatible
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Peter Robinson <pbrobinson@gmail.com>
-References: <20260804-bcm2712-d-stepping-compatible-v3-0-1860094486eb@linutronix.de>
- <20260804-bcm2712-d-stepping-compatible-v3-2-1860094486eb@linutronix.de>
- <6ed9b2e5-b700-477a-8f6f-cb48c597a111@gmx.net>
- <vv6ufnanks27moditlav2ebaub6m5te5tag3m6qv5l65cm25iw@i7m54od3wz4k>
- <ddcb0d9a-2dd4-4808-84db-caf6ea64b48e@gmx.net>
- <pwdgjsfwdnkce4lkkda2hlopajuwuit6jkx2wztoeu4jzzv5ay@yoo4ofvwgrnu>
- <20260810-mustard-sloth-of-enterprise-84b68d@quoll>
- <urrsc6dippljgmlochdnetolkhqqj25bbyosgcrw5hy6jpbpao@cgf332hhgdjv>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <urrsc6dippljgmlochdnetolkhqqj25bbyosgcrw5hy6jpbpao@cgf332hhgdjv>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: Dnkk-s0dGM2SP0WcvzMuSj8sYVFmiZ0W
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEwMSBTYWx0ZWRfX1PMTX4R/p4V2
+ uK6Y9p1gyNksqIJO5i4qr3GLcQbLdfEhmjW2wOI0YNn4Vv6VB+iSAXCPu9RKqODUFNby+6XozZT
+ Q4AB4eX5T8nurqAcYcloUuoNVdPCUiGuFURmGS5UXdFDQhbSN8QF8jMDVeePwxfUNeSHRMu7gVR
+ jqvJpXo6OOWzzeP2WAz6FiOPjvDi32OSHnkmHpj04104VL0FO2BsUf8cAPXwsNGOknKkij8kFlf
+ axFxqboWJx+BPmuSg79lqbUkcggIe/YL78g2WzhIUsvGik3kuydVe1m02iBUBFEdjUSnpr4D2KE
+ qDW4mNJWJ9pR9XrzVFCXt5KfUPUagihJot3I7GDNz0t3Cy7cY27TeKatGWZXAEtcScrtc+w70qa
+ LPqBD4TliHb20zT11t5Y6bgoUWhT3yjoWUMvmcRvu7kr6WJb6mGputlDRxJtrx3mFPblhSY5Rra
+ RH/syAtOsZWK3/bHNNQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEwMSBTYWx0ZWRfXz5r+YAgbRJl3
+ Q5S8r5/y1DUzZ5b7dHmDLISEFCvad++6P/P6yipAVzcIJv5xr9wBghXZ8G4HUgkxN0ZCBjKFxSw
+ tbbXoU+exE3Mt6XFynHzc29qCfHcGgk=
+X-Proofpoint-GUID: Dnkk-s0dGM2SP0WcvzMuSj8sYVFmiZ0W
+X-Authority-Analysis: v=2.4 cv=abxRWxot c=1 sm=1 tr=0 ts=6a79b5bf cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=oDW96ipbCRtAeguNJTsA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_02,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 clxscore=1011 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100101
 
-On 10/08/2026 13:13, Gregor Herburger wrote:
-> On Mon, Aug 10, 2026 at 09:19:35AM +0200, Krzysztof Kozlowski wrote:
->> On Wed, Aug 05, 2026 at 02:52:44PM +0200, Gregor Herburger wrote:
->>> Hi Stefan,
->>> On Wed, Aug 05, 2026 at 01:55:50PM +0200, Stefan Wahren wrote:
->>>> Hi Gregor,
->>>>
->>>> drop Eric and add Peter.
->>>>
->>>> Am 05.08.26 um 09:27 schrieb Gregor Herburger:
->>>>> On Tue, Aug 04, 2026 at 04:57:09PM +0200, Stefan Wahren wrote:
->>>>>> Hi Gregor,
->>>>>>
->>>>>> sorry for my late reply.
->>>>>>
->>>>>> Am 04.08.26 um 15:13 schrieb Gregor Herburger:
->>>>>>> The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
->>>>>>> and in a c Stepping. There are two separate dts files. The
->>>>>>> bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
->>>>>>> the d Stepping. The d stepping does not set its own compatible/model
->>>>>>> string but uses "raspberrypi,5-model-b".
->>>>>> In case the SoC and not the board has a D stepping, why do just change the
->>>>>> board compatible without the SoC compatible like "brcm,bcm2712-d0"?
->>>>> You mean changing both compatible strings? Like this:
->>>>> 	compatible = "raspberrypi,5-model-b-d0", "brcm,bcm2712-d0";
->>>> I just want to mention that your explanation doesn't match to your changes.
->>>> The first compatible represent the whole board (RPi 5) and the second one
->>>> represent only the SoC (BCM2712). Since the SoC is different according your
->>>> explanation, i would expect the SoC compatible needs to be changed. And in
->>>> case the SoC changes, also the board won't be compatible anymore, correct?
->>> Yes the SoC differs in these two versions and the board is maybe the same (but
->>
->> Different SoC means different SoC-compatible. If the soc is soldered to
->> the board, then it also means board is different. Otherwise how can it
->> be the same board if it comes with different elements?
-> That makes perfect sense. Thanks for the explanation. I will add a board
-> compatible and a SoC compatible.
->>
->> Of course boards can share schematics and everything except some
->> component so you could have common compatible.
->>
->> 1. Rpi 5b d0
->> 2. Rpi 5b
->> 3. bcm2712-d0
->>
-> 
-> But I don't think that should be done here. As you explained in the previous
-> iteration [0] we shouldn't add a non-compatible fallback.
+Add a new sa8775p_qmp_phy_vreg_l that includes vdda-phy, vdda-pll,
+vdda-qref, vdda-refgen and refgen supplies, and use it for QCS8300
+and SA8775p PCIe PHY configurations. This avoids modifying
+sm8550_qmp_phy_vreg_l and breaking SM8550 and SM8650.
 
-Well, true, this was more matching regular case, where (2) is common
-board compatible. In your case this is not compatible, so just 1+3.
+Note that due to a hardware issue, QREF actually depends on refgen3
+rather than refgen2 as documented; refgen3 is therefore voted manually
+via the refgen supply as a workaround.
 
+Fixes: a05b6d5135ec ("phy: qcom-qmp-pcie: add support for sa8775p")
+Fixes: ebf198f17b5a ("phy: qcom-qmp-pcie: add dual lane PHY support for QCS8300")
+Signed-off-by: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+index 27034bb62d0d..5d6186512c14 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+@@ -4018,6 +4018,10 @@ static const char * const sm8550_qmp_phy_vreg_l[] = {
+ 	"vdda-phy", "vdda-pll", "vdda-qref",
+ };
+ 
++static const char * const sa8775p_qmp_phy_vreg_l[] = {
++	"vdda-phy", "vdda-pll", "vdda-qref", "vdda-refgen", "refgen",
++};
++
+ /* list of resets */
+ static const char * const ipq8074_pciephy_reset_l[] = {
+ 	"phy", "common",
+@@ -4508,8 +4512,8 @@ static const struct qmp_phy_cfg qcs8300_qmp_gen4x2_pciephy_cfg = {
+ 
+ 	.reset_list		= sdm845_pciephy_reset_l,
+ 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
+-	.vreg_list		= qmp_phy_vreg_l,
+-	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
++	.vreg_list		= sa8775p_qmp_phy_vreg_l,
++	.num_vregs		= ARRAY_SIZE(sa8775p_qmp_phy_vreg_l),
+ 	.regs			= pciephy_v5_regs_layout,
+ 
+ 	.pwrdn_ctrl		= SW_PWRDN | REFCLK_DRV_DSBL,
+@@ -5218,8 +5222,8 @@ static const struct qmp_phy_cfg sa8775p_qmp_gen4x2_pciephy_cfg = {
+ 
+ 	.reset_list		= sdm845_pciephy_reset_l,
+ 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
+-	.vreg_list		= qmp_phy_vreg_l,
+-	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
++	.vreg_list		= sa8775p_qmp_phy_vreg_l,
++	.num_vregs		= ARRAY_SIZE(sa8775p_qmp_phy_vreg_l),
+ 	.regs			= pciephy_v5_regs_layout,
+ 
+ 	.pwrdn_ctrl		= SW_PWRDN | REFCLK_DRV_DSBL,
+@@ -5259,8 +5263,8 @@ static const struct qmp_phy_cfg sa8775p_qmp_gen4x4_pciephy_cfg = {
+ 
+ 	.reset_list		= sdm845_pciephy_reset_l,
+ 	.num_resets		= ARRAY_SIZE(sdm845_pciephy_reset_l),
+-	.vreg_list		= qmp_phy_vreg_l,
+-	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
++	.vreg_list		= sa8775p_qmp_phy_vreg_l,
++	.num_vregs		= ARRAY_SIZE(sa8775p_qmp_phy_vreg_l),
+ 	.regs			= pciephy_v5_regs_layout,
+ 
+ 	.pwrdn_ctrl		= SW_PWRDN | REFCLK_DRV_DSBL,
+-- 
+2.43.0
+
