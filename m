@@ -1,148 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B59532F764
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:57:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2460D3537E8;
+	Mon, 10 Aug 2026 16:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786377428; cv=none; b=JoFiFQcvoP8LcvgrVMyyv9EOZEX9DBK3NVhY/mbFaW7HvxNvjXAeuc/nS7BnLQSWE8WmDu1KAhl3TY4q28WJaJoatWotU/3Xjk+x7uHPfEGKw1rmztRw2uW6lal5xJafy7KM4lvMfK4udCXAT1iuOafMGV368cRArypRhMcAez8=
+	t=1786377679; cv=none; b=c1opM/0BgvNV80PwRn8EMrSZKJJc9TZSJ9/zvu3Q0FYq5IbIparSl0WUa2PJk64wbrv+GIC60mgrsuuCGA3sHLZ/atP8R5TMlfPbKFVUusIoq/mB8v5oitgqi6bCl9Q8QSzsvt1P0IgC3+UU4FzzpIb16JNWbWgNsGuVv+KlhTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786377428; c=relaxed/simple;
-	bh=S778Dk2wiB+/8ducGcttVHQFRTe59I8CePeYr2jAdmk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iXMn+x6xpJ5ejXQMqd0Pl6UfXx2nlE5MwUX8DTqaOGDZTKAuOon2Tv2hNxggcxl85otGaq2NpBfPMFgQ7JKmTSErJZPgHLwBJmFeQanF3Z7FFApVUYd4QfbMgLA/uMP85jy/tXV8mSqUNYipFgEyR4PuPxfJq++aw0le1JGD4+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzQ17ryq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786377679; c=relaxed/simple;
+	bh=2HSvQ+v6rSRuc/zWnGcrfgCGro7b3aXOD2roSw5bdy8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LJZqLiCCXIjT9nTf+skI/wUUIkZ7iUDbqiEpxZ7pH7CKvu2yNVa3TWjJWeQBuiGGDDqI//iMhwSJwDZ4SksTFtCL48vN1wQI8BO/TAnMgxayfMP6t2QQ7hXEmEOgqPOhlrqDA9hrtGQsHBf5WAIy1s0Yl6sWMT9/PVh158hzM4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fW8vCksw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzQ17ryq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378DC1F00A3A;
-	Mon, 10 Aug 2026 15:57:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fW8vCksw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 793231F000E9;
+	Mon, 10 Aug 2026 16:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786377426;
-	bh=7vbV4/f/aqAksPChTG4Xyq/5eFNH2Ibv7qcq77uEcm0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HzQ17ryqDUihRfZSOwdRBZ+EH5XSk/ipjkcemO4x6/NX92ZzDpr4TDTbIVzE+L/g8
-	 +ClOPvee8G5XWp0bI77cEcZ2No8lU3kLLShAYJ0/s2wQeKShFSLMGp+eS7VM2tTJTe
-	 rzabuLnTXYBfvhXcysx/Fq6b0lPjAL6K7NoxWib+DkHxKDN0ffy/sXnkjHqzvyywU/
-	 9BEGGYV3vGGf/bWIZ/4JIB3NiKNxKMjH+hYrCb31e5+aJtfnTTkQTMjduS9+xh/3O0
-	 CEowscUCGyVMI1UHAGMYwhaZhdEYSF0K2E5e9BLSSlUZ/NHwODMTWktTG3b3FsPOVE
-	 Hi3pnPyq/Zyew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: usb: xlnx,usb2: Make clocks required
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radhey Shyam Pandey" <radhey.shyam.pandey@amd.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260810154548.2133565-1-radhey.shyam.pandey@amd.com>
-References: <20260810154548.2133565-1-radhey.shyam.pandey@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 15:57:05 +0000
-Message-Id: <20260810155706.378DC1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1786377677;
+	bh=vVmEXGlxyo8HmfxP5o2mLGAutJkJplb4KUoippNL1SM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fW8vCkswnjolX/O4Uyin4HoBMxxz+Pfb9E9JGWLR13Rqrm45COz7bdyzPPMzOIdrB
+	 DEzong/+980YhyNyZ9dIagS6fAJ/4/3VjlZr3Q5ewTiDLg/NagkH5JS21UQSCySk0z
+	 p6Lptdck3XbkjdztsSvTmpu+w/ixmfPyN4OraxVpmBP0s4SrgtN+DKW61hR5hGW8PN
+	 sJ7I1BD4rVEm7s479ktCI4VfhIviRLUqq1JLFtt/eQT84d2e+ar8BRgrcY0vqKrLjG
+	 ox8VEUSwqYAgO7wWY7XGdAZVQBe+oEZxYELqnI9InuYIAGL4QjmRSRCwt9GbBhTLBs
+	 nDavxorN5yWzA==
+Date: Mon, 10 Aug 2026 11:01:13 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: sarath.ganapathiraju@oss.qualcomm.com
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, prasad.kumpatla@oss.qualcomm.com, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: clock: qcom: Add LPASS VA CSR
+ HeartBeat pulse clock
+Message-ID: <ann0rJhd0T6x9iLG@baldur>
+References: <20260806-master-20260805-sync-v5-0-0ff42e9b6431@oss.qualcomm.com>
+ <20260806-master-20260805-sync-v5-1-0ff42e9b6431@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806-master-20260805-sync-v5-1-0ff42e9b6431@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Thu, Aug 06, 2026 at 08:21:36PM +0530, Sarath Ganapathiraju via B4 Relay wrote:
+> From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+> 
+> Add a binding for the Qualcomm LPASS VA CSR rate generator node that
+> exposes the lpass_heartbeat_pulse clock on hawi.
 
-New issues:
-- [Medium] Making `clocks` and `clock-names` unconditionally required break=
-s backward compatibility for older device trees.
+Hawi is a proper noun, so it should always be written with capital 'H'.
 
-Pre-existing issues:
-- [High] devm_request_irq is called before read_fn, write_fn, and spinlock =
-are initialized, risking a NULL pointer dereference.
-- [High] Device clock is disabled before the devm-managed IRQ is freed, cau=
-sing a potential bus fault if an interrupt fires.
---
+> 
+> The HeartBeat Pulse (also known as RateGen Pulse) synchronizes the
+> start of the DMAs and Codec Interfaces for the audio usecase and can
+> serve as a periodic wakeup source for the DSP.
+> 
+> Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../bindings/clock/qcom,hawi-lpass-va-csr.yaml     | 51 ++++++++++++++++++++++
+>  1 file changed, 51 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
+> new file mode 100644
+> index 000000000000..9935173d8bee
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
+> @@ -0,0 +1,51 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/qcom,hawi-lpass-va-csr.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm LPASS VA CSR heartbeat pulse clock provider
+> +
+> +maintainers:
+> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> +  - Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+> +
+> +description:
+> +  The LPASS (Low Power Audio Subsystem) VA CSR block contains a rate
+> +  generator that produces a periodic HeartBeat Pulse, also known as
+> +  the RateGen Pulse. This pulse synchronizes the start of DMAs and
+> +  Codec Interfaces for audio usecases and can serve as a periodic
+> +  wakeup source for the DSP.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,hawi-lpass-va-csr
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: Address and size of the rate generator registers within
+> +      the VA CSR block.
+> +
+> +  "#clock-cells":
+> +    const: 0
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#clock-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    soc {
+> +      #address-cells = <2>;
+> +      #size-cells = <2>;
+> +
+> +      clock-controller@7eed000 {
+> +        compatible = "qcom,hawi-lpass-va-csr";
+> +        reg = <0x0 0x07eed000 0x0 0x14>;
 
---- Patch [1]: [PATCH] dt-bindings: usb: xlnx,usb2: Make clocks required ---
-commit e81394ee7d6f7bd713fd2fe198723a128037fcee
-Author: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+The two 0x0 cells are just there in the normal dtsi because we need
+address- and size-cells of 2. But you don't need that in your example.
 
-dt-bindings: usb: xlnx,usb2: Make clocks required
-
-Add s_axi_aclk AXI4 clock support as a required property. Traditionally thi=
-s IP
-was used on MicroBlaze platforms which had fixed clocks enabled all the tim=
-e.
-But since it is a PL IP, it can also be used on SoC platforms like Zynq
-UltraScale+ MPSoC where it is mandatory to explicitly enable IP clocks.
-
-> diff --git a/Documentation/devicetree/bindings/usb/xlnx,usb2.yaml b/Docum=
-entation/devicetree/bindings/usb/xlnx,usb2.yaml
-> index f295aa9d9ee79..156d3676f9f99 100644
-> --- a/Documentation/devicetree/bindings/usb/xlnx,usb2.yaml
-> +++ b/Documentation/devicetree/bindings/usb/xlnx,usb2.yaml
-> @@ -34,6 +34,8 @@ required:
->    - compatible
->    - reg
->    - interrupts
-> +  - clocks
-> +  - clock-names
-
-[Severity: Medium]
-Will this break backward compatibility for older device trees? The commit
-message mentions this IP was traditionally used on MicroBlaze platforms whi=
-ch
-had fixed clocks enabled and likely omitted these properties. Making them
-unconditionally required will cause existing, valid legacy device trees to =
-fail
-schema validation.
-
-> =20
->  additionalProperties: false
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but is there a risk of a null pointer derefer=
-ence
-during probe?
-
-In drivers/usb/gadget/udc/udc-xilinx.c:xudc_probe(), devm_request_irq() is
-called before read_fn, write_fn, and the spinlock are initialized:
-
-drivers/usb/gadget/udc/udc-xilinx.c:xudc_probe() {
-    ...
-    ret =3D devm_request_irq(&pdev->dev, irq, xudc_irq, 0,
-                           dev_name(&pdev->dev), udc);
-    ...
-    /* initialized later */
-    udc->read_fn =3D ...
-    udc->write_fn =3D ...
-}
-
-If an interrupt fires immediately after devm_request_irq() returns, the
-xudc_irq() handler will execute and attempt to use the uninitialized spinlo=
-ck
-and udc->read_fn(), potentially crashing the kernel.
+If you change this to <0x07eed000 0x14> you can drop the
+address/size-cells and the whole soc {} level from the example.
 
 
-[Severity: High]
-This is a pre-existing issue, but does disabling the clock before the inter=
-rupt
-is freed introduce a potential bus fault?
+That said, is this really a 20 byte large IP-block? Or is this part of
+some larger function? Will we have overlapping/conflicting mappings of
+this block?
 
-In drivers/usb/gadget/udc/udc-xilinx.c:xudc_remove() and the probe error pa=
-th,
-clk_disable_unprepare() is called on the device clock:
+Regards,
+Bjorn
 
-drivers/usb/gadget/udc/udc-xilinx.c:xudc_remove() {
-    ...
-    clk_disable_unprepare(udc->clk);
-    ...
-}
-
-Because the interrupt is managed by devm_request_irq(), it remains active u=
-ntil
-the devres cleanup runs after the function returns. If a late interrupt tri=
-ggers
-in this window, xudc_irq() will attempt to access hardware registers with t=
-he
-clock disabled.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810154548.2133=
-565-1-radhey.shyam.pandey@amd.com?part=3D1
+> +        #clock-cells = <0>;
+> +      };
+> +    };
+> 
+> -- 
+> 2.34.1
+> 
+> 
