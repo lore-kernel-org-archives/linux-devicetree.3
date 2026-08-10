@@ -1,133 +1,229 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C743BE144
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786359243; cv=none; b=S2dYvAoBnhlYZJrvG7UC6ad4Ri9RVh9I0QFGvXhGCFzRtz0Dz0ZX9jAVwGMsRrOr/mfFKTdiqJyAMexxY0Fxo6YuK+4dGRI/q1yEyobOyNpcH3ID8b4uaCTHG91MjB+TxNTetPPZA6NgY9tdVe3G8JhE+UkV52QWki511lmKkwo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786359243; c=relaxed/simple;
-	bh=UY04sXqtgfZuiIRe9CNmz8m46h+7PvdCRxQvkLu8ep4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SuekuN8QXFd4EWBnt/mZAJli3ahflQ3fLiTQm+FFgIztllytamog33rpXydb4czoegtsyWM6UWo9L2Zb3GmI1Rj/6cxIRc/RfGyF/9rhdImbGeJTPhfB4WvHYhugTqqF3ZAmqcG3EQk8wx4bsoOtOJDgJIN3uDJKBKRiSuI8Rkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a7uqM297; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF493BD642
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786359344; cv=pass; b=GHqzBIhbl+bA9eMT3FSmZbZKpa1+Nvy5+V5SDcYZ/68yJcvW9oYBIpKgDkkGEnArs0/Wmbbck92XuQe8WtyEek5Om9AlB59dY0jfqaCeRnV3chvv5X+KoaBh15dRQGMSIj5IOSCnCQnff3hc+yRAcFBxywEJ3IEgIO4EJKBMK+s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786359344; c=relaxed/simple;
+	bh=whp17tHwzK4LQg7Nc9ShOMIrpcTZjYnNPpwNE+2pyaw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=g0ul+xbjAiv5hu3hCmX+hr2UVA7C8T0o+gChu4bhLUXXpPwHlcFCxkohS3W1A3c7L3PLl63muZDOCAhmvoKsoFDTocCuS2lbBvBf5395gjh9KRk00RckMWjMt9ZJIqXh6/SJZTZmWDmjzbRQ1dhe/bk2RqwL7VGI7bMg/NfktsI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qf0K5z/w; arc=pass smtp.client-ip=209.85.219.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a7uqM297"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ce87c7e3bbso18808105ad.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 03:54:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qf0K5z/w"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-8f186025973so15877596d6.0
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 03:55:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786359341; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h+AoYyrdE0ZhLsll+iAG29Yc3T4Cq7+01p1Dn+3251Z+usdug6pUI0bS5k9zCalO6b
+         f+vbWghBztmw1lzBS+NQz0T0Uno1wplmz+NNwbNFzDHaIJzUmkwzcc0aET0hXEYPzmpj
+         U6JLCtpJ41i0oFX2vhNGkJ1DOazK6uqcV6gNvK4+vtYFu+o97UlJiQi0tPV9TIXOMokb
+         Me01pwEKo7/F/9WTBqXjIDFiFB1y1KVKrrSD1Ltr8/sI8pxO/mSJMlJdKnG5G2xkrWSn
+         WDR4iy7S7owQGo/gSnG4HxKo7vepDRb0dhmz+A8it9L6g3+z54FYXvTauRfgunDEW06a
+         kREw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=whp17tHwzK4LQg7Nc9ShOMIrpcTZjYnNPpwNE+2pyaw=;
+        fh=XsYZqBYcHNSsPZg7vJb2XSuJy50eJPTLXrfZ84DqOww=;
+        b=OW9Cu7TffJJBuoo8FsZzQcRmeg/uUzmPoqRLKf+55S5Cprgr/6xsS1R+Wjc34tWhiX
+         sDbdrMej2sbHTSDoK3EwFvzYXWBtY8xBaamHvqw+B5I0eImxK4U+Ewn7JiolNdGTyQCX
+         202IPitWWk2M7FcZ+/s9oeNwOpsBQOFMKr8qoU4wd0/jKjuHw33W1QEMPQKL9oo7dO4L
+         D2TYtD3+CppnBhQdvUfIbvHiDeLUj/Ujm/7ZSjNhl/fZpYg3lj/IgMxOw2GoQoR115ES
+         2ksMiOUzHq6/g70lVVrNRVmTUOTiUbcmGk9wab0ofpINC3znX7bL1FV9s3tf+scP4Wxx
+         ukxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786359241; x=1786964041; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=geEdsZdmCC6yete2inWMzdlKXghMwGUV4jpZ5rwFRqI=;
-        b=a7uqM297WYUMzAxpzyB62NLjxNGL2bWrio3KWDLg5TadD1YA4YtrAyLYPS2jZ87rG9
-         vgQFVMcXuQwJb2ofKqKbHA1IUFnY58T81XGy24NxlKMv8MjgyKpkyGtQWFfsncQHtbUJ
-         xoQXZMBhnfYuMnjxot/zabT+IZYNMNbkhIK7stArXPhBPM3V8b2Rx6I7GrHI1ueFYRxg
-         4iUEOGUqAq1CZyZm5c/Z9RR+FVGwDk7+wq1a03TgKWa8A5J11mCZCf5maddzzJntiwpb
-         ME8bFLR1wc7MQILMuumlIRK3j5ZZXATfeCjRVftQ32xniTwyT+h6UInM+LiUPCwW+TKk
-         D3vA==
+        d=gmail.com; s=20251104; t=1786359341; x=1786964141; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=whp17tHwzK4LQg7Nc9ShOMIrpcTZjYnNPpwNE+2pyaw=;
+        b=qf0K5z/wmI0MGkjG9LElKPMAChuA5q8ZuxKNcWtevm/xbFl820k3gvzWEuiKjHW0IU
+         CJC8jtunxe8hWmvIXsfhUEDcKb1KFbJhNCnME9LDa4WLrLEzCq+t8Xp4S4wr0OtTegaz
+         DF9lUOS8pi+oQUp2RKxmNnzUnAP7KczfjQu/2FL2vqGhqAVnNzbXzOERNNKI2kw3uOp7
+         JkjbQ6fgYu4Jur+oYhYmEJrupUBZnfhkKb2sDo3yY5JiTqt1QQm7bqZ2SDBJeNbOg4I5
+         sw9sNu6ik/nssQ5EqyjaKmsYDj/IZrZIkEKtqrJXcPXwTMzyIiSE89Ewq9sUundTJx0j
+         HfIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786359241; x=1786964041;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=geEdsZdmCC6yete2inWMzdlKXghMwGUV4jpZ5rwFRqI=;
-        b=qJ9FfrSM0C6EbOobpzbmehqa5xItEIdd2hujSuLj0dPiSMP0z3Ia3zBCObF2I2oEIg
-         J2UyqiNJPf2kd7q14eKufKggE42WwBJF2iD4VeA8atVN2j61PqaqVfnUA2Z7SvPe7irR
-         64fzPloijq5sbWcSoKUz+FAW78xBAWWva2SHwXylfmkCCGSqDm+jyc51yJxZ7O2xsDMF
-         126XW7FGuiyBffYceVQrC3A1e9H9669uZjtSL/ESt9aODMx6tmBqu7TsMmsQ7lQmDGvr
-         P+/4KPu9b5ZOyVIRsEmsDoByndSVCxVZZSWhLtmH6WHCPSzzI2QAHDXdFHkw7BMkIqHH
-         Nw3w==
-X-Forwarded-Encrypted: i=1; AHgh+RqVUddM0N42I6/DdpFPcpIPC/wthiYd7AukC6QTh6kft073K/LJyDnLDRw82Ydl6T5B8wxO2c2Q6Kmf@vger.kernel.org
-X-Gm-Message-State: AOJu0YxaJ0/+IR7L0wsDckaazuTc70jqvR8OGgwLwyB/bOxasA9Zh6Xo
-	1TXEifTPkq8JkRI3Xumu2P8thb1OS9Pp+Izdvl07KJBtcKB69k3YeZ1u
-X-Gm-Gg: AR+sD131q4zH5gsZXotGxEa0aP9RVTyWV4XUgYXAQ5gJ6MRrC22HepUM0fLY4XYQtgm
-	U7QsfdABdvjwBod47kAMfIe/Ut4FEC43pi793+swPstcazEOzIPxVoMfxjEahusS674SLt6dy9V
-	fb9jPODNGt7ZQC3eEFH0CDaINP3LmoP+n0n1q25IbXd6I51cUZmx6ATN8Mqt9FPSFf9oP0oQvbi
-	Z+g5hwaCaohAcM6HVtG5+UIBT1hstrxB07XKm2VuaNKua0VeHcjarf43Sux4yvyTKEsexgDWOn/
-	UATRwrpJn/nhO32wWEpN+8Z46l8UWRAgl460TnkAHZnvlsMFJFiNAslTTa5bmZ3oTLqU4BGIYZC
-	Lh4lWmlWBXABKR8SNz+rwn1hk8SU7OHATlU90swkil77xAxVpxJD9CVp9DzvB2CqyEwpFn1EpTG
-	II8adUsl3BQ5MLvvje0XuWMoowlcApZ/d+Fp8V8H9WncaX+RFG9qU=
-X-Received: by 2002:a17:903:1a67:b0:2ce:8e70:3210 with SMTP id d9443c01a7336-2d0ca82e229mr421183815ad.16.1786359241002;
-        Mon, 10 Aug 2026 03:54:01 -0700 (PDT)
-Received: from thefoxflat ([2404:c0:7028:5cc2:57f2:a6e1:6be7:bb30])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d15ebfcb2fsm32890075ad.55.2026.08.10.03.53.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 03:54:00 -0700 (PDT)
-From: Reza Kurniawan <imkyufie@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Reza Kurniawan <imkyufie@gmail.com>
-Subject: [PATCH v2 3/3] arm64: dts: qcom: Add notification LED support for Xiaomi Redmi 5A (riva)
-Date: Mon, 10 Aug 2026 17:53:37 +0700
-Message-ID: <20260810105337.855546-4-imkyufie@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260810105337.855546-1-imkyufie@gmail.com>
-References: <20260810105337.855546-1-imkyufie@gmail.com>
+        d=1e100.net; s=20251104; t=1786359341; x=1786964141;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=whp17tHwzK4LQg7Nc9ShOMIrpcTZjYnNPpwNE+2pyaw=;
+        b=Uiuepi8GoAP76ToZ/Ik+cxLg64OcexyPx+mIlGuoNMqhHdwxcU9zcbWVhZ/x4yc8b7
+         7/MxOM2C+cYRrK5Z8eAZiIPLjOUT5tzOF4GJ4lqYn2GkjUtdZNRa986CWr29QLTTTHlc
+         y1MBCIQRjgvZmKXkl4OxUrNF/7GVlerLzP8BkRfO7jciZEw/2hkHOgqNwctszUKpbbGV
+         nnSvPFjQPEDlMyjrN200a0FotdPxSiPoK8ulPg52ZTp+512gdq0iArrJZXTpFFQ4ajhY
+         S1qzWJEQ5rJYF+2zytxEZRn2ZvLLKKxMqUkgHFbJ+Ixxl6eG4CBfD7jE8FuScQOadpgu
+         f7og==
+X-Forwarded-Encrypted: i=1; AHgh+RrqpXPN34ZOcH2fGTWUcPBLXPU9yXNy1YagRYAufW/IfwUB8V3+DvNy2zYxhhtjKchgm6a//rRPzu32@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQPAhzKzaH5CKNTNJmlH42P/ztggQsLpJ1efLP9B4bkHpcjKkG
+	NiMrFqbzDB67RdWWF0UOJm3r+ulxFzbyr7FMtZHRfk5SRBHIFwn/FRc25yDmqpbUJRXEWtBRG9d
+	8iwxzCpFM163I9wlkOL5oD91ccehWWsg=
+X-Gm-Gg: AR+sD12sk3d3WkpwXKEXjoRoCSXc8mV6m4hxOVtW7Mc7bkQf2Wx4KnBSy5qR07ey5AH
+	Qttfob7ErwD6ntzpoMyBtu9AvMRSIOlzn6x+euMgNeFf/liL+a03FlD/pJ+r6R9zjv/BI6NDF4l
+	1SwokDAboUezrxHd2CkKaJqegWUR6pYNb53W4UcVQKdWUDIyRKE2m/CE9LsW+NJqiaHrxBwOurQ
+	T7hki4oOFDdf9km/tL8VvQVnRsPj5wIm9GjpciVsiogBfJSN9dzUP6WQt9hMLJlumKZAoh+IwQw
+	sL9c8Cb+3qVYPFFYruLwczTjBHnLRaZDOuxDD/5laA==
+X-Received: by 2002:a05:6214:2684:b0:908:9fd5:ed42 with SMTP id
+ 6a1803df08f44-90a34707604mr228548096d6.28.1786359341307; Mon, 10 Aug 2026
+ 03:55:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAGXv+5HrDw8GWb9zp1AaQU9UW+0FGcr7jOV2jt_zi_2KgfgBqA@mail.gmail.com>
+ <20260807152059.GA39821@bhelgaas> <CAGXv+5GNvV0yfX2v7E9HxvFpm0xwhGMQLjec=_xV_6YipXFcbw@mail.gmail.com>
+In-Reply-To: <CAGXv+5GNvV0yfX2v7E9HxvFpm0xwhGMQLjec=_xV_6YipXFcbw@mail.gmail.com>
+From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Date: Mon, 10 Aug 2026 12:55:28 +0200
+X-Gm-Features: AUfX_mybRPX8_wU1Vtkqf_AyjNZAKV0N0JAhtDmUF1bKQ7p9IPinpVnjULwvpq0
+Message-ID: <CA+_ehUxa6U+0FEFuptJXQZ0kwbthYjshZftx32CmwkisAyo=+A@mail.gmail.com>
+Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support + clock
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ryder Lee <ryder.lee@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	Benjamin Larsson <benjamin.larsson@genexis.eu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
----
- .../boot/dts/qcom/msm8917-xiaomi-riva.dts     | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Il giorno lun 10 ago 2026 alle ore 12:33 Chen-Yu Tsai
+<wenst@chromium.org> ha scritto:
+>
+> On Fri, Aug 7, 2026 at 11:21=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.org=
+> wrote:
+> >
+> > On Fri, Aug 07, 2026 at 11:24:09AM +0800, Chen-Yu Tsai wrote:
+> > > On Fri, Aug 7, 2026 at 12:53=E2=80=AFAM Christian Marangi <ansuelsmth=
+@gmail.com> wrote:
+> > > > This small series introduce support for 2-lanes mode for Airoha AN7=
+581
+> > >
+> > > Just a nitpick, but I would probably name this something else, like
+> > > "cross-controller lane-bonding mode" or "lane stealing"? PCIe already
+> > > has 2x lanes as a standard feature, so this naming is a bit confusing=
+.
+> > > It's not like dual-LVDS display in which LVDS is only a single lane.
+> >
+> > I suggested the "2-lane" and "x2" terminology because I assumed the
+> > result is what the PCIe spec would describe as a "x2 Link" consisting
+> > of two Lanes.
+> >
+> > If that's not the case, maybe "cross-controller lane-bonding mode" or
+> > "lane stealing" would be more accurate, but I don't know what those
+> > mean, so if we use them I would also like to know what the result
+> > looks like in standard PCIe terms.
+>
+> Benjamin pointed out later in the thread that it is just bifurcation.
+>
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-index e6e708601..e74433f89 100644
---- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-@@ -5,6 +5,7 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/leds/common.h>
- #include "msm8917-xiaomi-wingtech.dtsi"
- 
- / {
-@@ -34,6 +35,28 @@ vibrator {
- 	};
- };
- 
-+&blsp1_i2c2 {
-+	status = "okay";
-+
-+	led-controller@45 {
-+		compatible = "awinic,aw2013";
-+		reg = <0x45>;
-+		vcc-supply = <&pm8937_l10>;
-+		vio-supply = <&pm8937_l5>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		status = "okay";
-+
-+		led@0 {
-+			reg = <0>;
-+			led-max-microamp = <5000>;
-+			function = LED_FUNCTION_INDICATOR;
-+			color = <LED_COLOR_ID_WHITE>;
-+		};
-+	};
-+};
-+
- &blsp1_uart2 {
- 	status = "okay";
- };
--- 
-2.55.0
+Yes but as me, you, Benjamin and Bjorn people who weren't there with the HW
+team at times the SoC was created, and given how the internal documentation
+these are just assumption and observation... Everyone can be correct and wr=
+ong.
 
+> I would assume "PCIe bifurcation" is a standard term, so maybe we could
+> call this "Support un-bifurcated 2-lane operation"?
+>
+
+And how coming from PCIe bifurcation to un-bifurcated 2-lane operation keep=
+s
+the standard meaning?
+
+This terms is equally custom as the previous "cross-controller
+lane-bonding mode"
+and "lane stealing"
+
+I want to be honest... I'm not following why we are trying in every
+way possible to find
+a standard meaning for an highly integrated PCIe controller for a vendor So=
+C.
+It's not like there are devices shipped with PCIe slot where you can
+insert whatever
+card you want. (there is only a single RFB board but that is really to
+debug stuff and
+develop)
+
+The SoC is designed to have WiFi cards attached and only a subset of them.
+And some of them require 2 lanes mode to work with this special configurati=
+on.
+
+Even the DT bindings are not that specific to the details... at the
+end of the day
+everything is modelled as simple as "num-lanes =3D <2>;"
+
+And that is effectively what the HW gets configured to. If then a
+robbery is done
+internally to the HW to get the second lane with probably some criminal act=
+ and
+some murder then those are just details. But unless we have a correct polic=
+e
+report on that (Documentation) we can't assume someone got shot in the
+process.
+(sorry for the joke around the stealing thing)
+
+> On the implementation side, having to reach into the second PCIe controll=
+er
+> is a bit messy :(
+>
+
+I can assure you vendor hide all kind of bad stuff behind single register..=
+.
+It's just Airoha that loves to expose godzillion registers and configure
+everything clearly... Something that most of the time is better than hiding
+everything behind ATF with SCM commands (or even configure stuff
+in bootloader from HW strap)
+
+A bonding solution where 2 controllers are configured and then bonded might
+also be problematic as for 2 lanes mode the configuration needs to be done
+in the same time segment. (and that would introduce lots of complexity in
+both DT and driver for the sake of just having an additional reset and
+an additional reg)
+
+Aside from these 2 point... I'm open to any kind of naming and change
+but it seems sad to me to delay this feature for these details that would
+only affect the commit description and nothing else... This is currently ne=
+eded
+for Eagle WiFi card to correctly works... With the current code it works bu=
+t
+sometimes it doesn't as the reset and configuration phase is not well defin=
+ed.
+This series fix exactly that to have stable functionality (tested on OpenWr=
+t
+from at least half a year)
+
+> > > > SoC. This is needed for correctly functionality of Eagle WiFi Card
+> > > > normally attached to this SoC that require a 2-line PCIe card to
+> > > > correctly work (and give the proper performance)
+> > > >
+> > > > The first 2 patch address a limitation of the PCIe implementation
+> > > > where the PERSTOUT reset were indirectly asserted and deasserted
+> > > > all at the same time (for all the 3 PCIe card) with PCIe
+> > > > enable and disable.
+> > > > The 2 patch address this and introduce correct reset to control
+> > > > reset line for the relevant PCIe line.
+> > > >
+> > > > The last 2 patch add additional logic and support to assert
+> > > > and deassert the PERSTOUT and also apply the required configuration
+> > > > for 2-lanes mode.
+> > > >
+> > > > 2-lanes mode is implemented in DT by adding the required property
+> > > > and by defining the "num-lanes" to 2.
