@@ -1,101 +1,124 @@
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EC63D9689
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EEF3D669B;
+	Mon, 10 Aug 2026 12:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786365129; cv=none; b=gXWLb/cqtSNgGIoTNVBvcbCOoKAIneCuGbnwZ8ftXZg2cropsp2oFQUz5rRhs6AswYy/36VGWqycroFIXwlFAl+hF4amUrAUM1Tz80mDCG6knrfU5Uj9jTAj1CNfvxpZ6nrVcXx/IzjmmZBc8XdBi3L80tKeer5s8EXahZFxwfQ=
+	t=1786365603; cv=none; b=NCqwUB1SkFZ9VRxz4VwvT/hFHiLSExeLdP3DkhidunE3LIgWJD+p0ILPZPz41sA1zMsqbvOJWXbab1pTHrVf5vZvcA4pI73q/xmL3dCHLcg1BPTPjuzbHfVYFHnfVI5nWsjyrXldTkMymsGlDpyHYFzBXW0NJsJ9y/6tuBobBAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786365129; c=relaxed/simple;
-	bh=lThMu1u+hE8LbmETZNNwkcOM2Ulkxrm5HMou1DVHji0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BAaqmSsKRjjhyVJ4iVVmvCQbjqtY54ok220bXuHE/rr3xgnwxHY+ffubH0mFy784tUE23ONg6RrQjij2pw9GBpMciORDd1xT6T3Wf2Y5ADL8BoVHqLeCPE6rOgZJC1m4KKhb1Pgkql5QHxiDqva6orCb/sEqDwRa+OgYftP1jQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9696319e14dso638612241.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 05:32:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786365127; x=1786969927;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=x3yNCiQ2xZIUlAriiD3kuROtqejdF4LbO3lrN5CP0pM=;
-        b=IqDn2IweASWwIg9I6OhqUKrLSs0tq1c28wtUqlFwLaMdnmDh2rClC0PKENUSz9z/IC
-         FYeJ4prTlRBjqW9MJzrljkivG2/+h8FUJp0s01wC3hYGrDnRCM2IUGA7Nuym2sLAeRDA
-         37V5MohhwvJVydtOQuRUAxcUBVAUqTp7Pl451N1Qp7NJgWOAq5hOXlcBOJH2LV6rC0gb
-         IvsGNq/fwqKmy1810LyOCtKP1f1WAMezCxDQlLyvxTqaxQRuy+6f8W5RNSCCkZ4+emZ1
-         J4diHVd8SPMNCPA/S3K8gwEUmbxploixmUJzmc+BhqzKjQdVYUjxW3CJc6WJU4ttqnjj
-         RVSA==
-X-Forwarded-Encrypted: i=1; AHgh+RoKaBHUt6sC8yps3hPZdpCUO3QbF6RkrfzbAscCHyXiSjWtRwgXsLhIm8u2AqR4Fjalh41G1Gsr+CHx@vger.kernel.org
-X-Gm-Message-State: AOJu0YwH7Li/c3y7a3Q+DxUDpyfwyAnx8pVtjP9hbZehSsL1VmarxjVC
-	dKILLBeqQHQaZYhBMhvgAMykNpImTNl1pJg83gyrmAI44zy0EmvCEIduCSKMKFvn
-X-Gm-Gg: AR+sD12ytibfoNNxq6ANgnyREdaYQGizBPRfTwUDs8fjdNdRe/etdnZ80GbTOzWKy4/
-	qO0q+apEZtdpdJ8gZXaPzWnXJ60o+oZCa4TxeLT+mvPy7BL9gwUTthjpxWQ1aOBDDK4WQ+e84K5
-	uGqA7JhvM047CjSb9ikmgTG/Hw71hOTenYRMjpwUAKTtxF2RkT/l5oiWii7FQXfUHLxhlEx1ZYX
-	rlgl49Penxtl/aUCoHJvtEnFwVJaE9z/YOa9LUnPA2ffAQGm644CcMQHleODYsi8ujwosMY5FDT
-	pCEuANT+4SWO53IiJ4N+fpIWWMnUyCxFuy3eQxbCC6ync52d2RrCumNSKjui6Kzz3w9GNm0DQ8b
-	W6S/0th6QN4W8O+i5pTBFHfDXIcJMTjTiK2hOPO7LmFAlJqVNjbaPh9+DNoyScx31Ws/qqWTUqp
-	h8UKUJms35YtyPKPlTT0IACaRUGl11q2FR3hagBJ0aN74NsQ43Q/jvGD9bQ3bdiRcRpBvuRChPo
-	kNalHMrQT3Jq2nSIz5tdGcBj9iRtyj107xmZw==
-X-Received: by 2002:a05:6102:5691:b0:738:bce9:6afc with SMTP id ada2fe7eead31-760e3194f65mr9564238137.0.1786365126951;
-        Mon, 10 Aug 2026 05:32:06 -0700 (PDT)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-76400dfdfe1sm4280252137.7.2026.08.10.05.32.06
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 05:32:06 -0700 (PDT)
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7389cff36bdso187272137.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 05:32:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoKUYaRZhWJLgsrE9ya/po2ugNvrpk/nNrBaJBIUhzpz8QiGgFqFbheQVKeLOmer7I1Dvupkyjc1f64@vger.kernel.org
-X-Received: by 2002:a05:6102:2926:b0:747:4d96:dbb5 with SMTP id
- ada2fe7eead31-760e8b29c2amr8941171137.12.1786365126138; Mon, 10 Aug 2026
- 05:32:06 -0700 (PDT)
+	s=arc-20240116; t=1786365603; c=relaxed/simple;
+	bh=idY+TMDwbQ5ONQBtcS1ma7Z6izl5WGX4G7umMEjIKZM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pZawqWhxXFufGgXYaaXnt4gfnm5dY8J47+AXVsff9yd9cDbJ9/yLR9M7DtkqijbVgNt07AlusjFXOOGUOhTwUn+xmDv97Dm5JzRqFo2LIZa2gV8YOCTDKi/+pzOuoQZT7WlyZ4d7/NQfIIsePPLEwix7mnOdLKZbc2gBWZeFN0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=8ARx8TI3; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="8ARx8TI3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=RY/1wmCxCIFM0LLRBnTLXmBpxbfVg0FeVcj6W7X9LH0=; t=1786365602; x=1787575202; 
+	b=8ARx8TI3PDgp8yyRWt3GU3iy1krWHsiSrXbJLxz137kmerIXl1MTsYcTX+3MEYDQAWVu7BWtxx6
+	fjKpt1JyJ2o9wsWOdHzz0RVHnTsSCeWOui0hZuCThrlz2ZOjeOrtd5eBM5Y6QlJbwU4qeAxcy25NK
+	MM+Q6pxd0wzaqp43mVR0IEbNtCvw2kD5gSNusU4/5Tn03UzR5EsPuzUdo5D4ZVybKVmqXSwqWtvw5
+	EgMI1qv1mFxCSflFP6TRTOgUe3DhTzkUdqp9dABBRYEi9KJLBhK/XxsHIe4SkduSStZVPIWoj4d2I
+	izBRT4VKgRrOju3JBGlRwBoxK3eaBpQu+o8g==;
+Date: Mon, 10 Aug 2026 14:39:14 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Daniel Thompson <danielt@kernel.org>, Grond <grond66@riseup.net>, Stefan
+ Leichter <sle85276@gmx.de>, Grazvydas Ignotas <notasas@gmail.com>, Tony
+ Lindgren <tony@atomide.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Lee Jones <lee@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Jingoo Han <jingoohan1@gmail.com>, Helge Deller
+ <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Sen Wang <sen@ti.com>, Richard Fitzgerald
+ <rf@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>, Srinivas
+ Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Kuninori Morimoto
+ <kuninori.morimoto.gx@renesas.com>, Charles Keepax
+ <ckeepax@opensource.cirrus.com>, Niranjan H Y <niranjan.hy@ti.com>,
+ letux-kernel@openphoenux.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ kernel@pyra-handheld.com, mfd@lists.linux.dev
+Subject: Re: [PATCH 15/16] backlight: remove pandora_bl
+Message-ID: <20260810143914.64d29a5c@kemnade.info>
+In-Reply-To: <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+	<f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
+	<anmpiADsvzW39DNx@aspen.lan>
+	<DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260705125324.13519-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260705125324.13519-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 10 Aug 2026 14:31:54 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVtt6tNDRo3J1VRwx3Upsa2UWGkK9qqGXr7232AyY864g@mail.gmail.com>
-X-Gm-Features: AUfX_my8_Kr3bd6yUN_SBO3fPdh69-mPfxOjVFEEVS03N_MOz4fZs0mAtI_-CGI
-Message-ID: <CAMuHMdVtt6tNDRo3J1VRwx3Upsa2UWGkK9qqGXr7232AyY864g@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: sparrow-hawk: Always enable edge
- connector I2C busses
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, 5 Jul 2026 at 14:53, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> The interfaces on the edge connector of Retronix R-Car V4H Sparrow Hawk
-> board may be controlled from userspace using matching userspace tooling
-> that includes e.g. i2c-tools. Enable the edge connector I2C busses I2C3
-> and I2C4 to allow userspace applications to use those busses and access
-> peripherals attached to those busses.
->
-> Co-developed-by: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-> Signed-off-by: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Mon, 10 Aug 2026 12:45:16 +0200
+"H. Nikolaus Schaller" <hns@goldelico.com> wrote:
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+> Hi Daniel,
+> 
+> > Am 10.08.2026 um 12:35 schrieb Daniel Thompson <danielt@kernel.org>:
+> > 
+> > On Sat, Jul 11, 2026 at 08:02:02AM +0200, H. Nikolaus Schaller wrote:  
+> >> Retire the platform specific pandora backlight driver since
+> >> it can now be replaced by twl_pm and device tree.
+> >> 
+> >> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>  
+> > 
+> > Yay!
+> > 
+> > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>  
+> 
+> Well, there were some good comments by Sahiko to the prerequisites of this patch,
+> because it has one speciality the PWM BL driver does not handle (avoid
+> interpretation of PWM signals as W1 protocol).
+> 
+> I haven't found time to work on this, so we can't remove this yet.
+> 
+> In the end it may either remain a pandora_bl driver (converted to DT)
+> or become a patch for something else.
+> 
+But then it is a TPS61161 on top of PWM, not a pandora driver.
+And then there might be just a quirk for that chip in the pwm_bl using
+triggered by a compatible. I guess the quirk is this:
 
-Gr{oetje,eeting}s,
 
-                        Geert
+if (priv->old_state == PANDORABL_WAS_OFF) {
+-		/*
+-		 * set PWM duty cycle to max. TPS61161 seems to use this
+-		 * to calibrate it's PWM sensitivity when it starts.
+-		 */
+-		twl_i2c_write_u8(TWL_MODULE_PWM, MAX_VALUE, TWL_PWM0_OFF);
+-
+-		/* first enable clock, then PWM0 out */
+-		twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_GPBR1);
+-		r &= ~PWM0_ENABLE;
+-		r |= PWM0_CLK_ENABLE;
+-		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
+-		r |= PWM0_ENABLE;
+-		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
+-
+-		/*
+-		 * TI made it very easy to enable digital control, so easy that
+-		 * it often triggers unintentionally and disabes PWM control,
+-		 * so wait until 1 wire mode detection window ends.
+-		 */
+-		usleep_range(2000, 10000);
+-	}
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Regards,
+Andreas
