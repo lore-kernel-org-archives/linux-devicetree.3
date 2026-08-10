@@ -1,264 +1,159 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 15.mo550.mail-out.ovh.net (15.mo550.mail-out.ovh.net [188.165.38.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD7C37DAAD
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EFE42A158
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.38.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786380182; cv=none; b=Zqr/J0aN5+RShby9A+xtxZsqpDg8JrQs/FG7UDDEQfrpQxuYDzDsUPf2eyeipMERgB6Mo6HK2bT1hbC6UxWljdK/EbFbGksf39tIoamcVsVI1w4XjcuRukePCBW8TN2w36lgh41IP6GV7LEY0Ai635gI5U8NyrmRJBWghwleqjY=
+	t=1786380307; cv=none; b=jX9tULhfZyg/Lb3m1BUSVYA+2hFe0U52sOrzeHFTvVvZ+fqe4TQxvM6oj3HdX7Is912P3ik7Nfumc4Zn++DayJlaGdANw0ExBlqlIR8HjsacVeMjJvzA/hQ+JwRyooCuPRSvvn58G1vIEU8aQPJW1eb6CKoRqzbSDAlYhXU18WQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786380182; c=relaxed/simple;
-	bh=qswzUvLeWzD1ypEyusL4JpuvZviHdsdZlDLSs8pxD1Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W2o+gr1BPS1qJN8ByZxAqz0mtTe9zpHQjdsK56PfEDppXXGVmdsZCEW/ehEZwjJY6aVMSnnIexdifzv1gQkKc0p/G278+frvuV+9a5rzg2+/NvKx9+v0WXgMI/XM3ooNylv+Dfy/TEJhlOc8sIfMPOwD9/yiQKuANpRa7tmu7rQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aeA02L7E; arc=none smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aeA02L7E"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7eb61bbeb25so1382776a34.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:42:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786380176; x=1786984976; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SF0UuKcYo2PEY9aDv0M4yYRYVyTu0AJ1rxJHPH4mQVc=;
-        b=aeA02L7EvQN2bdibNcN4KqlRuYCVq3wgwHOuuGnrz3J88LwnPay54FF6zkDqA8eYh0
-         vbdOWfTmIz1bdwNJZIcobwTZL6Ql+ZUHtualTsqAn8+xogfK7TGHz3M1us6GxZHj1QFZ
-         nVBE56zEGKRnbmSBmKV/995cThNOVPc/bdBr0iA+FhYJsVGyAXVldam5GqXwSNrkLoHz
-         IFVDnqo1riis/fMhbkNF2u2Oq9ibNtCow9yaCBwB02+jlKLVxgiFUHBhBaojwl8KwyhS
-         LakjXkjLSPLxmS1pEN9nJwIaFm+x/M/gjoOSFB4MeMyJK4KZ7KcPwdkdskKGQW0I4SlI
-         Ju8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786380176; x=1786984976;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SF0UuKcYo2PEY9aDv0M4yYRYVyTu0AJ1rxJHPH4mQVc=;
-        b=CUKXL69PDyo7b5wYOLU7qWmC5iBtHaDS7Ht61dEeBVgtQs+nDBSvjutV2FeQe3eqHn
-         PgE4BY65aGAJcNRe1pbUJIpTGolIpGjR98wpL5uM2i1tzCiL1L3qaxIK62m9njdq9LXJ
-         JToRARS2j0n4CKyuBH4aKY7RzltP3hLVRCDqXmfldB3kaIfSTuK/ci8piuGFNg5XuKAD
-         ro7hfLm7JZIZnqbSkEiTl1wJyt8umqlDDeqjv4DfTK1cGqIw89fkFPRp68p4mrMF7Q9q
-         i6HNro3+m/RKe4ucHuQy7BRk2oLtsStEdLBuszplhnnnZibqRItBPoGyIZxmg1cl1vlw
-         JA4Q==
-X-Forwarded-Encrypted: i=1; AHgh+RowmVSuEHyNAMsbfrjadeCCi6zdnYMHiuaG6thKnP0smCkDOXt7FVp87n4ZeBY+90F28TQcAGaZv0zs@vger.kernel.org
-X-Gm-Message-State: AOJu0YzqhPgnkdVSs+l/eMkkAeo59CofD130QdL4WgIwY4z2vJw8pD0C
-	WkqozT8h7mh47gr3QWvFotTRAqklkhP1/KkSigHPmLD5Fa42/F42joOXeeXRWV20g+s=
-X-Gm-Gg: AR+sD13pluPhL0zqqOMTLHtfiAnmI5D0D4vK+kfriwu1ueNnPF3Ds6jwQzoAMbtrw1r
-	/ivWMm/GFf6zYnSrmCYXsb1Ms74gmrdlZ4w1oO3z+m7o8Cf8ybJZjm5yakMfb8WJwS1Ctybsjs6
-	Ck81nhmzzxwAmXheRW0sTaexz3u8lJgqQOwgG2NlRMl4E34wntnMn4EAKq+PUTox9U1D0tk5R0v
-	Qkh7F8rXaya3ZZ+UJFQW+E7lhL5QEfL7FDxC5kEel5llZmvYfT0Eh9QOq5tM9r3XF2CK2NYstkb
-	mjcs/5zuD1yowcgr2DpKODn2l6fozmBKZOOXct40Bo5A9pxi1yGPNB0SyCOcwy8tUQqVBYCzkQG
-	WdRgfqr0vodWjk3D9pUz7ZqSdgRPeQSZQf4VGX7Z2gsOUnZlXI7vepjlZ2PbMqyrKxflWKwweEr
-	TVkifc/9htRoaIZZdX93LHulp+yrcyB6PuwNP58vPhUQPjP2H4X6fpb/gP9faYpeOeZ6LkHj3Xg
-	naZiH7TZ+RFPGYsGcx+lKVc8mTj3eBv4aEXkE0=
-X-Received: by 2002:a05:6830:6605:b0:7e9:d634:77b8 with SMTP id 46e09a7af769-7f34dcf165fmr18922818a34.2.1786380176296;
-        Mon, 10 Aug 2026 09:42:56 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:e05b:7923:cf50:e4cf? ([2600:8803:e7e4:500:e05b:7923:cf50:e4cf])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f35b5a836dsm7575949a34.12.2026.08.10.09.42.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 09:42:55 -0700 (PDT)
-Message-ID: <c902cbe5-6435-4548-ae92-7399d8d48d62@baylibre.com>
-Date: Mon, 10 Aug 2026 11:42:54 -0500
+	s=arc-20240116; t=1786380307; c=relaxed/simple;
+	bh=e4kQFCjB5LtFdJIis48BWU7f1G9ZFWIOb2b/rcrqG2s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lr/Pf0vFAdELK7MJl6gGRWcoSZIrmSN8K9oyyS5twxvG+ja6o0ybX2ys+Y+9XTZ933IKGxg/Btmy9quXVxyOHgvXiGH9rINYVq7OrMVcxBkXvAlL/OVcxKRsJ8OgZQleTytKPVvK252sc2cOPRhlMz7mhBMIls75E9FN6eklacY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net; spf=pass smtp.mailfrom=m-works.net; arc=none smtp.client-ip=188.165.38.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m-works.net
+Received: from director7.ghost.mail-out.ovh.net (unknown [10.109.249.48])
+	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4hJcJT34B6z5yxJ
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:16:57 +0000 (UTC)
+Received: from ghost-submission-7d8d68f679-7df7p (unknown [10.108.54.148])
+	by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5AC5EC0198;
+	Mon, 10 Aug 2026 14:16:53 +0000 (UTC)
+Received: from m-works.net ([37.59.142.101])
+	by ghost-submission-7d8d68f679-7df7p with ESMTPSA
+	id I14hO1TdeWq3KC0Alk6qAw
+	(envelope-from <maciej.andrzejewski@m-works.net>); Mon, 10 Aug 2026 14:16:53 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-101G004796ca3e8-0880-49c0-a3d2-70d64670ab19,
+                    ED6AA3D647CD945153C5C800EF75597CE9F2D384) smtp.auth=maciej.andrzejewski@m-works.net
+X-OVh-ClientIp:144.125.48.245
+Date: Mon, 10 Aug 2026 16:16:52 +0200
+From: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	broonie@kernel.org, linux-spi@vger.kernel.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	linux-mtd@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, maciej.andrzejewski@m-works.net
+Cc: linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+Subject: [PATCH 1/2] gpiolib: of: Only apply the SPI CS quirk to SPI
+ peripherals
+Message-ID: <20260810141629.81650-2-maciej.andrzejewski@m-works.net>
+References: <20260810141629.81650-1-maciej.andrzejewski@m-works.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] dt-bindings: iio: adc: support the TI ADS126x ADC
- family
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org
-References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
- <20260807-ads126x-v3-1-f89925d72792@gmail.com>
- <c7faac0a-e3a5-42bf-8cc1-aee1370ef662@baylibre.com>
- <DKK9QKE0OYZA.3BCNK78VTHNYN@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DKK9QKE0OYZA.3BCNK78VTHNYN@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810141629.81650-1-maciej.andrzejewski@m-works.net>
+X-Mailer: git-send-email 2.43.0
+x-ovh-tracer-id: 15949779557479752483
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTFkKUw8dTwvfjd4/KP70uzwoCMB5S1Nh1xoCtlKl9zTFZzwWOg+RBpw5P0civI9C611B1wrLGnfL3FNYmECOnjsVZKgynKuLG6Jhd3Uc8cbYV256q4EDW1EJopIsVe6nfKjRwsKIAKDeHxGys67ywGuGjynKrr0p4f+W1tRSR6L8yRsQUchqkYbufFkmr7AL7eeCcTKmnSxggk9Am6xY3yqfHbxzDDXnNa07eo3ri956RbXgeCfNKnKA1gany5tMxKjWt3sHbxNpzbfY66hukbKbQQTBIAx2rECu5ovgOzajdg1Fxma7zv7UmoNQovbLAGQzJu4D89RflMM5EwN9mbnXQO1PIZSSz+mH+89VlipQVQuKq9y6wwEXObgn5hzs3j6JFv2rspzGR756EHJjBJ7aPEwfeL8Mkf8A9dSquTVYm0ds+SZ3xH+RFubmhuBnz//6RD+L0MixxJ5swI1DfEAvt5P9LAv8u92eCHtXubchW+Mlk3EUtRXOI6IfCm46evGXiEFGYCI34xCRzdDWx1mBPiw5afGCjVGQQ8Y+naX8xKoJ1YUa5xfbeolpDp0Mf4T+E31NAztX6Abv4itdyod/Arm5jpqWTIJbopCZcsxZ58645nwWufO3RaWxqgHYNeLVYTZQ72lZLwzU9LzfHd3f28geBxG/BFJVGOPMnbJwA
 
-On 8/9/26 3:26 AM, Kurt Borja wrote:
-> On Sat Aug 8, 2026 at 1:38 PM -05, David Lechner wrote:
->> On 8/7/26 10:58 PM, Kurt Borja wrote:
->>> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
->>> integrated PGA, internal reference, excitation and burn-out current
->>> sources for sensor biasing and diagnostics. The ADS1263 adds a second,
->>> 24-bit delta-sigma ADC (ADC2) for background measurements.
->>>
->>
->> ...
->>
->>> +patternProperties:
->>> +  "^ain([0-9]|com)-supply$":
->>> +    description:
->>> +      Common-mode voltage supply connected to AIN<N> or AINCOM.
->>> +
->>> +  "^refp[1-3]-supply$":
->>> +    description:
->>> +      Positive voltage reference connected to REFP1 (AIN0), REFP2 (AIN2) or
->>> +      REFP3 (AIN4). If not described, its assumed to be connected to ground
->>> +      (0V).
->>
->> Would we really have a case with a negative only reference? I would say if not
->> described, assume the pin is free for other use.
-> 
-> In bipolar supply configurations, I believe it would make sense to wire
-> the negative reference to -2.5V and ground the positive. Also we have
-> the ti,reference-reversal case, where you may wire the "negative"
-> reference to say 2.5V and the positive to ground.
-> 
+The legacy SPI chip-select polarity quirk in of_gpio_flags_quirks() is
+keyed on nothing but the property name "cs-gpios". That name is not
+exclusive to SPI: nand-controller.yaml documents the very same property
+for NAND controllers, and rawnand_dt_parse_gpio_cs() requests those
+lines with gpiod_count(dev, "cs"), which gpiolib expands to "cs-gpios".
+A NAND controller therefore has SPI chip-select semantics forced onto
+its chip selects, and any chip node whose first reg cell matches a GPIO
+index is silently flipped to active low. The NAND core requests the
+descriptors GPIOD_OUT_HIGH and drivers assert with a logical 0, so the
+inversion leaves the die permanently deselected.
 
-OK. I guess the better wording for both of these would be that if any
-channel references one of these in reference-sources and it is not present
-assume it is connected to ground (0V).
+The example in nand-controller.yaml is itself affected: it pairs a
+native chip select with a GPIO one and gives the second chip a reg of 1,
+which trips the quirk whenever CONFIG_SPI_MASTER is enabled. In-tree the
+collision is real but latent. 36 board trees, all Atmel/Microchip at91,
+give their nand@3 controller a cs-gpios line, and they escape only
+because the sole child of those nodes is a partitions container with no
+reg for the quirk to match against.
 
->>
->>> +
->>> +  "^refn[1-3]-supply$":
->>> +    description:
->>> +      Negative voltage reference connected to REFN1 (AIN1), REFN2 (AIN3) or
->>> +      REFN3 (AIN5). If not described, its assumed to be connected to ground
->>> +      (0V).
->>
->> Assumption is only true when corresponding refp supply is described. Otherwise
->> we should assume the pin is free for other uses.
-> 
-> I'll clarify it.
-> 
->>
->>> +
->>> +  "^ti,refp[1-3]-refn[1-3]-resistor-ohms$":
->>> +    description:
->>> +      Magnitude of the external reference resistor connected between REFP<N>
->>> +      and REFN<M>. In ratiometric configurations, such as RTD measurements, the
->>> +      IDAC excitation current returns through this resistor, generating the
->>> +      reference voltage for the conversion.
->>> +
->>> +  "^channel@[0-9]+$":
->>> +    $ref: /schemas/iio/adc/adc.yaml#
->>> +    unevaluatedProperties: false
->>> +
->>> +    properties:
->>> +      reg:
->>> +        maxItems: 1
->>> +
->>> +      single-channel:
->>> +        minimum: 0
->>> +        maximum: 10
->>> +
->>> +      common-mode-channel:
->>> +        minimum: 0
->>> +        maximum: 10
->>> +        default: 10
->>> +
->>> +      diff-channels:
->>> +        description: |
->>> +          In addition to the analog input pins 0 (AIN0) - 10 (AINCOM), there are
->>> +          special inputs that can be selected from the following values:
->>> +          11: Temperature sensor monitor
->>> +          12: Analog power supply monitor
->>> +          13: Digital power supply monitor
->>> +          14: TDAC test signal
->>
->> For reasons mentioned in the reply to the cover letter, I'm not a fan of the
->> monitor channels here.
->>
->>> +        items:
->>> +          minimum: 0
->>> +          maximum: 14
->>> +
->>
->> ...
->>
->>> +      input-chopping: true
->>> +
->>> +      ti,idac-rotation:
->>
->> Should we make this one a standard property like input-chopping?
-> 
-> Maybe excitation-current-chopping or excitation-channel-chopping?
+Device tree carries no bus type marker, so identify the bus from what
+the peripheral advertises about itself. Properties of an SPI peripheral
+are namespaced with "spi-" (spi-max-frequency, spi-cpol, spi-cs-high and
+the rest of spi-peripheral-props.yaml), whereas a NAND chip node carries
+only reg, nand-* and its partition table. Skip the quirk when the
+matched child has no "spi-" prefixed property.
 
-I suppose. All of the TI literature seems to call it "rotation" rather
-than "chopping", but I did find a few other sources that call it
-"chopping" and that would be consistent with input-chopping.
+This is a convention rather than a guarantee: compatible and reg are the
+only properties spi-controller.yaml makes mandatory for a peripheral, so
+a minimal one may carry no "spi-" property at all. The next patch covers
+those by looking at the controller instead.
 
-I would go with excitation-channel-chopping since we are swapping
-the current generators, not just the current magnitude.
+Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+---
+ drivers/gpio/gpiolib-of.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-> 
->>
->>> +        $ref: /schemas/types.yaml#/definitions/flag
->>> +        description:
->>> +          Automatically swap the IDAC1 and IDAC2 connections of alternate
->>> +          conversions. The ADC averages the alternate conversions to eliminate
->>> +          IDAC mismatch.
->>> +
->>
->> ...
->>
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/gpio/gpio.h>
->>> +    #include <dt-bindings/interrupt-controller/irq.h>
->>> +
->>> +    spi {
->>> +        #address-cells = <1>;
->>> +        #size-cells = <0>;
->>> +
->>> +        adc@0 {
->>> +            compatible = "ti,ads1262";
->>> +            reg = <0>;
->>> +            spi-max-frequency = <8000000>;
->>> +            spi-cpha;
->>> +            avdd-supply = <&avdd>;
->>> +            dvdd-supply = <&dvdd>;
->>> +            #address-cells = <1>;
->>> +            #size-cells = <0>;
->>> +
->>> +            interrupts-extended = <&gpio 0 IRQ_TYPE_EDGE_FALLING>;
->>> +            interrupt-names = "drdy";
->>> +
->>> +            /* Typical common mode voltage configuration */
->>> +            aincom-supply = <&ads1262_vbias>;
->>> +
->>> +            regulators {
->>> +                ads1262_vbias: vbias {
->>> +                    regulator-name = "vbias";
->>
->> The node name is already "vbias" so giving regulator-name is redundant.
-> 
-> Is it okay to leave it empty?
-> 
->     ads1262_vbias: vbias { };
-> 
-
-Yes. (Unless make dt_binding_check says otherwise.)
-
->>
->>> +                };
->>> +            };
->>> +
->>> +            channel@0 {
->>> +                reg = <0>;
->>> +                single-channel = <0>;
->>> +                /* The VBIAS is enabled on pin 10 (AINCOM) */
->>> +                common-mode-channel = <10>;
->>> +            };
->>> +        };
->>> +    };
->>> +
-> 
+diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+index 940b566946ce..bd9a623f2ae1 100644
+--- a/drivers/gpio/gpiolib-of.c
++++ b/drivers/gpio/gpiolib-of.c
+@@ -340,6 +340,25 @@ static void of_gpio_set_polarity_by_property(const struct device_node *np,
+ 	}
+ }
+ 
++/*
++ * The legacy SPI chip select binding below is keyed on a property name that
++ * other subsystems reuse for the same purpose, notably NAND controllers (see
++ * Documentation/devicetree/bindings/mtd/nand-controller.yaml), whose chip
++ * selects carry no SPI polarity semantics. Device tree has no bus type
++ * marker, so go by what the peripheral advertises about itself: properties
++ * of an SPI peripheral are namespaced with "spi-".
++ */
++static bool of_gpio_child_is_spi_peripheral(const struct device_node *child)
++{
++	struct property *pp;
++
++	for_each_property_of_node(child, pp)
++		if (str_has_prefix(pp->name, "spi-"))
++			return true;
++
++	return false;
++}
++
+ static void of_gpio_flags_quirks(const struct device_node *np,
+ 				 const char *propname,
+ 				 enum of_gpio_flags *flags,
+@@ -374,6 +393,11 @@ static void of_gpio_flags_quirks(const struct device_node *np,
+ 			if (ret)
+ 				continue;
+ 			if (cs == index) {
++				bool active_high;
++
++				if (!of_gpio_child_is_spi_peripheral(child))
++					break;
++
+ 				/*
+ 				 * SPI children have active low chip selects
+ 				 * by default. This can be specified negatively
+@@ -386,8 +410,8 @@ static void of_gpio_flags_quirks(const struct device_node *np,
+ 				 * conflict and the "spi-cs-high" flag will
+ 				 * take precedence.
+ 				 */
+-				bool active_high = of_property_read_bool(child,
+-								"spi-cs-high");
++				active_high = of_property_read_bool(child,
++								    "spi-cs-high");
+ 				of_gpio_quirk_polarity(child, active_high,
+ 						       flags);
+ 				break;
+-- 
+2.50.1
 
