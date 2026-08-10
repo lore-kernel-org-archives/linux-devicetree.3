@@ -1,117 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682F43264F1;
-	Mon, 10 Aug 2026 16:38:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E8A42980B;
+	Mon, 10 Aug 2026 16:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786379893; cv=none; b=JaBypU2X0/MykF1x4bkxsPxatek1Qph48IHUuOA1/qt3PBRxgv4wlIqxhz7YYizQ9U5VZKohN335rBFBbVRA4QEq8ay7srwAG2V0jN2yAUtJ6CnRfy0XQ0+NMp7+J0zq0cu/fMM16G+sai2qw22h1ddgAq++jfGwEGHdrwqMJt0=
+	t=1786380003; cv=none; b=PKllhC6oP1tb+1wuRvHRKaenXlcFlBudmEgTNkad7tZ154CSlboh2FMtcCTIFjw0uQ7YfrRk6YvVGKIR+CZQn5mHGfr0uBBMAW0KWrbkBZnqPuByMJUoqX5S+M0mO1ykctG6NUkUpW2S+osSc7WBAUZ/eXtQSleFIspkyAOd6/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786379893; c=relaxed/simple;
-	bh=wLQrxmYswGRtd7Df117hNkm4qRvwp5DSkbl/br5ceuI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nRXSiPH1MjrhnQqlTb5qigO7RRJ92uXdHeT1rvR7yQLo8SIyCgA9fnOLGHO1UNjqXMFzxXfcjCW6Dvm11JXcZtrT4ncq+4cEGD+HYkjW2VbAtAoK5Kp6POQ/tVvioLk6dV21kut1tHGk2xAemG/t3zrphE4TIyN/lmEXvbMxT/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCQz6Ytq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786380003; c=relaxed/simple;
+	bh=J2EKFbV5uPIeRjVB49gScK0JmOQ6riQ8asVv4Qn72lk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sdnUfKsigyZeVmnK5V5f6N3a3ub4cs0bovA/kM6wxt7Tgg7a1PHWUcNzr2kMaMSrtSo98lX3BObK6Avhx/ioPQqv9oEuVx16F5JzdSQ2o7fWIE8TekuRPB8qOL0yyxA4Lw+76hIjm+GxFPDOrC/bIjQHoL6fumT5TEPvs40A/m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/+UQYtC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCQz6Ytq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856221F000E9;
-	Mon, 10 Aug 2026 16:38:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/+UQYtC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A4B1F00A3D;
+	Mon, 10 Aug 2026 16:40:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786379891;
-	bh=WfdMv/8ZXyGsLoEO4C/zcVHY34hVkspoQFa93Xc1SGI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YCQz6Ytq7UKe21rTVTefNwCVnXwCWDgM5hCP2ZKJVzESsZaU949rEogHH5QTbjCqy
-	 jEfb3cBEjJtC8AKFPJxZlY6Qtni9thg6ZvOyGdAhUmQXpDmdMq/N7SGNtRkkMs9aJ6
-	 FRAljLkFXdj4Do+65YKd38WEMk00+gNgjBUDjR/II7i2UEfMQE/h+QMWvkYP0DV7OV
-	 X1sST9QghB0RO4WL7PY+biKcHoC3ZPveP1k7jIMttqjlpG0+urCQ3XcjPL2/Lw+Q3K
-	 NQSrEAGm35QDsDuNrmTqfl7mVvOolvB/JAYmFDJIGVX/BSF7RwKTbAR1tWa865TD6C
-	 5H/1dvN3+SbDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 12/19] drivers: soc: ti: k3-ringacc: handle absence
- of tisci
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260810151423.1948224-13-s-adivi@ti.com>
-References: <20260810151423.1948224-1-s-adivi@ti.com>
- <20260810151423.1948224-13-s-adivi@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 16:38:09 +0000
-Message-Id: <20260810163810.856221F000E9@smtp.kernel.org>
+	s=k20260515; t=1786380001;
+	bh=GIrix2w80bnR4i2Fv3Ik405K/J95zlZuy0rTalvQ8DA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X/+UQYtC/GxZTIiXOzhRVZrH0H336Ofs7uJXfWjbhJ1nzecpb8Zv3/LLV3wj9jqOZ
+	 lVRQ3J9OdYE+laDsszVaKAlQttCrMSs6amc75jqf/1KtCROaY736c+grFFmi42QGHu
+	 bokjKJgenfti19rTQpzUgAO0uvFsIpdHyevDfLnRZfqgzsUmIhtZPKEtSGmVpU83L7
+	 A9gqLiTVLgPtdLg7cyklv8YFPzirIfXdEGqvf+ws6LoMNQMmZOAMeryKZxlLS5Kk+G
+	 1GjzkEzaO4evfDWk6gOfGWKMWWfHzrA07tbjYJYT4rtILwAb+NW/hYxAIIZyPqPLwf
+	 3++dTmmonpiFg==
+Date: Mon, 10 Aug 2026 11:40:00 -0500
+From: Rob Herring <robh@kernel.org>
+To: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	Vyacheslav Yurkov <uvv.mail@gmail.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: Add GPIO-locked fixed clock
+Message-ID: <20260810164000.GA1846263-robh@kernel.org>
+References: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
+ <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The direct register fallback in `k3_ringacc_ring_reconfig_qmode_=
-sci` uses zero-initialized fields to destructively clear the ring's base ad=
-dress and size.
---
+On Sun, Jul 26, 2026 at 05:40:24PM +0000, Vyacheslav Yurkov wrote:
+> Some hardware designs provide fixed-frequency clocks generated outside
+> software control, such as by FPGA-resident PLLs. While the clock rate is
+> fixed, a separate GPIO signal indicates whether the clock source is
+> locked and producing a valid output.
+> 
+> Describe a GPIO-locked fixed clock provider that exposes a fixed-rate
+> clock whose availability depends on one or more GPIO lock-status
+> signals.
+> 
+> Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
 
---- Patch [12]: [PATCH v8 12/19] drivers: soc: ti: k3-ringacc: handle absen=
-ce of tisci ---
-commit 19dd5943c68e7ce05e29d608e96d6376a6ce8fed
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+I think you can drop this. Just update your author email.
 
-drivers: soc: ti: k3-ringacc: handle absence of tisci
-
-This commit adds direct register writes to handle platforms like AM62L that=
-=20
-do not have tisci firmware. It modifies the reset, free, configuration,=20
-and reconfiguration paths to write directly to ring configuration registers=
-=20
-when tisci is absent.
-
-> diff --git a/drivers/soc/ti/k3-ringacc.c b/drivers/soc/ti/k3-ringacc.c
-> --- a/drivers/soc/ti/k3-ringacc.c
-> +++ b/drivers/soc/ti/k3-ringacc.c
-[ ... ]
-> @@ -501,10 +568,25 @@ static void k3_ringacc_ring_reconfig_qmode_sci(stru=
-ct k3_ring *ring,
->  	ring_cfg.valid_params =3D TI_SCI_MSG_VALUE_RM_RING_MODE_VALID;
->  	ring_cfg.mode =3D mode;
-> =20
-> -	ret =3D ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> -	if (ret)
-> -		dev_err(ringacc->dev, "TISCI reconf qmode fail (%d) ring_idx %d\n",
-> -			ret, ring->ring_id);
-> +	if (!ringacc->tisci) {
-> +		u32 reg;
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> ---
+>  .../bindings/clock/gpio-locked-fixed-clock.yaml    | 59 ++++++++++++++++++++++
+>  1 file changed, 59 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
+> new file mode 100644
+> index 000000000000..4d17889c51ad
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
+> @@ -0,0 +1,59 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/gpio-locked-fixed-clock.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +		writel(ring_cfg.addr_lo, &ring->cfg->ba_lo);
-> +		writel((ring_cfg.addr_hi & K3_DMARING_CFG_ADDR_HI_MASK) +
-> +				(ring_cfg.asel << K3_DMARING_CFG_ASEL_SHIFT),
-> +				&ring->cfg->ba_hi);
+> +title: GPIO Locked Fixed Clock
 > +
-> +		reg =3D readl(&ring->cfg->size);
-> +		reg &=3D ~K3_DMARING_CFG_SIZE_MASK;
-> +		reg |=3D ring_cfg.count & K3_DMARING_CFG_SIZE_MASK;
+> +maintainers:
+> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 > +
-> +		writel(reg, &ring->cfg->size);
+> +properties:
+> +  compatible:
+> +    const: gpio-locked-fixed-clock
+> +
+> +  "#clock-cells":
+> +    const: 0
+> +
+> +  clocks:
+> +    description: Input clocks whose validity is monitored by this provider.
+> +
+> +  clock-output-names:
+> +    description: Names of the clock provided by this controller.
+> +    maxItems: 1
+> +
+> +  locked-gpios:
+> +    description: |
 
-[Severity: Medium]
-Does this code accidentally clear the ring's base address and size instead =
-of
-just reconfiguring the mode?
+Don't need '|' if no formatting.
 
-Because ring_cfg is zero-initialized at the start of the function:
+> +      GPIOs to check the lock state.
+> +    minItems: 1
+> +    maxItems: 32
 
-struct ti_sci_msg_rm_ring_cfg ring_cfg =3D { 0 };
+Please explain better how multiple GPIOs work? Why would you ever have 
+more than 1 lock signal per clock? And you can only have 1 clock given 
+#clock-cells==0.
 
-The addr_lo, addr_hi, asel, and count fields are never populated in
-k3_ringacc_ring_reconfig_qmode_sci() before being used here. Will this write
-zeros to ba_lo, ba_hi, and size, corrupting the live memory mapping?
+Do you have an immediate need for more than 1? If not, I'd drop 
+support for it for now.
 
-Even if this path is currently unreachable because platforms like AM62L do =
-not
-enable the dma_ring_reset_quirk, this might still cause hardware misconfigu=
-ration
-if the quirk is used on future platforms without TISCI.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
-224-1-s-adivi@ti.com?part=3D12
+Rob
