@@ -1,76 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642F743746C;
-	Mon, 10 Aug 2026 18:35:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3685F306B3B;
+	Mon, 10 Aug 2026 18:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786386952; cv=none; b=D6iWgQmEfRfg9lI1tIxImAmuRtvm/zJ3LyL/eMq4+Fkd+lyv+00swpZGI/n2NCTBsvPaIrsH0Vw36hvvxnWg245VM7R/PT+RrNLzRNEVY6dkofXz4/0DCikOdPZDkSX3ShkHxeBqfs9ft9WLF8gsJsyTQXZHs+7mG5Jvj+wTlVk=
+	t=1786387049; cv=none; b=NYDAdW3udYUtlecDEfbRQAU+D/FAY84uz2URuMnGDUcwQoPScsu9e6R/tOZxc5Bm4Ot22+OC9NUPAA8fyiVLGYqBx+QW7LoytDZDJ/mhvlGAFBq3FYWoOT+v4zt/ur9MdPMa970PoUf3dN29LyDvWZhwyvCfs5bvKv9v50Oau28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786386952; c=relaxed/simple;
-	bh=J+7Qf4C+BCkphTM5Iv8Y9G8botn3Z1MPiWmfqLgbhk8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OcFiD7n8A4t3lBbYy9CYrOGVTrSDiqIDXZNeRb1a8rkze0SXN1baSughLM8gu8U+D6EQT3ZuhrlVtofl9M1b+lmOI810y4uSNhl1iG4jxC4OU9MA2vP1GzkU1iG9whPqhCqyMD9vd3oMv982AAl5E0KGhMXxRokJsF4HwMq4xb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HlzpUbYz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786387049; c=relaxed/simple;
+	bh=fCJ3IU6wY98UeZ2VxZeJrOZZPe0TGlme/Eo9Mkvpung=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=irpbh1tgiKM2J1s84/feJ46gLFhav17wsSreULSZQY8lcbDcGJ7sLlYXXtWwyhxOOpv73Jr8ZNsihCZG0DxUze5eVXPbC2yz+6OQHjMtNS/LCR3jTGOCU6xbeR+biCOcc9+C2+W6smKRp5nAtrZ3IUK+QVTeXRHlvNTZO9HREkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h9XDqUNc; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HlzpUbYz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FA21F000E9;
-	Mon, 10 Aug 2026 18:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786386950;
-	bh=J+7Qf4C+BCkphTM5Iv8Y9G8botn3Z1MPiWmfqLgbhk8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HlzpUbYzcJ3KMfPEvXyW3Fdt/nE5/mxqLTwgQd16JMs1HWaHaTGufcH6czd6tgMZ3
-	 q5k786zQ4Zphisf702b1r/G+BCt2fll3h81IcQ/S7RBIcdpBCzVhVl3q9xYVFRN2Vz
-	 0GGN5j1vEs1t6jvao2VddGT+ws7pP6d+v2bHKphI1pn1tTPDEqyUsOX+KFYWVffcO0
-	 KcPlP0Kgse5B/lTHtocl0cfyMJ+M/6J6ri+2vdoc/Av1RK3s5Sjfya7g2NycTE7g9y
-	 gW0gdlCAV7+3XC0Z/bokVCVPUn6q4uJA4xXHDEl8ujcjS5IbLCpjdH5z2Aa43Yh0wB
-	 d1O782y0QFKdw==
-Date: Mon, 10 Aug 2026 11:35:48 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Vladislav Leonov <vlad@zlab.su>
-Cc: linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Simon Glass <sjg@chromium.org>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Andi Shyti <andi.shyti@kernel.org>, Andrew
- Lunn <andrew+netdev@lunn.ch>, Aurelien Jarno <aurelien@aurel32.net>, Brian
- Masney <bmasney@redhat.com>, Conor Dooley <conor+dt@kernel.org>, Daniel
- Golle <daniel@makrotopia.org>, "David S. Miller" <davem@davemloft.net>,
- David Wu <david.wu@rock-chips.com>, Eric Dumazet <edumazet@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Heiko Stuebner
- <heiko@sntech.de>, Herbert Xu <herbert@gondor.apana.org.au>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Mark Brown <broonie@kernel.org>, Maxime
- Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Michael Turquette <mturquette@baylibre.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Nicolas Frattaroli
- <nicolas.frattaroli@collabora.com>, Olivia Mackall <olivia@selenic.com>,
- Paolo Abeni <pabeni@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Vinod Koul
- <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org
-Subject: Re: [PATCH 00/25] ARM: rockchip: Add peripheral support for RV1106
-Message-ID: <20260810113548.7fd24d56@kernel.org>
-In-Reply-To: <20260810121121.210040-1-vlad@zlab.su>
-References: <20260810121121.210040-1-vlad@zlab.su>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h9XDqUNc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786387047; x=1817923047;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fCJ3IU6wY98UeZ2VxZeJrOZZPe0TGlme/Eo9Mkvpung=;
+  b=h9XDqUNc+G1dcbOgz620L/o+1A40O/9aPkETy6866AWxduu078SoGR1Q
+   cGI8wYO+MrWxUzGtgUHIcMDs2KluHtfiAGQcwBg1FvYo+kuqYOm2J76ru
+   3po0aAOFbQB8DTPVctvLVS/CFoS7bvoXnePU1oqomOFLnBUNeVkfumA2P
+   Baf5G8Fjhf1m/5JS+BJ9Cfp1Bcd2OdHJDZPphRiATY/IMfCEtMzeF7XiT
+   b5TQAZS/wukZllYffChv4+vqIJI44s6XbgNA5gvXXEdTIdmt6ki4xUnjT
+   8a+JYwwV9Luz9Ai1EuIZ4ocGt8stFLGlTTiY2q/TaUrdJ21IBI7Wq+MN2
+   w==;
+X-CSE-ConnectionGUID: CMC4Ta7ySWKyazPVhEd/eg==
+X-CSE-MsgGUID: 5sytLKOTQI2PjzF2vF7M9A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="90724956"
+X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
+   d="scan'208";a="90724956"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 11:37:27 -0700
+X-CSE-ConnectionGUID: Dr8OJFLqSseG5yxhQREAOw==
+X-CSE-MsgGUID: rN7lVtyZQ/GXQ6g9EdOJ9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
+   d="scan'208";a="259267928"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.99])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 11:37:23 -0700
+Date: Mon, 10 Aug 2026 21:37:21 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>
+Subject: Re: [PATCH 3/3] iio: light: stk3310: support the Sensortek STK36C61
+Message-ID: <anoaYQNHKSNE8Pci@ashevche-desk.local>
+References: <20260810110423.41697-1-jorijnvdgraaf@catcrafts.net>
+ <20260810110423.41697-4-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810110423.41697-4-jorijnvdgraaf@catcrafts.net>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 10 Aug 2026 15:10:51 +0300 Vladislav Leonov wrote:
-> Basic support for the Rockchip RV1106/RV1103 SoCs currently under review.
-> This series builds on top of that and enables the peripherals needed to
-> bring up a board beyond a serial console:
+On Mon, Aug 10, 2026 at 01:04:23PM +0200, Jorijn van der Graaf wrote:
+> The Sensortek STK36C61 is a 3-in-1 ambient light / proximity / RGB
+> colour sensor (chip ID 0x95) found in the Fairphone 6. Its register
+> interface is compatible with the feature set this driver uses: the
+> STATE/FLAG bit layout, the data and threshold registers and the gain
+> and integration-time fields, verified on that device (the ALS and
+> proximity readings scale with their gain and integration-time fields,
+> thresholds written through the event interface read back from the
+> chip, and the FLAG near/far bit crosses with them). Add its chip ID to
+> the known-ID list and the device table entries.
+> 
+> Whenever the ALS engine runs, the chip also measures four colour
+> channels, laid out directly after the ALS data as 16-bit big-endian
+> values in R (0x15), G (0x17), B (0x19), C (0x1B) order; the R, G and B
+> assignments were each confirmed by the matching channel dominating
+> under red, green and blue illumination, and clear by its broadband
+> response. The ALS data register tracks the green channel exactly.
+> There is no public datasheet and therefore no counts-to-physical
+> mapping for the colour channels, so they are exposed as raw-only
+> intensity channels; the gain field the scale attribute controls does
+> not govern clear either.
 
-Don't expect maintainers to dig out patches for their subsystems
-from a big series. This is not how upstream development works.
-Repost 4+5 as a separate series to networking..
+...
+
+> -	if (chan->type != IIO_LIGHT && chan->type != IIO_PROXIMITY)
+> +	if (chan->type != IIO_LIGHT && chan->type != IIO_PROXIMITY &&
+> +	    chan->type != IIO_INTENSITY)
+>  		return -EINVAL;
+
+Is this now a duplicating a bit with the below choices?
+
+...
+
+>  	switch (mask) {
+
+>  	case IIO_CHAN_INFO_INT_TIME:
+>  		if (chan->type == IIO_LIGHT)
+>  			ret = regmap_field_read(data->reg_als_it, &index);
+> -		else
+> +		else if (chan->type == IIO_PROXIMITY)
+>  			ret = regmap_field_read(data->reg_ps_it, &index);
+> +		else
+> +			return -EINVAL;
+
+If you want to keep a single point of return, use
+
+			ret = -EINVAL;
+
+here and below in _read_raw().
+
+>  		if (ret < 0)
+>  			return ret;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
