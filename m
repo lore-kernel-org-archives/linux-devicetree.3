@@ -1,390 +1,177 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2E6415F29
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF34263F5D;
+	Mon, 10 Aug 2026 15:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786375614; cv=none; b=ftEUo2NRTTCbw+F3d4AGqdUKueCYHlrCcGWvpb46+calRENnUG4WD5edeOkPWeS1ZzkHG1XtzSfsvvMhuJLIGwtXvcEvOCYtE0Jda+1fneDDgFk3t3z4wbr0UKxqK9Jg7GD89CPSZ1+iSvmjC/LDOpVXj5GfHjT3MXgqjGG5ZBg=
+	t=1786375799; cv=none; b=NKnuygUN1xuY5ERq6L/TZfTmau9gpODQQ827YcnI3vZDW5+BpQrcouR4d0oyFeaw3hhC47JZFp+osRB5F28VsgxZG39ceEmS2zNB0gJicPLIPAe3G4jmykB9j3Mciv6lwY9/Nc8Snc5WMY/872/L54a5Mazpkn8+HDP7oVh1ks0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786375614; c=relaxed/simple;
-	bh=pRywqyjcN+s9xqw6lT2yIXo8H0f36+MeGHolX/N/5LE=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EdBrTSHaSTxeSjUkUgPBVI7NQTl20y4G0JFA3GolBQy0wswiFq4Hz/SXL6/o5aVQ3eU8W5dQCnO2kxFVLQjiRoryNDATE9N3SBwBXBelLNU9h8KphuKdLG2m/7JzP4gVafvsdvgckkC6p1yRxcCypzzkFbsBbApS1p4eSwsFQsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fAiwTmgX; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786375799; c=relaxed/simple;
+	bh=rqpUc/GmvWE1R2/gEOiucTnIWfFLCJKnxafkPt8jObQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i0Eoe8VUjVe1iC+nOoegkPat7Ud2FsNSDrHSNCaHumoP99xMUUwBk+N6j7gGdGz+M8xKgtXigPxEVjcK6Mv9DjKv7wQOC8kmUZwDo/w8dFMPvducNVRzUuaTDxAzQTxm16UKTcvrSjhWGtNw4FQ4Kc0SSGLo/wpPq1+3TCYO8ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVQTE9Sx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fAiwTmgX"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47fd66a094eso604520f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:26:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786375609; x=1786980409; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=t7y42iTAOFamntAXZPdzptkHEiwN6mZNRtIqENKnw0w=;
-        b=fAiwTmgXM5wUDoNXKRrcA9k2bf+v4LhqBESdruER8YXsd4tTAduI+/ikTnnbArD+pC
-         tB1s+uLIR3wzPWlNoeT+kgSA5hHsdeagBRHVfg7DUicdlS4PnKuS2HlWLa3b3Gua3OK1
-         f1o9msyA/PEnWfW/aAVIguz8t84GS8b7N09pbK3bGQ8F3U1lwFAZWkXV4rVdH5AeeH7l
-         1BVEGw18aSaDCx5JuGhFfMl/iHqHf0YacKL7DYZYFX/Z04FI3NlLA7+8AdHVKHzHbqkw
-         hBh2XHJ743nucPGg+2INBaq0J8Nb2Z3jvgpiz420v1F60eUFErI4m0woeNTWCy1alp95
-         PNoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786375609; x=1786980409;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=t7y42iTAOFamntAXZPdzptkHEiwN6mZNRtIqENKnw0w=;
-        b=rX0NI82fKYhQwXDNDVbAg90P2305wGAopfgx2BMJ2bYhS/wCEzWodExBIogee+ti+N
-         B4GEEXReeIhR2H3NuUBdcYhKVgvgljpwDPxHZXIOHxtJguRj0/YkEyWexseUVzBf313i
-         9P5sovCbwOoZrpKULQu2G9Mcbw83Uvt5+r3vRjDe0LOdKs/xvZ/0qnIt3O4LY855vuTG
-         BUpEFRrUQK6Tnmi4GH9gMb3oyT8J4IXU775REKgTglKJ03aXfpTpGvormS6gizMMPff9
-         RwWajkzgK/MSmlAGQGbMQw/o55bZn6XkICNZy++BeVPnbVE3TlGO7XaDIGvQqLPG7p0L
-         RWKA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0yvqpRJ1fvlOs5OwRpJ23QN5qkfz4aPS3i+TO2kldGy67AqmaadpIuUo6EDu3zERbEF7UBbqe1+z7@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBuuCbPY00oryr/KtS3DhvD85ye/pVUPgTf1EBe2oUC3zY0zKJ
-	88GJKs4BgRhEaINPq5ahVLbs0cww66eCoA/w8uqksedcMeEBCy8tC580
-X-Gm-Gg: AR+sD13N8ogduVlPAl+XiJjvMarR4juWQvipRka5YC5ye+mbYUX2JtTnr5HazmoG4de
-	YctY3oUN67cqw4jpw0/bDAsDEIC48pxtSYFLZYblsFXa0rtHQmkOBTtDU/jb5X0129a52cST8Hm
-	xUcbgH+1O++EwWhczdsDIzVHyTH4Ofcj8WL2sOP4yFdUzbxq/Va1BIkIhEsrdlSuG0pQqaqqGE6
-	txIz6brP3R4/QEuTIllp36aE8qJ6ACzU3HimBJQgx8+YxnB5ui5Y3ARjsu0UR0f9Bd0t8EQYrer
-	gXGJ6l1rWlHYPOEP8ydV4soADpVcptK4Nl7stQAZX82OOTYzpVf12JoaJTybrG9mpByfOFAWZR5
-	0aQWrmX3IkR4+7E4Iic4kbY9WncZ7/JIl/6TdQ6Pw5Ag2ZSkU9l67mXIYapt5WEs1m3xFlsRw9F
-	hTIFtJy9nzPmUVMVj+AmPCm6pp3NnqzcZQ8VJYg3MxgZCypfvrglbP6NKkzKNB2mhxk1HLMZ/We
-	ZfrZv/qmcjhXNR3NwiE7Ds2G7WyAv3D+/YEAZYk3u3yBnZ5TGRaFKm9cDo=
-X-Received: by 2002:a05:6000:299b:10b0:47f:e760:e5b9 with SMTP id ffacd0b85a97d-47fec532385mr54419920f8f.18.1786375608887;
-        Mon, 10 Aug 2026 08:26:48 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-87-20-3-207.retail.telecomitalia.it. [87.20.3.207])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-480021e8cd0sm34952469f8f.17.2026.08.10.08.26.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 08:26:48 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVQTE9Sx"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0627F1F000E9;
+	Mon, 10 Aug 2026 15:29:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786375797;
+	bh=eJHxMoAsHSsVZqOYcaAsiYvNb67TlWtmkhnQradvAgU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QVQTE9Sx+ZOo2ET1ufSAOSNyChsbD8cKAdhf/0TXwWaeQt+616jOgS0ZYgtLxkSt4
+	 PCypRg32Ftwi6LvwaukyEqGNG0GjUwIf1XlNG/jIX2aS8XYRX/h80qaHjyPSz8QB/n
+	 0rNZcXY5vDjqnnwjZFpRbqvyTufeeQX5MZNJLyt9k80DXwlbBrL8dz6g8FhzH4NVhy
+	 2D7A9Rk66q+8tC5aQc2kfo4qJd9nsWYT7fxE1Ih3/rDAGwUzmQkXDtZeib3DIppQyY
+	 fr4odB4h0oW7q7pODzB20eeYAc/EpwbEq+4UEaNQ4JLS1LFAwPkU/O29imjhqx/IEE
+	 GYkzTvZfgSpYQ==
+Date: Mon, 10 Aug 2026 18:29:54 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jan Sebastian =?iso-8859-1?Q?G=F6tte?= <linux@jaseg.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Jacques Nilo <jnilo@free.fr>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Rong Zhang <rongrong@oss.cipunited.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Gerhard Engleder <eg@keba.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Haowei Zheng <zhenghaowei@loongson.cn>,
-	Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: [PATCH v5 3/3] serial: 8250: Add Airoha SoC UART and HSUART support
-Date: Mon, 10 Aug 2026 17:26:35 +0200
-Message-ID: <20260810152636.658955-4-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260810152636.658955-1-ansuelsmth@gmail.com>
-References: <20260810152636.658955-1-ansuelsmth@gmail.com>
+	Saravana Kannan <saravanak@kernel.org>, Coiby Xu <coxu@redhat.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org, keyrings@vger.kernel.org,
+	linux-mm@kvack.org, linux-security-module@vger.kernel.org,
+	linux-integrity@vger.kernel.org
+Subject: Re: [PATCH 2/4] kexec: add CRASH_ZEROIZE to wipe secrets before kdump
+Message-ID: <annuciDaFKSHYObm@kernel.org>
+References: <20260731154608.153258-1-linux@jaseg.de>
+ <20260731154608.153258-3-linux@jaseg.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260731154608.153258-3-linux@jaseg.de>
 
-Add support for Airoha AN7523 UART and AN7581 HSUART.
+On Fri, Jul 31, 2026 at 05:46:06PM +0200, Jan Sebastian Götte wrote:
+> When kdump is used to capture system memory after a panic(), any secret
+> keys currently in RAM end up in the dump. Add an opt-in atomic notifier
+> chain, crash_zeroize_notifier_list, invoked late into __crash_kexec().
+> Subsystems holding secrets can register a callback to scrub them.
+> 
+> Callbacks are run after machine_crash_shutdown() has already stopped the
+> other CPUs and disabled preemption. Callbacks must not wait on locks,
+> which will never be released.
+> 
+> This is a best-effort, defence-in-depth measure, not a guarantee.
+> Secrets in flight on the stack, in registers, in DMA buffers, or in
+> other places in memory are out of scope.
+> 
+> Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+> ---
+>  include/linux/crash_core.h |  5 +++++
+>  kernel/Kconfig.kexec       |  8 ++++++++
+>  kernel/crash_core.c        | 18 ++++++++++++++++++
+>  3 files changed, 31 insertions(+)
 
-These implement a standard 16550 UART with only some custom logic
-for baud rate handling.
+Not a request but for me 'crash_wipe' would be more intuitive than
+'crash_zeroize'.
 
-Co-developed-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Signed-off-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/tty/serial/8250/8250.h        |   6 +
- drivers/tty/serial/8250/8250_airoha.c | 187 ++++++++++++++++++++++++++
- drivers/tty/serial/8250/8250_port.c   |  16 +++
- drivers/tty/serial/8250/Kconfig       |  11 ++
- drivers/tty/serial/8250/Makefile      |   1 +
- 5 files changed, 221 insertions(+)
- create mode 100644 drivers/tty/serial/8250/8250_airoha.c
+What do you think?
 
-diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-index 77fe0588fd6b..e6b2b9431229 100644
---- a/drivers/tty/serial/8250/8250.h
-+++ b/drivers/tty/serial/8250/8250.h
-@@ -73,6 +73,12 @@ struct serial8250_config {
- 	unsigned int	flags;
- };
- 
-+enum uart_port_type {
-+	/* Internal 8250 only */
-+	UART_PORT_AIROHA		= 124,
-+	UART_PORT_AIROHA_HS		= 125,
-+};
-+
- #define UART_CAP_FIFO	BIT(8)	/* UART has FIFO */
- #define UART_CAP_EFR	BIT(9)	/* UART has EFR */
- #define UART_CAP_SLEEP	BIT(10)	/* UART has IER sleep */
-diff --git a/drivers/tty/serial/8250/8250_airoha.c b/drivers/tty/serial/8250/8250_airoha.c
-new file mode 100644
-index 000000000000..fe72a39561c2
---- /dev/null
-+++ b/drivers/tty/serial/8250/8250_airoha.c
-@@ -0,0 +1,187 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Airoha UART driver
-+ *
-+ * Copyright (c) 2025 Genexis Sweden AB
-+ * Author: Benjamin Larsson <benjamin.larsson@genexis.eu>
-+ *	   Christian Marangi <ansuelsmth@gmail.com>
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bits.h>
-+#include <linux/bitfield.h>
-+#include <linux/errno.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/platform_device.h>
-+#include <linux/serial_8250.h>
-+#include <linux/serial_core.h>
-+#include <linux/serial_reg.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#include "8250.h"
-+
-+#define UART_AIROHA_XINCLKDR	10
-+#define UART_AIROHA_XYD		11
-+#define   UART_AIROHA_XYD_X	GENMASK(31, 16)
-+#define   UART_AIROHA_XYD_Y	GENMASK(15, 0)
-+
-+struct airoha_8250_priv {
-+	int line;
-+};
-+
-+#define UART_BRD_20M		0x0001
-+
-+#define XINDIV_CLOCK		(20 * HZ_PER_MHZ)
-+#define XYD_Y			65000
-+
-+static const unsigned int airoha_clk_divs[] = { 2, 4, 10 };
-+
-+static unsigned int airoha_get_divisor(struct uart_port *port,
-+				       unsigned int baud,
-+				       unsigned int *frac)
-+{
-+	/* Hardware always uses BRDIV = 1. */
-+	*frac = 0;
-+
-+	return UART_BRD_20M;
-+}
-+
-+/*
-+ * Airoha UART baud rate calculation logic
-+ *
-+ * crystal_clock = 20 MHz (fixed frequency)
-+ * xindiv_clock = crystal_clock / clock_div
-+ * (x/y) = XYD, 32 bit register with 16 bits of x and then 16 bits of y
-+ * clock_div = XINCLK_DIVCNT (default set to 10 (0x4)),
-+ *           - 3 bit register [ 1, 2, 4, 8, 10, 12, 16, 20 ]
-+ *
-+ * baud_rate = ((xindiv_clock) * (x/y)) / ([BRDH,BRDL] * 16)
-+ *
-+ * Selecting divider needs to fulfill
-+ * 1.8432 MHz <= xindiv_clk <= APB clock / 2
-+ * The clocks are unknown but a divider of value 1 did not result in a valid
-+ * waveform.
-+ *
-+ * XYD_y seems to need to be larger then XYD_x for proper waveform generation.
-+ * Setting [BRDH,BRDL] to [0,1] and XYD_y to 65000 gives even values
-+ * for usual baud rates.
-+ */
-+static void airoha_set_divisor(struct uart_port *port, unsigned int baud,
-+			       unsigned int quot, unsigned int quot_frac)
-+{
-+	struct uart_8250_port *up = up_to_u8250p(port);
-+	u32 xindiv_clk;
-+	u64 xyd_x, nom;
-+	int div_bit;
-+
-+	/* Set baud rate calculation defaults (BRDIV [BRDH,BRDL] to 1) */
-+	serial8250_do_set_divisor(port, baud, UART_BRD_20M);
-+
-+	/*
-+	 * Calculate XYD_x and XINCLKDR register by searching
-+	 * through a table of crystal_clock divisors.
-+	 */
-+	nom = (u64)baud * XYD_Y;
-+	for (div_bit = ARRAY_SIZE(airoha_clk_divs) - 1; div_bit >= 0; div_bit--) {
-+		unsigned int div = airoha_clk_divs[div_bit];
-+
-+		xindiv_clk = XINDIV_CLOCK / div;
-+		xyd_x = div_u64(nom * 16, xindiv_clk);
-+
-+		/* For the HSUART xyd_x needs to be scaled by a factor of 2 */
-+		if (port->type == UART_PORT_AIROHA_HS)
-+			xyd_x /= 2;
-+
-+		if (xyd_x < XYD_Y)
-+			break;
-+	}
-+
-+	/* Couldn't find a valid xyd_x */
-+	if (div_bit < 0) {
-+		dev_err(port->dev, "failed to find suitable clock divisor for baud %u\n",
-+			baud);
-+		return;
-+	}
-+
-+	serial_port_out(port, UART_AIROHA_XINCLKDR, BIT(div_bit));
-+	serial_port_out(port, UART_AIROHA_XYD,
-+			FIELD_PREP(UART_AIROHA_XYD_X, xyd_x) |
-+			FIELD_PREP(UART_AIROHA_XYD_Y, XYD_Y));
-+
-+	/* Restore normal register access. */
-+	serial_port_out(port, UART_LCR, up->lcr);
-+}
-+
-+static int airoha_8250_probe(struct platform_device *pdev)
-+{
-+	struct uart_8250_port uart = { };
-+	struct device *dev = &pdev->dev;
-+	struct airoha_8250_priv *priv;
-+	struct resource *res;
-+	int ret;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (!res)
-+		return dev_err_probe(dev, -EINVAL, "invalid address\n");
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	uart.port.dev = dev;
-+	if (device_is_compatible(dev, "airoha,an7581-hsuart"))
-+		uart.port.type = UART_PORT_AIROHA_HS;
-+	else
-+		uart.port.type = UART_PORT_AIROHA;
-+	uart.port.flags = UPF_BOOT_AUTOCONF | UPF_FIXED_PORT |
-+			  UPF_FIXED_TYPE | UPF_IOREMAP;
-+	uart.port.set_divisor = airoha_set_divisor;
-+	uart.port.get_divisor = airoha_get_divisor;
-+	uart.port.mapbase = res->start;
-+	uart.port.mapsize = resource_size(res);
-+
-+	ret = uart_read_and_validate_port_properties(&uart.port);
-+	if (ret)
-+		return ret;
-+
-+	ret = serial8250_register_8250_port(&uart);
-+	if (ret < 0)
-+		return ret;
-+
-+	priv->line = ret;
-+	platform_set_drvdata(pdev, priv);
-+
-+	return 0;
-+}
-+
-+static void airoha_8250_remove(struct platform_device *ofdev)
-+{
-+	struct airoha_8250_priv *priv = platform_get_drvdata(ofdev);
-+
-+	serial8250_unregister_port(priv->line);
-+}
-+
-+static const struct of_device_id airoha_8250_dt_ids[] = {
-+	{ .compatible = "airoha,en7523-uart" },
-+	{ .compatible = "airoha,an7581-hsuart" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, airoha_8250_dt_ids);
-+
-+static struct platform_driver airoha_8250_driver = {
-+	.driver = {
-+		.name = "8250_airoha",
-+		.of_match_table = airoha_8250_dt_ids,
-+	},
-+	.probe = airoha_8250_probe,
-+	.remove = airoha_8250_remove,
-+};
-+module_platform_driver(airoha_8250_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Airoha UART driver");
-+MODULE_AUTHOR("Benjamin Larsson <benjamin.larsson@genexis.eu>");
-+MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index 630deb7dd344..c888cae7d98b 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -311,6 +311,22 @@ static const struct serial8250_config uart_config[] = {
- 		.rxtrig_bytes	= {1, 8, 16, 30},
- 		.flags		= UART_CAP_FIFO | UART_CAP_AFE,
- 	},
-+	[UART_PORT_AIROHA] = {
-+		.name		= "Airoha UART",
-+		.fifo_size	= 8,
-+		.tx_loadsz	= 1,
-+		.fcr		= UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_01 | UART_FCR_CLEAR_RCVR,
-+		.rxtrig_bytes	= {1, 4, 4, 4},
-+		.flags		= UART_CAP_FIFO,
-+	},
-+	[UART_PORT_AIROHA_HS] = {
-+		.name		= "Airoha HSUART",
-+		.fifo_size	= 128,
-+		.tx_loadsz	= 128,
-+		.fcr		= UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_01 | UART_FCR_CLEAR_RCVR,
-+		.rxtrig_bytes	= {1, 4},
-+		.flags		= UART_CAP_FIFO,
-+	},
- };
- 
- /* Uart divisor latch read */
-diff --git a/drivers/tty/serial/8250/Kconfig b/drivers/tty/serial/8250/Kconfig
-index fc3e58d62233..310da7af7a49 100644
---- a/drivers/tty/serial/8250/Kconfig
-+++ b/drivers/tty/serial/8250/Kconfig
-@@ -337,6 +337,17 @@ config SERIAL_8250_ACORN
- 	  system, say Y to this option.  The driver can handle 1, 2, or 3 port
- 	  cards.  If unsure, say N.
- 
-+config SERIAL_8250_AIROHA
-+	tristate "Airoha UART support"
-+	depends on ARCH_AIROHA || COMPILE_TEST
-+	depends on SERIAL_8250
-+	help
-+	  Selecting this option enables an Airoha SoC specific baud rate
-+	  calculation routine on an otherwise 16550 compatible UART hardware.
-+
-+	  If you have an Airoha based board and want to use the serial port,
-+	  say Y to this option. If unsure, say N.
-+
- config SERIAL_8250_BCM2835AUX
- 	tristate "BCM2835 auxiliar mini UART support"
- 	depends on ARCH_BCM2835 || COMPILE_TEST
-diff --git a/drivers/tty/serial/8250/Makefile b/drivers/tty/serial/8250/Makefile
-index 6d21402b4435..83257696ea8a 100644
---- a/drivers/tty/serial/8250/Makefile
-+++ b/drivers/tty/serial/8250/Makefile
-@@ -20,6 +20,7 @@ obj-$(CONFIG_SERIAL_8250_CONSOLE)	+= 8250_early.o
- 
- obj-$(CONFIG_SERIAL_8250_ACCENT)	+= 8250_accent.o
- obj-$(CONFIG_SERIAL_8250_ACORN)		+= 8250_acorn.o
-+obj-$(CONFIG_SERIAL_8250_AIROHA)	+= 8250_airoha.o
- obj-$(CONFIG_SERIAL_8250_ASPEED_VUART)	+= 8250_aspeed_vuart.o
- obj-$(CONFIG_SERIAL_8250_BCM2835AUX)	+= 8250_bcm2835aux.o
- obj-$(CONFIG_SERIAL_8250_BCM7271)	+= 8250_bcm7271.o
--- 
-2.53.0
+> 
+> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
+> index bc087124cd78..5c7207c0bba1 100644
+> --- a/include/linux/crash_core.h
+> +++ b/include/linux/crash_core.h
+> @@ -5,6 +5,7 @@
+>  #include <linux/linkage.h>
+>  #include <linux/elfcore.h>
+>  #include <linux/elf.h>
+> +#include <linux/notifier.h>
+>  
+>  struct kimage;
+>  
+> @@ -34,6 +35,10 @@ static inline void arch_kexec_protect_crashkres(void) { }
+>  static inline void arch_kexec_unprotect_crashkres(void) { }
+>  #endif
+>  
+> +#ifdef CONFIG_CRASH_ZEROIZE
+> +extern struct atomic_notifier_head crash_zeroize_notifier_list;
+> +#endif
+> +
+>  #ifndef arch_crash_handle_hotplug_event
+>  static inline void arch_crash_handle_hotplug_event(struct kimage *image, void *arg) { }
+>  #endif
+> diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
+> index 15632358bcf7..92ab0a69c8ec 100644
+> --- a/kernel/Kconfig.kexec
+> +++ b/kernel/Kconfig.kexec
+> @@ -179,4 +179,12 @@ config CRASH_MAX_MEMORY_RANGES
+>  	  the computation behind the value provided through the
+>  	  /sys/kernel/crash_elfcorehdr_size attribute.
+>  
+> +config CRASH_ZEROIZE
+> +	bool "Zeroize secrets on panic"
+> +	depends on CRASH_DUMP
+> +	help
+> +	  Wipe secrets (e.g. kernel keyring and memfd_secret pages) on crash or panic.
+> +
+> +	  If unsure, say N.
+> +
+>  endmenu
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index 2b36aa9fade0..d3a7763e2759 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -23,6 +23,7 @@
+>  #include <linux/objtool.h>
+>  #include <linux/delay.h>
+>  #include <linux/panic.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include <asm/page.h>
+>  #include <asm/sections.h>
+> @@ -33,6 +34,22 @@
+>  /* Per cpu memory for storing cpu states in case of system crash. */
+>  note_buf_t __percpu *crash_notes;
+>  
+> +#ifdef CONFIG_CRASH_ZEROIZE
+> +ATOMIC_NOTIFIER_HEAD(crash_zeroize_notifier_list);
+> +EXPORT_SYMBOL_GPL(crash_zeroize_notifier_list);
+> +
+> +static void crash_zeroize(void)
+> +{
+> +	ktime_t zeroize_start = ktime_get();
+> +
+> +	pr_info("Wiping sensitive secrets...\n");
+> +	atomic_notifier_call_chain(&crash_zeroize_notifier_list, 0, NULL);
+> +	pr_info("Done in %lld us\n", ktime_us_delta(ktime_get(), zeroize_start));
+> +}
+> +#else
+> +static inline void crash_zeroize(void) { }
+> +#endif /* CONFIG_CRASH_ZEROIZE */
+> +
+>  /* time to wait for possible DMA to finish before starting the kdump kernel
+>   * when a CMA reservation is used
+>   */
+> @@ -142,6 +159,7 @@ void __noclone __crash_kexec(struct pt_regs *regs)
+>  			crash_save_vmcoreinfo();
+>  			machine_crash_shutdown(&fixed_regs);
+>  			crash_cma_clear_pending_dma();
+> +			crash_zeroize();
+>  			machine_kexec(kexec_crash_image);
+>  		}
+>  		kexec_unlock();
+> -- 
+> 2.53.0
+> 
 
+BR, Jarkko
