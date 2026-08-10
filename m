@@ -1,172 +1,179 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011038.outbound.protection.outlook.com [52.101.52.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5653B9610;
-	Mon, 10 Aug 2026 10:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786356684; cv=fail; b=TSvIzb2OBI05WZmkk5tvL5V5bkXa9GbfGRQMe/SJ95IBDIcu21zfuH4WGPTBeplth4mBgdLYXiD++can8g0aAj4enhmTIoytetqlZBBkNTCgZGfzQUjRwBgSyraDUUFiuKLlj3ioBbbKDMnXqChVDiKZcOxPGwHweoiqKGdeTBY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786356684; c=relaxed/simple;
-	bh=M5AqN6vPDShzT1jOwE1H+GetpyOEe1xxYFDAMIRhkTo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sVi6Y0Bk7IeCjpPsWqKkLAhEMODslIYSnOBXmrTX7RkKggqxPL0/n66IIkAVxKYXSBYs1cZGYGwqFCWgIWt5xFrWolDuvaNtgaz8Q+GKHRTnSyonlyiEb7DNDW0bynvUA3Rfxca3ZP1lwJfML/OMchrVUVweo4XRkqfQE3frhpA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kX6Yfjzf; arc=fail smtp.client-ip=52.101.52.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6A03B5311
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786356985; cv=none; b=h9UisAS274a61I6lWHpmLCkN9vh7eHJlJmo/OST9tHc13x9qCn6cL2v5wZj4hHBCd7K8jGWe2hULeuGmgSn2V2FmP1MfqumyH6m0WA2GzWVjbTMyZ5meW6tpdIPMK3O3A1UFS+gbpjlPXObBXA3f3//1ZoEnrW3eertkyPD+Z4M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786356985; c=relaxed/simple;
+	bh=6/f9wmm2awoewJ0RJjhCNb25rGgSGL053o6mzKpTT4M=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=uJ2lrN1gtM9m+XtTdSBlVpU1ERWAVLO80oVoySXN01kusbiwToLIDoHOfFIezC95iPIx5y1LI2PYqTxPHxu4Iq3nOSbt3gLpNmwMmalYwQ3wyGNZWN1A6OIfRBLk6febsZrnWXvZUzse0vEL5+qEHQVZ/ihBzZton9MiFWFTYxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=fK8c8oGp; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kX6Yfjzf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MiaioyjV7gbSgUxY040Z+QvNC4iKg+NNN/s8LeYO0c6KHbf6aAeEA6H0q7rhAf9oG7A5RsJBKdowFYQMXGBIf4yQU5QiL9zk7cOexIWVRBQgutqtgJ2misAml153TtI0C+zjg1QD+Kg/lSRci8VoRo3exXEI7wGOOYR3FCPXq3e0SA7/Bgjq0u9JxsNDIxF3S0nPG1aZJLHE41sjp3sggawMV++dasVJj+9fU3uSGbeJ26yO5PCdrtwd9M8cAhIdhgAm0HBkUSeL70RJ7wr9tbtL1SGo2nfGs1eqv53l3KA0oNVMi00sZ24jFHGtFkd+OyQEyUHLN2ydNoEYH1XmXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ycyF+5IHRcwkuQwpWz7twlFJJBn/LQbm4NZIln42zJo=;
- b=rPhgE9pR1fH7dnJ8+6HcEZaPBN+aVDHhB4wAeHb0FUbDIWo2XNYcPEWtROjcw8RhEBXktj3M8JtQZtMk1Z+AGcv281fKEP9XYM1C2/gIQxwdssq4tri5OIK0AwJ4UHz7isnNBqaUD+yXwYOZ2OQ0hPISh/8Qzl7Gw2jhu9LghnddN4LBOyrU0qifRqncFDoz+zFbtfgwIvJUf2CaCoDSBI1JJ5N6BfRF3NCQkyYQkrNeJ/6OZKQiaF+1HY27qFDTMTGal8Bj8PVDaNuZ7cQ93w5fRL2JYqBJqSZjrhNh+tul3xm9tdxYFOSCS6w50UjwSQr/SLRdp8z2vQTh1q9aoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ycyF+5IHRcwkuQwpWz7twlFJJBn/LQbm4NZIln42zJo=;
- b=kX6YfjzfR+/XfVXihi+ZKr2vYkAk8/Jx7uVrL6MKbrw3z+GFFAJB1ADhhNdR7yPRLTX7kNV4xxUwVlQftDd5EtRO+87k9E76FoFJ5kCfCGAD3SHYAgdwuGoXP8O8pW2hAtTeIMabRM2L4EsbRnvg51ToCrDuPOFAouAinBY4QFY=
-Received: from MW4PR03CA0336.namprd03.prod.outlook.com (2603:10b6:303:dc::11)
- by MW4PR12MB6753.namprd12.prod.outlook.com (2603:10b6:303:1ec::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 10:11:17 +0000
-Received: from SJ1PEPF00001CE8.namprd03.prod.outlook.com
- (2603:10b6:303:dc:cafe::21) by MW4PR03CA0336.outlook.office365.com
- (2603:10b6:303:dc::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
- 10 Aug 2026 10:11:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CE8.mail.protection.outlook.com (10.167.242.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 10:11:16 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
- 2026 05:10:59 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
- 2026 05:05:20 -0500
-Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 10 Aug 2026 05:05:16 -0500
-From: Golla Nagendra <nagendra.golla@amd.com>
-To: <vkoul@kernel.org>, <Frank.Li@kernel.org>, <michal.simek@amd.com>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<rafael@kernel.org>
-CC: <git@amd.com>, <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-pm@vger.kernel.org>, <nagendra.golla@amd.com>
-Subject: [PATCH V3 6/6] dmaengine: zynqmp_dma: Add per-channel reset support
-Date: Mon, 10 Aug 2026 15:34:52 +0530
-Message-ID: <20260810100452.426320-7-nagendra.golla@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260810100452.426320-1-nagendra.golla@amd.com>
-References: <20260810100452.426320-1-nagendra.golla@amd.com>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="fK8c8oGp"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c169ae1cb26so766577866b.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 03:16:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1786356981; x=1786961781; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0DdJ1gMHWzOjplPr4v+9JtrcaHIdGLk0WTVEXhfhPJg=;
+        b=fK8c8oGpIFlqTtRA0txdBW/cTc3vYYR7auns6Dv2Ygd7T8VchqymaRk3esZaMM4dr0
+         fl6qDpx451wKA5s0FoPBbAGePzydjaGh5DpTIZErh1AH6iTTNKgJ/81khcZd5vrHUhQN
+         F7AU3wSAuP694rIqtYQZLjIHL3Fs5ZkNldSMPyTRz5Ftbj8S8oATMk1AGSOkndz6z6xV
+         fT46Uca4zOFrf+ZGXbs4D3agPRqOvn8IQK04zk4exqrR1GTRNkQKb6TChOsaE3PeAcIY
+         OWWqP0TLVPm3zrsrhPU9AuEIFC8yurMUuJzMB7yQ7Su8kbnOKkUQBlwafCwIoR/peiwm
+         NqEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786356981; x=1786961781;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0DdJ1gMHWzOjplPr4v+9JtrcaHIdGLk0WTVEXhfhPJg=;
+        b=BQFiBC/x5iDO1E8sBvWbX/uJtzssAFD+t0zmcmmFK8xnWkuEEh/xBcqOYms6EiFJFn
+         bwfzCqcIIMNOSH+RQgY6DQn1Wc1KjhZAN2XntKXIcl4Tyq/ylSj/1h1wEAZuZxDo+spJ
+         tmVB3l4pR0an1K00BXowZH1RKjrdm59WL0fiXkyF/epbyz2DeLe+s3qXTzmDrviN0g+Q
+         4osdUW8vSO8NspRlIEXwYD4A3XMGTGyYYQq6j21ViIsy7j9PpTkfFpJ0EklQ7ZROC4J1
+         vEGJV6ANkCl8qQdqvSu4msUz30Bc9Bc3vNff9WlbvbZtuEnSgGwgfto8sSYDONzJNu9w
+         Ss2Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqEWjpmNZD+FH82c0ZyQ/nBLUwrMIZR6xrF98haSaZBMq4Qc/VNFskydA3Ey0MJU7W4KGpQbdJLbQyZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtPnqoIs3tyHVF3VkD77ryVOMbdfmKw8BdyLSGSUwTCpDq9DRx
+	B1T7PDeTiMQVxxD+zhCt7sa/SM3QiZLxd2Ft6Ld2MJrVUv9zNFn4X6AOhVOmg1oA5JQ=
+X-Gm-Gg: AR+sD12Bt113AhOwmFdYG8/+0AeB302wPbwX51vD1AvfGIFfbxnFJSHXUb+urc87NO6
+	yPNIwN89et9g31a9+Q98kjZc//d8fbGMtGUQyT7r3Blj6djdCsPJ3g3gVtJ3ZyBkjtjFgVJK+jG
+	/Edxs86eAB6H6U6bXpfcQoFweWXITB+Fk58mPIc+5nC5JqauHr8XuhbRfdfdiItYFUQDxr6TzlN
+	bagDCs4VMn4YsQDJOEHiFJzmAKI04hBkly0dFqjxm6ZZPjlQhCBMrwRw7TOjWg5FrN96p+d2OH2
+	eJSNegDEegWP0Xq61rmLM8asRTKGG4Rbh6qMA7YNFUix56J7Gw9j+qAId2nAX/f1TR+XRRzgYKH
+	HVv607szJJokKqjWecyZqFLFtt2kTkQNfYp+dDNFjfkpOEShdv/KQX6uu3cujmNC7ebAG40EXnS
+	QpiO4OmYtGJ16Dn0s7R/2O1pMNgY+/oRq7u19Zh6JGgWBtw9P9kodaTRQ8igw1qykN24TSm4d8Z
+	1bmRzD+cM21D1nHw8M2KXepjNYtTpMigQ==
+X-Received: by 2002:a17:907:94cc:b0:c1c:6d29:8a11 with SMTP id a640c23a62f3a-c208d3ec3cdmr919652366b.13.1786356981152;
+        Mon, 10 Aug 2026 03:16:21 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2080a29a33sm357250966b.2.2026.08.10.03.16.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 03:16:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE8:EE_|MW4PR12MB6753:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88716c31-c584-4f97-22b1-08def6c7b76b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|82310400026|36860700016|6133799003|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	7RnBIL4zU9yw/hLsCC+ArRjbwjgiY8dDb4k9lRs4l1nveOtmzwCtDDQPEON2xffdPsr6wrWlFbvOOkSjyU3k3terS4cvy3a4oVt7G5Lly19nDrNdZVzGWIRvTmn/Ay9Bh//K8gxwwzzCmOH7vfFMlz6NT9nKAsUXu6TD66rF2/xON/aEp3YNvCfqQc5Is1y2KoETDOVICRx/B33vibS+8/4MzbeEw/GLVq0xW9nsDe1S9GKD9FIGAMb+lBSueP9ADoJnkKJKzBAvKNMY24MX4qJVsv3Z9LwD0djTH13ASsKQsAvjSrhZardFeDZsVOEoa0iwySXIx0wKzD4l/tZ/a4jgQVHLj/qfFQiTc20oiJbQy6w5hvxpOTtBqZ8m0YNWbQnLbtAyR9D4Cr1TcaZjhi0eWKpDoW1nHG/Fo5cfDCsAUf2Ipl24A6c8kjmsIVPDsDl16zks1SP5XiNbb4jxcHd4QjYC77tlrzGwMS1s4WN1hWFvus9XXGfTXcJSKAIPIxGx0rD2LuJru7rg24+CJNVk+opovdqV0DM+kqL/oXbkA0DjvZ7cj+TM1I618YtjQPSA1FKFEAMlKPWhAaicGdAt5Q46xLVmqYSArgZzFyVi3Tm2lAKLouzvMg+AiAYroatHhsqujFzpGoFiCpP0p8ALj7Pte040QYnHCzgGgbcAbL09foMp7NbdJkOLKBz0TseflPvgqRzuDf3rxIwPKg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(82310400026)(36860700016)(6133799003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	PolPHrNw5Ibvhz6H2+S9JY64fV5zacPSRY2S9iY3wqyIvUPX50o6vSFbPDea5lZCM7d7w5XNcFVMl782dqpznS8aMmxPEgaXW7fI+xyity3+wi4JiU7UyXb3tFmoi14mzNxpjjcy+KD7WOokDp9crrBEEfgGY3cAE9PzGs7lp3Wvp13GKLV+YGQ9O5fLJkDzccKqIfD3j9mwuMZTVnGcxR6qc2tUr1iNuxz8ueyjF+R3R8uxtBPTm5Ci8j2k2/IMzfrs7rqsRuJEW0ORUC8mJTYU9Ibk0ChSbcZGzU+n0G3yna6Sd1v89GpSIQX3OkfK0UXU8oCAq2+3AQH+JMVWHPVuKy8RuutVSgrNJrfFhLiA4+IZHSyP5F61Nx/DuqFgW6jue42EbTHK4/IN/5dTblnOjUJP0CUdW4d0UhVNriebmTxy2bz7nuG7Z/yYd1g0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 10:11:16.7932
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88716c31-c584-4f97-22b1-08def6c7b76b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE8.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6753
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 10 Aug 2026 12:16:19 +0200
+Message-Id: <DKL6P7G0WTM7.UJ6KZERQZDFK@fairphone.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Joerg Roedel
+ (AMD)" <joro@8bytes.org>, "Will Deacon" <will@kernel.org>, "Robin Murphy"
+ <robin.murphy@arm.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Bjorn Andersson" <andersson@kernel.org>,
+ "Luca Weiss" <luca.weiss@fairphone.com>
+Cc: <linux-arm-msm@vger.kernel.org>, <iommu@lists.linux.dev>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH 00/12] iommu: qcom_iommu: implement support for
+ instances on MSM8974
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
+In-Reply-To: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
 
-Versal Gen2 and Versal Net expose a dedicated reset line per ZDMA
-channel. Use device_reset() to trigger a mandatory reset pulse on the
-channel during probe when match data indicates reset is supported.
+Hi Dmitry,
 
-The has_reset field in zynqmp_dma_config controls whether reset is
-performed for a given compatible. For Versal Net and Versal Gen2,
-has_reset is set to true, so device_reset() is called and probe fails
-if the resets property is missing in the device tree. For legacy SoCs,
-match_data is NULL and has_reset defaults to false,so the reset path
-is skipped entirely.
+Many thanks for working on this and sending this patch series!
 
-Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
----
-Changes in V3:
-- Introduce has_reset flag in zynqmp_dma_config to gate the reset path
-  per-compatible instead of calling device_reset() unconditionally
-- Move the of_device_get_match_data() call before the reset block so
-  has_reset can be checked in the same code path that reads irq_offset
----
- drivers/dma/xilinx/zynqmp_dma.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+On Sun Aug 9, 2026 at 10:15 PM CEST, Dmitry Baryshkov wrote:
+> Qualcomm MSM8974 platform has five SMMU instances, used by display, GPU,
+> Venus, VFE (camera) and JPEG encoder. Each of them follows ARM SMMU v1
+> spec, however they differ from other Qualcomm platforms in the
+> implementation-specific registers and also in interaction with TZ.
+> Venus, MDP and VFE SMMUs are secured and require programming only of
+> CBs, while GPU and JPEG require full programming.
+>
+> This series skips IOMMUs which can't be tested right now (VFE and JPEG),
+> and adds only MDP, GPU and Venus (although untested, it is required for
+> display to work) SMMU instances.
 
-diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
-index 7561416b8e62..7ec6598ea587 100644
---- a/drivers/dma/xilinx/zynqmp_dma.c
-+++ b/drivers/dma/xilinx/zynqmp_dma.c
-@@ -18,6 +18,7 @@
- #include <linux/clk.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/pm_runtime.h>
-+#include <linux/reset.h>
- 
- #include "../dmaengine.h"
- 
-@@ -928,6 +929,14 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
- 	if (IS_ERR(chan->regs))
- 		return PTR_ERR(chan->regs);
- 
-+	match_data = of_device_get_match_data(&pdev->dev);
-+	if (match_data && match_data->has_reset) {
-+		err = device_reset(&pdev->dev);
-+		if (err)
-+			return dev_err_probe(&pdev->dev, err,
-+					     "failed to reset channel\n");
-+	}
-+
- 	chan->bus_width = ZYNQMP_DMA_BUS_WIDTH_64;
- 	chan->dst_burst_len = ZYNQMP_DMA_MAX_DST_BURST_LEN;
- 	chan->src_burst_len = ZYNQMP_DMA_MAX_SRC_BURST_LEN;
-@@ -943,7 +952,6 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
- 		return -EINVAL;
- 	}
- 
--	match_data = of_device_get_match_data(&pdev->dev);
- 	if (match_data)
- 		chan->irq_offset = match_data->offset;
- 
--- 
-2.43.7
+I do have a patch series (sent years ago to the mailing lists as well)
+for CAMSS so I can definitely test this in the future.
+
+>
+> Note, to get display to work properly one fix is necessary, [1]
+>
+> [1] https://patch.msgid.link/20260809-msm8974-mmcc-fix-v1-1-50f2dcf18d2e@=
+oss.qualcomm.com
+
+I've applied this series on v7.2-rc7, with the extra commits between
+that and linux-next for qcom_iommu.c backported so that your series
+applies without conflicts.
+
+So far I'm stuck with the GPU not being able to probe, adding some
+printk's shows that in msm_iommu_new() the call for
+iommu_attach_device() is failing.
+
+[    5.971154] msm_mdp fd900100.display-controller: failed to load adreno g=
+pu
+[    5.972991] msm_mdp fd900100.display-controller: failed to bind fdb00000=
+.gpu (ops a3xx_ops [msm]): -16
+[    5.974073] msm_mdp fd900100.display-controller: adev bind failed: -16
+[    5.974152] panel-s6d6fa1 fd922800.dsi.0: error -EBUSY: Failed to attach=
+ to DSI host
+[    5.974230] panel-s6d6fa1 fd922800.dsi.0: probe with driver panel-s6d6fa=
+1 failed with error -16
+
+~ # dmesg | grep iommu
+[    0.127014] iommu: Default domain type: Translated
+[    0.127052] iommu: DMA domain TLB invalidation policy: strict mode
+[    0.739899] platform fdb00000.gpu: Adding to iommu group 0
+[    0.741358] qcom-iommu fdc84000.iommu: iommu sec: pgtable size: 90112
+[    6.006877] platform fd900100.display-controller: Adding to iommu group =
+1
+
+Have you seen any issues like this?
+
+Regards
+Luca
+
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+> Dmitry Baryshkov (12):
+>       dt-bindings: iommu: qcom,iommu: document the MSM8974 IOMMUs
+>       iommu: arm-smmu: add global register definitions used by the QSMMU
+>       iommu: qcom_iommu: extract context bank programming into a helper
+>       iommu: qcom_iommu: support the short-descriptor pagetable format
+>       iommu: qcom_iommu: handle the SMMU global register space
+>       iommu: qcom_iommu: support non-TZ-managed instances
+>       iommu: qcom_iommu: restore context bank state after power collapse
+>       iommu: qcom_iommu: halt the micro-MMU while programming context ban=
+ks
+>       iommu: qcom_iommu: allow faulting transactions to terminate
+>       iommu: qcom_iommu: program BFP (prefetch) settings
+>       iommu: qcom_iommu: add the MSM8974 instances
+>       ARM: dts: qcom: msm8974: add the IOMMUs
+>
+>  .../devicetree/bindings/iommu/qcom,iommu.yaml      |  16 +-
+>  arch/arm/boot/dts/qcom/qcom-msm8974.dtsi           |  85 +++-
+>  drivers/iommu/arm/Kconfig                          |   1 +
+>  drivers/iommu/arm/arm-smmu/arm-smmu.h              |  10 +
+>  drivers/iommu/arm/arm-smmu/qcom_iommu.c            | 445 +++++++++++++++=
+++++--
+>  5 files changed, 517 insertions(+), 40 deletions(-)
+> ---
+> base-commit: 6c5c106bff878247a9cc7255077aab9040df8bf8
+> change-id: 20260809-msm8974-iommu-upstream-144b1e2a15f0
+>
+> Best regards,
+> -- =20
+> With best wishes
+> Dmitry
 
