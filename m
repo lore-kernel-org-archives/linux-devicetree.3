@@ -1,146 +1,190 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8398D4248AE
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 17:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45442363C75;
+	Mon, 10 Aug 2026 17:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786382292; cv=none; b=Jp9G6xzPOHq9caBSG5TZybQxymdrnofW5CLwpWajf3l7kggiTBkqm/f7dBeDmFOWkSAJNq0eLXbw2nwCqzJ8RACk+PYwC6WdFxAnrlJ+20B7IduU9w0yHK2MBT32e24cA4My7/Tl9Mub/DyJ7D3j4yB9gjZ0ugRYBlwJFfJwavk=
+	t=1786382455; cv=none; b=udMgyL0tlikUZgyibG0LVPjy403FsR3QfgmKrN2AjpWZYPjbkvepkaNpmvgSokyMfMOK8BrsFl3/mY7kUKZ+J7yQ9JymyJXkKr966uIGlDUcmEdZ/MAQio5xDI3yScUb7KRYPeF0Dq1qb+iH7IMkysJvMqs+qvGclO7LIz02Alo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786382292; c=relaxed/simple;
-	bh=Ci1XaFzRBv/qpXZwP21pNljumVkUJ79fkDCBQF3hafY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YWt3JOxOs2jPeqZHmBFZ4Atgy9xTvdFZNBKgqQiQjsa1gIy0pzkeU3/qOCv8R2qSR24LnQ/uyZB++AdaRUvBDumZtYqAWEdNPs2Um97vxUjT7Mtmt34HkDtYbg38G9mgpmMYpPZM0qH8ACR48TzmELfWRaXCOskx+PpqNYsXXxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XKoi7lVl; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Tk5nG4P4; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1786382455; c=relaxed/simple;
+	bh=b8U61I8U+pXiZOhugm9hn4TcNffMep9S/iFL+fm3y2w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FSTF37v6+75j7ak+0Yq5I5TI6NcCb99rkSNP1GnnMnCjhKyYE2/Pm4x51GGTYrNBFiQguMJNSnKl3aDxDImcjvzIMYCEVkNuRCZNvt+ixLoaVl4RlVZ4oMRQnikdiFmFK1cQ4YbsxtwdNZXLLy+xYPbEXWKbCB+PhLA6JwXtqtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8oaKLPJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XKoi7lVl";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Tk5nG4P4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786382290;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e60Y2Hd3VNcQx2rW0XYN6hHI/hSb69wpEJYZUkdU7+s=;
-	b=XKoi7lVl79VoUOkSHi6ykZuixBJ4ebXIC2mYA2rPo3hPr5fsPKe8mmqYQzCcQlr0D2EPkO
-	LSKtlxnst0qNm1P8RnN5WFu6Wcvm9PAZ2LQ5AswLBUfKbvJPNtyfjTOlGOrUND5IbI6vCG
-	nA1n8NBrtFD5TLachLd7zWvYpUqLsQ0=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-611-NaCS5bMpMMCEO2HMaZMlYA-1; Mon, 10 Aug 2026 13:18:04 -0400
-X-MC-Unique: NaCS5bMpMMCEO2HMaZMlYA-1
-X-Mimecast-MFC-AGG-ID: NaCS5bMpMMCEO2HMaZMlYA_1786382284
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-81bee860fb7so60668607b3.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 10:18:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786382284; x=1786987084; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=e60Y2Hd3VNcQx2rW0XYN6hHI/hSb69wpEJYZUkdU7+s=;
-        b=Tk5nG4P4jUSvmLWVX4rJqIwOUN1/aEp+++F3gNCKjkD+sCb7SJmiHu9bmz2bd9ktHD
-         JxW79x77QlRsd4OX7db3HT3vuqyT4cxRG8D8Nk4p8+72h/BwOyb6VuIqZTDVrzWYswjw
-         6xRTS5LQZGYSRiSYTALyh3h7j6sfTBC6sTFSqVrpEvPnFK7/WncX3G1b5lyxRNxM5Ft+
-         FqaOH4uCch+hqUF0JKZKnt8bbntDh5w9WWXXTD45kF0Nw7JhrExoJ19C2tpzJGb7x6jN
-         3V2VL1ZpIDFRyd2cz9+GL7EOOjVOqbTO2W1iTYhyYvYAF3D8BebURw+WZopXFWrtJLcy
-         n9bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786382284; x=1786987084;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e60Y2Hd3VNcQx2rW0XYN6hHI/hSb69wpEJYZUkdU7+s=;
-        b=jc/eqWDmRsnj76ktvjFPY1ybc74XI9fhBejuxWePW7GDLAA6fTWRpAvxeXHA4m6kv7
-         cswTk6rWnJ9YasWjfJnjYnwHq1No9hmorDES2IKWsRjkKvALjucWfzPj5rfHr07ZNiqe
-         jGIa7mwcDIJ2sR1FbVRS+miF9ha/OTZtIShNqsMUNnVzP1HW5mR1Yi0P5IjoyQW6ewwk
-         soMl4BXWsOHocgemgjhdAG6ABYBoOcz5qkje7WszQyTIme3+fkJLFbT4hwFlEeaLgaIj
-         9ZgoebaGSJbEy/6SACV+v84PIuc28sATYmQWbPPHc1NXGvtij6x8+KnGffjEorNI5pdY
-         /7EA==
-X-Forwarded-Encrypted: i=1; AHgh+RpmWr/zXUvSaIz2SfT3eSz2POrnSalMI+uw01gbJL0vc3MzH4WwlxEQqWlaz0FhhdOGgLHakVxgQOzw@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx++bw1czAnuFLuThLDVbc7znl+F5ROAeXo9CYuGqZJw1QtQvwL
-	lJGxsPq6BP8xGpGtMtVLQRfogTJQpXwLs28LuVou+o7BEzARCoxuXI9xi1xB0lZSoLbEWtjx6Lh
-	i4cUvcwkdk0Xj05cFS0KvUyL8jypXkWc+fAmJvXJ+2HNmTJF1kjYbg1gKDYxHet8=
-X-Gm-Gg: AR+sD10WqLBc97pQyCWELp3gpUrIFxa7QC5gffDxjAXuMSkmvX98WRVNiGWBuiso1WX
-	y739ibPknfsz6ig/DXrUF+m/AkFgs1cHVbwIzmtWq9wkk0/DEBm9JdeYPVeuXu0jV+OHXLtc5Bb
-	7hK2q73JE+48kJ91jvB5yw0pgo9cxePRmvT08TrPTFZ3wuuipgBETGnA9eoPkX2IvsY/sXySJP2
-	CdgC7Tn4t3B1ptiayvtiSANTBhZ/3XWsqlHDkD7JnXP6AH+YI4ZIYKmnmnSiiHaW02NOa6QZoKX
-	gskQmpMsXwR8MtZuV6lCg+c9UDzg78jTPajfcqYTCc2wYAknuPvJ+wyfcMm5TqA0fUtCQxQBo8J
-	Aerk8OMEw+/XsEz78yBSuuz3ly+CFUEJkebM=
-X-Received: by 2002:a05:690c:9a84:b0:81e:bd02:b02c with SMTP id 00721157ae682-825728d1963mr135364597b3.1.1786382283703;
-        Mon, 10 Aug 2026 10:18:03 -0700 (PDT)
-X-Received: by 2002:a05:690c:9a84:b0:81e:bd02:b02c with SMTP id 00721157ae682-825728d1963mr135364137b3.1.1786382283255;
-        Mon, 10 Aug 2026 10:18:03 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-823f75c1c17sm60279477b3.47.2026.08.10.10.18.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 10:18:02 -0700 (PDT)
-Date: Mon, 10 Aug 2026 13:17:59 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Luo Jie <jie.luo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
-	quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
-Subject: Re: [PATCH v2 03/12] clk: divider: Introduce
- CLK_DIVIDER_EVEN_INTEGERS_NO_OFFSET flag
-Message-ID: <anoHx6sbVKn0GVlk@redhat.com>
-References: <20260806-qcom_ipq5210_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com>
- <20260806-qcom_ipq5210_cmnpll-v2-3-cce718b8ec17@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8oaKLPJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11341F000E9;
+	Mon, 10 Aug 2026 17:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786382451;
+	bh=jEh3ZorWlAwQDHaDMh1BWutAJBwz0a3ej5Meo/CoAgc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n8oaKLPJ/Ww2LqSxXW58R48nYZ8Be4wE9gjxOvsr51Qszs4YhkIvCmWLMsXajPqBF
+	 pl3ukjdwVbTYDHJBo7zBzyDi6Ohzyp1DtZV+SykYfMMUWecCrvrlFkYd7MPoya4Z9q
+	 hNM9/rxhmxDdum9EBvivzBwss9AAkSdUll3cAl02G3j+vE41Kncz8Rv2YWg5U/L45e
+	 eMgHqDKy9M+hFmjgk97NNyu2tINeaILLpSBAvgzOK3NrtilH8q1zhxMoxZwmxcIVM/
+	 ynqdooKJId39q4lkE6DMAxsBeWZqRhMdVx6bJg40pnOt+SC/OiDK/qiv6rkitRbjyI
+	 2V224suDe7rQA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 18/19] dmaengine: ti: k3-udma-v2: Update glue layer
+ to support PKTDMA V2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, dmaengine@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260810151423.1948224-19-s-adivi@ti.com>
+References: <20260810151423.1948224-1-s-adivi@ti.com>
+ <20260810151423.1948224-19-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 17:20:50 +0000
+Message-Id: <20260810172050.D11341F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-3-cce718b8ec17@oss.qualcomm.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Luo,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Hardware TX and RX channels are left enabled if the V2 autopairing=
+ process times out, leading to potential DMA Use-After-Free.
+- [Low] Unmet direct dependency for `TI_K3_RINGACC` when `TI_K3_UDMA_V2` is=
+ selected.
+--
 
-On Thu, Aug 06, 2026 at 11:53:07PM -0700, Luo Jie wrote:
-> Some hardware dividers derive an even divisor directly from the raw
-> register value, i.e. divisor = 2 * val, with no +1 offset. This differs
-> from CLK_DIVIDER_EVEN_INTEGERS, which is one-based (divisor = 2 *
-> (val + 1)).
-> 
-> Add CLK_DIVIDER_EVEN_INTEGERS_NO_OFFSET for this variant, updating
-> _get_maxdiv()/_get_div()/_get_val() accordingly. _is_valid_div() is
-> extended to also reject odd divisors, since _get_val()'s `div >> 1`
-> would otherwise silently decode them to the wrong even value (e.g. 3
-> -> 1 -> 2).
-> 
-> To avoid regressing rate requests that previously computed an odd
-> divisor (which used to succeed with a silently wrong rate), round to
-> the nearest even divisor in _div_round_up(), _div_round_closest(), and
-> _next_div(), mirroring how CLK_DIVIDER_POWER_OF_TWO already rounds to
-> the nearest power of two.
-> 
-> Also guard divider_ro_determine_rate() against a zero divisor, which
-> can occur from an unprogrammed/reset register, the same way
-> divider_recalc_rate() already does: WARN unless CLK_DIVIDER_ALLOW_ZERO
-> is set, and return -EINVAL.
-> 
-> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+--- Patch [18]: [PATCH v8 18/19] dmaengine: ti: k3-udma-v2: Update glue lay=
+er to support PKTDMA V2 ---
+commit 679ff99789e75f58a08b38ae95963dd08f423c94
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-One of the other patches in your series says:
+dmaengine: ti: k3-udma-v2: Update glue layer to support PKTDMA V2
+   =20
+Update glue layer to support PKTDMA V2 for non DMAengine users.
+The updates include handling absence of TISCI, direct IRQs, and
+Autopair: Lack of PSIL pair.
 
-    The NSS (network subsystem) clock is derived from the CMN PLL output
-    divided by 2 and then further divided by a configurable 6-bit divider.
+> diff --git a/drivers/dma/ti/Kconfig b/drivers/dma/ti/Kconfig
+> index 40713bd1e8e9b..ada2ea8aca4b0 100644
+> --- a/drivers/dma/ti/Kconfig
+> +++ b/drivers/dma/ti/Kconfig
+> @@ -68,7 +68,7 @@ config TI_K3_UDMA_COMMON
+>  config TI_K3_UDMA_GLUE_LAYER
+>  	tristate "Texas Instruments UDMA Glue layer for non DMAengine users"
+>  	depends on ARCH_K3 || COMPILE_TEST
+> -	depends on TI_K3_UDMA
+> +	depends on TI_K3_UDMA || TI_K3_UDMA_V2
 
-Can you register a fixed-factor-clock parent with /2, then use
-CLK_DIVIDER_ONE_BASED? That should yield the same results and it may
-more accurately represent the hardware as well.
+[Severity: Low]
+Does selecting TI_K3_UDMA_V2 cause an unmet dependency warning?
 
-Brian
+TI_K3_UDMA_V2 selects TI_K3_RINGACC but lacks the depends on
+TI_SCI_INTA_IRQCHIP dependency required by TI_K3_RINGACC.
 
+>  	help
+>  	  Say y here to support the K3 NAVSS DMA glue interface
+>  	  If unsure, say N.
+
+[ ... ]
+
+> diff --git a/drivers/dma/ti/k3-udma-glue.c b/drivers/dma/ti/k3-udma-glue.c
+> index bec4deb480e60..9b9921e904bc2 100644
+> --- a/drivers/dma/ti/k3-udma-glue.c
+> +++ b/drivers/dma/ti/k3-udma-glue.c
+
+[ ... ]
+
+> @@ -525,21 +539,38 @@ int k3_udma_glue_enable_tx_chn(struct k3_udma_glue_=
+tx_channel *tx_chn)
+>  {
+>  	int ret;
+> =20
+> -	ret =3D xudma_navss_psil_pair(tx_chn->common.udmax,
+> -				    tx_chn->common.src_thread,
+> -				    tx_chn->common.dst_thread);
+> -	if (ret) {
+> -		dev_err(tx_chn->common.dev, "PSI-L request err %d\n", ret);
+> -		return ret;
+> -	}
+> +	if (tx_chn->common.udmax->match_data->version =3D=3D K3_UDMA_V1) {
+
+[ ... ]
+
+> +	} else {
+> +		u32 val;
+> +
+> +		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
+> +				    UDMA_CHAN_RT_CTL_AUTOPAIR | UDMA_CHAN_RT_CTL_EN);
+> +
+> +		ret =3D read_poll_timeout(xudma_tchanrt_read, val,
+> +					val & (UDMA_CHAN_RT_CTL_PAIR_COMPLETE |
+> +					       UDMA_CHAN_RT_CTL_PAIR_TIMEOUT),
+> +					100, 500, false,
+> +					tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG);
+> +		if (ret || (val & UDMA_CHAN_RT_CTL_PAIR_TIMEOUT)) {
+> +			dev_err(tx_chn->common.dev, "TX channel autopair timeout\n");
+> +			return -ETIMEDOUT;
+> +		}
+
+[Severity: High]
+If the autopairing times out, does this leave the TX channel enabled?
+
+Since UDMA_CHAN_RT_CTL_EN was set before the timeout and is not cleared on
+this error path, could the hardware eventually pair and perform DMA accesses
+to freed memory if callers assume a failure means the channel is inactive?
+
+> +	}
+> =20
+>  	k3_udma_glue_dump_tx_rt_chn(tx_chn, "txchn en");
+>  	return 0;
+
+[ ... ]
+
+> @@ -1406,21 +1481,38 @@ int k3_udma_glue_enable_rx_chn(struct k3_udma_glu=
+e_rx_channel *rx_chn)
+>  	if (rx_chn->flows_ready < rx_chn->flow_num)
+>  		return -EINVAL;
+> =20
+> -	ret =3D xudma_navss_psil_pair(rx_chn->common.udmax,
+> -				    rx_chn->common.src_thread,
+> -				    rx_chn->common.dst_thread);
+> -	if (ret) {
+> -		dev_err(rx_chn->common.dev, "PSI-L request err %d\n", ret);
+> -		return ret;
+> -	}
+> +	if (rx_chn->common.udmax->match_data->version =3D=3D K3_UDMA_V1) {
+
+[ ... ]
+
+> +	} else {
+> +		u32 val;
+> +
+> +		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG,
+> +				    UDMA_CHAN_RT_CTL_AUTOPAIR | UDMA_CHAN_RT_CTL_EN);
+> +
+> +		ret =3D read_poll_timeout(xudma_rchanrt_read, val,
+> +					val & (UDMA_CHAN_RT_CTL_PAIR_COMPLETE |
+> +					       UDMA_CHAN_RT_CTL_PAIR_TIMEOUT),
+> +					100, 500, false,
+> +					rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG);
+> +		if (ret || (val & UDMA_CHAN_RT_CTL_PAIR_TIMEOUT)) {
+> +			dev_err(rx_chn->common.dev, "RX channel autopair timeout\n");
+> +			return -ETIMEDOUT;
+> +		}
+
+[Severity: High]
+Similarly for the RX channel, if the autopairing times out, does this return
+-ETIMEDOUT without disabling the hardware channel?
+
+Could this lead to memory corruption if the hardware operates after the dri=
+ver
+has freed the associated ring buffers?
+
+> +	}
+> =20
+>  	k3_udma_glue_dump_rx_rt_chn(rx_chn, "rxrt en");
+>  	return 0;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
+224-1-s-adivi@ti.com?part=3D18
