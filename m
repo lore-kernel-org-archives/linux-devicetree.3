@@ -1,85 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8A741A4EE;
-	Mon, 10 Aug 2026 16:26:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39807366067;
+	Mon, 10 Aug 2026 16:27:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786379196; cv=none; b=CGnpF5MhfvgKwdPmrT5X8c1pAz7yL0D8trjfQFB6CWjH+1TvCriMw8VSWrW17Y6sSLoY/Uf4A2Re6C2rQTPJGSj27ETyLX0e7g0K+45kuitNL1uzaSJSk47tI5uktNI+8icP/I6IlWCM2G00hnUKUh9BD+MoM5+yjROlczpWlLY=
+	t=1786379255; cv=none; b=hOx4n6XNrtIQGrtfGTDp9BE0aZMEM9zExZXbNTi9vlXMg28gN64EfPNb65KV9Md7bi0DYshA+L+PR7t7s6LBBqCgV7MIDSRxYY4G44oCeVg0hzRLdpB7529Ao4vL3OjMoIhheL87GAsJrOK77aevQpYfmw2Yx6+ex01m1w7TH3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786379196; c=relaxed/simple;
-	bh=ysPMNBeJ2ay+VOXT1/Gdtq9+3bpoy6chLIHWvgB0SHY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hw7dkEpju4bxSh9Nnyycl2YHyLoh0dIwufcmQnQZrMjlARHRvyGIX39YJWJHawVZmsNKu8T4LbZmz+ugSUe+YCAkNv7DplZiviQF+7Ha50QbmbFsS+dH9HShlKxgoFq/jijSIQMOw7jnHIJte2di/L4sy/O0Pb+SZI9TE3yu2N8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZLUvply; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786379255; c=relaxed/simple;
+	bh=LqxxeEMSjyK8vAcXvti/bX9KGGGhe5Ly2SqSWNWYsVg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aH2iVMnQN1m+VjMryPB91gn0ZCB6Wh6rmvla1tUsv5ajyiRXX9XoXhvsR7PQ7pUqhaPPS6PhE4TM1Xv0NwGKJiFX0gYm3d0Pq+IfbAjN7MFoaZlbVA/xDncm3pMVK8OpGt1+tMZqC/n5LxNHEP1QPOYc7tAlksaqAfYfNO+ZQn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjA24kuB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZLUvply"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE791F00A3A;
-	Mon, 10 Aug 2026 16:26:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjA24kuB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A335D1F000E9;
+	Mon, 10 Aug 2026 16:27:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786379185;
-	bh=SUi8TvaGZ/ONLDR20xtbgTj2PSwgrawqHUmwvPH281Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iZLUvplyIcNz5VE9d3kCC55idVkZrcMUkNQMbp9OGxSTxJfNYZ4yr2JOIOsKLJAn8
-	 OObjougUbmk/38Tg1bYoCpjH+ub9h5QwXhL5o/8zljucHR+7DSNhua66AetPZHytcQ
-	 3y2CRfYBQvSNkeuKQbvgCx8L6hlt9D3WV679tfLe6BvPHzmCHXlH9U99BxReF/HGin
-	 TL4hR+2U4zuEU+faiR9plq7xmFoQFSgBVHxVjTPoHNr+pLGwQl794ToVshVql7ZgUD
-	 g+L0acQ0yPs3jYsKAs1idJ115olPzn+IoDNqdAlrajYd2g8cEdKKUpyT9Dcts4aZoC
-	 Zur8II8DGV73g==
-Date: Mon, 10 Aug 2026 18:26:15 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: Re: [PATCH v7 13/16] power: sequencing: pcie-m2: Add usb and sdio
- targets for E-key connector
-Message-ID: <hxidwwqeooyo4fwjc6rmbsfv35b2af7flub23qcpwin6bqj5ff@h46sqvwc6k6i>
-References: <20260724084328.3943997-1-wenst@chromium.org>
- <20260724084328.3943997-14-wenst@chromium.org>
+	s=k20260515; t=1786379254;
+	bh=a4NIp7UWSdI1PDM9FLC35eZGqUtSlnKFAiqVC4Tdb5c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DjA24kuBBd3wDRL8Z7+Ywbzu6gNQChBSS3+Cb+VR8sN1+MauwV8yx6Fpom26Yd7L0
+	 jIOH/ksVtKnAA7xhRddHt2E+bUvanVmzBMeXAr9kx5GEt2W4tNKZgSXDn+8RvBlFAF
+	 pWmvrEXUjfO1yut2pmKa9ZeHl5/6BXtfTky2MeoWDxOtT8cW8vJf4rwmI9U7CCqOLO
+	 e027qZVJ33zJAsyAs6qL4Kl5PYwHb+PLbSltyXcxcIwICh9BX5E6PJL/MNVzdx5Yt4
+	 NhLV6YJf6l29OGAbmAZLOUIaiYQP2ewLPuIi7TNVSxA2sp2fVudiXY8zO4Atw+x2lj
+	 6svsvUMtSfdeA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 11/19] dmaengine: ti: k3-udma: move inclusion of
+ k3-udma-private.c to k3-udma-common.c
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: robh@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260810151423.1948224-12-s-adivi@ti.com>
+References: <20260810151423.1948224-1-s-adivi@ti.com>
+ <20260810151423.1948224-12-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 16:27:33 +0000
+Message-Id: <20260810162733.A335D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260724084328.3943997-14-wenst@chromium.org>
 
-On Fri, Jul 24, 2026 at 04:43:22PM +0800, Chen-Yu Tsai wrote:
-> The M.2 E-key connector allows either PCIe or SDIO for WiFi and USB or
-> UART for BT. Currently the driver only supports PCIe and UART.
-> 
-> Add power sequencing targets for SDIO and USB. To avoid adding a
-> complicated dependency tree, rename the existing power sequencing units
-> "pcie" and "uart" to "wifi" and "bt". The existing target names are left
-> untouched. The new "sdio" and "usb" targets just point to the renamed
-> "wifi" and "bt" units.
-> 
-> The "unit" names are internal to the power sequencing framework, and
-> should be confined to a single provider. The names are only
-> informational. Dependencies are tracked with pointers to other units.
-> 
-> The "target" names are the strings that the consumer uses to acquire a
-> descriptor with. As these remain the same, existing users will continue
-> to work.
-> 
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+New issues:
+- [High] Moving `xudma_*` exports to `k3-udma-common.c` severs the module d=
+ependency between the glue layer and the `k3-udma` driver, allowing trivial=
+ module unload and subsequent use-after-free.
 
-- Mani
+Pre-existing issues:
+- [High] `of_xudma_dev_get` returns a pointer to devres-managed memory with=
+out establishing a device link, allowing use-after-free via sysfs unbind.
+--
 
--- 
-மணிவண்ணன் சதாசிவம்
+--- Patch [11]: [PATCH v8 11/19] dmaengine: ti: k3-udma: move inclusion of =
+k3-udma-private.c to k3-udma-common.c ---
+commit d7f9cc34a06f8d7304b5d1021da68dd8f487667c
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+
+dmaengine: ti: k3-udma: move inclusion of k3-udma-private.c to k3-udma-comm=
+on.c
+
+This commit relocates the inclusion of k3-udma-private.c from k3-udma.c to
+k3-udma-common.c to allow sharing the code with other udma variants.
+
+> diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-com=
+mon.c
+> index b9d3cac5eb9d0..01b66e9f026b4 100644
+> --- a/drivers/dma/ti/k3-udma-common.c
+> +++ b/drivers/dma/ti/k3-udma-common.c
+[ ... ]
+> @@ -2535,3 +2535,6 @@ EXPORT_SYMBOL_GPL(k3_udma_setup_resources);
+> =20
+>  MODULE_DESCRIPTION("Texas Instruments K3 UDMA Common Library");
+>  MODULE_LICENSE("GPL v2");
+> +
+> +/* Private interfaces to UDMA */
+> +#include "k3-udma-private.c"
+
+[Severity: High]
+Does moving this include introduce a regression by shifting the xudma_*
+exports from the k3-udma module to the k3-udma-common module?
+
+The k3-udma-glue.ko module bypasses the standard dma engine framework and
+relies on these xudma_* functions. Previously, these functions were exported
+by the k3-udma.ko driver, establishing a module dependency that prevented
+k3-udma.ko from being unloaded while active.
+
+By moving the exports to k3-udma-common.ko, k3-udma-glue.ko no longer holds
+a reference to k3-udma.ko. If an administrator runs rmmod k3-udma, could it
+successfully unbind the driver and free the devm-allocated struct udma_dev,
+causing a use-after-free in the networking drivers on their next operation?
+
+[Severity: High]
+This is a pre-existing issue in k3-udma-private.c, but looking at how
+of_xudma_dev_get() is implemented:
+
+drivers/dma/ti/k3-udma-private.c:of_xudma_dev_get() {
+    ...
+    ud =3D platform_get_drvdata(pdev);
+    put_device(&pdev->dev);
+    if (!ud) {
+    ...
+}
+
+Since of_xudma_dev_get() drops the device reference before returning the
+pointer to the devres-managed struct udma_dev, and does not establish a
+supplier-consumer relationship via device_link_add(), can this lead to a
+use-after-free if a privileged user unbinds the driver via sysfs?
+
+The driver core would be unaware of the glue layer's dependency, allowing t=
+he
+unbind to succeed and free udma_dev while consumers hold a dangling pointer.
+
+> diff --git a/drivers/dma/ti/k3-udma.c b/drivers/dma/ti/k3-udma.c
+> index 9a261747c8709..ddedd51ab26d9 100644
+> --- a/drivers/dma/ti/k3-udma.c
+> +++ b/drivers/dma/ti/k3-udma.c
+[ ... ]
+> @@ -2857,5 +2857,3 @@ module_platform_driver(udma_driver);
+>  MODULE_DESCRIPTION("Texas Instruments UDMA support");
+>  MODULE_LICENSE("GPL v2");
+> =20
+> -/* Private interfaces to UDMA */
+> -#include "k3-udma-private.c"
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
+224-1-s-adivi@ti.com?part=3D11
