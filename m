@@ -1,303 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013061.outbound.protection.outlook.com [40.107.162.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CEA361DBA;
-	Mon, 10 Aug 2026 17:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786381452; cv=none; b=raU3eBnEhg8lxFVU0OYDvlTif+2e/yDa9Hu60kfNPBUISzY/oGaFWfIbcw9uLrVwoQxzsQdakf9GzV/sZQm8I6CBVVO5pdvOSxNt6V3CLw0xX4pYz75Vhiy5mXYX9mtLh9ZRmZJT3kvUaA4o2xjIu4LlqA5A+55CQdPusEVYT+I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786381452; c=relaxed/simple;
-	bh=XocDMTozul/zrTOl/wF0/MH9EtQk8rCLVp2BfXIoeEk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nC/OlgP+2UY6WiJNrpcis2tEPYXhFmt/YT8XxjhQik76MjghD6unTER3XK5Ji9gtHiXQqYIWtwtRE59tUki5ZIWc/RgImOgnkbg/t21a7KCuOJanjaXspCa7Cm0Bkdp3N2UoOtuaznqvUirSE4PIvAi7ButNRHuWrHK/3XTcNHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlrCRWgi; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30391381AFB;
+	Mon, 10 Aug 2026 17:04:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786381467; cv=fail; b=EZCyVc7Ni66gLHEZVG3MzZGXZMrv1kd6anxQV7TBr8CnMteGZ+9rvAt8FrYbKhlsoX/elSKWXdCEkFAk2E0YgJwA7FN5209sieaUG2Dspkc85TnfzscXJTqqpBD16OTGkawGcGd5B5g6j8d+KVKKNLktLpM+5jmzlycWLPxz3kM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786381467; c=relaxed/simple;
+	bh=zvl7TvyB5aVvBYpuMehVjQyStPe4nPRaKL+sqCh+pdk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=cjamPVWS00FOj9bGj8G/wy8o6SoAzOKg9Uw/ZALCZibRI+BfABYbzGEVDed9V2uuBcxI2xQ5urbPsPMIiREx1ZAl6qjWo/rQ1P1NVx2NHwRHH3K2ih/5RE8OJMXl7/N8pacvA7xZPFWMjKZb84ilIwj5A8dyJBCUC1ZrEMCD0a8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Zp3sC22k; arc=fail smtp.client-ip=40.107.162.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlrCRWgi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5278C1F000E9;
-	Mon, 10 Aug 2026 17:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786381450;
-	bh=ScNPKJm1abt8X5OlXSNubOVVD9BaXsH3ma1Vusfys2k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dlrCRWgibLDaKT3gmHSOB/FBdHSxXC21kN5izHb1KXQXrzxaAIg6EOMOMOOqQS+y8
-	 vnH57TFwVErT3Gep0t6QgZpqn3Gr3B8Gf3CbB99iCrvtcfWDdmeu1XUB9Jr4SFsDOO
-	 S7cmAFBPBbaxmGeXbDQhDwrtsjGiF67B03NqL/JlWEbTJM7EfXT+oG8m69kUGwUgju
-	 a3E78d4487FLDLFh5XHqfSwSfokgn+neEAcML4FFsRQ5WFTEJLO3WzaRBoB0UWzyyZ
-	 sbpqwzAapQgDuPUFPsyRKVrzVKT7bETjVYwnnmpeJkhNsmye1Y/xsRdiEAJFRpnApD
-	 fmVz0evC5wt4Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 16/19] dmaengine: ti: k3-udma-v2: New driver for K3
- BCDMA_V2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org
-In-Reply-To: <20260810151423.1948224-17-s-adivi@ti.com>
-References: <20260810151423.1948224-1-s-adivi@ti.com>
- <20260810151423.1948224-17-s-adivi@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 17:04:09 +0000
-Message-Id: <20260810170410.5278C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Zp3sC22k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ck840dL2av7kEncH53qOG6OqojO2meGFrL6j9NGscTGSl5YNQ1URCVS92AejBJabac8XKLHDR0GOjAeXLcKgGFGcvFEEriZ9eV9tx+UbLTcu5lb7a4rX5g+4gwdzVZX6P1ZGwvnbKwrHi+tGqMaklZlnVnmNG7vjrQ9Q48YE2M+/B5+Cl43N7YHtuyMKC+/3CbinNMlxFXPHlelvo66jTj+DZdPRUhc3+wLmpqOjid70lEuRnbLn8r9obcHQzavLoSAe4/B3MBPKMcb+89aaNgDz3PD+oH7U7AETlAL9QFuqv6Z2SwOucn3vGUBMrVw1e9NSiwJDO9+0Z/5jftbcbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6LZmjn0+XIP8nPeTF0UaBehxust62ipTzSeJByLiShc=;
+ b=WsQKyuckvANg6VvVK8dwgxyG+ngFYMy0hgwqUvbbd79tDLTDXL1EZgtWxfnmY087mSPtaMKc7WuMK3honAFiusA2QpJUtJsRbj3AKdYegEwKTThUzRmN0w1IYzvVayv/Y/0doC0+uf8pHQCyo8DmUVL5J38Dd75bdcJCrZP9oGv+QvFNYHMCjQouhd+jKzyiP6a3LxZXdwkpGW7PryCWHJ89ZL51x1mVgoVObwc1GzOyIEDdkQv7hGw/YF5NSx9nHxrV2ukGvbMno3n5DhWZmeRfQRtg6KozZUb3eyfzwbt8QIfM5E5FaGlOyz34B7f2WxwtKIsLsrOClsZqxHgzQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6LZmjn0+XIP8nPeTF0UaBehxust62ipTzSeJByLiShc=;
+ b=Zp3sC22kqbnWegUzmvtm5uxZIQithMfSP9/9WnxEy6E+3qlPAhN0J5Y5HD2zEMuHKqofiB+pz9rt/uDoSh1gCKvBnJ4GYfl4HlyQG42Swe1CwfoJ8Koyk+Elxv2DDb7zzeG3cvKU+leNDCgesXgu3cDPV8R4SbuQFiLgI0CF0ukjE9DWLfC/BmvX7aAhohyn0CuDyljsG6PteasjHRCcFpBn26IpJWfkjcxf34L6rIodUInvL52A1ccqMFVPHUwZmTIF5BcsDjjXNRwQHUSRvdBfzaLT9MtkZjgX0/wpi27mW0/TNvT/R1BFa/N3vXNGW4blB82C6UFqf2Ae/SCy7Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB10295.eurprd04.prod.outlook.com (2603:10a6:102:447::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 17:04:22 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 17:04:22 +0000
+Date: Mon, 10 Aug 2026 12:04:13 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/3] ARM: dts: imx7d-colibri-emmc: Add Toradex
+ Displays 7" Parallel
+Message-ID: <anoEjfZ_0RIfU83u@SMW015318>
+References: <20260723105225.194366-1-francesco@dolcini.it>
+ <178604616242.431490.2877142775301570674.b4-ty@b4>
+ <20260810145346.GB81453@francesco-nb>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810145346.GB81453@francesco-nb>
+X-ClientProxiedBy: SA9PR13CA0016.namprd13.prod.outlook.com
+ (2603:10b6:806:21::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10295:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fc3043c-f976-4448-d3a2-08def7016c72
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|7416014|23010399003|18002099003|22082099003|10067099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	29Zmo2Cl5j2F0CS/ZbX2OHIP+WzGHniWvavmq9zWwMxVOkmHbP83xA26YpMK+bQhTTVShOIvjVhaR/v5BpAit9w7pggamO+GLcMA/eohQoK9L5/CgslsP14WIsaOdVbTuyrj4/zOpAe7tEwIRtNriKC5s35YsT/OjNII4U7yxmxyu2wMS0BNIXxygUsjVrWFIxCyFJrztq7lpk8gBBIk+qXkGMNDU4lvEXs5htQLNlsjMi9GnaYCkvzN4FuoxpbY0w0Kl+36F/feHXhPmXDVGd+xmAXV8485R3UV/VO331duI/gQFMKILGCuKoP/t1NIiax18KXA5eUWZUpPFygps8omikoTamz9OBBlNTW5fKlC3fIwkl5qX7k7pGkrbnH+eLjQ/hv9eE0NrbjsW+A5IJlIMqAtAqN11buFAuvoPuoJOxPm5yQ//EnGahcAploQOwOeqCeDZdNrmrcna5+avHj7XylGN9EeQs2rleUuUVqA6xeH0JPJccjN98j5sR7GqEFfeEXDKx1XLLrS8GRMaLeuLvgE9uV2lFlyIVZqdYnEcBbfYTqz0mGDkfVux72HsXF35fDgTUUiCgiX3Ft85yBFNb0q2BTA0L3hUxytoKX0YoDBfAOVND2dSeBZ7c/AX7903tsh+LpixxpZ0BLUPTV0JdoNDTupuAWNh/zFXao=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(7416014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?EvNaECHV0HsAV36zp1Rp4oczlZNphBLqjlPIFmoFM5PvrrxSBRh8ZAbV8jWm?=
+ =?us-ascii?Q?vMKQ3R0BTwJYHJxNbdHJGVlRUCvY6KAWj95tuZfc1rwiw560rqwxtNyuuR9C?=
+ =?us-ascii?Q?Un7vDUAvTUqCjL/PmFzsSNqgWThPAEIeakXzg7L4c87UXYtKbwFsBU301grP?=
+ =?us-ascii?Q?D89SlXeqUnrliqE1SJJ0GN7tChNUe/WqG0Nciwh6/7gUxOm+PvkzakiZi0/G?=
+ =?us-ascii?Q?keyP1KZz52Pis7hcERYFAndOXHclIDLj+wbPEhpzKNX7C6h7e7t7J9ZVyrtY?=
+ =?us-ascii?Q?VTG4MlLUm1c7oprJNI3iLiw1fQ5X3Q32YqER8T0I1fg1KdnAn7wdMRKj5nxd?=
+ =?us-ascii?Q?OMlK5aKYvhNbxZ2PrcgsH4yzR0M0otKv3y2RPGbcujMUJMOSj7yGJjD920qx?=
+ =?us-ascii?Q?NEt0ezar8rogNxdX4iV88mTyJ0kNBUhv1Ph7wyFqF1MA/GR8xAAoJ9/EuDzt?=
+ =?us-ascii?Q?Y7odzfD4TYVQwpAodqwQzqgsrqzd3bqqXjXKlbkKXSlNMJmePd6ly6it4pI5?=
+ =?us-ascii?Q?HjFcYl3IsJhFPzN6OA7OPRPv4xeZ8vRFZU/H8Q+HBaGjqI35+4B/otpkR84r?=
+ =?us-ascii?Q?YaTJGQdGLUc+V9JSFtdYPQrJo7ArY9ToOpfW1Jochre/r/n6tuEXEDb1rDoV?=
+ =?us-ascii?Q?Hsj5yS9Ug6TmbnwWYQSi6MqldRzr6yq2Y8JHXnXgg5dUAQ9sxwlwNN3q8PCA?=
+ =?us-ascii?Q?C/zs9k/7sORI7ASuKrhsfwbhlBgwaJ2pMf19o3DYdU3l29CyvOLfO2JIlntK?=
+ =?us-ascii?Q?LHGxZEGIjUTzbMvbtRp1F0o3G2XKgEKwtbqmeu5Q/T0FYvGRx8rKuuFCGM5L?=
+ =?us-ascii?Q?Pmxk5XRinCEpezz7G8haIeuibTtT6ZMRPvpNW+DUYkCLW051zWqTzTWDPPUe?=
+ =?us-ascii?Q?kURzOy2op+RkTGxAMmhGGJxIzZ0Shx0cgg1kMJ+L7bJWoDJN9h/EwrnUiaaA?=
+ =?us-ascii?Q?PIz9zpoBmnqnC6QYCEFhbErRSIjebkJyQOfxa9qpZ5TNjZJ7bheMHX6v1igh?=
+ =?us-ascii?Q?en1Tn5i8crmnmEPA7kyXQlmCSZKht4z5JFMirhtMIa7hG/G2lJS/cSEr8COk?=
+ =?us-ascii?Q?M173OAV8nkoc4lwAyRUi+kgcv7PfR8H/js0rHHSwBYrLqUBkjJNMKHFE27x7?=
+ =?us-ascii?Q?m031N8iXl36kqw39vHol99UBMFZZXpXam0UuhvN6UQg3jg43xlQ0ohyaFHe9?=
+ =?us-ascii?Q?LWJlhgGhDSiaESEfwrzFA94VYXJvnPJz6c62oBDpffRIKVjhvDB4EmFMbN4I?=
+ =?us-ascii?Q?TI22E7S4qZlqgMTVtE2gY89wciAu1rwvDTo1tYTy8vZvEmjSc7SFYu+HfLnn?=
+ =?us-ascii?Q?eEtBfbZ9UM6eT8htCLxgCFPe2XJ36Cn6C95PQ0Ow30V0aJPnRf3VyT+z0l8L?=
+ =?us-ascii?Q?gtn5FaXMw9VYk1Z0p+tLSshK0XHUo4eU7Sdou9j5ihGusy7GeG1BTkMlsPb4?=
+ =?us-ascii?Q?XTO4Hh40xXQ3UYbMkfco2jr1cUjfy8KydG6c3Dxzo2cQ0BPm69OV6OyeZJnE?=
+ =?us-ascii?Q?hSb0n7TA+mtn95BLTqXPLsVKsdo0p14t9++7pV636sVRvnkV3P414hBcXqON?=
+ =?us-ascii?Q?PDlKWd9P8CytDr/rG8Dr9CaYdRfAGXuwykr2woo9MJoacYSOH2WiNiKvLDbB?=
+ =?us-ascii?Q?efG7Qk+KgFnkRJHgpYaNYX+OfahbJveGUYwu+qaZJmvQUSbw38rE4yagYJta?=
+ =?us-ascii?Q?jf6pkRaGjegW6Mmj2nPBE0wT9hAApr6bv6yetyNzgaWbyAkhAPaxLjncZVLG?=
+ =?us-ascii?Q?e7KT9+AlMbj3fqp04IHNextFk+U9Ncqi6xu3Rj7Bohajf7tcacTq?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fc3043c-f976-4448-d3a2-08def7016c72
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 17:04:22.2770
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zgnCBvhPPSjwTOfKfhBrJUl/IUK0gTybuNEbPwwrZJxAzIIIpWwdeUVatysHXXJQDH44WtoOzbdJ6+kqAPsmhAk1Z7DSb3oHXezIVRkdALHLW/eiaWPhpWwK1B96f3KB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10295
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Unconstrained virtual channel ID (`uc->id`) is used as a hardware =
-index for `bchan` allocation, leading to out-of-bounds array and bitmap acc=
-esses.
-- [High] Missing `.remove` function in `bcdma_v2_driver` causes a use-after=
--free on module unload.
-- [High] PM suspend forcefully frees active channel resources and descripto=
-r pools, causing Use-After-Free on resume.
-- [Medium] Lockless call to `complete_all()` races with `reinit_completion(=
-)` during channel teardown.
-- [Low] `TI_K3_UDMA_V2` selects `TI_K3_RINGACC` without inheriting its depe=
-ndencies, causing Kconfig unmet dependency warnings.
-- [Low] The return values of consecutive `k3_ringacc_ring_cfg` calls are ac=
-cumulated using a bitwise OR, which mangles negative error codes.
---
+On Mon, Aug 10, 2026 at 04:53:46PM +0200, Francesco Dolcini wrote:
+> Hello Frank,
+>
+> On Thu, Aug 06, 2026 at 03:56:41PM -0400, Frank.Li@oss.nxp.com wrote:
+> > From: Frank Li <Frank.Li@nxp.com>
+> >
+> >
+> > On Thu, 23 Jul 2026 12:52:16 +0200, Francesco Dolcini wrote:
+> > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > >
+> > > This series adds device tree overlays to support the Toradex 7" DPI displays to
+> > > the Toradex Colibri iMX7 SoM (eMMC variant).
+> > >
+> > > Francesco Dolcini (3):
+> > >   ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 7"
+> > >     Parallel
+> > >   ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 7"
+> > >     Parallel with Touch Adapter
+> > >   ARM: dts: imx7d-colibri-emmc: Add Toradex Resistive Touch Display 7"
+> > >     Parallel
+> > >
+> > > [...]
+> >
+> > Applied to imx/dt-indend, thanks!
+>
+> What's the status of this? I do not see them in linux-next.
 
---- Patch [16]: [PATCH v8 16/19] dmaengine: ti: k3-udma-v2: New driver for =
-K3 BCDMA_V2 ---
-commit 61b786131a37c8bebad4a083b46e1ce421934a6f
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+I already sent out pull request for 7.3.  It will be for next version 7.4
 
-dmaengine: ti: k3-udma-v2: New driver for K3 BCDMA_V2
+I doesn't plan put it into linux-next until 7.3-rc1. It keeps continue
+development during merge windows. I hope this ways to improve overall
+efficiency.
 
-Add support for BCDMA_V2, which differs from existing BCDMA by not
-requiring PSIL pairing, using static channel mapping, direct IRQs,
-and having a unified channel space.
+Frank`
 
-> diff --git a/drivers/dma/ti/Kconfig b/drivers/dma/ti/Kconfig
-> --- a/drivers/dma/ti/Kconfig
-> +++ b/drivers/dma/ti/Kconfig
-> @@ -49,6 +49,18 @@ config TI_K3_UDMA
->  	  Enable support for the TI UDMA (Unified DMA) controller. This
->  	  DMA engine is used in AM65x and j721e.
-> =20
-> +config TI_K3_UDMA_V2
-> +	tristate "Texas Instruments K3 UDMA v2 support"
-> +	depends on ARCH_K3
-> +	select DMA_ENGINE
-> +	select DMA_VIRTUAL_CHANNELS
-> +	select TI_K3_UDMA_COMMON
-> +	select TI_K3_RINGACC
-
-[Severity: Low]
-Is it possible for this select statement to cause unmet dependency warnings?
-TI_K3_RINGACC depends on TI_SCI_INTA_IRQCHIP, but select bypasses dependenc=
-ies,
-which could lead to build warnings if the IRQ chip driver is disabled.
-
-> +	select TI_K3_PSIL
-> +        help
-> +	  Enable support for the TI UDMA (Unified DMA) v2 controller. This
-> +	  DMA engine is used in AM62L.
-> +
->  config TI_K3_UDMA_COMMON
-[ ... ]
-> diff --git a/drivers/dma/ti/k3-udma-v2.c b/drivers/dma/ti/k3-udma-v2.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/dma/ti/k3-udma-v2.c
-[ ... ]
-> +static int udma_v2_stop(struct udma_chan *uc)
-> +{
-> +	uc->state =3D UDMA_CHAN_IS_TERMINATING;
-> +	reinit_completion(&uc->teardown_completed);
-
-[Severity: Medium]
-Can a data race occur between the interrupt handler and this stop function?
-In the interrupt handler, complete_all() is called without a lock. Concurre=
-ntly,
-a channel termination path holding the channel lock could call udma_v2_stop=
-(),
-which runs reinit_completion(). If reinit_completion() occurs right after
-complete_all(), the completion gets cleared before waiting threads consume =
-it,
-potentially causing a timeout.
-
-> +
-> +	if (uc->config.dir =3D=3D DMA_DEV_TO_MEM) {
-[ ... ]
-> +static int bcdma_v2_get_bchan(struct udma_chan *uc)
-> +{
-> +	struct udma_dev *ud =3D uc->ud;
-> +	enum udma_tp_level tpl;
-> +	int ret;
-> +
-> +	if (uc->bchan) {
-> +		dev_dbg(ud->dev, "chan%d: already have bchan%d allocated\n",
-> +			uc->id, uc->bchan->id);
-> +		return 0;
-> +	}
-> +
-> +	/*
-> +	 * Use normal channels for peripherals, and highest TPL channel for
-> +	 * mem2mem
-> +	 */
-> +	if (uc->config.tr_trigger_type)
-> +		tpl =3D 0;
-> +	else
-> +		tpl =3D ud->bchan_tpl.levels - 1;
-> +
-> +	/*
-> +	 * UDMA V2 uses a static 1:1 mapping between the virtual channel index
-> +	 * (uc->id) and the hardware bchan/tchan/rchan index -- unlike V1, which
-> +	 * dynamically allocates from a shared pool. Passing uc->id directly to
-> +	 * __udma_reserve_*() is intentional, not a bug.
-> +	 */
-> +	uc->bchan =3D __udma_reserve_bchan(ud, tpl, uc->id);
-
-[Severity: High]
-Could this result in out-of-bounds accesses? The DMA filter function accepts
-virtual channels for MEM_TO_MEM workflows without enforcing that uc->id is
-within the valid bchan count limit (16). If previous allocations consume the
-first 16 channels, a subsequent request would get an ID >=3D 16. Passing th=
-is
-unconstrained ID directly to __udma_reserve_bchan would perform an
-out-of-bounds set_bit() on the ud->bchan_map bitmap and read out of bounds.
-
-> +	if (IS_ERR(uc->bchan)) {
-> +		ret =3D PTR_ERR(uc->bchan);
-> +		uc->bchan =3D NULL;
-> +		return ret;
-> +	}
-> +	uc->chan =3D uc->bchan;
-> +	uc->tchan =3D uc->bchan;
-> +
-> +	return 0;
-> +}
-> +
-> +static int bcdma_v2_alloc_bchan_resources(struct udma_chan *uc)
-> +{
-> +	struct k3_ring_cfg ring_cfg;
-> +	struct udma_dev *ud =3D uc->ud;
-> +	int ret;
-> +
-> +	ret =3D bcdma_v2_get_bchan(uc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D k3_ringacc_request_rings_pair(ud->ringacc, ud->match_data->chan=
-_cnt + uc->id, -1,
-
-[Severity: High]
-Following the above logic, requesting a ring pair with this unconstrained
-uc->id could also exceed the bounds of the num_rings array here.
-
-> +					    &uc->bchan->t_ring,
-> +					    &uc->bchan->tc_ring);
-[ ... ]
-> +static int udma_v2_alloc_tx_resources(struct udma_chan *uc)
-> +{
-> +	struct k3_ring_cfg ring_cfg;
-> +	struct udma_dev *ud =3D uc->ud;
-> +	struct udma_tchan *tchan;
-> +	int ring_idx, ret;
-[ ... ]
-> +	ret =3D k3_ringacc_ring_cfg(tchan->t_ring, &ring_cfg);
-> +	ret |=3D k3_ringacc_ring_cfg(tchan->tc_ring, &ring_cfg);
-
-[Severity: Low]
-Does accumulating return values with a bitwise OR mangle negative error cod=
-es?
-If the first call fails with an error like -EINVAL, ORing the result of the
-second call will produce a corrupted error code, destroying the original
-POSIX error mapping.
-
-> +
-> +	if (ret)
-> +		goto err_ringcfg;
-[ ... ]
-> +static int __maybe_unused udma_v2_pm_suspend(struct device *dev)
-> +{
-> +	struct udma_dev *ud =3D dev_get_drvdata(dev);
-> +	struct dma_device *dma_dev =3D &ud->ddev;
-> +	struct dma_chan *chan;
-> +	struct udma_chan *uc;
-> +
-> +	list_for_each_entry(chan, &dma_dev->channels, device_node) {
-> +		if (chan->client_count) {
-> +			uc =3D to_udma_chan(chan);
-> +			/* backup the channel configuration */
-> +			memcpy(&uc->backup_config, &uc->config,
-> +			       sizeof(struct udma_chan_config));
-> +			dev_dbg(dev, "Suspending channel %s\n",
-> +				dma_chan_name(chan));
-> +			ud->ddev.device_free_chan_resources(chan);
-
-[Severity: High]
-Is it safe to free active channel resources and descriptor pools during
-suspend? DMA clients generally only pause transfers during suspend and expe=
-ct
-their pre-allocated descriptors to remain valid.
-
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused udma_v2_pm_resume(struct device *dev)
-> +{
-> +	struct udma_dev *ud =3D dev_get_drvdata(dev);
-> +	struct dma_device *dma_dev =3D &ud->ddev;
-> +	struct dma_chan *chan;
-> +	struct udma_chan *uc;
-> +	int ret;
-> +
-> +	list_for_each_entry(chan, &dma_dev->channels, device_node) {
-> +		if (chan->client_count) {
-> +			uc =3D to_udma_chan(chan);
-> +			/* restore the channel configuration */
-> +			memcpy(&uc->config, &uc->backup_config,
-> +			       sizeof(struct udma_chan_config));
-> +			dev_dbg(dev, "Resuming channel %s\n",
-> +				dma_chan_name(chan));
-> +			ret =3D ud->ddev.device_alloc_chan_resources(chan);
-
-[Severity: High]
-Reallocating a new pool on resume leaves clients holding dangling pointers =
-to
-the old destroyed pool, which could cause a use-after-free when they attempt
-to submit or free their old descriptors.
-
-> +			if (ret)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops udma_pm_ops =3D {
-> +	SET_LATE_SYSTEM_SLEEP_PM_OPS(udma_v2_pm_suspend, udma_v2_pm_resume)
-> +};
-> +
-> +static struct platform_driver bcdma_v2_driver =3D {
-> +	.driver =3D {
-> +		.name	=3D "ti-udma-v2",
-> +		.of_match_table =3D udma_of_match,
-> +		.suppress_bind_attrs =3D true,
-> +		.pm =3D &udma_pm_ops,
-> +	},
-> +	.probe		=3D udma_v2_probe,
-> +};
-
-[Severity: High]
-Should this platform driver include a remove callback? Without it, module
-unload leaves the DMA engine core and OF subsystems with dangling pointers =
-to
-the freed ud->ddev structure, which could cause a use-after-free on subsequ=
-ent
-access when the module is removed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
-224-1-s-adivi@ti.com?part=3D16
+>
+> Francesco
+>
