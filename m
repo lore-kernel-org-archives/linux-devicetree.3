@@ -1,186 +1,245 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dispatch1-us1.ppe-hosted.com (dispatch1-us1.ppe-hosted.com [148.163.129.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4991C1EE7C6;
-	Mon, 10 Aug 2026 22:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EB23BBA0E;
+	Mon, 10 Aug 2026 23:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.129.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786400155; cv=fail; b=RwO9JKe3tqCCMNyl6T42XrlUJGNEaDVnz/8LzZO4ftRrtM0AjPv6BtRUUcNXO5PoJijsrQa+yDTzdQLK1mQ6/y/GRYwuRdIRrdtHR9BDNmmv7uwfoRSUiXk1eGlfcd+8VtmYkT6kuByaIcqkLQiKWNiNMhJAyuLx0ERkL+4ldnI=
+	t=1786403100; cv=fail; b=Ee+Jen1qmBPFF7+bLoYUBQiby6i3T7zqw7U/Y9aNQ5bjRHJWde+yCKSHNLe8xq4RiKlIpEmHD0jTFXM1ENhfsQ9X0l56GJQT2TsRL4AFDENS6Xz6YAppTnab5EX4wQ2oMjywiYpcrEGIvG2I6hdtduJ22HE+K5k0jkyjgs4jScI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786400155; c=relaxed/simple;
-	bh=SbTlypHMJDXWEpq7Eedve/a2FAnJkX9sdysB4icTmYw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Y4KwbiY8a1Jq7hiZrX39a6og86hbcZTwND6IPwXFwm9ZvBeqjvufZZumAHdlXyb8wNPYHpAiwMghz/Ml2FNYrGuQ3jt5vB4qAPZZlVgIJpkFtjJWkxMGvsJDVCIk8JuEIoIPkYZAicKiAMKlO9GpPlQBg1ZO3SW8muliBe7FpBw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=gnQMiYZn; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=fxfykTAD; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1786403100; c=relaxed/simple;
+	bh=LRJTHBK5MRsQiU1Rds53NcVSVuJz4QO9kkBVMeRGAeg=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=pNyTpW2LGO5oazADTh7iXAfjOsjIwovfobefFN0HvFpLKru+dLK76FbzzLQ0uFxSsDQPgOwhzogBAhTLSMKUjI1wAMGXJt2lldAq4dtXJOfUefa+fJ8EWMN84f2ZHN1+rXr4nxm/utSVZW/iQOq2ZGcvHlEhisA9yDeeLO7y59A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com; spf=pass smtp.mailfrom=sitime.com; dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b=fU5EjLP4; dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b=NFrReK7b; arc=fail smtp.client-ip=148.163.129.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sitime.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="gnQMiYZn";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="fxfykTAD"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 67ALc22d244299;
-	Mon, 10 Aug 2026 17:15:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=EhS0MRs51450ucjry/4WIsoP8EL3uODMTsHEAaHFd
-	Z4=; b=gnQMiYZnDg4GimRTfvCxFX02U4SnRJJqmG99BStiKO8QPermqqG3r31Xz
-	Wd/P/O0M1QvdvXdQ9eRYSuYN4QJO6fCtfcxF0t96QHOzDShAx0Gv3Mmz5BZXvjNA
-	ZUPk+r04tkEDvz4KGZKwKcLr2VgegpjljcmJiMS3r0w4zsDOJBthy9HP6KbLvOzB
-	i2X2vwwPcnAq8nN/smSvh/vIJ4PBRN+SMukQ1iwxVwaqyJVEqDDCrPisiTvBBULy
-	aWnnHhJCRpVCys3Oilg4A4MGJwGhfGkXNGskoKPT1EPrHhGYDirzBhMeeXt1hd8w
-	h1phD7so2MpgIQigkz4E8tfVxDOBA==
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011050.outbound.protection.outlook.com [40.93.194.50])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4fydt7cf4b-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 10 Aug 2026 17:15:46 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b="fU5EjLP4";
+	dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b="NFrReK7b"
+Received: from dispatch1-us1.ppe-hosted.com (ip6-localhost [127.0.0.1])
+	by dispatch1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTP id 8E90A445534;
+	Mon, 10 Aug 2026 23:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitime.com;
+ h=cc:cc:content-transfer-encoding:content-transfer-encoding:content-type:content-type:date:date:from:from:message-id:message-id:mime-version:mime-version:subject:subject:to:to;
+ s=mail; bh=i+rirupMa7rs9xCh9CwFf+6dVTvQHW8aPyGK4OecI3k=;
+ b=fU5EjLP4Q92KMoymDszLPvPnqyvgptgC/px0svis2qG5gypMbwVgK+Lxrh7gQwbMgg1oxDBMmykTWctYxW9ikekm3SSmu4ou6W8BGlVOwHuRvRabehNvpZU6+4RAOLD9rGMaiXU4zqlNBWStwioQ9GVqCGjVr3rcJ1mh7KAS/3jTXTwPVPYdrl9U+xLqXDCrrdRF3RAqIYf0/mI/PDhdPf2pn+PCtgpXeRo78Q4p4rxyxAzJGi1WS2Vr/WbYxC46t5Wnm2Jfx489aZcTocg//2qgAQy3kx0jbzevq8HTappKnB1oRlGKlKNdMxkGqB7Gw/jmjGZhsHqddx+j9IlKvA==
+X-Virus-Scanned: Proofpoint Essentials engine
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022098.outbound.protection.outlook.com [40.107.209.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id 4BE91AC007E;
+	Mon, 10 Aug 2026 23:04:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hH33Lzshr/rkp7NeGfoazE0NBYFeCS3CwCQZ0u+PuOdHfQV6vizPk6uVSpN65k7bvVWtJpC0Tcfttd14ze7+tGJ+cp5WYY+jymcQPaI1BqyV3M9vpdGnLaXooRv2KTqrXV91pvYCKzAGFuRX36lxGODW9WqOSSdEJBC4izum1GCrcpkPsiyRId1FHRnzX3+HnQtz7cIFa4/5yx2/RizBPG77Gy424uO3VG7qyUfLNrTQZHTEpyDBpQC2MU6xByNxlRaat1I7yytWGS/CCwGPeK0S/cMrittCWe2ZcP/IXjahCsr/CZ9A7/QXbu4u/UFGvdd3LHrnHQUJq4zi+kKucg==
+ b=T4gQL0q/FDbu8QjqzR3Anz39qq4scHdF4lSWcOWy1oxgieDqUhbedmOpQc/eWJSu65fAiQORJenFgpnSL4GUa/YLIm7mH5nTO61qGNqSXaF1thrxk5h5J8+yGQjtMxZ5Zd3ZHckuul+Cm8gFgb7T2y1dKbE/MklelTXhjyFHxhQ1OIMjinZiXowgQoj5tLMO2w71p/8nONx8/FDob+5dbnqvEuotTS8O0QWgFzDkvE4nIXPWlvjqUl4QbOOYMN/8r24IM7kzCHPis1HkhfZQOYGDCd5wxgzj7dTyrwj9XHfTb3lPy5Ngj8CCx785lXlwWrGSTXWalJ9NhxfxEk/cNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EhS0MRs51450ucjry/4WIsoP8EL3uODMTsHEAaHFdZ4=;
- b=pPyIhaYjIyqPnVAJwbE/5eHZ/rR3OFqxYNPsq2hxkInviAYw1Y1hzyb7txVS4BY1Z/tuTJm5tYAT/mWahcRuj2bd+T1YcA3PzoF4VW1FegR4lTTBdNlVBUQGdOIoIz38WwmKZ1Sd7hHPcag8ZmXEyweV04fYOmmINTmJXy3ZWO2t1TsAQ5frxQiTjUBkup7YbIscV0L95yVHaZfMdtQAyeZ5S66/mRE6SZD4ww76Ymhu2bfROS3uHArpFvm6vAlh41+Rzonft4gIHTBYImB42JeBT0rlGcAt+6vBx4n/pdPc0ysKGm9M4oAaTvL90jeeoBWj8HGPr5iYD+NLW9Ohtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=i+rirupMa7rs9xCh9CwFf+6dVTvQHW8aPyGK4OecI3k=;
+ b=OS1bD5/BtI6NThETBN2ML6L9/oR7bq8hNps0LtR6cxMHe8eGM2bS+xqMk17iz+4uXY5LzEVL1SjVolAS7XXGdaPU9E78Fo4ycoY1jquk7F4DexMwI8junVsvMpp3AvQ1kMAUfRFPsywMe/M+9U1Z7ZPtDdFs/G6REYSb3l9t5Dk4LnFaUIf4yl8mAs15OqiGyFjPDzkF+91shNZ0Zje2jaBGyOHOCo1Cw2Qc7zMeQyx/ccA2INladfM3vsDSk6p64kg3IqPgf6lFo7n600EvXPiCqNDUl9E3aNaDB3uoQjKYVkXbna1mEMtN084+KuR+sBWYWSMwk9UECoVPVap6gQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sitime.com; dmarc=pass action=none header.from=sitime.com;
+ dkim=pass header.d=sitime.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=Sitime.onmicrosoft.com; s=selector1-Sitime-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EhS0MRs51450ucjry/4WIsoP8EL3uODMTsHEAaHFdZ4=;
- b=fxfykTADKDFlKgSAjaYta8uca5T4yNKIyZSSdpHMnyjWUs71tO5/9L6d6uwaL35IUxsqBQQebHXbd+lK8rQxFzEFwrsWn30qyZAop0Y7B0B5y/MeuU/3jrLOXSH6E2ARzG5GEHdLsrwvjr6bvqBcG2Th4gDgljLoPViC3zvt5qw=
-Received: from DS3P221CA0009.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:45e::14) by
- DS0PR10MB7151.namprd10.prod.outlook.com (2603:10b6:8:dd::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.25; Mon, 10 Aug 2026 22:15:42 +0000
-Received: from DS2PEPF00003447.namprd04.prod.outlook.com
- (2603:10b6:8:45e:cafe::93) by DS3P221CA0009.outlook.office365.com
- (2603:10b6:8:45e::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
- 10 Aug 2026 22:15:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- DS2PEPF00003447.mail.protection.outlook.com (10.167.17.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 22:15:41 +0000
-Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 10 Aug
- 2026 17:15:35 -0500
-Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE207.ent.ti.com
- (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 10 Aug
- 2026 17:15:35 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE209.ent.ti.com
- (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Mon, 10 Aug 2026 17:15:35 -0500
-Received: from [128.247.81.217] (ltpf5gwk6l.dhcp.ti.com [128.247.81.217])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67AMFZ853973134;
-	Mon, 10 Aug 2026 17:15:35 -0500
-Message-ID: <b6f486c3-9e99-4a2d-a016-f6d45d9e33e5@ti.com>
-Date: Mon, 10 Aug 2026 17:15:35 -0500
+ bh=i+rirupMa7rs9xCh9CwFf+6dVTvQHW8aPyGK4OecI3k=;
+ b=NFrReK7bi3bywlYK/xp+qZIvscIxOsPOeV/j5QFpwRxcWtgalMgyDczC879euQt+LVoXbOmYlDMhCJuCGI/nn6NjKc3Y9N5VFb9EWF0lC/yAqWw1S+fPP43UGpuDSz2AWp6BsOb+VloT5+W1Jcvcz7l4pyN2RBT6T1qmTHTxP9NC+ee2BUILePJok9bg3MS7ziH9B2J77m9137OT5FbU3UIP40uo5v5hJ4QhGBfvTVF7lkZgKsigbS8PqhJ34AYAx6Bu01QgmzvHHPDbN1bpPp4zX+YZbgkLvTeMmBbBr7zBVLfguBXnPgJ/xEyhCv/tfsxaWH9mX6rOaTt74YA5ug==
+Received: from LVWPR20MB994915.namprd20.prod.outlook.com
+ (2603:10b6:408:3bf::16) by SA1PR20MB4516.namprd20.prod.outlook.com
+ (2603:10b6:806:23d::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 23:04:40 +0000
+Received: from LVWPR20MB994915.namprd20.prod.outlook.com
+ ([fe80::9551:3864:128b:8c01]) by LVWPR20MB994915.namprd20.prod.outlook.com
+ ([fe80::9551:3864:128b:8c01%5]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 23:04:40 +0000
+From: Ali Rouhi <arouhi@sitime.com>
+To: "jiri@resnulli.us" <jiri@resnulli.us>
+CC: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
+	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"cjubran@nvidia.com" <cjubran@nvidia.com>,
+	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Ali Rouhi
+	<arouhi@sitime.com>
+Subject: [PATCH net-next v5 0/3] dpll: add SiTime SiT9531x DPLL clock driver
+Thread-Topic: [PATCH net-next v5 0/3] dpll: add SiTime SiT9531x DPLL clock
+ driver
+Thread-Index: AQHdKRyfQ2fK6CQ8EUyOQJshRDrm8g==
+Date: Mon, 10 Aug 2026 23:04:40 +0000
+Message-ID: <20260810230439.22866-1-arouhi@sitime.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=sitime.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LVWPR20MB994915:EE_|SA1PR20MB4516:EE_
+x-ms-office365-filtering-correlation-id: 2e0652e2-8996-4673-220e-08def733c23b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|18002099003|56012099006|10067099003|5023799004|38070700021|6133799003|3023799007;
+x-microsoft-antispam-message-info:
+ 72IdwJ30XYORdoWXXrJBGPXXkfkKnGqR1gDzZsxCoGGFfjTMEMKABSl5tQfBEEF4UQq3jBm02gMyEraE6d9xRT0NYUNCnFFnb2H8AvWjaAXYSRGiedrXwpDXHl6Lo+Z77nGYpa87CLGHBNQORGFhexPBPVfWQB5D8pgxsRnjiXNiJdu2DBuvwHK9YsCM9+WrJqXyBuZ/xkF+9eW3nLiljPpxhjQ0LNDet7x43Xf3JleCmBFp4IDcHvwRh1m9IgDVcCZPrEd3Dxph48gpxmOwVUZMAqCWQEZSgec5P6aD2lMYug46pduh6yzhcIt1K3f8veCK7YBiKL6qCsYOXHe9zg1Tl8Bd3NPC2nsCz4JawTXQvm7GN0SP6RRNr6nLG2spLu1ms8DYLcVjwYwp8t76qLrO7JiohUa+5x9VrZTDmBPBUljb1JJV9eIUEr+vyZeHPcoWwY+mIdREC6jGgWoqXfXG9Xq+cAoMIvF0F4BGN3JoBROoBSTDAVOGB3G5Yxz9VmqJnQlCbZT5Ey/KShUXxQXWc1o6ufICBGYFueSFH7vPPGMLkj5rDhfQMZxwGDU5KvO5SQZjoVGWZ8ibO2dTrhqAjiMn+ak4std6X6xd4eNJiDezT5oGUBHVCQERtd6Z4Ajzjuynm/0psFU/UtxCjHgnrmO+htdYxYRgxJcZgQlyhpMKMO8nDvpJvH4A7HyqVCkRtY4aGn5YzM0ORgCvLv0VdqHonyQDAPTU0BYi/Qk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LVWPR20MB994915.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(56012099006)(10067099003)(5023799004)(38070700021)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?mC2BNXVXg7EErwRt5zHWM2UTspfyssEcvoKVeKuD50puioqBx0wIBJ5ifW?=
+ =?iso-8859-1?Q?ygF8akOqT1GkSkr5qr6Q4nWZrJW4HEp8W1htJswV1oZlc/w3+YFCJOcwsZ?=
+ =?iso-8859-1?Q?Od/ja30ZD6e312qLgWx8cs3gycUTaFXsb49QOMXfS8OrhEIvxJNouYs5pN?=
+ =?iso-8859-1?Q?Qig27JpOqD6zYIc8ZCR11e1gCcISXtXdqpnprTS59U6oolHvYQ4K/TNc94?=
+ =?iso-8859-1?Q?gHU6ybULXS+E6SSRLTMi5jMG5gzioxC1fZqPLjBZcQ6Ev9K6rCsQoA1dJe?=
+ =?iso-8859-1?Q?K/ErURa7iai/59RuZRqNtUWTwSnR1/yoygfy4VBCUJNHb2ecNe6V/V7h9Y?=
+ =?iso-8859-1?Q?bmla2JxVSqKHnhFbIdL5neMowYJ/qJeO1nDaNAaFYrFtSJu1Jo7znNW/Nu?=
+ =?iso-8859-1?Q?ZTts6J3GJfy/VYBtOtdHd7YnSgmz+QaD1DKezWgOePy9DwS47jB8II6Ns7?=
+ =?iso-8859-1?Q?ocfu+2/7YLzPxpLHReO5+VD8+kaD8aoP1GiAuZUt9tUi3L+UqqieM6tNzi?=
+ =?iso-8859-1?Q?d2kBR0t4w9QMXh/15IWBBimLng9539DqXrt5Maul3J2ikRbzx/nd8NtJ4F?=
+ =?iso-8859-1?Q?YEww945gQ9n5Pus08Vs0hoIfLoYAWiHkphUQXXcZy8zUBbcKASlfeLsuiM?=
+ =?iso-8859-1?Q?BRjKxymyiUKiSpAuC/e32e++wKyT317/y26TtM8+2ONbTqSGynz9S4RkFM?=
+ =?iso-8859-1?Q?RTYmayzlKfsR/CDkJEzzE1ZLtwEDJ7NHy3D1aDBXQV7UyJBY93MR6/AmNa?=
+ =?iso-8859-1?Q?grVucRP5MKCT+PnaFs/w4NF1099v2naqt+4zoOj4Ybpp29P+JF4b5iBmjc?=
+ =?iso-8859-1?Q?1iu3kHxTGlji+2Jo/c6bXwsTyffHwgSXRoz1DQ9FJhNPNvX+5OXjcIvcUy?=
+ =?iso-8859-1?Q?P7IIUoMLt+2SfrcDOyj/yjoVytM/GPn4VYF0zu4VSnUB6J9alv6qCqg95Y?=
+ =?iso-8859-1?Q?4x6MHBkjToxZ5RVi2B6rHt0abzc710fA6u30ACqCUSUOjadDzkO54D2JuQ?=
+ =?iso-8859-1?Q?v50JIsKwF/p6W4KNEp2jmLHOUnzk0yt4nxe4djTNqiCR5FkBFgZ+GW0LeE?=
+ =?iso-8859-1?Q?Q/x2tfv6mI3Ir5bme0BMiw7VYNZ+TfP4FQOgPRU7od3zvSAPDLiYzM6BHL?=
+ =?iso-8859-1?Q?Dt0a5lbFY3PUKF8juZqOOX4e4QoKSuFIErIFUV+RrCvrGxEOjckJg3Dz2y?=
+ =?iso-8859-1?Q?iZ9p6BLKwbD478iLele0K1bE0fEPMiMJ8ukxQJaht+ewZeiWV49C2wkZhQ?=
+ =?iso-8859-1?Q?dgvVofQw/82MKf7WktZL9Rz0WNSzOApnaOop3VraHA3gQGuovRd3nJAljH?=
+ =?iso-8859-1?Q?YaFdWkCg0najmoBXImxSYLYkBSO+/WowtBH3oUpxPAQDdYpMTqZvdH4Nxo?=
+ =?iso-8859-1?Q?a3VTPB9NzkO8AiNMD5vB5TGMzETN9cRDhnfjTcrVDGGzLQMhQLnnBEXi11?=
+ =?iso-8859-1?Q?ziuvFZhX1bJrOM8/xZ4ALKgHRuJzVC/VdyNgUVQAtKq7DNIG0YGgVHcBw7?=
+ =?iso-8859-1?Q?rWk+nO9o5t84s6yGWIlC1ZV+myTgFJTzVvhj3RofeE9irtFsIzbHC6LcG5?=
+ =?iso-8859-1?Q?TgDlN2zzkl7C5H5y66TGE4jxvlnLu9FpusFnu+JMMCWwDnpbIB7up+l2/V?=
+ =?iso-8859-1?Q?Dl6U7lHtSI+OxP3bZfCS7Vm3HaQRNDte6U6xcZiwj62+0AV2vFqy15LKq0?=
+ =?iso-8859-1?Q?5AT1Gf9gRhAtqKTjtad8C5pVUmZs4OfUelwdNvmdVsJCUD1x+kOnifMkPC?=
+ =?iso-8859-1?Q?fRgmRmbHxhMnlQ1khfZcZJ95YCBqd80hhak+/AIvTz+cHJ?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] arm64: dts: ti: k3-j722s-evm: Switch audio codec
- clock from audio_refclk1 to external clock
-To: Jared McArthur <j-mcarthur@ti.com>, Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>, "Tero Kristo" <kristo@kernel.org>,
-        Vignesh Raghavendra <vigneshr@ti.com>, "Nishanth Menon" <nm@ti.com>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, Moteen Shah <m-shah@ti.com>
-References: <20260804210558.1455777-1-j-mcarthur@ti.com>
-Content-Language: en-US
-From: "Wang, Sen" <sen@ti.com>
-In-Reply-To: <20260804210558.1455777-1-j-mcarthur@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|DS0PR10MB7151:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3db33f2a-730f-4793-d73c-08def72cea2a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|13003099007|18002099003|22082099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	34gUkU8sSaM8Zm3En0KgruYgPPe14D+EJ1Zcm5cDX3QGPSz7qJQUitPPy4gWG1jIUn5d8pyjHztXc6xXAJwmGPLRCAr2llf4y2LfkxopElSoqS3IN6wjG9ytKw6bR5bnfII6MFQcicjtAPQH1zOVELmJaPfwdJUOmlgme2NrwiKWUIHyRlm5Dq3p/ua2PXOJ91M01y8ibopimEgauFVyDtJA85iF46EdT47dGtcrl3Pk25s38IpztEJM5qXkzf8DqvGY/L8V5ztQgPKXGnilmdihFJsTzYQruQSwqo2emnIdVd0njgWv1gUmZBWizEdCY2/1VWJC7VEMAjo4w0TtPTsUZJCImf/JKKeskX5TG+CBfBoSXs2oR7UCRhkZW8B7c/h5sewwMYkreCvKbrs6vP1ROQ6NXqc/u2s4AWv1ZLclPJi7hjeaENilluQODHwJ5X+Y9nDMZ4IfhjnLJDJY+dfusBlKCQB/gil5AZ7X2q9OpQs/zCAmk34eQYoSe3WYMbFTX4oRotJdOEhGpnxu/sc51TtolD5X0F1vvd/fFgRq+grvgNLEFaCiydf+Lrx6DRHthjggGizc9f4koNxjtV+A9s7uWF2WY11N3oCsFE9Dwdxf4JPTNFf8zRJcSpyiqg1/BdmIvTkIgrkTSqTNNVZmLki+v0a2f/+7kvwWmSZ0Yj+T47BQxDydcfEr58iMH0+yPag7qXNT84RgRAjGcQ==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(13003099007)(18002099003)(22082099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	pviZD6vDy0pB78TwYcxzVx/OH2PrPIiNXlzuwtCbZxZmp5VS9gNNUb78xK1Qtpaq0Sq5hQBSArYE1J5T92GV8ShgUiYZQD4Cy+P1j32qublan64kpV58l+aUnL3vnVO4RP+AXZofH7uIo5wAwY8v1qHc77zISN0n3O1CFpADWsDZmY9Ew9TOVOU9oIzraU2kqLahWCNSWcwTKT5N6Gbu5YjwKo3FXiTitVDGwlIaljIJrOv9f+GTIHrCHg2L08TPKpghwttajfMkC1a2l9FHEKBxe290RikiG9tZh5dU0+FiyqrgtxC3NpoX2YtzrLCpDWi4CviXPe2G3pjbINROEcgq83IeT9N7p66T30EmTWVKMeeUzzmkEpSmifq94sW/U+xjkiUKACFikkqPPENi5TEtfsXd7dtE7NS3uc+sARPhOa8bWuEx2IEbit80lgwZ
 X-Exchange-RoutingPolicyChecked:
-	cZk5f6Dxqesgm8N/vTeDuPIxjou34Ssg1i98vtSg+1z318G7C+CHaJkY/KaqumCvGJAsQh3Yu6RdXkWl6iLKUWOei91mzK6j9/wsrd6LBTM2RSOwIRvQ7iH5OCPIXZwjH58yUMsmG7y3m4DNfRtSfkzhyIfAA7kXszYY/RvHmMk7v5IrmTHXsPPaDellbTRh/dXhHDxo2Clf2DCy/+vEW0+UHlxk13d1c/eD/GZMTkob87sBEwRCjzQcJq76mJqfvVO6O0cSfgrqMoZ0J0/xSrNcIccDLAFMakBJ+BgQaZk5pacLrB+9V0Go0uSL2B+rEcTBfShYNwsnmUM1TWrlvA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 22:15:41.1530
+	N41OKcaeTFYUrgvnDPzgRD92EyZQXzGjaOiDTcVixvFTI8ny+CLSu+6KzQc9HXoGfjwdc6ygZCc0M93F9n5yA1A6Xsaj9yX+BrtEvAj4u2WejVNSB8fWti4iUy1rOM22tElLei/J4NOrZDj3fFyk9O6WBMa+jgGHqiJ6ZhpqiS7AUGtC08GEuXl5qFLzwEm/zu/cJn23c+3bKXzNDWSpghFEgLBDNBQViQOkSeb2+UDe6A8LiFVp20O5Qaw1Wu4/yFXqVsA3IJB9c1GDZRz1Unx2HAj88RgGTG1/a6SCMOgbup7eX2gx7US1OQinzQl8sZ6q7Yq60lBefVaNIwfnlw==
+X-OriginatorOrg: sitime.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LVWPR20MB994915.namprd20.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e0652e2-8996-4673-220e-08def733c23b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2026 23:04:40.7148
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3db33f2a-730f-4793-d73c-08def72cea2a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003447.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7151
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDE4OCBTYWx0ZWRfX1jGpf2X6KZ7d
- BD00nuH//nLxc6YfnD0rUvXgAgvH6Upi3csDmVMwYdg1EKFFx/mWcGar5yZrmJC5HnXV1TMzEfz
- QAGkzef+ZsS+S16f1ToC003wZGV6zqrsmEubEh/FY21fQA82VG/zIHdXL2uijT/DG7tzgFOpmtK
- O4e/kAQAU8fsaTC9LyzS16F3HEFNxtWahivuYQIKwfytfJS2woP9Sz/FUlputLCb+wEMUiisl9r
- baitEhWwFGYdb6qf0TbLOc8GYsmvYzWt3J5swOJtsJiadtgdvWsIAKkLYzOZ+w6UWm0hvmAMzpS
- q5zW81ZlcITiNSHrYPbU+ecxg80Td29t5uZMGMUA1RKXw/VyJCuBS9ZQFxrtpIobhKntRdQ9DdG
- bFkOCiFL5ND87Uh/tSlTBQkq1tUVu968aIssMskYpC1EqEPZ7JoBHO34kj/C0a9AYOry4zVNT6q
- DGPhXZQka1fLb1/G1fw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDE4OCBTYWx0ZWRfXwH7GwugnYIAj
- UFXV9sE7RBqwdDfkOAdsSiTb8rsOqTXCIWNwwHu/LUj5bIbLq+9d5EkJTU/PS0wgHDV6+d6aOrN
- FnXfQEHQCZITjFmaXW4bJxG6c/gpDzE=
-X-Proofpoint-GUID: JPxkAbR3Tk3G1GAjuO7R7zCoKv-1vli7
-X-Proofpoint-ORIG-GUID: JPxkAbR3Tk3G1GAjuO7R7zCoKv-1vli7
-X-Authority-Analysis: v=2.4 cv=F85nsKhN c=1 sm=1 tr=0 ts=6a7a4d92 cx=c_pps
- a=UNZgSj2+zgRPHH//f1mBVA==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=iRONcHeMQSG4BGV_9HcA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_05,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 adultscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100188
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8fb55916-cf10-4b0d-96f4-cf3952657263
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IXWPaelH307BQDKr68tRX4KtwK5hEwfM1TTQAeo+xGv/XENRwBLEW1jhgQf1ZzFbbyYjLHOjtZWQgEw5VfcPCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR20MB4516
+X-MDID: 1786403091-Ei1tr7uEUun6
+X-PPE-STACK: {"stack":"us1"}
+X-MDID-O:
+ us1;ut7;1786403091;Ei1tr7uEUun6;<arouhi@sitime.com>;ee4c095510f4a2bc549243be2f087a38
+X-PPE-TRUSTED: V=1;DIR=OUT;
 
-On 8/4/2026 4:05 PM, Jared McArthur wrote:
-> In revision PROC170E1 of the J722SXH01EVM [0], the audio codec's
-> (TLV320AIC3106IRGZT [1]) MCLK was provided by the AUDIO_EXT_REFCLK1
-> (96MHz). Revisions PROC170E2 and later switched the MCLK's source
-> to an external LMK6CE012288CDLFT [2] oscillator (12.288MHz). The
-> PROC170E1 revision of the board is not publicly available.
-> 
-> Fix the audio codec's clock by creating a new fixed clock node with
-> a frequency of 12.288MHz, and switch the audio codec's clock from
-> the audio_refclk1 to the new fixed clock. Remove pinmuxing and clock
-> muxing for the audio_refclk1.
-> 
-> [0] https://www.ti.com/lit/zip/SPRR495
-> [1] https://www.ti.com/lit/gpn/TLV320AIC3106
-> [2] https://www.ti.com/lit/gpn/lmk6c
-> 
-> Signed-off-by: Jared McArthur <j-mcarthur@ti.com>
-> Tested-by: Moteen Shah <m-shah@ti.com>
-Hi Jared, thanks for the patch
-
-Tested-by: Sen Wang <sen@ti.com>
+This series adds a DPLL subsystem driver for the SiTime SiT95316 and=0A=
+SiT95317 I2C clock generators. Each device integrates four PLLs with=0A=
+automatic/manual reference selection and on-chip TDC phase-offset=0A=
+measurement, and is used for synchronization in telecom, networking,=0A=
+and data-center timing.=0A=
+=0A=
+The series contains the device-tree binding, the driver under=0A=
+drivers/dpll/sit9531x/, and the MAINTAINERS entry.=0A=
+=0A=
+v1: https://lore.kernel.org/netdev/20260511211143.19792-1-arouhi@sitime.com=
+/=0A=
+v2: https://lore.kernel.org/netdev/20260520191943.73938-1-arouhi@sitime.com=
+/=0A=
+v3: https://lore.kernel.org/netdev/20260731180951.65725-1-arouhi@sitime.com=
+/=0A=
+v4: https://lore.kernel.org/netdev/20260806232439.27551-1-arouhi@sitime.com=
+/=0A=
+=0A=
+Changes since v4 (address Krzysztof Kozlowski's review):=0A=
+=0A=
+  Binding:=0A=
+  - Rename sitime,sit9531x.yaml to sitime,sit95316.yaml, naming the file=0A=
+    after the first compatible rather than a wildcard the parts do not=0A=
+    carry, and drop "SiT9531x" from the title for the same reason.=0A=
+  - Correct the input count: both parts expose eight selectable=0A=
+    references (four differential pairs whose lanes can also be driven=0A=
+    separately as single-ended inputs).=0A=
+  - Drop the clock-frequency fallback and the schema branch that allowed=0A=
+    it; the oscillator is always described through the clock framework, so=
+=0A=
+    clocks/clock-names are now required.=0A=
+  - Explain why sitime,pll-fvco carries no unit suffix (the values exceed=
+=0A=
+    the 32 bits "-hz" allows and are not whole megahertz), and add it,=0A=
+    together with sitime,output-pll-map, to the example.=0A=
+  - Keep a single example.=0A=
+=0A=
+  Driver:=0A=
+  - Drop the debugfs interface and the orphaned DCO steering backend that=
+=0A=
+    only fed it.=0A=
+  - Rework the DPLL init/teardown so the error path unwinds explicitly=0A=
+    instead of probing internal state, registering the managed cleanup=0A=
+    action only after every field it touches is initialized.=0A=
+  - Drop the clock-frequency fallback for the XO rate; the clock is=0A=
+    required, so devm_clk_get_enabled() replaces the _optional_ variant.=0A=
+  - Drop the i2c_device_id table; the OF table alone suffices.=0A=
+  - Take dev_err_probe()'s return value directly.=0A=
+  - Say nothing on success; an unknown dpll-types string becomes a=0A=
+    warning rather than an info log.=0A=
+  - Move DPLL registration next to probe, drop the kernel-doc formalism=0A=
+    from internal helpers, and cut the narration out of the comments.=0A=
+  - Name the page-0 status registers after what they hold (register 0x06=0A=
+    is outer loss-of-lock, not holdover) and remove the register defines=0A=
+    left with nothing to define after the DCO/SYSREF removals.=0A=
+  - Rebased onto current net-next; base-commit recorded below.=0A=
+=0A=
+=0A=
+Ali Rouhi (3):=0A=
+  dt-bindings: vendor-prefixes: add SiTime Corporation=0A=
+  dt-bindings: dpll: add SiTime SiT95316 clock generator=0A=
+  dpll: add SiTime SiT9531x DPLL clock driver=0A=
+=0A=
+ .../bindings/dpll/sitime,sit95316.yaml        |  171 +=0A=
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +=0A=
+ MAINTAINERS                                   |    7 +=0A=
+ drivers/dpll/Kconfig                          |    1 +=0A=
+ drivers/dpll/Makefile                         |    1 +=0A=
+ drivers/dpll/sit9531x/Kconfig                 |   17 +=0A=
+ drivers/dpll/sit9531x/Makefile                |    4 +=0A=
+ drivers/dpll/sit9531x/core.c                  | 2939 +++++++++++++++++=0A=
+ drivers/dpll/sit9531x/core.h                  |  367 ++=0A=
+ drivers/dpll/sit9531x/dpll.c                  | 1151 +++++++=0A=
+ drivers/dpll/sit9531x/dpll.h                  |   69 +=0A=
+ drivers/dpll/sit9531x/prop.c                  |  397 +++=0A=
+ drivers/dpll/sit9531x/prop.h                  |   39 +=0A=
+ drivers/dpll/sit9531x/regs.h                  |  318 ++=0A=
+ 14 files changed, 5483 insertions(+)=0A=
+ create mode 100644 Documentation/devicetree/bindings/dpll/sitime,sit95316.=
+yaml=0A=
+ create mode 100644 drivers/dpll/sit9531x/Kconfig=0A=
+ create mode 100644 drivers/dpll/sit9531x/Makefile=0A=
+ create mode 100644 drivers/dpll/sit9531x/core.c=0A=
+ create mode 100644 drivers/dpll/sit9531x/core.h=0A=
+ create mode 100644 drivers/dpll/sit9531x/dpll.c=0A=
+ create mode 100644 drivers/dpll/sit9531x/dpll.h=0A=
+ create mode 100644 drivers/dpll/sit9531x/prop.c=0A=
+ create mode 100644 drivers/dpll/sit9531x/prop.h=0A=
+ create mode 100644 drivers/dpll/sit9531x/regs.h=0A=
+=0A=
+=0A=
+base-commit: 001b5d347d8ba39b2dccaefcc57967b18caec8fe=0A=
+-- =0A=
+2.43.0=0A=
+=0A=
