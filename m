@@ -1,88 +1,80 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDD143550C
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AF6435516
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786385181; cv=none; b=qmJO6cvYmLhjsJ7M02EXYsaej5gbiJaE59tdEM4BxOMLHIApdFk73mADCRyvPZkAgVTFm/VEeencA/QPnv7yTRDf4EAn0izgMxliKz8XlUEd9YeFiv1/nXfQwhW8hjQjytcpNJ0ZmrQX96mB/jZdgwsLg3ecZlEXa1v/vA5LzSY=
+	t=1786385200; cv=none; b=ixPALfsgB+QD1DIs+Ksxjl47wqj9ENBoWPaAt5MOqmeFDkQWBpDHILLjhtDHvXEQ8Z7Nk3/SVBLVUOItYU6Ah08GM9QU4FcKJXePyviH/s2VD7Jq6Xv4A+zBanzaeu56NQZPJLMmICPH9na5eTslmo7uLv+w+p8z0pRCEBi+OwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786385181; c=relaxed/simple;
-	bh=VoKs/vs0Yoa0Ku217aS9X2uwwR1NzngZqp5D+Jvkkf4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hrBXs8Zc2WWzVbOXG7RAA1wkspmM7g+j80y8uqxK49L2dgpYxf/LX3acZDwDvdjHsDRLH0byBufZNlZjgx6kcwGGzVWMX9RaV8Bdr7ak0nCYkyB8VB4UsoVJ/zJTRc0/nS+j06gH0azmrTiXiDcSraSNeG6LKn+Zh7IhTgFHeuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=avupD7zb; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1786385200; c=relaxed/simple;
+	bh=hgcymRn06CEzZYivG2OYevh3C3pdHTxTa6lD6AY+ufg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iN1wmZHrR4T4Es6kDPohKmEYotDtAWCI3WgHA/Aq6yMbZvXqBIZBjcpkZoWAQEYIWhfjj8PwMAaGUtcZhB6bJbJ9FNLMmKQ9gr/VO45dCclY0D5aDwY3OpjLdJ+T8isZ/wqTbgsWdBnC2Usk5wAzZhydOntoHkqcsObaq/fpDfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kh5VROtZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="avupD7zb"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DF7A938D0;
-	Mon, 10 Aug 2026 20:05:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786385101;
-	bh=VoKs/vs0Yoa0Ku217aS9X2uwwR1NzngZqp5D+Jvkkf4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=avupD7zbgNPJhog1mkyEkbxxBzL83VdHulBZ+A8AnF0Z1rbiYQgGIFO7vXBElpsj6
-	 MroTyGghzmv0sScKkco5Dy7Ae2b+uzMKgTLs8m1bAgVMCBgdUQKpIuKmbhZT+MwtL4
-	 mDTTq9d3yWjnteguwvDc7ACEU/SUxOVy9AVAB+Eo=
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	imx@lists.linux.dev
-Subject: [PATCH v3 7/7] ARM: dts: nxp: imx6qdl-wandboard: Replace clock-frequency in camera sensor node
-Date: Mon, 10 Aug 2026 21:06:04 +0300
-Message-ID: <20260810180604.3034255-8-laurent.pinchart@ideasonboard.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
-References: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kh5VROtZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22F5F1F00ADB
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:06:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786385199;
+	bh=hgcymRn06CEzZYivG2OYevh3C3pdHTxTa6lD6AY+ufg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kh5VROtZSFG4V4setKEx58r+aXrbRhkM81FNJEhyhDuJ/kqBlm2afkySKxEryEAjI
+	 kjgF9+Rzmf5899CrwmI6A6BinooXbmJ8xOLd9j5nNWR8EJGqVS7CIYJ65g3JccUAhK
+	 YSmjSLQ6tdF2Y+sk8wXbvIY3/urHkouBnvsSMyt8ImL79tDL9CVLuRuUTvRzGEJe4b
+	 GVn6NHwdDrRcbH48z1LRvff7doLUQD+emJgzW7U8p93t1gHIChWUJWPOGYztkhp7Qq
+	 zPpEsDdJX8prSupqD4Jhu/aXxeLWDPU8oTBtvhBCbxYXte6I3F09YVBQlzRk6BCsFo
+	 sHjiQQvHJfAkQ==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b159850b16so1959328e87.3
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:06:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpNtJ/dyhSnu/TIB2hgtUVImH+80hHoI/0vPkl9jVIjFWeEamIwhWNbVPH0JPPeDffAVckqvEAV5/dq@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBP2KxBE6qRZHopU5LZX6Ywek6qOOVtcToVmVIfJgTRvEnU7o3
+	gddSjI1atjZSikmdtkfaoxcMn5MC+dV8Uqt7eP4WF+YukonRJQ9gWK4EK1rO3XgblQG8qCdneZN
+	jtE8vbVCkxTuHJ0TpsijWClEXUpd99qo=
+X-Received: by 2002:a05:6512:baa:b0:5b2:f437:2a88 with SMTP id
+ 2adb3069b0e04-5b2f4cc7be5mr5978880e87.36.1786385197772; Mon, 10 Aug 2026
+ 11:06:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
+In-Reply-To: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 10 Aug 2026 20:06:24 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=kW+K6noeaO9=zktgveVbYmbZsWUWo3r-V0S7V90FDLw@mail.gmail.com>
+X-Gm-Features: AUfX_mymdEhf6vtyoDczgdrTd_h0sSGCYBoPOdLs8lQcTMbtLbfi04PfIu1dDG4
+Message-ID: <CAD++jL=kW+K6noeaO9=zktgveVbYmbZsWUWo3r-V0S7V90FDLw@mail.gmail.com>
+Subject: Re: [PATCH 00/15] Add initial support for Qualcomm Kuno SoC
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Taniya Das <quic_tdas@quicinc.com>, 
+	Georgi Djakov <djakov@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>, 
+	Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The clock-frequency for camera sensors has been deprecated in favour of
-the assigned-clocks and assigned-clock-rates properties. Replace it in
-the device tree.
+On Sun, Aug 9, 2026 at 9:27=E2=80=AFAM Hardeep Sharma
+<hardeep.sharma@oss.qualcomm.com> wrote:
 
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
----
-Changes since v1:
+> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
+> IDP reference board.
+>
+> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. This series brings up
+> the essential SoC infrastructure required to boot to a serial console:
 
-- Drop added blank line
----
- arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Is there some special reason why you are not posting this patch series
+to the most relevant mailing list i.e. linux-arm-kernel?
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
-index 26489eccd5fb..f3aaca039953 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
-@@ -137,7 +137,9 @@ camera@3c {
- 		pinctrl-0 = <&pinctrl_ov5645>;
- 		reg = <0x3c>;
- 		clocks = <&clks IMX6QDL_CLK_CKO2>;
--		clock-frequency = <24000000>;
-+		assigned-clocks = <&clks IMX6QDL_CLK_CKO2>;
-+		assigned-clock-rates = <24000000>;
-+
- 		vdddo-supply = <&reg_1p8v>;
- 		vdda-supply = <&reg_2p8v>;
- 		vddd-supply = <&reg_1p5v>;
--- 
-Regards,
-
-Laurent Pinchart
-
+Yours,
+Linus Walleij
