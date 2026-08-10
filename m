@@ -1,37 +1,37 @@
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1125F39CD02;
-	Mon, 10 Aug 2026 07:11:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54AE39DBF4
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786345905; cv=none; b=hN8nxKkQrQfr5fZzJbDsLJXwbbbyK9Mf/joehRfIfz7sk8rMDAuToFqQAz2ca1o524NceKYa4kiGD64A7j3sMOMmQ5aPBSBzyVORETLbckPc1ANk5z2vRjWuOQoW6LtrVLYB28eUn2KtyHH932ppth0NOfshI7u1DECfiye5Gr4=
+	t=1786345909; cv=none; b=lFpOxt6UaSRSyzKds+l7600iTO612rU66a4H50nBMmVF4kcTytHsucoMJpE0GXRafxFeas1hOBs/rw+nNjWBWv2aBsqchjN8zyNt1Z0CaG7SAAxor1kjtTibP/671UMmIaiiGu5Lm+DlVnNx07saX2sThpyqKqJFYiI1rCp2ShE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786345905; c=relaxed/simple;
-	bh=o5iaLeFqSZ3DLAGb4lZGano5lsRIsQ2wcPO34rBTfwQ=;
+	s=arc-20240116; t=1786345909; c=relaxed/simple;
+	bh=tgaAMT3putwQDIBHlFcNK+kb/GsQEpgAEExM0xBnjaA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lZ2bHM4/OtnW1es74/NteESvr1YtwCkFclEGsKu4ICuS+8dJXH6Y0gLjzhNYTm62+nQCb/ryPVXB7ZkjL+HAUM6YTUcTmhg53BqadEDZMh1hmkJj97b14GZB45SwYZ5CxtbsQHRKpdvC5DI0u6Qw1SX/NDdvzuohsMeyW4S7++I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=6zrMpT73; arc=none smtp.client-ip=109.224.244.108
+	 In-Reply-To:To:Cc; b=CQ/7WjZQjFz/Zc+B6zBsTHiNX/29bkuCwAwRmbI2MmNlXmKzlVTUzSNznVPQ/4xr7w3TTQEiDSgB3Hk/oUuYpVK3E9gcs8EXfXnTxUnA9EpPVnXOw7YJwD0Sd6PdShUgFGhLTC7fry6CjsDvJZvNPjglVO9/FQdw/eKGlya/ygY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=00nDSR4e; arc=none smtp.client-ip=79.135.106.111
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="6zrMpT73"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="00nDSR4e"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1786345891; x=1786605091;
-	bh=et8X/0cNTKAUwbY1yFIg2ogxv7G6qK1WtyOm3RNtKUQ=;
+	s=protonmail; t=1786345894; x=1786605094;
+	bh=jcjb6KcJp2tJBulE6Nr5ZteDMHbBWNo2OJQLEFFKlwY=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=6zrMpT735L16NV45pTDpNlQ45ImJv76trSiqp38yljj+hAreZfYBzglHPivOaxmuP
-	 ut75G7Fgsklww5ORGLqsSRmy1BnDltMJgNw+tMYNcJRuNG533Lc/9Ks7peBAoBu8NN
-	 6Xki/ZLO1YfRMbcZWwU/lkPBi8xleEehoto6CGn7F8RJX3AaOfH+HVvUmSbHkZNfSY
-	 L8CLI3+xAsc4RYzHCJFJ1i2cAjdnoUWWhqXUMEJWTcuthaBGE0Kt5aCQKpH13OmidR
-	 g+ZKUNiNB0d/xhHEYpcjco54b2LrFkoU5DhFnJ0t+LvUdVsGgIoTVbtwVmAhH2Xoub
-	 5Y/ocqgjHb8Lw==
-X-Pm-Submission-Id: 4hJQsb1CnHz1DFFP
+	b=00nDSR4e2rV58n7YQOQwcSAL9HxbyK/hCO/Q++AU9ZKj986OlOXD2z+vhMzvGptZ8
+	 5bPIGC5TA7IpyDg4mZm9yBQ1DQsUlV+OEILDpFOYrqm+UE7S5gSw/uh/9vExmDGuR0
+	 J6PZHz1w4+B85xI3ctV/rUmFt1fc7uBea+CzJg65CWLmKczibntq9c0G42/bgE/7mZ
+	 KdyIUCJoUUHS2REWMvlekYT2Ka7hkzjZ0SoQXt93oXx5dM244s1m6tNGDuMqzKpEs2
+	 6UoiXCR+tdvy79v8p5QnH8o5w+r2N0lbF+IuTW232UUbwsFoF+BTFl6FZLi8bB6fqP
+	 2wHtjV28uXbNw==
+X-Pm-Submission-Id: 4hJQsc3Ghyz1DFFR
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 10 Aug 2026 09:11:13 +0200
-Subject: [PATCH v4 3/7] dt-bindings: iio: light: ltr501: Add ltr329
- compatible
+Date: Mon, 10 Aug 2026 09:11:14 +0200
+Subject: [PATCH v4 4/7] iio: light: ltr501: Power down chip if request irq
+ fails
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-liteon-ltr329-v4-3-8bd3dfd15280@geanix.com>
+Message-Id: <20260810-liteon-ltr329-v4-4-8bd3dfd15280@geanix.com>
 References: <20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com>
 In-Reply-To: <20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -55,39 +55,41 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Yangtao Li <frank.li@vivo.com>
 Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786345884; l=921;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786345884; l=965;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=o5iaLeFqSZ3DLAGb4lZGano5lsRIsQ2wcPO34rBTfwQ=;
- b=hno8JNCNv4CSmvvm7i3WBp/8ZyreLLMMVuHZ+fco6KqhuFGqt5TKlZSWhS1ZFrD0xrclidGYL
- Oi4BF18EWDDC/V5M/93nmT4R+1J3sPiPoVKWmnKAMd9b2TfoH+zEGRj
+ bh=tgaAMT3putwQDIBHlFcNK+kb/GsQEpgAEExM0xBnjaA=;
+ b=JdhDNToQ0uoqWTs3aTRsiqihl+OF/OIeiJp6LZO2fbNTGc2zuTrcR6OFEY2vX3jXASYSF7sr8
+ F/lktM9D+AxD4Nl0G3CTf4fCAAJu6h56cV1qymDqj2cbSluT/0ju1Fy
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-LTR-329ALS-01 is an ambient light sensor similar to LTR-303ALS-01, but
-without interrupt support.
+In case devm_request_threaded_irq() failed, we were leaving the chip
+powered instead of powering it down again. Power down the chip switching
+ALS and PS modes to standby.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Fixes: 7ac702b3144b ("iio: ltr501: Add interrupt support")
+Cc: stable@vger.kernel.org
 Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/iio/light/ltr501.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-index 6234e2eaec2e..8c9d6cee55b4 100644
---- a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-+++ b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-@@ -17,6 +17,7 @@ properties:
-     enum:
-       - liteon,ltr301
-       - liteon,ltr303
-+      - liteon,ltr329
-       - liteon,ltr501
-       - liteon,ltr559
- 
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index 7d045be78c6d..7746d374688f 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -1540,7 +1540,7 @@ static int ltr501_probe(struct i2c_client *client)
+ 		if (ret) {
+ 			dev_err(&client->dev, "request irq (%d) failed\n",
+ 				client->irq);
+-			return ret;
++			goto powerdown_on_error;
+ 		}
+ 	} else {
+ 		indio_dev->info = data->chip_info->info_no_irq;
 
 -- 
 2.55.0
