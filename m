@@ -1,218 +1,218 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DA74119F0
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1173A411F9F;
+	Mon, 10 Aug 2026 15:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786376556; cv=none; b=ENhC0l8qPoWe3HzORmqQ0s7OfKtGgg9ojhlMF9xR818HKMq7MXHh0pawcw6JntVpJ34pPPEPlE3oudAJ5lG/FUufqVut+hIk/pldsInPR55RwdV2kNYX+AYt9ld2kC+wL17PpjZOg3iMahUG/PytqRnSBv6npQjOWF0DR/VOUNw=
+	t=1786376651; cv=none; b=tDh0978598cXRcu5WeP1rUKHWaeye4NtvjzeRj6KaQAbQL1wRPuIV/InwaoF7s71WTE8h4xuAMdnyMBvR4Ye5DG5BCuQPF4GEbMxnqaFoXuMa4CIB4y5ZVsjFsjrk7QF9QTlMm0+xFOVfkkmLROgmo+X46UhOlqzRWulb5zY9Yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786376556; c=relaxed/simple;
-	bh=vDDm9UNNeBZngu98OmnO9mFNj134tAZMEgio5MqFpBQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=k9RcBEsM+rY4EOEhPiegYRVwsvolPAHMW1UCtH5tyNDUDHdJLZ1ViFQ/Jca9Gm70AN5rqQnx/DyPUn1Df4UxgTrrpZoqNaULDw/gp9JenbkPm11TfkyCuUz4QIp5tmrqhOi/7BpqXvV88DTpJSziUcg+JkpaWkOUIiQ6S19sOTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=akwxgGYi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gUHJpBdU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786376651; c=relaxed/simple;
+	bh=C6cxHOsZACAKeN94E994O/jwwjeiJzpYCkhLkorsEoI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VLYyqmkkw1Yc/dkSjsje3H0JevRgmcZBlnzq4WMuNTmM4ryFKuYMzHTWF4nWEgT8Kq0eKM2XCyhiFaNXH0vgkdJSFeXTII5eTa62XT4amoad6MUa6+ry/tYnCacGy5E5TGxzWETnVkiHc8/YDrxQyEE2SeU3HfTv9YgpixiOVpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k/UHmIp9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="akwxgGYi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gUHJpBdU"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AFWK582592229
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vKWiI1N+R0cjOLHZF/QZRa5LZDuo/wMrVcjfTjWK7o8=; b=akwxgGYiNPm5S6/R
-	anwWFKN6u5wXh1RpndWx0GoZzEvRB9Q4YUuBSeCNqbSLlmREGasCbyNPAFBdnVj3
-	OID1TpwEwliR9wN+DOJu4bEHENYrriebnfAzzn15Cn4ZFvA/m3CXwmxk2C3VUL9l
-	ZMZwml/RTa+xuu4areXhKv2T2x+NbY0XErjsMYHSnPeR3mdCPveC2YmO5YvbJ6Uc
-	xgf/Je96SLn/+j1YOTMFjoUfqhTRBxuLOpvckdPrDQp/x//F6ynUO4PWLSRR2EI3
-	N85cahiSExYKnkN7dRtVVMgcqzXFxy1Vwcfj3dZb+hcnmeKahHgzgbq9r8mYQID0
-	3KxkoA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fy8v3ta9b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:33 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c01ff996dso27948161cf.2
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:42:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786376552; x=1786981352; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vKWiI1N+R0cjOLHZF/QZRa5LZDuo/wMrVcjfTjWK7o8=;
-        b=gUHJpBdU9wvGU4Yp3qwuzzvGY72Kf5mNRn7pWgGH8+4oGP99hEQtDaCnUUpyvUFPNu
-         igPAt9gsSQOVOVrYhN1SMZMwZGTGElocBN4MxOo3i5F0fofzD4bUjHrbzrPwAWBa16bS
-         HnwGW3auX8Y6pzMI43r75INM+DhYwmdF2FhTEz/h65oaS+YySp5xLu2pFBz6TkfaR93X
-         aOZisndKwKgXf88KD+88KfxuoA+RpVP5f4Cc3bfrQM8jYt4J0YDo9rZKYuaEdggWpJKu
-         1UgWSmYgN1zyczlAk8QfIHznmnLlpkRmvW5h8zcl8o5CfAM/RRd+zB3/gmw21n1/asHv
-         dIzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786376552; x=1786981352;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vKWiI1N+R0cjOLHZF/QZRa5LZDuo/wMrVcjfTjWK7o8=;
-        b=QKQ7ot17tkg9BWB4mb6GdYVazEsUB3PHQNNxHAfHiFUlQ16Y65Gg5/nTcCgbliu8TO
-         XWDIlevDTPy7rQ84sPIuQaIbOv+Db5mCIvCiSnUIL216kUCKtv2Un6Or4qtHcBdN3RmI
-         xeiiEExaLsn3M55FgaCYFfodjd8hu1B7eEvo/NpHDI7TGWzTXH5hIL8p/1uEWpW6rA0b
-         UWsaDX8TZDxhX21xNdKSZQp0QpYuRGsXiuoQSdnmK02+y6IZ7muF6GALN7xZuBeB5GV3
-         xVkyWGtNc8+MlIgUAorzwnS7MRpijSgosxnVY+4VMVMaXaRru57Ug+tBoAulWp5LeUet
-         AOtA==
-X-Forwarded-Encrypted: i=1; AHgh+RovxSBV+CUHGmxgBvRqIDFzdSMU8jfuKDbH50qC7ud2ZDU8h4DSuh4m0TTHwTRseBWLqjmafOPuAgr4@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0m7ttebpNAbUcGZ8iMCWyXi+Iq+BXDyLM3xFuU3pl6d/pRBDc
-	Qq/vHdtUil7jm+SAcxUC3HG5EX53xFVbUI+LoGRtc3n5yL013mteli+FkGeurIAjqKzqh3ZNfqb
-	PIhk5tT2h05PWMy6pm3pgGMRV7lTqOYINqAuxfTVv9+2tTcBrs5v+fuinFvlV+E0w
-X-Gm-Gg: AR+sD12TXV3f3XQnw5bXwTmJcdIiSxISA+WqHfs7TVL7CpYwFIFHmfrDQwhxZ0n47lI
-	lvpT5GRnEW+nc+5yD/PcdRhm6fHUDCo78Qjx4UdEKSKpN5y5ic6ZZ/SrSZhQ4Wvwrjdxuec7XNF
-	ewiF+cuQ14UBoE3N1lxI7RsAAKb9qSljKsrMAIZylIp0l9a2h11wLHIzMTAV2NYohwH1XZ+8Kw7
-	4M711f6UOvFeAS0aYZyOelKUdmNFHptW7DxguxYoCgSd3CUt3hnN9MB3Cq26RMZ2x6gEvD7oLLC
-	rKyK6fDlAFkhUoLvq9KC87TT2iSOXtrCzyypiTheFN9rGVQ6MoGX4LYOf2EvLeKZ9/Zx/Wz0v/B
-	hoj/m/aPtDhWPgUUgIp6m9ceYFWdM/Qf3cmPFRcSR/owpS82+uKwb4acZKEGqPc1aEnfw3EK1Y0
-	3vc4BG1hebalVS7A==
-X-Received: by 2002:ac8:5cc5:0:b0:51c:207f:6524 with SMTP id d75a77b69052e-52d1919e59dmr265069871cf.37.1786376552395;
-        Mon, 10 Aug 2026 08:42:32 -0700 (PDT)
-X-Received: by 2002:ac8:5cc5:0:b0:51c:207f:6524 with SMTP id d75a77b69052e-52d1919e59dmr265069211cf.37.1786376551886;
-        Mon, 10 Aug 2026 08:42:31 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b3056f1bbdsm2071673e87.82.2026.08.10.08.42.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 08:42:30 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 10 Aug 2026 18:42:14 +0300
-Subject: [PATCH 10/10] ARM: dts: qcom: apq8074-dragonboard: enable the HSIC
- host
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k/UHmIp9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40C7C1F000E9;
+	Mon, 10 Aug 2026 15:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786376649;
+	bh=fqBoJFSQE2agf1BaBtWZMKpmosXJ/LW6AkjryVxXCPU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k/UHmIp9cmpecAWB/f1sU6bWAsIyBmQxfZUtoU017Sa3pgVYF5X3j/+yWy46wgn3S
+	 GuJQaxKo26ud7oL27FU3nR4tmzGbPTGarBUwT5kRQkGVTbw+CPM4Voe5ahScSbvVoS
+	 9O3RhLywLk9avlNNdvYHgGZA6YxGnqCbw3/+Kz7mNUnXOnavXBsDvJWjdbMQhIEDd+
+	 cQa78aInEZ98qO1wnVtNuITE6DKs/zpwWTdDXEcVysqn0tpmz6Zbpzum08dEZ8lTW5
+	 wzol27uEb+mbp6Bt1pL7HaRWlPRP5YkXuyEkgqsacgcKL3+5lgOqL/SlaNQwhzg8TZ
+	 aMkK2yXwsVqHA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] Input: stmfts - support FTS5
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: dmitry.torokhov@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20260810-stmfts5-v5-2-0c737d929976@ixit.cz>
+References: <20260810-stmfts5-v5-0-0c737d929976@ixit.cz>
+ <20260810-stmfts5-v5-2-0c737d929976@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 15:44:08 +0000
+Message-Id: <20260810154409.40C7C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-msm8974-usb-hsic-v1-10-e5f93ea76ffa@oss.qualcomm.com>
-References: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
-In-Reply-To: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Peter Chen <peter.chen@kernel.org>,
-        Pavankumar Kondeti <quic_pkondeti@quicinc.com>,
-        Stephen Boyd <stephen.boyd@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-phy@lists.infradead.org, Greg Kroah-Hartman <gregkh@suse.de>,
-        Peter Chen <peter.chen@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1766;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=vDDm9UNNeBZngu98OmnO9mFNj134tAZMEgio5MqFpBQ=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ1blx0DxUsOgB3I8DaoFadt+iH/JjhX68Vl7069yvqQUu
- 5qu1bqdjMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZjI2f3s/7OLY/ZetjCx/rFQ
- 50HID9O4R5eSlr52Wb7Mjzs9J23y/jCD6xp2O7h3FXfMFb7+PbHfkmXKvmaFGzEN2T0tug8CZuT
- UWchwZxd8TLvSse6Tc6FYxtRZXklLFIOU/Nm4+W2SfjmGp7TGcPp5xByzcc2yKZ9w+vxO7XNuoT
- qry9YX3VkvvviGQ4PV8QPL+VgsTXlmvuhJOV5fHHB+t1t1kC2PQPMRoZffui/Wi0ULG5/7eeHN8
- gZ9juWri/RkO7+HZqWZuhSLLDys3zttx+tPZSZdvGkzhYKCBSJS1xYdXLZ9psj5BMFrpUJ5c9Km
- Mynsm/s/ZteSbGPVVx4avTuav0+5PvntR/EXJ4vqhFIA
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: 5OzrHN1nhLcwf69AE8MGkTsFleXT8F2G
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEzNSBTYWx0ZWRfX8B3IWTduz/j0
- lWGSUC2Gpa1B6uDA5aQk7mwT/MH9+euLEeJ74QtAyX8WKz5jBFEbTlarpRduv/yiuxmeiXgkCzK
- 4QUPUG5cZI1j6l9ZyM9hc/ppUCXlQicCU5WEKibZYnPzyA+S1jBO3R0F4Io7Qb6fAPkyXLwXajz
- PzB/Vp+gSsuMACj6No4NbBKEM31QHoBs1/OyFZYHoBl+LArEgR/ycuFbGjC39/R2/cGnwPcxVV0
- vEvymt/oWMNpjARY6ScD5EGss25nbDy5OgwK536Z9raPPSvatsASboQ6WB4yVWcBbiu3A9O/axl
- 7ZDOnX4F5iPWPOaRinOnUpF9q/o/1T+MqtwUYxX3kRuDLEcXzL582z/Hp02l3Y30ERx74a4Q2Sm
- d733g2QMXZswcTftTfDxGJhA4q6100snABKxwg1Y1PrxweKUXmDurWazWrBqcr5Zi4g/X4bKn34
- 7i4xtm8U3UJXep2z12w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEzNSBTYWx0ZWRfX4c21E0GxgxWB
- fVgOnELluezdmDq3Uvq9pvzN+evoiSkVjfgk1pgIHfMwOkWH/uWnuKLMe8uQ3V6x7OCb4/HAc7A
- TyuC/Mn0X7c+HEHO9yQ0jCrB0bJwhZM=
-X-Proofpoint-GUID: 5OzrHN1nhLcwf69AE8MGkTsFleXT8F2G
-X-Authority-Analysis: v=2.4 cv=c+mbhx9l c=1 sm=1 tr=0 ts=6a79f169 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=VFyZVMh9rlY2QtTs7IkA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_03,2026-08-10_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100135
 
-The dragonboard carries an SMSC USB4604 HSIC hub, but with the HSIC
-controller undescribed the whole HSIC-attached part of the board is
-dead.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Enable the HSIC controller. The USB4604 hub isn't controllable through
-the I2C because of the board design issues, so reference it as a simple
-USB device, describing the reset line.
+New issues:
+- [High] Unconditional dereference of `sdata->ops` leads to NULL pointer de=
+reference if probed via I2C board info.
+- [High] The FTS5 Y-coordinate is entirely corrupted due to erroneous MSB a=
+nd LSB bit shifts.
+- [Medium] The power-off sequence attempts an I2C write after the chip has =
+already been placed into hardware reset.
+- [Medium] Touch Major and Minor axes are corrupted due to logic errors com=
+bining bits with the constant Event ID.
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- .../arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts | 27 ++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Pre-existing issues:
+- [High] The touchscreen is left in a sleep state after system resume if it=
+ was active prior to suspend.
+--
 
-diff --git a/arch/arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts b/arch/arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts
-index 083fd8fa0aea..02183b37ddbe 100644
---- a/arch/arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts
-+++ b/arch/arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts
-@@ -158,6 +158,14 @@ &mdss {
- };
- 
- &pm8941_gpios {
-+	hsic_hub_rst_default: hsic-hub-rst-state {
-+		pins = "gpio8";
-+		function = "normal";
-+		drive-push-pull;
-+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_MED>;
-+		power-source = <PM8941_GPIO_VPH>;
-+	};
-+
- 	msm_keys_default: pm8941-gpio-keys-state {
- 		pins = "gpio5", "gpio23";
- 		function = "normal";
-@@ -487,6 +495,25 @@ &usb_hs2_phy {
- 	qcom,init-seq = /bits/ 8 <0x1 0x63>;
- };
- 
-+&usb_hsic {
-+	pinctrl-0 = <&hsic_hub_rst_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* SMSC USB4604 hub, standalone mode (SMBus config not usable) */
-+	hub@1 {
-+		compatible = "usb424,4604";
-+		reg = <1>;
-+		clocks = <&rpmcc RPM_SMD_CXO_D1>;
-+		reset-gpios = <&pm8941_gpios 8 GPIO_ACTIVE_LOW>;
-+		vdd-supply = <&pm8941_s3>;
-+	};
-+};
-+
- &usb3 {
- 	dr_mode = "host";
- 
+--- Patch [2]: [PATCH v5 2/3] Input: stmfts - support FTS5 ---
+commit 8851d4460d3a4355e8954e1dd8b5a724d25fb3be
+Author: David Heidelberg <david@ixit.cz>
+Subject: Input: stmfts - support FTS5
 
--- 
-2.47.3
+This commit adds support for FTS5 touchscreens to the stmfts driver. It
+introduces a mode-switch GPIO for SLPI and AP modes, currently only handling
+full power AP mode.
 
+> diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscre=
+en/stmfts.c
+> index 972687797f826..1da113d7197e6 100644
+> --- a/drivers/input/touchscreen/stmfts.c
+> +++ b/drivers/input/touchscreen/stmfts.c
+
+[ ... ]
+
+> @@ -205,6 +246,104 @@ static void stmfts_report_contact_release(struct st=
+mfts_data *sdata,
+>  	input_sync(sdata->input);
+>  }
+> =20
+> +/* FTS5 event handling functions */
+> +static void stmfts5_report_contact_event(struct stmfts_data *sdata,
+> +					 const u8 event[])
+> +{
+[ ... ]
+> +	/* Parse coordinates with better precision */
+> +	x =3D (((int)event[3] & STMFTS_MASK_X_MSB) << 8) | event[2];
+> +	y =3D ((int)event[4] << 4) | ((event[3] & STMFTS_MASK_Y_LSB) >> 4);
+
+[Severity: High]
+Does this bitwise logic for the Y coordinate scramble the value?
+
+According to the comment above this code, event[4] is the 8-bit Y LSB, and
+event[3] contains the 4-bit Y MSB. By shifting event[4] up by 4 and event[3]
+down by 4, this appears to treat the 8-bit LSB as the most significant bits
+and the 4-bit MSB as the least significant bits.
+
+Should this be (((int)event[3] & STMFTS_MASK_Y_LSB) << 4) | event[4] instea=
+d?
+
+> +
+> +	/* Parse pressure - ensure non-zero for active touch */
+> +	area =3D event[5];
+[ ... ]
+> +
+> +	/* Parse touch area with improved bit extraction */
+> +	maj =3D (((event[0] & 0x0C) << 2) | ((event[6] & 0xF0) >> 4));
+> +	min =3D (((event[7] & 0xC0) >> 2) | (event[6] & 0x0F));
+
+[Severity: Medium]
+Is it intentional to use event[0] to calculate maj?
+
+event[0] holds the event ID (like STMFTS5_EV_MULTI_TOUCH_ENTER which is
+0x13). For valid contact events, event[0] & 0x0C will always be zero,
+meaning maj only captures the upper 4 bits of event[6].
+
+Does this result in malformed touch area statistics being reported?
+
+[ ... ]
+
+> @@ -601,15 +835,11 @@ static int stmfts_power_on(struct stmfts_data *sdat=
+a)
+>  	if (sdata->reset_gpio)
+>  		stmfts_reset(sdata);
+> =20
+> -	err =3D stmfts_read_system_info(sdata);
+> -	if (err)
+> -		goto err_disable_regulators;
+> -
+>  	enable_irq(sdata->client->irq);
+> =20
+>  	msleep(50);
+> =20
+> -	err =3D stmfts_configure(sdata);
+> +	err =3D sdata->ops->configure(sdata);
+>  	if (err)
+>  		goto err_disable_irq;
+
+[Severity: High]
+This is a pre-existing issue, but does stmfts_power_on() unintentionally
+leave the touchscreen dead after a system resume if it was active before
+suspend?
+
+When resuming, the device is powered on and unconditionally put to sleep
+with STMFTS_SLEEP_IN at the end of stmfts_power_on():
+
+        /*
+         * At this point no one is using the touchscreen
+         * and I don't really care about the return value
+         */
+        (void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+
+Because the PM core still considers the device RPM_ACTIVE from before the
+suspend, it will not automatically invoke stmfts_runtime_resume(). Thus,
+STMFTS_SLEEP_OUT is never sent and the hardware remains unresponsive until
+userspace closes and reopens the device.
+
+[ ... ]
+
+> @@ -637,9 +887,61 @@ static void stmfts_power_off(void *data)
+>  	if (sdata->reset_gpio)
+>  		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+> =20
+> +	if (sdata->ops->power_off)
+> +		sdata->ops->power_off(sdata);
+
+[Severity: Medium]
+Will this cause an I2C transaction timeout?
+
+By asserting the reset GPIO to 1 just before calling
+sdata->ops->power_off(), the chip is placed into hardware reset.
+
+When stmfts5_chip_power_off() immediately tries to send the
+STMFTS_SLEEP_IN I2C command:
+
+static void stmfts5_chip_power_off(struct stmfts_data *sdata)
+{
+        i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+        msleep(20);
+}
+
+The unresponsive chip would likely NACK the transfer or cause a bus
+timeout since it is held in reset.
+
+[ ... ]
+
+> @@ -685,6 +987,8 @@ static int stmfts_probe(struct i2c_client *client)
+>  	mutex_init(&sdata->mutex);
+>  	init_completion(&sdata->cmd_done);
+> =20
+> +	sdata->ops =3D of_device_get_match_data(dev);
+> +
+[ ... ]
+> @@ -703,8 +1007,8 @@ static int stmfts_probe(struct i2c_client *client)
+> =20
+>  	sdata->input->name =3D STMFTS_DEV_NAME;
+>  	sdata->input->id.bustype =3D BUS_I2C;
+> -	sdata->input->open =3D stmfts_input_open;
+> -	sdata->input->close =3D stmfts_input_close;
+> +	sdata->input->open =3D sdata->ops->input_open;
+> +	sdata->input->close =3D sdata->ops->input_close;
+
+[Severity: High]
+What happens if this driver is instantiated via I2C sysfs board info?
+
+Since dev->of_node would be NULL, of_device_get_match_data() would
+return NULL. Would this cause a NULL pointer dereference when
+accessing sdata->ops->input_open shortly after?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-stmfts5-v5=
+-0-0c737d929976@ixit.cz?part=3D2
