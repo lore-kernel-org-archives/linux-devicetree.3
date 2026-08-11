@@ -1,83 +1,96 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E974499B5;
-	Tue, 11 Aug 2026 14:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786456916; cv=pass; b=gy8c6dXy3J2uokh7R1E8h8IJyphWdZViqcA2+n+6pS8j+V6fjgFotT9j4Ea5uySrr9P/TMzeePomWeSM5ipefi0mMV6um2ZVRKJt8yNbhODyEkZGwnpekpnYKfWZO3S3ufZfHtRQs46p26KCl+GDRFDINba3N1xYipT4ZjXRNco=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786456916; c=relaxed/simple;
-	bh=qq8eZMaIhUSHOu1rfSPA0zvsZ5LZLN1tMGpZnArNA14=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pxGFJzWEvp3/5cy17Y7YHmdw4dPTz8x7GMUsGVVLLNEiUW/M81uQsUlqvlQNnM6ZTrgVoq6QjUK6KD3HjRiWhawX+T0z0PE2R76t+T0M5odR3eb2h53UHOM4mGcZ24F63FvYek1CduhMUDxk/3YIHl/Qzt65tU/oSgr16Iq0MKw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=jd1+QhTc; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B802AD00;
+	Tue, 11 Aug 2026 14:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.196
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786456971; cv=none; b=oM/ir8DgZj3SNsZRrrNkpW0rTJOPUtwVJz0FB/SP3L5Ne6mVuI6DiHmKP6AZ6iIfDSN90ShSKMlYOcBTc/h1sHRBq9pSNHDOd23R1wjqcg88ASynexoBJpXiquEkGyIN/sHnvAzzsnVq6jlqNdEjbBfNLfbtEFGwRqt0c9dhcZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786456971; c=relaxed/simple;
+	bh=Js0t1IT3eMLOou5xUJZE9ujCwNlS4ni9JLnOal+Laps=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IGXNWrsqk3d22AUkGvGBkDVm0hUVmWX0oQmm99PrT1K83x0DNBZwDKrY4kEH6xD1CAWXBPolzZ1cHyILTGQ0hUTN7pdS419GR56BPJLy4+8TtPRFYhHh2Ar6y2IOxXqBAFdVnD/eCnn2h3SHw1b7OQxCmYMXW4XPBk+YDvk8soI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=UYXh6tiX; arc=none smtp.client-ip=217.70.183.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="jd1+QhTc"
-ARC-Seal: i=1; a=rsa-sha256; t=1786456882; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=iuiK3C4LcMuuAYXmzi8fmH4rIobNSTRbQuOLKD7s7cDn+17sSNrfTYNEOycgPnohwEc9XIySHVxfam3lekwmofRtTi27n2r2asJo9v2I8wS5uglq4ZF+7bfyMbf2DByctu5pyRtbk283WZczEPbqESzWhZ/g23myPaQBF4CeiaI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786456882; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QTfxfEAC0awN9pGH45+tTaenBH8A7dUoYGm7pbjaa2I=; 
-	b=ErHxCO9IbTfIGd6wJVjZionZxuFsgvHPShn9LR62GylF52mp7/h4HwHvBkxDZtJPhRRJQgtH9F+dl9fkaz9lAuwuq1DT13BsFuqlIxk3wGoe9uNtxwGDIMBorbzm3FqAlsxqmk2xBM6JLePyMafI6WcI5LzbiyGR7VXNV0TU2dc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786456882;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=QTfxfEAC0awN9pGH45+tTaenBH8A7dUoYGm7pbjaa2I=;
-	b=jd1+QhTc8gfLci1PVGSkH1sM5/sZWgv3+AEyQc2wcPn99fYDlqFOuZXEf2pwCHtY
-	F7UioO+Y3+m2B/dDA96KSn0mAtfYWornn/xjVpsLlAKGKuQlfPwPg4ohAMsmr+N8L7o
-	hWdKqQXV+NTh0Mwq4QrTEf4rOJffpCaIynF/OoYg=
-Received: by mx.zohomail.com with SMTPS id 1786456867632374.5144013643186;
-	Tue, 11 Aug 2026 07:01:07 -0700 (PDT)
-Message-ID: <816c3cc6-fe65-48fa-81d4-72026b66abcf@collabora.com>
-Date: Tue, 11 Aug 2026 17:01:02 +0300
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="UYXh6tiX"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id EBD123ECF9;
+	Tue, 11 Aug 2026 14:02:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1786456960;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cmHc1SKArkBiLeCTl7vAS9lSJ0vHcdzEWugvVM8NW4w=;
+	b=UYXh6tiXNhQ4qshHYLKbqInOEagvJROBEtkbXsHXezZTTYFW9he7eK/VrDdVQgA5EoZWYw
+	l9I0g4SaE++MVb456nj/r4B9UiVKUDtmg69oZzEd2ioq+as9kdORs6jQNaThwenGRHPv/e
+	vGde0HzY20XUuFoj5vesEEqtpl+Y2uPOTia+ORHHJD7d0In0Qv7jubRjgZ56HxP/6JyXb6
+	w/SLlUJNLSMoRWQG4ThI5T/c2jES5nap+L7eKEy73fUtm/3XLBNWc9lujyEKOIzMhAsVH6
+	tHm6WmfxDlBD7M72SdZ5usMa9itLKakh2cLM38bK4IX1CUNy76tedVj+KiV5cA==
+Date: Tue, 11 Aug 2026 16:02:31 +0200
+From: Arthur =?utf-8?Q?Cr=C3=A9pin?= Leblond <arthur@marmottus.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 2/3] dt-bindings: net: wiznet,w5100: add link
+ status interrupt
+Message-ID: <ansrd2nYaWBk-EiK@pc-du-fromage>
+References: <20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net>
+ <20260811-wiznet-link-gpio-v4-2-4d5f7da885a8@marmottus.net>
+ <688f57cd-a098-4904-b8cd-965470a89386@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] media: synopsys: hdmirx: add HDMI audio capture
- support
-To: Igor Paunovic <royalnet026@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260721064115.64809-1-royalnet026@gmail.com>
- <20260805154039.10161-1-royalnet026@gmail.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260805154039.10161-1-royalnet026@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <688f57cd-a098-4904-b8cd-965470a89386@kernel.org>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-Cause: dmFkZTF29h7gh2LGGnxjNrXQnL/oenCMurpA5kFcLLJasYLjRv0uv/9d7vwUirNzmcltikBHIfm1gQyEBGz7B4yNMRO41GPFFznJfeo8pDJiwWmepSxYXAPBe8iqUml2SdoEuroLQY/wfmTClMhyZQ3S09+ufIH/GW1PHmE61B6iNh7TWxlGIMmPWLwdFv9C39GdRVpS5lbSv2zmlKE9ymrHYXYubl8J07xYN6+JAGk0KbWJ/DAONKwOm1Bl0l0yO0As6Dcy+YG5n/uVd0d9bU5GuPwi4Fz5I1/UqXd3EwsQ8rBm23RoXcKwfTHfOejnnW6FahOPe7SlPHTQsrADzVjk1oFlI1ngdaKRZE+x6lH+lOYmbefW1Tt8Asqynh/SX11XNKKEHqw71LZOALvY1U8ly+ahtwT1U8wludWFLspIuQBVXxDxo1M8+uZrqXBp/oDZ2tiH3k5D17sEUFKJOivSnfqqaPU2QBU0Bm6AC/IET+gVwhGRSJtkr7R3JatT48pE9tXGPx4uyvGDr8zIiNYSEmY1m7EOZD0Q4rSyJuxHss8KCnL6sdLKreBEXsd/AlGABi6bg6bNtIzSsatzOUmNDjNSDotGe8Zl61quTJbZVAbdgzrBcPSe/EKc+LPJvqIUNMWq6swxweI1nOfHmVhdPblyX4EkSxtkur7gcP1S4PhG1Q
+X-GND-State: clean
+X-GND-Score: -100
 
-On 8/5/26 18:40, Igor Paunovic wrote:
-> Hi Dmitry, Mauro,
-> 
-> First, belated thanks to Dmitry, Sebastian and Krzysztof for the reviews
-> and testing across this series - much appreciated.
-> 
-> A gentle ping: all four patches carry Reviewed-by tags (2/4 also has
-> Dmitry's Tested-by) and no changes have been requested since 23 July. Is
-> there anything needed from my side for the series to be picked up into
-> the media tree?
-You can always send follow up patches separately, referencing to this
-series in cover letter. It may take significant time before patches will
-land to kernel tree. No need to wait.
+On Tue, Aug 11, 2026 at 03:36:43PM +0200, Krzysztof Kozlowski wrote:
+>On 11/08/2026 14:34, Arthur Crépin Leblond wrote:
+>> Add an optional link status interrupt which can be connected to the
+>> LINKLED pin on the device to detect link status changes.
+>>
+>> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
+>> ---
+>>  Documentation/devicetree/bindings/net/wiznet,w5100.yaml | 9 +++++++--
+>>  1 file changed, 7 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+>> index 641c9ddbde9e..30f013f40a77 100644
+>> --- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+>> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+>> @@ -24,7 +24,11 @@ properties:
+>>        - wiznet,w5500
+>>
+>>    interrupts:
+>> -    maxItems: 1
+>> +    maxItems: 2
+>
+>This is redundant, instead you need "minItems: 1"
+>
+>
+>Best regards,
+>Krzysztof
 
--- 
-Best regards,
-Dmitry
+Thank you, I'll update it in the next patch.
+I will also remove the unused gpio/gpio.h include.
+
+Arthur
