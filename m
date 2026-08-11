@@ -1,88 +1,86 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CAC43711B
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB00F43787E
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786444470; cv=none; b=EVjqKGWdLhgDFo7HgL63yuoz94I7l4J3poc05Veyu+AE+ccuRsZ2ti88y7ZN5ZHn30NfwJnatP6StXYpzyk/t+M6zvjfFary9xnr6It2IRUIy22ljtiABqH/JR2XekNP/FY+1zhHAVtUgBCS4VgKpJ1b6CJSXGHFui0eH4xXlrk=
+	t=1786444568; cv=none; b=sPxIFdW4eIq/LbVHCE+eMBDeKHMnpBRDz74yxS262lj4si+SPDEHATp4kLv1oHwZUP92hCO4Vt4e09n4Q/rRFgqlqmrLIeMdXAF94UvgGVVxQrxsC6SoZp1heV6pDrsUFtiILVCYk1vX8Up+b3VQTR+i5+Wk3EgXTGvOdweVYug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786444470; c=relaxed/simple;
-	bh=khlQxXBFoIYgGCKdLKHy/O6Ag9LzLbpRU1Mf1asnSLg=;
+	s=arc-20240116; t=1786444568; c=relaxed/simple;
+	bh=yWfJyZGK2HzJXX4QCUhrVzxfpvC79QZuU7HvRTGrRfw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s5oDnHLFVO7hukp5BmHPjOakRiwDCc2/Z8b3qwj/CLBvpWncW9gtVsrH48peGyCBZq6YWaS9rSfru8bqG4cv8OT6IBoSm1ptALTAbcleLNphdid7112ZBFFtOlmLVPkhMeGa87wLEovKTPhs5WS83K/nwzsN14TlECxWRfDNFFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kHL7C/FA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UrmIEfkn; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=ZH11Jkp2J4VNp+TbQR2T6TRLjm3m31iblQU2MjbPp8Cz5JBErqtQh2AahCqe9eFlrH41n+hm7IKiyfooMBLO2BvZHiLYQr6lOEjhbu33f+0ftBQE3JZjmb/YiBTtzDDp2j5v6zYAduzWnDWyIAEod5mzPCiZNTOB5lRx6K3KjE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H0PzsZeZ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UULIlaxZ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kHL7C/FA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UrmIEfkn"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BAM7pI267703
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:34:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pX8gmMmDKg3afhYRts2RaqhPOxNS8pLkC/Y+vBXD8qU=; b=kHL7C/FAhKGInXCO
-	zA3KOpoL1jYxsGz71CjF5j6uWbu02n6O38tEQp1ZcyNkVkB0zD8ljTGeGYgiy7Cw
-	7y9wU+ofY5nqQrE41en095MaX6weRe0DVl2E4bPyDrVjBbqDo/DsIVbCTbQeAoP+
-	VZzr6pcQx/2VyVShuYjMR46nBtyM5FPqXLzTbCLRbyc43hYTXxgc+wU9Q6NkftV9
-	lK6Peguqszx/rCxk+DG9Ic4LZ0X6n0MJxe8+0FyETtGIOz245k5SksLmb7lwUMc1
-	hGf95yZcZl15lfE9FGT1TrryvSPispZXkuPZ1UF7nOTLnc/jI8dVj/zrBLmufgRp
-	68A9gg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyjjv3my4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:34:28 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cce14a21faso13678515ad.0
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 03:34:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H0PzsZeZ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UULIlaxZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786444565;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZgWj1WXd9QdIIoi0sGrC76AwkF5BooWQkqcP0amfyhM=;
+	b=H0PzsZeZx5Qt1rsBrGEnx16qEth8CE4UMXKPweFn2NFv5VsoVWSIM1gS3L3eCLrdCdui7w
+	v/AF9Ge4YVSgB6ds574th+iQexuoo4+JUVV64RfssrEWxxPoTndLhYatGkaK3lybXCgll0
+	7sHwEfWmKgKHeuQKSWI8+NRA+aLeplM=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-493-wG1zr1QyPZyiL_y8QjtELQ-1; Tue, 11 Aug 2026 06:35:54 -0400
+X-MC-Unique: wG1zr1QyPZyiL_y8QjtELQ-1
+X-Mimecast-MFC-AGG-ID: wG1zr1QyPZyiL_y8QjtELQ_1786444553
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f6db77430so1615341f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 03:35:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786444467; x=1787049267; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pX8gmMmDKg3afhYRts2RaqhPOxNS8pLkC/Y+vBXD8qU=;
-        b=UrmIEfknFq1aLfzZDf1aGkY0QiiNMT37pNmT7HpKVtgf5SRW69JMyNFDC2W3dnc0Z4
-         4CcJcqBJlZFHqR4fR2grAInyPdDUOVvOAjX9OzumqKp0kMu1XxyL5PNX2eRnEiIUqmEQ
-         KmmC93oAfXjaFlXM6WlzyqsFZB6r89HIurpmhhRCGf4WdVtPJZhVcAE8Z2GFQQXpx5O8
-         bout68ADxNBaE1JtZaHIXtnQMEuZWZBNbpiIpW3N2oRD/Z7y++WszJ6+18GX5ldNJ3Tq
-         4WObu04RYGRYra5oD53RdCBhRTYDi7VWFSugiipjssRj7d9Q+Wvsdxh1OGAMT0NJU+Oa
-         Z8CA==
+        d=redhat.com; s=google; t=1786444553; x=1787049353; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZgWj1WXd9QdIIoi0sGrC76AwkF5BooWQkqcP0amfyhM=;
+        b=UULIlaxZr2Qf7+EQcOzWwBS+9hrHgQ4T2iNYn8UkyHVyNQk3sAHZjwVX7eijBmHlNG
+         3j/84K9SNn/i+oGF6sQGWI6W3UCQ9pM4p3RUz2oD7DqMzqfW+/bMB/RNtiQi4j+7ICmR
+         7nB4l3+oh+iypevx3tts/rYaVPlUNKaFqvMRWNHRv4vCGK44cCU+itIvvSzps3pHxnoc
+         oSxB/EyHmFUkAozQ2DJozT9GSaMnUv/cdJnRpuJ16B3bHKnoSdUHkfXcYnUTagQ3Nfgq
+         a0nvmjtiB7X/Jz2z6w7nOvp7hVWVMTGsfPZ3gAIdbYLSAlKWfXeidxPa1YmOj5rMTtHp
+         jvVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786444467; x=1787049267;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786444553; x=1787049353;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pX8gmMmDKg3afhYRts2RaqhPOxNS8pLkC/Y+vBXD8qU=;
-        b=GepACMuCgeW+gww1nTz3mOr/Fevjo4RQAwB8avblXE+3h7nMPB1M/fyNRhFrzZLPSt
-         za2hQGQKUMSWVSD+/eaZDJaqtGCG3eVOSYqZv8sgy5m+2Ds+rE2KjWG/eXqbFBEezVCF
-         Pp9ilzbDQd59B7Jep6RCN9XnNJK8SRSR/287xMxWMqIhO9AIFqIwFoi1ZXm3tBQQqCtF
-         ROq2gbI7PYGccPDTnbXgki+wtahzTmXHCbW0hz9gsIkbhbDCS8/Uc3ivdc38mRnWdc9R
-         Bw9ZxqZqaIyYvWnJeCk16lGBJ6zbEfa7HhHNBb8Qy+kIQvEZ/f7aHoLEGsVv4mOVoZOp
-         fwZA==
-X-Forwarded-Encrypted: i=1; AHgh+RrPPbVMH662GRn7qHY+1je1CMmUUKQTVFpZqTcTNJwVEyDcABu524USP/4rhIPfL19yLB39o/SKuXC0@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+kniDA9sS3lk6gN81qIY2q6YcgSPvVJuvd2gr0gla97plYn32
-	lT1BWGfaZCTWVvhWnbh8ANt1y+anf7Vxh5yl1VjF+dCuSczEO6FPVjCghugjHn/+5McRelSbxyM
-	wKvioVuFjtINn6tpU7Z1NtVLxuHQACcNz9c5BNYw6gak2NXyL8vWzbqPn6nd1/eGJ
-X-Gm-Gg: AR+sD11fJTvpFaTJrAtnim+xr6tyi69SnG5jiRcKwKmdA5Nj0wGgmFTQGcfohamR6M5
-	sKgtDuiBVz66mCOf18VhZIh9z979JsEQ5+f/gYqRAdJbvVn832vFfylx0K8ClmqebMA17NBaQ/F
-	IhbmSDXRc+bAAerZfGH045eUmEvCB67Wjq5gLBDOlef8cw4IwuThsg4bgowaZceRojVxZNZtEBi
-	Nza3VQLR1IRYvXYOmVfLWX6PSUTNDY1KUc1W10fmMDZQEvu6vft1G84EdIaqZ6JOG4FhaHmpq20
-	8XsCVCcFgHgj9+6DsiqkmqRGiwB5tJd8M9DcwudvEY3RLsz7QzAtu7vIB424iJQ3TEnKQAW4iOr
-	aVLDbV85FjBc9rV93NQg/SoCzyan939dC8gFb/8c5KQ56qejH++5oWjdPOQ5ySfR3qiqgoDnZjC
-	8l6vNWbfaU8yUJuHRXRa/k8A==
-X-Received: by 2002:a17:903:40cf:b0:2cf:41ba:96c2 with SMTP id d9443c01a7336-2d31914fbc7mr8891945ad.12.1786444467194;
-        Tue, 11 Aug 2026 03:34:27 -0700 (PDT)
-X-Received: by 2002:a17:903:40cf:b0:2cf:41ba:96c2 with SMTP id d9443c01a7336-2d31914fbc7mr8891755ad.12.1786444466630;
-        Tue, 11 Aug 2026 03:34:26 -0700 (PDT)
-Received: from [10.149.102.240] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d315f48547sm5405795ad.36.2026.08.11.03.34.18
+        bh=ZgWj1WXd9QdIIoi0sGrC76AwkF5BooWQkqcP0amfyhM=;
+        b=rU+g2CwSlpnq9WG6+qY/z3jDDQT/3QupNEbv/xDdROvY6d5sYKANfrTvgE/yat8kx0
+         0RVuo7XofaZqe/DbW8GvoPb6PqYt2C/ubtxMaK0LX02buQ1mvDjC1MO8nfqIfw0+CXyv
+         +F6SxTXM2LTh+Ds0wa2mECswFKqjHckl/jhdw3LmvNZNSatQj0qrYPwAPISpREI0Xefy
+         u04g5N6045w8razfVRhCYTy3ubBAV68C7zGNIoriMYd7QvpOVW2Io94qIotLFbHOu5HY
+         HE3DB50P8kd9gKd36PiPMcjb/XLyA5hUrWrM+NepZvuqcaRM7sA4RFUi+69b4nujLdCT
+         2LfA==
+X-Forwarded-Encrypted: i=1; AHgh+RpVS+voa2Ab/DQKeHjKUhfGZ8H8cXyeSRcE3ncf2dbAF3UqV5EdahyuwCPLBKGBGhlTA0fFw+Ki3KJJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywy9YUyeXJa/z+IRD9Qr5C+YFETOf1WYTkiHqD0TPXW8Qgq13H/
+	OlwsEqz3zF3AVmZMF0GUD9tCJOF1DPb1T29/HrHZX04UA4Dygn6dcHpc0qxWeY+1o2eXzmF4/Lx
+	nmedU1ln0/d4DedxnL9cx0cvtgEeAKFX3aOTDH2giajrs1AB/r9X9SrXCTRPQum8=
+X-Gm-Gg: AR+sD12HU9RxIfHpNNaPKKtXzvo0JAOIZQpB6obU605qcOU6ejw/qOIwrfbm34LEVac
+	a0sKPqzNRzuGwozUJei9I4VS7muxHnFM9WF1K151EV7X2Z/i7Nbx5VJXD/lTYImJ+dU1qiuG62n
+	zAT3LPPI5JG9Z3rdW3VmPg4jPt5jTXSrQcI2JYJE36v8GqRXM65X71YK2XDsxyiiQ0oMeU4XzFw
+	pBeaNH6WVlZA0S09+XeYQj3FV6a818XsexJkpvVzHecZ5aeEJwMDPPLIn5eJ6jq/zBK3hZrvs5p
+	8aYwtxPaozOKa8zbFmPKEy0r7sseWG0catHC1A6NSFS+VadiMLilollRO7S69Uvr3juMv6vag3C
+	CBvDy8BC3969sXlqM4x+wZKrSA4etkCey7lIxn02Qg4Pz0tGnjY+b4MJbS3dlUZlNb4dGGphVLt
+	g=
+X-Received: by 2002:a05:6000:2689:b0:47f:9171:bca2 with SMTP id ffacd0b85a97d-4814ade3152mr3775306f8f.27.1786444553108;
+        Tue, 11 Aug 2026 03:35:53 -0700 (PDT)
+X-Received: by 2002:a05:6000:2689:b0:47f:9171:bca2 with SMTP id ffacd0b85a97d-4814ade3152mr3775229f8f.27.1786444552662;
+        Tue, 11 Aug 2026 03:35:52 -0700 (PDT)
+Received: from [192.168.188.103] (ip239-44-231-195.pool-bba.aruba.it. [195.231.44.239])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4814a72cdb8sm3375919f8f.35.2026.08.11.03.35.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 03:34:26 -0700 (PDT)
-Message-ID: <4bc060bf-b5ad-436e-a27c-57d5d0a89638@oss.qualcomm.com>
-Date: Tue, 11 Aug 2026 16:04:16 +0530
+        Tue, 11 Aug 2026 03:35:52 -0700 (PDT)
+Message-ID: <16b71fd7-9911-429b-a5a0-577f6ba0e999@redhat.com>
+Date: Tue, 11 Aug 2026 12:35:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,109 +88,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/15] soc: qcom: geni-se: allow selection on 32-bit ARM
- Qualcomm SoCs
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org
-References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
- <20260809-kuno-soc-support-v1-1-5e0ede4a0c72@oss.qualcomm.com>
- <7f4qs6su5fd5ilecy4r72suk6mqvj7oouz7ahgatxthqavrfia@wxilczij4unf>
- <vxpntlaebf4an2wgebgbwk2rdkingzjecdgylqv36wmxtyqju3@hkip3wqgendw>
- <7cc49120-8f0b-4e07-a008-145504e00dd0@oss.qualcomm.com>
+Subject: Re: [PATCH net-next v11 0/9] net: dsa: add DSA support for the
+ LAN9645x switch chip family
+To: =?UTF-8?Q?Jens_Emil_Schulz_=C3=98stergaard?=
+ <jensemil.schulzostergaard@microchip.com>, UNGLinuxDriver@microchip.com,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Woojung Huh <woojung.huh@microchip.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Daniel Machon <daniel.machon@microchip.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
+From: Paolo Abeni <pabeni@redhat.com>
 Content-Language: en-US
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-In-Reply-To: <7cc49120-8f0b-4e07-a008-145504e00dd0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA4NyBTYWx0ZWRfXxnk2rrMf3uCD
- cV7xGqNzUSXkSTtz3B3MZK4qkOSz+3dR+rVYmE5hxpf9BI/8Ncti/x9JvpsJyOefqssAtJfl05w
- 0EXpeMBW/yfE4L66JxSJlKXzO/amYeB1QMyMYG+C9pdpXD7pOgnC6YhNiAs7gcMQUjG9QPrE/g+
- FzopiL6WgN1IZa33VzZBR7/XbGbY0nnX1WsFQvadOkymyS8LkyCGA4oIpa7JOQ0f5FJGvU6T6JJ
- 1vlcZr8U5a6UI/FVRbvdqJLn+4jxwNbLun5zehBPUZNgtsBjs/qIFKpYNk/Z6z1DohSfg3gSm0l
- lydbxBab59eR3D61vaPIMymgcDd+qGG/VKHnkz9Pz3dgUzVDFGUjDV9oBCD8lzWcK6kPnaP38eA
- TwobMDUpcm13FfMVkM+oTBDC9Wl6uWQDeWUuPc5dvhnXiNyz2ibpaE1lfmmYZA2EtYBLpAX4t2S
- o85/H6T8+kkMiPpm/Sw==
-X-Proofpoint-ORIG-GUID: oT5sZmCdRZAoGICvzcFmQE0u9hn9752e
-X-Authority-Analysis: v=2.4 cv=KLtqylFo c=1 sm=1 tr=0 ts=6a7afab4 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=RCP4fZz32dXd7NFGJtwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: oT5sZmCdRZAoGICvzcFmQE0u9hn9752e
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA4NyBTYWx0ZWRfX2rbCZuA1mXc4
- /Mns97fxthcD9WCCbYXk9OUkq4ALPqZoIW/RtlPDhieF7lqXZ0br+MXrEPY2TNLni1U/3XqfQYP
- KdIadJD9TYwUTyXY8t12ztVR07ZoNL0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-11_01,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0
- adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110087
 
+On 8/5/26 4:34 PM, Jens Emil Schulz Østergaard wrote:
+> This series provides the Microchip LAN9645X Switch driver.
+> 
+> The LAN9645x is a family of chips with ethernet switch functionality and
+> multiple peripheral functions. The switch delivers up to 9 ethernet
+> ports and 12 Gbps switching bandwidth.
+> 
+> The switch chip has 5 integrated copper PHYs, support for 2x RGMII
+> interfaces, 2x SGMII and one QSGMII interface.
+> 
+> The switch chip is from the same design architecture family as ocelot
+> and lan966x, and the driver reflects this similarity. However, LAN9645x
+> does not have an internal CPU in any package, and must be driven
+> externally. For register IO it supports interfaces such as SPI, I2C and
+> MDIO.
+> 
+> The chip supports a variety of network features such as
+> 
+> * Mactable for MDB/FDB functionality
+> * Bridge forwarding offload
+> * VLAN-aware bridging
+> * IGMP/MLD snooping
+> * Link aggregation
+> * PTP timestamping
+> * FRER (802.1CB)
+> * Media Redundancy Protocol
+> * Parallel Redundancy and High-Availability Seamless Redundancy
+>   (HSR/PRP) in DANH/DANP mode
+> * Per stream filtering and policing
+> * Shapers such as Credit Based Shaping and Time Aware Shaing
+> * Frame preemption
+> * A TCAM (VCAP) for line-rate frame processing
+> 
+> The LAN9645x family consists of the following SKUs:
+> 
+> LAN96455F
+> LAN96457F
+> LAN96459F
+> LAN96455S
+> LAN96457S
+> LAN96459S
+> 
+> The difference between the SKUs is the number of supported ports (5, 7
+> or 9) and features supported. The F subfamily supports HSR/PRP and TSN,
+> while the S subfamily does not.
+> 
+> The intended way to bind this driver is using a parent MFD driver,
+> responsible for the register IO protocol, and distributing regmaps to
+> child devices. The goal is to use the same approach as the MFD driver in
+> drivers/mfd/ocelot-spi.c.
+> 
+> This driver expects to request named regmaps from a parent device. This
+> approach is similar to the DSA driver
+> 
+> drivers/net/dsa/ocelot/ocelot_ext.c
+> 
+> which supports being driven by an external CPU via SPI with parent
+> device drivers/mfd/ocelot-spi.c.
+> 
+> The MFD driver will come in a later series, because there are
+> requirements on the number of child devices before a driver qualifies as
+> a MFD device.
+> 
+> Development is done using the LAN966x as a host CPU, running the lan966x
+> swichdev driver, using the EVB-LAN9668 EDS2 board.
+> 
+> The datasheet is available here:
+> https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/LAN9645xF-Data-Sheet-DS00006065.pdf
+> 
+> This series will deliver the following features:
+> 
+> * Standalone ports
+> * Bridge forwarding and FDB offloading
+> * VLAN-aware bridge
+> * Stats integration
+> 
+> More support will be added at a later stage. Here is a tentative plan of
+> future patches for this DSA driver:
+> 
+> * Add LAG support.
+> * Add MDB support.
+> * Add TC matchall mirror support.
+> * Add TC matchall police support.
+> * Add DCB/qos support.
+> * Add simple TC support: mqprio, cbs, tbf, ebf.
+> * Add TC flower filter support.
+> * Add HSR/PRP offloading support.
+> * Add PTP support.
+> * Add TC taprio support.
+> 
+> For completeness I include tentative plan of planned patches for
+> LAN9645x peripherals:
+> 
+> * Extend pinctrl-ocelot for LAN9645x:
+>   https://lore.kernel.org/linux-gpio/20260119-pinctrl_ocelot_extend_support_for_lan9645x-v1-0-1228155ed0ee@microchip.com/
+> * Add driver for internal PHY:
+>   https://lore.kernel.org/netdev/20260123-phy_micrel_add_support_for_lan9645x_internal_phy-v1-1-8484b1a5a7fd@microchip.com/
+> * MFD driver for managing register IO protocol and child device
+>   initialization.
+> * Extend pinctrl-microchip-sgpio for LAN9645x support.
+> * Extend i2c_designware for LAN9645x support.
+> * Add driver for outbound interrupt controller.
+> * Add serdes driver for lan9645x.
+> 
+> Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+I forwarded the feedback from sashiko/nipa, but sashiko gemini has more
+comments:
 
-On 8/11/2026 3:14 PM, Krzysztof Kozlowski wrote:
-> On 11/08/2026 03:15, Dmitry Baryshkov wrote:
->> On Tue, Aug 11, 2026 at 03:48:00AM +0300, Dmitry Baryshkov wrote:
->>> On Sun, Aug 09, 2026 at 12:57:00PM +0530, Hardeep Sharma wrote:
->>>> Commit e10b198a94c6 ("soc: qcom: Restrict drivers per ARM/ARM64")
->>>> tightened QCOM_GENI_SE's dependency to ARM64 || COMPILE_TEST on the
->>>> assumption that no ARMv7 Qualcomm SoC uses the GENI Serial Engine
->>>> hardware.
->>>>
->>>> Kuno, a 32-bit ARM Cortex-A7 Qualcomm SoC, uses the GENI-based QUP
->>>> wrapper for its debug UART, so this assumption no longer holds.
->>>>
->>>> Fixes: e10b198a94c6 ("soc: qcom: Restrict drivers per ARM/ARM64")
-> I doubt this fixes tag, otherwise please explain the bug.
->
-> How Kuno could be supported, as you claim in e10b198a94c6, if we do not
-> support non-dts platforms and there is no Kuno DTS?
->
->>>> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
->>>> ---
->>>>   drivers/soc/qcom/Kconfig | 1 -
->>>>   1 file changed, 1 deletion(-)
->>>>
->>>> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
->>>> index fd4d4ecd2df0..5b3c9d31fd7f 100644
->>>> --- a/drivers/soc/qcom/Kconfig
->>>> +++ b/drivers/soc/qcom/Kconfig
->>>> @@ -39,7 +39,6 @@ config QCOM_COMMAND_DB
->>>>   
->>>>   config QCOM_GENI_SE
->>>>   	tristate "Qualcomm GENI Serial Engine Driver"
->>>> -	depends on ARM64 || COMPILE_TEST
->>> depends on ARM || ARM64 || COMPILE_TEST
->> Or depends on ARCH_QCOM || COMPILE_TEST
-> None of them are needed, because this is part of qcom soc.
->
-> Best regards,
-> Krzysztof
-Thanks Krzysztof for review.
+https://sashiko.dev/#/patchset/20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a%40microchip.com
 
-I'll fix this in v2:
-     - drop the Fixes: e10b198a94c6 tag;
-     - reword the commit message from "fix" to enablement framing;
+please have a look and also to net-next commit c82ff94592fb
 
-Regards
+/P
 
-Hardeep Sharma
