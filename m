@@ -1,429 +1,188 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022104.outbound.protection.outlook.com [52.101.126.104])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AF023BD17;
-	Tue, 11 Aug 2026 06:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8D4318EC7;
+	Tue, 11 Aug 2026 06:10:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786428137; cv=fail; b=K6zfmklqVlpHJHGX3IygLJyNwtx3a9v+DkE/Vty8oCwonA4nEjtftMewcGoGPjGmEYeq95x00qRk0ECBjG7e0zSViStuWHhDvw9VoKe2GYCzTEJ7dzgIfd4dRQQYDZu0ZB/4EIutRwP+Gjgn5+276FkcE+dA9DDxGIVMwGtOq/8=
+	t=1786428632; cv=fail; b=PcN/Pty1pvMAz3//oRIkYVYI61hT26/+B5IMz9NX9tCuJVXP7mygGNULbfKe1wO/M08TE/16B7XKp1tUEBX5mj/HaiKDPVBjbzskP5VVkgymqHakqyJMbqccopbKz2wxs0UcG7XlN5lR9JVBGNICAn/Yz5zdAH5UMIHbruPdBoU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786428137; c=relaxed/simple;
-	bh=6sGJ6eeYAwgoh+JStSbdX6ZLUQY4vPIZlIKuxfyQNe4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=XF+Pvp8zDlZOY/QH2GS6TDGuW5VT1ugkAIxdNo8xe6pdBipiUGglJktmuyP6dUf4ChKzCnST7txlv0l/ziI8/NeB1AIbuQmFbtY/ExR/fOPf14CcFfIEmBS075ezIna3tEjqnBObm9OJNBJ5Zs9xqkfzfyM7YaSoayrZ0QrDPbc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=NY9lzCcu; arc=fail smtp.client-ip=52.101.126.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	s=arc-20240116; t=1786428632; c=relaxed/simple;
+	bh=c0oTIxVDtsK9k8mbt1RuhYX1OhxQoChTXIGCGYoepzQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oZ7i39FVLxP6KhQpbruoHo2iUBCR3ZJScD3CDmFVE5s2O/soXx5GHsiVg4OhkfBvq3bpR7tvMRFVvbV5xN3Helt/PMTA3UA4cba/Wlt8KI9bW2sQSB9mXsD5YUdmCb6JB0YV+j5JBtXlevC4Q+Qp8TBMGiYDPZCgoTziYQzMbnw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=El7PWy0W; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=xLUmmKRa; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="NY9lzCcu"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="El7PWy0W";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="xLUmmKRa"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 67B5EjYn378147;
+	Tue, 11 Aug 2026 01:10:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=pNciPDEjJe143
+	pMGtdFI7z3wG6AdI1OyapEcOtSAJZ0=; b=El7PWy0W5ypqRATVVKMIEa7kxiR4J
+	d1bH4AOsRYbBBZQdbva2yBuVc1dZHqSa99VqNW4RSH/QHu3gzyKVMXbksHyMDP4Y
+	sePeQg+EBjApOU9C1ItkqIlp/GwzN0YH7dE0+kfl6zs9EQUxWTwmnhgsp2nKz6oc
+	ffsPCgK7Aih1kZsOCLCU0NfoScsUwHkyxQVp2yu4bEPL8cSOvuBLbAgi5I216A/d
+	Eh5bgcctj6unfWb1xwX355LDdvYgENEqeNUCje866CwkxN5BsbQVqa2lgOa0jFC5
+	aVR73oe83aXYtotLQxyTXII9k13XePbJn2hS1UFdAYT+OH1DYi+IvderQ==
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013040.outbound.protection.outlook.com [40.93.201.40])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4fydt7eq5x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 01:10:25 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iC8Gf/xgzA8YIHaqzLvppfpFB3q1a0INzU53e95fBuosC901HydAL5mrRo0QQLnDZYaR+vZZ6PeThVHzjwVicXrI9uqoVvY6N0Ys68pSV63AAv+XK5V9cBgUv330Gt8fkdsRlT6dtR2IQCDDZip17ZJUKxSch0iaupRQCYGU8D5ptO4fEMiE/QeCFm3FPyh2B5v2vWJ1Q2vUeSiyr/qrsdCGT9wSlNsluIhHBpDzcPSz4bk3oxX5GpoDF03zzyX76mtN/uZk8BKMhgUfgn8l4Q2SSCqkG24Nm1gI19+/wuD3kVK213LQT+vTox0bfNB7sSxTKCJ0qEe/5iHO/4+LqQ==
+ b=xeT3ZEfPmpUw6eghxqNKOzAZMjVQKQp6ZB0+lfbz5IWtDXCkwc4v5HUZZPqv7M4b19cUhQ+gsN0xCJlPaBW6FHaAyCMG2ywTrjs8I8kazC/Tsftq1qTI5CgqDVxjPWoJlXiejea2uImQ7c9QVEuhEKSpmos7gsyl+9jqrS5vzDUE/57qmACwZTpNE54ULihKnILgbN2xz79JnE3QyuIWdJt3DMnKF9HX2SYrlAWSMjoAnOiLmylR+GKTMS4sfv7cX3eYs8hUuzxPyEXPuRbqdN6dNPxXY91Qm4FRb3HM+2mhVT7MFGy/C/K2qKm54YXJvHhd4hv7DLzRpuOfXjZA/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rdwjFw3hgIo9TJKe3FgOlhC9yBULSqX4mzDSQ6wPNBg=;
- b=BbH1UAES6T7e7E8Vq7ICBme4aDpqJlxxgakSRyUH+GuhpVgYuuK8xsQwQ37KD2QP9lGum9UO/KQoaBrefwv1JF7AyAFwsHRETPfQrE1UQlSqxMya1vDj+pDP/DIA1FDpcpyZOXwsdu2Gq7epEKUEQkByFV1tQVFN1UYRegf+rbDJs32ujd+vsWW6089GMSza0perRteMXqpviKrKqu73+bLQOkyqkcwfHMnl6GbC6UgM4I9TLVdE9vmDT4NFKnb/I9aHA6RR/27ETTMeqMpPGVp+VLgj/cehDnC8ldZtpecQ7aq+Eb4qHRJf8hr9HWs8GlZpRbCVXNUpoY1+gwZebg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
+ bh=pNciPDEjJe143pMGtdFI7z3wG6AdI1OyapEcOtSAJZ0=;
+ b=qmlUTTa8jsv93xFzyZq/mfpEcI2rSaYvZUdt4Tl73kv5JedMc540Cf5Az6rgn0o5TIq8QX9hIGo2oJdO7r943/kIEZJw6ZajTuMlPmdGtebv/xZmEshCK9oMnw8+jU45XdoqUL/7giQ01CrmWkCt33tYI6f4uzEo//EuBNn4Vw4xAla9dP6mJ4CDEmsy+GU6DxIXLoHy4ifQeulxDf+gjdJgJ/+9+lGHxN1H+70YALDL/uKfeKXBs4zdqLe/j/pqREMO98Li71lEvVgoOKnT+GiRyzLYkkpUAi1xOvUNLXYxxAdS/cOEyCG8G+FyKBjUVAz4/CkVK63zhEoHiBMW8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rdwjFw3hgIo9TJKe3FgOlhC9yBULSqX4mzDSQ6wPNBg=;
- b=NY9lzCcurU80v3a8zHp93teKfFrsJ0J5rPR8aS7wM8AJjI4uruEsHVLzYe88JZMhxbYfUJyzZW2aQna67+hll5TXuRdvjQgiY0m6QAHZoNoF03IP/aC9gbL+x/FP7mo9whw4P4fufdDRk8keBlfqQJ4wAE/X18UfquaFfhESvb5tqr+a7aVNjPhwq/3ZwnjqsRXtQmPiyDSlo7RotV43QdyBYaCtFwbNykUJbs+YGgWQgb6FQnELDtDVYM7IGO1vrA9JnYY6Uv307/VXVqF1GxH3lJP2JRKDBWCDuQA0M7xNF2CcU56YTmKbcl3PL2Le6FbVIJ84EiKAYa8JTYxyBA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by SEZPR03MB8470.apcprd03.prod.outlook.com (2603:1096:101:220::9) with
+ bh=pNciPDEjJe143pMGtdFI7z3wG6AdI1OyapEcOtSAJZ0=;
+ b=xLUmmKRaNBzyNpdp7ylF8bEsvHxLPKZrXiNJ4UOscBwUscNf//l5revhNQpzeD9vPQf4xHbQzoFpmpzJ90uyHUUdW4U9G16NvwtJnDRKDJhUrJW/7YihCCCth2+fCZS2XfiVKeRlbcfyi3fUahDdaZFOs6wQ554gfSUvJRtm6Kw=
+Received: from CH0PR13CA0012.namprd13.prod.outlook.com (2603:10b6:610:b1::17)
+ by CY5PR10MB6117.namprd10.prod.outlook.com (2603:10b6:930:37::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 06:02:10 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%5]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
- 06:02:10 +0000
-Message-ID: <9b765345-fa16-4457-9906-e56874922317@amlogic.com>
-Date: Tue, 11 Aug 2026 14:02:06 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] thermal: amlogic: Add support for A9 thermal
- controller
-Content-Language: en-US
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- Guillaume La Roque <glaroque@baylibre.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260730-a9-thermal-v1-0-d786d37cba58@amlogic.com>
- <20260730-a9-thermal-v1-2-d786d37cba58@amlogic.com>
- <727d6bc8-4682-4fed-97a1-e16efab8fbb2@oss.qualcomm.com>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <727d6bc8-4682-4fed-97a1-e16efab8fbb2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TP0P295CA0043.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:4::18) To TYZPR03MB6896.apcprd03.prod.outlook.com
- (2603:1096:400:289::14)
+ 2026 06:10:22 +0000
+Received: from DS2PEPF00003441.namprd04.prod.outlook.com
+ (2603:10b6:610:b1:cafe::22) by CH0PR13CA0012.outlook.office365.com
+ (2603:10b6:610:b1::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.11 via Frontend Transport; Tue,
+ 11 Aug 2026 06:10:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 06:10:22 +0000
+Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 11 Aug
+ 2026 01:10:21 -0500
+Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE201.ent.ti.com
+ (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 11 Aug
+ 2026 01:10:21 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE211.ent.ti.com
+ (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 11 Aug 2026 01:10:21 -0500
+Received: from toolbox.dhcp.ti.com (uda0492258.dhcp.ti.com [10.24.68.110])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67B6AHI3580944;
+	Tue, 11 Aug 2026 01:10:18 -0500
+From: Siddharth Vadapalli <s-vadapalli@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <srk@ti.com>,
+        <s-vadapalli@ti.com>
+Subject: [PATCH 0/4] Add ethernet aliases for TI K3 Boards
+Date: Tue, 11 Aug 2026 11:43:39 +0530
+Message-ID: <20260811061351.2538688-1-s-vadapalli@ti.com>
+X-Mailer: git-send-email 2.51.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|SEZPR03MB8470:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56236df8-ad3b-4bc0-604c-08def76e1511
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|CY5PR10MB6117:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7efcde1c-6206-4417-e371-08def76f3a23
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|10067099003|56012099006|11063799006|4143699003|6133799003|3023799007|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|18002099003|3023799007|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	o5rnAdxr3YPT4CZ1/ZFB+SFcAxAONZrMgvnYryxa2DefPR159MPKNsBLbK4yuoqbNM3Z+GpP25k0BJbZwDGtySobGMh4KvFDVLkpVkke2fhnThfds8LQ2ViYfqIoX48lrB0J0RxN33tEvlqRzZFcvhYadpc5Kqc20FwbfF33jCWlM5LlR1Ii4Pewr59RDMjQUYPnBZAORIjqCiFOnHnIAOhNKtNSx5Z0J85mAod4VMxbrdhJxv8xp5Hx5Zk+7Qavv7+iSvoftGQuIBUrlUc+SZzoravY1SX3wWi3XZd+rDMDCCKJnCzFX8Wl6Ptb8pPFNGe5doMhY9JYh1l/Vzr8+ksPwWmDWJcawetl0QPYWUp1yMwB+XuqGtuzTC0oYGiLkiNYT3TaLuSoifHoJG3mLdo2myxodIfwtPzDLIpAs269iLE/PxsVMOBs7YtZFCd6itbW+uzNbnxUhro38oANw7lw5Joku6GiRukkHZVRibKx2sIzZHM4KzlDp21/dK4Bqy2yNu1ROIfgUYvygR877hCZhianSxy7qaHtU9WvUns0SrEMRB0uVPyv7v325sLMf4QZ5bA4ElazV8wUdBBcPq7No7x+fUqvXPI2YWTJ9q4P/mLZGeObXTtWypERkMTONNtHgS/mBViZpjOibLxjENOF+K35ZbVENzTknuVHbaM=
+	4r1awKmpuQ0cJwXfSsWV2Pix7UB4TEgrnTt7UtkrF6wd8cfti2SYpQeP2nmOEcIwTKQJXNmyYlEIEFyCvt9eMnitQ9FFTkLl3oPjvzc2irSy7JxC5RBAx9EurK/MUuEKVNq+R/tgspkAn38ZrxRPwn3utFhasFUuUwnvOKZeJDRKMYw6lq6fQLMGQB+0twPhYYVSqirKTLLX/37ByeUNUJBdGA0rX6InPU7x/L2b5EEz0zPp2WxePDtLGuo9Atle/CN5gT6/8isrUoasLfl5kGFQByIdan7K4bA0l8a5u3n1x98d07n56B5YnRpfL1ljiRPhtAGyuILVOBATRAGSgOLS/Zc6K+4OEPsPm121+2bSHuDUNK6dzkdqqKa5YC+49SPJhrUkQf/yHe9/n0DBXWJe6hbOVWYzWa714R8AuRZEJ9pwyi7HTh7E9WtSWtlSKOiJ1OXq2d1wtGUnKcWk6tGGQesSgQgMVzZUKSwaDosNItQMeWEXSLkV5OZTiLbkb+Ee81eLFnI1p8iVEXj6O2t8IHdX/hq2xTZf5434DIvCUi3kkzYfe0VnAPtt+39TC5hNppf8AL32aYAitnx5m9JNm7vxeRAXAiR94TAcVQphr6BTSEL6U0iT5tX+bW2E2LsR/7RC+VN+ERGN+Y4z1HxfBya/Di3Rw6/hNedhFE3n43SdUyrMKh5zg4dpkCuigRGWsxmaBbarxwHnyyqBhg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(18002099003)(3023799007)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z2VVcWNMVGJmZ2twUzlvUFVRWEFoMTdVTFk1cmZucmg3bTkrbEJOQkZYaHRO?=
- =?utf-8?B?c3NKSDBFK3NWYngyc3JEWVBrdmt5bWQ5aVYwU01BRzY0UDJpVlgxZHJvKzE3?=
- =?utf-8?B?NmJTQ0h1bVY4WGl0S0pHWHNDUXo3NlNKbnVCanh5YWlLTzRIRGhIc01Od2JF?=
- =?utf-8?B?ekUwNHVCSmN5ZWxHTVlZNTIwVXBmR2UrQkhvdTlJUHd3ZVc3aHRIYy9VOGoy?=
- =?utf-8?B?YkxwTUdiMW9QY3dzNXdaYU9WdVY2a1ZCcE1PcHBEeEwzMHduSHB2S2tLRzU0?=
- =?utf-8?B?cDZpMFJTeW5QSzJnZzd6VnU4Nm93WGIyYWM5Mlh1bVY5djNwSTVwSnlHSk15?=
- =?utf-8?B?bUg4NFArSWxrUjMrL2N2U1hTT25aVjJ5NnppdU12Mm5tUDREMGVFWDdUcXVZ?=
- =?utf-8?B?VnRocFE1TVoyc1VtTTJVbnp4RGNGNnhDRE4xMW1EK2x6NlBpTkRKd2NsV2FM?=
- =?utf-8?B?T3RyNFNRbCtWU3hvR1lVbmdqWjZpKzRERXNGdk9SUnlrcVJIcUxFTzBNU0t0?=
- =?utf-8?B?Sm4xNTIzL0d6c3FucnZac3BOTlV6ZEIrNStUR0dBSGZJeUdvV2tiMHBvQ3Z1?=
- =?utf-8?B?WTF4TmFUeUpIbXFkcTErbHo5VS9lcVpCb1U3aUIwSGhjSmlUOU8xSnZ2aGxZ?=
- =?utf-8?B?Sml4aXZLdHRyTkJybW1OZ0h1NUlSQ0NlRmNLYWhZZm1WUEFNTWMrWGlicFVE?=
- =?utf-8?B?bytjNEdxbG1jVGp3NndxVmVqVU9xVEhBU2t1czhDbVFDa0lHMlJEbkNhRGcr?=
- =?utf-8?B?aGxQazNDL1hDQXNTZUErREJUOGNtblRkOGV5TVNFNTIveHZVUXBnUGRtR08z?=
- =?utf-8?B?ZWtvVTVISzkzYkRmMEJpemNjQkE2Q3U5b3lPWjJUQ21FNEZNbCtkam0zYjhu?=
- =?utf-8?B?N1FFS21DL1Z0cS8rOTlmV2ZEZmNPVjE0NzBJK05GZkNxSGJBaXdkUHF2Q3Zj?=
- =?utf-8?B?NFhSbzUvSUl2Rklia242UzFETHdmZVBMa1pMRzU2R2x5blJQZnZseEpab3Mv?=
- =?utf-8?B?bndVbGJYaXVpc3VFWEdoQzhtZU9rMlFNV3l0VEN4YVV4UXgwT2ZLeG9oVkhQ?=
- =?utf-8?B?T1I0S25aWEJ6b0w5SFdaaG9jeEhkU1JVK2RmMmVsTWJrNFpiYXZWK1pRalU4?=
- =?utf-8?B?WkY4N2Y0WHhoY1BvYm9tOWtIdk1kaVVkSjFOWS9mazhzWWs4dWc5cnAzM29v?=
- =?utf-8?B?bDh6REErTkpYdDdDOVZTY2xVTDZ1OGJxOWo1NVZSMXBrTnZsVW02eElZY0tt?=
- =?utf-8?B?K3RpY1VCTGt3L0NnQ0J5WVFrRzEyeXFDdkhVTDhYUWZ1WEw2dFNmUGJ0UkNR?=
- =?utf-8?B?emcrTGdQUW1wZzlzbkRlVG9TSEN0dW5neHZsMDU4Qk1KbnF1SWtsQkZJVlNx?=
- =?utf-8?B?TGNXRFVnTVovTVU5OXBxeTdMS2NLNFdMMFVrQ0VuSVoyRzZFSjZsa1ZTV3Zy?=
- =?utf-8?B?LzNXMHZDTjgwUDliSDYwQ3Uxa3NKWmQvd0h0OEhnQmtyMWpkUVRndmdYdmQ1?=
- =?utf-8?B?Z3NaQk5mQW05V05EQ2xEL1J5SWFIWVRuc0p3c3BNLzFDMDdySXltVmEyV0FC?=
- =?utf-8?B?QjZ1Qmpldk9pYjNRZGFxUmsrNHoxQTlORmcwOEFSUnpCdDlnK29QeWh1UVBE?=
- =?utf-8?B?YzlqLzNYYWQvK3NwMC9teXhIM2tHUlQ4MjlHaTFQQ25GdWpySzVuUENEWmli?=
- =?utf-8?B?RFRvc2tuRDAxL1V3dWJPT1VpRzFFL2FrNy84dzF2djUvd0hIb0tmaVZwZzc3?=
- =?utf-8?B?TDZNZ3lLK29aUjlUb2NZckhrMUNzOTRWTzRWdWxIaTVUQ0dUeFN3M0JINkZa?=
- =?utf-8?B?c0RESjdUVDY5WVc2UXNFV08wUU9ncjV2NWJ6RmVHSURQZTd5b1VJRDNvUE5G?=
- =?utf-8?B?VWtIRno5eXM3SXlzSi9DSCtYMllRajFwWEw5b3U2UnYwcHJrZUUzQWd1dXk2?=
- =?utf-8?B?VzhEUHBIcmhqVWVGR3Vzak05WEZlNEdSRmdYUm5ma0dyTjlmSWlGN3JpRHVQ?=
- =?utf-8?B?MzRHRHM0R3gzSUM0akhsOXV3bFlzVTZUdnA1VG1DdWF5WE9kSTJMMmtudmY1?=
- =?utf-8?B?RTVYcG5QT0kzWlk0WlRCYVRuZzNLZVVPZHJPVTY4TzFOYUhXQ2FWdEdaQTYr?=
- =?utf-8?B?NWFOZUlmaXdtT0FEZ291TkRIVlVXMlFLS3kweUFocW9Rc1hXdTNoVlpNQVVO?=
- =?utf-8?B?cUt1R0lHNUN2R2JIeFo2bHpaWE95Tlo2Q2VMNVlrd0FNajVITnBZeWN0Mnla?=
- =?utf-8?B?MDVoMWdmWi9LWmdVT0JwV3JaWkIrdWlxYy85SmZQWmhobW1KSWtHeWFLakVa?=
- =?utf-8?B?QVlxdmpPemNlR1JtNHFmM0IvODU1TVU5WFR6Y0EyVjZaRnQ4bm9Ddz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56236df8-ad3b-4bc0-604c-08def76e1511
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 06:02:10.6382
+	reXW90+IswvC1xZ6xr+UEsDI5fxDLFsgQ7ITTjCR7X4RZVR3gbEoxf2HzdiLI7FZUielPmNxkR+a3kq4eCui/mfIQp7Icd2TxRcz0v0uBcqJ1vyJBP4ygfzUPghoRZlqHq051xD2xIB4AmYTIom82Pg7NshHPc5aHLI/BuQx5LZAAsCoLYxjz4i3xM44KHPFcqoKH+nh3R5RG50XWhXJzFukUj/m7RR8t3dcPEkqurVcFhngcuvMPPydOOQwMgXzlREKrjZ0WLmchieFPEuwQeiU5GJumw8iqepg4PO5a6gvi1ZqKX9oouC/ZZFkWf//soayN+NuBCCARCni7ag7NptM4bPJ76csDRMbGOYc7khllAb/Uu2xCt/DOPRtXbcsOrAajkd3aURnA0Kbsfaw6BH3m1QgkqMf1zd4+nGxSu2jGSkZqLwVpwaIYf78hMAS
+X-Exchange-RoutingPolicyChecked:
+	kZXSkR/J1qXcAlwsSxOC8fxNlBkVKGY9L9H3nKF5sC/GcCPWCcDOQh9yMub+QRW4iz5iXTft4s2UGLXK3DNUCasdwixVorMX0QEfWbKWVYaRDxcKd4pK8M6unD+xvaXiO2+xp3z8VVaN4omyGVvf5c2YOyOWEabc5DYtgMyfPLgVpZi9ykYj2Ox0bygPWJWhPOk+m08EL/sN6J/ewRQ4wNun4Rs5hv84P/+tAetKgK5m2vtB7QiiuQfIDurbDaTSa2r9UbPcyAmbnYy1+ju6VjzD3630TKjWRhyR4vzaaWdvG1Exz7Ind9ZjrhiPVJcHTH1jpfeuoQTnCtlAlexCKQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 06:10:22.1031
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rGpzWLeV7l9fXQd17utFsKXcVxJ/xofPmknex1UR9rfyHNtGzTmDn/JOHnILUc8HcgUwrEJhdrf6HalFG5qNpvEcYhazIw0YEVR9afN8umA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB8470
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7efcde1c-6206-4417-e371-08def76f3a23
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003441.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR10MB6117
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA1MCBTYWx0ZWRfX1cutH+xzVlsZ
+ 8Fe0qVLszkM72+uxCuU+AUMlaC2cwcyhPC9i8njaCR7fpNmQHp/nJyJclRNdtuA0/5Fnw/9k7Ts
+ LVqjbtpvFzlO+Qm5YmRaCVjAFQp275Clcr+iChxVmI4IskrO3NXtUXmgN8wbfzuhQqRxJGLu261
+ kpc4zYUdT6Rl/ZvXyRlUXuEYGCITP+glK5du14qIW5Z+qF/2sBHxwnUsU5WYhc5+aDXzVq7cUqJ
+ 6yMaMRJyEhyIH6jBzYgFshVNELlDN9L8MJRdP/NPC7Q85yO+qWbbX00Na8r7xhv7t3E3JvnTFGj
+ +cSwT+LnX0RJ0mNb2KLW+7d9ml/7ldeKi5lLHwcjPgm6KPn+JYgOGTPQyL9+h6W3FWrzf/OO6Gd
+ U8w0KqgC3aB/YCwAsv/NQutDmLTQd4LiMbYR/ktJfe2D0pJqMPGZgfWVqaV53VZmvDm0j9ZKYmk
+ gVv2aCiSoQQ3I39+h4A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA1MCBTYWx0ZWRfX4EURFw0BWF1P
+ J14oInvq5OQCfKfHhcc9msufwnc/09rNwMhQ5nJYSFxB0oJSOLN3tCLJo5WV0SNhkL7csgrVEIu
+ 6MkVdlMinZVNhpBe1c/nOVYQhDTYU7E=
+X-Proofpoint-GUID: vK53j4LdWCWJz1JCkXYLkG3s-9rhemCj
+X-Proofpoint-ORIG-GUID: vK53j4LdWCWJz1JCkXYLkG3s-9rhemCj
+X-Authority-Analysis: v=2.4 cv=F85nsKhN c=1 sm=1 tr=0 ts=6a7abcd1 cx=c_pps
+ a=5XLVA79qUcMA6Bnn+7FYtQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=CbXlOM-xGQpJbqXLUlIA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 adultscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110050
 
-Hi Daniel,
-    Thanks for your review.
+Hello,
 
-On 2026/8/7 20:27, Daniel Lezcano wrote:
-> On 7/30/26 10:34, Xianwei Zhao via B4 Relay wrote:
->> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
->>
->> Add support for the Amlogic A9 thermal controller.
->>
->> The A9 thermal controller uses different calibration parameters, requires
->> separate core and bus clocks, and supports a hardware over-temperature
->> reset mechanism.
->>
->> Add the A9 calibration data, retrieve the clocks by name, and configure
->> the hardware reset temperature through the optional 
->> 'amlogic,hw-reset-temp'
->> DT property. When the property is absent, use the default reset 
->> temperature
->> of 110°C.
->>
->> Also restore the hardware reset configuration after resume.
->>
->> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
->> ---
->>   drivers/thermal/amlogic_thermal.c | 107 
->> ++++++++++++++++++++++++++++++++++++--
->>   1 file changed, 104 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/thermal/amlogic_thermal.c 
->> b/drivers/thermal/amlogic_thermal.c
->> index a0b530624b60..c9c351496653 100644
->> --- a/drivers/thermal/amlogic_thermal.c
->> +++ b/drivers/thermal/amlogic_thermal.c
->> @@ -45,6 +45,18 @@
->>                TSENSOR_CFG_REG1_DEM_EN |      \
->>                TSENSOR_CFG_REG1_CH_SEL)
->>
->> +#define TSENSOR_CFG_REG2                     0x8
->> +     #define TSENSOR_CFG_REG2_HITEMP_EN      BIT(31)
->> +     #define TSENSOR_CFG_REG2_REBOOT_EN      BIT(30)
->> +     #define TSENSOR_CFG_REG2_REBOOT_CODE    GENMASK(15, 4)
->> +     #define TSENSOR_CFG_REG2_REBOOT_TIME    GENMASK(23, 16)
->> +     #define TSENSOR_CFG_REG2_ENABLE         \
->> +             (TSENSOR_CFG_REG2_HITEMP_EN |   \
->> +              TSENSOR_CFG_REG2_REBOOT_EN |   \
->> +              TSENSOR_CFG_REG2_REBOOT_TIME)
->> +
->> +#define TSENSOR_TEMP_CAL             1
->> +
->>   #define TSENSOR_STAT0                       0x40
->>
->>   #define TSENSOR_STAT9                       0x64
->> @@ -63,6 +75,7 @@
->>
->>   #define TSENSOR_CALIB_OFFSET        1
->>   #define TSENSOR_CALIB_SHIFT 4
->> +#define TSENSOR_HW_RESET_DEFAULT_TEMP        110000
->>
->>   /**
->>    * struct amlogic_thermal_soc_calib_data
->> @@ -93,6 +106,7 @@ struct amlogic_thermal_data {
->>       const struct amlogic_thermal_soc_calib_data 
->> *calibration_parameters;
->>       const struct regmap_config *regmap_config;
->>       bool use_sm;
->> +     bool has_sysclk;
->>   };
->>
->>   struct amlogic_thermal {
->> @@ -101,8 +115,10 @@ struct amlogic_thermal {
->>       struct regmap *regmap;
->>       struct regmap *sec_ao_map;
->>       struct clk *clk;
->> +     struct clk *sysclk;
->>       struct thermal_zone_device *tzd;
->>       u32 trim_info;
->> +     u32 temp_code;
->>       struct meson_sm_firmware *sm_fw;
->>       u32 tsensor_id;
->>   };
->> @@ -138,6 +154,46 @@ static int 
->> amlogic_thermal_code_to_millicelsius(struct amlogic_thermal *pdata,
->>       return temp;
->>   }
->>
->> +/*
->> + * Calculate a temperature code from a temperature value .
->> + * The unit of the temperature is degree milliCelsius.
->> + */
->> +static u32 amlogic_thermal_millicelsius_to_code(struct 
->> amlogic_thermal *pdata, int millicelsius)
->> +{
->> +     const struct amlogic_thermal_soc_calib_data *param =
->> +                                     
->> pdata->data->calibration_parameters;
->> +     s64 factor, uptat, uefuse;
->> +     u32 temp_code;
->> +
->> +     uefuse = pdata->trim_info & TSENSOR_TRIM_SIGN_MASK ?
->> +                          ~(pdata->trim_info & 
->> TSENSOR_TRIM_TEMP_MASK) + 1 :
->> +                          (pdata->trim_info & TSENSOR_TRIM_TEMP_MASK);
->> +
->> +     factor = param->B + div_s64(millicelsius, 100);
->> +     factor = BIT(16) * factor;
->> +     factor = div_s64(factor, param->A);
->> +     factor = factor - (uefuse & TSENSOR_TRIM_TEMP_MASK);
->> +
->> +     uptat = param->n * factor;
->> +     uptat = div_s64(uptat, BIT(16));
->> +     uptat = param->m - uptat;
->> +
->> +     factor = factor * 100;
->> +     factor = div_s64(factor, uptat);
->> +
->> +     temp_code = ((factor >> 0x4) & TSENSOR_TEMP_MASK) + 
->> TSENSOR_TEMP_CAL;
->> +
->> +     return temp_code;
->> +}
->> +
->> +static void amlogic_tsensor_setup_hw_reset(struct amlogic_thermal *data)
->> +{
->> +     regmap_update_bits(data->regmap, TSENSOR_CFG_REG2, 
->> TSENSOR_CFG_REG2_REBOOT_CODE,
->> +                        data->temp_code << 0x4);
->> +     regmap_update_bits(data->regmap, TSENSOR_CFG_REG2,
->> +                        TSENSOR_CFG_REG2_ENABLE, 
->> TSENSOR_CFG_REG2_ENABLE);
->> +}
->> +
->>   static int amlogic_thermal_enable(struct amlogic_thermal *data)
->>   {
->>       int ret;
->> @@ -254,6 +310,13 @@ static const struct 
->> amlogic_thermal_soc_calib_data amlogic_thermal_g12a = {
->>       .n = 324,
->>   };
->>
->> +static const struct amlogic_thermal_soc_calib_data amlogic_thermal_a9 
->> = {
->> +     .A = 9164,
->> +     .B = 2747,
->> +     .m = 370,
->> +     .n = 270,
->> +};
->> +
->>   static const struct amlogic_thermal_data 
->> amlogic_thermal_g12a_cpu_param = {
->>       .u_efuse_off = 0x128,
->>       .calibration_parameters = &amlogic_thermal_g12a,
->> @@ -272,6 +335,13 @@ static const struct amlogic_thermal_data 
->> amlogic_thermal_a1_cpu_param = {
->>       .regmap_config = &amlogic_thermal_regmap_config_g12a,
->>   };
->>
->> +static const struct amlogic_thermal_data amlogic_thermal_a9_param = {
->> +     .use_sm                 = true,
->> +     .has_sysclk             = true,
->> +     .calibration_parameters = &amlogic_thermal_a9,
->> +     .regmap_config          = &amlogic_thermal_regmap_config_g12a,
->> +};
->> +
->>   static const struct amlogic_thermal_data amlogic_thermal_t7_param = {
->>       .use_sm                 = true,
->>       .calibration_parameters = &amlogic_thermal_g12a,
->> @@ -291,6 +361,10 @@ static const struct of_device_id 
->> of_amlogic_thermal_match[] = {
->>               .compatible = "amlogic,a1-cpu-thermal",
->>               .data = &amlogic_thermal_a1_cpu_param,
->>       },
->> +     {
->> +             .compatible = "amlogic,a9-thermal",
->> +             .data = &amlogic_thermal_a9_param,
->> +     },
->>       {
->>               .compatible = "amlogic,t7-thermal",
->>               .data = &amlogic_thermal_t7_param,
->> @@ -305,6 +379,7 @@ static int amlogic_thermal_probe(struct 
->> platform_device *pdev)
->>       struct device *dev = &pdev->dev;
->>       void __iomem *base;
->>       int ret;
->> +     u32 reset_temp;
->>
->>       pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
->>       if (!pdata)
->> @@ -323,9 +398,24 @@ static int amlogic_thermal_probe(struct 
->> platform_device *pdev)
->>       if (IS_ERR(pdata->regmap))
->>               return PTR_ERR(pdata->regmap);
->>
->> -     pdata->clk = devm_clk_get(dev, NULL);
->> -     if (IS_ERR(pdata->clk))
->> -             return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed 
->> to get clock\n");
->> +     if (pdata->data->has_sysclk) {
->> +             pdata->clk = devm_clk_get(dev, "core");
->> +             if (IS_ERR(pdata->clk))
->> +                     return dev_err_probe(dev, PTR_ERR(pdata->clk), 
->> "failed to get core clk\n");
->> +             pdata->sysclk = devm_clk_get_enabled(dev, "pclk");
->> +             if (IS_ERR(pdata->sysclk))
->> +                     return dev_err_probe(dev, 
->> PTR_ERR(pdata->sysclk), "failed to get pclk\n");
->> +     } else {
->> +             pdata->clk = devm_clk_get(dev, NULL);
->> +             if (IS_ERR(pdata->clk))
->> +                     return dev_err_probe(dev, PTR_ERR(pdata->clk), 
->> "failed to get clock\n");
->> +     }
->> +
->> +     if (of_property_read_u32(pdev->dev.of_node, 
->> "amlogic,hw-reset-temp", &reset_temp)) {
->> +             dev_dbg(dev, "using default hardware reset temperature\n");
->> +             reset_temp = TSENSOR_HW_RESET_DEFAULT_TEMP;
->> +     }
-> 
-> Old SoC without the 'amlogic,hw-reset-temp' will now default to
-> TSENSOR_HW_RESET_DEFAULT_TEMP
-> 
+This series adds the aliases for Ethernet on various Texas Instruments
+K3 boards, keeping them on-par with other K3 boards which already have
+the aliases for Ethernet.
 
-This restart temperature setting is available on all chips, but it was 
-not supported before. Here, a default value has been added.
+Series is based on linux-next tagged next-20260810.
 
->> +
->>
->>       if (pdata->data->use_sm)
->>               ret = amlogic_thermal_probe_sm(pdev, pdata);
->> @@ -346,6 +436,10 @@ static int amlogic_thermal_probe(struct 
->> platform_device *pdev)
->>
->>       devm_thermal_add_hwmon_sysfs(&pdev->dev, pdata->tzd);
->>
->> +     pdata->temp_code = amlogic_thermal_millicelsius_to_code(pdata, 
->> reset_temp);
->> +
->> +     amlogic_tsensor_setup_hw_reset(pdata);
-> 
-> Somehow related to the above comment, should it be only for A9 ?
-> 
+Although the merge window is closed at the moment for TI K3 DTS, I am
+posting this series to get initial feedback and prepare it for the next
+merge window.
 
-I will add corresponding commont to describe it.
+Regards,
+Siddharth.
 
->> +
->>       ret = amlogic_thermal_enable(pdata);
->>
->>       return ret;
->> @@ -355,6 +449,8 @@ static void amlogic_thermal_remove(struct 
->> platform_device *pdev)
->>   {
->>       struct amlogic_thermal *data = platform_get_drvdata(pdev);
->>
->> +     if (data->data->has_sysclk)
->> +             clk_disable_unprepare(data->sysclk);
-> 
-> Not needed, devm_ is used in the probe function
-> 
-Indeed, I will remove it.
+Siddharth Vadapalli (4):
+  arm64: dts: ti: k3-am62a7-sk: Add ethernet alias
+  arm64: dts: ti: k3-j7200-common-proc-board: Add ethernet alias
+  arm64: dts: ti: k3-j721s2-common-proc-board: Add ethernet alias
+  arm64: dts: ti: k3-j722s-evm: Add ethernet alias
 
->>       amlogic_thermal_disable(data);
->>   }
->>
->> @@ -363,6 +459,8 @@ static int amlogic_thermal_suspend(struct device 
->> *dev)
->>       struct amlogic_thermal *data = dev_get_drvdata(dev);
->>
->>       amlogic_thermal_disable(data);
->> +     if (data->data->has_sysclk)
->> +             clk_disable_unprepare(data->sysclk);
->>
->>       return 0;
->>   }
->> @@ -371,6 +469,9 @@ static int amlogic_thermal_resume(struct device *dev)
->>   {
->>       struct amlogic_thermal *data = dev_get_drvdata(dev);
->>
->> +     amlogic_tsensor_setup_hw_reset(data);
->> +     if (data->data->has_sysclk)
->> +             clk_prepare_enable(data->sysclk);
-> 
-> Shouldn't the clock enabled before accessing the register in
-> amlogic_tsensor_setup_hw_reset() ?
->
+ arch/arm64/boot/dts/ti/k3-am62a7-sk.dts                | 1 +
+ arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts  | 1 +
+ arch/arm64/boot/dts/ti/k3-j721s2-common-proc-board.dts | 1 +
+ arch/arm64/boot/dts/ti/k3-j722s-evm.dts                | 1 +
+ 4 files changed, 4 insertions(+)
 
-Will do.
+-- 
+2.51.1
 
-
->>       return amlogic_thermal_enable(data);
->>   }
->>
