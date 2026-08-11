@@ -1,80 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D455839DBCC;
-	Tue, 11 Aug 2026 07:28:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71996399360
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:29:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786433325; cv=none; b=e+QYeLskLAxd69/vRGYf67P3ifkVI+KzPWWTn3Trqsp1xf6PAoFtfsXB3Qixx0cOEOWWVzlQtafZWFDc8yUEKEfgWZF1LBsNMEE+3RiTHN6v9bJ1pYchgT/3N5cZHmJvOcY2WDZcAXb6t4KyJtmsCzMYtI0+Zh8nIUhWw+U/G5U=
+	t=1786433399; cv=none; b=dYa/375EqO6Pk/S946xhnVZuMW9Qe9sn15zK38wCmc+VMc5LeDPUOsOkIJoiUicKW0blqBX1YKdsZhebwpFxjSUZfm3o5e3yWU+f5LQS6w5glaRWPpYzjVpul2gerVA424qm5LoWwgRw0X1c9aCDP3Xo/LMz5TBFLd45wcNvUus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786433325; c=relaxed/simple;
-	bh=SOY9a1wo0bJQsX5WIVOlvbGkyDSiK7NoBQ2GPrUMV2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uo1R7rM4/mJQVNAut6ruS/TnfwE1O+gaBM4S7vhArc94wVadkLyr0SSV+BtKgHFnyLRQz5ywiuevUb+li/FoFx0pVxCQGeUpz6gtlEMoDWfAy2TyaxbGMBIJ8t8spTri7wXxKJCTCJRKaGsetCMQgybc03S3+N+lQlRxDFgIffw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3DNhGcg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786433399; c=relaxed/simple;
+	bh=zoyXTz6LC1R6AOMtwoPutKdVQy/F8bioEUJwUg52RjA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Kc+BCHShEmBGPnYRebAv7hEkkMoaiipOC2QqRIN2fDz9gho0ePjJ5O9BJIHGP5BEhgIQ3ksma3rwLHOr2sS1eZR/UL32Kb8Dm9M84b800LTzVRoxAkIyuDJzvmRAaO2ZxDUwt7LxGqrfALnSQs2HQUJvP7qPsCMRiXhOBeBIffY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9MJlD/T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3DNhGcg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4CF01F000E9;
-	Tue, 11 Aug 2026 07:28:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9MJlD/T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BE91F01558
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:29:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786433323;
-	bh=WK8DW4OyZF2KP3dsG/SNl4e+MuJa7x7OcD+vHr2yOsU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d3DNhGcg7U1Im50fII+XFIjjF3q2h+gNC7x2TPgX8fdycTZ4iFZe+xMa2+v3DkGxv
-	 zhOVgMeEekwxSio1ACyl3PsxGU6O4cE9MQJFeoQ85o+tYMnlp5/BATbxyyzriT7dnN
-	 nY66STYGihX6s7hYd3nz8FYVJvB+sETV04qwwQcPe6c8szvfHSfhrBteVlNVWZdzqi
-	 xZiFgLtx/iOJFnTsYwJbcOgXnVdhFd3vqA/knOto0YtZbNwn3gJUFo+4mdgwj9p+Jn
-	 ZEd91JL70vvt++nDkEnvgFN2jGC37PzUMA/VTFFmXWjX0wj27Fqg2QzTPb4eLPPSfI
-	 U0xqn2KXoGZdw==
-Date: Tue, 11 Aug 2026 09:28:39 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
-	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	mranostay@gmail.com, ~lkcamp/patches@lists.sr.ht, 
-	linux-kernel-mentees@lists.linux.dev, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/2] dt-bindings: iio: proximity: move LIDAR-Lite v2
- out of trivial-devices
-Message-ID: <20260811-electronic-russet-ermine-ec2fd2@quoll>
-References: <20260810192131.153495-1-rodrigo.gobbi.7@gmail.com>
- <20260810192131.153495-2-rodrigo.gobbi.7@gmail.com>
+	s=k20260515; t=1786433398;
+	bh=umesvR1teUL1fcs6zCQaA4uwUSphr0DcLDjBnMFX9JE=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=h9MJlD/TMbk1yYwxU1auxF3+RTiscFC8LEVkGOBR3L0L5NnHKaO35NeHFQbkMq7+X
+	 KpjM6059ZumPxL3YaJJ58W+d2plUYv4UhsRjmuO8c3PXeMRGCo+WjQwVyHS+HdmnaK
+	 LESbW/tUZTbeRqV6Rk3F3JSfA/7Urk1eaIb/1Ty0XHB5rNkIVSx2kwVbMo1mRDUDw3
+	 8o759Z3P0QB95srqkPVsv9lYLOwLewOTKZjSmDHfT2kiJ1N12/qyE9e8ikWarOH8nB
+	 VB9Z+UoNQoVli6ZzDwo80aAOEb2AsdwLNGx6T1wTP/5l3SSeem4O5GSgqDCWkq7rGM
+	 zcHmD5JC4udtQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b2a22c52c1so2699723e87.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 00:29:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr4JKHhjeLfj4RXN4v+F9bhiS2x/0nmGkaUtF2RQcvS3zN1o5dQ0UG5YLWUHV8tMauztCIM8il13bfa@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2SfjIdj23C1N1LPXJPWXSZrxDzgP+rEfwujMvLE8Ze5+dJ+q9
+	H1qmt7DUThR82+IUjGAzLfKhptVNQpiM7PnK0Siqwhw4dVVyezYbERzVvYkwPNgdZMScny/qg2x
+	EstMiRMH4NhXlKlB4ZEmsbbuuloUpppEHdynh9Camaw==
+X-Received: by 2002:a05:6512:3096:b0:5b1:5451:d969 with SMTP id
+ 2adb3069b0e04-5b448649002mr229675e87.25.1786433396689; Tue, 11 Aug 2026
+ 00:29:56 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 11 Aug 2026 00:29:55 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 11 Aug 2026 00:29:55 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260810213456.1268831-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260810192131.153495-2-rodrigo.gobbi.7@gmail.com>
+References: <20260810213456.1268831-1-marex@nabladev.com>
+Date: Tue, 11 Aug 2026 00:29:55 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfnU5mJHsoJee-8-xy3e7vXE5yORfZRN9=Wom2-+ZocUQ@mail.gmail.com>
+X-Gm-Features: AUfX_mw3-GSxONxlPDeIuQSCzqxdWbLCCFW-DmbFUzmLFDfvwVGs6ZIrWEPCMBI
+Message-ID: <CAMRc=MfnU5mJHsoJee-8-xy3e7vXE5yORfZRN9=Wom2-+ZocUQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: Select HAVE_SHARED_GPIOS for ARCH_MXC
+To: Marek Vasut <marex@nabladev.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
+	Fedor Ross <fedor.ross@ifm.com>, Frank Li <Frank.Li@nxp.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, Will Deacon <will@kernel.org>, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Aug 10, 2026 at 04:18:40PM -0300, Rodrigo Gobbi wrote:
-> The PulsedLight LIDAR-Lite v2 is currently described as a trivial device,
-> but it is not one: besides the I2C interface it exposes a power-enable
-> pin and a mode-control pin.
-> 
-> The mode-control pin can trigger acquisitions and report the measured
-> distance through a PWM signal, entirely bypassing I2C. That usage is
-> bidirectional and non-cyclic, so it doesn't map onto any existing
-> binding for describing pin behaviour, and is intentionally left
-> undocumented here. The same pin can, however, also be used as a plain
-> status output while I2C remains the active interface, which is
-> described through the new interrupts property.
-> 
-> Move the device to a dedicated binding file and document the
-> power-enable, power-supply and interrupt properties that
-> trivial-devices.yaml has no way to express.
-> 
-> Signed-off-by: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>
+On Mon, 10 Aug 2026 23:34:38 +0200, Marek Vasut <marex@nabladev.com> said:
+> Some NXP i.MX platforms use shared GPIOs. Enable support for them by
+> selecting the Kconfig switch provided by GPIOLIB.
+>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
->  .../proximity/pulsedlight,lidar-lite-v2.yaml  | 64 +++++++++++++++++++
->  .../devicetree/bindings/trivial-devices.yaml  |  2 -
->  2 files changed, 64 insertions(+), 2 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml
+> Cc: Bartosz Golaszewski <brgl@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: Fedor Ross <fedor.ross@ifm.com>
+> Cc: Frank Li <Frank.Li@nxp.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: imx@lists.linux.dev
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  arch/arm64/Kconfig.platforms | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+> index d2acfac730037..bc279b864d3cb 100644
+> --- a/arch/arm64/Kconfig.platforms
+> +++ b/arch/arm64/Kconfig.platforms
+> @@ -275,6 +275,7 @@ config ARCH_MXC
+>  	bool "NXP i.MX SoC family"
+>  	select ARM64_ERRATUM_843419
+>  	select ARM64_ERRATUM_845719 if COMPAT
+> +	select HAVE_SHARED_GPIOS
+>  	select IMX_GPCV2
+>  	select IMX_GPCV2_PM_DOMAINS
+>  	select PM
+> --
+> 2.53.0
+>
+>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
