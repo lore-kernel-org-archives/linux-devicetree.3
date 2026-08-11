@@ -1,133 +1,214 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384CB36D4E1;
-	Tue, 11 Aug 2026 20:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C673403E1
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 20:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786479749; cv=none; b=qMuiPB/JPbBYqayIoFTWT18Lh9J6RK1p8QhDsOIGD+l2JLQVhXj+gWexoBTKmMuWTrxrBPAyjLBo2rJXuE6Z/e5Srh+uacO24oQRPl9rh0/CpvpWnyZ/sNrsuErGgkIArKEZyl5lDO17MrRecrCTiiqATPojpcKyeHW1rVvjYhA=
+	t=1786479892; cv=none; b=f7UUywSDtVaOqxDoIR86u1ghu4tpspHyoltGGsrSBMLPu7xJOD7tCqkmN20zOYiCEN/scMJg7M0N3UH4v3AevEPqxgw9kByGYlwHj2i8nH+C0Ve7XhfTE14Oj/ahuhhItipNm8wLwvnBLd5yUENGc6twbsdV9JC7oI7ovRoio8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786479749; c=relaxed/simple;
-	bh=Wz9MHW44aeB6pwNnHm1InxQmMZgedGRzOQHdWchZDq8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JQ9Q5GJoohDH1ePKO23izU4kKrcJvp5OAIdnu42qjrexFljBs2X3zSj3fzffg2JbA1Z0XAwHroNVmdOCDSdDKojr4HCq2P7CWYvxfW3ldsnV8vtDUOrIMMWZxFbrgbnLw/ZHw3tC8WW9fEzU0QKaeRDMAYGBxXVuXf4pAMPNnNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=NsSQ6E7c; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1786479892; c=relaxed/simple;
+	bh=quDbQsJGb6koaXpsmI594tuHCkLSc6aFZ+niZKclNiA=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
+	 References:In-Reply-To; b=OLdP/sszzIQV+pas/HxslCdLL812LspBjOxV1zQy6JaHpvFJX4RBonBF6s7DnbkC9m/dwonJUo/4Cx4nzLMf9JxD76GfBZSX4cG2xGU2yUkDQpAzlNXA4h7r+bVHoCuchxCPVXNK4mW0Zt60NYHAV+O6oUEke9pInLB3tJBGLFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GIIYTzET; arc=none smtp.client-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="NsSQ6E7c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1786479746;
-	bh=Wz9MHW44aeB6pwNnHm1InxQmMZgedGRzOQHdWchZDq8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=NsSQ6E7c2GhYe0E5c8QOLiVWTQaEZff47w+zb9VuQB01TJ8rHWKqn5CWOvUMP/xDG
-	 rXh9+U/zO+4oDHNfXaOA51YB8X+aGcU4Zv1MHslRuMqzf9nEltm6FIegiAfsNX3NFV
-	 TREuPuJWEUF9UVZgXXTrDq8PtK5o4GKIBAG/dAi/utNkSPyGsplZYh458T0wLUal9P
-	 EV9AT7SgsAa+KC7OZyNCt1sF3dUa9mwW+ZgEtXYmfDFUb1svjBt11t5Ol9bA1Bd8YX
-	 buaZQLLU4HksrmDY62W4nTLpAp5u9TeCGxQd+8m792bdabk3yHlE4ec8BoNBOP8r58
-	 YppK5RtCN3tgQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9AFA317E06DB;
-	Tue, 11 Aug 2026 22:22:22 +0200 (CEST)
-Message-ID: <c8ab26c2edfa4ee4fbbb83faf5f54547f252464f.camel@collabora.com>
-Subject: Re: [PATCH v6 01/14] media: mediatek: vcodec: support vcp
- architecture
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Kyrie Wu =?UTF-8?Q?=28=E5=90=B4=E6=99=97=29?= <Kyrie.Wu@mediatek.com>, 
- "matthias.bgg@gmail.com"	 <matthias.bgg@gmail.com>, "fshao@chromium.org"
- <fshao@chromium.org>, Yunfei Dong
- =?UTF-8?Q?=28=E8=91=A3=E4=BA=91=E9=A3=9E=29?=	 <Yunfei.Dong@mediatek.com>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,  "fanwu01@zju.edu.cn"	
- <fanwu01@zju.edu.cn>, "jacopo.mondi@ideasonboard.com"	
- <jacopo.mondi@ideasonboard.com>, "haoxiang_li2024@163.com"	
- <haoxiang_li2024@163.com>, "tfiga@chromium.org" <tfiga@chromium.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andrew-CT Chen =?UTF-8?Q?=28=E9=99=B3=E6=99=BA=E8=BF=AA=29?=	
- <Andrew-CT.Chen@mediatek.com>, "linux-media@vger.kernel.org"	
- <linux-media@vger.kernel.org>, "ribalda@chromium.org"
- <ribalda@chromium.org>,  "wenst@chromium.org"	 <wenst@chromium.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "kees@kernel.org" <kees@kernel.org>,  "rongqianfeng@vivo.com"	
- <rongqianfeng@vivo.com>, Irui Wang =?UTF-8?Q?=28=E7=8E=8B=E7=91=9E=29?=	
- <Irui.Wang@mediatek.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
- "linux-mediatek@lists.infradead.org"	 <linux-mediatek@lists.infradead.org>,
- Tiffany Lin =?UTF-8?Q?=28=E6=9E=97=E6=85=A7=E7=8F=8A=29?=	
- <tiffany.lin@mediatek.com>, "p.zabel@pengutronix.de"
- <p.zabel@pengutronix.de>,  "benjamin.gaignard@collabora.com"	
- <benjamin.gaignard@collabora.com>, "mchehab@kernel.org"
- <mchehab@kernel.org>,  "sebastian.fricke@collabora.com"	
- <sebastian.fricke@collabora.com>, "robh@kernel.org" <robh@kernel.org>, 
- "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, 
- "laurent.pinchart+renesas@ideasonboard.com"	
- <laurent.pinchart+renesas@ideasonboard.com>, "hverkuil+cisco@kernel.org"	
- <hverkuil+cisco@kernel.org>
-Cc: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-Date: Tue, 11 Aug 2026 16:22:20 -0400
-In-Reply-To: <275503aae6ff76a4c186efe665acf996dec9229d.camel@mediatek.com>
-References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
-		 <20260720012056.1026551-2-kyrie.wu@mediatek.com>
-		 <c3abd49fc12e8cfab6993feb60b361ba07b6fb7d.camel@collabora.com>
-	 <275503aae6ff76a4c186efe665acf996dec9229d.camel@mediatek.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-GldQxjJ0Y3JLQz4hWdAB"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GIIYTzET"
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-74748e3a4d1so101587137.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 13:24:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786479889; x=1787084689; darn=vger.kernel.org;
+        h=in-reply-to:references:content-transfer-encoding:mime-version:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mO1x/6yM6Ei28M808ZCFVWGu1W0NOiFiZrV/cB0FA8E=;
+        b=GIIYTzETp7jIC5Gg2Co+4Xm66981tfTL7OKkphTVzVYu6lxmVgbEj+k9XbHj1YgAwW
+         T2ciO8il3RVeGUY0Biwuta22Xv3DIVH3lGtb+TAskKPVZ8j3m+18E1TR1P7oJETp6dvG
+         79k6wc7RGfzlkFkcacQzg7oPmNBVfDzNTVahTdqQVD0f3TB8rTIFEAIxdayuoiRGYncn
+         JJloGGqTMRHNaUQl3urkXcHuUT1EgPrHbyMt2sJHhcfsZApBh6brthPt7pQSfQ1b13Bs
+         va9LseqAli5kpGU1FlBoc6Giht+aVZuYJBbdFtwPeKoRdJvPtFwByG52i6TBsLY66VAh
+         m9zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786479889; x=1787084689;
+        h=in-reply-to:references:content-transfer-encoding:mime-version:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mO1x/6yM6Ei28M808ZCFVWGu1W0NOiFiZrV/cB0FA8E=;
+        b=GHCTQKH4TcoYLvzE4ljHJcW9wt9xmgKuXGRCjuycRdjKy8SN4X15OBAYkPelhHYaSf
+         JXQvJJ/s4wZQXCFQhAAM1Ecq8BAQkS66/KqKE8et0KtTT9vhJJrJGdPOydwj2zoJBhoC
+         webiMA7sWgxfO1Yf4gf4iPm82djphkj7TTyKB4BeV5+M/GOEUga28Glv5YTbyM0YOoH8
+         WVEzSmusgMNMVIt8LC6ROQWvvh6ViUdllPpqPWs+0KuUvX0nX/TeFuFO2Tr9zO1Zy8Aj
+         lMmwitIdNHDpcTHpMpVn4iJI7Hdw1Q8KulijwHYrnpczq8IlsJIMABnKqAQL1P6lrGQR
+         JjpA==
+X-Forwarded-Encrypted: i=1; AHgh+RoDVLLvEPQqjqwlrL1PU322wPmbLQdhYkcv97B+g0b+ymGn2fxmrHS3iB6/SNhxnO5f4Fw8M15xt7eQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTZrHeZtuZZBZVg6gJREv8MdlhspellNSV0rE9vfDDXztNBVc2
+	l+O8M+w2pSbBDEVzBismY74FmKuc8l8rsO+Fx9iIzx2Nd/dkD04GGS8X
+X-Gm-Gg: AR+sD1347O4CcuoICxSZFP9xTAzwNR54P7Tca7dYW9s+8f1mxpsqlIVWoufJ1zMCeQB
+	Z2XRZwdRhWS9JreL+hkN34nQMQ5akjuWJBEiwxGKzo2op0aD3C40xDx0Xc917okBNgS+l/xtt2a
+	o4raGruh+YNmAmeXq51t9A6VBxHCgPKTSoc2CI2V+2pxxeW0SmOxHZLiQsEAtbdjTNr4yQbl5sY
+	KB0eEUFMrWzCUh4HlWXkpXJy6MlZqywPYO/Qy8k113wT3EEQthKh7nm8LdvWAS5eH2NzTAbLh3p
+	UuLBqGAjVYiivmoQy1KsOn8k51dww6inzUKh0pEDOdM4f4B8vttJ6/i8rGueKC0LzZaNxY3uwCx
+	pNnK4gSgiNUbAIIzSx8sh9SZQQiVQVG2T4TKw4tlSxu2iiaNWFZHI30LkuV3Zz5gY1uoDwH4t92
+	VHXmpZV9n3PYj3uxwJDu0g7xawuMbNddk2hW40DqZxIc7890LG/arOhg==
+X-Received: by 2002:a05:6102:1496:b0:763:ce80:337e with SMTP id ada2fe7eead31-76b54d84d6dmr1981033137.1.1786479889229;
+        Tue, 11 Aug 2026 13:24:49 -0700 (PDT)
+Received: from localhost ([181.199.46.248])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97a3c18c868sm644845241.6.2026.08.11.13.24.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Aug 2026 13:24:48 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 11 Aug 2026 15:24:46 -0500
+Message-Id: <DKME9LSBXSXA.28PS1V6ZAH79O@gmail.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffer
+ sampling
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
+ <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-
-
---=-GldQxjJ0Y3JLQz4hWdAB
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+ <20260807-ads126x-v3-7-f89925d72792@gmail.com>
+ <1b6b6981-1a08-42a2-a03a-4366b980da13@baylibre.com>
+ <DKK9S36LB543.2T124NE3TNETN@gmail.com>
+ <f3ea3859-aff1-4c15-9302-095119faec78@baylibre.com>
+In-Reply-To: <f3ea3859-aff1-4c15-9302-095119faec78@baylibre.com>
 
-Hi Kyrie,
+On Mon Aug 10, 2026 at 11:31 AM -05, David Lechner wrote:
+> On 8/9/26 3:28 AM, Kurt Borja wrote:
+>> On Sat Aug 8, 2026 at 1:39 PM -05, David Lechner wrote:
+>>> On 8/7/26 10:58 PM, Kurt Borja wrote:
+>>>> Add triggered buffer support and a data-ready (DRDY) hardware trigger.
+>>>>
+>
+> ...
+>
+>>>
+>>>> +	u8 tx[11] __aligned(IIO_DMA_MINALIGN);
+>>>> +	u8 rx[11] __aligned(IIO_DMA_MINALIGN);
+>>>
+>>> don't need second one to be aligned, they aren't independent.
+>>=20
+>> Ah, I forgot this observation in the last version. These are used in a
+>> full-duplex transfer, wouldn't that require for both to be on its own
+>> cache line? I just started learning about DMA.
+>
+> No. In this case, it works roughly like this...
+>
+> - We fill the TX buffer before the transfer. (CPU access to memory may
+>   just live in the cache at this point and not actually be sent to RAM)
+> - We request to start the SPI transfer.
+> - The core SPI code flushes (or maybe I should say invalidates) the cache
+>   on the TX buffer. This ensures that what we wrote with the CPU availabl=
+e
+>   to DMA.
+> - The actual SPI transfer happens that uses DMA to access both TX and
+>   RX buffers. (Again, could just live in a cache and not be sent to RAM)
+> - The SPI core code flushes the cache on the RX buffer. This ensures
+>   that when the CPU reads the memory, it will see what the DMA just
+>   wrote.
 
-Le lundi 10 ao=C3=BBt 2026 =C3=A0 03:05 +0000, Kyrie Wu (=E5=90=B4=E6=99=97=
-) a =C3=A9crit=C2=A0:
-> I agree. Since the platform data is introduced in the MT8189 patch
-> series, I will move fw_type to the platform data and make
-> mtk_vcodec_dec_get_chip_name() derive the chip identifier from it in
-> the MT8189 series.
+Oh, this makes a lot of sense.
 
-I'm not sure I have captured the plan correctly. Would you mind clarifying =
-?
+>
+> Since there isn't a time when CPU and DMA both write to the cache line
+> at the same time before a flush, there is never a time we could have
+> an issue with stale data replacing data that had not been flushed.
+>
+> It does mean that we can't update the tx buffer for the next message
+> until after this message is done, but we have to do that anyway.
+>
+> What does cause problems is if we just had a regular unrelated variable
+> after this in the cache line and the driver updated it during a SPI
+> transfer. If this new value was just living in the CPU cache, then
+> when the RX flush happened, it would write over that new value with
+> stale data from the DMA's version of the cache.
 
-Nicolas
+Thanks! I'll look deeper into DMA, it's very interesting.
 
---=-GldQxjJ0Y3JLQz4hWdAB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+>
+>
+>>=20
+>> [...]
+>>=20
+>>>> +static int ads1262_enable_and_read_last(struct ads1262 *st,
+>>>> +					const struct iio_chan_spec *spec,
+>>>> +					__be32 *val)
+>>>> +{
+>>>> +	struct ads1262_channel *chan;
+>>>> +	int ret;
+>>>> +
+>>>> +	lockdep_assert_held(&st->xfer_lock);
+>>>
+>>> What happens if something else (e.g. gpio in the future) decides to do =
+a
+>>> register write here. If it wins the race, will it unintentionally read =
+the
+>>> data? So do we also need to read the stored data via command here too?
+>>=20
+>> On each trigger, we are holding the lock before we enable the first
+>> channel, until after we read the final conversion. So we don't really
+>> care if there's concurrent activity in-between triggers. Am I missing
+>> something?
+>>=20
+> The datasheet doesn't seem clear on it, so I don't know if you are
+> missing something or not, that is why I asked. :-)
 
------BEGIN PGP SIGNATURE-----
+I thought I was missing something obvious for a moment :p
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCanuEfAAKCRDZQZRRKWBy
-9GplAQDqFehP0p9YkX8g3K/opaqz/gZ9NiNEPga5LbtCDES9cwD/ey7quM27QoKq
-481yz3QPt2ziTigIuzbPk6CdIXYoCQk=
-=Ilc3
------END PGP SIGNATURE-----
+>
+> It looks to me like the way this is working is that that when data
+> is ready, on the very next SPI transfer, the data is placed in the
+> RX buffer no matter what is in the TX buffer. So I was imagining that
+> if we got a DRDY interrupt, but someone happened to set a gpio output
+> at the same time and the gpio request won the race for the lock, then
+> when the gpio request was made, it would receive the RX data and trigger
+> the next conversion while setting the gpio output, then then what was
+> supposed to be receiving the data would receive I don't know what.
 
---=-GldQxjJ0Y3JLQz4hWdAB--
+There are two conversion data registers: the shift register and the data
+holding register. The holding register can only be accessed by command
+(RDATA1). The shift register on the other hand is always shifting out
+the last conversion in a loop *unless* we are reading a register (RREG)
+or we are reading the holding register (RDATA1). This means, even if
+there is concurrent activity in-between triggers, this activity will not
+get accidentally corrupted.
+
+Additionally, reading data doesn't trigger the next conversion. In
+continuous mode it just keeps triggering after the first START signal.
+In pulse mode we have to keep sending START signals. So, there is no
+risk of concurrent activity from accidentally triggering conversions
+either.
+
+To read conversions from the shift register, the requirements are to not
+have concurrent activity between the DRDY signal and the data read, and
+to finish reading something like 16 clk cycles before the next DRDY.
+That's why when reading only one channel we read by command, and when
+reading multiple channels we first hold the xfer_lock, then enable the
+channel, wait for DRDY and then read from the shift register. This
+happens for the whole sequence of channels, so there is no risk of
+corruption from concurrent activity happening in-between triggers.
+
+Of course, as you pointed out in the patch, the current implementation
+is still racy. That's why the next implementation will read multiple
+channels in pulse mode, while still keeping the optimized full-duplex
+method.
+
+--=20
+Thanks,
+ ~ Kurt
