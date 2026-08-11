@@ -1,331 +1,919 @@
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CC9416CF3
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 08:27:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6B7353EEB;
+	Tue, 11 Aug 2026 08:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786436873; cv=none; b=ph//79IKCdXx6I2APAqyJ66xlJuH1cjE2A4BpOHMqvRHSkKK/rPihGsAKykw+8Zp4bvfJ64GD0T6bv9BwEAPAVm/NroCr6hqIGxgmOzdXzJfHJtg2KAeNnj0hR8EVOSIHmPK30jjYZcb1/KxpKrhyf61SBgqDc233ektRNFSqRg=
+	t=1786437113; cv=none; b=Mue3GupeApYbMn6ComP0cJeyJZ93FnjZhDXa8bfVgVhWAgCjHHeEm6miIJphERQadHR6XlAosTx/m2mvyjYaUivo0FTM12hXAHuhWJWPhZi8htrgVold/SO8sndykA5prAHvnxKJEHOuSzK7EC6/YL7XKehzMhuUfuMzimab+HY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786436873; c=relaxed/simple;
-	bh=0NFMkiI9cGUJGQu0nU9aq2ncgiF85JLhExyubCYkRTE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MprLixhLm6Hbj68jYyaIcvP8YgKCRUrxtnq3X60oWjPfHYGdR03BS1ZbhTmehMLcmSiNLBjGMDIDo+rNATLXLjDzh/UjLFNu2VORDI8QZljxTDjcstyPglamxpBnlOiLzO4Svg3+qSzJv1eQpYQvrWQYzNzMADea41H8d3aZA0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/SQHQZ6; arc=none smtp.client-ip=209.85.167.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786437113; c=relaxed/simple;
+	bh=XxtMQMa3DWnbUEYiKI1HexTjUOrCLDNv+gFPU+EiYrs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sa8wlVzxLRvfmo3OmAguz3Yjj6ykHToU7uXlk27cZf+I4pUqPnjZ6uSgUKYLAt+BJkUXrarGwvyA6Z6mQvlBanSxZHS2NozlXGqACxE5QIcnAmhNdrqwwpGE7/DJnU8pdkz5b9QT+EbCqx+4W2leWK9NYRlEPy2DmhIrBdqlvqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NulNofAE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/SQHQZ6"
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4af7283bf83so874551b6e.3
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 01:27:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786436870; x=1787041670; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cY5JFkhr2MFK4a7Q8KfriRWA+QTcA2VyYLDaWVkulWM=;
-        b=E/SQHQZ6kXKICHorM0s2Cz83MfOJ8Kp/9BEBBVd2v194uV1gXl3XsYR1+68j82WuuC
-         LgaApsgtgax0VFyPxr8JOCefaM2uGK7VXVvD8zIsPX3b2NYptCFDVFs3P+aqC6aVgUIP
-         H9LhYyOURBYJ6MdPcrLucdfSK7qDgRAYUoPoxcP4e8z82b7hhUBxqEuq+c47j5y5lhJi
-         psnbD4F7ytApkFyDzxTU+JIjzgOeY0UmWaoNNpM36ftUUuzKrMxhiUpjUxJRkSiJrHcg
-         /RmkBO2MhFiHLB2rvk61Gd0BSp9SwaDdeqq9urZ6r78puLRyJ+kmaQ6FOEE+tPPoq2tV
-         2FYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786436870; x=1787041670;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cY5JFkhr2MFK4a7Q8KfriRWA+QTcA2VyYLDaWVkulWM=;
-        b=hIBx8GGkosPjbMW25hvBC0XV+QlrDG3A891Pgka5AuntkSEfL8ODbO0KXSkd/klv7m
-         oyzaXMfD/JsGGUAnJLwGN7RV7ENNjr1253ofD05AbRDD2kUmr9y1DN79s4pnPn3WQwFd
-         mdmL0Hd+7MhUH2Q9Pec4gI6MtfrbcDJp7c5jfJDUStR96m27Ybv5q+C289pZxrJezKAA
-         fbArPiO2Lfc2ltcwYvxL2qYv4hVdiFySFaUiRT2bDh2cPZ6Z50SaTHHoHrR1kCFsjEyl
-         vDfXn+kfm5bm8ZA0SbwDcmnoIe8zTja123ftzapkrGZtnvEYC+D7BzAiM30tDFhYkFV/
-         eJ4A==
-X-Forwarded-Encrypted: i=1; AHgh+RqjxNPSonh1irzyLMKUwQYUfncuWL8u52h5x/qPoZ0+V7FHrzfClh4e6OeJ857ruDmzm4g7iQTIOF7X@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywcx95rW9u+sW8GLjOQylL1OI2xi4XI/C6eWnx0z9lPJBW/djQT
-	4/Ikreu+SGgJ4MI3pZuTT08dvNdtXnQ7upuXql/7Lk4MQWCABZv3R6Qbsw5cPL9q
-X-Gm-Gg: AR+sD11y08+ro1saFWFxJ0Vy9Ey1Ru0KjiaAKNH1vzOUDgR7UNU1p/MiZvqhsk/DzI3
-	4qVY6KKjHaFsqhkM+TE3/c+zFSFyVLOcpXE7VAaLLOug1NGitPOwAB2/8IvPqHM7ij1GD/1cdRr
-	6bi2WcEyOwmRspMYwnRm2EIr7yFOZPF8AbrudIRHqh2rmIbGQF1Of7T97EZTxXT3j68s9s8bZUu
-	i8rDrFw7o5/zN5Pdd9qYvTxTzOxC4oK0THM1b2QkurURdrT0DGOtkfArGCurTXTRFyeXfWCVs/O
-	5ITPfLcYdxEZ6jLT4GdfwnkDF/2vLl7fbvbrltYUDCjlm0vggmDTrJD4VpYTUm38jtEaDAFZoOc
-	/Vs361XbPTiIzsNSJ7H86hZSxajIx0DkS7eVG9RQ6wvAkmlUqv6ZWu88/5MEycjwDARTh/iH6a4
-	/V6HRbefyDW7HYwK5cnce9uZ6Ypc6Jp7z9b10o89ObHXk70NVX3j6WWLrIHnBd2AOhqb1QRVYW4
-	EdxhNhcrGf93DGbYmCR0jAEg1JE43/wvfSPsrvALM/q/pTL4nDF1GRU514CGP2kbHuCDFJ1mhQ1
-	ux2qVdkyhsRkZtz1zKXiBq4dxfr4BqzpeYfxZin3Rrjna0Unv/OIznpB/ehssn5MhSXZSbmnleS
-	ACfBq3+eznGCKO+bE
-X-Received: by 2002:a05:6808:4f47:b0:495:f67c:d96a with SMTP id 5614622812f47-4b1fd77a01cmr907432b6e.12.1786436870348;
-        Tue, 11 Aug 2026 01:27:50 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1fff55fdcsm318095b6e.6.2026.08.11.01.27.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 01:27:48 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 11 Aug 2026 02:27:25 -0600
-Subject: [PATCH v6 3/3] mfd: ac200: Add X-Powers AC200 support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NulNofAE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C4031F000E9;
+	Tue, 11 Aug 2026 08:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786437111;
+	bh=q24FXb5XSOw6meqa4O771D1hDFpcGicSkaNFYx4f7GE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NulNofAEBo2BnsIahUe5aGazyJKkC0SgBOdgAVDsoSNMobanFRaE8E+EoW2C9jKuD
+	 iKSxpbpfe3CjNblRam6RUx4joDPwI7d2pZoSmxJooJ/xyheIFXFcsdec7rPIQUgGq5
+	 ZW6IjiEnVBHtYqKZ6nN3e3fgzpSl5ha+0EY+JemW6VtQYWHvbjIG06uvP7AJWNGplV
+	 t6T6CHt/xLzUf2mTjOXFXEJi/xwoMTS89mA/ngSo3Ee0iGtWE2Ph7pZF+GHbkDHex1
+	 xrdkppSPfC0XSfqHNUILQiLiERLHsgh++8/r+AoxJ4hxUfNV3TltJ6Q+8oCSxEQA7U
+	 PCkGHcIqZO5GA==
+Date: Tue, 11 Aug 2026 10:31:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>, 
+	Alex Ousherovitch <aousherovitch@rambus.com>, Conor Dooley <conor+dt@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Jonathan Corbet <corbet@lwn.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org, 
+	Joel Wittenauer <Joel.Wittenauer@cryptography.com>, linux-api@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, Shuah Khan <skhan@linuxfoundation.org>, 
+	Thi Nguyen <thin@rambus.com>
+Subject: Re: [PATCH v3 02/19] crypto: cmh - add core platform driver
+Message-ID: <20260811-meerkat-of-excellent-satiation-d4c32f@quoll>
+References: <20260806195519.2703224-1-skrishnamoorthy@rambus.com>
+ <20260806195519.2703224-3-skrishnamoorthy@rambus.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-submit-ac200-mfd-v6-3-c5b1292c8498@gmail.com>
-References: <20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com>
-In-Reply-To: <20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com>
-To: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- James Hilliard <james.hilliard1@gmail.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260806195519.2703224-3-skrishnamoorthy@rambus.com>
 
-The X-Powers AC200 is a mixed-signal companion IC with a paged register
-map accessed over I2C.
+On Thu, Aug 06, 2026 at 12:55:01PM -0700, Saravanakrishnan Krishnamoorthy wrote:
+> These are the single-block cipher API used for software-fallback paths:
+> CCM empty-input tag computation (2 ECB encryptions + XOR) and XCBC(SM4)
+> empty-message workaround (3 ECB encryptions + XOR).  No public wrapper
+> exists; this is the same pattern used by in-tree crypto/ccm.c,
+> crypto/cmac.c, and crypto/xcbc.c.
+> 
+> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
+> Reviewed-by: Joel Wittenauer <Joel.Wittenauer@cryptography.com>
+> Reviewed-by: Thi Nguyen <thin@rambus.com>
 
-Enable the shared input clock and prevent its rate from changing. Match
-the vendor driver's 40 ms wait before the first register access,
-initialize the paged regmap, report the chip and package revision, and
-apply common reset.
+These two reviews did not happen, drop the tags. The code has trivial
+mistakes from downstream code. Internal review would point these trivial
+issues, so I do not believe you received valid, meaningful internal
+review which would justify the tags.
 
-The Ethernet PHY link endpoint is independently enumerated on its MDIO
-bus, so publish the regmap through managed syscon registration for lookup
-through its AC200 firmware reference rather than creating an artificial
-MFD platform child. The managed entry is withdrawn before the regmap is
-released, while the function driver separately manages the PHY analog
-supply.
+> +#include <linux/module.h>
+> +#include <linux/kernel.h>
+> +#include <linux/slab.h>
+> +#include <linux/io.h>
+> +#include <linux/clk.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/of.h>
+> +
+> +#include "cmh.h"
+> +#include "cmh_dma.h"
+> +#include "cmh_mqi.h"
+> +#include "cmh_txn.h"
+> +#include "cmh_rh.h"
+> +#include "cmh_registers.h"
+> +#include "cmh_debugfs.h"
+> +#include "cmh_sysfs.h"
+> +
+> +#include <linux/iopoll.h>
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Alex Ousherovitch <aousherovitch@rambus.com>");
+> +MODULE_AUTHOR("Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>");
+> +MODULE_AUTHOR("Joel Wittenauer <Joel.Wittenauer@cryptography.com>");
+> +MODULE_DESCRIPTION("Rambus CryptoManager Hub (CMH) hardware crypto accelerator");
+> +MODULE_ALIAS("platform:cmh");
 
-Cache only the common page selector. Individual functions can reset
-independently and invalidate their other registers without regmap's
-knowledge, so leave all functional registers volatile.
+Why?
 
-Reset the chip during managed teardown and system shutdown. Consumers
-can use device links to ensure that they unbind before the shared AC200
-resources are released.
+> +MODULE_IMPORT_NS("CRYPTO_INTERNAL");
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mfd/Kconfig  |  12 ++++
- drivers/mfd/Makefile |   1 +
- drivers/mfd/ac200.c  | 170 +++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 183 insertions(+)
+Why all this is in completely odd place, not next to the module init
+code?
 
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index e4fd4572472f..f8354a0f6b5c 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -205,6 +205,18 @@ config MFD_AC100
- 	  This driver include only the core APIs. You have to select individual
- 	  components like codecs or RTC under the corresponding menus.
- 
-+config MFD_AC200
-+	tristate "X-Powers AC200"
-+	depends on I2C
-+	depends on OF
-+	select MFD_SYSCON
-+	select REGMAP_I2C
-+	help
-+	  Support for the X-Powers AC200 mixed-signal companion IC. The AC200
-+	  contains audio, video, RTC and Fast Ethernet PHY functions and is
-+	  co-packaged with some Allwinner H6 and H616 SoCs. This driver provides
-+	  the shared register access used by the individual function drivers.
-+
- config MFD_AXP20X
- 	tristate
- 	select MFD_CORE
-diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index 72d3944b0ad8..f8101d2a9ce9 100644
---- a/drivers/mfd/Makefile
-+++ b/drivers/mfd/Makefile
-@@ -150,6 +150,7 @@ obj-$(CONFIG_MFD_DA9052_SPI)	+= da9052-spi.o
- obj-$(CONFIG_MFD_DA9052_I2C)	+= da9052-i2c.o
- 
- obj-$(CONFIG_MFD_AC100)		+= ac100.o
-+obj-$(CONFIG_MFD_AC200)		+= ac200.o
- obj-$(CONFIG_MFD_AXP20X)	+= axp20x.o
- obj-$(CONFIG_MFD_AXP20X_I2C)	+= axp20x-i2c.o
- obj-$(CONFIG_MFD_AXP20X_RSB)	+= axp20x-rsb.o
-diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
-new file mode 100644
-index 000000000000..25066bb36ac7
---- /dev/null
-+++ b/drivers/mfd/ac200.c
-@@ -0,0 +1,170 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * MFD core driver for the X-Powers AC200
-+ *
-+ * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
-+ * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-+ *
-+ * Based on the AC100 driver:
-+ * Copyright (C) 2016 Chen-Yu Tsai
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+
-+#define AC200_SYS_VERSION_REG			0x0000
-+#define AC200_SYS_VERSION_PACKAGE_MASK		GENMASK(15, 14)
-+#define AC200_SYS_VERSION_CHIP_MASK		GENMASK(11, 0)
-+
-+#define AC200_SYS_CONTROL_REG			0x0002
-+#define AC200_SYS_CONTROL_CHIP_RESET_DEASSERT	BIT(0)
-+
-+/* Interface register accessible from every register page. */
-+#define AC200_TWI_REG_ADDR_H	0x00fe
-+#define AC200_MAX_REG		0xa1f2
-+
-+struct ac200 {
-+	struct regmap *regmap;
-+};
-+
-+static const struct regmap_range_cfg ac200_range_cfg[] = {
-+	{
-+		.range_max = AC200_MAX_REG,
-+		.selector_reg = AC200_TWI_REG_ADDR_H,
-+		.selector_mask = 0xff,
-+		.window_len = 256,
-+	},
-+};
-+
-+/*
-+ * Each AC200 sub-block can reset independently, invalidating its register
-+ * contents without regmap's knowledge. Cache only the common page selector;
-+ * this avoids a selector read-modify-write for every access on the same page
-+ * without ever returning stale functional-register values.
-+ */
-+static bool ac200_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	return reg != AC200_TWI_REG_ADDR_H;
-+}
-+
-+static const struct regmap_config ac200_regmap_config = {
-+	.name = "ac200",
-+	.reg_bits = 8,
-+	.reg_stride = 2,
-+	.val_bits = 16,
-+	.ranges = ac200_range_cfg,
-+	.num_ranges = ARRAY_SIZE(ac200_range_cfg),
-+	.max_register = AC200_MAX_REG,
-+	.volatile_reg = ac200_volatile_reg,
-+	.cache_type = REGCACHE_MAPLE,
-+};
-+
-+static void ac200_disable(void *data)
-+{
-+	struct ac200 *ddata = data;
-+
-+	regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG, 0);
-+}
-+
-+static int ac200_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	unsigned int version;
-+	struct ac200 *ddata;
-+	struct clk *clk;
-+	int ret;
-+
-+	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-+	if (!ddata)
-+		return -ENOMEM;
-+
-+	clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to enable input clock\n");
-+
-+	ret = devm_clk_rate_exclusive_get(dev, clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to lock clock rate\n");
-+
-+	ddata->regmap = devm_regmap_init_i2c(client, &ac200_regmap_config);
-+	if (IS_ERR(ddata->regmap))
-+		return dev_err_probe(dev, PTR_ERR(ddata->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	i2c_set_clientdata(client, ddata);
-+
-+	/*
-+	 * No minimum delay is documented. Match the vendor driver's 40 ms delay
-+	 * before its first AC200 register access after enabling the input clock.
-+	 */
-+	msleep(40);
-+
-+	ret = regmap_read(ddata->regmap, AC200_SYS_VERSION_REG, &version);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to read chip version\n");
-+
-+	dev_info(dev, "AC200 revision %#lx in package %lu\n",
-+		 FIELD_GET(AC200_SYS_VERSION_CHIP_MASK, version),
-+		 FIELD_GET(AC200_SYS_VERSION_PACKAGE_MASK, version));
-+
-+	/* Reset the chip after dependent function drivers have unbound. */
-+	ret = devm_add_action_or_reset(dev, ac200_disable, ddata);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG, 0);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG,
-+			   AC200_SYS_CONTROL_CHIP_RESET_DEASSERT);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_of_syscon_register_regmap(dev, dev->of_node,
-+					     ddata->regmap);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to register regmap\n");
-+
-+	return 0;
-+}
-+
-+static void ac200_shutdown(struct i2c_client *client)
-+{
-+	ac200_disable(i2c_get_clientdata(client));
-+}
-+
-+static const struct of_device_id ac200_of_match[] = {
-+	{ .compatible = "x-powers,ac200" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ac200_of_match);
-+
-+static const struct i2c_device_id ac200_i2c_ids[] = {
-+	{ .name = "ac200" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ac200_i2c_ids);
-+
-+static struct i2c_driver ac200_driver = {
-+	.driver = {
-+		.name = "ac200",
-+		.of_match_table = ac200_of_match,
-+	},
-+	.probe = ac200_probe,
-+	.shutdown = ac200_shutdown,
-+	.id_table = ac200_i2c_ids,
-+};
-+module_i2c_driver(ac200_driver);
-+
-+MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
-+MODULE_DESCRIPTION("X-Powers AC200 MFD core driver");
-+MODULE_LICENSE("GPL");
+> +
+> +#ifdef CONFIG_CRYPTO_DEV_CMH_DEBUG
+> +static bool skip_fw_check;
+> +module_param(skip_fw_check, bool, 0444);
+> +MODULE_PARM_DESC(skip_fw_check,
+> +		 "[debug] Skip eSW boot status check at probe (default: false)");
+> +#else
+> +#define skip_fw_check false
+> +#endif
+> +
+> +/* Global device state (single-instance module) */
+> +
+> +static struct cmh_device *g_cmh_dev;
 
--- 
-2.53.0
+Eh, no. Don't implement singletons.
+
+> +
+> +/* SIC Sanity Check */
+> +
+> +static int cmh_check_sic(struct cmh_config *cfg)
+> +{
+> +	const u32 ready = SIC_SW_BOOT_STATUS_MISSION |
+> +			  SIC_SW_BOOT_STATUS_MISSION2;
+> +	u32 boot_status;
+> +	u32 hw_version;
+> +	u32 sw_boot;
+> +	int ret;
+> +
+> +	boot_status = cmh_reg_read32(cfg->sic_mapped, R_SIC_BOOT_STATUS);
+> +	hw_version  = cmh_reg_read32(cfg->sic_mapped, R_SIC_HW_VERSION0);
+> +
+> +	dev_info(cmh_dev(), "SIC boot_status=0x%08x hw_version=0x%08x\n",
+> +		 boot_status, hw_version);
+> +
+> +	if ((boot_status & SIC_BOOT_STATUS_MASK) != SIC_BOOT_STATUS_PASS) {
+> +		dev_err(cmh_dev(), "SIC boot status check failed (0x%02x != 0x%02x)\n",
+> +			boot_status & SIC_BOOT_STATUS_MASK, SIC_BOOT_STATUS_PASS);
+> +		return -EIO;
+> +	}
+> +
+> +	/*
+> +	 * Wait for eSW readiness: MISSION signals the primary VCQ engine,
+> +	 * MISSION2 the sidecar engine (set asynchronously).  The driver
+> +	 * uses both, so require both bits.
+> +	 */
+> +	ret = read_poll_timeout(ioread32, sw_boot,
+> +				(sw_boot & ready) == ready,
+> +				1000,
+> +				(unsigned long)cfg->fw_ready_timeout_ms * 1000UL,
+> +				false,
+> +				cfg->sic_mapped + R_SIC_SW_BOOT_STATUS);
+> +	if (ret) {
+> +		sw_boot = cmh_reg_read32(cfg->sic_mapped, R_SIC_SW_BOOT_STATUS);
+> +		dev_err(cmh_dev(), "CMH eSW not ready (sw_boot_status=0x%08x, timeout=%ums)\n",
+> +			sw_boot, cfg->fw_ready_timeout_ms);
+> +		return -ETIMEDOUT;
+> +	}
+> +
+> +	dev_info(cmh_dev(), "CMH eSW fully operational (sw_boot_status=0x%08x)\n",
+> +		 sw_boot);
+
+Drop
+
+> +
+> +	return 0;
+> +}
+> +
+> +/* Module Init -- platform driver probe */
+> +
+> +static int cmh_probe(struct platform_device *pdev)
+> +{
+> +	struct cmh_device *dev;
+> +	struct cmh_config *cfg;
+> +	struct clk_bulk_data *clks;
+> +	struct gpio_desc *reset;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	/* Single-instance guard: reject if already probed */
+> +	if (g_cmh_dev)
+> +		return -EBUSY;
+
+NAK
+
+> +
+> +	dev_info(&pdev->dev, "loading v%s\n", CMH_VERSION);
+
+NAK and internal review should tell you that
+
+> +
+> +	dev = devm_kzalloc(&pdev->dev, sizeof(*dev), GFP_KERNEL);
+> +	if (!dev)
+> +		return -ENOMEM;
+> +
+> +	dev->dev = &pdev->dev;
+> +	cfg = &dev->config;
+> +
+> +	/* Declare DMA addressing capability */
+> +	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "dma_set_mask_and_coherent failed (rc=%d)\n",
+> +			ret);
+> +		goto err_free_dev;
+> +	}
+> +
+> +	/* Initialize DMA backend (standard API or FPGA pool) */
+> +	ret = cmh_dma_init(pdev);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "DMA init failed (rc=%d)\n", ret);
+> +		goto err_free_dev;
+> +	}
+> +
+> +	/* Step 1: Parse and validate configuration (DT + module params) */
+> +	ret = cmh_config_init(cfg, pdev);
+> +	if (ret)
+> +		goto err_dma_init;
+> +
+> +	dev_info(cmh_dev(), "sic_base=0x%llx size=0x%zx mbx_count=%u\n",
+> +		 (unsigned long long)cfg->sic_base, cfg->sic_size,
+> +		 cfg->mbx_count);
+
+How many dev_info are you going to print?
+
+> +
+> +	/*
+> +	 * Enable functional clocks and release reset.  Both are optional --
+> +	 * integrations where a separate management/power controller owns the
+> +	 * clock and reset lines describe neither, and these calls are
+> +	 * no-ops.  The hub gates its clocks internally, but
+> +	 * clk_disable_unused() would otherwise gate an always-on input the
+> +	 * driver never claimed, so the driver enables whatever clocks the
+> +	 * device tree provides.  Clocks come up before reset is released (a
+> +	 * hard reset requires an active clock) and before any SIC register
+> +	 * access.  The reset line is acquired already deasserted; the driver
+> +	 * does not drive a reset pulse -- the eSW boots independently and its
+> +	 * mission-mode readiness is verified separately below, and no in-tree
+> +	 * platform wires this line for a reset sequence to be exercised.
+> +	 * devm unwinds both on remove or probe error.
+> +	 */
+> +	ret = devm_clk_bulk_get_all_enabled(&pdev->dev, &clks);
+> +	if (ret < 0) {
+> +		dev_err(cmh_dev(), "failed to enable clocks (rc=%d)\n", ret);
+> +		goto err_dma_init;
+> +	}
+> +	if (ret > 0)
+> +		dev_info(cmh_dev(), "enabled %d clock(s)\n", ret);
+
+Again?
+
+> +
+> +	reset = devm_gpiod_get_optional(&pdev->dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(reset)) {
+> +		ret = PTR_ERR(reset);
+> +		dev_err(cmh_dev(), "failed to acquire reset GPIO (rc=%d)\n",
+> +			ret);
+
+Syntax is ret = dev_err_probe and internal review should tell you that.
+
+> +		goto err_dma_init;
+> +	}
+> +
+> +	/* Step 2: ioremap the SIC region */
+> +	cfg->sic_mapped = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(cfg->sic_mapped)) {
+> +		ret = PTR_ERR(cfg->sic_mapped);
+> +		cfg->sic_mapped = NULL;
+> +		dev_err(cmh_dev(), "ioremap failed for SIC region (rc=%d)\n",
+> +			ret);
+> +		goto err_dma_init;
+> +	}
+> +
+> +	/* Step 3: Verify CMH is alive */
+> +	if (skip_fw_check) {
+> +		dev_info(cmh_dev(), "skipping eSW boot check (skip_fw_check=1)\n");
+> +	} else {
+> +		ret = cmh_check_sic(cfg);
+> +		if (ret)
+> +			goto err_dma_init;
+> +	}
+> +
+> +	/* Step 3.5: Discover crypto cores from the SIC CORE_ENABLE register */
+> +	ret = cmh_config_discover_cores(cfg);
+> +	if (ret)
+> +		goto err_dma_init;
+> +
+> +	/* Step 4: Compute per-instance register bases */
+> +	for (i = 0; i < cfg->mbx_count; i++) {
+> +		struct cmh_mbx_config *m = &cfg->mailboxes[i];
+> +
+> +		m->reg_base = cmh_mbx_instance_base(cfg->sic_mapped,
+> +						    m->instance);
+> +
+> +		dev_dbg(cmh_dev(), "mbx[%u] instance=%u reg_base=%p\n",
+> +			i, m->instance, m->reg_base);
+> +	}
+> +
+> +	(void)cmh_debugfs_init(cfg);
+
+Why the cast?
+
+> +
+> +	/* Initialise mailbox queue interface */
+> +	ret = cmh_mqi_init(cfg);
+> +	if (ret)
+> +		goto err_mqi_init;
+> +
+> +	/* Initialise transaction manager */
+> +	ret = cmh_tm_init(cfg);
+> +	if (ret)
+> +		goto err_tm_init;
+> +
+> +	/* Initialise response handler */
+> +	ret = cmh_rh_init(cfg);
+> +	if (ret)
+> +		goto err_rh_init;
+> +
+> +	g_cmh_dev = dev;
+
+Nope (and we do not call things "g" from globals)
+
+> +	platform_set_drvdata(pdev, dev);
+> +
+> +	dev_info(cmh_dev(), "initialized successfully\n");
+
+NAK
+
+> +	return 0;
+> +
+> +err_rh_init:
+> +	cmh_tm_cleanup();
+> +err_tm_init:
+> +	cmh_mqi_cleanup(cfg);
+> +err_mqi_init:
+> +	cmh_debugfs_cleanup();
+> +err_dma_init:
+> +	cmh_dma_cleanup();
+> +err_free_dev:
+> +	return ret;
+> +}
+> +
+> +/* Module Exit -- platform driver remove */
+> +
+> +static void cmh_remove(struct platform_device *pdev)
+> +{
+> +	struct cmh_device *dev = platform_get_drvdata(pdev);
+> +	struct cmh_config *cfg;
+> +
+> +	if (!dev)
+> +		return;
+> +
+> +	cfg = &dev->config;
+> +
+> +	cmh_rh_cleanup(cfg);
+> +	cmh_tm_cleanup();
+> +	cmh_mqi_cleanup(cfg);
+> +	cmh_debugfs_cleanup();
+> +	cmh_dma_cleanup();
+> +
+> +	dev_info(&pdev->dev, "unloaded successfully\n");
+
+NAK
+
+> +
+> +	g_cmh_dev = NULL;
+> +}
+> +
+> +static const struct of_device_id cmh_of_match[] = {
+> +	{ .compatible = "rambus,cmh-v1030" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, cmh_of_match);
+> +
+> +/*
+> + * PM suspend/resume.
+> + *
+> + * Suspend: drain the TM first (while the RH is still active and can
+> + * deliver completions for in-flight transactions), then quiesce the
+> + * RH (cancel watchdog, mask HW interrupts).  This ordering ensures
+> + * the drain_timeout_ms wait in cmh_tm_quiesce() can actually succeed
+> + * -- if we suspended RH first, no completions would be delivered and
+> + * the drain would always hit the force-cancel path.
+> + *
+> + * IRQ handlers remain registered (standard PM pattern: the kernel
+> + * disables the IRQ lines during suspend, no need to free/re-request).
+> + *
+> + * Resume: re-check the SIC/SW boot status, re-synchronise the RH
+> + * with hardware (head positions, interrupt masks, watchdog), then
+> + * restart the TM kthread.
+> + */
+> +
+> +static int cmh_suspend(struct device *dev)
+> +{
+> +	struct cmh_device *cmh = dev_get_drvdata(dev);
+> +
+> +	if (!cmh)
+> +		return 0;
+> +
+> +	dev_info(dev, "suspending\n");
+
+Really, how many dev_info do you intend to have?
+
+> +	cmh_tm_quiesce();
+> +	cmh_rh_suspend(&cmh->config);
+> +	return 0;
+> +}
+> +
+> +static int cmh_resume(struct device *dev)
+> +{
+> +	struct cmh_device *cmh = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	if (!cmh)
+> +		return 0;
+> +
+> +	ret = cmh_check_sic(&cmh->config);
+> +	if (ret) {
+> +		dev_err(dev, "resume: CMH eSW health check failed (%d)\n",
+> +			ret);
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * cmh_rh_resume() is void: it only re-syncs MMIO head pointers,
+> +	 * clears stale interrupt status bits (W1C), re-enables interrupt
+> +	 * masks, and re-arms the watchdog timer -- none of which can fail
+> +	 * after the SIC health check above has confirmed HW accessibility.
+> +	 */
+> +	cmh_rh_resume(&cmh->config);
+> +
+> +	ret = cmh_tm_resume();
+> +	if (ret) {
+> +		dev_err(dev, "resume: TM restart failed (%d)\n", ret);
+> +		return ret;
+> +	}
+> +	dev_info(dev, "resumed successfully\n");
+
+NAK
+
+> +	return 0;
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(cmh_pm_ops,
+> +				cmh_suspend,
+> +				cmh_resume);
+> +
+> +/*
+> + * Runtime PM is intentionally not implemented.  The CMH hardware does
+> + * not expose HLOS-accessible clock gates or power domains -- the eSW
+> + * firmware manages HW power state independently.  There is no mechanism
+> + * for the kernel to idle, gate clocks, or power down the accelerator
+> + * block from HLOS.  If a future platform variant exposes power control
+> + * to HLOS (e.g. via a SCMI power domain), runtime PM support can be
+> + * added at that time using SET_RUNTIME_PM_OPS and pm_runtime_get/put
+> + * around VCQ submission paths.
+> + *
+> + * System sleep (suspend/resume) is supported via DEFINE_SIMPLE_DEV_PM_OPS
+> + * above: suspend quiesces the TM and masks IRQs; resume re-verifies
+> + * eSW health (SIC status) and restarts the TM thread.
+> + */
+> +
+> +static struct platform_driver cmh_driver = {
+> +	.probe      = cmh_probe,
+> +	.remove     = cmh_remove,
+> +	.driver = {
+> +		.name           = CMH_DRV_NAME,
+
+Use name directly.
+
+> +		.of_match_table = cmh_of_match,
+> +		.dev_groups     = cmh_sysfs_groups,
+> +		.pm             = pm_sleep_ptr(&cmh_pm_ops),
+> +	},
+> +};
+> +
+> +static int __init cmh_init(void)
+> +{
+> +	/*
+> +	 * Register the platform driver and let the driver core drive
+> +	 * probing.  Probe failures are logged by probe() itself; a probe
+> +	 * that returns -EPROBE_DEFER (e.g. its interrupt controller is not
+> +	 * yet ready) is retried by the core.  Do not gate module load on
+> +	 * g_cmh_dev -- that would defeat deferred probe.
+> +	 */
+
+Why do you need this? Why your driver is done differently than all
+others?
+
+> +	return platform_driver_register(&cmh_driver);
+> +}
+> +
+> +static void __exit cmh_exit(void)
+> +{
+> +	platform_driver_unregister(&cmh_driver);
+> +}
+> +
+> +module_init(cmh_init);
+> +module_exit(cmh_exit);
+
+And this is not module_platform_driver because...?
+
+> diff --git a/drivers/crypto/cmh/cmh_mqi.c b/drivers/crypto/cmh/cmh_mqi.c
+> new file mode 100644
+> index 000000000000..99ba44695d3c
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_mqi.c
+> @@ -0,0 +1,347 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2026 Cryptography Research, Inc. (CRI).
+> + * CMH LKM -- Mailbox Queue Initializer
+> + *
+> + * Responsibilities:
+> + *   - Allocate queue buffers for each configured mailbox
+> + *   - Execute the MBX lock/setup/enable register sequence
+> + *   - Readback-verify all critical register writes
+> + *   - Hold lock for MBX lifetime (CMH eSW requires it for host access)
+> + *   - Clean up (flush + unlock + free) on exit or error
+> + *
+> + * Register sequence per instance (per CMH MBX hardware specification):
+> + *   1. Read R_MBX_LOCK -> non-zero = ownership token acquired
+> + *   2. W1C stale R_MBX_INTERRUPT bits (avoids spurious error cascade)
+> + *   3. Set R_MBX_INTERRUPT_MASK = MBX_IRQ_MASK
+> + *   4. Write QUEUE_LO/HI, SLOTS, STRIDE (queue address + geometry)
+> + *   5. Sync TAIL = HEAD (CMH eSW owns HEAD; avoids stale-queue parse)
+> + *   6. Readback verify QUEUE_LO/HI/SLOTS/STRIDE
+> + *   7. Write COMMAND = MBX_COMMAND_RUN
+> + *   8. Lock stays held -- released only in teardown
+> + */
+> +
+> +#include <linux/module.h>
+> +#include <linux/kernel.h>
+> +#include <linux/slab.h>
+> +#include <linux/delay.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+
+
+...
+
+
+> +/**
+> + * cmh_mqi_init() - Initialize all mailbox queues
+> + * @cfg: CMH configuration describing the mailboxes to set up
+> + *
+> + * Allocates DMA queue buffers for each configured mailbox, then executes
+> + * the MBX lock/setup/enable register sequence.  On failure, all
+> + * successfully initialized mailboxes are torn down and buffers freed.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int cmh_mqi_init(struct cmh_config *cfg)
+> +{
+> +	unsigned int i, j;
+> +	int ret;
+> +
+> +	/* Allocate queue buffers */
+> +	for (i = 0; i < cfg->mbx_count; i++) {
+> +		struct cmh_mbx_config *m = &cfg->mailboxes[i];
+> +
+> +		m->virt_addr = cmh_dma_alloc(m->queue_size, &m->dma_handle,
+> +					     GFP_KERNEL);
+> +		if (!m->virt_addr) {
+> +			ret = -ENOMEM;
+> +			goto err_free_bufs;
+> +		}
+> +
+> +		dev_dbg(cmh_dev(), "mqi[%u] alloc %zu bytes @ virt=%pK dma=%pad\n",
+> +			i, m->queue_size, m->virt_addr, &m->dma_handle);
+> +	}
+> +
+> +	/* Lock/setup/enable each mailbox */
+> +	for (i = 0; i < cfg->mbx_count; i++) {
+> +		ret = cmh_mbx_setup_one(&cfg->mailboxes[i]);
+> +		if (ret) {
+> +			dev_err(cmh_dev(), "mqi[%u] setup failed (rc=%d)\n",
+> +				i, ret);
+> +			goto err_teardown;
+> +		}
+> +	}
+> +
+> +	dev_info(cmh_dev(), "MQI init complete (%u mailboxes)\n", cfg->mbx_count);
+
+NAK
+
+> +	return 0;
+> +
+> +err_teardown:
+> +	for (j = 0; j < i; j++)
+> +		cmh_mbx_teardown_one(&cfg->mailboxes[j]);
+> +err_free_bufs:
+> +	for (j = 0; j < cfg->mbx_count; j++) {
+> +		if (cfg->mailboxes[j].virt_addr)
+> +			cmh_dma_free(cfg->mailboxes[j].queue_size,
+> +				     cfg->mailboxes[j].virt_addr,
+> +				     cfg->mailboxes[j].dma_handle);
+> +		cfg->mailboxes[j].virt_addr = NULL;
+> +		cfg->mailboxes[j].dma_handle = 0;
+> +	}
+> +	return ret;
+> +}
+> +
+> +/**
+> + * cmh_mqi_cleanup() - Clean up all mailbox queues
+> + * @cfg: CMH configuration describing the mailboxes to tear down
+> + *
+> + * Tears down each mailbox (flush + unlock) and frees the DMA queue
+> + * buffers allocated by cmh_mqi_init().
+> + */
+> +void cmh_mqi_cleanup(struct cmh_config *cfg)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < cfg->mbx_count; i++) {
+> +		struct cmh_mbx_config *m = &cfg->mailboxes[i];
+> +
+> +		cmh_mbx_teardown_one(m);
+> +
+> +		if (m->virt_addr)
+> +			cmh_dma_free(m->queue_size, m->virt_addr,
+> +				     m->dma_handle);
+> +		m->virt_addr = NULL;
+> +		m->dma_handle = 0;
+> +	}
+> +
+> +	dev_info(cmh_dev(), "MQI cleanup complete\n");
+
+NAK
+
+...
+
+> +
+> +/*
+> + * Resolve per-MBX Linux virqs for the CMH interrupt lines.
+> + *
+> + * Each mailbox declares its own completion interrupt in its device-tree
+> + * child node; cmh_config_init() resolves these to Linux virqs and stores
+> + * them in cfg->mailboxes[i].irq (-1 when the mailbox has no interrupt).
+> + * IRQ mode requires every configured mailbox to have an interrupt; if
+> + * none do (or only some), the response handler uses watchdog polling.
+> + *
+> + * Populates rh.irqs[] and rh.nirqs.  Returns 0 on success, or a
+> + * negative errno if no IRQs could be resolved (polling-only mode).
+> + */
+> +static int cmh_rh_resolve_irqs(struct cmh_config *cfg)
+> +{
+> +	u32 i, nwith = 0;
+> +
+> +	rh.nirqs = 0;
+> +
+> +	for (i = 0; i < cfg->mbx_count; i++)
+> +		if (cfg->mailboxes[i].irq >= 0)
+> +			nwith++;
+> +
+> +	if (nwith == 0) {
+> +		dev_info(cmh_dev(), "rh: no mailbox IRQs -- polling mode\n");
+
+So a warning or info?
+
+> +		return -ENODEV;
+> +	}
+> +
+> +	if (nwith != cfg->mbx_count) {
+> +		dev_warn(cmh_dev(),
+> +			 "rh: only %u/%u mailboxes have IRQs -- falling back to polling\n",
+> +			 nwith, cfg->mbx_count);
+> +		return -ENODEV;
+> +	}
+> +
+> +	for (i = 0; i < cfg->mbx_count; i++) {
+> +		rh.irqs[i] = cfg->mailboxes[i].irq;
+> +		dev_dbg(cmh_dev(), "rh: MBX%u -> IRQ %d\n", i, rh.irqs[i]);
+> +	}
+> +
+> +	rh.nirqs = cfg->mbx_count;
+> +	return 0;
+> +}
+> +
+> +/**
+> + * cmh_rh_init() - Initialize the response handler
+> + * @cfg: Device configuration (mailbox count, MMIO bases, IRQ info)
+> + *
+> + * Resolve per-mailbox IRQs from the device tree (or module parameter
+> + * override), register threaded IRQ handlers (hardirq + kthread), and
+> + * arm the missed-IRQ software watchdog timer.  If no IRQs can be
+> + * resolved, falls back to watchdog-only polling mode.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int cmh_rh_init(struct cmh_config *cfg)
+> +{
+> +	int ret;
+> +	u32 i;
+> +
+> +	rh.cfg = cfg;
+> +	rh.nirqs = 0;
+> +	rh.active = false;
+> +	atomic_set(&rh.irq_count, 0);
+> +
+> +	/* Allocate per-MBX tracking */
+> +	rh.mbx = kcalloc(cfg->mbx_count, sizeof(*rh.mbx), GFP_KERNEL);
+> +	if (!rh.mbx)
+> +		return -ENOMEM;
+> +
+> +	/* Resolve per-MBX IRQs */
+> +	if (cmh_rh_resolve_irqs(cfg) < 0) {
+> +		/*
+> +		 * No IRQs available.  The watchdog timer provides
+> +		 * a polling fallback: it reads MBX head registers
+> +		 * periodically and processes completions.  This is
+> +		 * slower than IRQ-driven completion but functional.
+> +		 *
+> +		 * Completion latency in polling-only mode is bounded
+> +		 * by the watchdog interval (default 200 ms, tunable
+> +		 * via debugfs config/watchdog_ms).
+> +		 */
+> +		dev_warn(cmh_dev(),
+> +			 "rh: no IRQs -- using watchdog polling (interval %u ms)\n",
+> +			 watchdog_ms);
+
+And here it is a warning?
+
+> +
+> +		/* Seed last_head from HW before first watchdog tick */
+> +		for (i = 0; i < cfg->mbx_count; i++)
+> +			rh.mbx[i].last_head =
+> +				cmh_reg_read32(cfg->mailboxes[i].reg_base,
+> +					       R_MBX_QUEUE_HEAD);
+> +
+> +		rh.active = true;
+> +		timer_setup(&rh_watchdog, cmh_rh_watchdog_fn, 0);
+> +		mod_timer(&rh_watchdog, jiffies +
+> +			  msecs_to_jiffies(max(watchdog_ms,
+> +					       CMH_RH_WATCHDOG_MS_MIN)));
+> +		return 0;
+> +	}
+> +
+> +	/* Initialize per-MBX state: read current head positions */
+> +	for (i = 0; i < cfg->mbx_count; i++)
+> +		rh.mbx[i].last_head = cmh_reg_read32(rh.cfg->mailboxes[i].reg_base,
+> +						     R_MBX_QUEUE_HEAD);
+> +
+> +	/*
+> +	 * Register threaded IRQ handlers.
+> +	 *
+> +	 * DT per-MBX path: one distinct virq per MBX, nirqs == mbx_count.
+> +	 * DT single-IRQ path: one shared IRQ, nirqs == 1.  The handler
+> +	 * scans all mailboxes unconditionally, so a single registration
+> +	 * suffices.
+> +	 *
+> +	 * Use IRQF_SHARED only for the single-IRQ path where one line
+> +	 * is shared across all MBXes.  Dedicated per-MBX virqs need no
+> +	 * sharing flag.
+> +	 */
+> +	{
+
+What is with this indentation?
+
+> +		unsigned long irqflags = (rh.nirqs == 1 && cfg->mbx_count > 1)
+> +					  ? IRQF_SHARED : 0;
+> +
+> +		for (i = 0; i < rh.nirqs; i++) {
+> +			ret = request_threaded_irq(rh.irqs[i],
+> +						   cmh_rh_hardirq,
+> +						   cmh_rh_thread,
+> +						   irqflags,
+> +						   "cmh", cfg);
+> +			if (ret) {
+> +				dev_err(cmh_dev(), "rh: request_threaded_irq(%d) for MBX%u failed (rc=%d)\n",
+> +					rh.irqs[i], i, ret);
+> +				/* Unwind previously registered IRQs */
+> +				while (i--)
+> +					free_irq(rh.irqs[i], cfg);
+> +				rh.nirqs = 0;
+> +				kfree(rh.mbx);
+> +				rh.mbx = NULL;
+> +				return ret;
+> +			}
+> +		}
+> +	}
+> +
+> +	rh.active = true;
+> +
+> +	/* Enable MBX completion interrupts (DONE + ERROR) */
+> +	for (i = 0; i < cfg->mbx_count; i++) {
+> +		u32 stale;
+> +
+> +		/*
+> +		 * W1C any interrupt bits that accumulated between
+> +		 * MQI setup and now (e.g. CMH eSW processing stale
+> +		 * commands) before enabling the mask.
+> +		 */
+> +		stale = cmh_reg_read32(cfg->mailboxes[i].reg_base,
+> +				       R_MBX_INTERRUPT);
+> +		if (stale)
+> +			cmh_reg_write32(stale, cfg->mailboxes[i].reg_base,
+> +					R_MBX_INTERRUPT);
+> +
+> +		cmh_reg_write32(MBX_IRQ_MASK,
+> +				cfg->mailboxes[i].reg_base,
+> +				R_MBX_INTERRUPT_MASK);
+> +	}
+> +
+> +	dev_info(cmh_dev(), "rh: initialized (%u IRQs, %u mailboxes, watchdog %u ms)\n",
+> +		 rh.nirqs, cfg->mbx_count, watchdog_ms);
+
+One more dev_info....
+
+
+> +
+> +	/* Arm missed-IRQ watchdog timer */
+> +	timer_setup(&rh_watchdog, cmh_rh_watchdog_fn, 0);
+> +	mod_timer(&rh_watchdog, jiffies +
+> +		  msecs_to_jiffies(max(watchdog_ms,
+> +				       CMH_RH_WATCHDOG_MS_MIN)));
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * cmh_rh_suspend() - Suspend the response handler
+> + * @cfg: Device configuration
+> + *
+> + * Stop the watchdog timer and mask mailbox interrupts at the hardware
+> + * level.  The IRQ handlers remain registered so that resume can
+> + * re-enable them without re-requesting.
+> + */
+> +void cmh_rh_suspend(struct cmh_config *cfg)
+> +{
+> +	u32 i;
+> +
+> +	if (!rh.active)
+> +		return;
+> +
+> +	/* Stop the watchdog before masking HW interrupts */
+> +	timer_delete_sync(&rh_watchdog);
+> +
+> +	/* Mask MBX interrupts at the hardware level */
+> +	for (i = 0; i < cfg->mbx_count; i++)
+> +		cmh_reg_write32(0, cfg->mailboxes[i].reg_base,
+> +				R_MBX_INTERRUPT_MASK);
+> +
+> +	/*
+> +	 * Ensure no threaded IRQ handler is still in-flight.
+> +	 * After masking, a handler may already have been scheduled.
+> +	 * synchronize_irq() waits for it to complete before we
+> +	 * proceed with suspend (which tears down TM state).
+> +	 */
+> +	for (i = 0; i < rh.nirqs; i++)
+> +		synchronize_irq(rh.irqs[i]);
+> +
+> +	rh.active = false;
+> +	dev_dbg(cmh_dev(), "rh: suspended\n");
+
+No, you cannot have even debug messages which re-implement and
+duplicated standard tracing and standard debugging code.
+
+
+...
+
+
+> +static unsigned int cmq_max_depth = 256;
+> +module_param(cmq_max_depth, uint, 0444);
+> +MODULE_PARM_DESC(cmq_max_depth,
+> +		 "Max pending commands in the Command Message Queue (default: 256)");
+> +
+> +static unsigned int backlog_max_depth = 1024;
+> +module_param(backlog_max_depth, uint, 0444);
+
+Drop all module params, not really right way to do things.
+
+> +MODULE_PARM_DESC(backlog_max_depth,
+> +		 "Max pending commands in the backlog queue (0 = disable backlog, default: 1024)");
+> +
+> +static unsigned int async_timeout_ms = 2000;
+> +
+> +#define CMH_TM_BACKOFF_MIN_US   100  /* queue-full backoff range (us) */
+> +#define CMH_TM_BACKOFF_MAX_US   500
+> +static unsigned int cmq_depth;       /* current CMQ depth, protected by tm.cmq_lock */
+
+...
+
+
+> diff --git a/drivers/crypto/cmh/include/cmh.h b/drivers/crypto/cmh/include/cmh.h
+> new file mode 100644
+> index 000000000000..18150ba39129
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/include/cmh.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) 2026 Cryptography Research, Inc. (CRI).
+> + * CMH LKM -- Top-level Device Structure
+> + */
+> +
+> +#ifndef CMH_H
+> +#define CMH_H
+> +
+> +#include <linux/device.h>
+> +
+> +#include "cmh_config.h"
+> +
+> +#define CMH_DRV_NAME   "cmh"
+> +#define CMH_VERSION    "1.0.0"
+
+NAK, this is not allowed in Linux kernel code. Do you see drivers
+(except complete junk from AMD) doing this?
+
+Best regards,
+Krzysztof
 
