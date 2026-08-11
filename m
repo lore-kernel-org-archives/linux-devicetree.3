@@ -1,189 +1,275 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DEB42C51A
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F35E42E8FC
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786441499; cv=none; b=TII1Hyme/B+XzRVQOXpzdGyqQFqKrByIoxPtYF8htwNpF7oY3T4aiLaMYFY72u0VyVJmVpvqFluXr+PwTz/X71tn/anTbIOd8XlcDs9wvSgER4sCm0z/lte0jc1M9VWKroyb6NOSxozODlOZPNNPBx3yD1jLav1SwcdGnFHgX0s=
+	t=1786442376; cv=none; b=G7xjyM7Yg4IwgjTPBRS71Udf1TEYJlTlJexbcEEWy8wyvQ28zqD9lie+r/fMmfrTYi1KRB3FA7dx86prU5bDD2V3AZckZ9u12RZDLrcn4lCL4HF9Cs12XP0+y+rL+Ne520ztUYnuUzJ/DvIn8Sv1JkzxcB9qar9cR/VOE6WDYp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786441499; c=relaxed/simple;
-	bh=nDfAe4li7gl3j3Xgfqe/V1wW2kzPNA8XmVphluORGTk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Le+tr4utQ3waUVAS0afwtrhAJFCcA7ZPdGjgQ1wKaUZJPQL0HWmmAOppCYYmnyusni23r4bwJV5Nluso9XsMUffis1onKcOT3BjYPYvHLWXazA9+vk1VOqRN52tDMGhv5morU6SmIgV2SGGNmrwQRquhswura8rMmPK9oj+vS9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GuAzOStK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hb/6AEQk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786442376; c=relaxed/simple;
+	bh=vWrkDQU3lEu3IPNJfagdQBDh/fpnbMzMn7LStKYkWqw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SL/bkqHufihdLR7tQbi0pbyc+FSAOIQx5EZtFD82M3nJ5AFDD5q7kE5DR+b2YkXWnE/q+7Q99Y8pspFhawwSTDR4fW5rTYKXH1B+75mQUWayHhP9FEsNHjHQcL/eZR577iK4D2YpeNDx1mRqDY+uy0OewL251xtd0vETBLxODcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=YtMbgiay; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GuAzOStK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hb/6AEQk"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67B6xC5c3009590
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:44:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Xcm6ZNyXh2f9sSiiUiO5nVlTcd9fuj2SxXTLy16daS4=; b=GuAzOStKF2w60iXI
-	UqhL5b9gC1D6USYtrVrIG+3r4lJOChWvw6p5WWIfZusaAw0nCIywLI3MmZp7YtBP
-	nDqfqkLdYGCBd1Kmnl2diFTLIZlUfR6qSqSEZnLhWt1aOQ4g+fwWU+w/2R/nxFUQ
-	XuwdRW/CplBMi6teTgAFlNMAXDZkuYFChU/mx2ohdzxQof6cbpqx+uVyyTtN9VSP
-	guVuusXH2Lq0Sd97GhdywVqaXkZ/ebS257h9WY8gcYF74/UR2XD+l1QXjWb2RTJw
-	t8irsrspCa8TKF5P35T+AezG7sjROGhM+ZMRk20DNJEOeF2cwaDjRnKOZPl79ezz
-	FF019w==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyjjtkfx7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:44:56 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9368b4c5964so41913285a.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:44:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="YtMbgiay"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ceb096e675so31842145ad.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:59:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786441496; x=1787046296; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xcm6ZNyXh2f9sSiiUiO5nVlTcd9fuj2SxXTLy16daS4=;
-        b=hb/6AEQkPQfVKn1GQNUuDDcvsZVxFigiKEqJfcNA3L/JziepfY1uDNcAClI5fb26Vp
-         phy1uxwzZbrmiJnwC48L4nR266Ui0cxRv3t2ETrKZ8FPkKxA1emumf6RV4racEErK3bh
-         fHMkXg88IU6baGKtUo6QTU0Iv6hvxvmtDXrpcN/rmIO6/6VDDVOeEWLjoNeUqq9oK5xH
-         7/4rCcmEFBgmp0DKdIFJnSZCckRXzPlX/zxDfpBBh7Fvgi5whHDjMakeqrIVA4L0JaUf
-         s3ji9mAFqXy2TicD0DLXDAizh1rl3MqZ9GsWN/ctoWihJNFVorn7Db1J7dfgVk4SnFP/
-         0FjA==
+        d=sifive.com; s=google; t=1786442374; x=1787047174; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2CES8RXugLAnF2pHLkpGhNtXnAeSlp9QbBFcsaosuXs=;
+        b=YtMbgiay26bZ/ZCbS0C6e5L0hXl2GMNVvJl+jyMjfld3NHfqXtnEJ6YkZtfsW90Vt2
+         djsZc1QEcCWh4F6vqfztRrh7+RKXQLacU8ttTwBim6tkAnfPWU1w45oRE1S6teroQDNU
+         nc9yzxWGTK5xq1XdNwFgPN2KQqN+oPFe+j8D6cYmTFE3gZB2C6qAIclOq9xpfL9owxqJ
+         1aI0Y2shx0tmIP+xrHPt0kujobmrJARDms/4MuZZHnooV1rolzZPbBKOQ3imSb+RnvdP
+         vO/qt+TSNr+mpI0lDyhXD5Cg4ShQUMlQlhYmZvr3kZSnFMXvLzBWASqxBIdI0QCHjk8J
+         YeSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786441496; x=1787046296;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xcm6ZNyXh2f9sSiiUiO5nVlTcd9fuj2SxXTLy16daS4=;
-        b=SvWV+EuiEECYhGhcnpApqp1syVcx3RDdDLfjG1ZT+6I8LvRSjeOcPV4q/7xbS4H3OG
-         B0xz4ftpie0DWR5x1uEqPpCEuxWGePK0TFD78/h3jGJQGXPYJP2aMfxqq8DK7EA60zW/
-         iv8HkW7tVbkPGOewqiClrMHUH4+ETn1WCtPHeL3O7wkLOWJUZZMUxLnNSpzpkVPxzPUh
-         aBdfSMdX3uLM/pAJt9+kE5L/ZzWv3MHFrOTyWz/dSNBwPYiDIy/wfKLi4LhxATuwOnC+
-         XGS4Y+teJlXVbPdaciiCq6XNsNXOUgMffPSMyICcKOaXOmdIdN2+YXSyKwFhni2tDtZg
-         DjOw==
-X-Forwarded-Encrypted: i=1; AHgh+RpytaOdkTwKw6U7W7xjCPgeR0aq/PtP0sqwWKi8otY6jzciPwI2kkR5uRYHiR8j7VujZQR5flmfX7aE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPtw0XEzbkQzqnXx2yYYEdjJIpE9x5BamhGSdht6da53XhPLM8
-	cW8gJm7HeMJsMmlfkXHfDDv4i7kjLhha3TbkERMnbwDtaDLlsIdiZgmiu6E1WGT1R6TDNqaibEI
-	md52kCWuY2y2CR+ph1X/arj+ulPaaqA4zJI3NzheSUgoAhfyrLDUcs2GwTbtvZE0x
-X-Gm-Gg: AR+sD11qz3hu9ZJn8Uilfk7cdv6qmI+T3x2GyhacKttNUc9/xnWosK+uGY6SOkVLLlG
-	tgElq4veTgaw4Wu2c31Hstk95/WrbCxK0b2uh9CY2T/CqCfATU1ROD2AXbG8vptYbaIAjofxYQ6
-	J/J1gvQp5ZWqkeKwW1Z7dfMPKzUo2d9JhA0zj+O6VYRnpr5JvYE+71qjFlgGvH6AqPvp+og0+7m
-	89QeWZCF42YZBQseTfsEKZ5yXWR00SE69YqAYj3oukt0IkC46vIQiwk/FgfgPdStJWPA9NYJmfc
-	WUr5rV4CzCBbtW/T4F++uOemWYmOpNrLhanrfO5qWQdqGqnZeO25n763a8ne2BLIujqC/0R7orw
-	g8zJuELyi1JJuqou+nT3QduxS8K4s9g==
-X-Received: by 2002:a05:622a:4105:b0:51c:20:aea7 with SMTP id d75a77b69052e-52d584f7ae9mr14705531cf.9.1786441495899;
-        Tue, 11 Aug 2026 02:44:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:4105:b0:51c:20:aea7 with SMTP id d75a77b69052e-52d584f7ae9mr14705421cf.9.1786441495502;
-        Tue, 11 Aug 2026 02:44:55 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4814a5be2aasm3130269f8f.13.2026.08.11.02.44.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 02:44:54 -0700 (PDT)
-Message-ID: <7cc49120-8f0b-4e07-a008-145504e00dd0@oss.qualcomm.com>
-Date: Tue, 11 Aug 2026 11:44:51 +0200
+        d=1e100.net; s=20251104; t=1786442374; x=1787047174;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2CES8RXugLAnF2pHLkpGhNtXnAeSlp9QbBFcsaosuXs=;
+        b=VKo6wqyzYkwziOqmeB/ZhxWQp0po6X/7EzLK2sxvoGUZ/6A+1FcARQXhkseACNTV5G
+         2YJeOinDgs48LK5H5vYFlLtU1MQkThVbPuDJOnQhVJ2zBgJp4sv+7Ryc9Haue58fyHCg
+         ZJ52pAEY37CXDTmvckqfIYwgxfNP3Q7t8rwNkzK/bP5PWqI/2n0E+AqY9ecv7AzOBsUq
+         0qWwTb+2ByNhieDIzd/jzuxPkesNHFyK51n74+gnKY2LQkvC9YeNB1a7rh3MxppvFtu8
+         O2jT4bZApPcNzoFfdMD9+yy8Ek2mfhm+PbptycpRE9uZXYcz4Y3ftsBAefJJJeXOWWLC
+         2niA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrs4/zuQ+Pk5CsngQ4rVbOzorMolzNXcDUQ9OXKwOItR3mpcoNYOgO8SceT6rgOUBe4EHsb/Lsdbw1i@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJRDfrGIk2WaFgcNwzq8D8W1JA+AAQoh2WjzAnsv4OA8WqGxht
+	37AI6Wf27hVdW9P0uIK5WKbOAtej/+vWrnwiAc8iV327JQv/6ro2KXGYyWfy9ARaJ00=
+X-Gm-Gg: AR+sD115dM8H1JVZXPRL63Vz9sMbEV0GI7KxUEnKExO4nt2TeMwZTjaMHB249+L+KTI
+	SwVeSKn2Tk4pQsoyxRnNxT0CrwGze1Sygg2m6WvV39iR8PjNYd+d5Gh6kEiRImbeilyxiAZ62gI
+	vcLet2Mv+RqzbFeEWmVipRuUDX5v3EEiS84vLiZJ0ZV0u7t84kFxcxljuEho6oTEGLjgoss1SLw
+	Xav5TpOSZL858J5WvOo9x2kZ9SNzuJCKLorWpPAgQpqFUL0YjWm8FjI5VWFgj3ydlOvqBbxueC6
+	1VOeZzdDMEyQE2YOF059aLVY9MZqaH/j2xIFk4UmEK+YE5h2YrDz1QQsR1KuOJbN4mUewL07oWM
+	qtH3UTjfOWTlqRqTy7//3q7LvzeYfjPIB9usUnz8v55oLXq6Z9awP3fNWGzyBRp9lAcRbm3aVOz
+	iUP+1w6LYdyBqdFqj9ZIwbsm9yL2JRU3ECQULUOz7DXTUDV6+J5ihy6y1rycjqkdqDCtFrUw==
+X-Received: by 2002:a17:903:2288:b0:2ce:93a3:c16c with SMTP id d9443c01a7336-2d31788ea09mr22405295ad.12.1786442373625;
+        Tue, 11 Aug 2026 02:59:33 -0700 (PDT)
+Received: from plin-1878 ([136.226.240.195])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d31621a0dasm4892725ad.69.2026.08.11.02.59.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 02:59:33 -0700 (PDT)
+Date: Tue, 11 Aug 2026 17:59:22 +0800
+From: Yu-Chien Peter Lin <peter.lin@sifive.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, samuel.holland@sifive.com, dlan@kernel.org,
+	guodong@riscstar.com, dfustini@oss.tenstorrent.com,
+	michal.simek@amd.com, junhui.liu@pigmoral.tech,
+	darshan.prajapati@einfochips.com, akpm@linux-foundation.org,
+	zhangchunyan@iscas.ac.cn, luxu.kernel@bytedance.com,
+	pincheng.plct@isrc.iscas.ac.cn, nick.hu@sifive.com,
+	jim.shu@sifive.com, zong.li@sifive.com, greentime.hu@sifive.com,
+	robin.randhawa@sifive.com, scott@riscstar.com,
+	dave.patel@riscstar.com, raymond.mao@riscstar.com,
+	anup@brainfault.org, pawandeep.oza@oss.qualcomm.com
+Subject: Re: [PATCH v2 3/3] dt-bindings: sifive: Add WorldGuard Checker
+Message-ID: <anryepIiqKAbJTZJ@plin-1878>
+References: <20260729163908.249838-1-peter.lin@sifive.com>
+ <20260729163908.249838-4-peter.lin@sifive.com>
+ <20260730-towering-modest-horse-ccbdcc@quoll>
+ <20260730-component-wake-80840a196f8d@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/15] soc: qcom: geni-se: allow selection on 32-bit ARM
- Qualcomm SoCs
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org
-References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
- <20260809-kuno-soc-support-v1-1-5e0ede4a0c72@oss.qualcomm.com>
- <7f4qs6su5fd5ilecy4r72suk6mqvj7oouz7ahgatxthqavrfia@wxilczij4unf>
- <vxpntlaebf4an2wgebgbwk2rdkingzjecdgylqv36wmxtyqju3@hkip3wqgendw>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <vxpntlaebf4an2wgebgbwk2rdkingzjecdgylqv36wmxtyqju3@hkip3wqgendw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA4MCBTYWx0ZWRfX64YtY42YZGav
- WLErsIuAPguhSyJGBmnpFBt/m43McOOcmRtdpe49ZMfAzCvLvBASpDEC3XTGePMX55BdiiP0qmE
- 0JS06yj4N2LP3hydetG9s7RDhd1csK2Q0hVuYkzK8usDAJFiCXN9ntXnrOeTJ0V2QRkN1idfx3B
- sS+rOVkIpyz07bhVFgX9lePDqyEysRhlro/2TvJ615qH+mUgH4tDBOrIU+NoAQr59GszGDJOpE1
- eXgMQ72P5ZFqItiAN+lJzTy2SyvWclFkUh7er8HyfhevBl9faXBI7N3LjiSaupcFnXpqnMBqnSF
- CRbGfrxbERaEGiaZq4UP/jOWW2ZVJg5WWRtVf8tqHpYHQV0levZGD2G+PkFZTWdxzncRySFVE0q
- Um4Vi9CRe/OZECs/4uBNCStkn7OSo3qeVgn8wjPHdMV+CqnFdBuvhKULQiKxKA7GH/nxvkejw52
- JLG3gJ+gRVpPpf36gcg==
-X-Proofpoint-ORIG-GUID: Pt2dy0sKwoPDwhb43Q1LCYemK_Lq6xnf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA4MCBTYWx0ZWRfX6Xtz03KPjZne
- 49qMTgXeHep4H3uW2OlG0HTYKoGPJqGMUuQFjdhN/6eI7Gpa6Kmn5bI6wuSms96nPGuz5Gz1FXW
- wOWyaVrHiLuy1CtUTH9CMiF7qCFz8nw=
-X-Proofpoint-GUID: Pt2dy0sKwoPDwhb43Q1LCYemK_Lq6xnf
-X-Authority-Analysis: v=2.4 cv=JsHBas4C c=1 sm=1 tr=0 ts=6a7aef18 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=C7yNWf0h3UZFXk23xoQA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 adultscore=0 spamscore=0 suspectscore=0
- priorityscore=1501 malwarescore=0 phishscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608110080
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260730-component-wake-80840a196f8d@spud>
 
-On 11/08/2026 03:15, Dmitry Baryshkov wrote:
-> On Tue, Aug 11, 2026 at 03:48:00AM +0300, Dmitry Baryshkov wrote:
->> On Sun, Aug 09, 2026 at 12:57:00PM +0530, Hardeep Sharma wrote:
->>> Commit e10b198a94c6 ("soc: qcom: Restrict drivers per ARM/ARM64")
->>> tightened QCOM_GENI_SE's dependency to ARM64 || COMPILE_TEST on the
->>> assumption that no ARMv7 Qualcomm SoC uses the GENI Serial Engine
->>> hardware.
->>>
->>> Kuno, a 32-bit ARM Cortex-A7 Qualcomm SoC, uses the GENI-based QUP
->>> wrapper for its debug UART, so this assumption no longer holds.
->>>
->>> Fixes: e10b198a94c6 ("soc: qcom: Restrict drivers per ARM/ARM64")
+Hi Conor and Krzysztof,
 
-I doubt this fixes tag, otherwise please explain the bug.
-
-How Kuno could be supported, as you claim in e10b198a94c6, if we do not
-support non-dts platforms and there is no Kuno DTS?
-
->>> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
->>> ---
->>>  drivers/soc/qcom/Kconfig | 1 -
->>>  1 file changed, 1 deletion(-)
->>>
->>> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
->>> index fd4d4ecd2df0..5b3c9d31fd7f 100644
->>> --- a/drivers/soc/qcom/Kconfig
->>> +++ b/drivers/soc/qcom/Kconfig
->>> @@ -39,7 +39,6 @@ config QCOM_COMMAND_DB
->>>  
->>>  config QCOM_GENI_SE
->>>  	tristate "Qualcomm GENI Serial Engine Driver"
->>> -	depends on ARM64 || COMPILE_TEST
->>
->> depends on ARM || ARM64 || COMPILE_TEST
+On Thu, Jul 30, 2026 at 06:36:27PM +0100, Conor Dooley wrote:
+> On Thu, Jul 30, 2026 at 09:35:02AM +0200, Krzysztof Kozlowski wrote:
+> > On Thu, Jul 30, 2026 at 12:39:08AM +0800, Yu-Chien Peter Lin wrote:
+> > > Add YAML binding schema for the SiFive wgChecker, a programmable
+> > 
+> > There is no "YAML" binding schema.
+> > 
+> > > access controller integrated in the interconnect fabric of RISC-V
+> > > Worlds-capable SoCs.
+> > > 
+> > > wgChecker enforces World ID (WID) based access control on downstream
+> > > bus transactions. Each checker slot encodes a 2-bit permission field
+> > > per WID (read/write), enabling fine-grained memory partitioning and
+> > > device isolation between execution contexts. Violations are reported
+> > > via bus errors, interrupts, or both, selectable and lockable per slot.
+> > > 
+> > > The binding registers wgChecker as an access-controllers provider.
+> > > Consumers (i.e. its protected device) reference it via the standard
+> > > access-controllers phandle to declare their access requirements.
+> > > 
+> > > Also document the sifive,trustedwid property for the /cpus node,
+> > > identifying the privileged WID authorized to configure all checkers
+> > > on the platform.
+> > > 
+> > > Link: https://github.com/riscvarchive/security/blob/main/papers/worldguard%20proposal.pdf
+> > > Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
+> > > Reviewed-by: Zong Li <zong.li@sifive.com>
+> > > Reviewed-by: Jim Shu <jim.shu@sifive.com>
+> > 
+> > What exactly these reviews pointed out?
+> > 
+> > > ---
+> > >  .../devicetree/bindings/riscv/worlds.yaml     |   9 +
+> > >  .../bindings/sifive/sifive,wgchecker2.yaml    | 356 ++++++++++++++++++
+> > >  2 files changed, 365 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/riscv/worlds.yaml b/Documentation/devicetree/bindings/riscv/worlds.yaml
+> > > index cc8b3747591e..c39a06c2dd8d 100644
+> > > --- a/Documentation/devicetree/bindings/riscv/worlds.yaml
+> > > +++ b/Documentation/devicetree/bindings/riscv/worlds.yaml
+> > > @@ -34,6 +34,14 @@ properties:
+> > >      minimum: 2
+> > >      maximum: 64
+> > >  
+> > > +  sifive,trustedwid:
+> > 
+> > No, for the same reasons.
 > 
-> Or depends on ARCH_QCOM || COMPILE_TEST
+> I am not entirely sure that this is defined by the platform compatible,
+> if you've got something like a FPGA with lots of configurability then it
+> may be needed. Then again, yeah maybe it can just come from the platform
+> compatible unlike a device shows up that actually needs it.
+> This is especially true if the consumer of the property is the SBI
+> firmware.
+> 
+> (that's assuming "same reason" follows on from your comment on the
+> prior binding)
 
-None of them are needed, because this is part of qcom soc.
+After refactoring the OpenSBI support for the Worlds ISA and wgChecker,
+I plan to remove riscv,nworlds and sifive,trustedwid in v3.
+
+The riscv,nworlds property is used only to validate the WID range. This
+validation can be performed using the riscv,pmwid, riscv,pmwidlist, and
+riscv,pmlwidlist properties, making riscv,nworlds unnecessary.
+
+For sifive,trustedwid, a hart attempting to access wgChecker can probe
+non-zero value from an MMIO register to verify whether it is trusted,
+this property may also be unnecessary.
+
+Although some downstream drivers currently require sifive,trustedwid,
+those drivers are not public yet. Therefore, let’s drop both system-level
+properties for now.
+
+> 
+> > 
+> > > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > > +    maximum: 31
+> > > +    description: |
+> > > +      The World ID (WID) designated as the trusted WID for this platform.
+> > > +      Transactions tagged with this WID are authorized to access and configure
+> > > +      WorldGuard blocks, including wgCheckers and wgMarkers.
+> > > +
+> > >  additionalProperties: true
+> > >  
+> > >  examples:
+> > > @@ -44,6 +52,7 @@ examples:
+> > >          #size-cells = <0>;
+> > >          timebase-frequency = <1000000>;
+> > >          riscv,nworlds = <4>;
+> > > +        sifive,trustedwid = <3>;
+> > >  
+> > >          cpu@0 {
+> > >              device_type = "cpu";
+> > > diff --git a/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml b/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
+> > > new file mode 100644
+> > > index 000000000000..c025a4765cb3
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
+> > 
+> > No, you do not get per vendor directory. NAK.
+> > 
+> > Do you see Qcom? Or TI? Or NXP?
+> > 
+> > Place it in appropriate directory matching the hardware.
+> 
+> Which would be access-controllers.
+
+Thanks for pointing me to the appropriate directory.
+
+> 
+> > 
+> > 
+> > > @@ -0,0 +1,356 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +# Copyright (C) 2026 SiFive, Inc.
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/sifive/sifive,wgchecker2.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: SiFive WorldGuard Checker
+> > > +
+> > > +maintainers:
+> > > +  - Yu-Chien Peter Lin <peter.lin@sifive.com>
+> > > +
+> > > +description: |
+> > > +  The RISC-V Worlds ISA extension defines World IDs (WIDs) as architectural
+> > > +  identifiers that tag each system transaction with its originating context.
+> > > +  System integrators assign WIDs to execution contexts such as privilege modes,
+> > > +  trusted execution environments, or other isolation boundaries.
+> > > +
+> > > +  The SiFive WorldGuard Checker is a hardware firewall positioned in the
+> > > +  system interconnect fabric. It inspects every transaction, evaluating the
+> > > +  WID against access control policies encoded in checker slots for each
+> > > +  protected resource. Transactions from unauthorized WIDs are blocked and
+> > > +  reported as bus errors, interrupts, or both.
+> > > +
+> > > +  This enables spatial partitioning of memory regions and memory-mapped devices
+> > > +  across execution contexts. Different address ranges can enforce distinct
+> > > +  policies, allowing isolated workloads to coexist with hardware-enforced
+> > > +  protection.
+> > > +
+> > > +  The wgChecker acts as an access-controller provider as defined in the
+> > > +  access-controllers framework. Protected devices are consumers that declare
+> > > +  their access policy via the access-controllers property. The hardware
+> > > +  supports up to 32 World IDs.
+> > > +
+> > > +  The World ID authorized to configure WorldGuard blocks is specified by the
+> > > +  sifive,trustedwid property in the /cpus node.
+> > > +
+> > > +allOf:
+> > > +  - $ref: /schemas/access-controllers/access-controllers.yaml#
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    oneOf:
+> > > +      - items:
+> > > +          - const: qemu,wgchecker2
+> > > +          - const: sifive,wgchecker2
+> > > +      - const: sifive,wgchecker2
+> > 
+> > You need soc specific compatibles.
+> > 
+> > I do not believe the two review tags did any actual real review. They
+> > would tell you to read writing bindings document, wouldn't they?
+> 
+> I did okay the qemu compatible FWIW, the standalone sifive one though I
+> did not.
+
+Sure, will fix.
 
 Best regards,
-Krzysztof
+Peter Lin
+
+> 
+
+
