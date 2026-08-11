@@ -1,97 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1926E40F722;
-	Tue, 11 Aug 2026 08:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073C637E5E5;
+	Tue, 11 Aug 2026 08:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786437470; cv=none; b=tGccE2nhwSVxu/PG4TEXpsJ7kN2GpjXMfSgoBwvtDZpzyJeG9v4Mfw9t9jA+rCJhhewT9cetmYtFWtPOQykx4YFdCiQOF95uPFmYU/jUfEx/maHaL90wzjTJw0EW2YoaPCkE8yxZ5pXYyoUWEp8cdKXhu+qLLSZk20xLFrf5guE=
+	t=1786437531; cv=none; b=GLcHXQBmLQ89LUah0KKJIbrMXM7y+Vv+JVTQYifrDtCBosBKErpidCwsD1vdXSgpvIWaN5VQUFA4XO3Sq+GYUirnWSUOIe7FfwcoD9amrpq7L4DUNuElPc1cn85IAlzCiomX8v5eBuxBX1ApAPX8ROfhmM7mFmS7d8YbxbFiiJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786437470; c=relaxed/simple;
-	bh=GzrpcxMA0ZCgLTnY5svAVFOUAwdgmcNMnZmmZrgpe7E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=T7ccXvDz/H1pCoKhCTm6MAf8pmXP/r+5G77yjaJlfN+VmO9mf8AtggXA5Jv2VTJyEXLlK8YJ2e3FLaBh9mB0c5elpCqcBKbP5/iIO5nAR1yHwUyJlrlNbBnBn7j0GSL6E/sT8GIug3tGKK2a47G/KTt2dhqHTBhd+RulNip0e2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sq2fps8p; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786437531; c=relaxed/simple;
+	bh=4fnWtJjAHg7K6G8HNWpk8DCJlszdoeLhfSUYKpvtRmI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rPm1M6vg1G1belXVmE+2S2lfDQmJH/ASrm551bhJzgkJ8udUoHnRSjp7HlwypNzrGHsHG75GfuQP/m07zTPnEf7G6OFyVvEJI2LjeB4qaPKbCB714W7vtpeNRsfvZLpuf85+6kJh783mCleRV5nlw+6LKVHSBYu5r9d3u/oDQ0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+h95D16; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sq2fps8p"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A13E4C2BCF4;
-	Tue, 11 Aug 2026 08:37:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786437469;
-	bh=GzrpcxMA0ZCgLTnY5svAVFOUAwdgmcNMnZmmZrgpe7E=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=sq2fps8pPAmNwYIgMpcsr3QdZ3HnCTxK+CCN9GFZSE6ytBHrrhtK+fTM7MUHRfyWG
-	 Ic0LF6sMNCKb2maEnf8k9HrccY7n4A9iWZYF//UwuJ+/PMGJsoKmLimrcW3MWRM8BL
-	 nRKZ9zW4yF11gLHjqxaZgTXaoGD6iLTcLCBNe2wQbH7vC1m4wNQ1vRnssG2L5rZd76
-	 Z+9bWYFLMlaTv9uJPHKpYKxqJ3+DC0sB3dXF2Om88WNLs70E+hcv808T6g8ugzDMaH
-	 iTDwkIIenCuWKkBjpQ63++dCfR8/7dGUp2UAkZkTnQ6XL0cgz1lo2pa9Ja8F+wl5vz
-	 OoOl0pZXi/CUw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C6D8C5AC67;
-	Tue, 11 Aug 2026 08:37:49 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Subject: [PATCH v2 0/2] thermal: Add support A9
-Date: Tue, 11 Aug 2026 08:37:42 +0000
-Message-Id: <20260811-a9-thermal-v2-0-7ddc33b11b9a@amlogic.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+h95D16"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9E1E1F000E9;
+	Tue, 11 Aug 2026 08:38:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786437501;
+	bh=nXcmQmvSjIjKID+A8nFOobMG5Xpio6B9+g6xRovy8o8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=g+h95D16Ztui22jlRyA/mnNmUBBlGHUgxhF4/Nf4hd14ph8aAHRLuuYR1E+K9GnH5
+	 cMdv8ErMOGMdNB21oDwkWbbwG6Kq/Mh9Esc3vEMnqE1OPESy1AT0XB23AcR+3yhP8O
+	 rwr+Lypgr3A6BUYTQZAqRCxUagnShHrRagIwwhoBmkZ4cDDRfl648HXhXRo0hPIUQr
+	 QZ4YLnh6bvQOgPVj6Fko5ep09DNF3rJ/vu1+aVhgvlUOB7clWLbvXKOaJ+BSPknS0T
+	 NAA+x2kgwVhrTnIf1hcnV0lYeufjiqSmB0/MVJYu36V2PdPqNf/XAKbSfS9v+WfaVY
+	 j4TxA0cx72Ifg==
+Message-ID: <8f45e30e-bed0-4e01-994d-40929dbf769d@kernel.org>
+Date: Tue, 11 Aug 2026 10:38:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/19] crypto: cmh - add DRBG hwrng
+To: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Alex Ousherovitch <aousherovitch@rambus.com>,
+ Conor Dooley <conor+dt@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+ Rob Herring <robh@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org,
+ Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+ linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Shuah Khan <skhan@linuxfoundation.org>, Thi Nguyen <thin@rambus.com>
+References: <20260806195519.2703224-1-skrishnamoorthy@rambus.com>
+ <20260806195519.2703224-12-skrishnamoorthy@rambus.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260806195519.2703224-12-skrishnamoorthy@rambus.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFbfemoC/03MQQ7CIBCF4as0sxZDIdLWlfcwXSAM7SSlGGiIp
- uHuYuPC5f+S9+2QMBImuDY7RMyUKKw1xKkBM+t1Qka2NgguFO+4ZHpg24zR64U5JQw6hXpoHdT
- DM6Kj14Hdx9ozpS3E92Hn9rv+GMn/mdwyzmzXKys789CX/qb9EiYyZxM8jKWUDziEbkimAAAA
-X-Change-ID: 20260703-a9-thermal-f62cef6ea91f
-To: Guillaume La Roque <glaroque@baylibre.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786437467; l=1143;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=GzrpcxMA0ZCgLTnY5svAVFOUAwdgmcNMnZmmZrgpe7E=;
- b=J8mpk+MyWgRnVu3Wfj1WokXKKyuzGuMqSa4ghIlfh3ClXhwwciNTisQqE31NKizW0NljKgqEo
- L1EWHuusJUvDMD1lwTeZDX60pILsjqMn6jzib0tg9w3RNeX1iq+NoTT
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
 
-Document the thermal controller compatibles for the Amlogic A9 SoC
-And add driver support for the Amlogic A9 thermal controller.
+On 06/08/2026 21:55, Saravanakrishnan Krishnamoorthy wrote:
+> + * cmh_rng_unregister() - Unregister the CMH hardware RNG device
+> + *
+> + * Unregisters the hwrng device from the kernel hwrng framework if it
+> + * was previously registered.
+> + */
+> +void cmh_rng_unregister(void)
+> +{
+> +	if (!cmh_rng_registered)
+> +		return;
+> +	hwrng_unregister(&cmh_hwrng);
+> +	cmh_rng_registered = false;
+> +	dev_info(cmh_dev(), "rng: unregistered rambus-cmh-drbg\n");
 
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
-Changes in v2:
-- Fix the spelling mistakes (clock-names) and reset-temp properties is visible to old chips.
-- Adjust the clock enable sequence in resume func and remove the clock disable in remove func.
-- Add the judgment on the divisor zero.
-- Add description of support for over-temperature reset for old chips in commit message.
-- Link to v1: https://lore.kernel.org/r/20260730-a9-thermal-v1-0-d786d37cba58@amlogic.com
+So every function has dev_info?
 
----
-Xianwei Zhao (2):
-      dt-bindings: thermal: amlogic: Add A9 thermal bindings
-      thermal: amlogic: Add support for A9 thermal controller
-
- .../bindings/thermal/amlogic,thermal.yaml          |  28 +++++-
- drivers/thermal/amlogic_thermal.c                  | 108 ++++++++++++++++++++-
- 2 files changed, 132 insertions(+), 4 deletions(-)
----
-base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
-change-id: 20260703-a9-thermal-f62cef6ea91f
+This is one of its kind driver, because I never saw so much of spamming
+dmesg. It should raise eyebrows of your internal reviewers, therefore I
+insist on performing reviews on the mailing list if you want them to be
+tracked.
 
 Best regards,
--- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
-
-
+Krzysztof
