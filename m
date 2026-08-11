@@ -1,84 +1,85 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0929B43B6D2
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACE2426D2B
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786440729; cv=none; b=Ec+lUCB1oZqI9MrlT+qOtKaBwHzGMViNC942acUTvrXTSkt1ruyGXkGaYp9p8CnlAozv6ZCDSbqa9SqanKt1/APKkcE2RuLJq7kvoDFjkuiQs3/ff8fiTRtO1A6Sebv2eCIqewNzWNBu/RwAMSnkrpog3E3FTLYcAUOz0W5hJog=
+	t=1786440986; cv=none; b=TKYypDutlITwcRXqZ55pBhwgYmiY5duT40Y0xgltK6RUCI1RzwWgeUNUE83IghtSUL2SaLCkRifdy6rSzGdzMua1k5LlI6fCqyEm1Mn0x4s/7bPluzgMjI7dYjHmeHCcIcSZTWq33iIt4doVp3Fl9+8Uuni4FVQ5KBVODPqwhwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786440729; c=relaxed/simple;
-	bh=HCo5rSbEvOu2viOHidCQ8HRW4Qctda5+Ow5PlKO9n4E=;
+	s=arc-20240116; t=1786440986; c=relaxed/simple;
+	bh=rqfV6jbzYDUjMrVAKo4zf+EVj733XqEdjvk2G6yYi3Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r5sx3xEN8qDK31OW3oncLpDW5IwvTjSbE2ZkRZ0PS2wR7B/emDp+cKdrAmxMtAi70tb/4pit/vtyHInHh/VcAzpdTm1hxc6uoxDTc7EGn2BNyH6oILHJpXqNSWNdBqISMHbtBhvJ9HscCJcDEwzmIsam0rxmzmWo/3ZLgi1O1Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=HHY8AVKh; arc=none smtp.client-ip=209.85.214.176
+	 Content-Type:Content-Disposition:In-Reply-To; b=DsVoSZzG5iSvKDPyOxeD5h4efVJU5iG/OiXBeaKQCmGdP2sLBdflQUn//1R3wsCCFLy5p2lPdBFGSeCFfGLjXtcCkSOVZyZgDgryAL79ahfVOToDAcyynoRG32FHA3n9BdlHzGky5noFlqG+qTVE3zU60NGAaaJCfGyNQcRcfxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=NhxDVnck; arc=none smtp.client-ip=209.85.216.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="HHY8AVKh"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2caced6038eso9404745ad.0
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:32:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="NhxDVnck"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso2073243a91.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:36:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1786440727; x=1787045527; darn=vger.kernel.org;
+        d=sifive.com; s=google; t=1786440984; x=1787045784; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ap29SzIYC2SRhT7+1cYIYqMqPmmcLkWivyt8GCYG80w=;
-        b=HHY8AVKhv2PnMrg/d0HomC91JhO2S5sry0b29N0/x7gvzgPRAyvne/eiYAnrWRs15J
-         Izn72VKWjoXCuFsXskZwZxKw+j0irbwfCO5gldJZScaEOTA2D5GoLDyaD/cTGyPGGN3o
-         dSKVf2EpQXvDusQZZwXR/AwZj50KRcW3LefmDZMuSuiofAsjkkT4sCQMEm+l/A5yMiBt
-         IBPtRndpikWyuryPi5FyfdRD8KQXMDcB6DUPn4ZIl/ZAgCOiC0DaykiuR1jYOvArLaZx
-         F9cxYc25/12Da7RMJwBXB2yINU+0osEVjjla/VLI8uEAqyXTAg4u7/mZ0AUidwC5NPCz
-         RSCw==
+        bh=VcbzXbSdyoexmhki4K88F749nCD4aY9ew05QBhC5eME=;
+        b=NhxDVnck9E8f4nDeg0As9Y0x6/us76S9V6iHYBKUAUBnCSqPsU9zuWzKgtqdcZltww
+         GwvDFCd4zL+wB5Gdp4CNxTTQfmhJ/MoCoFLQG0Pd+LrpLHFGdOJtG8loLuQYuhJCwjnS
+         c/JIXLuIXb/4q1s5RnTO1/QzURK/dnGjuUTAYL8sAvnwbHAD2ynasWxhiYpPxVALYke5
+         bYsJTT3oVSmFHbTVvPlKkVMhkuL0Yc4x8p0FemvT3eBKq0teQeaxykyj2sYNEezLOFv3
+         OaR2UDROcU2VKOy6CR9/jTNXpeTNj4eJGyd1QT1fUYVeWicwkTeYjpNUJMdZK+UBN+PK
+         no2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786440727; x=1787045527;
+        d=1e100.net; s=20251104; t=1786440984; x=1787045784;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ap29SzIYC2SRhT7+1cYIYqMqPmmcLkWivyt8GCYG80w=;
-        b=XHCqdE64OEzKCNJ8RVF4gXBGWbp15cuwjaur9rcpV+5WIZKhKKrQtOjGTEPfqMphlP
-         xNwEkOY5gd4RA+m9bwnhL7tbZsmu8kw43i9X0Wy2RXt2C+Sjhe72FNWLeHL++3CEMJ5L
-         tlLH9c7BQjdwXihpsUM6snmj1DXPGaS6WLb0PdfjlfTTQtTzrsqW+ct+gA5gkE9tHgp5
-         P/nCiCLUQVWdN64zNrd4+GNQ30nJ7S8AgcoLa5PE37mgZe6XRWHA+2r7/0SZQMXpR7XG
-         ApS/UDEoJTMbl6eDJ1g++yRgU0BjRYx5S/kzk8apEYuLaKEZLYjq4Niv02GtvBuWekDt
-         rl7A==
-X-Gm-Message-State: AOJu0YxSpQTdIHP1+g9SZ8pmTpZaOtqxq9UIREuOllmMl0T2O7cyhM2A
-	MYNGCfK8uydv4dlgic5VHrXZYXyPmkFPtjtPz3FJufxLxbq1qCtJ3AAS+aq4oTB3VaI=
-X-Gm-Gg: AR+sD13Utl8qK7zGPvhXDxkuBMZlsfAiNX7+jZJaRfMdRD10q2YQuNwze67xDUSaqEY
-	Gpj7wNSqQmQWd4anLSbwe7+g7dPFbnw+XWA+1/9RZCGU4ZT0kdWhb2ol9h4oTl3l4WG3UC6URn6
-	0XDlQl3iiUG43gA0pH9MShVIiLhtU5yaoEyLH4YcmrGU+qpK84tjWEBNMugSp2WYP8yW5FdMroc
-	htE3CMqhCBRQeD7JqGFW7UkSkezL1PBVFMT0VZ7wvCT3fs5/ywLJbBh++Raw5mzNz3jtXLH7ulf
-	rHPnR9YiNEqgVrqGWHc35Rn733l32mGcIZ+9moWTPGzuBW8yONc0nPkJGMq8iPHi7ARXk8HXKgX
-	Xs/DycmjuuRQMkAJSY+hxhkT7esPIwDH5hEK2rOlltdA9FoTFwBkCK1/TSHQfrQoxytnBzA6Wbt
-	F2RCxx/2XyWpV6LBiSefwFt55E7eZUHQ8pQomjpFIoR3nt5ny0D5tACCyQywk=
-X-Received: by 2002:a17:903:2410:b0:2c6:8d95:fd7e with SMTP id d9443c01a7336-2d3187acb9emr19605805ad.6.1786440727293;
-        Tue, 11 Aug 2026 02:32:07 -0700 (PDT)
+        bh=VcbzXbSdyoexmhki4K88F749nCD4aY9ew05QBhC5eME=;
+        b=mKkoY5aA88b8Il4nv08LknVE1zoh17NVzUzqpNtBP4ajUExkR1uUW40tGlPxyWtpwW
+         n458vLKd75jVCX6XND/mjuuTPaPDJpjjmvGcNcjLg1ALn6hg71omgMoPpl3E+XBA5vvc
+         hYTYftQQELdTWui0fDrXy1v/df7fB3aRsZLKmXiVluR3awapp+5ycQP6F5FtOPGjkMGt
+         AoQE1A/i1QwRLR7O0zxtl+jKWscnMGemeupBrG1Ut/AXfGVc2GPcjuZbriSsu3MnEZJ9
+         rCYARPuLaRURO+pcIpDtEoE0H+mCPCWHc96dBbqnrgzENQygLnj2RFRbyULV7+xvZ5bg
+         sLXA==
+X-Forwarded-Encrypted: i=1; AHgh+RqlH6soZuzBajUhKTCTdGN6t43cgg2g9r5ZVlC0i729rwWnDzL4i00CZwg2ifM8km5Xd2h97VTktYw8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy4JCKrke+1f+dUSvsj0+feyYlmZrmThK3I04X7scAxKq0Zzrgt
+	24hSXtNrtd4hZQ+W+EUTcCtEHtxQ34DkBYvbrfPr79DOyqmfldchTpz/jc3+vleyMis=
+X-Gm-Gg: AR+sD10+gx6HHnb9bC8UU9MD/t3XGHkgV3mDlfMHXJunJYGwqYtxr20vrJARUWuSFYk
+	jxOqa19kL58k0jsb8fjJ4C/a/B0maJn5mW3y3Ho+TPHBOZCbD9bKu+4qyu5OyWG10xFIOWYCHha
+	jUF4zUs1f5Bx5wUJ0bobjNNNRiTBnJUsmw1+9VtcnhNAvBcfFek1wI103UhBMxIAkKcdPQBy7A4
+	qAIjwZ3xTLyvV8CwYYMTiUd+EiVm1psGqZS6IugqqMNAfs8Ybf8nBQv6GiafTQgCKfUFu2amjC+
+	Ik3stGPCVkSC4oz2lY/mImz/SMJpNc8OT+7Yn+5Dtj4wX/72jsIO/apDESAJbKxjH/lQcz9Q0f5
+	pu7QG666IvsHArHyxOnS+FuoEB7I6XgN+EZQHW56oPXjUoodr8TJnvyvW0UiarQU3dnqI9YogYs
+	eRskHD2C8Ag8yiFLeSdCCrFO3RZv3s7nsu/EWjoVI4VlSB4rw4PNS2QlnY+v9u
+X-Received: by 2002:a17:90b:2689:b0:380:f85c:94b4 with SMTP id 98e67ed59e1d1-392ec4e4a34mr2095732a91.7.1786440984022;
+        Tue, 11 Aug 2026 02:36:24 -0700 (PDT)
 Received: from plin-1878 ([136.226.240.195])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d315f29afdsm4693525ad.19.2026.08.11.02.31.59
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392d5190ce9sm3040036a91.1.2026.08.11.02.36.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 02:32:06 -0700 (PDT)
-Date: Tue, 11 Aug 2026 17:31:56 +0800
+        Tue, 11 Aug 2026 02:36:23 -0700 (PDT)
+Date: Tue, 11 Aug 2026 17:36:13 +0800
 From: Yu-Chien Peter Lin <peter.lin@sifive.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, samuel.holland@sifive.com,
-	dlan@kernel.org, dfustini@oss.tenstorrent.com, michal.simek@amd.com,
-	junhui.liu@pigmoral.tech, darshan.prajapati@einfochips.com,
-	akpm@linux-foundation.org, zhangchunyan@iscas.ac.cn,
-	luxu.kernel@bytedance.com, pincheng.plct@isrc.iscas.ac.cn,
-	nick.hu@sifive.com, jim.shu@sifive.com, zong.li@sifive.com,
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: pjw@kernel.org, zhangchunyan@iscas.ac.cn, conor+dt@kernel.org,
 	greentime.hu@sifive.com, robin.randhawa@sifive.com,
-	scott@riscstar.com, dave.patel@riscstar.com,
-	raymond.mao@riscstar.com, anup@brainfault.org,
-	pawandeep.oza@oss.qualcomm.com
-Subject: Re: [PATCH v2 2/3] dt-bindings: riscv: Add Worlds per-hart properties
-Message-ID: <anrsDDkkOKmnkzAa@plin-1878>
+	dfustini@oss.tenstorrent.com, raymond.mao@riscstar.com,
+	dave.patel@riscstar.com, pincheng.plct@isrc.iscas.ac.cn,
+	linux-kernel@vger.kernel.org, darshan.prajapati@einfochips.com,
+	linux-riscv@lists.infradead.org, junhui.liu@pigmoral.tech,
+	akpm@linux-foundation.org, dlan@kernel.org, jim.shu@sifive.com,
+	devicetree@vger.kernel.org, luxu.kernel@bytedance.com,
+	krzk+dt@kernel.org, zong.li@sifive.com, anup@brainfault.org,
+	michal.simek@amd.com, scott@riscstar.com, alex@ghiti.fr,
+	samuel.holland@sifive.com, aou@eecs.berkeley.edu,
+	pawandeep.oza@oss.qualcomm.com, palmer@dabbelt.com,
+	nick.hu@sifive.com
+Subject: Re: [PATCH v2 3/3] dt-bindings: sifive: Add WorldGuard Checker
+Message-ID: <anrtDcL+iAKDuAO/@plin-1878>
 References: <20260729163908.249838-1-peter.lin@sifive.com>
- <20260729163908.249838-3-peter.lin@sifive.com>
- <20260730-glossy-pompous-quokka-c05c60@quoll>
+ <20260729163908.249838-4-peter.lin@sifive.com>
+ <178534841831.3259884.2854898669055783798.robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,40 +88,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260730-glossy-pompous-quokka-c05c60@quoll>
+In-Reply-To: <178534841831.3259884.2854898669055783798.robh@kernel.org>
 
-Hi Krzysztof,
+Hi Rob,
 
-On Thu, Jul 30, 2026 at 09:30:24AM +0200, Krzysztof Kozlowski wrote:
-> On Thu, Jul 30, 2026 at 12:39:07AM +0800, Yu-Chien Peter Lin wrote:
-> > +  riscv,pmlwidlist:
-> > +    $ref: /schemas/types.yaml#/definitions/uint64
-> > +    description:
-> > +      Optional bitmask of WIDs available for S-mode and U-mode use on this hart; each
-> > +      set bit N indicates WID N is available. Firmware may read this to select platform
-> > +      authorized WIDs for lower-privilege modes.
-> >    # RISC-V has multiple properties for cache op block sizes as the sizes
-> >    # differ between individual CBO extensions
-> >    cache-op-block-size: false
-> > diff --git a/Documentation/devicetree/bindings/riscv/worlds.yaml b/Documentation/devicetree/bindings/riscv/worlds.yaml
-> > new file mode 100644
-> > index 000000000000..cc8b3747591e
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/riscv/worlds.yaml
+On Wed, Jul 29, 2026 at 01:07:00PM -0500, Rob Herring (Arm) wrote:
 > 
-> Please run scripts/checkpatch.pl on the patches and fix reported
-> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-> patches and (probably) fix more warnings. Some warnings can be ignored,
-> especially from --strict run, but the code here looks like it needs a
-> fix. Feel free to get in touch if the warning is not clear.
+> On Thu, 30 Jul 2026 00:39:08 +0800, Yu-Chien Peter Lin wrote:
+> > Add YAML binding schema for the SiFive wgChecker, a programmable
+> > access controller integrated in the interconnect fabric of RISC-V
+> > Worlds-capable SoCs.
+> > 
+> > wgChecker enforces World ID (WID) based access control on downstream
+> > bus transactions. Each checker slot encodes a 2-bit permission field
+> > per WID (read/write), enabling fine-grained memory partitioning and
+> > device isolation between execution contexts. Violations are reported
+> > via bus errors, interrupts, or both, selectable and lockable per slot.
+> > 
+> > The binding registers wgChecker as an access-controllers provider.
+> > Consumers (i.e. its protected device) reference it via the standard
+> > access-controllers phandle to declare their access requirements.
+> > 
+> > Also document the sifive,trustedwid property for the /cpus node,
+> > identifying the privileged WID authorized to configure all checkers
+> > on the platform.
+> > 
+> > Link: https://github.com/riscvarchive/security/blob/main/papers/worldguard%20proposal.pdf
+> > Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
+> > Reviewed-by: Zong Li <zong.li@sifive.com>
+> > Reviewed-by: Jim Shu <jim.shu@sifive.com>
+> > ---
+> >  .../devicetree/bindings/riscv/worlds.yaml     |   9 +
+> >  .../bindings/sifive/sifive,wgchecker2.yaml    | 356 ++++++++++++++++++
+> >  2 files changed, 365 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
+> > 
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> Documentation/devicetree/bindings/sifive/sifive,wgchecker2.example.dtb: uart@1c1000 (ns16550a): $nodename:0: 'uart@1c1000' does not match '^serial(@.*)?$'
+> 	from schema $id: http://devicetree.org/schemas/serial/8250.yaml
+> Documentation/devicetree/bindings/sifive/sifive,wgchecker2.example.dtb: uart@1c1000 (ns16550a): Unevaluated properties are not allowed ('access-controllers', 'reg-names' were unexpected)
+> 	from schema $id: http://devicetree.org/schemas/serial/8250.yaml
 
-The only issue I got is:
-
-WARNING: DT binding documents should be licensed (GPL-2.0-only OR BSD-2-Clause)
-#114: FILE: Documentation/devicetree/bindings/riscv/worlds.yaml:1:
-+# SPDX-License-Identifier: (GPL-2.0 OR MIT)
-
-Hope I am not missing other warnings or errors.
+Will fix.
 
 Thanks,
 Peter Lin
