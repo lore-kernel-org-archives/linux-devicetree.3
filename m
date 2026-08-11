@@ -1,187 +1,134 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8C82D2397;
-	Tue, 11 Aug 2026 04:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B4E299920
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 04:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786421268; cv=none; b=RF/m8F013G5GbigWg0d6Yw1LNDtNty71efoTznazdMxE1wSLbkq99DXXbdL7HqjZoOO6k+m7elJkajTKg1nMaUHnNTN1H8wvm79xzUNUWCcbQr+Ct4qwU+5EY/BGSrDCrKQECU5nXi+ZLGWO2VQd9d6Uweg645OB5+ACTVn54uw=
+	t=1786422774; cv=none; b=gKR2yyJmd1lwzfB0cww1Vg8kq3NDE5FVe0bhQ2PTEQ1tEUyoJyxMuVTff5DfeI946pO/e9F0fXOMJJYSZ5oBGsaJJTWGU1y0PnCfFYKxpuSaSC/ToqCHlTaVdBlN1DHbdqi+jJvATk8yhlLDWYFUAp0ue14xB9DXhpmYUffEksU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786421268; c=relaxed/simple;
-	bh=VSaqpGJ1S2xRdavC3Lp7ejFIj2BFAkOzoN3y4IeD2iw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cz2tfAJemBdZlJzyMRxJSOGL0+HWTKHLWOkhtTKQ2Dsx323o+5UVKW8hZK/uFrU0lrRSUGjYv4CSkLOVwMvBTGSc+XU2s9CYeYNVTK81+ClJhdy1drhhk6i45MqNWLtBHXLQWzkIvDwb/NP2w4XxiYuOlQD22pDQke3g8wSMs6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=imJdrcnp; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1786422774; c=relaxed/simple;
+	bh=fJmU+BIwJkrdiLINGSNpueASUlZY1S3BdHncMRZDVgo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XQwvDwiRTCm24afZLbHEs4vFWGy8ozc2s3D+kiIYi9/wq0yMidnw5O5miWSCtthQ34NIRcigVLaiKiXVhtBP+tVMKyrU7E5WOub8fwe7uRr4uknm2FaJpNPr7/2WTs3tUGkoXbQ0d+kfZ8+Rd6JVUq33S42+l1S4DRScjyQgvy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MqDk/kHM; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="imJdrcnp"
-Received: from killaraus.ideasonboard.com (unknown [95.214.66.65])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 50D5A18C0;
-	Tue, 11 Aug 2026 06:06:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786421189;
-	bh=VSaqpGJ1S2xRdavC3Lp7ejFIj2BFAkOzoN3y4IeD2iw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=imJdrcnpjnAWdTL0lVZkEdwUsiTWUkBiAPc7HIGmFNtlg9+pA6XfenkIC/1I/ODSM
-	 z14CAJjrEBjxXJ0e3GEiVV8HV1FbZjExaSU/yb+iPOEtiYRIJdKqKvzvobxvwlqUFM
-	 JuMw3nZKSN6EJTuQmEI3m8dVhgwxkopvohv48m+4=
-Date: Tue, 11 Aug 2026 07:07:42 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>
-Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
-Message-ID: <20260811040742.GA1825378@killaraus.ideasonboard.com>
-References: <20260312150437.1091195-1-eagle.alexander923@gmail.com>
- <20260312150437.1091195-3-eagle.alexander923@gmail.com>
- <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com>
- <178455866124.1426769.18237320419273419942@freya>
- <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
- <178461038136.1426769.8068222330738680407@freya>
- <CAPY8ntDk+4aseGqijPz8Y9cGFzN=4zHPEj3HiHgetn=O_ufh_Q@mail.gmail.com>
- <178548368547.4139729.2328103728639267380@freya>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MqDk/kHM"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f633e6058so2106917f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 21:32:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786422771; x=1787027571; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uevAQqN80mKQhlZ8WcniYbzi6l/HLyUq4gvUDP8ovMo=;
+        b=MqDk/kHMTP5D7zgVlfvttc6Mqka0uuA5mJNIjnDcWLghQRgUKUi1Ik8+LM4YJtXSI/
+         kGFyikur818OYAyr1HI+XEczQXwmdGED48AdO9WC/AI99dBcJ5zlHQhAzyX5BFimml9z
+         7vwFQZeBe60LEGHjuXh8GvSNFCe+/mpqyyr66yP/2+x8ULTM6vHJ9GtbYgj4MvaLjQP+
+         qPIe0ckvCK51H6PVu2upSUo7Vc8XdCCtPl4FszM/3avS4QxFCqoFHP1AQL+7d2JszyRP
+         tN+bCT8LfSoriys+tkml8vWCOS+SFMMdOGS7IiQRgrMw9RgeDfjtZYXDTL7+pQPYQezb
+         u6Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786422771; x=1787027571;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uevAQqN80mKQhlZ8WcniYbzi6l/HLyUq4gvUDP8ovMo=;
+        b=m8JHQxYjQfkhYnqUrHV/Ev+wSfEWny2t2J5powmKYT/Y+uHpfXRGsd3QxmICIp3J/D
+         0yW6yY64jquXYgFKtcbgfWnkfxCD+MoAiZarS184MUqdqoZ9ilc6sUG5LQZvMko/5R/P
+         kc4hpzVV+E/Cvt4jiZRmkytpNZwLdL7cYfHfneqF62TxDBhI6xx1s0MwbC6iB73GDJoD
+         SZLgGx9gWOVEzKKTvUp0TTg8saqtathQ1SKDn4vmMXfOkirTpmCNC5cvNqbZRhtgETfe
+         00q+vZpIR2Y7Gg1VCtDlHl8ZuvPz14tG+rANTkuNASK/t6i4f39faesWix5XCn0qutd3
+         8aJA==
+X-Forwarded-Encrypted: i=1; AHgh+RqkacRyGy/ecsJmZo2aqcIQiW76vFvNGoa1nBs/nS74Y2qAT3MPDfTnuruyaixdOFSrKCTol5HA2yxH@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZ9Z1OIBbL6IYdDEvppxADhnySRQEKzed0GpdZ/ov+xVpTnCaq
+	TbwAe/4R9cStJnkdmyoPW0JAQvRwQU6XEXAnn3OvpewSXCtaYRltMTqq
+X-Gm-Gg: AR+sD12pHGAETgbTFa7SDySNVoxi/MblQ4dUnbh+KRqH3WqB+SlKN4lHzxhO8HPjO1R
+	wMC1/Lx6kn5houwWXvXxssM+C9PRP1hhePV64ggwctn1+0edz9lheJzwFf6mooJAWZ7IXtppTEv
+	OBqMf2QSHsK5GSVoBvo4AYHLa6EcZ8BLtGPSrec5uNHdtC/wRK1bxMK2tW0Q2XncSIkjdWYp6VZ
+	NQsxd5uE6Xqu7u+g7yyWBGPrbEXpqTtcoPoe2qW57/Jimwd8ZwXRv3jwEjBCP/Q30wvxbMBcLZ6
+	x6uQhj/bTVG8VayodQc7Vs3hRHkpxZCCOA5Ix6wvfqQOevgZN+kxYZYmWTL6OkKhFyxkl/sYhRf
+	Fw5gODpJwgnED2wanhhQe9O5C1Q7fNf/gWRJi+zbwv9QHT5kIelXw5pghfLD9ty5LsEtsFjMynC
+	bUu6Lk3sGGDvK1FeRFSbOo7SVH8xPckmBIhda1Jr7cEwWElTP+nAVIDCcMSwWvcXz4
+X-Received: by 2002:a05:6000:4a19:b0:47f:ec8a:214f with SMTP id ffacd0b85a97d-4814adc3281mr627184f8f.15.1786422770569;
+        Mon, 10 Aug 2026 21:32:50 -0700 (PDT)
+Received: from [192.168.0.104] ([88.223.153.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4814a6b2ea8sm1050589f8f.16.2026.08.10.21.32.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 21:32:50 -0700 (PDT)
+Message-ID: <71c1a0e4-73f5-4c22-a443-731be59d0d99@gmail.com>
+Date: Tue, 11 Aug 2026 07:32:48 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <178548368547.4139729.2328103728639267380@freya>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm7125-samsung: add initial
+ device tree
+To: David Heidelberg <david@ixit.cz>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>,
+ phone-devel@vger.kernel.org
+References: <20260705-sm7125-samsung-v2-0-d3b17005ecb3@gmail.com>
+ <20260705-sm7125-samsung-v2-3-d3b17005ecb3@gmail.com>
+ <a89e90e8-a1d3-4e70-8714-c9862044a62d@ixit.cz>
+Content-Language: en-US
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+In-Reply-To: <a89e90e8-a1d3-4e70-8714-c9862044a62d@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 31, 2026 at 01:11:25PM +0530, Jai Luthra wrote:
-> Quoting Dave Stevenson (2026-07-30 16:42:01)
-> > On Tue, 21 Jul 2026 at 06:06, Jai Luthra wrote:
-> > >
-> > > Hi Dave,
-> > 
-> > <snip>
-> > 
-> > > > > and implement
-> > > > > it using the common raw sensor model directly?
-> > > > >
-> > > > > I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors are
-> > > > > quite similar, so I'm happy to help in whatever way I can on getting this
-> > > > > working with the new model too :-)
-> > 
-> > I'd also noticed that all the Starvis 2 sensors are very similar, to
-> > the extent that it seemed worth a very quick test to see how much
-> > needed to change for the imx678 driver to work with imx662.
-> > 
-> > The answer turned out to be really not much:
-> > - PIXEL_RATE
-> > - PIX_PER_CLK
-> > - ID
-> > - native and active areas
-> > - min_hmax
-> > - common_regs (culled nearly all of them, although I do have the
-> > spreadsheet from Sony which needs to be added to my next version)
-> > - VMAX_DEFAULT setup if you want the full frame rate.
-> 
-> Great! I was hoping for similarities too, but if you got IMX662 streaming
-> already with the IMX678 driver that's quite good news.
-> 
-> > Those would all parameterise quite easily.
-> > 
-> > I also have an IMX675 module from Soho Enterprises which is a 5MPix
-> > Starvis 2 sensor. I don't have a datasheet for it at present.
-> > That streams OK at the requested rates by just updating the active
-> > area to 2608x1960 and ignoring the ID. However I can only receive test
-> > patterns as all the active images I get are pure black :( I'm hoping
-> > it's a faulty module, but will keep poking.
-> > 
-> > There is also IMX585 as an 8MPix Starvis2 sensor. I'd hoped Naush had
-> > one to test, but it seems not. In the meantime I've compared against
-> > the driver Will Whang sent to linux-media a while back [1] and that
-> > also looks largely the same.
-> 
-> Indeed looking at the documentation for IMX676, IMX678 and IMX662, I see
-> the features are mostly same, except minor differences:
-> 
-> IMX676 and IMX678 support 8 and 4x2-lane (with XSIZE overlap) features, but
-> IMX662 does not (probably because it's only ~2MP).
-> 
-> IMX676 supports dual-speed streaming (DSS) using MIPI VC1 for sending
-> 2x/4x/.. FPS data for a smaller region-of-interest.
-> 
-> The registers otherwise look identical, so a shared driver would make
-> sense.
-> 
-> > And the imx908 Starvis 3 driver that has just been posted [2] is also
-> > looking incredibly similar.
-> 
-> The flyer for IMX908 mentions some extra HDR modes. If there are some other
-> big architectural differences in Starvis 3 I couldn't immediately make them
-> out from the posted driver.
 
-IMX908 as a new ClearHDR architecture. It isn't implemented in the
-driver posted to the list, but will come in future patches. I expect
-important differences there.
 
-> > So the big question is whether it is better to have separate drivers
-> > for all these sensors, or one combined Starvis2/3 driver? Do we shoot
-> > ourselves in the foot when we come to add functionality and find that
-> > it only applies to some models?
-> > The awkward part would be testing all variants when patches are
-> > submitted, as I suspect there won't be one person that has access to
-> > all of them.
+On 7/5/26 9:41 PM, David Heidelberg wrote:
+> On 05/07/2026 12:30, Erikas Bitovtas wrote:
+>> Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
+>> in 2021. Add initial device tree for SM7125 Samsung platform with
+>> support for:
+>> - Framebuffer
+>> - GPIO keys
+>> - Hall sensor
+>> - Vibrator
+>> - Regulators
+>> - Reset input
+>> - Real-time clock
+>> - SD card
+>> - UFS
+>> - USB
+>>
+>> Tested-by: Stefan Hansson <newbyte@postmarketos.org>
+>> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/Makefile                  |   2 +
+>>   arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts   |  20 +
+>>   arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts   |  20 +
+>>   .../arm64/boot/dts/qcom/sm7125-samsung-common.dtsi | 536 +++++++++++
+>> ++++++++++
+>>   4 files changed, 578 insertions(+)
+>>
 > 
-> Honestly, I have the same question. I would love to share as much code as
-> possible so we only do the painful things like moving to new APIs once,
-> which I've already done for IMX678, and it was not a quick exercise.
+> Nice,
 > 
-> I haven't deep-dived enough on the different HDR modes (DOL, ClearHDR,
-> and Starvis 3 hybrid HDR) or the DSS feature to know how easy it would be
-> to test and maintain all of those in a single driver. The HDR modes support
-> using MIPI VC 0,1,2 or line-data to distinguish between short/long
-> exposure/gain frames, and DSS also uses VC 0 and 1, so the book-keeping
-> around the combinatorial possibilities of what is allowed or not allowed
-> across different sensors may make a single driver a bit messy.
+> Reviewed-by: David Heidelberg <david@ixit.cz>
 > 
-> An alternative could be to create a common starvis2.c module with helpers
-> for shared boilerplate that separate sensor drivers can use. Even if we go
-> the helper route, we would still need multiple people testing or acking
-> patches that touch the shared code. But I see that in the same way as other
-> common parts of the framework that effect multiple drivers.
+> small nitpick, the Copyright inside the files should be yours, at least
+> unless you giving up your contributions or you been paid by LF ;-) .
 > 
-> > Thoughts appreciated.
-> 
-> Given we don't support HDR modes or the DSS feature today, and probably
-> lack proper APIs in the framework for both, I feel like having a shared
-> module of helpers will be quite an effort and a bit of premature
-> optimization for uncertain gains.
+I replaced LF copyright with mine in v3.
+I found this patch series from a developer who preferred to stay
+pseudonymous. They were licensed under GPLv2, and I got in touch with
+the developer and they permitted me to claim ownership for these patches.
+https://github.com/map220v/sm7125-mainline/blob/a72q-6.10/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
+> David
 
-What I'd like to see if a framework to make implementation of raw sensor
-drivers much easier. There's lots of boilerplate code in the drivers,
-with opportunities for code sharing.
-
-> So, I am leaning towards having a common driver for all the Starvis 2
-> drivers with multiple maintainers. I lack enough information on IMX908
-> (Starvis 3) to be sure if that can also be squeezed in.
-> 
-> If it does get hard to maintain in a single driver in future, we could
-> split out common parts at that point without losing the effort we put
-> today.
-> 
-> But let's see what Laurent and Sakari think as well.
-
-I'll reply to Dave's RFC when I'll be back from holidays.
-
-> > [1] https://lore.kernel.org/linux-media/20250816055432.131912-1-will@willwhang.com/
-> > [2] https://lore.kernel.org/linux-media/20260730021525.166811-1-lachlan.michael@sony.com/T/#t
-
--- 
-Regards,
-
-Laurent Pinchart
