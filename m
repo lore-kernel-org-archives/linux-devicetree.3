@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86983403ED;
-	Tue, 11 Aug 2026 07:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C1F4052A8;
+	Tue, 11 Aug 2026 07:57:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786434790; cv=none; b=j3jG4kPoNzM/IRcgRpjzpFZeOiJ3Ll1L9WzxkjImZjZ3sZQCmvbjLH2/x4VOLjQ0BzkjZM9U38J4BqFu1AMXF71KfoMq/b1oCCs862XSVEq92C/AO/6PUzPq0kpHOIrV/Rw/lEKNnBlaLMpG+oihtovr8R08cs2Sr4hBIB+P/sU=
+	t=1786435070; cv=none; b=cOv4FQOeyNJlkz8KpHKmRYU151L5F47dBgMH599syb84JT1OxmHtTNYcmyDR+FJ1zMUO3VTkR3WHs/kdvf4Hcpam4ZoalL/8MZNtAj6IIpLAsfErHhEJ4mnElq8nJHUX0nbYsxxkHhKshnRnOGuxY8DzzShNbbrAiYBi4zWlGe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786434790; c=relaxed/simple;
-	bh=6UhfDLt02W+w1aSf5PwyzTuLgfXlAuEK3jciPocEXbU=;
+	s=arc-20240116; t=1786435070; c=relaxed/simple;
+	bh=d4Nyrw4Fcm/TUfz61bB2DGB4dXNYr4qzMyHmNYz/l+Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NFFXgycVEB7fr64cxPFxwNug8Mhgx3qhb1uH/XtRIroK1NKxOB0EZHaNKwJY0gkVsmiUuaOa5feuTkmLPpL/ltVRudKP2FslXCTcWUAOhq45kK9Mn8zmR8oqckxi0aIGvXj2++qZvmO78WFFSD/XOpqYxiIxGeLpBC7PgPFYKmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+Z/P+1y; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=jzcbM9tLeb8vKOMzyKoIDt24lYHZ8yHZT1gMmgx5mpfi1zRjEqXXU9pWnnc8M4tln1PAobIE7Bke2An0JgIUY2+JGmLbc+ffqEOS5+/HXEAB9AUPk3QrzP4xlgiLIIlvpG+n8BdD5nAPdJvgpBSo0TlptC2SaMU7g2UkaMWfi6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3VfMLgG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+Z/P+1y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69E061F000E9;
-	Tue, 11 Aug 2026 07:53:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3VfMLgG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 688B41F000E9;
+	Tue, 11 Aug 2026 07:57:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786434788;
-	bh=8S+yPkqlGljd464X8KgFc9m70P1r8YKi+gX4Vwc11pY=;
+	s=k20260515; t=1786435068;
+	bh=5BEw1pxh+ooctkiYN6XL+q+OlqLAHSMto5NNvhSXPr0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N+Z/P+1yaiowxaFgLulkwg8mn6JB5Mi33afAUO81GBDwVkoDKA9FTrG6wa1SzJkDU
-	 ftFk0gRu60W8fSfKTHa0kS7yvT3pyeR+NZug5eKc7kujWdt75BY6XQDP7UWr5uQW52
-	 lG0ApD6vs/5Ag8lvGs/Co4bu177dKjRUQeT6r5zjtmXxaPjq3R9Qww8MHIDigJwHKl
-	 /mBBkg3TOVAlJEn4CHWfKKCxhcVkkPg9Q4r4aE8Df7n1u/Cfg5pE9cZg1zuezgKoe0
-	 XuX7Vmq6+k2zIg0i+ls/gBzb89K1okUjvEVd+JcKT6XOYxNYqOLspktiGOlxrNsSwI
-	 1Qmq1UXgDWguA==
-Date: Tue, 11 Aug 2026 09:53:04 +0200
+	b=K3VfMLgGmebEk6gE2mRoDB1P9jLlYfGwb0/AeZwnyOJ3Gj3PHNVgqeokUPFeFQ/wm
+	 G2789dv7taB0xSwpIdIQIntB6/cH075MdL+RRFqA4ywlai+UySYdYSDCVbxiorhQ7L
+	 UgdaZ0G7hhngf31GulxESWTepoD2NnEsYtsIP0l8Idm98NoU95A/x0mrpMEqry8r2B
+	 Gq7MDn8yK+62Y77CPdRIxibKiDXWwIwOJNcQ+OEalkB1yF37Tc9wTzD9ZthZjgyrCx
+	 5zO7nUVRvRCIbLGOo89gnnTpfZPxcNA4rt1Ha5Tr887TNoBAikw5PaCOQ3up4EF4TQ
+	 cXyrodo1AbIYg==
+Date: Tue, 11 Aug 2026 09:57:44 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: David Heidelberg <david@ixit.cz>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Conor Dooley <conor.dooley@microchip.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Luca Weiss <luca.weiss@fairphone.com>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev
-Subject: Re: [PATCH v4 5/6] nfc: s3fwrn5: support the S3NRN4V variant
-Message-ID: <20260811-beautiful-mink-of-advertising-3cde65@quoll>
-References: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
- <20260807021001.239389-6-jorijnvdgraaf@catcrafts.net>
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: arm: bcm2835: Add 2712-d0 Stepping
+Message-ID: <20260811-savvy-chital-of-zoology-55a48e@quoll>
+References: <20260810-bcm2712-d-stepping-compatible-v4-0-73f74479539c@linutronix.de>
+ <20260810-bcm2712-d-stepping-compatible-v4-1-73f74479539c@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,136 +48,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260807021001.239389-6-jorijnvdgraaf@catcrafts.net>
+In-Reply-To: <20260810-bcm2712-d-stepping-compatible-v4-1-73f74479539c@linutronix.de>
 
-On Fri, Aug 07, 2026 at 04:10:00AM +0200, Jorijn van der Graaf wrote:
-> +/*
-> + * S3NRN4V RF calibration data update: the HW and SW blobs merged into one
-> + * stream (HW first), pushed as START_UPDATE, one SET_OPTION per 252-byte
-> + * section, then STOP_UPDATE carrying a 16-bit checksum (running sum of the
-> + * merged stream as 32-bit words).
-> + */
-> +int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
-> +				  const char *hw_name, const char *sw_name)
-> +{
-> +	struct nci_prop_dual_set_option_cmd set_option;
-> +	struct device *dev = &info->ndev->nfc_dev->dev;
-> +	const struct firmware *hw_fw, *sw_fw;
-> +	size_t merged_size, i, len;
-> +	u8 *merged = NULL;
-> +	u8 stop_cmd[3];
-> +	u32 checksum;
-> +	u8 sub_oid;
-> +	int ret;
-> +
-> +	ret = firmware_request_nowarn(&hw_fw, hw_name, dev);
-> +	if (ret < 0)
-> +		return ret;
-> +	ret = firmware_request_nowarn(&sw_fw, sw_name, dev);
-> +	if (ret < 0)
-> +		goto out_hw;
-> +
-> +	merged_size = hw_fw->size + sw_fw->size;
-> +
-> +	/*
-> +	 * The stream is checksummed as 32-bit words and pushed in at most 256
-> +	 * sections (the section index is a single byte); reject blobs that
-> +	 * would silently break either.
-> +	 */
-> +	if (!merged_size || merged_size % 4 ||
-> +	    merged_size > 256 * NCI_PROP_DUAL_SECTION_SIZE) {
-> +		dev_err(dev, "invalid calibration data size: %zu\n", merged_size);
-> +		ret = -EINVAL;
-> +		goto out;
+On Mon, Aug 10, 2026 at 01:46:33PM +0200, Gregor Herburger wrote:
+> The bcm2712 SoC, found on the Raspberry Pi 5, is available in a d
+> Stepping and in a c Stepping. The two steppings are not compatible.
+> 
+> Introduce a new SoC compatible string together with a new board
+> compatible string.
+> 
+> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> ---
+>  Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-Why does this error path kfrees the 'merged'? It's not yet allocated.
-
-> +	}
-> +
-> +	/*
-> +	 * Ask the chip for its current calibration versions and skip the
-> +	 * upload when both already match the blobs; a mismatch or an
-> +	 * unparseable answer means the upload proceeds. GET_VER answers with
-> +	 * versions, not a status byte, so nci_prop_cmd()'s return carries no
-> +	 * meaning here.
-> +	 */
-> +	sub_oid = NCI_PROP_DUAL_SUB_GET_VER;
-> +	info->dual_rsp_len = 0;
-> +	nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
-> +	if (s3fwrn5_nci_dual_cal_current(info, hw_fw, sw_fw)) {
-> +		dev_dbg(dev, "calibration data already current\n");
-> +		ret = 0;
-> +		goto out;
-
-Same here
-
-> +	}
-> +
-> +	merged = kvmalloc(merged_size, GFP_KERNEL);
-> +	if (!merged) {
-> +		ret = -ENOMEM;
-> +		goto out;
-> +	}
-> +	memcpy(merged, hw_fw->data, hw_fw->size);
-> +	memcpy(merged + hw_fw->size, sw_fw->data, sw_fw->size);
-> +
-> +	checksum = 0;
-> +	for (i = 0; i + 4 <= merged_size; i += 4)
-> +		checksum += get_unaligned_le32(merged + i);
-> +
-> +	dev_info(dev, "calibration data update: %s + %s\n", hw_name, sw_name);
-
-Drop
-
-> +
-> +	/* START_UPDATE */
-> +	sub_oid = NCI_PROP_DUAL_SUB_START_UPDATE;
-> +	ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Unable to start calibration data update\n");
-> +		goto out;
-> +	}
-> +
-> +	/* SET_OPTION per section */
-> +	set_option.sub_oid = NCI_PROP_DUAL_SUB_SET_OPTION;
-> +	set_option.index = 0;
-> +	for (i = 0; i < merged_size; i += NCI_PROP_DUAL_SECTION_SIZE) {
-> +		len = min_t(size_t, merged_size - i, NCI_PROP_DUAL_SECTION_SIZE);
-> +		memcpy(set_option.data, merged + i, len);
-> +		ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION,
-> +				   len + 2, (__u8 *)&set_option);
-> +		if (ret < 0) {
-> +			dev_err(dev, "calibration data update error: %d\n",
-> +				ret);
-> +			/* Abort form: STOP_UPDATE with the sub-OID alone. */
-> +			sub_oid = NCI_PROP_DUAL_SUB_STOP_UPDATE;
-> +			nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1,
-> +				     &sub_oid);
-> +			goto out;
-> +		}
-> +		set_option.index++;
-> +	}
-> +
-> +	/* STOP_UPDATE with checksum */
-> +	stop_cmd[0] = NCI_PROP_DUAL_SUB_STOP_UPDATE;
-> +	put_unaligned_le16(checksum, &stop_cmd[1]);
-> +	ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 3, stop_cmd);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Unable to stop calibration data update\n");
-> +		goto out;
-> +	}
-> +
-> +	dev_info(dev, "calibration data update: success\n");
-
-dev_dbg, drivers should be silent on success, unless this is somehow
-important and unusual message.
-
-> +out:
-> +	kvfree(merged);
-> +	release_firmware(sw_fw);
-> +out_hw:
-> +	release_firmware(hw_fw);
-> +	return ret;
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
