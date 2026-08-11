@@ -1,155 +1,228 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBE9426697
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:18:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786439889; cv=pass; b=AXp56doyktjG15m9PI2Z7SP+Bz8payT+jLhjKDvtDztikhC5y5ut8pdBINZyeDdQ4hJKEDF2l9GJuoLHUmDFf1HY3cQYKAE3CfeDbS+iQSwnN4959r28EGXzdsSNBP8nLZC5Da0wiXBH9q+Sa8Jrh0Ia4JhRw6hzGC958KDATME=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786439889; c=relaxed/simple;
-	bh=E/WyVaXEm1ailWzhDmRZTqHbF+V/Ukp1mPzzzzdLyhw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f4vkXVGJE5no+CRjqCc/ER04PRSzMzNH6hIvQ/Htv+k5s2FfAsJsOr3Mtu8TeKcg2Xg/gh7rnNzmeNLnQPEhgBliVDi0BwAlWpC+lyjuo3QFHyD/RPFFe0Y4GUeg0lVq6Zk6gA7eNuBHZpUt/iZUipSBBjgh6Pr0SLmKNd7KGOs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XfrB8tTy; arc=pass smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D67F426431
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786439935; cv=none; b=sx4uS4QxjACFy0wQoQM4x7VAV4/sNVOgkdrmOFznV5aR5Wxv6OTh6Rsf5Xxw3f0Vg2jUdcTR4nDn4fMoeX1p5cOjyT+1tBL28jssDKi82h+7/n4CgzWMvSK+QxNx/djqLsJowUlgc/reEKc3xnKE6YuI5Pn+v6KqtZmjjdKquFo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786439935; c=relaxed/simple;
+	bh=nEhQ7QxH5UDhqZ7VkjZHRphh7gHdmPGv/DpCTon9ESY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=big+YJQ9/4ruAdjkh48gELSsLfW+WbbvBpbOQMd9DbdpWw1yGHk4zf3F4WmtrPU+L4rd18INzIMhHkM3RgDSSDT1vfgdq///9YHCWTEpaLPXXIhFLIX2ArRP46xXAWnp8SrRA511MSM/alofO/dq8HZnLjcG3iPxE5azUuW8G5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XW30cGn/; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XfrB8tTy"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so4339156a12.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:18:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786439886; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qo7cqGWKLpM7Z/q94oQGwl7DXCD8VMkTpViJNeBjPeB7FhqxMDsYwSPTjlaDsqw/mN
-         ws2tgdIZ7BminLIP8wZAmbTLIDXfrJ5zXic42JYENAoseQhDljOXONSHq8kuEPPZqlKX
-         hFbtYmlbt+L8Z5CkgtbjzKeTEN/25iCV8LRznSs/OIvHWZnfooTA3x8YOvhKZYXN8OOq
-         lqcwqnfiY/5ScH4asyBgb6I7JVgY1jAtx6SOmNQ2y1/OuvkOZy4cCNsd3go4uXt7wT66
-         UgFUDZ8lRwmQJou0thnRLJC+rFZsrTt/0CpzAw16SqjwgwPgr4tQKM2mMEtSW5LQEgpd
-         Lagg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CR3U/yiugfUHE/SGbfVSIlqA46S1Ci8v6SrB7L5PEvY=;
-        fh=BpqXm826VbFp0/vxEJn454+ubE6v3gi7+Ovr+li804c=;
-        b=RVWXx9PhIe2u9SHJxU+e6vW+Srh2RzSx13qb3aMkhGzZuMpJGKls6mseupMGUT0bes
-         yeRPnoMtjXrjTfL9W9A9KINzbsnok3FN3J77WgNwe9Wr4w5f+wHTv08ungzBw+nfiT5J
-         z2sUyhj5jW6CsEReqw5p6oKtqN+6qp4AP5pq330WjcyCWa6Ro0K3wjUysh7MuAErcE0/
-         89Ar5uiuSxnoVofLH9YoVWuhNBt+apmL38MrQ5kKfNeA2HFt2D441ub4l5x/ZGGCFeGz
-         /LdF3N/63renIKIthYovJ6vHejJk+zi8AQSeiW6pb/rJ4wm/+FTlT82x8RvblX5HhrfU
-         uXMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XW30cGn/"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47fd4531020so1740023f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:18:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786439886; x=1787044686; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CR3U/yiugfUHE/SGbfVSIlqA46S1Ci8v6SrB7L5PEvY=;
-        b=XfrB8tTyaVf7C7RwFXFEt1dyp9srn9HyPKKrLNu8lptL5AySFSghZbI7c6P0/MK+WA
-         fwgixr6MUPGiF/ma/RVePr7Q775mn/Q3h86pxpWtCLRVV+L730mG7zvPpVem9RNsvbd2
-         THC6n6g7QEFfEe2s6Bev4mSmF0LyPEM7OW2HKK+BoJesylo7+YS5Lhn/Ak8tq29XuDny
-         kVvHthsEFoYnOqZ7u940ktzA0fBxncyKLkZxsPAwhOja97tuuLvl18AQwsZWOaL/I2pJ
-         cdKiJ7W5fhch5q0jrzgCSHlT8qgLwP1deqa/EkEX2wESVK8Du/sEpsk0tjerQZHR2iUf
-         TQGw==
+        d=gmail.com; s=20251104; t=1786439932; x=1787044732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ip7f7YpyHQBOih/urKg6C+Vi1R9PhPg2zCXHgntShvU=;
+        b=XW30cGn/Va1+IyB6XKXcp0UpEH9D0exa3ratMPmp5ZeTR+uABmtumWgEFylopA8X9S
+         YyfKr97wnLRWbbHyYaIufV4cI8V37pyVTna2g66QAlFkvgcfh4QJ2Qm5jfwzzfksRqCa
+         JazC+QdH46jxvvWbw7ma2kFhV7DYf5alM+sxW5nWzj9wwvmzb9zFunSJuIfd69g4nbak
+         cg1J9q0LjFVwQ+j1O1C3xLBNCA1ol4nj3IaLmpysMY/WE/ejMOtz1zQ+OpqkZo86rp22
+         zRwVZRkg8o/YamvCUtqw2p3aapykLrCRj3NWz16OTTeSNbmn+18lKyfe0SFWdg2FqLAH
+         5a2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786439886; x=1787044686;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CR3U/yiugfUHE/SGbfVSIlqA46S1Ci8v6SrB7L5PEvY=;
-        b=C5LTogbaX1FkingGPcVLX4P/R1vXwkA8z+uSG8SuvMR2G6SY0yHU4ExlI1PQzN1+WB
-         4FGqL0Y232SAkIYk6l4rhHBj7clsOGpb64uEDmMN9chQZkJweZtKsorIlYKj4EIP3DIR
-         DGCvoDv3P5RykmAdgO3KuTXf4xiJy4N1XCv/c62m+WJ8K1nsYtAoZa1P2Er2sHT/Boko
-         clQpdSj9jer1ZV/byD4kFb87YKXkndulkpv8TGAG0mok5Uzi+1qmvkNvD92DAsbE2pt4
-         CawvuGHRzvVpaqXRcUk5IygvUI3xvGi4GWYfMOnix7Dlm1MTYOuL9jVlNV1v+yhVx9TH
-         d1gg==
-X-Forwarded-Encrypted: i=1; AHgh+RpfTeaETYN82TtOa+s4LzoL5cK8l5nit0IXIHpAQsdM0OG/Z+U+cHNXBxiZmg2J3DVP3ajwJrJn4bLQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwHINfEL2CjQGJQGb7pHnQxwb2Q6NRlj5JWB8YgBkRRlxj67rSr
-	qcDznVJP5Z7ZqWqFMtC7xgBo98hhP7wx1IqoGuXkiQZaaCYHhGLy80PRzfbSKpq9Kv35bK6TVIB
-	AeI6DFCMTHfE06BMC0hOulGkH8cReuos=
-X-Gm-Gg: AR+sD12GjVnimQa+ZtNXrH6YMeDSUT7ITd/EuOl2gI4GK/NucBuXlMJahM1sT+VYV5S
-	8ZFHoR9h5e3lotwoVv/TAR9zgA5d9yYFtqD4EgrcU2AkqfXypLYlky7EHKPVQRlec1erkwcjJgq
-	XVojXZqARXqxMQDbtdz/7fNHe0add7ByCa+Ztqp2y8dBLJySDfaRclRjSG5KXsxOSTL8DSRjJ0Q
-	M9kc3E46vEnukVWN5UeKviQsEvFl537wnhhu1hHy2qw14n9zhspllXILwxZuK6PGzj5rflwhnVx
-	NwlrvVJTGlRIjNGeOS2+qdf5/ey9Ku5tuLQNtspp8LurGgiuOXnKmBUk78BCBGDwbi9gvij4juv
-	bh7vqa+gIoRFj+HC5vUD3ObBCLhwVybl0xsC70Oqcw3La1Jd7s/xthTnkAsoIGMwCWP/SE+zuou
-	/Bd7dXnoirnGWsS3ZBO6DLVDr5L7hmiKdQAf4E
-X-Received: by 2002:a05:6402:e96:b0:698:351c:979c with SMTP id
- 4fb4d7f45d1cf-6a364481563mr1065145a12.2.1786439885525; Tue, 11 Aug 2026
- 02:18:05 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786439932; x=1787044732;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ip7f7YpyHQBOih/urKg6C+Vi1R9PhPg2zCXHgntShvU=;
+        b=fL+XEa3uZJsEvAOpLI/Q64HfWIIehxl3CwZvlFZhae1gNLY391WjrAak1lpe+yMiA1
+         fbXKsuafehcg3Gp2t97yTAJelwxWVzgwnVYr0P6HEpCtSWi6YQCELZ4xRdP/70l1Y+VL
+         RLqhOwtII+uXhhfWavG+oA58F3e1jQObFgEFJFNBQUUscfRydE0XwOlOBxw7MrhUcI37
+         o9KnN6fatzCQXXCx5AdDR5LaNWJkMyM8i27W10hNygtkBOIMzAeOG9iiTxi4LV8BeYI6
+         0ygqiXnUB1KzbUaFMa7ZLORNjQW/VKJKVDw9Hj3FwJglHOFNMQcY6RhZhVcp0W6ZvI1n
+         XlYA==
+X-Forwarded-Encrypted: i=1; AHgh+RrX4zIRQA7tWLM8+fUHMOeA3tb58d6l4oGSZ60fnhS9VKWYNolz0pPki8qqXT4valGj6x+45pckJgnc@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCjVV6jvHpPMg0oF1S6PCgqwjApcZLOZNC23fus34vsC8sv6UZ
+	S5gmh4f4pH8DVBgQfP4Gy7eMNpt1BYR6/L6Ay7boeLAlGQNM0J58/8tL
+X-Gm-Gg: AR+sD10rk9Vc7uZpWkVIXhvJBJphSvpHMKiQwPt2/txs/AMAE3/dmxEhQXfjJQ1bmWP
+	b4tmWWW/Hx0ApwaO/Q/1wp71Whz380zT+XQ0QGLQjjHxkKEQVxRWZn+8DJPEezEHVSDMh0BFCP7
+	O4phEAURWMyBNmCueMcTcQR+qF7XE+h18HStKK71dDRMVBKg3BUIfq/kp+b5ivt2h7NaEb+tjWe
+	asNa09ved7FVy1DXV7VVIbRq34zNXx437K9XI7cUpiV7z6D1ZkwWNEZpCqyu8y9aNCRDvA2engU
+	hiKdNENOeEYk1D7wOVsmWB3EbFtnCbIPyT6sXMYProRD/oNilBmHUFxBAr43A1mfekW6nvDlgpl
+	MqvNsqKCQtKuzvVyM8z9B4B387o3svHpTkgjNKrBwrqJIXxPyAzlB2atudhe1nAk4TspnQDfNRr
+	F3C5sTbQkrS9TDrIHNHSqBYM1lxE54mUCyHOy3c9mmHkOJ7wLWBcSpPdhV337WlxpPTwqp9hDsL
+	AidhvyWUB9tPu+U3+stkBCnU7b/sA==
+X-Received: by 2002:a5d:5847:0:b0:480:c5:d635 with SMTP id ffacd0b85a97d-4814ad2d100mr3220337f8f.0.1786439932432;
+        Tue, 11 Aug 2026 02:18:52 -0700 (PDT)
+Received: from localhost.localdomain ([82.137.32.40])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4814a7171afsm2849418f8f.32.2026.08.11.02.18.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 02:18:51 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: [PATCH] dt-bindings: mailbox: Convert TI Message Manager to DT schema
+Date: Tue, 11 Aug 2026 09:18:47 +0000
+Message-ID: <20260811091847.686229-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com>
- <20260811-submit-ac200-mfd-v6-2-c5b1292c8498@gmail.com> <159b4ed3-3718-4563-badd-3627bc51a41b@app.fastmail.com>
-In-Reply-To: <159b4ed3-3718-4563-badd-3627bc51a41b@app.fastmail.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 11 Aug 2026 03:17:52 -0600
-X-Gm-Features: AUfX_mzC4JSTAlnl1EzMlisJQ715ApqdEvoqRN3H1IkIyZEOTQ7rFyRKrkMcin8
-Message-ID: <CADvTj4qUEA-ccFj0cSQgHb8+0jB4m6tcpsZZwveZhC_RE8w9vA@mail.gmail.com>
-Subject: Re: [PATCH v6 2/3] mfd: syscon: Add managed registration for external regmaps
-To: Arnd Bergmann <arnd@arndb.de>, Andrew Lunn <andrew@lunn.ch>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, mfd@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 11, 2026 at 2:47=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> wrote=
-:
->
-> On Tue, Aug 11, 2026, at 10:27, James Hilliard wrote:
-> > of_syscon_register_regmap() publishes an externally owned regmap in the
-> > global syscon list, but provides no way for a removable driver to
-> > withdraw it. Registering a devm-managed regmap from such a driver would
-> > therefore leave a stale pointer after unbind.
-> >
-> > Factor external registration through an internal helper and add
-> > devm_of_syscon_register_regmap(). The managed action removes the entry
-> > under the syscon list lock before later devres actions release the
-> > regmap. Hold a device-node reference for the lifetime of every
-> > externally registered entry so its lookup key also remains valid.
-> >
-> > Consumers of a removable provider remain responsible for ordering
-> > teardown, for example with a managed device link.
-> >
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
->
-> Hi James,
->
-> I don't think this is the right way to do it. As far as I can tell,
-> the device you have here is a generic mfd that uses a regmap, which
-> is not the same thing we usually call a syscon.
->
-> The of_syscon_register_regmap() code path was added specifically
-> for chips that have a traditional syscon but depending on the
-> firmware may have to access this by some other means. This is
-> already stretching the definition of syscon. I don't think we
-> should take this further and allow normal device drivers like
-> yours to register through the syscon framework.
+Convert the Texas Instruments Message Manager binding
+to DT schema.
 
-This was suggested to me by Andrew:
-https://lore.kernel.org/all/c78c2c35-52e7-4393-9714-06039d8a3f28@lunn.ch/
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+ .../bindings/mailbox/ti,message-manager.txt   | 50 --------------
+ .../bindings/mailbox/ti,message-manager.yaml  | 69 +++++++++++++++++++
+ 2 files changed, 69 insertions(+), 50 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/mailbox/ti,message-manager.txt
+ create mode 100644 Documentation/devicetree/bindings/mailbox/ti,message-manager.yaml
 
-> Since you already have a top-level mfd device here, just use
-> that to pass the regmap to the child devices like we do for
-> other mfd drivers. You can e.g. do this when populating the child
-> devices through platform_data, or get the pointer from the
-> parent drvdata.
+diff --git a/Documentation/devicetree/bindings/mailbox/ti,message-manager.txt b/Documentation/devicetree/bindings/mailbox/ti,message-manager.txt
+deleted file mode 100644
+index ebf0e3710cee..000000000000
+--- a/Documentation/devicetree/bindings/mailbox/ti,message-manager.txt
++++ /dev/null
+@@ -1,50 +0,0 @@
+-Texas Instruments' Message Manager Driver
+-========================================
+-
+-The Texas Instruments' Message Manager is a mailbox controller that has
+-configurable queues selectable at SoC(System on Chip) integration. The Message
+-manager is broken up into queues in different address regions that are called
+-"proxies" - each instance is unidirectional and is instantiated at SoC
+-integration level to indicate receive or transmit path.
+-
+-Message Manager Device Node:
+-===========================
+-Required properties:
+---------------------
+-- compatible:		Shall be: "ti,k2g-message-manager"
+-- reg-names 		queue_proxy_region - Map the queue proxy region.
+-			queue_state_debug_region - Map the queue state debug
+-			region.
+-- reg:			Contains the register map per reg-names.
+-- #mbox-cells		Shall be 2. Contains the queue ID and proxy ID in that
+-		        order referring to the transfer path.
+-- interrupt-names:	Contains interrupt names matching the rx transfer path
+-			for a given SoC. Receive interrupts shall be of the
+-			format: "rx_<QID>".
+-			For ti,k2g-message-manager, this shall contain:
+-				"rx_005", "rx_057"
+-- interrupts:		Contains the interrupt information corresponding to
+-			interrupt-names property.
+-
+-Example(K2G):
+-------------
+-
+-	msgmgr: msgmgr@2a00000 {
+-		compatible = "ti,k2g-message-manager";
+-		#mbox-cells = <2>;
+-		reg-names = "queue_proxy_region", "queue_state_debug_region";
+-		reg = <0x02a00000 0x400000>, <0x028c3400 0x400>;
+-		interrupt-names = "rx_005", "rx_057";
+-		interrupts = <GIC_SPI 324 IRQ_TYPE_LEVEL_HIGH>,
+-			     <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>;
+-	};
+-
+-	pmmc: pmmc {
+-		[...]
+-		mbox-names = "rx", "tx";
+-		# RX queue ID is 5, proxy ID is 2
+-		# TX queue ID is 0, proxy ID is 0
+-		mboxes= <&msgmgr 5 2>,
+-			<&msgmgr 0 0>;
+-		[...]
+-	};
+diff --git a/Documentation/devicetree/bindings/mailbox/ti,message-manager.yaml b/Documentation/devicetree/bindings/mailbox/ti,message-manager.yaml
+new file mode 100644
+index 000000000000..01d62fc5a7c4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mailbox/ti,message-manager.yaml
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mailbox/ti,message-manager.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments Message Manager
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++description:
++  The Texas Instruments Message Manager is a mailbox controller that has
++  configurable queues selectable at SoC (System on Chip) integration. The
++  Message manager is broken up into queues in different address regions
++  that are called "proxies" - each instance is unidirectional and is
++  instantiated at SoC integration level to indicate receive or transmit path.
++
++properties:
++  compatible:
++    const: ti,k2g-message-manager
++
++  reg:
++    minItems: 2
++    maxItems: 2
++
++  reg-names:
++    items:
++      - const: queue_proxy_region
++      - const: queue_state_debug_region
++
++  "#mbox-cells":
++    const: 2
++    description:
++      Contains the queue ID and proxy ID in that order referring to the
++      transfer path.
++
++  interrupts:
++    minItems: 2
++    maxItems: 2
++
++  interrupt-names:
++    items:
++      - const: rx_005
++      - const: rx_057
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - "#mbox-cells"
++  - interrupts
++  - interrupt-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    msgmgr@2a00000 {
++        compatible = "ti,k2g-message-manager";
++        #mbox-cells = <2>;
++        reg-names = "queue_proxy_region", "queue_state_debug_region";
++        reg = <0x02a00000 0x400000>, <0x028c3400 0x400>;
++        interrupt-names = "rx_005", "rx_057";
++        interrupts = <GIC_SPI 324 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>;
++    };
+-- 
+2.43.0
 
-The EPHY is not an MFD-created platform child. Phylib enumerates it as a
-struct phy_device on the SoC MDIO bus, so its device parent is the
-struct mii_bus rather than the AC200 I2C device. It therefore cannot
-directly obtain the AC200 regmap through parent drvdata or MFD child
-platform data.
-
-Here's how I was doing it previously:
-https://lore.kernel.org/all/20260806-submit-acx00-of-dynamic-v1-v4-2-9bf2f7=
-441632@gmail.com/
-
->
->      Arnd
