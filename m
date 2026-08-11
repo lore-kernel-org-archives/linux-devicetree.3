@@ -1,187 +1,215 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D8147ACDA;
-	Tue, 11 Aug 2026 21:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786482803; cv=fail; b=eud8IoYaLNz1bR4/txGdvdWlDwe4ZPiYN6XAOjjg89RxNSCrs9mVJsrCNZ+M9TPN3c4whVYM7krkd5MNxddcgsguf3ZrsKe/bLGsOoYxSD7+OLjhzkN66Uo7vCWeZMGWmlC8h9YyEmWUl5ca3xg7+gXpoldZJX/Wxd+HaUwXLiY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786482803; c=relaxed/simple;
-	bh=tIMiwMt0aZG5+Hx4gYIeqmohpvbJ02lbavoo94PJ/nI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D+5+erCBT0cQLPpihF4Jfe8fMRtGP47BqJPXo0p8ykvPVupl2cA7BW7V/VQ19F52amh8O6yuBN85OMApHIoTbqvlXzeUP2yxDVX5tFCq8uYuMlVSwoKidCGYJCm+3jXREyT7fm6T7ao1DhwL54NI2Gtj0LGtdD059zAwVMDsvHU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=If+y9E5R; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=iKHdvcAO; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5D6418341
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 21:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786482966; cv=none; b=WHtGj0H7VP4JgtT164Jy+TIoNL1ZMuwWCqLtfxR76TCcZFiK+uP/cvK9KY/R2wL4eeSqnQRy7wXjAZXQfRHk72CqG0JFK5X8Uce+leiEYS6i9RbcItwYMhnOHnwOMxi/J9rTiE5ocBhRdp7D9ljM3QB+PW/wJPtx3/npfkG+JsI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786482966; c=relaxed/simple;
+	bh=LBQl7UXFu5mAg0XS4lfJyTNMzwcs8EJayseYRo78aUM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Q9KMdDsT/8vc2OvaNyjv2v/EGxFKJ3UxEvorTI1jNLekfTOyepNtKvtT411I8awSPl4fw/amEoIdhVkK4HIFZUx0HHvTOdbQQeCy1fb+AgvUukMgng5cU39+mvzOwypN80zvSa2f2rZrKU83Pb7dUCZfyaZVL2Hk7XCW9/MbFz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Heg9i0U6; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="If+y9E5R";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="iKHdvcAO"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BHY1le1969497;
-	Tue, 11 Aug 2026 16:13:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=9oY27FyY/m/jzOo9z0vzF5VqTMM6HpwUNlOZoGlXdA0=; b=
-	If+y9E5RjL+Ov9Z6g13FSzPJGnDC9DN5M0hiUNt4klGvpPeyWW6f/J3rXz47j5pq
-	sbz+ezv4ib7SAy8KhFnnbgEiPkCJeKjpSKf3eC5uydBwmZ2i6wl2SNpN1+vtUGxo
-	iE5xmQKqpu9TwgfJ00XahRWJYHVnMAACPNnQNcSnRvKUQYiKbMhbbnaErU7LsKDT
-	WVNYOlGjS8YfL0l5tUjvZ2SqoHyY+ci036kvbGmN+UZ1R551fMbXGTgG29cu5/1U
-	4OJx/oj+keq1LYXpPhK3z17ekcObSRx1tbV+hKSX9FrBT1KntxL12pgl9jKmZPRK
-	kLJ2z32H3mAeFm14NCD1DQ==
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11021142.outbound.protection.outlook.com [40.93.194.142])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4fx1v0xp9a-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 11 Aug 2026 16:13:10 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sVp1z8cdUCq2XcWUzNC50jdKtY3YOHcSz5WGLcxx/ZoxeOJutzwPzE+Tj/Rs0ro6ZKzZVDJ0nMa1sZoeUpQPS9sqWzKFniz8ygTtjhJiEWPpEB3KE11MqUGvypXmUPWQvLe8F5GRhHJ0rEajn9gJ9pWZZWX//WtPTvf1dbc2Adjldx3gjVTkey2IS+QXgxSklAWxk+lgloXO3sPJllD2/+QCvLRpdlheKp8xUIhOryDkTC6Ea8uQsLppEC0n0ocCnyKbhnXRekLrNKjLrRwK8kIyB11ml2xXgf41UVlOV9xPRYmEmCUTEBLhz2o64mRlpBoy3yekh03D8cmFDhVwJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9oY27FyY/m/jzOo9z0vzF5VqTMM6HpwUNlOZoGlXdA0=;
- b=kwlTggwmKE3DUpQIIqwiTw2MiPgeiV965nFEXB6yPG/lkfyXplGkkcFxo3gBW3IzC1mq4PZ7bZW80uCIm/fOm/z9RKPacwRJN9RZ7VH/n9CV40RrdZYH2tuIzmfbfi4wO0tVFXGbGdSy+FG2laBe4FURI59dDbAhhjhI4fgJocAsyQyUN2rM1yOt4qUrrDXbKajBIOF9zpStMLjw/2SToKs6Tc8/Dpl3JTZecCU4EMQHvVvrotMvyT8ykp31DCq7k9lKa8GoAT+Txd/Z25RiU6uSqFKaD3nlRE1/yxRjgqFflgkq7zQ1C3/V4u3ESb9qqq6SSUoxiAHWeFeC3BWEGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Heg9i0U6"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-495773ee3edso290255e9.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:16:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9oY27FyY/m/jzOo9z0vzF5VqTMM6HpwUNlOZoGlXdA0=;
- b=iKHdvcAOjUV6fPFIMt1+KphW2T5MIVKRb6sY1tQXvj6dx20YgB9zAzJt+ySl95eIqehyAOu+hbXZEcgB7pxSGwLS685X+w9o7ftkiYUywF8OK2J6yCnlWnckayinVgTmJtCC5d9Dg910ICtF/Rsnsc4E3X1XQi4MI3iDdUFPJj8=
-Received: from CY3P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:fb::15)
- by CY2PR19MB642174.namprd19.prod.outlook.com (2603:10b6:930:117::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 21:12:59 +0000
-Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
- (2603:10b6:930:fb:cafe::47) by CY3P220CA0001.outlook.office365.com
- (2603:10b6:930:fb::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
- 11 Aug 2026 21:12:59 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.14) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.6
- via Frontend Transport; Tue, 11 Aug 2026 21:12:57 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id C5700406544;
-	Tue, 11 Aug 2026 21:12:55 +0000 (UTC)
-Received: from [141.131.156.158] (unknown [141.131.156.158])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id E5CF582024C;
-	Tue, 11 Aug 2026 21:12:53 +0000 (UTC)
-Message-ID: <b7cff467-cd3e-4751-a77b-48020055bb97@opensource.cirrus.com>
-Date: Tue, 11 Aug 2026 16:12:46 -0500
+        d=gmail.com; s=20251104; t=1786482963; x=1787087763; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6aQogsOegT+g6QZpcciAxI27XEPgO8Du/rqMWdvlx5I=;
+        b=Heg9i0U6BaLhnHBw+l2WkCvQSGKi+/qts2VsF1xUj2SDsx9T0yFD8wmqDhL2XbKVi2
+         e0a1tbtW4vJmURlxn15qposvWZM0cqJ0Zddykx8g+SnAS6wcsf+yR1z26MEEYfrE4BeD
+         i0ElbmrSXnTYqNoDKM3gZtatk4gKao9xkGkQt+oYbOIgR0SX7dfTrBRa/lvVYlyAqluJ
+         Q8cgZKuS4j6nZ9mT99hRroQCljYqubd/K1l9mFBLdTgB1/ckCD51BoS1cbKA8Ja9PoMB
+         CW76llEt7IV9S7PeHYm8uTXNNDLokXWHnlBmTrO5wQpR9Fl/T5gp0V5zMkHXAgQ21+s4
+         vyYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786482963; x=1787087763;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6aQogsOegT+g6QZpcciAxI27XEPgO8Du/rqMWdvlx5I=;
+        b=rqveLRPd6JWB4MgefoqhFKHxAbreTC4Zp/94suHONlf6J6eetp8zQq7lmZyCKNotmP
+         f2afs4QPECatJyFeHzkwKLD267UVXitVderUXyL0tgjHx/1niKpXEjLffHzbADYPfqs5
+         dZVv1bInEUUgoY7QSyl3G9A7ploAymLITRtfQHKVAVx3bucNZFU136jVNAfeyOm/fEEj
+         VvGFW0L1QMNhMo5OBlm/qfYUDVFDqsZFkfA0nSzUxuAcpKLkWrkzWPBt5CDVugz4cZ13
+         3j9XzvRDDryIhvv+MsmmJnncTqRWVMHUQk7bssqIg2cOVbnJzdZk2FdSFz50D5SYSXIh
+         IRYA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqu2j6cg2+jWOxxCc+M3GUmyG+Mzd+B7h5EYnVqAtlV+/ialDkKcVwm+Pm/u88OXbtOjfXosHvtRdIT@vger.kernel.org
+X-Gm-Message-State: AOJu0YzFlx+hP6HGMjVzr2l9FtUzsxkLJBiOJTP/oiVtGv8LeVWTZyaj
+	SIuTfhIPB6KQcrPtsDnOR/uhnLZ31XN/xCYibLk1s7joKPRmaAJFbZnJ
+X-Gm-Gg: AR+sD10QX4ji8hgt/953KPQHBrAatx1KZadqSssb2EUdnV0UnzGeC0ed9Nc7mgbjpc/
+	6o5f9afPscB2CcTImJVwTgEspd5ehr/KWH4ICn+DRzSfO+gKp8qbLUy/gd1K2EoVFUgO6HQKQLV
+	ldPfRcAZRb+nUCKdZ7QMRZz3yPPNClPEJx18Fetdp5teZxhe9ekFPlVWGuprxAVR37LBwiDA6Ru
+	e3NwkyZxla3MNNoE5uPidrFBbhJuI2IvAyRKCyDC1AS6N9C6mFbrsaZ/GGjgk4f792k/m58aPSh
+	da9ruOqNDAxA6XhlC//dxsm2UshbBhgMNbq2DWuZE6Ia+v4fzm+yDfu+yDuWtJczOQUCOSE5m0o
+	ZTGrq8U2z3h34jWaIK9SRqgPDDOKGREkNBniokJAmQpyLv4TPeI5FyVgDRpfsNOr2YQkw/a8vVU
+	dOZVhHwMVVOj+bOJTH1KM8n09cKL0GKnvKRLWMgrKKwa/g5XmalkX9+Js4004m5kfky829jsZN/
+	roT4Rvv7W/Ic/dApUgc+gGV3dozV0T79gwhOAI+jAZKhh+FPrlrIWu1mR6H+CMJ3Any+g==
+X-Received: by 2002:a05:600c:a48:b0:499:73ca:c419 with SMTP id 5b1f17b1804b1-4997c12c6c7mr634725e9.4.1786482962800;
+        Tue, 11 Aug 2026 14:16:02 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B94ED005B06BF1B5A09FFE4.dsl.pool.telekom.hu. [2001:4c4e:1b94:ed00:5b06:bf1b:5a09:ffe4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997aa96fb5sm19488225e9.3.2026.08.11.14.16.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 14:16:02 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	hjc@rock-chips.com,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	p.zabel@pengutronix.de,
+	sebastian.reichel@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	damon.ding@rock-chips.com,
+	lumag@kernel.org,
+	alchark@flipper.net,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	kernel@collabora.com,
+	linux-arm-kernel@lists.infradead.org,
+	krzysztof.kozlowski@oss.qualcomm.com
+Subject: Re: [PATCH v11 00/21] Synopsys DisplayPort Controller improvements for Rockchip platforms
+Date: Tue, 11 Aug 2026 23:15:29 +0200
+Message-ID: <20260811211534.8618-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20767137.geO5KgaWL5@diego>
+References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com> <20767137.geO5KgaWL5@diego>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ASoC: cs35l45: Adds support for SYNC bus
-To: Mark Brown <broonie@kernel.org>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        patches@opensource.cirrus.com, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <cover.1785855013.git.rriveram@opensource.cirrus.com>
- <2decc44a938373375530defd9a1645770987313d.1785855013.git.rriveram@opensource.cirrus.com>
- <72a2051f-32b6-40d7-a400-c090dcddf7b3@sirena.org.uk>
-Content-Language: en-US
-From: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-In-Reply-To: <72a2051f-32b6-40d7-a400-c090dcddf7b3@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|CY2PR19MB642174:EE_
-X-MS-Office365-Filtering-Correlation-Id: d782db68-8192-44da-3f8c-08def7ed5157
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|82310400026|23010399003|7416014|376014|36860700016|56012099006|11063799006|4143699003|18002099003|16102099003|22082099003|10067099003|4076005;
-X-Microsoft-Antispam-Message-Info:
-	zNIk5awxiX0f9Nu3lmvng9Mrt1diHViYtTTVye5uC9YYz0gF5P5hN2i7Xs/tPQObOtQgF+bs3SxDzl0Bi+ZH67s3cfqlooQGeWrmK00pIglVZ31/UhEtn5ShWZ7oK87+nx8AeJPTOueybqklgaHDZVswtcxBWF7tkj6IaKPJT4Y0maeIODV6C4gd2q+ZDq7ZgXv7ORR/1h4o9vXxVcnIP+8SCGze38/48at6Cl86KZ2M4QNO6K1B7ElQGjOwYhHXguePHv7TLXldidbSj9tcImwnJq2s5oaWn9PDaWRtzoOT+fr1WXJBofiuz/uTMmuVJzatKBWn6YabzHfpaV3axI5Er7IUr2E9P7BbmjGB4oxp6AmkF6y8tMfktsDFsTd/4M+CJK3spMChph/62MMVuJs5jUuODbg2VE8zzePpcTf3gLpJ3AOgxA/oY+dtWsKxpfrHpF+0T3AyVOqZOnNEPrx6EZziS6DuAY4mxhUq0ysczd+cgiXMcRDwvc85cvwqSyDRvTSov2KvWKYal4AqjJMuKOwpE4WU9O2Z2v5fGYv2S1DBsxrhJ5tQcJM8MAfuhNh7W2tPKruhDRbgdBrfoV9BS0aCh+ggBprVizrpLrlqaXqtn3Aikonbot7BSmcXXl/YUGi89l7I/QED0XCq+gTYT7jHLlVUqX2kSCaE400lQ5paBuF6BS6cWZxuQaqpjpwpEgNZ+0Vtlb3IrKTlZyETDqqQVAUncHYaQe1IubiLamSBhYDM+kqOvmPoq3za
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(82310400026)(23010399003)(7416014)(376014)(36860700016)(56012099006)(11063799006)(4143699003)(18002099003)(16102099003)(22082099003)(10067099003)(4076005);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	lQTAvqSdpgj5czlV5oARNG+q4+PGhKxdoY6pitD3WobMe9X533Y7V0+QR9OFtzIdI0Xqgex84xQmq234ep2t2hZKqLXYgVb4646ogfgn9DwcnpavaoE/w1DSdfb7BrM11g1RmxOVU0tjyqbyCzb/6lMFVg7ZdW538GBtQj3cHeL/wWk/91WT0yyaxqj/4HNPV0BpZ0HTgUjFLaAakAG0KVauaGjDi3VD2flVZjLcR3YOxLF56TaIE8hrOQ4NW5JoF6EzG3wZYxw29auPpezDoZ8o1sLnl83Y/hT70mXFr+JT2x6aIbY+Bt0hDRF4a34Iaz2FA8dkxPbFOjDCyRQBuaWF2pUHIPqArhtc772d9eyeZUDk0dZxO/2BH5Wf4jhO5pEKy/0RX/SgK+CmajRd8ZEDNIyOR+BiWHYSo2ZbRTeWPs36OZi8FubWnuf2cKHK
-X-Exchange-RoutingPolicyChecked:
-	EBUdccbBVOl7obPmOpvvZ+phtOXJO0bb6jIugStTN2peWlUMI1FQLMxeWyuCiTsfxhpkmQRfsZ3peO/cAHJBaRr1SGb3QRrBPyjnLO/JIonLTl3DnfkfECMOnSuC0Dl53m4WRmBFsqoQXFGAYNVdpVQmc1ZZ0gCz213b+si409LXch2A/Fetzf3G1FJ7L+uocAaUmuJrkuBgSRotbZSUrUK7O4KNIkg9AP9DNJBTHrBTeXefEGRRD0KNh9kvjV/BMiH9IzDa/6mfyjTs0BbadRCTbo7xsrPbdRfFn6H6uPeTgK0egQKPOXmq5RhvjvtcnEbyZgkF83T2T2YcRcARJA==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 21:12:57.4270
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d782db68-8192-44da-3f8c-08def7ed5157
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CY4PEPF0000EE3B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY2PR19MB642174
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDE3OSBTYWx0ZWRfXw4K5XJnrgJtU
- mz1HuPYw9XxpWOylGnfaFZer7QqIDoO3gBCdlmr4CX6IQ9yLRwjxpN+gXw1DvNKKXugBY7Jd99X
- OVT/69VcWOPQXhiTUMAhjDox+UQUq0U=
-X-Proofpoint-ORIG-GUID: SFhtmxD1b5DK557QOIwE321h9KC1jQF2
-X-Proofpoint-GUID: SFhtmxD1b5DK557QOIwE321h9KC1jQF2
-X-Authority-Analysis: v=2.4 cv=ZMrnX37b c=1 sm=1 tr=0 ts=6a7b9066 cx=c_pps
- a=0LNrXYcIMabMz0p9jkIKmA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=9FoOOS4VerFVLKYV_rEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDE3OSBTYWx0ZWRfX5w26Fud0mCms
- URziCRiCMLQMKh3RjWEQ/BWoYUUgLQ77mdzOJRMpG/jl9P4EtUxVgwOKIOj+79iNvT4P9W6x7Wt
- NbWCzsKpLuHzDSF52ICoblEWQg2rHbB0unCrow17sk5E8wEGDfEGAUkDnXrAt9o7T9eTcS6vVOZ
- mTmWmks6wLpCNeKLwgrfA2J9ivVeR4OrPH2PZyvJ8ZE9gxcVKK/21dZMzape6pA3FYABcj/OTPH
- kCM4hRy5ZR5p/xcwiCn0oSYQZ1gYOIqAw0dC1CIWMKnnMBM2b/JjZbD18DCTW4K7/Fxx0xSvq6Z
- zMSEpYV+Ma40B/dH4rpHmijMA/8l4g2q7nXQ46SSn0QP0DhV3W7bWer4wvhLnj37eWawSHKpooe
- FLHkKJaqMfnGn04nLVKnRgGE6PTWZuEh7I/R6xTPzGt2wGSQF2+qwo3ZmEbceSPPNAqY3o6R/RX
- c4i4MDJxWR2hMZKXKrw==
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Heiko,
 
+Two of your four points I can say something concrete about.
 
-On 8/11/26 12:24 PM, Mark Brown wrote:
-> On Tue, Aug 11, 2026 at 05:06:03PM +0000, Ricardo Rivera-Matos wrote:
->> Adds support for the multidevice synchronization (SYNC) bus.
->> The SYNC bus is an opaque one wire bus that is shared between
->> Cirrus devices. Initial support only includes software (SW)
->> data packets.
-> 
-> Given this description...
-> 
->> +	SOC_SINGLE_BOOL_EXT("SYNC Enable", 0, cs35l45_sync_en_get, cs35l45_sync_en_put),
->> +	SOC_SINGLE("SYNC LSW RX Enable", CS35L45_SYNC_TX_RX_ENABLES,
->> +			CS35L45_SYNC_LSW_RX_EN_SHIFT, 1, 0),
->> +	SOC_SINGLE("SYNC LSW TX Enable", CS35L45_SYNC_TX_RX_ENABLES,
->> +			CS35L45_SYNC_LSW_TX_EN_SHIFT, 1, 0),
->> +	SOC_SINGLE("SYNC SW RX Enable", CS35L45_SYNC_TX_RX_ENABLES,
->> +			CS35L45_SYNC_SW_RX_EN_SHIFT, 1, 0),
->> +	SOC_SINGLE("SYNC SW TX Enable", CS35L45_SYNC_TX_RX_ENABLES,
->> +			CS35L45_SYNC_SW_TX_EN_SHIFT, 1, 0),
-> 
-> ...it's not clear to me why this would be user controllable.
+On the cable being plugged in at boot: I see the same thing on an Orange
+Pi 5 Plus, and it is the single thing that cost me the most time on this
+hardware. The USB side comes up, the Type-C partner registers - your log
+[1] shows typec_displayport binding cleanly at 23.9s - and the DRM
+connector is still "disconnected" fifteen seconds later. That is what
+happened on 16 of the 21 boots I have logged with the adapter attached;
+on the other five the connector came up on its own inside that window.
+So here it is the normal case rather than every single boot.
 
-This can be use-case dependent. An example that comes to mind is keeping 
-similar transducers linked during a posture switch.
+What gets it out of that state without touching the cable is a software
+replug of the Type-C port controller - unbind and rebind the fusb302
+driver:
 
-That is to say, on a four speaker system in landscape orientation, two 
-particular amps are acting as linked tweeters and two amps are acting as 
-unlinked woofers. When rotated into portrait orientation the linking 
-over the SYNC bus needs to be reconfigured to match the new pairings in 
-the portrait use-case.
+  echo 6-0022 > /sys/bus/i2c/drivers/typec_fusb302/unbind
+  echo 6-0022 > /sys/bus/i2c/drivers/typec_fusb302/bind
 
-Ricardo
+(the i2c address is board specific). After that the connector comes up
+and the mode is set normally. I run this from a boot service. It has
+fired on 16 boots and has never once failed: on 15 of them the log
+records DP-1 going from disconnected to connected within three seconds,
+and on the sixteenth the machine was powered off before any outcome was
+written. The most recent one, from a boot tonight, is representative -
+kernel start at 23:00:28, EDID override at 23:00:52, connector still
+disconnected with the cable in at 23:01:07, unbind and rebind, connected
+at 23:01:13.
+
+Fair warning before you try it. The kernel I logged this on is a v7.2-rc6
+Collabora rockchip-devel build that predates your v11 - it was built on 6
+August at 00:00 CEST, so it carries the v9 generation of dw-dp - and it
+is tainted by out-of-tree modules. On it the
+unbind produces a WARN:
+
+  WARNING: drivers/base/devres.c:1184 at devm_kfree+0xb8/0xd0
+
+  devm_kfree+0xb8/0xd0 (P)
+  tcpm_port_unregister_pd+0x70/0xc8 [tcpm]
+  tcpm_unregister_port+0x70/0x178 [tcpm]
+  devm_tcpm_unregister_port+0x1c/0x40 [tcpm]
+  devm_action_release+0x20/0x48
+  release_nodes+0x6c/0xc8
+  devres_release_group+0x144/0x1a8
+  i2c_device_remove+0x5c/0x130
+
+I have it on 13 boots, most recently tonight; the rebind then works
+regardless. My kernel is tainted by out-of-tree modules, and I have not
+checked whether this is already known or fixed in usb-next, so please
+treat it as a heads-up rather than as a bug report.
+
+One timing detail, in case it applies to you: the Type-C partner does not
+always show up promptly here. On most boots it is registered within about
+twenty seconds, but on a minority of boots it takes far longer - the worst
+one I have logged brackets it somewhere between 73 and 88 seconds after
+kernel start. Anything that samples the connector state earlier than that
+concludes the port is empty when it is not. I only have one USB-C dock to
+test with, so I cannot say whether that delay is the board or the dock's
+PD timing.
+
+I called this an adapter problem in my earlier reply on this thread, and
+your report makes me a good deal less sure of that. My assumption was
+that it was firmware specific: this board runs the edk2-rk3588 UEFI port
+(my build reports v1.1-13-g824e6c12), whose own support matrix lists
+USB-C DisplayPort as only partially working - "No hot-plug detect & EDID.
+Only works in one orientation of the Type-C port" - and lists the FUSB302
+Type-C controller as not working, with no PD or TCPM driver in that tree
+at all. So my working theory was that firmware leaves the PHY in a state
+the driver does not reset. If you are seeing the same symptom on a
+different board with different firmware, that theory does not hold and
+this is something to fix rather than work around. What are you booting?
+
+On ACLK_VOP: thank you for confirming the starvation. That is the first
+report of it on hardware other than mine, and until now I had no way to
+tell whether it was my adapter.
+
+I do not think your garbling is a milder version of the same failure,
+though. Here, at 750 MHz the picture became correct the moment the write
+landed and stayed correct, with no POST_BUF_EMPTY logged for the 42
+seconds that phase lasted; dropping back to 500 MHz brought the
+corruption straight back. That run was on drm-misc-next dc2f9f7fed1a plus
+your two series, built with CLOCK_ALLOW_WRITE_DEBUGFS so I could move the
+rate at runtime. So on this board 750 MHz is a clean state and not a
+marginal one - which also makes me doubt Alexey's reading that the
+garbling is an artifact of overclocking the VOP2. At least it is not that
+here.
+
+The rest of what Alexey says looks like the right thing to check for your
+case. It is worth seeing what pixel clock your 4K mode actually asks for
+and what dclk it ends up with; on my side that same comparison is what
+exposed a separate bug on this board, a video port left parented to a
+dead PLL. One caveat when you compare against my numbers: my 4K120 link
+runs YCbCr 4:2:0, which halves dclk, so the mode asks for 1188 MHz while
+dclk sits at 594 MHz. If yours is 4:4:4 the numbers will not line up. If
+you post the mode and the "setting dclk to rate=... result=..." line from
+your log, I am happy to compare it against what this board does.
+
+For reference, the ACLK thread is here; Cristian and Chaoyi have both
+replied to it since:
+
+  https://lore.kernel.org/all/20260808104240.13776-1-royalnet026@gmail.com/
+
+Igor
