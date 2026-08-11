@@ -1,244 +1,206 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CA34519B0
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 17:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786467940; cv=none; b=CI4+G/fIEbyCnqDIOkw/wLWf4jhnUAv8GndwjLAiNNf0QJQjY8cwKLvXEDDJwYF9IUNBy1VLoN58nokprV5ZKqSqTJfS6cnxi/Dj7CihZQOsruZ94CI6hlbZTnWoPRjRzjY9c//pN1mINvr18UvCSFLq/D3EtphIw5QEuUimK9Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786467940; c=relaxed/simple;
-	bh=y60WQKbnfxxPpZGYQxuPuZXmWaUbdCih368iXeHm9WI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=t811BOna5UKsIFnwoNgQVJZAwfPcFhzgjskB+DjP3krqKBJ0oarIYRZs1nvX5lQ/IcnEByDZFQ8XmlLM+9goRysTCLP0qG1fl02tCrNtt31E3/dei1sF4EXaeOD0MH3gB/8+cnpm2ZJKJAkAS7qcbZGnj5X7L8LdDOaRh1tHWq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=P4C9K/fu; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07E7453A58;
+	Tue, 11 Aug 2026 17:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786467990; cv=fail; b=J4DzZx5R2VClrH/IcEYve7wScO8ZMuak4zJAS5XIcdJbn07YLZ7DTeDsodVahPlSZ/PrAEmhfyPamP6iUDYuL+Jvk+Oot7U/K8JdR1SP0R2o3D8wvBlOUdVpzGRpUSulomGpzhliClF8dX6QqtroPFsZxzz0cshA4r7ciw0sJ10=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786467990; c=relaxed/simple;
+	bh=ebLgtyhRexm6K9SDDBIdhAOfrRJcKcPOYw9g0mZIKM0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l36yJeXAapt794LifF+kKkQTNb+gM5toEFpzjwsy9YuOTZTVCmvrOPDWGjMI+PFqpFMedfNIGYuaHg1CAafoY9swmGqpC9XNkjbHmuwxFn9zKkJyQfBZIGG4eEw3KDjaUtQ8wm7pxnrq2kCr2UKfcnnAU5bHNIwD1EXJTeAa8oI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=hiQJi6Xq; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=CyZ/PNqc; arc=fail smtp.client-ip=67.231.149.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="P4C9K/fu"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 99B70240101
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 19:05:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1786467935;
-	bh=nOMPTZKoGJ+jhq7X3DLmn8turldSsuhoUMhsNGxWBMI=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=P4C9K/fu1jYqy+uH1PHKr4Md51RMD2apY7dRsKkJOU6NTgnL+nPRACt3JjDRLrCB1
-	 Kse4yGndYQy4tBhUa2GAwCmI/exduQ5Z2Wxn1o6gLAK2UgXTIRYNv3blQAEoQczM+o
-	 VN23bpB7bIEH7ZBDfKL95kO5Y6U2mKdVJvNBO9f23vq8nApQufV4tv5ibMaEO4lUjk
-	 B8NJ1RBH9QQzH7ymEaUS3rflnsa4kd6/iFafKO783ngQCpeRVmBjDGZ02w8mUHvaZj
-	 X7nkHUTdGfw7WW9vnkfTjMzksOWmdfjg4MiCokPVKD7BHPgRk8U+KBg2GGgvvYtYr9
-	 +3S1hJ8Dz1L3g==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hKJ0Z5j1Nz6twP;
-	Tue, 11 Aug 2026 19:05:34 +0200 (CEST)
-Message-ID: <de063c2d6fd671af5ab71ff9372a426730b98449.camel@posteo.de>
-Subject: Re: [PATCH v3 1/5] dt-bindings: rtc: Add pinctrl for S35390A
-From: Markus Probst <markus.probst@posteo.de>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rtc@vger.kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, 	robh@kernel.org, Alexandre Belloni
- <alexandre.belloni@bootlin.com>
-Date: Tue, 11 Aug 2026 17:05:35 +0000
-In-Reply-To: <20260805202151.3C0C11F000E9@smtp.kernel.org>
-References: <20260805-rtc_s35390a_int1-v3-0-e836faba3e25@posteo.de>
-	 <20260805-rtc_s35390a_int1-v3-1-e836faba3e25@posteo.de>
-	 <20260805202151.3C0C11F000E9@smtp.kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-DNHLbVYBy4pleStj0hu1"
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="hiQJi6Xq";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="CyZ/PNqc"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BDIc4b1537319;
+	Tue, 11 Aug 2026 12:06:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=/Kh/S52QccfVU8kps1HIK2Li6lpXniNGnBDYLQuygaU=; b=
+	hiQJi6XqkfS9ot+z1Bz7xzX3W5PJXg1vzmQMEeG8KcK+LgN4O7GCFkmUth2whGWS
+	SGQaajJTBZGHhi+HtEDoAkVCEY3A+nsJATMjUeP61FLEBaWlRya+wcHRHkErZ/dx
+	CIjO2Z+FOtfb5lcek4iRTzQYqklBUwB4D2oHcoRSZvxasJniUVXJMpJyFe0RbwqV
+	zLzeeoWWL5/SS0oV5LDkDWjk1C0/8Hqch8azDu0xeCs3uj8rnKxn2L7+E0s+8SUP
+	WWPPV8mo3iI1xOIA2O78eHXkoDVLGQDmSBmS2dofEgnZvO3VRjFCVBbHLLUqB1+S
+	Zrp3RDICzu4QwLdkqjXtEg==
+Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11023097.outbound.protection.outlook.com [40.107.201.97])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4fx1v0wns0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 12:06:24 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WgIJklf3gXP4vtkmvIL2A3xKpFkT9j8LcB4bq4jL/vAXGVv+pYCrZ/YYHjczG8Lz201hkRIgjvTBRtDjaKgB0drxxcwDt8WxQS/29yXwHLfH6hOLKduoSEVpTWRODQeK/5pnumZdsRZJwdEW7H9hcD1VME6+RgCTuHguLXpUgK0j4B5VVLijMV57r2RUreYJsQ2+I7a/AtYXiSNYfbMKwLJtaqYDv+y8ZY/AH2l2teVuGScRCWBfinU1LJO+35IWvJQyIhEapp5UGleyHDk/urDnbJMfq6SIBD5PrvjSHwrqozdzU3zWF4BRD+j8xcEXG0bFJ4ZnHxB2sbLUrLeWWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/Kh/S52QccfVU8kps1HIK2Li6lpXniNGnBDYLQuygaU=;
+ b=dzAfL2yS5HQ98B0aeMca8nMXTRR5FZa9XO4lSaGjq7oMUVZ7b7hw8zE8i0xx1XNhquIlF5YTSOSDCfoY2Qx+DFfq5Y9Y3xGbzEh+wo35BRDlPOU67O8ZoccPSeNZ1FylxNxr4jqwtHlbzPdaeGr5bqISo0qvHxba+JG6/F5k5iBaTIofy77054g8EH6wAPn6+72VwVh9jcdAZbPW7KS7QdN1FMp/6LV0vj43Tos1H4RQyS/86Zi1JTr2+MjKO+lDMTTvTMK5eFWLdj1IlqBhOHCP+QTiUqGk6V4otIRKu/O0GJZmdnydvw8jgt2TLvkh3cHeqPtIwbrKfo7aLD1xwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/Kh/S52QccfVU8kps1HIK2Li6lpXniNGnBDYLQuygaU=;
+ b=CyZ/PNqcubbEH3EhzSXcDhKbbnAT2N9l3ylvSPYpZvoNC4wGoYlV86+QOklG55fRBzkTMdAiYFyiPhnGrj+o2Ygcnqj33+844qsUdRzgcxF2tLkFnQfqar/hMjGJFSmR4li1fxHCTfTifq514OqFIgr8c5AtEpBH2yI524v6l3Q=
+Received: from CY5PR19CA0017.namprd19.prod.outlook.com (2603:10b6:930:15::10)
+ by PH7PR19MB7384.namprd19.prod.outlook.com (2603:10b6:510:274::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 17:06:19 +0000
+Received: from CY4PEPF0000FCC5.namprd03.prod.outlook.com
+ (2603:10b6:930:15:cafe::91) by CY5PR19CA0017.outlook.office365.com
+ (2603:10b6:930:15::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
+ 11 Aug 2026 17:06:19 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ CY4PEPF0000FCC5.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.6
+ via Frontend Transport; Tue, 11 Aug 2026 17:06:18 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id AAD9740654B;
+	Tue, 11 Aug 2026 17:06:16 +0000 (UTC)
+Received: from ausswws06.ad.cirrus.com (ausswws06.ad.cirrus.com [141.131.145.33])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id E6D0C82025A;
+	Tue, 11 Aug 2026 17:06:14 +0000 (UTC)
+From: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+To: David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
+Date: Tue, 11 Aug 2026 17:06:02 +0000
+Message-ID: <58ab05c07319b1db14c55499feaeb95d369f9255.1785855013.git.rriveram@opensource.cirrus.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1785855013.git.rriveram@opensource.cirrus.com>
+References: <cover.1785855013.git.rriveram@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC5:EE_|PH7PR19MB7384:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: d4d86b82-2db3-4491-09ea-08def7cadc48
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|61400799027|23010399003|36860700016|376014|11063799006|56012099006|10067099003|6133799003|3023799007|16102099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Hmh5aEWa5tAWKk2OU0JVqfYo3kqaTUmLwJAgt+ib3bgZW3Gz9Wl2Z4eY0wPlVQksPtuUZKbQscsZ50bfQM8YkVAIJnF2pBIjn+Eha57iW0N0Zrl/0qACkcSroV3A+LYissJ723HF80yup7zbwmyPsZ7cqP2XfwMMR30zPXOMx/y+lfkvsm35Q+qu4gd+mCsVhkz9BtSKZ7gMtpVDqJiFbGjEZ5N8geFO3jkhf0v7u9c7XijiIOsWzZH3DO2+5Q60tH4jakGVYwOsfMi5oiH6w7whW3sK7ArBLqNo7lSI7cII3eOuZ+3/DWrY8ZowJ7KKDKW/52QqHwXfQcBa0fhD6VfAWqX/W0OykXb2WfP+KysmL7aOQ124uewBCzvxMYlYYcH4XRAnLFsrTkau0VuBjsAtTcrgPbPaFVuvxKWwnOBK1J47OWcDzpEw1t+4lno+L3fAUKSb4/OT/eKluy7O8057UfiPj8o5BObipP/MNFqi1yXYtAigm1T0a2QE3mI4AeP5lH4S5hYELJh10ZqD3tWHewknCB/uz+EM+8FlZHmSy8eUtOY4/uThVcW+VdsyQkFfN/TcrECpIEQjVoRLpExSDEO2MVmYSdVoeLHXGpjKtPPFujWdSDp42yhJxVVzBm8x/3/VmZEVxdMg6ts6cNinX2Uz8sTn0zFBGLSo82EFw0rJ87Hm/vqCq9z39CZqjBU3tgZgbQhatp1SSa7oug==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(61400799027)(23010399003)(36860700016)(376014)(11063799006)(56012099006)(10067099003)(6133799003)(3023799007)(16102099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	X2GnVtVHNIaniwv41G/NgcbpXifuJTrM8CR8TTAK/znrpydezVWnCUkXriB1GVQYsDcDHP9BJf12lOKpKDLxVNJFgHQ2L5O39xUOnZhXNGcT1oRbI00tcPn4VbOYtmmQQdXoEJiudkeyP+/G8P5E3O7UZvA0QZSRU6n+9G2D3Js5p0jSMox139r2pyv0ZR3XMSWWORB5AeHoH3Ggtz4EJ/m6Xew9zbWi7xCDWOYDZFwG2n/qRVidBwOyDUsSuYKjT7bo7FRsOh5yzY8JTjxGvwSARgQHKTl8vrtyJYLWqstN6sjR+bDBLXxUAVMmHtx49Rz3fj9KkTyIfFIl+nCxmUaco0rsLQapEDn+JCCsX2MgHx2aNSPGk++IQJQc82l6rHZ9EoxIHpQNu9mUfDC5tKK4D8NQqIpvar1ntqHq55wUk7OtDMxKKoHjW//6CMiQ
+X-Exchange-RoutingPolicyChecked:
+	YeFeRtbgjAkNDwgd7H5Z6ba5+aI3B8F3elHetdF98OlQdxZolE4mwnKS3S9RfQ09xSzMIdKXP0eanJKddmTCsZLlgvliPCM65KkBmf43NYiTeaD0XwIkrQePVGvRCD0jqekX9O4YdwOCqXjIqC2P8gjjWyeW6ooesVfiXEQz0+RDlc3lPNBvuf7MS7ui8pnJurcogoMZPvcLfQUiaDJq8DhUNY0YoQwcdigmBjNJe5nwQW4jXAV6baXIeA0gnKFUyheZ1rgM8QC7LifP6UStdex9Fv7cVkvLLPob2RVuEUaDPnW3Jsatu4VVZNY/cgi781pgQ1ivPb7AWFxEDH6wfw==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 17:06:18.1438
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4d86b82-2db3-4491-09ea-08def7cadc48
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CY4PEPF0000FCC5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR19MB7384
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDE0MiBTYWx0ZWRfX+XHpQE5zJZfz
+ wCrGC2KSBhenNMVLmeCH0+43L9BoVTe4awdTsdfgtJ0Fq4h8aSWZnrGgODlJ631+9Eze4QxDCic
+ uW97uOqjWeI27w3kcRFCeQ9iDlHfNwI=
+X-Proofpoint-ORIG-GUID: 5QFpkeijVI1lOS1tn2I0ROCnGdr_GOs2
+X-Proofpoint-GUID: 5QFpkeijVI1lOS1tn2I0ROCnGdr_GOs2
+X-Authority-Analysis: v=2.4 cv=ZMrnX37b c=1 sm=1 tr=0 ts=6a7b5690 cx=c_pps
+ a=XVr+MSEQQxWnM56OsALW2Q==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=w1d2syhTAAAA:8 a=KBitPqK-shNkJ_V7GXcA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDE0MiBTYWx0ZWRfX2xra3pnJhRuK
+ lB8Jd/waXNFNX9YE8FpE9mkhsP3V2Y/xjR27yfc10gQlBjh0w7Spd3UwyAZgJGghkl5gPMNd6oy
+ G0MFDAHcGB1me/ubQHk0Eec2e33xxu5UZAqJN3jAujYWcQqluSXTTuyjBHFbEN3BOdQ8v4T+MGF
+ 71XfEHDx2Dm6D8qfb+3O4S6O1CIGjEwNfX9nO8GQc+pSXm/VC3kLY4pMG9Hh0pD11nOpyzMd8hz
+ zxW8RsEvSANhaAgbolw43hIM541tgWyspF7KSJkMAFLMUl5oe5oJh776oDhCvc9vq3qmZwkLTHl
+ VEWoeeBMcpPXSkX85VJ5P9TTAjVndG7ZtmAY0+8l/q2pIubl5wn7+OeUGCTHGWsOpCPylLR+0Bb
+ 3TZlpm0phsfFuJJ8o/hxfH2G/+UYdVBhu3fPVMGDf7bNmVVp3978FCI2MQ5ZsnueASEB1vNy04A
+ lBjJN9SxQzd5s3zOYPQ==
+X-Proofpoint-Spam-Reason: safe
 
+Introduces support for the multidevice synchronization (SYNC)
+bus. The properties introduced allow for the configuration
+of the device's transmitter IDs.
 
---=-DNHLbVYBy4pleStj0hu1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+---
+ .../bindings/sound/cirrus,cs35l45.yaml        | 27 +++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-On Wed, 2026-08-05 at 20:21 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
-> - [Medium] The schema describes a hardware constraint for the 'pmin2' fun=
-ction but fails to enforce it programmatically in the YAML logic.
-> - [Medium] The patch makes an undocumented, unrelated modification to the=
- MAINTAINERS file by adding a non-existent directory.
-> - [Medium] The pinctrl child node pattern `-pins$` requires the `function=
-` property but omits the `pins` property from the `required` list.
-> --
->=20
-> --- Patch [1]: [PATCH v3 1/5] dt-bindings: rtc: Add pinctrl for S35390A -=
---
-> commit 7fb91877359a278935b0893edcef6e5ae7d9c6a2
-> Author: Markus Probst <markus.probst@posteo.de>
->=20
->     dt-bindings: rtc: Add pinctrl for S35390A
->    =20
->     Synology NAS devices use the output pin for interrupt signal 1 to wak=
-e up
->     the system. Move devicetree bindings for sii,s35390a into its own fil=
-e.
->     Add necessary properties to configure the individual pins via pinctrl=
-,
->     which allows the interrupt signal 1 to be used for wakeup alarm.
->=20
-> > diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/D=
-ocumentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> > new file mode 100644
-> > index 0000000000000..0355f17f233a3
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> [ ... ]
-> > +          function:
-> > +            $ref: /schemas/types.yaml#/definitions/string
-> > +            description: |
-> > +              Pin function:
-> > +              - ignore:  Preserve the previous state.
-> > +              - disable: Disable pin output.
-> > +              - wakeup:  Output wakes up the system.
-> > +              - clock:   Output clock pulse.
-> > +              - pmin1:   Minute periodical output with 50% duty.
-> > +              - pmin2:   Minute periodical output L for 7.81 ms.
-> > +                         Can only be used with pin int1.
->=20
-> [Severity: Medium]
-> Could this hardware constraint be enforced programmatically in the YAML s=
-chema?
->=20
-> As currently written, a device tree specifying function =3D "pmin2" for=
-=20
-> pins =3D "int2" would silently pass dt_binding_check validation despite v=
-iolating=20
-> the documented hardware constraints. Should this be enforced using condit=
-ional=20
-> schema logic?
->=20
-> > +            enum:
-> > +              - ignore
-> > +              - disable
-> > +              - wakeup
-> > +              - clock
-> > +              - pmin1
-> > +              - pmin2
-> > +
-> > +        required:
-> > +          - function
-I cannot add further restrictions in an if statement to the property,
-than disabling or requiring it afaik.
+diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+index 70f6c62aedca..f64ba8c872b9 100644
+--- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
++++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+@@ -53,6 +53,29 @@ properties:
+     maximum: 3
+     default: 2
+ 
++  sync:
++    description:
++      Multidevice synchronization (SYNC) bus configuration
++    type: object
++    additionalProperties: false
++    properties:
++      cirrus,sync-lsw-txid:
++        description: |
++          Transmitter ID to use for long software (LSW) data packets
++          on the SYNC bus.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 7
++        default: 0
++      cirrus,sync-sw-txid:
++        description: |
++          Transmitter ID to use for short software (SW) data packets
++          on the SYNC bus.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 7
++        default: 0
++
+ patternProperties:
+   "^cirrus,gpio-ctrl[1-3]$":
+     description:
+@@ -155,5 +178,9 @@ examples:
+              gpio-ctrl = <0x1>;
+              gpio-dir = <0x1>;
+           };
++          sync {
++             cirrus,sync-lsw-txid = <0x1>;
++             cirrus,sync-sw-txid = <0x1>;
++          };
+         };
+     };
+-- 
+2.43.0
 
->=20
-> [Severity: Medium]
-> Should the pins property also be required here?
->=20
-> If a developer creates a pinmux child node specifying a function but omit=
-s the=20
-> mandatory pins identifier, the incomplete node will silently pass=20
-> dt_binding_check validation but fail to configure the hardware correctly =
-in=20
-> the driver.
-Yes.
-
-
->=20
-> > +
-> > +        additionalProperties: false
-> > +
-> > +    additionalProperties: false
-> [ ... ]
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 15011f5752a99..46a19a0873e06 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -22690,6 +22690,7 @@ T:	git git://git.kernel.org/pub/scm/linux/kerne=
-l/git/abelloni/linux.git
-> >  F:	Documentation/admin-guide/rtc.rst
-> >  F:	Documentation/devicetree/bindings/rtc/
-> >  F:	drivers/rtc/
-> > +F:	include/dt-bindings/rtc/
->=20
-> [Severity: Medium]
-> Is this addition to the MAINTAINERS file intentional?
-It isn't.
-
->=20
-> This introduces an undocumented and unrelated modification adding a direc=
-tory=20
-> that does not actually exist in the kernel tree, which may cause maintain=
-er=20
-> scripts to fail or behave unexpectedly.
->=20
-> >  F:	include/linux/rtc.h
-> >  F:	include/linux/rtc/
-> >  F:	include/uapi/linux/rtc.h
-
---=-DNHLbVYBy4pleStj0hu1
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmp7Vl4bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSSDIP/1qPbdVD96WWsrvK3XZi
-m4orKp2ETQYeHnboOl3+uIuFQrZYOY6nl34oVjhhJ4yrB4qe1LbkDJ97T70WTc5a
-J5PdfJ9ZY13wjVWD6p4vOFMIjENOxKmmy62AjOFy6QU4DfPZt2MNS3uShqyeZ+6z
-/YTezWmr2LbbPl+Mc92N72H9prMY82ZxtUwHGG0eVqiCZhYws7gvHS9ockgKA+CQ
-WS0WLOVYFtZqxnbPDqXW11LkBIPWYJXe+GIdYpgixuxA0Luo/UP0j6YVPbaavVWv
-Xi8UQeuSQgVs6YdgcihIMfVmcz/Hde1jBX6+OaVnLff9RSABcjeAd6/L2w7KJiu/
-TMW24qJ0Won5R5ndJRDj/P22sc2FuJiHnyzlF8uqrXbBi7nNdpJWtaSS7KOl8nMB
-bPo4MxLddxC99dpnRgId1vRJRjOl9CSflgClKgbT6LaBeYFBuqQRjc3yQkaeCXLw
-xuoGcITBU33O9Ix0mO1KwogZG1+Gp0f4Atd82AGv7mxkXfbkX5SuTYkb/JnfI0nW
-iisBB4D0Zi3MWkjYajZzmCmUE/lQNYrSLs8v4L3Mv8c78Fu1CxVbFieL/pyQRZ5w
-B11R6UyT8nsPT7m6PkRO1OZ7T6l/FK/+XciIu3f1N32jN65AuM53veR3jv65gDfs
-jPZ3PglS+7yMQZipvoNwj0LY
-=aw9u
------END PGP SIGNATURE-----
-
---=-DNHLbVYBy4pleStj0hu1--
