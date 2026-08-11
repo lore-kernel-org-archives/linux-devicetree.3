@@ -1,160 +1,169 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF833EC805;
-	Tue, 11 Aug 2026 19:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763DB3EB100
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 19:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786477032; cv=none; b=pWgQ66YzeVEDltakxDn+6AgjuJg3J9w+CRkY7iqDfrvvySBSFoZo9lkSLAMOgd1+z4jZ+QLmk3ifBHApEMWqf2lzJ6ea73aBfAnC1gIXRAfLjDALaATIsFOIeYtUWe2B42c45pOeCC/X/jdx32W3VqAvl18e79LIZ5twT4W/GKk=
+	t=1786477033; cv=none; b=Dh5K7pC+CrCxKRNmE68R+q/IuYH9rQ8wvTLaToGt35Gphd1tM4OxoL0LCMa9ZSdEUyPjR7r+h9E3slWZYlKkI4UPtdLVpEpJQHGw8kVx/CPajZzF9CohY7l0MOPj04jGJ4MvKwPvkDP0p9ymVuCxpIOyZWqdq7aGwMsctqGo9mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786477032; c=relaxed/simple;
-	bh=XhCocvRlqpxz3Ix+dK0e/T+Ux+SQ85BXJDki4NEkc4o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ANNsXIkiIlW9sePqZmh26hpqld8aU7scpZb61dzLpoqyOXB3BOYZv75W73Dh/X/wTch5aryCjXY5qrjqLeauCkIlePrtmgwtI/zrRihCt8jwduHmhEv5P7nw9Qhts6DTQwlsOFbOBXSYGoB6TZraC9DxUpCwLK+xElWrzplrVjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=1G1uTXbo; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1786477033; c=relaxed/simple;
+	bh=NPnnBgv4cW7xlqPQ2752/SCeU/CKbX/y1dH1UX/0MLE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BtvmDgQDAlBrJZP1iF6kbAct7cxJo0vOyFG2fNjzuoEOHfOGrCepKjf9uZv/d4leV+U89aaaLY9mPkZvzWIz2Q5oGRUxIPch1b32lStQYw9gDszEwppPMZyK5tRtdljtImcMPISjSIDFmbVrZ/MiCoWh0Qiahaf8+r6E1d/FHng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HE0QtYXU; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="1G1uTXbo"
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1786477022;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=OHA9zlC97iQEd9Z/K0ZMi6fcOGFr2AIQ8m935rD2YRM=;
-	b=1G1uTXboJ3+0TChcjCo/PBxFkklV7vYSqa+BsVaxW5SfprIUFR/lq/XMANH7pPjWjl4F/w
-	mbcRdore3GBWcwEHmDyLwwG6gFsSD/YsO0i8PEixQ50f5uwD83pXJUmx8EjWfkrcKqmCh9
-	7QVj4VQfNQqFgldVij4bekfLU5YVGto=
-Subject: [PATCH v3 0/9] Initial Apple Silicon M4 device trees and
- dt-bindings
-Date: Tue, 11 Aug 2026 21:36:53 +0200
-Message-Id: <20260811-apple-m4-initial-devicetrees-v3-0-6bf32d45ad0b@cyberchaos.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HE0QtYXU"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4957eefd361so1133625e9.1
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:37:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786477029; x=1787081829; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Cmyu/AALd+CLLHUAUOEgsycpvTvhYWOAGBvBiIKKJb8=;
+        b=HE0QtYXUHI127MY8y30NZhLtDhftzwAWuJaikNQiUQAldMXnXU+oBplgPPK4zljaCo
+         62Mby7rbvlPr2smXRAlqS0Vi9GgeYlr1wUMlw9kOtOBDZPDWwnugMVH5T2A9RsjdXfDo
+         74kIx0sBge7j9v1lSfdTLV5hMCg79hgWGZjks3uoRqlJHKpfM7+DXRJOlx1jyOPj5ZCO
+         ZDSH1dGoGBoeEm7ZZWjaeXv8Xk5TX1lt35ckqm6u2lyXTDM/qOLvRm/X/U4CZ91EdZdi
+         MqyNp0XF7dtHaMLbAusiAyiopIHoD92aXQ/yjlS4XcYPlHc6MaXQikfnFybzn3uLBLJB
+         xXGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786477029; x=1787081829;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Cmyu/AALd+CLLHUAUOEgsycpvTvhYWOAGBvBiIKKJb8=;
+        b=o4mXEsR2BZcihpV1lxilUCw4nfG2IDWua+4XqcNC7jX/DM8Mp33baJo5zOx8ulbtBf
+         o5cQ4cxH1HU2Pdl3yoFhDUCjVJMcRYlSteocYdndgU9uP7U2ja8OJJA5Vs0vQGHxQkyd
+         rusMNyeTPeJQm6Lpfl9SnxD3FbCKMrLL+o4bq9oYvX+gk7MJp9Xl4VkENPFAUKz7PhSC
+         w/mtQj+2KuO3v4lFzm8irJINdgpdnD9NcVPyFHfwDGWtaGtuhdDnKVLnSS6wa1ItI+Dz
+         B9nUjRJCM1SrzTuyVYonR2NwmpT1g/A0gv+vUI2HGtjySK0bm6t3nR9EKow3PdKo8acT
+         uhWQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2tj+V5zSt7wQwB+GFKZ2kL/YKWtdEWaFGeEtbXIHE76JcbBbjQqFyCo+79QtULhehIg7jZ9nro+5j@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFoaz4hjoqar8t7tg+av+U8HpS/NjVTRRF3wo5zP/5/BoJFJCT
+	rOHOxeaL23KANFQgJMJySPGxPURaA0jd88pmngrJaug/zADoWJxKnBSU
+X-Gm-Gg: AR+sD12lzOTQY9PfH54tBYguEvwmUqdsLWTkE91LpASrBt/VSI6XXHEdQs5zvwu+IGd
+	gprq2avOrnEXHjX3bqBtvF4LOji14yFgXhflfHMew9oNFVy+tPDVsYgP5JBpmV3jwGoFwxF41JH
+	axgsPKGVmXZOd7+3WRMa/IgyBgxhmaSzLSFq0pkrxo7Ke3YRfZf7sC4+LE9cgSmglXkAfX5/u+c
+	UWRHQx3lQY653Sc2ypNKc6xuB4r6skSB3Z5+DgQ1drPOhpUq/b7+ml5A1I4EF4IcKvHbR2KoxTM
+	N7txY8xY2gV2fveJbjB6s5sgUBcv+v7PPQ5ykPW3ba3Mc7IG2ZKkUbF0VqkhGG8DHlJbctI0u7f
+	aBkcljRnIS4JoWOCrh3uq4oFM/p8fmBqq2qos1jiRIz3en1aijy98Gb54fd/Zs3eWJyyl/Ekvb0
+	8xuSMAxcjyb7jaWmURj8d1FyFoU/kStvAkb9a0uvjw/8sI0NdRNp4qYBe8BCXHugNTlji98U1PH
+	gsL3kjn96TExom5l/TggoKeHo7xzA==
+X-Received: by 2002:a05:600c:c490:b0:493:a613:56b2 with SMTP id 5b1f17b1804b1-499784559a0mr94570785e9.8.1786477029607;
+        Tue, 11 Aug 2026 12:37:09 -0700 (PDT)
+Received: from localhost.localdomain.pl ([89.151.31.85])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997b15b807sm10130285e9.7.2026.08.11.12.37.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 12:37:09 -0700 (PDT)
+From: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	bcm-kernel-feedback-list@broadcom.com,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>
+Subject: [PATCH V2 RFC 2/2] ARM: dts: BCM5301X: change Luxul XWR-3150 CPU port from 5 do 8
+Date: Tue, 11 Aug 2026 21:36:58 +0200
+Message-ID: <20260811193658.14304-2-zajec5@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260811193658.14304-1-zajec5@gmail.com>
+References: <20260811193658.14304-1-zajec5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42QzU4DMQyEX6XKmSDnz0l64j0Qh8Tx0iDaLZvti
- qrqu5NtD0hwgIulkcbf2HMRjafKTWw3FzHxUlsdD12Yh42gXTq8sqyla6FBI3hwMh2P7yz3VtZ
- DnWt6l6VvEc8Tc5MDcs6KfNJUREccJx7q5w3//HLX7ZTfmOaVuTp2tc3jdL7lL2r1/TNqURIkO
- 3SO16nNE50zT/3osT12o1jzFv1NDKD+IOpOdJTBE2nvSvpFvN5fmPjj1Iua73+JnBpLGvf7Om8
- 3yCFCHtBa7ZwhnweHAX2KinTJHUw6ughwayfNtOv9bjeRKFpIiMBBlRQYDLAJhjVScckDDKw5/
- NhSCcFoNSCyjWBVUYV1QDso9AEgJjAOdbT98OsX8jfwIekBAAA=
-X-Change-ID: 20260705-apple-m4-initial-devicetrees-f6ebb1c7a2cd
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Sven Peter <sven@kernel.org>, 
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Hector Martin <marcan@marcan.st>, Linus Walleij <linusw@kernel.org>, 
- Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Sasha Finkelstein <k@chaosmail.tech>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
- linux-pwm@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Hi,
+From: Rafał Miłecki <rafal@milecki.pl>
 
-This series adds initial device trees and dt-bindings for the Apple
-Silicon devices using the M4 (t8132) SoC. For the most part it mirrors
-Janne's M3 (t8122) bringup series as it was merged in the 7.2 cycle.
+Northstar devices have 3 CPU ports (each connected to a different
+Ethernet interface). This design was meant for dual IMP setups when
+WAN traffic goes to port 5 and LAN traffic goes to port 8.
 
-This series covers only a minimal amount of hardware, which is useful
-as a basis for future developments. The hardware added here has remained
-largely unchanged between the M3 and M4 generations.
+For practical reasons we label only one of those ports as "cpu" (the
+rest remains disabled). It's because of Linux behaviour (and it's
+probably a bad thing since DT shouldn't "care" that that).
 
-Most of the changes for bringing these M4 devices into a bootable state
-have been happening in the m1n1 bootloader, which, compared to the M3
-generation, is no longer responsible for setting the configuration bits
-(🐔-bits) of the CPU, since these are now set and locked by iBoot.  
+So far the choice of "cpu" port was based on how vendor decided to setup
+given device originally: which of three Ethernet interfaces got MAC
+assigned and which port was used by vendor original firmware.
 
-Additionally, SMP boot depends on patches to avoid WFI and WFIT
-instructions, such as the idle=nop patches I sent out just before v1.
-Even with those, SMP boot remains unreliable.
+Most vendors decided to use CPU port 5 & relevant Ethernet interface.
+The problem is that only switch port 8 provides full functionality.
 
-Since there are no actual driver changes, we'd generally prefer to merge
-the dt-bindings changes through the apple-soc tree once Acked by the
-respective maintainers.
-There are two notable exceptions in this patch series, due to some
-commits having already been applied to the respective subsystems' trees:
-- "dt-bindings: watchdog: apple,wdt: Add t8132 compatible"[1] has already
-  been applied to the watchdog subsystem tree, and this patch series
-  will pass check_dtbs when applied on top of linux-next, which includes
-  that commit.
-- "dt-bindings: pinctrl: apple,pinctrl: Add t8132 compatible" should be
-  applied through the pinctrl tree, since it depends on
-  "dt-bindings: pinctrl: apple,pinctrl: Add t6030 and t6031 compatibles"[2]
-  which has been applied in the pinctrl tree.
+Change the choice of "cpu" port to 8 and make the third Ethernet
+interface (connected to port 8) use MAC designed for the first Ethernet
+interface (connected to port 5). This makes Linux use switch in a
+feature full way.
 
-Link: https://lore.kernel.org/asahi/20260705-apple-m4-initial-devicetrees-v1-3-e5655ee56523@cyberchaos.dev/ [1]
-Link: https://lore.kernel.org/all/20260709-apple-t603x-initial-devices-v1-7-55b305833123@jannau.net/ [2]
-
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+Signed-off-by: Rafał Miłecki <rafal@milecki.pl>
 ---
-Changes in v3:
-- Fix pinctrl_nub node ordering
-- Add i-cache-size and d-cache-size
-- Link to v2: https://patch.msgid.link/20260801-apple-m4-initial-devicetrees-v2-0-5cb07cc275da@cyberchaos.dev
+This seems to be a slight abuse of DT. Instead of describing hardware we
+make it steer Linux into using a more appropriate switch port. This
+isn't strictly a setback on its own. It's a change from one choice to
+another.
 
-Changes in v2:
-- Rebased on top of the M3 Pro/Max patch series, which was applied to
-  apple-soc earlier today.
-- Fix several typos
-- Explain merge strategy in cover letter
-- Drop "dt-bindings: watchdog: apple,wdt: Add t8132 compatible", as it's
-  been applied in linux-watchdog.
-- Reword dt-bindings commit messages to not reference the driver
-- Add apple,always-on to ps_ans node, since powering it off causes reboots
-- Disable ps_disp*_cpu nodes, since even reading their state causes
-  SErrors with recent firmware
-- Fix inconsistency of name and reg of aic node
-- Add M4 devices to the global description in Documentation/devicetree/bindings/arm/apple.yaml
-- Link to v1: https://patch.msgid.link/20260705-apple-m4-initial-devicetrees-v1-0-e5655ee56523@cyberchaos.dev
+I'm not sure about that MAC however. We say that the third Ethernet
+interface should use MAC that was designed for the first one.
 
----
-Yureka Lilian (9):
-      dt-bindings: arm: cpus: Add Apple M4 CPU core compatibles
-      dt-bindings: interrupt-controller: apple,aic2: Add apple,t8132 compatible
-      dt-bindings: arm: apple: apple,pmgr: Add t8132 compatible
-      dt-bindings: power: apple,pmgr-pwrstate: Add t8132 compatible
-      dt-bindings: pinctrl: apple,pinctrl: Add t8132 compatible
-      dt-bindings: i2c: apple,i2c: Add t8132 compatible
-      dt-bindings: pwm: apple,s5l-fpwm: Add t8132 compatible
-      dt-bindings: arm: apple: Add M4 based devices
-      arm64: dts: apple: Add minimal t8132 (M4) device trees
+Is all of that acceptable?
 
- Documentation/devicetree/bindings/arm/apple.yaml   |   21 +
- .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    1 +
- Documentation/devicetree/bindings/arm/cpus.yaml    |    2 +
- .../devicetree/bindings/i2c/apple,i2c.yaml         |    1 +
- .../bindings/interrupt-controller/apple,aic2.yaml  |    1 +
- .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    1 +
- .../bindings/power/apple,pmgr-pwrstate.yaml        |    1 +
- .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    1 +
- arch/arm64/boot/dts/apple/Makefile                 |    6 +
- arch/arm64/boot/dts/apple/t8132-j604.dts           |   35 +
- arch/arm64/boot/dts/apple/t8132-j623.dts           |   18 +
- arch/arm64/boot/dts/apple/t8132-j624.dts           |   18 +
- arch/arm64/boot/dts/apple/t8132-j713.dts           |   35 +
- arch/arm64/boot/dts/apple/t8132-j715.dts           |   35 +
- arch/arm64/boot/dts/apple/t8132-j773g.dts          |   25 +
- arch/arm64/boot/dts/apple/t8132-jxxx.dtsi          |   48 +
- arch/arm64/boot/dts/apple/t8132-pmgr.dtsi          | 1130 ++++++++++++++++++++
- arch/arm64/boot/dts/apple/t8132.dtsi               |  467 ++++++++
- 18 files changed, 1846 insertions(+)
----
-base-commit: 6e890bf6442553c7bf56867a91c2dbcc2c295900
-change-id: 20260705-apple-m4-initial-devicetrees-f6ebb1c7a2cd
-prerequisite-patch-id: 9cc940a660e81da8e030e383e26cd5a700fe2e80
-prerequisite-patch-id: 1a60321f66e49041d1de2864f1678009a0356294
+ .../arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Best regards,
---  
-Yureka Lilian <yureka@cyberchaos.dev>
+diff --git a/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts b/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts
+index 8e487f60a2cc..7969f0f331b5 100644
+--- a/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts
++++ b/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts
+@@ -81,6 +81,11 @@ &gmac0 {
+ 	nvmem-cell-names = "mac-address";
+ };
+ 
++&gmac2 {
++	nvmem-cells = <&et0macaddr 0>;
++	nvmem-cell-names = "mac-address";
++};
++
+ &pcie_bridge0 {
+ 	wifi@0,0 {
+ 		compatible = "brcm,bcm4366-fmac", "brcm,bcm4329-fmac";
+@@ -136,7 +141,7 @@ port@4 {
+ 		};
+ 
+ 		port@5 {
+-			label = "cpu";
++			status = "disabled";
+ 		};
+ 
+ 		port@7 {
+@@ -144,7 +149,7 @@ port@7 {
+ 		};
+ 
+ 		port@8 {
+-			status = "disabled";
++			label = "cpu";
+ 		};
+ 	};
+ };
+-- 
+2.51.0
 
