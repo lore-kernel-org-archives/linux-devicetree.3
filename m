@@ -1,22 +1,22 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49D644CF25;
-	Tue, 11 Aug 2026 16:04:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAEF3BD659;
+	Tue, 11 Aug 2026 16:04:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786464264; cv=none; b=UAkRHnY0T2zC9utWV9qSmRsGgu0evQmAqs6L/31lUpBV1Q4N144PTWiCmziwSDbdsJ0+qdpS05SvfrccsO0U4fFOtE47w+UHuz6Ngw3OUNC6XfY3tjmxtH9vZa1z2iIQa6R9ZU+KelvnPbtsxP4be5Mdf1YlJzhR7kFq4412FD8=
+	t=1786464264; cv=none; b=perUQOSAiXY8WkrwsaFG1fM66+GrzTV4zno7dKIo21QQPv0XkmXChHfJlCRe0h0VoiAYTIGYDHO5z5BCp4uWM9BqvQx0fRTJiw3lEWmahIzicoy47XsTi66VB7l7nEgKWOPMstBA8jwyNAeefHIYb5TSBZtnv6xpiW0SdEbGH2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786464264; c=relaxed/simple;
-	bh=FqFbK4KpdGlkNZietP69oqW51qLSXbPgbYrtUFNu9Zo=;
+	bh=Bz5VIkoQKpnIVRzFlQBbxMRZX9jrt37vpkpuL+tVX6c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=foC94y0IFEjXDSOy5r5Abmw8h+PB5IQoFyxNQ+GLjYWgvgEuJjKBgQVsn3dWmUNpG+TIqypSzjkS/sminbMr+NpSIBTKIA4PBiG++wFHCmR/FWY1SPOEtULRb1HTMDFhzSehfcy8z3lNLoeeql6kRHlCk5rEAoVWiKjupbjCOL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=xr9xb9zr; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sQQQuvQU; arc=none smtp.client-ip=193.142.43.55
+	 In-Reply-To:To:Cc; b=d3oOadvzNafHRpj8G8SWFJ216pwOMxU/Yl9L5gP6oznXjh9o6au2SXrleVEAEmnRJ7wQZgDv0FckSKu5dXPE7a3xozo9gY6kDRu16cwdMp3xgfgdV5gOSB9BTYn4tyToCDr4w4K89BROgYU1ZRDxIfAI4hY3iAVwtAxzQ5q3Jes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MBrra3QU; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ukVRVAyt; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="xr9xb9zr";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sQQQuvQU"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MBrra3QU";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ukVRVAyt"
 From: Gregor Herburger <gregor.herburger@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020; t=1786464261;
@@ -24,23 +24,24 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Ptgbg2rZaEsTjE9dLT79mTbDs0W/jNl0+5wzhjip51A=;
-	b=xr9xb9zrTfHNTZeaj5MGgn0tyThqOx/RCSoZjSPSlo+Akg052DnNmPKATeCfNOpEi4NC/g
-	tgWDU1S1bj0UjWRZ7OjUUUqW6RFleBxAkcQ0fqp7whUsEtnc7AukvaoKPqwZOamFonig8X
-	2XbN91ii3ZbKtj7yTlq4AWkGGuNeeeWJIdnHb0j23UInf9bJEs3t7FHNusHTNFuF3/8Da+
-	RiCjCHbcklMj0+x1HjIm3zucOLhMda4cwgaB0mmdGArYG/2uv0IUn4gF9GDKYmAqlZ5/rp
-	KSzFUqsBjiInWkONZJtM2pCLSowCFQ5y36pb30Q+RCPayWtT6nK+2HqDIIzWUQ==
+	bh=R9faxvCSlME9QEKQ1ahFv9nOyOfV75qVRHVIQ5bM1Z4=;
+	b=MBrra3QUZrU58LZoX5t4IoQLaBZK3ou9BMTZh+j41a5K+LH+uHp3Wbm9FPcrj/z0q+yQyl
+	VnFecThJ0O5DpKJSnppHqhVsAqZhtsfVq6HxjW8VikvktCzFd8RLOBzgapMX0XgpMR0I+Q
+	EauOMhhP5v78jGs9JZ0PZfbWP8OQPZdXwEXA7wZXa9UI813Nr/7xzcGLBkSB9I7J54Ui0T
+	M5dtAtIr6r170uhJ6lZTOmoFyIPLMsNmBTH3y6MWj/y7JFRyP/2VfoGhJpRbf4HGjww7N+
+	T0f1sVxhUkXFLmNrp/TJz/YMc5mRIm9xHjmdP2u7w4FC/ygzyTNGn3EFfm5FJA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1786464261;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Ptgbg2rZaEsTjE9dLT79mTbDs0W/jNl0+5wzhjip51A=;
-	b=sQQQuvQU9bqBEBvfQzlakrKZ4HGiHWQSxamvy/zoJeVhMQg94uiIWrED98Jc68Lg3cURoT
-	OW2PNlF+zkr19KCg==
-Date: Tue, 11 Aug 2026 18:04:15 +0200
-Subject: [PATCH 1/2] arm64: dts: broadcom: rp1: add spi controller
+	bh=R9faxvCSlME9QEKQ1ahFv9nOyOfV75qVRHVIQ5bM1Z4=;
+	b=ukVRVAyt2Jhrq4oa6FSMGsLU04GXBqmCQS4BFQNqKUm30KJ7r8YkNDcVv98ceWuxSAgPga
+	yVUyF/AsfyOIDwBA==
+Date: Tue, 11 Aug 2026 18:04:16 +0200
+Subject: [PATCH 2/2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
+ interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,7 +50,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-bcm2712-spi-v1-1-4c1708d354bb@linutronix.de>
+Message-Id: <20260811-bcm2712-spi-v1-2-4c1708d354bb@linutronix.de>
 References: <20260811-bcm2712-spi-v1-0-4c1708d354bb@linutronix.de>
 In-Reply-To: <20260811-bcm2712-spi-v1-0-4c1708d354bb@linutronix.de>
 To: Andrea della Porta <andrea.porta@suse.com>, 
@@ -60,154 +61,57 @@ To: Andrea della Porta <andrea.porta@suse.com>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786464260; l=3713;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786464260; l=1343;
  i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=FqFbK4KpdGlkNZietP69oqW51qLSXbPgbYrtUFNu9Zo=;
- b=JELCilY3swOAHdx7HexxZOuK/fCO0wHMs3FrfqCULObgSSNNgd2xg9JpLyQIk3ivCmKrkrIjr
- llMGKllo2GiDf6g0pCso0s04+i/PtetnpQ1b+/RAFarzSvCup5xFjUt
+ bh=Bz5VIkoQKpnIVRzFlQBbxMRZX9jrt37vpkpuL+tVX6c=;
+ b=Kq2vLt/BC4nMMMCMU+G9SBH7lCVFa9vJgvXyBYNbH+/wAZ8poGKw+rKmZajb97vlLs9xU+ayo
+ vWb1W0JZmyrD6A3WoC4CnoAu53p3purxTnchEcGqYwfsGlto0TCISiZ
 X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
  pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-The rp1 processor found on the Raspberry Pi 5 has nine Synchronous
-Serial Interfaces.
-
-Add the relevant nodes to the devicetree.
+The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
+Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
+the spi interface.
 
 Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
- arch/arm64/boot/dts/broadcom/rp1-common.dtsi | 119 +++++++++++++++++++++++++++
- 1 file changed, 119 insertions(+)
+ arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-index 16f5359395835..8d9de71efdba9 100644
---- a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-@@ -26,6 +26,125 @@ rp1_clocks: clocks@40018000 {
- 				       <200000000>;  // RP1_CLK_SYS
+diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+index 0fc57e72632ed..81aec81c5ce12 100644
+--- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
++++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+@@ -69,6 +69,14 @@ usb_vbus_default_state: usb-vbus-default-state {
+ 		groups = "vbus1";
  	};
  
-+	rp1_spi8: spi@4004c000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x4004c000  0x0 0x130>;
-+		interrupts = <56 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		num-cs = <2>;
-+
-+		status = "disabled";
++	rp1_spi0_default_state: rp1-spi0-default-state {
++		function = "spi0";
++		groups = "spi0";
++		bias-disable;
++		drive-strength = <12>;
++		slew-rate = <1>;
 +	};
 +
-+	rp1_spi0: spi@40050000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x40050000  0x0 0x130>;
-+		interrupts = <19 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		num-cs = <4>;
+ 	rp1_i2c4_default_state: rp1-i2c4-default-state {
+ 		function = "i2c4";
+ 		groups = "i2c4_2";
+@@ -94,6 +102,14 @@ &rp1_i2c6 {
+ 	pinctrl-names = "default";
+ };
+ 
++&rp1_spi0 {
++	pinctrl-0 = <&rp1_spi0_default_state>;
++	pinctrl-names = "default";
 +
-+		status = "disabled";
-+	};
++	num-cs = <2>;
++	cs-gpios = <&rp1_gpio 8 GPIO_ACTIVE_LOW &rp1_gpio 7 GPIO_ACTIVE_LOW>;
++};
 +
-+	rp1_spi1: spi@40054000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x40054000  0x0 0x130>;
-+		interrupts = <20 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		num-cs = <3>;
-+
-+		status = "disabled";
-+	};
-+
-+	rp1_spi2: spi@40058000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x40058000  0x0 0x130>;
-+		interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		num-cs = <2>;
-+
-+		status = "disabled";
-+	};
-+
-+	rp1_spi3: spi@4005c000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x4005c000  0x0 0x130>;
-+		interrupts = <22 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		num-cs = <2>;
-+
-+		status = "disabled";
-+	};
-+
-+	rp1_spi4: spi@40060000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x40060000  0x0 0x130>;
-+		interrupts = <23 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <0>;
-+		#size-cells = <0>;
-+		num-cs = <1>;
-+		spi-slave;
-+
-+		status = "disabled";
-+	};
-+
-+	rp1_spi5: spi@40064000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x40064000  0x0 0x130>;
-+		interrupts = <24 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		num-cs = <2>;
-+
-+		status = "disabled";
-+	};
-+
-+	rp1_spi6: spi@40068000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x40068000  0x0 0x130>;
-+		interrupts = <54 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		num-cs = <3>;
-+
-+		status = "disabled";
-+	};
-+
-+	rp1_spi7: spi@4006c000 {
-+		compatible = "snps,dw-apb-ssi";
-+		reg = <0x00 0x4006c000  0x0 0x130>;
-+		interrupts = <55 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&rp1_clocks RP1_CLK_SYS>;
-+		clock-names = "ssi_clk";
-+		#address-cells = <0>;
-+		#size-cells = <0>;
-+		num-cs = <1>;
-+		spi-slave;
-+
-+		status = "disabled";
-+	};
-+
- 	rp1_i2c0: i2c@40070000 {
- 		compatible = "snps,designware-i2c";
- 		reg = <0x0 0x40070000  0x0 0x1000>;
+ &rp1_usb0 {
+ 	pinctrl-0 = <&usb_vbus_default_state>;
+ 	pinctrl-names = "default";
 
 -- 
 2.47.3
