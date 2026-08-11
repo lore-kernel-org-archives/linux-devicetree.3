@@ -1,283 +1,93 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B1C439F76;
-	Tue, 11 Aug 2026 10:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786444987; cv=pass; b=ayShTNTFMSXxd7jBQaG+L6U+gorz4UtFB8pkWTTX+44Xt0OjC8BziTzH8bD+ubVrn2zQouMIB62slfvOl35p1LLmFPq2pNi1zK5wYGXmujl14eZBGi9PbVUGZt9ZOg6aeNAutOybHUeWLe6JDmEQQmrJFbGiexCMlXzXfLMsz4o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786444987; c=relaxed/simple;
-	bh=7eF/3Xl9WhkFl9DnSngVmlAKBaR49djpx+SAGalwgFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VieUVHaSgWdNE2cPIEwB/H3sE3j47d522UHIRqi+NtMJTBFHr0OBXE495f4KWyBztN9ipJ4z2CyRx6RCJgsuclwhK1cB5q9A3P0+zCJ0K2oQa7fi8iYp09CfLetvy3NxsP4engn4KnbXiEpNUyb1I1XSO3DVX1Ga/4uqff+IXek=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=RW7NwS9M; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC33B2EBBB7;
+	Tue, 11 Aug 2026 10:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786445233; cv=none; b=Txolt6AY04goEURaNl1o/jF1QrRCkKXwz7073n3nxjBN4mk5dOS1+pZqW/IehSnyzTK0QJ2lLV7l6aIEH3r64wEHF+skCgVSSn5culWhoDzFHOM0U9pbJOwGEoMUhDDfxdQmShc3OYNQ/uZGAOcxKeEIHTdSUVwJm2WHxIEOVZM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786445233; c=relaxed/simple;
+	bh=uq/6L7LsS7MPokPDOD7kqpoN4FIh4OTHmYZC7AfgJjo=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=CA+gn3uLajQrtMWPXsHAuRp7kV65UFG+kAXSNDww1R5OYoURut6eoS+YcKM3TCLjMsX3p74UgG6nYfapDw70cfNFk8NmJXivvyqTABlcMdcj2BhvcG/dhWPy01xpj24DkYDmZ5CMnJ76DVpplTSrXO3ODS+qfsTC4a6XyvziXII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwLQwIID; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="RW7NwS9M"
-ARC-Seal: i=1; a=rsa-sha256; t=1786444962; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UDgpdepGLc+/s96UhWWfyxvqKzKcX+Rkee+5j0s/Dw4qEOz1NP7pFaHpnng0oKcFXekb55gkvKHWg1U916TcWJwtRvD04v3g24O0+5gTnQDTp/KrkZbFSUB7brQ+ZVZOjt8nhqIYOspNhN5AOdtJSYJju7/hzKK4XwTjKonU+tc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786444962; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=25yiAMZ/1b9W5h2xLR5CigmM3pn7DC+Zp5Nh2UiqgXM=; 
-	b=YJr8HehQbHbqjk7WXfPnVjwP3iyMOf2UDihyQClirwEeelYG6Z5NxoBVdpYwdvR0o4PSDiL1Zj0M0/CyXleIqhw2BL07xbdC/WKV6DTjONDGuIiarRmJRFY9SYoMffWzd54EO5SBA/HmjCaT7BZ/XFlFd2z0xCKr/fH089WpUdc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786444962;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=25yiAMZ/1b9W5h2xLR5CigmM3pn7DC+Zp5Nh2UiqgXM=;
-	b=RW7NwS9MiymfTmzMxABWzWGWaapHmGDM7YfPyLk156EYOmFQAzFondjDAODAZEaw
-	w4Ilh3PBS7e4ZuenkGmpCs8YUP6etoIH471fUXIgHV61HIf89nSiRIUCpZ4zBHp2KWC
-	b5+194SY6uvmaXoZGV7iczHB/IixHDoOPtLERUbs=
-Received: by mx.zohomail.com with SMTPS id 1786444959879540.8535890370583;
-	Tue, 11 Aug 2026 03:42:39 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 2B83718025E; Tue, 11 Aug 2026 12:42:36 +0200 (CEST)
-Date: Tue, 11 Aug 2026 12:42:36 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Cole Munz <Munzzyy1@proton.me>
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Alexey Charkov <alchark@gmail.com>, 
-	Alexey Charkov <alchark@flipper.net>, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: rk3576: add cache hierarchy
- information to CPU nodes
-Message-ID: <anr6ryIsMg84w-ei@venus>
-References: <8a8f808a4c7b8325bc253add15e51b396a7d62d1.1785260742.git.Munzzyy1@proton.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwLQwIID"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B0B1F000E9;
+	Tue, 11 Aug 2026 10:47:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786445232;
+	bh=8e/QUIozB9pAOyPirFSaLSvJCK7uvlhu4fI2tvbeTM8=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=mwLQwIIDL0GJBLcEBKb2wmf5wTHMnzkVpq/GAmQ2r1fv0H3taiXsP4nA0f74fgzQI
+	 ynt4AgF4HLxwHMK6sJN9sCCQS8KxYQjVQshQm2pMssYoTCbqxWyATl2mszoICKohQg
+	 tmj2vDNViISTNGs6APPltBH36m/slBjWG0WSjrDY6j/3yuOVBush9KaiZ6AqtXx8eL
+	 N31W5r4L48F6hfWjKLwwFz/ng5IaJKNfutcrsEE2CPNTEnd03UgJeG8YrRN2Nm+/Ri
+	 ZwH1kUdWr9d6u6BIaB0ZuXYwvgltEVA4TfnjIC8iK+A5prFQv3LYWfqHiY7yv0Sliu
+	 RO24hhfvYysng==
+Date: Tue, 11 Aug 2026 05:47:11 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="c4glmvlaj5ehl2ro"
-Content-Disposition: inline
-In-Reply-To: <8a8f808a4c7b8325bc253add15e51b396a7d62d1.1785260742.git.Munzzyy1@proton.me>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.434.97
-X-ZohoMailClient: External
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: daniel.baluta@nxp.com, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ linux-gpio@vger.kernel.org, simona.toaca@nxp.com, 
+ Conor Dooley <conor+dt@kernel.org>
+To: Eduard Bostina <egbostina@gmail.com>
+In-Reply-To: <20260811092057.687155-1-egbostina@gmail.com>
+References: <20260811092057.687155-1-egbostina@gmail.com>
+Message-Id: <178644523153.1349816.655993681272679789.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: pinctrl: Convert TI DA850 pupd to DT
+ schema
 
 
---c4glmvlaj5ehl2ro
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] arm64: dts: rockchip: rk3576: add cache hierarchy
- information to CPU nodes
-MIME-Version: 1.0
-
-Hi,
-
-On Tue, Jul 28, 2026 at 05:46:14PM +0000, Cole Munz wrote:
-> The RK3576 CPU nodes carry no cache properties, so cache_setup_of_node()
-> fails with -ENOENT on the first CPU. That error propagates out of
-> cache_shared_cpu_map_setup(), which discards the topology arm64 had
-> already derived from CLIDR, and the boot log gets
->=20
->   cacheinfo: Unable to detect cache hierarchy for CPU 0
->=20
-> Add L1 i/d cache size, line-size and sets to all eight CPU nodes, plus
-> per-cluster unified L2 nodes wired up through next-level-cache. Sizes
-> come from the RK3576 datasheet: the Cortex-A72 cluster has 48KB L1 I and
-> 32KB L1 D per core with 1MB of L2, the Cortex-A53 cluster has 32KB L1 I
-> and 32KB L1 D per core with 512KB of L2. Line size and associativity are
-> architecturally fixed per the Cortex-A53 and Cortex-A72 TRMs, so the
-> *-sets values follow as size / (line-size * ways).
->=20
-> With this applied, lscpu reports the full hierarchy instead of only the
-> level, type and shared_cpu_list:
->=20
->  NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL SETS PHY-LINE COHERENCY-SI=
-ZE
->  L1d       32K     256K    4 Data            1  128                      =
-64
->  L1i       32K     320K    2 Instruction     1  256                      =
-64
->  L2       512K     1.5M   16 Unified         2  512                      =
-64
->=20
-> Tested-by: Alexey Charkov <alchark@flipper.net>
-> Signed-off-by: Cole Munz <Munzzyy1@proton.me>
+On Tue, 11 Aug 2026 09:20:57 +0000, Eduard Bostina wrote:
+> Convert the Texas Instruments DA850/OMAP-L138/AM18x pullup/down
+> controller bindings to DT schema.
+> 
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 > ---
+>  .../bindings/pinctrl/ti,da850-pupd.txt        | 55 --------------
+>  .../bindings/pinctrl/ti,da850-pupd.yaml       | 74 +++++++++++++++++++
+>  2 files changed, 74 insertions(+), 55 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml
+> 
 
-I've checked the numbers against RK3576 TRM and ARM information.
-Looks all good to me:
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+yamllint warnings/errors:
 
-Greetings,
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.example.dtb: pin-controller@22c00c (ti,da850-pupd): bias-groups:phandle: 1 is valid under each of {'required': ['drive-open-drain']}, {'required': ['drive-push-pull']}, {'required': ['drive-open-source']}
+	from schema $id: http://devicetree.org/schemas/pinctrl/ti,da850-pupd.yaml
+Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.example.dtb: pin-controller@22c00c (ti,da850-pupd): bias-groups:phandle: 1 is valid under each of {'required': ['bias-bus-hold']}, {'required': ['bias-pull-up']}, {'required': ['bias-pull-down']}, {'required': ['bias-pull-pin-default']}, {'required': ['bias-disable']}
+	from schema $id: http://devicetree.org/schemas/pinctrl/ti,da850-pupd.yaml
+Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.example.dtb: pin-controller@22c00c (ti,da850-pupd): bias-groups:phandle: 1 is not of type 'object'
+	from schema $id: http://devicetree.org/schemas/pinctrl/ti,da850-pupd.yaml
 
--- Sebastian
+doc reference errors (make refcheckdocs):
 
->  arch/arm64/boot/dts/rockchip/rk3576.dtsi | 74 ++++++++++++++++++++++++
->  1 file changed, 74 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
-ts/rockchip/rk3576.dtsi
-> index e12a2a0cfb89..656513aa999f 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> @@ -117,6 +117,13 @@ cpu_l0: cpu@0 {
->  			dynamic-power-coefficient =3D <120>;
->  			cpu-idle-states =3D <&CPU_SLEEP>;
->  			#cooling-cells =3D <2>;
-> +			i-cache-size =3D <0x8000>;
-> +			i-cache-line-size =3D <64>;
-> +			i-cache-sets =3D <256>;
-> +			d-cache-size =3D <0x8000>;
-> +			d-cache-line-size =3D <64>;
-> +			d-cache-sets =3D <128>;
-> +			next-level-cache =3D <&l2_cache_l>;
->  		};
-> =20
->  		cpu_l1: cpu@1 {
-> @@ -129,6 +136,13 @@ cpu_l1: cpu@1 {
->  			operating-points-v2 =3D <&cluster0_opp_table>;
->  			cpu-idle-states =3D <&CPU_SLEEP>;
->  			#cooling-cells =3D <2>;
-> +			i-cache-size =3D <0x8000>;
-> +			i-cache-line-size =3D <64>;
-> +			i-cache-sets =3D <256>;
-> +			d-cache-size =3D <0x8000>;
-> +			d-cache-line-size =3D <64>;
-> +			d-cache-sets =3D <128>;
-> +			next-level-cache =3D <&l2_cache_l>;
->  		};
-> =20
->  		cpu_l2: cpu@2 {
-> @@ -141,6 +155,13 @@ cpu_l2: cpu@2 {
->  			operating-points-v2 =3D <&cluster0_opp_table>;
->  			cpu-idle-states =3D <&CPU_SLEEP>;
->  			#cooling-cells =3D <2>;
-> +			i-cache-size =3D <0x8000>;
-> +			i-cache-line-size =3D <64>;
-> +			i-cache-sets =3D <256>;
-> +			d-cache-size =3D <0x8000>;
-> +			d-cache-line-size =3D <64>;
-> +			d-cache-sets =3D <128>;
-> +			next-level-cache =3D <&l2_cache_l>;
->  		};
-> =20
->  		cpu_l3: cpu@3 {
-> @@ -153,6 +174,13 @@ cpu_l3: cpu@3 {
->  			operating-points-v2 =3D <&cluster0_opp_table>;
->  			cpu-idle-states =3D <&CPU_SLEEP>;
->  			#cooling-cells =3D <2>;
-> +			i-cache-size =3D <0x8000>;
-> +			i-cache-line-size =3D <64>;
-> +			i-cache-sets =3D <256>;
-> +			d-cache-size =3D <0x8000>;
-> +			d-cache-line-size =3D <64>;
-> +			d-cache-sets =3D <128>;
-> +			next-level-cache =3D <&l2_cache_l>;
->  		};
-> =20
->  		cpu_b0: cpu@100 {
-> @@ -166,6 +194,13 @@ cpu_b0: cpu@100 {
->  			dynamic-power-coefficient =3D <320>;
->  			cpu-idle-states =3D <&CPU_SLEEP>;
->  			#cooling-cells =3D <2>;
-> +			i-cache-size =3D <0xc000>;
-> +			i-cache-line-size =3D <64>;
-> +			i-cache-sets =3D <256>;
-> +			d-cache-size =3D <0x8000>;
-> +			d-cache-line-size =3D <64>;
-> +			d-cache-sets =3D <256>;
-> +			next-level-cache =3D <&l2_cache_b>;
->  		};
-> =20
->  		cpu_b1: cpu@101 {
-> @@ -178,6 +213,13 @@ cpu_b1: cpu@101 {
->  			operating-points-v2 =3D <&cluster1_opp_table>;
->  			cpu-idle-states =3D <&CPU_SLEEP>;
->  			#cooling-cells =3D <2>;
-> +			i-cache-size =3D <0xc000>;
-> +			i-cache-line-size =3D <64>;
-> +			i-cache-sets =3D <256>;
-> +			d-cache-size =3D <0x8000>;
-> +			d-cache-line-size =3D <64>;
-> +			d-cache-sets =3D <256>;
-> +			next-level-cache =3D <&l2_cache_b>;
->  		};
-> =20
->  		cpu_b2: cpu@102 {
-> @@ -190,6 +232,13 @@ cpu_b2: cpu@102 {
->  			operating-points-v2 =3D <&cluster1_opp_table>;
->  			cpu-idle-states =3D <&CPU_SLEEP>;
->  			#cooling-cells =3D <2>;
-> +			i-cache-size =3D <0xc000>;
-> +			i-cache-line-size =3D <64>;
-> +			i-cache-sets =3D <256>;
-> +			d-cache-size =3D <0x8000>;
-> +			d-cache-line-size =3D <64>;
-> +			d-cache-sets =3D <256>;
-> +			next-level-cache =3D <&l2_cache_b>;
->  		};
-> =20
->  		cpu_b3: cpu@103 {
-> @@ -202,6 +251,31 @@ cpu_b3: cpu@103 {
->  			operating-points-v2 =3D <&cluster1_opp_table>;
->  			cpu-idle-states =3D <&CPU_SLEEP>;
->  			#cooling-cells =3D <2>;
-> +			i-cache-size =3D <0xc000>;
-> +			i-cache-line-size =3D <64>;
-> +			i-cache-sets =3D <256>;
-> +			d-cache-size =3D <0x8000>;
-> +			d-cache-line-size =3D <64>;
-> +			d-cache-sets =3D <256>;
-> +			next-level-cache =3D <&l2_cache_b>;
-> +		};
-> +
-> +		l2_cache_l: l2-cache-cluster0 {
-> +			compatible =3D "cache";
-> +			cache-level =3D <2>;
-> +			cache-unified;
-> +			cache-size =3D <0x80000>;
-> +			cache-line-size =3D <64>;
-> +			cache-sets =3D <512>;
-> +		};
-> +
-> +		l2_cache_b: l2-cache-cluster1 {
-> +			compatible =3D "cache";
-> +			cache-level =3D <2>;
-> +			cache-unified;
-> +			cache-size =3D <0x100000>;
-> +			cache-line-size =3D <64>;
-> +			cache-sets =3D <1024>;
->  		};
-> =20
->  		idle-states {
-> --=20
-> 2.55.0
->=20
->=20
+See https://patchwork.kernel.org/project/devicetree/patch/20260811092057.687155-1-egbostina@gmail.com
 
---c4glmvlaj5ehl2ro
-Content-Type: application/pgp-signature; name="signature.asc"
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
------BEGIN PGP SIGNATURE-----
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmp6/JgACgkQ2O7X88g7
-+po1nw/9G+lG+42+fXZrm08LTFL00t1oNw8LoUhYPM+7n6UwbDJfVEN40XawgOz4
-PDKyg/DwYSATccqFdg9YbankJU3hzs1WB6WVto0grv4XkGnn85BMsDp5QO7N1eGW
-zDgMQbFbaSTQrHBYsJFAGASWMJcL3i1rxQIX0F0rmCEDlVqUgbHdmO43OsiwyRdH
-MVYpIdInKx/xLxpo/z0C5ZMNp5NlfIJ+qYvpJmYOEiFjKzgU6TK+he1+nMM867DH
-KCi9eg8GQ+wmITjOaWM1Z81Hs8i/Ntte5YODMcHPt9YDBRiE/Ry0hX3E6ThUCIc6
-ti8apfBqFT390KhrNCdlRg6PPx7jlHhunBPffpu6cPEWS5cLba8X/zjaab3ugrlD
-jsobXYRcVOxlvIjfb+RnfLqCC0cqYUSZPkSbTffnye0wpl05sbh1y8eBZNtmksNN
-L2LObbm8SeDu8YksIdLxnXOAYoLDEhIO3Csj43tU6BKHpDnHVLg7uSSFkeKu2+6c
-Gv3Nzo1EATkB9ii0aoXrnDkZb8/3Rh+kCV0g2PDtdi5560UbcfwLl3UMYMyfLp8o
-u29D+J/VTtrzxODN8PY+OufE90jjyWZNXfjEo50YkjZwsvl9/e4c/2bzORP52Bnv
-c3w1lXhoEgqqtxuE4aEdsC6ORLBz+Oaaf+0BguB7/JsxobjKyYs=
-=K2VW
------END PGP SIGNATURE-----
+pip3 install dtschema --upgrade
 
---c4glmvlaj5ehl2ro--
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
