@@ -1,214 +1,243 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E233429016
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB28742669E
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786439819; cv=none; b=aW00Yrxou+oNHn3L7i4pvHTGOJaQGf9bcB38m7VMD/IjCmHqOphFDCtJv2bwslsvJ6gGxQUeJ1+5rf4Zbsz93cZ5tYp8t+KfLWu/u578fL3AyGxyjDCBmzyWikllB2B8n3Xozj4iBBmwtXuCAONAE+EQEi7w3uBHWCB5r786RpI=
+	t=1786439871; cv=none; b=DVtZmTABBnhKxOrSzuzHAal5yYh3h6uIEKER6v8Jtof9qbZuEgYfokZBzOPQbl6pH8wbuZpkKQNRWKzd/c1/QeOFTevKPmPeuHup1WxmZVeguDrA8VIu3DTRbWzZ5TdCIOutrRony2p0f8kpna54z8C0isVsAvWH8FN1BBb3G/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786439819; c=relaxed/simple;
-	bh=Nl1wffsWKRQ/B1SUEA8s8v0wN92Ql2Dc3V2zBOoiP5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J5OLB/R68GEIV8YawmK+72gfynhUYomp5QErQvzJ9qFv85KlAQ7IxDkVLvYixedpS6HZhxdymXVpp4tRe+1Dk1SDkiKFUY7u4NgnslYNQ8lOU48UHAvieQ0qSWacTtnsqbTuwwFWh1fgfuo7yfZq8LNkvn8b5++WQ1rMRktoQZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B9JeDeC6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UOne8TCY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786439871; c=relaxed/simple;
+	bh=InczLySXpyBrRix4jg6+8nPmD2FL0BQhNSmxXOu4iWE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bx2YlA83GpdqmTOd7zAR9tG+CW3nItxiKIAA2kcO/ByEgMNuxZQcnkQRm1T/wEdC9SS5P6KH9wNMxedEYSp0JQ3pihQdFpbTjxSpTuXlpyJs0+x0RxiQavfotKqAJwBbevUgfJ7wgZTM9CEMkfyNwwLWTRAzlO3261dPm05sNsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ka2GbQIa; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B9JeDeC6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UOne8TCY"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67B43vhu3320894
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:16:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pyvS/7fuxI2i5y2pp6Uz65Du
-	i+eN4afnaMFMH2Z7u3k=; b=B9JeDeC6C8fZ8ljoQxRdgchTrm/gsOssNMwPf23T
-	fj7mVIITbMWdpeDctyD4FNEF7BJXh6NAsh0X2/tM7HuxKlT0ITXHJJAN/eLS+Vd5
-	DUPINbn5frDQJgKHF0jhdN9YKJlg63qz1l6cOnfBBNczbY5NSlkiB0b4JKk7eELE
-	+x0VNse6I69FAGVnhBMVkA4odiY5H8OnNOr2RF7py1zt9Uo1wCQznpGfAvCKLieR
-	Fgjpxd2PUMBL1oGX9pC+ac1e+C+rKJCpsXf2xv5gP42vCl7ELbvpZCi3dbd0hfdN
-	ASXm9izz1MwuTDsnHivgMR79EQqiZWszFmjCGndBrqv8ZA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyvcr93xj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:16:57 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90410c668adso6397986d6.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:16:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ka2GbQIa"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-472326ca506so400396f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:17:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786439816; x=1787044616; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pyvS/7fuxI2i5y2pp6Uz65Dui+eN4afnaMFMH2Z7u3k=;
-        b=UOne8TCYhQnHen0F+NKfUjj/gbMaocijjdydmfBSA/SQf4GGeKRyZmRBoUX+PMkTVb
-         M1Ihtb2Flj73HTS+0VccdbjfzZuxgBBthSFPIXmU+JVtIaaXiTQAd8v/bEMF8+vl3X0b
-         BvVR3VqgFk8cVdyFTy5j5FeYauYI2NyNBjsDdHOGkhPOI7QAYUhyCbKb/MpY3GoZL4Z2
-         Y+5IxxHCFkWDdSTGFRaRhTLzntSr35tRUZp8xZpyFJC7nn09ZEt6zR/XiTWI/PBuwqa5
-         HQSxAZ36FGyMaHUDklmqU8an16YjgXLCCCwRVZx1hYUgr1wg0p1NwD6ORtcO3pCMDNxb
-         lxpg==
+        d=gmail.com; s=20251104; t=1786439868; x=1787044668; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KNt4bQq2u8qw/aarLJ9pb4tE5RTplArkdmLeC+XTR4A=;
+        b=Ka2GbQIa9pZsWwGyeWU4JbW+ROvgKISn/MUfiTl/TjKLcWUEdsomu3WW16oSGn1ldA
+         NUmEH9PQtG0rJedrSEiVLGDRJAqoyNbiiHdubDYeNu+SAWd3utG/kBf+OxPHUr/N7AFX
+         nEPRJ3nuJIIlXyQvESQK0s+Z8NjBri8Xemir4iul2AezzmiymTqhd0JkeYYwgF0fkVH6
+         v7NxO/ye9BmElGLsqWfmMVupXfTrq67dZ132qBVW0TFegnul3E+FvsjQDmb2QuGwczDr
+         +ibboKF/LQ+c+KgwbeGSo1aNunsa2F+KsC24iGIbX91JacTm52LSZlhCxV2KRH92thqd
+         EedA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786439816; x=1787044616;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pyvS/7fuxI2i5y2pp6Uz65Dui+eN4afnaMFMH2Z7u3k=;
-        b=hW7zaZt8U8s0e5/v7qzFPuvoV5UN/2kdv09Io2xlCu9YFuQZmJ2jOEl3zTiY1pIITD
-         OnrP+RL2T5oftaCbhJJwY5Ou//OEG11KgsOaHfk5g7XEGo+iN4TOqPnwrv7Hg4Oi/sSW
-         eVR1pd8UwjERuKk6Vrg/MB1MhzuH/K/MMVhiW2YomaU9ZoJjiAfhzNrHDQ5cMUYCyWDu
-         ZFlKF5DmKgXrPWACixzCRQNrQ8gNSfuubamMjkc0KLSWXKINAslitoHKom6PbtY/2RRK
-         yZa4/5+ULLJMquyiuFrvLUXmjXzpzCcWHDA337UFWlRjstBfgF1/BFzGOYh0q4NNaU6y
-         2IHA==
-X-Forwarded-Encrypted: i=1; AHgh+RqwoCAR0QpjaQiJ6mdhxWdF4bvIKfnNzD3AxzdWIiszRNJHWEyAez9lpZ82C+BZ8EZZyORbkosuAtPp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx0KroeehkPczb3N+ae0dv/rQqa2J3gu0rpK1dLMYYdRvCXTJcU
-	5N1ICp4FMyhPvMgmhbWFJVb2qzh0tIsBxMHtLFs8hPwTYOqXKja6Fgv3s8J+0rjumqeRwe59XGy
-	GDbZj4RTCjdxcjx2Wy+q1gq2MFj19OLbKY61ylMy2PmQmi1FqbDQanDc+IS2b8rO+
-X-Gm-Gg: AR+sD13Jvvq3FzM2C4mIiOlit+H08pkMPkHFpPkg3J7NHpfOulc519GarK++ozv5Pqn
-	I7GmavKQeAFtDYNt3Gei3OXAUHuTOsIo1bsx506qZN+yJ1WsjpMCcNpHjCjo0JL0r3cthuwyPs5
-	5M4mRrkNAexAs6yi3oy7f3q9Tw/OCGi/vaoaNn9eH8j8YH7+JQBOjyzcfpv+gEldP7rcNkm5+M9
-	krgWNI2iczF5HL7HoXAhHHmNuQ6iHfD8Qeh6irRUDRuvWy5dV6qrwviTzfflWOOP++pzEDicR97
-	+4kF30eIhJb1Z3oP9B0Lbd6xeIpFy4hbTe8cdoALM6JqWux/YjEAljcS90cgtqlSUzg9RFlIh/s
-	GeS6m0bcTfDy4KCYprsOW3FvC6ed8T5GFtoxbt9qx/bT6FNm2G52nHJnTfC2lX7tCpf5WcB7u/1
-	CrRrcO6S4/zTmnzg==
-X-Received: by 2002:a05:622a:4c0f:b0:51c:92a0:b2cb with SMTP id d75a77b69052e-52d58613f11mr13713141cf.26.1786439816320;
-        Tue, 11 Aug 2026 02:16:56 -0700 (PDT)
-X-Received: by 2002:a05:622a:4c0f:b0:51c:92a0:b2cb with SMTP id d75a77b69052e-52d58613f11mr13712971cf.26.1786439815937;
-        Tue, 11 Aug 2026 02:16:55 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b448736635sm162139e87.75.2026.08.11.02.16.54
+        d=1e100.net; s=20251104; t=1786439868; x=1787044668;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KNt4bQq2u8qw/aarLJ9pb4tE5RTplArkdmLeC+XTR4A=;
+        b=EEZCvJ0C7yBE5Ef4iH2UPpiHmrhgLZBwuy5AP4tQz2/6Fp+OEiRgYdm4kPfaXSSRfH
+         qcb6QFywzYjVGqEGboE2blakopqk5j7TxHDp67EXk2C3B5iv1OpmMk1dYNjbiMdvUsK1
+         /HyDtH3CTTRTLIHOffhpps7MV/nnqVxMEbOOmfSDM6+bDmU2+LOlVxsrzKIIJM/yBW/e
+         8NWs/E4GVj+y1T3breBZB0Kk3kPrsXf0TVTYvPyl1NJJ9og+Ychw9JS3oDmodtiXGTam
+         +6egHJ53DQC5IO/t0lspRuztmo9BAoIesOl4O0Qf3AI4pY4jzbrYKyX0DJqagf2GT160
+         wjTw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2vpp51Bbk0h9p3RDmMhWGcEz97CQLlR1+WRL78U+stYzLV00TxGrnVv4181fe9eJZZzpBVe3qpcP7@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJz4j/8CV2jo79aRpyPX26cF1sNlshUkxKgaaXX9OJlBWZ4vSC
+	GD0AciK3eZaRTh+1QcOK9RnnhOAuvz0q0qxfjZPz/PuhDt0Qv0ivqbBI
+X-Gm-Gg: AR+sD130asrCVnTdWQW4qsaKgin53LLwG3NT7B08ZqesCbN4NZ5ajGjJYicFhnyJYNl
+	d92YTYNv9JbR55/UR8K9oq2nnJhvak+hEKD/8Q8N4F4859z3LHRN67I4+HOxkoZ3psJbNVbOc+D
+	Fgz2tSDW+ljjfsR89HPdlGofYOpnLZchBzXZETterKu9koe3yvsaxK9ST0V7AycFlyPGrYslPla
+	NlIiv++kW1HIeE51HkNQb2m01yzt7nvDabDsf2U9VT+DQdNlOAC/O7K9RMi6E2f9MtsMh6yd3d2
+	zgQ9SfznQim+IKDfgbkSFvQEJQlhWLRTJIXvC/2B3donmT2ySnLoISPEWtstdZ8NsgbutAnYo1D
+	Ztnvc9utHDNIqDEdI1sgudUVdu8o9ZrRz5btcxGibHETWYJ4keQdrOKBQ94Maal+/2InlzilM48
+	UFm1SVC4EMjOcstR2MS6WrBTi5hZxeEwmnZ3yhomCevsDONkDs3FBlusvbQzrTQXW/KDM8RcI4O
+	tGI1xTbvMawjx2UcbL9Ur1JCGeieQ==
+X-Received: by 2002:a5d:5e8d:0:b0:47f:9750:26cc with SMTP id ffacd0b85a97d-4814adcac2cmr3530466f8f.23.1786439867832;
+        Tue, 11 Aug 2026 02:17:47 -0700 (PDT)
+Received: from localhost.localdomain ([82.137.32.40])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4814a5be8absm2714732f8f.15.2026.08.11.02.17.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 02:16:54 -0700 (PDT)
-Date: Tue, 11 Aug 2026 12:16:53 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Adam Skladowski <a39.skl@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 5/7] arm64: dts: qcom: Add LeEco Le2
-Message-ID: <znkuidfiskzgl6qrt5hry4akmqtxkfswgz6v2jrwc7nvztecli@q543uz4p4knz>
-References: <20260810-next-patches-v1-0-79a779d76173@gmail.com>
- <20260810-next-patches-v1-5-79a779d76173@gmail.com>
+        Tue, 11 Aug 2026 02:17:47 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: [PATCH] dt-bindings: sound: Convert TI DA830 EVM audio to DT schema
+Date: Tue, 11 Aug 2026 09:17:03 +0000
+Message-ID: <20260811091703.685487-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810-next-patches-v1-5-79a779d76173@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA3NiBTYWx0ZWRfX5mO6Qt72EngO
- Hjf/QgZbR+SbaZA8gKWJo0gU35jqQYeuOuUbHl14nCEnE6joDJaSMC/TrdlHHSTYHkr5umELVUP
- /M2X+hNHzRbKQw1HGG4up17AmY1GdC60Y/9lvGht5hYSMm1+b39UDpkguHMKE6u2dWvcyeZdchs
- xYVa6VISxIgVKwlk65OixygvJ5MhZ4Bu02464B1W/vwnRrvp0AkfwY84jYzVbPOC4/6PuTYDhV/
- 6l73twi2/qMimpf7CusSzYZrri75qyQSw0rTrT/WV/KBxzQPQxeGZX1uuNWGN0e5rodGvRggRO9
- Y77W/FsEMGRHeb+T9axECA/JRNPTXxSfPAEKJC1t/WxQYXmVOlaw0gt26HI8IihRDLlOTFofj3R
- gNlF+A+awTNGJNNY4f96OkXIPdyJy8JyUMU1kfCq6VnMM2t08/TgLY7v5eLddX76faR+1Yd2Kat
- HEiyzX3Z93pEKqKaJMQ==
-X-Authority-Analysis: v=2.4 cv=e/A2j6p/ c=1 sm=1 tr=0 ts=6a7ae889 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
- a=eHW4eeqAPWbo1CzvBrgA:9 a=CjuIK1q_8ugA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: BW5dhaolsUmldlp4rQV37HqAfO7_BOjx
-X-Proofpoint-ORIG-GUID: BW5dhaolsUmldlp4rQV37HqAfO7_BOjx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA3NiBTYWx0ZWRfX7UIlTnwKgEKD
- l6sEPPw8RQt4ifOHW0zYdgatNzXWpr3xM6HmjH6D2l5+CQA76c5ahIOh4Xo7wq0PfN9U+5EzIg+
- 4hKKOTv9S6g+3G/NvC1GFRjJDFuUuWc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 spamscore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608110076
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 10, 2026 at 06:55:38PM +0200, Adam Skladowski wrote:
-> Add a devicetree for the LeEco Le2 smartphone, which is based
-> on the Eldarion/MSM8976 SoC.
-> 
-> Supported functionality as of this initial submission:
-> * I2C peripherals (Touchscreen,Audio amp, Haptics, Extcon, Led)
-> * Power Button, Volume Keys
-> * Regulators (PM8950)
-> * WLED (PMI8950)
-> * Remoteprocs (WCNSS)
-> * GPU
-> 
-> Device tree also contains supply maps to other subsystems like MDSS
-> but due to missing dependencies like panel those are disabled.
-> 
-> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile             |   1 +
->  arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts | 444 ++++++++++++++++++++++++++
->  2 files changed, 445 insertions(+)
-> 
-> +
-> +	reserved-memory {
-> +
-> +		ramoops {
+Convert the Texas Instruments DA830 EVM audio complex bindings
+to DT schema.
 
-Nit: no empty line before it.
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+ .../bindings/sound/davinci-evm-audio.txt      | 49 -----------
+ .../bindings/sound/ti,da830-evm-audio.yaml    | 83 +++++++++++++++++++
+ 2 files changed, 83 insertions(+), 49 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/davinci-evm-audio.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/ti,da830-evm-audio.yaml
 
-> +			compatible = "ramoops";
-> +			no-map;
-> +			reg = <0 0x9ff00000 0 0x100000>;
-
-Please use 0x0 instead of 0.
-
-> +			record-size = <0x10000>;
-> +			console-size = <0x60000>;
-> +			ftrace-size = <0x10000>;
-> +			pmsg-size = <0x20000>;
-> +			ecc-size = <16>;
-> +		};
-> +
-
-[...]
-
-> +
-> +&mdss_dsi0 {
-> +	vdd-supply = <&pm8950_l17>;
-> +	vdda-supply = <&pm8950_l1>;
-> +	vddio-supply = <&pm8950_l6>;
-> +};
-> +
-> +&mdss_dsi0_out {
-> +	data-lanes = <0 1 2 3>;
-
-I think, you missed the panel here.
-
-> +};
-> +
-> +&mdss_dsi0_phy {
-> +	vddio-supply = <&pm8950_l6>;
-> +};
-> +
-> +
-> +&tlmm {
-> +	gpio-reserved-ranges = <0 4>, <8 4>;
-> +
-> +	disp_reset_n_active: disp-reset-n-active-state {
-> +		pins = "gpio25";
-> +		function = "gpio";
-> +		drive-strength = <8>;
-> +		bias-disable;
-> +		output-high;
-
-Doesn't the driver also set output to high here?
-
-> +	};
-> +
-
+diff --git a/Documentation/devicetree/bindings/sound/davinci-evm-audio.txt b/Documentation/devicetree/bindings/sound/davinci-evm-audio.txt
+deleted file mode 100644
+index 963e100514c2..000000000000
+--- a/Documentation/devicetree/bindings/sound/davinci-evm-audio.txt
++++ /dev/null
+@@ -1,49 +0,0 @@
+-* Texas Instruments SoC audio setups with TLV320AIC3X Codec
+-
+-Required properties:
+-- compatible : "ti,da830-evm-audio" : forDM365/DA8xx/OMAPL1x/AM33xx
+-- ti,model : The user-visible name of this sound complex.
+-- ti,audio-codec : The phandle of the TLV320AIC3x audio codec
+-- ti,mcasp-controller : The phandle of the McASP controller
+-- ti,audio-routing : A list of the connections between audio components.
+-  Each entry is a pair of strings, the first being the connection's sink,
+-  the second being the connection's source. Valid names for sources and
+-  sinks are the codec's pins, and the jacks on the board:
+-
+-Optional properties:
+-- ti,codec-clock-rate : The Codec Clock rate (in Hz) applied to the Codec.
+-- clocks : Reference to the master clock
+-- clock-names : The clock should be named "mclk"
+-- Either codec-clock-rate or the codec-clock reference has to be defined. If
+-  the both are defined the driver attempts to set referenced clock to the
+-  defined rate and takes the rate from the clock reference.
+-
+-  Board connectors:
+-
+-  * Headphone Jack
+-  * Line Out
+-  * Mic Jack
+-  * Line In
+-
+-
+-Example:
+-
+-sound {
+-	compatible = "ti,da830-evm-audio";
+-	ti,model = "DA830 EVM";
+-	ti,audio-codec = <&tlv320aic3x>;
+-	ti,mcasp-controller = <&mcasp1>;
+-	ti,codec-clock-rate = <12000000>;
+-	ti,audio-routing =
+-		"Headphone Jack",       "HPLOUT",
+-		"Headphone Jack",       "HPROUT",
+-		"Line Out",             "LLOUT",
+-		"Line Out",             "RLOUT",
+-		"MIC3L",                "Mic Bias 2V",
+-		"MIC3R",                "Mic Bias 2V",
+-		"Mic Bias 2V",          "Mic Jack",
+-		"LINE1L",               "Line In",
+-		"LINE2L",               "Line In",
+-		"LINE1R",               "Line In",
+-		"LINE2R",               "Line In";
+-};
+diff --git a/Documentation/devicetree/bindings/sound/ti,da830-evm-audio.yaml b/Documentation/devicetree/bindings/sound/ti,da830-evm-audio.yaml
+new file mode 100644
+index 000000000000..b4a1cf67582b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/ti,da830-evm-audio.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/ti,da830-evm-audio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments SoC audio setups with TLV320AIC3X Codec
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++properties:
++  compatible:
++    const: ti,da830-evm-audio
++
++  ti,model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: The user-visible name of this sound complex.
++
++  ti,audio-codec:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of the TLV320AIC3x audio codec
++
++  ti,mcasp-controller:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of the McASP controller
++
++  ti,audio-routing:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description:
++      A list of the connections between audio components. Each entry is a
++      pair of strings, the first being the connection's sink, the second
++      being the connection's source. Valid names for sources and sinks
++      are the codec's pins, and the jacks on the board (Headphone Jack,
++      Line Out, Mic Jack, Line In).
++
++  ti,codec-clock-rate:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: The Codec Clock rate (in Hz) applied to the Codec.
++
++  clocks:
++    maxItems: 1
++    description: Reference to the master clock
++
++  clock-names:
++    const: mclk
++
++required:
++  - compatible
++  - ti,model
++  - ti,audio-codec
++  - ti,mcasp-controller
++  - ti,audio-routing
++
++anyOf:
++  - required:
++      - ti,codec-clock-rate
++  - required:
++      - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    sound {
++        compatible = "ti,da830-evm-audio";
++        ti,model = "DA830 EVM";
++        ti,audio-codec = <&tlv320aic3x>;
++        ti,mcasp-controller = <&mcasp1>;
++        ti,codec-clock-rate = <12000000>;
++        ti,audio-routing =
++            "Headphone Jack",       "HPLOUT",
++            "Headphone Jack",       "HPROUT",
++            "Line Out",             "LLOUT",
++            "Line Out",             "RLOUT",
++            "MIC3L",                "Mic Bias 2V",
++            "MIC3R",                "Mic Bias 2V",
++            "Mic Bias 2V",          "Mic Jack",
++            "LINE1L",               "Line In",
++            "LINE2L",               "Line In",
++            "LINE1R",               "Line In",
++            "LINE2R",               "Line In";
++    };
 -- 
-With best wishes
-Dmitry
+2.43.0
+
