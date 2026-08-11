@@ -1,42 +1,42 @@
 Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD12B3F9F3B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2EB435A87;
 	Tue, 11 Aug 2026 12:56:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786453005; cv=none; b=slwaHwQ9jmd6Gv2wnHuvOo8U/bh807apY9eyt4EzsGekkAfZsmlh/p2ckB63XMg1UhsPBw1XNOzglDACLVfv9ukmvGAPKsn93H+SoEdRJ7bDpYA8Mrk44K20auLGiTd8mJ0dmFiz3V+aSQZP6qAMSeqOAtJV9ebjSrTRok7Xf68=
+	t=1786453006; cv=none; b=m4lhBUv7nJ0qaM8mtf9CxxUMrfahjHsr32VdiXXkUjlvxnTlHNwFcw4Y34mFh1/38sT/p+6lY2fGm5Nj5aixCccMDZXuTyUafSmiiAF4KS6Q9Xiu7glc1LpZ0A/jnKUAeJUUCvVZxjJFLc192hVhEYei0r5xRElTkS2EKKepFr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786453005; c=relaxed/simple;
-	bh=uyQQOVi15S3c7D8BnBr8x/fxEUVOFGeXSCb45HNclGg=;
+	s=arc-20240116; t=1786453006; c=relaxed/simple;
+	bh=fJ56bbwwe3vVMnpTdoyYC18bSgyXz3u7+wNH2PeNI8o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Nd1MIRpoKn9cjxBE3iy4hd4gqlC/BHJxI8YgMhkMd5HH1Dzc4irM+auslvIBZw7CjpIthHtvIMBzjm4EcVKIWmIOs5o3qoP5FN320PiuaM92cRKnjKm2ZBvbXzKD3m683mzA+KQVp2m3bfi3tAM95uER3/XiLRKCU5w7AVfY8dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=BTry9cTZ; arc=none smtp.client-ip=217.70.178.249
+	 In-Reply-To:To:Cc; b=da2iA/hyQsk+qaCFMVcQefO0IybiMKHq7EqdRRpMMZpfKbYQnKc4jQIm/aENn1GS72aWycOwrDO4f/QiuXwlaHijdpKrALFQW35LwQ7qbswqP18M1Js43zZgOI/X9Gl9UJ2fx36xOiKmQmNDh6xqFdHU7jDf7wVsjod0KZKFpF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=KgWr3Ci8; arc=none smtp.client-ip=217.70.178.249
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="BTry9cTZ"
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id CC85B5822EA;
-	Tue, 11 Aug 2026 12:34:52 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 357183EC69;
-	Tue, 11 Aug 2026 12:34:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="KgWr3Ci8"
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [IPv6:2001:4b98:dc4:8::228])
+	by mslow3.mail.gandi.net (Postfix) with ESMTP id B51C45822F0;
+	Tue, 11 Aug 2026 12:34:56 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 3D4153ECDD;
+	Tue, 11 Aug 2026 12:34:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1786451684;
+	s=gm1; t=1786451688;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0jd3dhPZnS4zprNyA8sY9GAb7F0q5LlHLaqGujzjZ9I=;
-	b=BTry9cTZRbO4UwtPOycRD91xmAPd8kLo/4Cml54M32gjyDghPYcJP8PJ4wXFKX6O27gPxD
-	dipOQdG4fjps1Zed16D6/Btd85n2544ZLFF9z9ThGfT33KhIPdt8RJ2Y965Pm1Y44VuJY9
-	zh1axniVcjQkWItJOEzq7XvYaaDB++ew2jZ3IV/07wqR2OyCMybc/Zon3ZWoUqoCu9I/eA
-	LVxP3VvyYMfHfjExAozPoTL5D20wudb/Eoj+9RAk9KMN2Rn4/RbZXAieUmOl/Smawz2bE2
-	6ynpPrQLJIUeNViT5UrtG6qCk+1DtkND5kPFPXGO2nlyuYT6SuHA5uURITS0Tg==
+	bh=EFPULwsCEQh8jxrDTdq68dQ4k9ee+NFqozFqmEB9s7g=;
+	b=KgWr3Ci8SbC3otOEJercI3u4wxKY6jX5mdTLNc4w/SarZmsiT8fKFNCTPYZePommitvmWk
+	jTwnI+1KhvYbuIIrZ/WHFkpDrxDSAO3Bn7epDxCr6Bol/OpSWugOFuCe0SwXtV2ErhVUYO
+	G3Oc6EAXzv1vkMTHMlw5eT3SuWxAgOisG7aHRTuvM0xK+QAgJI/P8wiPzCzpv5k5f4agp+
+	T2nOQkBA9mWADBdwEhBN8hia0t5Yb8d5lcPdgsWlUFniMWp5rFzLyiflBGnZZxIzx5X2Qz
+	qvWCmWqjEDhOo/amRzz++IeL53bOiA7JE8dmsAAlPMo7/12rrHkE5qlZ2NBzpw==
 From: =?utf-8?q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
-Date: Tue, 11 Aug 2026 14:34:33 +0200
-Subject: [PATCH net-next v4 1/3] dt-bindings: net: wiznet,w5100: convert to
- DT schema
+Date: Tue, 11 Aug 2026 14:34:35 +0200
+Subject: [PATCH net-next v4 3/3] w5100: detect carrier state using link
+ status bit and optional interrupt
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260811-wiznet-link-gpio-v4-1-4d5f7da885a8@marmottus.net>
+Message-Id: <20260811-wiznet-link-gpio-v4-3-4d5f7da885a8@marmottus.net>
 References: <20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net>
 In-Reply-To: <20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -55,153 +55,193 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ =?utf-8?q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
 X-Mailer: b4 0.15.2
 X-GND-Sasl: arthur@marmottus.net
-X-GND-Cause: dmFkZTGhTFAuWjMd8OOyH8xCxArOr4Ca0SOgRQXayWbVK6z6ocC7oIynP/SDwtlrIKZ1s3hldENkadogrUsfLhVi11Vyzekp27qDxqk6P87IjTLrVUdD1+YO+8VCbcmQkb4uQ10D6RwZU4IuTN767NYRcMBmqqVZ7QhRKuqsk+tjTaFTrHwKCTfIkMER+BcT14NmHwsHfSl0iNvat/fQtHCDjFbr1o7MSq7JIUJ0Ckbs3sDx8reyzBpa6rwZ4wgTIiBkjOytPOwuJXL5YWHEOm68vILoAmXmIyBBbjmvS3+PXFnGyAHWDlGD6UUCprls0YSwJJLLTDe/No8Q2Z51hTEGne4NOLflLhXv/7gb6Ck4TiCJpQb02mZaWdMnYHPVLqrSNcAY0w5Hy77PvGyAr3bSXUk/WU/D9oBQwRH2EixPjXql/mg/z7MM9vjsA4Z0eztB94HmwqSOpDK7prWPYcyOPTqeh8Zpsre6FjmZ+U8HSWe72ObskNuLgFQnuaNCYtwJXWmD1xIdvAVwIzBX2LayoWNLbHfG/CgWlUBx/HqgHacUM0Ps9IBaTVPMCxBKICgeJfdg+pU5T5wUfNIqtTz9FJuBWv7LNO/IdWsQHpaIa5MA/7nWHgglcj1TY4Wu6iul+YCCDno72vHWAe+d/+yDiYIFnhJMM1X33A8cuvFGfNCmVw
+X-GND-Cause: dmFkZTED/3HJKTgwxBO9D7jQ7O9WW6mZqKFTS5z9+t/FK1af0VH31e8paPNStgsQpQIYlcYucwL4cCmdHRXR1YYxqw1T8z7REX/fEaawr/SFTAReVmgPSkMSXhelgxXwGWSawVSbcpIQz1ApGSMt7N/EmbPGNzbGZYTYvDxpMYQGP1JlU5jgLN/HEWfQYe9TkhK3By7wmxsf+0M+P/IMA7PoVnge/FKBaYY9CaxM9zl0WOY5mQGtYkeKnvmiXrurdSxxCfaFLe1gD6LLRDm8B+uNjWpnFlfgPuimqtreC5Kqai1m6/hFQg5QKCoi3xpXvCY9c8GMn3Fz6R/dnpQZY+phR/sNQY9r6x+k9x1zRTatfSl2TcVGaH3AMwywSYmX+TSeRecaZq4abXGY0Yp0jO+0JP21trGrRDK197YNrLd/wiWJty2XS9YA+W94Ma0sgCxNDVkXRSjzH4e3IKYVXIy8PHXySTL1Qye/0nz9CGv/Y0ts9iFpAnoHSWMEL/R7/EWghAQwWi9h5AjvwPO1S9VYt9qLPTWD8GTCtgP3WkZAkbKaaJDC6sYIZZe/8jgo8+eX5t+5gcJpaX51ytLbna/ZRi0CNoMX4E3Y+/RcF3CpsOlcIXg4QxKYn3XKgZvqh8FcvLOCV8Wduebe13Z/qy6sgTJnzsExBOKFQ86T9tr2mINgpw
 X-GND-State: clean
 X-GND-Score: -100
 
-Convert the Wiznet w5x00 SPI Ethernet controller binding from
-plain text to DT schema.
+Detect the link status on the w5500 using the Link Status bit from the
+PHY Configuration register (PHYCFGR).
+
+On w5100/w5200, which lack this register, the link is always reported
+as up.
+
+Also add an optional interrupt, wired to the LINKLED pin of
+the w5500, to detect link status changes and read the PHYCFGR register.
+
+Commit dacf281771a9 ("w5100: remove unused gpio link detection")
+dropped the link_gpio/link_irq handling on the grounds that no
+devicetree user passed a "link" gpio at the time and that it used the
+old gpio interface.
+This isn't a plain revert of that removal: link detection is now done
+using a second interrupt rather than a gpio with a documented DT binding.
 
 Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../devicetree/bindings/net/wiznet,w5100.yaml      | 67 ++++++++++++++++++++++
- .../devicetree/bindings/net/wiznet,w5x00.txt       | 50 ----------------
- 2 files changed, 67 insertions(+), 50 deletions(-)
+ drivers/net/ethernet/wiznet/w5100.c | 68 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 68 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-new file mode 100644
-index 000000000000..641c9ddbde9e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/wiznet,w5100.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/wiznet/w5100.c
+index 53d8dc642fbd..ca5054c20993 100644
+--- a/drivers/net/ethernet/wiznet/w5100.c
++++ b/drivers/net/ethernet/wiznet/w5100.c
+@@ -21,6 +21,7 @@
+ #include <linux/io.h>
+ #include <linux/ioport.h>
+ #include <linux/interrupt.h>
++#include <linux/property.h>
+ #include <linux/irq.h>
+ 
+ #include "w5100.h"
+@@ -124,6 +125,8 @@ MODULE_LICENSE("GPL");
+  */
+ #define W5500_SIMR		0x0018 /* Socket Interrupt Mask Register */
+ #define W5500_RTR		0x0019 /* Retry Time-value Register */
++#define W5500_PHYCFGR		0x002e /*  PHY Configuration Register */
++#define   PHYCFGR_LNK		  0x01 /* link status */
+ 
+ #define W5500_S0_REGS		0x10000
+ 
+@@ -154,6 +157,7 @@ struct w5100_priv {
+ 	u16 s0_rx_buf_size;
+ 
+ 	int irq;
++	int link_irq;
+ 
+ 	struct napi_struct napi;
+ 	struct net_device *ndev;
+@@ -414,6 +418,20 @@ static void w5100_get_drvinfo(struct net_device *ndev,
+ 		sizeof(info->bus_info));
+ }
+ 
++static u32 w5100_get_link(struct net_device *ndev)
++{
++	struct w5100_priv *priv = netdev_priv(ndev);
 +
-+title: Wiznet w5100/w5200/w5500 SPI Ethernet Controller
++	if (priv->ops->chip_id == W5500) {
++		int ret = w5100_read(priv, W5500_PHYCFGR);
 +
-+maintainers:
-+  - Arthur Crépin Leblond <arthur@marmottus.net>
++		if (ret >= 0)
++			return ret & PHYCFGR_LNK;
++	}
 +
-+description: |
-+  This is a standalone 10/100 MBit Ethernet controller with SPI interface.
++	return 1;
++}
 +
-+allOf:
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+ static u32 w5100_get_msglevel(struct net_device *ndev)
+ {
+ 	struct w5100_priv *priv = netdev_priv(ndev);
+@@ -616,6 +634,24 @@ static irqreturn_t w5100_interrupt(int irq, void *ndev_instance)
+ 	return IRQ_HANDLED;
+ }
+ 
++static irqreturn_t w5100_detect_link(int irq, void *ndev_instance)
++{
++	struct net_device *ndev = ndev_instance;
++	struct w5100_priv *priv = netdev_priv(ndev);
 +
-+properties:
-+  compatible:
-+    enum:
-+      - wiznet,w5100
-+      - wiznet,w5200
-+      - wiznet,w5500
++	if (netif_running(ndev)) {
++		if (w5100_get_link(ndev)) {
++			netif_info(priv, link, ndev, "link is up\n");
++			netif_carrier_on(ndev);
++		} else {
++			netif_info(priv, link, ndev, "link is down\n");
++			netif_carrier_off(ndev);
++		}
++	}
 +
-+  interrupts:
-+    maxItems: 1
++	return IRQ_HANDLED;
++}
 +
-+  reg:
-+    maxItems: 1
+ static void w5100_setrx_work(struct work_struct *work)
+ {
+ 	struct w5100_priv *priv = container_of(work, struct w5100_priv,
+@@ -659,6 +695,10 @@ static int w5100_open(struct net_device *ndev)
+ 	w5100_hw_start(priv);
+ 	napi_enable(&priv->napi);
+ 	netif_start_queue(ndev);
 +
-+  spi-max-frequency:
-+    description:
-+      According to the w5500 datasheet, the chip allows a maximum of 80 MHz,
-+      however, board designs may need to limit this value.
-+    maximum: 80000000
++	if (priv->link_irq < 0 || w5100_get_link(ndev))
++		netif_carrier_on(ndev);
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
+ 	return 0;
+ }
+ 
+@@ -678,6 +718,7 @@ static const struct ethtool_ops w5100_ethtool_ops = {
+ 	.get_drvinfo		= w5100_get_drvinfo,
+ 	.get_msglevel		= w5100_get_msglevel,
+ 	.set_msglevel		= w5100_set_msglevel,
++	.get_link		= w5100_get_link,
+ 	.get_regs_len		= w5100_get_regs_len,
+ 	.get_regs		= w5100_get_regs,
+ };
+@@ -751,6 +792,8 @@ int w5100_probe(struct device *dev, const struct w5100_ops *ops,
+ 	priv->ndev = ndev;
+ 	priv->ops = ops;
+ 	priv->irq = irq;
++	priv->link_irq = ops->chip_id == W5500 ?
++			 fwnode_irq_get(dev_fwnode(dev), 1) : -ENODEV;
+ 
+ 	ndev->netdev_ops = &w5100_netdev_ops;
+ 	ndev->ethtool_ops = &w5100_ethtool_ops;
+@@ -803,8 +846,21 @@ int w5100_probe(struct device *dev, const struct w5100_ops *ops,
+ 	if (err)
+ 		goto err_hw;
+ 
++	if (priv->link_irq >= 0) {
++		err = request_threaded_irq(priv->link_irq, NULL,
++					   w5100_detect_link,
++					   IRQF_TRIGGER_RISING |
++					   IRQF_TRIGGER_FALLING |
++					   IRQF_ONESHOT,
++					   "w5100-link", priv->ndev);
++		if (err < 0)
++			goto err_link_irq;
++	}
 +
-+unevaluatedProperties: false
+ 	return 0;
+ 
++err_link_irq:
++	free_irq(priv->irq, ndev);
+ err_hw:
+ 	destroy_workqueue(priv->xfer_wq);
+ err_wq:
+@@ -820,6 +876,9 @@ void w5100_remove(struct device *dev)
+ 	struct net_device *ndev = dev_get_drvdata(dev);
+ 	struct w5100_priv *priv = netdev_priv(ndev);
+ 
++	if (priv->link_irq >= 0)
++		free_irq(priv->link_irq, ndev);
 +
-+examples:
-+  - |
-+    /* Example (for Raspberry Pi with pin control stuff for GPIO irq) */
+ 	w5100_hw_reset(priv);
+ 	free_irq(priv->irq, ndev);
+ 
+@@ -842,6 +901,9 @@ static int w5100_suspend(struct device *dev)
+ 		netif_carrier_off(ndev);
+ 		netif_device_detach(ndev);
+ 
++		if (priv->link_irq >= 0)
++			disable_irq(priv->link_irq);
 +
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
+ 		w5100_hw_close(priv);
+ 	}
+ 	return 0;
+@@ -856,7 +918,13 @@ static int w5100_resume(struct device *dev)
+ 		w5100_hw_reset(priv);
+ 		w5100_hw_start(priv);
+ 
++		if (priv->link_irq >= 0)
++			enable_irq(priv->link_irq);
 +
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
+ 		netif_device_attach(ndev);
 +
-+        ethernet@0 {
-+            compatible = "wiznet,w5500";
-+            reg = <0>;
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&eth1_pins>;
-+            interrupt-parent = <&gpio>;
-+            interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
-+            spi-max-frequency = <30000000>;
-+            local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
-deleted file mode 100644
-index e9665798c4be..000000000000
---- a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
-+++ /dev/null
-@@ -1,50 +0,0 @@
--* Wiznet w5x00
--
--This is a standalone 10/100 MBit Ethernet controller with SPI interface.
--
--For each device connected to a SPI bus, define a child node within
--the SPI master node.
--
--Required properties:
--- compatible: Should be one of the following strings:
--	      "wiznet,w5100"
--	      "wiznet,w5200"
--	      "wiznet,w5500"
--- reg: Specify the SPI chip select the chip is wired to.
--- interrupts: Specify the interrupt index within the interrupt controller (referred
--              to above in interrupt-parent) and interrupt type. w5x00 natively
--              generates falling edge interrupts, however, additional board logic
--              might invert the signal.
--- pinctrl-names: List of assigned state names, see pinctrl binding documentation.
--- pinctrl-0: List of phandles to configure the GPIO pin used as interrupt line,
--             see also generic and your platform specific pinctrl binding
--             documentation.
--
--Optional properties:
--- spi-max-frequency: Maximum frequency of the SPI bus when accessing the w5500.
--  According to the w5500 datasheet, the chip allows a maximum of 80 MHz, however,
--  board designs may need to limit this value.
--- local-mac-address: See ethernet.txt in the same directory.
--
--
--Example (for Raspberry Pi with pin control stuff for GPIO irq):
--
--&spi {
--	ethernet@0: w5500@0 {
--		compatible = "wiznet,w5500";
--		reg = <0>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&eth1_pins>;
--		interrupt-parent = <&gpio>;
--		interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
--		spi-max-frequency = <30000000>;
--	};
--};
--
--&gpio {
--	eth1_pins: eth1_pins {
--		brcm,pins = <25>;
--		brcm,function = <0>; /* in */
--		brcm,pull = <0>; /* none */
--	};
--};
++		if (priv->link_irq < 0 || w5100_get_link(ndev))
++			netif_carrier_on(ndev);
+ 	}
+ 	return 0;
+ }
 
 -- 
 2.55.0
