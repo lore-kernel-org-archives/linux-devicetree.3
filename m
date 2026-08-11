@@ -1,55 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF87F445ACE;
-	Tue, 11 Aug 2026 13:52:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3F843E073;
+	Tue, 11 Aug 2026 13:53:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786456378; cv=none; b=X/QToWwtCqKZ0LuMXU1C7Qs0YOXJPd7Nz+sIchN392fUdIcRF2hglGeE8XidQcMYFZeUUBx8GAHhRXaK9zQfVecgNrn8bLDbGdtrkJqS1xgamj8Akr5jIQ4jW1TGEEmT4XI0AHWg03PCs6Zu1cjkMRlDy/dtJz43FvnKDHi5voQ=
+	t=1786456410; cv=none; b=UxEx1AbNjpWrYjXxF95LJO6eLlUHkKd4JpNxVWVJmOyoUsdSSDC0rqS0rtPsNLJ9Vq5BygTEtMwU+CpPY8ML/esbD7Z7ohLbWCEADXf4CfrYIXmcIPH91pG0aNfuBY0wuNkomnrTGzCGAY1IIUNKrlKUP5q0Xc+R+75zD5rEljU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786456378; c=relaxed/simple;
-	bh=xzJCCAoV/N7nZKcJAlZ0qlaQgaXzKmuZe4RYU0tnlPY=;
+	s=arc-20240116; t=1786456410; c=relaxed/simple;
+	bh=Aag11kzP6OoZz2CrvTPwTWGO5OWYsZlR/JtjlWsGX/I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VDtWZ+P8YPW0PgWCpQChAVQUHl2FZNbCzTnf8Bakq/vCXSZyRJljN2wYlG8ryQVbuoyruXHuDZ9EXafgmEu+0F1A1fJyyzEOyn5K40cv7rQ45ZbkN7VogLItdbjxZL6Tvt9277F0tmOG37bmcAHkuWvS5u2PMAyOBxUmeVn05kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ph072EQm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z4MBSePL6vMWS8eWWBQPdaH9DqYTG8BTL9i0tr6mEQWJ59ftddv58gmMY31KMqdh0VESWaAF8+psgsFG/erbVgo6lzR4utppJF0E6xvghz0Z5v8BK+0KHMkln5kb5qN5wwBQW4EhSnRIQEDna68T63j5PpJCQ7qapvLHTyscib4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X8WocTfH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ph072EQm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA0C1F00A3A;
-	Tue, 11 Aug 2026 13:52:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X8WocTfH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DB351F000E9;
+	Tue, 11 Aug 2026 13:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786456369;
-	bh=ai1iCuLtWHUDu1L+UQBqF+4g2Y2TKRc7LE849lL12l0=;
+	s=k20260515; t=1786456402;
+	bh=zOISgtHJcoVhgbuQw7i0w6TcTYQ6uT3lh6JpZDeNOrI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ph072EQm8rO1cUuzH41VQgwDhqJ45aKeUknJTFJ5Mr/89DYxfzTA6ZhWp21UOtJy+
-	 QAHNLG2s+uPe0KjYBVeI6ro560IgrxaeX+xEArv98UdBgbtdEYZEHWOslsLn11kiRc
-	 qmIMdXq2AcAfyxce45MKxKSQQnBJxIHycKpdfmrPMGQBiu9mzP/Sfh0oJnMZdJ+S/D
-	 FymTMue1bZN6Wg7DO1qerXA7n382gZ3VzIKF4vKLj64GQgiVI81uyQM4zAN/h1386p
-	 44bElrYGKImzBC6lgWp10g2YGx7+sj7V1VPkDLDRICqtA3RvpFM+R4oYSOpeI9XNWg
-	 JF7LxLBcy0vfQ==
-Date: Tue, 11 Aug 2026 08:52:49 -0500
+	b=X8WocTfHhpLtdAwDoaaQDw/vdNWROCYyO3plt/WqxSeP3Wo6K3OvPtwIsjIXu0ca2
+	 QNvX3PqF2wNK+1PDfdhf4dGEtpNaiBB5fyglxRi1EJOIfrYSFfNGXvI3fNqFKlaD4q
+	 roE2kLEz5AWLENwxlSVzftQXQ7wpXTxUIuLqXZN4m68iGh/JB2aDpBvoRc8f3mVFit
+	 /wKatjrvVPjtTRTv8xXvwx0AgMW3rYRyPk+oLZnXCAkro15h3f3pviKeE60rDzBHXv
+	 O+7aIFFUoKnHs3QnI/bqvQqQlRrsKCd8cHs5Su6oGkMVwgd4/Z2O4bdqKdPUWVf8TB
+	 1f3JxiYEoGBUw==
+Date: Tue, 11 Aug 2026 08:53:21 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-kernel@vger.kernel.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: linux-pwm@vger.kernel.org, Hector Martin <marcan@marcan.st>,
+	asahi@lists.linux.dev, Mark Kettenis <kettenis@openbsd.org>,
+	Radu Rendec <radu@rendec.net>, Sven Peter <sven@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Janne Grunau <j@jannau.net>,
+	Linus Walleij <linusw@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Jim Quinlan <jim2101024@gmail.com>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: PCI: Correct white-space style
-Message-ID: <178645636779.2073597.16267787912876708944.robh@kernel.org>
-References: <20260801195517.235161-2-krzysztof.kozlowski@oss.qualcomm.com>
+	linux-i2c@vger.kernel.org,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Sasha Finkelstein <k@chaosmail.tech>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 5/9] dt-bindings: pinctrl: apple,pinctrl: Add t8132
+ compatible
+Message-ID: <178645640149.2074555.4681413696186496761.robh@kernel.org>
+References: <20260801-apple-m4-initial-devicetrees-v2-0-5cb07cc275da@cyberchaos.dev>
+ <20260801-apple-m4-initial-devicetrees-v2-5-5cb07cc275da@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,21 +56,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260801195517.235161-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260801-apple-m4-initial-devicetrees-v2-5-5cb07cc275da@cyberchaos.dev>
 
 
-On Sat, 01 Aug 2026 21:55:18 +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues, like double space after '=' or before
-> bracket '{' characters, which will be flagged by dt-check-style.  No
-> functional changes.
+On Sat, 01 Aug 2026 23:40:35 +0200, Yureka Lilian wrote:
+> The pin controller on the Apple silicon t8132 (M4) SoC is compatible
+> with t8103. Add "apple,t8132-pinctrl" as SoC specific compatible under
+> "apple,t8103-pinctrl".
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> 
 > ---
->  .../devicetree/bindings/pci/brcm,stb-pcie.yaml       |  2 +-
->  .../bindings/pci/renesas,pci-rcar-gen2.yaml          |  2 +-
->  .../devicetree/bindings/pci/ti,am65-pci-ep.yaml      |  8 ++++----
->  .../devicetree/bindings/pci/ti,am65-pci-host.yaml    | 12 ++++++------
->  4 files changed, 12 insertions(+), 12 deletions(-)
+> This should be pulled via the pinctrl subtree, since it depends on
+> "dt-bindings: pinctrl: apple,pinctrl: Add t6030 and t6031 compatibles"[1]
+> which has been applied in the pinctrl tree. Thanks!
+> 
+> Link: https://lore.kernel.org/all/20260709-apple-t603x-initial-devices-v1-7-55b305833123@jannau.net/ [1]
+> ---
+>  Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
