@@ -1,143 +1,319 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6771A6800;
-	Tue, 11 Aug 2026 13:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786453317; cv=none; b=ujk8tFx74awEnBhnGBiPKcT1aljKGCEHXQNRdfq2l15Z3vEmqEcCiFKZ9YT9MK68ZPSvW0ANwYMI7wi5qbhZFiBz4hbcNPO4ko7PqeARXo7SrVZTwVf2bsTK6dhYHmmsmYXxXgmLDC2sF68S7aXKa8QlZSraFWts2Rqi9o4BMT8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786453317; c=relaxed/simple;
-	bh=kpsi8X1cNLWM7qX4mAchoKmutuiJ4Re7uQmaGjl/7hE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=lqtF5TNZaK5xOM2spJQRcIzJZvkdxxnfY1muu8yA0PwL6U/DNOF8ZArsDE/dRLYkcXr+hNdUr52j21vO8Slf2Yon37YmWfI5KA/gJaVas8vhiVkpy1dj86Y7KAIq6XRGw/XOU+6f09XUaRDj9oThcvwb1at+ipWJCtWQzyJUCl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Fa0rr8dj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hQqSd3Q5; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D6F36EA98;
+	Tue, 11 Aug 2026 13:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786453513; cv=fail; b=iD1mPh5lAekh1G9OzE+tClWUTbqa/HmW6oGQG0x1jYt7kLne0aUVlnkPnuXAJYdo/o80TY9K+eH/ZAuehqYQOGRfmhY8vybhxCoIvhOzQL4pNQqkXwtRTmLqBQRjNWpe8jD8fX8LHMP3MrD8kZ+pqpQi7KD8XMmjupV5/WTskjM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786453513; c=relaxed/simple;
+	bh=kyYWZIlL3qwdS6ezlPJiAbbR14COBMb7dJFHuT72114=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=NYY/EikQ8JvrS7P2ZGieLvA8F0Ix/OYkdAvV9TsoyOXf91F+089zrSJl3SxNsOJDEhj/YtbqHH4fVMHLtg+930Fk8MyE+E867XTrAF0jsRn/oxm0NiuJXHLLLmbya8goPLO0ncvm3/sH4hVqM7taOCzfLiTkLgiHiPWwzzCHfuI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=nJL9hd2P; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=mwXSPDpG; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Fa0rr8dj";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hQqSd3Q5"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6AFF214000A2;
-	Tue, 11 Aug 2026 09:01:54 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 11 Aug 2026 09:01:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1786453313;
-	 x=1786539713; bh=wzRRmYsLSDB0GpJkilO/Cjnjr5xUTbHjpSjaKE5qs5g=; b=
-	Fa0rr8dj1qqReSId+0TiRuECa8O39k0TIVhJgArQnd6S+TVjftoFS+ei0w3zVBy/
-	Q1dvlx9P22MfYrKM2SzGhlquS6rdBUvtE6pHCckCddU3BjEYSj+zfHS232UedAGC
-	L2cK8ceSTrmeCP19Wz5KSGGCy/f4fAWfAvRqbvv88l3+cFd7b1rBtNNt/Lgs9lNK
-	uO0ckMDb8AlbZ4XrYYlQ0eWldfLJ6V2Sk/0vykQFFWfNj+QV4/5NC45I55WlytLB
-	lHiD9P6/hdm+Dgc46wJuI1D7SGLHTHPwCJxTKT9zT53ql/sRjutmKqAwa/5afNl4
-	y3wKZGS5zkOtd7OZ4DiwMg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786453313; x=
-	1786539713; bh=wzRRmYsLSDB0GpJkilO/Cjnjr5xUTbHjpSjaKE5qs5g=; b=h
-	QqSd3Q5anvuI1KCByQ9ntNCW58D2+aAep5RYuUeJVRUHGsPMFLNFURvBrZ86RGT8
-	NcmuroeToQSve1Bl3ZRV3RKxnnvXAF2S6BpagTfqfMxAMiSh5bITLRvwB80TqyV4
-	odIC2qayFDWpAphiaGiq5H1P6nS+BYnLoxQQjSxY12tKKR75n5eD7o+iNxgiF35q
-	TVsC3VvUywGrYJdeFyXbzuf9eyjUz9rtXfWf5cGAPkiD22EGhUnCwZMKidjTMVOY
-	km16imYInjqqc5OPWWUMW89jLwQxwlGLiYQu8i+Ar7z+MFlDD8K/NpkIGOtESCGt
-	bgjGerOrMi8AG7pLna1MA==
-X-ME-Sender: <xms:Ox17aqrAg2Dp0ioiqiS4nmuAN6Y2ajWVibHg6SKzbk79DUKeztWwjw>
-    <xme:Ox17ajeYeFtTD0ADe6Brx1itNckBMOnVZ36tCPvFONBXIFvjdmrdZVsa3KC0Djq22
-    8pkjR5epQOeMWK0AswBtoDcEOwpYXqLimObEeC_88M17gmciZsD_JZU>
-X-ME-Proxy-Cause: dmFkZTFGAoW15MFXWCvi0/XQR8FtAOBms1kLy4R7VMRBN6rKkcGmJEKGxAcCl1mfyxiKaT
-    pqtmX8RyWGwk5rzwJlTD0cgUpy9fI2auq14+IXvFaMoK6aNlVlck5daFAIopjAEil8E7oL
-    rH4pxsQcVDgFbRt5r+ZZv2d+oylKssaJBNbHak6Lb/4GA5MguX7HLaWS2ZzmWVDNxwZW7L
-    JxGlcEZSmpliPJ4tjj/JgQo7MQ/m+LsvZiOMfOfRW6Kdz09oHBhoG78j9x/8+pOri1I2Js
-    Prc+imKhk6eXN/DbnAIndY0o83L7Ie54HXRsMyRaEkEdGsJIzw+JIyOFEBtzabX71t34eb
-    RBWSAkdX7dtO6FmZNBIYTHWaxT/weag4tYlw2exdJR6utsbvetj92x1r1+Fo3v2gw4wMJE
-    h/cGg53GsJdqTAv7UCoHGY27SMoKuXiOAllBlIMGuYpfKrdu6CwyinXwL1JW7WaikeiQ44
-    1M6Oy0i0rV9nDpgHOwZg4l+QJ2ZJ900e80Bbrdu+slM8etOs12PNzGByIh2yDxo1TXoCh3
-    3WGa5nnBdpxcAXw4BOFy6rD3GQRESNBhhbUrfZU7oQX0HDlodc08Lq4sTBOU/RyRzmOjz5
-    msmbNmbHBDJrjgRfz022Fr6CsEPCMZa+rrZvzy2FI1e3tlFaUfLA0MxJ+qbQ
-X-ME-Proxy: <xmx:Ph17atncwZV6tYgDys2Q21mWpLJkt1ivQih7iHWzIq_Hiz47NAb5kA>
-    <xmx:Ph17auBFguZlEtiVr4hYVjzJN6kNsgXfRoDHH6yRlaNtN65w_QpgOA>
-    <xmx:Ph17anCIKfrni3M9AOrG5JYjn3J1Aa35Ym9fy29XJmReI9zC-6Yd1w>
-    <xmx:Ph17atH2oVmea99o-caJ3CeKUklMLHWe73uiy5e3oKrAp5JRF1STRQ>
-    <xmx:QR17auszH6OZdoyGwYMewRxRgyOlS68bp95bmKYC1coztPDIfHnfZYkH>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 51C3A32A006C; Tue, 11 Aug 2026 09:01:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="nJL9hd2P";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="mwXSPDpG"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 67BCSJZQ1984483;
+	Tue, 11 Aug 2026 08:05:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=uJkloBJ/tUn97GoNiQR30q/seUGTIeu9CBa8w8jVu
+	m4=; b=nJL9hd2PxLtnf3NZFXc6MhQbzvfPywc99bFSzYll7mXbaj/m2e6rZzX2b
+	0bbYj+NN6I3p/e77bVFoRsauxt5OMxgBsOLKPNV75z3pMKihm1vI18jQ01+UPo5H
+	Tc9tMWr70BOXFmMOP5zlIqsmt/SzOJl08fKF9T31v10EQg5Svh0qloaObBsImClj
+	KlVaAixGbu+L6m7E8uZ0KXFu67A47m9GyVrtG2DrQVvPqL0DZs4d1HzeOmgkYbSl
+	DnKyIQ99uVB0YLZA/0dMokr/P5c598houncJ2l68oDhsbiiFiPA9e6IfOCExRa4j
+	remJvh34Lk9fpsvemvZky8n7Rt5Ug==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010062.outbound.protection.outlook.com [52.101.46.62])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4g00wu10jp-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 08:05:04 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HzGyrzAmFg7CMQbNsi4bHvFqA+bQarlas/YofL3e+w/xwg4oXPY4yEEWZYaF+GKfF3E56WAQLQ8XJ/xftM3DVNp49kfpxq8+eSjXlLkLJ8u539yAeGdMIq5i2TDeQ5mPP0M3BG6WD57ncH7Kzd48wGKC8rFZ+uCmIb8KuE63t3oAjOUrcyxL/fJkaNCcwkaAmvwU3EYcHfN81adbYHK2Y1d+RC8IY2KVDj2KOp4xLXznV3tOD4lXNtVuj0w+ma9nZFVylgBdiIkD8fiLRNBj7MuBU/BA8bK5JRghySyeI1KJsk7t06RJdaBupQhvRS0aUgIpxjrBvwFeWwfF/H7YAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uJkloBJ/tUn97GoNiQR30q/seUGTIeu9CBa8w8jVum4=;
+ b=re668gx/Y7YVfGHZdChaOE7G9Hez+arEebSsHbWM4XtQITGb5KBFlU1zanwcTXaYmpMqpW7PIKAroHbzut+UUNDzFLUkKY5AAy9Oe94dwbuDl6e5WEZDOrp8Jh/b/HgiYi6HE9U+AZNyLicOBENR6v46/8s5ZYCSrMW/xBJQLJGftTbNVNXPK/bBA60MxLiaNAQzVfqd08bQmKuf7SHklxAplVdTsHk/lmawLa4YuQWHKuO0/OcHo1mDYnZ6ky6opfRpZrSX/xGwYLOK6ui2cP7x8Cw1yo7xZVDeDvyXb7sHe+zWybBqqZ8eghxcyKgcZwhebgiuU6c9oICc3jmzIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uJkloBJ/tUn97GoNiQR30q/seUGTIeu9CBa8w8jVum4=;
+ b=mwXSPDpGcKOk8qeENuy+QyaX+/UhpZI7X+TSWXxEE14SWJ4VFrD22G9Z3j9Bmv8x4OEsmP0x+kHEbN6jOSC6zx9y1JDI5iwns0Y09vOqTDQFCEiBV0r6j5oubq1JblaBb4xxqTqEFMt006VfWvTthnkwQcGGNFGKLahJROgMGLw=
+Received: from PH1PEPF00013303.namprd07.prod.outlook.com (2603:10b6:518:1::12)
+ by PH8PR10MB6527.namprd10.prod.outlook.com (2603:10b6:510:229::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 13:05:02 +0000
+Received: from CY4PEPF0000EE3A.namprd03.prod.outlook.com
+ (2a01:111:f403:f910::2) by PH1PEPF00013303.outlook.office365.com
+ (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
+ 11 Aug 2026 13:05:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ CY4PEPF0000EE3A.mail.protection.outlook.com (10.167.242.12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 13:05:02 +0000
+Received: from DLEE208.ent.ti.com (157.170.170.97) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 11 Aug
+ 2026 08:05:02 -0500
+Received: from DLEE210.ent.ti.com (157.170.170.112) by DLEE208.ent.ti.com
+ (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 11 Aug
+ 2026 08:05:01 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE210.ent.ti.com
+ (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 11 Aug 2026 08:05:01 -0500
+Received: from [10.24.52.205] (a0512632.dhcp.ti.com [10.24.52.205])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67BD4vb31224791;
+	Tue, 11 Aug 2026 08:04:58 -0500
+Message-ID: <733e7cdb-bcdb-4e9e-a9e4-a9d364533ceb@ti.com>
+Date: Tue, 11 Aug 2026 18:34:56 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AZ1hQAj1mJfJ
-Date: Tue, 11 Aug 2026 15:01:26 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>,
- "Andrew Lunn" <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>
-Cc: Netdev <netdev@vger.kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Message-Id: <9bf826bf-cef8-434c-8fe4-e8724c90a37b@app.fastmail.com>
-In-Reply-To: <20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net>
-References: <20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net>
-Subject: Re: [PATCH net-next v4 0/3] w5100: restore GPIO-based link detection
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: dts: ti: k3-am62l3-evm: Add HDMI support
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <tomi.valkeinen@ideasonboard.com>
+CC: <devarsht@ti.com>, <praneeth@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+References: <20260723102519.3581762-1-s-jain1@ti.com>
+ <20260723102519.3581762-3-s-jain1@ti.com>
+Content-Language: en-US
+From: Swamil Jain <s-jain1@ti.com>
+In-Reply-To: <20260723102519.3581762-3-s-jain1@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3A:EE_|PH8PR10MB6527:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8e7786c-bdc1-47b7-4747-08def7a927f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|22082099003|18002099003|4143699003|3023799007|6133799003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	aWzjyXmXKTX+ZNKSaA7Jl/neQQsfjIggWP57Mgzyoy8VMLdbeHMPR21/JNK6CampiONnNFlTp3472qK54Xbzyh8Gft1n9Rg1UAFTeHVLB0m/PkcyjKjlJK+fNpMwx81RmsJysnOhtSHfPUtDWjp6OvAZSKPxaNIB/IbBe4jnD6sysysAFB4DC9zch9fpv3plvRf6RJI75iKB0V8fCggxmH9O7VLiT3tvcUNu2TggYsbRYe3ekg7vajzHGz+OkvPrKd9g+KPxrr2SBkpYt9qSlRhnHu654BW1y/yiezQwk2nFwzgVRlQTETVgZwsGSj0pG5EWDfpGHEdYrzqyw95lHkWZBkpAEFyJRAhDIkIAMHu6w/J4p2evnzSuAOAkr7z6Vx9i/9fTcvHZF5y66Jyy0DQNFyDrfC1l8zeU9o7JdH9T19RbK/1hK4F8aynxSl8/qmllSP6lyANLA8sKszpBsAYumATk2jJIukF0Z2UZB6vbfcSg+poZQPMSaSbur4S2lYFe6EKMQIgpXPhNNekXC0IitkkV3NWDXUfHBMhM2yI2jQkw/LIAKVYmKIDpaq5VZOP4WQW543NIWY35fL4fgfu+cXB0xwrAtUGzWLbhZvjoFc3HIAF55R80fNPYam2TTdEcWVX4stiWJ7UGDnD5qzkNipaP1C5kSlKXXmohGvQKs/ClPdeLtvhzjVM7+om1Y2x2KDjggNJDUN62trmxzg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(22082099003)(18002099003)(4143699003)(3023799007)(6133799003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NPV/oAG3rRtGDIbSRSN7z9bVPsZ6aDrYUzfDoWa+/SsOR2O+v2kPjUsukEHYpT1OoGSuQTTb0QV0j+cT3qfX7ACp8dom70XlIHr6e4uYceEm5QwAWDsQ6QQvGY3yryZxAb3oQR5Zl6w5lCp24VR6A+gGLieMjHWx3U/JwVXvn+Jz53LeUYy4Cyplt9mSvMQa3Dsz5HUAnAkFQ40hInmQTuqDH7M2h8EZrf3y+yct+sGQYy+OBhVxtLizgrUMCyKhHTo4DStUF/i5WSzfWetrjrkJArNqMHexzsIiswRN9/r/tJ6u4HSnWdCjbf2dskBk1XVP8JIsGFHvbvUgYbnu8xA+U57CM20hYSId1GTGuVTzIDbRqscrJupVEt8fIBNWy8Uza8o0DWbsds+CUyAdPU4oUtFTd52JLHrjncJz0bs/+Y3KaX0i2a4bAct+kiKo
+X-Exchange-RoutingPolicyChecked:
+	ZboqQcsVB5lOuWptSp+Pl5HM0TfrDhhXGw4ur0k0O8XQXt/iARGxwVKu/zUqH0AhhL5m4SqvPy4Z1pMF8t5ht5VdEG6FnlDQ1CjY38TNu+SxsT0oPmg173cApWcH+i0QI6m8Xudf2/+eXQC5N0NfGfyXXJC0gQ+7MDmNR//tl61oWQIDghDzde7V+nCTLN+KgMfuKtN0ZPJvR31vyiYBAxefK9bnH/CBgv6UaKo2I6jqUlVmxDXiEe6XzBi6ArvPNsa6A57knIrBBgMteJETABqo0XKKDUdNythP4HA0hRnBtXGuk8VF2ro3JwLhtnj4TKumOUr6cyfruBIVo6tTyg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 13:05:02.4493
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8e7786c-bdc1-47b7-4747-08def7a927f9
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR10MB6527
+X-Authority-Analysis: v=2.4 cv=M+V97Sws c=1 sm=1 tr=0 ts=6a7b1e00 cx=c_pps
+ a=QjrP5IPIVlaYm/X31SuGbg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8
+ a=RJTEjO2CYE0iKJSmHzUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: bFZ1gc21rOvxnjVKzOz-K4MRTUPChhTN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDEwOSBTYWx0ZWRfX2LE7jYK/x5sP
+ CBXjO4qSSueQL7mXuBub86kryfykAxkY1lZrk5CLLFBEXyra+hpd30yhWYNpY6/Uky0tAVkBoRN
+ kU7GqMjOGPNL/oYo8ctru6f+kfOaX34=
+X-Proofpoint-GUID: bFZ1gc21rOvxnjVKzOz-K4MRTUPChhTN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDEwOSBTYWx0ZWRfX0zhA+RbXNacS
+ nIbu7eEyIKCZwWoWNtJCkZzLXNMR+zAAQSF91Rxlk15joCO0FX674i003tMKC3om8qxmb3lmLSv
+ VNW35kuQTWuFsoWn3Qhl1dJ08W0tOtUbj1uP3d0X/QV23U5BeKMC44bxHDHyMmhMMTtO4AYuD57
+ zwrxyldcuL2EyfSp171g5tpq81qPxKUZtI9MxDIjUi8OXqDyQNCHCwua1MP+9j0yZ46Yp2DY1ng
+ LSg8yH6DGSNsCbUynQAb+PF4T16rMiZEJ7hBBjR0aI+r5qH+N+DwCMgC7vqo1f0yasrfEHYEOIq
+ uSQu4oF/hIZQus+3QBK7lQkdDfhuGPd1onUlus4hbGDiiTQnghouaHwrbCBaLw2RG4Yj+UnUKKp
+ UxpRUC1K8cQ00/LCPI4enlJk/zRK7Mei01jMjzwGTPBOMrFcXHxQ7lyyzWhw2U8KVRkIdZJ/Twp
+ Rw5XKD65NsZpvMGX+rQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-11_02,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608110109
 
-On Tue, Aug 11, 2026, at 14:34, Arthur Cr=C3=A9pin Leblond wrote:
->
-> In the previous version of the w5100 driver, the LINKLED pin could be
-> wired to a GPIO to detect the link status changes via an interrupt.
-> This only works on w5500 as it is the only one documenting its LINKLED
-> pin to hold the link status (on w5100 the LINKLED pin is changing with
-> RX/TX activity).
->
-> This series of patches is bringing back the link status detection on
-> w5500 using the Link Status bit of the PHY Configuration Register.
-> Additionally, the LINKLED pin can also be wired to detect link status
-> changes and read the register in the interrupt handler.
->
-> Arthur Cr=C3=A9pin Leblond
->
-> Signed-off-by: Arthur Cr=C3=A9pin Leblond <arthur@marmottus.net>
+
+
+On 7/23/26 15:55, Swamil Jain wrote:
+> From: Devarsh Thakkar <devarsht@ti.com>
+> 
+> Add the SII9022 HDMI bridge and HDMI connector nodes, along with the
+> DPI pinmux configuration connecting VOUT0 to the bridge. Enable the DSS
+> and hook up its DPI output port to the SII9022 bridge input, and the
+> bridge output to the HDMI connector.
+> 
+> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+> Signed-off-by: Swamil Jain <s-jain1@ti.com>
 > ---
-> Changes in v4:
-> - Use directly an interrupt line instead of gpio -> irq
-> - Update interrupts in DT bindings
-> - Address sashiko reviews
->  - drop devm_ on request_threaded_irq to avoid use after free
->  - disable/enable the link_irq in the suspend/resume
->  - only call netif_carrier_on|off if the link interrupt is present
-> - Link to v3:=20
-> https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@m=
-armottus.net
+>   arch/arm64/boot/dts/ti/k3-am62l3-evm.dts | 95 ++++++++++++++++++++++++
+>   1 file changed, 95 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+> index 84a0cfaaf196..2982a05f6082 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+> @@ -44,6 +44,18 @@ usr: button-usr {
+>   		};
+>   	};
+>   
+> +	hdmi0: connector-hdmi {
+> +		compatible = "hdmi-connector";
+> +		label = "hdmi";
+> +		type = "a";
+> +
+> +		port {
+> +			hdmi_connector_in: endpoint {
+> +				remote-endpoint = <&sii9022_out>;
+> +			};
+> +		};
+> +	};
+> +
+>   	leds {
+>   		compatible = "gpio-leds";
+>   		pinctrl-names = "default";
+> @@ -192,6 +204,38 @@ exp2: gpio@23 {
+>   		bootph-all;
+>   	};
+>   
+> +	sii9022: bridge-hdmi@3b {
+> +		compatible = "sil,sii9022";
+> +		reg = <0x3b>;
+> +		interrupt-parent = <&exp1>;
+> +		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
+> +		#sound-dai-cells = <0>;
+> +		sil,i2s-data-lanes = < 0 >;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&dpi_pins_default>;
+> +		bootph-all;
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +
+> +				sii9022_in: endpoint {
+> +					remote-endpoint = <&dpi_out>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +
+> +				sii9022_out: endpoint {
+> +					remote-endpoint = <&hdmi_connector_in>;
+> +				};
+> +			};
+> +		};
+> +	};
+>   };
+>   
+>   &i2c2 {
+> @@ -221,6 +265,41 @@ usb_con_hs: endpoint {
+>   };
+>   
+>   &pmx0 {
+> +	dpi_pins_default: dpi-default-pins {
+> +		pinctrl-single,pins = <
+> +			AM62LX_IOPAD(0x00e4, PIN_OUTPUT, 1) /* (L20) GPMC0_CSn0.VOUT0_VSYNC */
+> +			AM62LX_IOPAD(0x00dc, PIN_OUTPUT, 1) /* (N21) GPMC0_WPn.VOUT0_HSYNC */
+> +			AM62LX_IOPAD(0x00e8, PIN_OUTPUT, 1) /* (L19) GPMC0_CSn1.VOUT0_PCLK */
+> +			AM62LX_IOPAD(0x00e0, PIN_OUTPUT, 1) /* (M21) GPMC0_DIR.VOUT0_DE */
+> +			AM62LX_IOPAD(0x0078, PIN_OUTPUT, 1) /* (L22) GPMC0_AD0.VOUT0_DATA0 */
+> +			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 1) /* (L23) GPMC0_AD1.VOUT0_DATA1 */
+> +			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 1) /* (K22) GPMC0_AD2.VOUT0_DATA2 */
+> +			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 1) /* (J23) GPMC0_AD3.VOUT0_DATA3 */
+> +			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 1) /* (K23) GPMC0_AD4.VOUT0_DATA4 */
+> +			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 1) /* (H22) GPMC0_AD5.VOUT0_DATA5 */
+> +			AM62LX_IOPAD(0x0090, PIN_OUTPUT, 1) /* (H23) GPMC0_AD6.VOUT0_DATA6 */
+> +			AM62LX_IOPAD(0x0094, PIN_OUTPUT, 1) /* (J22) GPMC0_AD7.VOUT0_DATA7 */
+> +			AM62LX_IOPAD(0x0098, PIN_OUTPUT, 1) /* (H19) GPMC0_AD8.VOUT0_DATA8 */
+> +			AM62LX_IOPAD(0x009c, PIN_OUTPUT, 1) /* (H20) GPMC0_AD9.VOUT0_DATA9 */
+> +			AM62LX_IOPAD(0x00a0, PIN_OUTPUT, 1) /* (H21) GPMC0_AD10.VOUT0_DATA10 */
+> +			AM62LX_IOPAD(0x00a4, PIN_OUTPUT, 1) /* (H18) GPMC0_AD11.VOUT0_DATA11 */
+> +			AM62LX_IOPAD(0x00a8, PIN_OUTPUT, 1) /* (G23) GPMC0_AD12.VOUT0_DATA12 */
+> +			AM62LX_IOPAD(0x00ac, PIN_OUTPUT, 1) /* (G22) GPMC0_AD13.VOUT0_DATA13 */
+> +			AM62LX_IOPAD(0x00b0, PIN_OUTPUT, 1) /* (F22) GPMC0_AD14.VOUT0_DATA14 */
+> +			AM62LX_IOPAD(0x00b4, PIN_OUTPUT, 1) /* (F23) GPMC0_AD15.VOUT0_DATA15 */
+> +			AM62LX_IOPAD(0x00b8, PIN_OUTPUT, 1) /* (L21) GPMC0_CLK.VOUT0_DATA16 */
+> +			AM62LX_IOPAD(0x00c0, PIN_OUTPUT, 1) /* (N19) GPMC0_ADVn_ALE.VOUT0_DATA17 */
+> +			AM62LX_IOPAD(0x00c4, PIN_OUTPUT, 1) /* (N20) GPMC0_OEn_REn.VOUT0_DATA18 */
+> +			AM62LX_IOPAD(0x00c8, PIN_OUTPUT, 1) /* (M19) GPMC0_WEn.VOUT0_DATA19 */
+> +			AM62LX_IOPAD(0x00cc, PIN_OUTPUT, 1) /* (P23) GPMC0_BE0n_CLE.VOUT0_DATA20 */
+> +			AM62LX_IOPAD(0x00d0, PIN_OUTPUT, 1) /* (P22) GPMC0_BE1n.VOUT0_DATA21 */
+> +			AM62LX_IOPAD(0x00d4, PIN_OUTPUT, 1) /* (N23) GPMC0_WAIT0.VOUT0_DATA22 */
+> +			AM62LX_IOPAD(0x00d8, PIN_OUTPUT, 1) /* (N22) GPMC0_WAIT1.VOUT0_DATA23 */
 
-Hi Arthur,
+> +			AM62LX_IOPAD(0x00ec, PIN_OUTPUT, 5) /* (M23) GPMC0_CSn2.VOUT0_EXTPCLKIN */
 
-This version looks good to me,
+NACK. Will respin the patch, as "VOUT0_EXTPCLKIN" should be configured 
+as PIN_INPUT.
 
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+Regards,
+Swamil.
 
-Krzystof said that he preferred these to be described as GPIOs
-instead, but I think there were some other open questions with
-your previous version. If you can come up with a version that
-Krzystof likes better, I'm fine with that as well.
+> +		>;
+> +		bootph-all;
+> +	};
+> +
+>   	gpio0_ioexp_intr_pins_default: gpio0-ioexp-intr-default-pins {
+>   		pinctrl-single,pins = <
+>   			AM62LX_IOPAD(0x01b0, PIN_INPUT, 7) /* (B12) SPI0_D1.GPIO0_91 */
+> @@ -321,6 +400,22 @@ AM62LX_IOPAD(0x0004, PIN_OUTPUT, 0) /* (AA23) WKUP_UART0_TXD */
+>   	};
+>   };
+>   
+> +&dss {
+> +	status = "okay";
+> +	bootph-all;
+> +};
+> +
+> +&dss_ports {
+> +	/* VP1: DPI Output */
+> +	port@0 {
+> +		reg = <0>;
+> +
+> +		dpi_out: endpoint {
+> +			remote-endpoint = <&sii9022_in>;
+> +		};
+> +	};
+> +};
+> +
+>   &sdhci0 {
+>   	/* eMMC */
+>   	pinctrl-names = "default";
 
-To me, the main benefit here is that describing it as a
-interrupt instead of gpio means it can be connected to an
-interrupt pin of a chip that is not also a gpio pin, but
-this is another rare corner case, and the code will already
-work just fine without the optional interrupt if someone
-has a system with interrupt pins that are not also gpios.
-
-      Arnd
