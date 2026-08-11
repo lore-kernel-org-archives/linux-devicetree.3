@@ -1,152 +1,157 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1C944838E
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786457946; cv=none; b=s9p/6YQ20C0ZiV34BkIotBYtrtNkx+0LUi2xmiK2maZoD4k4CUo7mlxCY6OPUJeldx/J7mUuWPUKqyS5GEluEMwxZ/36FvzC7p2JkuZDMJw69mPKGHTF5qsGjkjBZr120R5AmrRfPVtNuEUaG400Ih6r+agEpYD6argKj0AYBZI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786457946; c=relaxed/simple;
-	bh=EU2mOJRDMryXAF2GipiHgUijQAcU3CIfjX/H/psne5w=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=jH1FDKHSpU93JaBu7oNdlSfg2hHm3WjGSaIcmeOKVImHxPUANQKy2VgiSFAcs5IcRVAQ3Um1C+qLYa6l/+v7JDZdczf5Z0Ug9HbdTarkqvL0Eq6ujfsfLMvlTnmt0jSdtLMK3G7g3jeP1S22M9GRd5PwT69522Ju+B8J9tprkHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ApkliKWB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=bHk1IVfM; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F328D224B1E
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:20:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786458027; cv=pass; b=NQJvNQu9hGBxancm9zxb0978P54mqPzmgKPlfgg846z6aWEdcDFxNMMXMsh+f6KFxwtqSJLe358xnWrYCTM9VpKX7Eq5AEefpp3VXKb3V1GE5GElY+iwU71gNXE6iKfAVHhrXKkYQU6ygC14JRznAWADqrre0YykBExJ56W71Rw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786458027; c=relaxed/simple;
+	bh=td3YrX4BitSFsJcuxTTJfNltqJvU+UzIl6ht+wT0AfE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iNmBCFJiRB4iTWsNmiur7Zo90suJW5DGcQ4DoP8DuHkQXHX67ZUontLQzNmvxNLHtUtFyn3IDLmXS+EQzd3lIDd8oIhygwaLpF5aCCQ7dW/2fDfWwxMcTTWEg0bm95KIwWK1BR5lGrKp5Q+iUsqJ8/nDXiD1Aonf2IeQYSFHqAg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CgYfJu6v; arc=pass smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ApkliKWB";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="bHk1IVfM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786457943;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d1HU6LBDnWtUkFmucBW5pIeZXLIpgzR08eamvaDcYUA=;
-	b=ApkliKWBX+EY71+pK9Q5Gfx4DOHnMUqANIke4Zd1+No97U7q5RlzgV5Lj/v/zH15+GlVJ3
-	fcm7jaUJRwiOppz9gVHXX/gKuapHdQzaBdOwTejvcR9eZ8WcOryLynaaIE9o1OcvzBkIpU
-	bt/inwonVEfN0+y+YCqw14/5ZBxLm0U=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-458-9XGQg1WYMXOPNw2FjTM4RQ-1; Tue, 11 Aug 2026 10:18:57 -0400
-X-MC-Unique: 9XGQg1WYMXOPNw2FjTM4RQ-1
-X-Mimecast-MFC-AGG-ID: 9XGQg1WYMXOPNw2FjTM4RQ_1786457936
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so5131158a91.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:18:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CgYfJu6v"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c15f020a223so459995866b.1
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:20:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786458023; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YvzDCjqUtaGl01jAvuc9h0OMNFfzvf1FyTmSdzlEWtpNUngWDMkcwqnn6rr2mGkaOm
+         2elOyST65+WcSOMxlzbEHRD/J5Mp62oqGk2ciKrrwxK9X4+drM39uJjeV72mWiCHot9h
+         ZTIFkwmRCjJ+uMTaHcafttTJRDofStuMDbhCfvdn80Wb5W8s3BqiATGi7XMDh1BgbsHa
+         +QmxCrEKGA3wXe2Yccnuv3o7PssQbV2aEFoJOdvhlj8l7Vqh/Ojzr2ntAewKT2DrXys/
+         FIB/xJPD0iZTyHEmWWMxtBYUK2JMS9KGbrcdYTYuk/WWPOi99wUo3kL4pAgwcnpk8Zkb
+         EWEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=td3YrX4BitSFsJcuxTTJfNltqJvU+UzIl6ht+wT0AfE=;
+        fh=06B+GSJf90d54C9zG5BuLqK8Kh4JaBTggpkBj3M68kQ=;
+        b=nUoPfXcUor/fIglaOzg6YHc8CzzD42LvJ3OEhpO7yK6qiDBYmfZlbSeBW3kG9EGZVO
+         IPgsnvRcznseGLUKSlTSBVCREOi4Trh0Q0JzBKra1OBd1ol5C4RZHy6YcIKl8QdaFdGS
+         /tSP0PR2wGMSxPABykHkx7YZHOBLYgIClzBQ49+QcmmN7ZOHblO/LiUAdc+mSA8/n4iu
+         OfXysNXGVf5ifEWas31PuR2S4+LlHii4+Lg+ZMrLRDynVXzSIkUisKT3vZtWxVnTnoMF
+         OU33NtIZXfnRLQKY7wLuCl0wCI9/7kUfrj8pTZK/EgmxT37Kz+EVA6b5cXlZupJ2S2PU
+         X4Cw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786457936; x=1787062736; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1786458023; x=1787062823; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d1HU6LBDnWtUkFmucBW5pIeZXLIpgzR08eamvaDcYUA=;
-        b=bHk1IVfMfhFVNY/vlvSSKCOVrebcp5ovP4l0Dg1GiVhXoB6hzTyXxVBR+pLKQ8lxqU
-         O4r14Z+zW9ecFo9XKdFF3h6+mPuzSTcpFuM1JICOAhrzoh3ADZ7a+ZPRntVMujf+57wg
-         5bJUKACm99oQpVUak0x+MsOQx11ZjJdIqYbQNhlgvEh3t0WsJElDoT/3ILOZDfYjJnVJ
-         rC2vFRKx4lx8lGP55oZD7U3hzhKtq0RhUcGoJKZx5oHpBqaGc6GDSllNUUicYQ5Qlg9K
-         VAG3bwK/zBubX2VNbX2J+8owj//UumZsmSXAO3VM99U2mw1rLgG71Yg87gtiLZC49bf4
-         NLAA==
+        bh=td3YrX4BitSFsJcuxTTJfNltqJvU+UzIl6ht+wT0AfE=;
+        b=CgYfJu6vr3wzJheRrf47Ik4TL4t+1upEmp2Aw4sZE7CK4ppJdIvlS5z5E/ChMsTV+l
+         ERGuXkB0QbmlZdL3Q2aPxXfnPOYee2RINRpmGaxgjYeMGdqwX540k6Bv0erzLmTDQ9q/
+         xzK90FldYIWe4ycbrFdpFbhIKjnLTJKxgqdhktkaWw/khobEiL7G/7gEFRDWths7KZtc
+         ehJpZb63eT5Pndj+FMN3cQSJDsf22zIXR5C2uwWGNJd1hT9z6eyG4B7pS86LXbv/y+ni
+         gQCHkCBWAqCJOxHvnIqpyMefCFxj2/oTC/2XpsqRuj/AkmzHQy29WyMwYWjcC5DeasXL
+         VXyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786457936; x=1787062736;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d1HU6LBDnWtUkFmucBW5pIeZXLIpgzR08eamvaDcYUA=;
-        b=PX7aWnIgZ1eGAfewNHwdfdzya3sMLuP2zvHUA3kor5UeXJfo+4aM9Mec3MXFd+WaPb
-         K74XsmzD39otqYSEV+xMo0/HhNsP53bH/XvBKobIP0Mz/nIFhUF6ceRBYR6NoMdYMAfM
-         kEFN6Vg89wgrxK77A3buJkM3a71dS79ZM053k9fJslANeRjCo5xZ7jYD5+uxzuAZ1vNl
-         DR5pCV7hJtQAsTb600Gi7VKze8BdyXtxaT6nAMjyw8+b7O1hzqGvMj3TYZJU4N69Dlcm
-         amXOQ2YUdWL1snZGBL5nmDSdJfD7R4zexUTcYFZYvr4/lAoE3r+j2ZY+ZMzo0CFjilSr
-         wv2g==
-X-Forwarded-Encrypted: i=1; AHgh+Roo3XPuXASP4LaA+OZWTqsK9hgpr9JaQII0XouQkwwjHQt+nmFLMpJZzqn5AubwudPzw1yyJB1qud8F@vger.kernel.org
-X-Gm-Message-State: AOJu0YwI7YRaM+J478pai36/I0qBEjRwLCzdOYqqi8jCPXFfH1Q+m8uU
-	Qm053ew+gJXrKz37M9s1PoxQp3EipbsX3iInJYGMjOAXS2TZu/oDB7s1S0CzO6Ma6Rvakb6r2t+
-	Q1FlTk48ySjiCF9v2kqIJgIJo5SA0x0VoM0qN0hhaUu4OBDuuNsXnBrwphX37Yng=
-X-Gm-Gg: AR+sD10SwVc/JHwKmBjFDydbuGEO/Puz4fGGm/cC35xBNJo1kMOm+Id68qUR48X8QQl
-	aYbVOK1uNOEnb24uzFAemJSzmbWmlpP9XomLBQOa04zzamTIZkEp0JOl5N2gHPYt1IBKh576rqV
-	jg0TbLjZ1kNFHAfqELe9M3s9tIfBuzdN5roAcYSqsRfv9zwA/5R4GZV2EKgGeHbsbJY+3pTWwTc
-	8f+VloM+ZTW0J+SKD6XcrxHCGATtLPssI03H6T+WYSes73Lmo+w/TSvJRBqedAp9gNwisMqU+/4
-	1H0OqNmx+apU4O1i4fxLpNiYjLMP9QlIzCr1eUHfba6+20Tr9DceDuyesVG/vlZ2gmcf1HPEcPw
-	4vvUkGX7cd9uRz4crzEfFfl56ZExgxQ==
-X-Received: by 2002:a17:90b:39c7:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-392ec5f1516mr3991885a91.12.1786457935632;
-        Tue, 11 Aug 2026 07:18:55 -0700 (PDT)
-X-Received: by 2002:a17:90b:39c7:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-392ec5f1516mr3991746a91.12.1786457934885;
-        Tue, 11 Aug 2026 07:18:54 -0700 (PDT)
-Received: from localhost ([181.122.135.46])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31cf67912dbsm42228eec.22.2026.08.11.07.18.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 07:18:54 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: airlied@gmail.com, andriy.shevchenko@intel.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, robh@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de
-Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
-In-Reply-To: <20260811122603.30773-1-amit.barzilai22@gmail.com>
-References: <20260811122603.30773-1-amit.barzilai22@gmail.com>
-Date: Tue, 11 Aug 2026 16:18:52 +0200
-Message-ID: <875x1gpwoj.fsf@ocarina.mail-host-address-is-not-set>
+        d=1e100.net; s=20251104; t=1786458023; x=1787062823;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=td3YrX4BitSFsJcuxTTJfNltqJvU+UzIl6ht+wT0AfE=;
+        b=KX81vCMr+886B5YEQMF8Ujq5fCv1PCSjOVlZlXXqpm3r5XmsmqoslBDZs8pITwTbyM
+         MIi64Y15NLMAscX2OduiBLlBnRFw6XkZw5vsjffyyjXooztmVq963cOPOAaJzWaDI3c7
+         hnSbrI6Dk4t7xFBKKeaO08FIo8boRLMVYVcF4wCWClptrtGzM0G12c6nbyy8qYAZepY4
+         +0KwR+movRxzpl/Ek7k9tkfLkk63mBknmktNjR9TW5qXEhgJjNQnPC9nxJXVosWjn3+0
+         gM39jLxosMnu8ES7Wy2UmIazwm/J2W9NNGS8Qx+dyhBWBF5/ED0Tw5DIQ8JiWQ8WJ8N5
+         Pinw==
+X-Forwarded-Encrypted: i=1; AHgh+RrM0+YYxram1mjqx7Wlzx+b6kucTq5HqgN89762id8omELc2BmewLhYQDD08yUp+EeNrGpq3d6mpmck@vger.kernel.org
+X-Gm-Message-State: AOJu0YyjH1KGCBfAknrJjQwxVJ8RfjGl0yQ+ZhP4n2Q7B1dGSfLU1Zou
+	x4FhnWaAaecv7tPHtufv6iHpBIPPatdNTbQ0tB7WW5sNCZ4EQP162dm4lkMGQfdtk5q5z3zxdeV
+	KTBu1EIKzPg/n+v+WP9j2sHyOSdqEQhg=
+X-Gm-Gg: AR+sD11dH29C4C5kKkuzdGhvKmtGqKvFUlsbhcjNBbpX8KdWZsugXYbyTSgSIl4btKx
+	XvsyfS/D0EIx81sY9Eik2+whaUZWprDXZEzhOyp4QUg+oDlF3FyRjQAcwCIEj3nV4ctoM4ET5bW
+	bcaYUNjzPv3GcJhyJHoNwP5G5KZckHgxlhPeTQmp/xt98wAZ6jvnhsEmwIDZ4G6DRxsRkqwj+PT
+	NMuZEIVpghe8xqzpLcxNDiwuB3lz4Snh9NtLvVui0Mq04z5/5wHpDKloorb+bFm6ZUPGCneIBon
+	ZbYkMiv8S6YSioG7h0u3OqV0k4boU0WpMKZNsFfthMY=
+X-Received: by 2002:a17:907:3d11:b0:c15:d4f8:dade with SMTP id
+ a640c23a62f3a-c20ec8ee1e6mr50072366b.2.1786458022732; Tue, 11 Aug 2026
+ 07:20:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260809160643.33991-1-l.scorcia@gmail.com> <20260809160643.33991-2-l.scorcia@gmail.com>
+ <20260811-amethyst-seriema-of-gallantry-ca9c7f@quoll>
+In-Reply-To: <20260811-amethyst-seriema-of-gallantry-ca9c7f@quoll>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Tue, 11 Aug 2026 16:20:11 +0200
+X-Gm-Features: AUfX_mzTu9IARagHp5y3Lhufa5MQ0ahYW_Bpy7_ilNA0FNARMUxNWXd9eRk54e0
+Message-ID: <CAORyz2KXJf4gU46649w1ncb7TAOErdoGmfOMzwKr8b+eGdAgVA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/8] dt-bindings: reset: Add mt6589 toprgu reset IDs
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
+Hello Krzystof,
+thank you for your patience, I really appreciate it.
+I think that a lot of my confusion comes from the fact that I'm trying
+to follow the structure that is already upstream, but the whole driver
+and bindings could probably be refactored in a more straightforward
+way.
 
-Hello Amit,
+> So binding already has reset-cells or not?
 
-> Hey Javier,
+The watchdog binding at mediatek,mtk-wdt.yaml [1] already declares the
+reset-cells property (optional).
+Inside this document the various SoC compatibles are divided into two
+lists - one that falls back onto "mediatek,mt6589-wdt" and another one
+of explicitly declared devices.
 
-[...]
+If I am not grossly mistaken, looking at the mtk_wdt.c [2] driver that
+handles all these compatibles there aren't really any different
+behaviors between any of those watchdogs/reset generators.
+In every one of them the .data object only provides the total number
+of reset bits in each SoC toprgu, plus a single "has_swsysrst_en" flag
+for mt7988 only.
+For mt6589 the number of resets is missing, which means its reset
+controller isn't enabled (and therefore it's not enabled in any of the
+"compatible" devices). We know that this SoC supports watchdog resets,
+so there really is no difference between all the SoCs. Both the total
+number of resets and the "has_swsysrst_en" flag could become
+properties in the binding document and be added to device trees.
 
->
-> So for v4 I propose:
->
-> - Keep ssd130x_write_cmds() writing SSD13XX_COMMAND per byte as it does
->   today, so there is no change to I2C or SPI wire behaviour anywhere in
->   the series.
->
-> - Still do the ssd130x_write_cmd()/ssd130x_write_cmds() unification as
->   its own prep patch, as you asked. It removes the duplicated variadic
->   loop and gives a single place for the check below.
->
-> - Add a bool cmd_params_are_data to ssd130x_deviceinfo, checked after
->   the first byte is sent to decide how to send the parameters. If it is
->   set, the parameters go through ssd130x_write_data(); otherwise the
->   existing byte-by-byte loop is used.
->
-> - Drop the separate SPI transport patch entirely.
->
-> The comment in the core will be phrased in the core's own terms this
-> time: parameters go on the data path rather than as further command
-> bytes, without mentioning D/C or any other transport-specific
-> information.
->
+This change would avoid lots of redundant compatibles, but it would
+break existing dtbs and I don't see a way to keep compatibility. Maybe
+an entire new binding+driver and deprecating the current one...?
+Still I'd feel more comfortable hearing the voice of experts before
+proceeding in this direction.
 
-Thanks for the explanations. Since you have given a lot of thought of this
-I trust your judgement and agree with your plan. Let's see how the patches
-look once you post them.
+> We do not take bits, but identifiers of resets.
 
-> Apologies for going back on something I already agreed to. If you still
-> prefer it in the SPI layer I will do it that way and fold in the 0x00
-> control byte change, with the I2C framing change called out in the
-> commit message, but I wanted to flag the breakage before building on it.
-> I have already implemented the fixes for most of the other comments
-> locally. Once we settle this, I will submit the finished v4.
->
+Currently the existing mtk_wdt.c driver does not use a reset table
+that binds identifiers to bits for any of the existing devices. There
+are a bunch of mediatek,mt*.h files under dt-bindings/reset [3] that
+point directly to reset bits instead of being indexes.
+I can introduce a reset table in the driver, but it would break
+existing devices as those bits are referred in device trees and they
+are often non-contiguous (e.g. [4]). As before, it could be done by
+creating a new driver and deprecating the current one, but maybe I
+completely misunderstood your point, in which case I apologize.
 
-No need to apologize, I appreciate the deep thought and willing to not
-break the I2C devices already supported.
+Thank you for your help,
 
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+[1] https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/watchdog/mediatek%2Cmtk-wdt.yaml
+[2] https://github.com/torvalds/linux/blob/master/drivers/watchdog/mtk_wdt.c
+[3] https://github.com/torvalds/linux/tree/master/include/dt-bindings/reset
+[4] https://github.com/torvalds/linux/blob/master/include/dt-bindings/reset/mt8195-resets.h
+--
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
