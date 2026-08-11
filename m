@@ -1,187 +1,214 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013068.outbound.protection.outlook.com [40.93.196.68])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8FD43CEF9;
-	Tue, 11 Aug 2026 10:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786445738; cv=fail; b=NrYhr33IkULcc3N0p+hMBQLtkOBPlIw0Xsa4kqWwPRBMmyjg9Cc72BExe03K0ArOulAtKHOW5qXs58k+Wzu6DqO7KcaZLlFf3YVqeH0uMesc00AtswpMII67Nkh3i7vq5esHXr+LT3u6gSm9ZR6qXltFPH2VvoL+9HAdg/4O/HM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786445738; c=relaxed/simple;
-	bh=WAEAhq9VgCAoyyoaH37p3vgLrQP8iopT/rpow/bhhPQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=gTH0K3oDtJrEvSWIQpDrf5ZwzHJC4SgKojQe8x/xCptzRkspIOIRgBDI3PF0Wg+D70rFRsMzBvYUW4AV2/El7OobxL2VBsASanC6tZCrb0iFsAPCIR58EVSltbb8KQ2Ie+urAoO14AIq9BBvbc6Q/c2YzMFWzNXLXxoL/Q9Bxsc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pl042mE8; arc=fail smtp.client-ip=40.93.196.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EAF43D503
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786445956; cv=none; b=MyQ0kYtPT0EAyybP1z2hf7cKprmbmq8U0Xzi7xBrqI75f6ZS6sXLhmmZGlX836PI8oowKMhIjZMHElyrw14HwAibzy0Uffdcvy8JTwDYPPRODoud/GPglcwGaz0ORhZ2ejKMGZEuI9U384XF/2sLjdrfDpSGe2m9CYX2WR19L1k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786445956; c=relaxed/simple;
+	bh=DWzCfeez1fUfPlZJGLKLcByycNs4DBvffFnJkEmwyvA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mIQxme7SknhROvy5K5c0MnvjyGmFrgNdJpzj0juJLtjx++fsKiVlaQxB6JVIHpuPj6qhnSjamRq8yf+bdtau0LCSKKACiNUPJnUYPtNivYrWdiWJpDP/dwIgZWlBwYEWeV4xU3gv7cmDGGDuAk/bKSSYbKNqbirHD0Z/auufCFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J12IOfy5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MBam7xJD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pl042mE8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=psTbK7rid6R22tjwCrE4JAKT3UMTHD0077uTTcSd41NheqwKjiVnP+hH4AXFaYxw+qfR551U1iutMnietrJkzacoyWkVcjUZrpv4hBOyr4vFv/7O4yTD8YOoZSTYD4Owa7+XUUvRoAQP/hUB3dmqXZmvR0L0ukqo4o8/2EIU6/WgTk8+MbK3urPv/CksuPL1Pec/x6y2bmCE8doqLLZ0R9vradhiDxHUFDrQB4zBvN1sxrMbTYkGy7M9MeDgcxK3ZlK9+csrMVM4Yl6ZDS3EUZEiTGsk4JFaQcnUy9s+5m2GG5AVBzt7+mEyV+0e99ENU7wqlBP9IXltCOjoue6s/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hIZUU+Ar4SaRbWfNbeYjJC2zIHFW013NMXwsAFzLNUk=;
- b=QiHapZ/lWyclj1RwVGmnR6tokkh15H/GVXbGfoaz2qlwi+dtEBtjU+HWi8YryaEMkC5ZQw/VOrMBDzNqT8MPPBd0lmfew+40lBUpm41wfcMhMiXY7X2latseSl2zawK0NJGTSrktY7EU67VsTm06ucBAk4YYIw4g9pjJIPMndvxAWmyKudbcMntoz+knle5+AVkq2OrW1ENp1U7QMw1ZiXUwQ0WaoVNTKkvgkGYpAsS5LJGoRhheWrjNAm0uIa9hCEgHlcP1QACwjcFTlm9k/BpcIDBDLLMitrXcaGIX0T6HaK/hFEIjc6Jc1pkU8FpkdC/w+1Z6FSa0lI1DQIpz/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hIZUU+Ar4SaRbWfNbeYjJC2zIHFW013NMXwsAFzLNUk=;
- b=pl042mE85EetTQfanWeiXgoGruk/yTKpg5+ypX7KkXmBVTh80aSVx1jgL6AZc28JxpLci7gacn6evzcGUGEm8Teyenz3jtFQz6/ezr7n3jYNExmA6PXOg2hCtVXPL3OWKcT2W5/MeJPAnWELVC1uluOjqf5p6iUkyswkr+GJDCw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20)
- by SA3PR12MB8804.namprd12.prod.outlook.com (2603:10b6:806:31f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 10:55:32 +0000
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f]) by DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f%6]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
- 10:55:32 +0000
-Message-ID: <322931c5-dfbc-4441-b992-8608231f9fb7@amd.com>
-Date: Tue, 11 Aug 2026 16:25:25 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 1/6] dmaengine: zynqmp_dma: Fix PM usage count handling
- in probe error path
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, Frank.Li@kernel.org, vkoul@kernel.org,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260810100452.426320-1-nagendra.golla@amd.com>
- <20260810100452.426320-2-nagendra.golla@amd.com>
- <20260810102814.4A6981F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: "Golla, Nagendra" <Nagendra.Golla@amd.com>
-In-Reply-To: <20260810102814.4A6981F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4P287CA0119.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b0::9) To DS4PR12MB999075.namprd12.prod.outlook.com
- (2603:10b6:8:2fc::20)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J12IOfy5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MBam7xJD"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BAM885027433
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:59:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=+gDmkLnIGDiTgLxR5N5KJf
+	8I80upPO22KQIx5QqtaeA=; b=J12IOfy5fOcRz4B9OHdoBfEg1EX8gz/e15ZFs8
+	/NqO5fogxoMd2howYorZAUvq/sDBrSvoDlhffXkESOKqiIM+2zj2zR+71Tju3jYl
+	MeOOO45GFD5m2pW/BwCPLUCY4T1qI8oMukJl6xbz8F+gKPcuW7bANKBteK7KxMx/
+	yIG2YsS0c7Df2VyWS0qAfrI4OscgP3Yvn5v89RL151XYd8/mHxnSP2nqVYpMh761
+	8giYrkD0k30LxK8Io6bnPjL3dhikrytSp3/kIiUd0lFIr8DdhVB3G/HRVmXLxfiY
+	cBstgUjyiOD5pcnU+jUZ9Jcnd02Gbw73Bd9hh48WZK4eD3Wg==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyjjsktsj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:59:14 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8486c3411c8so4059514b3a.2
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 03:59:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786445954; x=1787050754; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+gDmkLnIGDiTgLxR5N5KJf8I80upPO22KQIx5QqtaeA=;
+        b=MBam7xJD3osnw/w2IQa7v+p+1F/MSm502YAEsN9sUGxWpCIY932McAtCMu3zY5T6/l
+         8KNsG7cN49KuucO+6F7N411LOFVfSxY+zpFPDPBDopExzgQu7czWu99W2yiHleXku2TV
+         tUKPypjQnoInhW+j8m76riIXMZ9zz6hTSP2C+UieGI0kqwrOdtk+exuQ2Cxb2uPTK0J+
+         J90LkNEJv9StqddayQwv/2SSiSdE23bffQSnNXPPEPCPjm0kR9KRopZh/WurSwMRg/Uz
+         zSeMzB9OkJG1KJheFXCdN33kR2mm2K5YwvbaiXOaGrl+p5xfnCPr0t1bHbcpn9jSfGxx
+         bLyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786445954; x=1787050754;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+gDmkLnIGDiTgLxR5N5KJf8I80upPO22KQIx5QqtaeA=;
+        b=F9daMCE6s9D2Nlwg59LPyoLXUY51OiNvD68ryawpCZ//AaGi1gLrZR3aW6PZ/TX70/
+         hKPyFoyvdEi90KhBA17djHH9JqVPwcW2Z0psVaSsEydmSmeKNVz6T4KsLJBZ1BGEJwea
+         r3uCOdV43bYnnEfcKKu3D3qIm53OkN0F5q8FKIZnnQllSvCegQ/Ila56LeRHs3R1Hy2o
+         nUkelrztife3oRasoZJNbZnfDcGP9jt378wy8T0QeCvDOXSsNloUNvzrnU5oGyd0tzxQ
+         bQG/JVW1a4nDGfK1FwwkKu4h933zdJoc9icQ9tavPTadhVE/qJVuYb/8c/lXYrpj3Tfs
+         P9Ow==
+X-Forwarded-Encrypted: i=1; AHgh+RrelcP2fIgBfnNdXVFOw8jg1+PkDNdK05a/2p2REdcWDPOuAB6GpehW4WOLRf4u9mlr52cPQKmvtd8C@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/IlhjGlvDso7uwa3PaCpXwKYFwcSsIOjrd29f7mrW+F1unrIz
+	FwB1cPHwrcNUIVEdCLKe81XnoG+uFrjrqV/LIoJEIA44DCHMqawC9HqeSUMY/SfxBVaH2D9ygbb
+	1UN//RhiboZ6vcRf+caKKCU2nv4iIu/hMV5qkhoBhK1mJwovUU5iqubZGqkuhulgP
+X-Gm-Gg: AR+sD13nrROV8mXuWFDeQC5pCBVzRmjYZ1vP8mOHVl8Bk/XijtIIdzl6eVP5gH19OqD
+	xu8vN//3fX5aKgkmc0iKLRM3N85KiAYDmKDbTqWqSIA4dWLa7AHzIjl/RReWt5yPdmBYCdsEmGw
+	cVVcN7FgxTprVn1a9Kms3FOxbMcIVKVPJrJGhDGvvVkcmRFkx851DokdsJwQEYMKwVUwp/cIZdi
+	zXhY8aPSqeTV5VJFT1vueIh9uZwcdZm6SHsaidpTREIsoXRfj8FlXvOx4SWXcm01usVHsHSoEE8
+	x3O+Dw9s4MxeiOBR0tvqpNPBvyBQ3mXc3NGa/z9PAYHGAwaoeRcxSay2CR8drYDSjpx9jFS/iGE
+	PCJwtNUWDviMbG4thc7SSCoJOzCStrikrrDAHZRtdxZyKNJZSRnoMlAwhUePeXnyS1RP+Ug==
+X-Received: by 2002:a05:6a00:3d51:b0:845:e8b9:347 with SMTP id d2e1a72fcca58-84fa8694ccemr2442026b3a.13.1786445953658;
+        Tue, 11 Aug 2026 03:59:13 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3d51:b0:845:e8b9:347 with SMTP id d2e1a72fcca58-84fa8694ccemr2441957b3a.13.1786445953035;
+        Tue, 11 Aug 2026 03:59:13 -0700 (PDT)
+Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa952841dsm529322b3a.30.2026.08.11.03.59.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 03:59:12 -0700 (PDT)
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: [PATCH v7 0/2] Add DT Support for USB on Shikra
+Date: Tue, 11 Aug 2026 16:29:06 +0530
+Message-Id: <20260811-usb-shikra-v7-v7-0-753e928f37ae@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR12MB999075:EE_|SA3PR12MB8804:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d6ad69f-d5c7-4a74-87dc-08def7971051
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ReG3rzMNZC11P/YmaRWeHErJr9jNSwAZq/g8fx+UjdnXX3esugbRnnhIlFXVstzpNO/hwunKWVz+06312Q8PfunZofAzwhfEIdpp3sFRVwfVtosmXEpDhfBuzX0+9/WpCQeI4YW5zYvZrcvDSJHjyT2nw5aD0IeLecBSHGfYHsHnffgx6GoFnItFTlR6v71XRA0qzOa/F7C8dVCL7vCCFiXpDfmBAxWilfKqxavuj3LnUq/tC/iGcZsT7m2hfakK6eG1/vUqaFf57nAsd68u/OXFeMfoKjZLLlp8tVXinyCtEN51PgrKwFWEbT7n+UYqj37j5DqOoazpLn1z3NpjyX8MewORGTQI48cF3cDg5qcXMLavSiwTsMYeahrnC/EPk+1tmNti0qCXn34XWy648yoCraumQRBtzyJpa/cn0bpqQfez84L4IXUAYRodh0icj/ooA0uUAQhiksf6wmlgurdCK7nA5NqMdrq7EzlbzOsG6U2JogOBI/T4vOBpUCVqNVX5b9owlprHvse1mMxXEhn//LrTyKPSQhzKHOXKMjQHwKu1QE88Y8d4i8dTBuowHmFq3TlaQLgmmbVZBx2pFRDq9nzcKpv2qSXnChPKv2uboXfFWiBhffwfviaBXxrjpzxo9Ltnh2C0frUrZ+4JNKBxFNtjlG1jgSdv6vfEhDs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB999075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UVErN1phVTZKTUx1MW9idWtkbFU2aEpGSWFMN0Fhbkw1Zll0SEcyMW1jRUc0?=
- =?utf-8?B?VkhhSk4wVmNyd1hPZUR2YmtrYkVzOElveEp5L1dqZTh3TDRvdGViMHBUdlli?=
- =?utf-8?B?N3pSSG0yeXBraFVpM0laRVlHV01rQzlQRTJHbnNlS2hFZGxwdjU2UUx2TXNj?=
- =?utf-8?B?M2JQWFhjTUlyZHI2dE4vaTc0MnlneHFyMlpnanRubjUwbWlMVHEwZUl0akNM?=
- =?utf-8?B?aUowVUMwZk8yWUJSU2YrTi9vSzRKKzFFZDJOZWozM1JFK0l1UTc1b2FsU1d1?=
- =?utf-8?B?dHA3TFFmZVF3QXUwN2RjMGM1WEoweDg4Uk43OHUraHNjd0tFZS9Db1VDR2Rh?=
- =?utf-8?B?T1dJR2xDTjVMVHBUZTJVYkt5UGRJdm9Kd09qNG5lMm5zRDNBcEFEeXdzaEdr?=
- =?utf-8?B?L2RmWHRFTnBtNlpSR09nSnB2T1ZPUTd6bVk1RkluVDRrdDVDNjIwWFZYdjNU?=
- =?utf-8?B?VzY4bXNnQkRNNFBRcUZqMk5hV1lQUVVTbkxxYjE2WWJRT1ZQdU0wRUhueGQz?=
- =?utf-8?B?dGpQWndrS0lSMlBNNThvSTcyajdpalExK0tWdEl6MmZQS0JMNzg0ZmNzWTFi?=
- =?utf-8?B?MWlxUG1PdGRlMVhaMDlWL0ZISkZDeUFSMjc5V0NRL2kwUlFpQkt6bCtVbEdv?=
- =?utf-8?B?YTh4OFZBZkpQU3F0QWpXeElJSVlzbUlqRHNsRmx4bW1FazQ4ODNIU1oyRVNT?=
- =?utf-8?B?dlV6bVpNQ0ZNV1hBcHJ0TGhYN0k2ZTE1N0pHWkVhREtVTG9Od2xKdWE4YWd3?=
- =?utf-8?B?MXRpdnRoT0h4NzhCWnFwblRjenJkU3QrY1dGWFZPZ3VIK0lVQXNwbDNISzJ4?=
- =?utf-8?B?clROYmhtZkgzNFdTdXp5WmxtUFlLU1REN0N5K1BwRjRXRkJXSGZQMzVBbTc1?=
- =?utf-8?B?bnVjTkpweEp6amxEM3ExUE0xS3QzdlRaQnUwOEZ1LzBmWTRMMVo4Ymxvdlcw?=
- =?utf-8?B?K25ZNHM3YkRvdWtiYTZIY25NNklWcHpQdkZ0UmtnaDl2b01rNXMzWUcveVpl?=
- =?utf-8?B?VjZDOUlacHZHK2pKeTlYd0JoOE12Z3o5am5YeHB6RkZxdCt1UnhOZEdEdUll?=
- =?utf-8?B?RllibU9sODNHL1g5cXdFd29HRFpXMVZkTjJGRUJ6ai8rbm9kdGduQ3c2TWJW?=
- =?utf-8?B?cGxvcXhOUnV4aXlDR08wN2lRM2VVYlNtdG9jbUozUXpJL2JJQ3lSU1NmVE9h?=
- =?utf-8?B?WUczeGF4ckpHM2Z3NTM0d2Z4TWlFbkdzSlFDMGpJWkJES3dPR0xQd1BkK2RR?=
- =?utf-8?B?MWdYWnFNTTZNTEUxTmNBUGZkNXYzSTY0azBla3ZCS0Uybzl5Wk5xRHI4Z0NE?=
- =?utf-8?B?b3FNS0RwdFpMVW5ORis0WWlnbkxabGRvU0hqemNCNHJPWHd0U0NZUitXcTZS?=
- =?utf-8?B?alIvYW5ibnJySWtPSU9Va2lva2hvbyt3c3RwR1J2MzZlNjJJVnlEVlo1a0J3?=
- =?utf-8?B?YUlSdDdUczNoRjBEdzFLLzU0OUJDaHdmZ2VraURCUzArVThWRGtEQjZBY29y?=
- =?utf-8?B?eWpOMHk3N3Y5aitWZ3dDV0J3dnFmS2hUbXJjR0gyTHV4ODh1cmRDNkVST1ZK?=
- =?utf-8?B?ZzkvTGdPK1U1YmlXTjFYejM1VExqSDJENTA1cGRkMkE1WTFxQ1ZTenVTY2I3?=
- =?utf-8?B?djdxVll4WUozUnFtNDMrelR1S2hBcHdrNGVjejhRUkswVTBWZXVUWFBHZmlJ?=
- =?utf-8?B?bWhuRTVSUk5zeHlib3AzNDlwN3hzNFA3U0trb2pGditlNkR5cHlSZlM4NEs0?=
- =?utf-8?B?VU9qNkVoVlhKbkY2RlVLdm1HUFRWbVJKMzFuQmhPTDYveW85OE4wTm1oWGd1?=
- =?utf-8?B?WHMrUGZTR2p3a2pHMDNTaWcyZ1hoUjlDQi85UDU1aDM4VzJpQ3ZyM2x3ZVhp?=
- =?utf-8?B?N2dOOEtPa1ljajhrT0grNWxIZE5zRE1vbzNBZmNzWGVYMkQydm02Rm42QjIz?=
- =?utf-8?B?dFZNekN6Q0Nvb00rT3ljNlZEN1Y0OVBxRlk5QktWNStYNkQ2MW5TUW5RTHVp?=
- =?utf-8?B?dWVTVnBBWHBEVEQvdEpOMTZhSHUwY3ZjUmNNSG9EYWhzR2YxcFhGMmlnS2Fm?=
- =?utf-8?B?WFVxb0NhTEljdy9KM0pQRWluVkttdW8wazFZM01TYm5OWGRxd1FjR1JuTzR0?=
- =?utf-8?B?NDhxdXkxdVN2NlMzWHp1QVR5VGNBWS9UOTBRRDN3RUdueEdLWFg4cVpidWpx?=
- =?utf-8?B?SUtMTVgrMURncjBCdEpwcDlZZzhsQlp6UDJ5Q1o5YlhMdkMyU3JiQytYQWQw?=
- =?utf-8?B?YnJZRzRzQ0RnSEVGVGludndYRmFwZkdoMlo3QWlyVEh6d3UrYWtlRWh3UW5Q?=
- =?utf-8?B?R1RuZHQxeSs1UDgvWHZQeS80czdRRlJuczlsOEs2d25heGRxR0hwUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d6ad69f-d5c7-4a74-87dc-08def7971051
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB999075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 10:55:31.9808
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K7izcKXN2bSqPK0vIDIiES/ogd1l75JdOSaq39emKCn+0/kZ/V/lk+cFET7GSZZT624mGbJHkjt7HWzk6q+HBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8804
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHoAe2oC/yXMQQ5AMBBA0avIrE1SJYiriEW1gyFBOohE3F2xf
+ Iv/LxDyTAJVdIGng4WXOaCII7CDmXtCdsGglc5VmSS4S4sy8OQNHgVqZ5VLTWdTl0FoVk8dn9+
+ vbn7L3o5kt3cC9/0Au0vvY3EAAAA=
+X-Change-ID: 20260811-usb-shikra-v7-2dc0d3afc3d4
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786445948; l=2919;
+ i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
+ bh=DWzCfeez1fUfPlZJGLKLcByycNs4DBvffFnJkEmwyvA=;
+ b=C+JtfQnylzIUfUMUm8Yj+agPdMFeSpFBVTaJtvcAFovBIa292/kJkOgLMlBYGc04SbW4gkk2s
+ +6hVbS8JQnVCo8olnrFbbOjDQesRcWTAYTiZ53XxtOKoiqRzZf8TS83
+X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
+ pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA5MSBTYWx0ZWRfXz273K6tIhcHM
+ m4y5iPpAkw8ujto+be7naWlR+tQ8LyC+1oD34vHxkAAl1NpL4hRY5q8uUDxwi3GwibvRGxrDh7M
+ oUf7BzYJFHZd77D2qkUfHZwADqiSjMg=
+X-Proofpoint-GUID: mKPaNpIfIH2n4CkZAR5TgXtGRZlKbAyr
+X-Proofpoint-ORIG-GUID: mKPaNpIfIH2n4CkZAR5TgXtGRZlKbAyr
+X-Authority-Analysis: v=2.4 cv=cfDiaHDM c=1 sm=1 tr=0 ts=6a7b0082 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=_AVwzdTWJwZJkuAtZNAA:9
+ a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA5MSBTYWx0ZWRfXwKg59g+pTNVJ
+ YF7mnqWXWxEdMyUvegiS9z+xTO+kMsYMxZy9SjeXsnX6H9bVP3rA301+CbQvUimKJV+Doj+HcrN
+ ypN2jbZw7DOKVn9NUddILk3gVN3KJlzfUJNZ5Ihnsv1bHQeuQ8B0aI3AAHfZO/9qU9DzIqbzgvO
+ kcOxYJMFPpetlVxwag00j2CpP3Njm9ZEGuTzryx99GQJwLFBZh4WTYghKoHa/pOvDBpZ7o00pbG
+ vqk1UgUSWc0AkHela0ecZv6bUPBbczjSl6C7Oq1vc++ZsdsgkRGDHaPxptl86u4SaywTyrHj7va
+ ErXYcNlia16ThwyoFuXtKrlF1bY0WPgHUinOT6j3fQ+EDdkR85CCyW9SlF/PUb3vscLZu36kCXN
+ 3H54hlSmJhrNhUxuJBDb9IgBiGrvBoCHGHbv4eFApRiceN2FRo+4yQMVMgupVBfRcaD4wQy8feE
+ 6SC4bEuJuHHrScA2Haw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-11_01,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 phishscore=0 impostorscore=0 clxscore=1015
+ bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110091
 
-Hi,
+Shikra has two USB controllers. Adding both USB controllers support
+in device mode in this series.
 
-On 8/10/2026 3:58 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The introduced pm_runtime_put_sync() fails to synchronously suspend the device because autosuspend is enabled, leaving clocks active.
-> --
-> 
-> --- Patch [1]: [PATCH V3 1/6] dmaengine: zynqmp_dma: Fix PM usage count handling in probe error path ---
-> commit 8bb5754b8f17c08d0144740ac308428274806a68
-> Author: Golla Nagendra <nagendra.golla@amd.com>
-> 
-> dmaengine: zynqmp_dma: Fix PM usage count handling in probe error path
-> 
-> This commit attempts to fix a reference leak on the probe error path. When
-> probe fails after successfully waking up the device, it adds a missing
-> runtime PM put call to drop the usage count and allow the device to suspend.
-> 
->> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
->> --- a/drivers/dma/xilinx/zynqmp_dma.c
->> +++ b/drivers/dma/xilinx/zynqmp_dma.c
-> 
-> [ ... ]
-> 
->> @@ -1152,6 +1152,8 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
->>   err_disable_pm:
->>   	if (!pm_runtime_enabled(zdev->dev))
->>   		zynqmp_dma_runtime_suspend(zdev->dev);
->> +	else
->> +		pm_runtime_put_sync(zdev->dev);
->>   	pm_runtime_disable(zdev->dev);
-> 
-> [Severity: Medium]
-> Does this actually suspend the device and disable the clocks?
-> 
-> Since autosuspend is enabled for this device earlier in zynqmp_dma_probe():
-> pm_runtime_use_autosuspend(zdev->dev);
-> 
-> Calling pm_runtime_put_sync() will only schedule an asynchronous suspend
-> timer. The immediately following pm_runtime_disable() will cancel this
-> pending timer before the suspend callback ever runs, leaving the clocks
-> permanently enabled.
-> 
-> Should this use pm_runtime_put_sync_suspend() instead to force a synchronous
-> suspend and bypass the autosuspend delay before disabling runtime PM?
+Changes in v7:
+- Rebased on top of latest for-next branch
+- Added Mani's tag from cover letter to both the induvidual patches.
 
-Thanks for catching this
-Agreed will fix this in the next version
+Link to v6:
+https://lore.kernel.org/all/20260729-shikra-usb-v6-dt-v6-0-72ffb4796a08@oss.qualcomm.com/
 
-Thanks,
-Nagendra
-> 
->>   	return ret;
->>   }
-> 
+Changes in v6:
+- Moved dr_mode property to shikra-evk.dtsi
+- Merged platform specific changes into one patch
+
+Link to v5:
+https://lore.kernel.org/all/20260723-usb-shikra-dt-v4-v5-0-5b69d9eb0888@oss.qualcomm.com/
+
+Changes in v5:
+- Added interconnects and sorted nodes alphanumerically - Dmitry
+- Updated commit text mentioning that device mode is being enabled
+  since role switching changes are not yet present.
+
+Link to v4:
+https://patch.msgid.link/20260721-usb-shikra-dt-v4-v4-0-2e7a092d7f27@oss.qualcomm.com
+
+Changes in v4:
+- Enable both controllers in CQS/CQM platform
+- Fixed iface clock in usb_2 node
+- Skipped adding RB tags obtained from Konrad since on CQM/CQS, second
+  controller also is enabled in v4. Also specified dr_mode as peripheral
+  for first controller.
+
+Link to v3:
+https://lore.kernel.org/all/20260716-shikra-usb-dt-v3-v3-0-13f73a0571bb@oss.qualcomm.com/
+
+Changes in v3:
+- USB changes were sent as part of consolidated submission in v2, but
+  they were later dropped since bindings had to be updated.
+- Remove double vote on USB3_PRIM_CLKREF and also removed xo clock.
+- Uses &mpm as interrupt reference (sashiko bot)
+
+Link to v2:
+https://lore.kernel.org/all/20260519-shikra-dt-v2-0-c01b90fb4395@oss.qualcomm.com/
+
+Changes in v2:
+- Moved to using mpm interrupt handler for ss phy irq (sashiko bot)
+
+Link to v1:
+https://lore.kernel.org/all/20260512-shikra-dt-v1-0-716438330dd0@oss.qualcomm.com/
+
+Binding dependencies:
+- USB controller: https://lore.kernel.org/all/20260711-usb-shikra-v4-v4-1-9d59b9d9aff7@oss.qualcomm.com/ - (RB'd)
+- QUSB2 Phy: https://lore.kernel.org/all/20260712-usb-shikra-phy-v6-v6-1-1b3e51bf1541@oss.qualcomm.com/ - (RB'd)
+- QMP Phy: https://lore.kernel.org/all/20260712-usb-shikra-phy-v6-v6-2-1b3e51bf1541@oss.qualcomm.com/ - (RB'd)
+
+Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+---
+Krishna Kurapati (2):
+      arm64: dts: qcom: Add support for usb nodes on Shikra
+      arm64: dts: qcom: Enable USB controllers on Shikra platforms
+
+ arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts |  23 +++
+ arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts |  23 +++
+ arch/arm64/boot/dts/qcom/shikra-evk.dtsi    |  12 ++
+ arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts |  23 +++
+ arch/arm64/boot/dts/qcom/shikra.dtsi        | 233 ++++++++++++++++++++++++++++
+ 5 files changed, 314 insertions(+)
+---
+base-commit: ed2647532a225739e86c7f236a2ce82764ec2772
+change-id: 20260811-usb-shikra-v7-2dc0d3afc3d4
+
+Best regards,
+--  
+Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
