@@ -1,127 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599F8401A16
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 21:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C361336B90C;
+	Tue, 11 Aug 2026 21:50:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786485045; cv=none; b=OptpVUbNCUq5gY0h2O7yoLpo+Wvaxs8JO4I8jjzE6tf3wbif/WuZ4WzUOBN5MYZ+Ehczz0gde0lZaMbeu1MiJ3uy/u6ZmQ2NyuuPQBaXC471OUE/6mesX4VkGvSM0azIBKuWCXQ/Sv6caWn0h73vyuwswzpivsJCaCAioApQwEc=
+	t=1786485053; cv=none; b=Ac82dC+GyLWrhd19vivAC/amOEssPb7VztKuX+khW1GWj2wIq1LzYGHS8baMMqMQRNwNon7ZtPC0JEotrWf8KU44wnuUqz2I++eJpy2Jvc4QNJV25nInRP04h/xXuBNnNn/TFDE/xyLhAPqiZK6rs43/l1tVk0uIXXABfY8e9rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786485045; c=relaxed/simple;
-	bh=RD4WPMVwSFwZnBGDFbIlgR7sZET2R/3p8aeW8y9TZ+g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kYy9NuGBpio7Fby+tmi2disQL2fG7eTQqreYUNwBBA4LibvJTeuG9frxJ1EAXW8IaXBadyF3UwuqNJ9Z1N3v4uPQdHmnwx24b51bwb+TX2PukZG3uTSg/vjDd7MP3uSqt2z+/QGA+Py38UijCPnftWu6jQ2MF1lVwfaUIZah8+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NAcpQ9Vu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786485053; c=relaxed/simple;
+	bh=oNotUDNgQ8UZjenFwsyWnUMmTe/fyWUngSnL9ho6ZJU=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=moBni5XPse1SkPCGBZx0vVcRwtTUdckiPQ23ce/rcR7gJUt7WfAsK586g4vmNYyUdockFiEOOUvgrD2O1e/rI2rUAdR/NHHgU0tEf13Y+Nwzb2GObOb62qxtyblSKBpq2JiFyH84xIZ+mijc86yoj44/bxLfv2zXPeJc3QL074E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GEMTPOnN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NAcpQ9Vu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46EA1F000E9;
-	Tue, 11 Aug 2026 21:50:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GEMTPOnN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499C61F000E9;
+	Tue, 11 Aug 2026 21:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786485044;
-	bh=5eksp7Y/DpYLXROHUvbtFrv+bc+OzPU1QfVb8pngrSE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NAcpQ9VuZLgj4HavMEFH+UPtsIBxB7AwnT2O/OqbohTfcVuIDpkCcMFJ/IMlPuzIi
-	 DNZKY2Y/0MbUxy6BQpxloRPnkoIVeNt1Hnuvon0AWMyvLB1h3I+AVZGpOyPAXPro1D
-	 g1siZDCZ1ZoYfurPFLEm+qAkljHI0XQb3De38cT8nTv5xBjs/jvIJxMzKDJJ6o/lQp
-	 1+YlGQ1YxnjgoVm+9Qq29IpMbxZRAgo8jhl3LRtw4gqDFcJdcqaQRjqsB6GcibZqgQ
-	 ZWXN2P5Ps4ZM3aYi8FsveiXL5UJ6qqOsiuzldW1+NjkU6hKEZ0emwbgSdqIooqgljx
-	 RsNJucrZS/efQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/9] dt-bindings: soc: qcom: eud: Add per-path child
- nodes for UTMI routing
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260811213610.2956147-2-elson.serrao@oss.qualcomm.com>
-References: <20260811213610.2956147-1-elson.serrao@oss.qualcomm.com>
- <20260811213610.2956147-2-elson.serrao@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 11 Aug 2026 21:50:43 +0000
-Message-Id: <20260811215043.E46EA1F000E9@smtp.kernel.org>
+	s=k20260515; t=1786485052;
+	bh=J3oMfD0Rq+z8p5nHwNCV4j/eMEhapnPfZydoy6fPclM=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=GEMTPOnNBIUotAhleac9wYSy745kJ2AxqFIDIXoc+FVtTc9xi94ZugIIe2RMHSwwz
+	 oQEz4mHuMwfN4RnGWMg04Jn//gxlY9bqxa8voe4WGjrRobAI1Bd6hHdIx9zk52PJ6s
+	 S7E3QYAd6UvI2TpDt+sbhWP5BeeSjF3s7e8T6+9TRyRefGqH2xouHzcuKC0MoFMRXS
+	 o7kIGL1jMSGbxn0N+svDGMBOX6U4XhdafVuZoQ8AbVo5YyFbf3ttX4wgp+ktDj04WF
+	 IBGQndww5oWBWrsOSQ2whb6yTn66TAzUPgiOiNk+6D/y3e2MTtK+UqAC2irirsyPK5
+	 nn+WWvMSKExGA==
+Date: Tue, 11 Aug 2026 16:50:51 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev, 
+ devicetree@vger.kernel.org, Sven Peter <sven@kernel.org>, 
+ Christoph Hellwig <hch@lst.de>, Neal Gompa <neal@gompa.dev>, 
+ Jens Axboe <axboe@kernel.dk>, Sagi Grimberg <sagi@grimberg.me>, 
+ Keith Busch <kbusch@kernel.org>, linux-nvme@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+In-Reply-To: <20260811-apple-nvme-t8132-v1-1-865be32e42c3@cyberchaos.dev>
+References: <20260811-apple-nvme-t8132-v1-0-865be32e42c3@cyberchaos.dev>
+ <20260811-apple-nvme-t8132-v1-1-865be32e42c3@cyberchaos.dev>
+Message-Id: <178648505154.4642.5846109337375334027.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: nvme: Add apple,t8132-nvme-ans2
+ compatible
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `oneOf` block allows the new `qcom,sm8350-eud` compatible st=
-ring to bypass its dual-path requirements by incorrectly matching the legac=
-y single-path `ports` representation.
---
 
---- Patch [1]: [PATCH v6 1/9] dt-bindings: soc: qcom: eud: Add per-path chi=
-ld nodes for UTMI routing ---
-commit de56d6ae0c4dbc79f8a9aa462280cdd2113649b0
-Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
+On Tue, 11 Aug 2026 22:49:47 +0200, Yureka Lilian wrote:
+> Add a new base compatible for the ANS2 NVMe on the Apple t8132 (M4) SoC,
+> which uses a separate MMIO base for its NVMMU.
+> 
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+>  .../devicetree/bindings/nvme/apple,nvme-ans.yaml   | 77 ++++++++++++++--------
+>  1 file changed, 48 insertions(+), 29 deletions(-)
+> 
 
-dt-bindings: soc: qcom: eud: Add per-path child nodes for UTMI routing
+My bot found errors running 'make dt_binding_check' on your patch:
 
-The Qualcomm Embedded USB Debugger (EUD) can intercept one or two High-Speed
-UTMI paths depending on the SoC. This commit models each UTMI path as a
-separate child node with its own OF graph, adding an SM8350 compatible
-while retaining the legacy ports representation for backward compatibility.
+yamllint warnings/errors:
 
-> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,eud.yaml b/D=
-ocumentation/devicetree/bindings/soc/qcom/qcom,eud.yaml
-> index 84218636c0d8d..0e35bc9a9d20d 100644
-> --- a/Documentation/devicetree/bindings/soc/qcom/qcom,eud.yaml
-> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,eud.yaml
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/nvme/apple,nvme-ans.example.dtb: nvme@7bcc0000 (apple,t8103-nvme-ans2): 'reg', 'reg-names' do not match any of the regexes: '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
 
-[ ... ]
+doc reference errors (make refcheckdocs):
 
-> @@ -45,10 +46,87 @@ properties:
->          $ref: /schemas/graph.yaml#/properties/port
->          description: This port is to be attached to the type C connector.
-> =20
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
+See https://patchwork.kernel.org/project/devicetree/patch/20260811-apple-nvme-t8132-v1-1-865be32e42c3@cyberchaos.dev
 
-[ ... ]
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
->  required:
->    - compatible
->    - reg
-> -  - ports
-> +
-> +oneOf:
-> +  - required:
-> +      - ports
-> +    properties:
-> +      eud-path@0: false
-> +      eud-path@1: false
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-[Severity: Medium]
-Does this first branch of the oneOf block allow the new qcom,sm8350-eud
-compatible string to bypass its dual-path requirements?
+pip3 install dtschema --upgrade
 
-Because this branch only checks for the presence of the legacy 'ports'
-property and the absence of 'eud-path@X', it doesn't restrict the legacy
-representation strictly to the legacy qcom,sc7280-eud compatible string.
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-If a device tree is written for the new SM8350 hardware variant using
-the deprecated, single-path 'ports' layout instead of the required
-eud-path nodes, it appears it would erroneously pass schema validation by
-matching this first branch, entirely avoiding the compatible-based
-constraints in the second branch.
-
-> +  - allOf:
-> +      - if:
-> +          properties:
-> +            compatible:
-> +              contains:
-> +                const: qcom,sc7280-eud
-> +        then:
-> +          required:
-> +            - eud-path@0
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811213610.2956=
-147-1-elson.serrao@oss.qualcomm.com?part=3D1
