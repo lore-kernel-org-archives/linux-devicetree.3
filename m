@@ -1,96 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-zbxj-a71.jellyfish.systems (out-zbxj-a71.jellyfish.systems [198.54.127.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 677493502A8
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 22:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DBB42BC56
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 22:02:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786485625; cv=none; b=tJ6RYMKjKh4XTLxAW7ereWBQUmZJU+RCLjmEb5KM/quzL/lhOn3jatoSI0KMqR7x4i54QwAyafZBEwUlwdcxn4GktuO+ocAgAIxzJxjjlYyUQrhkEi6dNQLsliadv48yoQ7tU//2eELTM1i8joBr1qjx4hn/ix+0k1cmQj4P/cM=
+	t=1786485730; cv=none; b=nt7sLKLmgYBQBOIPdzUt+YzrIaoOLyU20jWFaybPeHDkB9ZeXuqg79KppYGAR9K9mzXpv6Ju36DT841q1D09dlhNuBB3m2sq3vY7P0+g12D/XpiZq9FpOfn0YXGoYOy9BT+d2+JraNdVV1jnVLq1lwAzo00HUD0rKP3VqIUKvck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786485625; c=relaxed/simple;
-	bh=0Df0wcFfjUSURul6U6jUfcBYgmFA16siTeYWTmMNhuI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IAaFw0TN6EzJAL0FAXpRgsmAaQKA9ei0HXQDQax50aeqKTjld5boN0NYHBtUflvlDokZj4YX4w0rtuXpCyEBEel4ogr/07q4lpiyllL7wZ2+vBReTca2iZz9VedILzejg8RkBSN9CmiTu1qp85YxXZ4bQMXVndhUBFFMubcZGeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gB5CjjkY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gB5CjjkY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0F801F000E9;
-	Tue, 11 Aug 2026 22:00:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786485624;
-	bh=weCsvZmlXX+BTGHro8nQq4ynoz/F3nAmgGCSuNqDgME=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gB5CjjkYYVjXC8EJIiV1welap4MEmru2nSVMp4k/tbNCxIWYgSHjboUjDit6h50zQ
-	 AWMdLqKHWf4SUnUER3vsDSore9GOrlj8YggE/6kleRDGQoYlWc8HaJ7IvyzAkeBlL0
-	 dEsIczgMQ0PvRWoxKeR2lka9PkhZ5gbX9R4TMCZ8L3Yh6rE0z+H56aLuKhZeV0v5oS
-	 j4IXnlrIJjOCuhzzWGR3IiGt2MMLRAQnADKwhDgVKHHFxo67rUgSRO/wbQC14aFdgw
-	 98Ft2cM06Ym1eqr66e9oujepYlw7Y1tDoM2FopCgUDGV12UeutwNIbXT7FC7/cysDS
-	 6zQBP11iD3/Fw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 7/9] usb: misc: qcom_eud: fix virtual attach/detach
- event handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260811213610.2956147-8-elson.serrao@oss.qualcomm.com>
-References: <20260811213610.2956147-1-elson.serrao@oss.qualcomm.com>
- <20260811213610.2956147-8-elson.serrao@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 11 Aug 2026 22:00:23 +0000
-Message-Id: <20260811220023.D0F801F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1786485730; c=relaxed/simple;
+	bh=rFuMfLFJVq/3ks2toWLWtGVVcTS1sq3q1RxvpflL70g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jqJA8qU/7MdyAMl2y+tqFgYg3HGCma9ALFFdUkk/5PHSKz4Pf2gGFHTKj/wmw3belCXyjX7JYWUrmRAPFwAXoK2tZJ/xAwQc2cvhynifzQvOPFb1Tz7P3qT9/OhHaEGLrxf80OoVnsRkrGjBnwwIKM7hzx3HQwG/PBBDO6TMrkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hKQZN2H6tz8sWP;
+	Tue, 11 Aug 2026 22:01:48 +0000 (UTC)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: David Heidelberg <david@ixit.cz>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	oe-linux-nfc@lists.linux.dev,
+	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Subject: [PATCH v5 1/6] nfc: s3fwrn5: drop of_match_ptr() from the I2C driver
+Date: Wed, 12 Aug 2026 00:01:30 +0200
+Message-ID: <20260811220135.472380-2-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net>
+References: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Since commit 777fd2dab446 ("nfc: Drop __maybe_unused from of_device_id
+tables") the OF match table relies on its MODULE_DEVICE_TABLE()
+reference to count as used, while of_match_ptr() still discards the
+.of_match_table reference on !CONFIG_OF builds. Drop of_match_ptr() so
+every configuration uses the same code; the S3NRN4V support added later
+in this series carries its variant selector in this table's match data.
 
-Pre-existing issues:
-- [High] The top-half interrupt handler attempts to sleep by calling `readl=
-_poll_timeout()`, which relies on `usleep_range()` and will trigger a sched=
-uling-while-atomic BUG.
-- [High] The hardirq handler silently ignores concurrent interrupts because=
- it uses a `switch` statement on a bitmask, falling through to `default` wh=
-en multiple bits are set.
---
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Assisted-by: Claude:claude-fable-5
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+---
+The Reviewed-by was collected on v4; the referenced commit id was
+refreshed for the rebased for-next (same commit).
 
---- Patch [7]: [PATCH v6 7/9] usb: misc: qcom_eud: fix virtual attach/detac=
-h event handling ---
-Note: The format of this report has been altered to provide a free-form sum=
-mary of the findings due to recitation restrictions. The inline quoting sty=
-le has been omitted.
+ drivers/nfc/s3fwrn5/i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-commit a8a02ef8fd7fc3586fa115aa0dd7a40742fbcfe8
-Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
+diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
+index 4ba762611711..cb73993446e0 100644
+--- a/drivers/nfc/s3fwrn5/i2c.c
++++ b/drivers/nfc/s3fwrn5/i2c.c
+@@ -219,7 +219,7 @@ MODULE_DEVICE_TABLE(of, of_s3fwrn5_i2c_match);
+ static struct i2c_driver s3fwrn5_i2c_driver = {
+ 	.driver = {
+ 		.name = S3FWRN5_I2C_DRIVER_NAME,
+-		.of_match_table = of_match_ptr(of_s3fwrn5_i2c_match),
++		.of_match_table = of_s3fwrn5_i2c_match,
+ 	},
+ 	.probe = s3fwrn5_i2c_probe,
+ 	.remove = s3fwrn5_i2c_remove,
+-- 
+2.55.0
 
-usb: misc: qcom_eud: Fix virtual detach USB role
-   =20
-This commit fixes the EUD virtual detach handling by setting the USB role
-to NONE instead of HOST. This correctly represents the disconnected state
-when a virtual detach event occurs.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but looking at the top-half
-interrupt handler handle_eud_irq() in drivers/usb/misc/qcom_eud.c, it
-calls pet_eud() for the EUD_INT_SAFE_MODE case. The pet_eud() function uses
-readl_poll_timeout() with a delay of 1us, which relies on usleep_range()
-and might sleep. Is it safe to call this sleeping function from a hardirq
-context, or should it use readl_poll_timeout_atomic() instead to avoid a
-scheduling-while-atomic BUG?
-
-[Severity: High]
-This is also a pre-existing issue, but does the switch statement in
-handle_eud_irq() in drivers/usb/misc/qcom_eud.c correctly handle concurrent
-interrupts? It switches on the bitmask (reg & EUD_INT_ALL). If both
-EUD_INT_VBUS and EUD_INT_SAFE_MODE are asserted simultaneously, the value
-won't match either case, falling through to the default label and returning
-IRQ_NONE without clearing the device interrupt. Could this leave the
-interrupts unhandled and potentially lead to an interrupt storm where the
-kernel disables the IRQ line?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811213610.2956=
-147-1-elson.serrao@oss.qualcomm.com?part=3D7
