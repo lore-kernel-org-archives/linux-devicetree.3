@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193B941A542;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19319416CF4;
 	Tue, 11 Aug 2026 08:37:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786437470; cv=none; b=g4uxlCrRQ6cUrMVlqd3DhduZPF+N9IKKdyONBkWQyKhbB9p1TzpiSQLN0wrn7IBOyPZ/WpeEdfGf2LL+eeNoKuCpP3/tBKsrtkM5bExhbBmYpw1Dr0gystAOXWCxhf2hX2hDFR+yGD602tpCls1B20QGeI4tKi5SzF8gbxEBz1o=
+	t=1786437470; cv=none; b=phv5aA9AIejz/Rxst9DNgYYtHPO/eMYseaWzDgRag1acIijFHAPBdofIIDLtfha3+jBl364peVL38HqVZ+1DKpzPBmWx9g/ffzMk/Fhk/HzAt2363Rabmg+yhFmaRhPDNOzeLGgvcKQSBkbFh0j/85yv7hPwg8oXDXKHf+2O3/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786437470; c=relaxed/simple;
-	bh=3Q3HVrCR89t4gEqhww7GlDGUTD4yXvMOkPfc85Iz5i4=;
+	bh=ch2VZcF0grYih0yOT/whjAaAflovv1AgsISvBsyTzfc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g+LRA7e/g+EM54w5poekqLnRTLh2SbpMORLf62miidaY7bWzxHSkrtp4qNo+xiSlur+Q0YDVlrgwCGI72Fn/1LwtYayrFjZr6QsDWEYOTNaEPTXa5oy7IjmVyAzts44Dwn5DrqReye1Zr2xt75aoVFAWKyA5AVkA5jK1LSvutMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XYC9/QY8; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=XJMbWgAL/YP3XAzk117oEVR4GrxRq1XbfuoOpa22UF/BAJTz4EGOokrEZGhBSskQbDcg7WZSHvT+8Fidt/byONtmJT3QUst2n/GGChjFErDxI+kzOzJXYm9YnwnD8Ip+ymcOhAdD0YVoLGADEVo41ktglnjz4UQpquCYHD+GsVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rrgU7J2Y; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XYC9/QY8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BB213C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rrgU7J2Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AD873C2BCF7;
 	Tue, 11 Aug 2026 08:37:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786437469;
-	bh=3Q3HVrCR89t4gEqhww7GlDGUTD4yXvMOkPfc85Iz5i4=;
+	bh=ch2VZcF0grYih0yOT/whjAaAflovv1AgsISvBsyTzfc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=XYC9/QY8g4LGLFqIvhMGZCNAPu+wgN0kJl8T43e3QCipzcB/nHS6/FvLZrs9CRtfe
-	 eYXg7CVNuki5I38H4yWUo27n+E1xrfFSa3WA6fSblgMrQGhIB59q+7FCGFkYQC9A2t
-	 1GlUWT1EeLguVqdHb3VEajVaTHkMMQtpCgId2u1Zf0S8nDHTITMEvNXscsh2Pcll93
-	 oIw0WREywopTuZx9j2lXJmervjWpy3UjnT5RwfSbbTv7RSQN/2zzEVOJX/3Rw0u8Bp
-	 apBtF80kW5/lHb38zKwe8Wl+CAc1qwv4gZWGeM63cAd5tG21CUAuthNiveBqq2Dg1A
-	 uBpPUlIXfwyAw==
+	b=rrgU7J2Y1V9rqx/kqmCd+p24ryn8GdNYFQIdhyyXPjWh9474PD5hjKr+vajyUuh2w
+	 0rkOf02D05OUqOb9ZMhREMPNJ7BZ7cKO27WTQrrNxcBbpujrSMW1WRVXlpFh2W8yXH
+	 HhoQ+bAggqEoOjELhqvXmX0kZdJ1k+edMG9VFLRddKQ8Lj7nAYjwS+fbcbBCzcgTOf
+	 uS0R/xH+ifKUth54aH3bbJVpO/A59mMXrtvpmCiNGCA7YncZXQRGtY2dGl7dOZYof3
+	 yHEZWGhOyLiO+Fl+7yRRkI5vSMZAqhgKbydm9Wd7fa21kgpM92JqaHmU3f8oGehpZz
+	 T3jcEqEvXpCqQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BD4AC5CFD9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D6DAC5CFCF;
 	Tue, 11 Aug 2026 08:37:49 +0000 (UTC)
 From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Tue, 11 Aug 2026 08:37:44 +0000
-Subject: [PATCH v2 2/2] thermal: amlogic: Add support for A9 thermal
- controller
+Date: Tue, 11 Aug 2026 08:37:43 +0000
+Subject: [PATCH v2 1/2] dt-bindings: thermal: amlogic: Add A9 thermal
+ bindings
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260811-a9-thermal-v2-2-7ddc33b11b9a@amlogic.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260811-a9-thermal-v2-1-7ddc33b11b9a@amlogic.com>
 References: <20260811-a9-thermal-v2-0-7ddc33b11b9a@amlogic.com>
 In-Reply-To: <20260811-a9-thermal-v2-0-7ddc33b11b9a@amlogic.com>
 To: Guillaume La Roque <glaroque@baylibre.com>, 
@@ -54,11 +54,11 @@ Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Xianwei Zhao <xianwei.zhao@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786437467; l=7397;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786437467; l=1992;
  i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=TlJucHpLSg6vIE9wEMlAAS9Pec4othWOHVc/MkMexks=;
- b=5hR4IWo8P5/V1EvklnRHt2dWKpE2SaC80+xqpp/euYcZztNkn+aNdBrN8raR4sD8VO2Flht2c
- 4oXhSfPNOW2C17xS67kdkO1rFOQ/485zuOEAqeYQnetCTBa0nsxzJBC
+ bh=gngHN4z9n9SyMoa266ohNEAmKi+Ijay9m70fUU9mI0o=;
+ b=37ZiIJ+xetzlRFfaxCJYoIvP1OvG88dwoQmjgOt2EWfSButDyuYBCfWh8YWRam8zT9L9sswQ0
+ /nu4f6ZKAdgBdRU37UleFI7zV9sRpkDKL998dVYZoSx1Az1qNyBXccF
 X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
  pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
 X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
@@ -68,230 +68,77 @@ Reply-To: xianwei.zhao@amlogic.com
 
 From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Add support for the Amlogic A9 thermal controller.
+Document the thermal controller compatibles for the Amlogic A9 SoC.
 
-The A9 thermal controller uses different calibration parameters, requires
-separate core and bus clocks, and supports a hardware over-temperature
-reset mechanism.
-
-Add support for configuring the hardware reset temperature through the
-'amlogic,hw-reset-temp' Device Tree property. Newer chips can specify the
-hardware reset temperature through Device Tree, while older chips without
-this property continue to use the default value of 110°C for backward
-compatibility.
-
-Also restore the hardware reset configuration after resume.
+Describe the required "core" and "plck" clocks, add the optional
+"amlogic,hw-reset-temp" property, and update the schema constraints for
+A9-specific thermal controllers.
 
 Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
- drivers/thermal/amlogic_thermal.c | 108 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 105 insertions(+), 3 deletions(-)
+ .../bindings/thermal/amlogic,thermal.yaml          | 28 +++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
-index a0b530624b60..96090c5e6061 100644
---- a/drivers/thermal/amlogic_thermal.c
-+++ b/drivers/thermal/amlogic_thermal.c
-@@ -45,6 +45,18 @@
- 		 TSENSOR_CFG_REG1_DEM_EN |	\
- 		 TSENSOR_CFG_REG1_CH_SEL)
+diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+index 8cfa44dcda58..f73ee66bcc47 100644
+--- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+@@ -23,6 +23,7 @@ properties:
+           - const: amlogic,g12a-thermal
+       - enum:
+           - amlogic,a1-cpu-thermal
++          - amlogic,a9-thermal
+           - amlogic,t7-thermal
  
-+#define TSENSOR_CFG_REG2			0x8
-+	#define TSENSOR_CFG_REG2_HITEMP_EN	BIT(31)
-+	#define TSENSOR_CFG_REG2_REBOOT_EN	BIT(30)
-+	#define TSENSOR_CFG_REG2_REBOOT_CODE	GENMASK(15, 4)
-+	#define TSENSOR_CFG_REG2_REBOOT_TIME	GENMASK(23, 16)
-+	#define TSENSOR_CFG_REG2_ENABLE		\
-+		(TSENSOR_CFG_REG2_HITEMP_EN |	\
-+		 TSENSOR_CFG_REG2_REBOOT_EN |	\
-+		 TSENSOR_CFG_REG2_REBOOT_TIME)
+   reg:
+@@ -32,7 +33,13 @@ properties:
+     maxItems: 1
+ 
+   clocks:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
 +
-+#define TSENSOR_TEMP_CAL		1
++  clock-names:
++    items:
++      - const: core
++      - const: pclk
+ 
+   power-domains:
+     maxItems: 1
+@@ -52,6 +59,10 @@ properties:
+           - description: phandle to the secure monitor
+           - description: sensor index to get specific calibration data
+ 
++  amlogic,hw-reset-temp:
++    description: The hardware-controlled reset temperature value.
++    $ref: /schemas/types.yaml#/definitions/uint32
 +
- #define TSENSOR_STAT0			0x40
+ required:
+   - compatible
+   - reg
+@@ -73,6 +84,21 @@ allOf:
+       required:
+         - amlogic,secure-monitor
  
- #define TSENSOR_STAT9			0x64
-@@ -63,6 +75,7 @@
- 
- #define TSENSOR_CALIB_OFFSET	1
- #define TSENSOR_CALIB_SHIFT	4
-+#define TSENSOR_HW_RESET_DEFAULT_TEMP	110000
- 
- /**
-  * struct amlogic_thermal_soc_calib_data
-@@ -93,6 +106,7 @@ struct amlogic_thermal_data {
- 	const struct amlogic_thermal_soc_calib_data *calibration_parameters;
- 	const struct regmap_config *regmap_config;
- 	bool use_sm;
-+	bool has_sysclk;
- };
- 
- struct amlogic_thermal {
-@@ -101,8 +115,10 @@ struct amlogic_thermal {
- 	struct regmap *regmap;
- 	struct regmap *sec_ao_map;
- 	struct clk *clk;
-+	struct clk *sysclk;
- 	struct thermal_zone_device *tzd;
- 	u32 trim_info;
-+	u32 temp_code;
- 	struct meson_sm_firmware *sm_fw;
- 	u32 tsensor_id;
- };
-@@ -138,6 +154,49 @@ static int amlogic_thermal_code_to_millicelsius(struct amlogic_thermal *pdata,
- 	return temp;
- }
- 
-+/*
-+ * Calculate a temperature code from a temperature value .
-+ * The unit of the temperature is degree milliCelsius.
-+ */
-+static u32 amlogic_thermal_millicelsius_to_code(struct amlogic_thermal *pdata, int millicelsius)
-+{
-+	const struct amlogic_thermal_soc_calib_data *param =
-+					pdata->data->calibration_parameters;
-+	s64 factor, uptat, uefuse;
-+	u32 temp_code;
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - amlogic,a9-thermal
++    then:
++      required:
++        - clock-names
++    else:
++      properties:
++        clocks:
++          maxItems: 1
++        clock-names: false
 +
-+	uefuse = pdata->trim_info & TSENSOR_TRIM_SIGN_MASK ?
-+			     ~(pdata->trim_info & TSENSOR_TRIM_TEMP_MASK) + 1 :
-+			     (pdata->trim_info & TSENSOR_TRIM_TEMP_MASK);
-+
-+	factor = param->B + div_s64(millicelsius, 100);
-+	factor = BIT(16) * factor;
-+	factor = div_s64(factor, param->A);
-+	factor = factor - uefuse;
-+
-+	uptat = param->n * factor;
-+	uptat = div_s64(uptat, BIT(16));
-+	uptat = param->m - uptat;
-+
-+	factor = factor * 100;
-+	if (!uptat)
-+		factor = TSENSOR_TEMP_MASK << 0x4;
-+	else
-+		factor = div_s64(factor, uptat);
-+
-+	temp_code = ((factor >> 0x4) & TSENSOR_TEMP_MASK) + TSENSOR_TEMP_CAL;
-+
-+	return temp_code;
-+}
-+
-+static void amlogic_tsensor_setup_hw_reset(struct amlogic_thermal *data)
-+{
-+	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2, TSENSOR_CFG_REG2_REBOOT_CODE,
-+			   data->temp_code << 0x4);
-+	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2,
-+			   TSENSOR_CFG_REG2_ENABLE, TSENSOR_CFG_REG2_ENABLE);
-+}
-+
- static int amlogic_thermal_enable(struct amlogic_thermal *data)
- {
- 	int ret;
-@@ -254,6 +313,13 @@ static const struct amlogic_thermal_soc_calib_data amlogic_thermal_g12a = {
- 	.n = 324,
- };
+ unevaluatedProperties: false
  
-+static const struct amlogic_thermal_soc_calib_data amlogic_thermal_a9 = {
-+	.A = 9164,
-+	.B = 2747,
-+	.m = 370,
-+	.n = 270,
-+};
-+
- static const struct amlogic_thermal_data amlogic_thermal_g12a_cpu_param = {
- 	.u_efuse_off = 0x128,
- 	.calibration_parameters = &amlogic_thermal_g12a,
-@@ -272,6 +338,13 @@ static const struct amlogic_thermal_data amlogic_thermal_a1_cpu_param = {
- 	.regmap_config = &amlogic_thermal_regmap_config_g12a,
- };
- 
-+static const struct amlogic_thermal_data amlogic_thermal_a9_param = {
-+	.use_sm			= true,
-+	.has_sysclk		= true,
-+	.calibration_parameters	= &amlogic_thermal_a9,
-+	.regmap_config		= &amlogic_thermal_regmap_config_g12a,
-+};
-+
- static const struct amlogic_thermal_data amlogic_thermal_t7_param = {
- 	.use_sm			= true,
- 	.calibration_parameters	= &amlogic_thermal_g12a,
-@@ -291,6 +364,10 @@ static const struct of_device_id of_amlogic_thermal_match[] = {
- 		.compatible = "amlogic,a1-cpu-thermal",
- 		.data = &amlogic_thermal_a1_cpu_param,
- 	},
-+	{
-+		.compatible = "amlogic,a9-thermal",
-+		.data = &amlogic_thermal_a9_param,
-+	},
- 	{
- 		.compatible = "amlogic,t7-thermal",
- 		.data = &amlogic_thermal_t7_param,
-@@ -305,6 +382,7 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	void __iomem *base;
- 	int ret;
-+	u32 reset_temp;
- 
- 	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
- 	if (!pdata)
-@@ -323,9 +401,24 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
- 	if (IS_ERR(pdata->regmap))
- 		return PTR_ERR(pdata->regmap);
- 
--	pdata->clk = devm_clk_get(dev, NULL);
--	if (IS_ERR(pdata->clk))
--		return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
-+	if (pdata->data->has_sysclk) {
-+		pdata->clk = devm_clk_get(dev, "core");
-+		if (IS_ERR(pdata->clk))
-+			return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get core clk\n");
-+		pdata->sysclk = devm_clk_get_enabled(dev, "pclk");
-+		if (IS_ERR(pdata->sysclk))
-+			return dev_err_probe(dev, PTR_ERR(pdata->sysclk), "failed to get pclk\n");
-+	} else {
-+		pdata->clk = devm_clk_get(dev, NULL);
-+		if (IS_ERR(pdata->clk))
-+			return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
-+	}
-+
-+	if (of_property_read_u32(pdev->dev.of_node, "amlogic,hw-reset-temp", &reset_temp)) {
-+		dev_dbg(dev, "using default hardware reset temperature\n");
-+		reset_temp = TSENSOR_HW_RESET_DEFAULT_TEMP;
-+	}
-+
- 
- 	if (pdata->data->use_sm)
- 		ret = amlogic_thermal_probe_sm(pdev, pdata);
-@@ -346,6 +439,10 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
- 
- 	devm_thermal_add_hwmon_sysfs(&pdev->dev, pdata->tzd);
- 
-+	pdata->temp_code = amlogic_thermal_millicelsius_to_code(pdata, reset_temp);
-+
-+	amlogic_tsensor_setup_hw_reset(pdata);
-+
- 	ret = amlogic_thermal_enable(pdata);
- 
- 	return ret;
-@@ -363,6 +460,8 @@ static int amlogic_thermal_suspend(struct device *dev)
- 	struct amlogic_thermal *data = dev_get_drvdata(dev);
- 
- 	amlogic_thermal_disable(data);
-+	if (data->data->has_sysclk)
-+		clk_disable_unprepare(data->sysclk);
- 
- 	return 0;
- }
-@@ -371,6 +470,9 @@ static int amlogic_thermal_resume(struct device *dev)
- {
- 	struct amlogic_thermal *data = dev_get_drvdata(dev);
- 
-+	if (data->data->has_sysclk)
-+		clk_prepare_enable(data->sysclk);
-+	amlogic_tsensor_setup_hw_reset(data);
- 	return amlogic_thermal_enable(data);
- }
- 
+ examples:
 
 -- 
 2.52.0
