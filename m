@@ -1,74 +1,133 @@
-Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E8A37E5DE
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 20:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384CB36D4E1;
+	Tue, 11 Aug 2026 20:22:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786479229; cv=none; b=P5pwTjX19anh7Gvugrl+eztUrAcWmfTjs3dx6msNCOuG6B980MPae/7cbXWy0ZGGNNITjuaU9dQa81h9LuBDw6TstV2Yo8lbd1y+ruSz7OSSJ88UhFur152+V0n2Jn8o2PFZPd58sNtiYRvMJglAiH9hw6331RDqN3f2JcekkZk=
+	t=1786479749; cv=none; b=qMuiPB/JPbBYqayIoFTWT18Lh9J6RK1p8QhDsOIGD+l2JLQVhXj+gWexoBTKmMuWTrxrBPAyjLBo2rJXuE6Z/e5Srh+uacO24oQRPl9rh0/CpvpWnyZ/sNrsuErGgkIArKEZyl5lDO17MrRecrCTiiqATPojpcKyeHW1rVvjYhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786479229; c=relaxed/simple;
-	bh=sGcOoZwaTWTmAxZFlW6sWeDFPJ35IPDylx/fIMfey48=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ho7D16c+HKKVc3GTFUs3/l1je1yMEdwRd8rIQra/QzhbqG+aHjgZc6lU9pA+1qcAY7JeXxfSPVHQRwOs2P0/WMOvuonSFA7lHGqG4izcKnEK2fEmjOBht6kLjJL/BYIydZpxJ9qZpQVfLioFYEifcSq6Ikn+vhqhDF7ouTxucJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=V09dF9j6; arc=none smtp.client-ip=91.218.175.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786479749; c=relaxed/simple;
+	bh=Wz9MHW44aeB6pwNnHm1InxQmMZgedGRzOQHdWchZDq8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JQ9Q5GJoohDH1ePKO23izU4kKrcJvp5OAIdnu42qjrexFljBs2X3zSj3fzffg2JbA1Z0XAwHroNVmdOCDSdDKojr4HCq2P7CWYvxfW3ldsnV8vtDUOrIMMWZxFbrgbnLw/ZHw3tC8WW9fEzU0QKaeRDMAYGBxXVuXf4pAMPNnNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=NsSQ6E7c; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="V09dF9j6"
-Message-ID: <2b4e524a-cccc-47d1-9779-b40cc592e1cd@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786479224;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f22bnD3Sko0dUdBxN3QNw/Z+ZrWPYkDLgjG8TY6rG1A=;
-	b=V09dF9j65JUlhfcjqaeq+VmWdpAzRmYHvvnlHqtx5/gzL2DcKqZ8O3MWGueU3AWU/3RSIj
-	hM5rLo+hyvUaSDcHIEnmoyJaShGLUjC88DMANkg259S5DiuN5FNIsIjNP8q8uOV75JZ1Ke
-	qJ3l/Yzr0pn30dekDUOHDzpxvqzZNQs=
-Date: Tue, 11 Aug 2026 13:13:37 -0700
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="NsSQ6E7c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1786479746;
+	bh=Wz9MHW44aeB6pwNnHm1InxQmMZgedGRzOQHdWchZDq8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=NsSQ6E7c2GhYe0E5c8QOLiVWTQaEZff47w+zb9VuQB01TJ8rHWKqn5CWOvUMP/xDG
+	 rXh9+U/zO+4oDHNfXaOA51YB8X+aGcU4Zv1MHslRuMqzf9nEltm6FIegiAfsNX3NFV
+	 TREuPuJWEUF9UVZgXXTrDq8PtK5o4GKIBAG/dAi/utNkSPyGsplZYh458T0wLUal9P
+	 EV9AT7SgsAa+KC7OZyNCt1sF3dUa9mwW+ZgEtXYmfDFUb1svjBt11t5Ol9bA1Bd8YX
+	 buaZQLLU4HksrmDY62W4nTLpAp5u9TeCGxQd+8m792bdabk3yHlE4ec8BoNBOP8r58
+	 YppK5RtCN3tgQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9AFA317E06DB;
+	Tue, 11 Aug 2026 22:22:22 +0200 (CEST)
+Message-ID: <c8ab26c2edfa4ee4fbbb83faf5f54547f252464f.camel@collabora.com>
+Subject: Re: [PATCH v6 01/14] media: mediatek: vcodec: support vcp
+ architecture
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Kyrie Wu =?UTF-8?Q?=28=E5=90=B4=E6=99=97=29?= <Kyrie.Wu@mediatek.com>, 
+ "matthias.bgg@gmail.com"	 <matthias.bgg@gmail.com>, "fshao@chromium.org"
+ <fshao@chromium.org>, Yunfei Dong
+ =?UTF-8?Q?=28=E8=91=A3=E4=BA=91=E9=A3=9E=29?=	 <Yunfei.Dong@mediatek.com>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,  "fanwu01@zju.edu.cn"	
+ <fanwu01@zju.edu.cn>, "jacopo.mondi@ideasonboard.com"	
+ <jacopo.mondi@ideasonboard.com>, "haoxiang_li2024@163.com"	
+ <haoxiang_li2024@163.com>, "tfiga@chromium.org" <tfiga@chromium.org>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andrew-CT Chen =?UTF-8?Q?=28=E9=99=B3=E6=99=BA=E8=BF=AA=29?=	
+ <Andrew-CT.Chen@mediatek.com>, "linux-media@vger.kernel.org"	
+ <linux-media@vger.kernel.org>, "ribalda@chromium.org"
+ <ribalda@chromium.org>,  "wenst@chromium.org"	 <wenst@chromium.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
+ "kees@kernel.org" <kees@kernel.org>,  "rongqianfeng@vivo.com"	
+ <rongqianfeng@vivo.com>, Irui Wang =?UTF-8?Q?=28=E7=8E=8B=E7=91=9E=29?=	
+ <Irui.Wang@mediatek.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+ "linux-mediatek@lists.infradead.org"	 <linux-mediatek@lists.infradead.org>,
+ Tiffany Lin =?UTF-8?Q?=28=E6=9E=97=E6=85=A7=E7=8F=8A=29?=	
+ <tiffany.lin@mediatek.com>, "p.zabel@pengutronix.de"
+ <p.zabel@pengutronix.de>,  "benjamin.gaignard@collabora.com"	
+ <benjamin.gaignard@collabora.com>, "mchehab@kernel.org"
+ <mchehab@kernel.org>,  "sebastian.fricke@collabora.com"	
+ <sebastian.fricke@collabora.com>, "robh@kernel.org" <robh@kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org"	
+ <linux-arm-kernel@lists.infradead.org>, 
+ "laurent.pinchart+renesas@ideasonboard.com"	
+ <laurent.pinchart+renesas@ideasonboard.com>, "hverkuil+cisco@kernel.org"	
+ <hverkuil+cisco@kernel.org>
+Cc: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+Date: Tue, 11 Aug 2026 16:22:20 -0400
+In-Reply-To: <275503aae6ff76a4c186efe665acf996dec9229d.camel@mediatek.com>
+References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
+		 <20260720012056.1026551-2-kyrie.wu@mediatek.com>
+		 <c3abd49fc12e8cfab6993feb60b361ba07b6fb7d.camel@collabora.com>
+	 <275503aae6ff76a4c186efe665acf996dec9229d.camel@mediatek.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-GldQxjJ0Y3JLQz4hWdAB"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v9 00/20] Add Counter delegation ISA extension support
-To: Paul Walmsley <pjw@kernel.org>
-Cc: Will Deacon <will@kernel.org>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Anup Patel <anup@brainfault.org>,
- Ian Rogers <irogers@google.com>, Rob Herring <robh@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- James Clark <james.clark@linaro.org>, Namhyung Kim <namhyung@kernel.org>,
- linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Conor Dooley <conor@kernel.org>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
- <42cea3ec-5f9d-7f47-bb8c-ab2789246918@kernel.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <42cea3ec-5f9d-7f47-bb8c-ab2789246918@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+
+
+--=-GldQxjJ0Y3JLQz4hWdAB
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Kyrie,
+
+Le lundi 10 ao=C3=BBt 2026 =C3=A0 03:05 +0000, Kyrie Wu (=E5=90=B4=E6=99=97=
+) a =C3=A9crit=C2=A0:
+> I agree. Since the platform data is introduced in the MT8189 patch
+> series, I will move fw_type to the platform data and make
+> mtk_vcodec_dec_get_chip_name() derive the chip identifier from it in
+> the MT8189 series.
+
+I'm not sure I have captured the plan correctly. Would you mind clarifying =
+?
+
+Nicolas
+
+--=-GldQxjJ0Y3JLQz4hWdAB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 
+-----BEGIN PGP SIGNATURE-----
 
-On 8/8/26 10:36 AM, Paul Walmsley wrote:
-> On Fri, 7 Aug 2026, Atish Patra wrote:
->
->> This series adds the counter delegation extension support. It is based on
->> very early PoC work done by Kevin Xue and mostly rewritten after that.
->> The counter delegation ISA extension(Smcdeleg/Ssccfg) actually depends
->> on multiple ISA extensions.
-> I'll put the first ten patches in riscv/for-next, replacing the ones I
-> queued up earlier.  Let's take a look at the remaining patches in the v7.4
-Thanks!
-> time period, due to the other recent updates.
-Sounds good to me.
->
-> thanks
->
-> - Paul
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCanuEfAAKCRDZQZRRKWBy
+9GplAQDqFehP0p9YkX8g3K/opaqz/gZ9NiNEPga5LbtCDES9cwD/ey7quM27QoKq
+481yz3QPt2ziTigIuzbPk6CdIXYoCQk=
+=Ilc3
+-----END PGP SIGNATURE-----
+
+--=-GldQxjJ0Y3JLQz4hWdAB--
