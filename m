@@ -1,199 +1,288 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19BD43BDD4
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A6D34F27B;
+	Tue, 11 Aug 2026 10:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786444251; cv=none; b=bpcidh2k09y5vyokcVXB3HGs3R6VK80NkJoKHMDGj2Gg3y1cYVU4iq+kbszZwQh3wAYcCGGxgdlNMFLSEk6eQiqGhUXbPpimshBJS0fvv47dm1dZphd8HyKAIwtk/W5Xlxj/2TTXIacYmV0ibrzpVPxH9gdS+vqNP09qfKii+b4=
+	t=1786444287; cv=none; b=KOZKEhLWoPveN0md1IV5lP1PpwMzWMg/AUA3Q07Lp0hxRZ9ny/+FCPvwApaRaPRZp+AUMDB6r/a8O6QxeQaEtDj9AVOchHdKq2WCchNvGJxznEigYjJDiLekJCXOsmPVcjuEnqWIWHjzKEJWlZXmxoAX/z5KV54IZ+QO7EryTFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786444251; c=relaxed/simple;
-	bh=zSSE4c8WdY0hIx1oH0FPclPXKRAEWt3XovMmVmjcW7U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F+124JMF06qQgrPJKSSjpbZJqpwj+ziafSlyMCyTIj4YQ1XxQhTH0d7idVhjeBUHB8VigBKSNM9bHKFeNFK/WckRGOy2iVNT4mGXsquyxy5B2tHISOsPugoTPNu5yb0HLwT8oGodIbEPfYV/2qS5IvNNwEaz1DWn1e8jqRQqhlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WXTVW7QF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SrbDU5nD; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786444287; c=relaxed/simple;
+	bh=kABI02I9UfFmz+A+DQGlsGvO4zT9JmHmAIb0YNRw7qc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ChfHth1LYHf2XIA5abPYlAQkQYF/z7sfsXnehRSQ1yOeWV2hGy8zsYFfJ/ttVhzmwxzf3bTokquokg12QITyv82ceCgfthia913puXHVap75HJtiUGeq1WAsrFjR87NmXrExi7a/Ne7d4EzVafY3zl+M9kNbr3s/v3rHcpdYA/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFmirh2J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WXTVW7QF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SrbDU5nD"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BALeHN341046
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:30:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wj2C0BVwsURNsVVymfeg+W5rRrD1Zwo3YpRGGfvBc0U=; b=WXTVW7QFt4hJb0oB
-	4gF9KvPEStERyHCJV06iCxZOmRg2yb7xuQEkmQ1ciL5KMqEgt19uBWZD+JvzJfGw
-	DVYgAQKovAzZBNiy+MdDY/znnUyQ1t2wNO5QSTqYnON+vC/zHEr8IVFMGu9PPUJN
-	IyJqrduR9kSASDoz0675bhPfLihA4JovzF+tFwGgtsSmZqBYBX2NS+FKhwnRXlt0
-	dcFFt9H7WA72L3MUeHJNPI1bGiqGESDGaQvanNPpQcHONnXLhvnjmtIYdR6Jrw+s
-	HWRh4AIC710rbs23zTmm6Dxviuwq8FaTCO30cWnhVU02GelgnZAyQuL9yHUB4Bwv
-	esPFgg==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g01q102gs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:30:48 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84e4ef486c7so686616b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 03:30:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786444248; x=1787049048; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wj2C0BVwsURNsVVymfeg+W5rRrD1Zwo3YpRGGfvBc0U=;
-        b=SrbDU5nDhM0q2hhalr6jhshxfR4HpNKLNo+tDok2FUZwLTMD1ib69CkRKwukDSpBWv
-         CXTuclDzGojhetOwz5x6VABPOe8DeFpCfnD53uhHuj7yRDirox78n5yB4FL2VHvpTisk
-         YF0PE+rpRETGDcGG2nkCfUnVH4ErTQYIFyjFkYceCU3Jcmw0LKlMe0zfgyqdhcmVv3Uc
-         gLb8kC7WOcctQ5B8CCBjYTE+eMjghDmd1L2gMa7lwecKvUmTHH9hKLF67i0YiGtRecg/
-         VIcqCB6XrdeQJIyY2qhO2c8EvWpLn7WpYGFNCza6u4YMUq5AAz4iEykbS/UCG+jw65pF
-         0Qbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786444248; x=1787049048;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wj2C0BVwsURNsVVymfeg+W5rRrD1Zwo3YpRGGfvBc0U=;
-        b=UfNfWugecMIhFoQQCx0AhB8dlbNl17eAsMmcS25AoKzoJnoyZULFESeWL0MfF03UEM
-         yB5BxONiCWuiKGsRFv0YF5P6sf03qYwExKxhuK56q3qMBHgv2RZWLh4SvYe7wz26AaVO
-         WwUwVWMzzdLRy4yCVo29+P76/ro/9We0htfyFZsgzOaiPxzeZIk9w/LknIwpmsx68a6V
-         QdVFsi9vx8W9Q2QV71EBq6AyZmGJKhepdkAyytMDXMG1r5F73d+6dKDD2QufCNCdR2FH
-         jBtY3Wtrb3o1qQfp3C09VkBaze+EUYliPcuuyCVVJc3EukD9AON+7T4T/meB6EFJHLqr
-         Du+Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rop/FIG1wCziLevf0RLrdnsjR7aTSzMRGskkKx0UMl0G3MVu1nhSBJEl7lJ7mKvgLzcqa0w8rp7EKgn@vger.kernel.org
-X-Gm-Message-State: AOJu0YxGiUpw35KSTFMC+0KituTIoq6+RAIjCHY7XBSjK/B2CnpJ/as/
-	MXzc9dgDPxtQO4qgx1bseOXqxPQxaIgsYF3O8lc77imUCe1r+r2SaGaKQlWS2GzOKGR/ZF4K4zm
-	LKcyNZ9hd3NIwv4PM1CbPzjIiZRkD6lS5dBAYaHaE6FX5vb9MILvHCCLffY9T4mhV
-X-Gm-Gg: AR+sD126y9uRMxQRi5TXPfbFqDVNX1RFmpNq9BGaq6WkkrP3AIzQP0GrMCqMQbUSeDM
-	QhyYymPkCuOERGKowuhPvf2sd52dOakB6Ekb7lCjv6ytjdXB3sxM+G4ZDbHXEi411vo/cKT2GdA
-	M5oJkn5V2YJ3IJAO174UHDm/lFIA1w0OgPRPKAExU25oKiehAe/mCD6/Y3m6E45ffH+GY0Q458P
-	uEP6r2BeK6CZ9EvpzJLID3aLV9/Se6vg3xvg+aejwnj0XqAVTpdOb8a5Q8Ydp2TUXUC1RaiOGYo
-	6yGSyxFgXMnU7Jf254Igy67Oz853K3upoH3B41Fobx+1fUsh018Ze8/wmpRv1dfTd5o9idvyhVj
-	7FdRzDuqgiqt04iHAX2l8TKalRbzq+buvmNFp9k2cC4mOxz+UKjKAGwkBK1JTpX2lAff0WRWHsf
-	NwvCsaZZypePqG/K2SaKyetw==
-X-Received: by 2002:a05:6a00:228a:b0:84a:2b96:5986 with SMTP id d2e1a72fcca58-84fa889d2b7mr2067468b3a.8.1786444247574;
-        Tue, 11 Aug 2026 03:30:47 -0700 (PDT)
-X-Received: by 2002:a05:6a00:228a:b0:84a:2b96:5986 with SMTP id d2e1a72fcca58-84fa889d2b7mr2067411b3a.8.1786444247014;
-        Tue, 11 Aug 2026 03:30:47 -0700 (PDT)
-Received: from [10.149.102.240] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa956af09sm503652b3a.51.2026.08.11.03.30.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 03:30:46 -0700 (PDT)
-Message-ID: <198d71bb-fa4a-44de-b985-3110b03618fb@oss.qualcomm.com>
-Date: Tue, 11 Aug 2026 16:00:36 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFmirh2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2A558C2BCC7;
+	Tue, 11 Aug 2026 10:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786444287;
+	bh=kABI02I9UfFmz+A+DQGlsGvO4zT9JmHmAIb0YNRw7qc=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=LFmirh2JaVWAwHGWttaJfwD7jz3EQy1aOvRg727gUv7sf+vFAC9ExoUY1Pp0axYGv
+	 9BSXXNf0rJiSZM/XH4MprciEUYyux4Ct3M7RxiB7xmiJS5NmvKxFa/37gW+n3xO3/x
+	 wzOGAwNxZS3cAWXX9g5gwSTyg16NzPevF3wSMWrgroNpK9LLivapEz8ayJiP0c5DAx
+	 dGjEN8be8bue0FIUDnFeGCSMlA3o8lWDV7Fjz1+kFs8ow3gASkbEbwhQhGy9bL5+e0
+	 o3aOZUi9d/wnnh0KpN7vKR6VRczYKGzAstHmDK8BmbKiJUWLeUCsXZBESkL8esrURK
+	 mfZ+47wlXXulg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 173B0C5CFC1;
+	Tue, 11 Aug 2026 10:31:27 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Subject: [PATCH v10 0/2] media: i2c: add support for ITE IT6625/IT6626 HDMI
+ to MIPI CSI-2 bridge
+Date: Tue, 11 Aug 2026 18:31:24 +0800
+Message-Id: <20260811-upstream-it6625-it6626-v10-0-9b6bb75262c9@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/15] soc: qcom: geni-se: allow selection on 32-bit ARM
- Qualcomm SoCs
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org
-References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
- <20260809-kuno-soc-support-v1-1-5e0ede4a0c72@oss.qualcomm.com>
- <7f4qs6su5fd5ilecy4r72suk6mqvj7oouz7ahgatxthqavrfia@wxilczij4unf>
- <vxpntlaebf4an2wgebgbwk2rdkingzjecdgylqv36wmxtyqju3@hkip3wqgendw>
- <7cc49120-8f0b-4e07-a008-145504e00dd0@oss.qualcomm.com>
-Content-Language: en-US
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-In-Reply-To: <7cc49120-8f0b-4e07-a008-145504e00dd0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: UwYs4cnbl8iFyUr_E0vqnLtBKVarr-Q-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA4NiBTYWx0ZWRfX4+h0laTpd3Wx
- CkMLKtxWFJhgtNZ/f9gGbqRI7V3OLJqPrxSaHs7xVIDMX8r8wxL1yA4f7PN4iIyfn+CmZ3AZVUn
- 3T5AAJKPVSx1KK9vVFaLSqytTdtACFgPUeu2vLNB+OBOYZ2+Mv25stY13h/SBPMp9aUMjgiYP6/
- a7LfTNtdOmg7yBIGAHtNnIPHi9gxyhS0fK6J1g+Kn2lPVtS9emxjSJ4kUtSvZ7vzN4G39R03A2J
- Pv04HfAhRD7Yi2wiAPnyAXXgOwfhoBxHDkn1ssJ5La/DMIVBNRWXiAZesoPBJOrnTRu+e6nWg9K
- che9kv8r4hUvuclDHG7uEpdUzBgYTvlKDJW2PryN1qsSPru7eQ78dcf8XACeI20hqGV249ybJUh
- 1eDj4wnFpbJnYS9cOZo8vEtGWvDVBDonUVB1SMCPuQoqx8x8jXKSvdbvWoMfuPYo3g6SmeXb1MR
- j0OYM/etODEGui6y1MA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA4NiBTYWx0ZWRfX9bQcnUNQjCkh
- PIPkRNGwXjJexE4CYoYzcQTxu6lpqmJHSb90L5mgQNLiHlG8djS4xNJqUpqcZenyDB1VF0pbazp
- qWOIJc0doWUtNwDxx+V2R/B6PoEy/XI=
-X-Proofpoint-ORIG-GUID: UwYs4cnbl8iFyUr_E0vqnLtBKVarr-Q-
-X-Authority-Analysis: v=2.4 cv=brt8wkai c=1 sm=1 tr=0 ts=6a7af9d8 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=RCP4fZz32dXd7NFGJtwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-11_01,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 adultscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110086
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPz5emoC/43SzWrDMAwA4FcpPi/Fli3J3mnvMXawHXv1oT8kW
+ bZR8u5zux0yTKAnIYE+IaGrGNNQ0iied1cxpLmM5XyqiZJPOxEP/vSeutLXggAJJFlR93EZpyH
+ 5Y1cmIsDfQB1ZNj5Yj1qiqM2XIeXydZdf32p+KON0Hr7vg2Z1q/6RILfIWXWyM4xOQWZj0L2UK
+ e3j+bifPsXNnGHtqE0HqsPRZI1kote2cfTagU1HV8cZTiizVEymccxjjqlOlFoTpIAYfePgYw5
+ WR1tOjNZkiO196DGHqkNKcW96R8jtXrx29KbD1clWMYYgk1fQOHbt8KZjqwNRB5kdgsmxcdzK0
+ dv/46qTmAH7AMFB/ucsy/IDuwXVmv4CAAA=
+X-Change-ID: 20260716-upstream-it6625-it6626-6874ab8a5305
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786444285; l=12396;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=kABI02I9UfFmz+A+DQGlsGvO4zT9JmHmAIb0YNRw7qc=;
+ b=HKKHxaP+TH3E1QUCSJQBwjrEhBdymKU/vQO3+xf49e6Oxd6ku//i3NoEXB6qRwCIEDT/4J/QN
+ cttklpVGbcWCUstS4zPUsSPnTsylQQ2WaL2EBT8y34QHJUSLzQ/53WU
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
+
+This series adds support for the ITE IT6625/IT6626 HDMI to MIPI CSI-2
+bridge chips. IT6625 accepts an HDMI 2.0 input and IT6626 an HDMI 2.1
+input, converting it to a D-PHY (or C/D-PHY on IT6626) MIPI CSI-2
+output. The bridge is configured over I2C, exposes an HDMI CEC
+adapter, and supports EDID read/write, DV timings detection and
+configuration, and HPD control via the standard V4L2 subdevice pad
+and video ops.
+
+Patch 1 documents the devicetree binding for the bridge, including
+its two selectable CSI-2 output graph ports.
+
+Patch 2 adds the V4L2 subdevice driver itself.
+
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+Changes in v10:
+- Patch 1 (dt-bindings): no code change -- the sashiko.dev automated
+  review of v9 re-raised the it6625 bus-type constraint yet again;
+  checked and dismissed again for the same reason (Krzysztof
+  Kozlowski's explicit request). Reviewed-by carried forward unchanged.
+- Patch 2 (driver): fix four issues found by the sashiko.dev automated
+  review of v9, confirmed against the chip's datasheet --
+  CEC_MAX_LOG_ADDRS advertised more simultaneous logical
+  addresses than the hardware can actually hold, adap_log_addr
+  (CEC_LOG_ADDR_INVALID) didn't release a claimed address in hardware,
+  a hardcoded IRQF_TRIGGER_LOW overrode the board's devicetree-configured
+  interrupt polarity, and it6625_s_edid()'s multi-step sequence wasn't
+  atomic against a concurrent call. Also add .init_state so a
+  freshly-opened subdev's TRY format isn't left zero-initialized. One
+  other v9 review finding (a UAF in it6625_remove() vs. an in-flight
+  ioctl) was checked and confirmed real, but is not being acted on this
+  round -- see the patch's own changelog for why no driver-only fix
+  closes it.
+- Patch 2 (driver): fix a set of issues from Hans Verkuil's on-list
+  review of v9 -- CEC logical-address clear didn't actually
+  clear the address, a redundant CEC message dump duplicated the CEC
+  core's own logging, the HPD delay used an unreliable timing
+  constant, SOURCE_CHANGE wasn't raised on signal loss, S_DV_TIMINGS
+  incorrectly disabled stream output, three DV-timings pad-ops
+  wrappers were needlessly split from their bodies, g_edid()/s_edid()
+  assumed a fixed EDID block count and used the wrong CEC
+  physical-address helper, two custom controls (HDMI_INFO/MIPI_CONFIG)
+  had no real use case, and the driver was missing the required
+  InfoFrame debugfs export. Also reserve a proper
+  V4L2_CID_USER_IT6625_BASE and public header for the two remaining
+  custom audio controls, replacing the old locally-defined base that
+  collided with V4L2_CID_USER_NPCM_BASE. See the patch's own
+  changelog for the full list.
+- Link to v9: https://lore.kernel.org/r/20260730-upstream-it6625-it6626-v9-0-e7725db2b92f@ite.com.tw
+
+Changes in v9:
+- Patch 1 (dt-bindings): no code change -- the sashiko.dev automated
+  review of v8 re-raised the it6625 bus-type constraint dropped in v8
+  at Krzysztof Kozlowski's explicit request; checked and dismissed
+  again for the same reason. Also carrying forward his Reviewed-by
+  from v8's on-list review, since the patch content is unchanged.
+- Patch 2 (driver): fix two correctness issues found by the sashiko.dev
+  automated review of v8 -- the IRQ handler always returned
+  IRQ_HANDLED even when no interrupt source was observed, defeating
+  the kernel's spurious-IRQ storm protection, and
+  it6625_initial_setup() touched REG_HOST_CTRL_INT without holding
+  it6625_lock despite running after cec_register_adapter() already
+  exposed /dev/cecX to userspace. One other v8 review finding
+  (fps_from_bt_timings() 32-bit overflow) was checked and is not being
+  acted on -- see the patch's own changelog for the arithmetic
+  reasoning.
+- Link to v8: https://lore.kernel.org/r/20260727-upstream-it6625-it6626-v8-0-2c3b0f9524fc@ite.com.tw
+
+Changes in v8:
+- Patch 1 (dt-bindings): fix several nits from Krzysztof Kozlowski's
+  on-list review (subject, description style, two redundant bare
+  properties, a missing blank line), drop the it6625 bus-type
+  constraint he questioned as redundant with compatible, and document
+  interrupts and the three power-supply properties -- also answering
+  his "how does this device work without any power supplied?" and
+  closing the same undocumented-ABI gap he flagged for interrupts on
+  patch 2. See the patch's own changelog for the full list.
+- Patch 2 (driver): drop of_match_ptr() (Krzysztof's review), and fix
+  an interlaced-signal pixel clock bug found by the sashiko.dev
+  automated review of v7 and confirmed against the IT6625 spec: the
+  chip already reports the correct pixel clock for interlaced sources,
+  so halving it on top of that was wrong. One other v7 review finding
+  (get_fmt leaking active state into TRY width/height/field) was
+  checked and is not being acted on -- it matches an established
+  pattern in tc358743.c. See the patch's own changelog for both.
+- Replying on-list (not a patch change) to Krzysztof's question about
+  whether the it6625/it6626 compatible strings encode any real
+  difference -- they do (C-PHY is gated on chip_type in
+  it6625_parse_endpoint()).
+- Link to v7: https://lore.kernel.org/r/20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw
+
+Changes in v7:
+- Patch 1 (dt-bindings): add back port@2 for the HDMI input port,
+  reversing the v4 decision to drop it -- the v6 automated review
+  re-raised the concern, and adi,adv7604.yaml (an actively-maintained
+  binding for a comparable HDMI-receiver chip) confirms documenting an
+  input port unused by the driver is the established convention, not
+  a defect.
+- Patch 2 (driver): fix three correctness issues found by automated
+  review of v6 -- it6625_parse_endpoint() could read the mipi_csi2
+  union under a bus_type the parser had silently fallen back to
+  parallel/BT656 on; it6625_set_fmt()'s active-format path left
+  format->format.colorspace stale for VIDIOC_SUBDEV_S_FMT callers; and
+  it6625_s_edid() never rejected a non-zero start_block as the
+  VIDIOC_S_EDID spec requires. See the patch's own changelog for the
+  full list.
+- Link to v6: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v6-0-6117d4d96574@ite.com.tw
+
+Changes in v6:
+- Patch 2 (driver): fix two correctness issues found by automated
+  review of v5 -- an ignored v4l2_phys_addr_validate() return let a
+  malformed CEC physical address reach cec_s_phys_addr() and get
+  broadcast on the CEC bus, and it6625_parse_endpoint() pre-set the
+  fwnode bus_type to D-PHY, which made the parser reject every IT6626
+  C-PHY device tree outright. One other v5 review finding (a
+  concurrent-ioctl-vs-remove() race) was checked and is not being
+  acted on -- see the patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- the v5 review concern was
+  checked and dismissed; see the patch's own changelog for the
+  reasoning.
+- Link to v5: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v5-0-387e7584f2c9@ite.com.tw
+
+Changes in v5:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v4 -- two debugfs read handlers could leak uninitialized
+  kernel stack memory to userspace on an I2C read failure, TRY-format
+  state could go stale or leak active hardware state into what should
+  be an isolated buffer, a concurrent S_FMT ioctl could interleave
+  with hardware programming because the lock was released too early,
+  S_EDID's blocks==0 case didn't actually disable the EDID per spec
+  and a failed EDID write left HPD disabled permanently, the mipi_reg
+  debugfs write was unlocked, and the HDMI info control returned a
+  hardcoded string instead of real telemetry; also wire up the
+  previously-unused reset-gpios line during probe. See the patch's
+  own changelog for the full list, including three other v4 review
+  findings that were checked (one against the hardware author's own
+  knowledge of the chip) and are not being acted on -- see the
+  patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- both v4 review concerns for this
+  patch were self-dismissed by the automated review itself with sound
+  reasoning (the endpoint/patternProperties gap matches an established
+  single-endpoint convention already used elsewhere in-tree, and
+  dropping port@2 doesn't weaken validation since graph.yaml's own
+  generic port pattern still covers it).
+- Link to v4: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v4-0-c03362eb55ca@ite.com.tw
+
+Changes in v4:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v3 -- a CEC RX interrupt left unacknowledged on an invalid
+  message length could storm the IRQ line, set_fmt returned -EINVAL
+  for an unrecognized format code instead of falling back to a
+  default, get_fmt's active-path reads of the format state were
+  unlocked against a concurrent set_fmt, g_edid/s_edid didn't follow
+  the VIDIOC_G/S_EDID spec for over-capacity requests, and the two
+  mipi_reg debugfs handlers were missing locking/offset handling; also
+  mark the HDMI info control volatile so it is actually refreshed. See
+  the patch's own changelog for the full list. Separately (not a
+  review finding), drop a redundant FW-start register trigger from
+  probe -- the firmware starts automatically on power-on.
+- Patch 1 (dt-bindings): drop the unused port@2 (HDMI input) graph
+  port entirely rather than the review's suggested fix of adding it to
+  required, and require bus-type on port@0/port@1 endpoints for
+  "ite,it6626" specifically, since only that variant's D-PHY default
+  can silently mismatch actual board wiring. Both found by the
+  automated review of v3, which also flagged one other dt-bindings
+  issue that was checked and is not being acted on -- see the patch's
+  own changelog for the reasoning.
+- Link to v3: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw
+
+Changes in v3:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v2 -- two banked-register reads still missing a lock, a
+  CEC RX length TOCTOU and a dropped CEC TX interrupt on invalid RX
+  length, it6625_s_edid() treating a successful write as a failure,
+  missing V4L2_SUBDEV_FORMAT_TRY support, an unlocked active-format
+  commit, and detected timings lumping the whole blanking interval
+  into hsync/vsync instead of reading the real porch registers. See
+  the patch's own changelog for the full list, including four other
+  v2 review findings that were checked and are not being acted on
+  (with reasoning).
+- Patch 1 (dt-bindings): unchanged.
+- Link to v2: https://lore.kernel.org/r/20260721-upstream-it6625-it6626-v2-0-7c4f3564ca38@ite.com.tw
+
+Changes in v2:
+- Patch 2 (driver): fix several correctness issues found by automated
+  review of v1 -- premature V4L2 async subdev registration/teardown
+  ordering, a missing-lock race on banked register reads, a
+  status-poll interval bug, a dropped CEC interrupt, an unacked CEC
+  transmit, set_fmt mutating active state on TRY, EDID blocks=0
+  handling, and a couple of uninitialized-stack hardening fixes. See
+  the patch's own changelog for the full list.
+- Patch 1 (dt-bindings): restrict port@0/port@1 bus-type to D-PHY (4)
+  only for "ite,it6625", since that chip doesn't support C-PHY (also
+  found by the automated review of v1).
+- Link to v1: https://lore.kernel.org/r/20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw
+
+---
+Hermes Wu (2):
+      dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge
+      media: i2c: add driver for ITE IT6625/IT6626
+
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  |  175 ++
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   18 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/it6625.c                         | 2394 ++++++++++++++++++++
+ include/uapi/linux/it6625.h                        |   25 +
+ include/uapi/linux/v4l2-controls.h                 |    6 +
+ 7 files changed, 2627 insertions(+)
+---
+base-commit: 8a6e017c06fbc1b96af618e82a4d35889d442964
+change-id: 20260716-upstream-it6625-it6626-6874ab8a5305
+
+Best regards,
+-- 
+Hermes Wu <Hermes.wu@ite.com.tw>
 
 
-On 8/11/2026 3:14 PM, Krzysztof Kozlowski wrote:
-> On 11/08/2026 03:15, Dmitry Baryshkov wrote:
->> On Tue, Aug 11, 2026 at 03:48:00AM +0300, Dmitry Baryshkov wrote:
->>> On Sun, Aug 09, 2026 at 12:57:00PM +0530, Hardeep Sharma wrote:
->>>> Commit e10b198a94c6 ("soc: qcom: Restrict drivers per ARM/ARM64")
->>>> tightened QCOM_GENI_SE's dependency to ARM64 || COMPILE_TEST on the
->>>> assumption that no ARMv7 Qualcomm SoC uses the GENI Serial Engine
->>>> hardware.
->>>>
->>>> Kuno, a 32-bit ARM Cortex-A7 Qualcomm SoC, uses the GENI-based QUP
->>>> wrapper for its debug UART, so this assumption no longer holds.
->>>>
->>>> Fixes: e10b198a94c6 ("soc: qcom: Restrict drivers per ARM/ARM64")
-> I doubt this fixes tag, otherwise please explain the bug.
->
-> How Kuno could be supported, as you claim in e10b198a94c6, if we do not
-> support non-dts platforms and there is no Kuno DTS?
-
-Thanks Krzysztof for review.
-
-I'll fix this in v2:
-    - drop the Fixes: e10b198a94c6 tag;
-    - reword the commit message from "fix" to enablement framing;
-
-Regards
-
-Hardeep Sharma
-
->>>> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
->>>> ---
->>>>   drivers/soc/qcom/Kconfig | 1 -
->>>>   1 file changed, 1 deletion(-)
->>>>
->>>> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
->>>> index fd4d4ecd2df0..5b3c9d31fd7f 100644
->>>> --- a/drivers/soc/qcom/Kconfig
->>>> +++ b/drivers/soc/qcom/Kconfig
->>>> @@ -39,7 +39,6 @@ config QCOM_COMMAND_DB
->>>>   
->>>>   config QCOM_GENI_SE
->>>>   	tristate "Qualcomm GENI Serial Engine Driver"
->>>> -	depends on ARM64 || COMPILE_TEST
->>> depends on ARM || ARM64 || COMPILE_TEST
->> Or depends on ARCH_QCOM || COMPILE_TEST
-> None of them are needed, because this is part of qcom soc.
->
-> Best regards,
-> Krzysztof
