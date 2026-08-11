@@ -1,115 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2596234D90C;
-	Tue, 11 Aug 2026 17:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786467616; cv=none; b=IK/q87A/CKgd9lcCHACjKQ9AXYIC1xVK/rkmsQlGWx2hf9ZNy+eWy8/+p/0BFuOe5ITsEBD9oqEBcomFheAAAcOvG9CxX4eVQ/N4NwUTVN4/oV3JCroxe23590o6wK9Nj0jca2fxfiiRgnE07737aTkqWSMM0S8VdpiU806zmws=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786467616; c=relaxed/simple;
-	bh=KeZAkrBvvBWBwSug4H9OwlngXqt7DyRbWn+Ol3WFt/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E6dwHalm5v0kDhCcyeBtSp/gjICIl+9OGyXmE3R77LFjuLG4XUxmc+PDAezlGZTXRIByh2D5I/71RQNVnCHozc2N7gN9jdvisXZFv+5ww+48QTD7PUKDZyqUNUwDxHpj29E2VYiLcZfT0Rx4+Ab3ZGG/DSbtaFAlcll18Tl+63Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FESLREwK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D364519A2
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 17:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786467715; cv=pass; b=pWtcfy64P0TCqUhhCe8zuoUUvRX+FyucmIPpBg7/bvmA+ToSbOrEKw2/jewvLyO+hvrVCwgPNCnXTXWVmAUHMNaewcqYz7Xm8ZCBIXaIllTtkkuPr3IKyO0QYsvHD9nsw3KGqqHoYP6/9ck/gnnhLMSZYHw/uAHR5xR2Tn+N/z4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786467715; c=relaxed/simple;
+	bh=TWfzhxo7/xMmuS2MmQr5q0gKhU/gaJMPano50ie7PP0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LDL1SgAimPMuwO19TgRdq5PHSGtCQ4hQ8aRUqa3/8uHs8DmrHuLsYIT45vOIHa9HbEs7gMCg7YC3fsbEStUEBNPHRX+wxHqury4m1HI6asSOrryUp5nZQL/+OJgrullCIUiMUnMHBj5+rChpOKTygYcGdAteQggyHg8CAQuS3oU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtJEZ0/5; arc=pass smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FESLREwK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1D11F000E9;
-	Tue, 11 Aug 2026 17:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786467612;
-	bh=uW8hLwKwvgMfYIPD0vwwNI5aDIVNxy/Ai/c+z6t5lHQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FESLREwKFLBlegXCXYT/pv+Nb0HnRmaCuEj+Iw9y85ATS6bMesQ6zx44iH1sWzaFn
-	 ncYjvjiPDc+AxYqM39dtCSjfL8JMfWR59F2TkPiSz5F4ydRp2CPSV/DYQOxlAL1nvk
-	 18H9IsmnLhIiRU7nc4l8r68q2XSPct3og4r6Jo4P8CKtI94p315/Mobm/yb5XrTkUH
-	 IQSbOmYsgWMStAba4L/mCnnUGHlMx6nW9hh9GCSDJLPTwxTdFwYPFUHj7SrOlU+Od/
-	 cT27FtbUiJ6G3l7AHdr1hF0fzrQu/axY6A0JA7wOeSc2f38VcjtyJvTujRktQBX4p9
-	 V31UL7S6dKSzA==
-Date: Tue, 11 Aug 2026 18:00:06 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Chen Wang <unicorn_wang@outlook.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v4 7/8] soc: starfive: Add socinfo driver for JHB100 SoC
-Message-ID: <20260811-populace-afflicted-40a40e0f484c@spud>
-References: <20260809015054.210577-1-changhuang.liang@starfivetech.com>
- <20260809015054.210577-8-changhuang.liang@starfivetech.com>
- <20260810-caress-rack-45615c8d9747@spud>
- <ZQ4PR01MB120276A1DA91FAC19C852F14F2DD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtJEZ0/5"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84874b52eabso136167b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 10:01:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786467713; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FaN/M+8qZISSba8A5NXSLDOfCp7GyS/yfyfVYyqRZ/DelXJMTaLhYxsdSL97QOHWvV
+         blA10fqthCpzc9JO5ASyQwSPuXRO3wSmrXvL4G5Ek+GAUPse2BKSHnpEFpJj4KZ8lKP5
+         lBxJGNu9MYmETJkEFzidiC0sHn4csVqR/BAWEAP9J5YspxYCrw+3h8yVWTdqKcpqaFkI
+         NVf8L8UQz5MUaY/4zajte9JPZnQm60z0SIfo93iadpaYgCKKgRtX6IaChUJ+W1G2Z1OF
+         6+4yGLTWMblbKwZ4ZU6KHRqyFz+SilSrl+rVvQ5LPCO7k/vUF3uPpTW+XJPLZXkPlVBU
+         JG/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=TWfzhxo7/xMmuS2MmQr5q0gKhU/gaJMPano50ie7PP0=;
+        fh=TZ6g4t9vam21ZRlw9TV3qV+07/SCCbCenK9zI1W8UmE=;
+        b=BuYSsczKRMcsonsahHjStU/kAjiC296MXFutilseFYa8TEHtzMrtmNK5beGkdNrB6x
+         LaSe6pzVf5rxr87pUh2LlQEMGUqUamdiowNMVYOiLT3Iv4/eaoTNXV1+Oq5np4pwnrfP
+         eJGGSApt9TSbtcTPbh/H1KlnKMIgNMQx/TH5c8N5Q7rUZt6Bl/bKs7w9vt19MiNZ0rQR
+         fS0/hE9Ki3Nr1DKeTVSVAExwD0ZVCc0FxJDPNBTflXarlolnGzR4DhDw+Bm/lUXHT6Wk
+         CXFxcWha88bWEwox4MLr5ZaEgJdz4Am9yMN9a7oc2jmQndC9FRVjr07H7hiHddL8JGR0
+         8B8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786467713; x=1787072513; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TWfzhxo7/xMmuS2MmQr5q0gKhU/gaJMPano50ie7PP0=;
+        b=RtJEZ0/5OnkITtjEBqHf0h+6Crk79hhJvIu9t7ySbRKDbfFtU35rYyGynyO8YVSJUh
+         k0Tto15vX39u+ey5dRL0z593lRkR0DBkmso4vYmEaC5TEF8ulV+e4atb4xARQVfA07YN
+         ltqXabmwV8jJRSIpeKeGuaWTq5L4B1UvLPuVvRYQhR+DUy5SJYt7cW6SUuY+btVC3A/B
+         NkwzDplBHpdsIrqbrC7BfC0hcEFWgVHP0cyb90pZHdcfuVqm6z88YiDgw9Go6KODnxZ6
+         YXkI9+DtK809ylT1qRD2RwNhYir7Hyivz1qoVNfK9qXL4VDq4xpYRsCYvCA4r0wUFmRA
+         YfEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786467713; x=1787072513;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TWfzhxo7/xMmuS2MmQr5q0gKhU/gaJMPano50ie7PP0=;
+        b=SyYkqRXMYYg9q4TYgfv3FnrlXyVsewi146/SxzE/eEw8oZuwhva7dco0/2V5eBIQRf
+         zLeP3FexLYQCAr9Xu77hFf0Z6QbG3y1ZDgk2cPWK3ObAtsXPAiRP/9q/VyiGlHYprIfm
+         426eYGN4X/oXAAo1ycuCUWTxRQMXEPhIN90nqKbxjb198iB7L8TZOpGGjgtdQvxCfNGl
+         o/8JRznfT/6DX3Nuw8glke2YSGDxufzijm/t0EBwzMCrjKaztKey7LzvEPlYa1Y3E2qn
+         iDS0maUtbzab+VwAqfgvfh2A0LjD63alvkF/7FaZVvunDkHLcQ6k44Gt57syJo+P945x
+         K3rw==
+X-Forwarded-Encrypted: i=1; AHgh+RrQolvOFmB2T8p8eBcCl4qQps9m6F4DudpkZT39tiRypiX0gwHqj2APeWXKGq+Pi2csiWikhhlzqRl+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMA+PltGNEjlxTiwU1V7Pi1ftWBQ3BSlkpfsQEKEaPIg9Y6Szh
+	Otw/2vZ9MbN0vxswjOuXZ901mX0kVqguoLEJtlHvl9G8BwwxMQCTaku6Z+5b0tmD+GmqCOJzR/u
+	5LKpF3TuiAAskPoQM6fnhEzG5nD82U04=
+X-Gm-Gg: AR+sD1139UhUPA0u1qJRKzN00hK2000uqIAM1t7gYAAZD9JluLuXlk0UovDAIhSoMPC
+	URKSqzANLdQqNaGYBbad92HCsYBPPfi0FVhfkvx3tf9ymsM4wlnJJFlUISbAOBgAVbPHhT16BQf
+	LwKJMzYNIfpnrBIB1nw2HB2Np4iNHdnyGx/uoShZHNx8NVWfhkv9cZwmrbzTQmjc7aNjSsFRzC5
+	4PdESy7O579SQJlOa80Ci2uuGpF0h9ssR5WpMwcWOkyq32C3CRfnWJgjrFduMlpiVVNr9MpE7p0
+	+8i3kErfLha7b2b7nfIA6VVBtB7t6kEoQvtV+YIfcy2xQGZxM/lemCg7sYN7W5hqrQWNCrlI0iJ
+	gCZeOTiis8qJ60g==
+X-Received: by 2002:a05:6a00:3306:b0:845:cd11:37e8 with SMTP id
+ d2e1a72fcca58-84fa8836414mr5878515b3a.24.1786467713015; Tue, 11 Aug 2026
+ 10:01:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CtK5EKNoAsQivl3f"
-Content-Disposition: inline
-In-Reply-To: <ZQ4PR01MB120276A1DA91FAC19C852F14F2DD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260804192840.29121-1-jakubszczudlo40@gmail.com> <anocR1F6uCdh4e1V@ashevche-desk.local>
+In-Reply-To: <anocR1F6uCdh4e1V@ashevche-desk.local>
+From: =?UTF-8?Q?Jakub_Szczud=C5=82o?= <jakubszczudlo40@gmail.com>
+Date: Tue, 11 Aug 2026 19:01:40 +0200
+X-Gm-Features: AUfX_mzzdwhLUB_Ygu2ISlH2HoKNN70xUsEwlWxKIpls3MKE5UGi6bJj3xYuDf8
+Message-ID: <CA+gq5JgkegYTNKD1dPcWRp9sYXoMDfa9O4=B2azROy3QuTszpw@mail.gmail.com>
+Subject: Re: [PATCH v9 0/3] iio: adc: ti-ads1100: Add support for TI ADS1110
+ to ti-ads1100 driver
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, dlechner@baylibre.com, 
+	nuno.sa@analog.com, andy@kernel.org, marcelo.schmitt@analog.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	mike.looijmans@topic.nl, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, jorge.marques@analog.com, 
+	antoniu.miclaus@analog.com, mazziesaccount@gmail.com, 
+	jishnu.prakash@oss.qualcomm.com, duje@dujemihanovic.xyz, wens@kernel.org, 
+	sakari.ailus@linux.intel.com, linusw@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
---CtK5EKNoAsQivl3f
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> LGTM now,
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+>
+> A few minor comments that Jonathan hopefully may tweak whilst applying.
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
 
-On Tue, Aug 11, 2026 at 05:36:19AM +0000, Changhuang Liang wrote:
+thanks for review Andy
 
-> > On Sat, Aug 08, 2026 at 06:50:53PM -0700, Changhuang Liang wrote:
-
-> > > +static int __init starfive_socinfo_init(void) {
-> > > +	struct soc_device_attribute *attrs;
-> > > +	struct soc_device *soc_dev;
-> > > +	const char *machine =3D NULL;
-> > > +	struct device_node *np;
-> > > +	struct regmap *regmap;
-> > > +	char rev_char;
-> > > +	u32 rev_id;
-> > > +	int ret;
-> > > +
-> > > +	np =3D of_find_compatible_node(NULL, NULL,
-> > > +"starfive,jhb100-sys0-syscon");
-> >=20
-> > Remind me again why this is not just probed as an mfd cell from the sys=
-con
-> > driver?
-> >=20
-> > (Hint: please put this info in the commit message).
->=20
-> The discussion result with Krzysztof at that time is recorded here:=20
-> https://lore.kernel.org/all/20260405-strong-watchful-marmot-fdfad6@quoll/
->=20
-> One register should not be treated as a separate device node.
-
-That's a different question. In the case of an mfd cell probed from the
-syscon driver there would be no devicetree modifications required
-compared to what you have now. e.g. sg2044-topsys.c
-
---CtK5EKNoAsQivl3f
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCantVFgAKCRB4tDGHoIJi
-0lFUAQDQvErhGWh1GPKjl5npBVRgz0mxYgiMDD3N+RV5dXnjfQEA2tMdSc2XqHx8
-20d6W/Qs1vDPymVXp1wbnroZbe4nog8=
-=lAVE
------END PGP SIGNATURE-----
-
---CtK5EKNoAsQivl3f--
+Best regards,
+Jakub Szczudlo
