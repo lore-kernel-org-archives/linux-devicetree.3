@@ -1,127 +1,79 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43322E1F06
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 13:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED1A369D7D;
+	Tue, 11 Aug 2026 13:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786454207; cv=none; b=GCaUiklFBIT10QqfFy2GTCvdJQtQw9ijex6XA34a1dHoGVhX57uJioCr2TEXusiG2xA+V46rWJBATlTDCK35ACuKazmQS3M3/OEIdwx096RszJ8lIV5drVj2RFSkJ59Fv/8MACcWoeLJEB4pdL57GVOiv16d+EBhhdxFufxWEmU=
+	t=1786455184; cv=none; b=CFuseE+rhEwpTI2ZLzxXErozASU6OlUHlAxv6JTGxO27N/2Tx/Ql+sYCKsTTEb6estQJulL/YFr2aUn0smkLUWIKt8q6ikVtsrtfmEqXzKJaE3k1AxhzddgKWtU+yfT/fk0GG0IeobCcErETs0Ie7ykBFkXydJFWrS3iXNbDUmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786454207; c=relaxed/simple;
-	bh=Cu3x9eXcBF5aTqGhRrit1YlpEazlGSQcR7PvO9XKWas=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Tgu1nlOL1Toith+zKBDHutAT9FmdmJU7y/vy+sCtxL425PpQQO7g+Mip3YEjqXd5KVn2j8j6edemzZn/jiuGYUFLpknEoIHkxQiJOJlNayUIJSr0Eo2VpYWbV0jpxdH7C2G/UbBFbVE98rpKp8q5HAmvdoat2EVvd59FI6I3V98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kt9LxcFA; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786455184; c=relaxed/simple;
+	bh=+EcfwRWRDl2wWqNFUoS+gVqt0L/1oPV74HNMHZna51E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ijnmYuadLYvTC+0g7HkGHx6FFTrrJpK4kEpiyvaXJmqpFXWIB4RY0sYl32XiB5dZXewBjYNmKpaQCo1H1Zlpzol1sr80oEdGRgoFDq9+M3if/B94ITBJqWe9yG19mY57z2eXwyq1HOkCUVx6o/F/tx4JUry7Dtqak9bvQXjGoUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgYPdkq0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kt9LxcFA"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-495590dde14so11834405e9.0
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 06:16:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786454204; x=1787059004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gitYuIgMAmJ0oQcU7iG8TZn7YufiftcwyUkdvrQmLDk=;
-        b=Kt9LxcFAm57xhT6QpdgnYTTzEVQtOQjRljgeGXHBDWyqT6X+UUkU2ujXIuDFQGQCZI
-         UqSjIetIfxNFYH1GaGp2KZDqINq92hsp03A/lb7L7wrqBh7IM+YMGYMINzSf45aDrCCK
-         sdxN+tv0//YpoAMpT18tsmRJHQ0SpXDrl5Ia+RTc45/nlloUKZx5DtSt4EMPgmPDOjp/
-         fRWwYArqrOyZxTchr44kRPgyHAqc+ZEw9cCwmR2ZJCRKxFyIMLrP2tflws/BjbZ3nX8H
-         2oPM32V6k9hhdBmJmNuD/uz7/GhIH7fD9YozoiR/GDGCqJRiXqLVuvr1wmPKIxa+mwdx
-         MB1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786454204; x=1787059004;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=gitYuIgMAmJ0oQcU7iG8TZn7YufiftcwyUkdvrQmLDk=;
-        b=azMQeV8g9uxNt1lME1PqdIdpgFok3KxAbFsMnxTJP+46IG1DQb1emBAweEY3g5osiw
-         NS1OKipWv12RNvDdnJf4jVh2tCXa3QifX0/I7jpgDhMgncttgKFSi6YiIduS/7DkZmvR
-         CyrSfauWJRXhO+9Dj+V2rOqaKMf3QfJ2o3+9XEI0YZyFSEbu6G9QDrW5cqII+dEMN4n6
-         MKzNEfZ7SkcpwfkLgMSbv1Yf586LODm8cH5Aaga4fcGJRP/UB9f7Gn61NxnOB5VwaV8S
-         7TGRFbYg0eMqC0/GmVKnDXSxVdS1+CvdOPpacdS2VxTbW8oB2qcx2IQ8M+NsdxvBgNEx
-         Jn8g==
-X-Forwarded-Encrypted: i=1; AHgh+RqRhFXPka238W6LMXHy1pqr2fZysafDTWKjworrce+YFKwoQRQieImJ2Z+GK0oJfIa5YjUHgN8CMlA/@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJ/w3TnkpFFj0xEIPH2Nds6Q/ulRGlAZk24OPy6bdIlLi8BrS4
-	wR2pUJ7NG9xzTOEHFBB13EwiU+Ak3Lj1pzMV5f6RlsxMIB4s+9z1dj+B
-X-Gm-Gg: AR+sD13eK28pTtSbCwQfKOYsfbJd42pxFmTBHTXgtnNrDNLrjC4HRrXfnt8SkvqpQ/6
-	uBbQwxTRRLuPI4E4pk4v5hj03kSDzlbo24JluKlYpeRFnbpz1a2MOnDjIc7mDnl9n5I924D7hcx
-	iyIiULvbZ1KgMZrXfFeS98ST3hJFS/E4Mo2adLmmMtwjsbd7bp/pBFG7rfu6zSarenAaqtz9ReZ
-	5qaz+a1pK4yk6p02seHLI6W3IApNLYsFY1oDuAahpF8mbaKkshvxh1TKDA0FrfJU1T/dIIy9k/5
-	7OYSt8ibG43tndSatssOYiUHzSelF4mPmnqfII+y2rP1Vi6iWFZ3Mp6q6otfBpnPGhMNOsaBC+2
-	PpE+DPWJJRXBrKZa4/wfUvXqwJtOdDGCN8MS6/qy5YX4S3q/eLkp3cbPMd+skMWm3+Yi9Ge+AQQ
-	SwBTJiwql0oIhl2oPGULeAIVTzgNQxmO1Ox4t3/v5tubFxWQiQisqP563BLbY1Gd3LT1fFi2rox
-	se7bHfyyETEs6HN091QdFd4JuaS3SiUI+H7RNFawk6yKf6B
-X-Received: by 2002:a05:600c:3b0e:b0:496:c361:fb96 with SMTP id 5b1f17b1804b1-4997a578481mr2356495e9.0.1786454203704;
-        Tue, 11 Aug 2026 06:16:43 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-87-20-3-207.retail.telecomitalia.it. [87.20.3.207])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-499788fd908sm47639145e9.13.2026.08.11.06.16.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 06:16:43 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] arm64: dts: airoha: en7581: Enable spi nand controller for EN7581 EVB
-Date: Tue, 11 Aug 2026 15:16:30 +0200
-Message-ID: <20260811131634.703225-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgYPdkq0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D9991F000E9;
+	Tue, 11 Aug 2026 13:32:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786455173;
+	bh=IolMNXpKF2tnvzbvC5XM/YIyaKMla9IMjCvono9Jg68=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RgYPdkq0lHa8tbhoxw4hFZQWrgdVubBFSo76/VIiz7GFkBhzJhciaX3VVYyda4Tqi
+	 sWTpiX5QahS+kIC96+8AUkth9ggBGsGHjsGnOY1ZlOglvZ1WAo3bLaCVA+RBTlu9Ne
+	 Uu8LzEcsqk+yu1yz8/+MhPGTPLjDV9pGhxq3lYqEztR/W6v3eyz0o5SiPz4wDOryNL
+	 YblT+1CNlxdx4x6dyQVLoIcQFwq8JRHe0EDo5XiWjjwPvXn8/Jdc4qnfJvjim9hlr5
+	 AAhfTg7pQHq7H2c4w0oAr3rVLgBDEQwqSgPozqEl3dfuy/MtTgvYW0nIFJnUqFg+wm
+	 sKH5o/77KhE5Q==
+Date: Tue, 11 Aug 2026 08:32:52 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: linux@analog.com, David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-doc@vger.kernel.org,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jorge Marques <jorge.marques@analog.com>,
+	Salih Erim <salih.erim@amd.com>, Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Radu Sabau <radu.sabau@analog.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/4] dt-bindings: iio: adc: adi,ade9000: add
+ adi,ade9078 compatible
+Message-ID: <178645517212.2041830.15280172934355138378.robh@kernel.org>
+References: <20260731082951.1228-1-antoniu.miclaus@analog.com>
+ <20260731082951.1228-3-antoniu.miclaus@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731082951.1228-3-antoniu.miclaus@analog.com>
 
-From: Lorenzo Bianconi <lorenzo@kernel.org>
 
-Enable spi controller used for snand memory device for EN7581 evaluation
-board.
+On Fri, 31 Jul 2026 11:29:48 +0300, Antoniu Miclaus wrote:
+> The ADE9078 is a polyphase energy metering device from the same family as
+> the ADE9000. It is register-compatible with the ADE9000 but does not
+> provide the on-chip dip/swell detection and is limited to a 10 MHz SPI
+> clock.
+> 
+> Add the new compatible along with a conditional constraint lowering the
+> maximum spi-max-frequency for the ADE9078.
+> 
+> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+> ---
+> no changes in v2.
+>  .../bindings/iio/adc/adi,ade9000.yaml         | 30 ++++++++++++++-----
+>  1 file changed, 22 insertions(+), 8 deletions(-)
+> 
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- arch/arm64/boot/dts/airoha/en7581-evb.dts | 4 ++++
- arch/arm64/boot/dts/airoha/en7581.dtsi    | 2 +-
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/airoha/en7581-evb.dts b/arch/arm64/boot/dts/airoha/en7581-evb.dts
-index 886e2e4b5f64..3dc68dbf1be7 100644
---- a/arch/arm64/boot/dts/airoha/en7581-evb.dts
-+++ b/arch/arm64/boot/dts/airoha/en7581-evb.dts
-@@ -25,6 +25,10 @@ memory@80000000 {
- 	};
- };
- 
-+&snfi {
-+	status = "okay";
-+};
-+
- &spi_nand {
- 	partitions {
- 		compatible = "fixed-partitions";
-diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts/airoha/en7581.dtsi
-index ff6908a76e8e..0964cd783013 100644
---- a/arch/arm64/boot/dts/airoha/en7581.dtsi
-+++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
-@@ -150,7 +150,7 @@ gic: interrupt-controller@9000000 {
- 			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
- 		};
- 
--		spi@1fa10000 {
-+		snfi: spi@1fa10000 {
- 			compatible = "airoha,en7581-snand";
- 			reg = <0x0 0x1fa10000 0x0 0x140>,
- 			      <0x0 0x1fa11000 0x0 0x160>;
--- 
-2.53.0
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
