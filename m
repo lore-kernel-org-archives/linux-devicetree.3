@@ -1,178 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18788276038;
-	Tue, 11 Aug 2026 06:18:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944B53F327E;
+	Tue, 11 Aug 2026 06:29:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786429102; cv=none; b=iRXETan45Dy7n4HxWZg4xJmtA5bZCtaDFonhMTvSQ9a4zXjCtJISO6Nu1PoQOdQzw4dt1Su+w3TdDd6AEgZwfPOOwqhEpyFWeQyjzDoTGJf/QkY5L4YNrc4wQFBCmqXE7Hg+ZLHUo7obm1+u/fYvcRfHRoPk23yABLa8c8mSR50=
+	t=1786429790; cv=none; b=h3bfuDeBx4OKC0Im6QdY0cKhHt70qfyffZ0WeLeR22ub++NYmuwO5EllVEDPVrd72c84ifXvmh/xVjf35s7ClQbdrx5wkSw4sUnyhSex89sQRELoYtgwfBzhS8nBs5kgN0ELt03JnQ8PazXWyJbOte2YbNqzBxiV9ZJ4TU2/Nz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786429102; c=relaxed/simple;
-	bh=Hse8OrdKiaeVNAsQHgOELN+1/U5JCEy6XSg9qioxC8k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kMQWdfeoUq/oaw08iJvz3TOOXVmMHCJ/wf3+D0x0gUFHfLdyfcCZt9L6BQMgn4vNYXmz2bBdWcuNIWRI6Zs2+MCCE/YUdFb3hlXnOzNhqAiHLt9/PckjdnGgYR1XFk7trFMm8aUH9ic40Bf/bsC7OvXhk9uxJFiOqVfP8cExTB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0fqkw5V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786429790; c=relaxed/simple;
+	bh=F0l8Ut4ZSPuzkllETcP01MYrU4Q5hmpjs05TRDA+HiQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Itsu6hvGeZYEoKHF5QTPrxIkO6u+MDsQScil1yyUOVLR+FFmYT20kRLxsjUMU3PXkk+Fh4pVI9XiiXyXQVf/3tlXqa47ttHFzRmFVQMTjgGTL3OZRXf0cS2tTBPE5EArnJSGh2S1d0D2ZeVxObEcxCcghcJUqELZsUFK8CIdJRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aK4Fsfyh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0fqkw5V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC9D1F000E9;
-	Tue, 11 Aug 2026 06:18:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786429100;
-	bh=fypE+WJeEIwmW1JOycblonvFMefcQW9eNEyTfiP9ohc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=E0fqkw5VDWriCOcHexkmUZM6UJ6MpPpB0wllgQLkIw1TZ7tmXXY6qZ+zydvb9UnYr
-	 NrvQsxIjT1AY0w4xaGZPzt4kkHBpxuDYEgtwjZkHFHvyVe8hnjpJHyfz6ug0n5l1uP
-	 KqZOtOxFYHYBbKVCUjqIS5GUncQfcCHf/Oo41QKr/cqdI6UM5AJRFgn2IEAY9fKU4y
-	 c1xrRLJRoy4pJXYscWNP7S9ogVgCAHQZ4Nvnseq5PPDMkYnckEIxME4bbNBT2vmL8J
-	 InkNFDdXxsOY4lTcYr6trbp5qZaItLjMhPv8fKxhd0GVWxeCDfOTZ8HWKIKYgJt2+g
-	 EgsBJyRt/JxPw==
-Message-ID: <162bfbf1-f8da-4083-96e9-2557688b0072@kernel.org>
-Date: Tue, 11 Aug 2026 08:18:13 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aK4Fsfyh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 25C79C2BCF4;
+	Tue, 11 Aug 2026 06:29:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786429790;
+	bh=F0l8Ut4ZSPuzkllETcP01MYrU4Q5hmpjs05TRDA+HiQ=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=aK4Fsfyh2/8oYwDkn9SP0lurq0xbkGP8yaOWJ2VdEZhkZI9Vldo5tRl4KS7Hy89/Y
+	 X3sPH0LE9NEfEJR3pWM1EmLv/ef66s8y5XNIqsu4uSvlEgqiWOK45+v6lB/NwFZ+mM
+	 GQf4Z8Mh8i317/5j2kBOhl31Khz1GgzyqX7FIgrTZUhvZH0OSZcZ0Kmn8tvZfNkwie
+	 kjEux3awDSnMIbeFw1io5etWbaxsa79BxrgMKV22F9oEOISn5pdhcpdSsnpEfT2+yA
+	 HjCOLPa+BKNx9Ih6L1efv3SiGDzqn8VJvoBlXKWFT2i6+3amO4aDEXKhpQYL9Wu91u
+	 32hKCckpKoUUA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13431C5B569;
+	Tue, 11 Aug 2026 06:29:50 +0000 (UTC)
+From: Ben Zong-You Xie via B4 Relay <devnull+ben717.andestech.com@kernel.org>
+Subject: [PATCH v5 0/4] i2c: add support for Andes platform
+Date: Tue, 11 Aug 2026 14:29:47 +0800
+Message-Id: <20260811-atciic100-v5-0-1d306c21dba3@andestech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: phy: Add sa8255p high-speed USB PHY
-To: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260730-phy-qcom-snps-femto-v2-8255-v1-0-8b8bf5105a68@kernel.org>
- <20260730-phy-qcom-snps-femto-v2-8255-v1-1-8b8bf5105a68@kernel.org>
- <20260804-active-sensible-reindeer-f459a3@quoll> <87a4qu2f98.fsf@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <87a4qu2f98.fsf@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFvBemoC/22Q3UrEMBBGX2XJtVkmM2nTeuV7iBftZGIj2C5ND
+ crSdzdZEYvs5QffOfNzVUnWKEk9nq5qlRxTXOYSmoeT4mmYX0VHX7JCwBYMgh42jpENgPYDCbd
+ dcONoVelfVgnx8+Z6fvnJ6WN8E96qoDammLZl/boNy6b2qrcBBAdoeqQz9gbJkTZ6lNkZ9zTMX
+ tImPJ15eVdVm/EXrAvhYaGMGrRrmt5Q68FxuEfTke6ONBW6YwAMzFhuukfbP5ro+IxsC+0tdIi
+ hJbHyn973/RuQfjhnbQEAAA==
+X-Change-ID: 20260120-atciic100-da3ec68f7bb4
+To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ Ben Zong-You Xie <ben717@andestech.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15-dev-09770
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786429789; l=2993;
+ i=ben717@andestech.com; s=20260120; h=from:subject:message-id;
+ bh=F0l8Ut4ZSPuzkllETcP01MYrU4Q5hmpjs05TRDA+HiQ=;
+ b=HKTFdPEC6pUA6QPei0OVVHl8dgqgE4cYDe1MsiqCWNO/e6ODJ+BEX8vpehIgjfJCIRHExBDsI
+ 3uKnwMHbA1jAjno/ou9kgNMNBdYEunwaYt/pdVd9kIW+oXf2JdWLAkd
+X-Developer-Key: i=ben717@andestech.com; a=ed25519;
+ pk=nb8L7zQKGJpYk0yvrYKjViOZ34A36g1ZIsCmCsP518s=
+X-Endpoint-Received: by B4 Relay for ben717@andestech.com/20260120 with
+ auth_id=610
+X-Original-From: Ben Zong-You Xie <ben717@andestech.com>
+Reply-To: ben717@andestech.com
 
-On 10/08/2026 16:59, Mattijs Korpershoek wrote:
->>> +  power-domain-names:
->>> +    items:
->>> +      - const: transfer
->>> +      - const: core
->>
->> Here and in your other binding you call these 'transfer' and 'core' but
->> all other bindings call them 'power' and 'perf'. Why this difference?
-> 
-> Thanks for the question. I had to do some digging because I did not know
-> the answer to this.
-> 
-> Per my understanding, the SCMI firmware (in my case, gearvm) exposes
-> multiple protocols identified by a protocol_id.
-> 
-> For example, power domains have protocol_id=0x11 and and performance
-> domain have protocol_id=0x13. This is defined in ARM's den0056 spec:
-> https://support.arm.com/documentation/den0056/f/
-> 
-> Each USB phy has 2 distinct power domains.
-> This can be observed at runtime from linux via:
-> 
-> /sys/kernel/debug/pm_genpd # grep 'scmi-power-usb0.*phy.*' pm_genpd_summary
-> scmi-power-usb0-ss-phy-pm       off-0                           0
-> scmi-power-usb0-ss-phy-rpm      off-0                           0
-> scmi-power-usb0-hs-phy-pm       off-0                           0
-> scmi-power-usb0-hs-phy-rpm      off-0                           0
+This patch series adds I2C support to Andes platform, such as AE350 and
+QiLai SoC.
 
-What about perf domains?
+Signed-off-by: Ben Zong-You Xie <ben717@andestech.com>
+---
+Changes in v5:
+- Rebased on andi.shyti/i2c/i2c-host-next. No logical changes.
+- Link to v4: https://patch.msgid.link/20260330-atciic100-v4-0-d40822f63e4e@andestech.com
 
+Changes in v4:
+- Rebased on andi.shyti/i2c/i2c-host-next.
+- (1/4)
+  - Added Conor's acked by tag.
 
-> 
-> In the case of the other bindings - for example i2c - there is only one
-> power domain (0x11) and one perf domain (protocol_id 0x13):
-> 
-> /sys/kernel/debug/pm_genpd # grep i2c0 pm_genpd_summary
-> scmi-perf-i2c0_7                on                              0
-> scmi-power-i2c0                 off-0                           0
-> 
-> I hope that explains the naming difference. Please let me know if this
-> is still unclear.
-> 
->> What are these domains responsible for?
-> 
-> If we take the example of the high-speed (hs) phy, we can see that on
-> the firmware side, the only difference is the -pm or -rpm suffix.
-> When Linux requests scmi-power-usb0-hs-phy-pm (mapped to 'core' in the
-> bindings), the SCMI firmware (gearvm) will interact with the reset line,
-> the clks and the regulator.
-> When requesting scmi-power-usb0-hs-phy-rpms (mapped to 'transfer' in the
-> bindings), the SCMI firmware will only interact with the USB clocks
-> (reset and regulators remain unchanged).
-> 
->>
->> Commit msg is pretty useless here - repeats the diff. I can read the
->> diff but I still do not understand why such naming.
-> 
-> 'core' controls reset, clocks and regulators.
-> 'transfer' only controls clocks. Putting 'transfer' to 'off' is
-> interesting in case of runtime suspend/resume as it cuts the data
-> transfer (by disabling usb clock)
+- Link to v3: https://patch.msgid.link/20260128-atciic100-v3-0-8c002fcc2bb4@andestech.com
 
-Either the binding or the commit msg should be clear that these are
-power domains responsible only for power on SA platform, not for perf
-(so a power power domain... ehh :/)
+Changes in v3:
+- (1/4)
+  - Rewrote the commit message to provide a detailed hardware
+    description and explain the relationship between the ATCIIC100 IP,
+    the AE350 platform, and the QiLai SoC. (Krzysztof)
 
-> 
-> Is it more clear that way?
-> 
->>
->> And why core is not the first one? It clearly feels like the power
->> domain thus the main one.
-> 
-> The order is based on how it's defined in the SCMI firmware. It's not a
+- Link to v2: https://patch.msgid.link/20260122-atciic100-v2-0-7559136d07cf@andestech.com
 
+Changes in v2:
+- ATCIIC100 is the hardware name for the Andes I2C controller and was used
+  throughout v1. However, since Device Tree bindings should reflect the hardware
+  identity and driver/config naming typically follows the i2c-<soc/platform>
+  convention, this version replaces occurrences of "atciic100" with more
+  appropriate names, such as "i2c-andes" or "andes_i2c," to align with upstream
+  standards.
+- Updated cover letter title and the description.
+- Rebased on andi.shyti/i2c/i2c-host-next.
+- (1/4)
+  - Updated the title and the description of the patch.
+  - Specified what the hardware is, and modify the title and compatibles. (Krzysztof)
+  - Corrected device register size.
+- (2/4)
+  - Updated the title and the description of the patch.
+  - Replaced the readl/writel operations with regmap APIs.
+  - Replaced all occurrences of atciic100 with proper names.
+  - Used module_platform_driver() to initialize. (Andi)
+  - Moved CONFIG_I2C_ANDES (CONFIG_I2C_ATCIIC100 in v1) to the
+    "Embedded system I2C/SMBus host controller drivers" section.
+  - Made CONFIG_I2C_ANDES depend on ARCH_ANDES
+- (3/4) (new)
+  - Added an entry to the MAINTAINERS file.
+- (4/4) (new)
+  - Added the I2C node to QiLai DTS.
 
-Then core goes before transfer.
+- Link to v1: https://patch.msgid.link/20250207021923.2912373-1-ben717@andestech.com
 
+---
+Ben Zong-You Xie (4):
+      dt-bindings: i2c: add support for AE350 I2C controller
+      i2c: add Andes I2C driver support
+      MAINTAINERS: add an entry for Andes I2C driver
+      riscv: dts: andes: qilai: add I2C controller
+
+ .../bindings/i2c/andestech,ae350-i2c.yaml          |  45 +++
+ MAINTAINERS                                        |   6 +
+ arch/riscv/boot/dts/andes/qilai.dtsi               |   7 +
+ drivers/i2c/busses/Kconfig                         |  10 +
+ drivers/i2c/busses/Makefile                        |   1 +
+ drivers/i2c/busses/i2c-andes.c                     | 341 +++++++++++++++++++++
+ 6 files changed, 410 insertions(+)
+---
+base-commit: 04e9bf1648f846976b543e91c1838a712433772a
+change-id: 20260120-atciic100-da3ec68f7bb4
 
 Best regards,
-Krzysztof
+--  
+Ben Zong-You Xie <ben717@andestech.com>
+
+
