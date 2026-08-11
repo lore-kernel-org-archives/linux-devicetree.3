@@ -1,338 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11022078.outbound.protection.outlook.com [52.101.48.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A52237A4B8;
-	Tue, 11 Aug 2026 18:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786472353; cv=none; b=NLIysolIeBw17RA9K8kMHFORcPzcRw+JUJR0JcpvPHE0VvHFvoVD8GJYiYgeFGQdn+yenS7JRrggGdBEL8qWvU9a6FiB+bCw3UEZzjiCraF12tTeM9IuINdSC82QeI0aChqpHAro3ZPtgs+6yH20+hWAXgyemFRsyIYj8KOrqKo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786472353; c=relaxed/simple;
-	bh=LSm5DIx4snk6M3aNoS32ZmRfoHK8v9JA9Kz/Uue2v18=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cu7yYuHH+U3hS5ncpIFQLZq5YxDtG8pVwoluXSJxJAUlxHR0CdoZ+8Z3vdI6YPokdXlN5gNILv/R8MKxUo3Gu6Ei9NrN0Fzd0uh5TRDj/8EhDUGbkPv22dbTpgeRKcr3P7+/lisAgxlDBZyEzDFQ3rf3tO6zPOVWGncHKEJpHNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DaDWtMcY; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A16B37BE7A;
+	Tue, 11 Aug 2026 18:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.78
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786472421; cv=fail; b=kLDa7F3nmlHRq+MVnqvcflOSYHBVvTknwUcNB1WB0HHYFF/AruO1zCfc3fJlkEJn9iiuhcl8zgkNJ+u+xpx9favjqvF+DfSOfqoAvUdjYEy/o5875YUqIHsVkv36iN8PtPfawZ+zlnQxbP3kN7YgMMY9QAUwQ9GCu7/Fn1vBMCA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786472421; c=relaxed/simple;
+	bh=bZQBHqi1EMXwoJYZBQlC5sk0XIWEww21GsBSmVLri7M=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=lKUyoYcFEk+A99sw4fGovkEu/Dew/WucUVe21wqoCiRVmKjl74k0WuaeF6miT8dyzgAlstCecY4aqdH2IYjopVkRmEN6RfF9Dy9QfhpgLz7eGVHRcduhD6hbhBigoX5s8fHWI/OA9qoVEPtbOcNfboBTGQdMlwOmS04amK5lwvY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=mHBU+SQh; arc=fail smtp.client-ip=52.101.48.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DaDWtMcY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC751F00A3A;
-	Tue, 11 Aug 2026 18:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786472351;
-	bh=hc/QLCRd9UCk3o9qsDvUtgMEwoVwkuIh+1I01iMCrYk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DaDWtMcY8ufHf2RmCcMQ9Z+I9s9CjsDj2d7xt6m2i2DtpVyMWgdK1wZE9Alai519n
-	 hk7h7tWs0y2xEj4JM7XTtxF/Fwh6Rl++qCQQ/XdoPuktLFdEKESYdthArIuFL9zBuZ
-	 UJszx8Ngrn1h8rwBYl98SuqEftkLJNInfeOqEPpwy4fIaWf0UxgnIptwgo/klFL7cn
-	 Fh5eL7xwt9PZMvuR0lcFlF/a5nNmaJL4tkRyoAQxmJDGa+HnHha8PdG981IiNdwWaj
-	 uTThjlRgToT7TFhZqcZv+ItdRcMDBCgNvdDYMR2JocyxBoD+Jap4qFH3+Ts+6R5do4
-	 Qnig35Hn3QOIA==
-Date: Tue, 11 Aug 2026 19:19:04 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v1 1/5] dt-bindings: sound: qcom,q6dsp-lpass-ports:
- Rename QAIF clock IDs
-Message-ID: <81474771-c89e-4476-97ae-032756879605@sirena.org.uk>
-References: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
- <20260808181948.2489187-2-prasad.kumpatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="mHBU+SQh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G4UTBL6GL+T/K29E2pluidxbtAq26lZAZh4U4byw9HAVbz3x1c1QwHlgBflcEBHDFdVTL57gnt6/oih2/OKsOs3PkEL+bhC+GT/RgT+pfSn341jqmqwjgbAxqrCuYrrJr4+o0VAcvAsYFpAUgTlyKM+3vqWsvdCGp/HIjTFomeYTSGZOoHsRe/lgSTTu3fYVy/NvuFoBPmMGGneFVlMvWl49AtFjkH434RAlKByiR6zDr0p9mmNbnruMi7q6Gk/RTDOrQHELeI2i40TygOqqIGYgfDFYJarSqiVKZCbOcwko5W7YmR/ynp/o5FgwkDf5Apz2EFO2gmXBGDoivq6log==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bZQBHqi1EMXwoJYZBQlC5sk0XIWEww21GsBSmVLri7M=;
+ b=seZr8TO7JhNViOhNx5a9B7bHyDz4k43v+zVUxLxDtYhs3Orw36dVoRbFeymL6/ZZTIpB849vAeZ0bhTKwv8VCbtBGs2SPBdXG77/Q3xaGFDMOjYtzJf4D4IvxuI6fn8y22J8Of4Hpu+GhZ56gH1stlEbRCiGSS8yGtx06Sik8hWJ/0H9CsqG0ll04bXQocK9QS1sWGb2sdbw+/IlULMQxe9SkozTVE2xq4v6yrPvAio4mwpeOVq6hERBcsPVADUZWv2dC3y5vBM6rme0RlynuMNJnaiDnAyAGPi9xcr+TD6aAWnhgkBDTQmXK7Bu1K5LthU2o85TMyqf3V2DRq/tYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
+ dkim=pass header.d=rambus.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bZQBHqi1EMXwoJYZBQlC5sk0XIWEww21GsBSmVLri7M=;
+ b=mHBU+SQhWeDStyDRubcIOcaxTMGnrscySWWwxq+GnV5FF5BW9vV5ofA7+1xSCt/VLYznCvVvLuvG4FCRNyVkVN7hPY/20aoZdEojiAfVOd3dag9OyW+0dHPDspgNznQmg9S0o9HDoypcp3Bj2lo/HuINK8Nizs7OwLGG4Dr/swrkGdDACLH8pM0W2aqXQCT/VYobPdYSyLGZyxFg8rm/QlJe7ImpZDxpJyERbQyy+Y4xIql4VqLcxdB52ANykt6jcUpBDiocnuGfw2g9ZZWYhpfVz4+Obek2M4YgKnvJMWDPQ+wPP9HEMm8D6YFIngnj5Aga5tAlYGPzubShxpNtfA==
+Received: from SA3PR04MB9001.namprd04.prod.outlook.com (2603:10b6:806:398::17)
+ by SA3PR04MB8692.namprd04.prod.outlook.com (2603:10b6:806:2f0::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 18:20:12 +0000
+Received: from SA3PR04MB9001.namprd04.prod.outlook.com
+ ([fe80::3da3:45d7:8860:e196]) by SA3PR04MB9001.namprd04.prod.outlook.com
+ ([fe80::3da3:45d7:8860:e196%4]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
+ 18:20:11 +0000
+From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, "Krishnamoorthy, Saravanakrishnan"
+	<skrishnamoorthy@rambus.com>
+CC: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>, Herbert Xu
+	<herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Paul
+ Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>, Shuah Khan
+	<shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "Wittenauer, Joel"
+	<Joel.Wittenauer@cryptography.com>, "linux-api@vger.kernel.org"
+	<linux-api@vger.kernel.org>, "linux-crypto@vger.kernel.org"
+	<linux-crypto@vger.kernel.org>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
+	<linux-kselftest@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>, Shuah Khan <skhan@linuxfoundation.org>,
+	"Nguyen, Thi" <thin@rambus.com>
+Subject: RE: [PATCH v3 02/19] crypto: cmh - add core platform driver
+Thread-Topic: [PATCH v3 02/19] crypto: cmh - add core platform driver
+Thread-Index: AQHdJd2LtMX2FjDMV0GCzBlfTeqwP7aYjSsAgACjEFA=
+Date: Tue, 11 Aug 2026 18:20:11 +0000
+Message-ID:
+ <SA3PR04MB9001E53F3731CFBC9ECE7EF3D7DD2@SA3PR04MB9001.namprd04.prod.outlook.com>
+References: <20260806195519.2703224-1-skrishnamoorthy@rambus.com>
+ <20260806195519.2703224-3-skrishnamoorthy@rambus.com>
+ <20260811-notorious-humorous-frigatebird-ed4637@quoll>
+In-Reply-To: <20260811-notorious-humorous-frigatebird-ed4637@quoll>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+dlp-product: dlpe-windows
+dlp-version: 11.11.2.117
+dlp-reaction: no-action
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=rambus.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR04MB9001:EE_|SA3PR04MB8692:EE_
+x-ms-office365-filtering-correlation-id: 599d8704-f141-4e32-3806-08def7d52ec6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|11063799006|56012099006|10067099003|4143699003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ 7VLe9JF+xbz63vVs8ICGZGIOn4tX51rCaNsdjk44cR3xxRu9MP2Ra7CxKHR1iHlOdQIPoYaU8fqtwKByAnwvqIRRjayJVbcw8Q5K/pG2Fk+/S5jSqa/7E9BomglUyNByztvazdYjviY/5K7tz/vurcOxvQyDaWwk03F6N8adPmUBQK1hcjP3zo7Gz+eSMiVqNmsxzikc0lsx1Hv7eTSoDYH6W0ANnzf+1/Rtv/iymdRPQLZV06nb51YUkzNQPUBPd5b+DPNkWfQ0gTN3FBYaeOi4UnsaN+DMNjuf4MDFvKVoHKf3/FfLAitoWOAjxZnq4MwmZWvpRoM8byjnIujijC7ZEvoiqA1rEKtq+KF6lMVF6AfUMbI4jSnkoPOmeHytwiW4Dw/tfi80tNvfvxO3ZqxHUlUpNnKrdWXl1cuYBHlDNoYZ6EM9lveYBmprVnKzwRuH3QVhdrvuUFCeV1iknn59qnG5DSOm6BKvJH97OQuzfu4xv5GZscTKgW/pNyXn2wWE057i9y7qwa9Dr/JCncAXbmk4rqh46hmqlZHD+h/wkSaGjBFpqHQ2wxCzh2v4XFBVIWMNQmRokXTUVEstCSi0pi9nOIL6mSaE5ZUBMHEMSLK3OTAEZT6W3a08g9kqtVi4ArsgrKQA8OolNdfTuv+EA+czFBkmzOleRWx44SV5fQiGaRFyrASZlBBpF/DsNJqwU8pkIeybT3s1HMp33j8Liv1G0ax83s6OaBsm5dw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR04MB9001.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(11063799006)(56012099006)(10067099003)(4143699003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?RGtPdjk1N1Y0dTMwOGlDUmtmR0Q4L2hLK0E0NzdEMU1EcW4yd1ZxSDJscklZ?=
+ =?utf-8?B?Ync5MDh0T0Q0aksvUGxYVHZVbHhMSjVDa3RJQnNwcnEvcUdHUjl2Z1A5R2s0?=
+ =?utf-8?B?L3BZOU9MRndmRGxlYzZ1c1Z3VnpzWDllKzF3QnFNTUxtMnIxNThYdlhoUExq?=
+ =?utf-8?B?azRGbWhhSytWQ1FPRzAwMUs5R25xRjQ2aXpmdDVDYjlxM0xNV2xjQ2txdGhm?=
+ =?utf-8?B?d2Z0Zmt3UklGdlBwOU1jZzh0STEyQXU5VkFadlVOWDdrbGtmM0NkZm96bjBu?=
+ =?utf-8?B?OHU0djl1K0Vaam4zTWlBcVhwek84L0U4NGdsWGtxcWU1cHhISVg0anIxbWgr?=
+ =?utf-8?B?YmRQVFUvMGUvY0JSVEUzSC9YUEtBL09CdkpLdHA4VHJpOWFhZlNEejBvRC9R?=
+ =?utf-8?B?QlNZVDBOWFZPRTJhbHRST1J1TElxTUd4S3dIbktYajZUbWVtZjdreTdwS0dr?=
+ =?utf-8?B?Sk1IQWVqVFc4TUxzdTg3d25zem9IQTVOcEgxZWpNZHJEVG1xWnpqeXFhcnp2?=
+ =?utf-8?B?WGdqR2lXcG1zZmppbTJoZnFZa2w0cFRZNVpPSDZoVWhsTDFjNUNKTWtDbm4z?=
+ =?utf-8?B?ZkRlYmxlQ29GZ2Nac2pZOGY4Nm1qOENkRHNFd3RvS25JRXk3aTdodW1YSXQv?=
+ =?utf-8?B?c2dSS25CRm9OREpBRTF4RzB0WGxhWk5jVzZ3U2hLeEpBTllOOUdLdGlERkl6?=
+ =?utf-8?B?cHdDV3k5YitNYlNNMFZqeWtSamh6UFNSZlE3amgvcFpJNlRWZGQ1SGNJWlhl?=
+ =?utf-8?B?YUtNdEY3UlE2cFczMTZvT3NMVWprUmI2Y2VHN05iTGsvSlc4eGgzTUNWQm9n?=
+ =?utf-8?B?QVVEL09lSzdEbnVKTW1qVUc1WHVHNmFoK2pEYVpwWW1IdXJhM0svbmI2dzQv?=
+ =?utf-8?B?SVZWcHFLeUJBalpwNHd0T3FwQkdGb1hhdmpjODlJR2w4WFBJQW8vYXdQeU1Z?=
+ =?utf-8?B?MDdoNjdwYWhhUmlpbkpWZGZkdGMzSXhqTmdoRy81RTBZYlB0bzZEV2FaTDM1?=
+ =?utf-8?B?c3RUMWJYMTF3NnBiVjhFdG4zRDA5cDlYUHRhNUY5OGtpN2QyQmUyN3hWNENR?=
+ =?utf-8?B?K016cnRtNitIV3IxcXpuMWhickpqeXBRdVMyWG9UUUo4Mi9rZ2dySWIya1Zm?=
+ =?utf-8?B?MjNoUlJOdE9XenI3d1gwZmYxblRreWhUWUQzR1ppQ0NlRVNqeFBESjVBb0Ja?=
+ =?utf-8?B?ckJJN0J1cmlWZU9WeVZzemdLblhOa09qRGZzbGdaL250NUxaWFRYdlAxdWFR?=
+ =?utf-8?B?SGgxb2l2TXBxSDVBRmRLMmdCVkZ0ajJKM3lLeWZpbnFQOWIra1Bwc0xUZGlr?=
+ =?utf-8?B?b0p5M0ZmWHY2RWZtVEFKdVFsblQ4STd5S09WUzJvZG93eG9qSHFjMnZPRE5r?=
+ =?utf-8?B?Qmpud05mSXNHMEFLSWttQ2JhSVpSdWE5ZlNoYkQvc2ozY1plUlVkQk00Sm9I?=
+ =?utf-8?B?VjJqOGJodkVNb2hvVUFFRDZCYm1QMGxNT25GNXRaK3pEWGlZU3MvSDhqZmFO?=
+ =?utf-8?B?QkZ0b0JicGxzVjMrclpXSWp4L251NzdqcnN0d1BNK1ZWY2RNeW5QL3UxM29C?=
+ =?utf-8?B?Zi9ONFB1ejF6ME1DNjQ3NXJpTlZJcGJPZzFvbEh6R1plOFh3UHJVVVdrYkgz?=
+ =?utf-8?B?Q3J1VDZuaE9BWGZsQzJRYkkxYjZNQmdkYmo4WVZGSEtXZWsvamF6U0xXL0V5?=
+ =?utf-8?B?bExzRVE0QVRvVEhlTUg0c1gxd2VTOFNpTzlqek1nWjZPd21aK3R5Ykl6S1Nj?=
+ =?utf-8?B?VGF2UWUxemtndjRwNGNLSXVEMEFCSlFxSGJyZUpkU25lZUZrSlJPSGFFb0Fk?=
+ =?utf-8?B?TlZXdEw4TnVtU2Z3T1pJVFl1cjhad3E4UGJsVHh1Z0hIVTRWYXFuLzdlUy9R?=
+ =?utf-8?B?NUY3M21GOFNDUmFMWisrRmVPcitDWEdaQU1SSDkrQnJ5eTBiQkZ3LzV3VWtz?=
+ =?utf-8?B?NzlPdjh0L3B1NjVqaVBwWHRKZHJTSGFJemkvMGk1MEJLdTZySXdGeXBmVTB5?=
+ =?utf-8?B?TXd0WXkwMCtpcHBiU0ZzYXRrSmEvenRuVDA3QzlFajBQa3hzdm11aGVsY0t0?=
+ =?utf-8?B?MWJtSTMyc2x6U0NiWkZjbm01MVAvaU45aHNjRmRNK3prM0JZUEFCYXRybnNl?=
+ =?utf-8?B?b2U4ajI5bXh6M01xKzgrQ2VwOEpCRXRBcHVzRW9tQXN6cXlSZUdrRVVOV200?=
+ =?utf-8?B?STB3RjU2RDhtUlgzVExHL25MRDJBVEdiTkdrZDJRMkNwUnUva0lnOTMvbmN0?=
+ =?utf-8?B?ZnNnRzdDUGxBZjlCNmtrNy9XZC92dTc5ZzJwaytsOFM3YTF0emd1WlZ0SU8w?=
+ =?utf-8?B?aTRtdWpaUlNpRjNCQ0gxZXdTMzFLd0V0c2FMdThsdXJjVXhYS1B5UT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uWz5LYfO0GfAdVdb"
-Content-Disposition: inline
-In-Reply-To: <20260808181948.2489187-2-prasad.kumpatla@oss.qualcomm.com>
-X-Cookie: PARDON me, am I speaking ENGLISH?
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR04MB9001.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 599d8704-f141-4e32-3806-08def7d52ec6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 18:20:11.7375
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IMMRCSqHVskUJ9SzXjxbVFYMrRwJ60yqADc4pjc60msqOcNtdMyCdDTw3LQiMoQ2BsnH6ajJ/O+N9hXuhxsS2vIhtTPDxIWvVEmgaOqAoaY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR04MB8692
 
-
---uWz5LYfO0GfAdVdb
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, Aug 08, 2026 at 11:49:44PM +0530, Prasad Kumpatla wrote:
-> The QAIF clock IDs were added with a LAPSS prefix typo. These IDs are
-> new, so rename them directly to the existing LPASS naming convention
-> instead of keeping misspelled aliases.
-
-This breaks the build.  *Please* test things before sending them.
-
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:67:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF0_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF0_IBIT=E2=80=99?
-   67 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF0_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:68:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF0_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF0_EBIT=E2=80=99?
-   68 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF0_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:69:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF1_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF1_IBIT=E2=80=99?
-   69 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF1_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:70:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF1_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF1_EBIT=E2=80=99?
-   70 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF1_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:71:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF2_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF2_IBIT=E2=80=99?
-   71 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF2_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:72:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF2_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF2_EBIT=E2=80=99?
-   72 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF2_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:73:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF3_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF3_IBIT=E2=80=99?
-   73 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF3_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:74:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF3_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF3_EBIT=E2=80=99?
-   74 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF3_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:75:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF4_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF4_IBIT=E2=80=99?
-   75 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF4_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:76:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF4_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF4_EBIT=E2=80=99?
-   76 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF4_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:77:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF5_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF5_IBIT=E2=80=99?
-   77 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF5_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:78:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF5_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF5_EBIT=E2=80=99?
-   78 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF5_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:79:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF6_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF6_IBIT=E2=80=99?
-   79 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF6_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:80:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF6_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF6_EBIT=E2=80=99?
-   80 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF6_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:81:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF7_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF7_IBIT=E2=80=99?
-   81 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF7_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:82:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF7_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF7_EBIT=E2=80=99?
-   82 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF7_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:83:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF8_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF8_IBIT=E2=80=99?
-   83 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF8_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:84:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF8_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF8_EBIT=E2=80=99?
-   84 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF8_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:85:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF9_IBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF9_IBIT=E2=80=99?
-   85 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF9_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:86:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF9_EBIT=E2=80=99 undeclared here (not in a function);=
- did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF9_EBIT=E2=80=99?
-   86 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF9_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:87:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF10_IBIT=E2=80=99 undeclared here (not in a function)=
-; did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF10_IBIT=E2=80=99?
-   87 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF10_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:88:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF10_EBIT=E2=80=99 undeclared here (not in a function)=
-; did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF10_EBIT=E2=80=99?
-   88 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF10_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:89:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF11_IBIT=E2=80=99 undeclared here (not in a function)=
-; did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF11_IBIT=E2=80=99?
-   89 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF11_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:90:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF11_EBIT=E2=80=99 undeclared here (not in a function)=
-; did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF11_EBIT=E2=80=99?
-   90 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF11_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:91:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF12_IBIT=E2=80=99 undeclared here (not in a function)=
-; did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF12_IBIT=E2=80=99?
-   91 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF12_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:92:19: error: =E2=80=
-=98LAPSS_CLK_ID_QAIF_IF12_EBIT=E2=80=99 undeclared here (not in a function)=
-; did you mean =E2=80=98LPASS_CLK_ID_QAIF_IF12_EBIT=E2=80=99?
-   92 |         Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF12_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:93:19: error: =E2=80=
-=98LAPSS_CLK_ID_VA_QAIF_IF0_IBIT=E2=80=99 undeclared here (not in a functio=
-n); did you mean =E2=80=98LPASS_CLK_ID_VA_QAIF_IF0_IBIT=E2=80=99?
-   93 |         Q6PRM_CLK(LAPSS_CLK_ID_VA_QAIF_IF0_IBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:94:19: error: =E2=80=
-=98LAPSS_CLK_ID_VA_QAIF_IF0_EBIT=E2=80=99 undeclared here (not in a functio=
-n); did you mean =E2=80=98LPASS_CLK_ID_VA_QAIF_IF0_EBIT=E2=80=99?
-   94 |         Q6PRM_CLK(LAPSS_CLK_ID_VA_QAIF_IF0_EBIT),
-      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/qcom/qdsp6/q6prm-clocks.c:15:27: note: in defi=
-nition of macro =E2=80=98Q6PRM_CLK=E2=80=99
-   15 |                 .clk_id =3D id,                           \
-      |                           ^~
-
---uWz5LYfO0GfAdVdb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp7Z5cACgkQJNaLcl1U
-h9CP8gf+OgDfYf8RD8UpqG1cZWggtfajfEZdCu3aRyTzqpgwvZS1Vkn+uotbOwQE
-+B6fTosSuz2ftHGTss8szPez5cCgbWZEWkdoC+0P86GNH6ao0oW3QsETRiO4Oe/L
-0kxhDNjD5jjswuZt6nuJFRYJ2U4FKgsT5NF/XZn+l/xjLmpVtpUJ6rabiEthva/l
-p5852na2z36OIXJmo3h2LJfZ5Api/+18DbTcXlLY4Lr2fNoWB6aXs1w9dXSAhfEP
-Kl9WG84nAVM1kSaS6iZNN87r5RbL0uRIwBB3VeQA/H8hcH6j2FHO1ZyVzVGCbKzU
-UBgDSipF3LYZWLnd7N42QjlueDKXeQ==
-=ovaN
------END PGP SIGNATURE-----
-
---uWz5LYfO0GfAdVdb--
+T24gVHVlLCBBdWcgMTEsIDIwMjYgYXQgMTA6MzY6MDZBTSArMDIwMCwgS3J6eXN6dG9mIEtvemxv
+d3NraSA8a3J6a0BrZXJuZWwub3JnPiB3cm90ZToNCj4gRW50aXJlIHBvc3RpbmcgaGFzIG11bHRp
+cGxlIGhpZ2ggYW5kIGNyaXRpY2FsIHJlcG9ydHMgZnJvbSBTYXNoaWtvLg0KDQpVbmRlcnN0b29k
+LiBXZSBoYXZlIHRyaWFnZWQgYWxsIG9mIHRoZSB2MyBTYXNoaWtvIHJlcG9ydHM7IHRoZSBnZW51
+aW5lDQppc3N1ZXMgYXJlIGZpeGVkIGFuZCB2NCB3aWxsIGNhcnJ5IHRoZSBmaXhlcy4NCg0KUmVn
+YXJkcywNCkFsZXgNCg==
