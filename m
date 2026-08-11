@@ -1,40 +1,40 @@
-Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
+Received: from smtp-bc0a.mail.infomaniak.ch (smtp-bc0a.mail.infomaniak.ch [45.157.188.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C13C2D3225
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F9C442B0E
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786457325; cv=none; b=KmykvbQp5Nl2saVs4aOOLrxeRbktM+f0uWe3Usc4/zITOeBHQvCkguOzJAI0sMZebyHYbEViEgtdEdev1kNZmcncS8IAoBwaFarmcnZoydTruM60OtQDYJFMNtPS553HPrbULsO+K3W1mtI2Av9njvI3KYha/ltmqXtXXIG+QNM=
+	t=1786457325; cv=none; b=YuioxZQunFvb3BcSNzS3vyJdp2AfWQmaiAyI700WKkAUbEKf+UXfS+dvlmn0uGqbM6BT/yEud9IWHWVonm06inwgSndr/yr8eJ0T/bKy49o1+hXS72kJWtwmnmdEBEyoBUuc5FLh3Cl1P7jJSf06umiT83Xt0ynqofavNS/YfTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786457325; c=relaxed/simple;
-	bh=HLCX5E4M9Knscw6os2GIBle9/9yD7fQ+xVlxebQ54MY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kyfnKmKJW+V8ThdM8rXfDtpLc6h0vVY7BHiiB040R6ESalVzh7zGQdwIgCX7V7/t0KadGgEblYe2xysakjVo4//qXQnKoJBZslTU9y+FRCR9g5xxQdoNhZfOAyC5LozoUNshK5RY1fSmaz3U2XoIxVq3UFqqlWKsWkGaxw/yXCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net; spf=pass smtp.mailfrom=0leil.net; dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b=CsWeyz33; arc=none smtp.client-ip=45.157.188.15
+	bh=wH+IC1Cp7/LjKGaLWLwfILQJGjKIISsSZy/j67DGBaM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=a0YeLcn5mhRvuHX1cVu9wz+mPnqzTrGj0tRldi5Q+M6JlCNndbNcMStZjrXDuM+cQmFretdQZFlf93mweid0Tjz6/IiPkBYHNtwGbCuoMYvhz6b66qbdMGwl6n62QV+CH0cqU1qW/mL4Eb+XsEx07mrnzzntxlY5HmZ4n2czYTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net; spf=pass smtp.mailfrom=0leil.net; dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b=Vb42qCmf; arc=none smtp.client-ip=45.157.188.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b="CsWeyz33"
+	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b="Vb42qCmf"
 Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hKD4R1sn5zBFM;
-	Tue, 11 Aug 2026 16:08:39 +0200 (CEST)
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hKD4T0zcLz1jW;
+	Tue, 11 Aug 2026 16:08:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1786457318;
-	bh=sJdreXujwbBO68nv4bOsiSCKiqD5m0KTpBMLsIykfP0=;
-	h=From:Subject:Date:To:Cc:From;
-	b=CsWeyz33fgb0KGcYVanL6UtqU1z/R1pPraAMwJB5ymBbpgImtrctp0p89T6AeJm0J
-	 CWqoDPr16MlCted2zyVB4ojxBn/6xqWKVE8o4buWYIP75sxh1gXcN6DZY+dFrMpVBh
-	 4vr2Dp7pJ9Y8/wMRc1yieh55c+XL0fRrhBreqgAXGdFskOtQY6i8ZWR6O8uRxSIjHn
-	 NSCUnktcrjeAPlCOJao8e7OZF5de5BWVFId0HQJCfx+tkDfwGbffvEDPBSqRA7+0fp
-	 209VpVAjnn/36jtnL6wdXaRkmh7wMctUjRDGg0vShJupWV5/uuLoh+Wx+6AnM1bv5x
-	 tLSG2kvTVjwow==
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hKD4P5MGBzCym;
-	Tue, 11 Aug 2026 16:08:37 +0200 (CEST)
+	s=20231125; t=1786457320;
+	bh=5lHsgQ26VTFwl/93DIzKcKD464qKEtmZdQru8ijLtTE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Vb42qCmfz7cEf8AtXsFKEIR2oSAr2sHrOm3E7iPKDwAtx7xCgLLnCherrq8NGpSgU
+	 d/7VC6m0flEA575vePNPKZOD194g171Wnw8YAkrDz0bHNfmej3b/lnOtb7LTqJVHaO
+	 BaXp6rrt87tr82fGpqXb4DO2vgmewVNgKplJ2Iri3qk7pN4NErqTeoedBfAuoa9GeW
+	 q8TpyzfdiCGaquFJeHhNH3mJqhRcfuXAOESbBDTkVp+wUWJ6w8HOnXq+yeE7UNQU4m
+	 WlBR5XHcZSP8jckASnKy+5fBrRXdPT3Wd2PwkEz+UZ98NCv1vJv2KaSSmJiuS2wdYj
+	 /9RHBMp6FFWJw==
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hKD4S0NCLzDkM;
+	Tue, 11 Aug 2026 16:08:40 +0200 (CEST)
 From: Quentin Schulz <foss+kernel@0leil.net>
-Subject: [PATCH v2 0/2] arm64: dts: rockchip: support CAN1-CAN2-UART4
- adapter for RK3588 Jaguar + enable CAN0
-Date: Tue, 11 Aug 2026 16:08:25 +0200
-Message-Id: <20260811-jaguar-can-v2-0-7e78415b5a08@cherry.de>
+Date: Tue, 11 Aug 2026 16:08:27 +0200
+Subject: [PATCH v2 2/2] arm64: dts: rockchip: support CAN1-CAN2-UART4
+ adapter for RK3588 Jaguar
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,11 +43,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NOw6DMBAFr4K2jiNjhB1S5R4RhT8bbAoTrQEFI
- e4em7QpR5o3b4eEFDDBvdqBcA0pTDGDuFRgvY4DsuAyg+BCctVwNuph0cSsjqzDRhqUyqEVkAd
- vwlf4nLFn/+O0mBHtXArF8CHNE23n21oX7294rRlnnWmlNE7dWqcf1iPRdnUI/XEcXzoKxle2A
- AAA
-X-Change-ID: 20260730-jaguar-can-9e36be67dec2
+Message-Id: <20260811-jaguar-can-v2-2-7e78415b5a08@cherry.de>
+References: <20260811-jaguar-can-v2-0-7e78415b5a08@cherry.de>
+In-Reply-To: <20260811-jaguar-can-v2-0-7e78415b5a08@cherry.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: Cunhao Lu <1579567540@qq.com>, Marc Kleine-Budde <mkl@pengutronix.de>, 
@@ -57,98 +55,91 @@ Cc: Cunhao Lu <1579567540@qq.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
 X-Mailer: b4 0.17-dev
 X-Infomaniak-Routing: alpha
 
-This depends on the RK3588 CAN driver support series: 
-https://lore.kernel.org/linux-rockchip/tencent_76C8BC251C8C3C068C23BAF859351DD3300A@qq.com/
-I send this series early to try to prove that CAN2 also works on RK3588
-as Cunhao Lu stated they only tested CAN0<->CAN1 loop. I cannot test
-CAN-FD as neither Rk3588 Jaguar nor the Haikou carrierboard for RK3588
-Tiger have CAN-FD-able transceivers according to their datasheets.
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
-RK3588 Jaguar exposes three CAN busses. CAN0 on the P5 connector on the
-SBC itself. CAN1 and CAN2 via the proprietary Mezzanine connector which
-are then exposed via the CAN1-CAN2-UART4 Mezzanine adapter.
+RK3588 Jaguar has a proprietary Mezzanine connector which exposes among
+other things CAN1 and CAN2 controllers as well as UART4.
 
-Enable the three CAN busses. This was tested with
-
-ip link set canX up type can bitrate 1000000
-ip link set canY up type can bitrate 1000000
-cansequence canX -p
-cansequence canY -r -q -v
-
-with canX being one of the three RK3588 CAN controllers and canY being a
-USB-CAN Theobroma Systems Seal device. 200k+ iterations in both
-directions without an issue reported by cansequence. I hit the same
-issue as reported by Cunaho Lu here:
-https://lore.kernel.org/linux-rockchip/tencent_D802EB485A801362BF9F54130C0D990C6206@qq.com/
-Namely a bunch of:
-rockchip_canfd fea60000.can can0: rkcanfd_tx_tail_is_eff: echo_skb[0]=NULL tx_head=0x00060f7d tx_tail=0x00060f7c
-
-Add support for the CAN1-CAN2-UART4 adapter.
-
-RS232 UART was tested with:
-- 1 256-character transfer sent to USB adapter (and checked),
-- 1 256-character transfer received from USB adapter (and checked),
-done 100 times for each baudrate among 9600, 19200, 38400, 57600, 115200
-and 230400.
-
-When the first transfer after a change of baudrate happens in the
-direction "to USB", the first (few) characters are missing, when
-switching from 57600 to 115200. It doesn't happen when the first
-transfer after a change of baudrate happens in the direction "from USB".
-I have not investigated this issue, maybe a script issue.
-
-My script is:
-
-for baud in 9600 19200 38400 57600 115200 230400; do
-  ./test-serial.py --baudrate $baud -n 100 -B /dev/ttyS4 /dev/ttyUSB0
-done
-for baud in 9600 19200 38400 57600 115200 230400; do
-  ./test-serial.py --baudrate $baud -n 100 -B /dev/ttyUSB0 /dev/ttyS4
-done
-
-test-serial.py is
-https://git.embedded.cherry.de/som-tools.git/tree/testing/serial/test-serial.py
-
-Another way is:
-
-./test-serial.py -n 100 -B --min-baudrate 9600 --max-baudrate 250000 \
-		-F baudrate /dev/ttyS4 /dev/ttyUSB0
-./test-serial.py -n 100 -B --min-baudrate 9600 --max-baudrate 250000 \
-		-F baudrate /dev/ttyUSB0 /dev/ttyS4
-
-The latter will work just fine, the former will have issues mostly with
-baudrates 230400 and 115200.
+Add support for the CAN1-CAN2-UART4 Mezzanine adapter for RK3588 Jaguar
+which exposes two CAN busses (CAN1 and CAN2) and an RS-232 UART, limited
+to 250Kbps.
 
 Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 ---
-Changes in v2:
-- removed max-speed property from uart4 as that's a UART device property
-  and nothing would actually make use of it anyway,
-- Link to v1: https://patch.msgid.link/20260730-jaguar-can-v1-0-9b566bd785da@cherry.de
-
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Quentin Schulz (2):
-      arm64: dts: rockchip: enable CAN0 on RK3588 Jaguar
-      arm64: dts: rockchip: support CAN1-CAN2-UART4 adapter for RK3588 Jaguar
-
  arch/arm64/boot/dts/rockchip/Makefile              |  4 ++++
  .../rockchip/rk3588-jaguar-can1-can2-uart4.dtso    | 26 ++++++++++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     | 16 +++++++++++++
- 3 files changed, 46 insertions(+)
----
-base-commit: 942a6a4d3a94f24d39dd4dc2664c950972d66c59
-change-id: 20260730-jaguar-can-9e36be67dec2
+ arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     | 10 +++++++++
+ 3 files changed, 40 insertions(+)
 
-Best regards,
---  
-Quentin Schulz <quentin.schulz@cherry.de>
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index 761d82b4f4f2a..11c96e06b122a 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -307,6 +307,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-edgeble-neu6b-wifi.dtb
+ rk3588-edgeble-neu6b-wifi-dtbs := rk3588-edgeble-neu6b-io.dtb \
+ 	rk3588-edgeble-neu6a-wifi.dtbo
+ 
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtb
++rk3588-jaguar-can1-can2-uart4-dtbs := rk3588-jaguar.dtb \
++	rk3588-jaguar-can1-can2-uart4.dtbo
++
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtb
+ rk3588-jaguar-ethernet-switch-dtbs := rk3588-jaguar.dtb \
+ 	rk3588-jaguar-ethernet-switch.dtbo
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar-can1-can2-uart4.dtso b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-can1-can2-uart4.dtso
+new file mode 100644
+index 0000000000000..6c21bf78591b3
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-can1-can2-uart4.dtso
+@@ -0,0 +1,26 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2026 Cherry Embedded Solutions GmbH
++ *
++ * Device Tree Overlay for CAN1-CAN2-UART4 adapter for the Mezzanine connector
++ * on RK3588 Jaguar.
++ *
++ * This adapter has two CAN transceivers and one RS232 transceiver.
++ */
++
++/dts-v1/;
++/plugin/;
++
++&can1 {
++	status = "okay";
++};
++
++&can2 {
++	status = "okay";
++};
++
++/* RS232 */
++&uart4 {
++	/* ST3232B only guarantees 250Kbps */
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
+index ed6c1162bd821..0446834e84d5d 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
+@@ -201,6 +201,16 @@ &can0 {
+ 	status = "okay";
+ };
+ 
++&can1 {
++	assigned-clocks = <&cru CLK_CAN1>;
++	assigned-clock-rates = <300000000>;
++};
++
++&can2 {
++	assigned-clocks = <&cru CLK_CAN2>;
++	assigned-clock-rates = <300000000>;
++};
++
+ &combphy1_ps {
+ 	status = "okay";
+ };
+
+-- 
+2.55.0
 
