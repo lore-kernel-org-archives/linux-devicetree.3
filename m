@@ -1,205 +1,200 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891AD442FD4;
-	Tue, 11 Aug 2026 12:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DE7347506
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786450751; cv=none; b=NXr6BwIU2++lBa/O5hOMJ6LD5T2D2eFTWw65UmiqNMUErZ05EVGOC0p5YAVI/1K2G166s56yCY8FUiAYsqWPnGFbqIex7T6teq1PeWoW7YE7NiSo81lxyIRd5Z89DoW6C47+SMC+M0qiXtPZUP2Jg7YUUF1dYi1ARhbrDqXLy8Q=
+	t=1786450833; cv=none; b=jz8iTPQrCinktEdoY0zbD7/siwO+wZt0gdPRK9207mcxgnb6/89Jf4sLlqBoNcidcRjklYJXW1KbVAgOYkBsjY8g3VaBIKiDPPAhtE0+alf21Bv0L2VAJbn0gYzllOuO9ToE5Lz8adPxs8gT78+dqFlvd/Clom04KYkpPbkzwvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786450751; c=relaxed/simple;
-	bh=RLEgXrH4xHJ6daXcALYh+WZHXmctkuyAzNXoL723OXA=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XY2mYsE3yrDbWqZUwTORBZ9r5SOQjxzgzKBQIrAmVfu3n+yhK+PkNInKBAe8+gBDkaPq7wQzshsata2dixF5+eS1wmQNJT5Z99+WHXkPl9t27wxPxWMa9CIT4UcQCip8Q6BmAs7Z+x2Hb2Lsi1JxFAZzVyUYf65YhU0bDB25rQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=nF7y/OCM; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1786450833; c=relaxed/simple;
+	bh=z3+Ivh2jCKhd8EuEEzRHJUPYWNvKLd1Q/rinjxIyM9k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DK1Hk/kSJDtV3sm5ZgorCE4NW6eBkqoO6KblfptsNmbPR2/fCKBq/Pe2ZPV9OR/oxebNrbmA3Pf3hQ4Hx/B91Uq0vfwLpn1DaH9vuCFgHJEdPGsySmUZjkcQJZJIUnOCb2rj6739zlKXwPO+R7fT6Ll4fvEIbE7tiSbetiCfkuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=e4o95Xdd; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="nF7y/OCM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1786450749; x=1817986749;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=RLEgXrH4xHJ6daXcALYh+WZHXmctkuyAzNXoL723OXA=;
-  b=nF7y/OCMBgq15Qty+oY//rKzJjhMG6yBtZxJt4oW4IzEtPXIC5UU8zUS
-   UNYFNKC3+7YQDD3jI+lUR0bnlsZsFjN2Qjbrm3Mi+SmuXQTH09U/RchHT
-   82JtHMhjf/5U4122U7actJIZVYDWq8mfdVvJdlYArbMzM1MS0GD8ZIWmI
-   Rhhqxd6YComcmptklyv1j8Qg+Dp1xylh8nRgTgXZzJOVklo1ZC2q3G3/P
-   C+vTh2yAeMtYGMbk07vIOoOTaIU0ACuRPET3Caw+n6izyKqlFA+DhNP3D
-   cthqUR15pqTeglNUZZ4gQQIgTEXOz+WpVJfh1yF1f6RPDur/FtRfn2P6h
-   A==;
-X-CSE-ConnectionGUID: KnvL+GYFRX29jpRCffIpKQ==
-X-CSE-MsgGUID: ck5Iq4o4SrqrmX3T61iPXw==
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
-   d="scan'208";a="293333464"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 11 Aug 2026 05:19:03 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 11 Aug 2026 05:19:02 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 11 Aug 2026 05:18:59 -0700
-Message-ID: <60624adcceaede20875f10902b09e30f041af2fe.camel@microchip.com>
-Subject: Re: [PATCH net-next v11 0/9] net: dsa: add DSA support for the
- LAN9645x switch chip family
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Paolo Abeni <pabeni@redhat.com>, <UNGLinuxDriver@microchip.com>, "Andrew
- Lunn" <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Simon Horman <horms@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Woojung Huh <woojung.huh@microchip.com>, "Russell
- King" <linux@armlinux.org.uk>, Steen Hegelund <Steen.Hegelund@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>
-CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-Date: Tue, 11 Aug 2026 14:18:58 +0200
-In-Reply-To: <16b71fd7-9911-429b-a5a0-577f6ba0e999@redhat.com>
-References: <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
-	 <16b71fd7-9911-429b-a5a0-577f6ba0e999@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="e4o95Xdd"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-848643382fcso746168b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 05:20:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1786450831; x=1787055631; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iDHJIqp5FLLywri4WBqUbQEMXacNkK0ILuDy9FjFATE=;
+        b=e4o95XddhIuH8EX9nfVTvDTSIqGRI2lyBhnra/cplPNt20aNbeGQFWZ4WLFNH+O3/c
+         SQ++UY95jGc978dyiksQlaGAMY8Op3Q+r/KvFzIugsjG9wRSsETm1bIHNilPp5385jBE
+         oAb6XaDi3F9hOf3GjFy3Tp4vNLaIbYUTk+eOM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786450831; x=1787055631;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iDHJIqp5FLLywri4WBqUbQEMXacNkK0ILuDy9FjFATE=;
+        b=AF70jsVdi9U953UBmTONCiEMkG5NmpPKAaoB487UYubxUdc8wvzOK0cmQrwcV9Bevl
+         PIXBsgS3Ap4On7yZQ7k0aiv6loMhXNJMMmUCERed6hlNZfU7d6m6xaDmxR1GtrgX/slT
+         ymsxL7XV328OllPBK/uy5gLxOWKtHcy/L8VfYPAK+9mY9XDavvQ4FKhvBovgAPP1LSCw
+         1q8aDmq/MN89JfeBrfLdFPbUou6snx+Lh4xKGYuZi5T0CdBYD+o7/AU75HiLFB+gB5Qy
+         /qiYEFKJrBhFI7CiIgA0FNHcollPVhIzfoUEDum59GSJn5JJvwqdQMYIRgV7HSGKuxqk
+         FQPQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpgzbQe5ujkvkiYRKJ+cbk+DO+7hk5IHg68zEec9uY7RjFE+JsgekTpW+dRR+wz/SfrIEKHUw86srdL@vger.kernel.org
+X-Gm-Message-State: AOJu0YzsSSpU0uwkQ2mU6D+ADP2wt3thxIt1kWIlfg2EBKiZ46YFHel9
+	S7eyM+bKcE/oWyYDqUbPc8PpZfFacdX49s4s7WQgm3fAosWVrmaE8vB0zJXNJlWO0w==
+X-Gm-Gg: AR+sD10r0afi70UvhcpHcDFLwjVTodcKRyIBSbjhiwEOedRLTQyAqRX5CSRBEYnwUYF
+	2OkRqxqqw7ytrcfzwTx7k8iwr8U1NQMJjNgmRfGpb/5QFo0+IqU0OltimDeCh5DBUNsvNu56lHM
+	Oa4NkrByjfiUmDNzcYQSIW6jOys9uQo9y4pmruqYLPXxKV1SWmJUIDa3vnxg/+hm1VWn21Ea48Y
+	OdyLr0yF36r4uEmIwkBaRGt3w0pWs4ysYaf7P0teq3qNE7+oFjBx741iF9E6wHa4yOeG9Vxf/By
+	D4/ANXBnzxI1HZrnjm0UjqHl1Atd+KqA9cf7z8PNWYKJCPKF0VrKHz6GcX78hloVKhJSEEYkbvN
+	xJGdjEFczDZT1fjgpPr2+JazSAdrWfwrO9X3J3CyN1WNAAdZdyjeVfXbuxrRxUD+/8mc17XMJ5M
+	C7mKJ8ylNcjd9o48MalvqPRk5xLYUPXJElcaZkpKU8Z18w3yf8cEup/tipQxDbVduB34cgW2i4j
+	NyiKgumaB5Jjpt4HB2TBmOYm5y66fCCG056izvUQnfRAQ==
+X-Received: by 2002:a05:6a00:9286:b0:848:63c9:ee39 with SMTP id d2e1a72fcca58-84fa8842387mr2815346b3a.12.1786450831335;
+        Tue, 11 Aug 2026 05:20:31 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:12e1:df26:6add:1ea7])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa9574e9dsm662454b3a.54.2026.08.11.05.20.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 05:20:29 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	chrome-platform@lists.linux.dev,
+	linux-input@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/9] arm64: mediatek: Chromebook trackpad supply fixes
+Date: Tue, 11 Aug 2026 20:20:00 +0800
+Message-ID: <20260811122011.3539250-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.679.g6767b8d81c-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-08-11 at 12:35 +0200, Paolo Abeni wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> On 8/5/26 4:34 PM, Jens Emil Schulz =C3=98stergaard wrote:
-> > This series provides the Microchip LAN9645X Switch driver.
-> >=20
-> > The LAN9645x is a family of chips with ethernet switch functionality an=
-d
-> > multiple peripheral functions. The switch delivers up to 9 ethernet
-> > ports and 12 Gbps switching bandwidth.
-> >=20
-> > The switch chip has 5 integrated copper PHYs, support for 2x RGMII
-> > interfaces, 2x SGMII and one QSGMII interface.
-> >=20
-> > The switch chip is from the same design architecture family as ocelot
-> > and lan966x, and the driver reflects this similarity. However, LAN9645x
-> > does not have an internal CPU in any package, and must be driven
-> > externally. For register IO it supports interfaces such as SPI, I2C and
-> > MDIO.
-> >=20
-> > The chip supports a variety of network features such as
-> >=20
-> > * Mactable for MDB/FDB functionality
-> > * Bridge forwarding offload
-> > * VLAN-aware bridging
-> > * IGMP/MLD snooping
-> > * Link aggregation
-> > * PTP timestamping
-> > * FRER (802.1CB)
-> > * Media Redundancy Protocol
-> > * Parallel Redundancy and High-Availability Seamless Redundancy
-> >   (HSR/PRP) in DANH/DANP mode
-> > * Per stream filtering and policing
-> > * Shapers such as Credit Based Shaping and Time Aware Shaing
-> > * Frame preemption
-> > * A TCAM (VCAP) for line-rate frame processing
-> >=20
-> > The LAN9645x family consists of the following SKUs:
-> >=20
-> > LAN96455F
-> > LAN96457F
-> > LAN96459F
-> > LAN96455S
-> > LAN96457S
-> > LAN96459S
-> >=20
-> > The difference between the SKUs is the number of supported ports (5, 7
-> > or 9) and features supported. The F subfamily supports HSR/PRP and TSN,
-> > while the S subfamily does not.
-> >=20
-> > The intended way to bind this driver is using a parent MFD driver,
-> > responsible for the register IO protocol, and distributing regmaps to
-> > child devices. The goal is to use the same approach as the MFD driver i=
-n
-> > drivers/mfd/ocelot-spi.c.
-> >=20
-> > This driver expects to request named regmaps from a parent device. This
-> > approach is similar to the DSA driver
-> >=20
-> > drivers/net/dsa/ocelot/ocelot_ext.c
-> >=20
-> > which supports being driven by an external CPU via SPI with parent
-> > device drivers/mfd/ocelot-spi.c.
-> >=20
-> > The MFD driver will come in a later series, because there are
-> > requirements on the number of child devices before a driver qualifies a=
-s
-> > a MFD device.
-> >=20
-> > Development is done using the LAN966x as a host CPU, running the lan966=
-x
-> > swichdev driver, using the EVB-LAN9668 EDS2 board.
-> >=20
-> > The datasheet is available here:
-> > https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductD=
-ocuments/DataSheets/LAN9645xF-Data-Sheet-DS00006065.pdf
-> >=20
-> > This series will deliver the following features:
-> >=20
-> > * Standalone ports
-> > * Bridge forwarding and FDB offloading
-> > * VLAN-aware bridge
-> > * Stats integration
-> >=20
-> > More support will be added at a later stage. Here is a tentative plan o=
-f
-> > future patches for this DSA driver:
-> >=20
-> > * Add LAG support.
-> > * Add MDB support.
-> > * Add TC matchall mirror support.
-> > * Add TC matchall police support.
-> > * Add DCB/qos support.
-> > * Add simple TC support: mqprio, cbs, tbf, ebf.
-> > * Add TC flower filter support.
-> > * Add HSR/PRP offloading support.
-> > * Add PTP support.
-> > * Add TC taprio support.
-> >=20
-> > For completeness I include tentative plan of planned patches for
-> > LAN9645x peripherals:
-> >=20
-> > * Extend pinctrl-ocelot for LAN9645x:
-> >   https://lore.kernel.org/linux-gpio/20260119-pinctrl_ocelot_extend_sup=
-port_for_lan9645x-v1-0-1228155ed0ee@microchip.com/
-> > * Add driver for internal PHY:
-> >   https://lore.kernel.org/netdev/20260123-phy_micrel_add_support_for_la=
-n9645x_internal_phy-v1-1-8484b1a5a7fd@microchip.com/
-> > * MFD driver for managing register IO protocol and child device
-> >   initialization.
-> > * Extend pinctrl-microchip-sgpio for LAN9645x support.
-> > * Extend i2c_designware for LAN9645x support.
-> > * Add driver for outbound interrupt controller.
-> > * Add serdes driver for lan9645x.
-> >=20
-> > Signed-off-by: Jens Emil Schulz =C3=98stergaard <jensemil.schulzosterga=
-ard@microchip.com>
-> I forwarded the feedback from sashiko/nipa, but sashiko gemini has more
-> comments:
->=20
-> https://sashiko.dev/#/patchset/20260805-dsa_lan9645x_switch_driver_base-v=
-11-0-007ebc983a0a%40microchip.com
->=20
-> please have a look and also to net-next commit c82ff94592fb
->=20
-> /P
->=20
-I will go through the comments from the sashiko brothers.
+Hi everyone,
+
+This is v4 of my Chromebook trackpad supply fixes and optimization
+series.
+
+Changes since v3:
+- Added __private modified to regulator_bulk_data.wait_us field and
+  switched to ACCESS_PRIVATE accessor for the field (Andy)
+- Moved wait outside regulator lock scope (Sashiko)
+- Moved "remaining" value assignment closer to conditional (Andy)
+- Fixed variable unit name in regulator_enable_and_wait() prototype
+  (Andy, Sashiko)
+- Added commit message section showing average delay needed for I2C
+  prober (patch 6) (Andy)
+- Link to v3:
+  https://lore.kernel.org/all/20260721075226.2347933-1-wenst@chromium.org/
+
+Changes since v2:
+- Added new regulator "enable and wait" functions that wait until at
+  least the given amount of time has passed since the regulator was
+  last enabled.
+- Converted patches to use the new functions
+- New header inclusion cleanup patch for elan_i2c driver
+
+This series fixes the trackpad descriptions on some MediaTek-based
+Chromebooks: either the trackpad's supply was set as always-on to
+workaround missing delays in the driver, or the delay and supply
+are missing from the trackpad's device node.
+
+v1 was just the first patch [1]. It has since grown to cover multiple
+drivers and devices.
+
+
+Patch 1 adds new "enable and wait" functions for single and bulk
+regulator enable.
+
+Patch 2 cleans up header inclusion for elan_i2c driver.
+
+Patch 3 adds the correct enable delay after enabling the supply regulator
+for the Elan trackpad to initialize. This uses the new "enable and wait"
+regulator enable function.
+
+Patch 4 applies the same logic of skipping the power on delay to the
+i2c-hid-of driver.
+
+Patch 5 applies the same logic of skipping the power on delay to the
+i2c OF component prober library.
+
+Patch 6 adds a delay between when the device node found is enabled and
+when regulator_disable() is called. This gives an asynchronously probing
+driver some time to increment the enable count of their regulator
+reference, thus keeping the device operational and allowing the driver
+to skip the initialization delay.
+
+Patch 7 adds the correct delay for probing trackpads for Hana devices
+to the ChromeOS OF component prober.
+
+Patch 8 removes the "always-on" setting from the trackpad supply for
+Elm / Hana and adds the correct delay to the second source trackpad.
+This corrects the hardware description.
+
+Patch 9 adds the supply and power on delay properties to the Synaptics
+trackpad on the Spherion device. Combined with previous driver changes
+this should cause no actual functional changes or delays.
+
+
+Please take a look. Patches 3, 4, and 5 have build time dependencies
+on patch 1. I suggest placing patch 1 on a separate immutable branch
+or tag for the other maintainers to pull in. The three patches all have
+different maintainers. Or if it's not too late, Mark could take patch
+1 for v7.3-rc1 and the rest can go in later.
+
+The DT changes must go in after all the driver changes land, especially
+patch 3 that adds delays to the Elan trackpad driver. Otherwise the user
+could potentially end up with a non-functional trackpad on the device.
+
 
 Thanks
-Emil
+ChenYu
+
+[1] https://lore.kernel.org/all/20241001093815.2481899-1-wenst@chromium.org/
+
+
+Chen-Yu Tsai (9):
+  regulator: core: Add "enable and wait" functions
+  Input: elan_i2c - sort include statements
+  Input: elan_i2c - Wait for initialization after enabling regulator
+    supply
+  HID: i2c-hid-of: skip post-power-on delay if powered on sufficiently
+    long
+  i2c: of-prober: skip post-power-on delay if powered on sufficiently
+    long
+  i2c: of-prober: Defer regulator_disable() on successful probe in
+    simple helper
+  platform/chrome: of_hw_prober: Add delay for hana trackpads
+  arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad supply as
+    always-on
+  arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics
+    trackpad's supply
+
+ .../boot/dts/mediatek/mt8173-elm-hana.dtsi    |  8 +--
+ arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi  |  1 -
+ .../mediatek/mt8192-asurada-spherion-r0.dts   |  2 +
+ drivers/hid/i2c-hid/i2c-hid-of.c              |  9 ++-
+ drivers/i2c/i2c-core-of-prober.c              | 25 ++++++--
+ drivers/input/mouse/elan_i2c_core.c           | 23 ++++---
+ .../platform/chrome/chromeos_of_hw_prober.c   |  4 +-
+ drivers/regulator/core.c                      | 64 ++++++++++++++-----
+ include/linux/regulator/consumer.h            | 21 ++++--
+ include/linux/regulator/driver.h              |  2 +
+ 10 files changed, 105 insertions(+), 54 deletions(-)
+
+-- 
+2.55.0.679.g6767b8d81c-goog
+
