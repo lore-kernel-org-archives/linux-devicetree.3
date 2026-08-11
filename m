@@ -1,115 +1,228 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD26F449EB8;
-	Tue, 11 Aug 2026 14:53:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C65744C4FB;
+	Tue, 11 Aug 2026 14:54:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786460033; cv=none; b=CaV9FUhQSadpYW7f8Xs0zS3rHzujS27cl/JKHhdeC3d6CKz1644W4VqptjaUkJhnIznG2zEIpvBcxN6xAKQxnjBdlu4UjhV8YuTyY1QrsGKgXHJjb3chNWoMKX+R0BR+YaUbB/9iizJFFm+/bL26pNIDFqtY5CoZZf+g4lfEFK4=
+	t=1786460089; cv=none; b=IURklqiRTMXcN1j+YNLZmxQCq9x65T1Lf5VhL2D8OICr/OoqhrR+1ugbcRL1bxKiz11/xRt4UjspwFnsu1qJGwsv9D9bWyk1LBnHU384qVqWhfhaNZQ2uylS1AlwGN5/BdgECJtCQmDMwpcQeH0QRKjjsvtoCFbbZ3W+DUn+Gao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786460033; c=relaxed/simple;
-	bh=776MvGCcDKVvGoyGQpigIlJxKFB8pgd3AAbhRHcakas=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bGkockl1/6ajvokdIPVqLJzmr203/QUxAr9DjijBjU0lXkTpKjovIfwdgiBJaQrcrtQrrICu8lVPLMQ6rXglls8zfZP36Kp8Fe66fLZANe1gkkUUxDkrnYiehtm4+AcC3FVNqeSsZc5YXCXIGQThn0j887HQ0PuUbw7Uuk1Wx3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j3DwOWGH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786460089; c=relaxed/simple;
+	bh=mJCYBk04d7QN2ruzGE52+bwVYK0VfiWCVXL0oXJimGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=prENC2aF+getrxQ39iVy4dM0IE0IVq1gplsSJCMZejWhMCxPLjVsSmJx5dENnUJL4qZ3qEIr2tE7KzvZikCWhh5TFNev7c8LR9Zq6qSS+ABRDeZY1yi3ThdL0m6gx1COaAknoa1oie8oW7AaCW22J1/LtST6uir8IZ8+TWyoaQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIgpNoyD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j3DwOWGH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98A11F000E9;
-	Tue, 11 Aug 2026 14:53:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIgpNoyD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC5C1F00A3A;
+	Tue, 11 Aug 2026 14:54:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786460029;
-	bh=WOQ+ZDQlG4AKI3By2UcE7AwtPip92RrNEzmk3JDxMwM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j3DwOWGHCbOKunQHJX9r6q/6jhfbcqkJhlWMr/zGpsEPrq66tNBjEzQaeuRwDlthg
-	 zD04p9EopxztJHrvTQ23GYueVSUFDCeZyhEbiFlGHXE+VRYjRZnPY+CjjclZzkAmP9
-	 MbOXmCeYZ3UChssgOyaWxM9l2/RyEo8OkbysfDh+s5Z9ZZGCxBItU02jXgvIwq7+Oj
-	 aM6DO4Z8SXKbFoeoSnCjgLhrmJyLTZ29uFWM2dUp4RPZ10w/zTMJyD6JJ0TXNPbJAT
-	 LkIf8najK5XDF/2oopUi1aCnog8hbMD98ceHFdh2wUDho1gbXCohI3NHc+S5eFCK5C
-	 CqeoL69fKEKrg==
-Message-ID: <70c578dc-769f-465f-a146-4a4695f747c1@kernel.org>
-Date: Tue, 11 Aug 2026 16:53:44 +0200
+	s=k20260515; t=1786460081;
+	bh=mJCYBk04d7QN2ruzGE52+bwVYK0VfiWCVXL0oXJimGI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QIgpNoyDN+uPPxkPJtkUqTbnbpkZG7p5wB0UyJ3yf1+gmao3KZgxvPgAzI8e6+ncr
+	 AgGjPvaZpLfPq8IutfeFeBA2k8PGesJH7L2phfNjcr3Mn235qD2ge66n0wgivX8nJg
+	 ffvlcIIgFexSjfnzzcKE+VclfDh66bl9jO9mEedrLu0kVYncc95/eAgRnNXoJJwXev
+	 0x4T2u1ZPeTpZ3Bcw30vkoopDzH1RmHCnziB3aCnvgUwVOVXbz59i3bCaWxozzC93U
+	 IQhkljhtFGMdxV54UPr9QzhkhVpZ4SOhg6IjFQSYG9NkTgn9Z812LNdx/4Yt+pw3iU
+	 bcVfedxIRnsOg==
+Date: Tue, 11 Aug 2026 16:54:38 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
+ hardcoding EDID
+Message-ID: <20260811-quantum-strange-hound-0f81f2@houat>
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
+ <20260706-capable-beaver-of-excellence-a3cf10@houat>
+ <20260706094522.GA42740@killaraus.ideasonboard.com>
+ <20260706-fancy-perch-of-satiation-0c220e@houat>
+ <20260706160243.GB106045@killaraus.ideasonboard.com>
+ <20260707-meaty-chocolate-lemming-fa9ead@houat>
+ <20260707080143.GA211515@killaraus.ideasonboard.com>
+ <20260717122530.GA1955120@killaraus.ideasonboard.com>
+ <20260810095657.GA2954498@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] mm/secretmem: zeroize secret pages before kdump
-To: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, keyrings@vger.kernel.org, linux-mm@kvack.org,
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org
-References: <20260731162739.158320-1-linux@jaseg.de>
- <20260731162739.158320-4-linux@jaseg.de>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20260731162739.158320-4-linux@jaseg.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="6wrixx3ampr44ixr"
+Content-Disposition: inline
+In-Reply-To: <20260810095657.GA2954498@killaraus.ideasonboard.com>
 
-On 7/31/26 18:27, Jan Sebastian Götte wrote:
-> Register a CRASH_ZEROIZE notifier that wipes secretmem folios. As a
-> result, when CONFIG_CRASH_ZEROIZE is set, secretmem areas will be
-> cleared before the kdump kernel is kexec'ed.
-> 
-> Zeroization runs after the other CPUs have been stopped, so the page
-> cache cannot be mutated concurrently and the xarray may be walked
-> without taking the i_pages lock. This is a best effort, defense in depth
-> measure. s_inode_list_lock is taken with trylock only. If a CPU was
-> stopped mid-modification the list may be inconsistent, and this late
-> into the panic path, there's nothing we can do about it.
-> 
-> Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
 
-Are you actually using secretmem in your use case? I heard some rumors that
-secretmem isn't used all that much in practice :)
+--6wrixx3ampr44ixr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
+ hardcoding EDID
+MIME-Version: 1.0
 
--- 
-Cheers,
+Hi,
 
-David
+On Mon, Aug 10, 2026 at 12:56:57PM +0300, Laurent Pinchart wrote:
+> On Fri, Jul 17, 2026 at 03:25:30PM +0300, Laurent Pinchart wrote:
+> > On Tue, Jul 07, 2026 at 11:01:43AM +0300, Laurent Pinchart wrote:
+> > > On Tue, Jul 07, 2026 at 09:46:52AM +0200, Maxime Ripard wrote:
+> > > > On Mon, Jul 06, 2026 at 07:02:43PM +0300, Laurent Pinchart wrote:
+> > > > > On Mon, Jul 06, 2026 at 05:40:30PM +0200, Maxime Ripard wrote:
+> > > > > > On Mon, Jul 06, 2026 at 12:45:22PM +0300, Laurent Pinchart wrot=
+e:
+> > > > > > > On Mon, Jul 06, 2026 at 10:52:32AM +0200, Maxime Ripard wrote:
+> > > > > > > > On Mon, Jul 06, 2026 at 12:35:39AM +0300, Laurent Pinchart =
+wrote:
+> > > > > > > > > Since DDC version 2, introduced in 1996, VGA monitors hav=
+e exposed EDID
+> > > > > > > > > data over an I2C bus. The bus is also used to detect the =
+presence of a
+> > > > > > > > > connected monitor by trying to read the EDID data.
+> > > > > > > > >=20
+> > > > > > > > > Some devices where the VGA display is integrated in the d=
+evice and
+> > > > > > > > > always connected do not connect the DDC pins. Some develo=
+pment boards,
+> > > > > > > > > such as the Renesas M3N Salvator-XS, also do not connect =
+the DDC pins.
+> > > > > > > > >=20
+> > > > > > > > > To support those, add the ability to provide hardcoded ED=
+ID data in the
+> > > > > > > > > device tree. This is mutually exclusive with specifying a=
+ DDC bus, and
+> > > > > > > > > can only be done when the VGA display is guaranteed to be=
+ always
+> > > > > > > > > connected.
+> > > > > > > > >=20
+> > > > > > > > > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas=
+@ideasonboard.com>
+> > > > > > > >=20
+> > > > > > > > This feels redundant with the EDID firmware loading mechani=
+sm we have in
+> > > > > > > > KMS already. It should at least be mentioned why we would n=
+eed to set it
+> > > > > > > > in the device tree at all.
+> > > > > > >=20
+> > > > > > > Very good question.
+> > > > > > >=20
+> > > > > > > I assume you're talking about CONFIG_DRM_LOAD_EDID_FIRMWARE, =
+as the
+> > > > > > > debugfs override_edid feature isn't meant for production. If =
+there are
+> > > > > > > other relevant mechanisms I'm not aware of, please let me kno=
+w.
+> > > > > >=20
+> > > > > > No, that's indeed what I meant.
+> > > > > >=20
+> > > > > > > In the use case at hand, the VGA display is an integral part =
+of the
+> > > > > > > device, the same way an LVDS or DSI panel would be. Using
+> > > > > > > CONFIG_DRM_LOAD_EDID_FIRMWARE, the manufacturer would need to=
+ set the
+> > > > > > > drm.edid_firmware command line parameter, and provide EDID as=
+ a file in
+> > > > > > > /lib/firmware/ (possibly in an initramfs). Beside the complex=
+ity, and
+> > > > > > > the fact it won't be very friendly to people who run a differ=
+ent
+> > > > > > > userspace on the device, I think EDID counts in this case as =
+system
+> > > > > > > description, the same way we support specifying panel timings=
+ in device
+> > > > > > > tree.
+> > > > > >=20
+> > > > > > It's *some* hardware description, but you have no idea whether =
+it's
+> > > > > > actually the hardware you're running from. What would be in tha=
+t EDID
+> > > > > > anyway?
+> > > > >=20
+> > > > > It would be the EDID corresponding to the connected display :-) I=
+ see it
+> > > > > as identical to how a user of the simple panel driver is responsi=
+ble for
+> > > > > listing the timings corresponding to the hardware in the device t=
+ree.
+> > > >=20
+> > > > What's the expected user-experience for someone with that board
+> > > > unplugging a display and plugging another then? Update the device t=
+ree,
+> > > > rebuild it, rebuild the firmware and / or resign it and reboot?
+> > >=20
+> > > The whole point is that they can't easily unplug the display. This pa=
+tch
+> > > series is meant to support devices where the display is an integral p=
+art
+> > > of the device. The user experience is expected to be the same as for a
+> > > user who will take a phone, remove the display panel, and plug a
+> > > different one. It's certainly possible, and they would have to update
+> > > the DT indeed.
+> > >=20
+> > > > That doesn't sound very practical, and even impossible in some case=
+s.
+> > > >=20
+> > > > > > There's another alternative we've used several times already, in
+> > > > > > simple-bridge for example: just register any VESA mode up to a =
+given
+> > > > > > resolution:
+> > > > > > https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/=
+bridge/simple-bridge.c#L66
+> > > > >=20
+> > > > > I don't see how that would help. The goal is to provide the kerne=
+l with
+> > > > > the data corresponding to the display integrated in the device.
+> > > >=20
+> > > > How is that not helping? Your problem is that you have a display you
+> > > > can't get the supported resolutions from. What I'm suggesting allow=
+s you
+> > > > to create all the possible resolutions for that display, allowing t=
+he
+> > > > user to use the display, which is what we did for multiple drivers =
+with
+> > > > the same problem.
+> > >=20
+> > > How would the possible resolutions be provided to the kernel ? Isn't =
+it
+> > > the whole point of EDID ?
+
+We have multiple way to provide EDIDs to the kernel. In this thread
+alone, we discussed EDIDs (from DDC or the firmware loading mechanism)
+and drm_add_modes_noedid. And then you have panel-style fixed modes.
+
+> > > > You seem to be set on providing the EDID to the kernel, but it's a
+> > > > terrible idea to begin with, so I'd rather discuss alternatives.
+> > >=20
+> > > Could you elaborate on why it is a terrible idea ?
+> >=20
+> > I'd be happy to continue this discussion when you'll have time.
+
+Because I've yet to see a *good* EDID in the wild. They will need to be
+updated, and possibly changed by the users, which might or might not be
+possible depending on the system the user would use.
+
+Maxime
+
+--6wrixx3ampr44ixr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCans3rgAKCRAnX84Zoj2+
+dnySAYD+LbBqa7P/JKb7PUGmFKFt/9iY7tbB9mvpvX7IC1i5vyBhdNUxtwWBjUgR
+PDM3x/IBgPQ0xp9zj5FdXSP9RfbeYkL7AdHnGPG/y6XBeb3qKebEcLzvXXOAaCaB
+rdTzKOyidg==
+=8KXB
+-----END PGP SIGNATURE-----
+
+--6wrixx3ampr44ixr--
