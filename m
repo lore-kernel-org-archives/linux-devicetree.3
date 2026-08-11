@@ -1,159 +1,87 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4DD282F2A
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719064343E7;
+	Tue, 11 Aug 2026 14:32:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786458518; cv=none; b=jUd67YKaQ4eKlD7W13a2nUFsOnVoyeGBTwbUBOljE3VT8v9ek96mxdQ07tA7vaeGCaCMEbL4jS1cUOaE3sCYofS3CG9yOjRDJnvS0law20V5uiLFDLKnm4oXc8NarMfWd+bqguMn/FjCnB/p0OVRWfQquK52aj3u1VKyPxaQusw=
+	t=1786458773; cv=none; b=FqAJLZMxxj6gXb+Jw8tnz6xLJ9Jwc8237Da34iMGJa3wivwEiO1OBZ3UU589iX5/DMJaAbHjoseJR4vER22+ACC9Tf8Sdy+RFAeO8RbmTDfD0YZKfdfFAJlwmQHttege/0DvLw5aSwTcoTlUFZCUbMGd2cEkU6oj3MzJbxW8Gxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786458518; c=relaxed/simple;
-	bh=0M4hPtMCZnS9VZteKTZhp9qh2fKhCW7nMyH65uA8L3g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JC3NQdEwZ7q/reawSvQbUWCLPjJSHBpYAeNmnu9KQQrfxddCuTCZcWXJPGo+i7YEA0MWkGNMjY60yOYVnMae5711lYawCLqwX6wwR/qKqunMhy51M9URO2CnY8gEGAnGGi7MFF8d5eBzb4O65zC3ZPZxaxdu5cUyYKEvkipnABU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=T6Z3OnYl; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1786458773; c=relaxed/simple;
+	bh=2FznzG4ydf9U2k5MUHi+JsORAIzn0JqBlHDqTs1P8LU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DPcxqu+DOGr2vPltK6PzguwRGG9wxHC1I+XkTAiz4cD9TSd5j/ebEyrB01RsFfVb/Pbs0Hzo/wNSam2ucqQOu1eYK9ZTUMcpSjUROa6vLUOOoqz594BkTri1vcSGJSDACgILRDrUcqCSUy0uDOY1+kduKfYKmogXyhUQl3iqQTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HkimPLWh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="T6Z3OnYl"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47db714766aso689424f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:28:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786458514; x=1787063314; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=15/Bnl2VxSh6SuH4L0zNteMsMCshNZVm/S5m2oTyH2U=;
-        b=T6Z3OnYllA/aFR13y8UaNXDXNtGwzBoH1kI8u4DSg6ZJwHf3Wd6celYHrObMMn+Wip
-         +Rd1YmcCSFjpxaCEYxbYKwVCKeJc4WbyZcEct6lWed8ZTlMwijwaepybOUjEEObPYB06
-         D7ouVFtb4wZMbL7zgC8AkXADEhHBNglVygEIRCn3z/WexZyvwJrcWpuUFtmj+VzUqkhl
-         6RbuQnyjdyd4WCv2UCE278er1BtaY8+/NeU/y8U5h2/iPaIkAHEIUirNBRd8Xg3jwDTb
-         wwDxVf5fue5Nd6YQnfSgy7bb/7meq8Ycv48pcMPEf1YDhL2Wa8iEnadM/cMvHk0zR/yo
-         x4sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786458514; x=1787063314;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=15/Bnl2VxSh6SuH4L0zNteMsMCshNZVm/S5m2oTyH2U=;
-        b=HqLojTfDRTlfTK0OKXSsYSd4W9qFDaICIKMkwf3Xfc3YrJeeZ4T1Nhxczt0HCvwgLF
-         Zb0euVs+IULfolL5wZpKUSIE74n4YuACBV7I6+q5hNOaaaQ/8XoG0MXugCsTwqHuMMz5
-         n68o0AloXdB+e3QSogMwBbu8js+xKuVe1ePKuYadmQ8uqoVZvjl8rbuuDv3PQl9M/z8Z
-         fclqxPtJvXFo20JvFy/L/P2Gbn7mbMsTYHdso+SYBSfSWkdVug0tN8Mg6h9yrygX+Zpl
-         XkDMwlZaxP3Hm2fBFYeuobemNf21o29GpJGg0m7HbLSwHeg/7hxPipoLTuurFxBE+jri
-         5qEA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpc1XRv+5DaomwQknj0J3C345xlILAEYBx9MM23IoCTNR2vL1YDmcdhlGwSwh0HM4FD4BG0yPGNvKNy@vger.kernel.org
-X-Gm-Message-State: AOJu0YxNWU5tiuqTIQzawGyc4RMThe/iuY+zLA9+LEiHYAroJxrq7PAX
-	aDPY5qwDPLBucLe5mT5VMfymzdA5SPYYzKhKTa4QwBEOqAt0sYc009SGuJ29rOEcHdU=
-X-Gm-Gg: AR+sD12FV3X1Zpg6Ag3H4BDgRQ9rzq4MFwWQwl2DUjMzi1s7zKAmkWSkqkO1ZyfPHyr
-	5INh1ib8BguT/gwAOS/xjbihcvx80TOuZq6JC7Z0GyOFdWxTsRAQiY1XI1NZgwp4ZTJ0+X6h6lc
-	Y6xp7izromt80i8X1TaSeOZqc4dmz8N0mxqE6eqaNWDyZkrcmCISeye4lsHAjyzOntLrCO4SYHD
-	EunH6eEOGueFAuwd9StOlGtaOzdN4vusAkYYtfIL3zX1ZUSC/Ty4wqip30iFvlAA77KuzTXgKR3
-	DZqLZ+HTeUT3uKh7rR8gUNbxJTCdA8SOOrda0ZpMY1b98BCnqodYMDOHz49c9LyVtd0P0aBjjOy
-	XtbC43v0JLl8rXu8dxXwJp7416AxZ5DiR7EE1VT9LHe6AGqB4GV0p0pLE7S67hGn6Y/5j/rd06q
-	4kQM/ucWOd+L1WOB5x1cGp18Aq0OPn6W0qgwiYHU5uL0rSZs1DQ7GxAoXHQLUE/Jf1roTu/bu8J
-	HHRsLSDN28W9leZ6/oOB5HngvX+QdEiIPz4qpMDKmUwCHhIYoHO
-X-Received: by 2002:a05:6000:46cb:b0:47f:e7f7:370f with SMTP id ffacd0b85a97d-4814ff0bd3bmr471948f8f.10.1786458513493;
-        Tue, 11 Aug 2026 07:28:33 -0700 (PDT)
-Received: from localhost (p200300f65f017104853c3975fdcddd6f.dip0.t-ipconnect.de. [2003:f6:5f01:7104:853c:3975:fdcd:dd6f])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4814a5be2aasm4934080f8f.13.2026.08.11.07.28.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 07:28:32 -0700 (PDT)
-Date: Tue, 11 Aug 2026 16:28:30 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Esteban Urrutia <esteuwu@proton.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37703 based
- panels
-Message-ID: <answxKBHSJNR-bua@monoceros>
-References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
- <20260811-nt37703-bup-v1-2-34ad42b064a3@proton.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HkimPLWh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F911F00A3D;
+	Tue, 11 Aug 2026 14:32:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786458772;
+	bh=09Exon060ReBdwsGh/xKbGuadWEbTPQ0czNaH2d0FCs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HkimPLWhDPhB9zSyAZMFsdQXQF+Cal53QOS3GMjIPDmnsY2NUxuTyRIXtem8czUtQ
+	 m+aKqDrqm8sjo7PXLy2QNjz5PJxlV+d8cgrp4nI7phP9nJrrT+qyeHQaVBlx/oEw/e
+	 uHJ5/GdFsVKtCbzgLG3LVv1E0a917uggtuyRwPDv3eZHZEaubG8iV28vwGUnFrvK6i
+	 XvtZi8MgjbhPFHp0GXypz7y4UZpr7/zVPMktJ127OW1j7c8qFYy2XClpjvlfGhT/kr
+	 N4TWxjfZSaBEGGoKgpL2zBUyjcF+s35vaXpkQ0I4QFDTTDQMZ4Uc9c/ANjT0gCe39Z
+	 kya8cvkiaBocA==
+Message-ID: <5e4fb03d-3ab9-4a45-a271-6f4be5c928f8@kernel.org>
+Date: Tue, 11 Aug 2026 17:32:45 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mdziawi5h7yhrhrs"
-Content-Disposition: inline
-In-Reply-To: <20260811-nt37703-bup-v1-2-34ad42b064a3@proton.me>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: interconnect: Add Qualcomm IPQ9650
+ support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+References: <20260519-ipq9650_icc-v1-0-4d3554c94257@oss.qualcomm.com>
+ <20260519-ipq9650_icc-v1-1-4d3554c94257@oss.qualcomm.com>
+ <n54sewn4sjafsncs2e64hkynxr5ct7qh3xukmgvdqankpsg2iu@kunxe57navul>
+From: Georgi Djakov <djakov@kernel.org>
+Content-Language: en-US
+In-Reply-To: <n54sewn4sjafsncs2e64hkynxr5ct7qh3xukmgvdqankpsg2iu@kunxe57navul>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 8/11/26 1:19 PM, Dmitry Baryshkov wrote:
+> On Tue, May 19, 2026 at 02:17:05PM +0530, Kathiravan Thirumoorthy wrote:
+>> Add master/slave IDs for Qualcomm IPQ9650 Network-on-Chip interfaces to
+>> support the gcc-ipq9650 driver in providing interconnect services via
+>> the icc-clk framework.
+> 
+> Please consider adding an explanatory text.  Something like:
+> 
+> On Qualcomm IPQ9650 platform the interconnect busses don't have separate
+> RPM / RPMh controls. Instead they require direct votes through the GCC.
+> To unify hardware descriptions (and software interfaces) between this
+> platform and other Qualcomm platforms, make GCC export corresponding NoC
+> clocks as interconnects. Add IDs for these Network-on-Chip interfaces.
+> The GCC schema already defines #interconnect-cells since it was added in
+> the commit f92b778251ad ("dt-bindings: clock: add Qualcomm IPQ9650
+> GCC").
+> 
+>> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+>> ---
+>>   include/dt-bindings/interconnect/qcom,ipq9650.h | 28 +++++++++++++++++++++++++
+>>   1 file changed, 28 insertions(+)
+> 
+> Georgi, any feedback from you? Would you ack merging this patch through
+> the Bjorn's trees? Or would you rather pick it up on your own?
+> 
 
---mdziawi5h7yhrhrs
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37703 based
- panels
-MIME-Version: 1.0
+I think it would be best if this goes together with the code that is using it.
 
-Hello,
-
-On Tue, Aug 11, 2026 at 01:52:34AM -0400, Esteban Urrutia wrote:
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37703.c b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
-> new file mode 100644
-> index 000000000000..5858bf12a310
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
-> @@ -0,0 +1,467 @@
-> [...]
-> +#include <linux/backlight.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +#include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_probe_helper.h>
-
-Please rely on <drm/drm_mipi_dsi.h> to provide the definition of
-of_device_id and drop explicit inclusion of <linux/mod_devicetable.h> as
-this will go away soon.
-
-> [...]
-> +static const struct of_device_id nt37703_of_match[] = {
-> +	{
-> +		.compatible = "motorola,bronco-tianma-v2-nt37703",
-> +		.data = &bronco_tianma_v2_desc,
-> +	},
-> +	{ /* sentinel */ },
-
-No trailing comma after the list terminator please.
-
-> +};
-> +MODULE_DEVICE_TABLE(of, nt37703_of_match);
-
-Best regards
-Uwe
-
---mdziawi5h7yhrhrs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp7MYsACgkQj4D7WH0S
-/k4ptQgAioC+Rr2A/Y5d45JoMyxiVG0O3RuWg9gDYCChFxXDJuKOWL12djmbG2Mm
-+06Qy0mRg7Mf2XwORLM24txg92KtS9FWg454A4qeINt7TvZ1/FupspVlrxBKWwgr
-jUs5ua3a1C3VIeM0safbs7w3tNhy7oo4o1xS/ACn4e4U70YZNxqooS2dpdcrx5qr
-ObEH/mpbsEseluUZtEF8I5R+SbniO+25spM9TZXM30YGcoFiMKhHAoYzPQEbwKPE
-RYsXTMMReO+5alsUjkAUfkQWzErZe05Sl7YdX3uMaxOAP9gSYa1sgToQU4nijg/c
-RYsE/7R7AZASm+U0u+KySpmqyhqXMA==
-=HQGs
------END PGP SIGNATURE-----
-
---mdziawi5h7yhrhrs--
+Acked-by: Georgi Djakov <djakov@kernel.org>
