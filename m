@@ -1,388 +1,141 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A04E412261
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 08:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786435811; cv=none; b=uSzetfJrfK+9xgkutZ3tmUTujFEUrWeMjtPJIomE5fbAQeRcJkDbPoZMJ5jbRpgDSSZyIKBwQ6CHpznB3OyPooAtGvlCMz5LFR0UXV6qOPIUkpWE2LK6zTwbKSiSFbtAMgLzGO7hEq3XG7G21Esc1vc+Wpm1leE/SoTpTrgTcQs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786435811; c=relaxed/simple;
-	bh=pRywqyjcN+s9xqw6lT2yIXo8H0f36+MeGHolX/N/5LE=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TsxtwmTsQr/g8k/26tBFCBhTYMF6uBXkxaIXAW0aJyMlYSzF6uOvmF6m4OgccrhAWfuudesVdutQKAMUKMtgvp/QXQGPRREy55tmx+oGddP2bLtq2FUZ2cDmDUqcp2496zi7SGngylZZKZipPUZwQkzxwAk8+AFOpdcQ6Tnee14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bv9ajNIS; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9E23090E8
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 08:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786436246; cv=pass; b=eRf5DWu3/OILNeXisBZoSNmLTdMWfqBV5eXJrcoYJdAzADOEsdKOFciEEm5gxopT3lRL31FTYlRQ8bPK2Hv668sYjZZVyl56WYUAKJTkIErKIf2vom4jfiCTC/wFSjGLt1MEYmqiWe2eCQsNTqwYzPm0mxCaMpTb68wHTAIOrGw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786436246; c=relaxed/simple;
+	bh=5tfluHqupps5STIW6gd2bV81yHlP1aogVix3b1hDENY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tC7JciGn1nAre57lFMGFJxb0yHMcJNu40OwxwfJ7Y50wJQsTUtA0VnOwSPl2n2HtVCXbyaanMt/3+fTjWFqiMdR9T0lBeUMzN5IMYvrC0dDjsx5aDRGDkefba/1po4vyLPyoSHwQ89jhyjAcMmwvm1aVr54A5fKrxovackHxQ7s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C8WLEBz7; arc=pass smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bv9ajNIS"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4980dc26022so28263685e9.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 01:10:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C8WLEBz7"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc61541f8cso9188025ad.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 01:17:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786436244; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CLe/Wf9XoyGzOnLM2uPLTQ0MfTlyraHUv1BKrVFYr3HYVGOhtE84RnLg3aFkHtVtiL
+         8VWrgsCZJT5x2UMC93t/4AfT56mzvAuXmYeJflJXEzeBKy+YyoomVnS/0Up7WbGR7fJV
+         EQ6AQWkcjVWZ+czhuiK3IHeKiYEsbQoFYpLFIiymyIOOyWKsNolSG7/xLlF6D/tHumhS
+         QuM2VT+LmmdebE1aYg/3Sg+52wD0mtcLPRM9Cpixp/l5Z8EK9BFb+MSLfopBxHW7gw8g
+         5noTkPWebcXf50M9qywOb2d7UF5Q3GJz0IEqfBVfzfQusxfmMYbV5354caYgSB9QdS5z
+         wIBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/N6NxxZa1/RwsdJJL1XOaQxBTanGcXh5CEXk/SH/G4M=;
+        fh=di0v8oF5s4rRTqTg1cRdAoC0Bt3ZrbXJniNN6fBdFio=;
+        b=otMelRo3sa+rfsBXIvBC01S0wcvcS5onqcHP46r+SKaGH7hN+YGuPSX2PoP0Duu/r+
+         PahNbKEc39TfT0ogPoDxbLaryIJk+8HdIZf6BkDCNVyaV+f+rm+pKYd5ueSff6RflvA9
+         YXn/uivzeDlUDExcTEO8wC/NXBGj5wOyT1MxnFYvJTFZbHrNDFoELxNXTdyA0vqjgtJZ
+         N9XV9w94gwkchHV7YfOBm0LJK7HTbnMh8fbPv8fFtVkayawZ+gZQlFaaIVr4c9LgendK
+         JdeAfDoYAv6+zlzIiBzpcYfthAAAV/kneINBhZW6PUxJ9DgHU3DBXR5PHQJK/oRDiV34
+         18WA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786435807; x=1787040607; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=t7y42iTAOFamntAXZPdzptkHEiwN6mZNRtIqENKnw0w=;
-        b=bv9ajNISe9OuW4WpKRN9GwafsNwSUPkw/NMqWmacLBF/YSNysqWvywE9Oul0NGS6iA
-         9tO7n1aHBbShS7nQg3+Vy59lPMSsndOZQP+MLTCCpy7eiR1+IZnMzQH5LoE1jk7vA8MU
-         G2PCSA6lScDtADBIJToUy0L5Gc4mPX+e33anl1XIM7TdShstC56o2k0c90n6DOvZbirf
-         l3kb6vYGTXAVVBXnf082bbhd29nadkXcVSMfSkWmvnK35SsmTPNCRHLfZaJUzMUtGJi+
-         TWhhyH9wCMfx9fOpQ9UiavehgO4yZDADJ7iFnJtURDSTlTstnZENO7CrBb/R3Ghb4ZNG
-         J/9Q==
+        d=gmail.com; s=20251104; t=1786436244; x=1787041044; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/N6NxxZa1/RwsdJJL1XOaQxBTanGcXh5CEXk/SH/G4M=;
+        b=C8WLEBz7CXPoNEzVO2MEkUCgI7I/o4HvAzkSRMGH1U6t34GUNmvHbDAUl4c9wleTCW
+         /0lmJSRnTNtCb64qoICV/YTAJXbIvcqUX2zFb3xgVJhOGh2vzsxCW4dd3+rNZPIHs+T1
+         c5FsscP5LDhIFpPmjFAKYq1r/6y6JdALcE4G73+BO8H7ercbPKya1OLHEO12r0TH9EFi
+         HYFk4XlzYIOHs2jVxuDbAffVXwhviSxPn0X13t2qzxo0dQ6J71ofyUt6kzeYclXKks/H
+         xIVFtXvLyl5h4iBmPnUCyvPtHv3JCuaNfvVOT62peoj09Uoa7srKxRUw6XDt0WXIzdGD
+         6gcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786435807; x=1787040607;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=t7y42iTAOFamntAXZPdzptkHEiwN6mZNRtIqENKnw0w=;
-        b=lTkd/0WOpwcrUrsKlUHygB7MoljrFB32PpQbR5be+oC7JWQhtHuKkAJIp7ClYNlxxK
-         p68khtqbaIZmb7EpjZElDuh68SW8GqJhwfu8ERgM7GOq48vS68/aXasgi9qFaJffI/u8
-         e2LtleKyQ424sx8PWTatEDTPBy7NuxGVIQueF1X7Pdb3L4CwGK2ARX+KsyWIvr8gvN74
-         B7Y4DiFsyjj1doER6UMBPP00vWUVADtYMgRuDbcFGZdVQ4JPI+uP2Mp8/lHR3TE4eQYV
-         M3KxiWRxr9+t8RZ1HWjrlXNRck349n9kbbTYqLety0hxfTWwGVq7hLWBoN016pU4qb+2
-         1iRQ==
-X-Forwarded-Encrypted: i=1; AHgh+RonLC6Qj1KZQj28lc/pE3SsZ2N8Lt6FgBXlcIxvodEZvtINnSX8HMzfe67fnHlVfDrIToney11AwQyB@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTJRQhBqsYhvwLdWkbRo2jIiyfdpA+Ygsq1Vnh8SJYr18Hm2MK
-	aligRVrfBGNm1bt2z9FYHZRMSrB324rC3+G5G/4lstNwpcxBlh7Y/yoj
-X-Gm-Gg: AR+sD10kmOzDqW3pqyLUqvEAk4xZm7bcXLE36OhCLR1dWiKuZfj/ni4Ixy0rXlgz7e3
-	bTZYAEVrZOzW0g8UU/DA3awFFPFsudlSTa1/cIP8fs6BVIjZ+Myn1kDgLfonJap9vjgZ7C6gU64
-	WEAnhlImvFaqw4vF4UoXBNHemCn/cXvkRz/6riErS7cOJLWem9yaJpzbYApZdEnPuzeP/9dpMfY
-	fK7LukMxnqfZfH5DG04ZXTF3S4rYkZACHoopCe9lvtQIq4NVfz+3VLg3bD6DJ/Qz+5QEcJ7ltIw
-	b05CrQGWDMTUr+IL+yChOgi/pAPglBvrygvzh9tsfvLxveiPz4BluZ8poNOKhvlK7FMF3Po5B0+
-	Sf4j2av39mXQbWwBSgoDUTCHXUbrOzo66BordOZtyTk18NRd7AXGigS1/IdRVJemGi6Py8u5B36
-	DTQv28bjdhK5TEPj1mSsJoC4mM5JGS+Q38+vP1Zy3Ww0tP/JSSPxBsRwYXs7tLu6qHsaJFVbiwp
-	hXXOTPNIn+YX7mn0IChbrUdO3dEj7k3hi6pagDsCT6wfQjKINgiWLDP0II=
-X-Received: by 2002:a05:600c:4ecd:b0:498:ff3:71ed with SMTP id 5b1f17b1804b1-4997913e137mr9703225e9.17.1786435807466;
-        Tue, 11 Aug 2026 01:10:07 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-87-20-3-207.retail.telecomitalia.it. [87.20.3.207])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49977df9489sm45336675e9.1.2026.08.11.01.10.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 01:10:06 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Manuel Lauss <manuel.lauss@gmail.com>,
-	Haowei Zheng <zhenghaowei@loongson.cn>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Rong Zhang <rongrong@oss.cipunited.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Gerhard Engleder <eg@keba.com>,
-	Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: [PATCH v6 3/3] serial: 8250: Add Airoha SoC UART and HSUART support
-Date: Tue, 11 Aug 2026 10:09:48 +0200
-Message-ID: <20260811080950.664379-4-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811080950.664379-1-ansuelsmth@gmail.com>
-References: <20260811080950.664379-1-ansuelsmth@gmail.com>
+        d=1e100.net; s=20251104; t=1786436244; x=1787041044;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/N6NxxZa1/RwsdJJL1XOaQxBTanGcXh5CEXk/SH/G4M=;
+        b=DRvqvVQ8B2g1C4E2VMbCfDDIuXQ12luKZ/a44o7UMY7RusTJ4l5ZJ9qeJth1HZUp1y
+         IKjYEbAkIlFhF1okmoo+hKXUEI35rp87cLbFTRQgOgBZPighLGR1qAuFEW/5vhjBmTQ1
+         GIaQaPUVrMOoIV93VyGXBkKlbt73ACR5uWJCTOroBhaX79kSi3N/YrYEQcNInrJwHYoW
+         OM1vnM8+j+D89QHRDG57Y3I1jdUptuDpGkmZFvMBLXtabe4hup515EQnrKei/9Zj9dnr
+         ucazWe/7kiq6KUDf0b4XwkIjSuo1/Mxhf/tymvObGe7txEP/qzp/+mg8RQ/4ICPBtgcO
+         5/dQ==
+X-Forwarded-Encrypted: i=1; AHgh+RotkDB3M8X9TNM9CbMqNzMMg1AjC9pqsqnhMeguT+1oFA7mbtOs5lJO9Pt/CHXdyniXoVcJtPx3Jx+v@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1B+yRAp1yKxn/q2PPd6YgFHmdJ5DsZ+ZBd8uK8rFUDMRXg6iF
+	xLGGzpEvzZrdlLuJ/i/e36uORcqTA7qS0/sykCBB8RIrNFTWvY6a1yG6kYAqUjgVKmwZ5qJKYF3
+	jtYRvu5ge+QAEfwdNcEktobaE8yllTAA=
+X-Gm-Gg: AR+sD119MXqU5/pDTw/IQFBvzPcvGEUFOm3Nr33jvOJtHnnKE47ZOmdqmrqyApmG7F9
+	YqhPVo/MHz1xOWN1YPF2H66a18mQ26BJYNl1Z8uTn1hcdqOz9XcBsBeOqDop4nndCetNiCtQJ3D
+	3JX0VK1GRzrwo/vdIPTMB+e/ANxxJ3wMOzefs7uwQHg8UpS2RD8Rha5HvkcBIdIhsInmG/ZLaaw
+	fzQwGXafkxsthzO8NkVxbXTGUOjsSqQbCYCaZlEEHCmjtn0MPDjjNHnUBnuZggtDBQXPkaVMsxI
+	dhhreWNMahSXd3qcG1cVVm7G2FzbGKhZBu3AHAUDqxcJb9wVUkJ5WXk=
+X-Received: by 2002:a17:902:ffcf:b0:2cf:7ea3:7cf1 with SMTP id
+ d9443c01a7336-2d31877be01mr17789185ad.5.1786436244086; Tue, 11 Aug 2026
+ 01:17:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260804100218.49587-1-shengjiu.wang@oss.nxp.com>
+ <20260804100218.49587-2-shengjiu.wang@oss.nxp.com> <20260810-normal-cuscus-of-argument-4b230b@quoll>
+ <CAA+D8AM9s7EX-G246Hf2=DOx5q2qXWg_MjUCaoJ8RggOjp+5cQ@mail.gmail.com>
+ <dc40dcae-3017-4e61-8c6d-7e6127e4ee77@kernel.org> <CAA+D8AOQ_y7BdR4h+X6qxFygPU6h1iFV0cYXHN4KB370yM2Bkw@mail.gmail.com>
+ <3219a2e7-d11b-478e-ad2e-5f1ec2bbdf27@kernel.org>
+In-Reply-To: <3219a2e7-d11b-478e-ad2e-5f1ec2bbdf27@kernel.org>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Tue, 11 Aug 2026 16:17:02 +0800
+X-Gm-Features: AUfX_mx1LX0wZY0j5iDajd7W5oe3f6Rmcs5OiNPXvXt3EbMHLfrVtGbE60ayIAU
+Message-ID: <CAA+D8AO1q-n2S3X2d1ZZ_yXxNrHPjCPvrJrPZmTMOYZM9uEGeQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] ASoC: dt-bindings: fsl,imx-asrc: update port
+ binding to support multiple paths
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: shengjiu.wang@oss.nxp.com, lgirdwood@gmail.com, broonie@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com, 
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, 
+	shawnguo@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com, 
+	perex@perex.cz, tiwai@suse.com, linuxppc-dev@lists.ozlabs.org, 
+	Shengjiu Wang <shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for Airoha AN7523 UART and AN7581 HSUART.
+On Tue, Aug 11, 2026 at 3:36=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On 11/08/2026 09:33, Shengjiu Wang wrote:
+> >>>>
+> >>>> Why mentioning upstream in the first place? Either this change break=
+s
+> >>>> ABI or not, explain that.
+> >>>
+> >>> The deprecated 'port' property is retained, so this change is fully b=
+ackwards
+> >>> compatible and does not break ABI.
+> >>
+> >> So why? Drop redundant parts.
+> >
+> > Ok, I will remove the sentence below in the commit message.
+> >
+> >     No existing upstream DTS file for fsl,imx-asrc uses the previously
+> >     documented single 'port' node, so this change does not break any
+> >     in-tree device tree.
+> >
+>
+> Honestly, it's redundant, because you are not dropping it. So even if
+> DTS was using the port, what would change?
+>
 
-These implement a standard 16550 UART with only some custom logic
-for baud rate handling.
+Understood. Even if a DTS was using 'port', nothing would change since
+'port' is retained.  I will drop the sentence in v4.
 
-Co-developed-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Signed-off-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/tty/serial/8250/8250.h        |   6 +
- drivers/tty/serial/8250/8250_airoha.c | 187 ++++++++++++++++++++++++++
- drivers/tty/serial/8250/8250_port.c   |  16 +++
- drivers/tty/serial/8250/Kconfig       |  11 ++
- drivers/tty/serial/8250/Makefile      |   1 +
- 5 files changed, 221 insertions(+)
- create mode 100644 drivers/tty/serial/8250/8250_airoha.c
+Thanks.
 
-diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-index 77fe0588fd6b..e6b2b9431229 100644
---- a/drivers/tty/serial/8250/8250.h
-+++ b/drivers/tty/serial/8250/8250.h
-@@ -73,6 +73,12 @@ struct serial8250_config {
- 	unsigned int	flags;
- };
- 
-+enum uart_port_type {
-+	/* Internal 8250 only */
-+	UART_PORT_AIROHA		= 124,
-+	UART_PORT_AIROHA_HS		= 125,
-+};
-+
- #define UART_CAP_FIFO	BIT(8)	/* UART has FIFO */
- #define UART_CAP_EFR	BIT(9)	/* UART has EFR */
- #define UART_CAP_SLEEP	BIT(10)	/* UART has IER sleep */
-diff --git a/drivers/tty/serial/8250/8250_airoha.c b/drivers/tty/serial/8250/8250_airoha.c
-new file mode 100644
-index 000000000000..fe72a39561c2
---- /dev/null
-+++ b/drivers/tty/serial/8250/8250_airoha.c
-@@ -0,0 +1,187 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Airoha UART driver
-+ *
-+ * Copyright (c) 2025 Genexis Sweden AB
-+ * Author: Benjamin Larsson <benjamin.larsson@genexis.eu>
-+ *	   Christian Marangi <ansuelsmth@gmail.com>
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bits.h>
-+#include <linux/bitfield.h>
-+#include <linux/errno.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/platform_device.h>
-+#include <linux/serial_8250.h>
-+#include <linux/serial_core.h>
-+#include <linux/serial_reg.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#include "8250.h"
-+
-+#define UART_AIROHA_XINCLKDR	10
-+#define UART_AIROHA_XYD		11
-+#define   UART_AIROHA_XYD_X	GENMASK(31, 16)
-+#define   UART_AIROHA_XYD_Y	GENMASK(15, 0)
-+
-+struct airoha_8250_priv {
-+	int line;
-+};
-+
-+#define UART_BRD_20M		0x0001
-+
-+#define XINDIV_CLOCK		(20 * HZ_PER_MHZ)
-+#define XYD_Y			65000
-+
-+static const unsigned int airoha_clk_divs[] = { 2, 4, 10 };
-+
-+static unsigned int airoha_get_divisor(struct uart_port *port,
-+				       unsigned int baud,
-+				       unsigned int *frac)
-+{
-+	/* Hardware always uses BRDIV = 1. */
-+	*frac = 0;
-+
-+	return UART_BRD_20M;
-+}
-+
-+/*
-+ * Airoha UART baud rate calculation logic
-+ *
-+ * crystal_clock = 20 MHz (fixed frequency)
-+ * xindiv_clock = crystal_clock / clock_div
-+ * (x/y) = XYD, 32 bit register with 16 bits of x and then 16 bits of y
-+ * clock_div = XINCLK_DIVCNT (default set to 10 (0x4)),
-+ *           - 3 bit register [ 1, 2, 4, 8, 10, 12, 16, 20 ]
-+ *
-+ * baud_rate = ((xindiv_clock) * (x/y)) / ([BRDH,BRDL] * 16)
-+ *
-+ * Selecting divider needs to fulfill
-+ * 1.8432 MHz <= xindiv_clk <= APB clock / 2
-+ * The clocks are unknown but a divider of value 1 did not result in a valid
-+ * waveform.
-+ *
-+ * XYD_y seems to need to be larger then XYD_x for proper waveform generation.
-+ * Setting [BRDH,BRDL] to [0,1] and XYD_y to 65000 gives even values
-+ * for usual baud rates.
-+ */
-+static void airoha_set_divisor(struct uart_port *port, unsigned int baud,
-+			       unsigned int quot, unsigned int quot_frac)
-+{
-+	struct uart_8250_port *up = up_to_u8250p(port);
-+	u32 xindiv_clk;
-+	u64 xyd_x, nom;
-+	int div_bit;
-+
-+	/* Set baud rate calculation defaults (BRDIV [BRDH,BRDL] to 1) */
-+	serial8250_do_set_divisor(port, baud, UART_BRD_20M);
-+
-+	/*
-+	 * Calculate XYD_x and XINCLKDR register by searching
-+	 * through a table of crystal_clock divisors.
-+	 */
-+	nom = (u64)baud * XYD_Y;
-+	for (div_bit = ARRAY_SIZE(airoha_clk_divs) - 1; div_bit >= 0; div_bit--) {
-+		unsigned int div = airoha_clk_divs[div_bit];
-+
-+		xindiv_clk = XINDIV_CLOCK / div;
-+		xyd_x = div_u64(nom * 16, xindiv_clk);
-+
-+		/* For the HSUART xyd_x needs to be scaled by a factor of 2 */
-+		if (port->type == UART_PORT_AIROHA_HS)
-+			xyd_x /= 2;
-+
-+		if (xyd_x < XYD_Y)
-+			break;
-+	}
-+
-+	/* Couldn't find a valid xyd_x */
-+	if (div_bit < 0) {
-+		dev_err(port->dev, "failed to find suitable clock divisor for baud %u\n",
-+			baud);
-+		return;
-+	}
-+
-+	serial_port_out(port, UART_AIROHA_XINCLKDR, BIT(div_bit));
-+	serial_port_out(port, UART_AIROHA_XYD,
-+			FIELD_PREP(UART_AIROHA_XYD_X, xyd_x) |
-+			FIELD_PREP(UART_AIROHA_XYD_Y, XYD_Y));
-+
-+	/* Restore normal register access. */
-+	serial_port_out(port, UART_LCR, up->lcr);
-+}
-+
-+static int airoha_8250_probe(struct platform_device *pdev)
-+{
-+	struct uart_8250_port uart = { };
-+	struct device *dev = &pdev->dev;
-+	struct airoha_8250_priv *priv;
-+	struct resource *res;
-+	int ret;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (!res)
-+		return dev_err_probe(dev, -EINVAL, "invalid address\n");
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	uart.port.dev = dev;
-+	if (device_is_compatible(dev, "airoha,an7581-hsuart"))
-+		uart.port.type = UART_PORT_AIROHA_HS;
-+	else
-+		uart.port.type = UART_PORT_AIROHA;
-+	uart.port.flags = UPF_BOOT_AUTOCONF | UPF_FIXED_PORT |
-+			  UPF_FIXED_TYPE | UPF_IOREMAP;
-+	uart.port.set_divisor = airoha_set_divisor;
-+	uart.port.get_divisor = airoha_get_divisor;
-+	uart.port.mapbase = res->start;
-+	uart.port.mapsize = resource_size(res);
-+
-+	ret = uart_read_and_validate_port_properties(&uart.port);
-+	if (ret)
-+		return ret;
-+
-+	ret = serial8250_register_8250_port(&uart);
-+	if (ret < 0)
-+		return ret;
-+
-+	priv->line = ret;
-+	platform_set_drvdata(pdev, priv);
-+
-+	return 0;
-+}
-+
-+static void airoha_8250_remove(struct platform_device *ofdev)
-+{
-+	struct airoha_8250_priv *priv = platform_get_drvdata(ofdev);
-+
-+	serial8250_unregister_port(priv->line);
-+}
-+
-+static const struct of_device_id airoha_8250_dt_ids[] = {
-+	{ .compatible = "airoha,en7523-uart" },
-+	{ .compatible = "airoha,an7581-hsuart" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, airoha_8250_dt_ids);
-+
-+static struct platform_driver airoha_8250_driver = {
-+	.driver = {
-+		.name = "8250_airoha",
-+		.of_match_table = airoha_8250_dt_ids,
-+	},
-+	.probe = airoha_8250_probe,
-+	.remove = airoha_8250_remove,
-+};
-+module_platform_driver(airoha_8250_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Airoha UART driver");
-+MODULE_AUTHOR("Benjamin Larsson <benjamin.larsson@genexis.eu>");
-+MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index 630deb7dd344..c888cae7d98b 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -311,6 +311,22 @@ static const struct serial8250_config uart_config[] = {
- 		.rxtrig_bytes	= {1, 8, 16, 30},
- 		.flags		= UART_CAP_FIFO | UART_CAP_AFE,
- 	},
-+	[UART_PORT_AIROHA] = {
-+		.name		= "Airoha UART",
-+		.fifo_size	= 8,
-+		.tx_loadsz	= 1,
-+		.fcr		= UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_01 | UART_FCR_CLEAR_RCVR,
-+		.rxtrig_bytes	= {1, 4, 4, 4},
-+		.flags		= UART_CAP_FIFO,
-+	},
-+	[UART_PORT_AIROHA_HS] = {
-+		.name		= "Airoha HSUART",
-+		.fifo_size	= 128,
-+		.tx_loadsz	= 128,
-+		.fcr		= UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_01 | UART_FCR_CLEAR_RCVR,
-+		.rxtrig_bytes	= {1, 4},
-+		.flags		= UART_CAP_FIFO,
-+	},
- };
- 
- /* Uart divisor latch read */
-diff --git a/drivers/tty/serial/8250/Kconfig b/drivers/tty/serial/8250/Kconfig
-index fc3e58d62233..310da7af7a49 100644
---- a/drivers/tty/serial/8250/Kconfig
-+++ b/drivers/tty/serial/8250/Kconfig
-@@ -337,6 +337,17 @@ config SERIAL_8250_ACORN
- 	  system, say Y to this option.  The driver can handle 1, 2, or 3 port
- 	  cards.  If unsure, say N.
- 
-+config SERIAL_8250_AIROHA
-+	tristate "Airoha UART support"
-+	depends on ARCH_AIROHA || COMPILE_TEST
-+	depends on SERIAL_8250
-+	help
-+	  Selecting this option enables an Airoha SoC specific baud rate
-+	  calculation routine on an otherwise 16550 compatible UART hardware.
-+
-+	  If you have an Airoha based board and want to use the serial port,
-+	  say Y to this option. If unsure, say N.
-+
- config SERIAL_8250_BCM2835AUX
- 	tristate "BCM2835 auxiliar mini UART support"
- 	depends on ARCH_BCM2835 || COMPILE_TEST
-diff --git a/drivers/tty/serial/8250/Makefile b/drivers/tty/serial/8250/Makefile
-index 6d21402b4435..83257696ea8a 100644
---- a/drivers/tty/serial/8250/Makefile
-+++ b/drivers/tty/serial/8250/Makefile
-@@ -20,6 +20,7 @@ obj-$(CONFIG_SERIAL_8250_CONSOLE)	+= 8250_early.o
- 
- obj-$(CONFIG_SERIAL_8250_ACCENT)	+= 8250_accent.o
- obj-$(CONFIG_SERIAL_8250_ACORN)		+= 8250_acorn.o
-+obj-$(CONFIG_SERIAL_8250_AIROHA)	+= 8250_airoha.o
- obj-$(CONFIG_SERIAL_8250_ASPEED_VUART)	+= 8250_aspeed_vuart.o
- obj-$(CONFIG_SERIAL_8250_BCM2835AUX)	+= 8250_bcm2835aux.o
- obj-$(CONFIG_SERIAL_8250_BCM7271)	+= 8250_bcm7271.o
--- 
-2.53.0
-
+Best regards
+Shengjiu Wang
