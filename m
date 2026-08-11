@@ -1,85 +1,65 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACE2426D2B
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63723C1974;
+	Tue, 11 Aug 2026 09:39:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786440986; cv=none; b=TKYypDutlITwcRXqZ55pBhwgYmiY5duT40Y0xgltK6RUCI1RzwWgeUNUE83IghtSUL2SaLCkRifdy6rSzGdzMua1k5LlI6fCqyEm1Mn0x4s/7bPluzgMjI7dYjHmeHCcIcSZTWq33iIt4doVp3Fl9+8Uuni4FVQ5KBVODPqwhwo=
+	t=1786441199; cv=none; b=YjjdMJ/JAnpTswoZrOOvp+ydBffKq0rHoKwjGVVTHcEkuOabYsPdrVBKSDqKUvWoUx9pZyhRPZho586/D24NealPRf9bpUm1ny/64XvZ5uMIgII9uZN6zL8ESL3Q5NyfHJY96oaNj7LlKyzYZkQMovXcjBzBaSQuN9l7zg3h540=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786440986; c=relaxed/simple;
-	bh=rqfV6jbzYDUjMrVAKo4zf+EVj733XqEdjvk2G6yYi3Q=;
+	s=arc-20240116; t=1786441199; c=relaxed/simple;
+	bh=ZO3MFQM2c/n47zfk0CWPrsRPlrhgxkA6KJdl8XN1l/4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DsVoSZzG5iSvKDPyOxeD5h4efVJU5iG/OiXBeaKQCmGdP2sLBdflQUn//1R3wsCCFLy5p2lPdBFGSeCFfGLjXtcCkSOVZyZgDgryAL79ahfVOToDAcyynoRG32FHA3n9BdlHzGky5noFlqG+qTVE3zU60NGAaaJCfGyNQcRcfxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=NhxDVnck; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=uivDDGKF47zkbX1Re8/vO8C+gT9BcV4WevBdZYjhXxW46Cdnht0bWQBLnBBPNQpekDauirTrTnOkTfEk0BjrmviO9PDLF36TladJRsgYo/lm0Dv7+PzerwzqllnszWhOHvQ392PI1z8+jPHC5EVp/YoMjaTxcdbeCzKxuqjU7fI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YN6kbzj4; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="NhxDVnck"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso2073243a91.3
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:36:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1786440984; x=1787045784; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VcbzXbSdyoexmhki4K88F749nCD4aY9ew05QBhC5eME=;
-        b=NhxDVnck9E8f4nDeg0As9Y0x6/us76S9V6iHYBKUAUBnCSqPsU9zuWzKgtqdcZltww
-         GwvDFCd4zL+wB5Gdp4CNxTTQfmhJ/MoCoFLQG0Pd+LrpLHFGdOJtG8loLuQYuhJCwjnS
-         c/JIXLuIXb/4q1s5RnTO1/QzURK/dnGjuUTAYL8sAvnwbHAD2ynasWxhiYpPxVALYke5
-         bYsJTT3oVSmFHbTVvPlKkVMhkuL0Yc4x8p0FemvT3eBKq0teQeaxykyj2sYNEezLOFv3
-         OaR2UDROcU2VKOy6CR9/jTNXpeTNj4eJGyd1QT1fUYVeWicwkTeYjpNUJMdZK+UBN+PK
-         no2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786440984; x=1787045784;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VcbzXbSdyoexmhki4K88F749nCD4aY9ew05QBhC5eME=;
-        b=mKkoY5aA88b8Il4nv08LknVE1zoh17NVzUzqpNtBP4ajUExkR1uUW40tGlPxyWtpwW
-         n458vLKd75jVCX6XND/mjuuTPaPDJpjjmvGcNcjLg1ALn6hg71omgMoPpl3E+XBA5vvc
-         hYTYftQQELdTWui0fDrXy1v/df7fB3aRsZLKmXiVluR3awapp+5ycQP6F5FtOPGjkMGt
-         AoQE1A/i1QwRLR7O0zxtl+jKWscnMGemeupBrG1Ut/AXfGVc2GPcjuZbriSsu3MnEZJ9
-         rCYARPuLaRURO+pcIpDtEoE0H+mCPCWHc96dBbqnrgzENQygLnj2RFRbyULV7+xvZ5bg
-         sLXA==
-X-Forwarded-Encrypted: i=1; AHgh+RqlH6soZuzBajUhKTCTdGN6t43cgg2g9r5ZVlC0i729rwWnDzL4i00CZwg2ifM8km5Xd2h97VTktYw8@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4JCKrke+1f+dUSvsj0+feyYlmZrmThK3I04X7scAxKq0Zzrgt
-	24hSXtNrtd4hZQ+W+EUTcCtEHtxQ34DkBYvbrfPr79DOyqmfldchTpz/jc3+vleyMis=
-X-Gm-Gg: AR+sD10+gx6HHnb9bC8UU9MD/t3XGHkgV3mDlfMHXJunJYGwqYtxr20vrJARUWuSFYk
-	jxOqa19kL58k0jsb8fjJ4C/a/B0maJn5mW3y3Ho+TPHBOZCbD9bKu+4qyu5OyWG10xFIOWYCHha
-	jUF4zUs1f5Bx5wUJ0bobjNNNRiTBnJUsmw1+9VtcnhNAvBcfFek1wI103UhBMxIAkKcdPQBy7A4
-	qAIjwZ3xTLyvV8CwYYMTiUd+EiVm1psGqZS6IugqqMNAfs8Ybf8nBQv6GiafTQgCKfUFu2amjC+
-	Ik3stGPCVkSC4oz2lY/mImz/SMJpNc8OT+7Yn+5Dtj4wX/72jsIO/apDESAJbKxjH/lQcz9Q0f5
-	pu7QG666IvsHArHyxOnS+FuoEB7I6XgN+EZQHW56oPXjUoodr8TJnvyvW0UiarQU3dnqI9YogYs
-	eRskHD2C8Ag8yiFLeSdCCrFO3RZv3s7nsu/EWjoVI4VlSB4rw4PNS2QlnY+v9u
-X-Received: by 2002:a17:90b:2689:b0:380:f85c:94b4 with SMTP id 98e67ed59e1d1-392ec4e4a34mr2095732a91.7.1786440984022;
-        Tue, 11 Aug 2026 02:36:24 -0700 (PDT)
-Received: from plin-1878 ([136.226.240.195])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392d5190ce9sm3040036a91.1.2026.08.11.02.36.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 02:36:23 -0700 (PDT)
-Date: Tue, 11 Aug 2026 17:36:13 +0800
-From: Yu-Chien Peter Lin <peter.lin@sifive.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: pjw@kernel.org, zhangchunyan@iscas.ac.cn, conor+dt@kernel.org,
-	greentime.hu@sifive.com, robin.randhawa@sifive.com,
-	dfustini@oss.tenstorrent.com, raymond.mao@riscstar.com,
-	dave.patel@riscstar.com, pincheng.plct@isrc.iscas.ac.cn,
-	linux-kernel@vger.kernel.org, darshan.prajapati@einfochips.com,
-	linux-riscv@lists.infradead.org, junhui.liu@pigmoral.tech,
-	akpm@linux-foundation.org, dlan@kernel.org, jim.shu@sifive.com,
-	devicetree@vger.kernel.org, luxu.kernel@bytedance.com,
-	krzk+dt@kernel.org, zong.li@sifive.com, anup@brainfault.org,
-	michal.simek@amd.com, scott@riscstar.com, alex@ghiti.fr,
-	samuel.holland@sifive.com, aou@eecs.berkeley.edu,
-	pawandeep.oza@oss.qualcomm.com, palmer@dabbelt.com,
-	nick.hu@sifive.com
-Subject: Re: [PATCH v2 3/3] dt-bindings: sifive: Add WorldGuard Checker
-Message-ID: <anrtDcL+iAKDuAO/@plin-1878>
-References: <20260729163908.249838-1-peter.lin@sifive.com>
- <20260729163908.249838-4-peter.lin@sifive.com>
- <178534841831.3259884.2854898669055783798.robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YN6kbzj4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786441197; x=1817977197;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZO3MFQM2c/n47zfk0CWPrsRPlrhgxkA6KJdl8XN1l/4=;
+  b=YN6kbzj4HGme5WI0kAtxqaBe6MPzfazulqw+4Z9+HPrBUwSHaYb1k3G5
+   La2Q+vnUKzLB13LKxCITHRfUbhQF+YofbOr7HkGl99bjdoffEJ7g5DGdE
+   CZphhNWAIMqeBqnR+AN4tg9aNRcxE5o+EVneCp7ZyYITyRiq8QgACq05w
+   aMZSZ7xYegc7aeTnWHxJZzjX1oVvQw3RxUqw4I8dCLqJil61LHpeqmig9
+   bRfQ1OW1LCZ0OXyFFX78RMXd5jza79MrPnhR+hQsXFUn1DOnJtKzU+xNN
+   OnWE3KCe6mt5dk+ttBNVENMcj3yR2Jt5j4+wxg25b8VrQ5thvSAyzlqjr
+   A==;
+X-CSE-ConnectionGUID: dszAx1NaSECTdsV23TkB0g==
+X-CSE-MsgGUID: pGPWPOiHSeGM6lT3W5MyQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86845215"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="86845215"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 02:39:56 -0700
+X-CSE-ConnectionGUID: ZbCkjo2PQ0yVRJlQ1rzCzw==
+X-CSE-MsgGUID: LNCJssDSSgO/aYyHtljIvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="260687536"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 02:39:53 -0700
+Date: Tue, 11 Aug 2026 12:39:50 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kyle Hsieh <kylehsieh1995@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: adc: ti-ads112c04: Add support for TI
+ ADS112C04
+Message-ID: <anrt5mJBz5h-a3OL@ashevche-desk.local>
+References: <20260811-ti-ads112c04-driver-v4-0-ae704ac17241@gmail.com>
+ <20260811-ti-ads112c04-driver-v4-2-ae704ac17241@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,53 +68,344 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178534841831.3259884.2854898669055783798.robh@kernel.org>
+In-Reply-To: <20260811-ti-ads112c04-driver-v4-2-ae704ac17241@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Rob,
+On Tue, Aug 11, 2026 at 10:48:38AM +0800, Kyle Hsieh wrote:
+> Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
+> delta-sigma ADCs.
+> 
+> The driver implements:
+> - Single-shot conversions using the IIO raw read interface.
+> - Dynamic parsing of single-ended and differential channels from
+>   device tree child nodes.
+> - Hardware interrupt support via the DRDY pin, falling back to
+>   software polling if no IRQ is provided.
+> - Scale calculation based on the internal 2.048V reference.
+> - Reference voltage scaling via the regulator subsystem (refp-supply),
+>   falling back to the internal 2.048V reference if not specified.
+>   refn-supply is not yet supported.
+> - Hardware reset fallback using GPIO.
 
-On Wed, Jul 29, 2026 at 01:07:00PM -0500, Rob Herring (Arm) wrote:
-> 
-> On Thu, 30 Jul 2026 00:39:08 +0800, Yu-Chien Peter Lin wrote:
-> > Add YAML binding schema for the SiFive wgChecker, a programmable
-> > access controller integrated in the interconnect fabric of RISC-V
-> > Worlds-capable SoCs.
-> > 
-> > wgChecker enforces World ID (WID) based access control on downstream
-> > bus transactions. Each checker slot encodes a 2-bit permission field
-> > per WID (read/write), enabling fine-grained memory partitioning and
-> > device isolation between execution contexts. Violations are reported
-> > via bus errors, interrupts, or both, selectable and lockable per slot.
-> > 
-> > The binding registers wgChecker as an access-controllers provider.
-> > Consumers (i.e. its protected device) reference it via the standard
-> > access-controllers phandle to declare their access requirements.
-> > 
-> > Also document the sifive,trustedwid property for the /cpus node,
-> > identifying the privileged WID authorized to configure all checkers
-> > on the platform.
-> > 
-> > Link: https://github.com/riscvarchive/security/blob/main/papers/worldguard%20proposal.pdf
-> > Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
-> > Reviewed-by: Zong Li <zong.li@sifive.com>
-> > Reviewed-by: Jim Shu <jim.shu@sifive.com>
-> > ---
-> >  .../devicetree/bindings/riscv/worlds.yaml     |   9 +
-> >  .../bindings/sifive/sifive,wgchecker2.yaml    | 356 ++++++++++++++++++
-> >  2 files changed, 365 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
-> > 
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> Documentation/devicetree/bindings/sifive/sifive,wgchecker2.example.dtb: uart@1c1000 (ns16550a): $nodename:0: 'uart@1c1000' does not match '^serial(@.*)?$'
-> 	from schema $id: http://devicetree.org/schemas/serial/8250.yaml
-> Documentation/devicetree/bindings/sifive/sifive,wgchecker2.example.dtb: uart@1c1000 (ns16550a): Unevaluated properties are not allowed ('access-controllers', 'reg-names' were unexpected)
-> 	from schema $id: http://devicetree.org/schemas/serial/8250.yaml
+...
 
-Will fix.
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
 
-Thanks,
-Peter Lin
+...
+
+> +static int ads112c04_wait_for_data(struct ads112c04_state *st)
+> +{
+> +	int ret, err;
+> +	u8 val;
+> +
+> +	if (st->client->irq > 0) {
+> +		/* Timeout is 100ms (slowest data rate is 20 SPS) */
+> +		ret = wait_for_completion_timeout(&st->completion,
+> +						  msecs_to_jiffies(100));
+> +		if (!ret)
+
+In this case semantics of ret differs, that's why it's better to write as
+
+		if (!wait_for_completion_timeout(&st->completion, msecs_to_jiffies(100)))
+
+// and I would even dare to put on a single line.
+
+> +			return -ETIMEDOUT;
+> +
+> +		return 0;
+> +	}
+> +
+> +	err = read_poll_timeout(ads112c04_read_reg, ret,
+> +				(ret < 0 || (val & ADS112C04_CONFIG2_DRDY)),
+> +				1000, 100 * USEC_PER_MSEC, false,
+> +				st->client, ADS112C04_REG_CONFIG2, &val);
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return err;
+
+In this piece I would swap err and ret, so the ret is outer one and err is
+the inner one. This will be consistent with other code pieces.
+
+> +}
+
+...
+
+> +static int ads112c04_get_adc_result(struct ads112c04_state *st,
+> +				    struct iio_chan_spec const *chan,
+> +				    int *val)
+> +{
+> +	u8 new_config0;
+> +	int ret;
+> +
+> +	new_config0 = st->config0;
+> +	FIELD_MODIFY(ADS112C04_CONFIG0_MUX, &new_config0, chan->address);
+> +
+> +	if (st->config0 != new_config0) {
+> +		ret = ads112c04_write_reg(st->client, ADS112C04_REG_CONFIG0, new_config0);
+> +		if (ret < 0)
+> +			return ret;
+> +		st->config0 = new_config0;
+> +	}
+> +
+> +	reinit_completion(&st->completion);
+> +
+> +	ret = ads112c04_write_cmd(st->client, ADS112C04_CMD_START_SYNC);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = ads112c04_wait_for_data(st);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = ads112c04_read_data(st, val);
+
+> +	if (st->client->irq > 0)
+> +		enable_irq(st->client->irq);
+
+Why is it fine to leave IRQ enabled even in the error case?
+
+> +	return ret;
+> +}
+
+...
+
+> +static int ads112c04_read_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      int *val, int *val2, long mask)
+> +{
+> +	struct ads112c04_state *st = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		mutex_lock(&st->lock);
+> +		ret = ads112c04_get_adc_result(st, chan, val);
+> +		mutex_unlock(&st->lock);
+> +
+> +		if (ret < 0)
+> +			return ret;
+
+If IRQ is left enabled and we call it here, we end up with the unbalanced
+depth counting.
+
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val = st->vref_mV;
+> +		*val2 = 15;
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static irqreturn_t ads112c04_irq_handler(int irq, void *private)
+> +{
+> +	struct iio_dev *indio_dev = private;
+> +	struct ads112c04_state *st = iio_priv(indio_dev);
+
+> +	disable_irq_nosync(irq);
+
+This is unconditionally called. Where is the guarantee that it becomes enabled
+once again?
+
+> +	complete(&st->completion);
+
+> +	return IRQ_HANDLED;
+> +}
+
+...
+
+> +static int ads112c04_parse_channels(struct iio_dev *indio_dev)
+> +{
+> +	struct device *dev = indio_dev->dev.parent;
+> +	struct ads112c04_state *st = iio_priv(indio_dev);
+> +	struct iio_chan_spec *channels;
+> +	u32 num_channels, pair[2];
+
+> +	int ret, i = 0;
+
+Why is 'i' signed? And it's better to decouple definition and assignment, so
+the assignment will happen closer to when it's really needed.
+
+...
+
+> +		if (fwnode_property_present(child, "reference-sources")) {
+> +			const char *ref;
+> +
+> +			ret = fwnode_property_read_string(child, "reference-sources", &ref);
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read reference-sources\n");
+> +
+> +			if ((!strcmp(ref, "external") && !st->has_refp) ||
+> +			    (!strcmp(ref, "internal") && st->has_refp))
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "reference-sources does not match refp-supply\n");
+> +		}
+
+Reinvention of fwnode_property_match_property_string() ?
+
+...
+
+> +		if (fwnode_property_present(child, "single-channel")) {
+> +			ret = fwnode_property_read_u32(child, "single-channel", &pair[0]);
+
+I don't like the (partial) pair reuse here. It's semantically wrong. Just add
+another temporary variable and let compiler to choose what to do with a stack
+frame in such a case.
+
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read single-channel property\n");
+> +
+> +			if (pair[0] > 3)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "single-channel must be 0-3\n");
+> +
+> +			spec->channel = pair[0];
+> +			spec->address = 0x08 + pair[0];
+> +		} else if (fwnode_property_present(child, "diff-channels")) {
+> +			ret = fwnode_property_read_u32_array(child, "diff-channels", pair, 2);
+
+ARRAY_SIZE()
+
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read diff-channels property\n");
+> +
+> +			if (pair[0] > 3 || pair[1] > 3)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "diff-channels must be 0-3\n");
+> +
+> +			spec->channel = pair[0];
+> +			spec->channel2 = pair[1];
+> +			spec->differential = 1;
+
+> +			if (pair[0] == 0 && pair[1] == 1)
+> +				spec->address = 0x00;
+> +			else if (pair[0] == 0 && pair[1] == 2)
+> +				spec->address = 0x01;
+> +			else if (pair[0] == 0 && pair[1] == 3)
+> +				spec->address = 0x02;
+> +			else if (pair[0] == 1 && pair[1] == 0)
+> +				spec->address = 0x03;
+> +			else if (pair[0] == 1 && pair[1] == 2)
+> +				spec->address = 0x04;
+> +			else if (pair[0] == 1 && pair[1] == 3)
+> +				spec->address = 0x05;
+> +			else if (pair[0] == 2 && pair[1] == 3)
+> +				spec->address = 0x06;
+> +			else if (pair[0] == 3 && pair[1] == 2)
+> +				spec->address = 0x07;
+
+I would do this as a 4x4 table
+
+	-1, 0, 1, 2,
+	3, -1, 4, 5,
+	-1, -1, -1, 6,
+	-1, -1, 7, -1,
+
+With that done you can even supported the swapped cases
+
+	-1, 0, 1, 2,
+	3, -1, 4, 5,
+	1, 4, -1, 6,
+	2, 5, 7, -1,
+
+(but I haven't studied the code if it's toughly relies on the pair[0]/pair[1]
+ values to be in a strong order after the address being assigned).
+
+> +			else
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "invalid diff-channels combination\n");
+
+> +		} else {
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "channel node must have single-channel or diff-channels\n");
+> +		}
+> +
+> +		i++;
+> +	}
+> +
+> +	indio_dev->channels = channels;
+> +	indio_dev->num_channels = i;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +#define ADS112C04_VREF_INTERNAL_MV	2048
+
+_mV
+
+...
+
+> +	if (device_property_present(dev, "refp-supply")) {
+
+A dup property check. if (st->has_refp) should suffice, no?
+
+> +		ret = devm_regulator_get_enable_read_voltage(dev, "refp");
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to get refp voltage\n");
+> +
+> +		st->vref_mV = ret / (MICRO / MILLI);
+> +		st->config1 = 0x02;
+> +	} else {
+> +		st->vref_mV = ADS112C04_VREF_INTERNAL_MV;
+> +		st->config1 = 0x00;
+> +	}
+
+...
+
+> +	/* Requesting OUT_HIGH asserts the active-low reset pin immediately */
+> +	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(reset_gpio))
+> +		return PTR_ERR(reset_gpio);
+
+Why reset-gpio driver can't be used instead?
+
+> +	if (reset_gpio) {
+> +		fsleep(1000);
+
+1 * USEC_PER_MSEC
+
+> +		gpiod_set_value_cansleep(reset_gpio, 0);
+> +	} else {
+> +		ret = ads112c04_write_cmd(client, ADS112C04_CMD_RESET);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	fsleep(1000);
+
+Ditto.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
