@@ -1,121 +1,168 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9518B417355
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 08:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C21F416CF3
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 08:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786436705; cv=none; b=qOAbecyBF/ujoLeKDef/yISjhJOtEkyoxTESKPhtXwcgUbo776BXv6GwbWKYyXg7mJrKdk4+Zj1yPTQH1VzR7xTHy4xl27hhJjkSFsjhGmFDi5rE9TYtzir7Y2VNtChBJ1FXUwo5NdaARGx4gkJjM+kljCtJ5VvYUDep4U6lTfA=
+	t=1786436863; cv=none; b=ZRlBtwqXxASqRVrXfgd55+QhoqTtHPeBHhQ3M9S+KiaOQIp4r9MYwP6PZVaWEA7svOAUjQY3boMvSP2vd0LooWyC/1y6n88SeUbDYy5dqaI0KQLyWmen9KQ/IEmIWHpFURiSu+gNuIM/V8174aB+XCmulQO4o/0l3dOSqUTa9/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786436705; c=relaxed/simple;
-	bh=OOCaryhxL0aZFIpqWVWChO/Kygk2/DrH5JEkdBY00iU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=osZVhC438ThzWSuKyMmiyd0CTWIlBQqcmizRzwQJ9JFx+AQrEd1si0QS2Cj8Nb8Q3GhYMdZkPHS67zOD66+cMHEj13E0VIVMfTEPhAJPzvCqSe4Epr2BlDNugSsA+JFbbuayDbUe2YVaXoy2rKm9TTROxpYu3SaLcmD8RTss+hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=nshrsKj9; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1786436863; c=relaxed/simple;
+	bh=T/oJdBucL/GZX1TGkFFHtfiieCAoIbnnu8AL4EXa/3A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eOCMvxjZ+ngSvWL0u0pWLrC2yGKLivw3aCkuZpyWXApHKn+TMnM3+NsC1uR94qfJGUYudH9rDx6HZtj5V45rvEbnqidg3t8SU4U4QGpHmWLjwtyVuHwv1NqAut0UM8z4DBy8BpvJy1acvmEQPPJG1uLMT8tnimigRAquDaOu4zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QPs1NNKE; arc=none smtp.client-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="nshrsKj9"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-382ef647e20so2951323a91.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 01:25:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QPs1NNKE"
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-495c63c4141so1253208b6e.2
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 01:27:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1786436704; x=1787041504; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZbxtcArluxLyA8miGWugZbCFD+9watkIVI9ZpOeFGK4=;
-        b=nshrsKj9EhEP6yuPn/lyDiOehVenaeUAUs3zoeUbZzvxjhqhq+tbUNyTT4qL/rlODD
-         cfPvq6lTh0eUj5BQqhjQ46QoA7HJngPAgerbNkLM/md4N60aq+ftI1JAGN3GsKLK79dv
-         BzChDbEn+j0TRpUHnulnkS1YfgJ8NlWH2Rd8g3K+qqom3JMcWwmywdQ3aECtlgLUE1YR
-         w7ZCRjot60J2K7IiI1C/kD84HZKyVpy8r95j3bC2ODqjGpa6xoQPbkMTDyq7MIzdxh+B
-         xAU81BA4V59s7g2z1mbrpULZ23F4x5IWrZHJTdxZTVpiXxzmMHwsYcqMJfiMx58HLE59
-         HROA==
+        d=gmail.com; s=20251104; t=1786436861; x=1787041661; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+SBwLpZVRqRlAIlgjKkHExeL85jOD2p5m6VZ2bA98q0=;
+        b=QPs1NNKE84PT6CuJhoTE6tzOBqP4ctIZilVomTLT5tc8WdaglGFJQqnF6sNkldMrTb
+         OdnufEh21+dvwNZdamGN3QXxxdFdgNi0+l/zbxlEcifSTdgwF3bUOP76uq83k73aaO7u
+         mI2HRSuwO7IrmyWdjUiZjLBOOCgWhRgjH56Kj68J/VyDfGO/7mAK/Z5oa0rk1LxVhvv0
+         2knFad/yMtLMk55u9cune0rnHQDJ5mZoBwB73T69PupOubFAnrHVwwdoouE5xD3e8/Ti
+         bVaAFSd/lx8qqNNNNT8yLouhag+XrSrXBPtbiD6RM0UyQs++eqLvrO+53w7Sz7hFZjo4
+         7WCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786436704; x=1787041504;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZbxtcArluxLyA8miGWugZbCFD+9watkIVI9ZpOeFGK4=;
-        b=rhKXYM2aB/nhLJGtmWC0MjdJV/8OVPlZZW02Q7llYJXY7lZwEXshDC1jNQ95vfn30Y
-         g/qwKmdkWAvs3SS2r15xeWLmptZT7xaUSnVOapwvozBbWD0YyTA2WArMxjb5y+GSt9+C
-         hZxvn/MaPSTGM8dAc55aJihs3jdtn7rIiJWc2MSSQ3Lp7AKaQCKeNcCS15B7rm0xyMMI
-         fZLtXWwbEawN7YbEao/VPX4VN3Me1VRu7LJM3o+zZwSeJkl74fsLth6YUOpgf4/+5uVr
-         w82xFetpFflk8+y2uw63ELgFTy0b863Fw0/5IMwuZ3x/U/ez3oFrR2sHVaC1dGAxCkUf
-         4vpw==
-X-Gm-Message-State: AOJu0YxTcwui6QQsZvtjdJhCCyFdilg9+z9su+I9hLn4z8GuvphLtF2p
-	9WXvPS6cWkpS9H/Y135Uiex+9w0WYLIbT9nxIwyp8Zmpe5Bd0COnUax6gGny1z7xu1c=
-X-Gm-Gg: AR+sD10NEa50LmuT3RRmqll21Sfm6lXraxjwNHQbubOPnOY/s4MxaGzVDUf5Yk7kwR1
-	bjeHgDm1Vu9s8GrZkNoV/8kAwTIzrJatC+8BGxqrIdsO6xvCC4+S7P695dxEuChga9eR5jXhf9K
-	sQQ6wp9kFfH7WijYo6j1ESqNKR+rJX/v3lViJXN0HW0dwtAMSV3hLUFol8i3ltQDEKS9GAm2shj
-	cAKVJkPDzEA2g8SpK0DpravLbAsS2q5XQXSx7DaEeM7hs7yBuIk/gUqFkSyUSSwLLzRFWvh9A0Y
-	yD4rM3fE296ASOpqAm9CdcPri+uYI2v6SJDm/lHFeHmP4g2Ivs/hp+heGpErMJfo4SIqP3MjxCu
-	DvVXwdQOcyIWSpjYdgrUXBFT115nII8C7+xEnVsWIcZVCiflSq+LJkwzF91nUVZkzyPKW/Zlw36
-	WB7GJ4h2HP7MlcAtCvux0SoIWiS980OuH3mPFFYxp2uxmAbA358DgvD1exwrI=
-X-Received: by 2002:a17:90b:4ace:b0:36a:8240:2477 with SMTP id 98e67ed59e1d1-392ec74c9aemr1532247a91.19.1786436703800;
-        Tue, 11 Aug 2026 01:25:03 -0700 (PDT)
-Received: from plin-1878 ([136.226.240.195])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392ee1e35b2sm1038839a91.4.2026.08.11.01.24.55
+        d=1e100.net; s=20251104; t=1786436861; x=1787041661;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+SBwLpZVRqRlAIlgjKkHExeL85jOD2p5m6VZ2bA98q0=;
+        b=l7C/11s8Jnsk4Y4VED4E1b5z3FMxHvPzTMtJpvpgHbBxpd3zsc8GQ/xtFdRtyZJTCb
+         uSXZ9OLuWJZ36g6TezW9YMJKgIrSoereACOO5GggaBfpFMF0/VGdCfc9+lAXREy8nz0v
+         Bv/yTUeze1XCPfp+Rr2DkdJWHTpOADmlcQYNXNnWdvvcfnO2oqjozaQnE5PasvyzGvbI
+         yjeIPt8s17JUctvD8SvasSyIAg4vuEwA24+5/PjF6Jo9tVr4lTdFIjYHV5ZL0uMcUgfZ
+         spdmppxWjVlWcQlEsEKmTX9n1VUj/Fqa+rJYmgfvhthK+1fpHmWXckXeWP+moaQMt1q7
+         juSQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4KNR32pJ1nQW0BBprdDeA7W/5PDQnpDl2VuTOZkg2UNC0jxFwEQlBni0fQ5KdzV1CvppnaQH1ZKUF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzqo8ttnzlmixV4S0oe6Tsuu5AgLLVahTLXGkiam3vl+IG0bq/K
+	dOG4IROHktWKNV6/yEm5I5Yg0INY25sXzxc6T/SpJmuSbAdArNVOd3+A3hIHvtkw
+X-Gm-Gg: AR+sD11BqvgNfzL++41V37xMIEfhIx1YhwTjrPihjBcrS8E/sd0NBKiYNSWgUe9avAu
+	2QabFaT/cIZDkqO0bHW2rfZR4EjH1oVF4SlJHltnK1PHCR5CFi6sFxSvafpYzMK/lSp5+aKfkvd
+	A4bXFAsRVK3vgWY1g5u22LVQBCQbDyA3Hxo3ckGIcO3BrZBqFbE4lBS8+Ft0a5AzBYV7lXnKh9p
+	Xobh/vWYzB4QFWBcw0KOUfgTpUm3KS1MqN7/LHmwQjbx5xfLZPaSsGF37cgYAVduYyRWP4hBtum
+	IqVdmMA9MYB/opwkc/nZPh0Vf5T5elfQtrrSqQ8sWhNEQI2rdBH1mtpYr2VkfBuMLRoD7pPY6n3
+	KMUh8xNfWwOoYBHxUcoNyuurBYe0jpVBe2ZHO96MfUY5bmps4L8fQgDQyeKratFvWZ1i2QI3XBI
+	ws6r8pQ4EV9NX2noYEQMe/0flWzeRTOY6wWwbb6sMYfso4tFd1apkvt/RlBe2Ojm6eGfYR4ffTA
+	GHQ1jDW3/MpWtZmqv/a/gVcJfLz1MvD7AL88zxBr0VJl2BtegNJ/7MrSvGhITZeobq9zOAUAa/Q
+	SCXueUbqAyHNHzK3Eb07c8zg+p0aJYfgokLqopGwsiVMaxNaFgZloqGDtA1zCYXKAPntd+tqcDv
+	G+93nzivd4xJZ7gPeFw==
+X-Received: by 2002:a05:6808:14d4:b0:485:48da:133d with SMTP id 5614622812f47-4b1fd7bfa62mr926088b6e.10.1786436860654;
+        Tue, 11 Aug 2026 01:27:40 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1fff55fdcsm318095b6e.6.2026.08.11.01.27.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 01:25:02 -0700 (PDT)
-Date: Tue, 11 Aug 2026 16:24:52 +0800
-From: Yu-Chien Peter Lin <peter.lin@sifive.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, samuel.holland@sifive.com,
-	dlan@kernel.org, dfustini@oss.tenstorrent.com, michal.simek@amd.com,
-	junhui.liu@pigmoral.tech, darshan.prajapati@einfochips.com,
-	akpm@linux-foundation.org, zhangchunyan@iscas.ac.cn,
-	luxu.kernel@bytedance.com, pincheng.plct@isrc.iscas.ac.cn,
-	nick.hu@sifive.com, jim.shu@sifive.com, zong.li@sifive.com,
-	greentime.hu@sifive.com, robin.randhawa@sifive.com,
-	scott@riscstar.com, dave.patel@riscstar.com,
-	raymond.mao@riscstar.com, anup@brainfault.org,
-	pawandeep.oza@oss.qualcomm.com
-Subject: Re: [PATCH v2 1/3] dt-bindings: riscv: Add Worlds ISA extensions
-Message-ID: <anrcVIoupzPVA74B@plin-1878>
-References: <20260729163908.249838-1-peter.lin@sifive.com>
- <20260729163908.249838-2-peter.lin@sifive.com>
- <20260810-penpal-aluminum-772319e5fc10@spud>
+        Tue, 11 Aug 2026 01:27:37 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v6 0/3] mfd: add X-Powers AC200 support
+Date: Tue, 11 Aug 2026 02:27:22 -0600
+Message-Id: <20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810-penpal-aluminum-772319e5fc10@spud>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WNywrCMBQFf0Wy9koSSEld+R/SRZ7tFdNIUkNL6
+ b+bVsHlwJw5K8kuocvkelpJcgUzxrFCcz4RM6ixd4C2MuGUN1QyBvmtA06gDKcUgrcgtbKNpa3
+ jUpA6eyXncT6S9+7LdfNwZto7uzFgnmJajs8idu+Xp+0/P9d89GCXUQU0UBgUARS0V8xLwaTm8
+ tYHhc+LiYF027Z9AEwwUBjMAAAA
+X-Change-ID: 20260811-submit-ac200-mfd-8bad6d09e285
+To: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Hilliard <james.hilliard1@gmail.com>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On Mon, Aug 10, 2026 at 05:25:08PM +0100, Conor Dooley wrote:
-> On Thu, Jul 30, 2026 at 12:39:06AM +0800, Yu-Chien Peter Lin wrote:
-> > Add DT bindings for five RISC-V Worlds ISA extensions
-> > that implement World ID tagging for hardware-enforced
-> > context isolation. Also, add checks for extension
-> > dependency requirements.
-> > 
-> > Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
-> > ---
-> >  .../devicetree/bindings/riscv/extensions.yaml | 53 +++++++++++++++++++
-> >  1 file changed, 53 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
-> > index 2b0a8a93bb21..7a57191a0293 100644
-> > --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-> > +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-> > @@ -193,12 +193,35 @@ properties:
-> >              ratified at commit d70011dde6c2 ("Update to ratified state")
-> >              of riscv-j-extension.
-> >  
-> > +        - const: smlwid
-> > +          description: |
-> > +            The standard Smlwid extension for M-mode control of lower
-> > +            privilege World ID via the mlwid CSR as ratified at commit
-> > +            TBD ("TBD") of riscv-worlds.
+This submission contains only the AC200 binding, managed syscon helper
+and I2C register provider and is intended for the MFD tree. The Ethernet
+PHY binding and driver will be submitted separately to net-next. Neither
+series has a compile-time dependency or required merge order. Their only
+shared design point is the DT representation: the MDIO PHY-package node
+references the separately described AC200 I2C node for package-control
+register access.
 
-Also, I will follow alphabetical order in the next version.
+The X-Powers AC200 is an I2C-controlled mixed-signal companion IC with a
+paged register map shared by its audio, video, RTC and Fast Ethernet PHY
+functions. Its shared input clock must remain enabled while the chip is in
+use.
 
-Regards,
-Peter Lin
+The provider enables and rate-locks that clock, matches the vendor
+driver's 40 ms delay before the first register access, initializes the
+paged regmap, reports the chip revision and applies common reset. It
+publishes the regmap through syscon so separately enumerated function
+devices can reach their control registers through a firmware reference.
+
+The existing external syscon registration API cannot withdraw an entry
+when a removable provider unbinds. Add a managed variant which removes
+the entry before the provider's regmap is released and holds the device
+node reference for the entry's lifetime. Consumers remain responsible for
+teardown ordering, for example through a device link.
+
+The three patches add the AC200 binding, managed external syscon
+registration and the AC200 I2C register provider.
+
+The AC200 work builds on earlier work by Jernej Skrabec and Andre
+Przywara:
+
+  https://github.com/jernejsk/linux-1/commits/ac200-v4
+
+Public AC200 documentation is linked from:
+
+  https://linux-sunxi.org/AC200
+
+Validation completed for v6:
+
+  - x86_64 defconfig object builds of syscon and the AC200 provider with W=1;
+  - dt_binding_check for the AC200 schema; and
+  - strict checkpatch checks with no errors and only the generic new-file
+    MAINTAINERS prompts.
+
+The running-kernel and hardware results remain those from v5 because the
+code is unchanged. Managed syscon registration, lookup, provider removal
+and re-registration were tested on a running kernel. On an H616 board the
+AC200 provider reported revision 0x101 in package 1, supplied its regmap to
+the PHY consumer and correctly ordered supplier unbind/rebind through the
+device link.
+
+Assisted-by: OpenAI Codex (gpt-5.6-sol, max)
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v6:
+- split the MFD work from the independently mergeable networking series
+- put the merge routing and shared DT design at the start of the cover letter
+- rebase onto the current MFD for-mfd-next branch
+- Link to v5: https://patch.msgid.link/20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com
+
+---
+James Hilliard (3):
+      dt-bindings: mfd: x-powers: Add AC200
+      mfd: syscon: Add managed registration for external regmaps
+      mfd: ac200: Add X-Powers AC200 support
+
+ .../devicetree/bindings/mfd/x-powers,ac200.yaml    |  49 ++++++
+ drivers/mfd/Kconfig                                |  12 ++
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/ac200.c                                | 170 +++++++++++++++++++++
+ drivers/mfd/syscon.c                               |  87 ++++++++---
+ include/linux/mfd/syscon.h                         |  12 ++
+ 6 files changed, 309 insertions(+), 22 deletions(-)
+---
+base-commit: ffc63a677b60247738b02a2520c6bfa740523c2b
+change-id: 20260811-submit-ac200-mfd-8bad6d09e285
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
