@@ -1,733 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE232387362;
-	Tue, 11 Aug 2026 03:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB456203710
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 03:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786419138; cv=none; b=qC/UMpleOAu1HivEcvzN8Zs/q+Tl3eBsaGDifWGLuD3kOwDr+/DAPzXlH4miFEYyc7hRD/aXULjl/atNcFQQ7fgeVuZ9qBkypksQHCAmP0oCpspt7TNzwujd0hnZzWgcXqBR4c8nNDT9xE/zWtLKvz5gcsvEdA7JVWH66SdEQzo=
+	t=1786420042; cv=none; b=pmtBeX6lzhOnBBTdop7LvlydNBZVaBcuBLMV3MooOG7GfTqzvmz+FzrVS/bGkJJUIsHEt8S220ljhkPFEUxWmrFVb4KeQwyzSpydJt1xWDh/9O89kL8AFRZWYj2ITcKT2OXZ+r/FlykuEjtm2dDa3aiIBe00ZLNut82UOOMfmMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786419138; c=relaxed/simple;
-	bh=qM0h2/hPk2yjF7VgFPLLO7cS8CzUpHz9mHyxQEpiZj8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZAns272KrFXxsHg6+cnNEEu5cqiltFU7HbY29JwPZ/H9nSa8p6wKOg345KrlGj+pPAp4Qa+g6j1FpcnUw8afNX3wheKjvv9/v/3SQin20YPhj8/1ZXPKCRu2F/MvNhm48PhZtW+1fyPE5bwjfQzk0RwDve2lEHi/zQkfWcc9Bio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=imvEYnO/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786420042; c=relaxed/simple;
+	bh=edvAPZUlqdPxQvGt0zVokuNjkmj+7OzVo9zvdPz8oCg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pAzckLIEiBnaeEyeJqYoYjJTxjOq9n8Zo+rY0R4upfDjg/PmBqqlQtCP/AywiW9wMDFeYPaTCAiVNiyX93s9ZHF+EPImO32rl4sgqsICGWhKZ23/S15WB+WaEriKAiTv0U6EtYY8+w7Y196ac6wtoE8LwODFmwz50iZrjS/pUrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cp44ynqJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NwDwVWV0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="imvEYnO/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7E99DC2BCFA;
-	Tue, 11 Aug 2026 03:32:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786419138;
-	bh=qM0h2/hPk2yjF7VgFPLLO7cS8CzUpHz9mHyxQEpiZj8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=imvEYnO/v6MmS4U8gbWuUbHQn+q+9xiLWFSxkfKo1AsqmNyihp75I2GtBNP8z1JfN
-	 uk5L5mWmxsiadtjdvaaaN9SsOViEw8RNmyHFtNAH+YIp1aBorR3lbBk1N7ikzT3Lmi
-	 /pYbyYR9iceWfHbaw4P+RrRkoguDZeY3ZlfPwxT1lUnol1pKUY2bB9iN5VLzNbMFq7
-	 DPmnmXzBcSVrKwQhmhzGM9tUp1Rqg3Gd1pQ63ukEmcRvOuUXKWw3LjGLpppC5zprQ1
-	 NprcNIYs9pEPMwizQ8wy/5HKGyyZ1X3NENWPDLk418MyTuGYQGBQOIHbnA0/c1VTi8
-	 s/wp5vCUUgMLA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DDC5C5B56A;
-	Tue, 11 Aug 2026 03:32:18 +0000 (UTC)
-From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
-Date: Mon, 10 Aug 2026 23:31:37 -0400
-Subject: [PATCH v3 2/2] usb: typec: Add support for Parade PS5169 USB
- Type-C redriver
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cp44ynqJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NwDwVWV0"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AMptvH3047698
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 03:47:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ud9uue+eAmgOeli/UJM+eu9+5MxvNkXUbo2Xuvjg13k=; b=cp44ynqJNje5/9PP
+	bOmw6YPW4iucixdbehwe3FMkrXR4aR/l3fhbCBdfmrv8FgkvuyuNna8YsfNqhYjN
+	cevx8JgxvauDFNbLv7B3iy9xMBMJQsCvGZYK+iG+WGWV5cIbR3YR6B7KnGhLpI8Z
+	nlCeQSg8uv5x93AoCUMFZ7m3oFb0HkXHo+y/0s0+KJIqrR2OEAhNWFkW0H3IRlKf
+	7gFLRcJn+4K2GsUm9iP6/PxgfaTtC+3yKlKQ8VIuehKT13tI2zYtvbqIVWBiI4Zb
+	kii4d5vWqdSyi7wilPTVNrscCHjDnbw7QLOBWgEaml/rzHiRNTfKGVDFVZheo4YW
+	tfDWgg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyjk228ma-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 03:47:18 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cacd6d37edso41470745ad.0
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 20:47:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786420038; x=1787024838; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ud9uue+eAmgOeli/UJM+eu9+5MxvNkXUbo2Xuvjg13k=;
+        b=NwDwVWV07wJtxG0B44pINNZ4Uvuk06AGEPuBL0ey2C1WNdXi2QAAzuqAcO7TDi58WT
+         IqCBQzR69Q7Zya/40h7aL5TI8LXBP4SGpEpMHlVn9Q9a8bOFHw9/tcqUV5DWNgCNsC2h
+         ezCIb+cQgFoAXdGdlqK+M7fXcjljiWgBWDjGJ1GiZB1JlrAq3LediHlfHA3hi1lqnMna
+         /CHGZDvNe/CmmEC9R+Jw5Y3gZ73LRwXm3IXGxlLwGvUyTbSjr7q4yLZpuay0oFaoEsWJ
+         nri6dLo8hFifwQMnYOuZTQZ9qmU8x0nkAZrn3YwnJhwM8MB49ORzVzwxG2qKU+in2h4+
+         GCdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786420038; x=1787024838;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ud9uue+eAmgOeli/UJM+eu9+5MxvNkXUbo2Xuvjg13k=;
+        b=QnzWHW4icFufXgV9pCVtyru5IroYKH0u788F76vGoB46+SBmYHLVrH/OSbGDA4jnrN
+         DgvZQ0wJ+Ot1G9Ipk95PI5vvM9cVhLmdRhzJ8TwWdJgj7aqe1R+7t1Gnv1GV6VV5jLaO
+         u93Llgg0RqMBhPcPc6XYoKWDGD/MWyqQyFRsg5SlT0lAaU3YtucDCEUOAZic3F26t7Df
+         sMyP6eNZH9wZdsFsEMcChh0jgvBebpK2nBlnDuUT1rTnTneshOABYfrFSF2sOgTW9BNJ
+         8lxJcUWs3DP6Ivi1ctESJDYL/UBZBp6tv4jvoJBOpZFgGQh53METgDiCPHV1A+VOkZo4
+         1cdg==
+X-Forwarded-Encrypted: i=1; AHgh+RoljrxWQ9mJQanlyXfV69uwaUiOSYeQrMB8e8+JcYqjwKaLRG6FsW4ftOTG984vJ3KBMJQLoP1UyrIF@vger.kernel.org
+X-Gm-Message-State: AOJu0YyAReZm9uulDyY/ix1xYN/rq1PLQYNlhQKIqvbeLx05ouBlbISt
+	kbsbleLpAZvEk4JkR0HPw171+SlRZTxxRvXvu0i3izaLxPm3beMSqMIPGYiuEv5/BMzmhRMHmA6
+	pVdQuk5DNPHcvD8sPTeQfYj+rPxOQQJfhSVkes9ni50q29LtsreYRz6L1bcyayC3K
+X-Gm-Gg: AR+sD12KTNQumZSSTDVeKFRBlzybhmnv6ato3R1rpHr30az6/H/eP3+fBY/yhBEKJHC
+	UzkMaD22/Ejb2LSj/1pJWaHw9JQxYBDL0DqO9673tXNJIESsr4sZYwlNgxPwEecah/SGmA1NqtZ
+	r/OZjFRYCkd5ByrdA1sGAuEaYFLzQudSu/OgA9j6WfyqeR5Q+eF0FqCmrw4tKOGHG+EXQAJ15a4
+	Nz9IY6K9n7zMhYEJXNTAJ7jWFRnkCEyhGmKTiMkB/ebpdNIM1s/NYYR/wkSLM8+b/DRKfPEjVU9
+	LO+/WMNpFgOEFwnL2W1UVBLImtr7fEyip+NMrw4EHR1pydwooaSQldoYHEG/MXs7gHObJrBSR1Z
+	aezXIXThOZxehTgv0p0EOZz1tp/W3HejISGIRGkFh7f7ZMTu6kipxDtBNqYviJPRITHlNKuzarQ
+	STmqfOubZ1b9ZNB7RSvBg=
+X-Received: by 2002:a17:903:2c0e:b0:2ce:f9db:a9e0 with SMTP id d9443c01a7336-2d3178f4e77mr6309865ad.16.1786420038260;
+        Mon, 10 Aug 2026 20:47:18 -0700 (PDT)
+X-Received: by 2002:a17:903:2c0e:b0:2ce:f9db:a9e0 with SMTP id d9443c01a7336-2d3178f4e77mr6309465ad.16.1786420037844;
+        Mon, 10 Aug 2026 20:47:17 -0700 (PDT)
+Received: from [10.79.117.20] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315beb8844fsm50674040eec.16.2026.08.10.20.47.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 20:47:17 -0700 (PDT)
+Message-ID: <f7a76790-0e7f-4c4c-bb33-36134a0f3e29@oss.qualcomm.com>
+Date: Tue, 11 Aug 2026 09:17:08 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-ps5169-bup-v3-2-a2178b2834d7@proton.me>
-References: <20260810-ps5169-bup-v3-0-a2178b2834d7@proton.me>
-In-Reply-To: <20260810-ps5169-bup-v3-0-a2178b2834d7@proton.me>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- Esteban Urrutia <esteuwu@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786419136; l=19402;
- i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
- bh=fqyfs4yhNtpKPrC0p6KgL7zzm2LBsFexqBXocLgUHI8=;
- b=qUEUUqOfpYnFjWeeFdvFtD+F7Fg0ryvFGpxOZEmQxe+rtZGiftpVtEDm9iLmsP1QtD/G3xRF0
- KIrgXaUj6YvBX7/8QvUQTM8ymyxsYkwPF5J6nMGPOCaxE9pzw4JwbhV
-X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
- pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
-X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
- auth_id=835
-X-Original-From: Esteban Urrutia <esteuwu@proton.me>
-Reply-To: esteuwu@proton.me
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/15] interconnect: qcom: Add Kuno interconnect provider
+ driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-gpio@vger.kernel.org
+References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
+ <20260809-kuno-soc-support-v1-7-5e0ede4a0c72@oss.qualcomm.com>
+ <xmj3xhnvdixooy3l6wro5f7eeehlrlrq44y2mwojzzeb3yjdjf@e3eo2772qctz>
+Content-Language: en-US
+From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+In-Reply-To: <xmj3xhnvdixooy3l6wro5f7eeehlrlrq44y2mwojzzeb3yjdjf@e3eo2772qctz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDAyOSBTYWx0ZWRfX0sE7OLRpkH3k
+ Zd/6TZFgxIdAmPgVJlyl6vpSUbuWTJSzqHCln9Nhyhw2d3qauVcA+IFJP3kVunNsc21FifX9X1J
+ 92crC9bXc9t3JzQYYS+7t16KUFJYa8g=
+X-Proofpoint-GUID: HMIr2oZkQWl3vd1IwkO9rnudLJFBpaN2
+X-Proofpoint-ORIG-GUID: HMIr2oZkQWl3vd1IwkO9rnudLJFBpaN2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDAyOSBTYWx0ZWRfXzJ1nOGsqs0Yp
+ FqV9PvVrvTa1dZmtMuUfHoyeyMv49JjGAkHI7V+dgxxikrwhMgp4O+3jWmWYfnzcQ7FGWwNxAg/
+ smW0BuZTck2FIpcFUWDl30VPsq6Xr5IFesHJJwjoyr8KunjJks0J2TCdHj2RfkIX4X9Gtbpa83C
+ 5m+lmE7z7Mry3AWSJppand/bQNTV0GEjC8uhFdWNBb6jO6YNQoLshkMBFtrquaebyE8F3CIUSlB
+ Dmz5epPa2bDLub7QmBJu7DxhJnDyFL7Za8XooECP19zbd2VCwPL4pdSAtd4Aj9RZmN8uWGnRlrS
+ OC8z1nWdjveMShGTX50KpgGa0Mq7uoGnbPI26y27+psvLVIYP7Gxg/paST/JdhmTzDWoKloPGRq
+ XqKz2JxmSyVvTL/TgNJIPllbCDepPgV5JwnFMCDjb5fOlWZ8VTUEEWhgaaqCVQOMsIRC4OCLer6
+ b4QdeGZ4wvCU/2OtmCA==
+X-Authority-Analysis: v=2.4 cv=eJ4jSnp1 c=1 sm=1 tr=0 ts=6a7a9b46 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=58NiY7KAgNsMs7qA__gA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608110029
 
-From: Esteban Urrutia <esteuwu@proton.me>
 
-Add driver for the Parade PS5169, an USB Type-C redriver capable of
-handling 10Gb/s USB signals and 8.1Gb/s DP signals.
+On 8/11/2026 6:30 AM, Dmitry Baryshkov wrote:
+> On Sun, Aug 09, 2026 at 12:57:06PM +0530, Hardeep Sharma wrote:
+>> Add the interconnect provider driver for the Qualcomm Kuno SoC to
+>> enable bus bandwidth voting on the platform. This includes the
+>> aggre-noc and cnoc-main NoC instances with their associated BCM
+>> nodes.
+>>
+>> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+>> ---
+>>   drivers/interconnect/qcom/Kconfig  |  13 +
+>>   drivers/interconnect/qcom/Makefile |   2 +
+>>   drivers/interconnect/qcom/kuno.c   | 978 +++++++++++++++++++++++++++++++++++++
+>>   3 files changed, 993 insertions(+)
+> Please add QoS settings.
+>
+Thanks for review.
 
-Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
----
- MAINTAINERS                    |   7 +
- drivers/usb/typec/mux/Kconfig  |  10 +
- drivers/usb/typec/mux/Makefile |   1 +
- drivers/usb/typec/mux/ps5169.c | 592 +++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 610 insertions(+)
+Kuno's NoC QoS is provisioned by RPMh/boot firmware, the same as its 
+SDX75 baseline.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index da14a58df9e8..1b751a8ce0a8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28369,6 +28369,13 @@ F:	drivers/usb/typec/tcpm/tcpm.c
- F:	include/linux/usb/tcpci.h
- F:	include/linux/usb/tcpm.h
- 
-+USB TYPEC PS5169 MUX DRIVER
-+M:	Esteban Urrutia <esteuwu@proton.me>
-+L:	linux-usb@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/usb/parade,ps5169.yaml
-+F:	drivers/usb/typec/mux/ps5169.c
-+
- USB TYPEC TUSB1046 MUX DRIVER
- M:	Romain Gantois <romain.gantois@bootlin.com>
- L:	linux-usb@vger.kernel.org
-diff --git a/drivers/usb/typec/mux/Kconfig b/drivers/usb/typec/mux/Kconfig
-index 6dd8f961b593..2838a53ce564 100644
---- a/drivers/usb/typec/mux/Kconfig
-+++ b/drivers/usb/typec/mux/Kconfig
-@@ -56,6 +56,16 @@ config TYPEC_MUX_NB7VPQ904M
- 	  Say Y or M if your system has a On Semiconductor NB7VPQ904M Type-C
- 	  redriver chip found on some devices with a Type-C port.
- 
-+config TYPEC_MUX_PS5169
-+	tristate "Parade PS5169 Type-C redriver driver"
-+	depends on I2C
-+	depends on DRM || DRM=n
-+	select DRM_AUX_BRIDGE if DRM_BRIDGE && OF
-+	select REGMAP_I2C
-+	help
-+	  Say Y or M if your system has a Parade PS5169 Type-C redriver chip
-+	  found on some devices with a Type-C port.
-+
- config TYPEC_MUX_PS883X
- 	tristate "Parade PS883x Type-C retimer driver"
- 	depends on I2C
-diff --git a/drivers/usb/typec/mux/Makefile b/drivers/usb/typec/mux/Makefile
-index b4f599eb5053..c775bfa12068 100644
---- a/drivers/usb/typec/mux/Makefile
-+++ b/drivers/usb/typec/mux/Makefile
-@@ -6,6 +6,7 @@ obj-$(CONFIG_TYPEC_MUX_PI3USB30532)	+= pi3usb30532.o
- obj-$(CONFIG_TYPEC_MUX_INTEL_PMC)	+= intel_pmc_mux.o
- obj-$(CONFIG_TYPEC_MUX_IT5205)		+= it5205.o
- obj-$(CONFIG_TYPEC_MUX_NB7VPQ904M)	+= nb7vpq904m.o
-+obj-$(CONFIG_TYPEC_MUX_PS5169)		+= ps5169.o
- obj-$(CONFIG_TYPEC_MUX_PS883X)		+= ps883x.o
- obj-$(CONFIG_TYPEC_MUX_PTN36502)	+= ptn36502.o
- obj-$(CONFIG_TYPEC_MUX_TUSB1046)	+= tusb1046.o
-diff --git a/drivers/usb/typec/mux/ps5169.c b/drivers/usb/typec/mux/ps5169.c
-new file mode 100644
-index 000000000000..5fbc452249d0
---- /dev/null
-+++ b/drivers/usb/typec/mux/ps5169.c
-@@ -0,0 +1,592 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Driver for Parade PS5169 USB Type-C linear redriver
-+ * Registers and bits decoded from downstream drivers
-+ *
-+ * Copyright (c) 2026 Esteban Urrutia <esteuwu@proton.me>
-+ */
-+
-+#include <drm/bridge/aux-bridge.h>
-+
-+#include <linux/i2c.h>
-+#include <linux/regmap.h>
-+
-+#include <linux/usb/typec_altmode.h>
-+#include <linux/usb/typec_dp.h>
-+#include <linux/usb/typec_mux.h>
-+#include <linux/usb/typec_retimer.h>
-+
-+/* Useful constants */
-+#define PS5169_DP_EQ_REG_COUNT		2
-+#define PS5169_USB_RX_EQ_REG_COUNT	4
-+#define PS5169_USB_TX_EQ_REG_COUNT	3
-+
-+#define PS5169_DP_EQ_LEVEL_COUNT	8
-+#define PS5169_USB_RX_EQ_LEVEL_COUNT	8
-+#define PS5169_USB_TX_EQ_LEVEL_COUNT	8
-+
-+/* PS5169 registers */
-+#define PS5169_CONFIG_REG		0x40
-+#define PS5169_GAIN_REG			0x5c
-+#define PS5169_USB_RX1_LFPS_REG		0x8d
-+#define PS5169_USB_RX2_LFPS_REG		0x90
-+#define PS5169_AUX_RX_DATA_REG		0x9f
-+#define PS5169_AUX_MONITORING_REG	0xa0
-+#define PS5169_HPD_LEVEL_REG		0xa1
-+#define PS5169_CHIP_ID_REG		0xac
-+#define PS5169_CHIP_REVISION_REG	0xae
-+/* Chip revision is split in two registers */
-+#define PS5169_MAX_REG			(PS5169_CHIP_REVISION_REG + 1)
-+
-+/* PS5169 register bits */
-+#define PS5169_CONFIG_REVERSE_BIT	BIT(4)
-+#define PS5169_CONFIG_DP_EN_BIT		BIT(5)
-+#define PS5169_CONFIG_USB3_EN_BIT	BIT(6)
-+#define PS5169_CONFIG_BASE_BIT		BIT(7)
-+
-+#define PS5169_GAIN_DP_BIT		BIT(4)
-+#define PS5169_GAIN_USB_RX_BIT		BIT(2)
-+#define PS5169_GAIN_USB_TX_BIT		BIT(0)
-+
-+#define PS5169_USB_RX_LFPS_50_OHM_BIT	BIT(0)
-+
-+#define PS5169_AUX_RX_DATA_REVERSE_BIT	BIT(1)
-+
-+#define PS5169_AUX_MONITORING_BIT	BIT(1)
-+#define PS5169_HPD_LEVEL_BIT		BIT(2)
-+
-+/* PS5169 register values */
-+#define PS5169_CHIP_ID_VAL		0x6987
-+
-+struct ps5169_eq_db {
-+	const int major;
-+	const int minor;
-+};
-+
-+struct ps5169_eq_data {
-+	const char *propname;
-+	const struct ps5169_eq_db *db;
-+	const int nlevels;
-+};
-+
-+/* PS5169 EQ registers */
-+static const int ps5169_dp_eq_reg[PS5169_DP_EQ_REG_COUNT]		= {0x52, 0x5e};
-+static const int ps5169_usb_rx_eq_reg[PS5169_USB_RX_EQ_REG_COUNT]	= {0x51, 0x77, 0x54, 0x78};
-+static const int ps5169_usb_tx_eq_reg[PS5169_USB_TX_EQ_REG_COUNT]	= {0x50, 0x5d, 0x54};
-+
-+/* PS5169 EQ register masks */
-+static const int ps5169_dp_eq_mask[PS5169_DP_EQ_REG_COUNT]		= {0x70, 0x07};
-+static const int ps5169_usb_rx_eq_mask[PS5169_USB_RX_EQ_REG_COUNT]	= {0xf6, 0xf0, 0x0f, 0xe1};
-+static const int ps5169_usb_tx_eq_mask[PS5169_USB_TX_EQ_REG_COUNT]	= {0x70, 0x70, 0xf0};
-+
-+/* PS5169 EQ register values */
-+static const int ps5169_dp_eq_val[PS5169_DP_EQ_LEVEL_COUNT][PS5169_DP_EQ_REG_COUNT] = {
-+	{0x00, 0x04},
-+	{0x10, 0x05},
-+	{0x20, 0x06},
-+	{0x30, 0x06},
-+	{0x40, 0x06},
-+	{0x50, 0x07},
-+	{0x60, 0x07},
-+	{0x70, 0x07},
-+};
-+
-+static const int ps5169_usb_rx_eq_val[PS5169_USB_RX_EQ_LEVEL_COUNT][PS5169_USB_RX_EQ_REG_COUNT] = {
-+	{0x86, 0x00, 0x00, 0x20},
-+	{0x96, 0x00, 0x01, 0x20},
-+	{0xa6, 0x50, 0x01, 0x40},
-+	{0xb6, 0x50, 0x05, 0x40},
-+	{0xc6, 0xb0, 0x0c, 0x80},
-+	{0xd6, 0xf0, 0x05, 0x80},
-+	{0xe6, 0xf0, 0x0f, 0x80},
-+	{0xf6, 0x30, 0x0f, 0xa1},
-+};
-+
-+static const int ps5169_usb_tx_eq_val[PS5169_USB_TX_EQ_LEVEL_COUNT][PS5169_USB_TX_EQ_REG_COUNT] = {
-+	{0x00, 0x40, 0x00},
-+	{0x10, 0x50, 0x10},
-+	{0x20, 0x60, 0x10},
-+	{0x30, 0x60, 0x50},
-+	{0x40, 0x60, 0xc0},
-+	{0x50, 0x70, 0x50},
-+	{0x60, 0x70, 0xf0},
-+	{0x70, 0x70, 0xf0},
-+};
-+
-+/* PS5169 EQ decibels */
-+static const struct ps5169_eq_db ps5169_dp_eq_db[PS5169_DP_EQ_LEVEL_COUNT] = {
-+	{2,  0},
-+	{5,  5},
-+	{6,  5},
-+	{7,  5},
-+	{8,  0},
-+	{8,  5},
-+	{9,  5},
-+	{10, 0}, /* Supposedly */
-+};
-+
-+static const struct ps5169_eq_db ps5169_usb_rx_eq_db[PS5169_USB_RX_EQ_LEVEL_COUNT] = {
-+	{5,  2},
-+	{6,  0},
-+	{7,  0},
-+	{8,  0},
-+	{8,  8},
-+	{9,  6},
-+	{10, 4},
-+	{11, 2},
-+};
-+
-+static const struct ps5169_eq_db ps5169_usb_tx_eq_db[PS5169_USB_TX_EQ_LEVEL_COUNT] = {
-+	{2,  0},
-+	{5,  5},
-+	{6,  5},
-+	{7,  5},
-+	{8,  0},
-+	{8,  5},
-+	{9,  5},
-+	{10, 0}, /* Supposedly */
-+};
-+
-+/* PS5169 EQ data */
-+static const struct ps5169_eq_data ps5169_dp_eq_data = {
-+	.propname = "parade,dp-eq-db",
-+	.db = ps5169_dp_eq_db,
-+	.nlevels = PS5169_DP_EQ_LEVEL_COUNT,
-+};
-+
-+static const struct ps5169_eq_data ps5169_usb_rx_eq_data = {
-+	.propname = "parade,usb-rx-eq-db",
-+	.db = ps5169_usb_rx_eq_db,
-+	.nlevels = PS5169_USB_RX_EQ_LEVEL_COUNT,
-+};
-+
-+static const struct ps5169_eq_data ps5169_usb_tx_eq_data = {
-+	.propname = "parade,usb-tx-eq-db",
-+	.db = ps5169_usb_tx_eq_db,
-+	.nlevels = PS5169_USB_TX_EQ_LEVEL_COUNT,
-+};
-+
-+struct redriver {
-+	struct regulator *vcc;
-+	struct gpio_desc *reset_gpio;
-+
-+	struct regmap *regmap;
-+
-+	struct typec_switch *typec_switch;
-+	struct typec_mux *typec_mux;
-+
-+	struct typec_switch_dev *sw;
-+	struct typec_retimer *retimer;
-+
-+	unsigned long mode;
-+	enum typec_orientation orientation;
-+
-+	unsigned int dp_eq_level;
-+	unsigned int usb_rx_eq_level;
-+	unsigned int usb_tx_eq_level;
-+
-+	bool tune_lfps;
-+
-+	bool dp_set_gain;
-+	bool usb_rx_set_gain;
-+	bool usb_tx_set_gain;
-+
-+	struct mutex lock; /* protect non-concurrent retimer & switch */
-+
-+	unsigned int svid;
-+};
-+
-+static const struct regmap_config ps5169_regmap = {
-+	.max_register = PS5169_MAX_REG,
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	/* Accesses only done under ps5169->lock */
-+	.disable_locking = true,
-+};
-+
-+static void ps5169_write(struct redriver *ps5169, unsigned int reg, unsigned int val)
-+{
-+	regmap_write(ps5169->regmap, reg, val);
-+
-+	if (val & PS5169_CONFIG_DP_EN_BIT) {
-+		/* Clearing this bit will enable the AUX channel */
-+		regmap_clear_bits(ps5169->regmap, PS5169_AUX_MONITORING_REG,
-+				  PS5169_AUX_MONITORING_BIT);
-+		/* Setting this bit will set a high HPD level */
-+		regmap_set_bits(ps5169->regmap, PS5169_HPD_LEVEL_REG, PS5169_HPD_LEVEL_BIT);
-+	} else {
-+		/* Setting this bit will disable the AUX channel */
-+		regmap_set_bits(ps5169->regmap, PS5169_AUX_MONITORING_REG,
-+				PS5169_AUX_MONITORING_BIT);
-+		/* Clearing this bit will set a low HPD level */
-+		regmap_clear_bits(ps5169->regmap, PS5169_HPD_LEVEL_REG, PS5169_HPD_LEVEL_BIT);
-+	}
-+
-+	if (ps5169->tune_lfps) {
-+		if (val & PS5169_CONFIG_USB3_EN_BIT) {
-+			/* Setting these bits will enable a 50 ohm termination on USB RX */
-+			regmap_set_bits(ps5169->regmap, PS5169_USB_RX1_LFPS_REG,
-+					PS5169_USB_RX_LFPS_50_OHM_BIT);
-+			regmap_set_bits(ps5169->regmap, PS5169_USB_RX2_LFPS_REG,
-+					PS5169_USB_RX_LFPS_50_OHM_BIT);
-+		} else {
-+			/* Clearing these bits will disable a 50 ohm termination on USB RX */
-+			regmap_clear_bits(ps5169->regmap, PS5169_USB_RX1_LFPS_REG,
-+					  PS5169_USB_RX_LFPS_50_OHM_BIT);
-+			regmap_clear_bits(ps5169->regmap, PS5169_USB_RX2_LFPS_REG,
-+					  PS5169_USB_RX_LFPS_50_OHM_BIT);
-+		}
-+	}
-+}
-+
-+static int ps5169_set(struct redriver *ps5169)
-+{
-+	bool reverse = (ps5169->orientation == TYPEC_ORIENTATION_REVERSE);
-+	unsigned int val = PS5169_CONFIG_BASE_BIT;
-+
-+	switch (ps5169->mode) {
-+	case TYPEC_STATE_SAFE:
-+		ps5169_write(ps5169, PS5169_CONFIG_REG, val);
-+
-+		return 0;
-+
-+	case TYPEC_STATE_USB:
-+		val |= PS5169_CONFIG_USB3_EN_BIT;
-+		if (reverse)
-+			val |= PS5169_CONFIG_REVERSE_BIT;
-+		ps5169_write(ps5169, PS5169_CONFIG_REG, val);
-+
-+		return 0;
-+
-+	default:
-+		if (ps5169->svid != USB_TYPEC_DP_SID)
-+			return -EINVAL;
-+
-+		break;
-+	}
-+
-+	switch (ps5169->mode) {
-+	case TYPEC_DP_STATE_C:
-+	case TYPEC_DP_STATE_E:
-+		val |= PS5169_CONFIG_DP_EN_BIT;
-+		if (reverse)
-+			val |= PS5169_CONFIG_REVERSE_BIT;
-+		ps5169_write(ps5169, PS5169_CONFIG_REG, val);
-+
-+		break;
-+
-+	case TYPEC_DP_STATE_D:
-+		val |= PS5169_CONFIG_DP_EN_BIT | PS5169_CONFIG_USB3_EN_BIT;
-+		if (reverse)
-+			val |= PS5169_CONFIG_REVERSE_BIT;
-+		ps5169_write(ps5169, PS5169_CONFIG_REG, val);
-+
-+		break;
-+
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ps5169_switch_set(struct typec_switch_dev *sw, enum typec_orientation orientation)
-+{
-+	struct redriver *ps5169 = typec_switch_get_drvdata(sw);
-+	int ret;
-+
-+	ret = typec_switch_set(ps5169->typec_switch, orientation);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&ps5169->lock);
-+
-+	if (ps5169->orientation != orientation) {
-+		ps5169->orientation = orientation;
-+
-+		ret = ps5169_set(ps5169);
-+	}
-+
-+	mutex_unlock(&ps5169->lock);
-+
-+	return ret;
-+}
-+
-+static int ps5169_retimer_set(struct typec_retimer *retimer, struct typec_retimer_state *state)
-+{
-+	struct redriver *ps5169 = typec_retimer_get_drvdata(retimer);
-+	struct typec_mux_state mux_state;
-+	int ret = 0;
-+
-+	mutex_lock(&ps5169->lock);
-+
-+	if (ps5169->mode != state->mode) {
-+		ps5169->mode = state->mode;
-+
-+		if (state->alt)
-+			ps5169->svid = state->alt->svid;
-+		else
-+			ps5169->svid = 0; // No SVID
-+
-+		ret = ps5169_set(ps5169);
-+	}
-+
-+	mutex_unlock(&ps5169->lock);
-+
-+	if (ret)
-+		return ret;
-+
-+	mux_state.alt = state->alt;
-+	mux_state.data = state->data;
-+	mux_state.mode = state->mode;
-+
-+	return typec_mux_set(ps5169->typec_mux, &mux_state);
-+}
-+
-+static int ps5169_eq_from_dt(const struct device *dev, const struct ps5169_eq_data *data,
-+			     unsigned int *val)
-+{
-+	int ret;
-+	u32 db[2];
-+	unsigned int i;
-+
-+	if (device_property_present(dev, data->propname)) {
-+		/* Read property */
-+		ret = device_property_read_u32_array(dev, data->propname, db, ARRAY_SIZE(db));
-+		if (ret) {
-+			dev_err(dev, "Failed to read %s\n", data->propname);
-+			return ret;
-+		}
-+
-+		/* Map to level */
-+		for (i = 0; i < data->nlevels; i++) {
-+			if (db[0] == data->db[i].major && db[1] == data->db[i].minor) {
-+				*val = i;
-+				return 0;
-+			}
-+		}
-+
-+		/* Invalid dB in property */
-+		dev_err(dev, "%s out of range\n", data->propname);
-+		return -EINVAL;
-+	}
-+
-+	/* A redriver is present for a reason, so raise a warning if property is not present */
-+	dev_warn(dev, "Missing %s property\n", data->propname);
-+	*val = U32_MAX;
-+	return 0;
-+}
-+
-+static void ps5169_init(struct redriver *ps5169)
-+{
-+	int i;
-+
-+	/* DP equalization */
-+	if (ps5169->dp_eq_level != U32_MAX)
-+		for (i = 0; i < PS5169_DP_EQ_REG_COUNT; i++)
-+			regmap_update_bits(ps5169->regmap, ps5169_dp_eq_reg[i],
-+					   ps5169_dp_eq_mask[i],
-+					   ps5169_dp_eq_val[ps5169->dp_eq_level][i]);
-+
-+	/* USB RX equalization */
-+	if (ps5169->usb_rx_eq_level != U32_MAX)
-+		for (i = 0; i < PS5169_USB_RX_EQ_REG_COUNT; i++)
-+			regmap_update_bits(ps5169->regmap, ps5169_usb_rx_eq_reg[i],
-+					   ps5169_usb_rx_eq_mask[i],
-+					   ps5169_usb_rx_eq_val[ps5169->usb_rx_eq_level][i]);
-+
-+	/* USB TX equalization */
-+	if (ps5169->usb_tx_eq_level != U32_MAX)
-+		for (i = 0; i < PS5169_USB_TX_EQ_REG_COUNT; i++)
-+			regmap_update_bits(ps5169->regmap, ps5169_usb_tx_eq_reg[i],
-+					   ps5169_usb_tx_eq_mask[i],
-+					   ps5169_usb_tx_eq_val[ps5169->usb_tx_eq_level][i]);
-+
-+	/* If these bits are assigned a -0.9 dB gain will be set on the corresponding channels */
-+	regmap_assign_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_DP_BIT,
-+			   ps5169->dp_set_gain);
-+	regmap_assign_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_USB_RX_BIT,
-+			   ps5169->usb_rx_set_gain);
-+	regmap_assign_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_USB_TX_BIT,
-+			   ps5169->usb_tx_set_gain);
-+}
-+
-+static int ps5169_probe(struct i2c_client *client)
-+{
-+	struct redriver *ps5169;
-+	struct device *dev = &client->dev;
-+	int ret;
-+	__le16 chip_id, chip_revision;
-+	struct typec_switch_desc switch_desc = { };
-+	struct typec_retimer_desc retimer_desc = { };
-+
-+	ps5169 = devm_kzalloc(dev, sizeof(*ps5169), GFP_KERNEL);
-+	if (!ps5169)
-+		return -ENOMEM;
-+
-+	mutex_init(&ps5169->lock);
-+
-+	ps5169->vcc = devm_regulator_get(dev, "vcc");
-+	if (IS_ERR(ps5169->vcc))
-+		return dev_err_probe(dev, PTR_ERR(ps5169->vcc), "Failed to get vcc-supply\n");
-+
-+	ps5169->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ps5169->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ps5169->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ps5169->regmap = devm_regmap_init_i2c(client, &ps5169_regmap);
-+	if (IS_ERR(ps5169->regmap))
-+		return dev_err_probe(dev, PTR_ERR(ps5169->regmap), "Failed to initialize regmap\n");
-+
-+	ps5169->typec_switch = typec_switch_get(dev);
-+	if (IS_ERR(ps5169->typec_switch))
-+		return dev_err_probe(dev, PTR_ERR(ps5169->typec_switch),
-+				     "Failed to get orientation-switch\n");
-+
-+	ps5169->typec_mux = typec_mux_get(dev);
-+	if (IS_ERR(ps5169->typec_mux)) {
-+		ret = dev_err_probe(dev, PTR_ERR(ps5169->typec_mux), "Failed to get mode-switch\n");
-+		goto switch_put;
-+	}
-+
-+	ret = regulator_enable(ps5169->vcc);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable vcc-supply\n");
-+		goto mux_put;
-+	}
-+
-+	/* Reset the retimer */
-+	gpiod_set_value(ps5169->reset_gpio, 1);
-+	usleep_range(1000, 1500);
-+	gpiod_set_value(ps5169->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+
-+	ret = regmap_raw_read(ps5169->regmap, PS5169_CHIP_ID_REG, &chip_id, sizeof(chip_id));
-+	if (ret) {
-+		dev_err(dev, "Failed to read chip ID\n");
-+		goto vcc_disable;
-+	}
-+
-+	/* Compare chip IDs */
-+	if (chip_id != PS5169_CHIP_ID_VAL) {
-+		dev_err(dev, "Unexpected chip ID 0x%04x\n", chip_id);
-+		ret = -EINVAL;
-+		goto vcc_disable;
-+	}
-+
-+	/* Read chip revision */
-+	ret = regmap_raw_read(ps5169->regmap, PS5169_CHIP_REVISION_REG, &chip_revision,
-+			      sizeof(chip_revision));
-+	if (ret) {
-+		dev_err(dev, "Failed to read chip revision\n");
-+		goto vcc_disable;
-+	}
-+	dev_dbg(dev, "Found PS5169 with chip revision 0x%04x\n", chip_revision);
-+
-+	/* DP equalization */
-+	ret = ps5169_eq_from_dt(dev, &ps5169_dp_eq_data, &(ps5169->dp_eq_level));
-+	if (ret)
-+		goto vcc_disable;
-+
-+	/* USB RX equalization */
-+	ret = ps5169_eq_from_dt(dev, &ps5169_usb_rx_eq_data, &(ps5169->usb_rx_eq_level));
-+	if (ret)
-+		goto vcc_disable;
-+
-+	/* USB TX equalization */
-+	ret = ps5169_eq_from_dt(dev, &ps5169_usb_tx_eq_data, &(ps5169->usb_tx_eq_level));
-+	if (ret)
-+		goto vcc_disable;
-+
-+	/* Read properties from DT */
-+	ps5169->tune_lfps = device_property_read_bool(dev, "parade,fine-tune-lfps-swing");
-+
-+	ps5169->dp_set_gain = device_property_read_bool(dev, "parade,dp-set-gain");
-+	ps5169->usb_rx_set_gain = device_property_read_bool(dev, "parade,usb-rx-set-gain");
-+	ps5169->usb_tx_set_gain = device_property_read_bool(dev, "parade,usb-tx-set-gain");
-+
-+	ret = drm_aux_bridge_register(dev);
-+	if (ret) {
-+		dev_err(dev, "Failed to register aux_bridge\n");
-+		goto vcc_disable;
-+	}
-+
-+	ps5169->mode = TYPEC_STATE_SAFE;
-+	ps5169->orientation = TYPEC_ORIENTATION_NONE;
-+
-+	/* orientation-switch */
-+	switch_desc.drvdata = ps5169;
-+	switch_desc.fwnode = dev_fwnode(dev);
-+	switch_desc.set = ps5169_switch_set;
-+
-+	ps5169->sw = typec_switch_register(dev, &switch_desc);
-+	if (IS_ERR(ps5169->sw)) {
-+		ret = dev_err_probe(dev, PTR_ERR(ps5169->sw), "Failed to register switch\n");
-+		goto vcc_disable;
-+	}
-+
-+	/* retimer-switch */
-+	retimer_desc.drvdata = ps5169;
-+	retimer_desc.fwnode = dev_fwnode(dev);
-+	retimer_desc.set = ps5169_retimer_set;
-+
-+	ps5169->retimer = typec_retimer_register(dev, &retimer_desc);
-+	if (IS_ERR(ps5169->retimer)) {
-+		ret = dev_err_probe(dev, PTR_ERR(ps5169->retimer), "Failed to register retimer\n");
-+		goto switch_unregister;
-+	}
-+
-+	ps5169_init(ps5169);
-+
-+	i2c_set_clientdata(client, ps5169);
-+
-+	return 0;
-+
-+switch_unregister:
-+	typec_switch_unregister(ps5169->sw);
-+
-+vcc_disable:
-+	regulator_disable(ps5169->vcc);
-+
-+mux_put:
-+	typec_mux_put(ps5169->typec_mux);
-+switch_put:
-+	typec_switch_put(ps5169->typec_switch);
-+
-+	return ret;
-+}
-+
-+static void ps5169_remove(struct i2c_client *client)
-+{
-+	struct redriver *ps5169 = i2c_get_clientdata(client);
-+
-+	typec_retimer_unregister(ps5169->retimer);
-+	typec_switch_unregister(ps5169->sw);
-+
-+	regulator_disable(ps5169->vcc);
-+
-+	typec_mux_put(ps5169->typec_mux);
-+	typec_switch_put(ps5169->typec_switch);
-+}
-+
-+static const struct of_device_id ps5169_of_match_table[] = {
-+	{ .compatible = "parade,ps5169" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, ps5169_of_match_table);
-+
-+static struct i2c_driver ps5169_driver = {
-+	.driver = {
-+		.name = "ps5169",
-+		.of_match_table = ps5169_of_match_table,
-+	},
-+	.probe = ps5169_probe,
-+	.remove = ps5169_remove,
-+};
-+
-+module_i2c_driver(ps5169_driver);
-+
-+MODULE_AUTHOR("Esteban Urrutia <esteuwu@proton.me>");
-+MODULE_DESCRIPTION("Driver for Parade PS5169 USB Type-C linear redriver");
-+MODULE_LICENSE("GPL");
+The upstream sdx75 interconnect driver programs no AP-side QoS and only 
+issues BCM bandwidth votes; Kuno follows that precedent.
 
--- 
-2.55.0
-
+Hence no qcom_icc_qosbox settings and no QoS clocks in the binding — 
+matching qcom,sdx75-*.
 
