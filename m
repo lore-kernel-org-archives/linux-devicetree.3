@@ -1,392 +1,213 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6210B3B71B6;
-	Tue, 11 Aug 2026 12:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118F743E09C
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786450354; cv=none; b=CitaamXw5PWldBIMGbt/Og9Saqs+GQuwc2MY6aLds88rfJQfw8rBkBk6JQRGC04QK+vsaxksKwtDPTStW1MzaRPOEigEWAkS9rYLUSHQEtOCNxUWTyUxLAFGiA6J/nXNmFPRMcpn/eHiPhmjBnm2vKV0oXP+4wuRuyMaXnpyV38=
+	t=1786450389; cv=none; b=fQaTKENSQs7jWhPM6TGk0P/+9dmu4Olkz5fWWpCH1d1X+RmBGoMReZzTea2GUDJ2hndVbaNe3roxINhCnexH/HuKnJhnExcDex/mbBadGvj9Q+agdKeI5pYih7b25sAd+iyhTjE2yAOR6sRm14VPzgp4MTvLv6EVCTTqxlGT2+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786450354; c=relaxed/simple;
-	bh=tyOQnh6HNq7BJRa5+a1xiS9D9TyMohyrBtAzdVrIKfc=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CyN+3XXOvcro2PKCBOoYmZ23ec9XCw1wwR3SrJKiezOhrNfhzqqXttSXnhtNAH6feW5iPu9SENhLSLes2ETQQe5/mmfyDXFW3hL0kQlwLLH3bMm532OiXuG/ZiphGgNz2VBTOl43Ewn05YRB8hrPgDoCHC/S1W8J1P/DH29Nyjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=n/1ylvhJ; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1786450389; c=relaxed/simple;
+	bh=EB8Tf3Jr+nfU1duy+Fw5XFO+MAHIiX6blqKSfX9HO+o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XgobyUGpibxflgIEFYi1jrWhsHc/9dvl8iouTCnXGWTtjXPgUPg6OQ9ISuj64cbb/g+fwbBt0HFi+KylSlQ9qaK1aHh//TvRA6SP2z0UGR2q2kDPejpk/tnoeDFTLT9uxRNIRLkRf7HFDisDEUJs5kRNa1JT4iddqR5d/dmXJ7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gevbjqn+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X322UzQy; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="n/1ylvhJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1786450352; x=1817986352;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=tyOQnh6HNq7BJRa5+a1xiS9D9TyMohyrBtAzdVrIKfc=;
-  b=n/1ylvhJz3j15BE7GIzfshc1UiMQV/zoFvLrRzQHZrcQvdq3uQ5QNqlf
-   53jAekedQ11KoUvxo2opOIIIV9qpVNXwrb5cW3WG88m2czlE0/0Ebwqw3
-   HlXxm+PyqG7ew21iSicZwZMRGP6B1ogEOd2ve1eQnHAxflDHZUU+O0uhI
-   vwbYWJ6XvX/1/X03jrfjShzFgU4PniM/gLkKHbiHJSfDH0/tCTLgmr/ka
-   q4Gq4TlujeMzoh8Hf3jxXULK7/+11wLSDnNVrCq6JUHArkVmYGRM0Aunp
-   asM4wJOG22mNs/nicmD789+27soAnXu8viBzyPuT02bK+4lBz1sM00gC2
-   w==;
-X-CSE-ConnectionGUID: P/BqmPhsRHGdwtOClGaXKw==
-X-CSE-MsgGUID: 5Rh+N3caSmKsmTt1kxtdLg==
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
-   d="scan'208";a="61069239"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 11 Aug 2026 05:12:25 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 11 Aug 2026 05:12:25 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 11 Aug 2026 05:12:22 -0700
-Message-ID: <836f11544ec1a6c1b86d8264ca706078d5457726.camel@microchip.com>
-Subject: Re: [PATCH net-next v11 6/9] net: dsa: lan9645x: add vlan support
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Paolo Abeni <pabeni@redhat.com>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-Date: Tue, 11 Aug 2026 14:12:21 +0200
-In-Reply-To: <20260811103306.150761-1-pabeni@redhat.com>
-References: <20260805-dsa_lan9645x_switch_driver_base-v11-6-007ebc983a0a@microchip.com>
-	 <20260811103306.150761-1-pabeni@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gevbjqn+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X322UzQy"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BAM8uY027420
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:13:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MjVh2mbe4zgDgd6xVbPkoaDHlBtF5BuwqqfNQH98Y5w=; b=Gevbjqn+wj1EQAg5
+	zrHVP8kPHousOtfDqM7orDiCn04Xf60+uEf1P4iD70OeuuHLf7/7VaJ2m6DfxfSZ
+	gciPAsvMwGAMdel/vq5V71+uITa1+J/SiwAujpdWV145sReoSsYuQvHXlc3W2fzT
+	G+q7jTj9mJv+7ncsDJeViNJE1S3BktKdIfCTPGbjOcwUzIpSWYEAQkoRQtnwlFyG
+	GH3fN/G3QpS+NTsnDls8zGvJDfEQHEs9ICH0KcMWiCDn7q4Mm2hjmaYxCz0+SohF
+	ipobQIZ+M9WaOaZe3PwB5pPp9l52Wce0+Txjrd0ijWuW7teFwA4/9zLnOlkr94UN
+	Ggccqw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyjjsm2c4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:13:07 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso2977473a91.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 05:13:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786450386; x=1787055186; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MjVh2mbe4zgDgd6xVbPkoaDHlBtF5BuwqqfNQH98Y5w=;
+        b=X322UzQyW/wx/UgO4ngeG4E8mY8uvMwMdsH7TV2a4/JP2J72I/QZ86udxdogEHWbNF
+         tJYGDhDRLI8IYJoKXR3/Mh5d12iWvm0f7etMeVV30FiZ+Vc4ddd4NcfMBxTtDwKQe60M
+         N8J52YxpJGt+HHauPlIi/ub6FFHX4w6KYFxss2lEX85yfLvIOwo/WVYd61Uw4jlr6hDm
+         YdlKZOVQBOj50RAdarx1IPrp/wEAQVPfgUGCZ5rSbdxyQMuWOH5XN4F21ur/5qf0WF/s
+         I+hsWFQcblIG6HuZP9SKKsBGMzXV3LUTzrpwHnMDZ/wkv296M5kMSWJUGM4CMHoyRIN/
+         kx7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786450386; x=1787055186;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MjVh2mbe4zgDgd6xVbPkoaDHlBtF5BuwqqfNQH98Y5w=;
+        b=ryTIzubcvIDYYzANGngy8SBrPN1ZYq4PeLh/XQp1IfFz7WxJB4aa2+LyIblnh39DY9
+         XeZCtn3I1M2STYdPe1H4yFPWGFxIEOVe32rNyIKSh+Gq11OCE0/3gIyMy0eLnHdOC1Cc
+         YLxR06jl8zQnWDJ5qFymy/cWZU0t9WhLKCP1ItkVnc8zqNNEtlJgleXjWSbCgm+8ZxwM
+         ZtdOSp7bgL4jKkHx96ljvpm58cVw+RWNpCauoJWlY6PeCWMtHWMoZSLc4RTir0dgGO2f
+         oF940d9kJwX88xdt2gnwzSKYNsuzlLIxAXWxt98bTFk6704cXRLHpc6uIl6YsUnVr5hf
+         UluQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3Mff0foyOD6tNODMBvQZke1IiOc3sFmQ+eEtBKM1WGot+8wznV1YmyXc2kRQ0h59tGofEIpmGFaP+@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJXxO3/k4KuooGi0jdWVkGSxkVtnqUn8UG25GdcWoAXzh8JoYD
+	e2tBNtMtfRffFWHLPLeykIGpw82MLadr7lQ4pAkJ43HBEzuKfNK4j3WsDqKHozKsEodbVo/doCT
+	Qed/A0J4D8hkMcnxw+uU6j309QlTU6zWIRozXKUKhQdsaEvKcOEKPPqyfVaO7ODJb
+X-Gm-Gg: AR+sD11hqtNavj4Tq19LWrZVWXKT64GEwIEJdi5ChCUoMy20ygwKNYwEF3DNB8tSkHr
+	/OenKv0ItAek47Ap0R+F/2uKH4v4UKwD56X6oK+VZaSkFkNfj2B8rLIcVrAlltotG/8OhRCMR/X
+	NzxEcZxYd15L5zd3txP1I4pFRUyykILlQGBQ9BqNVfHzwoW/DJIbv/fOTJ38qmu92qm5yhO5ILT
+	htMvrICyyWE48jJBe8qxpriFWD/jv3UH3m45uKBAX3mm3w/8WSNtCQKP23rgwz4jCrK8nPw0iJq
+	hwXodaifN8MFprhO+jadQyIgbJBuvhXjMn76d+G7BSuvpnGiWKL7jx2V/sE2dfiihTZZk/zaHNA
+	/gkqjQqGa3ZMxzQF961hti105pkh09zRWZKOydWMNTRJhxTq//NZokrbTX5YYiGrJnTIAl383HD
+	0OqoIxinBREHj6EIZP
+X-Received: by 2002:a17:90b:1b41:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-392ec617522mr2761264a91.14.1786450386293;
+        Tue, 11 Aug 2026 05:13:06 -0700 (PDT)
+X-Received: by 2002:a17:90b:1b41:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-392ec617522mr2761202a91.14.1786450385744;
+        Tue, 11 Aug 2026 05:13:05 -0700 (PDT)
+Received: from [10.149.77.68] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-392ee3084e9sm2004208a91.7.2026.08.11.05.13.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Aug 2026 05:13:05 -0700 (PDT)
+Message-ID: <37d1d448-13a7-4bc5-bf25-d94c985e190e@oss.qualcomm.com>
+Date: Tue, 11 Aug 2026 17:42:59 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V4 0/4] arm64: dts: qcom: Add SD card support for Glymur
+To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Sachin Rathore <sachin.rathore@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260722142342.990384-1-mchunara@oss.qualcomm.com>
+Content-Language: en-US
+From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+In-Reply-To: <20260722142342.990384-1-mchunara@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDEwMSBTYWx0ZWRfX+6OYs9Pw2FIy
+ 8XRz67LKTm9BFXhJhu7zZjmYJxAP7DGeN54j4P7MdoN4ERrWsyMdOglMZDE5SZb+HWtteAQIRnV
+ Z0+U98m7N/qceTy9+UR0cPtsCtgZ79E=
+X-Proofpoint-GUID: 7Mjlpx-wvpFbNaTUsZTkV-cw7TjlMh2w
+X-Proofpoint-ORIG-GUID: 7Mjlpx-wvpFbNaTUsZTkV-cw7TjlMh2w
+X-Authority-Analysis: v=2.4 cv=cfDiaHDM c=1 sm=1 tr=0 ts=6a7b11d3 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=CNsRCP18bEq5JKE3620A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDEwMSBTYWx0ZWRfX8RIJT2J+lr9Z
+ O7Fhq561AB9lDdERqBXDGMhE5eIzjtD0dkpmGLbwKeRkzj/rsleQ2D7VulwWjvFeEZOxNZiK02J
+ ff3hFotxWRTwm78QwQylBesXN1Q62Q4k+Vn550f9nCm8CxILRbTvJ9NRP2ysc0PbGCvmLDSIv93
+ b7kNoKbp8stB8jznu4PrfW+sRb/ollIi7B8NQCiiWXMvVdW3n0AHNS9KEioWoc+LeFBY1lo3j5H
+ LmYvUui+TCEktbgEZtb0RNlgOU6NJaqTCSxge8mET9uuGbF5g4savtAcZjVkTF+K1Kx4afoNTis
+ 6UpVFkhk8h8Yr1px5Ax1twOCVP1FB7HqgfhAvr6xX8KJ44EyKYOmWdni98Oa55IJlPEez82dnxa
+ hiimrr2c/kQ0NBaRX824eZp4cwlbvb+kltrXX433ITiiHbbzDN/PLqjqLFoAuvLZhoKJ00wi0Q0
+ yuHfC3e9dm0f1p5eN7Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-11_01,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 phishscore=0 impostorscore=0 clxscore=1015
+ bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110101
 
-On Tue, 2026-08-11 at 12:32 +0200, Paolo Abeni wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/
-> ---
-> --- Patch [6]: [PATCH net-next v11 6/9] net: dsa: lan9645x: add vlan supp=
-ort ---
-> commit 48ea20348797be1134c296e1f56d305fbc50bbe3
-> Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@micro=
-chip.com>
->=20
-> net: dsa: lan9645x: add vlan support
->=20
-> This adds a new lan9645x_vlan.c implementing port_vlan_filtering,
-> port_vlan_add and port_vlan_del, backed by a software shadow of the
-> hardware VLAN table in lan9645x->vlans[]. VID 4095 is reserved as the
-> port VLAN of standalone ports and VID 0 is used for VLAN-unaware bridge
-> ports.
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > index c145d28ffbb99..3281726284dc2 100644
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
->=20
-> [ ... ]
->=20
-> > @@ -521,6 +524,7 @@ static int lan9645x_port_bridge_join(struct dsa_swi=
-tch *ds, int port,
-> >=20
-> >       lan9645x->bridge_mask |=3D BIT(p->chip_port);
-> >       __lan9645x_port_set_host_flood(lan9645x);
-> > +     lan9645x_vlan_clear_hostmode(p);
-> >=20
-> >       mutex_unlock(&lan9645x->fwd_domain_lock);
-> >=20
->=20
-> [ ... ]
->=20
-> > @@ -576,11 +580,52 @@ static void lan9645x_port_bridge_leave(struct dsa=
-_switch *ds, int port,
-> > +static int lan9645x_port_vlan_add(struct dsa_switch *ds, int port,
-> > +                               const struct switchdev_obj_port_vlan *v=
-lan,
-> > +                               struct netlink_ext_ack *extack)
-> > +{
-> > +     struct lan9645x *lan9645x =3D ds->priv;
-> > +     struct lan9645x_port *p;
-> > +     bool pvid, untagged;
-> > +
-> > +     p =3D lan9645x_to_port(lan9645x, port);
-> > +     pvid =3D !!(vlan->flags & BRIDGE_VLAN_INFO_PVID);
-> > +     untagged =3D !!(vlan->flags & BRIDGE_VLAN_INFO_UNTAGGED);
-> > +
-> > +     return lan9645x_vlan_port_add_vlan(p, vlan->vid, pvid, untagged,
-> > +                                        extack);
-> > +}
->=20
-> [ ... ]
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_main.h
-> > index a0cd1707e1149..248c4ab59f1a8 100644
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
->=20
-> [ ... ]
->=20
-> > @@ -156,6 +157,17 @@ enum lan9645x_vlan_port_tag {
-> >       LAN9645X_TAG_ALL =3D 3,
-> >  };
-> >=20
-> > +struct lan9645x_vlan {
-> > +     u32 portmask: 10, /* ports 0-8 + CPU port module */
-> > +         untagged: 9, /* ports 0-8 */
-> > +         src_chk: 1,
-> > +         mir: 1,
-> > +         lrn_dis: 1,
-> > +         prv_vlan: 1,
-> > +         fld_dis: 1,
-> > +         s_fwd_ena: 1;
-> > +};
-> > +
->=20
-> [ ... ]
->=20
-> > @@ -180,6 +192,9 @@ struct lan9645x {
-> >       u16 bridge_fwd_mask; /* Mask for forwarding bridged ports */
-> >       struct mutex fwd_domain_lock; /* lock forwarding configuration */
-> >=20
-> > +     /* VLAN entries */
-> > +     struct lan9645x_vlan vlans[VLAN_N_VID];
-> > +
-> >       int num_port_dis;
-> >  };
->=20
-> [ ... ]
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_port.c
-> > index 0642b59419c25..0548904dc4bd2 100644
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-> > @@ -210,5 +210,8 @@ int lan9645x_port_setup(struct dsa_switch *ds, int =
-port)
-> >               ANA_PORT_CFG_PORTID_VAL,
-> >               lan9645x, ANA_PORT_CFG(p->chip_port));
-> >=20
-> > +     if (p->chip_port !=3D lan9645x->npi)
-> > +             lan9645x_vlan_set_hostmode(p);
-> > +
-> >       return 0;
-> >  }
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_vlan.c
-> > new file mode 100644
-> > index 0000000000000..e2116132b4d48
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
->=20
-> [ ... ]
->=20
-> > +static int lan9645x_vlan_hw_wr(struct lan9645x *lan9645x, u16 vid)
-> > +{
-> > +     struct lan9645x_vlan *v =3D &lan9645x->vlans[vid];
-> > +     bool cpu_dis =3D !(v->portmask & BIT(lan9645x->num_phys_ports));
-> > +     u32 val;
-> > +     int err;
-> > +
-> > +     val =3D ANA_VLANTIDX_VLAN_PGID_CPU_DIS_SET(cpu_dis) |
-> > +           ANA_VLANTIDX_V_INDEX_SET(vid) |
-> > +           ANA_VLANTIDX_VLAN_SEC_FWD_ENA_SET(v->s_fwd_ena) |
-> > +           ANA_VLANTIDX_VLAN_FLOOD_DIS_SET(v->fld_dis) |
-> > +           ANA_VLANTIDX_VLAN_PRIV_VLAN_SET(v->prv_vlan) |
-> > +           ANA_VLANTIDX_VLAN_LEARN_DISABLED_SET(v->lrn_dis) |
-> > +           ANA_VLANTIDX_VLAN_MIRROR_SET(v->mir) |
-> > +           ANA_VLANTIDX_VLAN_SRC_CHK_SET(v->src_chk);
-> > +
-> > +     lan_wr(val, lan9645x, ANA_VLANTIDX);
-> > +     lan_wr(ANA_VLAN_PORT_MASK_VLAN_PORT_MASK_SET(v->portmask),
-> > +            lan9645x, ANA_VLAN_PORT_MASK);
-> > +     lan_wr(ANA_VLANACCESS_VLAN_TBL_CMD_SET(VLANACCESS_CMD_WRITE),
-> > +            lan9645x, ANA_VLANACCESS);
->=20
-> [Severity: High]
-> [Finding: main-5-5]
-> [Sources: opus-5]
-> Should this three-register indirect transaction be serialized by a lock?
->=20
-> The MAC table engine in this driver is protected by mact_lock:
->=20
->         struct mutex mact_lock; /* serialize mac table register access */
->=20
-> but the VLAN table access engine has no equivalent, and there is no
-> lockdep_assert_held() here.
->=20
-> lan9645x_vlan_set_hostmode() is now called from .port_setup:
->=20
-> lan9645x_port_setup()
->     if (p->chip_port !=3D lan9645x->npi)
->         lan9645x_vlan_set_hostmode(p)
->             lan9645x_vlan_hw_wr(p->lan9645x, HOST_PVID)
->=20
-> and .port_setup runs from the DSA probe path without rtnl_lock and
-> without fwd_domain_lock:
->=20
-> net/dsa/devlink.c:dsa_port_devlink_setup() {
->         if (ds->ops->port_setup) {
->                 err =3D ds->ops->port_setup(ds, dp->index);
->         ...
-> }
->=20
-> dsa_port_devlink_setup() runs at the start of dsa_port_setup(), before
-> dsa_user_create() registers this port's netdev, while the netdevs of the
-> ports already processed are live. So while swp1..swpN are still going
-> through lan9645x_port_setup(), userspace can enslave swp0:
->=20
-> CPU0 (probe, no locks held)          CPU1 (rtnl, bridge join / vlan add)
-> lan9645x_vlan_set_hostmode()         lan9645x_port_vlan_add()
->   lan9645x_vlan_hw_wr(.., 4095)        lan9645x_vlan_port_add_vlan()
->                                          lan9645x_vlan_hw_wr(.., 100)
->=20
-> Can the two transactions interleave like this?
->=20
-> CPU1: lan_wr(V_INDEX=3D100,   ANA_VLANTIDX)
-> CPU0: lan_wr(V_INDEX=3D4095,  ANA_VLANTIDX)
-> CPU0: lan_wr(mask(4095),    ANA_VLAN_PORT_MASK)
-> CPU0: lan_wr(CMD_WRITE,     ANA_VLANACCESS)
-> CPU1: lan_wr(mask(100),     ANA_VLAN_PORT_MASK)
-> CPU1: lan_wr(CMD_WRITE,     ANA_VLANACCESS)
->=20
-> That would commit mask(100) into the HOST_PVID (4095) entry and leave
-> vid 100 without a member mask, i.e. either standalone ports lose their
-> isolation domain or the new VLAN blackholes traffic.
->=20
-> There is also the shadow update itself. lan9645x_vlan_set_hostmode() and
-> lan9645x_vlan_clear_hostmode() both do a non-atomic read-modify-write of
-> the same u32 bitfield word:
->=20
->         p->lan9645x->vlans[HOST_PVID].portmask |=3D BIT(p->chip_port);
->         ...
->         p->lan9645x->vlans[HOST_PVID].portmask &=3D ~BIT(p->chip_port);
->=20
-> portmask:10 shares the word with untagged:9 and the flag bits, and
-> lan9645x_port_bridge_join() calls lan9645x_vlan_clear_hostmode() under
-> fwd_domain_lock while lan9645x_port_setup() calls
-> lan9645x_vlan_set_hostmode() with no lock at all, so the lock sets do not
-> intersect. Can one of these updates be lost?
->=20
+On 7/22/2026 7:53 PM, Monish Chunara wrote:
+> From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+> 
+> Respected Maintainers,
+> 
+> This is v4 of the series to add SD card support for Glymur.
+> 
+> This series adds SD card support for the Qualcomm Glymur SoC and the
+> Glymur CRD (Customer Reference Design) platform. The changes include
+> updating voltage regulators to meet SD card requirements, documenting
+> the new compatible string in device tree bindings, and enabling the SDHC
+> controller at both the SoC and board levels.
+> 
 
-Yes, this is right, I will move vlan modifications under the existing
-fwd_domain_lock.
+Tested-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
 
-> > +
-> > +     /* The VLAN access engine completes in a fixed ~1us vs the pollin=
-g
-> > +      * timeout of 100_000 us. A timeout here therefore likely means t=
-he
-> > +      * register bus itself is dead, not that the VLAN op failed. Ther=
-e is no
-> > +      * meaningful recovery at runtime, so this function logs via dev_=
-err()
-> > +      * and runtime callers discard the return value. Only
-> > +      * lan9645x_vlan_init() treats this as fatal so that probe fails =
-early
-> > +      * on a broken bus.
-> > +      */
-> > +     err =3D lan9645x_vlan_wait_for_completion(lan9645x);
-> > +     if (err)
-> > +             dev_err(lan9645x->dev, "Vlan set mask failed\n");
-> > +
-> > +     return err;
-> > +}
->=20
-> [ ... ]
->=20
-> > +int lan9645x_vlan_port_add_vlan(struct lan9645x_port *p, u16 vid, bool=
- pvid,
-> > +                             bool untagged, struct netlink_ext_ack *ex=
-tack)
-> > +{
->=20
-> [ ... ]
->=20
-> > +     lan9645x_vlan_port_get_info(lan9645x, p->chip_port, &info);
-> > +
-> > +     if (info.untagged > 1 && info.tagged) {
-> > +             *v =3D old_vlan;
-> > +             p->pvid =3D old_pvid;
-> > +             NL_SET_ERR_MSG_MOD(extack, "Only support 1 untagged port =
-VLAN");
-> > +             return -EBUSY;
-> > +     }
->=20
-> [Severity: Low]
-> [Finding: main-1-1]
-> [Sources: opus-5]
-> This isn't a bug, but could the commit message mention this restriction?
->=20
-> The commit message says only "Add VLAN support for VLAN-aware and
-> VLAN-unaware bridges", while this rejects an otherwise legal bridge
-> configuration: a second
->=20
->         bridge vlan add dev swpN vid B untagged
->=20
-> fails with -EBUSY once the port already has one untagged VLAN plus at
-> least one tagged VLAN.
->=20
-> The changelog also notes an expected selftest failure with respect to
-> ctag/stag conformance, but that text is below the --- line and is dropped
-> when the patch is applied, so nothing about either limitation survives in
-> the tree.
->=20
-
-I can mention these restrictions in the commit message, that is a good idea=
-.
-Both are hardware limitations.
-
-The stag/ctag limitation is that the switch considers both stagged and
-ctagged frames as tagged, and the conformance requires you accept 1 as
-tagged and the other as untagged.
-
-I see ocelot has a workaround for this using the VCAP. We may be able
-to do the same once the required features land, but not in this series.
-
-> > +
-> > +     lan9645x_vlan_hw_wr(lan9645x, vid);
-> > +     lan9645x_vlan_port_apply_ingress(p);
-> > +     lan9645x_vlan_port_apply_egress(p, &info);
-> > +
-> > +     return 0;
-> > +}
->=20
-> [ ... ]
->=20
-> > +void lan9645x_vlan_set_hostmode(struct lan9645x_port *p)
-> > +{
-> > +     p->vlan_aware =3D false;
-> > +     p->lan9645x->vlans[HOST_PVID].portmask |=3D BIT(p->chip_port);
-> > +     lan9645x_vlan_hw_wr(p->lan9645x, HOST_PVID);
-> > +     lan9645x_vlan_port_apply(p);
-> > +}
-> > +
-> > +void lan9645x_vlan_clear_hostmode(struct lan9645x_port *p)
-> > +{
-> > +     p->lan9645x->vlans[HOST_PVID].portmask &=3D ~BIT(p->chip_port);
-> > +     lan9645x_vlan_hw_wr(p->lan9645x, HOST_PVID);
-> > +     lan9645x_vlan_port_apply(p);
-> > +}
->=20
-> [ ... ]
-> --
-> This is an AI-generated review.
->=20
-
-Thanks,
-Emil
+> Changes in v4:
+> - Propagate Reviewed-by tags (Konrad, Dmitry)
+> - Update the commit message for dt-bindings change (Krzysztof)
+> - Move the common nodes for SD card enablement to glymur-crd.dtsi to be 
+>   leveraged by Mahua CRD platform. No functional changes made.
+> - Link to v3: https://lore.kernel.org/all/20260706141346.4180348-1-mchunara@oss.qualcomm.com
+> 
+> Changes in v3:
+> - Collect Reviewed-by tags (Konrad, Dmitry)
+> - Update the commit message for dt-bindings change to reflect the
+>   purpose for the update (Krzysztof)
+> - Link to v2: https://lore.kernel.org/all/20260702094056.3755467-1-mchunara@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Rectified the iommu sid mask notation to hexadecimal format
+> - Updated the power-domain corner for 202 MHz frequency as per the clocks plan
+> - Added the BCR reset capability for hardware reset as required during the init
+>   sequence
+> - Reorganized the DT nodes as per the DT coding standards
+> - Link to v1: https://lore.kernel.org/all/20260610111508.3941207-1-mchunara@oss.qualcomm.com
+> 
+> Summary of changes:
+> 
+> Patch 1: Updates the voltage ranges for vreg_l2b_e0 and vreg_l9b_e0 on
+> the Glymur CRD. Specifically, it reduces the minimum voltage for the
+> VDDIO supply (l2b) to 1.8V to support high-speed SD card modes and
+> increases the VDD supply (l9b) for stability.
+> 
+> Patch 2: Documents the Glymur-specific SDHCI compatible string
+> (qcom,glymur-sdhci) in the sdhci-msm bindings, using qcom,sdhci-msm-v5
+> as the fallback.
+> 
+> Patch 3: Adds the SDHCI (sdhc_2) node and required pinctrl
+> configurations to the base Glymur SoC device tree.
+> 
+> Patch 4: Enables the SD card slot on the Glymur CRD by configuring the
+> regulators and GPIO-based card detection.
+> 
+> Testing: Verified on Glymur CRD hardware.
+> 
+> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
+> 
+> Kamal Wadhwa (1):
+>   arm64: dts: qcom: glymur-crd: Update VREG l2b_e0 and l9b_e0 voltage
+>     for SD-card
+> 
+> Monish Chunara (3):
+>   dt-bindings: mmc: sdhci-msm: Document the Glymur compatible
+>   arm64: dts: qcom: Add SD Card support for Glymur SoC
+>   arm64: dts: qcom: Enable SD card for Glymur CRD
+> 
+>  .../bindings/mmc/qcom,sdhci-msm.yaml          |  1 +
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi      | 33 ++++++-
+>  arch/arm64/boot/dts/qcom/glymur.dtsi          | 91 +++++++++++++++++++
+>  3 files changed, 120 insertions(+), 5 deletions(-)
+> 
 
