@@ -1,94 +1,73 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9777531AF07
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 05:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D45127E076;
+	Tue, 11 Aug 2026 05:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786424589; cv=none; b=nMB+mfNpuGaj3rs+iepI4WaOSLoqtjyIF/N7XLQ0EfIBsug6/I1lwLFlpgRICjXaxMuuTKfhjMtojsWaqmAiP964sNY2BGHjlcSJ4rFggkO+AJJL6vDeTLsVBuQtZ+75pvMFhcR8KJxhnR6eHGuJmzwiY59/n3BE75vW9kh1Cf8=
+	t=1786425034; cv=none; b=Y8dMMqeex4Gq3t/uAPxSyImVSykDVWe5VsBerjgbItMdLCElxkSql7SICUJkypIBMk78hqk7jgHXYwpVyq928R5r1e8hJdyozJ/67hkWSp0fLpHs3ZB7J14sEp3IbkQ62LnUflN7/o1sLXmrxbMkjbeWo+U7ltpMRzA1VLRfRXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786424589; c=relaxed/simple;
-	bh=GfzBwg4ZHphT0HU4JIpIzgvGvublxLx3VU0uduAtHN8=;
+	s=arc-20240116; t=1786425034; c=relaxed/simple;
+	bh=Cya/lZhccKQZJKCT1jTL6ir0ShYdrfKIC3FG9C33928=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BvPnneVzIY4E+bFeby0hwcQV6uKexeeIQ2ceaSdFDYJ4iMWsQs7BwA+NnFl4//1H9d98GaWN+TeYym4I+2Xx53FGrRzdJoTecLTkB95KC/+bbeAaimzai/OFqoyhZB7YyvadG9PS7mbgmK0jtJL/CTwKE3KfSYzh6RZ24nohdgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SINizHnq; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=CAIHH3NwPjttuRO40CQS1KoXYhQwp6dbJ5XzHYKmitc4fSzhpmgBI4yuxL6Q/BqYDGYEfOTWbUgXupXgR4OqxKVjyQwsnbHjT5dOHTOYSss6zel+3lkNlAwRcJnTAc2usxmmzJNvnEwXM3SKAXYWRsxrQq0XNAcCcjJ1kCleJW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=qJhyr26m; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=dqWjCoQG; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SINizHnq"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c981c2c37cbso1921689a12.0
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 22:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786424575; x=1787029375; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/70XqHwKtpkb8Nem1mvPAp3age5VnZSIpQXUrCBp0Sw=;
-        b=SINizHnqCGCjyEBUdA2HTT8VNbxB6jGkoPBjT1PkxzNvfoAEEWJ+EF440Pvjo9VdLC
-         dOVcum7R+XjGAFnFDjGKkPSh7YMIhpclrH0J4YOZoqM5USz/Qr5M6M57AJZbThdo7LHN
-         /IR0qIEUcuGSS9umTLdeex/Hhkj8Sx8yOjX295VvScNJxrF1KdRrWLLv6djCCFkM2psu
-         m4o+XxgcKsusz5dZkl+JSqjikHyrEk/YdDmcKHpUNdGX2FbnoAHk86yPHtVBE+VC9YHT
-         cmLW3kF02QFyaO2GqgCkdvJJkSB5sBan1LykDnxQr8sbKLgUgsGdeEc9NX5j7MX2OejW
-         No3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786424575; x=1787029375;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/70XqHwKtpkb8Nem1mvPAp3age5VnZSIpQXUrCBp0Sw=;
-        b=ZYyay+LJOxpGmPDCcZDD+xUUHKNSaz+XeAZX/FTz17Z2GumFMbMa2zaqk/uMq49G7E
-         l8XeC5V2zf+rpJ3lu/HNym24IBq9migl7KFhqjYE/Z1krUm9Yhjw6U5djNgbXKGcVt4W
-         zsJhh8WocccH6Osc/zRNszepXndITbB/rdFjQXpqGWrJl0POpTzV1X/aizFz5h8oTYbX
-         /EvKwPMNidaCfzedKk9xQ+SagLm+ZK99aNL4dAqyZpUepNzZC6TdSKFKKCptA4ldn5Jl
-         XZ9EBnvP0d/yJD9zOlLXKhFj2CJMzD962gxr6a4mSu/xsKahrFyWteE8wT7uF5dOCJa6
-         KNGw==
-X-Forwarded-Encrypted: i=1; AHgh+RrHdUw/K4HKLzGzodyiMUjuwFBPJv1Y4Iis3u+HeEI14A0nt3Crj/B1IJh2oSOwxoZIzG3NnAE67AsQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxghdpLrrhta9ZIuWXx8aauLny08Jur8jhi1/j8w+dyfCJtJojH
-	wV4/9slWrAlpiqrwxMPCh/2IoeAufdFPd/7yGDLE4gF7w0FvqBgbnNjY
-X-Gm-Gg: AR+sD12Hh+uXO4VcEDk08s5kTvf9P6dGptAyudBlN6iHDcf0Mmjju31lmJiU9ik3gjO
-	z/lkvwWeDLI+Tpk0oH8izALuUyRyIw1LoqJpjyPfB6eltj0KTly9+k3PqQ7RQqD8KC2MYv2OcQC
-	FhkRVcisPY55yGBae2pcBzP7vhr0ayaYjgftnWri+eOZhOCNW0v2zWdqVRhNHsroaooEia7HnHs
-	6JOVSHf+g4LBgMXbSFjdS4koRb2c5QGJBdhDn0/JZLYFgMGf3uzt2uMcDe54KS1himFE/BPEvIq
-	WbJt3IfDbWqKwFYFGz6aWZcbiQvOdhpTk0C1p73BAAfg5jcVxUv52f0de6Xlmt3VJVHy11/6lDP
-	9STKM62vxKdz4yYhwizyu5VGCeNr5X9YBaovPcmzXABVN45Eq1RTyB3q+c3FtrpUihTSABadRbY
-	+svglZOA99wj8eXjX6yhxu2wcB992OapH8jsAnOQrAmWjE0i/+2Z3/bGexmI08SSsZKd/sFPZ+b
-	CX6W+Y0YFsetomBOZuWpjbJoXRUYJckblalEulUGeAaPzVjKoaxU5BMlhZN
-X-Received: by 2002:a05:6a20:2d13:b0:3c4:397a:69ba with SMTP id adf61e73a8af0-3cc2bac423emr1261864637.28.1786424574951;
-        Mon, 10 Aug 2026 22:02:54 -0700 (PDT)
-Received: from Mac.localdomain (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31c619cf07dsm660421eec.4.2026.08.10.22.02.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 10 Aug 2026 22:02:54 -0700 (PDT)
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="qJhyr26m";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="dqWjCoQG"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hK07T41rnzMlGk;
+	Tue, 11 Aug 2026 07:10:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786425029;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fzDWe1lBWxk2GBdnkDkRX6pu9sNXcJ33YCkvBXfrvTY=;
+	b=qJhyr26mqDR3KHqEWGhmhyqw11VxOyawzO87X5mWbvpsF3ObUFU+64Pb/tZ0HhX52q9urB
+	B2FW6cmXq3TI57q1WsG7vhXRpR8mT3kSCz0wUDez/5K/4+13Jqt46plVpAnOzjgF/IKQ4V
+	+p07Oqy2N5M8xmrQ1v5FPq819XkiEVJhkKKQFPEyQWYhFgOJ34t/lZ5sI8kUH/95pgU2hU
+	WOrzgk21lt9yHLF9xjcPskwGrYLITeESQ4EMUIxNRe0A6/+pRTCPPFzH9wLa/IejPHMlkZ
+	Ij2y6YCg3okep7MsCMF4poD84cSmrFOtX0c3HwAcEkt1OL/YaRYlFh1VUIa+uw==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=dqWjCoQG;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786425027;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fzDWe1lBWxk2GBdnkDkRX6pu9sNXcJ33YCkvBXfrvTY=;
+	b=dqWjCoQGdoGYueyDxQc9NFA6SH730Xf9B9pYB/dlqe6YwKTPVFPQEpWWNkoIPTSp0M3XkJ
+	d9HNAT0feeiMFWDXS59sPZ8N+jbMXcYlcXQnG3pgQuhq1dxjDuxoMVpzsxmJVJVn/aDSHo
+	DeT0BywNeWf4HgKSjq3zz8a0oahobj5psN3f9TGdzkVACgJCeEqg2oDQXyZu2D9k130/ig
+	R9ZeFE3Jf8WuyOt5Tb6PmB/PDpzT6lYfjiggp3c9NE9NnMBjxYFrWQHAZpg+Dkld1w1+gW
+	qUVOmF1OqzAQclHJmb/+jmADESL/YrhOkFTPg5Je2MtzOz696fM9Wp6+enCuLw==
+To: linux-usb@vger.kernel.org
+Cc: Thanh Quan <thanh.quan.xn@renesas.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Nam Tran <trannamatk@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Peter Rosin <peda@lysator.liu.se>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-leds@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
 	devicetree@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH net-next v3 5/5] ptp: ocp: Add Time Card V9 I2C peripheral topology
-Date: Mon, 10 Aug 2026 22:02:44 -0700
-Message-ID: <1931d6019cdaa80c681c38b6ff4d0359ec42230d.1786423898.git.ahmadexp@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cover.1786423898.git.ahmadexp@gmail.com>
-References: <cover.1786423898.git.ahmadexp@gmail.com>
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v3 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car Gen5 DWC3 xHCI USB controller glue
+Date: Tue, 11 Aug 2026 07:09:34 +0200
+Message-ID: <20260811051016.1655887-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260811051016.1655887-1-marek.vasut+renesas@mailbox.org>
+References: <20260811051016.1655887-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -96,140 +75,123 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: etnbyp8z1xxu5kchj99ajjtou7zy4z8p
+X-MBO-RS-ID: 7fc0db0bff76b7f4e5a
+X-Rspamd-Queue-Id: 4hK07T41rnzMlGk
 
-Time Card V9 places a BME280 at 0x76, a BNO055 at 0x29, and an
-IS32FL3207 at 0x37 on PCA9546 channel 1.
+From: Thanh Quan <thanh.quan.xn@renesas.com>
 
-Describe GNSS1 and GNSS2 as RGB LEDs on outputs 0 through 5 and SMA1
-through SMA4 on outputs 6 through 17. The board uses a 4.7 kohm RISET
-resistor, sequential red, green, and blue output wiring, and an 8100 uA
-per-output limit.
+The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
+controller with glue logic wrapper around them. Extend the generic
+DWC3 platform driver with Renesas R-Car Gen5 glue logic specifics.
 
-Select this profile only for the exact fixed-width EEPROM ID
-"TIMECARD-V9". Earlier revisions expose the same I2C devices with
-different LED routing, so probing cannot distinguish them safely. Leave
-erased, malformed, and unknown board IDs unconfigured.
-
-Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
+Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 ---
- drivers/ptp/ptp_ocp.c | 73 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 72 insertions(+), 1 deletion(-)
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+---
+V2: Extend dwc3-generic-plat driver instead
+V3: Handle maximum-speed as optional property, test for USB 3 PHY
+    non-presence to determine whether the controller is USB 2 only,
+    consider optional maximum-speed DT property, but if it is missing
+    then default to maximum controller capabilities based on the
+    presence of PHY phandles.
+---
+ drivers/usb/dwc3/dwc3-generic-plat.c | 60 ++++++++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index f2c2979daaf1..a843198796ab 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -353,7 +353,7 @@ struct ptp_ocp_serial_port {
- 
- #define OCP_I2C_MUX_CHANNELS		4
- #define OCP_I2C_MAX_SENSOR_COUNT	5
--#define OCP_I2C_MAX_LED_COUNT		5
-+#define OCP_I2C_MAX_LED_COUNT		6
- #define OCP_I2C_MAX_LED_COMPONENT_COUNT	(3 * OCP_I2C_MAX_LED_COUNT)
- #define OCP_I2C_MUX_NAME_LEN		32
- #define OCP_I2C_MUX_COMPATIBLE		"nxp,pca9546"
-@@ -613,9 +613,61 @@ static const struct ptp_ocp_led ptp_ocp_r4006_leds[] = {
- 	},
- };
- 
-+static const struct ptp_ocp_i2c_device ptp_ocp_v9_sensors[] = {
-+	{ "pressure@76", "bosch,bme280", "bme280", 1, 0x76 },
-+	{ "imu@29", "bosch,bno055", "bno055", 1, 0x29 },
-+};
-+
-+static const struct ptp_ocp_led ptp_ocp_v9_leds[] = {
-+	{
-+		.node_name = "multi-led@0",
-+		.function = LED_FUNCTION_STATUS,
-+		.function_enumerator = 1,
-+		.has_function_enumerator = true,
-+		.channel = { 0, 1, 2 },
-+	},
-+	{
-+		.node_name = "multi-led@3",
-+		.function = LED_FUNCTION_STATUS,
-+		.function_enumerator = 2,
-+		.has_function_enumerator = true,
-+		.channel = { 3, 4, 5 },
-+	},
-+	{
-+		.node_name = "multi-led@6",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 1,
-+		.has_function_enumerator = true,
-+		.channel = { 6, 7, 8 },
-+	},
-+	{
-+		.node_name = "multi-led@9",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 2,
-+		.has_function_enumerator = true,
-+		.channel = { 9, 10, 11 },
-+	},
-+	{
-+		.node_name = "multi-led@c",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 3,
-+		.has_function_enumerator = true,
-+		.channel = { 12, 13, 14 },
-+	},
-+	{
-+		.node_name = "multi-led@f",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 4,
-+		.has_function_enumerator = true,
-+		.channel = { 15, 16, 17 },
-+	},
-+};
-+
- static_assert(ARRAY_SIZE(ptp_ocp_r4006_sensors) <=
- 	      OCP_I2C_MAX_SENSOR_COUNT);
- static_assert(ARRAY_SIZE(ptp_ocp_r4006_leds) <= OCP_I2C_MAX_LED_COUNT);
-+static_assert(ARRAY_SIZE(ptp_ocp_v9_sensors) <= OCP_I2C_MAX_SENSOR_COUNT);
-+static_assert(ARRAY_SIZE(ptp_ocp_v9_leds) <= OCP_I2C_MAX_LED_COUNT);
- 
- static const struct ptp_ocp_i2c_profile ptp_ocp_r4006_profile = {
- 	.name = "r4006",
-@@ -630,6 +682,19 @@ static const struct ptp_ocp_i2c_profile ptp_ocp_r4006_profile = {
- 	.led_max_microamp = 8150,
- };
- 
-+static const struct ptp_ocp_i2c_profile ptp_ocp_v9_profile = {
-+	.name = "v9",
-+	.sensors = ptp_ocp_v9_sensors,
-+	.sensor_count = ARRAY_SIZE(ptp_ocp_v9_sensors),
-+	.leds = ptp_ocp_v9_leds,
-+	.led_count = ARRAY_SIZE(ptp_ocp_v9_leds),
-+	.led_node_name = "led-controller@37",
-+	.led_mux_channel = 1,
-+	.led_address = 0x37,
-+	.led_riset_ohms = 4700,
-+	.led_max_microamp = 8100,
-+};
-+
- #define bp_assign_entry(bp, res, val) ({				\
- 	uintptr_t addr = (uintptr_t)(bp) + (res)->bp_offset;		\
- 	*(typeof(val) *)addr = val;					\
-@@ -2230,6 +2295,7 @@ static const struct ptp_ocp_i2c_profile *
- ptp_ocp_i2c_select_profile(struct ptp_ocp *bp)
- {
- 	static const char r4006_id[] = "R4006";
-+	static const char v9_id[] = "TIMECARD-V9";
- 	size_t board_id_len;
- 
- 	if (!ptp_ocp_has_eeprom_data(bp))
-@@ -2242,6 +2308,11 @@ ptp_ocp_i2c_select_profile(struct ptp_ocp *bp)
- 	    !memcmp(bp->board_id, r4006_id, sizeof(r4006_id) - 1))
- 		return &ptp_ocp_r4006_profile;
- 
-+	/* Older revisions share V9's I2C devices but not its LED wiring. */
-+	if (board_id_len == sizeof(v9_id) - 1 &&
-+	    !memcmp(bp->board_id, v9_id, sizeof(v9_id) - 1))
-+		return &ptp_ocp_v9_profile;
-+
- 	return NULL;
+diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
+index ca69ac0eb07ce..dec89b068291a 100644
+--- a/drivers/usb/dwc3/dwc3-generic-plat.c
++++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+@@ -71,6 +71,60 @@ static int dwc3_eic7700_init(struct dwc3_generic *dwc3g)
+ 	return 0;
  }
  
++static int dwc3_renesas_rcar_gen5_init(struct dwc3_generic *dwc3g)
++{
++	struct device *dev = dwc3g->dev;
++	struct platform_device *pdev = to_platform_device(dev);
++	enum usb_device_speed speed = usb_get_maximum_speed(dev);
++	bool usb2only = false;
++	void __iomem *glue;
++
++	/* Wireless USB is not supported */
++	if (speed == USB_SPEED_WIRELESS)
++		return dev_err_probe(dev, -EINVAL, "Wireless USB not supported\n");
++
++	/* No USB 3 PHY in DT means this is surely USB 2 controller */
++	if (device_property_match_string(dev, "phy-names", "usb3-phy") < 0)
++		usb2only = true;
++
++	/*
++	 * Controller can be limited to USB 2 via optional maximum-speed DT
++	 * property. If the DT property is not present, default to maximum
++	 * controller capabilities.
++	 */
++	if (speed >= USB_SPEED_LOW && speed <= USB_SPEED_HIGH)
++		usb2only = true;
++
++	glue = devm_platform_ioremap_resource_byname(pdev, "glue");
++	if (IS_ERR(glue))
++		return PTR_ERR(glue);
++
++	/*
++	 * The datasheet describes initialization procedure without full
++	 * information about the registers. Therefore, the source code is
++	 * based on the bare metal code shared by the board team.
++	 */
++	writew(0x211, glue + 0x26);
++
++	/* USB2 does need additional register programming. */
++	if (!usb2only)
++		return 0;
++
++	writew(0x11, glue + 0x81c);
++	writew(0x0, glue + 0x81a);
++	writew(0x1, glue + 0x802);
++
++	usleep_range(10000, 20000);
++
++	writew(0x0, glue + 0x802);
++	writew(0x1, glue + 0x2a);
++	writew(0x1, glue + 0x81a);
++
++	usleep_range(10000, 20000);
++
++	return 0;
++}
++
+ static int dwc3_spacemit_k1_init(struct dwc3_generic *dwc3g)
+ {
+ 	struct device *dev = dwc3g->dev;
+@@ -231,11 +285,17 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
+ 	.properties = DWC3_DEFAULT_PROPERTIES,
+ };
+ 
++static const struct dwc3_generic_config renesas_rcar_gen5_dwc3 = {
++	.init = dwc3_renesas_rcar_gen5_init,
++	.properties = DWC3_DEFAULT_PROPERTIES,
++};
++
+ static const struct of_device_id dwc3_generic_of_match[] = {
+ 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
+ 	{ .compatible = "spacemit,k3-dwc3", },
+ 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+ 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
++	{ .compatible = "renesas,rcar-gen5-dwc3", &renesas_rcar_gen5_dwc3},
+ 	{ .compatible = "starfive,jhb100-dwc3", },
+ 	{ /* sentinel */ }
+ };
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
