@@ -1,58 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71996399360
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72653B2D1A
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786433399; cv=none; b=dYa/375EqO6Pk/S946xhnVZuMW9Qe9sn15zK38wCmc+VMc5LeDPUOsOkIJoiUicKW0blqBX1YKdsZhebwpFxjSUZfm3o5e3yWU+f5LQS6w5glaRWPpYzjVpul2gerVA424qm5LoWwgRw0X1c9aCDP3Xo/LMz5TBFLd45wcNvUus=
+	t=1786433416; cv=none; b=YzQ8vFGK/IfEjPmBrKdPgufWh24GXPFcM4ZTm29d1b08TzV2b9+oSU422oeeWbv/LrXgHj2PKl0lSZ8U9NoKZ/PTyL1XomIEY2ZDDOr5fQ6m5gsDPqFg/7iyTE8fSFb9xmx7ffdXAVTp+DW874c4fmT8fbNq9To1iOG95zbXhXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786433399; c=relaxed/simple;
-	bh=zoyXTz6LC1R6AOMtwoPutKdVQy/F8bioEUJwUg52RjA=;
+	s=arc-20240116; t=1786433416; c=relaxed/simple;
+	bh=y8WHpVw6+CCMHP4RqzFXXcm3T39z37n7bSX4Jxw/YXU=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Kc+BCHShEmBGPnYRebAv7hEkkMoaiipOC2QqRIN2fDz9gho0ePjJ5O9BJIHGP5BEhgIQ3ksma3rwLHOr2sS1eZR/UL32Kb8Dm9M84b800LTzVRoxAkIyuDJzvmRAaO2ZxDUwt7LxGqrfALnSQs2HQUJvP7qPsCMRiXhOBeBIffY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9MJlD/T; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=lM72uQydYDp6d+IxITWCx4+Ct75rAnahlF8Vfb7NhIUVVk6CQ3lDqHj4MkbNC7BD9Sj+Ry7bMQB9j7eWZO2SnTJJ20VL35irPP46Uw6lHUyYl+sp0kLY5b0YvSEO3GfRjaljnmJt0gAMgfJRklPjDmp91OVBa/+7rDIBNdqvRdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7G2kvTV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9MJlD/T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BE91F01558
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:29:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7G2kvTV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F17F1F01558
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:30:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786433398;
-	bh=umesvR1teUL1fcs6zCQaA4uwUSphr0DcLDjBnMFX9JE=;
+	s=k20260515; t=1786433415;
+	bh=y8WHpVw6+CCMHP4RqzFXXcm3T39z37n7bSX4Jxw/YXU=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=h9MJlD/TMbk1yYwxU1auxF3+RTiscFC8LEVkGOBR3L0L5NnHKaO35NeHFQbkMq7+X
-	 KpjM6059ZumPxL3YaJJ58W+d2plUYv4UhsRjmuO8c3PXeMRGCo+WjQwVyHS+HdmnaK
-	 LESbW/tUZTbeRqV6Rk3F3JSfA/7Urk1eaIb/1Ty0XHB5rNkIVSx2kwVbMo1mRDUDw3
-	 8o759Z3P0QB95srqkPVsv9lYLOwLewOTKZjSmDHfT2kiJ1N12/qyE9e8ikWarOH8nB
-	 VB9Z+UoNQoVli6ZzDwo80aAOEb2AsdwLNGx6T1wTP/5l3SSeem4O5GSgqDCWkq7rGM
-	 zcHmD5JC4udtQ==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b2a22c52c1so2699723e87.3
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 00:29:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr4JKHhjeLfj4RXN4v+F9bhiS2x/0nmGkaUtF2RQcvS3zN1o5dQ0UG5YLWUHV8tMauztCIM8il13bfa@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2SfjIdj23C1N1LPXJPWXSZrxDzgP+rEfwujMvLE8Ze5+dJ+q9
-	H1qmt7DUThR82+IUjGAzLfKhptVNQpiM7PnK0Siqwhw4dVVyezYbERzVvYkwPNgdZMScny/qg2x
-	EstMiRMH4NhXlKlB4ZEmsbbuuloUpppEHdynh9Camaw==
-X-Received: by 2002:a05:6512:3096:b0:5b1:5451:d969 with SMTP id
- 2adb3069b0e04-5b448649002mr229675e87.25.1786433396689; Tue, 11 Aug 2026
- 00:29:56 -0700 (PDT)
+	b=P7G2kvTVjt9BAmJrnjupT4mms97ylHc8icBv05GVAzpUSpLJpOH1C7GdZ28teb/CP
+	 tLkEGY0SEzEA3/zwnzusAQKJxRRBk3ldn9iORpeIF7908Pyjd2/jdMpm5/pbToefTC
+	 azhqrrCJgTp5/wzPLyJJ0imRgL2tdlcDbTiZqcbvfzNytVaa6J5/zXmEWXl2iLErPD
+	 5/By/hMA78dAnI0l2fRGOCq0m3rfEG+LexTHQkaVRngd1/XtqL8aGvkjjkWxQfj3xq
+	 K7lGy4mcNUtV88D8/8nuwnNH+myv2wLuBdhF/TkyTkEWQlC80LLS51c5F381NmVZ9n
+	 My3Cb6XCQhNtA==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39c7fd45465so19676911fa.1
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 00:30:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rpszid6lKZBPoZCvvqAZxLz3kOWrLj7dbd+Z//I+md5sFYXHgoWHiksDIrYP9RqClQMFoH0E75OunMQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzsvCBW2G3BjZDaLD2n37sddaZPJSJhCJk+vB6Yg+AquLrGzVzC
+	V8nNbwgVRaIY7YcLkeZHIXU0FuOHiPhSHwSSPXQss+biYkl6mWfEfHnJlN7HV36UnVIcP2gJCyN
+	0QEvmTo4l7A1SuM+IQ57ofhLhMj3+LX0wTlEHun152g==
+X-Received: by 2002:a05:651c:144c:b0:39b:374a:afb8 with SMTP id
+ 38308e7fff4ca-3a0f8a9bc43mr1705191fa.0.1786433414081; Tue, 11 Aug 2026
+ 00:30:14 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 11 Aug 2026 00:29:55 -0700
+ HTTPREST; Tue, 11 Aug 2026 07:30:12 +0000
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 11 Aug 2026 00:29:55 -0700
+ HTTPREST; Tue, 11 Aug 2026 07:30:12 +0000
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260810213456.1268831-1-marex@nabladev.com>
+In-Reply-To: <20260810213456.1268831-2-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810213456.1268831-1-marex@nabladev.com>
-Date: Tue, 11 Aug 2026 00:29:55 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfnU5mJHsoJee-8-xy3e7vXE5yORfZRN9=Wom2-+ZocUQ@mail.gmail.com>
-X-Gm-Features: AUfX_mw3-GSxONxlPDeIuQSCzqxdWbLCCFW-DmbFUzmLFDfvwVGs6ZIrWEPCMBI
-Message-ID: <CAMRc=MfnU5mJHsoJee-8-xy3e7vXE5yORfZRN9=Wom2-+ZocUQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] arm64: Select HAVE_SHARED_GPIOS for ARCH_MXC
+References: <20260810213456.1268831-1-marex@nabladev.com> <20260810213456.1268831-2-marex@nabladev.com>
+Date: Tue, 11 Aug 2026 07:30:12 +0000
+X-Gmail-Original-Message-ID: <CAMRc=MdjxSyqAxUmvqZPpSQGfFe2BZB98Wqn4D6NxPHo2PDo6A@mail.gmail.com>
+X-Gm-Features: AUfX_mxorVfTOjx3cPX8jWYGtrfL5nLyxouAJBW0LD2vHOnfI6cP-TL7yif_Blw
+Message-ID: <CAMRc=MdjxSyqAxUmvqZPpSQGfFe2BZB98Wqn4D6NxPHo2PDo6A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arm64: dts: imx8mn: Expand EEPROM description on ifm
+ VHIP4 EvalBoard
 To: Marek Vasut <marex@nabladev.com>
 Cc: Bartosz Golaszewski <brgl@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
 	Conor Dooley <conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
@@ -63,46 +64,10 @@ Cc: Bartosz Golaszewski <brgl@kernel.org>, Catalin Marinas <catalin.marinas@arm.
 	linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 10 Aug 2026 23:34:38 +0200, Marek Vasut <marex@nabladev.com> said:
-> Some NXP i.MX platforms use shared GPIOs. Enable support for them by
-> selecting the Kconfig switch provided by GPIOLIB.
+On Mon, 10 Aug 2026 23:34:39 +0200, Marek Vasut <marex@nabladev.com> said:
+> Describe the EEPROM write protect GPIOs and labels on VHIP4 EvalBoard.
 >
 > Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
-> Cc: Bartosz Golaszewski <brgl@kernel.org>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Fedor Ross <fedor.ross@ifm.com>
-> Cc: Frank Li <Frank.Li@nxp.com>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: imx@lists.linux.dev
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  arch/arm64/Kconfig.platforms | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-> index d2acfac730037..bc279b864d3cb 100644
-> --- a/arch/arm64/Kconfig.platforms
-> +++ b/arch/arm64/Kconfig.platforms
-> @@ -275,6 +275,7 @@ config ARCH_MXC
->  	bool "NXP i.MX SoC family"
->  	select ARM64_ERRATUM_843419
->  	select ARM64_ERRATUM_845719 if COMPAT
-> +	select HAVE_SHARED_GPIOS
->  	select IMX_GPCV2
->  	select IMX_GPCV2_PM_DOMAINS
->  	select PM
-> --
-> 2.53.0
->
->
 
 Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
