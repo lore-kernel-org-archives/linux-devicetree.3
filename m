@@ -1,234 +1,127 @@
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B703145C709;
-	Tue, 11 Aug 2026 16:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D013CB2D4;
+	Tue, 11 Aug 2026 16:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786464324; cv=none; b=r3d0/Vg1sEez+Vi0OHi09VPaAMbRkEsoGCjA2rJJMiWZA1Pz0qWDehy2KzAsQdY00pr3LmEre5yZxNgHIJ19eGL+Aopv8NG6DPHVsiDj6r2i3OMYvQsvScPUDR/OzrgA6OWXeLadoSeeWMiP8jk0fMytwtXjvDZU9MF17OhWvcs=
+	t=1786464405; cv=none; b=h5jNatKUYb/WSGq6xcKgcLU/xgYtdEty13J6Ec7PguQWuZNgST3NL57A7O/jkcDFL3EnU+ea3UV3xPRipS2CStxbUoN7AjYLxUEiNsf5+02bOtNCez7Rv5Gi3/b34vmlOQNlrCwRlf1QdZXqMoNiMoqM2E9Rc+UbRdAClzYUeDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786464324; c=relaxed/simple;
-	bh=N3pjQaNbi3Imr6RAfNZCR66d3jzOY0OvR/G3RRvt1FQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nfq2WZvF7d0ShWg7T2xHWmOo/n45tzqIEWv3iBoWusUtZRy9vXTCdu7GNxW7acQZ46Xw52ifRYDIVQh8ypOEUf4+BYJwVypH+rwe9MObK7Ta/bBswFdSi8GG9uAsLmQi9qN9bgX0GfQH4IhcSltmizRgBAlekFtueQVP18qNCjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=ZcrZgOFW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NIHtpfkG; arc=none smtp.client-ip=103.168.172.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1786464405; c=relaxed/simple;
+	bh=l6y6SBQuraQkb5VQ3z8ukPOghHgP1nT1Wtp4BjufNz0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T4g8F33OE0+fDacb3ecmG1sfp9zP0ORMIb+IeH8HqxSsPFWB26q2IhBEDylktjaYU0//lD7WO1/bCGvWNIaMQM4a/DBLkOclwn17je86XKkdL5kNfju0C/h1BHNv+1DdjATJn7XKx/Dpp+8UApKqt73CR7irXU8zmaSR8WPcr8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYwtWdMZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="ZcrZgOFW";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NIHtpfkG"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id BA31EEC01EC;
-	Tue, 11 Aug 2026 12:05:21 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Tue, 11 Aug 2026 12:05:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1786464321;
-	 x=1786550721; bh=fo9SJZtqgbNl3fWJY6C2G3qAmbfvbO2bzET83v6IHUc=; b=
-	ZcrZgOFWmoBCEcmDYC9iB2jZt5v1LGkfzlo2zJ+QpTd/0aGwhuEUJwyDw5ltvUPX
-	Ya83jtYY2/wVatFTW9yreO38VT+vN0HHxx7E6iJi6iGTac0BhEQ6mRMJNKoC5KIJ
-	K9U9/a5I3ztiuhOBQkP9bjSd2AJsaWz1rskjWjq/zeLHc1ir2brCOdEg6ymP5yvw
-	0AGVbg1fLcbS5eylsVsXmrV2rwFG+LYJS0kkfyIEb4C2A6Xv0wjKWjjcqYhdxYM6
-	k7we3w2ubPf6V8UqGGye5pS8zQe2P2sJs+EUFmhc2F0HPnZnLJd6cVKh6Hr1mHnO
-	q8r352+NxLSexa86OFg1dQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786464321; x=
-	1786550721; bh=fo9SJZtqgbNl3fWJY6C2G3qAmbfvbO2bzET83v6IHUc=; b=N
-	IHtpfkGvpjeDHVMfMSMFZxQ0iqQR4wa7mijxdHQiOkz7ws6q39B+7cBOk7vhSKwC
-	0eq8UroN94WLDt9aEmy5Kp2RKN0DMWb8g2lA0X/KFwXoJwd6LvLmjhZNx7unroXW
-	xRDWRqTmtou7E7F+VJz7ygl060/9QqpV5/mc4TO76PQChvhnw2C/AMxy9oxTJqdP
-	t3wE3vtwF5jujA0yF4tDmcd5xZ7nGjEfxZ4zR/L4qvMzTUx8ps+IB+Re/+Vbj12S
-	VexOD8AVud81VufrhTcXBD0hsUp69YeDn2ObEUBIWy9vg/aKY+UWkVESymNFuEBw
-	Wg9qNjjh0vUgIn4MIZR8A==
-X-ME-Sender: <xms:QUh7alLHKNX1R7HtDbB01Zju6vCz4txk_fAQwz8Bi--Zq8iMvMl1uw>
-    <xme:QUh7ap4lMd4hdJpbPJ4vFSvbYzuCZ553LjMUzhap3a8EzlBw4TUeFGS0olcQHIpSV
-    rPwMmbXRR5g-VVoi9AoOuQEhF61keYgHd2BbkISp5WjkaKaHtpdcNI>
-X-ME-Received: <xmr:QUh7asYXAL8ipyemCvt4z4LnxjdtrCC4DMLXmAV2x6eIYJ5ZhsWhhWVXbWRxgSJ7Ylp-xxescGHdTAxUnM-ohcWyIcd9iGI>
-X-ME-Proxy-Cause: dmFkZTGFFPL3N5DTcYVuquFe+/dfRYgBGtSfEcwPVr/8UXV69eF5Z2kDQXSyWboTPttrK7
-    JAetTs/ONK4xcw0lYxN11ohJL1TNNnROZ/1pj2JjjH/QI+m/z1p0rk3xKDSc0s9IOfLNdY
-    S1NvAAbfRKbwU0dWO8ijvRxnkQvQ1n7u9U0ZLQCt76cwnaUt1HRX3DIYdV2DNnAuLBsP2m
-    TAKKZ0BTUVIWPzX266+1DxCdNYgRV3tM+ErDktVDP8OB3PijMOevi5gThvW+G+WUPit13u
-    rPNXuFXiGTJq4jLH54RzfSy3xTqCLpzhuPnSQ28V/TTUBDbBCV7S0awlmjJebqC1nrqnFZ
-    scAVz5MNuZJ1k4Joaml8GPqNOFkswT+tqnedhFwo6OKYPpXNaGpZZVGxKlb/F1lA7m+GBm
-    PNNj1UqQkYGka+wE+I4MOJLLQ+3OFMUKhmX/KTb9/AvCHY/QKuM1ghIU5cJFH1EyUscAHZ
-    e3/42yqo0KPiKBmx4DGSoo/9fou36EhgNvwkDzJRy6RszcfjVjgd2djUWjCquijsoxL8P3
-    NOhGi7vMsKXBKdXV4tgjl5XlRcOwjTIkvRYgKNICj9gizrigPEIEtmrCns7gcoZc7p41sD
-    R3xHMpAMeMuLo/8T2eiZdfxOpfNTmmPxwQ4N4DVRWd7iNW9zfWsKQITk9prQ
-X-ME-Proxy: <xmx:QUh7aoyaCGnDjokSwtU_1jlBpiwA0ZcLAelfuDkjon0Qcb1vpZQsVQ>
-    <xmx:QUh7agNVSvDai6uaiAviRb-wphpmApLcJyKnRippYf_DX4FYvKiimg>
-    <xmx:QUh7au6awRTPkHoIJV72_nVSFTwKL2j0MD2FROPcOt51MNrInmEzyA>
-    <xmx:QUh7aufUrhQ7GzDhF3TH0e9BsMU2QzWG6sxMus7xyAYpUa-n8s-H7w>
-    <xmx:QUh7ajhW9BJubN3UlbBKDAAZ05sET7mjYttxNwT-JvawjXaAP7nPa4Vz>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 11 Aug 2026 12:05:20 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYwtWdMZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00B111F000E9;
+	Tue, 11 Aug 2026 16:06:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786464403;
+	bh=bsFrD+8bsJ8zTcQSeMYM7e3hb54WciAWCpQseABIlqk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TYwtWdMZ8Ao51ww1bhZblT18MUr7qDxkwcAcEbYPHbrC9TY069ydowFfdIi4cZ0Lv
+	 ERS1UVOj9x3CsUP3r4umtrc1DF47emrHnID7XpG/ci5cVHd5IDDaSRmEJpHiVJDSyH
+	 vUuQDBfUIX6WfjufpcE/0Gn8Bd0HaeK2cgvDMkxjyp3uK3tiT+Pw/tdqKkOJ9jtUNl
+	 fwhqizf9b6nF61KCY8HGWkMJ7SKUjqwc2i2Os0BSGcDJ2jrNIWtKrwprSH2lDz7DSg
+	 OzuRy9uqldfzfdgP9fiG6WWT7yuDL31/Ms1hpXehzZVDaIa8uIG5WJj4YWY5LAqds6
+	 qlHnUwAcPLFqQ==
+Date: Tue, 11 Aug 2026 17:06:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, Vladislav Leonov <vlad@zlab.su>,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Simon Glass <sjg@chromium.org>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Brian Masney <bmasney@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Golle <daniel@makrotopia.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Wu <david.wu@rock-chips.com>,
 	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Olivia Mackall <olivia@selenic.com>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Sergey Shtylyov <sergei.shtylyov@gmail.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-pwm@vger.kernel.org, linux-spi@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
 	netdev@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH net-next v2 10/10] net: ethernet: ravb: Add gPTP support for Gen4
-Date: Tue, 11 Aug 2026 18:02:00 +0200
-Message-ID: <20260811160200.2049987-11-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811160200.2049987-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20260811160200.2049987-1-niklas.soderlund+renesas@ragnatech.se>
+Subject: Re: [PATCH 00/25] ARM: rockchip: Add peripheral support for RV1106
+Message-ID: <5842f89b-ef11-41fd-a5c6-f07d4110b65a@sirena.org.uk>
+References: <20260810121121.210040-1-vlad@zlab.su>
+ <20260810113548.7fd24d56@kernel.org>
+ <anq1ouUnKA02Eauj@monoceros>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0rdiv1roUnHM6tDX"
+Content-Disposition: inline
+In-Reply-To: <anq1ouUnKA02Eauj@monoceros>
+X-Cookie: Now, let's SEND OUT for QUICHE!!
 
-While driver advertises gPTP support on Gen4 platforms it is in fact
-completely broken. On R-Car Gen4 devices the RAVB module have no
-internal gPTP clock as generations before it. Instead it utilizes a
-system-wide gPTP clock.
 
-This change utilizes the refactoring of the RAVB gPTP code to add
-support for a system-wide clock and stops the Gen4 devices trying to use
-the non-existing internal gPTP clock.
+--0rdiv1roUnHM6tDX
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-To remain backward compatible the ptp-timer property is optional.If not
-present, or not enabled, the RAVB driver will no longer advertise gPTP
-support to user-space.
+On Tue, Aug 11, 2026 at 07:43:16AM +0200, Uwe Kleine-K=F6nig wrote:
+> On Mon, Aug 10, 2026 at 11:35:48AM -0700, Jakub Kicinski wrote:
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
----
-* Changes since v1
-- Use the standard generic ptp-timer property from
-  ethernet-controller.yaml instead of a vendor specific one.
-- Improve spelling in commit message.
----
- drivers/net/ethernet/renesas/ravb.h      |  3 ++
- drivers/net/ethernet/renesas/ravb_main.c | 56 +++++++++++++++++++++++-
- 2 files changed, 58 insertions(+), 1 deletion(-)
+> > Don't expect maintainers to dig out patches for their subsystems
+> > from a big series. This is not how upstream development works.
 
-diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-index b4df5cab0e5c..4c8dc02022e2 100644
---- a/drivers/net/ethernet/renesas/ravb.h
-+++ b/drivers/net/ethernet/renesas/ravb.h
-@@ -249,6 +249,8 @@ enum APSR_BIT {
- 	APSR_RDM	= 0x00002000,
- 	APSR_TDM	= 0x00004000,
- 	APSR_MIISELECT	= 0x01000000,	/* R-Car V4M only */
-+	APSR_GPTPTIMER_SOURCE = BIT(25), /* Gen4 */
-+	APSR_GPTPCLOCK	= BIT(29),	/* Gen4 */
- };
- 
- /* RCR */
-@@ -1132,6 +1134,7 @@ struct ravb_private {
- 	struct list_head ts_skb_list;
- 	u32 ts_skb_tag;
- 	struct ravb_ptp ptp;
-+	struct device_node *of_gptp;	/* Reference to external gPTP clock, if any. */
- 	spinlock_t lock;		/* Register access lock */
- 	u32 cur_rx[NUM_RX_QUEUE];	/* Consumer ring indices */
- 	u32 dirty_rx[NUM_RX_QUEUE];	/* Producer ring indices */
-diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index 12877a8488ed..30170e92d3d7 100644
---- a/drivers/net/ethernet/renesas/ravb_main.c
-+++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -2752,6 +2752,59 @@ static const struct ravb_hw_info ravb_gen3_hw_info = {
- 	.magic_pkt = 1,
- };
- 
-+static int ravb_gen4_ptp_probe(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+
-+	priv->of_gptp =
-+		of_parse_phandle(priv->pdev->dev.of_node, "ptp-timer", 0);
-+	if (!priv->of_gptp)
-+		return 0;
-+
-+	if (!of_device_is_available(priv->of_gptp)) {
-+		of_node_put(priv->of_gptp);
-+		priv->of_gptp = NULL;
-+		return 0;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ravb_gen4_ptp_clock_index(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+
-+	/* If no clock, mimic ptp_clock_index_by_of_node() fail and return -1 */
-+	if (!priv->of_gptp)
-+		return -1;
-+
-+	return ptp_clock_index_by_of_node(priv->of_gptp);
-+}
-+
-+static int ravb_gen4_ptp_set_config_mode(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+	int ret;
-+
-+	/* Enable gPTP Clock and Select High-speed peripheral bus clock. */
-+	ret = ravb_set_opmode(ndev, CCC_OPC_CONFIG | CCC_GAC | CCC_CSEL_HPB);
-+	if (ret)
-+		return ret;
-+
-+	/* Set PTP source to GPTP module, only option on Gen4. */
-+	if (priv->of_gptp)
-+		ravb_modify(ndev, APSR, APSR_GPTPTIMER_SOURCE | APSR_GPTPCLOCK,
-+			    APSR_GPTPTIMER_SOURCE | APSR_GPTPCLOCK);
-+
-+	return 0;
-+}
-+
-+static const struct ravb_gptp_info ravb_gen4_ptp_info = {
-+	.probe = ravb_gen4_ptp_probe,
-+	.clock_index = ravb_gen4_ptp_clock_index,
-+	.set_config_mode = ravb_gen4_ptp_set_config_mode,
-+};
-+
- static const struct ravb_hw_info ravb_gen4_hw_info = {
- 	.receive = ravb_rx_rcar,
- 	.set_rate = ravb_set_rate_rcar,
-@@ -2774,7 +2827,7 @@ static const struct ravb_hw_info ravb_gen4_hw_info = {
- 	.tx_counters = 1,
- 	.multi_irqs = 1,
- 	.irq_en_dis = 1,
--	.ptp = &ravb_gen3_ptp_info,
-+	.ptp = &ravb_gen4_ptp_info,
- 	.nc_queues = 1,
- 	.magic_pkt = 1,
- };
-@@ -3186,6 +3239,7 @@ static void ravb_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- 	pm_runtime_dont_use_autosuspend(dev);
- 	clk_unprepare(priv->refclk);
-+	of_node_put(priv->of_gptp);
- 	reset_control_assert(priv->rstc);
- 	free_netdev(ndev);
- 	platform_set_drvdata(pdev, NULL);
--- 
-2.55.0
+> I see this from time to time and I personally think it's fine to have
+> these patches together. Also the only the patch that affects my
+> subsystem was Cc:d to me which is how I like it (but I think opinions
+> differ on that one, too).
 
+Any cross tree thing is just always going to be more effort, at a
+minimum you need to figure out if there are actually any dependencies or
+if it's just a lot of tangentially related stuff bundled together.  Plus
+the larger CC lists and whatever.
+
+> `b4 am -P _` is great!
+
+OTOH b4 won't ingest serieses unless it can commit them to git and I
+have *no* idea what the base is supposed to be here, it's not my tree,
+Linus' tree or -next.
+
+Please resend the spi bits as a separate series.
+
+--0rdiv1roUnHM6tDX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp7SIgACgkQJNaLcl1U
+h9CgzAf+Mfyz8kncpmkuFsip4V/KEWeY/74EiaopCxYZu9ER12XWRS+3hpvAP06t
+FzE4FyJ4b5uGDeBclT3D4mSAIoI1xT63Br7sqmOlocnv85dq3wqcimH5FwpoisgP
+5o7v5A2Bw9BkYeZW7XsKzJ2raxgqYKgQcbvIffN77mT78KVu2yBG3hkiD+PvJWLA
+Kv2uKKzxmBely9BaCFeZ7M/N5D6vGZMhGDL+seRSttR6Xn+3sA1AAi3RKObAWLya
+ZorJCLDgynNI5VEU2Jkv+oT3n0y9sdMToX9eDXrAI3JP8Vt4xncCBw2lhPerORRx
+ULbQrEoR959v7lubt5ZIQdwdztM4uw==
+=gZCM
+-----END PGP SIGNATURE-----
+
+--0rdiv1roUnHM6tDX--
