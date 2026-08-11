@@ -1,125 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF0837E5DE;
-	Tue, 11 Aug 2026 20:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E8A37E5DE
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 20:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786478637; cv=none; b=gX3FWStL6XzOIlyB2iEkgrgnFYF2An4n4TgC3C2W97VtGtdYPrNv5PodUL86/q6L9BT+BjozeKdPwHTHkmkbeLHI9an0vKrBnFfQpottSWHWV0Kf2yktvPJO76Jb0gTBaiDbha7tec1PSvAwZyBhWtqlPeqPVCkf4Ec5JhkYNdU=
+	t=1786479229; cv=none; b=P5pwTjX19anh7Gvugrl+eztUrAcWmfTjs3dx6msNCOuG6B980MPae/7cbXWy0ZGGNNITjuaU9dQa81h9LuBDw6TstV2Yo8lbd1y+ruSz7OSSJ88UhFur152+V0n2Jn8o2PFZPd58sNtiYRvMJglAiH9hw6331RDqN3f2JcekkZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786478637; c=relaxed/simple;
-	bh=dCzIU7ojE8D3UmzNibeyd975Rw86O5ZtsP9WH4rx9+k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cdp0Wu4/Qyf9LB4aHpr4sxG7SnPnQQoCPHKxF1cPz9SvR2LgevD2w43geycGX2Dh6nc66bpe8i+bguV9CePV5P6Q4Fwtgm+KtFusSvuB7UPtok9UOKasSjfM8K5oEVB+nZld+17VYSXqzVMDbD+kvt6P5xG5+R5d88vz9FlY6rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibaORHt2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786479229; c=relaxed/simple;
+	bh=sGcOoZwaTWTmAxZFlW6sWeDFPJ35IPDylx/fIMfey48=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ho7D16c+HKKVc3GTFUs3/l1je1yMEdwRd8rIQra/QzhbqG+aHjgZc6lU9pA+1qcAY7JeXxfSPVHQRwOs2P0/WMOvuonSFA7lHGqG4izcKnEK2fEmjOBht6kLjJL/BYIydZpxJ9qZpQVfLioFYEifcSq6Ikn+vhqhDF7ouTxucJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=V09dF9j6; arc=none smtp.client-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibaORHt2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B981F000E9;
-	Tue, 11 Aug 2026 20:03:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786478635;
-	bh=6GNUxbGg84bFvNfezGSzVaWY/WwMbCtxfyu0mf+DJfk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ibaORHt2RqE13gkr6prwxcXP2CPvw+SarpAqNC5mvtCW0GW/Ap8yoWQ9IAH8eDAU1
-	 yh0QAOPuH/qbO4t8XokLxNz2sMQ6qyCbVIysrngqnKeAeaQoVbjQJjF4qdAwPQre0s
-	 jjtMOu+KHyagZ+6xpejm5q7fSJpyV8yYHsTC4v1wWm9H1MIR8W87k8W0n/mBPk3/Fd
-	 rC7uAgzo4A9yy1frJM7dC1aXrD7WXw1w+nxqlelIyBYggpfwWwyz2rzviG60oABC8B
-	 7FGPDhW8ggLxsEV6HTFgzwthwquaMbzBs8CbP8fFR3yezsvrZt+h51tfZxndlKEkjW
-	 BxjGNAqn7/cVA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 9/9] rtc: abx80x: add support for ABX81X
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoni Pokusinski" <apokusinski01@gmail.com>
-Cc: linux-rtc@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260811194034.28937-10-apokusinski01@gmail.com>
-References: <20260811194034.28937-1-apokusinski01@gmail.com>
- <20260811194034.28937-10-apokusinski01@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 11 Aug 2026 20:03:54 +0000
-Message-Id: <20260811200355.40B981F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="V09dF9j6"
+Message-ID: <2b4e524a-cccc-47d1-9779-b40cc592e1cd@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786479224;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f22bnD3Sko0dUdBxN3QNw/Z+ZrWPYkDLgjG8TY6rG1A=;
+	b=V09dF9j65JUlhfcjqaeq+VmWdpAzRmYHvvnlHqtx5/gzL2DcKqZ8O3MWGueU3AWU/3RSIj
+	hM5rLo+hyvUaSDcHIEnmoyJaShGLUjC88DMANkg259S5DiuN5FNIsIjNP8q8uOV75JZ1Ke
+	qJ3l/Yzr0pn30dekDUOHDzpxvqzZNQs=
+Date: Tue, 11 Aug 2026 13:13:37 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH v9 00/20] Add Counter delegation ISA extension support
+To: Paul Walmsley <pjw@kernel.org>
+Cc: Will Deacon <will@kernel.org>, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Anup Patel <anup@brainfault.org>,
+ Ian Rogers <irogers@google.com>, Rob Herring <robh@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ James Clark <james.clark@linaro.org>, Namhyung Kim <namhyung@kernel.org>,
+ linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Conor Dooley <conor@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
+ <42cea3ec-5f9d-7f47-bb8c-ab2789246918@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Atish Patra <atish.patra@linux.dev>
+In-Reply-To: <42cea3ec-5f9d-7f47-bb8c-ab2789246918@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Read-modify-write (RMW) operations on the W0C (write-zero-to-clear=
-) status register cause lost interrupts.
---
-
---- Patch [9]: [PATCH v5 9/9] rtc: abx80x: add support for ABX81X ---
-commit de21e840f75a86e42ad746c99077b6acf5f3e1fb
-Author: Antoni Pokusinski <apokusinski01@gmail.com>
-
-rtc: abx80x: add support for ABX81X
-   =20
-Abracon ABX81X is a family of RTCs with SPI interface featuring
-the same functionalities as the ABX80X I2C clocks.
-
-> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> index 08b22c0676995..7145de876b50b 100644
-> --- a/drivers/rtc/rtc-abx80x.c
-> +++ b/drivers/rtc/rtc-abx80x.c
-> @@ -1,7 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0
->  /*
-> - * A driver for the I2C members of the Abracon AB x8xx RTC family,
-> - * and compatible: AB 1805 and AB 0805
-> + * A driver for the I2C and SPI members of the Abracon AB x8xx RTC famil=
-y,
-> + * and compatible: AB 1805, AB 0805, AB 1815 and AB 0815
-
-[ ... ]
-
-While reviewing this patch, I noticed a pre-existing issue in the driver
-that might cause lost interrupts.
-
-drivers/rtc/rtc-abx80x.c:abx80x_handle_irq() {
-[ ... ]
-	if (handled =3D=3D IRQ_HANDLED)
-		regmap_write(priv->regmap, ABX8XX_REG_STATUS,
-			     status & ~(ABX8XX_STATUS_AF | ABX8XX_STATUS_WDT));
-[ ... ]
-}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this write inadvertently
-clear newly-asserted interrupts?
-
-The ABX8XX_REG_STATUS register uses a 'Write 0 to Clear' (W0C) mechanism,
-where writing 0 clears a bit and writing 1 preserves it. Because the code
-bitwise-ANDs the previously read status, it writes 0 to any bit that was
-0 during the read.
-
-If a hardware event asserts a flag between the read and this write, the
-write of 0 will clear the new event before it is handled.
-
-[ ... ]
-
-drivers/rtc/rtc-abx80x.c:abx80x_ioctl() {
-[ ... ]
-	case RTC_VL_CLR:
-		scoped_guard(mutex, &priv->lock) {
-			err =3D regmap_update_bits(priv->regmap, ABX8XX_REG_STATUS,
-						 ABX8XX_STATUS_BLF, 0);
-		}
-[ ... ]
-}
-
-[Severity: High]
-This is also a pre-existing issue, but does this read-modify-write operation
-expose all other W0C flags to the exact same race condition?
-
-Using regmap_update_bits to clear the BLF bit performs a read-modify-write
-and writes 0 to all other unasserted bits, which could cause them to be lost
-if they were asserted right after the read phase.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811194034.2893=
-7-1-apokusinski01@gmail.com?part=3D9
+On 8/8/26 10:36 AM, Paul Walmsley wrote:
+> On Fri, 7 Aug 2026, Atish Patra wrote:
+>
+>> This series adds the counter delegation extension support. It is based on
+>> very early PoC work done by Kevin Xue and mostly rewritten after that.
+>> The counter delegation ISA extension(Smcdeleg/Ssccfg) actually depends
+>> on multiple ISA extensions.
+> I'll put the first ten patches in riscv/for-next, replacing the ones I
+> queued up earlier.  Let's take a look at the remaining patches in the v7.4
+Thanks!
+> time period, due to the other recent updates.
+Sounds good to me.
+>
+> thanks
+>
+> - Paul
