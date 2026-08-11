@@ -1,85 +1,84 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FDD4457AE
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CB4442FDF
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786450878; cv=none; b=K70GWVkikgxhifpVVsJaWk+wOBCNpE1hRDSiVF7z06pWIpWSqxjBsKtwKtA/V5mS12llGus3faGvwLdbt4h1I0brSg0QPvpT3RL6MK0iEZIP9DLuIwn4CydMFK3NxqFlEZZnPi0NdX5lWvaqcSgVGv+GtsLIcXlv1G0hfLtRLJM=
+	t=1786451222; cv=none; b=mzpUjrK4v06CnUsLes+oaNk5hx5D66MUYgFlwmzDjjYgBiWcBbuLA8Dd2PZFLIhwIuBIKAR1GkEWpIS0HxT8IQqtW5rYjBsKzBW3LGqqDZDcS4nR+RXFJ6/yxr3POuKKagOvJIq0yq3bX6TCDD6sSj0b0nWYBSPLZ8d+AubemCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786450878; c=relaxed/simple;
-	bh=zw9K5bulR5RCbQzcch5UFQFm1ClqUI2Eu5cBqRJdZYs=;
+	s=arc-20240116; t=1786451222; c=relaxed/simple;
+	bh=PIkKG1T07yXvM8/cExylm5JfKnzjh2w3dYx/z7Jjz5M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rGALX0YA8Nx+ySTZYY9Kx4b4VLKL1l711nTs4SultSU2rkxQt/V1TxPJkSMYiPen6wgUq8EG1jbbby82LIze13G5Ck1e1BKPLfZ89VgglhOgsguvo3f23vTrQyDKjtn2fUpn/jNNBzECbLEtjHvuTfJ9SZHd0kr/UO910t3vOt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=R55gbYpG; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 MIME-Version; b=LFKSpzjH1E5OdafFfxOCCpoPYSaNMbOckLELwxYaqnmGCku02XwMSHshvedd8yAjSX4fm+UKE6Svs4IWQNfbvbLmPwlGb3mA8xkrJsYm9MLiaiTFcEdtfUG/ZvDGjXJjy6SIfPAKykzfug3niPtKiM5VJMnViOJ67CJnQO4i98w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NPaON224; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="R55gbYpG"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca957432c7fso2911611a12.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 05:21:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NPaON224"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47f6609c657so1542942f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 05:27:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786450876; x=1787055676; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786451218; x=1787056018; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/5LbZtLdzstzREZ48zu7bbbJyct6fe22QDz6/0rMi/0=;
-        b=R55gbYpGy9ivCS9D6o20yhuvitL8znHDWJg9vGlJX7pc61gdH+juU7lECmzUNwxalZ
-         X7ngyHVEG78QYf/gDywHghwSBg6snPASWUBoMkrYSh01D7Hv5ar7wcoKThZtwcVMNCeN
-         WCOuw0GFCnRP/BYWSrGlNbLUfBiebsCV63CsM=
+        bh=z1YNUY4CnOFIxxcbK/ti3nxx9tWKw9gvD9EHL9TaGXo=;
+        b=NPaON224YsQdMxuXFWSDC5+DTtf1PmmgYbpmo2OO/FDK3Q25Cqp5m9BTBDNxUmDSAz
+         do1c2iaQ+PIguDw4MDOnOiWIoS1JU1EtU19BCJ2l3dzwPe4zjVWkbxHVtFPxGTS4O7m+
+         jqmbwtRCP6ZSEepF5oBrQXlKc1EFJ9s9br0zidErljLxAT+oIEmxn+TPvv7+waq9kR4T
+         66x5TRc5GW8NHCMfJYeNuQvL3egLDT6Hj3uaVGfxgfqdzmsgZ9MX8e+ZgjkUREqDCT/z
+         O3HUP3rcr51N8wyNRsHcs4qhKZi4cB2IQkgqSJtOLedwoHghGQzoRBz1ZSztFUGyzEoK
+         XJ5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786450876; x=1787055676;
+        d=1e100.net; s=20251104; t=1786451218; x=1787056018;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/5LbZtLdzstzREZ48zu7bbbJyct6fe22QDz6/0rMi/0=;
-        b=m0h/vEXQxLLzL0KHcy+U6wsT+Zww7Ljmosztl3WV3YHHND6ThG+jv7gICpHs1EW17e
-         62CgGSovQOcTLixZleTsdYXjtDdHkE5uAYNwKbV40apojiHoQC3+TYKDozhYAflA+ZKB
-         6bALn+EQpksNpeQ6niKnFCECmZjKyS8IRDY0Qt/YCI7rci8turLsa6B1dfxguwkLeSO5
-         79SWADUibuMZfo7+i8JJJQwRMe2y4EhMvbSujxivUqcQ24IoA5Wzx/MxA11s+RuhBYuV
-         Qzy9dAURLbIWlehBRmdO6TwUsmKVgOmStX+l+w2GXSDYAgIVylPCeuM1Lyq5CR4xhhCP
-         CI5w==
-X-Forwarded-Encrypted: i=1; AHgh+RoQjM8IzFnGVjVw5EaLwbNzYn+BRByHfzOLxUmihk49aFoTAM/51tIBu6E9MTyhTQ9o5yollV+ZPirl@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSRJphAN0sq7uWkTJdJ1w4MMHzGbjUt7VSKpnLtct15rVf33vW
-	aChXZL2zYVGzQBWHPG0Uw4EHMWf7ZeVtDqzJ79sEo5inMElv8T5C5qt0Y9y7IZdbrg==
-X-Gm-Gg: AR+sD13QYXViUK/OI0AASU7nNVZa+Q1casXUS4UWPMd9RhxuZjUApMrmWJMatjeBiKY
-	ffpE+IK9x1/bq0+z3gjpvEnUNvOTf0v2vzQ2LcXp2tn7EpyNYuIDiWOJOgkhhd0s8I9i3kFYHhO
-	bM7O80CG1IrfU0tkonPHmFa0+6T667e2X06Ll4NL+yknhfF5l0zLsv+QgKrMCNPFj1pisSAN4Re
-	o18UlooUnXdT5v2EYtPVInG775cITcRjEyga6f9A7al2BkhlHtDIZpJWx1AaJAoo6rktUUC05X1
-	vzJfBbNHdaqiZSsd3j7N68dWMnE/b4NSEHZ1SmWHdkzg0tn4WANuJG3PY17OMuu8He85IFbXX8S
-	IqHpdKlaBd55al6hgyoGU8x2OUmBrMa3fQGtYuoeiOJ0ra27fsBtOV/NCzJKG6PNivsGaedCmih
-	fMFvIGdgiROAyU2geATYgoeNEl3nzzF+A/p203ao7qT9W86MBYhhlYZU7QU4T3E0gQ4Ns+E8ZE+
-	3ILzT3yvD/RXDF337UoF5LOZ1cieU4vadcUUsm8NFMjOQ==
-X-Received: by 2002:a05:6a00:234a:b0:84e:915:d7eb with SMTP id d2e1a72fcca58-84fa8889f0amr2532844b3a.37.1786450876479;
-        Tue, 11 Aug 2026 05:21:16 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:12e1:df26:6add:1ea7])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa9574e9dsm662454b3a.54.2026.08.11.05.21.11
+        bh=z1YNUY4CnOFIxxcbK/ti3nxx9tWKw9gvD9EHL9TaGXo=;
+        b=eYFwHuRcw1wrIXSYUUqNFYLEJaISe76Pm6f+nuuYtpmM8v7qzNFp/YTXWXqks80xZh
+         yuEXfKlE6GjzkTm4x3PLQ2GWLnLeKFdYB5bbesretk3a3EyZ2wWg3BFxMzVV9Gx5gq1N
+         Sxv/dDFlx9zh+d8cb2tzkAU1uqex4H2LFKujlCtx+PxCBcmTvlE+FCdC2JTe3jy2/JCE
+         QakvVetY2iGn3DwwCJKr7OJ7foqjzml6ARWwRmpn3D+XlGPMgHzA6VNMibb17UqGwTXm
+         DR8O0yYlqdZJSe3YzhusBjjl2lOH37F3iXyUh0RTbx/KppngeqkiGDaksOhpL17zAmMK
+         wzdg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8gMif9noelGkSDIueVjRi7kNRPYphvJHGIGcV1pMRNB4Z5gdnBiBatx3uJZp1+PKwLVx6oRVYGnSB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5SWdr1DJ7d/06V4SpwXYS67ncYRnm8zFhwdbYqlk8/ddrh9Co
+	hHSFZX5FhKpJGLXXbpyBPky7TkLvTaqhlsRsEJrBmXDtTkX2dZJF/YHC
+X-Gm-Gg: AR+sD12TX2XpFBe+epO+SEn7Aj2g0Wc+oYb5vln0fjelfhhu7WZZ3+BOA29vCWWg7J3
+	fEC9O004nuI8ZgLkQvWFU9EocZ3g1a9YsCEIPB4GtpCVkIsG9QugKd29El77GChXknXBkdtmRnC
+	vgYAzpYN52z0j5iXQr/CFOZzdFoFVsOCIJKl/556hKYhTqnsWmql8N43s+i18FFs3hXFsz97n7P
+	GTFNodqs/wfI9SmAmXqYeG0IbzKxX+tvIYKf/NgaTxKkh0jA9ki4q8klMzgeQ2PjHEdiIc0yf5h
+	ju7QZWm75/ZHtsxpXEs8tK+U8WKsHjpFfhUZ4BuwqVg5LLAj8/4QRT7SzlFy1txApBhoB+JyN1y
+	jwA/8I8cevAbCSU/gECLKrbga4ug3bU9BCPXikQyRlJMS2CxvkkXg5397+bsqF4H5fAHm0aoNlw
+	Syxjwydy5Y7a0vomakSVe5yxtd5/u96OjdfKkHCNc1HrMptbXguTZPZt0TwKwLBw1/hTto3VS/Y
+	g==
+X-Received: by 2002:a05:6000:298d:10b0:47f:ecbb:59a2 with SMTP id ffacd0b85a97d-4814add98efmr4048625f8f.29.1786451218303;
+        Tue, 11 Aug 2026 05:26:58 -0700 (PDT)
+Received: from thinker.local ([2a06:c701:91c4:df00:228:f8ff:fe2f:dc6c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4814a72cea1sm4634973f8f.37.2026.08.11.05.26.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 05:21:15 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Mark Brown <broonie@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
+        Tue, 11 Aug 2026 05:26:57 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: airlied@gmail.com,
+	andriy.shevchenko@intel.com,
+	conor+dt@kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	chrome-platform@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	krzk+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable+noautosel@kernel.org
-Subject: [PATCH v4 9/9] arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics trackpad's supply
-Date: Tue, 11 Aug 2026 20:20:09 +0800
-Message-ID: <20260811122011.3539250-10-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.679.g6767b8d81c-goog
-In-Reply-To: <20260811122011.3539250-1-wenst@chromium.org>
-References: <20260811122011.3539250-1-wenst@chromium.org>
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+Date: Tue, 11 Aug 2026 15:26:02 +0300
+Message-ID: <20260811122603.30773-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87pl0fsbps.fsf@ocarina.mail-host-address-is-not-set>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,39 +87,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Synaptics trackpad, like the Elan trackpad option, is fed from the
-system 3.3V power rail. Add it to the trackpad device node.
+Hey Javier,
 
-Also add the correct post-power-on delay, even though in practice it is
-not required. The Synaptics trackpad requires 100ms after power-on (or
-deasserting the reset, whichever comes later) to fully initialize. The
-power is always on and the reset pin is not routed out, so the
-implementation could try skipping the delay.
+I recently returned from a trip abroad and resumed work on v4.
+I am making good progress, but I would like to propose a change to the
+agreed-upon plan.
 
-Cc: <stable+noautosel@kernel.org> # Without driver changes only lengthens probe time
-Fixes: 925ebc0cd55c ("arm64: dts: mt8192-asurada-spherion: Add Synaptics trackpad support")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-I think this shouldn't be backported, as backporting it without the
-driver enhancements just delays the trackpad probing with no real
-gains.
----
- arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 2 ++
- 1 file changed, 2 insertions(+)
+Javier Martinez Canillas <javierm@redhat.com> wrote:
+>>> Can we move this to the ssd130x-spi driver? For example, something like the
+>>> following might work:
+>>>
+>>> 1. Make ssd130x_write_cmds() to just be a static inline wrapper that calls
+>>>    to regmap_raw_write(ssd130x->regmap, SSD13XX_COMMAND, cmd, len).
+>>>
+>>> 2. Make ssd130x_write_cmd() be a variadic wrapper around ssd130x_write_cmds().
+>>>
+>>> 3. Add your logic to ssd130x_spi_write() instead of ssd130x_write_cmds(), that
+>>>    way it stays in the correct layer rather than having a leaking abstraction.
+>>
+>> I agree, in hindsight this code goes against the transport abstraction.
+>> I'd propose keeping 1 and 2 in a single patch, though. Making ssd130x_write_cmds()
+>> a wrapper around regmap_raw_write() and making ssd130x_write_cmd() a variadic wrapper
+>> around ssd130x_write_cmds() are two halves of the same change: routing command buffers
+>> through regmap_raw_write(). Splitting them would leave an intermediate state that isn't
+>> independently meaningful. Happy to split if you'd still prefer it.
+>>
+>
+> Yeah, as one patch is OK I think.
+>
+>>> Also, instead of checking for info->family_id == SSD135X_FAMILY, we could add
+>>> a dc_high_params member (or whatever name is more suitable) to the struct
+>>> ssd130x_spi_transport Then other families that might use the same can just
+>>> reuse this option instead of checking for specific families.
+>>
+>> I agree that hard-coding a check for the family isn't open for extension and should be changed.
+>> Adding a member for this in ssd130x_spi_transport is a fitting solution, I'll populate it in
+>> ssd130x_spi_probe() using a static array that will describe which families need dc_high_params.
+>> I'd keep that table in ssd130x-spi.c rather than adding a flag to ssd130x_deviceinfo, so the
+>> D/C# concern stays in the SPI layer instead of leaking into the transport-agnostic device info.
+>>
+>
+> That works too. I don't have a strong preference on how should be
+> handled. As long as the logic remains in the SPI part of the driver.
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-index 68caf4c58cfe..8adbfc307fca 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-@@ -94,6 +94,8 @@ trackpad@2c {
- 		hid-descr-addr = <0x20>;
- 		interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
- 		wakeup-source;
-+		vdd-supply = <&pp3300_u>;
-+		post-power-on-delay-ms = <100>;
- 		status = "fail-needs-probe";
- 	};
- };
+While implementing v4 I noticed a problem with step 1 above, and it made
+me reconsider the layering argument as well.
+
+First, the concrete issue. SSD13XX_COMMAND is 0x80, which as an I2C
+control byte is Co=1, D/C#=0. Per section 8.1.5.2 of the SSD1306
+datasheet, Co=1 means exactly one payload byte follows and then another
+control byte - control and payload strictly alternate. So
+
+    regmap_raw_write(ssd130x->regmap, SSD13XX_COMMAND, cmd, len)
+
+puts len bytes behind a control byte that promises one, and the
+controller parses cmd[1] as a control byte instead of passing it to the
+command decoder.
+
+This would break the code paths already using the I2C transport: most of
+ssd132x_init(), and also the per-frame path via ssd130x_set_col_range(),
+ssd130x_set_page_range() and ssd132x_update_rect(), so it is a runtime
+regression rather than only an init-time one.
+
+It is fixable: 0x00 is Co=0, D/C#=0, i.e. "the rest of this transaction
+is command bytes", which is exactly the semantics a burst needs. That is
+also why ssd130x_write_data() can already burst today - 0x40 is Co=0.
+But it changes I2C command framing for every existing chip, from one
+transfer per byte to one transfer per command, and I'd rather not do
+that as a side effect of adding a new controller.
+
+Second, the layering. Looking at it again, I think the comment I wrote
+was the misleading part: it described the behaviour as "D/C# HIGH" and
+"D/C# LOW", which makes it read as an SPI concern. The code under it
+only chose between SSD13XX_COMMAND and SSD13XX_DATA - the core's
+existing transport-neutral naming for the two paths - and left it to the
+transport to turn that into a pin level or a control byte. I should have
+described it in those terms to begin with.
+
+Furthermore, moving this logic to the transport layer could lead to code
+duplication. If a new controller that supports I2C is released with the
+same "parameters are considered data" requirement, the logic in
+ssd130x-spi.c would have to be duplicated in ssd130x-i2c.c - which today
+has no .write handler at all, since it uses the stock regmap_i2c bus.
+
+So for v4 I propose:
+
+- Keep ssd130x_write_cmds() writing SSD13XX_COMMAND per byte as it does
+  today, so there is no change to I2C or SPI wire behaviour anywhere in
+  the series.
+
+- Still do the ssd130x_write_cmd()/ssd130x_write_cmds() unification as
+  its own prep patch, as you asked. It removes the duplicated variadic
+  loop and gives a single place for the check below.
+
+- Add a bool cmd_params_are_data to ssd130x_deviceinfo, checked after
+  the first byte is sent to decide how to send the parameters. If it is
+  set, the parameters go through ssd130x_write_data(); otherwise the
+  existing byte-by-byte loop is used.
+
+- Drop the separate SPI transport patch entirely.
+
+The comment in the core will be phrased in the core's own terms this
+time: parameters go on the data path rather than as further command
+bytes, without mentioning D/C or any other transport-specific
+information.
+
+Apologies for going back on something I already agreed to. If you still
+prefer it in the SPI layer I will do it that way and fold in the 0x00
+control byte change, with the I2C framing change called out in the
+commit message, but I wanted to flag the breakage before building on it.
+
+I have already implemented the fixes for most of the other comments
+locally. Once we settle this, I will submit the finished v4.
+
 -- 
-2.55.0.679.g6767b8d81c-goog
-
+Thanks,
+Amit
