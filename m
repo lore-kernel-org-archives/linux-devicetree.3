@@ -1,163 +1,247 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CFA043B49C;
-	Tue, 11 Aug 2026 11:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C5942B31E
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 11:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786446214; cv=none; b=MxlJFhgnLqT4ZQ7HPn4o0O1GBQzFymNj/P9HpbDwTkbt32Pfn/513ylQGKO0YiLIafAK8YYOAz7bmdgyLUSpx39+pF6KhDGNKdr11OhC2xXP1OYHBN0CPGNc38ZYVkXuo6ku/2721WgJlOEAJ5shS0IokoR4P6kCE26mcLSXk3I=
+	t=1786446639; cv=none; b=iwEzXmXaE2hHRQxt0gVgp9ivzPECXRPxLxSUNuy5sNt8bOVijkQuQFqeshLB/p/j17bVaMZWOUm1OCGAd9fD005GTUF7QUucSvixn96xgCaWNL4XfPYpBIQdFcxVymVamn3udj1gju+9erfokCgoNf93E8Yf7c6gPbvjIWfJNrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786446214; c=relaxed/simple;
-	bh=goCAgiGsYzYmjtz1zRhN8F/xv/xhGM2puiUk9GjOUoY=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=LZV5A6RQoKXDk77b0RzBX9PCtDE5sTGxhwg0E6fB2RhNQm9CZj1DVYvQjkL+I4zQRsAWpWB4+4nkN5ZddAQiYXSY08Rk9uVB0KC14WaixNOX1yGYcFut6TNIlyYkyhnHPJR1csT6fgAVW2ONaWlOMOf7uE7Co8CNsncPZuO86vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Zx1qmApe; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=lWqT2DPm; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1786446639; c=relaxed/simple;
+	bh=6rZ3mfhDGKX05Rlz+nZ6HYVUNrw2v8ggiqfc7/1++Ig=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ikCF3uajhJvTeHfJGvI7I5XafMNkJQq/OmDTBC0VOWat6T9wIfUTT71whnxELkMgFCsIqfmo51E5sRcElg3ggPRMU08+cf8UyJKKnauEsDyotUyZrbxWLMx/mPr9GGLANfyyy3ke1NPLcu0F/oXshcx0jl8zK5gJYKxpGLvfxZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWGU7CJ8; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Zx1qmApe";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="lWqT2DPm"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id C690A7A00D4;
-	Tue, 11 Aug 2026 07:03:26 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 11 Aug 2026 07:03:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1786446205;
-	 x=1786532605; bh=Em7Pmk+5eUG1SWBMVzHDtE7f/cjRyDtElutYuL2DugM=; b=
-	Zx1qmApe96uqoLq7+Nuyvsiv1DCd3/Q0kA8bceGLXxmyJhy5AzHT1Q0dfhXr7+/8
-	5zmGCkhEDdUS69G3dqoele8tePC3i7LorSmEjp1Vle+9Gw09YuB32fao0uHg7P/M
-	bKCaJQ7qt9TDvqHBnNZ2NgxptO4OXe9sF6r9yn5BVgugRhKyOIcarGMrzPmc7I96
-	g9JMc3XKccuz662aGLufwSkjR6Uz1wDsNcWTI5Qqk5X1gyjEzTQOcSp7P92xPumP
-	n0idtP9FRV+lwoHmB2bVK0wG/cLwCO4mxkfQLLS0wWaMRxzLWglHtctBW5eljGYw
-	yBwwIMj1SUw/oEUK9gtMSA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786446205; x=
-	1786532605; bh=Em7Pmk+5eUG1SWBMVzHDtE7f/cjRyDtElutYuL2DugM=; b=l
-	WqT2DPmcqbFvMdAW+3LUdSe5qt714VJiMYEc0WuMsvYzWRL4RIMLye4HL2tlhRQ4
-	cZLCWAUMz4bpL/CBMyZ6VIp7lxHYjFf50NKFVCDY/Aqhnrjf8iXzw0f/M/itKUtP
-	a2OdqKKYS1s0QlvmBjQWrfdCRksmxbkycWAsbffhXfPwDK+VHfNAOXs7JppU1Lhz
-	RRcDC+p6cbfm+v5CJg1kcjHZPvKDHLRiV5YvZCNYHZnDecbF6iiY4TIp6dzDhssQ
-	lidnwTWPFyNbJ5G/yE56OKkjRIXSm4IB9BPwuKXWDEI05sxJtkTw8CrPhqCjtYGx
-	R4Nb/8wnCUwnI7U2sl0wQ==
-X-ME-Sender: <xms:eQF7anz_Yd9aPLO7tISzP7FDrQooLkT4ZxPSPgLve_BmUUNISp_O7A>
-    <xme:eQF7aqEDIhJ-fPNjJEskRDIoyM7kJLgZ66qiL2Uv69jo8dphEqfMQnQOPjXlUeHPR
-    lnbb3dTHimVpQI7MM9ri62s8IPttzHkbAcKN4vPAG_MQB3fSaSyy-Nt>
-X-ME-Proxy-Cause: dmFkZTEm+YK0hucMyyiNj16IVivtiuxyve3yfa6oej4703fz3vU5Ms86zBYr2daYx/Ap3f
-    qoJj9unxXzj4SmURlVdQMQMSHXFus08gnoqMhKsjWH2kcLVUJu/0NeboIXsI/RzyPuDyRJ
-    kNEVXTgQwTcxxHMrbxViqzs/5QTdSqNge4U/KGZNUnnSRQ5zO41RINg2NUyAIu8zBbRDfc
-    iT4WgFpWW2GwotcMmM58gEREVItxyf/fNcHzswJ87QvjXCkMB2r5uh7opzOF/Us+/X/ao5
-    BlD1cpxJBpOK/MXCW7JlN9Pbeuq3SFeQzvDBrl4BV2go62q4Q4KdsjgYmpLozWGpqRWWZH
-    32wZ4dTuLryuW/EvReq1SfYZct1shwLLGtgBaCu2L+eF2xkfhgbTgRkBCJIY7dYKmWatSB
-    pBI5BEA4J1UFNagDR0Vr3qElrmCgLoJVr6PKlX0DSEHYN8p3np8ikKSr/RK0Ltb3SqlCxe
-    DIYd53JUZWuttRbTZ1D5u9sLqEuyVmEgAAICC42KtcO5XNMx1yHDx+eLTxyO7ev4PQCY0w
-    US0lizxIu/pF53taNQOjrJQ2kyQi1V2CxHPl4bflphQ1Ue56GiIdG9LflyV/NMPFbhVbqz
-    rTvb1r4442yS3cP7dKyqUFBRIu6mpawIxF9iVKNFsJL0n2vgb82C/mV3JLww
-X-ME-Proxy: <xmx:ewF7apTPIfsizE1OBLI0Er28EuB8w1FVJ97d9Lxy7lRvw-13_bFzIQ>
-    <xmx:ewF7avVAIHo_BphPe6NEliLvyyZvkzKIyB_alkiCoTblIpLh2Tgfuw>
-    <xmx:ewF7ajT_mcX84rTUVyeVaLYPdbTiQs5lgu0OXzLF1W0GS9b2UQMOYg>
-    <xmx:ewF7an1iPwr6z5yg6mk7m9lpxs0LDsXMAOAYJSNuUQkeDt0MRoCDMQ>
-    <xmx:fQF7auJP8UIyUhlTJkmuzCvZ1W5SbHPVrIXVBqGPMGw0lE_HSjxirXYJ>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 34D0332A006D; Tue, 11 Aug 2026 07:03:21 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWGU7CJ8"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49954b88fffso31909595e9.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 04:10:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786446634; x=1787051434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S5Gfsr1BRyTWUvkjYrx91YwKhmyq/zfL5zpExYSPVmQ=;
+        b=JWGU7CJ84E7XzQDymrjSP8KFAN2o2RL9uqx5us0J0DcFrVmAZ4ePzWGn+FYj+a7caE
+         8GLqItgRI1zqmR4KrED/0c+Bmp/nv2bLjaTVm0d0QNr4MViYnTZN8bDhpCedwz0gIN7R
+         JYzbqLvzrtDXEfLWZhhubIIvrYA/TE7sLwb9oUoiy/rBKUL93A4WTmYj9nlJkturRN/M
+         tsUGIksbiZLjGZcN6ms+wrfoRVEPKbXNgXDeXtU3tZ1QtENLUVbG5/3Qjq8prHhJ9bsX
+         izG2r9KiDV36Ng7EtJmkjRJnPK4eap4SElI0K/BrlCrZScbdRWW8eEkA3B34qDEaSkCr
+         /2kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786446634; x=1787051434;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S5Gfsr1BRyTWUvkjYrx91YwKhmyq/zfL5zpExYSPVmQ=;
+        b=fbe2v626t9M7H5xGSQT8EY/Qc9/FdBuLi3DneO2DdEVH092KHMYP/xhVq8oPzFT5kk
+         8Z1zxIddssrf3YLLn5DmRgpft4l4FxHTiD6q7H5rKsnjT97wesnEHJEjKgKBn87tnpbL
+         Jom4q6U8rNjTW+ScKUeiv6NVusuCdtUMJp8LHHpUfNU3NekO3usLqKC1OYFxXtWaSbkC
+         yz/Y3BqxP4Atu3dhEvVIxL20bQDUgCKkDiROkF4/Bl2gQhZWTHaaMg0/wT12iIdk8iqL
+         q4TFhypdxcxC7aZUVLo1qvQxoHBuQAt/M9HRbv91GLA9Ob0ZsLy8pCdscGcLbqzzuLb9
+         7Jsw==
+X-Forwarded-Encrypted: i=1; AHgh+RrjS8na3wBLUEUqAVWuEJaaEi4OVthsHDZx3ITeZIfKjVUTANF0HQLzlLqN9gEDfB1BoLBYjV1zRC/I@vger.kernel.org
+X-Gm-Message-State: AOJu0YynFazzGYY++RttiU8G4VhfK2kNBcEBjXKXhL3It3KLO7CuOZaT
+	K3WP0rRe0ca4E3gcAGEFWk/Le12dKa+g3rgh5rsZNmjMOP2mtWHccUkQ
+X-Gm-Gg: AR+sD13DlU6Au9URZET4Dl4u65zw0mLp0ig7H0PQ8XftfSmHokuC99sKc6PwBg0jXIa
+	TNcoD/YEAbwhDvXRno3Hm62gBevPGMjf91X3rytFx9jc0sHQerAA/zq7VCsJvAQlynyLWuPdD4v
+	CI1oxNr7sL+nfpvkNI9v+AOCagzoQTrDqhfIuLePqMjKXApIn2RiT7F50T7TReXf203fmx9PwXC
+	ZOb3oAhOIxBnPAgw9MYraOIPLfnhAN1RQb0QqOdBqvcgXWcFGkFjN42KGytLad2QvNUOPOiaUja
+	Z569LcGsDkdhE10AaxCy2yloYtGQyC/X4B/LetwWpXsfjoB5udN371Shnz07Wf+omxRazPLKjlA
+	oZr83+ySpUEHjvTu6vdIpeFlTAKTM7bHV7JVYIEk1UkwrvDQ91AJKBc74H9AEn208ntmNBYxVdw
+	F+bzvij//iEykNp1TsGBsDSxfiwZlhlyP0etWJbQm311YjAZ/xEdUfvtqg7gBig5sffC3Wmbw/p
+	H6pKiAJMOml0UHIqfGurB1LscrhtC3N51UMrV3r
+X-Received: by 2002:a05:600c:6085:b0:499:728c:4704 with SMTP id 5b1f17b1804b1-499784649b5mr38456575e9.12.1786446633700;
+        Tue, 11 Aug 2026 04:10:33 -0700 (PDT)
+Received: from localhost.localdomain ([82.137.32.40])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4814a7095a0sm3570044f8f.17.2026.08.11.04.10.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 04:10:33 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: [PATCH v2] dt-bindings: pinctrl: Convert TI DA850 pupd to DT schema
+Date: Tue, 11 Aug 2026 11:10:23 +0000
+Message-ID: <20260811111023.721262-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A9r4Xi2IO-i7
-Date: Tue, 11 Aug 2026 13:03:00 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "James Hilliard" <james.hilliard1@gmail.com>,
- "Andrew Lunn" <andrew@lunn.ch>
-Cc: "Lee Jones" <lee@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <7bfb45da-8b67-4fda-844c-e2608c36d539@app.fastmail.com>
-In-Reply-To: 
- <CADvTj4qUEA-ccFj0cSQgHb8+0jB4m6tcpsZZwveZhC_RE8w9vA@mail.gmail.com>
-References: <20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com>
- <20260811-submit-ac200-mfd-v6-2-c5b1292c8498@gmail.com>
- <159b4ed3-3718-4563-badd-3627bc51a41b@app.fastmail.com>
- <CADvTj4qUEA-ccFj0cSQgHb8+0jB4m6tcpsZZwveZhC_RE8w9vA@mail.gmail.com>
-Subject: Re: [PATCH v6 2/3] mfd: syscon: Add managed registration for external regmaps
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 11, 2026, at 11:17, James Hilliard wrote:
-> On Tue, Aug 11, 2026 at 2:47=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> =
-wrote:
+Convert the Texas Instruments DA850/OMAP-L138/AM18x pullup/down
+controller bindings to DT schema.
 
->> I don't think this is the right way to do it. As far as I can tell,
->> the device you have here is a generic mfd that uses a regmap, which
->> is not the same thing we usually call a syscon.
->>
->> The of_syscon_register_regmap() code path was added specifically
->> for chips that have a traditional syscon but depending on the
->> firmware may have to access this by some other means. This is
->> already stretching the definition of syscon. I don't think we
->> should take this further and allow normal device drivers like
->> yours to register through the syscon framework.
->
-> This was suggested to me by Andrew:
-> https://lore.kernel.org/all/c78c2c35-52e7-4393-9714-06039d8a3f28@lunn.=
-ch/
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+Changes in v2:
+- Excluded the 'phandle' property from the pin group node pattern so
+  it is no longer validated as a pin configuration node. This fixes
+  the 'make dt_binding_check' failure.
 
-Maybe Andrew can clarify, but his reply can also be interpreted
-as saying that you should copy syscon_regmap_lookup_by_phandle()
-into your own driver, rather than changing the actual
-syscon code.
+Link to v1:
+https://lore.kernel.org/all/20260811092057.687155-1-egbostina@gmail.com/
 
-One problem I see with your current approach is that the lifetime of
-the regmap is not the lifetime of the user by the framework.
-Unloading the mfd driver while the phy driver is in use will
-destroy the regmap. This is a direct result of syscon being
-a very special case that must work during early boot instead
-of being a general-purpose abstraction for managing regmaps.
+ .../bindings/pinctrl/ti,da850-pupd.txt        | 55 --------------
+ .../bindings/pinctrl/ti,da850-pupd.yaml       | 74 +++++++++++++++++++
+ 2 files changed, 74 insertions(+), 55 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml
 
->> Since you already have a top-level mfd device here, just use
->> that to pass the regmap to the child devices like we do for
->> other mfd drivers. You can e.g. do this when populating the child
->> devices through platform_data, or get the pointer from the
->> parent drvdata.
->
-> The EPHY is not an MFD-created platform child. Phylib enumerates it as=
- a
-> struct phy_device on the SoC MDIO bus, so its device parent is the
-> struct mii_bus rather than the AC200 I2C device. It therefore cannot
-> directly obtain the AC200 regmap through parent drvdata or MFD child
-> platform data.
+diff --git a/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt b/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt
+deleted file mode 100644
+index 7f2980567c9f..000000000000
+--- a/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt
++++ /dev/null
+@@ -1,55 +0,0 @@
+-* Pin configuration for TI DA850/OMAP-L138/AM18x
+-
+-These SoCs have a separate controller for setting bias (internal pullup/down).
+-Bias can only be selected for groups rather than individual pins.
+-
+-Required Properties:
+-
+-  - compatible: Must be "ti,da850-pupd"
+-  - reg: Base address and length of the memory resource used by the pullup/down
+-    controller hardware module.
+-
+-The controller node also acts as a container for pin group configuration nodes.
+-The names of these groups are ignored.
+-
+-Pin Group Node Properties:
+-
+-- groups: An array of strings, each string containing the name of a pin group.
+-          Valid names are "cp0".."cp31".
+-
+-The pin configuration parameters use the generic pinconf bindings defined in
+-pinctrl-bindings.txt in this directory. The supported parameters are
+-bias-disable, bias-pull-up, bias-pull-down.
+-
+-
+-Example
+--------
+-
+-In common dtsi file:
+-
+-	pinconf: pin-controller@22c00c {
+-		compatible = "ti,da850-pupd";
+-		reg = <0x22c00c 0x8>;
+-	};
+-
+-In board-specific file:
+-
+-	&pinconf {
+-		pinctrl-0 = <&pinconf_bias_groups>;
+-		pinctrl-names = "default";
+-
+-		pinconf_bias_groups: bias-groups {
+-			pull-up {
+-				groups = "cp30", "cp31";
+-				bias-pull-up;
+-			};
+-			pull-down {
+-				groups = "cp29", "cp28";
+-				bias-pull-down;
+-			};
+-			disable {
+-				groups = "cp27", "cp26";
+-				bias-disable;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml b/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml
+new file mode 100644
+index 000000000000..059da050e611
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/ti,da850-pupd.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments DA850/OMAP-L138/AM18x Pin Configuration
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++description:
++  These SoCs have a separate controller for setting bias (internal pullup/down).
++  Bias can only be selected for groups rather than individual pins.
++  The controller node also acts as a container for pin group configuration nodes.
++  The names of these groups are ignored.
++
++properties:
++  compatible:
++    const: ti,da850-pupd
++
++  reg:
++    maxItems: 1
++
++  pinctrl-0: true
++  pinctrl-names: true
++
++patternProperties:
++  "-groups$":
++    type: object
++    additionalProperties: false
++    patternProperties:
++      "^(?!phandle$)[a-zA-Z0-9_-]+$":
++        $ref: /schemas/pinctrl/pincfg-node.yaml#
++        properties:
++          groups:
++            $ref: /schemas/types.yaml#/definitions/string-array
++            description: An array of strings containing the name of a pin group.
++            items:
++              pattern: "^cp([0-9]|[1-2][0-9]|3[0-1])$"
++          bias-disable: true
++          bias-pull-up: true
++          bias-pull-down: true
++        unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    pinconf: pin-controller@22c00c {
++        compatible = "ti,da850-pupd";
++        reg = <0x22c00c 0x8>;
++        pinctrl-0 = <&pinconf_bias_groups>;
++        pinctrl-names = "default";
++
++        pinconf_bias_groups: bias-groups {
++            pull-up {
++                groups = "cp30", "cp31";
++                bias-pull-up;
++            };
++            pull-down {
++                groups = "cp29", "cp28";
++                bias-pull-down;
++            };
++            disable {
++                groups = "cp27", "cp26";
++                bias-disable;
++            };
++        };
++    };
+-- 
+2.43.0
 
-I see, so the fundamental problem here is that you have a single
-device that is connected to two buses and both the OF devicetree
-and the Linux driver model are rather bad at handling this.
-
-I would probably do this in one of two ways:
-
- a) have a driver module that registers both a phy driver and
-    a platform_driver and figures out the interaction between
-    them internally.
-
- b) have the MFD driver export a private interface that lets
-    the phy_driver interact with the i2c registers and
-    make sure the i2c_driver sets suppress_bind_attrs=3Dtrue
-    to prevent it from being unbound while the phy_driver
-    is loaded. The symbol dependency itself is enough to
-    prevent the mfd driver from being unloaded here.
-
-In either case, you still have the choice between a proper
-abstraction that can deal with multiple instances of the
-ac200 device, or slightly cheaty but common assumption that
-only one of them can ever be present.
-
-      Arnd
