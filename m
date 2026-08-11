@@ -1,229 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1263E3921D8
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 20:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786481496; cv=none; b=uuosrVDWyFcA1LXtayVq1GqJMNocxieo0Dkrao0Twx2+sMG+VgN4QBMbNFCqZhDkeDvYsKKsn1QAJT5sEvnYhQREHTZ9SxZYc0luxXqm/X8ckvHcPp3Xm/cLdkWN0alhD0Tc3Dok1E6hU6YQXLz86gfqWD0UiHN3BruGh4lzpOQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786481496; c=relaxed/simple;
-	bh=lNA9sAMenH0cbDuKdb0bESSCAM0NIQ5a8wemeE9UeE0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GUxceF9O6M7Hnok8PqBAwawZfW2M1LAwJztmGuhayLh08E3F06tGaHfqcyGx3gvY4xBY1feeLW5GkpLV/Mg7Y0qsKLlbx5tAoTSc844pURtD6kXWLhbN6nRBP9DsynoHgW92wtK21tQqU52rJXh8qheKsKGJnGnMshTLH2BF9vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGuQtEVK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D8147ACDA;
+	Tue, 11 Aug 2026 21:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786482803; cv=fail; b=eud8IoYaLNz1bR4/txGdvdWlDwe4ZPiYN6XAOjjg89RxNSCrs9mVJsrCNZ+M9TPN3c4whVYM7krkd5MNxddcgsguf3ZrsKe/bLGsOoYxSD7+OLjhzkN66Uo7vCWeZMGWmlC8h9YyEmWUl5ca3xg7+gXpoldZJX/Wxd+HaUwXLiY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786482803; c=relaxed/simple;
+	bh=tIMiwMt0aZG5+Hx4gYIeqmohpvbJ02lbavoo94PJ/nI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D+5+erCBT0cQLPpihF4Jfe8fMRtGP47BqJPXo0p8ykvPVupl2cA7BW7V/VQ19F52amh8O6yuBN85OMApHIoTbqvlXzeUP2yxDVX5tFCq8uYuMlVSwoKidCGYJCm+3jXREyT7fm6T7ao1DhwL54NI2Gtj0LGtdD059zAwVMDsvHU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=If+y9E5R; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=iKHdvcAO; arc=fail smtp.client-ip=67.231.149.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGuQtEVK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753E21F000E9;
-	Tue, 11 Aug 2026 20:51:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786481494;
-	bh=cTl3i1vOZJhofNJ0s1amllzEXZeyy6ZYq1H+0MqYMnQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dGuQtEVKHF9Xkp6M/5PjnHwGYw1XK4GELqSh2bZh8WGrdrCjVUaGwq1xTkMgsa8GB
-	 mhfqQsDBd6dGusSU+eG99KCQUsl62JZcpjb0pzss78N9GDsmd9VDRshRoiEyO6Npzh
-	 mNNpegKD4jXIeUCrtiBj+td/Qy+kLa5lLkWUWY8XJZ/uGMcilogrIOFa8INBIzuLKy
-	 pfaC+/ekkSVgnIZNqCQ7QoUsrbdP/2CPyaP4Golz7rQiMECqwcmzoeinTN0XtT+JRt
-	 999Fi1cQU8/uZSslYYsYmOFjdaJ4rf34BWBLV2bPNcOcDkXO+/2khhyLdql7Vx9SdQ
-	 HQsmmn5I7CKlw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] power: supply: qcom_smbx: add SMB5 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robin Snyders" <robin@snyders.xyz>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260811-submit-qcom-smbx-send-v1-v1-2-feec6cfa123a@snyders.xyz>
-References: <20260811-submit-qcom-smbx-send-v1-v1-0-feec6cfa123a@snyders.xyz>
- <20260811-submit-qcom-smbx-send-v1-v1-2-feec6cfa123a@snyders.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 11 Aug 2026 20:51:33 +0000
-Message-Id: <20260811205134.753E21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="If+y9E5R";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="iKHdvcAO"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BHY1le1969497;
+	Tue, 11 Aug 2026 16:13:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=9oY27FyY/m/jzOo9z0vzF5VqTMM6HpwUNlOZoGlXdA0=; b=
+	If+y9E5RjL+Ov9Z6g13FSzPJGnDC9DN5M0hiUNt4klGvpPeyWW6f/J3rXz47j5pq
+	sbz+ezv4ib7SAy8KhFnnbgEiPkCJeKjpSKf3eC5uydBwmZ2i6wl2SNpN1+vtUGxo
+	iE5xmQKqpu9TwgfJ00XahRWJYHVnMAACPNnQNcSnRvKUQYiKbMhbbnaErU7LsKDT
+	WVNYOlGjS8YfL0l5tUjvZ2SqoHyY+ci036kvbGmN+UZ1R551fMbXGTgG29cu5/1U
+	4OJx/oj+keq1LYXpPhK3z17ekcObSRx1tbV+hKSX9FrBT1KntxL12pgl9jKmZPRK
+	kLJ2z32H3mAeFm14NCD1DQ==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11021142.outbound.protection.outlook.com [40.93.194.142])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4fx1v0xp9a-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 16:13:10 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sVp1z8cdUCq2XcWUzNC50jdKtY3YOHcSz5WGLcxx/ZoxeOJutzwPzE+Tj/Rs0ro6ZKzZVDJ0nMa1sZoeUpQPS9sqWzKFniz8ygTtjhJiEWPpEB3KE11MqUGvypXmUPWQvLe8F5GRhHJ0rEajn9gJ9pWZZWX//WtPTvf1dbc2Adjldx3gjVTkey2IS+QXgxSklAWxk+lgloXO3sPJllD2/+QCvLRpdlheKp8xUIhOryDkTC6Ea8uQsLppEC0n0ocCnyKbhnXRekLrNKjLrRwK8kIyB11ml2xXgf41UVlOV9xPRYmEmCUTEBLhz2o64mRlpBoy3yekh03D8cmFDhVwJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9oY27FyY/m/jzOo9z0vzF5VqTMM6HpwUNlOZoGlXdA0=;
+ b=kwlTggwmKE3DUpQIIqwiTw2MiPgeiV965nFEXB6yPG/lkfyXplGkkcFxo3gBW3IzC1mq4PZ7bZW80uCIm/fOm/z9RKPacwRJN9RZ7VH/n9CV40RrdZYH2tuIzmfbfi4wO0tVFXGbGdSy+FG2laBe4FURI59dDbAhhjhI4fgJocAsyQyUN2rM1yOt4qUrrDXbKajBIOF9zpStMLjw/2SToKs6Tc8/Dpl3JTZecCU4EMQHvVvrotMvyT8ykp31DCq7k9lKa8GoAT+Txd/Z25RiU6uSqFKaD3nlRE1/yxRjgqFflgkq7zQ1C3/V4u3ESb9qqq6SSUoxiAHWeFeC3BWEGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9oY27FyY/m/jzOo9z0vzF5VqTMM6HpwUNlOZoGlXdA0=;
+ b=iKHdvcAOjUV6fPFIMt1+KphW2T5MIVKRb6sY1tQXvj6dx20YgB9zAzJt+ySl95eIqehyAOu+hbXZEcgB7pxSGwLS685X+w9o7ftkiYUywF8OK2J6yCnlWnckayinVgTmJtCC5d9Dg910ICtF/Rsnsc4E3X1XQi4MI3iDdUFPJj8=
+Received: from CY3P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:fb::15)
+ by CY2PR19MB642174.namprd19.prod.outlook.com (2603:10b6:930:117::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 21:12:59 +0000
+Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
+ (2603:10b6:930:fb:cafe::47) by CY3P220CA0001.outlook.office365.com
+ (2603:10b6:930:fb::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
+ 11 Aug 2026 21:12:59 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.14) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.6
+ via Frontend Transport; Tue, 11 Aug 2026 21:12:57 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id C5700406544;
+	Tue, 11 Aug 2026 21:12:55 +0000 (UTC)
+Received: from [141.131.156.158] (unknown [141.131.156.158])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id E5CF582024C;
+	Tue, 11 Aug 2026 21:12:53 +0000 (UTC)
+Message-ID: <b7cff467-cd3e-4751-a77b-48020055bb97@opensource.cirrus.com>
+Date: Tue, 11 Aug 2026 16:12:46 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] ASoC: cs35l45: Adds support for SYNC bus
+To: Mark Brown <broonie@kernel.org>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+        patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <cover.1785855013.git.rriveram@opensource.cirrus.com>
+ <2decc44a938373375530defd9a1645770987313d.1785855013.git.rriveram@opensource.cirrus.com>
+ <72a2051f-32b6-40d7-a400-c090dcddf7b3@sirena.org.uk>
+Content-Language: en-US
+From: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+In-Reply-To: <72a2051f-32b6-40d7-a400-c090dcddf7b3@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|CY2PR19MB642174:EE_
+X-MS-Office365-Filtering-Correlation-Id: d782db68-8192-44da-3f8c-08def7ed5157
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|61400799027|82310400026|23010399003|7416014|376014|36860700016|56012099006|11063799006|4143699003|18002099003|16102099003|22082099003|10067099003|4076005;
+X-Microsoft-Antispam-Message-Info:
+	zNIk5awxiX0f9Nu3lmvng9Mrt1diHViYtTTVye5uC9YYz0gF5P5hN2i7Xs/tPQObOtQgF+bs3SxDzl0Bi+ZH67s3cfqlooQGeWrmK00pIglVZ31/UhEtn5ShWZ7oK87+nx8AeJPTOueybqklgaHDZVswtcxBWF7tkj6IaKPJT4Y0maeIODV6C4gd2q+ZDq7ZgXv7ORR/1h4o9vXxVcnIP+8SCGze38/48at6Cl86KZ2M4QNO6K1B7ElQGjOwYhHXguePHv7TLXldidbSj9tcImwnJq2s5oaWn9PDaWRtzoOT+fr1WXJBofiuz/uTMmuVJzatKBWn6YabzHfpaV3axI5Er7IUr2E9P7BbmjGB4oxp6AmkF6y8tMfktsDFsTd/4M+CJK3spMChph/62MMVuJs5jUuODbg2VE8zzePpcTf3gLpJ3AOgxA/oY+dtWsKxpfrHpF+0T3AyVOqZOnNEPrx6EZziS6DuAY4mxhUq0ysczd+cgiXMcRDwvc85cvwqSyDRvTSov2KvWKYal4AqjJMuKOwpE4WU9O2Z2v5fGYv2S1DBsxrhJ5tQcJM8MAfuhNh7W2tPKruhDRbgdBrfoV9BS0aCh+ggBprVizrpLrlqaXqtn3Aikonbot7BSmcXXl/YUGi89l7I/QED0XCq+gTYT7jHLlVUqX2kSCaE400lQ5paBuF6BS6cWZxuQaqpjpwpEgNZ+0Vtlb3IrKTlZyETDqqQVAUncHYaQe1IubiLamSBhYDM+kqOvmPoq3za
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(82310400026)(23010399003)(7416014)(376014)(36860700016)(56012099006)(11063799006)(4143699003)(18002099003)(16102099003)(22082099003)(10067099003)(4076005);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lQTAvqSdpgj5czlV5oARNG+q4+PGhKxdoY6pitD3WobMe9X533Y7V0+QR9OFtzIdI0Xqgex84xQmq234ep2t2hZKqLXYgVb4646ogfgn9DwcnpavaoE/w1DSdfb7BrM11g1RmxOVU0tjyqbyCzb/6lMFVg7ZdW538GBtQj3cHeL/wWk/91WT0yyaxqj/4HNPV0BpZ0HTgUjFLaAakAG0KVauaGjDi3VD2flVZjLcR3YOxLF56TaIE8hrOQ4NW5JoF6EzG3wZYxw29auPpezDoZ8o1sLnl83Y/hT70mXFr+JT2x6aIbY+Bt0hDRF4a34Iaz2FA8dkxPbFOjDCyRQBuaWF2pUHIPqArhtc772d9eyeZUDk0dZxO/2BH5Wf4jhO5pEKy/0RX/SgK+CmajRd8ZEDNIyOR+BiWHYSo2ZbRTeWPs36OZi8FubWnuf2cKHK
+X-Exchange-RoutingPolicyChecked:
+	EBUdccbBVOl7obPmOpvvZ+phtOXJO0bb6jIugStTN2peWlUMI1FQLMxeWyuCiTsfxhpkmQRfsZ3peO/cAHJBaRr1SGb3QRrBPyjnLO/JIonLTl3DnfkfECMOnSuC0Dl53m4WRmBFsqoQXFGAYNVdpVQmc1ZZ0gCz213b+si409LXch2A/Fetzf3G1FJ7L+uocAaUmuJrkuBgSRotbZSUrUK7O4KNIkg9AP9DNJBTHrBTeXefEGRRD0KNh9kvjV/BMiH9IzDa/6mfyjTs0BbadRCTbo7xsrPbdRfFn6H6uPeTgK0egQKPOXmq5RhvjvtcnEbyZgkF83T2T2YcRcARJA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 21:12:57.4270
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d782db68-8192-44da-3f8c-08def7ed5157
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CY4PEPF0000EE3B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY2PR19MB642174
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDE3OSBTYWx0ZWRfXw4K5XJnrgJtU
+ mz1HuPYw9XxpWOylGnfaFZer7QqIDoO3gBCdlmr4CX6IQ9yLRwjxpN+gXw1DvNKKXugBY7Jd99X
+ OVT/69VcWOPQXhiTUMAhjDox+UQUq0U=
+X-Proofpoint-ORIG-GUID: SFhtmxD1b5DK557QOIwE321h9KC1jQF2
+X-Proofpoint-GUID: SFhtmxD1b5DK557QOIwE321h9KC1jQF2
+X-Authority-Analysis: v=2.4 cv=ZMrnX37b c=1 sm=1 tr=0 ts=6a7b9066 cx=c_pps
+ a=0LNrXYcIMabMz0p9jkIKmA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=9FoOOS4VerFVLKYV_rEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDE3OSBTYWx0ZWRfX5w26Fud0mCms
+ URziCRiCMLQMKh3RjWEQ/BWoYUUgLQ77mdzOJRMpG/jl9P4EtUxVgwOKIOj+79iNvT4P9W6x7Wt
+ NbWCzsKpLuHzDSF52ICoblEWQg2rHbB0unCrow17sk5E8wEGDfEGAUkDnXrAt9o7T9eTcS6vVOZ
+ mTmWmks6wLpCNeKLwgrfA2J9ivVeR4OrPH2PZyvJ8ZE9gxcVKK/21dZMzape6pA3FYABcj/OTPH
+ kCM4hRy5ZR5p/xcwiCn0oSYQZ1gYOIqAw0dC1CIWMKnnMBM2b/JjZbD18DCTW4K7/Fxx0xSvq6Z
+ zMSEpYV+Ma40B/dH4rpHmijMA/8l4g2q7nXQ46SSn0QP0DhV3W7bWer4wvhLnj37eWawSHKpooe
+ FLHkKJaqMfnGn04nLVKnRgGE6PTWZuEh7I/R6xTPzGt2wGSQF2+qwo3ZmEbceSPPNAqY3o6R/RX
+ c4i4MDJxWR2hMZKXKrw==
+X-Proofpoint-Spam-Reason: safe
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Probe failure leaves SMB5 charging and USB input permanently disab=
-led.
-- [High] Watchdog configuration in `smb5_init_seq` uses hardcoded SMB2 offs=
-ets, corrupting unrelated hardware blocks.
 
-Pre-existing issues:
-- [High] Missing battery voltage properties cause unsigned integer underflo=
-w and write garbage hardware configurations on SMB2.
-- [High] Logic bug in `smb2_get_prop_health` masks critical hardware faults=
- like overvoltage and overheating.
-- [High] The watchdog interrupt handler writes to a fixed PMIC address inst=
-ead of the relative charger base, corrupting unrelated hardware.
---
+On 8/11/26 12:24 PM, Mark Brown wrote:
+> On Tue, Aug 11, 2026 at 05:06:03PM +0000, Ricardo Rivera-Matos wrote:
+>> Adds support for the multidevice synchronization (SYNC) bus.
+>> The SYNC bus is an opaque one wire bus that is shared between
+>> Cirrus devices. Initial support only includes software (SW)
+>> data packets.
+> 
+> Given this description...
+> 
+>> +	SOC_SINGLE_BOOL_EXT("SYNC Enable", 0, cs35l45_sync_en_get, cs35l45_sync_en_put),
+>> +	SOC_SINGLE("SYNC LSW RX Enable", CS35L45_SYNC_TX_RX_ENABLES,
+>> +			CS35L45_SYNC_LSW_RX_EN_SHIFT, 1, 0),
+>> +	SOC_SINGLE("SYNC LSW TX Enable", CS35L45_SYNC_TX_RX_ENABLES,
+>> +			CS35L45_SYNC_LSW_TX_EN_SHIFT, 1, 0),
+>> +	SOC_SINGLE("SYNC SW RX Enable", CS35L45_SYNC_TX_RX_ENABLES,
+>> +			CS35L45_SYNC_SW_RX_EN_SHIFT, 1, 0),
+>> +	SOC_SINGLE("SYNC SW TX Enable", CS35L45_SYNC_TX_RX_ENABLES,
+>> +			CS35L45_SYNC_SW_TX_EN_SHIFT, 1, 0),
+> 
+> ...it's not clear to me why this would be user controllable.
 
---- Patch [2]: [PATCH 2/3] power: supply: qcom_smbx: add SMB5 support ---
-commit 6307e65683cce1f0d817fcc2cf3983ee19ae24c0
-Author: Casey Connolly <casey.connolly@linaro.org>
+This can be use-case dependent. An example that comes to mind is keeping 
+similar transducers linked during a posture switch.
 
-power: supply: qcom_smbx: add SMB5 support
+That is to say, on a four speaker system in landscape orientation, two 
+particular amps are acting as linked tweeters and two amps are acting as 
+unlinked woofers. When rotated into portrait orientation the linking 
+over the SYNC bus needs to be reconfigured to match the new pairings in 
+the portrait use-case.
 
-Introduce support for the SMB5 charger found on PM8150B and other
-modern Qualcomm PMICs. It selects register layout and limits from
-match data, and suspends USB input/charging during init.
-
-> diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom=
-_smbx.c
-> index 67fdb43353388..09d9e0f95cb56 100644
-> --- a/drivers/power/supply/qcom_smbx.c
-> +++ b/drivers/power/supply/qcom_smbx.c
-
-[ ... ]
-
-> @@ -633,19 +761,19 @@ static int smb_get_prop_health(struct smb_chip *chi=
-p, int *val)
->  	}
-> =20
->  	switch (stat) {
-> -	case CHARGER_ERROR_STATUS_BAT_OV_BIT:
-> +	case SMB2_CHARGER_ERROR_STATUS_BAT_OV_BIT:
->  		*val =3D POWER_SUPPLY_HEALTH_OVERVOLTAGE;
->  		return 0;
-
-[ ... ]
-
-> -	case BAT_TEMP_STATUS_HOT_SOFT_LIMIT_BIT:
-> +	case SMB2_BAT_TEMP_STATUS_HOT_SOFT_LIMIT_BIT:
->  		*val =3D POWER_SUPPLY_HEALTH_WARM;
->  		return 0;
->  	default:
->  		*val =3D POWER_SUPPLY_HEALTH_GOOD;
->  		return 0;
->  	}
->  }
-
-[Severity: High]
-This is a pre-existing issue, but does this switch statement correctly hand=
-le
-cases where multiple status bits are set?
-
-Looking at smb2_get_prop_health(), the switch evaluates the unmasked regist=
-er
-value. If a normal status bit is active alongside a fault bit, it seems the
-exact match fails and it falls through to the default case, incorrectly
-returning POWER_SUPPLY_HEALTH_GOOD during hardware faults.
-
-[ ... ]
-
-> @@ -773,7 +916,7 @@ static irqreturn_t smb_handle_wdog_bark(int irq, void=
- *data)
->  }
-> =20
->  static const struct power_supply_desc smb_psy_desc =3D {
-> -	.name =3D "pmi8998_charger",
-> +	.name =3D "SMB2_charger",
-
-[Severity: High]
-This is a pre-existing issue, but does smb_handle_wdog_bark() write to the
-correct PMIC hardware block?
-
-In smb_handle_wdog_bark(), the code performs a register write to the absolu=
-te
-address BARK_BITE_WDOG_PET. It omits the chip->base offset which is used by
-other register accesses to target the correct peripheral block. Could this
-corrupt unrelated PMIC hardware blocks when the watchdog interrupt fires?
-
-[ ... ]
-
-> @@ -787,16 +930,84 @@ static const struct power_supply_desc smb_psy_desc =
-=3D {
->  };
-> =20
->  /* Init sequence derived from vendor downstream driver */
-> -static const struct smb_init_register smb_init_seq[] =3D {
-> -	{ .addr =3D AICL_RERUN_TIME_CFG, .mask =3D AICL_RERUN_TIME_MASK, .val =
-=3D 0 },
-> +static const struct smb_init_register smb5_init_seq[] =3D {
-
-[ ... ]
-
-> +	/* Disable watchdog */
-> +	{ .addr =3D SNARL_BARK_BITE_WD_CFG, .mask =3D 0xff, .val =3D 0 },
-> +	{ .addr =3D WD_CFG,
-> +	  .mask =3D WATCHDOG_TRIGGER_AFP_EN_BIT | WDOG_TIMER_EN_ON_PLUGIN_BIT |
-> +		  BARK_WDOG_INT_EN_BIT,
-> +	  .val =3D 0 },
-
-[Severity: High]
-Are these register offsets correct for SMB5 devices?
-
-In smb5_init_seq(), SNARL_BARK_BITE_WD_CFG and WD_CFG appear to use hardcod=
-ed
-SMB2 absolute offsets (0x653 and 0x651). When these are added to chip->base
-in smb_init_hw(), will this write the watchdog configuration to the wrong
-hardware block on SMB5 PMICs?
-
-[ ... ]
-
-> @@ -965,7 +1237,34 @@ static int smb_probe(struct platform_device *pdev)
-
-[ ... ]
-
-> +	if (chip->gen =3D=3D SMB5) {
-> +		/* Do not use bootloader charge limits while configuring SMB5. */
-> +		rc =3D regmap_update_bits(chip->regmap,
-> +					chip->base + USBIN_CMD_IL,
-> +					USBIN_SUSPEND_BIT, USBIN_SUSPEND_BIT);
-> +		if (rc < 0)
-> +			return dev_err_probe(chip->dev, rc,
-> +					     "could not suspend USB input\n");
-> +
-> +		rc =3D regmap_update_bits(chip->regmap,
-> +					chip->base + CHARGING_ENABLE_CMD,
-> +					CHARGING_ENABLE_CMD_BIT, 0);
-> +		if (rc < 0)
-> +			return dev_err_probe(chip->dev, rc,
-> +					     "could not disable charging\n");
-> +	}
-> +
-
-[Severity: High]
-If any subsequent initialization step fails and probe returns early, does
-this leave SMB5 charging and USB input permanently disabled?
-
-In smb_probe(), the USBIN_SUSPEND_BIT is set and CHARGING_ENABLE_CMD_BIT is
-cleared. If probe subsequently fails (for example, due to a missing device
-tree property or IIO channel), the function returns without restoring these
-bits. Could this prevent the device from charging or receiving USB power
-until it is rebooted?
-
-[ ... ]
-
-> @@ -999,11 +1298,66 @@ static int smb_probe(struct platform_device *pdev)
-
-[ ... ]
-
-> +	} else {
-> +		rc =3D (chip->batt_info->voltage_max_design_uv -
-> +		      match_data->fv_min_uv) / match_data->fv_step_uv + 1;
-> +		rc =3D regmap_update_bits(chip->regmap,
-> +					chip->base + FLOAT_VOLTAGE_CFG,
-> +					FLOAT_VOLTAGE_SETTING_MASK, rc);
-> +		if (rc < 0)
-> +			return dev_err_probe(chip->dev, rc,
-> +					     "could not set vbat max\n");
-> +	}
-
-[Severity: High]
-This is a pre-existing issue, but does this calculation handle missing
-battery device tree properties safely?
-
-If the battery node lacks a maximum voltage, power_supply_get_battery_info()
-populates voltage_max_design_uv with a negative error code (like -EINVAL).
-In smb_probe(), subtracting the unsigned fv_min_uv from this negative value
-could cause an unsigned integer underflow, writing a garbage configuration
-value to the FLOAT_VOLTAGE_CFG hardware register.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811-submit-qco=
-m-smbx-send-v1-v1-0-feec6cfa123a@snyders.xyz?part=3D2
+Ricardo
