@@ -1,511 +1,156 @@
-Received: from Atcsqr.andestech.com (220-128-198-181.hinet-ip.hinet.net [220.128.198.181])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157EA313546;
-	Tue, 11 Aug 2026 10:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.128.198.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DA342CAEF;
+	Tue, 11 Aug 2026 10:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786443594; cv=none; b=WphqyZsY4l+cYHMcYgjHBHWu3YnMORGqSsdeRHDSQPrQXNZuEl9Lgdeum1gIdAYlQH6PMn4JrwnPAOP8XGSX3JZCjMZA+i7n3s1eyXRqcdmX1mwBB8krpqtrzR5PBS1KHZvquljPedD8LnBp18hHTYMoCSb1SNRRIQaS/oZUp9M=
+	t=1786444050; cv=none; b=iTQZlV+ZneOX8iAA0M5OOC6CTFaJG3XDYtCui/I0An2It101SUNWGt0HTQv9zKdG9ugGgqCCHVYjFwUS6NLsnBk+6SHUFNzGoDVIxJgg75rzKN3H0CmzTXnqHPD0oODp4TJhqt6mXL4atYm0Ptoqfs/YBeyLBoSoiXrtzDK/Oaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786443594; c=relaxed/simple;
-	bh=0qITWxovGHIYN4ak5oWI1wKjybmermaw7qYn0IN3Bd8=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iGxKWZOJcmuTC9NKS1zbWswrOfTICIIAbUcwhofu46cnBeEgnp6SlSKHf7hMpNiLz4TuW2DnPdxFNftuKsmlYQc9nThqf9JDQnNJzRRs4wWaGf9WIzxdzpxX+vwxEX2D8beuQMRL34CAG7EnwMcs4HNVzuosTnHryoKwPSrlm3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=220.128.198.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
-Received: from Atcsqr.andestech.com (localhost [127.0.0.2] (may be forged))
-	by Atcsqr.andestech.com with ESMTP id 67BABnmx079655;
-	Tue, 11 Aug 2026 18:11:49 +0800 (+08)
-	(envelope-from ben717@andestech.com)
-Received: from mail.andestech.com (atcpcs54.andestech.com [10.0.1.154])
-	by Atcsqr.andestech.com with ESMTPS id 67BABPnj079113
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 11 Aug 2026 18:11:25 +0800 (+08)
-	(envelope-from ben717@andestech.com)
-Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs54.andestech.com
- (10.0.1.154) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.43; Tue, 11 Aug
- 2026 18:11:25 +0800
-Received: from swlinux02 (10.0.15.183) by ATCPCS34.andestech.com (10.0.1.134)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 11 Aug
- 2026 18:11:25 +0800
-Date: Tue, 11 Aug 2026 18:11:23 +0800
-From: Ben Zong-You Xie <ben717@andestech.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, <linux-pwm@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v6 2/3] pwm: add Andes PWM driver support
-Message-ID: <anr1SzK9p1UKcyiv@swlinux02>
-References: <20260625-andes-pwm-v6-0-3aef11711017@andestech.com>
- <20260625-andes-pwm-v6-2-3aef11711017@andestech.com>
- <anmALNaygumsRcpd@monoceros>
+	s=arc-20240116; t=1786444050; c=relaxed/simple;
+	bh=f/FF/HmFixyeXAFRWPauGVCFVxMdFnLtXERcRTY6L6A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rFCswTyz9b8iYtVOdbqjYeXXW20cCU9t4twg9++3VJfajOHDyl7jltnsJmcxAtNqykVCkTHKygwHUYmuOoLCcFdOJBGhzHRTwQnZ5AugWEP9odTJW0fOgNvIBBZ5umdlHgU2wE1qao9q2xxOMHke4JHiIjkNn6HmuQjylaFh5jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V6hi1m4T; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V6hi1m4T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786444046; x=1817980046;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=f/FF/HmFixyeXAFRWPauGVCFVxMdFnLtXERcRTY6L6A=;
+  b=V6hi1m4TiLVlSysK9PJMVyJB+fvsezODfYeudP1xkqxLWOK7Gfotm/5S
+   Io3l1YM1BxIBp3QGfyQODeEakKm9df9F49jqMzYfYOf9cg22kVf+wa3Z7
+   plyays0c7HT1gfQkg8ftzrvq5dz4tCzbx5FEJTXz6/j8KFcgKumKjGpH9
+   9BocBTPZvcPEzaROYJhk7ugssPXnNwMHGbC+nAjUj3a6r/PbZz+b8Te+2
+   w6Q04/Sg2n2RYnBl/KeH2qRPBOGLddFIUJp4Uvgf1+VknjlLHtCd8+LDW
+   yZJ5RAHq2LvhCRLDhn2EeRRbB7Lb4gALmrfaLFnx+trTYXZF7MoB7CsGG
+   A==;
+X-CSE-ConnectionGUID: OYIRUsGMR4OMTuIW1UBGzQ==
+X-CSE-MsgGUID: oSF4TgXITACeC35kaFXzLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="90653822"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="90653822"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 03:27:23 -0700
+X-CSE-ConnectionGUID: Ty2AYhTyQmi8KlMkwvQXrQ==
+X-CSE-MsgGUID: GJfZIQ/pQ3utjd8FaHD4jQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="259991747"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 03:27:20 -0700
+Date: Tue, 11 Aug 2026 13:27:17 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>
+Subject: Re: [PATCH 2/3] iio: light: stk3310: add per-chip match data
+Message-ID: <anr5BeHK-dboSBl3@ashevche-desk.local>
+References: <20260810110423.41697-1-jorijnvdgraaf@catcrafts.net>
+ <20260810110423.41697-3-jorijnvdgraaf@catcrafts.net>
+ <anoZwgq6ZO_VY064@ashevche-desk.local>
+ <20260810215157.154384-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <anmALNaygumsRcpd@monoceros>
-User-Agent: Mutt/2.3.0 (2026-01-25)
-X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
- ATCPCS34.andestech.com (10.0.1.134)
-X-DKIM-Results: atcpcs54.andestech.com; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 67BABnmx079655
+In-Reply-To: <20260810215157.154384-1-jorijnvdgraaf@catcrafts.net>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Uwe,
-
-Thanks for the review.
-
-On Mon, Aug 10, 2026 at 10:19:49AM +0200, Uwe Kleine-KÃ¶nig wrote:
-> Subject: Re: [PATCH v6 2/3] pwm: add Andes PWM driver support
->
-> On Thu, Jun 25, 2026 at 06:36:00PM +0800, Ben Zong-You Xie via B4 Relay wrote:
-> > From: Ben Zong-You Xie <ben717@andestech.com>
+On Mon, Aug 10, 2026 at 11:51:57PM +0200, Jorijn van der Graaf wrote:
+> On Mon, Aug 10, 2026 at 09:34:42PM +0300, Andy Shevchenko wrote:
+> > > +	chip_info = i2c_get_match_data(client);
+> > > +	if (!chip_info) {
+> > > +		/*
+> > > +		 * Clients instantiated through the sysfs new_device
+> > > +		 * interface under the lowercase compatible-derived name
+> > > +		 * have no firmware node and do not match the uppercase
+> > > +		 * id table entries.
+> > > +		 */
+> > > +		chip_info = &stk3310_chip_info;
 > >
-> > Add a driver for the PWM controller found in Andes AE350 platforms and
-> > QiLai SoCs.
+> > This is an interesting comment and approach.
 > >
-> > The Andes PWM controller features:
-> > - 4 independent channels.
-> > - Dual clock source support (APB clock and external clock) to provide
-> >   a flexible range of frequencies.
-> > - Support for normal and inversed polarity.
+> > > +	}
 > >
-> > The driver implements the .apply() and .get_state() callbacks. Since the
-> > clock source of each channel can be selected by programming the
-> > register, clock selection logic is implemented to prioritize the
-> > external clock to maximize the supported period range, falling back to
-> > the APB clock for higher frequency requirements.
-> >
-> > Signed-off-by: Ben Zong-You Xie <ben717@andestech.com>
-> > ---
-> >  drivers/pwm/Kconfig     |  10 ++
-> >  drivers/pwm/Makefile    |   1 +
-> >  drivers/pwm/pwm-andes.c | 343 ++++++++++++++++++++++++++++++++++++++++++++++++
-> >  3 files changed, 354 insertions(+)
-> >
-> > diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-> > index e8886a9b64d9..52dee4b7f081 100644
-> > --- a/drivers/pwm/Kconfig
-> > +++ b/drivers/pwm/Kconfig
-> > @@ -73,6 +73,16 @@ config PWM_AIROHA
-> >  	  To compile this driver as a module, choose M here: the module
-> >  	  will be called pwm-airoha.
-> >
-> > +config PWM_ANDES
-> > +	tristate "Andes PWM support"
-> > +	depends on ARCH_ANDES || COMPILE_TEST
->
-> Here are missing dependencies. At least REGMAP.
->
+> > - Where does this lowercase come from? Is it Linux forced conversion?
+> 
+> No conversion - the client name is whatever is echoed into the sysfs
+> new_device file, and the lowercase spelling is the one that binds via
+> the OF table: for a client with no firmware node,
+> i2c_of_match_device() falls through to i2c_of_match_device_sysfs(),
+> which matches the client name against each compatible and its part
+> after the vendor prefix, so "stk3310" binds through
+> "sensortek,stk3310" - the same lowercase name a DT client gets from
+> of_alias_from_compatible(). The id table lookup stays case-sensitive,
+> which is why i2c_get_match_data() comes back NULL for such a client:
+> device_get_match_data() needs the firmware node it does not have, and
+> i2c_match_id() only knows the historic uppercase names.
+> 
+> > - What's wrong with simply failing the probe?
+> 
+> It would break a path that works before this patch: probe consumed no
+> match data, so "echo stk3310 0x48 > new_device" bound and probed fine
+> (we used exactly that during bring-up, before the DT node existed).
+> Failing it would be a userspace-visible regression in a patch that
+> claims no functional change.
+> 
+> > As far as I understand the problem is preexisted. Or was there any default
+> > taken? How do we know that the chosen default is a good one?
+> 
+> The path preexists; only this patch makes probe care about match
+> data. Before it the driver had no per-chip data at all - every client
+> got the same two channels and the hardcoded "stk3310" name however it
+> matched. The fallback selects stk3310_chip_info, which is exactly
+> that, so a client that probed before this patch behaves identically
+> after it. What the default cannot give is the new part's extra
+> channels: an STK36C61 instantiated under the lowercase name gets the
+> reduced legacy profile, and the id table spelling "STK36C61" selects
+> the full one.
 
-Right. v7 will have:
+The problem preexists. I just looked into the Git history of this rather broken
+table IDs and what I have to say and state is the following:
 
-        depends on ARCH_ANDES || COMPILE_TEST
-        depends on HAS_IOMEM && COMMON_CLK
-        select REGMAP_MMIO
+- the driver initially was written for ACPI and the author blindly (cargo cult?)
+  used the same IDs as for ACPI _HID, while they have different rules
 
-> > +	help
-> > +	  Generic PWM framework driver for Andes platform, such as QiLai SoC
-> > +	  and AE350 platform.
-> > +
-> > +	  To compile this driver as a module, choose M here: the module
-> > +	  will be called pwm-andes.
-> > +
-> >  config PWM_APPLE
-> >  	tristate "Apple SoC PWM support"
-> >  	depends on ARCH_APPLE || COMPILE_TEST
-> > diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-> > index 5630a521a7cf..c92369ee251d 100644
-> > --- a/drivers/pwm/Makefile
-> > +++ b/drivers/pwm/Makefile
-> > @@ -3,6 +3,7 @@ obj-$(CONFIG_PWM)		+= core.o
-> >  obj-$(CONFIG_PWM_AB8500)	+= pwm-ab8500.o
-> >  obj-$(CONFIG_PWM_ADP5585)	+= pwm-adp5585.o
-> >  obj-$(CONFIG_PWM_AIROHA)	+= pwm-airoha.o
-> > +obj-$(CONFIG_PWM_ANDES)		+= pwm-andes.o
-> >  obj-$(CONFIG_PWM_APPLE)		+= pwm-apple.o
-> >  obj-$(CONFIG_PWM_ARGON_FAN_HAT)	+= pwm-argon-fan-hat.o
-> >  obj-$(CONFIG_PWM_ATMEL)		+= pwm-atmel.o
-> > diff --git a/drivers/pwm/pwm-andes.c b/drivers/pwm/pwm-andes.c
-> > new file mode 100644
-> > index 000000000000..580e673d2cff
-> > --- /dev/null
-> > +++ b/drivers/pwm/pwm-andes.c
-> > @@ -0,0 +1,343 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Driver for Andes PWM, used in Andes AE350 platform and QiLai SoC
-> > + *
-> > + * Copyright (C) 2026 Andes Technology Corporation.
-> > + *
-> > + * Limitations:
-> > + * - When disabling a channel, the current period is not completed and the
-> > + *   output is driven to the PARK level (low when ANDES_PWM_CH_CTRL_PARK is
-> > + *   clear, high when it is set).
-> > + * - The current period will be completed first if reconfiguring.
-> > + * - Further, if the reconfiguration changes the clock source, the output will
-> > + *   not be the old one nor the new one. And the output will be the new one
-> > + *   after writing to the reload register.
-> > + * - The hardware cannot run a 0% or 100% relative duty cycle; the driver
-> > + *   emulates these by disabling the channel and parking the output at the
-> > + *   constant level.
-> > + * - A period or duty cycle larger than the selected clock can represent is
-> > + *   rounded down to the largest achievable value rather than rejected.
->
-> The last item isn't a (hardware) property, but the right thing to do for
-> PWM drivers. So you can drop that.
->
+- there is no existing in kernel driver that supports enumeration based
+on I2C ID table
 
-Will drop in v7.
+With that being said, I think we may just lower the case for the I²C ID
+table and fail enumeration when there is no chip_info provided.
+Yes, it will break very weird use case with capital letters via sysfs,
+but TBH it's a niche and people should know that most of the devices
+are enumerated as part number of OF compatible in that case.
 
-> > + */
-> > +
-> > +#include <linux/bitfield.h>
-> > +#include <linux/clk.h>
-> > +#include <linux/err.h>
-> > +#include <linux/math64.h>
-> > +#include <linux/minmax.h>
-> > +#include <linux/module.h>
-> > +#include <linux/of.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/pwm.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/time.h>
-> > +#include <linux/types.h>
->
-> I wonder what <linux/time.h> is used for.
->
+Also note that the DT users should also not use sysfs, and instead call
+DT overlay.
 
-NSEC_PER_SEC.
+I can take all the blame on very unlikely event of a breakage of somebody's
+setup in the future. TL;DR: just add a first patch to lower case the IDs
+with Suggested-by my name and I will give a Rb tag with full conscience and
+responsibility.
 
-> > [...]
-> > +/*
-> > + * Hold the output at a constant level by parking the disabled channel. A
-> > + * disabled channel drives its output to the PARK level (low when @high is
-> > + * false, high when @high is true), which is used to emulate a 0% or 100%
-> > + * relative duty cycle.
-> > + */
-> > +static int andes_pwm_park(struct pwm_chip *chip, unsigned int channel,
-> > +			  bool high)
-> > +{
-> > +	struct andes_pwm *ap = andes_pwm_from_chip(chip);
-> > +
-> > +	regmap_assign_bits(ap->regmap, ANDES_PWM_CH_CTRL(channel),
-> > +			   ANDES_PWM_CH_CTRL_PARK, high);
->
-> Some calls to regmap_assign_bits() are checked, others are not. Please
-> make this consistent.
->
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Will make the check consistent in v7.
 
-> > +	return andes_pwm_enable(chip, channel, false);
-> > +}
-> > +
-> > +static int andes_pwm_config(struct pwm_chip *chip, unsigned int channel,
-> > +			    const struct pwm_state *state)
-> > +{
-> > +	struct andes_pwm *ap = andes_pwm_from_chip(chip);
-> > +	unsigned int clk_rate = ap->extclk_rate;
-> > +	unsigned int ctrl = ANDES_PWM_CH_CTRL_MODE_PWM;
-> > +	bool use_pclk = false;
-> > +	u64 high_cycles;
-> > +	u64 low_cycles;
-> > +	u64 period_cycles;
-> > +	u64 duty_cycles;
-> > +	u32 reload;
-> > +
-> > +	/*
-> > +	 * Reload register for PWM mode:
-> > +	 *
-> > +	 *		31 : 16    15 : 0
-> > +	 *		PWM16_Hi | PWM16_Lo
-> > +	 *
-> > +	 * The high duration is (PWM16_Hi + 1) cycles and the low duration is
-> > +	 * (PWM16_Lo + 1) cycles, so each phase spans ANDES_PWM_CYCLE_MIN to
-> > +	 * ANDES_PWM_CYCLE_MAX cycles. The hardware period (their sum) can reach
-> > +	 * 2 * ANDES_PWM_CYCLE_MAX cycles, but the PWM core requires the period
-> > +	 * to be chosen from the requested period alone, independent of the duty
-> > +	 * cycle. That holds only while both phases stay within
-> > +	 * ANDES_PWM_CYCLE_MAX for every duty split, so the usable period is
-> > +	 * capped at ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN cycles.
-> > +	 *
-> > +	 * The controller has two clock sources, the APB clock and an external
-> > +	 * clock. Since the external clock frequency must be slower than the APB
-> > +	 * clock, it is tried first for its wider period range; the APB clock is
-> > +	 * used only when the external clock is too fast to represent the period
-> > +	 * (it resolves fewer than two cycles) or is absent.
-> > +	 */
-> > +	period_cycles = mul_u64_u64_div_u64(clk_rate, state->period,
-> > +					    NSEC_PER_SEC);
-> > +	if (period_cycles < 2 * ANDES_PWM_CYCLE_MIN) {
->
-> With period_cycles = 1 you can only have duty_cycle = 0 or 1 which is
-> representable by the hardware (configuring either constant high or
-> constant low output).
->
-
-Right, v7 will only reject zero:
-
-      if (period_cycles < 2 * ANDES_PWM_CYCLE_MIN && ap->pclk_rate) {
-              use_pclk = true;
-              clk_rate = ap->pclk_rate;
-              period_cycles = mul_u64_u64_div_u64(clk_rate, state->period,
-                                                  NSEC_PER_SEC);
-      }
-
-      if (!period_cycles)
-              return -EINVAL;
-
-I still switch to pclk at two cycles though. If extclk only resolves one
-cycle, pclk may well manage a real waveform, which beats parking.
-
-> > +		use_pclk = true;
-> > +		clk_rate = ap->pclk_rate;
-> > +		period_cycles = mul_u64_u64_div_u64(clk_rate, state->period,
-> > +						    NSEC_PER_SEC);
-> > +		if (period_cycles < 2 * ANDES_PWM_CYCLE_MIN)
-> > +			return -EINVAL;
-> > +	}
-> > +
-> > +	/*
-> > +	 * Round the period down to the largest value representable for every
-> > +	 * duty cycle, so the chosen period depends on the requested period
-> > +	 * alone. With both phases capped at ANDES_PWM_CYCLE_MAX, that bound is
-> > +	 * ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN cycles.
-> > +	 */
-> > +	period_cycles = min_t(u64, period_cycles,
-> > +			      ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN);
-> > +
-> > +	/* The duty cycle cannot exceed the (possibly clamped) period. */
-> > +	duty_cycles = mul_u64_u64_div_u64(clk_rate, state->duty_cycle,
-> > +					  NSEC_PER_SEC);
-> > +	duty_cycles = min_t(u64, duty_cycles, period_cycles);
->
-> empty line here please
->
-
-Will add in v7.
-
-> > +	if (state->polarity == PWM_POLARITY_INVERSED) {
-> > +		low_cycles = duty_cycles;
-> > +		high_cycles = period_cycles - low_cycles;
-> > +	} else {
-> > +		high_cycles = duty_cycles;
-> > +		low_cycles = period_cycles - high_cycles;
-> > +	}
-> > +
-> > +	/*
-> > +	 * A zero-length phase means a 0% or 100% relative duty cycle, which the
-> > +	 * hardware cannot run. Emit the matching constant level by parking the
-> > +	 * channel: high_cycles == 0 stays low, low_cycles == 0 stays high.
-> > +	 */
-> > +	if (!high_cycles)
-> > +		return andes_pwm_park(chip, channel, false);
-> > +	if (!low_cycles)
-> > +		return andes_pwm_park(chip, channel, true);
-> > +
-> > +	/*
-> > +	 * If changing the clock source here, the output will not be the old one
->
-> s/not/neither/
->
-> > +	 * nor the new one. And the output will be the new one after writing to
-> > +	 * the reload register.
->
-> I'd write:
->
-> 	A change of clock source takes effect immediately, modifying the
-> 	current output. Otherwise there is no glitch as the currently
-> 	running period is completed before the new settings take effect.
->
-
-Will take your wording. The Limitations block at the top described the same
-thing the same way, so I replaced it there too.
-
-> > +	 */
-> > +	ctrl |= use_pclk ? ANDES_PWM_CH_CTRL_CLK : 0;
-> > +	ctrl |= (state->polarity == PWM_POLARITY_INVERSED) ?
-> > +		ANDES_PWM_CH_CTRL_PARK : 0;
-> > +
-> > +	regmap_update_bits(ap->regmap, ANDES_PWM_CH_CTRL(channel),
-> > +			   ANDES_PWM_CH_CTRL_MASK, ctrl);
-> > +	reload = FIELD_PREP(ANDES_PWM_CH_RELOAD_HIGH, high_cycles - 1) |
-> > +		 FIELD_PREP(ANDES_PWM_CH_RELOAD_LOW, low_cycles - 1);
-> > +	regmap_write(ap->regmap, ANDES_PWM_CH_RELOAD(channel), reload);
->
-> empty line here
->
-
-Will add in v7.
-
-> > +	return andes_pwm_enable(chip, channel, true);
-> > +}
-> > +
-> > +static int andes_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-> > +			   const struct pwm_state *state)
-> > +{
-> > +	unsigned int channel = pwm->hwpwm;
-> > +
-> > +	if (!state->enabled) {
-> > +		if (pwm->state.enabled)
-> > +			andes_pwm_enable(chip, channel, false);
-> > +
-> > +		return 0;
-> > +	}
-> > +
-> > +	return andes_pwm_config(chip, channel, state);
-> > +}
-> > +
-> > +static int andes_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
-> > +			       struct pwm_state *state)
-> > +{
-> > +	struct andes_pwm *ap = andes_pwm_from_chip(chip);
-> > +	unsigned int channel = pwm->hwpwm;
-> > +	unsigned int ctrl;
-> > +	unsigned int clk_rate;
-> > +	unsigned int reload;
-> > +	u64 high_cycles;
-> > +	u64 low_cycles;
-> > +
-> > +	regmap_read(ap->regmap, ANDES_PWM_CH_CTRL(channel), &ctrl);
-> > +	clk_rate = FIELD_GET(ANDES_PWM_CH_CTRL_CLK, ctrl) ? ap->pclk_rate
-> > +							  : ap->extclk_rate;
-> > +	if (!clk_rate) {
-> > +		/*
-> > +		 * The selected clock source is unavailable, so the channel
-> > +		 * cannot be running; report it as disabled and avoid the
-> > +		 * division by zero below.
-> > +		 */
-> > +		state->enabled = false;
-> > +		state->period = 0;
-> > +		state->duty_cycle = 0;
-> > +		return 0;
-> > +	}
-> > +
-> > +	state->enabled = regmap_test_bits(ap->regmap, ANDES_PWM_CH_ENABLE,
-> > +					  ANDES_PWM_CH_ENABLE_PWM(channel)) > 0;
-> > +	state->polarity = FIELD_GET(ANDES_PWM_CH_CTRL_PARK, ctrl) ?
-> > +			  PWM_POLARITY_INVERSED : PWM_POLARITY_NORMAL;
-> > +	regmap_read(ap->regmap, ANDES_PWM_CH_RELOAD(channel), &reload);
-> > +	high_cycles = FIELD_GET(ANDES_PWM_CH_RELOAD_HIGH, reload) + 1;
-> > +	low_cycles = FIELD_GET(ANDES_PWM_CH_RELOAD_LOW, reload) + 1;
-> > +
-> > +	/*
-> > +	 * high_cycles and low_cycles are each at most ANDES_PWM_CYCLE_MAX
-> > +	 * (0x10000, 17 bits) and NSEC_PER_SEC is below 2^30, so the products
-> > +	 * below are safe from 64-bit overflow.
-> > +	 */
-> > +	if (state->polarity == PWM_POLARITY_INVERSED)
-> > +		state->duty_cycle = DIV_ROUND_UP_ULL(low_cycles * NSEC_PER_SEC,
-> > +						     clk_rate);
-> > +	else
-> > +		state->duty_cycle = DIV_ROUND_UP_ULL(high_cycles * NSEC_PER_SEC,
-> > +						     clk_rate);
->
-> This can be simplified a bit to:
->
-> 	if (state->polarity == PWM_POLARITY_INVERSED)
-> 		duty_cycles = low_cycles;
-> 	else
-> 		duty_cycles = high_cycles;
->
-> 	stat->duty_cycle = DIV_ROUND_UP_ULL(duty_cycles * NSEC_PER_SEC,
-> 					    clk_rate);
->
-
-Will apply in v7.
-
-> > +	state->period = DIV_ROUND_UP_ULL((high_cycles + low_cycles) *
-> > +					 NSEC_PER_SEC, clk_rate);
-> > +
-> > +	return 0;
-> > +}
-> > [...]
-> > +static int andes_pwm_probe(struct platform_device *pdev)
-> > +{
-> > +	struct device *dev = &pdev->dev;
-> > +	struct pwm_chip *chip;
-> > +	struct andes_pwm *ap;
-> > +	void __iomem *reg_base;
-> > +	unsigned long pclk_rate;
-> > +	unsigned long extclk_rate;
-> > +	int ret;
-> > +
-> > +	chip = devm_pwmchip_alloc(dev, ANDES_PWM_CH_MAX, sizeof(*ap));
-> > +	if (IS_ERR(chip))
-> > +		return PTR_ERR(chip);
-> > +
-> > +	ap = andes_pwm_from_chip(chip);
-> > +	reg_base = devm_platform_ioremap_resource(pdev, 0);
-> > +	if (IS_ERR(reg_base))
-> > +		return dev_err_probe(dev, PTR_ERR(reg_base),
-> > +				     "Failed to map I/O space\n");
-> > +
-> > +	ap->pclk = devm_clk_get_enabled(dev, "pclk");
-> > +	if (IS_ERR(ap->pclk))
-> > +		return dev_err_probe(dev, PTR_ERR(ap->pclk),
-> > +				     "Failed to get APB clock\n");
-> > +
-> > +	ap->extclk = devm_clk_get_optional_enabled(dev, "extclk");
-> > +	if (IS_ERR(ap->extclk))
-> > +		return dev_err_probe(dev, PTR_ERR(ap->extclk),
-> > +				     "Failed to get external clock\n");
-> > +
-> > +	/*
-> > +	 * If the clock rate is greater than 10^9, there may be an overflow when
-> > +	 * calculating the cycles in andes_pwm_config()
-> > +	 */
-> > +	pclk_rate = clk_get_rate(ap->pclk);
-> > +	extclk_rate = clk_get_rate(ap->extclk);
->
-> Please call devm_clk_rate_exclusive_get() to ensure the clk rates are
-> not changed behind your back.
->
-
-Will do this for both clocks, before clk_get_rate().
-
-> > +	ap->pclk_rate = pclk_rate > NSEC_PER_SEC ? 0 : pclk_rate;
-> > +	ap->extclk_rate = extclk_rate > NSEC_PER_SEC ? 0 : extclk_rate;
-> > +
-> > +	if (!ap->pclk_rate && !ap->extclk_rate)
-> > +		return dev_err_probe(dev, -EINVAL,
-> > +				     "No usable clock: pclk %lu Hz, extclk %lu Hz\n",
-> > +				     pclk_rate, extclk_rate);
-> > +
-> > +	ap->regmap = devm_regmap_init_mmio(dev, reg_base,
-> > +					   &andes_pwm_regmap_config);
-> > +	if (IS_ERR(ap->regmap))
-> > +		return dev_err_probe(dev, PTR_ERR(ap->regmap),
-> > +				     "Failed to initialize regmap\n");
-> > +
-> > +	chip->ops = &andes_pwm_ops;
->
-> I think you can add:
->
-> 	chip->atomic = true;
->
-
-Right, will add in v7.
-
-> > +	ret = devm_pwmchip_add(dev, chip);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "Failed to add PWM chip\n");
-> > +
-> > +	return 0;
-> > +}
->
-> Best regards
-> Uwe
-
-Thanks,
-Ben
