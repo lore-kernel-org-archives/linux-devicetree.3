@@ -1,96 +1,80 @@
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B802AD00;
-	Tue, 11 Aug 2026 14:02:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FBA44BCAE;
+	Tue, 11 Aug 2026 14:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786456971; cv=none; b=oM/ir8DgZj3SNsZRrrNkpW0rTJOPUtwVJz0FB/SP3L5Ne6mVuI6DiHmKP6AZ6iIfDSN90ShSKMlYOcBTc/h1sHRBq9pSNHDOd23R1wjqcg88ASynexoBJpXiquEkGyIN/sHnvAzzsnVq6jlqNdEjbBfNLfbtEFGwRqt0c9dhcZw=
+	t=1786457008; cv=none; b=MGS2O+Gjt/R0T6GE+MB3poPzZl+taFFaA2KuRJ8YicEluD9q8zcF10yQTS7FJFeglcV3O+liZm+WkgqfhF9ctc2qljizVqGKhEfl6l2xUMk7WZ/s1Rr3DKg2iSbL0+nHYJPZTkfq0D5Mzq6Ye7WkWL0hCX8pZrdHLHjLPMuX+hE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786456971; c=relaxed/simple;
-	bh=Js0t1IT3eMLOou5xUJZE9ujCwNlS4ni9JLnOal+Laps=;
+	s=arc-20240116; t=1786457008; c=relaxed/simple;
+	bh=kRTdtn4Ai0nD+c49uHiqwPDxAdNfHrhs/Q+liCF89xs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IGXNWrsqk3d22AUkGvGBkDVm0hUVmWX0oQmm99PrT1K83x0DNBZwDKrY4kEH6xD1CAWXBPolzZ1cHyILTGQ0hUTN7pdS419GR56BPJLy4+8TtPRFYhHh2Ar6y2IOxXqBAFdVnD/eCnn2h3SHw1b7OQxCmYMXW4XPBk+YDvk8soI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=UYXh6tiX; arc=none smtp.client-ip=217.70.183.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=s8O05mMqW+bRR+N5ivG5xBo1kAj9TcBjEB/yA53shvDX1ud8fRzfZptKt30U4Cvpp7BxV3D9EEUdGdXQ/iGs1Gxf/vpFma7W3NYHzkm8t/7iq2M+jGcg2VI4EZXeCG5VSp2zdd+5A64WcuIIbdS8G8BbhddXH5JgSu7O4QdGenI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESQHqoFO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="UYXh6tiX"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id EBD123ECF9;
-	Tue, 11 Aug 2026 14:02:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1786456960;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cmHc1SKArkBiLeCTl7vAS9lSJ0vHcdzEWugvVM8NW4w=;
-	b=UYXh6tiXNhQ4qshHYLKbqInOEagvJROBEtkbXsHXezZTTYFW9he7eK/VrDdVQgA5EoZWYw
-	l9I0g4SaE++MVb456nj/r4B9UiVKUDtmg69oZzEd2ioq+as9kdORs6jQNaThwenGRHPv/e
-	vGde0HzY20XUuFoj5vesEEqtpl+Y2uPOTia+ORHHJD7d0In0Qv7jubRjgZ56HxP/6JyXb6
-	w/SLlUJNLSMoRWQG4ThI5T/c2jES5nap+L7eKEy73fUtm/3XLBNWc9lujyEKOIzMhAsVH6
-	tHm6WmfxDlBD7M72SdZ5usMa9itLKakh2cLM38bK4IX1CUNy76tedVj+KiV5cA==
-Date: Tue, 11 Aug 2026 16:02:31 +0200
-From: Arthur =?utf-8?Q?Cr=C3=A9pin?= Leblond <arthur@marmottus.net>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESQHqoFO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F111F000E9;
+	Tue, 11 Aug 2026 14:03:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786457006;
+	bh=30bMBULCuIKt/CdCoc/d2OkweMwBRSaYGuhlCSiGzpI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ESQHqoFOi9XT7NwZhwxn9HrCqxt0MAkteU6JOiZ/ZKjelsIaKv2Qz8iYc56pj/b9t
+	 Sp/vU19j0MjhuXaUS/+2AHtVicLOjyTr56t+TKbd0V4UKPq1KMzcrv6ExR3jJ3e6iG
+	 hoMQ/3prXewIdal2p57/hSoIKwVlSBmaibILh+Gk5YIQ6JPjanrTKUmCUsmfddRBGM
+	 IbHDxlfDTKO3QFF0NVx/+qaxypCyGpmWd2FFi+baS/z1UgVQeMG7L2aeNlFSdZwmUF
+	 GGsf4dV2QYM3YZakoXYLBOIsF1IYEAYhd+CoGOg4ajuSeVwxpAQQQnxpJ5jltmn7/C
+	 eaIBPj4G8QldA==
+Date: Tue, 11 Aug 2026 09:03:23 -0500
+From: Rob Herring <robh@kernel.org>
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
-Message-ID: <ansrd2nYaWBk-EiK@pc-du-fromage>
-References: <20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net>
- <20260811-wiznet-link-gpio-v4-2-4d5f7da885a8@marmottus.net>
- <688f57cd-a098-4904-b8cd-965470a89386@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Jacques Hiblot <jjhiblot@traphandler.com>,
+	Jonas Rebmann <jre@pengutronix.de>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V2 1/2] dt-bindings: leds-group-multicolor: Enable
+ default-intensity
+Message-ID: <20260811140323.GA2080632-robh@kernel.org>
+References: <20260802115727.50411-1-wahrenst@gmx.net>
+ <20260802115727.50411-2-wahrenst@gmx.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <688f57cd-a098-4904-b8cd-965470a89386@kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Cause: dmFkZTF29h7gh2LGGnxjNrXQnL/oenCMurpA5kFcLLJasYLjRv0uv/9d7vwUirNzmcltikBHIfm1gQyEBGz7B4yNMRO41GPFFznJfeo8pDJiwWmepSxYXAPBe8iqUml2SdoEuroLQY/wfmTClMhyZQ3S09+ufIH/GW1PHmE61B6iNh7TWxlGIMmPWLwdFv9C39GdRVpS5lbSv2zmlKE9ymrHYXYubl8J07xYN6+JAGk0KbWJ/DAONKwOm1Bl0l0yO0As6Dcy+YG5n/uVd0d9bU5GuPwi4Fz5I1/UqXd3EwsQ8rBm23RoXcKwfTHfOejnnW6FahOPe7SlPHTQsrADzVjk1oFlI1ngdaKRZE+x6lH+lOYmbefW1Tt8Asqynh/SX11XNKKEHqw71LZOALvY1U8ly+ahtwT1U8wludWFLspIuQBVXxDxo1M8+uZrqXBp/oDZ2tiH3k5D17sEUFKJOivSnfqqaPU2QBU0Bm6AC/IET+gVwhGRSJtkr7R3JatT48pE9tXGPx4uyvGDr8zIiNYSEmY1m7EOZD0Q4rSyJuxHss8KCnL6sdLKreBEXsd/AlGABi6bg6bNtIzSsatzOUmNDjNSDotGe8Zl61quTJbZVAbdgzrBcPSe/EKc+LPJvqIUNMWq6swxweI1nOfHmVhdPblyX4EkSxtkur7gcP1S4PhG1Q
-X-GND-State: clean
-X-GND-Score: -100
+In-Reply-To: <20260802115727.50411-2-wahrenst@gmx.net>
 
-On Tue, Aug 11, 2026 at 03:36:43PM +0200, Krzysztof Kozlowski wrote:
->On 11/08/2026 14:34, Arthur Crépin Leblond wrote:
->> Add an optional link status interrupt which can be connected to the
->> LINKLED pin on the device to detect link status changes.
->>
->> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
->> ---
->>  Documentation/devicetree/bindings/net/wiznet,w5100.yaml | 9 +++++++--
->>  1 file changed, 7 insertions(+), 2 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
->> index 641c9ddbde9e..30f013f40a77 100644
->> --- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
->> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
->> @@ -24,7 +24,11 @@ properties:
->>        - wiznet,w5500
->>
->>    interrupts:
->> -    maxItems: 1
->> +    maxItems: 2
->
->This is redundant, instead you need "minItems: 1"
->
->
->Best regards,
->Krzysztof
+On Sun, Aug 02, 2026 at 01:57:26PM +0200, Stefan Wahren wrote:
+> Since commit 2ebd1cb772b0 ("dt-bindings: leds: Add default-intensity
+> property") there is a property to specify the default color on
+> multicolor LEDs.
+> 
+> This is also helpful for leds-group-multicolor, so enable it.
+> 
+> Signed-off-by: Stefan Wahren <wahrenst@gmx.net>
+> ---
+>  .../devicetree/bindings/leds/leds-group-multicolor.yaml         | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/leds/leds-group-multicolor.yaml b/Documentation/devicetree/bindings/leds/leds-group-multicolor.yaml
+> index 5c9cfa39396b..1f308cdb71c8 100644
+> --- a/Documentation/devicetree/bindings/leds/leds-group-multicolor.yaml
+> +++ b/Documentation/devicetree/bindings/leds/leds-group-multicolor.yaml
+> @@ -19,6 +19,8 @@ properties:
+>  
+>    leds: true
+>  
+> +  default-intensity: true
+> +
 
-Thank you, I'll update it in the next patch.
-I will also remove the unused gpio/gpio.h include.
+Sashiko is correct. This is in the wrong place compared to other cases. 
+It should be defined where there is a ref to common.yaml as that is 
+where the property is defined.
 
-Arthur
+Rob
