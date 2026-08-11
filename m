@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E592C3FF1B7;
-	Tue, 11 Aug 2026 07:15:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD04347520
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:20:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786432525; cv=none; b=uttzwKNx3Lb33xwxFkHc4nco2vT60D04dwsivMnIUA2JuFZd+XxsQgnrpH5vjC8tNfxR1k56iMF0rfHfbQN/4frZQTMznJuoSJvMAFpxgAmTh3wKWUsRL+EYe1e9F23fJKMzLgv+5D2xME13tk49HNhsoN8xhzQKr3YulCBYAU4=
+	t=1786432844; cv=none; b=U4OG58C7bvDNI1qSYx+ltEFIMq44GZeQKAozsAmdiMJBmeeHNdu5Gpw2pZVI9RWAAKDVf+42bagEKVSQy1jzFSwiD6Lg1mxE3bQmGPzZQ/2HkhNNx2LzRlvpt8jzlAWxfv7pvZ+EqZn4HeTmzgrYiM61AtC3uZFFvqpn4iejz+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786432525; c=relaxed/simple;
-	bh=I3JcvC5oTHnJrY/p7dKkXNjVsxbYm7hTwxFI6iwbUns=;
+	s=arc-20240116; t=1786432844; c=relaxed/simple;
+	bh=ELSWP/LCmlAJ6V8Ixl4FbFa1dksuv4fk3KIB6F4Xp8c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kbeV4E96QoM7NhnXun/bw+oJAIs7O+QVE1c+gpsksXw+/0l6RBYXgwhzJZFt26rXRsStpFxHhcBFIYTZJ4WI2vK4ZNzWO4rTn6rbNUXKBwDt7QDBsxM3A9woChChlEdo21asMeM2Hwm56Dd2j2cqg+lu+mZdxLKkimkv9uS2Mn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsTuDwVa; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=GUQn0YcqH1V4pZRgwL2ViTtDwA32sRofzJM+ozy2kwI6w1j5YhDa2zo16ny6IvUIwEY+SPmQowmVgyUrN802OBsXsvjplT7mSnNBxTsTvVRFgHBPDQcqNAsLooYQfDsU7rU5T9/XHwyttnouHRqG935BPPKSFp7G0LFEoqgbyOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BROfoEkF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rotc/W/5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsTuDwVa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593701F00A3D;
-	Tue, 11 Aug 2026 07:15:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786432517;
-	bh=RtnopSDY9LgO14LF3vwgLskfXZkmvLWqpT4jVjmFoX8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JsTuDwVaxj7Tswl2f65hiEXtO37LPlohUa//m34dIPkpN90j6yvcN44qnQP/VUG9v
-	 iYPg1s+B1coX/FigWu05xUx/AVO8we8UpKfvQG704vrdUuoE2mpFSGSg8HkbDQg5wr
-	 mQeY3iksQULPBIGZznIZn4BAiqfz7TIYHuHLjg1fIHmudxymAmlWBmohJ+4ga120X2
-	 JdDNsqsxAqKhMC5n9uaQP5/jDxJdwuxRCX7xtH8g/pr8Ll2W7KYxoYiLlJBiIvEwpW
-	 quNJdH993S64cDFZvMA13VIuOfq/MzH69uqJod81HUP01Sj5If/r6ZyLF4DrCEyM1B
-	 gKSuzorkhjxNw==
-Message-ID: <9d596af3-be5f-4f02-aeaf-ae5d627475c5@kernel.org>
-Date: Tue, 11 Aug 2026 09:15:07 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BROfoEkF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rotc/W/5"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67B6uQxr2812342
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:20:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bFzyB6VISH0tii/qYJ6Oxsgbw5NSvam1B9Xihdt4yjo=; b=BROfoEkF4/NnP1tY
+	s+bqslzXNAebJkvTSZot3aOoYdT4C1lX986TvcF7nOG44Dr3Trml3ctOHPLXXlnz
+	H2Yi5EbMEatY6E+3/IHLT6JuCnT5UTshYrzE8X8EZ13u/EF2FXyx5+hup3rjX6i1
+	ATprHoiXpyiDJbr0x6I6pdx/bPil6p/C41Qr+kq0eaKmc5g1EUTuV0pl8Cs5oCOq
+	6ihU+HjC8DBdbuLlszqbRUk6ajn1d7Re8fIqeedogmrMA1KsPqJXBsAfpYFRSZVe
+	Kjrr1AjsigLKNBsS01R1hcAFyXD2FybStFhl3sIYrjirs/IOv31adBpe/vWOP6/A
+	ONK3dg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyxwer2v9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:20:41 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cc86a9ef97so10047135ad.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 00:20:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786432840; x=1787037640; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bFzyB6VISH0tii/qYJ6Oxsgbw5NSvam1B9Xihdt4yjo=;
+        b=Rotc/W/5XwlJlWY7TG5R7Zy3ijfWgISgMVffqw6jzYFGWX1X90ss/8noUCzaZh3LEk
+         /5f2R7DPt6dD5uG4nXe4p0cF70/+InlQc0H91Mz0QNNGC3G0Fyg4lVC4DGUNILoCnbHh
+         RFFktrtWxi+R8G/jwh6ZeyWRQSD4oxdCSKUyzw7H/a2thGSmAy1UFBB570/r2bwKXS3b
+         FiV58S8njaNp5Nk8rY3PeYITeRSdTewthEwevcaGgeNFIs73Kl4+UZSgZAg+V88o89S6
+         KPIKW3/ir3wPiob11QVd3deL1j4IAZGCwpCA/99TUw4XO6h275J3Cw86sWeiU0AYcJ6G
+         yYWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786432840; x=1787037640;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bFzyB6VISH0tii/qYJ6Oxsgbw5NSvam1B9Xihdt4yjo=;
+        b=Z7upMJBRe/QBGUpYnb/T04apHGJTFqQFVrFLk4JNaW85BlFbruXqmw01KWcRf8WqH1
+         8rQazMGO2cIw1wf2p1u8l15pOvkoiOCNglnmyO22wOD+m78fK52uZQYe5kXDXZsqXFcA
+         UPxPkt29sc8SbLQi+JjgdCh2gdAtjMnLUudfqbiAWeIN52vOV0EpWB7TMQDTui+Y9iTm
+         QJ0z/3yxCz0ePbAm47ORbR55G8IxZW3vydy1hJ+vQAwOs6lVPXewuWNcUBu7+03m7Nyc
+         GicaLAuGlhegdURRiYnPkVivQzqW8lGrtVF7165ARjlA+Ig1cMWnEeWtS7OtOK/2KQ36
+         07Hw==
+X-Forwarded-Encrypted: i=1; AHgh+RrDlPRhibZz3VwsUZ9g5/i8+vP9pa4vH2hbS47rXz2HoO5s0B8BJgxAt/xtWAhJCzfoNaF4LAeiODYZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNuTgkEAgGWkVHaS4GNG4YrBrM4LPPpGLKit1lYhaAo+G2vBib
+	UHPTxQuFZLDuBlo+YHpqhM/B3GZ9kIYQZhy1yLMdRPDjAcd4uTwJ5F1xf9x0+jHZPg1qKY4k+jY
+	HfEsxRJXtYqMqA1qfKwuz8s4AlwHcrFDvethWbLtqBmYsgLd9ly9RBd8f6INnPVgec9VmKYFy
+X-Gm-Gg: AR+sD132RIm+mye3PCbfVz72rjLOIZVouXQ5Bppnkifn1CgEJtLylFk+0kG6OlE6+8B
+	m6+Vq6fDdKyaJNnWu80y54OyRBOh+6noQ4xnPRTAmLa2bQ2AeI1N+70RzU/bc9+WLKAguDAkW7/
+	BSSyxyk8uebtHg5hju0KgJm1muCnXBYXi727pb70HZwWXl0gTOGMFuqrA4udYCXCGm6FpKEKJNL
+	yVKQ7FrkyuQPNzb11AkCc8d7rLrtikYANR6Y1vbhU6Vs4kiulD4rwEZx6+XQCRfghaGDlUTl4lO
+	eMsHlzPqyIGzn0kCMpaMFcFt54DQuweY2pfWO6tAmqVjtydSA+Mw4JPMEuYROeMBthPcpTjArQu
+	5867nMLMfX/jt2IXti/by5pIMJrzocQuxLQ==
+X-Received: by 2002:a17:903:390f:b0:2c7:f4bd:91b5 with SMTP id d9443c01a7336-2d31760dc41mr19356185ad.0.1786432840224;
+        Tue, 11 Aug 2026 00:20:40 -0700 (PDT)
+X-Received: by 2002:a17:903:390f:b0:2c7:f4bd:91b5 with SMTP id d9443c01a7336-2d31760dc41mr19355685ad.0.1786432839710;
+        Tue, 11 Aug 2026 00:20:39 -0700 (PDT)
+Received: from [10.217.219.92] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3160d3f3dsm2984455ad.54.2026.08.11.00.20.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Aug 2026 00:20:38 -0700 (PDT)
+Message-ID: <add2ce94-14e1-43e1-8307-33770435b392@oss.qualcomm.com>
+Date: Tue, 11 Aug 2026 12:50:29 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,293 +89,74 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 4/5] dt-bindings: net: x-powers: add
- AC200/AC300 EPHY packages
-To: James Hilliard <james.hilliard1@gmail.com>, Lee Jones <lee@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com>
- <20260809-submit-acx00-of-dynamic-v1-v5-4-bfa1f8518b28@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 01/15] soc: qcom: geni-se: allow selection on 32-bit ARM
+ Qualcomm SoCs
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
+ <20260809-kuno-soc-support-v1-1-5e0ede4a0c72@oss.qualcomm.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260809-submit-acx00-of-dynamic-v1-v5-4-bfa1f8518b28@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+In-Reply-To: <20260809-kuno-soc-support-v1-1-5e0ede4a0c72@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: ZS_-KWI3RdJhnV9pFHx7ESrn5J8EhIL3
+X-Authority-Analysis: v=2.4 cv=K8QS2SWI c=1 sm=1 tr=0 ts=6a7acd49 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=Ax5LA6XsPdTS7ErXUsIA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: ZS_-KWI3RdJhnV9pFHx7ESrn5J8EhIL3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA1OSBTYWx0ZWRfX3Yft/rHQV7+x
+ S5GscZLb0Wa270oSSzj/TDDlww7C5FwSjKgg342ZiM0yl328zEFqIbKye7KYT4EO/lxUdkwOhvk
+ /WZVD8nwGUuQHhbrtzuOxn9a25AmGDA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA1OSBTYWx0ZWRfX7c76FYU5Px69
+ DHyxrhufZGfl9LDhh832Ur8FiUD1F8uju82OvlFE3QeLP0AeQbrLlOUTrggna1gG06rMbt+ISoO
+ 2jr7Zsj4VsfPGpHMbrAaGHFcD7UaQctJgT5KBjIrobHxZdKtOx7hlUjmo1vk80MrQ093OSc+JAG
+ Bn6SyMb6KmLwvtMl5QQQ8n6XuUw2+n3O8a9f39LFExbSgpVEsMj9CPC7xL6FvCN3VW9eg+Id9WW
+ SuS0S8XDAs4dDTmkbRxP6hQYV3NJz6Jj2EpHeoyOQxogdlenfFWyaxld5vKtRupWXhSg7Krkn1Y
+ McbCOGYnlpH1qrHRRlSzS+apVFUOIYC+7N6H1MzAGqWB7SBtCEImnCtlMY2mCZSvoSjL/nKfP/d
+ 68W8plBK43Wp3V92QLl99WbOXJzKZ0kBAYC+QI12mJuv6Xb9v/ULP20MG2GJEZYArsr1XRCaU+G
+ y0kcnnBVXXsn1yXAcBw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ clxscore=1015 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110059
 
-On 09/08/2026 22:28, James Hilliard wrote:
-> The AC200 and AC300 contain compatible Fast Ethernet link PHYs which
-> report the same Clause 22 identifier and use the same link-side register
-> layout. Their package control paths differ: AC200 uses registers in its
-> I2C MFD, while the AC300 control range is at a second Clause 22 address
-> fixed at 16 plus the link address.
+
+
+On 8/9/2026 12:57 PM, Hardeep Sharma wrote:
+> Commit e10b198a94c6 ("soc: qcom: Restrict drivers per ARM/ARM64")
+> tightened QCOM_GENI_SE's dependency to ARM64 || COMPILE_TEST on the
+> assumption that no ARMv7 Qualcomm SoC uses the GENI Serial Engine
+> hardware.
 > 
-> Describe both variants as Ethernet PHY packages. The package reg value is
-> the link PHY base address and the child supplies the documented PHY ID,
-> because the identification registers cannot be read until package setup
-> has completed. The AC300 driver reaches its control range with the PHY
-> package offset helpers. The AC200 package instead references its MFD.
+> Kuno, a 32-bit ARM Cortex-A7 Qualcomm SoC, uses the GENI-based QUP
+> wrapper for its debug UART, so this assumption no longer holds.
 > 
-> Give fixed hardware variant-specific compatibles. Also provide an ACx00
-> compatible for systems which can contain either package, with one packed
-> NVMEM field containing calibration in bits 3 through 0, the AC300 selector
-> in bit 8 and its low-calibration selector in bit 9. Such a description
-> contains the potential resources for both backends; the driver consumes
-> only those selected by the configuration field.
-> 
-> Describe the package clock, supply and optional xMII receive-clock
-> inversion needed by some integrations. A fixed AC200 package may omit the
-> NVMEM field and use its internal calibration copy. Limit AC300-capable link
-> addresses to 0 through 7 so the control address remains in the documented
-> range 16 through 23.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> Fixes: e10b198a94c6 ("soc: qcom: Restrict drivers per ARM/ARM64")
+> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 > ---
->  .../bindings/net/x-powers,acx00-ephy-package.yaml  | 207 +++++++++++++++++++++
->  1 file changed, 207 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/x-powers,acx00-ephy-package.yaml b/Documentation/devicetree/bindings/net/x-powers,acx00-ephy-package.yaml
-> new file mode 100644
-> index 000000000000..ae0c5e980c39
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/x-powers,acx00-ephy-package.yaml
-> @@ -0,0 +1,207 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/x-powers,acx00-ephy-package.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: X-Powers AC200 and AC300 Ethernet PHY packages
-> +
-> +maintainers:
-> +  - James Hilliard <james.hilliard1@gmail.com>
-> +
-> +description:
-> +  The AC200 and AC300 contain compatible Fast Ethernet PHY blocks which report
-> +  the same Clause 22 PHY ID and use the same link-side register layout. The
-> +  package control paths differ. AC200 control registers are part of an I2C MFD,
-> +  while AC300 control registers occupy a second Clause 22 address fixed at 16
-> +  plus the link PHY address.
-> +
-> +  Systems with a known package use the corresponding AC200 or AC300 compatible.
-> +  Systems which can contain either package use the ACx00 compatible and a
-> +  packed NVMEM configuration field to select the backend at runtime.
-> +
-> +  The link PHY cannot report its ID until the package control sequence has
-> +  completed, so its child node supplies the documented PHY ID. The package and
-> +  child use the same base address. The AC200 driver programs that address into
-> +  the package, while the AC300 driver derives its control address from it.
-> +
-> +select:
-> +  properties:
-> +    compatible:
-> +      enum:
-> +        - x-powers,ac200-ephy-package
-> +        - x-powers,ac300-ephy-package
-> +        - x-powers,acx00-ephy-package
-> +  required:
-> +    - compatible
 
-Why do you need the select?
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - x-powers,ac200-ephy-package
-> +      - x-powers,ac300-ephy-package
-> +      - x-powers,acx00-ephy-package
-> +
-> +  reg:
-> +    maximum: 31
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      AC300 input clock, running at 24, 25, or 27 MHz. The AC200 input clock
-> +      belongs to the referenced AC200 MFD instead.
-
-Drop last sentence. Just confusing - what is a referenced MFD? There is
-no such thing in the bindings as MFD and the bindings cannot depend on
-Linux subsystem.
-
-> +
-> +  vcc-supply:
-> +    description:
-> +      3.3 V package supply. This is connected to EPHY_VCC on AC200 and VCC1
-> +      on AC300.
-> +
-> +  nvmem-cells:
-> +    maxItems: 1
-> +    description:
-> +      Packed EPHY configuration field. Bits 3 through 0 contain the analog
-> +      calibration code, bits 7 through 4 are reserved, bit 8 selects AC300
-> +      when set and AC200 when clear, and bit 9 requests the AC300
-> +      low-calibration tuning sequence. A fixed AC200 package may provide only
-> +      the low calibration bits or omit the cell and use its internal eFuse
-> +      copy instead.
-> +
-> +  nvmem-cell-names:
-> +    const: configuration
-> +
-> +  x-powers,ac200:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: Reference to the AC200 MFD containing this Ethernet PHY
-
-Confusing. "Containing" means this is part of the other one, but
-phandles do not express that. Anyway, there is no such thing as MFD so
-describe properly without using Linuxisms what do you need here. Then
-say what for (purpose).
-
-
-> +
-> +  x-powers,xmii-rx-clock-inverted:
-> +    type: boolean
-> +    description:
-> +      Invert the xMII receive clock inside the PHY. This is required by some
-> +      SoC integrations, including the Allwinner H6 AC200 connection.
-> +
-> +patternProperties:
-> +  ^ethernet-phy@[a-f0-9]+$:
-> +    $ref: ethernet-phy.yaml#
-> +    properties:
-> +      compatible:
-> +        const: ethernet-phy-id0044.1400
-> +    required:
-> +      - compatible
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - vcc-supply
-> +
-> +dependentRequired:
-> +  nvmem-cells: [ nvmem-cell-names ]
-
-Only this is needed
-
-> +  nvmem-cell-names: [ nvmem-cells ]
-
-This is not.
-
-> +
-> +allOf:
-> +  - $ref: ethernet-phy-package.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: x-powers,ac200-ephy-package
-> +    then:
-> +      properties:
-> +        clocks: false
-> +      required:
-> +        - x-powers,ac200
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: x-powers,ac300-ephy-package
-> +    then:
-> +      properties:
-> +        reg:
-> +          maximum: 7
-> +        x-powers,ac200: false
-> +      required:
-> +        - clocks
-> +        - nvmem-cells
-> +        - nvmem-cell-names
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: x-powers,acx00-ephy-package
-> +    then:
-> +      properties:
-> +        reg:
-> +          maximum: 7
-> +      required:
-> +        - clocks
-> +        - nvmem-cells
-> +        - nvmem-cell-names
-> +        - x-powers,ac200
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    mdio {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        ethernet-phy-package@0 {
-> +            compatible = "x-powers,acx00-ephy-package";
-> +            reg = <0>;
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +            clocks = <&pwm 5>;
-> +            vcc-supply = <&reg_3v3>;
-> +            nvmem-cells = <&ephy_configuration>;
-> +            nvmem-cell-names = "configuration";
-> +            x-powers,ac200 = <&ac200>;
-> +
-> +            ethernet-phy@0 {
-> +                compatible = "ethernet-phy-id0044.1400";
-> +                reg = <0>;
-> +            };
-> +        };
-> +    };
-
-One example is enough, they are all almost the same (difference in one
-property - clocks - does not warrant a new example usually).
-
-
-Best regards,
-Krzysztof
+Acked-by : Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
