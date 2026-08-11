@@ -1,239 +1,177 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FCB4429CD2
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:21:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12D241F349
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786440066; cv=none; b=W7Y5dL+W78kzr06yAZ6zPecziIy2/eWNPXhvBdPBC+qt6VWx23y6F0MUZfnUCcQLYtMuPvL3ubi1Bds1UJl3gzOImLe1fuPr+b7qZHljsvQMNkf7o5gSfiAcNINFkipUxY0mwhraX8eSXZGdEULi6PANGfFPgZ90mNe2aeOx4vI=
+	t=1786440139; cv=none; b=bTrcv/fWDO5nQWHLBpuTNAK9EHzRAkKwyjBXkCU3XD6D9SEfsWt1nU7L1i4rpSlaebP8iBP1xayQZtxeUgO7kmf4vLCrUycb2AOHk78pPjZtdT6wnvENBNB43pOP8KSh4wvnKA/hLmA44bajw/X8sRpmgirZ6tCfTl4GKQXIDUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786440066; c=relaxed/simple;
-	bh=isBQF2c+d1pfd7SjWUxH63IYxbSEywyUQ6cp2unuDRQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m99KCOifbvOjJkDyejWyW66EH/8Pxwz8IUW50yN5/4mF8WzuKacHizK0Q45HK8XlV8s1spO4WmD856yCYMk79iolV4hTm+NDjor2LmOgB7bmySODyOT/+n8MgRz2i8ZlVlbvJNhCSvo93+mMVXDhBE/D/DOmw3QUWVqo2oI8CME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aa0mvXA4; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1786440139; c=relaxed/simple;
+	bh=/UkVbiyABCOWkQkk1ensSSE3l3aZFpZe6kVjhYLKH8s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qHvhw6e5RrZIyDsBb0a1V8KSb/UATGwO5ftLMvT7cy0THe0rHEL5ELvAGynKMgF6XxCeblHn9nlOr52ZLBvlHsSwCEowa7H2ei3uPPFI27Mvd0k3BuwqQihqM0zLxUQYsOwLb0H3vYuPbLkl3Ns54gIAn9RLeSCqw5Zqfb2CSr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aa0mvXA4"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48000c5d6d3so1270933f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:21:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786440062; x=1787044862; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i+sTsNWNEbGad7k8B8n61NKX3WkNF/1NgHNb6RMZaeY=;
-        b=Aa0mvXA4HMVpX4mWoGX6SnfBCYC74WPwebpl+Srx1GN33ezRSGQVN8Et349jfx5YZV
-         mKaOAsBoTPLPSU+dj0+rPQcK+IoO+LY+jo2fvcCZi4hHjkfLo4MTDk9ywTnhiBuSDPqv
-         WwHG6ZzrFviQZYTcZBNlaIYujJqQ7a3df5dC3C21nWFgUDor6Wi4WwAO6cushpmnr6Dv
-         jdcwtS4Qw2X8CX2dQ+YQ49HBowyr13AJ5Lxb6rjorRVtL11B/YQzq3rI9PcGGbTJuPkB
-         9Lgx5wpZDA+1RVKKrkzoKJAFZ2psSt6o/VvXQjNnkcDnqPgYqzt5ipy2nJkTt6p2c56a
-         6E9g==
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6688acd1a51so768318d50.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:22:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786440062; x=1787044862;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i+sTsNWNEbGad7k8B8n61NKX3WkNF/1NgHNb6RMZaeY=;
-        b=Y1w49I6BCjZkbUBbRtieiuVzCv/q7iv9vkrU2J11BN3czwYjfDfXlPy8gQgQ8XDv8p
-         LHqjBKDNJN6vFvS8s9IbUAzkCZBZu023op5PMxPK7XurlBsTKNwebRmX5e63dB2LH0Ba
-         Q4t7Q3zMkkwWScpj4W5EbkJnyhS7dtnkpCzh84aNrnwvL79tiO7Z0KBMvYQqC8drfXWO
-         x0jbZjW6/1twew7uyzHVlz9fmYXSpoKoQYPrAQJJSuHd1FM4zJjkU4HUmNXSCySO2jKq
-         WjpU+r5NZbpElEpK7x4ZAt+reSa2bi4+VWQw+mKCcgEJK7R/3FRvlUnRHzfcfUTPtgWf
-         9lmg==
-X-Forwarded-Encrypted: i=1; AHgh+RqunPtnH+NtZ26X4/JP5YJvymSG6rsZrWJw7nXhihc2o8RKt5GpFbQcTJnbazf42s3NPJjo/7zT0veA@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZdc3r349DHfDY4WU8n+/HpiPtG/W3bqZlcrxm/WXL8XvDaKzL
-	RhHZl2k64nzyJ/ONlfl+HEJA1KXFNkfo2aFSVbs/e/LFRix1CBt8Zf+c
-X-Gm-Gg: AR+sD13pxaPdtWOm9gNLmbQr2wjat0Mm1zfPtHizyaW4GxVQI3001u+m9/tZQkQv/o1
-	9p0859Fd2KzTfU0F9KSlXU5+xkx4CDeXF08B5nLeshNk8/TcZEDyQsV0ROCchyzBvu4h8uSOvFb
-	zAyNV5YdqutDGDCznrZFKxEWZc7iDWkw8J4JP98qJX7Fi/bHQQKxQ0+TFaQF2VjUA6gfJwvgJ8u
-	xRw4ZpCKwbnB0Zow7HmCgBBkyN4rOhIeZ0GcPFFGU6dNM8noPZS5xrcpoZEM0wXFist6ITKDNrg
-	Kle2EimVFMOFZJKHwWze/fUUu++QaglJM7gf8oYxIzrh7lFmp/lieWc+oSWov9WqHGU38ydNGSu
-	4abwhBuzV2O6O6McUx2SEfwYoT3BRzhw+X1DJr3haT4pW+7xZXxaGD8RfJGHwJTB/0PBHkC3XRq
-	G8RXLdTShtWNam3FWnZFuGRkgfA0GtifTTRXkmUvf4fj9SMuPwzmpW9tLV84g2E9KGTagG8dGMG
-	keyS9mZLV1P1YVZ0K+iNCklyCrbaQ==
-X-Received: by 2002:a05:6000:4282:b0:47f:756f:9a8f with SMTP id ffacd0b85a97d-4814add84c7mr3006425f8f.26.1786440062012;
-        Tue, 11 Aug 2026 02:21:02 -0700 (PDT)
-Received: from localhost.localdomain ([82.137.32.40])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4814a7096c5sm2921744f8f.24.2026.08.11.02.21.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 02:21:01 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Eduard Bostina <egbostina@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>
-Cc: daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	goledhruva@gmail.com,
-	m-chawdhry@ti.com
-Subject: [PATCH] dt-bindings: pinctrl: Convert TI DA850 pupd to DT schema
-Date: Tue, 11 Aug 2026 09:20:57 +0000
-Message-ID: <20260811092057.687155-1-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1786440136; x=1787044936;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=14plqPeyH6RsdU2VmFKnJtMB+pmrsGKI/JGoWS24hKY=;
+        b=HrKl6ssMZWfepZCVi0MPJuzrN0DT5Uz8iz4NEByy8Hj0fWWo5ANJ7Frh9ITf8gCrza
+         inR5meoMHu3jx1PGTvwC40iBCq16V5Sw6WDzF4x3jrXJMl/5vCtO26rpkz4whF3Pa8E+
+         KBB0uKe8LyrLZC3Q4sbP6wSyltujKYGEs6p5L67yL77oQcxfqWucw5ay6v36ZuzZ7qSc
+         Bdj877SluCeeASU9Wt5GCZdtH668PFPkVO9FXcbHYvVKts+IlIETqD5xC6Vfx0CGnLGX
+         qrw/yQzPiP3hLRmmCP0ZVzm9ZcqCgsqcBplKn/UZstAVvaimoDJIDlqcsMbOoh7W0QW4
+         cQsg==
+X-Forwarded-Encrypted: i=1; AHgh+RpRSMFyZU5OXXIbJIJ1p65H3faX+mYbBg+tF+mc+pQcr5ZDzeoXiUp8tN9r5eCwF4qsoMTcsxvIJy9m@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+KgZA8+UZE/ar8PAWkC6JhEIqjEtYFSMGI8ECzSftCR1r4PYO
+	VIDZWRFM55BWxBh5PpCPYUKgPiGlFZ/uJa/Kb7YxUlbmRQP69Hvo3UyU5YBWZKqE
+X-Gm-Gg: AR+sD10PWntx6LVKoCjaaqdGV0vyo8LxSQFKkdkJ/cXkELdHQFmOrbOOJrRN0J1m4Qd
+	p91gqeek/YjjPthUtjIqkO1Lv6GGO3nnfAXjAupLPDERuu0b/gVGqOLOTP+hmoOYRo1irGUJBgz
+	mJZ1JlUAZ4JOpCuYcMlghWojmhrq8SsINnz9j5Llcjb/WM65XstCFYMc4ImeXmTgGz6iCFrOcWv
+	2WvCQiKlYQ7GZi73D0oXJWTFhe7unlJ9OIivgR0wzi7OA94zNJFvpGDmg1oRmNLc7aU7GfSzhNH
+	Q1kODaAncVG22175Ki7dK1gW5B0yj3SJsBnZn1xNUAEJhuoH3kEqzhBiDPQF+gqKXrlTdHcXfzZ
+	jq9PBweGwJ8vINI7yLAUYxxM6Z8nXhtsms0lqZ7sNQj0ZG4bY+q82gTCmZzJDOscoCG+Qg37M4l
+	NZP+lqJHsyIUXOfE4n4OsCGtdUAxh/ZQnNk73Sa3GcTVJ4J8My5wx/SiQv0gMS2bNvLUHgHj9/N
+	Puvh4z8wSNYeGUNeSKVPc+7b+DqmQ==
+X-Received: by 2002:a53:acd8:0:10b0:668:4a0f:a5af with SMTP id 956f58d0204a3-66b22e55b3dmr914576d50.40.1786440136081;
+        Tue, 11 Aug 2026 02:22:16 -0700 (PDT)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com. [209.85.128.171])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66b1ef94552sm683221d50.5.2026.08.11.02.22.15
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Aug 2026 02:22:15 -0700 (PDT)
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-82011c59e66so9966907b3.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:22:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoKRPfYV0c7rQa3QGuCWQhIHomrfmDZVXxp310IyAdh1PFSCp3+3gxJSkE++PGVDAFaPvh6/WygtAnx@vger.kernel.org
+X-Received: by 2002:a05:6102:941:b0:738:1fcb:f276 with SMTP id
+ ada2fe7eead31-76b5527db20mr448203137.1.1786439726421; Tue, 11 Aug 2026
+ 02:15:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1785941595.git.geert+renesas@glider.be> <CAPx+jO87d7H92KSR7R7ObR05sM2JcHBCo+YuUf_1gE-KwhR7CQ@mail.gmail.com>
+ <CAMuHMdW78wFHKP8n2P_MEVASO3MFHCjXkEWSFXfE3-mCjkhsgA@mail.gmail.com>
+In-Reply-To: <CAMuHMdW78wFHKP8n2P_MEVASO3MFHCjXkEWSFXfE3-mCjkhsgA@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 11 Aug 2026 11:15:13 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV15qa+bntYdeEysEc3rJ4dNhQxiVJd-moAGTNyfPdDkA@mail.gmail.com>
+X-Gm-Features: AUfX_mzrvqkMTS8THhoJKajeDFG8F23c6THOaD8Dreq76GI2rXJHX-LkuIBfF_U
+Message-ID: <CAMuHMdV15qa+bntYdeEysEc3rJ4dNhQxiVJd-moAGTNyfPdDkA@mail.gmail.com>
+Subject: Re: [PATCH v3 0/6] R-Car X5H CPG/MDLC support
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Convert the Texas Instruments DA850/OMAP-L138/AM18x pullup/down
-controller bindings to DT schema.
+Hi Ulf,
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
----
- .../bindings/pinctrl/ti,da850-pupd.txt        | 55 --------------
- .../bindings/pinctrl/ti,da850-pupd.yaml       | 74 +++++++++++++++++++
- 2 files changed, 74 insertions(+), 55 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt
- create mode 100644 Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml
+On Mon, 10 Aug 2026 at 16:50, Geert Uytterhoeven <geert@linux-m68k.org> wro=
+te:
+> On Mon, 10 Aug 2026 at 16:18, Ulf Hansson <ulf.hansson@oss.qualcomm.com> =
+wrote:
+> > On Wed, Aug 5, 2026 at 5:21=E2=80=AFPM Geert Uytterhoeven
+> > <geert+renesas@glider.be> wrote:
+> > > This patch series adds minimal support for the Renesas R-Car X5H Cloc=
+k
+> > > Pulse Generator (CPG) and Module Controller (MDLC), to aim for replac=
+ing
+> > > the dummy clocks in r8a78000.dtsi with proper hardware description.
+> > > These two components are closely related, in the sense that they are
+> > > both supposed to be accessed through the ARM System Control and
+> > > Management Interface (SCMI) on the Ironhide development board.
+> > >
+> > > This series consists of three parts:
+> > >   1. Patches 1-2 add DT bindings and DT binding definitions,
+> > >   2. Patches 3-4 add minimal CPG and MDLC drivers,
+> > >   3. Patches 5-6 update the DTS.
+> > > Note that this series depends on v7.2-rc2, due to the use of
+> > > <linux/device-id/of.h>.
+> > >
+> > > Changes compared to v2[1]:
+> > >   - Add Acked-by, Reviewed-by,
+> > >   - Add fixed-rate clocks to kerneldoc of r8a78000_cpg_priv.map,
+> > >   - Use devm_clk_hw_register_fixed_rate(), drop unregister_fixed_clks=
+(),
+> > >   - Drop fill_clk_map(), as it is not really needed until SCMI remapp=
+ing
+> > >     support is added later,
+> > >   - Replace <linux/mod_devicetable.h> by more specific
+> > >     <linux/device-id/of.h> in v7.2-rc2,
+> > >   - Add a comment to document only always-on domains are supported,
+> > >   - Consistently use /* sentinel */ for zero sentinels,
+> > >   - Drop trailing commas from sentinels,
+> > >   - Sort MDLC nodes (alphabetically, by label).
+> > >
+> > > Major changes compared to v1[2] (more detail in the individual patche=
+s):
+> > >   - Add default support not using SCMI,
+> > >   - Drop everything related to SCMI.
+> > >
+> > > Note that this series does not use or rely on SCMI in any way.
+> > > SCMI remapping support will be added in a subsequent series (old vers=
+ion
+> > > at [3]).
+> > > Full hardware support without using SCMI could be added, too, if anyo=
+ne
+> > > would care about that use case.
+> > >
+> > > For testing, I have pushed this series plus additional work (includin=
+g
+> > > a rebased and updated version of [3]) to [4].
+> > >
+> > > While I know it is getting late in the cycle, this work (especially t=
+he
+> > > DT bindings) are a dependency for about any R-Car X5H progress, so it
+> > > would be good to have it included in v7.3.
+> > > Hence I plan to queue the clock patches (1, 3) in renesas-clk for v7.=
+3
+> > > (Stephen still hasn't merged my earlier PR for v7.3 anyway).
+> > > Ulf: It would be great if you could take the pmdomain patches (2, 4).
+> >
+> > Patch 2 applied for next, but I left patch4 for now as it didn't apply
+>
+> Thank you!
+>
+> > cleanly (drivers/soc/renesas/Kconfig had a conflict), thanks!
+>
+> I guess your tree still has the duplicate "default ARCH_RENESAS"?
+> Patch 4 just adds a single line there, and the conflict should be easy
+> to fix.
+>
+> If you want to send me a new patch, please let me know.
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt b/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt
-deleted file mode 100644
-index 7f2980567c9f..000000000000
---- a/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.txt
-+++ /dev/null
-@@ -1,55 +0,0 @@
--* Pin configuration for TI DA850/OMAP-L138/AM18x
--
--These SoCs have a separate controller for setting bias (internal pullup/down).
--Bias can only be selected for groups rather than individual pins.
--
--Required Properties:
--
--  - compatible: Must be "ti,da850-pupd"
--  - reg: Base address and length of the memory resource used by the pullup/down
--    controller hardware module.
--
--The controller node also acts as a container for pin group configuration nodes.
--The names of these groups are ignored.
--
--Pin Group Node Properties:
--
--- groups: An array of strings, each string containing the name of a pin group.
--          Valid names are "cp0".."cp31".
--
--The pin configuration parameters use the generic pinconf bindings defined in
--pinctrl-bindings.txt in this directory. The supported parameters are
--bias-disable, bias-pull-up, bias-pull-down.
--
--
--Example
---------
--
--In common dtsi file:
--
--	pinconf: pin-controller@22c00c {
--		compatible = "ti,da850-pupd";
--		reg = <0x22c00c 0x8>;
--	};
--
--In board-specific file:
--
--	&pinconf {
--		pinctrl-0 = <&pinconf_bias_groups>;
--		pinctrl-names = "default";
--
--		pinconf_bias_groups: bias-groups {
--			pull-up {
--				groups = "cp30", "cp31";
--				bias-pull-up;
--			};
--			pull-down {
--				groups = "cp29", "cp28";
--				bias-pull-down;
--			};
--			disable {
--				groups = "cp27", "cp26";
--				bias-disable;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml b/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml
-new file mode 100644
-index 000000000000..1a8dca5aac20
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/ti,da850-pupd.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/ti,da850-pupd.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments DA850/OMAP-L138/AM18x Pin Configuration
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+description:
-+  These SoCs have a separate controller for setting bias (internal pullup/down).
-+  Bias can only be selected for groups rather than individual pins.
-+  The controller node also acts as a container for pin group configuration nodes.
-+  The names of these groups are ignored.
-+
-+properties:
-+  compatible:
-+    const: ti,da850-pupd
-+
-+  reg:
-+    maxItems: 1
-+
-+  pinctrl-0: true
-+  pinctrl-names: true
-+
-+patternProperties:
-+  "-groups$":
-+    type: object
-+    additionalProperties: false
-+    patternProperties:
-+      "^[a-zA-Z0-9_-]+$":
-+        $ref: /schemas/pinctrl/pincfg-node.yaml#
-+        properties:
-+          groups:
-+            $ref: /schemas/types.yaml#/definitions/string-array
-+            description: An array of strings containing the name of a pin group.
-+            items:
-+              pattern: "^cp([0-9]|[1-2][0-9]|3[0-1])$"
-+          bias-disable: true
-+          bias-pull-up: true
-+          bias-pull-down: true
-+        unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    pinconf: pin-controller@22c00c {
-+        compatible = "ti,da850-pupd";
-+        reg = <0x22c00c 0x8>;
-+        pinctrl-0 = <&pinconf_bias_groups>;
-+        pinctrl-names = "default";
-+
-+        pinconf_bias_groups: bias-groups {
-+            pull-up {
-+                groups = "cp30", "cp31";
-+                bias-pull-up;
-+            };
-+            pull-down {
-+                groups = "cp29", "cp28";
-+                bias-pull-down;
-+            };
-+            disable {
-+                groups = "cp27", "cp26";
-+                bias-disable;
-+            };
-+        };
-+    };
--- 
-2.43.0
+I have sent a v4 against pmdomain/next:
+https://lore.kernel.org/all/d4bd0cc7f26c1bcdc260edb994b4971cb5dd3a10.178643=
+8424.git.geert+renesas@glider.be/
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
