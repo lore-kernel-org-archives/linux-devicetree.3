@@ -1,243 +1,155 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB28742669E
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786439871; cv=none; b=DVtZmTABBnhKxOrSzuzHAal5yYh3h6uIEKER6v8Jtof9qbZuEgYfokZBzOPQbl6pH8wbuZpkKQNRWKzd/c1/QeOFTevKPmPeuHup1WxmZVeguDrA8VIu3DTRbWzZ5TdCIOutrRony2p0f8kpna54z8C0isVsAvWH8FN1BBb3G/g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786439871; c=relaxed/simple;
-	bh=InczLySXpyBrRix4jg6+8nPmD2FL0BQhNSmxXOu4iWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bx2YlA83GpdqmTOd7zAR9tG+CW3nItxiKIAA2kcO/ByEgMNuxZQcnkQRm1T/wEdC9SS5P6KH9wNMxedEYSp0JQ3pihQdFpbTjxSpTuXlpyJs0+x0RxiQavfotKqAJwBbevUgfJ7wgZTM9CEMkfyNwwLWTRAzlO3261dPm05sNsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ka2GbQIa; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBE9426697
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786439889; cv=pass; b=AXp56doyktjG15m9PI2Z7SP+Bz8payT+jLhjKDvtDztikhC5y5ut8pdBINZyeDdQ4hJKEDF2l9GJuoLHUmDFf1HY3cQYKAE3CfeDbS+iQSwnN4959r28EGXzdsSNBP8nLZC5Da0wiXBH9q+Sa8Jrh0Ia4JhRw6hzGC958KDATME=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786439889; c=relaxed/simple;
+	bh=E/WyVaXEm1ailWzhDmRZTqHbF+V/Ukp1mPzzzzdLyhw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f4vkXVGJE5no+CRjqCc/ER04PRSzMzNH6hIvQ/Htv+k5s2FfAsJsOr3Mtu8TeKcg2Xg/gh7rnNzmeNLnQPEhgBliVDi0BwAlWpC+lyjuo3QFHyD/RPFFe0Y4GUeg0lVq6Zk6gA7eNuBHZpUt/iZUipSBBjgh6Pr0SLmKNd7KGOs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XfrB8tTy; arc=pass smtp.client-ip=209.85.208.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ka2GbQIa"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-472326ca506so400396f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:17:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XfrB8tTy"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so4339156a12.1
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:18:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786439886; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Qo7cqGWKLpM7Z/q94oQGwl7DXCD8VMkTpViJNeBjPeB7FhqxMDsYwSPTjlaDsqw/mN
+         ws2tgdIZ7BminLIP8wZAmbTLIDXfrJ5zXic42JYENAoseQhDljOXONSHq8kuEPPZqlKX
+         hFbtYmlbt+L8Z5CkgtbjzKeTEN/25iCV8LRznSs/OIvHWZnfooTA3x8YOvhKZYXN8OOq
+         lqcwqnfiY/5ScH4asyBgb6I7JVgY1jAtx6SOmNQ2y1/OuvkOZy4cCNsd3go4uXt7wT66
+         UgFUDZ8lRwmQJou0thnRLJC+rFZsrTt/0CpzAw16SqjwgwPgr4tQKM2mMEtSW5LQEgpd
+         Lagg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CR3U/yiugfUHE/SGbfVSIlqA46S1Ci8v6SrB7L5PEvY=;
+        fh=BpqXm826VbFp0/vxEJn454+ubE6v3gi7+Ovr+li804c=;
+        b=RVWXx9PhIe2u9SHJxU+e6vW+Srh2RzSx13qb3aMkhGzZuMpJGKls6mseupMGUT0bes
+         yeRPnoMtjXrjTfL9W9A9KINzbsnok3FN3J77WgNwe9Wr4w5f+wHTv08ungzBw+nfiT5J
+         z2sUyhj5jW6CsEReqw5p6oKtqN+6qp4AP5pq330WjcyCWa6Ro0K3wjUysh7MuAErcE0/
+         89Ar5uiuSxnoVofLH9YoVWuhNBt+apmL38MrQ5kKfNeA2HFt2D441ub4l5x/ZGGCFeGz
+         /LdF3N/63renIKIthYovJ6vHejJk+zi8AQSeiW6pb/rJ4wm/+FTlT82x8RvblX5HhrfU
+         uXMQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786439868; x=1787044668; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KNt4bQq2u8qw/aarLJ9pb4tE5RTplArkdmLeC+XTR4A=;
-        b=Ka2GbQIa9pZsWwGyeWU4JbW+ROvgKISn/MUfiTl/TjKLcWUEdsomu3WW16oSGn1ldA
-         NUmEH9PQtG0rJedrSEiVLGDRJAqoyNbiiHdubDYeNu+SAWd3utG/kBf+OxPHUr/N7AFX
-         nEPRJ3nuJIIlXyQvESQK0s+Z8NjBri8Xemir4iul2AezzmiymTqhd0JkeYYwgF0fkVH6
-         v7NxO/ye9BmElGLsqWfmMVupXfTrq67dZ132qBVW0TFegnul3E+FvsjQDmb2QuGwczDr
-         +ibboKF/LQ+c+KgwbeGSo1aNunsa2F+KsC24iGIbX91JacTm52LSZlhCxV2KRH92thqd
-         EedA==
+        d=gmail.com; s=20251104; t=1786439886; x=1787044686; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CR3U/yiugfUHE/SGbfVSIlqA46S1Ci8v6SrB7L5PEvY=;
+        b=XfrB8tTyaVf7C7RwFXFEt1dyp9srn9HyPKKrLNu8lptL5AySFSghZbI7c6P0/MK+WA
+         fwgixr6MUPGiF/ma/RVePr7Q775mn/Q3h86pxpWtCLRVV+L730mG7zvPpVem9RNsvbd2
+         THC6n6g7QEFfEe2s6Bev4mSmF0LyPEM7OW2HKK+BoJesylo7+YS5Lhn/Ak8tq29XuDny
+         kVvHthsEFoYnOqZ7u940ktzA0fBxncyKLkZxsPAwhOja97tuuLvl18AQwsZWOaL/I2pJ
+         cdKiJ7W5fhch5q0jrzgCSHlT8qgLwP1deqa/EkEX2wESVK8Du/sEpsk0tjerQZHR2iUf
+         TQGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786439868; x=1787044668;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KNt4bQq2u8qw/aarLJ9pb4tE5RTplArkdmLeC+XTR4A=;
-        b=EEZCvJ0C7yBE5Ef4iH2UPpiHmrhgLZBwuy5AP4tQz2/6Fp+OEiRgYdm4kPfaXSSRfH
-         qcb6QFywzYjVGqEGboE2blakopqk5j7TxHDp67EXk2C3B5iv1OpmMk1dYNjbiMdvUsK1
-         /HyDtH3CTTRTLIHOffhpps7MV/nnqVxMEbOOmfSDM6+bDmU2+LOlVxsrzKIIJM/yBW/e
-         8NWs/E4GVj+y1T3breBZB0Kk3kPrsXf0TVTYvPyl1NJJ9og+Ychw9JS3oDmodtiXGTam
-         +6egHJ53DQC5IO/t0lspRuztmo9BAoIesOl4O0Qf3AI4pY4jzbrYKyX0DJqagf2GT160
-         wjTw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2vpp51Bbk0h9p3RDmMhWGcEz97CQLlR1+WRL78U+stYzLV00TxGrnVv4181fe9eJZZzpBVe3qpcP7@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJz4j/8CV2jo79aRpyPX26cF1sNlshUkxKgaaXX9OJlBWZ4vSC
-	GD0AciK3eZaRTh+1QcOK9RnnhOAuvz0q0qxfjZPz/PuhDt0Qv0ivqbBI
-X-Gm-Gg: AR+sD130asrCVnTdWQW4qsaKgin53LLwG3NT7B08ZqesCbN4NZ5ajGjJYicFhnyJYNl
-	d92YTYNv9JbR55/UR8K9oq2nnJhvak+hEKD/8Q8N4F4859z3LHRN67I4+HOxkoZ3psJbNVbOc+D
-	Fgz2tSDW+ljjfsR89HPdlGofYOpnLZchBzXZETterKu9koe3yvsaxK9ST0V7AycFlyPGrYslPla
-	NlIiv++kW1HIeE51HkNQb2m01yzt7nvDabDsf2U9VT+DQdNlOAC/O7K9RMi6E2f9MtsMh6yd3d2
-	zgQ9SfznQim+IKDfgbkSFvQEJQlhWLRTJIXvC/2B3donmT2ySnLoISPEWtstdZ8NsgbutAnYo1D
-	Ztnvc9utHDNIqDEdI1sgudUVdu8o9ZrRz5btcxGibHETWYJ4keQdrOKBQ94Maal+/2InlzilM48
-	UFm1SVC4EMjOcstR2MS6WrBTi5hZxeEwmnZ3yhomCevsDONkDs3FBlusvbQzrTQXW/KDM8RcI4O
-	tGI1xTbvMawjx2UcbL9Ur1JCGeieQ==
-X-Received: by 2002:a5d:5e8d:0:b0:47f:9750:26cc with SMTP id ffacd0b85a97d-4814adcac2cmr3530466f8f.23.1786439867832;
-        Tue, 11 Aug 2026 02:17:47 -0700 (PDT)
-Received: from localhost.localdomain ([82.137.32.40])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4814a5be8absm2714732f8f.15.2026.08.11.02.17.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 02:17:47 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Eduard Bostina <egbostina@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Cc: daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	goledhruva@gmail.com,
-	m-chawdhry@ti.com
-Subject: [PATCH] dt-bindings: sound: Convert TI DA830 EVM audio to DT schema
-Date: Tue, 11 Aug 2026 09:17:03 +0000
-Message-ID: <20260811091703.685487-1-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1786439886; x=1787044686;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CR3U/yiugfUHE/SGbfVSIlqA46S1Ci8v6SrB7L5PEvY=;
+        b=C5LTogbaX1FkingGPcVLX4P/R1vXwkA8z+uSG8SuvMR2G6SY0yHU4ExlI1PQzN1+WB
+         4FGqL0Y232SAkIYk6l4rhHBj7clsOGpb64uEDmMN9chQZkJweZtKsorIlYKj4EIP3DIR
+         DGCvoDv3P5RykmAdgO3KuTXf4xiJy4N1XCv/c62m+WJ8K1nsYtAoZa1P2Er2sHT/Boko
+         clQpdSj9jer1ZV/byD4kFb87YKXkndulkpv8TGAG0mok5Uzi+1qmvkNvD92DAsbE2pt4
+         CawvuGHRzvVpaqXRcUk5IygvUI3xvGi4GWYfMOnix7Dlm1MTYOuL9jVlNV1v+yhVx9TH
+         d1gg==
+X-Forwarded-Encrypted: i=1; AHgh+RpfTeaETYN82TtOa+s4LzoL5cK8l5nit0IXIHpAQsdM0OG/Z+U+cHNXBxiZmg2J3DVP3ajwJrJn4bLQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHINfEL2CjQGJQGb7pHnQxwb2Q6NRlj5JWB8YgBkRRlxj67rSr
+	qcDznVJP5Z7ZqWqFMtC7xgBo98hhP7wx1IqoGuXkiQZaaCYHhGLy80PRzfbSKpq9Kv35bK6TVIB
+	AeI6DFCMTHfE06BMC0hOulGkH8cReuos=
+X-Gm-Gg: AR+sD12GjVnimQa+ZtNXrH6YMeDSUT7ITd/EuOl2gI4GK/NucBuXlMJahM1sT+VYV5S
+	8ZFHoR9h5e3lotwoVv/TAR9zgA5d9yYFtqD4EgrcU2AkqfXypLYlky7EHKPVQRlec1erkwcjJgq
+	XVojXZqARXqxMQDbtdz/7fNHe0add7ByCa+Ztqp2y8dBLJySDfaRclRjSG5KXsxOSTL8DSRjJ0Q
+	M9kc3E46vEnukVWN5UeKviQsEvFl537wnhhu1hHy2qw14n9zhspllXILwxZuK6PGzj5rflwhnVx
+	NwlrvVJTGlRIjNGeOS2+qdf5/ey9Ku5tuLQNtspp8LurGgiuOXnKmBUk78BCBGDwbi9gvij4juv
+	bh7vqa+gIoRFj+HC5vUD3ObBCLhwVybl0xsC70Oqcw3La1Jd7s/xthTnkAsoIGMwCWP/SE+zuou
+	/Bd7dXnoirnGWsS3ZBO6DLVDr5L7hmiKdQAf4E
+X-Received: by 2002:a05:6402:e96:b0:698:351c:979c with SMTP id
+ 4fb4d7f45d1cf-6a364481563mr1065145a12.2.1786439885525; Tue, 11 Aug 2026
+ 02:18:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com>
+ <20260811-submit-ac200-mfd-v6-2-c5b1292c8498@gmail.com> <159b4ed3-3718-4563-badd-3627bc51a41b@app.fastmail.com>
+In-Reply-To: <159b4ed3-3718-4563-badd-3627bc51a41b@app.fastmail.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 11 Aug 2026 03:17:52 -0600
+X-Gm-Features: AUfX_mzC4JSTAlnl1EzMlisJQ715ApqdEvoqRN3H1IkIyZEOTQ7rFyRKrkMcin8
+Message-ID: <CADvTj4qUEA-ccFj0cSQgHb8+0jB4m6tcpsZZwveZhC_RE8w9vA@mail.gmail.com>
+Subject: Re: [PATCH v6 2/3] mfd: syscon: Add managed registration for external regmaps
+To: Arnd Bergmann <arnd@arndb.de>, Andrew Lunn <andrew@lunn.ch>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, mfd@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Convert the Texas Instruments DA830 EVM audio complex bindings
-to DT schema.
+On Tue, Aug 11, 2026 at 2:47=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> wrote=
+:
+>
+> On Tue, Aug 11, 2026, at 10:27, James Hilliard wrote:
+> > of_syscon_register_regmap() publishes an externally owned regmap in the
+> > global syscon list, but provides no way for a removable driver to
+> > withdraw it. Registering a devm-managed regmap from such a driver would
+> > therefore leave a stale pointer after unbind.
+> >
+> > Factor external registration through an internal helper and add
+> > devm_of_syscon_register_regmap(). The managed action removes the entry
+> > under the syscon list lock before later devres actions release the
+> > regmap. Hold a device-node reference for the lifetime of every
+> > externally registered entry so its lookup key also remains valid.
+> >
+> > Consumers of a removable provider remain responsible for ordering
+> > teardown, for example with a managed device link.
+> >
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>
+> Hi James,
+>
+> I don't think this is the right way to do it. As far as I can tell,
+> the device you have here is a generic mfd that uses a regmap, which
+> is not the same thing we usually call a syscon.
+>
+> The of_syscon_register_regmap() code path was added specifically
+> for chips that have a traditional syscon but depending on the
+> firmware may have to access this by some other means. This is
+> already stretching the definition of syscon. I don't think we
+> should take this further and allow normal device drivers like
+> yours to register through the syscon framework.
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
----
- .../bindings/sound/davinci-evm-audio.txt      | 49 -----------
- .../bindings/sound/ti,da830-evm-audio.yaml    | 83 +++++++++++++++++++
- 2 files changed, 83 insertions(+), 49 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/davinci-evm-audio.txt
- create mode 100644 Documentation/devicetree/bindings/sound/ti,da830-evm-audio.yaml
+This was suggested to me by Andrew:
+https://lore.kernel.org/all/c78c2c35-52e7-4393-9714-06039d8a3f28@lunn.ch/
 
-diff --git a/Documentation/devicetree/bindings/sound/davinci-evm-audio.txt b/Documentation/devicetree/bindings/sound/davinci-evm-audio.txt
-deleted file mode 100644
-index 963e100514c2..000000000000
---- a/Documentation/devicetree/bindings/sound/davinci-evm-audio.txt
-+++ /dev/null
-@@ -1,49 +0,0 @@
--* Texas Instruments SoC audio setups with TLV320AIC3X Codec
--
--Required properties:
--- compatible : "ti,da830-evm-audio" : forDM365/DA8xx/OMAPL1x/AM33xx
--- ti,model : The user-visible name of this sound complex.
--- ti,audio-codec : The phandle of the TLV320AIC3x audio codec
--- ti,mcasp-controller : The phandle of the McASP controller
--- ti,audio-routing : A list of the connections between audio components.
--  Each entry is a pair of strings, the first being the connection's sink,
--  the second being the connection's source. Valid names for sources and
--  sinks are the codec's pins, and the jacks on the board:
--
--Optional properties:
--- ti,codec-clock-rate : The Codec Clock rate (in Hz) applied to the Codec.
--- clocks : Reference to the master clock
--- clock-names : The clock should be named "mclk"
--- Either codec-clock-rate or the codec-clock reference has to be defined. If
--  the both are defined the driver attempts to set referenced clock to the
--  defined rate and takes the rate from the clock reference.
--
--  Board connectors:
--
--  * Headphone Jack
--  * Line Out
--  * Mic Jack
--  * Line In
--
--
--Example:
--
--sound {
--	compatible = "ti,da830-evm-audio";
--	ti,model = "DA830 EVM";
--	ti,audio-codec = <&tlv320aic3x>;
--	ti,mcasp-controller = <&mcasp1>;
--	ti,codec-clock-rate = <12000000>;
--	ti,audio-routing =
--		"Headphone Jack",       "HPLOUT",
--		"Headphone Jack",       "HPROUT",
--		"Line Out",             "LLOUT",
--		"Line Out",             "RLOUT",
--		"MIC3L",                "Mic Bias 2V",
--		"MIC3R",                "Mic Bias 2V",
--		"Mic Bias 2V",          "Mic Jack",
--		"LINE1L",               "Line In",
--		"LINE2L",               "Line In",
--		"LINE1R",               "Line In",
--		"LINE2R",               "Line In";
--};
-diff --git a/Documentation/devicetree/bindings/sound/ti,da830-evm-audio.yaml b/Documentation/devicetree/bindings/sound/ti,da830-evm-audio.yaml
-new file mode 100644
-index 000000000000..b4a1cf67582b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ti,da830-evm-audio.yaml
-@@ -0,0 +1,83 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,da830-evm-audio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments SoC audio setups with TLV320AIC3X Codec
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: ti,da830-evm-audio
-+
-+  ti,model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: The user-visible name of this sound complex.
-+
-+  ti,audio-codec:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of the TLV320AIC3x audio codec
-+
-+  ti,mcasp-controller:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of the McASP controller
-+
-+  ti,audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    description:
-+      A list of the connections between audio components. Each entry is a
-+      pair of strings, the first being the connection's sink, the second
-+      being the connection's source. Valid names for sources and sinks
-+      are the codec's pins, and the jacks on the board (Headphone Jack,
-+      Line Out, Mic Jack, Line In).
-+
-+  ti,codec-clock-rate:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: The Codec Clock rate (in Hz) applied to the Codec.
-+
-+  clocks:
-+    maxItems: 1
-+    description: Reference to the master clock
-+
-+  clock-names:
-+    const: mclk
-+
-+required:
-+  - compatible
-+  - ti,model
-+  - ti,audio-codec
-+  - ti,mcasp-controller
-+  - ti,audio-routing
-+
-+anyOf:
-+  - required:
-+      - ti,codec-clock-rate
-+  - required:
-+      - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    sound {
-+        compatible = "ti,da830-evm-audio";
-+        ti,model = "DA830 EVM";
-+        ti,audio-codec = <&tlv320aic3x>;
-+        ti,mcasp-controller = <&mcasp1>;
-+        ti,codec-clock-rate = <12000000>;
-+        ti,audio-routing =
-+            "Headphone Jack",       "HPLOUT",
-+            "Headphone Jack",       "HPROUT",
-+            "Line Out",             "LLOUT",
-+            "Line Out",             "RLOUT",
-+            "MIC3L",                "Mic Bias 2V",
-+            "MIC3R",                "Mic Bias 2V",
-+            "Mic Bias 2V",          "Mic Jack",
-+            "LINE1L",               "Line In",
-+            "LINE2L",               "Line In",
-+            "LINE1R",               "Line In",
-+            "LINE2R",               "Line In";
-+    };
--- 
-2.43.0
+> Since you already have a top-level mfd device here, just use
+> that to pass the regmap to the child devices like we do for
+> other mfd drivers. You can e.g. do this when populating the child
+> devices through platform_data, or get the pointer from the
+> parent drvdata.
 
+The EPHY is not an MFD-created platform child. Phylib enumerates it as a
+struct phy_device on the SoC MDIO bus, so its device parent is the
+struct mii_bus rather than the AC200 I2C device. It therefore cannot
+directly obtain the AC200 regmap through parent drvdata or MFD child
+platform data.
+
+Here's how I was doing it previously:
+https://lore.kernel.org/all/20260806-submit-acx00-of-dynamic-v1-v4-2-9bf2f7=
+441632@gmail.com/
+
+>
+>      Arnd
