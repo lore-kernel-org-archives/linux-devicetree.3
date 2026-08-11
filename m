@@ -1,134 +1,159 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFD144683B
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:26:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786458391; cv=pass; b=sjiOSgJgolq6JFvsD04sQaqmlJI1HnyFxeZaW7iO0KYTIdC27H6k4X900r5yRdVAivKF5uHWpBIf4R7BX/GNZ4gQgU8q9wqq1Mu1msAoFZvt4ryqhKCpAd9rry8RNayYiEyszk2NR2tY52L9cneV3K7UF/uWvc2bJ1JIHyq692g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786458391; c=relaxed/simple;
-	bh=s7/5014y/KR+YGJG3P/afJKvHIgiUzL2gUAT3eGJZpY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pNIFRjrKWKcsximp335NIYWSyaZnCQzQzjkYraC/SjtK2J/2ogClf3hyEQXQ/fu+jmqdD1oQ8VWAKmttm6Ui6v2OxzPMg6ZqFgPdvgBLHBWRGy56plmNWdEZ8CMPC85MxwD3DWBf/Sww8F5eHpQ/gHuU4ogsMRoYJJHDmIMXD4c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JAfJXCYN; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4DD282F2A
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786458518; cv=none; b=jUd67YKaQ4eKlD7W13a2nUFsOnVoyeGBTwbUBOljE3VT8v9ek96mxdQ07tA7vaeGCaCMEbL4jS1cUOaE3sCYofS3CG9yOjRDJnvS0law20V5uiLFDLKnm4oXc8NarMfWd+bqguMn/FjCnB/p0OVRWfQquK52aj3u1VKyPxaQusw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786458518; c=relaxed/simple;
+	bh=0M4hPtMCZnS9VZteKTZhp9qh2fKhCW7nMyH65uA8L3g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JC3NQdEwZ7q/reawSvQbUWCLPjJSHBpYAeNmnu9KQQrfxddCuTCZcWXJPGo+i7YEA0MWkGNMjY60yOYVnMae5711lYawCLqwX6wwR/qKqunMhy51M9URO2CnY8gEGAnGGi7MFF8d5eBzb4O65zC3ZPZxaxdu5cUyYKEvkipnABU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=T6Z3OnYl; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JAfJXCYN"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39c86945164so25229291fa.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:26:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786458388; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KUoRyzgew61mUywdzoynIPsHv70H+a5Pci53MwDCjYUghMm1oGoHGw7E9uVgbX+93J
-         z1NuDqkFdHNW9EFvg2eD9Pbs8AuJbJohksvZoxhyNHd9ntAoH8p1LYamPk+QcWhIL5C4
-         dLZmQ5v0L6HMIERGvILEoDp96P9nrIdcVsziuVtTqRFV0kM75CMugK/I4RVqbfcBeoA2
-         cxyR+UQpKIZeF47RVaNfXxhZPOmvROYESxwuJQjkPyZmRIs6zK64c2xeIaiHCtxZRoFo
-         cnIY3QYUVZImAuV6ZkALlWfUzDyIuzFad29dGn7WS53KWS+GAZXOaNQS/iEw3jsGD9VO
-         osdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
-        fh=rmos71ZLgO5Lg5ML6ZnSQBc2qALY+XBnU0v99U6NAw8=;
-        b=aX74ien/4PMb2HCGmDpOlAyt81AU8SfQY/H+r1UxvoUPAQdSkEbIya8WoCjXbUQzKM
-         82wZWixZ/3bx54kDoCdkvHLLqbcVmVoZE6o2sGwfi/PJJBWEtjywAukIuvgTHBEKrFv0
-         TjTy0zH2DsmVzBwgJhLA9x31ySdnpYK/8JYAdjU0kgU1RpfsC+U8RPVJBNo34WU8VLPl
-         QWDoo0NjITPAFQ9FWF8mF6mEQ7MO1BeCtt6JC8rWWA/nLLp2bLpm3tq2fpn6iCOfWb7H
-         vPLDTqL5n37n/tP27bAX3Vh0FBpx5SfkppYSKdEkYI1jkAeDfiST6vukvXHdImU8V5f5
-         FwRQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="T6Z3OnYl"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47db714766aso689424f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:28:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786458388; x=1787063188; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
-        b=JAfJXCYNJf88CbdV2IGtyO4OvNUby/0rsctaYAAb7g4QQXOwAaFrmvGPxwz+gz7vbx
-         0b3bsprA1ah1rHcjs5PbTmef3Zl40sTF5tCutRjWfl1OX57hlRjJJ8kT+Ba2qcxOjsgx
-         buzATldbiKdcQomKxw2+qY7uq4rpEaMFxuDrV2Tbg3/KsxG6DAdwd+CoOZWUx5JqqE4+
-         +uMSG36avJQFK+2v7we3AXorhg/pj8f+GGWheV0EYWbSnxeS3qCxExinRRWsdyEf6v0Z
-         Q457JwOXyghn0TGNBKw1ueCjIYAkilFhsImjzQo2kUxCuHsRcZpG4kzDjkbjCmopqIi1
-         u73A==
+        d=baylibre.com; s=google; t=1786458514; x=1787063314; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=15/Bnl2VxSh6SuH4L0zNteMsMCshNZVm/S5m2oTyH2U=;
+        b=T6Z3OnYllA/aFR13y8UaNXDXNtGwzBoH1kI8u4DSg6ZJwHf3Wd6celYHrObMMn+Wip
+         +Rd1YmcCSFjpxaCEYxbYKwVCKeJc4WbyZcEct6lWed8ZTlMwijwaepybOUjEEObPYB06
+         D7ouVFtb4wZMbL7zgC8AkXADEhHBNglVygEIRCn3z/WexZyvwJrcWpuUFtmj+VzUqkhl
+         6RbuQnyjdyd4WCv2UCE278er1BtaY8+/NeU/y8U5h2/iPaIkAHEIUirNBRd8Xg3jwDTb
+         wwDxVf5fue5Nd6YQnfSgy7bb/7meq8Ycv48pcMPEf1YDhL2Wa8iEnadM/cMvHk0zR/yo
+         x4sQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786458388; x=1787063188;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HFsuYiD0eDbBDQjlEIXUzN7jglq6/iPth7nr4XtXjzg=;
-        b=pL86RRTR0B0C71sXMbUOSWAeeHIr0G33rbwg6galdwHr7LzXXrd6ao7CBS0Z0qzjK9
-         bV+vOTWUnRGP+3g89IkqfXVXFABfdQx49EZM9fQFd/YBmlkC1rCOY9inV5Ul4Bj9Y2/f
-         c7cf5TcrVSueDZCqbd2caO+PJuT1SlaIMHE38Sqmrp2dJkDm4kkBhZrr5fSQJzomtO98
-         guew00u0Ha+JlPhsTeF74V3GN7xdP5ilKYujjJV9kOX3OqwEh/5jppuQPWw21tNM83q2
-         0L6f1e/k7jAS3Dnk1dmyEenH+kLyX7mUFAiNatj2h9Ki3O9VxrILpOWvXLy3lkZ6y7Mk
-         yczA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrhrsg6W8Q6+jCUVJekj8OYVB5Dj/37bd+MyMy6P7LTeNPtFfLK20CncELjggwAzUjyUpXraXCcBf53@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEbaPawCoO1paJDGGQo+3qw2h0VOdbZmAEbvX+eW/NdcvirV8i
-	2c3AsznG2KOwFwummgXPwOknkvKyMQVw6HfOxUaVshYZeUe4qZxWBupmciVeCGG33TIzNNUC1nx
-	sbh2aeITYLEbM/wDuv8yCxmlINCS5X3A=
-X-Gm-Gg: AR+sD10sHHFhEcvriJpgoVdMOKBziXfG1eg3SetiNJyZlwKyNugZuUWcZhpdlOTv/+m
-	S4xGgi/bCQl7HNcj9K8pUDZTvQqmw9DCI+gwUa3HjjZh9UOyniS4w0jdwF8FnX+hx+u6wb8b7Cz
-	GkPeuwfda1snb2yCtTFKYHbLbYSjtD0thrkyllFEPmi3sdRL/didCvz7PyxjLmFXmJhrL2FgKc3
-	kDbT9QBO+nB7jww78KveNjJUCjWgXW0qb1XIS4ZK+HnS5GNtEhdydBuEaioJOtQkGppwdNrrDB+
-	OUTCn1tzH6tNt3ouKm2L2+Zo+PxU03lRccIdwAdp5k/fzf9h0h59R1UjceeJetdL6L/rFvWBoE4
-	uLKZCFSARdwBZ3LFPUeH+TyP4FlkTVVyQg/SvLyC/f3euxg4kCTZbalYgfTFDMoW+
-X-Received: by 2002:a05:651c:1503:b0:39d:93e8:801b with SMTP id
- 38308e7fff4ca-3a0f8d9088bmr4687721fa.22.1786458387881; Tue, 11 Aug 2026
- 07:26:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786458514; x=1787063314;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=15/Bnl2VxSh6SuH4L0zNteMsMCshNZVm/S5m2oTyH2U=;
+        b=HqLojTfDRTlfTK0OKXSsYSd4W9qFDaICIKMkwf3Xfc3YrJeeZ4T1Nhxczt0HCvwgLF
+         Zb0euVs+IULfolL5wZpKUSIE74n4YuACBV7I6+q5hNOaaaQ/8XoG0MXugCsTwqHuMMz5
+         n68o0AloXdB+e3QSogMwBbu8js+xKuVe1ePKuYadmQ8uqoVZvjl8rbuuDv3PQl9M/z8Z
+         fclqxPtJvXFo20JvFy/L/P2Gbn7mbMsTYHdso+SYBSfSWkdVug0tN8Mg6h9yrygX+Zpl
+         XkDMwlZaxP3Hm2fBFYeuobemNf21o29GpJGg0m7HbLSwHeg/7hxPipoLTuurFxBE+jri
+         5qEA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpc1XRv+5DaomwQknj0J3C345xlILAEYBx9MM23IoCTNR2vL1YDmcdhlGwSwh0HM4FD4BG0yPGNvKNy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNWU5tiuqTIQzawGyc4RMThe/iuY+zLA9+LEiHYAroJxrq7PAX
+	aDPY5qwDPLBucLe5mT5VMfymzdA5SPYYzKhKTa4QwBEOqAt0sYc009SGuJ29rOEcHdU=
+X-Gm-Gg: AR+sD12FV3X1Zpg6Ag3H4BDgRQ9rzq4MFwWQwl2DUjMzi1s7zKAmkWSkqkO1ZyfPHyr
+	5INh1ib8BguT/gwAOS/xjbihcvx80TOuZq6JC7Z0GyOFdWxTsRAQiY1XI1NZgwp4ZTJ0+X6h6lc
+	Y6xp7izromt80i8X1TaSeOZqc4dmz8N0mxqE6eqaNWDyZkrcmCISeye4lsHAjyzOntLrCO4SYHD
+	EunH6eEOGueFAuwd9StOlGtaOzdN4vusAkYYtfIL3zX1ZUSC/Ty4wqip30iFvlAA77KuzTXgKR3
+	DZqLZ+HTeUT3uKh7rR8gUNbxJTCdA8SOOrda0ZpMY1b98BCnqodYMDOHz49c9LyVtd0P0aBjjOy
+	XtbC43v0JLl8rXu8dxXwJp7416AxZ5DiR7EE1VT9LHe6AGqB4GV0p0pLE7S67hGn6Y/5j/rd06q
+	4kQM/ucWOd+L1WOB5x1cGp18Aq0OPn6W0qgwiYHU5uL0rSZs1DQ7GxAoXHQLUE/Jf1roTu/bu8J
+	HHRsLSDN28W9leZ6/oOB5HngvX+QdEiIPz4qpMDKmUwCHhIYoHO
+X-Received: by 2002:a05:6000:46cb:b0:47f:e7f7:370f with SMTP id ffacd0b85a97d-4814ff0bd3bmr471948f8f.10.1786458513493;
+        Tue, 11 Aug 2026 07:28:33 -0700 (PDT)
+Received: from localhost (p200300f65f017104853c3975fdcddd6f.dip0.t-ipconnect.de. [2003:f6:5f01:7104:853c:3975:fdcd:dd6f])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4814a5be2aasm4934080f8f.13.2026.08.11.07.28.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 07:28:32 -0700 (PDT)
+Date: Tue, 11 Aug 2026 16:28:30 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Esteban Urrutia <esteuwu@proton.me>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37703 based
+ panels
+Message-ID: <answxKBHSJNR-bua@monoceros>
+References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
+ <20260811-nt37703-bup-v1-2-34ad42b064a3@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260730173643.256052-1-kieweg.leander@gmail.com>
- <20260730173643.256052-2-kieweg.leander@gmail.com> <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
- <CAMwcS0hupV50NEOX1Fsi_tzRYXBecaummjAm=CFHO7xOT1uUXw@mail.gmail.com>
- <c5f760db-2235-44c1-899c-b6ac023b3233@kernel.org> <CAMwcS0jTwpigztHBTLv_sgFNLK0ERHDMzMGsBdi7josLHw56-g@mail.gmail.com>
- <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
-In-Reply-To: <f3fbdc3b-6ae8-422f-a161-8936ffd82abb@kernel.org>
-From: Leander Kieweg <kieweg.leander@gmail.com>
-Date: Tue, 11 Aug 2026 16:26:16 +0200
-X-Gm-Features: AUfX_mzIwlYwfI--6_3lWtHQX0aoa-u49OuWteOKOtIxMK3649W4Ay3R76dJT3g
-Message-ID: <CAMwcS0jUNcVwMkpxSjToyqgVEPqeScz4WLHLQAtKL-VMNXxgqg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mdziawi5h7yhrhrs"
+Content-Disposition: inline
+In-Reply-To: <20260811-nt37703-bup-v1-2-34ad42b064a3@proton.me>
 
-> I am fine with small projects, till we do not have surge of them because
-> anyone clones some project and vibe-codes new soft-core.
->
-> Projects run on your personal github, without any organization, do not
-> get their own vendor prefix. Why? Because then you come with another
-> project and want one more prefix... Personal vendor prefix would be
-> fine, but different thing: this repo for your design was created a few
-> months ago, with one contributor and ~70 commits. This means it is very
-> new, without users.
 
-Makes sense. I'll go with a personal vendor prefix instead, e.g.
-"kieweg,gpu-1.0". I'd reuse that for any future project instead of
-asking for a new prefix.
+--mdziawi5h7yhrhrs
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37703 based
+ panels
+MIME-Version: 1.0
 
-> What is the benefit of having it in Linux kernel for the community? Who
-> needs this, outside of you?
+Hello,
 
-Honestly, no one, probably. I built this because I wanted to learn,
-not because anyone was asking for it. I actually asked about this
-exact concern during the RFC review, whether being a hobby/non
-commercial project could be a dealbreaker for mainline. Thomas
-Zimmermann's reply at the time was:
+On Tue, Aug 11, 2026 at 01:52:34AM -0400, Esteban Urrutia wrote:
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37703.c b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
+> new file mode 100644
+> index 000000000000..5858bf12a310
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
+> @@ -0,0 +1,467 @@
+> [...]
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dsc_helper.h>
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
 
-  We already have a driver for a RasPi-based USB display that
-  someone made in their spare time. So being a hobbyist project is
-  not a problem per se.
+Please rely on <drm/drm_mipi_dsi.h> to provide the definition of
+of_device_id and drop explicit inclusion of <linux/mod_devicetable.h> as
+this will go away soon.
 
-I don't want to pretend there's a bigger community need than there
-actually is. If that's not enough for mainline, I understand.
+> [...]
+> +static const struct of_device_id nt37703_of_match[] = {
+> +	{
+> +		.compatible = "motorola,bronco-tianma-v2-nt37703",
+> +		.data = &bronco_tianma_v2_desc,
+> +	},
+> +	{ /* sentinel */ },
 
-Best regards,
-Leander
+No trailing comma after the list terminator please.
+
+> +};
+> +MODULE_DEVICE_TABLE(of, nt37703_of_match);
+
+Best regards
+Uwe
+
+--mdziawi5h7yhrhrs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp7MYsACgkQj4D7WH0S
+/k4ptQgAioC+Rr2A/Y5d45JoMyxiVG0O3RuWg9gDYCChFxXDJuKOWL12djmbG2Mm
++06Qy0mRg7Mf2XwORLM24txg92KtS9FWg454A4qeINt7TvZ1/FupspVlrxBKWwgr
+jUs5ua3a1C3VIeM0safbs7w3tNhy7oo4o1xS/ACn4e4U70YZNxqooS2dpdcrx5qr
+ObEH/mpbsEseluUZtEF8I5R+SbniO+25spM9TZXM30YGcoFiMKhHAoYzPQEbwKPE
+RYsXTMMReO+5alsUjkAUfkQWzErZe05Sl7YdX3uMaxOAP9gSYa1sgToQU4nijg/c
+RYsE/7R7AZASm+U0u+KySpmqyhqXMA==
+=HQGs
+-----END PGP SIGNATURE-----
+
+--mdziawi5h7yhrhrs--
