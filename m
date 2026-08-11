@@ -1,217 +1,197 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6D943C7BD;
-	Tue, 11 Aug 2026 13:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786453566; cv=none; b=adzFVjno9Fn5/gQqYRv50WiGroazfUSnwlRmd4+jw05NiJ4vLIXs2W7I/ujp+LM3Q5ATDhpIkN3mgRdUiiNDQozqWEPa3csKRaLdkLj7M93nlc3WsEKc1X+oPYYVq8R1cT5ZYwIShTW8kt+4l86rP+9MF9o84cVtLIPKs/1WKMo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786453566; c=relaxed/simple;
-	bh=/iF1DNppywoekFpkQF2qqABcVyYannhS3WtAcq3n6bs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h5fcxAwLi35FDtqnVL009Ly8NqQ88iDtdg1I85/oSl7qQQVgs7lNNdRsDlFkcccaCztRtiBJL0zVDzEfpX5/nuyz2EGatb4GIY+8ZDeGqDHxxReRKEE7CbGIanEY3t0CDG+cZ4OaNLxlmVs+pyLWap9XKkwQ0A9TLSkpfQFZyBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=bTPXaAGS; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0695F28686;
+	Tue, 11 Aug 2026 13:08:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786453720; cv=fail; b=rvqLZb6ggoKRpBjsAKce+vT7u8EJnI6IgrTYlXptpCQKJlg7fintLtkf+pLhLuIRPAYM4HI06wtcQcaG+CADQr35VT7nEuKujZMVKToANPtS8t4LdP/boafpn24IroRSrlrpKfKbFFTe7UvLfNNfzvwUePXbsRh7v7m+1JMN9sk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786453720; c=relaxed/simple;
+	bh=igaGci54m5tdlTAE3l3NHNLGmlYR3aPYi8ALH+fodtI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=F/PwaZ0p+dY5M0hl8TAgzdOkQDS7drTTI86lAUrdbzbekjjZPKl79gHFXKhTgCjc1hkiuMbQyXMLFZQ3bSe82GjsJXzNqyBzichsxw7fJAgRjKrfbu/6getv3PU4Q2C1g3m2oqaiR05HWht/YaA55JJLjQ8oZWD7tkaNcAwtCoo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=dt69AnP2; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Fl5rgbig; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="bTPXaAGS"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id DB8085340A5F;
-	Tue, 11 Aug 2026 15:05:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1786453556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7kj6+gNTfJEQ/43BkZEK0OeHjYvFlCc5cLV5gjCYGSU=;
-	b=bTPXaAGSZNP+BXw/+pw7GCWYM9rG+SYRBa7SsV6Xh3KgCKMviVN1UY8gzTW8rK7YrMkZJ5
-	zuUQ6RncDKOHBqeXjUVQclfChFEskTi9I8dZqrlkanYqFWI3DEX48aP/9axxbF5DC6eUQc
-	SDhgDTVqGtq3qYYgDqVNXBwGcQ+DySk=
-Message-ID: <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
-Date: Tue, 11 Aug 2026 15:05:55 +0200
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="dt69AnP2";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Fl5rgbig"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 67BCSOo51521589;
+	Tue, 11 Aug 2026 08:08:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=SUbAO3L7kpk8w
+	2biYEFJQ16/zQPqX9K7gIwf2A8TWwY=; b=dt69AnP2TpZTuX60J616chbvGGsJN
+	drET/1p2N8lU+OVvUD9g4aJ+O8REu2NBvSj6xIRJVQK/H2viqa0I/Z5AO/NeQiaj
+	eZVU17ruYjlN3sIXMhSsO4QnAVDTHWWj/x0fhN5U1pY8if6JekVBUg1isP3GSq/u
+	9iBx4at1t6ELuxv6+4cOAe5d9ILAjt8bXVaRQuxAGgukmn3Lu3uSOdFfvInz5DC0
+	u2psO1vp4wKfnhUWr0U3jZRjB0bzOzsNPm2XAy4d0ryXxGSGqiD/tUE4FY+RkWkl
+	WTaii/+fhjLcUfKMd5CnALLInKmq8oAnNKgEGxYB/nzc+5k+tgsXbD2aA==
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010038.outbound.protection.outlook.com [40.93.198.38])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4g02pb8hgs-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 11 Aug 2026 08:08:31 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YJD0WUFw2ZE3dxMNfuL9tU8LS5h21EQtKGT+UAvhlPgjntm/1FEwlpuanpvlx4vH4mUW9mYtwT+uDaFJvzxYTUq5bBhqc1nrtsWyZbUnr0obe4gfkjJ+dtSKoZUxgfrHilhf2R4TbVfiDB12MzyVdl0gCAUvMAqdn/xQ4Zl6HKsfbcCTNbipPr2x6PzCNzSkEcOvIttsXwjynlLzzVi6FQTfkMgGqq+BZfACQIW/Yk/nxuoNdU1CIPxKyjyHb0P+DBZdiM39UFDQl47OT06pNCuV3rIUWw6gQo/g8ZUYy+yI5xWw4EzOcv/X3hBqvuqDAo4QGrMZNsEmdu355mTn+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SUbAO3L7kpk8w2biYEFJQ16/zQPqX9K7gIwf2A8TWwY=;
+ b=LKcS4jfQVkj4BrEEqrwHP1n1LaqJNPXqupchYD0XfaeqpYExbDu3HaSI38QOJ1p4zD1hm4KtVTCwRJcTH2Y/ZQCCGoSTf4rZDLQNxTOk2JJHUHhVBhXU2xDkcdr+J2Gx8PLZaFDusckTP9yvBPFQzLmdjkKmx7P6XIPMZALJoUDLHCwPQRiXBSKz1xRAqwxLbIwMjuTSsTTxpWJFjRzW81xcf/UJEM4Z3mDQ72PsnxRMu4M1+mm9I513AyrdVFUnwsmVQmXV4qOnzbEJddBiXKTk+JSRLPKG+92qgGzzpdyREeb7xgL6A5BtiutI7eeY4dWXk/M/0QguSyJP3xPw1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SUbAO3L7kpk8w2biYEFJQ16/zQPqX9K7gIwf2A8TWwY=;
+ b=Fl5rgbig71QIqXNXZT5Lz1YiKoukCXLu8UN/R20CMARjM2yfs84zDL9Waven506G2iqII8G2Ax8M2abcYMmOiN92IuFv/1ZCxPopJIZ1otR5vbZltUxIf8S2gD+dHl/T0VYAvLZne4XKe39eQKdL0dgN5rWPkHzxOvZhfHzVv0g=
+Received: from CH0PR03CA0369.namprd03.prod.outlook.com (2603:10b6:610:119::22)
+ by PH5PR10MB997756.namprd10.prod.outlook.com (2603:10b6:510:39e::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 13:08:28 +0000
+Received: from DM2PEPF00003FC4.namprd04.prod.outlook.com
+ (2603:10b6:610:119:cafe::94) by CH0PR03CA0369.outlook.office365.com
+ (2603:10b6:610:119::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
+ 11 Aug 2026 13:08:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ DM2PEPF00003FC4.mail.protection.outlook.com (10.167.23.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 13:08:28 +0000
+Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 11 Aug
+ 2026 08:08:27 -0500
+Received: from DLEE205.ent.ti.com (157.170.170.85) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 11 Aug
+ 2026 08:08:27 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE205.ent.ti.com
+ (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 11 Aug 2026 08:08:27 -0500
+Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [10.24.52.205])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67BD8NkJ1231536;
+	Tue, 11 Aug 2026 08:08:24 -0500
+From: Swamil Jain <s-jain1@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <tomi.valkeinen@ideasonboard.com>
+CC: <devarsht@ti.com>, <praneeth@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
+Subject: [PATCH v4 0/2] Add DSS support for AM62L SoC
+Date: Tue, 11 Aug 2026 18:38:20 +0530
+Message-ID: <20260811130822.2324438-1-s-jain1@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
- NT37703
-To: esteuwu@proton.me, Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
- <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC4:EE_|PH5PR10MB997756:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1cc030a-bcb9-4148-d12e-08def7a9a2a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|18002099003|56012099006|3023799007|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	CZoOQWY3GfcOe1NqDkUZwBpYz1rwve3rapdaY1kxsliZQgy/uT9PArTbSDKQLiA5kN4KA6sokDSdRp9HxJMio2mNZJgUoMlaSfIfShk/bnIkuhZLZeN9FfdbkpqMtHSolAKN6iNj2KdnJaUYYUqmYy773wMqFwzQ0ixdFSRf4xFBkrh/3Sqa1DiVQDt6q0Hd5d3PxsrcJndpjKV9Yue3vJX1G1WNnEyk2pBVHEXzsFR+Su55a0t5H9g39LIOG1KHNNPobnLzVMqGvvvkNwrENkwwR0u12lFVygGbaHrtIf5w2+OF4Uj/RUnwX1iVfhNvCU2wobrYc/Cp0W8BjNgU642KUDc9Hf//ESawbfpLhQUiIMI7xWgR3AeN6x/ZQMUCizH9CrUhOU8MtFSuC+1CC4aaMjcBA0Nr+nD+nXeHP2KdDa/TSDVcmz7jnD5q24VgJDwpfwpX0XytfVE46QgRbUMbvpEu7gSAIdRf2iY80J1esh5Ni7c5M6NfZxqIHxXPBQPoIUqtRfhi5HDUV3gRD2B8RP4bOSgby9qtx3xY+eVzBub1rQostsWxwy27dSdqBPVZOFg8SwAG5d0Ou1shP/eEZWXnOAmkHbuQJgNZ89jxcTrKa+ZJenKz2Wpy9DFiEBgXAUgIpUytR1a8VxLdq0sW0LMrcDX0EpceN7+BWXm1O5XV0Pa7fD4dq1JubBiJ/cfxpvZqmY6IwgADahZCew==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(18002099003)(56012099006)(3023799007)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pKVlLZ+EP8vimQ3Xv26WQivXU5sXnxYEd1IbckOmIKs2i3ATejzO3v8UjyGrsfMTEFgNo6CiRAl8zThyBDi13XPETtTBpelNcdS8pxuBQuF5G6jEYw+4TNmV/teQQBc7CMNTGRu+eEDCM1MUsz0e16LPZxlxEnEs1iRZ/EBrTnTdSdQjWWQ9QvBR01e6l/vfSRGgVETd+FV+EgKxYtegsopiM0YicAG+7iArLdn+rfTmMNlSeQVa1DeaHIY82Rpb7AlWOqq2G3yLVPREv1W7BY/IOhpJR4Qc4CcLYrjDUeYMMaenViWv066SQ0kNpU+esFstNSqmdux4Juz0LKJilLWlaQuxLbJDlmzMNw38JxCqGDCCLZv6Pdi5EvW2zS7Z4MwbnYEvolzD+/MYGuSS2yYYTkrPrBlIBzREu6fgl6R0x5hBx63vjGXfRDvIJwBc
+X-Exchange-RoutingPolicyChecked:
+	n2v4db3uHBSaRCl6PD3JUkKRw371HaCsQTJ5qiptUu0YhWuaurDHi+l0HIcYt8+QXRhYzuhQKjExU5aftlw8AYegIl+hAyeYSkRTT7hq/ZYP9y5N3Z0SqpOuEkn4USlQvGJsOp29d3b5sD4idFzci1zYjePlVAeK5xJgrRlGSIP8x94h3rro+jzJrfWdV5M8vyOHbBUOmb/zWptyN94sN//dDgcm9proHdIeGH3MbhL/N5asYwQADhlB/jua5/c2t0Sv2gyH30Et+Cq1YpAYp5CY9+a+Gk9b2Ps1/i2nsd+o1ipFZv1Y7MgOzVfRXG//a4I33i4KH77U2Wz98Su64w==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 13:08:28.2623
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1cc030a-bcb9-4148-d12e-08def7a9a2a8
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM2PEPF00003FC4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR10MB997756
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDEwOSBTYWx0ZWRfXzJI52YBzaE7u
+ N2dXxLOMENySN0FLO1l3hbCpbWO7VMbCu6OmmKbejuGcjhJir/arKeBmqDLKZf6bw/xT/1dKZvQ
+ KIUcVx+H4Ibu6YBI4Rzn/85q0Y2TUG0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDEwOSBTYWx0ZWRfX3nC8gxsOM0WF
+ Kn0dVJwH3tSx0vR1L2HV9JIXbO9TrF1/UY5qin1q6Ch+Jc8sDbiBFWnM+UNfh552eQwPbsKzeyF
+ Q7AJoOUamj+cpolxhgEy1Zb7lsymaKGVc2jcmsVlq7ugbZBYzvSmY2CDMEnYRAnFQgJBONhQJTV
+ qtXEn0bNFw3fqto1qMgNh10SkeYwpmbkCXBv0Sfh8FezNxa07zPMPs5zRJyVTTDZ7gvcIgLzjfD
+ to0K2TawN5itOKVt0c27mXtkFS77vzeU0yUZQsQ249+tBkLVUjvcuO4KPfskeDoPoYcZAM/xuyi
+ /rMp1jvX7ElK0aXE3G0uc0Kyw/Ank6zR/OUAO8kyKJ7x5QS5V2PgMvLlUDJNzPDKrGepv80GUiH
+ dzLS1d54O/eHSvZJkYR/5AA6LJt/IJ+8+xCUI2+EA5f90erZZxubGQrpvMClpXN6crYFOPVcpML
+ BCx/eJHMVi3fsfSuz7g==
+X-Proofpoint-ORIG-GUID: vFUGrxtekjrNSInv8OK-xksOgd2Q1dKZ
+X-Proofpoint-GUID: vFUGrxtekjrNSInv8OK-xksOgd2Q1dKZ
+X-Authority-Analysis: v=2.4 cv=Ic+3n2qa c=1 sm=1 tr=0 ts=6a7b1ed0 cx=c_pps
+ a=04So32024hOmtaefayDOVw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=VwQbUJbxAAAA:8
+ a=JLQES9i2aRcSmLGWkN0A:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-11_02,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110109
 
-On 11/08/2026 07:52, Esteban Urrutia via B4 Relay wrote:
-> From: Esteban Urrutia <esteuwu@proton.me>
-> 
-> Add bindings for this display driver IC which is used to drive MIPI DSI
-> panels.
-> 
-> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
-> ---
->   .../bindings/display/panel/novatek,nt37703.yaml    | 78 ++++++++++++++++++++++
->   1 file changed, 78 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37703.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37703.yaml
-> new file mode 100644
-> index 000000000000..e1aeed5b978e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37703.yaml
-> @@ -0,0 +1,78 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37703.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Novatek NT37703 display driver IC based panels
-> +
-> +maintainers:
-> +  - Esteban Urrutia <esteuwu@proton.me>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - motorola,bronco-tianma-v2-nt37703
-> +      - const: novatek,nt37703
+This series:
+- Adds base support to enable Display on TI AM62L[1] SoCs
+- Adds base support for DSI output
+- Enbales HDMI output out-of-box
 
-Hi Esteban,
+[1]: https://www.ti.com/product/AM62L
+---
+Changelog:
+v3->v4:
+- Change pin configuration from PIN_OUTPUT to PIN_INPUT for
+  VOUT_EXTPCLKIN
 
-Usually the used pattern is vendor,ddic+panel-model
+Link to v3: https://lore.kernel.org/all/20260723102519.3581762-1-s-jain1@ti.com/
 
-novatek,nt37703-motorola-bronco
+v2->v3:
+- Split patches for SoC and EVM related changes
+- Add dsi ports node
+- Correct styling issues
+- Drop GIC
 
-...but motorola bronco isn't the model of the panel.
+Link to v2: https://lore.kernel.org/all/20260528133529.3476499-1-s-jain1@ti.com/
 
-My recommendation - look at some video of screen replacement, stop at moment 
-when FLEX cable from panel is visible and that's where the panel model usually is.
+v1->v2:
+- Update the commit message to elaborate more about the patch.
+- Add dpi-pinctrl configuration.
+- Update the interrupt routing index for HDMI interrupt line
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  avdd-supply:
-> +    description: Analog power supply for panel
-> +
-> +  elvdd-supply:
-> +    description: Positive electroluminiscent (EL) power supply for panel
-> +
-> +  elvss-supply:
-> +    description: Negative electroluminiscent (EL) power supply for panel
-> +
-> +  vci-supply:
-> +    description: Analog power supply for DDIC
-> +
-> +  vdd-supply:
-> +    description: Digital power supply for DDIC
-> +
-> +  vddi-supply:
-> +    description: Digital I/O power supply for DDIC
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reset-gpios
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    dsi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        panel@0 {
-> +            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
-> +            reg = <0>;
-> +
-> +            vci-supply = <&vreg_l13c_3p0>;
-> +            vdd-supply = <&vreg_l1d_1p25>;
-> +            vddi-supply = <&vreg_l12c_1p8>;
-> +            reset-gpios = <&tlmm 0 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                panel_in: endpoint {
-> +                        remote-endpoint = <&dsi0_out>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> 
+Link to v1: https://lore.kernel.org/all/20260513210942.692269-1-s-jain1@ti.com/
+---
+Devarsh Thakkar (2):
+  arm64: dts: ti: k3-am62l-main: Add DSS & DSI related nodes
+  arm64: dts: ti: k3-am62l3-evm: Add HDMI support
 
--- 
-David Heidelberg
+ arch/arm64/boot/dts/ti/k3-am62l-main.dtsi | 60 ++++++++++++++
+ arch/arm64/boot/dts/ti/k3-am62l3-evm.dts  | 95 +++++++++++++++++++++++
+ 2 files changed, 155 insertions(+)
 
