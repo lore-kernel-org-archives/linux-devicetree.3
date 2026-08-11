@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1249E37C90B;
-	Tue, 11 Aug 2026 05:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962E637AA64;
+	Tue, 11 Aug 2026 05:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786427020; cv=none; b=KfDpnqQI+kFCZP2xefpcyU2FDlEEgqoQeVQ/xBug3FNkOXL8WAhoJCOpSFTJwwARuoSkKNJDcQGJSVtq7sjxmF86oDP35xkDGLkJC18MvWOpFfMuyGwA6NinRyms/yw5mz38SlbajwIQUgYPtYS41WoLWT1WChPLLvm2dPL8+nw=
+	t=1786427059; cv=none; b=dna/A7DZc0YFgsAtfQVEVZXHNIETPbU5YsAcuOvvaKHo6KbeSp9cjSJNbgJ9vFSK89Jsv02D/sDJvfs7uuRKGZomYG28OVR7+NA/wbbyEtbcNMyEbOZ90y545VJLAZPqDJGH5dQXAvJWDIvgjlHIjdu3RsBURTQ2tBjSVHAHSp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786427020; c=relaxed/simple;
-	bh=IChV++hu6dFHBeIA8AFMGRYHfP2eoGz2faxfMKQXrpg=;
+	s=arc-20240116; t=1786427059; c=relaxed/simple;
+	bh=97yy3ydI6y4dlWve6g1ByLxygnDJ7Te37wYwFW0tPSM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dc1WFIfZDpUSItTe7/tidEJCTFW9xEgKo1ayJSUobgnfktLOIGMsnJYnri2kRrIG3zBHJT02LewaDDSpB28fPbWNDdg3uDizClUHNFMqZG/DgsPo+kTXSMZirqeRRHMtrM5j9+5qQEyi5XqpGYafm6KqVr35TLWn0ptrYVA7A4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOPK3TaT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=S8gPdoSTxQ6xAwFJbVdghPqPNu6c6rxLAbA5W2hLUZ1O24x+dHH/OmCrJW8pxxqw3EPgz31ODPVeCHxBnUkv/rDq0JB+gnF0PsaGq9dHzG8CZ68jRfetWy3CH8zzjOqUVIc3WwRYKad2b0MfMqk7Kg9ALekR+LmtHI+K+VBmcAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JQFm3fgr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOPK3TaT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E461F000E9;
-	Tue, 11 Aug 2026 05:43:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQFm3fgr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5C01F000E9;
+	Tue, 11 Aug 2026 05:44:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786427018;
-	bh=Hs5z91T51r33vmwEg/QmoXASC3556/JlW7yQpnnlsWo=;
+	s=k20260515; t=1786427058;
+	bh=N7P4L5tJ88+N+LleowMyQZT4Dw0kQrcA98X8789RllA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cOPK3TaTxxXcjo8mdsXlVx6YBTqGZE8ro0oBgJpvQZfRfG0inu60/5fCh5KcB3vzB
-	 RZd9NW5fBvkBTRHkCSiAarFqeTDkKUoHOTEmYGYwDDI7jMhlph0eP1Wppa0XmkSCty
-	 tuoUM1VZToO3nDvoGApmbrDaP7vyLCkOG+sQjGnZQr/56nmdQZsWHLAkVM/P+ckI4F
-	 KBBC1zZUweUuJTtbLMd4s4J/PWXfnLDXH9ajTEBgJWhs5YaDVUCXw6zO2mW8B++AkH
-	 VCcx4tWHwAekiqD53ArtNfhojIhqoEev8T9FkqUMrE3SEg0NU6mCtGx0FAnp+6aq+s
-	 VXdoUfBQdcoAg==
-Message-ID: <c4d8aa95-5ad3-48db-b82f-f10870f755db@kernel.org>
-Date: Tue, 11 Aug 2026 07:43:31 +0200
+	b=JQFm3fgrJsbXaRc84rFczQxh8b+Sx1F2AXFckHiiDHGDpipU6Fz+dUsxfJC7ZyZX6
+	 y34AELS4FEDBUDkBVBe9dAkdJzXTjLdHGmzxJFlmnkdlKFsw2ylnT0jLeU/S3DqzGs
+	 PCz0mcG+RoEsmAlkbtcZnfWutDcmIIYWhgQrL92uzwfI8SNKzk557fhNz6m88ewjhV
+	 vQqTZ5Sox6RrLTBoMYmmxhnrb7QyXD1jnuZn6x2fMcf+7+/meSjQw+vA6ZV+pzwBe4
+	 wijEGIuqT4EOCeSJ0jCvNNIFTteR6YsfCzWyIEYksPYDfdDVLwjKHT4i1DT7a0yH5W
+	 v9llI3c+BpFdg==
+Message-ID: <371f3842-1d01-4e57-86b8-04bf1a0dd53f@kernel.org>
+Date: Tue, 11 Aug 2026 07:44:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,22 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: interconnect: qcom-bwmon: Add Maili
- cpu-bwmon compatible
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
- Yijie Yang <yijie.yang@oss.qualcomm.com>, Georgi Djakov <djakov@kernel.org>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260602-bwmon-v2-1-d4a851c45f37@oss.qualcomm.com>
- <a8d4461c-8bf8-440c-bc67-1a6a718fa9af@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/5] ASoC: dt-bindings: fsl,imx-asrc: update port
+ binding to support multiple paths
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: shengjiu.wang@oss.nxp.com, lgirdwood@gmail.com, broonie@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+ s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+ shawnguo@kernel.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com,
+ perex@perex.cz, tiwai@suse.com, linuxppc-dev@lists.ozlabs.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>
+References: <20260804100218.49587-1-shengjiu.wang@oss.nxp.com>
+ <20260804100218.49587-2-shengjiu.wang@oss.nxp.com>
+ <anH5i7y3JkB1moee@SMW015318> <20260810-magic-olive-gecko-5e8a36@quoll>
+ <anohg7YCylTQ47pk@SMW015318>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,57 +96,47 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <a8d4461c-8bf8-440c-bc67-1a6a718fa9af@oss.qualcomm.com>
+In-Reply-To: <anohg7YCylTQ47pk@SMW015318>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/08/2026 05:27, Jingyi Wang wrote:
+On 10/08/2026 21:07, Frank Li wrote:
+> On Mon, Aug 10, 2026 at 09:12:20AM +0200, Krzysztof Kozlowski wrote:
+>> On Tue, Aug 04, 2026 at 09:39:07AM -0500, Frank Li wrote:
+>>> On Tue, Aug 04, 2026 at 06:02:14PM +0800, shengjiu.wang@oss.nxp.com wrote:
+>>>> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+>>>>
+>>>> The i.MX ASRC hardware supports up to three conversion pairs (A, B, C).
+>>>> The existing binding exposed only a single generic audio-graph port,
+>>>> which cannot represent independent conversion paths when multiple pairs
+>>>> are in use simultaneously.
+>>>>
+>>>> Add a ports container that enumerates up to three sub-ports, each
+>>>> representing an independent conversion path:
+>>>>   port@0 -- conversion path 0
+>>>>   port@1 -- conversion path 1
+>>>>   port@2 -- conversion path 2
+>>>>
+>>>> Each sub-port references audio-graph-port.yaml as before. Hardware pairs
+>>>> are allocated dynamically at stream open time; each active stream
+>>>> direction (playback or capture) on a port consumes one hardware pair.
+>>>>
+>>>> For backwards compatibility, keep the old single port property but mark
+>>>> it deprecated. A schema constraint (not: required: [port, ports]) ensures
+>>>> that both forms cannot be used at the same time. The binding example is
+>>>> updated to show the preferred ports form.
+>>>>
+>>>> No existing upstream DTS file for fsl,imx-asrc uses the previously
+>>>> documented single 'port' node, so this change does not break any
+>>>> in-tree device tree.
+>>>
+>>> if no existing upstream DTS file use it, you can direct replace with ports
+>>
+>> And what about all other users of this binding?
 > 
-> 
-> On 6/2/2026 2:54 PM, Yijie Yang wrote:
->> Add the Qualcomm Maili SoC compatible string for the CPU bandwidth
->> monitor (BWMONv4). This falls back to the sdm845-bwmon compatible,
->> consistent with the existing pattern used by other recent SoCs such as
->> sm8750 and kaanapali.
->>
->> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
->> ---
->> Changes in v2:
->> - Drop Assisted-by tag; no functional change.
->> - Link to v1: https://patch.msgid.link/20260525-bwmon-v1-1-b8f6e189c3e3@oss.qualcomm.com
->> ---
->>   Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
->> index 82b1d94d3010..7989db1aa774 100644
->> --- a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
->> +++ b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
->> @@ -28,6 +28,7 @@ properties:
->>                 - qcom,glymur-cpu-bwmon
->>                 - qcom,hawi-cpu-bwmon
->>                 - qcom,kaanapali-cpu-bwmon
->> +              - qcom,maili-cpu-bwmon
->>                 - qcom,qcm2290-cpu-bwmon
->>                 - qcom,qcs615-cpu-bwmon
->>                 - qcom,qcs8300-cpu-bwmon
->>
->> ---
->> base-commit: 550604d6c9b9efc8d068aff94dc301694a7afdee
->> change-id: 20260512-bwmon-ecb43fda63c9
->>
->> Best regards,
->> --
->> Yijie Yang <yijie.yang@oss.qualcomm.com>
->>
->>
-> 
-> This change applies cleanly on linux-next.
-> 
-> Reviewed-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> Kernel is that only known user. Uboot don't use this part.
 
-Such one liners do not need more review. They are pending not because of
-lack of reviews. This should have been resent.
+So other kernels will get broken?
 
 Best regards,
 Krzysztof
