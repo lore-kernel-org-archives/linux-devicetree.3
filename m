@@ -1,145 +1,85 @@
-Received: from smtp-bc0a.mail.infomaniak.ch (smtp-bc0a.mail.infomaniak.ch [45.157.188.10])
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F9C442B0E
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CEA34040D;
+	Tue, 11 Aug 2026 14:15:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786457325; cv=none; b=YuioxZQunFvb3BcSNzS3vyJdp2AfWQmaiAyI700WKkAUbEKf+UXfS+dvlmn0uGqbM6BT/yEud9IWHWVonm06inwgSndr/yr8eJ0T/bKy49o1+hXS72kJWtwmnmdEBEyoBUuc5FLh3Cl1P7jJSf06umiT83Xt0ynqofavNS/YfTk=
+	t=1786457715; cv=none; b=BDkTBbWJdZSlTZyzLgaslz4chOeopEjvkpExatpIe9/1WHxAxM+PaxC5LRcXTS8acpUU2EBcb0unVBesBjPGh8vfXIueyHrpgBUe1UtVAYMCF8NmlnaieuLunRy1XcZDrzO2aoMoMmQ/JUqxsayuvnsrsx6CQ2s4JIceiHyXI+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786457325; c=relaxed/simple;
-	bh=wH+IC1Cp7/LjKGaLWLwfILQJGjKIISsSZy/j67DGBaM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=a0YeLcn5mhRvuHX1cVu9wz+mPnqzTrGj0tRldi5Q+M6JlCNndbNcMStZjrXDuM+cQmFretdQZFlf93mweid0Tjz6/IiPkBYHNtwGbCuoMYvhz6b66qbdMGwl6n62QV+CH0cqU1qW/mL4Eb+XsEx07mrnzzntxlY5HmZ4n2czYTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net; spf=pass smtp.mailfrom=0leil.net; dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b=Vb42qCmf; arc=none smtp.client-ip=45.157.188.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
+	s=arc-20240116; t=1786457715; c=relaxed/simple;
+	bh=hff+GetzW23/4CRB88uLQZxKIlNWZLJA01JhWrZ1o6M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eTxwHb4CrSZ/KfMbZrTPsXqFdqNCGDQeBlEaXEvTFS4xs4k6cs0HusAYZf3jR5ZWiYlTYNiqnRoIdqoKI/OQL7dimgmov9Oz8qeP6Nw/tjCfArPgyTmoJbGyBDZtp6afPWtrDkOqcfsdkji41DkZruOptw9ODRmdW5YjeqeYjwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=K+0ZQKNh; arc=none smtp.client-ip=217.70.183.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b="Vb42qCmf"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hKD4T0zcLz1jW;
-	Tue, 11 Aug 2026 16:08:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1786457320;
-	bh=5lHsgQ26VTFwl/93DIzKcKD464qKEtmZdQru8ijLtTE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Vb42qCmfz7cEf8AtXsFKEIR2oSAr2sHrOm3E7iPKDwAtx7xCgLLnCherrq8NGpSgU
-	 d/7VC6m0flEA575vePNPKZOD194g171Wnw8YAkrDz0bHNfmej3b/lnOtb7LTqJVHaO
-	 BaXp6rrt87tr82fGpqXb4DO2vgmewVNgKplJ2Iri3qk7pN4NErqTeoedBfAuoa9GeW
-	 q8TpyzfdiCGaquFJeHhNH3mJqhRcfuXAOESbBDTkVp+wUWJ6w8HOnXq+yeE7UNQU4m
-	 WlBR5XHcZSP8jckASnKy+5fBrRXdPT3Wd2PwkEz+UZ98NCv1vJv2KaSSmJiuS2wdYj
-	 /9RHBMp6FFWJw==
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hKD4S0NCLzDkM;
-	Tue, 11 Aug 2026 16:08:40 +0200 (CEST)
-From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Tue, 11 Aug 2026 16:08:27 +0200
-Subject: [PATCH v2 2/2] arm64: dts: rockchip: support CAN1-CAN2-UART4
- adapter for RK3588 Jaguar
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="K+0ZQKNh"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id DA3DC3ECF1;
+	Tue, 11 Aug 2026 14:15:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1786457705;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dWw44zpzNqo6YaMY19rOprxLGahTztOgmFF9cvilol0=;
+	b=K+0ZQKNhyE33FOMpfJ+8mxce0aNTgHNIav6JfGCeSoEvqDPTTbSoQoid9zv6S94hEQuHiU
+	RpPB9093TvauAs5aa2kZRC3woibVr0PO7aKtqXczBxY5oNfH7EjZRe26VwIq6fbjRD77k7
+	1t1zzltJtBciIpt5wgO0fuK3awFpr4laNCE/DM0JJ/VrKSebQGh3KNTbnGgPQ+olpxEXhf
+	768k2HgzTTtpNiXESdstuWpE2LhqEoCe0qNLmzMYk/+GwIrkIZDJsOUDt5Xl6bPPA+yO6O
+	teeoDYZFoDjvp5SFDYlhNMroT5K5D9AHstBKOUw/CI+r64CG6Oi+/CLjma4Lrg==
+Date: Tue, 11 Aug 2026 16:14:57 +0200
+From: Arthur =?utf-8?Q?Cr=C3=A9pin?= Leblond <arthur@marmottus.net>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Netdev <netdev@vger.kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH net-next v4 1/3] dt-bindings: net: wiznet,w5100: convert
+ to DT schema
+Message-ID: <ansuYaT2GAMAA0hF@pc-du-fromage>
+References: <20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net>
+ <20260811-wiznet-link-gpio-v4-1-4d5f7da885a8@marmottus.net>
+ <5812d452-5dbe-436b-ae6e-af062a873f7a@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-jaguar-can-v2-2-7e78415b5a08@cherry.de>
-References: <20260811-jaguar-can-v2-0-7e78415b5a08@cherry.de>
-In-Reply-To: <20260811-jaguar-can-v2-0-7e78415b5a08@cherry.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Cunhao Lu <1579567540@qq.com>, Marc Kleine-Budde <mkl@pengutronix.de>, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Quentin Schulz <quentin.schulz@cherry.de>
-X-Mailer: b4 0.17-dev
-X-Infomaniak-Routing: alpha
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5812d452-5dbe-436b-ae6e-af062a873f7a@app.fastmail.com>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTFNhpqs686JAHk0xx0MEzMcDAhHwLrEfZwlQs4xTFISFeJops4AyxV3U5s2XwVaBbziRL651+1mRnb4ezcc+0A8oYPRkuLe+FIxNokTQWzOBjM0STvumiUqCsDcQqi8JFer8Y6rwsDQ8DLY0MOGG3CQbEJltgHmeJpbUVAXDg7oA43sgJaBqWHNbkLdyqHDiJ2fiJ0QmXLM0X59yvj6CNxJ92GDSnSf3p/ne/MBBc2O1vUVWyVRkEh7LoZEVtxlEViHHDBaS2qXaEmbe/Asj2uSpjqbxAH1TydhsM9YeAuby/9Wko/UtGA++qNdF6YrlcyPA3s//S0HdDlktIdG/2kqeCqB8TrSpyJ6n2bjaQ5lP/5ASQL6HcZ48XdQMXP7FLNKWmGLde0unqcukKrxk/vSkvEFWqYw6D1eol6CjKnxIcLrGPTmzP7boHvjILY1ORHqfpcGY/KpL+By/tgLebFYjmHThS1Wvh24gafZ2HSKDRu32jyP7mIsZysaTraSsHeOCNu+q6FoEJBDJQZ1Ln71MEtGLBCLqNTrHG1QfYsLeedzFi2wzGNrh5GgMFIwN8k4C3i5hs6Q/imk1PEPyFDymRM02eu7Zoxnjrt7qvsylHWSAlq3N/bY2LDgU8a/fHjLOXFjyUTbHEXzVV192aEeOYomE2//KaN7vOX5XqDUbQ
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+On Tue, Aug 11, 2026 at 02:57:40PM +0200, Arnd Bergmann wrote:
+>On Tue, Aug 11, 2026, at 14:34, Arthur Crépin Leblond wrote:
+>> +        ethernet@0 {
+>> +            compatible = "wiznet,w5500";
+>> +            reg = <0>;
+>> +            pinctrl-names = "default";
+>> +            pinctrl-0 = <&eth1_pins>;
+>> +            interrupt-parent = <&gpio>;
+>> +            interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
+>
+>I think this needs to be IRQ_TYPE_EDGE_BOTH instead of IRQ_TYPE_EDGE_FALLING
+>to make sense.
+>
+>      Arnd
 
-RK3588 Jaguar has a proprietary Mezzanine connector which exposes among
-other things CAN1 and CAN2 controllers as well as UART4.
+This interrupt is for the main one which is active low, we don't need
+to catch the rising one.
+Only The link interrupt needs to be both edges.
 
-Add support for the CAN1-CAN2-UART4 Mezzanine adapter for RK3588 Jaguar
-which exposes two CAN busses (CAN1 and CAN2) and an RS-232 UART, limited
-to 250Kbps.
-
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
----
- arch/arm64/boot/dts/rockchip/Makefile              |  4 ++++
- .../rockchip/rk3588-jaguar-can1-can2-uart4.dtso    | 26 ++++++++++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     | 10 +++++++++
- 3 files changed, 40 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 761d82b4f4f2a..11c96e06b122a 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -307,6 +307,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-edgeble-neu6b-wifi.dtb
- rk3588-edgeble-neu6b-wifi-dtbs := rk3588-edgeble-neu6b-io.dtb \
- 	rk3588-edgeble-neu6a-wifi.dtbo
- 
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtb
-+rk3588-jaguar-can1-can2-uart4-dtbs := rk3588-jaguar.dtb \
-+	rk3588-jaguar-can1-can2-uart4.dtbo
-+
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtb
- rk3588-jaguar-ethernet-switch-dtbs := rk3588-jaguar.dtb \
- 	rk3588-jaguar-ethernet-switch.dtbo
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar-can1-can2-uart4.dtso b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-can1-can2-uart4.dtso
-new file mode 100644
-index 0000000000000..6c21bf78591b3
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-can1-can2-uart4.dtso
-@@ -0,0 +1,26 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2026 Cherry Embedded Solutions GmbH
-+ *
-+ * Device Tree Overlay for CAN1-CAN2-UART4 adapter for the Mezzanine connector
-+ * on RK3588 Jaguar.
-+ *
-+ * This adapter has two CAN transceivers and one RS232 transceiver.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&can1 {
-+	status = "okay";
-+};
-+
-+&can2 {
-+	status = "okay";
-+};
-+
-+/* RS232 */
-+&uart4 {
-+	/* ST3232B only guarantees 250Kbps */
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
-index ed6c1162bd821..0446834e84d5d 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
-@@ -201,6 +201,16 @@ &can0 {
- 	status = "okay";
- };
- 
-+&can1 {
-+	assigned-clocks = <&cru CLK_CAN1>;
-+	assigned-clock-rates = <300000000>;
-+};
-+
-+&can2 {
-+	assigned-clocks = <&cru CLK_CAN2>;
-+	assigned-clock-rates = <300000000>;
-+};
-+
- &combphy1_ps {
- 	status = "okay";
- };
-
--- 
-2.55.0
-
+Arthur
