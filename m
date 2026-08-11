@@ -1,118 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BC73905EC;
-	Tue, 11 Aug 2026 16:33:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7C137B027;
+	Tue, 11 Aug 2026 16:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786466017; cv=none; b=Gw3uiCJ/1A9ZBv1B+XJCSoWyndq2ZEG8betWEFZYhVbr+WX+CPBhKucEmZh0DdeGcDtgLj4BRqjXM21KsJnCib6N+KYo+4yPxbIZCwc/5na3032nquhRcTqUCT6/l8cYnuZBljC6pLS6ysX/GcIH/KJz7uOd8fXmnv02O1JytME=
+	t=1786466086; cv=none; b=QDuLT3A5+fapM74hVFFYlaAkMgXgm3POE/EOrAV4nPa7BHPNfaxWOVmNxoexE6rjC+nndYTd9vj5Yfn5PQJsvyG+E729SGBa1hFwkfFBlsZ3qQsvMNzY0K/kw1p6wGDh479EgrpxLYGaRm4G5mKD/S0dYjpc8hP9DZIuFpBE2G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786466017; c=relaxed/simple;
-	bh=d/hNjODXwdafLUdU5KVu5Q86RBut350AbYNAjgzpzEA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gn/pncc+Mpo+NoCv73mhGwPc7PZ3p2CCj22YCCrGsNXWNY71pIJXVyE/DeyozybGH78Vjb77av74u9noGoXXp4grx1PacoApqHMGNQ5R250iGl+pHvVII7C4HMcMuzUzLTNIpZ0TT/Tta9uxi8ENnfvKJfuB8kC0kQgx5VFiDCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6k1oUju; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786466086; c=relaxed/simple;
+	bh=mwk0Q1YHxLPUcUJIqzhfld8QkNE1JrHIt1OuWed/7o8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MN7Hrczw1UYvkLiGBOZdpiLAOdMRSIWYd48r4qhu1mQvNPLb1zuYLVXql04E6gqMNbuxNKoQU/8rL/LsnQBAdb7suh87BlZDFKr/RkcsCY9bmcqWtc0F20vUKwNiv1csQJkONWleMxCRen3ypUYG9y7NbIBMpbXlGqdkYoVUbAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pjGyMv+G; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6k1oUju"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BBC41F000E9;
-	Tue, 11 Aug 2026 16:33:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786466015;
-	bh=H+JrBIR9KJqjw0g48ia2wGzfZuaFqi6veSrCx7lomV8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U6k1oUjuC6Xyi7Er3dCewRwyPCO5nn0YXn5ra/BgLckfBD0rMBsSM7QvSfh1V+Vsj
-	 L3wY5mPQ7I5LKM8gJfj7WnJYpKdGJcLX0VmkmSrba3ftAhpsvc4ZOdgwkVjABoHaxs
-	 DHttgTTv0tNRatmX1XLZtPiFGDcC3JzvL719Xdh2f7kgRMdHsdaIlu5z1ZxLxpgQpG
-	 f/oJtgI6UwfXfzxhifnVSk7VIDIEGDSsRjDmNDNiZsrn5t1AWMtZBatky7rpYdO2tR
-	 A1J554ADS5ABThdwwSvfEafVA7+9QIszgEOEu3aQKP8DqQTv/U98A5wRNzOvkYGjuF
-	 R18QbJImBImKQ==
-Date: Tue, 11 Aug 2026 11:33:34 -0500
-From: Rob Herring <robh@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 05/10] dt-bindings: clock: renesas,r8a78000-cpg: Add
- firmware property
-Message-ID: <20260811163334.GA2354701-robh@kernel.org>
-References: <cover.1783505329.git.geert+renesas@glider.be>
- <49726acff0fee1c3606e83c4f242ef6aad25b4b8.1783505329.git.geert+renesas@glider.be>
- <20260710-adventurous-burgundy-chimera-b2fff9@quoll>
- <CAMuHMdV=ckONBbTYELPJU8YWoNzdu3PJ95VR8cz+f_7dUeiPUw@mail.gmail.com>
- <20260716214924.GA1477674-robh@kernel.org>
- <CAMuHMdU0ss6wUEdjC+OYa3iQS439aJ8b_d9M2ws7Ayn4_kOyMQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pjGyMv+G"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=sqJsmzAvVdU+ObHxFGWkb7BkBsjzmkEndCdAUVN7nmI=; b=pjGyMv+GQ/jNx7SYBO1BZXVsNX
+	o3cLZ9hwdr849cjKnC1Ge3Yxud90YYp0kSdWXnvTT9fTfCg2vUbxdNMv7Rx8sLs0Tto1RG1kH7hGb
+	gkkSyNja4JMmOmRd6f88TAZ3PrEjUsVFvruYysHlnFEQp5hYfkm7VuzoL8luorpgxKp3cHSaXlMpR
+	ImaZtal4L/M2KKqimq/QcdUBGKFQJHiaolIHcY5sZgy37qdg/DQtS+ZWfm893kkKYoL0uRf6HGJro
+	j+Goc78aDcZrJpinE+6CgSJYsGJGeCRPD5NsirPG1UIbcHysR8tcOJKmwPI6Bi54kF2TWr6w41jC9
+	yqRaUdig==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wtpQz-0000000EVvT-2T3l;
+	Tue, 11 Aug 2026 16:34:37 +0000
+Message-ID: <eeb5c44a-6cfa-479f-bbb5-f557470258a8@infradead.org>
+Date: Tue, 11 Aug 2026 09:34:35 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdU0ss6wUEdjC+OYa3iQS439aJ8b_d9M2ws7Ayn4_kOyMQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v13 03/12] net: pcs: implement Firmware node
+ support for PCS driver
+To: Christian Marangi <ansuelsmth@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
+ <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+Cc: Daniel Golle <daniel@makrotopia.org>
+References: <20260811092843.673837-1-ansuelsmth@gmail.com>
+ <20260811092843.673837-4-ansuelsmth@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260811092843.673837-4-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 03, 2026 at 02:01:18PM +0200, Geert Uytterhoeven wrote:
-> Hi Rob,
-> 
-> On Thu, 16 Jul 2026 at 23:49, Rob Herring <robh@kernel.org> wrote:
-> > On Fri, Jul 10, 2026 at 01:02:39PM +0200, Geert Uytterhoeven wrote:
-> > > On Fri, 10 Jul 2026 at 12:21, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> > > > On Wed, Jul 08, 2026 at 12:16:23PM +0200, Geert Uytterhoeven wrote:
-> > > > > Add a firmware property, for systems where SCMI must be used instead of
-> > > > > direct hardware access.
-> > > > >
-> > > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > > > > ---
-> > > > > v2:
-> > > > >   - Spin off from "dt-bindings: clock: Document Renesas R-Car X5H Clock
-> > > > >     Pulse Generator".
-> > > > > ---
-> > > > >  .../devicetree/bindings/clock/renesas,r8a78000-cpg.yaml    | 7 +++++++
-> > > > >  1 file changed, 7 insertions(+)
-> > > > >
-> > > > > diff --git a/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml b/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
-> > > > > index 4e23bba334382346..fc499e7cf52e4f0c 100644
-> > > > > --- a/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
-> > > > > @@ -35,6 +35,12 @@ properties:
-> > > > >        <dt-bindings/clock/renesas,r8a78000-cpg.h>.
-> > > > >      const: 1
-> > > > >
-> > > > > +  firmware:
-> > > >
-> > > > RPi is doing similar, but I have doubts. It looks way too close to
-> > > > generic "syscon" which is disallowed.
-> > > >
-> > > > I think this should be vendor+purpose specific, e.g.:
-> > > > "renesas,scmi-transport" or "renesas,scmi-firmware"
-> >
-> > If you can tell me the resource that a 'firmware' provider provides then
-> > it is fine, but you can't.
-> 
-> It provides a firmware API, which is not available until the firmware
-> provider is initialized.
 
-I don't know what "a firmware API" is. What does it provide? I know what 
-a clock, GPIO, reset, interrupt, etc. provider is.
 
-Rob
+On 8/11/26 2:28 AM, Christian Marangi wrote:
+> diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
+> index e417fd66f660..f5c9ca2e992b 100644
+> --- a/drivers/net/pcs/Kconfig
+> +++ b/drivers/net/pcs/Kconfig
+> @@ -5,6 +5,12 @@
+>  
+>  menu "PCS device drivers"
+>  
+> +config FWNODE_PCS
+> +	bool "PCS Firmware Node"
+> +	depends on ACPI || OF || COMPILE_TEST
+> +	help
+> +		Firmware node PCS accessors
+
+That indentation for the help text is incorrect.
+Should be just one tab + 2 spaces.
+
+-- 
+~Randy
+
