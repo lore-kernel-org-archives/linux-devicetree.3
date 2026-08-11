@@ -1,311 +1,136 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2214943E073
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 11:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3C1439345
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786449553; cv=none; b=LxpnXoqRgJdZAQsax4ZIGUeYqBXcmwYavuC7gZMNHEGlrTtmKl0Zp21MwxtQ6RjFE+SmAM+LY+V2UzVqxjUE74FP5vIyyVrE2CghZn00qRHnj4uX46Zi8Qf1Aol8rzHCl3XzOaBCW4iJrR2PVbn5ICSYaQhlkCxgg9fUkWTCojg=
+	t=1786450218; cv=none; b=LdWw+WfGCRV9xtDUZq21i0nBkv5YaCFyYu0wCitistCFeGXeXibm/ZTurad86gSWf1A1C4uY61iDIFxxNCaI1dzcyqkPzDejn5QxrrEuDmeLW9Hz41nybvU/ESQMHOqdVNv0F7EsRLO7h2aCjIPKM6nFSMYkk3hkO42ICqYSXCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786449553; c=relaxed/simple;
-	bh=fTxHabRxBNwSPRaJrmSZGhNkgofrszNnJ5r9Qkcfalo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sISXa80MjDujGYloUjAnO3a6TTHfJqQP9fQtNMOzuXI1hxk5C3XxMqfySpysRhpphCkhnWg9f6okRmAe89rljsmrvPjserbw1xz27hwv6BueN76z83RR+NlCAPA+zZI6NapLSd+5XdWhxYxJGjYF4oooLUxWkjJCYC4G+rR/aW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kQm5Qio8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SztkTubT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786450218; c=relaxed/simple;
+	bh=M0klPbpMKSDb83aeDRUr2B8G3YjIwJhy28xYU7z8QLE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bEFGMHCs0lm9ms2/ITnxNudGpUqmrcWq23uV2UlaClc32PQA4caSQZA5tWbEeDN0AzqPbXxOP9+E5NQla+Nn558NnvmT03ujfvl1XuWA3RLHB81uu457pHupBYBnTJvMyy52bfnkCrRMfGylybOvZ+gB9hLA528U+XImDLOIyWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A3zRSSBr; arc=none smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kQm5Qio8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SztkTubT"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BALsef3288902
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 11:59:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jb+XzvopgHCxwDLurQ8H6QiWmaD68mggVpSkrt6Rll8=; b=kQm5Qio8sr2JvdO3
-	bpxCDnM7qwYNGxZFMLqJhx/05BP1aR64NJUFkI33ynIunjWcnqjWhN3bv+HOocXR
-	1llZA46lpRsKReFnl9MJ3dITf+hrekmwiSTJIyUC9tNwkdRu0oy7dxxu5TAkZebW
-	lakmjwTkIiQI0ehoedhcaex5tVr2d5PBJN+pIFkjomsP0T5UelC2WQUISUD2P9Te
-	0imzVsyMlHUJ+POXbaAzYD7CCls+Y79cRcpzWrdCCHcmoZZMJc2ylGP4bjG6AkZ5
-	2FhwkLFC+uddBLXO853Ijc19hpmlKNL/uRXBWxxXwZ+0aE1smPIdX8y6InFkmlt8
-	mpGwvA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyxwes38b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 11:59:10 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5174a236220so7622641cf.3
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 04:59:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A3zRSSBr"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b015532f7bso2831797e87.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 05:10:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786449550; x=1787054350; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jb+XzvopgHCxwDLurQ8H6QiWmaD68mggVpSkrt6Rll8=;
-        b=SztkTubTdxh2BErP8KUA8Ow5Gsst6ak72xT+ggEMgsHTMpHn9MHaneIH25tH78IYeL
-         sTp7Q/jV/fygm7NZ5n9DB82j2aZeRlOwHI2PxVwyRiOgXnEGJkmMFEsGZ5w1PHNe6C35
-         CK6DVQhmilspj1vgtDNtuNzmRbee1v5xhSLT4xqEeuwsIMMMFq27UhJzCWCUtW5/AspM
-         2BoADDg4A4qvhCycg89EILLNppLIMLiN4fHTNJTyxE8PHOo63UXX/Jh0Ba4VZFaQgCfd
-         tm34c6weLJZW77C72XamRMLkXpNGli/pQKFaDY7cnL+106aP3SFRagG3SW0OODv78kFT
-         yAOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786449550; x=1787054350;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1786450214; x=1787055014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jb+XzvopgHCxwDLurQ8H6QiWmaD68mggVpSkrt6Rll8=;
-        b=Ft4sH71l02MySUyuXVcIHKby7BCWh7UfI/WFRHh2IozqsRCsEhUTZ2z7kOumLzaFR4
-         iS8r1f2OmLZ5D7d/NFidyuHBxkr/8hJ3QvGbSChCHq5SS938UFizFJhznpgFjWwWum+s
-         3iG+0lrNAxu01t4FU8DsuRpDjT2QrjEGmYqatYa1T6Agw7Ph0eiSZ5yXqdyrbVvc2Byi
-         43TONa/4LbBaRKH3yq+13VibewQgSkNSfLmwXySWehmZ3YhW/3usRkO0mW1Rj4sNzIZO
-         nNOoE8pC859vmpWG2VgA7cJayaRaxr6WtH91bkfJBatUB6yX+wDcGx6vZWYaIBjp8+zx
-         0FZw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrpk17baYp7cyovjUAY4cshx8GN3jbgFQrDQ1Iab+Q2QGMZ1KbV9r4I65vRJnBuhcomXgR62GWCi7Xd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx0v5wY6vZds1tLqeWtOBKeqBXba0RC4Y1S7bQWD/aNid/NPry7
-	naz5L1+4hfoX5sGDMMWC1+OKO7DeOswuUMIFzgjNPdqxSXsCXyJWwAIXAtYBNPVmrqLDrckGl6M
-	NYeLUXpQrJTDYd2IYvoVxJN5w+MemtSc02YdCfAL7eqElkrlQsNcjzD6DUfvNrjG/
-X-Gm-Gg: AR+sD11p0poytqAhSs61gDhSoKiavWv7YlNHvdwL+WKZQ6Q25ck3mLYgFsocF/K4W6w
-	Q4LOPb3ARTTfwAoj1rJUrnZqU3ZEc1riiPAgdm1RJAOt6DFC4p/tE7JMR+lQUklG1LDRlu/TskY
-	a9fJbU9UKUJ6D+0bxXYYqYsYZKBf1W4h23+VNTjjFsvWnnJ/nQ26GbOm4Vgi7bJvxX5o+Pcio7r
-	WR/Kovm9xduJ6/9gH/7hVvg60gCmhRTZIx2E/6/vYqgwi60RNocn0DmBJytQFrI/U4+aWE1OgRZ
-	7LV/1P7ovgI+amYow4iESlw17bxG7r/7FO2JGcPFRSTauQRNMFSzb7izbrwWx7CnG1y0IZRqNK4
-	B8nq2057RW7o4lakNsgLKIoKdH+Copdpk
-X-Received: by 2002:a05:622a:22a3:b0:51c:164b:b240 with SMTP id d75a77b69052e-52d584f769fmr20137591cf.4.1786449550026;
-        Tue, 11 Aug 2026 04:59:10 -0700 (PDT)
-X-Received: by 2002:a05:622a:22a3:b0:51c:164b:b240 with SMTP id d75a77b69052e-52d584f769fmr20137291cf.4.1786449549524;
-        Tue, 11 Aug 2026 04:59:09 -0700 (PDT)
-Received: from [192.168.1.73] ([92.247.57.178])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c20e438cf1fsm43142066b.57.2026.08.11.04.59.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 04:59:06 -0700 (PDT)
-Message-ID: <65c47a9b-5f1d-4e17-bbed-4c37369025ff@oss.qualcomm.com>
-Date: Tue, 11 Aug 2026 14:59:04 +0300
+        bh=DJUUpA+u/X+Mw8WGuh26FuT0SdK7L1t8Py4ith47VDM=;
+        b=A3zRSSBriVNhHHC0kVcqmyAKY5sdk+rlxwdl6FoVzDAPXcv1S/a+Dss3LK3UsxT+pQ
+         T0w7R5AncVRO/FaiyZ73sIrs4MqwjE41wc6k1tV5CdHjzmHH2MCvRfl73osAoeorSs04
+         91iHNga5qv4xsU3hOP15zTI7piojNLwi9K0C4lK8m4Mx0VDmrWpmDHS9X5D3/Sszp2NK
+         XDNIr3IdCMfaPpAAK7DKf4GubNZz+pRqksYeMF9gMiz2LiG+t9yW1nCftAH1Wph316Tp
+         iT6l1X948JRzDe5H+ayWnZmrpSe/LqFQwOPwp7Sorq5tJgHDxfNm63egnIzVnSgYVmcV
+         0QQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786450214; x=1787055014;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DJUUpA+u/X+Mw8WGuh26FuT0SdK7L1t8Py4ith47VDM=;
+        b=Sd7UZYB643xpr9Ra+Gs36O55Oa+c43bLij54yfEs918sQj+pJ/q1ZuSlLYmZUv+Cwc
+         htPakF+8nb/YO7urNjPtJiM91NVQ3qpFFacGte19YO+8MernqnT4HgAsOvsOEzaQQcoh
+         i7ZVVq5EvukNpxOpoSrj8rGceFC/IVj1KYBD1LfPIo37yq9hdYbBLpJquEk1WoPPdL7K
+         jd4xsYeyW/hyePMtG9l/qwsKJJUeNcFofnD6aFGiud60Qx9rA3E+MAuCVxws67PRCa48
+         D9bpyOLorj4YTl751c7jSBiuSZXhh+EfkJVDBmDytpNqvQHbGQ3GWLpt8RJT7zZjKNHX
+         bjYA==
+X-Forwarded-Encrypted: i=1; AHgh+RpCE3U9kltdFAfBNDiQAzIh872k1qMPavSi3H9E9GYcd5TnqIkdCo/Y4l498Gaujd23COhdk0s48M44@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXvf+ufsWh9RtE+Zpqt5NVmRDl35tnWkSVZLHEJvm/9JVV3xR6
+	LsnTMkk36ShHMxgMcFxsUxzlNDT5hzBFVQ2izWbGm0Og72zJ0iQxHiQi
+X-Gm-Gg: AR+sD10tCHLhoj1bAGytrFl2knMXkSCtll4w9HluAzCjcRvkwWUsK386/dypc9aHo13
+	LCYk1h0A5og7LqqbdJq+6w48KxsX+QxTgyX9qPsO+fqjHYQQRhGpLRCT/nIj+mfwpR0/wzYW09S
+	A9EO3LctXLBe7DNOOmcpfQcAlx6U6J8VAu/syab7KUQAbJuLxkbJIOTy6W9xDO8orC7YZ3Zyln7
+	rd/QVJmxeEH5M8Wxl522q3x80poz7Z5wShGRbgsyaEGnz38ZYtRuIUtHQE8Rmoa15BK91e3760+
+	dKeCEfSLGidQ11eOLajtu2kKJgZDWx23T100GYfGL3LjwmrRduew1noxp3oZ4/NBk2GwxXPLOU8
+	ZchmdgmZNOY7113EehE/rE5l+WnjkHnuulxNQWRXwQd6pXlNErgs9nP1knilpba14Iqz4MHya0Y
+	NNrlfe7Q30QO0SZ1xs7/67DVFdwgGc3C7PLxc085KcL3jkyr8x3w4WYki5jOzaVWQ1aNK1ATE=
+X-Received: by 2002:a05:6512:12cc:b0:5b0:1b78:4962 with SMTP id 2adb3069b0e04-5b44866ef23mr489653e87.50.1786450213825;
+        Tue, 11 Aug 2026 05:10:13 -0700 (PDT)
+Received: from hekasnap ([2a00:fd01:82a4:d100:739c:a0f5:97b3:63a7])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4486c0a14sm238919e87.1.2026.08.11.05.10.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 05:10:13 -0700 (PDT)
+From: Troels Vognbjerg <hekatombe@gmail.com>
+To: kamal.wadhwa@oss.qualcomm.com
+Cc: alexandre.belloni@bootlin.com,
+	andersson@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	raryan@qti.qualcomm.com,
+	robh@kernel.org
+Subject: re: [PATCH 0/2] rtc: Add Qualcomm PMIC RTC-GLINK support for Glymur
+Date: Tue, 11 Aug 2026 14:10:12 +0200
+Message-ID: <20260811121012.7046-1-hekatombe@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260807-rtc-glink-cleanup-v1-0-7801e4d69c4f@oss.qualcomm.com>
+References: <20260807-rtc-glink-cleanup-v1-0-7801e4d69c4f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] dt-bindings: interconnect: Add Qualcomm CAMNOC ICC
- binding
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: djakov@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        krzysztof.kozlowski@oss.qualcomm.com, odelu.kukatla@oss.qualcomm.com,
-        raviteja.laggyshetty@oss.qualcomm.com, vivek.aknurwar@oss.qualcomm.com,
-        quic_afilipov@quicinc.com, loic.poulain@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260807114951.4164439-1-atanas.filipov@oss.qualcomm.com>
- <20260807114951.4164439-2-atanas.filipov@oss.qualcomm.com>
- <2ssduce25rimjg7bry6dxzrf2d4f7msqqa2lvukwuxxacm36yc@lylvi42lwmm3>
-Content-Language: en-US
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-In-Reply-To: <2ssduce25rimjg7bry6dxzrf2d4f7msqqa2lvukwuxxacm36yc@lylvi42lwmm3>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: Z29RBAjQsrKhCaRzXonQ3u6uMYpdttuz
-X-Authority-Analysis: v=2.4 cv=K8QS2SWI c=1 sm=1 tr=0 ts=6a7b0e8e cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=XjyBLfglfZADH4DKDeQA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
- a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: Z29RBAjQsrKhCaRzXonQ3u6uMYpdttuz
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA5OSBTYWx0ZWRfXxHijaQVbSeQU
- G6yVvpXyIBQpqjsgyHkg9LH+9zyZ2xDDj5yNcqksnQWyP6knsJplQ84uirJEmSQJ3El72nrMEgu
- ItqwBgTtLHBnM+a2LSCCI/fgnbIz2C0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA5OSBTYWx0ZWRfX6+VGY1VDkRfH
- v+erIb3gBIf6wo/XpJ8U/uc71onkhYMBLHpzOGR3mrT6Z26j+PkMGrhAQTGPWjRcfW6XZkoFVh8
- cQQtphQCEVuRrTiQOoL5Hk0mF9UEkX6jRMv3/okKb0aafkte0iQkkaLOW/X5l+5lmwGgje8LbgK
- oiA2VJDkDo8+wVM5iqmbLvTyCe35SlimSZX7P6O1hNL8tApkNuf7t0uo4FgwgjmMYkY1Y6k2QMT
- oGWq2+X162EeyC0JWqTx29qrq8VKCIZhoHDyjZl8t1om7893pLueTfRbFdTCLSWA1SQ6NXxbJfe
- mgoQ7WggWS+nRcizxvd1ehIc83tEvTP7IKNpyIRcFT9S16TghRax/VCpb/UzkoANYiSA0sb01FK
- f6DyB1LBZUnXWp2ddc4qKvuIvV0y+BgIut9EymkVgMQYsOTm4GlrUrAw8Lhk/GRob97TeRnhKGw
- dawSzgbH6UBh2FZF+Xw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-11_01,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
- clxscore=1015 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110099
 
-On 8/8/2026 12:12 AM, Dmitry Baryshkov wrote:
-> On Fri, Aug 07, 2026 at 02:49:49PM +0300, Atanas Filipov wrote:
->> Add a device tree binding for the Qualcomm Camera Network-on-Chip
->> (CAMNOC) interconnect provider. CAMNOC is the internal AXI
->> interconnect within the camera subsystem that arbitrates bandwidth
->> between camera sub-devices and the external memory interconnect.
->>
->> The CAMNOC ICC provider aggregates bandwidth requests from multiple
->> independent consumers and scales the CAMNOC AXI clock accordingly,
->> avoiding the race conditions that arise when each consumer calls
->> clk_set_rate() directly on the shared clock.
->>
->> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
->> ---
->>   .../bindings/interconnect/qcom,camnoc.yaml    | 98 +++++++++++++++++++
->>   .../dt-bindings/interconnect/qcom,camnoc.h    | 12 +++
->>   2 files changed, 110 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml
->>   create mode 100644 include/dt-bindings/interconnect/qcom,camnoc.h
->>
->> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml b/Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml
->> new file mode 100644
->> index 000000000000..b2f5c140ff80
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml
->> @@ -0,0 +1,98 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/interconnect/qcom,camnoc.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Qualcomm Camera NOC (CAMNOC) Interconnect Provider
->> +
->> +maintainers:
->> +  - Aleksandar Filipov <quic_afilipov@quicinc.com>
->> +
->> +description:
->> +  The Camera Network-on-Chip (CAMNOC) is the internal AXI interconnect
->> +  within the Qualcomm camera subsystem. It arbitrates AXI bandwidth
->> +  between camera sub-devices (IFE, JPEG, BPS, etc.) and the external
->> +  memory interconnect. Multiple consumers may independently request
->> +  bandwidth; the CAMNOC ICC provider aggregates these requests and
->> +  scales CAM_CC_CAMNOC_AXI_CLK accordingly.
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - qcom,sm8250-cam-virt
->> +
->> +  clocks:
->> +    items:
->> +      - description: CAMNOC AXI clock
->> +
->> +  clock-names:
->> +    items:
->> +      - const: camnoc_axi
->> +
->> +  '#interconnect-cells':
->> +    const: 1
->> +
->> +required:
->> +  - compatible
->> +  - clocks
->> +  - clock-names
->> +  - '#interconnect-cells'
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/qcom,camcc-sm8250.h>
->> +    #include <dt-bindings/interconnect/qcom,camnoc.h>
->> +
->> +    camnoc_icc: interconnect {
->> +        compatible = "qcom,sm8250-cam-virt";
->> +        clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>;
->> +        clock-names = "camnoc_axi";
->> +        #interconnect-cells = <1>;
->> +    };
->> +
->> +    /* Example camera sub-device consuming the CAMNOC provider above */
->> +    camera-subsystem@ac53000 {
->> +        reg = <0x0ac53000 0x1000>;
->> +
->> +        interconnects = <&camnoc_icc MASTER_CAMNOC_JPEG
->> +                         &camnoc_icc SLAVE_CAMNOC_AXI>;
->> +        interconnect-names = "camnoc";
->> +
->> +        /*
->> +         * Optional: an operating-points-v2 table lets the consumer
->> +         * drive its CAMNOC bandwidth vote from the same OPP that
->> +         * selects its core clock rate and RPMh performance state.
+Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com> wrote on Fri, 07 Aug 2026 02:26:29 +0530:
+> On some targets like Glymur, the permission for receving the RTC
+> alarms is routed to charger firmware running on remote subsystem.
 > 
-> Is this a table for the camera-subsystem or for the CAMNOC_AXI_CLK? In
-> the latter case, the OPP table should be a part of the camnoc device.
+> This is because Glymur boards have to  support MSFT's `TAD feature`
+> on the windows OS devices.
 > 
-
-The OPP table in the example belongs to the consumer device, not to the 
-CAMNOC provider. It describes the operating points
-of the camera sub-device itself: core clock frequency, RPMh performance 
-state, and CAMNOC bandwidth vote bundled together in
-a single OPP entry. The opp-peak-kBps field is the bandwidth the 
-consumer passes to icc_set_bw() when it transitions to that
-operating point.
-
-This follows the standard ICC consumer pattern: the consumer owns the 
-OPP table and uses opp-peak-kBps to drive its bandwidth
-vote. The CAMNOC provider has no per-consumer bandwidth table of its own 
-— it only aggregates the votes it receives.
-
-The comment in the example was perhaps misleading. I will reword it in 
-v2 to make it clear that the OPP table belongs to the
-consumer and that opp-peak-kBps is the ICC bandwidth vote, not a clock 
-rate table for CAMNOC_AXI_CLK.
-
->> +         */
->> +        operating-points-v2 = <&camera_opp_table>;
->> +
->> +        camera_opp_table: opp-table {
->> +            compatible = "operating-points-v2";
->> +
->> +            opp-100000000 {
->> +                opp-hz = /bits/ 64 <100000000>;
->> +                opp-peak-kBps = <22246>;
->> +                required-opps = <&rpmhpd_opp_min_svs>;
->> +            };
->> +
->> +            opp-200000000 {
->> +                opp-hz = /bits/ 64 <200000000>;
->> +                opp-peak-kBps = <44492>;
->> +                required-opps = <&rpmhpd_opp_low_svs>;
->> +            };
->> +
->> +            opp-400000000 {
->> +                opp-hz = /bits/ 64 <400000000>;
->> +                opp-peak-kBps = <88983>;
->> +                required-opps = <&rpmhpd_opp_svs>;
->> +            };
->> +
->> +            opp-480000000 {
->> +                opp-hz = /bits/ 64 <480000000>;
->> +                opp-peak-kBps = <106780>;
->> +                required-opps = <&rpmhpd_opp_svs_l1>;
->> +            };
->> +        };
->> +    };
->> diff --git a/include/dt-bindings/interconnect/qcom,camnoc.h b/include/dt-bindings/interconnect/qcom,camnoc.h
->> new file mode 100644
->> index 000000000000..a03f5e3f6446
->> --- /dev/null
->> +++ b/include/dt-bindings/interconnect/qcom,camnoc.h
->> @@ -0,0 +1,12 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#ifndef __DT_BINDINGS_INTERCONNECT_QCOM_CAMNOC_H
->> +#define __DT_BINDINGS_INTERCONNECT_QCOM_CAMNOC_H
->> +
->> +#define MASTER_CAMNOC_JPEG	0
+> So rtc-pm8xxx.c driver cannot recieve RTC alarm IRQs via SPMI on
+> Glymur. So in order to make the IRQ available on the Linux kernel,
+> the PMIC RTC Alarm IRQ must be routed to APPS via remote subsystem.
 > 
-> I guess, there are other connection ports. Please describe them.
+> To implement this, add support for a New Qualcomm PMIC GLINK RTC
+> client, which will request for RTC set/get calls for time/alarm IRQ
+>  via the existing pmic_glink interface to the charger firmware.
 > 
->> +#define SLAVE_CAMNOC_AXI	1
->> +
->> +#endif /* __DT_BINDINGS_INTERCONNECT_QCOM_CAMNOC_H */
->> -- 
->> 2.34.1
->>
-> 
+> Also, add a DT property to explicily support enabling the RTC
+> writes, keep RTC writes disabled by default to align behaviour
+> with the existing rtc-pm8xxx.c driver.
 
+You mentioned this patch series applies to targets like Glymur. Does that include
+the ASUS Zenbook A16 UX3607OA, or did ASUS do something different on this
+laptop?
+
+The reason I am asking is because when I build this as a kernel module,
+I get the following error message:
+[    2.241461] rtc-pm8xxx c426000.spmi:pmic@0:rtc@6100: probe with driver rtc-pm8xxx failed with error -2
+[    2.499556] Modules linked in: rtc_pm8xxx aes_ce_blk ghash_ce gf128mul sm4_ce_gcm sm4_ce_ccm sm4_ce sm4_ce_cipher sm4 qcom_battmgr rtc_qcom_glink(+) simple_bridge display_connector
+[    3.277788] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: 0x68 failed (-110), falling back
+[    4.318666] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: all time sources failed
+[    4.319085] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: registered as rtc0
+[    5.359404] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: 0x68 failed (-110), falling back
+[    6.400331] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: all time sources failed
+[    6.400496] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: hctosys: unable to read the hardware clock
+[   25.447761] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: 0x68 failed (-110), falling back
+[   26.488271] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: all time sources failed
+[   27.517573] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: 0x68 failed (-110), falling back
+[   28.560114] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: all time sources failed
+[   29.609224] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: 0x68 failed (-110), falling back
+[   30.638629] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: all time sources failed
+[   31.677524] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: 0x68 failed (-110), falling back
+[   32.720749] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: all time sources failed
+[   33.757662] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: 0x68 failed (-110), falling back
+[   34.808360] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: all time sources failed
+[   35.837651] rtc_qcom_glink.qcom_pmic_rtc_glink pmic_glink.rtc-glink.0: 0x68 failed (-110), falling back
+
+And the error message keeps repeating every second or so.
+
+--
+Troels Vognbjerg
