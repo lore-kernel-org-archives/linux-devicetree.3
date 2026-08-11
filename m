@@ -1,162 +1,190 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D8A3FB06D
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 21:54:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FF43FFAC3
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 21:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786485248; cv=none; b=JS1j2OuD73QmBlmZh1tgOiLM4mRszVMt+BGrBwi1WuuspLfkIe0i1Qx435YLgpyBjobTwt79GYDp735J9k9c+S7beKKU2DN98oabMyF/Yq5DMNrQ4KtRn13N3C1dv/ADCOutVjiOw77ympfkDKs5NePstRXeBaziP9NMkNw4RF4=
+	t=1786485264; cv=none; b=kGBKQUMRTauDB1kQZLVPQRgsgmdt1KprSavqwFB86bif0Z3gHryHYqKgD0LJtOMYcoejGXsWfExqniOUQuXz9vS0Vd1svA6qCycG+UmsK1HB3av8+FvL162e2Duw6kirBiI2kpVUTeDpMiFpQ8A5gp6B9QuwYoG65VrWzIY9JI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786485248; c=relaxed/simple;
-	bh=DT21wdaIrT1r0d/apCXT298bkCyDnFfMbUvWz0lH7Io=;
+	s=arc-20240116; t=1786485264; c=relaxed/simple;
+	bh=yvfjvUiDiygXp7uzf+FOj0tgnFkQH8fbF578S7/tpPk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OleIfS0OuFPuOXg4pZ1h3f9J7yBI7gboAACiWckcMjc+phqNbesbx80zR6wYr6FQQCNnsmGPjKUJ+ilbnE0BbfnL6nBSnlpw7jBdKadUk+IdmRGMfo8DfOgbdpApfD2KbFAFll4GaDg28xCmF3qO9f620/aPzWSDTRQ9y84CHf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0Fsvb5V; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=O0wwfeQurH91U9P58PtJBZKzeEp1W/f4fZJR6HjoZ3mnOTrYnP2HOWAD+xhODFdwi+3/aEPkzxw4iNL/qOe/pd9tlfdWR2yF/dEY0aXs/rqm0+6fQi54v2AA1Nyp0Za3EwkvK4kSzLXiEQEKR8yJ4Fx//kp5KvloGYUcGf+SUHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mv/u9dd5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0Fsvb5V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD161F00A3A;
-	Tue, 11 Aug 2026 21:54:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mv/u9dd5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DBC41F000E9;
+	Tue, 11 Aug 2026 21:54:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786485246;
-	bh=zdtDiPpVWJpH0jgGVRgmR3a81nH+RjjRM0OGAUU+MLI=;
+	s=k20260515; t=1786485262;
+	bh=uDYeWCdVyDrKahIK3w7QUs5NMprFcUrSAJCupD7ItkQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A0Fsvb5V7mlLIBc7q0wvIz0k78LJhoSwNOVFUwqrVIS3vUTcnQq6OI/0+F7bvobTb
-	 ssRIkyQtVcP15HFPNY4V0vljb3cooinGQYVDdbpRwC7++zUkKkl2HiY4Tt16XHsDvh
-	 lzbnGAP5kvwYP52peLGBznnYPXw4Y0v0x+WH/Md1cFDTaidwfQOsmiBcrLzoy8nEGO
-	 n57aW6lHMq0kP/A9Wm3I9m+h6ZpgN4QxxgenCRyqAkZUiGspnuSdvWi9LIuwvo2h7n
-	 rCYqIu6QhZG4aeqisism5sYF7YhF/DiGqmSZh/F1B8TpSd0o6yXb3NVS50N2RbCjdm
-	 fya3eQdYBvAcw==
+	b=Mv/u9dd5e5RQsYW6GTrd8r7W4UniiOMs+Zq6ljkp7dRHq0ZlD2u+k4G3kmOlIi3cs
+	 R8V4hzotYZlueKKa1xA80tjEBt0PhCes8+dAsZ6lO3jR9ZXFSipvd6aee1jJRi6IEc
+	 nuje1m1kJBJ4pe4xZK/qk+Yxc2svtQ3MuB1r0CQqzH68eU0WHoQf8gxpaqqd7mcRfz
+	 HjBu4vZXdYyXQl1mmT6jpB8sRfUgbonr4vuYO1E59a2AfuZMQhMnr/2mqBpozk5X0z
+	 3Q4pzQHOmKMz/A6PRYAO6ear5/sqICX65wceGpzg3Q+l8+Fq1o8iRWbLTTM4LfETCX
+	 KzO2QMw9kRwVg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 6/9] usb: misc: qcom_eud: add role-based EUD control
+Subject: Re: [PATCH v6 2/9] usb: misc: qcom_eud: add sysfs attribute for
+ port selection
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260811213610.2956147-7-elson.serrao@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260811213610.2956147-3-elson.serrao@oss.qualcomm.com>
 References: <20260811213610.2956147-1-elson.serrao@oss.qualcomm.com>
- <20260811213610.2956147-7-elson.serrao@oss.qualcomm.com>
+ <20260811213610.2956147-3-elson.serrao@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 11 Aug 2026 21:54:06 +0000
-Message-Id: <20260811215406.7FD161F00A3A@smtp.kernel.org>
+Date: Tue, 11 Aug 2026 21:54:21 +0000
+Message-Id: <20260811215422.4DBC41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Incorrect devres ordering causes a use-after-unmap vulnerability d=
-uring driver removal.
-- [Medium] Missing rollback on downstream USB role switch failure causes pe=
-rmanent state desynchronization and PHY power leak.
+
+New issues:
+- [Medium] The `port` attribute unconditionally allows selecting a secondar=
+y port on single-port hardware platforms.
+- [Medium] The initial software state of `port_idx` is not synchronized wit=
+h the hardware configuration during device probe.
+
+Pre-existing issues:
+- [High] The `chip->enabled` flag is never cleared when EUD is disabled, pe=
+rmanently blocking subsequent port changes.
+- [High] Simultaneous active interrupts cause an unhandled interrupt storm =
+in `handle_eud_irq`.
 --
 
---- Patch [6]: [PATCH v6 6/9] usb: misc: qcom_eud: add role-based EUD contr=
-ol ---
-commit bc0de19142343d10fe6a60512025d0e334d88fb3
+--- Patch [2]: [PATCH v6 2/9] usb: misc: qcom_eud: add sysfs attribute for =
+port selection ---
+commit 6f4483594010ca910c4a59bd283f5067e4e3b31e
 Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
 
-usb: misc: qcom_eud: add role-based EUD control
+usb: misc: qcom_eud: add sysfs attribute for port selection
 
-EUD functions by presenting itself as a USB device to the host PC and is
-therefore only applicable when the port operates in device role. This patch
-updates the driver to treat EUD as usable only in device role, modifying the
-role-switch callback to enable or disable EUD accordingly.
+EUD can be mapped to either the primary USB port or the secondary USB port
+depending on the value of the EUD_PORT_SEL register. Add a 'port' sysfs
+attribute to allow userspace to select which port EUD should operate on
+and update the ABI documentation.
+
+[ ... ]
 
 > diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
-> index e83a4402e4b84..538e070cc140a 100644
+> index 926419ca560fc..25a6a8f110ec8 100644
 > --- a/drivers/usb/misc/qcom_eud.c
 > +++ b/drivers/usb/misc/qcom_eud.c
-[ ... ]
-> @@ -304,7 +323,30 @@ static irqreturn_t handle_eud_irq_thread(int irq, vo=
-id *data)
->  static int eud_role_switch_set(struct usb_role_switch *sw, enum usb_role=
- role)
->  {
->  	struct eud_path *path =3D usb_role_switch_get_drvdata(sw);
-> -	int ret;
-> +	struct eud_chip *chip =3D path->chip;
-> +	int ret =3D 0;
-> +
-> +	guard(mutex)(&chip->state_lock);
-> +
-> +	/*
-> +	 * EUD is usable only in device role. Power it down for every other
-> +	 * role to avoid keeping an unusable module 'ON'. chip->enabled
-> +	 * preserves user's sysfs configuration and is not modified across
-> +	 * role transitions.
-> +	 */
-> +	if (chip->enabled && path->num =3D=3D chip->port_idx && role !=3D path-=
->curr_role) {
-> +		if (role =3D=3D USB_ROLE_DEVICE)
-> +			ret =3D enable_eud(chip);
-> +		else if (path->curr_role =3D=3D USB_ROLE_DEVICE)
-> +			ret =3D disable_eud(chip);
-> +
-> +		if (ret) {
-> +			dev_err(chip->dev, "failed to %s EUD for role %s: %d\n",
-> +				str_enable_disable(role =3D=3D USB_ROLE_DEVICE),
-> +				usb_role_string(role), ret);
-> +			return ret;
-> +		}
-> +	}
+> @@ -104,8 +113,38 @@ static ssize_t enable_store(struct device *dev,
 > =20
->  	/* Forward the role request to the USB controller */
->  	ret =3D usb_role_switch_set_role(path->controller_sw, role);
+>  static DEVICE_ATTR_RW(enable);
+> =20
+> +static ssize_t port_show(struct device *dev, struct device_attribute *at=
+tr, char *buf)
+> +{
+> +	struct eud_chip *chip =3D dev_get_drvdata(dev);
+> +
+> +	return sysfs_emit(buf, "%s\n", eud_port_names[chip->port_idx]);
 
 [Severity: Medium]
-If the downstream controller rejects the role switch and returns an error,
-does this leave the EUD hardware state out of sync?
+Could the initial software state of chip->port_idx be out of sync with the
+hardware?
 
-Looking at eud_role_switch_set(), if we were transitioning to USB_ROLE_DEVI=
-CE,
-we already called enable_eud(). If usb_role_switch_set_role() then fails,
-the function returns without updating path->curr_role or rolling back the
-physical enable:
+If the bootloader configures EUD_REG_PORT_SEL to the secondary port prior
+to kernel boot, eud_probe() leaves port_idx as 0 from its initial
+allocation.
 
-    ret =3D usb_role_switch_set_role(path->controller_sw, role);
-    if (ret) {
-        dev_err(...);
-        return ret;
-    }
+Will port_show() erroneously return "primary" while the hardware is
+actually configured for the secondary port?
 
-Since path->curr_role remains out of sync with the physical state, will fut=
-ure
-transitions to USB_ROLE_NONE evaluate (role !=3D path->curr_role) as false =
-and
-permanently skip calling disable_eud(), leaving the PHY powered on?
-
-[ ... ]
-> @@ -431,6 +473,8 @@ static int eud_probe(struct platform_device *pdev)
-> =20
->  	chip->dev =3D &pdev->dev;
-> =20
-> +	mutex_init(&chip->state_lock);
+> +}
 > +
->  	for_each_child_of_node_scoped(np, child) {
->  		ret =3D eud_init_path(chip, child);
->  		if (ret)
+> +static ssize_t port_store(struct device *dev, struct device_attribute *a=
+ttr,
+> +			  const char *buf, size_t count)
+> +{
+> +	struct eud_chip *chip =3D dev_get_drvdata(dev);
+> +	int port;
+> +
+> +	port =3D sysfs_match_string(eud_port_names, buf);
+> +	if (port < 0)
+> +		return port;
+> +
+> +	/* Port selection must be done before enabling EUD */
+> +	if (chip->enabled)
+> +		return -EBUSY;
 
 [Severity: High]
-Does registering the role switch here create a devres ordering issue with t=
-he
-I/O memory mapping?
+This is a pre-existing issue, but since the new port_store() function
+relies on chip->enabled, does the driver ever clear this flag when EUD is
+disabled?
 
-In eud_probe(), the USB role switch is registered via eud_init_path() before
-chip->base is mapped via devm_platform_ioremap_resource() later in the probe
-function.
+Looking at enable_store(), when a user writes '0', it calls disable_eud()
+but it doesn't appear to set chip->enabled to false:
 
-Since devres callbacks run in strictly reverse order, during driver teardown
-chip->base will be unmapped before the role switch is unregistered. If a
-concurrent role switch event arrives during this window, eud_role_switch_se=
-t()
-could see chip->enabled =3D=3D true and call enable_eud(), which writes to =
-the
-already unmapped chip->base.
+drivers/usb/misc/qcom_eud.c:enable_store() {
+    ...
+    } else {
+        ret =3D disable_eud(chip);
+    }
+    ...
+}
 
-Could this lead to a panic or page fault during driver removal?
+Once enabled, will chip->enabled stay true forever and permanently block
+subsequent port changes?
+
+> +
+> +	writel(port, chip->base + EUD_REG_PORT_SEL);
+> +	chip->port_idx =3D port;
+
+[Severity: Medium]
+Does this code allow selecting a secondary port on hardware platforms that
+only physically support a single port?
+
+I don't see a check against device tree capabilities or a mechanism like
+is_visible() to hide this attribute on single-port devices. Unconditionally
+configuring the hardware register to a non-existent port could lead to
+undefined behavior.
+
+> +
+> +	return count;
+> +}
+> +
+
+[ ... ]
+
+While reviewing the rest of the file, I noticed another detail:
+
+[Severity: High]
+This is a pre-existing issue, but can the interrupt handler experience an
+unhandled interrupt storm if multiple statuses are asserted?
+
+If both EUD_INT_VBUS and EUD_INT_SAFE_MODE are asserted simultaneously,
+the switch statement in handle_eud_irq() looks like it might fail to handle
+the combined bitmask:
+
+drivers/usb/misc/qcom_eud.c:handle_eud_irq() {
+    ...
+    switch (reg & EUD_INT_ALL) {
+    case EUD_INT_VBUS:
+        usb_attach_detach(chip);
+        return IRQ_WAKE_THREAD;
+    case EUD_INT_SAFE_MODE:
+        pet_eud(chip);
+        return IRQ_HANDLED;
+    default:
+        return IRQ_NONE;
+    }
+}
+
+Since EUD_INT_ALL includes both bits, wouldn't reg & EUD_INT_ALL evaluate
+to 0x14, fall through to the default case, and return IRQ_NONE without
+clearing either interrupt?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811213610.2956=
-147-1-elson.serrao@oss.qualcomm.com?part=3D6
+147-1-elson.serrao@oss.qualcomm.com?part=3D2
