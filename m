@@ -1,109 +1,113 @@
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59A7386C22
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 14:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F822AD00;
+	Tue, 11 Aug 2026 14:25:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786458208; cv=none; b=Ob/ParFr9tA52c25dVtK1kC+fwf2xXkuuJJVpDnYDZbsrG4u0tiPYAc00RTDT1EIvY2Gi+NlwoHoBxxNmdP//qtErghwZyHJFEpfUugpfLaKOCUsbx64M718LouRUS3ThX+2kl6q/s7o4H7388Do7xkWX+L2Gd1S6nod2efXQ9k=
+	t=1786458353; cv=none; b=oRp0hBZXbiQJfsXAC3F+DMVEp/5TglY6sZIr9XCoETsvjosH2zcwnSHWAmcivRsRfINyKPRlxgByRZEy1OzOGCK2dl7DS1izq/NPvJOyyG6LNp2/lapAfWy+smo3g6pYoEasazLavTJ+ZHNXKxWhRMHM2pe8icNjH/3M1SzvgB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786458208; c=relaxed/simple;
-	bh=PAU0jDudZSlajEUPf46H1HY4xB4YF/MswuzF0Mf64hc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sOZ87d03jLtq3lTQKK8qIL9VuE9j+Ih5RqLzB97OMyeU+dkmU6XZfdfLJAO61biiA3phDMi3rmeWIzaTtkpBfU9h2U/7qxG63pozHvanYnEQtxGNa2f2iM+YkJZl0nU3wGQ1XbbsV/SaghVIv+kiLqDxInyEPh125c1xWkyu2wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Q8vRBgjl; arc=none smtp.client-ip=209.85.161.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1786458353; c=relaxed/simple;
+	bh=ke2CH8UPIVwN2hegZrxVEZUMRk7xGrpnGOXrnCxzdos=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=qyjqNJguLWVzr0g0/ckNdP8/CYdF3gS3idsAHHGXd7FKeVBZtC7vbELYNQhqUgmEd3ayeTsPPWkMu0s0svLgLu3KvEvOhR4jC946gjnoZ2KZKuZf4LfqvF1e1onriqnMzdkB8pZO9Z+tEJK35lgyYft290d5KDykxThRRa9NSHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=JPciYqgb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WmhYq2Qr; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Q8vRBgjl"
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6acc88b9c5fso1457458eaf.2
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 07:23:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786458206; x=1787063006; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5XK0MtFgXJmx+qcjMc6j52NKS3ahH0gHbvfJVaAb2j8=;
-        b=Q8vRBgjleUsQy4y/CP9UZ0/WMc3ATut60Qn6M/O1Eo4yoT7qJvMu2wqzGhXcChZRyY
-         NxJEUNjSzkLvSA1D5oKUB+uh5R2HvtLnDMOm7rLS8cbadSLFTu9hUuXugHErxBgeQwNy
-         1X88uhHSShO1I/3UqokR2kTN33YiBkzx+o1MzNx0rytiQuuXCdE9xK/CSK6Lz5gtJtMO
-         O9XuUXAEY0DEk0NoskM7wGt2XMkf+jZmORjRsa+6XT7GvSiJrjOuak+0e3hXOplGuX75
-         3HeyyWTn3dTx1mNUtVjEYjrQHGLphG2IHXVZsR8/C3iIQq9fTmc2POI3RemiN0BI9X1t
-         8nMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786458206; x=1787063006;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5XK0MtFgXJmx+qcjMc6j52NKS3ahH0gHbvfJVaAb2j8=;
-        b=iIDzDB9Ita7m3jdUX+ZIHEvzUU8XXd5QIkTGjNLCGUr5upw1YzpbflX9VQlaBP6Fsc
-         ppuwkm7T0vKknQngzaHyeEwwPvLZv2tZpygXcKjeTVInLB2zh1p0vIadlV2689BHiXVD
-         yzI7oHPAKATV/lybQ6Z0/Z2PRfl0LDVCr6IoxNIAXDOjB7D+4UbssBg1evP5wkMr+3si
-         FbDTNoajtCrwnF2p7uFI1IDSzYqsjeON+oI6s4KxaJuuPn7OFCe10Gt+zIb6ws7yhfur
-         7ZL6HrRt7eQ2XLoq5uZKB08lzn/HqpAjoUWN9cs19AJlCKOng9xb+bRSsahdFw2ZN3ae
-         NsdQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqTwgSxivt+lAVlkTrJ8H/sHvPfxBqvSBYMHE1eIz0RS5cccB42EGRpkBT854sBSDF68RK2zY2Duksq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxzyd0rQ1wF/GEwzPFOam4lbn6eHQRmuBB8CrcseMcAD04tJjID
-	ca684/N880oQYU4N/r6CJ6Drce7h5+RdgzUeSjqU8Om3BiV/KudfSnxCqePGOAJMWJI=
-X-Gm-Gg: AR+sD11e4e017Uyr7o/hCknSp3Ez5wxTocIU3rfSbDTw2uFxSzzYWa1NI2p+Dq0/kZ2
-	DRnKwftgN5UGbJm0es7L6R11AH2cYIXnipTN9z/CCrolJV2QUv66bVQZf8flO0Ps2q74Xdm4UEo
-	f2I4P2vGWXeBUvjr7eg+br83fcgmBFZ/u2dpjS+VI6QrEaxCLVqNpP78RGvv5bmlHNmFQ4mDP7l
-	AcS79EIicPEyShYi8DGeVUJgXoRA96YQ6rAOwsXNQA9EV2rt72BJwixAoEjQLvZ1EkwMVkc7vzO
-	NtWWnwfRxkk6DNDiG/sNWHsEew1ubrD6M7rapFadDmFZT+XXeipGZ2y8Q6pB+wUvwl3h3yMlOt6
-	tr8Luryffaz64MoZKmxwzRScECiOW4suwu7P2+kXbBSl/sb2cpBZoigEmS4L4G7P5sGsfryk2AP
-	pM8WhHaX67HMN0KFlnBOaYpAFijUUj46bN6l9bUZX3oagISa/hNwceXRCyrPUOVrbeuyJa7M0ca
-	JLUb+8dDyp2wOOicATCIRrCqpDdleQzuUKD
-X-Received: by 2002:a05:6820:2d43:b0:6b0:4ac8:3c59 with SMTP id 006d021491bc7-6b0a3126194mr2247681eaf.12.1786458205868;
-        Tue, 11 Aug 2026 07:23:25 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:7060:91df:60e9:76b? ([2600:8803:e7e4:500:7060:91df:60e9:76b])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-45e1da21b95sm1313218fac.18.2026.08.11.07.23.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 07:23:24 -0700 (PDT)
-Message-ID: <19f0113e-63b1-468a-a1b5-db6251612e9a@baylibre.com>
-Date: Tue, 11 Aug 2026 09:23:24 -0500
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="JPciYqgb";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WmhYq2Qr"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id AF83214000F3;
+	Tue, 11 Aug 2026 10:25:49 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 11 Aug 2026 10:25:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1786458348;
+	 x=1786544748; bh=MVHBo9K2Wk2DeCidmUS0Kx+MIUWwsM/6MNQXk7bW2eQ=; b=
+	JPciYqgbXNFRS+rfwdJkw5NCSHI6h6cjnv0X3kgUlHAXKvOO7aWqGpiCZBKPmrGW
+	khESsgZw/RRvTWwWN4oFvmj4Lx0MNxSmOTtRg9/aVdN1/FAQY8hepmsqktafj7Pr
+	cxpRscytHoXI5gHbZhFauDSBWnsPxkVFttjQYWemC1xe75x8Fy1vXsLZGkk/V7U7
+	YAzP9ckjsorx4Et+WZsHc08DSqBw/8+kdwyBMvrXtdN95+FpjlxMEik710sX7wE9
+	mfd9YOC09KgJRq6Ri9gI19kt3qfKJZJVGe8EfVRr7mB577WJCaHakwMjZTGu71PR
+	yQsWfaHcaRBKIXTZK+2k3Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786458348; x=
+	1786544748; bh=MVHBo9K2Wk2DeCidmUS0Kx+MIUWwsM/6MNQXk7bW2eQ=; b=W
+	mhYq2QrQ+aVYbS5dPtkzh/BSRD84pUvK36T6s0ZFyRFMgvrB/Nt9ka/NCpK+h83f
+	mVEve+virZoEEuD8hCL2+th0h3fKq7UVgBhXF2Y3ja+zCcGo4eWwNiUdBTXNlfGl
+	hVEs5vK1UxM71RIUJJq6g+b3tjZycbSdYoPrRW3Q0o0zvGzGWLG4yfXvfQNM9AQd
+	rN5QEiCs6y1N4Fd2XtryZsaiNG+c0+myrvuasCSI/TXDckw/4z/BBDqa5nOIsVf8
+	PCgc6NNW18oOPP0YHZCM5He1WSl4qJXnfwOXaKw1BFqJayhfIRJ02AU5FHmRS2kc
+	4eS2/WkDdKttHvilJNXeg==
+X-ME-Sender: <xms:5jB7ard16m7B5rc7m6XBuCc7zYgRy_TxMhpvdG-YwHUxUxC43RuoOA>
+    <xme:5jB7asBc2fEiAYxxFbVHzCbtVra0rqjx-sBOqw8lkC3oJHYAqZlaEPctrBVd1AeaC
+    lUoX1EfH83URXcNmW-xTp5CZs2zMHLxPax206LXn2VFW2LllVDyYw>
+X-ME-Proxy-Cause: dmFkZTGk0MdjbbpeNh1QaJUeUW4n17idi1hVEA4RVnDre4k7eHOk72+g0LzYkhakF2FJeL
+    vlr2SFHS0QIBU1RQcLG0RuBE0TGXCUJAcV3AM8wXMw5xEya+U4c5BY2i7/V/6OdPrDbTBQ
+    lnr4MS8s0iJIAMync9qJrBDbLkf9fkraw31EZ2rmS8N5un4NZ1vGUxoltxmMTz8E4OJycc
+    ZQmM9zjdHcI3js+F/lCxg5PLzMZOHfSYvx4HIsL+eXOSAZ9tZD9BrvSsYhUYpw3Loyu9ii
+    XC/POWgZghIG+6HuUG+Tl9U6kX940WTocJ56TEBa/PwVdAHV2elfDLqOWG3aac2uvA86Er
+    3ymA/GIwl51yoGrSJrBYrkytyxsZxHdD3OFEP2mHUyP6MsP2l1aG3LWVFiLB6LE9H0im/e
+    1L8MTFQ3siJjDnHASGWztuBN6vHsFDTI/Rr37R9oxutm1lKTboGacpj3iGZnHipjmA8fSW
+    yyEQxtIjZLGbWX4zZlcIZGntiwMnAgDJ7XYJ/CDhvfncEoksztGcTIk5AzdzkADNeHxaul
+    Sy3ZwIGL7lvoFOGYXvq96/1Hq1EcOZtgWCqRZG6vuJN7yfJb2IXdni+oZv7jdae1QTWzAi
+    OuoENgHLLiux7iXz6U38FCNXuZFGKzjTjHvwfI7Mio+8HX2fHKWGoPYnMEiA
+X-ME-Proxy: <xmx:6TB7asZAymUfYPtWWR8k0FP9A9pl0KM0Ickx05Yz-IAacDhy0berTg>
+    <xmx:6TB7asm_V6gFEizgySRmv4VaIjavis7WsLmMdSouG2B2LA84lNAjYw>
+    <xmx:6TB7aqXGYb6X7xvcn1a1Z-YLYwdumtaJU3UowWzPtecIjEDFFV-Jww>
+    <xmx:6TB7amIRVLzmVCm07VKG0XvpzwOiNJXSKb4Efq0E-S2LqC06KdUtrQ>
+    <xmx:7DB7auDERW2D1zfF76zpbGRNqHcw3kx9kvZZpe-Sf7QIDWeRuuC-LrZy>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id B0A0A32A006F; Tue, 11 Aug 2026 10:25:42 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: adc: ti,ads112c04: Add binding
- for ADS112C04
-To: Kyle Hsieh <kylehsieh1995@gmail.com>, Jonathan Cameron
- <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260811-ti-ads112c04-driver-v4-0-ae704ac17241@gmail.com>
- <20260811-ti-ads112c04-driver-v4-1-ae704ac17241@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260811-ti-ads112c04-driver-v4-1-ae704ac17241@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-ThreadId: AE4jp8cz6WHc
+Date: Tue, 11 Aug 2026 16:25:22 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
+Cc: "Andrew Lunn" <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, Netdev <netdev@vger.kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Message-Id: <7cb59930-6f50-4b49-af58-b67bab2f542b@app.fastmail.com>
+In-Reply-To: <ansuYaT2GAMAA0hF@pc-du-fromage>
+References: <20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net>
+ <20260811-wiznet-link-gpio-v4-1-4d5f7da885a8@marmottus.net>
+ <5812d452-5dbe-436b-ae6e-af062a873f7a@app.fastmail.com>
+ <ansuYaT2GAMAA0hF@pc-du-fromage>
+Subject: Re: [PATCH net-next v4 1/3] dt-bindings: net: wiznet,w5100: convert to DT
+ schema
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 8/10/26 9:48 PM, Kyle Hsieh wrote:
-> Add device tree binding documentation for Texas Instruments ADS112C04
-> I2C Analog-to-Digital Converters.
-> 
-> These devices provide 4-channel, 16-bit delta-sigma ADCs with an I2C
-> interface, programmable gain amplifier (PGA), and data-ready (DRDY)
-> interrupt output.
-> 
-> The binding uses child nodes to dynamically define the connected
-> single-ended or differential channels.
-> 
-> Excitation current, burn-out current, and reference source properties
-> are also included to fully describe the chip's hardware capabilities,
-> aligned with the ti,ads112c14 binding conventions.
-> 
-> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
-> ---
-Reviewed-by: David Lechner <dlechner@baylibre.com>
+On Tue, Aug 11, 2026, at 16:14, Arthur Cr=C3=A9pin Leblond wrote:
+> On Tue, Aug 11, 2026 at 02:57:40PM +0200, Arnd Bergmann wrote:
+>>
+>>I think this needs to be IRQ_TYPE_EDGE_BOTH instead of IRQ_TYPE_EDGE_F=
+ALLING
+>>to make sense.
+>
+> This interrupt is for the main one which is active low, we don't need
+> to catch the rising one.
+> Only The link interrupt needs to be both edges.
 
+Ah of course, sorry for the noise.
+
+      Arnd
