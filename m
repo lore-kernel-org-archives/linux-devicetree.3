@@ -1,411 +1,213 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023114.outbound.protection.outlook.com [40.107.162.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE2C47A882
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 19:42:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786477355; cv=none; b=MxIeGGwtw9hpuE2EseTTRm/Qbh7srdlZMkBX54jt8HrYFARwwLPKjMYkyDQly9MOdqsCi+XUs47/KdP1ZgodfOQele9xkKvFkBgVLfi7NdWDyLjkPSX8ANCQ+aZP1FOoCORJ7wV28NL0Y6DjCCbgNDXEDlV9FVTHiG2g43SLock=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786477355; c=relaxed/simple;
-	bh=SG9a3O8kgbbhIUPGdJffq+qyBcl8R53EBTAnTVe65o8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ilRvtDTBW90sbz8DLF4kpxHOuIaq8Q4RAutLu+aziQgTdVPKfYdjnQdh6RWxq1u8y6yjXVQ54e60peSaiB2O6zqMMk1E3Q9gJLXPm7/8VEa4bNgVLd++zZr/IoK2be4S8Z2s8emuTLlH8yE/3SfN9nVhQ/xN3u1blgrtsWzHkrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p35gEs2w; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893293403FA;
+	Tue, 11 Aug 2026 19:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.114
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786477445; cv=fail; b=WReoYleATv7Pq+ge9VYbXrOjnFnUgKUD8HDQSad8syym9ZNK3pHZLpFmPSyAiH0OrT2R07u3c5X0qELaS0ZXUl+iF8cd1uv4CeydZHKYbdsFsHbZuvqCsxocTV+a6DkEakqXJPs6oxQJqO1NCfXmTVONie0CHiAoSed1lE02bTs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786477445; c=relaxed/simple;
+	bh=2FD1D4pmunTZUZc7/XPWbmJJz0fvUPya7KIRLwuAlio=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mpmBp9AWhHkpheqWLkz7RfAsG41Tu8wNCA7UWd0xsol1vH2po0fhQKmAYE8u08PxyWHoq9WIahQ18X16x+IcX8LwXFfm2U5kqFGULDXGi6WAZqvR//iIhMcemb+KWN547fl0GMhrCKdm2uGWAi3P3FaqTHL+BJPgcMxaSuPS2z0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b=qmBf5FD9; arc=fail smtp.client-ip=40.107.162.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p35gEs2w"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-495635a85d2so680295e9.0
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:42:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786477349; x=1787082149; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EuP0o+o2y3kz5Ka/bLCibsf9qoUzv8ZsKgTXDkaX/fc=;
-        b=p35gEs2wyuQJXuU2Ne/Fuxy0Vk5juwvlHtd+pR4mZbKEieny65r0824XP/17D8SygS
-         HsnwVjlvqmgMLELiYh91WVmOoCvgX3xR0BVWZALq+rhv463Sl1vBLUPJCy9I4XLriukj
-         aAu8ULMg4i7mibdoz1x0rqtO2xExC8XrMriDrdafQMh2J+qNFCIX8J+HaEI51oWeSlwX
-         u/r3CncsT3VSwY74xWTo5D27uZhEtjELPnbbx7j3YYpaoQl6a7U4IoH0sjCvk3Och/EW
-         6dl+yYdZHEEU22rSDYZ0pMZHRjzVqMN3KFak8q6SO0skDZMZRguQt+j9nMCsYxuztob3
-         r4Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786477349; x=1787082149;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EuP0o+o2y3kz5Ka/bLCibsf9qoUzv8ZsKgTXDkaX/fc=;
-        b=TqeaHLSuw4uLyEsHVzDfXgg0n5l7ZaFHzYN6mTkg5n+8e3KbqpkPbxIoF95f6hJX1P
-         +ZSfcqvpM+CB1c2TTx45rIKC9sZwcRZSmQJVkurTsEXzgBhEuQai67htEM0Lgesfh5lp
-         k7HEzrsZ8U/UqB1vEUiCJmgZNgOAVtrdbSg1UUehFrJGs0PV05JuN2ncPVuU1iTGZ1F+
-         FB7VtJ+Vf+nVwLYJ6SxWsIxPmaQybHe8xDd91+l6JKs+biwnULvCKEXFZSSyhwgFfJEL
-         PxjM28r+F930F3N8siNMgKQ4VSXQco2xbbxDW4qQIdem+/JCGwkTLgjkW/xtQy0EGiRN
-         53kA==
-X-Forwarded-Encrypted: i=1; AHgh+RrAJye6It86Qp0ueHAATjPinxZUBtdMmAJ8K26Blti14sW0K1xyYUA5720QkS1DoTecjNAvRD5YIh6U@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE4ICgxW2NvV4x3NDoqaHJh0RfJx0XCaA7k9MKLH3C1gXNTjWJ
-	QBBFD9APrvrzWyHcG6PRpDJUXQuY8bvMqeifIvI+2wHt+YN3MlWGA8rE
-X-Gm-Gg: AR+sD11q/sPzVmd3HvQYjUyom2f/3wBDWREAM3mwdtXt9Tizft4Aw71vJ3K9PhvWAV+
-	GBwytc1IIvdDJx8YAH9AbOsGhbf/ZWirHaCnfPuTXCD/1MMHaYdmXBN22Cf9C9k14CtD7G2EAlS
-	6CuY1wKqDPVEH60AwUamveQ67cAmxJjW9jImdy5x22zi55ZQ+ypnRMgtoMmMyRBYVhz1xgYu/gq
-	/XuFOV6TAUsXj0EVpobN+qZbQha4QuNK8y1Gnd6IQN+G0hNaJqOiD95dR2uwfckguQKhuqHsU9Q
-	d5pq1E5rJHSMjpllDa/oEZEHVQaJjOWbuNzjVczA4JVfguQ9ZXcY91Z81rvxZVSZiHkTZg6a5ph
-	/BIXcAsFLDbGWpXpTGjm462VNRBdFxJ9t09bQZxDmrguLalPjW5wTc/X1GX2UskCgUEWN8choGu
-	S96LPQdm2L9DfWCZDhjwtGcsEW9352vaNZ2tnVcvTId2WEiWaBbFGarB8F7ESVQoCz
-X-Received: by 2002:a05:600c:4e08:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-4997ac78e71mr22044615e9.7.1786477349246;
-        Tue, 11 Aug 2026 12:42:29 -0700 (PDT)
-Received: from antoniarch ([78.213.143.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997b22784fsm2606535e9.2.2026.08.11.12.42.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 12:42:28 -0700 (PDT)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: alexandre.belloni@bootlin.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v5 8/9] rtc: abx80x: create abx80x_i2c_probe()
-Date: Tue, 11 Aug 2026 21:40:33 +0200
-Message-ID: <20260811194034.28937-9-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811194034.28937-1-apokusinski01@gmail.com>
-References: <20260811194034.28937-1-apokusinski01@gmail.com>
+	dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b="qmBf5FD9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yECU/sB+oG7N4NUS277OWHxoAgAGWFpeDolKYIH+o0tZMqwhmmk/zPOQe9/f048q245NBTVHJIq6i19DG5qBCcfOqoD19KFwonjpxudjhImLzeXd/ok4Xta3AQXuFiPS/BsL4zfzIL3LaN4tpNVY2VLjYTGwtqIa47HYUipu3p70mkBwYwnqp/NEZRkX0ZzDa+q51X8IzafP6w1+cH6lZxXw8Q3jbHp5mZoRzsZ/qVxv2OYX1RsIZ03h61CNEuXr7xF/vM4SsMi57Cwxjmc+Xh6VLV3kBLqjiqGlY0Zr6ei8mUFaCB1XLiRYpyEV+vJSy2LyO0gQSbV9qhzVh/iXGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gNFkO+x0mjF4mAfDJy/FdbQ6Cn0lxAaHjOtiBN9eQY4=;
+ b=DLmjXjUBNJqvaMTraEawPLYyHMqgb/Px5CXgpAwOGC6DqPQEp2FseD3voLlxMUcMfd0zqiGYTQb790ufCK+zKcSEcPQm/N89SK4XE3BEbdgbFESs82RSczUFXDFyS71NMvc8DW5zcueTehpEaTvfX7ZLArKhSCUAdeiYoPL5nfnzPoPgcbCtu9RobEl29UZ1wApRRx6/0MmnZgwuAISlwg+AJB2EuzQiBm7xgdciK2uPQVnp2/E4y4P9ne2f84CM2ELXHa7gSzJHnSXr9dE4KouWvHjY6NaA3VGGvAZQlvvg0YGcddzieD6bwcy4wG9h9EZLYevCa5FHHNnS9HYWIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=genexis.eu;
+ dkim=pass header.d=genexis.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genexis.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gNFkO+x0mjF4mAfDJy/FdbQ6Cn0lxAaHjOtiBN9eQY4=;
+ b=qmBf5FD95vB+GbyYjVxvCHkFDDoYQmYCGmutJaCZn2GcV+pKcD+9xgVkw0zjg2i3Q7J9b7kNcRTIqy6Y3KaplFR0P0/3b4CWX9PIh7zILt072IQ/Wlfs+sKWh6172U6EHTP2eEJE34fS5s5HdDW7+uU7+z0jjYIg6tYlXWv22sNQ2uQJeIKehUzPAdvljErFYft87huf641JJLR4A5RSbOIAsiKttsI6ev+t3rmYtuqPbWFbs2ML3aIgKJnmbmq5tW2o0lmAEVvJ8tvQp6IuQ1PqJeDS3EIbGQjHqUqkoorhHHDm7wvnp0La5U/+FmdRxx5U6wNKIsuTIES7a5IdGQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=genexis.eu;
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com (2603:10a6:10:2ad::14)
+ by PAWPR08MB9891.eurprd08.prod.outlook.com (2603:10a6:102:33b::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 19:43:56 +0000
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f]) by DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f%6]) with mapi id 15.21.0315.012; Tue, 11 Aug 2026
+ 19:43:56 +0000
+Message-ID: <8e235c79-9b16-4f06-ba46-da7f28a2804a@genexis.eu>
+Date: Tue, 11 Aug 2026 21:43:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support +
+ clock
+To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>,
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Ryder Lee <ryder.lee@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <CAGXv+5HrDw8GWb9zp1AaQU9UW+0FGcr7jOV2jt_zi_2KgfgBqA@mail.gmail.com>
+ <20260807152059.GA39821@bhelgaas>
+ <CAGXv+5GNvV0yfX2v7E9HxvFpm0xwhGMQLjec=_xV_6YipXFcbw@mail.gmail.com>
+ <CA+_ehUxa6U+0FEFuptJXQZ0kwbthYjshZftx32CmwkisAyo=+A@mail.gmail.com>
+Content-Language: en-US
+From: Benjamin Larsson <benjamin.larsson@genexis.eu>
+In-Reply-To: <CA+_ehUxa6U+0FEFuptJXQZ0kwbthYjshZftx32CmwkisAyo=+A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: GVZP280CA0075.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:274::9) To DB9PR08MB6697.eurprd08.prod.outlook.com
+ (2603:10a6:10:2ad::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR08MB6697:EE_|PAWPR08MB9891:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b151501-2933-47f3-b41d-08def7e0e160
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|18002099003|22082099003|56012099006|11063799006|6133799003|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	7BYloVijwKGKvQCAlTJW3JvY7iVsWDJb7nFRiEduo5BLB47iSAmsYX5wqdVLxwaqp9bi6mlqn0lg5ay6CSw7HVzwNVKEI0XyyRq5zgneXivd78QQJSQsr9s+rLZz2HNWknBZHGUvlOEcVntm/pB0rriQ7Q5Xj3Gd248ARCMFIkIVlMmwAbBwj1C60ysIsNYO7VAtnBiIDxAlvONhQuD2Y+/JSIrv3BbG/bfcng+qhLoiByYpNCWDRyr2IIWfRAkFJq1YHXz33Igj/U8qG7bPoSf+5CJlDGNNlHGrj8np8hDvVgl0XN9NiX/h0IHtmUuVuqktFHThp2JjTmEJXasbiFuX3ORHzD2IoCjvBkkBLEzMW54DXBz+hJQ8MYsjuFD06yF1QcBhZ2xObplyIlw4wXAlaHenM0b27YN8kxfaEUCXfiCknL78T/D2BV7A6V97QuijxGcsv7qT+orbUWyN0bMCjrwldqFPkxFNY/f5UencA30XsSJDlXxEK7gILKQFYFCeh9M36NZY4EU3UjAH/N9a4NuZIyHfv5pLjMO2r4JmGS26/+Jkqe+xFE8nSzwEwqh2atTT9RkctBk19wE2Yb/BKyQCrz/BhNGI8+IxktzZKAmYKCMbbBxL1LG5W/choYaxheTZ3JCfTQ7EMGznX4p2lCz8VMaLxqVxN6+3lmw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6697.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WGdDWCt2U2lmR3pGeW5aeTFjbU5lUXg0Rk5RbDhtaHNFSXV4aFpsWlVCY0Ew?=
+ =?utf-8?B?YmlpWmtxNXZ6TW8xODlxZWJvVlVFRUQySysvdENPQlZMNkVrZWMxRW9aQ0N1?=
+ =?utf-8?B?YVZDeHM1cUhGcmE3dG44NjJBQnBqL2I4YWJxNkVUUHlZaVo3ZWJodGVEaEcz?=
+ =?utf-8?B?UUwrcjRaWXZjVkxDK1h2R01qbnpRSUpmRHpXSmRMWGw5WFFZNVpzcSt6a1pK?=
+ =?utf-8?B?L1J6dUtETFl6MlN6a3cvR0djNDdIcTVNcWovNk1MOW1NbHFEZDNMZHU5ckhC?=
+ =?utf-8?B?SjRocVpZNFJRZzBaZlpLQkVWSE8zOGRXSno1SUhUYVJZUU8xYzg4M0JJMzlv?=
+ =?utf-8?B?TCsrOGJxdWMvRFMzZDNNN3BiR3BjZ1VtNmNJaTE5WmcxSStCL1dtM0J5NHFi?=
+ =?utf-8?B?NGVYSSs4ZitLK1k2WXR6SWRaUEQ1b001dWpEQVZWVzJ3VUIvbVNzNFE4L1Fa?=
+ =?utf-8?B?OE9uMkZDMGNTaUw4b0dGSnM3cFM3TytNdkhIVGFFODczQXEyNVBGTWFtMUMw?=
+ =?utf-8?B?R2VzZ3JGOXkrYUxJa0ROY2FpU3dUdU1oZ3pCV3lEYW8zR1BrYmRNTFpOUVpq?=
+ =?utf-8?B?OGNYY2s4NVVodzVmVGhNcUR5YjhDL2ZaTThrcTAvVmNySWoxSFJqN2NmMzlC?=
+ =?utf-8?B?ZnY4OXVzRU82SlZPSlVjN09JNFJaSVYrV1k1WGx5MDFuOEd4VisyYzlHRm1a?=
+ =?utf-8?B?R0J5OVdWRGc0VGp5UGQ4bkd1WEJqbld0by81TVdUZXhNS3pxSFFxdmVUb1Q4?=
+ =?utf-8?B?M1dSQ1ZhRVgwVk9PcEY2a2NoVXNpZWlKV1JWRDdGb0swR0xkZ051OUFwWm44?=
+ =?utf-8?B?dVpXSWxod3ZHRHRkNy9sRkpraUFCQlhSK0c3NFRsQ09FSlhKTEh4N04wMlBr?=
+ =?utf-8?B?UVBDWFFZSDlMUmY2UE5KVUlxWUJtWUxWNE1uV0R4N00wZWF4Q1pmVmVDSDYy?=
+ =?utf-8?B?QXplRHVLL1N0Ym9kY1JyR0NRREZXZVh1RXhtSkZLWXNsNmtZeXQ3MHVaR014?=
+ =?utf-8?B?WVBFSE84Vys4WFRVWHNLenk3TnEwMkQvVkFtL2k3SDlUZEJEam9NaUo0RmhH?=
+ =?utf-8?B?WXZ5dU1HbEVYdXdRS04vQ1krcm0zdWxCQzFsSXJoWElCTEVRSm5hNVhJbThj?=
+ =?utf-8?B?VXZXUGVxVVdIbWhNb1VrcSs2bE5UeU1MVVdaaUw2OVVFaFlsRXkvOFptL3ox?=
+ =?utf-8?B?SmJVYXNoeHNVZTY3ejZwcEt6MUF4dUZxN3RLd1pJeDlpbXpTWTJIYkJ0TDh6?=
+ =?utf-8?B?L1VMekdjSEliRFJwK2Irb0dKeVpuak15T2xuOUI1dTdFSnVFd0c1RGd3MGd6?=
+ =?utf-8?B?aVRzTGlQWDFHVUZ1V0lHQUNYMjdEL0tCakM4ZUc0VUJjTFVoMnRjWDJ1dHBv?=
+ =?utf-8?B?bzlYQlMwRElKWjBKRkZ4T0ZlRXVzV1JxR3d6cUR0UGhPTTZxM1pVUkErcVdo?=
+ =?utf-8?B?ZCtxdDJYb1NCWDUyS2Y2VjFabDVUS2ZaZCtvL25IMWxxUUY5YWhjdVp6SHZk?=
+ =?utf-8?B?TzBkM2Y1Qy9xaWlTM05SbkcwYlk1RTh4Smh0R2Z4WURmUW9sUUV3Y09VNkc3?=
+ =?utf-8?B?aVhjY1NrQTdZcEJuUWY5M0gzZWtzNmZPTW9XcURseXBmbS9ZdkpDWlNvM09l?=
+ =?utf-8?B?ZlZqbkdOcDlhSTRpSkxDcTlVOE14cStpWStIUzYvRXpxVGFUUzcrSGx6RUNw?=
+ =?utf-8?B?aHMvb3drYUU5S1hMdkp3cDdna3ByWEVRZEFjZW5vODdIWmd6cEpoelRLL2Ju?=
+ =?utf-8?B?YUpQOFliUU9WSXhZbHNROTFFVk5QTGU1M0lFQlJJU1ZobkVGTllrcHd2Vjl1?=
+ =?utf-8?B?UlgvVEJtdTdqUEs4MlgwZUFuSGZvTUMyZmoxclJxeTZoekFUZCtrTnE0VThh?=
+ =?utf-8?B?cERlM0F0cHFnTnJ0a0drSkVuUEM5bUVyKzYyaGg3SkMxMkZMTy9uWHY5cVM1?=
+ =?utf-8?B?TlhpblVqMytLaE9vN0huWXRPWHM5QkRIYjhUMjdjakJOY3AvWkJ2Wm0veUds?=
+ =?utf-8?B?QkxKNE4reDRxUXdKZk5HUWY1c2pob2dUeWo3N3Ayd09IdHpqWHpqbzhMRGlL?=
+ =?utf-8?B?dGxuWjcrbEQ2YzNpRUExa3kzZDJzYW5TYkpueXdqc1NHa2k4bUJIMkFpdEFl?=
+ =?utf-8?B?RDdFWWtMY3d0d0g3eEozL0hjZ1p2aEpIL0dudlZUTVF2ME1DdEtPZ2ExRFBH?=
+ =?utf-8?B?YjJtZGc0bitTUHdEMzN6OTVRcEp4THdVZHhCemlIenFXNFhDTktNTnVXWVg5?=
+ =?utf-8?B?SHlkeFcrWVk2SWhQSHZwaTZUN051eHF2d1dWd0dQVytDN3g5R3NhM1hJS1JX?=
+ =?utf-8?B?QnR0RXVYc3hoS0VhMHd6Sk5SUzlsQmhRcEVtVkk3UmY0UjlJTjA3Uk94T1p3?=
+ =?utf-8?Q?Xpzv6s5eHQDXlhE4=3D?=
+X-OriginatorOrg: genexis.eu
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b151501-2933-47f3-b41d-08def7e0e160
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6697.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 19:43:56.2996
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ye29xgv6lqewVT3HkIuiZdm5MwwlEqFioE8zJ3iOYp8tVoV30Y5fy+KrkjGrJ6u7sw50UNw1vezBZ4gCPThjVsE0zqg18aIJQ18BkYEpNB0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9891
 
-Move the I2C-specific code from abx80x_probe() to the newly created
-function. This is a preparation for introducing the support for
-ABX81X RTCs which use SPI interface.
+Hi.
 
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
----
- drivers/rtc/rtc-abx80x.c | 171 ++++++++++++++++++++++++---------------
- 1 file changed, 105 insertions(+), 66 deletions(-)
+On 10/08/2026 12:55, Christian Marangi (Ansuel) wrote:
+> Il giorno lun 10 ago 2026 alle ore 12:33 Chen-Yu Tsai
+> <wenst@chromium.org> ha scritto:
+>>
+>> On Fri, Aug 7, 2026 at 11:21 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
+>>>
+>>> On Fri, Aug 07, 2026 at 11:24:09AM +0800, Chen-Yu Tsai wrote:
+>>>> On Fri, Aug 7, 2026 at 12:53 AM Christian Marangi <ansuelsmth@gmail.com> wrote:
+>>>>> This small series introduce support for 2-lanes mode for Airoha AN7581
+>>>>
+>>>> Just a nitpick, but I would probably name this something else, like
+>>>> "cross-controller lane-bonding mode" or "lane stealing"? PCIe already
+>>>> has 2x lanes as a standard feature, so this naming is a bit confusing.
+>>>> It's not like dual-LVDS display in which LVDS is only a single lane.
+>>>
+>>> I suggested the "2-lane" and "x2" terminology because I assumed the
+>>> result is what the PCIe spec would describe as a "x2 Link" consisting
+>>> of two Lanes.
+>>>
+>>> If that's not the case, maybe "cross-controller lane-bonding mode" or
+>>> "lane stealing" would be more accurate, but I don't know what those
+>>> mean, so if we use them I would also like to know what the result
+>>> looks like in standard PCIe terms.
+>>
+>> Benjamin pointed out later in the thread that it is just bifurcation.
+>>
+> 
+> Yes but as me, you, Benjamin and Bjorn people who weren't there with the HW
+> team at times the SoC was created, and given how the internal documentation
+> these are just assumption and observation... Everyone can be correct and wrong.
+> 
+>> I would assume "PCIe bifurcation" is a standard term, so maybe we could
+>> call this "Support un-bifurcated 2-lane operation"?
+>>
+> 
+> And how coming from PCIe bifurcation to un-bifurcated 2-lane operation keeps
+> the standard meaning?
+> 
+> This terms is equally custom as the previous "cross-controller
+> lane-bonding mode"
+> and "lane stealing"
+> 
+> I want to be honest... I'm not following why we are trying in every
+> way possible to find
+> a standard meaning for an highly integrated PCIe controller for a vendor SoC.
+> It's not like there are devices shipped with PCIe slot where you can
+> insert whatever
+> card you want. (there is only a single RFB board but that is really to
+> debug stuff and
+> develop)
+> 
+> The SoC is designed to have WiFi cards attached and only a subset of them.
+> And some of them require 2 lanes mode to work with this special configuration.
+> 
+> Even the DT bindings are not that specific to the details... at the
+> end of the day
+> everything is modelled as simple as "num-lanes = <2>;"
+> 
+Hi, I agree with Christian here. The property num-lanes will be able to 
+describe all possible pcie configurations of the AN7581 and AN7563 SoCs 
+(the AN7563 is using the same pci controller if I understand things 
+correctly). Adding more properties will not make it less complex.
 
-diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-index ab88af43b4fa..08b22c067699 100644
---- a/drivers/rtc/rtc-abx80x.c
-+++ b/drivers/rtc/rtc-abx80x.c
-@@ -781,73 +781,38 @@ static const struct regmap_access_table abx80x_write_table = {
- 	.n_no_ranges = ARRAY_SIZE(abx80x_no_write_ranges),
- };
- 
--static const struct regmap_config abx80x_regmap_config_i2c = {
--	.reg_bits = 8,
--	.val_bits = 8,
--	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
--
--	.rd_table = &abx80x_read_table,
--	.wr_table = &abx80x_write_table,
--};
--
--static const struct i2c_device_id abx80x_id[] = {
--	{ .name = "abx80x", .driver_data = ABX80X },
--	{ .name = "ab0801", .driver_data = AB0801 },
--	{ .name = "ab0803", .driver_data = AB0803 },
--	{ .name = "ab0804", .driver_data = AB0804 },
--	{ .name = "ab0805", .driver_data = AB0805 },
--	{ .name = "ab1801", .driver_data = AB1801 },
--	{ .name = "ab1803", .driver_data = AB1803 },
--	{ .name = "ab1804", .driver_data = AB1804 },
--	{ .name = "ab1805", .driver_data = AB1805 },
--	{ .name = "rv1805", .driver_data = RV1805 },
--	{ }
--};
--MODULE_DEVICE_TABLE(i2c, abx80x_id);
--
--static int abx80x_probe(struct i2c_client *client)
-+static int abx80x_probe(struct device *dev, struct regmap *regmap, int irq,
-+			struct device_node *np, unsigned int part)
- {
--	struct regmap *regmap;
--	struct device_node *np = client->dev.of_node;
- 	struct abx80x_priv *priv;
- 	int i, err, trickle_cfg = -EINVAL;
- 	char buf[7];
--	unsigned int part = (uintptr_t)i2c_get_match_data(client);
- 	unsigned int partnumber;
- 	unsigned int majrev, minrev;
- 	unsigned int lot;
- 	unsigned int wafer;
- 	unsigned int uid;
- 
--	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
--		return -ENODEV;
--
--	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
--	if (IS_ERR(regmap)) {
--		dev_err(&client->dev, "Unable to allocate regmap\n");
--		return PTR_ERR(regmap);
--	}
--
--	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
- 	if (priv == NULL)
- 		return -ENOMEM;
- 
--	priv->rtc = devm_rtc_allocate_device(&client->dev);
-+	priv->rtc = devm_rtc_allocate_device(dev);
- 	if (IS_ERR(priv->rtc))
- 		return PTR_ERR(priv->rtc);
- 
- 	priv->rtc->ops = &abx80x_rtc_ops;
--	priv->irq = client->irq;
-+	priv->irq = irq;
- 	priv->regmap = regmap;
--	err = devm_mutex_init(&client->dev, &priv->lock);
-+	err = devm_mutex_init(dev, &priv->lock);
- 	if (err)
- 		return err;
- 
--	dev_set_drvdata(&client->dev, priv);
-+	dev_set_drvdata(dev, priv);
- 
- 	err = regmap_bulk_read(regmap, ABX8XX_REG_ID0, buf, sizeof(buf));
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to read partnumber\n");
-+		dev_err(dev, "Unable to read partnumber\n");
- 		return -EIO;
- 	}
- 
-@@ -857,14 +822,14 @@ static int abx80x_probe(struct i2c_client *client)
- 	lot = ((buf[4] & 0x80) << 2) | ((buf[6] & 0x80) << 1) | buf[3];
- 	uid = ((buf[4] & 0x7f) << 8) | buf[5];
- 	wafer = (buf[6] & 0x7c) >> 2;
--	dev_info(&client->dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
-+	dev_info(dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
- 		 partnumber, majrev, minrev, lot, wafer, uid);
- 
- 	err = regmap_update_bits(regmap, ABX8XX_REG_CTRL1,
- 				 ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST | ABX8XX_CTRL_WRITE,
- 				 ABX8XX_CTRL_WRITE);
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to write control register\n");
-+		dev_err(dev, "Unable to write control register\n");
- 		return -EIO;
- 	}
- 
-@@ -879,7 +844,7 @@ static int abx80x_probe(struct i2c_client *client)
- 		err = regmap_update_bits(regmap, ABX8XX_REG_CTRL2,
- 					 ABX8XX_CTRL2_RSVD, 0);
- 		if (err < 0) {
--			dev_err(&client->dev, "Unable to write control2 register\n");
-+			dev_err(dev, "Unable to write control2 register\n");
- 			return -EIO;
- 		}
- 
-@@ -887,7 +852,7 @@ static int abx80x_probe(struct i2c_client *client)
- 		 * Write the configuration key register to enable access to
- 		 * the config2 register
- 		 */
--		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
-+		if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_MISC) < 0)
- 			return -EIO;
- 
- 		/*
-@@ -899,7 +864,7 @@ static int abx80x_probe(struct i2c_client *client)
- 					ABX8XX_OUT_CTRL_EXDS,
- 					ABX8XX_OUT_CTRL_EXDS);
- 		if (err < 0) {
--			dev_err(&client->dev,
-+			dev_err(dev,
- 				"Unable to write output control register\n");
- 			return -EIO;
- 		}
-@@ -911,26 +876,24 @@ static int abx80x_probe(struct i2c_client *client)
- 			if (partnumber == abx80x_caps[i].pn)
- 				break;
- 		if (abx80x_caps[i].pn == 0) {
--			dev_err(&client->dev, "Unknown part: %04x\n",
--				partnumber);
-+			dev_err(dev, "Unknown part: %04x\n", partnumber);
- 			return -EINVAL;
- 		}
- 		part = i;
- 	}
- 
- 	if (partnumber != abx80x_caps[part].pn) {
--		dev_err(&client->dev, "partnumber mismatch %04x != %04x\n",
-+		dev_err(dev, "partnumber mismatch %04x != %04x\n",
- 			partnumber, abx80x_caps[part].pn);
- 		return -EINVAL;
- 	}
- 
- 	if (np && abx80x_caps[part].has_tc)
--		trickle_cfg = abx80x_dt_trickle_cfg(&client->dev);
-+		trickle_cfg = abx80x_dt_trickle_cfg(dev);
- 
- 	if (trickle_cfg > 0) {
--		dev_info(&client->dev, "Enabling trickle charger: %02x\n",
--			 trickle_cfg);
--		abx80x_enable_trickle_charger(&client->dev, trickle_cfg);
-+		dev_info(dev, "Enabling trickle charger: %02x\n", trickle_cfg);
-+		abx80x_enable_trickle_charger(dev, trickle_cfg);
- 	}
- 
- 	err = regmap_write(regmap, ABX8XX_REG_CD_TIMER_CTL, BIT(2));
-@@ -938,7 +901,7 @@ static int abx80x_probe(struct i2c_client *client)
- 		return err;
- 
- 	if (abx80x_caps[part].has_wdog) {
--		err = abx80x_setup_watchdog(&client->dev);
-+		err = abx80x_setup_watchdog(dev);
- 		if (err)
- 			return err;
- 	}
-@@ -952,26 +915,26 @@ static int abx80x_probe(struct i2c_client *client)
- 				 ABX8XX_IRQ_EX1E | ABX8XX_IRQ_EX2E |
- 				 ABX8XX_IRQ_TIE | ABX8XX_IRQ_BLIE, 0);
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to update irq register\n");
-+		dev_err(dev, "Unable to update irq register\n");
- 		return -EIO;
- 	}
- 
- 	err = regmap_update_bits(regmap, ABX8XX_REG_OSC,
- 				 ABX8XX_OSC_ACIE | ABX8XX_OSC_OFIE, 0);
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to update Oscillator Control register\n");
-+		dev_err(dev, "Unable to update Oscillator Control register\n");
- 		return -EIO;
- 	}
- 
- 	if (priv->irq > 0) {
--		dev_info(&client->dev, "IRQ %d supplied\n", priv->irq);
--		err = devm_request_threaded_irq(&client->dev, priv->irq, NULL,
-+		dev_info(dev, "IRQ %d supplied\n", priv->irq);
-+		err = devm_request_threaded_irq(dev, priv->irq, NULL,
- 						abx80x_handle_irq,
- 						IRQF_SHARED | IRQF_ONESHOT,
- 						"abx8xx",
--						&client->dev);
-+						dev);
- 		if (err) {
--			dev_err(&client->dev, "unable to request IRQ, alarms disabled\n");
-+			dev_err(dev, "unable to request IRQ, alarms disabled\n");
- 			priv->irq = 0;
- 		}
- 	}
-@@ -980,14 +943,39 @@ static int abx80x_probe(struct i2c_client *client)
- 
- 	err = rtc_add_group(priv->rtc, &rtc_calib_attr_group);
- 	if (err) {
--		dev_err(&client->dev, "Failed to create sysfs group: %d\n",
--			err);
-+		dev_err(dev, "Failed to create sysfs group: %d\n", err);
- 		return err;
- 	}
- 
- 	return devm_rtc_register_device(priv->rtc);
- }
- 
-+#if IS_ENABLED(CONFIG_I2C)
-+
-+static const struct regmap_config abx80x_regmap_config_i2c = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
-+
-+	.rd_table = &abx80x_read_table,
-+	.wr_table = &abx80x_write_table,
-+};
-+
-+static const struct i2c_device_id abx80x_id[] = {
-+	{ .name = "abx80x", .driver_data = ABX80X },
-+	{ .name = "ab0801", .driver_data = AB0801 },
-+	{ .name = "ab0803", .driver_data = AB0803 },
-+	{ .name = "ab0804", .driver_data = AB0804 },
-+	{ .name = "ab0805", .driver_data = AB0805 },
-+	{ .name = "ab1801", .driver_data = AB1801 },
-+	{ .name = "ab1803", .driver_data = AB1803 },
-+	{ .name = "ab1804", .driver_data = AB1804 },
-+	{ .name = "ab1805", .driver_data = AB1805 },
-+	{ .name = "rv1805", .driver_data = RV1805 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, abx80x_id);
-+
- #ifdef CONFIG_OF
- static const struct of_device_id abx80x_of_match[] = {
- 	{
-@@ -1035,16 +1023,67 @@ static const struct of_device_id abx80x_of_match[] = {
- MODULE_DEVICE_TABLE(of, abx80x_of_match);
- #endif
- 
-+static int abx80x_i2c_probe(struct i2c_client *client)
-+{
-+	unsigned int part = (uintptr_t)i2c_get_match_data(client);
-+	struct regmap *regmap;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return -ENODEV;
-+
-+	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
-+	if (IS_ERR(regmap)) {
-+		dev_err(&client->dev, "Unable to allocate regmap\n");
-+		return PTR_ERR(regmap);
-+	}
-+
-+	return abx80x_probe(&client->dev, regmap, client->irq,
-+			    client->dev.of_node, part);
-+}
-+
- static struct i2c_driver abx80x_driver = {
- 	.driver		= {
- 		.name	= "rtc-abx80x",
- 		.of_match_table = of_match_ptr(abx80x_of_match),
- 	},
--	.probe		= abx80x_probe,
-+	.probe		= abx80x_i2c_probe,
- 	.id_table	= abx80x_id,
- };
- 
--module_i2c_driver(abx80x_driver);
-+static int abx80x_register_driver(void)
-+{
-+	return i2c_add_driver(&abx80x_driver);
-+}
-+
-+static void abx80x_unregister_driver(void)
-+{
-+	i2c_del_driver(&abx80x_driver);
-+}
-+
-+#else
-+
-+static int abx80x_register_driver(void)
-+{
-+	return 0;
-+}
-+
-+static void abx80x_unregister_driver(void)
-+{
-+}
-+
-+#endif /* IS_ENABLED(CONFIG_I2C) */
-+
-+static int __init abx80x_init(void)
-+{
-+	return abx80x_register_driver();
-+}
-+module_init(abx80x_init);
-+
-+static void __exit abx80x_exit(void)
-+{
-+	abx80x_unregister_driver();
-+}
-+module_exit(abx80x_exit);
- 
- MODULE_AUTHOR("Philippe De Muyter <phdm@macqel.be>");
- MODULE_AUTHOR("Alexandre Belloni <alexandre.belloni@bootlin.com>");
--- 
-2.55.0
-
+MvH
+Benjamin Larsson
