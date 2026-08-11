@@ -1,61 +1,61 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04A94446F6
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406F944331E
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786450854; cv=none; b=eIiPinwQ/0U95O2pueuSrDbUEgPQQLhlosc4mk4ZXQKADR8la4mjNdZGsa6WDP5e60Wv1WJRJMUXKcSOQt/0b+Nc3022IRBJ5e3K71XfNDBh0qJ8ZfrfpR7BGHU8j6pkNG0bq6vUSRJ7ug5sF6KAwF1sk+emLGbMzol8vAOpB3I=
+	t=1786450858; cv=none; b=ZguP5KSbFFVyGgOfwPqOjgxhAOyvNiBMIvBpLQC2PQfJP2MF6VA0KGVYZWs8Jy52VMdM1jENcbguFCX3obt15NYQkJ9spaGHKXn38vucY7JUzXY01+oEVpz57/2rMVVylBvsVwUnG/rnDOBKOdNamT0AWdrq6v/VOMr0JhgyA2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786450854; c=relaxed/simple;
-	bh=uirJlTrzUDnDWGluHgHaYZhmNeiDmkFi3DnjsuZpHfI=;
+	s=arc-20240116; t=1786450858; c=relaxed/simple;
+	bh=eYYAZt1D/azsw9KiyzJSs5x1E12lPK58GJkuELjCTl0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dqutvm+Ai8IrQx/ctFmpqVI2uM8tSu1HmN7WJjZr/sT+9P9WPGLT8h/7ffzF65WOzeatbnXniq5ACvo6zthBhZLPlHIm/gVTl8lV25VVBeLTtoEnMUpZze3WkRr7izfgbkbjzECyQ4H77/EMhfqC4/dfvYVX5770EZf2vIGN0Ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AHysLrxK; arc=none smtp.client-ip=209.85.210.175
+	 MIME-Version; b=aKbzjDJK506O7yeyrC8Iv5qiNrMeM/4ej0nC1JPqZYNSx+dilQawlLO7IuYaoCxpzUAz1UarerkaxZvLdIoKon9mfwUk1PxR6xbs0XfLNiUXzpGTy6jC/QVcvqd09Zg9yikBvBtdYsK/mN7afa11tUOLK5xHicb13HZfqHJ2VlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UmD2gsVl; arc=none smtp.client-ip=209.85.215.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AHysLrxK"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-848643382fcso746546b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 05:20:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UmD2gsVl"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cbe827e3cb4so3276343a12.3
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 05:20:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786450851; x=1787055651; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1786450857; x=1787055657; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GsFbGvUc+lL3nEmcNAop98oZPFXcbP5zb4ZbtxDxx0U=;
-        b=AHysLrxKBQRBWDPQAOCDHjM1n5xvZQ2q4T4wopMN1EbGiPvP79efhy6Y3H7y6zDD72
-         lyfi2zZZ8MGtj8/g5V/hUMa8gIMA8lo5N2dUIF8D11cVzr9S9opuhIFIzZiQirmuKigP
-         xwvegTrWzYjUhwxR0dEjzjN0A14QdcOpuXZTQ=
+        bh=W0rjMz7r89FDG00LgKpSG7rJxKNH2nfPyMU32ONUt3s=;
+        b=UmD2gsVlUCkjjjCgEhB1BENgxroVNIETQZHZCmnABrHU5UOkWXXEsRTLE2H6VlqswC
+         Jwd9uk4puvmNyLdAv/+kOFXYWMaMEzwZVN8nDqoxsHFx15ilzAGsGF8XINHTtjhKO5av
+         hQCaIKiV3T+hipr5e16zLCF9RhDKedg4OQyG4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786450851; x=1787055651;
+        d=1e100.net; s=20251104; t=1786450857; x=1787055657;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GsFbGvUc+lL3nEmcNAop98oZPFXcbP5zb4ZbtxDxx0U=;
-        b=VR7n5f8IMLGTf8b54CZOWKWJwoSHhUT3Mxwv4JyYAyazvdQvsqEwe6nAJECyVr4Nxc
-         Rt27d1pgXX3AUZgNmD6h30lvQnsZ9OgwdgeZ7DjML9rHhb05CixU3vDQSFkm9l2ErxIN
-         wAayvDI8psb70slgfhjpe78JJqtbRhT6rz7H+hN9vr0i4AtxL8dJ0CeBTOSVMWgxVDD1
-         7tWqFjJuubRi4fpOQE9pxmg60uC9DgGdGeTv9uY/o3qs3HBgAQzdtECl6flQusM/7yoP
-         2tKzG37oF+fcoyoE8vYZOCG6/GIONIrGtboD9KVuJszduKUD5MrUw2BXzGMEDzqYfROP
-         zW0g==
-X-Forwarded-Encrypted: i=1; AHgh+RpJ79saKE3VJPJ4IHoOlUExoXzKP0lOOHlYKbHR4LdFJJFiPJld2v54oXHfM2nBVe4ZMWZc65qE/18w@vger.kernel.org
-X-Gm-Message-State: AOJu0YxC2ASGBhU8DU/hAdx3y1rThdk+1KjL7gOtu82fyUcg4u+3Tjns
-	Pg/f3mTMau1QDAm7KR71xR7VAWQwhjZRxFdlA3e9MGW2B1HQWxmaxbDVonEPMTaozg==
-X-Gm-Gg: AR+sD11uEedGpSx5RwPkl0ym1kGCUIRQP9bAlH6oH4CWkEfIttJf5CVoT772DGIYCFj
-	pB2b36y+Z3TCey+sbtqAU8/LaOAgqpqacKC5CgrgLqm7QHlU6nAGJRF4GzE98oIqarDVai9y6o/
-	AqWXDoQKAiicvqdRqy937Q86ZgbgJsVZHNbAWaotL08GN/onLWwZCWeIhdQQfEZ7/izX/RdIy3l
-	eCy36iRuEhuf01Vf780O9uNI6I8RAda4pZA8Y6niMLUBwZO8Ru7rNjnk6YPzcHMhdc+s1w8ZC+H
-	64dw10HvXFSth3aTfh8pOGhAGMoBzBuaWCJ8/zyB1feTUh5uDt0yUQ1vUkx7gITjBlV5J167fIC
-	RgD8GD6qBMo6kL66FE8zC57yruV694GP6MIPqruSOxQuPnjrmlgEEIGwhbH/uWS28Ys1Veu7SRC
-	LXg7XeZwarQ/VGVUv4gg7yTOqsBhgldWWS9aoi4gHu20W7KkwG63P2o0DoIY7xw/iw4iP7Zjmkk
-	iOEIy9jV0VWjrNYZ0nZ5Z4z1pwAe9HFRKGoLVh1vWIbpQ==
-X-Received: by 2002:a05:6a00:8d1:b0:846:22ea:e171 with SMTP id d2e1a72fcca58-84fa872c289mr2761703b3a.3.1786450851388;
-        Tue, 11 Aug 2026 05:20:51 -0700 (PDT)
+        bh=W0rjMz7r89FDG00LgKpSG7rJxKNH2nfPyMU32ONUt3s=;
+        b=Bob2YgpI6pC6v1b9h63tW/GjFk6RKKJyhF+ft1HZRl7mMeT/jt0PuM0KaijtzTzNC4
+         73vPmxQbF+uCdpHGK9/HJ/jfOS2gxM0dwS37xbeXvMgPKW7GjJ0gSgo3z8OK5ZQ8j9kC
+         3gBtuxqEeSunVgtK+xze/h4gxKacyeSvPqp6JP+JIfyxLHXm0sv1qXAulUp5GvO3qQMq
+         rndWIjA2A7GtSrgKo79K5aX2FrcwlgHUurxFMI0ZKMQBrx0JHV3jiDXmrPzYQkSWB1gD
+         8MsoauoJH6UgvBeXcFE8vJUVdqXfqSNXqFgOY8Jnc3Xwn2qdVS+tHNMuXtPFRFwF/EaE
+         9aBw==
+X-Forwarded-Encrypted: i=1; AHgh+RoUPpxrka4JtiWCc/i/JHXUq54jWW29dSE9gB1xJhmUVsH4ffEHqQpJaIs6Uwr+ev8BuMTVcvJCJdkK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxaQImgn7G1j/VYD/T+h3oHWlYAAUqW+Mjpwfq8kGyMni+JoZV3
+	Ys65w606y1QJez9bRQz8qi+5Xl17vv313c9QubvAYv+xWBbjHIPuW1GJzKBJ361ebA==
+X-Gm-Gg: AR+sD12SF0nF0hxWq3sLeDigKI+ned1mlZQ9hWh4a3lt7qLFlKjAFlmVAbib/fWxPCj
+	ZLNYBBWLK+uG5S2WhSrIczYMEO7YibxBA96gjCdkbApNkM2I5Elv6zrncvR0/naPsTgaqlWNFsa
+	1W9KCbqWPwHdYiinRmj+MEvqrCJoonn4dBc1rX0h9xwzMJa+huGzmRK5wQMMfJ2QHU8+zrBQH8J
+	Rq4539ovcsgktMWW95QD3tVFFn73oNoc22hOeh2vbRA4IaT8/p8bX78IEp1dkZME0fePGZYbjEb
+	oV4kD56VThb0QSpbmiWTsqgz67TDctu1FX2IhV90oTV95c6YWb0Yol/iYEFHiUdVFu4QUMyMn7M
+	c/XALgT+2dj6Ftg9QRcKM5dGvZPjMAuHfIEy8EKQrrq0mixRC4MUdlTt08wyenwUvsGpDNUUYdL
+	7aRVKZPZKCPv5hcI7v/ChLYpQ2GPRwliD6oaXRTp1mI5VtY+usKeZPdO6yIKrQPPYo3ee/IJFON
+	bMAPTQYaoCeShV9N5TlGNxGldILRX8q/EHe8NyIcgUHAA==
+X-Received: by 2002:a05:6a00:32c3:b0:845:40d1:87fa with SMTP id d2e1a72fcca58-84fa873632emr3028343b3a.25.1786450856753;
+        Tue, 11 Aug 2026 05:20:56 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:12e1:df26:6add:1ea7])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa9574e9dsm662454b3a.54.2026.08.11.05.20.47
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fa9574e9dsm662454b3a.54.2026.08.11.05.20.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 05:20:50 -0700 (PDT)
+        Tue, 11 Aug 2026 05:20:54 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Mark Brown <broonie@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
@@ -73,9 +73,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-input@vger.kernel.org,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 4/9] HID: i2c-hid-of: skip post-power-on delay if powered on sufficiently long
-Date: Tue, 11 Aug 2026 20:20:04 +0800
-Message-ID: <20260811122011.3539250-5-wenst@chromium.org>
+Subject: [PATCH v4 5/9] i2c: of-prober: skip post-power-on delay if powered on sufficiently long
+Date: Tue, 11 Aug 2026 20:20:05 +0800
+Message-ID: <20260811122011.3539250-6-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.679.g6767b8d81c-goog
 In-Reply-To: <20260811122011.3539250-1-wenst@chromium.org>
 References: <20260811122011.3539250-1-wenst@chromium.org>
@@ -87,60 +87,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On some devices the HID device is powered from an always-on power rail,
-or the power rail has been left on by either POR defaults or the
-bootloader. By the time the driver probes, the device most certainly
-has finished initializing. There is no need for the delay.
+On some devices the I2C component is powered from an always-on power
+rail, or the power rail has been left on by either POR defaults or
+the bootloader. By the time the prober probes the device, the device
+most certainly has finished initializing and can respond. There is no
+need for the delay.
 
 In such designs, the system integrators tend to work around the delay
 to avoid the boot time penalty by simply omitting it from the device
-tree. This is undesired, as the device tree is not fully describing
-the hardware.
+tree and the component prober. This is undesired, as the device tree
+is not fully describing the hardware.
 
-Switch to the new regulator_bulk_enable_and_wait() function that makes
-sure a certain amount of time has passed since the regulator supplies
-were actually enabled.
+Switch to the new regulator_enable_and_wait() function that makes sure
+a certain amount of time has passed since the regulator supply was
+actually enabled.
 
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
 Changes since v2:
-- Switched to new regulator_bulk_enable_and_wait() API
+- Switched to new regulator_enable_and_wait() API
 ---
- drivers/hid/i2c-hid/i2c-hid-of.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/i2c/i2c-core-of-prober.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hid/i2c-hid/i2c-hid-of.c b/drivers/hid/i2c-hid/i2c-hid-of.c
-index 59393d71ddb9..fdaad451e710 100644
---- a/drivers/hid/i2c-hid/i2c-hid-of.c
-+++ b/drivers/hid/i2c-hid/i2c-hid-of.c
-@@ -29,6 +29,7 @@
- #include <linux/of.h>
- #include <linux/pm.h>
+diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-prober.c
+index 6a82b03809d4..f9f3c0ef93ff 100644
+--- a/drivers/i2c/i2c-core-of-prober.c
++++ b/drivers/i2c/i2c-core-of-prober.c
+@@ -18,6 +18,7 @@
  #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+ #include <linux/stddef.h>
 +#include <linux/time.h>
  
- #include "i2c-hid.h"
+ /*
+  * Some devices, such as Google Hana Chromebooks, are produced by multiple
+@@ -226,13 +227,11 @@ static int i2c_of_probe_simple_enable_regulator(struct device *dev, struct i2c_o
  
-@@ -48,16 +49,14 @@ static int i2c_hid_of_power_up(struct i2chid_ops *ops)
- 	struct device *dev = &ihid_of->client->dev;
- 	int ret;
+ 	dev_dbg(dev, "Enabling regulator supply \"%s\"\n", ctx->opts->supply_name);
  
--	ret = regulator_bulk_enable(ARRAY_SIZE(ihid_of->supplies),
--				    ihid_of->supplies);
-+	ret = regulator_bulk_enable_and_wait(ARRAY_SIZE(ihid_of->supplies),
-+					     ihid_of->supplies,
-+					     ihid_of->post_power_delay_ms * USEC_PER_MSEC);
- 	if (ret) {
- 		dev_warn(dev, "Failed to enable supplies: %d\n", ret);
+-	ret = regulator_enable(ctx->supply);
++	ret = regulator_enable_and_wait(ctx->supply,
++					ctx->opts->post_power_on_delay_ms * USEC_PER_MSEC);
+ 	if (ret)
  		return ret;
- 	}
  
--	if (ihid_of->post_power_delay_ms)
--		msleep(ihid_of->post_power_delay_ms);
+-	if (ctx->opts->post_power_on_delay_ms)
+-		msleep(ctx->opts->post_power_on_delay_ms);
 -
- 	gpiod_set_value_cansleep(ihid_of->reset_gpio, 0);
- 	if (ihid_of->post_reset_delay_ms)
- 		msleep(ihid_of->post_reset_delay_ms);
+ 	return 0;
+ }
+ 
 -- 
 2.55.0.679.g6767b8d81c-goog
 
