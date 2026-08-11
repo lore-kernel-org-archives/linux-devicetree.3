@@ -1,177 +1,250 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12D241F349
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED86422E35
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786440139; cv=none; b=bTrcv/fWDO5nQWHLBpuTNAK9EHzRAkKwyjBXkCU3XD6D9SEfsWt1nU7L1i4rpSlaebP8iBP1xayQZtxeUgO7kmf4vLCrUycb2AOHk78pPjZtdT6wnvENBNB43pOP8KSh4wvnKA/hLmA44bajw/X8sRpmgirZ6tCfTl4GKQXIDUo=
+	t=1786440141; cv=none; b=AyWSCo/Vk/HfMnBT3dPpFmTCaEMWxjVWpAoh+b4Zzyn+E1KhIuwfuopRpZCCjMH/wfNWbOzaMB6lzQhf9bst+UwTL5qGGnEBV4wtSd3RwQtIf1oSjw7hVHdW1F2mTcmcPvsBtx7SnPf1WmKLp8vKBCWxQPCCBQYvISnA5YHMsqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786440139; c=relaxed/simple;
-	bh=/UkVbiyABCOWkQkk1ensSSE3l3aZFpZe6kVjhYLKH8s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qHvhw6e5RrZIyDsBb0a1V8KSb/UATGwO5ftLMvT7cy0THe0rHEL5ELvAGynKMgF6XxCeblHn9nlOr52ZLBvlHsSwCEowa7H2ei3uPPFI27Mvd0k3BuwqQihqM0zLxUQYsOwLb0H3vYuPbLkl3Ns54gIAn9RLeSCqw5Zqfb2CSr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1786440141; c=relaxed/simple;
+	bh=S3A2ra3jz3AcQxeTx3cJwZ7OkPVtzFnz5WVpXi4oW68=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PJ0XodOazpvWBi51SkNvP0rUwV1UCHxImFAEiiymmAGjAwK7XnbJ6uLwMFXnIEQd7awkexwEsp6ZPnq2hUK12/OLJoL2cuUqEoh1VvTYJA9noiT/Vub/dJXuPP9idqOJJLoCVyiA2G2VlcQYYGhvPFt8ccepD89t8WVIdTpOafg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ARgbl+Wk; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6688acd1a51so768318d50.3
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:22:17 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ARgbl+Wk"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4994c49f588so7396755e9.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:22:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786440138; x=1787044938; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EKXI7y0JHFmbbxY51QxCMYAPTBi2nh1lduL5Yg6Ghi0=;
+        b=ARgbl+WkLXaccKKdxRd/al3AzRgTNFjevmintXBGx34MDH0ePRKbdmN0c5VoX4KY4g
+         5ldXvO6hPyECewDjdjfGtpRtM35nPLm1MZiLkvCyabVzQkofnmdZx52y99WMRQXaYUcB
+         cZZNda1k3I7dN5AavDhQ4iitkiwHy3GrM0eTaswbeHlp2KE6FAWi1WXQis52W8mNF4nU
+         e9vO4Uv97Cfja0Bo8o/vrnv5bjxCJUqHC0FGPneUhCltHagrASMeVxlWqwNQmsGNnb/h
+         YOFMa60VUhEDGCYChNiAhalMUfszWLixH1Wt4k5QXUjuJZNRUxXLbcrxw/YT3/8UjXie
+         AQwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786440136; x=1787044936;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=14plqPeyH6RsdU2VmFKnJtMB+pmrsGKI/JGoWS24hKY=;
-        b=HrKl6ssMZWfepZCVi0MPJuzrN0DT5Uz8iz4NEByy8Hj0fWWo5ANJ7Frh9ITf8gCrza
-         inR5meoMHu3jx1PGTvwC40iBCq16V5Sw6WDzF4x3jrXJMl/5vCtO26rpkz4whF3Pa8E+
-         KBB0uKe8LyrLZC3Q4sbP6wSyltujKYGEs6p5L67yL77oQcxfqWucw5ay6v36ZuzZ7qSc
-         Bdj877SluCeeASU9Wt5GCZdtH668PFPkVO9FXcbHYvVKts+IlIETqD5xC6Vfx0CGnLGX
-         qrw/yQzPiP3hLRmmCP0ZVzm9ZcqCgsqcBplKn/UZstAVvaimoDJIDlqcsMbOoh7W0QW4
-         cQsg==
-X-Forwarded-Encrypted: i=1; AHgh+RpRSMFyZU5OXXIbJIJ1p65H3faX+mYbBg+tF+mc+pQcr5ZDzeoXiUp8tN9r5eCwF4qsoMTcsxvIJy9m@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+KgZA8+UZE/ar8PAWkC6JhEIqjEtYFSMGI8ECzSftCR1r4PYO
-	VIDZWRFM55BWxBh5PpCPYUKgPiGlFZ/uJa/Kb7YxUlbmRQP69Hvo3UyU5YBWZKqE
-X-Gm-Gg: AR+sD10PWntx6LVKoCjaaqdGV0vyo8LxSQFKkdkJ/cXkELdHQFmOrbOOJrRN0J1m4Qd
-	p91gqeek/YjjPthUtjIqkO1Lv6GGO3nnfAXjAupLPDERuu0b/gVGqOLOTP+hmoOYRo1irGUJBgz
-	mJZ1JlUAZ4JOpCuYcMlghWojmhrq8SsINnz9j5Llcjb/WM65XstCFYMc4ImeXmTgGz6iCFrOcWv
-	2WvCQiKlYQ7GZi73D0oXJWTFhe7unlJ9OIivgR0wzi7OA94zNJFvpGDmg1oRmNLc7aU7GfSzhNH
-	Q1kODaAncVG22175Ki7dK1gW5B0yj3SJsBnZn1xNUAEJhuoH3kEqzhBiDPQF+gqKXrlTdHcXfzZ
-	jq9PBweGwJ8vINI7yLAUYxxM6Z8nXhtsms0lqZ7sNQj0ZG4bY+q82gTCmZzJDOscoCG+Qg37M4l
-	NZP+lqJHsyIUXOfE4n4OsCGtdUAxh/ZQnNk73Sa3GcTVJ4J8My5wx/SiQv0gMS2bNvLUHgHj9/N
-	Puvh4z8wSNYeGUNeSKVPc+7b+DqmQ==
-X-Received: by 2002:a53:acd8:0:10b0:668:4a0f:a5af with SMTP id 956f58d0204a3-66b22e55b3dmr914576d50.40.1786440136081;
-        Tue, 11 Aug 2026 02:22:16 -0700 (PDT)
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com. [209.85.128.171])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66b1ef94552sm683221d50.5.2026.08.11.02.22.15
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 02:22:15 -0700 (PDT)
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-82011c59e66so9966907b3.0
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:22:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoKRPfYV0c7rQa3QGuCWQhIHomrfmDZVXxp310IyAdh1PFSCp3+3gxJSkE++PGVDAFaPvh6/WygtAnx@vger.kernel.org
-X-Received: by 2002:a05:6102:941:b0:738:1fcb:f276 with SMTP id
- ada2fe7eead31-76b5527db20mr448203137.1.1786439726421; Tue, 11 Aug 2026
- 02:15:26 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786440138; x=1787044938;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EKXI7y0JHFmbbxY51QxCMYAPTBi2nh1lduL5Yg6Ghi0=;
+        b=TCKAD8texCL+QQk5zhB/J9Du8JQyrjvRT50qOCYjzWyJLUfBmYOcdTP2U/SmaE47Rn
+         c+sdNqfllS573+dVsdpVEbLN7aWL1bEKILigsuqBq0kSJ0aPcE4RbifTkkkMUYTiUwCJ
+         d76u6VTzolvEvWE6zNG8lBUusUi5fbPi8p15mGswtGlPOT7O9/AJq5bJIZpENhlxx+Hg
+         Cfz2hq3Qp8B3tzYXBmep+AoFKio8Ox7inMoxiD/WhQVeMcwZmfKWTS7WwKbxskb6o+On
+         7l0xmR79npKYLbQHcg/vdNxFgKZmBJSwVdStEbHCT4mFk27yuAxGQVkN3FjrFtX8WTut
+         XjKw==
+X-Forwarded-Encrypted: i=1; AHgh+RrH/URH7eI4KQzf7DOGJtZGT7i9Vi8dg4dS71BwPwRWOl9/oL2WHJW8589/51i/NiHt3D+9RNqVCsMZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1OuGs86YIu3aLz2TCTMzyKxeRQHHS+Ymo3Gi6MBKfc4971Zgv
+	HcZcM28qD0t8HAq7w4kon19m1b142HP40FHM69o26K3ODyhb7tGoZfui856Z/umo0fcOSQ==
+X-Gm-Gg: AR+sD12jNabHbdm5A+ODp9ZwYR+Klh2vqZsqc6jLLlpHA1253jPsau8PdspaFaBF8qM
+	jxxogrjlID7TxxOpSU4MJC8Sw75XbsTrg1HAxzPgtZ4aDHOSvS+RUICmlnw8yPxmyNcTS2qA3Z1
+	ilrU3FZDqG8haskhFi8OGv2dzvkYwEqzA6u8Ch46i9zrAyAjJ4augbqUvbaIrCgUjApSB2p6QW2
+	RGB93VtoAE3n4rTx+yYzow1zJiDuzGSHNgRwagKV7aUo1fzVQhtpn66ieDp+zaV93MgziX2vp+7
+	foaPnl+8sKiKc4XJcQZ2VKFBp8DCMCogSJML1wwP7a4lzIfW/2upU63KHV+sdVhQdswbnY0ZVjA
+	9h3jrhnyiOplXmRyqMGJn56IBQ976fvfMCwM1JbVzmrDV4iUP4trRhXieqgZGUvy7Wij25vXTBO
+	uXPjhO072OO0DrKVtUKX75WpP2l2BkbhP7/rz2wjIssN3hThzDJMTWcTPW/8pwbgXE/XQRnGstw
+	Wy/3gnfxwwb9//t0VX229nlSAgeVA==
+X-Received: by 2002:a05:600c:19cd:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49978ef4e13mr17934985e9.6.1786440137773;
+        Tue, 11 Aug 2026 02:22:17 -0700 (PDT)
+Received: from localhost.localdomain ([82.137.32.40])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49978840189sm21849585e9.0.2026.08.11.02.22.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 02:22:17 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-pwm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: [PATCH] dt-bindings: pwm: Convert TI PWM Subsystem to DT schema
+Date: Tue, 11 Aug 2026 09:22:08 +0000
+Message-ID: <20260811092208.687731-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1785941595.git.geert+renesas@glider.be> <CAPx+jO87d7H92KSR7R7ObR05sM2JcHBCo+YuUf_1gE-KwhR7CQ@mail.gmail.com>
- <CAMuHMdW78wFHKP8n2P_MEVASO3MFHCjXkEWSFXfE3-mCjkhsgA@mail.gmail.com>
-In-Reply-To: <CAMuHMdW78wFHKP8n2P_MEVASO3MFHCjXkEWSFXfE3-mCjkhsgA@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 11 Aug 2026 11:15:13 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV15qa+bntYdeEysEc3rJ4dNhQxiVJd-moAGTNyfPdDkA@mail.gmail.com>
-X-Gm-Features: AUfX_mzrvqkMTS8THhoJKajeDFG8F23c6THOaD8Dreq76GI2rXJHX-LkuIBfF_U
-Message-ID: <CAMuHMdV15qa+bntYdeEysEc3rJ4dNhQxiVJd-moAGTNyfPdDkA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/6] R-Car X5H CPG/MDLC support
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Ulf,
+Convert the Texas Instruments SoC PWM Subsystem bindings
+to DT schema.
 
-On Mon, 10 Aug 2026 at 16:50, Geert Uytterhoeven <geert@linux-m68k.org> wro=
-te:
-> On Mon, 10 Aug 2026 at 16:18, Ulf Hansson <ulf.hansson@oss.qualcomm.com> =
-wrote:
-> > On Wed, Aug 5, 2026 at 5:21=E2=80=AFPM Geert Uytterhoeven
-> > <geert+renesas@glider.be> wrote:
-> > > This patch series adds minimal support for the Renesas R-Car X5H Cloc=
-k
-> > > Pulse Generator (CPG) and Module Controller (MDLC), to aim for replac=
-ing
-> > > the dummy clocks in r8a78000.dtsi with proper hardware description.
-> > > These two components are closely related, in the sense that they are
-> > > both supposed to be accessed through the ARM System Control and
-> > > Management Interface (SCMI) on the Ironhide development board.
-> > >
-> > > This series consists of three parts:
-> > >   1. Patches 1-2 add DT bindings and DT binding definitions,
-> > >   2. Patches 3-4 add minimal CPG and MDLC drivers,
-> > >   3. Patches 5-6 update the DTS.
-> > > Note that this series depends on v7.2-rc2, due to the use of
-> > > <linux/device-id/of.h>.
-> > >
-> > > Changes compared to v2[1]:
-> > >   - Add Acked-by, Reviewed-by,
-> > >   - Add fixed-rate clocks to kerneldoc of r8a78000_cpg_priv.map,
-> > >   - Use devm_clk_hw_register_fixed_rate(), drop unregister_fixed_clks=
-(),
-> > >   - Drop fill_clk_map(), as it is not really needed until SCMI remapp=
-ing
-> > >     support is added later,
-> > >   - Replace <linux/mod_devicetable.h> by more specific
-> > >     <linux/device-id/of.h> in v7.2-rc2,
-> > >   - Add a comment to document only always-on domains are supported,
-> > >   - Consistently use /* sentinel */ for zero sentinels,
-> > >   - Drop trailing commas from sentinels,
-> > >   - Sort MDLC nodes (alphabetically, by label).
-> > >
-> > > Major changes compared to v1[2] (more detail in the individual patche=
-s):
-> > >   - Add default support not using SCMI,
-> > >   - Drop everything related to SCMI.
-> > >
-> > > Note that this series does not use or rely on SCMI in any way.
-> > > SCMI remapping support will be added in a subsequent series (old vers=
-ion
-> > > at [3]).
-> > > Full hardware support without using SCMI could be added, too, if anyo=
-ne
-> > > would care about that use case.
-> > >
-> > > For testing, I have pushed this series plus additional work (includin=
-g
-> > > a rebased and updated version of [3]) to [4].
-> > >
-> > > While I know it is getting late in the cycle, this work (especially t=
-he
-> > > DT bindings) are a dependency for about any R-Car X5H progress, so it
-> > > would be good to have it included in v7.3.
-> > > Hence I plan to queue the clock patches (1, 3) in renesas-clk for v7.=
-3
-> > > (Stephen still hasn't merged my earlier PR for v7.3 anyway).
-> > > Ulf: It would be great if you could take the pmdomain patches (2, 4).
-> >
-> > Patch 2 applied for next, but I left patch4 for now as it didn't apply
->
-> Thank you!
->
-> > cleanly (drivers/soc/renesas/Kconfig had a conflict), thanks!
->
-> I guess your tree still has the duplicate "default ARCH_RENESAS"?
-> Patch 4 just adds a single line there, and the conflict should be easy
-> to fix.
->
-> If you want to send me a new patch, please let me know.
+During the conversion, the following updates were made:
+- 'counter' node was added to the allowed child nodes
+  list to resolve dtbs_check warnings. Some eqep nodes
+  use 'counter' instead of 'eqep'.
 
-I have sent a v4 against pmdomain/next:
-https://lore.kernel.org/all/d4bd0cc7f26c1bcdc260edb994b4971cb5dd3a10.178643=
-8424.git.geert+renesas@glider.be/
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+ .../devicetree/bindings/pwm/pwm-tipwmss.txt   | 58 --------------
+ .../devicetree/bindings/pwm/ti,pwmss.yaml     | 77 +++++++++++++++++++
+ 2 files changed, 77 insertions(+), 58 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/ti,pwmss.yaml
 
-Gr{oetje,eeting}s,
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt b/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
+deleted file mode 100644
+index 4633697fbda1..000000000000
+--- a/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
++++ /dev/null
+@@ -1,58 +0,0 @@
+-TI SOC based PWM Subsystem
+-
+-Required properties:
+-- compatible: Must be "ti,<soc>-pwmss".
+-  for am33xx  - compatible = "ti,am33xx-pwmss";
+-  for am4372  - compatible = "ti,am4372-pwmss","ti,am33xx-pwmss";
+-  for dra746 - compatible = "ti,dra746-pwmss", "ti,am33xx-pwmss"
+-
+-- reg: physical base address and size of the registers map.
+-- address-cells: Specify the number of u32 entries needed in child nodes.
+-		  Should set to 1.
+-- size-cells: specify number of u32 entries needed to specify child nodes size
+-		in reg property. Should set to 1.
+-- ranges: describes the address mapping of a memory-mapped bus. Should set to
+-	   physical address map of child's base address, physical address within
+-	   parent's address  space and length of the address map. For am33xx,
+-	   3 set of child register maps present, ECAP register space, EQEP
+-	   register space, EHRPWM register space.
+-
+-Also child nodes should also populated under PWMSS DT node.
+-
+-Example:
+-epwmss0: epwmss@48300000 { /* PWMSS for am33xx */
+-	compatible = "ti,am33xx-pwmss";
+-	reg = <0x48300000 0x10>;
+-	ti,hwmods = "epwmss0";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges = <0x48300100 0x48300100 0x80   /* ECAP */
+-		  0x48300180 0x48300180 0x80   /* EQEP */
+-		  0x48300200 0x48300200 0x80>; /* EHRPWM */
+-
+-	/* child nodes go here */
+-};
+-
+-epwmss0: epwmss@48300000 { /* PWMSS for am4372 */
+-	compatible = "ti,am4372-pwmss","ti,am33xx-pwmss"
+-	reg = <0x48300000 0x10>;
+-	ti,hwmods = "epwmss0";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges = <0x48300100 0x48300100 0x80   /* ECAP */
+-		  0x48300180 0x48300180 0x80   /* EQEP */
+-		  0x48300200 0x48300200 0x80>; /* EHRPWM */
+-
+-	/* child nodes go here */
+-};
+-
+-epwmss0: epwmss@4843e000 { /* PWMSS for DRA7xx */
+-	compatible = "ti,dra746-pwmss", "ti,am33xx-pwmss";
+-	reg = <0x4843e000 0x30>;
+-	ti,hwmods = "epwmss0";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges;
+-
+-	/* child nodes go here */
+-};
+diff --git a/Documentation/devicetree/bindings/pwm/ti,pwmss.yaml b/Documentation/devicetree/bindings/pwm/ti,pwmss.yaml
+new file mode 100644
+index 000000000000..53f88139dcd4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/ti,pwmss.yaml
+@@ -0,0 +1,77 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/ti,pwmss.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments SoC PWM Subsystem
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,am33xx-pwmss
++      - items:
++          - enum:
++              - ti,am4372-pwmss
++              - ti,dra746-pwmss
++          - const: ti,am33xx-pwmss
++
++  reg:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++  ranges: true
++
++patternProperties:
++  "^(ecap|eqep|pwm|counter)@[0-9a-f]+$":
++    type: object
++    description: Child nodes for ECAP, EQEP (counter), and EHRPWM
++
++required:
++  - compatible
++  - reg
++  - "#address-cells"
++  - "#size-cells"
++  - ranges
++
++additionalProperties: false
++
++examples:
++  - |
++    pwm@48300000 { /* PWMSS for am33xx */
++        compatible = "ti,am33xx-pwmss";
++        reg = <0x48300000 0x10>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges = <0x48300100 0x48300100 0x80>,   /* ECAP */
++                 <0x48300180 0x48300180 0x80>,   /* EQEP */
++                 <0x48300200 0x48300200 0x80>;   /* EHRPWM */
++    };
++
++  - |
++    pwm@48300000 { /* PWMSS for am4372 */
++        compatible = "ti,am4372-pwmss", "ti,am33xx-pwmss";
++        reg = <0x48300000 0x10>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges = <0x48300100 0x48300100 0x80>,   /* ECAP */
++                 <0x48300180 0x48300180 0x80>,   /* EQEP */
++                 <0x48300200 0x48300200 0x80>;   /* EHRPWM */
++    };
++
++  - |
++    pwm@4843e000 { /* PWMSS for DRA7xx */
++        compatible = "ti,dra746-pwmss", "ti,am33xx-pwmss";
++        reg = <0x4843e000 0x30>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges;
++    };
+-- 
+2.43.0
 
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
