@@ -1,173 +1,137 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB098390223
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786415317; cv=pass; b=lw8WYZVuCfT7Gtx0ZWHK5CrpbgfOTTC/nMvm68bNMudtczHjBwzrPYLabkwb6R6//SXZUJCc5dwVkgdo5/1iluMrlIpIraA97iAjYcpYGlUxyrk4XzlLH1Ayjhk5WbyPw23tT0vQkL6bguA5iVkDE4Obv/bVlSOmaG5/yvVIOBY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786415317; c=relaxed/simple;
-	bh=AUc+FEsu+DrlUEKF4zIc/Pac63ML9yu4ibWXeDmIe8c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nJnjB7fGqTX7MdJP1PLoOBclcjeEh/irnUcr4a+u5AR+jbNNgqjVhj7OEXyH2oCysL8qEiZx3PpgofsGBr1xSFYnwTbQv3I2HHbD62xkVazIId+jUkxMQGZ5ohNt+LvHxRWezyLys2y3WSwaF4NK9eH14pBels8PQ4dyIwOZqW8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LnmmKpHo; arc=pass smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE2C3B6343
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786416332; cv=none; b=TYgnrH+6XjummvuVZdP/16m6kfVdCigsZLSh5r48wr+Ni3ftqTnW5TR+sn/pf1mGIZu2Yn41o5rmo2tBuJ54d0czuv0+xhU42Ee5Se84uiT5TTqEAJyug8cCm/qQq5k9NopSNwY3AEPFmgd+f7sLyw5C5xM1rQ9xRzSQ51WuE2k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786416332; c=relaxed/simple;
+	bh=lX4DHJLmOFL2hJOsNkjbJDJK9Gej8ssxYmi+Jgr4XxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rb8QBR8ABt8xfhBbCaDQXUsoyRHhM1zyBcyH8pyt5ygrHSVj61CXFMFnTEF/fLFABZobE6PzmEzH653wG9lDzfd3gX/veDVzjk2q2gHaxYFiX1Zxfm83yQdMqDEeI4sXEDQrIIbj6NroJjuC0WuhGQ8K6dqFVreBdJ5T7aRBIHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o6CB5ann; arc=none smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LnmmKpHo"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-ca7bea5e5b3so2087544a12.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 19:28:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786415315; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gNNfVe3eby0Ols6h9pZzDvZOWbki3MU0pwvQxLHiMjHEP+5GtjZsaX/BEeudE5R4Mj
-         VvdOjxaIwPpjhkQEwoLdtVl6dTUKS2zMtLU/ETQvCoFfkXvbxrSuvxE4XCbKhlf01hI1
-         RA+9bFQPVuG2jFLUE6ogfwk/xNkPSm97NtURPWt1VVEhxPtNhb6BR41nBANWJV55j0bJ
-         a9St1KZ4i354DYUFRnT+zwEWhvRUYKceSm1a1DsLoJrDq32NjlHjY+NXbaoDYsUpUUjt
-         XwL36ftMXJ2ql5A5X59az+lMb9IGjFbOpX2onQeBPr18B8vRPFc8bH/N50nxY3h3QzhR
-         A4sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FK3vmJiqb7a+gVn5qBnneGTL0Sw9n7wbleQLLjtRCmM=;
-        fh=QfsyncUsrO3XP4R7JSOBGGK+J7XbF1GuQb3Z6Dtt0dk=;
-        b=M7j3JSSb22tPZOQe/jQPM4RXe6svReseJta7bqzqFv+rvIZs5ZYuHyz3bmOOoy+jI4
-         DxU6f0jB4XSNq3N0/vphUMhHkZYktF+DogHwQo9hNEjivwY1UIVgTv3eHmNUuSHOB+QW
-         obngbBt/kXzxzs+bgRjPMpQv2ECrgoYdTb8LuMBOCNkDAqPPGqgA1Bty1Olw4JfG4+qS
-         Hj/w+nzx6C62HQYhW5FFBCfoFz1rY95D0P0QL5UG1iQCmYXssPxmu4Z+Q/uWPRQlMnZe
-         FX61BG02jrdsEVQrzvxMZ8ZhRd+iQXDEFKKKSPqI3OVPz7s49mg4Vcr0ggnprIXp3AB+
-         dtIg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o6CB5ann"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ca957432c7fso2493273a12.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 19:45:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786415315; x=1787020115; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1786416321; x=1787021121; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FK3vmJiqb7a+gVn5qBnneGTL0Sw9n7wbleQLLjtRCmM=;
-        b=LnmmKpHoc31KzFeLH7aU/s2Vwlfaxsm27onqqErO8ZYT6QaVm5xOvNTbBLX4YgAUBK
-         oXtE+3NcAzGJ7HtMxMgUx68xRUgTn7ai0TU7FkLdwhkJLrRUH77S4kfjHHIlVPiIZe6E
-         xpTXJ5yPc0sc1xV70ojdbBL2d3eRVdsLzBMktVhr87fdRddhwnkApGjI9MCc80nGPkI0
-         w4+L6Ckc3CrlD5/kkVC+bnBfGVrYE+/eOiDRQX5RQhMluKHZE3ef2J82a1dOrqN4v6lj
-         Lk9/lV59iId/E0iRfNic0lqXQsvBreC/KGQh/qc9FFbQRPLxfC7G9yAOSg9svNUvLajD
-         FvBg==
+        bh=LhWDK5hddMROTflmtcNenCZqcdR+LSNsUsjL3zUAaNE=;
+        b=o6CB5annWGCwgRV9gWqqHffxj8MtdMbCqK7ZywDheOG3P2hx46ms+xH14eP1D5KkwC
+         TppXWbVHowRnzUO5Y5VSeBdhfFFPoBq8varq+vAgzqsFFZuN/cmvuW6kMAJL1s4Xu5Uz
+         jRSz1JeOZeDhHeh8MxGCevor6J0KhWhlg1jCIUfqrkh2260I0g7d1BuYyTYt2Idw1Cct
+         HRxnXSXPsy1qXq4S8c1l4ZxZEn1M7+4k1V9i1N1IQ+gwWPHw7IO5onQTdEfOcM8SYBtf
+         /uSbFDlrQYesX/ygYvczqMzN6VsNyCtH1RACHRdliGHgMDQCOIkXgQjlGtZtU0QjzB1g
+         qOrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786415315; x=1787020115;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1786416321; x=1787021121;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FK3vmJiqb7a+gVn5qBnneGTL0Sw9n7wbleQLLjtRCmM=;
-        b=RCSc4hutNY+zjoYqR0NyF34BG03b0AqiubfU6wi0vctHH+idoLDGgPj01+f+aZ17OJ
-         72pnuZCcwyZkelsr2h1sHn4vo2E7h17APOhqxLbR9nd2jtvh+zF8TbKnP8/dxk5q4uMv
-         rct2snlsGz0ZfQMagAMQyDFkBW/A6fyP/otFIEPKCEgSluOY0CDYqnZCpPIMzarlDm6k
-         kic9jCpXAhqeTPEZ6ElKs3GUOXtg+QWnmgcFLGvY32VseL5QChtw+cRB9MXeB7txL7EB
-         Cagxah0ZftXzRQu59vXPkgH5emd58a3H0fRcceH+nuQUvbo1R2GOvfh8AIblY4EBx6o7
-         i57Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoOMyH9iZ40G5Y7+D/a1eSlEg5qMNdFCaG+2WM9wVM/t0r2DrBrswHPUtvWGB/GeKZdHxnsW+9qVglg@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrCb5H0Nw6nLu05RB49Vnjl9KsRHOAdoL3Lp0OWBlauR28dW1T
-	BdAVAojiaf/pxid2BVUYIAMKab0erCmGjuehviZchJJHTyVx4roY8JTW5LqgGSsxM+s9o3FvQU3
-	xYVz2fzv5zYg0jQyzSvsfsLlZjflahOE=
-X-Gm-Gg: AR+sD11jhvpuPYOGyh6g6z05vk6HltbNETrLe8e5Wkc/VqmtJVTZLA2uL9WjNISTTv1
-	Js0dEa4//cbffFA9pHwaLH2RMWiMioI6DXWMdnsI21UObLBizkcj9BD1+n0jHwCLM+6kht7qAEM
-	w5PQdH6Q96nlIb+R4AxgC/r5ohZkNY0sQEgjz6GXGdTzPY2c9+OKSFMCR06A3GrSFxQjpz1XjID
-	dRAcGDvs0eCwhJzmJlh9IyBL95xrcukH8vwQS8AXX1MKHS+qLVXl7DQsvp3euH5OAXwACc+ueed
-	q/rGmykiXdsQGcZSA9MF0BcKheJmJjmoRUiFIDfI2tK6
-X-Received: by 2002:a05:6a21:e0a6:b0:398:837a:7af0 with SMTP id
- adf61e73a8af0-3cc2baff1a5mr397245637.30.1786415314854; Mon, 10 Aug 2026
- 19:28:34 -0700 (PDT)
+        bh=LhWDK5hddMROTflmtcNenCZqcdR+LSNsUsjL3zUAaNE=;
+        b=C9jAIdrV/Z7JUIalXcstz0LCTnbrAoxVZG3VdU5S1uO2QYNW5P1ZKewZ6xughtaU5V
+         1Y/pC8MLTAHN0SofwgbopVwu9Rf0gXkvC9GTdHQsjOgE0YNf53AmEczoLq9I6J92/MFq
+         1UBafQbtmJH1CnoAMMlrEcu/VgI/88Qdb3mngJQo5tbnmVzmujP78bK4F05D1Hy3eZK4
+         s3AnVyoxhFlG311LvDxVy8lkTCcqaOz9szyCyZfRkzQ+frL5iWNZQ+F5x0ERLnPphg/7
+         cjKEKW9GNPHB2A3OQ2iEMx0oidfsxr6wMh8zNPfAA24pANkPuH0+VBzu/aJATr2iDyit
+         ma+g==
+X-Forwarded-Encrypted: i=1; AHgh+RoTNAJT9imEU8uS27v2Oe3qdnQ1k9EIbvFNl+3CSutjHoL+jbDGGhJzAvB+NmtmKuT89xvN8BiwFaID@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxxlnsr+SrZjoj5WUkwNHGLpJQvy7dmSj/aI45O+2ZVTpnQpiS4
+	Z4L+SUZ+czK3UmTdOsR8Cy6FirMarUBIaeygX41KbQH92IDY74xVNu+b
+X-Gm-Gg: AR+sD12FF0HZ044GmiM2yDZ2GMx0u2p2OAo0k5wlW3eCKczdrdwegmNrKyujoX888g5
+	PQPGtKOz5zIKUZlHJs7IhypTHMkmhK3hvv6sgq6SlFHW+EfueN/Y876jbVIV+QVk8ishLm2ZxqZ
+	tB11ZxGdSJMBAv9qDt3aWyWeTS1Ro27G65+22LoIgnXFFxZhsVrdKlXIGvVzJAJjbM0UFArOdkF
+	MvbxvoMUq6mvki+KfukfqNUPfFD9aR6E5wRx4g1AhZM/t84fRKB0B5lx7+do2MfNSaHHQgSHdNR
+	tTxO1DupauAwXgZMqT9mZeKT15iXLE5/8tQPwm2nXq5q6qv3uP4WZLumQLwrudxntLR5KRZB6QY
+	4/xOLjKGP5g3R9K4YtkeDqiZ4VXM+piUlZrwlLNsPMmgJY14wYFxUxgZKXjtap1M7wTaEZBRMYr
+	ExCm4EfAb1iyGrojvo1pcaL7uWxTwTImH8+BIsy2z+dWMkhv5cEl5dgY4lo2AGIEMdslVprHrwK
+	is7aIxg
+X-Received: by 2002:a05:6a21:1fc5:b0:398:8870:b58f with SMTP id adf61e73a8af0-3cc2b872b58mr522952637.14.1786416320953;
+        Mon, 10 Aug 2026 19:45:20 -0700 (PDT)
+Received: from localhost ([2804:30c:4018:dc00:8be4:f5b8:4af1:4728])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1412035e08dsm151216c88.1.2026.08.10.19.45.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 19:45:20 -0700 (PDT)
+Date: Mon, 10 Aug 2026 23:45:55 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, julianbraha@gmail.com
+Subject: Re: [PATCH v9 5/6] iio: adc: ltc2378: Add support for LTC2338-18
+Message-ID: <anqM43NvcVhhkkWI@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1785186980.git.marcelo.schmitt@analog.com>
+ <39f2ff86cf736ff97286d6451fcc45fdba6732f9.1785186980.git.marcelo.schmitt@analog.com>
+ <anl_v428aTL6waBK@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260804100218.49587-1-shengjiu.wang@oss.nxp.com>
- <20260804100218.49587-2-shengjiu.wang@oss.nxp.com> <20260810-normal-cuscus-of-argument-4b230b@quoll>
-In-Reply-To: <20260810-normal-cuscus-of-argument-4b230b@quoll>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 11 Aug 2026 10:28:13 +0800
-X-Gm-Features: AUfX_myaxBa_rPqdovqcCYr4z7pz2bgmNVRQ7bdnJSbreWmsZ5qeF4VRopEa4z0
-Message-ID: <CAA+D8AM9s7EX-G246Hf2=DOx5q2qXWg_MjUCaoJ8RggOjp+5cQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] ASoC: dt-bindings: fsl,imx-asrc: update port
- binding to support multiple paths
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: shengjiu.wang@oss.nxp.com, lgirdwood@gmail.com, broonie@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com, 
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, 
-	shawnguo@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com, 
-	perex@perex.cz, tiwai@suse.com, linuxppc-dev@lists.ozlabs.org, 
-	Shengjiu Wang <shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anl_v428aTL6waBK@ashevche-desk.local>
 
-On Mon, Aug 10, 2026 at 3:14=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Tue, Aug 04, 2026 at 06:02:14PM +0800, shengjiu.wang@oss.nxp.com wrote=
-:
-> > From: Shengjiu Wang <shengjiu.wang@nxp.com>
-> >
-> > The i.MX ASRC hardware supports up to three conversion pairs (A, B, C).
->
-> Which SoC? Did you read this binding you are changing?
+Hi Andy,
 
-The i.MX35 ASRC (the original) already supports three conversion pairs
-(A, B, C).
-All subsequent SoCs that reuse this IP -- including i.MX53, i.MX8QM, i.MX8Q=
-XP,
-i.MX952, share the same three-pair hardware. This binding covers all of the=
-m.
+On 08/10, Andy Shevchenko wrote:
+> On Mon, Jul 27, 2026 at 06:31:58PM -0300, Marcelo Schmitt wrote:
+> > LTC2338-18 is similar to LTC2378-18, differentiating from the already
+> > supported part mainly on the embedment of an internal voltage reference and
+> > addition of a resistor divider network connected to the input signal path.
+> > Extend the device driver, handling the internal reference and input signal
+> > attenuation, enabling it to also support LTC2338-18.
+> 
+> ...
+> 
+> > +static int ltc2378_refin_setup(struct device *dev, struct ltc2378_state *st)
+> > +{
+> > +	int ret;
+> > +
+> > +	/*
+> > +	 * The internal reference buffer amplifies both the internal reference
+> > +	 * and REFIN by a factor of 2.
+> > +	 */
+> > +	ret = devm_regulator_get_enable_read_voltage(dev, "refin");
+> > +	if (ret == -ENODEV) { /* refin is optional */
+> > +		st->ref_uV = st->info->internal_ref_uV * 2;
+> > +		return 0;
+> > +	}
+> > +
+> > +	if (ret < 0)
+> > +		return dev_err_probe(dev, ret, "failed to read refin regulator\n");
+> > +
+> > +	st->ref_uV = ret * 2;
+> > +
+> > +	return 0;
+> 
+> I'm not sure about others' preferences, but I would do it as if-else-if and
+> remove dup return 0.
+> 
+> 	if (ret == -ENODEV) /* refin is optional */
+> 		st->ref_uV = st->info->internal_ref_uV * 2;
+> 	else if (ret < 0)
+> 		return dev_err_probe(dev, ret, "failed to read refin regulator\n");
+> 	else
+> 		st->ref_uV = ret * 2;
+> 
+> 	return 0;
+> 
+> It also makes code shorter (in amount of LoC).
 
->
-> > The existing binding exposed only a single generic audio-graph port,
-> > which cannot represent independent conversion paths when multiple pairs
-> > are in use simultaneously.
-> >
-> > Add a ports container that enumerates up to three sub-ports, each
-> > representing an independent conversion path:
-> >   port@0 -- conversion path 0
-> >   port@1 -- conversion path 1
-> >   port@2 -- conversion path 2
-> >
-> > Each sub-port references audio-graph-port.yaml as before. Hardware pair=
-s
-> > are allocated dynamically at stream open time; each active stream
-> > direction (playback or capture) on a port consumes one hardware pair.
-> >
-> > For backwards compatibility, keep the old single port property but mark
->
-> Why? Did the old hardware change that it has more ports/paths?
+This has already been applied to IIO testing. I do send another version of this
+specific patch if that's okay.
 
-The hardware has always supported three pairs; the original binding simply
-did not expose them all. This patch corrects the binding to match what the
-hardware has always been capable of.
-
->
-> > it deprecated. A schema constraint (not: required: [port, ports]) ensur=
-es
-> > that both forms cannot be used at the same time. The binding example is
-> > updated to show the preferred ports form.
-> >
-> > No existing upstream DTS file for fsl,imx-asrc uses the previously
-> > documented single 'port' node, so this change does not break any
-> > in-tree device tree.
->
-> Does it break other users of this binding?
-
-No. The existing single 'port' property is kept and marked deprecated
-so that any out-of-tree device tree still works without modification.
-The new 'ports' form is additive only.
-
->
-> Why mentioning upstream in the first place? Either this change breaks
-> ABI or not, explain that.
-
-The deprecated 'port' property is retained, so this change is fully backwar=
-ds
-compatible and does not break ABI.
-
-Best regards
-Shengjiu Wang
+With Best Regards,
+Marcelo
