@@ -1,93 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20611414A30;
-	Tue, 11 Aug 2026 08:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88049359A6D;
+	Tue, 11 Aug 2026 08:56:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786438560; cv=none; b=OboZTRb4WIZD0pcro5VIsOJfLVOjP2OQcPjFCwSoSX3cVYyrVpMa4dJdeXsPSGa7hP/6s/ab1jPpYhTJ5V/kS7BOSoq1K8YLGoBUZHA6Z60+e2e5xr3sWiA9qyPDFnGJZ4CWT2ReTBY8TBC9XQdFGU8BfLvwToq41VIOGNSrbTI=
+	t=1786438595; cv=none; b=QmQx7wagUq3Yn1g9KS6DtAIyFqQjyWSSPNRkAiD3KHziFkOA7lRsZfuR75Fe1SM5qKnA3ozDdEVckvZ71dczKQfAryEX/iL+EVtcNRGWD1oBxkyGcNCeSkLOswoKHalG2T4hBKvqXHeIvpymwyUZCqTXaUqO7FGLqgLo7ZA8PH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786438560; c=relaxed/simple;
-	bh=4GRvX524cZvnTWy/v8eWkJ60u8wYo8ZMzOxJ3CJC41c=;
+	s=arc-20240116; t=1786438595; c=relaxed/simple;
+	bh=AGCnhd6wwGrY3gJTzy3L3KTH3NeEAYKeah6BXyr8eUs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AEDlNZ2d9XLivA1e/u3BY0yFN+x0E3lSKDzTIV3uBvSikpWnglh56bBlloDC61z9E1cp1gkLgGDSIX4J2pA3jnlia9uKDZLAT0g4uMHrZjSW+UJ+d2QCUkDBHdc6jX4/3nyg546GJGsPanxdRwpEnPftoxuSFGQxdIedWWb+Gxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BInhLC3A; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XwJZJHJdR6Qx2KJWHkgK/hhk0Zny1yZpEyQEFFYt18nCDmtQ267FKUnRlbExfyn7+MVxxIB+3whKQrhwTiifmknqLHkWrUTd/suhyehY1yhyd2HsSaj+Gjn1BE447ErCLVEGZOYrjpYPd/fALri7rkyK6gGVG0oI2ssyKyoC13o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Kst6LZEJ; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BInhLC3A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392D81F000E9;
-	Tue, 11 Aug 2026 08:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786438558;
-	bh=aOPB5s1AVVEESZAsbtL0NPJBawQgvnyA8F7vvZJJ3SY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BInhLC3A9EzYUaIcBOGFb/4Zc7qX4oBcukJnnBBuerT8zvQHOdCgMRb5oIMruRkEr
-	 5uesCaUdNbkWekEA1yxrUoorWZ+Yx4GF6BtF0Xg74JxfGJ7u0s6hE8nk5ER3B4S9fE
-	 140EPNujt84y8LwVfVWrhURIXrWohLWGhP2IEu2kXNEmyLT6CnnBisL0VvTX7zlyK7
-	 gWB6JBabTcFRLIGb/5h+s2X28XhXs90IC/PSxg2vUDq1N18YcIZIrYI046itSObl7s
-	 Olr1JoR345kNMqwnQg2ZwGHzKXOTd1YBkbd/3bP9PaUOJFH+5LAYiqEheiVypyUh33
-	 TkVsNIDz8TPlQ==
-Date: Tue, 11 Aug 2026 10:55:54 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 5/8] dt-bindings: reset: Add reset controller
- constants for mt8167
-Message-ID: <20260811-roaring-bat-of-blizzard-63ffee@quoll>
-References: <20260809160643.33991-1-l.scorcia@gmail.com>
- <20260809160643.33991-6-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Kst6LZEJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786438593; x=1817974593;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AGCnhd6wwGrY3gJTzy3L3KTH3NeEAYKeah6BXyr8eUs=;
+  b=Kst6LZEJolEeikjK5iOvh/1/KGDPjmyw/CWLSaJf0GNkqXKiTAvWPsDf
+   n9BX5ChFLVLPG2UBxO9L20/9P8evFBqNJjtdjEU3eya0cbvfS4v8hde8a
+   X9iUrFLYxmnkifshbp/w9j7FBDHBjfTknWcx33WMqQO3qanv+xLVCr1vS
+   qmppOq+HgFFFRy/0KJz2RcxRg+tWVoYby841aoGCC37/Oc6o/BNRJt/7c
+   Iip/w7EXCdfHGS1n9KlMs268eQ4Lm33iX8Uw9PzF+D5jC22tmnXUqA2xk
+   j4x4RN5XJ6SFRWeuzMKAdX5xyB6sFhsMrR0+p7ip3uBw1tGk2sdUGxp8M
+   g==;
+X-CSE-ConnectionGUID: 8Q5HRv5CSCe5fe9EHQRT0A==
+X-CSE-MsgGUID: szTmftoxSJ24Sl8YZDdxDA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="87179084"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="87179084"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 01:56:33 -0700
+X-CSE-ConnectionGUID: uxtxh5lhQsyG7VizU+ouEQ==
+X-CSE-MsgGUID: TiKC8fcwQtuMiwAxUmpO/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="287995772"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 01:56:30 -0700
+Date: Tue, 11 Aug 2026 11:56:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, julianbraha@gmail.com
+Subject: Re: [PATCH v9 5/6] iio: adc: ltc2378: Add support for LTC2338-18
+Message-ID: <anrju2FHVOfS-e6z@ashevche-desk.local>
+References: <cover.1785186980.git.marcelo.schmitt@analog.com>
+ <39f2ff86cf736ff97286d6451fcc45fdba6732f9.1785186980.git.marcelo.schmitt@analog.com>
+ <anl_v428aTL6waBK@ashevche-desk.local>
+ <anqM43NvcVhhkkWI@debian-BULLSEYE-live-builder-AMD64>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260809160643.33991-6-l.scorcia@gmail.com>
+In-Reply-To: <anqM43NvcVhhkkWI@debian-BULLSEYE-live-builder-AMD64>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Aug 09, 2026 at 06:03:29PM +0200, Luca Leonardo Scorcia wrote:
-> Add the various bits that identify watchdog and mmsys resets. IDs for
-> mmsys resets restart from zero as they are used in a different device.
+On Mon, Aug 10, 2026 at 11:45:55PM -0300, Marcelo Schmitt wrote:
+
+...
+
+> > > +	/*
+> > > +	 * The internal reference buffer amplifies both the internal reference
+> > > +	 * and REFIN by a factor of 2.
+> > > +	 */
+> > > +	ret = devm_regulator_get_enable_read_voltage(dev, "refin");
+> > > +	if (ret == -ENODEV) { /* refin is optional */
+> > > +		st->ref_uV = st->info->internal_ref_uV * 2;
+> > > +		return 0;
+> > > +	}
+> > > +
+> > > +	if (ret < 0)
+> > > +		return dev_err_probe(dev, ret, "failed to read refin regulator\n");
+> > > +
+> > > +	st->ref_uV = ret * 2;
+> > > +
+> > > +	return 0;
+> > 
+> > I'm not sure about others' preferences, but I would do it as if-else-if and
+> > remove dup return 0.
+> > 
+> > 	if (ret == -ENODEV) /* refin is optional */
+> > 		st->ref_uV = st->info->internal_ref_uV * 2;
+> > 	else if (ret < 0)
+> > 		return dev_err_probe(dev, ret, "failed to read refin regulator\n");
+> > 	else
+> > 		st->ref_uV = ret * 2;
+> > 
+> > 	return 0;
+> > 
+> > It also makes code shorter (in amount of LoC).
 > 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> ---
->  .../reset/mediatek,mt8167-resets.h            | 53 +++++++++++++++++++
->  1 file changed, 53 insertions(+)
->  create mode 100644 include/dt-bindings/reset/mediatek,mt8167-resets.h
-> 
-> diff --git a/include/dt-bindings/reset/mediatek,mt8167-resets.h b/include/dt-bindings/reset/mediatek,mt8167-resets.h
-> new file mode 100644
-> index 000000000000..af8a3e499f8b
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/mediatek,mt8167-resets.h
-> @@ -0,0 +1,53 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
-> +#ifndef _DT_BINDINGS_RESET_CONTROLLER_MT8167
-> +#define _DT_BINDINGS_RESET_CONTROLLER_MT8167
-> +
-> +/* TOPRGU resets, these are actual bits in the register */
+> This has already been applied to IIO testing. I do send another version of this
+> specific patch if that's okay.
 
-Not a binding, drop these.
+Jonathan can replace it there, as rebase is inevitable anyway. Let's ask his
+opinion: Jonathan, do you want a followup that can be folded or a new version
+of this patch?
 
-> +#define MT8167_TOPRGU_DDRPHY_FLASH_RST		0
-> +#define MT8167_TOPRGU_AUD_PAD_RST		1
-> +#define MT8167_TOPRGU_MM_RST			2
-> +#define MT8167_TOPRGU_MFG_RST			3
-> +#define MT8167_TOPRGU_MDSYS_RST			4
-> +#define MT8167_TOPRGU_CONN_RST			5
-> +#define MT8167_TOPRGU_PAD2CAM_DIG_MIPI_RX_RST	6
-> +#define MT8167_TOPRGU_DIG_MIPI_TX_RST		7
-> +#define MT8167_TOPRGU_SPI_PAD_MACRO_RST		8
-> +/* The data sheet describes bit 9 as "reserved, unused" */
+-- 
+With Best Regards,
+Andy Shevchenko
 
-ID cannot be unused. If it is unused, then just use next one here, so MT8167_TOPRGU_APMIXED_RST=9.
-
-Best regards,
-Krzysztof
 
