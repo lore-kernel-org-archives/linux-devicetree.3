@@ -1,101 +1,126 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8E842E009
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0929B43B6D2
+	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 09:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786440686; cv=none; b=kUgADARotwCPeJ7L095vhpR5SkHhcqQFQlnMsR8CM7n0V6CAwPsTuftGW+C9WNwRxaXnv4e/kuO6QCalrrm3gThc4eCCwPbQT39p1Ke2uadODm4FsyJdfuC3BvEa10coR+5K1JjcgoACxR6cRA2Jjnzt2sft5sFKvV322GyNXHE=
+	t=1786440729; cv=none; b=Ec+lUCB1oZqI9MrlT+qOtKaBwHzGMViNC942acUTvrXTSkt1ruyGXkGaYp9p8CnlAozv6ZCDSbqa9SqanKt1/APKkcE2RuLJq7kvoDFjkuiQs3/ff8fiTRtO1A6Sebv2eCIqewNzWNBu/RwAMSnkrpog3E3FTLYcAUOz0W5hJog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786440686; c=relaxed/simple;
-	bh=8QXwmcpvLOgS2HJEcrVuGl3PSKJiGBxtH2I13j0yeZA=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=EH0z27A4DhFqSlZguzLn/22d/xFDTGZeCPbXeYGzZ1t8+7TudZATOuDxEUESUWilWvD+C4g6Cd8kEOsYjY8Vz1UtSM1IUWQc6+XM+ALaomiIoGRgpKG0bflWt20ld02lP8SH7XDHzTp/RJ8si+OA6atFxgHnhNYblsQFQH8FYds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lyk18MWH; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786440729; c=relaxed/simple;
+	bh=HCo5rSbEvOu2viOHidCQ8HRW4Qctda5+Ow5PlKO9n4E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r5sx3xEN8qDK31OW3oncLpDW5IwvTjSbE2ZkRZ0PS2wR7B/emDp+cKdrAmxMtAi70tb/4pit/vtyHInHh/VcAzpdTm1hxc6uoxDTc7EGn2BNyH6oILHJpXqNSWNdBqISMHbtBhvJ9HscCJcDEwzmIsam0rxmzmWo/3ZLgi1O1Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=HHY8AVKh; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lyk18MWH"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ce87c7e3bbso7590795ad.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:31:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="HHY8AVKh"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2caced6038eso9404745ad.0
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 02:32:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786440685; x=1787045485; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:subject:references:cc:to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=24lOYUM9cZxkUEGLRg6JPIJ8J7Sm+k+/AF/RPaqeH9Q=;
-        b=lyk18MWH3cpWuRrJa34S3ofIqp+Sfl4k2izTx9zDN4o0Tkx5V5kKXyAaUtxyKP7nf/
-         KSZlWbU2ZcxU3Uy8AmbXgYuUn5aK6HLDqyKrJROXvzwzgxlaEOphmZyR6InS+5JKd1uL
-         0mAyD2NfhFMEP8Jc/UdIh8LH0dcZwMIoI5vwFCjZW24bXZZ6znSVF6b8peNarhZ00Hng
-         J3o21LzWuQfo0IZcF6FqG9zCSBl5Z2lCYz0Hk/IROCNaA9QdiouqkQfEwgtHLNl1OJ8m
-         MjswBXSo45pACCZnkKE0DpHtOGexSZIvbZdBcHyg2PDBDUx7ao9nFLI0Vl4q/TGh7Gw4
-         1aKQ==
+        d=sifive.com; s=google; t=1786440727; x=1787045527; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ap29SzIYC2SRhT7+1cYIYqMqPmmcLkWivyt8GCYG80w=;
+        b=HHY8AVKhv2PnMrg/d0HomC91JhO2S5sry0b29N0/x7gvzgPRAyvne/eiYAnrWRs15J
+         Izn72VKWjoXCuFsXskZwZxKw+j0irbwfCO5gldJZScaEOTA2D5GoLDyaD/cTGyPGGN3o
+         dSKVf2EpQXvDusQZZwXR/AwZj50KRcW3LefmDZMuSuiofAsjkkT4sCQMEm+l/A5yMiBt
+         IBPtRndpikWyuryPi5FyfdRD8KQXMDcB6DUPn4ZIl/ZAgCOiC0DaykiuR1jYOvArLaZx
+         F9cxYc25/12Da7RMJwBXB2yINU+0osEVjjla/VLI8uEAqyXTAg4u7/mZ0AUidwC5NPCz
+         RSCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786440685; x=1787045485;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:subject:references:cc:to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=24lOYUM9cZxkUEGLRg6JPIJ8J7Sm+k+/AF/RPaqeH9Q=;
-        b=bZ7kuFVWWxPGu5AU+2oNLgQD8qyzAM9Akiqk5uJ54h6WbHgTE9P5L/D0F8/REfSmL/
-         iof6YqpyZQAn3IvF5L77I1FfUg8r0ry2SYPMTUVX3+lMfapmxGG7A/gz0pac8kqXNbY9
-         HRwB8EuQ4pY1nljyaNKMXz8KH/zmOHsbvT/YhIcgxtLANnPxdfo/vQtbMEsqvM2jC5cG
-         a1nofP4lnBfJLGiQN8IdzkI9Q3RfPUJ7TilDwaWo89rP5bGPiqhpowM71Aa5Gn5LQQL/
-         wFvP0yNsuVAb8RjWTbGFOjg1fFYR2YVepEc9vBPYyuwXE8kUH7eKOHVCsKtnW4PFWX8W
-         pFVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpPL0Yq1eQvEAQIKcVWmeZg5V7JEvd+1J+BGBEg0u5/y/5abUMzv3uJhl/so8GYL1SkktQLzpW5vZ4t@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/m9pd9xs/78iTMza2RtXE4w/TNO85HDtrCYYIoiA8g9cS5o+p
-	Yh2MjHtrXhIgQp/x/+2Fst+Sh6Xf6vH5s4GM156HfCfT+7MeW4IkHQqH
-X-Gm-Gg: AR+sD10ZuKW5ycZKlaawjK0F2IjtdZ8gbOGGR+9B/5KdboM1URxNmIsYsyphMBIZpOW
-	4aTGoojH58Xdv5nSJqwnO/DRHn01dmFS30xep57veFsjDalmfCITVdJqBY9WvPq5F64tDyGAU5m
-	VvntghNZjrU+9gXCku8nnd6nep1oSprhzA6GfxLbTvbk2K8y6saAGvcGPF3Kl5+16AnKFd33mWn
-	ssYrlwPaV6cCMnVo+Ee7bT+eZCSF5XSlibURDwecOrnRyuohNtsF9Q1vs1i8cyE4b3JskaSTnlQ
-	mtGhe8H1wRWBklvtA3phsmDKxFtVRgW3Qaui2i7hZ2YcGhq+EIt7uaXU0Hs38jwq+5pA6O812IA
-	jrH1aZZd7nern1gWEuoSuNnHxu2zfa/EHCr7HJkojLeS1J3F08TQ5E0YnsRinQhuWSd81/hpFS7
-	Thh9cWANYZg+/V63PYLpf13VFQQ41o3pntSasAeyYbQ/3vRTUqoqCCT7EYZjz0TeB3LXDSKuB6T
-	K+Qnsl4li6PA243MYYb3CLDVRzhIeYsTa2qd0j9ais=
-X-Received: by 2002:a17:903:944:b0:2bf:9760:b94d with SMTP id d9443c01a7336-2d31792b495mr25426375ad.15.1786440684729;
-        Tue, 11 Aug 2026 02:31:24 -0700 (PDT)
-Received: from [192.168.68.65] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d315f3f33csm4781325ad.26.2026.08.11.02.31.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 02:31:24 -0700 (PDT)
-Message-ID: <73033a32-4efe-4ed2-9319-ffb205d28719@gmail.com>
-Date: Tue, 11 Aug 2026 02:31:22 -0700
+        d=1e100.net; s=20251104; t=1786440727; x=1787045527;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ap29SzIYC2SRhT7+1cYIYqMqPmmcLkWivyt8GCYG80w=;
+        b=XHCqdE64OEzKCNJ8RVF4gXBGWbp15cuwjaur9rcpV+5WIZKhKKrQtOjGTEPfqMphlP
+         xNwEkOY5gd4RA+m9bwnhL7tbZsmu8kw43i9X0Wy2RXt2C+Sjhe72FNWLeHL++3CEMJ5L
+         tlLH9c7BQjdwXihpsUM6snmj1DXPGaS6WLb0PdfjlfTTQtTzrsqW+ct+gA5gkE9tHgp5
+         P/nCiCLUQVWdN64zNrd4+GNQ30nJ7S8AgcoLa5PE37mgZe6XRWHA+2r7/0SZQMXpR7XG
+         ApS/UDEoJTMbl6eDJ1g++yRgU0BjRYx5S/kzk8apEYuLaKEZLYjq4Niv02GtvBuWekDt
+         rl7A==
+X-Gm-Message-State: AOJu0YxSpQTdIHP1+g9SZ8pmTpZaOtqxq9UIREuOllmMl0T2O7cyhM2A
+	MYNGCfK8uydv4dlgic5VHrXZYXyPmkFPtjtPz3FJufxLxbq1qCtJ3AAS+aq4oTB3VaI=
+X-Gm-Gg: AR+sD13Utl8qK7zGPvhXDxkuBMZlsfAiNX7+jZJaRfMdRD10q2YQuNwze67xDUSaqEY
+	Gpj7wNSqQmQWd4anLSbwe7+g7dPFbnw+XWA+1/9RZCGU4ZT0kdWhb2ol9h4oTl3l4WG3UC6URn6
+	0XDlQl3iiUG43gA0pH9MShVIiLhtU5yaoEyLH4YcmrGU+qpK84tjWEBNMugSp2WYP8yW5FdMroc
+	htE3CMqhCBRQeD7JqGFW7UkSkezL1PBVFMT0VZ7wvCT3fs5/ywLJbBh++Raw5mzNz3jtXLH7ulf
+	rHPnR9YiNEqgVrqGWHc35Rn733l32mGcIZ+9moWTPGzuBW8yONc0nPkJGMq8iPHi7ARXk8HXKgX
+	Xs/DycmjuuRQMkAJSY+hxhkT7esPIwDH5hEK2rOlltdA9FoTFwBkCK1/TSHQfrQoxytnBzA6Wbt
+	F2RCxx/2XyWpV6LBiSefwFt55E7eZUHQ8pQomjpFIoR3nt5ny0D5tACCyQywk=
+X-Received: by 2002:a17:903:2410:b0:2c6:8d95:fd7e with SMTP id d9443c01a7336-2d3187acb9emr19605805ad.6.1786440727293;
+        Tue, 11 Aug 2026 02:32:07 -0700 (PDT)
+Received: from plin-1878 ([136.226.240.195])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d315f29afdsm4693525ad.19.2026.08.11.02.31.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Aug 2026 02:32:06 -0700 (PDT)
+Date: Tue, 11 Aug 2026 17:31:56 +0800
+From: Yu-Chien Peter Lin <peter.lin@sifive.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr, samuel.holland@sifive.com,
+	dlan@kernel.org, dfustini@oss.tenstorrent.com, michal.simek@amd.com,
+	junhui.liu@pigmoral.tech, darshan.prajapati@einfochips.com,
+	akpm@linux-foundation.org, zhangchunyan@iscas.ac.cn,
+	luxu.kernel@bytedance.com, pincheng.plct@isrc.iscas.ac.cn,
+	nick.hu@sifive.com, jim.shu@sifive.com, zong.li@sifive.com,
+	greentime.hu@sifive.com, robin.randhawa@sifive.com,
+	scott@riscstar.com, dave.patel@riscstar.com,
+	raymond.mao@riscstar.com, anup@brainfault.org,
+	pawandeep.oza@oss.qualcomm.com
+Subject: Re: [PATCH v2 2/3] dt-bindings: riscv: Add Worlds per-hart properties
+Message-ID: <anrsDDkkOKmnkzAa@plin-1878>
+References: <20260729163908.249838-1-peter.lin@sifive.com>
+ <20260729163908.249838-3-peter.lin@sifive.com>
+ <20260730-glossy-pompous-quokka-c05c60@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: devnull+guptarud.gmail.com@kernel.org
-Cc: andersson@kernel.org, broonie@kernel.org, conor+dt@kernel.org,
- conor.dooley@microchip.com, david@ixit.cz, devicetree@vger.kernel.org,
- guptarud@gmail.com, konrad.dybcio@oss.qualcomm.com, konradybcio@kernel.org,
- krzk+dt@kernel.org, lee@kernel.org, lgirdwood@gmail.com, linusw@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, pavel@kernel.org, phone-devel@vger.kernel.org,
- robh@kernel.org
-References: <20260527-expressatt_camera_flash-v6-0-de0f150024e4@gmail.com>
-Subject: Re: [PATCH v6 0/3] Samsung Expressatt: Camera Flash
-Content-Language: en-US
-From: Rudraksha Gupta <guptarud@gmail.com>
-In-Reply-To: <20260527-expressatt_camera_flash-v6-0-de0f150024e4@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730-glossy-pompous-quokka-c05c60@quoll>
 
-Hello,
+Hi Krzysztof,
 
+On Thu, Jul 30, 2026 at 09:30:24AM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Jul 30, 2026 at 12:39:07AM +0800, Yu-Chien Peter Lin wrote:
+> > +  riscv,pmlwidlist:
+> > +    $ref: /schemas/types.yaml#/definitions/uint64
+> > +    description:
+> > +      Optional bitmask of WIDs available for S-mode and U-mode use on this hart; each
+> > +      set bit N indicates WID N is available. Firmware may read this to select platform
+> > +      authorized WIDs for lower-privilege modes.
+> >    # RISC-V has multiple properties for cache op block sizes as the sizes
+> >    # differ between individual CBO extensions
+> >    cache-op-block-size: false
+> > diff --git a/Documentation/devicetree/bindings/riscv/worlds.yaml b/Documentation/devicetree/bindings/riscv/worlds.yaml
+> > new file mode 100644
+> > index 000000000000..cc8b3747591e
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/riscv/worlds.yaml
+> 
+> Please run scripts/checkpatch.pl on the patches and fix reported
+> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+> patches and (probably) fix more warnings. Some warnings can be ignored,
+> especially from --strict run, but the code here looks like it needs a
+> fix. Feel free to get in touch if the warning is not clear.
 
-https://lore.kernel.org/all/20260527-expressatt_camera_flash-v6-0-de0f150024e4@gmail.com/#t
+The only issue I got is:
 
-This series seems to have fallen in between the cracks. Should I resend 
-this patch series?
+WARNING: DT binding documents should be licensed (GPL-2.0-only OR BSD-2-Clause)
+#114: FILE: Documentation/devicetree/bindings/riscv/worlds.yaml:1:
++# SPDX-License-Identifier: (GPL-2.0 OR MIT)
 
+Hope I am not missing other warnings or errors.
 
 Thanks,
-
-Rudraksha
-
+Peter Lin
