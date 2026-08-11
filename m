@@ -1,154 +1,160 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D158E3DD521
-	for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 19:37:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF833EC805;
+	Tue, 11 Aug 2026 19:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786477029; cv=none; b=VbJHXyepjOgbddmZ6OAvMnZwVrf/Neh15WIdJSC/lhAATYqAf6Kyp1VTmh1VKXyxJzn5WZ3Y0Hm6Lmy4Q7fn8Fj0Y5wDtApRkZj6pJVJZncs9ai8C5lgaEGtA/E6Avm0uPbXqVenCV/GtJBa73z4RTFWVZuErQbigELjkMWnZFw=
+	t=1786477032; cv=none; b=pWgQ66YzeVEDltakxDn+6AgjuJg3J9w+CRkY7iqDfrvvySBSFoZo9lkSLAMOgd1+z4jZ+QLmk3ifBHApEMWqf2lzJ6ea73aBfAnC1gIXRAfLjDALaATIsFOIeYtUWe2B42c45pOeCC/X/jdx32W3VqAvl18e79LIZ5twT4W/GKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786477029; c=relaxed/simple;
-	bh=I+AMBIPL88pj6SwRQqKUIsROOLJCx61KzFuc9dOZb8c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kxtXqW+IDfxpcmPKjUPI8SVJJ1ZwCIfa69smieRwBgUuebOzn6n4cYzg3wGa35IwVpLjirIl0Uqjp7qt1B9w6aS5Q1pilAoL/ksJKy3ZCt+IkyKRj1PZIH6WOyQVb5hgT1SrnmcBVCdiS6gf6xypvmVBkR6MGVLc+VdudzM7UVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e1Kmx3sb; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786477032; c=relaxed/simple;
+	bh=XhCocvRlqpxz3Ix+dK0e/T+Ux+SQ85BXJDki4NEkc4o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ANNsXIkiIlW9sePqZmh26hpqld8aU7scpZb61dzLpoqyOXB3BOYZv75W73Dh/X/wTch5aryCjXY5qrjqLeauCkIlePrtmgwtI/zrRihCt8jwduHmhEv5P7nw9Qhts6DTQwlsOFbOBXSYGoB6TZraC9DxUpCwLK+xElWrzplrVjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=1G1uTXbo; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e1Kmx3sb"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4954f5e8020so752385e9.2
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 12:37:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786477026; x=1787081826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0JsV02jiIk99Htrjv4Tooh1nCMqCT9M9OeWRZPiqd+Y=;
-        b=e1Kmx3sb6z/M7WKzX+TGntbI5YIGhInWzifVfNfJVj8YXmklMblikrH2YawOph4rcA
-         xTylHlUmxlvwK4RuNhsCXFGY3SRGguGQXmnEmUBCjZY3iTiY5Z1J7v+5BgWZz4/uSNQA
-         i+RncX6q7n5p+k27nts5pfd8glZp9PlGEJYPUzLu9ziMdr9K1l7LVwkm38kAb/aoYUwb
-         VVqJktfE+aPL09moK0lOXHqXZ9abC8XiIFGW0xHKg7k8MLgtGLw27Ou7vFxCcRKSvVAo
-         jZbJxGITg66GdQ3lH8vWAltYLwA/szkVsFld5O0/jw7oEkpVoEiZCfQk3dKWxdTQMxiO
-         vemA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786477026; x=1787081826;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0JsV02jiIk99Htrjv4Tooh1nCMqCT9M9OeWRZPiqd+Y=;
-        b=ev3ne9/UCAZFOERUNlRdGPXsetWSslD6aiYXgK/hnJRg8I2Ej4tiikNtyKcXCMh7r9
-         W2BxN0947T7fMlHK9XghcD+P+oF/xvJ90u8mtFIWgNgc8fjF3NZYQVtYhG+X5mjDUjgq
-         A97uHqpDFYSKoZBm9wUD/WC6wPBWblo9EgkHl3g8zpg7meTh8I/0hpIUKJ8Rxeq3M5Si
-         JFkQHiiqpYbpK1JJH3E7vpi+ktx5iy85nFWpW1tkEgdawWAB/7JNFmdf1NoGapHC/AXv
-         O54+ecXOQMMp+efH3v3Sv6cqWdKFff3z7Xco2VvxtBYDVgsFaafpImRIf2RwV+iQ5KdC
-         LyzQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro26gQb5R/FpP3Rqh8xj8jCu3PiBGm4prr0J3JCC+/kEtI2l6QOlP4veqcq1a/dxeMHrEgoVeYJ35R4@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCD5oSv+y4TCR8ZtJuy0vAutMKmHkOtHXCdAWorzPFfEbzSy/1
-	sKTh0eeday+Ytpod4IF3YxRQIpa8UCm4KyunZ1jDaPHMXG+07ucjythD
-X-Gm-Gg: AR+sD1146r+pyKBCVRFGipdbko5guCf0azkUimDmBF4H/HqAtxE+CFBU7ABi/ixdN2m
-	F4zl1b9esszO7XgyuelM4O2KVS+QLIBpkGfw1zCvvZYpgxz1xDqTAAQGUoQ9D5zfzVAsVUTBKgC
-	V5cZRXIg40ZSKQ2H4poeZvOdENC2PTxVIWDE/WWzshEgImnB8Zjilj6pZoOuKFBa+Up3z0qOUBM
-	Wy9C7I5b74G5rEa4+99UAX+uYWINxfhYmbd2TrGTkLjh+U35B9EW7fYodYWAFBsbNcjP7db8Jl7
-	KZdBycoLGhPFcdFqC8J91ud7XsNm36F30SA2PnZR8sOdzHs6TlssO7AQXsTyaBllY7b0s5ImHoY
-	XM0Dn+n/8HXtqGF73gzhAEYHwje5nnIHTzZWubRZL6VI2D0a6A/QHgqC8LDDmq3BXa5RBId7BbH
-	xyNiK6WakSwTiIgehl8tuWuPIpVankBnv33R8te/0EqMDkUh9rWShu8DeqxYX/M3wVsD4ad3VWf
-	zPbldAHbC3mMUhl2+2u6yjWfd28wKPOaSk23aZy
-X-Received: by 2002:a05:600c:3589:b0:499:5e9e:1f50 with SMTP id 5b1f17b1804b1-4997842aa62mr87661505e9.4.1786477025980;
-        Tue, 11 Aug 2026 12:37:05 -0700 (PDT)
-Received: from localhost.localdomain.pl ([89.151.31.85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997b15b807sm10130285e9.7.2026.08.11.12.37.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 12:37:05 -0700 (PDT)
-From: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	netdev@vger.kernel.org,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
-	Semih Baskan <strst.gs@gmail.com>
-Subject: [PATCH V2 net 1/2] b53: deal with Northstar devices using CPU port 5 or 7
-Date: Tue, 11 Aug 2026 21:36:57 +0200
-Message-ID: <20260811193658.14304-1-zajec5@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="1G1uTXbo"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1786477022;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=OHA9zlC97iQEd9Z/K0ZMi6fcOGFr2AIQ8m935rD2YRM=;
+	b=1G1uTXboJ3+0TChcjCo/PBxFkklV7vYSqa+BsVaxW5SfprIUFR/lq/XMANH7pPjWjl4F/w
+	mbcRdore3GBWcwEHmDyLwwG6gFsSD/YsO0i8PEixQ50f5uwD83pXJUmx8EjWfkrcKqmCh9
+	7QVj4VQfNQqFgldVij4bekfLU5YVGto=
+Subject: [PATCH v3 0/9] Initial Apple Silicon M4 device trees and
+ dt-bindings
+Date: Tue, 11 Aug 2026 21:36:53 +0200
+Message-Id: <20260811-apple-m4-initial-devicetrees-v3-0-6bf32d45ad0b@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42QzU4DMQyEX6XKmSDnz0l64j0Qh8Tx0iDaLZvti
+ qrqu5NtD0hwgIulkcbf2HMRjafKTWw3FzHxUlsdD12Yh42gXTq8sqyla6FBI3hwMh2P7yz3VtZ
+ DnWt6l6VvEc8Tc5MDcs6KfNJUREccJx7q5w3//HLX7ZTfmOaVuTp2tc3jdL7lL2r1/TNqURIkO
+ 3SO16nNE50zT/3osT12o1jzFv1NDKD+IOpOdJTBE2nvSvpFvN5fmPjj1Iua73+JnBpLGvf7Om8
+ 3yCFCHtBa7ZwhnweHAX2KinTJHUw6ughwayfNtOv9bjeRKFpIiMBBlRQYDLAJhjVScckDDKw5/
+ NhSCcFoNSCyjWBVUYV1QDso9AEgJjAOdbT98OsX8jfwIekBAAA=
+X-Change-ID: 20260705-apple-m4-initial-devicetrees-f6ebb1c7a2cd
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Sven Peter <sven@kernel.org>, 
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Hector Martin <marcan@marcan.st>, Linus Walleij <linusw@kernel.org>, 
+ Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-pwm@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-From: Rafał Miłecki <rafal@milecki.pl>
+Hi,
 
-Northstar devices have 3 CPU ports. Ports 5 and 7 may be used but have
-their limitations. Warn user when CPU port 8 isn't used and add EAP
-setup workaround to avoid non-functional standalone ports.
+This series adds initial device trees and dt-bindings for the Apple
+Silicon devices using the M4 (t8132) SoC. For the most part it mirrors
+Janne's M3 (t8122) bringup series as it was merged in the 7.2 cycle.
 
-Fixes: 4227ea91e265 ("net: dsa: b53: prevent standalone from trying to forward to other ports")
-Cc: Semih Baskan <strst.gs@gmail.com>
-Signed-off-by: Rafał Miłecki <rafal@milecki.pl>
-Tested-by: Semih Baskan <strst.gs@gmail.com>
+This series covers only a minimal amount of hardware, which is useful
+as a basis for future developments. The hardware added here has remained
+largely unchanged between the M3 and M4 generations.
+
+Most of the changes for bringing these M4 devices into a bootable state
+have been happening in the m1n1 bootloader, which, compared to the M3
+generation, is no longer responsible for setting the configuration bits
+(🐔-bits) of the CPU, since these are now set and locked by iBoot.  
+
+Additionally, SMP boot depends on patches to avoid WFI and WFIT
+instructions, such as the idle=nop patches I sent out just before v1.
+Even with those, SMP boot remains unreliable.
+
+Since there are no actual driver changes, we'd generally prefer to merge
+the dt-bindings changes through the apple-soc tree once Acked by the
+respective maintainers.
+There are two notable exceptions in this patch series, due to some
+commits having already been applied to the respective subsystems' trees:
+- "dt-bindings: watchdog: apple,wdt: Add t8132 compatible"[1] has already
+  been applied to the watchdog subsystem tree, and this patch series
+  will pass check_dtbs when applied on top of linux-next, which includes
+  that commit.
+- "dt-bindings: pinctrl: apple,pinctrl: Add t8132 compatible" should be
+  applied through the pinctrl tree, since it depends on
+  "dt-bindings: pinctrl: apple,pinctrl: Add t6030 and t6031 compatibles"[2]
+  which has been applied in the pinctrl tree.
+
+Link: https://lore.kernel.org/asahi/20260705-apple-m4-initial-devicetrees-v1-3-e5655ee56523@cyberchaos.dev/ [1]
+Link: https://lore.kernel.org/all/20260709-apple-t603x-initial-devices-v1-7-55b305833123@jannau.net/ [2]
+
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 ---
-V2: Print warning on switch setup instead of on actual EAP mode change
+Changes in v3:
+- Fix pinctrl_nub node ordering
+- Add i-cache-size and d-cache-size
+- Link to v2: https://patch.msgid.link/20260801-apple-m4-initial-devicetrees-v2-0-5cb07cc275da@cyberchaos.dev
 
-I added PATCH 2/2 as requested but I'm not sure what DT maintainers will
-say about it. I'd suggest to take this fix if there are not more
-objections on net changes so regression can be fixed. I believe we can
-take more time to improve Linux dealing with switch to be more optimal.
+Changes in v2:
+- Rebased on top of the M3 Pro/Max patch series, which was applied to
+  apple-soc earlier today.
+- Fix several typos
+- Explain merge strategy in cover letter
+- Drop "dt-bindings: watchdog: apple,wdt: Add t8132 compatible", as it's
+  been applied in linux-watchdog.
+- Reword dt-bindings commit messages to not reference the driver
+- Add apple,always-on to ps_ans node, since powering it off causes reboots
+- Disable ps_disp*_cpu nodes, since even reading their state causes
+  SErrors with recent firmware
+- Fix inconsistency of name and reg of aic node
+- Add M4 devices to the global description in Documentation/devicetree/bindings/arm/apple.yaml
+- Link to v1: https://patch.msgid.link/20260705-apple-m4-initial-devicetrees-v1-0-e5655ee56523@cyberchaos.dev
 
- drivers/net/dsa/b53/b53_common.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+---
+Yureka Lilian (9):
+      dt-bindings: arm: cpus: Add Apple M4 CPU core compatibles
+      dt-bindings: interrupt-controller: apple,aic2: Add apple,t8132 compatible
+      dt-bindings: arm: apple: apple,pmgr: Add t8132 compatible
+      dt-bindings: power: apple,pmgr-pwrstate: Add t8132 compatible
+      dt-bindings: pinctrl: apple,pinctrl: Add t8132 compatible
+      dt-bindings: i2c: apple,i2c: Add t8132 compatible
+      dt-bindings: pwm: apple,s5l-fpwm: Add t8132 compatible
+      dt-bindings: arm: apple: Add M4 based devices
+      arm64: dts: apple: Add minimal t8132 (M4) device trees
 
-diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-index 3f5b9592794d..a9bc90b2ffd2 100644
---- a/drivers/net/dsa/b53/b53_common.c
-+++ b/drivers/net/dsa/b53/b53_common.c
-@@ -332,6 +332,14 @@ static void b53_set_eap_mode(struct b53_device *dev, int port, int mode)
- {
- 	u64 eap_conf;
- 
-+	/*
-+	 * Setting EAP_MODE_SIMPLIFIED with port 5/7 used as CPU port breaks
-+	 * standalone ports, see:
-+	 * https://lore.kernel.org/netdev/ce4d9b7b-aaf6-4796-94fb-8c3d6a1dcd4d@gmail.com/
-+	 */
-+	if (is5301x(dev) && !dsa_is_cpu_port(dev->ds, B53_CPU_PORT))
-+		return;
-+
- 	if (is5325(dev) || is5365(dev) || dev->chip_id == BCM5389_DEVICE_ID)
- 		return;
- 
-@@ -1281,6 +1289,18 @@ static int b53_setup(struct dsa_switch *ds)
- 	u16 pvid;
- 	int ret;
- 
-+	/*
-+	 * Northstar SoCs devices have 3 Ethernet controllers and 3 CPU ports:
-+	 * 5 (IMP1), 7, 8 (IMP0). This design was meant for dual IMP setups when
-+	 * WAN traffic goes to port 5 and LAN traffic goes to port 8.
-+	 *
-+	 * While all 3 ports support Broadcom header, ports 5 and 7 have their
-+	 * limitations. Features that relay on trapping to CPU (e.g. EAP, STP)
-+	 * won't work when using those as CPU ones.
-+	 */
-+	if (is5301x(dev) && !dsa_is_cpu_port(dev->ds, B53_CPU_PORT))
-+		dev_warn(dev->dev, "switch to CPU port 8 to use all switch features\n");
-+
- 	/* Request bridge PVID untagged when DSA_TAG_PROTO_NONE is set
- 	 * which forces the CPU port to be tagged in all VLANs.
- 	 */
--- 
-2.51.0
+ Documentation/devicetree/bindings/arm/apple.yaml   |   21 +
+ .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    1 +
+ Documentation/devicetree/bindings/arm/cpus.yaml    |    2 +
+ .../devicetree/bindings/i2c/apple,i2c.yaml         |    1 +
+ .../bindings/interrupt-controller/apple,aic2.yaml  |    1 +
+ .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    1 +
+ .../bindings/power/apple,pmgr-pwrstate.yaml        |    1 +
+ .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    1 +
+ arch/arm64/boot/dts/apple/Makefile                 |    6 +
+ arch/arm64/boot/dts/apple/t8132-j604.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j623.dts           |   18 +
+ arch/arm64/boot/dts/apple/t8132-j624.dts           |   18 +
+ arch/arm64/boot/dts/apple/t8132-j713.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j715.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j773g.dts          |   25 +
+ arch/arm64/boot/dts/apple/t8132-jxxx.dtsi          |   48 +
+ arch/arm64/boot/dts/apple/t8132-pmgr.dtsi          | 1130 ++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8132.dtsi               |  467 ++++++++
+ 18 files changed, 1846 insertions(+)
+---
+base-commit: 6e890bf6442553c7bf56867a91c2dbcc2c295900
+change-id: 20260705-apple-m4-initial-devicetrees-f6ebb1c7a2cd
+prerequisite-patch-id: 9cc940a660e81da8e030e383e26cd5a700fe2e80
+prerequisite-patch-id: 1a60321f66e49041d1de2864f1678009a0356294
+
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
 
