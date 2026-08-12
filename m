@@ -1,400 +1,119 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02B3430CE2
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:39:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96E9339371
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786577969; cv=none; b=fLN4fDmaqPfLhbNmBqslcvrddpSXnq2jjP38GCD9sDoBf7fRGimq3wmrJpBE6qwm/qt6x+XtGMskbgbzp2hwQXKt5RgLx8NLoGFgSuSkaGQTLIhhPJG1bpHbMP/0ylrjeljF5hxoJWB8dlzua4Fvu2Q+1NhNMlhiNv4fyhbN/GQ=
+	t=1786578768; cv=none; b=qgn0/j6f3IVkrtSosdKl8dPlXilzsnQxyq3mOvtHUBtcUYcXYpJdhg1tWWdJv+FXsfpaBoqX6Lde5DvO+ZOM8TFlLzeOsaZCSGVOFLzmH/bumwlan//HXpnaUrx2/yudqfIYbjNSZs4h60QV8qHpzECKHmsnrTK07YWhOsXOy5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786577969; c=relaxed/simple;
-	bh=93mIPBwo4xARi8bLSP2Ps85ndMzk+eFJTkulba9lNII=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=B3JnX/IZ6CIFNBi66sS1wgK7CTP9x05KBTpcor5Nuz2dFB98hy4QOk0T8amE/YMQImFhnT8JvbV5g4i7ugabFRzKPlaGy+uWpLF6ulRBxQI589kJqIeFswkmygLMenglQE60KTab4Oue4dKSM/oz3/RKqBsLIf6nsbEZmvwxWAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MoE6YAzG; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786578768; c=relaxed/simple;
+	bh=UJsWvhwI6QoOaQq/b1KUWUDqliWB7OANSwNCjG/cMps=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GQ8I4G61RHP/uCAbfAGWRcTGn7Cz3k+qETNmxCb+v3/QrBMB6aC5XmwqFUEoc8MRMk7TM9LlTM4MH9Q5aY4kpEsjW5GPxhC17mkz9nCA+nr25UDN1mgqjH6mokmh4ttVcnLUkynZgh4r6ua0/aaed/5j9iwC3eHvDe5Ef/PuOMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+hUUkKf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MoE6YAzG"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38115bbb83dso286476a91.3
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 16:39:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786577967; x=1787182767; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cY6XjQ7GhfOCdiXCjnF7Z4QVw3em6QUhOXkQiEkOmAY=;
-        b=MoE6YAzG0ZlyTUe3XDPmQQ+LzeVi/OntfB5bPWFpzHYQBrjtsqqddxyjeP1LxAAy3N
-         /QexmGf1YpK17chrux6a+cm6DnkVJ9BZBeIhU06UCx4cdaFQwwpMNQ/Jh+57J6yE01rf
-         g73EW9UjkM2MqY2LhgR/ly0+zs4Xrk3lqFYPust9JI1ycECTNa0rlGz2iqGSGIPtowpJ
-         LdZQmSLmfLo+5GdYjF0Z2J0hJ+kCuhQWLigw2ORGIXrQBNb97usYmLUlk+5DT/V2w3zk
-         i+GxllVJsljydRJyDYR0DApAzIawaeeQNN4Vr1JyRHdsL7K1Y+M15S0TcaQWUbIzhF9Z
-         pwGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786577967; x=1787182767;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cY6XjQ7GhfOCdiXCjnF7Z4QVw3em6QUhOXkQiEkOmAY=;
-        b=rCh+gvUnKIkcR2VMJvw/SeoZuJ7u+e+M7tN5ZUFhVdnyG5bgJHOK7PTAcA1hON7bVe
-         PTczlqV9p0S1X2qNA3RgMMafUwG5WuIp2vVLUsbvXmIHEcLU9HPs6PR9ceW8PE8gLw98
-         PO4HE1KX2l2qhMpZma36VT+49YDbXd9VQ+G7ICiIjnZiQPyq0k7QNWtDwT0hwB/0J84T
-         2ielYKP5fSbs4Q7QbPXJ0In4MjToeJB0fqxP0PIhgxtLc1z6vfdeF/AAOwlz3q7DGd09
-         zPM4Ll2ZsISOIVGU5sS8ILo2rBq+00MPgzV6edZi7g0x5JrN/eLtS2ZU43OFoDrTNnls
-         VZ8g==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5fheui6lN72z+4N95+9XmzhWnYBY34pJQ8pxZ4xY8xTDARcD+58qZ/SutrRow6IOVVDmC5E7jVc1T@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZI50WoUSoONcUC6jEaRu8uI5qbFIsB5l6Rf3a+BnjHV9NZGwr
-	KjxMb0nzxWgWo41OLSW2aNbUpDQe65Q18SEYW1yjR+VQU9XivEIrn+r3
-X-Gm-Gg: AR+sD11PASTdv4y0p9QbYoVF0ALxjCi0gbTCycWDjjYRvyWVm/YCA8sJRrzWLsbZQaw
-	HJcA1fkFIaPRKfSu+UXmsBr4ENIXEtdRr4m9z1QR7HxzxzwSFBKpacWZgAiYxiVgRE1zaj38G0Y
-	caE0uyBoqHz7R01L9J+L7eMMYGps0Uk59v8fEaf40Ph19KBNFRXqMwnyvOq/PkiFacAYqNJ+0rs
-	zy2UO6xajNhmTg1lhQ0Z+PijBGyzCuig5pU3dV+fVYyY/kEkCjbwPs7MOrTPkjI90To2HRx8HEs
-	kaMoRRAzw34XdRLSozwaxs2MBGWXZCfMBe4DWtwrNvDkHW7fXiJGGQKtiE2NPUllDC3sRuCPR/z
-	MjsQiw6FzRfULt6COCc31FtY2kvin70vxZkG/tqCNWa4PqW8G1BeL5LdB7zIBmbGWPkIu9vL/xM
-	8i3n1t2+ehC+kMHrYeoTQeGp0Nxa3ZiLt27h+1/cAeuLMbX5ciiD9jFh0VO+z+OytmRLcaLlCAw
-	V1862/6
-X-Received: by 2002:a17:90b:2ec7:b0:38f:aa76:88b with SMTP id 98e67ed59e1d1-393233744femr603535a91.4.1786577966833;
-        Wed, 12 Aug 2026 16:39:26 -0700 (PDT)
-Received: from [10.219.45.252] ([2409:40c2:504e:6b:b46f:70e9:d340:f24c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1412d8a9dadsm1928114c88.2.2026.08.12.16.39.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 16:39:26 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Thu, 13 Aug 2026 05:09:08 +0530
-Subject: [PATCH v2] media: dt-bindings: ti,da850-vpif: Convert to dt-schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+hUUkKf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC211F00A3D;
+	Wed, 12 Aug 2026 23:52:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786578766;
+	bh=E61nZ0g5ggTLGlu0SDFuaJU33DJ4KUG4+une4z0PDCg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=S+hUUkKfWrXwH/W836v9iga8iizdtxxaJCoZvzzMDqtjeqJUEJWffWLshB0UxaOaF
+	 /cj3gxe+rbATlXJoUO8zQBkhP28yhGE8L2aoUyfn0vFTP0UfdIfvouztIvKn5nbnUg
+	 vvECHidyViHNqD/HVYI4Wywd2zvto+QzCkQy8cmUGwz5+mteux9xWKKyKj3vor/DYU
+	 8ARrh8HCfxZ8k3eX/4j3sSlgyf/RnSIGTaY+FOr5a8AzXvci3Ki2eKIlRtxrba287a
+	 3jubyGCg+AnFLonvhG2iBlXwcfn+W9YTdwvrvc4DCjjnhHIWIbfad7mU4BZd9VkUV7
+	 v0GhiciwCrmDw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 09/11] riscv: cpufeature: Introduce ISA bases bitmap
+ and rva23u64 detection
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Guodong Xu" <guodong.xu@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260812-rva23u64-hwprobe-v2-v6-9-c985af3256b8@oss.qualcomm.com>
+References: <20260812-rva23u64-hwprobe-v2-v6-0-c985af3256b8@oss.qualcomm.com>
+ <20260812-rva23u64-hwprobe-v2-v6-9-c985af3256b8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 23:52:45 +0000
+Message-Id: <20260812235246.4FC211F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-ti-da850-vpif-v2-1-80ba62ca53d0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMSw6DIBSF4a2YO+5teFTBjrqPxgER0JtUMWBIG
- 8PeS513+J/kfAckF8kluDcHRJcpUVhriEsD42zWySHZ2iCY6JjmEndCa3TLMG/kkfVCaWW4kqq
- H+tmi8/Q+vedQe6a0h/g5+cx/6z8pc+QoVOstk52UN/6YFkOv6xgWGEopX2HmCjyqAAAA
-X-Change-ID: 20260813-ti-da850-vpif-092787a17379
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786577957; l=7744;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=93mIPBwo4xARi8bLSP2Ps85ndMzk+eFJTkulba9lNII=;
- b=afEBhoAr2ih/gKzMV7BUlTLA4+Da3Jtel+wW+PQ53gtCt0X+5sfHjZLSNBqJwKXKrOYLBwTTN
- z3GosKWog6hBpjcEcFA4FDiSgqQMkrqAOEguKVhfQHgcdnTq8ANoNgk
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert the Texas Instruments DA850/AM18x Video Port Interface (VPIF)
-device tree binding from text format to YAML dt-schema.
-Add power-domains property missing from text.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] RVA23U64 detection relies on the non-standard `RISCV_ISA_EXT_B` ps=
+eudo-extension instead of the mandated `Zba`, `Zbb`, and `Zbs` sub-extensio=
+ns, causing conformant hardware to fail detection.
+--
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v2:
-- Removed old text binding that wasn't removed in v1
-- Link to v1: https://lore.kernel.org/r/20260813-ti-da850-vpif-v1-1-275fd0363341@gmail.com
----
- .../devicetree/bindings/media/ti,da850-vpif.txt    | 106 -------------
- .../devicetree/bindings/media/ti,da850-vpif.yaml   | 168 +++++++++++++++++++++
- 2 files changed, 168 insertions(+), 106 deletions(-)
+--- Patch [9]: [PATCH v6 09/11] riscv: cpufeature: Introduce ISA bases bitm=
+ap and rva23u64 detection ---
+commit 96d9cbf0b8923400be62f448ef68daf8ad09dfb6
+Author: Guodong Xu <guodong.xu@oss.qualcomm.com>
 
-diff --git a/Documentation/devicetree/bindings/media/ti,da850-vpif.txt b/Documentation/devicetree/bindings/media/ti,da850-vpif.txt
-deleted file mode 100644
-index e47c7ccc57f1..000000000000
---- a/Documentation/devicetree/bindings/media/ti,da850-vpif.txt
-+++ /dev/null
-@@ -1,106 +0,0 @@
--Texas Instruments VPIF
------------------------
--
--The TI Video Port InterFace (VPIF) is the primary component for video
--capture and display on the DA850/AM18x family of TI DaVinci/Sitara
--SoCs.
--
--TI Document reference: SPRUH82C, Chapter 35
--http://www.ti.com/lit/pdf/spruh82
--
--Required properties:
--- compatible: must be "ti,da850-vpif"
--- reg: physical base address and length of the registers set for the device;
--- interrupts: should contain IRQ line for the VPIF
--
--Video Capture:
--
--VPIF has a 16-bit parallel bus input, supporting 2 8-bit channels or a
--single 16-bit channel. It should contain one or two port child nodes
--with child 'endpoint' node. If there are two ports then port@0 must
--describe the input and port@1 output channels. Please refer to the
--bindings defined in
--Documentation/devicetree/bindings/media/video-interfaces.txt.
--
--Example using 2 8-bit input channels, one of which is connected to an
--I2C-connected TVP5147 decoder:
--
--	vpif: vpif@217000 {
--		compatible = "ti,da850-vpif";
--		reg = <0x217000 0x1000>;
--		interrupts = <92>;
--
--		port@0 {
--			vpif_input_ch0: endpoint@0 {
--				reg = <0>;
--				bus-width = <8>;
--				remote-endpoint = <&composite_in>;
--			};
--
--			vpif_input_ch1: endpoint@1 {
--				reg = <1>;
--				bus-width = <8>;
--				data-shift = <8>;
--			};
--		};
--
--		port@1 {
--			vpif_output_ch0: endpoint {
--				bus-width = <8>;
--				remote-endpoint = <&composite_out>;
--			};
--		};
--	};
--
--[ ... ]
--
--&i2c0 {
--
--	tvp5147@5d {
--		compatible = "ti,tvp5147";
--		reg = <0x5d>;
--
--		port {
--			composite_in: endpoint {
--				hsync-active = <1>;
--				vsync-active = <1>;
--				pclk-sample = <0>;
--
--				/* VPIF channel 0 (lower 8-bits) */
--				remote-endpoint = <&vpif_input_ch0>;
--				bus-width = <8>;
--			};
--		};
--	};
--
--	adv7343@2a {
--		compatible = "adi,adv7343";
--		reg = <0x2a>;
--
--		port {
--			composite_out: endpoint {
--				adi,dac-enable = <1 1 1>;
--				adi,sd-dac-enable = <1>;
--
--				remote-endpoint = <&vpif_output_ch0>;
--				bus-width = <8>;
--			};
--		};
--	};
--};
--
--
--Alternatively, an example when the bus is configured as a single
--16-bit input (e.g. for raw-capture mode):
--
--	vpif: vpif@217000 {
--		compatible = "ti,da850-vpif";
--		reg = <0x217000 0x1000>;
--		interrupts = <92>;
--
--		port {
--			vpif_ch0: endpoint {
--				  bus-width = <16>;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/media/ti,da850-vpif.yaml b/Documentation/devicetree/bindings/media/ti,da850-vpif.yaml
-new file mode 100644
-index 000000000000..77de70be807a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/ti,da850-vpif.yaml
-@@ -0,0 +1,168 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/ti,da850-vpif.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments DA850/AM18x Video Port Interface (VPIF)
-+
-+maintainers:
-+  - Lad, Prabhakar <prabhakar.csengg@gmail.com>
-+
-+description:
-+  The Video Port Interface (VPIF) is the primary component for video capture
-+  and display on the DA850/AM18x family of TI DaVinci/Sitara SoCs.
-+
-+  TI Document reference:- SPRUH82C, Chapter 35
-+  https://www.ti.com/lit/pdf/spruh82
-+
-+properties:
-+  compatible:
-+    const: ti,da850-vpif
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    unevaluatedProperties: false
-+    description:
-+      VPIF port when the bus is configured as a single 16-bit input
-+
-+    properties:
-+      endpoint:
-+        $ref: video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          bus-width:
-+            enum: [8, 16]
-+
-+patternProperties:
-+  ^port@[0-1]$:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    unevaluatedProperties: false
-+    description:
-+      VPIF has a 16-bit parallel bus input, supporting 2 8-bit channels or a
-+      single 16-bit channel. It should contain one or two port child nodes
-+      with child 'endpoint' node. If there are two ports then port@0 must
-+      describe the input and port@1 output channels.
-+
-+    properties:
-+      endpoint:
-+        $ref: video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          bus-width:
-+            enum: [8, 16]
-+
-+      endpoint@0:
-+        $ref: video-interfaces.yaml#
-+        unevaluatedProperties: false
-+        description:
-+          First 8-bit channel using the lower data lines [7:0].
-+
-+        properties:
-+          bus-width:
-+            const: 8
-+
-+          data-shift:
-+            const: 0
-+
-+      endpoint@1:
-+        $ref: video-interfaces.yaml#
-+        unevaluatedProperties: false
-+        description:
-+          Second 8-bit channel using the upper data lines [15:8].
-+
-+        properties:
-+          bus-width:
-+            const: 8
-+
-+          data-shift:
-+            const: 8
-+
-+    anyOf:
-+      - properties:
-+          endpoint@0: false
-+          endpoint@1: false
-+      - properties:
-+          endpoint: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+oneOf:
-+  - properties:
-+      port@0: false
-+      port@1: false
-+  - properties:
-+      port: false
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    vpif@217000 {
-+        compatible = "ti,da850-vpif";
-+        reg = <0x217000 0x1000>;
-+        interrupts = <92>;
-+
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        port@0 {
-+            reg = <0>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            vpif_input_ch0: endpoint@0 {
-+                reg = <0>;
-+                bus-width = <8>;
-+                remote-endpoint = <&composite_in>;
-+            };
-+
-+            vpif_input_ch1: endpoint@1 {
-+                reg = <1>;
-+                bus-width = <8>;
-+                data-shift = <8>;
-+            };
-+        };
-+
-+        port@1 {
-+            reg = <1>;
-+
-+            vpif_output_ch0: endpoint {
-+                bus-width = <8>;
-+                remote-endpoint = <&composite_out>;
-+            };
-+        };
-+    };
-+
-+  - |
-+    vpif@217000 {
-+        compatible = "ti,da850-vpif";
-+        reg = <0x217000 0x1000>;
-+        interrupts = <92>;
-+
-+        port {
-+            vpif_ch0: endpoint {
-+                bus-width = <16>;
-+            };
-+        };
-+    };
+riscv: cpufeature: Introduce ISA bases bitmap and rva23u64 detection
 
----
-base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
-change-id: 20260813-ti-da850-vpif-092787a17379
+This commit introduces a per-hart and host-wide bitmap for ISA bases, such
+as IMA and RVA23U64, computed during subsystem init. It provides a cached
+detection mechanism to ensure system-wide consistency for subsequent
+consumers like hwprobe and /proc/cpuinfo.
 
-Best regards,
--- 
-Bhargav
+> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeatur=
+e.c
+> index de7cff5f48c34..2ad8a16a0eff3 100644
+> --- a/arch/riscv/kernel/cpufeature.c
+> +++ b/arch/riscv/kernel/cpufeature.c
 
+[ ... ]
+
+> @@ -1334,3 +1337,90 @@ void __init_or_module riscv_cpufeature_patch_func(=
+struct alt_entry *begin,
+> +static void riscv_set_isa_bases(unsigned long *bases, const unsigned lon=
+g *isa_bitmap)
+> +{
+> +	const unsigned long *isa =3D isa_bitmap ? isa_bitmap : riscv_isa;
+> +	DECLARE_BITMAP(ext_mask, RISCV_ISA_EXT_MAX) =3D { 0 };
+
+[ ... ]
+
+> +	/* RVA23U64 */
+> +
+> +	/* Supm with PMLEN=3D7 */
+> +	if (!riscv_have_user_pmlen(7))
+> +		return;
+> +
+> +	__set_bit(RISCV_ISA_EXT_F, ext_mask);
+> +	__set_bit(RISCV_ISA_EXT_D, ext_mask);
+> +	__set_bit(RISCV_ISA_EXT_C, ext_mask);
+> +	__set_bit(RISCV_ISA_EXT_B, ext_mask);
+
+[Severity: High]
+Does this cause conformant hardware to fail detection?
+
+The RVA23U64 profile mandates the individual bit-manipulation extensions
+Zba, Zbb, and Zbs. If a device tree explicitly lists these standard
+extensions in riscv,isa-extensions without the unratified B pseudo-extensio=
+n,
+the device tree parser will set the individual extension bits but not
+RISCV_ISA_EXT_B.
+
+Since this mandate mask checks for the B pseudo-extension, bitmap_subset()
+will fail for conformant hardware, breaking any system or userspace behavior
+relying on this hwprobe base detection.
+
+Should this check for RISCV_ISA_EXT_ZBA, RISCV_ISA_EXT_ZBB, and
+RISCV_ISA_EXT_ZBS instead?
+
+> +	__set_bit(RISCV_ISA_EXT_ZICSR, ext_mask);
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-rva23u64-h=
+wprobe-v2-v6-0-c985af3256b8@oss.qualcomm.com?part=3D9
