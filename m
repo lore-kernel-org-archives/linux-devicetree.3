@@ -1,63 +1,65 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6700C43E09A
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B611343F08D
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:21:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786537311; cv=none; b=siC0MxF8w7H9pv9B5Qg6Ngk0O3Sb/JQxzu0bxXT/C71ruSM1MjFHMnvGwpn5QK4P0Bk+BakLAisApqolNWechishAR4+I8iaerFGnkHMcdn+HsPzW6hqa4GhsrADVRoeNkEmLi9zVoMYKADYs5h6jgQ9ybUoBKdh1IHD1eSKEBM=
+	t=1786537320; cv=none; b=Ct87Smm/ezjLFR4Le4g7aGu5hdF9cPpzN9F29f3b/no1GvnqsEKRVcVJ60f57ybxgwH41KDF3TfWdI3ATcmpZQfjEOBxyUE33qaP98Iwp0evR1Cyy0u+BM3kx+MYtmSNHD5zytnKAWM+mqObZn2BBKK/NaCfHHcKnRJeSbe1Pn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786537311; c=relaxed/simple;
-	bh=zCYTZEw6BBSMhECq21v+gXOI76+nu/PUwVKQ7phuzwk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SrUsdSVQ7++YUFV5/aeQlrSRiMA5HUOwjtygyXNQ+te5ULbxKnVfwVxWzNMgdXNmMPF+3i4mm/PhipFJnv+KDXmtLqlow+aE2QnJf+n45UiFy7IFU4lZ1U/pQ5X3kYfaMZZKtO8gGwE3h44zOdWr8/aF1Nbnpv7cwv4SOsy4dYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=Q0nwU6kK; arc=none smtp.client-ip=209.85.128.47
+	s=arc-20240116; t=1786537320; c=relaxed/simple;
+	bh=c1YB0KNeTCJNGX5C2Fy97yLMaIYSSlF08a0kpFKvFTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=clfj0lX4+dVreamVQT+l70J9AnIAoaoIQdqZvHffB+OQRXGQX5VErbwvDwIOayihzLbPZATOu1i4fSi2hTeLlF+95qOvJu6/JxOc1lH72KOue2PNAKJEYw8CCdZL2N+eTBLGKNggqF+OzvP8E78QEMdX0XdF5eK2e/rlMReb6A0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=i/mNyQyI; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="Q0nwU6kK"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso15702835e9.0
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:21:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="i/mNyQyI"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495590dde14so10926275e9.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:21:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1786537307; x=1787142107; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UeHBK+ZUVXf1IPAtpZKQyvyBgKkify1wwk6CszLJxIk=;
-        b=Q0nwU6kK/biVFruwB6QUFJDAu//T3X3F+LJ9JvKrBZOy0WPWeCQcFusGuDxpsWzbde
-         yLhWNrV6LBQWFFJxdkPbTaqf/chpUnGRTpRnpqraV300KEMntEE+D7y455YrAb97dBwL
-         RKguSX1+1je44WC6CMC7y18+xv/PjIjW7J5bJunpSL79Sl44q/g3Q05uAoUsYrWKjfsC
-         +F6XmgL78G/AbgfpGuANQBiB03z/boWzsD4hVPss/Geqfabjoe63HXxZF+egYk7D85+h
-         k5J4LB1yhGL7yRdDY1sT5vCJ5XM83AJ8kUVbxq/E5ZEs2kWL9dLd2pMoujLgdV+wjGS4
-         zUaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786537307; x=1787142107;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=sifive.com; s=google; t=1786537317; x=1787142117; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UeHBK+ZUVXf1IPAtpZKQyvyBgKkify1wwk6CszLJxIk=;
-        b=ani1AIz4odwe4IrJnBYXPJM1Sr49GnpkY45/jx0/FcZE6N3YN65TgOVUal/P59LU1R
-         R6mDLmwOg8pBeOWFbS5mgXJKghZnOsFgLzo4Ujw2JCMmPQvVdYnAScfbX003X1jUk/M+
-         KBtu79RjESepUU/Ua11XIBLSc3RG3mVq42SescS/LcDronm+OdtmSSK0m2qnzas0hedT
-         KGBb8gdXTaId4hdddfb6ZpmDi8S/d2J6NRuhyHo++D7tGZjmh8cIyX7IkDe4Ql0IKFgW
-         jV3IqacUmQukCdvAREzn6g7GqDA7v+ZdLlXiX26kap7xlOAgTIIqEEMN/DSV1hrF7whm
-         AJkA==
-X-Gm-Message-State: AOJu0Yyoul9R7HQsz7p+x888Uwi11clgmkJnU1d9v2Z9Ekt6pfL7z9mA
-	kjv9q9fWNZI/aS0+CqTnIyMVHGJCmLT92nYHXUDEUp7IzEgdia5iXonUkR/qxGbCYVjjmqz+BzQ
-	uwH2tUV8BhMBh0cyva+I7iW7dr3qzqeQKvIBW8HzswoVJlVCyjD74uOVFvjTUeHTCOoVPq1mRsR
-	CoGzbmkX54+jvaSJxXnInFi25ufDsafeZjq3reQinvHFZW3nGWCNddsP0=
-X-Gm-Gg: AR+sD11JoKGakbJGjvhjw+yf9pJBo4DOTjSCiYAt1O1MCQBMHKIX73+I5ODke8fjySF
-	oDcnHXaapbLeyc4FLFo6nzGYOGlv+V0RtV4KpfgGGAOme5VeMjVE9KfoZFlb6Wia9B24mhTbpQ3
-	MxrBQN+LYIGf7I2byvEgm44XCWrWufxrlFSNfA0kj5GgsfNEcLdPOBnEqYOjliiwOA+GUMh+CGO
-	+uk4Zjkh6yXk/ZCQXCYrcVdEcFvNuQODVnV/mzXYx2JElkMXlb/ArH0kyjjqe1OuU+lPlIOD+Rg
-	9QWI4JkL4xto6omMY9c+GZm1Ef3zONIwTuGs66uNVlJk6x3J6aA+6EacizVUZRw5VdVhKcCk5OT
-	6kOPJtVKn+69qotRHZS/EcgY1g7g17wfLj5tpjFydS7ApsUdXq2cQCPFICN62w9+1mOe8+gvC68
-	Q+Sw9MQA0JTr7ljTVe2doxI0xDPM2fXTEuA8b/A03LP5fdmPYvnLY9mhXOdiDXeB1tll5MKajuM
-	+I+ULI5BzBj
-X-Received: by 2002:a05:600c:524c:b0:499:596b:2e91 with SMTP id 5b1f17b1804b1-4997c393b0bmr52627565e9.3.1786537307508;
-        Wed, 12 Aug 2026 05:21:47 -0700 (PDT)
+        bh=LCdL4VbOsSqHHyMYXFoVto3PKZeUgpsQP3ESoT9xVbU=;
+        b=i/mNyQyIznwo+gVMUVz4aGvNco4H6baVSbZmgrj/T5yhkLBfkUrCZChRY3/KbmHxsR
+         IuKb3d4DPwSAbIqmaL1iB4qRmNd5zagsYddKX6730zNdH+uNDWIWhSJspJKTaQCbEw8U
+         BKzi5QOIexE1aeMTIyT+WhFKP+Z3FNojDyLjsSR9YhQ7ZayHhVXaorueGvOeXJNREHVH
+         Js4ea8Vub3lqgN5jL54z7hPHrzeN/LZ55UKeH3qBboIxm34TFhEOu4uYOEJzj99C3jCK
+         l9OO1yq1dFk6eGX4xYXuqLJF88entJBSv5HeoW7Y0Hc7OuIIl+KxTKOig32f+rcISEl5
+         ySdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786537317; x=1787142117;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LCdL4VbOsSqHHyMYXFoVto3PKZeUgpsQP3ESoT9xVbU=;
+        b=etAaNLgsVHBYbqaqiQVwdKALf/2IdB+DqPPj6nXY1Kql4BBtRfOOZU7mhTTN8G3egC
+         5duKmODzrP5jgTVachqdI4muiGVa1kZcooph16ETMRNIUQmbarkQirp+KySeKHfQ6kEI
+         hUwCUZlCc/X12k7H+XnJWfjvPPYZYIj446yllsTVYzVlIGKZZf6wPoXdT2K+DTtBk4nr
+         f8vNTzqR7zFcGMC6ddKKfWlFljSyY2uqIUTsbCyMREVj5KUUmk82o+lcSPxYikQKIc3/
+         3JeYOFAaPD79IS30vScR8txVAVte0ORCpEGO/IFs4zdgKGrkfq3NgzoPiuQBs8B9K7wW
+         hL9Q==
+X-Gm-Message-State: AOJu0YwftKhFnt+5mKX15Kgvd53Lk2lYPcCcq01I3X7AZCFGEKMm82dG
+	iK8ENLS3LZ3SkOnXFHmMyumd5c/QuhVGyF+c589o70xyPK1oG5G6yBYomj9OcPb9pbesCZAJKFT
+	gPbBEZdjHnpNDUmCzv5SY6rjF7QyovG5JfKKnjgYixK2XZBRxldhXoSZH5JlApihcGtvI/jm26V
+	dh6Y497QF2gdl3Y8BEbYWwFPE6AAE0Q2iv+krmL+ge/LePs2bTEnM8N8M=
+X-Gm-Gg: AR+sD13uHEmP0ZIJXyrW5fH+PHfppwHUrOVepHGjxSGu/t0ZPRfYuNUb4c3Y4wvfBbN
+	7N/7t3g3t9A+Gme5B71xvgBIniv28yF0mTb+2siqx/SOrGtHJ3j5yFRVO5jkofwZpLPIX+tFeWs
+	pBsMQT84zGLEzrWCQD1oomamU8euKND7ugRoCxWl0ndXgdxtXJW7zTvdWovH1kcl56qIZ5JOC/+
+	SrV06D5mMpdQSs/yVfF8erYiSY3Hgb4bfY66iuPRCWPa4ibY4s8gPc81+CpJvif1r1upb4zwfdU
+	I1qCQIHK49NQhJ6KQDXAPSIHIp9V3LxfP65Zy4jVcFvJrj3M8JvHhKekGN7/Zmhr7AE6nR15lAv
+	XUHT8wFtb3HiWJWWgT2IGOJObqhdI51hqGvD2lZESpM1MieuEfWHiIc7k6lyP5eFBIMAZWYj8kA
+	kFrDgFn8BbqqOg39gx0WkdCsKM9ubujHoYPMCEfCl/WWv6ePqW/q34SqjXgXb8htfSTb6qLVire
+	nMP8R9EnJyB
+X-Received: by 2002:a05:600c:8b52:b0:493:e365:7630 with SMTP id 5b1f17b1804b1-4997c147d7emr72358545e9.14.1786537316768;
+        Wed, 12 Aug 2026 05:21:56 -0700 (PDT)
 Received: from hsinchu16.internal.sifive.com ([210.176.154.34])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997aaa5d04sm65858905e9.2.2026.08.12.05.21.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997aaa5d04sm65858905e9.2.2026.08.12.05.21.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 05:21:45 -0700 (PDT)
+        Wed, 12 Aug 2026 05:21:56 -0700 (PDT)
 From: Yu-Chien Peter Lin <peter.lin@sifive.com>
 To: devicetree@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
@@ -90,10 +92,12 @@ Cc: robh@kernel.org,
 	anup@brainfault.org,
 	pawandeep.oza@oss.qualcomm.com,
 	Yu-Chien Peter Lin <peter.lin@sifive.com>
-Subject: [RFC PATCH v3 0/3] dt-bindings: riscv: Add RISC-V Worlds and SiFive WorldGuard DT bindings
-Date: Wed, 12 Aug 2026 20:21:28 +0800
-Message-ID: <20260812122131.1534906-1-peter.lin@sifive.com>
+Subject: [RFC PATCH v3 1/3] dt-bindings: riscv: Add Worlds ISA extensions
+Date: Wed, 12 Aug 2026 20:21:29 +0800
+Message-ID: <20260812122131.1534906-2-peter.lin@sifive.com>
 X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20260812122131.1534906-1-peter.lin@sifive.com>
+References: <20260812122131.1534906-1-peter.lin@sifive.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -102,39 +106,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series introduces device tree bindings for the RISC-V Worlds ISA
-extensions and the SiFive WorldGuard Checker hardware.
+Add DT bindings for RISC-V Worlds ISA extensions
+(Smwid, Smlwidlist, Smlwid, Smwiddeleg, Sswid) and
+enforce their architectural dependency rules in the
+schema.
 
-RISC-V Worlds is a set of standard ISA extensions (Smwid, Smlwid,
-Smlwidlist, Smwiddeleg, Sswid) that enable hardware-enforced context
-isolation by tagging each system transaction with a World ID (WID).
-The extensions allow platform firmware to assign WIDs to privilege
-levels, execution contexts, or isolation domains, and delegatable WID
-management across privilege boundaries.
+Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
+---
+Changes v2->v3:
+- Add extension dependency rules
+- Fix alphabetical order
+---
+ .../devicetree/bindings/riscv/extensions.yaml | 53 +++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
-The SiFive WorldGuard Checker (wgChecker) is a hardware firewall
-positioned in the system interconnect fabric. It inspects the WID
-of every transaction and enforces access control policies on memory
-regions and memory-mapped I/O devices. The wgChecker is based on the
-access-controllers framework, allowing protected devices to declare
-their access requirements via standard phandle references.
-
-This is submitted as [RFC] because the RISC-V Worlds specification
-is not yet ratified. The extension descriptions in extensions.yaml
-carry placeholder "TBD" commit references; these will be updated
-to the actual ratification commit before the series is merged.
-
-Yu-Chien Peter Lin (3):
-  dt-bindings: riscv: Add Worlds ISA extensions
-  dt-bindings: riscv: Add Worlds per-hart properties
-  dt-bindings: access-controllers: Add SiFive WorldGuard Checker
-
- .../access-controllers/sifive,wgchecker2.yaml | 178 ++++++++++++++++++
- .../devicetree/bindings/riscv/cpus.yaml       |  44 +++++
- .../devicetree/bindings/riscv/extensions.yaml |  53 ++++++
- 3 files changed, 275 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/access-controllers/sifive,wgchecker2.yaml
-
+diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
+index 5ffc40d599c0..0408d1116527 100644
+--- a/Documentation/devicetree/bindings/riscv/extensions.yaml
++++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
+@@ -181,6 +181,18 @@ properties:
+             changes to interrupts as frozen at commit ccbddab ("Merge pull
+             request #42 from riscv/jhauser-2023-RC4") of riscv-aia.
+ 
++        - const: smlwid
++          description: |
++            The standard Smlwid extension for M-mode control of lower
++            privilege World ID via the mlwid CSR as ratified at commit
++            TBD ("TBD") of riscv-worlds.
++
++        - const: smlwidlist
++          description: |
++            The standard Smlwidlist extension for M-mode control of lower
++            privilege World IDs via the mlwidlist CSR as ratified at commit
++            TBD ("TBD") of riscv-worlds.
++
+         - const: smmpm
+           description: |
+             The standard Smmpm extension for M-mode pointer masking as
+@@ -199,6 +211,17 @@ properties:
+             added by other RISC-V extensions in H/S/VS/U/VU modes and as
+             ratified at commit a28bfae (Ratified (#7)) of riscv-state-enable.
+ 
++        - const: smwid
++          description: |
++            The standard Smwid extension for M-mode World ID control via the
++            mwid CSR as ratified at commit TBD ("TBD") of riscv-worlds.
++
++        - const: smwiddeleg
++          description: |
++            The standard Smwiddeleg extension for M-mode delegation of lower
++            privilege World ID control to S-mode via the mwiddeleg CSR, as
++            ratified at commit TBD ("TBD") of riscv-worlds.
++
+         - const: ssaia
+           description: |
+             The standard Ssaia supervisor-level extension for the advanced
+@@ -262,6 +285,12 @@ properties:
+             ratified in RISC-V Profiles Version 1.0, with commit b1d806605f87
+             ("Updated to ratified state.")
+ 
++        - const: sswid
++          description: |
++            The standard Sswid extension for S-mode control of lower
++            privilege World IDs via the slwid CSR as ratified at commit
++            TBD ("TBD") of riscv-worlds.
++
+         - const: supm
+           description: |
+             The standard Supm extension for pointer masking support in user
+@@ -924,6 +953,30 @@ properties:
+         then:
+           contains:
+             const: b
++      # Smlwidlist depends on Smwid and Smlwid
++      - if:
++          contains:
++            const: smlwidlist
++        then:
++          allOf:
++            - contains:
++                const: smwid
++            - contains:
++                const: smlwid
++      # Smwiddeleg depends on Smlwid
++      - if:
++          contains:
++            const: smwiddeleg
++        then:
++          contains:
++            const: smlwid
++      # Sswid depends on Smwiddeleg
++      - if:
++          contains:
++            const: sswid
++        then:
++          contains:
++            const: smwiddeleg
+       # Supm depends on Smnpm or Ssnpm
+       - if:
+           contains:
 -- 
 2.43.7
 
