@@ -1,93 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AEF384CEC
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:35:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D70384CDA;
+	Wed, 12 Aug 2026 07:35:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786520109; cv=none; b=GlsGGv1LcqtgJfuek0TYPsKmmJvgFZdmsZkcz78o/E+TknKJY1NHDJpKOakSHL+pUZ0AxRCXxExDYgRZj7qDtOJ03fxCwZ7lgJf7MJtuDdDLGzf7GtqWSLdfL17ZlB3+PdB6anC+3TVacXG01O3h5HLhOP0ifY9H6LUIEhSkDIM=
+	t=1786520151; cv=none; b=S/RVrzy/ASmJohrSYBV5rfbUEthz35x6XnOd88gGxQVaxyNPU87v/AZ84fIl3ZU9THu2Kf07MiCgioPgRVoxevltLxM3LOiJ/XQrT88ML2+fT9b0YcvgLaVhTEM5RvJAlYpGT/yyC658wfObnwM4SbWr/gPpsiOMUKGzfKI0xGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786520109; c=relaxed/simple;
-	bh=aOawT6X28n8vcWBv1xANeTZjFAqJRU8c8iGH6l4NFPg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BlZlCwHRF0Ts9eGf659vmZupiVRrsBN4t8smiudmzQxtUdCJE87ut1OG2YlPFGGXQDmk4jl1yK47lBZ4zagL7j3YHBPv60nYg+76WUzOVAgREKS5Ewqogbr1TSWhBAdva/L49/Y3/XQPXx9a+t4bQuTIZscLWCUN1bkcNL0un3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FD/JG9MM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786520151; c=relaxed/simple;
+	bh=I26toeKwrqlA0uzDb6MiEV8dyzDrVSN2BN2Qe2vefSk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=V+WC/fk17Ea7zaj5n2p/WK9y/GdyNstHZ95uN+ZgoPGTCqf9WO4dWunvZsX1ey6DqH8f0f/jdbtnRFsQoCagEMEmiHV5LQTHyN1hkoTkE4walIhIiijCcTviFpNUiWOGwTJe4Q838i8VHVyPtsJb7r7lYFa57EB8pNDtg7N3ASs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G+ibUD5O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FD/JG9MM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6E481F00ACF
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:35:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G+ibUD5O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43BC01F000E9;
+	Wed, 12 Aug 2026 07:35:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786520107;
-	bh=QZtowjMlHYM3cvyZrn8M2V6bTZ5ZvhIgLzb9prhj6h4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FD/JG9MMT6ZaKy6XX95aWGUmtSM8IV7ZjCPAB/jTGXdX1liyHhPUgYJYOHK122fVG
-	 iUaamM+OXAgp93w8AbbWza8sLyQk/eY9o2z1GhBXDJsEJMfehhzlkr4+TQHi3JNzQJ
-	 UUiRjG/biwprPkUMT6Yi/RYJwo6QuEsGUEhw5pvI7CljxCvAJPqxAJAupdr0/RvJvU
-	 7gRXcXZvkhMr1d/jM0On54G5Km4RkGWTLHSJY2i/PUrMWS44I2nVCrLEr74owcTDRS
-	 Nj2gZ2+aNL2yd3ePXBqG/gjrPGMYivSwe4cFMvFJkZHprEvg7SqSft7P3cksjXqlWn
-	 UPtofQXW6cqCw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b29599b81cso850311e87.1
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 00:35:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RryccDabxtFRwyrt+PVGTor6VT5agy3uBCa8idTu07RrS+5WBm02KOABhuhJMR4AJJP9YEjVmWLNsEW@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtdFm/HzgfgrW/8R5MUf7WiWSHsL8x3h0eQ9mpSZZj6XT2n/5U
-	MIpukPkPiBGDNsPeyHipQS5eBM0pEHjY2GUA/TRTUY5JMWg6i423mhJu3r5N5rCjT2tCJDrNVpp
-	Quob7PCZ2VmJtjyUbgbD7uFPcDpbm1nM=
-X-Received: by 2002:a05:6512:3e07:b0:5b3:420:884d with SMTP id
- 2adb3069b0e04-5b44e0dd27amr394108e87.18.1786520106664; Wed, 12 Aug 2026
- 00:35:06 -0700 (PDT)
+	s=k20260515; t=1786520149;
+	bh=u1/W59W9pDR/VZOdnwEcZ9qvWbPlX/3hk3S+kCXSOaw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G+ibUD5OplqwNFI+bsEFIW0iXz2PUqHvV7I7zxrcJKzKhpJhfVY85PTGCX1E+FUKC
+	 1WNufykw0orqPmni/XAXnlo2mkYnkH4hMikv06zjjFzkUNHfBVryQMSE25gNuCyJWi
+	 qeL9FPC/xXIq65AW2P0Jy/+Vr3WquQH4m6S35gvM7GV5OMBiClxmp8O5LVajTTxgy/
+	 NxWNVicvbPXwKUPC3g5JPIHPLH70AwAEg+an78952qQQjQo3sVYKsjM7X1Vbi9fVDL
+	 l7ZQyfbE3vvnnm6aBLaMc5Y2ksvwDNHz3ETxGmtFhKWYjunQKo+4JeQ2WqwfemfaNG
+	 PZ1NF33OghVHw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: clock: qcom: Move x1e80100 TCSR to
+ own binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260812-hamoa_tcsr_qref_0812-v3-1-dc7627169c6d@oss.qualcomm.com>
+References: <20260812-hamoa_tcsr_qref_0812-v3-0-dc7627169c6d@oss.qualcomm.com>
+ <20260812-hamoa_tcsr_qref_0812-v3-1-dc7627169c6d@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 07:35:48 +0000
+Message-Id: <20260812073549.43BC01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260811113901.3114169-1-o.rempel@pengutronix.de> <20260811113901.3114169-3-o.rempel@pengutronix.de>
-In-Reply-To: <20260811113901.3114169-3-o.rempel@pengutronix.de>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 12 Aug 2026 09:34:54 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=p3Y7-CmDqwB1-K6HGXg6AM=vkzP=9u-8FSG7t4AUFug@mail.gmail.com>
-X-Gm-Features: AUfX_mz6X22zBD7OfWT6uGVjj7x6Myhrke3mZ7L_40UTJ4vDZ9d7O2lMo8q2zJ0
-Message-ID: <CAD++jL=p3Y7-CmDqwB1-K6HGXg6AM=vkzP=9u-8FSG7t4AUFug@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 2/2] net: dsa: realtek: rtl83xx: add support
- for enabling supplies
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ahmad Fatoum <a.fatoum@pengutronix.de>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alsi@bang-olufsen.dk>, 
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org, 
-	=?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 11, 2026 at 1:39=E2=80=AFPM Oleksij Rempel <o.rempel@pengutroni=
-x.de> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> From: Ahmad Fatoum <a.fatoum@pengutronix.de>
->
-> The power supplies powering the IC may not necessarily be enabled by the
-> time the driver probes.  The binding describes the power rails, so enable
-> them at probe with devm_regulator_bulk_get_enable(), before the reset lin=
-e
-> is requested and driven, so the chip is powered before its pins are drive=
-n.
->
-> Boards that do not describe these supplies fall back to dummy regulators
-> (with a "supply not found" warning) and keep working as before.
->
-> A board that describes supplies but no reset line still needs to wait for
-> the chip to boot before the first register access, so apply the existing
-> start delay in that case too.
->
-> Signed-off-by: Alvin =C5=A0ipraga <alsi@bang-olufsen.dk>
-> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Pre-existing issues:
+- [High] The TCSR clock controller driver does not implement support for th=
+e newly added mandatory LDO supplies.
+--
 
-Kudos for all the detailed explanations!
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+--- Patch [1]: [PATCH v3 1/3] dt-bindings: clock: qcom: Move x1e80100 TCSR =
+to own binding ---
+commit aad425dc59252c040c4a40218a6fd98a6935f85a
+Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-Yours,
-Linus Walleij
+dt-bindings: clock: qcom: Move x1e80100 TCSR to own binding
+
+This commit creates a dedicated binding file for the x1e80100 TCSR
+clock controller to document newly required LDO supply properties.
+These supplies are mandated for the QREF block to provide stable
+reference clocks to PCIe, USB, and UFS PHYs.
+
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,x1e80100-tcsr.y=
+aml b/Documentation/devicetree/bindings/clock/qcom,x1e80100-tcsr.yaml
+> new file mode 100644
+> index 0000000000000..92fa416e7270b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/qcom,x1e80100-tcsr.yaml
+> @@ -0,0 +1,120 @@
+[ ... ]
+> +  vdda-refgen2-0p9-supply: true
+> +  vdda-refgen2-1p2-supply: true
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - '#clock-cells'
+> +  - '#reset-cells'
+> +  - vdda-qrefrpt0-0p9-supply
+
+[Severity: High]
+This is a pre-existing issue, but does the TCSR clock controller driver
+actually implement support for these newly mandated LDO supplies?
+
+Looking at drivers/clk/qcom/tcsrcc-x1e80100.c, the reference clocks are
+modeled as standard clk_branch structures rather than qcom_clk_ref_desc=20
+objects that natively handle regulators:
+
+    static struct clk_branch tcsr_edp_clkref_en =3D {
+        .halt_reg =3D 0x15130,
+        .halt_check =3D BRANCH_HALT_DELAY,
+        .clkr =3D {
+            .enable_reg =3D 0x15130,
+            .enable_mask =3D BIT(0),
+        ...
+    };
+
+Additionally, the driver relies on qcom_cc_probe(), which does not parse
+or request these regulators.
+
+Since the commit message notes that the USB/PCIe/eDP PHYs cannot work
+properly without these LDOs, will the lack of driver support cause these
+peripherals to unconditionally fail on boot when they request their clocks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-hamoa_tcsr=
+_qref_0812-v3-0-dc7627169c6d@oss.qualcomm.com?part=3D1
