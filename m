@@ -1,212 +1,334 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9EC43E9C3
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786537467; cv=pass; b=lie4GQ6gmzDsqt0L4MCL0JvUGNSfXQUJ4sjZRAuamqQ8/BuBJTbBzea7O7n0YXVNZgamuOAfDHe3gkHPl+ev6Hd3CqDErw5pJAbV+c/hYV1slUd9gimmJ1R/LuFkY8yMT1C1JM4N0tWhSJAnGqfBwtBq198OzNQs3wbZ6/TAbGg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786537467; c=relaxed/simple;
-	bh=k7YkQ+Bc7EQX0qDaijrFEUTuOpQfKm59tZjQohvjtGA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Dm7Y6YUVmRL/stoYl5kZru8LTPFmA3UqTrS4Bk0mI28QBSaypVJpIxlHwb2l5QTWxfbQapFHwv6GsDBi3GqNkC3GSyJpvZouxV9BfKihpHLzY787ufnQDxvxpkd/Q1v2Kshs48pA4WmeksYwW7taHunryQFfpHpUTWG71QYwFWQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nSSqV61v; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6364642125A
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786537669; cv=none; b=YW/sovzPJoyl36u5J5Q3jtadFg01jtWfm6fHVWesp0JA1GnyIDLcN8dWenkNMkChpuk6RawKDiOAOHDrlIeqSqcIu62rO1ab6ULpI6im5X8CVABnGgTS9V70Tx1Gyb/uA7BEuurcRLDleP+eHq3Mw0XXsrYZoV552gYn+9x5HoI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786537669; c=relaxed/simple;
+	bh=fVndBBv7ikb7RZ/HhSWVt/pvp9S/iwlFnBU247K7KxE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XDsxsYQJfMfH0sR7CawkoCuVWP1DA24PPspO7z0us8bLfeccYU+gG9Ypv1FzZmZoD6GvPYJAIdgQTJo1tkjD81naMKEERQdEr/E6+uib1KFxFDeOpmOKFVFig1vfqXVWy/As1TdcI9qarjvXXcFAMUb/yKMfahPfQI5pjvJWAzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=lCq5Q5Li; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nSSqV61v"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-69fdfd98eb8so106225a12.0
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:24:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786537464; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DLKpW+PQRTORymNWVNdEvMJ2+sC3zSwLNtdak7O18MDXD57G8c0/RApCzi2wziwse+
-         0FxZ5ZQ4Ri9IMYSURLnUMLoxI9D3kL9Qb5epZUQYgR0ZwBbuKQ59XWvKnFzqUMr6cSZN
-         gdSKAAVthCnU8kpyLTVxsvzMmcvAF0OlNsDCHXJDP7xtCUHI6sy8eS7LioIIIVKW5ZCx
-         PhlpG824DnihSLqNDIv/thmVjTRXxexkcjuGmX4ZzmJM0hRFU2HB6mOgLmUU7KmdQXny
-         DVyeOqTSPs9yazQdQCxwXakqJl5QNtG6o1aXb0nY3yrbfE0gD1I3ZGy3PSyY9pAwiMRz
-         73Yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=k7YkQ+Bc7EQX0qDaijrFEUTuOpQfKm59tZjQohvjtGA=;
-        fh=msX1PH7JV/O5eVjpmu5VpDpX3hH8ZJyU/aoFx6JGkLs=;
-        b=dbztHDN/gQIs/7m9Y6Jq5wO2Adkv3/sfLMt7d6YeOQTZ8f85cAh1eP1K4Z8ZoF0eJ3
-         3xT0/jyvEB1zNbmPzn3Enk4rgTWPI9iz8c+/nMJD9Lf2oOwHSmuKWDuq77pwI2PeAHbV
-         byzW/HQXHinerUg+ysg5OneutyArqx3el7v8GsiDLq5zoWDBeh+ZyCy1MfU23wPTXR7C
-         QDV2o+Jok9zs73BQnx1u8s5zT0ovk8rt7yETMQGDZmiKfMQk6+29ymDevWg/BWXUUX03
-         bmP1n4VWqdaSqkfdqJ9CdffBd2wY8hI0BVVK0gF1oZ9kIheYipXv7tg9SHcbCj9+GyXf
-         AjbQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786537464; x=1787142264; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k7YkQ+Bc7EQX0qDaijrFEUTuOpQfKm59tZjQohvjtGA=;
-        b=nSSqV61vfBWYfLNfA3mC+X2QycVSAbNWt9kpkq7V3Sq99vGcutO7yYopvUNPs/vA3T
-         FduCSUsn7nuGUeYiBqbIvQXHnmn3iT+h3ph/btfCDs+LWALCJdKR9I7Fv/+iHQ4xhgn7
-         olu9litee6F2QKo9PzTFPiVGFnY+660+0Zutc16jhM/NzR24hgg5OuONiIIGHVCt+RrG
-         YjhV65sfhrmew6K4cBXRWvxYqee9iBBRwFgbhldxXRJF7XxIVp0pg5TEe2hnCdgqsUW0
-         mmj8u5mfRNSD9iJEWQsO4Nvagw0I+ESv+cAtE7TA/KLH+5jmYpoAJ77H0nnfzGAe8x5f
-         siDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786537464; x=1787142264;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k7YkQ+Bc7EQX0qDaijrFEUTuOpQfKm59tZjQohvjtGA=;
-        b=MImevqejU9RNCsIMHwFh8CtaohbOTPa41ek5XFRIRQJf89+qRacrg8GST3tCecF7P3
-         AjGaPVrLPNSPo3Ja1tQl5MJ7tpM6kPl5H/JnhfXt9uhEIphBIwxTCgxrPVJFqE/2eUOv
-         p7aTi5SFFLaX/1ZMUtrUG7lt6FE6OV4PRSIGQ3hX0OehxKLQp6K415YmijrYikOAhfIO
-         Wi9V4Ms6ToutXudXZxmjRbvDymU3OM+EQCpXU4fzwoLC+cTceX6F9RtJ9Wg5LdpFgQrG
-         iHUPkVLEf3s6MVyLFZbwBsQ0ZVvhJtvC/9gcUQ1SexuxBRyyakZHLO5RI96hhYOoBZ7M
-         CInA==
-X-Forwarded-Encrypted: i=1; AHgh+RrgQwvUf06guAxYYk8rvEbvraKY7u6iDI9sDYEH+jvI0062gbAaFu+rwT7hCBVIZPYmVbb4fZfG+m8U@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFfrZMs/0YlxJNzNo1xU+eSxlebYUbP5GzjxiggvjACpZkT4hb
-	bkUjf/NL3vtSG1VLdbww65vzba8naSuOy8maZ8lPD8VrYjpMJ2zrZ0wf3P/fNHZF77rgXl8c7tb
-	eNVm4BA0lxba8pJaz+gwXJ0emGz/XiFg=
-X-Gm-Gg: AR+sD12R6QmFECsoEChewH1pjbTFToyHyxZMy4w2jXzicuWPA8e2j3M7xdFkaKKpnEg
-	OYCbvVIHuG/XOw6o1eU/3nn6u+1MsbbcEJ2FWeA+rlInfpgf/TUtHcX68tLEwyPzICpwkF8theh
-	xBbjrmrEE0alk12U4bEYhtzSiHEecO3lfs86uQfmHk0SUyxiAva9Ni6SPUBi+JLee9dsBVMWnB2
-	r0PH4q7yelWfLv0gZ+sKXFdi0qZHFfXBe2YK7sckVLgGX+luW3k5nysI9H47nCK0zxnPB6Kzf+8
-	0E7Z0hxzE8VT7IrHEWhTilj52oUv92Ys8RMYWpu5levxiQ==
-X-Received: by 2002:a05:6402:5515:b0:6a3:72bc:7bca with SMTP id
- 4fb4d7f45d1cf-6a375f517b5mr853527a12.3.1786537463007; Wed, 12 Aug 2026
- 05:24:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="lCq5Q5Li"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id F0879240101
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 14:27:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1786537664;
+	bh=ElBNO9EPvHuirVGnvX/nkoBxhVDqF0yWtKSEwWHqacU=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=lCq5Q5LiwcsfJzkHKr5ABpM+49V7h/hnKL9/ToAbyI095olNp5Y1qknXWx8/OOq5O
+	 dICSAYxeqZQiYzL5L2nEzt/eQQCEuKZYrYW4ZL01e5Xm85iFkFJYMxvJOUz1zSE5xP
+	 39Tg1vfuIXQHPKaK54BFx8zLqOAjxGP/zzt6ncXLjTDOr1TDtBdPSNhmLfB6ySQ5X7
+	 lgER+VbhxKyUsfD95DgfZsA3R3oKPMx5cL09gsFyRf0PPSGOhm0xIR3s7wuDvT7yu7
+	 OFUFqiqQbN/EIToNwab4RiL5tuUGR6UsfWA9b1KT/cXbigRSdkSZM+TDiA2NghsppC
+	 TTBGdTQkJ9pPg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hKnnV5CDfz9rxB;
+	Wed, 12 Aug 2026 14:27:42 +0200 (CEST)
+Message-ID: <053e901c9145d57c01078df6febe8b22fd79b850.camel@posteo.de>
+Subject: Re: [PATCH v3 1/5] dt-bindings: rtc: Add pinctrl for S35390A
+From: Markus Probst <markus.probst@posteo.de>
+To: Rob Herring <robh@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?=
+	 <uwe@kleine-koenig.org>, Andrew Lunn <andrew@lunn.ch>, Gregory Clement
+	 <gregory.clement@bootlin.com>, Sebastian Hesselbarth
+	 <sebastian.hesselbarth@gmail.com>, Michael Langer
+	 <michael.brainbug.langer@googlemail.com>, Andrew Morton
+	 <akpm@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 12 Aug 2026 12:27:44 +0000
+In-Reply-To: <20260812020844.GA520945-robh@kernel.org>
+References: <20260805-rtc_s35390a_int1-v3-0-e836faba3e25@posteo.de>
+	 <20260805-rtc_s35390a_int1-v3-1-e836faba3e25@posteo.de>
+	 <20260812020844.GA520945-robh@kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
+ qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
+ m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
+ 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
+ fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
+ jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
+ J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
+ 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
+ 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
+ CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
+ QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
+ D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
+ NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
+ 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
+ ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
+ f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
+ 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
+ ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
+ dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
+ pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
+ TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
+ BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
+ A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
+ Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
+ lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
+ geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
+ WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
+ 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
+ KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
+ sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
+ 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
+ 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
+ H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
+ wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
+ 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
+ kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
+ 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
+ MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
+ i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
+ VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
+ Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
+ dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-4FzxRt0vSudbgFRbezTj"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com>
- <20260810-dcphy-rx-v1-v3-1-a2d25c29adfc@gmail.com> <20260812-refreshing-rampant-gecko-b38ef9@quoll>
-In-Reply-To: <20260812-refreshing-rampant-gecko-b38ef9@quoll>
-From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
-Date: Wed, 12 Aug 2026 20:24:11 +0800
-X-Gm-Features: AUfX_mz6P0tpS0X_aTP21idLy0_k0ZDj4Fov-0axes74Vj1me73dhQSiZbhCnY0
-Message-ID: <CAPwA33KM-sWkPVrP1h+swLinvrCZHzxPeS7h25KEO87Q_6WZuA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] dt-bindings: phy: Add PHY_TYPE_DSI and
- PHY_TYPE_CSI definitions
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
-	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+
+
+--=-4FzxRt0vSudbgFRbezTj
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Thanks for the review.
+On Tue, 2026-08-11 at 21:08 -0500, Rob Herring wrote:
+> On Wed, Aug 05, 2026 at 07:32:27PM +0000, Markus Probst wrote:
+> > Synology NAS devices use the output pin for interrupt signal 1 to wake =
+up
+> > the system.
+> >=20
+> > Move devicetree bindings for sii,s35390a into its own file.
+> > Add necessary properties to configure the individual pins via pinctrl,
+> > which allows the interrupt signal 1 to be used for wakeup alarm.
+> >=20
+> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > ---
+> >  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 109 +++++++++++++=
+++++++++
+> >  .../devicetree/bindings/rtc/trivial-rtc.yaml       |   3 -
+> >  MAINTAINERS                                        |   1 +
+> >  3 files changed, 110 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/D=
+ocumentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> > new file mode 100644
+> > index 000000000000..0355f17f233a
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> > @@ -0,0 +1,109 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: S-35390A 2-WIRE REAL-TIME CLOCK
+> > +
+> > +maintainers:
+> > +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+>=20
+> This should be someone with the h/w, not subsystem maintainer.
+There has been a discussion about this before.
+See
+https://lore.kernel.org/all/20260701-bronze-jaguar-of-perfection-028bac@quo=
+ll/
+and replies.
 
-> I read above, but still do not get why TYPE_DPHY/CPHY is not enough.
-> Isn't DPHY implying it is DSI?
+If desired I can use my own name.
 
-I see your point, and I did not explain this clearly enough in the previous
-version.
+>=20
+> > +
+> > +description:
+> > +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with=
+ the
+> > +  very low current consumption in the wide range of operation voltage.
+> > +
+> > +allOf:
+> > +  - $ref: rtc.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: sii,s35390a
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    minItems: 1
+> > +    maxItems: 2
+> > +    description: Supports up to 2 interrupt lines via the INT1 and INT=
+2 pins.
+> > +
+> > +  wakeup-parent: true
+> > +
+> > +  wakeup-source: true
+> > +
+> > +  "#clock-cells":
+> > +    const: 1
+> > +
+> > +patternProperties:
+> > +  "^pins":
+>=20
+> Do you need wild cards here? Wouldn't just 'pins' for the node name be=
+=20
+> fine?
+Pin control by itself supports multiple states.
+I am not sure if this has a usecase with this device though.
 
-D-PHY only describes the electrical layer, and both MIPI DSI and MIPI CSI-2
-can run on top of it. A CSI-2 receiver's PHY is a D-PHY just as much as a
-DSI transmitter's is, so PHY_TYPE_DPHY alone does not tell us which one the
-consumer is asking for.
+>=20
+> > +    type: object
+> > +    patternProperties:
+> > +      "-pins$":
+> > +        type: object
+> > +        properties:
+> > +          pins:
+> > +            $ref: /schemas/pinctrl/pinmux-node.yaml#/properties/pins
+> > +            items:
+> > +              enum:
+> > +                - int1
+> > +                - int2
+> > +
+> > +          function:
+> > +            $ref: /schemas/types.yaml#/definitions/string
+> > +            description: |
+> > +              Pin function:
+> > +              - ignore:  Preserve the previous state.
+> > +              - disable: Disable pin output.
+> > +              - wakeup:  Output wakes up the system.
+> > +              - clock:   Output clock pulse.
+> > +              - pmin1:   Minute periodical output with 50% duty.
+> > +              - pmin2:   Minute periodical output L for 7.81 ms.
+> > +                         Can only be used with pin int1.
+> > +            enum:
+> > +              - ignore
+> > +              - disable
+> > +              - wakeup
+> > +              - clock
+> > +              - pmin1
+> > +              - pmin2
+> > +
+> > +        required:
+> > +          - function
+> > +
+> > +        additionalProperties: false
+> > +
+> > +    additionalProperties: false
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    i2c {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        rtc@30 {
+> > +            compatible =3D "sii,s35390a";
+> > +            reg =3D <0x30>;
+> > +            pinctrl-0 =3D <&rtc_pins_default>;
+> > +            pinctrl-names =3D "default";
+> > +
+> > +            wakeup-parent =3D <&int>;
+> > +
+> > +            rtc_pins_default: pins {
+> > +              int1-pins {
+> > +                pins =3D "int1";
+> > +                function =3D "wakeup";
+> > +              };
+> > +              int2-pins {
+> > +                pins =3D "int2";
+> > +                function =3D "disable";
+> > +              };
+> > +            };
+> > +        };
+> > +    };
+> > diff --git a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml b/D=
+ocumentation/devicetree/bindings/rtc/trivial-rtc.yaml
+> > index f4d0eed98a08..7b3f682ef4d5 100644
+> > --- a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
+> > +++ b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
+> > @@ -81,8 +81,6 @@ properties:
+> >        - ricoh,rv5c386
+> >        # I2C bus SERIAL INTERFACE REAL-TIME CLOCK IC
+> >        - ricoh,rv5c387a
+> > -      # 2-wire CMOS real-time clock
+> > -      - sii,s35390a
+> >        # ST SPEAr Real-time Clock
+> >        - st,spear600-rtc
+> >        # VIA/Wondermedia VT8500 Real-time Clock
+> > @@ -105,5 +103,4 @@ required:
+> >    - reg
+> > =20
+> >  additionalProperties: false
+> > -
+> >  ...
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 5114e6db7307..4c8bc35cfe55 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -22695,6 +22695,7 @@ T:	git git://git.kernel.org/pub/scm/linux/kerne=
+l/git/abelloni/linux.git
+> >  F:	Documentation/admin-guide/rtc.rst
+> >  F:	Documentation/devicetree/bindings/rtc/
+> >  F:	drivers/rtc/
+> > +F:	include/dt-bindings/rtc/
+> >  F:	include/linux/rtc.h
+> >  F:	include/linux/rtc/
+> >  F:	include/uapi/linux/rtc.h
+> >=20
+> > --=20
+> > 2.54.0
+> >=20
 
-That is the problem here. The RK3588 DC-PHY exposes both a transmitter and
-a receiver from a single PHY block, which can be used by two independent
-consumers at the same time. This is not a theoretical concern: on this
-board a DSI panel is scanning out while the same PHY receives CSI-2 frames
-from a camera. With only the electrical layer to identify the PHY, both
-consumers would end up with the same phandle cell:
-
-dsi@fde20000 {
-phys =3D <&mipidcphy0 PHY_TYPE_DPHY>; /* wants the TX */
-};
-
-csi2@fdd10000 {
-phys =3D <&mipidcphy0 PHY_TYPE_DPHY>; /* wants the RX */
-};
-
-There is then nothing in .of_xlate() to distinguish the two requests.
-
-I will make this clearer in the v4 commit message and include the example
-above so that the reasoning is easier to follow.
-
-For context, v2 described the direction with a Rockchip-private
-RK_DCPHY_DIR_* enum. Michael Riesch suggested using generic constants
-instead [1], and Vinod agreed [2].
-
-[1] https://lore.kernel.org/r/82da3622-9c3a-454c-87bc-fb4ec7adb68d@collabor=
-a.com
-[2] https://lore.kernel.org/r/anSuxfeitSqmSHNr@vaman
-
-> Your tag goes the last.
-
-Sure, I will fix this in v4. The Signed-off-by tag will come last, and I
-will check the whole series again.
-
-> Two simple defines needed Claude.
-
-Yes, I agree that these two defines themselves are simple and do not really
-need AI assistance.
-
-I added the Assisted-by tag because I used AI during the development of the
-series as a whole, including cross-checking the code, writing additional
-test cases, and looking up the relevant sections of the TRM. (I checked the
-corresponding sections in the TRM myself, reviewed the test cases, and
-re-ran them on the hardware before sending the series.)
-
-I also checked the current mainline guidance in
-Documentation/process/submitting-patches.rst and
-Documentation/process/coding-assistants.rst. Since I was not sure how much
-AI involvement should warrant tagging individual patches, I chose to mark
-the whole series consistently.
-
-That said, I am happy to drop the tag from this patch in v4 if you prefer -
-I wrote these two lines myself.
-
-Thanks,
-Jason
+Thanks
+- Markus Probst
 
 
-Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B48=E6=9C=8812=
-=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=886:51=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> On Mon, Aug 10, 2026 at 08:10:09PM +0800, Jason Yang wrote:
-> > MIPI D-PHY and C-PHY blocks are increasingly direction-agnostic: the
-> > same PHY IP can drive a MIPI DSI display or receive from a MIPI CSI-2
-> > camera, and combo blocks like the Samsung IP on RK3588 expose both
-> > directions to independent consumers at the same time. A binding that
-> > needs to tell the two consumers apart has nothing generic to reach
-> > for: most constants in this header name a protocol (PHY_TYPE_USB3,
-> > PHY_TYPE_DP, ...), while the MIPI entries name only the electrical
-> > layer.
-> >
-> > Add PHY_TYPE_DSI and PHY_TYPE_CSI to select a PHY by the MIPI
-> > protocol it speaks, which also implies the direction. They do not
-> > replace PHY_TYPE_DPHY/PHY_TYPE_CPHY, which remain the right choice
-> > where the cell selects the electrical layer. First user is the
-> > Rockchip RK3588 MIPI DC-PHY binding.
->
-> I read above, but still do not get why TYPE_DPHY/CPHY is not enough.
-> Isn't DPHY implying it is DSI?
->
-> >
-> > Suggested-by: Michael Riesch <michael.riesch@collabora.com>
-> > Signed-off-by: Jason Yang <jason98166@gmail.com>
->
-> Your tag goes the last.
->
-> > Assisted-by: Claude:claude-fable-5
->
-> Two simple defines needed Claude. Great, that probably makes AI
-> conglomerates very happy that we do not type even two lines anymore and
-> need their resource-hungry data centers to do that for us.
->
-> Best regards,
-> Krzysztof
->
+--=-4FzxRt0vSudbgFRbezTj
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmp8ZrUbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSGhsP/0FkoRbcsk5+7zV5xzR+
+CIA/ua0L0QQzESlsroGrtiXxmjAjC/URYmYg8V9x66J2G43ubBMowXp1cm0PLXEs
+Fh2zKPYQEA6T4vxjSGyBXrBg+F3mQ5j2XWu+qny0h5IyPcuAg5PetYQaNl0UAFbL
+41Outw5xs+pKwwAVd+0WkxA3fGPYmayOt48QW+4Qt0r8UvpbG019CHzpLJyeesQn
+6gSnKXs2Vtlad/mlEyDNKXWQeilyCjZttyrQVa8Ospg0KCTyAsJ8bouK6wSsH7IP
+JH+GhYmuAs7ljbeyRjnIyeN6eADayJjDg7Z45Zo+RC838Kct7rLToFP9AsEJLTCd
+KOVIN4a0YZltuZHOsXHdqpc6Br819G2r6TSUOxGNFg+zXqoc9PDyfvkYQWW6GMbw
+PrybeiDp3Q2cIJ4FYaIsflhoXJ8P9OnH7BjMDx9XEa26jfqmuR70ESllkjlL44bE
+KvwBXAMV+fadhl0S4AhexuyWducvyx/bfwnGPNcZl5uqt1PQyuTqci5Bjctu28TQ
+EDTAXzPtzEWmjZYZzVPW7jGOuac+/GdokHWpPxpDiJb+grio5sIthzD5le/JmNTA
+UtbNQODBuxm4Chldw0w+IxUJjhOeRn+oFLFYTSX/oqPUGlQzXx1Ckqf2Ocv/nM3T
+eYmi/LCAVi48JEIml31MLULy
+=Y5gm
+-----END PGP SIGNATURE-----
+
+--=-4FzxRt0vSudbgFRbezTj--
