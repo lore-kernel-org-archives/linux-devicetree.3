@@ -1,74 +1,181 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC3C36D9FE;
-	Wed, 12 Aug 2026 20:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A5739792B
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 20:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786565457; cv=none; b=Dxj/Dp6jsrkEMu51kmVZ3UyyaZ96CN8VU6I9GmXRTPISDqbHr8DBEIxpXDVUnIjeWvLmeBcUsKdqh4fpo2TL7b9ohU/LQD4Som9ugPfZtnzLOtigJcBFzH6Lr0zT2VuG+oQyXEuYdKuJ8gjvgAogAeop+YpSQ0ZNtQ9X1Eqs7jU=
+	t=1786566478; cv=none; b=KUP2GKM0Pid7DVUxhib7tXoxP/t2uHu7Gd+TpCXeM0hHyteTcL7h5KbzwviGyFGDgC0lyBcXTECeAjNF3U0k2NrgZQkI7cJhmJslxxiYwsKLP8R9kwpV9uZ/bkzFwPhLvh09nWK/fLPQxCEakagZNeu6kq81vWWlrY1uYEM7DjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786565457; c=relaxed/simple;
-	bh=zAb+/UlTEKpjblLRtzLovZ71X6BemvJ/aPgIQNATy+E=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FOpeLgJwhnF5X7ZAWXJWw/W4TB4Nn+dUQ5PcnzXRt2Qwg7R2apvVjTGN/C26a7Sa4VxJ/XjhTYLig5rtWeBDkBO6m7kP5t+6vKOyPIRTaa6CEFQeVO7toHlGUtIfTIqUlV3iy1128REk9oNm0oE+9Sq11saA7dqrMg//IQQ7AZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=lUmGZq+s; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1786566478; c=relaxed/simple;
+	bh=aaM+chNBUVzOK+71XSf/Mb82WOTb5qO+DxTTOj0UyJ4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KF/+uzG1thUUtJFPrQalETy/ECML44aqikLGTSyajllPQMtnzh/iHA8sabw6uDN8Sl4RFx3BTx8vEXLaoamuRTryWqo6suNFXmlkJYqIm3nFOSTrfHvlBuhCMui9tcrKQ4u5xwa4HzaVrBYWIQpUtTkCJTyq2Ydt1beOvnlPmJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EnMd7x7t; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="lUmGZq+s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1786565451; x=1786824651;
-	bh=zAb+/UlTEKpjblLRtzLovZ71X6BemvJ/aPgIQNATy+E=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=lUmGZq+soiASuXFrIJu7o/hPdEVMGPnDX4MvLJhHHh0EQkf4q5p4aLPRETkrCJB9G
-	 ULgVXqaBy+KX//cgIbqdbzKF4Esn7A/RZuhzsrUzx9hfDG+CAWS8qeEEYEUEbEwQ0P
-	 1tNSgSWgp0FmIBpl7IlnjDlY/7guuuys3sjn3i/RgD2u3yagn+ExGIWajviCnrQA6u
-	 Lb8AGY+vg7m4VAWHPE1QdtEd8etZssQwHICE936bW6XSgt2Yqxh52yAJ2XZ65H2bjk
-	 4mbufYQXSxCX4Lh61vhINZueEfSZQvaaw1AYlsyQnodrIxWasRVQqDcF0ZTVlBcAdJ
-	 yTZijBDZ9dKgA==
-Date: Wed, 12 Aug 2026 20:10:48 +0000
-To: Neil Armstrong <neil.armstrong@linaro.org>, David Heidelberg <david@ixit.cz>, Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek NT37703
-Message-ID: <318b749e-26db-4d74-b910-a368a9e51013@proton.me>
-In-Reply-To: <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
-References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me> <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me> <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz> <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me> <7097b617-90be-492d-9637-4a2a101379e0@ixit.cz> <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 8c128edce5c560b4767a5a3dae3ebf4c21f13b51
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EnMd7x7t"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49558ce01afso10917225e9.1
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:27:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786566473; x=1787171273; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vcNEmMVFuuQmsODrVbSfU7PhXNWqkwOb79tP/Y3pu6A=;
+        b=EnMd7x7tjPQ1Q5yXNtdg4M+ZBs9/cFu63vIXc8dA4/nRhxAW9IVcLRmInQCCLxrtyc
+         R8eFDNqxsxAZJ63n+xAQNYHx4H5V+QC3iBLcFZuHDtcL26eR3CUuq35HkWsg4Fmpul9n
+         yqUEbruL9p76rTfSqkU1DYUZcaWoDTq8jTOa1TAL9Gr1uSqzdTJJpB94TjvJzCQ7gmz5
+         BSnc/6HxvQ6PlqtD8f0Spde0j/IpBZClzyAU43zNoY2jQIv4r5efCWw6u3LuGV06JSLd
+         bSSm1N2yurLfbXuw6xbROtSyLTogKqT4oGMeFV1tR80/zv9g7sWqHV5N7x9bl2yhfcmN
+         ojPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786566473; x=1787171273;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vcNEmMVFuuQmsODrVbSfU7PhXNWqkwOb79tP/Y3pu6A=;
+        b=iajoV9c1iSg5UBdVn6waJf+lvptxE5fGZwmGYsNNTEswDJbwzhmXk6cJ0I1METC69f
+         VVCouXtrvh+LP83m/OdLNCUC1y9LIgSNobvyXAKOt9UcjgIt+acjBaylDYPfy+PZc3Jj
+         HPhv9tVUTMde//QfJSqvmr2HNjuPfh7anJcAFcsLz5LkzNDUiC+yf0G8FRZiGQKgQypG
+         RsPHhUJ+MyJJQ7D1Rh/P+a9vrYaM6wEIumIGw6+WAA7WE76n0uqQpaAc/k3BYshDwMF3
+         A4tjEjmjihgnWr7wns1EecCxzRB/wZC82tzhahywyBRhW1o68riBJ++8jKgUwepbtscU
+         0YpQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9YEWMvm6GvkP7OTXKsIo9ToHTOgbH6HVwuPNR/QJIjskPeWGxgksIrGK3A+s0t5HupYFc0Z1eIEG4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqzFGrg+NuMffiv1E7H0dfKOqpxYW18/QTvuzo5WK7mmsqkfWN
+	HaX8zVXkoSd/UdNThBOyCVlmQd1To8DM//crm0aWirvb27dUu69vyENI
+X-Gm-Gg: AR+sD10GYTKPSBV8hpuMXKvb+X9rotBsCpSBmSgAhYgSfgxYFt7tYgpya+OrK/Kamqt
+	9P5rU9feUwtPc7cIzImM7GmwcfJrf6lpPHx1EYDDTbEGvRlTn2fj482WBlHtApvY5+izs5Lm3Qr
+	DpvU3UzJSVkJubI4wIXQ2pForI2fj1KhPIw80mh7y0oxuzV/mh97l4E16H2XlCqNiRfIrSDo5AN
+	TqxQb3EsX5Y0SubMjEi2UuBjygokRZm0Cin/b4ovJ4ighXViwYtQq4VBjf8d1hPHmNv01hAYwLF
+	ccs3XeWuUPzOCCS6oVm9LGtI1pGbun9k4C40anWKfiCDA3pmlA0UizclHIb+/QkTDkIPH1YMFXO
+	cBfpzmHWX84RB1k/6d+UIyFUVseBBU5GRN1cQip7xeUkYPpYQsdDSE3bscO1M8b1ZIFCGQnB026
+	BsaWo86lstWI9Ul17D2B/6w1Zb1hiaP1KO8rNszjvdWQ6OnFcMLArWxRoyyzgwNOwYARd8kcFq2
+	+Ry
+X-Received: by 2002:a05:600c:4e87:b0:495:4859:8f9b with SMTP id 5b1f17b1804b1-499821add3amr3159625e9.9.1786566473100;
+        Wed, 12 Aug 2026 13:27:53 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:4bb8:16f:15e0:179c:a67f:8487:260])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49981b03e70sm13911725e9.3.2026.08.12.13.27.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 13:27:52 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Date: Wed, 12 Aug 2026 22:27:40 +0200
+Subject: [PATCH v6 1/4] dt-bindings: iio: light: veml6030: add veml6031x00
+ ALS series
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260812-veml6031x00-v6-1-7eef6e4ce290@gmail.com>
+References: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
+In-Reply-To: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
+ Jonathan Cameron <jic23@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786566469; l=3092;
+ i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
+ bh=aaM+chNBUVzOK+71XSf/Mb82WOTb5qO+DxTTOj0UyJ4=;
+ b=L2rc1mZOwca++QUVNKzBpIcHBD/wO9rBu7CiYuOmSh9z9lCXhfdTAnvhlKptNWoRw35L577CZ
+ SxXPI/S75yZCaUN1XfjspkSNKIOYuEcjZQehXT1JljRO9hTNLrtk1uI
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-On 8/12/26 7:52 AM, Neil Armstrong wrote:
-> On 8/12/26 10:46, David Heidelberg wrote:
->> bit I missed in the review the part:
->>
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 comp=
-atible =3D "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
->>
->> Unless the driver is able to auto-detect the connected panel (unlikely),=
- novatek,nt37703 doesn't make sense. The DDIC without the panel is useless.
->>
->> For example, in sdm845-oneplus-fajita and enchilada, we have the generic=
- compatible because it was introduced before, so it's kept for compatibilit=
-y reasons. There is no need to do that here.
->=20
-> Yeah today the norm is to add the ddic as second compatible entry so the =
-first compatible just describes the pane, so here it should be:
->=20
-> compatible =3D "motorola,bronco-tianma-v2", "novatek,nt37703";
-In that case first compatible string should be
-"tianma,motorola-bronco-v2" since Tianma is the panel maker and this
-"v2" panel is only used in motorola-bronco.
+These ambient light sensors share their properties with the ones
+from the same manufacturer that are supported by this bindings.
 
-Regards,
-Esteban
+Note that only two datasheets are provided as every one of them covers
+two devices (veml6031x00/veml60311x00 and veml6031x01/veml60311x01).
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+---
+ .../devicetree/bindings/iio/light/vishay,veml6030.yaml      | 13 ++++++++++++-
+ MAINTAINERS                                                 |  5 +++++
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml b/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
+index 0041e1db6838..a44de649184a 100644
+--- a/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
++++ b/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
+@@ -4,7 +4,8 @@
+ $id: http://devicetree.org/schemas/iio/light/vishay,veml6030.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: VEML3235, VEML3328, VEML6030, VEML6035 and VEML7700 Ambient Light Sensors (ALS)
++title: VEML3235, VEML3328, VEML6030, VEML6031x00 series, VEML6035
++  and VEML7700 Ambient Light Sensors (ALS)
+ 
+ maintainers:
+   - Rishi Gupta <gupt21@gmail.com>
+@@ -23,6 +24,8 @@ description: |
+     https://www.vishay.com/docs/80131/veml3235.pdf
+     https://www.vishay.com/docs/84968/veml3328.pdf
+     https://www.vishay.com/docs/84366/veml6030.pdf
++    https://www.vishay.com/docs/80007/veml6031x00.pdf
++    https://www.vishay.com/docs/80008/veml6031x01.pdf
+     https://www.vishay.com/docs/84889/veml6035.pdf
+     https://www.vishay.com/docs/84286/veml7700.pdf
+ 
+@@ -32,6 +35,10 @@ properties:
+       - vishay,veml3235
+       - vishay,veml3328
+       - vishay,veml6030
++      - vishay,veml6031x00
++      - vishay,veml6031x01
++      - vishay,veml60311x00
++      - vishay,veml60311x01
+       - vishay,veml6035
+       - vishay,veml7700
+ 
+@@ -69,6 +76,8 @@ allOf:
+       properties:
+         compatible:
+           enum:
++            - vishay,veml6031x00
++            - vishay,veml6031x01
+             - vishay,veml6035
+     then:
+       properties:
+@@ -82,6 +91,8 @@ allOf:
+           enum:
+             - vishay,veml3235
+             - vishay,veml3328
++            - vishay,veml60311x00
++            - vishay,veml60311x01
+             - vishay,veml7700
+     then:
+       properties:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15011f5752a9..4369cbf8b5ca 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28761,6 +28761,11 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
+ F:	drivers/iio/light/veml6030.c
+ 
++VISHAY VEML6031X00 AMBIENT LIGHT SENSOR DRIVER
++M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
++
+ VISHAY VEML6046X00 RGBIR COLOR SENSOR DRIVER
+ M:	Andreas Klinger <ak@it-klinger.de>
+ S:	Maintained
+
+-- 
+2.43.0
 
