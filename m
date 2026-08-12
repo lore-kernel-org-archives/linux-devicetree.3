@@ -1,122 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7560741A794
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 09:54:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EB23B3880
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 09:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786528450; cv=none; b=CTjyFGb3OW421QE05zE+H6hFyhd8zrgIGScu+sQWN6Xw0ofrtMzqrsYE/C/RYTjhpihCwEclJ4v/20Q1dxWtORaNKF5TGaIDu2rDxKVAX4/sMl2A1boNdz60VUsEDTrjqQtKxh6Bx3ZVh0+fsIQRBVjIxXzfdpwIk4/Tn4d4VI4=
+	t=1786528520; cv=none; b=W65eap+Om7QxpRbDaEEr70mMX2a4ngB3Lpdp/C5BVFqlNUXR6IfrE5t3AFSU3+F91snJEZrCLQgcm8q4im/JqBrkM2V8wGjWI7EvVvpoWIxq4IeLLXeYLGomJE0rO94yot8qbFnTLoIJle5crzUqOb2m06U0IlpmiBc++L0GpJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786528450; c=relaxed/simple;
-	bh=bJpy2Est2TT+ME7gq/mgQRtuPUQV3FWnt+6QWffM7yo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=W4pZfQFeup6uRmeB34CLwlf0QNk5q21GKXsSMQjW2Opq9js/zxhiMSH0yG2NJ1oVdJRPwqlbjh2eyIO66YOzd73k03EpCdf4xCtcxu19iyVDVQ051EUwdR/PV8RXZgdUaxbRfgOjooJPqMHRUq33cmMfE6E0Y/ZAfFOxOdcATm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIT7Xwlx; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIT7Xwlx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9671A1F00A3A;
-	Wed, 12 Aug 2026 09:54:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786528449;
-	bh=L7qBPA9QkUykans0mVcNSCRK+TqAYzR3MPKSlgnTPcc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MIT7XwlxRKSLVtazbPaV1UK4q0BCc0wa9VmRe4ZF9b6NGmy+fh4rZgq0ZsYA6zOPI
-	 EH3I+WEH3Qw+ktXbaBX+yihkMDN0R0TTvGt0fMruQuwZsql3R/dLDt+uvRfp+/GkbW
-	 DNrSmSeQCe4k95OQDN2PFy6x6rsiL3z2RWrC2f74rLrS9cZz56XN3ARaGlhFVQnUY7
-	 d2NB5iSORAqt5OvWplsnYcAtHW7BA8umLSzdgCPbHMAQC59nrstu9R8MpXMURZ6RvK
-	 7UUTPbtH0tq01A4rgaAE50JrPqzsYZjY86fy8AVYEgWV6AAdGLwg51GqGTwjLhgaP7
-	 AtYw8DjlDcSSQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 12/14] arm64: dts: qcom: ipq5332: Enable USB
- Super-Speed PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, vkoul@kernel.org
-In-Reply-To: <20260812-ipq5018-usb3-v2-12-8f355d7ff0ef@outlook.com>
-References: <20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com>
- <20260812-ipq5018-usb3-v2-12-8f355d7ff0ef@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 09:54:08 +0000
-Message-Id: <20260812095408.9671A1F00A3A@smtp.kernel.org>
+	s=arc-20240116; t=1786528520; c=relaxed/simple;
+	bh=bWURXCZrQDZ0x80rfdOSm1jqz2Xjezk3ZnaVSR44ifs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AV/kUedHaUlJNGdXWU0UPU1aocNbVoIpCRjwUuIWGWlNLfgS8qz5ScLhM5ORChrvF0StrAeAtjU96aBAuHnG8vYmLEl4k/6a2uaSAJKjosQ2f41IqqDuq7FwZCxv9xiSMNq2araqCEtsjqncLMt/WrARNIFIvq6wDJLL4tBdWx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7eb5bdb50fcso547584a34.1
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 02:55:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786528518; x=1787133318;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/axx2TQndZ7l7LrHHfpxsCFqNyyCWsv8j2VxY85Jrxc=;
+        b=bSqomX9KeBw0fZkfLC8wtEfpTl5ociTQxWbLM8wfWBpjS074zr+sJRgrYpH5BaRKc7
+         BlVuZsS+Q+XIJJFKSMjYWrsorNbKp4j5oroGKUq89MJybYBQ/vmsEDVan3xK4SJfp5+h
+         xpFWgI8GjaDd7+XaRBzJQkigOPVHhvqPrFEBtyG8QlbQnCBSebH+chqRN+rcYVCg8Svr
+         Jl9K3zpUAZu0ALp2V4U+UHgtPL18qrIVb1oS1Ev2ERLKwR2GxXzKJte+5Moyk2jK1Azd
+         nmZuYaKbh9NX6Aep/AQ1bm0L9ksUcIDHP/C6LgAU5AR07VqJUDedGDMDhFwh/XvhnYMg
+         mzqw==
+X-Forwarded-Encrypted: i=1; AHgh+RoSv6nijHZORFzmAWIhmCygbQsM8prUrlQYN7qncP5nXIRmPNCIjQIz2mffixa7+7RhlNIyI1SIxeAg@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmKPJQzrPoK9VmxT62jZPXcH3VgpU37XLvsoOnk2pRYxzGEpvq
+	S/a2GaOUS1tVY5MHRoPH95hm1BZw5TZNw1NXPacfaIxaBxjcNEi/oeUwTHPmEF2n
+X-Gm-Gg: AR+sD12MbPDcw/4XRFq2uXDu+jBzJtaTX1dYOVNMVWVX1OSKvYf26Z6iqb2yJM3UcZu
+	yvhC1SnWteMQGzs1frnWbZkvZcpC40kfuYg8/i6SuWdO4V5zuA256CKRglDyeFTq9xrdGeR1wzy
+	1WwklNuQaOF7iEmGS5rOp97iArWC49VPk0dnYY4sbhMhUVp7H5HY4jBxSCVndvBehjGrAjADvnx
+	sFLIBYbGbT44bcYGVmqxMdJBJo/PgncfRTnO9z6MQkq77Hf759o0e4ezQLdhR+9UduOrK4ceYd4
+	/SiGN0EYf5b+s7+87+tKR/HYrAm4yqq3lOOgdHH2XsVOlDd/LGCM5oBdN+NRa1Jvv+OteejEvLx
+	kkW071DPhIOhNFYq6mPWhfSdA5wIveB2ri5mv/LNg0VF01cnRXxF3+T8ryXkk3XrqLRIkWJ/5tM
+	P7mmEX3UO99mGB2CPmsvZKrMZq8LBhfQjZNeVNtJkOEK3EroXS6NSdqNuqsCXHFYhJh6EyX27VF
+	5VGiuRU00Dp/cXpBvNc5ETbQJn2TyizgKY=
+X-Received: by 2002:a05:6830:f84:b0:7d9:f50f:9691 with SMTP id 46e09a7af769-7f3b74d6946mr3404825a34.0.1786528517849;
+        Wed, 12 Aug 2026 02:55:17 -0700 (PDT)
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com. [209.85.167.179])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f3b33cd0f1sm2381937a34.16.2026.08.12.02.55.17
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 02:55:17 -0700 (PDT)
+Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-495b250b01cso521925b6e.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 02:55:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpAs1p9I+1QMdZBewG5jM5h1OL7yEYelm+bXEZIpxGFwRY5lQdlOy5V+jfdV99o6kZUFmFeszvq06pu@vger.kernel.org
+X-Received: by 2002:a05:6102:8020:b0:74c:7fd8:73eb with SMTP id
+ ada2fe7eead31-76c87d7044amr1040741137.1.1786528061345; Wed, 12 Aug 2026
+ 02:47:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1783505329.git.geert+renesas@glider.be> <49726acff0fee1c3606e83c4f242ef6aad25b4b8.1783505329.git.geert+renesas@glider.be>
+ <20260710-adventurous-burgundy-chimera-b2fff9@quoll> <CAMuHMdV=ckONBbTYELPJU8YWoNzdu3PJ95VR8cz+f_7dUeiPUw@mail.gmail.com>
+ <20260716214924.GA1477674-robh@kernel.org> <CAMuHMdU0ss6wUEdjC+OYa3iQS439aJ8b_d9M2ws7Ayn4_kOyMQ@mail.gmail.com>
+ <20260811163334.GA2354701-robh@kernel.org>
+In-Reply-To: <20260811163334.GA2354701-robh@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 12 Aug 2026 11:47:30 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWbzg-QpFBzzDa2hC3HzAmWUkerESC5O-cSVxmWX3_PkQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxykVa-_GVxsMsY5j-WoXLeEw0hqTlxX_hGEjk_L8dF08TYL9-2xHiMqsc
+Message-ID: <CAMuHMdWbzg-QpFBzzDa2hC3HzAmWUkerESC5O-cSVxmWX3_PkQ@mail.gmail.com>
+Subject: Re: [PATCH v2 05/10] dt-bindings: clock: renesas,r8a78000-cpg: Add
+ firmware property
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Cristian Marussi <cristian.marussi@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Incorrect Device Tree Compatible String
-- [Low] Missing USB Controller PHY Reference / Device Tree Build Failure
---
+Hi Rob,
 
---- Patch [12]: [PATCH v2 12/14] arm64: dts: qcom: ipq5332: Enable USB Supe=
-r-Speed PHY ---
-commit 3876ed72a1a7faf7ac5d0f75eed308d2c1085ec6
-Author: Praveenkumar I <quic_ipkumar@quicinc.com>
+On Tue, 11 Aug 2026 at 18:33, Rob Herring <robh@kernel.org> wrote:
+> On Mon, Aug 03, 2026 at 02:01:18PM +0200, Geert Uytterhoeven wrote:
+> > On Thu, 16 Jul 2026 at 23:49, Rob Herring <robh@kernel.org> wrote:
+> > > On Fri, Jul 10, 2026 at 01:02:39PM +0200, Geert Uytterhoeven wrote:
+> > > > On Fri, 10 Jul 2026 at 12:21, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> > > > > On Wed, Jul 08, 2026 at 12:16:23PM +0200, Geert Uytterhoeven wrote:
+> > > > > > Add a firmware property, for systems where SCMI must be used instead of
+> > > > > > direct hardware access.
+> > > > > >
+> > > > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > > > > > ---
+> > > > > > v2:
+> > > > > >   - Spin off from "dt-bindings: clock: Document Renesas R-Car X5H Clock
+> > > > > >     Pulse Generator".
+> > > > > > ---
+> > > > > >  .../devicetree/bindings/clock/renesas,r8a78000-cpg.yaml    | 7 +++++++
+> > > > > >  1 file changed, 7 insertions(+)
+> > > > > >
+> > > > > > diff --git a/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml b/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
+> > > > > > index 4e23bba334382346..fc499e7cf52e4f0c 100644
+> > > > > > --- a/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
+> > > > > > +++ b/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
+> > > > > > @@ -35,6 +35,12 @@ properties:
+> > > > > >        <dt-bindings/clock/renesas,r8a78000-cpg.h>.
+> > > > > >      const: 1
+> > > > > >
+> > > > > > +  firmware:
+> > > > >
+> > > > > RPi is doing similar, but I have doubts. It looks way too close to
+> > > > > generic "syscon" which is disallowed.
+> > > > >
+> > > > > I think this should be vendor+purpose specific, e.g.:
+> > > > > "renesas,scmi-transport" or "renesas,scmi-firmware"
+> > >
+> > > If you can tell me the resource that a 'firmware' provider provides then
+> > > it is fine, but you can't.
+> >
+> > It provides a firmware API, which is not available until the firmware
+> > provider is initialized.
+>
+> I don't know what "a firmware API" is. What does it provide? I know what
 
-arm64: dts: qcom: ipq5332: Enable USB Super-Speed PHY
+It can provide lots of things (everything we are no longer allowed to
+touch directly from Linux ;-)
 
-This commit enables USB Super-Speed PHY support on the IPQ5332-RDP468
-board. It overrides the PCIe PHY compatible string so the combo PHY is
-handled by the USB3 PHY driver, and sets the required clocks and resets.
+> a clock, GPIO, reset, interrupt, etc. provider is.
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts b/arch/arm64/boo=
-t/dts/qcom/ipq5332-rdp468.dts
-> index 25a70cd884c03..164f9a9a6c757 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts
-> +++ b/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts
-[ ... ]
-> @@ -100,3 +100,22 @@ &usbphy0 {
-> =20
->  	status =3D "okay";
->  };
-> +
-> +/* this combo PHY supports PCIe and USB3 */
-> +&pcie0_phy {
-> +	compatible =3D "qcom,ipq5018-uniphy-usb-ss-phy";
+A clock is an object you can access through the clock API.
+(s/clock/.../ for the other cases).
+Firmware is a service (virtual object) you can access through a
+firmware API.
 
-[Severity: High]
-Does this compatible string use the wrong SoC version for this board?
+In all cases, the consumer of the object or service needs to know
+which object or service to use (there can be multiple).
 
-Because this is an IPQ5332 board, using the IPQ5018 compatible string will
-cause the phy-qcom-uniphy-usb-ss-22ull driver to write the IPQ5018
-initialization sequence (targeting offsets like 0xa8) instead of the correct
-IPQ5332 sequence (targeting 0x7C4 and 0x7E8).=20
+In all cases you cannot access the object or service until it is
+available (initialized and registered), for which we have -EPROBE_DEFER,
+and/or "[PATCH v2 02/10] of: property: fw_devlink: Add support for
+firmware".
 
-This will cause initialization to fail and may corrupt unrelated registers.
+Thanks for your understanding ;-)
 
-> +
-> +	clocks =3D <&gcc GCC_PCIE3X1_PHY_AHB_CLK>,
-> +		 <&gcc GCC_USB0_PHY_CFG_AHB_CLK>,
-> +		 <&gcc GCC_USB0_PIPE_CLK>;
-> +
-> +	resets =3D  <&gcc GCC_USB0_PHY_BCR>;
-> +
-> +	qcom,phy-usb-mux-sel =3D <&tcsr 0x10540>;
-> +
-> +	vdd-supply =3D <&regulator_fixed_5p0>;
-> +
-> +	/delete-property/ num-lanes;
-> +
-> +	status =3D "okay";
-> +};
+Gr{oetje,eeting}s,
 
-[Severity: Low]
-Is an override for the USB controller node missing from this file?
+                        Geert
 
-An earlier patch in this series adds phys =3D <&usbphy0>, <&usbphy1>; to
-ipq5332.dtsi, but usbphy1 is never defined. This will cause a device tree
-build failure due to the unresolved phandle.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Should this board file override the phys property in the &usb node to link
-this newly configured &pcie0_phy combo PHY, replacing the non-existent
-<&usbphy1> reference?=20
-
-Without this link, the USB controller will not use the combo PHY and will
-remain degraded to High-Speed 2.0.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-ipq5018-us=
-b3-v2-0-8f355d7ff0ef@outlook.com?part=3D12
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
