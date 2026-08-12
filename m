@@ -1,98 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD69278161;
-	Wed, 12 Aug 2026 07:55:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D5935AC33;
+	Wed, 12 Aug 2026 07:57:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786521333; cv=none; b=JMJAEUrp9NibtDAgaX09IQI5MErF7By0qLtA1R1scq8A0qz7yCi8/8ZYA3VT2pXpl4SHy7+q7IWztWf9gufgeV/+i69iIrNUB74VDY6XxNxtyZDGvlDGui6Thgr6floBYSg+2JmquM1rAZyYxDeBhCEabsUVNXNGFsYZ6aftAdc=
+	t=1786521433; cv=none; b=ia9KsdiyLwaEnuWGFdqlMFma057T7NyO5/zD+u/dfpxd9Mt4CCu/j6mMJEWMCz+C+zY99CuQOofoO3gyW0LmXngJOHKoFG7+gl7bFynUsvLXrQ/IfiEDEkZNSPdnwAxCbci87ot4KVYM4mObEvgw1bVqC6GdCTG72211aT1mb8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786521333; c=relaxed/simple;
-	bh=WnWmdoLEufE4HCxQ85yCYnQfmIJZcQzKT/MAwTkvruc=;
+	s=arc-20240116; t=1786521433; c=relaxed/simple;
+	bh=XoMEMfXu1M7KQBIC1/2gwIfYdIodvs/pRUiBF8CFTto=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GHvJEEDI5D4wk3jUluS0J5Jk6+mNiHJzPU+9slviBhBEJRECd8Ujx6M2+F2ZzaiCtnHk0jxDy/kPv99vcnPmGSS4uGsl+VxY9jUSXlT77Lrt1Tqx0kP1WL12pN1geNSVXltmyhihimu5me0FH9wLSbrXiyELQ61w2F/kEldkvVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGUU3DGB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Zpc3JgFP1WypmdTaZB9lo6ewX4zzPZUpSVhWTO69NrX7f7n4cGdjTIMxiX9BMhhh766YTu6mLdpNFIt4pFilq5vMr7/ay92X6wk+ZeURtub5P/Zoi9Rltt74dX8Vjh71C0YdptzI2Ncy7ydhKtQeniGrd1b1rCVCISdFEZc6lx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C9p+9kiU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGUU3DGB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F8C41F000E9;
-	Wed, 12 Aug 2026 07:55:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C9p+9kiU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6271F000E9;
+	Wed, 12 Aug 2026 07:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786521332;
-	bh=J+NMkRGC70MdPbqsdsv79qBrfDy35dDj9Awcvwu9kLU=;
+	s=k20260515; t=1786521431;
+	bh=gqPSfQDvWk58b78qJLJlh4i3WO7TQGw5UjBqu8qTDgA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lGUU3DGBg7BfEG/VrrSOVE20zkT9QhxFGJVEjpJrostUnLHuwRJleoKzA19OWshnA
-	 gzLfDK2YY0n/KdiKBFN6lbgJd+X936Wuj5djBllpDDjjdVlg+62Uxohgyl0PzZ9bS9
-	 sadojGhObSz612VklgW7tlZxHx4Tg0x7hS0sYM4/2uKtlKMfFXPxpAmhKmkZ6q5s+4
-	 msKi5FQrrOmU2xOxif9kgy4kogcExmy5QZa7IPrbTivmISfBT3GhVcoVfqSKSs8FHg
-	 1M+l1pkYyfYQSPpqun+VxpVhE/QHAEgkdr80d51WbQrIyM8NYIBN8p1bAWJZRJ3Y9f
-	 YVY6EuhVAOAtw==
+	b=C9p+9kiUBZixsBttTOMmCC07i5kMwzkNRjEryyFFjSl6UrEVAox7tjNMkk4VYlbX2
+	 F4ZL3W8MG4UMZnGzDhVtx2MrCncwSdn7Pnonkyg/GOF3n6WlI+7g5VGx9xr2uHaeYd
+	 A0nJF47bx4dTumQ5snxBLGKXVZ1NG+wdKeGgd/p73e7Rkpg95IoZg79Vb+/ILwWwrK
+	 VesZvJDfsfD+TsOxzVtXVT6ci81KW1npqDH1jqk2vHmTSwWCLAgounuXd0DBtwUgkN
+	 G3eZZ8nGieD4A0GEKn6TCvy9gd/883S8GpbtRQhOgxROe35irBKOwyz0/bcYZGeeYo
+	 DpKq1QXBCEKgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/6] dt-bindings: usb: add Altera Agilex5 DWC3
- controller
+Subject: Re: [RESEND v4 5/5] rtc: pcf85363: add watchdog support with
+ configurable step size
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adrian Ng Ho Yin" <adrian.ho.yin.ng@altera.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org
-In-Reply-To: <85e52e1dd400f39e055196fa1462337285a9b875.1786518803.git.adrian.ho.yin.ng@altera.com>
-References: <cover.1786518803.git.adrian.ho.yin.ng@altera.com>
- <85e52e1dd400f39e055196fa1462337285a9b875.1786518803.git.adrian.ho.yin.ng@altera.com>
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, linux-watchdog@vger.kernel.org
+In-Reply-To: <20260812074533.3545058-5-lakshay.piplani@nxp.com>
+References: <20260812074533.3545058-1-lakshay.piplani@nxp.com>
+ <20260812074533.3545058-5-lakshay.piplani@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 07:55:31 +0000
-Message-Id: <20260812075532.2F8C41F000E9@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 07:57:10 +0000
+Message-Id: <20260812075711.0C6271F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] Missing generic fallback compatible string in DWC3 devicetree bi=
-nding
+
+New issues:
+- [High] Hardware timer value is not scaled by the selected clock frequency=
+, resulting in radically incorrect watchdog timeouts.
+- [High] The watchdog initializes with a 0-second hardware timeout if the d=
+evice tree lacks a timeout property.
+- [High] Missing `return` statement ignores watchdog initialization failure=
+s and breaks probe deferral.
+
+Pre-existing issues:
+- [High] Read-modify-write on the write-0-to-clear `CTRL_FLAGS` register si=
+lently drops concurrent hardware interrupts.
 --
 
---- Patch [3]: [PATCH v3 3/6] dt-bindings: usb: add Altera Agilex5 DWC3 con=
-troller ---
-commit 1039f7f38ac48bd8193ef808b132fbeb99505e18
-Author: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+--- Patch [5]: [RESEND v4 5/5] rtc: pcf85363: add watchdog support with con=
+figurable step size ---
+commit b334f1fe3594f36842ec186290e4071c7236a04d
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: rtc: pcf85363: add watchdog support with configurable step size
 
-dt-bindings: usb: add Altera Agilex5 DWC3 controller
+Add watchdog timer support to PCF85263/PCF85363 using the linux watchdog
+subsystem. The driver programs the hardware watchdog timeout based on
+the requested period.
 
-This commit adds a devicetree binding for the Altera Agilex5 SoC integration
-of the Synopsys DWC3 USB controller.
-
-> diff --git a/Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml=
- b/Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml
-> new file mode 100644
-> index 0000000000000..8a815e8a3b7d1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml
-> @@ -0,0 +1,102 @@
+diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
+index 665bbbb169b05..3eb87306c83c8 100644
+--- a/drivers/rtc/rtc-pcf85363.c
++++ b/drivers/rtc/rtc-pcf85363.c
 
 [ ... ]
 
-> +properties:
-> +  compatible:
-> +    const: altr,agilex5-dwc3
-
-[Severity: Medium]
-Does the compatible property definition need to include the generic
-fallback string "snps,dwc3"?
-
-Since this is rigidly constrained as a const, providing the generic fallback
-string in a devicetree node will cause schema validation to fail.=20
-
-If a device tree node only uses "altr,agilex5-dwc3" to satisfy this schema,
-the generic DWC3 driver (drivers/usb/dwc3/core.c) will ignore the device
-because it requires "snps,dwc3" or "synopsys,dwc3".
-
-Should this be structured to allow an array of items including the fallback?
-
+> +static int pcf85363_wdt_reload(struct pcf85363_watchdog *wd)
+> +{
+> +	u8 val;
 > +
-> +  reg:
-> +    description: DWC3 USB3 controller register region.
-> +    maxItems: 1
+> +	val =3D ((wd->timeout_val & WD_TIMEOUT_MAX) << WD_TIMEOUT_SHIFT) |
+> +	       (wd->clock_sel & WD_CLKSEL_MASK);
+> +
+> +	return regmap_write(wd->regmap, CTRL_WDOG, val);
+> +}
+
+[Severity: High]
+Should the timeout value be scaled by the selected clock frequency (e.g., in
+ticks) before it is written to the hardware?
+
+It appears the raw seconds value assigned from pcf85363_wdt_set_timeout() is
+written directly into the hardware register here. At frequencies higher than
+1Hz, this would cause the timeout to expire significantly faster than
+configured.
+
+[ ... ]
+
+> +static int pcf85363_wdt_ping(struct watchdog_device *wdd)
+> +{
+> +	struct pcf85363_watchdog *wd =3D watchdog_get_drvdata(wdd);
+> +
+> +	regmap_update_bits(wd->regmap, CTRL_FLAGS, FLAGS_WDF, 0);
+
+[Severity: High]
+This is a pre-existing issue, but since CTRL_FLAGS is a write-0-to-clear
+register, can this read-modify-write cycle silently clear concurrent
+hardware interrupts?
+
+If an interrupt asserts immediately after the read step in
+regmap_update_bits(), its flag will read as 0. The cycle will then write 0
+back to that flag, potentially clearing the interrupt before it can be
+handled. Pinging the watchdog in a background loop might exacerbate this.
+
+[ ... ]
+
+> +static int pcf85363_wdt_set_timeout(struct watchdog_device *wdd,
+> +				    unsigned int timeout)
+> +{
+> +	struct pcf85363_watchdog *wd =3D watchdog_get_drvdata(wdd);
+> +
+> +	wd->timeout_val =3D clamp(timeout, WD_TIMEOUT_MIN, WD_TIMEOUT_MAX);
+
+[Severity: High]
+Is the driver storing the unscaled timeout in seconds directly into the
+hardware timer value here?
+
+If this value is later used in pcf85363_wdt_reload() without being adjusted
+for the selected clock frequency, the hardware timeout may be radically
+incorrect.
+
+[ ... ]
+
+> +static int pcf85363_watchdog_init(struct device *dev, struct regmap *reg=
+map)
+> +{
+[ ... ]
+> +	wd->wdd.parent =3D dev;
+> +	wd->wdd.status =3D WATCHDOG_NOWAYOUT_INIT_STATUS;
+> +
+> +	ret =3D watchdog_init_timeout(&wd->wdd, 0, dev);
+> +	if (ret)
+> +		wd->wdd.timeout =3D WD_DEFAULT_TIMEOUT;
+
+[Severity: High]
+Does watchdog_init_timeout() return 0 when the device tree lacks a timeout
+property?
+
+If it returns 0 without modifying wdd.timeout, this check would be bypassed,
+leaving the watchdog initialized with a 0-second timeout. Setting
+wd->wdd.timeout =3D WD_DEFAULT_TIMEOUT before calling watchdog_init_timeout=
+()
+might be safer.
+
+[ ... ]
+
+> @@ -685,6 +833,10 @@ static int pcf85363_probe(struct i2c_client *client)
+>  			   PIN_IO_TSPM | PIN_IO_TSIM,
+>  			   PIN_IO_TSPM | PIN_IO_TSIM);
+> =20
+> +	ret =3D pcf85363_watchdog_init(dev, pcf85363->regmap);
+> +	if (ret)
+> +		dev_err_probe(dev, ret, "Watchdog init failed\n");
+> +
+
+[Severity: High]
+Is a return statement missing here?
+
+Without it, probe failures from pcf85363_watchdog_init() such as -ENOMEM
+or -EPROBE_DEFER will be discarded, allowing the device probe to falsely
+succeed with a broken or uninitialized watchdog.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786518803.gi=
-t.adrian.ho.yin.ng@altera.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812074533.3545=
+058-1-lakshay.piplani@nxp.com?part=3D5
