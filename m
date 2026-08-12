@@ -1,149 +1,399 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA25435504;
-	Wed, 12 Aug 2026 11:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C37435514;
+	Wed, 12 Aug 2026 11:40:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786534828; cv=none; b=MYR0K2oDmXvpEz/hj+VYkImZvEe56JDzIf9v8HfP9pHnV0fg8+s1yOjPKfY/z2ToXQrfkeyChDAx/qy8D+lA5sTsAsOgOdYQuaohBTgHN3BCOAr5QK4oNmriWsR/62EI5OPL1sFAzYbxZaACNDu9euNE+hoW7C2C/ZXKe7Tgxdc=
+	t=1786534851; cv=none; b=XCLdj7AlIwYrIx5rEA8lWNts5EP91/26ehizkc9KMXkEps4S7Z4l6NrF/8NXH5E6wQDNOjaoBykjFdQ57m+Qc0O57J065Oqqhdtk6KjZEoxuKdkiE+kYXBClC4VlW9QQ+pH1B4x941VcH8zliK7sib76wpwG/g/SUWmwk3Bjsjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786534828; c=relaxed/simple;
-	bh=4h/0oLp2h7IE8pA6uZy4AQLNovG4Wqu1oVEvekedYSA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DMtnPU65fDILrYTo06tAmD6FYYIn1zJsAuJnegXnWuziHVXUQid6568tUFVNXgYy95C9ba9qWj4DkiDh5w4Wk33jomaRjzVkLi+qPcPeyTIu1LhxIZAldGbwT9uJ4Yx15P8QrJRiJ3XepybbmGbdWH4i6WvoFrW3a+cArlYqY08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=GB7ysRj8; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1786534851; c=relaxed/simple;
+	bh=s9ecsXvZspbcIH0MOAKsmnnJboSudDwoSRPNibzr7qA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HRJ6ReD7FMITuEAoYJxQeJzozfbmsoKijJHrDGtdl5VobALf6axvuTUoiSg0FPhORU40/IBdv+YwQ45yxLB97X00i+vqhc0WiP6c8zn0Wgo+yEL6OAD3YPrfqFk1+a9pUFW4TbS3hVhTsD66MrQjaPeT4Qy1FrP9qmaDS3rvvsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hm9z4iOn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="GB7ysRj8"
-Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id B6B8F53401E6;
-	Wed, 12 Aug 2026 13:40:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1786534824;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=KArXhTGikECnnXJBaKJQL5HiSiaclLz+gY4N4WdWjRA=;
-	b=GB7ysRj8pn9j8ajPfl9zs1ENqu8qTVII284Qf4FOevTFQfE6k//3GPYoLp5AlMyfiII8KF
-	bmiL05O4Yw4ptY+RPGmR1DHhpv3qai5XeDSN/rTPsAXphZx0FOsSqW7It7FR4+276wuubB
-	XtmhSyiGNND8ETSKmaPTKjjifL1M/ik=
-Message-ID: <cce3fe36-322e-49ed-8928-3aef813faad7@ixit.cz>
-Date: Wed, 12 Aug 2026 13:40:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hm9z4iOn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDDFD1F000E9;
+	Wed, 12 Aug 2026 11:40:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786534849;
+	bh=8VQt5g5EK+0NgQYi2J/IzMhuZY4HLl1nyngFuxLnKMY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hm9z4iOnWGoJsmiV5wAAPsT+r75+cOVvJNXhRLflvx0D11m1z/IgK8510YOVjfGZt
+	 yGPemO6pJWmOpCenDV83VB4zVaVLBnRoDTJcRqprP4KKigkukbxy+KxUdDidg7yHER
+	 3CnvEEm6116LYce7sbDDzJbkAniL1ZpDQU63M2vFCU2BUGkoASURIxe5XUFP93eb/e
+	 fmLx3nHXf92evRlV3yw+aYVbZBLwqQ1WtApUockXXxkvz/nL8mfuRGYEBCjSfiitok
+	 vGx7myWElSMeryyalMtlRc56OXFSxx2OHCtqSFi0eAwhzB5zx2O6flccDlKzcB2H4p
+	 ngwy9lZ0QvnRg==
+Date: Wed, 12 Aug 2026 12:40:45 +0100
+From: Lee Jones <lee@kernel.org>
+To: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v9 2/2] leds: ltc3208: Add driver for LTC3208
+ Multidisplay LED Driver
+Message-ID: <20260812114045.GK1072730@google.com>
+References: <20260806-upstream-ltc3208-v9-0-c746e872c193@analog.com>
+ <20260806-upstream-ltc3208-v9-2-c746e872c193@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/33] Add support for Qualcomm Snapdragon SM7150 SoC and
- Google Pixel 4a
-To: Jens Reidel <adrian@mainlining.org>, Danila Tikhonov
- <danila@jiaxyga.com>, Miro Mraz <mraz.miro@seznam.cz>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- neil.armstrong@linaro.org, linux-hardening@vger.kernel.org,
- linux@mainlining.org, Connor Mitchell <c.dog29@hotmail.com>
-References: <20250422-sm7150-upstream-v1-0-bf9a9081631d@jiaxyga.com>
- <2ca2b774-fd7f-4612-b38d-f60e32ff6f9a@mainlining.org>
- <283096ad-ae1b-42b8-8312-b192f735fc80@linaro.org>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <283096ad-ae1b-42b8-8312-b192f735fc80@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806-upstream-ltc3208-v9-2-c746e872c193@analog.com>
 
+On Thu, 06 Aug 2026, Jan Carlo Roleda wrote:
 
-
-On 23/04/2025 09:26, Neil Armstrong wrote:
-> Hi,
+> Kernel driver implementation for LTC3208 Multidisplay LED Driver.
 > 
-> On 23/04/2025 00:07, Jens Reidel wrote:
->> Hi everyone,
->>
->> apologies for the mess this created. Danila's mail provider ratelimited him 
->> halfway through sending the series and the attempt to re-try sending the 
->> second half an hour later ended up with a new message ID (I think due to not 
->> using --in-reply-to).
->> He asked me to let you know that this will be resolved later and the whole 
->> series will be re-sent once the problems are resolved.
+> The LTC3208 is a Multi-display LED driver, designed to control up to
+> 7 distinct LED channels (MAIN, SUB, AUX, CAMHI, CAMLO, RED, GREEN, BLUE),
+> each configurable with its own current level that is equally set to its
+> respective output current source pins for external LEDs.
 > 
-> The b4 web submission is a great alternative when the mail provider is rate 
-> limited:
-> https://b4.docs.kernel.org/en/latest/contributor/send.html#web-endpoint
+> It is programmed via the I2C serial interface.
+> MAIN and SUB support 8-bit current level resolution,
+> while AUX, CAMHI/LO, RED, GREEN, and BLUE support 4-bit levels.
+> 
+> The AUX LED channel can be configured to mirror the CAM, SUB, and MAIN
+> channel current levels, or as its own independent AUX channel.
+> 
+> The CAM LED channel is configured as 2 separate CAMHI and CAMLO register
+> sub-channels, which current is selected via the CAMHL pin, or set to
+> CAMHI register only via setting the S_CAMHILO bit high in register G (0x7).
+> 
+> Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> ---
+>  MAINTAINERS                 |   1 +
+>  drivers/leds/Kconfig        |  12 +++
+>  drivers/leds/Makefile       |   1 +
+>  drivers/leds/leds-ltc3208.c | 231 ++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 245 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 2fd6ffdaaf04..e3b59485ecb3 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15229,6 +15229,7 @@ L:	linux-leds@vger.kernel.org
+>  S:	Maintained
+>  W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
+> +F:	drivers/leds/leds-ltc3208.c
+>  
+>  LTC4282 HARDWARE MONITOR DRIVER
+>  M:	Nuno Sa <nuno.sa@analog.com>
+> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+> index f4a0a3c8c870..d917ce3b72f4 100644
+> --- a/drivers/leds/Kconfig
+> +++ b/drivers/leds/Kconfig
+> @@ -1028,6 +1028,18 @@ config LEDS_ACER_A500
+>  	  This option enables support for the Power Button LED of
+>  	  Acer Iconia Tab A500.
+>  
+> +config LEDS_LTC3208
+> +	tristate "LED Driver for Analog Devices LTC3208"
+> +	depends on LEDS_CLASS && I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Say Y to enable the LTC3208 LED driver.
+> +	  This enables the LED device LTC3208, a 7-channel, 17-current source
+> +	  multidisplay high-current LED driver, configured via I2C.
+
+multi-display ?
+
+> +
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called ltc3208.
+> +
+>  source "drivers/leds/blink/Kconfig"
+>  
+>  comment "Flash and Torch LED drivers"
+> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+> index 7db3768912ca..0148b87e16ba 100644
+> --- a/drivers/leds/Makefile
+> +++ b/drivers/leds/Makefile
+> @@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
+>  obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
+>  obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
+>  obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
+> +obj-$(CONFIG_LEDS_LTC3208)		+= leds-ltc3208.o
+>  obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
+>  obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
+>  obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
+> diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
+> new file mode 100644
+> index 000000000000..25b49e24ca08
+> --- /dev/null
+> +++ b/drivers/leds/leds-ltc3208.c
+> @@ -0,0 +1,231 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * LED driver for Analog Devices LTC3208 Multi-Display Driver
+> + *
+> + * Copyright 2026 Analog Devices Inc.
+> + *
+> + * Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> + *
+
+Remove this line.
+
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bitmap.h>
+> +#include <linux/errno.h>
+> +#include <linux/i2c.h>
+> +#include <linux/leds.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/types.h>
+> +
+> +/* Registers */
+> +#define LTC3208_REG_A_GRNRED		0x1 /* Green and Red current DAC */
+
+I'm not agasint the comments, but can we tab them out beyond the values.
+
+> +#define LTC3208_REG_B_AUXBLU		0x2 /* AUX and Blue current DAC */
+> +#define LTC3208_REG_C_MAIN		0x3 /* Main current DAC */
+
+Is this the nomenclature used in the datasheet or can me improve them?
+
+> +#define LTC3208_REG_D_SUB		0x4 /* Sub current DAC */
+> +#define LTC3208_REG_E_AUX_SELECT	0x5 /* AUX DAC Select */
+> +#define  LTC3208_AUX1_MASK		GENMASK(1, 0)
+> +#define  LTC3208_AUX2_MASK		GENMASK(3, 2)
+> +#define  LTC3208_AUX3_MASK		GENMASK(5, 4)
+> +#define  LTC3208_AUX4_MASK		GENMASK(7, 6)
+> +#define LTC3208_REG_F_CAM		0x6 /* CAM (High and Low) current DAC */
+> +#define LTC3208_REG_G_OPT		0x7 /* Device Options */
+> +#define  LTC3208_OPT_CPO_MASK		GENMASK(7, 6)
+> +#define  LTC3208_OPT_DIS_RGBDROP	BIT(3)
+> +#define  LTC3208_OPT_DIS_CAMHILO	BIT(2)
+> +#define  LTC3208_OPT_EN_RGBS		BIT(1)
+> +
+> +#define LTC3208_MAX_BRIGHTNESS_4BIT	0xF
+> +#define LTC3208_MAX_BRIGHTNESS_8BIT	0xFF
+> +
+> +#define LTC3208_NUM_AUX_LEDS		4 /* Number of configurable aux channels */
+> +
+> +enum ltc3208_aux_channel {
+> +	LTC3208_AUX_CHAN_AUX = 0,
+> +	LTC3208_AUX_CHAN_MAIN,
+> +	LTC3208_AUX_CHAN_SUB,
+> +	LTC3208_AUX_CHAN_CAM
+> +};
+> +
+> +enum ltc3208_channel {
+> +	LTC3208_CHAN_MAIN = 0,
+> +	LTC3208_CHAN_SUB,
+> +	LTC3208_CHAN_AUX,
+> +	LTC3208_CHAN_CAML,
+> +	LTC3208_CHAN_CAMH,
+> +	LTC3208_CHAN_RED,
+> +	LTC3208_CHAN_BLUE,
+> +	LTC3208_CHAN_GREEN,
+> +	LTC3208_CHAN_N_COUNT,
+> +};
+> +
+> +static const char *const ltc3208_dt_aux_channels[] = {
+> +	"adi,aux1-channel",
+> +	"adi,aux2-channel",
+> +	"adi,aux3-channel",
+> +	"adi,aux4-channel"
+> +};
+> +
+> +static const char *const ltc3208_aux_opt[] = { "aux", "main", "sub", "cam" };
+> +
+> +struct ltc3208_led {
+> +	struct led_classdev cdev;
+> +	struct regmap_field *rfield;
+> +};
+> +
+> +static const struct reg_default ltc3208_reg_defaults[LTC3208_REG_G_OPT] = {
+
+Since these are already populated, what's the point in specifying a size?
+
+> +	{ LTC3208_REG_A_GRNRED, 0 },
+> +	{ LTC3208_REG_B_AUXBLU, 0 },
+> +	{ LTC3208_REG_C_MAIN, 0 },
+> +	{ LTC3208_REG_D_SUB, 0 },
+> +	{ LTC3208_REG_E_AUX_SELECT, 0 },
+> +	{ LTC3208_REG_F_CAM, 0 },
+> +	{ LTC3208_REG_G_OPT, 0 }
+> +};
+> +
+> +static const struct regmap_config ltc3208_regmap_cfg = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = LTC3208_REG_G_OPT,
+> +	.cache_type = REGCACHE_FLAT_S,
+> +	.reg_defaults = ltc3208_reg_defaults,
+> +	.num_reg_defaults = LTC3208_REG_G_OPT,
+> +};
+> +
+> +static const struct reg_field ltc3208_led_reg_field[LTC3208_CHAN_N_COUNT] = {
+> +	[LTC3208_CHAN_MAIN]  = REG_FIELD(LTC3208_REG_C_MAIN, 0, 7),
+> +	[LTC3208_CHAN_SUB]   = REG_FIELD(LTC3208_REG_D_SUB, 0, 7),
+> +	[LTC3208_CHAN_BLUE]  = REG_FIELD(LTC3208_REG_B_AUXBLU, 0, 3),
+> +	[LTC3208_CHAN_AUX]   = REG_FIELD(LTC3208_REG_B_AUXBLU, 4, 7),
+> +	[LTC3208_CHAN_CAML]  = REG_FIELD(LTC3208_REG_F_CAM, 0, 3),
+> +	[LTC3208_CHAN_CAMH]  = REG_FIELD(LTC3208_REG_F_CAM, 4, 7),
+> +	[LTC3208_CHAN_RED]   = REG_FIELD(LTC3208_REG_A_GRNRED, 0, 3),
+> +	[LTC3208_CHAN_GREEN] = REG_FIELD(LTC3208_REG_A_GRNRED, 4, 7),
+> +};
+> +
+> +static int ltc3208_led_set_brightness(struct led_classdev *led_cdev, enum led_brightness brightness)
+> +{
+> +	struct ltc3208_led *led = container_of(led_cdev, struct ltc3208_led, cdev);
+> +	u8 current_level = brightness;
+> +
+> +	return regmap_field_write(led->rfield, current_level);
+> +}
+> +
+> +static int ltc3208_probe(struct i2c_client *client)
+> +{
+> +	enum ltc3208_aux_channel aux_channels[LTC3208_NUM_AUX_LEDS];
+> +	DECLARE_BITMAP(registered_chans, LTC3208_CHAN_N_COUNT) = { };
+> +	struct regmap *regmap;
+> +	bool disable_rgb_aux4_dropout_signal;
+> +	bool disable_camhl_pin;
+> +	bool set_sub_control_pin;
+> +	int ret;
+> +	u8 dev_options;
+> +
+> +	regmap = devm_regmap_init_i2c(client, &ltc3208_regmap_cfg);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(&client->dev, PTR_ERR(regmap), "Failed to initialize regmap.");
+> +
+> +	regcache_mark_dirty(regmap);
+> +	ret = regcache_sync(regmap);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "Failed to sync register cache.");
+> +
+> +	disable_camhl_pin = device_property_read_bool(&client->dev, "adi,disable-camhl-pin");
+> +	set_sub_control_pin = device_property_read_bool(&client->dev, "adi,cfg-enrgbs-pin");
+> +	disable_rgb_aux4_dropout_signal =
+> +		device_property_read_bool(&client->dev, "adi,disable-rgb-aux4-dropout");
+> +
+> +	dev_options = FIELD_PREP(LTC3208_OPT_EN_RGBS, set_sub_control_pin) |
+> +		      FIELD_PREP(LTC3208_OPT_DIS_CAMHILO, disable_camhl_pin) |
+> +		      FIELD_PREP(LTC3208_OPT_CPO_MASK, 0) |
+> +		      FIELD_PREP(LTC3208_OPT_DIS_RGBDROP, disable_rgb_aux4_dropout_signal);
+> +
+> +	ret = regmap_write(regmap, LTC3208_REG_G_OPT, dev_options);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "failed to set device options register.");
+
+The style inconsistencies are making me \twitch\.
+
+I suggest an upper-case char to start and drop the full-stop.
+
+> +
+> +	/* Initialize aux channel configurations */
+> +	for (int i = 0; i < LTC3208_NUM_AUX_LEDS; i++) {
+> +		/* default value (AUX) if property is not present in dt */
+
+Definitely capitalise comments and it's "DT".
+
+> +		if (!device_property_present(&client->dev, ltc3208_dt_aux_channels[i])) {
+> +			aux_channels[i] = LTC3208_AUX_CHAN_AUX;
+> +			continue;
+> +		}
+> +
+> +		ret = device_property_match_property_string(&client->dev,
+> +							    ltc3208_dt_aux_channels[i],
+> +							    ltc3208_aux_opt, LTC3208_NUM_AUX_LEDS);
+> +		if (ret < 0)
+> +			return dev_err_probe(&client->dev, ret, "Error reading AUX Channel %d", i);
+> +
+> +		aux_channels[i] = ret;
+> +	}
+> +
+> +	dev_options = FIELD_PREP(LTC3208_AUX1_MASK, aux_channels[0]) |
+> +		      FIELD_PREP(LTC3208_AUX2_MASK, aux_channels[1]) |
+> +		      FIELD_PREP(LTC3208_AUX3_MASK, aux_channels[2]) |
+> +		      FIELD_PREP(LTC3208_AUX4_MASK, aux_channels[3]);
+> +
+> +	ret = regmap_write(regmap, LTC3208_REG_E_AUX_SELECT, dev_options);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "error writing to aux channel register.");
+> +
+> +	device_for_each_child_node_scoped(&client->dev, child) {
+> +		struct ltc3208_led *led;
+> +		struct led_init_data init_data = { };
+> +		u32 chan;
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &chan);
+> +		if (ret)
+> +			return dev_err_probe(&client->dev, ret, "Failed to get reg value of LED.");
+
+This is user facing, so "register" would be better.
+
+> +		if (chan >= LTC3208_CHAN_N_COUNT)
+> +			return dev_err_probe(&client->dev, -EINVAL, "%u is an invalid LED ID.",
+> +					     chan);
+> +		if (test_and_set_bit(chan, registered_chans))
+> +			return dev_err_probe(&client->dev, -EINVAL, "%u is already registered.",
+> +					     chan);
+> +
+> +		led = devm_kzalloc(&client->dev, sizeof(*led), GFP_KERNEL);
+> +		if (!led)
+> +			return -ENOMEM;
+> +
+> +		led->rfield = devm_regmap_field_alloc(&client->dev, regmap,
+> +						      ltc3208_led_reg_field[chan]);
+> +		if (IS_ERR(led->rfield))
+> +			return dev_err_probe(&client->dev, PTR_ERR(led->rfield),
+> +					     "cannot allocate regmap field.");
+> +		led->cdev.brightness_set_blocking = ltc3208_led_set_brightness;
+> +		led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_4BIT;
+> +
+> +		if (chan == LTC3208_CHAN_MAIN || chan == LTC3208_CHAN_SUB)
+> +			led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_8BIT;
+> +
+> +		init_data.fwnode = child;
+> +
+> +		ret = devm_led_classdev_register_ext(&client->dev, &led->cdev, &init_data);
+> +		if (ret)
+> +			return dev_err_probe(&client->dev, ret, "LED %u Register failed.", chan);
+
+"Failed to register LED %u"
+
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id ltc3208_match_table[] = {
+> +	{ .compatible = "adi,ltc3208" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ltc3208_match_table);
+> +
+> +static struct i2c_driver ltc3208_driver = {
+> +	.driver = {
+> +		.name = "ltc3208",
+> +		.of_match_table = ltc3208_match_table,
+> +	},
+> +	.probe = ltc3208_probe,
+> +};
+> +module_i2c_driver(ltc3208_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Jan Carlo Roleda <jancarlo.roleda@analog.com>");
+> +MODULE_DESCRIPTION("LTC3208 LED Driver");
+> 
+> -- 
+> 2.43.0
 > 
 
-I see people interested in moving Pixel 4a forward, but it seems this was never 
-upstreamed? I looked at sm7150 repository [1] where I see FROMLIST, but these 
-patches never arrived to the list and this series is from 2025.
-
-Should we expect v2 (re)based on recent tree?
-
-Thanks
-David
-
-[1] 
-https://github.com/sm7150-mainline/linux/commit/7ea41523c678e94a7c048936052b5b1b1b109cdd
-
-> Neil
-> 
->>
->> Best regards,
->> Jens
-> 
-> 
+-- 
+Lee Jones
