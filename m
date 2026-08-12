@@ -1,263 +1,97 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9554548CD7E
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D804334C5
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786577783; cv=none; b=eYY1ww+tW9QW7wYfLd22qnSxz9vr5q4dzgM6tynddYVzMAHgyhtFeuwk/pr2+EcyiUYbNpqSAlXt8zTYCHpCQR3UwvmSJ7/uQHNpDzAc++AqMl6cvuPuPPKnlp4c7QJ37Vo+rMP+Ejh2WldIOV5xYXhKIxMeQ0JnM7d1iW1EVF8=
+	t=1786577896; cv=none; b=I6EmtCnCYG6Qg6h8PoObaQy02CIVvHxcLYwle1gVc+80uuzineWnK+HQPoiHF2i5bquVP/lOvq3BIVtbAOjYII3wI/NgtTda1X6SAz623pXatnKqSoAaz+3a/2l6fUw8dc79SzLyDU89s47wFUX7CaaRjdzL80j1275bMZfk2RY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786577783; c=relaxed/simple;
-	bh=9dW4VaF+cpQj6n2di2ZHB9qHayVfEQpRJEGaM1jJjX0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=X5qAHqhWqGRKgsGMhy5MiY5d4Lmj7L+29mgaD4Wa5O83ooF6WGLq6xOvKeQkAxzrnSBOcrZ3t4eNAVziuOGhd8wweeSJL4uH1lXp4row+42tSM0bAIBcQs5WFlr1JdKXC0csCrJaytImurc0QBPfCBaovsZUnrbVOiQLqW6qrew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FY6MSVFU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cz9yXhcn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786577896; c=relaxed/simple;
+	bh=BvHvfGAKCu0eyBmnWSfmzEUtVcuBWUOQQwCCkdMj13g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=D9Oack/CePmSGE9a+JRug+23gC4SlLYmh+HPokF1yGVaQKoYFHDFWRPbDm/2dGiqL9vf959riL17F5aIzmuU1HhUw4CsJnwfBRZHxR+1gezJ4QAJ9JwXsenRNs+PZVRwDp/8IEdMgWO0tyEUg7+Uzw2tv67oJMD3ugTiTlUjvDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GDROHJjW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FY6MSVFU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cz9yXhcn"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CNLSaC266011
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:36:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	chxsFMJd/v7CYPQftCpnnBz6h3uko0w0S390Jkq42v0=; b=FY6MSVFUEMiPzpg2
-	OKRL7GB/xap1n4MlUb7m/HmTY4QneQSgQ9aZzpmIEnjOhePICgOQxfTZCYMNb7E5
-	IfRRns8mwvp/yNrvCsEczXLTeeu9KI+fgDBAJ3+mgfAjc1UW1zR8fdXPqzuiN9VW
-	0rpvQpDd+uTIWso7GidRmSH4PqSlQAlRb9u8RHbgknk8elLYDApRf855F95R4ObX
-	qOx78VaMUnets4fiZ1/SS1LINYUuOOs4FdX1NcWxHp2gjEV9c6aYffMR75DUOiGk
-	bZsSHpl8i8gsrxTGfWiHM8IrKp9SaoH7wshIWBx4WjNDOZWrFHn0oQZP8hjjDlns
-	nVwpvw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0mndbvut-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:36:20 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cc86a9ef97so30372825ad.3
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 16:36:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786577780; x=1787182580; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=chxsFMJd/v7CYPQftCpnnBz6h3uko0w0S390Jkq42v0=;
-        b=Cz9yXhcnR0xNQ9NsEhL4Krq70rqyvBr9HvFr0/gflqmGVUwcgjrVizBYo1qw4fFfzI
-         tlt5kXmDqIwa9AXEiRuTe/PTMmdio1IpnRflT/6UjWMchnGEzXMlwXiUkuWBOJzcyJLH
-         l4nUBrIz7kwxa2LDJ7FFoxpaixj1WuB4u94QfVvbFRTifGf6/nerPxCmKiBRJPa/uKxY
-         rna4PuY1sogm8s1iuclVKlfoyGO/QmcVR2FM+g7zkzgMKCthN8skjJ54XIvklXSzo6Oz
-         9q8C2EzLJLbeQdZdtmfZir2K86HJC5mw3tBG3QegiO4vuiwnYUQRwAwliiYL5caNnU9s
-         GiDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786577780; x=1787182580;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=chxsFMJd/v7CYPQftCpnnBz6h3uko0w0S390Jkq42v0=;
-        b=p/ZKiYLYHX9dBcyESQoDBJmY88g4FXD2rAxDwEgsm0QWdUQx7UBetV4SVQlCgqFFcU
-         rgMWC97/HMt/4kCuH8qzL0SXMzArIRYAKR/MNnSPVgvVpAp53ssIi8l/Td4EQaVce8Db
-         dw2JVyrGt78se54nT4P1Dx7NKP1TMEM5E/wH8g9oGvhqHouQhwBxV6R9e9NqFQ19sYFi
-         Q8fi8ZJ7epwNxU5QKK/uiwea3DZI/tnrBSRlf/WdpZZbTv/Wv3wXZbZ6BH/sKfaKQKho
-         U8QZs5vlMsx7tjlG5/n7HG8uOlH4dCWYCPoQyUGbsF69Sz50V6izYiA3yX00imvpH3d8
-         Dtcg==
-X-Forwarded-Encrypted: i=1; AHgh+Rputf8GrMQhzYeEI9XY0vmCHp3q6pa7W5oBYOlfrxHUufcxUxL/NUhqIU3tO17Ilu65HedlzZoJvdDa@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+QMgv7FHLu0th1qt2usZSiNbldgclLF3hGKHH8DhZTC9h9ZCG
-	V9rMIDMVOlo9TvvL9rKyU1ZkOJd/inCH/cD0po6etMP1Vcs1CTEc3ooDm85N3GXGMVNM2sPbe28
-	3aRDZ1YrD2rWTQkzu9ElApFQGhMLa+IWXj/EfxMPV3BKTTyRck0EjT5EkLyyFeNvC
-X-Gm-Gg: AR+sD12Hm8qoQ7hLTXXYs8hMKhDIIDgrIry4iqTaj8IbyNg/opGgXXtklrTET45QarR
-	Tyry4EpndZjt9R5ZisDsn05n+wmJXWA6jTuLC5r2MxwXjM8wa92fT53+Ega2+NCeHTtIG6TRZN8
-	qQREyE7/qs7glVYX/bn4gBAZKgYL5Kcs3RINBdTjBq24S0Dr+0lqjbIkPStpa/BIYiesf9O5F9/
-	JWs7qb6azuajXV2YmrDYyF6P47IwXIrhK9s0lLKnSQrH/c+BS9c2ApWpqAdu8MfnOYBIqQrI8ZA
-	3/6s4HnQIWuSQezoTiYRQQQS9oR5fjDsk/1WvyMA4P+qMEOgVFyERQ7doNXhBw==
-X-Received: by 2002:a17:902:c412:b0:2c7:f4bd:91b5 with SMTP id d9443c01a7336-2d37d1c1926mr15942185ad.0.1786577779879;
-        Wed, 12 Aug 2026 16:36:19 -0700 (PDT)
-X-Received: by 2002:a17:902:c412:b0:2c7:f4bd:91b5 with SMTP id d9443c01a7336-2d37d1c1926mr15941865ad.0.1786577779333;
-        Wed, 12 Aug 2026 16:36:19 -0700 (PDT)
-Received: from [127.0.1.1] ([2a12:a305:4::40fb])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d37c26d0fbsm2136805ad.37.2026.08.12.16.36.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 16:36:18 -0700 (PDT)
-From: Guodong Xu <guodong.xu@oss.qualcomm.com>
-Date: Wed, 12 Aug 2026 19:33:57 -0400
-Subject: [PATCH v6 11/11] riscv: hwprobe: Introduce rva23u64 base behavior
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GDROHJjW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D511F000E9;
+	Wed, 12 Aug 2026 23:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786577895;
+	bh=PVwZtuk53GTiU4ZkkdKzv5Z+tXq3PRIv1RMaU4uBBPU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GDROHJjWA3Z9gMdfQeaokPFAwVir6J2BCL9yO2K7oUqjQ/ZlABU/f8IRwrHl5CjAN
+	 czb0vsfDZois48VTf96DYZCDeGOyFUmfkjt5Bag6RHg2A7qieL7fVMmYeO628NTJh2
+	 qbfcR+sNwQDoEs8E4bSAbN21mrOfw5DudnEB/KWwOj3plAKaS+rcI17bVzfXD4Lch6
+	 UwK/WQg+urC98kUOUNC3Aa4XXJICSgdDa2Nz+SBUG0lsYpWNUKJJEVr+4kw+b0UhfL
+	 KyN4Jh5xZn+Jb1Xq9jPrUEjvWKvVTOnLp/IaUXHpnlXcEOpool9kbvgf9Qv5IoftNE
+	 Q/y+hBM4VWxlg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] ASoC: dt-bindings: tse850: Convert to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260813-ti-axtensia-v1-1-768a1089fd5f@gmail.com>
+References: <20260813-ti-axtensia-v1-1-768a1089fd5f@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 23:38:14 +0000
+Message-Id: <20260812233814.B1D511F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-rva23u64-hwprobe-v2-v6-11-c985af3256b8@oss.qualcomm.com>
-References: <20260812-rva23u64-hwprobe-v2-v6-0-c985af3256b8@oss.qualcomm.com>
-In-Reply-To: <20260812-rva23u64-hwprobe-v2-v6-0-c985af3256b8@oss.qualcomm.com>
-To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-        Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>
-Cc: linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
-        Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
-        spacemit@lists.linux.dev, sophgo@lists.linux.dev,
-        linux-kselftest@vger.kernel.org,
-        Guodong Xu <guodong.xu@oss.qualcomm.com>,
-        Andrew Jones <andrew.jones@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5002;
- i=guodong.xu@oss.qualcomm.com; s=default; h=from:subject:message-id;
- bh=9dW4VaF+cpQj6n2di2ZHB9qHayVfEQpRJEGaM1jJjX0=;
- b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhqxaZrEt9omnjF9tX/pU9lBCyb+leTM4jW+UijyUf866p
- +uu367ujlIWBjEuBlkxRZbDR1uyt77yifZ9zvkDZg4rE8gQBi5OAZiIXhLD/xqf3ffnKQev/cCa
- KZFhbhhqbvXdVeSqRd3u9qXTT7384cHIMM+gTH/NlW4Gkc/7GZ5eemTyfcbBgk0b73KGBmd2GLL
- 9YgcA
-X-Developer-Key: i=guodong.xu@oss.qualcomm.com; a=openpgp;
- fpr=90B1DC3DF0BD10FD1227BD6344F254AF42F143EE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE5MSBTYWx0ZWRfX0PF5r3WPhlnM
- 84JMZOZHb0Z6LkrGwBElfM9gGFWE+XqZEqOTWCrzkyytkS9I+pMfHrlEmSUng7dJcXwScf9r2MD
- Oltq8fUzFhFC7OIGQMfkPcJmf5F9kME=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE5MSBTYWx0ZWRfXxVAuBL/aBsRR
- budk9IRhJg62l1YhwJEd48r4EmaOrAlB4cIxdBWurtyW3jmUAlO+YNuxAvFAIZbUL/b+b8rwbDh
- T6ReLciDs9YobY1exMlIhzPToxhDRXKOSGbjpdumO3PMsyGiSB9ntCeNgIG/0NOFIt/vl99rJ1n
- S6TmKfV980vs5vUvHPXs19izGxvHZ7RY3cr9OiI8Go9IV1RTzIpZjfpqIzz2CdEzoJHyrvzUnOf
- /AlOtu+Ul+bZk8oKBRJVscw+S9TsvJVajlQAeycszBkCYTuCNGWduntxOGuu/sq4AdbpXf8t3vk
- QrxIykfvSP6PjWekhr+LCb+2YxQg7gyPa74nlteVoam/oCnNYk7TFMg701ozhXx0vGH8vEjYF5s
- H8KsAGrz33XeX2NLbMGNvZDQFzc52CUaE8SXi/S6CapF3U6zji7O2AMjK6iOU2iHSKvFzRCzePb
- EOdwdOT2zbOuO+vXD8g==
-X-Proofpoint-GUID: yxH_oATwYSmQ02svmK8WMLWayZ7F7huC
-X-Authority-Analysis: v=2.4 cv=C87ZDwP+ c=1 sm=1 tr=0 ts=6a7d0374 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=jBCMAwuHs6T3S2td1yAA:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-ORIG-GUID: yxH_oATwYSmQ02svmK8WMLWayZ7F7huC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_07,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120191
 
-Provide a hwprobe base-behavior bit so userspace can check RVA23U64
-support in one call.  Without it, a consumer needs five hwprobe
-calls and four prctl calls, which is error-prone to require of every
-caller.  Most software treats RVA23U64 as a new base anyway, so
-expose it directly.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Unused include directive in the DT example.
+--
 
-Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-Signed-off-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
----
-v6: Rebase onto riscv/for-next: define
-    RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64 in the _BITULL() style of
-    commit 8da45c93dfa9.
-v5: No change.
-v4: No change.
-v3: No change.
-v2:
-- Detect RVA23U64 by reading from the cached hart_isa[].isa_bases
-  bitmap populated by riscv_init_isa_bases() at init time, sharing
-  one source of truth with /proc/cpuinfo.
----
- Documentation/arch/riscv/hwprobe.rst               |  8 ++++++++
- arch/riscv/include/uapi/asm/hwprobe.h              |  3 ++-
- arch/riscv/kernel/sys_hwprobe.c                    | 23 +++++++++++++++-------
- tools/testing/selftests/riscv/hwprobe/which-cpus.c |  2 +-
- 4 files changed, 27 insertions(+), 9 deletions(-)
+--- Patch [1]: [PATCH] ASoC: dt-bindings: tse850: Convert to DT schema ---
+commit fd4229a28be15b03b82f6b00f748cb23a777434c
+Author: Bhargav Joshi <j.bhargav.u@gmail.com>
 
-diff --git a/Documentation/arch/riscv/hwprobe.rst b/Documentation/arch/riscv/hwprobe.rst
-index 32a14331eb9d..dc70470093b1 100644
---- a/Documentation/arch/riscv/hwprobe.rst
-+++ b/Documentation/arch/riscv/hwprobe.rst
-@@ -67,6 +67,14 @@ The following keys are defined:
-       programs (it may still be executed in userspace via a
-       kernel-controlled mechanism such as the vDSO).
- 
-+  * :c:macro:`RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64`: Support for all mandatory
-+    extensions of RVA23U64, as defined in the RISC-V Profiles specification
-+    starting from commit 0273f3c921b6 ("rva23/rvb23 ratified").
-+
-+    The RVA23U64 base is based upon the IMA base and therefore IMA extension
-+    keys (e.g. :c:macro:`RISCV_HWPROBE_KEY_IMA_EXT_0`:) may be used to probe
-+    optional extensions.
-+
- * :c:macro:`RISCV_HWPROBE_KEY_IMA_EXT_0`: A bitmask containing extensions
-   that are compatible with the :c:macro:`RISCV_HWPROBE_BASE_BEHAVIOR_IMA`:
-   base system behavior.
-diff --git a/arch/riscv/include/uapi/asm/hwprobe.h b/arch/riscv/include/uapi/asm/hwprobe.h
-index 9a121ee3b436..4f5d51788c41 100644
---- a/arch/riscv/include/uapi/asm/hwprobe.h
-+++ b/arch/riscv/include/uapi/asm/hwprobe.h
-@@ -22,7 +22,8 @@ struct riscv_hwprobe {
- #define RISCV_HWPROBE_KEY_MARCHID	1
- #define RISCV_HWPROBE_KEY_MIMPID	2
- #define RISCV_HWPROBE_KEY_BASE_BEHAVIOR	3
--#define		RISCV_HWPROBE_BASE_BEHAVIOR_IMA	_BITULL(0)
-+#define		RISCV_HWPROBE_BASE_BEHAVIOR_IMA		_BITULL(0)
-+#define		RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64	_BITULL(1)
- #define RISCV_HWPROBE_KEY_IMA_EXT_0	4
- #define		RISCV_HWPROBE_IMA_FD		_BITULL(0)
- #define		RISCV_HWPROBE_IMA_C		_BITULL(1)
-diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwprobe.c
-index 656cb100ac48..a18465e734b5 100644
---- a/arch/riscv/kernel/sys_hwprobe.c
-+++ b/arch/riscv/kernel/sys_hwprobe.c
-@@ -223,6 +223,17 @@ static bool hwprobe_ext0_has(const struct cpumask *cpus, u64 ext)
- 	return (pair.value & ext);
- }
- 
-+static bool hwprobe_has_isa_base(const struct cpumask *cpus, unsigned int base)
-+{
-+	int cpu;
-+
-+	for_each_cpu(cpu, cpus) {
-+		if (!test_bit(base, hart_isa[cpu].isa_bases))
-+			return false;
-+	}
-+	return true;
-+}
-+
- #if defined(CONFIG_RISCV_PROBE_UNALIGNED_ACCESS)
- static u64 hwprobe_misaligned(const struct cpumask *cpus)
- {
-@@ -305,14 +316,12 @@ static void hwprobe_one_pair(struct riscv_hwprobe *pair,
- 	case RISCV_HWPROBE_KEY_MIMPID:
- 		hwprobe_arch_id(pair, cpus);
- 		break;
--	/*
--	 * The kernel already assumes that the base single-letter ISA
--	 * extensions are supported on all harts, and only supports the
--	 * IMA base, so just cheat a bit here and tell that to
--	 * userspace.
--	 */
- 	case RISCV_HWPROBE_KEY_BASE_BEHAVIOR:
--		pair->value = RISCV_HWPROBE_BASE_BEHAVIOR_IMA;
-+		pair->value = 0;
-+		if (hwprobe_has_isa_base(cpus, RISCV_ISA_BASE_IMA))
-+			pair->value |= RISCV_HWPROBE_BASE_BEHAVIOR_IMA;
-+		if (hwprobe_has_isa_base(cpus, RISCV_ISA_BASE_RVA23U64))
-+			pair->value |= RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64;
- 		break;
- 
- 	case RISCV_HWPROBE_KEY_IMA_EXT_0:
-diff --git a/tools/testing/selftests/riscv/hwprobe/which-cpus.c b/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-index 587feb198c04..f8c797b1d0fd 100644
---- a/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-+++ b/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-@@ -105,7 +105,7 @@ int main(int argc, char **argv)
- 	pairs[0] = (struct riscv_hwprobe){ .key = RISCV_HWPROBE_KEY_BASE_BEHAVIOR, };
- 	rc = riscv_hwprobe(pairs, 1, 0, NULL, 0);
- 	assert(rc == 0 && pairs[0].key == RISCV_HWPROBE_KEY_BASE_BEHAVIOR &&
--	       pairs[0].value == RISCV_HWPROBE_BASE_BEHAVIOR_IMA);
-+	       (pairs[0].value & RISCV_HWPROBE_BASE_BEHAVIOR_IMA));
- 
- 	pairs[0] = (struct riscv_hwprobe){ .key = RISCV_HWPROBE_KEY_IMA_EXT_0, };
- 	rc = riscv_hwprobe(pairs, 1, 0, NULL, 0);
+ASoC: dt-bindings: tse850: Convert to DT schema
 
--- 
-2.43.0
+This commit converts the Axentia TSE-850 audio complex device tree binding=
+=20
+from a text document to a YAML schema.
 
+> diff --git a/Documentation/devicetree/bindings/sound/axentia,tse850-pcm51=
+42.yaml b/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.ya=
+ml
+> new file mode 100644
+> index 0000000000000..0ab4b697d28ea
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.yaml
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/pwm/pwm.h>
+
+[Severity: Low]
+This isn't a bug, but is this include directive for pwm.h still needed?
+
+Since the pwm-regulator node from the original text binding was dropped in =
+the
+conversion, no properties in the example use PWM macros. Can this include
+be removed to avoid unnecessary dead code in the example block?
+
+> +
+> +    sound {
+> +        compatible =3D "axentia,tse850-pcm5142";
+> +        axentia,cpu-dai =3D <&ssc0>;
+> +        axentia,audio-codec =3D <&codec>;
+> +        axentia,add-gpios =3D <&pioA 8 GPIO_ACTIVE_LOW>;
+> +        axentia,loop1-gpios =3D <&pioA 10 GPIO_ACTIVE_LOW>;
+> +        axentia,loop2-gpios =3D <&pioA 11 GPIO_ACTIVE_LOW>;
+> +        axentia,ana-supply =3D <&regulator_ana>;
+> +    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-ti-axtensi=
+a-v1-1-768a1089fd5f@gmail.com?part=3D1
