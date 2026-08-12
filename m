@@ -1,133 +1,188 @@
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8672345ECD
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 04:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786509596; cv=pass; b=f8pXJ2oUecsyEdx4579HtfN5JrFAXh2Tnp3/P5nqNbutrULUqFvaSFL7ge8WcLCIS5NKkjyIa4NLWsL0T1B82WSwJR3OqgFOItOWu5S1cHDLv8sWbCI2PS8HE8xTuwIYoNhV/zqKz3F9QwAk9rpHwBmlUK/KX2LEz01XxgjB8RM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786509596; c=relaxed/simple;
-	bh=Bn5EA8mnuFm3bH5umIuq0sbge5qbiERu/rawKyKCdjs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P7fza0gCu9VIfSu2J2k83qkeLdwDoDFA4jAq+07rsGvEvWSuUX3w/JU9F0t5PE70AC7tbJMiBelt2I4OFwulJkpegh4r2lseb6HYnM9ZRCHzbyJ2Vs9nQqGyd1vAHAeadROHiYYiuKd7piVr8ig+aq/VI6V6Lufm3jpDmbWLNYs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SCEhEFlg; arc=pass smtp.client-ip=209.85.160.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00F9288C81;
+	Wed, 12 Aug 2026 05:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786511001; cv=none; b=C4hOmcW0hpQ37oPuzxpszEVNDmd7Zpw6JbcMe2D9c+hQf9w3aO3PEyI2ypmauBjn2mpaGCathLcLgJepQBTHZU4MjUZyaT5QalNOnLgVEd4vFituaUNM6vD9LI8/CVbjaiWnU52jIrpj8mhupFPRuMW4hOcBVsAXCcrWWDazTWQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786511001; c=relaxed/simple;
+	bh=45c9Mw+RtUpfsCt03yp7BPZDMVxg9SOCXgQtlflD+eg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I2nUgLztiI8V0PHPeT8qqhR4Ds/kg/xBCek6iOfwF0+Hbfc5mt3iv1nwP5EqxJd66Dr+Zqj2YdP1O+U7arwiizEtiyN+fSTSJUxkUww37xHEyjatn1Pxl+y3O4iI/RT4IQEW9k6PKJ5poo8OUsZ2KpPPxp/pKJ93l2j8AiG/ZQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSFJzf+q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SCEhEFlg"
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-448b89f700fso633197fac.2
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 21:39:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786509594; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IOH1qA3nxW6WdxJqCur8nFD3aMcz3hILHoYIPdBEUAD6wovkfgmMv5CGwc5q4zEXIu
-         nzA/j/ctJu6dAgC6XHohR4yNjioHXZsvUZ9+Kc2aM8mmulumMjzkC5TSiP4oFKiGrRGc
-         Y1w6pAGKTH1rCBwzIIA3+HHu21/thGb434iJNoT0mio+LTFsZTfUg9oTl9GKaHgucw0B
-         MiZViM/XfSQLChzN+L6poFkrYt+Sov5Tldlj86Yi64FqdAPIqIIm5qARGPaVGPktf6vB
-         Z7+oVsERYBMR4OvbXgjBRTYFqB25WgnrA3wTjRyw3HhTY6R+k/b7gY9X8+2KPvULPXQq
-         MGRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=y8EqzbJg8fD3KowEEfKkshsn5eXfhPp6NSIWl0mIxuU=;
-        fh=eNGKJgXm7UGcsckdDZO9BavbY4zdc1Y6N7G0HaP+vCw=;
-        b=aVZA41FJ1bFMMb8XgqaSLX9uRxMH2VukA1JFJB9E/NVYgPpmYZxy06SERk5OAAoQ7t
-         bPBCJa9439nCI4SslDT6CwQJ6bvcIaJ6LUvEfHT1vQZDxyBZ+neGrg8gEnkINVDIJP6K
-         LEGyPdsEJ2CBHcKwgNvvRGK7+L9lqkbVgP1HgsLHvKZjjqVx07QBTG7AGUm2DYRbRm3v
-         RGZQ4t4j3P/VBQgMVUSkzNj0SFPW4tKZ6CYUQH2acemNsbZyYbmwj8+7KFvD2I9uk6+s
-         XhznrWSEuWSSqDB/+jqug3E08kAfS+MnAei189w5nmObrCtcawtWA/YdJ9gVvx44wqxC
-         hI8g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786509594; x=1787114394; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y8EqzbJg8fD3KowEEfKkshsn5eXfhPp6NSIWl0mIxuU=;
-        b=SCEhEFlgd74xOyfBIj27VZ9v0UZnM9YfgSkzGDtY8wgdxjQPcWSY1DsH/o0QfXTwHN
-         2Le5BFDtThj66x48BVeVT2jfg6y+MLmBwxerE2AuLgXtaK7q5oI7e10w2/I8YMRcviXi
-         bcPIb3/pImk6nK08Y20lAkDKR2wdUKqOOd+zY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786509594; x=1787114394;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y8EqzbJg8fD3KowEEfKkshsn5eXfhPp6NSIWl0mIxuU=;
-        b=QL8/eRLd1wcpqnjea505nxE+SXp/WV4d/KGzq56Yt/08x+gprynMeu+ekr2IEDWe81
-         KaNCJp8puJGla9l8DvHfCqKnUE3bzh1cw8UXehAhIfkF1Nnsq79c6KSwCRhZNvkQqG5h
-         DHVLv272MoHBKV5j9Pb7y8x7iXTEOlgd+KPxwQQDR7C9JTmMVWBqQHUStBk/VzHpgDYo
-         lNytIesxMs+GeDqWBAQSiOn5HheCwmCmrZOmrDXunccEwRmqVjl78Ebs2HFuVvOR1xqD
-         DYWX6rv1hdxkrk5bnkTHzD2WblB9gOa/cRDpFnXtw196ThMyqMiTtzLotPfXxHFhR1qy
-         Fatw==
-X-Forwarded-Encrypted: i=1; AHgh+RoKIY/kXLeMBZQiWCBKCB0sBCQC6SJ3k4855HohvzKcvuf5cKJUyHg7+bl6bDETg+p2obBYFfwCVWko@vger.kernel.org
-X-Gm-Message-State: AOJu0YzT/j3KmruMKYxQKPGOnNHE+w3jZKjDAN9AmpyIgI5R0a7aVnmK
-	X5Lsr6Urk/ZAsro7iL7lI+5t+Fk+LvU4flYEJ3dWxyZJGQwzRcwESVsDz34S3NpCqAfWh7W6E9p
-	53gqsWGzEOqV4nyuP6scfF+7l+CybiHex7RHRBG4u
-X-Gm-Gg: AR+sD12Pl5pYrAUGVTLfjBI93dZGnx8rJ+HnAgTaSSi2AFD/ryImZZuXNFF5tmLIB0H
-	wiThfN+AoOAPKz5cq2HnPFUI0ollrbPHChVU99GSBCsqyxrg9M4tehZE3nRscH3mkgFn0OG+mJ4
-	w5LaPd3UEiMeIbYIM+DITxUnB0NXj5mLpCYDgsqOIYJHouxhB6QwtryYMa8P048SOggKtAkd2U/
-	HQkJKrfzWnKkZhn4p0hJ1BSB7sa5k3Z8bphzcD/IkXNDtGBH0/kA9ZAt0RMgoYHaXMtHZU8OYXL
-	sQueKCkTvCc7o+tdIIJI99zcJZE3hrrN6eTgszaKgPN/FJ9E+DI8O0S6owWWQgMhfCSUgODmW6Q
-	G8y5lEK0=
-X-Received: by 2002:a05:6808:2f13:b0:495:d7ec:b6be with SMTP id
- 5614622812f47-4b210ca8dc6mr1833103b6e.18.1786509593853; Tue, 11 Aug 2026
- 21:39:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSFJzf+q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3C81F000E9;
+	Wed, 12 Aug 2026 05:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786511000;
+	bh=AG9V5QM/LQXyVzTFmXGwnlr2XmuiKwvic52wSwqRFzQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lSFJzf+q9hmSN5emquAz9I3IscJsmGq5T3KpusvnyFpGD4/i/WjIpPuCtjvTsHC2l
+	 pCvfKHl8O/ubf46hB7lvrncAx5enJIzKUPk/tRW6uzf3jOtrDMSqHFzpwZPtIvaFRA
+	 d1P9Hcx4AI3iNHwGW/UHpGB4tMZEK7mhUJN5BQG1UrITNQTRfUNg6NbxYGS3zkKfCR
+	 GaI9EJvJcgzDPNJso37s3yhasCE0zf9jHzRMEvO/PoWp39v6Vxb1gfozUSMc/vI3BL
+	 MxDMYr9lKRVO0GzfmqeAFgqGnCdXHRtbPQFiyD0Ddv+oNDug2n6T9ywj+KEjfKYqxf
+	 ajIVyQVqCeJIA==
+Message-ID: <6906ca3c-03b2-4d9a-a3b6-2d38345d8534@kernel.org>
+Date: Wed, 12 Aug 2026 06:02:58 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811122011.3539250-1-wenst@chromium.org> <20260811122011.3539250-2-wenst@chromium.org>
- <99ad23ba-f8f2-404b-960e-1c22a20c9ac4@sirena.org.uk>
-In-Reply-To: <99ad23ba-f8f2-404b-960e-1c22a20c9ac4@sirena.org.uk>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 12 Aug 2026 12:39:42 +0800
-X-Gm-Features: AUfX_myPgwTrMoDWlXxd7K4JTdOxXQP71DAA9qzbfq1hbTylwiYJcqKiFEh4if4
-Message-ID: <CAGXv+5EeEQM6O8Vb8e8fGjRzMe1icmz=cPm3GoKLxvEO=weVcA@mail.gmail.com>
-Subject: Re: [PATCH v4 1/9] regulator: core: Add "enable and wait" functions
-To: Mark Brown <broonie@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, linux-mediatek@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	chrome-platform@lists.linux.dev, linux-input@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Johan Hovold <johan+linaro@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+ Mansur Alisha Shaik <mansur@codeaurora.org>,
+ Andy Gross <andy.gross@linaro.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
+ Yassine Oudjana <y.oudjana@protonmail.com>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Aniket Masule <amasule@codeaurora.org>,
+ Malathi Gottam <quic_mgottam@quicinc.com>,
+ Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
+ <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+ Renjiang Han <quic_renjiang@quicinc.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
+ <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
+ <27f0b033-e940-4369-aaa0-f08426aac73f@oss.qualcomm.com>
+ <tdgbfewnlj3xypfnyckivnd2b6667laapkcfs2vpnk74bh22aa@obasatns3jfr>
+ <MHRdGybtgutWtIo4EOZisrGdCVgOj7AdOArjfuxCXTTNcc1o1v40eltpkDUqZl5sOY9tjRFaY6tc_OKvzrYJ4w==@protonmail.internalid>
+ <429d5d1d-92d5-4949-9991-b092cc7e9937@oss.qualcomm.com>
+ <181b02e3-831e-4461-9327-ab5646380a10@kernel.org>
+ <73b26356-8ccb-4a81-b626-a96de5b13173@oss.qualcomm.com>
+ <v7vlh2lgvluvacmxora6l7u5r3cbhr4xaqqlzqdli5jympfwxl@5qsqc354n4u3>
+ <g_hgO2Ky6WOywvRuvLUE7DXb-e7Kb8S3QoVsLbN3yhHbYzryQwZBT0VLRe3C4iVy8rUA9Tvc1Vu255IjAnbRJQ==@protonmail.internalid>
+ <7caa7fd4-6732-4c80-8b8e-a0ed99631ba2@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <7caa7fd4-6732-4c80-8b8e-a0ed99631ba2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 11, 2026 at 8:43=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> On Tue, Aug 11, 2026 at 08:20:01PM +0800, Chen-Yu Tsai wrote:
-> > In device power sequencing and initialization use cases, it is common
-> > for the driver to enable the regulator and then wait for a certain
-> > period of time to pass before continuing.
->
-> Please don't bury core changes for subsystems in the middle of random
-> other serieses, this is the first time I've seen this.  :(
+On 10/08/2026 17:57, Vikash Garodia wrote:
+> 
+> 
+> On 8/10/2026 5:40 PM, Dmitry Baryshkov wrote:
+>> On Sat, Aug 08, 2026 at 09:18:42PM +0530, Vikash Garodia wrote:
+>>>
+>>>
+>>> On 8/7/2026 6:48 PM, Bryan O'Donoghue wrote:
+>>>> On 07/08/2026 11:22, Vikash Garodia wrote:
+>>>>>>>> I don't like the idea of this series, because it_again_
+>>>>>>>> doesn't tell us
+>>>>>>>> the truth about the hardware. This typicall ends up with
+>>>>>>>> bigger problems
+>>>>>>> honestly...thats all the info i have about the vpu hardware that it
+>>>>>>> restricts non pixel to DMA from the 0-600MB range. The same i have been
+>>>>>>> trying for a year now
+>>>>>> You are not honest here. You also know that there are secure streams,
+>>>>>> which have to use their own IOMMU SIDs. And some of them, as far as I
+>>>>>> remember, also have memory range restrictions.
+>>>>> please read the commit description again, the answer is there.
+>>>>
+>>>> So I don't necessarily get all of the detail out of the commit log myself.
+>>>>
+>>>> Could you give some detail to address Dmitry's point.
+>>>>
+>>>> The question as I read it is - are all of the other potential SIDs
+>>>> covered by this change ?
+>>>>
+>>>
+>>> I get the query as "secure streams also have their dedicated reserve
+>>> regions, so how does this approach helps" - This patch does not reserve any
+>>> IOVA for secure streams, only the forward looking subnode can assign
+>>> specific reserve for specific streams.
+>>> The patch enforces a common IOVA across all streams, and is good enough to
+>>> fix the problem we have w.r.t device reset.
+>>
+>> No, it's not good enough. It defines that both non-secure streams use
+>> the provided memory range, it doesn't provide a natural way to later
+>> _expand_ it to support secure subnodes, etc.
+>>
+>> We know that there is a problem. We already have been bitten by not
+>> describing the hardware as is and using band-aids. Can we now learn the
+>> lesson and write a proper hardware description?
+>>
+>>>
+>>>>>> So, if we land these patches, how do extend it later to account for all
+>>>>>> of that?
+>>>>>>
+>>>>> forward looking design would be subnode, which we can land ontop of this
+>>>>> series.
+>>>>
+>>>> Yes it should be possible to branch to make subnodes work on-top of this
+>>>> - accepting that once this lands it becomes ABI and support for this
+>>>> method must be sustained, even after sub-nodes land.
+>>>>
+>>>
+>>> Thats the plan. This goes as ABI with subnode to land on top of it.
+>>
+>> So, do you actually plan to support both ABIs? This would also mean
+>> moving reserved regions to the subnode.
+> 
+> How is that different from moving the reserve region when stream IDs
+> would also need to move, so be it for the associated memory regions.
+> 
+>> What prevents us from landing subnodes straight away?
+>>
+> 
+> You are well aware of them, but still asking the same. Reasons,
+> 1. We have been attempting the subnodes for almost a year with multiple
+> pushbacks from multiple maintainers. We are closer and working on it to
+> post for iris, followed by venus, once review is acceptable for iris.
+> 2. Current solution, in this series, is much easy to apply for all
+> kernels and can land faster so that it can fix the reset issue we have
+> for already enabled devices.
+> 
+> Both from timewise and simplicity wise, this proposal is made to address
+> the reset issue, while subnode can land ontop of this, without breaking ABI.
+> 
+> Regards,
+> Vikash
+> 
 
-Sorry, that is entirely my fault. I was using an old v1 recipient list
-on the previous two versions and that list didn't include you.
+There is another solution.
 
-> > One case in particular is not optimized yet: a regulator left on either
-> > by hardware reset default or by the bootloader, but does not have the
-> > "regulator-boot-on" property set. As the enable timestamp only gets
-> > updated when enabled by a consumer or by the core, the first enablement
-> > always needs to wait.
->
-> Just take a timestamp during registration if the regulator is enabled,
-> we check if it's enabled anyway so we may as well take that as the last
-> time the enable happened.
+Restrict multiple concurrent streams in both drivers. The failure mode 
+is as I understand it only triggered by _concurrent_ streams so, 
+restrict that case in the .c code.
 
-Yeah, I just haven't figured out where exactly in regulator_register() to
-put it. I think it should be after the supplies are resolved, so maybe
-I could do this in the "final setup" part in regulator_resolve_supply()?
+Nothing dictates DT as the means of addressing the problem. Clearly not 
+many people run concurrent streams with the upstream stuff so formalise 
+the restriction until sub-nodes permit reintroduction of the feature.
 
-
-Thanks
-ChenYu
+---
+bod
