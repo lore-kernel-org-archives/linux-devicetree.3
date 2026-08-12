@@ -1,73 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E646435EC0;
-	Wed, 12 Aug 2026 12:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058A433A6E9
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:48:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786538823; cv=none; b=JLU+lYWcJkxHbqHqmntJYGiFLk/AAIi9FiltUzoxbeVJni0k5fb96NKCNi1jgqERu+HzHiFNJhVTYM/+NwrzSsI5fsn5bJGTO7aRAqtFnmESQcUjeIRZKxU9jaqrFBp0wqk7LdRGyoKTYiEiuXdIGgh7KAT+nofPngPVo+BcvMI=
+	t=1786538901; cv=none; b=clAwnBWixN/fZL+2lSDO+CsEKa65UqXY4mNulcF/SgIwuRbLzN9Fhxmt8PDnFJIO23iiSvU24zd+LBxbP7p5G/GJHgjmEaj30FSkJCU4GcwZN5QjgwWg0Qy9PCHwqRHlzkGtKOzcP8y/t88niwfYqIlsDW+T2zuZHZiMqgS81Ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786538823; c=relaxed/simple;
-	bh=/1gCcYS9jQxBAqx9/KrdFEM8ee1fsPYETu3Wl7YWH3k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fQM1VUJwbdqrg/wlOrJEaBShJgNqxmgAzPkslHBJ+GHJbRR2B/k5K9LyHSn5kgwJrd/sIe0uvF1QBTo4ZkuNJlC1Nlit3QczO7/trWmZTOylqNBNs04fZa256JFHKfgMZ7ChGdg0llM0LZeyKTyQ3oITfTYNKK8rwrfaCKr4wts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zamo3PZJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786538901; c=relaxed/simple;
+	bh=hrHpK9mBn1HScEdTgQmCNJRC9EOtR2zYokI33zINgoc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AKbHvYKM+GKBQwWJojKmpozDBb7eUfHy5WNIgmdxb4LwtIu9tK4aM7lKYeWoEPXx66GXeXXY8Sdqy1wxc17CoO7fH2LEGUYBZL8st4Y67cIaxtn1zeUntytZ6NxjNY/9rwQgyd2dvqEoGfXV61cGWPbVHhNiOKg6gZe5ghzkADw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akwxVJ/G; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zamo3PZJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B31E1F00A3A;
-	Wed, 12 Aug 2026 12:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786538820;
-	bh=1PIOuw+u+GM/VL7vWozisWkS995Zi/eskMy3T8ZRwc0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zamo3PZJQEh+M80oYPuGFMTPEEEtqsacYn3fb9ohMZMB83LDvnfUVGVqQsRa8gV4J
-	 /32qZXSd6TMF5h+uVO03bIn5Rsd1WDdtfLY82tmSYJgbS9XGZsa+UPrMjyJY9ckVZ9
-	 C409uDAAXGj7KAV+Szt+8GVas7PeR1N0cxiseBfhvOz+/W+E/V3VQXS+79dhVVpvDp
-	 XwGXCA4F4CER9V1wM3puv9SMSNrg2E87d7PAbtF74ivwdWjTjdUVeztTmcvfHbX30p
-	 ez3+UoebVBwexC3+/lZ6FV8M5ff7uC6G5Wr2iDV1SKX0IT8vBLcNeHHLqGdbiKwnyG
-	 N+nrZ+mAmfhdw==
-Date: Wed, 12 Aug 2026 14:46:52 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akwxVJ/G"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4995df974b3so481255e9.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:48:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786538897; x=1787143697; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eTo9zPlaH3flPDssEgbhBqafK8pdC58gZr52aUiEgTc=;
+        b=akwxVJ/G5nhExfbdBbhtyHZ78vWKsHC6RoFd3z0LuqKG1onQs8pnK6AoYF19i2I9wR
+         /btdC6pE1Is8a4rt3r1cAn5JhGbDuN2qwdzaGadKGNpgMSW7ZlOeGUlJ3lTSSWD841fS
+         BS8+F/VbT2DmRpfzX05CW8cLeczJfSf1nUTMXEH2nj3rgvHgcYbXQZfx7RZeFmQU1j1R
+         6YfXlpEogiV+plU8lAaMVLlPXZxDWyXpUyUXG4C0HYHEpgLVBohP/giecgCd9/qh/CEP
+         88Cvc6e4s2ZLTPYTWSh3PA4fdWR/VKjpvlR95h/4beM1EPXAcHZxuOg3V2Z1uywqcYrB
+         +mDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786538897; x=1787143697;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eTo9zPlaH3flPDssEgbhBqafK8pdC58gZr52aUiEgTc=;
+        b=MWaxhvvYiMXdJ8cz9gSTic29S/5dZi+Y0iLCSVEA2YkmlCrowzxc1g3jwPZtehxTQd
+         GxVaxlPmhcS7YEfSWrC9oQ20yXMhVSylIsbVB5oCPjzXgp4Q0NnM1PxxBk9gMITZ3b64
+         XBXiZJlrbLnY88u73TC621iyCJjQD0hsOnD8aUs2cwNv/7F5Sf5juOpd18kkZoEr40Af
+         Vktrh8kVHoLhTLZ65yXxdrdQkHAn+ZyfXKPQdWf34AVfF6D+MqQV1PUTenUl5JaAwpX3
+         Qx55isHiKNZh4ujCGD54YNCJCH6jlw2PfPg95kNRohXOZWrOD+dd0bQzvM1ZZozy8rJP
+         5sEQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq2AjTZYmzkfId2s44BHzYtGkZf4bsAT2SHjhSGc06vxQdfvbFIch2m1ubsgHn6db99KnrQxK4+xvXU@vger.kernel.org
+X-Gm-Message-State: AOJu0YxI5oWlyZvzRxBy/8v16gs39sx2kGa9N0Z3/EETpq9ZkPg9Ltni
+	taQvSYDzMsLTfoyhis3Zom4QhJJXyGApi2+Nw1bEtVGl4juUUaa3Xyz9
+X-Gm-Gg: AR+sD13jv/ERH+B6oTtFZ3ccof6WaGUQrQZXle3q5YS/X1Xgk40xywG98kwcTaNfQ78
+	sji3svQx1fvpSzzdTE/zDt/avqgyfyRRzfqXb76QzTrzYLya2j36mdImF4eCfRCnDKihggGNLp0
+	e6tpWQFGXsyZb6em6AhzVgmxK6Li/l+XgUdzl24XU+sDLDb74NttKeCVBOFVu2iZZa+XvK/WNKF
+	kD/iSUUBMyXkx/kusIa8KXfYiA3UR292enUIakEW41Kos69IGgDwnsoA7KFNrjFejIkQHSg+3ic
+	Dva/6iRGVIYLCmQfw/tsrzO9t7wlhIuEQaPKEsI7SO+UB38VRO3FccFkvI+MIhqgoenCkjdSmbV
+	dLbbts8gTgGgZaxCmAqYFQqxJVZ3OB4Z1rsFYAeLdhpazYnBsoTIZz5vIoblhy6YXvW5jRdGg4e
+	mQ1Hoqc2tMsRwmCkrR9Auc2hxnE0NB/u4BeTb+Y4LG8yR7J/OcrYU2Ll3hcWvxEtkuo0vPREaou
+	GjN3k6qKMiW/Ujml+pPt7WMrufiQPz2D45dN3ANCMVwDxfz1SabpawMSW05ptBBkr1W
+X-Received: by 2002:a05:600c:4688:b0:498:8e6:d463 with SMTP id 5b1f17b1804b1-4997c0ddd6amr30132445e9.1.1786538897096;
+        Wed, 12 Aug 2026 05:48:17 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B84A6001A34C2DD5D9E0419.dsl.pool.telekom.hu. [2001:4c4e:1b84:a600:1a34:c2dd:5d9e:419])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c98ce0bsm47612095e9.11.2026.08.12.05.48.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 05:48:16 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>,
+	tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	alchark@flipper.net,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: remoteproc: qcom,sm8550-pas: Add
- Hawi and Maili MPSS as SM8650 fallback
-Message-ID: <20260812-optimistic-wonderful-adder-96ffce@quoll>
-References: <20260805132129.2713174-1-mukesh.ojha@oss.qualcomm.com>
- <20260805132129.2713174-2-mukesh.ojha@oss.qualcomm.com>
+Subject: Re: [PATCH v7 01/10] accel/rocket: take the completion register writes under job_lock
+Date: Wed, 12 Aug 2026 14:47:52 +0200
+Message-ID: <20260812124755.6507-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260812094106.1391698-2-gahing@gahingwoo.com>
+References: <20260812094106.1391698-1-gahing@gahingwoo.com> <20260812094106.1391698-2-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260805132129.2713174-2-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 05, 2026 at 06:51:27PM +0530, Mukesh Ojha wrote:
-> The Hawi and Maili MPSS blocks are fully compatible with the SM8650 MPSS
-> with identical interrupt, memory-region, and power-domain topologies, so
-> they should ideally fall back to the SM8650 compatible.
-> 
-> Introduce a fallback items block that pairs qcom,hawi-mpss-pas and
-> qcom,maili-mpss-pas with qcom,sm8650-mpss-pas. Switch the mpss
-> memory-region and power-domain allOf blocks from enum: to contains: so the
-> constraints apply whether the compatible appears in the standalone form or
-> as part of a fallback array.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  .../bindings/remoteproc/qcom,sm8550-pas.yaml  | 23 ++++++++++++-------
->  1 file changed, 15 insertions(+), 8 deletions(-)
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I ran this on an Orange Pi 5 Plus across all three NPU cores, against a
+base without the series. Both modules were built the same way and
+neither carried any local DVFS work.
 
-Best regards,
-Krzysztof
+  base:  v7.2 rocket
+         + Guangshuo Li's "clear rdev on device init failure"
+         + my "request the core clocks by name" v2
+         + my lifecycle v2 1/2 and 2/2
+  test:  the same, plus 1/10, 7/10 and 8/10 from this series
 
+Six phases per module: all three cores bound; core 2 unbound and
+rebound; core 0 unbound and rebound; all three unbound and all three
+rebound. One MobileNet V1 run per phase through the Teflon delegate.
+The oracle is the sha256 of the tensors that both change between
+different inputs and stay stable across repeats, so a stale output
+buffer cannot pass as a recomputation.
+
+                          base    this series
+    three cores           89.3       90.0   inf/s
+    core 2 unbound        87.6       88.8
+    core 2 rebound        88.9       88.2
+    core 0 unbound        75.3       75.0
+    core 0 rebound        88.6       88.4
+    all three cycled      88.7       88.3
+
+All twelve runs produce identical oracle hashes and the same
+classification. Interrupts per inference are 42.75 in both, and the
+distribution matches phase for phase: with core 0 bound it takes 41.7
+of them and core 1 takes 1.02; with core 0 unbound the same work moves
+to core 1. Neither round logged anything beyond the probe messages.
+
+That comes to 2596 inferences and 111048 completion interrupts through
+rocket_job_handle_irq() with the two writes moved under job_lock, with
+no difference in result from the same count without them.
+
+On the change itself: I could not construct the race on the normal
+path. The scheduler runs one job at a time and the fence is signalled
+under the same lock after the writes, so a submit cannot overlap the
+completion it follows.
+
+Where I think it is reachable is the reset path. rocket_reset() calls
+drm_sched_stop() and then says "Remaining interrupts have been
+handled", but drm_sched_stop() stops the scheduler, not the threaded
+IRQ handler. A handler already in flight can therefore run alongside
+rocket_reset(), and after drm_sched_start() alongside a fresh job.
+Making the write and the decision one step is the right shape for
+that. It does not stop a late handler from writing the zero into a job
+that is not the one whose interrupt it is handling, though - would a
+synchronize_irq(core->irq) before the guard in rocket_reset() be worth
+having as well?
+
+One note on the base, since it matters to anyone repeating this. The
+core-0 rebind step needs my lifecycle series underneath. Without it,
+that rebind hands the returning core the index of a core that is still
+live: the driver prints "core 2" for fdab0000.npu, inference starts
+returning a different answer, and the teardown that follows dies in
+destroy_workqueue() under drm_sched_fini() with a poisoned list
+pointer, leaving an unkillable D state. None of that is your series
+doing - it reproduces with 1/10, 7/10 and 8/10 absent - but it does
+mean the three-core test cannot run to completion on a tree without it.
+
+Igor
