@@ -1,209 +1,88 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB9143CEF3
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:49:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F043E3546F9;
+	Wed, 12 Aug 2026 12:51:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786539003; cv=none; b=ISpBw2Q3sbr8ubrNnIIJxU1X7SCQARCvhxGRirALUibUygCqShpth8WbIhuMebFxj2XXyz+6ZZhWMTqUwxki+UuQkIqrugMejgnToKaOBtndymlltnVnpdY7Kej5I8ft2SskWgqhPewiw1TdHgVgtjUaJk1ZJgTpJfMJgYafKvs=
+	t=1786539065; cv=none; b=gN+MY2MDdBi9o4dS0HxR52tQ7ulQoKERqzsurC2zqLYc1+KWJKk97KeKnBTXpO8+hvg9g3tMgNvb8zMRVV0AVh9dm3vdVdR3irDd7hxfZwOvM9A1DO/ccI800oy590/hah0IVkZbw3iUGrVpvOCdAJRtdh51gx/0l+Pa4gapRcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786539003; c=relaxed/simple;
-	bh=68xt+C+zjDto8tm6NOtDFOkLOK5UfA8lj8IeS5a9lZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pAusp2mW6E4zfALG55Y6cvqxZ2/VfTs+BLHt2hipUGDLgjBkc33SVzsc6MkDwF8FsU21s5C+zwpgyEGaC+ljxnOd38s+VakbiY+masYWT90q2UcvaodBmBUYtXzMDfMsvFqegz5xOE96SKPE72xpjT2NCWwGwhG9/NyXQ9Sv9Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X54XlddI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jeO6TKhX; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786539065; c=relaxed/simple;
+	bh=n5us2DDP4NWj8ExRnyGl3cqoJJpHTcNt7yGzXkLqV7A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vGkzeQ1HhHUWYoeuGN8yGQ+lio4G42EtcgqmQ3TY8C90ke5tkIGX1iCmDUOXwMmxkudCWXeyrdeinfvD8+FqIJfdPZ+3ED5ZcW4fOTN2xzyommwO5Qk1P7J8KpHlxjuitNOmZ+ZhzFj1WMBwslsn1tnMVh+8Ydp1754eh+jFeAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRaiQGxE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X54XlddI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jeO6TKhX"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CB4bAj3963523
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:49:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vRO7cQGeILqoNuN9rQ7IoY9cU4C+obAiiKTkESKbsaU=; b=X54XlddIwvi/tlsX
-	r7IYyYTOIUjTPpiaigGBuw4QvBCS+iBRoc5cooAOwy5cz7VIBu2X5OMYtCT4+Bt/
-	83oaX4pP8gnhJGR9fI6aznCrSnMyHbmIUjziS7zkZQ+DXbH6OORbel5MKoQLmL8t
-	QFsA0alNQuyIKOq3bwYf/rsI2HUhyLhyx4jlBkok0PhjbA3w98Xhpx8S+0JOWa0a
-	TzDgeqw6Wp4/r/yyslKQWq7XXkpc6fJZoFlVL9Ihgz6UGJ3++2TkPWUtDvdkWpxY
-	xf4MmjddngZAucQOhx2+RF95hdTksFdKa9NnaJv3C2a9vNBKGj2+9laxJmj+trGF
-	qzkV9g==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0nucgtpj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:49:56 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52d33c89a29so7442761cf.1
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786538996; x=1787143796; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vRO7cQGeILqoNuN9rQ7IoY9cU4C+obAiiKTkESKbsaU=;
-        b=jeO6TKhX6XboENwa057kZZgqNlDNWAYRfb7GL527R6kB0LtocVhJjn7M4QypZVSk4g
-         GaZOBpQqFmtn+cnZtLXsgiKIyAwcwf1IUPHVq9Xjpxyv683mJ0+IluFlSa0/mxxfMgQS
-         q1sH9xcIjNYzOloXfih/fZ3oYUIdgtzgpFbt411+xtB8UoQs7vCiwmPVem5v2SX2eQZw
-         LpDhGvgdUlIB1BP3AkZL/sHP+B+U1XSz79FIeVWwfagOn4q6L6sbdStOfsmaE5YGqf7d
-         neFpZWyP2pnP9SZLZ5bHnE3CPJxqkW47wUeZMAhbj5VbzIvt97Xe+kqCpNDzbGFLcYa5
-         nISQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786538996; x=1787143796;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vRO7cQGeILqoNuN9rQ7IoY9cU4C+obAiiKTkESKbsaU=;
-        b=m0O2ydDxoE3kXQDtCv8JuNgOX7Yzzdxcu9Ue4VXdHmOjLyFtkHJaPYUWUvuPOklDTf
-         sn0iYadXU8dRjUKYFK4ecfbCGxgmUUwdRLF2m6kvjvQtcPvoDvEUhSVzIblRQtxVjB1a
-         nG2SknueSfxtL4QQAGIG4NXz7tqcaiuHUB7D4QjCnTpRjAWEH5yIv+sJp6Bi1E7YClpx
-         qZ6gJQCr8A0uWlOYv441Usqbm2h+YE/sEtKldZYLU36o3Vue5gUIId+V4G0xLkNhx3pK
-         tRbG0h+YKW04IiyL5s/jv/mW/b04o+JF4xA3PxmwCHChbGNdqxc2sVd91oaKFQB4x/vb
-         O+Kw==
-X-Gm-Message-State: AOJu0Yx/kYD1E9WMO5KPumONeuuTLb2OH9OTLb+QBcs6Dgg6Fm+vOSpZ
-	YwTC26lbMnu6MlLbAgOfc/+2rnMDdzkUTStOKYG2V+BRnbqr7irmWS4qskikiJqNjw9SmrLyYHF
-	hoMLSLEyr+y5BQozR8r++xo03Ymvv9nCNZMT/zba3wyzr7J0nzQ7U4hI3n6f4ElAj
-X-Gm-Gg: AR+sD11FzSiM1Z3Qt5g25pFlG2i3bl2EXsdbvDP57I8PX4rrgZ84cSZHImyTl9BKqn8
-	lygfP84Z/pzzbZvZlbxzaRK5f3vQEjL/HSa/V3H/fRcDBm5cPTGScuN+my1UpFbIM8rHyRcoRwG
-	hsbeorri4F07uSmEaZda9vndgi8MJHHkdveG4FrNag4oAudFiW25tEU3Cs6m1/6GaMEG7u6Gbhe
-	KOwRMnWALWdY+/5JdJBLf0YEdpzps4MmkUzfuV6y1glKyGDqKm3QnAgMwJ7dx+mqYURxpyMBZ1E
-	F8KQ2/OX4t9cOAvPB6TQ7PgHlQVcDtANthwyxGMMnpjXGF9rJ/TR/R7u4vBkIJ6CxXVPGxWbRln
-	YTd8HjwHYJFpadGHcK8eNhXeGCwBduQ==
-X-Received: by 2002:a05:622a:2d1:b0:51c:1b3d:fe62 with SMTP id d75a77b69052e-52d6486aa8bmr37551151cf.28.1786538995887;
-        Wed, 12 Aug 2026 05:49:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:2d1:b0:51c:1b3d:fe62 with SMTP id d75a77b69052e-52d6486aa8bmr37550611cf.28.1786538995411;
-        Wed, 12 Aug 2026 05:49:55 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c94f4c0sm41673635e9.8.2026.08.12.05.49.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Aug 2026 05:49:54 -0700 (PDT)
-Message-ID: <e5a838f3-609e-48b9-aca6-a25fe5453cd8@oss.qualcomm.com>
-Date: Wed, 12 Aug 2026 14:49:52 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRaiQGxE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE791F000E9;
+	Wed, 12 Aug 2026 12:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786539063;
+	bh=L4elurd1f7nZOQreeo691M/WVuSqsyMGZpvGzfR/pOU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nRaiQGxE7fq6UC74njZb4YL7b8RD1bnBfpESPajvPyGPKmeHCPilxjGpcfEx/KxqP
+	 keV0CBt+1PjNudKYcGcJwpxhMScDfZfs6MiAKI8Q+Hkk565OUMOVcwo1WCSrfiHKch
+	 FWC6z/1AIiOwhP7S5Q6minER9ZdfJ0tXAL589s0sQP6D1QkjeJlI4b28sHKUvhIoJ8
+	 pT14nFv0+Y51N1IAHBF/d0OjdHY4NAzewEusc37qghS7S9h90gC5IM6bnG6eO2bvwM
+	 xzRo5AsBLplX2yZynGpz07gjhXLyY9pPSGBzMtcrIGStL4FAag77VqVBK82AS+N5pj
+	 zb7VM5cGklJWw==
+Date: Wed, 12 Aug 2026 14:50:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: remoteproc: qcom,sm8550-pas: Make
+ SDX75 MPSS fallback to SM8650
+Message-ID: <20260812-heron-of-amazing-might-0e1974@quoll>
+References: <20260805132129.2713174-1-mukesh.ojha@oss.qualcomm.com>
+ <20260805132129.2713174-3-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 01/11] dt-bindings: clock: Add Realtek RTD1625 Clock &
- Reset Controller
-To: =?UTF-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>,
-        "mturquette@baylibre.com" <mturquette@baylibre.com>,
-        "sboyd@kernel.org" <sboyd@kernel.org>,
-        "robh@kernel.org" <robh@kernel.org>,
-        "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-        "conor+dt@kernel.org" <conor+dt@kernel.org>,
-        "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-        =?UTF-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
-        "afaerber@suse.com" <afaerber@suse.com>,
-        =?UTF-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
-        "bmasney@redhat.com" <bmasney@redhat.com>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
-        "linux-realtek-soc@lists.infradead.org"
- <linux-realtek-soc@lists.infradead.org>,
-        =?UTF-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
-        =?UTF-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-        =?UTF-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
-References: <20260812020009.3480538-1-eleanor.lin@realtek.com>
- <20260812020009.3480538-2-eleanor.lin@realtek.com>
- <313b74fd-1a5f-4e1b-a4e2-a537f7939fad@oss.qualcomm.com>
- <fd254ec8d59a4ed3b4ea157b866ce798@realtek.com>
- <d55ed65c-b066-47aa-b285-c9582894b84f@oss.qualcomm.com>
- <e2c90bd25e654e0f9ce1aea6e0b4f74d@realtek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <e2c90bd25e654e0f9ce1aea6e0b4f74d@realtek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: zlsKtb_nntg2s-7pkYOaa5u9DeZ_cE5F
-X-Proofpoint-ORIG-GUID: zlsKtb_nntg2s-7pkYOaa5u9DeZ_cE5F
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDEwNCBTYWx0ZWRfXy2Jhiv46X3bH
- norY1p3M4F19kGzIiCX2TufIoH8PoJrbXHW6qFDD1WUDDmGbD3zAci9Ej4DpmcMEqw3TX6nqVUd
- w7jCQFLvzTC6nrRzhjB0tTY6xfbSCFVKJT3v+BSaizysAVj6HssRMfY9t5MZnRB1832wrL69NiO
- NYi989bVs5EAJ7kzGDfu4HRllCgi3CrWKa7z8YP9IWiCI8rP5klbrAVUrFZVoMgW6m81BqUXsme
- rPLWVk9ylAc7oeP43INoGWCUaawmdLalIehA+X1CwrSdVkt5tDk1BFhv2hFQM2hGgHXlNee5sdz
- OZ0jCO2OcWZ3aDigPPwr4YxqTWf1cAkyQuDzLf0zQyir2Xaa7CHcgElSZXq8pRXjby5azqaSu0R
- KFj5rBN7VU4ibpWQRUaSlsrvgs0mA8hCyEBWMM4L4QcQ9T4gtdO/3w0uqYsy7+lBEXqRM9yzjz/
- EZFHVEEBK2D+2pjL6Nw==
-X-Authority-Analysis: v=2.4 cv=VcjH+lp9 c=1 sm=1 tr=0 ts=6a7c6bf4 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=n9Sqmae0AAAA:8 a=_thU5h4BxOvQXo3MrM0A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
- a=UmAUUZEt6-oIqEbegvw9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDEwNCBTYWx0ZWRfX79Z7nSBmqYvt
- hlb+qKJSiVszhcmkzrSzY7SQXApw9MXIPZ7e9VjJsL+lMedL+Ds3ckRXuCBaD8L5FIXUvbhW4R6
- zF2BU3NsP+uMbgpld40iG60EE8h+Rko=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_03,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120104
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260805132129.2713174-3-mukesh.ojha@oss.qualcomm.com>
 
-On 12/08/2026 12:22, Yu-Chun Lin [林祐君] wrote:
->> On 12/08/2026 11:41, Yu-Chun Lin [林祐君] wrote:
->>> Hi Krzysztof,
->>>
->>>> On 12/08/2026 03:59, Yu-Chun Lin wrote:
->>>>> Add DT binding schema for Realtek RTD1625 clock and reset controller
->>>>>
->>>>> Reviewed-by: Krzysztof Kozlowski
->>>>> <krzysztof.kozlowski@oss.qualcomm.com>
->>>>
->>>> How my tag could appear here?
->>>>
->>>> Look:
->>>> https://lore.kernel.org/lkml/20260324025332.3416977-2-eleanor.lin@rea
->>>> ltek.c
->>>> om/
->>>>
->>>>> Co-developed-by: Cheng-Yu Lee <cylee12@realtek.com>
->>>>> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
->>>>> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
->>>>
->>>> Who added my tag? What is the actual flow of this patch?
->>>>
->>>
->>> You gave your Reviewed-by tag in v5. However, after that, Stephon
->>> provided additional feedback. In v6, I modified the patch based on
->>> Stephon's comments and made some other changes. Furthermore, I added
->>> the clock ID
->>> 144 in v11.
->>
->> So how my tag could appear before Cheng-Yu Lee signed off the patch?
->>
+On Wed, Aug 05, 2026 at 06:51:28PM +0530, Mukesh Ojha wrote:
+> The SDX75 MPSS is an instance of the SM8650 MPSS: same interrupts,
+> memory regions and power domain topology. It is currently modelled as
+> a standalone compatible and lives alongside sm8650 in every mpss
+> allOf conditional, which duplicates the constraint and hides the
+> hardware relationship.
 > 
-> Ah, I read the rules stating that "the last Signed-off-by: must always be
-> that of the developer submitting the patch".
-
-This is correct interpretation (although some subsystems will interpret
-above only in respect of other SoBs).
-
+> Move qcom,sdx75-mpss-pas out of the standalone enum into the fallback
+> items block alongside Hawi and Maili, and drop it from the mpss
+> memory-region and power-domain conditional lists. contains: on the
+> fallback compatible qcom,sm8650-mpss-pas keeps the constraints firing
+> for the array form.
 > 
-> I mistakenly thought my Signed-off-by had to be the absolute last line of
+> Two consequences of the tightening are worth calling out:
+> 
+> - qcom,sdx75-mpss-pas as a single-string compatible is no longer
+>   valid per the binding, so the in-tree sdx75.dtsi form fails
+>   dt_binding_check. That is fixed by the follow-up DTS patch which
+>   switches sdx75.dtsi to the fallback array form.
+> 
+> - The driver keeps its standalone qcom,sdx75-mpss-pas of_match entry
+>   so already-deployed DTBs continue to probe. The binding is
+>   intentionally stricter than the driver here; pruning the driver
+>   match is left as a separate cleanup once the DTB rollout is
+>   complete.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml       | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 
-This is correct.
-
-> the entire commit message. Therefore, when I inserted your tag at the top
-> of the tag block. 
-
-This is odd result of earlier logic. If your SoB has to be the last,
-then obvious choice is to put the Reviewed-by tag BEFORE your SoB.
-
-And in any case you should use b4 since it would do the correct thing.
-All patch submissions are supposed to use b4, so you don't make trivial
-process mistakes.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
+
