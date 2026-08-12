@@ -1,157 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BA533D4F2;
-	Wed, 12 Aug 2026 07:30:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF83362152
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786519835; cv=none; b=TXHCCRITY+mzstGQpe55WfGbTaeiLa9OJYKwbE09PuVNc2bJ1HzIuN31xWcqVThSi7FA/qZZeuWOUwINrerU74GwZeBfNTlYHAtRDYKSzNYg08TR7gvyWhyU0CV5MEl9ZEzCBiCtOi/fDU458OqNKw8561NOfM08+8Vdtw+yvCU=
+	t=1786520024; cv=none; b=eYhnVDB0XqhNwjPnCAU8o1sVZdNUqY1TuC2bF93zqoogRCDV0mznX3EqeQ16QTDfuTnN6QwCeVhpAhML3ux/7gaDsI4YTU3qDA/JxxiFmXLyGXh2q0Rr7Hf6KtLwnPPi7oR8GdCH8wy3Ddhw1KZo7hNgv3c+BTzdGXz1wpCy/7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786519835; c=relaxed/simple;
-	bh=1q9oFkMiQHtwe4YawVM+nQSG2FrXZBey9Q2BKnaciJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M3W7/2P2v7KwSi8PM+O8av5Ic9lrq/D94hf07dgQfGh9piyzdaJTTJcf+RvBX6NyZFhxLhAh+5/ZbsoG/d3z3Dfr84G0h+e/ykb3lIRhCCYj5Q2zXpU6jQozpwdIccqDzLJQcvlyCULvbJ8QZcJnuWphwZ3U5wZJdLSXvvaHJiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZRsoY3Oh; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786520024; c=relaxed/simple;
+	bh=6HFRuCYVa8KToPTN9G3QlStin0uy3AipFDRCw0hTd7Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U/i3VyTnvf9fxd8F8ZHVk4iAVRhxsqh9ThOW8hl1uSzByadzqA9fLC0CdjD3EqgjMNQH8H9Oif8q3oHTcvRBN1ZjJ1QhRiRqr7zxyHpHizAo+iAd6LeqOdIuy87QZjW3C+QJ23oynqY9p9RNGmrdATfsZpTm1WtuRYVm9TJrFss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ImOThz3+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZRsoY3Oh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786519834; x=1818055834;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=1q9oFkMiQHtwe4YawVM+nQSG2FrXZBey9Q2BKnaciJA=;
-  b=ZRsoY3OhrNV+8puMaff5c82Qe+OzS6IINVs9T7UFTV8W28uFsCxuWdcu
-   K0OCr/9SPjsTFecI7K8iLS/RPAX/73V8Uvm2fvq06wvLbVpPvophjSKnQ
-   Yxnhi8UtR1PVgL8tsy4otN6qlntLRoScvaL9sBi3TzJVbhtilLmrJqjtX
-   WZOSjsDzjtUoMCXlR+o5tSOP9veQPa8xkUFf3XIr0s2y2lR7Nszy2PKDi
-   iz2JYm7/3lzeNqc5OLd8OzCGi8+9wjPUAJbhIr5G+hojJTt+CnWF1PBUC
-   4wwcXlVM6m0mTOTgugZoQgp06sjxLv/qeh3xEoz1IXqlI+1FGlnz3iaWI
-   w==;
-X-CSE-ConnectionGUID: R3Br4zBpTHWc6Wd2LulEaw==
-X-CSE-MsgGUID: uSm0yyksREW5icJt2ds/Ew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="90940813"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="90940813"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 00:30:34 -0700
-X-CSE-ConnectionGUID: h+xqnM5dQ6SjuvnHS6BP/w==
-X-CSE-MsgGUID: K9MzD47fTzOKsysg22l6Gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="267062202"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.92])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 00:30:31 -0700
-Date: Wed, 12 Aug 2026 10:30:28 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kyle Hsieh <kylehsieh1995@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: ti-ads112c04: Add support for TI
- ADS112C04
-Message-ID: <anwhFL8PeCMmT9xS@ashevche-desk.local>
-References: <20260811-ti-ads112c04-driver-v4-0-ae704ac17241@gmail.com>
- <20260811-ti-ads112c04-driver-v4-2-ae704ac17241@gmail.com>
- <anrt5mJBz5h-a3OL@ashevche-desk.local>
- <CAF7HswP7+79Y5M92PVoHJ_H_J6rU=Q0p5qWDm1gcA2mPfg0VDw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ImOThz3+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0904D1F00A3D
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786520023;
+	bh=6HFRuCYVa8KToPTN9G3QlStin0uy3AipFDRCw0hTd7Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ImOThz3+2fqZybF98GJMV8/r7J2qW1zv8ubF/WCgoBhrefqWbrxGoJFNMtk91OfS/
+	 73y11fr1n/5YmRa2g9NY2PJ37zbzX+GV+dfVIa6hBRVkY+SDrReCQG7JFa61MmBWU5
+	 cyOM3/ZjDY3HdVxUFGBC8/VgY5wf3g+en39jSaVgsjH68FN4HIUOwW+SLikdiTwNgN
+	 KzqcYuL3FWpDDt2YYvkzk74bWuh1UsnqH6bjCZPsaGZT91ovgr9E7IX9+DAxpTTz1q
+	 xFdKKEYiFPo9FQ25Z7TXoncxcUGTYfLpRyIw19RApucGAABv1poaas1qieDzmHuUNo
+	 yvcCRSxNkk1Zg==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b2a44a3b66so565528e87.1
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 00:33:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr6Hlpexcw7I3Vjw3nSIERoSEoIfGnklm0XQg4c6HKThDj5AXF9U8uJVSynqisY7U7yERj4gJWYOafd@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfCP922jVGUKkPOKUijCkjAzSwYWV9fGRPbC+M+WWrz/xBplHs
+	tNOoMCkkRC2cRchbSS9TLenyC0kGbL3a78krwBZd7mveebPQ2PMtHPlmkuBIrOZ1wN5FfyPA4jZ
+	8+fDjDMB5v+ySl2VnFTI1XV7ija27dcU=
+X-Received: by 2002:a19:5519:0:b0:5b0:1708:afa6 with SMTP id
+ 2adb3069b0e04-5b44e328af2mr309384e87.43.1786520021853; Wed, 12 Aug 2026
+ 00:33:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF7HswP7+79Y5M92PVoHJ_H_J6rU=Q0p5qWDm1gcA2mPfg0VDw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260811113901.3114169-1-o.rempel@pengutronix.de> <20260811113901.3114169-2-o.rempel@pengutronix.de>
+In-Reply-To: <20260811113901.3114169-2-o.rempel@pengutronix.de>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 12 Aug 2026 09:33:30 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm-J-h+AGyRe+yno3aURnfLXT4Z0Z_xhoFF0jepJE4G8g@mail.gmail.com>
+X-Gm-Features: AUfX_mzwjjgFMIyVNfc9jAyrrGRJRFAgi63MKRizGD9CxjPUhG4pmNCcUlDHo2E
+Message-ID: <CAD++jLm-J-h+AGyRe+yno3aURnfLXT4Z0Z_xhoFF0jepJE4G8g@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: dsa: realtek: add
+ RTL8365MB power supplies
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	kernel@pengutronix.de, linux-kernel@vger.kernel.org, 
+	Ahmad Fatoum <a.fatoum@pengutronix.de>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 12, 2026 at 10:58:48AM +0800, Kyle Hsieh wrote:
-> On Tue, Aug 11, 2026 at 5:39 PM Andy Shevchenko
-> <andriy.shevchenko@intel.com> wrote:
-> > On Tue, Aug 11, 2026 at 10:48:38AM +0800, Kyle Hsieh wrote:
+On Tue, Aug 11, 2026 at 1:39=E2=80=AFPM Oleksij Rempel <o.rempel@pengutroni=
+x.de> wrote:
 
-...
+> Document the RTL8365MB power rails as optional supplies. They are optiona=
+l
+> because the rails are often always-on; some designs break them out for
+> granular hwmon monitoring and regulator control.
+>
+> They are scoped to realtek,rtl8365mb: different Realtek switch families u=
+se
+> different power-rail naming schemes, so these rails do not apply to other
+> families such as realtek,rtl8366rb (VDDA/VDD_CORE/VDDIO/...).
+>
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-You quoted tons of comments to which you haven't replied. Are you agree with
-them?
+I checked it and it turns out the RTL8366RB has other supply
+names (as far as can be told) so:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-...
-
-> > > +                     if (pair[0] == 0 && pair[1] == 1)
-> > > +                             spec->address = 0x00;
-> > > +                     else if (pair[0] == 0 && pair[1] == 2)
-> > > +                             spec->address = 0x01;
-> > > +                     else if (pair[0] == 0 && pair[1] == 3)
-> > > +                             spec->address = 0x02;
-> > > +                     else if (pair[0] == 1 && pair[1] == 0)
-> > > +                             spec->address = 0x03;
-> > > +                     else if (pair[0] == 1 && pair[1] == 2)
-> > > +                             spec->address = 0x04;
-> > > +                     else if (pair[0] == 1 && pair[1] == 3)
-> > > +                             spec->address = 0x05;
-> > > +                     else if (pair[0] == 2 && pair[1] == 3)
-> > > +                             spec->address = 0x06;
-> > > +                     else if (pair[0] == 3 && pair[1] == 2)
-> > > +                             spec->address = 0x07;
-> >
-> > I would do this as a 4x4 table
-> >
-> >         -1, 0, 1, 2,
-> >         3, -1, 4, 5,
-> >         -1, -1, -1, 6,
-> >         -1, -1, 7, -1,
-> >
-> > With that done you can even supported the swapped cases
-> >
-> >         -1, 0, 1, 2,
-> >         3, -1, 4, 5,
-> >         1, 4, -1, 6,
-> >         2, 5, 7, -1,
-> >
-> > (but I haven't studied the code if it's toughly relies on the pair[0]/pair[1]
-> >  values to be in a strong order after the address being assigned).
-> I will apply your first 4x4 table for diff-channels - it maps directly to
-> the MUX encoding and is much more readable than the if-else chain.
-> 
-> I did not apply the second (swapped) table. Entries like [2][0] would
-> map to MUX value 1, which is AINP=AIN0/AINN=AIN2, i.e. the opposite
-> polarity, so it would silently return negated values. Supporting swapped
-> pairs properly would need a per-channel inversion flag and negation
-> after conversion, which I'd rather leave out of this initial minimal
-> implementation.
-
-I see, thanks for the information. I agree with your choice.
-
-...
-
-> > > +     /* Requesting OUT_HIGH asserts the active-low reset pin immediately */
-> > > +     reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-> > > +     if (IS_ERR(reset_gpio))
-> > > +             return PTR_ERR(reset_gpio);
-> >
-> > Why reset-gpio driver can't be used instead?
-> David suggested the reset controller framework on v1, but after I moved
-> to gpiod in v2 he suggested GPIOD_OUT_HIGH to simplify it, so I kept
-> gpiod. Switching now would mean changing the binding, which already has
-> a Reviewed-by - happy to do it if you both prefer.
-
-I'm not sure how the binding might be affected by that. reset-gpio should be
-direct replacement of the custom "reset" GPIO handling in the driver. If there
-is a problem with reset framework (on initial state), perhaps it needs to be
-addressed there?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Yours,
+Linus Walleij
