@@ -1,46 +1,46 @@
 Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012009.outbound.protection.outlook.com [40.107.200.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA74A3ACEEC;
-	Wed, 12 Aug 2026 07:57:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F0C3AE1BC;
+	Wed, 12 Aug 2026 07:57:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.9
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786521443; cv=fail; b=g0nnxosOFVx53ZCZ0EV7wSNfTuwvTjOMHiBMWfpAXG+boX2blTQ6EuO3k0y8sE3CnntcOjeam0Da8vQQQMfboWCisIdULJ6sxOYU4yN/mCfHkWQk+c6YSypi+KmmVbgb950b6VjHjfgNSrPaB5edM9p1DXp2K2w0EJhB4W/bUNw=
+	t=1786521444; cv=fail; b=gZlpHekxO/uVxVKA/5eRlKyDjBusK9Yt84SWnTvESbsy77YikVWpKTQ6N3skAkrouxfEt7QtLr8sPHj/ZerT4xxLHRQSUO/zJl8VFKYkePGT/lJ97d8DMn/MMHz6MpKCjJ0hRl9gwf1+ctfPjLfUBm4gXrcECNtHiTyoY08JKLI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786521443; c=relaxed/simple;
-	bh=xFde5x7ZFRUSjNmRBJyIHimRQG/qhaSUzx4Vwa+nAtc=;
+	s=arc-20240116; t=1786521444; c=relaxed/simple;
+	bh=UiVoW3aC6OH/SzRJ8EfzwVL3dylyUywAu4A8/Lubv9E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UOgxg3CyCUIMT3BkW6D75mWGVKHhjOcVBdSJ+Hdnvc5zYj9qhBqeCQKBANgS/IYY9RR/wlBKqK8HOUhm85mcsa/YT914F8klYU5g8wc6sP/KGOSJ2VJSOwo75DBmB/dTD3N/PY2htI1CeIO1LNW4umj9l8h7m2hKe4D+n6OK9Rw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=PceYBqpf; arc=fail smtp.client-ip=40.107.200.9
+	 Content-Type:MIME-Version; b=KRcfcqUSY5WHE6TYvrNWK2sRjNBxQnKLeCbtd/Fhv7/DkcMb1MXc9RAVLMkyPlTUFCmzL0DE6dEok+SjeahAjp+moRx5hZKjxrNf5swl9+APcdWHoeXZmAOBu3JtL1Kbe3LugUiOfhf8GNcJC7MBVqAB2FvbX1vLQRGS6zcsKEA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=vzfcOAp4; arc=fail smtp.client-ip=40.107.200.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="PceYBqpf"
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="vzfcOAp4"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xhRFTQu3oEwmnyw8bEXnPyZloTjzlkY5nfoPRNdyU2gjUZ9Ipot6tfC+CXfZrV0cAFtT4tvWZJNMdET6oxIzCXOUmqye7uzpTxtQGsi71tNkmw25VsrqPpqwFwxcgrghm+oXjS30Scwo7bY5PxMeZc+cXmNhifegVJg3mjTx5asvHko5vtsGeHxi5tVTO5shH6enzrgOf+1f3h7R1+7rwrIOE9zNXtu8gvlrslYFIbuPoszIW6zB+kkE4IuV3VZRrrqf7d0F5RRGXTfU/Afz2UBvOekfOGFjDqOjtZ9cBQmxg16K/oUQdnRFj11YeIuZYw0JKD0rLZSHBMcDlGtCeA==
+ b=fys4W3W5lnBjN2Pboun6xhObOZPfkeYrfjQuLoZToshlVlMFbGAQgdtcZo26SdsOR0M7prCqOhHrwBNhVZdPC46N8zH95mX4yE9rJbxxn06s1F37V624DJ7O5WO6yRaxfEfSqGXm8fF16ZY37+TGRN/hZpM2Qst+kzv3+Lfq52GqyzDC+xNgdACGiBvmj9djQAfSR0P6nEYpOsbwJ3X5/skT/wJI7m9OM/CUBvaGo0cfwxNWD335ClZVpZldBYrISoDoUSAYm9aHq27Fh/fVUXYo/Crr4Qth5vuI23ZQPZdVv3dZApU1lUDQZo/uYBw5NFCv64LDri5VEuXyaC+Bkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WP4rN9zMAAhqj5VFzl0s9j0WTK5dhAknN+Tsf/YXCcM=;
- b=eo0kbtWqdXZfitEXAB8tQH/j+R8twKHT23RueIL7lZHSxIeWZ7QdV0F+4JqPqjunGOK34/q6GlBJpbo5b+NhEFvCW11b6ujB8IME1nl4lg0zX4IFoEcffQkC9zj8h5C2eq80ICtbPpWDFzESfe+yw+dkkVuVDhbxhlw1bytLBsgYY3Q/7Efryp/Oyc/Ymyd2GiB4GKk89hjnqPFleJZapolNxxg+qEuurI3Xjcja0P+bILFiMmKcAJIBKz0DBOCRgDtMuhd8ZS2G7evmJGHJLfnmzncV3K72FujoTcKrRjCVPy3KsxMYsuoVLI7VyFCHZjFjakuOmpRE1qd+GE09gw==
+ bh=pYDW0hV+uiLRPqjniZG+03u+gSc2hb+D9c4CwYz1EbQ=;
+ b=pIIteOsRkSm2wI3F5mpSsRnRiD3qSNT8x300eo2co7ZUAwd/KS+3qDl23Wdede6ivRblcvHbP5HJ0pID74/xUmSTU1CM0xP6tyoNK7wKRGA69oYmYwL9TLvzbaKDX76sFQx91yAMP4TuGq9JneunEhnG4PfzFInjSt0d9AP4StR/Xxu1SsgNgOBPKxWoSFYHAKFAVpWVId2tamfTmdeCwI9YmoQWix3LUZDxhYId73LZfuytPUDKgpyon8zSGdFulFW5F2PIuUZVWJitr2U8m+T7xfzUzsA/WtjpYVVdOdM6Hvgz+crFsOHNynmE497pTqBKjEagpPZbzc9LO7ne4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
  dkim=pass header.d=altera.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WP4rN9zMAAhqj5VFzl0s9j0WTK5dhAknN+Tsf/YXCcM=;
- b=PceYBqpfHTbgcI47G9eqLbdbgjksnhjB/Vgc8vHIqx8Vsgq0M1UPnS4XvIBHD+D+jPp+I3D8uzcYT7sJW4YcHhIsCJSsyf69FdK2wg9/2VToWLAGizaIcDVqwy18seTuRCNpYZlh4w5ae5viH85CZdRB0siCnN2CESnQf+qfxjiAZbanijTExGwf9V50G+svJT5VfFk86LOfUNK0EWynmNiGQtKSAfQQUkfEqFAUiM3RDytvY4Ywq2xmOhxqCBrOYE6uOh9oZjCMrqeWhxeLM/ONim6XvV8Fts5XxKUwbITSbphe2WsJw1sxGyxCZc6CAHgCdJs5U7RYZJlqLdEDtQ==
+ bh=pYDW0hV+uiLRPqjniZG+03u+gSc2hb+D9c4CwYz1EbQ=;
+ b=vzfcOAp4fmT6+LRP+2e12xfPUYT03CdVVYwtNDV46vprijL4JjG9fnBZvgTubEM4eTg1Du28ssI4jcaDVWgQhbPWN45IkD4ucNBPIalIFuFzqwk3Edojoh4+i+3JHC32i15TalH44k3WKq1dwtFz5z0YgCjwR8imkUjnKJ/SRSl4HSWr3hw0AfmVBpguedsXkaxxsHfXLO9Yi87juqbwodsDpo0lgulQEqVZUodhUI0JVNBZXEEEGh17lVba8tRtSeULWXdPMr+3mYnRJNY/i7Vc8tQMGwKGmJWkMJvy+LU5BsqEIDxTgNtX/jol//+p64wHzViWJVd8cHD3jZwIqA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=altera.com;
 Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
  DS7PR03MB5606.namprd03.prod.outlook.com (2603:10b6:5:2c2::15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.25; Wed, 12 Aug 2026 07:57:18 +0000
+ 15.21.292.25; Wed, 12 Aug 2026 07:57:21 +0000
 Received: from DM8PR03MB6230.namprd03.prod.outlook.com
  ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
  ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
- 07:57:18 +0000
+ 07:57:21 +0000
 From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 To: dinguyen@kernel.org,
 	robh@kernel.org,
@@ -49,9 +49,9 @@ To: dinguyen@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Subject: [PATCH v2 RESEND v2 2/5] firmware: stratix10-svc: Add SMC call for SDM address remapper configuration
-Date: Wed, 12 Aug 2026 15:50:28 +0800
-Message-ID: <1059b3859cbe5932abd68faa608d3d1393ddbe1c.1786520346.git.adrian.ho.yin.ng@altera.com>
+Subject: [PATCH v2 RESEND v2 3/5] firmware: stratix10-svc: fix list corruption in stratix10_svc_free_memory
+Date: Wed, 12 Aug 2026 15:50:29 +0800
+Message-ID: <728586aafb602977ff0c5f6e21322530bbb75c12.1786520346.git.adrian.ho.yin.ng@altera.com>
 X-Mailer: git-send-email 2.49.GIT
 In-Reply-To: <cover.1786520346.git.adrian.ho.yin.ng@altera.com>
 References: <cover.1786520346.git.adrian.ho.yin.ng@altera.com>
@@ -68,103 +68,127 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|DS7PR03MB5606:EE_
-X-MS-Office365-Filtering-Correlation-Id: 08ab1b3f-96aa-451c-f2fe-08def84754f4
+X-MS-Office365-Filtering-Correlation-Id: 7f4b9b40-5400-49f9-2ed9-08def8475664
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|55112099003|22082099003|18002099003|11063799006|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	TmvjM/5o/z5BLaJB2a0gFu5HkEJIVLAaKekn4kN1+C6vkxsoe1TfNS5xx5AkNmj8P2E84+ujMNqUPIqiQo4nnkKgpQWWO3utD9Pgkhc755Kb/kl3+IA1GLf10JM+J7+6fGLAyz2z8XOLEXEssvo00saHxhbqzU+nkmnN1m3Ja3tHcVdZIYZtYJqGjztT884DxIY8Eg66mpy4MtV/aPhaSELxD+1YKdfW1JFKapH3Qvwr1ksTBxT7omRoer5LdaAaKkM9fc0ZThoZW74mvSV20f32SUMljFTVb64ek/O3nN7r9sP2DlmuLWQWCcL1t3EgUaYgZ4y+WNJ/JFFp8xFA74srKNVKZvZpGlZ/8gFQbTDewzCEtYJHkinNlvhJJAXajJBXFE9G8JOtznMxa2RcSC75qDlPUxImls0cZp7j1dM47ZEY5vjNqrfT7zrZwIViGpUTJzevtTf13yXg6wZUWIqi+P0z1tQkCr72nwKHPMY6Ybh5dOW6j6T7fU8YmilLHEN64ChapwhMD3HfNT4sdoZ4JPmI5wTS92mlHUlzC9uv/NzrHmSKNLp0k+k48ddQF46fhSUvEr5oPOlux/12/i50GTJoKULpa8pNiivPMEv/4gDM8A42J2Js7IxEH7XrCsY+avPBtOhlDoR+9cstQsmE8VUpeigAkoalykRSncg=
+	2JcyxB76nJY6NJ55Q+4n69B9b+9NhFLQdY7iafMmJ7NGu86fNI32bmyFsZCsvilGVNl42+PMJkCPl+B0umXSUWrtDj108tNnf1FXsaeVy8pU0kGZ9HSb/SO2C28OU7TaqNnsovK3HYByBJ/VX1ubT5LkxJ7/fAKLrqDaIXxQBI4173ZNv7vln/ciVH2LJ+xM6FatXmsVk2mGoVpkAFhBWnSIPL55h2VbVK1c7Fdtm+IjSp3Nh9xuCbU85tCNUjLTouO6tDMBbzVlCCpt3zF5bGqooE/ai+5k8C/rCvYLg/RAuDyrbIpkxAfJ66GQ/MwhV9g2NmBO7PhI2FuUqwBwN/rxfvtiUQMI5+msrHL6ULrf69zK9VcCSeYobxpwCgwDxoK/bmEa0ZKgXlZL2cDmtnsqD92kh3aIAPLMt0UxjNmqg9JhOWbkhY4ui+v9+mBv/Ct2jjoHVI+o5oBLt1/AGVZ/ikQBErX3Cqzzb33hInyreSRjESuKSl0jfm5TddoAdj/xsfgVBmcy5/95uShavr9K6dgY0CiP9+EyNA//6DXPrjG2gZ+Hz7NXLdA3g3k46JRc6Qpn4YBnC4OsaeXYDYdQ/Bp9zfkhn4rE5ctf0VIL1jICI1CKm+iczAhMrnXtiFEdXutvaR5w3nZ/khH5BOjiZz90kehB3g4afMQWrXA=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(55112099003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dTXGKmSjbC2h8wAm2SwDI2f2hQbTzqbFVFwL3EYFjDFXz7KJ4cQOhhvCkAOE?=
- =?us-ascii?Q?C/k1LAWfdsPPviw5a+5FJ6Tdz1uQcEOZqryGbPlZ3uXta0Zrp+Nzeems2fK8?=
- =?us-ascii?Q?jOHXJeQPPamTLYYOn6AdFmjU7h4Sn1P5fn6C7J+txZbiintsegoWyiZcEvpz?=
- =?us-ascii?Q?pspV+4JGSXeJRXwuriBOkYWH8iB4b767H+uIiwx9EB6PPrYI/JiyhLpds7Tu?=
- =?us-ascii?Q?xVHiruUHSLgnH6Gj5t5MpKupaC0zvvzySLaUtIFbjS/H84d5E9NZDBkAYQXF?=
- =?us-ascii?Q?FKiey6q8XIOWgFej5JUH3LXoCtIOSVkti4JFTmlQdBc9cm/t27PjmfI/JcbU?=
- =?us-ascii?Q?ptU/2WNMwfWDgw4M41FPXURO0Sg9cAgdtyj1y94kuv8Njpo3vuuhxatDVKE1?=
- =?us-ascii?Q?Uld32j7NQ/i9+U5V2i6nQ26sacwAXlKiUEAN9a7atWl0eOWESOavVFdeDfry?=
- =?us-ascii?Q?i/n/yyMBnoHOfMGVri3tjQWocWvApp+CKFUHIdA0VMIKF1wfkKOh5m7yb34m?=
- =?us-ascii?Q?+d54ZKnLcFvKdxbFv7/oW+a5co4PWMHzMqX0oD8bsWgqeyA7SOsAWKJ90Q7w?=
- =?us-ascii?Q?9N+9gYoWwSyoRHt6jpCmou4w9Mqd41UfpZQdPpnuHw8zM+XRA+a1+QAveTMp?=
- =?us-ascii?Q?drow9lvHgRvTBYaeoFqXNyG+LqKeavVjk0OA0je3s9PXSd/tfRnxeY31zeDP?=
- =?us-ascii?Q?M8tjpU7CpYapzi61VXGc68GomawPri3Q3TbjBqmqbVpoSVmF9Dlt6zkv75rl?=
- =?us-ascii?Q?rwdhE436CG7WzV+4j90YcIc9DNkdojvMu6VIA4pg58/LjPLgm0/+au7IvDMJ?=
- =?us-ascii?Q?n7VsUEsfN5X9yqqqXVeuhdYApFdgbjsX9XrGn5lKuUlmXGjTUyPCji9ZlC3z?=
- =?us-ascii?Q?58F97ddkHsa6I+65UvY4xELmjhwOS3NuR2JOD4A7Zmbg6/HfraR2S+WGSdUQ?=
- =?us-ascii?Q?fs2WbPlvwsFE8pWhIVboQu9YHW66sSsoYMOlgX+6lgVZFz51LZqGvVPBiJEB?=
- =?us-ascii?Q?iO4Ho8HHSW5CoTXde1u2CTHfghCTdSV2hosCAlrYAUh/NvPyaYAXuj+oeVMy?=
- =?us-ascii?Q?liWofQan9aZ9OBdcCVfLc1hqc61SFR3QnQZgphPrKkVM7ZW0klxVRybuEJhR?=
- =?us-ascii?Q?oNYOdyBAira45O9dMzUR9nZEXQqZRrCF8Q5Oq+8gg1d1b+1SQ4OWs82jxyPQ?=
- =?us-ascii?Q?5wTFSZNG1Y0TG5GLzWtSvMH4t2GnqUlLY0abY7FW+oaCD0G5fpG+2B7sPQVs?=
- =?us-ascii?Q?gwPNo/3rjTSHcHbXwtyIA080nb5gX0m8piUvbJ+/8LoW54X6mzQlku25+B+N?=
- =?us-ascii?Q?PZ+/lc/Ob0Z6lmq10H1t9bwnui8nf5P2EVrHp8M5nDTA22oRLti8KhghjDaO?=
- =?us-ascii?Q?w7wkslo1N9Nebg3MMC4j57dqpytOXTgITliocOuv9B2/6O792M4vlnJXGYFo?=
- =?us-ascii?Q?TV4cMyFFqZzSyAB+7//eYy/H6KMo2DDXfQ2jARd5VZjCygwhXpQ6ksa4HOrs?=
- =?us-ascii?Q?e4/XC5rthvz12gjlTiW7yZrXm4p+2VUoCL9YEQpwhXBNbwSFWnwKujEoxcJ8?=
- =?us-ascii?Q?Cpd2TvH7hLaNECSJEwW6lqK86EeU3/rHkG3KxeP2I0wX9ZUQ5+omZvhsY82j?=
- =?us-ascii?Q?6hCIGcEt25SGip1KUiI5corPgQUHuxrNz1sU0zKomgk4FZ0A9m6BoMJ3UVlN?=
- =?us-ascii?Q?BNSOptpw6Q2lYD+TflkQy5r8VewJj+nwCzw/Vzg3KpUXCtO5rSsPs3KNPFcu?=
- =?us-ascii?Q?DtIewsq5zOq1IG/GWOr9OCQbnvFq8SM=3D?=
+	=?us-ascii?Q?VTznDmEJqEgByhJ1dBQDxa5H/B21Mx52fF6kwaouEKEYExU3rwEajGmYFDVU?=
+ =?us-ascii?Q?0QWmq5GZPE9u1qw5MWgqq9c9rNdRVQCfzCeNXgODplZYBFDdEFqJgxkdc9OS?=
+ =?us-ascii?Q?6nDsc/M2pLV0sBc9CSbH/pg1AzAg57OyuwhwxxSbmACxMOy6eQVfHSJlG7l+?=
+ =?us-ascii?Q?8ugKKFulF1ghgnjDCksjl8yPHEumOrhn3xnZ9Ayx4z7gTAUzPBClssEX4jfL?=
+ =?us-ascii?Q?TSb653RlCZUBiZT33lqHTsnZ2QtQRI9SxlCggahWNWvs3AMuCj9sibbzpCyu?=
+ =?us-ascii?Q?HsvqGzd7raFyO6Sfz1JBfLn3k+jvnLEGHNAaQKm+dGNFAqc2fqUw/s08U+LV?=
+ =?us-ascii?Q?FMkm3wPUx1XWp9mBl285feEvoUxc0agK3U0ZuYOnwHFZolIJzkxt2FRzPRvl?=
+ =?us-ascii?Q?cZQUugsPRxOAjWTmgW5xibneUptzoySqHXdlFPO+U6Q/vsbQaoVrl8NRDAwu?=
+ =?us-ascii?Q?vARniL5xeqIFNOG7DbTDHsYSY390JTSdeF30TzxP0BZ/UHf13BxpdgLpSe0o?=
+ =?us-ascii?Q?bhpOtfHy6k+ebC1BI5gAU548CfRprkFR5FU2f5VvXPcaYsggw/JwXHmanj8t?=
+ =?us-ascii?Q?NGowgVVgm92pvhQzMYmj9lx816SsDhzaxltQ2VXdvOF3lK3URpy77j9Br330?=
+ =?us-ascii?Q?i3Fw45cNcIVqXtT5B0uSk2VUGo8/FjbRdHlnjxWLkpis8ac8nt5H6En7ZE0G?=
+ =?us-ascii?Q?CssBr2/+EaJVxpZC6vhcWTpgb9GOfcG+GDs5FLxF8EVfRlBix99pXRVqjCsh?=
+ =?us-ascii?Q?TqUE2ZY0miOlOJCpXHYqro5VOIKP1X9THmmMNYOtZowNjFFZLTgQ1s3GMVbB?=
+ =?us-ascii?Q?3mKEzXcLRYTqtpu4VXrbXcd9qZXm5rdLN/b2t4NlRdoQShctx0aFzHfT0RtW?=
+ =?us-ascii?Q?4J+MWP3pJV2nhgzvlE6znCw0zLrZv73yPQX367ZM5fBrkQTkdydmlLfkQI0T?=
+ =?us-ascii?Q?w5VMYEWe8cpddPXs8gxf8Pc0gLhZYVpoeBt/DglFzljd/We1XDfdDwKoHpY5?=
+ =?us-ascii?Q?eG+BOg/62PXqaNGlH3csEluGe6i4tWpIGcPPLtzMhgsK1Ywg8bej/Eq0iHIQ?=
+ =?us-ascii?Q?JuN/lk6jJTCAjEqTyRdI5U3V0Vtcawuz93Bkpy3vo/9FRwqN5zfXhrLgDfuH?=
+ =?us-ascii?Q?KaQCLIGdGB5CV7E4z+rKbSBTAGdDWx3A0CQvAe3YcuZosGTf3GjkcUsffVSh?=
+ =?us-ascii?Q?RjTXMRZ13bgkx4pCuuq/0Ueh7x1IUmOJzQhJvdDFA9y6wc0T928+kbkUmDWV?=
+ =?us-ascii?Q?3xNN+mS0hyiLvK0H1dmzkY2dYDkkXVRGLe6auN/HRFB3P0yux9mxBmtY9Gf1?=
+ =?us-ascii?Q?emeFCG7gF8Wv3XJCvVPx66OVKtSU9Oj5KNGZ+Tdp/6d7TclgbstSFfyVD9KN?=
+ =?us-ascii?Q?ZrUh8dn98wroctt79rYLbDLeU46Gf5rsCvvpsoGTJOMMz8G0JDpdHkG3zlOr?=
+ =?us-ascii?Q?8QKB4HMYtQBMkMlkzJFibET5MyxYSGDY/aQoUDfYVDYAfzqlC/VIsxIqxIZb?=
+ =?us-ascii?Q?6VnZMAweQXIh0h3yBOkChcxvXjL9wkCIzCSp864RWbTG7RXoXTWFcRBoGa7C?=
+ =?us-ascii?Q?jZyjLJ1tIEiEgKk/7PlaJX7I9jJlRuyjKZre5IgaCWZqyVFBDZjWr2s8UK1b?=
+ =?us-ascii?Q?O3MWPGUGTJ34JIyoyTxyINGRoNDTvALNi+/4dLvCQoxeDN4QGLNaTpYTAnVu?=
+ =?us-ascii?Q?P06ou0iLm0TwBj3Y17PwswmeIX6X4/Cxno0KTLJHJZBqhymaUMm2MQxcC2fF?=
+ =?us-ascii?Q?SgqGj7mEsSyDyfd6/sAGSvSUQdnWb5I=3D?=
 X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08ab1b3f-96aa-451c-f2fe-08def84754f4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f4b9b40-5400-49f9-2ed9-08def8475664
 X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 07:57:18.6028
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 07:57:21.0164
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0lI/wplhjLxzYBBN7E5Q6nbzye0Zi/5I11/vaTIzJome2EccI0x83UTkrjzfZNbI3oKA3jamgtuQHotXFkJU0foDzY5HA1LSoXZ3HJ+cLEA=
+X-MS-Exchange-CrossTenant-UserPrincipalName: 29bXVz1AxhXYTU7c+EMkHORuq9zmVqsa9GqjTtSk2R29AK7HzwVTlfn5sQ7UNcBhPecdKcFKbszhqBkUDVRopcUSvVUx2Ga2mqKAsPBRojg=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5606
 
-Add INTEL_SIP_SMC_SDM_REMAPPER_CONFIG, a new synchronous SMC that
-configures the SDM hardware address remapper introduced in Agilex5 REV B.
-The remapper must be bypassed when the SMMU is active to avoid conflicts
-with IOMMU address translation and keep behaviour consistent across all
-Agilex5 revisions.
+When no matching buffer is found, the fallthrough path calls
+list_del(&svc_data_mem), corrupting the list head. Replace it with
+dev_warn() to report the spurious free address.
 
+hile here, refactor the loop to use an inverted condition with continue
+to reduce nesting. Add braces in svc_pa_to_va() for consistency, and fix
+a stale "physical address" comment to "address" since paddr is not
+strictly a physical address.
+
+Fixes: 5a0793ac66ac ("firmware: stratix10-svc: fix a missing check on list iterator")
 Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 ---
- include/linux/firmware/intel/stratix10-smc.h | 23 ++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/firmware/stratix10-svc.c | 27 ++++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
-diff --git a/include/linux/firmware/intel/stratix10-smc.h b/include/linux/firmware/intel/stratix10-smc.h
-index 9116512169dc..daa693699c97 100644
---- a/include/linux/firmware/intel/stratix10-smc.h
-+++ b/include/linux/firmware/intel/stratix10-smc.h
-@@ -746,4 +746,27 @@ INTEL_SIP_SMC_FAST_CALL_VAL(INTEL_SIP_SMC_FUNCID_FPGA_CONFIG_COMPLETED_WRITE)
- #define INTEL_SIP_SMC_ASYNC_FUNC_ID_RSU_NOTIFY (0xEC)
- #define INTEL_SIP_SMC_ASYNC_RSU_NOTIFY \
- 	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_RSU_NOTIFY)
+diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+index 00e134e663c8..20ab90a4584f 100644
+--- a/drivers/firmware/stratix10-svc.c
++++ b/drivers/firmware/stratix10-svc.c
+@@ -318,11 +318,12 @@ static void *svc_pa_to_va(unsigned long addr)
+ 
+ 	pr_debug("claim back P-addr=0x%016x\n", (unsigned int)addr);
+ 	guard(mutex)(&svc_mem_lock);
+-	list_for_each_entry(pmem, &svc_data_mem, node)
++	list_for_each_entry(pmem, &svc_data_mem, node) {
+ 		if (pmem->paddr == addr)
+ 			return pmem->vaddr;
++	}
+ 
+-	/* physical address is not found */
++	/* address is not found */
+ 	return NULL;
+ }
+ 
+@@ -1880,19 +1881,23 @@ EXPORT_SYMBOL_GPL(stratix10_svc_allocate_memory);
+  */
+ void stratix10_svc_free_memory(struct stratix10_svc_chan *chan, void *kaddr)
+ {
++	struct stratix10_svc_controller *ctrl = chan->ctrl;
+ 	struct stratix10_svc_data_mem *pmem;
 +
-+/**
-+ * Request INTEL_SIP_SMC_SDM_REMAPPER_CONFIG
-+ *
-+ * Sync call to configure the SDM address remapper. On Agilex5, the remapper
-+ * must be bypassed when the SMMU is active to avoid conflicts with IOMMU
-+ * address translation.
-+ *
-+ * Call register usage:
-+ * a0: INTEL_SIP_SMC_SDM_REMAPPER_CONFIG
-+ * a1: INTEL_SIP_SMC_SDM_REMAPPER_ENABLE or INTEL_SIP_SMC_SDM_REMAPPER_BYPASS
-+ * a2-7: not used
-+ *
-+ * Return status:
-+ * a0: INTEL_SIP_SMC_STATUS_OK
-+ * a1-3: not used
-+ */
-+#define INTEL_SIP_SMC_FUNCID_SDM_REMAPPER_CONFIG	513
-+#define INTEL_SIP_SMC_SDM_REMAPPER_CONFIG \
-+	INTEL_SIP_SMC_FAST_CALL_VAL(INTEL_SIP_SMC_FUNCID_SDM_REMAPPER_CONFIG)
-+#define INTEL_SIP_SMC_SDM_REMAPPER_ENABLE		0
-+#define INTEL_SIP_SMC_SDM_REMAPPER_BYPASS		1
+ 	guard(mutex)(&svc_mem_lock);
+ 
+-	list_for_each_entry(pmem, &svc_data_mem, node)
+-		if (pmem->vaddr == kaddr) {
+-			gen_pool_free(chan->ctrl->genpool,
+-				       (unsigned long)kaddr, pmem->size);
+-			pmem->vaddr = NULL;
+-			list_del(&pmem->node);
+-			return;
+-		}
++	list_for_each_entry(pmem, &svc_data_mem, node) {
++		if (pmem->vaddr != kaddr)
++			continue;
 +
- #endif
++		gen_pool_free(chan->ctrl->genpool,
++			      (unsigned long)kaddr, pmem->size);
++		pmem->vaddr = NULL;
++		list_del(&pmem->node);
++		return;
++	}
+ 
+-	list_del(&svc_data_mem);
++	dev_warn(ctrl->dev, "free of unknown buffer %p\n", kaddr);
+ }
+ EXPORT_SYMBOL_GPL(stratix10_svc_free_memory);
+ 
 -- 
 2.49.GIT
 
