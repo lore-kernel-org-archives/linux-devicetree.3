@@ -1,65 +1,84 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CD542F709
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:34:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11C042F709
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:34:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786577654; cv=none; b=mMz4BPlN7iGL/j7qCqRP4hPEo0tkJCpijuyY0IipGy2tvGUmV6unxlKxkZ4ypQVdpPymutiWHPz0Sdu07PZKCwYeQ3VFm38jNSXf4i7dJ1DDJ2jkIyUlEcSXRzOKgkmQEJE3FehYSaoZknWqzqWsvOlHeWk3Gn7V5uWaYWECOkA=
+	t=1786577700; cv=none; b=I9QdvF4g+0vfGhck3ldxLrm+76fB883SdZNlz5MIm3hSSEbd3eRyv5sVLxC03Dz4eOj3yNg+EMDlKEvVg31KsCNJCZHbBhxC55NOCxHqYx7IlgjAi9DN4bbpmfHjez+x3vrH0jVwrFskl+TKlBavSQiB3HPIVsN5di+6Oi4aS+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786577654; c=relaxed/simple;
-	bh=w/lCd6qn3Hrwin2/vnUaZ/GRD/83ygGyKQqz4MLsBzM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=WebndNkqVHPY6v+BsUa7SXjS2uwdM/9zbS+ZDlMsHFm6X0f2HarN7JQHQT3X0Gv9GT0gHWQ913DQRKoQ9yG3El4v5jCkIlcIINN0gid2QLfpxElMlhLb0umlYciYAhIHBxJy6CToDD5ejVLpd0vO7ropsk8nL/74/oXmJZl439E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKkv/NKm; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786577700; c=relaxed/simple;
+	bh=Ra/3+L2jk7U4uMiXwJ9Zce9uuTlc+DLXBTrbeJepa0I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=evl/vGXTdsv9Ts9tpe2DwT3j6yVtZ07COi7ydy5+itM10WqjH0DXRmxjDoc9O2GwjAG2oPBeSrUPF8G5JGDGuer4JWon5oo0bs7wOWkNLD80nKv3mj3wyWs8edHNrXNJhOSn1uj4KHloFvgJL7n4psCy9ZL9w37E6BUTdpiiT8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JOrXZ5u0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=B7XJ4RlG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKkv/NKm"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ccae46de39so2759405ad.3
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 16:34:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JOrXZ5u0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B7XJ4RlG"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CNLo2W1022724
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:34:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=rQQQsvIekjUAhCQLM9e1Lc
+	nQBBvYngS//Y4JXycReKM=; b=JOrXZ5u0U66MgSvSjPPPblL3kVtmSR789snhmu
+	76tkC965PbIhOmUE8Wyl2DwCOkb5QqOQDeGjbSrJFXGb+YWqwYQPAkSM7Rca+pY5
+	IlfnkNGWmb6s7u7uR3nwByVjOKyKRlTCxxPbBlG4PdSHrRXFkT7+u+CIwRDcZdHG
+	PalJVcIUhB9fjnTZJhmrMvb4SLoDvE+EYGZ5TlbrPUr+1vdnxEkTvK55WVqIUyyO
+	1UdWgbAu/KefEWSHk0S4n+ZPDFehtYxTKV6/tDGNlGtGIOKqWBmZXk7VIgece4r1
+	pWWMtatI6dk5DN0GnlEoHkvFa8e20a+Sy3/wR3JImus9c6+Q==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0y04gtd6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:34:57 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfe48ca1efso2699225ad.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 16:34:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786577652; x=1787182452; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+        d=oss.qualcomm.com; s=google; t=1786577696; x=1787182496; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=82QII3KyVeRLbaNgl494ewZidWlIsFgxntjdTI9bZc0=;
-        b=PKkv/NKmLGGiGMxdzAEyU6d0/cOkju5zNnInlXCscjSom3Hq8jlKHLjta5l/1bJExu
-         djPV2HIMqUCbkbWnHSxXoZt3ugryLApO+Qp6ar6xEf1ijYtr8Ys4hDrXa/o4Zfi+BRub
-         F1VmMMl8QOOYPmAQ0D5cZV2MWkhUvQ3JYeWMqbNWOKAVSlaOq5+40BGWhL3/d0SUK9Wl
-         1rQ7zjfcLedbGR0ZR67IMxdZsiINbXiVh1miAH13XTK0//KSGb/3iDr33uzkypykDOuP
-         6HhKrxuJqRb9/6kgklPfiqzA1zfDRniouL6Vh3UnoLqFlpaSnD1/Dcja81KNbtBNMn84
-         9wLQ==
+        bh=rQQQsvIekjUAhCQLM9e1LcnQBBvYngS//Y4JXycReKM=;
+        b=B7XJ4RlGWTloU+e0UXVgQSjvyWgMXv+DEapQsMDhtXMh5AiytwAncKT6iXQw8FKwN+
+         nh2pzBwAIfmqYWI2Yd+dAB1UC8IfZHSuLu1P+kK4XZX2ToYxX5v0ZqeAK/oUl/9ALfts
+         em1sMfUjO59ROLfKpdicAmxt2P/4+Y4AiDCLPddBIjsFMMOnxOqn/uZIwGOOpTbRlvIp
+         K2ZGJEfy1oiKaLEIjz0HNPsX1ITQZ/CAzfebJMAodyDoUfJBNfVoQBhVas6iyJxz2uZj
+         qBBAAHtNyRc43WUlrRkDAeW+vafTLPRqJ42eHYeq1C7kc72eyKxcJIaVoZaRT1HPfgZN
+         CAug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786577652; x=1787182452;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=82QII3KyVeRLbaNgl494ewZidWlIsFgxntjdTI9bZc0=;
-        b=pDB0u0V3Wr72yCETOdKPrqlxJ14vQ+sYnbHNAWKns9+F2X6/FkdWYVJXvtP9/4+ad6
-         9F9L5bl9SBVmqGlBTX9tEajHRvjys2YnT6UWGKDDeIflo/r2DPv+s8HIpxOgvvctw8+Z
-         uRjsL1WTW+zihN48p22LUohW7PsGuqUlZ+z02aNsKY0vSCR+lOc+r39OQ0MfPjy7fNSJ
-         habFYTuAQN3zVlGH2zG25zbRDQS9jRBb+5sPFqMcHz1GFAoVbhfL9YZqCXs3YN1ekl5a
-         vDpb6g8UEJgGE60CjZQzUSW2WzJq7gupGmpTaqYCnc7Z36HigetaV1Bji29t3XztVh9W
-         z85w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2BuYotcVOp8V3CWiqd5QTuJR9u3Dq0e0eZAdJ5knGOtZpZ+0nOxScmbXEIc15vcYTEMbmIRvLkeCe@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJG0SVD2t1Q1qSPebbR22bRujFyX9aVNxZOYdo8cL3B3zA25/M
-	f0Qcl16u5QgEVVpI+dI0821NB6EYWUuUov0qOfAEY4NNW6i2pup9S75l
-X-Gm-Gg: AR+sD12TMAH+/hiR9hPdI1THLgTVT8NN5S4Yxr+DfzpSGMGIyH8oc1fSnx7BDW73IKH
-	Y6/+KWlpIn190Ow1L4L0yyOq5K4IROC+bbHu++pyjyfeFO4I4NkpkCZeTDMKfFFtJINkWPmb+HQ
-	uRzfC2IPFTcp5tLWpActjAHCH3dbIIqvo3Frqyb/eRO3mNOXews4VmULv/uRr1cIpPv+le3IfSR
-	Rp425ac/iTKxDW91T+63AxY4VUSwFkv941c4/KPd9lb9AUOla3sXdQ8bKXgeZXCr2Rff7j2q9cy
-	Tu4oGSheEZEdxYA9/EWHnuYlhJmiamDMFgcLv65RaYEgpEVMefE/jg3XXm1ubOat3vsBUf8UZwI
-	5TEdBo9pxfGhU95LpEAQHIGKwoSuHCbdWk0N7L1/r8n4xfw70o1JmJLflvRjNFZwSMezil9iW4J
-	P9uatJvFKKdEiEqhqaWYjsYdeNRzAcALMb3D7LMBTAXq224yRUwOtSseMk2zjkxkn3fN+SgA==
-X-Received: by 2002:a17:902:fc46:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2d37efb393emr12908425ad.4.1786577651676;
-        Wed, 12 Aug 2026 16:34:11 -0700 (PDT)
-Received: from [10.219.45.252] ([2409:40c2:504e:6b:b46f:70e9:d340:f24c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31ebcb697fcsm796068eec.8.2026.08.12.16.34.00
+        d=1e100.net; s=20251104; t=1786577696; x=1787182496;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rQQQsvIekjUAhCQLM9e1LcnQBBvYngS//Y4JXycReKM=;
+        b=K82WL3s53Lg/Moxxwk32QFVnkdyXxhq3HipM27/iFuswfeZDdtSDLdy8s8Z3zDwNCO
+         KgRd9O+k6vVBQQXCBlYra59RbE4t3s7szR6wdSWMsnXDYtXY/v4H2SDTTXy3vJZTCjZs
+         XkNbH6/tbRJJ86Tv+MM7wh2bTcArgXS31kbPv3WpTvj7FqUePHIvaLRe7zh+TMQV4sr3
+         b1gPeNOiUPZe0n4awBGQ/bBLU6WJX8DHP38uWOq6pi18mb07md/R+98lqxs7Ed1Tkr9r
+         cwyI9cqFJsneib2fbM2wU+Dt/O1eOnxL2wAADeWjKUbB+3erDjWzZTsWWIm0ZEKYT1pk
+         7GzQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqmHOBOpxevjp5xWcsHymZh7ROOLCBtxAZEmgMDsCsKmUKcV1nxHeDAE7qwh46Q665/seerk8lk0N18@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+pkB6tgrzuRtOGfft8XmurbVElG6so+28iaMwXqCXyV4jUDAv
+	20Wm8k5vx0TXT0uOGK1atg6Z7jtVFzDJqd2cv7qIroJt8H6dHSFmIKkpYA3J8Hp9NOGfo/WQfq3
+	mQCW4qvgObEfhM78Ej8UspyVoZIZM/HP8+YL5+i8eF6LsUFSc2JpJvIgL4ELVC/fN
+X-Gm-Gg: AR+sD13OzCS7q0J+TZXfjE1YGfdmSon6FmEkLNm6M/BOaGpgZh+hZd04aUl2gYQRjcm
+	cbHEw1PgUFi6a6i4kbgznAUKxxF5eXZAqTdEZQAkYilProZE68XzjfVrzlBytRNdcWCoamkBeSe
+	B1jn/LhLbzeK9OlpQ9JQK2HGYLvA5VYeYS0+GSQlH5Cz1Km0lXCj59y4yUBgItgNRQQ6TRZOWHB
+	uuwHu+Xg1eeXxNI3xLkrPV9hn7GqtnL5SO3yJEl1J2Q+ve6udZogPDJQvkSD+fM/bDl+aOtUxJ4
+	zpmWHPRt9Lg6/M2CEJ3d8T+hvS5KsBPLJDEJZPYLMI3iBS0qKFJKYAkXmDPKXg==
+X-Received: by 2002:a17:903:1209:b0:2cc:a977:4260 with SMTP id d9443c01a7336-2d37f0d36d3mr16031965ad.21.1786577696228;
+        Wed, 12 Aug 2026 16:34:56 -0700 (PDT)
+X-Received: by 2002:a17:903:1209:b0:2cc:a977:4260 with SMTP id d9443c01a7336-2d37f0d36d3mr16031585ad.21.1786577695706;
+        Wed, 12 Aug 2026 16:34:55 -0700 (PDT)
+Received: from [127.0.1.1] ([2a12:a305:4::40fb])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d37c26d0fbsm2136805ad.37.2026.08.12.16.34.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 16:34:11 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Thu, 13 Aug 2026 05:03:54 +0530
-Subject: [PATCH] ASoC: dt-bindings: tse850: Convert to DT schema
+        Wed, 12 Aug 2026 16:34:54 -0700 (PDT)
+From: Guodong Xu <guodong.xu@oss.qualcomm.com>
+Subject: [PATCH v6 00/11] riscv: hwprobe: Expose RVA23U64 base behavior
+Date: Wed, 12 Aug 2026 19:33:46 -0400
+Message-Id: <20260812-rva23u64-hwprobe-v2-v6-0-c985af3256b8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,251 +87,216 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-ti-axtensia-v1-1-768a1089fd5f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC0Nj3ZJM3cSKktS84sxEXVPLZAuLJNM0gzRDcyWgjoKi1LTMCrBp0bG
- 1tQD5nbBpXQAAAA==
-X-Change-ID: 20260813-ti-axtensia-59c88b5f0f17
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Andrei Simion <andrei.simion@microchip.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@lysator.liu.se>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786577640; l=7180;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=w/lCd6qn3Hrwin2/vnUaZ/GRD/83ygGyKQqz4MLsBzM=;
- b=PKPV3dZDD1Z4tcxL7fjXXNmqWj1tY/x98aXY/bW29LOwsvV094cdQkf1WAMEbrVmaUDqVVe1f
- AciDpIawfl5DRpmzpze1ZOjZ9rOhLTDctuuVZMw8P6Y6uFABYKYeAI1
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+X-B4-Tracking: v=1; b=H4sIANoCfWoC/3XPwWoDIRAG4FcJnmvRcXS1p7xH6UFdN2tpskE3N
+ iHsu1fTwoaSwFx+GL9/vJIcUgyZvG2uJIUSc5wONaiXDfGjPewCjX3NBBgoJpmmqVgQJ4V0/D6
+ myQVagPIeWCeMd04HUl8eUxji+aa+f/zmfHKfwc+NahtjzPOULrfaAm3vr4Hzhw11GAXupZWIA
+ +/9NsXs82zTq5/2pJUUsTKKiceMqIyUYGznQAuN293exq/VwDvj2SlYDTEwbgHRoNb/DbkaHXt
+ iyPYdr/hg0Coj7b2xLMsPC7Q1LJcBAAA=
+X-Change-ID: 20260508-rva23u64-hwprobe-v2-1d20739cbb8e
+To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+        Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>
+Cc: linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
+        Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
+        spacemit@lists.linux.dev, sophgo@lists.linux.dev,
+        linux-kselftest@vger.kernel.org,
+        Guodong Xu <guodong.xu@oss.qualcomm.com>,
+        Andrew Jones <andrew.jones@oss.qualcomm.com>,
+        Conor Dooley <conor.dooley@microchip.com>,
+        Qingwei Hu <qingwei.hu@bytedance.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7265;
+ i=guodong.xu@oss.qualcomm.com; s=default; h=from:subject:message-id;
+ bh=Ra/3+L2jk7U4uMiXwJ9Zce9uuTlc+DLXBTrbeJepa0I=;
+ b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhqxaZk7Vi43XPISfdsgu9fnKaOvq6ta0pijLO1/7gJuWt
+ 8Kz9NCOUhYGMS4GWTFFlsNHW7K3vvKJ9n3O+QNmDisTyBAGLk4BmMjE9wx/uBKPMYatVvn7tu+a
+ 6jLxzOqtv/bIcS55fy1TrG16qFroXUaGfYLyzDd2Fol8Zr72SXldirr8HvPb3fUzJ9Y3PndJt//
+ KBAA=
+X-Developer-Key: i=guodong.xu@oss.qualcomm.com; a=openpgp;
+ fpr=90B1DC3DF0BD10FD1227BD6344F254AF42F143EE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE5MCBTYWx0ZWRfX5aVZP4Ga316R
+ HBv4GGCDIVN53pM7p22KW2dQyhLni1xN93hVUfRb0ShAS1DUybF5unZUsdH0VwkKkcIbm1Ew5sR
+ r89QV8gScYIX1tMda2QxiBhtJE3+vM3wi0KkVNUsLdffYt/Nt7WNOvt3CXvQFktfs5ZcjErFSbJ
+ 2XEzwMMpjgyM0pLOd2AD/82+CCZji2tPHi2Vznxz+hu4VQN07aNt82NZfHEtuvKznPi0166ZjvB
+ II0dPoSi/VTNs6kX2OOhyp7MvH9i15ZjZyHTIVjQe95H4Jk3SWkGu/rlU0CCuHSjwWOyB094iuA
+ QHiovOM5KYZfQmKRCi5i3Vu06edOmgA4StBquEMwFo7OILZbmoZxVhJ9WoO/YzHI3SZ3ITggwiK
+ pehIA8iPBhmdScFWldgs63V9wkxTMVG2nfGMNcA0RoVUSKGq/J0EJBH6ugSFUizxLrXruHtdp8a
+ EDLzf+trgjx0LCNgHLw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE5MCBTYWx0ZWRfX3qhcPD418m5z
+ ny0bhUQ4+6coXzRQm9hWdvgHVv4pQeGkTO83dRSlo8G12198EvmkYHVBJU5dVKBOUdTM4xgdGXb
+ ewtw8vizl3Nzp/Bdi59qdSUxF3OIP9w=
+X-Proofpoint-ORIG-GUID: A0ck1pSEo0WieAUmQSl-MgIuQzPZKWEV
+X-Authority-Analysis: v=2.4 cv=X5Vi7mTe c=1 sm=1 tr=0 ts=6a7d0321 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=NEAV23lmAAAA:8 a=bC-a23v3AAAA:8 a=pGLkceISAAAA:8
+ a=ee_2aqc6AAAA:8 a=A54KYWeCNih9maOHq1sA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22 a=FO4_E8m0qiDe52t0p3_H:22 a=VOpmJXOdbJOWo2YY3GeN:22
+X-Proofpoint-GUID: A0ck1pSEo0WieAUmQSl-MgIuQzPZKWEV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_07,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608120190
 
-Convert Axentia TSE-850 audio complex from text to DT schema. No
-funcational changes.
+This series builds on Andrew Jones's earlier RFC [1]. It lets userspace
+check for RVA23U64 conformance in one call, instead of walking hwprobe +
+prctl across every mandatory extension.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+The series adds a small framework that resolves profile-class bases (IMA
+and RVA23U64) from the kernel's ISA extension bitmap at init time, and
+surfaces the result through both /proc/cpuinfo and hwprobe. Later patches
+can add RVA23S64, and backward RVA22 / RVA20 detection, to
+riscv_set_isa_bases() without changes to the surrounding code.
+
+Note: starting with v6, this series is sent from my Qualcomm address,
+guodong.xu@oss.qualcomm.com. Earlier versions came from my personal
+docular.xu@gmail.com (v3-v5).
+
+Patches 1-6 of v5 have been applied by Paul Walmsley (1-3 through
+riscv/fixes for v7.2-rc, 4-6 queued in riscv/for-next for v7.3), so v6
+carries the remaining 11 patches, rebased onto riscv/for-next.
+
+Series outline (v6):
+
+  Per-extension cpufeature parsing + hwprobe export:
+   1.  B (the Zba/Zbb/Zbs set).
+
+  Zic64b (new first-class extension):
+   2.  dt-bindings: require a cbom/cbop/cboz block-size property whenever
+       the matching Zicbom/Zicbop/Zicboz is present.
+   3.  Zic64b dt-binding, with a schema check.
+   4.  Zic64b cpufeature parsing + hwprobe export.
+   5-7. dts: declare zic64b in the SpacemiT K3, SpacemiT K1, and Sophgo
+        SG2044 device trees.
+
+  RVA23U64 base detection and exposure:
+   8.  riscv_have_user_pmlen(): accessor for user pointer-masking PMLEN
+       support.
+   9.  cpufeature: per-hart and host-wide isa_bases bitmaps; IMA and
+       RVA23U64 detection lives here.
+  10.  /proc/cpuinfo: print "isa bases:" and "hart isa bases:", e.g.
+       rva23u64.
+  11.  hwprobe: expose RVA23U64.
+
+A follow-up series exposing these extensions to KVM guests (extending
+the KVM ISA extension ONE_REG interface) will be prepared on top of
+this one and will be posted separately.
+
+Tested on QEMU: with -cpu rva23s64,sv39=on, /proc/cpuinfo reports
+"isa bases : rv64ima rva23u64" on both the aggregated and per-hart
+lines, and hwprobe RISCV_HWPROBE_KEY_BASE_BEHAVIOR returns
+BASE_BEHAVIOR_IMA | BASE_BEHAVIOR_RVA23U64.
+
+A branch is available for all patches in the series: [2].
+
+Link: https://lore.kernel.org/linux-riscv/20260206002349.96740-1-andrew.jones@oss.qualcomm.com/ [1]
+Link: https://github.com/docularxu/linux/commits/b4/rva23u64-hwprobe-v6/ [2]
+
+Changes in v6:
+- Rebased onto riscv/for-next; dropped patches 1-6 of v5, which have been
+  applied by Paul.
+- dt-bindings block-size: only match nodes that have
+  riscv,isa-extensions (fix suggested by Conor, breakage reported by
+  Rob's bot).
+- Zic64b dt-binding: guard the zic64b rule the same way (same defect
+  class, found while fixing the above).
+- Follow the _BITULL() style of commit 8da45c93dfa9 ("RISC-V: hwprobe:
+  Use BIT macro to avoid warnings") for the new hwprobe bits (EXT_B,
+  EXT_ZIC64B, BASE_BEHAVIOR_RVA23U64).
+- Zic64b: RISCV_ISA_EXT_ZIC64B renumbered 110 to 116 after upstream
+  additions took 106-111.
+- Link to v5: https://patch.msgid.link/20260701-rva23u64-hwprobe-v2-v5-0-2c61f94a695a@gmail.com
+
+Changes in v5:
+- Rebased onto v7.2-rc1.
+- New patch: make riscv,cbom/cbop/cboz-block-size required whenever the
+  matching Zicbom/Zicbop/Zicboz extension is present (Conor).
+- Ziccamoa/Za64rs: drop the Zaamo/Zalrsc validate callbacks (Conor).
+- Zic64b dt-binding: fix a double space in the commit message (Conor).
+- Collected Reviewed-by and Acked-by tags in v4.
+- Link to v4: https://patch.msgid.link/20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com
+
+Changes in v4:
+- New patch: sort the multi-letter Z extensions alphanumerically in the
+  dt-binding (Conor), and place zic64b at its sorted position.
+- Zic64b cpufeature: validate only the CBO block sizes that are present;
+  overlaps Qingwei Hu's earlier patch, so it is now authored by Qingwei.
+- Document EXT_ZICFISS / EXT_ZICFILP: cite the riscv-cfi v1.0 tag commit.
+- Picked up Inochi Amaoto's Acked-by (SG2044 dts) and Andrew Jones's
+  Reviewed-by (documentation patch).
+- Link to v3: https://patch.msgid.link/20260603-rva23u64-hwprobe-v2-v3-0-5529a7b28384@gmail.com
+
+Changes in v3:
+- Add Zic64b as a first-class ISA extension: dt-binding, cpufeature
+  parsing with a validate check, hwprobe export, and device-tree
+  declarations for K3/K1/SG2044.
+- Patch 1 is now a clean up of hwprobe.rst indentation.
+- Document RISCV_HWPROBE_EXT_ZICFILP alongside ZICFISS.
+- Move the Zicclsm hwprobe.rst entry to the IMA_EXT_1 section to match
+  its bit allocation.
+- Collect Anup Patel's Acked-by/Reviewed-by on Patch 3, the capitalization.
+- In cpufeature.c, set the local ext_mask with __set_bit().
+- Update Guodong Xu's email to docular.xu@gmail.com.
+- Link to v2: https://patch.msgid.link/20260511-rva23u64-hwprobe-v2-v2-0-21c5a544f1dc@riscstar.com
+
+Changes in v2 (since Andrew's RFC v1):
+- Rebased onto v7.1-rc2.
+- Reworked rva23u64 detection into per-hart and host isa_bases bitmaps,
+  shared by /proc/cpuinfo and hwprobe.
+- Scoped to IMA and RVA23U64 (RVA23S64, RVA20/RVA22 cpuinfo output deferred).
+- Link to v1:  https://lore.kernel.org/linux-riscv/20260206002349.96740-1-andrew.jones@oss.qualcomm.com
+
+Signed-off-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
 ---
- .../bindings/sound/axentia,tse850-pcm5142.txt      |  92 ------------------
- .../bindings/sound/axentia,tse850-pcm5142.yaml     | 104 +++++++++++++++++++++
- 2 files changed, 104 insertions(+), 92 deletions(-)
+Andrew Jones (2):
+      riscv: Add B to hwcap and hwprobe
+      riscv: Add a getter for user PMLEN support
 
-diff --git a/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.txt b/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.txt
-deleted file mode 100644
-index b6cc5f6f78c2..000000000000
---- a/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.txt
-+++ /dev/null
-@@ -1,92 +0,0 @@
--Devicetree bindings for the Axentia TSE-850 audio complex
--
--Required properties:
--  - compatible: "axentia,tse850-pcm5142"
--  - axentia,cpu-dai: The phandle of the cpu dai.
--  - axentia,audio-codec: The phandle of the PCM5142 codec.
--  - axentia,add-gpios: gpio specifier that controls the mixer.
--  - axentia,loop1-gpios: gpio specifier that controls loop relays on channel 1.
--  - axentia,loop2-gpios: gpio specifier that controls loop relays on channel 2.
--  - axentia,ana-supply: Regulator that supplies the output amplifier. Must
--    support voltages in the 2V - 20V range, in 1V steps.
--
--The schematics explaining the gpios are as follows:
--
--               loop1 relays
--   IN1 +---o  +------------+  o---+ OUT1
--            \                /
--             +              +
--             |   /          |
--             +--o  +--.     |
--             |  add   |     |
--             |        V     |
--             |      .---.   |
--   DAC +----------->|Sum|---+
--             |      '---'   |
--             |              |
--             +              +
--
--   IN2 +---o--+------------+--o---+ OUT2
--               loop2 relays
--
--The 'loop1' gpio pin controls two relays, which are either in loop position,
--meaning that input and output are directly connected, or they are in mixer
--position, meaning that the signal is passed through the 'Sum' mixer. Similarly
--for 'loop2'.
--
--In the above, the 'loop1' relays are inactive, thus feeding IN1 to the mixer
--(if 'add' is active) and feeding the mixer output to OUT1. The 'loop2' relays
--are active, short-cutting the TSE-850 from channel 2. IN1, IN2, OUT1 and OUT2
--are TSE-850 connectors and DAC is the PCB name of the (filtered) output from
--the PCM5142 codec.
--
--Example:
--
--	&ssc0 {
--		#sound-dai-cells = <0>;
--
--	};
--
--	&i2c {
--		codec: pcm5142@4c {
--			compatible = "ti,pcm5142";
--
--			reg = <0x4c>;
--
--			AVDD-supply = <&reg_3v3>;
--			DVDD-supply = <&reg_3v3>;
--			CPVDD-supply = <&reg_3v3>;
--
--			clocks = <&sck>;
--
--			pll-in = <3>;
--			pll-out = <6>;
--		};
--	};
--
--	ana: ana-reg {
--		compatible = "pwm-regulator";
--
--		regulator-name = "ANA";
--
--		pwms = <&pwm0 2 1000 PWM_POLARITY_INVERTED>;
--		pwm-dutycycle-unit = <1000>;
--		pwm-dutycycle-range = <100 1000>;
--
--		regulator-min-microvolt = <2000000>;
--		regulator-max-microvolt = <20000000>;
--		regulator-ramp-delay = <1000>;
--	};
--
--	sound {
--		compatible = "axentia,tse850-pcm5142";
--
--		axentia,cpu-dai = <&ssc0>;
--		axentia,audio-codec = <&codec>;
--
--		axentia,add-gpios = <&pioA 8 GPIO_ACTIVE_LOW>;
--		axentia,loop1-gpios = <&pioA 10 GPIO_ACTIVE_LOW>;
--		axentia,loop2-gpios = <&pioA 11 GPIO_ACTIVE_LOW>;
--
--		axentia,ana-supply = <&ana>;
--	};
-diff --git a/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.yaml b/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.yaml
-new file mode 100644
-index 000000000000..0ab4b697d28e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.yaml
-@@ -0,0 +1,104 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/axentia,tse850-pcm5142.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Axentia TSE-850 audio complex
-+
-+maintainers:
-+  - Peter Rosin <peda@axentia.se>
-+
-+description: |
-+  The TSE-850 is an FM Transmitter Station Equipment, designed to generate
-+  baseband signals for FM, mainly the DARC subcarrier, but other signals
-+  are also possible.
-+
-+  The schematics explaining the gpios are as follows::
-+
-+                 loop1 relays
-+     IN1 +---o  +------------+  o---+ OUT1
-+              \                /
-+               +              +
-+               |   /          |
-+               +--o  +--.     |
-+               |  add   |     |
-+               |        V     |
-+               |      .---.   |
-+     DAC +----------->|Sum|---+
-+               |      '---'   |
-+               |              |
-+               +              +
-+     IN2 +---o--+------------+--o---+ OUT2
-+                 loop2 relays
-+
-+  The 'loop1' gpio pin controls two relays, which are either in loop
-+  position, meaning that input and output are directly connected, or
-+  they are in mixer position, meaning that the signal is passed through
-+  the 'Sum' mixer. Similarly for 'loop2'.
-+
-+  In the above, the 'loop1' relays are inactive, thus feeding IN1 to the
-+  mixer (if 'add' is active) and feeding the mixer output to OUT1. The
-+  'loop2' relays are active, short-cutting the TSE-850 from channel 2.
-+  IN1, IN2, OUT1 and OUT2 are TSE-850 connectors and DAC is the PCB name
-+  of the (filtered) output from the PCM5142 codec.
-+
-+properties:
-+  compatible:
-+    const: axentia,tse850-pcm5142
-+
-+  axentia,cpu-dai:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      The phandle of the cpu dai.
-+
-+  axentia,audio-codec:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      The phandle of the PCM5142 codec.
-+
-+  axentia,add-gpios:
-+    maxItems: 1
-+    description:
-+      gpio specifier that controls the mixer.
-+
-+  axentia,loop1-gpios:
-+    maxItems: 1
-+    description:
-+      gpio specifier that controls loop relays on channel 1.
-+
-+  axentia,loop2-gpios:
-+    maxItems: 1
-+    description:
-+      gpio specifier that controls loop relays on channel 2.
-+
-+  axentia,ana-supply:
-+    description:
-+      Regulator that supplies the output amplifier. Must support voltages in
-+      the 2V - 20V range, in 1V steps.
-+
-+required:
-+  - compatible
-+  - axentia,cpu-dai
-+  - axentia,audio-codec
-+  - axentia,add-gpios
-+  - axentia,loop1-gpios
-+  - axentia,loop2-gpios
-+  - axentia,ana-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/pwm/pwm.h>
-+
-+    sound {
-+        compatible = "axentia,tse850-pcm5142";
-+        axentia,cpu-dai = <&ssc0>;
-+        axentia,audio-codec = <&codec>;
-+        axentia,add-gpios = <&pioA 8 GPIO_ACTIVE_LOW>;
-+        axentia,loop1-gpios = <&pioA 10 GPIO_ACTIVE_LOW>;
-+        axentia,loop2-gpios = <&pioA 11 GPIO_ACTIVE_LOW>;
-+        axentia,ana-supply = <&regulator_ana>;
-+    };
+Guodong Xu (8):
+      dt-bindings: riscv: Require block-size for Zicbom, Zicbop, and Zicboz
+      dt-bindings: riscv: Add Zic64b extension description
+      riscv: dts: spacemit: k3: Add Zic64b ISA extension
+      riscv: dts: spacemit: k1: Add Zic64b ISA extension
+      riscv: dts: sophgo: sg2044: Add Zic64b ISA extension
+      riscv: cpufeature: Introduce ISA bases bitmap and rva23u64 detection
+      riscv: cpu: Output isa bases lines in cpuinfo
+      riscv: hwprobe: Introduce rva23u64 base behavior
 
+Qingwei Hu (1):
+      riscv: Add Zic64b to cpufeature and hwprobe
+
+ Documentation/arch/riscv/hwprobe.rst               |  16 +++
+ .../devicetree/bindings/riscv/extensions.yaml      |  54 +++++++++
+ arch/riscv/boot/dts/sophgo/sg2044-cpus.dtsi        | 128 ++++++++++-----------
+ arch/riscv/boot/dts/spacemit/k1.dtsi               |  80 ++++++-------
+ arch/riscv/boot/dts/spacemit/k3.dtsi               |  48 ++++----
+ arch/riscv/include/asm/cpufeature.h                |  14 +++
+ arch/riscv/include/asm/hwcap.h                     |   2 +
+ arch/riscv/include/asm/processor.h                 |   4 +
+ arch/riscv/include/uapi/asm/hwcap.h                |   1 +
+ arch/riscv/include/uapi/asm/hwprobe.h              |   5 +-
+ arch/riscv/kernel/cpu.c                            |  26 +++++
+ arch/riscv/kernel/cpufeature.c                     | 117 +++++++++++++++++++
+ arch/riscv/kernel/process.c                        |  12 ++
+ arch/riscv/kernel/sys_hwprobe.c                    |  25 ++--
+ tools/testing/selftests/riscv/hwprobe/which-cpus.c |   2 +-
+ 15 files changed, 397 insertions(+), 137 deletions(-)
 ---
-base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
-change-id: 20260813-ti-axtensia-59c88b5f0f17
+base-commit: acf3fcb5e9199cc96ca033ec3c7570b6564c2e9e
+change-id: 20260508-rva23u64-hwprobe-v2-1d20739cbb8e
 
 Best regards,
--- 
-Bhargav
+--  
+Guodong Xu <guodong.xu@oss.qualcomm.com>
 
