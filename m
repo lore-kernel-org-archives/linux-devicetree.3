@@ -1,97 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m3278.qiye.163.com (mail-m3278.qiye.163.com [220.197.32.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E90434D90C;
-	Wed, 12 Aug 2026 09:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1256E40DB2F;
+	Wed, 12 Aug 2026 09:41:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786527634; cv=none; b=BQbxc3bPkW894pFDNHmIKVm+z93Xq6xVyYOBQsD4umKNEmztQMWr9NH/beOk+zraT4YXBLg/u3PZco2iQZcRWM4uxY1uxriR5QB2Wh3XDbiKjO19O6Jl69r7NAWs3m1/M4yFEL3z1yrl8HCDt1umhn8/tWEERbniRvetRiqPg5Y=
+	t=1786527672; cv=none; b=dBZgGYkS+sPQ3AeaSqe0QlPnxkRudHPyecxBTW6E3VQsnO9aGJSq63bvUSOyz9eZ9b+4f1XZ+r5Ml8NTOUXM/EuFSrlHdOZvb8SPxMVC+5NSzcagZTHMjFqNfVkttVdAkyMQp9S9HmJwU7aEbE5NQ1oqKaz2sXpQ3sKYTZI04Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786527634; c=relaxed/simple;
-	bh=WKfLiLx9/p+NBrSKWq/XuUxjaoocSqC2eUQ2EbYlOw4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=clIpUY3+zqbcpDeQi4vvXrcA0678jhFKLioLv3KnqwuTaeAwKa/djsyfiOdLL1gtvrkXFK9G9IbRZy4heQWb/zOaLdKPXR991xo1UZ4tQRDcwYRnN/O+9WFfWooh7LP28++VodCj4r5xzNEpykfo4/NVa3RmhnNVh3vtrgr8CCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P6AR3vRA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786527672; c=relaxed/simple;
+	bh=ANpKazoN+8nvrSPLK334AoZbSAc686t3GUsWybh8xv8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=d0VKoz6Gohjy0WjMFRXZpuCXfVZapa6R8h6hxEnds+Lxz7Hn7gl8f8RFto/afb5H/7mXXWXO1qprtzVCVV5Vw5tUNPeyOmrQ5NWL7CLo7CwnN5YeuSd6FFxOad75yeEfaLUdZxmL+PfYiITFwRLHheAFAyAVEDNSV/WjiRP1oig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=cOLmdV1Q; arc=none smtp.client-ip=220.197.32.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P6AR3vRA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008FD1F000E9;
-	Wed, 12 Aug 2026 09:40:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786527632;
-	bh=ojsFGwRbLrD5qPL7+71OpmuD6Jm8UrrTelExgID0/q8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P6AR3vRA1qgLDx2oN0ix8qlUk//wwcVvDN9DgeDni2fWcm0gDRqU7pzIqHHO3E9Fw
-	 iL03q4pMU8ZpgasaQYJXkKY4ZgmNrpO7pvsu6Wp/9DssyyfxYP69OAukuttb0Wo3KP
-	 F65/+SAB+2Gp6J7Dlf62lkDWHlpuf8FTcPU1VPJ3XSKIvk4hWZae4hvMYukKjcyGI1
-	 hD3QMWeJCqETGa1xWtcay990lOa/Iil8l4rBfyjACJJG7SwJIoRYBKezc29tQfoSn0
-	 EuuWFoj+xqlQZVgTLUcBNMSSfjey7IaTwRfF4enfWTvF0KHsf5Ksg9Wk4RNg+XbZgd
-	 rf1uLFn5F+nWA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] dmaengine: apple-admac: Add M3 generation ADMACs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: vkoul@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260812-t603x-admac-v3-2-d1f137f803e1@chaosmail.tech>
-References: <20260812-t603x-admac-v3-0-d1f137f803e1@chaosmail.tech>
- <20260812-t603x-admac-v3-2-d1f137f803e1@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 09:40:31 +0000
-Message-Id: <20260812094032.008FD1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="cOLmdV1Q"
+Received: from [127.0.1.1] (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 49b6d9f1a;
+	Wed, 12 Aug 2026 17:35:51 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Subject: [PATCH v2 0/2] ASoC: es8316: Add regulator support
+Date: Wed, 12 Aug 2026 17:35:42 +0800
+Message-Id: <20260812-es8316-regulator-next-20260722-v2-0-e7078bc9bc9c@thundersoft.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAG4+fGoC/42NQQ7CIBREr9L8td8A1dK68h6mCyyflkTBAG1qG
+ u4uNh7A5ZvJvNkgUrAU4VJtEGix0XpXQBwqGCblRkKrC4NgomFS1EixrXmDgcb5oZIP6GhN+Ks
+ FSt01d6WNPmkFRfIKZOy6H9z6wpONZfTe/xb+Tf9WLxwZSsGNPMtWdopd0zQ7TSF6k46Df0Kfc
+ /4AV2dkbNIAAAA=
+X-Change-ID: 20260723-es8316-regulator-next-20260722-7d96badfd4da
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hongyang Zhao <hongyang.zhao@thundersoft.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786527351; l=1485;
+ i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
+ bh=ANpKazoN+8nvrSPLK334AoZbSAc686t3GUsWybh8xv8=;
+ b=gGKT5XP2g92s2FyEI/I6p3rrkD0n3GM7FuA7H/79N5GnwPec+P/pdfV9rstW1tpbH67t0iyyv
+ 223bZsKjcHaC4J543nUoMgecnnOl+FQ+bltHHpxLzVT94FpwbwOkAtL
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
+X-HM-Tid: 0a9ff55403dd09d5kunm921ee5013c51bc
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGEoaVk0fQ0JMHk4aHU1OTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=cOLmdV1QVHgmJRILub78rRxcD9SZVT0WVOOqTtPj2DOIxZ6ED4cV4KtjI3rPdoSICNEcmWM3jNekaqZ+zbbzfIavPqWU7oHL1w0vtGMsMN26egC3rzIAagCnyAz1LE6YIr9BpisBd6MSyeoZLrYQdzd8uPSIWRYAGM71/cjpMH4=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=vB+jIaNzdwubakopczPUmYouqHv9G4VbNotIiC1QFWw=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unconditional overwrite of global configuration registers with a p=
-otentially hardcoded channel mask during per-channel setup.
---
+Add regulator support for the four ES8316 power domains so board
+descriptions can model and control the codec supplies.
 
---- Patch [2]: [PATCH v3 2/2] dmaengine: apple-admac: Add M3 generation ADM=
-ACs ---
-commit 14231adca1c04d18dabe6aedf727a8ccef7b20a1
-Author: Sasha Finkelstein <k@chaosmail.tech>
+The binding patch documents AVDD, CPVDD, DVDD and PVDD as optional
+supplies for ES8316, preserving compatibility with existing device-tree
+descriptions. The driver patch enables the supplies before initializing
+the regmap and keeps them enabled for the lifetime of the I2C device.
 
-dmaengine: apple-admac: Add M3 generation ADMACs
-   =20
-The admacs present on t8122 and t603x SoCs need additional writes in
-order to operate correctly. The exact purpose of this register
-is unknown.
+The missing supply model was identified while reviewing the RubikPi 3
+audio support:
+https://lore.kernel.org/linux-arm-msm/c293d9c7-bdb7-4303-80c8-404228c434d7@oss.qualcomm.com/
 
-> diff --git a/drivers/dma/apple-admac.c b/drivers/dma/apple-admac.c
-> --- a/drivers/dma/apple-admac.c
-> +++ b/drivers/dma/apple-admac.c
-[ ... ]
-> @@ -747,6 +756,11 @@ static int admac_device_config(struct dma_chan *chan,
->  	u32 bus_width =3D readl_relaxed(ad->base + REG_BUS_WIDTH(adchan->no)) &
->  		~(BUS_WIDTH_WORD_SIZE | BUS_WIDTH_FRAME_SIZE);
-> =20
-> +	if (ad->set_unk28) {
-> +		writel_relaxed(T8122_UNK_28_VAL, ad->base + REG_UNK_28);
-> +		writel_relaxed(T8122_UNK_28_VAL, ad->base + REG_UNK_2C);
-> +	}
-> +
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+Changes in v2:
+- Restrict the supply properties to the ES8316 compatible.
+- Enable the regulators before regmap initialization and keep them enabled
+  for the lifetime of the I2C device.
+- Link to v1: https://lore.kernel.org/r/20260723-es8316-regulator-next-20260722-v1-0-721f757879a0@thundersoft.com
 
-[Severity: High]
-Does this code overwrite global configuration state for all channels?
+---
+Hongyang Zhao (2):
+      ASoC: dt-bindings: es8316: Add regulator supplies
+      ASoC: codecs: es8316: Add regulator support
 
-Since admac_device_config() is called per-channel during setup, writing a
-hardcoded value (0x200000, which is BIT(21)) directly to global controller
-registers without a read-modify-write will unconditionally clear any existi=
-ng
-state for other active channels.
+ .../devicetree/bindings/sound/everest,es8316.yaml  | 27 ++++++++++++++++++++++
+ sound/soc/codecs/es8316.c                          | 13 +++++++++++
+ 2 files changed, 40 insertions(+)
+---
+base-commit: 5e6de6a2b522f659defacb1551d0465ba6ce13cf
+change-id: 20260723-es8316-regulator-next-20260722-7d96badfd4da
 
-Is T8122_UNK_28_VAL a global magic value, or might it be a channel-specific
-bitmask captured from a trace that should be applied via a read-modify-write
-incorporating the channel number?
+Best regards,
+-- 
+Hongyang Zhao <hongyang.zhao@thundersoft.com>
 
->  	switch (is_tx ? config->dst_addr_width : config->src_addr_width) {
->  	case DMA_SLAVE_BUSWIDTH_1_BYTE:
->  		wordsize =3D 1;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-t603x-adma=
-c-v3-0-d1f137f803e1@chaosmail.tech?part=3D2
