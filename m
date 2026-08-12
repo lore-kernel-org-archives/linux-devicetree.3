@@ -1,212 +1,140 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F016419313;
-	Wed, 12 Aug 2026 12:15:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6700C43E09A
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786536943; cv=none; b=lReFVhdI0YGywitQ6+inkpugpmAJz1NG5Fa2ZcKHPhEx4bfYjcVU2e5UmDdPmJFb/Tsh1bmSTyi89lkbFWg5jXqanOScMlCt1za/QAtlgHwKTSxhC34SIpJWnznNEodTTpOtSfMVYp/EJGPMXzv8LW3QeXVGxXvP9ZVH2V1tugU=
+	t=1786537311; cv=none; b=siC0MxF8w7H9pv9B5Qg6Ngk0O3Sb/JQxzu0bxXT/C71ruSM1MjFHMnvGwpn5QK4P0Bk+BakLAisApqolNWechishAR4+I8iaerFGnkHMcdn+HsPzW6hqa4GhsrADVRoeNkEmLi9zVoMYKADYs5h6jgQ9ybUoBKdh1IHD1eSKEBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786536943; c=relaxed/simple;
-	bh=ZwIcZsZZ2uJSEBhbQ9MtdqFRGRhB47VsRC/xC6n2kuk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RsDSOshIOTFWjq9+CXwO1oYS0T+EnhV3ZO58hCk0SFbHkog6/s4JEwSG258F6/G0M8OyYfBol5sqVSW1q5341qsUgCdiuN58VzaTCnfmLZUyzsW8YbXxJxeTSORswjjW92EiuM9wxxKZZQYbPwn4aMtWj+IE5FrInPWuzCJVnyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=lEFAs77e; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1786537311; c=relaxed/simple;
+	bh=zCYTZEw6BBSMhECq21v+gXOI76+nu/PUwVKQ7phuzwk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SrUsdSVQ7++YUFV5/aeQlrSRiMA5HUOwjtygyXNQ+te5ULbxKnVfwVxWzNMgdXNmMPF+3i4mm/PhipFJnv+KDXmtLqlow+aE2QnJf+n45UiFy7IFU4lZ1U/pQ5X3kYfaMZZKtO8gGwE3h44zOdWr8/aF1Nbnpv7cwv4SOsy4dYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=Q0nwU6kK; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="lEFAs77e"
-Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 868E6534033B;
-	Wed, 12 Aug 2026 14:15:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1786536938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=D0IXhdofMp4hEJkD6J6IBskNqKuVJMBrWOdWouSRYnk=;
-	b=lEFAs77exzFE/ALAVfo3T9WndxnQjZe6bxLYlScApcp88udPfn2vENZmyJhkjpQswsOU0s
-	i1QGNfpF9ULCGnaVN1WcWU/FHwnOP+wrPWnJBRhUvkmULo7ymi/1gm6Z2T6krCkNx/ZTTN
-	UGiH+nkCEtBM40eZs3AdJNT117MxOf4=
-Message-ID: <803e354d-55b9-4904-a4a0-9eeefa0c6ffd@ixit.cz>
-Date: Wed, 12 Aug 2026 14:15:38 +0200
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="Q0nwU6kK"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso15702835e9.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:21:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1786537307; x=1787142107; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UeHBK+ZUVXf1IPAtpZKQyvyBgKkify1wwk6CszLJxIk=;
+        b=Q0nwU6kK/biVFruwB6QUFJDAu//T3X3F+LJ9JvKrBZOy0WPWeCQcFusGuDxpsWzbde
+         yLhWNrV6LBQWFFJxdkPbTaqf/chpUnGRTpRnpqraV300KEMntEE+D7y455YrAb97dBwL
+         RKguSX1+1je44WC6CMC7y18+xv/PjIjW7J5bJunpSL79Sl44q/g3Q05uAoUsYrWKjfsC
+         +F6XmgL78G/AbgfpGuANQBiB03z/boWzsD4hVPss/Geqfabjoe63HXxZF+egYk7D85+h
+         k5J4LB1yhGL7yRdDY1sT5vCJ5XM83AJ8kUVbxq/E5ZEs2kWL9dLd2pMoujLgdV+wjGS4
+         zUaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786537307; x=1787142107;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UeHBK+ZUVXf1IPAtpZKQyvyBgKkify1wwk6CszLJxIk=;
+        b=ani1AIz4odwe4IrJnBYXPJM1Sr49GnpkY45/jx0/FcZE6N3YN65TgOVUal/P59LU1R
+         R6mDLmwOg8pBeOWFbS5mgXJKghZnOsFgLzo4Ujw2JCMmPQvVdYnAScfbX003X1jUk/M+
+         KBtu79RjESepUU/Ua11XIBLSc3RG3mVq42SescS/LcDronm+OdtmSSK0m2qnzas0hedT
+         KGBb8gdXTaId4hdddfb6ZpmDi8S/d2J6NRuhyHo++D7tGZjmh8cIyX7IkDe4Ql0IKFgW
+         jV3IqacUmQukCdvAREzn6g7GqDA7v+ZdLlXiX26kap7xlOAgTIIqEEMN/DSV1hrF7whm
+         AJkA==
+X-Gm-Message-State: AOJu0Yyoul9R7HQsz7p+x888Uwi11clgmkJnU1d9v2Z9Ekt6pfL7z9mA
+	kjv9q9fWNZI/aS0+CqTnIyMVHGJCmLT92nYHXUDEUp7IzEgdia5iXonUkR/qxGbCYVjjmqz+BzQ
+	uwH2tUV8BhMBh0cyva+I7iW7dr3qzqeQKvIBW8HzswoVJlVCyjD74uOVFvjTUeHTCOoVPq1mRsR
+	CoGzbmkX54+jvaSJxXnInFi25ufDsafeZjq3reQinvHFZW3nGWCNddsP0=
+X-Gm-Gg: AR+sD11JoKGakbJGjvhjw+yf9pJBo4DOTjSCiYAt1O1MCQBMHKIX73+I5ODke8fjySF
+	oDcnHXaapbLeyc4FLFo6nzGYOGlv+V0RtV4KpfgGGAOme5VeMjVE9KfoZFlb6Wia9B24mhTbpQ3
+	MxrBQN+LYIGf7I2byvEgm44XCWrWufxrlFSNfA0kj5GgsfNEcLdPOBnEqYOjliiwOA+GUMh+CGO
+	+uk4Zjkh6yXk/ZCQXCYrcVdEcFvNuQODVnV/mzXYx2JElkMXlb/ArH0kyjjqe1OuU+lPlIOD+Rg
+	9QWI4JkL4xto6omMY9c+GZm1Ef3zONIwTuGs66uNVlJk6x3J6aA+6EacizVUZRw5VdVhKcCk5OT
+	6kOPJtVKn+69qotRHZS/EcgY1g7g17wfLj5tpjFydS7ApsUdXq2cQCPFICN62w9+1mOe8+gvC68
+	Q+Sw9MQA0JTr7ljTVe2doxI0xDPM2fXTEuA8b/A03LP5fdmPYvnLY9mhXOdiDXeB1tll5MKajuM
+	+I+ULI5BzBj
+X-Received: by 2002:a05:600c:524c:b0:499:596b:2e91 with SMTP id 5b1f17b1804b1-4997c393b0bmr52627565e9.3.1786537307508;
+        Wed, 12 Aug 2026 05:21:47 -0700 (PDT)
+Received: from hsinchu16.internal.sifive.com ([210.176.154.34])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997aaa5d04sm65858905e9.2.2026.08.12.05.21.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 05:21:45 -0700 (PDT)
+From: Yu-Chien Peter Lin <peter.lin@sifive.com>
+To: devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	samuel.holland@sifive.com,
+	dlan@kernel.org,
+	dfustini@oss.tenstorrent.com,
+	michal.simek@amd.com,
+	junhui.liu@pigmoral.tech,
+	darshan.prajapati@einfochips.com,
+	akpm@linux-foundation.org,
+	zhangchunyan@iscas.ac.cn,
+	luxu.kernel@bytedance.com,
+	pincheng.plct@isrc.iscas.ac.cn,
+	nick.hu@sifive.com,
+	jim.shu@sifive.com,
+	zong.li@sifive.com,
+	greentime.hu@sifive.com,
+	robin.randhawa@sifive.com,
+	scott@riscstar.com,
+	dave.patel@riscstar.com,
+	raymond.mao@riscstar.com,
+	anup@brainfault.org,
+	pawandeep.oza@oss.qualcomm.com,
+	Yu-Chien Peter Lin <peter.lin@sifive.com>
+Subject: [RFC PATCH v3 0/3] dt-bindings: riscv: Add RISC-V Worlds and SiFive WorldGuard DT bindings
+Date: Wed, 12 Aug 2026 20:21:28 +0800
+Message-ID: <20260812122131.1534906-1-peter.lin@sifive.com>
+X-Mailer: git-send-email 2.48.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
- NT37703
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Esteban Urrutia <esteuwu@proton.me>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
- <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
- <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
- <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
- <7097b617-90be-492d-9637-4a2a101379e0@ixit.cz>
- <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 12/08/2026 13:52, Neil Armstrong wrote:
-> On 8/12/26 10:46, David Heidelberg wrote:
->> On 12/08/2026 07:21, Esteban Urrutia wrote:
->>> On 8/11/26 9:05 AM, David Heidelberg wrote:
->>>> Hi Esteban,
->>>>
->>>> Usually the used pattern is vendor,ddic+panel-model
->>>>
->>>> novatek,nt37703-motorola-bronco
->>>>
->>>> ...but motorola bronco isn't the model of the panel.
->>>>
->>>> My recommendation - look at some video of screen replacement, stop at moment
->>>> when FLEX cable from panel is visible and that's where the panel model 
->>>> usually is.
->>>
->>>
->>> I somewhat doubt the panel model would be located in the FPC cable.
->>> I did search anyway but didn't find anything of interest. And I'm not
->>> willing to risk damaging the display flex or the battery of my
->>> development device just for a possibility either.
->>
->> No-one asks you to disassemble the device :)
->> Sadly, I haven't found any video doing display replacement either.
->> In worst case such as this I assume it make sense keep the phone model in the 
->> compatible until panel codename is found.
->>
->>> For the compatible pattern I used the implemented pattern for the
->>> NT36523 TDDI, which is also used for other ICs such as the RM69380.
->>>
->>> So, I believe it should be okay to leave the compatible as is.
->>
->> I would like to hear a word from Neil first. In similar cases like this would 
->> make sense to have one way defining these compatible strings used in phones.
->>
->>
->> bit I missed in the review the part:
->>
->> +            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
->>
->> Unless the driver is able to auto-detect the connected panel (unlikely), 
->> novatek,nt37703 doesn't make sense. The DDIC without the panel is useless.
->>
->> For example, in sdm845-oneplus-fajita and enchilada, we have the generic 
->> compatible because it was introduced before, so it's kept for compatibility 
->> reasons. There is no need to do that here.
-> 
-> Yeah today the norm is to add the ddic as second compatible entry so the first 
-> compatible just describes the pane, so here it should be:
-> 
-> compatible = "motorola,bronco-tianma-v2", "novatek,nt37703";
+This series introduces device tree bindings for the RISC-V Worlds ISA
+extensions and the SiFive WorldGuard Checker hardware.
 
-So let's me present a situation which can happen, let say I'll be upstreaming:
+RISC-V Worlds is a set of standard ISA extensions (Smwid, Smlwid,
+Smlwidlist, Smwiddeleg, Sswid) that enable hardware-enforced context
+isolation by tagging each system transaction with a World ID (WID).
+The extensions allow platform firmware to assign WIDs to privilege
+levels, execution contexts, or isolation domains, and delegatable WID
+management across privilege boundaries.
 
-DDIC (novatek,nt37700) + panel (samsung,amb630qy).
+The SiFive WorldGuard Checker (wgChecker) is a hardware firewall
+positioned in the system interconnect fabric. It inspects the WID
+of every transaction and enforces access control policies on memory
+regions and memory-mapped I/O devices. The wgChecker is based on the
+access-controllers framework, allowing protected devices to declare
+their access requirements via standard phandle references.
 
-For the example I choose samsung,amb630qy because here the panel has phone model 
-in it, which avoids the possible issue I'll be describing with this schema.
+This is submitted as [RFC] because the RISC-V Worlds specification
+is not yet ratified. The extension descriptions in extensions.yaml
+carry placeholder "TBD" commit references; these will be updated
+to the actual ratification commit before the series is merged.
 
-Vendor can pair this panel with different DDIC. Thus it would be
+Yu-Chien Peter Lin (3):
+  dt-bindings: riscv: Add Worlds ISA extensions
+  dt-bindings: riscv: Add Worlds per-hart properties
+  dt-bindings: access-controllers: Add SiFive WorldGuard Checker
 
-compatible = "samsung,amb630qy", "novatek,nt37700"; // new one
-compatible = "samsung,amb630qy", "novatek,nt37703"; // existing
-
-The reality the driver picks only the first compatible, and that's all causing 
-to load wrong driver now.
-
-Solution here would be differentiate between
-
-a) DDIC + panel
-b) module name (consisting DDIC + panel).
-
-We could say module is motorola,bronco-tianma-v2 and contains [ DDIC + unknown 
-panel ], which doesn't even have to be mentioned in device-tree.
-
-While it may seems I overthinking, in this case it doesn't matter that much, I 
-already have patchsets for DDIC which can be combined with three types of panels 
-(and using different schema) and I would like to have good solution for longterm 
-contributions and development.
-
-What do you think?
-David
-
-
-> 
-> Neil
-> 
->>
->> Thanks
->> David
->>
->>>
->>>> David Heidelberg
->>>
->>>
->>> Regards,
->>> Esteban
->>>
-> 
+ .../access-controllers/sifive,wgchecker2.yaml | 178 ++++++++++++++++++
+ .../devicetree/bindings/riscv/cpus.yaml       |  44 +++++
+ .../devicetree/bindings/riscv/extensions.yaml |  53 ++++++
+ 3 files changed, 275 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/access-controllers/sifive,wgchecker2.yaml
 
 -- 
-David Heidelberg
+2.43.7
 
