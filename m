@@ -1,112 +1,203 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2590E374E6F;
-	Wed, 12 Aug 2026 02:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B134E375AC6;
+	Wed, 12 Aug 2026 02:10:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786500633; cv=none; b=rf01V2dPxWfP1jYwCWn2pKGBEUDgpBTg49b0OOJ6NL4N28r0FBXnSyx8J6JwZemI9dl//CKShN64Zi9HdGSV7vnNcfm0S+y0daX2L76jcqIQEB7WhIy0MAf1ernfu9f98eZ6g3rx46GgI19fEZUkjWgG8QFUmAmtjphj654Clqs=
+	t=1786500638; cv=none; b=p1b4sXzJf/oUjLQcOX404dMSEbtrkDiT7hHvlTqNATkV2gH1x9LNlmT3KRwmUWK8l4rMhD2ce3ET6YfhMtmafevMGwcMXGU+llHxAo3SzpJXgNea96SDicbflPxuFoJ4YUzM/anMHZ8uRIYFqmHcRFLIHimp4AYfrqBUGmY+c2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786500633; c=relaxed/simple;
-	bh=QkDLnRgsLRCquLKe4QaoNaUQYkAy+Lx7zcgIMOaU/MM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R6MeqesTy8T4IGfQ/A1g45fwRS+zGxQahAa9qsV8BX6+SEsYGvf+8X8Hy0GokLIPk5GTgzHdKedd/Aq4bTOcPMfhwOLX0ujdN4MO5U7StRQUmr26K/N218HJF0l8weLX6CkbLAFFhzp2JLR5h0BgEHsqAtaVrAN796Fl8woUNXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwJidioN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786500638; c=relaxed/simple;
+	bh=ID3odt6xwl1iROEkBBhNGpjLb8nmkJwgJTJozDfgNHc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DmQ5bc93HKzHenPYUXo+powDF/du0YVLB+aaH0gt6EQtOQ2xH3BuiMGwrUc40Lt+Qlgh8cGrRbD4X/MaQHI8nGxr6bJGdUjGeBJoA5URXPs/ERpDCBbisbNiTNi3RN8IhZ0uQ5ra6aBVG6fAsyDMZud/npl0GrjBHgGSrdVSyc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X2ztoFFu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwJidioN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3938B1F000E9;
-	Wed, 12 Aug 2026 02:10:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X2ztoFFu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5A91F000E9;
+	Wed, 12 Aug 2026 02:10:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786500629;
-	bh=9XJnyGJ4HQVKO9XJH2HMEL5s85BNPIjN2Bkizao3rDk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZwJidioNc3yxCdsSANz9LqQ3yqmariiWZP6r0y+Vw9ylurL6P+1BVbElWx+D1l4Lu
-	 JUz53R+OUmqtuaFLgUdJZoIZ/20HOWS+59YjQCcqczO1qy9fUXPoGHKkNtkybITfWd
-	 +nwFeAxW8CbS1D2Ah/wFI2/UDTy0xMoqzuS2+I0bA80eNG7f2vXYskVeBKrcSNzwCk
-	 1T5fuX6fhykCZJJPWGi7FsWH4PfEsDxr6GDIgCH6vx5Tg/Zl/u7qEl9v9Lj3BTqpyo
-	 VoWYsH3/7VW/1uytq8KBdTerRDVSNENNWPcpVxNiMX8/TJA52TEys82U6qzO9Bbtmb
-	 9wpFZLRDA1FDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 03/11] reset: realtek: Add RTD1625 reset controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260812020009.3480538-4-eleanor.lin@realtek.com>
-References: <20260812020009.3480538-1-eleanor.lin@realtek.com>
- <20260812020009.3480538-4-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 02:10:28 +0000
-Message-Id: <20260812021029.3938B1F000E9@smtp.kernel.org>
+	s=k20260515; t=1786500635;
+	bh=M7QfH0+UvDU6sg/jtKuoOvQ2Jpx7EZQIa7/CaXc1l3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X2ztoFFuvA5U3SZH+2aA5EHNQ7erbn7Oe47P0InpJeIR2FCqroL7tuAJQ5v3QNl5R
+	 Odkf9kzDUxgpOisUbdvtHmhABCJPJIBVXmI7MANV95CpTaHgrGrvT0ijGqvWu984h/
+	 RH2U7wvb9tvEBtpMKxOGCDQNYrLMy/lwvsIvP4f8AtzhT63ZPPgL299mwFV42e5CgD
+	 nRBVV0bsvhkUINI78XOHt6jUOpooxb/ItXB54ay1ik23KtIUW3mejpoHBcKWnhvQNI
+	 vLb0sZBJWjMqiJ0FQm6zyUi7feuv3yK1mk0cg84GGnIJGxiFVI/a6dNodbAWcDMcze
+	 /EE93H4H7WILw==
+Date: Tue, 11 Aug 2026 21:10:34 -0500
+From: Rob Herring <robh@kernel.org>
+To: Danila Tikhonov <danila@mainlining.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Kate Hsuan <hpa@redhat.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Eugene Lepshy <fekz115@gmail.com>,
+	Vasiliy Doylov <neko@altlinux.org>,
+	Achill Gilgenast <achill@achill.org>,
+	Luca Weiss <luca.weiss@fairphone.com>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH 1/4] dt-bindings: media: i2c: Add Sony IMX471 CMOS Image
+ Sensor
+Message-ID: <20260812021034.GA537738-robh@kernel.org>
+References: <20260805-imx471-v1-0-7be79f539ed8@mainlining.org>
+ <20260805-imx471-v1-1-7be79f539ed8@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805-imx471-v1-1-7be79f539ed8@mainlining.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing validation of `dev_get_platdata()` return value, leading=
- to a potential NULL pointer dereference in reset operations.
---
-
---- Patch [3]: [PATCH v13 03/11] reset: realtek: Add RTD1625 reset controll=
-er driver ---
-commit 789f70d6384140bb43211f942b168ac28816b10c
-Author: Cheng-Yu Lee <cylee12@realtek.com>
-
-reset: realtek: Add RTD1625 reset controller driver
-
-This commit adds support for the CRT and ISO domain reset controller on
-the Realtek RTD1625 SoC. The reset driver is implemented as an auxiliary
-driver to handle shared register space with the clock controller.
-
-> diff --git a/drivers/reset/realtek/reset-rtd1625.c b/drivers/reset/realte=
-k/reset-rtd1625.c
+On Wed, Aug 05, 2026 at 10:54:24PM +0300, Danila Tikhonov wrote:
+> Document the Sony IMX471 CMOS Image Sensor.
+> 
+> Signed-off-by: Danila Tikhonov <danila@mainlining.org>
+> ---
+>  .../devicetree/bindings/media/i2c/sony,imx471.yaml | 123 +++++++++++++++++++++
+>  1 file changed, 123 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml
 > new file mode 100644
-> index 0000000000000..479b3a94d2b5a
+> index 000000000000..9c6c7c55746f
 > --- /dev/null
-> +++ b/drivers/reset/realtek/reset-rtd1625.c
-
-[ ... ]
-
-> +static int rtd1625_reset_probe(struct auxiliary_device *adev,
-> +			       const struct auxiliary_device_id *id)
-> +{
-> +	const struct rtd1625_reset_info *info;
-> +	struct device *dev =3D &adev->dev;
-> +	struct rtk_reset_data *data;
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml
+> @@ -0,0 +1,123 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/sony,imx471.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
+> +title: Sony IMX471 CMOS Image Sensor
 > +
-> +	info =3D (const struct rtd1625_reset_info *)id->driver_data;
+> +maintainers:
+> +  - Danila Tikhonov <danila@mainlining.org>
 > +
-> +	data->descs           =3D info->descs;
-> +	data->regmap          =3D dev_get_platdata(dev);
-
-[Severity: Medium]
-Should there be a check to ensure dev_get_platdata() does not return NULL?
-
-If the parent clock controller driver fails to populate the platform data
-for the auxiliary device before adding it to the auxiliary bus, this could
-lead to a NULL pointer being assigned to data->regmap. This might result
-in a kernel panic during later reset operations (such as assert or deassert)
-when the regmap is dereferenced by rtk_reset_ops.
-
-> +	data->rcdev.owner     =3D THIS_MODULE;
-> +	data->rcdev.nr_resets =3D info->nr_resets;
-> +	data->rcdev.ops       =3D &rtk_reset_ops;
-> +	data->rcdev.dev       =3D dev;
-> +	data->rcdev.of_node   =3D dev->of_node;
+> +description: |-
+> +  The Sony IMX471 is a diagonal 5.822 mm (Type 1/3.09) 16-megapixel
+> +  back-illuminated stacked CMOS active pixel image sensor with a 4656 x 3496
+> +  active pixel array and 1.0 um square pixels. It uses a Quad Bayer color filter
+> +  array, is programmable through an I2C interface, and outputs image data
+> +  through MIPI CSI-2.
 > +
-> +	return devm_reset_controller_register(dev, &data->rcdev);
-> +}
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: sony,imx471
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: External input clock (19.2 MHz)
+> +    maxItems: 1
+> +
+> +  vana-supply:
+> +    description: Analog power supply (2.8 V)
+> +
+> +  vdig-supply:
+> +    description: Digital core power supply (1.05 V)
+> +
+> +  vif-supply:
+> +    description: I/O interface power supply (1.8 V)
+> +
+> +  reset-gpios:
+> +    description: Sensor reset (XCLR) GPIO
+> +    maxItems: 1
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          data-lanes:
+> +            items:
+> +              - const: 1
+> +              - const: 2
+> +              - const: 3
+> +              - const: 4
+> +
+> +          link-frequencies:
+> +            maxItems: 1
+> +            items:
+> +              const: 200000000
+> +
+> +        required:
+> +          - data-lanes
+> +          - link-frequencies
+> +
+> +    required:
+> +      - endpoint
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - vana-supply
+> +  - vdig-supply
+> +  - vif-supply
+> +  - port
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,camcc-sc7280.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        camf_imx471: camera@1a {
 
-[ ... ]
+Drop unused labels.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812020009.3480=
-538-1-eleanor.lin@realtek.com?part=3D3
+> +            compatible = "sony,imx471";
+> +            reg = <0x1a>;
+> +
+> +            vana-supply = <&vreg_camf_vana_2p8>;
+> +            vdig-supply = <&vreg_camf_vdig_1p1>;
+> +            vif-supply = <&vreg_cam_vio_1p8>;
+> +
+> +            clocks = <&camcc CAM_CC_MCLK0_CLK>;
+> +            assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
+> +            assigned-clock-rates = <19200000>;
+> +
+> +            reset-gpios = <&tlmm 20 GPIO_ACTIVE_LOW>;
+> +            pinctrl-0 = <&cam_mclk0_default>;
+> +            pinctrl-names = "default";
+> +
+> +            orientation = <0>;
+> +            rotation = <270>;
+> +
+> +            port {
+> +                camera_imx471_ep: endpoint {
+> +                    data-lanes = <1 2 3 4>;
+> +                    link-frequencies = /bits/ 64 <200000000>;
+> +                    remote-endpoint = <&csiphy0_ep>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> 
+> -- 
+> 2.55.0
+> 
