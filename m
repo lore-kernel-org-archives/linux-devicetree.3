@@ -1,71 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E63332610;
-	Wed, 12 Aug 2026 13:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E344C4F0
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786541286; cv=none; b=XVHY6gsP0j6zJ6BTDSDNPpXdWEPmLTKhSQKkRcG0kdZuJF0yp/C+JTSpCxGzs9D/FzJ1xJdcTlYnSpRs3baHV5fzsrwtwAZ3yZH62HHo+26r/9oRr/jg5OMIPfcIi3zwi/rUdjtkTpc/wpy6aBtBHrlc+xRXju0RGLUpH6K+86M=
+	t=1786541294; cv=none; b=mPP1S1twVNJwo31x/K9ogqogktuOsiTg/RPdVEiFE6WcD2S2w9SK7HJT2a5gHhGqLMD8cGZYZwzmxhw0g8Ritdtw3B3MeDZynwvlpvNdaIRGj24cHe/t6OsE50SVUVu66DI695Syunp3kq9Y+Zer2UTDjAWd3bR1TCYnYQoS2bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786541286; c=relaxed/simple;
-	bh=9RSNJeUWXvmI7haFzvrgMWYH2faOYGZxcHAIPIRNSnA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qXkMXxlsiH+SOTeT34AmIM/pKdgDWWGlH4LmKlSKMYCt4CIZfvIbhByu851Gr4bsvDBcxzfej1ZoOA65ro3ydtRlVLH3NgMIzCDRPR4j6X4rjJQZrXJyZxgX1uaaznrfzrRyxDnV/a8SzovWE8qn825B1SXtbELHdsT2dhGVVcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMwHz1Ci; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786541294; c=relaxed/simple;
+	bh=Jh5wY+u3V7MIGQ3+qn12frIPWOUTacrPWbaM8jJim1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EXlG8VOq422p6wthZI0ieVH0x8A542k8MjL9F65kR5zGC36U7AKT618i4pn5sNiCiNv5GbVDPosnKjuT/vw5yoHO8aTtBnAkOceXKH73x1Lg1ujwxZOBnxTP/GQjZ68LmAm8Iqs/TrQkxhKxkYfodl+iho3EXT9on44uZCh4Y18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kc4CrHJU; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMwHz1Ci"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6A41F000E9;
-	Wed, 12 Aug 2026 13:27:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786541281;
-	bh=iP7J+rxq0cba/p7N7r8telvnSXwkH9gP5QzM6KxZEmg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gMwHz1CigRVWYGCEaYaVjobBjz/ckq3F9khPklRmJMKZXGJvc6CfrsyBd+lsIDoyg
-	 tx0v6O31THd8pfc6tSvYlVv9s4U4cDpxjLUbH/ngnY99YsxDaNnrJXiGGplGvcnUSh
-	 WKu5Alsaxawit21bccwwVi3WX3PbCxkZcl3hBC2CmuzEpwH3dhCw4JJzvNImj1zafw
-	 oNEbUJW1gLZvSRZZS48lK8SPZoOJzuvJ71MqKqxmovTo+X+DGcE0hOTEfRLQDPIOfj
-	 A0BI8KPAyopjBwwIu+i0eizRCV9t4HN2fcr7Obb8rKEyYqD0Lgx1NW7yYYX77RKBCj
-	 W7ZAnaj1qjR3g==
-Date: Wed, 12 Aug 2026 14:27:55 +0100
-From: Lee Jones <lee@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rudraksha Gupta <guptarud@gmail.com>,
-	devnull+guptarud.gmail.com@kernel.org, andersson@kernel.org,
-	broonie@kernel.org, conor+dt@kernel.org, conor.dooley@microchip.com,
-	david@ixit.cz, devicetree@vger.kernel.org,
-	konrad.dybcio@oss.qualcomm.com, konradybcio@kernel.org,
-	krzk+dt@kernel.org, lgirdwood@gmail.com,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org, pavel@kernel.org,
-	phone-devel@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH v6 0/3] Samsung Expressatt: Camera Flash
-Message-ID: <20260812132755.GT1072730@google.com>
-References: <20260527-expressatt_camera_flash-v6-0-de0f150024e4@gmail.com>
- <73033a32-4efe-4ed2-9319-ffb205d28719@gmail.com>
- <CAD++jLkc953WROweQ0=BVRmyOMUdqx68XSS3VoBmqfyzbGeCdw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kc4CrHJU"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-495590dde14so11906025e9.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 06:28:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786541289; x=1787146089; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nV9YBKtsEulfVjfXfwXT5cEXH+7jiV0CfcyyBTJ0j6E=;
+        b=kc4CrHJU5NNHrrCfQkswJHFmU0CdgqOvdro10qqQQZkqc+lmUvysLVOW+LJVH2Upa7
+         MnN4x5Svk77w1qlqB7fANp31Z1Z5zsEqOA3E6LS4MrmSUK+JoAM4lTgVSHcEwUBBcHvy
+         CEeynzCARdOc+BoyeIuwfBaXeHAg8JPgTbLVONaKWNvba4wadVogvbnMuj55Aemx8G1p
+         CkqwWNWxozD1HbngCoW+UOvNDVyLZ5Q3gxWbIgW7K9ZGS8L2eZ1Tn/huahgT0IjYIWj8
+         s/aSN2TzZKb/P9lDiY88yvUC4S8hq3ahAWBqywcbx/UNtH8Y6TdGm5C+bBsRl2HpPARN
+         btLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786541289; x=1787146089;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nV9YBKtsEulfVjfXfwXT5cEXH+7jiV0CfcyyBTJ0j6E=;
+        b=aEzdU3GV7iVvUOshAC+98ZHRapc12KmCT0PWbIczKzdMxWNWxePDlIHkLS1ae950T9
+         7CCgg5WpuOA8bxrIBEd0UOIa/4E36o66HOgEWPuwAMEGO8+XIaPSVrxno/DKSVn/mrQy
+         hHfQ+s12H01MEcok+2rKdH0Jf6w5PVGD5bGiSJ8PPSfE2rC4AvZCZymGqLlIlWV088FX
+         XdfVcIZckoA1B6FXqR4Fl15SgCa9MrXX2tpA/sw2PyH6m//mBjxO2N0Gza8Vc1Mw5XA0
+         HdcFc/6bQ3WQtfT1TRbHzaQkB/uURN0DEvKJpkU7rHnAANNlCLwCNYUsrIynVlnZpsLd
+         hE7A==
+X-Forwarded-Encrypted: i=1; AHgh+RoFZqJ81cAbBP354Woyf4X1P7X8Zs4lRaWj786PTr24TsI8na/k7kKVDbXGXOXKPjUsLp+ClMYaAFsg@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDwcE/SkdcWH4SYwtpX3ycwN1q1MzcWrNEN6g93RvrIT4jzoPC
+	pIEnfOneT3hVEUz2RFtzU/ZiRwCqBaWciDgONkvrGsRtRUDucDqzeF+M
+X-Gm-Gg: AR+sD12X5Ua5TUDd0HBhRB9Ggc4CvAAICCA0Jew4CB9FsR28qU88GvyPGDCavBwK1kw
+	A4KOyQjIajQZIPU/+aOd4GwnDf0wrdXKIwxM2ZBH3RUNM3OaGfy8JT8ABwufUcYAEHLG1U3Rc3o
+	TcT6czL80W3gSgRmuE97DkHq4I/+RQnnEJZtf6evzjtI0HLVWJM/gqudiBpKrBX2eMfIGrBSq2i
+	DWIFNpWMYH76eIT7rhABJv8wSKotZegioPHKPlZCYc9bZnrUy3Wb041cKz/NPCcFiZq4VXPfeVh
+	IgAp/Rgq0Nt5EMqNUbNeKqZLnNxkZHVHP7myvry7vLfu+dMPAb56Hv2z57PFu4qu99pfpsiRw+H
+	EpeK+fdBDoBZqDKeMBAQlYqaGURRuFHIv6gTJ3CPuWryS11haSeaJRLWopBpaabvwPn5MW2b2+a
+	zaWfm/TVSWmmlYYbe44OwfPY8Hjca6Uk5++OIB7IuT5oLNzdt4mBfamdQk0RofWgKql06yGFzV1
+	l4dPgwRAravLHRgB09TK2xpufYcG9E0WHWJ3coX
+X-Received: by 2002:a05:600d:8494:10b0:499:5282:f8d1 with SMTP id 5b1f17b1804b1-4997c13bf0cmr53031495e9.12.1786541288777;
+        Wed, 12 Aug 2026 06:28:08 -0700 (PDT)
+Received: from localhost.localdomain.pl ([89.151.31.85])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997abf917csm87818995e9.13.2026.08.12.06.28.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 06:28:07 -0700 (PDT)
+From: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	bcm-kernel-feedback-list@broadcom.com,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Semih Baskan <strst.gs@gmail.com>
+Subject: [PATCH V3 1/4 net] net: dsa: b53: deal with Northstar devices using CPU port 5 or 7
+Date: Wed, 12 Aug 2026 15:27:52 +0200
+Message-ID: <20260812132755.32585-1-zajec5@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLkc953WROweQ0=BVRmyOMUdqx68XSS3VoBmqfyzbGeCdw@mail.gmail.com>
 
-On Wed, 12 Aug 2026, Linus Walleij wrote:
+From: Rafał Miłecki <rafal@milecki.pl>
 
-> On Tue, Aug 11, 2026 at 11:31 AM Rudraksha Gupta <guptarud@gmail.com> wrote:
-> 
-> > https://lore.kernel.org/all/20260527-expressatt_camera_flash-v6-0-de0f150024e4@gmail.com/#t
-> >
-> > This series seems to have fallen in between the cracks. Should I resend
-> > this patch series?
-> 
-> Let's just gently poke Lee about it and see what he says.
+Northstar devices have 3 CPU ports. Ports 5 and 7 may be used but have
+their limitations. Warn user when CPU port 8 isn't used and add EAP
+setup workaround to avoid non-functional standalone ports.
 
-Sorry, it had slipped through.  Please submit a [RESEND].
+Fixes: 4227ea91e265 ("net: dsa: b53: prevent standalone from trying to forward to other ports")
+Cc: Semih Baskan <strst.gs@gmail.com>
+Signed-off-by: Rafał Miłecki <rafal@milecki.pl>
+Tested-by: Semih Baskan <strst.gs@gmail.com>
+---
+This fixes a regression so it's a net.git material
 
+V2: Print warning on switch setup instead of on actual EAP mode change
+V3: Proper subject prefix & shorter comments (long one comes with 2/2)
+
+ drivers/net/dsa/b53/b53_common.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+index 3f5b9592794d..5fd8362d0430 100644
+--- a/drivers/net/dsa/b53/b53_common.c
++++ b/drivers/net/dsa/b53/b53_common.c
+@@ -332,6 +332,14 @@ static void b53_set_eap_mode(struct b53_device *dev, int port, int mode)
+ {
+ 	u64 eap_conf;
+ 
++	/*
++	 * On Northstar setting EAP_MODE_SIMPLIFIED with CPU port 5/7 breaks
++	 * standalone ports, see:
++	 * https://lore.kernel.org/netdev/ce4d9b7b-aaf6-4796-94fb-8c3d6a1dcd4d@gmail.com/
++	 */
++	if (is5301x(dev) && !dsa_is_cpu_port(dev->ds, B53_CPU_PORT))
++		return;
++
+ 	if (is5325(dev) || is5365(dev) || dev->chip_id == BCM5389_DEVICE_ID)
+ 		return;
+ 
+@@ -1281,6 +1289,10 @@ static int b53_setup(struct dsa_switch *ds)
+ 	u16 pvid;
+ 	int ret;
+ 
++	/* Discourage users from using port 5 or 7 due to limited features */
++	if (is5301x(dev) && !dsa_is_cpu_port(dev->ds, B53_CPU_PORT))
++		dev_warn(dev->dev, "switch to CPU port 8 to use all switch features\n");
++
+ 	/* Request bridge PVID untagged when DSA_TAG_PROTO_NONE is set
+ 	 * which forces the CPU port to be tagged in all VLANs.
+ 	 */
 -- 
-Lee Jones
+2.51.0
+
