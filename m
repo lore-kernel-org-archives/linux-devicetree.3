@@ -1,147 +1,206 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011071.outbound.protection.outlook.com [40.107.130.71])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086AB349B1C;
-	Wed, 12 Aug 2026 09:13:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786525989; cv=fail; b=KKETLJQgpKWuQEK61rx/WGdUEU8HHlCWhCcNrdZ5asA4ZWolaY8/OcB0u+rzIBgIzlW18LglqQfupb2RCH8C1H67N8cL4KB6c82jr/ipUAQFcOSr086aqRpo4HXvOz+xIlP95ue64gBKDUV3NCFCxxwdEU0q4Nmi+FQZ6Zb7/24=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786525989; c=relaxed/simple;
-	bh=hR6pcZkIGHyUTxkt7Hx5EM+OzKe/tEUiEn1qxnMB6o0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BCcVvS4Vvuq+Ag0ysEDQgCHOTz9L0H5oZo6dVMMC4pTzd7OdsvOb+Y6faFELSVD1km9Z2noqDeJ+hl20/T8pFoHuC5vTF8D97NpdJsq9BNPIHph2ieowYQx5AreHAsEJveHal1xYy+4+wudwYgOfY542DM0rqrjuKZzYBTmS6hM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=k0RJgCHk; arc=fail smtp.client-ip=40.107.130.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FA73F0AB7;
+	Wed, 12 Aug 2026 09:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786526221; cv=none; b=e4uVuPVJTdKgTU3TLjzfQZIRM7gayHolqQ4sXOLvmbOZZuJGNkEzkb1bQMQuMTTk4gLIAOcVtS2BtsH00Vc0uL/5J2mf3DP+8xpcbL1vBtMsrLGBxoztQ2Wv7g/DFQSkWgcaas27WAMpnGvngBPVoWYmnT9NMlVotzdwadFPIgk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786526221; c=relaxed/simple;
+	bh=52nIbc4C8IUH3GWFN/KqlchQG7sfho9mcq9xNbqX5+s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PnQGBDMEJ051yIpBe5GCz1PlnpUjRrjoM0QgPSQ4MpRatueKYwP1kGaaZU7oj60EBt0uOBZFm7rAyCJbq/0LeAprKhq/3v1lDiLSqrOW+35kSDLgDz4OlPEpRLPvyaX+slfUaCKpjiKElEHxa1iww176OBjYKTrRk5zrX0KycfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=4D0qkhwQ; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="k0RJgCHk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I3eO6V2LlSAmFcjE9I+PvBC0EEGviHtlINGrYFdbqPM8bNppjJskOxd5P9Tvo3OygAjbM9I9nLRFZsQzFv5EcJzBAp049vppxliXWqcMrlDW+LSImL7Blc8T7s9DGRKg8WnBgIqLBaM9nYKkFfRBtM1RCmNnvUYdybcvF2WJH6QXbJ/SLCYNdFw9F05Gx1OjzajK2f/kZkqmGMTB3cKoEWCQLhZYKuki+MbIXPiWtJvHKYjloGIXwlx0rHQQRymOf2HccWfvna+g58rfjwNHIqbCObEeMfDr+hDjB4bvmXZwxG2nhY0Q6vJhWJrKSguFMBqJDdEAPKw1LfffpGLfmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x+WdBCWsBsUc58o3sxhmDZoSeuNDFxGwmreDlnlmfHo=;
- b=MLDsTpHcp8Hd/kKLqT10tUFdgzu/zuh6e9lOXaQJA6mXv/JyBzD10HCGKU/kqLF7C01NCTk3Dnb/PO81BNO9sjh6xZEdUs+nFceilJDu3mv4fAGh6dPSkalYxwIU5YTvI0RoqEoiLK+ZFw6NyyBMEhwp7G1PH8vpx3xZX5xe4EtRunG7eqdNsQddTmUsoskrXbTwiS1PKPG7upTNnchswszw51IwBBP7nEO9C58B8HNdRVENhOrIlM8wjeiaXLvHUn3ctWDeidKMDi0C1PUlGP71X0MaQl2PwuwWVjADkuvnktLLCqEJ5U1PsUdD3zjDmBnGUfaP7C4RUDxRnlphZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=lunn.ch smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x+WdBCWsBsUc58o3sxhmDZoSeuNDFxGwmreDlnlmfHo=;
- b=k0RJgCHkb1NXfZFZaulMCXbHuTFYQNau4efv0+MenWork88MedPnuYKBdeGnSgVHzmyaulXxI8gvw8WbPyQxI3iGpoGl/NNDl7WlpepMrRFC9jEoZ48X/cqiHUzKwWmrUMVPw8Eh9wPMlHN92LafK0U3P8fKYXpOKbGE2HILLLB9fimzsgqktKPCmdazoRh96FsGZcCU1wik/rPjGKN6OPty+8OEP8I8iw/LHwdmcrR15vWxSWNWRE1e0RFJ9tTam144Viu0QlQGGaX6r8QLdQ7F2cVWMoOLwa15Y59gDUE/KpBwiI42Op7nwMqCMg3TS9BtoNZYdflbM0F7AvdrGA==
-Received: from DU6P191CA0041.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:53f::21)
- by AS2PR10MB7251.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:608::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
- 2026 09:12:59 +0000
-Received: from DU2PEPF00028D01.eurprd03.prod.outlook.com
- (2603:10a6:10:53f:cafe::46) by DU6P191CA0041.outlook.office365.com
- (2603:10a6:10:53f::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.13 via Frontend Transport; Wed,
- 12 Aug 2026 09:12:59 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D01.mail.protection.outlook.com (10.167.242.185) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 09:12:58 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 12 Aug
- 2026 11:17:54 +0200
-Received: from localhost (10.252.2.245) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 12 Aug
- 2026 11:12:58 +0200
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	"Alexandre Torgue" <alexandre.torgue@foss.st.com>, <linusw@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, Christophe Roullier
-	<christophe.roullier@foss.st.com>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [net-next,PATCH v2 5/5] arm64: dts: st: increase deassert of PHY reset in stm32mp257f-ev1
-Date: Wed, 12 Aug 2026 11:11:22 +0200
-Message-ID: <20260812091122.566439-6-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260812091122.566439-1-christophe.roullier@foss.st.com>
-References: <20260812091122.566439-1-christophe.roullier@foss.st.com>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="4D0qkhwQ"
+Message-ID: <87321252-e974-47be-8f93-2adccb0b136e@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1786526215;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ON4yX+Syw+jUtr/PaTXfaOXt9C8DXWZkJkHSUgV/U1I=;
+	b=4D0qkhwQbpUK+GI/5Xv4UGBGxycC1R2eoVDXyp/KPpUAnNfxlwz2HOKzpH+cqBpywUyzYF
+	fcE4ROXvn9TAS+ZWGWuIylNRTghUhAfiXYbHogCxDiT8CijH1FRLyNfkhrHLBTOPNoLloy
+	NhQDA6knNs8wWPr8gtBb8keN48bZRuc=
+Date: Wed, 12 Aug 2026 11:16:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH 1/2] dt-bindings: nvme: Add apple,t8132-nvme-ans2
+ compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Yureka Lilian <yureka@cyberchaos.dev>, Rob Herring <robh@kernel.org>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org
+References: <20260811-apple-nvme-t8132-v1-0-865be32e42c3@cyberchaos.dev>
+ <20260811-apple-nvme-t8132-v1-1-865be32e42c3@cyberchaos.dev>
+ <20260811231121.GA271810-robh@kernel.org>
+ <cf6f4732-1122-4381-962d-e18b32ac178d@cyberchaos.dev>
+ <1e4b3f04-7367-4651-9cdd-5c95e92e5874@kernel.org>
+Content-Language: en-US
+From: Yureka Lilian <yureka@cyberchaos.dev>
+In-Reply-To: <1e4b3f04-7367-4651-9cdd-5c95e92e5874@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D01:EE_|AS2PR10MB7251:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91d525a0-53a7-4154-0eff-08def851e73b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|36860700016|1800799024|82310400026|921020|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	H92n/3BUHujvpAwgNKFsi1XwVM5Gcp9Mo3nninbbEjVIMNdQiURO1WZe7OglWwJcNeGzlYrq3En3s92TsnfTmwIEgRLi43qK0WvBc821gHHjZgXuU4XEiaz2PsB0SZbZaPT1Rno41x6u41lWZvaBRBgnxqcn1OYpsYJ7V8bwFFdZAdEZWZaISkTABKjkWCVIUGBompwnp5KYWTly1i9qopV5qYWuLjim3Cn3wp2wCi0543t0TWH8pQZLe1K6mIqm4+DX3nkHoZTpHwJMTvoIal/5OR3CmTrOOR82ljU9W+7HYM3fe7bvgV+9TTd5yo8+nvsnrXemBMRI6/qgcmy2MdpJcjQ3i3rqz4Edu3udWwZm4ATTB5vRxlU0mjH+dQ7t5Uv4Qe4CNf6xRwreQXlFElZ1u5//6X3JizKb0qw0qj4EACbZdPP+n1HFPWm4iXKI+of+GaG2hdvcYtUm3VLjY6pQmwvpl6CMSQz5TKbn2LuCF3K2/rKjioVTtqgQ7uW0FKOPaPcDTCdi3yXYlktmybH5t5buhq8JCa22rGSlT5t1E18ElCjjRH0Bln1O9EzDBJ/vF3Vwf1f66kM7HLMVebnPJg64fy44klS/42JJlNwb5bm7F+APltnEkTr+vo67Sdlq3dyWsVTTJ0A0W4x6un5Oxnx7VliY31OmQhbPpaLWoB8oJo4Q1jeXE2os03CQ81xQI+Xf7qQ5Mu2udP3Stu44bC72S7VbVQu2HHvWp7agAYuZgA2r4SkaWaCdddTm
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(36860700016)(1800799024)(82310400026)(921020)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HDiflqcjmSzra3opQBNjTevrb3ya0Cn1pyx1FW6HdCLRFnz6tpARJDxBQkTUyr5/ziXkOd3SNFahymmymj+dOX5jlWOMrBNaJPcgjTqcI89E6HUWsCA8foJHmu73k/6q+oesG/lllxH2NV4GlYYu5o3PvFvFSXfv3IpUA0mIK6n5ZrOzPhHh4nvWmhUQBVGvw7AC/G4XUk/AfRVsmac554KXdJqNDpOkxOAj+AN51HOT+DK6X7RmqD6mEf9nnR744Z9v5aKL6op724rXoUYRTUP0PRQT0eN8reXfeTA6M+6veBLxH2TKGrKrNjXYoi1dgmZQSDfyHZx8mUvSdztrzm+ZX3ZWD87s0qPOnHD/OTAZaIKpBqUsks50c+KAcyAfZIv682MgFzfTUZD79k2NzSqLA0gO3rOHtNuu2MZyE67tbdOXQlbCEhTaRojbLft8
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 09:12:58.7480
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91d525a0-53a7-4154-0eff-08def851e73b
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D01.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7251
 
-The RTL8211F has a PHYRSTB pin to reset the chip.
-For a complete PHY reset, this pin must be asserted low for
-at least 10ms for the internal regulator.
-Wait for at least 80ms (for internal circuits setting time) before
-accessing the PHY register.
-All registers will return to default values after a hardware reset
 
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
----
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 8/12/26 10:46, Krzysztof Kozlowski wrote:
+> On 12/08/2026 10:08, Yureka Lilian wrote:
+>> Thank you for the quick feedback!
+>>
+>> On 8/12/26 01:11, Rob Herring wrote:
+>>> On Tue, Aug 11, 2026 at 10:49:47PM +0200, Yureka Lilian wrote:
+>>>> Add a new base compatible for the ANS2 NVMe on the Apple t8132 (M4) SoC,
+>>>> which uses a separate MMIO base for its NVMMU.
+>>>>
+>>>> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+>>>> ---
+>>>>    .../devicetree/bindings/nvme/apple,nvme-ans.yaml   | 77 ++++++++++++++--------
+>>>>    1 file changed, 48 insertions(+), 29 deletions(-)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml b/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
+>>>> index 4c0b1f90aff8..c8a41b268b9c 100644
+>>>> --- a/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
+>>>> +++ b/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
+>>>> @@ -16,6 +16,7 @@ properties:
+>>>>          - items:
+>>>>              - const: apple,t6020-nvme-ans2
+>>>>              - const: apple,t8103-nvme-ans2
+>>>> +      - const: apple,t8132-nvme-ans2
+>>>>          - items:
+>>>>              - enum:
+>>>>                  # Do not add additional SoC to this list.
+>>>> @@ -24,16 +25,6 @@ properties:
+>>>>                  - apple,t6000-nvme-ans2
+>>>>              - const: apple,nvme-ans2
+>>>>    
+>>>> -  reg:
+>>>> -    items:
+>>>> -      - description: NVMe and NVMMU registers
+>>>> -      - description: ANS2 co-processor control registers
+>>>> -
+>>>> -  reg-names:
+>>>> -    items:
+>>>> -      - const: nvme
+>>>> -      - const: ans
+>>>> -
+>>> Keep properties defined at the top level. More below.
+>>>
+>>>>      resets:
+>>>>        maxItems: 1
+>>>>    
+>>>> @@ -68,25 +59,53 @@ properties:
+>>>>    
+>>>>          The SART address filter is documented in iommu/apple,sart.yaml.
+>>>>    
+>>>> -if:
+>>>> -  properties:
+>>>> -    compatible:
+>>>> -      contains:
+>>>> -        enum:
+>>>> -          - apple,t6000-nvme-ans2
+>>>> -          - apple,t6020-nvme-ans2
+>>>> -then:
+>>>> -  properties:
+>>>> -    power-domains:
+>>>> -      minItems: 3
+>>>> -    power-domain-names:
+>>>> -      minItems: 3
+>>>> -else:
+>>>> -  properties:
+>>>> -    power-domains:
+>>>> -      maxItems: 2
+>>>> -    power-domain-names:
+>>>> -      maxItems: 2
+>>>> +allOf:
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            const: apple,t8132-nvme-ans2
+>>>> +    then:
+>>>> +      properties:
+>>>> +        reg:
+>>>> +          items:
+>>>> +            - description: NVMMU registers
+>>>> +            - description: NVMe registers
+>>>> +            - description: ANS2 co-processor control registers
+>>>> +        reg-names:
+>>>> +          items:
+>>>> +            - const: nvmmu
+>>>> +            - const: nvme
+>>>> +            - const: ans
+>>> New entries go on the end.
+>> Ack
+>>> So nvmmu last and defined at the top level.
+>> I did read the docs which said the properties should always be
+>> introduced at the top-level, however I couldn't figure out how to
+>> describe the intended constraints in this way.
+>>> Then this is just 'minItems: 3'
+>>>
+>>>> +    else:
+>>>> +      properties:
+>>>> +        reg:
+>>>> +          items:
+>>>> +            - description: NVMe and NVMMU registers
+>>>> +            - description: ANS2 co-processor control registers
+>>>> +        reg-names:
+>>>> +          items:
+>>>> +            - const: nvme
+>>>> +            - const: ans
+>>> And 'maxItems: 2' on these 2.
+>> When the three items are defined at the top-level, I can't seem to make
+>> the dtbs_check work:
+>>
+>> [...]
+>> arch/arm64/boot/dts/apple/t8112-j413.dtb: nvme@27bcc0000
+>> (apple,t8112-nvme-ans2): reg: [[2, 2076966912, 0, 262144], [2,
+>> 2000683008, 0, 16384]] is too short
+>>       from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
+>> arch/arm64/boot/dts/apple/t8112-j413.dtb: nvme@27bcc0000
+>> (apple,t8112-nvme-ans2): reg-names: ['nvme', 'ans'] is too short
+>>       from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
+>> [...]
+>>
+>> despite this compatible falling into the "... else ... maxItems: 2" branch
+>>
+>> Would it be acceptable to define the reg and reg-names with just
+>> minItems: 2, maxItems: 3, but without specific items or descriptions,
+>> and then add the compatible-specific items and descriptions in the
+>> conditional part below?
+> No, because you do workaround for your own introduced problem. If you
+> list the entries in top level in correct order, then everything will
+> work fine with Rob's answer/comment.
+>
+> This is your case:
+> https://elixir.bootlin.com/linux/v6.11-rc6/source/Documentation/devicetree/bindings/ufs/samsung,exynos-ufs.yaml#L39
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 14e033f365e39..a41ab55aa8cb5 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -247,7 +247,7 @@ phy0_eth2: ethernet-phy@1 {
- 			compatible = "ethernet-phy-id001c.c916";
- 			reg = <1>;
- 			reset-assert-us = <10000>;
--			reset-deassert-us = <300>;
-+			reset-deassert-us = <80000>;
- 			reset-gpios = <&gpiog 6 GPIO_ACTIVE_LOW>;
- 		};
- 	};
--- 
-2.43.0
+I had them in the correct order (nvmmu last), but was missing the 
+minItems: 2 in the top-level. Problem solved.
+
+>
+> This is not your case:
+> https://elixir.bootlin.com/linux/v6.11-rc6/source/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml#L127
+> Unless you provide arguments why it is.
+>
+> Best regards,
+> Krzysztof
+
+
+Thanks for the patience,
+
+- Yureka
 
