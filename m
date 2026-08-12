@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6518411F88
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 22:15:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0617140F72D
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 22:15:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786572904; cv=none; b=PaeM+75PNlM9Pi53tSA3yEa3YXaFqh01vdqpRm0Pj0H+QblO3+ty7C5es9QtY2eXo0SQn5R8GSuZhEWhxCI/uL9M3r6x/zZrfxWrlZ4SFlmjfk/ZRtoVN4mMjZSUFtKR3TK/VSHEl8TsN0JSHN3LZzl1A8yS0NDOyWeRI9tUSAI=
+	t=1786572907; cv=none; b=bIQvtx+tT6HkTzh9jtJrhlqec2dhaX9wGaAPJX20MhOaGonz/rSGM0uTVSuTAoDaMT0BcV2X5hC8CR8Jk/F27xQz3PaIbb2VB+fVJGtmVV9umdp/m1jeOF25Y0pBee2u9nqs9EPNB1aCLeICXfvPuWk0Nrj0vg4zCdaCYSQtky4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786572904; c=relaxed/simple;
-	bh=mkOUZQIiv5m2PPc4SpTo8b8PYIAxEkmFwh9ZytxPBtA=;
+	s=arc-20240116; t=1786572907; c=relaxed/simple;
+	bh=AmkERV0qmgxrxwIzbusC+6ga0afCxPkt2phD04RgKyA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NbNFpBSe9XN5Ac/UlIYl6yuZDU89jrCuvOsSFCCrkufOo3EoVLxvnLCxhvF4MlsvAVQfUg+iu2Jp5IKZl1t8CljUfwc0PrI8PaPmVKLwF//c4Qs7XSsGTIk6LIc0Ywh1SnWGs/jESgIXaXJHgz3imNMyKj1sdibmp8FFxb6C4IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H6W72Lrh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=AUqubssv0RoqWCjAVJhQw4pa5hskKW3/rOdXsxC1qydO2s48AbnJQioNWeZmrzw5QQ3wGgkOyVWJLG53RIkvmGu2fWloLVeoLpD7i+DT58cPt8qiKtyIv0q9a5NkPXFvH7+naDMS4swkylVsB9nsYgpE42Il/RCJ94Qi+d46DTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRMY8AUn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H6W72Lrh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE291F000E9;
-	Wed, 12 Aug 2026 22:15:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRMY8AUn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBD561F00A3A;
+	Wed, 12 Aug 2026 22:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786572902;
-	bh=geJG+8Pa12U4TCaWMIBgX/dJEUjhsFHIEf3UVirUea4=;
+	s=k20260515; t=1786572903;
+	bh=jrrik79CeaAgZZr8J+Sqb8S/NvAPGGe1OaJwSc/M4hg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H6W72Lrhy/Im111yUUEbIWyECjR5e4mzcehK4yh40gjDL2rnCQFNgBL8e3AO788nj
-	 orXdPnSoUF7nhEkLpQDW41NmpElg7pbPyZ3kG0aIoOPU/K92fsAESXqkMXZU5eUMEr
-	 U8mFfHDQmiaLWlthzQANCQJMVCWYzWxvjUTOLDtueZODbvgc2yo2mgSzlEo25xLig7
-	 jy+y2hwZI2tUSLgRH1eqQU3oQQ9ygrnFpBKVNsMiBeNRoVpVvPa6Uc2i5gxKjQdMYz
-	 AJ6ugx3/SgFsoyfid1Yl5jgueHfnAiGEr1g5/BKYBF2GnXkzOznX5dqfKnz/E8ps/3
-	 5tqRfUYlnqoSw==
+	b=KRMY8AUn4zv8Ksv/zAMDTqLSnVZCtz0qV2EM7dQnsU6uSVzshj735jibd53F3+M98
+	 4s7wiqo0Y7nn4/WyZyXpk5EIeP4cW2rEXYaaoBYl65tnP7ljq6b1OTBqte5nnSmY/a
+	 PlpBUOm6UYK/QGauKeuejUlz5/TqUXZ1sEFrJXBRnX3+uz6zPhzqWmE1uBXp8c4rbj
+	 25LF44EwIpht/dEnmGek6Ks5jES18ETGEmzlvXjf6pxoS+JJ0liKLFZBSzu4mL/IkN
+	 eRatjCTSlKabqwBXXtZlJ/uoD91SqQPQTDjDQcjh1nPZoV6WF7hvTqWS/2DUYfQszk
+	 RICU4W+OnBo2Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/6] nfc: s3fwrn5: drop of_match_ptr() from the I2C
- driver
+Subject: Re: [PATCH v5 6/6] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260811220135.472380-2-jorijnvdgraaf@catcrafts.net>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
 References: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net>
- <20260811220135.472380-2-jorijnvdgraaf@catcrafts.net>
+ <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 22:15:01 +0000
-Message-Id: <20260812221501.EEE291F000E9@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 22:15:02 +0000
+Message-Id: <20260812221502.CBD561F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,58 +46,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Preexisting endianness bug in S3FWRN5 firmware packet length parsi=
-ng and construction, leading to wrong length values on big-endian architect=
-ures.
+- [Low] Missing pinctrl state for the `wake-gpios` pin (`gpio7`).
 --
 
---- Patch [1]: [PATCH v5 1/6] nfc: s3fwrn5: drop of_match_ptr() from the I2=
-C driver ---
-commit 5cffdb84b592ca672d62f53d2f736890c7d61164
+--- Patch [6]: [PATCH v5 6/6] arm64: dts: qcom: milos-fairphone-fp6: Add NF=
+C ---
+commit c9c7cf311411882808cc647f75e1e16f476acbf7
 Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 
-nfc: s3fwrn5: drop of_match_ptr() from the I2C driver
+arm64: dts: qcom: milos-fairphone-fp6: Add NFC
 
-This commit drops of_match_ptr() from the I2C driver to ensure the same
-code is used across all configurations. The OF match table now relies on
-MODULE_DEVICE_TABLE() to count as used.
+This commit adds the Samsung S3NRN4V NCI NFC controller on i2c1 to the
+milos-fairphone-fp6 device tree. It configures the controller's clock, power
+supply, and GPIO lines.
 
-> diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
-> index 4ba7626117118..cb73993446e09 100644
-> --- a/drivers/nfc/s3fwrn5/i2c.c
-> +++ b/drivers/nfc/s3fwrn5/i2c.c
-
+> diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm6=
+4/boot/dts/qcom/milos-fairphone-fp6.dts
+> index ebdca0e2d2f3a..bdba848275db4 100644
+> --- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> +++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
 [ ... ]
+> @@ -601,9 +601,22 @@ &gcc {
+>  };
+> =20
+>  &i2c1 {
+>  	status =3D "okay";
+> +
+> +	nfc@27 {
+> +		compatible =3D "samsung,s3nrn4v";
+> +		reg =3D <0x27>;
+> +
+> +		interrupts-extended =3D <&tlmm 31 IRQ_TYPE_EDGE_RISING>;
+> +		en-gpios =3D <&tlmm 56 GPIO_ACTIVE_HIGH>;
+> +		wake-gpios =3D <&tlmm 7 GPIO_ACTIVE_HIGH>;
+> +		clocks =3D <&rpmhcc RPMH_LN_BB_CLK2>;
+> +
+> +		pvdd-supply =3D <&vreg_l20b>;
+> +
+> +		pinctrl-0 =3D <&nfc_default>;
+> +		pinctrl-names =3D "default";
+> +	};
+>  };
+[ ... ]
+> @@ -825,6 +838,22 @@ &tlmm {
+>  			       <13 1>, /* NC */
+>  			       <63 2>; /* WLAN UART */
+> =20
+> +	nfc_default: nfc-default-state {
+> +		irq-pins {
+> +			pins =3D "gpio31";
+> +			function =3D "gpio";
+> +			drive-strength =3D <2>;
+> +			bias-disable;
+> +		};
+> +
+> +		pd-pins {
+> +			pins =3D "gpio56";
+> +			function =3D "gpio";
+> +			drive-strength =3D <2>;
+> +			bias-pull-up;
+> +		};
+> +	};
 
-> @@ -219,7 +219,7 @@ MODULE_DEVICE_TABLE(of, of_s3fwrn5_i2c_match);
->  static struct i2c_driver s3fwrn5_i2c_driver =3D {
->  	.driver =3D {
->  		.name =3D S3FWRN5_I2C_DRIVER_NAME,
-> -		.of_match_table =3D of_match_ptr(of_s3fwrn5_i2c_match),
-> +		.of_match_table =3D of_s3fwrn5_i2c_match,
->  	},
->  	.probe =3D s3fwrn5_i2c_probe,
->  	.remove =3D s3fwrn5_i2c_remove,
+[Severity: Low]
+Should the pad configuration for gpio7 (used for wake-gpios) be included in
+this pinctrl state?
 
-[Severity: High]
-This is a pre-existing issue, but does s3fwrn5_i2c_read() parse the firmware
-header length correctly on big-endian systems?
-
-Earlier in drivers/nfc/s3fwrn5/i2c.c:s3fwrn5_i2c_read():
-
-	data_len =3D (phy->common.mode =3D=3D S3FWRN5_MODE_NCI) ?
-		((struct nci_ctrl_hdr *)hdr)->plen :
-		((struct s3fwrn5_fw_header *)hdr)->len;
-
-Because struct s3fwrn5_fw_header defines len as a __u16, reading it directly
-from the packet without endianness conversion like le16_to_cpu() swaps the
-bytes on big-endian architectures.=20
-
-Can this lead to allocating an incorrectly sized skb and breaking firmware
-communication on these systems?
+The nfc@27 node defines wake-gpios on gpio7, but nfc_default only configures
+the drive strength and bias for gpio31 (irq) and gpio56 (pd/en). This leaves
+the wake-gpios pad configuration to hardware defaults or the bootloader sta=
+te.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811220135.4723=
-80-1-jorijnvdgraaf@catcrafts.net?part=3D1
+80-1-jorijnvdgraaf@catcrafts.net?part=3D6
