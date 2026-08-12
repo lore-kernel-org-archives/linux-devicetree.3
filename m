@@ -1,267 +1,314 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010015.outbound.protection.outlook.com [52.101.84.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB7C468C22;
-	Wed, 12 Aug 2026 14:20:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786544436; cv=fail; b=BKAV6Gr9WaDbsuSuqe4w3Jw1Dl99fSV50G1//WBLqZYwXTw4thyHpcLOLp3jFvwfoVUHEH6WXOZyz9CWZD1iA/jFJE2DONrvf2GJs2abdWkTrwHWzRsqajnvL6sb+ez/29f+MaBz1Q6EqL9eVhcmfD1O7izGBFAI0OF4rb5bI2A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786544436; c=relaxed/simple;
-	bh=r9iSmuvZAUZy6KNXfCAW0R+wbsqJYrAUm+VuOPmthKQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=EzyK4ZfCH5iZJAycWDLkcw4UrUQhbqMFMJWk5DmfTORsNBBmdpUEYsV02aBFRa6mwx6U/WX1QepE/+iRrVVSAgPTpt2Jd4tQS5z2iZg6KEd+2m0BDTonRYr1xICU2/8OhTlGykZLF0SF2ceBCJMeur3f4jGrVXek/csbHOUC390=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gVmwqn/m; arc=fail smtp.client-ip=52.101.84.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9D1357CE0
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 14:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786544976; cv=none; b=Bg5tcxlGwJhiBlWufHIiCX75RP00NyqLuN5W4pjMAB7Cp960zP5wb7okegJ50LS7aPdV3E4ItQ5eJPEGrDowwZ6DN7Z/wlhZd4/YFqSos3R4JLKkLujYt4zgv+YHSirsKKkRtiNpdUWjflyU246PlrPFol4AeSSzCJd1eWwxyX0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786544976; c=relaxed/simple;
+	bh=l1y/hP/v8YjYLSBjz4kCY8PWRHPRi2EvnVME0qPzVts=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=sFWwlqz86FoVRUf0ogsbQa8bzF7YGVZ7q/W4nYe3p99NiKVA6lG8h6yIP2nKNhzsunpxscuLR4fcs4SGmtEVOmk/pqgzkuZGt1m4/zvfu34/VlnZW/BS0mHepfg2iicDi+KjLU96raAqlB6I018an3YrFloqNNLQzZ3+R7kdJ9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ET5x3qNl; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gVmwqn/m"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UdMFGXYaeMiz54Lkc8/G7pmRFgOp6YPoqG4hkd3X8wNiSb8boKveCGrbfaXiWd+kMZC/CSny0snGp7ta8V7ulUgmdavuelMcfeYIr8d3m0fU0pW2UGpX/yfDSm1/23fDCce8vOUwyXMLh9Rt6i4GDugXebWWHLtYG66hhnP8u9kJRMBVWBJejwE2eP1y3Cp0FOKv/lsM2n25RQPN7BvV/n12/2XNxX8fD1BH2zFa6IIo5iwwF5Oj2OBXdy0PAnIUHk5Jgki5Yzu4wmRuJ9ui1DAKUpKgxzv3P6s9CVupgJtM8nHxnz+AxKgOu0WmEZ6WVn4f4RwLjy21UD0QnWjvPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=An4zeuydARqKnZALFmdBlJulO67EiBLBol4gK5VRiKg=;
- b=tDNIpEz59RiXB49be+mek9roPtpCgPxNJ51cY6Ah/cUmJrQUMUYadepoYniYR9mkkXdax2W4TlPNBIyBDtgbUcffNm7y6Mc4rTj/Cy3osW8XlI9Te+h9ZbEhZD+TR8Z+506/eir+uQjfsMQdzaBbjIYE2qdda5f3pyoXR15x3Xxm31rrYrOv4h9nUiBJqk5fxmTTndhOT0Vp0SuLzN7lT+WMpMBxfWMfoTNMuSiS/rC9/2fhe0EvB7fM3+zgBdJJ9W4ok949X0X5Jc22yWT6UKzvgX9ZcdK4mFmDwK9Z6QRmnVlGIPf1I+GcStesNO0xJ9I9E6bwuqBvx6hlMfkiSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=An4zeuydARqKnZALFmdBlJulO67EiBLBol4gK5VRiKg=;
- b=gVmwqn/msOikpfTwSCso/stG4wbLmLvnPwgoV0R5HfIXtfnMUvo2nFNEFfk46+U9ldHfsafUPPkwapwD/8Q9ue0JKH0xaYm7crETZb1jmZrGuxQekZPXAcD+CxEYdKlIPWN9H+ij7O8qlUWD6QRuy1TrmwlIue3prQAtE6r2XDreqB3R4Pt1ATVrwHaVoi2HMIGomD8+F1eYeEgOV3mhHFKrPUEp7gFUxQ0LdAWfj8Aoz0NBmICneWsHGSje9oKNHP8S1R/eB6VCSsrIRc7fyQqKYmQTmUfj2naLGXPvw9nQO8jL2oBtw8MVA2P8izKpqOdQziUYA6M5f4/SJzpSqA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM0PR04MB6978.eurprd04.prod.outlook.com (2603:10a6:208:17d::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Wed, 12 Aug
- 2026 14:20:31 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
- 14:20:31 +0000
-Date: Wed, 12 Aug 2026 09:20:20 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Message-ID: <anyBJMt6U2zXKlCh@SMW015318>
-References: <20260812132954.148571-1-francesco@dolcini.it>
- <20260812132954.148571-3-francesco@dolcini.it>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812132954.148571-3-francesco@dolcini.it>
-X-ClientProxiedBy: PH7PR10CA0007.namprd10.prod.outlook.com
- (2603:10b6:510:23d::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ET5x3qNl"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a173ad7cf4so1737760a12.3
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:29:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1786544973; x=1787149773; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1+cbmPdbcBrwM/0lJhhHJdcg2osH6Rj2q1mNv8GJOas=;
+        b=ET5x3qNl7AyrgggaxBGpQm++Y2A/Ko9FvqrbQ+s/4cq8mjkHKG8cvSGBRpabarMH7S
+         76++7K+ZyUSmDDE3wJnXvRfmCW/eousr2U1bZ/8H+6m7+eJBznwmnfyj6cQmwyCS4rMb
+         tqcNAzbURFNAXOjeWlaWa3iMetDWd4Ommzkxc4X8Ah+y9OPrAIuwRdSem1a/2mD9+x4E
+         mNjhkeOLtScXKJmpDqk/d5NEDHFteaiwTkwHt1Of2qeWXEk5GUzlY6E8jZ/j6CQqPSJu
+         KdGjaOSYRQrRoOakPGOTZw9osC9xUKryyjrAOyImHDC/MDJFLov6Iu4zVxitIFCssrza
+         7x8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786544973; x=1787149773;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1+cbmPdbcBrwM/0lJhhHJdcg2osH6Rj2q1mNv8GJOas=;
+        b=HHm4A3CTiM7DJ6fddDuI0ismwHZhfx9Ts1lq3hv3TYbtE3ijdTxYbYYugEi3ScIHf1
+         zOrv9NNTCFrBgJo16wRLCBpCHqwyKqyzAv7n0av1AZpBg+p8b0NY3zb4h6iWrSStqJ2D
+         BrbaB8bmdwznezs9yT0oQwJFPJpI5Ra7ni+0ZrCbPhzrYWWBeO8krW8DFs8kNw7Y8Rn7
+         e5Txcq7oOpqsSdaYUSij5cIHZHEZ0hdPwNr9MO8VgJD9h408G5/iJ7Zokf1BMTUkpHea
+         yHv/JshtL7/jtvvyj0VKsr4E+XHtDgKhYjalbi30iXIv73Rz+ZwwH+AsvfG1q+whObrJ
+         MAGA==
+X-Forwarded-Encrypted: i=1; AHgh+RrvrUMOikSHF6Jtmiw4MdfsJNCIAlx9UoFDnkuupM+davun5kcYiYnXhvsCiWQp/o4Hh2JOK2T0H6OF@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQHzaYHa+Buwbtc8Kcjn7+kA2+Sy+sWvMFEOMu6UeMXTiiMGPD
+	wuE/SKdJ44NViCzgIdfDFQK1tYBUetxdq425Mqh1k5zAEEVowshTDUrpoWZd3d0aqcg=
+X-Gm-Gg: AR+sD132hMAP0VQ7IAuRZMgoOgqqkekQ21Mwuo1SPvZ2AQW9h0aahHkKyAI2zMViNt8
+	78s2AZU9e1a9C/2kasTebBIzERGXgxjoacgK8m+MiGcpl+DMliZ7OR2wgQDD7kT8youlh3hRJUJ
+	b4QXFt6tu6pR88q0aTPgy68zN8aqOs42GYD+K5ay2lCJIqdQRBHBryl0P3Em5n3Klsdnba6nGIx
+	hOu7yPkGqqEXECdOGS4R7cpJmGsuyJLf7PpQvN/IsSDfhJs0AyJRVMOFEHIccUhrEaDzBMME2Qe
+	xwoblFgsKKkRIvXJVWLNAn1gj7La71B3ZawSgVu1H3MwKp06olOYTxofPqYUp5L9SUaYxptquPT
+	ud5HFGzftN73CVszb7Eafi2qjUFeSS4GlnwpEsXaOOi/1TgChhdRvD8lNXAXT/iuybhvco4sl0u
+	HmGyJlfmShZv8MVtu0TqsWRAEzya8LznHMO5oRcbUhIWgTqZekHNFJRUFk/cjxYuIgPXs5nn84N
+	HBg4eUKR7MBomO4tXHYKGdh5jCDp1tEKvoM5V6RLnsk
+X-Received: by 2002:a05:6402:504c:b0:698:8847:e2f8 with SMTP id 4fb4d7f45d1cf-6a375f37606mr2110314a12.15.1786544972353;
+        Wed, 12 Aug 2026 07:29:32 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:405d:735d:801e:de34? ([2a01:e0a:106d:1080:405d:735d:801e:de34])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3768b8f76sm793147a12.7.2026.08.12.07.29.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 07:29:31 -0700 (PDT)
+Message-ID: <58dd571c-502f-4f06-b648-4692f86817db@linaro.org>
+Date: Wed, 12 Aug 2026 16:29:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6978:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7b74a6d-892b-4640-7183-08def87cddb8
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|7416014|23010399003|376014|1800799024|22082099003|18002099003|11063799006|4143699003|10067099003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	oA56ete6xLyhz9RXXKEm3LJSk6rv+IywT7Q8+0pk3dUZ7ANTc5FFU/HtYM14S1wqq8SNOa8BLg09P0plSifpaa0KZnnYEMzG+FgmeaionX7FpT3jl9YpVBqayoRqG1T7AGmZ131Y/FBS/QmnfLa+63wJNXbCyad/sojMpqxwEud29QtRL6L6GZ18cseTxAyoDIGGwllEMyiAgnWsg9t1/jNkRFixlOemf3AumQCHWf32DQuPALl7OXJKnYojyZKy++tylTUBjIccXtHeJQle3EYDn8l73VXCKUaccIJ/WeGQeARigA23yWxmooOztGCUtSd7cW6/aTBNnxjkqkB7XtTs3wWgXVqc5R9nbxaoNwVjrMrY1r1peqQ5STGXOsnhVIULFo5XSZjg0o2PwegoRqxP0GP++/85MT4eKKSxH82RSXmnw+euFRPmmBKY8UhQX2MR1wQPmqn+wQ58EQprSfCWxq/023kz2BdXEDWGARxhlotSq+parWaxBS6DOgw0/l5/Kzit9uo0qu2WDmh8I4ws4ooiaJftZnxahBse7gdhBy9UXNUHJnzbdOWbs6PqWDiguc3eD2It64Ca/05s10dpBjtl54sFwmwGE8s0P9EgMpa8j4GrSonOA1YGfx7Pt/dF0ouZ+GJGsrLJNKcqpdYDUjiyHQGcYPNEuJvb1Gw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(10067099003)(56012099006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ZLvgR4RgqAB2Bkf4O6inC4uRbfrGE5kd9UP9Fwtp2U3xr2e7Il10Ckop8XzK?=
- =?us-ascii?Q?o9pGq30y2XLAbVfN7s5eNawOTcd5ykY8dqkbx7imlMbbeAEWJavTzWQtL7aN?=
- =?us-ascii?Q?SctEOnSvyWMujCaDVs33P+YDhPqIgnPX37OginC/fgCazmHjlYJmoNx9b5vE?=
- =?us-ascii?Q?lXc1F+qj4oS6lB8j9SQtPjbgBT4gBlgQ2YygtsILfoQ/VTxhyTTVM9CZ2rG6?=
- =?us-ascii?Q?uRCaRMlBUNFefVk48sccgtJZsLZhfJhcqWQAYahjTe1igenP2CSLFj+5uD8T?=
- =?us-ascii?Q?7SQBOoG4C6TNLk+RHGQkDB+yxCu2uoRRPq3QwLpK+O53NatvtqaLwthdIDSm?=
- =?us-ascii?Q?aU67CPTZgyd7G1KaPxDuiubKRu+YEbgEW47/kQkxlgjbzZDtdjPkgZvbS0Fn?=
- =?us-ascii?Q?xrSPH3u4BjhAHHwswwPLE8pFv7gTCirIVS7qybGtYZf7SeETweOcZY1s8NkI?=
- =?us-ascii?Q?mDaGielD3YfbMUxbP1EfnAr/3DV5rGpiab3KwKdHpmY0lGSdOJnF21e2rRKV?=
- =?us-ascii?Q?GLIBOZ6aQq/JQPTEBgvEXnl58HKf/teqfSBrLVqY74GCFbq2cOfJLdC6uqCT?=
- =?us-ascii?Q?WOIkS5u+Rdy0hg4wyGSIfySFr3z0Z7WdOuH3Ig4m+wyQeppXFkjU/df8DpHh?=
- =?us-ascii?Q?tukwboLTyFI9UWqhk3TSUAJbmVM4Is7pFtni1e8i/oeC9T6vL9xtGWKtwtQo?=
- =?us-ascii?Q?f0v1X1rRf2GRFAEsbJIuQxXB3H8fGubrbWl8G8h3midpkiK9ZEVNMa+lsUm7?=
- =?us-ascii?Q?1iwJQEl+FI+Jc7PlbZPnM+iGG2PnGiFHm9s807VnUcxrTkzH7fshWngrpqwv?=
- =?us-ascii?Q?IX+nRjqnl7wi/SfFPYywEJzImPEjP/Hnjby6TsTSCThEAcPqKu4WlKrD4AnK?=
- =?us-ascii?Q?wPryiUPCoyngBw+DzP6LqzCZPh5siPWk1aaIbPES2LmgQVTGn9NzB2go8R+V?=
- =?us-ascii?Q?tc6vUPGsvXBvsJd0DkyAp3m+9IhkE5Gv2tiy1L+BfGn2bnNms7N2W6xBqfQx?=
- =?us-ascii?Q?t+Vrr9SZIgzSsyWxjOc49x+z5SYZpuAaIjWnGabQaL8tj0ckzQYomjcUupqd?=
- =?us-ascii?Q?dPz6yaF+tE+XHMMyfDu2tWlSBFJT31dLKtGDh6QmqeYrvIreEFERygQESw83?=
- =?us-ascii?Q?I8fsBswKZICLIumVIRL1eF9IwWAHa94ax2PzWVR8JiYtEykLZXT0Boq7uQuW?=
- =?us-ascii?Q?5uvK7kjnK0W8Mj/I48Xi6lhQJJ3E2G1r09B9ie54BsoNZiczraxJTroq+ZDN?=
- =?us-ascii?Q?JLCqmcEAI+8Vnm0Zd2jBUkQAl+Ql6z7MHZviAOf/75miYuTDkVJ0FXfr80d1?=
- =?us-ascii?Q?CDs78ObV17duaxB49m1N9YBOhB6tmzuIqOTg8v1yv1ks+F+UM6AMBW2PLB9A?=
- =?us-ascii?Q?U0UwYqwHUUq2iDzYBTLN0mMC1TsvMVkF6wMqzHX3LdM5XQs3M9yeIXEu8KSC?=
- =?us-ascii?Q?aX/PxLaWsR+rM8eYuU8YG9fGAX+Wvlk2LqeB9WjhVw7GqtdEb9YI27Fmpyeo?=
- =?us-ascii?Q?8dnqjbz1dia8Cym4EHjlKhx9egyr4DXlUHyqogvFvfYwTyqYgYV/k2thGVR1?=
- =?us-ascii?Q?MILbHspsVGu1Btk74Wg730qPoDHkfZHDOwIpeEifnzFD/0lvj8ZiL2TgY4mu?=
- =?us-ascii?Q?nyDJ7V1nJxYAbhzGsp7vuZa3pFbLmEWDa+aPD3YtByPpBBb0iF0XPSljJRqW?=
- =?us-ascii?Q?PdEMTfrq8ERwBHqazMlMSeXcy7VX1Rvjj8CxXMTlp5xwDpEaCjNmA30/nPzA?=
- =?us-ascii?Q?UhiqXMLmWZmVZT9Npsr1ZUcL0F45n1K0uN9tStesgy4hYamFBrma?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7b74a6d-892b-4640-7183-08def87cddb8
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 14:20:31.5845
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 44WUBCeUJNrRwfQ9aMEf0K/agW4SfbA/PQK/lt2QBg+ES6+QLU1ZdhaiA4D2TFACjiGOU1yOA0Ay7NNlAXgxyRyD3oDAbYymG+7jWUQErNphTXTONgxe4/T/pGUuqEqQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6978
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
+ NT37703
+To: David Heidelberg <david@ixit.cz>, Esteban Urrutia <esteuwu@proton.me>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
+ <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
+ <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
+ <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
+ <7097b617-90be-492d-9637-4a2a101379e0@ixit.cz>
+ <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
+ <803e354d-55b9-4904-a4a0-9eeefa0c6ffd@ixit.cz>
+ <19e120fc-4b60-4188-86d8-cb3705a5fd33@linaro.org>
+ <e2b1c037-fd3a-4c0a-912f-fccc2c5ab843@ixit.cz>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <e2b1c037-fd3a-4c0a-912f-fccc2c5ab843@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 12, 2026 at 03:29:50PM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
->
-> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> format reported by the downstream panel or bridge describes the display
-> input, but it does not describe how the LCDIF data pins are physically
-> wired on the board.
->
-> These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> 24-bit display by wiring the available color bits to the corresponding
-> display inputs. In that case, using the display's 24-bit format to
-> configure LCDIF selects the wrong data-bus mode and changes the assignment
-> of color bits on the LCD_DATA pins.
->
-> Read the optional bus-width endpoint property from the LCDIF output port
-> and use it to select the media bus format used to configure LCDIF. This
-> allows the LCDIF bus mode to describe the physical interface
-> independently of the downstream display format.
->
-> When the optional property is absent, or it has an invalid value, continue
-> using the format reported by the downstream display device, preserving
-> the existing behavior. The code is not validating the DT for
-> correctness and just fall back to the previous behavior in case of
-> errors.
->
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> ---
+On 8/12/26 14:53, David Heidelberg wrote:
+> On 12/08/2026 14:22, Neil Armstrong wrote:
+>> On 8/12/26 14:15, David Heidelberg wrote:
+>>> On 12/08/2026 13:52, Neil Armstrong wrote:
+>>>> On 8/12/26 10:46, David Heidelberg wrote:
+>>>>> On 12/08/2026 07:21, Esteban Urrutia wrote:
+>>>>>> On 8/11/26 9:05 AM, David Heidelberg wrote:
+>>>>>>> Hi Esteban,
+>>>>>>>
+>>>>>>> Usually the used pattern is vendor,ddic+panel-model
+>>>>>>>
+>>>>>>> novatek,nt37703-motorola-bronco
+>>>>>>>
+>>>>>>> ...but motorola bronco isn't the model of the panel.
+>>>>>>>
+>>>>>>> My recommendation - look at some video of screen replacement, stop at moment
+>>>>>>> when FLEX cable from panel is visible and that's where the panel model usually is.
+>>>>>>
+>>>>>>
+>>>>>> I somewhat doubt the panel model would be located in the FPC cable.
+>>>>>> I did search anyway but didn't find anything of interest. And I'm not
+>>>>>> willing to risk damaging the display flex or the battery of my
+>>>>>> development device just for a possibility either.
+>>>>>
+>>>>> No-one asks you to disassemble the device :)
+>>>>> Sadly, I haven't found any video doing display replacement either.
+>>>>> In worst case such as this I assume it make sense keep the phone model in the compatible until panel codename is found.
+>>>>>
+>>>>>> For the compatible pattern I used the implemented pattern for the
+>>>>>> NT36523 TDDI, which is also used for other ICs such as the RM69380.
+>>>>>>
+>>>>>> So, I believe it should be okay to leave the compatible as is.
+>>>>>
+>>>>> I would like to hear a word from Neil first. In similar cases like this would make sense to have one way defining these compatible strings used in phones.
+>>>>>
+>>>>>
+>>>>> bit I missed in the review the part:
+>>>>>
+>>>>> +            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
+>>>>>
+>>>>> Unless the driver is able to auto-detect the connected panel (unlikely), novatek,nt37703 doesn't make sense. The DDIC without the panel is useless.
+>>>>>
+>>>>> For example, in sdm845-oneplus-fajita and enchilada, we have the generic compatible because it was introduced before, so it's kept for compatibility reasons. There is no need to do that here.
+>>>>
+>>>> Yeah today the norm is to add the ddic as second compatible entry so the first compatible just describes the pane, so here it should be:
+>>>>
+>>>> compatible = "motorola,bronco-tianma-v2", "novatek,nt37703";
+>>>
+>>> So let's me present a situation which can happen, let say I'll be upstreaming:
+>>>
+>>> DDIC (novatek,nt37700) + panel (samsung,amb630qy).
+>>>
+>>> For the example I choose samsung,amb630qy because here the panel has phone model in it, which avoids the possible issue I'll be describing with this schema.
+>>>
+>>> Vendor can pair this panel with different DDIC. Thus it would be
+>>>
+>>> compatible = "samsung,amb630qy", "novatek,nt37700"; // new one
+>>> compatible = "samsung,amb630qy", "novatek,nt37703"; // existing
+>>>
+>>> The reality the driver picks only the first compatible, and that's all causing to load wrong driver now.
+>>
+>> No, the core will pick the first compatible that matches, so...
+>>
+>>>
+>>> Solution here would be differentiate between
+>>>
+>>> a) DDIC + panel
+>>> b) module name (consisting DDIC + panel).
+>>>
+>>> We could say module is motorola,bronco-tianma-v2 and contains [ DDIC + unknown panel ], which doesn't even have to be mentioned in device-tree.
+>>>
+>>> While it may seems I overthinking, in this case it doesn't matter that much, I already have patchsets for DDIC which can be combined with three types of panels (and using different schema) and I would like to have good solution for longterm contributions and development.
+>>
+>> ... in theory we could have:
+>>
+>> compatible = "samsung,amb630qy", "novatek,nt37700"; // new one
+>> compatible = "samsung,amb630qy", "novatek,nt37703"; // existing
+>>
+>> and drivers would only have:
+>>
+>> "novatek,nt37700"
+>>
+>> and
+>>
+>> "novatek,nt37703"
+>>
+>> as compatible and then a separate match table with :
+>>
+>> "samsung,amb630qy" and "samsung,amb630qy" which associates with the panel data.
+>>
+>> If it doesn't match, return -ENODEV and it would work like before,
+>>
+>> I mean it's valid, it's a matter of implementation, if the same module can have
+>> different DDIC then it should be described like that.
+>>
+>> In this case, the bindings should be for the module and not for the DDIC.
+> 
+> Definitely make sense in the context. This would mean I'll need to adapt my patchset to-be-sent :)
+> 
+> Btw the disccusion slowly mentally gets me closer to the Camera module model, where you have multiple components such as
+> 
+> module (sunny-XY) -> camera (sony,imx519)
+>                    -> focus (dongwoon,dw9714)
+>                    -> OIS
+>                    -> fixed components as optics
+> 
+> where as we have here only
+> 
+> "module" (motorola-bronco-tianma-v2) -> DDIC (nt37703)
+>                                              ↕
+>                                       -> panel (unknown)
+>                                       -> touchscreen (sometimes, depend on the
+>                                                       phone build)
+> 
+> Sometimes init sequences and stuff depends on each other, thus touchscreen is part of the module in some cases.
+> 
+> Would it make sense to somehow model this into DT?
+> 
+> Since we doing all the stuff in the panel node, it could be something like
+> 
+> display@0 {
+>      compatible = "novatek,nt37703"; // first thing we interact with here
+>      module = "motorola-bronco-tianma-v2"; // DDIC driver picks the module data
+> 
+>      vddio-supply = "...";
+>      backlight = <&pmi8998_wled>;
+>      ...
+> 
+>      // I already have combination where two panels has different supplies
+>      // Samsung S9 vs Pixel 3 XL. One wiring is over DDIC it seems, second
+>      // directly to the panel
+>      panel { // REAL panel node
+>          compatible = "samsung,ams622xy" // maybe as a docs?
+>          vddneg-supply = <&lab>;
+>          vddpos-supply = <&ibb>;
+>      }
+> }
+> 
+> Just dumping my brain, feel free to ignore if it's complete nonsense.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Ultimately, we should describe everything, if we can, most of the time we
+can't as we don't have the DDIC and only timings and a bunch of DSI
+commands. So we need to keep the good ol' model for a while.
 
-> v3: improve commit message and make it clear that the code assumes that
->     the DT is correct, when the DT contains an invalid property value,
->     the code safely fall-back to the previous behavior
-> v2: use the common bus-width property instead of the legacy interface-pix-fmt
-> ---
->  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
->  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
->  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
->  3 files changed, 38 insertions(+)
->
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> index 8b4a500347fb..f8ecc8bbd63c 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> @@ -12,7 +12,10 @@
->  #include <linux/clk.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/io.h>
-> +#include <linux/media-bus-format.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_graph.h>
->  #include <linux/platform_device.h>
->  #include <linux/property.h>
->  #include <linux/pm_runtime.h>
-> @@ -211,7 +214,10 @@ static int mxsfb_load(struct drm_device *drm,
->  		      const struct mxsfb_devdata *devdata)
->  {
->  	struct platform_device *pdev = to_platform_device(drm->dev);
-> +	struct device_node *np = pdev->dev.of_node;
->  	struct mxsfb_drm_private *mxsfb;
-> +	struct device_node *ep;
-> +	u32 bus_width = 0;
->  	int ret;
->
->  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
-> @@ -238,6 +244,24 @@ static int mxsfb_load(struct drm_device *drm,
->  	if (IS_ERR(mxsfb->clk_disp_axi))
->  		mxsfb->clk_disp_axi = NULL;
->
-> +	ep = of_graph_get_next_endpoint(np, NULL);
-> +	if (ep) {
-> +		of_property_read_u32(ep, "bus-width", &bus_width);
-> +		of_node_put(ep);
-> +	}
-> +
-> +	switch (bus_width) {
-> +	case 16:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
-> +		break;
-> +	case 18:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
-> +		break;
-> +	case 24:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-> +		break;
-> +	}
-> +
->  	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> index d160d921b25f..bdc47ce5be79 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
->  	struct drm_connector		*connector;
->  	struct drm_bridge		*bridge;
->
-> +	u32				bus_format;
-> +
->  	bool				crc_active;
->  };
->
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> index d8ebebc5314b..1d78c486d147 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> @@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
->  	if (!bus_format)
->  		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
->
-> +	/*
-> +	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
-> +	 * property when available. Otherwise, use the bus format reported by
-> +	 * the downstream bridge or panel.
-> +	 *
-> +	 * This supports mismatched display and interface bus widths, such as
-> +	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
-> +	 * panel connected through a 24-bit interface.
-> +	 */
-> +	if (mxsfb->bus_format)
-> +		bus_format = mxsfb->bus_format;
-> +
->  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
->
->  	/* Write cur_buf as well to avoid an initial corrupt frame */
-> --
-> 2.47.3
->
->
+But yeah perhaps it would nice to experiment and implement a full DDIC
+support modeled as a DRM bridge which has a panel subnode handled by
+a panel-simple with only the panel resources (timings, regulators,
+backlight regulator if not handled by DDIC).
+
+Feel free to experiment and throw some RFC so we can discuss.
+
+BTW I'll be hosting 2 BoFs about modern supports of DRM panels at the next
+Linux Plumbers and Embedded Linux Conferences in Prague, and this is one
+of the subject I'll speak about.
+
+Neil
+
+> 
+> 
+> David
+> 
+> 
+> 
+>>
+>> Neil
+>>
+>>>
+>>> What do you think?
+>>> David
+>>>
+>>>
+>>>>
+>>>> Neil
+>>>>
+>>>>>
+>>>>> Thanks
+>>>>> David
+>>>>>
+>>>>>>
+>>>>>>> David Heidelberg
+>>>>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>> Esteban
+>>>>>>
+>>>>
+>>>
+>>
+> 
+
