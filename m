@@ -1,127 +1,115 @@
-Received: from mail-m15574.qiye.163.com (mail-m15574.qiye.163.com [101.71.155.74])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F092438B7BD;
-	Wed, 12 Aug 2026 03:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2126B242D72;
+	Wed, 12 Aug 2026 04:01:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786505945; cv=none; b=NhBNswKwKvmnwG/kIITdffORUXucTw1phLI137SV616xTzbEdy2rTqSX3yURknDC6OvRX9iLxtrPB7Z7o2SGpw80C/3rNieWaZsg+jr+8GOoDnyXqrif6wTQHhNq7IiHpuMLLw3sOvoRmAuLIwOEer1E9M08mCugwzstSQ5pWGU=
+	t=1786507284; cv=none; b=KJTi8QR1uljl+6CHJRlhSIeb9/U773Q3aGUHi0QJdr0y295NRn3wImox9TP0PNaqk7zcIiOMpMaVlMJQ90Ln2gB/ej1jseHSO2cVyi1kBq1cqilMyPNE1fwSBRfW0weC+i8WI1nmaUmWKP+kPgKeSjzQRjiKZvpadioOsfaM5D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786505945; c=relaxed/simple;
-	bh=LTaBk9f3msJO6Xsstu4uZkU2+x36F3GJxnDvgK5nDZs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jG7UT2Q10ga3MO0qJtDtSFdn1L31wyQfizn7089DVkGr66lge5yF9flbVlMBZfF1gqi/aIQlSoerSPD3LpJJq1kPGkwExJDfexciFc6rQH2B1HVEcbKLek4QfHuvKdkGvkKR7K+OxZvz9po6Iu4V2M/u/ST59Mld8JZBH2KzzfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=IBr8dqd3; arc=none smtp.client-ip=101.71.155.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1786507284; c=relaxed/simple;
+	bh=gyFHQ7RkqpLO3uoC/RHuLEvHuORuJUbi6EUFqmIfMRY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nv3onr1yE6B7pX4AW7Hh2n3X5+Ny8SqlORcwJ9f6B+0D9Ww6mD7dV5d1eZaER7gDEMJXYvgbBqko++8vyyccmB8emNo+YBSHHrqmvVyVYqmw7h9bwM36FzfUMrwV1EdC2LHyPA0Up2xYX/gUI4z5YcC41rbGMDM2kC81AaO6sP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYXhD39D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="IBr8dqd3"
-Received: from [127.0.1.1] (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 49a56c4b0;
-	Wed, 12 Aug 2026 10:23:14 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Subject: [PATCH v3 0/2] arm64: dts: qcom: qcs6490-rubikpi3: Add IMX219
- camera overlays
-Date: Wed, 12 Aug 2026 10:22:37 +0800
-Message-Id: <20260812-rubikpi-next-20260615-v3-0-06e21232d8e4@thundersoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYXhD39D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431A01F000E9;
+	Wed, 12 Aug 2026 04:01:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786507282;
+	bh=8loUbOgpdbZAD5QuidLnlgQtjCYEDMJ2eIcTOC291q0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FYXhD39DO9ccZ9/KtRHKF1dy6v/faXWj21beE7XTaDr7JbddRF0iWnqCkC8OKYWUc
+	 k+ZEmzOwfJh1PvCIxCu9B7iIMQ3NlwTCfavvvSVK41StIb47wzljj0ojPq+TnB80fK
+	 l8QMxw34Jlgl/1RVzFI1jaOTBA7EI/bi06rdD+MzB+I+0rLu7kdHwGcT0B/P1RsooE
+	 aeFJ82n30yRxoMNgDH99rJJd4BG2MzKFdT2OITMKrs75lpiLt2SEyG376cSSvcvHrA
+	 IMqWjQ/ijdrEkQ0iub2E6Qt3WSoFXqhlqVSaAFpI58gCfBkgFt/mNSvGsOm4OZa4vb
+	 Lhxh2yfsEti0Q==
+Date: Wed, 12 Aug 2026 05:01:08 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nuno.sa@analog.com>,
+ <Michael.Hennerich@analog.com>, <dlechner@baylibre.com>, <andy@kernel.org>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <julianbraha@gmail.com>, <marcelo.schmitt1@gmail.com>
+Subject: Re: [PATCH v9 6/6] iio: ABI: Encourage differential voltage ABI
+ usage
+Message-ID: <20260812050051.4313cd91@jic23-huawei>
+In-Reply-To: <959734dd1111f76c5928515b82dd17f3a9dff5c8.1785186980.git.marcelo.schmitt@analog.com>
+References: <cover.1785186980.git.marcelo.schmitt@analog.com>
+	<959734dd1111f76c5928515b82dd17f3a9dff5c8.1785186980.git.marcelo.schmitt@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAO3Ye2oC/6XO0QqDIBQG4FcJr3dGalntau8xdmGpS0YaatKI3
- n0Wg12MwWCX/4Hz/f+CvHRaenTKFuRk1F5bkwI9ZKjrublJ0CJlRHLCcoYZuKnV91GDkXOA17W
- EgpECV5zXrOQo/Y5OKj3v7uWasnJ2gNA7yX/RIgYMVDSsrRvaVEqdQz8ZIZ23Khw7O2wVvfbBu
- se+POKt6H92mxrJ26oI/WYRyKGoupILUecYF5/Wuq5P/L9+ZV8BAAA=
-X-Change-ID: 20260616-rubikpi-next-20260615-462417aa865a
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Roger Shimizu <rosh@debian.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786501394; l=2720;
- i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
- bh=LTaBk9f3msJO6Xsstu4uZkU2+x36F3GJxnDvgK5nDZs=;
- b=i1e9fCAQ8RNSznnVVdzbNMsQYU1PJDYn2qrVVB1tbxi7xSkuo6L61D7HnEsEFwg4bgCrVS9R+
- jLduNxACIwABVEQKZIpnHCVt75H989aK1PsHGlMbU5iLCRkOPpuml1i
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
-X-HM-Tid: 0a9ff3c7ee3609d5kunm2a4e641d37f47f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGUNNVhlDSBpOHUpPSEkYGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lCQ0NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=IBr8dqd3lkzB18DsIpkDhOtTOOcoiKhh6U7jsoz39eNMBKCIWbm/RnZgrTCk2uqlFM29Vt2ccvHZcx4mnnufQCpRYJVGhG3BAmIKyFKZ8NI+l6ViHbNjVegSSR/BJ3Xn8LfpEJoe/B9JVVSHee8vU9LSVbfGdR/JU2H5U7CNc4s=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=H73TAwOAuZuY+AwTNwZCpyJkJqzHQ8W7sXvPEwn5o+Q=;
-	h=date:mime-version:subject:message-id:from;
 
-RUBIK Pi 3 provides two camera connectors but ships without camera
-modules, and each connector can be used with different sensors. Describe
-only the board-level 3.3 V output rail in the base DTS and add optional,
-per-connector overlays for Raspberry Pi Camera Module V2 IMX219 sensors.
+On Mon, 27 Jul 2026 18:32:18 -0300
+Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
 
-CAM1 is connected to CCI1 and CSIPHY1, while CAM2 is connected to CCI0
-and CSIPHY4. The overlays can be used independently or combined, and the
-Makefile provides composed DTBs for both single-camera configurations and
-the dual-IMX219 configuration.
+> So far, parts that could only do differential voltage measurements were
+> only required to have a consistent labeling of their channels by complying
+> either to voltageY or to voltageY-voltageZ ABI. Over time, code maintainers
+> came to the conclusion that the voltageY-voltageZ ABI is better suited for
+> differential-only chips as it provides a simple indication to users that
+> the channels measure the difference of two inputs.
+> 
+> Adjust the ABI documentation to recommend using the voltageY-voltageZ ABI
+> for chips that do only differential voltage measurements.
+> 
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Hi Marcelo
 
-Both single-camera configurations and the dual-camera configuration were
-validated at 3280x2464. In the dual-camera configuration, both sensors
-streamed concurrently and their privacy LEDs followed the streaming state.
+Whilst looking at another series, I noticed we did something different
+again in the devicetree bindings for those devices that have
+restrictive muxes that means the positive and negative lines
+always change together.  For those we let
 
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
----
-Changes in v3:
-- Drop regulator-boot-on from VCC3V3_OUTPUT because the boot firmware
-  does not enable the rail.
-- Clarify that PWR_EN controls the camera module power domain, while the
-  baseboard has no dedicated per-camera regulator.
-- Drop the fixed 3.3 V constraints from the module power-domain
-  regulators.
-- Add Bryan's Reviewed-by tags.
-- Rebase onto next-20260810.
-- Link to v2: https://lore.kernel.org/r/20260723-rubikpi-next-20260615-v2-0-47c5add80114@thundersoft.com
+diff-channels = <1 1> 
+which tends to map to
 
-Changes in v2:
-- Keep the optional IMX219 sensors out of the base board DTS and add one
-  overlay per camera connector.
-- Add composed DTBs for CAM1, CAM2, and dual-IMX219 configurations.
-- Correct the power model: VCC3V3_OUTPUT is board-level, while each
-  PWR_EN controls the module-local sensor rails.
-- Model the 24 MHz sensor input clock separately for each camera module.
-- Describe CAMERA1_GPIO and CAMERA2_GPIO as privacy indicator LEDs and
-  associate each one with the corresponding sensor.
-- Drop output-high and output-low from the GPIO pinctrl states.
-- Rebase onto next-20260721.
-- Link to v1: https://lore.kernel.org/r/20260616-rubikpi-next-20260615-v1-1-3d96b89397ff@thundersoft.com
+in_voltageX-voltageX_raw
 
----
-Hongyang Zhao (2):
-      arm64: dts: qcom: qcs6490-rubikpi3: Add 3.3 V output supply
-      arm64: dts: qcom: qcs6490-rubikpi3: Add IMX219 camera overlays
+I'm not sure if we want to explicitly call that out as an option.
+There is nothing in your new text saying we can't do that.
 
- arch/arm64/boot/dts/qcom/Makefile                  |  15 +++
- .../qcs6490-thundercomm-rubikpi3-cam1-imx219.dtso  | 115 +++++++++++++++++++++
- .../qcs6490-thundercomm-rubikpi3-cam2-imx219.dtso  | 115 +++++++++++++++++++++
- .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts |  23 +++++
- 4 files changed, 268 insertions(+)
----
-base-commit: 3d08ff75a47a3e7e2ab45a3bcab6723b4d906422
-change-id: 20260616-rubikpi-next-20260615-462417aa865a
+Worth also noting there are short circuit parts where you
+really do connect both ends of the differential ADC to the
+same input pin. I think it can be useful for testing / calibration?
 
-Best regards,
--- 
-Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Jonathan
+
+
+> ---
+> No changes in v9.
+> 
+>  Documentation/ABI/testing/sysfs-bus-iio | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
+> index 5cc2e82c4997..7446e07b9ab2 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-iio
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio
+> @@ -162,10 +162,11 @@ Contact:	linux-iio@vger.kernel.org
+>  Description:
+>  		Raw (unscaled) differential voltage measurement equivalent to
+>  		channel Y - channel Z where these channel numbers apply to the
+> -		physically equivalent inputs when non differential readings are
+> -		separately available. In differential only parts, then all that
+> -		is required is a consistent labeling.  Units after application
+> -		of scale and offset are millivolts.
+> +		physically equivalent inputs when non-differential readings are
+> +		separately available. Even though differential-only parts had
+> +		been merely required to have consistent channel labeling, this
+> +		ABI is preferred over the non-differential one for those chips.
+> +		Units after application of scale and offset are millivolts.
+>  
+>  What:		/sys/bus/iio/devices/iio:deviceX/in_altvoltageY_rms_raw
+>  KernelVersion:	6.18
 
