@@ -1,149 +1,212 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D92943802F
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:12:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786536764; cv=pass; b=B8TWQb0oD4WWftDrw6tKxXoO40NZLSqhd4XxV6VR9BwB13r+Nsa4nhMKriyaiDkyWzwX5EatFcW/29fztlTN3gh5GZE6dZyQExps8TptavzN/h6WW49X7nTqql3PwbQBQS5IaKTagP+rddSsVjmNYEZj5BchHbx7ilIvNpphdfk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786536764; c=relaxed/simple;
-	bh=iuG8ZAS+9aPT26tPIJ0DU5HMUWFYLsvkm5izzc1uSKo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PUKRe478PD1BZSmewiWkU9ZHwy8XJmdYYQwmxn7qtTTv5zy41+CS1iD/kCHslCPRbAVz2KGShM4oLjdQp60A2UARI/WPespElCvbvAJHZt6nQlktmBmagsyjdTf+Q45YK23N0bm1X8J8CfJS+msg2GHe/szzXJ2Z2ZkM0iIWMPo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=S9Mc7vEs; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F016419313;
+	Wed, 12 Aug 2026 12:15:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786536943; cv=none; b=lReFVhdI0YGywitQ6+inkpugpmAJz1NG5Fa2ZcKHPhEx4bfYjcVU2e5UmDdPmJFb/Tsh1bmSTyi89lkbFWg5jXqanOScMlCt1za/QAtlgHwKTSxhC34SIpJWnznNEodTTpOtSfMVYp/EJGPMXzv8LW3QeXVGxXvP9ZVH2V1tugU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786536943; c=relaxed/simple;
+	bh=ZwIcZsZZ2uJSEBhbQ9MtdqFRGRhB47VsRC/xC6n2kuk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RsDSOshIOTFWjq9+CXwO1oYS0T+EnhV3ZO58hCk0SFbHkog6/s4JEwSG258F6/G0M8OyYfBol5sqVSW1q5341qsUgCdiuN58VzaTCnfmLZUyzsW8YbXxJxeTSORswjjW92EiuM9wxxKZZQYbPwn4aMtWj+IE5FrInPWuzCJVnyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=lEFAs77e; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="S9Mc7vEs"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a0a4a28cbdso1508429a12.3
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:12:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786536761; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nnQPuQvK4WOxKm91Kqe7xp/+c6WygE4Fp4k4wnZlOLLQB4uXHWsPOru8Ra18O40xNQ
-         6qAD0vVDdYDY+LXpF5rrwS9onfkubOiEcPP9BFQNKfCeXanqTOxce0q/ky2/hr2PynVD
-         kTqaDQ5OKk8qf3mvc059EnHoZ5YfkcLvPI5mGfVV28Pivf3aCP8+Of8nolNb3UVGg6+5
-         VAwikMRcb0Z9yjmI2jI/GcRLjJC8Y0AYloarJk3502EoEYIhUFac2hAg8hBuMjRWsAyy
-         OKVz/ZQFuQ7NmcXX2OD23r+6yLprLNmcVDWySAR1r3mcuxvZnk+gO6uXo19c/HsdsdcB
-         2Nrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=C25d7u206gAS9PBJlhUuN2Ycn3eHUVpUH80KlaH6guw=;
-        fh=39ssieKQpPYGZiQocm5phTEfuJzJ9hYiEfeFoh+7apE=;
-        b=BjgvJFdxe2gcXU3IQpbMRlPgCFBrDjYdD58IwrUI2NozDZD/9Z2TXQr4jOWAy0bk4X
-         tokECo9iXovAQ0TS69sgdUevAhgaPfU0ultlIjjpUqu2pSCQciUTlL8qujdDpF/H/J1V
-         PAuH+I1sYUAlinBquV4vGsZ7C7Mbnt2eaMBEhF4tSnUHmxTM3T+44Q3EyH3vgz7po27Z
-         3DHMVJJDaVV8uwD2oXUnDvt3wPPWNtOKY8eXZAEdZuCdEAGXTwcrxMZfdJK/8b1AQtyP
-         gw49XhGewkC55qAW6G4qh/DZ6r/FojC54UioGnOCtCbJ95YeNF7XxQCMta31MFJoErJ3
-         0SKQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786536761; x=1787141561; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C25d7u206gAS9PBJlhUuN2Ycn3eHUVpUH80KlaH6guw=;
-        b=S9Mc7vEskHwTbbvRYtnVtzwFkpTMe/MPFaxjCauqXezKHvMz1Z0fz2i4+ebrws/MRv
-         Bgv1AdsMfKFrmhi3DHbUeseoxS0x/NvK+lSVyclH5ZyDQfTUYxy7TJmXJ2F5LdjkqjJq
-         xSi9nG7pRjAPu6+K9ym6oU+VUZ0MzhEK0sVNH0QbQiPrYbmF6BiaYGjmKkI93oVKLqcf
-         22dvQh5Q6wut62hyM7Lh/PzwG68LbmIcQ6LJK8q5AHeY+2dp9C9rwfbedmzA9jftlNhx
-         znZDox3IDL8i+H82YcvjGjBc3GdGEQUNSrmUSBvcjpH4b3xLIsfKQvT8GljgS6hkJGhg
-         iNnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786536761; x=1787141561;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=C25d7u206gAS9PBJlhUuN2Ycn3eHUVpUH80KlaH6guw=;
-        b=OwQ78+qv+Reb6gitCLazIKPa/eMlKEDS0oe7rVdgE8qQbw/GFalxJnMTn2cji0zNoL
-         2gX/PHIi4MUU2FO6cFbcyqNLAkXNpfC57WPhGJR9x0JgIm/H/yuCieodNQnOe99ESmrQ
-         NUEz6r4R/9KLCbkuoT4XUQ9WfEKw7BZMVrIuTIhtcrU9JDDOhbr0A0EHAgSuntxmxTsU
-         0I6mIKN3WtnYaDBrU/uafiL+5yjptgWa0/1Nwssyie1BuRf+wvr6R9Vsg1OLS1lUtcT3
-         I3lPS0U8qBFcZ52dKR+PJr9ZnMKZndmHAELlKPrybPKgRVtrUl2b1TMDM2IiV1CqjuDa
-         umuw==
-X-Forwarded-Encrypted: i=1; AHgh+RpAPiSy8yUlS2aJLPoiIect9Xbqso8+mnKuYlfbYu9qd5DMM+frfBUe3k/zruWuUyKdzHO47z6mx/qN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzz1hgJuNdHw5Hu0R8m7plLCws/MxnxrHSx0bmodFj2+0ZEymL9
-	zF/HekvTuBVpSGiuB+3D3Dy1frKbKY4TJlptP/iB6EWuT4jWj1PCj8OLjg2Pp+3JwUht/iDumpT
-	slQyiTG4aKbKq66bXoHbVX6CYtPxDdnKqrNrKkN+USw==
-X-Gm-Gg: AR+sD11wxju6bhshwfZCWXYuVFTuv2FAR0BQeYAIXe6DfI+UNJiPjlBBg3OIgDbGeCV
-	7cJlV+wdLFlJZukGOMwbP9BF8Nst5wQbIAD402ToZ9Rumgh8sRSUjkN9B4m/70EZSuFivMXyWIw
-	8NeHsrCOz+CdeTgPgNXrxHciR+JmE2QQpq77Z+d7jc4RGecqyYp9ipHBMUMqw+ayH6rgCKhm0zi
-	L135F4CSyyJnLwFBFufJam4VNgSoHr8e1334whXAK3ynAY6g0S3BC80XDWhCWx5S+01Wp7toSp9
-	te57xzrivs/smvpv1QjQ2sPr5SZxJ/EwR07lf8SinUVU+JXt+0xp8kOOvn4TB4PBac98u78FenA
-	WOA==
-X-Received: by 2002:a05:6402:5415:b0:6a1:df2c:cfa3 with SMTP id
- 4fb4d7f45d1cf-6a375eaed7dmr1884024a12.4.1786536760363; Wed, 12 Aug 2026
- 05:12:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="lEFAs77e"
+Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 868E6534033B;
+	Wed, 12 Aug 2026 14:15:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1786536938;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=D0IXhdofMp4hEJkD6J6IBskNqKuVJMBrWOdWouSRYnk=;
+	b=lEFAs77exzFE/ALAVfo3T9WndxnQjZe6bxLYlScApcp88udPfn2vENZmyJhkjpQswsOU0s
+	i1QGNfpF9ULCGnaVN1WcWU/FHwnOP+wrPWnJBRhUvkmULo7ymi/1gm6Z2T6krCkNx/ZTTN
+	UGiH+nkCEtBM40eZs3AdJNT117MxOf4=
+Message-ID: <803e354d-55b9-4904-a4a0-9eeefa0c6ffd@ixit.cz>
+Date: Wed, 12 Aug 2026 14:15:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260724-arm-smmu-v3-instcfg-override-v1-0-e7acf4a8a525@linaro.org>
- <20260724-arm-smmu-v3-instcfg-override-v1-2-e7acf4a8a525@linaro.org>
- <amOpSPmc36+YXgCQ@nvidia.com> <CADrjBPoOctsStZn84vtCymdKen2R9XcM880=wxXSv1tpQ5+vyg@mail.gmail.com>
- <20260810141553.GP200537@ziepe.ca> <048c8d59-d47d-4f64-b93d-3b041636e230@arm.com>
-In-Reply-To: <048c8d59-d47d-4f64-b93d-3b041636e230@arm.com>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Wed, 12 Aug 2026 13:12:28 +0100
-X-Gm-Features: AUfX_mwXOifN2coQLoTdXQNBH4WeSdADhQh1-gynQzc7tMiJ7JxOqAB8IwzRDWc
-Message-ID: <CADrjBPpPqLaq75G4Rzxmf2VEwyZ_gwchf1f-jjzr3EXLkXaWsw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] iommu/arm-smmu-v3: Override for Inst/Data attribute
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>, Will Deacon <will@kernel.org>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Pranjal Shrivastava <praan@google.com>, Daniel Mentz <danielmentz@google.com>, 
-	Mostafa Saleh <smostafa@google.com>, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@android.com, 
-	tudor.ambarus@linaro.org, andre.draszik@linaro.org, willmcvicker@google.com, 
-	jyescas@google.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
+ NT37703
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Esteban Urrutia <esteuwu@proton.me>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
+ <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
+ <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
+ <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
+ <7097b617-90be-492d-9637-4a2a101379e0@ixit.cz>
+ <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi folks,
+On 12/08/2026 13:52, Neil Armstrong wrote:
+> On 8/12/26 10:46, David Heidelberg wrote:
+>> On 12/08/2026 07:21, Esteban Urrutia wrote:
+>>> On 8/11/26 9:05 AM, David Heidelberg wrote:
+>>>> Hi Esteban,
+>>>>
+>>>> Usually the used pattern is vendor,ddic+panel-model
+>>>>
+>>>> novatek,nt37703-motorola-bronco
+>>>>
+>>>> ...but motorola bronco isn't the model of the panel.
+>>>>
+>>>> My recommendation - look at some video of screen replacement, stop at moment
+>>>> when FLEX cable from panel is visible and that's where the panel model 
+>>>> usually is.
+>>>
+>>>
+>>> I somewhat doubt the panel model would be located in the FPC cable.
+>>> I did search anyway but didn't find anything of interest. And I'm not
+>>> willing to risk damaging the display flex or the battery of my
+>>> development device just for a possibility either.
+>>
+>> No-one asks you to disassemble the device :)
+>> Sadly, I haven't found any video doing display replacement either.
+>> In worst case such as this I assume it make sense keep the phone model in the 
+>> compatible until panel codename is found.
+>>
+>>> For the compatible pattern I used the implemented pattern for the
+>>> NT36523 TDDI, which is also used for other ICs such as the RM69380.
+>>>
+>>> So, I believe it should be okay to leave the compatible as is.
+>>
+>> I would like to hear a word from Neil first. In similar cases like this would 
+>> make sense to have one way defining these compatible strings used in phones.
+>>
+>>
+>> bit I missed in the review the part:
+>>
+>> +            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
+>>
+>> Unless the driver is able to auto-detect the connected panel (unlikely), 
+>> novatek,nt37703 doesn't make sense. The DDIC without the panel is useless.
+>>
+>> For example, in sdm845-oneplus-fajita and enchilada, we have the generic 
+>> compatible because it was introduced before, so it's kept for compatibility 
+>> reasons. There is no need to do that here.
+> 
+> Yeah today the norm is to add the ddic as second compatible entry so the first 
+> compatible just describes the pane, so here it should be:
+> 
+> compatible = "motorola,bronco-tianma-v2", "novatek,nt37703";
 
-On Mon, 10 Aug 2026 at 15:43, Robin Murphy <robin.murphy@arm.com> wrote:
->
-> On 10/08/2026 3:15 pm, Jason Gunthorpe wrote:
-> > On Fri, Aug 07, 2026 at 03:37:37PM +0100, Peter Griffin wrote:
-> >
-> >>>> @@ -1222,7 +1224,8 @@ void arm_smmu_get_ste_used(const __le64 *ent, __le64 *used_bits)
-> >>>>        if (cfg & BIT(1)) {
-> >>>>                used_bits[1] |=
-> >>>>                        cpu_to_le64(STRTAB_STE_1_S2FWB | STRTAB_STE_1_EATS |
-> >>>> -                                 STRTAB_STE_1_SHCFG | STRTAB_STE_1_MEV);
-> >>>> +                                 STRTAB_STE_1_SHCFG | STRTAB_STE_1_MEV |
-> >>>> +                                 STRTAB_STE_1_INSTCFG);
-> >>>>                used_bits[2] |=
-> >>>>                        cpu_to_le64(STRTAB_STE_2_S2VMID | STRTAB_STE_2_VTCR |
-> >>>>                                    STRTAB_STE_2_S2AA64 | STRTAB_STE_2_S2ENDI |
-> >>>
-> >>> This adds for "stage-1" and "stage-2", while missing "bypass"?
-> >>
-> >> I need to follow up again on this point, but I don't believe currently
-> >> we require the override for Laguna when it's in bypass.
-> >
-> > Oh? Why not?
-> >
-> > Is the issue the IOPTEs are set to no-exec or something like that?
->
-> In general, there isn't expected to be anything in the memory system
-> downstream of the SMMU that makes use of the Privileged or
-> Instruction/Data attributes, so I would assume that is the case on this
-> SoC. FWIW, hardware folks would be quite keen on relaxing the
-> architecture to say that an SMMU isn't even required to propagate those
-> attributes at all.
+So let's me present a situation which can happen, let say I'll be upstreaming:
 
-As Robin mentioned above, there is nothing downstream of the SMMU that
-cares about the AxPROT[2] Instruction/Data attribute. So it could be
-added I guess for consistency reasons, but it seemed better not to add
-any code we don't strictly require. Maybe a comment should be added to
-_bypass to explain the inconsistency?
+DDIC (novatek,nt37700) + panel (samsung,amb630qy).
 
-Thanks,
+For the example I choose samsung,amb630qy because here the panel has phone model 
+in it, which avoids the possible issue I'll be describing with this schema.
 
-Peter
+Vendor can pair this panel with different DDIC. Thus it would be
+
+compatible = "samsung,amb630qy", "novatek,nt37700"; // new one
+compatible = "samsung,amb630qy", "novatek,nt37703"; // existing
+
+The reality the driver picks only the first compatible, and that's all causing 
+to load wrong driver now.
+
+Solution here would be differentiate between
+
+a) DDIC + panel
+b) module name (consisting DDIC + panel).
+
+We could say module is motorola,bronco-tianma-v2 and contains [ DDIC + unknown 
+panel ], which doesn't even have to be mentioned in device-tree.
+
+While it may seems I overthinking, in this case it doesn't matter that much, I 
+already have patchsets for DDIC which can be combined with three types of panels 
+(and using different schema) and I would like to have good solution for longterm 
+contributions and development.
+
+What do you think?
+David
+
+
+> 
+> Neil
+> 
+>>
+>> Thanks
+>> David
+>>
+>>>
+>>>> David Heidelberg
+>>>
+>>>
+>>> Regards,
+>>> Esteban
+>>>
+> 
+
+-- 
+David Heidelberg
+
