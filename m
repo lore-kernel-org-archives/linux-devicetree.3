@@ -1,108 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FAE35C6B1
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 09:46:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB0B419304
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 09:48:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786527993; cv=none; b=ADXsG502oNY0I4XZPRlSRucJr38GgQU+v4qblhYr3TIMU0yUqUfjTKXvzoBz21qLjySzqLrKvKni+Sg5y3dwv+lY5LiitulOVl76EizejWGtalouRdcChJvbEP2FLyjd5tPmswJ75UXgejO/9+KggYWyQXJaX7RiwLduipxTltQ=
+	t=1786528111; cv=none; b=Zma6Uzd1sOgLjWLtYsQpLGM/vmIJtHTz/ZGIy/u1zvr2oi3m1+dbpHTaauDwDNSJpO26IgCzw8ZtwQvSO8vuDBHVudJ7WsArVzFtKFsvgEaj09U7itJ3+NUJwNCUVZfbmoaq30w/Y3uorEznFLyQwuUIwTRmYrIcKBaYoLq3PXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786527993; c=relaxed/simple;
-	bh=0gid0MOfEPCFQwAXmgzDj//myGtpYnOt+gYV/Qz2PwA=;
+	s=arc-20240116; t=1786528111; c=relaxed/simple;
+	bh=y6xlGRC2lqZqk8D83mSk/rU24vyLFodpu6zsDAXhDeg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uAywNqLU6MtsV7KkUhdetgId2BCpBhcK05TW8X+0P6/8/N49w1H6z5wtUzjioRSPOZA2N6BdZJqD1QjMeocot17oimBW6TkTCVgVKJDRdZ/K8rr1eMUkG4qNwoipN2XiEwA1U7aUKTMznGG2HfxcYEJIUuxl8mIR/egJPV9zZYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mE1PkWFB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=vE/c/YbSN6ICM+cgYUvZCQJq0fRRIGdC4/OYVXVoJButvrwSJNL+Xo5XA57IdFLy28JP8i+CajRmu9ag70mEsrAYTwS6lErp5j5RtQc7lSwrUUWJ+BA81wwr1z2GM433krSVC+sLIeRJnmHBWJvt3M3AQIT2b/63I9jOPEW2JDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5QxlxJy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mE1PkWFB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2111F000E9;
-	Wed, 12 Aug 2026 09:46:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5QxlxJy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0381F000E9;
+	Wed, 12 Aug 2026 09:48:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786527992;
-	bh=19ENSLLz/deARqUVUUEfG1oLKS7Y0QDi2HjA1WQf6dM=;
+	s=k20260515; t=1786528109;
+	bh=QNPed445OKU+swuR6Q2dtGqI0FJNzenjZy2DnJNDDY4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mE1PkWFBUux66i0neAkt2rZw2IFB/8YzHoh16DslU+QDmuHtAHZWVSi1uSOmsG2r1
-	 +7VhR8w3JZ8eOrMMMWCm+dMt40UnYWEsGHcL0aymN7EVRz1Sg+DeaVXSm/xNEEP1a0
-	 QdO97Ul79f+dIGWtU+lF3qde+R74WLpMkDu1CBJ3kuo/IdzGGs+u5Dj9Ps3QpjDMML
-	 gcvn9KaJbdWJR9HO3MDH0LBQe0ezt5oqXnQ8xdNUMXwRrQua1zCJVWXt94BspG2OFT
-	 Z+gz2mGVXD3FW2l+dpqM6ZryCR/M8LR5yAkveA/ElbhLFSV0H9HuwxNg5BpanqR9nt
-	 XgXwyiN8mfyqQ==
+	b=T5QxlxJynCySOKh2IznOjLIOsUZaGHo947ERJqMLfckK6U6GqkLrFJ2MbyC92B7dw
+	 RSTY0/65MTCDhRKHfwUoegvomyVB89EpXbbMLYz1buCu/E5EUVfpzh0XgY8sdXB6Kv
+	 iEfS5I8EnOfp+VoYqQmmhw0SP4hzUkcfj1jpiB69BpFMVyyn3loW3drZeUn0aQJfh9
+	 4XMDEJTsQtvOj+rqy9lJQJuhlhU8in/9dKATKO3s0hRCt7K/fbBiTouGB4C4bYTb5l
+	 V220wEfEUUoXZ3Pqp5CW/e7NumPm53Uzi7V1cYmPUsPc6hWvO51TH1e3b1JVoAJSyi
+	 z66NEnpKM01nw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/14] dt-bindings: usb: qcom,snps-dwc3: Add clocks
- for USB3 on Qualcomm IPQ5332
+Subject: Re: [PATCH v2 02/14] phy: qcom: Introduce Qualcomm IPQ5332
+ Super-Speed USB UNIPHY driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260812-ipq5018-usb3-v2-6-8f355d7ff0ef@outlook.com>
+Cc: linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20260812-ipq5018-usb3-v2-2-8f355d7ff0ef@outlook.com>
 References: <20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com>
- <20260812-ipq5018-usb3-v2-6-8f355d7ff0ef@outlook.com>
+ <20260812-ipq5018-usb3-v2-2-8f355d7ff0ef@outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 09:46:31 +0000
-Message-Id: <20260812094631.DF2111F000E9@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 09:48:28 +0000
+Message-Id: <20260812094829.0A0381F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The schema modification unconditionally mandates 5 clocks for `qco=
-m,ipq5332-dwc3`, breaking validation for existing valid device trees that p=
-rovide only 3 clocks for High-Speed-only configurations.
+- [High] Missing `platform_set_drvdata()` in the probe function causes a NU=
+LL pointer dereference in the remove callback.
+- [Medium] Probe failure paths fail to restore the TCSR multiplexer to its =
+default hardware state.
+- [Medium] The driver fails to `select MFD_SYSCON` in Kconfig, risking a si=
+lent probe failure.
 --
 
---- Patch [6]: [PATCH v2 06/14] dt-bindings: usb: qcom,snps-dwc3: Add clock=
-s for USB3 on Qualcomm IPQ5332 ---
-commit 76251f6cda12ef34d26acca7a91c897245bd05c0
+--- Patch [2]: [PATCH v2 02/14] phy: qcom: Introduce Qualcomm IPQ5332 Super=
+-Speed USB UNIPHY driver ---
+commit 2ff7b4ffaf9a300ab45c516bb3b192d9f0a5c88e
 Author: Praveenkumar I <quic_ipkumar@quicinc.com>
 
-dt-bindings: usb: qcom,snps-dwc3: Add clocks for USB3 on Qualcomm IPQ5332
+phy: qcom: Introduce Qualcomm IPQ5332 Super-Speed USB UNIPHY driver
 
-This commit adds aux and lfps clocks for the Qualcomm IPQ5332 platform in t=
-he
-qcom,snps-dwc3 bindings, splitting it from the qcom,ipq4019-dwc3 block.
+Adds Qualcomm 22ull Super-Speed USB UNIPHY driver support which is
+present in Qualcomm IPQ5018 & IPQ5332 SoCs.
 
-> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/=
-Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-> index 8201656b41ed7..e59fbfc1af71b 100644
-> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-[ ... ]
-> @@ -182,6 +181,25 @@ allOf:
->              - const: sleep
->              - const: mock_utmi
+This PHY is interfaced with SNPS DWC3 USB and SNPS DWC PCIe. Either one
+of the interface can use the it and selection is done via mux present in
+TCSR register. By default, the PHY is configured for PCIe interface and
+needs this driver to configure the mux for USB.
+
+> diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
+> index 60a0ead127fa9..1ceb04afe1e3a 100644
+> --- a/drivers/phy/qualcomm/Kconfig
+> +++ b/drivers/phy/qualcomm/Kconfig
+> @@ -158,6 +158,16 @@ config PHY_QCOM_UNIPHY_PCIE_28LP
+>  	  handles PHY initialization, clock management required after
+>  	  resetting the hardware and power management.
 > =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,ipq5332-dwc3
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 5
-> +          maxItems: 5
+> +config PHY_QCOM_UNIPHY_USB_22ULL
+> +	tristate "Qualcomm IPQ5332 UNIPHY USB Super-Speed 22ull driver"
+> +	depends on USB && (ARCH_QCOM || COMPILE_TEST)
+> +	select GENERIC_PHY
+
+[Severity: Medium]
+Since this driver uses syscon_regmap_lookup_by_phandle_args(), should it
+select MFD_SYSCON to ensure the required syscon utilities are compiled in
+and avoid silent probe failures?
+
+> +	help
+> +	  Enable this to support the Qualcomm USB Super-Speed UNIPHY transceiver
+
+[ ... ]
+
+> diff --git a/drivers/phy/qualcomm/phy-qcom-uniphy-usb-ss-22ull.c b/driver=
+s/phy/qualcomm/phy-qcom-uniphy-usb-ss-22ull.c
+> new file mode 100644
+> index 0000000000000..089de7cebef03
+> --- /dev/null
+> +++ b/drivers/phy/qualcomm/phy-qcom-uniphy-usb-ss-22ull.c
+
+[ ... ]
+
+> +static int qcom_uniphy_usb_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	/*
+> +	 * Select the USB position of the phy mux before anything comes out
+> +	 * of reset. Selecting it later leaves the SuperSpeed pads muxed away
+> +	 * while the controller resets, and the SS link doesn't train and is
+> +	 * stuck in Rx.Detect (USB2 is unaffected as it isn't muxed).
+> +	 */
+> +	ret =3D qcom_uniphy_usb_mux_select(uniphy, true);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to select USB mux\n");
+> +
+> +	uniphy->phy =3D devm_phy_create(dev, NULL, &uniphy_usb_ops);
+> +	if (IS_ERR(uniphy->phy)) {
+> +		ret =3D PTR_ERR(uniphy->phy);
+> +		return dev_err_probe(dev, ret, "failed to create PHY\n");
+> +	}
+
+[Severity: Medium]
+If devm_phy_create() or phy_pipe_clk_register() fail after the mux has been
+selected, the function returns directly without restoring the hardware stat=
+e.
+Should there be a cleanup action (perhaps via devm_add_action_or_reset())
+to restore the multiplexer to its default PCIe state on probe failure?
+
+> +
+> +	ret =3D phy_pipe_clk_register(uniphy, uniphy->phy->id);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register pipe clk\n");
+> +
+> +	phy_set_drvdata(uniphy->phy, uniphy);
 
 [Severity: High]
-The commit message states that the aux and lfps clocks are required only for
-USB Super-Speed support. Does setting minItems to 5 unconditionally break
-schema validation for existing High-Speed-only device trees that only supply
-the core, sleep, and mock_utmi clocks?
+Does this function also need to call platform_set_drvdata(pdev, uniphy)?
+Currently qcom_uniphy_usb_remove() relies on platform_get_drvdata(pdev),
+which would return NULL if not set here, and cause a NULL pointer dereferen=
+ce
+when passed to qcom_uniphy_usb_mux_select().
 
-If these clocks are optional depending on the hardware configuration, should
-minItems remain 3 with the additional clocks defined as optional items?
-
-> +        clock-names:
-> +          items:
-> +            - const: core
-> +            - const: sleep
-> +            - const: mock_utmi
-> +            - const: aux
-> +            - const: lfps
 > +
+> +	phy_provider =3D devm_of_phy_provider_register(dev, of_phy_simple_xlate=
+);
+> +
+> +	ret =3D PTR_ERR_OR_ZERO(phy_provider);
+> +
+> +	return ret;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-ipq5018-us=
-b3-v2-0-8f355d7ff0ef@outlook.com?part=3D6
+b3-v2-0-8f355d7ff0ef@outlook.com?part=3D2
