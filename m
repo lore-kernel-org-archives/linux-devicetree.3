@@ -1,146 +1,99 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072D5463B98
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 14:31:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E0A42AFB7
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 14:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786545076; cv=none; b=udq0GxGoO8k/7W4f7SDtDRdWQOc7dH1FJnt6qg/Yd9I+d7eAGlOYpr/nDyQklzSn8UzFyNttT5GOfF8j1V6hMoj8F96/wSEo1pHDLtCye6+I9HSUnBqGN8Dv+DbzwPAL2yGz0/ea69k4PIzVwrt1UV170/itzLLAeLRypUxs92I=
+	t=1786545873; cv=none; b=D7UEHX0AZ226hklpo/pGgYvJvs5KNvdgLjwAHXmDmn5vFzjXSJVpmUdmKQs75kOs4OjmnahUVlMkg5pRImK3/R/usKW/qUXLVXCbtccSNSbN1JUhlFn0+hZRzblhFH6hIUyPfD2IxYIY3albZCfZyceQZorn8sMfUsvdv+JUYMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786545076; c=relaxed/simple;
-	bh=XAB19KdSyMK9mt+Rw2Vp72Vjf2WnClhTTZqjRvwz4C0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=u06nuQJcSmBtnJSk8xpNgC1NvVP8DQwYACmsLRD25rqjze0JgIAfeorOsAQFmtOB7X3Dibj55H6UhnvzeX07SjjfvblFuOl5xyptY+W8jGhLd5fGPzvK8sFdmDnh82s/3lNqFIeqPGpnxTOFH85/SUSvpl973G1spc7wOjxuElc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=SqS84QYj; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1786545873; c=relaxed/simple;
+	bh=i58CCkzqQy4VtXw07JKIL8ZZNTjvSNoRGzNvHk2S/dU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k1Xu23qOLZjgwUMJVWt37FLpaKcnAc2eeuWTpQGa/YIYyLET/u5ymy3+6CV3RYTMUgSQ3GloItWvZ3OARQjDvrfLJgyZ5A3i7EzqPBNHD10BIZHnZyvEO2jvQQE2/TEK6SHqkxDjKiFDxXZot+dnKUNaDEpU+4ikNfbFSlt8Y64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ferrisoft.com; spf=pass smtp.mailfrom=ferrisoft.com; dkim=pass (2048-bit key) header.d=ferrisoft-com.20251104.gappssmtp.com header.i=@ferrisoft-com.20251104.gappssmtp.com header.b=a14LtTdH; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ferrisoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ferrisoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="SqS84QYj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1786545058; x=1786804258;
-	bh=QtCx8kB4Mb3iMCCv5WhZU671IVumwe5Ul6ivPOF137Q=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=SqS84QYj7RfOGuQYWhwPmumdRbqQ4bjc7QWNHiR0dLjrgPH7woK1J1WTwb7K7lPAh
-	 75RivjZvIkXgDtl4NWjMANc5LUcKt/04PKPqt8bFBB+E4tsLDRcY9L7wknR2EBMwIF
-	 oGjh0TWZu2yq90RoYiKvLNY17z75goSmhQTTJgXpFW7LB9Yt/zlliQkyQtpyrIUFKA
-	 bzgbgAlM/BmOMacnu1WXUjoE2wjgYSeGAkWlxwvOOttwk+Oe/Lr6QnBHRjLeA9PqAp
-	 LgF9ANtr+LguagehgraGEdmTeXMMQX6PC8yULsmGYobuELm4wgc/gjethtZDuZjkhH
-	 /vMl577AiNS3w==
-X-Pm-Submission-Id: 4hKrWh3vcvz2Sd3M
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 12 Aug 2026 16:30:36 +0200
-Subject: [PATCH v4 5/6] iio: accel: mma8452: Allow open drain interrupt pin
- configuration
+	dkim=pass (2048-bit key) header.d=ferrisoft-com.20251104.gappssmtp.com header.i=@ferrisoft-com.20251104.gappssmtp.com header.b="a14LtTdH"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f6609c657so492506f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:44:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ferrisoft-com.20251104.gappssmtp.com; s=20251104; t=1786545870; x=1787150670; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i58CCkzqQy4VtXw07JKIL8ZZNTjvSNoRGzNvHk2S/dU=;
+        b=a14LtTdHi+/v2pPsJFhd6fm+sUyvjt8kHBn7VrRa4UK9ggjzcQswOnxLkgra0NsY9C
+         nL2gozZRoa0stsXyQwZDgKJpD4S70SXWSRg8CIt0Q3Hv29HnjuCw7FIgPlAAGC+R0All
+         Q5rNDGUSj1T7c5dr8Dvk01qDNdC9mo1ryvzRg+oFTBA/KaCIiz61uRT28cxoe1SakSC2
+         13fxq+S9dO+Dam+YUZp/QIM/sOOpdtVrbpPukEn2diYloeiFJSp/wbyCD43E+R3hhJg/
+         VS5tAtr9DOMfMI8xhF9wU6kbZ06sDv4+lJaR46PLRbzvLt4ZN8g6a+WBUHFoSrKe2rzR
+         jOlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786545870; x=1787150670;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i58CCkzqQy4VtXw07JKIL8ZZNTjvSNoRGzNvHk2S/dU=;
+        b=VihR/KCoAx6fpSt9EC0qXZVBiNkXPE1dS8cTpSDjGaZSjDCj+WsGIXdBnnDc0Acd3f
+         I3Mgcj+q7dP5Y4poPAVla3BZdWPHyKZIGPLXAEjif2jbCMPthMsRenu/oVwrDVQdMYip
+         Cz43J2U7LJ+1STkJZHkmE6eYml3y/sJPnztjAaE90nphm0uVrFXBDDNdx+Q516KPoLti
+         dAaJ/wsSYltYJBGOLI1wDpJT//Nax3eExOYojb+ajuxrCOFpR/RipagtdXEgZTJck30x
+         PiJkO13xGbfeCv0pyFJFkjekRt2x0Zj0572PKPRLAZFUjFt29UAd1N9CoANyiMvmDe1q
+         vIrg==
+X-Forwarded-Encrypted: i=1; AHgh+RrENL4dbDj8tGMTE6hkL3uzDkQ2IMcImPJaPJvEe1TtaQFMxOLfXwnQpMND0EfpBxY7tsLxJxHUDDbn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyz3Nxmu4pLy2KJVBtNXKnhSkiP9aAeISY522SBwuY0Wc23Y6FV
+	IIXjkGP4Dq0PA34wkpHxXfpeh+1B+Gg82V+511fhT+H+AiZEddWFJcZeRHxC6tVSjrG4
+X-Gm-Gg: AR+sD11pBY1hdgzzuu+Jvxq4B4Xc/d7Qk22Fm1PMDaEaA38m4/jx9dml4iE8JGiIVZm
+	2+HWSZxmUudnMX9E5aXfZx8yb7wMugU9itX4Ddahkuvcr4sb75NrIF4LSTelZ2Q6vFpCgeXJEe3
+	e2PpeIl0A/57E+Ns1Mr77c+8qLd0MWS4sdZCHHfHiU/DKaq5lCt9YJxmhzK3an/6fBIoR04Fj+E
+	BbF2dl0T+GBX/WCeJEvhRetIUmCNDgvpXwajeFJjTtDf/0AsJRc3otsv1kKtFznhbvl2onN2MR7
+	qztCR9/DB2+hwqX/ZnmscPjVTPJ0eqMyf6DDZ+vw8FM6PA6xRO9mf8mbgYiVViSC9Z2elYgtFkZ
+	GvfeluW8gBx6l7UJ0Ab31qqHkwo2Ir79RlPpTq+GSPQS8vS/j21RVbcaES3YYzplWGyVg1TsU+Y
+	dH3DX71Yw1pnPhf/QK1IbypiWwrNq7WnwPw4y/n4VpkeTmWQH44Grwa/2CcL8MafOpmp1cOWOqI
+	E7NRQ==
+X-Received: by 2002:a05:6000:2607:b0:47f:8b2c:3d98 with SMTP id ffacd0b85a97d-48152c3f767mr8300016f8f.4.1786545870253;
+        Wed, 12 Aug 2026 07:44:30 -0700 (PDT)
+Received: from zenbook (45-11-61-69.ip4.greenlan.pl. [45.11.61.69])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150bf5f0esm7669983f8f.4.2026.08.12.07.44.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 07:44:29 -0700 (PDT)
+From: Greg Ociepka <greg@ferrisoft.com>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Add missing USB clock, power and bandwidth votes
+Date: Wed, 12 Aug 2026 16:44:28 +0200
+Message-ID: <20260812144428.1105298-1-greg@ferrisoft.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <f92cc91e-6e5c-4375-aaa6-f079a165f4b5@oss.qualcomm.com>
+References: <f92cc91e-6e5c-4375-aaa6-f079a165f4b5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-mma8452-open-drain-v4-5-bfca15d02b59@geanix.com>
-References: <20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com>
-In-Reply-To: <20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
- Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
-Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786545039; l=2387;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=XAB19KdSyMK9mt+Rw2Vp72Vjf2WnClhTTZqjRvwz4C0=;
- b=eK4jpnBI5+okCdCApB12SWhUorIDm+PahZpu/J8VdFBlBNxEa8qSslkWS3wvKKVy7Hdn2NIVB
- vcRgmt/JhjmDV9lGYJJ5iqMDgi62WM6F69KRZnuhGXOIN+jIsEkKvMs
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-When designing systems sharing the interrupt for mma8452 chips, it is
-helpful to be able to configure the irq pin in open-drain mode (default is
-push-pull).
+On 8/12/2026 6:12 PM, Krishna Kurapati wrote:
+> It is dma-coherent.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/iio/accel/mma8452.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+Thanks for confirming, and thanks Abel for the review.
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index 106cdd904dbf..7992f9e38818 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -81,6 +81,8 @@
- #define  MMA8452_CTRL_REG2_RST			BIT(6)
- #define  MMA8452_CTRL_REG2_MODS_SHIFT		3
- #define  MMA8452_CTRL_REG2_MODS_MASK		0x1b
-+#define MMA8452_CTRL_REG3			0x2c
-+#define  MMA8452_CTRL_REG3_PP_OD		BIT(0)
- #define MMA8452_CTRL_REG4			0x2d
- #define MMA8452_CTRL_REG5			0x2e
- #define MMA8452_OFF_X				0x2f
-@@ -119,6 +121,7 @@ struct mma8452_data {
- 	int sleep_val;
- 	u8 ctrl_reg1;
- 	u8 data_cfg;
-+	bool open_drain;
- };
- 
-  /**
-@@ -647,6 +650,22 @@ static int mma8452_set_power_mode(struct mma8452_data *data, u8 mode)
- 	return mma8452_change_config(data, MMA8452_CTRL_REG2, reg);
- }
- 
-+static int mma8452_set_interrupt_pin_mode(struct mma8452_data *data)
-+{
-+	int reg;
-+
-+	reg = i2c_smbus_read_byte_data(data->client, MMA8452_CTRL_REG3);
-+	if (reg < 0)
-+		return reg;
-+
-+	if (data->open_drain)
-+		reg |= MMA8452_CTRL_REG3_PP_OD;
-+	else
-+		reg &= ~MMA8452_CTRL_REG3_PP_OD;
-+
-+	return i2c_smbus_write_byte_data(data->client, MMA8452_CTRL_REG3, reg);
-+}
-+
- /* returns >0 if in freefall mode, 0 if not or <0 if an error occurred */
- static int mma8452_freefall_mode_enabled(struct mma8452_data *data)
- {
-@@ -1676,6 +1695,11 @@ static int mma8452_probe(struct i2c_client *client)
- 			goto disable_regulators;
- 	}
- 
-+	data->open_drain = device_property_read_bool(dev, "drive-open-drain");
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto trigger_cleanup;
-+
- 	data->ctrl_reg1 = MMA8452_CTRL_ACTIVE |
- 			  (MMA8452_CTRL_DR_DEFAULT << MMA8452_CTRL_DR_SHIFT);
- 
-@@ -1817,6 +1841,10 @@ static int mma8452_runtime_resume(struct device *dev)
- 		return ret;
- 	}
- 
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto runtime_resume_failed;
-+
- 	ret = mma8452_active(data);
- 	if (ret < 0)
- 		goto runtime_resume_failed;
+I'll send a follow-up patch adding dma-coherent to the USB controller
+nodes, with a Link to this thread — keeping it separate so the
+already-reviewed patch stands as is.
 
--- 
-2.55.0
-
+Greg
