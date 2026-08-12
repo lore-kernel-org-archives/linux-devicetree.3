@@ -1,225 +1,594 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD7E34251B
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786497688; cv=none; b=ejIYh8DfkKIdpQ882hQgJ/1AxA8H7Ge+n86TzLO28IAlbZhqDN81I6vKJVdMkAQ5tOOQIGuRMM2+V9iPOqVVzfo6plMRWEWSY3IH3DxlBHFRHsleRqyozdLJ29KM+zXiACPyJkVl1hozRzOH6CKZhs6QNfnXr9T6f8NLgq+Wkng=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786497688; c=relaxed/simple;
-	bh=9UYl61WOmOuArFng3Xrwkw7uxon5EPQbUBcRNOj54pI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MStGoI2dgqi0H40TsS2DUoIXl1j+82Pi2ZTftn9XN/ibzgOs7FYzUI4Ev+5w02dphgDh991/B6Kp/rX1T9EJcolbIqqL/nuoa1Y8akweTZTx+wwdryDoz/zHz470EromJFkZE/Sy+v5Yv/Ks1S/7TcEMgRpNOcuSnJDq+zoIFI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=icWBn7Aj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z0ny01Vw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9DF34EEEA
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786497763; cv=pass; b=bKNhXhWtPwnBfoLQpIVDGrhkEheUYBgmrWmhraHSGcVfBPkSOrFHsJEXAmrZmsK/U4rmp5qDOu0XnCpHp5xsD7bLgkJ7OWymHEbqfDBYGrNY4BuM5HmPIPt5kE0Bx744CuxOTgY9iWpvVPmgePsindzDZiA1MBPrVVUIlP4asEI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786497763; c=relaxed/simple;
+	bh=rLbcwarjit+Ka/LngucPc2Jh24xmljp0mdnAAR/LqeI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F2C9OLS5uvK3gdl0GdkHKfmJM62Whx6qB58dFVL7J1UzIBhRRZYB9Z2YznrZfCfARHGEeVg3p0/qi73v4/5CyacjYtkF4dopSUCpRmhSNDdjjFOA5nK5+tmNgf8HwLkVCcjsKXgAvcEnCu5R62/fMeV/coR5q+2J3d0Ux8WuzNE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EyEfQlJT; arc=pass smtp.client-ip=209.85.222.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="icWBn7Aj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z0ny01Vw"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67C06eMx1410097
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:21:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=5a3XBzcMA6vkW7LRI5Be/dhO
-	NOD7PfEohmvAk5RCvEA=; b=icWBn7AjaNso3Q5fLbRB60DIvvB4jGkoxD+iaD1y
-	HsoPnruWyxwSx0LWxjhJyQZL9zY4cRC+RefHozoMGSUbLZZOL01rq6BsNCpZqvTu
-	535BhWfUnxNbop32+0SCi+DPmNeHZMHN2sD7UseyFJBVsMo/lIlUZAK6fbkgyoiM
-	Z8qsjhSW7cTAxDK/6E/gdaNVG+BDJdpRJSzNU+wg0rhzvqwnKBLRQpXpbVBdKcbb
-	TffZjgB2ne85pASICW94OvfCOwlDI3HtzLKQP8eh4h5MKflMeyWnscVnUOSZidnO
-	ggw2S/dW7fPz45aUG0BW+fAvCK3fXqIwTyPEFRIE1QzUYA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g049g2ukv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:21:25 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cceabd70f5so13472465ad.1
-        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 18:21:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EyEfQlJT"
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-977fca41f52so217851241.1
+        for <devicetree@vger.kernel.org>; Tue, 11 Aug 2026 18:22:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786497759; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OziluFqsLU436+aLHONt5eDIXkCFD4EAP92eDCtWJs/csNacb77HjJyjxsmeMHjHzx
+         QuqkXAf+OwUfD3/HuJva6DSu4R52xmR7QaCTTyCuCqeSrRl/n+gY87XstcYtvL4D0LmI
+         zDsztPeilXqIfLTZVcnE1XV6qLH9xGjypcqOVMQA+Q03YxLiJJXlNfA3Aii9Gk0Yiti2
+         CBM7KiINKor91YiSTQbPN7H46+WRuxG4bcDMYbkjlq9Yn1aiDSXVAKOZ0R3bxAa3jxz7
+         HdrEzpfbQJUyTAGs0n0ITsnI85FuYPxPTBenNiyZJGcjBBbLO5KaRybVcvm9MagdLofV
+         Ngfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wOVBacM5UqeudlDw+F1mps9aET1eP9sF7gMTDuLRQW8=;
+        fh=J7+oVkaRPzNvcYZ+cRTxUi7pcJbQXiveUSbwAOA1Y88=;
+        b=ZsX66tp2YPNT8uAgMuLbPVqxzaFG1scdUJoSVe305r0xtZF0cJuxfqiSLUvkvfsKLy
+         iiXq2WytYF67p1KjAUASRvx9oxf8NeBx0WhiGg5fMRA8dKkN3XNivr+t+dqE8Kf/fWLZ
+         TmtzrWIw12GiyNkC6dK0w29opkuOm8WYr/ILS+8UeOrld/zkr2v1T9xrVqncaKkV9lOK
+         6gu+CGAfbCGznneutO5JgRkUgwnMKTdU/7schKAWF8pPRpyQtOU7PkPbmaC3zUyuxsca
+         kr0uBUOqz44UDq/4VVGrRuTyEP7OtspRwshInprEILFI/p2GaaE33KekWAfdlP8CmXfq
+         Nirg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786497685; x=1787102485; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1786497759; x=1787102559; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5a3XBzcMA6vkW7LRI5Be/dhONOD7PfEohmvAk5RCvEA=;
-        b=Z0ny01VwH0G7nl28K8R0UMnxhrXFZvsq8I9FLJkKkbho3HmEypcpI7AAgJKO3bXctc
-         sVniy3ORN79ktKnLmCoobF8W1Fx2S+vS3seJoFtkh8wOPJ7Sc1azFO9omfxk9XHM43+/
-         lStbr/3GfY95K4PfE0PkT9NIQM5DrGI/dW56asXNKf+vn8ueDxsCj9L21NXq0gxFamAt
-         ZZHcTkJubuHUbB6Dm3/jB6ZG++lCgLGWgs4DBioEI7WmqAs00JQ6pbkpzWDk4GPUKAPR
-         8MWnsAb+Q4uEZuDBOuc1DnqFBWi+P1SwJVyfajuijfZxxY/gvCyVcb0FE21F8rbaCapa
-         0SvA==
+        bh=wOVBacM5UqeudlDw+F1mps9aET1eP9sF7gMTDuLRQW8=;
+        b=EyEfQlJTTbLqr6PNLwqko2QoIkV/lD31wXqEXAWBNGL8txWH0yJDD1zkDnJ8vg7PVa
+         siKUv82M1ExxqLCA7tP/hvTzIXLS8YEJfVGKrkfYkkzOzBzjYLvJZGF4n+oqD+aquDjO
+         0NfNdd31JGX8+WwG6DtLpXljsJI16izNqwEiBSJ5NoQT6ctEA7DNCAmwPUwuQ4B0CV5Y
+         s/763N6vqK1XHrb7R7bFSy74AeKFVf/Rlq11w6MIapWKZnzfWTpru0HYdoZb9rifoPg4
+         Z4fqXXA+Gq6msCObKmKvg/VmxEixKtzfN7jX0AQuNtnO5hUQtM0/JQ0vgQx6AxRhX0v9
+         O86A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786497685; x=1787102485;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1786497759; x=1787102559;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5a3XBzcMA6vkW7LRI5Be/dhONOD7PfEohmvAk5RCvEA=;
-        b=S8NtOcuzawMH4GW6DDFLsT2FUaTN0/D8cRnlEBuYQT+s2M1VwHBINThpcSopbuWQh0
-         DjIkig5rhIF0gww8xfxHexIoaqrMS6Hvhqe/fTtAgWRhZkxPFz4+gu7USioBNtrnK5pU
-         VYPNU+JC7GzclseFrXbuDN2TQDakatmE2ZheP/U0UVezVEFampW5PtXDmzSWZ+JEs+Cm
-         el6UBvY4Lv3iOFm211Wo8JjFeh0sxWL3iV9X6ucPlz44P6hjiDzwAuKuStByNf2VlQCY
-         v4u7FHGkquA8kPhynbGtbdZo7T8qf9sKmKYyZDGQotYOP4nr87qEsNRREYgf90DrSTE+
-         cBMw==
-X-Forwarded-Encrypted: i=1; AHgh+RqUenfj0v6mkwQxhUGdyt3FZ6f+LTF6TweLz/g7+qGqrGqXOKjTPY7axCVo4KYEyMUd5opXp8OqZNsZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGbkUMA6EaBIW+pVpAr/Atd7ICr7cq/chxRR824amsXogCb1lb
-	+lvwLx/Dld/mTXQhbvnZ4QsWyFEmzrlggSumX88MDVnERbfr5BtI92t7vvSzMxVIvW2ZOtUng/h
-	8nDgbWckhyX+LLLdnGN1//Mcqg6j5PXifdWaFjzH3laZkaR4xfIGo7UfWl09VEjU4
-X-Gm-Gg: AR+sD13IOvRXNsf1BeXK83SVxitdMQhOuAva23+Z9BqxaQDjoBUdho3HiLzT6kuf1AM
-	uRDc+Q8CR9fZWPEzuMENrrkTnzOGPfCGbx0I8mKLzgsBz88oiIEEJ0kPXpwEC62hMHWSdyIPxtY
-	SI0GoYDDcbIsdyn5w5xABBxkXKA7wHnItlAPRoFR6/yxZVHKafaNvQHJRf8q58LJ4RBAGpnF0u/
-	sgdv7FdIv0mzNS/+oBG+ywzKIQOXPmxb9IcksbsuIC4UXImj1gdUHMcL2kCwT6jZ/WwxMiYm6kf
-	1MwScb8otTmNEFvF0dudsLwWTp1AGSExiKZ/CbDOQfJgDwIhK13nx/MayHoGvuQnD4O3T+cP0/C
-	QvXMbemMV9Bt5H6CZBSYYPVffYmTKsjfMnYshH7zf9eobm0JEQB3sOQ==
-X-Received: by 2002:a05:6300:95:b0:3c3:b57b:6285 with SMTP id adf61e73a8af0-3cc3f5cee4emr1257773637.13.1786497684840;
-        Tue, 11 Aug 2026 18:21:24 -0700 (PDT)
-X-Received: by 2002:a05:6300:95:b0:3c3:b57b:6285 with SMTP id adf61e73a8af0-3cc3f5cee4emr1257699637.13.1786497684277;
-        Tue, 11 Aug 2026 18:21:24 -0700 (PDT)
-Received: from hu-mdtipton-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31cf3624c6dsm5983243eec.4.2026.08.11.18.21.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Aug 2026 18:21:23 -0700 (PDT)
-Date: Tue, 11 Aug 2026 18:21:21 -0700
-From: Mike Tipton <mike.tipton@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: clock: qcom: Add Hawi camera clock
- controller
-Message-ID: <anvKkfkiWEGk6ODs@hu-mdtipton-lv.qualcomm.com>
-References: <20260723-camcc-hawi-v1-0-7057658c5c47@oss.qualcomm.com>
- <20260723-camcc-hawi-v1-1-7057658c5c47@oss.qualcomm.com>
- <20260807215046.GA2074060-robh@kernel.org>
+        bh=wOVBacM5UqeudlDw+F1mps9aET1eP9sF7gMTDuLRQW8=;
+        b=CCOx0Ym2YpG/BElF7E/KbNGhPAqra29XTdAQAffkZION2a74fWnhEIFV/YFwJlgNz6
+         /B60uwu4Qbhg1lEmBEL6pzMG6Kl0c2y24exylPRvyPf8UFfTNJdIfcFfeHrs06mmAqO5
+         DhytKblF4ilKaHX1lStVog9QNZDH1sPznW/NgMigJRgp9FviDgORwjHqgpLhWeyB6LCU
+         kAA01MwrNqol/a2kR3sN6FvB4w65HaYckfGcTA8g2xDp68XUHKa0mnjm5u1SJ7kRfKm2
+         EntKDRhoSTWGAciPjVNZvo0BaWK3gJVNvTtAUWjaQcQKM4Mj70UCI84zWKZUE5mTuGii
+         NpCA==
+X-Forwarded-Encrypted: i=1; AHgh+RpXQiK6FB9XRTsQM3MJjGm9VUn0FOKAmvDfxsYJmNAU09D65fLZsU6unbGtow6ect8XdxeaOlls4IPQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YznSieJAau4FVFnD5FhCF3lVjTr2+EMJITGA7pOPAm8EhRT+a4o
+	pk88Vd3RFhoJ8a2/Wsb6ft8huibBqDnRplzyQGbiozZNz4nE4kloKeVZ2vPfyFHAE9oMzXf8QVz
+	+jnmY0DJSeq1ovflYN+UnQCD6/mTCrbI=
+X-Gm-Gg: AR+sD117c4DiptOxCXEc9eRSFqbKSoLSyeFyZ0a8bmPZILKUuXTzEXOGI3VXMPlAmXi
+	izQ1+ozunQkkIOpbZYoI5SS0JT9d/jkObfXEQjl4soeV6GE73SNiIE57lDk8qC7JnWZ2ubbqlDW
+	15UJHrrnA0slUZz1sXkkaYVa7B/wwJVMI9CRm5lfDDi7PRXUkgk1AKvrNvWBFwqpydau+uxXKoP
+	yUwMstbcCGTADnKBtcoFSfStnGLlal0a86BZEJ9G3GQVdV8sYcj/FjMz+fNnLmgkajJUmxAuIXG
+	BWwBxjMnizHQQ2x5aEyweiTTG9D5GeKKyTyxKexTB99m9g==
+X-Received: by 2002:a05:6102:4189:b0:650:94b2:b209 with SMTP id
+ ada2fe7eead31-76c88463a06mr334823137.4.1786497759207; Tue, 11 Aug 2026
+ 18:22:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807215046.GA2074060-robh@kernel.org>
-X-Proofpoint-GUID: kUHC9SdAh6gDK_2E5lOFKjAEUtNGEe0b
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDAwOCBTYWx0ZWRfX9r90CZamfzoX
- CHcsFQvez06GbU1MV/7h+3IkYw9/XILlbdyHp0tqZJmOPup0x91e9dxKO+hLm7dR5GQKGfvJ4HK
- 1j7GAHyaDkpTC64IU3GtZAP2KJCwuio=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDAwOCBTYWx0ZWRfX4WXR6obzehL2
- jpRLu9LAKivexk/9H6AqH97kSs5zNeG9xHCQJlhXAaJbbYoD2E9wcNTDpgNMCEtTuMXXkVnpQbR
- KlNDNXM74KAqUDED8KrbDSBEDhNLdPXPMpKaQwLxLE1u/vGlEwAcxPl4jeqSeEv2GdNcXZ2LXSm
- n4LA2h1W8AX5FC/VAuYrikaY/QYz20G2Mp7+KpTPLMO7/SsFNwIQJTJSuaO7VLmoDLapxuDN9HM
- yPsxX0znu+x71dhV5j/bWTC/f7qndnhN5nmiiGGe0YM6uuLOKeujiu+EKADkQ/YhKdNa/q20UEf
- 6asaPswtXcgdQnGaPrS6IoeEMNxa982IeEOCy3XI33BsOak7UAAkySjxD4GVyptmcoeoghHCY+5
- rlkbrjB6iTVvJBVMNIok5+q7wAQ+rrimMPQ5LD5E7Ka/FhLq9Iqtc3dB/TDhsk5CrDO14reczP6
- 04/V83/5xEdUIetwRug==
-X-Proofpoint-ORIG-GUID: kUHC9SdAh6gDK_2E5lOFKjAEUtNGEe0b
-X-Authority-Analysis: v=2.4 cv=LIRWhpW9 c=1 sm=1 tr=0 ts=6a7bca95 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=ln3hM7--VPYWvVz1xlgA:9 a=CjuIK1q_8ugA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-11_06,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
- priorityscore=1501 adultscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120008
+References: <20260811-ti-ads112c04-driver-v4-0-ae704ac17241@gmail.com>
+ <20260811-ti-ads112c04-driver-v4-2-ae704ac17241@gmail.com> <cd020926-9daf-4493-b0c1-6399a77fcf9c@baylibre.com>
+In-Reply-To: <cd020926-9daf-4493-b0c1-6399a77fcf9c@baylibre.com>
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Date: Wed, 12 Aug 2026 09:25:27 +0800
+X-Gm-Features: AUfX_mwR4vaVPdynwFJhYE3dIKsj4awx1nXnyRw5JO9tOO3_Ai4decKV4IykxqI
+Message-ID: <CAF7HswO653pdEukE==ZRbXyuDvNdrbZ7iPDKndHXiE77Bg3tCQ@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] iio: adc: ti-ads112c04: Add support for TI ADS112C04
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 07, 2026 at 04:50:46PM -0500, Rob Herring wrote:
-> On Thu, Jul 23, 2026 at 02:38:57PM -0700, Vivek Aknurwar wrote:
-> > Update the compatible and bindings for camera clock controller (CAMCC)
-> > support on the Qualcomm Hawi SoC.
-> 
-> That's obvious from the diff. Explain how the block is the same or 
-> different in Hawi.
-> 
-> > 
-> > Signed-off-by: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+On Tue, Aug 11, 2026 at 10:18=E2=80=AFPM David Lechner <dlechner@baylibre.c=
+om> wrote:
+>
+> On 8/10/26 9:48 PM, Kyle Hsieh wrote:
+> > Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
+> > delta-sigma ADCs.
+> >
+> > The driver implements:
+> > - Single-shot conversions using the IIO raw read interface.
+> > - Dynamic parsing of single-ended and differential channels from
+> >   device tree child nodes.
+> > - Hardware interrupt support via the DRDY pin, falling back to
+> >   software polling if no IRQ is provided.
+> > - Scale calculation based on the internal 2.048V reference.
+> > - Reference voltage scaling via the regulator subsystem (refp-supply),
+> >   falling back to the internal 2.048V reference if not specified.
+> >   refn-supply is not yet supported.
+> > - Hardware reset fallback using GPIO.
+> >
+> > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
 > > ---
-> >  .../bindings/clock/qcom,sm8450-camcc.yaml          |  36 +++--
-> >  include/dt-bindings/clock/qcom,hawi-camcc.h        | 165 +++++++++++++++++++++
-> >  2 files changed, 192 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> > index b41247b257b1..cdc19418c064 100644
-> > --- a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> > +++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> > @@ -16,6 +16,7 @@ description: |
-> >    domains on SM8450.
-> >  
-> >    See also:
-> > +    include/dt-bindings/clock/qcom,hawi-camcc.h
-> >      include/dt-bindings/clock/qcom,kaanapali-camcc.h
-> >      include/dt-bindings/clock/qcom,kaanapali-cambistmclkcc.h
-> >      include/dt-bindings/clock/qcom,sm8450-camcc.h
-> > @@ -26,15 +27,21 @@ description: |
-> >  
-> >  properties:
-> >    compatible:
-> > -    enum:
-> > -      - qcom,kaanapali-cambistmclkcc
-> > -      - qcom,kaanapali-camcc
-> > -      - qcom,sm8450-camcc
-> > -      - qcom,sm8475-camcc
-> > -      - qcom,sm8550-camcc
-> > -      - qcom,sm8650-camcc
-> > -      - qcom,sm8750-cambistmclkcc
-> > -      - qcom,sm8750-camcc
-> > +    oneOf:
-> > +      - enum:
-> > +          - qcom,hawi-camcc
-> > +          - qcom,kaanapali-cambistmclkcc
-> > +          - qcom,kaanapali-camcc
-> > +          - qcom,sm8450-camcc
-> > +          - qcom,sm8475-camcc
-> > +          - qcom,sm8550-camcc
-> > +          - qcom,sm8650-camcc
-> > +          - qcom,sm8750-cambistmclkcc
-> > +          - qcom,sm8750-camcc
-> > +      - items:
-> > +          - enum:
-> > +              - qcom,hawi-cambistmclkcc
-> > +          - const: qcom,kaanapali-cambistmclkcc
-> >  
-> >    clocks:
-> >      items:
-> > @@ -67,6 +74,17 @@ required:
-> >  
-> >  allOf:
-> >    - $ref: qcom,gcc.yaml#
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          not:
-> > +            contains:
-> > +              enum:
-> > +                - qcom,kaanapali-cambistmclkcc
-> > +                - qcom,sm8750-cambistmclkcc
-> > +    then:
-> > +      required:
-> > +        - '#power-domain-cells'
-> 
-> This makes #power-domain-cells required on existing platforms. That's a 
-> separate patch and needs to be explained.
+> >  MAINTAINERS                    |   1 +
+> >  drivers/iio/adc/Kconfig        |  10 +
+> >  drivers/iio/adc/Makefile       |   1 +
+> >  drivers/iio/adc/ti-ads112c04.c | 425 +++++++++++++++++++++++++++++++++=
+++++++++
+> >  4 files changed, 437 insertions(+)
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 417d74b6d6cc..f51fbda9d4b9 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -26992,6 +26992,7 @@ M:    Kyle Hsieh <kylehsieh1995@gmail.com>
+> >  L:   linux-iio@vger.kernel.org
+> >  S:   Maintained
+> >  F:   Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> > +F:   drivers/iio/adc/ti-ads112c04.c
+> >
+> >  TI ADS112C14 ADC DRIVER
+> >  M:   David Lechner <dlechner@baylibre.com>
+> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> > index 990e7b3e7212..0ee50828f9e4 100644
+> > --- a/drivers/iio/adc/Kconfig
+> > +++ b/drivers/iio/adc/Kconfig
+> > @@ -1817,6 +1817,16 @@ config TI_ADS1119
+> >           This driver can also be built as a module. If so, the module =
+will be
+> >           called ti-ads1119.
+> >
+> > +config TI_ADS112C04
+> > +    tristate "Texas Instruments ADS112C04 ADC"
+> > +    depends on I2C
+> > +    help
+> > +      If you say yes here you get support for Texas Instruments
+> > +      ADS112C04 (16-bit) I2C analog to digital converters.
+> > +
+> > +      This driver can also be built as a module. If so, the module wil=
+l be
+> > +      called ti-ads112c04.
+> > +
+> >  config TI_ADS112C14
+> >       tristate "Texas Instruments ADS112C14/ADS122C14"
+> >       depends on I2C
+> > diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+> > index dcec0abb03b7..d8acf2831fd2 100644
+> > --- a/drivers/iio/adc/Makefile
+> > +++ b/drivers/iio/adc/Makefile
+> > @@ -155,6 +155,7 @@ obj-$(CONFIG_TI_ADS1015) +=3D ti-ads1015.o
+> >  obj-$(CONFIG_TI_ADS1018) +=3D ti-ads1018.o
+> >  obj-$(CONFIG_TI_ADS1100) +=3D ti-ads1100.o
+> >  obj-$(CONFIG_TI_ADS1119) +=3D ti-ads1119.o
+> > +obj-$(CONFIG_TI_ADS112C04) +=3D ti-ads112c04.o
+> >  obj-$(CONFIG_TI_ADS112C14) +=3D ti-ads112c14.o
+> >  obj-$(CONFIG_TI_ADS124S08) +=3D ti-ads124s08.o
+> >  obj-$(CONFIG_TI_ADS1298) +=3D ti-ads1298.o
+> > diff --git a/drivers/iio/adc/ti-ads112c04.c b/drivers/iio/adc/ti-ads112=
+c04.c
+> > new file mode 100644
+> > index 000000000000..3a775da2ae23
+> > --- /dev/null
+> > +++ b/drivers/iio/adc/ti-ads112c04.c
+> > @@ -0,0 +1,425 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Texas Instruments ADS112C04 16-bit I2C ADC driver
+> > + *
+> > + * Copyright (c) 2026 Kyle Hsieh <kylehsieh1995@gmail.com>
+> > + *
+> > + * Datasheet: https://www.ti.com/lit/ds/symlink/ads112c04.pdf
+> > + * Based on TI Reference Code and standard Linux IIO framework.
+> > + */
+> > +
+> > +#include <linux/bitfield.h>
+> > +#include <linux/bitops.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/err.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/interrupt.h>
+> > +#include <linux/iopoll.h>
+> > +#include <linux/jiffies.h>
+> > +#include <linux/module.h>
+> > +#include <linux/mutex.h>
+> > +#include <linux/property.h>
+> > +#include <linux/regulator/consumer.h>
+> > +#include <linux/string.h>
+> > +#include <linux/types.h>
+> > +#include <linux/units.h>
+> > +
+> > +#include <linux/iio/iio.h>
+> > +#include <linux/iio/sysfs.h>
+> > +
+> > +#define ADS112C04_CMD_RESET         0x06
+> > +#define ADS112C04_CMD_START_SYNC    0x08
+> > +#define ADS112C04_CMD_POWERDOWN     0x02
+> > +#define ADS112C04_CMD_RDATA         0x10
+> > +#define ADS112C04_CMD_RREG(reg)     (0x20 | ((reg) << 2))
+> > +#define ADS112C04_CMD_WREG(reg)     (0x40 | ((reg) << 2))
+> > +
+> > +#define ADS112C04_REG_CONFIG0       0x00
+> > +#define ADS112C04_REG_CONFIG1       0x01
+> > +#define ADS112C04_REG_CONFIG2       0x02
+> > +#define ADS112C04_REG_CONFIG3       0x03
+> > +
+> > +#define ADS112C04_CONFIG0_MUX         GENMASK(7, 4)
+> > +#define ADS112C04_CONFIG0_PGA_BYPASS  BIT(0)
+> > +#define ADS112C04_CONFIG2_DRDY        BIT(7)
+> > +
+>
+> I think I mentioned before the preferred way to orgainze the fields
+> under the corresponding register. And as below, there are more
+> fields we are using that need macros here.
+>
+> > +struct ads112c04_state {
+> > +     struct i2c_client *client;
+> > +     /* Protects concurrent ADC reads and device configuration */
+> > +     struct mutex lock;
+> > +     struct completion completion;
+> > +     int vref_mV;
+> > +     u8 config0;
+> > +     u8 config1;
+> > +     bool has_refp;
+>
+> This isn't used outside of probe. Can just be passed as a function argume=
+nt.
+>
+> > +};
+> > +
+>
+> ...
+>
+> > +static irqreturn_t ads112c04_irq_handler(int irq, void *private)
+> > +{
+> > +     struct iio_dev *indio_dev =3D private;
+> > +     struct ads112c04_state *st =3D iio_priv(indio_dev);
+> > +
+> > +     disable_irq_nosync(irq);
+>
+> As mentioned in this recent discussion [1], we should not be disabling th=
+e IRQ.
+> If there is a true need for it, we need lots of comments explaining why. =
+Since
+> we aren't doing buffered reads though, I can't see a reason why we would =
+need
+> it right now. Unless we are worried about spurious interrupts, in which c=
+ase
+> we should read the DRDY status bit before setting the completion here as =
+that
+> would be more robust.
+>
+> [1]: https://lore.kernel.org/linux-iio/20260802184126.04738251@jic23-huaw=
+ei/
+>
+> Also, this ia a bug because we can't call syncronous code in an IRQ handl=
+er.
+> We would need to change it to a threaded IRQ handler.
+>
+> > +     complete(&st->completion);
+> > +
+> > +     return IRQ_HANDLED;
+> > +}
+> > +
+> > +static const struct iio_info ads112c04_info =3D {
+> > +     .read_raw =3D ads112c04_read_raw,
+> > +};
+> > +
+> > +static int ads112c04_parse_channels(struct iio_dev *indio_dev)
+> > +{
+> > +     struct device *dev =3D indio_dev->dev.parent;
+> > +     struct ads112c04_state *st =3D iio_priv(indio_dev);
+> > +     struct iio_chan_spec *channels;
+> > +     u32 num_channels, pair[2];
+> > +     int ret, i =3D 0;
+> > +
+> > +     num_channels =3D device_get_named_child_node_count(dev, "channel"=
+);
+> > +     if (!num_channels)
+> > +             return dev_err_probe(dev, -EINVAL, "no channel subnodes f=
+ound\n");
+> > +
+> > +     if (num_channels > 12)
+> > +             return dev_err_probe(dev, -EINVAL,
+> > +                                  "num of channel nodes exceeds 12\n")=
+;
+> > +
+> > +     channels =3D devm_kcalloc(dev, num_channels, sizeof(*channels), G=
+FP_KERNEL);
+> > +     if (!channels)
+> > +             return -ENOMEM;
+> > +
+> > +     device_for_each_named_child_node_scoped(dev, child, "channel") {
+> > +             struct iio_chan_spec *spec =3D &channels[i];
+> > +
+> > +             if (fwnode_property_present(child, "excitation-channels")=
+)
+> > +                     return dev_err_probe(dev, -EOPNOTSUPP,
+> > +                                          "excitation-channels is not =
+supported yet\n");
+> > +
+> > +             if (fwnode_property_present(child, "reference-sources")) =
+{
+> > +                     const char *ref;
+> > +
+> > +                     ret =3D fwnode_property_read_string(child, "refer=
+ence-sources", &ref);
+> > +                     if (ret)
+> > +                             return dev_err_probe(dev, ret,
+> > +                                                  "failed to read refe=
+rence-sources\n");
+> > +
+> > +                     if ((!strcmp(ref, "external") && !st->has_refp) |=
+|
+> > +                         (!strcmp(ref, "internal") && st->has_refp))
+> > +                             return dev_err_probe(dev, -EINVAL,
+> > +                                                  "reference-sources d=
+oes not match refp-supply\n");
+>
+> As explained more below, this part needs comments to explain why it is
+> the way it is since it is not implementing fully what is allowed by the
+> devicetree bindings. And would return EOPNOTSUPP to be consistent that
+> this is just something that is not implemented yet.
+>
+> > +             }
+> > +
+> > +             spec->type =3D IIO_VOLTAGE;
+>
+> I would add a REVISIT comment here to explain that when ti,refp-refn-resi=
+stor-ohms is implemented,
+> then we have the possibility of the channel being resistance instead of v=
+otlage.
+>
+> > +             spec->indexed =3D 1;
+> > +             spec->info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) | BIT=
+(IIO_CHAN_INFO_SCALE);
+> > +
+> > +             if (fwnode_property_present(child, "single-channel")) {
+> > +                     ret =3D fwnode_property_read_u32(child, "single-c=
+hannel", &pair[0]);
+> > +                     if (ret)
+> > +                             return dev_err_probe(dev, ret,
+> > +                                                  "failed to read sing=
+le-channel property\n");
+> > +
+> > +                     if (pair[0] > 3)
+> > +                             return dev_err_probe(dev, -EINVAL,
+> > +                                                  "single-channel must=
+ be 0-3\n");
+> > +
+> > +                     spec->channel =3D pair[0];
+> > +                     spec->address =3D 0x08 + pair[0];
+> > +             } else if (fwnode_property_present(child, "diff-channels"=
+)) {
+> > +                     ret =3D fwnode_property_read_u32_array(child, "di=
+ff-channels", pair, 2);
+> > +                     if (ret)
+> > +                             return dev_err_probe(dev, ret,
+> > +                                                  "failed to read diff=
+-channels property\n");
+> > +
+> > +                     if (pair[0] > 3 || pair[1] > 3)
+> > +                             return dev_err_probe(dev, -EINVAL,
+> > +                                                  "diff-channels must =
+be 0-3\n");
+> > +
+> > +                     spec->channel =3D pair[0];
+> > +                     spec->channel2 =3D pair[1];
+> > +                     spec->differential =3D 1;
+> > +
+> > +                     if (pair[0] =3D=3D 0 && pair[1] =3D=3D 1)
+> > +                             spec->address =3D 0x00;
+> > +                     else if (pair[0] =3D=3D 0 && pair[1] =3D=3D 2)
+> > +                             spec->address =3D 0x01;
+> > +                     else if (pair[0] =3D=3D 0 && pair[1] =3D=3D 3)
+> > +                             spec->address =3D 0x02;
+> > +                     else if (pair[0] =3D=3D 1 && pair[1] =3D=3D 0)
+> > +                             spec->address =3D 0x03;
+> > +                     else if (pair[0] =3D=3D 1 && pair[1] =3D=3D 2)
+> > +                             spec->address =3D 0x04;
+> > +                     else if (pair[0] =3D=3D 1 && pair[1] =3D=3D 3)
+> > +                             spec->address =3D 0x05;
+> > +                     else if (pair[0] =3D=3D 2 && pair[1] =3D=3D 3)
+> > +                             spec->address =3D 0x06;
+> > +                     else if (pair[0] =3D=3D 3 && pair[1] =3D=3D 2)
+> > +                             spec->address =3D 0x07;
+> > +                     else
+> > +                             return dev_err_probe(dev, -EINVAL,
+> > +                                                  "invalid diff-channe=
+ls combination\n");
+> > +             } else {
+> > +                     return dev_err_probe(dev, -EINVAL,
+> > +                                          "channel node must have sing=
+le-channel or diff-channels\n");
+> > +             }
+> > +
+> > +             i++;
+> > +     }
+> > +
+> > +     indio_dev->channels =3D channels;
+> > +     indio_dev->num_channels =3D i;
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +#define ADS112C04_VREF_INTERNAL_MV   2048
+>
+> Usually we put this at the top with other macro definitions.
+>
+> > +
+> > +static int ads112c04_probe(struct i2c_client *client)
+> > +{
+> > +     struct device *dev =3D &client->dev;
+> > +     struct iio_dev *indio_dev;
+> > +     struct ads112c04_state *st;
+> > +     struct gpio_desc *reset_gpio;
+> > +     int ret;
+> > +
+> > +     indio_dev =3D devm_iio_device_alloc(dev, sizeof(*st));
+> > +     if (!indio_dev)
+> > +             return -ENOMEM;
+> > +
+> > +     st =3D iio_priv(indio_dev);
+> > +     st->client =3D client;
+> > +
+> > +     ret =3D devm_mutex_init(dev, &st->lock);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     init_completion(&st->completion);
+> > +
+> > +     indio_dev->name =3D "ads112c04";
+> > +     indio_dev->modes =3D INDIO_DIRECT_MODE;
+> > +     indio_dev->info =3D &ads112c04_info;
+> > +
+> > +     /* Forward compatibility checks for unimplemented DT properties *=
+/
+> > +     if (device_property_present(dev, "refn-supply") ||
+> > +         device_property_present(dev, "ti,refp-refn-resistor-ohms"))
+> > +             return dev_err_probe(dev, -EOPNOTSUPP,
+> > +                                  "refn-supply and external resistors =
+are not supported yet\n");
+> > +
+> > +     st->has_refp =3D device_property_present(dev, "refp-supply");
+> > +
+> > +     ret =3D ads112c04_parse_channels(indio_dev);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     ret =3D devm_regulator_get_enable(dev, "avdd");
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "failed to get avdd regula=
+tor\n");
+> > +
+> > +     ret =3D devm_regulator_get_enable(dev, "dvdd");
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "failed to get dvdd regula=
+tor\n");
+> > +
+> > +     if (device_property_present(dev, "refp-supply")) {
+>
+> This can just be st->has_refp now.
+>
+> > +             ret =3D devm_regulator_get_enable_read_voltage(dev, "refp=
+");
+> > +             if (ret < 0)
+> > +                     return dev_err_probe(dev, ret,
+> > +                                          "failed to get refp voltage\=
+n");
+> > +
+> > +             st->vref_mV =3D ret / (MICRO / MILLI);
+> > +             st->config1 =3D 0x02;
+>
+> I've asked before... these values should have macros to explain what
+> they are and be using FIELD_PREP().
+>
+> > +     } else {
+> > +             st->vref_mV =3D ADS112C04_VREF_INTERNAL_MV;
+> > +             st->config1 =3D 0x00;
+> > +     }
+>
+> I still don't think storing vref like this is a good idea since it should
+> be per-channel. If you really are against implementing it in a more
+> future-proof way, then it needs lots of comments explaining why it is
+> implemented this way instead and how one would go about doing it the "rig=
+ht
+> way" in the future.
+>
+> > +
+> > +     /* Power-On Reset (POR) delay */
+> > +     fsleep(50 * USEC_PER_MSEC);
+> > +
+> > +     /* Requesting OUT_HIGH asserts the active-low reset pin immediate=
+ly */
+> > +     reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HI=
+GH);
+> > +     if (IS_ERR(reset_gpio))
+> > +             return PTR_ERR(reset_gpio);
+> > +
+> > +     if (reset_gpio) {
+> > +             fsleep(1000);
+> > +             gpiod_set_value_cansleep(reset_gpio, 0);
+> > +     } else {
+> > +             ret =3D ads112c04_write_cmd(client, ADS112C04_CMD_RESET);
+> > +             if (ret < 0)
+> > +                     return ret;
+> > +     }
+> > +
+> > +     fsleep(1000);
+> > +
+> > +     /* Bypass PGA for now to allow full-scale single-ended measuremen=
+ts */
+> > +     st->config0 =3D ADS112C04_CONFIG0_PGA_BYPASS;
+> > +     ret =3D ads112c04_write_reg(client, ADS112C04_REG_CONFIG0, st->co=
+nfig0);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     ret =3D ads112c04_write_reg(client, ADS112C04_REG_CONFIG1, st->co=
+nfig1);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     if (client->irq > 0) {
+> > +             ret =3D devm_request_irq(dev, client->irq,
+> > +                                    ads112c04_irq_handler,
+> > +                                    0,
+>
+> I think I've asked twice now to move this 0 on the previous line.
+> If you don't agree with that, it is fine, but we just ask that you
+> reply to the suggestion with an explanation to state your reasoning.
+> Otherwise, it comes across as carelessness that you continue to
+> ignore suggestions. This is not the only suggestoin that has been
+> silently ignored. You might want to go back to the previous revisions
+> and see if you missed anything else.
+Hi David,
 
-It was functionally required already but was never documented as such.
-All the pre-existing "-camcc" compatible devices register genpds for
-their GDSCs. And all these camcc devices already include
-#power-domain-cells properties, so this change shouldn't cause any DT
-validation failures (at least for any in-tree).
+Thank you for the review, and I'm sorry for the repeated oversights.
 
-It could certainly be moved to a separate patch though. Hawi isn't
-actually changing the fundamental requirement here.
+You're right, and I have no good excuse. I went back through the v1-v4
+threads as you suggested and found several suggestions I silently
+dropped:
 
-Thanks,
-Mike
+- Moving the `0` in devm_request_irq() to the previous line
+- Organizing register field macros indented under their register
+- I even replied at the time saying I would do this, and then
+  did not. Apologies.
+- Using a macro and FIELD_PREP() for the CONFIG1 VREF value
+- Making the reference voltage per-channel
+- Using devm_reset_control_get_optional_exclusive() for the hardware
+  reset (v1, and Andy raised the same point on v4)
+- Your v1 suggestion to consider regmap with a register cache
+
+All of these will be addressed in v5. For the per-channel reference
+voltage, I will implement it properly following the ADS112C14 driver
+rather than keeping the single stored value.
+
+I'll also fix the IRQ handling - you're right that disabling the IRQ
+was wrong, and that the handler needs to be threaded since it can't
+call synchronous code. I'll drop disable_irq_nosync() and read the
+DRDY status bit before completing instead.
+
+Thanks for your patience with this series.
+
+Best regards,
+Kyle Hsieh
+>
+> > +                                    indio_dev->name, indio_dev);
+> > +             if (ret)
+> > +                     return ret;
+> > +     }
+> > +
+> > +     return devm_iio_device_register(dev, indio_dev);
+> > +}
+> > +
