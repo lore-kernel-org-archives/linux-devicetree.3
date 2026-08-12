@@ -1,68 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFE043E07D;
-	Wed, 12 Aug 2026 12:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9571743BDC1;
+	Wed, 12 Aug 2026 12:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786539088; cv=none; b=E3Eju7IBsZ0n+F33zrYAZufZVDeJOwsQjCjq6yzpZlsqrw4QrcdYhLg/Ye535biGrdWRwaL3bndVduYz/G8QQX7cWdiixjmKw8bmA2pCBcEpHji6/C0GDqUK/qe6bJGgGF13qp4gStHtekBHVFQ06CsiKEFuldSP7lT7UFIp2OI=
+	t=1786539124; cv=none; b=bA5pZagLAjE7M3nXtChquteUt5lNxwMl0loAbZVtkTC1O8/2K883glgseMf7sGAe7I5wj5CC5XKmeD3gCpETl1Ie+FDDb4OOpyVOveSo59rQY9TrssvpOo84+lh1HB5eKIP/BBurdhC7UJ42oZG/iXBzOyqhmE3rz+Ri2zE1siQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786539088; c=relaxed/simple;
-	bh=HqFMscA4OCIpEfg1U3aaOLFIkRZEgkywOumc4qJ0lpk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h30npG/YUKqraEHnZQOh+6JTJenCWZW4FQk+MK7krLA+v2+/vS40uybgF5JJErOUTIle8Qjg5IU2BZKG7k+qQKUnAbC3bWqBiGzxlkoRmqayVj80Dwwca4fdjIa+pWpbdfCKGG1MdOCJzOUwpIRO9viBli2opmay3BN5XKbdEuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S9Kd5XGG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786539124; c=relaxed/simple;
+	bh=GOd+T5kcO67epWictF5/E6o242qexc+4aoNyG7lkKDU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WOsf8q8f2FI1M2mu+gtUmel6wmq1uIqmwrmqtN1zDAlCypMkWEPWJ4c/yh+SnXVa8tEiYquVZVmRHABD6ZWDvLqqxGgwr6tA+JCOF7bj3ndUR9pecMwzRZTWOmmn4u5Ai5sF64wvYRoJMvKzKQzEVqT5UjxM5evLNIWLQL9Knx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=meKc2caL; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S9Kd5XGG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEA0E1F000E9;
-	Wed, 12 Aug 2026 12:51:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786539086;
-	bh=4/7wzvKe7xeZAEZM7tQrn2l2n9V/Q0w2RSrNE6nXpWY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S9Kd5XGG3TTyU0U3wqnAZbOowD0JNxB3rBhUTrdnJr/qwVPZGrWsm7JRE5Cgf8lGu
-	 arnSdmpVyqWYFaq00E1v/N7yIGT/teMSdMRWZ8pRI6o265A/xLf0bOo0z20/xM9e9M
-	 M2J48eLYimjix1pAG3IkcI6K/bJr2BFXjRuKfaHjjgZ/o8ki4Oh4DdMurxCAOQ0VgX
-	 HnZTR8ShYMMyQ0eotz8n03SooybmotgEViZLqhSm4+fg2iAb0Ecjg2qr8y1r4lPU8t
-	 6Epg1gEB2In4CRNMcHSoctXNs2/7FgLKOu/+pUnxHT4oHG9ty2CjsVrjp65N+6XkHv
-	 7O+kMmDE17wcA==
-Date: Wed, 12 Aug 2026 14:51:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sdx75: Use SM8650 MPSS as
- fallback compatible
-Message-ID: <20260812-abiding-bouncy-phoenix-9dadf0@quoll>
-References: <20260805132129.2713174-1-mukesh.ojha@oss.qualcomm.com>
- <20260805132129.2713174-4-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="meKc2caL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1786539111; x=1786798311;
+	bh=kxtLFCykVROU/YI4bg47bV1oa/SHit+gxofRMN/KoBk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=meKc2caLhbR1aHbk3NF3VsqKCD37Ba+y2b0Q19TO0zLqA96N9rrsPdOpoTCZYSqNr
+	 +AIoh/dgF15czLkh95McCSzjhBLYBfSLHVpYKZUby4cB1KNdesA0yTPW/CIc/m6BZt
+	 69X7K4J2RXf+AOHNXIYKjV42+qZStY9mZO7lHZHLUaFy6vYmGH7TaAzmyAR3uMefdf
+	 X3hOpwgltW4UhTABGmpDCsLT6ih+3KA2X9jXRg6ArlZWeEjTC219s7Z3swIZfIa6Q3
+	 jG3YkrZBTHxO4L1h/EZAqEUYqFzm8Qa0LZlTmXWYLyaIdIusXPC+6dTXdetRLke2ul
+	 +Uavun6E+ZAFQ==
+X-Pm-Submission-Id: 4hKpKK0cspz1DFFG
+From: Esben Haabendal <esben@geanix.com>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "David Lechner"
+ <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
+  "Andy Shevchenko"
+ <andy@kernel.org>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Nikita Travkin" <nikita@trvn.ru>,  "Maslov Dmitry"
+ <maslovdmitry@seeed.cc>,  "Kuppuswamy Sathyanarayanan"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>,  "Thomas Gleixner"
+ <tglx@kernel.org>,  "Pan Chuang" <panchuang@vivo.com>,  "Yangtao Li"
+ <frank.li@vivo.com>,  <linux-iio@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 6/7] iio: light: ltr501: Add ltr329 driver support
+In-Reply-To: <anotEG6n8AXLXcTg@ashevche-desk.local> (Andy Shevchenko's message
+	of "Mon, 10 Aug 2026 22:57:04 +0300")
+References: <20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com>
+	<20260810-liteon-ltr329-v4-6-8bd3dfd15280@geanix.com>
+	<VuI3nJTNsCtv6BTTN1ifPljPH5UMvSlPe0caa7nGtOVoojV02_uGuvFBs1HXneueB61q_c3Nml5ixt2rvkU9mg==@protonmail.internalid>
+	<anotEG6n8AXLXcTg@ashevche-desk.local>
+Date: Wed, 12 Aug 2026 14:51:48 +0200
+Message-ID: <87wltvwlgb.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260805132129.2713174-4-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain
 
-On Wed, Aug 05, 2026 at 06:51:29PM +0530, Mukesh Ojha wrote:
-> Following the dt-bindings change that expresses the SDX75 MPSS PAS as
-> a SM8650 MPSS fallback, list the SM8650 compatible alongside the
-> SDX75 one so the node validates against the updated schema.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/sdx75.dtsi | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> On Mon, Aug 10, 2026 at 09:11:16AM +0200, Esben Haabendal wrote:
+>> This adds support for the LTR-329ALS-01 chip, which is similar to
+>> LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
+>> have.
+>
+> ...
+>
+>> static int ltr501_probe(struct i2c_client *client)
+>
+>>  	if (client->irq > 0) {
+>> +		if (!ltr501_has_irq_support(data->chip_info)) {
+>> +			ret = dev_err_probe(&client->dev, -EINVAL,
+>> +					    "chip does not support irq\n");
+>> +			goto powerdown_on_error;
+>> +		}
+>
+> Why making it fatal?
 
-Best regards,
-Krzysztof
+Good point. Probably a bit too harsh. A warning should be fine.
 
+And with the addition of dt schema validation of this, on the odd chance
+that people validates their devicetree, they will be told about this
+problem already there.
+
+> Perhaps
+>
+> 	if (!ltr501_has_irq_support(data->chip_info) && client->irq > 0) {
+> 		client->irq = 0;
+> 		dev_warn(chip doesn't support IRQ);
+> 	}
+
+Added for v5.
+
+/Esben
