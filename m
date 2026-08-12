@@ -1,60 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9F725DB0D;
-	Wed, 12 Aug 2026 22:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F590495052;
+	Wed, 12 Aug 2026 22:54:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786575067; cv=none; b=DTo/rlWSvcqEeO+0k/K5pQniYHYIGzhO0AIRPS7Dlwm3M1sFuBzmTP9x1e7u+a6S7ikkliN75r5vsN1PnIac2Yovnd95wrCxPTe3faOhdrBr+FapHT6LvG0XrAru9S3Cshb59+qSnNvLgF/ZadgxtLdjE3bE8jraoCcWTM56TiY=
+	t=1786575252; cv=none; b=ggP0uKRQRqxIpxYV4jp6+WHO4AcshdvTsBZzx+0P71XG1jkEFwujgHbkJorEr9b8kt1f1T120pB26pyU/y8VPrZusOhce/EMDUyzkngLhwnaBEWWBrjS9WjXfl8i1cI5xaaFQwsEFLNYi01/LNYFvgrXo3r/XU5BPscY6inLkBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786575067; c=relaxed/simple;
-	bh=XkdV+RuGebEDrCF6DhzBka3ijYujuoX2/b9kM1oW0u0=;
+	s=arc-20240116; t=1786575252; c=relaxed/simple;
+	bh=Z+BlFzL42UHq3s6yBOAGpnFfyovsEVLookkGR5gaLBg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SDGfNtQO9ZxpmkjWJW0wkiTuCa4e/jBNvsn4LJQgG70sz9WLgVh60K7Pn/kJ0LdP3Kchnat2Z2xX/VBYV8uFIGORd7oZ+rAtf1k+XneC+cUx0unACpEOlFj4RnzmDH6xvFPw1J5Hj+knb3ePZ6sSkZ7m7/jBCGbIeF7dhsdIKa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GbmnXaWe; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=o+QsIjxpUFQpxAmzmcT5b+fEx4SM43GAuO/ZEyQMcqvBMFr1fTE/KzelWD0ntZLcv221bpctxrhwuYnS4Tcv5FFNcpf5UDWZu6vXH01ziEV9kmWHdC36U5uncuRmdvIcJ3eo7uW9Qe4N8NwRcJ5KI2B2xGWsZ77ffbVeqPwSN0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhVXLyH1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GbmnXaWe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA8B1F000E9;
-	Wed, 12 Aug 2026 22:51:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhVXLyH1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F87F1F000E9;
+	Wed, 12 Aug 2026 22:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786575065;
-	bh=q94daslctU9u8EUSFugtHPk2cVBdSnc1E2aM20T8veU=;
+	s=k20260515; t=1786575250;
+	bh=t9GkVCbM5tANZpxDO6kfsuO1LlzKLQuqkJkuibxVzoU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GbmnXaWeCQaaqrT8Hp/zNHy8kss73W/neIJN1E9VGPX08O8vxf+frHXmvQsJO11Pj
-	 KEDci1oe6firfMN35BT3WQzabTnykjeteGsUCxySrWPYwgqKNjdYQwukD9pSBLnLhw
-	 eWM7OMMdS/widY/WecnKrnZ8Ermx8XAFjf6F2TXOy5e0T+cJSvb9WXeZl+lxyTVZtr
-	 FWqZWVM6xnchqFpC0bZpcGPKSGAKM9kzKPWLAt8D1+jfiwdepwXXLReZ0pwGOYuP1p
-	 DxV9WyH04g/bVqIj4TQE49i+1L1XYiihUebgNV0Ge7ocKfF2qzyWEdYE0KjQOh6n29
-	 pFU+uCfjZ4uAw==
-Date: Wed, 12 Aug 2026 17:51:05 -0500
+	b=NhVXLyH1dNtOZjiiEZVksyLCigW70hzqnkUqbT694S4SdjIaFxoIoXMcVZaWFL0tQ
+	 OWRlaXWQWee3YoDGIHbpaaGLQXeRFw8XPkYMOUcnCvbQ7+n27NBvtuCpyMfwO47nrY
+	 p62Qhmwj1SEAtWnyykDw7A/c7cKimo3ovtXf/nxjrSHdfiSYhKaLWW/auN8M5R491l
+	 d0nxfIOGFaiAfuR+jmmdvuZnjbIytBI9RKJUi/EpCrVWMTR26ipIg9oeXJvsKNcC4H
+	 m8XtpPb7BWePQQXFLKDp+89GNctCQMavnE9RM3U9fxvFVLRdLCu9JHsX6Da+KXXmH3
+	 a1mtOlTHDZSIQ==
+Date: Wed, 12 Aug 2026 17:54:09 -0500
 From: Rob Herring <robh@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-usb@vger.kernel.org,
-	Pankaj Dev <pankaj.dev@st.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Rahul Kumar <rahul.kumar05@st.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
-	kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH 1/8] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
- PHY
-Message-ID: <20260812225105.GB693080-robh@kernel.org>
-References: <20260812010157.1772849-1-marex@nabladev.com>
- <20260812010157.1772849-2-marex@nabladev.com>
- <20260812-silky-omniscient-dalmatian-b268cb@quoll>
- <ff691741-a110-44e8-90e7-ac54a96de1af@nabladev.com>
- <ff957fbb-b8ed-485d-adaa-18258ed693a6@kernel.org>
- <ea21d4fb-04a1-4280-9a73-6f566be2b015@nabladev.com>
+To: Sai Krishna Musham <sai.krishna.musham@amd.com>
+Cc: bhelgaas@google.com, lpieralisi@kernel.org, kw@linux.com,
+	mani@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	cassel@kernel.org, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	michal.simek@amd.com, bharat.kumar.gogada@amd.com,
+	thippeswamy.havalige@amd.com, pranav.sanwal@amd.com
+Subject: Re: [PATCH v4 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
+Message-ID: <20260812225409.GA1363147-robh@kernel.org>
+References: <20260808105256.3705889-1-sai.krishna.musham@amd.com>
+ <20260808105256.3705889-2-sai.krishna.musham@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -63,41 +47,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ea21d4fb-04a1-4280-9a73-6f566be2b015@nabladev.com>
+In-Reply-To: <20260808105256.3705889-2-sai.krishna.musham@amd.com>
 
-On Wed, Aug 12, 2026 at 08:30:33PM +0200, Marek Vasut wrote:
-> On 8/12/26 1:22 PM, Krzysztof Kozlowski wrote:
-> > On 12/08/2026 12:56, Marek Vasut wrote:
-> > > On 8/12/26 12:15 PM, Krzysztof Kozlowski wrote:
-> > > > On Wed, Aug 12, 2026 at 02:55:41AM +0200, Marek Vasut wrote:
-> > > > > From: Pankaj Dev <pankaj.dev@st.com>
-> > > > > 
-> > > > > Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
-> > > > > USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
-> > > > > Two such PHYs in total are present in STM32MP25 SoC, they both are
-> > > > > slightly different, therefore they use different compatible string
-> > > > 
-> > > > What is slightly different? This should be either here, or better, in
-> > > > "description" part.
-> > > 
-> > > They are both Synopsys FEMTO-PHY , but they are each attached to a
-> > > different controller (one to USB 2.0 host , the other to DWC3 DRD) , and
-> > > their control bits in the system controller register are different for
-> > > each variant.
-> > > 
-> > > I extended the description in V2.
-> > 
-> > Depending on the actual difference, this rather belongs to the phandle
-> > to syscon, instead of separate compatible.
+On Sat, Aug 08, 2026 at 04:22:55PM +0530, Sai Krishna Musham wrote:
+> The AMD CPM6 PCIe controller is based on the Synopsys DesignWare PCIe IP.
+> Add "intr" to snps,dw-pcie.yaml vendor-specific reg-names for the
+> per-controller interrupt register region used by CPM6.
 > 
-> Modeling that in the phandle to syscon won't scale, the PHY driver is simple
-> thus far and does not control all the bits in that syscon, if we were to
-> somehow extend the phandle to syscon to describe the various bit mappings
-> and differences in it, it would look awful quickly. Hence the separate
-> compatible strings, so the driver can match on them, derive match data from
-> them and use the match data to figure out differences of each instance.
+> Update amd,versal2-mdb-host.yaml with separate register definitions:
+> - MDB5: 4 regions (slcr, config, dbi, atu)
+> - CPM6: 5 regions (slcr, config, dbi, atu, intr)
+> 
+> Signed-off-by: Sai Krishna Musham <sai.krishna.musham@amd.com>
+> ---
+> Changes in v4:
+> - None
+> 
+> Changes in v3:
+> - Update subject to match history.
+> - Move allOf to the end, after required block.
+> - Drop the CPM6 example.
+> 
+> Changes in v2:
+> - Update the CPM6 device tree binding and example.
+> 
+> v1 https://lore.kernel.org/all/20260402180006.486229-2-sai.krishna.musham@amd.com/
+> v2 https://lore.kernel.org/all/20260728202044.1785986-2-sai.krishna.musham@amd.com/
+> v3 https://lore.kernel.org/all/20260803144412.713639-2-sai.krishna.musham@amd.com/
+> ---
+>  .../bindings/pci/amd,versal2-mdb-host.yaml    | 45 ++++++++++++++++---
+>  .../devicetree/bindings/pci/snps,dw-pcie.yaml |  2 +
+>  2 files changed, 42 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml b/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
+> index 406c15e1dee1..672589066854 100644
+> --- a/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
+> +++ b/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
+> @@ -9,27 +9,30 @@ title: AMD Versal2 MDB(Multimedia DMA Bridge) Host Controller
+>  maintainers:
+>    - Thippeswamy Havalige <thippeswamy.havalige@amd.com>
+>  
+> -allOf:
+> -  - $ref: /schemas/pci/pci-host-bridge.yaml#
+> -  - $ref: /schemas/pci/snps,dw-pcie.yaml#
+> -
+>  properties:
+>    compatible:
+> -    const: amd,versal2-mdb-host
+> +    enum:
+> +      - amd,versal2-mdb-host
+> +      - amd,versal2-cpm6-host
+> +      - amd,versal2-cpm6-host1
 
-There's no 'reg' so the syscon is the only control interface, right? So 
-this should be child node of the syscon (with a reg property).
+What is host and host1 difference? Please explain somewhere.
 
-Rob
+>  
+>    reg:
+> +    minItems: 4
+>      items:
+>        - description: MDB System Level Control and Status Register (SLCR) Base
+>        - description: configuration region
+>        - description: data bus interface
+>        - description: address translation unit register
+> +      - description: CPM6 PCIe error and event interrupt registers
+>  
+>    reg-names:
+> +    minItems: 4
+>      items:
+>        - const: slcr
+>        - const: config
+>        - const: dbi
+>        - const: atu
+> +      - const: intr
+>  
+>    ranges:
+>      maxItems: 2
+> @@ -92,6 +95,38 @@ required:
+>    - "#interrupt-cells"
+>    - interrupt-controller
+>  
+> +allOf:
+> +  - $ref: /schemas/pci/pci-host-bridge.yaml#
+> +  - $ref: /schemas/pci/snps,dw-pcie.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amd,versal2-mdb-host
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 4
+
+Drop. 4 is already the min.
+
+> +          maxItems: 4
+> +        reg-names:
+> +          minItems: 4
+> +          maxItems: 4
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amd,versal2-cpm6-host
+> +              - amd,versal2-cpm6-host1
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 5
+> +          maxItems: 5
+
+Drop. 5 is already the max.
+
+> +        reg-names:
+> +          minItems: 5
+> +          maxItems: 5
+> +
+>  unevaluatedProperties: false
+>  
+>  examples:
+> diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+> index b3216141881c..21f86609ddb6 100644
+> --- a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
+> @@ -117,6 +117,8 @@ properties:
+>                enum: [ ecam ]
+>              - description: AMD MDB PCIe SLCR region
+>                const: slcr
+> +            - description: AMD CPM6 PCIe error and event interrupt registers
+> +              const: intr
+>      allOf:
+>        - contains:
+>            enum: [ dbi, ctrl ]
+> -- 
+> 2.44.4
+> 
