@@ -1,97 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353EC41D104;
-	Wed, 12 Aug 2026 10:53:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FAAA31E821
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 10:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786532028; cv=none; b=KRJPcD5aOGtCIcOLx4Nn8fS63SxD78TjuNdxvbzfUq6ZYd4qx2lf6X7zyDL3dxi5b8VPNVJ/XNK8ibgarFi2PCNBySS5CEwZzHz240l5qfyfLcsuwQsmketp2U4rTk7NhfZTPL+EHb5/4lt9BDuWswLFlY/oDqTilVoEl6TRkDw=
+	t=1786532193; cv=none; b=Qhp8g5MtC+aFmxL4iBimcIwueLxxIG5jHnnxGbqMCF06f0jXawZxQkKP0so2JSAbjVERMqH3/IxwdVsS4rMQ5hDmB+R/J9CXlW6IRzRc38bipmIMNE3R5hMxG1//hq+UYC1xBP4EjQLy6mjKZngBQEUqFeOzuEe7MLV52TcphVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786532028; c=relaxed/simple;
-	bh=Me+UiSTu0eUEl63G9yQqrbf1IZ2Dku7WIodg30ivAGY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DJYH3dHmSXdJ53Ajt04nU7uKSlKkyvJrfd29uoOsFBGc1cpO1vFlvC4shu++t+LlUXnlmBJyRXBFvbPiI4ezAd9eFLwz6SI3WESsmwROj0ysFp/CvRJ9S4cp0PvtMPYzcEOcS6a+e2uPluKOX98XX6fyIjFqGVF2u998x+uQ/4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RBtRE+cr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786532193; c=relaxed/simple;
+	bh=7Z02+fljkLPe3KL3kcGUkTEIsxSUDuJ09GtiEyy2x/k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tSgJbU38ASzsMJ8NvW0mz7Uo6p/pJ6f6ix17xOSd9hGB3hvID1lgA1UEV3wpNXzDqwdz5AdEizgmAv0+lRfhc6HyUaNTAqgfjAzJhjwVgVRHdNMQNlT3/bC2qdHtxSbieBySk/oZf0BYJIX8r91YVYUT4nfT7F6aXJayL0T3oac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pR0lAuOk; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RBtRE+cr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C36961F00A3A;
-	Wed, 12 Aug 2026 10:53:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786532026;
-	bh=XmNobfuMx0pDiDam9efhZOx9BexMksK/K764FtZWuog=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RBtRE+crRVJnULlydWzSt1Tbm1jQGdY0tHzRCOBkLyoEaej1J1pNMg0Y84gPz78+1
-	 jvvglA2Em7xkTR7Z18tKkg17DVoi7POO2PYyQwpWPHaLWgxw+6ddjsjYOxcZzyaZcU
-	 JIGz0EJln2WesR/SiQ0f7jDQ0xUV/jdojbEfFxoAddHsSbeUOFNPuwL9v76vZmLi1S
-	 ZO5Y4sD6IRG2r7sf86NRSfe7N5eLnHGAl37E7mtqaN6/5c+ejsiB3f1Qkus8MAZ4Pr
-	 AJR63jwH2wVHZUI+mbhcufWP25HyaGa1xRvO4bihjj7vETUk45GBVnuS06+wiQKwzF
-	 UncEa35Ofw2kA==
-Date: Wed, 12 Aug 2026 12:53:37 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jason Yang <jason98166@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/5] dt-bindings: phy: rockchip,rk3588-mipi-dcphy:
- allow DSI and CSI consumers
-Message-ID: <20260812-fast-famous-fulmar-3bde7e@quoll>
-References: <20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com>
- <20260810-dcphy-rx-v1-v3-2-a2d25c29adfc@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pR0lAuOk"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5aeb2bc82ccso995818e87.2
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 03:56:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786532190; x=1787136990; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ITtfty8oisAJyNjU306eVUiZ+XmY+gnBC8OefItjx74=;
+        b=pR0lAuOk4HTc7cSYev9y1dO6aTataae+d26OecPIC2hZmqr0OWvhzhZ108cDpmT4+d
+         H672a/I99MC+mMTtH7HKoZlD8nMegmEdO1CR8DxBPzUfOY8lzLCrvzWTacdEHP/aqNbq
+         W7cgSvxQ2+1HKvtAFmkakRZrHdvkcFoSlB8867/flGSQeAz4ZEORDPO5G0O2nx3ImGI9
+         3tP/ccDiPAtG+1jHUrDl7SO3FnLXiK0+QKt2uXmkiWjmN0Xdun8riW7U2ix7iXIrd0TT
+         Ul7BIZGip2wWunrPX5uORcTTof/mQ+5InZVwSe67cTJAGh9WpHV4JQH086E//7X8FZNo
+         44uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786532190; x=1787136990;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ITtfty8oisAJyNjU306eVUiZ+XmY+gnBC8OefItjx74=;
+        b=WoIdTVMUfWBWMtXJmADvkx8QYYu02omwh3JZP/eFDNl5tGdDg711O6aDCQZOrYYnM2
+         b2kC2a5nzzhvxeq2yI0QM/tu4FlCEga+CHsxFJEkBhxfKgf4QxT7p0aUVoyHVrw3oOUu
+         4I4KUnwwh1vp8I726bVWyWMX1TScg/Ujd2yxgre3cf2exFwdipTs9eEOg3PJyJU3dHbG
+         5FnvxwO2eOKjigKoKVyC9zL6KDXG4BtRhVpTRMPEWjegZ7IhiP8mDwXL6f9FS2AESUPn
+         Tn6HKv0zzMLEjxPtJ5bE9h1TVvInuRfbOIUEiAnV4O8hl0JUTpZxitN+jjn0i1szZyXM
+         yT4g==
+X-Forwarded-Encrypted: i=1; AHgh+Rot/reaHmlZT50QLo3Zm9b8xQUW+8k8jGZhslJ5MCjkhOXoyw92+Y7l8jF3P52FYx4tliXoQnixzGiU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yysq033hqu6dBSWs7OzmgmG1Yz6tOGPbDKktlDD9TDl7wUVyL47
+	Evv+khL2QpC8s7fhkhXULoyRKdSeS+DRjztylOhzkXTIAxXnwES3WcPe
+X-Gm-Gg: AR+sD12i0oxH1dKkIYzRijgtKxVY72Cn92BmlmOoUV/XhzPt93OVqynKgwgY5fs/SJV
+	yeeHaqtyRlMdA8FD12H2Zn0pYnsA3Meb6JBHfQVzKBJTN7YsgY2CrKLtgXXvdfop4At91Lj39++
+	o2rZTN2nCvApBHzUPLsiauctUwnonL+VJe6gY9AyFNpfcz2ri9HQMJtfzQyb0s1tFasPKuZn9UX
+	bkh8gi6wszoJHauIOa9Byq1oIwSvd2wyJBV0ruWhoSEVqVI50GUxtaEv5n76VCTQbEiWjSBTM8r
+	Vb4zQO4bclKa7CWsHdDNc9fQD6sk/lRCIRlvC40exLjqySn0Jqp25om1Or1anFtF02OegJCjt6S
+	loqRwMfcYo+6Owwi/LwOTXmGIHKOWoRyn++prA/LBGehhRYPKlbimFd9SZA3ntriWpAXjbOeZjo
+	Vby42dtcDcKEVtlbiU6SMhqsrhTp/6SN5a0BPwvqg4HFx02+fFOdjy4H/3hJz24PBLbsuq0COpf
+	huKP5EWPbuwQGfC1m00AXRZDqJlHxt4/RWOR8wYZzq6ijp5ctso4iT8Zw==
+X-Received: by 2002:a05:6512:3b91:b0:5ae:9dcd:d04a with SMTP id 2adb3069b0e04-5b44e2f672cmr625996e87.29.1786532189904;
+        Wed, 12 Aug 2026 03:56:29 -0700 (PDT)
+Received: from ?IPV6:2a00:1fa0:44a5:16e6:5436:f44e:c789:f9e6? ([2a00:1fa0:44a5:16e6:5436:f44e:c789:f9e6])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b44d0478d1sm429376e87.72.2026.08.12.03.56.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 03:56:29 -0700 (PDT)
+Message-ID: <6b83cdd0-0800-4a2e-af36-e780bed4d127@gmail.com>
+Date: Wed, 12 Aug 2026 13:56:26 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260810-dcphy-rx-v1-v3-2-a2d25c29adfc@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/14] arm64: dts: qcom: ipq5332: Add Super-Speed
+ UNIPHY to USB node
+To: george.moussalem@outlook.com, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Praveenkumar I <quic_ipkumar@quicinc.com>,
+ Varadarajan Narayanan <quic_varada@quicinc.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org
+References: <20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com>
+ <20260812-ipq5018-usb3-v2-10-8f355d7ff0ef@outlook.com>
+Content-Language: en-US
+From: Sergey Shtylyov <sergei.shtylyov@gmail.com>
+In-Reply-To: <20260812-ipq5018-usb3-v2-10-8f355d7ff0ef@outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 10, 2026 at 08:10:10PM +0800, Jason Yang wrote:
-> The Samsung MIPI D-/C-PHY block on RK3588 drives a MIPI DSI
-> transmitter and, on the same PHY, can receive from a MIPI CSI camera.
-> Describing both as independent consumers of one PHY requires the
-> devicetree to tell them apart.
+On 8/12/26 12:34 PM, George Moussalem via B4 Relay wrote:
+
+> From: Praveenkumar I <quic_ipkumar@quicinc.com>
 > 
-> Let the existing single cell also take PHY_TYPE_DSI or PHY_TYPE_CSI,
-> selecting the PHY by the protocol the consumer speaks. PHY_TYPE_DPHY
-> stays accepted and equivalent to PHY_TYPE_DSI so shipped device trees
-> remain valid, and PHY_TYPE_CPHY keeps selecting a C-PHY transmitter.
-> The receiver support added by this series is D-PHY only.
+> Add the USB3 UNIPHY node to the USB controller node.
+
+   You're not adding any nodes... Perhaps "refer to the USB3 UNIPHY node"?
+
+> In addition, switch to the pipe clock supplied by the USB3 UNIPHY
+> instead of the UTMI clock.
 > 
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
-> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Praveenkumar I <quic_ipkumar@quicinc.com>
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 > ---
->  .../devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml   | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
+>  arch/arm64/boot/dts/qcom/ipq5332.dtsi | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
-> index c8ff5ba22a86..1f7c2e2ddfc1 100644
-> --- a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
-> @@ -22,9 +22,14 @@ properties:
->    "#phy-cells":
->      const: 1
->      description: |
-> -      Argument is mode to operate in. Supported modes are:
-> -        - PHY_TYPE_DPHY
-> -        - PHY_TYPE_CPHY
-> +      The block contains a MIPI transmitter and a MIPI receiver, which
-> +      can be referenced independently. The argument selects one of
-> +      them:
-> +        - PHY_TYPE_DSI: the transmitter, for a MIPI DSI host
-> +        - PHY_TYPE_CSI: the receiver, for a MIPI CSI-2 host
-> +        - PHY_TYPE_DPHY: the transmitter in D-PHY mode; equivalent to
-> +          PHY_TYPE_DSI and kept for existing device trees
-> +        - PHY_TYPE_CPHY: the transmitter in C-PHY mode
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5332.dtsi b/arch/arm64/boot/dts/qcom/ipq5332.dtsi
+> index 664586979ec4..6253443c8d7f 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5332.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5332.dtsi
+> @@ -523,10 +523,8 @@ usb: usb@8a00000 {
+>  					<&gcc MASTER_SNOC_USB &gcc SLAVE_SNOC_USB>;
+>  			interconnect-names = "usb-ddr", "apps-usb";
+>  
+> -			phys = <&usbphy0>;
+> -			phy-names = "usb2-phy";
+> -
+> -			qcom,select-utmi-as-pipe-clk;
+> +			phys = <&usbphy0>, <&usbphy1>;
+> +			phy-names = "usb2-phy", "usb3-phy";
+>  
+>  			tx-fifo-resize;
+>  			snps,is-utmi-l1-suspend;
+> 
 
-So PHY_TYPE_DSI is the same as PHY_TYPE_DPHY. Why doing this change?
-Commit msg did not tell me why we need equivalent code.
-
-Best regards,
-Krzysztof
+MBR, Sergey
 
