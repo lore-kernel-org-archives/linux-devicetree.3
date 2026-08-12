@@ -1,94 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6A031A807;
-	Wed, 12 Aug 2026 18:03:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB26388E60
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 18:05:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786557820; cv=none; b=LCFd3ismMaGtjzzSQ2a96GRaoJn4VH2wiokb/MaIeHP+ZNgdlfgRkKXKkr5tnjyW/1/2XqhQ2NjZ9ZnHmAxjWa59Eccp2n7MDA1J4gpxS/cC0wrfG6A9T8pUeTLMBc3rrcfaBYIrRhA1LoTJq2+XU1/UZce5WGlknQiNIokYG5E=
+	t=1786557902; cv=none; b=kOWTfd89vLYWEv/PZu04gj3sRCsHAWIo5nTiO1Eu1XClABdpfZpoXrSc52WtwsA6SGU10DJ3aXJrasESaI5N3ekFmAHtyvqvDfQJ25aWPPfNEU6guS7LcklTvjVu6kM4kgbDhhwYFLnk/C0/Jmf5pXFnggFtc5TNyFonTjpOf98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786557820; c=relaxed/simple;
-	bh=pCZvmg6IewgkNWdHNLkkT3KoC0UdF3XOSadPtn5rQHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=paYw1t2+IcvYjTaaKs24RG3dfLl7Ht7MWhd+RraGRbNkDYoOyssLVTRb11a80JDrj49Th8Q/VPcj+glBtjh/9FyK6ZiaZr0NQZuJMJYeZPyDh10x6DnaYYx7RcO9N+iTz17EKfgyjVE0E0laQ+4ruXZv0M5RuUsO6DplDkEr/9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5UikFai; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786557902; c=relaxed/simple;
+	bh=6kRMeR4CZLrkLFDCwFAtknATi5A7J7Mx54k9I/wyqt0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=s03VwX93mXmYVNWBoXvPGWOWvApozghlVCJqOYkJClFP20WDbi9vxni6CUlhOy07SsshNEl7JGfmzvrp25coJbVljIdi2GaPd7UUGZwA7UTBEHOK7sdt+ziVs8AExBK57VjxMsUtHxf0YvE39+zpIPEBWplIoH1Psgw9y+MgICo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CW3WRGZ+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5UikFai"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64AE41F000E9;
-	Wed, 12 Aug 2026 18:03:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CW3WRGZ+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68871F000E9;
+	Wed, 12 Aug 2026 18:05:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786557818;
-	bh=EHebvdsoVvEcKSBny0QQUvX2i+BTgR3tgsWFtE8+SB0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J5UikFaiAVgFrMTWBFnBdnQQM/0Snfv6GMVzSgrW+spKu57p198SJg94//nW6auj+
-	 7zBFlxZO6bxpp4UGQ0cLz0iY/JU7TgIjSWxWzy+hROCqheZiUTnOXOXvCejSsc7QNU
-	 t7jONej8kkxJEBU5UtTeuYvxJJYACdYnTsamCkrLMXjSNVpdJML9qO+pvex1x+dMZ3
-	 /NebBHEfJdU6FEswY7W+pBipyPe8sPQCB3TdIwKAoiAkhn2PX2pdtYPDqAJE3UApUL
-	 CFShFKO96YoxF5B1WtCGyvNIwhuAZV6YYdnBQ4QDRFJYSz4KG1I12sFjNHGze+8uS/
-	 ZBIRSoR4o8wWA==
-Date: Wed, 12 Aug 2026 19:03:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] ASoC: cs35l45: Adds support for SYNC bus
-Message-ID: <ccd9a584-0f3e-4585-a563-e2c720e20b92@sirena.org.uk>
-References: <cover.1785855013.git.rriveram@opensource.cirrus.com>
- <2decc44a938373375530defd9a1645770987313d.1785855013.git.rriveram@opensource.cirrus.com>
+	s=k20260515; t=1786557901;
+	bh=AV/s2ZQAzJ0cReUgpeV0F1BbIlaQhebkRsp4R9HBRHM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CW3WRGZ+3sulWLCBlKBTu/sa/mYK2gld/XGU1W2mm3UIGf1jLEok/Rno0gW8EYtZx
+	 WIrh7TJ5aBwJHnVDwrokyojbcrHEq4KB0Q8k+0GwF33MRZcvcPA16fKAEqbV5j9QNj
+	 kxtGolzo3NrOHOXtKcgF2A9JGoK5iV83MejPKWq3sVS3Qt3r94bVsmeapHuEzFTKAc
+	 6J1zGKCFuqFi9MP2gjICNxCHk16hxz1Vohn2eF9qvF4S6qrB2FEM8ZvvQYO2Jq3bbo
+	 NyXpPkKIDpNjK8UcAlaxNXv9k1IZLqJskqQajwy4+HM0UhPQGtFZln6BDQtJO/pE8p
+	 4pNYpX4cgpmPg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v22 3/4] crypto: spacc - add spacc autodetect support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260812175020.666558-4-pavitrakumarm@vayavyalabs.com>
+References: <20260812175020.666558-1-pavitrakumarm@vayavyalabs.com>
+ <20260812175020.666558-4-pavitrakumarm@vayavyalabs.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 18:05:00 +0000
+Message-Id: <20260812180500.A68871F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aoA1l6IofpbgC2Z+"
-Content-Disposition: inline
-In-Reply-To: <2decc44a938373375530defd9a1645770987313d.1785855013.git.rriveram@opensource.cirrus.com>
-X-Cookie: !07/11 PDP a ni deppart m'I  !pleH
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unkillable wait without a timeout in hardware autodetection can pe=
+rmanently hang the kernel.
+--
 
---aoA1l6IofpbgC2Z+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--- Patch [3]: [PATCH v22 3/4] crypto: spacc - add spacc autodetect support=
+ ---
+commit 1b02ffd964af3b1927d2fca1ccd5966f8d928e2e
+Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+crypto: spacc - add spacc autodetect support
 
-On Tue, Aug 11, 2026 at 05:06:03PM +0000, Ricardo Rivera-Matos wrote:
-> Adds support for the multidevice synchronization (SYNC) bus.
-> The SYNC bus is an opaque one wire bus that is shared between
-> Cirrus devices. Initial support only includes software (SW)
-> data packets.
+This commit adds autodetection support to the SPAcc driver to determine
+supported cryptographic algorithms. It runs test vectors through the hardwa=
+re
+during initialization and disables algorithms that fail to produce the
+expected output.
 
-> +	ret = of_property_read_u32(child, "sync-lsw-txid", &val);
-> +	if (!ret)
-> +		regmap_update_bits(cs35l45->regmap, CS35L45_SYNC_SW_TX_ID,
-> +				   CS35L45_SYNC_LSW_TXID_MASK, val << CS35L45_SYNC_LSW_TXID_SHIFT);
+> diff --git a/drivers/crypto/dwc-spacc/spacc_core.c b/drivers/crypto/dwc-s=
+pacc/spacc_core.c
+> index b72d5072ccc58..3287e9e61b1c0 100644
+> --- a/drivers/crypto/dwc-spacc/spacc_core.c
+> +++ b/drivers/crypto/dwc-spacc/spacc_core.c
+[ ... ]
+> @@ -579,6 +1480,275 @@ int spacc_close(struct spacc_device *dev, int hand=
+le)
+[ ... ]
+> +#if IS_ENABLED(CONFIG_CRYPTO_DEV_SPACC_AUTODETECT)
+[ ... ]
+> +static int spacc_check_modes(struct spacc_device *spacc, int algo_mode,
+> +			      int keysz_idx, void *virt, char *key,
+> +			      struct pdu_ddt *ddt)
+> +{
+[ ... ]
+> +	err =3D spacc_packet_enqueue_ddt(spacc, rc, ddt, ddt, proclen, 0,
+> +				       aadlen, 0, 0, 0);
+> +	job =3D &spacc->job[rc];
 > +
-> +	ret = of_property_read_u32(child, "sync-sw-txid", &val);
-> +	if (!ret)
-> +		regmap_update_bits(cs35l45->regmap, CS35L45_SYNC_SW_TX_ID,
-> +				   CS35L45_SYNC_SW_TXID_MASK, val);
+> +	if (err =3D=3D 0) {
+> +		/*
+> +		 * No timeout, not interruptible: this only returns once
+> +		 * job_done is actually true, i.e. the hardware has
+> +		 * genuinely relinquished the job. That guarantees it is
+> +		 * always safe to close the job/context and (via the
+> +		 * caller) free the DMA buffer immediately below --
+> +		 * there is no "unconfirmed" case left to handle.
+> +		 *
+> +		 * Tradeoff: if the hardware ever genuinely fails to
+> +		 * complete a submitted job, this hangs here
+> +		 * unkillably (TASK_UNINTERRUPTIBLE, no timeout) for the
+> +		 * rest of probe. Accepted deliberately in place of the
+> +		 * abandoned-job/UAF risk of giving up early with no
+> +		 * hardware cancel available.
+> +		 */
+> +		wait_event(job->waitq, job->job_done);
 
-These are namespace cirrus, in the binding.
+[Severity: High]
+Can this wait_event() cause a permanent kernel thread hang?
 
---aoA1l6IofpbgC2Z+
-Content-Type: application/pgp-signature; name="signature.asc"
+If the hardware fails to respond or trigger the completion interrupt, this
+uninterruptible wait will never complete. If the driver is built-in and
+probes synchronously, couldn't this stall the entire system boot process,
+or otherwise result in hung task panics?
 
------BEGIN PGP SIGNATURE-----
+While the comment notes this as a deliberate tradeoff to avoid DMA
+use-after-free risks upon abandoning the job, is it possible to implement a
+safe hardware cancellation or reset path and use wait_event_timeout()
+instead of relying on an unkillable wait?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp8tXQACgkQJNaLcl1U
-h9A1tQgAgsuCZcXPEesxJrfYeqdGwHsmvYA7fJu7rRWU7QiQhf2yBAXmAjTDlgAE
-exhQJq0L64wmAg/aH5WtcdvDVRcEhQeeEHCStBvQhcQ1+n0TjTTSKgN7JoaasFQC
-eKK1VDDNqDo+lfbV5sQA1VQH6RLni1BmpZ+2qLGoOrYBJ0ksWBTiyAauNtf/KWEa
-wJb6SHMmCgGRrXk+FE5JiD+wc0qoakCVQyv3xLUewP6Xlw4O4BXixr14SP1RTDuq
-kK10pkyUPYvpvCwTYT8dM6yD2YoVEgcUjFy9kZdL8GzvV+zbD5JP+g2ZMj69RJxg
-Z92gKJXBPqzwJjXrny6pU3n4a8kJSw==
-=ttEZ
------END PGP SIGNATURE-----
+> +
+> +		job->job_done =3D 0;
+> +		err =3D job->job_err;
+> +	}
+[ ... ]
 
---aoA1l6IofpbgC2Z+--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812175020.6665=
+58-1-pavitrakumarm@vayavyalabs.com?part=3D3
