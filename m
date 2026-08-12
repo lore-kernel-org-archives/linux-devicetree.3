@@ -1,127 +1,135 @@
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AC3418346;
-	Wed, 12 Aug 2026 10:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B39621D591
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 10:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786529485; cv=none; b=iCyzjQILDF+2RA8Tf8DRy4NTlOR8WRGVRuhj4Kwp+LDQNxleGJmwzDM5goB0oux1RvlBfvYhxDt3aYz+RKXfn2qpjfF0YdaqIYYoTt9dLlFhNmzoV/DU82hD9B4jsSfq5iDW5WepVWvIo2gUgJfMHDKhNhPv2mmryOBnyOvRqbM=
+	t=1786529566; cv=none; b=AqgF5qkZ9hGeRHXZ2XL/ARaHT7QWzcAr3E27R+Dh7hl3xulO5E5kSNyBjNiIxsq8Rk0YjIIJe9VqejEAyMPQBeh77I9TwOIVGscjDDx6o9w3BxavutSzaDmEEyqpLT2STahNBXy/sPzyjg+PCw+pomtSHzF/QMKz9UxKHpsc3C8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786529485; c=relaxed/simple;
-	bh=tK5kSu7o3Gg7D3UWu08JlgFnWMIl4xLwhV3Us3sCjIQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s/JwNKvHUV1aXcjcReII2C1IjPpqu/R7SwLpddFm3H3laS4A7VEVgCKkGUlsA3r2ti7qFobmKvDcUtw/yw+tTog/+YKINkmoJQMfZRkoL8MfF3P7lEs/N9l+J4btsi2mGkxJA8L7VvceLP49g17qBULbLLmj6MhwXIpRwOcNAUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ranostay.sg; spf=pass smtp.mailfrom=ranostay.sg; dkim=pass (2048-bit key) header.d=ranostay.sg header.i=@ranostay.sg header.b=6ldGws6t; arc=none smtp.client-ip=185.70.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ranostay.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ranostay.sg
+	s=arc-20240116; t=1786529566; c=relaxed/simple;
+	bh=Wp+KCXl/9Sd/sHKEioy7KGvsxxLMOLNXrcwm2mdbkss=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZEfSaS2/umXlgGzD3FB3MliTd3FIp52162J8qSatVYyWfbKEM4awrhCNkHzzyU4BK0EnbJu+9etQAQBSvDKMUQa7ZC5EihMYOJjFzlK0PJ9DC5UPFc4hahiDJre/4/ZtFJHvb5DF1ohtbEv1a8Yj3tw05/i5JF8WBmwTZ2z0YTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=r19nPTqz; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ranostay.sg header.i=@ranostay.sg header.b="6ldGws6t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ranostay.sg;
-	s=protonmail3; t=1786529478; x=1786788678;
-	bh=/GO93YHe3+dQ8Hjz3ICrJP4ZvePEoCldcJlYgsUc7As=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=6ldGws6t1EGx4sUkaOhKlXFANfBQBrFqxo/1/bBrDEpQ4lAawy0IiraY6WkCx+xaF
-	 rk84UFGx/mUEESw9CV5VLA6woyd8cTOI/6CiYkk0DELm9xs6DhiWlkmwcgzv860D6k
-	 RmVb8FtpUsdTruIwO8DIBDBobXsoUPFctDKkKb6idP+McDJ3JphPv7uNa8dqRJtG5t
-	 jQ8DWMWPcKzt0t0XRxaApwy84P9IJ95NgYGaKfgaBSqHpC5nND9wWCNvM16WD1af6T
-	 qqn+A6EKas8RvXfEQbNxtti7ptPqkFqSQoKCEj6LMXoSm3ReuYYHS+Th5yOhO4UiTS
-	 3F8Z7dCip/CvQ==
-Date: Wed, 12 Aug 2026 10:11:13 +0000
-To: Jonathan Cameron <jic23@kernel.org>
-From: Matt Ranostay <matt@ranostay.sg>
-Cc: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>, dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, mranostay@gmail.com, ~lkcamp/patches@lists.sr.ht, linux-kernel-mentees@lists.linux.dev, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/2] dt-bindings: iio: proximity: move LIDAR-Lite v2 out of trivial-devices
-Message-ID: <F_gQH7S7C_a2e4gmKfLMZwNzMQ2lvOoBcv-tqJsuNGsWYdJdV-KhzKRPTqo1JS4yGoBK6bn4lscAS3et1Uxm-obr7Tjw3hzePjHOllpSlc4=@ranostay.sg>
-In-Reply-To: <20260812053450.2e14b074@jic23-huawei>
-References: <20260810192131.153495-1-rodrigo.gobbi.7@gmail.com> <20260810192131.153495-2-rodrigo.gobbi.7@gmail.com> <20260812053450.2e14b074@jic23-huawei>
-Feedback-ID: 87502384:user:proton
-X-Pm-Message-ID: c5d0def14d79898b2063cb3d33da652b80bf9c89
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="r19nPTqz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1786529547;
+	bh=ws1QevW2CKfm189wBavEIUlJVUwxIrfJNNc6cWudhkc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=r19nPTqzQdzb0ILjS8eobtsg/bs5bSRrvylNjVH1w8OeNViAQ9x4kX69BR1UtFmE+
+	 V0VwbyRNLJwRVjAGMTZpBfzyqzEtqE4HhcW1kCBRu2UTFY4ZBdgXIhPNNS3MpXsNq2
+	 SDwSBK8r2x0WzOVxx4stZg154W0EWe6gYL+FtHLo=
+X-QQ-mid: zesmtpsz6t1786529542tb67b7ec5
+X-QQ-Originating-IP: Jv92GOJg5tk3t6iiMZpFNGqPJfh0MNDLxIzFpTonAaQ=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 12 Aug 2026 18:12:21 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10968251938216443348
+Message-ID: <018D3A1DC2C9ABEB+543f835f-ae97-4205-8a63-e2424465dd72@linux.spacemit.com>
+Date: Wed, 12 Aug 2026 18:12:20 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] riscv: dts: spacemit: add USB2.0 controller nodes for
+ K1
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com>
+ <20260812-b4-spacemit-k1-usb2-v1-4-f28cf29e522b@linux.spacemit.com>
+ <20260812095128.BFAF81F00A3A@smtp.kernel.org>
+Content-Language: en-US
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <20260812095128.BFAF81F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: Mb8cCQMEnYyAxbVZcdwTLoTqWpmltj9ZrJrmgFHWWcopUazZSJzb2msv
+	/pmzVaKNMYVDcQN+9VepEHi03qSjio2ywD6C0iTUgmCDbT56p1OsLyVjy4QI7rs00RC18/e
+	lpGirHq0dZXDOYlbU0cZv7l7BXrAs479y14eY9juvAIhZCNKQh/PYAQsjx1f51jE+rnh4DC
+	yfuftptj2ktCQ7yj06RkqxRq+gmL5JL4gQdbjHP1haQhH/LU6BZf837LqAztkCO5nJ6WVNa
+	/clQpEYEJDmOFL1KbA1pqyoYhTOIpF1ySP/GzFRAOqJ7G+XgsqX3N6317cU+1nEH1+t6DLB
+	8XpSuYbjQhAGKz/DOF/63YorDYPN55XLjvjV8FXVI/EoifrC7yNjtb6d5Oz/hniRAUQstn3
+	ayLdUS8cqQhjpqdJMhqASIJkoc8X76xoDDVfw1a2PdxXfo4bQksT9RgFpIP1pHad0Im5JDy
+	fpQ6gIXFqP66VRqO/5Mj21ph5wVf48BJkBUnzk4rrhUo8XKml9C8Wje8yQXfLQ1GELFNMGh
+	8d7tvDzDqHFDbpJyUQI7zI9ppUhKJcjIj4dZXMg+ileSOK9JMO25Fukw/qOlQQiGJz5CQzs
+	UcKkxSo9cBwDUSHfxOZHmDlT9ri9QUYBITPQedxkeXsMIhod35+zQFsN70SnpPqn33xHU+w
+	hbPNKaZN+vFcPIu+E0aXHLoJv+zmygTc7XcYjjqQak5VynYQwuB1FRcIM13Jlf/P4Z/tG6k
+	XooILZa1C4vvUcDUm12eLP7wCaKJf/CDCKrNwqqPMqVeMgDrDAAjudnXcACmLhQ98mgGN1D
+	gVr0cTzWxqpReoWgB5Q+HyG47hXNZB7vLR6pXTlLjojKyKJXZXNdxuTPNi2FIqNYLHN35bY
+	+CmaUm4AAlcMlxWh7NjN2a8rSsffiFZphKyfJAa5rnB25ekuzu0523w2tKmP/HQpw5UoZh3
+	LUEA2RjNDG2yjNpgEc6nDQYTrITNGyEs47ITyJSGDMw39/a86ksv+X4o5IGR3DIKxdEr9Sc
+	GtTcs8FX+RBer6E5wKYAUh/rh81goGNXf0jLjj3/GvZr6fbBb+wjCJ7+cQT8Qm/URxVMAMy
+	w==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
 
+On 8/12/2026 5:51 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> [...]
+>> @@ -1291,6 +1307,30 @@ storage-bus {
+>>  			#size-cells = <2>;
+>>  			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>;
+>>  
+>> +			usb2_0: usb@c0900000 {
+>> +				compatible = "spacemit,k1-usb2";
+>> +				reg = <0x0 0xc0900000 0x0 0x4100>;
+>> +				interrupts = <105>;
+>> +				clocks = <&syscon_apmu CLK_USB_AXI>;
+>> +				resets = <&syscon_apmu RESET_USB_AXI>;
+>> +				phys = <&usbphy0>;
+>> +				phy-names = "usb-phy";
+>> +				dr_mode = "otg";
+>> +				status = "disabled";
+>> +			};
+>> +
+>> +			usb2_1: usb@c0980000 {
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but will these new USB controllers
+> fail to perform DMA operations because of the storage-bus node's dma-ranges
+> property?
+> 
+> The parent storage-bus node defines:
+> dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>;
+> 
+> This restricts DMA accesses to physical addresses between 0x0 and 0x7FFFFFFF.
+> Since the system RAM on this SoC starts at 0x100000000 (above the 4GB
+> boundary), will the kernel's DMA subsystem reject mappings for data buffers
+> or descriptors located in RAM?
+> 
+> Placing these new DMA-capable USB nodes under storage-bus seems to guarantee
+> they will fail to map memory.
+> 
+>> +				compatible = "spacemit,k1-usb2";
+>> +				reg = <0x0 0xc0980000 0x0 0x4100>;
+>> +				interrupts = <118>;
+>> +				clocks = <&syscon_apmu CLK_USB_P1>;
+>> +				resets = <&syscon_apmu RESET_USBP1_AXI>;
+>> +				phys = <&usbphy1>;
+>> +				phy-names = "usb-phy";
+>> +				dr_mode = "host";
+>> +				status = "disabled";
+>> +			};
+>> +
+>>  			usb_dwc3: usb@c0a00000 {
+>>  				compatible = "spacemit,k1-dwc3";
+>>  				reg = <0x0 0xc0a00000 0x0 0x10000>;
+> 
 
-
-
-On Wednesday, August 12th, 2026 at 12:35, Jonathan Cameron <jic23@kernel.or=
-g> wrote:
-
-> On Mon, 10 Aug 2026 16:18:40 -0300
-> Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com> wrote:
->=20
-> > The PulsedLight LIDAR-Lite v2 is currently described as a trivial devic=
-e,
-> > but it is not one: besides the I2C interface it exposes a power-enable
-> > pin and a mode-control pin.
-> >
-> > The mode-control pin can trigger acquisitions and report the measured
-> > distance through a PWM signal, entirely bypassing I2C. That usage is
-> > bidirectional and non-cyclic, so it doesn't map onto any existing
-> > binding for describing pin behaviour, and is intentionally left
-> > undocumented here. The same pin can, however, also be used as a plain
-> > status output while I2C remains the active interface, which is
-> > described through the new interrupts property.
-> >
-> > Move the device to a dedicated binding file and document the
-> > power-enable, power-supply and interrupt properties that
-> > trivial-devices.yaml has no way to express.
-> >
-> > Signed-off-by: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>
-> > ---
-> >  .../proximity/pulsedlight,lidar-lite-v2.yaml  | 64 +++++++++++++++++++
-> >  .../devicetree/bindings/trivial-devices.yaml  |  2 -
-> >  2 files changed, 64 insertions(+), 2 deletions(-)
-> >  create mode 100644 Documentation/devicetree/bindings/iio/proximity/pul=
-sedlight,lidar-lite-v2.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/iio/proximity/pulsedligh=
-t,lidar-lite-v2.yaml b/Documentation/devicetree/bindings/iio/proximity/puls=
-edlight,lidar-lite-v2.yaml
-> > new file mode 100644
-> > index 000000000000..e19c8d166b81
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar=
--lite-v2.yaml
-> > @@ -0,0 +1,64 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/iio/proximity/pulsedlight,lidar-lit=
-e-v2.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Pulsedlight LIDAR-Lite v2 range-finding sensor
-> > +
-> > +maintainers:
-> > +  - Matt Ranostay <mranostay@gmail.com>
-
-I really don't use my gmail address anymore. Would be ideal if it was chang=
-ed matt@ranostay.sg=20
-Other than that don't have any issues.
-
-Thanks,
-
-Matt
-
-
-> I'll need an Ack or Reviewed-by from Matt for this. If Matt either doesn'=
-t
-> reply for a while, or isn't happy to take on this much fuller binding,
-> is it something you'd consider putting yourself down for?
->=20
-> Otherwise LGTM
->=20
-> Thanks,
->=20
-> Jonathan
->=20
-
+I am pretty sure this would not be a problem. The SpacemiT K1 have 0~2G as part
+of the system RAM, the default dma mask of these device would be 32bit, and there
+is swiotlb would help with the mapping of high memory. So the DMA configuration
+correctly works here. Thank you sashiko.
 
