@@ -1,146 +1,209 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFC443B6CD
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB9143CEF3
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786538950; cv=none; b=Q8iv9WIBfvR4Xxfj3oZGCPf+F8W33c6UPVg83/dPAI9JJEt9RltB0homTORB6DBCJIK8DvHDr/Z9jjRj9vaIZrFi5ctkQNy8ePwJPK/m3/eFgmr7+JNuEzYApl+nYh9W0BO2jUMSc4ObEvcsQz0k4bKIklYz9js+hdFATFXIvvQ=
+	t=1786539003; cv=none; b=ISpBw2Q3sbr8ubrNnIIJxU1X7SCQARCvhxGRirALUibUygCqShpth8WbIhuMebFxj2XXyz+6ZZhWMTqUwxki+UuQkIqrugMejgnToKaOBtndymlltnVnpdY7Kej5I8ft2SskWgqhPewiw1TdHgVgtjUaJk1ZJgTpJfMJgYafKvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786538950; c=relaxed/simple;
-	bh=R7P9GJg/MAi+yHuvn1qTceQ9Hb4OgtvyY2bPwHpj89w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Brz/g56+TQiGhvvg48Lmxch/qq0Z4tbBFwlKFZQjoB4mh09N2V6yxofDKJgMMrUVwqHuByt6hiNU0mNW2rGCweg5+D4ax+o0cYy1jAfmBDRfHgxsLy5MQFYNemGPC6k5K67WcyTJdsaRnk3pZJC0Up3xf9TqBGyeufdEdzDK69I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fIR1uC6r; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786539003; c=relaxed/simple;
+	bh=68xt+C+zjDto8tm6NOtDFOkLOK5UfA8lj8IeS5a9lZs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pAusp2mW6E4zfALG55Y6cvqxZ2/VfTs+BLHt2hipUGDLgjBkc33SVzsc6MkDwF8FsU21s5C+zwpgyEGaC+ljxnOd38s+VakbiY+masYWT90q2UcvaodBmBUYtXzMDfMsvFqegz5xOE96SKPE72xpjT2NCWwGwhG9/NyXQ9Sv9Mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X54XlddI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jeO6TKhX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fIR1uC6r"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4994d41ceb9so593955e9.2
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:49:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X54XlddI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jeO6TKhX"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CB4bAj3963523
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:49:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vRO7cQGeILqoNuN9rQ7IoY9cU4C+obAiiKTkESKbsaU=; b=X54XlddIwvi/tlsX
+	r7IYyYTOIUjTPpiaigGBuw4QvBCS+iBRoc5cooAOwy5cz7VIBu2X5OMYtCT4+Bt/
+	83oaX4pP8gnhJGR9fI6aznCrSnMyHbmIUjziS7zkZQ+DXbH6OORbel5MKoQLmL8t
+	QFsA0alNQuyIKOq3bwYf/rsI2HUhyLhyx4jlBkok0PhjbA3w98Xhpx8S+0JOWa0a
+	TzDgeqw6Wp4/r/yyslKQWq7XXkpc6fJZoFlVL9Ihgz6UGJ3++2TkPWUtDvdkWpxY
+	xf4MmjddngZAucQOhx2+RF95hdTksFdKa9NnaJv3C2a9vNBKGj2+9laxJmj+trGF
+	qzkV9g==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0nucgtpj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:49:56 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52d33c89a29so7442761cf.1
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:49:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786538946; x=1787143746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1u30g0AMKY150GAPKUik0QfLk+MxUjv8vUartSunHuE=;
-        b=fIR1uC6rmeM+mHENNXc/fnvnknL8mcOIZzIFmN6iCDXKBXERPj8qmmfSshs++i18SV
-         io7Fk85wb3zQNQoN1/QXGnqwR4m3QkL6dOh6z9dsdSxFDM1A79pczZcyGIr7WI1kNPYJ
-         tJ5T1n080IRo1d6enj7QljjpGmcZLX45O2NcpL+1md4zTfnI2MgpdkwHCTrKoKPYK8qq
-         Sr6Xx7p08wzTSMHpo4/9Lj0lgKLQdSqgx5cwsVugjqpvNld945Ov3h44KHVkebTk4P59
-         J3TQCMGe7Uz9yWk1UI9ChnLZEwkMyuDEFrFnnN2GuGpM6aVkeN6Ru9P+/AZIdzyzw5cS
-         fbcw==
+        d=oss.qualcomm.com; s=google; t=1786538996; x=1787143796; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vRO7cQGeILqoNuN9rQ7IoY9cU4C+obAiiKTkESKbsaU=;
+        b=jeO6TKhX6XboENwa057kZZgqNlDNWAYRfb7GL527R6kB0LtocVhJjn7M4QypZVSk4g
+         GaZOBpQqFmtn+cnZtLXsgiKIyAwcwf1IUPHVq9Xjpxyv683mJ0+IluFlSa0/mxxfMgQS
+         q1sH9xcIjNYzOloXfih/fZ3oYUIdgtzgpFbt411+xtB8UoQs7vCiwmPVem5v2SX2eQZw
+         LpDhGvgdUlIB1BP3AkZL/sHP+B+U1XSz79FIeVWwfagOn4q6L6sbdStOfsmaE5YGqf7d
+         neFpZWyP2pnP9SZLZ5bHnE3CPJxqkW47wUeZMAhbj5VbzIvt97Xe+kqCpNDzbGFLcYa5
+         nISQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786538946; x=1787143746;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1u30g0AMKY150GAPKUik0QfLk+MxUjv8vUartSunHuE=;
-        b=PTFcK9J+R+OcO+cDx/CWnyHVNvjAXZH8UGDgobrG5fsbWHrzRzCgWfydQ+lcJ/UYQv
-         692x595+YDsYvHwutp9KcE/hxSMJiFAxBWaNfB+03FoCE1TwvLAN8aCjKwIY3k+EsNH5
-         76mhwqP1q1zQV28KfUo4uNJvdrBDfXubjSEHESUkU9bovBlXKpiZphzFQKmORD/1k3Si
-         cqyEnPkOa36yz7eq+wKCijdxwR+aotsoya5ZIOzwsg7sHD7XBDVpU8KpkxNSSI96eHp5
-         s7cFPnRTBfSxL7tQAOaxxBt1RJ04myj8HXJ2ItRdjhgCAzdyV/yzc783pTbo58QUkaE3
-         qkeQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp8cvMA0V/nZvuwcCDslownah4CVQvrdL+6KUPwjFXKO+k0CDuXO08X8M4FqhUOPjyD1M9unl0O9QfM@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlGtmZh2CfcEI4NS90NyL0TWQIu4zqgGxLJKaB1oazP3cK5oLH
-	Tj9BkYaMDsN8NbhjyqDGYRvgJfkd3QtLYo3bQdwzaYYxBuoIOP8ESFQ5
-X-Gm-Gg: AR+sD109J+zZNUYT8hzKtMizq74tvgmYeAFLVwmJk0bLFJSiBO9gkrpGxbHAll4iWd0
-	JwxHP89LGVwF/CTBwepIM/NfCGP+m44SmDCs3OOHOeZuJzQQlbldd9Pz3kUUANxp2GwkhirlJ05
-	PmXWEz5vvBdjYBa+In/Sdhi7rGlTiSP2PlfRbTUUmEvyUzXCkR9rwoBuMGw1up46khaVvI+nL2u
-	AeOqUTd6swwuQtFaazQxxFZo9AJEklvi50sHp4bJiPrstvUE+W63VrUJrcSNoZxsJWQ/MOY1rvX
-	7PlAuXMSHwRSE5iqPJ+NolYMDjEmtvdTrkxaUayHKuQfUnoUzUa10jdJw+dL1yvHxV9WMj2dJhL
-	xmyMPqQ4Ku7kkRJQ1xl9uz4f/z62/R/QtGi3c74645R0KmZ6A/tILhu9zIqcN63b+wk0pv+aVwK
-	jN0sbBKhv24F1rbw+jsoohz5VOdI13UUQ5pcDbESN5iRrstN3tZXdLN4Ryzqh7/PMj2KsntX8Ko
-	+6TbFx9Z/KNDD+sRtv0odGUn23ybVfYMIwhtx9bwuz3aOfNjdpPOx9kpMnamtzZT7oN
-X-Received: by 2002:a05:600c:3b17:b0:495:71ff:598d with SMTP id 5b1f17b1804b1-4997c0ca479mr29063825e9.1.1786538946151;
-        Wed, 12 Aug 2026 05:49:06 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B84A6001A34C2DD5D9E0419.dsl.pool.telekom.hu. [2001:4c4e:1b84:a600:1a34:c2dd:5d9e:419])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150d4e260sm7247226f8f.17.2026.08.12.05.49.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 05:49:05 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>,
-	tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	alchark@flipper.net,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Wed, 12 Aug 2026 14:48:47 +0200
-Message-ID: <20260812124850.6597-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812094106.1391698-9-gahing@gahingwoo.com>
-References: <20260812094106.1391698-1-gahing@gahingwoo.com> <20260812094106.1391698-9-gahing@gahingwoo.com>
+        d=1e100.net; s=20251104; t=1786538996; x=1787143796;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vRO7cQGeILqoNuN9rQ7IoY9cU4C+obAiiKTkESKbsaU=;
+        b=m0O2ydDxoE3kXQDtCv8JuNgOX7Yzzdxcu9Ue4VXdHmOjLyFtkHJaPYUWUvuPOklDTf
+         sn0iYadXU8dRjUKYFK4ecfbCGxgmUUwdRLF2m6kvjvQtcPvoDvEUhSVzIblRQtxVjB1a
+         nG2SknueSfxtL4QQAGIG4NXz7tqcaiuHUB7D4QjCnTpRjAWEH5yIv+sJp6Bi1E7YClpx
+         qZ6gJQCr8A0uWlOYv441Usqbm2h+YE/sEtKldZYLU36o3Vue5gUIId+V4G0xLkNhx3pK
+         tRbG0h+YKW04IiyL5s/jv/mW/b04o+JF4xA3PxmwCHChbGNdqxc2sVd91oaKFQB4x/vb
+         O+Kw==
+X-Gm-Message-State: AOJu0Yx/kYD1E9WMO5KPumONeuuTLb2OH9OTLb+QBcs6Dgg6Fm+vOSpZ
+	YwTC26lbMnu6MlLbAgOfc/+2rnMDdzkUTStOKYG2V+BRnbqr7irmWS4qskikiJqNjw9SmrLyYHF
+	hoMLSLEyr+y5BQozR8r++xo03Ymvv9nCNZMT/zba3wyzr7J0nzQ7U4hI3n6f4ElAj
+X-Gm-Gg: AR+sD11FzSiM1Z3Qt5g25pFlG2i3bl2EXsdbvDP57I8PX4rrgZ84cSZHImyTl9BKqn8
+	lygfP84Z/pzzbZvZlbxzaRK5f3vQEjL/HSa/V3H/fRcDBm5cPTGScuN+my1UpFbIM8rHyRcoRwG
+	hsbeorri4F07uSmEaZda9vndgi8MJHHkdveG4FrNag4oAudFiW25tEU3Cs6m1/6GaMEG7u6Gbhe
+	KOwRMnWALWdY+/5JdJBLf0YEdpzps4MmkUzfuV6y1glKyGDqKm3QnAgMwJ7dx+mqYURxpyMBZ1E
+	F8KQ2/OX4t9cOAvPB6TQ7PgHlQVcDtANthwyxGMMnpjXGF9rJ/TR/R7u4vBkIJ6CxXVPGxWbRln
+	YTd8HjwHYJFpadGHcK8eNhXeGCwBduQ==
+X-Received: by 2002:a05:622a:2d1:b0:51c:1b3d:fe62 with SMTP id d75a77b69052e-52d6486aa8bmr37551151cf.28.1786538995887;
+        Wed, 12 Aug 2026 05:49:55 -0700 (PDT)
+X-Received: by 2002:a05:622a:2d1:b0:51c:1b3d:fe62 with SMTP id d75a77b69052e-52d6486aa8bmr37550611cf.28.1786538995411;
+        Wed, 12 Aug 2026 05:49:55 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c94f4c0sm41673635e9.8.2026.08.12.05.49.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 05:49:54 -0700 (PDT)
+Message-ID: <e5a838f3-609e-48b9-aca6-a25fe5453cd8@oss.qualcomm.com>
+Date: Wed, 12 Aug 2026 14:49:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 01/11] dt-bindings: clock: Add Realtek RTD1625 Clock &
+ Reset Controller
+To: =?UTF-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>,
+        "mturquette@baylibre.com" <mturquette@baylibre.com>,
+        "sboyd@kernel.org" <sboyd@kernel.org>,
+        "robh@kernel.org" <robh@kernel.org>,
+        "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+        "conor+dt@kernel.org" <conor+dt@kernel.org>,
+        "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+        =?UTF-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
+        "afaerber@suse.com" <afaerber@suse.com>,
+        =?UTF-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
+        "bmasney@redhat.com" <bmasney@redhat.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+        "linux-realtek-soc@lists.infradead.org"
+ <linux-realtek-soc@lists.infradead.org>,
+        =?UTF-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+        =?UTF-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+        =?UTF-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
+References: <20260812020009.3480538-1-eleanor.lin@realtek.com>
+ <20260812020009.3480538-2-eleanor.lin@realtek.com>
+ <313b74fd-1a5f-4e1b-a4e2-a537f7939fad@oss.qualcomm.com>
+ <fd254ec8d59a4ed3b4ea157b866ce798@realtek.com>
+ <d55ed65c-b066-47aa-b285-c9582894b84f@oss.qualcomm.com>
+ <e2c90bd25e654e0f9ce1aea6e0b4f74d@realtek.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <e2c90bd25e654e0f9ce1aea6e0b4f74d@realtek.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: zlsKtb_nntg2s-7pkYOaa5u9DeZ_cE5F
+X-Proofpoint-ORIG-GUID: zlsKtb_nntg2s-7pkYOaa5u9DeZ_cE5F
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDEwNCBTYWx0ZWRfXy2Jhiv46X3bH
+ norY1p3M4F19kGzIiCX2TufIoH8PoJrbXHW6qFDD1WUDDmGbD3zAci9Ej4DpmcMEqw3TX6nqVUd
+ w7jCQFLvzTC6nrRzhjB0tTY6xfbSCFVKJT3v+BSaizysAVj6HssRMfY9t5MZnRB1832wrL69NiO
+ NYi989bVs5EAJ7kzGDfu4HRllCgi3CrWKa7z8YP9IWiCI8rP5klbrAVUrFZVoMgW6m81BqUXsme
+ rPLWVk9ylAc7oeP43INoGWCUaawmdLalIehA+X1CwrSdVkt5tDk1BFhv2hFQM2hGgHXlNee5sdz
+ OZ0jCO2OcWZ3aDigPPwr4YxqTWf1cAkyQuDzLf0zQyir2Xaa7CHcgElSZXq8pRXjby5azqaSu0R
+ KFj5rBN7VU4ibpWQRUaSlsrvgs0mA8hCyEBWMM4L4QcQ9T4gtdO/3w0uqYsy7+lBEXqRM9yzjz/
+ EZFHVEEBK2D+2pjL6Nw==
+X-Authority-Analysis: v=2.4 cv=VcjH+lp9 c=1 sm=1 tr=0 ts=6a7c6bf4 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=n9Sqmae0AAAA:8 a=_thU5h4BxOvQXo3MrM0A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+ a=UmAUUZEt6-oIqEbegvw9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDEwNCBTYWx0ZWRfX79Z7nSBmqYvt
+ hlb+qKJSiVszhcmkzrSzY7SQXApw9MXIPZ7e9VjJsL+lMedL+Ds3ckRXuCBaD8L5FIXUvbhW4R6
+ zF2BU3NsP+uMbgpld40iG60EE8h+Rko=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_03,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120104
 
-Two things here, one of which I think has to be fixed before this
-lands.
+On 12/08/2026 12:22, Yu-Chun Lin [林祐君] wrote:
+>> On 12/08/2026 11:41, Yu-Chun Lin [林祐君] wrote:
+>>> Hi Krzysztof,
+>>>
+>>>> On 12/08/2026 03:59, Yu-Chun Lin wrote:
+>>>>> Add DT binding schema for Realtek RTD1625 clock and reset controller
+>>>>>
+>>>>> Reviewed-by: Krzysztof Kozlowski
+>>>>> <krzysztof.kozlowski@oss.qualcomm.com>
+>>>>
+>>>> How my tag could appear here?
+>>>>
+>>>> Look:
+>>>> https://lore.kernel.org/lkml/20260324025332.3416977-2-eleanor.lin@rea
+>>>> ltek.c
+>>>> om/
+>>>>
+>>>>> Co-developed-by: Cheng-Yu Lee <cylee12@realtek.com>
+>>>>> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+>>>>> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+>>>>
+>>>> Who added my tag? What is the actual flow of this patch?
+>>>>
+>>>
+>>> You gave your Reviewed-by tag in v5. However, after that, Stephon
+>>> provided additional feedback. In v6, I modified the patch based on
+>>> Stephon's comments and made some other changes. Furthermore, I added
+>>> the clock ID
+>>> 144 in v11.
+>>
+>> So how my tag could appear before Cheng-Yu Lee signed off the patch?
+>>
+> 
+> Ah, I read the rules stating that "the last Signed-off-by: must always be
+> that of the developer submitting the patch".
 
-The first is a comment that outlived its subject. This patch adds the
-following just above the PC_TASK_CON block:
+This is correct interpretation (although some subsystems will interpret
+above only in respect of other SoBs).
 
-  /*
-   * RK3576 arms the same DPU completion as RK3588, but the interrupt
-   * never reaches the GIC. The completion itself is visible in
-   * INTERRUPT_RAW_STATUS, so sample that instead. The tick cap bounds
-   * jobs that never raise it at all, which is the same open problem as
-   * the wrong inference results.
-   */
+> 
+> I mistakenly thought my Signed-off-by had to be the absolute last line of
 
-That is the v6 comment for the poll. It states the premise your cover
-letter withdraws, it describes machinery this version deletes, and it
-has no code under it - the next line opens the second comment block.
-Left in, the driver would carry a claim that contradicts both the
-commit introducing it and the register description two paragraphs
-below it.
+This is correct.
 
-The second is placement rather than correctness. This patch also
-factors the completion tail out of rocket_job_handle_irq() into
-rocket_job_next_locked(). I read that as behaviour-neutral on RK3588 -
-the return that used to leave handle_irq() now leaves the helper, and
-scoped_guard drops the lock either way - and the numbers I posted on
-1/10 bear it out. But it restructures the shared completion path in a
-patch whose subject is adding RK3576, which puts a bisect in the wrong
-place if it ever turns out not to be neutral. It would sit more
-naturally in 1/10, which already touches that function, or in a patch
-of its own.
+> the entire commit message. Therefore, when I inserted your tag at the top
+> of the tag block. 
 
-Both of the things I raised on v6 are right in this version. The power
-domain list is attached before anything that would have to be unwound,
-and the comment saying why a plain return is correct there is a good
-addition. clks[] grows in the same patch that adds the two names.
+This is odd result of earlier logic. If your SoB has to be the last,
+then obvious choice is to put the Reviewed-by tag BEFORE your SoB.
 
-I also went looking for an ARRAY_SIZE(core->clks) or
-ARRAY_SIZE(core->resets) left behind, since that would walk six entries
-on a four-clock RK3588. All six are converted in 7/10, including the
-two in rocket_drv.c's runtime PM callbacks, which are the easiest pair
-to miss.
+And in any case you should use b4 since it would do the correct thing.
+All patch submissions are supposed to use b4, so you don't make trivial
+process mistakes.
 
-Igor
+
+Best regards,
+Krzysztof
