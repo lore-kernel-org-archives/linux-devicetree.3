@@ -1,203 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B134E375AC6;
-	Wed, 12 Aug 2026 02:10:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7732989B5;
+	Wed, 12 Aug 2026 02:11:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786500638; cv=none; b=p1b4sXzJf/oUjLQcOX404dMSEbtrkDiT7hHvlTqNATkV2gH1x9LNlmT3KRwmUWK8l4rMhD2ce3ET6YfhMtmafevMGwcMXGU+llHxAo3SzpJXgNea96SDicbflPxuFoJ4YUzM/anMHZ8uRIYFqmHcRFLIHimp4AYfrqBUGmY+c2Q=
+	t=1786500677; cv=none; b=Fs5/aSSCdailbSj1bqrnIyorbAvQrBl+AXzLsDiWiy9BBBrpSf8Z31weUt6mvxxNcu8LBCamjvJPqIYpL3iqJBlI/yYvoVUmCuNlTLDlFK0QS62mO2ZIa8CjZgJEDZZ3Pgtk0ys39sttM7xqF97jlfs1uoghXBP+YMDsv6h69xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786500638; c=relaxed/simple;
-	bh=ID3odt6xwl1iROEkBBhNGpjLb8nmkJwgJTJozDfgNHc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DmQ5bc93HKzHenPYUXo+powDF/du0YVLB+aaH0gt6EQtOQ2xH3BuiMGwrUc40Lt+Qlgh8cGrRbD4X/MaQHI8nGxr6bJGdUjGeBJoA5URXPs/ERpDCBbisbNiTNi3RN8IhZ0uQ5ra6aBVG6fAsyDMZud/npl0GrjBHgGSrdVSyc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X2ztoFFu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786500677; c=relaxed/simple;
+	bh=RDkVrU46qfbezplnf34lnL8JdN5YKm4gGE8ELdbqDv8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gw+5t8VKIGOMZGuHQRCQtl00I+4AsK6m4JpMKrVRSeZMOc+QavGDrdCK8MrEFdCWJnUsR7gmC+KKW2K1LfeVmX771IjUyB2J0D5WYep7/+wgBI3an05ibDW9Fk06mt6OhJA6P26yu5UGVQieqxvzwyodLfSnwsfzklWh9xJBIWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkcJAR6I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X2ztoFFu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5A91F000E9;
-	Wed, 12 Aug 2026 02:10:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkcJAR6I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCFC1F000E9;
+	Wed, 12 Aug 2026 02:11:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786500635;
-	bh=M7QfH0+UvDU6sg/jtKuoOvQ2Jpx7EZQIa7/CaXc1l3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X2ztoFFuvA5U3SZH+2aA5EHNQ7erbn7Oe47P0InpJeIR2FCqroL7tuAJQ5v3QNl5R
-	 Odkf9kzDUxgpOisUbdvtHmhABCJPJIBVXmI7MANV95CpTaHgrGrvT0ijGqvWu984h/
-	 RH2U7wvb9tvEBtpMKxOGCDQNYrLMy/lwvsIvP4f8AtzhT63ZPPgL299mwFV42e5CgD
-	 nRBVV0bsvhkUINI78XOHt6jUOpooxb/ItXB54ay1ik23KtIUW3mejpoHBcKWnhvQNI
-	 vLb0sZBJWjMqiJ0FQm6zyUi7feuv3yK1mk0cg84GGnIJGxiFVI/a6dNodbAWcDMcze
-	 /EE93H4H7WILw==
-Date: Tue, 11 Aug 2026 21:10:34 -0500
-From: Rob Herring <robh@kernel.org>
-To: Danila Tikhonov <danila@mainlining.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Kate Hsuan <hpa@redhat.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Eugene Lepshy <fekz115@gmail.com>,
-	Vasiliy Doylov <neko@altlinux.org>,
-	Achill Gilgenast <achill@achill.org>,
-	Luca Weiss <luca.weiss@fairphone.com>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH 1/4] dt-bindings: media: i2c: Add Sony IMX471 CMOS Image
- Sensor
-Message-ID: <20260812021034.GA537738-robh@kernel.org>
-References: <20260805-imx471-v1-0-7be79f539ed8@mainlining.org>
- <20260805-imx471-v1-1-7be79f539ed8@mainlining.org>
+	s=k20260515; t=1786500675;
+	bh=p7hWHzo9I5jbN7ixDuyzEfWCZkxWYEDnokTrTpDYiUk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZkcJAR6IJGDDg5ohJ6CoeZ+fSCUDzHCeFDIO4xB0HGQmhOXJFgWwd3hISPW0NgPfL
+	 KafxIKePOUlL7I6OwL8sdAStQoD5gAHFq8L/J2osXSdYEhp87GPZ1JhplnvtZBrl4q
+	 iyXzKHJNlPJ4nJLbKG2NDGQHPNh7ER2Oub/ItBaBC089gRnrHkgm2yy+wGFNAeq1Dr
+	 5hCZItKp5BJ5MOSsIt+BJmuXfQLyYm2UFHcZ4CXOv80OuW6xinVNQWjr5QXiXtxE/C
+	 QFm/+K/0eVpO7NEcv9P/XfW14F23BTYccqg/9+AUOZSxTtZ11FYqB/cvC+CHxFE1X7
+	 f0PdYxZim2baw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 05/11] clk: realtek: Add support for phase locked
+ loops (PLLs)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: robh@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260812020009.3480538-6-eleanor.lin@realtek.com>
+References: <20260812020009.3480538-1-eleanor.lin@realtek.com>
+ <20260812020009.3480538-6-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 02:11:15 +0000
+Message-Id: <20260812021115.7DCFC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805-imx471-v1-1-7be79f539ed8@mainlining.org>
 
-On Wed, Aug 05, 2026 at 10:54:24PM +0300, Danila Tikhonov wrote:
-> Document the Sony IMX471 CMOS Image Sensor.
-> 
-> Signed-off-by: Danila Tikhonov <danila@mainlining.org>
-> ---
->  .../devicetree/bindings/media/i2c/sony,imx471.yaml | 123 +++++++++++++++++++++
->  1 file changed, 123 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Asymmetry in power sequence execution for PLLs without a power sta=
+tus register will lead to permanently disabled clocks.
+--
+
+--- Patch [5]: [PATCH v13 05/11] clk: realtek: Add support for phase locked=
+ loops (PLLs) ---
+commit e50b49e7f53401294ef59626cc76a96ba5a0781e
+Author: Cheng-Yu Lee <cylee12@realtek.com>
+
+clk: realtek: Add support for phase locked loops (PLLs)
+
+This commit provides a full set of PLL operations for programmable PLLs and=
+ a
+read-only variant for fixed or hardware-managed PLLs.
+
+> diff --git a/drivers/clk/realtek/clk-pll.c b/drivers/clk/realtek/clk-pll.c
 > new file mode 100644
-> index 000000000000..9c6c7c55746f
+> index 0000000000000..31670b8316cd5
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml
-> @@ -0,0 +1,123 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/sony,imx471.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sony IMX471 CMOS Image Sensor
-> +
-> +maintainers:
-> +  - Danila Tikhonov <danila@mainlining.org>
-> +
-> +description: |-
-> +  The Sony IMX471 is a diagonal 5.822 mm (Type 1/3.09) 16-megapixel
-> +  back-illuminated stacked CMOS active pixel image sensor with a 4656 x 3496
-> +  active pixel array and 1.0 um square pixels. It uses a Quad Bayer color filter
-> +  array, is programmable through an I2C interface, and outputs image data
-> +  through MIPI CSI-2.
-> +
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: sony,imx471
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: External input clock (19.2 MHz)
-> +    maxItems: 1
-> +
-> +  vana-supply:
-> +    description: Analog power supply (2.8 V)
-> +
-> +  vdig-supply:
-> +    description: Digital core power supply (1.05 V)
-> +
-> +  vif-supply:
-> +    description: I/O interface power supply (1.8 V)
-> +
-> +  reset-gpios:
-> +    description: Sensor reset (XCLR) GPIO
-> +    maxItems: 1
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          data-lanes:
-> +            items:
-> +              - const: 1
-> +              - const: 2
-> +              - const: 3
-> +              - const: 4
-> +
-> +          link-frequencies:
-> +            maxItems: 1
-> +            items:
-> +              const: 200000000
-> +
-> +        required:
-> +          - data-lanes
-> +          - link-frequencies
-> +
-> +    required:
-> +      - endpoint
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - vana-supply
-> +  - vdig-supply
-> +  - vif-supply
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,camcc-sc7280.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        camf_imx471: camera@1a {
+> +++ b/drivers/clk/realtek/clk-pll.c
 
-Drop unused labels.
+[ ... ]
 
-> +            compatible = "sony,imx471";
-> +            reg = <0x1a>;
+> +static bool is_power_on(struct rtk_clk_regmap_pll *clkp)
+> +{
+> +	u32 val;
 > +
-> +            vana-supply = <&vreg_camf_vana_2p8>;
-> +            vdig-supply = <&vreg_camf_vdig_1p1>;
-> +            vif-supply = <&vreg_cam_vio_1p8>;
+> +	/* reg =3D=3D 0 means not configured (assume always on).
+> +	 * Register offset 0 is never a valid address on Realtek SoCs.
+> +	 */
+> +	if (!clkp->power_reg)
+> +		return true;
+
+[Severity: High]
+Could this result in a permanently disabled clock for write-only PLLs?
+
+If a PLL is configured with power-on and power-off sequences but lacks a po=
+wer
+status register (power_reg =3D=3D 0), is_power_on() will always return true.
+
+[ ... ]
+
+> +static void rtk_clk_regmap_pll_disable(struct clk_hw *hw)
+> +{
+> +	struct rtk_clk_regmap_pll *clkp =3D to_rtk_clk_regmap_pll(hw);
+> +	unsigned long flags;
 > +
-> +            clocks = <&camcc CAM_CC_MCLK0_CLK>;
-> +            assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
-> +            assigned-clock-rates = <19200000>;
+> +	if (!clkp->seq_power_off)
+> +		return;
 > +
-> +            reset-gpios = <&tlmm 20 GPIO_ACTIVE_LOW>;
-> +            pinctrl-0 = <&cam_mclk0_default>;
-> +            pinctrl-names = "default";
+> +	spin_lock_irqsave(&clkp->lock, flags);
 > +
-> +            orientation = <0>;
-> +            rotation = <270>;
+> +	regmap_multi_reg_write(clkp->clkr.regmap, clkp->seq_power_off,
+> +			       clkp->num_seq_power_off);
+
+If such a clock is disabled (e.g., by clk_disable_unused during init), this
+power-off sequence will execute successfully.
+
+[ ... ]
+
+> +static int rtk_clk_regmap_pll_enable(struct clk_hw *hw)
+> +{
+> +	struct rtk_clk_regmap_pll *clkp =3D to_rtk_clk_regmap_pll(hw);
+> +	unsigned long flags;
+> +	int ret =3D 0;
 > +
-> +            port {
-> +                camera_imx471_ep: endpoint {
-> +                    data-lanes = <1 2 3 4>;
-> +                    link-frequencies = /bits/ 64 <200000000>;
-> +                    remote-endpoint = <&csiphy0_ep>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> 
-> -- 
-> 2.55.0
-> 
+> +	if (!clkp->seq_power_on)
+> +		return ret;
+> +
+> +	spin_lock_irqsave(&clkp->lock, flags);
+> +
+> +	if (is_power_on(clkp))
+> +		goto unlock;
+> +
+> +	ret =3D regmap_multi_reg_write(clkp->clkr.regmap, clkp->seq_power_on,
+> +				     clkp->num_seq_power_on);
+
+However, a subsequent call to rtk_clk_regmap_pll_enable() will hit the
+is_power_on() check above, returning true and jumping to unlock before the
+power-on sequence can be written.
+
+Does this cause the clock to remain silently disabled in hardware, while the
+clock framework considers it enabled?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812020009.3480=
+538-1-eleanor.lin@realtek.com?part=3D5
