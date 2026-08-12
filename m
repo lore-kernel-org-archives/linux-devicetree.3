@@ -1,195 +1,123 @@
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD2439B489;
-	Wed, 12 Aug 2026 07:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06753398902;
+	Wed, 12 Aug 2026 07:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786520558; cv=none; b=CzGT+50YhjPxOrYCkYm2GNgvt41f6vKJO585yw2huAcoijthJ73L9m1XEQObM3DDPxHs7nrfXU0DFlMt0NZjQf70001QtmtwQrH2hrfBoS2Eq8UDGA1K2DiC7oH4FRnc9HB2o+H8sdEhfPKOu3KdkF8Zw2F0RdD75hJalzb7yiw=
+	t=1786520559; cv=none; b=aCdBBr6oU1hAXkO0ppKtuy2IKrH84TLEJaH2iQWBE9HPxLLhKkx+LauIDenplgNf1FB9EhWNa0M/dkHSBoX1fKWhJM4igZaFj4MJVCycCH4dWePBIebjDA2RQ+59bJwCLwo7yV7ULgWGFTJ63ahy9aETkufBfwjVgo1JqYG3o70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786520558; c=relaxed/simple;
-	bh=eQcaX7QQGRbichX5g121DxRcToGnuFmjTqFeqxFEnpE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XVJFWF4rx7rGWNBnQ8V4UKH0IuXbySuav7ULmszyomq9Xeqs0o/sf6UFx+QG8eqtoNVyCSb0oGYerNC0Qv7x64ZfAwH5xCVfBHA9PdrCRLlopHHiRNU85KwOQc5LXRRKmqxItW274KJ7PofhMrNDDT6zHM4PWv9esQvBZCcQ4u4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 4875F2002C9;
-	Wed, 12 Aug 2026 09:36:21 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 125072002CB;
-	Wed, 12 Aug 2026 09:36:21 +0200 (CEST)
-Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id D91C31800088;
-	Wed, 12 Aug 2026 15:36:19 +0800 (+08)
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: alexandre.belloni@bootlin.com,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	Lakshay Piplani <lakshay.piplani@nxp.com>,
-	Pankit Garg <pankit.garg@nxp.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [RESEND v7 1/2] dt-bindings: rtc: Add pcf85053 support
-Date: Wed, 12 Aug 2026 13:05:51 +0530
-Message-Id: <20260812073552.3542956-1-lakshay.piplani@nxp.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1786520559; c=relaxed/simple;
+	bh=QRpaal9Asx+0Nld4pChkyHqNF+oT5dFLKDnnsi8C65k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UablbHn4S29C+KPG7dAp4aiqO5ASaG5PmzTzEeCxaer2c26R1x/I3VdklUB+YgAoKUII3FvYQprQFlEoidnqD5ubYrDqT8gMd1hjOFIT05q/0zBN4nu8B5GDU4+pPqBkkPUeVzMWgblsrIXIjN5/CtP5paOtBWxJAk9ZAte4vH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKkZKzQ4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKkZKzQ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F01B1F00A3A;
+	Wed, 12 Aug 2026 07:42:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786520557;
+	bh=UB1jF7L3iPk9Rg0+1qtTwgCtX6bgx0/fZCeUDQ/DIwA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aKkZKzQ4Z2TKBfnpaCMI4tPl2gHvTd3QyNnrw/r1RkNMvVdXANvYhqVp4ZdKVDXwj
+	 qyyS6H5CdNZZjq+0ZuWWxrGSr8azN6lhiZvXdbNjvB4k+wO70NmRA/WAoo3mG4tE3T
+	 QWzixG6juj7qx2goYfPhQV+kItylHrhuWrpURJ+ob6fR/XQIWUuW+l2qEOz1w7ouRr
+	 DurzvNo2KByMTTz+wzI5K008b1B+iuTYz/uktjrYpPjJ2PfvJVLv2HyFu9zYCWR+P9
+	 fu7Hl5cs2A9ZROiXW/vRVVMPDn5DYue9wnkGGxAQLYGdMzgM4WqTy0EkX+y/UYjK66
+	 EPGxZhV8PFYrw==
+Date: Wed, 12 Aug 2026 09:42:35 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+Message-ID: <20260812-neon-asp-of-completion-e9349e@houat>
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+ <am2mvECnCcO9IxuI@monoceros>
+ <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
+ <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
+ <20260810-devout-pig-of-performance-595ccc@houat>
+ <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="ibzlmn7sqd2mt3nn"
+Content-Disposition: inline
+In-Reply-To: <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
 
-Add device tree bindings for NXP PCF85053 RTC chip.
 
-Signed-off-by: Pankit Garg <pankit.garg@nxp.com>
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
----
-V6 -> V7: - no changes
-	  - Added Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-V5 -> V6: - Dropped driver-specific commentary from property descriptions.
-	  - Simplified and clarified descriptions for better readability.
-V4 -> V5: - Updated schema validation logic to enforce correct combinations of
-            'nxp,interface' and 'nxp,write-access' using oneOf clauses.
-          - Refined property descriptions for clarity and hardware alignment.
-V3 -> V4: Add dedicated nxp,pcf85053.yaml.
-          Remove entry from trivial-rtc.yaml.
-V2 -> V3: Moved MAINTAINERS file changes to the driver patch
-V1 -> V2: Handled dt-bindings by trivial-rtc.yaml
+--ibzlmn7sqd2mt3nn
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+MIME-Version: 1.0
 
- .../devicetree/bindings/rtc/nxp,pcf85053.yaml | 114 ++++++++++++++++++
- 1 file changed, 114 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
+On Wed, Aug 12, 2026 at 02:31:52AM +0200, M=E0xim Pedraza Padilla wrote:
+> El lun, 10 ago 2026 a las 11:02, Maxime Ripard (<mripard@kernel.org>) esc=
+ribi=F3:
+> > If the sole reason for this series is to keep having something on the
+> > display while the kernel boots until DRM catches up, then you probably
+> > want to check [drm state readout]
+>=20
+> Thanks, I had missed it. I read it and then measured, having earlier
+> claimed in this thread that our hardware kept no state worth reading. That
+> was wrong.
+>=20
+> Dumping the LCDC registers at the top of tilcdc's probe, before the driver
+> touches anything:
+>=20
+>   RASTER_CTRL=3D00280081  FB=3D9df13cc0..9dfcf4bc
+>=20
+> LCD_EN is set and the scanout address is exactly the framebuffer U-Boot
+> reported, still holding the image. So readout would have something real to
+> adopt here. tilcdc is not one of the drivers you implement, but that is
+> work rather than a disagreement.
+>=20
+> One observation that may be worth your time. Pointing a simple-framebuffer
+> node at that same memory, same device tree, only the driver differing:
+>=20
+>   simplefb   the image is still there afterwards
+>   simpledrm  the buffer reads back as all zeros
+>=20
+> So where the CRTC is still scanning the bootloader's buffer, simpledrm
+> wipes the image it was meant to carry over. I have not chased down the ca=
+ll
+> that clears it.
+>=20
+> What readout cannot cover is having no firmware splash to read. U-Boot's
+> Falcon mode boots the kernel from SPL and skips U-Boot proper, where
+> display init lives, so there is no image and no programmed CRTC to inherit
+> -- and Falcon mode exists to shorten boot time, which is the same reason
+> one cares about the logo appearing early.
 
-diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
-new file mode 100644
-index 000000000000..81cfceabc04c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
-@@ -0,0 +1,114 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright 2025 NXP
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/rtc/nxp,pcf85053.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP PCF85053 Real Time Clock
-+
-+maintainers:
-+  - Pankit Garg <pankit.garg@nxp.com>
-+  - Lakshay Piplani <lakshay.piplani@nxp.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - nxp,pcf85053
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  nxp,interface:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    enum: [ primary, secondary ]
-+    description: |
-+      Identifies this host's logical role in a multi-host topology for the
-+      PCF85053 RTC. The device exposes a "TWO" ownership bit in the CTRL
-+      register that gates which host may write time/alarm registers.
-+        - "primary": Designated host that *may* claim write ownership (set
-+          CTRL.TWO=1) **if** write-access is explicitly requested.
-+        - "secondary": Peer host that writes only when CTRL.TWO=0 (default).
-+
-+      This property determines the intended role of the host in relation to
-+      the write ownership.
-+
-+      The actual role depends on whether 'nxp,write-access' is also specified.
-+      Supported configurations are:-
-+        1. Primary with 'nxp,write-access' -> primary claims write ownership.
-+        2. Primary without 'nxp,write-access' -> primary is ready only; secondary may write.
-+        3. Secondary (must not specify 'nxp,write-access') -> Secondary writes only
-+           when no primary claims ownership.
-+
-+  nxp,write-access:
-+    type: boolean
-+    description: |
-+      Indicates that write ownership of the PCF85053 RTC should be claimed by setting
-+      CTRL.TWO=1. This property is only valid when acting as the primary interface
-+      (nxp,interface="primary").
-+
-+required:
-+  - compatible
-+  - reg
-+  - nxp,interface
-+
-+additionalProperties: false
-+
-+allOf:
-+  - $ref: rtc.yaml#
-+  - if:
-+      properties:
-+        nxp,interface:
-+          const: secondary
-+    then:
-+      not:
-+        required: [ "nxp,write-access" ]
-+
-+examples:
-+  # Single host example.
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      rtc@6f {
-+        compatible = "nxp,pcf85053";
-+        reg = <0x6f>;
-+        nxp,interface = "primary";
-+        nxp,write-access;
-+        interrupt-parent = <&gpio2>;
-+        interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
-+      };
-+    };
-+
-+  # Dual-host example: one primary that claims writes; one secondary that never claims writes.
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c0 {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      rtc@6f {
-+        compatible = "nxp,pcf85053";
-+        reg = <0x6f>;
-+        nxp,interface = "primary";
-+        nxp,write-access;
-+        interrupt-parent = <&gpio2>;
-+        interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
-+      };
-+    };
-+
-+    i2c1 {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      rtc@6f {
-+        compatible = "nxp,pcf85053";
-+        reg = <0x6f>;
-+        nxp,interface = "secondary";
-+      };
-+    };
--- 
-2.25.1
+In such a case, you can (and really should) use KMS, and you should use
+an initramfs and setup the splash screen there. There's no need for the
+kernel to do that work.
 
+It's still significantly different from your earlier claim, since there
+would be no gap between uboot and DRM, and no blanking either.
+
+Maxime
+
+--ibzlmn7sqd2mt3nn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCanwj5wAKCRAnX84Zoj2+
+djk4AXoDaUpvlsLACdFgaEpmyXSq8tMZcRam1NtpdStxqjIXf0td0aHqsBW9yLHM
+qHBynosBfjTL6/dGkQiTNe8d8My3Mh9Mv/26EX8/wJznUEx3OXSHeiBB5CfJ36OR
+J3sTCZOWpQ==
+=d3a1
+-----END PGP SIGNATURE-----
+
+--ibzlmn7sqd2mt3nn--
