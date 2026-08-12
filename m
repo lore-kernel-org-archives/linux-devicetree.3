@@ -1,238 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8610E3F0757;
-	Wed, 12 Aug 2026 08:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786524414; cv=none; b=FOakZUxbScNqbertx6u3BjvIH+dNOc7sLOcYzc2d+OgRkCxpqV6gSqBuy/ypJemfH/E/1LVAvLna23H7NXF813T4OMavnagV7K4dRPIxWM92Atytok48jGn27sr7qCg2tLI5M1GhGCEcsQQ6woyWzyrPjdwjA7Xx8NpCT0fiC3Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786524414; c=relaxed/simple;
-	bh=oXdjxzWgVRSXec9CcxwxahSBNOgf12WY/QCoXOP/HP4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hssOnMNlPVDugxpuGds8XyKLaJQVsx10264hwXRBHiAX8ttMFdOJShCgz+gKprZohXxo0mZWqaAkPL30oYp/4Skxs/qewMY3ovZ3hb2AYwRJIWnDkA/awdcLEEy+keKQaZQgaq5I12RXC6nl8qHxaPJpTfYD8f5Kum3nRKqir6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ETUpMJ+K; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C6233ADBA
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786524505; cv=pass; b=r4VB0517T2yMQNlqKkTFcViHARubpmPAycvjIu73FIHE4mXtY95NMqzCOKEbrV704SjK/ejLf3wdtWwCKg8PNEKhOA/ODaslLiP0jF5+QJIhW7kPZa0/ZM1Isl+pJhv3c8szTmMwmfEa6fcuGlyla9BzuouqKn0/xblWZYFvBCQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786524505; c=relaxed/simple;
+	bh=9NvP3s/dyhM7ohI8AouovYBTcuSGiqF4Xz940L/QClI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ESx8HPFjbldh5kRMcH2jJ//9R49krolQD1mxkbTvx9Op990eHaw5rspR2WBqm5MI4K4ahbxoRiqh7/IFD+43sD06WZzxIZ5C35tUr2mri97wxu2YSnCqeB6HL4Wve+wIaGDE3eWnzvi9jtG8EdIrvvG20dELOWUBhIXaK4hOpz8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HHfwIPfI; arc=pass smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ETUpMJ+K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD011F000E9;
-	Wed, 12 Aug 2026 08:46:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786524410;
-	bh=sGgknNej65T1XdsO0iwYbCCTsP79cLh9TzxklhVQmbk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ETUpMJ+KMNAq/sX3GCQqYtXMUqoyuCyxD83c7VmXmBWfszBIocr0oYuxtxXG9QeW+
-	 iu49pQy+Ykge5SlqJ2SEJvsAPzXr45teeJ3oIi0N9dH9V+20uA5GABnXO0bbOiR65n
-	 fD6SiebcUxJw7QwxpKDC9k7FbQhr9A/teDOoy6Hlhnev5nJut+0OqFh0bBtwsTsX5s
-	 zeGqzfQh710hIuHP2LOwIsrijkMdXzoAN+8YsncaeuC50hfBXvbmysiczSjDwzivJM
-	 LbtHfgRAwWeQu0sxoiZJdBlljXVqjTG96KhrpjSLqa6xR0hjoni0nlB9yHZ+brrQvy
-	 mbdrLZE14AZYg==
-Message-ID: <1e4b3f04-7367-4651-9cdd-5c95e92e5874@kernel.org>
-Date: Wed, 12 Aug 2026 10:46:42 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HHfwIPfI"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39dbe684115so14754461fa.1
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:48:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786524502; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r4sJOEfeJkFU9Y376p92a/X8S7xgDs/e6uBY9dIZq6OwMJt8GB/GIvhL9ZCAQ97ykc
+         SYujuIGZYFNeh//5pfHiYFczpvl/fsLfRHtHdTjE+3CNXgMpnFYcxITGDmDmQMHyF/jL
+         +uEzTcIowuNhcEofxXrVspJQeh8aVLWxmXxhxHnU7YLfp13bal+ZuvL6lza0KxiR6U/e
+         eTR0/eS/zin+v+32RutD0K22EZkiaDTZExBdzCeDfibFYU5V8CLupaBH79MsaDfX5VK6
+         Is8neveSJXkhqyNBEZ0EtprM9a3SrHW8b/EC64afgYZtdTb/st4e94rvWSg+OQfua370
+         OLww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OlnRbXrMzvM11HciwJ+tnrX7tsgXaPOfRuDz+RfwHQo=;
+        fh=77WP6tmMOJPpcWzp06oaAmbgfWC3cUgxILHNrXrZOLo=;
+        b=PxGU6FmLa/5Ub5MxTNXCRx+0sWa90gvqu26aMFhtqS0YUBL3m4RrBxF9fWiuv+q5CG
+         6BrE/gjCO2QKj9gHwK6beOl0Czm22QYpHteQasQnrrWgjRDY67Hz8f6c4LSOLYpPAfwF
+         rj5+A5soum8O5qo9c4rXqV9KO0OHDRNfH+AFNp7AbXJRTINJWmomBV+koblxl3qSdoB/
+         BRU6TOHJtcWXEky6P2gMFLHjQHwB3SIz96fXVeWP1F66kEWQ4fwCmWHb/cK2X0/4Sypb
+         XdwnF0dDDVDI7Txi6EOtPLrRMHX8b3oPFsEZM0gcoLjEE4sjnXm+jnnc1Ox2DzBVcrXh
+         VP6A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786524502; x=1787129302; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OlnRbXrMzvM11HciwJ+tnrX7tsgXaPOfRuDz+RfwHQo=;
+        b=HHfwIPfIzD7xjEKCB3Mp9I/yLEGaAY+5AZGkZ9VhkQMyulS5X7tB9LRwQruuvD7Wjx
+         aT/qeUS36XN2n0fIsOhLtjLTMA2nbxUwBKn3nBg7Nx8gQ3tEUJMnOYLDwPanOaTlI/Zi
+         FJmr8l1Qx3azKMV/NB8QRLkBHJub9siM5L59sgvp5kmqlJyUxOLbYnQcJ/Lry3AyBttY
+         QeMMDVoUl4luCIj0ez/d+iQN0oympwynvHYM95l+ZvVCb//GLl1oph2jRrocgqRvZF44
+         r4QgWmei6gBOH1yWj+5fdPrQXPM/IfgzfEt7n6K3nEa+cRWp++YlQCErBfs0BW6OqrZZ
+         J6FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786524502; x=1787129302;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OlnRbXrMzvM11HciwJ+tnrX7tsgXaPOfRuDz+RfwHQo=;
+        b=D5cDLjG/wROzS3P7lMIk/AgjCrf5Bskuh2D6V3B8ZVg7gB9rtEWo4MmiK45lv8amRC
+         VAG3lhRWyThtOJhYgNwyTWzQJdB78ZpRvz3n3K080lhrrZR6exGXBCSKzcFwcjkgm9DO
+         UKYZs/wW51y3ej4/EQQuzbVA4LVH32anllDDI+1BxztZZd6gYvS5Gn6H8N8LWJIPbycM
+         MkjMtAzLx90bMKdr8kM/yGHcAinvhCvqSkEug4tjrOVzjpzZMCDIYaTaM8d5f7w+qIfk
+         gl9xbcudbidmGocjLpdM/gzXhXIrX6qus8Wl9mytPhqmN8Bz3F41SKoMx8ThH3U/p6ZB
+         nqQA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3Nt/ohzsdO3JL0o0Qfasq9hGSopBO4cclCTC2MzzXhDGKHd2FflrLCcTQzw78UHnIKfLP4TwIpYfF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOA/VtV98tLAUMZYmKgEDnC9+xqDsRiQkNNgRQMdDCzh+1eBT4
+	GGd1S2KmpK+EPt98Zk2WnAWA57fzgG6h6jUGgKQVrDQXWYZ74886GRf7PVZQE/snM2ebWPiFwGg
+	YQ+EmiaUafYcmMjzwXi07J1Rh1v7iMTA=
+X-Gm-Gg: AR+sD12rIvSPCKqJn25OdZ52pSIQzVqEAEIgfwIza9Zo+zk4ub2aBL1xrpzUQjV5hzL
+	3oeWD36wTDxRs6HfWJwo+W/qVxKuEKQJgjf4O5njMV3wxsenZA5KT2CkXnjI2KsD9olXi5s4tUZ
+	d7TwQXTanFC7Cx2KHvO3WKYjsSu/OHla7E0Tzbuoeet2mnU0BnwmSok6ag++fuycVbBkfib27et
+	eemupgoQLZoEjySzqzrT7kT2MlXefesIOXUt0AQm8ACQsY2xYZ1ev9Gm2Y5ZkdKzXOCwL8UXWXX
+	ddiFaWTyQMFVqI3aCG9vP9wPb94W1lwFJTw0hpC9IorOETrQbOI=
+X-Received: by 2002:a05:6512:ace:b0:5ae:bf3b:c96 with SMTP id
+ 2adb3069b0e04-5b44e951a5dmr529743e87.19.1786524501776; Wed, 12 Aug 2026
+ 01:48:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: nvme: Add apple,t8132-nvme-ans2
- compatible
-To: Yureka Lilian <yureka@cyberchaos.dev>, Rob Herring <robh@kernel.org>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Keith Busch <kbusch@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org
-References: <20260811-apple-nvme-t8132-v1-0-865be32e42c3@cyberchaos.dev>
- <20260811-apple-nvme-t8132-v1-1-865be32e42c3@cyberchaos.dev>
- <20260811231121.GA271810-robh@kernel.org>
- <cf6f4732-1122-4381-962d-e18b32ac178d@cyberchaos.dev>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <cf6f4732-1122-4381-962d-e18b32ac178d@cyberchaos.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260811-ti-ads112c04-driver-v4-0-ae704ac17241@gmail.com>
+ <20260811-ti-ads112c04-driver-v4-2-ae704ac17241@gmail.com>
+ <anrt5mJBz5h-a3OL@ashevche-desk.local> <CAF7HswP7+79Y5M92PVoHJ_H_J6rU=Q0p5qWDm1gcA2mPfg0VDw@mail.gmail.com>
+ <anwhFL8PeCMmT9xS@ashevche-desk.local>
+In-Reply-To: <anwhFL8PeCMmT9xS@ashevche-desk.local>
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Date: Wed, 12 Aug 2026 16:51:12 +0800
+X-Gm-Features: AUfX_mysTYJdzGQvQzK6px-DDPjL9Q17jJ6tnw8oJ8juQdaYgfumooZwBWopT4o
+Message-ID: <CAF7HswPvpdgGz_B_cYWBze6ab=+q=X1UG_LTKgdCj1i9Tyz1Ug@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] iio: adc: ti-ads112c04: Add support for TI ADS112C04
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 12/08/2026 10:08, Yureka Lilian wrote:
-> Thank you for the quick feedback!
-> 
-> On 8/12/26 01:11, Rob Herring wrote:
->> On Tue, Aug 11, 2026 at 10:49:47PM +0200, Yureka Lilian wrote:
->>> Add a new base compatible for the ANS2 NVMe on the Apple t8132 (M4) SoC,
->>> which uses a separate MMIO base for its NVMMU.
->>>
->>> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
->>> ---
->>>   .../devicetree/bindings/nvme/apple,nvme-ans.yaml   | 77 ++++++++++++++--------
->>>   1 file changed, 48 insertions(+), 29 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml b/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
->>> index 4c0b1f90aff8..c8a41b268b9c 100644
->>> --- a/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
->>> +++ b/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
->>> @@ -16,6 +16,7 @@ properties:
->>>         - items:
->>>             - const: apple,t6020-nvme-ans2
->>>             - const: apple,t8103-nvme-ans2
->>> +      - const: apple,t8132-nvme-ans2
->>>         - items:
->>>             - enum:
->>>                 # Do not add additional SoC to this list.
->>> @@ -24,16 +25,6 @@ properties:
->>>                 - apple,t6000-nvme-ans2
->>>             - const: apple,nvme-ans2
->>>   
->>> -  reg:
->>> -    items:
->>> -      - description: NVMe and NVMMU registers
->>> -      - description: ANS2 co-processor control registers
->>> -
->>> -  reg-names:
->>> -    items:
->>> -      - const: nvme
->>> -      - const: ans
->>> -
->> Keep properties defined at the top level. More below.
->>
->>>     resets:
->>>       maxItems: 1
->>>   
->>> @@ -68,25 +59,53 @@ properties:
->>>   
->>>         The SART address filter is documented in iommu/apple,sart.yaml.
->>>   
->>> -if:
->>> -  properties:
->>> -    compatible:
->>> -      contains:
->>> -        enum:
->>> -          - apple,t6000-nvme-ans2
->>> -          - apple,t6020-nvme-ans2
->>> -then:
->>> -  properties:
->>> -    power-domains:
->>> -      minItems: 3
->>> -    power-domain-names:
->>> -      minItems: 3
->>> -else:
->>> -  properties:
->>> -    power-domains:
->>> -      maxItems: 2
->>> -    power-domain-names:
->>> -      maxItems: 2
->>> +allOf:
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: apple,t8132-nvme-ans2
->>> +    then:
->>> +      properties:
->>> +        reg:
->>> +          items:
->>> +            - description: NVMMU registers
->>> +            - description: NVMe registers
->>> +            - description: ANS2 co-processor control registers
->>> +        reg-names:
->>> +          items:
->>> +            - const: nvmmu
->>> +            - const: nvme
->>> +            - const: ans
->> New entries go on the end.
-> Ack
->> So nvmmu last and defined at the top level.
-> I did read the docs which said the properties should always be 
-> introduced at the top-level, however I couldn't figure out how to 
-> describe the intended constraints in this way.
->> Then this is just 'minItems: 3'
->>
->>> +    else:
->>> +      properties:
->>> +        reg:
->>> +          items:
->>> +            - description: NVMe and NVMMU registers
->>> +            - description: ANS2 co-processor control registers
->>> +        reg-names:
->>> +          items:
->>> +            - const: nvme
->>> +            - const: ans
->> And 'maxItems: 2' on these 2.
-> 
-> When the three items are defined at the top-level, I can't seem to make 
-> the dtbs_check work:
-> 
-> [...]
-> arch/arm64/boot/dts/apple/t8112-j413.dtb: nvme@27bcc0000 
-> (apple,t8112-nvme-ans2): reg: [[2, 2076966912, 0, 262144], [2, 
-> 2000683008, 0, 16384]] is too short
->      from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
-> arch/arm64/boot/dts/apple/t8112-j413.dtb: nvme@27bcc0000 
-> (apple,t8112-nvme-ans2): reg-names: ['nvme', 'ans'] is too short
->      from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
-> [...]
-> 
-> despite this compatible falling into the "... else ... maxItems: 2" branch
-> 
-> Would it be acceptable to define the reg and reg-names with just 
-> minItems: 2, maxItems: 3, but without specific items or descriptions, 
-> and then add the compatible-specific items and descriptions in the 
-> conditional part below?
+On Wed, Aug 12, 2026 at 3:30=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+...
 
-No, because you do workaround for your own introduced problem. If you
-list the entries in top level in correct order, then everything will
-work fine with Rob's answer/comment.
+> You quoted tons of comments to which you haven't replied. Are you agree w=
+ith
+> them?
 
-This is your case:
-https://elixir.bootlin.com/linux/v6.11-rc6/source/Documentation/devicetree/bindings/ufs/samsung,exynos-ufs.yaml#L39
+Sorry - I agreed with all of them and have already applied them in v5,
+I just didn't say so. To be explicit:
 
-This is not your case:
-https://elixir.bootlin.com/linux/v6.11-rc6/source/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml#L127
-Unless you provide arguments why it is.
+- wait_for_completion_timeout() is now used directly in the if condition
+- err/ret swapped in ads112c04_wait_for_data()
+- i is unsigned int, declared separately from the assignment
+- reference-sources uses fwnode_property_match_property_string()
+- single-channel has its own variable instead of reusing pair[0]
+- ARRAY_SIZE(pair) instead of the hardcoded 2
+- fsleep(1 * USEC_PER_MSEC) instead of fsleep(1000)
+- the internal reference macro is ADS112C04_INT_REF_mV and now sits at
+  the top of the file with the other defines
+- the IRQ is no longer disabled at all, so the unbalanced depth issue
+  is gone
 
-Best regards,
-Krzysztof
+I'll trim quoted text and reply per comment from now on.
+
+...
+
+> I'm not sure how the binding might be affected by that. reset-gpio should=
+ be
+> direct replacement of the custom "reset" GPIO handling in the driver.
+
+You're right, I had that wrong - reset-gpio builds the reset controller
+from the existing reset-gpios property, so the binding is unchanged and
+David's Reviewed-by is unaffected. Switched to
+devm_reset_control_get_optional_exclusive() in v5.
+
+Thanks,
+Kyle Hsieh
