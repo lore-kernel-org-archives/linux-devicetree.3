@@ -1,122 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0617140F72D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DA536DA15
 	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 22:15:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786572907; cv=none; b=bIQvtx+tT6HkTzh9jtJrhlqec2dhaX9wGaAPJX20MhOaGonz/rSGM0uTVSuTAoDaMT0BcV2X5hC8CR8Jk/F27xQz3PaIbb2VB+fVJGtmVV9umdp/m1jeOF25Y0pBee2u9nqs9EPNB1aCLeICXfvPuWk0Nrj0vg4zCdaCYSQtky4=
+	t=1786572907; cv=none; b=a0Rxy8bqBjprwL1gNnI+5xuMDudskkk0tp4YkxokUTL+8Q/mAugeepp4/9Il7sThULeF6uXJNs90Un69MiOGPQWRXrXehCdoO6ILYKAWPbowToj9OYlNSUph4Qko/qVbr3+k3TTy1RP5AC6ox+x4vivDI7V5sZwbrkJoH3wf3vU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786572907; c=relaxed/simple;
-	bh=AmkERV0qmgxrxwIzbusC+6ga0afCxPkt2phD04RgKyA=;
+	bh=YDyfijvbwkh+/pE9okvN/f11bMGGIz9SM6OfF4gFlkA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AUqubssv0RoqWCjAVJhQw4pa5hskKW3/rOdXsxC1qydO2s48AbnJQioNWeZmrzw5QQ3wGgkOyVWJLG53RIkvmGu2fWloLVeoLpD7i+DT58cPt8qiKtyIv0q9a5NkPXFvH7+naDMS4swkylVsB9nsYgpE42Il/RCJ94Qi+d46DTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRMY8AUn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bvF2RNl8QrX5f7MBc5F4/S/Dg5dWEhmBuTVuBR4qe+lkV8PYiqI2ocNUXjagPA4J49/ALDtMGd1UrNyiwGl6k0UzSIaz1h7+RvWTS+JQjPhvYGLm87a2DRp5JcxXSpeXlGcByjRFoDeYDtJjA+71osptnExmnwB+edcwf/YuIAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jam9Kyy0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRMY8AUn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBD561F00A3A;
-	Wed, 12 Aug 2026 22:15:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jam9Kyy0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAF61F00A3D;
+	Wed, 12 Aug 2026 22:15:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786572903;
-	bh=jrrik79CeaAgZZr8J+Sqb8S/NvAPGGe1OaJwSc/M4hg=;
+	bh=04P+rpdPNtSyL+x0EvQ3ObQICvkcfOUjIXmSRli588Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KRMY8AUn4zv8Ksv/zAMDTqLSnVZCtz0qV2EM7dQnsU6uSVzshj735jibd53F3+M98
-	 4s7wiqo0Y7nn4/WyZyXpk5EIeP4cW2rEXYaaoBYl65tnP7ljq6b1OTBqte5nnSmY/a
-	 PlpBUOm6UYK/QGauKeuejUlz5/TqUXZ1sEFrJXBRnX3+uz6zPhzqWmE1uBXp8c4rbj
-	 25LF44EwIpht/dEnmGek6Ks5jES18ETGEmzlvXjf6pxoS+JJ0liKLFZBSzu4mL/IkN
-	 eRatjCTSlKabqwBXXtZlJ/uoD91SqQPQTDjDQcjh1nPZoV6WF7hvTqWS/2DUYfQszk
-	 RICU4W+OnBo2Q==
+	b=jam9Kyy01HWsTgWExh/o5imOVudOORO7O5foZ8K7/wy6XhppwJVjVm901AR3ENABd
+	 sAN1KbfT94EXZcH/zf7slZxGn3RR6DSWv6lA2CKom9972OMZkSX2vxhn3Dkz5t6D5a
+	 zgUItbFHhBb1ij2zqc5LjS2NtPWh7VeiLoDTzoT2hWSqLuGvRkUeVwBCWQ1/co/5qm
+	 FZN2c4lc7+Qgzd0RfsYkIR2D1dVEnG05sa/7V3bT0IRwXpuKjx9puDZEa8NfBaLZmG
+	 r8GVkmY8y0Z+wi2qEqJtQycAnc/xiYD+ePH5eRZDkCvtWMpvGaFmGqv9S01MH8p5v1
+	 wwYomkid8SRRg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/6] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
+Subject: Re: [PATCH v5 5/6] nfc: s3fwrn5: support the S3NRN4V variant
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260811220135.472380-6-jorijnvdgraaf@catcrafts.net>
 References: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net>
- <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
+ <20260811220135.472380-6-jorijnvdgraaf@catcrafts.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 22:15:02 +0000
-Message-Id: <20260812221502.CBD561F00A3A@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 22:15:03 +0000
+Message-Id: <20260812221503.9AAF61F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Missing pinctrl state for the `wake-gpios` pin (`gpio7`).
+- [High] Missing error check on nci_prop_cmd() for GET_VER causes command-r=
+esponse desynchronization on timeouts.
+- [High] Hardware error statuses are ignored because the driver checks for =
+negative return values instead of non-zero.
 --
 
---- Patch [6]: [PATCH v5 6/6] arm64: dts: qcom: milos-fairphone-fp6: Add NF=
-C ---
-commit c9c7cf311411882808cc647f75e1e16f476acbf7
+--- Patch [5]: [PATCH v5 5/6] nfc: s3fwrn5: support the S3NRN4V variant ---
+commit fe1c1a464a09b355d0a14c76e391f1834e4afedf
 Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 
-arm64: dts: qcom: milos-fairphone-fp6: Add NFC
+nfc: s3fwrn5: support the S3NRN4V variant
 
-This commit adds the Samsung S3NRN4V NCI NFC controller on i2c1 to the
-milos-fairphone-fp6 device tree. It configures the controller's clock, power
-supply, and GPIO lines.
+Adds support for the Samsung S3NRN4V NFC controller, which requires a new
+calibration data bring-up sequence and different clock speed configuration.
 
-> diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm6=
-4/boot/dts/qcom/milos-fairphone-fp6.dts
-> index ebdca0e2d2f3a..bdba848275db4 100644
-> --- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-> +++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> diff --git a/drivers/nfc/s3fwrn5/nci.c b/drivers/nfc/s3fwrn5/nci.c
+> --- a/drivers/nfc/s3fwrn5/nci.c
+> +++ b/drivers/nfc/s3fwrn5/nci.c
+
 [ ... ]
-> @@ -601,9 +601,22 @@ &gcc {
->  };
-> =20
->  &i2c1 {
->  	status =3D "okay";
-> +
-> +	nfc@27 {
-> +		compatible =3D "samsung,s3nrn4v";
-> +		reg =3D <0x27>;
-> +
-> +		interrupts-extended =3D <&tlmm 31 IRQ_TYPE_EDGE_RISING>;
-> +		en-gpios =3D <&tlmm 56 GPIO_ACTIVE_HIGH>;
-> +		wake-gpios =3D <&tlmm 7 GPIO_ACTIVE_HIGH>;
-> +		clocks =3D <&rpmhcc RPMH_LN_BB_CLK2>;
-> +
-> +		pvdd-supply =3D <&vreg_l20b>;
-> +
-> +		pinctrl-0 =3D <&nfc_default>;
-> +		pinctrl-names =3D "default";
-> +	};
->  };
+
+> +int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
+> +				  const char *hw_name, const char *sw_name)
+> +{
+
 [ ... ]
-> @@ -825,6 +838,22 @@ &tlmm {
->  			       <13 1>, /* NC */
->  			       <63 2>; /* WLAN UART */
-> =20
-> +	nfc_default: nfc-default-state {
-> +		irq-pins {
-> +			pins =3D "gpio31";
-> +			function =3D "gpio";
-> +			drive-strength =3D <2>;
-> +			bias-disable;
-> +		};
+
+> +	/*
+> +	 * Ask the chip for its current calibration versions and skip the
+> +	 * upload when both already match the blobs; a mismatch or an
+> +	 * unparseable answer means the upload proceeds. GET_VER answers with
+> +	 * versions, not a status byte, so nci_prop_cmd()'s return carries no
+> +	 * meaning here.
+> +	 */
+> +	sub_oid =3D NCI_PROP_DUAL_SUB_GET_VER;
+> +	info->dual_rsp_len =3D 0;
+> +	nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
+> +	if (s3fwrn5_nci_dual_cal_current(info, hw_fw, sw_fw)) {
+
+[Severity: High]
+Is it safe to completely ignore the return value of nci_prop_cmd() here?
+
+If the hardware is slow to respond to the initial GET_VER command,
+nci_prop_cmd() will return -ETIMEDOUT. Continuing directly to START_UPDATE
+without checking for this timeout might cause command-response
+desynchronization.
+
+A late response to the timed-out GET_VER command could arrive while waiting
+for the START_UPDATE response, which might silently corrupt the sequence
+since all DUAL_OPTION sub-commands share the same NCI opcode.
+
+> +		dev_dbg(dev, "calibration data already current\n");
+> +		ret =3D 0;
+> +		goto out_sw;
+> +	}
 > +
-> +		pd-pins {
-> +			pins =3D "gpio56";
-> +			function =3D "gpio";
-> +			drive-strength =3D <2>;
-> +			bias-pull-up;
-> +		};
-> +	};
+> +	merged =3D kvmalloc(merged_size, GFP_KERNEL);
+> +	if (!merged) {
 
-[Severity: Low]
-Should the pad configuration for gpio7 (used for wake-gpios) be included in
-this pinctrl state?
+[ ... ]
 
-The nfc@27 node defines wake-gpios on gpio7, but nfc_default only configures
-the drive strength and bias for gpio31 (irq) and gpio56 (pd/en). This leaves
-the wake-gpios pad configuration to hardware defaults or the bootloader sta=
-te.
+> +	/* SET_OPTION per section */
+> +	set_option.sub_oid =3D NCI_PROP_DUAL_SUB_SET_OPTION;
+> +	set_option.index =3D 0;
+> +	for (i =3D 0; i < merged_size; i +=3D NCI_PROP_DUAL_SECTION_SIZE) {
+> +		len =3D min_t(size_t, merged_size - i, NCI_PROP_DUAL_SECTION_SIZE);
+> +		memcpy(set_option.data, merged + i, len);
+> +		ret =3D nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION,
+> +				   len + 2, (__u8 *)&set_option);
+> +		if (ret < 0) {
+
+[Severity: High]
+Does this check miss positive hardware error statuses?
+
+When the chip rejects a command, it returns a positive NCI status byte
+(like NCI_STATUS_REJECTED, 0x09). The driver's RX handler passes this status
+to nci_req_complete(), which sets req_result. nci_prop_cmd() then returns
+this positive integer.
+
+Checking only for ret < 0 might cause the driver to ignore hardware
+rejections and erroneously consider the upload chunks successful. Should th=
+is
+check for ret !=3D 0 instead?
+
+> +			dev_err(dev, "calibration data update error: %d\n",
+> +				ret);
+> +			/* Abort form: STOP_UPDATE with the sub-OID alone. */
+> +			sub_oid =3D NCI_PROP_DUAL_SUB_STOP_UPDATE;
+> +			nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1,
+> +				     &sub_oid);
+> +			goto out;
+> +		}
+> +		set_option.index++;
+> +	}
+> +
+> +	/* STOP_UPDATE with checksum */
+> +	stop_cmd[0] =3D NCI_PROP_DUAL_SUB_STOP_UPDATE;
+> +	put_unaligned_le16(checksum, &stop_cmd[1]);
+> +	ret =3D nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 3, stop_cmd);
+> +	if (ret < 0) {
+
+[Severity: High]
+Similarly, would a positive error status from the hardware on STOP_UPDATE be
+missed here due to the ret < 0 check?
+
+> +		dev_err(dev, "Unable to stop calibration data update\n");
+> +		goto out;
+> +	}
+> +
+> +	dev_dbg(dev, "calibration data update: success\n");
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811220135.4723=
-80-1-jorijnvdgraaf@catcrafts.net?part=3D6
+80-1-jorijnvdgraaf@catcrafts.net?part=3D5
