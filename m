@@ -1,301 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40513203B6;
-	Wed, 12 Aug 2026 07:52:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BD436196E;
+	Wed, 12 Aug 2026 07:53:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786521166; cv=none; b=MaAvV4S6n4uiOYBDeJYls2F4KZ2yxLLPJVMRfbemT786oDQKj2Qxz5njSBSEbHr8aqqjTmwewbsCWJ9JsF/wE+8Vk8wom4GPU8Tq8dWe/uvzivI4JvyyU0DhpxGERhDcabSXIe0g2pQ6+zp61hBoA9S1sqgrNy80vlOPxiQ/3d8=
+	t=1786521227; cv=none; b=Caiou1qkZT8u/kwpB1+1V60Da3qH5AABTHnQSNXNJuMeyODML28+pYfk4sjoo1VQvb5OpQQ+WdlNT5vdeT01War9HzORjMKVIdKNRJbkyQ1zEW17lVoF1LJd2yRk5kujdWfc1h9kL92RXm3Sv957f28z6PVl9qRRrnImbMUFeWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786521166; c=relaxed/simple;
-	bh=O33Ri7wNc/k+XoHeCKNID9eUnWwrdNbstaea58etEYg=;
+	s=arc-20240116; t=1786521227; c=relaxed/simple;
+	bh=IrL+rC0iTWLi2sfxZUag/fx7/QF50qD7HzL+FRxW+vg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Fz10fbIUjtg6GtRAUe21f+FlBy4h3bIXG0z9TDbbG1VLPMPbzPgmyaAzIs0pDkjj823RqiDFd2QB0p72rbh7koTqhPHwB0IiJ+brVkejGFVjuR9taX7alxpzYBfaXY5Non9P3yGeJmzlBmyZ+VUmJ+LSLkg+jFBABxsPzJ7H2Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzrfi7r5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uSRXnWw0UMKPKWNXom/u4oPtid4cNKQ/BnHgw9kZZdFmUqbjyC3T15cVA1s2RJnXkqfD3ZNpeZde8FPDv5+t324kTbJXqWXrFslsOeiLWpbo039f9LNfUb90eNGQqTCvYvBfwr26vaQ89/aMyNyZJv5yjqhmB4ZHrCJSeAf5ZiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d5OVKJM3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzrfi7r5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA651F000E9;
-	Wed, 12 Aug 2026 07:52:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d5OVKJM3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CD01F000E9;
+	Wed, 12 Aug 2026 07:53:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786521164;
-	bh=+eyDz/5NvFv8MIRP6FMmSfLJyile2rVDlrcuRf6nwlg=;
+	s=k20260515; t=1786521225;
+	bh=Rj/oZ2tqDp3lQIn0V42mBsmNJ7RxPHvHPmvL9C8Dbhs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mzrfi7r59H1s6qvANb2b1da4fWuhoxUcKODNH4G+lpNSXL9IP755CKypkS/cyMh+3
-	 JQ8EG+S++tGZwtLq/tcyCZYQlrT5BczlMl6rydCILh/d/Dlvg+DSGOgZaVdt4vHvCV
-	 iix9hBRgBJysrahbnXTAVQZTdzVukVgg31bxVCLDQOz8CrIJQ2HR+m5PRACxk+F44u
-	 Sdd40ZVrqoMiPC9jDqfnPkdVOMn0ToLX2rnjJyacm9Ke/mOAf8yv1TRHV2AI/gHs3K
-	 yXAXMUc9zG2M6wyWcidv/FxvxDk7dAu5FkvGjSmUgiMV7OnjEZMZWWCIY3Rv3/x0Yv
-	 4LM7Pa2q6UF3g==
+	b=d5OVKJM3j/N5h28iExQpTOaZl8dMyUHBSBd7rfJL2n8Orc4G+d2qN6OoUINFYYrhn
+	 GlGE9mUonr2zbUZCQzwKfLQ5IK9SJuYOW+dkKsowLxMbV+Q/p2HKnIMzxUKT3ymUt+
+	 oPHwYBLRzqslTymIwqBtU0tsHDkr8ma8TWWzCV0AyVrIHzPhTwMXZwoUS/jgsGoJRt
+	 1NpV8ZIowjO3HENtQXmlrOwACZNPRcT5ExXznyiRS2RAcRaV2oMZFO7+aQA0gpEs8t
+	 hxa/QNHy12pGRYOnf7sdtjbzk7OZo0i1mueAxQWTbvRkoNtva5L+aXL3HkhT4X5kSs
+	 Ysi4ReX4hBtlw==
 From: sashiko-bot@kernel.org
-Subject: Re: [RESEND v7 2/2] rtc: Add NXP PCF85053 driver support
+Subject: Re: [PATCH v3 4/6] arm64: dts: intel: agilex5: add USB3.1
+ controller node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: devicetree@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, linux-rtc@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260812073552.3542956-2-lakshay.piplani@nxp.com>
-References: <20260812073552.3542956-1-lakshay.piplani@nxp.com>
- <20260812073552.3542956-2-lakshay.piplani@nxp.com>
+To: "Adrian Ng Ho Yin" <adrian.ho.yin.ng@altera.com>
+Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <628275930f99fb6cdc3edb7269ac75cd04f870dd.1786518803.git.adrian.ho.yin.ng@altera.com>
+References: <cover.1786518803.git.adrian.ho.yin.ng@altera.com>
+ <628275930f99fb6cdc3edb7269ac75cd04f870dd.1786518803.git.adrian.ho.yin.ng@altera.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 07:52:43 +0000
-Message-Id: <20260812075244.4AA651F000E9@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 07:53:44 +0000
+Message-Id: <20260812075345.41CD01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The OF clock provider registered with `of_clk_add_provider()` is n=
-ever unregistered, leading to a resource leak and use-after-free on driver =
-unbind or probe failure.
-- [High] `pcf85053_rtc_set_time()` unconditionally zeroes out the interleav=
-ed alarm registers, destroying any configured alarm when setting the time.
-- [High] Forcing 24-hour and binary mode in `set_time` and `set_alarm` corr=
-upts existing timekeeping and writes binary data to a BCD-configured second=
-ary interface.
-- [Medium] The Oscillator Fail (OF) bit is never cleared after setting a va=
-lid time, permanently locking the RTC in an invalid state after a power los=
-s.
-- [Medium] `pcf85053_rtc_read_time()` reads the status register but ignores=
- the result, failing to check the Oscillator Fail (OF) bit for invalid time.
+- [High] Devicetree structurally contradicts itself regarding 40-bit DMA su=
+pport for the USB3.1 controller.
 --
 
---- Patch [2]: [RESEND v7 2/2] rtc: Add NXP PCF85053 driver support ---
-commit 9c8ab988d6c43472440d6251d1c52f7cbe264dbb
-Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+--- Patch [4]: [PATCH v3 4/6] arm64: dts: intel: agilex5: add USB3.1 contro=
+ller node ---
+commit 2f2039b2059cdc372b94f8f6d45151844510ff80
+Author: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 
-rtc: Add NXP PCF85053 driver support
+arm64: dts: intel: agilex5: add USB3.1 controller node
 
-This commit adds support for the NXP PCF85053 I2C RTC, which supports timer
-and calendar functionality. It introduces the driver code, Kconfig options,
-and Makefile updates.
+This patch adds a DTS node for the Synopsys DWC3 USB3.1 controller on the
+Agilex5 SoC. It places the device under a simple-bus configured with a 40-b=
+it
+DMA window and enables it in host mode on the SoCDK board.
 
-> diff --git a/drivers/rtc/rtc-pcf85053.c b/drivers/rtc/rtc-pcf85053.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/rtc/rtc-pcf85053.c
-[ ... ]
-> +static int pcf85053_rtc_read_time(struct device *dev, struct rtc_time *t=
-m)
-> +{
-> +	struct pcf85053 *pcf85053 =3D dev_get_drvdata(dev);
-> +	unsigned int ctrl, st, h12;
-> +	bool is_24h, is_bin;
-> +	u8 regs[10], hr;
-> +	int err;
-> +
-> +	err =3D regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D regmap_read(pcf85053->regmap, PCF85053_REG_ST, &st);
-> +	if (err)
-> +		return err;
-> +
-> +	if (ctrl & PCF85053_BIT_ST)
-> +		return -EINVAL;
-
-[Severity: Medium]
-Is it intentional that the st variable is read but never evaluated here?
-
-Because st is ignored, the driver doesn't check the PCF85053_BIT_OF flag.
-Would this allow the system to boot and blindly use a corrupted time from a
-failed oscillator instead of returning -EINVAL?
-
-[ ... ]
-> +static int pcf85053_rtc_set_time(struct device *dev, struct rtc_time *tm)
-> +
-> +{
-> +	struct pcf85053 *pcf85053 =3D dev_get_drvdata(dev);
-> +	unsigned int ctrl;
-> +	int err, ret;
-> +	u8 buf[10];
-> +
-> +	/*
-> +	 * By default, secondary have write access to time registers as TWO
-> +	 * bit is 0 by default, if we set nxp,interface =3D "primary" and the
-> +	 * nxp,write-access in device tree, then TWO bits gets set and primary
-> +	 * gets write access to time registers.
-> +	 */
-> +	if (!pcf85053_time_write_access(pcf85053))
-> +		return -EACCES;
-> +
-> +	err =3D regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-> +	if (err)
-> +		return err;
-> +
-> +	/*
-> +	 * HF =3D 1, 24-hour mode
-> +	 * DM =3D 1, binary (not BCD)
-> +	 */
-> +	if (!(ctrl & PCF85053_BIT_HF) ||
-> +	    !(ctrl & PCF85053_BIT_DM)) {
-> +		err =3D regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-> +					 PCF85053_BIT_HF | PCF85053_BIT_DM,
-> +					 PCF85053_BIT_HF | PCF85053_BIT_DM);
-> +		if (err)
-> +			return err;
-> +	}
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/=
+boot/dts/intel/socfpga_agilex5.dtsi
+> index b06c6d5d60eed..043b980832c23 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> @@ -494,6 +494,33 @@ usb0: usb@10b00000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		usb31_bus: usb-bus@11000000 {
+> +			compatible =3D "simple-bus";
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <2>;
+> +			ranges =3D <0x00 0x11000000 0x00 0x100000>;
+> +			dma-ranges =3D <0x00 0x00 0x100 0x00>;
 
 [Severity: High]
-Does forcing 24-hour and binary mode here corrupt existing timekeeping?
+Does this dma-ranges property structurally contradict the #address-cells
+configuration for a 40-bit DMA window?
 
-If the hardware is currently configured in BCD mode, updating the control
-register without converting the current time registers would instantly cause
-the hardware to interpret the existing BCD values as binary.
+The usb31_bus node and its parent soc@0 both use #address-cells =3D <1>.
+With a 32-bit (4 GB) child address space, is it mathematically possible to
+accommodate the 1 TB (<0x100 0x00>) window length specified in dma-ranges?
 
-Additionally, since the secondary interface has read-only access to control
-registers, this regmap_update_bits() call will be ignored by the hardware w=
-hen
-invoked from a secondary interface. However, the driver will still proceed =
-to
-write binary-formatted time values. Could this break the clock by writing
-binary values that the hardware will interpret as BCD?
-
-> +
-> +	buf[0] =3D tm->tm_sec & 0x7F;
-> +	buf[1] =3D 0;
-> +	buf[2] =3D tm->tm_min & 0x7F;
-> +	buf[3] =3D 0;
-> +	buf[4] =3D tm->tm_hour & PCF85053_HR_24H_MASK;
-> +	buf[5] =3D 0;
-> +	buf[6] =3D tm->tm_wday & 0x07;
-> +	buf[7] =3D tm->tm_mday & 0x3F;
-> +	buf[8] =3D (tm->tm_mon + 1) & 0x1F;
-> +	buf[9] =3D (tm->tm_year - 100) & 0xFF;
-> +
-> +	if (pcf85053->is_primary) {
-> +		err =3D regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-> +					 PCF85053_BIT_ST, PCF85053_BIT_ST);
-> +		if (err)
-> +			return err;
-> +
-> +		ret =3D regmap_bulk_write(pcf85053->regmap, PCF85053_REG_SC, buf, size=
-of(buf));
-> +		err =3D regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-> +					 PCF85053_BIT_ST, 0);
-> +		return ret ? ret : err;
-> +	}
-> +
-> +	return regmap_bulk_write(pcf85053->regmap, PCF85053_REG_SC, buf, sizeof=
-(buf));
-> +}
-
-[Severity: High]
-Does this bulk write unconditionally destroy any configured alarms?
-
-The hardware interleaves time and alarm registers. By hardcoding 0 at the
-alarm register indices (buf[1], buf[3], buf[5]) and doing a 10-byte bulk
-write, calling set_time will clobber any pending alarm previously configure=
-d.
+When the Linux OF core parses this, won't it truncate the window against the
+parent's 32-bit boundaries and silently limit the device to 32-bit DMA?
 
 [ ... ]
-> +static int pcf85053_rtc_set_alarm(struct device *dev, struct rtc_wkalrm =
-*tm)
-> +{
-> +	struct pcf85053 *pcf85053 =3D dev_get_drvdata(dev);
-> +	unsigned int ctrl;
-> +	u8 sec, min, hr;
-> +	int err;
-> +
-> +	/*
-> +	 * Only primary can set alarm, as secondary have read only access
-> +	 * to alarm, control and status registers
-> +	 */
-> +	if (!pcf85053->is_primary)
-> +		return -EACCES;
-> +
-> +	err =3D regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-> +	if (err)
-> +		return err;
-> +
-> +	/*
-> +	 * HF =3D 1, 24-hour mode
-> +	 * DM =3D 1, binary (not BCD)
-> +	 */
-> +	if (!(ctrl & PCF85053_BIT_HF) ||
-> +	    !(ctrl & PCF85053_BIT_DM)) {
-> +		err =3D regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-> +					 PCF85053_BIT_HF | PCF85053_BIT_DM,
-> +					 PCF85053_BIT_HF | PCF85053_BIT_DM);
-> +		if (err)
-> +			return err;
-> +	}
-
-[Severity: High]
-Just like in pcf85053_rtc_set_time(), does flipping the mode bits here with=
-out
-updating the time registers cause the hardware to incorrectly interpret exi=
-sting
-time data?
-
-[ ... ]
-> +static int pcf85053_ioctl(struct device *dev, unsigned int cmd, unsigned=
- long arg)
-> +{
-> +	struct pcf85053 *pcf85053 =3D dev_get_drvdata(dev);
-> +	unsigned int val =3D 0, vl_status =3D 0;
-> +	unsigned int bvl;
-> +	int status;
-> +
-> +	switch (cmd) {
-> +	case RTC_VL_READ:
-> +		status =3D regmap_read(pcf85053->regmap, PCF85053_REG_ST, &val);
-> +		if (status)
-> +			return status;
-> +
-> +		if (val & PCF85053_BIT_OF)
-> +			vl_status |=3D RTC_VL_DATA_INVALID;
-
-[Severity: Medium]
-Is there a missing mechanism to clear the Oscillator Fail (OF) bit?
-
-The OF bit is reported here, but neither pcf85053_rtc_set_time() nor the io=
-ctl
-handler clears it. Since the hardware does not auto-clear this bit, will the
-RTC permanently report invalid data to userspace after a power loss?
-
-[ ... ]
-> +static struct clk *pcf85053_clkout_register_clk(struct pcf85053 *pcf8505=
-3)
-> +{
-> +	struct device *dev =3D pcf85053->rtc->dev.parent;
-> +	struct device_node *node =3D dev->of_node;
-> +	struct clk *clk;
-> +	struct clk_init_data init;
-> +
-> +	init.name =3D "pcf85053-clkout";
-> +	init.ops =3D &pcf85053_clkout_ops;
-> +	init.flags =3D 0;
-> +	init.parent_names =3D NULL;
-> +	init.num_parents =3D 0;
-> +	pcf85053->clkout_hw.init =3D &init;
-> +
-> +	/* optional override of the clockname */
-> +	of_property_read_string(node, "clock-output-names", &init.name);
-> +
-> +	/* register the clock */
-> +	clk =3D devm_clk_register(dev, &pcf85053->clkout_hw);
-> +
-> +	if (!IS_ERR(clk))
-> +		of_clk_add_provider(node, of_clk_src_simple_get, clk);
-> +
-> +	return clk;
-> +}
-
-[Severity: High]
-Does this leak the OF clock provider?
-
-The of_clk_add_provider() is called to register the clock, but there is no
-corresponding teardown mechanism (like a devm action or a remove callback
-calling of_clk_del_provider()).
-
-If the driver is unbound or if devm_rtc_register_device() fails in
-pcf85053_probe(), the clock hardware structure is freed by devres, leaving a
-dangling pointer in the global of_clk_providers list. Any subsequent device
-tree clock resolution could access freed memory.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812073552.3542=
-956-1-lakshay.piplani@nxp.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786518803.gi=
+t.adrian.ho.yin.ng@altera.com?part=3D4
