@@ -1,240 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8403AAF7E;
-	Wed, 12 Aug 2026 08:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB543AD539;
+	Wed, 12 Aug 2026 08:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786521606; cv=none; b=YTIdRXwpZrXV2PbrUuR+zhMEpB8y9MJQMDS5CVmcfZP/SrQSey0medkMoV/znkQl/doHkBf588Yu1issXdzisKtYwTMfmkjgGEE7skHQzbRhl6QwhrYZlnVayuHfpFehmM4gAx/mmNLx61MyKQlpNrMH4G5iXUtL00Cml+O2nbI=
+	t=1786522123; cv=none; b=l94I+ngVRgrDCWrjjbkfseK1/ljAndAmkGQNK9MV98j+MtZEdiP4ll25ZjaISR36aI6g3Z3bhXm/NOGtZ0S5CTOeHsvDILXI5Km3JoBBzkV8vrlcUQ+t7tYa6Toih1eI+VMoaPy/IC6MHRDN+9F4KOFxo8HvlgMFrL9lCDPM7s4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786521606; c=relaxed/simple;
-	bh=V1bR+lv9vHR4uWey7+t2FdSvzlHBRifMFz2tVuzCNr4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=evVmcRlqFiWCEM2ZE90B3sOq7N94qsxu004uLKW77Azeu+fk4uLxJsblnap8PT+4jLHtPbZMRMCxNzUj44WAKQjnKcSLSFCtKUUaFHleGvpYEaCX80XjYflg0l4W3BCSDdvngXWrKiHxYhKg+8kxznoiiqQlDb7T/gkLstD+7E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtCtV3k5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786522123; c=relaxed/simple;
+	bh=tfYvsex6K5e8CY4Sro1Sz0Uzg8HnXhj4Nl5OgLY9upc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X6bFKmpuP9ye1E75QaUBGQsY6uMFWNvawBxhvD7Qmlg8YkQpvwtNB0ctPNmLSBMWRvzABOCvqs259ngwxPW23XRqhq0K11uxGVkIeu8HYr3nCLy3odY72CKsf/M+mwqw4POzhywlbz/MC/kG/ngJ/jp2sz6tqgOqG1t1Xb1CcQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=GEDyrtiY; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtCtV3k5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDBC1F00A3A;
-	Wed, 12 Aug 2026 08:00:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786521604;
-	bh=RueXxDO8rpcYTaWieb0wx+9yFfdBJhk0TVUeLnH8Cc8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KtCtV3k5pcvMtIIBm8IvyUIYS+K603m0CNv4dJW04slofSvbpPD5Sq+Ilre25TzFN
-	 Jnvh+xB30heXucHdVpOXc/52OPlz4PFF/pFbsHNI3TTkhwsS5eaYXQN8mI/Iciij1v
-	 bKu3TDJoXXKNOSAAQsfZjesBiI+IuTjyksUFbSJS9z0px9NhTac2MdV1RsTYkzi0nv
-	 YVauk4nfI6/7xdey84RhV8fIlKAWNFk6P9HXr7gXrsNwMyYEQ/+0hDMVFydiwQa8Fs
-	 wJeBdCKM2BXIaE4met0Oe/AKA+c9q0m4a39QWkXBQjWbYCBZplNa1BQwkt1tcu6LGd
-	 dJffVGHxDiCtg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RESEND v4 4/5] rtc: pcf85363: add oscillator offset
- calibration support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: conor+dt@kernel.org, linux-watchdog@vger.kernel.org, linux-rtc@vger.kernel.org, robh@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org
-In-Reply-To: <20260812074533.3545058-4-lakshay.piplani@nxp.com>
-References: <20260812074533.3545058-1-lakshay.piplani@nxp.com>
- <20260812074533.3545058-4-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 08:00:03 +0000
-Message-Id: <20260812080004.4DDBC1F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="GEDyrtiY"
+Message-ID: <cf6f4732-1122-4381-962d-e18b32ac178d@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1786522118;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g8o/j7j4w3KLWh32ubDeSN0JFxs0ZyyDKCxWJyyp8gQ=;
+	b=GEDyrtiYCcQ3apJP8ir4Ty/7Yf+NYe7qqakLArttAK2LHywzUmyCz+h6TozQyZlKsxx13T
+	akmN81Jlx7RH/mIrSpMhhZVScA5EjGX0PtUd9uYl2Lvgl6LE08iVdQwIycievawyYvPU/X
+	cKYrJo80sa72cBuy75AaZ0oCJiuNotY=
+Date: Wed, 12 Aug 2026 10:08:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH 1/2] dt-bindings: nvme: Add apple,t8132-nvme-ans2
+ compatible
+To: Rob Herring <robh@kernel.org>, Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org
+References: <20260811-apple-nvme-t8132-v1-0-865be32e42c3@cyberchaos.dev>
+ <20260811-apple-nvme-t8132-v1-1-865be32e42c3@cyberchaos.dev>
+ <20260811231121.GA271810-robh@kernel.org>
+Content-Language: en-US
+From: Yureka Lilian <yureka@cyberchaos.dev>
+In-Reply-To: <20260811231121.GA271810-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+Thank you for the quick feedback!
 
-New issues:
-- [High] The offset callbacks operate in raw register steps instead of part=
-s per billion (ppb), violating the RTC subsystem API.
-- [High] The offset value is wrongly treated as an 8-bit signed integer, wh=
-ich stomps on the OFFM (mode) bit and silently triggers Fast Mode.
-- [High] The IRQ handler clears the timestamp interrupt flags before the ti=
-mestamp data is read, creating a hardware race condition.
-- [Low] User space can trigger unratelimited dev_warn() by writing out-of-b=
-ounds offset values.
-- [Low] The `ts_valid_flags` variable is modified and read concurrently wit=
-hout appropriate lockless access annotations.
+On 8/12/26 01:11, Rob Herring wrote:
+> On Tue, Aug 11, 2026 at 10:49:47PM +0200, Yureka Lilian wrote:
+>> Add a new base compatible for the ANS2 NVMe on the Apple t8132 (M4) SoC,
+>> which uses a separate MMIO base for its NVMMU.
+>>
+>> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+>> ---
+>>   .../devicetree/bindings/nvme/apple,nvme-ans.yaml   | 77 ++++++++++++++--------
+>>   1 file changed, 48 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml b/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
+>> index 4c0b1f90aff8..c8a41b268b9c 100644
+>> --- a/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
+>> +++ b/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
+>> @@ -16,6 +16,7 @@ properties:
+>>         - items:
+>>             - const: apple,t6020-nvme-ans2
+>>             - const: apple,t8103-nvme-ans2
+>> +      - const: apple,t8132-nvme-ans2
+>>         - items:
+>>             - enum:
+>>                 # Do not add additional SoC to this list.
+>> @@ -24,16 +25,6 @@ properties:
+>>                 - apple,t6000-nvme-ans2
+>>             - const: apple,nvme-ans2
+>>   
+>> -  reg:
+>> -    items:
+>> -      - description: NVMe and NVMMU registers
+>> -      - description: ANS2 co-processor control registers
+>> -
+>> -  reg-names:
+>> -    items:
+>> -      - const: nvme
+>> -      - const: ans
+>> -
+> Keep properties defined at the top level. More below.
+>
+>>     resets:
+>>       maxItems: 1
+>>   
+>> @@ -68,25 +59,53 @@ properties:
+>>   
+>>         The SART address filter is documented in iommu/apple,sart.yaml.
+>>   
+>> -if:
+>> -  properties:
+>> -    compatible:
+>> -      contains:
+>> -        enum:
+>> -          - apple,t6000-nvme-ans2
+>> -          - apple,t6020-nvme-ans2
+>> -then:
+>> -  properties:
+>> -    power-domains:
+>> -      minItems: 3
+>> -    power-domain-names:
+>> -      minItems: 3
+>> -else:
+>> -  properties:
+>> -    power-domains:
+>> -      maxItems: 2
+>> -    power-domain-names:
+>> -      maxItems: 2
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: apple,t8132-nvme-ans2
+>> +    then:
+>> +      properties:
+>> +        reg:
+>> +          items:
+>> +            - description: NVMMU registers
+>> +            - description: NVMe registers
+>> +            - description: ANS2 co-processor control registers
+>> +        reg-names:
+>> +          items:
+>> +            - const: nvmmu
+>> +            - const: nvme
+>> +            - const: ans
+> New entries go on the end.
+Ack
+> So nvmmu last and defined at the top level.
+I did read the docs which said the properties should always be 
+introduced at the top-level, however I couldn't figure out how to 
+describe the intended constraints in this way.
+> Then this is just 'minItems: 3'
+>
+>> +    else:
+>> +      properties:
+>> +        reg:
+>> +          items:
+>> +            - description: NVMe and NVMMU registers
+>> +            - description: ANS2 co-processor control registers
+>> +        reg-names:
+>> +          items:
+>> +            - const: nvme
+>> +            - const: ans
+> And 'maxItems: 2' on these 2.
 
-Pre-existing issues:
-- [High] The static `nvmem_cfg` array is modified concurrently during devic=
-e probe, risking corruption of private data pointers.
---
+When the three items are defined at the top-level, I can't seem to make 
+the dtbs_check work:
 
---- Patch [4]: [RESEND v4 4/5] rtc: pcf85363: add oscillator offset calibra=
-tion support ---
-commit cf1f1a013f4f67e8c4a20b8646213cc7ca971733
-Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+[...]
+arch/arm64/boot/dts/apple/t8112-j413.dtb: nvme@27bcc0000 
+(apple,t8112-nvme-ans2): reg: [[2, 2076966912, 0, 262144], [2, 
+2000683008, 0, 16384]] is too short
+     from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
+arch/arm64/boot/dts/apple/t8112-j413.dtb: nvme@27bcc0000 
+(apple,t8112-nvme-ans2): reg-names: ['nvme', 'ans'] is too short
+     from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
+[...]
 
-rtc: pcf85363: add oscillator offset calibration support
+despite this compatible falling into the "... else ... maxItems: 2" branch
 
-This commit adds oscillator offset calibration support to the PCF85363 RTC
-driver. It exposes the read_offset and set_offset callbacks, allowing
-userspace to apply frequency correction for drift compensation.
+Would it be acceptable to define the reg and reg-names with just 
+minItems: 2, maxItems: 3, but without specific items or descriptions, 
+and then add the compatible-specific items and descriptions in the 
+conditional part below?
 
-> diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
-> index e10e58f690127..665bbbb169b05 100644
-> --- a/drivers/rtc/rtc-pcf85363.c
-> +++ b/drivers/rtc/rtc-pcf85363.c
-> @@ -123,6 +123,11 @@
->  #define TSR2_SHIFT      2
->  #define TSR3_SHIFT      6
-> =20
-> +#define OFFSET_SIGN_BIT 7
-> +#define OFFSET_MINIMUM  -128
-> +#define OFFSET_MAXIMUM  127
-> +#define OFFSET_MASK     0xFF
+>
+> Rob
 
-[Severity: High]
-Does treating this as an 8-bit signed integer stomp on the OFFM (mode) bit?
 
-The PCF85363 CTRL_OFFSET register uses bit 7 as the OFFM (mode) bit and bits
-6-0 as a 7-bit two's complement offset (range -64 to +63). Writing a negati=
-ve
-8-bit integer sets bit 7 to 1, silently reconfiguring the chip into Fast Mo=
-de,
-while a positive integer switches it to Normal Mode.
+Thanks,
 
-Should the driver explicitly preserve the OFFM bit and restrict the offset =
-to
-a 7-bit value?
+- Yureka
 
-[ ... ]
-> @@ -359,6 +364,45 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, =
-void *dev_id)
->  	return handled ? IRQ_HANDLED : IRQ_NONE;
->  }
-> =20
-> +/*
-> + * Read the current RTC offset from the CTRL_OFFSET
-> + * register. This value is an 8-bit signed 2's complement
-> + * value that corrects osciallator drift.
-> + */
-> +static int pcf85363_read_offset(struct device *dev, long *offset)
-> +{
-> +	struct pcf85363 *pcf85363 =3D dev_get_drvdata(dev);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret =3D regmap_read(pcf85363->regmap, CTRL_OFFSET, &val);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	*offset =3D sign_extend32(val & OFFSET_MASK, OFFSET_SIGN_BIT);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Write an oscillator offset correction value to
-> + * the CTRL_OFFSET register. The valid range is
-> + * -128 to 127 (8-bit signed), typically used to fine
-> + * tune accuracy.
-> + */
-> +static int pcf85363_set_offset(struct device *dev, long offset)
-> +{
-> +	struct pcf85363 *pcf85363 =3D dev_get_drvdata(dev);
-> +
-> +	if (offset < OFFSET_MINIMUM || offset > OFFSET_MAXIMUM) {
-
-[Severity: High]
-Does this code reject valid ppb offsets from userspace?
-
-The rtc_read_offset and rtc_set_offset kernel API expects offset values in
-parts per billion (ppb), but this implementation appears to operate directly
-in raw register values.
-
-Consequently, if userspace passes a valid offset like 4340 ppb, wouldn't it=
- be
-bounds-checked against [-128, 127] and rejected with -ERANGE, rendering the
-API unusable?
-
-> +		dev_warn(dev, "Offset out of range: %ld\n", offset);
-
-[Severity: Low]
-Can this unratelimited warning log be triggered directly by userspace?
-
-It appears an out-of-bounds write to the sysfs offset node will spam the
-kernel log, which could be avoided by simply returning -ERANGE.
-
-> +		return -ERANGE;
-> +	}
-> +
-> +	return regmap_write(pcf85363->regmap, CTRL_OFFSET, offset & OFFSET_MASK=
-);
-> +}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does clearing the timestamp
-interrupt flags before reading the timestamp data create a hardware race
-condition?
-
-In pcf85363_rtc_handle_irq():
-
-    if (flags & FLAGS_TSR1F) {
-        regmap_update_bits(pcf85363->regmap, CTRL_FLAGS, FLAGS_TSR1F, 0);
-        pcf85363->ts_valid_flags |=3D FLAGS_TSR1F;
-        handled =3D true;
-    }
-
-The driver exposes timestamp registers via sysfs which performs a lockless
-regmap_bulk_read over I2C in pcf85363_read_timestamp(). According to the
-PCF85363 behavior, clearing FLAGS_TSR1F rearms the hardware latch.
-
-If a new timestamp event occurs while userspace is in the middle of reading
-the timestamp registers, couldn't the hardware update the registers
-concurrently and result in a torn read?
-
-[Severity: Low]
-This is a pre-existing issue, but is the lockless access to ts_valid_flags
-missing necessary concurrency annotations?
-
-The flag is modified in the threaded IRQ handler:
-
-drivers/rtc/rtc-pcf85363.c:pcf85363_rtc_handle_irq() {
-...
-    pcf85363->ts_valid_flags |=3D FLAGS_TSR1F;
-...
-}
-
-And read locklessly in sysfs:
-
-drivers/rtc/rtc-pcf85363.c:pcf85363_timestamp_show() {
-...
-    if (!(pcf85363->ts_valid_flags & timestamp_flag))
-...
-}
-
-While it's a 1-byte read/write that won't practically tear on supported
-architectures, missing READ_ONCE() and WRITE_ONCE() annotations violates
-kernel concurrency standards and could trigger KCSAN warnings.
-
-[Severity: High]
-This is a pre-existing issue, but does modifying the static nvmem_cfg array
-during device probe risk corrupting private data pointers?
-
-drivers/rtc/rtc-pcf85363.c:pcf85363_probe() {
-...
-    static struct nvmem_config nvmem_cfg[] =3D {
-...
-    for (i =3D 0; i < config->num_nvram; i++) {
-        nvmem_cfg[i].priv =3D pcf85363;
-        devm_rtc_nvmem_register(pcf85363->rtc, &nvmem_cfg[i]);
-    }
-...
-}
-
-If multiple PCF85363 instances are probed on the system, wouldn't the later
-probe overwrite the priv pointer of the earlier instances in the shared
-static array? This would cause subsequent NVRAM reads/writes for the first
-RTC device to incorrectly target the last probed device's regmap.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812074533.3545=
-058-1-lakshay.piplani@nxp.com?part=3D4
