@@ -1,28 +1,29 @@
-Received: from mail-m15589.qiye.163.com (mail-m15589.qiye.163.com [101.71.155.89])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060A5282F27;
-	Wed, 12 Aug 2026 05:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9036282F27;
+	Wed, 12 Aug 2026 05:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786513967; cv=none; b=h887pdObihsQ92dXx2v52qGQXJgMrgq1fpbZqXkiOSvPg0Nx6b1bvJYxyv4UmqM2kL9Kh1bDFctLdO8xIyJ8o0xliq8/pl+Idf6GEifOSTtWYq4U+YcEUSHT8SAS7xrFPV/JSnrdAwksNbwpZZPkWH2meIUbK5djGLcsiJwojWA=
+	t=1786514017; cv=none; b=i69nwT0TFUUo0Y3IO+ux6sAl3wiQECj/CgIWclRuDzpjDhes90/dSjGtrcnu8UHqQf8s+o2ln5BRsaHNGKyDOIdVCVESQwb/XaCl5fnWyMO+3IncP7/4dheltmDTAp7UpRUBnPHG4Ue8P3nADs0YzU06weXaj1L1sqrjnJJTgQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786513967; c=relaxed/simple;
-	bh=4AUkVZdED8INaKxYXi8vIBzZp+pos8MPvKlYMVmdfpw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gcXxVPos4ObnfzkzAGpqcStRpbfZFTQzDAiILRAdqvkSwYLhFL0JI1oP+EsJPk+Sl14QS4KkUFQBaPgHyBcZaVB1UqwSoS4MCdNirE5uKQzLUASNK6dgjlAhnff3YKaPhaGivKhn8Vykg6FaaMdb6V21ckuWEqUzSow3algd9ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=gdTFfhtS; arc=none smtp.client-ip=101.71.155.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="gdTFfhtS"
-Received: from [127.0.1.1] (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 49a56c4b7;
-	Wed, 12 Aug 2026 10:23:15 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Wed, 12 Aug 2026 10:22:38 +0800
-Subject: [PATCH v3 1/2] arm64: dts: qcom: qcs6490-rubikpi3: Add 3.3 V
- output supply
+	s=arc-20240116; t=1786514017; c=relaxed/simple;
+	bh=iJPKTwaUlWXTtq4FbV7av/iGgAlKvVcOixKOblgP5dA=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=tIqBb1nXhIlmIoZuV0ftX06YNvELXLQQJwQrJvvPNg8Ege438vaLMiRtT46PzKOvVRzYi8GMg6YTRIMGJ9WeIi4yD78JKQkPRIQU99iwZDSFfniIjg+5tfXG32PwwgFOv2knR5WWJ/zvQNdFbF4zVEI1pzz675a74eB93eppkc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 12 Aug
+ 2026 13:48:26 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Wed, 12 Aug 2026 13:48:26 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: [PATCH 0/7] Add Aspeed AST2700 SDRAM EDAC support
+Date: Wed, 12 Aug 2026 13:48:24 +0800
+Message-ID: <20260812-edac-v1-0-03992edea297@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -31,94 +32,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-rubikpi-next-20260615-v3-1-06e21232d8e4@thundersoft.com>
-References: <20260812-rubikpi-next-20260615-v3-0-06e21232d8e4@thundersoft.com>
-In-Reply-To: <20260812-rubikpi-next-20260615-v3-0-06e21232d8e4@thundersoft.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Roger Shimizu <rosh@debian.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>
+X-B4-Tracking: v=1; b=H4sIACgJfGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMyNT3dSUxGRdi1RLM4NUA6NU8zRzJaDSgqLUtMwKsDHRsbW1AEd5t41
+ WAAAA
+X-Change-ID: 20260625-edac-8e960e02e7f7
+To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, Clark Williams
+	<clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>,
+	<linux-rt-devel@lists.linux.dev>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	<stable@vger.kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786501394; l=1688;
- i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
- bh=4AUkVZdED8INaKxYXi8vIBzZp+pos8MPvKlYMVmdfpw=;
- b=olDCzWoPw1qOj+rvq7y1J+YcWz4J6V3EMdvfgrf0OIkb/PiyN7l6OOOM0HZ+hPL7AJDnwX8Zy
- tCtl9HhN0qNAhEOTFM2dfghvWPMxdVLosYXfbRzTQdQenpkXiVEgQHv
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
-X-HM-Tid: 0a9ff3c7f48f09d5kunm2a4e641d37f494
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGhhKVk0dQkpISR5LThkeHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09LVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=gdTFfhtSZs1rFItb+RETNpXpg/EtDqIk+5ctIxKNYFnpOCVOdFkXF7YycykygZzS23ZPgvZgCrrSJsnFPnGL5F1F5nSGTyJaP9nei6uGIFUjThxBLroXhoVA2d4NaNF0fRnsbdKcB1TAeAUuOXc1OJvKAL5S2OAxcNp4UjbgJGs=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=KWMwlHvU9gSi7icyvD9gEKtDUM9vFD6hRmzH2Pd6GIg=;
-	h=date:mime-version:subject:message-id:from;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786513706; l=2810;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=iJPKTwaUlWXTtq4FbV7av/iGgAlKvVcOixKOblgP5dA=;
+ b=8f8TR6x2H15qSiqX++8gKE+a9Je/bBd1L6n9u/sgQSTtbIArgdPaAHdk6laBU+hjZSQmTcY57
+ azS13RCOuQuCI7Oy88hLQymdCWjELJqj4v/KXCeoCPAP+yPyAFL8hJ9
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Describe the GPIO-controlled VCC3V3_OUTPUT rail. This board-level rail
-supplies the two camera connectors and the 40-pin expansion header.
+Add ECC error reporting for the Aspeed AST2700 SoC to the existing
+aspeed_edac driver.
 
-Keep the rail enabled because expansion-header consumers are not
-represented in the Device Tree.
+The AST2700 memory controller keeps the same overall EDAC programming
+model as the earlier Aspeed BMC SoCs, but uses a different register
+layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memory.
+Rather than fork the driver, the existing code is first tidied and
+generalised, then the AST2700 is added as one more per-SoC variant.
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+The series is organised as:
+
+ - dt-bindings: document the new "aspeed,ast2700-sdram-edac" compatible;
+ - set dimm->grain to the controllers' ECC granularity, fixing a
+   pre-existing WARN_ON in the EDAC core on the first reported error
+   (carries a Fixes: tag and Cc: stable);
+ - clean up whitespace and include ordering so the following changes
+   start from a consistent style;
+ - free the mem_ctl_info unconditionally on remove, dropping a NULL
+   check on a value that cannot be NULL there;
+ - drop the regmap, which serves only as an MMIO wrapper here,
+   in favour of direct readl()/writel() under an explicit raw spinlock,
+   annotating the register base with __guarded_by() so that the locking
+   is checked at build time under CONFIG_WARN_CONTEXT_ANALYSIS;
+ - abstract the SoC-specific details (register layout, ECC/DRAM-type
+   bits, memory types, write-protection key) behind per-SoC chip data;
+ - add the AST2700 support, teaching the shared error-reporting helpers
+   to report an error without an address for its single shared
+   failure-address register.
+
+Tested with the memory controller's ECC error injection on both an
+existing SoC and the new one:
+
+ - AST2600: an injected correctable error is reported through the EDAC
+   interface as a CE with the recorded failure address, confirming the
+   regmap removal and the chip-data refactor do not regress the existing
+   controllers.
+
+ - AST2700: an injected correctable error is likewise reported as a CE
+   with the expected failure address.
+
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
 ---
- .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts | 23 ++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Ryan Chen (7):
+      dt-bindings: edac: aspeed: Add AST2700 SDRAM EDAC
+      EDAC/aspeed: Set the DIMM grain
+      EDAC/aspeed: Clean up whitespace and include ordering
+      EDAC/aspeed: Free the mem_ctl_info unconditionally on remove
+      EDAC/aspeed: Replace regmap with direct register access
+      EDAC/aspeed: Abstract SoC differences behind chip data
+      EDAC/aspeed: Add AST2700 support
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-index 13e8e62f6205..0f21777c480b 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-@@ -214,6 +214,22 @@ vreg_usbhub_rest_1v8: regulator-usbhub-rest-1v8 {
- 		regulator-boot-on;
- 	};
- 
-+	vreg_vcc3v3_output: regulator-vcc3v3-output {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vcc3v3_output";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 14 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&vcc3v3_output_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-always-on;
-+	};
-+
- 	vph_pwr: regulator-vph-pwr {
- 		compatible = "regulator-fixed";
- 
-@@ -1251,6 +1267,13 @@ usb_eth_power: usb-eth-power-state {
- 		bias-disable;
- 	};
- 
-+	vcc3v3_output_en: vcc3v3-output-en-state {
-+		pins = "gpio14";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
- 	wifi_reset_active: wifi-reset-active-state {
- 		pins = "gpio16";
- 		function = "gpio";
+ .../bindings/edac/aspeed,ast2400-sdram-edac.yaml   |   6 +-
+ drivers/edac/aspeed_edac.c                         | 414 +++++++++++++--------
+ 2 files changed, 268 insertions(+), 152 deletions(-)
+---
+base-commit: 5464985e42c04e335fb30e38fbc409c997db9bec
+change-id: 20260625-edac-8e960e02e7f7
 
+Best regards,
 -- 
-2.43.0
+Ryan Chen <ryan_chen@aspeedtech.com>
 
