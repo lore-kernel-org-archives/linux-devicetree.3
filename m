@@ -1,134 +1,107 @@
-Received: from mail-m1973195.qiye.163.com (mail-m1973195.qiye.163.com [220.197.31.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB265315D53;
-	Wed, 12 Aug 2026 09:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4531640DB47
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 09:41:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786527674; cv=none; b=e1zOJlwS7BQnXjSOJc1IQM5aFNQV9Df73RCiplZnfHIpPTAZ8d0x0aDTHjt2Yw9PXDsuIWqiSB+e4mgUmCRrkTHmDpCVaEMsH/Tbw2kZlUGFd2AjgJojV4a0/AXNh9YA7SmZBURcgSLZUf17Dksw93bzOErf3uwX6rnC56+3BYk=
+	t=1786527680; cv=none; b=JbCUu/JwoQrzZYHQChPfxfYe0CRWCxQz7/JqO8Al6W9wKudabbgIRg9M1VZZPBDfcIDTDuAcxm54aOklT6sYFa5I5fLYsQ2PUK7nZESGjpqNhjEy6eZ9T/8SqZvFVBv61HeTjA5ulq0lwsvIX6Wh8/zDaJFKRGxeOu+XQRkzmaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786527674; c=relaxed/simple;
-	bh=sTfEKZgOLyicEcnETGdoLTBfJ5F7qbaFwJJcp8i3KUM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XWwzeijrcx6ryDnMihAFfBtRGhi66PGMaI7v1qHNZdfGwtOJosHyudk4vPYlO8PhBuke1FFH69gHB4Pbo3RB7TgyJ2fdueJ2BiXZQ05cwuD2TtVZw0XQFMwKoC4MO4iA5KoBeEJMlvjuG71PI6tTj6GdXPAgeOw5TakfUnWly9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=mHOvHcgw; arc=none smtp.client-ip=220.197.31.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1786527680; c=relaxed/simple;
+	bh=guFueRuyHhhepUdqZQQxDbsDAvzgR9WXZIEpzzuTS68=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=t29WjFm5iv78qik7LjqnJBOJBbdYC75TJe4lxC8Pv0/nuoDS4IX5YMQmQoZBZHwlrYhasS1QJf5yr0gbvd0wS71FAM3gh5ZjrJpBpSvk6VaHJMqYcMp0z8SWAPZf44GzQR26QM8mTJzkRnjUGM0pAN7BofTdMhpB/ScoKPMhNoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MtRR1Dj0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="mHOvHcgw"
-Received: from [127.0.1.1] (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 49b6d9f27;
-	Wed, 12 Aug 2026 17:35:53 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Wed, 12 Aug 2026 17:35:43 +0800
-Subject: [PATCH v2 1/2] ASoC: dt-bindings: es8316: Add regulator supplies
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MtRR1Dj0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94AFB1F000E9;
+	Wed, 12 Aug 2026 09:41:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786527679;
+	bh=Zt+NpGI6iWHN39zktRg4D7AclVRL5Gv+ygNE0kQ8i4M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MtRR1Dj0zhgw+Ja0z7bv1LRk+0fQvYrUzeTrYKPMsjJPOG4SxA5quoAF560QMPehU
+	 2hzwu80zkF7t3yoIddH8tEERUO96hyz2J/PSpdiqlPpXEcJdWvF8E8qtmWS9RVhLZZ
+	 N7mRQWaML33u3XOE8X/RbemfT3opviI2i7BgHjmi7LfGkaseODh1mhkihjMNsuv5Q7
+	 ragVcEHY2bH2IA4loiGnHl2SRoNKv6a4TAZOajJ7OF0ERblBz6yVEKCEvU8Zj40eRY
+	 zlQeBmpj3yaOc2fHw5lFtm4KcNB24MvvbKfy+P9ycOnrFVS/Hwpsy/Enc0XEdjRkpn
+	 v4mJYdutPaYiA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 01/14] dt-bindings: phy: Document the Qualcomm
+ IPQ5332 UNIPHY USB Super-speed PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "George Moussalem" <george.moussalem@outlook.com>
+Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com
+In-Reply-To: <20260812-ipq5018-usb3-v2-1-8f355d7ff0ef@outlook.com>
+References: <20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com>
+ <20260812-ipq5018-usb3-v2-1-8f355d7ff0ef@outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 09:41:18 +0000
+Message-Id: <20260812094118.94AFB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-es8316-regulator-next-20260722-v2-1-e7078bc9bc9c@thundersoft.com>
-References: <20260812-es8316-regulator-next-20260722-v2-0-e7078bc9bc9c@thundersoft.com>
-In-Reply-To: <20260812-es8316-regulator-next-20260722-v2-0-e7078bc9bc9c@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786527351; l=2163;
- i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
- bh=sTfEKZgOLyicEcnETGdoLTBfJ5F7qbaFwJJcp8i3KUM=;
- b=CLAvkZFFTMAbSuA0kLd3QA5ps3hjijoncKj4M8SY5e22RfFq6re9zf4dBm1Ip14SYfQNcnGwn
- TlVAPzV8509BTNP8bnqMgq8gCllu1b2BAsDRQ0zpa0Zz4Kzc5AQmqMH
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
-X-HM-Tid: 0a9ff5540ac509d5kunm921ee5013c51cf
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTBlMVhlLGUtMGh8ZGEsZQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=mHOvHcgwVP/Yb0pMrqeie9+fWRPdtiA4UwxGS9d/kOpBR0fwpmatOLfR3r8TH6ukYByT49CUNJN7q0q6LFNCmGzR3AXbZejNR6wY6/+nSzR3EfMxN3UZ6lndvFzK6llX5hH4NzOq6Rr+oq8H3YJAhN9I4wvv29ej+JJXxmVfbhc=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=1gFL+/Qwhs1LjL2C49Otf7vsepeJXs1MZOmMwoRL+wg=;
-	h=date:mime-version:subject:message-id:from;
 
-The ES8316 has separate AVDD, CPVDD, DVDD and PVDD supply inputs for
-its analog, charge pump, digital core and digital I/O domains. Describe
-all four inputs so boards can model the codec power topology.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing `minItems: 3` constraint for IPQ5332 clocks in conditional =
+block allows incomplete device trees to pass validation.
+--
 
-The binding also covers ES8311 and ES8323, whose supply inputs differ,
-so restrict these properties to the ES8316 compatible. Keep them
-optional for compatibility with existing descriptions.
+--- Patch [1]: [PATCH v2 01/14] dt-bindings: phy: Document the Qualcomm IPQ=
+5332 UNIPHY USB Super-speed PHY ---
+commit 0e89230ae30b325a8982291c9e629f57e5fde180
+Author: Praveenkumar I <quic_ipkumar@quicinc.com>
 
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
----
- .../devicetree/bindings/sound/everest,es8316.yaml  | 27 ++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+dt-bindings: phy: Document the Qualcomm IPQ5332 UNIPHY USB Super-speed PHY
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-index fe5d938ca310..276c73bb4790 100644
---- a/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-+++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-@@ -30,6 +30,17 @@ description: |
- 
- allOf:
-   - $ref: dai-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: everest,es8316
-+    else:
-+      properties:
-+        avdd-supply: false
-+        cpvdd-supply: false
-+        dvdd-supply: false
-+        pvdd-supply: false
- 
- properties:
-   compatible:
-@@ -49,6 +60,18 @@ properties:
-     items:
-       - const: mclk
- 
-+  avdd-supply:
-+    description: Regulator providing the analog supply, from 2.0 V to 3.6 V
-+
-+  cpvdd-supply:
-+    description: Regulator providing the charge pump supply, from 1.6 V to 2.0 V
-+
-+  dvdd-supply:
-+    description: Regulator providing the digital core supply, from 1.6 V to 3.6 V
-+
-+  pvdd-supply:
-+    description: Regulator providing the digital I/O supply, from 1.6 V to 3.6 V
-+
-   interrupts:
-     maxItems: 1
-     description: Headphone detect interrupt
-@@ -77,6 +100,10 @@ examples:
-         reg = <0x11>;
-         clocks = <&clks 10>;
-         clock-names = "mclk";
-+        avdd-supply = <&reg_3p3v>;
-+        cpvdd-supply = <&reg_1p8v>;
-+        dvdd-supply = <&reg_1p8v>;
-+        pvdd-supply = <&reg_1p8v>;
-         #sound-dai-cells = <0>;
-       };
-     };
+Document the Qualcomm USB3 22ull UNIPHY present in the IPQ5018 and
+IPQ5332 SoCs.
 
--- 
-2.43.0
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-us=
+b-ss-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-u=
+sb-ss-phy.yaml
+> new file mode 100644
+> index 0000000000000..cc9eccac51ddb
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-usb-ss-ph=
+y.yaml
 
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,ipq5332-uniphy-usb-ss-phy
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: Shared PCIe/USB3 PHY AHB clock
+> +            - description: USB3 PHY CFG AHB clock
+> +            - description: USB3 pipe clock
+
+[Severity: Low]
+Is a minItems: 3 constraint missing for the clocks in this conditional bloc=
+k?
+
+Since the global clocks definition sets minItems: 2, device trees for IPQ53=
+32
+that incorrectly specify only 2 clocks will silently pass dt_binding_check
+validation. The json-schema items list keyword only validates the elements
+present up to the size of the instance array; it does not enforce array len=
+gth
+by itself.
+
+Would it be better to add minItems: 3 alongside the items list to ensure all
+three clocks are required when the qcom,ipq5332-uniphy-usb-ss-phy compatible
+string is used?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-ipq5018-us=
+b3-v2-0-8f355d7ff0ef@outlook.com?part=3D1
