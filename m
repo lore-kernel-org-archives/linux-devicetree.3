@@ -1,162 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DA536DA15
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 22:15:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0831A490BF3;
+	Wed, 12 Aug 2026 22:23:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786572907; cv=none; b=a0Rxy8bqBjprwL1gNnI+5xuMDudskkk0tp4YkxokUTL+8Q/mAugeepp4/9Il7sThULeF6uXJNs90Un69MiOGPQWRXrXehCdoO6ILYKAWPbowToj9OYlNSUph4Qko/qVbr3+k3TTy1RP5AC6ox+x4vivDI7V5sZwbrkJoH3wf3vU=
+	t=1786573436; cv=none; b=rl/JQrIk6qkFNE78jrFL3S/p8G8qnvHp8KZh2ZkqHg++bD2WLO63MN1dlj42Kr9EktGKfxJVHU3gAZgzUzqnO1B5NgvYP4G9Y2cMYKiVZkPxw/gls1Y8G8QkUH/2cHo1Ty4La/YnDXTBegHzdq5A7nWjuC8amfu8U9pbXc2j1Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786572907; c=relaxed/simple;
-	bh=YDyfijvbwkh+/pE9okvN/f11bMGGIz9SM6OfF4gFlkA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bvF2RNl8QrX5f7MBc5F4/S/Dg5dWEhmBuTVuBR4qe+lkV8PYiqI2ocNUXjagPA4J49/ALDtMGd1UrNyiwGl6k0UzSIaz1h7+RvWTS+JQjPhvYGLm87a2DRp5JcxXSpeXlGcByjRFoDeYDtJjA+71osptnExmnwB+edcwf/YuIAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jam9Kyy0; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jam9Kyy0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAF61F00A3D;
-	Wed, 12 Aug 2026 22:15:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786572903;
-	bh=04P+rpdPNtSyL+x0EvQ3ObQICvkcfOUjIXmSRli588Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jam9Kyy01HWsTgWExh/o5imOVudOORO7O5foZ8K7/wy6XhppwJVjVm901AR3ENABd
-	 sAN1KbfT94EXZcH/zf7slZxGn3RR6DSWv6lA2CKom9972OMZkSX2vxhn3Dkz5t6D5a
-	 zgUItbFHhBb1ij2zqc5LjS2NtPWh7VeiLoDTzoT2hWSqLuGvRkUeVwBCWQ1/co/5qm
-	 FZN2c4lc7+Qgzd0RfsYkIR2D1dVEnG05sa/7V3bT0IRwXpuKjx9puDZEa8NfBaLZmG
-	 r8GVkmY8y0Z+wi2qEqJtQycAnc/xiYD+ePH5eRZDkCvtWMpvGaFmGqv9S01MH8p5v1
-	 wwYomkid8SRRg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/6] nfc: s3fwrn5: support the S3NRN4V variant
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260811220135.472380-6-jorijnvdgraaf@catcrafts.net>
-References: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net>
- <20260811220135.472380-6-jorijnvdgraaf@catcrafts.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 22:15:03 +0000
-Message-Id: <20260812221503.9AAF61F00A3D@smtp.kernel.org>
+	s=arc-20240116; t=1786573436; c=relaxed/simple;
+	bh=H0iO3BbTmsaEUVQqmclqhJy6reajrRzBv2PelkDRQO4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=jQPnWam3vXyn02MW6c+y9e7ZOim7zaIqRSPLd7fbI03Rl52KF1tLI8ad2n5HZGx8S0z2gyz/8mo9kbpcEAzEKtqsET7q1ZJ2qDP21NLWMg0sH58bEXUgjnff/dhMrhJoqeO4wN25dP6hjYnQxXj3V5VYrKOjjz8ecwbaWI16IsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7B21F000E9;
+	Wed, 12 Aug 2026 22:23:54 +0000 (UTC)
+Received: by venus (Postfix, from userid 1000)
+	id B025B1830B6; Thu, 13 Aug 2026 00:23:50 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
+ "Andrew F. Davis" <afd@ti.com>, Chris Lapa <chris@lapa.com.au>, 
+ Dan Murphy <dmurphy@ti.com>, Henrik Grimler <henrik.grimler@axis.com>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel@axis.com
+In-Reply-To: <20260811-bq27z746-v1-0-3a4fa38205cc@axis.com>
+References: <20260811-bq27z746-v1-0-3a4fa38205cc@axis.com>
+Subject: Re: (subset) [PATCH 0/5] power: supply: bq27xxx: add bq27z746, and
+ fix some regs
+Message-Id: <178657343070.347615.1954029174145037148.b4-ty@b4>
+Date: Thu, 13 Aug 2026 00:23:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing error check on nci_prop_cmd() for GET_VER causes command-r=
-esponse desynchronization on timeouts.
-- [High] Hardware error statuses are ignored because the driver checks for =
-negative return values instead of non-zero.
---
 
---- Patch [5]: [PATCH v5 5/6] nfc: s3fwrn5: support the S3NRN4V variant ---
-commit fe1c1a464a09b355d0a14c76e391f1834e4afedf
-Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+On Tue, 11 Aug 2026 13:47:42 +0200, Henrik Grimler wrote:
+> bq27z746 is similar to bq27z561 but with additional protection
+> functionality. The standard register set is identical, but the
+> extended registers accessed through AltManufacturerAccess has
+> differences.
+> 
+> While working with bq27z746 I looked at some of the technical
+> reference manuals for the other bq27xxx devices, and noticed some
+> discrepancies with the driver. Fix these issues while we are at it.
+> 
+> [...]
 
-nfc: s3fwrn5: support the S3NRN4V variant
+Applied, thanks!
 
-Adds support for the Samsung S3NRN4V NFC controller, which requires a new
-calibration data bring-up sequence and different clock speed configuration.
+[3/5] power: supply: bq27xxx: bq27520g4: fix REG_TTES address
+      commit: c774a623c821a173c950e1297f8e8c85a89455be
+[4/5] power: supply: bq27xxx: bq28z610: fix invalid AverageEnergy address
+      commit: e9387e9ab5121f330d313afb90430c02200f9782
+[5/5] power: supply: bq27xxx: bq27z561: fix invalid AverageEnergy address
+      (no commit info)
 
-> diff --git a/drivers/nfc/s3fwrn5/nci.c b/drivers/nfc/s3fwrn5/nci.c
-> --- a/drivers/nfc/s3fwrn5/nci.c
-> +++ b/drivers/nfc/s3fwrn5/nci.c
+Best regards,
+-- 
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
-[ ... ]
-
-> +int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
-> +				  const char *hw_name, const char *sw_name)
-> +{
-
-[ ... ]
-
-> +	/*
-> +	 * Ask the chip for its current calibration versions and skip the
-> +	 * upload when both already match the blobs; a mismatch or an
-> +	 * unparseable answer means the upload proceeds. GET_VER answers with
-> +	 * versions, not a status byte, so nci_prop_cmd()'s return carries no
-> +	 * meaning here.
-> +	 */
-> +	sub_oid =3D NCI_PROP_DUAL_SUB_GET_VER;
-> +	info->dual_rsp_len =3D 0;
-> +	nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
-> +	if (s3fwrn5_nci_dual_cal_current(info, hw_fw, sw_fw)) {
-
-[Severity: High]
-Is it safe to completely ignore the return value of nci_prop_cmd() here?
-
-If the hardware is slow to respond to the initial GET_VER command,
-nci_prop_cmd() will return -ETIMEDOUT. Continuing directly to START_UPDATE
-without checking for this timeout might cause command-response
-desynchronization.
-
-A late response to the timed-out GET_VER command could arrive while waiting
-for the START_UPDATE response, which might silently corrupt the sequence
-since all DUAL_OPTION sub-commands share the same NCI opcode.
-
-> +		dev_dbg(dev, "calibration data already current\n");
-> +		ret =3D 0;
-> +		goto out_sw;
-> +	}
-> +
-> +	merged =3D kvmalloc(merged_size, GFP_KERNEL);
-> +	if (!merged) {
-
-[ ... ]
-
-> +	/* SET_OPTION per section */
-> +	set_option.sub_oid =3D NCI_PROP_DUAL_SUB_SET_OPTION;
-> +	set_option.index =3D 0;
-> +	for (i =3D 0; i < merged_size; i +=3D NCI_PROP_DUAL_SECTION_SIZE) {
-> +		len =3D min_t(size_t, merged_size - i, NCI_PROP_DUAL_SECTION_SIZE);
-> +		memcpy(set_option.data, merged + i, len);
-> +		ret =3D nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION,
-> +				   len + 2, (__u8 *)&set_option);
-> +		if (ret < 0) {
-
-[Severity: High]
-Does this check miss positive hardware error statuses?
-
-When the chip rejects a command, it returns a positive NCI status byte
-(like NCI_STATUS_REJECTED, 0x09). The driver's RX handler passes this status
-to nci_req_complete(), which sets req_result. nci_prop_cmd() then returns
-this positive integer.
-
-Checking only for ret < 0 might cause the driver to ignore hardware
-rejections and erroneously consider the upload chunks successful. Should th=
-is
-check for ret !=3D 0 instead?
-
-> +			dev_err(dev, "calibration data update error: %d\n",
-> +				ret);
-> +			/* Abort form: STOP_UPDATE with the sub-OID alone. */
-> +			sub_oid =3D NCI_PROP_DUAL_SUB_STOP_UPDATE;
-> +			nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1,
-> +				     &sub_oid);
-> +			goto out;
-> +		}
-> +		set_option.index++;
-> +	}
-> +
-> +	/* STOP_UPDATE with checksum */
-> +	stop_cmd[0] =3D NCI_PROP_DUAL_SUB_STOP_UPDATE;
-> +	put_unaligned_le16(checksum, &stop_cmd[1]);
-> +	ret =3D nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 3, stop_cmd);
-> +	if (ret < 0) {
-
-[Severity: High]
-Similarly, would a positive error status from the hardware on STOP_UPDATE be
-missed here due to the ret < 0 check?
-
-> +		dev_err(dev, "Unable to stop calibration data update\n");
-> +		goto out;
-> +	}
-> +
-> +	dev_dbg(dev, "calibration data update: success\n");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811220135.4723=
-80-1-jorijnvdgraaf@catcrafts.net?part=3D5
