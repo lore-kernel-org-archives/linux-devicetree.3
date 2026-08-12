@@ -1,99 +1,85 @@
-Received: from mail-ej2-f0.google.com (mail-ej2-f0.google.com [74.125.228.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B584E33F394
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 18:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.128
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786561198; cv=pass; b=UW8v1KqdgJsXHyfSpP7C3/DuUPKfXnEW43MGrrWjKenp1L2tWUIi6UR2V3h34aXcHJeHHfHH30CF5THDjZy3Fo6pIo17CUnKhWnO2od4dnqzYShpNFaCglPwT0B8PlqEmzVdtM5JAqBxuuOXHcTtQ3/bxDQ55dBBcUSwiS8ER6o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786561198; c=relaxed/simple;
-	bh=5YpsLrQd66mt/oElMkbWRCNsoeN3vBlsEy3jrovT8is=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=hfnVHMn4xiQcnJayhEkKmjU/zjmqGMrAtS4nJxyPqdQ7yi5uagW7C9GOHqHr3NqywJmaenE2p0lW73vmHLztGcrdukRQOpKeHPbSO2EQ+V8ocvYyUU1MsUhZxfersp0ePT/1Ow8pPhkYkyCQu4BjyeW5KkECW3V269aAeW9OG0o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OtCHCBM4; arc=pass smtp.client-ip=74.125.228.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C993345CC0;
+	Wed, 12 Aug 2026 19:10:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786561839; cv=none; b=l4qSAlS46DbwDtdutDMoE9c6POf6wZjyziAjJOcbBk4ZolmZoRFPm1L98R/X7Upp4IMcwXK+nn/K0ENobaAYPcd6xpjb2tQbMWKk3sdfwaP92bo3YCxdsH+tkKXMopDHzeZeeAPxQWNr8pbzsPaPQvhXwNWDIhg40Kxnjzag/SI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786561839; c=relaxed/simple;
+	bh=rSCou8NH9VLcR0MF4sIBWh7qoFxKcf1htaP1G66cA6g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m15lul3rMhPEBO6bgC0n/znJgXmds8tq1rb6+UuouVb2HsB+99bY5vFyKzesCkIAl3DU3BVmRJV7AVG/IGfS+tXHOT9wswWiIRtbndivjll/A2aSaXS7d1B7hHoprLQKfh3lc2OA9EqpGmpP0u/zhQtnzBMCTXjt02uWRW2/294=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=jemnTuDX; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OtCHCBM4"
-Received: by mail-ej2-f0.google.com with SMTP id a640c23a62f3a-c166aef4f02so79623566b.0
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 11:59:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786561195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aEe7cKai1UiN2U5/6Shgne7yky0dzpOpBnwsdZuQoUU1d+PU4+W/xiud2vOk+OcpA2
-         XjBYgG/dSm6R7K+y8I0Hb5kfZUjg6M2lnCsadTk+lEvaxWySsmKT6UUakwVLkjAQIlOu
-         tzWFoFZ8ngI1oUSTYG/W77UHtS/SbeZSWAXhF4Cu2P2omZo7fC0XyeqsNLxaAXsckLMx
-         vBrqZpTrxPchzT/OvMMzSwSJgTf+QpqaDAN3v9uRFY8Kx7VOWBu7yBq0qa4VXjKw4A+W
-         4ciQ3trNCN6K5UAninSADoe/addVg38nuyZbZNOhHvP20K67Ol7ACxND49W9gHkhrp0Y
-         ze3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=5YpsLrQd66mt/oElMkbWRCNsoeN3vBlsEy3jrovT8is=;
-        fh=E5sfXT1cGmAtwuSmmSW0kNAVrNynQE0VzG6WnWIyhSI=;
-        b=ZCZ4KJb+oWz41MjxpY/U25wIdeSZ15J/dNKBCUX3Qf/5BbFXH3SEUJWZijI2dE87sj
-         E+bHx86eUMt3xEfCgeDft4DvhU3EUTpjvtFWERpP8wNamWGikqu69OqcK78hwr9mE+Js
-         3GX36x3Kk3LpmzRwq0Wp24bmBjE4jqIiU1WKll8fGg6xayiYUHQ7wRTbOwfXZEPc7ZD6
-         qxnRQfHxbu398hoOX3lSWO93GTbzLeQ1vHiVAed0nvSem6+7nhMpiCPdui77ZNYemzVF
-         bdKF0xOUPjc0h9tHW2/7Na+JY5XelgKypTJZaHxaFuo5gX3HGtdvh6Ei99PJ5Wq3AtNZ
-         zkhA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786561195; x=1787165995; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5YpsLrQd66mt/oElMkbWRCNsoeN3vBlsEy3jrovT8is=;
-        b=OtCHCBM4LiYOH9ymaLv9fpa9fKBO1JdzlD7hoVceFgPUK42O7WbaYNSFj9ul1yqbOu
-         IMRkkdEF8t5IMKZj1uqEhJJzZNlhKukekvuWrd0zfCIbZmOXnU2ZKAXknHnxlMQ31/R3
-         PNfzQbjCd3kbGE5gSq72bzmnOk2COM5qLhJ2bSrt08zU6776j3KV0kW/wP4j6TOvaM/K
-         BaZf0D1QVFl0pcVxqAvLyCkwY0eoRLHmyjdikZ3nHw54fJBeUyN3wMycfabMoee52kpY
-         N3hizElaCe+/GHWj1wGvE4EEPmSLplg9ZSBUO8jU0J67Vuwfv8VqhS0iQbYwYoSk59VQ
-         QOWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786561195; x=1787165995;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5YpsLrQd66mt/oElMkbWRCNsoeN3vBlsEy3jrovT8is=;
-        b=Lxb8JBtAbK9kGJS6p/AXeE2YgbsTHwoEw7d0bcBkC1jvTxtxOJgqy0LFx6LdaWW0/9
-         I3nhqL9z7hWl7VCym50+7/lIqgr2Ki1f/wFkFTzB5ZTvKAeFMxBRVx1TeNiZ4mfOZ8cw
-         IZXq2SPnnChARQulzFqWWNtohmEAEcs6RBif0fG+gufx/HNi1WmX8dXkG7jJ8TJk/Zf5
-         APpwfYqmAPI7AuKYbos8kkon0Ssu9fUQwYALTtD5sxkTERihk4fmf599k9uqgK6KdX2E
-         4xsoivM0Rz5YHX5JiGmPZWzThaoUbOH2OYkaK+EMkyFZuO6FEls9qEOOLjjleSDguGvp
-         uAMQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9LtDulL9dBzNd1TcvIy7c9ogITHCfFEMrsCDZ9QDmzY/5HoJXGqbb+vlppxvWaa0cZ3ML4mIETVOk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yywjk+GsCwfQXDPudzLYF3QvybeBlYw6rVBkDKHMJxjybG5wIXz
-	eXi9zBTGpfdQqBFm19QhucwpiPpolPEdjmh6EccsjJrHqzuSId2vNAiB7vvbfMpURB0HoZaWl4D
-	1IPtEGc5+79iab7OqG3SgjMF272x6JBs=
-X-Gm-Gg: AR+sD11WjfoD3YT8+0WV5LsFheKgBQoVSukkfyUdw5j1uPu26kwc2SgUTo8a/F85DAV
-	UusiYE6P5pRfGib27TDBVK0MTChmUyGxlfHeiA78FV1dlhbSO37lezfr+LepsELtDdwyGlfUg+m
-	ACZf5TAQBDe50LETpQjv55UlNNusUkWI8LZxK+ImrK7GmIWGq91V/5o6hQ+IPcNHdpy5k3tmHsd
-	L273V+UvCYrMo0d7J+aPKJoRV/FzXxHHYLuacjbksaaddTwmiWzfwfNaLouObWxx5BMBxM0Txen
-	pfQ5jMxBu6RTCqGac4HR6x2BqVo9cVcCRERX0YeEUYs5
-X-Received: by 2002:a17:907:608f:b0:c12:1651:17b2 with SMTP id
- a640c23a62f3a-c2108e5bfb5mr20737566b.9.1786561194813; Wed, 12 Aug 2026
- 11:59:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="jemnTuDX"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B07B611BDD5;
+	Wed, 12 Aug 2026 21:10:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1786561831; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3GkE953iVOQ0yb+2rt2C7WyK8bpUX4ZBAxUpH/lRf/s=;
+	b=jemnTuDXOcwk4CB92SrUeMsosd2O7JXsfDvpcrGnBIqpDK3RL+vS9j/qs89CkY3dNXwLcY
+	0N+hzOOY0/xozMbJFZF614eByZjAvBzQV/n2PkQATz3rGzdiXhAr2v6EPBkABsOMPDgyaL
+	DjmWWGUBr+t27sIp3VItDhLzkMly2hbkoh/1N8AYSmnYRg8rXDvxPpoTx48XR0rgQcE774
+	orsPHVkkN0SzP2lV67fGJ+wPtbKO2zJlCfMopUUBXavA/xtJsDB3mPTHVxDHwhC9sMcAIW
+	twoLnPyNztwEvw8GWyP4Anagg2kWIbkmcDiShcYTglIUZXube6As2v1Z7ihsoA==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-hwmon@vger.kernel.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] hwmon: (tmp102) Add TMP110 device ID
+Date: Wed, 12 Aug 2026 21:09:45 +0200
+Message-ID: <20260812191021.65304-2-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260812191021.65304-1-marex@nabladev.com>
+References: <20260812191021.65304-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Shehryar Ahmad <shehryar.amd@gmail.com>
-Date: Wed, 12 Aug 2026 23:59:43 +0500
-X-Gm-Features: AUfX_mxI720OVCqWCabncilafTVACGGIMPo2NOHI0XObuFT7-5YQDH77NnxYQqk
-Message-ID: <CAHR+CoTo3yX=1-pfnkxu_UM2jXx0Fi8j6ZU6T-vRR4Pgb95mJw@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Move adis16203 inclinometer driver out of staging
-To: nothingchang@mirrorstack.ai
-Cc: Michael.Hennerich@analog.com, andy@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, dlechner@baylibre.com, gregkh@linuxfoundation.org, 
-	jic23@kernel.org, krzk+dt@kernel.org, lars@metafoo.de, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-staging@lists.linux.dev, nuno.sa@analog.com, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Sheng Kun,
+The TMP110 is register compatible with TMP102, add non-DT I2C device ID.
 
-Is this series still being worked on?
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/hwmon/tmp102.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks,
-Shehryar
+diff --git a/drivers/hwmon/tmp102.c b/drivers/hwmon/tmp102.c
+index 95fb912a1f7ed..26c461e95175b 100644
+--- a/drivers/hwmon/tmp102.c
++++ b/drivers/hwmon/tmp102.c
+@@ -396,6 +396,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(tmp102_dev_pm_ops, tmp102_suspend, tmp102_resume
+ 
+ static const struct i2c_device_id tmp102_id[] = {
+ 	{ .name = "tmp102" },
++	{ .name = "tmp110" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tmp102_id);
+-- 
+2.53.0
+
