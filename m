@@ -1,235 +1,178 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013001.outbound.protection.outlook.com [52.101.83.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9B537B00C
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 14:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786544258; cv=none; b=nDeAz9CASDB4hM3aGS1KvDrIkPCOEVaL9kDT/BogMAV0+DFYwQFw5UZMPLhCP0qD93WWNYfK7aQvoYp95f1T1FTAN1Ide2i+RNPx2dbk2rvnn46CWRlhHA25qdquzvI42nGIvkYQ3WLg0QDF6OnivgrwuAFYXKS88nYxJVp8eUk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786544258; c=relaxed/simple;
-	bh=GfzBwg4ZHphT0HU4JIpIzgvGvublxLx3VU0uduAtHN8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XEK9hWQpFeNDqG++whYXXN5Jv9Tmvlzi7weXxgNuhULkpoeL3fIaCu4wiVdhXVH+4xaQ7Phkumd+1rONMD4Nczlbw9bi8V8qW1LVRDaB0MIM6K8nQllxEQGE1TsCceMsn5l/dShIbJn5MvSE/6Trb4Wv5AvBzyLKPqmaJF7hVzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J9PEs6sS; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801C937B40C;
+	Wed, 12 Aug 2026 14:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786544311; cv=fail; b=gMId+2K4PlQB+26f/YVZ/Sg7o16Q4mdwu3m+buGmhjYqz99wOchimc80BKAgckdz2y8uqPaCNZENILcY2NaHH7ZU3xI5TeOiIau5mpQ3bcRdxaVNeFf485X9tBNk8TVjn1jMExvfeaxQYoRUYhjfE094zJaE/aXzbKp1+9WOTdQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786544311; c=relaxed/simple;
+	bh=9+2FKkshlGR2ZNrOVxu+ORnCS52ec+8IKLvX0Ruv1Uk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Ihtsat4k2hEVgHyvHUWEPqe1NJIwiE8IkSZvyFJM7q+s8D2wSl4B+6Jm0tdeRDMi3kgWOr5f5HIiotkj4yAvWsH5INxKP8EDHfPNBlBV65xPh+be1RpfV0kejqFl1R0VEIhEmgoMpWDHtHdPNwUq7HrJgm4/tL10mYjpUwDghxM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=wc31T7CM; arc=fail smtp.client-ip=52.101.83.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J9PEs6sS"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso1422709a91.2
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:17:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786544252; x=1787149052; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/70XqHwKtpkb8Nem1mvPAp3age5VnZSIpQXUrCBp0Sw=;
-        b=J9PEs6sSN6TRv7rae6EJnMJV1fJFkMR5LYzm4yAseH7WWu7D6IEGn4UMhMFbnBnNEw
-         3LD4Y5sRVjilCXbsYDSTG8bNqYf7R/2mp9h7FCTLFSehkAKqjPteDBJY+DDCPN/OkMPQ
-         67DJ8HDWqbdEFE+flPmJHuFFa5V1nXHtqGD8KSfx4vzZ2+Y9nI2bMbjG97XoKZ+u7KIT
-         dhHZsIrfYfHSvcAOYJg+Zkga6+y4BYRTZXvoamsqw7DRc/l/lOFl9cq59v05q9OmMlxi
-         O71c3KI97tJsjpKj8L5aXBb1CQORjUjGjCzcoeLecuw4nAaCAhCjzvtajUCLEAZeImmm
-         0SEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786544252; x=1787149052;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/70XqHwKtpkb8Nem1mvPAp3age5VnZSIpQXUrCBp0Sw=;
-        b=lZxDKHRNvwGPSEr2QMt5zX2h/1Oq7B5YpyMgeBfA9iqozjERstL5bKWWqMnCXqjUKj
-         DA1TwvfERloWAFJuT8dlAQMoWob0Qeh/NcrH6G+P0Nu9MAgPGWLvlDVDGjluhCrslkxa
-         BvCfN99cVNdlkHOK6Kc7M6oGn7ZhyX3orGq4mqhb5RSlnko5SiwobnLJoL9jCPU4/SDJ
-         16sNv0PHbabkqr4+8iORlhHxWmlaNbYRSv0T5k94jZoJZb2AQPyNxnNX8iJv3fo7vUf/
-         8um0JMzqHt+ixzh6kj/tvwQHawXlJrtUpuffTjAz+9PeXwJGZ9i2zMxg9Nxk/F06Ehma
-         /Rgw==
-X-Forwarded-Encrypted: i=1; AHgh+RrvwDIRdGfQjjBDfV/TuT1cWLIZVdhd1ujFy1d9ccWKf+kIP+/nZi8B+aA/Aqkx/EQnrwYcmxGfKPQ6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8KjAWRSzvuxcE4qI1mH6BblaiaVWnZc+4kE8LEiSQIw8adSmF
-	4JPRa8C5WomWLLOphAl1rLrKaIxh8gHif0oY+AtRj8qUPWGnk69nZcwH
-X-Gm-Gg: AR+sD12awUdG+NojMgYy3mPfXTJIDKO/bcWp3jeHro/1RuB7fB0Mfk4Us+UZnsE0h2D
-	9oQtX3kX7cBs8w3MsbWwRgcBhbFU24eW387HXF27WYM51DqcUGt7/Bb99+pt1Cej5K45XPsyOxN
-	Y6q1jN9trHgMrGpvV05oV/eC+R5MCazJP3YD2FKe132PRnuVIvHdMeYE4B5TewxaTWn/TThfREz
-	FkZAi/WKptYFTiFZvWhzkd8BUEyGC5cOc1y6+adLETz+wgkd7yE2tNrr312YPoZsiH2hMGAw94K
-	C4kZz68bY36cKtz0r7PjXVNMt7G6WereOyCsZOp9/W3hex7uXJM6s56/Mu7K/VJbpwDoeoIl68t
-	04r9jrQfss8J/dT4leOT6YediNYAirOeKYCUxesXYdfzt1Dwsi3nYjXJlzxYJP8BaCLFfileXvz
-	hiRTda04hEpm/I+hkqAHbZZVivBT/8ergvIkyvVmwpWyCczGzJqI4hjv9KrRzATsLV33R5xKRfp
-	FMZDNuFklO1BOUlF3JzeMU1Q6LCMbux8UxIC9GhN95bXtU/M+5nBebl6Vr4
-X-Received: by 2002:a17:90b:3802:b0:38d:e0c4:c955 with SMTP id 98e67ed59e1d1-393014f2d24mr5947349a91.15.1786544251973;
-        Wed, 12 Aug 2026 07:17:31 -0700 (PDT)
-Received: from Mac.localdomain (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31cf361d57asm11963071eec.6.2026.08.12.07.17.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 12 Aug 2026 07:17:30 -0700 (PDT)
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="wc31T7CM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=epKXnQoZSsGSQXx/Br+L5LiQgLl1iYNtXJkTW5+6KfEnWC5+pH/1YwQMXn/gcjZDbtQU4hDQGz/3Z7pv8cvs7LS/fO67NeiaRKKwqOfVxkoEsMz+8f2kUrXzVvrEQiCqOT4RT74YezRxfVy9UjEu/ouQFF3cgk281ZR+ZDZOcDABPS6+LhPjkBE6SIEIMafPVgxWl5lX3y/bHzf05igxYxvYLhxAyEWrQsvTtL5QApXwYfMUquQZoFpPCBfRqQGTbyUtyA5diOo48B9AE0mLtIs0nLQbGdifoBqJtRq+Cjko9j5ZT6CUgobQSAvcLko9P7qJDMTRHDfY4W1zcH8XVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PkUqj1o281TE55cK67mtPPpLkAKosx12N5dULxfbYcY=;
+ b=pWsgPfaeG/G77HB/UWQ+ElzTV27SdwZBvKibggUPWImjR3biRdb/Xk9AeVzou/Yq8uJXL7VW4c9hXjihsBrtyvgIBwRQyEPp2GjMUtocZcsEkhsD0f2MuhtFeTiO2JNuEyAr6Qag17x5YZF7DivD8DnDZM7uJVlptWAYspbnbH8oJ3DAVAj0MLxTyg+Rvf8R+KmVVN69b2xlY7Z/m70fFUD5cGxW1kJDtda67i1i9bkYGpDqUwu4+rpEGfydrGZuO3/Sb+L2MJzujJe8qdKQeIj4NHySlPzUE3HUNpffGchH1idSJF05AlPdM/lS1mslw0i1VH9ko7rFmDbS67x2oA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PkUqj1o281TE55cK67mtPPpLkAKosx12N5dULxfbYcY=;
+ b=wc31T7CMb4A76pxF7jQ8t3UcCPsqCcRrTsQg6rFHLI/6NUHZlhTqdoQe7lz+pWsbPuWB5+rCKoBYZ1VqPN33ZZ9Qxot6sbAriMNFdiF+S2azmErQ0c25ZfyIJB9t1RN2pOibsp2wHtv47yesjftgW92mIBE2FSWHSghwYRF0ydl433/wIXEMUJLjHt3x619nhrA/tX3Jah+msnGu2YX5DV7kDmn9PXahM/oCwTJVzWzLmawdwChcZBo6V6j9SXt6mZuECr59C2twUH5RHqfbr5GJtGA7i1T3asmCAXP9yyFyfaPueJ9ISRTIG/z2uit20iG2s3wOZNExC1YKwmymJw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DB8PR04MB6889.eurprd04.prod.outlook.com (2603:10a6:10:11d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
+ 2026 14:18:27 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
+ 14:18:27 +0000
+Date: Wed, 12 Aug 2026 09:18:16 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nam Tran <trannamatk@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Peter Rosin <peda@lysator.liu.se>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH net-next v4 5/5] ptp: ocp: Add Time Card V9 I2C peripheral topology
-Date: Wed, 12 Aug 2026 07:17:15 -0700
-Message-ID: <1db6580bc69f73f7b0273b0444484b1f391c8616.1786543681.git.ahmadexp@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cover.1786543681.git.ahmadexp@gmail.com>
-References: <cover.1786543681.git.ahmadexp@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width
+ property
+Message-ID: <anyAqL4knY45ALNZ@SMW015318>
+References: <20260812132954.148571-1-francesco@dolcini.it>
+ <20260812132954.148571-2-francesco@dolcini.it>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812132954.148571-2-francesco@dolcini.it>
+X-ClientProxiedBy: SN7PR04CA0073.namprd04.prod.outlook.com
+ (2603:10b6:806:121::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB8PR04MB6889:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d44a928-c3da-4854-eaab-08def87c938b
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|7416014|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	cfS1Zqu5QoW7fcDWO8Tqk5Pke/8+OwJObkL9zwL4Immkqosv2dsXR3gTxIxL6BrLamDHIIpU20IsQrIk9uVfF39LhKbsS/vgzv9vQcYGhCFVutN6m0JuT6HqSgoUTWthmBmalx8XrGbdYsWkBQJesuMIpBaemF66emxen4Adbit5RX2WQmcYBy1rsfpLpamm3Y3phKsThiC1REKldrZ/75tMzfkeiH9AaVHF1BimmZTq0ijglfBQRSCinn5J4f+mX3YT6UIGjv0Jf3+r1S9rnDe6NpJHO0WWiqEjt0kzF5oGuqMDHbHLmL4zA1dCklvvJOXfmVXcwBgMlwfOri970AwrNMYxQYhpxtcT8QPOMMDBTZFTnLdtzT+qSb5euIWFowhumohZllxiJeBftNzizgLVAx5MgmFA6WngjUEBV1FNF27+cRWWv3bRNUCdIrpS/xa4rlRQ2qYC3D9dPeCiRT2PgtXAdObAqED+nNhMGK+RmO06OCsK7lA97zxM1VubM2QEtCh0qhes4See6V+tEBaHhLPxt9kdzntD5G+yngamhIsQ3QYnniNJwdgOwD0YERntTfvOKnsrGQIMPWO0O9vmfFKncFot3S4Kc66WdAEgQ25OCGqFfDESiE50PhkLgdye5AKL5JtErlLODuupI01Tb2D8NZbmZg34lWK30jU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(7416014)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XJMZ8fm2AA9WTP7pKjpxqG9Q5IHKlKSKy1iKrme6/mwpDRVRJZOcKx23k7W7?=
+ =?us-ascii?Q?bmSdvRFucjEha6atBzYRLG8K7f592xddNBZDF70bLubYoZpe4Dd0e5gJip4Y?=
+ =?us-ascii?Q?lArVcqK07hTsyMLX9ixcpLtHzG49vlM6qn9J0GbGl+In6cMAo9mK0mfBkRP6?=
+ =?us-ascii?Q?UKmbULwGkiXM1vJTV7SG9nddpc3RIi0OupC5zr23j7MtA0P8FnH418+Nzz1l?=
+ =?us-ascii?Q?nTWfz6g6s1aCyzTxgCI1cYM9sgMthHgUgPgwiFli+OsEDtZux7eOTxe1iX+T?=
+ =?us-ascii?Q?RE6v3i1Romj2xOWTTx6yA3zd2Alr8IEyYKI5giTPRS13mpHj+sIwicARXXhA?=
+ =?us-ascii?Q?zLVc18NCASy53RP847rgj5lhEQ9VRE1sfNl9DoeXaRyr79EcvW8tSjYlHfqW?=
+ =?us-ascii?Q?8MQXve4BeSnH/KnVrxpjULicicdrebN/Ep49ZYrYbVu1iHSsyhiLzce1aUr5?=
+ =?us-ascii?Q?3VJjKkcPZVWS4SoGl4Zsu111jgUUXUtJNs9U+aAn0BQbJTOqKAqma4pkowWf?=
+ =?us-ascii?Q?PUFFzqhqcI+JnNZ5PPQ56l4LKhjNRQxvo+qfxGauDglwab1gi5ICrYTyfTBM?=
+ =?us-ascii?Q?ycp1WRh3dQqMS13L6WbOPiCEiMHY14fmkIb/mn+clnTZJlX7SI6VrCaQaMYm?=
+ =?us-ascii?Q?Acar3b+4r/6XIq+TXwzsxbf9QJG36uHfz43/mfgrYvasfdzOQ8HzACGqN9fO?=
+ =?us-ascii?Q?vuQmvr19dbDycu7B3QnAOeRgi9QIUev3xztTkG1ITXF8vaBYFzdMLtUmPaNH?=
+ =?us-ascii?Q?R2/mZCfUO4zdunWTbB5Rfe/ax0IeevEIGVK/rNZT3j1oxlV+MGtkNmrqYLQn?=
+ =?us-ascii?Q?DA+ff8k78x2zslHZIH47Sbbx/256nPCmZnyUM33tPC/nqV4TegyS6Q2J5+1I?=
+ =?us-ascii?Q?NqCEC38xjGA86CYDChHhc0fe/bpae74bIKIeUiCsWN60mCCQIBjRakEmWKFC?=
+ =?us-ascii?Q?s7L4bXs7DGUiPCy/1+MD7GxqMkDTRn26uLOTmyaMTfkcTwE8R1973A+rBRwb?=
+ =?us-ascii?Q?05PKOfzFLj533Ll2o0u3HdDRsgDQHcNGp/9/p0Xg521YGUn/XDFCpUJUYjeo?=
+ =?us-ascii?Q?USdBywWgWtGMPgOcO3U5qoXAt93viIM3Wqvj/z8uJ3xt02lcdKTjUNclz56C?=
+ =?us-ascii?Q?+9U4uLpygutqiCMKJeNArd+T7R/+CIY8+C6PkUUO9012/beVQ+Xun8jBPBNI?=
+ =?us-ascii?Q?ZPcT9rw4cYCQx08b8j5OIkpFBSPtWQ9KlRt0M1vQ/1mqKFNpV6Dsa35wjcYn?=
+ =?us-ascii?Q?KJ6GFnfavOTVDJ+kXYiPJa9Ql/DgunOm89jgcepNX9kSBX4dB9JJ8Sq2+/q2?=
+ =?us-ascii?Q?yrB5INs0DTFUnnhyuO2xQ+RJg5vx9mM4fLrXZP8vs/RDhNw1QQgIYFbZFk4U?=
+ =?us-ascii?Q?NbT0EkNNp0eqv/1y1AwKx4slL6aTxpGiAVDOkroMRU+UVDSC9l5LKiwWbpE0?=
+ =?us-ascii?Q?yGB6O7eM+Z7ZR+mOmUKDegiyiXbP3A9zzm0ZWfNivGDkgaKX+S0ubMsRFHKH?=
+ =?us-ascii?Q?itOqJewLNZxPnquqH18TQ+uMN8KXHx3Qti5Flb0VkpEL/nKKj4GSYoNmiX7f?=
+ =?us-ascii?Q?XWEHV+qNCp8MEvJgYoMyd+yJYUpzHQEgen1Ff8gtvFmWBmJ91p3m/EWdfkZn?=
+ =?us-ascii?Q?pW4ecvD2B0Be3phHWwQLy59Ec5Fv3VMMQnISPz2OP7B2YFphJcC9SIbdtGDq?=
+ =?us-ascii?Q?YcV8LAF4OHPb6TO3jBELuRTyAdg1xTpnZGm7if8fs046RaGkpHmci/Bl31AS?=
+ =?us-ascii?Q?eCydMhzGHxiTQ9qXCLRbiulWGBcuuyyXHG+tm/HQkOFwa/3OIbvj?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d44a928-c3da-4854-eaab-08def87c938b
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 14:18:27.1051
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tMHLMwVZFTCOEwef1Q4NE83wlLGZXnRr3vchhJg9lP4mS6UiJIm1bFddoabC++LiAiAMgksERIfd+hr7HKXJRt6Ghw4yQexO+vJhMsNQ0StHYcJLlkphEW76Jp+rMveY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6889
 
-Time Card V9 places a BME280 at 0x76, a BNO055 at 0x29, and an
-IS32FL3207 at 0x37 on PCA9546 channel 1.
+On Wed, Aug 12, 2026 at 03:29:49PM +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+>
+> The DPI output of the LCD interface can be configured with a bus width
+> of 16, 18, or 24 bits. Introduce a bus-width property to the output
+> endpoint, specifying the number of parallel RGB bits connected.
+>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> ---
 
-Describe GNSS1 and GNSS2 as RGB LEDs on outputs 0 through 5 and SMA1
-through SMA4 on outputs 6 through 17. The board uses a 4.7 kohm RISET
-resistor, sequential red, green, and blue output wiring, and an 8100 uA
-per-output limit.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Select this profile only for the exact fixed-width EEPROM ID
-"TIMECARD-V9". Earlier revisions expose the same I2C devices with
-different LED routing, so probing cannot distinguish them safely. Leave
-erased, malformed, and unknown board IDs unconfigured.
-
-Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
----
- drivers/ptp/ptp_ocp.c | 73 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 72 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index f2c2979daaf1..a843198796ab 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -353,7 +353,7 @@ struct ptp_ocp_serial_port {
- 
- #define OCP_I2C_MUX_CHANNELS		4
- #define OCP_I2C_MAX_SENSOR_COUNT	5
--#define OCP_I2C_MAX_LED_COUNT		5
-+#define OCP_I2C_MAX_LED_COUNT		6
- #define OCP_I2C_MAX_LED_COMPONENT_COUNT	(3 * OCP_I2C_MAX_LED_COUNT)
- #define OCP_I2C_MUX_NAME_LEN		32
- #define OCP_I2C_MUX_COMPATIBLE		"nxp,pca9546"
-@@ -613,9 +613,61 @@ static const struct ptp_ocp_led ptp_ocp_r4006_leds[] = {
- 	},
- };
- 
-+static const struct ptp_ocp_i2c_device ptp_ocp_v9_sensors[] = {
-+	{ "pressure@76", "bosch,bme280", "bme280", 1, 0x76 },
-+	{ "imu@29", "bosch,bno055", "bno055", 1, 0x29 },
-+};
-+
-+static const struct ptp_ocp_led ptp_ocp_v9_leds[] = {
-+	{
-+		.node_name = "multi-led@0",
-+		.function = LED_FUNCTION_STATUS,
-+		.function_enumerator = 1,
-+		.has_function_enumerator = true,
-+		.channel = { 0, 1, 2 },
-+	},
-+	{
-+		.node_name = "multi-led@3",
-+		.function = LED_FUNCTION_STATUS,
-+		.function_enumerator = 2,
-+		.has_function_enumerator = true,
-+		.channel = { 3, 4, 5 },
-+	},
-+	{
-+		.node_name = "multi-led@6",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 1,
-+		.has_function_enumerator = true,
-+		.channel = { 6, 7, 8 },
-+	},
-+	{
-+		.node_name = "multi-led@9",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 2,
-+		.has_function_enumerator = true,
-+		.channel = { 9, 10, 11 },
-+	},
-+	{
-+		.node_name = "multi-led@c",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 3,
-+		.has_function_enumerator = true,
-+		.channel = { 12, 13, 14 },
-+	},
-+	{
-+		.node_name = "multi-led@f",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 4,
-+		.has_function_enumerator = true,
-+		.channel = { 15, 16, 17 },
-+	},
-+};
-+
- static_assert(ARRAY_SIZE(ptp_ocp_r4006_sensors) <=
- 	      OCP_I2C_MAX_SENSOR_COUNT);
- static_assert(ARRAY_SIZE(ptp_ocp_r4006_leds) <= OCP_I2C_MAX_LED_COUNT);
-+static_assert(ARRAY_SIZE(ptp_ocp_v9_sensors) <= OCP_I2C_MAX_SENSOR_COUNT);
-+static_assert(ARRAY_SIZE(ptp_ocp_v9_leds) <= OCP_I2C_MAX_LED_COUNT);
- 
- static const struct ptp_ocp_i2c_profile ptp_ocp_r4006_profile = {
- 	.name = "r4006",
-@@ -630,6 +682,19 @@ static const struct ptp_ocp_i2c_profile ptp_ocp_r4006_profile = {
- 	.led_max_microamp = 8150,
- };
- 
-+static const struct ptp_ocp_i2c_profile ptp_ocp_v9_profile = {
-+	.name = "v9",
-+	.sensors = ptp_ocp_v9_sensors,
-+	.sensor_count = ARRAY_SIZE(ptp_ocp_v9_sensors),
-+	.leds = ptp_ocp_v9_leds,
-+	.led_count = ARRAY_SIZE(ptp_ocp_v9_leds),
-+	.led_node_name = "led-controller@37",
-+	.led_mux_channel = 1,
-+	.led_address = 0x37,
-+	.led_riset_ohms = 4700,
-+	.led_max_microamp = 8100,
-+};
-+
- #define bp_assign_entry(bp, res, val) ({				\
- 	uintptr_t addr = (uintptr_t)(bp) + (res)->bp_offset;		\
- 	*(typeof(val) *)addr = val;					\
-@@ -2230,6 +2295,7 @@ static const struct ptp_ocp_i2c_profile *
- ptp_ocp_i2c_select_profile(struct ptp_ocp *bp)
- {
- 	static const char r4006_id[] = "R4006";
-+	static const char v9_id[] = "TIMECARD-V9";
- 	size_t board_id_len;
- 
- 	if (!ptp_ocp_has_eeprom_data(bp))
-@@ -2242,6 +2308,11 @@ ptp_ocp_i2c_select_profile(struct ptp_ocp *bp)
- 	    !memcmp(bp->board_id, r4006_id, sizeof(r4006_id) - 1))
- 		return &ptp_ocp_r4006_profile;
- 
-+	/* Older revisions share V9's I2C devices but not its LED wiring. */
-+	if (board_id_len == sizeof(v9_id) - 1 &&
-+	    !memcmp(bp->board_id, v9_id, sizeof(v9_id) - 1))
-+		return &ptp_ocp_v9_profile;
-+
- 	return NULL;
- }
- 
--- 
-2.50.1 (Apple Git-155)
-
+> v3: use video-interfaces.yaml
+> v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> ---
+>  Documentation/devicetree/bindings/display/fsl,lcdif.yaml | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> index 2dd0411ec651..1f3daf002707 100644
+> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> @@ -71,6 +71,15 @@ properties:
+>      $ref: /schemas/graph.yaml#/properties/port
+>      description: The LCDIF output port
+>
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          bus-width:
+> +            enum: [ 16, 18, 24 ]
+> +
+>    display:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description: phandle to display panel
+> --
+> 2.47.3
+>
+>
