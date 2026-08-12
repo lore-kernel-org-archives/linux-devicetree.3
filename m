@@ -1,52 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CE33750C9;
-	Wed, 12 Aug 2026 19:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF45322B6D;
+	Wed, 12 Aug 2026 20:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786564710; cv=none; b=F7+bsCnvx12ffJuFP35cLufp/qD0ATcFw5wUeCCzMlDnwCikR+Q+l7i9z0WTeYPZnwLIdoTCijUrfRDfENv9jh8slfrevMsACntUZAAHmsEci5NkOp4uex6XMt1mpidRNNUlEvVOOLGYgJ6NY9cbc6mQYYwzXOl9s/E8E51yJUU=
+	t=1786564836; cv=none; b=Yb5i/gn5UORtAmaQxxeyd2na9K9iVlLDWhxXlnkToIi3lc/LNC7VJWfZnd3QSshRJiQ7WsyTwPfOFzZ/5XTP7VLRG2BQgN6UoCzjMpO9HN+ZFuoqopDyZXfzWSpw/4rMGhO0vWkj0aJVpwimFcfPbMxpIp4Od8jWhFL94AX+rpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786564710; c=relaxed/simple;
-	bh=tlSpxz+pW7sfd36IenC9YoBYnuzs+CeW4u1TCEPMS2E=;
+	s=arc-20240116; t=1786564836; c=relaxed/simple;
+	bh=2wRd+aPJlwwv7YwxJ7bJpzZlu/1OimrzKxof2GzOPjw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h2KT+AaCPtbficzQAjPlSo8p91yECFVQJHcmX7/X8FFNkj55Xv08ROUl/WduL9JMzxabkUWaxg2peNMsYeafGuI/ITiGbLNdVwqFVvz71ZQ0jtSivAk1ZLZtMOg7c9hwD4rpSZjq29fx+TTkaCvI8Ww3GwWeIAst7ZoWU1aU2q8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O0G6wWDJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=W8gP03twjhgnu50OK7WkKWLNtfkePtrSo22ZpWia+f6oqAczLscsrJNWGNlmpR6PlIodHYx3HkDgWq++seVGreD3W57I3ipUmrBT5vDxWPSHP3t2DDbDokpFtEI4lQcCrHLPWEs5h8yHSeegM19F4r3v/J8UNJJeOPndZPDKmco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=cmkk+XH7; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O0G6wWDJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A961F000E9;
-	Wed, 12 Aug 2026 19:58:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786564709;
-	bh=o5YPmFtZG2zCjcC2+M+V37X7Um8tsyR4j5Qh/i/e6B0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O0G6wWDJgixYjcOQrMbQk1Fo/DFF///H43Kl8QWgfl7n+/i5tL3jyK0DktmBNGysU
-	 3EMifcz1MRRuluG5BqMrZWRfNvQlfrjfRI4/qf4b9ytD0mTUtUKERiTO18UNKMu5Ib
-	 WrbjJESeb3ze4StqJTuycpgAO7C/tpdl+2gPGJOlHbH/bx5YKOiWxRFrSdk92pqvN+
-	 6J1HxC1oULa+HFZeVXt4z+z0rsKCJD1TQvtiP5SLe9yPWo6HhSm1CQgaaWYryb8wz6
-	 sFdtij7FEupcU8lL4ZSsJ6H/eJ+Yl2lDBcVKTN51CQK6odN1LHmyJ5kSUrrqtH8bTQ
-	 mvlcUaqU8c6qw==
-Date: Wed, 12 Aug 2026 14:58:28 -0500
-From: Rob Herring <robh@kernel.org>
-To: Christophe Roullier <christophe.roullier@foss.st.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="cmkk+XH7"
+Received: from L30177.local (unknown [IPv6:2a01:e0a:ac2:22b0:f846:40e6:d9d0:ef5a])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id B5912780383;
+	Wed, 12 Aug 2026 22:00:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1786564832;
+	bh=2wRd+aPJlwwv7YwxJ7bJpzZlu/1OimrzKxof2GzOPjw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cmkk+XH7fU0L1DKRseq22kv9GelW6Jb9db7UICymCgw+cTxGQcdHOPjvNdnHYBdeB
+	 p81anMbgqAb43+mutwETxXUMFTxE4WYX9uTwGfeMfXXY5HRd2o/809HZ1UHSZI0/5Z
+	 yhNIC62XM0a9jn9lRrXzTu1UJ1djpWLSdNMDSLHxB6eIKMilDIfw5+3WjOE/FOA9em
+	 0tuIMIdqNbxaVVYYrUZbkGErpMKAWUk3Z+DNKHs4ETItr1D9YaQo2rGJEAmZfo/cAp
+	 rkAnd8SKhe1Nas1D/4JVd7UNdciFYZr+W5arJemiWD+y9nIvPcYzirlWd5PUWmEPJT
+	 rBPhOW0myTjKQ==
+Date: Wed, 12 Aug 2026 22:00:19 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Ivan Vecera <ivecera@redhat.com>
+Cc: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>,
+	Prathosh Satish <Prathosh.Satish@microchip.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, linusw@kernel.org,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [net-next,PATCH v2 1/5] dt-bindings: net: add phy-supply
- property for stm32
-Message-ID: <20260812195828.GA724768-robh@kernel.org>
-References: <20260812091122.566439-1-christophe.roullier@foss.st.com>
- <20260812091122.566439-2-christophe.roullier@foss.st.com>
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] dpll: zl3073x: add ZL30643 chip support
+Message-ID: <anzQ04ySyCbjQPD5@L30177.local>
+References: <20260724-for-upstream-zl30643-v1-0-ea93ba4d85c8@free.fr>
+ <20260724-for-upstream-zl30643-v1-2-ea93ba4d85c8@free.fr>
+ <4CCA3CCC-C687-4658-8ACD-BC0CB3294A39@redhat.com>
+ <amuE9yIaBsFSgRhL@L30177.local>
+ <760d9664-14f6-4cf8-af55-699ea3021b47@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,30 +57,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260812091122.566439-2-christophe.roullier@foss.st.com>
+In-Reply-To: <760d9664-14f6-4cf8-af55-699ea3021b47@redhat.com>
 
-On Wed, Aug 12, 2026 at 11:11:18AM +0200, Christophe Roullier wrote:
-> Phandle to a regulator that provides power to the PHY. This
-> regulator will be managed during the PHY power on/off sequence.
+Hi Ivan,
+
+> Yes, minimal reference frequency for zl3064x is 1000Hz and also
+> supported bandwidth range is different (not relevant now).
 > 
-> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+> So, we need to
+> - add new field into zl3073x_chip_info that will describe minimal input
+>   reference frequency
+> - add a check into zl3073x_pin_check_freq()
 > 
-> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> index 987254900d0da..0c7eb1ccadd47 100644
-> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> @@ -99,6 +99,9 @@ properties:
->        encompases the glue register, the offset of the control register and
->        the mask to set bitfield in control register
->  
-> +  phy-supply:
-> +    description: PHY regulator
+> Let me know if you want to do it yourself or if I should do it (I would
+> send it along with your two patches).
 
-Which phy? There can be multiple for ethernet. In any case, doesn't 
-really matter because either is wrong. The supply(ies) for a device go 
-in that device's DT node. This node is not a PHY.
+I'd prefer that you add it, please, cc me so I'll be review it.
 
-Rob
+Thanks for your help,
+  Vincent
