@@ -1,65 +1,65 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E865644E66D
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB89537E2EB
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786541299; cv=none; b=eV1f49joOfovblgUHcUgNAkcWxrhMUjOO/kZ9+BXgo0zOkjkz/M45GwdXBJIbDNs9v8r9OQvhOhdo1GZKass8UjEQv20ISbn1Xg7bppi5NUv/Cxbv5vLl9b+3xuQyrPdJgd7/34TUxaXtlmDRRtlfDxXOUpeUt2Q+1VU7adGbp8=
+	t=1786541304; cv=none; b=i/w9k655oc/IYDpBks6igrXc9QnkX0EPcTx6LDzdqvdfSpx8p7no6nVsBFv/UzNNJSLjVUOP1oEAz35nmPmu8zZBxZX+YokPZydSQDr4obtBFo/wPfFyIfZKRorVQrrv/ljD2FASQd6dp/mpmw/fPUiJ/UYGdNQKT2UqQPSzY+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786541299; c=relaxed/simple;
-	bh=/K//QNBSWbzxPsT5IS9FlHvVWcnHN7kFOdvLuOJD4/0=;
+	s=arc-20240116; t=1786541304; c=relaxed/simple;
+	bh=9QTT3L3Pu9w2O25uxcDUaGMg8uCVo2PoWmNv0ctZxZ0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iXjEzOoyZqQfur3ecc16UPFiW8w+rggX2Nj5hTV+NpFpzlqL4r7vfxhNgO+C8jLt/JRI3bZ86D7+x5RU4nbjOksA8rPq3Adgt48ULVJdfV2092cS5R0/ocXrthtcZQkSPzagHYGBtagf6gLUsOjAnu9SadG41U0GXKmlMHMFWy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULoV1S9d; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version:Content-Type; b=cBD6iDbOSNws7fl5aJNK7WowClX2W19i3cfLlbD7ZeUc+Z5F3pWmrKHYoag7xJ/C+RnuMAJSfsdPL3j6JJhBHjGj9ihkvyUPmAEKabHTt8Wz4BolBja8EmWDIH86gY7ZeNzchSRk/BL86wp/869R9QArQ8a9FQmaIYqqU9TIw+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PZmJN3/B; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULoV1S9d"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-495590dde14so11907255e9.0
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 06:28:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PZmJN3/B"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47f7027ca11so611247f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 06:28:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786541294; x=1787146094; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786541299; x=1787146099; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=aSDcvewipoZNYTT+WMH6V9nJ9au04QroQYI+jUHvzRg=;
-        b=ULoV1S9dxOYAsDicW0JOdunHFdJorsflR9mPAgOlkcw+XsD8R/aRi/nk8zk2v7DSgo
-         WOq+wWF1ncJxipyU7crgodwdeSsSZqGAUb0SC9qAwPy53qZisNuApz93VU4aIdwgXWkX
-         ncGjJZiV4fEG6+TzVp+1irmyhmPP48eISrtU3fre6r+XxEqqtVuILzJOrhM4cFPeweJC
-         l8jV3olyC3Rg1SiAu4eqin4YfRdnch1Dcvhctm4FjJhCIV50eZS6H1y9DmCEoya2L0Bj
-         4N4bF7vbObC9E73VVQdk6ksbw2LfHetoMADde6aJm6o2zcG0PyZAlGcdCbEKPCcPZFkk
-         oIgA==
+        bh=u4+1ivRLPQ3G7Kv8GU2D8AHDkWXF6MhoqD65+o5xLeA=;
+        b=PZmJN3/Bh09iNNhZJZZw9cIaaz4y1ziZXNP9dgzVV6usNSr0hMzSSQ1cD0fIc4G1ZF
+         Z8wD8SFyd/paUvVeDkI9x3UOB/dtwcO2XZkjbOTDoT7bPGtK9pIZSIG6/ej/bZIVz+p7
+         LliSB2L9z3C9VjWhIwG/UGN9cHaBtBR2vgCHHCkNmSK142BxMf/cRz3670+ExF8DHaS6
+         N/7wC99Kc6Rc/U5/3k2rmu4gcxSEBAr3R1Nilr9kwpi2Rjbo9KhFSWET6yLrluNQ1EuS
+         TuwxNstlMpSFYvj/fMUwyFvDqzrCMVOtTugdbZapVeVqTYq0ujtJxNlB+I3/YjE6biEr
+         bpow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786541294; x=1787146094;
+        d=1e100.net; s=20251104; t=1786541299; x=1787146099;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aSDcvewipoZNYTT+WMH6V9nJ9au04QroQYI+jUHvzRg=;
-        b=b1hyyfhrKN9hydIQ692h+VPCJLTcVDTEoZwBMXXRo9OwdO+rBzlsjsVNA3vjxEnwfB
-         hTJr6IIkCKVqHBwC3Hzb3MHj4x8bOefPGedSDKC1IFFfNcPc8l6kTL0rVfJAPas+Y2Nt
-         BpRo1UdUZVkMX/Pc7NTT7Id5cyjANdkWoJ93xbuV0+ngEl5W9NlSUVthp0O6oyBb261v
-         NHgdpH+bAA2NzDdq38u6s5JCfAdJonc8+dYjGfOkfr9gaMU3MXHO3Sp4XglzkpOxTPeJ
-         MTif4KJcrgT4gKUBEPojvTpTYTQYoPtDw/SBvCom1c3nAwzYwu17eBEOc/5USr879rng
-         ICLw==
-X-Forwarded-Encrypted: i=1; AHgh+RpuZ8daj0I5QNTn98vwkkVPV+Z/JXP6AZesNskHUchPspve+w3LdfxULcdjZfk2GCfUYUcjvHbHaNj/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxvd8vW+V3eBV/sSH5wjWC+HQOSaF7d3+jSO7YAuYEdsDyenC7X
-	JDinzjarjsOm1qiExLtjJQHGkys406TQ9IuI9XJ/yP6PGXEnCg9OGI/aectq1I53
-X-Gm-Gg: AR+sD115LCpXOACbCzrcS5KvirrnXfj0bFdZ4n2ALk/Y1GkbRhA1s+RSuk5CtpixQ3M
-	RQxO3L08NYz/FB8fEKSV7RQYbyeCAWHPKZdE2F0vOgUvTxMEiRxoE/Uk6JnIklFm6BNYOAbPLJU
-	M6kpialvD88GiyhBy3wdR7Rp0ED6/eZn6h112/dUsmM3i8cA/IE7ZQhsuw2092xy2su/cKunh5u
-	7hpkPUnu+hDFDYnXcUkr8KRDUxbCPRxRbpzCkFnIrw4KMQS0lo0Sp9UzThS6L8ETHJkCFcQDvVZ
-	czQnvJsZeL5os+JQhkBm0z3ONL8S4iouKdiB1QiJ+sAucp706aSV8/DgsgjfdWbafxZ49g0jKhr
-	xVYTcSj+r6JHCsPD8l5rihmsfoyHyQ1uNhs6xtDeBOC2T+lKNmznJgDh2+GAbCskO9eDjxt8L++
-	Yag/0KbEV0p1FBpqEy7ye8lp0eoxSZMKbl5RHO2ZbxtGIzIeY77JvPXu2Yq11CgZsc7NXFbHFtq
-	PoVOZhcUxnyLwDXkzcHudr4/ly3tW5cLOv8e94m
-X-Received: by 2002:a05:600c:a207:b0:499:7024:9d4a with SMTP id 5b1f17b1804b1-4997c10e847mr41921955e9.8.1786541293829;
-        Wed, 12 Aug 2026 06:28:13 -0700 (PDT)
+        bh=u4+1ivRLPQ3G7Kv8GU2D8AHDkWXF6MhoqD65+o5xLeA=;
+        b=LJ99S2tk2l+QANj6V0CEbRuAOrhNzNyPt/QUS8W2yGb4aildlpifqTjpS0uekDVIM/
+         89iqvi6FEi2yqjSTeXCsg0QQ0kL7C5iepzMMARujmtbU1KlmQlvqHKx1K7rmFWn7RNpD
+         owKHcd3Hxzx966cvkwhCYi7ataALLc+MUNFJVbzpA/575zivydsoBdepet7jXwc5Jxw6
+         goSg/vDxEAtaK4o2vcI7/WcSPIInwNYY1IMXT1dMaLvEinjxPJ1U0NO4rydbS6nwBY4x
+         tJp/jKjW+vqPKbZFKFU0MnbCZsJjMNGeoA/sG7aoPHDoZpsOzSAmblUwc+8L0IS8WfZF
+         tECA==
+X-Forwarded-Encrypted: i=1; AHgh+RrGElisS+C2JkPwNpCsZpwj2Jg/6UddkbNBOOIxoojeVVfZR7q3YkAlDNARv8vLNhyfbr+T+BwOTP5Q@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+EdCFppxmhdaQoR4x8dN9/f60mUgzSV0bxK4Dz+ndhJT1NC2D
+	BSGljDXbYH9RPF1xbEgYnVYGaNPw8b0VgppkkGOKuoup3QNpra6j/H0H
+X-Gm-Gg: AR+sD13jUYOuXa8HtWbQAmGN2EW+0skrjKYdry96R7gkv2KEEbM0RfavetQwuOJZBSh
+	Ve79yaVQ5q3WbVY/kqCOc3K6jNaXd4wzJ4K1lyL8cruQiDeMQqN6MG75qfkVbC5g/8RCktEmkDq
+	OX3SC8W8Nof9TR1J1PWvUQKOkpUEOnsh9BbCswdG8c1LofwiMbJr9DG44SxE1Q2MibFchSMQ5t7
+	1dfDngtFWFc6eQ5n4XIAPZtq8Rnj+qTx6DxOoRAmFaU+y4m301oAzrENMTpjD9rqGLOk+ofSzUK
+	KPhns2wIQqvGIo9oXHnL4J9D7wkOa3UFhdPg/3qE6L992neIgiTbeSfICoMyOIm2+gROafvzAMg
+	+N2eQgTaPc1YVI7JriGYGtDGYyFHYya2R36YOdcXK4bbSXARVWqxCKeBl+Hmh9VVHlZCF66+tAa
+	Y8GpLlV6oAFqTyCBA5wmI0BhXsvNMNfNJmStf8Ih72rPIVPG8vQ7iflFn+/gECiih33INuhddt7
+	nr5Z/Q7Nea/rWQr2P14SxiD+TteHw==
+X-Received: by 2002:a05:600c:821b:b0:495:3e08:ad19 with SMTP id 5b1f17b1804b1-4997c1459cdmr73221095e9.9.1786541299017;
+        Wed, 12 Aug 2026 06:28:19 -0700 (PDT)
 Received: from localhost.localdomain.pl ([89.151.31.85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997abf917csm87818995e9.13.2026.08.12.06.28.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997abf917csm87818995e9.13.2026.08.12.06.28.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 06:28:13 -0700 (PDT)
+        Wed, 12 Aug 2026 06:28:18 -0700 (PDT)
 From: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>,
 	"David S . Miller" <davem@davemloft.net>,
@@ -78,9 +78,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	devicetree@vger.kernel.org,
 	bcm-kernel-feedback-list@broadcom.com,
 	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>
-Subject: [PATCH V3 2/4 net-next?] net: dsa: b53: prefer CPU port 8 for Northstar devices
-Date: Wed, 12 Aug 2026 15:27:53 +0200
-Message-ID: <20260812132755.32585-2-zajec5@gmail.com>
+Subject: [PATCH V3 4/4] ARM: dts: BCM5301X: Enable extra CPU ports for Netgear R8000
+Date: Wed, 12 Aug 2026 15:27:55 +0200
+Message-ID: <20260812132755.32585-4-zajec5@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260812132755.32585-1-zajec5@gmail.com>
 References: <20260812132755.32585-1-zajec5@gmail.com>
@@ -95,61 +95,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Rafał Miłecki <rafal@milecki.pl>
 
-It allows using all switch features in opposite to ports 5 and 7.
+Just because port 8 is a preferred CPU port (because it provides a full
+switch functionality) it doesn't mean other ones can't be used. Let
+software decide which CPU port to use.
 
 Signed-off-by: Rafał Miłecki <rafal@milecki.pl>
 ---
-I think this can be net-next but I was asked to send a complete patchset
-Can you pick those 2 patches to different trees?
+After some extra research I discovered we can't blindly update all
+BCM5301X (Northstar) devices enabling all 3 ports (5, 7 and 8).
+Sometimes extra ports require fixed link but it seems to be device
+specific.
 
- drivers/net/dsa/b53/b53_common.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-index 5fd8362d0430..052812d2faa9 100644
---- a/drivers/net/dsa/b53/b53_common.c
-+++ b/drivers/net/dsa/b53/b53_common.c
-@@ -766,6 +766,32 @@ void b53_disable_port(struct dsa_switch *ds, int port)
- }
- EXPORT_SYMBOL(b53_disable_port);
+diff --git a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
+index bbb6b869507e..ef8f3b41d696 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
+@@ -226,8 +226,6 @@ port@4 {
+ 		};
  
-+static struct dsa_port *b53_preferred_default_local_cpu_port(struct dsa_switch *ds)
-+{
-+	struct b53_device *dev = ds->priv;
-+	struct dsa_port *cpu_dp;
-+
-+	/*
-+	 * Northstar SoCs devices have 3 Ethernet controllers and 3 CPU ports:
-+	 * 5 (IMP1), 7, 8 (IMP0). This design was meant for dual IMP setups when
-+	 * WAN traffic goes to port 5 and LAN traffic goes to port 8.
-+	 *
-+	 * While all 3 ports support Broadcom header, ports 5 and 7 have their
-+	 * limitations. Features that relay on trapping to CPU (e.g. EAP, STP)
-+	 * won't work when using those as CPU ones.
-+	 *
-+	 * Prefer CPU port 8 if available.
-+	 */
-+	if (is5301x(dev)) {
-+		cpu_dp = dsa_to_port(ds, B53_CPU_PORT);
-+
-+		if (dsa_port_is_cpu(cpu_dp))
-+			return cpu_dp;
-+	}
-+
-+	return NULL;
-+}
-+
- void b53_brcm_hdr_setup(struct dsa_switch *ds, int port)
- {
- 	struct b53_device *dev = ds->priv;
-@@ -2724,6 +2750,7 @@ static const struct dsa_switch_ops b53_switch_ops = {
- 	.port_setup		= b53_setup_port,
- 	.port_enable		= b53_enable_port,
- 	.port_disable		= b53_disable_port,
-+	.preferred_default_local_cpu_port = b53_preferred_default_local_cpu_port,
- 	.support_eee		= b53_support_eee,
- 	.set_mac_eee		= b53_set_mac_eee,
- 	.set_ageing_time	= b53_set_ageing_time,
+ 		port@5 {
+-			status = "disabled";
+-
+ 			fixed-link {
+ 				speed = <1000>;
+ 				full-duplex;
+@@ -235,8 +233,6 @@ fixed-link {
+ 		};
+ 
+ 		port@7 {
+-			status = "disabled";
+-
+ 			fixed-link {
+ 				speed = <1000>;
+ 				full-duplex;
 -- 
 2.51.0
 
