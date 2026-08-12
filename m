@@ -1,166 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D277441B8D7
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:12:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BD943CEF7
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786547550; cv=none; b=I9XUP9jfT9PsjqN+ShJnG3eKTaQ8JFAXQbkwujPbZUrH6S3VR52G0CPnVurvzT7GQE+nLusr9SuoYnVFVCO5BuNLcYaFShMlXSKZUzzYPKxncvjd2BpQnVbYYHGcV7LCNv3B5bDp0QF1mZt4VV/cnxgv1NQFdX5KtDjCl4DhVaM=
+	t=1786547654; cv=none; b=k+ytLPWT89VWCxF90ThsJ68D0Klo4fndV/TGMzzfEawsH8aSPZDP7dCK1cuG1L0ZRrp40+qCKpnpRncVj52rGqM24wGQ67L6Hnj9Zp9y+gFf+f282BYHt73ZJsTHxE4p7sKB/johen1yhGi25UUKlWo1o2LU8aSGBvozi2vHbPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786547550; c=relaxed/simple;
-	bh=Gsz5HUouxBBltAEUpStJXvFM6safPf0uYSRe1VvzpO4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l5Hx6nfsXD+kfz1uRIRkaZzC/BiKMg7EV2QFYiB9Fx1Fe98SkP2wunzTZ4s39mSJF9IyiEJToHGCV2IqNRePGyEcXCR8a+utkoXIU9eEBmjMQ1hv3RMOBRkIRFPB0bFeamQSp9Vcqkfw2mUVyetV2g+C97qmXi+YrTxKtOTKyjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rgbl59uN; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rgbl59uN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C84E1F000E9;
-	Wed, 12 Aug 2026 15:12:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786547548;
-	bh=t2w+TMS605+VfushjYUWL6Uy2zg9urt3BqFPg369oPw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rgbl59uNVBNVeqQWno9WeFW3b89lnFxapOhBmAB2Zu+0bDCUgLmzh6OBrNZMNqqAu
-	 QsVSTyixwkDhJAUJLA3pfJbRGlczDE1e+7W3Wq587jojznsBHz4Uou0Ifk/xD6HxiO
-	 zBYbZLEd4LirHkl5ncm8/7F1rFKSr1D+heDrAcB8c0m2ftKR9uuUnow3guuHuM9dpU
-	 dKsDvWtHfdp7Uu4hzlP1EZDb2TltbNLaXAHvFk7j1cFS9tY2KZOy4osujhCxHU3SIX
-	 sw1ekgHMru9YvozG0WMntX59GMxdn2ZYB8UKFhIZvc5QwegHbWmKYV4NFk3ABPcPYQ
-	 iO3BSt1RE0jhg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/6] iio: accel: mma8452: Optimize struct mm8452_data
- member orders
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260812-mma8452-open-drain-v4-2-bfca15d02b59@geanix.com>
-References: <20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com>
- <20260812-mma8452-open-drain-v4-2-bfca15d02b59@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 15:12:28 +0000
-Message-Id: <20260812151228.7C84E1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1786547654; c=relaxed/simple;
+	bh=jkvefW0b5OLyxRr3z2DDupDky1h7+DUjqwpf357sAoc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uDeZw5KO17ajtCxEBgKzbxd+ABhJpUBi2ds3rlmHbEdptmVnPRmqp3TrORgmHF4Le5JSjpoGdIRRj4CT7pOUZ1w6IudUA1N+5C75DyTOU9PM1c/KG4PfY9tzFeYarlw7nwVWI3bQZ1CDd5b2Qd4AQ22oOGqpDJGn1cEaEMhIKps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5c38568d9e1so419166e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:14:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786547652; x=1787152452;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Cw+NZafyiJw4ZvXIE2j/bcnzNM3NWIqwVIiiJnuoWhA=;
+        b=DGSwWsdNGjR7JKgWXDyLe/VB64e9H2Lx2LGu8oOvVr28O7MOKm/d9hfJ8t+rM/8DJT
+         J8JPPZHOtVNVn0fOsiq142DmtlmRXINqNojNvowCLEzGsBbaTY/0PLALOQxs+v2eoIuv
+         ryEaimlLzeuWD2Y8E4TOlUQFGPoSfhDlU16vdYroz4ukbbIqJz17VgiB11dNP20c4Yu9
+         1j0L8L6FXZjrF1R/9jreloTkQG96Lhfiy+BmCXngtmD0oj6ku2ylBT7qhBN2RdzJhKRI
+         mVKP3+4IqKKhMM3wdZiqx0vUaRmPEmgPLQGouIrpobK7ooeJ9U8esI9q7//+HUlvvjyb
+         upUg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp60yLlRU8Wa1z393HVAupwd4aHwnPAZxQ3ZcH1UxCQatEbaL40DOAxecNsyxG+Bx6tGwyzpo3IjoTb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/cg9odCN1LAxoSGivj/aHjWMHKYq1zyNnrMFKuy2zPn/P4fYz
+	0ndpGq7MgIOLS5yntdP3fR8aTdntcx/T7YABjtB0ajPzsRPzplP2ylrx4Ql22Tbp
+X-Gm-Gg: AR+sD11uUFVyoVzDLp1d1c+O1yDUpbgUmBUyycWGejp4zbEuXHkpmdWAUICcQbHHnkf
+	NuM+vJ8KGENOTk/GyJI8wE3y46G6y2Af9YS+G0we+zMLf1DRmbSEN/zcgq7C5XQzlhA6eKjoPOP
+	KrmZWNqlgR1XdxxG8XpIzSxjQPEOxtwlmI46H8cuyzIhDXLD071+ECBHnmBpuJ6u3sMdvvcGOSC
+	JVRqw8Tu/CDRzJHCwG+CGkAAdFJLxBjKFl2Lod7LzKL5uhYd3jLFeadY7XnKQrY6PyNralYIDFf
+	D2W//99AWyLayoxQ4ECvi26xyimElxnCXHOUGgvTrYzmyU1K/hia8pz8wXtNACGtT6xVa6pTMve
+	gEzMQlKEAcgXCOuinIpgJeW04C704b2eEMs6T/g8UVIzuTzcaCBDlSEI3SbsoksfoGCxTyTHwk9
+	OkZ2jDv04OsSIshMNBbf069tAnqi6P/Hvb1pWNpseAvT0CHFv1XUiZowa0n/pBJ5GGFB7qfC0l3
+	sKyCB8yMNByeYkiVzgFQmPVxDUXMhVSmomnA5Rp
+X-Received: by 2002:a05:6102:94d:b0:74a:be82:73a6 with SMTP id ada2fe7eead31-76c88b5d4f3mr1086481137.8.1786547652316;
+        Wed, 12 Aug 2026 08:14:12 -0700 (PDT)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com. [209.85.221.174])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-76cb151df27sm829729137.9.2026.08.12.08.14.09
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 08:14:10 -0700 (PDT)
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c38568d9e1so419107e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:14:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rrxnxkp+VYlFI7gMfZ0g6MEEynSBWPL5N7Jv4HUcJmQIfE48RaeDtCJR8xmZpBdVwJUUhcxt4IwALqO@vger.kernel.org
+X-Received: by 2002:a05:6102:c13:b0:6a2:b2a1:f16a with SMTP id
+ ada2fe7eead31-76c877585f8mr1067211137.2.1786547648892; Wed, 12 Aug 2026
+ 08:14:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260619075621.126961-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260619075621.126961-1-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 12 Aug 2026 17:13:57 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVe_kfdgKCtS3BZKqXiZp+pxJrZ=VAVmOct-qk5tZAFuQ@mail.gmail.com>
+X-Gm-Features: AUfX_mzoBBNS13xMaYa5qntVW1fi_TuZRWzFFUrWE0n2bMAQaMF8b4n6LMfodoo
+Message-ID: <CAMuHMdVe_kfdgKCtS3BZKqXiZp+pxJrZ=VAVmOct-qk5tZAFuQ@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r9a08g045: Move max-frequency to SoC dtsi
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Fri, 19 Jun 2026 at 09:56, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Move the max-frequency property for SDHI0/1/2 from the board-level
+> SMARC dtsi files into the r9a08g045.dtsi SoC file, since these
+> values reflect controller/SoC limitations rather than board-specific.
+>
+> This removes the duplicated max-frequency = <125000000> entries for
+> SDHI0 (both SD and eMMC variants) and SDHI1 in rzg3s-smarc-som.dtsi
+> and rzg3s-smarc.dtsi, and the max-frequency = <50000000> entry for
+> SDHI2, consolidating them as defaults in r9a08g045.dtsi instead.
+>
+> Boards needing a different limit can still override max-frequency
+> locally.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Pre-existing issues:
-- [High] AB-BA deadlock between the driver's data->lock and the PM runtime =
-core synchronization.
-- [High] Short I2C reads leak uninitialized kernel stack memory to userspac=
-e.
---
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
---- Patch [2]: [PATCH v4 2/6] iio: accel: mma8452: Optimize struct mm8452_d=
-ata member orders ---
-commit 6be65aa63f260fa43ab647c9d5c94e2ecf3e69dd
-Author: Esben Haabendal <esben@geanix.com>
+Gr{oetje,eeting}s,
 
-iio: accel: mma8452: Optimize struct mm8452_data member orders
+                        Geert
 
-Reorder struct mma8452_data members to avoid holes.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> iio: accel: mma8452: Optimize struct mm8452_data member orders
-
-This isn't a bug, but there's a typo (mm8452) in the subject line.
-
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index 7d683686dd9d6..f645a5c6fd1c2 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-> @@ -106,10 +106,7 @@ struct mma8452_data {
->  	struct i2c_client *client;
->  	struct mutex lock;
-
-[Severity: High]
-This is a pre-existing issue, but is there an AB-BA deadlock between the
-driver's lock and the PM runtime core synchronization?
-
-If a sysfs read calls mma8452_read_raw(), which acquires the lock:
-
-mma8452_read_raw()
-    mutex_lock(&data->lock);
-    ret =3D mma8452_read(data, buffer);
-
-And then mma8452_read() attempts to acquire a PM runtime reference by calli=
-ng
-pm_runtime_resume_and_get(), it blocks waiting for a suspend operation to
-complete if the device is auto-suspending.
-
-Concurrently, if the PM autosuspend timer expires, the PM core executes the
-driver's suspend callback:
-
-mma8452_runtime_suspend()
-    mutex_lock(&data->lock);
-    ret =3D mma8452_standby(data);
-    mutex_unlock(&data->lock);
-
-Could this result in a permanent deadlock if the sysfs read thread holds the
-lock while waiting for the PM core, which is in turn waiting for the lock in
-mma8452_runtime_suspend()?
-
->  	struct iio_mount_matrix orientation;
-> -	u8 ctrl_reg1;
-> -	u8 data_cfg;
->  	const struct mma_chip_info *chip_info;
-> -	int sleep_val;
->  	struct regulator *vdd_reg;
->  	struct regulator *vddio_reg;
-> =20
-> @@ -118,6 +115,10 @@ struct mma8452_data {
->  		__be16 channels[3];
->  		aligned_s64 ts;
->  	} buffer;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but do short I2C reads leak
-uninitialized kernel stack memory to userspace here?
-
-In mma8452_read_raw(), an uninitialized buffer is allocated on the stack and
-passed to mma8452_read():
-
-mma8452_read_raw()
-    __be16 buffer[3];
-    ...
-    ret =3D mma8452_read(data, buffer);
-
-In mma8452_read(), an I2C read is performed:
-
-mma8452_read()
-    ret =3D i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
-                                        3 * sizeof(__be16), (u8 *)buf);
-    if (ret < 0)
-        return ret;
-
-    ret =3D mma8452_set_runtime_pm_state(data->client, false);
-
-    return ret;
-
-If the I2C device returns fewer bytes than expected (a short read),
-i2c_smbus_read_i2c_block_data() returns a positive integer less than 6.
-
-The code only checks for ret < 0, and then overwrites the short read length=
- by
-returning the result of mma8452_set_runtime_pm_state(), which is 0 on succe=
-ss.
-
-Does this hide the short read from the caller, causing mma8452_read_raw() to
-extract a value from uninitialized stack memory and return it to userspace =
-via
-the sysfs interface?
-
-> +
-> +	int sleep_val;
-> +	u8 ctrl_reg1;
-> +	u8 data_cfg;
->  };
-> =20
->   /**
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-mma8452-op=
-en-drain-v4-0-bfca15d02b59@geanix.com?part=3D2
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
