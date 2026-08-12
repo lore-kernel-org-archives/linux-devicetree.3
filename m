@@ -1,65 +1,65 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058A433A6E9
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFC443B6CD
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786538901; cv=none; b=clAwnBWixN/fZL+2lSDO+CsEKa65UqXY4mNulcF/SgIwuRbLzN9Fhxmt8PDnFJIO23iiSvU24zd+LBxbP7p5G/GJHgjmEaj30FSkJCU4GcwZN5QjgwWg0Qy9PCHwqRHlzkGtKOzcP8y/t88niwfYqIlsDW+T2zuZHZiMqgS81Ww=
+	t=1786538950; cv=none; b=Q8iv9WIBfvR4Xxfj3oZGCPf+F8W33c6UPVg83/dPAI9JJEt9RltB0homTORB6DBCJIK8DvHDr/Z9jjRj9vaIZrFi5ctkQNy8ePwJPK/m3/eFgmr7+JNuEzYApl+nYh9W0BO2jUMSc4ObEvcsQz0k4bKIklYz9js+hdFATFXIvvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786538901; c=relaxed/simple;
-	bh=hrHpK9mBn1HScEdTgQmCNJRC9EOtR2zYokI33zINgoc=;
+	s=arc-20240116; t=1786538950; c=relaxed/simple;
+	bh=R7P9GJg/MAi+yHuvn1qTceQ9Hb4OgtvyY2bPwHpj89w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AKbHvYKM+GKBQwWJojKmpozDBb7eUfHy5WNIgmdxb4LwtIu9tK4aM7lKYeWoEPXx66GXeXXY8Sdqy1wxc17CoO7fH2LEGUYBZL8st4Y67cIaxtn1zeUntytZ6NxjNY/9rwQgyd2dvqEoGfXV61cGWPbVHhNiOKg6gZe5ghzkADw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akwxVJ/G; arc=none smtp.client-ip=209.85.128.49
+	 MIME-Version:Content-Type; b=Brz/g56+TQiGhvvg48Lmxch/qq0Z4tbBFwlKFZQjoB4mh09N2V6yxofDKJgMMrUVwqHuByt6hiNU0mNW2rGCweg5+D4ax+o0cYy1jAfmBDRfHgxsLy5MQFYNemGPC6k5K67WcyTJdsaRnk3pZJC0Up3xf9TqBGyeufdEdzDK69I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fIR1uC6r; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akwxVJ/G"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4995df974b3so481255e9.0
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:48:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fIR1uC6r"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4994d41ceb9so593955e9.2
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:49:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786538897; x=1787143697; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786538946; x=1787143746; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=eTo9zPlaH3flPDssEgbhBqafK8pdC58gZr52aUiEgTc=;
-        b=akwxVJ/G5nhExfbdBbhtyHZ78vWKsHC6RoFd3z0LuqKG1onQs8pnK6AoYF19i2I9wR
-         /btdC6pE1Is8a4rt3r1cAn5JhGbDuN2qwdzaGadKGNpgMSW7ZlOeGUlJ3lTSSWD841fS
-         BS8+F/VbT2DmRpfzX05CW8cLeczJfSf1nUTMXEH2nj3rgvHgcYbXQZfx7RZeFmQU1j1R
-         6YfXlpEogiV+plU8lAaMVLlPXZxDWyXpUyUXG4C0HYHEpgLVBohP/giecgCd9/qh/CEP
-         88Cvc6e4s2ZLTPYTWSh3PA4fdWR/VKjpvlR95h/4beM1EPXAcHZxuOg3V2Z1uywqcYrB
-         +mDA==
+        bh=1u30g0AMKY150GAPKUik0QfLk+MxUjv8vUartSunHuE=;
+        b=fIR1uC6rmeM+mHENNXc/fnvnknL8mcOIZzIFmN6iCDXKBXERPj8qmmfSshs++i18SV
+         io7Fk85wb3zQNQoN1/QXGnqwR4m3QkL6dOh6z9dsdSxFDM1A79pczZcyGIr7WI1kNPYJ
+         tJ5T1n080IRo1d6enj7QljjpGmcZLX45O2NcpL+1md4zTfnI2MgpdkwHCTrKoKPYK8qq
+         Sr6Xx7p08wzTSMHpo4/9Lj0lgKLQdSqgx5cwsVugjqpvNld945Ov3h44KHVkebTk4P59
+         J3TQCMGe7Uz9yWk1UI9ChnLZEwkMyuDEFrFnnN2GuGpM6aVkeN6Ru9P+/AZIdzyzw5cS
+         fbcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786538897; x=1787143697;
+        d=1e100.net; s=20251104; t=1786538946; x=1787143746;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eTo9zPlaH3flPDssEgbhBqafK8pdC58gZr52aUiEgTc=;
-        b=MWaxhvvYiMXdJ8cz9gSTic29S/5dZi+Y0iLCSVEA2YkmlCrowzxc1g3jwPZtehxTQd
-         GxVaxlPmhcS7YEfSWrC9oQ20yXMhVSylIsbVB5oCPjzXgp4Q0NnM1PxxBk9gMITZ3b64
-         XBXiZJlrbLnY88u73TC621iyCJjQD0hsOnD8aUs2cwNv/7F5Sf5juOpd18kkZoEr40Af
-         Vktrh8kVHoLhTLZ65yXxdrdQkHAn+ZyfXKPQdWf34AVfF6D+MqQV1PUTenUl5JaAwpX3
-         Qx55isHiKNZh4ujCGD54YNCJCH6jlw2PfPg95kNRohXOZWrOD+dd0bQzvM1ZZozy8rJP
-         5sEQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq2AjTZYmzkfId2s44BHzYtGkZf4bsAT2SHjhSGc06vxQdfvbFIch2m1ubsgHn6db99KnrQxK4+xvXU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxI5oWlyZvzRxBy/8v16gs39sx2kGa9N0Z3/EETpq9ZkPg9Ltni
-	taQvSYDzMsLTfoyhis3Zom4QhJJXyGApi2+Nw1bEtVGl4juUUaa3Xyz9
-X-Gm-Gg: AR+sD13jv/ERH+B6oTtFZ3ccof6WaGUQrQZXle3q5YS/X1Xgk40xywG98kwcTaNfQ78
-	sji3svQx1fvpSzzdTE/zDt/avqgyfyRRzfqXb76QzTrzYLya2j36mdImF4eCfRCnDKihggGNLp0
-	e6tpWQFGXsyZb6em6AhzVgmxK6Li/l+XgUdzl24XU+sDLDb74NttKeCVBOFVu2iZZa+XvK/WNKF
-	kD/iSUUBMyXkx/kusIa8KXfYiA3UR292enUIakEW41Kos69IGgDwnsoA7KFNrjFejIkQHSg+3ic
-	Dva/6iRGVIYLCmQfw/tsrzO9t7wlhIuEQaPKEsI7SO+UB38VRO3FccFkvI+MIhqgoenCkjdSmbV
-	dLbbts8gTgGgZaxCmAqYFQqxJVZ3OB4Z1rsFYAeLdhpazYnBsoTIZz5vIoblhy6YXvW5jRdGg4e
-	mQ1Hoqc2tMsRwmCkrR9Auc2hxnE0NB/u4BeTb+Y4LG8yR7J/OcrYU2Ll3hcWvxEtkuo0vPREaou
-	GjN3k6qKMiW/Ujml+pPt7WMrufiQPz2D45dN3ANCMVwDxfz1SabpawMSW05ptBBkr1W
-X-Received: by 2002:a05:600c:4688:b0:498:8e6:d463 with SMTP id 5b1f17b1804b1-4997c0ddd6amr30132445e9.1.1786538897096;
-        Wed, 12 Aug 2026 05:48:17 -0700 (PDT)
+        bh=1u30g0AMKY150GAPKUik0QfLk+MxUjv8vUartSunHuE=;
+        b=PTFcK9J+R+OcO+cDx/CWnyHVNvjAXZH8UGDgobrG5fsbWHrzRzCgWfydQ+lcJ/UYQv
+         692x595+YDsYvHwutp9KcE/hxSMJiFAxBWaNfB+03FoCE1TwvLAN8aCjKwIY3k+EsNH5
+         76mhwqP1q1zQV28KfUo4uNJvdrBDfXubjSEHESUkU9bovBlXKpiZphzFQKmORD/1k3Si
+         cqyEnPkOa36yz7eq+wKCijdxwR+aotsoya5ZIOzwsg7sHD7XBDVpU8KpkxNSSI96eHp5
+         s7cFPnRTBfSxL7tQAOaxxBt1RJ04myj8HXJ2ItRdjhgCAzdyV/yzc783pTbo58QUkaE3
+         qkeQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8cvMA0V/nZvuwcCDslownah4CVQvrdL+6KUPwjFXKO+k0CDuXO08X8M4FqhUOPjyD1M9unl0O9QfM@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlGtmZh2CfcEI4NS90NyL0TWQIu4zqgGxLJKaB1oazP3cK5oLH
+	Tj9BkYaMDsN8NbhjyqDGYRvgJfkd3QtLYo3bQdwzaYYxBuoIOP8ESFQ5
+X-Gm-Gg: AR+sD109J+zZNUYT8hzKtMizq74tvgmYeAFLVwmJk0bLFJSiBO9gkrpGxbHAll4iWd0
+	JwxHP89LGVwF/CTBwepIM/NfCGP+m44SmDCs3OOHOeZuJzQQlbldd9Pz3kUUANxp2GwkhirlJ05
+	PmXWEz5vvBdjYBa+In/Sdhi7rGlTiSP2PlfRbTUUmEvyUzXCkR9rwoBuMGw1up46khaVvI+nL2u
+	AeOqUTd6swwuQtFaazQxxFZo9AJEklvi50sHp4bJiPrstvUE+W63VrUJrcSNoZxsJWQ/MOY1rvX
+	7PlAuXMSHwRSE5iqPJ+NolYMDjEmtvdTrkxaUayHKuQfUnoUzUa10jdJw+dL1yvHxV9WMj2dJhL
+	xmyMPqQ4Ku7kkRJQ1xl9uz4f/z62/R/QtGi3c74645R0KmZ6A/tILhu9zIqcN63b+wk0pv+aVwK
+	jN0sbBKhv24F1rbw+jsoohz5VOdI13UUQ5pcDbESN5iRrstN3tZXdLN4Ryzqh7/PMj2KsntX8Ko
+	+6TbFx9Z/KNDD+sRtv0odGUn23ybVfYMIwhtx9bwuz3aOfNjdpPOx9kpMnamtzZT7oN
+X-Received: by 2002:a05:600c:3b17:b0:495:71ff:598d with SMTP id 5b1f17b1804b1-4997c0ca479mr29063825e9.1.1786538946151;
+        Wed, 12 Aug 2026 05:49:06 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B84A6001A34C2DD5D9E0419.dsl.pool.telekom.hu. [2001:4c4e:1b84:a600:1a34:c2dd:5d9e:419])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c98ce0bsm47612095e9.11.2026.08.12.05.48.14
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48150d4e260sm7247226f8f.17.2026.08.12.05.49.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 05:48:16 -0700 (PDT)
+        Wed, 12 Aug 2026 05:49:05 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Jiaxing Hu <gahing@gahingwoo.com>,
 	tomeu@tomeuvizoso.net,
@@ -85,12 +85,12 @@ Cc: Igor Paunovic <royalnet026@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 01/10] accel/rocket: take the completion register writes under job_lock
-Date: Wed, 12 Aug 2026 14:47:52 +0200
-Message-ID: <20260812124755.6507-1-royalnet026@gmail.com>
+Subject: Re: [PATCH v7 08/10] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Wed, 12 Aug 2026 14:48:47 +0200
+Message-ID: <20260812124850.6597-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812094106.1391698-2-gahing@gahingwoo.com>
-References: <20260812094106.1391698-1-gahing@gahingwoo.com> <20260812094106.1391698-2-gahing@gahingwoo.com>
+In-Reply-To: <20260812094106.1391698-9-gahing@gahingwoo.com>
+References: <20260812094106.1391698-1-gahing@gahingwoo.com> <20260812094106.1391698-9-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,67 +100,47 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores
+Two things here, one of which I think has to be fixed before this
+lands.
 
-I ran this on an Orange Pi 5 Plus across all three NPU cores, against a
-base without the series. Both modules were built the same way and
-neither carried any local DVFS work.
+The first is a comment that outlived its subject. This patch adds the
+following just above the PC_TASK_CON block:
 
-  base:  v7.2 rocket
-         + Guangshuo Li's "clear rdev on device init failure"
-         + my "request the core clocks by name" v2
-         + my lifecycle v2 1/2 and 2/2
-  test:  the same, plus 1/10, 7/10 and 8/10 from this series
+  /*
+   * RK3576 arms the same DPU completion as RK3588, but the interrupt
+   * never reaches the GIC. The completion itself is visible in
+   * INTERRUPT_RAW_STATUS, so sample that instead. The tick cap bounds
+   * jobs that never raise it at all, which is the same open problem as
+   * the wrong inference results.
+   */
 
-Six phases per module: all three cores bound; core 2 unbound and
-rebound; core 0 unbound and rebound; all three unbound and all three
-rebound. One MobileNet V1 run per phase through the Teflon delegate.
-The oracle is the sha256 of the tensors that both change between
-different inputs and stay stable across repeats, so a stale output
-buffer cannot pass as a recomputation.
+That is the v6 comment for the poll. It states the premise your cover
+letter withdraws, it describes machinery this version deletes, and it
+has no code under it - the next line opens the second comment block.
+Left in, the driver would carry a claim that contradicts both the
+commit introducing it and the register description two paragraphs
+below it.
 
-                          base    this series
-    three cores           89.3       90.0   inf/s
-    core 2 unbound        87.6       88.8
-    core 2 rebound        88.9       88.2
-    core 0 unbound        75.3       75.0
-    core 0 rebound        88.6       88.4
-    all three cycled      88.7       88.3
+The second is placement rather than correctness. This patch also
+factors the completion tail out of rocket_job_handle_irq() into
+rocket_job_next_locked(). I read that as behaviour-neutral on RK3588 -
+the return that used to leave handle_irq() now leaves the helper, and
+scoped_guard drops the lock either way - and the numbers I posted on
+1/10 bear it out. But it restructures the shared completion path in a
+patch whose subject is adding RK3576, which puts a bisect in the wrong
+place if it ever turns out not to be neutral. It would sit more
+naturally in 1/10, which already touches that function, or in a patch
+of its own.
 
-All twelve runs produce identical oracle hashes and the same
-classification. Interrupts per inference are 42.75 in both, and the
-distribution matches phase for phase: with core 0 bound it takes 41.7
-of them and core 1 takes 1.02; with core 0 unbound the same work moves
-to core 1. Neither round logged anything beyond the probe messages.
+Both of the things I raised on v6 are right in this version. The power
+domain list is attached before anything that would have to be unwound,
+and the comment saying why a plain return is correct there is a good
+addition. clks[] grows in the same patch that adds the two names.
 
-That comes to 2596 inferences and 111048 completion interrupts through
-rocket_job_handle_irq() with the two writes moved under job_lock, with
-no difference in result from the same count without them.
-
-On the change itself: I could not construct the race on the normal
-path. The scheduler runs one job at a time and the fence is signalled
-under the same lock after the writes, so a submit cannot overlap the
-completion it follows.
-
-Where I think it is reachable is the reset path. rocket_reset() calls
-drm_sched_stop() and then says "Remaining interrupts have been
-handled", but drm_sched_stop() stops the scheduler, not the threaded
-IRQ handler. A handler already in flight can therefore run alongside
-rocket_reset(), and after drm_sched_start() alongside a fresh job.
-Making the write and the decision one step is the right shape for
-that. It does not stop a late handler from writing the zero into a job
-that is not the one whose interrupt it is handling, though - would a
-synchronize_irq(core->irq) before the guard in rocket_reset() be worth
-having as well?
-
-One note on the base, since it matters to anyone repeating this. The
-core-0 rebind step needs my lifecycle series underneath. Without it,
-that rebind hands the returning core the index of a core that is still
-live: the driver prints "core 2" for fdab0000.npu, inference starts
-returning a different answer, and the teardown that follows dies in
-destroy_workqueue() under drm_sched_fini() with a poisoned list
-pointer, leaving an unkillable D state. None of that is your series
-doing - it reproduces with 1/10, 7/10 and 8/10 absent - but it does
-mean the three-core test cannot run to completion on a tree without it.
+I also went looking for an ARRAY_SIZE(core->clks) or
+ARRAY_SIZE(core->resets) left behind, since that would walk six entries
+on a four-clock RK3588. All six are converted in 7/10, including the
+two in rocket_drv.c's runtime PM callbacks, which are the easiest pair
+to miss.
 
 Igor
