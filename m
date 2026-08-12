@@ -1,196 +1,83 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48832432318
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 11:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB848341057;
+	Wed, 12 Aug 2026 11:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786533965; cv=none; b=UyGhtedPk+CxnwMavyIeVPd7z4W5VnCnYUx4yXD16Gga3Imkb+yKM49yXSrOtU0UTS9rP5UaThATYQWZxF0MhaESHGwa6fVjJmuJ1thd1XiMUgQfQlwsuDJNoSG2V7tpgkyhDGenGF3Q76IUTqKtDR/iFIcMZAoOdmQsAVj+/00=
+	t=1786533978; cv=none; b=ctX2qcFTJ/i7LlfT6MUEGCWtd1X+8n7nirgqG/lpX4z/Hp1z6GgbjZ7DzZ1LZdX7NQrYIBbKTscDuBXYPZ4XENaSCNw7Sy++pEmlnSziNsFiX6JAmgHtguv5m8NrIFr5LfZJKGz/eDT+XfkL00dWTQS+XCWSWVLNaGA2OVPtR+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786533965; c=relaxed/simple;
-	bh=WoKWEWKlv1+PeyUN1OlqnAXZmrjz3ThOQrXHDS8EOWI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TkAnkfvVupiZn0iZnzD/JqbkL7DPYSF2xO7tEy4A+Kxxsr+jhC8IspuIYCRZVDXmxHp3dcFje+QkJcs1sA1UznlmcePSLv5DDbyDcHSlD6Ob4b9Ha3KHEcrM3alAUKMirtEkIuLNiqQvo4VBFVwTSDJ1UpQRmaHzKiXKDawDwJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DorRFm4I; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786533978; c=relaxed/simple;
+	bh=ypvPzUdlZd4kGWv7VDm2+x7UTmwm9Ww02T4dPTQNLUI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oGzIqucPCSpr14Tlgk/F1iGnvfBmx5l6DM505IedTolgNhH7Mzp3oed6UArFrM9C+JirAobDQWzCAKvCpjPwAy0xAF8n2AQGVII8aOiBMMY8/CvyF7g2rnAp7HotiJbRHJuKps4kYbNcl8vFYvE8A1MzIRYu38sh9HpXYXwJxwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMKNNfJr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DorRFm4I"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so9484605e9.2
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 04:26:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786533959; x=1787138759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ey4E5gbb1zGfpxU9QFub0aU8JCEKCtqwD4Rbc0BSyts=;
-        b=DorRFm4IacUf7NsIeB+lrEAcJTZCW8NS68j7RoSsCM+dm++yg/TNKNJU2lnRaTF711
-         X6DzbaC3iPlgJ95PMEZy4ecxi6gGDiSXVraQEpzdGSaFlFw7sYPy72WtA+Nyx+68aRs9
-         vyJ+uajT/aUamQxTJmuE2FovJxcJ6xXTp/9u9BLYq3O1Zbzlgs+4u4BuLe4B5cmdiG6y
-         BPHq3ietiA43cZsy6W2IKro0j55/ux32bRYIHWAYppXasyaQ5dqetvIN59W9V4uLpwtr
-         rmSWqIMzHH/ULUuZ4LG3O7e/d9L2W7KHyTr+fY3aQ8xn4chZRKfpa4d9/2e01P1Ru09u
-         Z6Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786533959; x=1787138759;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ey4E5gbb1zGfpxU9QFub0aU8JCEKCtqwD4Rbc0BSyts=;
-        b=Xj+U3sm+zYIRq4645juJD140DpYHLu9uOcfPRwJIEOwNQsXPeDjTv96n12DjE1vFJu
-         Be3ADUYLAzhHU2cCtxBnoa6d51MSlRrmkwcKWjWUxSo8jgBdocV/FstM5sMMMkaCrAan
-         zntCLzS98vvvTaMYyZ/qTlgKRy4boKhbNy7sINMQBt0MtrnJCNSp1LuJIODxQDD5AI4Q
-         h1Vbf4LXbVZEf/3xKehmVysKLJibKjyDt3dPda4NkhV4Z91gP/6z2dREb3NbyVgT9BXF
-         rcNRaEFVpVHsApUBpQPbWg0HxomCwNBDIPgqxJfWzHY+66dyB8ZAh6UBI0GdBbEhIjOt
-         f9Qw==
-X-Forwarded-Encrypted: i=1; AHgh+RpWX6w6MYLh88XDo8qhrKXF0xadOZAbvfUzCFuYfczCDtZi6CK62QpBMufWi5oc0vc30oiB2B9Q174B@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVeaRl3MtEKCjTI7Ak16Ym3ldJ0NQ69eqY9mrTIKL7NZDVZqoH
-	1moAWe/6pomn4M8P/TgeLCrPLGWSI9AZlUxI12qcNRpzM9lRZULcOHqF
-X-Gm-Gg: AR+sD12KlW1cNB+5ofetJwzqtVKHjB0MeAyzZvZ2El0NjV8G/IdWx7omwrnaRXLepkY
-	Hb9V20dF63nELx7HmTbcK1Ia4CS0Zu6CDpKjwpxV+JB28eXP50CqbDbpvZsvZo6Lycl/itO5G9I
-	4JdTuHHPQq9KMi7h4qnn6YkXLCHy15ahkb5BJXtNQ/W8xVgt5ul5BvOXU6SpxkbdJHNH7IQKyDb
-	+pPcjokF1xvMmSvZMGh6fQ6t6zIzmC697nt3fskap3wlCWNOJZQq6cMz3ld2zSEe6twLtmqwEmI
-	CI/0pSXs7YWhV/Unsz2bR7w0f9PXTtLfjPMxZyMZo3siKFFP/knV76rTyrYoeVJOV6EPM2mUjEC
-	3quUWPkaAG+Y+PM0kGQ3P3q6M6DQKTayeNzsw0ULFJwyYrRXgLFFbWPq58UgSsDITj+E7r6zRqj
-	N/CXS2t5JUFHCODWA55ukMMzOp1zm4/dd6xcw2ktxoNIE9Bzl51oVEkYyKv0LXOW8cSbM73iJIJ
-	Aliaz2x6NY28JlpTmJCmQ==
-X-Received: by 2002:a05:600c:4f87:b0:499:48be:3189 with SMTP id 5b1f17b1804b1-4997bf81217mr46280755e9.0.1786533958498;
-        Wed, 12 Aug 2026 04:25:58 -0700 (PDT)
-Received: from [10.25.219.170] ([128.77.115.157])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997b238a9asm42581695e9.3.2026.08.12.04.25.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 04:25:58 -0700 (PDT)
-Message-ID: <36260069-cd81-4744-b5fb-8467f7874851@gmail.com>
-Date: Wed, 12 Aug 2026 04:25:56 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMKNNfJr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6CFC1F000E9;
+	Wed, 12 Aug 2026 11:26:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786533972;
+	bh=DqEBb4Hucv8jMMHQbJC9GelPSXmEYAbWexmfKK5fNfs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FMKNNfJrD37mzdWW59yPm73OqpDxvGKwp5SKp5XaaV/j7qUwOOuO++r0WB8V9IHxh
+	 aujbc7PZeiyfcsM52qNowJoYW0B97gJMA+4thu91gleUujIjfRB7MhI4nDbDzggbn5
+	 6TNdlWJwQRYc2FCetFdF8Tw7yEJZIgncmicNZY3jAzdyI5cqL3uyohiOykwFI2J0OA
+	 HZZXnm8KkBAQZ6mL7ck0s7gUKD3LDElxEde5ss3FneWjKCMOc+et/YG29+lcV/DBb8
+	 mQHthD7qe5mVchgPxb1zm6vfTZklJ8BO2misLWf4maUpm1jykXoRw03/d09JHqyuj6
+	 cBzLK79SBJqTw==
+Date: Wed, 12 Aug 2026 13:26:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/6] dt-bindings: clock: agilex5: Add USB3.1 reference
+ clock ID
+Message-ID: <20260812-fascinating-uncovered-poodle-b6e6a1@quoll>
+References: <cover.1786518803.git.adrian.ho.yin.ng@altera.com>
+ <9b583ba4a5ca48d07854b7d005b43b41fefa7fa3.1786518803.git.adrian.ho.yin.ng@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] dt-bindings: remoteproc: imx_rproc: document
- optional "memory-region-names"
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- "Frank Li (OSS)" <frank.li@oss.nxp.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Frank Li <frank.li@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
- Francesco Dolcini <francesco@dolcini.it>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260730163412.1145-1-laurentiumihalcea111@gmail.com>
- <20260730163412.1145-2-laurentiumihalcea111@gmail.com>
- <amuUbkDM60eFzvJo@lizhi-Precision-Tower-5810>
- <MRWPR04MB123301AA9F074FA2976AC36C288D52@MRWPR04MB12330.eurprd04.prod.outlook.com>
-Content-Language: en-US
-From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-In-Reply-To: <MRWPR04MB123301AA9F074FA2976AC36C288D52@MRWPR04MB12330.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9b583ba4a5ca48d07854b7d005b43b41fefa7fa3.1786518803.git.adrian.ho.yin.ng@altera.com>
 
-
-
-On 8/3/2026 2:03 AM, Peng Fan (OSS) wrote:
->> Subject: Re: [PATCH v3 1/4] dt-bindings: remoteproc: imx_rproc:
->> document optional "memory-region-names"
->>
->> On Thu, Jul 30, 2026 at 09:34:09AM -0700, Laurentiu Mihalcea wrote:
->>> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
->>>
->>> The carveout region names are derived based on the DT node names.
->>> Because of this, the DT node names are ABI, which is not supposed to
->> happen.
->>>
->>> Fix this by documenting an additional, optional property:
->>> "memory-region-names". This way, the software will have a way to
->> build
->>> the carveout region names without relying on the DT node names.
->>
->> "After update all existing DT tree, this will be required.
->>
->>>
->>> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
->>> ---
->>
->> Additional information to help understand why it is important.
->>
->> 1. at thread wrong use vdevbuffer insteand vdev0buffer as node name
->> https://lore.kernel.org/imx/20260705202439.3F5771F000E9@smtp.k
->> ernel.org/
->> 2. similar case happen at
->> https://lore.kernel.org/imx/20260715071741.79CA81F000E9@smtp.k
->> ernel.org/
->>
->> Suppose these problem should be detected by dt binding check instead
->> of sashkio ai.
->>
->>
->>>  .../devicetree/bindings/remoteproc/fsl,imx-rproc.yaml         | 4 ++++
->>>  1 file changed, 4 insertions(+)
->>>
->>> diff --git
->>> a/Documentation/devicetree/bindings/remoteproc/fsl,imx-
->> rproc.yaml
->>> b/Documentation/devicetree/bindings/remoteproc/fsl,imx-
->> rproc.yaml
->>> index c18f71b64889..8e3e6676a95e 100644
->>> --- a/Documentation/devicetree/bindings/remoteproc/fsl,imx-
->> rproc.yaml
->>> +++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-
->> rproc.yaml
->>> @@ -62,6 +62,10 @@ properties:
->>>      minItems: 1
->>>      maxItems: 32
->>>
->>> +  memory-region-names:
->>> +    minItems: 1
->>> +    maxItems: 32
->>> +
->>
->> Need restrict names
->>
->>   memory-region-names:
->>     description:
->>       Names for the memory-region phandles. Each entry must be one of
->> the
->>       following recognized names. "vdev0buffer" is the shared buffer for
->>       virtio device 0, handled automatically by the rproc virtio framework.
->>       "vdev<n>ring<n>" (e.g. "vdev0vring0", "vdev0vring1") are the virtio
->>       vring buffers for device N, also managed by the virtio framework.
->>       "rsc-table" is the resource table region used to share the resource
->>       table between Linux and the remote processor when it is pre-
->> loaded in
->>       memory. All other entries are treated as generic carveout regions
->> that
->>       are mapped and made available to the remote processor.
->>     minItems: 1
->>     maxItems: 32
->>     items:
->>       anyOf:
->>         - const: rsc-table
->>         - pattern: "^vdev[0-9]+buffer$"
->>         - pattern: "^vdev[0-9]+vring[0-9]+$"
+On Wed, Aug 12, 2026 at 03:32:54PM +0800, Adrian Ng Ho Yin wrote:
+> The Synopsys DWC3 USB3.1 controller requires two separately named
+> clocks: a suspend clock and a reference clock. The existing binding
+> only exposes AGILEX5_USB31_SUSPEND_CLK. Add AGILEX5_USB31_REF_CLK
+> to allow DT nodes to reference the reference clock by its own ID,
+> and update AGILEX5_NUM_CLKS accordingly.
 > 
-> There might be other entries such as m4_reserved or m7_reserved
+> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> ---
+>  include/dt-bindings/clock/intel,agilex5-clkmgr.h | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/dt-bindings/clock/intel,agilex5-clkmgr.h b/include/dt-bindings/clock/intel,agilex5-clkmgr.h
+> index 2f3a23b31c5c..196c0bad3e52 100644
+> --- a/include/dt-bindings/clock/intel,agilex5-clkmgr.h
+> +++ b/include/dt-bindings/clock/intel,agilex5-clkmgr.h
+> @@ -95,6 +95,7 @@
+>  #define AGILEX5_SOFTPHY_REG_PCLK	79
+>  #define AGILEX5_SOFTPHY_PHY_CLK		80
+>  #define AGILEX5_SOFTPHY_CTRL_CLK	81
+> -#define AGILEX5_NUM_CLKS		82
+> +#define AGILEX5_USB31_REF_CLK		82
+> +#define AGILEX5_NUM_CLKS		83
 
-Then how about an additional pattern? Something like:
+Playing old record: you cannot change it. If you change it, then it is
+not a binding.
 
-- pattern: "^remote-reserved[0-9]$"
+Best regards,
+Krzysztof
 
-I believe a board could, in theory, have more of these additional carveouts, depending on
-the range of firmware provided by the vendor's BSP (or the community) for that particular board.
-
-Still need to put this in code and test it, though.
-
-Peng Fan, Frank Li, would this work for the NXP platforms?
-
-Franceso, could you please let me know if this'll work for the Toradex platforms?
