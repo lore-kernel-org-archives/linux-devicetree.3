@@ -1,145 +1,267 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010015.outbound.protection.outlook.com [52.101.84.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C49245C714
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 14:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786544404; cv=none; b=Wmcrp/Rz6uVOPgFnBRcKNHQjsrbAcX9+tFExMlx5HBDVkA7V+/rEwW4qw09K0Hq0IwK71u2zUrkqtZ7HGlu8uAGYJ/THMeexVGDkFQW/DVE9w9d3dBK4pPB0vJIqL5xcaFDtkIyeq7mhlgjVmCNgyL9C6uqI0BS2EPMtu59ISrk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786544404; c=relaxed/simple;
-	bh=FzQdI41LsYXGgDVc9k9yPu0jzMl08cpB4+kHkxb+1DM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=den0c4DpSqLPqnMDN1rw3sOjb2utVR9qXI+VSnHIsxUkiowY27q2P08BDd7IrOXc0hx7pB9SMb4Qid/zik2pSNSuWoUu7T+odpBw0TmEQwIm4itbPmf7J8sFLDHKiv3mbnnCdGe71140pAUGpNcHKrlQ0M4b2KZN2C3dFZNoE8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CsWHbuPT; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB7C468C22;
+	Wed, 12 Aug 2026 14:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786544436; cv=fail; b=BKAV6Gr9WaDbsuSuqe4w3Jw1Dl99fSV50G1//WBLqZYwXTw4thyHpcLOLp3jFvwfoVUHEH6WXOZyz9CWZD1iA/jFJE2DONrvf2GJs2abdWkTrwHWzRsqajnvL6sb+ez/29f+MaBz1Q6EqL9eVhcmfD1O7izGBFAI0OF4rb5bI2A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786544436; c=relaxed/simple;
+	bh=r9iSmuvZAUZy6KNXfCAW0R+wbsqJYrAUm+VuOPmthKQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=EzyK4ZfCH5iZJAycWDLkcw4UrUQhbqMFMJWk5DmfTORsNBBmdpUEYsV02aBFRa6mwx6U/WX1QepE/+iRrVVSAgPTpt2Jd4tQS5z2iZg6KEd+2m0BDTonRYr1xICU2/8OhTlGykZLF0SF2ceBCJMeur3f4jGrVXek/csbHOUC390=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gVmwqn/m; arc=fail smtp.client-ip=52.101.84.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CsWHbuPT"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4996f1ee4a4so6565925e9.2
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:20:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786544400; x=1787149200; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EMZSBq3TM9KrtGynI6DWaERDoo3umOgfLHwY8OUCPPY=;
-        b=CsWHbuPTa/dyYRbT1qJTjSFxna/V9sFQgdM1Kw6CxhUy/gukEZMi8m0TK9nDUPUJEg
-         kqVW2234ADCV1uTXh07Na4Jl/u2dnwURhALy6lxlz7z/K+VfGo9gk5VTHPZAhmQjXrUx
-         oP6SrBGgbb4cbdLWcv3CKFPfUdsEhIritzSXRKB/j5S0Ak6iXrLC9miIT/h7K9V4abBH
-         fHx5vK58iuIDIxw00NIPZFKYecv4QS/TPMkDRTKfdGCE6DW8nnAK5TbGbZgP6j5AgLXO
-         FmAUCeTxmEOsrImhefT3QPaXRlvbsrd56TGYVCMZsD74YEacRqNQ5rO8iGTomURTZ6jU
-         L9pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786544400; x=1787149200;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EMZSBq3TM9KrtGynI6DWaERDoo3umOgfLHwY8OUCPPY=;
-        b=Q36fUd0jDUVHrtgOBr0nV7q2JyjLC8CzsrMxSK0ya9up6UvbMKziBDVpueCbruCNkU
-         1dC97CnWm5WnPQ76r2R2ZEr53gfIOFmBB+pCQEJj7IpcT3ScGz7o/NSa2cnIGMeuAAjX
-         X+aqevNzpATmXcxBMVx1HzKdQEdBAd+jtzUEaAdd1ly/JFv9dSuQk1UdSTn/aM8F6xzR
-         vcg27VuuScIctHtOAaokjhGwxZq75yMftWjdwdqu27k6YSVSF+6mhUyQvcrmDTCJqQzw
-         5SlavCjoSCH4rgaxnIFL3HsYvNmClqZaO9OiECkDir5dWWnC1YYAmj3ivELekENnHApW
-         RWcw==
-X-Forwarded-Encrypted: i=1; AHgh+RqY/op2M1ByKXzXdCoeQBaSUxOWRDq18EZhMvQ/CDz7IaDOXkDQlEFbbd2JjmP6FplYgU3mrDPjeeds@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGcW6CSRSopdcYVXN+BN7NJ9bvDs7cGNFc48Rc41es/w+1SqjG
-	SIid9EQ6JsfUnb9EYyRzUqP6cpcTXMgG9Hw3NLn3Haaa4jTKsN8+1q7R
-X-Gm-Gg: AR+sD117IKGnblrkkVizz936ZcKysa69t/gI6F8zPpUVWKDWfuK5Jlf0RrVD9NLJYKU
-	vKeY/uWMkeK3ztlF42j4gflqYG/WTfawvcutj3YT0UPkCYVeWPNJOLVktYz/78yfebp7IBY04FX
-	7YucYTWJMet4lsKDzPI1jhuxSLQppBwJf2zz1jFaL/MbTUnXQ9MmBgiml1fV1pArJlzMNoRgw+w
-	f/6+I9N/zoghrgziNjE38/e/2reQwwz/z7+tq6/zRBNnEL9R55ScfckHzb9IhhIgm2URlyL6MBk
-	xNxe6wz1bmyUTKymBUvlcslYYI45rTFsoeCN5eC/6GBGYTY9R9spUUhRwL9z8f6/okur3rv9N/0
-	eHvVpuhIyXjeoZiRQG1uuafW0hREvMlPfhjgcY/4489qpCw11ux/VCl7yGwnhoWjrZZrKIYDH2n
-	BT4hP1fp2CViajXNu9xhcIiuUePQZRvb+EKvwMT540Cj1DdtHNnPDG7GoXQNxne14xVh8PF+yQt
-	BQUoWWrzIt1iw==
-X-Received: by 2002:a05:600c:c4b7:b0:499:4d4a:4990 with SMTP id 5b1f17b1804b1-4997c0e398fmr55410285e9.3.1786544400258;
-        Wed, 12 Aug 2026 07:20:00 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:94c0:1825:d248:50ae])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997ad78f2fsm47352235e9.1.2026.08.12.07.19.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 07:19:58 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gVmwqn/m"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UdMFGXYaeMiz54Lkc8/G7pmRFgOp6YPoqG4hkd3X8wNiSb8boKveCGrbfaXiWd+kMZC/CSny0snGp7ta8V7ulUgmdavuelMcfeYIr8d3m0fU0pW2UGpX/yfDSm1/23fDCce8vOUwyXMLh9Rt6i4GDugXebWWHLtYG66hhnP8u9kJRMBVWBJejwE2eP1y3Cp0FOKv/lsM2n25RQPN7BvV/n12/2XNxX8fD1BH2zFa6IIo5iwwF5Oj2OBXdy0PAnIUHk5Jgki5Yzu4wmRuJ9ui1DAKUpKgxzv3P6s9CVupgJtM8nHxnz+AxKgOu0WmEZ6WVn4f4RwLjy21UD0QnWjvPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=An4zeuydARqKnZALFmdBlJulO67EiBLBol4gK5VRiKg=;
+ b=tDNIpEz59RiXB49be+mek9roPtpCgPxNJ51cY6Ah/cUmJrQUMUYadepoYniYR9mkkXdax2W4TlPNBIyBDtgbUcffNm7y6Mc4rTj/Cy3osW8XlI9Te+h9ZbEhZD+TR8Z+506/eir+uQjfsMQdzaBbjIYE2qdda5f3pyoXR15x3Xxm31rrYrOv4h9nUiBJqk5fxmTTndhOT0Vp0SuLzN7lT+WMpMBxfWMfoTNMuSiS/rC9/2fhe0EvB7fM3+zgBdJJ9W4ok949X0X5Jc22yWT6UKzvgX9ZcdK4mFmDwK9Z6QRmnVlGIPf1I+GcStesNO0xJ9I9E6bwuqBvx6hlMfkiSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=An4zeuydARqKnZALFmdBlJulO67EiBLBol4gK5VRiKg=;
+ b=gVmwqn/msOikpfTwSCso/stG4wbLmLvnPwgoV0R5HfIXtfnMUvo2nFNEFfk46+U9ldHfsafUPPkwapwD/8Q9ue0JKH0xaYm7crETZb1jmZrGuxQekZPXAcD+CxEYdKlIPWN9H+ij7O8qlUWD6QRuy1TrmwlIue3prQAtE6r2XDreqB3R4Pt1ATVrwHaVoi2HMIGomD8+F1eYeEgOV3mhHFKrPUEp7gFUxQ0LdAWfj8Aoz0NBmICneWsHGSje9oKNHP8S1R/eB6VCSsrIRc7fyQqKYmQTmUfj2naLGXPvw9nQO8jL2oBtw8MVA2P8izKpqOdQziUYA6M5f4/SJzpSqA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM0PR04MB6978.eurprd04.prod.outlook.com (2603:10a6:208:17d::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Wed, 12 Aug
+ 2026 14:20:31 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
+ 14:20:31 +0000
+Date: Wed, 12 Aug 2026 09:20:20 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v7 9/9] arm64: dts: renesas: r9a08g046l48-smarc: Enable USB2.0 function support
-Date: Wed, 12 Aug 2026 15:19:27 +0100
-Message-ID: <20260812141940.246223-10-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260812141940.246223-1-biju.das.jz@bp.renesas.com>
-References: <20260812141940.246223-1-biju.das.jz@bp.renesas.com>
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Message-ID: <anyBJMt6U2zXKlCh@SMW015318>
+References: <20260812132954.148571-1-francesco@dolcini.it>
+ <20260812132954.148571-3-francesco@dolcini.it>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812132954.148571-3-francesco@dolcini.it>
+X-ClientProxiedBy: PH7PR10CA0007.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6978:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7b74a6d-892b-4640-7183-08def87cddb8
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|7416014|23010399003|376014|1800799024|22082099003|18002099003|11063799006|4143699003|10067099003|56012099006|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	oA56ete6xLyhz9RXXKEm3LJSk6rv+IywT7Q8+0pk3dUZ7ANTc5FFU/HtYM14S1wqq8SNOa8BLg09P0plSifpaa0KZnnYEMzG+FgmeaionX7FpT3jl9YpVBqayoRqG1T7AGmZ131Y/FBS/QmnfLa+63wJNXbCyad/sojMpqxwEud29QtRL6L6GZ18cseTxAyoDIGGwllEMyiAgnWsg9t1/jNkRFixlOemf3AumQCHWf32DQuPALl7OXJKnYojyZKy++tylTUBjIccXtHeJQle3EYDn8l73VXCKUaccIJ/WeGQeARigA23yWxmooOztGCUtSd7cW6/aTBNnxjkqkB7XtTs3wWgXVqc5R9nbxaoNwVjrMrY1r1peqQ5STGXOsnhVIULFo5XSZjg0o2PwegoRqxP0GP++/85MT4eKKSxH82RSXmnw+euFRPmmBKY8UhQX2MR1wQPmqn+wQ58EQprSfCWxq/023kz2BdXEDWGARxhlotSq+parWaxBS6DOgw0/l5/Kzit9uo0qu2WDmh8I4ws4ooiaJftZnxahBse7gdhBy9UXNUHJnzbdOWbs6PqWDiguc3eD2It64Ca/05s10dpBjtl54sFwmwGE8s0P9EgMpa8j4GrSonOA1YGfx7Pt/dF0ouZ+GJGsrLJNKcqpdYDUjiyHQGcYPNEuJvb1Gw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(10067099003)(56012099006)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ZLvgR4RgqAB2Bkf4O6inC4uRbfrGE5kd9UP9Fwtp2U3xr2e7Il10Ckop8XzK?=
+ =?us-ascii?Q?o9pGq30y2XLAbVfN7s5eNawOTcd5ykY8dqkbx7imlMbbeAEWJavTzWQtL7aN?=
+ =?us-ascii?Q?SctEOnSvyWMujCaDVs33P+YDhPqIgnPX37OginC/fgCazmHjlYJmoNx9b5vE?=
+ =?us-ascii?Q?lXc1F+qj4oS6lB8j9SQtPjbgBT4gBlgQ2YygtsILfoQ/VTxhyTTVM9CZ2rG6?=
+ =?us-ascii?Q?uRCaRMlBUNFefVk48sccgtJZsLZhfJhcqWQAYahjTe1igenP2CSLFj+5uD8T?=
+ =?us-ascii?Q?7SQBOoG4C6TNLk+RHGQkDB+yxCu2uoRRPq3QwLpK+O53NatvtqaLwthdIDSm?=
+ =?us-ascii?Q?aU67CPTZgyd7G1KaPxDuiubKRu+YEbgEW47/kQkxlgjbzZDtdjPkgZvbS0Fn?=
+ =?us-ascii?Q?xrSPH3u4BjhAHHwswwPLE8pFv7gTCirIVS7qybGtYZf7SeETweOcZY1s8NkI?=
+ =?us-ascii?Q?mDaGielD3YfbMUxbP1EfnAr/3DV5rGpiab3KwKdHpmY0lGSdOJnF21e2rRKV?=
+ =?us-ascii?Q?GLIBOZ6aQq/JQPTEBgvEXnl58HKf/teqfSBrLVqY74GCFbq2cOfJLdC6uqCT?=
+ =?us-ascii?Q?WOIkS5u+Rdy0hg4wyGSIfySFr3z0Z7WdOuH3Ig4m+wyQeppXFkjU/df8DpHh?=
+ =?us-ascii?Q?tukwboLTyFI9UWqhk3TSUAJbmVM4Is7pFtni1e8i/oeC9T6vL9xtGWKtwtQo?=
+ =?us-ascii?Q?f0v1X1rRf2GRFAEsbJIuQxXB3H8fGubrbWl8G8h3midpkiK9ZEVNMa+lsUm7?=
+ =?us-ascii?Q?1iwJQEl+FI+Jc7PlbZPnM+iGG2PnGiFHm9s807VnUcxrTkzH7fshWngrpqwv?=
+ =?us-ascii?Q?IX+nRjqnl7wi/SfFPYywEJzImPEjP/Hnjby6TsTSCThEAcPqKu4WlKrD4AnK?=
+ =?us-ascii?Q?wPryiUPCoyngBw+DzP6LqzCZPh5siPWk1aaIbPES2LmgQVTGn9NzB2go8R+V?=
+ =?us-ascii?Q?tc6vUPGsvXBvsJd0DkyAp3m+9IhkE5Gv2tiy1L+BfGn2bnNms7N2W6xBqfQx?=
+ =?us-ascii?Q?t+Vrr9SZIgzSsyWxjOc49x+z5SYZpuAaIjWnGabQaL8tj0ckzQYomjcUupqd?=
+ =?us-ascii?Q?dPz6yaF+tE+XHMMyfDu2tWlSBFJT31dLKtGDh6QmqeYrvIreEFERygQESw83?=
+ =?us-ascii?Q?I8fsBswKZICLIumVIRL1eF9IwWAHa94ax2PzWVR8JiYtEykLZXT0Boq7uQuW?=
+ =?us-ascii?Q?5uvK7kjnK0W8Mj/I48Xi6lhQJJ3E2G1r09B9ie54BsoNZiczraxJTroq+ZDN?=
+ =?us-ascii?Q?JLCqmcEAI+8Vnm0Zd2jBUkQAl+Ql6z7MHZviAOf/75miYuTDkVJ0FXfr80d1?=
+ =?us-ascii?Q?CDs78ObV17duaxB49m1N9YBOhB6tmzuIqOTg8v1yv1ks+F+UM6AMBW2PLB9A?=
+ =?us-ascii?Q?U0UwYqwHUUq2iDzYBTLN0mMC1TsvMVkF6wMqzHX3LdM5XQs3M9yeIXEu8KSC?=
+ =?us-ascii?Q?aX/PxLaWsR+rM8eYuU8YG9fGAX+Wvlk2LqeB9WjhVw7GqtdEb9YI27Fmpyeo?=
+ =?us-ascii?Q?8dnqjbz1dia8Cym4EHjlKhx9egyr4DXlUHyqogvFvfYwTyqYgYV/k2thGVR1?=
+ =?us-ascii?Q?MILbHspsVGu1Btk74Wg730qPoDHkfZHDOwIpeEifnzFD/0lvj8ZiL2TgY4mu?=
+ =?us-ascii?Q?nyDJ7V1nJxYAbhzGsp7vuZa3pFbLmEWDa+aPD3YtByPpBBb0iF0XPSljJRqW?=
+ =?us-ascii?Q?PdEMTfrq8ERwBHqazMlMSeXcy7VX1Rvjj8CxXMTlp5xwDpEaCjNmA30/nPzA?=
+ =?us-ascii?Q?UhiqXMLmWZmVZT9Npsr1ZUcL0F45n1K0uN9tStesgy4hYamFBrma?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7b74a6d-892b-4640-7183-08def87cddb8
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 14:20:31.5845
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 44WUBCeUJNrRwfQ9aMEf0K/agW4SfbA/PQK/lt2QBg+ES6+QLU1ZdhaiA4D2TFACjiGOU1yOA0Ay7NNlAXgxyRyD3oDAbYymG+7jWUQErNphTXTONgxe4/T/pGUuqEqQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6978
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On Wed, Aug 12, 2026 at 03:29:50PM +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+>
+> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> format reported by the downstream panel or bridge describes the display
+> input, but it does not describe how the LCDIF data pins are physically
+> wired on the board.
+>
+> These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> 24-bit display by wiring the available color bits to the corresponding
+> display inputs. In that case, using the display's 24-bit format to
+> configure LCDIF selects the wrong data-bus mode and changes the assignment
+> of color bits on the LCD_DATA pins.
+>
+> Read the optional bus-width endpoint property from the LCDIF output port
+> and use it to select the media bus format used to configure LCDIF. This
+> allows the LCDIF bus mode to describe the physical interface
+> independently of the downstream display format.
+>
+> When the optional property is absent, or it has an invalid value, continue
+> using the format reported by the downstream display device, preserving
+> the existing behavior. The code is not validating the DT for
+> correctness and just fall back to the previous behavior in case of
+> errors.
+>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> ---
 
-Switch ehci0 and ohci0 from dr_mode = "host" to "otg", and enable
-the hsusb0 USB2.0 function controller node with dr_mode = "otg" and
-status = "okay", so USB2.0 device/OTG mode is supported on the
-RZ/G3L SMARC (r9a08g046l48) board.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
-v7:
- * Moved the patch from [1]
- * Updated commit description
- * Updated dr_mode = "host" to "otg" in {e,o}hci0 device nodes.
- * Retained the tag as change is trivial.
- [1] https://lore.kernel.org/all/20260707145135.247565-4-biju.das.jz@bp.renesas.com/
----
- arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 522cfde4b66a..a3c491778aba 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -88,7 +88,7 @@ vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
- };
- 
- &ehci0 {
--	dr_mode = "host";
-+	dr_mode = "otg";
- 	status = "okay";
- };
- 
-@@ -97,6 +97,11 @@ &ehci1 {
- 	status = "okay";
- };
- 
-+&hsusb0 {
-+	dr_mode = "otg";
-+	status = "okay";
-+};
-+
- &i2c2 {
- 	pinctrl-0 = <&i2c2_pins>;
- 	pinctrl-names = "default";
-@@ -149,7 +154,7 @@ &keys {
- };
- 
- &ohci0 {
--	dr_mode = "host";
-+	dr_mode = "otg";
- 	status = "okay";
- };
- 
--- 
-2.43.0
-
+> v3: improve commit message and make it clear that the code assumes that
+>     the DT is correct, when the DT contains an invalid property value,
+>     the code safely fall-back to the previous behavior
+> v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> ---
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+>  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
+>  3 files changed, 38 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> index 8b4a500347fb..f8ecc8bbd63c 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> @@ -12,7 +12,10 @@
+>  #include <linux/clk.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/io.h>
+> +#include <linux/media-bus-format.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_graph.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/property.h>
+>  #include <linux/pm_runtime.h>
+> @@ -211,7 +214,10 @@ static int mxsfb_load(struct drm_device *drm,
+>  		      const struct mxsfb_devdata *devdata)
+>  {
+>  	struct platform_device *pdev = to_platform_device(drm->dev);
+> +	struct device_node *np = pdev->dev.of_node;
+>  	struct mxsfb_drm_private *mxsfb;
+> +	struct device_node *ep;
+> +	u32 bus_width = 0;
+>  	int ret;
+>
+>  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+> @@ -238,6 +244,24 @@ static int mxsfb_load(struct drm_device *drm,
+>  	if (IS_ERR(mxsfb->clk_disp_axi))
+>  		mxsfb->clk_disp_axi = NULL;
+>
+> +	ep = of_graph_get_next_endpoint(np, NULL);
+> +	if (ep) {
+> +		of_property_read_u32(ep, "bus-width", &bus_width);
+> +		of_node_put(ep);
+> +	}
+> +
+> +	switch (bus_width) {
+> +	case 16:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
+> +		break;
+> +	case 18:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
+> +		break;
+> +	case 24:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+> +		break;
+> +	}
+> +
+>  	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> index d160d921b25f..bdc47ce5be79 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
+>  	struct drm_connector		*connector;
+>  	struct drm_bridge		*bridge;
+>
+> +	u32				bus_format;
+> +
+>  	bool				crc_active;
+>  };
+>
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> index d8ebebc5314b..1d78c486d147 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> @@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
+>  	if (!bus_format)
+>  		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+>
+> +	/*
+> +	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
+> +	 * property when available. Otherwise, use the bus format reported by
+> +	 * the downstream bridge or panel.
+> +	 *
+> +	 * This supports mismatched display and interface bus widths, such as
+> +	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
+> +	 * panel connected through a 24-bit interface.
+> +	 */
+> +	if (mxsfb->bus_format)
+> +		bus_format = mxsfb->bus_format;
+> +
+>  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
+>
+>  	/* Write cur_buf as well to avoid an initial corrupt frame */
+> --
+> 2.47.3
+>
+>
