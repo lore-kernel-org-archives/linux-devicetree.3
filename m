@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7485A384CEC;
-	Wed, 12 Aug 2026 02:56:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAC3279DB6;
+	Wed, 12 Aug 2026 03:00:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786503365; cv=none; b=IP3KRh98ZAT71r4tJVPNmR4T0rNlYdC/0UMt5dYEoNpZ2SfeRCxJhFtTR5H2L5DO8ivx63rwYk6DYBSbYxca5yQnP/dxcGyB+WpWAbnWedm2MEu50AawIzMcqoIjgxu/KoHkPLOBo3v6V2YpGoCCgM/HVr+E5AZvP/0eF9O71HU=
+	t=1786503603; cv=none; b=aH1a7Xst0tbQ5INu2MLPJ5hgAq/5OR9Ri1jw3kDboODqkZe1CIDfobdzWu1m/TYfnT5WS4OGC138lY1lGTB8d9DsCLdvbPOrZruyIcMKMqixv6hXb1D4aOoqaxyz3ndCqsxEYBSV+46LQfEuTathpcJeh+Hw+N8qTXwc1j2bIgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786503365; c=relaxed/simple;
-	bh=Fl9dwupjRVsTufLFUNfCSw+H80KDBbSEtOlBtZLc5xw=;
+	s=arc-20240116; t=1786503603; c=relaxed/simple;
+	bh=3pgO82nKlff7wJbElsukFnxnY7+pZvBl0Akfq+sm1qU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hgYYsShaKMQu134OqKA+LdX6UCP3OiC4wsN8vfqhtt7fOgh/rJZb4l4IPxf/0Ystnh6XYmj1WH8nKvdVw7PVUI1RnB2EI/gAYA/FPTIm7/EFbqCxpcEFV1z3ciQp31fu5Ztd2ZpDtdJTzyj6/XzMsdwXkRtFY9Xa32neK+usCj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YjXzq2nC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=g7vJfhFrir0ae2hgEZUUAIMZksYc3oz2cjlKdYndV0v8B/9F3PRSkA4mcxi3FB5SmuAlt5tQ9DPor/xde1u2OpdGI/ZirrqZ/HmW1j8YH64bSFgT7QZYjYv/l1YTTQ8iHsy17ngfjilIiAN0J/vVcu45QeVPlwQA50ZOa0X9tc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K97x6vA8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YjXzq2nC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1423B1F000E9;
-	Wed, 12 Aug 2026 02:56:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K97x6vA8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C161F00A3A;
+	Wed, 12 Aug 2026 02:59:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786503363;
-	bh=Kt/Gnj2b43EWiU5G4BOTMXgY7mqqkW+KfAi5AcqL9kY=;
+	s=k20260515; t=1786503599;
+	bh=Bpxjg2oXsSCruLQdZKjR0sIz3mv2JlOLPQ5FjigQQko=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YjXzq2nCTd8I3ZQ6SvSwxEMzkA2jzNZ0sNTQP+9kjseN+91VKqd4RaatuZ5kH1+Ix
-	 yCFkzj63Sf7lv4G8hEudXMhRBuRp+sxN6F/RYjNLNUBX9Fpc6URACXmerA4GBU/fly
-	 dP+Dfev2Dz+makZybB04h2MnMtIraUikbKJlar9S1F/9J/dMbMw95FVrj3cw4gaVAM
-	 Vuii1Ssnw4fGY/Zmt01KfnVaS939ik3M/1/ESE71k+mqKyO6W2mlXdFpjDxHtIAO07
-	 8Y6m/SZpbN7hJfrm3DqTteNv1HANoUoOy2FUxYTrnc9qk3wYxDjj7ZCuz2h5T7Q9o2
-	 SQRPPfGYJ6PJg==
-Date: Tue, 11 Aug 2026 21:56:02 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, Andi Shyti <andi.shyti@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Chris Brandt <chris.brandt@renesas.com>, devicetree@vger.kernel.org,
+	b=K97x6vA84jO/2R4GeuqecGh6w2hkDZV3jiHp/cgbqSE27iD57m09ejT2GDI6OFPBu
+	 h3xW37MT2mdXEAbix2t+sDrPabsU8pkLUbGfcQA2hENhcbCAMYk5l0Y0gZ2S/fyX1A
+	 jpi96GJWk5+FzneUx8aIA3DaUTSytduXxGmMegu3vnydHTUjpLViKkdavcvh9ehL2+
+	 LoDcCrMunu85Iozm09S5vViwxUWcTuosT6epu6WxIOS49w9RDgCavVBtFyGHE4c0uA
+	 0LcT0/OqnjHj6KKLCEMGhcqqCn8oVI+uzQursZIP2KuukkmApvoE3uGXGBjMyyDXqR
+	 BB0Yk/1zfFFZw==
+Date: Tue, 11 Aug 2026 21:59:59 -0500
+From: Rob Herring <robh@kernel.org>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	linux-i2c@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	biju.das.jz@bp.renesas.com
-Subject: Re: [PATCH v2] dt-bindings: i2c: renesas,riic: Drop clock-frequency
- from required
-Message-ID: <178650336197.631765.122141109682113788.robh@kernel.org>
-References: <20260806111018.782380-1-tommaso.merciai.xr@bp.renesas.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Henrik Grimler <henrik.grimler@axis.com>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel@axis.com
+Subject: Re: [PATCH 1/3] dt-bindings: Add InvenSense ICM-42370-p accelerometer
+Message-ID: <20260812025959.GA632086-robh@kernel.org>
+References: <20260806-b4-inv_icm42370p-v1-0-670837f5842f@axis.com>
+ <20260806-b4-inv_icm42370p-v1-1-670837f5842f@axis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,37 +51,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260806111018.782380-1-tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20260806-b4-inv_icm42370p-v1-1-670837f5842f@axis.com>
 
-
-On Thu, 06 Aug 2026 13:10:13 +0200, Tommaso Merciai wrote:
-> clock-frequency is described as optional, with 100 kHz assumed when
-> absent, yet it is also listed as required.
+On Thu, Aug 06, 2026 at 02:46:27PM +0200, Kanak Shilledar wrote:
+> ICM42370P is a 3-axis accelerometer. The device can support
+> I2C, SPI and I3C. Add the supporting devicetree documentation for I2C as
+> we have only tested using I2C protocol and leave the reset for future
+> work.
 > 
-> The description is correct: i2c-riic calls i2c_parse_fw_timings() with
-> use_defaults set, so the core falls back to I2C_MAX_STANDARD_MODE_FREQ
-> when the property is absent.
+> The device supports VDD and VDDIO operating range of 1.71V to 3.6V.
 > 
-> The stale requirement only produces dtbs_check noise on boards relying
-> on the default:
-> 
->   i2c@14400800 (renesas,riic-r9a09g047): 'clock-frequency' is a
->   required property
-> 
-> Drop it.
-> 
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 > ---
-> v1->v2:
->  - Dropped all v1 series, need a rework.
->  - Fixed dtbs_check failure by dropping clock-frequency from the required list,
->    instead of adding it to the dts, as the absence of this property
->    indicates the default frequency 100 kHz.
->    v1: https://lore.kernel.org/all/20260803132828.3249424-3-tommaso.merciai.xr@bp.renesas.com/
+>  .../bindings/iio/accel/invensense,icm42370.yaml    | 65 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  8 +++
+>  2 files changed, 73 insertions(+)
 > 
->  Documentation/devicetree/bindings/i2c/renesas,riic.yaml | 1 -
->  1 file changed, 1 deletion(-)
-> 
+> diff --git a/Documentation/devicetree/bindings/iio/accel/invensense,icm42370.yaml b/Documentation/devicetree/bindings/iio/accel/invensense,icm42370.yaml
+> new file mode 100644
+> index 0000000000000..561e798b911ba
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/accel/invensense,icm42370.yaml
+> @@ -0,0 +1,65 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/accel/invensense,icm42370.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: InvenSense ICM-42370 Accelerometer
+> +
+> +maintainers:
+> +  - Kanak Shilledar <kanak.shilledar@axis.com>
+> +  - Henrik Grimler <henrik.grimler@axis.com>
+> +
+> +description: |
+> +  3-axis accelerometer MotionTracking device.
+> +
+> +  It supports I3C, I2C and SPI serial communication, has a 2.25kB FIFO
+> +  and 2 programmable interrupts with low-power wake-on-motion support.
+> +
+> +  It also has programmable filters and an embedded temperature sensor.
+> +
+> +  https://uat.invensense.com/en-us/products/3-axis/icm-42370-p
+> +
+> +properties:
+> +  compatible:
+> +    const: invensense,icm42370
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  drive-open-drain:
+> +    type: boolean
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Drive what open drain? Presumably the interrupt? Add a description.
 
+> +
+> +  vdd-supply:
+> +    description: Regulator operating range between 1.71V to 3.6V.
+> +
+> +  vddio-supply:
+> +    description: Regulator operating range between 1.71V to 3.6V.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        icm42370@69 {
+
+accelerometer@69
+ 
+> +            compatible = "invensense,icm42370";
+> +            reg = <0x69>;
+> +            interrupt-parent = <&gpio1>;
+> +            interrupts = <7 IRQ_TYPE_EDGE_FALLING>;
+> +            vdd-supply = <&vdd>;
+> +            vddio-supply = <&vddio>;
+> +        };
+> +    };
