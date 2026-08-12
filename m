@@ -1,49 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEE537204D;
-	Wed, 12 Aug 2026 19:42:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCDA37E5CA;
+	Wed, 12 Aug 2026 19:44:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786563756; cv=none; b=sTBsw9yPH+MTdytqW3y4TtMvkXOfbglp6Tp5fN2LwqJfejUw3D0Br2Ie9b/Lru+Bc36K1XRlmVfobEz+4gXlSszCGh4NvFd6GxT/Qhadi8mqpaJpVArke/At/rF2An6oaSz+TuAdpDjBHsxxh0SLs6tCXolHB0BeMwWAHgUajWA=
+	t=1786563886; cv=none; b=HynsioUIigfkTaq8Np3N8mA0tmnMfkkH9s8OmirVXLRfaj5UhMVx2eE1u6bgdhUdUJrHa+T82Vo3ZCfG/uUiDJRwoN0aQ80k++Ol+mVA19mAcsEgSGsFKvhttsdJ8YnAEdpT6Hyt5wULYiSjtzq3WaNt58YGv9tN/hI7OnCHON8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786563756; c=relaxed/simple;
-	bh=FwM4DmbIpPnO4eB/Dzqs+PdDealXiwlIr27tXGwzK1k=;
+	s=arc-20240116; t=1786563886; c=relaxed/simple;
+	bh=U3TGCPVC2yy3il+YKuGpp732RYB6TSQm8RVz0RS5uCw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hMW/AamYzpRiqgGzEE2/Tg1mr+zN+vzLj2Xpg5w8LbkLpPPDcMvlkij+bH8RK/L/wdifpXzcPHdV33yr9y2lSKjLMa+1XhgFFJAJ8yhKMJv/bI43PeU6uncY8Q6qZcMB/yilmf4O67DsSsZ9kGbLTlcYPSOz1P3pyFKgwdnZXoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOiLoTv9; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sW7qVQDD0j5MDk8BzPNQVbanGSXbrFhKhJV+vDLV8hBJpsD+ucyKhGpQaPcgOf5DsGBZsKWThh2NnBwUr7CrKjzG1bV+gZ9OekpwjXI+I3pt9JjUSMMBJ578sl7j8uLQy2KeZqXDwzPIvl1BvdrfajC0U54SAz5GzQQ0yAXyEQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hevFYgBe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOiLoTv9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4BAD1F000E9;
-	Wed, 12 Aug 2026 19:42:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hevFYgBe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80381F000E9;
+	Wed, 12 Aug 2026 19:44:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786563754;
-	bh=Z8uKxxkxtfyBhEbjH/Frtn8s1b4bFCuuEGKZbThLzLc=;
+	s=k20260515; t=1786563885;
+	bh=uRG41YjUcntiKwh1UKbqg1nGoAcrQJFvwoaaCU2YtPo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TOiLoTv9XMsIkw6Beg/1MLS1Nc1kT6DaEXXdygn6PBvNpIsCYUOutnTA2v6Hzlwb6
-	 Qb7YeIFXlwmJ18eLO0jPq+tb58A7UhHrif63HePr8c97m8Vh8UsZekBC7mgiiEhvtX
-	 /PRIgchFxY6XSdxBzfPyemKeKqVLT90UkkzgQ17Nufldu4QhFtnOfP0yh5C6WTPJlZ
-	 J1gi5hxzxdT4/qGan+8HX0OPUVM4jCvajgJ1M5CaK9jcfVEviDdMizVNYFG6JZH4x0
-	 kYqRufat7XlzsaSl/2FVH7BPbquO+DK13ViW2WE0jnViEeBqsh3SGzbLBxCYjDdP43
-	 1EqgOHr+W4YYw==
-Date: Wed, 12 Aug 2026 14:42:34 -0500
+	b=hevFYgBeDxy1TCdmZuiADLNDGERXJTwfSV2iWbeOixOGpv5mRFg88g8utzrvP4uvj
+	 tqtCQqe8FuBh+gAeV0V7qV4F1/aKy0dHSL/zMlyABixTEGV/MkdjSImzA1xeCmbg1Z
+	 Z4w5nhknJ7vsAeTjsxBg4E6L96jDv+QGsSu1d1qkOwpxh2I+WzKDLCrdQ6544cfoWM
+	 XJ0ee+kKXXwPAvW96gh4fXW7RLZ73454H5f7Bqe5/A0vsvfIeAc9WxynITiq0KfWcM
+	 k+mYfIdRXaS1Ejb1k5+6ZC54pLMLktdHJtMUXo2snfJRSrOHPydMUiGNP6+jf+rs0Y
+	 KMbhZSh7ZJKxA==
+Date: Wed, 12 Aug 2026 14:44:44 -0500
 From: Rob Herring <robh@kernel.org>
-To: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Drake <drake@endlessm.com>,
-	Katsuhiro Suzuki <katsuhiro@katsuster.net>,
-	Matteo Martelli <matteomartelli3@gmail.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: es8316: Add regulator supplies
-Message-ID: <20260812194234.GA693895-robh@kernel.org>
-References: <20260812-es8316-regulator-next-20260722-v2-0-e7078bc9bc9c@thundersoft.com>
- <20260812-es8316-regulator-next-20260722-v2-1-e7078bc9bc9c@thundersoft.com>
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: daniel.baluta@nxp.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	goledhruva@gmail.com, m-chawdhry@ti.com, linux-pwm@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	simona.toaca@nxp.com, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: pwm: Convert TI PWM Subsystem to DT
+ schema
+Message-ID: <20260812194444.GA693080-robh@kernel.org>
+References: <20260812094420.1057067-1-egbostina@gmail.com>
+ <178656332725.687853.3345749883291406683.robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,40 +47,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260812-es8316-regulator-next-20260722-v2-1-e7078bc9bc9c@thundersoft.com>
+In-Reply-To: <178656332725.687853.3345749883291406683.robh@kernel.org>
 
-On Wed, Aug 12, 2026 at 05:35:43PM +0800, Hongyang Zhao wrote:
-> The ES8316 has separate AVDD, CPVDD, DVDD and PVDD supply inputs for
-> its analog, charge pump, digital core and digital I/O domains. Describe
-> all four inputs so boards can model the codec power topology.
+On Wed, Aug 12, 2026 at 02:35:28PM -0500, Rob Herring (Arm) wrote:
 > 
-> The binding also covers ES8311 and ES8323, whose supply inputs differ,
-> so restrict these properties to the ES8316 compatible. Keep them
-> optional for compatibility with existing descriptions.
+> On Wed, 12 Aug 2026 09:44:20 +0000, Eduard Bostina wrote:
+> > Convert the Texas Instruments SoC PWM Subsystem bindings
+> > to DT schema.
+> > 
+> > During the conversion, the following updates were made:
+> > - 'counter' node was added to the allowed child nodes
+> >   list to resolve dtbs_check warnings. Some eqep nodes
+> >   use 'counter' instead of 'eqep'.
+> > 
+> > Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Renamed the file to ti,am33xx-pwmss.yaml to match the base compatible.
+> > - Required a 'compatible' property in the child nodes.
+> > - Reduced the binding to a single example and included the PWM child
+> >   nodes (ECAP, EQEP, EHRPWM) in it.
+> > 
+> > Link to v1: https://lore.kernel.org/all/2026081109d-up2208.687731-1-egbostina@gmail.com/
+> > 
+> >  .../devicetree/bindings/pwm/pwm-tipwmss.txt   | 58 --------------
+> >  .../bindings/pwm/ti,am33xx-pwmss.yaml         | 76 +++++++++++++++++++
+> >  2 files changed, 76 insertions(+), 58 deletions(-)
+> >  delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
+> >  create mode 100644 Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml
+> > 
 > 
-> Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-> ---
->  .../devicetree/bindings/sound/everest,es8316.yaml  | 27 ++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-> index fe5d938ca310..276c73bb4790 100644
-> --- a/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-> +++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
-> @@ -30,6 +30,17 @@ description: |
->  
->  allOf:
->    - $ref: dai-common.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: everest,es8316
-> +    else:
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Missing 'then'. You need to invert the 'if'.
+Withdrawn. Your example is incomplete.
 
-Looks like Mark already applied, so you'll need to send incremental 
-patch.
+Do not use DT_SCHEMA_FILES to test. You can do 
+'make pwm/ti,am33xx-pwmss.yaml' which is a bit more complete of a test.
 
 Rob
