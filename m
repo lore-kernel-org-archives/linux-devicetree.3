@@ -1,97 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1353EFFA7;
-	Wed, 12 Aug 2026 09:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 87F84391517;
+	Wed, 12 Aug 2026 09:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786526637; cv=none; b=IIpYq08YUr0zGAj0RKY01ENPNLaAnmmstJ3TohyG7QtudFxe8Vc2dsqeL7CnkTZAKMbXzSyz4c7pVMjOnYMOTEe3T7r5o4QKDJqFgdqO38eE8hiX1+VHBLZeCLR8SuU/1V7iWDPDf74vCT/Pj46p/JOrIcwfF+ZWFKJ/MqBOh/w=
+	t=1786526665; cv=none; b=cL5lUrrDHnbB2VlO2r2kU5H5nhXer5ArUA9WY3LC/UD9+lmGYbskIC00zsLXUtvMm5i5f7pyxMfQclIU0CZdGDxc2F+NT7HRrizQQtsh1Ohlg6F4/ZKh/EE3qhyPotPd69oRm1xarFiAD/W8k556tMjV6zmw9kLbRtA1Im0iC08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786526637; c=relaxed/simple;
-	bh=DUoamCv1baouGafIhgrV35bwmwNBmSgK3RH8sKg/eZE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s5UXlE7b0JXcNFN7T09X6+Mx1O13gBItTrEHCt4UdZamigVVBYrCF0aP5Peo9BuTCAk4FX0zo6kPPrmdpxtma4aZ4652gDSGf8WRCXzic3bfgshsV/F6uL0L3GihyhpGgfAu4fzetlNydEziQ2S7+6yJTocETgC1GtA1V5rgQN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a2o+X2Jx; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a2o+X2Jx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786526635; x=1818062635;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DUoamCv1baouGafIhgrV35bwmwNBmSgK3RH8sKg/eZE=;
-  b=a2o+X2JxHzYLCnCorvp3t/nn6pd6V1hf9Ov0lYjx0U0g46xRgKBnpGqZ
-   +40w5rNBMKb6E7U84Var3JLJAqZnQ1u64TxiCC37XJieT4qQdEyh6lg56
-   XeULkRtFQD6fcEvRQGaDefdnTKaI4uYRPnd8DXHxKhP4nrgGYke0Uh1m6
-   D9mSMhHQnlH9IExqB0dhL4nWBJk6jP+CrZJXCj+HzA67yyRVjrKAdfz+v
-   TG7OEUAzcK2sDWVcrGhGUD+AocC0LhU9uE3r6lmP17qOvTK6sWEf/JQsL
-   ewnv0M8iYr1YeSAZyiuWr+BJpuCD0TnWMIB2d0pQTo4wWTy655Y0M+uCu
-   A==;
-X-CSE-ConnectionGUID: jbzZ5NUpS0WoxvjeFLhqQg==
-X-CSE-MsgGUID: 0bWlxT8RSsGJ4XyxhB8gxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="86928728"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="86928728"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 02:23:54 -0700
-X-CSE-ConnectionGUID: ongqlpyOTOSOOcCX4ss1oQ==
-X-CSE-MsgGUID: gQfYczF2QVKy49GHbGvPfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="263114024"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa008.jf.intel.com with ESMTP; 12 Aug 2026 02:23:51 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 86DC799; Wed, 12 Aug 2026 11:23:49 +0200 (CEST)
-Date: Wed, 12 Aug 2026 11:23:49 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Amber Kao <amber.kao@ite.com.tw>
-Cc: Jeson Yang <jeson.yang@ite.com.tw>, Yaode Fang <Yaode.Fang@ite.com.tw>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bling Chiang <Bling.Chiang@ite.com.tw>,
-	Eric Su <Eric.Su@ite.com.tw>, Doreen Lin <doreen.lin@ite.com.tw>
-Subject: Re: [PATCH v7 0/2] usb: typec: ucsi: Add ITE IT8851/IT8853 support
-Message-ID: <anw7pY2vvJAsHiYT@black.igk.intel.com>
-References: <20260807-ucsi-itepd-v7-0-998ac11ed0ef@ite.com.tw>
+	s=arc-20240116; t=1786526665; c=relaxed/simple;
+	bh=rxkM1KQ6LYaLEjQiZmalf3gN3z7fUynbMwmvmwTODYQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=jZLZtozTo3QfL4zmabM9oTgcGikiO+/rOboFUR5vVxEuudd/0iRHUhx/DmJp7ZC1fza5ek9UNT6Z4it5/tWxetTId4lk0wuZ2VvO8HKsVt3FqfUotl81vKKWPkX8LgTLdXq0G9Sc8+gb7zdCkM2LZjb3ChQyIOobXefz6BvWCrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Wed, 12 Aug 2026 17:23:51 +0800 (GMT+08:00)
+Date: Wed, 12 Aug 2026 17:23:51 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: ukleinek@kernel.org, daniel.lezcano@kernel.org, tglx@kernel.org
+Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pwm@vger.kernel.org, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, xuxiang@eswincomputing.com,
+	wangguosheng@eswincomputing.com, pinkesh.vaghela@einfochips.com
+Subject: Re: [PATCH v14 0/5] Update designware pwm driver
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260730111425.1680-1-dongxuyang@eswincomputing.com>
+References: <20260730111425.1680-1-dongxuyang@eswincomputing.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807-ucsi-itepd-v7-0-998ac11ed0ef@ite.com.tw>
+Message-ID: <6a4cf05e.948b.19ff549073f.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgAnPJ+nO3xqOzM7AA--.8869W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgERAmp7Tx8Vf
+	AABs5
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-On Fri, Aug 07, 2026 at 06:17:44PM +0800, Amber Kao wrote:
-> This series adds Device Tree bindings and minimal UCSI driver support 
-> for the ITE IT8851/IT8853 USB Type-C Power Delivery controller over I2C.
-> 
-> Changes in v7:
-> - dt-bindings: define 'reg' for the connector@[01] nodes, since a
->   unit-address requires a 'reg' property.
-> - dt-bindings: dropped Krzysztof's Reviewed-by tag due to the above
->   change.
-> - ucsi_itepd: use guard(mutex) in itepd_process_event(),
->   ucsi_itepd_read_cci() and ucsi_itepd_read_message_in().
-> - ucsi_itepd: kept request_threaded_irq() instead of
->   devm_request_threaded_irq(). ucsi_destroy() is not devres-managed and
->   runs inside remove(), while a devm IRQ is only released after remove()
->   has returned; an interrupt in that window would call
->   ucsi_notify_common() on an already destroyed ucsi instance.
-
-Why are you answering questions here in the changelog instead of the
-thread where they were originally asked?
-
-Changelog should really only list the things that were change.
-
-Thanks,
-
--- 
-heikki
+PiAKPiBUaGVyZSBpcyBhbHJlYWR5IGEgcGF0Y2ggWzFdIGZvciB0aGUgRGVzaWduV2FyZSBQV00g
+ZHJpdmVyLAo+IHdoaWNoIGlzIHBvc3RlZCBieSBCZW4gYW5kIHN0aWxsIHVuZGVyIHJldmlldy4K
+PiBCYXNlZCBvbiB0aGlzIHBhdGNoLCB0aGlzIHNlcmllcyBpcyBhIGNvbnRpbnVhdGlvbiBvZiBb
+MV0KPiB0byBhZGQgc3VwcG9ydCBmb3IgSVAgdmVyc2lvbnMgMi4xMWEgYW5kIGxhdGVyLCB3aGlj
+aAo+IGluY2x1ZGVzIHN1cHBvcnQgZm9yICJQdWxzZSBXaWR0aCBNb2R1bGF0aW9uIHdpdGggMCUK
+PiBhbmQgMTAwJSBEdXR5IEN5Y2xlIi4KPiAKPiBTdXBwb3J0ZWQgY2hpcHM6Cj4gRVNXSU4gRUlD
+NzcwMCBzZXJpZXMgU29DLgo+IAo+IFRlc3Q6Cj4gVGVzdGVkIHRoaXMgcGF0Y2ggb24gdGhlIFNp
+Zml2ZSBIaUZpdmUgUHJlbWllciBQNTUwICh3aGljaCB1c2VzIHRoZSBFSUM3NzAwCj4gU29DKS4K
+PiAKPiBbMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC8yMDIzMDkwNzE2MTI0Mi42NzE5
+MC0xLWJlbi5kb29rc0Bjb2RldGhpbmsuY28udWsvCj4gCj4gVXBkYXRlczoKPiAgIENoYW5nZXMg
+aW4gdjE0Ogo+ICAgLSBZQU1MOgo+ICAgICAtIEFkZCAnUmV2aWV3ZWQtYnk6IEtyenlzenRvZiBL
+b3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAb3NzLnF1YWxjb21tLmNvbT4nCj4gICAgICAg
+Zm9yIHBhdGNoIDEuCj4gICAgIC0gRHJvcCBtaW5JdGVtcyBvZiByZXNldC1uYW1lcyBwcm9wZXJ0
+eS4KPiAgICAgLSBBZGQgdGhlIHJlc2V0cyBhbmQgcmVzZXQtbmFtZXMgcHJvcGVydGllcyBhbmQg
+cmVzdHJpY3Rpb25zIGZvcgo+ICAgICAgIG90aGVyIGNvbXBhdGlibGUgc3RyaW5ncy4KPiAgIC0g
+RHJpdmVyOgo+ICAgICAtIFJlbW92ZSBNT0RVTEVfQUxJQVMoKSAoU2FzaGlrbyByZXZpZXcgb2Yg
+djEzKS4KPiAgICAgLSBVcGRhdGUgdGhlIGNvbW1pdCBtZXNzYWdlIGFuZCBjb21tZW50IGZvciBw
+YXRjaCA1Lgo+ICAgICAgIFRoZSBleGNsdXNpdmUgcmVzZXQgcmVmZXJlbmNlcyBtdXN0IGJlIHJl
+dGFpbmVkIGZvciB0aGUgbGlmZXRpbWUKPiAgICAgICBvZiB0aGUgdGltZXI6IHRoZSBoYXJkd2Fy
+ZSBrZWVwcyBydW5uaW5nIGFmdGVyIGluaXQsIGFuZCBob2xkaW5nCj4gICAgICAgdGhlIHJlZmVy
+ZW5jZXMga2VlcHMgdGhlIHJlc2V0cyBkZWFzc2VydGVkLCBwcmV2ZW50aW5nIG90aGVyCj4gICAg
+ICAgZGV2aWNlcyBvbiB0aGUgYnVzIGZyb20gcmUtYXNzZXJ0aW5nIHRoZW0gKFNhc2hpa28gcmV2
+aWV3IG9mIHYxMykuCj4gCgpIaSBVd2UsIERhbmllbCwgYW5kIFRob21hcywKCkp1c3QgYSBnZW50
+bGUgcmVtaW5kZXIgb24gdGhpcyBzZXJpZXMuIFRoaXMgcGF0Y2ggc2VyaWVzIGhhcyByZWNlaXZl
+ZMKgClJldmlld2VkLWJ5IGFuZCBBY2tlZC1ieSB0YWdzIGZyb20gS3J6eXN6dG9mIG9uIHRoZSBi
+aW5kaW5ncyBwb3J0aW9uLsKgCkZvciB0aGUgZHJpdmVyIHBhcnQsIEkgaGF2ZSBhbHJlYWR5IHJl
+c3BvbmRlZCB0byBTYXNoaWtvJ3MgcmV2aWV3wqAKY29tbWVudHMgYW5kIHByb3ZpZGVkIGV4cGxh
+bmF0aW9ucy4KCkNvdWxkIHlvdSBwbGVhc2UgaGVscCByZXZpZXcgdGhlIHJlbWFpbmluZyBwYXRj
+aGVzPyBJIHdvdWxkIGFwcHJlY2lhdGXCoAphbnkgZnVydGhlciBmZWVkYmFjayBvciBzdWdnZXN0
+aW9ucyBvbiBob3cgdG8gcHJvY2VlZCB3aXRoIHRoaXMgc2VyaWVzLgoKVGhhbmtzIGZvciB5b3Vy
+IHRpbWUgYW5kIGF0dGVudGlvbi4KCkJlc3QgcmVnYXJkcywKWHV5YW5nIERvbmcKCg==
