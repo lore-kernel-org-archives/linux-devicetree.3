@@ -1,110 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3A1436342
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52A4443E3F
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786548233; cv=none; b=U5JFZVCkObl5yre9O0MKz/XOA1HAnM37UEEwB4DOxk+DmYdkzNvnPzR0n0M5X3yIaq93+nHFu7MkmW9cR4PvhmXho4knpbwu+IwTSepvKT2PMr50vDPqlaQQ7k+CpbedBCWVsSbpE69CCznccTYe7d2IG57YkgYAEDcWyLywv5g=
+	t=1786548256; cv=none; b=RwllGs9wpq50G0yYx/cmd4aZcew68gCaDavlvlagZ54LykQ//6QtRKRdUiXwyzvMy5zTQZcVQvABFARS0xrUGiTvaLGkW1a1prMPpx5lkCF7NCgOR/+tHuxh8acOi36HGUgACwmsyK2fVq2yMdQAmTkyK0iducaN3kfE7wDlyJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786548233; c=relaxed/simple;
-	bh=LuCKyOhQ7eO5becPGXZmxJlicLtnPVIXBJKRP96SzdQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LA9r1AJUvm+aTVDi8SJeascPY1sINwEaImMzvovTdjOSFQPdqo0ybBiHj5bamDU2JJfo8mB1MIHcpJ2lHN7L2ib+L56L8+YgluIoy75+LkcTw3ohZtMt4NUORTjRroJ22qp/Skwy/OXWuqRXm9IIUy2Hj9chgVXy59Bmtv1zxj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5eAQqaB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5eAQqaB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6D21F000E9;
-	Wed, 12 Aug 2026 15:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786548232;
-	bh=9mK5ZuPS5GfCHwbr4w/unVWk08YAGU39uUjRKenvno4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J5eAQqaBzAnvI+HNGNoMci1LwH+8kKPE+plTEWwNh18hLEIaqQXmCHiNLk+8FvqbH
-	 B1Zo6vBtyTLKa4cA6Wi8uEMu8NXhzZgfJf1yEfMTAfh0ItdX0iHErbidCYaM19UGIM
-	 q+kllOnyegKKimDlsQgezagjWTsqmUEypTUOuhpDdtIP+qrd1zR4iqpmL+15NPaHuj
-	 CGlFIy6ZmHx4Szm9m92RMQsxReG/6PUfbqp6rQ6BOmsOySMMFYbSqfg6XASOD0zKW1
-	 u51j8nBJf/m0F2SxJWLM6T0cI6qbh5rdxw8PzDmXk6pu2EVaeEU5jPz43A+eNCW9Ap
-	 JJystSxESGUPw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/6] iio: accel: mma8452: Only apply trigger type
- when not set by firmware
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260812-mma8452-open-drain-v4-3-bfca15d02b59@geanix.com>
-References: <20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com>
- <20260812-mma8452-open-drain-v4-3-bfca15d02b59@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 15:23:51 +0000
-Message-Id: <20260812152351.DB6D21F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1786548256; c=relaxed/simple;
+	bh=9S6tG7eJZN31suWJE/BxcyW2TUerziSfMO+T7zlebuc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ORYay2M3Nu/pgc5yZxypkN5rYYKzRUy39Mr3uCXQtNCM/yg2GAxMZA+NeOQ1++d0XvaFrJT5KYgOtnNtlGOynl37JhiNQhCilXYhLbs7Y301+sE+LzwSjqEBfmw69oVH+55E1oLHDwg+vgbHAea9DNCzqROfwk1HrRpx/4bN+FE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-75e2905c09aso234827137.2
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:24:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786548253; x=1787153053;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uH9hHAtONGrSCasVo64a/skQAyy7fg3fmulOYsxslps=;
+        b=VhyDo0PkyX42EsBAL5Z4EMlUtxWyMwAqWXHkt8fOX/Ie3wHs4bFMXK3o7e3HDbS9uh
+         y0mvu8cF4VWFutzOZgbyUJt5ypBJp4JZVnCBkyWVfHzuwXAMdprY0ly1287DuQymVS3H
+         qxTsig9PzIQG3yyIXHkyR6sw/v3Z3uAOr0EPlLGWV19HHZsnaggSGCxBtiw2FhdyLYHI
+         Ix2Dp4pMnpKLLyvmtM3XAnZzLTLG/V0UG5BdtZOzwbyLewWuRbz0SevkTA0thFCZEJiU
+         jucl+upZBndp3grp9zxWGQ6f07oc9LxurVkXA81vbCUDheOtexlbS92Fq2vJHCnXGXRZ
+         Z+nQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqebltchcVAGDLtXCHY5ZTnupYZXIC7c8OtNAyPoUvt0/r/mpanMWhxcz+LIbaYgYiXwN2TcBkjrU8y@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFNt7p8jn3XJhnAvYEpOi/snjfjq5X3w/KXwf50+zmsGHd/TMr
+	mXOvqDO9rmlloSjOiid2yB5qBgzesdx28Dob+Op0LG+5QFmLXGumStqjXyUgXz9+
+X-Gm-Gg: AR+sD12eDVbfG5atcjxgME5OMj4m2AflMLIdcHOnno/MxZ0BzxNHeAww9u/aKjsTKkw
+	lgMQovIQvHBRW1IPAg/Ejd1NAne13nlAAB2d/ycsOP2OMVkukhnCOzXi1qWu0i68rB3tAuf56Ak
+	P2Rr9N3WRO8A4VYXwOapW7Mvs2ExjwR0t2UZ1NT5vjN5LoVD9qvrQ3kURHi5SLnncgxWYDxkJfF
+	1rKfDtVCpRaayJIkyGDtSEjmNs532o+r34zeqBD4LcY1Z+hX0G6t9IbGYqrVlf8w9TXBFfJHZyj
+	zsLBeAn7JBJGNdquccy/GgAkTnwt5c8oKBSX/7BNH0HTG3byU7D10yu5bUhOQsiNW8no0eHOe8Y
+	/pzWdrRlCtKCPu4v++OM8cQPW7NdyhfpzA30N1+C8jXHQdOzh61cULXb23vwu0LG0iO+oMWZcaa
+	EU3yVjKng4Z7ilomCIAWVxA341cFPJVy64t32dxnbf1d9lA6757i15YMEzEPPM0LQQQrMxlyKsV
+	V295h0wnRMfPVJg42diIC0slQO8IAyoURSz
+X-Received: by 2002:a05:6102:3e28:b0:737:e354:4092 with SMTP id ada2fe7eead31-76c899745b9mr1177421137.11.1786548253568;
+        Wed, 12 Aug 2026 08:24:13 -0700 (PDT)
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com. [209.85.217.43])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97a3c1397bfsm1927910241.2.2026.08.12.08.24.11
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 08:24:12 -0700 (PDT)
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-745497ac8fcso351811137.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:24:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rp3SRgInGHN9aqDSEEqQQVucuwBy20BoEhTK8C0a1IsXGCHixIV/mNlYizneTqQ0DYd/lrtsxwhr/kS@vger.kernel.org
+X-Received: by 2002:a05:6102:2b9c:b0:744:c068:438a with SMTP id
+ ada2fe7eead31-76c87e76f58mr1085679137.5.1786548251491; Wed, 12 Aug 2026
+ 08:24:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260722085353.136986-1-ovidiu.panait.rb@renesas.com> <20260722085353.136986-2-ovidiu.panait.rb@renesas.com>
+In-Reply-To: <20260722085353.136986-2-ovidiu.panait.rb@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 12 Aug 2026 17:24:00 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWzwAD58-cw+5zXhg-VBpOVV+FLYt-ZOSQKDUSn4VKNQA@mail.gmail.com>
+X-Gm-Features: AUfX_mziju9ccGGEaVRv-C4Y24VRZU1VmvYmsrfRmau3nSASh2likHOdk95VE_4
+Message-ID: <CAMuHMdWzwAD58-cw+5zXhg-VBpOVV+FLYt-ZOSQKDUSn4VKNQA@mail.gmail.com>
+Subject: Re: [PATCH 1/5] arm64: dts: renesas: r9a09g057: Switch GBETH TX queue
+ scheduling to WRR
+To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: magnus.damm@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	biju.das.jz@bp.renesas.com, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unvalidated and unconfigured IRQ trigger types from firmware cause=
- interrupt polarity mismatch or hardware stalls.
---
+On Wed, 22 Jul 2026 at 10:54, Ovidiu Panait
+<ovidiu.panait.rb@renesas.com> wrote:
+> The GBETH ethernet nodes don't specify a TX scheduling policy, so stmmac
+> falls back to Strict Priority. In this configuration the queue with the
+> highest priority gets all the traffic, starving the others under load.
+>
+> Under sustained UDP TX load with multiple data streams, this starvation
+> triggers spurious adapter resets due to TX queue timeouts:
+>
+>   iperf3 -c <ip> -i0 -t60 --bind-dev end0 -u -b0 -P4
+>   end0: NETDEV WATCHDOG: CPU: 1: transmit queue 1 timed out 5228 ms
+>   end0: Reset adapter.
+>
+> Investigation shows that only the highest priority queue is advancing
+> while the others stall for more than 5 seconds, causing a netdev watchdog
+> reset.
+>
+> Switch the TX scheduling policy to Weighted-Round-Robin (WRR) so that
+> traffic is processed across all queues, eliminating the stalls.
+>
+> Fixes: 050ee38d0002 ("arm64: dts: renesas: r9a09g057: Add GBETH nodes")
+> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 
---- Patch [3]: [PATCH v4 3/6] iio: accel: mma8452: Only apply trigger type =
-when not set by firmware ---
-commit 6463a4aeb8274414532a847585e92a3f1c4195b9
-Author: Esben Haabendal <esben@geanix.com>
+LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
-iio: accel: mma8452: Only apply trigger type when not set by firmware
+Gr{oetje,eeting}s,
 
-This patch modifies the driver to use the IRQ trigger type specified by
-the firmware instead of unconditionally forcing an active-low trigger. It
-falls back to active-low if the firmware does not provide a valid trigger
-type.
+                        Geert
 
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index f645a5c6fd1c2..1fb43c5b0b72f 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-> @@ -1683,9 +1683,16 @@ static int mma8452_probe(struct i2c_client *client)
->  		goto trigger_cleanup;
-> =20
->  	if (client->irq) {
-> +		unsigned long irq_flags;
-> +
-> +		irq_flags =3D irq_get_trigger_type(client->irq);
-> +		if (irq_flags =3D=3D IRQ_TYPE_NONE) {
-> +			dev_info(dev, "invalid irq type, setting default active low\n");
-> +			irq_flags =3D IRQF_TRIGGER_LOW;
-> +		}
-> +		irq_flags |=3D IRQF_ONESHOT;
->  		ret =3D request_threaded_irq(client->irq, NULL, mma8452_interrupt,
-> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-> -					   client->name, indio_dev);
-> +					   irq_flags, client->name, indio_dev);
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[Severity: High]
-Will this cause an interrupt polarity mismatch if the firmware specifies
-an active-high trigger?
-
-Looking at mma8452_probe(), the driver calls mma8452_reset() earlier,
-which forces CTRL_REG3 (and its IPOL bit) to the hardware default of
-active low.
-
-If the firmware specifies IRQ_TYPE_LEVEL_HIGH, the OS interrupt subsystem
-is configured for active-high, but the sensor continues to assert active-low
-because CTRL_REG3 is never reprogrammed to match the firmware trigger type.
-
-Additionally, can passing edge triggers (like IRQ_TYPE_EDGE_FALLING) to a
-strictly level-triggered I2C sensor cause a missed-edge race condition?
-If a second event occurs before the interrupt line is deasserted, this could
-permanently stall the sensor.
-
->  		if (ret)
->  			goto buffer_cleanup;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-mma8452-op=
-en-drain-v4-0-bfca15d02b59@geanix.com?part=3D3
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
