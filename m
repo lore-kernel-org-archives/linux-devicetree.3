@@ -1,395 +1,214 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DAB23AB48C;
-	Wed, 12 Aug 2026 07:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3112033372A
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786520759; cv=none; b=bTD5Zoh9YrGy73ocuhtioCOkvDD+ATMqoaVFSYh044izgOftkpugcVEixNByN2PpN+xtCjWyb/ZDFd8dhTts9trWkwjwmwznuKt2fJQekRC//DIA829mYAd3vsOdQCPNr5FMg0tTYPjTIvD/ee5kvz9nq6fVSXymhOGrfe4rAVo=
+	t=1786520841; cv=none; b=Xf6gwfo/YTJOpXyXzqYViQ64RcE81iWV9LdMiCP0Te4uSjo6Xlhiz10uZ/pmEaCpVuwP9mxJrMUlwGL8fMl+EcuaOBRqQSR/bPweMtWdKwWDQ6HqxIAolcqyqwLJLHm686a9cJZIWbAdN/atFhD58u4yOvRAi2y76qlipnZ9BZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786520759; c=relaxed/simple;
-	bh=StC8QDYrLnSiwMZutuA5gSBHwvm3C4QqXZZ+E8CjO98=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Sa5EckGq0vZp9CYkllTTveykGQDgmrKn48OALwhhovB36OFu0YmcEiY1VkqXOuSNqI2vPcmhv8l8M8gj61zqAV+dv3KNQjwdDPE14YO45LALB5p2gja2WoORrA3Nh9nbA/HAPCIj2quOag7/URjHEO9VhvEotFmxDIV1QcqA4j4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 7CBCD1A01BF;
-	Wed, 12 Aug 2026 09:45:43 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 4B7DD1A02BE;
-	Wed, 12 Aug 2026 09:45:43 +0200 (CEST)
-Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 1E8C11800088;
-	Wed, 12 Aug 2026 15:45:43 +0800 (+08)
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: alexandre.belloni@bootlin.com,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	wim@linux-watchdog.org,
-	linux-watchdog@vger.kernel.org,
-	linux@roeck-us.net
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	Lakshay Piplani <lakshay.piplani@nxp.com>
-Subject: [RESEND v4 3/5] rtc: pcf85363: add timestamp support with configurable timestamp mode
-Date: Wed, 12 Aug 2026 13:15:31 +0530
-Message-Id: <20260812074533.3545058-3-lakshay.piplani@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260812074533.3545058-1-lakshay.piplani@nxp.com>
-References: <20260812074533.3545058-1-lakshay.piplani@nxp.com>
+	s=arc-20240116; t=1786520841; c=relaxed/simple;
+	bh=DZ9M7mnW5jZJNJ+q7syZtuYzgj7TjznYGIKAUoJpKL0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=btKL3CYEFcnty5a4STSt4g/YMisYom8asg86q94tkLHJwLUDKL3WqFa7+gYbXBC+VHmdvSufoQlr2RCrlNekTbisolBHeMiNVjagMpfMvGffhb6bSozRdGN3Y5OQyg1sYh8D2Jt38cKJG49GjkmKZ9Stkq8p3gUkSIRjHeorNUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=0O8ngfLN; arc=none smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="0O8ngfLN"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso1034463a12.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 00:47:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1786520837; x=1787125637; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DZ9M7mnW5jZJNJ+q7syZtuYzgj7TjznYGIKAUoJpKL0=;
+        b=0O8ngfLNuIwP7YsIKf5H2Ej48wvKXfmXtjbRrkwyL5oLMcgIJdClfgJ1AsGQVxhkmh
+         ieyzOBQuhblanBAIQfMcV7x6DJVJLrCHJ21s4p78e3tUO1LbYg+a+XsyPXYv1RKnBvsv
+         uzzHQaOZQrbkbMOVNmQRg4/lDLuVVC/8TuQ3lA86hR/KRbnq3KQnMUg9Fk3gLO4KP1Hv
+         boAECvi1DxZMgpYMSHH1OuOV8+Fl9+fF3r6BzEAK8IadBw9u0Zvak3ZM0Spc+6E7dltf
+         hPV+9liY8OmfC8MZyRZzmJEIFR9k6+mYqgtQvb9sKyNt0A/xArfACTrAvF7AFeHvDQku
+         ZZeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786520837; x=1787125637;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DZ9M7mnW5jZJNJ+q7syZtuYzgj7TjznYGIKAUoJpKL0=;
+        b=C8SX2AmHLqmRCh/KTFevGdCHVIej0Xn73d9pvC1GUVwEJd7NkP5Gpj35ZcdGWqfNOD
+         R/Gg3T5sl8sM8A1R4Tdd/gi+Sj0Td4Bl+UDGObN7U6seSKgIUWubCh0Nq2V54LSkOhMz
+         Z+f43v3VLk9NolOzzN/6mvjeWV/l0n6K5OVD5iLo5nrDEXrA/gepdZ4CTMfGzwBtBBqm
+         cbvOHr6H6vlJCr0RkrPqQIIAKW+zReCsMBpijo5hCcqnaJX/LUh/mdUyyFoRzbIGYR8V
+         o/IaPl8qMxYXOcY7jOWaeRHI8qvN5+7ktJhH3Fj1VWbyfZ14B7s4rXtZUCtBdKylE743
+         z3JA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro1aTMTU4/YnikmMbpDuGAeNrGAXr++pBrMLSYAekhtRm9ykK4ZgnvW2oOeORqLQH0LFAklyYlEKYMd@vger.kernel.org
+X-Gm-Message-State: AOJu0YzycDlDrj906eTJuGn5ek8dy95OjfvhoiHC71Vc2ifV3JEjmZiC
+	o+aMV6i3N2kSzW8RiA3M14OwZ1ZThTD7GZOwWwAmYcdoQGM9UkZJM79xu4eS0l+72LI=
+X-Gm-Gg: AR+sD10QeEGFFrShULrM8WmcZGQ30TS87shU+qizph22awkPi++D8BtXU2SJPaoc0+X
+	cyf6l5rgG/v362W9T0EagUQmEfYmCTT9X7NcpEar395k5NsvuVZJXfmtbFqoPW2Ru+6fUDSc8Fu
+	jXNznUpRMBeeKFbg2ERv2hvZJ5rXduldwb1kHrLaVn1OcyeZkZMFGlLeolR8rVtdOSH0SVud5ue
+	ClQYkQ2NrN3ph6EQmZhkPQyOY4H6NjX2mqOXJ6tWqU1a/OVkoOWthvMUCESTH7EyMQa5+2XHH+r
+	WFzvBDlDU2N0hZyDZLcvqb6OSIVubbFVa0xMFC9QIZWum5rT5J6zeG+CRiU2q1UTQUcu5BupMXe
+	5wGrEZDivS4768i52XcSB9LjH5TFYeM2EyBOMCXmx+7GQfITUvQagwpCyfK75BJwJEKxrvCee9q
+	9rSde3V6VE/o/1zPdvOjo7R767P6dVrw6eiZk3FmioGY/NS3dISyJud8uSe6T12Xz6FT0MZPDxe
+	mPcMd2fjuhsvYV/ayVjlQRMGWQ0KspQCA==
+X-Received: by 2002:a05:6402:24d3:b0:69f:b347:a681 with SMTP id 4fb4d7f45d1cf-6a375e9bb79mr928738a12.4.1786520837441;
+        Wed, 12 Aug 2026 00:47:17 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3768b989fsm366900a12.10.2026.08.12.00.47.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 00:47:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 12 Aug 2026 09:47:16 +0200
+Message-Id: <DKMSS66NWU51.4K7QJ4ITAPMT@fairphone.com>
+Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, =?utf-8?q?Andr=C3=A9_Apitzsch?=
+ <git@apitzsch.eu>, "Daniel Scally" <dan.scally@ideasonboard.com>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Eugene Lepshy" <fekz115@gmail.com>, "Vasiliy
+ Doylov" <neko@altlinux.org>, "Achill Gilgenast" <achill@achill.org>,
+ <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <~postmarketos/upstreaming@lists.sr.ht>
+Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Danila Tikhonov" <danila@mainlining.org>, "Griffin Kroah-Hartman"
+ <griffin.kroah@fairphone.com>, "Sakari Ailus"
+ <sakari.ailus@linux.intel.com>, "Luca Weiss" <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
+ <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
+ <anGlY_kwp_I-fRnz@kekkonen.localdomain>
+ <f7cae569-0c51-41fe-92ab-f29311a22761@mainlining.org>
+ <anMeoKP6rUlgtKyR@kekkonen.localdomain>
+ <3554d8d1-65f7-4556-8b99-1c03e0cdca53@fairphone.com>
+ <dc1040f9-0ffc-4e64-a154-ece99b16eea5@mainlining.org>
+In-Reply-To: <dc1040f9-0ffc-4e64-a154-ece99b16eea5@mainlining.org>
 
-Add support for the timestamp capture registers available on PCF85263 and
-PCF85363. The registers latch the current time when selected events occur,
-such as TS pin activation or battery switch-over.
+Hi Danila,
 
-The capture source can be configured via the nxp,timestamp-mode device
-tree property, and latched values are exported through read-only sysfs
-attributes.
+On Sat Aug 8, 2026 at 2:42 PM CEST, Danila Tikhonov wrote:
+> Hi Griffin, Sakari,
+>
+> Thank you for the clarification.
+>
+> On 07/08/2026 17:30, Griffin Kroah-Hartman wrote:
+>> Hello Sakari, Danilla,
+>>
+>> On 05/08/2026 13:29, Sakari Ailus wrote:
+>>> Hi Danila, Griffin,
+>>>
+>>> On Tue, Aug 04, 2026 at 09:27:01PM +0300, Danila Tikhonov wrote:
+>>>> Hi Sakari,
+>>>>
+>>>> Thank you for your comment.
+>>>>
+>>>> On 04/08/2026 11:40, Sakari Ailus wrote:
+>>>>> Hi Danila,
+>>>>>
+>>>>> Thank you for the patch.
+>>>>>
+>>>>> On Sat, Aug 01, 2026 at 09:04:15PM +0300, Danila Tikhonov wrote:
+>>>>>> The DW9800W uses the same chip ID and register layout as the DW9800K=
+,
+>>>>>> but requires different default VCM frequency value.
+>>>>> Is this a real difference between the two models or what fits for the
+>>>>> attached lens? Too bad the datasheet isn't publicly available. :-(
+>>>>>
+>>>>> At least the differing default and constraints for=20
+>>>>> dongwoon,vcm-prescale
+>>>>> needs to be documented in bindings.
+>>>> I share your skepticism and have essentially the same concerns. Since =
+I
+>>>> do not have the DW9800K datasheet, I cannot say with certainty how it
+>>>> differs from the DW9800W.
+>>> Indeed. The limits should have been added for dw9800k, too, but I=20
+>>> guess I
+>>> missed this in review. :-\
+>>>
+>>>> In particular, the parameter referred to as the VCM frequency in the
+>>>> driver is used to derive the SACT value. For the DW9800W, SACT[5:0]
+>>>> defines the actuator resonance period in SAC mode and the one-step
+>>>> period in LSC mode. The datasheet gives the corresponding formulas as:
+>>>> - tVIB =3D 6.3 ms + SACT * 0.1 ms
+>>>> - LSC 1-step period =3D 252 =C2=B5s + SACT * 4 =C2=B5s
+>>>>
+>>>> Therefore, the default value may differ between the DW9800K and DW9800=
+W
+>>>> if the formulas or timing characteristics used to calculate SACT are
+>>>> different.
+>>> Griffin, would you be able to comment this?
+>>
+>> After checking on my side, DW9800W and K are almost identical in both=20
+>> structure
+>> and register values, including how tVIB and tLSC are calculated,=20
+>> DW9800K has an extra
+>> register that can change the output current to 130mA but we don't ever=
+=20
+>> use that.
+>>
+>> We didn't have a datasheet when working on the DW9800k so we had to go=
+=20
+>> off of
+>> the downstream driver during runtime to get our register values. The=20
+>> datasheet is a
+>> much more reliable source to be using for this instead.
+>>
+>> My colleague has already identified ways to fix the bindings, which we=
+=20
+>> will
+>> tackle ourselves.
+>>
+> I'm glad you were able to clarify the situation, as this should help us
+> handle both IC variants correctly.
+>>> Another matter: the comment on dw9800k says there's no device ID. So is
+>>> there a device ID that wasn't just checked earlier or is there really n=
+o
+>>> device ID?
+>>
+>> Indeed, it turns out the DW9800K DOES have an info register, which=20
+>> should be
+>> 0xEB, that's on us for not updating it after we received more=20
+>> documentation.
+>>
+> Given this, and assuming everyone agrees, I think it would make sense
+> for me to leave the DW9800K untouched in the next version of this patch
+> series. Since it turns out that the DW9800K has a different Chip ID, you
+> can fix the Chip ID check for it separately based on the information you
+> have.
+>
+> One point is still unclear to me, though: is the default VCM frequency
+> the same for both ICs, or does it differ between them?
 
-Additionally:
-- Use rtc_add_group() instead of sysfs_create_group() to register the
-  timestamp attributes under the RTC class device (/sys/class/rtc/rtcX).
-- Perform minor cleanups in the probe function for better readability.
+Like Griffin wrote, the way the driver/bindings currently handle
+especially dongwoon,vcm-prescale ("vcm_freq") is completely wrong **for
+DW9800K**. This wasn't done better because no datasheet was available to
+us for the DW9800K at that point in time.
 
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
----
-V3 -> V4:
-- No changes in v4.
-V2 -> V3:
-- Split into separate patches as suggested:
-  - Battery switch-over detection.
-  - Timestamp recording for TS pin and battery switch-over events.
-  - Offset calibration.
-  - Watchdog timer (to be reviewed by watchdog maintainers).
-- Dropped Alarm2 support
-- Switched to rtc_add_group() for sysfs attributes
-V1 -> V2:
-- Watchdog related changes due to removal of vendor specific properties
-  from device tree
-  * remove vendor DT knobs (enable/timeout/stepsize/repeat)
-  * use watchdog_init_timeout (with 10s default)
-  * derive clock_sel from final timeout
-  * default, repeat=true (repeat mode)
-- Fixed uninitalised warning on 'ret' (reported by kernel test robot)
-- Use dev_dbg instead of dev_info for debug related print messages
-- Minor cleanup and comments.
+Sidenote, I found a datasheet for DW9718S and that one seems to be
+programmed correctly. I can't comment about DW9761 and DW9719.
 
- drivers/rtc/rtc-pcf85363.c | 209 +++++++++++++++++++++++++++++++------
- 1 file changed, 175 insertions(+), 34 deletions(-)
+Please wait with adding DW9800W support until this situation has been
+cleaned up by us since it's the same registers with both DW9800K/W.
 
-diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
-index c03d5a65c5f7..e10e58f69012 100644
---- a/drivers/rtc/rtc-pcf85363.c
-+++ b/drivers/rtc/rtc-pcf85363.c
-@@ -16,6 +16,7 @@
- #include <linux/bcd.h>
- #include <linux/device.h>
- #include <linux/of.h>
-+#include <linux/rtc.h>
- #include <linux/regmap.h>
- 
- /*
-@@ -101,19 +102,31 @@
- #define PIN_IO_INTA_OUT	2
- #define PIN_IO_INTA_HIZ	3
- 
-+#define PIN_IO_TSPM     GENMASK(3, 2)
-+#define PIN_IO_TSIM     BIT(4)
-+
- #define OSC_CAP_SEL	GENMASK(1, 0)
- #define OSC_CAP_6000	0x01
- #define OSC_CAP_12500	0x02
- 
- #define STOP_EN_STOP	BIT(0)
-+#define RTCM_BIT        BIT(4)
- 
- #define RESET_CPR	0xa4
- 
- #define NVRAM_SIZE	0x40
- 
-+#define TSR1_MASK       0x03
-+#define TSR2_MASK       0x07
-+#define TSR3_MASK       0x03
-+#define TSR1_SHIFT      0
-+#define TSR2_SHIFT      2
-+#define TSR3_SHIFT      6
-+
- struct pcf85363 {
- 	struct rtc_device	*rtc;
- 	struct regmap		*regmap;
-+	u8 ts_valid_flags;
- };
- 
- struct pcf85x63_config {
-@@ -306,8 +319,11 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, void *dev_id)
- 		return IRQ_NONE;
- 
- 	if (flags) {
--		dev_dbg(&pcf85363->rtc->dev, "IRQ flags: 0x%02x%s%s\n",
-+		dev_dbg(&pcf85363->rtc->dev, "IRQ flags: 0x%02x%s%s%s%s%s\n",
- 			flags, (flags & FLAGS_A1F) ? " [A1F]" : "",
-+			(flags & FLAGS_TSR1F) ? " [TSR1F]" : "",
-+			(flags & FLAGS_TSR2F) ? " [TSR2F]" : "",
-+			(flags & FLAGS_TSR3F) ? " [TSR3F]" : "",
- 			(flags & FLAGS_BSF) ? " [BSF]" : "");
- 	}
- 
-@@ -317,6 +333,24 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, void *dev_id)
- 		handled = true;
- 	}
- 
-+	if (flags & FLAGS_TSR1F) {
-+		regmap_update_bits(pcf85363->regmap, CTRL_FLAGS, FLAGS_TSR1F, 0);
-+		pcf85363->ts_valid_flags |= FLAGS_TSR1F;
-+		handled = true;
-+	}
-+
-+	if (flags & FLAGS_TSR2F) {
-+		regmap_update_bits(pcf85363->regmap, CTRL_FLAGS, FLAGS_TSR2F, 0);
-+		pcf85363->ts_valid_flags |= FLAGS_TSR2F;
-+		handled = true;
-+	}
-+
-+	if (flags & FLAGS_TSR3F) {
-+		regmap_update_bits(pcf85363->regmap, CTRL_FLAGS, FLAGS_TSR3F, 0);
-+		pcf85363->ts_valid_flags |= FLAGS_TSR3F;
-+		handled = true;
-+	}
-+
- 	if (flags & FLAGS_BSF) {
- 		regmap_update_bits(pcf85363->regmap, CTRL_FLAGS, FLAGS_BSF, 0);
- 		handled = true;
-@@ -424,11 +458,94 @@ static const struct pcf85x63_config pcf_85363_config = {
- 	.num_nvram = 2
- };
- 
-+/*
-+ * Reads 6 bytes of timestamp data starting at the given base register,
-+ * converts them from BCD to binary, and formats the result into a
-+ * human-readable string in "YYYY-MM-DD HH:MM:SS" format.
-+ */
-+static int pcf85363_read_timestamp(struct pcf85363 *pcf85363, u8 base_reg, char *buf)
-+{
-+	struct rtc_time tm;
-+	u8 regs[6];
-+	int ret;
-+
-+	ret = regmap_bulk_read(pcf85363->regmap, base_reg, regs, sizeof(regs));
-+
-+	if (ret)
-+		return ret;
-+
-+	tm.tm_sec = bcd2bin(regs[0]);
-+	tm.tm_min = bcd2bin(regs[1]);
-+	tm.tm_hour = bcd2bin(regs[2]);
-+	tm.tm_mday = bcd2bin(regs[3]);
-+	tm.tm_mon = bcd2bin(regs[4]) - 1;
-+	tm.tm_year = bcd2bin(regs[5]) + 100;
-+
-+	return sysfs_emit(buf, "%04d-%02d-%02d %02d:%02d:%02d\n",
-+			  tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday,
-+			  tm.tm_hour, tm.tm_min, tm.tm_sec);
-+}
-+
-+/*
-+ * Checks whether a specific timestamp flag is set. If so, reads and
-+ * returns the formatted timestamp. Otherwise, returns "00-00-00 00:00:00".
-+ */
-+
-+static ssize_t pcf85363_timestamp_show(struct device *dev, char *buf,
-+				       u8 timestamp_flag, u8 base_reg)
-+{
-+	struct pcf85363 *pcf85363 = dev_get_drvdata(dev);
-+
-+	if (!(pcf85363->ts_valid_flags & timestamp_flag))
-+		return sysfs_emit(buf, "00-00-00 00:00:00\n");
-+
-+	return pcf85363_read_timestamp(pcf85363, base_reg, buf);
-+}
-+
-+static ssize_t timestamp1_show(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	return pcf85363_timestamp_show(dev, buf, FLAGS_TSR1F, DT_TIMESTAMP1);
-+}
-+static DEVICE_ATTR_RO(timestamp1);
-+
-+static ssize_t timestamp2_show(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	return pcf85363_timestamp_show(dev, buf, FLAGS_TSR2F, DT_TIMESTAMP2);
-+}
-+static DEVICE_ATTR_RO(timestamp2);
-+
-+static ssize_t timestamp3_show(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	return pcf85363_timestamp_show(dev, buf, FLAGS_TSR3F, DT_TIMESTAMP3);
-+}
-+static DEVICE_ATTR_RO(timestamp3);
-+
-+static struct attribute *pcf85363_attrs[] = {
-+	&dev_attr_timestamp1.attr,
-+	&dev_attr_timestamp2.attr,
-+	&dev_attr_timestamp3.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group pcf85363_attr_group = {
-+	.attrs = pcf85363_attrs,
-+};
-+
- static int pcf85363_probe(struct i2c_client *client)
- {
--	struct pcf85363 *pcf85363;
- 	const struct pcf85x63_config *config = &pcf_85363_config;
- 	const void *data = of_device_get_match_data(&client->dev);
-+	struct device *dev = &client->dev;
-+	struct pcf85363 *pcf85363;
-+	int irq_a = client->irq;
-+	bool wakeup_source;
-+	int ret, i, err;
-+	u32 tsr_mode[3];
-+	u8 val;
-+
- 	static struct nvmem_config nvmem_cfg[] = {
- 		{
- 			.name = "pcf85x63-",
-@@ -446,25 +563,43 @@ static int pcf85363_probe(struct i2c_client *client)
- 			.reg_write = pcf85363_nvram_write,
- 		},
- 	};
--	int ret, i, err;
--	bool wakeup_source;
- 
- 	if (data)
- 		config = data;
- 
--	pcf85363 = devm_kzalloc(&client->dev, sizeof(struct pcf85363),
--				GFP_KERNEL);
-+	pcf85363 = devm_kzalloc(&client->dev, sizeof(*pcf85363), GFP_KERNEL);
- 	if (!pcf85363)
- 		return -ENOMEM;
- 
-+	pcf85363->ts_valid_flags = 0;
-+
- 	pcf85363->regmap = devm_regmap_init_i2c(client, &config->regmap);
--	if (IS_ERR(pcf85363->regmap)) {
--		dev_err(&client->dev, "regmap allocation failed\n");
--		return PTR_ERR(pcf85363->regmap);
--	}
-+	if (IS_ERR(pcf85363->regmap))
-+		return dev_err_probe(dev, PTR_ERR(pcf85363->regmap), "regmap init failed\n");
- 
- 	i2c_set_clientdata(client, pcf85363);
- 
-+	ret = regmap_update_bits(pcf85363->regmap, CTRL_FUNCTION, RTCM_BIT, 0);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable RTC mode\n");
-+
-+	if (!device_property_read_u32_array(dev, "nxp,timestamp-mode", tsr_mode, 3)) {
-+		tsr_mode[0] &= TSR1_MASK;
-+		tsr_mode[1] &= TSR2_MASK;
-+		tsr_mode[2] &= TSR3_MASK;
-+
-+		val = (tsr_mode[2] << TSR3_SHIFT) |
-+		      (tsr_mode[1] << TSR2_SHIFT) |
-+		      (tsr_mode[0] << TSR1_SHIFT);
-+
-+		ret = regmap_write(pcf85363->regmap, DT_TS_MODE, val);
-+		if (ret)
-+			dev_warn(dev, "Failed to write timestamp mode register\n");
-+
-+		dev_dbg(dev, "Timestamp mode set: TSR1=0x%x TSR2=0x%x TSR3=0x%x\n",
-+			tsr_mode[0], tsr_mode[1], tsr_mode[2]);
-+	}
-+
- 	pcf85363->rtc = devm_rtc_allocate_device(&client->dev);
- 	if (IS_ERR(pcf85363->rtc))
- 		return PTR_ERR(pcf85363->rtc);
-@@ -478,38 +613,44 @@ static int pcf85363_probe(struct i2c_client *client)
- 	pcf85363->rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
- 	pcf85363->rtc->range_max = RTC_TIMESTAMP_END_2099;
- 
--	wakeup_source = device_property_read_bool(&client->dev,
--						  "wakeup-source");
--	if (client->irq > 0 || wakeup_source) {
--		regmap_write(pcf85363->regmap, CTRL_FLAGS, 0);
--		regmap_update_bits(pcf85363->regmap, CTRL_PIN_IO,
--				   PIN_IO_INTAPM, PIN_IO_INTA_OUT);
--	}
-+	wakeup_source = device_property_read_bool(dev, "wakeup-source");
- 
--	if (client->irq > 0) {
--		unsigned long irqflags = IRQF_TRIGGER_LOW;
-+	ret = regmap_write(pcf85363->regmap, CTRL_FLAGS, 0x00);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to clear CTRL_FLAGS\n");
-+
-+	if (irq_a > 0) {
-+		regmap_update_bits(pcf85363->regmap, CTRL_PIN_IO, PIN_IO_INTAPM, PIN_IO_INTA_OUT);
-+		ret = devm_request_threaded_irq(dev, irq_a, NULL,
-+						pcf85363_rtc_handle_irq,
-+						IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-+						"pcf85363-inta", client);
- 
--		if (dev_fwnode(&client->dev))
--			irqflags = 0;
--		ret = devm_request_threaded_irq(&client->dev, client->irq,
--						NULL, pcf85363_rtc_handle_irq,
--						irqflags | IRQF_ONESHOT,
--						"pcf85363", client);
- 		if (ret) {
--			dev_warn(&client->dev,
--				 "unable to request IRQ, alarms disabled\n");
--			client->irq = 0;
-+			dev_err_probe(dev, ret, "INTA IRQ request failed\n");
-+			irq_a = 0;
-+		} else {
-+			regmap_write(pcf85363->regmap, CTRL_INTA_EN, INT_BSIE
-+				     | INT_TSRIE);
- 		}
- 	}
- 
--	if (client->irq > 0 || wakeup_source) {
--		device_init_wakeup(&client->dev, true);
--		set_bit(RTC_FEATURE_ALARM, pcf85363->rtc->features);
--	} else {
--		clear_bit(RTC_FEATURE_ALARM, pcf85363->rtc->features);
--	}
-+	regmap_update_bits(pcf85363->regmap, CTRL_PIN_IO,
-+			   PIN_IO_TSPM | PIN_IO_TSIM,
-+			   PIN_IO_TSPM | PIN_IO_TSIM);
-+
-+	if (irq_a > 0 || wakeup_source)
-+		device_init_wakeup(dev, true);
-+
-+	dev_set_drvdata(&pcf85363->rtc->dev, pcf85363);
-+
-+	ret = rtc_add_group(pcf85363->rtc, &pcf85363_attr_group);
-+	if (ret)
-+		return ret;
- 
- 	ret = devm_rtc_register_device(pcf85363->rtc);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "RTC registration failed\n");
- 
- 	for (i = 0; i < config->num_nvram; i++) {
- 		nvmem_cfg[i].priv = pcf85363;
--- 
-2.25.1
+Regards
+Luca
+
+>> Thanks for drawing our attention to this! Nice patch.
+>>
+>> Griffin
+>>
+> ---
+> Best regards,
+> Danila
 
