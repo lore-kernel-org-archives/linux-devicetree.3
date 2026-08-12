@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CA03624C9
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:10:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6F4366048
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786497055; cv=none; b=Q6utRyo97TzXoMyUYPrHeKjUOPkfgzULcguLz91+CUf7U5Et6vxYG18/+uVtT//7d/GvSzD0rVO9fftpGXrURArHNBxrkDiWLQSN7Q1rECXBTjqVhQxQ2GGUKC159ZGxZRGZwiaUDrn0DC57LZZRVkC9wdk5po0SGERR4XrRqag=
+	t=1786497086; cv=none; b=jkRQJNaHL2ZWSsCStfZguwAUoIu8Eu+O3t7tscwW7rcF0nFuMwlEMWG5T3oETFxAScmVGVzDjbs36D3JV2Su4GVA7v70jDPl2tkUwZQsr6xnBCXXV4aq2rFKRbRsFql47/t7hfhkWoAazdHBXzkDPigRMrV67DIBf4WfDNSoQPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786497055; c=relaxed/simple;
-	bh=DBSFXZV1NnfDOqmpFuE4PsquU8uwaOy2G1EU3yfUZxI=;
+	s=arc-20240116; t=1786497086; c=relaxed/simple;
+	bh=o9Kq5jlvXl4EzfNzN3xS+zkZkgy7mZ9Ww5oJg77JKxc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kVZhhkbczPiePj9YdADiO2etjQPx3nFrhEH++EO3L0lhj8ziEsIf0eaFe2yPcCG7a+VWoH+9kbNlvFHNe/xmtxXcy+lzQc3LzH2wrOl8jOIRu7koWPf/u1GjKy1ZQH/1ZChaEzIm1e+Da7EjTZEoKZbDGnZajyceShg29FRvNwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUM3dLH6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=aSCR12dg2dK4xz/1+fNGWcjiaZeajs1nsKV/sZ/FsrmlO+uaKCS768hg5gTR3TtuyaTN47/I1g6+WVMntdwa5fjxzB4UTkLyxD2Q6vo8zCKSa/xHceQfVpqd2XQDA26viJzWqLgs0njNIe1Y4dDOW0YC1I/iJcorCmLX8BW1/fM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXchdTYf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUM3dLH6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7259F1F000E9;
-	Wed, 12 Aug 2026 01:10:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXchdTYf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A000E1F000E9;
+	Wed, 12 Aug 2026 01:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786497053;
-	bh=ra0t7egHfjaRM3h7bxPvs/uNuD6LIUc6DQWFIVlgVto=;
+	s=k20260515; t=1786497085;
+	bh=7sUWgLc6nw7NtKzSkB4pLeGDpjmBan9ynk/ha9Oy5Pk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KUM3dLH6kFO/HmVNpOXM3bZchQtpiKp/R4G1VTqNS4rAoehKVumpLA22SkfudTcg+
-	 mvytZiV3Fcb+GEHj7hDf2xwvezhHLrcn+kh3KUF4vr+yQafospqrla+31j3V1SqIDO
-	 tCTuRdqTkH/Q9ondPMoGaMwbPvl1M7M081tRWTrP/KeMHPjHE+eYzAzsjW6H1YB8c4
-	 /8w5A9Yh0pR/5ufsUp8A65byscD6WtO1kn03ke9DLIgKcSJ/uGK1eQ3+vNJqUzhdV0
-	 Imb+GOrhq6Kj/3DA+kAlKJBCVKQTsY+DRdznt1GvbgrDWzdTCw54cWVa9oottZ4aK+
-	 6/QMfe5wHuMWA==
+	b=NXchdTYfHt+srmRpC8esMdKgDfKNnJCEK3hXY0VyP9Tzp/bWeUuOfSB/6xJrGCaj/
+	 Xu1ncE2M2qlisgQCTPP3ewNrCRdoGxjwDCMGwsaFh8ulxg2S2GTL1KGuQoQJ+umyMG
+	 +g6sV+G6XVTVZSLtFULfRn5WKpt0bTQsjoDgo9o5Xf9qn4eRTtGBdK8+GwQzDNKLJh
+	 cZt8veDkm9KGOLkf+54+xKk/1GiptHRlan/v2Cq98BGntlzR1ryJ3cs6Kl2qmHrOR4
+	 kpvrh8e+xL2Yzsb8M08PzzVLnTVBJsdGpQlq9QccDCiAiJZLx807fnrf/UuERO7E12
+	 aeKIfBQEdNKuQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/8] dt-bindings: usb: generic-ehci: Document
- access-controllers property
+Subject: Re: [PATCH 6/8] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3
+ xHCI USB controller glue
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marek Vasut" <marex@nabladev.com>
-Cc: vkoul@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260812010157.1772849-4-marex@nabladev.com>
+Cc: olteanv@gmail.com, robh@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org
+In-Reply-To: <20260812010157.1772849-7-marex@nabladev.com>
 References: <20260812010157.1772849-1-marex@nabladev.com>
- <20260812010157.1772849-4-marex@nabladev.com>
+ <20260812010157.1772849-7-marex@nabladev.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 01:10:53 +0000
-Message-Id: <20260812011053.7259F1F000E9@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 01:11:24 +0000
+Message-Id: <20260812011124.A000E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,45 +47,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Incomplete schema update: `access-controllers` is added to EHCI but=
- omitted from the companion OHCI binding.
+- [Low] Missing `#include <linux/bitfield.h>` for the `FIELD_PREP` macro.
 --
 
---- Patch [3]: [PATCH 3/8] dt-bindings: usb: generic-ehci: Document access-=
-controllers property ---
-commit 5a4a63ad96f05ab82966f723bbb1698bcfb4356a
+--- Patch [6]: [PATCH 6/8] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DW=
+C3 xHCI USB controller glue ---
+commit b7b018e07e03e9eca049254747c91235246ffef8
 Author: Marek Vasut <marex@nabladev.com>
 
-dt-bindings: usb: generic-ehci: Document access-controllers property
+usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3 xHCI USB controller glue
 
-This commit adds the access-controllers property to the generic EHCI USB
-controller device tree binding schema. This allows access checks to be
-documented for these controllers.
+This commit adds support for the ST STM32MP2 DWC3 USB controller glue logic
+to the generic DWC3 platform driver.
 
-> diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Do=
-cumentation/devicetree/bindings/usb/generic-ehci.yaml
-> index 55a5aa7d7a54e..602241887d995 100644
-> --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> @@ -80,6 +80,9 @@ properties:
->      minItems: 1
->      maxItems: 2
+> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3=
+-generic-plat.c
+> index ca69ac0eb07ce..0946ed61647b6 100644
+> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
+> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+[ ... ]
+> @@ -85,6 +91,38 @@ static int dwc3_spacemit_k1_init(struct dwc3_generic *=
+dwc3g)
+>  	return 0;
+>  }
 > =20
-> +  access-controllers:
-> +    maxItems: 1
-> +
+> +static int dwc3_stm32mp25_init(struct dwc3_generic *dwc3g)
+> +{
+[ ... ]
+> +	return regmap_update_bits(regmap, drcr,
+> +				  STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT |
+> +				  STM32MP2_USB3DRCR_OVRCUR_POLARITY |
+> +				  STM32MP2_USB3DRCR_VBUSEN_POLARITY |
+> +				  STM32MP2_USB3DRCR_USB2ONLYD |
+> +				  STM32MP2_USB3DRCR_USB2ONLYH,
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT,
+> +					     prt_pwr_ctrl) |
 
 [Severity: Low]
-Does this property also need to be added to the generic OHCI binding
-(generic-ohci.yaml) or a common schema like usb-hcd.yaml?
+Does this file need to include linux/bitfield.h?
 
-If a device tree configures both an EHCI controller and its companion OHCI
-controller behind an access controller, the OHCI node might fail
-dt_binding_check validation because generic-ohci.yaml enforces
-unevaluatedProperties: false.
-
->    dma-coherent: true
+The FIELD_PREP macro is used here to prepare the bitfields, but the header
+defining it does not appear to be included. If the header isn't pulled in
+transitively, will this result in a build failure?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812010157.1772=
-849-1-marex@nabladev.com?part=3D3
+849-1-marex@nabladev.com?part=3D6
