@@ -1,119 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58372332610;
-	Wed, 12 Aug 2026 13:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B376F33938B
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786541142; cv=none; b=kTRSt5WED7T1q7B7L+lItX+BsepZhVEgOXnYvcKfuTvHfv3hBoRQKRv9gq692AahYDGM+mpK6AQM8IDAdRfm0LyJRMgWZC+Srf865iVX92xdzP8cfmCfxtikoA68P83yMYalNmV0q1psbHJ/GQmtaF+DY5pKtzdb+uEd2DSeWlA=
+	t=1786541178; cv=none; b=dMisKRSP/6q8ZXf/65eaweRHLMc0DFfreYxo1/Qh/ZhGF1aMNBXXFpYoY80v1od/R+Y5Xg9aoMoLo+tLCnLZpOJOBTB/oEPYqskEd0xX/oYq+AvhotcwerbuL2Id6yOCYLvqGHLmcbvNcHxUqJNenOff84DM88aDYNjmuMrVGKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786541142; c=relaxed/simple;
-	bh=iMMr7BVoCnAiNC4c+t+ovPY0rzFvelMbWGxbDS8xn8Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C/qKDbXRyN2xVDL7WEXsxTEAIDz/yKPBtHTO8CZmpezo3VT4JDS4ru058OUhvyClhhjCgl/6ccI+YbluiVQbUcQDylA4gffdchTGgFMjcU1+lCH93Woo66bAEnGf1rSVHKPzSVsBfFYsoyycjA7MyF1vFogswutJwF507A+bs6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JkyjbaKQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786541178; c=relaxed/simple;
+	bh=wwHqZGeHOPOI7Rr1VYsYe3S2gNoSQoe2doFlwUqVW2M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d87eOnMQzSegfXgI+kbEDJn4HZZl5abWb1uFrJ3uvC/376CTkzlZorKtCKblgFgMQuwejwKrejfVxQjfbI36PpW7SKD2W2etA3ydLhhEnynXouuVbQS8GKqsnBXgfob+qzw8+g0M6OBKkRA5S+CM/KGy8UhUv5zi0pGnF13M4YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fUVNpy9e; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JkyjbaKQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D8BF1F000E9;
-	Wed, 12 Aug 2026 13:25:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786541141;
-	bh=XdWKg3Z14pzkjiIKFnBBxrtOl91QbWJYbzd6e96ktA8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JkyjbaKQcvZkv8h6FOccIz/vgPW5PWA50Jru9v74xeCJrCWHuwDvkzSZtawDpWsTl
-	 fa3pz2SueGRrasjvZ9rsaVVRPEALCEqUOP6/s1zeKosF6z4kxae8rUOA/AgT5SbqEz
-	 gDPizQVq14lxbVrg9YUbSX6to0qe9QtIbnquZ1XUYh50+qlQlcPCybCohbTHrG0n37
-	 myvuGH2exrgu00cOgcLjIpKmR2DJl8SgB6sLo25rrDEKpOKQSZhppe997YixQRgviL
-	 /2ic0KDVFJ0kQeSEAvXDk3IfI3Dm5UdHJdc+WoV53B853PuyKftMqNl660d1ruqgJB
-	 ZBlLKEUkXXSBg==
-Date: Wed, 12 Aug 2026 14:25:31 +0100
-From: Lee Jones <lee@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	John Stultz <john.stultz@linaro.org>,
-	Moritz Fischer <moritz.fischer@ettus.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andre Draszik <andre.draszik@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, mfd@lists.linux.dev,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Subject: Re: [PATCH v24 08/12] mfd: psci-mfd: Add psci-reboot-mode child cell
-Message-ID: <20260812132531.GS1072730@google.com>
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-8-889281373870@oss.qualcomm.com>
- <20260812081856.GF1072730@google.com>
- <CAMRc=Me7Nua8xgKA43rCH9SV2DQoCyAuOqb+KNDTuPxv_H5y9A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fUVNpy9e"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7e6b5737bb2so800967a34.1
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 06:26:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1786541174; x=1787145974; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iOEYGPRzI2ZD3nc79VvdBiED/thm1a8LkgM+AWcNblg=;
+        b=fUVNpy9e28zRME9FijDrFnRV04FeGUU+oZoPLbOWH8yMHzU0e+wd6ocQoorjajtOvG
+         Xey2VoSO8oDTz4/nwvZCMXyspoCzEYy6bu4zypya9vnFNc+RAccl60jI8OG8+H1vfSz8
+         qClg3mMpsVnL5ywE0BhiFrpv1ZxuofrQNk6PurA7EeYKB0crH1bbLSGcO4gSt4UbU9WS
+         PEQ0v0imIGlaZfknTFuNQYQvatboswJQmHKIKW7MNC3jGnMAORfQ0l1Yxqs25yi1F783
+         ez7+XOB73XzgUHX+s3BTbaEK7um6PTq62UjoUZze+Tkzp/zoLiXnoJr8rdbfJ9nfGlu9
+         XyRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786541174; x=1787145974;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iOEYGPRzI2ZD3nc79VvdBiED/thm1a8LkgM+AWcNblg=;
+        b=kpikCmj1AXxhssNV+MxuL+inbKloy7W9Kqd7KGArhzIfD2bnTYycoR3fdrXDGBKBWb
+         3Iwz5pCmYH96tpGOhr4wwCHFIAVbNbddUq97ErBwpOKpvEAdNbH0TaFnMv6T/F1OFmD9
+         VC1lDXuliesmqGslnbxJHbjRPD5WbjTV3oii36ZOBNMBY//CVcxSL8bgsWVRuqpRA8/J
+         gBAiXfHrCToTJgpxn2Glaq4xMVuGQHQVhD6PXVSXNc/i94/2FezsvWbZMpNYK3JLGy3i
+         d0A6+lMViAHTs+oIoYPB8G5qdrK4x19FgrFkQEyFKxtPxgod/Jpld4G/VboWKA1UFMl9
+         WOyA==
+X-Forwarded-Encrypted: i=1; AHgh+RoZqzQCfP9G8pCBt9QXm7ugIrqJKNJI723c7CkgbmGJOprB8pOmcHHWg5cy2v5NlLe15LsHOis5fYs8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxvEPWEN7bL2sseHXpsvj7uWfropzuVJluBQglDCFp1nsfBWCyS
+	LaMLBxpfZOPJoO21AFg6LALzBkix5xCO0CLXeIeBVEMGaV1SahmU4OFGfU+z6FgyDZM=
+X-Gm-Gg: AR+sD12/7Xn/snr6re2Wy5JTb40K04/EuSiVVCGXHmyimMNRWOUlLW6YLcrklFljh6b
+	qbaA0nnFPJdvQu2/N3PfzVtqU/SmFHjbMnSYU3MvM1U3mHFgqjb3+wF64qiO3Dz35aGIi2PA+3h
+	/uobLrFTtPBDAQtJuEs+Cjy0qqmSa/xlWko03TVPBfh/dbcpczHi6HCEUZ9vUZwbVwLUG5yMdGV
+	wRWf1Dpbt/UcKEfCrzGICExBH9sGKkHB1v/n7mUg2qSiR9GElfI6ndA9Qd5zXX9Tj5aDtcpj8Kj
+	rbyClgkUdOp5coofUTwXOP9NvUP5kwefU+lsPX3hMEg7gOm8wRJUxH/UGtlrzZN/xC+F1LFd0sP
+	kAFX5fMpoh1cVDwlEyDnj6ALNVzxJbZtaU7we8xkVSbpyS+2smqtcrc9zQyQ1q7EktHBvrdobC8
+	Cy/8b9Q6W1G2/k/39usFzsdZlMhyLF1PURNk+REGCmpMkXiCBx18khogkswnAtvNaQOrvPr0Ifv
+	dVMIMnoNReTShYbtNztIUYOKYQR8aCZGGUmdKWzifkdLzYwUQ==
+X-Received: by 2002:a05:6820:f029:b0:6ae:6f38:dac with SMTP id 006d021491bc7-6b0b263aaa9mr4004867eaf.10.1786541174306;
+        Wed, 12 Aug 2026 06:26:14 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:76d8:83ff:449f:8518? ([2600:8803:e7e4:500:76d8:83ff:449f:8518])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f3b3420373sm2853776a34.19.2026.08.12.06.26.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 06:26:13 -0700 (PDT)
+Message-ID: <7156c902-2bcd-445d-a00c-a5085b63c95e@baylibre.com>
+Date: Wed, 12 Aug 2026 08:26:12 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMRc=Me7Nua8xgKA43rCH9SV2DQoCyAuOqb+KNDTuPxv_H5y9A@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] iio: adc: ti-ads112c04: Add support for TI
+ ADS112C04
+To: Kyle Hsieh <kylehsieh1995@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260811-ti-ads112c04-driver-v4-0-ae704ac17241@gmail.com>
+ <20260811-ti-ads112c04-driver-v4-2-ae704ac17241@gmail.com>
+ <cd020926-9daf-4493-b0c1-6399a77fcf9c@baylibre.com>
+ <CAF7HswPcqzqMUtkLkfd3zmVHN6DX-Kz+tysG8t5x=+JAH8V2aQ@mail.gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <CAF7HswPcqzqMUtkLkfd3zmVHN6DX-Kz+tysG8t5x=+JAH8V2aQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 12 Aug 2026, Bartosz Golaszewski wrote:
+On 8/11/26 10:38 PM, Kyle Hsieh wrote:
+> On Tue, Aug 11, 2026 at 10:18 PM David Lechner <dlechner@baylibre.com> wrote:
+>>
+>> On 8/10/26 9:48 PM, Kyle Hsieh wrote:
+>>> Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
+>>> delta-sigma ADCs.
+>>>
 
-> On Wed, 12 Aug 2026 10:18:56 +0200, Lee Jones <lee@kernel.org> said:
-> > On Mon, 03 Aug 2026, Shivendra Pratap wrote:
-> >
-> >> The PSCI "reboot-mode" node does not define a compatible because it is a
-> >> configuration of boot-states provided by the underlying firmware. With
-> >> the new firmware-node based cells in mfd-core, this node can now be
-> >> exposed as a proper child cell.
-> >>
-> >> Add the psci-reboot-mode child cell to the psci-mfd driver with a
-> >> named_fwnode. Add psci-cpuidle-domain cell first to isolate it from
-> >> reboot-mode failures.
-> >>
-> >> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> >> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> >> ---
+...
+
+>>> +
+>>> +     /* Power-On Reset (POR) delay */
+>>> +     fsleep(50 * USEC_PER_MSEC);
+>>> +
+>>> +     /* Requesting OUT_HIGH asserts the active-low reset pin immediately */
+>>> +     reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+>>> +     if (IS_ERR(reset_gpio))
+>>> +             return PTR_ERR(reset_gpio);
+>>> +
+>>> +     if (reset_gpio) {
+>>> +             fsleep(1000);
+>>> +             gpiod_set_value_cansleep(reset_gpio, 0);
+>>> +     } else {
+>>> +             ret = ads112c04_write_cmd(client, ADS112C04_CMD_RESET);
+>>> +             if (ret < 0)
+>>> +                     return ret;
+>>> +     }
+>>> +
+>>> +     fsleep(1000);
+>>> +
+>>> +     /* Bypass PGA for now to allow full-scale single-ended measurements */
+>>> +     st->config0 = ADS112C04_CONFIG0_PGA_BYPASS;
+>>> +     ret = ads112c04_write_reg(client, ADS112C04_REG_CONFIG0, st->config0);
+>>> +     if (ret)
+>>> +             return ret;
+>>> +
+>>> +     ret = ads112c04_write_reg(client, ADS112C04_REG_CONFIG1, st->config1);
+>>> +     if (ret)
+>>> +             return ret;
+>>> +
+>>> +     if (client->irq > 0) {
+>>> +             ret = devm_request_irq(dev, client->irq,
+>>> +                                    ads112c04_irq_handler,
+>>> +                                    0,
+>>
+>> I think I've asked twice now to move this 0 on the previous line.
+>> If you don't agree with that, it is fine, but we just ask that you
+>> reply to the suggestion with an explanation to state your reasoning.
+>> Otherwise, it comes across as carelessness that you continue to
+>> ignore suggestions. This is not the only suggestoin that has been
+>> silently ignored. You might want to go back to the previous revisions
+>> and see if you missed anything else.
+> Clarifications on my previous mail.
 > 
-> ...
+> IRQ: I will use devm_request_threaded_irq() with a NULL primary handler and
+> IRQF_ONESHOT. disable_irq_nosync() is gone and the handler only calls
+> complete(). This also removes the bare `0` you asked about on v2 and v3,
+> with the arguments packed rather than one per line:
 > 
-> >> +	if (ret) {
-> >> +		if (ret == -ENOMEM)
-> >> +			goto out;
-> >> +		dev_warn(&pdev->dev, "reboot-mode child cell failed to add: %d\n", ret);
-> >
-> > Okay Yoda, but why is this okay?
-> >
+> ret = devm_request_threaded_irq(dev, client->irq, NULL,
+> ads112c04_irq_handler,
+> IRQF_ONESHOT, indio_dev->name,
+> indio_dev);
 > 
-> Hi Lee,
-> 
-> I'd like to call you out on this because making snarky comments on a non-native
-> English speaker's syntax is really not OK. Please don't do this. As a native
-> speaker you could have just proposed a better sounding version.
+> I left out the DRDY status read for now, since conversions are
+> single-shot under the mutex. Happy to add it if you prefer.
+>>
 
-It wasn't supposed to be offensive, it just made me chuckle.
+Completing the completion is safe in a normal IRQ handler. So if
+we aren't disabling the interrupt and we aren't reading the status
+bit in the IRQ handler, then we don't need a threaded interrupt
+yet.
 
-I unreservedly apologise if any offence or ill-feeling that may have occurred.
+>>> +                                    indio_dev->name, indio_dev);
+>>> +             if (ret)
+>>> +                     return ret;
+>>> +     }
+>>> +
+>>> +     return devm_iio_device_register(dev, indio_dev);
+>>> +}
+>>> +
 
--- 
-Lee Jones
