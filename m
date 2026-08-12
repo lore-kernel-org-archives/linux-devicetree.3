@@ -1,94 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C25636F8E4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1D6367B6E;
 	Wed, 12 Aug 2026 19:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786562916; cv=none; b=pwpPoQdI49pFydVdTz9TOw/ZgPnuM4btZyuiMt2pAnt8hDg/9gDcD7uR0SpZQ6bh9S4O+rJbzr8Cs2ypYsEF3542svvWnVFbCOiZ0dgJkNqpkbJA6L7ElrqRItlKLdhLiytRkEet/8dChl4xCEIeRmwagiIttVnIvB+dIhsGKX4=
+	t=1786562916; cv=none; b=H2fvWWhR5q3wmbGNPO3YGejvCDWYHSuohFATq53G/6bnYiGORlppAoLiCEkQyMFz8hRgPSyZRStnB04/SqvU/DThlow5zmPQn2DH/XNKj4B7yv34DISoGeqbr1+GZv7YoZXRJDmKVFEq5r3Y95qbwMLQ4usMLbI/P2PtLjzQxew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786562916; c=relaxed/simple;
-	bh=AlScUpq7vddfgR16eeoOIduQAhY/hspaxHM3/5Jqec8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EPeKQLQfzvokmVnudFxAI8IFMzATAbP6NGp74fcg3Y8XZ2t2n5Lo+1a9gx88ZXVysp5/Djo7GAOLSxM2yu6gaAM6CGv3v3atWta6dcJ+dqn3/VV2dBVHWZE+UevyGSIIzAsUHsBkWLMM6LHNuuHGV8U2AaUVAOdczfYVpQsFbKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TJz5ZM/+; arc=none smtp.client-ip=100.103.45.18
+	bh=dLji2N08zZSswpPPX2gbv/uuw8PM5LEyvne8vmueYt4=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=URgjeQ/oJkfr7s/wP20tHmdcUd67v+VjowRF9FO/LaHdFCDJYOG1oZHbn9Xf4La0IJYDhv6yUlzWJ8e6pEikipccU7qRuEJ6QjZyWljh5DEVtGD8pcIcHF1dgcxNOqdCrHipaL2GL628fUs/SwZ+nXDj0UenEX3tGJTJz5BIZQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jue82MC0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TJz5ZM/+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06A31F00A3A;
-	Wed, 12 Aug 2026 19:28:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jue82MC0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9161F00A3D;
+	Wed, 12 Aug 2026 19:28:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786562915;
-	bh=1wv4kNgnNbihJVWnQRVp4+ysqwQfrzKDVI8KwyAicVg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TJz5ZM/+RdnIO9aodwTJfkn0wijqZZUoskTs4R/zKiyhnDh28Ocu9V6cddf24E7Tw
-	 JESFbu+6wsuurxQTBLzIZRgEqm3ro8RUaEmSTw/HWnE8tOZuzPe1vetBm9oXmrNVTn
-	 BJXnqtlZI++ZyU1hGkRy7A7uPLdAfASZ9yKEqmtWt9FDBROlF57yaSf8hRKLpgnMBP
-	 R1UddwakP/Uya/lGKO0/x8SIzcZWaDoaj0eFj973GZ7BNq8jAyQG1MmXAu6TG92lXy
-	 rFJwR3duYvfvstYZ86trHP6sWf7tHRIMJJteoamYfeuLUJieC34Q2DDkuNx9Gc8LRG
-	 YE57PDUZtqQrQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: backlight: Add Orient Chip OCP8178
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wim de With" <wf@dewith.io>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, lee@kernel.org, linux-leds@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260812-ocp8178-backlight-v2-1-4ad18b48bef8@dewith.io>
-References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
- <20260812-ocp8178-backlight-v2-1-4ad18b48bef8@dewith.io>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 19:28:34 +0000
-Message-Id: <20260812192834.F06A31F00A3A@smtp.kernel.org>
+	bh=XpdC2s+fmds2ewrhQhKdbytAxObOi+Lk6nEA9HAeFFo=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=jue82MC0SfYbsxnIRJA0OgjYty/dye6o/EY9OcuzF6l+/b8nLQgBcFz1YnLTYybPB
+	 qIdDO2/U0DyW6V+LYZgbrcCJCjc+f71Fr01hiOBULX6gSK9OfgGYuHgH7FRrb5Vr/p
+	 SjzRwfQ6bSDp0Q2w2g0Z3nZ7pFmxRV8WhpjDIn/v8aWOaEBegNImxhSMY68Vrldvbq
+	 6+FeONqKqcrFGvmJYS9GPKwe1Bb1Dx2B+43KW4uKc9i4KvNDI7amz/bbEjd26By9DV
+	 tzHF3hGWYbKilcIOJ//iHLhEF42f5mBiuMpYolLmE2dwLXHeYzpSP9yBPjHRzhFxcK
+	 3XLrKukAhdQjg==
+Date: Wed, 12 Aug 2026 14:28:34 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matteo Martelli <matteomartelli3@gmail.com>, Takashi Iwai <tiwai@suse.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Binbin Zhou <zhoubinbin@loongson.cn>, 
+ Roger Shimizu <rosh@debian.org>, Daniel Drake <drake@endlessm.com>, 
+ Mark Brown <broonie@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ devicetree@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>
+To: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+In-Reply-To: <20260812-es8316-regulator-next-20260722-v2-1-e7078bc9bc9c@thundersoft.com>
+References: <20260812-es8316-regulator-next-20260722-v2-0-e7078bc9bc9c@thundersoft.com>
+ <20260812-es8316-regulator-next-20260722-v2-1-e7078bc9bc9c@thundersoft.com>
+Message-Id: <178656291392.677456.3887097935460488837.robh@kernel.org>
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: es8316: Add regulator
+ supplies
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The schema uses `additionalProperties: false` while also referen=
-cing `common.yaml#`, which will incorrectly reject standard inherited prope=
-rties.
---
 
---- Patch [1]: [PATCH v2 1/2] dt-bindings: backlight: Add Orient Chip OCP81=
-78 ---
-commit e31a9b24875ae6868d7bab27e5c73b0f9db06347
-Author: Wim de With <wf@dewith.io>
+On Wed, 12 Aug 2026 17:35:43 +0800, Hongyang Zhao wrote:
+> The ES8316 has separate AVDD, CPVDD, DVDD and PVDD supply inputs for
+> its analog, charge pump, digital core and digital I/O domains. Describe
+> all four inputs so boards can model the codec power topology.
+> 
+> The binding also covers ES8311 and ES8323, whose supply inputs differ,
+> so restrict these properties to the ES8316 compatible. Keep them
+> optional for compatibility with existing descriptions.
+> 
+> Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+> ---
+>  .../devicetree/bindings/sound/everest,es8316.yaml  | 27 ++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
 
-dt-bindings: backlight: Add Orient Chip OCP8178
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit adds device tree bindings for the Orient Chip OCP8178 LED
-backlight driver, introducing a new YAML schema.
+yamllint warnings/errors:
 
-> diff --git a/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178=
-.yaml b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-> new file mode 100644
-> index 0000000000000..57c44d3383b88
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-[ ... ]
-> +allOf:
-> +  - $ref: common.yaml#
-> +
-> +properties:
-[ ... ]
-> +required:
-> +  - compatible
-> +  - enable-gpios
-> +
-> +additionalProperties: false
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/everest,es8316.yaml: allOf:1: 'then' is a dependency of 'if'
+	hint: Keywords must be a subset of known json-schema keywords
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/everest,es8316.yaml: allOf:1: 'then' is a dependency of 'else'
+	hint: Keywords must be a subset of known json-schema keywords
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
 
-[Severity: Medium]
-Since this schema references common.yaml, should this be set to
-unevaluatedProperties: false instead? Using additionalProperties: false
-will incorrectly reject legitimate properties inherited from common.yaml
-during schema validation.
+doc reference errors (make refcheckdocs):
 
-> +
-> +examples:
-[ ... ]
+See https://patchwork.kernel.org/project/devicetree/patch/20260812-es8316-regulator-next-20260722-v2-1-e7078bc9bc9c@thundersoft.com
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-ocp8178-ba=
-cklight-v2-0-4ad18b48bef8@dewith.io?part=3D1
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
