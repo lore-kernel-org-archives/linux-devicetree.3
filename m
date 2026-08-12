@@ -1,88 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB41D39B972
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:15:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E536C32E12E;
+	Wed, 12 Aug 2026 08:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786522508; cv=none; b=mUyeYt+2od8fYF1kiswBUsjILcxlXA+5FaUK49VUo5HdUln9eGED0hUCrC9R+l8/CTI6pKz2mdOawG4cFV+UhZOdXYwBXH9vaWgPYgNDQUC0TcfPQZpjKgdrX2PW8yE/t546Jc4IiYOxTiDP2Rdhtl1PUfu8KZ+2DtmcaVECE8k=
+	t=1786522527; cv=none; b=Q0qLJaqoEH8Apd8oHuXpoPokhTbpYn/WuPFl8AG6nZcdHlQ83f/3cjaTUxxONPIaIp/VhmCt8adbN7Y8iz3MO+Ph3INKy3RTJl+0gq5dubEso/WrHP5srbJQADEx5ObXGh2ElpfYsYUXrqQP9LUIDE0xf3dW3V/C5HiQSt3hv94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786522508; c=relaxed/simple;
-	bh=1aTCBDot2rWqL3Wcu4hdF2iXis99mvno4rkB+hcpYnE=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MUiR40YB6BYZWAvpNkOvFAQOs2MMjUCpz8qBO2zWS0SPW8qYc7jSgELG/ptSC68vmexBmZqcotUAHTgMS1ltI23IOwJmnEAxwqVEEHMYm7WBRo+ztyD0ooD79Zj6sLIn0DVDXNMWQBNHADpQC7MOMM1b5KfXh/ZWsGui4VOZXDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q+NhIeL0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786522527; c=relaxed/simple;
+	bh=9BY7ufueTNS3wdYw/+vOSPSkUrKWO4ohMTslQOu0JwA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ssZkJ/5kAWjeEGWCrvrIBprfl8fFEsVmXA4b2x4YrUJJJ4rLQQ88Kskil9tfdJrMeahKoIBQBS5ZoCE+e0rquAcTI379Sv3UUVPTTQK+B+mIhKLSHStGTHqBJ5lAGcVmDV7sczRz1eTVysBjQSA/j/4tE1mmsz0xDVfYJmlZXJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CQuLFUDv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q+NhIeL0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 449011F00A3A
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:15:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CQuLFUDv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE961F000E9;
+	Wed, 12 Aug 2026 08:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786522506;
-	bh=1aTCBDot2rWqL3Wcu4hdF2iXis99mvno4rkB+hcpYnE=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Q+NhIeL0py+YCo3FKXDnvkMR+IyIfBk0r+R5BxPqsxL9ALh2xt6Dys/hgKbr37623
-	 A9YXlMlb7jv/dKs29aRgIjh3ffhmS57D0JM7xUIXM5kCy8vp7FVKUk9dA36v2lxOT6
-	 qINnMYUHF+PdVlre+5vM5ofNuk07YSY5TWT5rO8EM/4IFTTF7BT7Dmaupswu6OY8XF
-	 fHdtdOuxkvgXPooBfQPoJ8cD96V1yRbHEfwuptHhXygKJ5vIvuXyyBQybCs5eDRVBT
-	 5I2CG7I8o2wcfWRPtVDAWX1lUC2bIFhxPPlOytONO9JQ+r8Zb2rR6DYSHYEITyQ15j
-	 q5t+NsPZgT2tQ==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c86ce9e29so4365471fa.3
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:15:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpFlZJfOmKrJf6y3esJMt0joF0xj2uQeRFqZSxkr/jItRJmwNz28BYcQYHkpxvncXEMlFUn6cwb3wch@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGyKeUFBtrap62WaUrWIWrJKphGNL9JKQ6ym9Lpw9Zlp8mjElJ
-	Npe1Q2bWK0wBMlZOFQZBj1fz2U3x1vpsy+AjxCzIzLnFsNH8LBJ01NCBxVh7aDCR3zGqojTShHq
-	5KnMaBkiZBLIAAQ85zCyM9Pt1dNu6Hov4E6ggpwHVPg==
-X-Received: by 2002:a2e:ad13:0:b0:39c:9452:15e4 with SMTP id
- 38308e7fff4ca-3a10d58cce8mr2976611fa.19.1786522505034; Wed, 12 Aug 2026
- 01:15:05 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 12 Aug 2026 01:15:02 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 12 Aug 2026 01:15:02 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <c5eb8d0e-39ed-4211-bdfe-7902f6ee7f99@proton.me>
+	s=k20260515; t=1786522525;
+	bh=nZtfL1kwIlkIkj/Cq5rLTRLLBqk+ImQDiZUgSiLiBpM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CQuLFUDv9XLflAELJY36wwErBRpVAuJN7zcl92mvIbBcTYuxS6tdtP2HdE464CXVc
+	 Fr/2zXIIzKTG6maPVbZpbQovMr2g55NmU95xS/Acsn/wOo+kuafSiEutBsbYs6vQYn
+	 h5dthN6B3vIqftGHQjdvvtBYNf78ui2/saVJQbqwCxuLGy8sdvehOqagfKJBMkKvua
+	 oMByjghDPbgStf44rHqUWkqzWIMJpu0g1xB/00qik2t9Rn8YD5sdvNLnN42y7llq9n
+	 xXBgSeccy+vQSP2fPzcfnfS5389bfMWVIG+qv2sqATWH4BuqLpBbVFw5cPqEbF927x
+	 UDYRpe3jsSgCw==
+Date: Wed, 12 Aug 2026 09:15:21 +0100
+From: Lee Jones <lee@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
+	conor+dt@kernel.org, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for
+ cpuidle-psci-domain cell
+Message-ID: <20260812081521.GE1072730@google.com>
+References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
+ <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
+ <20260803100023.7AA1C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260802-sm8475-tlmm-v2-0-a93e1d1cb53b@proton.me>
- <20260802-sm8475-tlmm-v2-1-a93e1d1cb53b@proton.me> <CAMRc=Mf+_3CYbcT79NhBPLz2FBs-xWKA5xZxY_hmHbvYvJxF9g@mail.gmail.com>
- <c5eb8d0e-39ed-4211-bdfe-7902f6ee7f99@proton.me>
-Date: Wed, 12 Aug 2026 01:15:02 -0700
-X-Gmail-Original-Message-ID: <CAMRc=McCz40maTP_MqWEdXS8OMJCM1vJrGSpa9mB5htJhcqQqw@mail.gmail.com>
-X-Gm-Features: AUfX_mw0GASBsAuRPdy3KFsspzME1xqYkyH0b_vJyxQeqB0FhTWxT_fHqZbHa0s
-Message-ID: <CAMRc=McCz40maTP_MqWEdXS8OMJCM1vJrGSpa9mB5htJhcqQqw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] pinctrl: qcom: sm8450: Remove duplicate reference
- to gpio81
-To: Esteban Urrutia <esteuwu@proton.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	phone-devel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260803100023.7AA1C1F00A3A@smtp.kernel.org>
 
-On Mon, 10 Aug 2026 18:01:42 +0200, Esteban Urrutia <esteuwu@proton.me> said:
-> On 8/10/26 7:24 AM, Bartosz Golaszewski wrote:
->> On Sun, 2 Aug 2026 09:30:54 +0200, Esteban Urrutia via B4 Relay
->> <devnull+esteuwu.proton.me@kernel.org> said:
->>> From: Esteban Urrutia <esteuwu@proton.me>
->>>
->>> gpio81 is referenced twice in prng_rosc_groups.
->>> Remove the duplicate reference.
->>>
->>> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
->>> ---
->>
->> Please add the Fixes: tag.
-> Is it actually needed? No bugs occur with it.
->
+On Mon, 03 Aug 2026, sashiko-bot@kernel.org wrote:
 
-I - and many other maintainers - find it useful. It seems like there'll be
-a v3 anyway, so what's the problem?
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] The new `psci-mfd` driver lacks a `.remove` callback and does not set `.suppress_bind_attrs = true`, allowing manual unbinding via sysfs which leads to resource leaks.
+> - [Low] The newly introduced MFD driver, its file, and its structures include the string 'mfd' in their names, violating subsystem conventions.
 
-Bart
+Please review, explain or fix the Sashiko review(s).
+
+If this is a set, this request includes the other patches too.
+
+> --
+> 
+> --- Patch [4]: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for cpuidle-psci-domain cell ---
+> commit 26907aee3ff3e0a5d7112a9be25ebbebb10e94c7
+> Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> 
+> mfd: psci-mfd: Add PSCI MFD driver for cpuidle-psci-domain cell
+> 
+> This commit introduces a new PSCI MFD driver to manage multiple consumers of
+> the PSCI device node. It registers the cpuidle-psci-domain as a child cell
+> and updates the cpuidle driver to probe as an MFD child.
+> 
+> > diff --git a/drivers/mfd/psci-mfd.c b/drivers/mfd/psci-mfd.c
+> > new file mode 100644
+> > index 0000000000000..7affd6bb09dd8
+> > --- /dev/null
+> > +++ b/drivers/mfd/psci-mfd.c
+> [ ... ]
+> > +static struct platform_driver psci_mfd_driver = {
+> > +	.probe = psci_mfd_probe,
+> > +	.driver = {
+> > +		.name = "psci-mfd",
+> 
+> [Severity: Low]
+> This isn't a bug, but does naming the driver and struct with the "mfd"
+> string violate the MFD subsystem guidelines?
+> 
+> The MFD guidelines state not to hard-code implementation details in driver,
+> struct, or device names, and to specifically avoid including the string
+> "mfd" or the driver's own filename in names.
+> 
+> [Severity: Medium]
+> Since there is no .remove callback provided in psci_mfd_driver, does this
+> allow manual sysfs unbinding that could leak resources?
+> 
+> If a user unbinds the driver via sysfs, devres will destroy the child
+> devices. Because the child driver (psci-cpuidle-domain) lacks proper
+> cleanup for non-devm resources like generic PM domains, those resources
+> might leak or leave dangling pointers on this administrative path.
+> 
+> Should .suppress_bind_attrs = true be set in the driver struct to prevent
+> unsupported sysfs unbinding?
+> 
+> > +		.of_match_table = psci_mfd_of_match,
+> > +	},
+> > +};
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com?part=4
+
+-- 
+Lee Jones
