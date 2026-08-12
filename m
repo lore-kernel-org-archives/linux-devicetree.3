@@ -1,161 +1,271 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546AD352027;
-	Wed, 12 Aug 2026 08:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0C13B71A0
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786522747; cv=none; b=AOwKdTnppygaiIOrtdahISp5JQWukYoQZNNvu6DV9YqVhOHpGDwC9LJNYRWV7cI+VQbsah/eOG5MNqCOqcJ3uEBXHbkYG7Pi4bE1AqMp+ijMptpNyMyHD/+xI/Hsa8Rkjo3NPtwiK4+K81YCjanSKWRmxLIvesRkmYSOnP5KObI=
+	t=1786523198; cv=none; b=pezU/0V1Eq5AfUzI9ZolV2OBpD5PjjYqlZco+AKkE56uQAKSeSme5L6112KYXRsVCCS8IvVDrgfrvU+iIfKE4YcecdoL9e6twgqm0SB16FusEccZ8/g0Zt2R6XeGfuZsvF/oDsMG5pjZsCyZGZzAt91B+ovqZQtDyy8RH8fe65g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786522747; c=relaxed/simple;
-	bh=UbL3iC09wFptwQM3guce+Y0s7k/vjg+ZL4Ya8Dofdfw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SWIDYElpMdRCVsVW2f+SJqFlJ2Kp963eks8LdmtCeS/OJPKNCBbXMMHW5OhJSJQMebBuxuST/iy85DuN+XJQy45BiZpUtRl/UKOUHjKeNWY3c4555R196qeJWwC0fjQ5hPHOHZKcvZT1TfSom6UkjIEFaQgdJH5kt/b2KIDrN/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bf1R0GNV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786523198; c=relaxed/simple;
+	bh=GVd7oU9YX8OD+6eUBauxRpeCoNwYRLbZuLNSBLXXiIc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t0ZGOI+xfd/Ue5kMUp/GauwQpt8fvfypQbZ0ZSYbRiDIRGpNqlfdWylNJQekGoGAaBjWpPypZsx0rmiegNerK3BODNjRa4cQVmBzwD5FgxNluGN4Gs3A50C/e9DCYP7mvI4N6Nwgo5BvYOA2NiK9zqsjC6GCP5lboTrSh/BMJ/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b33ZPILU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ww66A8Rf; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bf1R0GNV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256A71F000E9;
-	Wed, 12 Aug 2026 08:18:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786522746;
-	bh=tg2d+uSxSfnEQ+/wwkTn7ftgs1qXWrlfLkCgiC/frqc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bf1R0GNVZA16GWAATXUlPxuJ4mfMJXiDCQdYgqoD7y80q/FqN0jKELPlZTl9YTSrq
-	 pLpN5vvXrB/Hpwb2Qie70vFXzOaEtxgUQfwS1VvVVj/ntwWHq8sJ4V7c4wUqra+tJl
-	 Yu7Hd+z0rnMOw9KFYuMF/fE7zPPyOoJJ+gE0mIJ27Q1qkAQ1YstVhugQlPW/8W8DAF
-	 AbLBTUPp2Un1B907c7J1kcG/3mPgE6+afRtmm6eywgjLeY/vvyoDNRVwK1xLJYBz8l
-	 BdoJ382q3izk1A2BvnJTdmKd9ULzUj4G1OsjAwisEQrhF8vecaPPNkpzWjNr7I1jAb
-	 wPgPPC2subyLA==
-Date: Wed, 12 Aug 2026 09:18:56 +0100
-From: Lee Jones <lee@kernel.org>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	John Stultz <john.stultz@linaro.org>,
-	Moritz Fischer <moritz.fischer@ettus.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andre Draszik <andre.draszik@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, mfd@lists.linux.dev,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v24 08/12] mfd: psci-mfd: Add psci-reboot-mode child cell
-Message-ID: <20260812081856.GF1072730@google.com>
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-8-889281373870@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b33ZPILU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ww66A8Rf"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67C623Vl2593375
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:26:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GJdFFIibvpQHO0IPTEE/CONSQNYSEBLHc3wY9Qac/Fs=; b=b33ZPILUNYdVNzeF
+	ToaAO5c4750Dy9BHdo047/e2tJj2Mh5jOjiM9SpOBbPnUr2wvo1TI9HAY8cNm/wg
+	OrJSU4zDs2i+DZU3yQViAVsZcBjgS42s3Oy+zrFeCxtJmZKi0uF4m9Bv2G+yO6Ks
+	YV/QJxoFIv/qj38vxXwQXyBAr+ItBPFMM7mxsf2/MCXqWs+pq4OOiS7ajKF9xPRi
+	PjVCrztzMas9fNHDbK/EsbnV82QPyu5mtnn9HZ2qvUvL5q3ibEUwGLDrzi+SrFNf
+	oG904570klVJqUGYWxB+IkWlS8I7i9nAvnyE771j+Ff5lagJ1wBw553nwqXnnMc2
+	CNTWuA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g08jrjw5r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:26:36 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e53b8a302so80908485a.1
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 01:26:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786523195; x=1787127995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GJdFFIibvpQHO0IPTEE/CONSQNYSEBLHc3wY9Qac/Fs=;
+        b=Ww66A8Rf9DC9QspOZR/HR+vVB5jciO6ZVYUpSI0j0AW/h1BpAMxqk44PLD8VAaSaLq
+         l13hppJdehaUIjSuSRc2TEpdR0Bu6ffNpKqQp1qycWf+LfEh3zYm6LbQIj/PYwXga8+u
+         3pZUv2plEjhBSTRc05hlgDwnG6nDURmwNDSqt+xjPB+tgu+dlehu3RSsP4BcP3jKky8D
+         UgqgMD032XXq2xmL3RKZRNMqombH0/Yci46w0WolxA/AsPCA02QEQxu0AsLntp/XkUf6
+         O60BXdgG3f4MRMfOWZCE2JXIVk4yWlpLVLc8B6LDq+tpfDjzxj2bzL6vdLEFkfNPjXkA
+         +WPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786523195; x=1787127995;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GJdFFIibvpQHO0IPTEE/CONSQNYSEBLHc3wY9Qac/Fs=;
+        b=O0VbguuqZ7OezcXUXg/LNKZ7roC2rlxzGDrct+5y9IA7v2IRq56mGsc7t1CScp96Cj
+         aPDUI+l8dleVfZEUwhIICn9LAinvLZAx+6QftOYU+Loe4yGvcssm4Cn+DAuRkEYy/ZNZ
+         TUppTDhDRMcfH9sQ8rwSB3TAXrgsH5ONEeQLQjPIOBkadWNHr+7Y5kVohTaxFVtT/gMQ
+         u3QJ880poLmxUfXYxa/dUfCEhTUIkCTUgX/UUVZPu+KTZJ6eIpiUwe3jbA5fm69ilWMZ
+         FuSZMh4nK1k/Ow8eFYJssK93ktOyq52oi/SmtjAMckK5Jyze9DArnNbZcVBbY5WgRE+P
+         ixRQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqbBAsIckJh05moQBv7aL+IyzxuJNTs2R/zAgNTjUvK4DEA18Ta1DDYPC3F0SU5olLj0wtkWaEWNuC+@vger.kernel.org
+X-Gm-Message-State: AOJu0YzR0oLZ4URagkY5dwPNIkoluZE/zlLFbvHdjMcncb4VbIgWdYjQ
+	BGhxqwE+Vi8RHEhBAGV69t4EtVVfSMpo2s64uhXKVnJgzSpIsgi+utSJNOcNZNY8ts8blVFwhAW
+	lc9Cj2uc/AhCkH9Y6yIvs5RmpAnTHhm58nITkWw0AMkQ8piK/7QyKY88hQDLzyg0g
+X-Gm-Gg: AR+sD12f7epCdpoU5ps59xrn9u6yvRoemnb2HdOdUe/0DBYofCc4wUVs6bNqJrJMOu6
+	JGHvv0ehzirhqbxbY0FyoGxVsKyNPsA3gvMvHeF4EdmGssc419IdB/d32WMPXhk2L09xjBV5/t2
+	r9inUHoxFa15KNvQUuXtkpD1l9Z63a2ehQpnsXSvBkqAjgcBhl5r/vY+Qm3Nxvjf6lvZ763pn5m
+	p7UmmLBFXtw6j64m8Op88eYNQxouB7C8AosnJUzYnUnGCs6jVqE57Ax6J0Ahd/+PjLtsRdn1NCo
+	D5YjoqkM4+YOe2D1keJ4DZsxl9qGzQAjl12NXm35dmivmZ7QRcKL0S4kLXVzNOMk1Uwrl6MFtKH
+	Yy2MQqkVAR+/LAic/ygf/As8RaMu9w+MoBdChb5aKAuBQXqlkjb3KTCilxisVddQ=
+X-Received: by 2002:a05:622a:1c09:b0:527:69dd:5413 with SMTP id d75a77b69052e-52d646ba175mr27284091cf.5.1786523195409;
+        Wed, 12 Aug 2026 01:26:35 -0700 (PDT)
+X-Received: by 2002:a05:622a:1c09:b0:527:69dd:5413 with SMTP id d75a77b69052e-52d646ba175mr27283781cf.5.1786523194955;
+        Wed, 12 Aug 2026 01:26:34 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:b467:f322:cd3a:615c? ([2a05:6e02:1041:c10:b467:f322:cd3a:615c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997ad79e5csm28901165e9.3.2026.08.12.01.26.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 01:26:33 -0700 (PDT)
+Message-ID: <4917ef30-0ed9-4c5a-8516-1033b5f02fdc@oss.qualcomm.com>
+Date: Wed, 12 Aug 2026 10:26:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803-arm-psci-system_reset2-vendor-reboots-v24-8-889281373870@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/5] clocksource/timer-econet-en751221: Support irq
+ number per timer
+To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
+Cc: conor+dt@kernel.org, daniel.lezcano@kernel.org, devicetree@vger.kernel.org,
+        krzk+dt@kernel.org, linux-kernel@vger.kernel.org, naseefkm@gmail.com,
+        robh@kernel.org, tglx@kernel.org, grandmaster@al2klimov.de
+References: <20260731120246.1296955-1-cjd@cjdns.fr>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20260731120246.1296955-1-cjd@cjdns.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: d59wKTG3pBJG-6Pt_vNdFFp7_CPUtHLK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDA2NyBTYWx0ZWRfX8Jfr6E3B3uq0
+ ay8tf0yReaC8X7npSjeV5vRDp+Z7d1P6kKeNUAkjuHGg6rFbOpviU4tnratgWWYgbtjfXKNjqr7
+ l+ocwGqSw40QipKchuNgbbyBn8wDeX0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDA2NyBTYWx0ZWRfX9IA6CX72IiPV
+ S9N5xpTswP+uQrtYJXKre4mG6JmTuK7Zvb/bDwBNb1EBwkzDVG7dPrtOf8MR+kqaafHzpVX6jRe
+ QJ6f+ZU/ScIuhwB2Pf4J1hzMbUKuqpd2z31OazuGQoaLwys+/FhlDf6/39yx+k9hRuS0IwR0Bf1
+ YVVivU/IpiGxiSH/E3DHQPgnbsp1HcnksdStyMsmDlGL58PnChPgDpOkMYqfEyE8ysNF+zIh7ER
+ el1yfOLKjElZ7bKIJ0Mm+tCLTlTkmzJdI86O5Nhg/tt4jYW8mN/edKtPLFdbxECC+EQltX8I2N6
+ tsSBAQpT4n6aeIzPji86Fwb5r3HOyfyf6dnYJC0o7uJjyT+PCKc+0lRwPvMv82cxDUwwq2zmiu4
+ HpQS1Jt5xulhXwXo7DcPzBpUq3n+9DtAQmFL/wJ4HUZpo+4PoAmKJtVdtoN+sFRBfDnz9qTLswm
+ wfFXLt5xZkawgVLtfrQ==
+X-Authority-Analysis: v=2.4 cv=Z7Dc2nRA c=1 sm=1 tr=0 ts=6a7c2e3c cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=Boy92G2SHH6eYtDNLeYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: d59wKTG3pBJG-6Pt_vNdFFp7_CPUtHLK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_02,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 priorityscore=1501 bulkscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120067
 
-On Mon, 03 Aug 2026, Shivendra Pratap wrote:
-
-> The PSCI "reboot-mode" node does not define a compatible because it is a
-> configuration of boot-states provided by the underlying firmware. With
-> the new firmware-node based cells in mfd-core, this node can now be
-> exposed as a proper child cell.
+On 7/31/26 14:02, Caleb James DeLisle wrote:
+> This timer appears on both the EcoNet EN751221 (34Kc) and on the
+> EN751627 / EN7528 (1004Kc) SoCs. On the 34Kc the interrupt controller
+> uses a percpu interrupt while on the others it uses an individual
+> IRQ number for each CPU timer. Add support for EN751627 and EN7528.
+> Add support for IRQ number for each CPU timer under the
+> econet,en751627-timer compatible.
 > 
-> Add the psci-reboot-mode child cell to the psci-mfd driver with a
-> named_fwnode. Add psci-cpuidle-domain cell first to isolate it from
-> reboot-mode failures.
-> 
-> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
->  drivers/mfd/psci-mfd.c      | 27 ++++++++++++++++++++++++++-
->  drivers/power/reset/Kconfig |  2 +-
->  2 files changed, 27 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/mfd/psci-mfd.c b/drivers/mfd/psci-mfd.c
-> index 7affd6bb09dd..7befc4fa86f5 100644
-> --- a/drivers/mfd/psci-mfd.c
-> +++ b/drivers/mfd/psci-mfd.c
-> @@ -14,10 +14,35 @@ static const struct mfd_cell psci_cells[] = {
->  	},
->  };
->  
-> +static const struct mfd_cell psci_reboot_mode_cell[] = {
-> +	{
-> +		.name = "psci-reboot-mode",
-> +		.named_fwnode = "reboot-mode",
-> +	},
-> +};
-> +
->  static int psci_mfd_probe(struct platform_device *pdev)
->  {
-> -	return devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO, psci_cells,
-> +	int ret;
-> +
-> +	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO, psci_cells,
->  				   ARRAY_SIZE(psci_cells), NULL, 0, NULL);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO,
-> +				   psci_reboot_mode_cell,
-> +				   ARRAY_SIZE(psci_reboot_mode_cell),
-> +				   NULL, 0, NULL);
-> +	if (ret) {
-> +		if (ret == -ENOMEM)
-> +			goto out;
-> +		dev_warn(&pdev->dev, "reboot-mode child cell failed to add: %d\n", ret);
+> Changes since v6:
+> * Rebase to tip/timers/core (base-commit below)
 
-Okay Yoda, but why is this okay?
+Got this:
 
-Needs a comment.
+In file included from 
+/home/dlezcano/Work/src/linux/timers/include/asm-generic/bug.h:31,
+                  from 
+/home/dlezcano/Work/src/linux/timers/arch/arm64/include/asm/bug.h:26,
+                  from 
+/home/dlezcano/Work/src/linux/timers/arch/arm64/include/asm/pgtable.h:8,
+                  from 
+/home/dlezcano/Work/src/linux/timers/include/linux/pgtable.h:6,
+                  from 
+/home/dlezcano/Work/src/linux/timers/arch/arm64/include/asm/io.h:12,
+                  from 
+/home/dlezcano/Work/src/linux/timers/include/linux/io.h:12,
+                  from 
+/home/dlezcano/Work/src/linux/timers/drivers/clocksource/timer-econet-en751221.c:8:
+/home/dlezcano/Work/src/linux/timers/drivers/clocksource/timer-econet-en751221.c: 
+In function ‘timer_init’:
+/home/dlezcano/Work/src/linux/timers/include/linux/kern_levels.h:5:25: 
+warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has 
+type ‘long unsigned int’ [-Wformat=]
+     5 | #define KERN_SOH        "\001"          /* ASCII Start Of Header */
+       |                         ^~~~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/printk.h:483:25: 
+note: in definition of macro ‘printk_index_wrap’
+   483 |                 _p_func(_fmt, ##__VA_ARGS__); 
+         \
+       |                         ^~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/printk.h:554:9: note: 
+in expansion of macro ‘printk’
+   554 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
+       |         ^~~~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/kern_levels.h:11:25: 
+note: in expansion of macro ‘KERN_SOH’
+    11 | #define KERN_ERR        KERN_SOH "3"    /* error conditions */
+       |                         ^~~~~~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/printk.h:554:16: 
+note: in expansion of macro ‘KERN_ERR’
+   554 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
+       |                ^~~~~~~~
+/home/dlezcano/Work/src/linux/timers/drivers/clocksource/timer-econet-en751221.c:201:17: 
+note: in expansion of macro ‘pr_err’
+   201 |                 pr_err("%pOFn: Too many IRQs max %d got %d\n", np,
+       |                 ^~~~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/kern_levels.h:5:25: 
+warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has 
+type ‘long unsigned int’ [-Wformat=]
+     5 | #define KERN_SOH        "\001"          /* ASCII Start Of Header */
+       |                         ^~~~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/printk.h:483:25: 
+note: in definition of macro ‘printk_index_wrap’
+   483 |                 _p_func(_fmt, ##__VA_ARGS__); 
+         \
+       |                         ^~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/printk.h:554:9: note: 
+in expansion of macro ‘printk’
+   554 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
+       |         ^~~~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/kern_levels.h:11:25: 
+note: in expansion of macro ‘KERN_SOH’
+    11 | #define KERN_ERR        KERN_SOH "3"    /* error conditions */
+       |                         ^~~~~~~~
+/home/dlezcano/Work/src/linux/timers/include/linux/printk.h:554:16: 
+note: in expansion of macro ‘KERN_ERR’
+   554 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
+       |                ^~~~~~~~
+/home/dlezcano/Work/src/linux/timers/drivers/clocksource/timer-econet-en751221.c:206:17: 
+note: in expansion of macro ‘pr_err’
+   206 |                 pr_err("%pOFn: Too many regs: max %d got %d\n", np,
+       |                 ^~~~~~
 
-> +		ret = 0;
-> +	}
-> +
-> +out:
-> +	return ret;
->  }
->  
->  static const struct of_device_id psci_mfd_of_match[] = {
-> diff --git a/drivers/power/reset/Kconfig b/drivers/power/reset/Kconfig
-> index 143f3260f04a..1810482d52e6 100644
-> --- a/drivers/power/reset/Kconfig
-> +++ b/drivers/power/reset/Kconfig
-> @@ -362,7 +362,7 @@ config NVMEM_REBOOT_MODE
->  
->  config PSCI_REBOOT_MODE
->  	bool "PSCI reboot mode driver"
-> -	depends on ARM_PSCI_FW || COMPILE_TEST
-> +	depends on (ARM_PSCI_FW && MFD_PSCI) || COMPILE_TEST
->  	select REBOOT_MODE
->  	help
->  	  Say y here will enable PSCI reboot mode driver. This gets
+
+> Changes since v5:
+> * Integrate patch fix refcount leak from:
+> Link: https://lore.kernel.org/linux-mips/20260526184105.18962-3-grandmaster@al2klimov.de/
+> * NULL econet_timer.membase after unmapping
+> * NULL check dev->event_handler in case clockevents_config_and_register
+>    failed to fully register.
+> * v5: https://lore.kernel.org/linux-mips/20260516233943.49502-1-cjd@cjdns.fr/
 > 
-> -- 
-> 2.34.1
+> Changes from v4:
+> * Fixed incorrect compatible in DT schema
+> * Bracing in out_irq_free if statement
+> * I did not move cpuhp_setup_state past the point of no return
+> * v4: https://lore.kernel.org/linux-mips/20260516215720.4160831-1-cjd@cjdns.fr
 > 
+> Changes from v3:
+> * off-by-one in out_irq_free
+> * Gracefully fail if too many address resources are provided in the DT
+> * Allow fewer actual timers than num_possible_cpus, as long as they
+> never start
+> * v3: https://lore.kernel.org/linux-mips/20260516182648.3987792-1-cjd@cjdns.fr
+> 
+> v3 note:
+> 
+> I decided to take this patchset in a slightly different direction from
+> v2. There is a certain amount of initialization that once it has run,
+> it cannot be reverted in case of error. The original driver init was a
+> mixture of revertible and non-revertible code which made it too easy
+> for code which is designed with best practices in mind to in fact
+> introduce a bug. Therefore I start by making the init process more
+> legible but without any business logic changes, then fix a race
+> condition by keeping IRQ disabled until after cevt is setup, then
+> finally add non-percpu IRQ support.
+> 
+> * v2: https://lore.kernel.org/linux-mips/20260514000601.3430262-1-cjd@cjdns.fr
+> 
+> Changes from v1:
+> * Split changes over 3 refactoring patches + main patch
+> * Remove driver discussion from dt commit message
+> * v1: https://lore.kernel.org/linux-mips/20260416175101.958073-1-cjd@cjdns.fr/
+> 
+> 
+> Alexander A. Klimov (1):
+>    clocksource/timer-econet-en751221: fix refcount leak
+> 
+> Caleb James DeLisle (4):
+>    dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+>    clocksource/timer-econet-en751221: Init teardown on error if possible
+>    clocksource/timer-econet-en751221: Disable IRQ until cevt registered
+>    clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+> 
+>   .../bindings/timer/econet,en751221-timer.yaml |  31 +--
+>   drivers/clocksource/timer-econet-en751221.c   | 181 ++++++++++++++----
+>   2 files changed, 159 insertions(+), 53 deletions(-)
+> 
+> 
+> base-commit: ecc330e3096173f433659aa64ab3674d0d48440e
 
--- 
-Lee Jones
