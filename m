@@ -1,110 +1,318 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423A4370AF5;
-	Wed, 12 Aug 2026 23:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CD542F709
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786577337; cv=none; b=CPXlcox55LtugpYwBEB9ArLgE6bY3XG+xdCH8fB1AGhS0LTGKrllaZqnZjqKJ8brT14pjyVn5/TAcDhc5Q0bFu9s2+PjsimuX9F+PlEDMlB8M4Qdu7PrG5XeDbK6GCF4J8IJSQLwAZicuyMBY6V1qvsmIpTCfZv5m+BDugSEL+k=
+	t=1786577654; cv=none; b=mMz4BPlN7iGL/j7qCqRP4hPEo0tkJCpijuyY0IipGy2tvGUmV6unxlKxkZ4ypQVdpPymutiWHPz0Sdu07PZKCwYeQ3VFm38jNSXf4i7dJ1DDJ2jkIyUlEcSXRzOKgkmQEJE3FehYSaoZknWqzqWsvOlHeWk3Gn7V5uWaYWECOkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786577337; c=relaxed/simple;
-	bh=mVUWjV4WC4YOtzBaDbEYYkg/Rvg+MOdbljUmKaNTzmY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t7z9b42X3VEAcZLhRHrQhsk+kJmdb1QypjYac+P4M/sDzF81Bln9NaGaGvdQLENOW3x/Y0meoFHzEQ1rSWNcC6hMSRN4U3lB4fAh2ht5Jj8Klby6/8beRxrpaoy134j4rhecmDdOdBzIDRBf8BimvoumKsiJ9d5Bi+yU8fAV6cU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wms0yvki; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786577654; c=relaxed/simple;
+	bh=w/lCd6qn3Hrwin2/vnUaZ/GRD/83ygGyKQqz4MLsBzM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=WebndNkqVHPY6v+BsUa7SXjS2uwdM/9zbS+ZDlMsHFm6X0f2HarN7JQHQT3X0Gv9GT0gHWQ913DQRKoQ9yG3El4v5jCkIlcIINN0gid2QLfpxElMlhLb0umlYciYAhIHBxJy6CToDD5ejVLpd0vO7ropsk8nL/74/oXmJZl439E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKkv/NKm; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wms0yvki"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711ED1F000E9;
-	Wed, 12 Aug 2026 23:28:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786577335;
-	bh=kAj+uPW3Fq32jwWTxrVHLU+X6avahzrf/7Sh5bYwBtU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wms0yvkignEejUf24nKvJkLFoWMf3OFGFU/2RN93RNlML+3Ii/vswlhP13vWnTx6H
-	 3mnsaXvKzT+YbC7DqLkcABmwB8MryIcaI5nP2UX4fVVeDUhjgKrwRWX+SJzIss+1TY
-	 hCo42Kg0q4uv1Z4ReTZNKVl+lIPM8wCLn8ekdfEfivEAI4cKc4uyQy/9cQfS2Ta8h7
-	 X2WyvmxtMwEPG0d2oOTEPONPtFjNuX7r7NYjAWVyib8bdWu+vmCQTCnoitwnm514bB
-	 Nc+JwwkIlJRTOuTH9MvamLkW1nfjLApruJAqg1CB3hUf6sTbFsLvgMqgAR7A26zcwc
-	 QkUpS9uVGkJVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 2/2] net: phy: add X-Powers AC200/AC300 EPHY
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: conor+dt@kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260811-submit-acx00-of-dynamic-v1-v7-2-03f5b91775d5@gmail.com>
-References: <20260811-submit-acx00-of-dynamic-v1-v7-0-03f5b91775d5@gmail.com>
- <20260811-submit-acx00-of-dynamic-v1-v7-2-03f5b91775d5@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 23:28:54 +0000
-Message-Id: <20260812232855.711ED1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKkv/NKm"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ccae46de39so2759405ad.3
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 16:34:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786577652; x=1787182452; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=82QII3KyVeRLbaNgl494ewZidWlIsFgxntjdTI9bZc0=;
+        b=PKkv/NKmLGGiGMxdzAEyU6d0/cOkju5zNnInlXCscjSom3Hq8jlKHLjta5l/1bJExu
+         djPV2HIMqUCbkbWnHSxXoZt3ugryLApO+Qp6ar6xEf1ijYtr8Ys4hDrXa/o4Zfi+BRub
+         F1VmMMl8QOOYPmAQ0D5cZV2MWkhUvQ3JYeWMqbNWOKAVSlaOq5+40BGWhL3/d0SUK9Wl
+         1rQ7zjfcLedbGR0ZR67IMxdZsiINbXiVh1miAH13XTK0//KSGb/3iDr33uzkypykDOuP
+         6HhKrxuJqRb9/6kgklPfiqzA1zfDRniouL6Vh3UnoLqFlpaSnD1/Dcja81KNbtBNMn84
+         9wLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786577652; x=1787182452;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=82QII3KyVeRLbaNgl494ewZidWlIsFgxntjdTI9bZc0=;
+        b=pDB0u0V3Wr72yCETOdKPrqlxJ14vQ+sYnbHNAWKns9+F2X6/FkdWYVJXvtP9/4+ad6
+         9F9L5bl9SBVmqGlBTX9tEajHRvjys2YnT6UWGKDDeIflo/r2DPv+s8HIpxOgvvctw8+Z
+         uRjsL1WTW+zihN48p22LUohW7PsGuqUlZ+z02aNsKY0vSCR+lOc+r39OQ0MfPjy7fNSJ
+         habFYTuAQN3zVlGH2zG25zbRDQS9jRBb+5sPFqMcHz1GFAoVbhfL9YZqCXs3YN1ekl5a
+         vDpb6g8UEJgGE60CjZQzUSW2WzJq7gupGmpTaqYCnc7Z36HigetaV1Bji29t3XztVh9W
+         z85w==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2BuYotcVOp8V3CWiqd5QTuJR9u3Dq0e0eZAdJ5knGOtZpZ+0nOxScmbXEIc15vcYTEMbmIRvLkeCe@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJG0SVD2t1Q1qSPebbR22bRujFyX9aVNxZOYdo8cL3B3zA25/M
+	f0Qcl16u5QgEVVpI+dI0821NB6EYWUuUov0qOfAEY4NNW6i2pup9S75l
+X-Gm-Gg: AR+sD12TMAH+/hiR9hPdI1THLgTVT8NN5S4Yxr+DfzpSGMGIyH8oc1fSnx7BDW73IKH
+	Y6/+KWlpIn190Ow1L4L0yyOq5K4IROC+bbHu++pyjyfeFO4I4NkpkCZeTDMKfFFtJINkWPmb+HQ
+	uRzfC2IPFTcp5tLWpActjAHCH3dbIIqvo3Frqyb/eRO3mNOXews4VmULv/uRr1cIpPv+le3IfSR
+	Rp425ac/iTKxDW91T+63AxY4VUSwFkv941c4/KPd9lb9AUOla3sXdQ8bKXgeZXCr2Rff7j2q9cy
+	Tu4oGSheEZEdxYA9/EWHnuYlhJmiamDMFgcLv65RaYEgpEVMefE/jg3XXm1ubOat3vsBUf8UZwI
+	5TEdBo9pxfGhU95LpEAQHIGKwoSuHCbdWk0N7L1/r8n4xfw70o1JmJLflvRjNFZwSMezil9iW4J
+	P9uatJvFKKdEiEqhqaWYjsYdeNRzAcALMb3D7LMBTAXq224yRUwOtSseMk2zjkxkn3fN+SgA==
+X-Received: by 2002:a17:902:fc46:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2d37efb393emr12908425ad.4.1786577651676;
+        Wed, 12 Aug 2026 16:34:11 -0700 (PDT)
+Received: from [10.219.45.252] ([2409:40c2:504e:6b:b46f:70e9:d340:f24c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31ebcb697fcsm796068eec.8.2026.08.12.16.34.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 16:34:11 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Thu, 13 Aug 2026 05:03:54 +0530
+Subject: [PATCH] ASoC: dt-bindings: tse850: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260813-ti-axtensia-v1-1-768a1089fd5f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC0Nj3ZJM3cSKktS84sxEXVPLZAuLJNM0gzRDcyWgjoKi1LTMCrBp0bG
+ 1tQD5nbBpXQAAAA==
+X-Change-ID: 20260813-ti-axtensia-59c88b5f0f17
+To: Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Andrei Simion <andrei.simion@microchip.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@lysator.liu.se>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786577640; l=7180;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=w/lCd6qn3Hrwin2/vnUaZ/GRD/83ygGyKQqz4MLsBzM=;
+ b=PKPV3dZDD1Z4tcxL7fjXXNmqWj1tY/x98aXY/bW29LOwsvV094cdQkf1WAMEbrVmaUDqVVe1f
+ AciDpIawfl5DRpmzpze1ZOjZ9rOhLTDctuuVZMw8P6Y6uFABYKYeAI1
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Using device_trylock() with a fallback to -EPROBE_DEFER creates =
-a fragile retry loop that can lead to permanent probe failures.
---
+Convert Axentia TSE-850 audio complex from text to DT schema. No
+funcational changes.
 
---- Patch [2]: [PATCH net-next v7 2/2] net: phy: add X-Powers AC200/AC300 E=
-PHY driver ---
-commit 51ec613693f83307bdc7a40a8e3f884bbf572129
-Author: James Hilliard <james.hilliard1@gmail.com>
-Subject: net: phy: add X-Powers AC200/AC300 EPHY driver
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../bindings/sound/axentia,tse850-pcm5142.txt      |  92 ------------------
+ .../bindings/sound/axentia,tse850-pcm5142.yaml     | 104 +++++++++++++++++++++
+ 2 files changed, 104 insertions(+), 92 deletions(-)
 
-This commit adds a new Ethernet PHY driver for the X-Powers AC200 and AC300
-companion ICs. It configures shared MDIO registers along with
-package-specific I2C or MDIO control registers.
+diff --git a/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.txt b/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.txt
+deleted file mode 100644
+index b6cc5f6f78c2..000000000000
+--- a/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.txt
++++ /dev/null
+@@ -1,92 +0,0 @@
+-Devicetree bindings for the Axentia TSE-850 audio complex
+-
+-Required properties:
+-  - compatible: "axentia,tse850-pcm5142"
+-  - axentia,cpu-dai: The phandle of the cpu dai.
+-  - axentia,audio-codec: The phandle of the PCM5142 codec.
+-  - axentia,add-gpios: gpio specifier that controls the mixer.
+-  - axentia,loop1-gpios: gpio specifier that controls loop relays on channel 1.
+-  - axentia,loop2-gpios: gpio specifier that controls loop relays on channel 2.
+-  - axentia,ana-supply: Regulator that supplies the output amplifier. Must
+-    support voltages in the 2V - 20V range, in 1V steps.
+-
+-The schematics explaining the gpios are as follows:
+-
+-               loop1 relays
+-   IN1 +---o  +------------+  o---+ OUT1
+-            \                /
+-             +              +
+-             |   /          |
+-             +--o  +--.     |
+-             |  add   |     |
+-             |        V     |
+-             |      .---.   |
+-   DAC +----------->|Sum|---+
+-             |      '---'   |
+-             |              |
+-             +              +
+-
+-   IN2 +---o--+------------+--o---+ OUT2
+-               loop2 relays
+-
+-The 'loop1' gpio pin controls two relays, which are either in loop position,
+-meaning that input and output are directly connected, or they are in mixer
+-position, meaning that the signal is passed through the 'Sum' mixer. Similarly
+-for 'loop2'.
+-
+-In the above, the 'loop1' relays are inactive, thus feeding IN1 to the mixer
+-(if 'add' is active) and feeding the mixer output to OUT1. The 'loop2' relays
+-are active, short-cutting the TSE-850 from channel 2. IN1, IN2, OUT1 and OUT2
+-are TSE-850 connectors and DAC is the PCB name of the (filtered) output from
+-the PCM5142 codec.
+-
+-Example:
+-
+-	&ssc0 {
+-		#sound-dai-cells = <0>;
+-
+-	};
+-
+-	&i2c {
+-		codec: pcm5142@4c {
+-			compatible = "ti,pcm5142";
+-
+-			reg = <0x4c>;
+-
+-			AVDD-supply = <&reg_3v3>;
+-			DVDD-supply = <&reg_3v3>;
+-			CPVDD-supply = <&reg_3v3>;
+-
+-			clocks = <&sck>;
+-
+-			pll-in = <3>;
+-			pll-out = <6>;
+-		};
+-	};
+-
+-	ana: ana-reg {
+-		compatible = "pwm-regulator";
+-
+-		regulator-name = "ANA";
+-
+-		pwms = <&pwm0 2 1000 PWM_POLARITY_INVERTED>;
+-		pwm-dutycycle-unit = <1000>;
+-		pwm-dutycycle-range = <100 1000>;
+-
+-		regulator-min-microvolt = <2000000>;
+-		regulator-max-microvolt = <20000000>;
+-		regulator-ramp-delay = <1000>;
+-	};
+-
+-	sound {
+-		compatible = "axentia,tse850-pcm5142";
+-
+-		axentia,cpu-dai = <&ssc0>;
+-		axentia,audio-codec = <&codec>;
+-
+-		axentia,add-gpios = <&pioA 8 GPIO_ACTIVE_LOW>;
+-		axentia,loop1-gpios = <&pioA 10 GPIO_ACTIVE_LOW>;
+-		axentia,loop2-gpios = <&pioA 11 GPIO_ACTIVE_LOW>;
+-
+-		axentia,ana-supply = <&ana>;
+-	};
+diff --git a/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.yaml b/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.yaml
+new file mode 100644
+index 000000000000..0ab4b697d28e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/axentia,tse850-pcm5142.yaml
+@@ -0,0 +1,104 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/axentia,tse850-pcm5142.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Axentia TSE-850 audio complex
++
++maintainers:
++  - Peter Rosin <peda@axentia.se>
++
++description: |
++  The TSE-850 is an FM Transmitter Station Equipment, designed to generate
++  baseband signals for FM, mainly the DARC subcarrier, but other signals
++  are also possible.
++
++  The schematics explaining the gpios are as follows::
++
++                 loop1 relays
++     IN1 +---o  +------------+  o---+ OUT1
++              \                /
++               +              +
++               |   /          |
++               +--o  +--.     |
++               |  add   |     |
++               |        V     |
++               |      .---.   |
++     DAC +----------->|Sum|---+
++               |      '---'   |
++               |              |
++               +              +
++     IN2 +---o--+------------+--o---+ OUT2
++                 loop2 relays
++
++  The 'loop1' gpio pin controls two relays, which are either in loop
++  position, meaning that input and output are directly connected, or
++  they are in mixer position, meaning that the signal is passed through
++  the 'Sum' mixer. Similarly for 'loop2'.
++
++  In the above, the 'loop1' relays are inactive, thus feeding IN1 to the
++  mixer (if 'add' is active) and feeding the mixer output to OUT1. The
++  'loop2' relays are active, short-cutting the TSE-850 from channel 2.
++  IN1, IN2, OUT1 and OUT2 are TSE-850 connectors and DAC is the PCB name
++  of the (filtered) output from the PCM5142 codec.
++
++properties:
++  compatible:
++    const: axentia,tse850-pcm5142
++
++  axentia,cpu-dai:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      The phandle of the cpu dai.
++
++  axentia,audio-codec:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      The phandle of the PCM5142 codec.
++
++  axentia,add-gpios:
++    maxItems: 1
++    description:
++      gpio specifier that controls the mixer.
++
++  axentia,loop1-gpios:
++    maxItems: 1
++    description:
++      gpio specifier that controls loop relays on channel 1.
++
++  axentia,loop2-gpios:
++    maxItems: 1
++    description:
++      gpio specifier that controls loop relays on channel 2.
++
++  axentia,ana-supply:
++    description:
++      Regulator that supplies the output amplifier. Must support voltages in
++      the 2V - 20V range, in 1V steps.
++
++required:
++  - compatible
++  - axentia,cpu-dai
++  - axentia,audio-codec
++  - axentia,add-gpios
++  - axentia,loop1-gpios
++  - axentia,loop2-gpios
++  - axentia,ana-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/pwm/pwm.h>
++
++    sound {
++        compatible = "axentia,tse850-pcm5142";
++        axentia,cpu-dai = <&ssc0>;
++        axentia,audio-codec = <&codec>;
++        axentia,add-gpios = <&pioA 8 GPIO_ACTIVE_LOW>;
++        axentia,loop1-gpios = <&pioA 10 GPIO_ACTIVE_LOW>;
++        axentia,loop2-gpios = <&pioA 11 GPIO_ACTIVE_LOW>;
++        axentia,ana-supply = <&regulator_ana>;
++    };
 
-> diff --git a/drivers/net/phy/xpowers/ac200.c b/drivers/net/phy/xpowers/ac=
-200.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/net/phy/xpowers/ac200.c
-[ ... ]
-> +struct acx00_ephy_control *
-> +ac200_ephy_ctl_create(struct phy_device *phydev,
-> +		      struct device_node *package_node,
-> +		      bool has_calibration, u8 calibration)
-> +{
-[ ... ]
-> +	if (!device_link_add(dev, &client->dev,
-> +			     DL_FLAG_AUTOREMOVE_CONSUMER)) {
-> +		ret =3D dev_err_probe(dev, -EINVAL,
-> +				    "failed to link AC200 device\n");
-> +		goto out_put_client;
-> +	}
-> +
-> +	if (!device_trylock(&client->dev)) {
-> +		ret =3D dev_err_probe(dev, -EPROBE_DEFER,
-> +				    "AC200 driver is not ready\n");
-> +		goto out_put_client;
-> +	}
+---
+base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
+change-id: 20260813-ti-axtensia-59c88b5f0f17
 
-[Severity: Medium]
-Could this trylock and deferral pattern lead to permanent probe failures?
+Best regards,
+-- 
+Bhargav
 
-If the AC200 device is already fully bound, but its device lock is temporar=
-ily
-held by another thread (such as a concurrent sysfs attribute read or a PM=20
-suspend/resume operation) when the PHY driver probes, device_trylock() will
-fail.
-
-This causes the PHY driver to return -EPROBE_DEFER. However, because the
-supplier AC200 device is already bound, it will not trigger a new bind even=
-t.
-If no other devices bind in the system to kick the deferred probe workqueue,
-the PHY could remain permanently unbound.
-
-Is there a way to avoid this fragile retry loop, perhaps by using standard
-locking instead of treating transient lock contention as a missing
-dependency?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260811-submit-acx=
-00-of-dynamic-v1-v7-0-03f5b91775d5@gmail.com?part=3D2
