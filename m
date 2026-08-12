@@ -1,187 +1,70 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB543AD539;
-	Wed, 12 Aug 2026 08:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBD1322C73;
+	Wed, 12 Aug 2026 08:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786522123; cv=none; b=l94I+ngVRgrDCWrjjbkfseK1/ljAndAmkGQNK9MV98j+MtZEdiP4ll25ZjaISR36aI6g3Z3bhXm/NOGtZ0S5CTOeHsvDILXI5Km3JoBBzkV8vrlcUQ+t7tYa6Toih1eI+VMoaPy/IC6MHRDN+9F4KOFxo8HvlgMFrL9lCDPM7s4=
+	t=1786522456; cv=none; b=EGo3hZxdi2nshFsHDpjOWZtH/Z1MejFJQ+Id1JWB24jZqSbkcsVQwmhSg6Nj5Zc3hpUnQPIKeKu2U2rcWns7K1BeT4ELJkpStHjdujFglOc5If45hxC510dOtK7qRqSSsh14V0BRPL7asaFpAx9fd50R20F/ntMmgTczidJK3Ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786522123; c=relaxed/simple;
-	bh=tfYvsex6K5e8CY4Sro1Sz0Uzg8HnXhj4Nl5OgLY9upc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X6bFKmpuP9ye1E75QaUBGQsY6uMFWNvawBxhvD7Qmlg8YkQpvwtNB0ctPNmLSBMWRvzABOCvqs259ngwxPW23XRqhq0K11uxGVkIeu8HYr3nCLy3odY72CKsf/M+mwqw4POzhywlbz/MC/kG/ngJ/jp2sz6tqgOqG1t1Xb1CcQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=GEDyrtiY; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1786522456; c=relaxed/simple;
+	bh=HvQX/2Rs5cWjOSR2OA0sfGHcFc/E/NEVlRNuoNJTMvA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=dWRvhK5pOF50ywVcBEI3DEyA1gLjFEAQ3wMPIlFydEUMlnco1ANE0ik8JvO4Hc9FdSlPrdrtC3KAerZtdTMf2etfENWLQLfi+IQvFsTrai7WBdn4ZEf8KU/bNp8HUZEqixnR8y1A1XMoR6Lb4dv0DNIZtR58j6r4Ddvszt97ufM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4H4xvsb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="GEDyrtiY"
-Message-ID: <cf6f4732-1122-4381-962d-e18b32ac178d@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1786522118;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g8o/j7j4w3KLWh32ubDeSN0JFxs0ZyyDKCxWJyyp8gQ=;
-	b=GEDyrtiYCcQ3apJP8ir4Ty/7Yf+NYe7qqakLArttAK2LHywzUmyCz+h6TozQyZlKsxx13T
-	akmN81Jlx7RH/mIrSpMhhZVScA5EjGX0PtUd9uYl2Lvgl6LE08iVdQwIycievawyYvPU/X
-	cKYrJo80sa72cBuy75AaZ0oCJiuNotY=
-Date: Wed, 12 Aug 2026 10:08:36 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4H4xvsb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BFCF1F000E9;
+	Wed, 12 Aug 2026 08:14:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786522455;
+	bh=CfRowpTKWivqNOVD0wmF3ZNKzhjEZpNIgeQTNYVCSLs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=n4H4xvsbIqPb+e35D6mMMVzNZkzuE1LgSmtDq+xcLOgbUu6Mp2iZkRx0jRcQckcqu
+	 pEk79ElOzV0MnLBbgqG76IIAIB2ulx3RRqc2zAvIxWuNuxpRH+g5xHyN+jYrCHKJIU
+	 qE66rv2o+kcLqcT8UIAD6Mmsjun2+twXamDLlOPwtzcPnNAcQtk9ULMo2Feb2RiJi5
+	 G4cisuXsT1VfXBjj29VBD2vGPQuMV+nsZPsxtdjmp0KHAq57iiGiPQP/NRvQBu0CZT
+	 Axjl0XLxTC+M0FTTT33SHJMwzSHy3pIdPVD9/vuWRPIlb4/wO0e2vt24q4UBoS99GI
+	 okI5fRp2ToOYw==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andi Shyti <andi.shyti@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ Min Lin <linmin@eswincomputing.com>, 
+ Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+Cc: Yulin Lu <luyulin@eswincomputing.com>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Darshan Prajapati <darshan.prajapati@einfochips.com>, 
+ Pritesh Patel <pritesh.patel@einfochips.com>
+In-Reply-To: <20260804104431.1391839-5-pinkesh.vaghela@einfochips.com>
+References: <20260804104431.1391839-5-pinkesh.vaghela@einfochips.com>
+Subject: Re: (subset) [PATCH v3 4/8] dt-bindings: mfd: syscon: add ESWIN
+ EIC7700 compatible
+Message-Id: <178652245137.1296549.3383858473929288179.b4-ty@b4>
+Date: Wed, 12 Aug 2026 09:14:11 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/2] dt-bindings: nvme: Add apple,t8132-nvme-ans2
- compatible
-To: Rob Herring <robh@kernel.org>, Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Keith Busch <kbusch@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org
-References: <20260811-apple-nvme-t8132-v1-0-865be32e42c3@cyberchaos.dev>
- <20260811-apple-nvme-t8132-v1-1-865be32e42c3@cyberchaos.dev>
- <20260811231121.GA271810-robh@kernel.org>
-Content-Language: en-US
-From: Yureka Lilian <yureka@cyberchaos.dev>
-In-Reply-To: <20260811231121.GA271810-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-Thank you for the quick feedback!
+On Tue, 04 Aug 2026 16:14:27 +0530, Pinkesh Vaghela wrote:
+> Document ESWIN EIC7700 SoC compatible for syscon registers.
 
-On 8/12/26 01:11, Rob Herring wrote:
-> On Tue, Aug 11, 2026 at 10:49:47PM +0200, Yureka Lilian wrote:
->> Add a new base compatible for the ANS2 NVMe on the Apple t8132 (M4) SoC,
->> which uses a separate MMIO base for its NVMMU.
->>
->> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
->> ---
->>   .../devicetree/bindings/nvme/apple,nvme-ans.yaml   | 77 ++++++++++++++--------
->>   1 file changed, 48 insertions(+), 29 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml b/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
->> index 4c0b1f90aff8..c8a41b268b9c 100644
->> --- a/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
->> +++ b/Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
->> @@ -16,6 +16,7 @@ properties:
->>         - items:
->>             - const: apple,t6020-nvme-ans2
->>             - const: apple,t8103-nvme-ans2
->> +      - const: apple,t8132-nvme-ans2
->>         - items:
->>             - enum:
->>                 # Do not add additional SoC to this list.
->> @@ -24,16 +25,6 @@ properties:
->>                 - apple,t6000-nvme-ans2
->>             - const: apple,nvme-ans2
->>   
->> -  reg:
->> -    items:
->> -      - description: NVMe and NVMMU registers
->> -      - description: ANS2 co-processor control registers
->> -
->> -  reg-names:
->> -    items:
->> -      - const: nvme
->> -      - const: ans
->> -
-> Keep properties defined at the top level. More below.
->
->>     resets:
->>       maxItems: 1
->>   
->> @@ -68,25 +59,53 @@ properties:
->>   
->>         The SART address filter is documented in iommu/apple,sart.yaml.
->>   
->> -if:
->> -  properties:
->> -    compatible:
->> -      contains:
->> -        enum:
->> -          - apple,t6000-nvme-ans2
->> -          - apple,t6020-nvme-ans2
->> -then:
->> -  properties:
->> -    power-domains:
->> -      minItems: 3
->> -    power-domain-names:
->> -      minItems: 3
->> -else:
->> -  properties:
->> -    power-domains:
->> -      maxItems: 2
->> -    power-domain-names:
->> -      maxItems: 2
->> +allOf:
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: apple,t8132-nvme-ans2
->> +    then:
->> +      properties:
->> +        reg:
->> +          items:
->> +            - description: NVMMU registers
->> +            - description: NVMe registers
->> +            - description: ANS2 co-processor control registers
->> +        reg-names:
->> +          items:
->> +            - const: nvmmu
->> +            - const: nvme
->> +            - const: ans
-> New entries go on the end.
-Ack
-> So nvmmu last and defined at the top level.
-I did read the docs which said the properties should always be 
-introduced at the top-level, however I couldn't figure out how to 
-describe the intended constraints in this way.
-> Then this is just 'minItems: 3'
->
->> +    else:
->> +      properties:
->> +        reg:
->> +          items:
->> +            - description: NVMe and NVMMU registers
->> +            - description: ANS2 co-processor control registers
->> +        reg-names:
->> +          items:
->> +            - const: nvme
->> +            - const: ans
-> And 'maxItems: 2' on these 2.
+Applied, thanks!
 
-When the three items are defined at the top-level, I can't seem to make 
-the dtbs_check work:
+[4/8] dt-bindings: mfd: syscon: add ESWIN EIC7700 compatible
+      commit: d86dadc6feeaa86b6a29db5509bfe8c65b66c7b2
 
-[...]
-arch/arm64/boot/dts/apple/t8112-j413.dtb: nvme@27bcc0000 
-(apple,t8112-nvme-ans2): reg: [[2, 2076966912, 0, 262144], [2, 
-2000683008, 0, 16384]] is too short
-     from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
-arch/arm64/boot/dts/apple/t8112-j413.dtb: nvme@27bcc0000 
-(apple,t8112-nvme-ans2): reg-names: ['nvme', 'ans'] is too short
-     from schema $id: http://devicetree.org/schemas/nvme/apple,nvme-ans.yaml
-[...]
-
-despite this compatible falling into the "... else ... maxItems: 2" branch
-
-Would it be acceptable to define the reg and reg-names with just 
-minItems: 2, maxItems: 3, but without specific items or descriptions, 
-and then add the compatible-specific items and descriptions in the 
-conditional part below?
-
->
-> Rob
-
-
-Thanks,
-
-- Yureka
+--
+Lee Jones [李琼斯]
 
