@@ -1,67 +1,68 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E6C39891D
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 20:27:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5015538CFE7
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 20:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786566478; cv=none; b=sh35VH6azpOD9LgcXH9GJIDW3UwzMAYdlpHXXATZIziHd+58EIZxgX28AveOwGN72hTRf03eWtyZ2g8QWo04NJlkTEsY+37v2swAgilv6X38N+OQ6Cgf4pfUPjkUL8cVpxzumUa774klHUnuqfKJqjFnayeuqiyjsNElqrTlxU8=
+	t=1786566480; cv=none; b=QW+++v2VgfyU6yaV50lLaaWB9grGIj5rY+N5SPSQvll8U/UCCID30C4KlMUYXLGtz3OIPqyBoJxYBqYW+NNzpr7KGX5bJYI13M62GPGoQvwtvVneQwpE4GrTC0AH1z7Ni22j02EyCh9Q7o2EVpEeT6eXQiiEQ2niSbaLJ5eQbfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786566478; c=relaxed/simple;
-	bh=nWZD81zQ6BPIJbCOyQFiqLcHBpqVtk5Ct3NNJaaxfYE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ifTtOvxNqjiOhNUEY+k4bPgCetFwMH3jG1glFs12KOHpwnsfBChd0DlqwvR3lRw7uS7zyXmoJk9JJzMAFgKzTnDv72PUpS+CL+haXgH2vucjcWeIJqhtm6lj3SQy8+4zYGEedGobgE9iq2xctxLtWlDf46kkL9vFLrXwu9MeB0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M9OSeFKW; arc=none smtp.client-ip=209.85.128.43
+	s=arc-20240116; t=1786566480; c=relaxed/simple;
+	bh=ikF5EsRrDPCQ2e3NZf9ZmiNgqlLGU221gxatBhk2VT4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TQt2QcNDpp1BJk8fWR6C8iQXVAbgL8pJ/fVGBbkprADfZd2583hLn1N9CXXUBQtx/kldooX65sCyaIApxwJUsi/1rP508dwlRyRjKfifvD4I5+eSLrCvZkaEHA9JetGOkx6WP/+EtAjbc0CyFHLkwVf3aw3bquAvQQc8YmEHqzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mMFMZYhC; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M9OSeFKW"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4980dc26022so14496945e9.1
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:27:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mMFMZYhC"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f703a9d05so962935f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:27:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786566471; x=1787171271; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KmgDtMUV12yU2q/JT5qoX5gOYEFrUIeJrv8g2Ia2RyM=;
-        b=M9OSeFKW8ELBacv9x7MB5WyCiqpgNoBkhBlEkAE2XpZPTDwPWPnfEAnpbQBoRWuDXl
-         RAJ06eMG99Jj+Pq0UNAUvbU+VVnEHyNHCIraw/mUlCvrgRl/zMMOmAfGTYrOfmMlnalg
-         yPu3eTiz2P39bkxgKWt6gIYfFUPQibdlHB2D5/Xw3XKxn/GPY2A5AMrD/Iaa0+/WnJBF
-         QNU4BEPRQXQlD0QqcUunkSGH6NBmEC4M9khpmUaydMG5ZawmiYuUBfwbVcqvENedg0Fe
-         NakyPzFWAXYqgMjMia7ohnFi2yrshc3NNThDyS9pZgQhLLScYJXIKAhv+Fti7wm+Zucv
-         MKWQ==
+        d=gmail.com; s=20251104; t=1786566475; x=1787171275; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lQR17Jy6lleu1+v0+GCKAb+enu+n7feV4TURKYYXeEU=;
+        b=mMFMZYhC1zFwcPoi3TkIW/SJcgBEza8mnmjyC0YWDmYTrRGtBg/ZjNSGLPONKWUfFm
+         vKePav1SG6q2Kzb59ooSMKwk6jLEl0SR805OsMwoLg45JwYaOTWGBGsxl3Lc4U5nGJjQ
+         4K1T0g5peP9hko8M5Mn6V+UKqMf9KSj4riEiQOS9o+ruQmvWX8WCY4K3DM7LJ+yPbIGv
+         9bRpDT3vRcQ7A0cLB7P1yFFq+RHLn5oDOj4cAUxViPf6X7pv+de0uQ86r+mJ6BMHvjHj
+         hrxT6XIA9jbd9NnuL2OpL0vlHInL+VQgEoWB8D+YfY6e86HIqT3u9/AzNeLOA61LMOjc
+         NZhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786566471; x=1787171271;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KmgDtMUV12yU2q/JT5qoX5gOYEFrUIeJrv8g2Ia2RyM=;
-        b=DeHJp0YZG6W0mnz43sUrvpLttiMRz9xFwtza/08UPlUO+/PoPQVxUQiTtErLKJzWqw
-         uNDuQnfeDmd4k6rhxY/U1NXfgKJbjWpMJWSUZjOh3TItglY1kHihaCOSC8c9Xz0hMaKs
-         jAqm+hJc0RTLEhOxAZ0Hs1Lasl+zZJKKKhoT0ZS3Ku7+7bYzpgmCbmJ/Plclw6VMXi7X
-         7DXIHsnM+ftsQwISTZImo8GjiTFbFV1ddxfHtRH11p+IneRh2htr8gPNEvA801SLStN/
-         Ckp/pOg+iVoaWOKbozERjcrEdoX/noy31eU7d6myhvq7T68/NnhpD99OT5Kg+dSryf7D
-         zdPg==
-X-Forwarded-Encrypted: i=1; AHgh+RodyiXKMBUkEbKP1291V/HNWTDxGe0atXl11PfGgxrtcwXx/YdBoTmGHqPQ43XuwyaR4ZIR3Oe6Dse1@vger.kernel.org
-X-Gm-Message-State: AOJu0YxpvQGeayKpVKR4+nohOIlJoKKUXCR2z74S+Op3RwNE2arF5wTA
-	y3eSaUtEsIqw6okSLZK7YRXyI1QXFTW4UhqGorYAiD/0/zueYoNd5GwP
-X-Gm-Gg: AR+sD11SQC6e3lhQBuw5hMV7avew8uu+v+OzKxmy1818YPYPZZHLLUCTi8bDjISiuGh
-	fGwPO//w8cefmiP71gCiEyA9p+vKC8NASndmU4Se0u4/mvkDoYv0LG7TqlwmXmdQFPq2XpRHD1H
-	fIZsBpgOWfVT6qRnKk+CZyJ7Pvv5lDYclQgjFuJdJGw3gNF4wLvIT2HS0pqpomYONROM3cosQX8
-	UCMB/MK5UuaSOsqAJpGQ331fBfgXUgmF+Fwp2HQMo+K21Y8uF2rMdOcqOzN6zOrpStCnXQ0Kfw6
-	hG7OvlzZHbRgPG+RN2l8qsXI7bsMmMRwSganA4WGEAHSKDOaXlbuODs4pbZJRO2Ycm6XMS6HN69
-	l4ve1aHvvO8PB6GRbgsIsP3/Qhd8q00ABPmdg8CvBoGfIX7la3jgcu5qtbqSAJLESuu3YdneCvc
-	pDlFml6KaVdSuxi895uTO2TEwsC/E9XcbjnuTBvM/+kAX/qPrrEcrqhtVmyB2ak1X56LF1cludk
-	C9Z
-X-Received: by 2002:a05:600c:4e87:b0:499:79b9:e226 with SMTP id 5b1f17b1804b1-4998218496amr3918805e9.0.1786566471046;
-        Wed, 12 Aug 2026 13:27:51 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786566475; x=1787171275;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lQR17Jy6lleu1+v0+GCKAb+enu+n7feV4TURKYYXeEU=;
+        b=oSnH9+2aj1/RT83FgbM6fXq6jNAE9B44sgopYFm8crYk0udL4LZrTlhHexgQ2R9MtA
+         V14ve+OWTe/1OrC1lclWSYEy563WBY/vCA8UJlf1Bl2ej7ReN3RiBunys/o7zwZMmx4B
+         Z3fQ7Z+emsjtmnFLAKXhr3Eyl+lc5ytQWJnEM53AHRKuXCvKqft21nR7mavC6o0zLSHJ
+         DCySnXJLeEuzR/j9DfpwVBW6FUENZbXMbMKLgAQsX/gFkLB8rKZEDs8otk+klRj7gDrQ
+         RfzoZPTMSX687wYW+8dAmsqUtZKPljT4owlvoqjsYPsTat74hGadrwwj3Vk6QixDB+xz
+         8HeQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrtckddWBi3zSUzjnKZ0y2Juijt6Uu7Wd/5xdgKyG+odBfA3Hap/i7uOTrH7pLnDC03P+0AXiD0KZGV@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1wq4mmTq9NyZN7hvQjUuIp7zxUhdnzHC/VT6gaTLsid+gVMNi
+	aOvIVRcUtKRNK2r/9Cq3neglvvlsPPFnQdS1LTbYRSw+sCWibsPjSqUB
+X-Gm-Gg: AR+sD12OEiyCHuY5NAC+D29YtyxmkkD59iabCWUmenUr7RFsxLHYjO08rzf3BgRcAtO
+	cXchwCwoSZ+h9gS8A7hwF9d17wjm3wX8kBYKRiu1riES2cki4HAtKIGYZWiz9ChmlwYS6ha6ngr
+	lzHNms1sGl202oDLMPlcPMLYMbtBHX0MvYbXcj7uqGdrkE9ybsdrd7gtlvd5mMZlx/PXPA+y1xv
+	qc7fHC3cXt28/u3jGJFUbSJVE6EgzNHqTcFXdaVNah8uoW7aJuYK61YQcB9DxvNHYi3BxkY0p/I
+	P1x9JCnStRNw/UrYYEvKu3PFI5PMyayVJJx4YRx5sSKZhKYyqkkn+cH/pGenr3V3snEuOJRlv1J
+	OZtHu2uCh+kl3R711tz8ZHNVLlatNTPAGLXsmNSE49K3y096yFaJv70DdTFhNMUHgPXIh3319l+
+	ZMSjGJE2yHBXqav9+ZFYvSWNnYkZ8h9/0OJYYllp3ZkSdkqX9qaw47+/vxaDfYAPzDMVwxFl+JB
+	Qzk
+X-Received: by 2002:a05:600c:8b54:b0:493:a613:56b2 with SMTP id 5b1f17b1804b1-4998216b3bdmr4971985e9.8.1786566475073;
+        Wed, 12 Aug 2026 13:27:55 -0700 (PDT)
 Received: from [127.0.1.1] ([2001:4bb8:16f:15e0:179c:a67f:8487:260])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49981b03e70sm13911725e9.3.2026.08.12.13.27.49
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49981b03e70sm13911725e9.3.2026.08.12.13.27.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 13:27:50 -0700 (PDT)
+        Wed, 12 Aug 2026 13:27:54 -0700 (PDT)
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Subject: [PATCH v6 0/4] iio: light: add support for veml6031x00 ALS series
-Date: Wed, 12 Aug 2026 22:27:39 +0200
-Message-Id: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
+Date: Wed, 12 Aug 2026 22:27:41 +0200
+Subject: [PATCH v6 2/4] iio: light: add support for veml6031x00 ALS series
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,12 +70,10 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIADvXfGoC/2XNwW6DMAzG8Vepcl4mO04M7LT3qHYwkLSRSplgi
- lpVvPsC2jSyHj9Lv78favZT9LN6OzzU5FOc43jNg18OqjvL9eR17PNWBoxFhEYnP1wYCG8AWqS
- xTL0AW1FZfE4+xNtWO37kfY7z1zjdt3jC9frTMVx0EmrQVkIQNm3woX8/DRIvr904qLWTzK9lc
- EilNautgDphRsEnSztrbGkpW9MgO4amNa37b+3OEpbWZuvZhir0naf66a/7szVUpXWbhbri0BJ
- b2NtlWb4BSXgrKZYBAAA=
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260812-veml6031x00-v6-2-7eef6e4ce290@gmail.com>
+References: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
+In-Reply-To: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
  Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -84,176 +83,783 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, 
  Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+ Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786566469; l=8032;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786566469; l=21890;
  i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
- bh=nWZD81zQ6BPIJbCOyQFiqLcHBpqVtk5Ct3NNJaaxfYE=;
- b=0fesfpe/27HUfzsYgZu1aDD1kJHC7oeYZEqbyILdDAwN2cyXVSObDXA5v1eqryMIxqTUVFw/G
- d4Ea41YI9DvBOSXkr3aNyRwXNp7jREk8C6exSiK4qV+qcWnB7a/Q+Hu
+ bh=ikF5EsRrDPCQ2e3NZf9ZmiNgqlLGU221gxatBhk2VT4=;
+ b=5F6Un2XbWVa2Ahnx7UK7wtfQZzmgfE0/6NTdzt564pJthJOB3xWB60gckH+V1VsZli2Ou9emx
+ 9C6jw+kvcALAYQacKuKiOynGt0Khn5bd6Z333qeSqlINC3TMDK3LMcR
 X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
  pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-These ambient light sensors with I2C interface provide two light
-channels (ALS and IR), high/low threshold alarms with configurable
-persistence, and a data ready signal.
+These sensors provide two light channels (ALS and IR), I2C communication
+and a multiplexed interrupt line to signal data ready and configurable
+threshold alarms.
 
-The devices covered by this driver have the same resolution, and they
-share most of their functionality. These are the differences between
-them (note that the x belongs to their names, and it is not a wildcard):
+This first implementation provides basic functionality (measurement
+configuration, raw reads and ID validation) and defines the different
+register regions in preparation for extended features in the subsequent
+patches of the series.
 
- - Device ID: accessible via two 8-byte registers, different values for
-   veml6031x00/veml6031x01 and veml60311x00/veml60311x01.
- - I2C address: same grouping, 0x29 and 0x10 I2C addresses.
- - AEC qualification: AEC-Q100 for veml6031x00/veml60311x00 and
-   AEC-Q101 for veml6031x01/veml60311x01.
-
-The alarms and the data ready signals share the interrupt pin, and an
-interrupt status register must be accessed to identify the source. Such
-multiplexing is not new in IIO, and I have followed existing examples
-for it. The persistence setting (own attribute) to trigger the alarms
-uses the pattern that has already been used for the veml6030.
-
-The device configuration is in general documented in the datasheet and
-the application note. There is an exception, though: the activation of
-the "active force" mode that is required for the data ready signal must
-be carried out in two steps even though the affected bits are located in
-the same register: first ALS_AF (active force mode enable) must be set,
-and then ALS_TRIG (active force trigger setting) must be enabled. I have
-added a brief commentary in the code to explain this behavior, which has
-been confirmed by the manufacturer.
-
-The datasheet specifies the scale and integration time for the ALS channel.
-Although both settings also affect the measured IR value, no transfer
-function, accuracy, or calibration is specified for converting the IR
-output into a physical quantity. The IR channel is therefore intended only
-as a qualitative indication of the infrared content of the incident light,
-rather than as a precision measurement channel. Consequently, the driver
-does not expose scale or integration time as IR-channel attributes.
-
-The only functionality that has not been implemented yet is the x0.66
-gain (and its x0.165 counterpart when PD_DIV=1), which makes the gts
-helpers less usable due to the conversions required. It is indeed an
-uncommon gain to use (there are x0.5 and x0.125 gains) with no known
-use-case at the moment that justifies making adjustments to the gts
-helpers or adding artificial conversions to make it work.
-
-This driver has been tested with the four supported devices separately
-as well as in pairs where the I2C addresses don't overlap.
-
-To: Jonathan Cameron <jic23@kernel.org>
-To: Lars-Peter Clausen <lars@metafoo.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-
-Changes in v6:
-- [1/4] Fix dt-binding title.
-- [2/4] Update headers as indicated by Andy and Uwe.
-- [2/4] Macro to get selector from gain registers.
-- [2/4] Use pm_runtime_get_noresume() (no devres).
-- [2/4] Drop <linux/mod_devicetable.h>
-- [2/4] Use regmap_update_bits() to set power state.
-- [3/4] Add scan info for the non-irq variant.
-- [3/4] Fix lock acquisition (direct mode and then scale_lock).
-- [3/4] Zero-initialize scan buffer.
-- [4/4] Store timestamp before calling iio_trigger_poll_nested().
-- [4/4] Move mutex_init and regfield_init before setup_irq().
-- [4/4] Add lockdep_assert_held() to veml6031x00_interrupt().
-- [4/4] Avoid register read if a spurious interrupt arrives when the
-  device is powered down.
-- Link to v5: https://lore.kernel.org/r/20260807-veml6031x00-v5-0-e60876fb3640@gmail.com
-
-Changes in v5:
-- [2/4] Explicit inclusion of some missing used headers.
-- [2/4] Define CONF0 as volatile to account for AF_TRIG (reset by
-  hardware).
-- [2/4] Drop integration time and scale for IR channel.
-- [2/4] Use unsigned int instead of int where no negative values are
-  possible.
-- [2/4] Write a helper to update the gain and use it where needed.
-- [2/4] Move i2c_get_match() closer to the data allocation.
-- [2/4] Move iio dev initialization out of the runtime pm region.
-- [2/4] Lower log level for unknown ID part.
-- [2/4] Redefine gains as _INT_MILLI.
-- [2/4] Drop pointer to the device in the private structure.
-- [2/4] Fix some coding-style issues.
-- [4/4] Add second iio_chan_spec to avoid exposing dead sysfs attributes if no
-  irq is available.
-- [4/4] Refactor goto calls in functions with guard().
-- [3/4] Use IIO_DECLARE_BUFFER_WITH_TS() instead of a custom structure.
-- [4/4] Use format instead of deprecated sign for the scan type.
-- Link to v4: https://lore.kernel.org/r/20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com
-
-Changes in v4:
-- [1/4] Entry in alphabetical order for MAINTAINERS.
-- [2/4] Fix style for device ID tables.
-- [2/4] Add missing header mod_devicetable.h and move iio/sysfs.h to
-  [4/4] for the persistence attribute.
-- [2/4] Move IIO_DEV_ACQUIRE_DIRECT_MODE to [3/4] where buffers are
-  added.
-- [3/4] Use test_bit() to check the active scan mask.
-- [2/4] Add mutex for operations on scattered register fields.
-- [2/4] Add shutdown action after turning the device on.
-- Link to v3: https://lore.kernel.org/r/20260524-veml6031x00-v3-0-29165609b2b5@gmail.com
-
-Changes in v3:
-- Move veml6030 fixes to a separate patch stack.
-- Use C99 initializers for i2c_device_id.
-- Split driver code into multiple patches to ease its review.
-- Rework locking to get rid of atomic increment/decrement ops.
-- Fix error paths in pm_runtime operations.
-- Use IIO_DEV_ACQUIRE_DIRECT_MODE for single read/write ops.
-- Link to v2: https://lore.kernel.org/r/20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com
-
-Changes in v2:
-- Add commit to fix bug in veml6030.c (channel type when pushing
-  events) and remove dead code.
-- Use gts helpers to simplify operations.
-- Drop unused gain_idx.
-- Build INT_MASK as an OR operation of the involved bits.
-- Format arrays to follow the desired standard for IIO.
-- Directly return function result as the last operation within another
-  function instead of 'ret = x; if (ret) return ret; return 0;'.
-- Fix some spacing (double space, tab for alignemnt in info struct).
-- Use sizeof() for __le16 reg instead of 2.
-- Return an error if the part ID could not be read.
-- Spell out sd -> shutdown.
-- Use devm_mutex_init() instead of mutex_init().
-- Avoid using conditional guard, use claim/release instead.
-- Access integration times from the global array to get and set the
-  integration time instead of using a switch.
-- Simplify read of available periods (persistence).
-- Drop IRQF_TRIGGER_FALLING in the threaded irq request.
-- Add regmap ranges.
-- Link to v1: https://lore.kernel.org/r/20241126-veml6031x00-v1-0-4affa62bfefd@gmail.com
-
 ---
-Javier Carrasco (4):
-      dt-bindings: iio: light: veml6030: add veml6031x00 ALS series
-      iio: light: add support for veml6031x00 ALS series
-      iio: light: veml6031x00: add support for triggered buffers
-      iio: light: veml6031x00: add support for events and trigger
+ MAINTAINERS                     |   1 +
+ drivers/iio/light/Kconfig       |  12 +
+ drivers/iio/light/Makefile      |   1 +
+ drivers/iio/light/veml6031x00.c | 696 ++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 710 insertions(+)
 
- .../bindings/iio/light/vishay,veml6030.yaml        |   13 +-
- MAINTAINERS                                        |    6 +
- drivers/iio/light/Kconfig                          |   14 +
- drivers/iio/light/Makefile                         |    1 +
- drivers/iio/light/veml6031x00.c                    | 1344 ++++++++++++++++++++
- 5 files changed, 1377 insertions(+), 1 deletion(-)
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20241109-veml6031x00-aa9463da064a
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4369cbf8b5ca..85b35948da32 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28765,6 +28765,7 @@ VISHAY VEML6031X00 AMBIENT LIGHT SENSOR DRIVER
+ M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
++F:	drivers/iio/light/veml6031x00.c
+ 
+ VISHAY VEML6046X00 RGBIR COLOR SENSOR DRIVER
+ M:	Andreas Klinger <ak@it-klinger.de>
+diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
+index ef36824f312f..985b776e71d6 100644
+--- a/drivers/iio/light/Kconfig
++++ b/drivers/iio/light/Kconfig
+@@ -738,6 +738,18 @@ config VEML6030
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called veml6030.
+ 
++config VEML6031X00
++	tristate "VEML6031X00 ambient light sensor series"
++	select REGMAP_I2C
++	select IIO_GTS_HELPER
++	depends on I2C
++	help
++	  Say Y here if you want to build a driver for the Vishay VEML6031X00
++	  ambient light sensor series.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called veml6031x00.
++
+ config VEML6040
+ 	tristate "VEML6040 RGBW light sensor"
+ 	select REGMAP_I2C
+diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
+index 64e354c49ed8..6672ed01a819 100644
+--- a/drivers/iio/light/Makefile
++++ b/drivers/iio/light/Makefile
+@@ -68,6 +68,7 @@ obj-$(CONFIG_VCNL4035)		+= vcnl4035.o
+ obj-$(CONFIG_VEML3235)		+= veml3235.o
+ obj-$(CONFIG_VEML3328)		+= veml3328.o
+ obj-$(CONFIG_VEML6030)		+= veml6030.o
++obj-$(CONFIG_VEML6031X00)	+= veml6031x00.o
+ obj-$(CONFIG_VEML6040)		+= veml6040.o
+ obj-$(CONFIG_VEML6046X00)	+= veml6046x00.o
+ obj-$(CONFIG_VEML6070)		+= veml6070.o
+diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031x00.c
+new file mode 100644
+index 000000000000..021bf726c60b
+--- /dev/null
++++ b/drivers/iio/light/veml6031x00.c
+@@ -0,0 +1,696 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * VEML6031X00 Ambient Light Sensor
++ *
++ * Copyright (c) 2026, Javier Carrasco <javier.carrasco.cruz@gmail.com>
++ */
++
++#include <linux/array_size.h>
++#include <linux/bits.h>
++#include <linux/bitfield.h>
++#include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/limits.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/types.h>
++
++#include <asm/byteorder.h>
++
++#include <linux/iio/iio.h>
++#include <linux/iio/iio-gts-helper.h>
++
++/* Device registers */
++#define VEML6031X00_REG_CONF0       0x00
++#define VEML6031X00_REG_CONF1       0x01
++#define VEML6031X00_REG_ALS_L       0x10
++#define VEML6031X00_REG_ALS_H       0x11
++#define VEML6031X00_REG_IR_L        0x12
++#define VEML6031X00_REG_IR_H        0x13
++#define VEML6031X00_REG_ID_L        0x14
++#define VEML6031X00_REG_ID_H        0x15
++
++/* Bit masks for specific functionality */
++#define VEML6031X00_CONF0_SD        BIT(0)
++#define VEML6031X00_CONF1_IR_SD     BIT(7)
++
++#define VEML6031X00_GAIN_SEL(pd_div4, gain) (((pd_div4) << 2) | (gain))
++
++struct veml6031x00_rf {
++	struct regmap_field *gain;
++	struct regmap_field *it;
++	struct regmap_field *pd_div4;
++};
++
++struct veml6031x00_chip {
++	const char *name;
++	const int part_id;
++};
++
++struct veml6031x00_data {
++	struct iio_gts gts;
++	struct regmap *regmap;
++	struct veml6031x00_rf rf;
++	const struct veml6031x00_chip *chip;
++	/*
++	 * Serialize access to scale register fields scattered across multiple
++	 * registers (rf.gain, rf.pd_div4, rf.it) to read and write them as a
++	 * consistent set.
++	 */
++	struct mutex scale_lock;
++};
++
++static const struct iio_itime_sel_mul veml6031x00_it_sel[] = {
++	GAIN_SCALE_ITIME_US(3125, 0, 1),
++	GAIN_SCALE_ITIME_US(6250, 1, 2),
++	GAIN_SCALE_ITIME_US(12500, 2, 4),
++	GAIN_SCALE_ITIME_US(25000, 3, 8),
++	GAIN_SCALE_ITIME_US(50000, 4, 16),
++	GAIN_SCALE_ITIME_US(100000, 5, 32),
++	GAIN_SCALE_ITIME_US(200000, 6, 64),
++	GAIN_SCALE_ITIME_US(400000, 7, 128),
++};
++
++/*
++ * The gain selector encodes (PD_D4 << 2) | GAIN to identify each gain setting.
++ * Gains are multiplied by 8 to work with integers. The values in the iio-gts
++ * tables don't need corrections because the maximum value of the scale refers
++ * to GAIN = x1, and the rest of the values are obtained from the resulting
++ * linear function.
++ * TODO: add support for GAIN_0_165 and GAIN_0_660
++ */
++#define VEML6031X00_SEL_GAIN_0_125 0x07
++#define VEML6031X00_SEL_GAIN_0_250 0x04
++#define VEML6031X00_SEL_GAIN_0_500 0x03
++#define VEML6031X00_SEL_GAIN_1_000 0x00
++#define VEML6031X00_SEL_GAIN_2_000 0x01
++static const struct iio_gain_sel_pair veml6031x00_gain_sel[] = {
++	GAIN_SCALE_GAIN(1, VEML6031X00_SEL_GAIN_0_125),
++	GAIN_SCALE_GAIN(2, VEML6031X00_SEL_GAIN_0_250),
++	GAIN_SCALE_GAIN(4, VEML6031X00_SEL_GAIN_0_500),
++	GAIN_SCALE_GAIN(8, VEML6031X00_SEL_GAIN_1_000),
++	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_GAIN_2_000),
++};
++
++/*
++ * The shutdown bits (SD and ALS_IR_SD) are in different registers, and both
++ * must be updated when changing the device power state.
++ */
++static int veml6031x00_set_power(struct veml6031x00_data *data, bool state)
++{
++	int ret;
++
++	ret = regmap_update_bits(data->regmap, VEML6031X00_REG_CONF0,
++				 VEML6031X00_CONF0_SD,
++				 state ? 0 : VEML6031X00_CONF0_SD);
++	if (ret)
++		return ret;
++
++	return regmap_update_bits(data->regmap, VEML6031X00_REG_CONF1,
++				  VEML6031X00_CONF1_IR_SD,
++				  state ? 0 : VEML6031X00_CONF1_IR_SD);
++}
++
++static void veml6031x00_als_shutdown_action(void *data)
++{
++	struct veml6031x00_data *priv = data;
++	int ret;
++
++	ret = veml6031x00_set_power(priv, false);
++	if (ret)
++		dev_warn(regmap_get_device(priv->regmap),
++			 "Failed to shut down device: %d\n", ret);
++}
++
++static const struct iio_chan_spec veml6031x00_channels[] = {
++	{
++		.type = IIO_LIGHT,
++		.address = VEML6031X00_REG_ALS_L,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++				      BIT(IIO_CHAN_INFO_INT_TIME) |
++				      BIT(IIO_CHAN_INFO_SCALE),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_INT_TIME) |
++						BIT(IIO_CHAN_INFO_SCALE),
++	},
++	{
++		.type = IIO_INTENSITY,
++		.address = VEML6031X00_REG_IR_L,
++		.modified = 1,
++		.channel2 = IIO_MOD_LIGHT_IR,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++	}
++};
++
++static const struct regmap_range veml6031x00_readable_ranges[] = {
++	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF1),
++	regmap_reg_range(VEML6031X00_REG_ALS_L, VEML6031X00_REG_ID_H),
++};
++
++static const struct regmap_access_table veml6031x00_readable_table = {
++	.yes_ranges = veml6031x00_readable_ranges,
++	.n_yes_ranges = ARRAY_SIZE(veml6031x00_readable_ranges),
++};
++
++static const struct regmap_range veml6031x00_writable_ranges[] = {
++	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF1),
++};
++
++static const struct regmap_access_table veml6031x00_writable_table = {
++	.yes_ranges = veml6031x00_writable_ranges,
++	.n_yes_ranges = ARRAY_SIZE(veml6031x00_writable_ranges),
++};
++
++static const struct regmap_range veml6031x00_volatile_ranges[] = {
++	/* AF_TRIG in CONF0 is volatile */
++	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF0),
++	regmap_reg_range(VEML6031X00_REG_ALS_L, VEML6031X00_REG_IR_H),
++};
++
++static const struct regmap_access_table veml6031x00_volatile_table = {
++	.yes_ranges = veml6031x00_volatile_ranges,
++	.n_yes_ranges = ARRAY_SIZE(veml6031x00_volatile_ranges),
++};
++
++static const struct regmap_config veml6031x00_regmap_config = {
++	.name = "veml6031x00_regmap",
++	.reg_bits = 8,
++	.val_bits = 8,
++	.rd_table = &veml6031x00_readable_table,
++	.wr_table = &veml6031x00_writable_table,
++	.volatile_table = &veml6031x00_volatile_table,
++	.max_register = VEML6031X00_REG_ID_H,
++	.cache_type = REGCACHE_MAPLE,
++};
++
++static const struct reg_field veml6031x00_rf_it =
++	REG_FIELD(VEML6031X00_REG_CONF0, 4, 6);
++
++static const struct reg_field veml6031x00_rf_gain =
++	REG_FIELD(VEML6031X00_REG_CONF1, 3, 4);
++
++static const struct reg_field veml6031x00_rf_pd_div4 =
++	REG_FIELD(VEML6031X00_REG_CONF1, 6, 6);
++
++static int veml6031x00_regfield_init(struct veml6031x00_data *data)
++{
++	struct device *dev = regmap_get_device(data->regmap);
++	struct regmap_field *rm_field;
++	struct veml6031x00_rf *rf = &data->rf;
++
++	rm_field = devm_regmap_field_alloc(dev, data->regmap, veml6031x00_rf_gain);
++	if (IS_ERR(rm_field))
++		return PTR_ERR(rm_field);
++	rf->gain = rm_field;
++
++	rm_field = devm_regmap_field_alloc(dev, data->regmap, veml6031x00_rf_it);
++	if (IS_ERR(rm_field))
++		return PTR_ERR(rm_field);
++	rf->it = rm_field;
++
++	rm_field = devm_regmap_field_alloc(dev, data->regmap, veml6031x00_rf_pd_div4);
++	if (IS_ERR(rm_field))
++		return PTR_ERR(rm_field);
++	rf->pd_div4 = rm_field;
++
++	return 0;
++}
++
++static int __veml6031x00_get_it(struct veml6031x00_data *data, int *val2)
++{
++	unsigned int it_idx;
++	int ret;
++
++	ret = regmap_field_read(data->rf.it, &it_idx);
++	if (ret)
++		return ret;
++
++	ret = iio_gts_find_int_time_by_sel(&data->gts, it_idx);
++	if (ret < 0)
++		return ret;
++
++	*val2 = ret;
++
++	return IIO_VAL_INT_PLUS_MICRO;
++}
++
++static int veml6031x00_get_it(struct veml6031x00_data *data, int *val2)
++{
++	guard(mutex)(&data->scale_lock);
++
++	return __veml6031x00_get_it(data, val2);
++}
++
++static int veml6031x00_write_gain(struct veml6031x00_data *data, unsigned int gain)
++{
++	int ret;
++
++	ret = regmap_field_write(data->rf.pd_div4, gain >> 2);
++	if (ret)
++		return ret;
++
++	return regmap_field_write(data->rf.gain, gain & 0x03);
++}
++
++static int veml6031x00_set_it(struct iio_dev *iio, int val, int val2)
++{
++	struct veml6031x00_data *data = iio_priv(iio);
++	int ret, gain_sel, new_gain, prev_gain, prev_it;
++	unsigned int gain_reg, it_idx, pd_div4;
++	bool gain_in_range;
++
++	if (val || !iio_gts_valid_time(&data->gts, val2))
++		return -EINVAL;
++
++	guard(mutex)(&data->scale_lock);
++
++	ret = regmap_field_read(data->rf.it, &it_idx);
++	if (ret)
++		return ret;
++
++	ret = regmap_field_read(data->rf.gain, &gain_reg);
++	if (ret)
++		return ret;
++
++	ret = regmap_field_read(data->rf.pd_div4, &pd_div4);
++	if (ret)
++		return ret;
++
++	prev_it = iio_gts_find_int_time_by_sel(&data->gts, it_idx);
++	if (prev_it < 0)
++		return prev_it;
++
++	if (prev_it == val2)
++		return 0;
++
++	prev_gain = iio_gts_find_gain_by_sel(&data->gts,
++					     VEML6031X00_GAIN_SEL(pd_div4, gain_reg));
++	if (prev_gain < 0)
++		return prev_gain;
++
++	ret = iio_gts_find_new_gain_by_gain_time_min(&data->gts, prev_gain, prev_it,
++						     val2, &new_gain, &gain_in_range);
++	if (ret)
++		return ret;
++
++	if (!gain_in_range)
++		dev_dbg(regmap_get_device(data->regmap), "Optimal gain out of range\n");
++
++	ret = iio_gts_find_sel_by_int_time(&data->gts, val2);
++	if (ret < 0)
++		return ret;
++
++	ret = regmap_field_write(data->rf.it, ret);
++	if (ret)
++		return ret;
++
++	gain_sel = iio_gts_find_sel_by_gain(&data->gts, new_gain);
++	if (gain_sel < 0)
++		return gain_sel;
++
++	return veml6031x00_write_gain(data, gain_sel);
++}
++
++static int veml6031x00_set_scale(struct iio_dev *iio, int val, int val2)
++{
++	struct veml6031x00_data *data = iio_priv(iio);
++	int gain_sel, it_sel, ret;
++
++	ret = iio_gts_find_gain_time_sel_for_scale(&data->gts, val, val2,
++						   &gain_sel, &it_sel);
++	if (ret)
++		return ret;
++
++	guard(mutex)(&data->scale_lock);
++
++	ret = regmap_field_write(data->rf.it, it_sel);
++	if (ret)
++		return ret;
++
++	return veml6031x00_write_gain(data, gain_sel);
++}
++
++static int veml6031x00_get_scale(struct veml6031x00_data *data, int *val,
++				 int *val2)
++{
++	int gain, it, gain_reg, pd_div4, it_reg, ret, sel;
++
++	scoped_guard(mutex, &data->scale_lock) {
++		ret = regmap_field_read(data->rf.gain, &gain_reg);
++		if (ret)
++			return ret;
++
++		ret = regmap_field_read(data->rf.pd_div4, &pd_div4);
++		if (ret)
++			return ret;
++
++		sel = VEML6031X00_GAIN_SEL(pd_div4, gain_reg);
++		gain = iio_gts_find_gain_by_sel(&data->gts, sel);
++		if (gain < 0)
++			return gain;
++
++		ret = regmap_field_read(data->rf.it, &it_reg);
++		if (ret)
++			return ret;
++	}
++
++	it = iio_gts_find_int_time_by_sel(&data->gts, it_reg);
++	if (it < 0)
++		return it;
++
++	ret = iio_gts_get_scale(&data->gts, gain, it, val, val2);
++	if (ret)
++		return ret;
++
++	return IIO_VAL_INT_PLUS_NANO;
++}
++
++static int veml6031x00_single_read(struct iio_dev *iio, enum iio_chan_type type,
++				   int *val)
++{
++	struct veml6031x00_data *data = iio_priv(iio);
++	int addr, it_usec, ret;
++	__le16 regval;
++
++	switch (type) {
++	case IIO_LIGHT:
++		addr = VEML6031X00_REG_ALS_L;
++		break;
++	case IIO_INTENSITY:
++		addr = VEML6031X00_REG_IR_L;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	guard(mutex)(&data->scale_lock);
++
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(regmap_get_device(data->regmap), pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	ret = __veml6031x00_get_it(data, &it_usec);
++	if (ret < 0)
++		return ret;
++
++	/* integration time + 10% to ensure completion */
++	fsleep(it_usec + (it_usec / 10));
++
++	ret = regmap_bulk_read(data->regmap, addr, &regval, sizeof(regval));
++	if (ret)
++		return ret;
++
++	*val = le16_to_cpu(regval);
++
++	return IIO_VAL_INT;
++}
++
++static int veml6031x00_read_raw(struct iio_dev *iio,
++				struct iio_chan_spec const *chan,
++				int *val, int *val2, long mask)
++{
++	struct veml6031x00_data *data = iio_priv(iio);
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		return veml6031x00_single_read(iio, chan->type, val);
++	case IIO_CHAN_INFO_INT_TIME:
++		*val = 0;
++		return veml6031x00_get_it(data, val2);
++	case IIO_CHAN_INFO_SCALE:
++		return veml6031x00_get_scale(data, val, val2);
++	default:
++		return -EINVAL;
++	}
++}
++
++static int veml6031x00_read_avail(struct iio_dev *iio,
++				  struct iio_chan_spec const *chan,
++				  const int **vals, int *type, int *length,
++				  long mask)
++{
++	struct veml6031x00_data *data = iio_priv(iio);
++
++	switch (mask) {
++	case IIO_CHAN_INFO_INT_TIME:
++		return iio_gts_avail_times(&data->gts, vals, type, length);
++	case IIO_CHAN_INFO_SCALE:
++		return iio_gts_all_avail_scales(&data->gts, vals, type, length);
++	default:
++		return -EINVAL;
++	}
++}
++
++static int veml6031x00_write_raw(struct iio_dev *iio,
++				 struct iio_chan_spec const *chan,
++				 int val, int val2, long mask)
++{
++	switch (mask) {
++	case IIO_CHAN_INFO_INT_TIME:
++		return veml6031x00_set_it(iio, val, val2);
++	case IIO_CHAN_INFO_SCALE:
++		return veml6031x00_set_scale(iio, val, val2);
++	default:
++		return -EINVAL;
++	}
++}
++
++static int veml6031x00_write_raw_get_fmt(struct iio_dev *indio_dev,
++					 struct iio_chan_spec const *chan,
++					 long mask)
++{
++	switch (mask) {
++	case IIO_CHAN_INFO_SCALE:
++		return IIO_VAL_INT_PLUS_NANO;
++	case IIO_CHAN_INFO_INT_TIME:
++		return IIO_VAL_INT_PLUS_MICRO;
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct iio_info veml6031x00_info = {
++	.read_raw = veml6031x00_read_raw,
++	.read_avail = veml6031x00_read_avail,
++	.write_raw = veml6031x00_write_raw,
++	.write_raw_get_fmt = veml6031x00_write_raw_get_fmt,
++};
++
++static int veml6031x00_validate_part_id(struct veml6031x00_data *data)
++{
++	struct device *dev = regmap_get_device(data->regmap);
++	int part_id, ret;
++	__le16 regval;
++
++	ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_ID_L, &regval,
++			       sizeof(regval));
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to read ID\n");
++
++	part_id = le16_to_cpu(regval);
++	if (part_id != data->chip->part_id)
++		dev_info(dev, "Unknown ID %04x\n", part_id);
++
++	return 0;
++}
++
++static int veml6031x00_hw_init(struct iio_dev *iio)
++{
++	struct veml6031x00_data *data = iio_priv(iio);
++	struct device *dev = regmap_get_device(data->regmap);
++	int ret;
++
++	/* Max resolution = 6.9632 lx/cnt for gain = 0.125 and IT = 3.125ms */
++	ret = devm_iio_init_iio_gts(dev, 6, 963200000,
++				    veml6031x00_gain_sel,
++				    ARRAY_SIZE(veml6031x00_gain_sel),
++				    veml6031x00_it_sel,
++				    ARRAY_SIZE(veml6031x00_it_sel),
++				    &data->gts);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to init IIO GTS\n");
++
++	return 0;
++}
++
++static int veml6031x00_probe(struct i2c_client *i2c)
++{
++	struct device *dev = &i2c->dev;
++	struct veml6031x00_data *data;
++	struct iio_dev *iio;
++	int ret;
++
++	iio = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!iio)
++		return -ENOMEM;
++
++	data = iio_priv(iio);
++	i2c_set_clientdata(i2c, iio);
++
++	data->chip = i2c_get_match_data(i2c);
++	if (!data->chip)
++		return dev_err_probe(dev, -EINVAL, "Failed to get chip data\n");
++
++	data->regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
++	if (IS_ERR(data->regmap))
++		return dev_err_probe(dev, PTR_ERR(data->regmap),
++				     "Failed to set regmap\n");
++
++	iio->name = data->chip->name;
++	iio->channels = veml6031x00_channels;
++	iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
++	iio->modes = INDIO_DIRECT_MODE;
++	iio->info = &veml6031x00_info;
++
++	ret = devm_mutex_init(dev, &data->scale_lock);
++	if (ret)
++		return ret;
++
++	ret = veml6031x00_regfield_init(data);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to init regfield\n");
++
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
++
++	/* The device starts in power down mode by default */
++	ret = veml6031x00_set_power(data, true);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to power on the device\n");
++
++	ret = devm_add_action_or_reset(dev, veml6031x00_als_shutdown_action, data);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add shutdown action\n");
++
++	pm_runtime_set_autosuspend_delay(dev, 2000);
++	pm_runtime_use_autosuspend(dev);
++	ret = devm_pm_runtime_set_active_enabled(dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
++
++	pm_runtime_get_noresume(dev);
++
++	ret = veml6031x00_validate_part_id(data);
++	if (ret)
++		goto err_pm_put;
++
++	ret = veml6031x00_hw_init(iio);
++	if (ret)
++		goto err_pm_put;
++
++	pm_runtime_put_autosuspend(dev);
++
++	ret = devm_iio_device_register(dev, iio);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to register iio device\n");
++
++	return 0;
++
++err_pm_put:
++	pm_runtime_put_noidle(dev);
++	return ret;
++}
++
++static int veml6031x00_runtime_suspend(struct device *dev)
++{
++	struct veml6031x00_data *data = iio_priv(dev_get_drvdata(dev));
++
++	return veml6031x00_set_power(data, false);
++}
++
++static int veml6031x00_runtime_resume(struct device *dev)
++{
++	struct veml6031x00_data *data = iio_priv(dev_get_drvdata(dev));
++
++	return veml6031x00_set_power(data, true);
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(veml6031x00_pm_ops,
++				 veml6031x00_runtime_suspend,
++				 veml6031x00_runtime_resume,
++				 NULL);
++
++static const struct veml6031x00_chip veml6031x00_chip = {
++	.name = "veml6031x00",
++	.part_id = 0x0001,
++};
++
++static const struct veml6031x00_chip veml6031x01_chip = {
++	.name = "veml6031x01",
++	.part_id = 0x0001,
++};
++
++static const struct veml6031x00_chip veml60311x00_chip = {
++	.name = "veml60311x00",
++	.part_id = 0x1001,
++};
++
++static const struct veml6031x00_chip veml60311x01_chip = {
++	.name = "veml60311x01",
++	.part_id = 0x1001,
++};
++
++static const struct of_device_id veml6031x00_of_match[] = {
++	{
++		.compatible = "vishay,veml6031x00",
++		.data = &veml6031x00_chip,
++	},
++	{
++		.compatible = "vishay,veml6031x01",
++		.data = &veml6031x01_chip,
++	},
++	{
++		.compatible = "vishay,veml60311x00",
++		.data = &veml60311x00_chip,
++	},
++	{
++		.compatible = "vishay,veml60311x01",
++		.data = &veml60311x01_chip,
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(of, veml6031x00_of_match);
++
++static const struct i2c_device_id veml6031x00_id[] = {
++	{
++		.name = "veml6031x00",
++		.driver_data = (kernel_ulong_t)&veml6031x00_chip,
++	},
++	{
++		.name = "veml6031x01",
++		.driver_data = (kernel_ulong_t)&veml6031x01_chip,
++	},
++	{
++		.name = "veml60311x00",
++		.driver_data = (kernel_ulong_t)&veml60311x00_chip,
++	},
++	{
++		.name = "veml60311x01",
++		.driver_data = (kernel_ulong_t)&veml60311x01_chip,
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, veml6031x00_id);
++
++static struct i2c_driver veml6031x00_driver = {
++	.driver = {
++		.name = "veml6031x00",
++		.of_match_table = veml6031x00_of_match,
++		.pm = pm_ptr(&veml6031x00_pm_ops),
++	},
++	.probe = veml6031x00_probe,
++	.id_table = veml6031x00_id,
++};
++module_i2c_driver(veml6031x00_driver);
++
++MODULE_AUTHOR("Javier Carrasco <javier.carrasco.cruz@gmail.com>");
++MODULE_DESCRIPTION("VEML6031X00 Ambient Light Sensor");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("IIO_GTS_HELPER");
 
-Best regards,
 -- 
-Javier Carrasco <javier.carrasco.cruz@gmail.com>
+2.43.0
 
