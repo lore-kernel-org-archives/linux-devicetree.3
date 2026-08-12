@@ -1,171 +1,166 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09D3445AF6
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FAA37AA9E
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 14:17:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786542976; cv=none; b=kdL48CxL8DjF5b/CbXK3XBJJRBCbvA7G+3PYsFOZq6mHyTsJXorLj83KF5KynN7Jd/JQ0jtKdTl3u7RmavBg1iZN7vGmU93UJbfiSmcWzALa4HBKH2V+M9rtGnn8Kdp9yy384Ch6+s9lZ21O1aOcObSEXwzjvu1WhvWrye4bzwA=
+	t=1786544242; cv=none; b=kPMLk0piBaD5i/GxC7Gr/Iy1UHvmnIkiRdE8DwLmr70wA40CFmLabtRN0LgM0RlRd8ntlsUTob6AbxIij5eCDO4z8Xto3MXqOJjdhFHerXV4rKD567qdbLI29SmpKZNtgI4aUWCF312VjmF9F4t2bvFS+ekmW5de8Ik/sPl0zdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786542976; c=relaxed/simple;
-	bh=7XwXCEUgLs/ry9XIbKiXILWO0PExOH56Z6lmRpa2MNU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f55vGmrb9XRwnLFTidx4qIJQcreetla6e92TUYHqRgCMVEo/T1gbV1OWKiWYAaHum+Bt7DNb793rAdahDzs7ZkNPoin38d5Ecw7E0X1KaBeY0pBmJg1+bhf42pEr4Hu7S7PPFZ+D0sT7AOPXzg7Tpzn29wyKc8DEqc+yBGsi1BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Xh5KqE7E; arc=none smtp.client-ip=209.85.167.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1786544242; c=relaxed/simple;
+	bh=lW7zxZqx7Njnrn6nen+3u4o3GCHZTEp4Ur108DTPK9Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MxPyOTtbsoj7vFdAGzZsFzv5W6pb4J7njnEiLQB3tZgTi4Xh3WDGpm5NEapMa6PhHY9ak/wmREv8O0Y8So+r8q4jO+zgCy6zFXMn/GPPtn77DQLxZTEmpovAsaJP+4rugC5rf06CNP0GGwiBP6nnWnXINJIqSBoIiqv2O0Znwhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KRI2Q9LF; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Xh5KqE7E"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-48a0ca07c38so650816b6e.2
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 06:56:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KRI2Q9LF"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3811f512167so1217317a91.3
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 07:17:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786542973; x=1787147773; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MqtgZPrbTPjWEphaUoJvnp4BZkkjRwOTw5FSn5BjHXc=;
-        b=Xh5KqE7EUrMAR1FV5QpEARJ3CC1Ux0I2IsgUQU8OjOmuqMmuzQCaHosqJoIt40UWhQ
-         qmsYHcfzKvzQiOmyEWbtInK1NJ+Kk0aXJBmZNi+GzVcWRY6OprhfffGmmicCIXQe9oE9
-         KPMfUpBMg1X1vBhsp132RJqTOQCunv2jHL3FTz9Uk3QcnqPLvokvus8hz5LoLYJFSdGL
-         KIvY6toP2MPYALQLRTyT+TAmMH6D4ywY1kdNsW8vI3YkDN6MikQ1ryf2iMGPs/CabVwW
-         aqxWlvtY1gXDMg2FbyAZajE64C044r5hU1XtXpxjdO27f5bqr02axavt3NIaPNbg8aE3
-         wB/A==
+        d=gmail.com; s=20251104; t=1786544240; x=1787149040; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IFXEKRNC613kArjQkSDoySIwrg59q2YplhF5qCQ3nq4=;
+        b=KRI2Q9LF4g3P4OMFeOJUK/d89oCYcE5+83T1f8eTz9ptO3qQV6VH8+wPe/hg2/ND9M
+         knRx4CX/cBjsbaHHMaCpyUosGQduuOh2B655d2ZG9T28mFgzcgi+iUjfMnvHnBXVRvLE
+         +S5sH3VvkIQn/NgMOzxcIRdXz3/Y2kKtMwVSW3OgTAsRwk7Xd4EnJ9WoRINIAaJR6Zo8
+         0+TFRUnuy3JypNn580IfCNqn4B3mAxQ+bgwxPBlWU8Zcz9xzUFzHevAwxs9brraTCvdp
+         WsCjVdv2ke/6feIWkcMR7naRq9C/bFodamOuAwqSnS+FjSkka/YB/jhHkyWTpcuM8YCm
+         y2Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786542973; x=1787147773;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786544240; x=1787149040;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MqtgZPrbTPjWEphaUoJvnp4BZkkjRwOTw5FSn5BjHXc=;
-        b=e2HH2AGofXrad52H0Ti08xt5sxjPEisAaCs26ueQn+OEdgLjeTtPbwmzgIiQVJDDlg
-         ACisfLZcYo41e7aDrSF7OLwSKB+bTwBzxD5MAVEs93v0t/DfhejMzt+oUEwHwvcY2rIZ
-         gUM8bFCWT9AO3JRusjGhWqLXDKy10A7kG19laK8utDQX+/H1r6eTm8Gb/fat1qBOU14N
-         zMhTpwJvXgEU5hdLNCCdnqYYspMrdsDx+VdFct/tX7oQnfzVKOmq5dgFAaBuTwNIpsLT
-         1lrhH6X+vItLhw+nUlgnFg/Rsz6A+qxa8Zy/m09h47/aqadW+l4I+gl0iUJ9shYXS5pk
-         66ww==
-X-Gm-Message-State: AOJu0YzjYKBqGOhYhN3uauP1YmGGCzEQT+Db4z3FaGVSzIkn1jaDOVH5
-	6/5hkb7KjUi5RHiL1l+l3QjQQKcjJvnR288/CxAoAf760P0enQ/vUTkIqUgp56wPTH8=
-X-Gm-Gg: AR+sD12UAFy7aNYOjr5jLuCKSEVEGRvo1SyNIpou8GUo1bLe/LXVTGhU9qMpVIaKLZV
-	VZfYYGTxVzijJha27QnKFR86sujTvt1vX5EJPTXq4GylR3T7/kIeOK/o1hXIqhAFB1xqvbsSH1u
-	ysj6nYWO91wCdMMS6jl2tRYxzIOSIvc8u01rg3eahTN8hAdSl1hdKe+chy4u0ut/83nG2MQ502F
-	5gcmKZKejwr4muR2SGbtXc85hxbTewKUzMgTTHlzRjhF4pb8ipX77rcqNGmLdAgWyGh/7GkA/kR
-	HuW1rvPyB46tsZNNtUOshdu/CV6r8FEFnbCvIoPdHtQeesk5O2k56Q57TvoAXw+b6hxgZd7LgwX
-	VPl2N+Sy4fvIeMOO40N6U6YTdMNn3aqts93Rezvg1wHBsHglP1AGJHyC6apUtdR/a8h5TKYIhFM
-	bu5Jgjo6E300cMSkZR5VNhvDFcloxuLNyFTSKT8AkW4R3DG5Up/B5JcK4Mq9oX3QirU7TuE4rYk
-	iv1GFooAbtYwTFZIcpm1Z1zsNLet7fVWhBvBQlzuTW1MZ0YWg==
-X-Received: by 2002:a05:6808:2396:b0:497:da47:df5f with SMTP id 5614622812f47-4b210bcf8e3mr4696215b6e.17.1786542972928;
-        Wed, 12 Aug 2026 06:56:12 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:76d8:83ff:449f:8518? ([2600:8803:e7e4:500:76d8:83ff:449f:8518])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b200133de5sm3071945b6e.9.2026.08.12.06.56.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Aug 2026 06:56:12 -0700 (PDT)
-Message-ID: <a73ab4e3-520e-4515-adaf-ed5ec644e5f6@baylibre.com>
-Date: Wed, 12 Aug 2026 08:56:11 -0500
+        bh=IFXEKRNC613kArjQkSDoySIwrg59q2YplhF5qCQ3nq4=;
+        b=cPhecIw6iRSciHjao+oe9ARwvUDQDnjRiMM/kOZ4wjeeMFojWwP5Tz2w3fr6kLLxCB
+         3naZeGxq5LPWSgy6ESD2tE7Si2DbF+ypeT0+ZsyYgT1pm4qt21jD7s0fRG+pj6Vnye4N
+         8XgRM0qo4Z+R0g4ec5XJAkT3fAgtr3ibIhFf4yprTBKIrCQYSyirsl5a8fRww7NEJlCh
+         libryU8QDxYMjNTaziz2YeBp4FRKuV5EGOLWNNMX/W47I1D7tgchJix04BVOBjmwNF1k
+         oX9nNl3FMF071gIWjGQLaBNTz2owRUmrP2QA+pZW8jKVe3C6uDCm/7zfTc2eUGbYSRm5
+         nFYA==
+X-Forwarded-Encrypted: i=1; AHgh+RqJQU4ASXzqoereHnYibu1fZmOx5FlI0204FNF6kIIIhZ8vpYFeVu1qjHX9EPZ/sUSnuMYrBhEtQdw3@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJ1LwheAFyQSD6swBEY5cdwbY+eohjin1Cn4+pQGhAXgBCEhgN
+	Os9vlQy40h6c4BV4SvS2ZUPgnpZ2d7j2/bRYaHP0C1U8+WXTYcLZoJDq
+X-Gm-Gg: AR+sD12TzC1ayzoS/cCFH4rFiFHGOJ7OfWspJDBHLhS8kLvIQUSc0eSxJ3rXHFXZncU
+	M1lpI754Y+fCKCtK4gmRePzNfi2P3HkGasZH+k5QQscMoBGU2V8bUog9ZOoeT1ObPVM7NxolT6S
+	DNgi6nLB3A9E/G+lKd0226qNgV7hXM2esStvhW61ko2229FhoFolSbTW+kKdSdr7NBf/Akn8Gf1
+	HtzjmFv8UIkmShFvDuzhHGTEcT03gvp4FCIkke3Xfea0tziq8JobQeYsSST9CB7VCf9MVQoRbzO
+	XI081zN0QYZSrImFmmBK/Ub2ANp+kzItCjOR4EdYE3pBBHhbaSAFl5tUkUISdE+Sm05tdq+z7vD
+	VeXUhZjNNd9ybGDo9O2FgG2iv1wZ7KG4Z77AukrreKgDxswi0r+DsOTFY1nlxTRUA5h0f78ZVEV
+	N49wZDEj1J22n8odFL1MIIOihyiXiEq2Dcv8vf44SarAvRBSbOnCkUAiRmoBRtBb6Ft5V2cJmKM
+	hEOB2JvpXZTg769L7Hxm8+efLGMHx5lN9DUudlTTmNJYZoDLg==
+X-Received: by 2002:a17:90a:e7c6:b0:38f:57f0:1f5d with SMTP id 98e67ed59e1d1-3930164ea38mr5615471a91.15.1786544239634;
+        Wed, 12 Aug 2026 07:17:19 -0700 (PDT)
+Received: from Mac.localdomain (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31cf361d57asm11963071eec.6.2026.08.12.07.17.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 12 Aug 2026 07:17:17 -0700 (PDT)
+From: Ahmad Byagowi <ahmadexp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nam Tran <trannamatk@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Peter Rosin <peda@lysator.liu.se>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH net-next v4 0/5] ptp: ocp: Add R4006 and V9 I2C peripheral support
+Date: Wed, 12 Aug 2026 07:17:10 -0700
+Message-ID: <cover.1786543681.git.ahmadexp@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: add support for PAC1711
-To: Ariana.Lazar@microchip.com, robh@kernel.org, krzk+dt@kernel.org,
- jic23@kernel.org, nuno.sa@analog.com, conor+dt@kernel.org, andy@kernel.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org
-References: <20260728-pac1711-v2-0-609bc026093c@microchip.com>
- <20260728-pac1711-v2-1-609bc026093c@microchip.com>
- <a869acd6-9c77-4495-a581-232ca88ac9e2@baylibre.com>
- <0c0cc5addbb604187335cd534f68a9a7f8ce4ad4.camel@microchip.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <0c0cc5addbb604187335cd534f68a9a7f8ce4ad4.camel@microchip.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 8/12/26 8:34 AM, Ariana.Lazar@microchip.com wrote:
-> Hi David,
-> 
-> Thank you for the review. Please see my comments below.
-> 
->>> +
->>> +  microchip,accumulation-mode:
->>> +    $ref: /schemas/types.yaml#/definitions/string
->>> +    description: |
->>> +      The Hardware Accumulator may be used to accumulate VPOWER or
->>> VSENSE values
->>> +      for any channel. By setting the accumulator for a channel to
->>> accumulate
->>> +      the VPOWER values gives a measure of accumulated power over
->>> a time period,
->>> +      which is equivalent to energy. Setting the accumulator for a
->>> channel to
->>> +      accumulate VSENSE values gives a measure of accumulated
->>> current, which is
->>> +      equivalent to charge.
->>> +
->>> +      The Hardware Accumulator could be configured as:
->>> +       "vpower" - Accumulator accumulates VPOWER (energy)
->>> +       "vsense" - Accumulator accumulates VSENSE (Coulomb Counter)
->>> +    enum: [vpower, vsense]
->>> +    default: vpower
->>
->> Why does this one have to be a DT property? Can it not be switched
->> at runtime to accumulate one or the other at different times?
-> 
-> This property aims to specify what kind of hardware is intended to be
-> used/available for the user.
-> 
-> There are two main cases here:
-> - the user wants to measure also the current/power consumed before the
-> driver insertion (e.g. from the boot to user control) and if this is a
-> runtime setting, the hardware accumulator will be reset by the default
-> configuration the driver starts with.
-> - the driver does not know what type of hardware it's dealing with. In
-> case the part is monitoring the charge/discharge current it does not
-> make sense in user-space to change the accumulator to calculate energy.
-> Same if the hardware is intended to calculate energy it does not make
-> sense in user-space to change to Coulomb counter. Changing the setting
-> from one mode to another will reset the hardware accumulator inside the
-> chip. 
+Add the generic LED and I2C-mux support needed to describe peripherals
+behind the FPGA I2C controller, then use it to instantiate the R4006 and
+Time Card V9 board topologies from software nodes.
 
-These are good reasons. I would put more of this explanation in the
-binding description.
+Patches 1 and 2 add the binding and LED-class driver for the Lumissil
+IS32FL3207. The driver supports individual and multicolor LEDs, enforces
+per-output current limits, and keeps the controller shut down until every
+channel has been configured.
 
-I also wonder if we should try to make the naming a bit more generic
-so it can be used with similar devices, like make the enum energy
-and charge.
+Patch 3 propagates software-node channel descriptions to adapters created
+by i2c-mux, including a software node attached behind a primary ACPI node.
 
-And maybe call the property microchip,accumulator-source. (Unless
-mode is describing an input pin, it sounds like configuration rather
-than hardware description, which raises eyebrows, while "source" describes
-how things are wired or how signals should be routed.)
+Patch 4 adds the R4006 profile for the temperature, humidity, pressure,
+GNSS LED, and four SMA LEDs. The BNO08x channel remains empty because no
+upstream driver binds that device. Profile selection is fail-closed and
+requires a supported PCI device plus a printable fixed-width EEPROM ID
+with valid padding and an R4006 prefix.
 
-> 
->>
->> Also datahseet says it can accumulate vbus measurements.
->>
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - vdd-supply
->>> +  - shunt-resistor-micro-ohms
->>> +
-> 
-> In the previous version of this patch series it was recommended to drop
-> VBUS accumulation option from the supported functionalities because it
-> has no practical usecase (other then maybe long term average) as
-> Jonathan suggested in the review for version 1:
-> https://lore.kernel.org/all/20251015-pac1711-v1-2-976949e36367@microchip.com/
-> 
-> I will readd it if it is needed.
+Patch 5 adds the V9 BME280, BNO055, two GNSS LEDs, and four SMA LEDs. It
+uses the exact EEPROM ID "TIMECARD-V9" because earlier revisions expose
+the same detectable I2C devices with different LED routing.
 
-No need. The reasoning makes sense to me.
+The prerequisite patches touch DT bindings, LED, and I2C code. Reviews or
+acks from those maintainers are requested so the complete dependency
+series can be carried through net-next.
 
-> 
-> Best regards,
-> Ariana
-> 
+Hardware and build validation:
+  - Exercised the R4006 LED routing on hardware.
+  - Checked the V9 controller address, 4.7 kohm RISET, sequential RGB
+    routing, and second GNSS LED against the V9 schematic.
+  - Ran dt_binding_check for issi,is32fl3207.yaml.
+  - Built i2c-mux.o, leds-is32fl3207.o, and ptp_ocp.o with W=1 for x86-64
+    and arm64 using both defconfig and allmodconfig.
+  - Ran strict checkpatch with an 80-column limit on all five patches.
+  - Applied the generated mailbox to the stated base and compared the
+    resulting tree with the source branch.
 
+Changes since v3:
+  - Carry Krzysztof Kozlowski's Reviewed-by tag on the DT binding.
+  - Document that registers remain accessible with SDB low, preserving the
+    retained-scaling clear before hardware shutdown is released.
+  - Establish any ACPI primary before attaching the channel software node.
+  - Keep channel software nodes attached until child clients have been
+    removed, then release the held node reference after adapter deletion.
+  - Rebase onto current net-next.
+
+v3:
+https://lore.kernel.org/r/cover.1786423898.git.ahmadexp@gmail.com/
+
+Ahmad Byagowi (5):
+  dt-bindings: leds: Add IS32FL3207 controller
+  leds: is32fl3207: Add controller driver
+  i2c: mux: Propagate software nodes to channel adapters
+  ptp: ocp: Add R4006 I2C peripheral topology
+  ptp: ocp: Add Time Card V9 I2C peripheral topology
+
+ .../bindings/leds/issi,is32fl3207.yaml        | 251 +++++
+ MAINTAINERS                                   |   7 +
+ drivers/i2c/i2c-mux.c                         |  71 +-
+ drivers/leds/rgb/Kconfig                      |  11 +
+ drivers/leds/rgb/Makefile                     |   1 +
+ drivers/leds/rgb/leds-is32fl3207.c            | 691 ++++++++++++++
+ drivers/ptp/ptp_ocp.c                         | 881 +++++++++++++++++-
+ 7 files changed, 1865 insertions(+), 48 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+ create mode 100644 drivers/leds/rgb/leds-is32fl3207.c
+
+
+base-commit: ac155a26750a595703e7dadff84735456d75a479
+-- 
+2.50.1 (Apple Git-155)
