@@ -1,101 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F1E34B1B0;
-	Wed, 12 Aug 2026 13:39:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D374399DC
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 13:40:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786541983; cv=none; b=rBr7pqv7YO6bdJ9nGgFCWXevPiMVRG0EcC4qpj/bN8gS2sf2VjrbwYt/PW6aGOqgE4QyKf7HU8ByPsrHCOKij48MPLuaU4Xg4en31KODATfgppV2xYh4hURkDnd1/bhkzfztYC08tJOp7fJ+cNVqMeAnknOUN5/PSGn4bJN7xkc=
+	t=1786542023; cv=none; b=ge35+07aJiE/SdDqgKItVv9hCH72WxWhLNQ5w2is3gozdJVnuH/zeZmR5kMHg6LQe4OYexPdcOEnMBaaU1xRB3XfR9fHrE49Syv1zCVE2qJ0KoOKtLDvXqaBXGQcPsd2bUZT9G92q9em4Fhs9klbItscLH2dwsdybZ8Jw2NF9Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786541983; c=relaxed/simple;
-	bh=ZmXIYBym5YIteRTlkHhUiHqWl2yOEJxCCGYMbG7i6Cw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cKFubBYgyZdGU+7GhCquHcEJPc3ctAW2oAoFOyySiUmE19INNFsokbs82a2KWji/FsFgTpIHQ0NrTWiPTl1Jq0FKK2hQQWAUa2h+nMjIYkObr+7amTVGQOTl/IUtJgzZH0Rr0Azh1CQyWtaTfMi3TFB3FB21BkhtUJ/3Vnr3YFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXmHoAge; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786542023; c=relaxed/simple;
+	bh=Yp2oRgRlHLK5S6oFnlyMQg7hEjEr5DC8Y6ykHGauOQI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oh0oykPqWsiU/Hbt+Qd1e8BPGl9CBOPgRfhrWyUkYDgC6T80LU8oY3TAGwt3sIgb9Ck3qbPjXcsok1Ud7cB0Mp5d/0rqneXQxFJId/C4Vs2lrxqdmwZ0Ej6iqQ9vAv+WFWcZ7HJpnSk/Ucb3U3OQtCqrwLj1i+NawPl+G6Bp6Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KuYoRDzE; arc=none smtp.client-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXmHoAge"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AF9A1F000E9;
-	Wed, 12 Aug 2026 13:39:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786541981;
-	bh=3ibm8bfQyR2d8UOaedwkCOqtnngF6Dqwc3ieAXLx8Wg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FXmHoAges9gNUhhGbbq4ohLZoieZPJ9Y/s992n8mtyT3yqzr1bRy0xTQiiu/bjAhZ
-	 TjmZPvzPo8jm4b8IqRqJ0of13cqWN5uXUZc2/GawLvXCbzj265R0cHxeJZ34Prn5RJ
-	 /XsYpSK3S6LocEAJW9m1KOZ4ppkRU37WXVXdV9r5DpioQ+LdfpnMTMWodUi5P+kS3P
-	 B07TzFh+X3nNUQ9iWfDuRQTN6Zt/UehQnOFqU/kKmGJs4WmBRJC7ZEnzQtsRNI059C
-	 xdIGiAXdd0B9uJZs7n4irEtz9XtQJx5KDY7fgutR9qj5Fm6+/bI2O6OwGSKBGW7oN6
-	 LBIH2hnG+PA1A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width
- property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Francesco Dolcini" <francesco@dolcini.it>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260812132954.148571-2-francesco@dolcini.it>
-References: <20260812132954.148571-1-francesco@dolcini.it>
- <20260812132954.148571-2-francesco@dolcini.it>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 13:39:40 +0000
-Message-Id: <20260812133941.1AF9A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KuYoRDzE"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-458de93b53fso432016fac.2
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 06:40:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1786542017; x=1787146817; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3m/mAJLnKMaOtoiImwSaVIw0nteRIaUTkKOvX93AqPM=;
+        b=KuYoRDzEwL4PLALIl5YDeM+Ss0GYokunxQqXZlzOz6dGYO3Fy1YgftesXLbaMqjZ2g
+         kZmWap+0y/mjsGUlq+JP3iJiFxdjwXHYqZTFovc+Z1clywebjWCs/zB3IG/S32ro6qmw
+         LEb3/1ieoLnuz7H9tbF0FjJMDgKbtb1CWUQz+jXOLuGEVgETKeedrlczKQTtU/Z6+0KQ
+         Z/3g7/qirYN8G1DGnEqgDCEUigohrfD0p6SmRWR/j71trki9+iMm8RTpPAiH65M1yRz/
+         YnBmt0dvMbAqEBWfq+qpbxYc/LD7a7wUuRj89w7y0SSjK0upk3tJVypAWE2/GcDDzgyA
+         8zbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786542017; x=1787146817;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3m/mAJLnKMaOtoiImwSaVIw0nteRIaUTkKOvX93AqPM=;
+        b=T9pvIjc9NeAPBUTECSBre9FYffzwoVDIbfeWljjqgkbmifo0a33WidY9ofx2BnlKjV
+         Q9L1x6A+kvbi5xH9zV5BtADAghO+zSZPko8HuExeU1Y1+JKM6BZ2uvB2GFrzKTawG36r
+         ZXgTeJJTh4F3yC8yQuUGWyC0az3VKdCc/fAZuo9Op47MTMhfkM0TEPKBmHUQfQSmr2rD
+         iljfRGMmVDJwn/5Pw0X31qxu6wtkeJE5FUvUK6hX5ObJ6bX0M3MBLJ2v9xk7mqT2vN1T
+         NDciwS9PA94NQGQFhufeQ5baDAgY4hiJXivbFmKMBjagacGFtnn++KDW826xqlZTVgY/
+         UvDA==
+X-Forwarded-Encrypted: i=1; AHgh+RpXkcfOZuVjxalX2UhPCThFfbX1KXN7Klu4qgThpdIg8IA+Cq4XD02PPv/AHgklvX2fTaXCPvxACVBK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwFsugRof5ROBBTlNjS44r3HwgLLCUCOx00Dqmvkr2DHcCw2pu
+	WcdSKTZF4IbhgrR2F+sfbjJb6isc7F8KaGZpFJt4j2lNr8/UONBHXhwXD4P7d/jBP+o=
+X-Gm-Gg: AR+sD11lfDONy40PzcZ0JH+MtFruput1LKDl9Q2lPo28hYbcN6ZiZ2tDD9euL3ZlX0y
+	5VywllVd7ABNwaGZQASfm6F6Rs4PoPAwlaBwqxQJUpYofTVortflpG0FWy7DkjruJwlEQyg8dw/
+	fTGd2CXpgT4n58B5QUWoQuGBaIBId7D3EP0lYLIl/aZz7i50Bz7vmtGqnVZEiHUs3jx4mCNPCy9
+	cQBtrFjs0fjQ8yf367x9JXCHgWW3LBdZkPf90s57qyx1lkuGPDKRCYiMtlJAnnnCc9Ko7zOMStG
+	RgPOOCFenMjLU0V8ANvPieVp9Z4xv1t/L+g0gNbiG3dZeCIiEoVB2lkFItkGDHNP3hvbtr43Pva
+	0wje2uz5TzCWabQbZioy2QoBiY4cMdLxJlC9LTFEUrN9LqU8UUVM7zPa9KsdV16npOGUlWE5e7o
+	oDD4gX4vB+uzzQyueK8QgnN4axdgwd8w8JHtKe9fIW5+I1WgkHACuxCccVGjFEvfVe2fMWUuqhT
+	im1sIvuL4gxbwDp7lBXrT0xjTzMADPLHTdIDnI=
+X-Received: by 2002:a05:6870:c267:b0:456:4c3f:7e03 with SMTP id 586e51a60fabf-45e3ea95283mr4055401fac.18.1786542017417;
+        Wed, 12 Aug 2026 06:40:17 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:76d8:83ff:449f:8518? ([2600:8803:e7e4:500:76d8:83ff:449f:8518])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-45e35173939sm1812914fac.8.2026.08.12.06.40.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 06:40:16 -0700 (PDT)
+Message-ID: <a30efc8e-22a4-4573-93c7-e1a4689d3a3b@baylibre.com>
+Date: Wed, 12 Aug 2026 08:40:16 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/9] iio: adc: add the ti-ads1262 driver
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+ <20260807-ads126x-v3-2-f89925d72792@gmail.com>
+ <ad95afb4-e667-4290-8878-fdd7067f20fe@baylibre.com>
+ <DKK9QWYHOBOT.2VD8XMZTE65H4@gmail.com>
+ <7a42a318-780d-4bd0-baf1-55d030b39233@baylibre.com>
+ <DKMECOTJYOZE.3AEGK7RWPH7FW@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <DKMECOTJYOZE.3AEGK7RWPH7FW@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The device tree schema uses exact string matching (`properties: =
-endpoint`) instead of pattern matching (`patternProperties`), failing to va=
-lidate indexed endpoints with unit addresses (e.g., `endpoint@0`) and silen=
-tly bypassing constraints for `bus-width`.
---
+On 8/11/26 3:28 PM, Kurt Borja wrote:
+> On Mon Aug 10, 2026 at 11:42 AM -05, David Lechner wrote:
+>> On 8/9/26 3:26 AM, Kurt Borja wrote:
+>>> On Sat Aug 8, 2026 at 1:39 PM -05, David Lechner wrote:
+>>>> On 8/7/26 10:58 PM, Kurt Borja wrote:
+>>>>> Add the ti-ads1262 driver with initial support for the primary ADC
+>>>>> (ADC1). The ADS1263 auxiliary ADC (ADC2) is handled by a separate driver
+>>>>> and interoperability considerations were taken into account.
+>>>>
+>>
+>> ...
+>>
+>>>>> +static int ads1262_dev_reset(struct ads1262 *st)
+>>>>> +{
+>>>>> +	int ret;
+>>>>> +
+>>>>> +	if (st->reset_gpiod) {
+>>>>> +		ret = gpiod_set_value_cansleep(st->reset_gpiod, 1);
+>>>>> +		if (ret)
+>>>>> +			return ret;
+>>>>> +
+>>>>> +		/*
+>>>>> +		 * The RESET pulse timing requirement is 4 clock cycles, at the
+>>>>> +		 * minimum clock rate this is 4 microseconds.
+>>>>> +		 */
+>>>>> +		fsleep(4);
+>>>>
+>>>> How long do we have to hold reset before the chip powers down?
+>>>
+>>> For power down 65536 clk cycles. Less than that is simple reset.
+>>
+>> How long is 65536 clk cycles in microseconds at the fasted clock rate?
+>> Hopefully won't accidentally shut down the chip here even if fsleep()
+>> goes significantly longer than requested.
+> 
+> That would be 8192 microseconds. Do you think there is a risk we end up
+> turning off the device?
+> 
+Linux is not a realtime system, so yes technically it is possible. It
+would probably be hard to do in practice though. So hopefully not
+something we have to worry about.
 
---- Patch [1]: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width pr=
-operty ---
-commit 875819bc127ee9201c1b4dcfb35262deed8eb282
-Author: Francesco Dolcini <francesco.dolcini@toradex.com>
-
-dt-bindings: lcdif: Add endpoint bus-width property
-
-This commit introduces a bus-width property to the output endpoint of the
-LCDIF display binding. It allows configuring the DPI output with a bus
-width of 16, 18, or 24 bits.
-
-> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
-ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
-> index 2dd0411ec6516..1f3daf0027075 100644
-> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> @@ -71,6 +71,15 @@ properties:
->      $ref: /schemas/graph.yaml#/properties/port
->      description: The LCDIF output port
-> =20
-> +    properties:
-> +      endpoint:
-
-[Severity: Medium]
-Will this exact string match cause validation to be skipped for indexed
-endpoints?
-
-If a device tree defines an endpoint with a unit address under the port nod=
-e,
-such as endpoint@0 or endpoint@1, the exact match on endpoint bypasses
-validation of the constraints inside this block. As a result, incorrect
-bus-width values on indexed endpoints would silently pass validation.
-
-Does this need to use patternProperties to correctly match both standard and
-indexed endpoints?
-
-> +        $ref: /schemas/media/video-interfaces.yaml
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          bus-width:
-> +            enum: [ 16, 18, 24 ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812132954.1485=
-71-1-francesco@dolcini.it?part=3D1
+If it did get put to sleep here, how does it get turned back on?
