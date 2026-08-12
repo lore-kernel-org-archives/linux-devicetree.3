@@ -1,149 +1,127 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31FB9416842
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 10:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AC3418346;
+	Wed, 12 Aug 2026 10:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786529384; cv=none; b=mIbBvQ3gA6QGC72ZpB3q2JgajuyisiCeVYsdxGuR36dt25S944JNf+WpGiG7c0xYGOG41ni43c9gv4pZeqFJ4QlZgxRxih78Re8pqQcwH/+P+n4cO6n4dPuwPOijsL5MFTzfF2nxz5leMY5TOme/PVGUy1t0E47qlFKwCd0HG6Y=
+	t=1786529485; cv=none; b=iCyzjQILDF+2RA8Tf8DRy4NTlOR8WRGVRuhj4Kwp+LDQNxleGJmwzDM5goB0oux1RvlBfvYhxDt3aYz+RKXfn2qpjfF0YdaqIYYoTt9dLlFhNmzoV/DU82hD9B4jsSfq5iDW5WepVWvIo2gUgJfMHDKhNhPv2mmryOBnyOvRqbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786529384; c=relaxed/simple;
-	bh=wokLofWxv7vLrWb75WZJGxZonifi+3z274aDMO/O3SE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oShRLzh9LaJP5QIuWdbbUt3pb/wT3b6Od1huesUXqNVJ5vNXbtUacZ6zI0bWFYgN8l9oZkh5xvWW9czAiS1rQXAjBK3wrjFUP8eL8AbuOCeoHPBzjhPTKtkitdY+z6nhKDdLqkHU/gAEVz7/5ZqlmdFvJsEwuFhd2NTGP/qqc9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7ee4399c423so626537a34.0
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 03:09:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786529381; x=1787134181;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CR60h/fVXoId0NfC1qox1rIsZX7Vdp8o1eA32koeHU0=;
-        b=Z0n+KBp/wt35hzm+rh0Iv33jpii51AnXBFQhHkd5LtSk0DOUGMix4OeER8gaTFEBUE
-         rXDDZMHRDewbaXikiDFaZSzsFkXqpwvJ+BTXJnOvc4P2unsK/YG3hb8GISQyVZSEF8Wh
-         xEUjQSccB91r6sn0Md/T5xZndhT9MOVVSq8ErB93UE8FEXy3S9Rn8dxM6nhLF0j0RoG9
-         KKeRYpU14Gobal5waNNovavXeJEeYhYj1059lvON/CnIJlD1DuQ6QVvjvjN7hmDCnkAj
-         C+35sF6TVC0hEXTez4DTolN26xUUxwfjmmr//rSU5YohCPbzmmnw3toum9H+pgjKdTQM
-         v43w==
-X-Forwarded-Encrypted: i=1; AHgh+RqoidEtJrWpRdOEXeJYeRWXFnIeh1mqmhiB5Ggn1g8EmZr6cziIMiK/2SipECrwnl+Fn7GzxDJ3feKV@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDqv6qkprt6h3ptE1eYg8Lbis7DtO9S11VP7JQ+XRuGrlTFxlz
-	keyX4pbUk5vYBbvU9lJPSdydxaozNv9HOGhVtzBOEzbFD4NpAzTwF8b+9QurxBx5
-X-Gm-Gg: AR+sD11EtuzlsapNGjY6Rq0O9lUA5DXU1Pz1b7Fhcu0y+Biv+LNg6pkgc0XVFrsNI6V
-	L41DNKgMp3C1w4OncjfXiTk3bLEXjV9CiU2vtSVPjpWdD5vZdwpec2R8vh5snyER9136KOZUFCD
-	NEGDrGvoKg55ghQ8lAv+A11S0MeBecSnUnDb/diDDe87C+wMXiD7gtWK/IAJOMo/t1REjTpeTUh
-	vJkK3IpWUiBmCTvEi1K0IFXi6zJSIaOvK0YvNBG3NZ0Ca8zj9DAJLQQ77e+59jL5gxbv0/Ydjb/
-	mbSQWQMEVNvkRy8Qj5iejKgXNl2Fvr5t4ViN/xXnd9vmBaYM/eF5QBZlMwpoYUYT0XcjXww9bmU
-	BJpjv11gDY1pjEbx9tobXCt50wWe+KSAVYhaV1YTZ8ZPT15maLkDG7zsp/UftNMI8H1URRMRRJT
-	eCEvI54zP5drV2nlj+oJ1DzbLTTgxFkhFlH0GUwTgbj16+2DvV+sNerLc44wXOYm7Ka5/eHNIHV
-	XdetAVPV0TBuPn03B2pl8tHcA==
-X-Received: by 2002:a05:6830:6ab2:b0:7d7:ef0a:1ce5 with SMTP id 46e09a7af769-7f3b798f983mr3625048a34.9.1786529381036;
-        Wed, 12 Aug 2026 03:09:41 -0700 (PDT)
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com. [209.85.160.54])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f3b3209120sm2745776a34.7.2026.08.12.03.09.40
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Aug 2026 03:09:40 -0700 (PDT)
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-44856d185bcso514937fac.3
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 03:09:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpwhtXshhfg1jbCFJ5XTrp8h/roRgvlWb4uzavZDmVvKimlpEUAP/h/67Yayr47BjpzZinrYJFNdVms@vger.kernel.org
-X-Received: by 2002:a05:6102:3fa3:b0:738:531e:a43e with SMTP id
- ada2fe7eead31-76c8e62eb86mr823119137.7.1786528956520; Wed, 12 Aug 2026
- 03:02:36 -0700 (PDT)
+	s=arc-20240116; t=1786529485; c=relaxed/simple;
+	bh=tK5kSu7o3Gg7D3UWu08JlgFnWMIl4xLwhV3Us3sCjIQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s/JwNKvHUV1aXcjcReII2C1IjPpqu/R7SwLpddFm3H3laS4A7VEVgCKkGUlsA3r2ti7qFobmKvDcUtw/yw+tTog/+YKINkmoJQMfZRkoL8MfF3P7lEs/N9l+J4btsi2mGkxJA8L7VvceLP49g17qBULbLLmj6MhwXIpRwOcNAUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ranostay.sg; spf=pass smtp.mailfrom=ranostay.sg; dkim=pass (2048-bit key) header.d=ranostay.sg header.i=@ranostay.sg header.b=6ldGws6t; arc=none smtp.client-ip=185.70.43.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ranostay.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ranostay.sg
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ranostay.sg header.i=@ranostay.sg header.b="6ldGws6t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ranostay.sg;
+	s=protonmail3; t=1786529478; x=1786788678;
+	bh=/GO93YHe3+dQ8Hjz3ICrJP4ZvePEoCldcJlYgsUc7As=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=6ldGws6t1EGx4sUkaOhKlXFANfBQBrFqxo/1/bBrDEpQ4lAawy0IiraY6WkCx+xaF
+	 rk84UFGx/mUEESw9CV5VLA6woyd8cTOI/6CiYkk0DELm9xs6DhiWlkmwcgzv860D6k
+	 RmVb8FtpUsdTruIwO8DIBDBobXsoUPFctDKkKb6idP+McDJ3JphPv7uNa8dqRJtG5t
+	 jQ8DWMWPcKzt0t0XRxaApwy84P9IJ95NgYGaKfgaBSqHpC5nND9wWCNvM16WD1af6T
+	 qqn+A6EKas8RvXfEQbNxtti7ptPqkFqSQoKCEj6LMXoSm3ReuYYHS+Th5yOhO4UiTS
+	 3F8Z7dCip/CvQ==
+Date: Wed, 12 Aug 2026 10:11:13 +0000
+To: Jonathan Cameron <jic23@kernel.org>
+From: Matt Ranostay <matt@ranostay.sg>
+Cc: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>, dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, mranostay@gmail.com, ~lkcamp/patches@lists.sr.ht, linux-kernel-mentees@lists.linux.dev, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: proximity: move LIDAR-Lite v2 out of trivial-devices
+Message-ID: <F_gQH7S7C_a2e4gmKfLMZwNzMQ2lvOoBcv-tqJsuNGsWYdJdV-KhzKRPTqo1JS4yGoBK6bn4lscAS3et1Uxm-obr7Tjw3hzePjHOllpSlc4=@ranostay.sg>
+In-Reply-To: <20260812053450.2e14b074@jic23-huawei>
+References: <20260810192131.153495-1-rodrigo.gobbi.7@gmail.com> <20260810192131.153495-2-rodrigo.gobbi.7@gmail.com> <20260812053450.2e14b074@jic23-huawei>
+Feedback-ID: 87502384:user:proton
+X-Pm-Message-ID: c5d0def14d79898b2063cb3d33da652b80bf9c89
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1783505329.git.geert+renesas@glider.be> <49726acff0fee1c3606e83c4f242ef6aad25b4b8.1783505329.git.geert+renesas@glider.be>
- <20260710-adventurous-burgundy-chimera-b2fff9@quoll> <CAMuHMdV=ckONBbTYELPJU8YWoNzdu3PJ95VR8cz+f_7dUeiPUw@mail.gmail.com>
- <20260716214924.GA1477674-robh@kernel.org> <CAMuHMdU0ss6wUEdjC+OYa3iQS439aJ8b_d9M2ws7Ayn4_kOyMQ@mail.gmail.com>
- <20260811163334.GA2354701-robh@kernel.org> <CAMuHMdWbzg-QpFBzzDa2hC3HzAmWUkerESC5O-cSVxmWX3_PkQ@mail.gmail.com>
- <45dfd858-9d59-47e6-91e0-ef9e6e909af6@kernel.org>
-In-Reply-To: <45dfd858-9d59-47e6-91e0-ef9e6e909af6@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 12 Aug 2026 12:02:25 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXJFdJQP1GVXrOWRuYO8Si_WF5X+vpzmAgTZY+tQstR1A@mail.gmail.com>
-X-Gm-Features: AUfX_myt-2ep2N9UFFpinQmtMeTX8Y6aB554SNFoItehXn5f25ET5eoahbFPK1U
-Message-ID: <CAMuHMdXJFdJQP1GVXrOWRuYO8Si_WF5X+vpzmAgTZY+tQstR1A@mail.gmail.com>
-Subject: Re: [PATCH v2 05/10] dt-bindings: clock: renesas,r8a78000-cpg: Add
- firmware property
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Cristian Marussi <cristian.marussi@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof,
 
-On Wed, 12 Aug 2026 at 11:51, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On 12/08/2026 11:47, Geert Uytterhoeven wrote:
-> >>>>>>> +  firmware:
-> >>>>>>
-> >>>>>> RPi is doing similar, but I have doubts. It looks way too close to
-> >>>>>> generic "syscon" which is disallowed.
-> >>>>>>
-> >>>>>> I think this should be vendor+purpose specific, e.g.:
-> >>>>>> "renesas,scmi-transport" or "renesas,scmi-firmware"
-> >>>>
-> >>>> If you can tell me the resource that a 'firmware' provider provides then
-> >>>> it is fine, but you can't.
-> >>>
-> >>> It provides a firmware API, which is not available until the firmware
-> >>> provider is initialized.
-> >>
-> >> I don't know what "a firmware API" is. What does it provide? I know what
+
+
+
+On Wednesday, August 12th, 2026 at 12:35, Jonathan Cameron <jic23@kernel.or=
+g> wrote:
+
+> On Mon, 10 Aug 2026 16:18:40 -0300
+> Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com> wrote:
+>=20
+> > The PulsedLight LIDAR-Lite v2 is currently described as a trivial devic=
+e,
+> > but it is not one: besides the I2C interface it exposes a power-enable
+> > pin and a mode-control pin.
 > >
-> > It can provide lots of things (everything we are no longer allowed to
-> > touch directly from Linux ;-)
+> > The mode-control pin can trigger acquisitions and report the measured
+> > distance through a PWM signal, entirely bypassing I2C. That usage is
+> > bidirectional and non-cyclic, so it doesn't map onto any existing
+> > binding for describing pin behaviour, and is intentionally left
+> > undocumented here. The same pin can, however, also be used as a plain
+> > status output while I2C remains the active interface, which is
+> > described through the new interrupts property.
 > >
-> >> a clock, GPIO, reset, interrupt, etc. provider is.
+> > Move the device to a dedicated binding file and document the
+> > power-enable, power-supply and interrupt properties that
+> > trivial-devices.yaml has no way to express.
 > >
-> > A clock is an object you can access through the clock API.
-> > (s/clock/.../ for the other cases).
-> > Firmware is a service (virtual object) you can access through a
-> > firmware API.
+> > Signed-off-by: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>
+> > ---
+> >  .../proximity/pulsedlight,lidar-lite-v2.yaml  | 64 +++++++++++++++++++
+> >  .../devicetree/bindings/trivial-devices.yaml  |  2 -
+> >  2 files changed, 64 insertions(+), 2 deletions(-)
+> >  create mode 100644 Documentation/devicetree/bindings/iio/proximity/pul=
+sedlight,lidar-lite-v2.yaml
 > >
-> > In all cases, the consumer of the object or service needs to know
-> > which object or service to use (there can be multiple).
-> >
-> > In all cases you cannot access the object or service until it is
-> > available (initialized and registered), for which we have -EPROBE_DEFER,
-> > and/or "[PATCH v2 02/10] of: property: fw_devlink: Add support for
-> > firmware".
-> >
-> > Thanks for your understanding ;-)
->
-> I think that's the difference here. Clock is not an object, but a signal
-> on a wire or within IC coming from one device (provider) to another
-> (consumer). Firmware is not a signal, not a wire, not anything which can
-> be provided from one to another.
+> > diff --git a/Documentation/devicetree/bindings/iio/proximity/pulsedligh=
+t,lidar-lite-v2.yaml b/Documentation/devicetree/bindings/iio/proximity/puls=
+edlight,lidar-lite-v2.yaml
+> > new file mode 100644
+> > index 000000000000..e19c8d166b81
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar=
+-lite-v2.yaml
+> > @@ -0,0 +1,64 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/proximity/pulsedlight,lidar-lit=
+e-v2.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Pulsedlight LIDAR-Lite v2 range-finding sensor
+> > +
+> > +maintainers:
+> > +  - Matt Ranostay <mranostay@gmail.com>
 
-Oh yes, it is a service provided by the secure world or a different
-CPU core to the application core running Linux.
+I really don't use my gmail address anymore. Would be ideal if it was chang=
+ed matt@ranostay.sg=20
+Other than that don't have any issues.
 
-Gr{oetje,eeting}s,
+Thanks,
 
-                        Geert
+Matt
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> I'll need an Ack or Reviewed-by from Matt for this. If Matt either doesn'=
+t
+> reply for a while, or isn't happy to take on this much fuller binding,
+> is it something you'd consider putting yourself down for?
+>=20
+> Otherwise LGTM
+>=20
+> Thanks,
+>=20
+> Jonathan
+>=20
+
+
