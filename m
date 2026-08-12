@@ -1,277 +1,106 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A0F343D8A
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 19:11:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E081366049;
+	Wed, 12 Aug 2026 19:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786561920; cv=none; b=u1AMj1WPxaAtRPzTNG3t0X1lxJuKzUcw3n1LsKa2BRwKPj9cnWlNpbQ/R/3GQUxkoLTUsRdrGFwEiprm2ssbs1hFpiDxy+pQn54CKVLZA6BHVJ5q5d/mMI/ToFOsWIW7Q2zgv6bAB7XcT8zbGpyxhymAdus6GoeDtp5xQJ01pbM=
+	t=1786562186; cv=none; b=k+ZWPeQ01WE5v2Rs+MNbYzQgKVQa+hE6AnCJIZ4AVluWVcD2aX9Iz+6o73NCrnO/41FKGAi9wvL1VyFLLSOqO6rZN/KK5T7MYyQINJT9hv1NvTn916+J1hNXYcqDx+OInQI39bbXNA/H5oau/ZNF2bSfZOMp7jdqhMsrKndUlME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786561920; c=relaxed/simple;
-	bh=kLXwjiY0hk/bsIhaPf9r0kAxsBg3pdBby5bPIV/S2SI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LGQ8bwc0WekP8m3reVDu/QhbYQtLeBj94FYGjExBR9ZvXqNphwPdwnmQfZUxCc5MMprUVJTWLe2OJB4uxeuJ1PQYrzBTxIfV0Dz6M3Y/nnm15ShO+cuLj6IQVC1OaRA2fZlc99mqWg0D8RmhV3KPFLKJScvgG0jwZADdxQ9wSPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DsOppiIj; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786562186; c=relaxed/simple;
+	bh=KlIwDRS5hRSSpwRJwAawDjqXwbWcNP0sM/xicFNBMfQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XirsYYkbMTIsE1eXWvV7sZcJNDZkSlvf5FSiUyxizFvdGpxc0i8uMQXRLA5g1hx7c4f881t/qCYaInAcJeBrNeuNDBsxx5jq+nIgBqx2rslU2NAgfz8BjdUBdjVbXFJPjzj7l/dl3PgD7tikcBkM3vFHxnHA7QhhFM7Dam6Tb5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=iGJbaT4F; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DsOppiIj"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cf420670bbso2998755ad.1
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:11:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786561917; x=1787166717; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oJiMUkJNIcismpRf1bpQrDARo7GdrnubqNl+IT0MRWo=;
-        b=DsOppiIjA3BN+VYLgosmph2W9Ta87Hy53KGU33aCQhMIy8XXrdis2gK5HX2PPHUSe+
-         mARJ4uyms/ELkcP3Whh4Rm40vKnLD+DXS7kpY13g9JjGUCN9iOTv/F5Zuo8cZggEB7HE
-         NB9z8yP960hbAu1hApMXp8/d9vkqqDW7ZGFzAv6Kly2aJlhzuweFmf9OR86S86gBwlOF
-         zjGcFKeoRa9LEZcvXHoyy284qQZiOshQn4jfS7I1SLhZazpzzQAtUAFySTGboBj/6u+R
-         YI22aO4/1ZjSRzqVIholR9SokATT+DqL339Yoyko1SS0xRZ0ND7Oy1ze8qNAd/eEPmYx
-         fMHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786561917; x=1787166717;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oJiMUkJNIcismpRf1bpQrDARo7GdrnubqNl+IT0MRWo=;
-        b=inwl/FUZyfOR7kHIeDgMLPlISWRfeOD6SE+RtOQPGN9aFpI0QlyuBzUXBqP027RY6A
-         V3c30+x9rxi3Pz1prVKUEdCHcYz5EYOFKocImu3SB78DSu1/NXNYPaNg/G3tcw8kuZyI
-         Ukay0f0cMke8AsrLmfCRxfIEFUJCyVH+NJfFM3q1TfM84tMly+PsEnTWbtQ5kr1v6QL7
-         w4M0XmTeF5ijdSuqiNXwRd6S7xRQ0vKadMgNlyplr/KStHsMJd0e3L/pB94UA71pb0+N
-         XzjKXv4bR+7ghhHBITNA6KjYCB2bmZXl+XjBuo+ShIGga4vfK0IxFVGIlqUvnpgOPPyx
-         gEbw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrw0m9hzjIzAzxMlLsEDr7VH+lMMy8jP0bWY9OjJVz2DtsYXGhb3y+V5qkqJ3IxNpidmKvAQPiWf4jX@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDB5O775kzDsnnbmOT9Z/ribSlBmkK0qw+5OFfgICC9jCbzdDo
-	koyn9mwham06i8H6qgPZReq9R+d2G7qJ5qkjfIgTlWFwwTqdmLS2ON/vyu5Sfw==
-X-Gm-Gg: AR+sD12UVWFMXVkBmKN/2eV3bOhV1pmTp2WsmfPf2ALiROMkDpv3ZY1SYtpJvQ/f3PA
-	67QOzfoawEj0IwaD1MHo6/gHZxVIcOK7aaFoTuRSMEF2zs+YpwRRE+w7XLjn/0qlxGApkVeaULo
-	zLD/q6qAaFyXgkYNhUQg14oSZWnEqrdhePgGWAQ+/NyYEh2CI6qQkBHTvVMv+opiHaDpY6D4c7A
-	gCg2iDFOR4CtO+diog5MCNSZK4pA2P7U29zugKLiLIwCwjo2AHvmaRCA5geaxfSWcmN3Q6B0v1g
-	snhfZTohj1Ap7eaIlEYhrSsH4wZ7duQKvnFQTnEZm4CTn1KWLU3QluR5y+6BLCtiv870AtmSM/p
-	/ub8WN3/T4w293o2m82hVL9j+E+JOGd6ff9pTft8TSmq1BZ4ZhT+V/VjsPivqSoBJC+TdEM7mVH
-	uyV6D1PBoC3uKyzTh9YZh2cP+NwUjQdRZMoA8F9zpVVHNhIy3j94EZDTH19uzWmzU3w6r+dCU=
-X-Received: by 2002:a17:903:2c50:b0:2c9:ed4a:c3a4 with SMTP id d9443c01a7336-2d37d19f10fmr2313385ad.0.1786561917109;
-        Wed, 12 Aug 2026 12:11:57 -0700 (PDT)
-Received: from [10.170.23.252] ([2409:40c2:5017:a6a2:eb70:cb11:a19e:bd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31da7bf64b5sm9496947eec.10.2026.08.12.12.11.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 12:11:56 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Thu, 13 Aug 2026 00:41:18 +0530
-Subject: [PATCH 2/2] dt-bindings: clock: ti,dra7-atl: convert to dt-schema
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="iGJbaT4F"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6207611B89B;
+	Wed, 12 Aug 2026 21:10:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1786561826; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=Xw6BXxHLzXrNZEEI+KrklfgMSK5+e16+iNCzSSFFR78=;
+	b=iGJbaT4FrzQQPrhrhc1ON4RlLRMfS4QqX0ht5+IOh6NcRZSEiP/tq+B39283QHFjP/Aars
+	mUbV5kW23XGRtkkhk1R8MMoxtP6wgKE16xWPNxf/dUCeL3hM7I16w0y3rYotibepVWCWg0
+	nLN+v/jHbSmuVWQU8hcbhGeiv43DD/TyjY53ryVbcnhtoBPpseV4avSLsGleRlWCQspbzU
+	13/YdDpVoJl2TvAsVTesosZPa6BmfWJ3WM5A3crLFtFQo6HfS9j1pj/7fNwCgRPaLnWhHc
+	cmWYbzmOrLBKHuznZzy3Xe2SxAnLH39bWc3BjGV+O8u/gWKTWbYsEB+t0yh+gw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-hwmon@vger.kernel.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] dt-bindings: hwmon: tmp102: Document TMP110
+Date: Wed, 12 Aug 2026 21:09:44 +0200
+Message-ID: <20260812191021.65304-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-ti-dra7-atl-v1-2-27b691f4cdcf@gmail.com>
-References: <20260813-ti-dra7-atl-v1-0-27b691f4cdcf@gmail.com>
-In-Reply-To: <20260813-ti-dra7-atl-v1-0-27b691f4cdcf@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786561882; l=5691;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=kLXwjiY0hk/bsIhaPf9r0kAxsBg3pdBby5bPIV/S2SI=;
- b=0QTQcbNyTIX5a17UtIxWKdJFrDi0DszS/S6rRcvyljo3dUNRMj5133lIF3mQkE6updTaQHEmM
- WS9mfbNxj/0AEEQGmVOHFf27AK3Navr0TKm3tzPiogtUMhWHvm1j3uj
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Convert the IP driver portion of the DRA7 ATL (Audio Tracking Logic)
-binding from the freeform text binding to dt-schema. Together with
-ti,dra7-atl-clock.yaml this fully replaces dra7-atl.txt.
+The TMP110 is register compatible with TMP102, document it using
+a fallback compatible.
 
-ti,hwmods is marked deprecated as modern DTS uses ti,sysc target-module
-wrappers and the property is absent from current dra7-l4.dtsi.
-
-bws/aws maximum set to 15 per the 16 mux sources in
-dt-bindings/clock/ti-dra7-atl.h.
-
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
- .../devicetree/bindings/clock/ti/dra7-atl.txt      | 56 -------------
- .../devicetree/bindings/clock/ti/ti,dra7-atl.yaml  | 98 ++++++++++++++++++++++
- 2 files changed, 98 insertions(+), 56 deletions(-)
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ .../devicetree/bindings/hwmon/ti,tmp102.yaml         | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt b/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt
-deleted file mode 100644
-index e3c05844ae86..000000000000
---- a/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt
-+++ /dev/null
-@@ -1,56 +0,0 @@
--Device Tree Clock bindings for ATL (Audio Tracking Logic) of DRA7 SoC.
--
--The ATL IP is used to generate clock to be used to synchronize baseband and
--audio codec. A single ATL IP provides four ATL clock instances sharing the same
--functional clock but can be configured to provide different clocks.
--ATL can maintain a clock averages to some desired frequency based on the bws/aws
--signals - can compensate the drift between the two ws signal.
--
--In order to provide the support for ATL and its output clocks (which can be used
--internally within the SoC or external components) two sets of bindings is needed:
--
--
--Binding for the IP driver:
--This binding is used to configure the IP driver which is going to handle the
--configuration of the IP for the ATL clock instances.
--
--Required properties:
--- compatible : shall be "ti,dra7-atl"
--- reg : base address for the ATL IP
--- ti,provided-clocks : List of phandles to the clocks associated with the ATL
--- clocks : link phandles to functional clock of ATL
--- clock-names : Shall be set to "fck"
--- ti,hwmods : Shall be set to "atl"
--
--Optional properties:
--Configuration of ATL instances:
--- atl{0/1/2/3} {
--	- bws : Baseband word select signal selection
--	- aws : Audio word select signal selection
--};
--
--For valid word select signals, see the dt-bindings/clock/ti-dra7-atl.h include
--file.
--
--Examples:
--
--/* binding for the IP */
--atl: atl@4843c000 {
--	compatible = "ti,dra7-atl";
--	reg = <0x4843c000 0x3ff>;
--	ti,hwmods = "atl";
--	ti,provided-clocks = <&atl_clkin0_ck>, <&atl_clkin1_ck>,
--				<&atl_clkin2_ck>, <&atl_clkin3_ck>;
--	clocks = <&atl_gfclk_mux>;
--	clock-names = "fck";
--};
--
--#include <dt-bindings/clock/ti-dra7-atl.h>
--
--&atl {
--
--	atl2 {
--		bws = <DRA7_ATL_WS_MCASP2_FSX>;
--		aws = <DRA7_ATL_WS_MCASP3_FSX>;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml
-new file mode 100644
-index 000000000000..5460432219a5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ti/ti,dra7-atl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI DRA7 ATL (Audio Tracking Logic) Clock Controller
-+
-+maintainers:
-+  - Peter Ujfalusi <peter.ujfalusi@ti.com>
-+
-+description:
-+  The ATL IP is used to generate clock to be used to synchronize baseband and
-+  audio codec. A single ATL IP provides four ATL clock instances sharing the
-+  same functional clock but can be configured to provide different clocks.
-+  ATL can maintain a clock averages to some desired frequency based on the
-+  bws/aws signals - can compensate the drift between the two ws signal.
-+
-+  See also Documentation/devicetree/bindings/clock/ti/ti,dra7-atl-clock.yaml
-+
-+properties:
-+  compatible:
-+    const: ti,dra7-atl
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    items:
-+      - const: fck
-+
-+  ti,provided-clocks:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    minItems: 4
-+    maxItems: 4
-+    description:
-+      List of phandles to the clocks associated with the ATL.
-+
-+  ti,hwmods:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      Name of the hwmod associated with the ATL.
-+    deprecated: true
-+    const: atl
-+
-+patternProperties:
-+  "^atl[0-3]$":
-+    type: object
-+    additionalProperties: false
-+    description:
-+      Configuration of ATL instances.
-+
-+    properties:
-+      bws:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        description:
-+          Baseband word select signal selection.
-+        maximum: 15
-+
-+      aws:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        description:
-+          Audio word select signal selection.
-+        maximum: 15
-+
-+    required:
-+      - bws
-+      - aws
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - ti,provided-clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/ti-dra7-atl.h>
-+
-+    atl@4843c000 {
-+        compatible = "ti,dra7-atl";
-+        reg = <0x4843c000 0x3ff>;
-+        clocks = <&atl_gfclk_mux>;
-+        clock-names = "fck";
-+        ti,provided-clocks = <&atl_clkin0_ck>, <&atl_clkin1_ck>,
-+                             <&atl_clkin2_ck>, <&atl_clkin3_ck>;
-+
-+        atl2 {
-+            bws = <DRA7_ATL_WS_MCASP2_FSX>;
-+            aws = <DRA7_ATL_WS_MCASP3_FSX>;
-+        };
-+    };
-
+diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+index 96b2e4969f78a..f0dbe9f07b939 100644
+--- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
++++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+@@ -4,15 +4,19 @@
+ $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: TMP102 temperature sensor
++title: TMP102 and TMP110 temperature sensor
+ 
+ maintainers:
+   - Krzysztof Kozlowski <krzk@kernel.org>
+ 
+ properties:
+   compatible:
+-    enum:
+-      - ti,tmp102
++    oneOf:
++      - items:
++          - const: ti,tmp110
++          - const: ti,tmp102
++      - enum:
++          - ti,tmp102
+ 
+   interrupts:
+     maxItems: 1
+@@ -28,7 +32,7 @@ properties:
+     const: 1
+ 
+   vcc-supply:
+-    description: Power supply for tmp102
++    description: Power supply for the sensor
+ 
+ required:
+   - compatible
 -- 
-2.55.0
+2.53.0
 
