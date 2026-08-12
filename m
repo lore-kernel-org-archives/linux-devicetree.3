@@ -1,241 +1,212 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F1143BDA1
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786537385; cv=none; b=QgtwTl2H5YC3itmZhAV/PSFD2Vg0dHlaED2gckEoC2hmWmxT77zEY3gP3sKGWcqVrjVyjBjnznRgbmIEmIjmLl4egz/Gtrp9S2vJZwBqvRwagUj7gR2fr48PDENaCxnsUqFYi7KM7f8qIR/DHjW6fEANQT/ZoF3oerKD2KzLzJk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786537385; c=relaxed/simple;
-	bh=ULHnAaR0y33nlass+S9nE4P2x58iDM1CvgvpWsaekac=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=meJ8WOZtPw0TMx3pb6ruikYc190aUc7inUxYxx1oWPZhvL/j4xprSRXfdIMHX5aD36yPuBJSaE7+jQ9DVWAkSlgAmj7lAU0HRHBSsS50UBHDW6pydTa7VVX/jNiGvZjVrRPeZltt/55+P2TI4KaIC1ErhdbPef9XsQ9AS/peixo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=a4wyppTR; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9EC43E9C3
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 12:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786537467; cv=pass; b=lie4GQ6gmzDsqt0L4MCL0JvUGNSfXQUJ4sjZRAuamqQ8/BuBJTbBzea7O7n0YXVNZgamuOAfDHe3gkHPl+ev6Hd3CqDErw5pJAbV+c/hYV1slUd9gimmJ1R/LuFkY8yMT1C1JM4N0tWhSJAnGqfBwtBq198OzNQs3wbZ6/TAbGg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786537467; c=relaxed/simple;
+	bh=k7YkQ+Bc7EQX0qDaijrFEUTuOpQfKm59tZjQohvjtGA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Dm7Y6YUVmRL/stoYl5kZru8LTPFmA3UqTrS4Bk0mI28QBSaypVJpIxlHwb2l5QTWxfbQapFHwv6GsDBi3GqNkC3GSyJpvZouxV9BfKihpHLzY787ufnQDxvxpkd/Q1v2Kshs48pA4WmeksYwW7taHunryQFfpHpUTWG71QYwFWQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nSSqV61v; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="a4wyppTR"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47f92e3c14bso696141f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:23:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nSSqV61v"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-69fdfd98eb8so106225a12.0
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 05:24:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786537464; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DLKpW+PQRTORymNWVNdEvMJ2+sC3zSwLNtdak7O18MDXD57G8c0/RApCzi2wziwse+
+         0FxZ5ZQ4Ri9IMYSURLnUMLoxI9D3kL9Qb5epZUQYgR0ZwBbuKQ59XWvKnFzqUMr6cSZN
+         gdSKAAVthCnU8kpyLTVxsvzMmcvAF0OlNsDCHXJDP7xtCUHI6sy8eS7LioIIIVKW5ZCx
+         PhlpG824DnihSLqNDIv/thmVjTRXxexkcjuGmX4ZzmJM0hRFU2HB6mOgLmUU7KmdQXny
+         DVyeOqTSPs9yazQdQCxwXakqJl5QNtG6o1aXb0nY3yrbfE0gD1I3ZGy3PSyY9pAwiMRz
+         73Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=k7YkQ+Bc7EQX0qDaijrFEUTuOpQfKm59tZjQohvjtGA=;
+        fh=msX1PH7JV/O5eVjpmu5VpDpX3hH8ZJyU/aoFx6JGkLs=;
+        b=dbztHDN/gQIs/7m9Y6Jq5wO2Adkv3/sfLMt7d6YeOQTZ8f85cAh1eP1K4Z8ZoF0eJ3
+         3xT0/jyvEB1zNbmPzn3Enk4rgTWPI9iz8c+/nMJD9Lf2oOwHSmuKWDuq77pwI2PeAHbV
+         byzW/HQXHinerUg+ysg5OneutyArqx3el7v8GsiDLq5zoWDBeh+ZyCy1MfU23wPTXR7C
+         QDV2o+Jok9zs73BQnx1u8s5zT0ovk8rt7yETMQGDZmiKfMQk6+29ymDevWg/BWXUUX03
+         bmP1n4VWqdaSqkfdqJ9CdffBd2wY8hI0BVVK0gF1oZ9kIheYipXv7tg9SHcbCj9+GyXf
+         AjbQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786537382; x=1787142182; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zAxA3lYXjYvQzaKtcs4NSsbwGX9ohjI2k2yZr9N60vs=;
-        b=a4wyppTRLvOc2WDPaQwqNsVOZOnLlVQZCiXX4pJyBhYOpqPO6JQVzLlWAn46ZkjqUq
-         iNz0Mk9Zijo/d9pVAfene7m2jQltTaWXHRAKyY1wmQuWJQnBV5DIyV9nFKOp678QqOOD
-         1Yp8zjYP6CfzFvsZhzNHnm/XZfdthowppO0K/7mVDQE8yvsIlQu2tT3E9FtMLPYfIOQ1
-         QU8CkRUxpYChWyQVqlEeFdOaMLrVlTa1r1/EpPOnvTPxNHCspgY45rF7+7j9p8SdMO2K
-         jZLSTfP0y+keZs6/zueQZQFpU07Z4+1GLkhYvUMT9DXjyna1hvHCd/WZYjZ7Lkv8pBaL
-         XWvg==
+        d=gmail.com; s=20251104; t=1786537464; x=1787142264; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k7YkQ+Bc7EQX0qDaijrFEUTuOpQfKm59tZjQohvjtGA=;
+        b=nSSqV61vfBWYfLNfA3mC+X2QycVSAbNWt9kpkq7V3Sq99vGcutO7yYopvUNPs/vA3T
+         FduCSUsn7nuGUeYiBqbIvQXHnmn3iT+h3ph/btfCDs+LWALCJdKR9I7Fv/+iHQ4xhgn7
+         olu9litee6F2QKo9PzTFPiVGFnY+660+0Zutc16jhM/NzR24hgg5OuONiIIGHVCt+RrG
+         YjhV65sfhrmew6K4cBXRWvxYqee9iBBRwFgbhldxXRJF7XxIVp0pg5TEe2hnCdgqsUW0
+         mmj8u5mfRNSD9iJEWQsO4Nvagw0I+ESv+cAtE7TA/KLH+5jmYpoAJ77H0nnfzGAe8x5f
+         siDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786537382; x=1787142182;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zAxA3lYXjYvQzaKtcs4NSsbwGX9ohjI2k2yZr9N60vs=;
-        b=dvUJEfcvc6O4HP7xKiEZQNLg60WbbiivNaULCvPn5O/vBFrlVXX1h3Zp+JgB5bMUYl
-         S0K1gqMmH8LZbYKEDEQwFQ7t3h4BADHH1+d0laJmy1CqbCDqys8bC5zVawKrWF1ORIQ1
-         YYfUavXitrZ15hKkDOQrNhqz1MusXsqbBzMNVHLDOhpTRTT2QnciIVLMxHJRZ6ZhD/ff
-         3I9g8WbNYtpPydAmEdKJ1TPfO8HYmhDOCujTk65C2HZ5iSrd1AcHTBrsb8RcuqtYQ7vn
-         EG7TImEONKitUV1pEhlN3Wep1DcrDtAcV/tOnWVvDF8923znZBz+ZQ5x94dGpGJa+CRJ
-         09Vg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp/YkO8yeYvPeaBclp2M2eWterPbpM5ZmsymgXEyg85OSOd+FxYQi01KREoV7TEu8ul1RdGbRJArU3Q@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEd88S0CgxbEA81dBrqF33eUEWZREVck4/E3IDHin+RHMimC2K
-	vqgoWHRVNb65XiGuv2OtbZYW6ZBgEat4+oMO8NmRSQ4+8uArYLQd6CxY/jG2wtUhV/s=
-X-Gm-Gg: AR+sD13rs9BggXMNkmkXtMbZ++wyDb5HQlIioaz8Xe//Lzsg1LCqZYcyIDnG6r7r0xm
-	nqaFYS8uoeOSVaO//qSkWqviS1EugdFqgsbfqecxtkUDN4/s0ErbieV54H7+35ednVsGmo7/H3J
-	VAqveKsqyMXJtY706qFs1lYdIRcvl/DLTuLf+n/26yOuwOU9QvhKGWgqaXHIKASez8wHReZrfVa
-	+M88HfJV2YFjVA90pXnz2b1xSt9B9BzAodB4jcTVfj163C/onOHl5Vk0wXtEcne20BVdm5azOaA
-	REwzKEYMFkLW325T1axbwZ/RzRCYz6Qoc1Xf2W0L7doytJETURoATKgjs/JdsKFFMY3oT40im6j
-	3UISL3BcRB+d+JVpkfkz0ndxbYWitDqAbsBCPqmsGENrTgQkQsJ91sEox36awVOvMW2us4sMD8g
-	gS/ly/IWnbIBD/kmfEO/cV5FXwzDbjXFSXJMX5ZOe8ZvldAKVhMiYfqbU4gj2I7sH6OBqaWeTM2
-	ZkaXW+jqSyfbJ2n2ixgTqINO4bCqbdFak+DE0HiZo8E
-X-Received: by 2002:a05:600c:3111:b0:493:a438:7f98 with SMTP id 5b1f17b1804b1-4997c16fb4amr56418655e9.18.1786537381780;
-        Wed, 12 Aug 2026 05:23:01 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:405d:735d:801e:de34? ([2a01:e0a:106d:1080:405d:735d:801e:de34])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997abf94c1sm66698225e9.14.2026.08.12.05.23.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Aug 2026 05:23:01 -0700 (PDT)
-Message-ID: <19e120fc-4b60-4188-86d8-cb3705a5fd33@linaro.org>
-Date: Wed, 12 Aug 2026 14:22:59 +0200
+        d=1e100.net; s=20251104; t=1786537464; x=1787142264;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k7YkQ+Bc7EQX0qDaijrFEUTuOpQfKm59tZjQohvjtGA=;
+        b=MImevqejU9RNCsIMHwFh8CtaohbOTPa41ek5XFRIRQJf89+qRacrg8GST3tCecF7P3
+         AjGaPVrLPNSPo3Ja1tQl5MJ7tpM6kPl5H/JnhfXt9uhEIphBIwxTCgxrPVJFqE/2eUOv
+         p7aTi5SFFLaX/1ZMUtrUG7lt6FE6OV4PRSIGQ3hX0OehxKLQp6K415YmijrYikOAhfIO
+         Wi9V4Ms6ToutXudXZxmjRbvDymU3OM+EQCpXU4fzwoLC+cTceX6F9RtJ9Wg5LdpFgQrG
+         iHUPkVLEf3s6MVyLFZbwBsQ0ZVvhJtvC/9gcUQ1SexuxBRyyakZHLO5RI96hhYOoBZ7M
+         CInA==
+X-Forwarded-Encrypted: i=1; AHgh+RrgQwvUf06guAxYYk8rvEbvraKY7u6iDI9sDYEH+jvI0062gbAaFu+rwT7hCBVIZPYmVbb4fZfG+m8U@vger.kernel.org
+X-Gm-Message-State: AOJu0YzFfrZMs/0YlxJNzNo1xU+eSxlebYUbP5GzjxiggvjACpZkT4hb
+	bkUjf/NL3vtSG1VLdbww65vzba8naSuOy8maZ8lPD8VrYjpMJ2zrZ0wf3P/fNHZF77rgXl8c7tb
+	eNVm4BA0lxba8pJaz+gwXJ0emGz/XiFg=
+X-Gm-Gg: AR+sD12R6QmFECsoEChewH1pjbTFToyHyxZMy4w2jXzicuWPA8e2j3M7xdFkaKKpnEg
+	OYCbvVIHuG/XOw6o1eU/3nn6u+1MsbbcEJ2FWeA+rlInfpgf/TUtHcX68tLEwyPzICpwkF8theh
+	xBbjrmrEE0alk12U4bEYhtzSiHEecO3lfs86uQfmHk0SUyxiAva9Ni6SPUBi+JLee9dsBVMWnB2
+	r0PH4q7yelWfLv0gZ+sKXFdi0qZHFfXBe2YK7sckVLgGX+luW3k5nysI9H47nCK0zxnPB6Kzf+8
+	0E7Z0hxzE8VT7IrHEWhTilj52oUv92Ys8RMYWpu5levxiQ==
+X-Received: by 2002:a05:6402:5515:b0:6a3:72bc:7bca with SMTP id
+ 4fb4d7f45d1cf-6a375f517b5mr853527a12.3.1786537463007; Wed, 12 Aug 2026
+ 05:24:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add bindings for Novatek
- NT37703
-To: David Heidelberg <david@ixit.cz>, Esteban Urrutia <esteuwu@proton.me>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260811-nt37703-bup-v1-0-34ad42b064a3@proton.me>
- <20260811-nt37703-bup-v1-1-34ad42b064a3@proton.me>
- <8c3e9384-7964-4d03-a3a9-de15d26de822@ixit.cz>
- <58d7ddd4-1488-4c34-be85-6345138aa238@proton.me>
- <7097b617-90be-492d-9637-4a2a101379e0@ixit.cz>
- <05d2ad33-a681-41e4-87f7-e3aaeb5428a8@linaro.org>
- <803e354d-55b9-4904-a4a0-9eeefa0c6ffd@ixit.cz>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <803e354d-55b9-4904-a4a0-9eeefa0c6ffd@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com>
+ <20260810-dcphy-rx-v1-v3-1-a2d25c29adfc@gmail.com> <20260812-refreshing-rampant-gecko-b38ef9@quoll>
+In-Reply-To: <20260812-refreshing-rampant-gecko-b38ef9@quoll>
+From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Date: Wed, 12 Aug 2026 20:24:11 +0800
+X-Gm-Features: AUfX_mz6P0tpS0X_aTP21idLy0_k0ZDj4Fov-0axes74Vj1me73dhQSiZbhCnY0
+Message-ID: <CAPwA33KM-sWkPVrP1h+swLinvrCZHzxPeS7h25KEO87Q_6WZuA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] dt-bindings: phy: Add PHY_TYPE_DSI and
+ PHY_TYPE_CSI definitions
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/12/26 14:15, David Heidelberg wrote:
-> On 12/08/2026 13:52, Neil Armstrong wrote:
->> On 8/12/26 10:46, David Heidelberg wrote:
->>> On 12/08/2026 07:21, Esteban Urrutia wrote:
->>>> On 8/11/26 9:05 AM, David Heidelberg wrote:
->>>>> Hi Esteban,
->>>>>
->>>>> Usually the used pattern is vendor,ddic+panel-model
->>>>>
->>>>> novatek,nt37703-motorola-bronco
->>>>>
->>>>> ...but motorola bronco isn't the model of the panel.
->>>>>
->>>>> My recommendation - look at some video of screen replacement, stop at moment
->>>>> when FLEX cable from panel is visible and that's where the panel model usually is.
->>>>
->>>>
->>>> I somewhat doubt the panel model would be located in the FPC cable.
->>>> I did search anyway but didn't find anything of interest. And I'm not
->>>> willing to risk damaging the display flex or the battery of my
->>>> development device just for a possibility either.
->>>
->>> No-one asks you to disassemble the device :)
->>> Sadly, I haven't found any video doing display replacement either.
->>> In worst case such as this I assume it make sense keep the phone model in the compatible until panel codename is found.
->>>
->>>> For the compatible pattern I used the implemented pattern for the
->>>> NT36523 TDDI, which is also used for other ICs such as the RM69380.
->>>>
->>>> So, I believe it should be okay to leave the compatible as is.
->>>
->>> I would like to hear a word from Neil first. In similar cases like this would make sense to have one way defining these compatible strings used in phones.
->>>
->>>
->>> bit I missed in the review the part:
->>>
->>> +            compatible = "motorola,bronco-tianma-v2-nt37703", "novatek,nt37703";
->>>
->>> Unless the driver is able to auto-detect the connected panel (unlikely), novatek,nt37703 doesn't make sense. The DDIC without the panel is useless.
->>>
->>> For example, in sdm845-oneplus-fajita and enchilada, we have the generic compatible because it was introduced before, so it's kept for compatibility reasons. There is no need to do that here.
->>
->> Yeah today the norm is to add the ddic as second compatible entry so the first compatible just describes the pane, so here it should be:
->>
->> compatible = "motorola,bronco-tianma-v2", "novatek,nt37703";
-> 
-> So let's me present a situation which can happen, let say I'll be upstreaming:
-> 
-> DDIC (novatek,nt37700) + panel (samsung,amb630qy).
-> 
-> For the example I choose samsung,amb630qy because here the panel has phone model in it, which avoids the possible issue I'll be describing with this schema.
-> 
-> Vendor can pair this panel with different DDIC. Thus it would be
-> 
-> compatible = "samsung,amb630qy", "novatek,nt37700"; // new one
-> compatible = "samsung,amb630qy", "novatek,nt37703"; // existing
-> 
-> The reality the driver picks only the first compatible, and that's all causing to load wrong driver now.
+Thanks for the review.
 
-No, the core will pick the first compatible that matches, so...
+> I read above, but still do not get why TYPE_DPHY/CPHY is not enough.
+> Isn't DPHY implying it is DSI?
 
-> 
-> Solution here would be differentiate between
-> 
-> a) DDIC + panel
-> b) module name (consisting DDIC + panel).
-> 
-> We could say module is motorola,bronco-tianma-v2 and contains [ DDIC + unknown panel ], which doesn't even have to be mentioned in device-tree.
-> 
-> While it may seems I overthinking, in this case it doesn't matter that much, I already have patchsets for DDIC which can be combined with three types of panels (and using different schema) and I would like to have good solution for longterm contributions and development.
+I see your point, and I did not explain this clearly enough in the previous
+version.
 
-... in theory we could have:
+D-PHY only describes the electrical layer, and both MIPI DSI and MIPI CSI-2
+can run on top of it. A CSI-2 receiver's PHY is a D-PHY just as much as a
+DSI transmitter's is, so PHY_TYPE_DPHY alone does not tell us which one the
+consumer is asking for.
 
-compatible = "samsung,amb630qy", "novatek,nt37700"; // new one
-compatible = "samsung,amb630qy", "novatek,nt37703"; // existing
+That is the problem here. The RK3588 DC-PHY exposes both a transmitter and
+a receiver from a single PHY block, which can be used by two independent
+consumers at the same time. This is not a theoretical concern: on this
+board a DSI panel is scanning out while the same PHY receives CSI-2 frames
+from a camera. With only the electrical layer to identify the PHY, both
+consumers would end up with the same phandle cell:
 
-and drivers would only have:
+dsi@fde20000 {
+phys =3D <&mipidcphy0 PHY_TYPE_DPHY>; /* wants the TX */
+};
 
-"novatek,nt37700"
+csi2@fdd10000 {
+phys =3D <&mipidcphy0 PHY_TYPE_DPHY>; /* wants the RX */
+};
 
-and
+There is then nothing in .of_xlate() to distinguish the two requests.
 
-"novatek,nt37703"
+I will make this clearer in the v4 commit message and include the example
+above so that the reasoning is easier to follow.
 
-as compatible and then a separate match table with :
+For context, v2 described the direction with a Rockchip-private
+RK_DCPHY_DIR_* enum. Michael Riesch suggested using generic constants
+instead [1], and Vinod agreed [2].
 
-"samsung,amb630qy" and "samsung,amb630qy" which associates with the panel data.
+[1] https://lore.kernel.org/r/82da3622-9c3a-454c-87bc-fb4ec7adb68d@collabor=
+a.com
+[2] https://lore.kernel.org/r/anSuxfeitSqmSHNr@vaman
 
-If it doesn't match, return -ENODEV and it would work like before,
+> Your tag goes the last.
 
-I mean it's valid, it's a matter of implementation, if the same module can have
-different DDIC then it should be described like that.
+Sure, I will fix this in v4. The Signed-off-by tag will come last, and I
+will check the whole series again.
 
-In this case, the bindings should be for the module and not for the DDIC.
+> Two simple defines needed Claude.
 
-Neil
+Yes, I agree that these two defines themselves are simple and do not really
+need AI assistance.
 
-> 
-> What do you think?
-> David
-> 
-> 
->>
->> Neil
->>
->>>
->>> Thanks
->>> David
->>>
->>>>
->>>>> David Heidelberg
->>>>
->>>>
->>>> Regards,
->>>> Esteban
->>>>
->>
-> 
+I added the Assisted-by tag because I used AI during the development of the
+series as a whole, including cross-checking the code, writing additional
+test cases, and looking up the relevant sections of the TRM. (I checked the
+corresponding sections in the TRM myself, reviewed the test cases, and
+re-ran them on the hardware before sending the series.)
 
+I also checked the current mainline guidance in
+Documentation/process/submitting-patches.rst and
+Documentation/process/coding-assistants.rst. Since I was not sure how much
+AI involvement should warrant tagging individual patches, I chose to mark
+the whole series consistently.
+
+That said, I am happy to drop the tag from this patch in v4 if you prefer -
+I wrote these two lines myself.
+
+Thanks,
+Jason
+
+
+Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B48=E6=9C=8812=
+=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=886:51=E5=AF=AB=E9=81=93=EF=BC=
+=9A
+>
+> On Mon, Aug 10, 2026 at 08:10:09PM +0800, Jason Yang wrote:
+> > MIPI D-PHY and C-PHY blocks are increasingly direction-agnostic: the
+> > same PHY IP can drive a MIPI DSI display or receive from a MIPI CSI-2
+> > camera, and combo blocks like the Samsung IP on RK3588 expose both
+> > directions to independent consumers at the same time. A binding that
+> > needs to tell the two consumers apart has nothing generic to reach
+> > for: most constants in this header name a protocol (PHY_TYPE_USB3,
+> > PHY_TYPE_DP, ...), while the MIPI entries name only the electrical
+> > layer.
+> >
+> > Add PHY_TYPE_DSI and PHY_TYPE_CSI to select a PHY by the MIPI
+> > protocol it speaks, which also implies the direction. They do not
+> > replace PHY_TYPE_DPHY/PHY_TYPE_CPHY, which remain the right choice
+> > where the cell selects the electrical layer. First user is the
+> > Rockchip RK3588 MIPI DC-PHY binding.
+>
+> I read above, but still do not get why TYPE_DPHY/CPHY is not enough.
+> Isn't DPHY implying it is DSI?
+>
+> >
+> > Suggested-by: Michael Riesch <michael.riesch@collabora.com>
+> > Signed-off-by: Jason Yang <jason98166@gmail.com>
+>
+> Your tag goes the last.
+>
+> > Assisted-by: Claude:claude-fable-5
+>
+> Two simple defines needed Claude. Great, that probably makes AI
+> conglomerates very happy that we do not type even two lines anymore and
+> need their resource-hungry data centers to do that for us.
+>
+> Best regards,
+> Krzysztof
+>
