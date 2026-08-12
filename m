@@ -1,167 +1,122 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF09332B13B
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 11:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E847E431A34;
+	Wed, 12 Aug 2026 11:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786533280; cv=none; b=jgWlipwSdCdkw0Np6Z2H8WXmBprNeNDB7qU0h0D+nNrORpRHbuk+45Udo87OtgUIMS0Q6GrzPhq6sMN4xg3vERAiH7nJfNaqicbOkk+a3mOIEm3C3nPXRXQEjtyA5kl5UeReka8DeLdzwswp34AdjPYG30B2tVTvCJU4ZGpnw4c=
+	t=1786533393; cv=none; b=avevjoCglJI9sVkXbF3n9T7pvTb36Bt2bqWTwcJbwc18OPkw9FSO7FH8qVkOUSBOhA54M+2pCs8h4GSuse+dJ9040Waq0B5xcW1EfQeTxNATRb7Vr+nUwxmypl9LJgrsCIWQOiSNgna2hoq4Q4i/uaI8ro6GUx8dArcKEbV1Lb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786533280; c=relaxed/simple;
-	bh=ZDQ5pPWDKwycT4E4mNOoJZ2LV+cHXkkjmMM1uiBduVA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W0J3J1euhJK25HOHa5RVpzqHwYOBN8goLkx3gBhmNF7+i6LZZYvus78yWPxW0E0QWpuKXI1kK3eBM3Z8WzoQLIcssP1wlXifvnWnkY7K3h/LVtdWKQcTpEfeEx6G09adtUv2TKw96zpm1mmN4zOMPZMz6NCbFrWZm+c8a4rbP78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5bf95ade656so312338e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 04:14:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786533277; x=1787138077;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DCCZvy6wBuqHUxauMraEzIMerW1TTEAMcJhR4qIYKD4=;
-        b=ekWy/wlaZFzICLVCD5tlYLUd2cV6T0Tpx6rmrq85y9koVMmdDx7B5pyQD5Pz0Yl6FJ
-         6MHBrVbiyB80PwzM7CBK+z3toEzebiG6nfEgAo8VGbzGVLN3gMDjzB4uoQyRpokmbnPX
-         MMl9ntgVG9b0LENpnL5Qh/xUzHxF22g7Pg07BK5SZP+AinSD1it8M6y1xV5RlPD4ayfc
-         nHjbGy7O7uDizvrd/fadh7B9i5QMD0dMAzoRD2NlN6t0P+i+xE/F19lFsKYY+xfYfjXG
-         cSN68WbGb5mvJ7IlVMNvIRh3JA7PlT8u/RQcABCFF0ZoJqhdnhqDgWNDctVrJXodwUT1
-         DhKw==
-X-Forwarded-Encrypted: i=1; AHgh+RrNyr8aHfeVuGiieEPdCFWxlFOGCxjbsqirvzPFevjVuE0I92VgmeELGeqRc6tMFMTCGQXnLs7Fy2CG@vger.kernel.org
-X-Gm-Message-State: AOJu0YyV7Q5zsECd53hJXPJ95Ij02mvL1BUIt/n8TQvAafgP6AoRhPVR
-	Kzuadq9bHDsYRqz97qV/m7LDR2NJXXID1GCf8lB1fgcMYUVJMKILW5llYyyK/fvT
-X-Gm-Gg: AR+sD11G5jUVEqvdqubZYI06SXO0XCIha7FZ3blm8GvtQ3XW9XGaqL3F607YUlzkslz
-	vmFOnyL6Hffm3riUd82phr/ym4Crn3j3ro1kpvEHoHww5pM31A1iPzhA1HgDrAZMBi1ugXNJJS7
-	3eciujYVePuq76Wzg66l9CLKAyQI3cUNDoKf48B+iKctclnxMz51BdCEF0mfFE6dZcLpIUCIL7L
-	S+S8zcpQD1OYSmmV21lun0ORNM2b4P39qCZuOYJJWK2c12k5UNcJv0XC/NRrIBYCOJ+q8AtrBoj
-	ZBIsjCEW6erJU+tcIB8qxlEOCTnBBrryH/NI9OZxp/TfX4xRv5ts6v0ZIa5uxrYMbmpXDrVo4Y1
-	qsrvZbaSCLbH/9LpOTTKfugCgsqzPIwKjZsOISes8URl4h+LTesqy7zIx+by74Ra17m7GxEMdQo
-	285zNmd3qmVJsYvbMLQ/U0aYYluxb2p+h5zzabT6fuXqaBhmcVVyJMQCF2BcoikvxEWxUvx6F0w
-	hseh0LCV4GrMQOwQIEYOFe1nQ==
-X-Received: by 2002:a05:6122:88e:b0:56d:b639:5c0d with SMTP id 71dfb90a1353d-5c50225569cmr409870e0c.13.1786533277367;
-        Wed, 12 Aug 2026 04:14:37 -0700 (PDT)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c45b785edbsm924052e0c.15.2026.08.12.04.14.36
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Aug 2026 04:14:36 -0700 (PDT)
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-74ac3ea9c60so221742137.1
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 04:14:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoyKRNpFuvs38o7KMQ+DiTyOSvlxNOYC3tKiKQ9fCfVTaWSPLitCSyQkIg9bcdELV8Yz8VU9asgst18@vger.kernel.org
-X-Received: by 2002:a05:6102:5692:b0:740:177:f357 with SMTP id
- ada2fe7eead31-76c8d1f94a9mr774665137.6.1786533275732; Wed, 12 Aug 2026
- 04:14:35 -0700 (PDT)
+	s=arc-20240116; t=1786533393; c=relaxed/simple;
+	bh=UkrJAuwGmMF/fNtON2HKSi5JO/fwDV6RkKpWMrh9VcA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KFYoRgJBYe9nxBbW0W8FCkVo5D+9ZT48XTH5YsNo4GVQLvCcE4m0Y8rqKs4BI7kA+rS4jkW2SUmVpuxOJ0Hsth+yCBpQMYkKz/3YCBZDSFnN2V+ewaxs4zsvn/19vnOrZZ7km25ED4CcuwF+UX30BYBBXhWiWLxbN/s+1S1Cxk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aq7b+b7P; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aq7b+b7P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFEB71F000E9;
+	Wed, 12 Aug 2026 11:16:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786533390;
+	bh=bXJAoKuOzaSXieVdd1OyY5L7/X1+2blaPqmx6LTftp8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aq7b+b7PcLmUOEwd9UicdMfO87JgdcEtptnXSCcIaSWvrXr1ePMlHrIKMCMgDJRoe
+	 3IsYqPg00fvZLBvex1B84lsnSnpAJKQNNfdZJRdlj3o9mEo2sro2TuYIkZQ9yXoH6B
+	 rxMEz5m/yTiX35wWi4zR+Ak4dt3cw4nY1oEgYvPVOvLt4oqEi25Q7AhB4h/8Ac3JTu
+	 1SeA6OSlIJTPkubkkO5OHP610vxPikIYNqJtQyXg72dk32xyBtqVc+RyJL1en1E0LX
+	 qIv4L/33x6zTNJb4+5EFNDuzGkVCOYrxCiUmGjvbn4BjzJNfRI1txUD+5+lgDacvnk
+	 +4etDeFAQiBcw==
+Date: Wed, 12 Aug 2026 13:16:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
+Message-ID: <20260812-fearless-antelope-of-might-cf3eff@quoll>
+References: <20260811-axiado-ax3000-pwm-v3-0-6ceaccd812cf@axiado.com>
+ <20260811-axiado-ax3000-pwm-v3-1-6ceaccd812cf@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1783505329.git.geert+renesas@glider.be> <49726acff0fee1c3606e83c4f242ef6aad25b4b8.1783505329.git.geert+renesas@glider.be>
- <20260710-adventurous-burgundy-chimera-b2fff9@quoll> <CAMuHMdV=ckONBbTYELPJU8YWoNzdu3PJ95VR8cz+f_7dUeiPUw@mail.gmail.com>
- <20260716214924.GA1477674-robh@kernel.org> <CAMuHMdU0ss6wUEdjC+OYa3iQS439aJ8b_d9M2ws7Ayn4_kOyMQ@mail.gmail.com>
- <20260811163334.GA2354701-robh@kernel.org> <CAMuHMdWbzg-QpFBzzDa2hC3HzAmWUkerESC5O-cSVxmWX3_PkQ@mail.gmail.com>
- <45dfd858-9d59-47e6-91e0-ef9e6e909af6@kernel.org> <CAMuHMdXJFdJQP1GVXrOWRuYO8Si_WF5X+vpzmAgTZY+tQstR1A@mail.gmail.com>
- <7b066c1f-20b7-407f-9268-e9dbeafab004@kernel.org>
-In-Reply-To: <7b066c1f-20b7-407f-9268-e9dbeafab004@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 12 Aug 2026 13:14:23 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVXgNcxDJf8XsSjXhC5+Pq6+Z+mcn6Hn50u8KwimKt9RA@mail.gmail.com>
-X-Gm-Features: AUfX_myBSrf5rDcsVRuaQc_or0Um_HrH3WBYGhc9bJh3otQ1_zgZw-LE1s1AUdw
-Message-ID: <CAMuHMdVXgNcxDJf8XsSjXhC5+Pq6+Z+mcn6Hn50u8KwimKt9RA@mail.gmail.com>
-Subject: Re: [PATCH v2 05/10] dt-bindings: clock: renesas,r8a78000-cpg: Add
- firmware property
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Cristian Marussi <cristian.marussi@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260811-axiado-ax3000-pwm-v3-1-6ceaccd812cf@axiado.com>
 
-Hi Krzysztof,
+On Tue, Aug 11, 2026 at 02:01:50AM -0700, Petar Stepanovic wrote:
+> The Axiado AX3000 and AX3005 SoCs include PWM controllers that can be
+> used to generate configurable PWM output signals.
+> 
+> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+> ---
+>  .../devicetree/bindings/pwm/axiado,ax3000-pwm.yaml | 53 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  8 ++++
+>  2 files changed, 61 insertions(+)
+> 
 
-On Wed, 12 Aug 2026 at 12:38, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On 12/08/2026 12:02, Geert Uytterhoeven wrote:
-> > On Wed, 12 Aug 2026 at 11:51, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >> On 12/08/2026 11:47, Geert Uytterhoeven wrote:
-> >>>>>>>>> +  firmware:
-> >>>>>>>>
-> >>>>>>>> RPi is doing similar, but I have doubts. It looks way too close to
-> >>>>>>>> generic "syscon" which is disallowed.
-> >>>>>>>>
-> >>>>>>>> I think this should be vendor+purpose specific, e.g.:
-> >>>>>>>> "renesas,scmi-transport" or "renesas,scmi-firmware"
-> >>>>>>
-> >>>>>> If you can tell me the resource that a 'firmware' provider provides then
-> >>>>>> it is fine, but you can't.
-> >>>>>
-> >>>>> It provides a firmware API, which is not available until the firmware
-> >>>>> provider is initialized.
-> >>>>
-> >>>> I don't know what "a firmware API" is. What does it provide? I know what
-> >>>
-> >>> It can provide lots of things (everything we are no longer allowed to
-> >>> touch directly from Linux ;-)
-> >>>
-> >>>> a clock, GPIO, reset, interrupt, etc. provider is.
-> >>>
-> >>> A clock is an object you can access through the clock API.
-> >>> (s/clock/.../ for the other cases).
-> >>> Firmware is a service (virtual object) you can access through a
-> >>> firmware API.
-> >>>
-> >>> In all cases, the consumer of the object or service needs to know
-> >>> which object or service to use (there can be multiple).
-> >>>
-> >>> In all cases you cannot access the object or service until it is
-> >>> available (initialized and registered), for which we have -EPROBE_DEFER,
-> >>> and/or "[PATCH v2 02/10] of: property: fw_devlink: Add support for
-> >>> firmware".
-> >>>
-> >>> Thanks for your understanding ;-)
-> >>
-> >> I think that's the difference here. Clock is not an object, but a signal
-> >> on a wire or within IC coming from one device (provider) to another
-> >> (consumer). Firmware is not a signal, not a wire, not anything which can
-> >> be provided from one to another.
-> >
-> > Oh yes, it is a service provided by the secure world or a different
-> > CPU core to the application core running Linux.
->
-> Service is still not a resource. Not mentioning it is way too generic,
-> because anything can be a service. We have entire services-based economies.
+Where did you explain reason to drop the tag?
 
-Do you have a suggestion?
-This is just a phandle linking a firmware consumer to a(n optional)
-firmware
-provider.
+<form letter>
+This is a friendly reminder during the review process.
 
-What do you suggest?
-Perhaps "scmi-parent" (cfr. "interrupt-parent", which also does
-not point to the resources consumed, but to the provider of these
-resources)?
+It looks like you received a tag and forgot to add it.
 
-Thanks!
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions of patchset, under or above your Signed-off-by tag, unless
+patch changed significantly (e.g. new properties added to the DT
+bindings). Tag is "received", when provided in a message replied to you
+on the mailing list. Tools like b4 can help here. However, there's no
+need to repost patches *only* to add the tags. The upstream maintainer
+will do that for tags received on the version they apply.
 
-Gr{oetje,eeting}s,
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
 
-                        Geert
+If a tag was not added on purpose, please state in the patch changelog
+or cover letter why and what changed.
+</form letter>
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> diff --git a/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml b/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
+> new file mode 100644
+> index 000000000000..7297abccbc24
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
+> @@ -0,0 +1,53 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pwm/axiado,ax3000-pwm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Axiado AX3000 PWM controller
+> +
+> +maintainers:
+> +  - Petar Stepanovic <pstepanovic@axiado.com>
+> +  - Akhila Kavi <akavi@axiado.com>
+> +  - Prasad Bolisetty <pbolisetty@axiado.com>
+> +
+> +description:
+> +  The Axiado PWM controller found on the AX3000 and AX3005 SoCs.
+> +
+> +allOf:
+> +  - $ref: pwm.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: axiado,ax3000-pwm
+> +      - items:
+> +          - const: axiado,ax3000-pwm
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+So 3000 is listed twice. You need to test your DTS.
+
+Best regards,
+Krzysztof
+
