@@ -1,37 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from Atcsqr.andestech.com (220-128-198-181.hinet-ip.hinet.net [220.128.198.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC91E38735D;
-	Wed, 12 Aug 2026 03:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D742472B6;
+	Wed, 12 Aug 2026 03:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.128.198.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786505046; cv=none; b=jO7f+0dCHqEL5FsrRxwFGaO5QV+HtE1HO2GRRNHUPqq8nsjOQTIo3YYA8X5g8naZ1oVVGCuD59+1Iw2bjHH3Q2Oqus/wTjmOhbgNvkFUG7fUkzNr9X0r0pqo+pEDKc2M/BMikMFyfu9ZLGbCQkra2/SbDu9u2PKJNeyKeTAua0M=
+	t=1786505558; cv=none; b=R8Jfz50Y5k9OQHxruz4xDfC+3SPp2FqEJnvJZJ3WTDaGdRsKHLGZ0iKcz8jdz6veatJgyhyYnOM0k+IvZ14RZN5JHD5NGVv272K8RP0cyXag5zkGZeLxNmDs3zFOTV+mdKERdo8xj5SuRCf4kpYE/T6R98eJYiQNKQqcaGMurpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786505046; c=relaxed/simple;
-	bh=koF5tRe0d+hPSJInPiYXuK5p+J7czy7mQN0ECKniOcc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LGwIMzwlVEmhxoOvJ73gXQ2BmfoGChtLfUdBVoW3f+gf2aQ6GZxuoVo8d96knRpK8Fg65HD8vWEk1bEsJsCS9X7iYB1coHMSxdK5jh5RjnZGpI0G2W5b0aQ7x+jhhPIg7eOIfk3Pv0fDRHsrtamdDFQCnZYU2vGaWR5aVnGwTgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGGQrXXL; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGGQrXXL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 85537C2BD05;
-	Wed, 12 Aug 2026 03:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786505046;
-	bh=koF5tRe0d+hPSJInPiYXuK5p+J7czy7mQN0ECKniOcc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=lGGQrXXLzoynzhJwH+mhg08cDon7OIrrks1SeMy3DrrwfXJZ5EJLmWpKwwn1nf22E
-	 mYqboeBIFZsbGTnSlloAN+ve3G7HktdMSZfwfLAlttVY9Vd53wbtzDIcvNeHfYtiyT
-	 nruNsEHemsr7exySzzLN7b+R8ZTv41gBsW2eIa/mdHHYcszZ+USW7NB3ybYXC3fLZG
-	 kPKRjXjFJh+LZDgta+eIfjFLfZ0hCCa2YVGHcjAoM+eD7W0lvYo8gqqBR2MWBPoEj1
-	 Mh6I09OwN8Ss6dbDNHWpRGnOn5yrJGweUSdH1sUXAmyMpvqBvH0CCkhaUQ5LBX8FRN
-	 cTrvoTR0662Wg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73F54C5B567;
-	Wed, 12 Aug 2026 03:24:06 +0000 (UTC)
-From: Ben Zong-You Xie via B4 Relay <devnull+ben717.andestech.com@kernel.org>
-Date: Wed, 12 Aug 2026 11:24:06 +0800
-Subject: [PATCH v7 3/3] MAINTAINERS: add an entry for Andes PWM driver
+	s=arc-20240116; t=1786505558; c=relaxed/simple;
+	bh=Vt4npGdHVAVO1FMJtYfce7egZqTKAr+j0do1EqgqjVk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RJXwI7MJue/uBdDuLwSurJ5VcEs2LyHmeTPBO+JpVsprHOaxDDrpHxFa+aLZ+9aiD8kkSobEKBzsOFje/QDZUHVh6NjCSO/tBSMxyl6RzM4gDDy2v47DssM2tYAzOf69PRH/Q5/Jx/vjwtg1DAs0hWFlLoQmfZEGT67jzWHGMLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=220.128.198.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (atcpcs54.andestech.com [10.0.1.154])
+	by Atcsqr.andestech.com with ESMTPS id 67C3VclI039026
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 12 Aug 2026 11:31:38 +0800 (+08)
+	(envelope-from ben717@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs54.andestech.com
+ (10.0.1.154) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.43; Wed, 12 Aug
+ 2026 11:31:38 +0800
+Received: from swlinux02 (10.0.15.183) by ATCPCS34.andestech.com (10.0.1.134)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Aug
+ 2026 11:31:38 +0800
+Date: Wed, 12 Aug 2026 11:31:37 +0800
+From: Ben Zong-You Xie <ben717@andestech.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+CC: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>,
+        "Albert
+ Ou" <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+        <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH v5 2/4] i2c: add Andes I2C driver support
+Message-ID: <anvpGTqOnwlbERgR@swlinux02>
+References: <20260811-atciic100-v5-0-1d306c21dba3@andestech.com>
+ <20260811-atciic100-v5-2-1d306c21dba3@andestech.com>
+ <361b7fa5-0e4c-429a-ad66-c81fbee86c45@wanadoo.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,56 +50,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260812-andes-pwm-v7-3-a806da8185d1@andestech.com>
-References: <20260812-andes-pwm-v7-0-a806da8185d1@andestech.com>
-In-Reply-To: <20260812-andes-pwm-v7-0-a806da8185d1@andestech.com>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ben Zong-You Xie <ben717@andestech.com>
-X-Mailer: b4 0.15-dev-09770
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786505045; l=764;
- i=ben717@andestech.com; s=20260120; h=from:subject:message-id;
- bh=gjO6IZe5Ik4Z5BEicWOc/F1VbekVfs+WHY+c4FTLRSM=;
- b=wJ+LQWuuwY7kOate1QP4hWImy2xdHaluN1e2FeIkIeGyTo1DYF4fQSmp958EGGWqU5yKyH1wT
- hmIRtz+XJzSD8RWJ+n0pzIt2RqDDbUoq0qu147d40XqqpQlj8ZfPu4P
-X-Developer-Key: i=ben717@andestech.com; a=ed25519;
- pk=nb8L7zQKGJpYk0yvrYKjViOZ34A36g1ZIsCmCsP518s=
-X-Endpoint-Received: by B4 Relay for ben717@andestech.com/20260120 with
- auth_id=610
-X-Original-From: Ben Zong-You Xie <ben717@andestech.com>
-Reply-To: ben717@andestech.com
+In-Reply-To: <361b7fa5-0e4c-429a-ad66-c81fbee86c45@wanadoo.fr>
+User-Agent: Mutt/2.3.0 (2026-01-25)
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs54.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 67C3VclI039026
 
-From: Ben Zong-You Xie <ben717@andestech.com>
+On Tue, Aug 11, 2026 at 09:37:12AM +0200, Christophe JAILLET wrote:
+>
+> Le 11/08/2026 à 08:29, Ben Zong-You Xie via B4 Relay a écrit :
+> > From: Ben Zong-You Xie <ben717@andestech.com>
+> >
+> > Add support for Andes I2C driver. Andes I2C can act as either a
+> > controller or a target, depending on the control register settings. Now,
+> > we only support controller mode.
+> >
+> > Signed-off-by: Ben Zong-You Xie <ben717@andestech.com>
+>
 
-Add an entry for the Andes PWM driver to the MAINTAINERS file.
+Hi CJ,
 
-Signed-off-by: Ben Zong-You Xie <ben717@andestech.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+> ...
+>
+> > +static struct i2c_algorithm andes_i2c_algo = {
+>
+> Could this be const?
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..dcf16c40a99e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1938,6 +1938,12 @@ S:	Supported
- F:	Documentation/devicetree/bindings/watchdog/andestech,ae350-wdt.yaml
- F:	drivers/watchdog/atcwdt200_wdt.c
- 
-+ANDES PWM DRIVER
-+M:	Ben Zong-You Xie <ben717@andestech.com>
-+S:	Supported
-+F:	Documentation/devicetree/bindings/pwm/andestech,ae350-pwm.yaml
-+F:	drivers/pwm/pwm-andes.c
-+
- ANDROID DRIVERS
- M:	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
- M:	Arve Hjønnevåg <arve@android.com>
+Yes, I will add const in v6.
 
--- 
-2.34.1
+> > +     .xfer = andes_i2c_xfer,
+> > +     .functionality = andes_i2c_func,
+> > +};
+> CJ
 
-
+Thanks,
+Ben
