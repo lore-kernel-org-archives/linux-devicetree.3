@@ -1,178 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7464936F8EE
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2354384CF2
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786549563; cv=none; b=Z6SeUEJWsjxtj8fbiHf3V/3b+csI2kmbs8Fh9KNO5otznpK+oCsLfDgciHC+8v+G9k3mKmq1OrcTBTW5vwvxRXN/VFVQa77OJz1tNchuaoL5idWTl3s68U1O8VOb8bYK948sap9ZFdJEyQo/OesjghjUIp3fHHoln//RkqBILKQ=
+	t=1786549569; cv=none; b=hbJvc9gDfUtD+xKccKqX2uQ9wWEk1DI//WTU83cSi2d+rhfUQ1tolKALmywD/w4deu5O6y421dLP31t4GFotJ12TywdPPlhWzs8A6iFhh4GkEzdL7cb/TkBRjLXEpd0Gug4yZXbrS+piNLzsGxUI865yYo74IRMpMCdOlHCYxzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786549563; c=relaxed/simple;
-	bh=g2060a9pk3BzNyVmVkuenj+T1eJB+qsdHDoqSuXgv7o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HeD1MHxId1HvUpkAFMA3yXZcjQ5rEaCWQVVONN6rwT6SCzMZisvv91FSHFhQaAbLrb737Ph1VFctoq1/4cQqYlhu/6dTuRdeMJ1+zhV2KtjsmfF1fxcZUCv5xE684zHB0m9Wq8xmWUGDaJF7rFn9miflMMgx/gRk/4x99Ff3c0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gsl2ZUHs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786549569; c=relaxed/simple;
+	bh=jqyL1l0kF09CMhY6OhtHP7ayRFOweOGyvTapk4qvAOo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XGCXtudQjBNr/zYe6sFvr27DOJtgRqyVCVRJD0/JpXMq1DbpunmFf+5y2DbsQC9TeFiqmtLeCddbS3GtVgSMdS0ObOwapPC9RyV6U5EjIZlX3doDcieCKXNz9GZQI+R9wsN9bD08e59WGnuKY3Zp5DQJTvbCBALRwS8AkCHzQEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RLCkMEAd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bA9/WLL8; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gsl2ZUHs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4971F000E9;
-	Wed, 12 Aug 2026 15:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786549562;
-	bh=PdYCp6xZBpbYVCBbD4gTSJaDTY5pwmYkEN/4bvfV5yA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Gsl2ZUHsIRP4c4g+MJE0iJD2P8VM0XXNlwTN12weHAwFQN724f40qpCtytUCPX6N+
-	 P0CSGGqJTOGAxcSkNln0Cu0ecPjn0+RHe6+eg+So5jb26DgRkO5vnaZfxnVuz/eAun
-	 isQmgWEYrS1ygX1ubO06SAjQdQXAxRoBVGBeAjMC11wpPkAZHEMX15QPsymWfrVxHY
-	 qC0FaMrn77m3DdnI6VhhLmSEiJICZoRQnn3eleduDucqyKx94ngv33u7pxI8X4KAib
-	 R5C2NnNqmVIGOa2S9MF41JY/IdAHtxIfggrlvWgfNuKqIE2YBanRDk790SaIeWKLG2
-	 BPgOCbyB56EXA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/6] iio: accel: mma8452: Allow open drain interrupt
- pin configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260812-mma8452-open-drain-v4-5-bfca15d02b59@geanix.com>
-References: <20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com>
- <20260812-mma8452-open-drain-v4-5-bfca15d02b59@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 15:46:01 +0000
-Message-Id: <20260812154601.CB4971F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RLCkMEAd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bA9/WLL8"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CDbVkK899572
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:46:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NaFq4qxdTWpI7rm7g/Neah3FbIy2SS31Jc7PR9Dcav0=; b=RLCkMEAdgNlO5xV0
+	m5oIjihbhHyvDQ+HHWefhkDrKSJAFq6fdYzcFhC91sZzaAbOjOghQ4niEu0OMzW2
+	ta8O1f8/nn6TgLGXjwD9aSaE8ubH7BksuzTg50vEuIKXGzmDYKHop9ujnClmoFM3
+	8z45VKmNwAK/vi/dbRYx/o9MdeXklx8ikCGFzzwdFmIlJR7YirgI/d5XqxoXGXb6
+	WQn67cpHIyrGC/TbwQEjV3qnof9CnrZYfXAI7PE7liYvlFwuVv5FRL/mtuhRB+mW
+	lO41Z29AwhH6g+GOLBM3utPN64jFZX3zU1ge2MSg/4PNsfn/cczUYOgllw5fN+9m
+	048qkQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0nut9qt4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:46:06 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbee5bab340so1172597a12.2
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 08:46:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786549566; x=1787154366; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NaFq4qxdTWpI7rm7g/Neah3FbIy2SS31Jc7PR9Dcav0=;
+        b=bA9/WLL8LmDRP9OddYA+g3MP6KCB3pZtvZt4F2dc6P/rk5QP2uEpRVPg4AZ2zvEkVC
+         1UmdqscS1aN96bZGMkhYA4DW1HHwU0Az3jHHu6CS97ZDYCuENAnRLaeJS+CnR8ZVgIQV
+         aEk5J0zXfp/c0er/JnN0slhUZDvREAX1e9EeqTpfSf+ghM9LGePvd0lLqWTNXCxxB1Sw
+         VHj1mkvRh4sQ57uM8C6jgaWr20V5NTdBJ1CNQ2iwLy584c7YwnV4DZUmKSc2IhWvbHyn
+         rRpDfuFmoJ85Bhw+oKePuwL/GONFr9Qk4Z+C8WyA6LkTj2rSbLyFU42trxemsvVpAtnM
+         2KgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786549566; x=1787154366;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NaFq4qxdTWpI7rm7g/Neah3FbIy2SS31Jc7PR9Dcav0=;
+        b=akT5QlclA4557GQPR14IsXZqq+I08Rzh+4h0l7YI2VSiAuRykthQHIwRSBx/pemgwb
+         S7T2PHUZWRqRqAvAeQMnQYeS9q8Ua5cYP8e0HCzdPQRrSSG6v1utZZ+tzZotfkk9YNhV
+         xBcNzKTYW5OQh2mXiBpqDEDwkzlclGxxfPQJcFvomcLnvX3ljjY5xvBvWSg5qITmGHur
+         XqEdj0QA4lHRAddPUrGcotW9XtiGAFccirLoNaM+j5p/NvnRBmKj6O+La7iRmRGEYaTX
+         Zcxo16qrp8xjnJbLtoeCKdyoMHFUGnwEgIq+EeVROMk3oWm4xlgcfiws+wk52zVaMyYt
+         wltQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoFGD5XCqmU2thW8mrXQM28KjwCMKruEjGaOSkjLGFIRd9oyMKTlS4g+6jiyPbnVd9b7sHyjjClsVyc@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrPa0t+93UmjgmETSHJcxgenfV26bPN12TC2e2hrFMbG9DggIo
+	n4iwCPlcv6ZMbI0u18Q3+N6/AU6RjDCYnZFagOutzRjHgryDiXm2wY196UJOg7kqvAEcw1Uv7nr
+	NRyP24ZTmk0ZK+ENtxx4HDd93qsXpwXqnE/H8tH1tEGZMaOnDxYSNqn9DUah3rRKi
+X-Gm-Gg: AR+sD10t9wv1pZu8aaWUv0jhd11GvGvxfmHSLvFXHnKctMdcpqOBxmBeyi2bJRCspKj
+	5Ta0a81mglCu83EU0g3KfGbrI/jtCH0WIrQwetowWRqbI9hilis9zouOKptosLBMy1E5PUckdGG
+	SURd9XsofY4iFiESqXGRk+907y5yjASx4Ld7iFPQ0ByDeu5jmaK9RUH9I5cGNaqTtobDMC1EdBv
+	apKHAMGaoFdGnicsUDSf7IqQoIcrvjuLegVw1ma1BTotJvawqdu0xe6qERgJODRDM8gIiJIVdgj
+	8UKIVmWRbQde6mG78stQpxluBId5citJnb3OZsvtXAXOwl+9DfgwNOhl5LmwOMIsMLS7BzZ9XlQ
+	0WsmN71iEl6+TRS4s9Rp4WIUDLj+U0dYLSNs=
+X-Received: by 2002:a05:6a21:6017:b0:3c3:a7ab:135a with SMTP id adf61e73a8af0-3cc3f6eab4amr6708209637.20.1786549566134;
+        Wed, 12 Aug 2026 08:46:06 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6017:b0:3c3:a7ab:135a with SMTP id adf61e73a8af0-3cc3f6eab4amr6708098637.20.1786549565606;
+        Wed, 12 Aug 2026 08:46:05 -0700 (PDT)
+Received: from [192.168.0.172] ([183.83.139.112])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14124583ad0sm10443586c88.12.2026.08.12.08.45.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 08:46:04 -0700 (PDT)
+Message-ID: <6937899f-2fbf-4349-8c7b-1de53850a855@oss.qualcomm.com>
+Date: Wed, 12 Aug 2026 21:15:48 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] The PM runtime resume handler fails to restore most device configu=
-ration registers after a power cycle, reverting to POR defaults.
-- [High] The driver ignores the requested interrupt polarity from irq_get_t=
-rigger_type() and fails to configure the hardware's WAKE_INT_POL bit.
-- [High] Sysfs read/write handlers modify device registers and poll STATUS =
-without acquiring a PM runtime reference.
---
-
---- Patch [5]: [PATCH v4 5/6] iio: accel: mma8452: Allow open drain interru=
-pt pin configuration ---
-commit 7603b79afdeeb3c4d36936afa7e16bc8d738683c
-Author: Esben Haabendal <esben@geanix.com>
-
-    iio: accel: mma8452: Allow open drain interrupt pin configuration
-   =20
-    When designing systems sharing the interrupt for mma8452 chips, it is
-    helpful to be able to configure the irq pin in open-drain mode (default=
- is
-    push-pull).
-   =20
-    Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-    Signed-off-by: Esben Haabendal <esben@geanix.com>
-
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index 106cdd904dbfd..7992f9e388180 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-[ ... ]
-> @@ -647,6 +650,22 @@ static int mma8452_set_power_mode(struct mma8452_dat=
-a *data, u8 mode)
->  	return mma8452_change_config(data, MMA8452_CTRL_REG2, reg);
->  }
-> =20
-> +static int mma8452_set_interrupt_pin_mode(struct mma8452_data *data)
-> +{
-> +	int reg;
-> +
-> +	reg =3D i2c_smbus_read_byte_data(data->client, MMA8452_CTRL_REG3);
-> +	if (reg < 0)
-> +		return reg;
-> +
-> +	if (data->open_drain)
-> +		reg |=3D MMA8452_CTRL_REG3_PP_OD;
-> +	else
-> +		reg &=3D ~MMA8452_CTRL_REG3_PP_OD;
-
-[Severity: High]
-This is a pre-existing issue, but could this function also configure the
-interrupt polarity bit to match the requested irq polarity?
-
-If a board's device tree specifies an active-high interrupt, the driver
-requests the irq with that flag but leaves the chip generating active-low
-signals.
-
-Since this function modifies the open-drain setting in MMA8452_CTRL_REG3,
-might it also ensure the polarity bit is set correctly so we don't end up
-with missing interrupts or continuous interrupt storms?
-
-> +
-> +	return i2c_smbus_write_byte_data(data->client, MMA8452_CTRL_REG3, reg);
-> +}
-> +
-[ ... ]
-> @@ -1817,6 +1841,10 @@ static int mma8452_runtime_resume(struct device *d=
-ev)
->  		return ret;
->  	}
-> =20
-> +	ret =3D mma8452_set_interrupt_pin_mode(data);
-> +	if (ret)
-> +		goto runtime_resume_failed;
-> +
->  	ret =3D mma8452_active(data);
-
-[Severity: High]
-This is a pre-existing issue, but does mma8452_runtime_resume() fully resto=
-re
-the device state after a power cycle?
-
-When the device goes to runtime suspend after a period of inactivity,
-mma8452_runtime_suspend() disables the vdd and vddio regulators, causing the
-hardware to lose all its register state.
-
-When it wakes up, only MMA8452_CTRL_REG1 and MMA8452_CTRL_REG3 are restored
-here. Does this leave crucial configurations like MMA8452_DATA_CFG,
-MMA8452_CTRL_REG4, and MMA8452_CTRL_REG5 uninitialized and revert to power-=
-on
-defaults?
-
-Could this cause the device to operate with incorrect full-scale settings a=
-nd
-disabled interrupts?
-
->  	if (ret < 0)
->  		goto runtime_resume_failed;
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Mansur Alisha Shaik <mansur@codeaurora.org>,
+        Andy Gross <andy.gross@linaro.org>,
+        Rob Clark
+ <robin.clark@oss.qualcomm.com>,
+        Stephen Boyd <sboyd@codeaurora.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Pierre-Hugues Husson <phhusson@freebox.fr>,
+        Marc Gonzalez <mgonzalez@freebox.fr>,
+        cros-qcom-dts-watchers@chromium.org,
+        Matthias Kaehlcke <mka@chromium.org>,
+        Douglas Anderson <dianders@chromium.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Aniket Masule <amasule@codeaurora.org>,
+        Malathi Gottam <quic_mgottam@quicinc.com>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jonathan Marek
+ <jonathan@marek.ca>,
+        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+        Renjiang Han <quic_renjiang@quicinc.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
+References: <27f0b033-e940-4369-aaa0-f08426aac73f@oss.qualcomm.com>
+ <tdgbfewnlj3xypfnyckivnd2b6667laapkcfs2vpnk74bh22aa@obasatns3jfr>
+ <MHRdGybtgutWtIo4EOZisrGdCVgOj7AdOArjfuxCXTTNcc1o1v40eltpkDUqZl5sOY9tjRFaY6tc_OKvzrYJ4w==@protonmail.internalid>
+ <429d5d1d-92d5-4949-9991-b092cc7e9937@oss.qualcomm.com>
+ <181b02e3-831e-4461-9327-ab5646380a10@kernel.org>
+ <73b26356-8ccb-4a81-b626-a96de5b13173@oss.qualcomm.com>
+ <v7vlh2lgvluvacmxora6l7u5r3cbhr4xaqqlzqdli5jympfwxl@5qsqc354n4u3>
+ <g_hgO2Ky6WOywvRuvLUE7DXb-e7Kb8S3QoVsLbN3yhHbYzryQwZBT0VLRe3C4iVy8rUA9Tvc1Vu255IjAnbRJQ==@protonmail.internalid>
+ <7caa7fd4-6732-4c80-8b8e-a0ed99631ba2@oss.qualcomm.com>
+ <6906ca3c-03b2-4d9a-a3b6-2d38345d8534@kernel.org>
+ <oeiqgw74eede7d3l42fgpplvk6lscpx4kjzj5iae6vrrgsxomi@wnl7cnon6rty>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <oeiqgw74eede7d3l42fgpplvk6lscpx4kjzj5iae6vrrgsxomi@wnl7cnon6rty>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDEyOCBTYWx0ZWRfXzjQ0pFDhbnOu
+ hGzHiUKaNmihvseXzN50PKPYa7b3YA3EsHcdtV6QGXf6Kb7t00w3VV0sdtG0b7ujeEPVoe4U4BV
+ xWrKy8Vg2RIav6Np9mPJseCt6tG7gps=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDEyOCBTYWx0ZWRfX/BA8g36BEAWs
+ m9LS+fvm8ajdsMPQBrwdZIdL8j7dsJf28N/WwLesNskIGIz2OFBipI7MlL7nUvOwWkRjrV5jrWT
+ WYrQVJP3jG/2eMX17gZCustyhI7RGhpof4MyXYCdpEF6d5UBVGTpg+lBSL45wTsBV6oXuc8XYkR
+ FiCdGadTYXz/0xtKT5n7trKc9zuEjml2kroQzX6w9+3jQllLX0oH6xYnrClvUN0SSkiyJ3J/x8z
+ ns0U4oShabTw0Uqiy+hh2slF4esPDf7muxnhkZXMPJgrGGDeQ2A6v9HBwX6lLZ4KPqWQJkFQWy9
+ 4yz4goxRmjHxemYfy0eHGvgHiBPst2B6uNVCWJGvYgJpGEhWaLjTpdTiFS3J4CjDyBDv183Kubj
+ jehXBVAhR4dO633mu5iMKG3BTNXA22wdRDJ5uxwccdYkBbXiPIjRPdkcGayau8lyEB1UC8O3n3o
+ 3cvpDd7+lo5bmfC6Z4g==
+X-Proofpoint-ORIG-GUID: nAMcPx8v0h4HZ-SStbsevc0AUup7TP4Z
+X-Authority-Analysis: v=2.4 cv=POA/P/qC c=1 sm=1 tr=0 ts=6a7c953e cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=vZaankvBGbqXg3MvYcFdyQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=H1XTA3wU2jA9kjazOnIA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: nAMcPx8v0h4HZ-SStbsevc0AUup7TP4Z
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ impostorscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120128
 
 
-[Severity: High]
-This is a pre-existing issue, but do the sysfs read/write handlers modify
-device registers and poll the status without acquiring a pm runtime referen=
-ce?
 
-For example, looking at mma8452_read() in drivers/iio/accel/mma8452.c:
+On 8/12/2026 6:16 PM, Dmitry Baryshkov wrote:
+> On Wed, Aug 12, 2026 at 06:02:58AM +0100, Bryan O'Donoghue wrote:
+>> On 10/08/2026 17:57, Vikash Garodia wrote:
+>>>
+>>>
+>>> On 8/10/2026 5:40 PM, Dmitry Baryshkov wrote:
+>>>> On Sat, Aug 08, 2026 at 09:18:42PM +0530, Vikash Garodia wrote:
+>>>>>
+>>>>>
+>>>>> On 8/7/2026 6:48 PM, Bryan O'Donoghue wrote:
+>>>>>> On 07/08/2026 11:22, Vikash Garodia wrote:
+>>>>>>>>>> I don't like the idea of this series, because it_again_
+>>>>>>>>>> doesn't tell us
+>>>>>>>>>> the truth about the hardware. This typicall ends up with
+>>>>>>>>>> bigger problems
+>>>>>>>>> honestly...thats all the info i have about the vpu hardware that it
+>>>>>>>>> restricts non pixel to DMA from the 0-600MB range. The same i have been
+>>>>>>>>> trying for a year now
+>>>>>>>> You are not honest here. You also know that there are secure streams,
+>>>>>>>> which have to use their own IOMMU SIDs. And some of them, as far as I
+>>>>>>>> remember, also have memory range restrictions.
+>>>>>>> please read the commit description again, the answer is there.
+>>>>>>
+>>>>>> So I don't necessarily get all of the detail out of the commit log myself.
+>>>>>>
+>>>>>> Could you give some detail to address Dmitry's point.
+>>>>>>
+>>>>>> The question as I read it is - are all of the other potential SIDs
+>>>>>> covered by this change ?
+>>>>>>
+>>>>>
+>>>>> I get the query as "secure streams also have their dedicated reserve
+>>>>> regions, so how does this approach helps" - This patch does not reserve any
+>>>>> IOVA for secure streams, only the forward looking subnode can assign
+>>>>> specific reserve for specific streams.
+>>>>> The patch enforces a common IOVA across all streams, and is good enough to
+>>>>> fix the problem we have w.r.t device reset.
+>>>>
+>>>> No, it's not good enough. It defines that both non-secure streams use
+>>>> the provided memory range, it doesn't provide a natural way to later
+>>>> _expand_ it to support secure subnodes, etc.
+>>>>
+>>>> We know that there is a problem. We already have been bitten by not
+>>>> describing the hardware as is and using band-aids. Can we now learn the
+>>>> lesson and write a proper hardware description?
+>>>>
+>>>>>
+>>>>>>>> So, if we land these patches, how do extend it later to account for all
+>>>>>>>> of that?
+>>>>>>>>
+>>>>>>> forward looking design would be subnode, which we can land ontop of this
+>>>>>>> series.
+>>>>>>
+>>>>>> Yes it should be possible to branch to make subnodes work on-top of this
+>>>>>> - accepting that once this lands it becomes ABI and support for this
+>>>>>> method must be sustained, even after sub-nodes land.
+>>>>>>
+>>>>>
+>>>>> Thats the plan. This goes as ABI with subnode to land on top of it.
+>>>>
+>>>> So, do you actually plan to support both ABIs? This would also mean
+>>>> moving reserved regions to the subnode.
+>>>
+>>> How is that different from moving the reserve region when stream IDs
+>>> would also need to move, so be it for the associated memory regions.
+>>>
+>>>> What prevents us from landing subnodes straight away?
+>>>>
+>>>
+>>> You are well aware of them, but still asking the same. Reasons,
+>>> 1. We have been attempting the subnodes for almost a year with multiple
+>>> pushbacks from multiple maintainers. We are closer and working on it to
+>>> post for iris, followed by venus, once review is acceptable for iris.
+>>> 2. Current solution, in this series, is much easy to apply for all
+>>> kernels and can land faster so that it can fix the reset issue we have
+>>> for already enabled devices.
+>>>
+>>> Both from timewise and simplicity wise, this proposal is made to address
+>>> the reset issue, while subnode can land ontop of this, without breaking ABI.
+>>>
+>>> Regards,
+>>> Vikash
+>>>
+>>
+>> There is another solution.
+>>
+>> Restrict multiple concurrent streams in both drivers. The failure mode is as
+>> I understand it only triggered by _concurrent_ streams so, restrict that
+>> case in the .c code.
+> 
+> I think this might be the best hot fix for now. Very local, very
 
-mma8452_read() {
-    ...
-    int ret =3D mma8452_drdy(data);
+No, it's not. Restricting concurrency does not avoid the reset, it just 
+reduces the possibility of occurrence.
 
-    if (ret < 0)
-        return ret;
+> presice, touching the driver pieces, letting it to continue to exist
+> even after the subnodes have landed to support the legacy case.
+> 
 
-    ret =3D mma8452_set_runtime_pm_state(data->client, true);
-    ...
-}
-
-The driver polls the status register before waking up the device.
-Since the device enters autosuspend and turns off its regulators, will any
-subsequent sysfs read or write attempt to access an unpowered chip?
-
-Could this result in bus errors and completely break the sysfs interface?
-
-Also, __mma8452_write_raw() calls into mma8452_change_config() which reads
-from the device without holding a pm runtime reference.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-mma8452-op=
-en-drain-v4-0-bfca15d02b59@geanix.com?part=3D5
