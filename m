@@ -1,246 +1,244 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011001.outbound.protection.outlook.com [40.107.74.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D02F36166A;
-	Wed, 12 Aug 2026 06:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786517665; cv=none; b=ZeWFFqFJHhk+/hXsJx2bE8JjIG1cyTI0Fq4BGAaUn3riByjy0nkJu+seqo6IHa2czBnZLZ4Ac9Crxgb9NeeWR3fY4Ck1Ip1KrSiNbBays+fpYfr7UmaWzKxwWt/RCT3upM/ndzhdXRan8jnFTQoPueSb1dSQEfmgoy13y7xa0UA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786517665; c=relaxed/simple;
-	bh=cgGjsx1To54vHWxSHVCbCt6UiwKkcdepoNf0HAf8E78=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ndkKcOMSZ6C56F02SZxoiw+MEbVT39w3DK6xOPxFcXkISd8AvOKdX+JlBsNgmqTdQNIPTIUo3V0/sk5ZQqrM6L6oN6DrlyBr2UIjoOyXlCgV/biKpltlMz7S6OOOWJBcGgnnFV+Adbi5saMupws6D//mRcaKApRJ8G0VhEtzKf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=0QXGYR9X; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AC63264F9;
+	Wed, 12 Aug 2026 06:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786517842; cv=fail; b=rxyelpvCkblrgCmc0nl1dkw4AFz6EhapLe4UTKJJVws0T7S2fPMz+FfQMX23R1d+puJj/VLvmDszYBl15j64HH+/mlP2zOcNBlAbWzUJaTUsdtavNWN08tOC6mX9jnwrXOs+qC3aW7MDWrWWgrOw3vfWU1VafryYAxZkj78kN90=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786517842; c=relaxed/simple;
+	bh=0ZbRNxhVfnKurAQAbCPhkJTyl0OL5dwkCaTj8XNZ36U=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=VpOdaURsNZkIw6Yyds+mqNtWP1piZzkBcJ1goy0UUdAaar2+oCXCzGx0Az+b65UyVWK6GONaWFGu0x3gf1JHoWsvBcNSvnf1uZqNEu3TZ49n2lx7lH/qkItEbwKll0xSEVJVxYSYS2656FCWhtF0Q3eCLXVJ8Skv486wVetWREw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=EIr0v7B2; arc=fail smtp.client-ip=40.107.74.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="0QXGYR9X"
-Received: from gaggiata.pivistrello.it (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id DF5621F8D7;
-	Wed, 12 Aug 2026 08:54:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1786517654;
-	bh=K39uuHk/UNMQZhBdj5TasfypJyUYUsGh0yflU9COlDk=;
-	h=Received:From:To:Subject;
-	b=0QXGYR9XVy2tWfcdw0C2Imm7v+w5+A75aA0Iqha1YYOZTrrv/nIPiOLGIgD8lKxgg
-	 teTdD1LVChyu+Nv3WjTM0GIy6e/MtU2YA3TyvLrOI3FT0TSEYcmDYb3qaIsmjnFXHm
-	 kj6A2ehTMP1JL58s0DQX2U1FS4kJTzrAFQ8Br3KtKX7NSdahlTGLiIBJT1pUYlVqeQ
-	 WfLX/CXkMD7FX5zvFomll+iKaom+4ZH4IpW4lVRrh4ECfEQncCwr3Pm+ePuPvc+nq3
-	 94LWq627pKscK9iPabVWAX989jSdeawsFxzmiUJYZLKIigB18A5RsecIDB73PFR2xh
-	 vjazWyZj6fZzA==
-Received: by gaggiata.pivistrello.it (Postfix, from userid 1000)
-	id 931E47FB68; Wed, 12 Aug 2026 08:54:13 +0200 (CEST)
-Date: Wed, 12 Aug 2026 08:54:13 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Hongxing Zhu <hongxing.zhu@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	"Hongxing Zhu (OSS)" <hongxing.zhu@oss.nxp.com>,
-	Leonardo Costa <leoreis.costa@gmail.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	Frank Li <frank.li@nxp.com>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"festevam@gmail.com" <festevam@gmail.com>,
-	"leonardo.costa@toradex.com" <leonardo.costa@toradex.com>,
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="EIr0v7B2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qHlZ6sGDibOITrA8OyJRNLQPS54Y0PM0Htdl4Hph0khGyJFk1FCf20Va2xNjTQdR3b9s5d0PFQa1axYfDVQDxS47Kb9kaDrAdsTtX90Oy4fTiBtPIwtc2/8px7mdGvlkruOJ+kbvkOYKFHjMxpHgrFrrF7kvIiJapav4syYQAwulZrrrqTLnw/m9BLt1d3Fig8vL9+/ADCXu05z5HCtT0G7wIeaYs/syjtbfaQQpgr5rGtYXG8sKLw5z5A1JhjArlesPMWsg3/S1IDP3upje0ky+osHKwvN2VbAZw9N0B0CqcHUi14WwxSQfO8r26PuX+mnygDVtXUMGcj0fBzSpAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+sl0bCxMBL98CIL5zpJr88WkfoAljTmhz/KA09YFWkw=;
+ b=NRAQZSm/AZ7k9XqpAdxK/xV4mg9q3HRj7a5amKPnYrAzUI042FbHzEi5Ajh70eZXPDlo5WkemrD3ddAfNqW1PEcPO99bR/kjxN/3w8p6kc8B4GOWzdpfFDiiMGc2AiuPhHHRPGGzrMUy7vLfmGWJi9AaR8SSg9mUn3g+v2J1yXZRgTGsi9XiVFT0tbfVOf/+X7iuZ40bwEchdSYBwEIBBNHm6C354RVSmi1anVe+WohGHc1WqhJpUPFbV7nr/bEQEAhAVqufi6RZYK8HLMDFCYL6L1HNhyyS7RDoZYL/cNKInn6a1QzkxyHP7Z0d+vajyJqcytlT3RKaWLRcmfrIhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+sl0bCxMBL98CIL5zpJr88WkfoAljTmhz/KA09YFWkw=;
+ b=EIr0v7B2aTTrj5DfjYmaDiYe7UGNmC2hmBHzLtWAlm0BegRpqTGdf5TeWMElzlJbc3hKUlwKB9p6WksUpe4me/cgvqLRuYgHiSphrBLjDOee6Hs+geZ6iAp0aaLdMktwcWfe7ME0N+HFULkLqLe1DpLuUx0GwEe4SAX0b7yj6m8=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYYPR01MB7998.jpnprd01.prod.outlook.com (2603:1096:400:ff::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
+ 2026 06:57:15 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0315.012; Wed, 12 Aug 2026
+ 06:57:08 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: "biju.das.au" <biju.das.au@gmail.com>, Geert Uytterhoeven
+	<geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>
+CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
 	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	Sherry Sun <sherry.sun@nxp.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
-Subject: Re: [REGRESSION] mainline/master: Apalis iMX6 no longer boots
-Message-ID: <anwYlX0uC1nFCxnp@gaggiata.pivistrello.it>
-References: <20260629143439.361560-1-leoreis.costa@gmail.com>
- <20260715234736.GA288957@bhelgaas>
- <VI0PR04MB1200862BE9B7C137EC7C18AF18CC72@VI0PR04MB12008.eurprd04.prod.outlook.com>
- <i6x6wpua7wlwmdq3hitoo53wkptgp62tvegmkabcru3d54eqg3@yk4eehwaarn2>
- <3hxiy6aaiagt5zunntpidaeqc4or4wrebf7mu7asvyyibqmvo2@xhvasdqp64rw>
- <GV2PR04MB12019BD5B14FA63CDFCC2015B8CDD2@GV2PR04MB12019.eurprd04.prod.outlook.com>
- <20260811063752.GA7332@francesco-nb>
- <GV2PR04MB12019BC21C743E1BEF1BE8F4C8CDC2@GV2PR04MB12019.eurprd04.prod.outlook.com>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Prabhakar
+ Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, "biju.das.au"
+	<biju.das.au@gmail.com>
+Subject: RE: [PATCH] arm64: dts: renesas: r9a08g045: Move max-frequency to SoC
+ dtsi
+Thread-Topic: [PATCH] arm64: dts: renesas: r9a08g045: Move max-frequency to
+ SoC dtsi
+Thread-Index: AQHc/8Ek+KoUgOGibEGU+m+XHsY22LaaT+Wg
+Date: Wed, 12 Aug 2026 06:57:08 +0000
+Message-ID:
+ <TY3PR01MB113468B2AFB2409C955D5B0CE86DC2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260619075621.126961-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260619075621.126961-1-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB7998:EE_
+x-ms-office365-filtering-correlation-id: e882d233-0ac2-40bf-a562-08def83eed07
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|38070700021|10067099003|11063799006|56012099006|22082099003|18002099003|3023799007;
+x-microsoft-antispam-message-info:
+ Cf9e7WsdlK1hV/AFQmESzyyeJ+LNymqGKdkHN9wjbUnCqUneh32hB60gGvzUEQTwZu95cfX4NIWzWep5TJXiTejDTDriUQLXY3FipghXHkfjp8ljgH9N3iHllaA0etXY3zmmZESnzgw6ccg7s3yDCSihZkv9111GGbgREH7cPJWUUu67UAKfXUyoHBO0/nvc6rrxZ6xlH2hOmTE1SZ6ckQcy6HfDju49t1DBFUJbEzHeSCsTvIHK65a3WFcLK9sc3IwPIny3LD4NVaojdlsjNJ0vHnZAY/x081SpNb5nwVv7fxzWd3Wqf0NWGfwtXC0tDXbu9M7tvxMvpFYg7XthQGkfyxGM3vpE4wNwqX3mVuzMpEctTNGEC+q1lV6Ig6Y+EGHgmxleIgPwuHfuSDWzAuf7+mx8K7VrUFMcwPN71CphznSiGThK59A9IQKuBKzVg6Id/Oo/qqowwvq7dFWAzJ1WELiLqtu0aCL6akEgggXli8ZET0Ife49bbTr0T9+h/eNVbCmuKsl8QAGTB4A3EsWIQYxv+El1Vd/7NhEZt8nNgSDjAN8XG/CL6bDNotOrMRJcArJEszKQwK6s/xGCCIAx/U0Z+2WlREf231G/S8mJ4j4B+dcsqD1m/JLCC3TOtSqV+5p30rZIBqLbd0igWyyH89l4ROl8rtavMJeubW8nzqDGVm2HG4aOFnQpJU3qTpkRjji3SjwzEp7QUMiNsLAPxK1U/SiKWnbMclN0ptc=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(38070700021)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Y/hXkIeEW57BjerXbPv+0/SMwXRCKb7WKJq1kUR0YbiT8Kg70WUrgBH5VVLK?=
+ =?us-ascii?Q?hrXdPyS522szsiJUwfAShxu5VHBKQkqwk6DH2IFK4GvkU51kRnj2qDKxSdv5?=
+ =?us-ascii?Q?SfpBbvMlAmhxEEnQRLii6svO5+cDFi8o+C4EAmXSqpoOwL4HDfs9LnpXdYO6?=
+ =?us-ascii?Q?CiqXys7T4+axybOajgl8JqDrOo2ofUmSktMtFTgTYaqcuOvBs58zPb0p02Xo?=
+ =?us-ascii?Q?8bwBEVDQqpo4UxJnq+sBACI3EGKmvNJMl+80aNo1H3ozh1rYLscXdu9UCQXv?=
+ =?us-ascii?Q?J6gQ5Aw7jc4JfqtwYskAFO3x0wfrxN7PnUBuBMIRDPCDNpJGfsXeh46AMezO?=
+ =?us-ascii?Q?y/D9s6O4IvNTuveT/O3Nv3vDn9DSkhrps+JyOq2g6xYNNMVTiUgX4tE35WwF?=
+ =?us-ascii?Q?EGKuHVU8S2/BK+4efqtxZEavVSGXddCoD+7A/MwvwcuJXerDTYxy1R1K4Usm?=
+ =?us-ascii?Q?NQdUKyob6TT9bOgHWpv4kedNu+b0a5xbG8N1lJB2dbiYaT2whMed3xIBeP4C?=
+ =?us-ascii?Q?JsbWRaZgPRSJ9UcYtJTHx10ZtUOw4EjwBY7GLK37CahO6QmO0CGHeOCgiebq?=
+ =?us-ascii?Q?QY0NkERJRlYoQPtpYZUhIQELTZ4PhQUJlVJ/bs/x0MFBonQc/htgLO+dravB?=
+ =?us-ascii?Q?EPrNqnEpYprh7WHcrPnP2HYrmBP+Hf8fNbr00aXM4m4lMe5GBNTDyqT2222D?=
+ =?us-ascii?Q?/YRClGeGhTL6sAWGObOmnn0DkuLiW0SMM75XWE3QYGOINFM2/DwBrEJ6Gpai?=
+ =?us-ascii?Q?orw7P1EUbKAKDM8VUNnIgh3YIniBDdALVb7iVK27tKw4vri5O7dZFZsu0Raz?=
+ =?us-ascii?Q?AaQnnn1yjx5wdprksNvSwTaF86BOlDTgx0hsHFhI5htIesfaODPz2wzTz7Sd?=
+ =?us-ascii?Q?byjaWmSAI59UplO7YCrRB8V54OhNLV4792vfclEiyQMdXeBPusWCO2NQMYow?=
+ =?us-ascii?Q?RW5mXOqp1vOaWyxNF/+6Is+fHSvimEnWc+HiY14m59nL0Gb407LxM/Ib00Ne?=
+ =?us-ascii?Q?leNqIbr9VN4pRvJe35k4hND86SWkNiUIf42EqQ+r4dWMUMHVkSqb/+L/WnGg?=
+ =?us-ascii?Q?1Ql75qk6GoNTEwZIfDCkjyN5VppYrt7uOkpMXBDnUR9LthG9SL0es5ThhLx+?=
+ =?us-ascii?Q?Tz6//BHHwDYcaZLif8EJxmpWjueIVuMv+3bmUIaEgk+O8lmrh+aosO22Lkyu?=
+ =?us-ascii?Q?iXBrmKJH4KNC1xczniUyFDXbnIeFhyp+T/qbbRrVfuHZQ6GyAJup5O6S1QEp?=
+ =?us-ascii?Q?gKrlRqWbdkdTb3MBJNX0WzQDrFL3OFY8xP32VBa/5SLq0tnVhFDlBL4I0623?=
+ =?us-ascii?Q?3kby3MnOaqIeqQk5bUSRdiRA4/A0t/Xv50itPma3feP7kJRYJpflguZZE4Oc?=
+ =?us-ascii?Q?VoEjC1cbkbQOqn4ppVjg3vOqfTr+2GT25jSnR5fmKnjzXeSEWlhYQSTuWDX4?=
+ =?us-ascii?Q?xN5JOz6282RBso9eyAPZh0Kq/aCuno0nDVQr1Pf2hxMH18SCCaDIuKkJ86rm?=
+ =?us-ascii?Q?oz8ziGXINgReYby40eBDrgNd1gU0949YQI4muIIdf8tqv0PN7j9wluoVpcQt?=
+ =?us-ascii?Q?zYfVi7lgVP5wDgaqz10AkUPaPrDjGhQgvPC0q87rtNFcGkWDwD/v3GWs1GK5?=
+ =?us-ascii?Q?glRA/Ea9JPiD2l7Szm49UlxCHMmoxORk0mQdKf87R+L7Ll6J2yvdxIdIeZfn?=
+ =?us-ascii?Q?SF7mb7471N5Lkj/4xcCUuiZaafatmubEd0LtIWZ6QIYpqDxCk9gbFhhEFimr?=
+ =?us-ascii?Q?6DcHOHo1jg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <GV2PR04MB12019BC21C743E1BEF1BE8F4C8CDC2@GV2PR04MB12019.eurprd04.prod.outlook.com>
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e882d233-0ac2-40bf-a562-08def83eed07
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2026 06:57:08.1260
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jjv6KdPzr2wyPAsSt+CN4x+PX0ASqWVGKk84xhLRbUB4HT6KMxeZuPupQhunFJmb4NDmvI9nCqPQMe0nu6Od6TvvuOThtwSgsr4y1glo9eA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB7998
 
-On Wed, Aug 12, 2026 at 06:22:57AM +0000, Hongxing Zhu wrote:
-> 
-> NXP Confidential
-> > -----Original Message-----
-> > From: Francesco Dolcini <francesco@dolcini.it>
-> > Sent: Tuesday, August 11, 2026 2:38 PM
-> > To: Hongxing Zhu (OSS) <hongxing.zhu@oss.nxp.com>
-> > Cc: Leonardo Costa <leoreis.costa@gmail.com>; Bjorn Helgaas
-> > <helgaas@kernel.org>; robh@kernel.org; krzk+dt@kernel.org;
-> > conor+dt@kernel.org; Frank Li <frank.li@nxp.com>; s.hauer@pengutronix.de;
-> > kernel@pengutronix.de; festevam@gmail.com; leonardo.costa@toradex.com;
-> > devicetree@vger.kernel.org; imx@lists.linux.dev; linux-arm-
-> > kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
-> > regressions@lists.linux.dev; Sherry Sun <sherry.sun@nxp.com>; Manivannan
-> > Sadhasivam <mani@kernel.org>; Hongxing Zhu <hongxing.zhu@nxp.com>;
-> > linux-pci@vger.kernel.org
-> > Subject: Re: [REGRESSION] mainline/master: Apalis iMX6 no longer boots
-> >
-> > On Tue, Aug 11, 2026 at 12:47:18AM +0000, Hongxing Zhu (OSS) wrote:
-> > > > -----Original Message-----
-> > > > From: Leonardo Costa <leoreis.costa@gmail.com>
-> > > > Sent: Tuesday, August 11, 2026 2:26 AM
-> > > > To: Hongxing Zhu (OSS) <hongxing.zhu@oss.nxp.com>
-> > > > Cc: Bjorn Helgaas <helgaas@kernel.org>; robh@kernel.org;
-> > > > krzk+dt@kernel.org; conor+dt@kernel.org; Frank Li
-> > > > krzk+<frank.li@nxp.com>;
-> > > > s.hauer@pengutronix.de; kernel@pengutronix.de; festevam@gmail.com;
-> > > > leonardo.costa@toradex.com; devicetree@vger.kernel.org;
-> > > > imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org; linux-
-> > > > kernel@vger.kernel.org; regressions@lists.linux.dev; Sherry Sun
-> > > > <sherry.sun@nxp.com>; Manivannan Sadhasivam <mani@kernel.org>;
-> > > > Hongxing Zhu <hongxing.zhu@nxp.com>; linux-pci@vger.kernel.org
-> > > > Subject: Re: [REGRESSION] mainline/master: Apalis iMX6 no longer
-> > > > boots
-> > > >
-> > > > On Thu, Jul 16, 2026 at 02:09:19PM -0300, Leonardo Costa wrote:
-> > > > > On Thu, Jul 16, 2026 at 02:15:42AM +0000, Hongxing Zhu (OSS) wrote:
-> > > > > > Hi Leonardo,
-> > > > > >
-> > > > > > Would you be able to test this patch on your affected boards?
-> > > > > > Your testing would help expedite the merge process and ensure
-> > > > > > the fix resolves the boot issue you're experiencing.
-> > > > > >
-> > > > > > Best Regards
-> > > > > > Richard Zhu
-> > > > >
-> > > > > Hi Richard,
-> > > > >
-> > > > > Sorry for taking long to respond, I was caught up with something.
-> > > > > I tested the patch and it solved the issue. I sent a Tested-by tag there.
-> > > > > Thanks for looking into this!
-> > > > >
-> > > > > Best Regards
-> > > > > Leonardo
-> > > >
-> > > > Hi Richard,
-> > > >
-> > > > That patch might have introduced/exposed a second regression where
-> > > > PCI devices are not linked properly during the initialization. Sorry
-> > > > for not catching this before, as I didn't have any device connected during
-> > the previous test.
-> > > Hi Leonardo:
-> > > Sorry to hear about that.
-> > > I did test commit 7678e81498e2 with one Intel NIC (82574L) connected,
-> > > and I've double-checked today based on v7.2-rc7. The PCIe link can be
-> > > set up properly on the i.MX6Q Sabresd board in my testing.
-> > >
-> > > Here are the logs:
-> > > root@imx6qpdlsolox:~# lspci
-> > > 00:00.0 PCI bridge: Synopsys, Inc. DWC_usb3 / PCIe bridge (rev 01)
-> > > 01:00.0 Ethernet controller: Intel Corporation 82574L Gigabit Network
-> > > Connection root@imx6qpdlsolox:~# uname -a Linux imx6qpdlsolox
-> > > 7.2.0-rc7 #30 SMP Tue Aug 11 00:21:26 UTC 2026 armv7l GNU/Linux
-> > > root@imx6qpdlsolox:~# dmesg | grep pci
-> > > [    0.256138] imx6q-pcie 1ffc000.pcie: host bridge /soc/pcie@1ffc000 ranges:
-> > > [    0.256307] imx6q-pcie 1ffc000.pcie:       IO 0x0001f80000..0x0001f8ffff ->
-> > 0x0000000000
-> > > [    0.256339] imx6q-pcie 1ffc000.pcie:      MEM 0x0001000000..0x0001efffff -
-> > > 0x0001000000
-> > > [    0.256434] imx6q-pcie 1ffc000.pcie: config reg[1] 0x01f00000 == cpu
-> > 0x01f00000
-> > > [    0.458388] imx6q-pcie 1ffc000.pcie: iATU: unroll F, 4 ob, 4 ib, align 64K,
-> > limit 4G
-> > > [    0.458492] imx6q-pcie 1ffc000.pcie: Link: Only Gen1 is enabled
-> > > [    0.555294] imx6q-pcie 1ffc000.pcie: PCIe Gen.1 x1 link up
-> > > [    0.555783] imx6q-pcie 1ffc000.pcie: PCI host bridge to bus 0000:00
-> > > ...
-> > >
-> > > The following endpoint devices also yielded the same results.
-> > > root@imx6qpdlsolox:~# lspci
-> > > 00:00.0 PCI bridge: Synopsys, Inc. DWC_usb3 / PCIe bridge (rev 01)
-> > > 01:00.0 Network controller: Qualcomm Atheros AR9287 Wireless Network
-> > > Adapter (PCI-Express) (rev 01) root@imx6qpdlsolox:~# uname -a Linux
-> > > imx6qpdlsolox 7.2.0-rc7 #30 SMP Tue Aug 11 00:21:26 UTC 2026 armv7l
-> > > GNU/Linux ...
-> > >
-> > > root@imx6qpdlsolox:~# lspci
-> > > 00:00.0 PCI bridge: Synopsys, Inc. DWC_usb3 / PCIe bridge (rev 01)
-> > > 01:00.0 USB controller: NEC Corporation uPD720200 USB 3.0 Host
-> > > Controller (rev 04) root@imx6qpdlsolox:~# uname -a Linux imx6qpdlsolox
-> > > 7.2.0-rc7 #30 SMP Tue Aug 11 00:21:26 UTC 2026 armv7l GNU/Linux
-> > >
-> > > Could you provide more details of your hardware setup (board,
-> > > connected devices, PERST# present or not)?
-> > > This may help us identify if there's a specific scenario that triggers
-> > > the regression you're experiencing.
-> >
-> > It's an apalis imx6, as reported already in this email thread.
-> > The DT is in Linux, you can check
-> > arch/arm/boot/dts/nxp/imx/imx6q-apalis-ixora-v1.2.dts every details about
-> > PERST# and more.
-> >
-> > This is the device connected:
-> >
-> > 00:00.0 PCI bridge: Synopsys, Inc. DWC_usb3 / PCIe bridge (rev 01)
-> > 01:00.0 SATA controller: ASMedia Technology Inc. ASM1061/ASM1062 Serial
-> > ATA Controller (rev 02)
-> >
-> > 01:00.0 SATA controller: ASMedia Technology Inc. ASM1061/ASM1062 Serial
-> > ATA Controller (rev 02) (prog-if 01 [AHCI 1.0])
-> >       Subsystem: ASMedia Technology Inc. ASM1061/ASM1062 Serial ATA
-> > Controller
-> >       Flags: bus master, fast devsel, latency 0, IRQ 308
-> >       I/O ports at 1020 [size=8]
-> >       I/O ports at 1030 [size=4]
-> >       I/O ports at 1028 [size=8]
-> >       I/O ports at 1034 [size=4]
-> >       I/O ports at 1000 [size=32]
-> >       Memory at 01100000 (32-bit, non-prefetchable) [size=512]
-> >       Expansion ROM at 01200000 [virtual] [disabled] [size=64K]
-> >       Capabilities: [50] MSI: Enable+ Count=1/1 Maskable- 64bit-
-> >       Capabilities: [78] Power Management version 3
-> >       Capabilities: [80] Express Legacy Endpoint, IntMsgNum 0
-> >       Capabilities: [100] Virtual Channel
-> >       Kernel driver in use: ahci
-> >       Kernel modules: ahci
-> >
+Hi All,
 
-I just did one additional test, trying to help out Leonardo.
+> -----Original Message-----
+> From: Biju <biju.das.au@gmail.com>
+> Sent: 19 June 2026 08:56
+> Subject: [PATCH] arm64: dts: renesas: r9a08g045: Move max-frequency to So=
+C dtsi
+>=20
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> Move the max-frequency property for SDHI0/1/2 from the board-level SMARC =
+dtsi files into the
+> r9a08g045.dtsi SoC file, since these values reflect controller/SoC limita=
+tions rather than board-
+> specific.
+>=20
+> This removes the duplicated max-frequency =3D <125000000> entries for
+> SDHI0 (both SD and eMMC variants) and SDHI1 in rzg3s-smarc-som.dtsi and r=
+zg3s-smarc.dtsi, and the max-
+> frequency =3D <50000000> entry for SDHI2, consolidating them as defaults =
+in r9a08g045.dtsi instead.
+>=20
+> Boards needing a different limit can still override max-frequency locally=
+.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+>  arch/arm64/boot/dts/renesas/r9a08g045.dtsi       | 3 +++
+>  arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi | 3 ---
+>  arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi     | 1 -
+>  3 files changed, 3 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/renesas/r9a08g045.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a08g045.dtsi
+> index 3a69bb246bab..ae92d45ede38 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a08g045.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a08g045.dtsi
+> @@ -655,6 +655,7 @@ sdhi0: mmc@11c00000  {
+>  				 <&cpg CPG_MOD R9A08G045_SDHI0_IMCLK2>,
+>  				 <&cpg CPG_MOD R9A08G045_SDHI0_ACLK>;
+>  			clock-names =3D "core", "clkh", "cd", "aclk";
+> +			max-frequency =3D <125000000>;
+>  			resets =3D <&cpg R9A08G045_SDHI0_IXRST>;
+>  			power-domains =3D <&cpg>;
+>  			status =3D "disabled";
+> @@ -670,6 +671,7 @@ sdhi1: mmc@11c10000 {
+>  				 <&cpg CPG_MOD R9A08G045_SDHI1_IMCLK2>,
+>  				 <&cpg CPG_MOD R9A08G045_SDHI1_ACLK>;
+>  			clock-names =3D "core", "clkh", "cd", "aclk";
+> +			max-frequency =3D <125000000>;
+>  			resets =3D <&cpg R9A08G045_SDHI1_IXRST>;
+>  			power-domains =3D <&cpg>;
+>  			status =3D "disabled";
+> @@ -685,6 +687,7 @@ sdhi2: mmc@11c20000 {
+>  				 <&cpg CPG_MOD R9A08G045_SDHI2_IMCLK2>,
+>  				 <&cpg CPG_MOD R9A08G045_SDHI2_ACLK>;
+>  			clock-names =3D "core", "clkh", "cd", "aclk";
+> +			max-frequency =3D <50000000>;
+>  			resets =3D <&cpg R9A08G045_SDHI2_IXRST>;
+>  			power-domains =3D <&cpg>;
+>  			status =3D "disabled";
+> diff --git a/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi b/arch/arm6=
+4/boot/dts/renesas/rzg3s-smarc-
+> som.dtsi
+> index b45acfe6288a..9039a927bc46 100644
+> --- a/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzg3s-smarc-som.dtsi
+> @@ -184,7 +184,6 @@ &sdhi0 {
+>  	bus-width =3D <4>;
+>  	sd-uhs-sdr50;
+>  	sd-uhs-sdr104;
+> -	max-frequency =3D <125000000>;
+>  	status =3D "okay";
+>  };
+>  #else
+> @@ -199,7 +198,6 @@ &sdhi0 {
+>  	mmc-hs200-1_8v;
+>  	non-removable;
+>  	fixed-emmc-driver-type =3D <1>;
+> -	max-frequency =3D <125000000>;
+>  	status =3D "okay";
+>  };
+>  #endif
+> @@ -210,7 +208,6 @@ &sdhi2 {
+>  	pinctrl-names =3D "default";
+>  	vmmc-supply =3D <&vcc_sdhi2>;
+>  	bus-width =3D <4>;
+> -	max-frequency =3D <50000000>;
+>  	status =3D "okay";
+>  };
+>  #endif
+> diff --git a/arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi b/arch/arm64/bo=
+ot/dts/renesas/rzg3s-smarc.dtsi
+> index 70af605168b0..e3821d8c01e3 100644
+> --- a/arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi
+> @@ -285,7 +285,6 @@ &sdhi1 {
+>  	bus-width =3D <4>;
+>  	sd-uhs-sdr50;
+>  	sd-uhs-sdr104;
+> -	max-frequency =3D <125000000>;
+>  	status =3D "okay";
+>  };
+>=20
+> --
+> 2.43.0
 
-Unfortunately I do not have the same PCIe card available, so I tested with a
+Gentle ping.
 
-01:00.0 Network controller: Intel Corporation Wireless 7260 (rev 73)
-	Subsystem: Intel Corporation Dual Band Wireless-AC 7260 [Wilkins Peak 2]
-	Flags: fast devsel
-	Memory at 01100000 (64-bit, non-prefetchable) [disabled] [size=8K]
-	Capabilities: [c8] Power Management version 3
-	Capabilities: [d0] MSI: Enable- Count=1/1 Maskable- 64bit+
-	Capabilities: [40] Express Endpoint, IntMsgNum 0
-	Capabilities: [100] Advanced Error Reporting
-	Capabilities: [140] Device Serial Number ac-7b-a1-ff-ff-4e-a1-d8
-	Capabilities: [14c] Latency Tolerance Reporting
-	Capabilities: [154] Vendor Specific Information: ID=cafe Rev=1 Len=014 <?>
-
-no wi-fi driver is loaded (but this seems unrelevant for the issue here), but
-the card is detected with the current mainline Linux 7.2.0-rc7+. I tested the
-apalis SoM on both the eval carrier board and on ixora v1.2.
-
-Same kernel config as the one failing.
-
-So, unless I did some mistake in my manual test, the issue is related to the specific
-PCIe card or some other subtle difference I cannot see yet.
-
-For the record, the failure was detected by our CI/CD, and it is systematically
-reproduced on multiple hardware boards.
-
-Leonardo: any chance you can test with the same PCIe board that is failing?
-
-Francesco
+Cheers,
+Biju
 
