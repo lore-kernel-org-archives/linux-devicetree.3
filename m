@@ -1,140 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1AE3793DE;
-	Wed, 12 Aug 2026 19:34:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BF133065D;
+	Wed, 12 Aug 2026 19:35:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786563299; cv=none; b=I5Z82HNv3+Nh+xFB9XucTSa7GIto63MN/s9jFiDsGhTb/NwPxl+Nq65KQAzvtfAR4dxTq84eoRgTJ+ACXpV32LjUz9JwEclzPpX/5xN1ogVko8IgSGJ7b/J1Gn6INFu2ilGha/yWTInO9QXTrxzYDM52v6/hetFxqO8KUPJLUZY=
+	t=1786563330; cv=none; b=kI+IGI5mGSqIDPQ2Kb6a3ZHN79ybG9O6Qrl7tQtY6iGURoXZkOY/Oglb9xjQuz1WjHMud/Bd1OXL5djzTlAJqs3IQ0bDOepq3jZ3pt3+Hn8870zjocDeV1tJMEdHbhAu2gg0LQUifnXMYARNxWqGVV7V+BbwfKQi71aLHNOVBuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786563299; c=relaxed/simple;
-	bh=Cjkjo2Jn7e8ZZfNJen9NBAzT5AvyIOiNftCZJAp4qdQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CLPetqwIi4wuNmt9vSXcX52cDdbUZtLBQhHrohjQYwcuX7EEuPsFYWWBsjcktQ2k2APaLScQj/7is6x1v6fJMkh/EodSqWEohSRCKOLAdPlokWJ104DILTwiOY3x8ozZXTiIKQXboeeZAwH5PrgMrmZ0Tnja8J5AefEfPXfNzTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zp6jMCjo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786563330; c=relaxed/simple;
+	bh=JGZSnYOfuNZ8eVAHEi9Fqf9c42TTATmF/hhASYFMEOQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XiF93a5CEiywoHfxwN/Rk4RRgV+qGlurb5RAx3+k6fM6xofQQKatsGFwA985aRIpR8+9/j1SzT4CGD97JxRT96JYKG21FuWvKZgZ5GNer/wSJO8Bo0MCIyb7ClLNbyI/80DtZ5dQ/XeruapM0ctjDj454hvNTN8mSxIFmhIuywI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KgU+rsMu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zp6jMCjo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002A61F000E9;
-	Wed, 12 Aug 2026 19:34:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KgU+rsMu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5BF1F000E9;
+	Wed, 12 Aug 2026 19:35:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786563297;
-	bh=Znip7PbFf8GCT5Ebsj+IbmijdxxMfPwHMItRzdNAU1M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Zp6jMCjoPk6NDMRrV8qM15JmirRV0v6aZC+FW+alrZfQpM6VyBzbUgI5u0LD26/xS
-	 aytTfL+v5DwGgOSX80ZuVdX8vH24xOaxekvKKK0LfGv/iT+EvIeeyPolAZC1kAlyad
-	 sam4fCF9MTi6Touo2wKBjpF7hiah11LTW5mnQTvNKp7yAZoz+xYDjNowCTFPmVcoK5
-	 hUBxo+a/ybkpbSeSvUa/qwpGHGc/PibAOp2jvd69A5O0n68NlmjYwwr7yVIdfswLUo
-	 YjhatFgSIqF+sXaYGAEf1bW6PSHGytB2RE+xGJVYOEj5g45P9V89/ZTl14Isf7yQme
-	 36XqGC0ANOhFA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] backlight: Add support for Orient Chip OCP8178
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wim de With" <wf@dewith.io>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260812-ocp8178-backlight-v2-2-4ad18b48bef8@dewith.io>
-References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
- <20260812-ocp8178-backlight-v2-2-4ad18b48bef8@dewith.io>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 19:34:56 +0000
-Message-Id: <20260812193457.002A61F000E9@smtp.kernel.org>
+	s=k20260515; t=1786563328;
+	bh=MvIkuUI+DCPA393UB0ZOeqbfhArj5fNyzVWcHpeAZpY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KgU+rsMu7mITPTdXIAvYcVGvZVGgK05nhfnamyleZZfjxfMB9xixAdHjayPWTt0YB
+	 tbD3cWQSVAFtYQPJ3FAW+5FpX1ZohK8eHq0aZEepmnDcrsogkeDeSzEupP0a75RhDe
+	 CieieTjBNHSKQorKI64Io9YYx5mUbECBPo4/cBuggHdrBrGjLeN9VjeiDQD7VjA0kp
+	 LXTBG1h9x6lFUqXyOAAsDOeL71dR/MBasHaYAGiAw/NKUPFZTfoP3HWjIiuyd/yjKb
+	 5ZnIPrlpxLEmo4RpCrHqF2REuw8d0Bq9euLG7MBLrcvAe6JBqMyytcrmGbDpwPaxHR
+	 PPBEQA37lOsYQ==
+Date: Wed, 12 Aug 2026 14:35:28 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: daniel.baluta@nxp.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	goledhruva@gmail.com, m-chawdhry@ti.com, linux-pwm@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	simona.toaca@nxp.com, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: pwm: Convert TI PWM Subsystem to DT
+ schema
+Message-ID: <178656332725.687853.3345749883291406683.robh@kernel.org>
+References: <20260812094420.1057067-1-egbostina@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812094420.1057067-1-egbostina@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The driver fails to re-initialize the 1-Wire mode after a power lo=
-ss (e.g., during suspend), leaving the device stuck in PWM mode.
-- [Medium] Lack of atomicity and timing validation across the 2-byte 1-Wire=
- transaction can cause silent brightness update failures due to preemption.
---
 
---- Patch [2]: [PATCH v2 2/2] backlight: Add support for Orient Chip OCP817=
-8 ---
-commit 11ca2bd66a2c85f8bb56c8b3475708379c8ddf5e
-Author: Wim de With <wf@dewith.io>
+On Wed, 12 Aug 2026 09:44:20 +0000, Eduard Bostina wrote:
+> Convert the Texas Instruments SoC PWM Subsystem bindings
+> to DT schema.
+> 
+> During the conversion, the following updates were made:
+> - 'counter' node was added to the allowed child nodes
+>   list to resolve dtbs_check warnings. Some eqep nodes
+>   use 'counter' instead of 'eqep'.
+> 
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> ---
+> Changes in v2:
+> - Renamed the file to ti,am33xx-pwmss.yaml to match the base compatible.
+> - Required a 'compatible' property in the child nodes.
+> - Reduced the binding to a single example and included the PWM child
+>   nodes (ECAP, EQEP, EHRPWM) in it.
+> 
+> Link to v1: https://lore.kernel.org/all/2026081109d-up2208.687731-1-egbostina@gmail.com/
+> 
+>  .../devicetree/bindings/pwm/pwm-tipwmss.txt   | 58 --------------
+>  .../bindings/pwm/ti,am33xx-pwmss.yaml         | 76 +++++++++++++++++++
+>  2 files changed, 76 insertions(+), 58 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
+>  create mode 100644 Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml
+> 
 
-backlight: Add support for Orient Chip OCP8178
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Add a driver for the Orient Chip OCP8178 backlight controller.
-The OCP8178 supports either PWM or a vendor-specific onewire protocol
-over GPIO.
-
-> diff --git a/drivers/video/backlight/ocp8178_bl.c b/drivers/video/backlig=
-ht/ocp8178_bl.c
-> new file mode 100644
-> index 0000000000000..bc48636ef64e4
-> --- /dev/null
-> +++ b/drivers/video/backlight/ocp8178_bl.c
-[ ... ]
-> +static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 bri=
-ghtness)
-> +{
-> +	u8 data =3D 0;
-> +
-> +	/*
-> +	 * We cannot set RFA (request for acknowledge) unless the GPIO pin is
-> +	 * configured as open drain.
-> +	 */
-> +	data |=3D FIELD_PREP(OCP8178_DATA_RFA, 0);
-> +	data |=3D FIELD_PREP(OCP8178_DATA_ADDR, 0);
-> +	data |=3D FIELD_PREP(OCP8178_DATA_VALUE, brightness);
-> +
-> +	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
-> +	ocp8178_bl_write_u8(ocp8178, data);
-
-[Severity: Medium]
-Can a preemption or interrupt between these two byte writes delay the second
-byte and violate the 1-Wire protocol timing?
-
-The initialization sequence ocp8178_bl_enable_onewire() explicitly checks
-duration >=3D OCP8178_1W_T_WIN_NS to verify that timing wasn't ruined by
-preemption. However, in ocp8178_bl_set_brightness(), if the thread is preem=
-pted
-between the two ocp8178_bl_write_u8() calls, the GPIO line is left idle HIG=
-H.
-
-Would this cause the hardware's 1-Wire state machine to time out and treat =
-the
-subsequent data byte as a new command, resulting in a silently lost brightn=
-ess
-update since the driver doesn't read an ACK?
-
-> +}
-[ ... ]
-> +static const struct backlight_ops ocp8178_bl_ops =3D {
-> +	.options =3D BL_CORE_SUSPENDRESUME,
-> +	.update_status =3D ocp8178_bl_update_status,
-> +};
-[ ... ]
-> +static struct platform_driver ocp8178_bl_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "ocp8178-bl",
-> +		.of_match_table =3D ocp8178_bl_of_match,
-> +	},
-> +	.probe =3D ocp8178_bl_probe,
-> +};
-
-[Severity: High]
-Does this driver need a resume PM hook to re-initialize the 1-Wire mode?
-
-The BL_CORE_SUSPENDRESUME option causes the backlight core to call
-update_status() on resume. Since power to the chip may be cut during suspen=
-d,
-the device defaults to PWM mode upon power-on.
-
-Without a resume hook in the platform driver to call
-ocp8178_bl_enable_onewire(), the chip will misinterpret the 1-Wire brightne=
-ss
-data as a PWM signal. This leaves the GPIO HIGH at the end of the transacti=
-on,
-which translates to 100% brightness in PWM mode.
-
-> +module_platform_driver(ocp8178_bl_driver);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812-ocp8178-ba=
-cklight-v2-0-4ad18b48bef8@dewith.io?part=3D2
