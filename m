@@ -1,134 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3DB476690
-	for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 15:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786549442; cv=none; b=PEiDU96KCI71XPKU7rGXVm8LbRput9BnhqorugtqWvxALT12UzFaAn1Jkh+grpwvm/Xv0DFEtUyjDOPt9sADAxcBnJGYIoKCfsPFTwAHVS580SLu1YzptF62Q7uYM44uZPlnbrt2G4pbP1QvKoTZYIKqRQObrp+7XNEkAcStBQI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786549442; c=relaxed/simple;
-	bh=OxWKkneoq2u2+MfTCwB6cJKY4+jBbXmdKlNH+31HJCo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IrNbehq5LoS0Tq/PaDEnmgyRJLDucHi241FetsFPFvg1HdjeuTQekO4XTOXvjtI1YnUGyaueJMyufhejJyX9oOQitUGIzNPLVQY4JDOtNZYm7XAJo+VXyS84S4Wfg5+1ER1yi85xe+z4//YMPVoWwJzU29AmADsAqHGJJG4TkEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y4Sxo2zM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E94367285;
+	Wed, 12 Aug 2026 15:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786549500; cv=fail; b=ihv0hzQ0tFUi+X0g4EEPEA4/Ulr53XPOVVzhmtf4SzwwTCLg59hv7LGg1rSSwBBu7r8fQIzqQaVS9PeqtCB0WREdkJvJVY+pUecKg4V4SMNI0ODhymGldQyqjTpcmrKqixrh18Lc/h0fJRPBSgZ678b8W9ThlcSgEzLKUEqt4VE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786549500; c=relaxed/simple;
+	bh=VgOIjsPKHESdQq9LVs8mNvMO8LlYTxwby3XleRZJQAo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hnbz7QC5j7nlF/VT6zy11n9u+e7db37qy12cTbIAjGGjakBqc5GDrZmr4LmDFe44Skl9/06rfGpZ6j7LfYAzReyVjMfRxiePSj3DHlmbdUNn6mBvw9YWqUHoYgkCtvLGKPTRLNlgt/zNfmLpdlmIV2d9oLWY7UGV67Pcfg+cgXY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=G9cxIKaq; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=e5gxnd8X; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y4Sxo2zM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31471F000E9;
-	Wed, 12 Aug 2026 15:44:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786549441;
-	bh=JkOxNV4T46Fo2apjYD0C1ooT48FO4Z4LUtYTc5QsM+4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y4Sxo2zMeqTRcRQDTquQTqOg/WImRCs/Q9vp/j56Uh5ziU1VHuWbj8FLsMiI27LP6
-	 TylrPU/pWdwrSYojYpWocgSZwG3zKd3S5IvXRtgSmjKDYeFaQ1HUuNF2YVk+4JK+IX
-	 n4D00+07GxfjfeI7ea9NqmACR6fBa29hrfMsg+sqLAC1DD7Kuy2/fAVIniFo0W4ncE
-	 d/ZKvl3+8J/3TvB22keVxP4Kz/yy74BswijadyU5VGfG2x4F8aI+JRtK4gW9cx0SXT
-	 sJCSDoViPloUoiM/4U5YBakjtS5Qvf8EM8f1On9nc21lmyUOoTA3vcW+zfldDy3yuO
-	 lswYiNfPxMxSQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/9] arm64: dts: renesas: r9a08g046: Add USB2.0
- host/phy device nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260812141940.246223-7-biju.das.jz@bp.renesas.com>
-References: <20260812141940.246223-1-biju.das.jz@bp.renesas.com>
- <20260812141940.246223-7-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 15:44:00 +0000
-Message-Id: <20260812154400.B31471F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="G9cxIKaq";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="e5gxnd8X"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CDZCvu134291;
+	Wed, 12 Aug 2026 10:44:50 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=k8uxwQIe6bRvM6cvwN2pL7gAjjRtVdJS55yKCij0W
+	8o=; b=G9cxIKaqxqiJNmmc/nwSXXkWG5rg/WK1a7t0X1DE1ZbKgGVvzA/RY2mNk
+	NNpH3TQBXp3qIaxODN0MYsc9/TdoJR5r0Z7dV+Fec7rIkekE3oI6Vx4V38Gemv+P
+	FYBErUamllW4th6Pwd6i1vk5p9NWGushhIhBoUQsVK8yXV+rjNZCOZbZ/KCWxDcW
+	g86hH7C+2U8LsfbhRQ3ki+Cz65hbDO0vJnRkGtPvIgQb/fqu7xeQ5mKAZIooyjQC
+	6+9rXpqkrKIxikKvFit5tHyida+fvU2Y/a/9W2DwmavbhKbZuaOxIOewWJ+milll
+	H28smLCeweF9Xdv9LrgK1BLgZUz4A==
+Received: from dm1pr04cu001.outbound.protection.outlook.com (mail-centralusazon11010051.outbound.protection.outlook.com [52.101.61.51])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4g09c2692f-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 12 Aug 2026 10:44:50 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IR2Txtcid58Z0NlrkvAuAet9x71C99x9kCDELtT9OJIwUcr4U15RYcVj2iJD8bcXza2Vhfz9CkFe8R5a2QTL4lNYK9p08xmshfPkW1Qw5TJknQyZqoTSaJDANbShe7BbNmwQzSwPaae9+Mu2/jZGOIm/6rXg/ezXrVV4GF8P7fGyVrSy6ZUw6RgEGhqGIeQIjDezf9lnplOKEeVOYNhO5DwL/Gv9paNyvdaLmulTS9qNkGU9WDvSD6yl5DxWxorzETmnT6vJqMZeYHKDk+uzk20oFWpMQGb5nwjNKvWHERWwnaqPwW7LXmDnE9qIejn+x/wUo51na8WvzNfJF9Dw/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k8uxwQIe6bRvM6cvwN2pL7gAjjRtVdJS55yKCij0W8o=;
+ b=Wo/Q9b9kagRLzJZrkwb08ci8EJBIbMlD2ssQ4aQfTw4fhM0sPMHdRVP6c788E1uvcaYphrSJz6loQ9xAqIPgGk89pcuX/v/ammyuUx68Nt1273l8Co3KYi8q6qml8KO+PazH8PY2epcc7TOPNxZOORY7FI5SaN72NDEUYSN3+g+Ns12QLtJEqqPMSNDJtB6tVAx90y1+EBKQuOWp0tcSPs6wftZl2ikFbsPxICOevCLX6uLb8BaSzkrZ/EYXT/XuZNMEBdF9Gpdil3EwegXnxbQV7/aj+Kfq0HhPGWl1aD/3UXfK0hYhNQIKkcFbAP8OirP8tYB9ifcseLT2LwaBDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k8uxwQIe6bRvM6cvwN2pL7gAjjRtVdJS55yKCij0W8o=;
+ b=e5gxnd8Xh4SX5s/AGwaRfSYjegbYhPYjfHRwtb1evdSt0VCFWs3pVHEOupFTsjZxayUtT8vNBaX3P492E0P9EL9CSjMnqgMbK2PDmLzAccq2dRVDWwEZFntTdx3X7OFan/RtiWYfZXSGA9+MwAf4Ph5EutMIGF+DyVcRaQwDk88=
+Received: from SJ0PR05CA0085.namprd05.prod.outlook.com (2603:10b6:a03:332::30)
+ by LV8PR10MB7942.namprd10.prod.outlook.com (2603:10b6:408:209::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.23; Wed, 12 Aug
+ 2026 15:44:46 +0000
+Received: from SJ1PEPF00002319.namprd03.prod.outlook.com
+ (2603:10b6:a03:332:cafe::87) by SJ0PR05CA0085.outlook.office365.com
+ (2603:10b6:a03:332::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Wed,
+ 12 Aug 2026 15:44:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ1PEPF00002319.mail.protection.outlook.com (10.167.242.229) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 15:44:45 +0000
+Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 10:44:43 -0500
+Received: from DLEE203.ent.ti.com (157.170.170.78) by DLEE205.ent.ti.com
+ (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 10:44:43 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE203.ent.ti.com
+ (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 12 Aug 2026 10:44:43 -0500
+Received: from judy-hp.dhcp.ti.com (judy-hp.dhcp.ti.com [128.247.81.105])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67CFighI2343963;
+	Wed, 12 Aug 2026 10:44:43 -0500
+From: Judith Mendez <jm@ti.com>
+To: Judith Mendez <jm@ti.com>, Srinivas Kandagatla <srini@kernel.org>,
+        "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>,
+        Kunihiko Hayashi
+	<hayashi.kunihiko@socionext.com>,
+        Masami Hiramatsu <mhiramat@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [RFC PATCH 3/3] nvmem: uniphier-efuse: Add ti,am62p-efuse compatible
+Date: Wed, 12 Aug 2026 10:44:42 -0500
+Message-ID: <20260812154442.3379851-4-jm@ti.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260812154442.3379851-1-jm@ti.com>
+References: <20260812154442.3379851-1-jm@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|LV8PR10MB7942:EE_
+X-MS-Office365-Filtering-Correlation-Id: baaf6379-3858-4d29-36d0-08def888a296
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|22082099003|18002099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	DiT+vIY+ZP89nwn0RgNZ1bkvM1m+HT7rUSZG3/1XWwdjXhyg+E1BFQKAcQBYgkBrHDH9qKQFL2c5Ohoch18MkfugO5QiagvJPyWjCeyZKJAjYWr54IM4Rm2ED43kROSZlUJYoVAdrPfL7KzTijDMu8CGINCCzn6zMxGG3wWPamBem1L/0nT14S8rHdlNmxwKsOjoslzsZHJ02q51KfWeO1huUQxcuaYCx4itH2zdLvcDQM5zeTKuQ2P4QUm0MqyLTFmfA9VB8d5gsgOnFbowif4fHGsf4M7JBTxkip9GmkcABiTh6I/Z2GzrGuwkukPnjzFDiQBPd3ekBXKXu10n2ir74mqxbR1lOe9VerRIpKSpwOS7eTeFjMsqCNRPBNjJH0Lzk6bTbPspegYNqS756GOOP1NGL0qQPnucnrZvasvKRKzXdNfreoOBaz/rnb6UGasH7yDgtLWNyFwQB7eLUnsR5lE94qe/3rM4sY6HEzRJVVW7J8800R5tQJ3QE2Ksmg45OQG2RbhaoWypNXPr2FxJ5fU0A8A0yhNAiVdccqP+CpW3m7ylSd9CXwROTBpW7F/H3BkN6x04OkPZ5HO8lu6JRyWUabMmFLuBYP/1kPhz2N2WeHwWUZuOgLDKRO5DhZhzWLoaMZw55xirCBDqScV83DmIdVMX4q12FyT1LXjRIa42vooqIjfTZsPvKSdMO/0nDrh7qX8sC13/OOtg0g==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Fhf6DjjOnOPUch31yEgFvmUhwcYQoQ+AGf57LFac2qEklX2AAnJFMBrg07LSmNVm8qU7ZsIBhKIhuHDx4W3c1RLWEJ6lVnun2X6r6OXzYZ/d7uSxMGVsYcz8wcAFhG/0e5Casl/c3iGUc6hvzJV/WzhgepJyP2ocUKy9/o9WL8U1dPFfISLGPedieXfI8rxrKV65DxcUodBGzP5T8+H+RhxaBKiU/mBr4wB7JuhFqKbFhSTQ6iUBVsRd8vDQMJVJZecvl/bDiePfsRZYwq+bx2kukzXvzigquLkd/erRyBDFcB7ahmFRWAvpQw49aXXkSTefPX/XizsyOFAFIILz0LXRV8NuQ9ZDMYRuqcUWsYM7MLMyfLczxB43/DQit6jc4LaIgn1NEIlyFolqNL+orKXgfZdJBaFp3OkQO71+ErZvObNTr0anLdTsNTx3pG22
+X-Exchange-RoutingPolicyChecked:
+	MI0p9nL028hSQ85oBCW0uWh7xxnexDAOgJ07VfqujLr9v7R4+Qcz2uhl3yML6muhx4k9gCO78f4p8Q/FCptQnEHIwMPDusTP8MOYOFIVQpPjbYmOwZceoqOaXC/yRYn80jyyZweQyJg+/NvdXkTv2Bjr/mZBOoeBYip0y3vuQd6MaczBDmjy15dvE+2zJ0mRUzJQUR7eNMIl7NqbezSW+Ak+mpR1Dh8lWvPmJibVTZoSnYxIsT490xPmAbuEwIHvH2EjkOF8/eUZS+NMowIEGjABO8Qj/XcgXMacraNHBBH1MKVkpEnEW51kFwBBts+GuN0uWUAEVysX54AmmSPhPg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 15:44:45.8885
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: baaf6379-3858-4d29-36d0-08def888a296
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002319.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR10MB7942
+X-Proofpoint-GUID: ttXtMHi1ak4LecpCpF3kaHrbCQSlcX7W
+X-Proofpoint-ORIG-GUID: ttXtMHi1ak4LecpCpF3kaHrbCQSlcX7W
+X-Authority-Analysis: v=2.4 cv=PrCjqQM3 c=1 sm=1 tr=0 ts=6a7c94f2 cx=c_pps
+ a=U2ki1QFzN2iGT7kcnsve6g==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=ZeIETjE35kWDaaLuBhwA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDEyOCBTYWx0ZWRfX2B4Y+Y05Vl0f
+ diyRBJPNp6+c0Yx5WFZmQAcb/SGWtrwZYK3u7HG0anHayhOUD3+HKZ3Rm7cDL97yffYgNe3vcDV
+ EoXtPuEnb0Sp7tDnkJ8XH3TFsEIVGw4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDEyOCBTYWx0ZWRfXy2TEzTwHQL0G
+ prGex7kk0X5sPtz+ELwAGKO/GwnW1qYlz/AP8dd4Qv5FGqlvJRvhH9o1xn70w/SFyh/9jpBnVew
+ YDG0NoykW0g2xE4arYhH6i6lQlaX3Cn2fqZlHbJFeBC4w8oP9WwBOXHIixDsA6nzbisGXdLRju2
+ VEpiujbQZcEGnN45J20Yh2IRaynPH3/A8d/nF7naq2Kb14fEDgawVnCLizrC2KlXqMNV8esDo9i
+ saj0SymrQ1FbwdJB0lskAoCczSj3JLReIUswv08mWr0hK2ba7PKq4u18J8xrCC3gmkmzoJkPCeJ
+ 4PXSsv1wVfUUtbWocDcK+EJew1S8kQ6u7s/C2JI5a4QhAv4SGHI/y5e/QX6th51eFGtDc3FK5R4
+ cABN54WIjBdlFxG024/2a914KEa1u9Cz+iUVMzWzJT4FJ48DYUq3Y0nP95E2dJ3epKwWWoTG5gn
+ HQkvR0seokdvpCnkgGA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ phishscore=0 bulkscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120128
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing Driver Support and DT Binding Documentation for 'renesas,u=
-sb2-phy-r9a08g046'
-- [High] Unprobeable Device due to Missing Power Sequencer Provider
---
+Add ti,am62p-efuse compatible to uniphier-efuse. Leverage the
+nvmem provider to supply silicon revision information from GP_SW
+efuse registers on AM62p device.
 
---- Patch [6]: [PATCH v7 6/9] arm64: dts: renesas: r9a08g046: Add USB2.0 ho=
-st/phy device nodes ---
-commit 0ab685ca95e56aea571685bc10fd9638d8846f8d
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+Signed-off-by: Judith Mendez <jm@ti.com>
+---
+ drivers/nvmem/uniphier-efuse.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-arm64: dts: renesas: r9a08g046: Add USB2.0 host/phy device nodes
+diff --git a/drivers/nvmem/uniphier-efuse.c b/drivers/nvmem/uniphier-efuse.c
+index 85f9372fb97ca..d0953b99d7e18 100644
+--- a/drivers/nvmem/uniphier-efuse.c
++++ b/drivers/nvmem/uniphier-efuse.c
+@@ -59,6 +59,7 @@ static int uniphier_efuse_probe(struct platform_device *pdev)
+ 
+ static const struct of_device_id uniphier_efuse_of_match[] = {
+ 	{ .compatible = "socionext,uniphier-efuse",},
++	{ .compatible = "ti,am62p-efuse",},
+ 	{/* sentinel */},
+ };
+ MODULE_DEVICE_TABLE(of, uniphier_efuse_of_match);
+-- 
+2.54.0
 
-Add USB2.0 device nodes to the RZ/G3L (r9a08g046) SoC DTSI, covering
-the USB PHY controller, OHCI/EHCI host controllers, and USB2 PHYs for
-both ports.
-
-> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a08g046.dtsi
-> index c63a857f0e5b0..2d8c8fd8a01cd 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> @@ -1001,6 +1001,110 @@ queue3 {
->  			};
->  		};
-> =20
-> +		phyrst: usbphy-ctrl@11e00000 {
-> +			compatible =3D "renesas,r9a08g046-usbphy-ctrl";
-
-[Severity: High]
-Does omitting the renesas,sysc-pwrrdy property here cause the driver to fail
-to probe?
-
-In drivers/reset/reset-rzg2l-usbphy-ctrl.c, when the driver sees that the
-renesas,sysc-pwrrdy property is missing, it falls back to requesting a power
-sequencer:
-
-    priv->pwrseq =3D devm_pwrseq_get(dev, "usb-pwrrdy");
-    if (IS_ERR(priv->pwrseq)) {
-        ...
-
-Since there is no power sequencer provider in the kernel exposing a "usb-pw=
-rrdy"
-target, devm_pwrseq_get() will return -EPROBE_DEFER. This would leave the U=
-SB
-PHY and dependent host controllers permanently uninitialized.
-
-> +			reg =3D <0 0x11e00000 0 0x10000>;
-> +			clocks =3D <&cpg CPG_MOD R9A08G046_USB_PCLK>;
-[ ... ]
-> +		ohci0: usb@11e10000 {
-> +			compatible =3D "generic-ohci";
-[ ... ]
-> +			phys =3D <&usb2_phy0 1>;
-> +			phy-names =3D "usb";
-> +			power-domains =3D <&cpg>;
-> +			status =3D "disabled";
-> +		};
-[ ... ]
-> +		usb2_phy0: usb-phy@11e10200 {
-> +			compatible =3D "renesas,usb2-phy-r9a08g046";
-
-[Severity: High]
-Will this node fail to bind to a driver?
-
-The "renesas,usb2-phy-r9a08g046" compatible string doesn't appear to be
-supported by the Renesas USB PHY driver (drivers/phy/renesas/phy-rcar-gen3-=
-usb2.c),
-and there is no fallback compatible string (such as "renesas,rzg2l-usb2-phy=
-")
-provided here.
-
-Without a match in the driver's of_match_table, the PHY won't probe. Because
-the OHCI and EHCI controllers depend on this PHY via their phys property, t=
-hey
-will also permanently fail to probe with -EPROBE_DEFER, rendering the USB p=
-orts
-non-functional.
-
-> +			reg =3D <0 0x11e10200 0 0x700>;
-> +			interrupts =3D <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>;
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812141940.2462=
-23-1-biju.das.jz@bp.renesas.com?part=3D6
