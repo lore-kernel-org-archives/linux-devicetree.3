@@ -1,108 +1,158 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AF0404BFF
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 14:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB28404BFF;
+	Thu, 13 Aug 2026 14:27:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786631030; cv=none; b=legXSXkmabkSjf9fK6T4TI+FX7Qls/CW6fURbbjKMQtQKGdDyuWW5usJyejVWw+fWCLOiLtssE/R1ze2G3PentwvCKC+lYKKtzR6hpAFPrSh5uoZqr4VBTRw2ENPt94LjGCgkU5zEsB8KBD5gAlt13rinbfuZVBp1AbE1Jx0/aM=
+	t=1786631265; cv=none; b=fudzMHu+dKu5PCG1Yubmsl5jo2gXFylZvf9MrqArKYeXN4Ts0D9Hk6r/l5CWa611g40vudWbtKzbK8YoUrI5JYEXqKwqhxin9JmxvIyyxoUmbsISl7puEDWVlDic/aXpfM8wRguh+D2F5Ar3GkEAKPeZv5iqEa082GHK34mjbSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786631030; c=relaxed/simple;
-	bh=xzA6z/ScLQYJHgyemPeQLuBov2qwLz98o4xTEP7Bomw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LKvu7B4BaHT/FBQzxcQnzP2XePCxislJlZYNYrhVTsgM44wTGvR5AIAQoYx5zDlSymaaVLb64jWTWb01ZjYRMoxfrYabEDaQGKemwgAGRtl2sKf8PySILgOxM0QLQjL4CeOzplRRhb9s1qzNB5bggg+OdvmGaFv+zN6TOhC3f20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=Ny6tl/Ko; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	s=arc-20240116; t=1786631265; c=relaxed/simple;
+	bh=hd+L0mYZvzPs4cKVM/7p2DIgqwhiCw0qUdr4O3xl84g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WUgsFIQ4LAxyyVQHGqrjfcIBM5i2fBaBjPP+u+dLZL8avQ/9jM2pYeIMxUH8ZUzhgQQ2zI/cCfLw3cZZ1ru2IZ5r234kefSYRXogYGkg5NgFBHjD4iL4yStDI2Ybmo88sv3URVDz7YstjLvGAFDIUA95tjndDtMJHwxIl+loIX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=YvRM9zTV; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="Ny6tl/Ko"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so6225605e9.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 07:23:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1786631026; x=1787235826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3zAK75b8ZUtjKJXv+z/knfiDKVadFa2L6rKVWPT2qQc=;
-        b=Ny6tl/KodaHSIrpr3YhGQ9SMgRJ14naUzlZee0rVY32T0OhFFNYRC9dfocN1Bwkkvf
-         0LV79OYDsCIlbak351iadjewtHq3qDK7l2v1an12NHiNE/eF5j2Q0M9k5RGz7PpOz2d6
-         w4uW5XhAOVwYf9Si+HjeaQiw5Pcphtgg0QV2vmB5ptugcn3D8tRMmdsXcBlN3KFupnk5
-         HFHphB2TD7nOjHEh54loe0mYKqXmKrmBLwc8Co2K+gnEMAvbSI79na9/D4Kgiof4QU8g
-         EC1VDn4gUQspz1ZjzWJp1Aqa58rnLaDH70/rqFuDID9+imESMdYXrRx8te9itn5wG99d
-         Vy7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786631026; x=1787235826;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3zAK75b8ZUtjKJXv+z/knfiDKVadFa2L6rKVWPT2qQc=;
-        b=rbr134uYGnoIrZWcNWeSyai178LLIRgxnLNYsGpHcaLWtIfPQZnKNGOfz71Gn0oONS
-         UING0DXMME9hOuDonrDC/zGLv2WYYVkqS2uJLcAFSrWkIoUKkJi4VNuHmdDkpP96OvEe
-         bbcIve/ChqjHwQRy/pwF8r2K/uJELFERWBuDRpcXEsxVim2Sum14nWCQ2ZbwBHyGpxTV
-         JIIV6kr/mI3AXgywZxDpU4ejf9VE/J6lRz0CtpdODU8jWLp5wuHmV5rVcZgPmrsm0PWC
-         XCQJd6cQwKWlngFrxGK/GIGRUvApdAk8bEmNPY607QWtUfSfh4oACu4iP4GE/Q4HSAHK
-         eeCw==
-X-Forwarded-Encrypted: i=1; AHgh+RovGFmva3Y5jw+fbOJFxvZqiTYTOeIxSKWkbIKnNCsocwTV3dTqUFyjNsDVAJHGZSxGTiGiDJYezolU@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUZ8UmGFlN3Gkaxy6RjAyIWmPpsOHe6sC+dCK0GQk7wc0D5ohp
-	HRIrw5FOZZELElGPO474MIkwvTidU2JU6t7GPPo98mcEqTVU8OtkRaBPagdIE5vBjWE=
-X-Gm-Gg: AR+sD11mtIksAj1N72eIlzyX94PI/EgpRA+DJ370sBG/5Y6Oxp35kxKyTnjjn/iXPDD
-	7/kk0WbOcOGce/WOJEY2C0P0H8e+S2HY188nURQ1B6G/cyu7CvzOQ91rvDyumZkPAR390P8ALCL
-	STrXQ+tNnJm9oPcn3p2GWkCjETaPmMeEAv/fIsBn9pCnSx7QeTHVXKCxa3r0AUGAme4x0cQubuk
-	1HQmHKLpVusTCmE9cjfWFXFDoqwfs0Oq/rpqBOg5tREDl7xPK3cpWg3G405NmBeb1t5fuC6xJmK
-	aByd3gkKzrmZkIn2KtZvChug3/OR0Yqa3lvy8vgoy2jandgWRPD9KW+crKzz94k+pf0In7dNgN9
-	ce8VQxX1KC/sN3Wo0E73GnnHtiWrQlpiH/bEtDY3gx+U7L6X0dPh0ZlPDKqMlvFyOnIun6lPV6+
-	RaFqBc00oETxNVKxd+NN/RIDBQWX+Iam8dC8JU0Lnn5NygRJKGd+rRbiNTD27H2dCCgbCpyn9jT
-	BAE62HY9uVY2QhcSKud5S99x8zYui+I87NxC7c6kRvKccn+O7qQ
-X-Received: by 2002:a05:600d:6409:10b0:499:84fc:4548 with SMTP id 5b1f17b1804b1-49984fc45c0mr29737445e9.5.1786631026583;
-        Thu, 13 Aug 2026 07:23:46 -0700 (PDT)
-Received: from ?IPV6:2a01:599:447:e518:cc7c:e59e:1489:db94? ([2a01:599:447:e518:cc7c:e59e:1489:db94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49981e2e266sm51262395e9.2.2026.08.13.07.23.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 07:23:46 -0700 (PDT)
-Message-ID: <15d1ced4-2400-477b-800d-fdcca80559bc@9elements.com>
-Date: Thu, 13 Aug 2026 16:23:44 +0200
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="YvRM9zTV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=iNGDZlCrHiFTCzdw+CSSzOiqmmvzD8ML9pvOKdh9/cM=; b=YvRM9zTV9ZcscWwXiCO9YxPFxd
+	BH7j0VYB0gT+hWK7jTWLnjoE8b1DsVx2U+u5XwwqircyYE/dTqetAJI1LM8ugsK/mmyB29OBre4Pw
+	1G0Sa/BiRHHvZZ3ytN+GDSu/QLycVHNO46V4XwmWUlwssqTBCzCsKVQuyLZaf7tk84qBlHauQQlNU
+	Lf4RGTUHxkoVMyeN5y4o1TUYbVsqVLS6iCYMbpLSvqesMdCmFIZo3f2FAgp5VSK49L18tgDxPzDM0
+	wmjx2PmBIWOCx0j6ArRrEwnWkbsNd9XC+n+JPDXYRskR151p6+CepnNFfLOvqXxxWopns2BjeuxJv
+	ovlHqiWw==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wuVys-000GMn-2p;
+	Thu, 13 Aug 2026 16:00:27 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wuVyt-0006wh-22;
+	Thu, 13 Aug 2026 16:00:26 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ Frank.Li@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH 2/2] ARM: dts: mba6ulx: Add USB hub node
+Date: Thu, 13 Aug 2026 16:00:26 +0200
+Message-ID: <5266525.iZASKD2KPV@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260813125222.BDA121F000E9@smtp.kernel.org>
+References:
+ <20260813121250.3993187-1-alexander.stein@ew.tq-group.com>
+ <20260813121250.3993187-3-alexander.stein@ew.tq-group.com>
+ <20260813125222.BDA121F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/6] soc: mfd: add ASPEED AST2600 PCIe BMC device
- driver
-To: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk,
- devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
- jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, lee@kernel.org, =?UTF-8?Q?Gr=C3=A9goire_Layet?=
- <git@gregoirelayet.com>, andrew@lunn.ch, jacky_chou@aspeedtech.com,
- yh_chung@aspeedtech.com, ninad@linux.ibm.com, anirudhsriniv@gmail.com,
- linux-serial@vger.kernel.org, mfd@lists.linux.dev,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <cover.1785932211.git.gregoire.layet@9elements.com>
- <51db5e5bb5bf44dd5ab893b8d547291f04e1d3c7.1785932211.git.gregoire.layet@9elements.com>
- <178609182923.193353.7287772568467157519.b4-review@b4>
- <CAFi2wKZdJ3LxJVDqC2K79T0JhoOOWSj=ZmL9pB+Lka_aXDXatQ@mail.gmail.com>
-Content-Language: en-US
-From: Tan Siewert <tan.siewert@9elements.com>
-In-Reply-To: <CAFi2wKZdJ3LxJVDqC2K79T0JhoOOWSj=ZmL9pB+Lka_aXDXatQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28091/Thu Aug 13 08:25:54 2026)
 
-On 8/10/26 12:36 PM, Grégoire Layet wrote:
->> But you're adding the UART devices here which now means that the core driver is
->> doing more than MSI interrupt init.
-> 
-> I might have misunderstood but this is creating the UART device by
-> using the 'serial8250' driver.
+Am Donnerstag, 13. August 2026, 14:52:22 CEST schrieb sashiko-bot@kernel.or=
+g:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] I2C GPIO expander used as reset-gpios for onboard_usb_dev causes=
+ PM phase mismatch, breaking reset timing during resume.
+> --
+>=20
+> --- Patch [2]: [PATCH 2/2] ARM: dts: mba6ulx: Add USB hub node ---
+> commit 52d9db850f98165215d9ab4ba1bee0bd2993c73e
+> Author: Alexander Stein <alexander.stein@ew.tq-group.com>
+>=20
+> ARM: dts: mba6ulx: Add USB hub node
+>=20
+> This commit replaces a fixed regulator previously used for USB hub reset =
+with
+> a proper onboard USB hub device node that utilizes reset-gpios.
+>=20
+> > diff --git a/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi b/arch/arm/boot/dts=
+/nxp/imx/mba6ulx.dtsi
+> > index 244376b38835a..322fbd82531e6 100644
+> > --- a/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
+> > +++ b/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
+>=20
+> [ ... ]
+>=20
+> > @@ -379,10 +369,18 @@ &usbotg1 {
+> >  /* 7-port usb hub */
+> >  /* id, pwr, oc pins not connected */
+> >  &usbotg2 {
+> > +	#address-cells =3D <1>;
+> > +	#size-cells =3D <0>;
+> >  	disable-over-current;
+> > -	vbus-supply =3D <&reg_otg2vbus_5v0>;
+> >  	dr_mode =3D "host";
+> >  	status =3D "okay";
+> > +
+> > +	hub_2_0: hub@1 {
+> > +		compatible =3D "usb424,2517";
+> > +		reg =3D <1>;
+> > +		reset-gpios =3D <&expander_out1 0 GPIO_ACTIVE_LOW>;
+>                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>=20
+> [Severity: High]
+> Does using an I2C GPIO expander for the onboard USB hub reset cause a PM =
+phase
+> mismatch during system suspend and resume?
+>=20
+> The onboard_usb_dev driver uses suspend_late() and resume_early() power
+> management operations, while standard I2C GPIO expanders typically use no=
+rmal
+> suspend() and resume() operations.
+>=20
+> During system suspend, the expander suspends first (in the suspend phase)=
+ and
+> puts its regmap into cache_only mode. When the hub driver suspends later =
+in
+> suspend_late(), its reset GPIO assertion is merely cached.
+>=20
+> During system resume, the hub driver attempts to deassert the reset in
+> resume_early() and waits for power_on_delay_us. Because the expander is
+> still in cache_only mode, the physical pin remains unchanged.=20
+>=20
+> Later, during the normal resume phase, the expander finally syncs its cac=
+he
+> to hardware and physically deasserts the reset pin. This entirely bypasse=
+s the
+> hub driver's power_on_delay_us wait and causes a race with the USB host
+> controller, which could result in enumeration failures upon wake.
 
-You're right :face_palm: I haven't had enough coffee when I reviewed it.
+Mh, my platform doesn't support system suspend/wakeup (yet?).
+So there is nothing I could test here.
+On the other hand this sounds like a generic problem other if not all
+platforms affected as well if the reset is attached to a GPIO expander.
 
-Sorry for the confusion!
+Any suggestion?
 
-Tan
+Best regards,
+Alexander
+
+> > +		vdd-supply =3D <&reg_mba6ul_3v3>;
+> > +	};
+> >  };
+>=20
+>=20
+
+
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
 
 
