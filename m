@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A32141DEDE;
-	Thu, 13 Aug 2026 06:40:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E0041DEDE;
+	Thu, 13 Aug 2026 06:41:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786603242; cv=none; b=d27LWPpHtSDR80QJb2yWMu8AqgEYpEe2ImX8DzSa4n1RYz3z8exUqbosSraOhgEuxxLgrwwE9XPRkAtLiHCPyPnlV+7BznsoYaqGPGqJO3zMOfXd8OFuOJh3SYtOYV06wAc/VZbBrEcruwS5Z1t57PHLtSBaRq6bkw/VZ7yBYRQ=
+	t=1786603307; cv=none; b=JvMAuETZrF5SwI49bwQPTIV3WCpc77Wkd0mi3/MJezX5wFK11xvsY9k511dezaM1MF2ecPFTaefWGpt9G+LPFxxVVFA/7P1+NsbhnNiEVmd6QQ94QapkzcbM9bW4rg1ne97tDQo2YR1bBQuxQypztr4N+E+s5jhp2uXijUAnvLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786603242; c=relaxed/simple;
-	bh=RCHNdlJYNx8Zcppx6B7v71/+Iv+oDIp/x4BNMC0ckbg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=as0+m/URnheJKifsclb7lxvqAmiG4VB4EzG9uSoVTDBWGn/DERNuhHqcfn27YPxdxbpWRKz+oSuT/Q9cZmxy2byaMGZcDdTpg/8EAJESPn5P+GpW2nNh/0akUjDXBsItA+EWyUwxFEjy1Si0MCLE+JUvcdxHvG2/MtyVX5QvUw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LN31exN2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786603307; c=relaxed/simple;
+	bh=QLnYd/G1eJkYm8ko2aUJtb2cP099G6r+l9haS8Vzen8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ZLLKo5AnP8uyZ2jXd8bRrv7BQvlQ/l6SBhi7JRL4f3evyU3oDLAyiFNFyp0Sd4YEBz6hZliBHUNq3JU+1L9/XF6v9AlSsfLX+DYoSUhkAT7XXLeUTvwN5S/HBUZ7TiO6Jmkxkzj1BKy6GQtYFuKID1i/ZRH8EFZq6gW7PeQl4v8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0sbCblU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LN31exN2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87EB41F000E9;
-	Thu, 13 Aug 2026 06:40:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0sbCblU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A141F000E9;
+	Thu, 13 Aug 2026 06:41:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786603236;
-	bh=BLdET1M1TBoKrcpeiCz51t0IPOJiMB+ab95WG/v2Ges=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LN31exN2OqSr1YO3bPxy7lDPSdLBD2egOJmkThNkbkApoaS3bJLQjf6xylArxdYxC
-	 EqUTKkAzLRRnO+St24JJK0x+ZUBA2/os+1S+tlCu1Vn/Ur0oLQTdf0fHbhVVf0ahVT
-	 3cysbIICn9DI9rUWiX/2hnjpNbpbMJXcd3uGkvyPLa5xSF3qiuB3S2NfPn4wU1Z5jp
-	 2pnQcd8AYoBgE/5blIIUBAWR1hHG1sFYxXlF9/a5+lkv6+5ac8USQKAuxbpPGKC4v8
-	 DUUHsGjoPSNBhOF8JqC1PpVj8a5QlIBUZndYUDlpTrK843YjdqRkssSYrOfA7xFrUR
-	 GRg299wZZe6Ww==
-Message-ID: <4fc599b6-3a58-40f4-b3b0-fff1e45a9283@kernel.org>
-Date: Thu, 13 Aug 2026 08:40:28 +0200
+	s=k20260515; t=1786603302;
+	bh=yNedPTBM0QaEAffSIPmHfR2JW1hntmhMUuPBtLmfSRI=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=L0sbCblUKhnN2QHTDhExySGl/q8zR3daX4ERhD2V/Q8lXl+lkJrF6bQt5+gpD8ov/
+	 ba8B7jZXOpGjmSwMVbMEerZHeWNIojWOO4eCSQZ70uqrHSuzGh86FCm5mmDep9q2bD
+	 woJYkR3p2GrO82NybxO0b5+eVWr7otvDh7gaLS0sqOodUX0AXJI/UtHIuYWAm2Uov2
+	 AGi3HLXCAXaNu4N2Q3QJP+hSnMuNlFbI2NZgJpyr+qfx+sDgKeuMAmzurrfswyxp0V
+	 MRt7P24pLAmNaowQ8skzfbpa7U3AQBKhB9Ip4u8PbmRL9VBOqf+bN+q2JN0Qes5H3U
+	 m16xDYfCfA+AA==
+Message-ID: <71aeba36-260f-4461-abf6-f59c31d1f106@kernel.org>
+Date: Thu, 13 Aug 2026 08:41:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -36,17 +36,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v8 13/19] dt-bindings: dma: ti: Add K3 BCDMA V2
-To: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-Cc: peter.ujfalusi@gmail.com, vigneshr@ti.com, vkoul@kernel.org,
- Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, nm@ti.com, ssantosh@kernel.org,
+To: Sai Sree Kartheek Adivi <s-adivi@ti.com>, peter.ujfalusi@gmail.com,
+ vigneshr@ti.com, vkoul@kernel.org, Frank.Li@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, ssantosh@kernel.org,
  dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  r-sharma3@ti.com, gehariprasath@ti.com
 References: <20260810151423.1948224-1-s-adivi@ti.com>
  <20260810151423.1948224-14-s-adivi@ti.com>
- <20260811-exuberant-cobalt-cow-4d5287@quoll>
- <8b41218f-8ffa-4c65-abfb-8d87793cffb2@ti.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,31 +89,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <8b41218f-8ffa-4c65-abfb-8d87793cffb2@ti.com>
+In-Reply-To: <20260810151423.1948224-14-s-adivi@ti.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/08/2026 14:00, Sai Sree Kartheek Adivi wrote:
+On 10/08/2026 17:14, Sai Sree Kartheek Adivi wrote:
+> New binding document for Texas Instruments K3 Block Copy DMA (BCDMA) V2.
 > 
-> On 11/08/26 12:02, Krzysztof Kozlowski wrote:
->> On Mon, Aug 10, 2026 at 08:44:07PM +0530, Sai Sree Kartheek Adivi wrote:
->>> New binding document for Texas Instruments K3 Block Copy DMA (BCDMA) V2.
->>>
->>> BCDMA V2 is introduced as part of AM62L.
->>>
->>> Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
->> Please explain dropping tag. I could not find a reason for that in cover
->> letter.
+> BCDMA V2 is introduced as part of AM62L.
 > 
-> Apologies, should've explained in the cover letter.
+> Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+> ---
+>  .../bindings/dma/ti/ti,am62l-dmss-bcdma.yaml  | 211 ++++++++++++++++++
+>  1 file changed, 211 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/dma/ti/ti,am62l-dmss-bcdma.yaml
 > 
-> Dropped it because minItems on interrupt-names had to come back. Removing it
-> broke dt_binding_check (dtschema flags items: {pattern:} as not-array without
-> both min/maxItems). Kept the tx-/rx- rename though.
-> 
-> Diff isn't exactly what you acked, so dropped the tag rather than carry it forward.
 
-And you have changelog for purpose of explaining this.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
