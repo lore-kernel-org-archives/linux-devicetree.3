@@ -1,155 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF9C375F69;
-	Thu, 13 Aug 2026 08:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C403955DE
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786610078; cv=none; b=qk40jn9vjIqwbWT0K1e3bcEAANKBoVb0ltmoP+YamOmvnI3+xKGLCqKMXIW/54cUCT0Vqh1K0wXlMFiSNWSrrDZEgcJmdiDNP02ycmQJq/SRknVyrM5o2FbpdHb98ocFWfuRUPnyhu67HKjJKdv/tzErsO2MDwuaa++04hacwAE=
+	t=1786610094; cv=none; b=atDXGNNkFlKbFqMmY0cUqEbiUa1jXExqgO3rWAadlLYuCdxi8FWgbldmgWIugIFp0Qq3heljmIci4yvByPOJjPkfQLLmwALLvDOSkR7yqeMAxnjnkCHsUD6IV6cAcWOC6pBYVNvbdhmOBfKj0WTqtRR+zkLDwazKWKVK6yGK6pA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786610078; c=relaxed/simple;
-	bh=rCRNjIuldz0xhhG8g60oFPeTCdiYi/d8FgZDAFJT6vI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rG7rnPsAtPLmtl3thHSUdONf1plff3ycJL7u3/6FBRiq76tUwLp1yPb8dj2X5mIYTYS3bNCHKG+2lyCH526okpf6fmQr24yAJrnTc5zR+gI2AqpPhxGCD9mUmbz2lGpH2FHIjhJ+EeyozRz/J++oo5kRjHqYopwvBsn7vLI8ymc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ui2ZQIXb; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786610094; c=relaxed/simple;
+	bh=k7PVDXMBcfoxrLAk+M+M4f+0eO3irwSzZBRjOZwnqJk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hu98WukM6stnJIePaf02mfdksFbJJ1/IBUnHHemKtkj9yvSvdFaixUCar9uMkgqE6/KQRHAwqxIcqk9naBh4EV+NEE8aAr5uFNzrGOqMgb8sLAqAzbmTQ/jctRenZg5FvxDAmLqDrywJ+MFY5Ou77i/YOqLAqPEiwQ9m6UM13k0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NpipdPtA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ui2ZQIXb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786610077; x=1818146077;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rCRNjIuldz0xhhG8g60oFPeTCdiYi/d8FgZDAFJT6vI=;
-  b=Ui2ZQIXbkHQisd6NtO0uBF+QxKu86VxrrdaM5eX42cGe7axPvXJwuDyb
-   N9XWU7t4aiCFSaXV+F763FXltcdxxlGTdmMQHgFscbpnGahA15aSteFMt
-   yzBDkBInUuCMHsHgt/L5TkSn6Dcn7x6BfbP1Jyez2DRuXextg2b+pW4nc
-   emqv+/SHRH24qIApptoyJb2Q2RFH+f71DJhylVHkiKKRILvoPAxj4S5KH
-   TVe8Q3M+9UpedNMwWxslIDtknp9KRLWiSrbmDd1xi9YyHdcIqVAOlT0UW
-   cB+03zchUop2qWlBIHvesOUqfZdFY7be2GgToGF/AKJhtDEvSib4WYXjN
-   Q==;
-X-CSE-ConnectionGUID: gmCnH/XxS6aGVtQQvcqxXg==
-X-CSE-MsgGUID: eOyEm/bbTvChnkz90JnIkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="87395150"
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="87395150"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 01:34:37 -0700
-X-CSE-ConnectionGUID: d6UBiZVARGiKc3EzKFPmWA==
-X-CSE-MsgGUID: W+/IXHegSPWkT4rYOk4Xcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="267728343"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.250])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 01:34:31 -0700
-Date: Thu, 13 Aug 2026 11:34:28 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 3/4] iio: light: veml6031x00: add support for
- triggered buffers
-Message-ID: <an2BlFKOpmxb4TqD@ashevche-desk.local>
-References: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
- <20260812-veml6031x00-v6-3-7eef6e4ce290@gmail.com>
- <20260813020958.5fc3f0da@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NpipdPtA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AAF01F000E9;
+	Thu, 13 Aug 2026 08:34:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786610090;
+	bh=LHLNxG4489Xg0eFDnIzHZSii5WL2gp+UyVZcEDk1h7M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NpipdPtAgfkfy5pGQnUPNlE2+eeEkKwyf5Zs2zMeUunW156YJ5pm3AqQhY66WcN51
+	 r3RyeZDVVQLwrC23iCwmjAp3SXJMRGxuTS2cUk3OM8Wk5O4hBDd+z/pt36OZW/8zHu
+	 i9kbtEdhE3nGdf8TYFXTAX0dXplIkMiRUWrab54e/HryFK0TItC00JtY8ne0hljhUd
+	 UmB8rR8bu7CTTYXU3yGsEe2pdvd4iqKNL1SaXr9AXg46enDviRsACD9MCnD4tZis51
+	 M0Fqm+zGExpkkDHtl0t96yPVU45uAnunEJJ9Rp6EZbroB9zbVoLBXEs3VMnO7s/fS+
+	 2ZrPugiuzTp+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: ti: k3-am625-beagleplay: Add boot phase
+ tags for pmic
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anshul Dalal" <anshuld@ti.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260813-beagleplay_pmic_boot_phase_fix-v1-1-4518e7cba940@ti.com>
+References: <20260813-beagleplay_pmic_boot_phase_fix-v1-1-4518e7cba940@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 08:34:50 +0000
+Message-Id: <20260813083450.7AAF01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813020958.5fc3f0da@jic23-huawei>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 13, 2026 at 02:09:58AM +0100, Jonathan Cameron wrote:
-> On Wed, 12 Aug 2026 22:27:42 +0200
-> Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Removing `bootph-all` from the parent PMIC node prevents U-Boot fr=
+om probing the PMIC and its regulators during early boot.
+--
 
-...
+--- Patch [1]: [PATCH] arm64: dts: ti: k3-am625-beagleplay: Add boot phase =
+tags for pmic ---
+commit 7e0324188396a118a77eb80307cd8f4be050d7cb
+Author: Anshul Dalal <anshuld@ti.com>
 
-> > +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
-> > +{
-> > +	struct iio_poll_func *pf = p;
-> > +	struct iio_dev *iio = pf->indio_dev;
-> > +	struct veml6031x00_data *data = iio_priv(iio);
-> > +	IIO_DECLARE_BUFFER_WITH_TS(__le16, scan, 2) = { };
-> > +	unsigned int i = 0;
-> > +	int ch, ret;
-> > +
-> > +	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
-> > +	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
-> > +		ret = regmap_bulk_read(data->regmap,
-> > +				       VEML6031X00_REG_ALS_L,
-> > +				       scan,
-> > +				       2 * sizeof(*scan));
-> I don't care that much, but you could combine parameters on one line in
-> a few more places to reduced the code length a little.
-> e.g.
-> I'd be tempted to put the two lines above on one line or even
-> 
-> 		ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_ALS_L,
-> 				       scan, 2 * sizeof(*scan));
+arm64: dts: ti: k3-am625-beagleplay: Add boot phase tags for pmic
 
-I usually suggest to combine that with
+This commit moves the 'bootph-all' tag from the parent tps65219 PMIC node
+to all of its regulator sub-nodes. The intent is to ensure the PMIC
+regulators are available during the boot phase.
 
-	struct regmap *map = data->regmap;
+> diff --git a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts b/arch/arm64/=
+boot/dts/ti/k3-am625-beagleplay.dts
+> --- a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
+> @@ -681,7 +681,6 @@ rtc: rtc@68 {
+>  	};
+> =20
+>  	tps65219: pmic@30 {
+> -		bootph-all;
+>  		compatible =3D "ti,tps65219";
+>  		reg =3D <0x30>;
 
-so it will become
+[Severity: High]
+Will removing bootph-all from the parent PMIC node prevent U-Boot from
+probing the PMIC and its regulators during early boot?
 
-		ret = regmap_bulk_read(map, VEML6031X00_REG_ALS_L,
-				       scan, 2 * sizeof(*scan));
+During U-Boot's early boot phases, the driver model only binds nodes with
+properties like bootph-all. If this is removed from the parent tps65219
+node, the parent PMIC might be skipped.
 
-> > +		if (ret)
-> > +			goto done;
-> > +	} else {
-> > +		iio_for_each_active_channel(iio, ch) {
-> > +			ret = regmap_bulk_read(data->regmap,
-> > +					       iio->channels[ch].address,
-> > +					       &scan[i++],
-> > +					       sizeof(*scan));
+Because the parent wouldn't be bound, would the driver model fail to scan
+or bind its child regulator sub-nodes, even though this patch adds
+bootph-all to them? Additionally, the U-Boot SPL fdtgrep tool strips
+essential properties (such as reg and compatible) from untagged parent
+nodes, which could break the I2C bus device attachment entirely.
 
-And here it will help
+[ ... ]
 
-			ret = regmap_bulk_read(map, iio->channels[ch].address,
-					       &scan[i++], sizeof(*scan));
-
-
-> > +			if (ret)
-> > +				goto done;
-> > +		}
-
-But I would even go with
-
-			ret = regmap_bulk_read(map, iio->channels[ch].address,
-					       &scan[i], sizeof(scan[i]));
-			if (ret)
-				goto done;
-
-			i++;
-
-> > +	}
-> > +
-> > +	iio_push_to_buffers_with_ts(iio, scan, sizeof(scan), pf->timestamp);
-> > +
-> > +done:
-> > +	iio_trigger_notify_done(iio->trig);
-> > +
-> > +	return IRQ_HANDLED;
-> > +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-beagleplay=
+_pmic_boot_phase_fix-v1-1-4518e7cba940@ti.com?part=3D1
