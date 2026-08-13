@@ -1,120 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD0F35677D;
-	Thu, 13 Aug 2026 07:14:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D40F2D8DA8;
+	Thu, 13 Aug 2026 07:19:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786605274; cv=none; b=mZhZmYaN5IBNGYgdzIvb9ZBV2twhvbsj2i5bWriBcHu8HH20IyqA4EyQtiXE15AALUGQ8peMNuakDCDAsrgQGAr+/SuFJSjnAvBObFitqW+HORDjG4Y44H5og3f/y/YI7Oez+HF/WVvNrIxdYxPnVU6fZdLmdBkR+tj/DlD/3j0=
+	t=1786605541; cv=none; b=VzJ42uy1P5P4FS996K+2U0i8cB2z0v1TTGSq27ZAJnYc1G04VIxjaQ+2PfN7u69uo3abRqal9zqEETkjVRNwcv4XuX1sJTWr1uDDeI5ApF3M2B56wmW3LkOWS1B02xZagYsMj05N+eez2sY25Ek4JFqimb4c5NxpvUnqCGC7RdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786605274; c=relaxed/simple;
-	bh=WFn4/56qD31+Nm2nvIptWxIoRCBxnMNo4Xlp13NIjXU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FvUfruNCsTX1hc5rIAAW500I+JBTBsL3SHKbsT7vOo7yNEtdjQ5D541B3d3mjETzsuNe1ORqr7+REwO6tvGoHQD7Ujz4U4/99bG6TTIdMwiEMoE7A9XuigyGOb7BU11U6Fsu2iFGZNGr1roty8iMKFMYK7EgiHuCBiDc3MLL13s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eActJrwR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786605541; c=relaxed/simple;
+	bh=QdYe9RJeMNsxpKwZFiURVJVpUDQL5B3dzbulFEKTXUQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TttE9/kx6ghTlbwMmU2kijcq37Fie1Zp07sq8D17tn66KrBvWtxuCF9IQSlKYtC0akQE0t1Pe68h4EhQcJ3AqlqxjenD+3b1lgxBTF+X/uma6zgf0k94LZeOfQhD87FEyiH7GPAEGY2WNMfIywbvu5LNcS8+NmYJGgooRJpSTEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1Wn/cbM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eActJrwR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 553991F000E9;
-	Thu, 13 Aug 2026 07:14:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1Wn/cbM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A6501F000E9;
+	Thu, 13 Aug 2026 07:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786605273;
-	bh=szEJWO9bin1FzsdCPw5O7PwHy3mXnjRGfBGCkTiysYc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eActJrwRa7SYnn5lmRhECM782sIK5wbj3F8uX7Tly5e334yaJmncpfJIXVfM0Jpyj
-	 aw82IdoPtJvPpEJQIsj33NtJC2JUFSeFiW2tKng4jzrwkrLpKBo8eq2imgB9FcNxbe
-	 2M9P4c/Uq8wWL72i7xLp1QJYH8j9yGVImTIGrmnZ2vQPpuXURYC53KkX7RS8Xzu8fv
-	 UQtWBoVbh79WC/uaDdcqbbyb6WN3pylzOoTjgQQG1kHqIaUwccwl0AeNZCvDqyag1a
-	 ABP2X2Z3ASoWUxTZfGxEGbVACbmY0b//9OA4XLQr2nKUgy/tTfOV4PkUyqiT086TFr
-	 vPV5ceyUk9s/g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] ASoC: fsl_asrc: expose individual DAIs per
- conversion path
-Reply-To: sashiko-reviews@lists.linux.dev
-To: shengjiu.wang@oss.nxp.com
-Cc: robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260813070020.719810-5-shengjiu.wang@oss.nxp.com>
-References: <20260813070020.719810-1-shengjiu.wang@oss.nxp.com>
- <20260813070020.719810-5-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 07:14:32 +0000
-Message-Id: <20260813071433.553991F000E9@smtp.kernel.org>
+	s=k20260515; t=1786605540;
+	bh=qZdbRmYqK/NrvcZBL3tWkYiVhgLDOnhq5mM4HObQAxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=o1Wn/cbMNYFQmCUsmbGr3DdlRdbtKgTn11O8kaXLF0Qkoo68sKSVSbjTJO9JrBfaP
+	 3DwLp62nQGHEuHmTwOSbF47l1Tpp8CzAnCdlm5IN15uXiF9xWUBImjCXSvrPnLcCrX
+	 vhNOo1VCg1zYLjOsU+fWnYRTlBY1KBM/QzNTMnK6uHC+NMTeZrm/Ll9NdRsfqM1JG4
+	 sH74IfNAwkn3q0yWImbSf/GfOa6Hx0N6PlxOzwmKtiTK3piMnq/2yxsqG2CYeYIpGb
+	 O30vYFtBTQoDfeeUyizF0NtaBYNCV45wQhWQfACxDmR6wq3kFIccPz6rwLqIG9en36
+	 Hts6eddT+YSZg==
+Date: Thu, 13 Aug 2026 08:18:54 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Cc: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Dmitry Osipenko <digetx@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH RFC 01/10] firmware: arm_scmi: Add SCMI QCOM Generic
+ Extension Protocol documentation
+Message-ID: <20260813-remarkable-handsome-heron-e99e78@sudeepholla>
+References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com>
+ <20260724-rfc_v8_scmi_memlat-v1-1-cb732bcff1f4@oss.qualcomm.com>
+ <20260724-crouching-starfish-of-apotheosis-d1cdf8@sudeepholla>
+ <f39b2be0-b6d6-43a6-a412-44ff433c51f6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f39b2be0-b6d6-43a6-a412-44ff433c51f6@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Tue, Aug 04, 2026 at 02:07:28AM +0530, Sibi Sankar wrote:
+> 
+> On 7/24/2026 2:43 PM, Sudeep Holla wrote:
+> > On Fri, Jul 24, 2026 at 12:48:06PM +0530, Pragnesh Papaniya wrote:
+> > > Add System Control Management Interface (SCMI) Qualcomm Generic Extension
+> > > Protocol documentation. It consists of a small set of generic SET/GET/
+> > > START/STOP commands, which is used to turn on/off and configure Qualcomm
+> > > SoC specific algorithms that run on the SCP.
+> > > 
+> > > It currently only supports MEMLAT (memory latency governor) algorithm.
+> > > The immutable pairing of the MEMLAT algorithm string with the supported
+> > > param_ids associated with it are documented here.
+> > > 
+> > > Co-developed-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> > > Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> > > Signed-off-by: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
+> > > ---
+> > >   .../arm_scmi/vendors/qcom/qcom_generic.rst         | 954 +++++++++++++++++++++
+> > >   1 file changed, 954 insertions(+)
+> > > 
+> > > diff --git a/drivers/firmware/arm_scmi/vendors/qcom/qcom_generic.rst b/drivers/firmware/arm_scmi/vendors/qcom/qcom_generic.rst
+> > > new file mode 100644
+> > > index 000000000000..42e327d53841
+> > > --- /dev/null
+> > > +++ b/drivers/firmware/arm_scmi/vendors/qcom/qcom_generic.rst
+> > > @@ -0,0 +1,954 @@
+> > > +.. SPDX-License-Identifier: GPL-2.0
+> > > +.. include:: <isonum.txt>
+> > > +
+> > > +==================================================================================
+> > > +System Control and Management Interface (SCMI) Qualcomm Generic Extension Protocol
+> > > +==================================================================================
+> > > +
+> > > +:Copyright: |copy| Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > > +
+> > > +:Authors:
+> > > +   - Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> > > +   - Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
+> > > +
+> > > +System Control and Management Interface Qualcomm Generic Extension Vendor Protocol
+> > > +==================================================================================
+> > > +
+> > > +System Control Management Interface (SCMI) Qualcomm Generic Extension Protocol
+> > > +consists of a small set of generic SET/GET/START/STOP commands, which is used to
+> > > +turn on/off and configure Qualcomm SoC specific algorithms that run on the SCP.
+> > > +Each algorithm is identified through an algorithm string and has an immutable list
+> > > +of param_ids. All supported algorithms (currently just MEMLAT) have their own
+> > > +dedicated section and are listed after the generic commands.
+> > > +
+> 
+> Hey Sudeep,
+> 
+> Will set some context here, this version of the vendor protocol is currently
+> running in the wild on 5 SoCs (Hamoa, Purwa, Glymur, Mahua, Kaanapali).
 
-Pre-existing issues:
-- [High] ASoC component is unregistered via devres after hardware clocks ar=
-e disabled in remove(), leading to system hangs if an active stream is term=
-inated during driver unbind.
---
+While noted, this does not impact the code quality or review process for an
+entirely new feature. That context would be relevant for a localized fix or
+system quirk, but it is not applicable here.
 
---- Patch [4]: [PATCH v4 4/5] ASoC: fsl_asrc: expose individual DAIs per co=
-nversion path ---
-commit c1765b1c3c3716b7c2b1c94ee1d7914bfa585bff
-Author: Shengjiu Wang <shengjiu.wang@nxp.com>
+> The ABI/Specification that this vendor protocol uses can't be changed in
+> any way since other Os'es like Windows/Android expect it to behave as
+> described in this document and will break userspace.
 
-ASoC: fsl_asrc: expose individual DAIs per conversion path
+The current rationale isn't entirely clear to me. Windows historically favors
+ACPI over native SCMI, meaning that supporting a proprietary vendor protocol
+would require non-native workarounds potentially hidden within interfaces like
+PEP. I am skeptical of this architectural direction. Since Android leverages
+the Linux kernel and already manages this through vendor modules, maintaining
+those as modules seems like the optimal path until we agree on the interface
+that can be merged.
 
-This commit replaces the single fsl_asrc_dai instance with an array of
-three DAI drivers to allow multiple independent conversion paths to be
-used simultaneously. It updates the probe function to register all three
-DAIs.
+> series is meant for the devfreq portion (since it introduces a new devfreq
+> governor) and is not for the vendor protocol. We certainly can take design
+> improvements for future revisions but making changes to this major/minor
+> version of the firmware isn't possible.
+>
 
-> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-> index 2755ee57c6a17..a5d6c4c1e9292 100644
-> --- a/sound/soc/fsl/fsl_asrc.c
-> +++ b/sound/soc/fsl/fsl_asrc.c
+Given that this patch series has been under discussion for nearly two years,
+please provide a summary of the feedback that has already been incorporated
+to address these concerns just for sake of argument and in your defence.
 
-[ ... ]
+To clarify, the vendor protocol space is strictly intended for
+platform-specific functionalities that cannot be standardized; it should not
+be used to bypass standardization for convenience. It appears no evaluation
+was done to determine if or why the standard performance protocol was
+insufficient. Had that assessment occurred, I would expect the proposed
+interface to align much more closely with the standard definitions as I
+previously mentioned.
 
-> @@ -1393,7 +1442,7 @@ static int fsl_asrc_probe(struct platform_device *p=
-dev)
->  		goto err_pm_get_sync;
-> =20
->  	ret =3D devm_snd_soc_register_component(&pdev->dev, &fsl_asrc_component,
-> -					      &fsl_asrc_dai, 1);
-> +					      fsl_asrc_dai, ARRAY_SIZE(fsl_asrc_dai));
+> Plenty of folks running linux on these SoCs would benefit a great deal from
+> this series landing, so please have a bit of patience, take a look at the
+> documentation/series as a whole. I still feel we should be able to land this
+> series in a form that is acceptable to you. However, if you still feel you
+> have
+> to NAK this series regardless of its usefulness to the users, please do list
+> the
+> reasons and we'll try our best to convince you otherwise.
+> 
 
-[Severity: High]
-This is a pre-existing issue, but does using devres to register the ASoC
-component cause a race condition during driver unbind?
+The core issue here is that the proposed vendor protocol interface has been
+presented as a finished product without open discussion or a willingness to
+iterate based on upstream feedback. This approach bypasses standard
+development processes.
 
-Since the component is registered with devm_snd_soc_register_component(),
-it won't be unregistered until the devres release phase, which happens
-after fsl_asrc_remove() finishes.
+IMO these vendor protocol interfaces must be debated on the mailing list prior
+to finalization, similar to the 'code-first' prototyping model used for new
+ACPI specifications or SCMI early prototyping. If an interface is developed
+in isolation and then submitted with an expectation of immediate acceptance
+without modification, we cannot approve it. I recommend we pivot to an open
+review of the interface design itself.
 
-If an ALSA stream is active during unbind, fsl_asrc_remove() gates the
-ASRC IPG and MEM clocks:
+> > This multiplexer 'N' random algorithn into one single custom SCMI protocol ID
+> > (0x80) seems to go against the general SCMI design principle and this seems
+> 
+> Only the strings documented are allowed by the vendor protocol while the
+> rest are filtered out, so we clearly don't have to worry about this. Also
+> grouping a class of devfreq algorithms into a single vendor protocol should
+> be treated as a SoC vendor design choice.
+> 
 
-fsl_asrc_remove() {
-	...
-	pm_runtime_disable(&pdev->dev);
-	if (!pm_runtime_status_suspended(&pdev->dev))
-		fsl_asrc_runtime_suspend(&pdev->dev);
-}
+This is precisely why I previously suggested defining MEMLAT as its own
+distinct protocol. Doing so maintains architectural consistency and adheres to
+core SCMI principles.
 
-During the window between fsl_asrc_remove() completing and the devres
-release phase unregistering the component, the PCM streams and DMA
-channels are still active.
+> > like a deliberated attempt to circumvent the standard SCMI protocol template.
+> > Standard SCMI expects distinct features to occupy their own vendor protocol
+> > IDs and utilize standard protocol discovery.
+> > 
 
-Can the DMA controller attempt to access the clock-gated ASRC FIFOs
-during this window, resulting in a synchronous bus fault or asynchronous
-external abort?
+^^^ as mentioned above
 
-Would it be safer to use snd_soc_register_component() here instead, and
-manually call snd_soc_unregister_component() early in fsl_asrc_remove()
-before gating the hardware clocks?
-
->  	if (ret) {
->  		dev_err(&pdev->dev, "failed to register ASoC DAI\n");
->  		goto err_pm_get_sync;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813070020.7198=
-10-1-shengjiu.wang@oss.nxp.com?part=3D4
+-- 
+Regards,
+Sudeep
