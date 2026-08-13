@@ -1,157 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C29E40B0EC;
-	Thu, 13 Aug 2026 10:35:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CDD36196E
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:42:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786617319; cv=none; b=o8cw/rONngX0/BhBI2tqz6Hb/Hw04lCGwr6r3FX7KMAN1xkcb909Axb4uO5f+OZyMMAKifJc3vOoGOuESvUZDK1OGSwzBNbVt+K9kviCzGcLI6sz/TYrfgoQZMLh4qBmJg8yprZPSBDbKIwhI1oK4JUpEVdukxaS6l3OfKt7Hoo=
+	t=1786617750; cv=none; b=s4/JPAWtJg72c4EEWVSbANyh/+HWDDqPWQGlaFfZ4f+gf8M16qArelvLdv3NxLIrwVJJh7MOd1ddgCEfTw/BXpEdPGPmk0awtNgYlzJBtYhcgCTW819ziVF62rVH2/9TXpSKKV1zDqo8XE7tmWr4VOlqJsOc80pCcNq00RiR8/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786617319; c=relaxed/simple;
-	bh=Qlg67X/kobKT+eFwxKXQ3z/kZm6+Os7ksYkYqj8PrC4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=T8l/Op/XS/tlh/MuSTs7PeKOja3f4bfeHUIwA7e/C1Tf/xPHvM+jonI9RwVbW1L/2ilFU4FTyv8ZQQAjVSxoQ8zB1OZLdiopaGrP+PXmjnBhV61RZzDLgwrpk+7u2TbXTetR7TdqpnUpmzzmtqnckSPVfK2AFTtwzAXWtAAyJF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ND9WyMqT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786617750; c=relaxed/simple;
+	bh=LvslOFoyTsYWjz30QWpL3Vsf6PxuJGGQfhwhJk8qFm8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DfX61Y6Rn2f4pkXRSqYD9UcQOxy9YGY1bS7M1chC3uNchk4RjGGSzUV13tRr87GxApmPbJA9uzDXtVq4wZsASdI2oiMt5SEz6+DLpJbmHOb2SeCDoQmdllR+cI+bopC4ELNMpjVSdLuYSkSw3J5jay+AbinaJ9l6UhWLRAtMXgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BPzXUagH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ND9WyMqT"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E0F6CC2BCC7;
-	Thu, 13 Aug 2026 10:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786617319;
-	bh=Qlg67X/kobKT+eFwxKXQ3z/kZm6+Os7ksYkYqj8PrC4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ND9WyMqTRSDeZHwZaTddaEDDBA9R+ak5Nl3GRnUJ3yLG1LOHn2tPRb95vrJD8eg0W
-	 9QDL160Di98Q+48jqU+fbEt7Y09qZeV29BHaWF4/QjAfVhJh/vJmKK2CHMihW9I4HB
-	 sGoWXdsvoSK6+uWo1nySTD2sKernWd2LmWnSTeRyN7oI9BUxHXCiuRk+T/9X1wGJk7
-	 Yu1HGCxXXOcQgVCz3qkKFLQi5bkdQ8Jqt4S45PFwggYhorRPMsVHxTSRslHpUZoS8X
-	 5OThNfCvTIcN+qxFpEybFSjFTQ86k+9OtNyAKFC1dfxPUU+UFqNpH32fi6mp13MO+3
-	 EwHrYOt2uJ1Qg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C214DC5DF66;
-	Thu, 13 Aug 2026 10:35:18 +0000 (UTC)
-From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Thu, 13 Aug 2026 18:35:13 +0800
-Subject: [PATCH v3 2/2] serial: 8250_dw: add Ambarella CV75 quirks
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BPzXUagH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9471F000E9;
+	Thu, 13 Aug 2026 10:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786617748;
+	bh=LkwPA8TrDvw9HAE94S5TeGSkgdxy2uklzdTSxhyrR90=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BPzXUagHU7UOj+zt2KmCBCifkzL687meAFPx4DimlqSkuAfD+Jvy5mDiYmPBx8qwR
+	 0ENVrri4W8X2+8YvafT+b3PYuFpYOLMGsOG2dSaeU5JZIVucNklTGtLj7v2b6HtUK5
+	 mJngCUHbuC3qDPUL149bcZzsRsSc+U7Ohs9EfQ9/9gyNv21tHgPkJSRnwzOseZLKGm
+	 8LVJ+CqqysGPwTBmUCJKK3ZQkj8X1LBbh8yJHecFU/uL6d3PEiewVDWS+yRhRz2b0d
+	 asYwRxiVBZNUVTraPnv6McpfJxrVHLU9v2LASbxraFF3Vdj3gPJm0HnhuY0GHuO9+Y
+	 MYZMsBv2/B/HQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: serial: snps-dw-apb-uart: add
+ ambarella,cv75-uart
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Long Zhao" <longzhao@ambarella.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260813-cv75-v3-c-v3-1-9352b3fd6026@ambarella.com>
+References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
+ <20260813-cv75-v3-c-v3-1-9352b3fd6026@ambarella.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 10:42:28 +0000
+Message-Id: <20260813104228.6C9471F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-cv75-v3-c-v3-2-9352b3fd6026@ambarella.com>
-References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
-In-Reply-To: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786617317; l=2923;
- i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=XSAN/JBo4TbrQ7CY2sRl+6NMf5TA6SIWR2Keo4EKJvU=;
- b=gnaylrcPeuS6xs0Jkt0AkOlSBVkkbXmt/hrQO1Hz7xVQQFYFfCQVtrvAzSoOe3RDXxx3wzfmf
- wl+7jPs3iLPAeWrdL7qbYZ88UCnQXuePH5O6utAPzW3L3TiLGw880x4
-X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
- pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
-X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
- auth_id=903
-X-Original-From: Long Zhao <longzhao@ambarella.com>
-Reply-To: longzhao@ambarella.com
 
-From: Long Zhao <longzhao@ambarella.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The 'ambarella' vendor prefix is newly introduced in this binding b=
+ut is not documented in vendor-prefixes.yaml.
+--
 
-Add CV75 platform data with an ETOI IER mask and skip-set-rate so the
-DesignWare 8250 driver can drive the Ambarella UART for console use.
+--- Patch [1]: [PATCH v3 1/2] dt-bindings: serial: snps-dw-apb-uart: add am=
+barella,cv75-uart ---
+commit 09140ea99754febddffd7c03dfcd93c0fffe28fb
+Author: Long Zhao <longzhao@ambarella.com>
 
-Signed-off-by: Long Zhao <longzhao@ambarella.com>
----
- drivers/tty/serial/8250/8250_dw.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+dt-bindings: serial: snps-dw-apb-uart: add ambarella,cv75-uart
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index 5fba913f3301..e8aa592924d4 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -43,6 +43,9 @@
- #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
- #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
- 
-+/* Ambarella specific register fields */
-+#define AMBARELLA_UART_IER_ETOI		BIT(5)
-+
- /* Quirks */
- #define DW_UART_QUIRK_OCTEON		BIT(0)
- #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
-@@ -60,6 +63,7 @@
- 
- struct dw8250_platform_data {
- 	u8 usr_reg;
-+	u8 ier_mask;
- 	u32 cpr_value;
- 	unsigned int quirks;
- };
-@@ -572,6 +576,23 @@ static void dw8250_prepare_rx_dma(struct uart_8250_port *p)
- 	dw8250_writel_ext(up, RZN1_UART_RDMACR, val);
- }
- 
-+static int dw8250_ier_mask_startup(struct uart_port *p)
-+{
-+	struct dw8250_data *d = to_dw8250_data(p->private_data);
-+	struct uart_8250_port *up = up_to_u8250p(p);
-+	int ret;
-+
-+	ret = serial8250_do_startup(p);
-+	if (ret)
-+		return ret;
-+
-+	/* Keep variant-specific bits in the shadow across subsequent updates. */
-+	up->ier |= d->pdata->ier_mask;
-+	serial_port_out(p, UART_IER, up->ier);
-+
-+	return 0;
-+}
-+
- static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
- {
- 	unsigned int quirks = data->pdata->quirks;
-@@ -606,6 +627,8 @@ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
- 		p->serial_in = dw8250_serial_in32;
- 		data->uart_16550_compatible = true;
- 	}
-+	if (data->pdata->ier_mask)
-+		p->startup = dw8250_ier_mask_startup;
- }
- 
- static void dw8250_reset_control_assert(void *data)
-@@ -879,6 +902,12 @@ static const struct dw8250_platform_data dw8250_intc10ee = {
- 	.quirks = DW_UART_QUIRK_IER_KICK,
- };
- 
-+static const struct dw8250_platform_data dw8250_ambarella_cv75_data = {
-+	.usr_reg = DW_UART_USR,
-+	.ier_mask = AMBARELLA_UART_IER_ETOI,
-+	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
-+};
-+
- static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
- 	.usr_reg = DW_UART_USR,
- 	.cpr_value = FIELD_PREP_CONST(DW_UART_CPR_ABP_DATA_WIDTH, 2) |
-@@ -889,6 +918,7 @@ static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
- };
- 
- static const struct of_device_id dw8250_of_match[] = {
-+	{ .compatible = "ambarella,cv75-uart", .data = &dw8250_ambarella_cv75_data },
- 	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
- 	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
- 	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
+Add the Ambarella CV75 compatible string to the Synopsys DW APB UART
+binding.
 
--- 
-2.34.1
+> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.ya=
+ml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> index 49f51b0028795..cec5c679f1a9d 100644
+> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> @@ -51,6 +51,7 @@ properties:
+>            - const: renesas,rzn1-uart
+>        - items:
+>            - enum:
+> +              - ambarella,cv75-uart
 
+[Severity: Low]
+Has the ambarella vendor prefix added to properties:compatible been formally
+documented in vendor-prefixes.yaml?
 
+If this prefix is omitted from vendor-prefixes.yaml, evaluating this schema
+with dt-schema will encounter the undocumented ambarella prefix. This will
+cause make dt_binding_check to report a schema validation warning or error
+during the build.
+
+>                - anlogic,dr1v90-uart
+>                - brcm,bcm11351-dw-apb-uart
+>                - brcm,bcm21664-dw-apb-uart
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-cv75-v3-c-=
+v3-0-9352b3fd6026@ambarella.com?part=3D1
