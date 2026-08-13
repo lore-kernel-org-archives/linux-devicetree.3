@@ -1,61 +1,64 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3D948165C
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 14:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1333B47D94E
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 14:06:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786629966; cv=none; b=PhosdnlTBesiWM4WP9EWPVoKPySB669+xru95FXM7TpgqOQO1Q+zl5jhobBhTUp8z59L6477cNK8nA0XkAj7JdYhqMM8SJPiboAQpwzxE89SJHF+7X2fFEasLkwhEU3AY8f/NI1ENezzFassGrrV3uwoqcDvgUko/PIfaDvtSac=
+	t=1786629968; cv=none; b=pXS4rPFE4Y53zIbDXVS+uhLQ95V6/PGMF/hbcfX3gnTmOA2FB6hFxM3yVAcGU+VwFB+u39Lm0MzWZDtnbpyDQ+6BuYUR0oba4oyRMbluwJBqgw1LwbVgWc0Ar+JdYeuFcal+h0nAdM8jt6LR8RKNY4EjeeMWFKK1UMhBLJf/8qM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786629966; c=relaxed/simple;
-	bh=ah1cDBDIZ8iXgmzLNyPQB+ryhZ7bXr1UEe22NH6a8So=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g/sHjSq0BvJekJG8RsCGBK/j0Q/F297NirbyAMnG5UANZ4kv6Ma6mNsUBsAjefN9tlFowP9/feeGKU9VfgVgOVk4pmSP7xYqVl5Ff4CV01jzjqcjKxNWGKgaf8rs1dpaWgOFrTVRg0E6RGVYZhPdctWeA0q8wsuBI33WGPlMk3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KJS2nmFs; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1786629968; c=relaxed/simple;
+	bh=bEcIOZ3o4/YBQO9AvFUt5JfjZrSfxQHFfPTUj3NXnoI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=no6IlhleOmQ8iNPO5oRetGWLF6rc8IPRbdDXFgVsL0Osh/GBRwKVcUWlDzyBEyzKwaFBN6PO5dNjQXQlLFpsoin5EEdPm9wPxX3RgWlP2Mcq4lAdt2AXuF2ruOoX8GA3fkP7VkkArwpuBSUKkf4dC6+ypdIIvUhF05q4fzamXj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hUb3OluX; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KJS2nmFs"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4956242332dso19745585e9.2
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 07:06:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hUb3OluX"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so693007f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 07:06:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786629962; x=1787234762; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=USvILuDtTiPA6dYavysHHB08OaS594TOWNHKjjfu0XQ=;
-        b=KJS2nmFs0b/y8xNR5PAjLADxvlj69NL/F07G7wPlTjmTscLPw8fOmZnPUOj8/PgDAJ
-         js7bqfQwfM0ijsKv26hwLLmGs1YSbz3oLFgOYu02BwxhsGpOPZIUsN33CoyflYXX3pbl
-         Av7KO3TBGYprOGZBoVsDx1eD2ht/nfufJfk3+/56M4q4J1XDCMTo/0kQN1V+TuzbWurC
-         uSrGTyIuFg+5K+kqIqokNtE+hLMrwc1JIjJVU6JKk+8uEGR05FV1ttrgphFyB1cTGuFA
-         Y8QwL1uQzfZ6/yBSF/KjiKNP6sGnWHf09h7Ea3nt7wTcRyaTeUCwled+moxCK7eX0Z8q
-         SwKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786629962; x=1787234762;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1786629963; x=1787234763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=USvILuDtTiPA6dYavysHHB08OaS594TOWNHKjjfu0XQ=;
-        b=KjLJpEBzilv+IpKMM52pqb34nvgZS0xsh3vB0UUQwdes9XNAhScC6UTOMy6v0IDRgV
-         5NwqhgZI1mM9QTqU3Hk1Ee9Sz0gcBZWTC2E+0JVLiGrXczT0hsuPbgW0kJB+xRLz0ziK
-         iO8Cu0A3TDSGF8GE4DstbDOG+11oPy0losX+Q+prIUGFG8wxo+kXP5u5qi/satSWK+pG
-         g3QiU0LCaWWhqYYvei8bNFw+4pgY2qNO/pdzusGajn2kHDR3PFfYStQulPMBPKn9MA47
-         FbCu9AJZEFgcA1+j9SysYRqvM5/k/qZ1bgDLt7P+AiqStkKloHCX+lNhGtmEUbLyc+pr
-         dgkA==
-X-Forwarded-Encrypted: i=1; AHgh+RoF4+moSL3LBw0+Osin55HsTrwojonYja6bcZiTDTRyaK60ELnlkJSZlVqTlrOK5Dzwnd5KbuVLCQHU@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRSU74YeWo3cwSVzA242y9d6DFfKpDDcG9xTYG7AmwRDeFnDSO
-	Vhk3WM/xPMKGUZxEfFHJhlUCYNqYLAnScgaXRqH/vnWjY593FwOFOGIu
-X-Gm-Gg: AR+sD11pJbxGvwZ6E9FpRVilp21PIUqELd5tv0Q5Dy1NZNoVbRcwZVQuUZQoHrhfsKn
-	gfG2YhMgPj+oN/JHxYf8Cu7qiuxzEkUZQ5v6Z+okhvxGe0W9kJSdLRFXqqxBtHRzx4ExCziokgJ
-	kXemYwsa73H58hueWdfFAS4Z0a3RyWjt/OBZ218hTlPkvpI0pQYO/IFy380x6gVcsTw6VgUSIIH
-	asVD/pFWPKg9bR9mqFVXhQIFiTPPwqUdTHyYusMCMhUSnd5E5usihPY4RxY6Ay0+tmbRUF6hsc+
-	InFvPeVxjj0lXYzZLV9GCiEXdsPX1khV9ahnbgCuI6IrFJQzoAu8OV5AkRAxuUiXxjBS1ZRJ/P/
-	a8knRfaL9VDqKH6gmmHFmyN8+kAKXALh6EyHaQlZJYbgfVAEUSQUywQ6dCrTVpG+QDfrJ+KtVMg
-	ikyfQavZ5gSlu99wwbC/6WiRlllIb20ACBulELUI/QIP/Pwx1W7IRQQrRtlRx1KYI5KA==
-X-Received: by 2002:a05:600c:1c25:b0:499:726c:d658 with SMTP id 5b1f17b1804b1-499821d91d9mr57412055e9.19.1786629961887;
-        Thu, 13 Aug 2026 07:06:01 -0700 (PDT)
+        bh=WAHvpFbJ0JtpWCk4HMUeYX5OKhCmyGZq7qNeYbuxFvs=;
+        b=hUb3OluXe9zoAyOp1iD2i20oVBQjH9oqEJ2gZFnym/6fjahGbMi2TNyxH1ZEbZkJ7C
+         jnLdZt+O2mZGf5MswfGDmPjDlDopFDe9jWtxYWx+/NtM2aqtAfxRyiA60iD+pxztPGWG
+         qWYFZxKGmRb3ysufdaAvk2KbuOxBiTyOtB6uUFDZdUSSKE8NMQL65JrQ+z4hVEdF5gtC
+         ZpSv4YDlaB83pP10ps5RLlsTUc+2MuFxVlhoIPwjO16fA1nIouIoCrS9FY7ntCApmNhe
+         S0rb07atq8vvSd7V5dRAJPzpTq5PGcNeokorWwEBCM8NWLhyBm4+tGebBeHjqYQiQCAI
+         Drew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786629963; x=1787234763;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WAHvpFbJ0JtpWCk4HMUeYX5OKhCmyGZq7qNeYbuxFvs=;
+        b=Ct6vmlM1roHvyWSJWrxRvV+xI4AwtlNgk3nLxXetzF+AkoFgNPqlzqXxascyUjxPTG
+         Y2UmL+VRrJmGGqTAYIRfVKGBQhMxpnADW5+c5uTI7eQWd9zCABxsn9lfv8Ll+EruEGen
+         6uN8xYe1i8h4axQS2AdGN/5F0BkOlZ2N4QAXtfyZeefmLhtSfDgh8lNSUIzYbbAHi5hb
+         jKB4LJhu016u/p3AGtoLd29nvZOvwAQQwNan9Za98EY9VtT8c0XAx2EdASzo7KO+kyH/
+         McfTt/r6wbrwEtMOZwu0m/w3J8BxB0ruiX+B5JhipSrXaOh/oP2tJSUlPWVRpYQSAzVn
+         XT4w==
+X-Forwarded-Encrypted: i=1; AHgh+RqyUNRo1unRInqbzYmUjZkfZcGRyVF9Nbz6Z1w6TrbdarzTrpI4kkBX3DPTYU/wfFXU5d2q26IWQu1K@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyq0JSnWFtGerV/+PYvlfm1eU6kmQAPXSHI37PKzzoDv4kTDzaN
+	Tk3YKVvtZQWTthGHMJ0TcRCfzwU8znQF0pEqGpCg98Vqk2oXV9LzKxk6
+X-Gm-Gg: AR+sD124UNhm3/sRwxTiOkv+lzeCPmfxvXaeT03mVKr09i79eRfUt3S3CGyLq7JqxcN
+	1KA+OeMwv3bv4fqFGvm7xK4lgkFhrsjUFHWoU8kkzrirIp9lpydQFAdfmallVdi+twV/Qco0XHI
+	PCNgeAxYcHITaMVtHGLxDvn+H5aAcotLaHVQPdXpW5BXcl4gg7okHrDIqJeV3gFBUrBEPue4GYa
+	GPWXN9ML1epRgWYAG1ZJlzkAOlzvmQorlYjfVU7iwonz/iSZs3bs9vqMjm6W7oNvek8UK407ER3
+	V/rM2keqIbmUJ8wKUuNmlDKlPXZZgjfgxaFUIEVlzbMA+paY3bhdehfB8Y7PnDW8bopMbZgsRDG
+	IVwe3A80yG8fyZTJedjg6eBtSIQE1h7XamyLtFuTowi03KvMW0EIOEBGJWKt7R3o2JjqAnq9rCH
+	5zF+y+w8jgYY4XBjhmb3YKKYI+cRjT1AHbyacndXnBYv8U6pc6Vup7XbItjg1SWEsTtYNkNWn1a
+	hAW3nb8yEeCcKJj
+X-Received: by 2002:a05:6000:1844:b0:47f:e8b9:8b60 with SMTP id ffacd0b85a97d-48159ccd2damr8227155f8f.6.1786629962866;
+        Thu, 13 Aug 2026 07:06:02 -0700 (PDT)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a5af191sm6690190f8f.19.2026.08.13.07.06.00
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a5af191sm6690190f8f.19.2026.08.13.07.06.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 07:06:01 -0700 (PDT)
+        Thu, 13 Aug 2026 07:06:02 -0700 (PDT)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: Shawn Guo <shawnguo@kernel.org>,
 	Sascha Hauer <s.hauer@pengutronix.de>
@@ -72,10 +75,12 @@ Cc: Frank Li <Frank.Li@nxp.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: [PATCH v3 0/4] ARM: dts: vf: Iris carrier board for the Colibri VF50 and VF61
-Date: Thu, 13 Aug 2026 16:05:56 +0200
-Message-ID: <20260813140600.1824949-1-mehmet.fide@gmail.com>
+Subject: [PATCH v3 1/4] ARM: dts: vf-colibri: apply the EXT_IO pin group
+Date: Thu, 13 Aug 2026 16:05:57 +0200
+Message-ID: <20260813140600.1824949-2-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260813140600.1824949-1-mehmet.fide@gmail.com>
+References: <20260813140600.1824949-1-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,45 +91,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-This adds a device tree for the Toradex Iris carrier board carrying the
-Vybrid Colibri modules, plus two small preparatory patches for the
-module-level dtsi that the i.MX Colibri variants already had.
+pinctrl_gpio_ext describes the three Colibri EXT_IO pins, but no node
+references it, so the pin controller never applies it and the pads keep
+whatever mux and bias they came up with. It is the only pin group in the
+Vybrid Colibri device trees that is defined and never used.
 
-Everything was tested on a Colibri VF50 on an Iris V1.1 running 6.18:
-Ethernet, USB host and OTG, all three UARTs, i2c with the carrier RTC,
-SPI, the microSD slot and the RS232 transceiver hogs.
+The three pins are GPIOs on gpio2 and belong to no device, so hog the
+group on that controller. Referencing it from &iomuxc would work too, but
+the pin controller would then depend on one of its own children, which
+fw_devlink reports as a dependency cycle.
 
-Changes in v3, following Krzysztof's review:
-- fold the Iris compatibles into the existing -on-eval enum entries
-  instead of adding standalone entries
-- use hyphens in the newly introduced compatibles
-  (toradex,vf500-colibri-vf50-on-iris, toradex,vf610-colibri-vf61-on-iris)
-- drop the fixed 5V regulator that only fed the VBUS regulator
-- sent as a fresh thread instead of in reply to v2
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+---
+ arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Changes in v2:
-- add the dt-bindings patch for the new compatibles
-- describe the USB host VBUS regulator instead of hogging USBH_PEN
-
-Mehmet Fide (4):
-  ARM: dts: vf-colibri: apply the EXT_IO pin group
-  ARM: dts: vf-colibri: name the SODIMM gpio lines
-  dt-bindings: arm: fsl: add the Colibri VF50 and VF61 on Iris
-  ARM: dts: vf: add Iris carrier board support for Colibri VF50 and VF61
-
- .../devicetree/bindings/arm/fsl.yaml          |  12 +-
- arch/arm/boot/dts/nxp/vf/Makefile             |   2 +
- arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi | 117 ++++++++++++++
- arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi      | 153 ++++++++++++++++++
- .../boot/dts/nxp/vf/vf500-colibri-iris.dts    |  14 ++
- .../boot/dts/nxp/vf/vf610-colibri-iris.dts    |  14 ++
- 6 files changed, 308 insertions(+), 4 deletions(-)
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
-
-
-base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
+diff --git a/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi b/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
+index 98f9ee1b0030..74afc7b0d74b 100644
+--- a/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
++++ b/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
+@@ -170,6 +170,15 @@ &usbphy1 {
+ 	status = "okay";
+ };
+ 
++&gpio2 {
++	/*
++	 * EXT_IO_0..2 belong to no device, so hog the pin group here rather
++	 * than on the pin controller, which would depend on its own child.
++	 */
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_gpio_ext>;
++};
++
+ &iomuxc {
+ 	pinctrl_flexcan0: can0grp {
+ 		fsl,pins = <
 -- 
 2.54.0
 
