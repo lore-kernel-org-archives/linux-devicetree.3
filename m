@@ -1,84 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141C5499F15;
-	Thu, 13 Aug 2026 17:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61FF2D1911
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 17:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786640903; cv=none; b=XQFrV/S/9rp3kSfjnZkUPuEpxM7ZUG/e8teZ0k1B7R0z9bCuJ8W54Lph1fN6M9c+5ihZBeMWngeJyjIWtZdMD5VvT5Sc2k0Shzj9yV6FK7EjinwDcYo65FF/ItIS9zvumIYobbRQ7D88Np4fEwZQ1JNC/aVNJWuTSbhVSsDJi1c=
+	t=1786642137; cv=none; b=FWxD1eMcF1oparQYqjSvjh4s0NKyLyhCB3DUVpovGayIg95FEpyuliDlVNU9ZbEIx3nk1sYQLmvK4mpg6pKBAX6v9dg0OlwpNrWqL2sw/c2CKBu0J4OJe/qrkgLusicaPMMm1r4lbuq0gZvtZgu1ADOKygEwdJtT94LnAaun5rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786640903; c=relaxed/simple;
-	bh=6ejOHroDsSTZfWUQykWe0DhGDiou1QMbMw11Hct4uLQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=hvwgBfT1Y4Rj1awXjGYzxwAFi2pPVf0B/mn+lARyB+0oo1Kf9DoImZwA8fbGQsh3BNLt0dkSIEUWYrFGaPJZSvLj+hg+k1SlSjRAiVFDFNjx/elW/jhi6KPYQKqxyaMhbkx+y7SBJaRtI/xZyOQlVEJ9ckgEUTPoJxDUOYxOIoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMexpM9H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786642137; c=relaxed/simple;
+	bh=TMSjSdPy1mFMoDQ0bB+ffUgJOOHQfmPq1+pZYXoAxm8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=VrH9H/bD9xShvaq3jJKojc8dQoRVK0X2rgf6D9uoSEjhmsK1MuQixCMWRB0EvBLrwyp+utPacF59P3UH2sjOrT6+/Pz66DvYL2R/BS52BiK1AlhAN3+gZjOBfUCiyy0NT46Pre8USyBGjJjq1anea47h1cRrDKaVVfZRYekrpUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N1oDSfDy; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMexpM9H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFB171F000E9;
-	Thu, 13 Aug 2026 17:08:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786640902;
-	bh=VWzDmzaSohfXNDpzSvOTbywfXkmzWVFikcHjO6Hw6u4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=oMexpM9HgR/F0qhmie3lMLfDUJpZIBemLcjAJuOeeXJ7qClvyHWtAJ7CACr2xcuca
-	 PI15FrVmdVqRoxp0SvaXKM5/JljD20eiiESKQyaqqyIRjYhc/EOwME1AZBJrqjLV+1
-	 q20DhdzMkeIvxgOxDTTFthCM9BV6rNF5lZyMY8RflP51tVam2ROq+LJ6M+H9BF+T8Y
-	 3T60TyZBPTn1crYl9EO4WTzem+JiL7xet9FlLKkEiKIixiKu9WaHTYQgDxEdcf+lmh
-	 p+9A1YSS9kBCyQjMvaSkyqceLZW4q1dAsGi8LBwFo5YliGzhxUFcuO3wjGtVDfjh8p
-	 o6WUseK5r910Q==
-Date: Thu, 13 Aug 2026 12:08:20 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 2/2] PCI: mediatek-gen3: Add 2-lanes mode support for
- Airoha AN7581
-Message-ID: <20260813170820.GA1143871@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N1oDSfDy"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84e3007a2b7so8489b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:28:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786642135; x=1787246935; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3QAmNckJusENFi3b8PAoUfCMcO2O6+LVywV/5dZdBLk=;
+        b=N1oDSfDyGX5k8skW3yIOFQQi7bAbr19XBgn57Rm2WVnpG7SBd1SGsYziURHPQvMf4D
+         rg+aWS2KZ+NUhT+QPwkcUp4kHDhK8qOGS/MRXkV8a2G3VH58yK+IWjZFjzZavGo8+CpC
+         zlXpv7r5HaeTgTI+SfUnzYE37i+wCprq9j+9Uz1DilkKZmtodKwl8mAOzfCJH8sZmcf8
+         eqZuRQV3GQKCWu2QkXjEQodkPQCy0S0Ivj6lchbvOCLBQAW6wAmQ0/6ydUp7TCOLuadS
+         bfJPIkSUYkAvfZGpXdFsTXsqa8CUUTniI8tWjGSVFzfkiu/skeZiJ6gYUiVzPEvGeLtS
+         YU8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786642135; x=1787246935;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3QAmNckJusENFi3b8PAoUfCMcO2O6+LVywV/5dZdBLk=;
+        b=dqZfB2hP+TkVAZn3qAzZchdqQI4Wu7JB2kJsRnVD+gU0Bl+z3hnheET/kFWfr/Qnsr
+         GzTBeIh8pbIniLvecp2A8pbXLg7ThtKg1Wk8PYF/21fZ+Td+uERQGnRFTTgyn+AgzVe8
+         C27k9kICO0BIclpEHf4dbwMtUuvC5RBOA/VscFrztyG7FAIogcTHRa1OG4iC5Yp6Hh0D
+         Z8OJuB+5AMH4DZFLyPjUloaMBWSoMIJDbgEY9mnvjkZ84IqLw8gMNnYF6a5Hg4zKSsf2
+         r40Z3Rbbr//NRfvC0pxZaWVEagO7kstggPJBUTR/L//dbOdoeVfcNPqCDWQghA8MELib
+         jv5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqiAGJfNBaPnqtTLxnJjifrfCBa/hUfSmKO9f4zc8BbDHdk/JiXnqs7lZjTIwVZSHmS4/d9HhK/gOAh@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8UP71WCmE2ccgdjVefGmmjgVMF/KzLuGIu0gxzASVO0wWMM56
+	no8tRL2QwXt+nEh9Pv9OUnZxKqFMlNVVG/0Kb2RbcyLu9DzFLrC0wnI=
+X-Gm-Gg: AR+sD12cwxHMnJ1z3huQJK6BbomdGBATBRUqgdaYD+L/FmXtHq4K2zJeh+kj4bu9D4l
+	rjcWYjGBRn3BYK4mNWBr+H+MC7493zWekCX8XeO9eQfMl9+w5gjD0E6erNgznHZHQ0vPIXqV+KZ
+	ooiKc2SetDUQf4yWrthSmO87nZq2Orn9qlPUetXHTv8lZXqw+qAcXBGV7TedZd2WjpQ54teVD7V
+	uwuWKm+jqO/plN5hhD4TdG2dCfHKSJ6LtbF/tohx90BlKVSF3KA5VHNJBOqntq/tQgdPj0h8SgY
+	SdZTdLGubiAAbP4zHyfcVlB4xwhlnkLhz+HC8b7rCm9GRUXyRTBkKArEnCpawvmq/a4V8iU5bH6
+	JHGPTZN3H/sbqSCmNnMWSVR/zzDZzZhOwZJc+fOaP3jZhcpH9WWeijBEPYXZxm8Q81MOTPIE900
+	xN30qoHV6xGd4pg5X8kNNTKIjAZwTbAM07/xfXUNgGi40MDobk5IFv5a4hCBDAid16DIw0+WdsZ
+	7UZHLiH48MvFWiRBZZLMCvh
+X-Received: by 2002:a05:6a00:44ce:b0:848:6b43:35dc with SMTP id d2e1a72fcca58-84fc767caa3mr8813674b3a.35.1786642134845;
+        Thu, 13 Aug 2026 10:28:54 -0700 (PDT)
+Received: from localhost ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fc5a1bcaasm1251435b3a.29.2026.08.13.10.28.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Aug 2026 10:28:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806165334.7328-3-ansuelsmth@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 13 Aug 2026 14:28:48 -0300
+Message-Id: <DKNZRYZZVSEA.I0LC7DRPXFK9@gmail.com>
+Cc: "David Airlie" <airlied@gmail.com>, "Jori Koolstra"
+ <jkoolstra@xs4all.nl>, "Conor Dooley" <conor+dt@kernel.org>, "Brigham
+ Campbell" <me@brighamcampbell.com>, <linux-kernel-mentees@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "Simona Vetter" <simona@ffwll.ch>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, "Maxime Ripard" <mripard@kernel.org>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: display: add Chipwealth CH1115 OLED
+ controller
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+X-Mailer: aerc 0.20.0
+References: <cover.1786110720.git.nico.antinori.7@gmail.com>
+ <cf9b02d618db4eca88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com> <178611771198.882916.15330377894023589629.robh@kernel.org>
+In-Reply-To: <178611771198.882916.15330377894023589629.robh@kernel.org>
 
-On Thu, Aug 06, 2026 at 06:53:32PM +0200, Christian Marangi wrote:
-> The Airoha AN7581 SoC supports configuring the first PCIe0 lane to 2-lanes
-> mode (x2 link) by bonding it with the second PCIe lane (PCIe1). This is
-> done by configuring the PCIe MUX in the SCU register.
-> 
-> To correctly configure PCIe0 in x2 link, define in DT the following
-> additional properties:
-> 
->   - additional reg, 'sec-pcie-mac' for the secondary PCIe.
->   - PERSTOUT reset for both main and secondary PCIE0, called 'perstout' and
->     'sec-perstout'
->   - 'airoha,scu' property to correctly configure the SCU register for the
->     PCIe MUX
->   - 'num-lanes' set to '2' to enable PCIe0 in x2 link
-> 
-> In such configuration the EQ preset are configured to the same values.
-> 
-> To permit correct configuration of the PCIe link, additional logic is added
-> to assert and deassert the PERSTOUT resets. Support of these additional
-> reset was introduced in Airoha clk driver with commit
-> 6712f48eb3a1 ("clk: en7523: add support for dedicated PCIe PERSTOUT reset")
-> and on backporting of this commit also the clk driver change will be
-> needed.
+Hello Rob,
 
-I don't see 6712f48eb3a1 in upstream or linux-next.  Is this SHA1
-going to valid if we merge this for v7.3?
+On Fri Aug 7, 2026 at 12:48 PM -03, Rob Herring (Arm) wrote:
+>
+> On Fri, 07 Aug 2026 11:19:50 -0300, Nicol=C3=A1s Antinori wrote:
+>> Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
+>>=20
+>> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+>> ---
+>>  .../bindings/display/chipwealth,ch1115.yaml   | 73 +++++++++++++++++++
+>>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+>>  2 files changed, 75 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/display/chipwealth=
+,ch1115.yaml
+>>=20
+>
+> My bot found errors running 'make dt_binding_check' on your patch:
+>
+> yamllint warnings/errors:
+>
+> dtschema/dtc warnings/errors:
+> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
+display@3c (chipwealth,ch1115): 'contrast', 'first-page' do not match any o=
+f the regexes: '^pinctrl-[0-9]+$'
+> 	from schema $id: http://devicetree.org/schemas/display/chipwealth,ch1115=
+.yaml
+> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
+display@3c (chipwealth,ch1115): contrast: b'\x00\x00\x00\x7f' is not of typ=
+e 'object', 'integer', 'array', 'boolean', 'null'
+> 	from schema $id: http://devicetree.org/schemas/dt-core.yaml
+> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
+display@3c (chipwealth,ch1115): first-page: b'\x00\x00\x00\x01' is not of t=
+ype 'object', 'integer', 'array', 'boolean', 'null'
+> 	from schema $id: http://devicetree.org/schemas/dt-core.yaml
+>
+> doc reference errors (make refcheckdocs):
+>
+> See https://patchwork.kernel.org/project/devicetree/patch/cf9b02d618db4ec=
+a88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com
+>
+> The base for the series is generally the latest rc1. A different dependen=
+cy
+> should be noted in *this* patch.
+
+The patch is based in 7.2-rc6, I am going to rebase it to rc1 in v2
+(or wait until rc1 of 7.3, depending on how much it takes me to solve=20
+some observations found by sashiko).
+
+Thank you for the clarifications!
+
