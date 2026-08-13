@@ -1,120 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F8644163B;
-	Thu, 13 Aug 2026 08:28:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A33E443A97
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:28:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786609706; cv=none; b=p0McMlQvLc8XYBKXCWS6TLQ2heyq1VvO56YdFTpvZB28NXsEPxe05yg3hXQJshQO8zj+mC39OVnkYyGttKiJs7B4XRCrvDW6OpiAPflOqiBx/vaGP23EmI7UKobxTg6ki7AopCzmBGD7zw15TpNiv2NFk6T2HLPBUVqGr0SvC4E=
+	t=1786609740; cv=none; b=ZVl5coNMowmD4EXKVxn8WHJDwRCrNFkOGnoqWipa+h0Z1MvaLOg6mGiz6ac6EIZzXyKS/JWNmC19bUll3954nAUckKd91489rCpUS4B300Xp5HCHpYpepiWdjIQksgysdjUnCpXKalVivs0T59yq/TGRoPNr6PS3ZHIVp4hIOsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786609706; c=relaxed/simple;
-	bh=yzQucKFIEm6q15TqegSfh8nSVXck2W//aSuyU2Mxuj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ClCWMLo4tRqDtiM5QN3PlikOwfPBDhu7TTaEd4CTigsbY5UDbczdYzg11cpYC2YzXS6EV8pPEc2PliDCodLIMbWuchrqGp3YXLYmzrmwVOf38ycWBbg3/S5vS2SEcasbq+IjMLfHgX5jU/P2sGMeUX5Oo4XditlHnrya9VrqdNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IajlGgYQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786609740; c=relaxed/simple;
+	bh=DuIC8yxpqUXF77owLV9q+MZ+87gTHceGefORc/xjh74=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WpqPpPUQuVDrVbzc+xLE6FvunSSYviGBTrlQquZE5hoSIuny87shwqvZdT2y51PyggMmMhxEbQYigCavVmZ0N2VMbLEAW6MCICP3ld1k+Qrxgd23xY9bipf9k8kYH2Tb4zl0WT9ZEB9tOKHmfdUxdvVx8nGZ1NwE2ptC+Sc1RAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fK6aBe4o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IajlGgYQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C921F000E9;
-	Thu, 13 Aug 2026 08:28:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fK6aBe4o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F106D1F000E9;
+	Thu, 13 Aug 2026 08:28:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786609704;
-	bh=DrCppzolJDbBGIHmFRLxn1uZx4F/MBvG12Nh0mtaG60=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IajlGgYQjxra7W4hfzoJNu+BNaUAhnLcNO2HkVMOZXk90QPBw6EiBMGmJHwpwRozR
-	 Qe7KJ5NJ0YqYdeQowxb1IWsOJZ/vhKJ8obkWVH0UdyD5/X1cSyF0FGfzfHFUDupR4B
-	 rU8ZyGxFbPXo2m35TlASGS9+0OEzaSIn5Rmmp8yMwiE2n7D7G4acUCLiWd7TygkpL2
-	 XnHKjDFES1rTI1mOQIZodldz7plUuTl+1uykPr0ZLpUURa+FvJoX9u9ClIh56FpEgh
-	 hTkp0HDmYvOPtbVtgljVTtUXtTKDb4DKRZxCJ+U1zbDkglC6246gtLcnchGVXdku7p
-	 iPAPSinKCXp+g==
-Date: Thu, 13 Aug 2026 10:28:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: Guillaume La Roque <glaroque@baylibre.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: thermal: amlogic: Add A9 thermal
- bindings
-Message-ID: <20260813-international-optimal-limpet-dfb06e@quoll>
-References: <20260811-a9-thermal-v2-0-7ddc33b11b9a@amlogic.com>
- <20260811-a9-thermal-v2-1-7ddc33b11b9a@amlogic.com>
+	s=k20260515; t=1786609739;
+	bh=sZ9VTwK/wfGLqmQ+MDu6Mf23GPMoFkCDxywfuueNJDk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fK6aBe4oaOpOu/JTCUrIfdPVFEJqVXQn1V1MPDhRfJzuLo8bTiouX2NVBpBYcmZKJ
+	 ImNz5J4spD21YuUygwkUbNedI0b6fKPMvvq2C2ZpCCuqrDtF1wmVGzu10OuMOasg1z
+	 GVw32LYn7TB7SwFpDPY3qryv59Sm82n/6QwqDQmnagSM7aW0K/oEByN1uzDrjr4wEj
+	 rkIWkCJojQFZVtW9cVagPLoXnV2cTv5ZXsjSwQns0xoAYtzKHFGky8EPCtdAzN1eCx
+	 ATgpv1Kdk9O7Q5nC1Rinl3LQ98+sjk/amr68vme2CoSRKczYhWi+0z8BfAZvHWj/al
+	 DL85dfFGU+SVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] iio: accel: adxl367: add support for INT2
+ interrupt pin
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antoniu Miclaus" <antoniu.miclaus@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260813081452.4289-4-antoniu.miclaus@analog.com>
+References: <20260813081452.4289-1-antoniu.miclaus@analog.com>
+ <20260813081452.4289-4-antoniu.miclaus@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 08:28:58 +0000
+Message-Id: <20260813082858.F106D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260811-a9-thermal-v2-1-7ddc33b11b9a@amlogic.com>
 
-On Tue, Aug 11, 2026 at 08:37:43AM +0000, Xianwei Zhao wrote:
-> Document the thermal controller compatibles for the Amlogic A9 SoC.
-> 
-> Describe the required "core" and "plck" clocks, add the optional
-> "amlogic,hw-reset-temp" property, and update the schema constraints for
-> A9-specific thermal controllers.
-> 
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
-> ---
->  .../bindings/thermal/amlogic,thermal.yaml          | 28 +++++++++++++++++++++-
->  1 file changed, 27 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-> index 8cfa44dcda58..f73ee66bcc47 100644
-> --- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-> @@ -23,6 +23,7 @@ properties:
->            - const: amlogic,g12a-thermal
->        - enum:
->            - amlogic,a1-cpu-thermal
-> +          - amlogic,a9-thermal
->            - amlogic,t7-thermal
->  
->    reg:
-> @@ -32,7 +33,13 @@ properties:
->      maxItems: 1
->  
->    clocks:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The driver configures the interrupt map register based on a hardco=
+ded name priority, but ignores the corresponding IRQ line and registers the=
+ default `irq` parameter, risking an IRQ routing mismatch.
+--
+
+--- Patch [3]: [PATCH v2 3/3] iio: accel: adxl367: add support for INT2 int=
+errupt pin ---
+commit 89ea1f01faa6ff074e5199721996b317c618f006
+Author: Antoniu Miclaus <antoniu.miclaus@analog.com>
+
+iio: accel: adxl367: add support for INT2 interrupt pin
+
+The ADXL367 provides two independent interrupt output pins, INT1 and
+INT2, each with its own event mapping register. This commit updates the
+driver to determine the connected pin from the interrupt-names device tree
+property and routes the interrupt mappings to the matching register.
+
+> diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
+> index 8c3de11a10a37..df385740b17b5 100644
+> --- a/drivers/iio/accel/adxl367.c
+> +++ b/drivers/iio/accel/adxl367.c
+
+[ ... ]
+
+> @@ -1426,6 +1430,31 @@ static int adxl367_setup(struct adxl367_state *st)
+>  	return adxl367_set_measure_en(st, true);
+>  }
+> =20
+> +static int adxl367_set_int_map_reg(struct adxl367_state *st)
+> +{
+> +	int irq;
 > +
-> +  clock-names:
-> +    items:
-> +      - const: core
-> +      - const: pclk
->  
->    power-domains:
->      maxItems: 1
-> @@ -52,6 +59,10 @@ properties:
->            - description: phandle to the secure monitor
->            - description: sensor index to get specific calibration data
->  
-> +  amlogic,hw-reset-temp:
-> +    description: The hardware-controlled reset temperature value.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-
-Thermal zones define that, not custom properties.
-
+> +	irq =3D fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
+> +	if (irq =3D=3D -EPROBE_DEFER)
+> +		return irq;
+> +	if (irq > 0) {
+> +		st->int_map_reg =3D ADXL367_REG_INT1_MAP;
+> +		return 0;
+> +	}
 > +
->  required:
->    - compatible
->    - reg
-> @@ -73,6 +84,21 @@ allOf:
->        required:
->          - amlogic,secure-monitor
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - amlogic,a9-thermal
+> +	irq =3D fwnode_irq_get_byname(dev_fwnode(st->dev), "INT2");
+> +	if (irq =3D=3D -EPROBE_DEFER)
+> +		return irq;
+> +	if (irq > 0) {
+> +		st->int_map_reg =3D ADXL367_REG_INT2_MAP;
+> +		return 0;
+> +	}
+> +
+> +	/* No interrupt-names: default to INT1 for backwards compatibility. */
+> +	st->int_map_reg =3D ADXL367_REG_INT1_MAP;
+> +	return 0;
+> +}
+> +
 
-Why is one clock valid as well for the new device?
+[ ... ]
 
-Best regards,
-Krzysztof
+> @@ -1482,6 +1511,10 @@ int adxl367_probe(struct device *dev, const struct=
+ adxl367_ops *ops,
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D adxl367_set_int_map_reg(st);
+> +	if (ret)
+> +		return dev_err_probe(st->dev, ret, "Failed to get interrupt\n");
+> +
+>  	ret =3D devm_request_threaded_irq(st->dev, irq, NULL,
+>  					adxl367_irq_handler, IRQF_ONESHOT,
+>  					indio_dev->name, indio_dev);
 
+[Severity: High]
+Could this cause a mismatch between the interrupt map register and the
+requested irq line?
+
+If a device tree specifies both interrupts but INT2 is listed first
+(index 0), the SPI/I2C core passes the INT2 irq as the irq parameter to
+adxl367_probe().
+
+Meanwhile, adxl367_set_int_map_reg() checks INT1 first, configures the
+sensor to route interrupts to the INT1 pin, and discards the retrieved
+irq number.
+
+Then devm_request_threaded_irq() registers the handler on the original irq
+parameter (INT2). Does this result in the device signaling on INT1 while
+the OS listens on INT2?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813081452.4289=
+-1-antoniu.miclaus@analog.com?part=3D3
