@@ -1,73 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699C1432BC9;
-	Thu, 13 Aug 2026 08:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF2043F0B4;
+	Thu, 13 Aug 2026 08:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786609415; cv=none; b=LPX9cKKdG4WDftSx4W+HoXcJdr6ZeewqyOJCQuzTnbG1yVIyqAyVxOT5QZOXV7TYl/5T0r7F+0Lz/qDaT54CDkjpkFOwZl/btokFIY77+tGdJt8XKTG6B2urc9lz4KB7bAnhRtgNAzC5rlGDlHoMQeAI/tqb+SmQcy34RZZr9zQ=
+	t=1786609489; cv=none; b=ppJWUm2qsEwpvmuIJ8K7sHWSAMYM7BtqNn2eGvcVSTT+sdukEn2XUspiDJNvDxGevX59PU/Vm460gaOHwONctSwb5jbG7zWyeNstlU9bdkIMaIYrtfZUMCXu2JWEJOxOlexlVquMXrK/k24pd6s+/WrD9mlIxGMQ7svxiUIo/9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786609415; c=relaxed/simple;
-	bh=ngotu1IatQlbYGcjt9xIX1EdtrDzS2cu+4gFyN2SIvg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LaP12vRuSWXpQfDJph9m/v/Tdg3JRL/IW8bsWmfjNBXbGWMIHM29krvoXiSYoDEOZepWPtVlaT4DQgayfPNDJim7NBGJituh5RjZr3eH03HHsnQAADedD6MeBWUHT1pU2+0AFtr8a6TpDptZGWfIodWXvz3Z1CAwH1JkuZEK5SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhlD24SM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786609489; c=relaxed/simple;
+	bh=zCmrUfoFVJwXdZazRDmnPM7pLBXRf6epSgmPkjDgOcI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=CLsuO9g4NGwmzgZ1EQK6C7cE+PWLVI7rCGuzwzK5q+TQZDoyhXljgNeOsD5j989D3VIYvBred5lXy19V/OnF3ioeYMZzpcFBARklLocbc9Bd7HI8p7MSJ5VxxMaGwmvbeHZXpQrHOFRlwrvTTj6n2tiqqhfOyvXYW6VzySmt93Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rVLtUGg2; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhlD24SM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9BE1F000E9;
-	Thu, 13 Aug 2026 08:23:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786609414;
-	bh=kAJG2tMi3j77KOOlXo8NWPoO25sEP3JIjzOASqatMTw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lhlD24SMJQRjQd+kbLE5uRRv7WuA2GamB/Pus/CabE9F3MPHi5ZVhBai6uUrftIlg
-	 Jjbph9PP0aJkYmx8YLfqc0NhPrUG4bCJuNjNvGZmufEx3dkQOp09HY3xK2anCGSaM3
-	 8sHCpUVvvKv2mw3CG0h/y4a5TLNcy6D5ZYFiCZulgyNQeCeVEbE8TdSExN1GEdVFRy
-	 ET59kIWqX3+VixTe8+OO4GgG7Cf0NuFFKW4UwCmwuxRbTsueIDU3TOWClSFxkVX2To
-	 yc7g3KKcIZjGQXhaarBzfQ4CgZR+53pJ9rDCdpvKPEaw8Z+obieDL0zXec9Myq7hk1
-	 ZqoGoTIvrWQTQ==
-Date: Thu, 13 Aug 2026 10:23:23 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Thierry Reding <thierry.reding@gmail.com>, 
-	Liu Ying <victor.liu@nxp.com>, Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com
-Subject: Re: [PATCH v2 2/2] dt-bindings: display: simple: Add
- boe,dv215fhm-r01 compatible
-Message-ID: <20260813-eager-international-limpet-743d6a@quoll>
-References: <20260810-b4-lvds-panel-doc-v2-0-f2c2fe309989@oss.qualcomm.com>
- <20260810-b4-lvds-panel-doc-v2-2-f2c2fe309989@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rVLtUGg2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 54F0B1A1541;
+	Thu, 13 Aug 2026 08:24:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1DFC7602B8;
+	Thu, 13 Aug 2026 08:24:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0EE4711C4DAEC;
+	Thu, 13 Aug 2026 10:24:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786609480; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=zCmrUfoFVJwXdZazRDmnPM7pLBXRf6epSgmPkjDgOcI=;
+	b=rVLtUGg2Dk3e+r0bPCqesTd0e6w3dX7swr7xoa9wFodaKu0BRNLjn4yQOpwgmZfOVAl6cv
+	n+zYLuQ8FhSImpDShQifSqqcMy90ELbRV4JjiG2weHHsoHVpgWoUdkWFVDCJLn8CvKzfkg
+	/7hW1T+90dDrAw0t4DX/i/eUu/eH8Sl8WBOeXJbM8tzhREOhSHMfBbFW3+s4sON2AiFlcg
+	h787fzWXAp0qRHU4EeSzcXEk2qQk3LlyvwSuCpQgWgK+6md3cqz9wqa29I78gpMdfHDppi
+	sAxmCurdbD2U/PuGUQFFtXLvK/K77TtIdCkwvl3AVMy7XRHVFT9Q66rSJfie1w==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
+  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <pratyush@kernel.org>,  <mwalle@kernel.org>,
+  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
+  <a-dutta@ti.com>
+Subject: Re: [PATCH v7 15/18] mtd: spinand: extract variant ranking logic
+ into spinand_op_find_best_variant()
+In-Reply-To: <20260811183313.1550425-16-s-k6@ti.com> (Santhosh Kumar K.'s
+	message of "Wed, 12 Aug 2026 00:03:10 +0530")
+References: <20260811183313.1550425-1-s-k6@ti.com>
+	<20260811183313.1550425-16-s-k6@ti.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 13 Aug 2026 10:24:36 +0200
+Message-ID: <87h5kyl96j.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260810-b4-lvds-panel-doc-v2-2-f2c2fe309989@oss.qualcomm.com>
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Aug 10, 2026 at 08:27:30PM +0530, Vishnu Saini wrote:
-> Add BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel LVDS panel
-> compatible string to the panel-simple-lvds-dual-ports binding.
-> 
-> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+On 12/08/2026 at 00:03:10 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Refactor spinand_select_op_variant() to extract the inner loop into a
+> shared helper spinand_op_find_best_variant(). The helper takes a
+> skip_mask bitmask of already-tried variant indices, enabling callers to
+> iterate variants in ranked performance order while skipping those
+> already attempted. spinand_select_op_variant() becomes a one-liner
+> wrapper. No functional change.
+>
+> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
 
-Please organize the patch documenting the compatible (DT bindings)
-before the patch using that compatible.
-See also: https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
-
-Best regards,
-Krzysztof
-
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
