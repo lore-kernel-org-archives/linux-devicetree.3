@@ -1,226 +1,138 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804740B6EF
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 20:58:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786654703; cv=pass; b=EukXAohhrCb+iieya5/Zg5rqTxANWzrNMW0IYhCFEfk/Lco9WwexII4McBuPESQ7atq99t0z9QOTmu5/fBTsQCqDP+B2HD1yTYv8bN6BqfMo8dgFZ0RMr3ZadEMJ325bRN6SX7M3ROMUoRN8phMBFP46ZR2sZG+LHbiJzlFcAww=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786654703; c=relaxed/simple;
-	bh=/xB5jWHXqzTzVpEIuX53vofBJ70T8JLPbOmbdW9c2j0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fBPkQ261HUb6yxPQZhp6rGExKSQD3nI4DnuFT4wgSjbyOqYJ4q6LcSGLAQV1rHXnrIKaUcLZgfQ2h4tYr6g021N/eR2DcPjV0dy89jSLbrPudVNtfuvvDoD3RRF+4YTtPVKxhyb8V+jMu2k7UpaeALFpR6e5VLVwI/CW89Va6w8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h19OaGZm; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB3C4399EF
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 21:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786655377; cv=none; b=ZydmBNtgAsygnJbSMsP/1wfzyzra+UXUoAN4p36Z6p/WFWs/GSKAIAOut8wdvl3IpsV1b9HtVJ59Lfj3ld1cts0ffW4hg4UCPsDl5ajtP5jytM69/v+SXhCLxWNPENmoySO2HXIIvugxNu5rX0LRk1KSvWMtWKJOJpg1tdHYzDo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786655377; c=relaxed/simple;
+	bh=Hp2dcXM/XUPidSA3t5C735yr8KK0/qRkNqBby47yXic=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h+afE9j4D7rpx1IvykBCgjTQo59IAsRRuH8vvLOJEOt39vOFGVvVthp7SrYEgG8aBWGgiClqxesY/DMfnwGIyJHt1hb6aKKA65eEvViypnzOuEwoqAVjg5xv0w9jvAl1xvMUWDqUDANGwpCd47PDNLT1PcghHrTr7Vmw1kaEuDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=hZjFnzAS; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h19OaGZm"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c15cb6f5c12so71599866b.0
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:58:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786654700; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FYgOgGutvu6a+CM72bj6DmbxuBQL/7aGaDKftjjI63vo9G0ytyGBM/fDJ2znJFy4/I
-         +qSbtaz/1zhjeQCpajiSkSL55B5xSBgmpzPkj5HeQfGb6gVtnBwqHUhmQcAfHEADAu1a
-         pYwhwZ0uDkyYTEIAAK0vGjvnRn7GDNrvM4485POKeWvELV/kglV0v2eudH1Lj3IYP4UZ
-         0+9GP7gtoocXXr/5RLfVtoCX+KPneklCYXCOHTrFMKCm8We0ufTFItEgptl1TBSNHST1
-         Yfq60AY23ICjT5ldK5i1jKbBgpa8HSrD4ckS1XZ++0YCKeXPoN19PcDVBxqv9oPF4GSR
-         J7Kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FMKOZgzufVVCLOJWeEGJ15IjqhNjAOcuZzkZmWD1eJY=;
-        fh=nChFmOCwmqicsiPzH0qBnZb5oApgT+hJ2RulQsL/71g=;
-        b=TuHrncE+QO11VhAq0FRNzimO2Z6zkAdfgjNzu8NMXRPlrDFh8nf3TIs3pxasjl10fO
-         ri/N32FuEwAEKc0ZPGHiRmZeG07PQzuZwSpnVkazqfQ5h+xh8/5nMoUMr2f7+zpAdrPA
-         11vhRnJxaAU85lErb8qU6V1Jcju92v/DaZ1AH5tLPqQ0D0nvcf5kBBofmR5z6wod+637
-         bvAsBg1ZwTpktF025twOJzdmefEycBG74pflCQah/twk55fbA8HCrK8PKLVqsKNK///c
-         A3SOTVY1gIA/zsMYWG9zDP60wHgZ08kZpMjF8WYwZwd7Z0ab6E5uWIVAUTeLyVgD5LG7
-         EM9g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="hZjFnzAS"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c998fd549a8so195750a12.2
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 14:09:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786654700; x=1787259500; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FMKOZgzufVVCLOJWeEGJ15IjqhNjAOcuZzkZmWD1eJY=;
-        b=h19OaGZmoG4y8EdQqoS+d3m7noBw5+nt2lRRRtROTMXim263mxbszy9tI7C0ucjnZA
-         /Krdp6YmpNxTwpfDOgnsT5yQ39dIFVWC0EdsrmEC+gRskbzuF6vZTo38edzWkSu0bsEg
-         w5gYGf4o/1T1Xd8OMeB7m4MmUpwqhSPkzE8t55CWgZC8Y4M8X19pVNDajDt1M2Wa9gQS
-         m9Z4QadUHbjkiC4ripB/t7BKufuLRjfDaggMBd2Hh/Ee6yWPbDlM620gzi+f2TqsF7aq
-         7glaLoO5S3t5PiaI97WH+1ML0IDmrCK1eypXiG6wy4vs/MNL5TpMSCeDm1eZS/HJ91zc
-         zVyA==
+        d=nexthop.ai; s=google; t=1786655375; x=1787260175; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XlUl9T+eyvKnDKZwOXK3sguk5KOgNvgtL+Pgz6DeMIQ=;
+        b=hZjFnzASxHt1/eP4ioHeC370sO5z4IUoFGWKX0P2YedIA7flRN/jcoviVLP6eAXzvB
+         LMgnYq3X7R7j3EZCnNkfJTwZHo5ecALL+dATdc5kZx8PQquyXKQItTMKsRS32DNC+RU6
+         Fk+WNtj+YSrWBUVUYtUqgBd4F9Di7qMmVD7m2J68ZYfuuZDcOOe7YTYdXwFuvGU9nuGq
+         DBZSibCpz/cYpNgFbRSwqALkj7dsYC2Xuc7x2XhdM/GGwe+v1RYI1zMiFJ3+gaU5XAGI
+         1ruShhri6H0I9g0TC9Ztkyy2YtEfbeIt3zuY3kgQbeGzj3Ry93qGtWdWoiFBZCxjHNu9
+         xcZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786654700; x=1787259500;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FMKOZgzufVVCLOJWeEGJ15IjqhNjAOcuZzkZmWD1eJY=;
-        b=eRINvuEL/V7V0eUheyhdQ/I2AGQf/3n98eUlvEW7qKzGnF59rk+elj7d4G0R+Jb5vu
-         rYnuCAd+b4ueW+0jl3PkLe2s8DwnxPYF7qs1556srk4L6TXp35nktcZbShIGkoPT9GE9
-         SRAO2dLugmGyev8Vcf+fTAGefcqoJuhEldClrJfUdPFRec8R8xiLEpWsNOJEXieqbooL
-         bOxGV2xYOdYsQzjYXG6YMu/GuBrRPKMeSPBkg27lGXbb1UtRjrS+TAZFaf+VozssMWNk
-         fCRjxHRu+1L0zMlEDrS/V8TLpYOFhsVQbqVVXOjl7HUik4dU4qx4O+I1E+oGW+b1+YOw
-         ooIA==
-X-Forwarded-Encrypted: i=1; AHgh+RqUJ7x6OQiUh9UWsiHjczxaz/rqDju7gYvZT+AwnAau67/HjxbmJB6KsDoRFSMoG119kUjrOqfxK1Ef@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1O+/IHUO1ZyuJWvQNoaDldfxbj+GyDDmavjAn+4RjIn2Tu8uz
-	aMfcp59ArAzMXsJH8413YYZBsi4wIiQB8S5gwFwipBVNIgHVfcNKs87gMhvZGgA2nij2uceXuGw
-	ioxKJC3E0rCJK1MzsJr9OZM2mDrouocQRkZSR
-X-Gm-Gg: AR+sD11Rdo0ogP31VS+K1vuvVIbWyirgsSCkzHPi6NTvFiEmOP440pSD5YIZ61SAEw1
-	YfOT8IhT1p1drjD1rOx97x0SXHp0uD18Idq6B+g5BTYXlgyYQe/aTgVbq/h9hazmaeaKj5BZms0
-	GlK3SKRj6jGlKJQq2U3zSnLznMN8C39jB9mEJ0/HhW0jiELFbkrygdS5Ei6J2+jUXBgH8aX9b1z
-	5RsuNdlYxdD6aUT3LXMk6YAsX6XHZ6MqNqxbkjzkV75dZlym783xRLtgvfMwi2qWoIUBsU99D/J
-	JTOEkNJd7K2zHhYb9z8ngHZ2N2HLDmxNw13BS+tFe6Ul52fIeA3Vpc8NkklRALoijxpGPo6+1W3
-	zq88chdHbFZqqG0IZXO6HkFeK7+VKjF3KEugaqE2JYiEHPciBUXzjMpsRuNbBhhmvsrWE5cjUpO
-	1Wij765XutLMVwAeeQNSToXJVDa+EhvA==
-X-Received: by 2002:a17:907:9612:b0:c20:2eee:97b7 with SMTP id
- a640c23a62f3a-c212a0f45f8mr50426766b.10.1786654699886; Thu, 13 Aug 2026
- 13:58:19 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786655375; x=1787260175;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=XlUl9T+eyvKnDKZwOXK3sguk5KOgNvgtL+Pgz6DeMIQ=;
+        b=Ql5smYgIBmnEjE+gXbVPRb2WecCRfFU0ZwhtHp+ttdNe9fEsziam9uOzkeVlCjBI2y
+         KmsltNM9B6x92J+oi5l2/SpjKtoFn7lS685qtpXIvjmHih7Etjb3vmfJ/Y31XhoILJgR
+         2BkpOnNzrtXbomFrZfWXH1CckgjTywu953V8fVdO1W6IuzSI/CAyiWnZkcM6afHYOY4r
+         aSWzIkRivGzfpufMMjjr88b8LYRwkAnisDM55XrApMLKFFWjJKA2WveXF1DOI/5Dhhv0
+         j1JAGB+2lSr86V+rSw9J9zTIJTSZ41otUUHfhfEDxeAgzoJ/xWokLgKvF7VBceFkddcj
+         UDeA==
+X-Gm-Message-State: AOJu0YwWoe/jgbagQwlEPZQjP9na1a5WZJFEFQCDys2jaXASqij6wzdg
+	GCFsWvCPbUCrOT0UlFL724u30l1bRuVAWQy126MpgsT54anet3ELnwfioTnY6sQJb05hev9gh3y
+	cZYLooV0=
+X-Gm-Gg: AR+sD11SVfLECZcofcKhrks5/7r0joQkvtwpGpXTXhIwXHheED5Xl+yxS0vEsECwE/a
+	8TX1xX7ycHIIjYg/aRGr8ANbNvORgo9zT9Wy5mw/dZ7O0WjSxmJW5YC/DCeVdcg0IRnZRk/s4GS
+	qdasD7k3b1ANB4cT0sIpBH2G1cCc8x+qCXkMFKCQ0rgG7v4VW2uwYpFERXCPFBR7YCbZka/q8Md
+	6HJPjMUTljQAB/XkwrxFQ6wBJ49zjAI90n5rMnibKYCXASAVjKGG/6ArCPTPVInWAFvJv41qRcV
+	mHxgcx78Bu9877zQWV3OqnZQGlQQr6CK2NT1+Z451nFw0B91fVNkzPXgzHlYnkveQFuNZKB0ymn
+	Ujnj9BtcAD3DozXvhpDAtFt7vt/2DPtEpwM9F50WMRRSZbFrlO+W4/W4UG9kKIUbyYaolN/7NXe
+	ewPmPqyrfjqL3KYzIshcFmT2/Eo1bEctWa5IODVGSArNOEzFtx/20fSOImrPRf0e4=
+X-Received: by 2002:a05:6a20:258e:b0:3bf:983d:e9b4 with SMTP id adf61e73a8af0-3cc71f7b02fmr547188637.33.1786655374944;
+        Thu, 13 Aug 2026 14:09:34 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141387af4adsm1484343c88.1.2026.08.13.14.09.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 14:09:34 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Date: Thu, 13 Aug 2026 14:09:32 -0700
+Subject: [PATCH] of: property: add i2c-parent to fw_devlink supplier
+ bindings
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813160139.70000-1-andrei.stancovici@analog.com> <20260813160139.70000-3-andrei.stancovici@analog.com>
-In-Reply-To: <20260813160139.70000-3-andrei.stancovici@analog.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 13 Aug 2026 23:57:43 +0300
-X-Gm-Features: AUfX_mzQbBF40TX5-53l7NvXgRquRfw3jQNW53giSLK5VOi38_cPDpZfU8jUQPk
-Message-ID: <CAHp75Vd2_NwPjqM1MMBn-2KP2h=ug=Nv-v1CgfmfPdN3jE50Yg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] iio: adc: ltc2497: add LTC2499 internal
- temperature channel
-To: Andrei Stancovici <andrei.stancovici@analog.com>
-Cc: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Beguin <liambeguin@gmail.com>, linux@analog.com, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260813-b4-of-property-add-i2c-parent-v1-1-a2487e920ce1@nexthop.ai>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CIBAAwK80e3aTQhusfsV4oLDoegCyUKNp+
+ vdSPc5lVigkTAWu3QpCby6cYoM6deCeNj4I2TeD7rXpJzXgPGIKmCVlkvpF6z2ydpitUKyozOS
+ MPwd1GUZoRxYK/Pn9t/vfZZlf5OqRwrbtJFnKKoEAAAA=
+X-Change-ID: 20260813-b4-of-property-add-i2c-parent-168c6d7f1934
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786655374; l=2180;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=Hp2dcXM/XUPidSA3t5C735yr8KK0/qRkNqBby47yXic=;
+ b=Abg54Sse1aGWrGGIEtDCKbETGFDRipZJURNLRkGqNfGWIxY0n8wrtrT2HWMurxI4KPMOhcne/
+ WxwrBs+r2HkBUPw0DB+/SkRd3GbtF3IK4KI91Xiu8fy/C/3HJC3z5mm
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-On Thu, Aug 13, 2026 at 7:02=E2=80=AFPM Andrei Stancovici
-<andrei.stancovici@analog.com> wrote:
->
-> The LTC2499 has an internal PTAT (proportional to absolute temperature)
-> sensor that is activated by a second I2C configuration byte (EN2 | IM).
-> Expose it as an IIO_TEMP channel providing raw, scale and offset so the
-> standard IIO formula
->
->         T[m=C2=B0C] =3D (raw + offset) * scale
->
-> reconstructs the temperature.
->
-> The PTAT sensor yields the absolute temperature as
->
->         T(K) =3D DATAOUT24 * Vref / 1570          (Vref in volts)
->
-> The raw value exported here is sign-extended and normalised to
-> 2^(resolution + 1) =3D=3D 2^25, i.e. raw =3D 2 * DATAOUT24, so on the IIO
-> milli-degree-Celsius convention
->
->         scale[m=C2=B0C/LSB] =3D Vref_uV / 3140000
->         offset         =3D -273150 * 3140000 / Vref_uV
->
-> The scale and offset are derived from the reference voltage returned by
-> regulator_get_voltage(); its error is propagated as before, so a board
-> that fails to describe vref-supply gets a clear read error instead of a
-> silently wrong temperature. No board-specific reference value is assumed
-> in the driver.
->
-> The single temperature channel is appended as the last entry of the
-> shared channel array and excluded via num_channels for parts without an
-> internal sensor, so the existing LTC2497 channel layout and device name
-> are unchanged.
->
-> The LTC2499 latches its converter configuration from the second command
-> byte and only re-evaluates it when that byte has EN2 set. EN2 | IM
-> selects the internal temperature sensor. Because a single-byte command,
-> or a second byte with EN2 =3D 0, means "keep previous", a one-byte channe=
-l
-> select cannot pull the device back out of temperature mode: after a
-> temperature read every subsequent voltage read would keep returning the
-> PTAT result instead of the selected input. Temperature support is
-> therefore only correct if the voltage path also emits a second command
-> byte that re-selects an external input.
->
-> Send two-byte commands for all conversions on parts that have the sensor
-> (has_temp):
->
->         temperature:    EN2 | IM
->         voltage:        EN2                     (IM =3D 0 -> external inp=
-ut)
->
-> The LTC2497 and LTC2496, which lack the second-byte mechanism, keep using
-> the original single-byte channel select and are unchanged.
+Platform-device i2c muxes (i2c-mux-reg, i2c-mux-gpio, ...) reference
+the bus they multiplex with an i2c-parent phandle and hold a reference
+on that adapter from probe until remove. Unlike muxes that are clients
+on the parent bus, they live outside the adapter's device hierarchy,
+so nothing orders their teardown against it: if the adapter's device
+is unbound first — e.g. while reverting a device-tree overlay whose
+changeset attached the mux nodes before the controller nodes —
+i2c_del_adapter() blocks forever in
+wait_for_completion(&adap->dev_released), waiting for a reference that
+is only dropped later in the same teardown sequence.
 
-...
+Teach fw_devlink about i2c-parent so the core creates the
+corresponding device links: consumers are unbound before the parent
+adapter's device, and probe ordering no longer needs -EPROBE_DEFER.
 
-> +                       /*
-> +                        * raw is normalised to 2^(resolution + 1), i.e.
-> +                        * raw =3D 2 * DATAOUT24, so the PTAT scale (data=
-sheet
-> +                        * Vref / 1570 per kelvin) doubles its denominato=
-r and,
+---
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+---
+ drivers/of/property.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Kelvin
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 72cf12907de0..c1e89629c842 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1409,6 +1409,7 @@ DEFINE_SIMPLE_PROP(resets, "resets", "#reset-cells")
+ DEFINE_SIMPLE_PROP(leds, "leds", NULL)
+ DEFINE_SIMPLE_PROP(backlight, "backlight", NULL)
+ DEFINE_SIMPLE_PROP(panel, "panel", NULL)
++DEFINE_SIMPLE_PROP(i2c_parent, "i2c-parent", NULL)
+ DEFINE_SIMPLE_PROP(msi_parent, "msi-parent", "#msi-cells")
+ DEFINE_SIMPLE_PROP(post_init_providers, "post-init-providers", NULL)
+ DEFINE_SIMPLE_PROP(access_controllers, "access-controllers", "#access-controller-cells")
+@@ -1562,6 +1563,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
+ 	{ .parse_prop = parse_resets, },
+ 	{ .parse_prop = parse_leds, },
+ 	{ .parse_prop = parse_backlight, },
++	{ .parse_prop = parse_i2c_parent, },
+ 	{ .parse_prop = parse_panel, },
+ 	{ .parse_prop = parse_msi_parent, },
+ 	{ .parse_prop = parse_pses, },
 
-> +                        * in m=C2=B0C, becomes Vref_uV / 3140000.
-> +                        */
+---
+base-commit: d58772d8520c7ef247c4b95c9bd76d3a25da9ff5
+change-id: 20260813-b4-of-property-add-i2c-parent-168c6d7f1934
 
-...
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-> +                       ret =3D regulator_get_voltage(ddata->ref);
-> +                       if (ret < 0)
-> +                               return ret;
-> +                       if (!ret)
-
-In this case I would rather see
-
-  if (ret =3D=3D 0)
-
-as it's about value and not a returned error code (success).
-
-> +                               return -EINVAL;
-> +                       /*
-> +                        * 0 =C2=B0C =3D=3D 273.15 K must map to raw + of=
-fset such that
-> +                        * (raw + offset) * scale =3D=3D 0 m=C2=B0C, i.e.
-> +                        *   offset =3D ABSOLUTE_ZERO_MILLICELSIUS / scal=
-e
-> +                        *          =3D ABSOLUTE_ZERO_MILLICELSIUS * 3140=
-000 / Vref_uV
-
-This is a bit too far. In the comments the plain numbers are much
-better, we should understand math and physics behind.
-
-> +                        * Computed in 64-bit to avoid overflow.
-> +                        */
-> +                       *val =3D div_s64((s64)ABSOLUTE_ZERO_MILLICELSIUS =
-* 3140000, ret);
-
-Casting is not needed, the trick is to add LL type suffix to the 3140000.
-
-> +                       return IIO_VAL_INT;
-> +               default:
-> +                       return -EINVAL;
-> +               }
-
-...
-
->  struct ltc2497_chip_info {
->         u32 resolution;
->         const char *name;
-> +       bool has_temp;
->  };
-
-Have you run `pahole`? It might be that on some architectures there
-will be a gap in between existing ones due to 64-bit required
-alignment.
-
---=20
-With Best Regards,
-Andy Shevchenko
