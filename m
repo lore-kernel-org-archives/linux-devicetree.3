@@ -1,117 +1,132 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2273A2F4A05
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 18:28:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786645732; cv=pass; b=dG64ZA/hJ/CjGJSButH9wZwZZkFn3IDDVkYwASEE8xScL2y0GmBFQBsGFIyFZdLuRSb0BxegsnkdoO9wZlmWdsUgyDQIISUwdFM6SBuv3hLKHdXF5ZZ+bW0ke3k5DTfctTnWmfPmrSIj23x64pgAXAymv96eshgQRa7suWLWw8k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786645732; c=relaxed/simple;
-	bh=MgYHjE0rvaOuonMGe+vIDYz9g966fBHZGfyHDLSnHq4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CQDtD9mjD7Tdeo3gHcPEJ23GBzOmGlmNcnF1IPjoekaCMm1hyONZAf9Kw3p/tu4MtkD9ZIws7VapuMGyN0wCPh9+HeFEIan/OdlnHElnEgY7TntIEk+qHT4JeNIj8DX6bQuZjL0kfcQfFOvHYjZohytgyiHQ4oPfaixY9LtBdEg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KIW6fuKd; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA4A480955;
+	Thu, 13 Aug 2026 18:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786647001; cv=none; b=Xzj9us3MpESdFZQHNEcLFN69awb/FVJKYWP5z4K2MciutZ6cipTORGsiMJCCMGpSkaBIMmCYZi7n2zivoAmzCtf8flgZLEluON4ZGJA0BuHxnjZqvQARQo9YbdRFItnroOQLjXR8OfecnkbI+SPE4qHA7N9/dSmgHyk/pKtmmD8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786647001; c=relaxed/simple;
+	bh=N2tXyEP5k6siy2BStVXxZGhHfQNVOTkLt4pjp7m6PDE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B2C7TbSdl4S4S0/Q3I0hmdTG1/FCg3rSzExIXfiRzBvkVVBZoQzyr+Uylbp1fXgdSFtr3B+v5GpPUqnRLjWYbNEpX6IZ6qX641sgjYepAsFo1l+kWehN9Hcp0zBWhrmCquU69PQhDZCKpfodVs1DDK3n9rj8keQhJQDx/CQ6J8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YkS6aTgA; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KIW6fuKd"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39c953950dfso1261311fa.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 11:28:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786645729; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m5AMq8vUn62PyWsVozWDFwSnQBPD1hRtgAT37r/XcuU6npCqn6ClSdOA21HxcNzyXs
-         s0SQ6pNlGVsXBhZno6bL2LWUyL1wrajHAWVsjHnSYmB7W80b452KHxcIBkFNgQ+NzCz0
-         MNBYAkXb4wJE2Cz7T8VE0xJKifMAYdDSQviaPzzLIX8VsGuszfAEVHF/EiSf2cGHT/iF
-         kSAuTusbA/bNhhRRCnyVywaW9bxViL5Dw60Gn0XcmZYQmB7/KHyC564sN4Y7JYSSKhk9
-         sGnucj4vIUgvcZfAimxKfb84fR4qQ5j5xmKdOQKS1MICZU4l44W6jMAL4TA/gC7yv3sv
-         EfGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MgYHjE0rvaOuonMGe+vIDYz9g966fBHZGfyHDLSnHq4=;
-        fh=5fFN1ad0o2dfU9S62RabIbpRLABuRHrFbtfoOffAQVs=;
-        b=fyXsMW1PYpU2qLobZQ9e2HtnZ2FncdnGMGyzcrAIYrmRpinv9psl47eu+tsYa+NSYZ
-         Bf7GW76zZCh8duaobMR/tuAAt7QAJBuuPvntZ36PtaEuIkPJchB84HV5apPt1V2rQoSm
-         imBE60acZav2LWLuNFTPcELfbNFxIqiNIwjPXDeeBrJGSRSCisP4P/RUZ0SCbqd9Auo5
-         kZvbP9zCC6MRBG5JVIJb0OH29dHiLpcsIbEfg7gx/0fZVzY+B8G/28CFBaxG8cLEt15g
-         9ZR4zKXhLzQw77GuJLJhUvn3zrzzHgALODsM4FQbB5DJbdMJ+xaxxRMpZ5iA3ahoGa/B
-         YFfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786645729; x=1787250529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MgYHjE0rvaOuonMGe+vIDYz9g966fBHZGfyHDLSnHq4=;
-        b=KIW6fuKdBFW64QK8X9b0BlFYsWpfziz2xVwC05LMcHpe6tmYfD7xoit9MUb4Q2DSXS
-         znNqYHU/8ZwYu0WT/pAEN/QVqZumP3N9qQlekxCuluYxfwVww3gZ5C7bJBmbJeURnZR1
-         lyhgnGLEM0Of5jvWAVxX9vU8yTaIPiK07lVZ/P3g0Lr6n76xa3YhMkZbXn782U/o0UIE
-         CVjX0txvLnceXMZDAqhuQEJ57lyi+aoFhLEpvZ9sZAnz4P4dcIXpyV0wK4UkkwHww+u4
-         Hv0VtK6E1SztVN+3ixRvY0Y74ML0/TecwKGuKHjsFRMJTQHVXlTYZl6OjHFELVB7VUbh
-         cdJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786645729; x=1787250529;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MgYHjE0rvaOuonMGe+vIDYz9g966fBHZGfyHDLSnHq4=;
-        b=lQKCFogDI3lMU0WcRnxFeRilBydPs6hORxpX+9f9rclTZayfaAZAzqPbMJhDC9i3TX
-         cMWJvwYMJZnN4FZ9y5GScNxASp02O2mjTeOEJlrUQR+4FbRhYdLwTHScc5ZYtc3YVIgO
-         mtOZjPRypbmMzsftVb3udf6bBHX/vQ7p533KucYOEWVQ9G3ZoJ3KpU5rGrBvfBIEdIBP
-         FmgJ8esD0U+6FYknhnhiC9EXHCQhfEZ5FXzSdVs+DQ1lcw01NYTGeg8az/6wvxTqM6xc
-         82njdaUjyUkONcZXzBMSw/3pV8SXKfQU+DuUW2b3zyHj6OAFuPx8OcGK/ykHWTAWDsrH
-         i0kA==
-X-Forwarded-Encrypted: i=1; AHgh+RonX2pyF5t2ZmXlDkKy/5o37mWYg7xPF2UjEoDbLZxHDFlIgm9/yLO4HobTKOOlbQUPKKXaDH1vKd5K@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqNPebymCftqYWaf4XK83RyGUtxyzS6OULZqBXa5f18iUBceV4
-	6sSdesB9xkOTP6zauuim3st2c0+ZID68GAhinke7dgRXeJaOqldy+jzBU94OkeiCh5Li1oIHEaM
-	5adsiimbQ4tgR0iEnYE1AAV0EZyWvJQE=
-X-Gm-Gg: AR+sD11hggUlyvSlZHCxCcj+iFFdZMlSP9oDl4zXW3EXEejhVyc2jIMHaTU+M22fcMM
-	TcfvTiQbY4mrVe19Uyg3kgw5CVvrqlyWMauLB017TmmBouGhoHelCXvHDEaGuot4unW/po+vtUV
-	xYGLw0ljt/YVMOKFZ0C3CyTH9VEYr9sVSp3LIOba8lQJZGgCkX7kYu4Pn5fLeqTD7hDbFewfRGD
-	5PIuCS1xCk4oRX2lQnI+UNfFdmuLvrCo+oCqKpAn5S9W12+byiaeBq0BlKS92/83Mfcm52/N939
-	qBGaSdBQ3hasL9LYurNVqyvFMVq7ALMrsb6eNAWAIPAW6qLA8CHQ6GyR1Wa44xcxu+W6d9Qs+EB
-	JWzvIBCuoqOYixFEOu34Q6/j4fJO609CMIw==
-X-Received: by 2002:a05:651c:144c:b0:39f:a2be:bc3f with SMTP id
- 38308e7fff4ca-3a1324a50b0mr553821fa.16.1786645728923; Thu, 13 Aug 2026
- 11:28:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YkS6aTgA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1786646997;
+	bh=N2tXyEP5k6siy2BStVXxZGhHfQNVOTkLt4pjp7m6PDE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YkS6aTgAFuPqpi0u5/aB6g7a15Bilrqtg6musRFtx/4kw0wLutmPosTYiyebpbwXK
+	 D4SjwtqCGdGEYgot7Enpzx39nyhwHjnI4I6Ck4E2psL1rnl2W8EUbV/gbg9EO57Bk9
+	 5w4aihJYMG5r+9QVyAUF6u4cOAlFG23dhgsuLfoP11l3Oli/tGFkKfmiEhRIjY0FqT
+	 iloV4uejjNmbKqiUd/ucjDoEXJDJuSz0pmSrrOcKosBhkaHmxpLH8RFgengBl7F49P
+	 Im14ke4nAsRVxlWBT628o28kpmPidzmkBhf7I2KC/Pq7hDNT/O7jZ8YxWpyFwIUc0q
+	 K1BInUr0PUmRw==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D5C7E17E013E;
+	Thu, 13 Aug 2026 20:49:56 +0200 (CEST)
+Message-ID: <7278a889-15a8-42f4-806e-7a28bc7d9495@collabora.com>
+Date: Thu, 13 Aug 2026 21:49:56 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813161101.2274327-1-mehmet.fide@gmail.com>
-In-Reply-To: <20260813161101.2274327-1-mehmet.fide@gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Thu, 13 Aug 2026 15:28:36 -0300
-X-Gm-Features: AUfX_my5p0yWdwpoBKfTk9A0esYAtB3NODe2jCHwBG5CaU5OZpEHLSdJGKH_EW4
-Message-ID: <CAOMZO5BwLCRd_cTV82J0KgPfSF6_kUKiSUbG-SKxNxiNu0VKOg@mail.gmail.com>
-Subject: Re: [PATCH v4 0/4] ARM: dts: vf: Iris carrier board for the Colibri
- VF50 and VF61
-To: Mehmet Fide <mehmet.fide@gmail.com>
-Cc: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Frank Li <Frank.Li@nxp.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Stefan Agner <stefan@agner.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Francesco Dolcini <francesco@dolcini.it>, linux-arm-kernel@lists.infradead.org, 
-	imx@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/14] Support 10-bit YUV422 and 8/10-bit YUV420 color
+ format on DW HDMI QP
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Andy Yan <andyshrk@163.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
+ <20260813164356.9625-1-royalnet026@gmail.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260813164356.9625-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Mehmet,
+Hi Igor,
 
-On Thu, Aug 13, 2026 at 1:11=E2=80=AFPM Mehmet Fide <mehmet.fide@gmail.com>=
- wrote:
->
-> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
->
-> This adds a device tree for the Toradex Iris carrier board carrying the
-> Vybrid Colibri modules, plus two small preparatory patches for the
-> module-level dtsi that the i.MX Colibri variants already had.
->
-> Everything was tested on a Colibri VF50 on an Iris V1.1 running 6.18.
+On 8/13/26 7:43 PM, Igor Paunovic wrote:
+> Hi Cristian,
+> 
+> I tested this series on an RK3588 (Orange Pi 5 Plus) with a sink that
+> actually needs it: a Sony TV with a 256-byte HDMI 1.4 EDID -- max TMDS
+> clock 300 MHz, no HF-VSDB and no SCDC, and 4K above 30 Hz offered only
+> through the YCbCr 4:2:0 Video Data Block (VIC 96/97/101/102). Without
+> YUV420 output this display has had no 4K mode above 30 Hz on the
+> Rockchip HDMI path.
+> 
+> Base: drm-misc-next dc2f9f7fed1a ("drm/komeda: Set display/writeback
+> clone masks"), with the dw-dp v11 and usbdp v13 series applied, plus
+> three local patches: board DT changes enabling USB-C DP Alt Mode and
+> pinning the VP2 dclk to V0PLL (DisplayPort side only; HDMI ran on VP0
+> from the HDMI PHY PLL), and CLOCK_ALLOW_WRITE_DEBUGFS for unrelated
+> clock experiments. On top of that, the samsung-hdptx clock fixes v6
+> [1] as the runtime dependency noted in your cover letter, 
 
-What about the latest mainline kernel, 7.2-rc7?
+That is indeed the most recent revision of the PHY fixes - the patches have
+already been applied (available since next-20260812), thereby unblocking this
+series.
+
+> then this series.
+> 
+> Results on the HDMI-A-1 connector:
+> 
+> - The connector now lists 3840x2160 at 60/59.94/50 and 4096x2160 at
+>   60/50 for the first time on this setup, and 3840x2160@60 shows a
+>   stable picture.
+> 
+> - The negotiated wire format matches expectations
+>   (/sys/kernel/debug/dri/0/state):
+> 
+>     output_format=YUV 4:2:0
+>     output_bpc=8
+>     tmds_char_rate=297000000
+> 
+>   and clk_summary agrees: clk_hdmiphy_pixel0 = dclk_vop0 = 297 MHz,
+>   just under the sink's 300 MHz ceiling.
+> 
+> - Cycling 60 -> 30 -> 60 -> 50 -> 60 re-synced cleanly every time,
+>   with no errors in the kernel log and the VOP interrupt rate at the
+>   expected per-frame values throughout (no underrun storms).
+> 
+> To be explicit about the scope, three things were not covered: 10-bit
+> output in either format (this sink's 300 MHz TMDS limit rules out
+> 10-bit 4:2:0 at 4K, and my compositor cannot force an output format
+> to exercise 10-bit 4:2:2 -- I can retest with modetest from a console
+> if that would be useful), and the 4096-wide modes were only verified
+> in the mode list.
+> 
+> For the series as tested above:
+> 
+> Tested-by: Igor Paunovic <royalnet026@gmail.com>
+
+Thanks for checking this out!
+
+Cristian
