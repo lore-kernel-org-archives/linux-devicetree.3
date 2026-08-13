@@ -1,151 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD66E340283
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:46:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E42C37267C;
+	Thu, 13 Aug 2026 10:49:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786617993; cv=none; b=gWKgYWJF0ou/mkKm8TKlIfOYaAWn7Cb6bCqQw5QYRfjBE0yWtS4Fa+DgeeG7TjH4mh7SRomKOIFpNL2J42NzOBUGfeNPX8wSqpNwx8oyPOzOedPShfYHg8Q3oJgPMdYvg6HiOEn6mi2LjVn/+ummnYhIN207hwWZbYT94Of5BRM=
+	t=1786618150; cv=none; b=Cr75IuzON1nP+koUbMYQvKQmAUOIuc4gI7E/2Rs4tuNt21aFvSxUVJXOw5sl9uPoIqDk2GTHbI9g3rcKaLLTFjH5zK7HjbRvcUC2JEM3gNnlJjeQg0DrhI7icYg+sO7GpAi/uQjuLaQA07HfUVJYGDEg/vRfeblE+Cd4dWvttIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786617993; c=relaxed/simple;
-	bh=62Z+MBNXTOtCCRn0RGnAn26OV8vwPV1jmsrY21GE8oo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OzgICn4QlnpK+vzTEZq1B6SC2fWz5gRPbJept0/6F0fDYotqF46QlQ0UotqnaC1YxsGpViMzI7NpsA7Q/euy59mudQFyA9cmwd4Ga97P1gPZ6S9tVapURAD6rEcTJ/jSjSPjXYrTq2tyuVg0tc50rizx91cIO6Knn3qysrlqwxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbEecBnY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786618150; c=relaxed/simple;
+	bh=AgdmhKnk2CM2Krwe1iH+GKzkOO/a6ojTYAj0WCpOHSk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NP/u6dITnWWJhV8t8NfdkORYaidVzrYdkXAYT551vB+PzFN3BQ7qlYvTDV7+SgduUqlaFm873AlvFwOcuQAQS/yNyFIgeY3P8pBS4uvpFSRyHh3XPIOepnkfPZG8VCAbjM4p3TJNCn8lPBShUoBpk9Z9B7Ltpsx8OD+Ko3gzNX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ganI/BBw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbEecBnY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346231F000E9;
-	Thu, 13 Aug 2026 10:46:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ganI/BBw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A5341F000E9;
+	Thu, 13 Aug 2026 10:49:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786617991;
-	bh=a9cT1iEeFiSPZvyUihVhPdcTpdx6JWzbNOfYY+Bul0I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LbEecBnY01HdXVzDggmALfcsUaZ+tFD1uq/CZXfmqp5vDYJd4cI9iGPZDUyN9HNF7
-	 mtO8+79oN6OZhmueb750JJb5lsErY5KpdAsIDgf17NYFfY2n5GWz+rqbzFir8VzFRW
-	 j7xjhou84JaS+DsdToi14Q3l46dbBdhsXGOHwKuwP1D9mp3A1NcnQ9VFL31Cs6cUTj
-	 MAuWhqzB/wNThqH+XvU2sijvAH7YaEO+F3v2SZF4ys3GEdICMENUNiGUnAl0H6/hZI
-	 BZipGk099aD9FKo27FdOt3APAQuyWo2tO9pyFiI9o0l4798S5B45+uzWszra+oPgJr
-	 F7/vJ6JNFz2DA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] serial: 8250_dw: add Ambarella CV75 quirks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260813-cv75-v3-c-v3-2-9352b3fd6026@ambarella.com>
-References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
- <20260813-cv75-v3-c-v3-2-9352b3fd6026@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 10:46:30 +0000
-Message-Id: <20260813104631.346231F000E9@smtp.kernel.org>
+	s=k20260515; t=1786618149;
+	bh=E1odP5pSJaDJs5V85yhnLqEotvtSBiYEu/T66nVaxiQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ganI/BBw2DNw8a+nLoD55Pk+i8nrFbsbwV7NlDBAPR8oWtGpjoUusHVdVDnY3rzBp
+	 eqc6EHFOCHobKIhWWCn8Ti981XZMv6mc2SLoTMBvqewIkyJsXoZMZG/zMD9nVULSDi
+	 tm4E5e/KbrO00bH2kzBpgna9rROpWUP+cKNYKOLD7x73cHfTdUXq3qJA6b4omjnJkj
+	 8OOzrVirZ/gufiXRUdQ3O8o5VmX7wEaJ/0c8OhuTsrx/ss/3vkA/atLOyeapCFUptZ
+	 WYAxUPUuluKgBDSGF7CdgV7AWdJBt2ejf4R4rUS7llW+NNZacQQr85IdMQZagf0ppy
+	 ub0tpssLu8l0g==
+Message-ID: <71cfe76b-ea84-47f8-9ff7-945d69efbdcd@kernel.org>
+Date: Thu, 13 Aug 2026 12:48:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/14] dt-bindings: phy: Document the Qualcomm IPQ5332
+ UNIPHY USB Super-speed PHY
+To: George Moussalem <george.moussalem@outlook.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Praveenkumar I <quic_ipkumar@quicinc.com>,
+ Varadarajan Narayanan <quic_varada@quicinc.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+References: <20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com>
+ <20260812-ipq5018-usb3-v2-1-8f355d7ff0ef@outlook.com>
+ <20260813-alluring-advanced-jackalope-55e5c1@quoll>
+ <SN7PR19MB67369ED27F676F6197A0727A9DDB2@SN7PR19MB6736.namprd19.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <SN7PR19MB67369ED27F676F6197A0727A9DDB2@SN7PR19MB6736.namprd19.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 13/08/2026 12:28, George Moussalem wrote:
+>>> +examples:
+>>> +  - |
+>>> +    #include <dt-bindings/clock/qcom,ipq5332-gcc.h>
+>>> +
+>>> +    phy@4b0000 {
+>>> +        compatible = "qcom,ipq5332-uniphy-usb-ss-phy";
+>>> +        reg = <0x4b0000 0x800>;
+>>
+>> That is the same address as PCI PHY, so you have one device, not two.
+> 
+> yes, AFAIK they're separate PHYs (pcie-28lp vs usb-ss-22ull) sharing the
+> same MMIO register space in IPQ5332. To enable USB3, the compatible
+> string, clocks, resets, and related USB3 properties override the PCIe
+> properties. In IPQ5018, the PHYs have different register address spaces,
+> hence representing it as a new devicetree node.
+> 
 
-New issues:
-- [High] Premature and lockless write to UART_IER in dw8250_ier_mask_startu=
-p defeats interrupt deferral and introduces race conditions.
+Same MMIO space is same device, IMO, especially that you have the same
+registers (looking at the driver).
 
-Pre-existing issues:
-- [High] Runtime PM is enabled after port registration, violating subsystem=
- PM initialization rules and causing circular wait conditions.
---
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
+> Best regards,
+> George
+> 
 
---- Patch [2]: [PATCH v3 2/2] serial: 8250_dw: add Ambarella CV75 quirks ---
-commit 6e65f0f86d7deb4c1cfc42c64f909eb5435425fe
-Author: Long Zhao <longzhao@ambarella.com>
 
-serial: 8250_dw: add Ambarella CV75 quirks
-
-Add CV75 platform data with an ETOI IER mask and skip-set-rate so the
-DesignWare 8250 driver can drive the Ambarella UART for console use.
-
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/=
-8250_dw.c
-> index 5fba913f33010..e8aa592924d4d 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-[ ... ]
-> @@ -572,6 +576,23 @@ static void dw8250_prepare_rx_dma(struct uart_8250_p=
-ort *p)
->  	dw8250_writel_ext(up, RZN1_UART_RDMACR, val);
->  }
-> =20
-> +static int dw8250_ier_mask_startup(struct uart_port *p)
-> +{
-> +	struct dw8250_data *d =3D to_dw8250_data(p->private_data);
-> +	struct uart_8250_port *up =3D up_to_u8250p(p);
-> +	int ret;
-> +
-> +	ret =3D serial8250_do_startup(p);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Keep variant-specific bits in the shadow across subsequent updates. =
-*/
-> +	up->ier |=3D d->pdata->ier_mask;
-> +	serial_port_out(p, UART_IER, up->ier);
-
-[Severity: High]
-Does this lockless write to UART_IER introduce a race condition against the
-serial console?=20
-
-The 8250 core explicitly defers enabling hardware RX interrupts until
-set_termios() configures the FIFOs to prevent swamping the interrupt handle=
-r.
-Writing to UART_IER here defeats that safety mechanism.
-
-Furthermore, if a printk occurs concurrently, serial8250_console_write()
-executes on another CPU and performs a read-modify-restore on UART_IER. This
-lockless write races with the console driver, which can permanently drop the
-ier_mask bits or cause unpredictable hardware behavior.
-
-Should this write be protected by p->lock, and potentially deferred until
-the FIFOs are configured?
-
-> +
-> +	return 0;
-> +}
-> +
-
-[Severity: High]
-This isn't a bug introduced by this patch, but there is a pre-existing
-issue in dw8250_probe() regarding runtime PM initialization:
-
-drivers/tty/serial/8250/8250_dw.c:dw8250_probe() {
-    ...
-	data->data.line =3D serial8250_register_8250_port(up);
-	if (data->data.line < 0)
-		return data->data.line;
-
-	platform_set_drvdata(pdev, data);
-
-	pm_runtime_enable(dev);
-    ...
-}
-
-Does registering the port before enabling runtime PM cause circular wait
-conditions during device probe?
-
-Registration synchronously invokes the driver's pm callback (dw8250_do_pm)
-via uart_add_one_port(). The dw8250_do_pm() callback unconditionally calls
-pm_runtime_get_sync(port->dev).=20
-
-As documented in the TTY subsystem guidelines, invoking runtime PM APIs from
-callbacks before pm_runtime_enable() is called leads to circular dependenci=
-es,
-hanging the probe function indefinitely because the runtime PM infrastructu=
-re
-is not yet initialized for the device.
-
-Should pm_runtime_enable(dev) be called before serial8250_register_8250_por=
-t()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-cv75-v3-c-=
-v3-0-9352b3fd6026@ambarella.com?part=3D2
+Best regards,
+Krzysztof
