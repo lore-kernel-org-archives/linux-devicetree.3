@@ -1,114 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08122F3C3D;
-	Thu, 13 Aug 2026 14:16:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C667647D947;
+	Thu, 13 Aug 2026 14:17:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786630613; cv=none; b=DkDr93TxA0Ts5KpAOKlRgnIuNiv3FGZQVr7O1akJg1I7r519KIFM+GmIpTQYyO8JwllGEp54dszqDGodnEAQHTSvzhdciLZqrBEYvuMfAcV1l9OkFu1nq1OKZq/RPOQWXBBa47x7kV4vnMemZ6H/9nkn9utLYj8mXDzyCidQrmM=
+	t=1786630647; cv=none; b=qPf2IjGNIe9QMh5P+HkHqcYk20ZWYJ/y3bb+K5tcvSF2zKPhMFccu2RWdObUdinbiTrvqUhJI81IBeTf8NcN1mOqc9KIlES73Cbc4jwm8d9dXYgIl2hAKkXSZHHHoQyJGYB+qkX6lwRVHqL9KWJF0ALkWhxuKJvz+I/Jz+ICJqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786630613; c=relaxed/simple;
-	bh=658axMGY3vsvYdjNcOU/t2KT0eoGy2po0oWWjRJN/7Q=;
+	s=arc-20240116; t=1786630647; c=relaxed/simple;
+	bh=xufGJCHZmAxCLz55bOgddxSyafV75ZhNOU8Mrg3XOwg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K0duFex1PZhHUKX5oBLeqQrzBLvLCMzbES8ozzYbkjqjF2e0cChQ/1w1cA1rrzC6WTu1E6tlRd8Av9udWbhfVQuis3OWG78t/iS6LZZInoti1X7HWOb9kC6cxe3xnX3nSRPzsrRw7OHUm1pBIQ/02dALhghUulHjXFfN4YrRGXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXbWL+lk; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZmtsiaoGWJTPmH9awcMcOXqS8zFxGFbEFXlj/uwy2MkpewUZywolwQ6Y7AxiDk6lmjE+F7zvsKQpO7+0NzrLTe7EQ3bapkpBdfzMWJ7BpFaSQNYlZo9kAsZ2OPpFsKZsuexjZ7gcl1dZOMbmuibPWCXTKTBKzllxnnJerZQqJKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVIYuf/o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXbWL+lk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE92D1F000E9;
-	Thu, 13 Aug 2026 14:16:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVIYuf/o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735261F000E9;
+	Thu, 13 Aug 2026 14:17:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786630612;
-	bh=Tsnbkio/x4potGdcfuFjdN+gr312Jn2rZuVkRTjkJuI=;
+	s=k20260515; t=1786630644;
+	bh=xAtaJN6M4HbQi3NVc67bMh+szwiUAcTgTNT8c3t4saI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lXbWL+lkLBG1gF37YOgLIWBqOqVzt19ov+cO8QIptSynW/adFftjObHdHTtfD0jJg
-	 5lo/+0+zau1K6m14TorYRZFgBVLqZ6VWbeBzT04YS9W65Du48sW3uVCmL0hiy34w/d
-	 wpSa6TmRuveQyLAw42A9HKrpST6xgUUl6vdmnNfcDt8VqHr1VqPxEcm5oX8QC/+3LV
-	 EsEit0H/xG4U4+x7PfGcaGruYmb++uoHKeLdiitfmDd+a16WAoZBSoCRnENbUWX4LF
-	 Ci5ftt9pFcyVEOqYGTeVdcQyGpJ6Kq+MMnRgHdovuBUgnANLfW8nA4SggnDMyQPCk9
-	 wZi3Y02yLQQNg==
+	b=BVIYuf/ovh0tBffPEVGT/is4uKcXO3f0eOpJUk6BEo4tJ+ZaY4TOUTJ3aMJGuHetm
+	 gzvxeqtWbLKXurkpxN21diMxw6YeDVJZ9fZJ68nJnTVCYTrKrCt4KUx1hFfRGOoILz
+	 CrEPENJwiupINZFN+gMF71t1AVx3tFBZr7z7u9biM/A95aeRzG/++KXZZiUSkREkc8
+	 jsCsxdRIXac7Li5cLWr6RMi/WlafwLYWODiA+sqSU6TPGc7LhuOE5/6ZWLYRb+rZlh
+	 6BloUhMQBTXovga6FBv8j1bPB1zEP2H8U+RKCc+R6YsVZtcFasW+dSOZqANquosUNs
+	 KVbY39kqLYF7A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] ARM: dts: vf: add Iris carrier board support for
- Colibri VF50 and VF61
+Subject: Re: [PATCH v9 3/4] soc: qcom: geni-se: Keep pinctrl active for
+ multi-owner controllers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mehmet Fide" <mehmet.fide@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20260813140600.1824949-5-mehmet.fide@gmail.com>
-References: <20260813140600.1824949-1-mehmet.fide@gmail.com>
- <20260813140600.1824949-5-mehmet.fide@gmail.com>
+To: "Mukesh Kumar Savaliya" <mukesh.savaliya@oss.qualcomm.com>
+Cc: vkoul@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260813140047.1006478-4-mukesh.savaliya@oss.qualcomm.com>
+References: <20260813140047.1006478-1-mukesh.savaliya@oss.qualcomm.com>
+ <20260813140047.1006478-4-mukesh.savaliya@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 14:16:51 +0000
-Message-Id: <20260813141651.DE92D1F000E9@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 14:17:24 +0000
+Message-Id: <20260813141724.735261F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The `&gpio2` node unconditionally overwrites `pinctrl-0`, destro=
-ying the base GPIO configuration inherited from `vf-colibri.dtsi`.
-- [Medium] The commit message claims to describe PWM support for the carrie=
-r board, but the PWM nodes are completely missing from the device tree addi=
-tions.
+- [High] The `qcom,qup-multi-owner` DeviceTree property is never parsed, ma=
+king the `multi_owner` feature completely non-functional.
+- [High] The runtime PM suspend callback `geni_se_resources_deactivate()` l=
+acks the `se->multi_owner` check, breaking multi-owner controller operation=
+ during runtime suspend.
+- [High] The GPI DMA driver prematurely releases the hardware lock during m=
+ulti-message I2C read transactions, destroying bus atomicity.
 --
 
---- Patch [4]: [PATCH v3 4/4] ARM: dts: vf: add Iris carrier board support =
-for Colibri VF50 and VF61 ---
-commit 30782cd9b9ebbf78c0851af32f14e744e591610e
-Author: Mehmet Fide <mehmet.fide@screeningeagle.com>
+--- Patch [3]: [PATCH v9 3/4] soc: qcom: geni-se: Keep pinctrl active for m=
+ulti-owner controllers ---
+commit ceae3d1ac31371a041b92e87207badc3969f7e87
+Author: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
 
-ARM: dts: vf: add Iris carrier board support for Colibri VF50 and VF61
+soc: qcom: geni-se: Keep pinctrl active for multi-owner controllers
 
-The Iris is a small off-the-shelf carrier board for the Colibri family. Thi=
-s=20
-adds the device tree descriptions for the board's peripherals.
+On platforms where a GENI Serial Engine is shared with another system
+processor, selecting the "sleep" pinctrl state can disrupt ongoing
+transfers initiated by the other processor. This patch skips selecting
+the sleep state when the engine is marked as shared.
 
-> The Iris is a small off-the-shelf carrier board for the Colibri
-> family. Describe what the board itself provides: Ethernet, one USB
-> host and one OTG port, the pin header UARTs, i2c with the carrier
-> RTC on it, PWM, SPI and the microSD slot. The host port gets its
+> diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni=
+-se.c
+> index 873bfbd6b2b7b..a4da75d54d6c3 100644
+> --- a/drivers/soc/qcom/qcom-geni-se.c
+> +++ b/drivers/soc/qcom/qcom-geni-se.c
+> @@ -610,9 +610,17 @@ int geni_se_resources_off(struct geni_se *se)
+>  	if (has_acpi_companion(se->dev))
+>  		return 0;
+> =20
+> -	ret =3D pinctrl_pm_select_sleep_state(se->dev);
+> -	if (ret)
+> -		return ret;
+> +	/*
+> +	 * Select the "sleep" pinctrl state only when the serial engine is
+> +	 * exclusively owned by this system processor. For shared controller
+> +	 * configurations, another system processor may still be using the pins,
+> +	 * and switching them to "sleep" can disrupt ongoing transfers.
+> +	 */
+> +	if (!se->multi_owner) {
 
-[Severity: Medium]
-The commit message mentions adding support for PWM, but it appears the &pwm0
-and &pwm1 nodes were not enabled in the device tree additions. Are the PWM
-controller nodes missing from this patch?
+[Severity: High]
+Where is se->multi_owner populated from the DeviceTree?
 
-> diff --git a/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi b/arch/arm/boo=
-t/dts/nxp/vf/vf-colibri-iris.dtsi
-> new file mode 100644
-> index 0000000000000..bbd0dd76c33c0
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
+I don't see any parsing for the "qcom,qup-multi-owner" property in this
+patch, which seems to leave the multi_owner flag permanently false. Does
+this code require a device property read somewhere else to function?
+
+[Severity: High]
+Are runtime PM transitions handled correctly for shared controllers?
+
+Looking at geni_se_resources_deactivate(), which is used by protocol drivers
+like I2C for runtime suspend, it lacks a similar check:
+
+drivers/soc/qcom/qcom-geni-se.c:geni_se_resources_deactivate() {
+...
+	ret =3D pinctrl_pm_select_sleep_state(se->dev);
+	if (ret)
+		return ret;
+...
+}
+
+If a shared controller goes into local runtime suspend, won't it still force
+the pins into the sleep state and disrupt ongoing transfers on the other
+processor?
+
+> +		ret =3D pinctrl_pm_select_sleep_state(se->dev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> =20
+>  	geni_se_clks_off(se);
+>  	return 0;
 
 [ ... ]
 
-> +&gpio2 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_iris_uart25_tx_on>;
+> diff --git a/include/linux/soc/qcom/geni-se.h b/include/linux/soc/qcom/ge=
+ni-se.h
+> index 29a53bbc0dd49..725f89a445511 100644
+> --- a/include/linux/soc/qcom/geni-se.h
+> +++ b/include/linux/soc/qcom/geni-se.h
+> @@ -78,6 +79,7 @@ struct geni_se {
+>  	struct geni_icc_path icc_paths[3];
+>  	struct dev_pm_domain_list *pd_list;
+>  	bool has_opp;
+> +	bool multi_owner;
+>  };
 
-[Severity: Medium]
-Does this unconditionally overwrite the pinctrl-0 configuration inherited f=
-rom
-vf-colibri.dtsi?
+[Severity: High]
+Does this multi-owner configuration break transaction atomicity for
+multi-message I2C reads?
 
-It seems this would drop the base configuration (like pinctrl_gpio_ext) ins=
-tead
-of appending to it, which might leave the EXT_IO_0..2 pins in an indetermin=
-ate=20
-mux and bias state. Could this be changed to append to the existing pinctrl=
--0=20
-list?
+Looking at the I2C driver, it disables multi-descriptor batching for reads:
 
-> +
-> +	uart25-tx-on-hog {
-> +		gpio-hog;
-> +		gpios =3D <2 GPIO_ACTIVE_HIGH>;	/* SODIMM 104 */
-> +		output-high;
-> +	};
-> +};
+drivers/i2c/busses/i2c-qcom-geni.c:geni_i2c_gpi_xfer() {
+...
+				gi2c->is_tx_multi_desc_xfer =3D false;
+				break;
+...
+}
+
+This causes DMA_PREP_INTERRUPT to be set on the write leg of the read
+transaction.
+
+The GPI DMA driver appears to interpret this flag as the end of the entire
+batch and inserts an unlock command:
+
+drivers/dma/qcom/gpi.c:gpi_create_i2c_tre() {
+...
+	if (chan->multi_owner && is_last && i2c->op !=3D I2C_READ) {
+...
+}
+
+Will this prematurely release the hardware lock before the read leg execute=
+s,
+allowing another processor to inject traffic and corrupt the bus?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813140600.1824=
-949-1-mehmet.fide@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813140047.1006=
+478-1-mukesh.savaliya@oss.qualcomm.com?part=3D3
