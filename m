@@ -1,108 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97DF44606A;
-	Thu, 13 Aug 2026 09:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C73D44AB9E;
+	Thu, 13 Aug 2026 10:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786615031; cv=none; b=Qm3zXCYfitj23NkK+wF36kCS09I9z81K9MXzTZqozUbmV54h06M8LAC6pDX9Q/FFxlvHKfn4QAqwlvnxTKxc6D1KYzTKPAUeq7FVLMvtf9TOle5Ubnqj3wZV70l15E0QSeDtrOwIzB8Hg4YU9KBBIDzbkAJNBKWSuRdm6cOss7o=
+	t=1786615381; cv=none; b=P+Sex05kcDyCoivcuYJVZNXJzZJTnXFJdC1JFrICqRFT4w/boo8qr8A7bto89C4DiK0SvoNZ+UU9WyhDXFCozO6v25zuHxw43AcZp1Eo1YPWhDpvTssz+OWT7vtPC68cL1H0CnMWxwIkN332xdG1ha+0x6RBre7OKVqlg3+Z2FQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786615031; c=relaxed/simple;
-	bh=u1O2yyg4IFgXvWdBWEfBf7DSbFAtEAmAyY6MwVpsw88=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TuSc3sfcVPqUelLUKFi2+FbnhsdnPoUFyPb5X5sjqrspOrFjaoEUwJ44AQlLfKemswL+E9ML+uYFwePpZFK5XUVDNMRm4YI6XZ/QXGecnT37vKMF4eVjKFXH7CQesYHEY7p1/U/LV3vNd6udynusYLJriFsTjzehzm41SPe/F38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rBSuYI8P; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786615381; c=relaxed/simple;
+	bh=+tL4jLnBFSoqVgrOSpv1z5U8nGGDZ/aijU7R3vO7fLs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HBEP/FD9af4rCUM6kjcLhRaeA2VAyvvgkYE7Ljdx72pQOkWEvXOGWQjRzFIWi322wNSknXkGOiYQeXs6XRLlWvJL4MJdYsZwMT1ROu417a+ssAtIif21hme1b984OjHruu+okWqLP0kFRJLx6fhD4rPVQ0HYTRjBQ5lHjv9CivY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3zn/L5b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rBSuYI8P"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 712CFC2BD05;
-	Thu, 13 Aug 2026 09:57:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786615031;
-	bh=u1O2yyg4IFgXvWdBWEfBf7DSbFAtEAmAyY6MwVpsw88=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=rBSuYI8PDxgBrevDwj5Va/zkiTPCOCJSYDpXxDYqy7D6z3qOSW+N3MtWqy4GcGsUJ
-	 Fg8S/Fh3jG4oLSCk87gwvXQtZSRpk/xCp2Rk+bQwiVMJFCfq9dz5/HPNkOSrvdCHUo
-	 m4X4xwyx7Th4+d6RBto8WSncZHnozJ+BCyNiqRSb/ewvYF5tfT76QdDHNaCFLmSa7X
-	 wNExHkXwteFYTcR6zKHbXijuU7xW5PuSL59IbE9yDbT2HBtKmeZzb2Qu86x3GBJeOn
-	 inPgO5Agc3qTGuhJk0WKzLVJQnuYu8gbLW/SxmrGe664WrIopAU6xTbsdKZ1gbQnJo
-	 qRTGKDRsHEFHQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D8D1C5DF66;
-	Thu, 13 Aug 2026 09:57:11 +0000 (UTC)
-From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Thu, 13 Aug 2026 17:56:17 +0800
-Subject: [PATCH v3 6/6] MAINTAINERS: add ARM/AMBARELLA SoC support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3zn/L5b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5207D1F000E9;
+	Thu, 13 Aug 2026 10:02:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786615379;
+	bh=yYJHVwsrMXH8k6042I6I5dewZ3/nP4QH7CO+1t5wvS4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h3zn/L5bVPW38B/fP4qercCaBbXAGePBORHEbqgUowZl7A7oy8gfVhWRcSuda0736
+	 +KStsos6oXBF3QLXx63WaQG/Kg0x+A9Vu0rKe3XXQFAh4Xf6kZrnL2R8FPJLs8wlqd
+	 zNY8yYD6WW9wz94cIe4X+mR23PqhQud7Y54KeLxgzdWgb/zmGBudpoCN4X5DlAfRHv
+	 Uwafybiei6DQZQNNDzpv+zB0f685FWc1URNApzBZym43OwuZriOoFQOtsUaY7UZj95
+	 HKRDFq6tgDCT+J74hHoOAdO9eT0ADR6JJrIaCvCEM3jb5y0959P4zNB0jvEroxC20y
+	 L2vpkoLWcPb0g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/6] dt-bindings: clock: add Ambarella CV75 RCT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Long Zhao" <longzhao@ambarella.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260813-cv75-v3-a-v3-3-cfdd20b1b4dd@ambarella.com>
+References: <20260813-cv75-v3-a-v3-0-cfdd20b1b4dd@ambarella.com>
+ <20260813-cv75-v3-a-v3-3-cfdd20b1b4dd@ambarella.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 10:02:58 +0000
+Message-Id: <20260813100259.5207D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-cv75-v3-a-v3-6-cfdd20b1b4dd@ambarella.com>
-References: <20260813-cv75-v3-a-v3-0-cfdd20b1b4dd@ambarella.com>
-In-Reply-To: <20260813-cv75-v3-a-v3-0-cfdd20b1b4dd@ambarella.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Linus Walleij <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- soc@lists.linux.dev, Long Zhao <longzhao@ambarella.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786615029; l=1193;
- i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=FMdxZub31R7avQT3Ojw4RWRGTKHK7OVLHXgrDSDBBvo=;
- b=/IQi7jn1+JWAK5SDTA0CYa9LQ8IsAgoKCWXSJ1vjrygfa08jTqnQYQK7RoBkFPXbPUzRStR44
- Tt0+6EgTg3iC0Wg4BUURRCOrjGJpk7Jik3Csir8PaPEUJignncdS9I2
-X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
- pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
-X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
- auth_id=903
-X-Original-From: Long Zhao <longzhao@ambarella.com>
-Reply-To: longzhao@ambarella.com
 
-From: Long Zhao <longzhao@ambarella.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The binding for the Ambarella CV75 Reset and Clock Tree (RCT) is=
+ missing the `#reset-cells` property, failing to describe the hardware's re=
+set provider capabilities. Device tree bindings must describe complete hard=
+ware capabilities rather than just the subset supported by the initial driv=
+er implementation.
+--
 
-Add a maintainer entry covering Ambarella CV75 bindings, DTS and
-related drivers.
+--- Patch [3]: [PATCH v3 3/6] dt-bindings: clock: add Ambarella CV75 RCT ---
+commit 34559a1295566c6903b0871d6d486afaede08d21
+Author: Long Zhao <longzhao@ambarella.com>
 
-Signed-off-by: Long Zhao <longzhao@ambarella.com>
----
- MAINTAINERS | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+dt-bindings: clock: add Ambarella CV75 RCT
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 803b60ad628f..59e5b32d7a02 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2502,6 +2502,20 @@ F:	drivers/clocksource/asm9260_timer.c
- F:	drivers/rtc/rtc-asm9260.c
- F:	drivers/watchdog/asm9260_wdt.c
- 
-+ARM/AMBARELLA SOC SUPPORT
-+M:	Long Zhao <longzhao@ambarella.com>
-+L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
-+L:	devicetree@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/arm/ambarella.yaml
-+F:	Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
-+F:	Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml
-+F:	arch/arm64/boot/dts/ambarella/
-+F:	drivers/clk/ambarella/
-+F:	drivers/pinctrl/pinctrl-ambarella*
-+F:	include/dt-bindings/clock/ambarella,cv75-rct.h
-+N:	ambarella
-+
- ARM/AMD PENSANDO ARM64 ARCHITECTURE
- M:	Brad Larson <blarson@amd.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+This commit documents the CV75 RCT clock controller and the clock ID header
+used by DT consumers. It introduces the new binding schema which defines
+the register properties, clock requirements, and provides an example node.
 
--- 
-2.34.1
+> diff --git a/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.y=
+aml b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
+> new file mode 100644
+> index 0000000000000..eb5956fc32bc4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
+> @@ -0,0 +1,58 @@
 
+[ ... ]
 
+> +properties:
+
+[ ... ]
+
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - "#clock-cells"
+
+[Severity: Medium]
+Since the commit message indicates this is a Reset and Clock Tree (RCT) blo=
+ck,
+should #reset-cells be defined and included in this required properties list
+to accurately reflect the hardware's role as a reset provider?
+
+Device tree bindings typically need to describe complete hardware capabilit=
+ies,
+so existing device trees that omit the property will not silently pass sche=
+ma
+validation when reset support is eventually added.
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    clock-controller@ed080000 {
+> +        compatible =3D "ambarella,cv75-rct", "syscon";
+> +        reg =3D <0xed080000 0x1000>;
+> +        clocks =3D <&osc>;
+> +        clock-names =3D "osc";
+> +        #clock-cells =3D <1>;
+> +    };
+
+[Severity: Medium]
+If #reset-cells is added to the binding, should this example node also be
+updated to demonstrate its correct usage alongside #clock-cells?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-cv75-v3-a-=
+v3-0-cfdd20b1b4dd@ambarella.com?part=3D3
