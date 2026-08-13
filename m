@@ -1,41 +1,41 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7AF43550B;
-	Thu, 13 Aug 2026 07:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40502437115;
+	Thu, 13 Aug 2026 07:25:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786605934; cv=none; b=le4jKznjJtnEgNMS/mRGbub3c7AMFnjKRAbcS6MAvG0lxq0zUz/1BlPpQIYR/2GtZt4Gh1JxxkhEOcXPOGPEieCEpWox2mx8TNbCBeIfgxGE0uQTEGXCwyIouqmq1IALBpVs9VMQHU7CxPpzTbFW27y2MkhIwIeSkYmm+xYF4uI=
+	t=1786605943; cv=none; b=BpxY+o4NfzTd/9zNvXShyKTu9Cf6bBbabfdX9VvXHq80ZXM4SG/Tkf8RNphkK3NZ/v08f7dve60FaFLAHg5FIkLsUicl4Pb7hFstbm9FFVR3FSteCUWqdXZpskGXUAH2gDpvLLpAHMv311uhtFHnVbtXI+fTmcme2moqjXsRKGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786605934; c=relaxed/simple;
-	bh=550a5UUxYYtdZC+chP9FRVZb6VTssB757jXRI82GmOk=;
+	s=arc-20240116; t=1786605943; c=relaxed/simple;
+	bh=xskMP5i9IUq98msC9SlBCa6Bapx97QqrGqgwgxkSt5A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M6CwLmw1ko1DNgvHsOSwUzxh24N03X8113FTj6WVKG3//R+y75pIzCYXeC7BUsDAB/yo33RgHaXiPR7bkZ/kcU7M9o8+SjdndMShUTpwBu0gE+kpbIlGCbrX52EEpam+FSPvsiHkLi8wN5+ImW7BvugL33wtsfRYrG5hKU1YK8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KTtQ1w1O; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=q+Sk4WSZh0tFp1wa30QsHPGiTxsF1TwIZSLPgkcWD1N+zZQV50so0oj8a0frLNAnbM8GywkjsPqeN4/il3oedOBB7UqLu2bdG5BZtkvnCX8JSH8J8DUEQP6aqSGRyl3bwtTtlrl8RLJr5L3Tzq++wvRuBe+pTmO+mL+262X+ecY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0+M/66RM; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KTtQ1w1O"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0+M/66RM"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6DA194E411E0;
-	Thu, 13 Aug 2026 07:25:29 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0124A1A15ED;
+	Thu, 13 Aug 2026 07:25:36 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 39EF5602B8;
-	Thu, 13 Aug 2026 07:25:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A6A711C4DA19;
-	Thu, 13 Aug 2026 09:25:22 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C8813602B8;
+	Thu, 13 Aug 2026 07:25:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 752AD11C4D9FD;
+	Thu, 13 Aug 2026 09:25:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786605924; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1786605930; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=lpzfCBoqh5Lrgy66VhQjiUMxbdjVzKhjhFHiN3Fbspw=;
-	b=KTtQ1w1O4+fwwHoye5Cm3V72y5n24pNWTmuCLGSk3u85cxfy0gt3ipQLAa7fqSg+i/w0bE
-	+v8Gti00xAJcBH/8TOXkCfSuhZ/MaZhY3ilmrn4dfIqibQhk+kxIlMu93FpVb1t+Iu0ufq
-	kmoOcWkuZGEHCc+2YX6vTVbGYvp/d0c5eKqLCfW+DiL//K+im/08LT7MgMNe7J0UlVg4zs
-	CXY6LX/WbtAaqqGueNW07yfJUBjHCQr7fpNg96Gev3WXvlO1nuozPe08IOApxuYd6+JXNC
-	iwpZ/MhhoQ1rqm4XakjYR+6nfJJM0ZUmJVBeIWz222pzyTuWVaSfcqmSXo1/sg==
+	bh=Ae4Y1LKEtrS8HaD4L0HeXkOJ7/FVtmzDxwwoJBX8xFg=;
+	b=0+M/66RMB64SC2dFcH8dQZsVj4piKukOs8uPS87RZImBAACr55XDgmyK8BKR97jWKcrEl3
+	z5grx77YgnFag0y0TKSO/yytvOeEkuqI6MqrHdGY9cR2RxuLuwUmiCPl+oeRfWabhxkEOV
+	XbTOcf03cxkzO8OS1nN54QTkqckL3QpB59shYBj7GGbuld7JxSMa4MRsbSeaqIQ8Zp+iS4
+	OAPrzJknT2l71TY2kV9KgAc/UGFa8EkJ9elbhD3tZXGJPrtSuFk2W5kejLVAFTjbst3Dqn
+	xr53xWKhRSxu9o4HQUHTaNwbTZ88v2CMdPEQAAECTRN36hW2DZ/L+w7j/cBbdg==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 13 Aug 2026 09:25:06 +0200
-Subject: [PATCH 1/2] arm64: dts: nuvoton: Add QSPI0 node
+Date: Thu, 13 Aug 2026 09:25:07 +0200
+Subject: [PATCH 2/2] arm64: dts: nuvoton: Add NuMaker board
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-perso-ma35d1-upstream-dts-v1-1-bb237fd7c3c2@bootlin.com>
+Message-Id: <20260813-perso-ma35d1-upstream-dts-v1-2-bb237fd7c3c2@bootlin.com>
 References: <20260813-perso-ma35d1-upstream-dts-v1-0-bb237fd7c3c2@bootlin.com>
 In-Reply-To: <20260813-perso-ma35d1-upstream-dts-v1-0-bb237fd7c3c2@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -61,35 +61,70 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-Describe the quad-SPI controller available on Nuvoton MA35D1. Bindings
-for it have already been contributed.
+Nuvoton MA35D SoC is used on the NuMaker SoM, itself plugged onto a
+carrier board labelled NuMaker. Create a DTS including the SoM
+description. As a first external component, mention the SPI NAND
+connected to the Quad SPI controller.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/arm64/boot/dts/nuvoton/Makefile           |  1 +
+ arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts | 37 ++++++++++++++++++++++++++
+ 2 files changed, 38 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..9eec44128d28 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -431,5 +431,16 @@ mdio1: mdio {
- 				#size-cells = <0>;
- 			};
- 		};
+diff --git a/arch/arm64/boot/dts/nuvoton/Makefile b/arch/arm64/boot/dts/nuvoton/Makefile
+index 3bc9787801a5..4c82109c885a 100644
+--- a/arch/arm64/boot/dts/nuvoton/Makefile
++++ b/arch/arm64/boot/dts/nuvoton/Makefile
+@@ -1,4 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_MA35) += ma35d1-iot-512m.dtb
++dtb-$(CONFIG_ARCH_MA35) += ma35d1-numaker.dtb
+ dtb-$(CONFIG_ARCH_MA35) += ma35d1-som-256m.dtb
+ dtb-$(CONFIG_ARCH_NPCM) += nuvoton-npcm845-evb.dtb
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts
+new file mode 100644
+index 000000000000..01f1f800aef8
+--- /dev/null
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts
+@@ -0,0 +1,37 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (C) 2025 Bootlin
++ * Author: Miquel Raynal <miquel.raynal@bootlin.com>
++ */
 +
-+		qspi0: spi@40680000 {
-+			compatible = "nuvoton,ma35d1-qspi";
-+			reg = <0x0 0x40680000 0x0 0x100>;
-+			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk QSPI0_GATE>;
-+			resets = <&sys MA35D1_RESET_QSPI0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
++/dts-v1/;
++#include "ma35d1-som-256m.dts"
++
++&pinctrl {
++	spi-grp {
++		pinctrl_qspi0: qspi0-pins {
++			nuvoton,pins = <3 0 5>,
++				       <3 1 5>,
++				       <3 2 5>,
++				       <3 3 5>,
++				       <3 4 5>,
++				       <3 5 5>;
++			bias-disable;
++			power-source = <1>;
 +		};
- 	};
- };
++	};
++};
++
++&qspi0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_qspi0>;
++	status = "okay";
++
++	flash: flash@0 {
++		compatible = "spi-nand";
++		reg = <0>;
++		spi-max-frequency = <30000000>;
++		spi-rx-bus-width = <4>;
++		spi-tx-bus-width = <4>;
++	};
++};
 
 -- 
 2.54.0
