@@ -1,150 +1,146 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A95339719;
-	Thu, 13 Aug 2026 20:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786651806; cv=pass; b=niugkwOWv7M33+FX334sqfOmgObYVhg6VfKbCrd2pRC+4fm9p1g34ie5bI19Jc5IeOcr4ou7X9JsjbnTZuZLvHvTt566pWW52ahk4FPvJt5ZRNrKIjzeEf0WN3qO0EXn9uOIZ+VgT3ryWC+bsbSG1QuhKlPJmET1RQTUskQd8Vw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786651806; c=relaxed/simple;
-	bh=wYX3IWBUSlf5Bzq6EXCgHA2/MniDqh1E1KTOAHUizi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XiQA2pssvnD+vRu1gsiMxGL4s+1e93sIYVFQkaxmejdyKptChuG3CWViFXC+dCdWe7UjOz9w6zvf7YyHA5s8RToxDa70rdre2dfQ5T1oxSSxDH0T03+VzDFLs5FmqKK7gbgpF1Upn0m4JhrLkpzPROTK91KQxyZdWRU+4q+BHo0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=VHDC/2dK; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01316430CFD;
+	Thu, 13 Aug 2026 20:51:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786654314; cv=none; b=e6UKtC0FgdnwbapqmpAmsfxxdVxk7yLvAEYUYyY1P3FSaCHWSbga4BQiCLDWOdEPvzojUjXt5ckL8Au0VfDzDG4lMPp+AyAFwd8qxKZwYNJdI2UFmYOLlTdZOVFO7DFcxbzh0qqANKfir4TRB7e5KBrZIeGpHQ+F4G1vs96L91g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786654314; c=relaxed/simple;
+	bh=fSE9BoJywHuBiftWhreULBZfq0aOAYM8Do4X/ZMeGM0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Rgw8hvdRWsAHyIbBONbpeAchkCy9WsoONrux4KZjnXkcoLuIENgfF1TtR6XVv39SqoQPHvNpv10P9oNVUcU2qM3XgTgBWb1W456mk0dz5kemZdq2IQ9NQG4ky+7ImaHJAzmq9C1greJjd1EI/YYjsMdgUbE75jYCYGhAsO7XqJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VEll5Sno; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="VHDC/2dK"
-ARC-Seal: i=1; a=rsa-sha256; t=1786651775; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=QuLirXPt5BadyF56kxcV7RpVfiX+W8ULrUlISL+kCq39DEIOvY2mZGSiXw2UYKo9jY3L9xUxgioFcE+X4JoIk5ZbQm+klPh6YCiGa9dfL+zjwiUeENNzz5RwDEXuk8KJy59qqdwshvZSyLjXJW0F/DC2Xi4t/XCaA3ecZjXLo18=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786651775; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=wYX3IWBUSlf5Bzq6EXCgHA2/MniDqh1E1KTOAHUizi4=; 
-	b=OLDjZZEoCDqYK48oTSNu+z0N7mH7PjPvUvps/7wklwvtXJnehjiZeLlc1dmYhx37bqBCHpnUQeTAaCNaxcGh7bQG7rd7HxrNvnv4KgDyBdK9Rh4fkDaoow9/OJHN8pxkI3QQjPNZrrd9rlRXZg3jDx+4+l10hezmBJJzkowHppg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786651775;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=wYX3IWBUSlf5Bzq6EXCgHA2/MniDqh1E1KTOAHUizi4=;
-	b=VHDC/2dKmnIv6lIjguOcovG9WnAAGS1OKlYKB03DXqVOu7AyYhL7w9cnBJCaEGXT
-	3L5CImNlhpuhaxoJwIVKbTlESoR0U8klxMkIewC3HCz2rS41ZEqze5e20NRBPF/tjFo
-	yFdc+0V0Y++kC1cbacxZ9lZpk+fVk+VI27Bx6Y5A=
-Received: by mx.zohomail.com with SMTPS id 1786651772265519.2060889513351;
-	Thu, 13 Aug 2026 13:09:32 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 7E2F41806FB; Thu, 13 Aug 2026 22:09:26 +0200 (CEST)
-Date: Thu, 13 Aug 2026 22:09:26 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VEll5Sno"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1786654309;
+	bh=fSE9BoJywHuBiftWhreULBZfq0aOAYM8Do4X/ZMeGM0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=VEll5SnoaXZi6rDsjoHozG1EmvT5PsYpAt7yYokZ8rjQ35aGc3HO/0TqRk4juVVFG
+	 byHII7ES28Lr4wwQeNnNHHWekmd8NoRYXPYb6W+AcSJ5EVEMJWXTSxLeXeUcOFcb4g
+	 VhgJ+eVdNYao1M98jDpyKW7mO27aV2A1dBv+n4XJcfR+Ix4lYP4YBdsk2MxC5co2fV
+	 DxkERTWjf/x3xKFLatNyIdMr1B0+pyf30dsHahqryw4oZ2+a/P0AuOaE1kj6/aBPA7
+	 /j0dyIk6eTrbIiw7x3xlll/7l/LPYrzq9SyKrshpUu269Z/eHdquM7EaNZSnf0LF5b
+	 Y3YGqmmtW+mhQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D45BD17E0D7E;
+	Thu, 13 Aug 2026 22:51:49 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 954E5480028; Thu, 13 Aug 2026 22:51:49 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Frank Wang <frank.wang@rock-chips.com>
-Cc: Andy Yan <andy.yan@rock-chips.com>, 
-	William Wu <william.wu@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Yubing Zhang <yubing.zhang@rock-chips.com>, Alexey Charkov <alchark@flipper.net>, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kernel@collabora.com, devicetree@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
-	linux-usb@vger.kernel.org, linux-phy@lists.infradead.org, wmc@rock-chips.com
-Subject: Re: [PATCH v13 00/35] phy: rockchip: usbdp: Clean up the mess
-Message-ID: <an4hLPQXY9eDrKq8@venus>
-References: <20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com>
- <alfM6dFBovHMaYn2@venus>
- <ae33b62b-a207-4f4d-991a-08e003b36abe@rock-chips.com>
+Date: Thu, 13 Aug 2026 22:51:44 +0200
+Subject: [PATCH v14 01/38] dt-bindings: phy: rockchip-usbdp: add improved
+ ports scheme
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="acdouwty4afdh7fq"
-Content-Disposition: inline
-In-Reply-To: <ae33b62b-a207-4f4d-991a-08e003b36abe@rock-chips.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.649.17
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260813-rockchip-usbdp-cleanup-v14-1-b5ad9c68fa11@collabora.com>
+References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
+In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2405;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=fSE9BoJywHuBiftWhreULBZfq0aOAYM8Do4X/ZMeGM0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp+LmTnZssBuUk6MsSrqc/oF1RtmFsXuAOCZ
+ YgS6zvc+D72MYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqfi5kAAoJENju1/PI
+ O/qahGEP/29BOazNKvW962hQeBoit2PK1UK6fkL9U7oSS58ElJjl6WXJ2EPkE5qBrTI9XCg6zSH
+ mujsTP9aX3xSQktcdVHAQUEiLYMNlAI3bg4ns2NEKz9E3VsxkTZ6MUFyvFfOjV++2QRbxobNOzu
+ u2Nyc7+zxBkeRwmjrDGVoMCOWXtVDVZUpgJYQ9XX2RsG2WUVPIh+hUIh0Z/JJaWgHY9G6VOeSGq
+ PJsRdGtvUQC3Pf3F2gO+qQgmsEF/fIs7VITkweJeu3LU+0O0vNTZGAq499LfdLY47yb7dMaiXZW
+ PCxFLGcaDr6prVRAlNxf67WAaLllhpCnFaCvWecfN4KCDhU708NZNKEe0buMnKRSglwz+l6oWM7
+ toD/Ttg8KBcDXy863AClcyCj5kAhSdehakz0zFWeYfFjVQe6Se/5qON+WbVk5jphnkqJ6QnOC4F
+ Qc0o0BOovMfoYuRLfr+d96gHnqR8/rjL87iUO7cApvQv1qTvPY8yMgIS31sYQLPPdUeYanMd923
+ pg3HzYBc7hB9dW5n6opwhwxpba+kLpeQObVX6u7ZRjcp6+pRgAYqkH+n2VgIuhzLdIuIMPV3SpC
+ 6336sJ7RxcHKCy6YwEoGbKqPliwIDBjYsXcSkuFcxC2JRqWqEPiHoW2oJhulNgH8YofLg/+y0bq
+ GEQSG68kuQ/K3ZWsyDKUwnA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
+Currently the Rockchip USBDP PHY is missing a documented port scheme.
+Meanwhile upstream RK3588 DTS files are a bit messy and use different
+port schemes. The upstream USBDP PHY Linux kernel driver does not yet
+parse the ports at all and thus does not create any implicit ABI either.
 
---acdouwty4afdh7fq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v13 00/35] phy: rockchip: usbdp: Clean up the mess
-MIME-Version: 1.0
+But with the current mess it is not possible to properly support USB-C
+DP AltMode. Thus this introduces a proper port scheme following roughly
+the ports design of the Qualcomm QMP USB4-USB3-DP PHY controller binding
+with a slight difference that there is an additional port for the
+USB-C SBU port as the Rockchip USB-DP PHY also contains the SBU mux.
 
-Hello Frank,
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ .../bindings/phy/phy-rockchip-usbdp.yaml           | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-On Thu, Jul 16, 2026 at 10:50:55AM +0800, Frank Wang wrote:
-> On 2026/7/16 2:24, Sebastian Reichel wrote:
-> > I've gone through the Sashiko feedback for v13 and I do not plan
-> > to submit a v14 for Sashiko feedback at this point. The issues
-> > it reported in v13 are either fixed in later patches - especially
-> > all those "pre-existing problems" - or do not apply.
-> >=20
-> > The series fixes a massive amount of problems in the USBDP driver
-> > and unblocks USB-C DP AltMode at the same point. It would be good if
-> > we get this into 7.3, so that the DRM series is unblocked for 7.4
-> > allowing users to have USB-C DP AltMode in 2027.
->=20
-> One thought I had was whether you've considered splitting this
-> patch series into several smaller, targeted series, for instance,
-> one covering code optimizations, and separate series for distinct
-> groups of bug fixes. This would keep each series lean and easier
-> for maintainers to review.
+diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml b/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
+index 8b7059d5b182..89efaf005a7b 100644
+--- a/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
++++ b/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
+@@ -110,10 +110,34 @@ properties:
+ 
+   port:
+     $ref: /schemas/graph.yaml#/properties/port
++    deprecated: true
+     description:
+       A port node to link the PHY to a TypeC controller for the purpose of
+       handling orientation switching.
+ 
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description:
++          Output endpoint of the PHY for USB (or DP when configured into 4 lane
++          mode), which should point to the superspeed port of a USB connector.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Incoming endpoint from the USB controller
++
++      port@2:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Incoming endpoint from the DisplayPort controller
++
++      port@3:
++        $ref: /schemas/graph.yaml#/properties/port
++        description:
++          Output endpoint of the PHY for DP Auxiliary, which should either point to
++          the SBU port of a USB-C connector or a DisplayPort connector input port.
++
+ required:
+   - compatible
+   - reg
 
-The PHY maintainers don't want to get series with dependencies
-and Sashiko is also bad at this. Sending just the cleanups and waiting
-for them to be applied would be an option, but then we will have to
-wait even longer to get everything landed as that blocks the later
-and more important patches from being reviewed.
+-- 
+2.53.0
 
-> > My proposed merge strategy is to route everything through the PHY
-> > subsystem as the changes in the DWC3 driver are not very complex
-> > (purely additions), so a merge conflict should be easy to solve.
-> >=20
->=20
-> On the dwc3 core changes, based on Rockchip's internal testing and
-> experience, runtime suspend does not kick in as intended during
-> hotplug events. The dwc3 core uses a default autosuspend delay of
-> 5 seconds (defined as DWC3_DEFAULT_AUTOSUSPEND_DELAY). I think we
-> can try to make this parameter configurable via device tree
-> properties, as this approach would result in a smaller, less
-> invasive change overall.
-
-I'm aware, that the Rockchip vendor kernel requires runtime PM to be
-enabled to have working USB-C. I consider this a hack. Things should
-work with or without runtime PM being enabled. Also the autosuspend
-delay is a platform configuration and has nothing to do with hardware
-setup and thus does not belong into DT. If you require runtime PM to
-be suspended, you should have an explicit call to e.g.
-pm_runtime_suspend() anyways to avoid race conditions.
-
-Greetings,
-
--- Sebastian
-
---acdouwty4afdh7fq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmp+JHIACgkQ2O7X88g7
-+pqUvQ//bumFBFq7By4sstzWiTEyfb0tEMbV+FDRe2ftsDWFRf3fLWyk+v6Hg97k
-dPrimjv8jQvy3JOSp4MJPDl57lrHc4a4ZGcVKTmDyuh4ARLkMWL/2R2WhaBapQ0u
-hNPV+LrYCpUov0TUudtL2g08rUhnLzHQgWtA9qoSDIoSzjsHRDHI2Rm5jIVPAblq
-tvITHdHhISqmdMfNrFDG3dqPU8Emnx7l3NHzAtIQkL34x5oKXZagDFncE84mYqPS
-mVsFSP1TQQe3jzduDpjvCi3Ax9fcO51qK+XoSrAoQP5+HXClitdMF3QxA/4EpvbK
-B2A1Ism4Je3+5XzA4ZVtqj3uJzEs+FpucuF7pQpSsaR6EJkpeoNYdSE6o/Gj1oes
-3rReaDJkpO8nKHndJnCgdd4iid/WyRGNOeja/ehcSGV7zJQf4Jb+3TSfJvNY+aM2
-I8UDd2lCjnhC3IVeW5nnmtmGioebTar782QRkQd2fMMGV/GGxV9EugtZufcdQss+
-S2L2ZvuciGwtOBBgN6DAi3dsFqR/2pyneQwdLokruENKJLANWkGL99i+XgSXMXlt
-kRDCO596llbo7LGGqP3dr2Uz42PGIIAQJIxQZkGQicskZg4nlIDR/RcnXueJ42g8
-5EYrEVr39ej5/Fb145mRkd3IaKUwQngCU4ohils+cpw2TDx1f6g=
-=96Tj
------END PGP SIGNATURE-----
-
---acdouwty4afdh7fq--
