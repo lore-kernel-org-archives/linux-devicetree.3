@@ -1,93 +1,96 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410F6472F73
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A0F47DFBA
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786627372; cv=none; b=R4GZ2zi0u/DFYkln7T1rHn+FdgRt4rOyAWpGxhrcUyqmbUmGbyN2ALlldss8sbxGZLfQ3DHqXB2ikwwn+UOOX9+VJ0KKkemxLL+l2S+Qbot5UWHec8xgz3pLM13TmrIeaMOYje/jUzYqOmmizPZKd4U1YqI+Om+Q5dzwHEgl/oI=
+	t=1786627428; cv=none; b=CcbkwiyHhmygwo+ZBPQyNKkBNqCyGmx0v9SPJSw7NTuH+m6V4EoNecD/NsDdktYmHqQAWnmQr4QbcKJJoheU2Vpt2obE4o3mOUvaNpFZdoL9obLUMf+yrmhpu4i5I6q1PReo2wq8iZ15NxJcmc8V+oSkaE39y728xhMsjuGG1D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786627372; c=relaxed/simple;
-	bh=sHmHF6GbWgWoMdkIS5ue/VHmBVPWLG7jf/TesiuQQBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cxliYodVBodc6kAwoQDkhZJ/2TzxcX4A+0M8RYIAs7Va8GR7pn/WJ9HzzH3dXtfaNI9oHS0BBw/COsZjYdGbSjfEU610IC7K7yHJ+NrknFbNuMu6LlUMoMncJzFAT9p9RBxsLOcfJKP7OaE+dbD5HfONQL3azMXjNlX/EYmwDlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=zHVwczGd; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1786627428; c=relaxed/simple;
+	bh=OEyzqY1ehWdK4EpMuKknlyHXg5Txx69Ju077+bEeRNA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=k31xYkbw54JIyidyOTV90YThdrJrAjSMq9OzAUyAgqNdH/0Z95O/ocn4nn3VZwOXt8KoOAxHMHNmrf4+NVfIPCPq+wPO9iXMSduTyufFoXaIjPyMkG6lHaLsfwHyInrO0P1DXgGmExdpetVzTxmKdx7Py2zJwyvofMtpvvj+Pnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mCY/B7d2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="zHVwczGd"
-Received: from francesco-nb (2-224-16-253.ip168.fastwebnet.it [2.224.16.253])
-	by mail11.truemail.it (Postfix) with ESMTPA id B4F3B1FA74;
-	Thu, 13 Aug 2026 15:22:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1786627367;
-	bh=pqlxiuaKNJ2AIUI4/6CA9/N/hM27Rxx3Kill+BVP2pk=; h=From:To:Subject;
-	b=zHVwczGdvwHsJOM/oKaGEqWOef2VqMpfDj/de79MNl1XxS15/mq2SwbGUIkVHkpGJ
-	 NtPS2OEKLC+epd2w4fRhlozUFsS4iHp2e8zEfuil44AHe/eDwl8x6sm1mYQSQLh2mR
-	 5H0cmkr1LMoBGpc4yFCgw5vZKYXOW5iuefEJ1jKPTXOlO9SrzZPBvnvzVz/D300Z8l
-	 XOU2sJIfIl8gKa7WFRXmL0uKd+XEE5axyeCUEgHVWoi/5jHQON50D6u2WlutuTPma7
-	 7/RtngbBqvqTGqKABJeVzZUcdvtVYI5SXFZeCEPQ/uatpPlmIrrAeG82qk4g3x8dg3
-	 61nDfqUNKPsOA==
-Date: Thu, 13 Aug 2026 15:22:42 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: sashiko-reviews@lists.linux.dev, Judith Mendez <jm@ti.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, devicetree@vger.kernel.org,
-	robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v1] arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as
- OUTPUT
-Message-ID: <20260813132230.GA63265@francesco-nb>
-References: <20260813111238.56892-1-francesco@dolcini.it>
- <20260813112458.BA9481F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mCY/B7d2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB1A1F0155B
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:23:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786627425;
+	bh=OEyzqY1ehWdK4EpMuKknlyHXg5Txx69Ju077+bEeRNA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=mCY/B7d2EVA7uya/uFwelIwP0X0tP0Mf2IGzL5AGHE4pivNrIVFnmXngvxGiTnXoO
+	 zaBKGzTAHT2z666GhuGiVBkI35y2tiWosVoebvtsBSWMDg7L2p8ZShZSaV2o5EtFpr
+	 xciyo7Ztx+/lT0XCurJFdRDBdyfvKnJWzPHKTZM5TLABM8Wh2WzIW+b/55mZL64g1m
+	 wdiHuOJdCAf0PJAiPovK1kfdJDTUEmi+ZWH+w/DyfofuKQUlQu18Gf52Vo2BtBKP5V
+	 3RRQ4EilG+uTjNnFe6WIVhRItgR8BQGcqGrX2bR9LbW9zBjJpMbyGGQevBAdDFRNrz
+	 B1wRWBmKa6PTQ==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39f75e1e9d9so14519701fa.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 06:23:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rpy3F2nvwBjQmaaSrCD9+S/MyQh7dgV2se2GAXhDdnTD1JQkDWffGVZR+CSTPI4F22oGGwevN0rdtzK@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZa78X07p/lkmLrBaAkdEJbg/ph+zrlbic3QPvwS1SJjfPHJiX
+	S1zGQ41VtMh1RgnAD5Ss9/2XkdoyyWqXZ1PuplPs9NKkD+7Bl4Geq0N8fKTODAq7HT5zpnsdtUw
+	xJymk2TQI8ALA6BU8aeGFA4BEmoe8zctmM0zHl4rcpQ==
+X-Received: by 2002:a05:651c:b07:b0:3a1:2b72:b992 with SMTP id
+ 38308e7fff4ca-3a12b72ba9fmr1886351fa.23.1786627424290; Thu, 13 Aug 2026
+ 06:23:44 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 13 Aug 2026 06:23:43 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 13 Aug 2026 06:23:43 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260720-monza-wireless-v5-3-69ec6743543c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813112458.BA9481F000E9@smtp.kernel.org>
+References: <20260720-monza-wireless-v5-0-69ec6743543c@oss.qualcomm.com> <20260720-monza-wireless-v5-3-69ec6743543c@oss.qualcomm.com>
+Date: Thu, 13 Aug 2026 06:23:43 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Md6dL8uggf8OJH=tNzCewh7N0AVdVEs5qQreRM3GvcNng@mail.gmail.com>
+X-Gm-Features: AUfX_mx61ZVP34DETlpjsRwYgr3TOISCyOvMoQJeDq10_4_GoxNP6u95XH3-RVQ
+Message-ID: <CAMRc=Md6dL8uggf8OJH=tNzCewh7N0AVdVEs5qQreRM3GvcNng@mail.gmail.com>
+Subject: Re: [PATCH v5 03/11] power: sequencing: Add pwrseq_is_controllable() API
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-+Judith
+On Mon, 20 Jul 2026 10:04:05 +0200, Loic Poulain
+<loic.poulain@oss.qualcomm.com> said:
+> On some boards a power sequencing target has no host-controllable enable
+> for its function, for instance when the enable line is not wired up to a
+> GPIO and is hardwired to an always-on level. The pcie-m2 "uart" target is
+> one such example: when the M.2 connector does not route the W_DISABLE2#
+> signal to a host GPIO, its enable/disable are no-ops and the consumer
+> cannot gate the Bluetooth function at all or exclusively.
+>
+> Add a generic pwrseq_is_controllable() helper. It reports whether the
+> target's final unit provides a host-controllable dedicated power actuator.
+> The target can implement a new optional is_controllable() callback,
+> reporting whether that actuator is effective on this target (for example
+> depending on GPIO presence). If the target does not provide the callback,
+> it is assumed to be controllable.
+>
+> Note this only describes the target's own enable actuator. It does not
+> imply that a power-off reaches an electrical OFF state, since a target may
+> have multiple consumers. It also does not mean that power is uncontrolled
+> for the target's dependencies: those may still be gated on their own. And
+> it does not restrict consumers from calling pwrseq_power_off() either,
+> which remains valid to drop this consumer's vote on the (possibly shared)
+> resources and dependencies of the target.
+>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
 
-On Thu, Aug 13, 2026 at 11:24:58AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Setting MMC clock pins to PIN_OUTPUT disables the receiver (RXACTIVE=0), which breaks the internal clock loopback required by the MMC controller for read operations.
-> --
-> 
-> --- Patch [1]: [PATCH v1] arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as OUTPUT ---
-> commit b7e315f9edd8f485234748a2f8e267539b5b0f30
-> Author: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as OUTPUT
-> 
-> This commit changes the MMC clock pins for the K3 AM62x Verdin module
-> from PIN_INPUT to PIN_OUTPUT to match the TRM documentation, effectively
-> disabling the receiver (RXACTIVE = 0).
-> 
-> Link: https://www.ti.com/lit/pdf/spruiv7 Rev. C: Table 12-246. MMCSDi I/O Signals [0]
-> 
-> > diff --git a/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi b/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
-> > index e97b2b047d104..895b1b7dcac71 100644
-> > --- a/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
-> > +++ b/arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi
-> > @@ -573,7 +573,7 @@ AM62X_IOPAD(0x15c, PIN_INPUT, 0)  /* (AB22) MDIO0_MDIO */ /* ETH_1_MDIO, SODIMM
-> >  	pinctrl_sdhci0: main-mmc0-default-pins {
-> >  		pinctrl-single,pins = <
-> >  			AM62X_IOPAD(0x220, PIN_INPUT,        0) /*  (Y3) MMC0_CMD  */
-> > -			AM62X_IOPAD(0x218, PIN_INPUT,        0) /* (AB1) MMC0_CLK  */
-> > +			AM62X_IOPAD(0x218, PIN_OUTPUT,       0) /* (AB1) MMC0_CLK  */
-> 
-> [Severity: High]
-> Does configuring this pin as PIN_OUTPUT disable the receiver (RXACTIVE=0) and
-> break the internal clock loopback?
-> 
-> TI MMC controllers generally rely on this internal clock loopback path to
-> synchronize incoming data for read operations. While the TRM documents the
-> logical direction of the signal to the external card, disabling the input
-> receiver might lead to eMMC read failures and timeouts.
+I don't think it'll make v7.3 but:
 
-Judith: is sashiko right on this?
-
-Thanks,
-Francesco
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
