@@ -1,144 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6704A409108
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C15C3161A1;
+	Thu, 13 Aug 2026 10:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786617062; cv=none; b=g2twpM76l7RvUpCoZ32H5K86xAsfHfDr1WKiO7FyGZDoMRO7Lkl8wtJZrSrmCqGcVxQS7V6iRm+9VYof8aY0uxLGMjGrIErbz+UUBn00veNCd9GeeomwJxPVfWxTeQmtBGq4yzNbVBX43aZi4FDnkBOyZf9Ja1GW2MZCw0lFFTU=
+	t=1786617319; cv=none; b=YP8uSH48qInQecckYiVHPcPPxhSK17s71cJN1vUAZHP0wzqGbunu8ZHKSjEwrWBU9cBZyx1AKRwbxMxsoCaIfw2YwXCNUp2M7PGdsDwytBxlTngprvzmMtgf/vd1FBIKdBfvuQFsl2yO/Yz2VgZHLaMwxFKr+UuLP4re1vQcHgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786617062; c=relaxed/simple;
-	bh=9j7iuWkta+zBlp6bgKuUvRI7Hk6j65B+WFvVlA2G2RI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nJwgsVz6Olm8jUVBWoF4sPgGz/6dfgehuCjA2CjEeknq2jolTHCOfc4C6OhEvagNHK17jSohUlbwqbc8NvoXzGKy57C+nV3CNITXbQ32FhJXfAkIBpZi3MNww6RBuhmMMNKwSeJ3aHOKfGNK9zlV9n6voLuNaGCyGm67fbMxyUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OS4iDk09; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786617319; c=relaxed/simple;
+	bh=m4IK5A6uMQBmAy+o9teDn/7/PweXDg8a0NW5miwlr8g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NE2vPQRTckoMBTSRuXrpYXJzIqYVezCYNejBEgHGfjpc0KZUM25yq6zfA/8Zcch1Hk49sDTM7GK8tXcWDzOPJeH6kcP55H3fUrl6xcQwHj1gWlXS8/IxqxX+DsLhOKiV0rcD5BK0q8aNKnQFH5vbGpr31jnRk2nnoSeueP/wgyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kPWwCJHh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OS4iDk09"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E7F1F000E9;
-	Thu, 13 Aug 2026 10:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786617061;
-	bh=FpdUJvQ8rxhhE36HR0Xdc1VZBE5Qzc1jyqVJ4kp0Tmg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OS4iDk09bklf/9c0EJ8T7oHgcyOyXyCJ29s4M+/dbC7qflhLPZjlHqZ8EfXtB4TPu
-	 7HpdvQGKeDSTR853w3m8H2nwVWtYGzKAn1YT6xTOL14fXYTm48sNeUBhJqXcXrfz3A
-	 olHD+GQkOl4TMHjuZKGHfNU9x8KMpekW8UcmcZfsT9B1jgHoF7sh+wxDRy6t/DB2Gk
-	 WMeXXevZdPgKsD0xKS312ACrPFHtELuAUsV385nWt+88CEjbgM+t9pAFYhiKhD9V2L
-	 UVGyvBkfgTCgdtb96MPDzHVpjJmTgEdC5fwFDwfVOAKQiYTA5B+fxZXyRldW4Hk14g
-	 1Z7rC8RmtNT9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] pinctrl: ambarella: add CV75 pin controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260813-cv75-v3-b-v3-3-1d82e18da09b@ambarella.com>
-References: <20260813-cv75-v3-b-v3-0-1d82e18da09b@ambarella.com>
- <20260813-cv75-v3-b-v3-3-1d82e18da09b@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 10:31:00 +0000
-Message-Id: <20260813103100.C3E7F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kPWwCJHh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D0D0EC2BCF5;
+	Thu, 13 Aug 2026 10:35:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786617318;
+	bh=m4IK5A6uMQBmAy+o9teDn/7/PweXDg8a0NW5miwlr8g=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=kPWwCJHhBHubFOTCfuP0FJigxQGkQe+D74z137hbHT8PpmvyBb3ELjHuu1Bkd9pzY
+	 OZ5Fmq08MIOopWCGUZgabeFfBRtu82b34hJDuiwMwf48QxnAQ2WJ4hByrOwenh0Vxv
+	 S5KJMrhYqit6ZCSJmJG/ukIx6QMXNWWoO54lQ9nbjR7c4z/zNHX8L7sI8cF6a2OU3F
+	 eQD1HOBBYo7hQVW8plmweiNoi78fhQ2PcpldJ/UBtU4soOMVVvc5HbVQ/zyxlRCxlR
+	 HYaOOAjdiJfseGDy2xWy678T/KUbAZ/ijqLWbr3yFOAiw4jHxixbAz6CdSbF3GGZed
+	 HdASVZdm8RvBA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B23E7C5CFDB;
+	Thu, 13 Aug 2026 10:35:18 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Thu, 13 Aug 2026 18:35:12 +0800
+Subject: [PATCH v3 1/2] dt-bindings: serial: snps-dw-apb-uart: add
+ ambarella,cv75-uart
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260813-cv75-v3-c-v3-1-9352b3fd6026@ambarella.com>
+References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
+In-Reply-To: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786617317; l=853;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=gkrEC2gJHozNyHLXYCYlviD2HquMAPSKys0NOMPGcf8=;
+ b=AZcisJRhZUGKxnenk9hSf4dSjj4a9SPEam+Td5pDcvpq+1Om3XhHg36QrKL/dGVmgseF98WwH
+ VI+dhge8ehnAEKWLHXFS4cGPLWlv46rEcKGM23fdMrycc2qIVnI3m9e
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Signed integer overflow (shift out of bounds) when `offset` is 3=
-1.
-- [Low] Uninitialized stack variables are consumed if `regmap_read` fails i=
-n `amb_pinconf_dbg_show`.
---
+From: Long Zhao <longzhao@ambarella.com>
 
---- Patch [3]: [PATCH v3 3/3] pinctrl: ambarella: add CV75 pin controller -=
---
-commit 92a200b443add22149b7a8c8a942fb503b5f5a04
-Author: Long Zhao <longzhao@ambarella.com>
+Add the Ambarella CV75 compatible string to the Synopsys DW APB UART
+binding.
 
-pinctrl: ambarella: add CV75 pin controller
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Add an Ambarella pinmux-only pinctrl driver with CV75 function/group
-tables. GPIO is handled by the PL061 driver.
+diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+index 49f51b002879..cec5c679f1a9 100644
+--- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+@@ -51,6 +51,7 @@ properties:
+           - const: renesas,rzn1-uart
+       - items:
+           - enum:
++              - ambarella,cv75-uart
+               - anlogic,dr1v90-uart
+               - brcm,bcm11351-dw-apb-uart
+               - brcm,bcm21664-dw-apb-uart
 
-> diff --git a/drivers/pinctrl/pinctrl-ambarella.c b/drivers/pinctrl/pinctr=
-l-ambarella.c
-> index 0000000000000..fb79a8b02209a
-> --- /dev/null
-> +++ b/drivers/pinctrl/pinctrl-ambarella.c
+-- 
+2.34.1
 
-[ ... ]
 
-> +static void amb_pinmux_set_altfunc(struct amb_pinctrl_soc_data *soc,
-> +				   u32 bank, u32 offset, u32 altfunc)
-> +{
-> +	u32 i, data;
-> +
-> +	if (!amb_iomux_accessible(soc))
-> +		return;
-> +
-> +	for (i =3D 0; i < 3; i++) {
-> +		data =3D readl_relaxed(soc->iomux_base + IOMUX_OFFSET(bank, i));
-> +		data &=3D (~(0x1 << offset));
-
-[Severity: Medium]
-Will this cause a signed integer overflow when offset is 31?
-
-Since PINID_TO_OFFSET() masks with 0x1f, offset can be up to 31.
-Using 0x1 (a signed 32-bit integer) and shifting it left by 31 results in
-undefined behavior and may trigger a UBSAN shift-out-of-bounds splat.
-
-Could this be changed to use 1U or the BIT() macro to avoid the overflow?
-
-> +		data |=3D (((altfunc >> i) & 0x1) << offset);
-> +		writel_relaxed(data, soc->iomux_base + IOMUX_OFFSET(bank, i));
-> +	}
-> +
-> +	amb_iomux_commit(soc);
-> +}
-
-[ ... ]
-
-> +#if IS_ENABLED(CONFIG_DEBUG_FS)
-> +static void amb_pinconf_dbg_show(struct pinctrl_dev *pctldev,
-> +				 struct seq_file *s, unsigned int pin)
-> +{
-> +	struct amb_pinctrl_soc_data *soc =3D pinctrl_dev_get_drvdata(pctldev);
-> +	u32 pull_en, pull_dir, ds0, ds1, ds2, ds;
-> +	u32 bank, offset;
-> +	int strength;
-> +
-> +	bank =3D PINID_TO_BANK(pin);
-> +	if (bank >=3D soc->data->nr_banks) {
-> +		seq_puts(s, " (no pinconf)");
-> +		return;
-> +	}
-> +
-> +	offset =3D PINID_TO_OFFSET(pin);
-> +
-> +	regmap_read(soc->pull_regmap, soc->data->pull_en[bank], &pull_en);
-> +	pull_en =3D (pull_en >> offset) & 1;
-
-[Severity: Low]
-Does this code consume an uninitialized stack variable if regmap_read() fai=
-ls?
-
-If the register read fails, pull_en remains uninitialized, and its stack
-memory will be consumed in the bitwise operation and eventually printed to
-userspace via debugfs.
-
-Should the return values of regmap_read() be checked here to prevent leaking
-kernel stack data and triggering KMSAN warnings, similar to how they are
-checked in amb_pinconf_get()?
-
-> +	regmap_read(soc->pull_regmap, soc->data->pull_dir[bank], &pull_dir);
-> +	pull_dir =3D (pull_dir >> offset) & 1;
-> +	seq_printf(s, " pull: %s,",
-> +		   pull_en ? (pull_dir ? "up" : "down") : "disable");
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-cv75-v3-b-=
-v3-0-1d82e18da09b@ambarella.com?part=3D3
