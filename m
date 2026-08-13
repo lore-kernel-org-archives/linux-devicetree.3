@@ -1,295 +1,209 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010030.outbound.protection.outlook.com [52.101.69.30])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BF3417D99;
-	Thu, 13 Aug 2026 14:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786633144; cv=fail; b=BiBkPqQdpgjVyAxX1yBKWi0Q4s0NPMykKUHNAe/3wiQcPNDSpPeeYxVPnnbDe2+vbBNgx2M98yrNmJj65M9VJUj61RwONRX1y2L6VlIJIEt1s9FZyo39pR+yXKfmZ5zaqCb2UFBz9DLFvqfcUQt73ZHg0mwZu6pnq/qZsUd5YzU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786633144; c=relaxed/simple;
-	bh=RrvBOYlKv06mwLSc2O5vHbTMIbFjDKXOyM79ihdCAy4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=hSBhkYZBof1eDjnoZptwWYNHFk3vJ9eQm4fHU4JaoqjRQthDFw9WDGxEH7HTCdEMU9oT2620ysJ/sF5ENriXfqyUk2MvnDg2P4gVzBHV09WKeDs7CKgk4Jo8mQ58hqcSjenjyfElbtZsRvlV7pcF15WhA/kGanVFHJKDrhQRK1U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JLBMT/NN; arc=fail smtp.client-ip=52.101.69.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A3B320CD1
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 15:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786633213; cv=none; b=eiJ5iAV8x2QaAt40ZUi/M1vZW9le4VhTj9xVSDbWDMbCS6+0lQjGod8xfm8AAp9J0EBPJSzXKjGIMfEBsuH4rPzXUshC//ur2OXY82IRurm3pFT56FjBvQ5V4H6MNT86QE7J1PYXXZsBv3jOtaRYKM/spLcnPbUgntcmmbmEXgc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786633213; c=relaxed/simple;
+	bh=y8BFkiFZ1bhHz5V26X8XbwaP6uDK/0hLwpShUEY/OhY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uJn2MmfN3CDnJtcfSGZJzhzOurdR2Ai5mnXu0E9rvI+2fYa2oE3ZmkjpsofCnN1fylqH9X5a4bGsCPwnZzjfYaG0cNfaDzfrGpxbhX0SsB5W9APsrFu/H2PQ1dCAGHTn1owljhtPj2FTTIFhey12Hs8yxcTR7M6osi8YQwM04VE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I2AcQIXs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X3xQ7qGs; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JLBMT/NN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fuMtLESm94aRcgTiu/7pshyrJYLFuO0U++vA9XWSmbLMju1jOjVrnb1klf2bVY4RgbTF6H84KE/PPXzb8D4B2/qAmQXfDnIWtdaiNUu5SlwIabubYPNIhDqtq5qYGQYxcPVbgQbqhG8T3DeAWX8Jf4dFpsRMA0//9Wxl30nTvcWa26VD/88rh+CUgq5JTDY5ejo1TPRRAIV7T/RCKfUIc7V1mRMtyf6qFfjiqL/nEUjOlYd0kPERCn23aP1hX1q8wvssZUMr0S71TfgH0rFanwUr/s+wm05iILhgzqAfrhZqC8o26KG6SY3RoTcIfVMyFXfTWVt8kF+4Vwbfq5V+fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oKK4fzgTuBxNfGpyQCi4qRTfdbIaj/fZLWsUZBUqozI=;
- b=JUW4QNR5GEkMayg2P/rSuR02iKGzDTA7XL2FMU0xMHi0OrrmeeTGHke+xh8LrwFzrj8YE1YJ34Gp+/5UX/xUe1rk5ykdT5URpQYDCbBJDx+oLIJL/XuiSIHEl46AenGsDHPmzvCEvsmNGsXNaOIJiggBQx4cWyOBoFq7nHD1+CHAnUVoNvboPdjOKUOsX5xrXgY1WGxMiM4SvCvr41Bg6p8CG5ddmO5kkeRLlGBZGBtyGsvWSiPkkpMxIW+ub+NCJYscXJXFihb+msF3mxitNpnq5wIHtrRxwwr1Qtj2CyE3X36S9cSU7kArcws2wNpLtWWr5CjqrxNGBX65CvDXDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oKK4fzgTuBxNfGpyQCi4qRTfdbIaj/fZLWsUZBUqozI=;
- b=JLBMT/NNvEjS5yHQstDsjS/iJCKC6r7FzEI5tW0jbQpOmhpxWrNdt6kTBvO/nOr1hUvUfoWDTMMf4X+UMBuFEYwz28nzuovHUKDLiKRvVWXyTSC/nJ/4a0vwmZr0gapuqx2D9psOM6Z1YJ6jCa76waIowiSet7xCzSTl/PF+6OCFg2fo1U2E2XxKzE72aKNjzDGgBUlO19QQX1wrDwhJVdHbjTgWY3yOhjW3pGuLGZiMsRwMIRzqbuhsT4JLB+6zXLYuzrHuRgzWHythjGiZUidHKL8SsWlA5hLygHwTxw5HM6hzsla2KSA5b5M+1hJgzDwWR4fUS8OcYZpK9PDtXQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
- by OSKPR04MB11438.eurprd04.prod.outlook.com (2603:10a6:e10:9d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 13 Aug
- 2026 14:58:58 +0000
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de%5]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
- 14:58:58 +0000
-Date: Thu, 13 Aug 2026 09:58:52 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 6/6] arm64: dts: freescale: imx8mp-verdin: Add Mezzanine
- with Toradex Display 10.1" LVDS V2
-Message-ID: <an3brO5COdw_F76m@SMW015318>
-References: <20260813133335.1941580-1-leoreis.costa@gmail.com>
- <20260813133335.1941580-7-leoreis.costa@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813133335.1941580-7-leoreis.costa@gmail.com>
-X-ClientProxiedBy: SN7PR04CA0120.namprd04.prod.outlook.com
- (2603:10b6:806:122::35) To DU4PR04MB11791.eurprd04.prod.outlook.com
- (2603:10a6:10:623::11)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I2AcQIXs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X3xQ7qGs"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67DCKFA21955907
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 15:00:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=LZobNk5hrLgW88leDUTxSIm0
+	cAW4Tyffnz+OKCklrXU=; b=I2AcQIXsgXsJf3tkSEfyStWQrSG7u8v5RysfEJYc
+	4NUvVDr3HpUjIK/IK1WwSr/JVNTHxJ1gfslXy2A6CmnH+yP5HtO2PIbLhcrpX3qo
+	utwY4WQe+0gNx7D8XCHJ3wQAoYAeN45OpwTFFY0IT4O7bOw4RmqP8DKIxjYeuIiO
+	GKUhE8qS5u+0Y18k8eVLuGycdZK3JgHauVnuYs87SEqJMgR9IurXVvjKH3TWQC0F
+	9yCukUz5TonoZwYG1oqVTlDDyfy2IECjla5vYQLq16g3a/ickFs+wKJwUBIbc7bZ
+	MAnPrLEyLkjogUei7TQqnj61Nb8Ok4zsEKRW3n/XAJbJ6w==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g14syjyqr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 15:00:05 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-526da7e3c9dso104081cf.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:00:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786633204; x=1787238004; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LZobNk5hrLgW88leDUTxSIm0cAW4Tyffnz+OKCklrXU=;
+        b=X3xQ7qGsbW+FkVGVr6BKoZ3vd9RL8OHu920hNP3HmlTPqHvfPqVEy1AlnHzAYT6UlG
+         Iuo8qH9Y323qPhOTJiwwYOCj7bPwzVcmDsTrF3CHUNXoXLxFmV0FjzaGnwb5BpndW/hc
+         idvuYm5t7iZ4ZC9mgo9Xhc2nsEzJc/KrYTVJegsGUdhGRqkzZurhk2cP5zF2gpbV7czA
+         3ARyrVW9sd39bJ0FNyuSWzIz69pVBYBjqHzYsyHg+oN2k+g/ub/ghDprBlhY1ZABGcvk
+         QUJF6knqMSkwrtgo8fwI2qeT6Lz+m/CS/sUWlGAgLY2lsxRGzr5PXk17E0YxFd2oavwo
+         ZxNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786633204; x=1787238004;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LZobNk5hrLgW88leDUTxSIm0cAW4Tyffnz+OKCklrXU=;
+        b=c5xEKe/Kn6ksW6bOnFwPF3x1uCWiP6Z56kGf3m4aN/uODs/vQJklM/5X6i4sZ/vG81
+         X0L8VDqBJskn8BNdfna+P1y3emcbn7TcjCKb0TaUbQs1YeAuXx3KhJvm7rsgD2BFLOfT
+         MHrkpQVv2WcC3B84WiuIHBmYObgtzxSqBOx7+U56j54UaUfeVRU6hpO3zVaSfU99F8SV
+         CcUm/pKuv7+cQjYWfSXt6eP7lYPxYWzW372OBWQQ3zpI2oqedErduV4Ai02S//7w8LWQ
+         sqcnLCpjjLk4Wl1AE/8364rIV5daTknqaTkaun2Lk+qSSkYRji8VXvtr6XX8PZcPSqJz
+         wE0w==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8pH26vESHxn4048Z+aF/isWQbAVeakDRgn/7DvdK/PV1/Jns1nflL0uAKTxpDxc3Dh6QuH/+6fgWF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzf9JeUoGsjXhXKR2mg1tMkhq8or+bY4YBGRqflyK+x5ybSNgkk
+	vZHqFXAGNZndxIPrrVTWghL4LQTrj4jyB8PlwHHrbY7zTOCaO9MetJxGGc+v7yO0TI+0zBKmRgg
+	0JTgqYoc5bxoMhQlfshRkC3NWLy5XbUktpQkGKOO8FMacYz8SzaKTkYEIswTJMCJ7
+X-Gm-Gg: AR+sD11kyXalexm4dGBahySQVdeIme5TcsZzFKb8muILpzWQLCsJFYz3Fen0bp42472
+	as6JJp/vfFrd9zdwNmRWL02RKLYYnd0nQBo7cWpvqcST9OXa5zgPVh3LnC4FZW71dwc9rXyQMt/
+	eRDjuRubB69A1Km7ovQasXIEeY0wJgnXpTK9RZyf5OOFtVoLFhx9sChknHjkvSK7KaSOAq+g4fG
+	8/z0NrBwGnJUxn2+4omdwPDon9/34VxxgVoBUwerbEAqeiPWgipIbj82dS/y477Ofi6jdG7wdG5
+	E1EgUObiunN26eLtCx8p4YwZ5oZh17RnZX348vlR1gq4uNx/CHsx3dip4FZTWHY3vQPGDrUiy8B
+	TgO0cRAkyHYg7+SxIUefTBmTWTq8GPndrtxiU6gbu2gZAA29lcyrM4lWwdXaewDb15KIyqoXZxz
+	OrvQzg0YrA6Fx2
+X-Received: by 2002:ac8:7e95:0:b0:528:38b1:b54b with SMTP id d75a77b69052e-52d73d93239mr63800891cf.20.1786633203840;
+        Thu, 13 Aug 2026 08:00:03 -0700 (PDT)
+X-Received: by 2002:ac8:7e95:0:b0:528:38b1:b54b with SMTP id d75a77b69052e-52d73d93239mr63799871cf.20.1786633203231;
+        Thu, 13 Aug 2026 08:00:03 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4539e1330sm524819e87.8.2026.08.13.08.00.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 08:00:02 -0700 (PDT)
+Date: Thu, 13 Aug 2026 17:59:59 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        venkata.valluru@oss.qualcomm.com, vishnu.saini@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: hamoa-iot-evk: Add eDP display
+ overlay
+Message-ID: <uo6y7zydgnxhz4bbk2bzlychhxcp3hbx23eqg4wihxkj3hy33b@h2pbeveq6tul>
+References: <20260806-edp_overlay_for-next-v1-0-c3aebbc81f38@oss.qualcomm.com>
+ <20260806-edp_overlay_for-next-v1-1-c3aebbc81f38@oss.qualcomm.com>
+ <anUgxo3BPt74Wx7K@baldur>
+ <anWsrXO9RztrF5H4@hu-anantiwa-hyd.qualcomm.com>
+ <eblai4d6apohd43uvo4kbm3y6yfkso7rd643ijra2awyguve5l@j7aq2vzzwmj2>
+ <an23eZWmtDVbfWEG@hu-anantiwa-hyd.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|OSKPR04MB11438:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6ee3ba5-2283-4b22-e276-08def94b66e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|376014|7416014|1800799024|13003099007|11063799006|10067099003|4143699003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	2m9XDvad8icZt5ctgO5Q0oP5GwdxBBonPxAd08op2ME0MM+bt3//XsGyDTl8Nsoh6qI2GSJ+L8y9rsjS58of4cW3sR5nAsbdobMoZ0RfIbxpygbBe1YLXqyPKoWHSzRB8pdeyBcsWw4t1HMtqGMHuOUpWsTMwVWl4df5Z/6Zo8NMWrJEc3W2TEkWKoQ4XKHlrCXnYtUbFIBUFJa7d4Kc0G0upTHgM1kjYPgmI7TW4feAIzVrNRg0JJ5BIcjJfexUwG400ioJ2Jvle1AXox4TL36j1HwKBU3EjW69ZojpxqqTLMa41vl4GiME66Fm0W+Qq2GYMTCa8hWPiMX1ZAg16npgN4Yfde+nOO3ehSYUl0Rrj/kofIebHMFsX+MY3yul7aiTRJVaio4SXFqI9CK5OKGiv1ey3G6wwR8E3RDzttcqqhv9pA9ISdzsqFCheBugZNrCLdL1hJQULSjUglN0455Sh6G0cT4hWtPBMPOl+gDSMXWb1QCqh7cqbFepuYs/lotu9HZCzpr3GA1mf+0cmEdX2Ivt8txuX0DYezEMfoNhEcG3mYqhbF4D4BIegFz2BZljRBnIp7UOdzO2twOxFx42NX9DUOi7sBGyezn8nKG4IVCClueaWwogYiOIirX4SxP6nQmwey6fpXWTir1NGOpiW/uCh2bm8SzOPdgTDPI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(376014)(7416014)(1800799024)(13003099007)(11063799006)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kEzR6L8EM3qWzOHVBF23LnJGr3d4LMJig/2qeKX5Lh5tTWLLti4egRyuGHI4?=
- =?us-ascii?Q?yskzUcd3ja8j+zEIp0S4dtMYBhXhxI8L+ZZqz+S8TKm8yzbJIbUgDyeL66x+?=
- =?us-ascii?Q?6VOziMw39f7fN1p7EFut7+Wf+dTMzzl1G4/Bqz4fNxGXchcxK/h4wGOffBJL?=
- =?us-ascii?Q?AVgnuyL8HcUdeKSMT61f0rKeTNfgdcsiff6Mvytfqju75eVKCbM7ngos5zro?=
- =?us-ascii?Q?Kz9h7jWKNRmxe9+dRODuNcj/fUUvnNQ9r8Za77S0bcW/VpYOc0ok140N0ADU?=
- =?us-ascii?Q?ZxNkp9Epr/6XrEgKxtJh8QvmZtXban36TYgKDr+7pJQY3cJg8VHnd01YIUiW?=
- =?us-ascii?Q?+BCSpozNkbKN4Tj8mtf40t5ytsCEQ8uW+nKpGNlVR+XOE/wQC2Nwu8rlLZ2N?=
- =?us-ascii?Q?WVgRQ6raHvIys30NwO9M8er/m9PsuhpJP27QJu7kQGECkEYZD12WsINlIEAC?=
- =?us-ascii?Q?mzBrBOPRyEbPJdgfOxcIH4Hc0hVQqvwwLxY674n5+ZdbRFfWziDFw+wkRL12?=
- =?us-ascii?Q?eKI468Ti7kVqMPkAuRDHiaVa4yiUxFM+hzUEjuCj6VBEs+rROMF37Takvs3k?=
- =?us-ascii?Q?nhw/EdVHh2qrd9ZtleQwBPHzPLOtTPR2Wf6s9c/PhVNkpPyebD2LT149Zjob?=
- =?us-ascii?Q?am3a4M+xnbhwGmS9UeuWoR9g6ilPpIbvYYSytF1f0Qne0GjxPOm7HsM6F6bK?=
- =?us-ascii?Q?TZzRlY6K5Dfq9ReZkpfTlwXMLZPxJPSDqRLMqmO/mQxDGtMX9R/W7k5WrmeQ?=
- =?us-ascii?Q?j0YlTDxbNVqCz44NoA6+zo3R0KeLiHLROI3AfDLH1CXxRFIEl6Kjg1eM98j8?=
- =?us-ascii?Q?xtrivtbae5Nvyi61htTCeAUQ1MeE7QOKvF2MDlRxLrhjCMA5rk/0AmA1Zlg9?=
- =?us-ascii?Q?Ynx1nktsMJ3RKsiVI7ZrrLdwe0BTBxWD0GyCl6NKj0ibcJprGlLVu6a6XBgK?=
- =?us-ascii?Q?o5g1pSCzTO80Mizs520KSLZo4U1HzpGtsj9s25Qzf/DBERjNQ4ZlwbkLNeL/?=
- =?us-ascii?Q?JNX0zuIcPV7grFbJKp6yuW/BZ0V6YIlEftN/uq1AxI/rCzXjenzcqZQisA9q?=
- =?us-ascii?Q?RAi5E45sreBpeyEIpObLGTI0dOTWFw7ptv9UuiqFZLSON8xSiGFoUNTbjFO/?=
- =?us-ascii?Q?Rd9hClLiLA62wsLOlxiXrBAH+732nKfLc9GrbO/+6VthVaZ/VoFNENxhjoD2?=
- =?us-ascii?Q?tQTKEL9JD89GczZ8857s6bfRgSpdpF1Af5mXN6PgVqVMDK0cND9YGNbG83In?=
- =?us-ascii?Q?qgBvGCC9ZgbGm02UF8Fjh/HdZL/4CpbldErDXc9qDRm+3F64FcsTaxJtkZXB?=
- =?us-ascii?Q?aBXJcPDsfp2XlB6bKD/CDUkMdOaXBMTLWFOYi7RjYv9LH/OPWxt4kIPuetaK?=
- =?us-ascii?Q?5GYp8fc9h1oeBHcHrdUEpfHc6tJxWCnSObBjh1EqDLLlgemiIpFAZ97stUfZ?=
- =?us-ascii?Q?ZtubOpzp4fn+QWUwBftHkg3xXeoFLoP8NutTheZpEyFwKggtlJf+THE6vqdN?=
- =?us-ascii?Q?ugQNtR7It6d5FtR3ASXQ+ue5F5yNTWaJUd/YjFK41Hb1T0LLAmabYzq79lwt?=
- =?us-ascii?Q?pfflnVksY4LwD3oxoHcZsyQuxUyYgGrDdsRBKreJLND5h1HVkCcgTyl9OmCG?=
- =?us-ascii?Q?KUDWBIAeGNtZCv5PEhF5kOxPjDCnRllDh6XTMd+9CIqcF+j5gOlmFOhJx96e?=
- =?us-ascii?Q?CmMSZKOL1SOeLQ2YGLm6WVcVNVdcjunybY87GKg2UyzZ3ZHmeUwl5MilSgvq?=
- =?us-ascii?Q?diduC7dkS+5JCsIfq0rJYfAtUuI6Wj+mCdzkl7uSq8SrphpzuI13?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6ee3ba5-2283-4b22-e276-08def94b66e0
-X-MS-Exchange-CrossTenant-AuthSource: DU4PR04MB11791.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 14:58:58.1008
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oh7qipztzY/Z2heTvzcX1Qk17nsBbAP+QWEfOWKWGmQYdd4tkRWcDpE60EjYgkurfy4mfXQXxf06ASOXiJppFBg04wK59EwQXWb8DQMgfX68uqdfFUs9bWyM3tKyZJnI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSKPR04MB11438
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <an23eZWmtDVbfWEG@hu-anantiwa-hyd.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=ZcQt8MVA c=1 sm=1 tr=0 ts=6a7ddbf5 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=ohoy1kE5jbgo51n5cX8A:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEzMDEwNyBTYWx0ZWRfX1F7ZO5zc3ZTX
+ a3Dpnm4cqODfL/XtHLD/nvRvm63ZAbWqA/kRGeGY4lvuXBk2KOea48sbjabzu8y54SOvcLdGFF2
+ TkSuWtEXiEwaSVkBUFyZi7rkL6Zitrg/GWrlQ7omcAIwT/IoWO632UmF+0dVg4GhgzYxd65jJIU
+ 7FpZ2J3oQ3RnuZp/btKR/hFYgL5oCcrsfPvLgQ+KBGxEi6du243cmi1tVTVebF3TRqvNZVGdutS
+ h/S6gowq7v58W8NG5iDolOWFcsnFAkf10N0m1Zmu1DIpSVyAvuMMSaJlyLxhpV6F+KNlvQqbsAO
+ 2WfUF0vHqqSAKbGySQCOKKwYec/bi+Gkvbj0A8vO5C6BabmhoP6gOyyolw5iPZ3u4koGR/WCr6Z
+ Qr1+0brn6dK+8yRoYezVdfQGbge/v5I7SlSCJaquIdUMH6PgFStdtzVtz92U/YFip+K1p2mfjb1
+ rqbn7vm5DFcnf4b58ZA==
+X-Proofpoint-ORIG-GUID: O_XkQe_Y96bZgmE0Arw9MgQDV-thBC4L
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEzMDEwNyBTYWx0ZWRfX4n3j3QYfUJEq
+ PGQuUaNIoacs4jVcLKqZEZoftPRpem1Pr+fGqf75oQG4zygE6SbordLBdXQ+iKVimB0vbPJIdSv
+ BOR35ez91kqu5Z9i8xh/ITCDHzPUIzo=
+X-Proofpoint-GUID: O_XkQe_Y96bZgmE0Arw9MgQDV-thBC4L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-13_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0
+ adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608130107
 
-On Thu, Aug 13, 2026 at 10:33:35AM -0300, Leonardo Costa wrote:
-> From: Leonardo Costa <leonardo.costa@toradex.com>
->
-> Add a device tree overlay enabling the Toradex Capacitive Touch Display
-> 10.1" LVDS V2 on the Verdin Development Board with Verdin iMX8M Plus
-> Mezzanine expansion board. The panel connects via the i.MX8M Plus LCDIF
-> on the Mezzanine LVDS interface (J10). The panel is an Opto Logic
-> SCX1001511GGC49 10.1" WXGA TFT LCD LVDS and the touch input is provided
-> by an ILITEK ILI251x capacitive touch controller.
->
-> Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> Link: https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine
-> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> ---
+On Thu, Aug 13, 2026 at 05:54:25PM +0530, Anand Tiwari wrote:
+> On Mon, Aug 10, 2026 at 12:04:21PM +0300, Dmitry Baryshkov wrote:
+> > On Fri, Aug 07, 2026 at 03:30:13PM +0530, Anand Tiwari wrote:
+> > > On Thu, Aug 06, 2026 at 07:05:37PM -0500, Bjorn Andersson wrote:
+> > > > On Thu, Aug 06, 2026 at 10:01:20PM +0530, Anand Tiwari wrote:
+> > > > > Move the eDP panel configuration and related power, backlight, and pinctrl
+> > > > > nodes into a separate overlay. Keep the base DTB suitable for headless
+> > > > > variants and provide a composite DTB for headed variants.
+> > > > 
+> > > > To quote:
+> > > > https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
+> > > > 
+> > > > """
+> > > > Describe your problem. Whether your patch is a one-line bug fix or 5000
+> > > > lines of a new feature, there must be an underlying problem that
+> > > > motivated you to do this work. Convince the reviewer that there is a
+> > > > problem worth fixing and that it makes sense for them to read past the
+> > > > first paragraph.
+> > > > """
+> > > > 
+> > > > In fact, I'm not even able to guess what the problem you're fixing here.
+> > > > 
+> > > > Regards,
+> > > > Bjorn
+> > > >
+> > > 
+> > > The problem is that the base device trees currently describe the eDP
+> > > display hardware unconditionally. However, Hamoa and Purwa IoT EVKs
+> > > are also available in headless variants without an eDP panel.
+> > > 
+> > > With current base DTBs, headless variants are not stable where eDP panel is not
+> > > physically connected with board and userspace is trying to use it.
+> > 
+> > Please define "are not stable"
+> 
+> I did not see any crash in this case but in the absence of physical panel 
+> logs are flooded with errors, userspace is trying to commit the frames 
+> since connector status is always connected:
+> 
+> "
+> [   23.499621] panel-simple-dp-aux aux-aea0000.displayport-controller: Prepare 
+> timeout after 5 tries
+> [   23.508763] panel-simple-dp-aux aux-aea0000.displayport-controller: 
+> Couldn't power on panel to ID it; using conservative timings: -110
+> [   52.143157] [drm:dpu_kms_wait_for_commit_done:525] [dpu error]wait for 
+> commit done returned -110
+> [   52.175662] [drm:dpu_encoder_frame_done_timeout:2733] [dpu error]enc40 
+> frame done timeout
+> [   55.351084] [drm:dpu_encoder_helper_report_irq_timeout [msm]] *ERROR* 
+> irq timeout id=40, intf_mode=INTF_MODE_VIDEO intf=5 wb=-1, pp=0, intr=0
+> "
+>  
+> Another issue On Ubuntu with Gnome Desktop is:
+> Display's connected with other DP ports are only showing backlight since 
+> login UI picked eDP panel connector which is not physically connected.
 
-what's difference with Add Toradex Capacitive Touch Display 10.1" LVDS V2
+So, for the next revision please describe that in the commit message.
 
-why not share one dtso?
+> 
+> > 
+> > > This series fixes the inaccurate hardware description by keeping the
+> > > base DTBs limited to hardware common to both variants and moving the
+> > > eDP-specific nodes into separate overlays. The base DTB can therefore
+> > > be used for headless variants, while the overlay is selected for
+> > > headed variants.
+> > 
+> > -- 
+> > With best wishes
+> > Dmitry
 
-Frank
-
->  arch/arm64/boot/dts/freescale/Makefile        |   5 +
->  ...zanine-panel-cap-touch-10inch-lvds-v2.dtso | 107 ++++++++++++++++++
->  2 files changed, 112 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
->
-> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-> index 236bfb6a1e19..39c5f0db5203 100644
-> --- a/arch/arm64/boot/dts/freescale/Makefile
-> +++ b/arch/arm64/boot/dts/freescale/Makefile
-> @@ -509,6 +509,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw74xx.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw75xx-2x.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw82xx-2x.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
-> +dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtbo
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-dsi-to-lvds-v2-panel-cap-touch-10inch.dtbo
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia.dtb
-> @@ -524,6 +525,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-dsi-to-lvds-v2-panel-cap-touch-10inch.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds.dtb
-> +dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-ivy.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow-panel-cap-touch-10inch-lvds.dtb
-> @@ -540,6 +542,9 @@ imx8mp-verdin-wifi-dev-dsi-to-lvds-v2-panel-cap-touch-10inch-dtbs := \
->  imx8mp-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-dtbs := \
->  	imx8mp-verdin-wifi-dev.dtb \
->  	imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
-> +imx8mp-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-v2-dtbs := \
-> +	imx8mp-verdin-wifi-dev.dtb \
-> +	imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtbo
->  imx8mp-verdin-wifi-mallow-panel-cap-touch-10inch-lvds-dtbs := \
->  	imx8mp-verdin-wifi-mallow.dtb \
->  	imx8mp-verdin-panel-cap-touch-10inch-lvds.dtbo
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
-> new file mode 100644
-> index 000000000000..b78322907192
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
-> @@ -0,0 +1,107 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-> +/*
-> + * Copyright (c) Toradex
-> + *
-> + * Toradex Capacitive Touch Display 10.1" LVDS V2 on the Verdin iMX8M Plus
-> + * Mezzanine LVDS interface (J10), used with the Verdin Development Board.
-> + *
-> + * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> + * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-> + * https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine
-> + * https://www.toradex.com/accessories/verdin-imx8m-plus-mezzanine
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/clock/imx8mp-clock.h>
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +#include "imx8mp-pinfunc.h"
-> +
-> +&{/} {
-> +	panel-lvds-native {
-> +		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-> +		backlight = <&backlight_mezzanine>;
-> +		data-mapping = "vesa-24";
-> +		power-supply = <&reg_3p3v>;
-> +		height-mm = <136>;
-> +		width-mm = <217>;
-> +
-> +		panel-timing {
-> +			clock-frequency = <64500000>;
-> +			hactive = <1280>;
-> +			hback-porch = <20>;
-> +			hfront-porch = <20>;
-> +			hsync-len = <2>;
-> +			vactive = <800>;
-> +			vback-porch = <5>;
-> +			vfront-porch = <5>;
-> +			vsync-len = <3>;
-> +			de-active = <1>;
-> +			hsync-active = <0>;
-> +			vsync-active = <0>;
-> +			pixelclk-active = <0>;
-> +		};
-> +
-> +		port {
-> +			panel_lvds_native_in: endpoint {
-> +				remote-endpoint = <&ldb_lvds_ch0>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&backlight_mezzanine {
-> +	/* Verdin PWM_2 (SODIMM 16) */
-> +	pwms = <&pwm2 0 6666667 0>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +/* Verdin I2C_2_DSI */
-> +&i2c2 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	touchscreen@41 {
-> +		compatible = "ilitek,ili251x";
-> +		reg = <0x41>;
-> +		/* Verdin GPIO_3 (SODIMM 210) */
-> +		interrupt-parent = <&gpio1>;
-> +		interrupts = <5 IRQ_TYPE_EDGE_RISING>;
-> +		/* Verdin GPIO_2 (SODIMM 208) */
-> +		reset-gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;
-> +	};
-> +};
-> +
-> +&lcdif2 {
-> +	status = "okay";
-> +};
-> +
-> +&lvds_bridge {
-> +	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
-> +			  <&clk IMX8MP_VIDEO_PLL1>;
-> +	/*
-> +	 * This display uses 64.5 MHz pixel clock, so IMX8MP_VIDEO_PLL1 needs
-> +	 * to be 7 times 64.5MHz, or 451.5 MHz as the internal divider will
-> +	 * always divide the output LVDS clock by 7.
-> +	 */
-> +	assigned-clock-rates = <0>, <451500000>;
-> +
-> +	status = "okay";
-> +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		port@1 {
-> +			reg = <1>;
-> +
-> +			ldb_lvds_ch0: endpoint {
-> +				remote-endpoint = <&panel_lvds_native_in>;
-> +			};
-> +		};
-> +	};
-> +};
->
+-- 
+With best wishes
+Dmitry
