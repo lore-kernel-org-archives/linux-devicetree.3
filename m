@@ -1,259 +1,248 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023074.outbound.protection.outlook.com [52.101.127.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D555435C6B8
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786610313; cv=none; b=tcI1GZD+9n1FZo8O8qBcHGPX+h7979gUYW2AsDMqgOOCwTWFjvDbEEtW2FVhHPXYEFApEsL471qqEcUeAhca6/8pQDwKBOdDGrnliFLn4nX0A6c0RfL7541lekbX8zbwH8lhM8aAJlZKP1mpPe870+tHC7GhRADMdndQEYFnxWU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786610313; c=relaxed/simple;
-	bh=BxUNnp7MteQJi7FPDkXdFUR9QsZJbB6F64ZWzs+U1PU=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YAhtjfRHc4ywP6sUdM1FyVv8RumUazW25+SSk7ZaJPOND3eEISC541fuFrhzVUhUxA3MG/uWFBZALsRCiSFjdPQOLDxIpkmurWquj7/zV1V4o7KFzIaDhxDm5Ef8ArzNsS978gVaIPMbQKfhcmbRwYBIR+lcGMxc7xV9ADQBkfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HGrCdXcv; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73AD0390CA9;
+	Thu, 13 Aug 2026 08:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.74
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786610405; cv=fail; b=MfxPrQ0+0r3FSrVhYks3ohtsAqgRWV2puDLNdjpn+2cXtAyPTz/V1oJw2xKq/gWkKhaAX8E/YdJ8FoMF5ESZq9S0bwCm86O3ii7PZMcnl0fv/gX5xNpKYrZ9a3LYQTmqHk5wIGTCmuQgBFqyJ4Cx5YhaRrxFAnpoFqcAWJUgAhg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786610405; c=relaxed/simple;
+	bh=fCxb3gX5jWkUMd/sDSpB4VQ4RvfDCO1qz0j5IognllQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ceZ6cY5jpWZ56edqv02SkJCmeHD7Ie1KjNX4kNUYcvKK99xjoFzGyHLAX9fDfcrq9pRPsZAAnpP/n2YAd9zvGKr72cuSYkM0jnxrKt6WwVGICeVJu7+noEb8Es/pdbLQ7fQTA297fb5ngQt9zU/cQaIGiBrketziJslYmqIUuOM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=NM3e//pT; arc=fail smtp.client-ip=52.101.127.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HGrCdXcv"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4954a32cf1eso1888135e9.3
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 01:38:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786610310; x=1787215110; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fYxN56Q1FiCTvNsl0xjkJkMf+TLROP+6g/NIvXZPeBM=;
-        b=HGrCdXcvKXe9UvnayEoee2oQPbRnSjY1Z0gIlu075p3ASJBVzRobw4WQgeM4gJaBGB
-         uSJNCDpm3qhw8ApNnjvA/xXXuJe711IPa/A6bpivrbaW+IeGbYUZ0uoVEZBG9AGOQs2A
-         +COvb5VDubzKosZ68ImV/nj3eOfwnCntNpwziKHacJ9/MkPo0Yif/P24ABOsdvvl2Ytm
-         gj1DlhJC2V/L13IxfZY1m8Ng7rwq2wSSdH3Vb+8dDD5GILzEQ5sfLR/LPO0qLVRFjXM1
-         N3mz6bF6yQe7EKjDmyv4MwyHtlumS0JeDXcLReucLwx1JFA/InekQGVJU9hBiMstbZv+
-         frJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786610310; x=1787215110;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fYxN56Q1FiCTvNsl0xjkJkMf+TLROP+6g/NIvXZPeBM=;
-        b=Jf/pkOh4CcOys17eP2sUn4pdj6vgqBytUMlHIpYEhio1ZOoB9XLFZcUxMJ7Ifh92Gb
-         GkysaCa3EMcwtn7tgOKK/i4uW5pSmu9pT6PTxtGO/+oeZS3ALxewDtcnwVuZJTl1/N4E
-         a9A4+jWUjZnSbbVTWzTxaX9u04ZF+OZkMNcXNlK6ZibCtlYrbihDRTFgUvZmjkAukeUc
-         AAUFs+1xqY/jFIqCkWkqz83nmaHoprAcqCcy0SCK27TigFOPIPJ6RVBC24/AHqThtfes
-         zQP52RTQuuQHRTni2Iw63k4iaPrdamST+PQqSZI2f63jLnX91MuPl8QH5mTt6FcJ14FP
-         XLxg==
-X-Forwarded-Encrypted: i=1; AHgh+RrCGQbT6my6/nw/gTP7olNQn3LaOKuKK8aUyU1+HO1JQCiNkWZhma3e3bjGOLEwaME8QLhzPhzRZCyM@vger.kernel.org
-X-Gm-Message-State: AOJu0YwA8m9cCJ8ksIoGWSNsDm4RftrXOgIkfSJmLHvDyG0P+9n7GRxZ
-	v+PMxmDsD/a9Mprnt6s7eXflKktKyIu2BS8GiiH9AU4QMRVsYQRx9nxs
-X-Gm-Gg: AR+sD10HVbO0BX+TjyZk12b4SthhLMcp1FSK9dJrCjDOYiwXgMC3Ji2aLbsUXhlktYZ
-	6H85zAuVS8TQR5Pw/uzn0+eRZHAz5zG+cPUd/OjHK0vqoTy4U+rqE+9bpEgfJ7bLQg1v/LU1lMs
-	LOKth3s1WPb+MA96AHb7gB1qVDJHxAWV+1TakQWMxLVQVMgEaY5nTSiytmhTlSAoY/bdqayl6Lm
-	YH0eEMKPVzQBc7AkOxh+zI1U7uytW78PN2PqQfuyHF3IyfGCaIPyFDS7ptqknqjaN0dFlyWDDEG
-	obD8OIjXqcg3VZ5tXIEI7tk5iojVkvtL8BabCFZAISnBjelVN3evmLKgFrJUAabZww1wy3RyXs2
-	8YKdpa+iiMa26kgtazCjVZP57z/Dai/c84nI1wLhAUvUlIfuIngqK703F2doZdIJE9TfjGr4z8j
-	Z/AheMNGNeP5naeeZdFtvGNkwtuxyTCqU91FSvlupfCXE03ZuW/t7JcSOL4ew2ugdIu0JTvzDKl
-	HPcMslqwvLFIeMlZPuno435Ti6UXlI=
-X-Received: by 2002:a05:600c:4fcd:b0:495:63e4:7f78 with SMTP id 5b1f17b1804b1-499821e8016mr39965765e9.10.1786610309976;
-        Thu, 13 Aug 2026 01:38:29 -0700 (PDT)
-Received: from Ansuel-XPS. (host-87-20-3-207.retail.telecomitalia.it. [87.20.3.207])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a56981csm4384046f8f.10.2026.08.13.01.38.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 01:38:29 -0700 (PDT)
-Message-ID: <6a7d8285.ebbd881c.33c407.30ab@mx.google.com>
-X-Google-Original-Message-ID: <an2CgeKA7uWbj0Wv@Ansuel-XPS.>
-Date: Thu, 13 Aug 2026 10:38:25 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="NM3e//pT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mWUcj2dN7j0l/Xwf0hWCvn0L89s1qmKudATl/pM8ygW4l5We/BBW+BY4OYNbJdMd4ezoeYoZTiDgw5ZQKBCIKNqsSeiuTDPwjFym0pGUcHadTyyCFV0XYbmpDTNCtXnNZ1cbdozek0yTAmSDgdGiyL/KgjZ+FGtryixiC2JqvLEYZcL00CWcJbebW/EEeym4XzzlPfzX5ZF2hzo6+od8ZSYbDvBxPSWYBrahpFh7JZ8s8+fEdM/xcyU5ry7uAPs2J7Fy9UdbbM0fPUSEKsQaq59mWZhOVVxCRgduLEaItsWr7nVZDJQJ+pY4fhro/oGABsz9toMSWgrnjLiDScW0kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=grCyy9zTRwg3O66Wp1XnXrxUOrpyGQzjNyhJ4w8cV/U=;
+ b=EOLhk1nMT5tcHnj/kPmNRwW74YnIbwMUBFUgVW/xe5H9Zyx1EopWGTtMEjVwAMCAZNcm1UbvUt+dnzyQ4JWp+0LF2MEkBB3fXrQNGYix+EtbgAhkMkxI7uP+dKLUuVOLfc7yaeR1QcuVeyy5/aZVyy4TrOyxA9RBJTMczW/hM9LYgR3OlNBkDM1l6Fc0iuPzj1ujwnz8klQaIeZSvg1F9QtmbzeDoZq4uHqoX9aYNyZ+SSVShWLPsTuC5flfsJ8MU5ZrWdTQ3EGwNfZH1SlvoJkdsg5Jpw4pPymSALIUXY0aoLyvWZ6yN1rR8uzH4fdvWW639h7nI3QFeL24Fw4otg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=grCyy9zTRwg3O66Wp1XnXrxUOrpyGQzjNyhJ4w8cV/U=;
+ b=NM3e//pTbykOyh2lygGiao+HPwaamNmpH03nLINOo2De00sOFqZShjXRGBCXH6i6/+C9lsXd3eBeZPIe2h6lnIz8aOIwgwPOwq6Y+ioJrPiXB2P6Y1P+tmIakFztRsMBj1KwLs6UB0bsxpOwPvX84EUUwtodQ9vZMhXp+BoCngvA8DWIpRf3udpbDEoYsu7tOng94A7b/n1vwgVnu2t5Dl0EAqXYejgUYdC7mBvick/rvuPZAsTdeg+selsJZWYMxSfoksPWY2XRKfgg2m2MupBDHQkgTPruQxTkl1NJtqWFl8HPD59v3SiE++1o+m0Ohyi05UHRh8RKk3xjmRUP/w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
+ by PS1PPF8AB88AC68.apcprd03.prod.outlook.com (2603:1096:308::2df) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 13 Aug
+ 2026 08:39:54 +0000
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
+ 08:39:54 +0000
+Message-ID: <80e58bd7-7eb7-4d05-b309-115643767a43@amlogic.com>
+Date: Thu, 13 Aug 2026 16:39:51 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: phy: Add documentation for Airoha
- AN7583 USB PHY
-References: <20260811124724.702467-1-ansuelsmth@gmail.com>
- <20260811124724.702467-2-ansuelsmth@gmail.com>
- <20260813-xanthic-sawfly-of-greatness-47e9bc@quoll>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260812-b4-s4-vdec-upstream-v7-0-3fae085861bd@amlogic.com>
+ <20260812-b4-s4-vdec-upstream-v7-3-3fae085861bd@amlogic.com>
+ <20260813-rustling-sassy-terrier-11b99d@quoll>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
+In-Reply-To: <20260813-rustling-sassy-terrier-11b99d@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR01CA0026.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::16) To KL1PR03MB5521.apcprd03.prod.outlook.com
+ (2603:1096:820:51::12)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813-xanthic-sawfly-of-greatness-47e9bc@quoll>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|PS1PPF8AB88AC68:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58720953-38d4-4ef6-d968-08def9167260
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|3023799007|56012099006|11063799006|10067099003|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	MaKndnI14yolYzFxnJRk0oKNP6bLavoDj1xsCQLUu9FGUNNeRWqQiqBky6zDVzuiU6X1nXAY8LunnfVQaIR5qNwU3pyzUappEZ9lnClzYU1t2KjZCl2OGzBfAS6mSfqM5ssjjCwkeV3dqIvHnA9sKdX/InVbq6q1O/lceyM7R3uYjwpEA1HEbxB4362V3ZxlsZwe7tuFQuNT7vWehTCHkaWsxKP4nubHJOvT0F6yaSpOB5j9TfNht9HtCBpL2DT1blj/8P9c1FrYyvVw03qlw3ziWC7sBvFqXjOpqDdhz5jkZ4sotw+hV4PLH1tuRov00E/wT9oww+tss8+LorqWETl54ZiSxBEV8P7zVL0wB262+xA42gwd/2mKOpb9eZ0rPsB/IkAuZULygYaOEm1OD2rbMPnEVk3dZW01kIFVjvufG5jqIO9mDBatbfyvvqnECJbJ4T+BUQ62W60/GCSLxkv0aYw74jyQ14MMKz7iHddhaDYqyxnaxGPYUK2L4CX41mSOpyFuRJWbYRVGFIl3IrID4XjGkApuYAANRDMw5WnR0ml1GhWFHPYzE/29AtlzfS8mCEbOLO1uKcr3W6YAolsUO53ep7D8sD1UU2IfCWTIILfDT6bdwhblE3kt2dvT
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(3023799007)(56012099006)(11063799006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eVFDaTNTSnVYLzNrbkh2M3V3Nk5JZkkrY1NCN0ErTU9ISU9PRFdaK1VoUWpt?=
+ =?utf-8?B?MTNmYzhPTVpMb2NkbkUyaXNqWGNWWWVheXhoRTEvY1AvVkdwTytoNjZ3NWd4?=
+ =?utf-8?B?ekhqNVdVV0VqQUd3QUN4eU1WajRKdnUwK2NOWUlkVTM0THBwVU8wY2NBakZX?=
+ =?utf-8?B?V1V6RTBRM2lKQTFGcm5JbENpbTdBR2EyQTg3bFlyK1dIQ05LcG13UzdXZzZL?=
+ =?utf-8?B?Uzc4L1hMcmFnbURBZ2xxdDJ4eDM5RXZxemJibFNRMHBubENQZmpXWk9zb2lN?=
+ =?utf-8?B?K0JKYktOcW8yeWV5QnR1Mi9yU1pIcWtpbGFlVVllbmZxVE1GNk96VnZEbEV6?=
+ =?utf-8?B?b1c5QjkvMkJBajJLeXM1NmlNZHVWQUpsanFrSm9keFhabk9LdTRrMG4xQ0Zv?=
+ =?utf-8?B?YWE4dWZmdVBSZVZEdlJyUWV4TGZaM0Fta2U2b1JFYjh2N2YxN1UwWVBNUCtV?=
+ =?utf-8?B?QzZCSUV0Uk41MzRMLzNaelZRcXQySUJGck1ySm55OVJhK3owYXlSVUk3Ykxv?=
+ =?utf-8?B?RnEwVU83b1RrN0d6djFTcThhTE12VGtXZUJoU3pEZDU4Mm55WDgxaG5ndXZT?=
+ =?utf-8?B?K3RRL2JvclZDYW9JcVp6OGF5WWdXcFRSbG1GMXVycFp5UEZlVFAwTlpmZ2NR?=
+ =?utf-8?B?OFgvZERNcUhoR2pXS2dHeXozZmcwdWp6MlNicHBScGpyQzVxWEhVVlNZYlZ2?=
+ =?utf-8?B?R3J6UkI0bWRBNDFDa3FwamVvQTZYU0h0NVFCeVlnWnAxNmhQMW9HeHRoU3Vz?=
+ =?utf-8?B?Z2JHVnRJZzJ0UkJVMDJXWXVjQ3Q1anlETkhHTUwrSlFKb3V6eE5QRXRvRmR0?=
+ =?utf-8?B?RThHNlYxNHNLY1AzRFNKdzRBTG5Hc2MraEpodWVBaU5YR2VBajY5aFRQdk8v?=
+ =?utf-8?B?WjZtdmxDbFhuSXBZYzduV2tBOEFUVHlrODIwRHhRVVRSdzFZbVBZZDFMSW9y?=
+ =?utf-8?B?bGptSTJzL3hFZU5NQWFETzJKK2QzTE41KytsSGdiU0ZwNU5rLzV1Y2xqU1Rl?=
+ =?utf-8?B?aEVUNEkzdlh4TFBUVnpoWFhuVGZBRlpmaE1PSC9JbWdmSFE5ZGQxL204MEcx?=
+ =?utf-8?B?Q04yQjB2UHlpaTQyemNiSnJWVXhTZGJwbVlYTG1YSS9SVi9aYTJiT3JvVExJ?=
+ =?utf-8?B?dURwbWxWTXVPOHh1MHltSWQxVm45a3VNbG1neHQ1SXZYVU5veDdUaFVRN21s?=
+ =?utf-8?B?QVFOc2hyRUM5MFVrSldkRTVSSUkzb2pVMklucjE1SkoyUVZ4cVZLWDhzUE0z?=
+ =?utf-8?B?ZlpLZzNhU0NwVDNVN2w2TVkxMVl0QlA1UXhnOUsycWFocjBsR2plclFRMmRV?=
+ =?utf-8?B?UHBUMkxyQ0VVS0pYQjlOcjNrWEZlNjg1QXVneTNsbVROcVFubEpYNVFvVVdp?=
+ =?utf-8?B?ejhTemhWQncwVU5UUEQ0OENyVDBZQlNqbFlwa0I4TXZsTmFNSmhPS1hKVVRi?=
+ =?utf-8?B?OUJGSFpHY0FsaTA0K24xUXBJa1RNd3Y4ekJuK1U5cCtsZWxrSElxb1J3RjdW?=
+ =?utf-8?B?SyttWUxlc29hZ0NYRnM3aUY4NjA5SFpoTkFsbThJb0p1UHdrZ0ZHOE5Qd2dS?=
+ =?utf-8?B?QjhYNlpLZDRPYi9xSVlGR3ZHUlNKQ1BCa0YxVU94WkxYdWxySWhBZHF2anlJ?=
+ =?utf-8?B?alpvV0FBdEkwak1nMDRQRVp0Q3ByY1F3Sms4bGZmK3ZKK2E3cm14UThjNnFQ?=
+ =?utf-8?B?dmd5elA1TmFWcklSQ0VKWExxT1dtc1dtNllUYU9HdWZuQ0hiSXFhL2ZvZE1l?=
+ =?utf-8?B?RVN6UFVMZUh6RDh3SGpmb3Exbm83VUgrZFZGcEFBOUNRK29QMkVmc1AwbnRG?=
+ =?utf-8?B?MVZKZGdqNkIyY3pwcjQzMHBMUHhWcEZUZmhWSmFZVlVNOGlIVnJzaGRLT0xM?=
+ =?utf-8?B?bE8wVGlQdVdyeXdJRWtHSHlkZStnYmdnaXQ5K2FhVmpobjJhczg2TDd3Tm12?=
+ =?utf-8?B?R1VDRVJkeFVqUTJFS0t0Z3QrSUE3TG0rYU10TXRCMG4yMUVwY1p2ZWMyaE83?=
+ =?utf-8?B?WjlRclBVb2lTMVR1WEFnWGozWXhJYTNFVXdydWVFWjhuNUVEenNsVlRsM1Np?=
+ =?utf-8?B?MkgzVlBqdURqR01PeExFL3k2OTVUWEowSmplMmVxUXBiYkhjNDRlUHlkeVVE?=
+ =?utf-8?B?YUZwMTBUK2ZpWUo5dGJxNUlTdGNEdEhVNjZGcEs4dENMcyt5aVZpQ0gzNWwz?=
+ =?utf-8?B?d05PN1ErR001OEFCbjVCak9lQmZwVFJMYi9TdDNPcW1SaHc1U3JJRnI3TFVv?=
+ =?utf-8?B?MjlEcXVsMThlUHVRZjZmNlZOKzR0VHpZZmRLblFqZGpVeW9Ha2E5YWl0ZEpu?=
+ =?utf-8?B?ZjlEOElUWnNScm40ZUhkREowbW5LcUtHV3JxdkQ0L1hHUUZrZk8vZz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58720953-38d4-4ef6-d968-08def9167260
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 08:39:54.0703
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OEjifFey5Pj8kGt+MlTFqv9fBQQiPGb4zHxanDDdEEH66i98XoBFll0v1zgt0/9L4GnwJrE7/OFsoy3j7oEjZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PPF8AB88AC68
 
-On Thu, Aug 13, 2026 at 10:33:31AM +0200, Krzysztof Kozlowski wrote:
-> On Tue, Aug 11, 2026 at 02:47:22PM +0200, Christian Marangi wrote:
-> > Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
-> > for the USB controller.
-> > 
-> > Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
-> > always supported. The USB 3.0 mode is optional and depends on the Serdes
-> > mode currently configured on the system for the relevant USB port.
-> > 
-> > To correctly calibrate, the USB 2.0 port require correct value in
-> > "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
-> > selecting one of the 4 monitor clock for calibration (internal clock not
-> > exposed to the system) but each port have only one of the 4 actually
-> > connected in HW hence the correct value needs to be specified in DT
-> > based on board and the physical port. Normally it's monitor clock 1 for
-> > USB1 and monitor clock 2 for USB2.
-> > 
-> > To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
-> > property is required with the phandle pointing to the correct Serdes port
-> > provided by the SCU node. Providing the phys property is optional if USB
-> > 3.0 is not used.
-> > 
-> > The second USB PHY on Airoha AN7583 SoC is used for PCIe Gen2 usage and
-> > similar to USB 3.0 require a phys property to configure the serdes.
-> > 
-> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> > ---
-> >  .../bindings/phy/airoha,an7583-usb-phy.yaml   | 205 ++++++++++++++----
-> >  1 file changed, 168 insertions(+), 37 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> > index a6e2c0b1acc4..46b311040e02 100644
-> > --- a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> > +++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> > @@ -26,64 +26,195 @@ description: >
-> >  
-> >  properties:
-> >    compatible:
-> > -    const: airoha,an7583-usb-phy
-> > +    enum:
-> > +      - airoha,an7583-usb-phy
-> > +      - airoha,an7583-pcie-phy
-> 
-> Keep the list sorted.
-> 
-> >  
-> >    reg:
-> > -    items:
-> > -      - description: phy register
-> > -      - description: ana register
-> > -      - description: pma register
-> > -      - description: dig register
-> > +    minItems: 3
-> > +    maxItems: 4
-> >  
-> >    reg-names:
-> > -    itmes:
-> > -      const: phy
-> > -      const: ana
-> > -      const: pma
-> > -      const: dif
-> > +    minItems: 3
-> > +    maxItems: 4
-> >  
-> > -  usb2-phy:
-> > +  '#address-cells':
-> > +    const: 1
-> > +
-> > +  '#size-cells':
-> > +    const: 0
-> 
-> I don't understand this diff. Why do you add cells if you do not have
-> chidlren with addressing for new device (pcie)?
-> 
-> > +
-> > +  usb3-phy:
-> >      type: object
-> >  
-> >      properties:
-> > -      reg: [0, 0x1000]
-> > +      phys:
-> > +        items:
-> > +          - description: phandle to Serdes PHY
-> >  
-> > -    airoha,usb2-monitor-clk-sel:
-> > -      description: Describe what oscillator across the available 4
-> > -        should be selected for USB 2.0 Slew Rate calibration.
-> > -      $ref: /schemas/types.yaml#/definitions/uint32
-> > -      enum: [0, 1, 2, 3]
-> > +      '#phy-cells':
-> > +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
-> > +          as defined in dt-bindings/phy/phy.h.
-> > +        const: 1
-> >  
-> > -    '#phy-cells':
-> > -      description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
-> > -        as defined in dt-bindings/phy/phy.h.
-> > -      const: 1
-> > +    required:
-> > +      - phys
-> > +      - '#phy-cells'
-> >  
-> > -  usb3-phy:
-> > +    additionalProperties: false
-> > +
-> > +  pcie-phy:
-> > +    type: object
-> > +
-> > +    properties:
-> > +      phys:
-> > +        items:
-> > +          - description: phandle to Serdes PHY
-> > +
-> > +      '#phy-cells':
-> > +        description: The cell contains the mode, PHY_TYPE_PCIE or PHY_TYPE_USB3,
-> > +          as defined in dt-bindings/phy/phy.h.
-> > +        const: 1
-> > +
-> > +    required:
-> > +      - phys
-> > +      - '#phy-cells'
-> > +
-> > +    additionalProperties: false
-> >  
-> > -  phys:
-> > -    items:
-> > -      - description: phandle to Serdes PHY. Optional if USB 3.0 is not used.
-> > +patternProperties:
-> > +  '^usb2-phy@[0-9-a-f]+$':
-> > +    type: object
-> > +
-> > +    properties:
-> > +      reg:
-> > +        enum: [0x0, 0x1000]
-> >  
-> > +      airoha,usb2-monitor-clk-sel:
-> > +        description: Describe what oscillator across the available 4
-> > +          should be selected for USB 2.0 Slew Rate calibration.
-> > +        $ref: /schemas/types.yaml#/definitions/uint32
-> > +        enum: [0, 1, 2, 3]
-> > +
-> > +      '#phy-cells':
-> > +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
-> > +          as defined in dt-bindings/phy/phy.h.
-> > +        const: 1
-> > +
-> > +    required:
-> > +      - reg
-> > +      - airoha,usb2-monitor-clk-sel
-> > +      - '#phy-cells'
-> > +
-> > +    additionalProperties: false
-> 
-> Looking at the amount of changes this should not be the same binding.
-> Also, things would be simpler if children were called 'phy', but OTOH
-> why do you need children in the first place? Your pcie-phy child has no
-> resources, except phy which can go to the parent device.
-> 
+Hi Krzysztof
 
-Yes while writing the schema I also got this doubt that I should have just
-made 2 different schema. I wanted to put everything in one as they are the
-same HW and driver.
+> On Wed, Aug 12, 2026 at 10:41:25AM +0800, Zhentao Guo wrote:
+>> Describe the initial support for the V4L2 stateless video decoder
+>> driver used with the Amlogic S4 (S805X2) platform.
+>>
+>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+>> ---
+>>   .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 111 +++++++++++++++++++++
+>>   1 file changed, 111 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>> new file mode 100644
+>> index 000000000000..b5af3f931b26
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>> @@ -0,0 +1,111 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Amlogic Video Decode Accelerator
+>> +
+>> +maintainers:
+>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
+>> +
+>> +description:
+>> +  The Video Decoder Accelerator present on Amlogic SOCs.
+>> +  It supports stateless h264 decoding.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: amlogic,s4-vdec
+>> +
+>> +  reg:
+>> +    maxItems: 2
+>> +
+>> +  reg-names:
+>> +    items:
+>> +      - const: dos
+>> +      - const: dmc
+>> +
+>> +  interrupts:
+>> +    maxItems: 2
+>> +
+>> +  interrupt-names:
+>> +    items:
+>> +      - const: hvdec
+>> +      - const: vdec
+> vdec is the name of the module, so not really useful name.
+Ok, I'll come up with a new name and change it in the next revision.
+>> +
+>> +  clocks:
+>> +    maxItems: 3
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: dos
+>> +      - const: vdec
+> Same here
+OK, but there would be a nit. In file 
+drivers/soc/amlogic/meson-clk-measure.c, This clock source is also named 
+*"vdec"*in|drivers/soc/amlogic/meson-clk-measure.c|, where a 
+*"vdec"*clock node is created in debugfs for checking its status. Using 
+a different name in the driver (including DT and binding) would make it 
+inconsistent with the debugfs node naming.
+>> +      - const: hevcf
+>> +
+>> +  power-domains:
+>> +    maxItems: 2
+>> +
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: vdec
+>> +      - const: hvdec
+> Same here.
+Ok, I'll rename this.
+>> +
+>> +  resets:
+>> +    maxItems: 1
+>> +
+>> +  amlogic,canvas:
+>> +    description: should point to a canvas provider node
+> You basically duplicate the property name. Say something useful, what is
+> it used for?
+I'll update the description to explain its usage in the next version.
+>
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> +
+>> +  secure-monitor:
+>> +    description: phandle to the secure-monitor node
+> Can a property whose type is a phandle and is called "secure-monitor" be
+> not "phandle to the secure-monitor node"?
+>
+> Write useful code, not redundant.
+Okay, I'll explain it more detailed.
+> Anyway, missing vendor prefix as it is not a generic property (otherwise
+> point me to generic schema defining it).
+I checked the upstream code, this is not a generic property. I'll add 
+the prefix.
+>
+> Best regards,
+> Krzysztof
 
-I will just split these 2 to simplify it.
+BRs
 
-The child is just for consistency with the USB and easier implementation on
-the driver. But I guess for DT this is a no go. I will rework the driver to
-drop the redundant child for the PCIe variant.
+Zhentao
 
--- 
-	Ansuel
