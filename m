@@ -1,692 +1,491 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DE536403C
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 22:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93183BAD9F
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 22:06:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786658449; cv=none; b=HGCsZ8dA8CBz1h3m9Pl3CA2UfZKA41kBOHp/bJviHyT99cFk9BRK5Sx9oJmWLOl9eSIvu5FNjNTjv86QBF4HeEKVOVfRpJtnsrZ+7Z6U3I8CxUVizTfyhO2B8MNNNSDMcCb8IpxycAKCa4jTpbd0TVKmYWHMgNeLzjLGNUGwJyw=
+	t=1786658816; cv=none; b=n3b6sPrV/vMVgyTegKoZzWKAi1gpZ/B2qoAiy3ferldmAgsBAgTnAjEJ+nvSYq7sgCFFrSqBoHO/KbhB/WizV3k9o1NY1WwwtOUDoretrDGjN+nEweLPCA52ECQkNcfHVqIG2hO8x4Thjenh83VCeFA611jWhbMajvzRjM4aoFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786658449; c=relaxed/simple;
-	bh=b5djUTSikkjedYMKlKb4f6nrt0gbRYsFjVUxQ7LFpsA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XtjMsEhq6FvtkRuetkLaEw+rkQOTy2qlpFTqDJ/m9RIGMOinrdq74e8zsJ6s0JGxhjq0DbDxUEgSoQvzkpGwi01CMDjKxKHAXlVIvyp7Ga+hdHoQ+1p0dEZh1CEzd5STdDQCrmTB7o7tnG/3dXHTmzpfK+fW5R+y/dKYw1+H3UQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iRyVKCwq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786658816; c=relaxed/simple;
+	bh=YaUdVPoTDdoCnki9e/sPcIECtL3H0cTjEfW+Xr/hMMs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PLdIJRYyR4nIX1im3JR2zTs/9Ad1fD3HKpY57kejR2+Ys4XiZKJCS2wKBvzQ6jPrOFGZJXjHwYk0MuTgZyNEaBd5rVH+qdpIuXV8h3NnJoWUjHuiHGebe7MkN2YSDHTr8G4gvpAHJgFZy/Lp6pUp39UgtV4AaDu8/pczUBXFjGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=hfslFunJ; arc=none smtp.client-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iRyVKCwq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59431F000E9;
-	Thu, 13 Aug 2026 22:00:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786658445;
-	bh=/8/gXu1RVjQyNymiXSXQ6Sg/SWiEEjfJ9h0vOf8Cyzo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iRyVKCwqXg+ZiF5CslHiXavqBwrgHwPM3dQjqMtU1hKRfa/05mfzpb2UqY7lIGxZ6
-	 Hjah6J0CTNJQbCurRxw1Xa3sr/3QvY6OfIp3Ohux7XgCFjw01Trsjcyv3ztc7qF4jq
-	 8S91KSlc7Sc9ZWKS1G3hu/+bbtJzVY7Sxug2b16B4zaZIQHM8q2xxPT5QRXgpRkzp/
-	 IX7poCHi86T2Jtl6R65/maDYIayP2IoV/vPtk3eSkC5/UbZSOFwqeffZlE9EUPdh4Y
-	 gWT6eiOaP5dY2SLIY7l44JmVl69GlLvIYE66zlaetTZiLZR5CcyFHCTBw5A/yC1ye4
-	 SnSKcZjgr2Few==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/4] crypto: spacc - Add SPAcc ahash support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260318063012.816060-3-pavitrakumarm@vayavyalabs.com>
-References: <20260318063012.816060-3-pavitrakumarm@vayavyalabs.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 22:00:44 +0000
-Message-Id: <20260813220044.C59431F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="hfslFunJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1786658806;
+ bh=zU1zh+2xnSpbv+2JvapkK/MkxD5INkmwoUDjTmGUnZ8=;
+ b=hfslFunJRXIddhwkIP4hSgBVBCvAcSQTZKQGiyCc+iQ4Swhdqba4bGTRJYEsNmFAWQmv3WZ5n
+ Dyl4ftfGeIigI0ZY9YJrMbVxIN/nfhrUOsNjNB5zRK+sTRxMwj6ZJCLngDWdJV+v37Jt4WAxMGB
+ 4qACbWNKOhV/wJN0SzC4vIXo5sv0DEu8cD5IdzWyg+nOLfLXXhvYIPhmbMAHjqQseAgvE9U2ZF+
+ vAb5jfukAlbkXjs/iFJDj9Bp5t/FurC5hSNFlElge1wkGYvZBhz5no9xH35Md18Lte1Y+99ZOkr
+ D7PDXeje1U95WFN9ZjK9gx69jS+8Yp3Y+UrdyD3jHWNA==
+X-Forward-Email-ID: 6a7e3ff3ec3883d7e2c9c323
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.73
+X-Forward-Email-Version: 2.13.16
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <77db5493-8f9b-45e3-b313-a90f7a2a8187@kwiboo.se>
+Date: Fri, 14 Aug 2026 00:06:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/6] ARM: dts: rockchip: Add support for RV1106 and
+ RV1103
+To: Simon Glass <sjg@chromium.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Fabio Estevam <festevam@nabladev.com>,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, Albert Aribaud <albert.u.boot@aribaud.net>,
+ Conor Dooley <conor+dt@kernel.org>, Jeffy Chen <jeffy.chen@rock-chips.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ huang lin <hl@rock-chips.com>, linux-kernel@vger.kernel.org
+References: <20260729133609.3465563-1-sjg@chromium.org>
+ <20260729133609.3465563-5-sjg@chromium.org>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <20260729133609.3465563-5-sjg@chromium.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 21 potential issue=
-(s) to consider:
-- [Critical] Use-After-Free / DMA Memory Corruption via Signal Interrupt in=
- `spacc_compute_xcbc_key`.
-- [Critical] NULL pointer dereference when invoking software fallback via `=
-HASH_FBREQ_ON_STACK`.
-- [Critical] Buffer overflow in `spacc_hash_export` and `spacc_hash_import`.
-- [Critical] Heap buffer overflow in `spacc_hash_setkey` when processing CM=
-AC algorithms.
-- [High] Unaligned memory access on stack buffers causes kernel panics on s=
-trict-alignment architectures.
-- [High] Double free in `spacc_hash_init_dma` during context cloning failur=
-e.
-- [High] DMA mapping leak and invalid unmap when the hardware queue is full.
-- [High] Use-After-Free due to premature workqueue destruction in `spacc_cr=
-ypto_remove`.
-- [High] Semaphore count corruption via double `up()` breaks hardware concu=
-rrency limits.
-- [High] Global state corruption and memory leaks on multi-device systems.
-- [High] Duplicate Job ID (SWID) assignment causes incorrect request comple=
-tion and memory corruption.
-- [High] Hardware context leak on key setup failure causes resource exhaust=
-ion.
-- [High] Use-After-Free during driver unload due to inverted teardown seque=
-nce.
-- [High] Truncation of 64-bit DMA addresses to 32-bit corrupts memory on sy=
-stems with >4GB RAM.
-- [High] `SPACC_DMA_LINEAR` mode corrupts memory by assuming scatterlists a=
-re physically contiguous.
-- [High] Struct assignment overwrites `wait_queue_head_t`, corrupting waitq=
-ueues.
-- [Medium] Missing delay in hardware polling loop causes string size autode=
-tection to fail.
-- [Medium] Hardware handle leak when descriptor allocation fails.
-- [Medium] Mixing `__free()` automated cleanup with `goto`-based error hand=
-ling violates guidelines.
-- [Medium] Missing endianness conversion for DDT DMA descriptors.
-- [Medium] Autodetect logic writes DMA Descriptor Table address directly to=
- data pointer registers in LINEAR mode.
---
+Hi Simon,
 
---- Patch [2]: [PATCH v9 2/4] crypto: spacc - Add SPAcc ahash support ---
-commit f0780fa72b9e4a4d1f84586504117d3ec9b1a785
-Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Subject: crypto: spacc - Add SPAcc ahash support
-
-Add ahash support to the SPAcc driver. This introduces ahash algorithm
-implementations for multiple hashing algorithms including AES, SM4, MD5,=20
-and SHA families.
-
-> diff --git a/drivers/crypto/dwc-spacc/spacc_ahash.c b/drivers/crypto/dwc-=
-spacc/spacc_ahash.c
+On 7/29/2026 3:35 PM, Simon Glass wrote:
+> Add the devicetree files for the Rockchip RV1106, a Cortex-A7 SoC
+> aimed at IP cameras, and its RV1103 package variant, which has fewer
+> pins and no GPIO2 bank. The pinctrl data comes from the vendor kernel in
+> the Luckfox Pico  SDK [1] at commit 824b817f8 (a Linux 5.10.160 kernel
+> tree).
+> 
+> [1] https://github.com/LuckfoxTECH/luckfox-pico
+> 
+> Signed-off-by: Simon Glass <sjg@chromium.org>
+> ---
+> 
+> Changes in v3:
+> - Use the per-bank IOC compatibles
+> 
+> Changes in v2:
+> - Take the MMC drive and sample phase clocks from the CRU and drop the
+>   grf-cru node
+> - Give each GPIO bank a syscon for its own IOC block, referenced by a
+>   rockchip,grf phandle in the bank node
+> - Add gpio aliases, which the pin controller and gpio drivers use to
+>   identify the bank; the rv1103 removes the gpio2 alias
+> 
+>  arch/arm/boot/dts/rockchip/rv1103.dtsi        |   16 +
+>  .../arm/boot/dts/rockchip/rv1106-pinctrl.dtsi | 1398 +++++++++++++++++
+>  arch/arm/boot/dts/rockchip/rv1106.dtsi        |  321 ++++
+>  3 files changed, 1735 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/rockchip/rv1103.dtsi
+>  create mode 100644 arch/arm/boot/dts/rockchip/rv1106-pinctrl.dtsi
+>  create mode 100644 arch/arm/boot/dts/rockchip/rv1106.dtsi
+> 
+> diff --git a/arch/arm/boot/dts/rockchip/rv1103.dtsi b/arch/arm/boot/dts/rockchip/rv1103.dtsi
 > new file mode 100644
+> index 000000000000..025fde5bf09c
 > --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/spacc_ahash.c
-> @@ -0,0 +1,886 @@
-
-[ ... ]
-
-> +static void spacc_hash_cleanup_dma(struct device *dev,
-> +				   struct ahash_request *req)
-> +{
-> +	struct spacc_crypto_reqctx *ctx =3D ahash_request_ctx(req);
+> +++ b/arch/arm/boot/dts/rockchip/rv1103.dtsi
+> @@ -0,0 +1,16 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
+> + */
 > +
-> +	dma_unmap_sg(dev, req->src, ctx->src_nents, DMA_TO_DEVICE);
-> +	pdu_ddt_free(&ctx->src);
-
-[Severity: High]
-What happens if this cleanup is called for a zero-length request where the
-dynamic scatterlist was mapped instead of req->src? Looking at
-spacc_hash_do_one_request(), if req->nbytes =3D=3D 0, tctx->tmp_sgl is mapp=
-ed.
-Does this code attempt to unmap the unmapped req->src and inadvertently leak
-the memory allocated for tctx->tmp_sgl?
-
+> +#include "rv1106.dtsi"
 > +
-> +	dma_pool_free(spacc_hash_pool, ctx->digest_buf, ctx->digest_dma);
-> +	pdu_ddt_free(&ctx->dst);
-> +}
-
-[ ... ]
-
-> +static int spacc_hash_init_dma(struct device *dev, struct ahash_request =
-*req)
-> +{
-> +	int rc =3D -1;
-
-[ ... ]
-
-> +	if (ctx->total_nents > 0 && ctx->single_shot) {
-> +		/* single shot */
-> +		rc =3D spacc_ctx_clone_handle(req);
-> +		if (rc < 0)
-> +			goto err_free_dst;
+> +/ {
+> +	compatible = "rockchip,rv1103";
 > +
-> +		if (req->nbytes) {
-> +			rc =3D spacc_sg_to_ddt(dev, req->src, req->nbytes,
-> +					     &ctx->src, DMA_TO_DEVICE);
-
-[Severity: Medium]
-If spacc_sg_to_ddt() mapping fails and we jump to err_free_dst, the newly
-cloned hardware context in ctx->acb.new_handle doesn't appear to be released
-via spacc_close(). Does this leave the hardware handle permanently allocate=
-d?
-
-> +		} else {
-> +			memset(tctx->tmp_buffer, '\0', PPP_BUF_SIZE);
-> +			sg_set_buf(&tctx->tmp_sgl[0], tctx->tmp_buffer,
-> +				   PPP_BUF_SIZE);
-> +			rc =3D spacc_sg_to_ddt(dev, &tctx->tmp_sgl[0],
-> +					     tctx->tmp_sgl[0].length,
-> +					     &ctx->src, DMA_TO_DEVICE);
-> +		}
-> +	} else if (ctx->total_nents =3D=3D 0 && req->nbytes =3D=3D 0) {
-> +		rc =3D spacc_ctx_clone_handle(req);
-> +		if (rc < 0)
-> +			goto err_free_dst;
-
-[ ... ]
-
-> +	return rc;
+> +	aliases {
+> +		/delete-property/ gpio2;
+> +	};
+> +};
 > +
-> +err_free_dst:
-> +	pdu_ddt_free(&ctx->dst);
-> +err_free_digest:
-> +	dma_pool_free(spacc_hash_pool, ctx->digest_buf, ctx->digest_dma);
-> +
-> +	return rc;
-> +}
+> +/delete-node/ &gpio2;
 
-[Severity: High]
-If spacc_ctx_clone_handle() fails, it already calls spacc_hash_cleanup_dma()
-which frees these exact DMA resources. Does falling through to err_free_dst
-cause a double free of both the DDT and the digest buffer?
+[snip]
 
-[ ... ]
-
-> +static int do_shash(struct device *dev, unsigned char *name,
-> +		    unsigned char *result, const u8 *data1,
-> +		    unsigned int data1_len)
-> +{
-> +	int rc =3D 0;
-> +	unsigned int size;
-> +	struct sdesc *sdesc __free(kfree) =3D NULL;
-
-[Severity: Medium]
-This isn't a bug, but the subsystem guidelines recommend avoiding mixing
-scope-based cleanup like __free() with manual goto error labels in the same
-function. Could we stick to one style to prevent future ownership issues?
-
-> +	struct crypto_shash *hash;
-> +
-> +	hash =3D crypto_alloc_shash(name, 0, 0);
-
-[ ... ]
-
-> +	rc =3D crypto_shash_final(&sdesc->shash, result);
-> +	if (rc)
-> +		dev_err(dev, "ERR: Could not generate %s hash\n", name);
-> +
-> +do_shash_err:
-> +	crypto_free_shash(hash);
-> +
-> +	return rc;
-> +}
-
-[ ... ]
-
-> +static int spacc_hash_setkey(struct crypto_ahash *tfm, const u8 *key,
-> +		unsigned int keylen)
-> +{
-> +	int rc =3D 0;
-
-[ ... ]
-
-> +	if (keylen > block_size && salg->mode->id !=3D CRYPTO_MODE_MAC_CMAC) {
-> +		dev_dbg(salg->dev, "Exceeds keylen: %u\n", keylen);
-> +		dev_dbg(salg->dev, "Req. keylen hashing %s\n",
-> +				salg->calg->cra_name);
-
-[ ... ]
-
-> +		keylen =3D digest_size;
-> +		dev_dbg(salg->dev, "updated keylen: %u\n", keylen);
-> +
-> +		tctx->ctx_valid =3D false;
-> +	} else {
-> +		memcpy(tctx->ipad, key, keylen);
-> +		tctx->ctx_valid =3D false;
-> +	}
-
-[Severity: Critical]
-Is it possible for a user to provide an oversized key for CMAC algorithms?
-Since the bounds validation via spacc_is_mode_keysize_supported() happens
-after this memcpy(), could an arbitrarily large key overflow the fixed
-128-byte tctx->ipad buffer?
-
-[ ... ]
-
-> +	rc =3D spacc_write_context(&priv->spacc, tctx->handle,
-> +					 SPACC_HASH_OPERATION, tctx->ipad,
-> +					 keylen, NULL, 0);
-> +	}
-> +
-> +	memset(tctx->ipad, 0, sizeof(tctx->ipad));
-> +	if (rc < 0) {
-> +		dev_err(tctx->dev, "ERR: Failed to write SPAcc context\n");
-> +		/* Non-fatal, we continue with the software fallback */
-> +		return 0;
-> +	}
-
-[Severity: High]
-When spacc_write_context() fails, we return early without calling
-spacc_close(). Since tctx->ctx_valid remains false, will the next hash
-operation allocate a brand new handle and leak the current one, eventually
-exhausting all hardware contexts?
-
-[ ... ]
-
-> +static int spacc_hash_init(struct ahash_request *req)
-> +{
-> +	struct spacc_crypto_reqctx *ctx =3D ahash_request_ctx(req);
-> +	int rc;
-> +
-> +	HASH_FBREQ_ON_STACK(fbreq, req);
-> +
-> +	rc =3D crypto_ahash_init(fbreq);
-
-[Severity: Critical]
-Does HASH_FBREQ_ON_STACK() safely handle the fallback transform if
-CRYPTO_ALG_NEED_FALLBACK wasn't set? If the fallback tfm->fb pointer is
-NULL, wouldn't invoking the software fallback here cause an immediate NULL
-pointer dereference?
-
-[ ... ]
-
-> +static int spacc_hash_export(struct ahash_request *req, void *out)
-> +{
-> +	struct spacc_crypto_reqctx *ctx =3D ahash_request_ctx(req);
-> +
-> +	memcpy(out, ctx->state_buffer, sizeof(ctx->state_buffer));
-> +	return 0;
-> +}
-
-[Severity: Critical]
-The driver registers algorithms with .statesize =3D HASH_MAX_STATESIZE, but
-ctx->state_buffer is sized HASH_MAX_STATESIZE + 16. When we use
-sizeof(ctx->state_buffer) here, does this write 16 bytes past the end of the
-framework-provided out buffer?
-
-> +
-> +static int spacc_hash_import(struct ahash_request *req, const void *in)
-> +{
-> +	struct spacc_crypto_reqctx *ctx =3D ahash_request_ctx(req);
-> +
-> +	memcpy(ctx->state_buffer, in, sizeof(ctx->state_buffer));
-> +	return 0;
-> +}
-
-[Severity: Critical]
-Similarly to the export function, does this memcpy read past the end of the
-framework-provided in buffer?
-
-[ ... ]
-
-> +int spacc_probe_hashes(struct platform_device *spacc_pdev)
-> +{
-> +	int rc =3D 0;
-> +	unsigned int index;
-> +	int registered =3D 0;
-> +	struct spacc_alg *salg;
-> +	struct spacc_priv *priv =3D dev_get_drvdata(&spacc_pdev->dev);
-> +	const char *name =3D NULL;
-> +
-> +
-> +	spacc_hash_pool =3D dma_pool_create("spacc-digest", &spacc_pdev->dev,
-> +					  SPACC_MAX_DIGEST_SIZE,
-> +					  SPACC_DMA_ALIGN, SPACC_DMA_BOUNDARY);
-
-[Severity: High]
-Could probing multiple devices cause issues with global state? If
-spacc_probe_hashes() unconditionally overwrites the global spacc_hash_pool
-pointer on every successful probe, do we lose the references to previous
-pools?
-
-> diff --git a/drivers/crypto/dwc-spacc/spacc_core.c b/drivers/crypto/dwc-s=
-pacc/spacc_core.c
+> diff --git a/arch/arm/boot/dts/rockchip/rv1106.dtsi b/arch/arm/boot/dts/rockchip/rv1106.dtsi
 > new file mode 100644
+> index 000000000000..70d3da6bd03e
 > --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/spacc_core.c
-> @@ -0,0 +1,1311 @@
-
-[ ... ]
-
-> +int spacc_packet_enqueue_ddt_ex(struct spacc_device *spacc, int use_jb,
-> +				int job_idx, struct pdu_ddt *src_ddt,
-> +				struct pdu_ddt *dst_ddt, u32 proc_sz,
-> +				u32 aad_offset, u32 pre_aad_sz,
-> +				u32 post_aad_sz, u32 iv_offset,
-> +				u32 prio)
-> +{
-
-[ ... ]
-
-> +	if (spacc->config.dma_type =3D=3D SPACC_DMA_DDT) {
-> +		pdu_io_cached_write(spacc->dptr, spacc->regmap +
-> +				    SPACC_REG_SRC_PTR, (uint32_t)src_ddt->phys,
-> +				    &spacc->cache.src_ptr);
-> +		pdu_io_cached_write(spacc->dptr, spacc->regmap +
-> +				    SPACC_REG_DST_PTR, (uint32_t)dst_ddt->phys,
-> +				    &spacc->cache.dst_ptr);
-
-[Severity: High]
-Is it safe to cast a dma_addr_t directly to uint32_t here? On systems with
-more than 4GB of RAM or 64-bit IOMMUs, wouldn't truncating the upper 32 bits
-cause the hardware to perform DMA to the wrong physical addresses?
-
-> +	} else if (spacc->config.dma_type =3D=3D SPACC_DMA_LINEAR) {
-> +		pdu_io_cached_write(spacc->dptr, spacc->regmap +
-> +				    SPACC_REG_SRC_PTR,
-> +				    (uint32_t)src_ddt->virt[0],
-> +				    &spacc->cache.src_ptr);
-> +		pdu_io_cached_write(spacc->dptr, spacc->regmap +
-> +				    SPACC_REG_DST_PTR,
-> +				    (uint32_t)dst_ddt->virt[0],
-> +				    &spacc->cache.dst_ptr);
-
-[Severity: High]
-When operating in linear mode, we use the first scatter-gather element as
-the base physical address. If a user request spans multiple physically
-discontiguous segments (sg_nents > 1), wouldn't the hardware blindly
-read/write past the end of the first segment into unrelated memory?
-
-> +	} else
-> +		return -EIO;
-
-[ ... ]
-
-> +	if (job->first_use) {
-> +		writel(job->ckey_sz | SPACC_SET_KEY_CTX(job->ctx_idx),
-> +		       spacc->regmap + SPACC_REG_KEY_SZ);
-> +		writel(job->hkey_sz | SPACC_SET_KEY_CTX(job->ctx_idx),
-> +		       spacc->regmap + SPACC_REG_KEY_SZ);
-> +	}
+> +++ b/arch/arm/boot/dts/rockchip/rv1106.dtsi
+> @@ -0,0 +1,321 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
+> + */
 > +
-> +	job->job_swid =3D spacc->job_next_swid;
-> +	spacc->job_lookup[job->job_swid] =3D job_idx;
-> +	spacc->job_next_swid =3D (spacc->job_next_swid + 1) % SPACC_MAX_JOBS;
-
-[Severity: High]
-Is there a risk of duplicate ID assignment here? Since the hardware supports
-QoS priorities, if a low-priority job is running while many high-priority
-jobs complete, could job_next_swid wrap around and overwrite the lookup
-table entry for the still-active low-priority job?
-
+> +#include <dt-bindings/clock/rockchip,rv1106-cru.h>
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/pinctrl/rockchip.h>
 > +
-> +	writel(SPACC_SW_CTRL_ID_SET(job->job_swid) |
-> +	       SPACC_SW_CTRL_PRIO_SET(prio),
-> +	       spacc->regmap + SPACC_REG_SW_CTRL);
-> +	writel(job->ctrl, spacc->regmap + SPACC_REG_CTRL);
-
-[ ... ]
-
-> +int spacc_close(struct spacc_device *dev, int handle)
-> +{
-> +	int ret;
-> +	int ref_cnt_before =3D 0;
-> +	unsigned long flags;
+> +/ {
+> +	#address-cells = <1>;
+> +	#size-cells = <1>;
 > +
-> +	if (handle < 0 || handle >=3D SPACC_MAX_JOBS)
-> +		return -EINVAL;
+> +	compatible = "rockchip,rv1106";
 > +
-> +	spin_lock_irqsave(&dev->ctx_lock, flags);
+> +	interrupt-parent = <&gic>;
 > +
-> +	if (dev->job[handle].ctx_idx !=3D SPACC_CTX_IDX_UNUSED &&
-> +	    dev->job[handle].ctx_idx < dev->config.num_ctx)
-> +		ref_cnt_before =3D dev->ctx[dev->job[handle].ctx_idx].ref_cnt;
+> +	aliases {
+> +		gpio0 = &gpio0;
+> +		gpio1 = &gpio1;
+> +		gpio2 = &gpio2;
+> +		gpio3 = &gpio3;
+> +		gpio4 = &gpio4;
+> +	};
 > +
-> +	spin_unlock_irqrestore(&dev->ctx_lock, flags);
+> +	cpus {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
 > +
-> +	ret =3D spacc_job_release(dev, handle);
+> +		cpu0: cpu@f00 {
+> +			device_type = "cpu";
+> +			compatible = "arm,cortex-a7";
+> +			reg = <0xf00>;
+> +			clocks = <&cru ARMCLK>;
+> +		};
+> +	};
 > +
-> +	if (ref_cnt_before =3D=3D 1)
-> +		up(&dev->ctx_sem);
-
-[Severity: High]
-In spacc_job_release(), the context is released via spacc_ctx_release(),
-which already increments the semaphore if the reference count reaches zero.
-Does calling up(&dev->ctx_sem) a second time here artificially inflate the
-semaphore count and break concurrency limits?
-
+> +	arm-pmu {
+> +		compatible = "arm,cortex-a7-pmu";
+> +		interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>;
+> +		interrupt-affinity = <&cpu0>;
+> +	};
 > +
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +int spacc_clone_handle(struct spacc_device *spacc, int old_handle,
-> +		       void *cbdata)
-> +{
-> +	int new_handle;
+> +	timer {
+> +		compatible = "arm,armv7-timer";
+> +		clock-frequency = <24000000>;
+> +		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>,
+> +			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>;
+> +	};
 > +
-> +	new_handle =3D spacc_job_request(spacc, spacc->job[old_handle].ctx_idx);
-> +	if (new_handle < 0)
-> +		return new_handle;
+> +	xin24m: oscillator {
+> +		compatible = "fixed-clock";
+> +		clock-frequency = <24000000>;
+> +		clock-output-names = "xin24m";
+> +		#clock-cells = <0>;
+> +	};
 > +
-> +	spacc->job[new_handle]          =3D spacc->job[old_handle];
-
-[Severity: High]
-By performing a direct struct assignment, this copies wait_queue_head_t
-waitq by value. Does copying a waitqueue head overwrite its internal spinlo=
-ck
-and list pointers, potentially corrupting the queue if there are active
-waiters?
-
-> +	spacc->job[new_handle].job_used =3D new_handle;
-> +	spacc->job[new_handle].cbdata   =3D cbdata;
+> +	pinctrl: pinctrl {
+> +		compatible = "rockchip,rv1106-pinctrl";
+> +		rockchip,grf = <&gpio1_ioc>;
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
 > +
-> +	return new_handle;
-> +}
+> +		gpio0: gpio@ff380000 {
+> +			compatible = "rockchip,gpio-bank";
+> +			reg = <0xff380000 0x100>;
+> +			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru PCLK_PMU_GPIO0>, <&cru DBCLK_PMU_GPIO0>;
+> +			gpio-controller;
+> +			#gpio-cells = <2>;
+> +			gpio-ranges = <&pinctrl 0 0 32>;
 
-[ ... ]
+This is incorrect hw description, only pins A0-A6 are used from gpio0.
 
-> +static bool spacc_wait_for_job_completion(struct spacc_device *spacc,
-> +		void *virt, unsigned char *expected_md)
-> +{
-> +	int stat;
-> +	unsigned long rbuf;
+> +			interrupt-controller;
+> +			#interrupt-cells = <2>;
+> +			rockchip,grf = <&gpio0_ioc>;
+> +		};
 > +
-> +	for (int i =3D 0; i < 20; i++) {
-> +		rbuf =3D readl(spacc->regmap + SPACC_REG_FIFO_STAT) &
-> +			SPACC_FIFO_STAT_STAT_EMPTY;
+> +		gpio1: gpio@ff530000 {
+> +			compatible = "rockchip,gpio-bank";
+> +			reg = <0xff530000 0x100>;
+> +			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru PCLK_GPIO1>, <&cru DBCLK_GPIO1>;
+> +			gpio-controller;
+> +			#gpio-cells = <2>;
+> +			gpio-ranges = <&pinctrl 0 32 32>;
 
-[Severity: Medium]
-Could this loop time out prematurely? Without any delays like udelay() or
-cpu_relax(), twenty consecutive MMIO reads might execute too quickly for
-the crypto engine to complete its work, causing string size autodetection
-to consistently fail.
+Same here, only  pins A0-A4, B0-B3, C0-C7 and D0-D3 are used from gpio1.
 
-> +		if (rbuf)
-> +			continue;
+> +			interrupt-controller;
+> +			#interrupt-cells = <2>;
+> +			rockchip,grf = <&gpio1_ioc>;
+> +		};
 > +
-> +		/* Check result */
-> +		writel(1, spacc->regmap + SPACC_REG_STAT_POP);
+> +		gpio2: gpio@ff540000 {
+> +			compatible = "rockchip,gpio-bank";
+> +			reg = <0xff540000 0x100>;
+> +			interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru PCLK_GPIO2>, <&cru DBCLK_GPIO2>;
+> +			gpio-controller;
+> +			#gpio-cells = <2>;
+> +			gpio-ranges = <&pinctrl 0 64 32>;
 
-[ ... ]
+And here, only pins A0-A7 and B0-B1 are used from gpio2.
 
-> +static int spacc_xof_stringsize_autodetect(struct spacc_device *spacc)
-> +{
-> +	void *virt;
-> +	int ss, alg;
-
-[ ... ]
-
-> +	pdu_ddt_add(spacc->dptr, &ddt, dma, SPACC_TEST_DMA_BUFF_SIZE);
+> +			interrupt-controller;
+> +			#interrupt-cells = <2>;
+> +			rockchip,grf = <&gpio2_ioc>;
+> +		};
 > +
-> +	/* populate registers for jobs */
-> +	writel((uint32_t)ddt.phys, spacc->regmap + SPACC_REG_SRC_PTR);
-> +	writel((uint32_t)ddt.phys, spacc->regmap + SPACC_REG_DST_PTR);
+> +		gpio3: gpio@ff550000 {
+> +			compatible = "rockchip,gpio-bank";
+> +			reg = <0xff550000 0x100>;
+> +			interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru PCLK_GPIO3>, <&cru DBCLK_GPIO3>;
+> +			gpio-controller;
+> +			#gpio-cells = <2>;
+> +			gpio-ranges = <&pinctrl 0 96 32>;
 
-[Severity: Medium]
-If the hardware is configured for linear DMA mode instead of scatter-gather,
-won't it treat this descriptor table address as a raw data pointer? Could
-this cause the hardware to hash the descriptor bytes instead of the test
-payload?
+And here, only pins A1-A7, B0-B7, C0-C7 and D0-D3 from gpio3.
 
+> +			interrupt-controller;
+> +			#interrupt-cells = <2>;
+> +			rockchip,grf = <&gpio3_ioc>;
+> +		};
 > +
-> +	writel(16, spacc->regmap + SPACC_REG_PROC_LEN);
-> +	writel(16, spacc->regmap + SPACC_REG_PRE_AAD_LEN);
+> +		gpio4: gpio@ff560000 {
+> +			compatible = "rockchip,gpio-bank";
+> +			reg = <0xff560000 0x100>;
+> +			interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru PCLK_GPIO4>, <&cru DBCLK_GPIO4>;
+> +			gpio-controller;
+> +			#gpio-cells = <2>;
+> +			gpio-ranges = <&pinctrl 0 128 32>;
 
-[ ... ]
+And here, only pins A1-A7, B0-B1 and C0-C1 from gpio4.
 
-> +int spacc_compute_xcbc_key(struct spacc_device *spacc, int mode_id,
-> +			   int job_idx, const unsigned char *key,
-> +			   int keylen, unsigned char *xcbc_out)
-> +{
-
-[ ... ]
-
-> +	if (usecbc) {
-> +		/*
-> +		 * We can do the ECB work in CBC using three
-> +		 * jobs with the IVreset to zero each time
-> +		 */
-> +		for (i =3D 0; i < 3; i++) {
-> +			spacc_write_context(spacc, handle,
-> +					    SPACC_CRYPTO_OPERATION, key,
-> +					    keylen, iv, 16);
-> +			err =3D spacc_packet_enqueue_ddt(spacc, handle, &ddt,
-> +						       &ddt, 16, (i * 16) |
-> +						       ((i * 16) << 16), 0, 0,
-> +						       0, 0);
-> +			if (err !=3D 0)
-> +				goto xcbc_err;
+> +			interrupt-controller;
+> +			#interrupt-cells = <2>;
+> +			rockchip,grf = <&gpio4_ioc>;
+> +		};
+> +	};
 > +
-> +			wait_event_interruptible(job->waitq, job->job_done);
-> +			job->job_done =3D 0;
-> +			err =3D job->job_err;
+> +	soc {
+> +		compatible = "simple-bus";
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
 > +
-> +			if (err !=3D 0)
-> +				goto xcbc_err;
+> +		grf: syscon@ff000000 {
+> +			compatible = "rockchip,rv1106-grf", "syscon";
+> +			reg = <0xff000000 0x68000>;
 
-[Severity: Critical]
-If a signal interrupts the wait, wait_event_interruptible() returns
--ERESTARTSYS, but we ignore its return value and check job->job_err. If the
-hardware job is still actively running in the background, wouldn't jumping
-to xcbc_err free the DMA buffers while the device is actively writing to th=
-em?
+If we decide to describe all GRFs as a single block, maybe add a comment
+with names and base address of each individual GRF being grouped here?
 
-> +		}
-> +	} else {
-> +		/*
-> +		 * Do the 48 bytes as a single SPAcc job this is the ideal case
-> +		 * but only possible if ECB was enabled in the core
-> +		 */
+  PERI_GRF	0xFF000000 
+  VENC_GRF	0xFF010000 
+  NPU_GRF	0xFF018000 
+  PMU_GRF	0xFF020000 
+  DDR_GRF	0xFF030000 
+  CORE_GRF	0xFF040000 
+  VI_GRF 	0xFF050000 
+  VO_GRF	0xFF060000
 
-> diff --git a/drivers/crypto/dwc-spacc/spacc_device.c b/drivers/crypto/dwc=
--spacc/spacc_device.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/spacc_device.c
-> @@ -0,0 +1,276 @@
-
-[ ... ]
-
-> +static int spacc_crypto_probe(struct platform_device *pdev)
-> +{
-> +	int rc =3D 0;
+> +		};
 > +
-> +	rc =3D spacc_init_device(pdev);
-> +	if (rc < 0)
-> +		goto err;
+> +		gic: interrupt-controller@ff1f0000 {
+> +			compatible = "arm,gic-400";
+> +			reg = <0xff1f1000 0x1000>,
+> +			      <0xff1f2000 0x2000>,
+> +			      <0xff1f4000 0x2000>,
+> +			      <0xff1f6000 0x2000>;
+> +			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <3>;
+> +			#address-cells = <0>;
+> +		};
 > +
-> +#if IS_ENABLED(CONFIG_CRYPTO_DEV_SPACC_HASH)
-> +	rc =3D spacc_probe_hashes(pdev);
-> +	if (rc < 0)
-> +		goto err;
-> +#endif
+> +		gpio0_ioc: syscon@ff388000 {
+> +			compatible = "rockchip,rv1106-gpio0-ioc", "syscon";
+> +			reg = <0xff388000 0x8000>;
+> +		};
 > +
-> +	return 0;
-> +err:
-> +	spacc_unregister_algs();
+> +		cru: clock-controller@ff3a0000 {
+> +			compatible = "rockchip,rv1106-cru";
+> +			reg = <0xff3a0000 0x20000>;
+> +			clocks = <&xin24m>;
+> +			clock-names = "xin24m";
+> +			rockchip,grf = <&grf>;
+> +			#clock-cells = <1>;
+> +			#reset-cells = <1>;
+> +		};
 > +
-> +	return rc;
-> +}
+> +		saradc: adc@ff3c0000 {
+> +			compatible = "rockchip,rv1106-saradc", "rockchip,rk3588-saradc";
+> +			reg = <0xff3c0000 0x100>;
+> +			interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru CLK_SARADC>, <&cru PCLK_SARADC>;
+> +			clock-names = "saradc", "apb_pclk";
 
-[Severity: High]
-If probing fails for a second device instance, we call spacc_unregister_alg=
-s().
-Does this unregister the algorithms and destroy the global DMA pool that
-might still be in use by the first successfully probed device?
+Should probably add default pinctrl here.
 
+> +			#io-channel-cells = <1>;
+> +			status = "disabled";
+> +		};
 > +
-> +static void spacc_crypto_remove(struct platform_device *pdev)
-> +{
-> +	struct spacc_priv *priv =3D platform_get_drvdata(pdev);
+> +		uart0: serial@ff4a0000 {
+> +			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
+> +			reg = <0xff4a0000 0x100>;
+> +			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+> +			reg-shift = <2>;
+> +			reg-io-width = <4>;
+> +			clocks = <&cru SCLK_UART0>, <&cru PCLK_UART0>;
+> +			clock-names = "baudclk", "apb_pclk";
+> +			status = "disabled";
+> +		};
 > +
-> +	if (priv->engine)
-> +		crypto_engine_exit(priv->engine);
+> +		uart1: serial@ff4b0000 {
+> +			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
+> +			reg = <0xff4b0000 0x100>;
+> +			interrupts = <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
+> +			reg-shift = <2>;
+> +			reg-io-width = <4>;
+> +			clocks = <&cru SCLK_UART1>, <&cru PCLK_UART1>;
+> +			clock-names = "baudclk", "apb_pclk";
+> +			status = "disabled";
+> +		};
 > +
-> +	if (priv->spacc_wq)
-> +		destroy_workqueue(priv->spacc_wq);
-
-[Severity: High]
-We destroy the workqueue here before the shared hardware interrupts are
-masked or unregistered. If a late interrupt fires, could the handler try
-to queue work on the destroyed workqueue, causing a use-after-free?
-
-[Severity: High]
-We also exit the crypto engine before unregistering the algorithms. Does
-this create a window where the crypto API can still dispatch incoming
-requests to the driver, leading to a dereference of the freed priv->engine?
-
+> +		uart2: serial@ff4c0000 {
+> +			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
+> +			reg = <0xff4c0000 0x100>;
+> +			interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
+> +			reg-shift = <2>;
+> +			reg-io-width = <4>;
+> +			clocks = <&cru SCLK_UART2>, <&cru PCLK_UART2>;
+> +			clock-names = "baudclk", "apb_pclk";
+> +			status = "disabled";
+> +		};
 > +
-> +	spacc_unregister_algs();
-> +	spacc_remove(pdev);
-> +}
-
-> diff --git a/drivers/crypto/dwc-spacc/spacc_hal.c b/drivers/crypto/dwc-sp=
-acc/spacc_hal.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/spacc_hal.c
-> @@ -0,0 +1,374 @@
-
-[ ... ]
-
-> +static void pdu_to_dev_big(void __iomem *addr_, const unsigned char *src,
-> +			   unsigned long nword)
-> +{
-> +	u32 __iomem *addr =3D addr_;
-> +	u32 data;
-> +	__be32 val;
+> +		uart3: serial@ff4d0000 {
+> +			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
+> +			reg = <0xff4d0000 0x100>;
+> +			interrupts = <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH>;
+> +			reg-shift = <2>;
+> +			reg-io-width = <4>;
+> +			clocks = <&cru SCLK_UART3>, <&cru PCLK_UART3>;
+> +			clock-names = "baudclk", "apb_pclk";
+> +			status = "disabled";
+> +		};
 > +
-> +	while (nword--) {
-> +		data =3D *((u32 *)src);
-> +		val =3D __cpu_to_be32(data);
-
-[Severity: High]
-In spacc_write_context(), we allocate unsigned char buf[300] on the stack
-which only guarantees 1-byte alignment. When this is passed into
-pdu_to_dev_big(), the byte pointer is cast directly to a u32 * and
-dereferenced here. Can this cause fatal alignment exceptions on strict
-alignment architectures?
-
+> +		uart4: serial@ff4e0000 {
+> +			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
+> +			reg = <0xff4e0000 0x100>;
+> +			interrupts = <GIC_SPI 29 IRQ_TYPE_LEVEL_HIGH>;
+> +			reg-shift = <2>;
+> +			reg-io-width = <4>;
+> +			clocks = <&cru SCLK_UART4>, <&cru PCLK_UART4>;
+> +			clock-names = "baudclk", "apb_pclk";
+> +			status = "disabled";
+> +		};
 > +
-> +		__raw_writel((u32 __force)val, addr);
-> +		src +=3D 4;
-> +		addr++;
-> +	}
-> +}
-
-[ ... ]
-
-> +int pdu_ddt_add(struct device *dev, struct pdu_ddt *ddt, dma_addr_t phys,
-> +		unsigned long size)
-> +{
-> +#ifdef CONFIG_CRYPTO_DEV_SPACC_DEBUG_TRACE_DDT
+> +		uart5: serial@ff4f0000 {
+> +			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
+> +			reg = <0xff4f0000 0x100>;
+> +			interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
+> +			reg-shift = <2>;
+> +			reg-io-width = <4>;
+> +			clocks = <&cru SCLK_UART5>, <&cru PCLK_UART5>;
+> +			clock-names = "baudclk", "apb_pclk";
+> +			status = "disabled";
+> +		};
 > +
-> +	dev_dbg(dev, "   DDT[%.8lx]: 0x%.8lx size %lu\n",
-> +		(unsigned long)ddt->phys,
-> +		(unsigned long)phys, size);
-> +#endif
+> +		gpio1_ioc: syscon@ff538000 {
+> +			compatible = "rockchip,rv1106-gpio1-ioc", "syscon";
+> +			reg = <0xff538000 0x8000>;
+> +		};
 > +
-> +	if (ddt->idx =3D=3D ddt->limit)
-> +		return -EINVAL;
+> +		gpio2_ioc: syscon@ff548000 {
+> +			compatible = "rockchip,rv1106-gpio2-ioc", "syscon";
+> +			reg = <0xff548000 0x8000>;
+> +		};
 > +
-> +	ddt->virt[ddt->idx * 2 + 0] =3D (uint32_t)phys;
-> +	ddt->virt[ddt->idx * 2 + 1] =3D size;
-
-[Severity: Medium]
-The DMA descriptor table (DDT) is written directly using native CPU
-endianness. Since the driver handles endian conversions for MMIO registers,
-shouldn't we also apply endian conversions to memory-resident descriptors
-before the hardware reads them?
-
-> +	ddt->virt[ddt->idx * 2 + 2] =3D 0;
-> +	ddt->virt[ddt->idx * 2 + 3] =3D 0;
-> +	ddt->len +=3D size;
-> +	++(ddt->idx);
+> +		gpio3_ioc: syscon@ff558000 {
+> +			compatible = "rockchip,rv1106-gpio3-ioc", "syscon";
+> +			reg = <0xff558000 0x8000>;
+> +		};
 > +
-> +	return 0;
-> +}
+> +		gpio4_ioc: syscon@ff568000 {
+> +			compatible = "rockchip,rv1106-gpio4-ioc", "syscon";
+> +			reg = <0xff568000 0x8000>;
+> +		};
+> +
+> +		wdt: watchdog@ff5a0000 {
+> +			compatible = "rockchip,rv1106-wdt", "snps,dw-wdt";
+> +			reg = <0xff5a0000 0x100>;
+> +			interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru TCLK_WDT_NS>, <&cru PCLK_WDT_NS>;
+> +			clock-names = "tclk", "pclk";
+> +			status = "disabled";
+> +		};
+> +
+> +		system_sram: sram@ff6c0000 {
+> +			compatible = "mmio-sram";
+> +			reg = <0xff6c0000 0x40000>;
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
+> +			ranges = <0 0xff6c0000 0x40000>;
+> +		};
+> +
+> +		emmc: mmc@ffa90000 {
+> +			compatible = "rockchip,rv1106-dw-mshc", "rockchip,rk3288-dw-mshc";
+> +			reg = <0xffa90000 0x4000>;
+> +			interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru HCLK_EMMC>, <&cru CCLK_SRC_EMMC>,
+> +				 <&cru SCLK_EMMC_DRV>, <&cru SCLK_EMMC_SAMPLE>;
+> +			clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
+> +			fifo-depth = <0x100>;
+> +			max-frequency = <200000000>;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260318063012.8160=
-60-1-pavitrakumarm@vayavyalabs.com?part=3D2
+Suggest you add default pinctrl here.
+
+> +			status = "disabled";
+> +		};
+> +
+> +		sdmmc: mmc@ffaa0000 {
+> +			compatible = "rockchip,rv1106-dw-mshc", "rockchip,rk3288-dw-mshc";
+> +			reg = <0xffaa0000 0x4000>;
+> +			interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru HCLK_SDMMC>, <&cru CCLK_SRC_SDMMC>,
+> +				 <&cru SCLK_SDMMC_DRV>, <&cru SCLK_SDMMC_SAMPLE>;
+> +			clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
+> +			fifo-depth = <0x100>;
+> +			max-frequency = <200000000>;
+
+Same here.
+
+> +			status = "disabled";
+> +		};
+> +
+> +		sfc: spi@ffac0000 {
+> +			compatible = "rockchip,sfc";
+> +			reg = <0xffac0000 0x4000>;
+> +			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru SCLK_SFC>, <&cru HCLK_SFC>;
+> +			clock-names = "clk_sfc", "hclk_sfc";
+
+And here.
+
+Regards,
+Jonas
+
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			status = "disabled";
+> +		};
+> +	};
+> +};
+> +
+> +#include "rv1106-pinctrl.dtsi"
+
