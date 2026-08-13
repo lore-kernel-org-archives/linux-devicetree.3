@@ -1,139 +1,368 @@
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3005430301
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 06:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786604297; cv=pass; b=aN6Fmax2nWbnmGTr0qwlzUnxgsVTnyoLX+KY0Lajg9bT08H3CMyhCSbVfv3bOuy7HdmhJvaiNxvVcdnCA2/LtBVHB17Zi4ssuvBJT2KUyTV0O08q4rDti0sUlem1wf0rVnaEQ58YkzzU+SfYJWN2asvxarySH3Z8bUzNU9hyumY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786604297; c=relaxed/simple;
-	bh=4bcw77KBMIYpRy8DhahSnN/xtZZNsyj77PbRJiNIjhE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KuKtqKZyLStidrSZz0QIfIJ/K+oa7opRAG3RlKgcH3GZndoGX17YM13O8WM2L9tJeTxLzyzW7LGslM5eSnN7tAVF3VDhErupbo1MnwOsgyJM2F1/186L5talkt+abdzYijCKI0s180cpB3YQfLskAwm9YdKIKFdi+2uAIZM6pVw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OwbucHwx; arc=pass smtp.client-ip=209.85.222.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1661C3E5A29;
+	Thu, 13 Aug 2026 06:59:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786604370; cv=none; b=XOHKhgAaAgTvtnPOhD/OmxlpkArHJ3wkUhEsjbloqbM7FusvSXkn7+/sX0/zVnz1DDbqNufoxNb7KShe7EzEg43ovMBRczXwJuFBwGKZf9Tas5gBtLBmNJLjz0u5+OzNb+7zLvUhS78paX43pp2OKcf//ZOQeopSvsglAH+zBxI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786604370; c=relaxed/simple;
+	bh=teJmDmEcHm4gisD3OSpydc89jKU+y92MTgR8a0F0XDo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tax0KEYszdzZTDUIooSgETJwRflqSEgEoIDG5+XlTO7tR9SFaFZm0i82ksuRCKIZe+M8FIfaZyYAIn8O8oIT18WqUur3RGVdGj7y70x/P2aGmBcsuvTrEViceeldAweN27W7kIF70e+V3IGmDRqp/FDvye87qOTc5nwyECiWwNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UkDq/Zmj; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OwbucHwx"
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-9773c6ea885so499849241.3
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 23:58:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786604295; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M8/wtMqm/DaBZq5goIAm2NQjOgWvEZt2ay5g7nIB2T6incA+x8wOo8pVhHFIi65FuU
-         4SXOuC+5HBeCG3axt1eXx5qyUoZq3j5MTbTMDJmLztMeZ4OkYPgTPseFVyBYB55RzB3R
-         FXCmoFJ/zm59byv3zYf4ihH8NV2K0WsCWEZY94sTWYM/2BfUllpeuYR+RLdtYNCxGTM2
-         xN8gduxoJZirkTnb7OJHV0e+F1ntPf1wJCgYU6Gjt2JJiQeMcJQ+0aAihZ5sx/jEXW22
-         G+SRWSbc7kF2anfvPXAWEtq26d8HNzpv4cJ/aM4Aw5IKdjkEs0QJbwRSdnhSW+ezkHbT
-         J1tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4bcw77KBMIYpRy8DhahSnN/xtZZNsyj77PbRJiNIjhE=;
-        fh=UmkcEdrkx5g0jYV4xKrqk1EId7sN+o6rkkwWiN0Bq2E=;
-        b=jCHDa8v5QiaWKuvfScszoidp+7uB7AzmWhvJIt2aCYKda75rrmJh9A0bxKDbKsFP0Y
-         HYWsK0lkGXLCUdm12rzUys3aRbEZCpEeLBM6LFvLHpTLm/cf9mTTH1cF0NASjRL1OQmO
-         lMWNuFsaldTbIMmWMOyyErZOqDT42La08IXaYIXtAK8pGtG9UqZ+5EfcEaZirHmv6Z1o
-         doHLI0CrtcICsCH83br3IbyjKuhtrAE7jeE6QJXJrE7tliR0m0gcVKGd0vqjNPrQvVQI
-         inEUmM3ivgm/ds+gc2v6kZtEMKCHvPEl+8ra9AFRmtkJ4vPBqYUqwTPpoHNQtVXL8cJn
-         efJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786604295; x=1787209095; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4bcw77KBMIYpRy8DhahSnN/xtZZNsyj77PbRJiNIjhE=;
-        b=OwbucHwxEElrG9E+Q9gZd2pRnpjdJXuNfxkBLjBTYLMEHQIg+99nx8a9FlMXrOQOEU
-         MSCGrcsKNEKQ/61mVVf90cPXuJaQa02AkP0raACW+GzChl9xBg0LAe421lE4SjzV6M8h
-         iSEppMi6w8m0wHkAaB5r9cEOJmZ7f3uHZsXzodMJ5ca9QUcZv41azXdpLi1tjc5mIUpG
-         wDgoKOt7sNQWQmpKovAIVG7Uict5pb5c6qljGIrS4OXFKtVhuQk/3o6HHi201aR+H8iy
-         pNcBduFzs4WFzlLnBXRTlwUQS6AQ9eF++pFmMmZK1qOGC6x8FMqksW5OjmfCHmw2eXKw
-         Dkyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786604295; x=1787209095;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4bcw77KBMIYpRy8DhahSnN/xtZZNsyj77PbRJiNIjhE=;
-        b=KffA7Ap6yHy7bL8roHuFI+JInC0jSL0b65UhnP74w9XEmhz2i8vqTWc5zVNTmcmCh4
-         41b6DHndFoc7DlVYxMMjoYzvKu47V2cajkXMa4Cy+8OAMZK5ggRfMBMC1vujC+matER3
-         mlbqicBbc78jvNhHv4wh0qhE6YWCvpu6q7LiuVlL1uCtg2fp1bZ38IcOGaLeZaRbiKP+
-         //SRFJV/Ja6W8lOC+IEHGLxOpV2aoW/ZuiU/z90mlPdBtS8UmDEcoGPV4VzYRwfMRooj
-         DbW5c3W8WwccqjmbUPBXINmuY7tPxtNRgQBSv3DDY937KklI4WUz8bxfhQXP64wZSPkE
-         Huvg==
-X-Forwarded-Encrypted: i=1; AHgh+RpzHngEMwhiGs8yEyHKRFFk9ZJOh1NiL/wRd7Aa+Fd2truOlteEr1LGtI+Q1qi3ytRn19XBMDDZ+LW3@vger.kernel.org
-X-Gm-Message-State: AOJu0YyW1+vC1fn/Iagx+IaaGg+HwLhoVPCkzjLpxntjLXsDyvtkD7we
-	okCc+RVQXMCgx/dsGw6NGD68ogFWPgIVSqs4/tyvmRSokan+RzwLi2cDv00m0QL/5kRwMHbfrw/
-	8gjuf4YJ98Pi0/eciECX2CZC9tuax+aw=
-X-Gm-Gg: AR+sD11NkNxs1D7vGPQUt7sgyHrHXFYTAL8Nn0+XBca0wHR5DvYkRxFWKUhc20l5B88
-	ihjKuPeN2A9W5R2oSUy/k2x4H8VDfVBu9e8kGoksdUonlcY8ijed14o32SgOJDmzoFHcLNtrekm
-	ZMlaISU+kNAk98jfleNrFLCkq128N2v5dOcT8av/eu9f2eXd2RPytjc8DlQ8MxBg+8u2YGtxRMW
-	Okz7OP9Nd9qXTc5MU53kN3UWSL50wWE85FB8OZYSlfKbVz4CwTsMm6E4XaZtSVgB9A4GeQEX5dT
-	YRCyRwEkJjcpRjyag5qWjJqrbGa4vvVcKzEMcr+VZf63lb8GIN2HMLclEd2RrVNvz8pRxdQEOMC
-	MBjtu8aQFiKLF2WUbmIpXharZKHWPDMgZ2U5UsE6toZpPGI49LpTj6s/C5t2UuXTg5ck9HKfPeQ
-	qgx3fIat/wIudoegL2BpE2UqxkAlo0sSxPEi7G
-X-Received: by 2002:a05:6102:c09:b0:6c3:1bcd:31dd with SMTP id
- ada2fe7eead31-76db5c7db09mr827543137.6.1786604294775; Wed, 12 Aug 2026
- 23:58:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UkDq/Zmj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786604368; x=1818140368;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=teJmDmEcHm4gisD3OSpydc89jKU+y92MTgR8a0F0XDo=;
+  b=UkDq/ZmjZOtUPnUE9xPKcapHSB2w5+aZtIanvdtHPG8oyQhJr89IanwX
+   NYJOF7lTv5kYH8U2pnwhYfOdY/PfgAzvgdBSWKjIUbSSwB8xmlOGFJEX/
+   RPa9kXH3OH1WWwgNBuxXLr7Ogc4EbRuH0iRTtQRjdtdwX5Op5kdCkKJVJ
+   D32/aRZQZoLlAnTodXgnlspMknK87Ek4yM4DF9oaSSgzVlVdjk0Y1WMa1
+   3v2uE+bQAa+37cfWqDazfQXOTty5MrNHhFKkmg0dc5zLErUPI1Tc7Lf1D
+   W0yG9Q2q916QOpF1e5ZXsuh3sXFYPumHbhGSWa3G4hQWq787A9cF4C7pa
+   g==;
+X-CSE-ConnectionGUID: jqs8XgZXQTGffRRpRlQG5Q==
+X-CSE-MsgGUID: p8NG7vCkQ+awiqQc1mJPfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="86290219"
+X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; 
+   d="scan'208";a="86290219"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 23:59:25 -0700
+X-CSE-ConnectionGUID: 2LN5ztgeQq27oCWX6Tt5wg==
+X-CSE-MsgGUID: Ft63cPx3ToKZzdhKzvP+Ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; 
+   d="scan'208";a="265841924"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.250])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 23:59:22 -0700
+Date: Thu, 13 Aug 2026 09:59:19 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/4] iio: light: add support for veml6031x00 ALS series
+Message-ID: <an1rR07iJd_XLSPr@ashevche-desk.local>
+References: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
+ <20260812-veml6031x00-v6-2-7eef6e4ce290@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com>
- <20260811-submit-ac200-mfd-v7-1-8b06f552a4d7@gmail.com> <20260813-independent-ladybug-of-perfection-1afe7a@quoll>
-In-Reply-To: <20260813-independent-ladybug-of-perfection-1afe7a@quoll>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 13 Aug 2026 00:58:03 -0600
-X-Gm-Features: AUfX_mwgvEsp_avZ39gMBtOXoVUSCDbwgKTbjWWmofYwkFQgC4t_LLBxQm2wsU8
-Message-ID: <CADvTj4qaiyEtKk8bSj6Eq=q=KJ5pO90Aa0iJQrysr2LR3QuAQg@mail.gmail.com>
-Subject: Re: [PATCH v7 1/2] dt-bindings: mfd: x-powers: Add AC200
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, Andre Przywara <andre.przywara@arm.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
-	linux-sunxi@lists.linux.dev, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812-veml6031x00-v6-2-7eef6e4ce290@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 13, 2026 at 12:49=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
->
-> On Tue, Aug 11, 2026 at 05:11:30PM -0600, James Hilliard wrote:
-> > The AC200 is an I2C-controlled mixed-signal companion IC containing
-> > audio, video, RTC and Fast Ethernet PHY functions.
-> >
-> > Describe the parent device and its shared input clock. The Ethernet PHY
-> > is represented by a PHY package on its MDIO bus, with a phandle back to
-> > this device for access to the package control registers, so it does not
-> > require an MFD child node. Function-specific supplies belong to their
-> > consumer bindings rather than the shared parent.
->
-> Other way to represent it is to put ethernet phy here - either as a
-> child or folded into MFD device node - and provide phandle to MDIO bus.
-> We do like this already for several devices for I2C case with "i2c-bus"
-> property. Here it would be "mdio-bus" for example. Such solution feels
-> more vendor-agnostic, easier to re-use, however I cannot find any actual
-> arguments against your approach.
+On Wed, Aug 12, 2026 at 10:27:41PM +0200, Javier Carrasco wrote:
+> These sensors provide two light channels (ALS and IR), I2C communication
+> and a multiplexed interrupt line to signal data ready and configurable
+> threshold alarms.
 
-The PHY package remains on the MDIO bus because the link PHY is addressed
-and accessed through MDIO on both AC200 and AC300. Only the AC200
-package-control registers require the additional I2C path; AC300 exposes
-its package controls through MDIO as well. Keeping the package under MDIO
-therefore gives both variants the same representation, with the AC200
-phandle describing only its secondary control path.
+> This first implementation provides basic functionality (measurement
+> configuration, raw reads and ID validation) and defines the different
+> register regions in preparation for extended features in the subsequent
+> patches of the series.
 
->
-> Maybe Rob will have his preference, but this looks okay for me then:
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->
-> Best regards,
-> Krzysztof
->
+This paragraph needs to be rephrased. In the current form it suits cover letter
+and not the commit message. Here, just list the features supported.
+
+The "the subsequent patches of the series." in the commit message is very
+ambiguous. What patch series? Which patches? Are they landed in the upstream?
+If yes, which commit IDs? If not, when if ever? Et cetera! Usually it can be
+simply said "The other features may be implemented later on."
+
+The basic hint (one of) when writing a commit message is to put yourself in
+the shoes of the unprepared reader who sees it in the Git history for the first
+time in their life. What will your message give to them?
+
+Besides the above some comments in the ->probe() to be addressed and other
+minor style issues all over, but in general this looks very good and on track
+(for v7.4).
+
+...
+
+> +/*
+> + * The shutdown bits (SD and ALS_IR_SD) are in different registers, and both
+> + * must be updated when changing the device power state.
+> + */
+> +static int veml6031x00_set_power(struct veml6031x00_data *data, bool state)
+> +{
+> +	int ret;
+> +
+> +	ret = regmap_update_bits(data->regmap, VEML6031X00_REG_CONF0,
+> +				 VEML6031X00_CONF0_SD,
+> +				 state ? 0 : VEML6031X00_CONF0_SD);
+
+_assign_bits()?
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(data->regmap, VEML6031X00_REG_CONF1,
+> +				  VEML6031X00_CONF1_IR_SD,
+> +				  state ? 0 : VEML6031X00_CONF1_IR_SD);
+
+Ditto.
+
+> +}
+
+...
+
+> +static int veml6031x00_set_it(struct iio_dev *iio, int val, int val2)
+> +{
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +	int ret, gain_sel, new_gain, prev_gain, prev_it;
+> +	unsigned int gain_reg, it_idx, pd_div4;
+> +	bool gain_in_range;
+> +
+> +	if (val || !iio_gts_valid_time(&data->gts, val2))
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&data->scale_lock);
+> +
+> +	ret = regmap_field_read(data->rf.it, &it_idx);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_field_read(data->rf.gain, &gain_reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_field_read(data->rf.pd_div4, &pd_div4);
+> +	if (ret)
+> +		return ret;
+> +
+> +	prev_it = iio_gts_find_int_time_by_sel(&data->gts, it_idx);
+> +	if (prev_it < 0)
+> +		return prev_it;
+> +
+> +	if (prev_it == val2)
+> +		return 0;
+> +
+> +	prev_gain = iio_gts_find_gain_by_sel(&data->gts,
+> +					     VEML6031X00_GAIN_SEL(pd_div4, gain_reg));
+
+What about temporary for &data->gts? Say you have local 'gts' variable, this becomes
+
+	prev_gain = iio_gts_find_gain_by_sel(gts,VEML6031X00_GAIN_SEL(pd_div4, gain_reg));
+
+> +	if (prev_gain < 0)
+> +		return prev_gain;
+> +
+> +	ret = iio_gts_find_new_gain_by_gain_time_min(&data->gts, prev_gain, prev_it,
+> +						     val2, &new_gain, &gain_in_range);
+
+	ret = iio_gts_find_new_gain_by_gain_time_min(gts, prev_gain, prev_it, val2,
+						     &new_gain, &gain_in_range);
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!gain_in_range)
+> +		dev_dbg(regmap_get_device(data->regmap), "Optimal gain out of range\n");
+> +
+> +	ret = iio_gts_find_sel_by_int_time(&data->gts, val2);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = regmap_field_write(data->rf.it, ret);
+> +	if (ret)
+> +		return ret;
+> +
+> +	gain_sel = iio_gts_find_sel_by_gain(&data->gts, new_gain);
+> +	if (gain_sel < 0)
+> +		return gain_sel;
+> +
+> +	return veml6031x00_write_gain(data, gain_sel);
+> +}
+> +
+> +static int veml6031x00_set_scale(struct iio_dev *iio, int val, int val2)
+> +{
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +	int gain_sel, it_sel, ret;
+> +
+> +	ret = iio_gts_find_gain_time_sel_for_scale(&data->gts, val, val2,
+> +						   &gain_sel, &it_sel);
+
+In the similar way
+
+	ret = iio_gts_find_gain_time_sel_for_scale(gts, val, val2, &gain_sel, &it_sel);
+
+OR (for stricter limits)
+
+	ret = iio_gts_find_gain_time_sel_for_scale(gts, val, val2,
+						   &gain_sel, &it_sel);
+
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&data->scale_lock);
+> +
+> +	ret = regmap_field_write(data->rf.it, it_sel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return veml6031x00_write_gain(data, gain_sel);
+> +}
+
+...
+
+> +static int veml6031x00_get_scale(struct veml6031x00_data *data, int *val,
+> +				 int *val2)
+
+Split this logically
+
+static int veml6031x00_get_scale(struct veml6031x00_data *data, int *val, int *val2)
+
+OR
+
+static int veml6031x00_get_scale(struct veml6031x00_data *data,
+				 int *val, int *val2)
+
+> +static int veml6031x00_validate_part_id(struct veml6031x00_data *data)
+> +{
+> +	struct device *dev = regmap_get_device(data->regmap);
+> +	int part_id, ret;
+
+Why is 'part_id' signed?
+
+> +	__le16 regval;
+
+> +	ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_ID_L, &regval,
+> +			       sizeof(regval));
+
+With
+
+	struct regmap *map = data->regmap;
+	struct device *dev = regmap_get_device(map);
+	unsigned int part_id;
+	__le16 val;
+	int ret;
+	...
+
+	ret = regmap_bulk_read(map, VEML6031X00_REG_ID_L, &val, sizeof(val));
+
+Please, revisit the whole series for this type of improvements.
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read ID\n");
+> +
+> +	part_id = le16_to_cpu(regval);
+> +	if (part_id != data->chip->part_id)
+> +		dev_info(dev, "Unknown ID %04x\n", part_id);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int veml6031x00_probe(struct i2c_client *i2c)
+> +{
+> +	struct device *dev = &i2c->dev;
+> +	struct veml6031x00_data *data;
+> +	struct iio_dev *iio;
+> +	int ret;
+> +
+> +	iio = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!iio)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(iio);
+> +	i2c_set_clientdata(i2c, iio);
+> +
+> +	data->chip = i2c_get_match_data(i2c);
+> +	if (!data->chip)
+> +		return dev_err_probe(dev, -EINVAL, "Failed to get chip data\n");
+
+-ENODATA
+
+> +	data->regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "Failed to set regmap\n");
+
+Is debugfs access already enabled for regmap after this call? Perhaps you want
+mutex to be initialised before that?
+
+> +	iio->name = data->chip->name;
+> +	iio->channels = veml6031x00_channels;
+> +	iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
+> +	iio->modes = INDIO_DIRECT_MODE;
+> +	iio->info = &veml6031x00_info;
+> +
+> +	ret = devm_mutex_init(dev, &data->scale_lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = veml6031x00_regfield_init(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to init regfield\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
+> +
+> +	/* The device starts in power down mode by default */
+> +	ret = veml6031x00_set_power(data, true);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to power on the device\n");
+> +
+> +	ret = devm_add_action_or_reset(dev, veml6031x00_als_shutdown_action, data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add shutdown action\n");
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, 2000);
+> +	pm_runtime_use_autosuspend(dev);
+> +	ret = devm_pm_runtime_set_active_enabled(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+> +
+> +	pm_runtime_get_noresume(dev);
+> +
+> +	ret = veml6031x00_validate_part_id(data);
+> +	if (ret)
+> +		goto err_pm_put;
+> +
+> +	ret = veml6031x00_hw_init(iio);
+> +	if (ret)
+> +		goto err_pm_put;
+> +
+> +	pm_runtime_put_autosuspend(dev);
+> +
+> +	ret = devm_iio_device_register(dev, iio);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to register iio device\n");
+> +
+> +	return 0;
+
+> +err_pm_put:
+> +	pm_runtime_put_noidle(dev);
+
+Hmm... This is usually a red flag to see a goto after devm_*() calls.
+
+> +	return ret;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
