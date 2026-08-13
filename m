@@ -1,116 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB69C48D872;
-	Thu, 13 Aug 2026 16:34:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AE238F255;
+	Thu, 13 Aug 2026 16:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786638873; cv=none; b=Kj6xGP/m1OdzQ4ORqriyu1IhQe53ipRpqbpeGB3eAR8IKzktGs18r2qbFj0yVkR8AmH4KVkhgvAG85XLe/A6Yte6jIuAh0K3JXq572PI2xiouzAJS9Q0hig5csM8SuaBJDMBjHMOPsj8JMomxw/g+ft/O2/jczR/cRPZ8C0mNDs=
+	t=1786639279; cv=none; b=lbb3Zb464DkURYdHBocgrDEmGG0IFCFJTixITNy/5aD6FXay6RZ994agc2MqTILI+ip2fNx7/o8tgIeFU0S5wFBSTCe+90XHP1cuhaKENPpAIwqI9bu+dRl+b/7rMOH5pA0yBsbfSgF24GiUEsgagyFbjGjavOYDVYy4xvsfGaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786638873; c=relaxed/simple;
-	bh=kJIK/8cVpY2dsonM+CKaoA8milgDsx5gkb7RoilMn4I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rOP1ZpOcJuwi2dqkj+iDUYulO+sTwTIjUIuXmuOCMeOmKEyBl8ALWvl0H/5ka6jFY7C65nVSaRvDzuSt7vLG9kSXWHWkbIL0EY86qIUH/eFKt0ajjuctvAHfax4mqSmFAbF1XlMOjgEgvqOEaS6zClyA6HmfRJDXih8G3p9ZToQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gIO42Ykl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786639279; c=relaxed/simple;
+	bh=0bwmJeNyCqI3s4pqwSR+oPLhYwLzolKtFG3m/bwsJWM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Y4aDtrmck3FPpYupf9AQ+HAMT3Vb3REE9KABSPVbaSqVwmtyz1B7sMzl59jB9l1l/x1HqroufvJmhqYR7Lv7Q5C8GGvWZDodGobtUFwTc5EgO0aq56yITucFrSIjfA2oabTv7JEzJBn011qIvPiwZ2c8rTnFlHnEbTn3NLckPrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c8EQc9zm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gIO42Ykl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EAF1F000E9;
-	Thu, 13 Aug 2026 16:34:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c8EQc9zm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8F01F00A3A;
+	Thu, 13 Aug 2026 16:41:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786638871;
-	bh=0S3ftOwJSsUb+Dd4BvGQEurqEFEQKeaL/uPob6ijr40=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gIO42Ykls1DXmZeu4vsJgVp3uYOwWKD/FjTSYFHQyaordnekzUr8QB7cdX/SZ/Nl4
-	 16ZxuiIHsKmGkcG1IW5FOMSJNh1/W2dC41K0nsSVf2TOXsDAmrQrnacSeh62xfXnN7
-	 EzQrOFi89NMyiF5IrMfBq1OuCDMX6vvVfl8p9SDJru0ImAFOPxQoCfmNMyhZpm+47D
-	 34ezWQQhgldmNzilmSmGIEC3lpxvYmHsRNAVivIhw6Dc+KYMZxSu7tPuf2xLAUZ4oA
-	 GfzM/hbzWl3r8MMssv23sBj19aFDGrOLvISdemRVIRo+i8rfIERfavmtqRMzRCnw9h
-	 s67cw72A3sTeQ==
-Message-ID: <01d324cd-71f7-413c-8ab9-a24b0a269591@kernel.org>
-Date: Thu, 13 Aug 2026 18:34:25 +0200
+	s=k20260515; t=1786639278;
+	bh=X7gjPEHQnaOK/mGsrsovGlLsMy8sL0TXykMuyukjubA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c8EQc9zmoAk1XBLFtoglrp1oVFgcflK5GNnMODJUlmE3wutafXNW6I3gUJ4TQ4rgC
+	 RI/G9DcWBPNTByFnB36qMlZ1f/MLs33EArN1kB+aZfhRyblcdPwYfxIt48oy41xX+X
+	 MgBX2cAn6k/AXefRWpGpxNoIM+jzCX08Hd8YqkLBySGLZVG7jdYbq0kKddHW/ecoKT
+	 oJ4AQfvlXtXEs8xBaKiEp4a8YYvpiX736tyNcDl+V8pjS8qAh02SU7zOPbQ30QGb3G
+	 1JRR9zRHuv2kmSIlQs5yqLT/qdLjjIHsbG0Pl4e46OuUvut2/EFrbfAZyCQ875IP4o
+	 hs75TdJWMOdmA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: mfd: ti,keystone-devctrl: Convert to DT
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
+Cc: mfd@lists.linux.dev, robh@kernel.org, lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260813-ti-keystone-devctrl-v1-1-6f0aa87d9af8@gmail.com>
+References: <20260813-ti-keystone-devctrl-v1-1-6f0aa87d9af8@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 16:41:17 +0000
+Message-Id: <20260813164117.DE8F01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] dt-bindings: arm: mediatek: mediatek,g3dsys: Convert
- to DT schema
-To: Uday Kiran <challauday369@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-References: <20260326181726.64957-1-challauday369@gmail.com>
- <20260328-economic-blond-termite-daecb7@quoll>
- <CAAj-GBnP0Tg3cAP217WD3OVfpUvtBeKFogwAzUW_WhG9=U15nw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAAj-GBnP0Tg3cAP217WD3OVfpUvtBeKFogwAzUW_WhG9=U15nw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 13/08/2026 16:39, Uday Kiran wrote:
->> On Thu, Mar 26, 2026 at 11:47:26PM +0530, Udaya Kiran Challa wrote:
->>> Convert the MediaTek G3D system controller devicetree binding
->>> from the legacy text format to DT schema.
->>>
->>> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
->>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> Thank you, Krzysztof. This patch has not yet been merged into the mainline.
-> Please let me know if any updates are required from my side.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The schema enforces non-compliant, legacy device tree node names=
+ (containing underscores) for child nodes via `patternProperties`, blocking=
+ the use of standard generic names and contradicting the commit message.
+- [Low] The YAML example references undefined phandles (`&devctrl` and `&pl=
+lctrl`), which will cause a fatal `dtc` compilation error during `make dt_b=
+inding_check`.
+--
 
-This should be taken by mediatek SoC maintainers, but they were not
-Cc-ed, probably because of missing maintainers patterns.
+--- Patch [1]: [PATCH] dt-bindings: mfd: ti,keystone-devctrl: Convert to DT=
+ schema ---
+commit f59b6bface010fc243ef7f899dbb8dddf737e2c5
+Author: Bhargav Joshi <j.bhargav.u@gmail.com>
 
-See also (I think wasn't picked up eventually):
-https://lore.kernel.org/all/20260329085353.8649-2-krzysztof.kozlowski@oss.qualcomm.com/
+dt-bindings: mfd: ti,keystone-devctrl: Convert to DT schema
+   =20
+Converts the Texas Instruments Keystone Device State Control binding from
+legacy text format to DT schema. Adds "simple-mfd" support, enforces child
+bus properties, and adds validations for standard child nodes.
 
-Best regards,
-Krzysztof
+> diff --git a/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.ya=
+ml b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
+[ ... ]
+> +patternProperties:
+> +  "^keystone_dsp_gpio@[0-9a-f]+$":
+> +    type: object
+> +    description: Keystone DSP GPIO controller
+> +
+> +  "^keystone_irq@[0-9a-f]+$":
+> +    type: object
+> +    description: Keystone DSP to ARM interrupt controller
+
+[Severity: Medium]
+The commit message mentions updating node names to conform with standard
+Devicetree specifications. However, these patternProperties enforce names
+with underscores like "keystone_dsp_gpio" and "keystone_irq".=20
+
+Does this block the use of standard generic names (like "gpio" or
+"interrupt-controller")? Because additionalProperties is false, using gener=
+ic
+names in a DTS file would cause validation errors. Could these patterns be
+updated to match generic names instead?
+
+[ ... ]
+> +examples:
+[ ... ]
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    device-state-control@2620000 {
+> +        compatible =3D "ti,keystone-devctrl", "syscon", "simple-mfd";
+> +        reg =3D <0x02620000 0x1000>;
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+> +        ranges =3D <0x0 0x02620000 0x1000>;
+> +
+> +        keystone_irq@2a0 {
+> +            compatible =3D "ti,keystone-irq";
+> +            reg =3D <0x2a0 0x4>;
+> +            interrupts =3D <GIC_SPI 4 IRQ_TYPE_EDGE_RISING>;
+> +            interrupt-controller;
+> +            #interrupt-cells =3D <1>;
+> +            ti,syscon-dev =3D <&devctrl 0x2a0>;
+> +        };
+> +
+> +        reset-controller@328 {
+> +            compatible =3D "ti,keystone-reset";
+> +            reg =3D <0x328 0x10>;
+> +            ti,syscon-pll =3D <&pllctrl 0xe4>;
+> +            ti,syscon-dev =3D <&devctrl 0x328>;
+> +            ti,wdt-list =3D <0>;
+> +        };
+> +    };
+
+[Severity: Low]
+The example uses phandles for &devctrl and &pllctrl, but it appears these
+labels are not defined in the example block.=20
+
+Won't this cause a fatal dtc compilation error during make dt_binding_check=
+?=20
+Could we define these labels on the parent node or a dummy node in the=20
+example so that the build succeeds?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-ti-keyston=
+e-devctrl-v1-1-6f0aa87d9af8@gmail.com?part=3D1
