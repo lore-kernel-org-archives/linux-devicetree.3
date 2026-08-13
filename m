@@ -1,157 +1,125 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C859B3A1A58
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:36:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86C33A3834;
+	Thu, 13 Aug 2026 08:36:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786610164; cv=none; b=ahZG+JqvW9PqTa8voQnJRGvVm1+knmnb5PH7amdoAEPfXbSbT8iwIYppl5fRaEzK3ArvoKQIYFSfxSBuDqqG5+bhIbKA10wFrQqfYWD4dISCt47wpZpZ4Md9wHUegs+ygcyjCwU0TRalrbnd/sP2RnD0swF3tOTiMfhfkxUNgec=
+	t=1786610165; cv=none; b=Hy0b4a6RJ8gh2KtE7oGvj52R8ipAm5+B85jUgAs1g7y7li4SykXKo7lcQZQ3D+9A75ffPZjeKk9E2mAH36R4+uFXFvlx99Vv0B/Fe+Vf6ESpxJdxds5bC6U9GJx3fi600CPCV4QlxKo0dJxdRKZeoYRtBMLjXlK8Vfuw5cOTSFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786610164; c=relaxed/simple;
-	bh=iZGuI2jZEXcez21BvMLyyL5J5TyyPpxYgd+5RltvGbE=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WeZoviVfocGSjLYCIU4vRuhuQk6ej2Rc87AMOEv/WDOLR5uadZOWRSnWKZ2yo6PY83hhQCZ6qG0/SEmnFkUaTVVmvXw06JtkFwj5klAujUdoydlZXo3wXmGvnz33rk40scCTfPdS9q1E9zbJ04Htu3cNe3st5kAWAIuzgcvlzcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qbFoo/Ro; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786610165; c=relaxed/simple;
+	bh=EMrrOf72bwBbKga5jC7K8G91L5VCS03knmIVhlsnldo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=P+EyizDoI5LVdtOVSKWDUHKNO9h3ivZBr6zc2lI/Qq22CFFxh8EC8SRTDWhFHWy2ZSICOv9Krq2kXMGAhNO/Jd/ep0y+GE0Qz0PSvvZJJD/1J7gfpJ6GYKxEXoE/le1U8MkXZ6OaoRIh30JZ+/yC4SnM1v+EWLwfGAkJ0B+koaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ULJrxkpT; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qbFoo/Ro"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493b966dd74so2934815e9.3
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 01:36:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786610158; x=1787214958; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/6xfzqPrssPk1eiQCa0fxb1om8jeBEn9170ILCiYQUo=;
-        b=qbFoo/Rogh6FZqCSva0ejfA7WOFQt56sG/mcwYgKCMj8/qLBam/AzIQ0uBKAfnmXnX
-         rAkinM9dIYDsI1Dmxp5/yAJ6KIufNFu7/eK51SP+OiEbRtUx/UV4eR63sAJote2XyDC6
-         6PcrigW9btCwpavtxPOKtOcr+YYG7KbpII/6Wmd7my3d9VJjdwIJL+qEd9Bo/gO0lDVD
-         GP5AIyXOK0QQwI7dVHkG4dciBJrjCN6Izx6XxXV6J1HBIIL1nKLPtRZRUWMyAzrXV2jq
-         pzxUK93V1MoB9K1Vtc8nIL6MQDPm/+jUCd84WVR+Xwpr6C8gsotzm3cGYKyUJ8Lu4i5u
-         x0BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786610158; x=1787214958;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/6xfzqPrssPk1eiQCa0fxb1om8jeBEn9170ILCiYQUo=;
-        b=LVi2tKd6RXTuibQyMbsBovBk5PhTSitxj8LMy6ZQHS6Um9urZN7dkMY4QwNgEwWtgH
-         vy1yebHSBYBFtGYdXEli50KpsQg4YzNSSMBOVCouboA1rR+nTKsHuMbbSVQ0ExyjdIjC
-         W3LR3w4Pv8w9fHtyy+n0kNVK2fcRxBUn0YySOhppw+2N3IgGDEPNF3abxbm2SwAXgCev
-         HwC/NItALL8brZY85DPYrOOEY+iguAVtQgnz+npCDM7XURzL62P456qbNpRG1uBI/Pj9
-         B2kDAGGjinBQQGSteX8OGIa38douXC1TWVQvpyy0pB0emzmw4tHKpgnVNpJPiqAl7Ca3
-         a2uQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrMbEsOj+wKAw2osLQ9m3hFv4/u/UHp8Hd1Eayehh8Icc1f2o8JbYVispS3EWkZ6YfZKkxGf+6xkTRb@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBq2MO4FnU9M+TyOwWonG2VG1LuF28n7MzS4gbegCiN38HVqbz
-	OguUlDsn8rqfFt+4Aq4K+lUcdnRg5SVSVhyJlLx3/C8rWjSjWOyFMWXl
-X-Gm-Gg: AR+sD1046P0Jh+LAC0oVOLKWxiw5KrDAmfNszcwXzqapcPlEcgWt7Hm+yDYKNDZlHqU
-	fBgij3YzAsX7+uBVnKfqv3jBks3cZP3AWISKHXTSCq3fkW9zjcdGqczPLJOhqKsZ05F8WzCBmAu
-	m6Ey1UylCvI3PczkXkg4aALQo3GPthyg11mfZcdI1raRUyPpf6D/8P59HxDiVjAh0P0UEPajqpo
-	HTa0xh1/xFlochb1ZJwLaYsfgi37Lxcvhr/cxhOkfUQWcQyS6UzPSrw8XODIKGbDOpcQSKUYcGw
-	xwqDGdhsigZjFva+HA0T+y05stuac24isorQvCDA92aX66p0HgQ2vbrpHficuJKt95mCjLYU4wk
-	G61lN4mClBSk2W/BGkn3wNwtQ6zALtR6X+SHCWsokTCkyIT3dlPkYCbeWMPGOLYrEjlkq4qfx0K
-	j0Qm62keoj9mCmsW/u3OLa5IFK4n/PMgLRRwIF6SovpRFihomdSrFQ1oatGJvQCQpj2wDTcGiNy
-	1kHU84BlKpVwKhHYGueMLlgQQ4SnaKN1HPhepSsC/Dh423n
-X-Received: by 2002:a05:600c:3553:b0:499:7ce1:d8a2 with SMTP id 5b1f17b1804b1-499821d1379mr41303605e9.8.1786610157531;
-        Thu, 13 Aug 2026 01:35:57 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-87-20-3-207.retail.telecomitalia.it. [87.20.3.207])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4998216d082sm45804425e9.13.2026.08.13.01.35.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 01:35:57 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v14 04/12] net: phylink: save phylink instance fwnode on phylink_create
-Date: Thu, 13 Aug 2026 10:35:09 +0200
-Message-ID: <20260813083536.970196-5-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260813083536.970196-1-ansuelsmth@gmail.com>
-References: <20260813083536.970196-1-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ULJrxkpT"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 4C5554E411E8;
+	Thu, 13 Aug 2026 08:35:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 07351602B8;
+	Thu, 13 Aug 2026 08:35:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6327811C4DB29;
+	Thu, 13 Aug 2026 10:35:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786610156; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=GpGUXUL/3ly8tG9nRmn5kJJy+CYafCrEj7bnx6zV2Ro=;
+	b=ULJrxkpTfkC1gSTd5Svscu84GOvHJL0Qbxf0I7MS4nIoWKp9Ia5RtDkOVGsjsyGgkF1W4O
+	0Mot+07TLuIDyFdkJ7c2ah64hwK2L4E2lgY7X08p7t+be+k93Q5WvIG+odZn7nyYCTs7o7
+	uKTSKxWqs/GGWqcFP8q4U2+FZUF08nFdiS/TskZyoNFVhsCLWMw2iMmEcVbDvaqkPMlNtk
+	H418GcTautbj4ZZTB6O4hKo+4tpmIVO5XZD947t1p7NsYTRxEjDbIIyfZ78P5nkqvTBidA
+	XXfqcatSLZu+0j+DBVz7HvcMMQRURDbRapI2iDSTjLbpUJvYuOfnLhRXpCxY5Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
+  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <pratyush@kernel.org>,  <mwalle@kernel.org>,
+  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
+  <a-dutta@ti.com>
+Subject: Re: [PATCH v7 16/18] mtd: spinand: negotiate optimal controller
+ operating point before dirmap creation
+In-Reply-To: <20260811183313.1550425-17-s-k6@ti.com> (Santhosh Kumar K.'s
+	message of "Wed, 12 Aug 2026 00:03:11 +0530")
+References: <20260811183313.1550425-1-s-k6@ti.com>
+	<20260811183313.1550425-17-s-k6@ti.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 13 Aug 2026 10:35:52 +0200
+Message-ID: <87bjb6l8nr.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-The firmware node associated with the phylink instance might differ from
-the device firmware node passed in phylink_config as such device can
-reference the parent switch or other platform peripherals.
+Hi Santhosh,
 
-Some function might need to reference this firmware node after
-phylink_create so add a dedicated fwnode entry in phylink internal struct
-and save it on phylink_create().
+I have only one comment on the spinand bits.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/net/phy/phylink.c | 5 +++++
- 1 file changed, 5 insertions(+)
+> +/*
+> + * spinand_try_ranked_variant() - Try controller optimization on variant=
+s in
+> + *				  performance order.
+> + * @spinand:    SPI NAND device
+> + * @mem:        SPI memory device
+> + * @iface:      bus interface to iterate (ODTR or SSDR)
+> + * @tried_mask: bitmask of already-tried variant indices; updated on eac=
+h try
+> + *
+> + * Iterates the full read variant list in descending performance order,
+> + * skipping variants in @tried_mask, and calls execute_tuning on each un=
+til
+> + * one succeeds. Ranked iteration finds the best available variant witho=
+ut
+> + * re-trying already-attempted ones.
+> + *
+> + * On success, sets spinand->max_read_op and updates the matching
+> + * odtr_op_templates.read_cache or ssdr_op_templates.read_cache.
+> + */
+> +static bool spinand_try_ranked_variant(struct spinand_device *spinand,
+> +				       struct spi_mem *mem,
+> +				       enum spinand_bus_interface iface,
+> +				       u32 *tried_mask)
+> +{
+> +	const struct spinand_op_variants *variants =3D spinand->all_read_varian=
+ts;
+> +	const struct spi_mem_op *best;
+> +	int ret;
+> +
+> +	if (!variants)
+> +		return false;
+> +
+> +	while ((best =3D spinand_op_find_best_variant(spinand, variants, iface,
+> +						    *tried_mask))) {
+> +		*tried_mask |=3D BIT(best - variants->ops);
+> +		spinand->max_read_op =3D *best;
+> +		spinand->max_read_op.max_freq =3D 0;
+> +		spinand->max_write_op.max_freq =3D 0;
+> +		ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
+> +					     &spinand->max_write_op);
+> +		if (ret && ret !=3D -EOPNOTSUPP)
+> +			dev_dbg(&mem->spi->dev, "%s optimization failed: %d\n",
+> +				iface =3D=3D ODTR ? "ODTR" : "SSDR", ret);
+> +		if (!ret && spinand->max_read_op.max_freq) {
+> +			if (iface =3D=3D ODTR)
+> +				spinand->odtr_op_templates.read_cache =3D best;
+> +			else
+> +				spinand->ssdr_op_templates.read_cache =3D best;
+> +			spinand->cont_read_possible =3D false;
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 6204e3bba16d..82eae20daed0 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -44,6 +44,7 @@ struct phylink {
- 	const struct phylink_mac_ops *mac_ops;
- 	struct phylink_config *config;
- 	struct phylink_pcs *pcs;
-+	struct fwnode_handle *fwnode;
- 	struct device *dev;
- 	unsigned int old_link_state:1;
- 
-@@ -1993,6 +1994,7 @@ struct phylink *phylink_create(struct phylink_config *config,
- 	INIT_LIST_HEAD(&pl->pcs_list);
- 
- 	pl->config = config;
-+	pl->fwnode = fwnode_handle_get((struct fwnode_handle *)fwnode);
- 	if (config->type == PHYLINK_NETDEV) {
- 		pl->netdev = to_net_dev(config->dev);
- 		netif_carrier_off(pl->netdev);
-@@ -2077,6 +2079,7 @@ struct phylink *phylink_create(struct phylink_config *config,
- 		pcs->phylink = NULL;
- 	}
- free_pl:
-+	fwnode_handle_put(pl->fwnode);
- 	kfree(pl);
- 	return ERR_PTR(ret);
- }
-@@ -2107,6 +2110,8 @@ void phylink_destroy(struct phylink *pl)
- 		list_del(&pcs->list);
- 	}
- 
-+	fwnode_handle_put(pl->fwnode);
-+
- 	kfree(pl);
- }
- EXPORT_SYMBOL_GPL(phylink_destroy);
--- 
-2.53.0
+Why do you disable continuous reads? I know it is not the same as the
+read template, but it only differs by a few dummy cycles, so everything
+should work as expected. I believe without complexifying much the logic
+we should be able to support it.
 
+Thanks,
+Miqu=C3=A8l
