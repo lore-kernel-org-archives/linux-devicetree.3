@@ -1,146 +1,304 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D56335FF58
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 03:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D782F7F13
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 04:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786591809; cv=pass; b=msSZx31ayySvf5+xB73RYra5YrvF1XSBr4cJ/Fy43nWHEjHGArPgAiV36Up1ye95BhcbYaLukrYxbv6JWk22k8qYSu9QoqPVuZ30eZUQcgnsR4mRYKgqzXSpmGi3eNREeXxM0dVt7CEkwm5Vozox8sJWokQ4dJCCZdmx7fplIT8=
+	t=1786595648; cv=pass; b=T2usL5U1/FL5NZDz9cayZrc/wNd3/PokCax+t+V7WaEtLknRif+WQ+RjIMpFaanOm6UXusvdXe+UxaoRnA6Dqbg02xHt1ydeiOsvMx6bTxxxXTTD8kqicfqiVtIes21nPXxQxJcZjyqnK4SpWFZynizeu1XkX94/Is8ev2G8mNs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786591809; c=relaxed/simple;
-	bh=vnxLhaj6tQ8Clxuh5zpbuIzE7N05yzLZnFlnrerBSX4=;
+	s=arc-20240116; t=1786595648; c=relaxed/simple;
+	bh=LWt9GMlkQ5SKTKoLjtBj5Z7tRqHhXQnrfKMH2pIVYjs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q6+9AqzTOP4KSX0uX8+zowpszPhfitYiWk2SNCtGZ97ElntRtIetwSGP9Di8zxI5hqhM6LRnm76jC0YoECiQpa46coq3vq6jo4whPImH3JdcrculSsj7Ag+CLBIJXXAAIOa8rcHlhNA3pK5Um3WDVASn7utF/vcXx/mBeX4S5Og=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=OAx6Nlv8; arc=pass smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=F8au8sGcMxBgIn7XNdXVRuzWUPas/9swirQq9GLh3HOoQwKrwAI7/p1EH2lcgDhsCS6Ep0+MSOp3SOaqSpdyIWVnJqYuVcpXcq1178+FQh2xVCzeVnzm4+Gu4jB0/DMEkSWAyrwz+HBisjyAXCYfWJeAST7cWbGPJagL4Wy2KAw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULZPFBsA; arc=pass smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="OAx6Nlv8"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66843304cbaso2361509d50.2
-        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 20:30:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786591807; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULZPFBsA"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-69edc72e513so274656a12.3
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 21:34:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786595645; cv=none;
         d=google.com; s=arc-20260327;
-        b=Afm3HtyPkaFbTytpUQ2ee0qcWvfpZADavzzmw/Ee/N+3bLoslasMcb6E6s6lmt7/p7
-         0vbLPzs+VuQSS9Y3eWtFzeK+TKHf7uyB8993MDMrt3HtYW7RY+VgCEO3yNVYVkt35Hvs
-         ED7AjIOu20g6oBf1nIg3Vf2h0uKGi24bkoPi4s2n3gzdtxPNWCTmVcWQ0i7SZTEJeIDG
-         fZZxALnnsmRYWTMjMmJ38fQ8cs4/SjUC8mI8/QeUpdGZwVVUMkN6wYmvH+xkwGVNVYAe
-         zt25McbutqVMk2ikbLoVecUOCfT3cdiNoYazxLw+LDf5BPLGXXWmNFTH0o6gO/KkugGm
-         Sltw==
+        b=IPTsYy7noVXJioxLdZMHDrS+8Ej1SH0f/bIkKmmFxKRyfy6KBXiSjgsoCs1TM1bovV
+         YzURniRvGb7aX7ULtZzKktgl5+G2PZGXysnEzKIZ5ZO9DX6AgVGH7dkDxSM4yzv8CyD9
+         IcxQ0/GaiGZm8vThQivmwY+slRkdAGjNn6PNDMqlh4DwqtE2IR072cqqf3sjASNwgotr
+         0thGeEKdbnuW23X6o0NowF+tgBW0+mZXqgEve4MTy0kysmAJRfi5+Pzhmrd05FcVxV/Q
+         YIKl5GK5QpUGw6n29bNIMVm4i+SJZmiudHqwLX8z+v97PverkGL6fBadDOOhIUZsKiPZ
+         wVCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=uAJYxuWYQfJvsQUaJRIL+oMrK23LCX8rJso9NIjzZ+0=;
-        fh=H2w8ZFsHLikehyFnmIMKJX2B78w418d2u0F7TNNk1Gk=;
-        b=CUlbmybSny8pPD501rA2gugjSpL+iAhoCbhaRbUjSYp2YSGOZOPmLX47u/AxYCpwPe
-         crdNlhWeFrpSt/Eh210NF27vPa3rewuc3buGTTu8SkGxZh7gDwZZFp05f06+7eUPokAn
-         HioJY+aLT/sGk0tuiw9ebcEQWn9Nptv90x8sIekiZi97t3SOsnFxZnAaYeytTzJL5XfI
-         zCekUt8vTLpTUX+0LL2Daz5mkmix4D/xA0Gf/7JKBh/vf9zoAbKP/k1nY+ttnStNDq/u
-         uM2ftPKa+XZRu4NOPJh5N7Var2x4MukL3bFyF/+HtQuNxcCLYm5deyciNN6J7Ux36U4E
-         A2gw==;
+        bh=LWt9GMlkQ5SKTKoLjtBj5Z7tRqHhXQnrfKMH2pIVYjs=;
+        fh=tR33Ih/WYI+y7DM27j49rz3N6jV5lwRXZz4BbOkiyn4=;
+        b=PDhOHqM8yqpcAPzUspjvDNXAfttCw2i94qkeLqHhOEkVh5q+VVgWxqpzfBv7NflitS
+         G/IOJROQCo80QrwkvHVfeG8HaM5pEnvq1kNg5UkdQEko6DcHA+DX8GKAGOFovYsjzMFP
+         EnaBhvwlLuBJmWDuZqvNhsNpWdNwQuJcWsukWYR+KzJU7yDzr99+vKwhNhQCY8NBSwZc
+         XorePgNxQ3Ec3jXlN6MFkSnOc1Zlqxfd2igsqoynjfU8JK4rYWfl/BTUGtQQHoDAITKT
+         0AVYm+bHa4mtWQG3nnInE/YczLlYTcVd8PFG3J03GWKu2eQB4oQa19+Qg/GE9YbfqXU3
+         p8jA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786591807; x=1787196607; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786595645; x=1787200445; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=uAJYxuWYQfJvsQUaJRIL+oMrK23LCX8rJso9NIjzZ+0=;
-        b=OAx6Nlv8Lp8VNM9MU/S2oPBY4HmKAsc1e5D0gwad75hx3KEb8J5Rgqr8Nw6SBtS6E2
-         GVLLlhrAuR2/fd58PauycK1DITwy+BOUG6VJquh7ueOBsOTg+laEUF3x/3UR6c+FDF7u
-         4dYkpKQBPHt3xiUuku9no1UguifURSfKH02p8=
+        bh=LWt9GMlkQ5SKTKoLjtBj5Z7tRqHhXQnrfKMH2pIVYjs=;
+        b=ULZPFBsAy17Gr7W80/B+L4r8JUGZKehE8V3VYm+sP0Z0J24sbS61qR5i2HOuZZ52UW
+         b7hSzOyMX/XfnYYem9Eb066eAtZGSFTfQTJ8r+w24+cpMsLaCWcp07Wl1sAigtPxRDgH
+         Nn/ZwjkvrkNp1v1MkVoIAaH9yIIAiIwoHlOg1y+kFZYemSfWQ3lA0ny1vCA7iy1R0mqi
+         84vvd2j5lkG7YeZ5YobAx+cBhFWewF8I7fYiXfJ7IuwyaJ4h5Hb12rKPcjXUH8oIGkTM
+         7EUb4TqPS/h1SMCs7KOE8kKZCrMKDs+LQY++NXoCV7s7LG3xpH8AZYa7er/V0R5qd70C
+         DaPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786591807; x=1787196607;
+        d=1e100.net; s=20251104; t=1786595645; x=1787200445;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uAJYxuWYQfJvsQUaJRIL+oMrK23LCX8rJso9NIjzZ+0=;
-        b=R/EtYSfLYi6ypAwqo6eX7LIo1SK3XhVkGhCqkSQWTtuty4Aepfq/8sw1bRRBR6+NQy
-         v0st9MEEX2baDy2qahO/ZDeiTXlQku2TBQeylbu7l4F7ge4fZALZHMjcdtXfKrQBIBd/
-         ajNCg1eEB4kQI3OVSsfwhKxgDEGMR2l1Q80tWA3uZip2BQfT6plBNUYGHTL6hvx0vvcF
-         x220Rd2KgYbwaQl8huDbwi9VNnehrfZIoYqdQkHCkC27gre3dn/DU/A6tU+zYKSQNHy6
-         IXdZ+jExLQEEIstXEjQVaai6Sl9fHMGG+AAEJUnMVTgM5eeTtq4ZPfHyXM36bShhpYtF
-         zcdg==
-X-Forwarded-Encrypted: i=1; AHgh+RrmOWe+Q64GKpZNRhf4T4viZ54QC8dODA2fZ8iPP6+IYNEWYdMYD0NvI1cCxcZSlmOCQPXER5QZ1Efh@vger.kernel.org
-X-Gm-Message-State: AOJu0YyD9GHp8p2JYfX3k6H1cYAArUHw+4gUCPKMicq6p0QS3jcQIp3f
-	IPXG0R11jU7HWOnpWLOMyYy/CwtXAghF4soGzqC8D6JYgF+tApq9Rgi2V1x9g+70JsxcU+T7gNm
-	tYp2RG14Oi58g2M4DQvJbWl0Jm7diLnpnKNOQp60V
-X-Gm-Gg: AR+sD11mnybxXnSF0K9mExDlSlpa9G1Q3Qa02YLqO/xCCxq66dVTAn0vuEJl1bndQGP
-	dld3Zipk/xjEVaFybWrpHDzGGemMlba9kSmPkmNoOukIDRQorDqbE+vtg9uqWcmHd40iAliYhIT
-	D765RqWjFvL4SgxYSTA+7Liqm49HN6F/jzBy420eTnwGDnh7r8TEttSmgMQqt+hWmCakjpaSKRb
-	qPFb3Njb3o3U764DEals4aWHhoisVeDBpaW22A/KjHD5inirAvG1JDAHEtV30pFEbTYelNvTIY6
-	ENUzExVMkFqAEeK3ijFqc2JJMhNTn4gFtlr++LAe6VzhManPdIRmYJkXZ2LvkaHKG4FNU0n//hj
-	Yq3INbCyM2g==
-X-Received: by 2002:a53:e5ce:0:b0:667:bae0:e565 with SMTP id
- 956f58d0204a3-66c515b62fdmr981398d50.30.1786591807078; Wed, 12 Aug 2026
- 20:30:07 -0700 (PDT)
+        bh=LWt9GMlkQ5SKTKoLjtBj5Z7tRqHhXQnrfKMH2pIVYjs=;
+        b=afTb+MFLrs1aEv0vFHrZhYyyGQ99SxeJuwRxAgUo0a6Pd+yoJ3haabxUseIBRRa3zI
+         nRqzifo755F4Pn2ZOVFuSs/aiO9ecXy4EYHBUNeGyf/Syl5IaVevDrVcmxwCmlhwpPGf
+         WTbbg9+6imXmNJEdsNxpnKJjOkebsJad6mKmFfNxO9+ATVwsQIFMJbyT0UTxXhk6K4sW
+         OlwUsEaZRKSmcLGXZtKeKtOvZBoMjD7jorQE55QS5zosDRicYeTOjqMnMZS6fyoIFF+X
+         F1O6V5fmb6b68JV1PJ0eMSABLp7MGt1fGWXHer1Y8XVarjZ3HEPOkAwKNW/yYN3antk0
+         X08g==
+X-Forwarded-Encrypted: i=1; AHgh+RoegXtyFRte8nMn/43fI5KHteMA3rFNcuFlKOJxU28eJIxn+gIT4dwNrJlwfdt+8yJiB5lrqAChByZJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxsVCQ8S7xnHqw+VIc/Ow+ZSyavwUZUFlZM+Yo1ydBFxoLA0zW3
+	rSb2AOyLDsntdA7gDobExScr7yvU1/ANqgZjPkAPqsRzPgPhULYht5cgBxVTzolFUqQ0gtS6udI
+	8OKthd73ncRCLUKTjfS8vtxVwQxjwRd0=
+X-Gm-Gg: AR+sD12+dp7qjSTOq27xn1ahLIyFwj4jf7RCmQQ1JlOrpkf/3mkG7LW6zQjfwdWudtT
+	2Tlu6sH9/UOMdZLx8AW6IFy8RzGJPubLrwnSGMZwReAk5JgJWlFiJ5otjc/VNtwADn1nGVbK8s7
+	9SceQOAqkZjMu+7yu7Cj/hMMP+5f0dC+4IrHoaR0vZ7tLHAnWGHgzbxcJMZhIsXCxPkWLeKhb6x
+	YZXIo4jZi1bu7HX0NTaAR+cbva6zVBMd/S4RkPccxnX4dz2rlrRILSdNfKfcQgep7mjWDGquB77
+	ktDnlhsdQF9UzZ4yVWNfjQKBtZC3sp0u6VdXoyw/cZI=
+X-Received: by 2002:a05:6402:4285:b0:6a1:f95b:8cfa with SMTP id
+ 4fb4d7f45d1cf-6a38057b8e7mr588108a12.1.1786595643974; Wed, 12 Aug 2026
+ 21:34:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811122011.3539250-1-wenst@chromium.org> <20260811122011.3539250-8-wenst@chromium.org>
- <an02idvk4GtZIMfn@google.com>
-In-Reply-To: <an02idvk4GtZIMfn@google.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Thu, 13 Aug 2026 11:29:55 +0800
-X-Gm-Features: AUfX_myrCG3oNTwmlZwHDJSbsoCHFr7jcGIFmX0-QgCkqwSa3XLy1HbTAXteqh4
-Message-ID: <CAGXv+5Gf0sYKvvd=JsdPsahvHCKr5rk+YiVu6SCY6ZQicJzd6g@mail.gmail.com>
-Subject: Re: [PATCH v4 7/9] platform/chrome: of_hw_prober: Add delay for hana trackpads
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Benson Leung <bleung@chromium.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Jiri Kosina <jikos@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, chrome-platform@lists.linux.dev, 
-	linux-input@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com>
+ <20260810-dcphy-rx-v1-v3-1-a2d25c29adfc@gmail.com> <20260812-refreshing-rampant-gecko-b38ef9@quoll>
+ <CAPwA33KM-sWkPVrP1h+swLinvrCZHzxPeS7h25KEO87Q_6WZuA@mail.gmail.com> <an0FMnDSWbud8hPc@venus>
+In-Reply-To: <an0FMnDSWbud8hPc@venus>
+From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Date: Thu, 13 Aug 2026 12:33:52 +0800
+X-Gm-Features: AUfX_mwIpoDBN6_Xma1YlUJtYi1wlkbDTU_6WkCYu-2CI0nPqWhdFEDAcDuwlbU
+Message-ID: <CAPwA33+7k7HMC7ezwH+MGn64iRHT6tVNK55t6gaC0nkkqWoE4w@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] dt-bindings: phy: Add PHY_TYPE_DSI and
+ PHY_TYPE_CSI definitions
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 13, 2026 at 11:14=E2=80=AFAM Tzung-Bi Shih <tzungbi@kernel.org>=
- wrote:
+Hi Sebastian,
+
+Thanks for the review.
+
+> Your new binding is lacking too. If you select <&mipidcphy0 PHY_TYPE_CSI>
+> you defined the direction of the PHY, but will it operate in C-PHY or in
+> D-PHY mode?
+
+You are right, and I am sorry - this is a regression I introduced in v3.
+
+v2 already described these as two separate cells: the first selected the
+electrical layer, and the second selected the direction. Michael Riesch
+suggested using the generic PHY_TYPE_DSI/PHY_TYPE_CSI constants for the
+second cell instead of the Rockchip-private RK_DCPHY_DIR_* constants [1],
+and Vinod Koul agreed [2].
+
+In v3, while making that change, I also mistakenly collapsed the two cells
+into one. That is what lost the electrical-layer information you pointed
+out.
+
+For v4, I will go back to the v2 layout and only rename the second cell.
+This keeps the two dimensions separate, with each cell describing one
+thing:
+
+/* MIPI DSI host - the transmitter */
+phys =3D <&mipidcphy0 PHY_TYPE_DPHY PHY_TYPE_DSI>;
+
+/* MIPI CSI-2 host - the receiver */
+phys =3D <&mipidcphy0 PHY_TYPE_DPHY PHY_TYPE_CSI>;
+
+The same applies to C-PHY, so the binding can express all four combinations
+without any further changes:
+
+phys =3D <&mipidcphy0 PHY_TYPE_CPHY PHY_TYPE_DSI>;
+phys =3D <&mipidcphy0 PHY_TYPE_CPHY PHY_TYPE_CSI>;
+
+The driver accepts all four combinations at phy_get() time and returns
+-EOPNOTSUPP from power_on() for the C-PHY combinations, as it did before
+this series. Boards that only wire up the transmitter keep
+'#phy-cells =3D <1>', so the existing in-tree device trees remain unaffecte=
+d.
+
+Before sending v4, I will go through the code and commit messages again,
+so that the reasoning above is captured in the commits themselves rather
+than only in this thread. I will also re-test the series on the board.
+
+Best regards,
+Jason
+
+[1] https://lore.kernel.org/r/82da3622-9c3a-454c-87bc-fb4ec7adb68d@collabor=
+a.com
+[2] https://lore.kernel.org/r/anSuxfeitSqmSHNr@vaman
+
+Sebastian Reichel <sebastian.reichel@collabora.com> =E6=96=BC 2026=E5=B9=B4=
+8=E6=9C=8813=E6=97=A5=E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=888:03=E5=AF=AB=E9=
+=81=93=EF=BC=9A
 >
-> On Tue, Aug 11, 2026 at 08:20:07PM +0800, Chen-Yu Tsai wrote:
-> > Up until now, the MT8173 elm/hana device tree has set the dedicated
-> > regulator supplying the trackpad as always-on, simply because the Elan
-> > driver was missing proper delays. As a result the delay for the
-> > Synaptics trackpad was also omitted, as it was not strictly required
-> > under such a model and delayed the availability of the trackpad to the
-> > user.
+> Hi,
+>
+> On Wed, Aug 12, 2026 at 08:24:11PM +0800, =E6=A5=8A=E6=99=BA=E6=88=90 wro=
+te:
+> > Thanks for the review.
 > >
-> > The Elan driver recently gained proper delays after power-up, with
-> > adaptive skipping of the delay if the regulator was originally
-> > on. The I2C HID driver and I2C OF component prober library gained
-> > similar adaptive delay skipping. The device tree will be fixed to have
-> > the regulator not be always on, and proper post-power-on delay time
-> > added to the I2C HID device.
+> > > I read above, but still do not get why TYPE_DPHY/CPHY is not enough.
+> > > Isn't DPHY implying it is DSI?
 > >
-> > Also add the post-power-on delay to the ChromeOS OF component prober,
-> > so that if the regulator is off at the time of probing, the prober know=
-s
-> > to wait for the hardware to initialize.
+> > I see your point, and I did not explain this clearly enough in the prev=
+ious
+> > version.
+> >
+> > D-PHY only describes the electrical layer, and both MIPI DSI and MIPI C=
+SI-2
+> > can run on top of it. A CSI-2 receiver's PHY is a D-PHY just as much as=
+ a
+> > DSI transmitter's is, so PHY_TYPE_DPHY alone does not tell us which one=
+ the
+> > consumer is asking for.
+> >
+> > That is the problem here. The RK3588 DC-PHY exposes both a transmitter =
+and
+> > a receiver from a single PHY block, which can be used by two independen=
+t
+> > consumers at the same time. This is not a theoretical concern: on this
+> > board a DSI panel is scanning out while the same PHY receives CSI-2 fra=
+mes
+> > from a camera. With only the electrical layer to identify the PHY, both
+> > consumers would end up with the same phandle cell:
+> >
+> > dsi@fde20000 {
+> > phys =3D <&mipidcphy0 PHY_TYPE_DPHY>; /* wants the TX */
+> > };
+> >
+> > csi2@fdd10000 {
+> > phys =3D <&mipidcphy0 PHY_TYPE_DPHY>; /* wants the RX */
+> > };
+> >
+> > There is then nothing in .of_xlate() to distinguish the two requests.
+> >
+> > I will make this clearer in the v4 commit message and include the examp=
+le
+> > above so that the reasoning is easier to follow.
+> >
+> > For context, v2 described the direction with a Rockchip-private
+> > RK_DCPHY_DIR_* enum. Michael Riesch suggested using generic constants
+> > instead [1], and Vinod agreed [2].
+> >
+> > [1] https://lore.kernel.org/r/82da3622-9c3a-454c-87bc-fb4ec7adb68d@coll=
+abora.com
+> > [2] https://lore.kernel.org/r/anSuxfeitSqmSHNr@vaman
 >
-> > [...]
+> Your new binding is lacking too. If you select <&mipidcphy0 PHY_TYPE_CSI>
+> you defined the direction of the PHY, but will it operate in C-PHY or in
+> D-PHY mode?
 >
-> This looks harmless even without the aforementioned patches.
-
-As mentioned in the cover letter, it is harmless, but will delay the
-probing and subsequent enablement of the trackpad.
-
-
-> Applied to
+> Greetings,
 >
->     https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux=
-.git for-next
+> -- Sebastian
 >
-> [7/9] platform/chrome: of_hw_prober: Add delay for hana trackpads
->       commit: 81c1c0cb68a13d14dd1bbffcf4c49e26f9a6478c
->
-> Thanks!
-
-Thanks!
-
-ChenYu
+> > > Your tag goes the last.
+> >
+> > Sure, I will fix this in v4. The Signed-off-by tag will come last, and =
+I
+> > will check the whole series again.
+> >
+> > > Two simple defines needed Claude.
+> >
+> > Yes, I agree that these two defines themselves are simple and do not re=
+ally
+> > need AI assistance.
+> >
+> > I added the Assisted-by tag because I used AI during the development of=
+ the
+> > series as a whole, including cross-checking the code, writing additiona=
+l
+> > test cases, and looking up the relevant sections of the TRM. (I checked=
+ the
+> > corresponding sections in the TRM myself, reviewed the test cases, and
+> > re-ran them on the hardware before sending the series.)
+> >
+> > I also checked the current mainline guidance in
+> > Documentation/process/submitting-patches.rst and
+> > Documentation/process/coding-assistants.rst. Since I was not sure how m=
+uch
+> > AI involvement should warrant tagging individual patches, I chose to ma=
+rk
+> > the whole series consistently.
+> >
+> > That said, I am happy to drop the tag from this patch in v4 if you pref=
+er -
+> > I wrote these two lines myself.
+> >
+> > Thanks,
+> > Jason
+> >
+> >
+> > Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B48=E6=9C=88=
+12=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=886:51=E5=AF=AB=E9=81=93=EF=
+=BC=9A
+> > >
+> > > On Mon, Aug 10, 2026 at 08:10:09PM +0800, Jason Yang wrote:
+> > > > MIPI D-PHY and C-PHY blocks are increasingly direction-agnostic: th=
+e
+> > > > same PHY IP can drive a MIPI DSI display or receive from a MIPI CSI=
+-2
+> > > > camera, and combo blocks like the Samsung IP on RK3588 expose both
+> > > > directions to independent consumers at the same time. A binding tha=
+t
+> > > > needs to tell the two consumers apart has nothing generic to reach
+> > > > for: most constants in this header name a protocol (PHY_TYPE_USB3,
+> > > > PHY_TYPE_DP, ...), while the MIPI entries name only the electrical
+> > > > layer.
+> > > >
+> > > > Add PHY_TYPE_DSI and PHY_TYPE_CSI to select a PHY by the MIPI
+> > > > protocol it speaks, which also implies the direction. They do not
+> > > > replace PHY_TYPE_DPHY/PHY_TYPE_CPHY, which remain the right choice
+> > > > where the cell selects the electrical layer. First user is the
+> > > > Rockchip RK3588 MIPI DC-PHY binding.
+> > >
+> > > I read above, but still do not get why TYPE_DPHY/CPHY is not enough.
+> > > Isn't DPHY implying it is DSI?
+> > >
+> > > >
+> > > > Suggested-by: Michael Riesch <michael.riesch@collabora.com>
+> > > > Signed-off-by: Jason Yang <jason98166@gmail.com>
+> > >
+> > > Your tag goes the last.
+> > >
+> > > > Assisted-by: Claude:claude-fable-5
+> > >
+> > > Two simple defines needed Claude. Great, that probably makes AI
+> > > conglomerates very happy that we do not type even two lines anymore a=
+nd
+> > > need their resource-hungry data centers to do that for us.
+> > >
+> > > Best regards,
+> > > Krzysztof
+> > >
+> >
