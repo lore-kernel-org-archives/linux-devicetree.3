@@ -1,72 +1,81 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8310B484227;
-	Thu, 13 Aug 2026 14:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3D948165C
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 14:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786629708; cv=none; b=TC0ZYxBbPuY+bskbO8wgfYU49Dx72qTx5uj6j2yV4ZKUdsXbWlh8BZ4FIFypLm9SbfbmGCWQGZWu6881PTQniwf92S4RYaM7AgnKE4FfRxrGeKWFz5U8/nhlhkKunFfkpema/nktOWDsziDii0r5uGu05UaovO/O+z6vUSuoiCs=
+	t=1786629966; cv=none; b=PhosdnlTBesiWM4WP9EWPVoKPySB669+xru95FXM7TpgqOQO1Q+zl5jhobBhTUp8z59L6477cNK8nA0XkAj7JdYhqMM8SJPiboAQpwzxE89SJHF+7X2fFEasLkwhEU3AY8f/NI1ENezzFassGrrV3uwoqcDvgUko/PIfaDvtSac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786629708; c=relaxed/simple;
-	bh=RlQi1EywRFd9RBsYMDcmocdhYQcAlNsj9CL1/FbG/Og=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kB8reokcmeedAtBfqykVKdAztcsjfSNFjW7F8uBK+dNbzlp7o52jGPoNHWpN8LGqsHJvGz5kCLTx+p6VwAsS4J7KPfIWLd2VCy7u2HYHhoJLd+DlhtE1FOHYc/wD/BMRL18VLsT0K/nK0gzePNv83NGUJFhTkggade8b1IwyGRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Fv2Fah5D; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1786629966; c=relaxed/simple;
+	bh=ah1cDBDIZ8iXgmzLNyPQB+ryhZ7bXr1UEe22NH6a8So=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g/sHjSq0BvJekJG8RsCGBK/j0Q/F297NirbyAMnG5UANZ4kv6Ma6mNsUBsAjefN9tlFowP9/feeGKU9VfgVgOVk4pmSP7xYqVl5Ff4CV01jzjqcjKxNWGKgaf8rs1dpaWgOFrTVRg0E6RGVYZhPdctWeA0q8wsuBI33WGPlMk3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KJS2nmFs; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fv2Fah5D"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67DCJqtc2359473;
-	Thu, 13 Aug 2026 14:01:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=JDLKMnRlPP8
-	R1At3WLkRwACsGLw+8JGPQKVQBcrCKFk=; b=Fv2Fah5DGcOTdynu/V6fy0gfUv5
-	yPGAP+i8tBp186h/Xntpw539rhx0TPlsym7hnWaou3rhV3JIk4nOEvhcPlrrkimh
-	HJBDoxH+RCYinuKrL8xu2f+m4zbuzQKQsx5It0e76Lz9Ktj3c6542MQJVNk18wqa
-	W5HQy2JDG5Ahyq0CAbfyRQlRGCvbtrXeKyaBSoWb0EWiVq6EDn2ID+NhdJL7ncUu
-	SElF5NGsppLuTBoLf6PoVD91khuPh2eOSJiFlOhMAWZeSvH0ihMTfpfgpz27L5T9
-	qYYvwhBIUSFo5kEIkZO0ZW8100ajYblXn+s2vjRhDbGX5REJR1LEeWX3b2g==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1cb5gsnu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 13 Aug 2026 14:01:39 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67DE1a7h009616;
-	Thu, 13 Aug 2026 14:01:36 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4g0bs34pvn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 13 Aug 2026 14:01:36 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67DE1a4u009610;
-	Thu, 13 Aug 2026 14:01:36 GMT
-Received: from hu-devc-hyd-u24-a.qualcomm.com (hu-msavaliy-hyd.qualcomm.com [10.147.246.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 67DE1ZK6009609
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 13 Aug 2026 14:01:36 +0000 (GMT)
-Received: by hu-devc-hyd-u24-a.qualcomm.com (Postfix, from userid 429934)
-	id D0A84220EC; Thu, 13 Aug 2026 19:31:34 +0530 (+0530)
-From: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-To: viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
-        Frank.Li@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        dmitry.baryshkov@oss.qualcomm.com, linmq006@gmail.com,
-        zhengxingda@iscas.ac.cn, kees@kernel.org, agross@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dmaengine@vger.kernel.org
-Cc: krzysztof.kozlowski@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com,
-        bjorn.andersson@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
-        brgl@kernel.org,
-        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Subject: [PATCH v9 4/4] i2c: qcom-geni: Support multi-owner controllers in GPI mode
-Date: Thu, 13 Aug 2026 19:30:43 +0530
-Message-ID: <20260813140047.1006478-5-mukesh.savaliya@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260813140047.1006478-1-mukesh.savaliya@oss.qualcomm.com>
-References: <20260813140047.1006478-1-mukesh.savaliya@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KJS2nmFs"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4956242332dso19745585e9.2
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 07:06:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786629962; x=1787234762; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=USvILuDtTiPA6dYavysHHB08OaS594TOWNHKjjfu0XQ=;
+        b=KJS2nmFs0b/y8xNR5PAjLADxvlj69NL/F07G7wPlTjmTscLPw8fOmZnPUOj8/PgDAJ
+         js7bqfQwfM0ijsKv26hwLLmGs1YSbz3oLFgOYu02BwxhsGpOPZIUsN33CoyflYXX3pbl
+         Av7KO3TBGYprOGZBoVsDx1eD2ht/nfufJfk3+/56M4q4J1XDCMTo/0kQN1V+TuzbWurC
+         uSrGTyIuFg+5K+kqIqokNtE+hLMrwc1JIjJVU6JKk+8uEGR05FV1ttrgphFyB1cTGuFA
+         Y8QwL1uQzfZ6/yBSF/KjiKNP6sGnWHf09h7Ea3nt7wTcRyaTeUCwled+moxCK7eX0Z8q
+         SwKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786629962; x=1787234762;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=USvILuDtTiPA6dYavysHHB08OaS594TOWNHKjjfu0XQ=;
+        b=KjLJpEBzilv+IpKMM52pqb34nvgZS0xsh3vB0UUQwdes9XNAhScC6UTOMy6v0IDRgV
+         5NwqhgZI1mM9QTqU3Hk1Ee9Sz0gcBZWTC2E+0JVLiGrXczT0hsuPbgW0kJB+xRLz0ziK
+         iO8Cu0A3TDSGF8GE4DstbDOG+11oPy0losX+Q+prIUGFG8wxo+kXP5u5qi/satSWK+pG
+         g3QiU0LCaWWhqYYvei8bNFw+4pgY2qNO/pdzusGajn2kHDR3PFfYStQulPMBPKn9MA47
+         FbCu9AJZEFgcA1+j9SysYRqvM5/k/qZ1bgDLt7P+AiqStkKloHCX+lNhGtmEUbLyc+pr
+         dgkA==
+X-Forwarded-Encrypted: i=1; AHgh+RoF4+moSL3LBw0+Osin55HsTrwojonYja6bcZiTDTRyaK60ELnlkJSZlVqTlrOK5Dzwnd5KbuVLCQHU@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRSU74YeWo3cwSVzA242y9d6DFfKpDDcG9xTYG7AmwRDeFnDSO
+	Vhk3WM/xPMKGUZxEfFHJhlUCYNqYLAnScgaXRqH/vnWjY593FwOFOGIu
+X-Gm-Gg: AR+sD11pJbxGvwZ6E9FpRVilp21PIUqELd5tv0Q5Dy1NZNoVbRcwZVQuUZQoHrhfsKn
+	gfG2YhMgPj+oN/JHxYf8Cu7qiuxzEkUZQ5v6Z+okhvxGe0W9kJSdLRFXqqxBtHRzx4ExCziokgJ
+	kXemYwsa73H58hueWdfFAS4Z0a3RyWjt/OBZ218hTlPkvpI0pQYO/IFy380x6gVcsTw6VgUSIIH
+	asVD/pFWPKg9bR9mqFVXhQIFiTPPwqUdTHyYusMCMhUSnd5E5usihPY4RxY6Ay0+tmbRUF6hsc+
+	InFvPeVxjj0lXYzZLV9GCiEXdsPX1khV9ahnbgCuI6IrFJQzoAu8OV5AkRAxuUiXxjBS1ZRJ/P/
+	a8knRfaL9VDqKH6gmmHFmyN8+kAKXALh6EyHaQlZJYbgfVAEUSQUywQ6dCrTVpG+QDfrJ+KtVMg
+	ikyfQavZ5gSlu99wwbC/6WiRlllIb20ACBulELUI/QIP/Pwx1W7IRQQrRtlRx1KYI5KA==
+X-Received: by 2002:a05:600c:1c25:b0:499:726c:d658 with SMTP id 5b1f17b1804b1-499821d91d9mr57412055e9.19.1786629961887;
+        Thu, 13 Aug 2026 07:06:01 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a5af191sm6690190f8f.19.2026.08.13.07.06.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 07:06:01 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>
+Subject: [PATCH v3 0/4] ARM: dts: vf: Iris carrier board for the Colibri VF50 and VF61
+Date: Thu, 13 Aug 2026 16:05:56 +0200
+Message-ID: <20260813140600.1824949-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,108 +83,48 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: N21JJMbW71sJBwBxTjE7EIPVknX76gpO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEzMDEwMCBTYWx0ZWRfX4XUX1N9FckUM
- ZizonV53vlarILvV92oMLAjvpanvJbqWxwbxXoOGJ7nm7PflWD+BC0cmdPyOeETlco4Yvhf4Z+K
- rX7rGlYCYFC2HFLDEcNffjvLGOma0Ag=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEzMDEwMCBTYWx0ZWRfX+blYMzrUN0W8
- 0wR+CxSNZUfUbK+WAO+DdxXkK1+2VGu5K91MskZiB2Fo8Mc/Jxm+gg7Za7vEtA+ybB/Ql8ieKH6
- AIC/HYf2Yt0MixujStaDPJTZer/XM7wr2okdkBw+IqwAAuop1w1/5TbE4OieF/EPjLHem+GuqST
- LZLgiNEfmPjvfCS/AbJEDf0Dt3R+J74olGP9tAvhE79ONFNxyY4T1B20xc0qVgpVVZE3oPGOjOW
- 8B+7qKg7hJfyHNKYPxjs7KE5y9kAFhD8rSrvBJceKrZglt2zVIRROk5X9S3suu/16Ks2tzAemka
- LobT/k4fNBj6lkEKJVPaMkAI/kMkITbOFZ2+Q1s5ZD2XxZaXBwcYe3pIHVQKfxsJlaL1URxAzN7
- Bo0lvqPtxBKH43s1WN1QQMqQiMQ6H12iks24iFN8HkW6WLHPw8BP3dloZyZ3Gv+u4aKMIXubZr+
- me2jj77JbLmvDfim5jg==
-X-Authority-Analysis: v=2.4 cv=GoNyPE1C c=1 sm=1 tr=0 ts=6a7dce44 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=_sOibaXk7Kr7hCVwWaUA:9
-X-Proofpoint-GUID: N21JJMbW71sJBwBxTjE7EIPVknX76gpO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-13_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
- impostorscore=0 phishscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608130100
 
-Some platforms use a QUP-based I2C controller in a configuration where the
-controller is shared with another system processor. In this setup the
-operating system must not assume exclusive ownership of the controller or
-its associated pins.
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-Add support for enabling multi-owner operation when DeviceTree specifies
-qcom,qup-multi-owner. When enabled, mark the underlying serial engine as
-shared so the common GENI resource handling avoids selecting the "sleep"
-pinctrl state, which could disrupt transfers initiated by the other
-processor.
+This adds a device tree for the Toradex Iris carrier board carrying the
+Vybrid Colibri modules, plus two small preparatory patches for the
+module-level dtsi that the i.MX Colibri variants already had.
 
-For GPI mode transfers, indicate multi-owner mode to the GPI driver by
-setting the multi_owner field in the initial dmaengine_slave_config call.
-The GPI driver then autonomously inserts lock and unlock TREs around the
-transfer sequence without any per-message guidance from the I2C driver.
-This keeps the locking mechanism as an internal GPI implementation
-detail; the I2C driver does not need to track transfer boundaries or
-message positions for lock/unlock purposes.
+Everything was tested on a Colibri VF50 on an Iris V1.1 running 6.18:
+Ethernet, USB host and OTG, all three UARTs, i2c with the carrier RTC,
+SPI, the microSD slot and the RS232 transceiver hogs.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
----
- drivers/i2c/busses/i2c-qcom-geni.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+Changes in v3, following Krzysztof's review:
+- fold the Iris compatibles into the existing -on-eval enum entries
+  instead of adding standalone entries
+- use hyphens in the newly introduced compatibles
+  (toradex,vf500-colibri-vf50-on-iris, toradex,vf610-colibri-vf61-on-iris)
+- drop the fixed 5V regulator that only fed the VBUS regulator
+- sent as a fresh thread instead of in reply to v2
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 658636c1ee0e..850fb0516a87 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -829,6 +829,7 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[], i
- 	peripheral.clk_div = itr->clk_div;
- 	peripheral.set_config = 1;
- 	peripheral.multi_msg = false;
-+	peripheral.multi_owner = gi2c->se.multi_owner;
- 
- 	trace_geni_i2c_bus_setup(gi2c->se.dev, gi2c->clk_freq_out,
- 				 itr->clk_div, itr->t_high_cnt,
-@@ -1066,7 +1067,11 @@ static int geni_i2c_init(struct geni_i2c_dev *gi2c)
- 	}
- 
- 	if (fifo_disable) {
--		/* FIFO is disabled, so we can only use GPI DMA */
-+		/*
-+		 * FIFO is disabled, so only GPI DMA can be used.
-+		 * In multi-owner configurations, the SE may be shared between subsystems,
-+		 * with each subsystem owning a separate GPII.
-+		 */
- 		gi2c->gpi_mode = true;
- 		ret = setup_gpi_dma(gi2c);
- 		if (ret)
-@@ -1075,6 +1080,11 @@ static int geni_i2c_init(struct geni_i2c_dev *gi2c)
- 		dev_dbg(gi2c->se.dev, "Using GPI DMA mode for I2C\n");
- 	} else {
- 		gi2c->gpi_mode = false;
-+
-+		if (gi2c->se.multi_owner)
-+			return dev_err_probe(gi2c->se.dev, -EINVAL,
-+					     "I2C sharing not supported in non-GSI mode\n");
-+
- 		tx_depth = geni_se_get_tx_fifo_depth(&gi2c->se);
- 
- 		/* I2C Master Hub Serial Elements doesn't have the HW_PARAM_0 register */
-@@ -1145,6 +1155,11 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 		gi2c->clk_freq_out = I2C_MAX_STANDARD_MODE_FREQ;
- 	}
- 
-+	if (device_property_present(&pdev->dev, "qcom,qup-multi-owner")) {
-+		gi2c->se.multi_owner = true;
-+		dev_dbg(&pdev->dev, "I2C controller is shared with another system processor\n");
-+	}
-+
- 	if (has_acpi_companion(dev))
- 		ACPI_COMPANION_SET(&gi2c->adap.dev, ACPI_COMPANION(dev));
- 
+Changes in v2:
+- add the dt-bindings patch for the new compatibles
+- describe the USB host VBUS regulator instead of hogging USBH_PEN
+
+Mehmet Fide (4):
+  ARM: dts: vf-colibri: apply the EXT_IO pin group
+  ARM: dts: vf-colibri: name the SODIMM gpio lines
+  dt-bindings: arm: fsl: add the Colibri VF50 and VF61 on Iris
+  ARM: dts: vf: add Iris carrier board support for Colibri VF50 and VF61
+
+ .../devicetree/bindings/arm/fsl.yaml          |  12 +-
+ arch/arm/boot/dts/nxp/vf/Makefile             |   2 +
+ arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi | 117 ++++++++++++++
+ arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi      | 153 ++++++++++++++++++
+ .../boot/dts/nxp/vf/vf500-colibri-iris.dts    |  14 ++
+ .../boot/dts/nxp/vf/vf610-colibri-iris.dts    |  14 ++
+ 6 files changed, 308 insertions(+), 4 deletions(-)
+ create mode 100644 arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
+ create mode 100644 arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
+
+
+base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
 -- 
-2.43.0
+2.54.0
 
