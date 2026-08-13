@@ -1,132 +1,89 @@
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14D636D9F9;
-	Thu, 13 Aug 2026 08:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953CF4446F7;
+	Thu, 13 Aug 2026 08:59:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786611529; cv=none; b=VShYWFBswJSnhmvHyiCIkXyMteh+b+2fmivwad/KDsQvnwrOu9iWNqf6KSOeKPpB6/thfovR/roye9qpeQg8N3rD56ZaKGhX9WVXU7AXk6VnuT5uiexKZMG2Bjvwlm7wGwPODeZywhhosgjEtFEU4KdNoX0F9L6JpKZHrCyn5jg=
+	t=1786611600; cv=none; b=UDUavO2bSOG78Q4vFXdu8FbY25527lw3Wv54ThwCmvJX++nTBPDVPfIy6f3urt0pof5NFxPTCGtBlbLBBh+NZfoTmEBCTDxp5tAJ0DUDRf26FOI9Gu7BpDFVOqBoA7d7qrmCqjZ+G3QCyJnNGqMRg4sk3ceTAhYdwAcRF/O4L74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786611529; c=relaxed/simple;
-	bh=2izXu46JTqwc7ECMQLwEx3srH/UtXbyYI47w0RvLocQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MQYNwIg08sFuli9yd9rwDYawF+1qi2i03LPkHAHy9FhYePzFHmAtUELnTWP5sGvrwltorJDWL72uRfoIcrhYJJ8gQ/kzQFnIEfmKX9a1xBGTyQQnAbemMYELl8GTAlin6qZIhLAEwzm09NOSUhPTWdZEkhheLvGuihlY30ssKoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=R3v6p5uO; arc=none smtp.client-ip=217.70.183.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1786611600; c=relaxed/simple;
+	bh=GdyuVcouelAph5a8W7iYpdcHMMgGGIj8pLf+4ZiB6Ds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sl1CEDf0Y+Ol9evfRiVg/P5fExFXxlyhLj4+EUu18pFcfZScOtFS7EsJ31hJ0bqbO4XFymEb5x3hXkd4mzxxEeUU8Dfa+54RlVClfT9FOu+rWtiV3PcFA2RJ0XNEIDn1HSQfuNC5YnsAWySlfL1XeqdA36EvI3iYZKLCEiFxhyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bq65PrTl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="R3v6p5uO"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 236231F4F6;
-	Thu, 13 Aug 2026 08:58:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1786611508;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bFGT+wlZ8v/tMI9vsoS1Vyx4Ec5r+ju/y8tc/RnmVTU=;
-	b=R3v6p5uOGDKa/2V9kVMHOIybOPa4/b6HIUgsq0Dj6yowTkJYpDnWPY7aeTYrQVuB+wz+e2
-	idtRkE2/9VaeRMHgVVq3FIXyPi3ilQ1alHOzmi6MpZtXRaR8ci57b8WRa0biOxDVq9PgPV
-	UiHT8gKecsr7sXxXESkezKo8EvVfd1Kv/pyDUFG2AaUCk46+nYo0cH1Yyj+2M+ydxpV14f
-	q8qn7ERctw5W7nZI4JGGyyOwRnhysQXdkuQrL2x+34ekMva+Vp9H/r+iNXQ7VdBlQpEypz
-	CMk1N/n7fsQqN8KT4Rm8zFnM6MCiECNg4K/5nz5Pl2xUtuK9q0deGmtrDKRMvA==
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-Date: Thu, 13 Aug 2026 10:58:15 +0200
-Subject: [PATCH net-next v5 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bq65PrTl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875421F00A3A;
+	Thu, 13 Aug 2026 08:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786611595;
+	bh=dtGZ81a3jSSuCBgYV0KTzg5fZRnkjFOsncZEdYGS6S4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bq65PrTlrpQK5qnE6+gKhwDV8n+44dSRcaQ15A9cQ8w8ugWgWsVHfbcdZSwGUgCFn
+	 1RWLpApt10D2UuocrruxHUY5xj2cx/L8E8KYysNR9ozK3XpX0xql6GzPBgNnuimdmo
+	 xXKq3sjTcri6QXfHtzfdzvwDWqnshiOIBCOx4OxeQYIMrQepZTuRf7Svc/i86ESnOK
+	 P7/MQ69Mw87UW5mWgvo1fOfId3yHTcPm/zjSyqWg4YhgFmkt9fLFpE+txyJbasR0sp
+	 Kn25kcWPvTgPwdvLJy3MJQVNSuMNcWT/EP5w/OtreTZjxFDMr94kQbZ1JY3jXx1A3i
+	 x9R22341btaUg==
+Date: Thu, 13 Aug 2026 10:59:46 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: George Moussalem <george.moussalem@outlook.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Praveenkumar I <quic_ipkumar@quicinc.com>, Varadarajan Narayanan <quic_varada@quicinc.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v2 12/14] arm64: dts: qcom: ipq5332: Enable USB
+ Super-Speed PHY
+Message-ID: <20260813-gentle-eel-of-elegance-ccbdbb@quoll>
+References: <20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com>
+ <20260812-ipq5018-usb3-v2-12-8f355d7ff0ef@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-wiznet-link-gpio-v5-2-ac8046f24413@marmottus.net>
-References: <20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net>
-In-Reply-To: <20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arthur Crepin Leblond <arthur@marmottus.net>
-X-Mailer: b4 0.15.2
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: -100
-X-GND-Cause: dmFkZTEefOc/klXO7/5PUwgpO9aRGI+MvHJFAt8DwIne0cCoUt3ECEsrJA+BLmH72mDq1CsFMbtDh1wiK9YProHM+4AJcNpDI1DxoHXxzBomKdJoAhzFio4WIF4skfNRCv0QnBTlMatn8lL+un+8XKtAU3pRmsF62Sf7cD6o4B4k9QACUP6Zj9C2LGJv2CCBSayjtsku/gq66ggcCYTKGgAb4gqE282IS+8zKcU/KIAE/6oNSGQxh35K2ERw38WUWtQi99oRjhphiwk7WD6fjDSl/Ta4BKlnEeIExNOZGRKqLT51RhryA/YkA0PNXUuQVWLo5tZJyCoNoc10x1+deWdLRTuSKy0wQW9JNgpydofqzOlIvD+WOyGdBN1AUWUlGQyfF2GKPTMFJ+edCUBnGIZcswCr6l85drmwJS7mbJ2RiucIs1zsIpSUS9Jk4qhb2AKS2Bwwo6sdbNpdsCScjMBd9i3pZ4jrA91Wmrla3Eo3tuuzJD9y4+C8Zw0FGQF6pXD0oGkgPAYQz6L3IFO2+0rNKGxcjakB7NtoXfW7XNUHLO4oYC7XT+vmEwhCMClMjJJUtaFveiCGfH/+Ltc8nm9nr+Z0yhhtf6a5ycPY8cwpRil7iF96WrVeKuZjtDz+PjZGy75WeHtmAaO+z0uWM7keI3QqcY1iHj1FCEYisWipUMSgMQ
-X-GND-State: clean
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260812-ipq5018-usb3-v2-12-8f355d7ff0ef@outlook.com>
 
-Add an optional link status interrupt which can be connected to the
-LINKLED pin on the device to detect link status changes.
+On Wed, Aug 12, 2026 at 01:34:47PM +0400, George Moussalem wrote:
+> From: Praveenkumar I <quic_ipkumar@quicinc.com>
+> 
+> Enable USB Super-Speed PHY support. The PCIe and USB3 PHYs share the
+> same MMIO address space, so override the compatible string to use the
+> USB3 PHY driver instead of the PCIe PHY driver and set the required
+> properties accordingly.
+> 
+> Signed-off-by: Praveenkumar I <quic_ipkumar@quicinc.com>
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
+>  arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts b/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts
+> index 25a70cd884c0..164f9a9a6c75 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts
+> +++ b/arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts
+> @@ -100,3 +100,22 @@ &usbphy0 {
+>  
+>  	status = "okay";
+>  };
+> +
+> +/* this combo PHY supports PCIe and USB3 */
+> +&pcie0_phy {
+> +	compatible = "qcom,ipq5018-uniphy-usb-ss-phy";
 
-Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
----
- .../devicetree/bindings/net/wiznet,w5100.yaml      | 34 ++++++++++++++++++----
- 1 file changed, 29 insertions(+), 5 deletions(-)
+Nope, phy in tjhe SoC does not change per board.
 
-diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-index 217f301db182..81f4382eb96c 100644
---- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-+++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-@@ -15,6 +15,33 @@ description: |
- allOf:
-   - $ref: /schemas/net/ethernet-controller.yaml#
-   - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - wiznet,w5500
-+    then:
-+      properties:
-+        interrupts:
-+          minItems: 1
-+          items:
-+            - description: Main interrupt (INT pin on the device).
-+            - description:
-+                Optional interrupt for link status changes (LINKLED pin on
-+                w5500).
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - wiznet,w5100
-+              - wiznet,w5200
-+    then:
-+      properties:
-+        interrupts:
-+          items:
-+            - description: Main interrupt (INT pin on the device).
- 
- properties:
-   compatible:
-@@ -23,10 +50,6 @@ properties:
-       - wiznet,w5200
-       - wiznet,w5500
- 
--  interrupts:
--    items:
--      - description: Main interrupt (INT pin on the device).
--
-   reg:
-     maxItems: 1
- 
-@@ -59,7 +82,8 @@ examples:
-             pinctrl-names = "default";
-             pinctrl-0 = <&eth1_pins>;
-             interrupt-parent = <&gpio>;
--            interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
-+            interrupts = <25 IRQ_TYPE_EDGE_FALLING>,
-+                         <24 IRQ_TYPE_EDGE_BOTH>;
-             spi-max-frequency = <30000000>;
-             local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
-         };
+You have one phy device, already defined in the SoC DTSI. In the board
+you only choose phy type in the consumer node.
 
--- 
-2.55.0
+Best regards,
+Krzysztof
 
