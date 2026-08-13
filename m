@@ -1,50 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF7543D4FA;
-	Thu, 13 Aug 2026 09:55:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E78243D4FA;
+	Thu, 13 Aug 2026 09:56:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786614919; cv=none; b=AHR3VsXS936iUsTdTywsyO963r+CqaJWtWbMbq33qJvS+bp0HYuaekU7NW7AMzhfrgAo7RgP8C1P8NNy5SoLIFVIJ8HMPsYuj+5G7RMh8WfgMkGC1d+nAD6sgaA7r9TdzsXvoEUWnEPw3J6f9KHbFMI1F1bb1yU9amojdOnOn1Q=
+	t=1786614966; cv=none; b=oPFnN35hJu2F/ruIPbPP4n5RXLqQObX8/uccPIhAJpLEvpBMdOvH/dFcLKmQ2OzjJQWJrwcv4+Cz9UnQhr8Fs4EXcfeFxyPTAF30ciXJ89PioUy3FzTZs6nR1FhYL2wogFjQDHY+Ey/JknMsU7LRRrBBXj9aMq6iLGJwRci6Ozs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786614919; c=relaxed/simple;
-	bh=0wXr13tDzOntyT5iA3AEw4f9ZBbo0sfdlcfO3xS7R7o=;
+	s=arc-20240116; t=1786614966; c=relaxed/simple;
+	bh=Q5UrNWP2cgzd9JwQj0u8Wlpr2r4pBGqbcj9N5hEn2XQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B1vM2D2G66uaLzwsN60xYX3wknr+UO/O0h+yLNJDsGKP2YcLXYUeC7damQEVl42wnsqO6yp9FUcOXt5SPhsAK5V/ibd5f0wvbJe3oDBR7Byr6YIAEs6QB9/4KpmqSLbqF7rC1YASf5nNkDKqCM2cT2MfsSAdPBkA3INRwW93/so=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QUMUsH6R; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fSMyvSyzbXvv04WUlqwr+p3y8/Hk7v7S/43iwkAqfsNh7cnCDVdPx9MVuWxnLLRbumRqLy+eh3zQufYDKqMW+rL2ZwzPrd/e4cqpeplkdT5LKUohfJuJ+ORzSrAMXaToGJBQrwguAbb7ledyq3JD7yAJiRgH4H2bc6a7OITcnlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iuplm4bl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QUMUsH6R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658801F000E9;
-	Thu, 13 Aug 2026 09:55:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iuplm4bl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97361F000E9;
+	Thu, 13 Aug 2026 09:56:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786614916;
-	bh=wpohbZ9rJj7yOAt868aIiXK/QrTmD5B7lw42yERMmg4=;
+	s=k20260515; t=1786614964;
+	bh=k7IRT7w488lOfR9xkeYXBX2k2JLbjwVizA4fzP0b7UI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QUMUsH6RD6OK9BEQ3uXYmS2OGApGrPSn1oDOu/T6hPnWKa5nH7BKz9ZcUr0eVEbaO
-	 z6w9/qXy3LON7vp+tdnYkMckWCuqb2lR204xkpiKE8i6+BC3Cgt/QjAx7VxQ5/uCpc
-	 7BaPu4Pcdw1g7zFrwYrzXQeV/IQ3k7v8RBO8TdYx13pkRkBMDEdB8h5omny2OAuO3s
-	 7CCJEB7YQhAFhy7XOdjQLfswUoPDurr6zgLiJrRi0lQjkwoXWy4rt11SF29WnjLzZR
-	 If10W4rSKPL3uXyOQV0QoEfqEXtWqWUcY1tlnNHPWh4gMI5T71S7FL0VEZhSrlYh5e
-	 rGWogProO6p2w==
-Date: Thu, 13 Aug 2026 02:55:13 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Subject: Re: [PATCH 2/6] usb: chipidea: usb2: add optional reset support
-Message-ID: <an2UgcS8cHDGwzsO@hu-petche-lv.qualcomm.com>
-References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com>
- <20260812-b4-spacemit-k1-usb2-v1-2-f28cf29e522b@linux.spacemit.com>
+	b=Iuplm4blHS2c8/DcK3dPZ84Lb9r9AaJdZIf04Sd1H84ArTJvE5rlfZTiFJMmbaeIu
+	 wyExIBXnR/cya7T2jDLkmkZJFmaluDJUbgcSaoGRjRJ4wnmN4waylUVPbBzKiIIB5M
+	 274tr+T64x9X3N5eLeBsbKUTYnEhatPykRzyFlC4fNaUXZj+dhQMwjI09vNUp+Rt4m
+	 O/FkDadodLP06MVUp9mQ2XgREtJeGFU5aEzkn3sTHRgFCAbOWfeTxiWojQDLX4vW8I
+	 dsPZBLz2Ci49soTnctPyjLbjyldC5KO3vKCmTJaC5HOuSMXJ96IhFRIfuLZUd1+ZFY
+	 HlMS6hw/NUfEQ==
+Date: Thu, 13 Aug 2026 10:56:00 +0100
+From: Lee Jones <lee@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: sashiko-bot@kernel.org, Mark Brown <broonie@kernel.org>,
+	sashiko-reviews@lists.linux.dev, robh@kernel.org,
+	mfd@lists.linux.dev, conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
+Message-ID: <20260813095600.GA1072730@google.com>
+References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com>
+ <20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
+ <20260812214019.CDF921F000E9@smtp.kernel.org>
+ <1jldaafmpd.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,62 +47,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260812-b4-spacemit-k1-usb2-v1-2-f28cf29e522b@linux.spacemit.com>
+In-Reply-To: <1jldaafmpd.fsf@starbuckisacylon.baylibre.com>
 
-On 26-08-12 17:26:13, Junzhong Pan wrote:
-> The USB2 controller of SpacemiT K1 SoC requires reset support, to keep
-> compatibility, add optional reset support.
-> 
-> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
-> ---
->  drivers/usb/chipidea/ci_hdrc_usb2.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea/ci_hdrc_usb2.c
-> index 8ffa1e95d8e8..00d575cd2955 100644
-> --- a/drivers/usb/chipidea/ci_hdrc_usb2.c
-> +++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
-> @@ -12,6 +12,7 @@
->  #include <linux/phy/phy.h>
->  #include <linux/platform_device.h>
->  #include <linux/property.h>
-> +#include <linux/reset.h>
->  #include <linux/usb/chipidea.h>
->  #include <linux/usb/hcd.h>
->  #include <linux/usb/ulpi.h>
-> @@ -21,6 +22,7 @@
->  struct ci_hdrc_usb2_priv {
->  	struct platform_device	*ci_pdev;
->  	struct clk		*clk;
-> +	struct reset_control	*reset;
->  };
->  
->  static const struct ci_hdrc_platform_data ci_default_pdata = {
-> @@ -80,6 +82,12 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
->  		return ret;
->  	}
->  
-> +	priv->reset = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
-> +	if (IS_ERR(priv->reset)) {
-> +		ret = PTR_ERR(priv->reset);
-> +		goto clk_err;
-> +	}
-> +
+On Thu, 13 Aug 2026, Jerome Brunet wrote:
 
-You may update binding doc?
-
-Acked-by: Peter Chen <peter.chen@kernel.com>
-
-Peter
->  	ci_pdata->name = dev_name(dev);
->  
->  	priv->ci_pdev = ci_hdrc_add_device(dev, pdev->resource,
+> On sam. 12 janv. 2008 at 23:40, sashiko-bot@kernel.org wrote:
 > 
-> -- 
-> 2.34.1
+> > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> > - [High] The corresponding regulator driver lacks support for `AXP318_ID`, causing the `axp20x-regulator` child device probe to fail.
 > 
+> Funny sashiko did not pick up on this when v6 was first sent. This is an
+> ordering problem. The regulator part should be applied before the mfd
+> one.
+> 
+> I could reorder here but there is not much point since the 2 changes will
+> land in different subsystems but it does bring a valid question:
+> 
+> Lee, Mark, are you OK with picking the patches indended for your
+> subsystem or would you prefer that I split the series, regulator on one
+> side, mfd on the other (with a dep on the regulator one, of course) ?
+
+Does this break existing devices or simply delay support for this new one?
 
 -- 
-
-Thanks,
-Peter Chen
+Lee Jones
