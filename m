@@ -1,15 +1,16 @@
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3136C424D42;
-	Thu, 13 Aug 2026 06:42:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4C241DEDE;
+	Thu, 13 Aug 2026 06:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786603368; cv=none; b=GXjNZdBwLq6MTTDm1B9izilnBZLbx6f3RmnuvsoSO+DrvkNcoTvecuTNJaZFA4jmXBITbuVHvJMnsh/i8msVKkAtTgh8I234DGCzCNHTFhbluBMqqlXTDPmhHwxXYQ4ELV0aOozKZfZWuL3KcdiZ8QsGul0s2s6itv7jsmRK7Lc=
+	t=1786603374; cv=none; b=oMWG1XqoKwwnvnZvm5QOaxdQ6P5pYpPABID27Z/467AETkaRQUjpYSdvS3T7mJ5kUv9yc1BqNoHwiKmoWzdfmhCFjs963UVscq/l4UrFLVoUNiIGm8NIPiYnyr4cDroNcml2ZNyWLGwc4mU9DFAhMMIzFdOWbLg46dkMlqN9kbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786603368; c=relaxed/simple;
-	bh=T3p08Mixb/u4ni/RDlvjAkSIBn3qHMVaciIoHqagm9M=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=Cr5rLYfB1ZyqLVbpupZizYJvao4R7DQHUPzI5Y1R59UJua4Cbv9Bgc7i2ZWqKMBz1hnr15yIWrZEzx8CNfdWRA/p/7U8s4HJxJnoOHwYzbBY/5knwWY85mQ1zuYcRBZyLL44EVQydVqCJkSiTZ4NzDNUkFeyOk1+Ik0M5YM/XvI=
+	s=arc-20240116; t=1786603374; c=relaxed/simple;
+	bh=3fvCknCwajnOMYIUp1uHwU+nFkwRbCJkD6DOdmYgiUU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=r02Oh68ntIRE/CpUFGakGTBquqT4BHrdYsrfNBhCy0maexUTEEmswjJT3zCX+ohECOEPRUm2svMdKjRJVqteaukNOISaADZj14F+eWwq5wR48/uKVtJFHtKrOoHgF3OYavqQz7JYCee3cCTqZ2E7BS5/u0cLBH2cPdwwB1Maw8Y=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
@@ -21,10 +22,9 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
  Transport; Thu, 13 Aug 2026 14:42:33 +0800
 From: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
-Subject: [PATCH v2 0/2] ipmi: kcs_bmc_aspeed: Support multiple LPC
- controller instances
-Date: Thu, 13 Aug 2026 14:42:30 +0800
-Message-ID: <20260813-upstream_kcs_multiple_lpc-v2-0-775b1db3fe95@aspeedtech.com>
+Date: Thu, 13 Aug 2026 14:42:31 +0800
+Subject: [PATCH v2 1/2] dt-bindings: mfd: aspeed-lpc: Document lpcN alias
+ for multi-instance SoCs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -33,11 +33,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFZnfWoC/32Nyw6CMBBFf4V0bU07yHPlfxhCoIwykUfTKURD+
- HcriVuX5yT33E0wOkIWZbQJhysxzVMAOEXC9M30QEldYAEKUpUByMWyd9iM9dNwPS6DJztgPVg
- jszgpLgBaJyoXYW8d3ul1tG9V4J7Yz+59XK36a3/V+E911VLJrtB5m0Cm2jy9NmwRO4+mP5t5F
- NW+7x+FcsuTxwAAAA==
-X-Change-ID: 20260722-upstream_kcs_multiple_lpc-735942211508
+Message-ID: <20260813-upstream_kcs_multiple_lpc-v2-1-775b1db3fe95@aspeedtech.com>
+References: <20260813-upstream_kcs_multiple_lpc-v2-0-775b1db3fe95@aspeedtech.com>
+In-Reply-To: <20260813-upstream_kcs_multiple_lpc-v2-0-775b1db3fe95@aspeedtech.com>
 To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
  Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Joel
  Stanley" <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
@@ -48,78 +46,46 @@ CC: Andrew Jeffery <andrew@aj.id.au>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <openipmi-developer@lists.sourceforge.net>,
 	<jammy_huang@aspeedtech.com>, Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786603353; l=2839;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786603353; l=1505;
  i=yc_hsieh@aspeedtech.com; s=20260721; h=from:subject:message-id;
- bh=T3p08Mixb/u4ni/RDlvjAkSIBn3qHMVaciIoHqagm9M=;
- b=fnig07TEfuecXa6JTRfT91GpXACWIBVvCKuFrTLVUV7epepRZ87Wtat90R+8CLuA9Mis5XU27
- epM6OLJpnPYDmdwobZJsltNVLjo3cxlcY50NXh0s9yrmbFt+4OCRupk
+ bh=3fvCknCwajnOMYIUp1uHwU+nFkwRbCJkD6DOdmYgiUU=;
+ b=lJEEEpMZkfLyqypXwFJYpwz/fUf8JftwyrAnNfp+GYgwm3Cf1mwyNicBdl/HnC68WExoj+3od
+ blHG6vR3vJdDC2zKazkTFANN2cjJE18j3DnQ6oo+qggNIRpnIzCGWTr
 X-Developer-Key: i=yc_hsieh@aspeedtech.com; a=ed25519;
  pk=7KnU2ozXGF2IATT+Hvu7RbRwPxBA3/b+zhfM+UsPJMs=
 
-Hi,
+Some SoCs (e.g. AST2700) expose more than one physical LPC controller
+instance. Downstream devices such as KCS channels need a stable,
+globally-unique index derived from which LPC controller instance they
+belong to, so document the "lpcN" alias convention on the LPC
+controller node that lets DT authors assign a fixed index per
+instance, mirroring the existing alias-based numbering convention used
+by mmc/i2c/spi/serial.
 
-Aspeed AST2700 SoC exposes more than one physical LPC controller
-instance. Each instance provides its own KCS1-KCS4 devices, with
-identical IDR/ODR/STR register offsets within that controller's register
-file.
-
-kcs_bmc_device::channel currently serves two purposes at once:
-
-  1. Selecting which HICR0/HICR2/HICRB bit-group to touch within a single
-     LPC controller's register file. aspeed_kcs_of_get_channel() derives
-     this purely from the KCS node's register offset, yielding values
-     1..4.
-
-  2. Naming the misc chardev (/dev/ipmi-kcsN) exposed to userspace, which
-     must be unique system-wide. kcs_bmc_cdev_ipmi.c uses "ipmi-kcs%u".
-
-Both happen to be the same value only because this driver has only ever
-had to support SoCs with a single LPC controller. On AST2700, KCS1 on
-each LPC controller computes to the same channel number, and whichever
-instance probes second fails due to the duplicate miscdevice name.
-
-This series keeps a driver-private channel value (1..4) in struct
-aspeed_kcs_bmc for register access, and computes a globally unique
-kcs_bmc_device::channel as:
-
-	bank * KCS_CHANNEL_MAX + channel
-
-where bank identifies which LPC controller instance a KCS device belongs
-to.
-
-bank is derived via of_alias_get_id() from an optional "lpcN" alias on
-the LPC controller node, mirroring the existing alias-based numbering
-convention used by mmc/i2c/spi/serial. For example, with aliases
-assigning lpc0 and lpc1 to banks 0 and 1, their KCS channels are exposed
-as /dev/ipmi-kcs1..4 and /dev/ipmi-kcs5..8 respectively. If no lpcN
-alias is present, of_alias_get_id() fails and the driver uses bank 0,
-preserving the existing numbering for single-LPC-controller systems.
-
-This puts the numbering under DT-author control instead of deriving it
-from probe order or DT traversal order. It also generalizes across
-however many LPC-compatible instances a future SoC exposes, regardless
-of tree placement, while preserving compatibility for existing
-single-LPC-controller boards.
-
-Changes in v2:
-  - Drop the RFC tag, per Lee Jones' feedback.
-  - Keep the alias-based bank-numbering approach unchanged.
-
-Link to v1: https://lore.kernel.org/r/20260723-upstream_kcs_multiple_lpc-v1-0-d918b5270b86@aspeedtech.com
-
+Signed-off-by: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
 ---
-Yu-Che Hsieh (2):
-      dt-bindings: mfd: aspeed-lpc: Document lpcN alias for multi-instance SoCs
-      ipmi: kcs_bmc_aspeed: Support multiple LPC controller instances
+ Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- .../devicetree/bindings/mfd/aspeed-lpc.yaml        |  7 ++++
- drivers/char/ipmi/kcs_bmc_aspeed.c                 | 37 ++++++++++++++++------
- 2 files changed, 34 insertions(+), 10 deletions(-)
----
-base-commit: f0e6f20cb52b14c2c441f04e21cef0c95d498cac
-change-id: 20260722-upstream_kcs_multiple_lpc-735942211508
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml b/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
+index cbc3a2485a2f..81c12e0fb312 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
+@@ -35,6 +35,13 @@ description:
+   configuration, therefore the host portion of the controller is exposed as a
+   syscon as a means to arbitrate access.
+ 
++  On SoCs that expose more than one LPC controller instance, it is possible to
++  assign a fixed index to a given instance (and thus to downstream devices
++  such as KCS channels that must be uniquely identified system-wide) by
++  defining an "lpcN" alias for it in the /aliases device tree node. If no such
++  alias is present, the SoC is treated as having a single LPC controller
++  instance.
++
+ properties:
+   compatible:
+     items:
 
-Best regards,
 -- 
-Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+2.34.1
 
