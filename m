@@ -1,72 +1,72 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF67E48BD2B
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 15:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D793A48382C
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 15:43:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786635740; cv=none; b=oCERhnCqV3+AjCoK8px27teuatxpKEKQ10MwOorWs18+rRAHq2oQCStTyC6hYWe+SwXuJF82Ug0oH9qe6dpvBRAKk9C+QmnX6l0E1xNrCZjgD/spc5+sHkeSpRZrVzFnCuA2u3KIVXZm8fwfcihqIsbvIBJBmYA0Z/lV1Vw+s7I=
+	t=1786635800; cv=none; b=E26OrnYWRf1RlA7ak3dbID4aTsO0zPg+2Z2DaWHjcPB3hDEBUQXXb8Ag/ycyXV810KZyXc2YbK4DcmEydNQR/HKM80JlYEzBUI6/3UiYZHq1XshfhqVhyHsn8T7dIBkLK62rqpdgWssjCWv2ErBA2ikU5cynphnKoLtL9GwJt8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786635740; c=relaxed/simple;
-	bh=vzsqRgKK6xb+qXIWqmZLoli+ye1tIEurLtQ8ZUQVhRQ=;
+	s=arc-20240116; t=1786635800; c=relaxed/simple;
+	bh=GY640qtsu1SDkXg/qpZjw5AVg1oBJIZPusqb/qNK3PM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W/xbmNW8xrebvM/svqWrfJGOOF4FgAOfwK9igCqjAAY8tURMoUd9HKRCQGKQPuqk7s0S3jxbkevHKxtEA42iPEfwoNLFVvd/+2WjLam4foZ/uKaTpxldFKL7vWzB8jZx2Tc1rwqxM2gnAS7UooSEyCPOu866SqakbGmuyabVoAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.171
+	 To:Cc:Content-Type; b=tDwYdSeKVG04YbPYXSpBR2BNVqGKg5d6bvPsFCJ3eMB52i/6BG+LX9tlNI9tcI+UwEfsHPFdTp4K3dSaibHcy3vqP44ofJLGdfdFztRGh2HDgDJcgy2jzZ7SO12Mnll2wgOfqOcrgAH2C6c2bOsa2REAXFSJxAgGeYduN141Z6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39c86945164so7835281fa.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:42:16 -0700 (PDT)
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c169ae1cb26so202892766b.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:43:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786635731; x=1787240531;
+        d=1e100.net; s=20251104; t=1786635797; x=1787240597;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=8HfO2oqGvHcLZthk9jR7PnHTZYqhjJfeV3Z47WsDvdU=;
-        b=kzU/JSf2bGh13TrP1+khyAD2nPLLjulXYYgfqd8hNQ4oxSU2u72YnTqwLnmX+Hhn9I
-         k0U2hZeZqyYMnf+1dYeU2WKnWh+YUf6yt8nKEiumW7lFnTwMYGEuJIjX6Vf4fztI7m15
-         KBbvG3kJfmKvMZzJ87P1MaCztsToEHthBXAToZ9cLEAp7ln1kTNsTbQMQsZO4Ip4R6gv
-         JWUzaigd/9rYV47aMO55jUp9X00jz5p3PZCELHW38NVFz8zWXw0kHfYY5rL4gcUOK59c
-         ov6daQqEJspu4sGYmi9PJ9AAg48IoIn+Wuj1Gj8wcGNEKDPcSVBxg0Rsm4rI3VE6vnCq
-         W3mA==
-X-Forwarded-Encrypted: i=1; AHgh+RppguMKjxk4EhEdU92K1doMpUX6f9t4A81yAYgkuMqqXEgWBViv+OKJMzAiKjBDTg5cl8TGZvn6L6Vb@vger.kernel.org
-X-Gm-Message-State: AOJu0YzB7L+tj6Q3cUy875YS6k37OMTBUJXblj8OI0wKDZc1G1n1O2Mh
-	ExF359bUU4UvM4uhGcTVRcZDHPEpcjJEgWaJGahsVhDfAyGWxDo/8ePfu7m5T0kRr+g=
-X-Gm-Gg: AR+sD12XmEuBXR/LMu+ndRBp/Ww75fHj5VYNkCdVFj/TPsMwJItJoX64qwGN79RFDzG
-	W66bLjW0YZzJnfmIQNWKN3BhbKWEtVIUdccIlsWN3DoLV9ECeBKUqhvCqSIy8McmibmzmQ7FF1/
-	c84iSvrx8RI85fiTlowmcbfDnnZ19Vtx/pY0xSAjj+M7xmV2SUgEAPZOshBY8qcdtraDutfRlWm
-	RMneSdn8so3qQle0GtcoZioJhyMA3aJK1wxbHJ0xFrG+da6Kr1nTrm/4lgbvQKRv7GucFnWWdvS
-	+hWIdE7407NYdjRN8Tp2AVqoYaHEkY43bTCtju2HnGQlDg56zLdkpWPBI5CE77bFn8RjXtek4m3
-	1VpwluNqK6QROeVFGx89F7rCETAhI/hCkno89L2+u3SpWMFLn4XKOLIK/6sxuaLWoycnu4bRddY
-	w5nWh07OnWuuAbAS561V4zmYyc68We74Uw5eZP4NyYptn5VmZWMBSM5Yk+eYtdXyR0Ykof4psa2
-	KwVKbWo0ZR8iUTyLsUKrHqVig==
-X-Received: by 2002:a05:651c:553:b0:39b:9fc:eb4e with SMTP id 38308e7fff4ca-3a11a700b43mr8782601fa.17.1786635730675;
-        Thu, 13 Aug 2026 08:42:10 -0700 (PDT)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com. [209.85.167.53])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a1308a8792sm306531fa.15.2026.08.13.08.42.10
+        bh=aPYhCdtqz3bibVAFDWmRXBuIoXULoG3VemeqJBNfpCA=;
+        b=h1Kkplv0LnOAEDLkjS0z0g4zUvqEqORX6W2HBjq9TodBEt+12UtyqqfUJN5W4kLENF
+         DPTbxXg0rvW5dN+vtj4nAHJ1TFoEsihoy7VboGHnxgNe06qVYjZvT9Iw8M9jLIrACuiZ
+         UtNDGgLVqBUmQmVWVlnlCRC/k5s626ugHB/P5qMCczX/ISsETJF4PqQpxLkO0dJoUbb0
+         QL53WVLYbDVIWqmOB9lQI+xKIyo/yy7NnJZ+OdKFmP5YszIG9poP0yjPol+2lC6EVXIv
+         in8dzLJ+g1YLUmHkkuj16r7DVG3KshFhjYU2qrE+mCd5/wgjvtZUwUdX/GefumIAiLLJ
+         1sMA==
+X-Forwarded-Encrypted: i=1; AHgh+RoXFet1fsGXCRI8iqIx7Mzs5xlNzwzRkpXVdkRw6/5gW/YW/RHBYo7XRxWReKv4UDZrA5UFAkkHUx6X@vger.kernel.org
+X-Gm-Message-State: AOJu0YxvOpZjQB7IUgqKK0MtPhLLBZInTxMfgil+G3XriZI3QFIJbFqq
+	hHBIOnDaIsnKtxdyoRtcmocUV1atNs5GrId2iNSkodeRW+ejpvWTEWqJ0PWApLMC6+Y=
+X-Gm-Gg: AR+sD10Tm09PeDgSBB1uj38mwpE6p+D3jKpPbTOpUPfzyGqenLDGRhm/wE41RmdKWRq
+	MyIVj+ZUO2OlWm3vhJMS76MWDOh8bC37YNKBooBgpJfsfSJVuY6sKGGGj2kjXmTEL0CuZDwZQm0
+	kLUi1O7+gJijEbwIbAFiAH6xwkGGxTKusO57IEY3HU9rY93/O2n0ccBC2Y0o7+zU1QPUBIXZxdY
+	qa0e//f/pjKCyTWIktUoCNDa3TU3+zRf8xThr3glV7YNNLtYtEXw/V5hHFXAn1qVWo7iTsrzQW7
+	78BaSWBC7uS55ESNkAFygxXWrAjjAiKqM6C+oN/xpOyeEVhwYxDDZidK53Ue/NbYDjwLvcgSuJJ
+	nZUP2WZykNd+woOqjyRmdowqrmN0C55FsTG6nyz6Vy8qKREFLlfaq/7u82ZTdAMslMJT7tFzl1/
+	uQpY/U0LMJ0kkEaYfA9Wck3JlQqLAYhvWHBUJSVHI2R0UUSv5zslk0Yw1yywGjTrHtM5qsKDqFJ
+	kK01wox+BB3O4d7hqoYfEFGPA==
+X-Received: by 2002:a17:906:f58f:b0:c20:f9d5:8d71 with SMTP id a640c23a62f3a-c2109f45faamr294962966b.5.1786635797079;
+        Thu, 13 Aug 2026 08:43:17 -0700 (PDT)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com. [209.85.218.49])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c21234c69b0sm8127966b.18.2026.08.13.08.43.16
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 08:42:10 -0700 (PDT)
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b2aab18795so917671e87.2
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:42:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RopztqNLdtY8Wcw2H10xYg37MIA8YKChT1c4m2XzNuyuErWDwrxxYJXNmYgvu4nL+UvhGPbFQsjWvZK@vger.kernel.org
-X-Received: by 2002:a05:6402:42d1:b0:6a0:6978:bee0 with SMTP id
- 4fb4d7f45d1cf-6a3805dd5f3mr3355685a12.9.1786635382098; Thu, 13 Aug 2026
- 08:36:22 -0700 (PDT)
+        Thu, 13 Aug 2026 08:43:16 -0700 (PDT)
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c20ce3c118aso217656466b.0
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:43:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpueDeWaVpmgPOTfDQzzDuUFH67qVLfl08DS3YcVT1NN1KLHFEQte1x5UGrU6JIbbAv8NGvfm9O5orJ@vger.kernel.org
+X-Received: by 2002:a17:907:608c:b0:c20:7166:cc16 with SMTP id
+ a640c23a62f3a-c210a26f8cdmr362136666b.15.1786635796639; Thu, 13 Aug 2026
+ 08:43:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260710113637.1328000-1-claudiu.beznea+renesas@tuxon.dev> <20260710113637.1328000-2-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260710113637.1328000-2-claudiu.beznea+renesas@tuxon.dev>
+References: <20260710113637.1328000-1-claudiu.beznea+renesas@tuxon.dev> <20260710113637.1328000-5-claudiu.beznea+renesas@tuxon.dev>
+In-Reply-To: <20260710113637.1328000-5-claudiu.beznea+renesas@tuxon.dev>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 13 Aug 2026 17:36:08 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWLEuC5CFKH4KEUo6H++rp6N=0X7Vd4ffOm2K=hQNPGzg@mail.gmail.com>
-X-Gm-Features: AUfX_mzZK_XqQEToCXzSXsA3RQo5nMa-PCSiTS9b3hgORV81WkefGByzaZwI1FY
-Message-ID: <CAMuHMdWLEuC5CFKH4KEUo6H++rp6N=0X7Vd4ffOm2K=hQNPGzg@mail.gmail.com>
-Subject: Re: [PATCH v4 1/5] pinctrl: renesas: rzg2l: Generalize the power
- source code
+Date: Thu, 13 Aug 2026 17:43:03 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWfzr0FTq5796ymJbrJMTYcHko0SPoE_hPYJxNi-pLG1Q@mail.gmail.com>
+X-Gm-Features: AUfX_myjkFFweUQc-pTKMuHXcf3jvSHPslpABu71PbitoSzzI_g3EH2qpqjRiDo
+Message-ID: <CAMuHMdWfzr0FTq5796ymJbrJMTYcHko0SPoE_hPYJxNi-pLG1Q@mail.gmail.com>
+Subject: Re: [PATCH v4 4/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
+ selecting the I3C power source
 To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
 Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
 	conor+dt@kernel.org, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev, 
@@ -82,24 +82,12 @@ On Fri, 10 Jul 2026 at 13:36, Claudiu Beznea
 <claudiu.beznea+renesas@tuxon.dev> wrote:
 > From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 >
-> The current functions used to get/set the pin power source check the
-> OTHER_POC register, which is specific to the RZ/G3L SoC only. To allow the
-> code to be extended for other power source functionalities (e.g. I3C on
-> RZ/G3S), generalize the functions used to get/set the pin power source.
+> The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
+> pin controller provides a register to select between these two options.
+> Update the Renesas RZ/G2L pin controller driver to allow selecting the
+> I3C power source on RZ/G3S SoC.
 >
-> For this, introduce the struct rzg2l_register_masks data structure whose
-> purpose is to store SoC specific register bit masks. The members of this
-> structure are then used in rzg2l_caps_to_pwr_reg() to retrieve the bitmask
-> corresponding to a SoC specific power source capability.
->
-> The conversion between HW specific power source values and SW specific
-> power source values is now handled through rzg2l_pwr_reg_val_to_ps() and
-> rzg2l_ps_to_pwr_reg_val().
->
-> Finally, to keep the code generic, the register update in
-> rzg2l_set_power_source() was changed to a read-modify-write approach to
-> cover all cases.
->
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 > Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 > Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
@@ -107,102 +95,112 @@ Thanks for your patch!
 
 > --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
 > +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+> @@ -69,6 +69,7 @@
+>  #define PIN_CFG_PVDD1833_OTH_AWO_POC   BIT(19) /* known on RZ/G3L only */
+>  #define PIN_CFG_PVDD1833_OTH_ISO_POC   BIT(20) /* known on RZ/G3L only */
+>  #define PIN_CFG_WDTOVF_N_POC           BIT(21) /* known on RZ/G3L only */
+> +#define PIN_CFG_IO_VMC_I3C             BIT(22)
+>
+>  #define RZG2L_SINGLE_PIN               BIT_ULL(63)     /* Dedicated pin */
+>  #define RZG2L_VARIABLE_CFG             BIT_ULL(62)     /* Variable cfg for port pins */
+> @@ -186,6 +187,9 @@
+>  #define PVDD_3300              0       /* I/O domain voltage >= 3.3V */
+>  #define PVDD_MASK              0x3
+>
+> +#define PVDD_I3C_1200          1       /* I3C I/O domain voltage 1.2V */
+> +#define PVDD_I3C_1800          0       /* I3C I/O domain voltage 1.8V */
 
->  static int rzg2l_caps_to_pwr_reg(const struct rzg2l_register_offsets *regs,
-> -                                u32 caps, u8 *mask)
-> +                                const struct rzg2l_register_masks *masks,
-> +                                u32 caps, u16 *offset, u8 *mask)
+This repeats the existing pattern of having both #defines...
 
-Yes, always returning an offset and mask is what I had in mind before.
+> +
+>  #define PWPR_B0WI              BIT(7)  /* Bit Write Disable */
+>  #define PWPR_PFCWE             BIT(6)  /* PFC Register Write Enable */
+>  #define PWPR_REGWE_A           BIT(6)  /* PFC and PMC Register Write Enable on RZ/V2H(P) */
 
+> @@ -441,6 +455,7 @@ struct rzg2l_pinctrl {
+>  };
+>
+>  static const u16 available_ps[] = { 1800, 2500, 3300 };
+> +static const u16 available_i3c_ps[] = { 1200, 1800 };
+
+... and arrays for the possible values.
+
+>
+>  static u64 rzg2l_pinctrl_get_variable_pin_cfg(struct rzg2l_pinctrl *pctrl,
+>                                               u64 pincfg,
+
+>
+>  static int rzg2l_pwr_reg_val_to_ps(u8 val, u32 caps)
 >  {
-> -       if (caps & PIN_CFG_IO_VMC_SD0)
-> -               return SD_CH(regs->sd_ch, 0);
-> -       if (caps & PIN_CFG_IO_VMC_SD1)
-> -               return SD_CH(regs->sd_ch, 1);
-> -       if (caps & PIN_CFG_IO_VMC_ETH0)
-> -               return ETH_POC(regs->eth_poc, 0);
-> -       if (caps & PIN_CFG_IO_VMC_ETH1)
-> -               return ETH_POC(regs->eth_poc, 1);
-> -       if (caps & PIN_CFG_IO_VMC_QSPI)
-> -               return QSPI;
-> +       *mask = PVDD_MASK;
+> +       if (caps & PIN_CFG_IO_VMC_I3C) {
+> +               switch (val) {
+> +               case PVDD_I3C_1200:
+> +                       return 1200;
+> +               case PVDD_I3C_1800:
+> +                       return 1800;
+> +               }
+
+Look-up uses the defines...
+
 > +
-> +       if (caps & PIN_CFG_IO_VMC_SD0) {
-> +               *offset = SD_CH(regs->sd_ch, 0);
-> +               return 0;
+> +               return -EINVAL;
 > +       }
-> +       if (caps & PIN_CFG_IO_VMC_SD1) {
-> +               *offset = SD_CH(regs->sd_ch, 1);
-> +               return 0;
-> +       }
-> +       if (caps & PIN_CFG_IO_VMC_ETH0) {
-> +               *offset = ETH_POC(regs->eth_poc, 0);
-> +               return 0;
-> +       }
-> +       if (caps & PIN_CFG_IO_VMC_ETH1) {
-> +               *offset = ETH_POC(regs->eth_poc, 1);
-> +               return 0;
-> +       }
-> +       if (caps & PIN_CFG_IO_VMC_QSPI) {
-> +               *offset = regs->qspi;
-> +               return 0;
-> +       }
->         if (caps & PIN_CFG_OTHER_POC_MASK) {
-> +               *offset = regs->other_poc;
->                 if (caps & PIN_CFG_PVDD1833_OTH_AWO_POC)
-> -                       *mask = BIT(0);
-> +                       *mask = masks->other_poc_pvdd1833_oth_awo_poc;
->                 else if (caps & PIN_CFG_PVDD1833_OTH_ISO_POC)
-> -                       *mask = BIT(1);
-> +                       *mask = masks->other_poc_pvdd1833_oth_iso_poc;
->                 else
-> -                       *mask = BIT(2);
-> +                       *mask = masks->other_poc_wdtovf_n_poc;
-> +               return 0;
-> +       }
+> +
+>         switch (val) {
+>         case PVDD_1800:
+>                 return 1800;
+> @@ -1121,6 +1152,19 @@ static int rzg2l_pwr_reg_val_to_ps(u8 val, u32 caps)
 >
-> -               return OTHER_POC;
-> +       return -EINVAL;
-> +}
+>  static int rzg2l_ps_to_pwr_reg_val(u8 *val, u32 ps, u32 caps)
+>  {
+> +       if (caps & PIN_CFG_IO_VMC_I3C) {
+> +               switch (ps) {
+> +               case 1200:
+> +                       *val = PVDD_I3C_1200;
+> +                       return 0;
+> +               case 1800:
+> +                       *val = PVDD_I3C_1800;
+> +                       return 0;
+> +               }
+
+... just like reverse look-up...
+
 > +
-> +static int rzg2l_pwr_reg_val_to_ps(u8 val, u32 caps)
-> +{
-> +       switch (val) {
-> +       case PVDD_1800:
-> +               return 1800;
-> +       case PVDD_2500:
-> +               return 2500;
-> +       case PVDD_3300:
-> +               return 3300;
+> +               return -EINVAL;
 > +       }
 > +
-> +       return -EINVAL;
-> +}
-
-This function returns a valid value, or an error code...
-
+>         switch (ps) {
+>         case 1800:
+>                 *val = PVDD_1800;
+> @@ -1194,12 +1238,21 @@ static int rzg2l_set_power_source(struct rzg2l_pinctrl *pctrl, u32 pin, u32 caps
+>         return 0;
+>  }
+>
+> -static bool rzg2l_ps_is_supported(u16 ps)
+> +static bool rzg2l_ps_is_supported(u16 ps, u32 caps)
+>  {
+> -       unsigned int i;
+> +       unsigned int i, len;
+> +       const u16 *array;
+>
+> -       for (i = 0; i < ARRAY_SIZE(available_ps); i++) {
+> -               if (available_ps[i] == ps)
+> +       if (caps & PIN_CFG_IO_VMC_I3C) {
+> +               array = available_i3c_ps;
+> +               len = ARRAY_SIZE(available_i3c_ps);
+> +       } else {
+> +               array = available_ps;
+> +               len = ARRAY_SIZE(available_ps);
+> +       }
 > +
-> +static int rzg2l_ps_to_pwr_reg_val(u8 *val, u32 ps, u32 caps)
-> +{
-> +       switch (ps) {
-> +       case 1800:
-> +               *val = PVDD_1800;
-> +               return 0;
-> +       case 2500:
-> +               if (!(caps & (PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1)))
-> +                       return -EINVAL;
-> +               *val = PVDD_2500;
-> +               return 0;
-> +       case 3300:
-> +               *val = PVDD_3300;
-> +               return 0;
+> +       for (i = 0; i < len; i++) {
+> +               if (array[i] == ps)
+>                         return true;
 >         }
->
->         return -EINVAL;
 
-... while the inverse function stores the value in an output pointer
-on succes. Perhaps this should be changed, for consistency?
+... while validity checks use the arrays.
+
+I guess one could drop the defines, and always use the arrays?
 
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
