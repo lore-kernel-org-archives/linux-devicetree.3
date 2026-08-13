@@ -1,93 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D9E4746C2;
-	Thu, 13 Aug 2026 12:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83325473C7D;
+	Thu, 13 Aug 2026 12:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786622401; cv=none; b=m0U7fRBYqVn9zGUXlzeqe5z3VkStzJPVYeaFfHw7nXkLAa/DGyvC9iN8IEc/DKjmNpd2cPu/w0dWkXgL2iphmnPfK/Bsp6ZsOGwxEnVjWS6Ho1YIFPIChsXRo1LzCzpnGvwNhOglP3gj3hMSxMPr8Troumo74y4H+1oDHJ2mft8=
+	t=1786622434; cv=none; b=La67puiX4Xg6bG9QlftcEjMIAXzkLdUJ6EpQbDCpXJiPh/nanqKdPx2LdIUGZ67z7B2nxFhMMw1d/4qQlh/eC7QQ+CG7dFAooFyH33wXVnNX8A+hmukUKCk8qxroiCTShN8a/2+J+goEwvL+fJQjBIW5SaLjvbWJtc5U42MGJw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786622401; c=relaxed/simple;
-	bh=uLvqSnLxFTr/El1MUjQjU5tqTpJ5ohRAn7CKilpJxCg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AZ4RRqd5TZ/ed1FXkYcnpNnmrbPh+YY0Gzv3/59lbvW17p8KYMtQ8VSdH8td1o8K4Y8Gjo+3QNAsLjusU10R2vJhIzv0z6Tt3o2f5pLEesT1jRnMJHnRXMfto7kr2p4gHLKh8EskleToES/ykdrcihyBqe/SnbQSdJFLMQCoDXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jIuftnYb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786622434; c=relaxed/simple;
+	bh=jFqFnXmun73lqBi38J4Ohjj6dbepdoUFqbnaPWtPFR8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TX6eVL+FNy63CGtYgK9ZkLzGUBYbDBsJ1Gqy+M7YVzANMdPPE0YU5HZ2qrnMHGVcDMQvw+ugtZ6OkwRVRKt8GDfRX9dZJvgtq50bDu9n9688xj+KufAM7XovC2khTn7W36tHEByZuzAMTLrf8jspFdiCztsf51onapBRpgxwglw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=byb41/NT; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jIuftnYb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BE39CC2BCC7;
-	Thu, 13 Aug 2026 12:00:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786622401;
-	bh=uLvqSnLxFTr/El1MUjQjU5tqTpJ5ohRAn7CKilpJxCg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jIuftnYb97EcU4lSittDbG2omUlz++SJbnX7RSS4N+MRpMbe9WvyOFi3HLds+nZq/
-	 zLUH2p4CUOa7XGD5806qyBP69SgNdc4WHL9XFkRkKBZUGn6vDq2umTvYB+xo1CHGPF
-	 2CI0C2UZtDHRob/r/JwJr2KsQDBi/muBDDNcGqurEEsxq9NjjS6vkizIJZO3Dgm5fJ
-	 bVPTpB6fNie/e0GqiyPwlPbH8plita48zovkKzKd6sApGjPvXeF/AADvV2yo5mqvNA
-	 gpm3NtSTgLx5JLphAnAMoxBdcNwRmI5z7pXLevWVsjUG/IKXUeTLfw0RuGKvihBJVL
-	 AfW1gACuqQPag==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7631DC5DF74;
-	Thu, 13 Aug 2026 12:00:00 +0000 (UTC)
-From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Thu, 13 Aug 2026 19:59:45 +0800
-Subject: [PATCH v5 15/15] ARM: dts: aspeed: anacapa: Remove redundant vhub
- pinctrl-names
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="byb41/NT"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B670711AB4F;
+	Thu, 13 Aug 2026 14:00:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1786622421;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=XvWwJX9flOq3VFympf+3qKEbCXnh6A5Ccfp8NS+7XkA=;
+	b=byb41/NTwp96eCzQjgGM9p/sTlwAxoaL6J2aqYPQKWmZDHezkMWKiWwZf7FucG2qA53/fZ
+	n+X2eNANETykGySPbN6GUaIVb7WaDdld8ZfRdbk4rPBe2ObhOSAP4GnIUx84DnJF7MDFMm
+	L9BiadgwV0gxIewpdFNmE0S/dre/zKajZg/bk8Pr7D5CVARqFDSaTxlc3cUDjsV14p/ep0
+	gTezfZOAb+WFnQ8w06FrI9c3UYspsnWIpeaN5nTTWDK+HcFif31h6/eYPG543DYCXl4hb5
+	0A9Lg3RAkV5pRxfIU6KpCzMBwgPz68Sv9dWspD1i1mDD4GpRQhR5zwkqZ0Infg==
+Message-ID: <e586dbc3-91d4-4247-b7bd-81699b965cd3@nabladev.com>
+Date: Thu, 13 Aug 2026 14:00:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] hwmon: (tmp102) Add TMP113 device ID
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Flaviu Nistor <flaviu.nistor@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260813090456.70816-1-marex@nabladev.com>
+ <20260813090456.70816-2-marex@nabladev.com>
+ <1cf0f701-e52d-4adf-91c9-e6b1a8753acc@roeck-us.net>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <1cf0f701-e52d-4adf-91c9-e6b1a8753acc@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-anacapa-devlop-phase-devicetree-v5-15-c7058f63dc67@gmail.com>
-References: <20260813-anacapa-devlop-phase-devicetree-v5-0-c7058f63dc67@gmail.com>
-In-Reply-To: <20260813-anacapa-devlop-phase-devicetree-v5-0-c7058f63dc67@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- colin.huang2@amd.com, Colin Huang <u8813345@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786622378; l=708;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=wZdptsf5KZoTZdsrUVb6bffHaz43HHnvSy2YjypcUzQ=;
- b=MNt1Xza2YC6AF1CLGYg5+fmVk3XcUzlYvu95056SM6MqhkXzcaRkrr1IQA22bjZap3PORfade
- w/MHSUsshQbCLMjz2y0SW7ThkUYvZHr+3ilQAmi6wMoioflnFU1XQyj
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
- auth_id=761
-X-Original-From: Colin Huang <u8813345@gmail.com>
-Reply-To: u8813345@gmail.com
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Colin Huang <u8813345@gmail.com>
-
-Remove the pinctrl-names property from the vhub node since it is
-already defined in aspeed-g6.dtsi.
-
-Signed-off-by: Colin Huang <u8813345@gmail.com>
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dts | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dts
-index d613b5b9d6b0..039b016ae06c 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dts
-@@ -1106,8 +1106,6 @@ &uhci {
- };
- 
- &vhub {
--	pinctrl-names = "default";
--
- 	status = "okay";
- };
- 
-
--- 
-2.34.1
-
-
+On 8/13/26 1:51 PM, Guenter Roeck wrote:
+> On Thu, Aug 13, 2026 at 11:04:24AM +0200, Marek Vasut wrote:
+>> The TMP113 temperature sensor part is register compatible with TMP102,
+>> add non-DT I2C device ID. Unlike TMP102 and TMP110, the TMP113 does
+>> have additional unique ID registers, those are currently unused.
+>>
+>> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> 
+> Applied.
+Thank you. I think this solves the TMP110 and TMP113 documentation 
+concerns too.
