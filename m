@@ -1,196 +1,205 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013006.outbound.protection.outlook.com [40.107.162.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A554949E8
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 16:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680C336194F
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 16:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.6
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786640071; cv=pass; b=lZ6AnDorbSLqSuLuw0TdOV8TVEVCsDhFeBDVPl3uQ3aqxZcG1h0/saezZq8zicLn+uY9+TMIJRf7F988PL9aaYA7rOeu/oXIo4pSiNZuEFeDbylmd9m7PV6ibBOu1VRpexsiNRFgSatWwu/mkIc6IwR08cov4m2vLae/Oho2dXg=
+	t=1786640079; cv=fail; b=nYkMdQwVqAnL3c8VOytpYlGwa6+1IYgeuCeaFtGewGZy+BXUavfi+zFAm0agHDWSZcmExcw4XvsSMrA9nPlOhdEYCx2SQvNlP6auHMdhCljT/Lg0PajcKRr2zVdFy3jGiN4aQ6cvMfY7zQhDiPv0CfMtfxyv4hLCh0OY/AxUNf4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786640071; c=relaxed/simple;
-	bh=7Fvq3zqL/KzBPneeBMfdo/0oBRye38WJc9bujdH1Mjk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kXvsV4/pM+9NrI+oVe+222xWiCpowsOUA85KCWklxcHcMCNh4mbj6FF+dPb5xEL9h3F1w9QOOafz/ale2i2pzqnoJC3yYyT0/SiidWrpVqv2PycJbOiOxHrIjSJ6UlnEsFW6iQXlHfNUivRE4Ss6/0Pcnc6SlPZftWo5B1l8tmw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aTiy+2Fm; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786640079; c=relaxed/simple;
+	bh=9e8BqPcBzoi4lTZP09ZmXzok+FiRfoiT7fTJWVfhkaA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=IVI/BM3t5w6QaZRUywjQTpToZNrhIryqDRvh5a+em2VX2XWYaSVhlAs4yHG2vbigcbZdcN43HsnA74hjifw8U9p4ES1l74Ju3CWYyeohKk8G+3qXo46M1XKEhz9TJYtEJPzzSLMYTt1MCh6yodRCpCXBENmH0GVxyh9Di1TiNBs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=cteYegzC reason="signature verification failed"; arc=fail smtp.client-ip=40.107.162.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aTiy+2Fm"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15e62c695cso1395966b.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 09:54:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786640064; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eQVcbklFX3ygu+QeI7SCUURaP+/mCUdi23lpPbuJRHHYPbYuYfuZAEvT0yR9xVzeqi
-         1oWY+Dg5SW+As4/O4+ly6h6B0xkayosMp5w2km80tVPeT5uUOMfU+6EXTEGxcx8j1JCS
-         QoAMm1+gRPGxmy75gYk42aToXPD3TEVS2i+5Ay0hg85Y8HxPdb24kg7c2qGismHEVHpz
-         ApvgoDD6w4aDDdhBv1iGnAocTCQ366a3bhnNVgdyWOn8YpFthK3n1VM4D6Yj8Ltm4Fi/
-         yqIRm0vGZ72EuNPa0JTbqRN03zpQ8kQICBgVPiSvYT0PMwCF1BYXN724wmOlGYLYGDeM
-         FiFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ww9P2ixuZzBUhiTpprwhy2KM8BvHef44lGTvhAxYQG4=;
-        fh=iseqqzWtftf/Nvjgm6RMLZYkoxrU8uKphU8Pf03J5/0=;
-        b=GTZ4KkCePi9V8bJDW4xtkLUAWIseB7LBcydcirSZ9v2MFiXSsxzzXgwOfleeEXtG+M
-         QYniio+4xVB2ffMQ3/wCjJ+9l1Tci+pjpktigqDceTESN+qc8xEAGeQsL5MWjR4uJogH
-         HpRu76uBuNboXCtI5hJnDGfkqCYz7jaGMhBk/T8+qzUqWE+9jk+PhZYW1MSjIAbAdpri
-         QCFevCIhlfMulS0XkzXLviaNU0iZU1YgCMNApU9RkzwvwJGk+vYwni1pgj+crXJmPLw+
-         hkFdY9fys4vukox6BCpPQT7y0WUVH97S3tRNN8D0nNuVsZG74kKuAbAN0jnOa0e0i8mq
-         lC4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786640064; x=1787244864; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ww9P2ixuZzBUhiTpprwhy2KM8BvHef44lGTvhAxYQG4=;
-        b=aTiy+2FmIqZ5QAvJ9hUxnsAHjuo+qgdvdyOUQ1D0bfhf29sIdgekdLeQHm1aVc5n+s
-         pSXiGcVuA8aFAnbuGk8fwXK9p11ke4XQD+x9MQpmoR3wZhqHmC1vAtaL0s03c+UwzkQa
-         Fn2NonS2bpXByGRSfHQpABhvI+1v398/bOsaVMNbjBSgf8iKDpwxD6yCcJHhJbCryfXe
-         mNJ1pDWnq1Ca6gwm7wLCYUERje/k0D6GsWTWHsjh1av+IPgRdvmI+QK/gGaEC2rMg4nE
-         Ickhu4Vtl70LTfBjBu+fD0xYnj6RY25Ijmad8sScoEbaVIFk9E3I1hbWAl3el0t76hkG
-         bD2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786640064; x=1787244864;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ww9P2ixuZzBUhiTpprwhy2KM8BvHef44lGTvhAxYQG4=;
-        b=B/8fENz78t5xk5w5N3D0NZ7/KUqLo2hFRt8igEXkhc3ITY7HFQPBljcPVXh2btWuLi
-         pAXm/qEUxrQCfFzOTpykpNSpYUb06WmSBvCtGWvh0FNVOS6RPDtMVK8lXylvfQUtd27K
-         HlDwncfxIf+6zUMy/eAI1fk/N4KHOKzSR8C42FvSsBhJ8F7mu2gvHSxlLIe6mbNQIPev
-         +fTe7JWfxsSj7PFtT0DF2zf39HKm+DKZ12Sqf+8V2Hf9X/pOOS7hlLgXBuG/fti2iXoH
-         OCOk+VZPx87C4dndi0GZBHbLnW9FMZEx5r0GERuLOgOz9mNEPLBAG15PCb+epBhNyzaC
-         /DhA==
-X-Forwarded-Encrypted: i=1; AHgh+RoQDdsihBm8lRsUkklDoWI7ipvHqqH4Z7XZ5n4GKPMivkZN05W17nkxBdkxoF27SFQ8wOMXqdaDpCKn@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAMstodnI2TVNjkB26e5ZWRqBny05T7vuJi2KX6VrrcSv23rno
-	+Mii7VlQaC1/iqu4jzjs8rQ5eUB/XhTLWrjvnmcnXR4SKRe84Pg/sQ361uFR+yxEW7OgzPA7LrW
-	TrkfmVdfNnS5AtTlzP79Xt4iSPX7buPQ=
-X-Gm-Gg: AR+sD1297EjOrO68ULdeXAY9uA2+EUshiQnZV00bRdcRTXSCJoiAWL1BWu/+zvH0OqF
-	DGryVGocONvjTvn8tekQGCdYIgcTGX0OOkdLzvDFe9P8x2TlVHnu/TUvuzwxmvx7zA/wrJNJt0W
-	TWDAOeBiXKZZbp/XeyEghyqZ7663+MmwWF2lWgCUNoMcMJj7E2+clRiarCdLH2m+5B95+1EzqOm
-	D820Ym65NQUk46cW+ZEOXiPYYuVzjIcz9ognR0yrCA6ye/NiTPvrX6i+tRtE4JVNCZPJiKDUhBZ
-	3x7tpu1bZUh9gx5L3AehePok0ZcCcqE3zxXatuK7QmDsSyX4MpCzq7SZRvHH5EHpcCJbhuQt36b
-	Qf00=
-X-Received: by 2002:a17:907:3c8a:b0:c16:1290:11a7 with SMTP id
- a640c23a62f3a-c2108f6adc6mr198642866b.1.1786640063579; Thu, 13 Aug 2026
- 09:54:23 -0700 (PDT)
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="cteYegzC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yYcLJXOJbeGSKkjqk1WhZqXedL8E50N//fbL1HWd8KwnrMyoytcOZHNNH19q4XbCNfuBWgb4IJ8uRBYEHCJ36L9y7mt2wnSX/oEb1O+rFEy/hNlB/yy7D7pWeB9F8AYi1Ga/1kWVAdE4YR+s3CQg5JFnnNXXtJdqKSYUXQfYHQPW6oEHXXTyR2IYWF2lATCeNG8J79mSyuUyA35PFDa9cKeDmbe1LT+Mn7K1aei+l4a2rvLtlW2+LW7fnLWJZar32SeYC0Qr85R6WmKsVRggEpOLRgB15KyFbgI8EnLg504UtrkdsKRmGmlmdIUqMuFpNOw3esuT/HCgUlrUpCVLYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CmRynr7sXMst/ZRNpW8Raef9vObRV7twnq9gz91sXw8=;
+ b=f6mj8HS7Lw7Bh3VtM7scUyvPAjyUasdL/nBiQJw+G2fHS5KrjjAoAw2A170nG+G+DGP3SCEed+OAryNOVcrnAyqb0Ote01a2eTkL9ww7U+sicC2pvhDds1NkXI0Dy0qOu7RKDmoX3nYY/UL9aLABLc+hl/LsDlRf2R4rIZ+swJhk3WH5AGFyU/TtlK74ZnJxQQvhd77hgHYQ3+BTQXjkgIjeGZiXTsYu5Kq4+L2DQmBq6u+O4fFQmroma5Rq+iyj50BBVxm4rXrW4QLvNBa9gUn50w1k8WhRHGGF4a6OHGPgtRo6anNdewlk4Q71z3YtknvZ+cYrlrjTX/6FsPYSWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CmRynr7sXMst/ZRNpW8Raef9vObRV7twnq9gz91sXw8=;
+ b=cteYegzC0uNJ4gVwQH/uV5PmIb9GrcOKlUmdhl6Q/YMDyzL4H0PVNazmPcw98xGB6nJrPieNeUNaYCFWRqXAvJ5zeHM1m2kkIIt+xzQ8dIPTUw4cZmUKOG4vTPib+JE6YVHvDsOajrghtWv6c/2aSKPQV5NJIAjwA8kMvyncvitb6OrQjfCzSuVHGiq9V+/oaPp8T6LNdyWmakvKNTteMRIJb/uRp5Hz+V4VtRjjJ0FTAyGV7XYntoJo6f7iIZqZr6nCzgT8OBCG9qRxlmU2fAuPi3PXNHg0TNw7L8Z70JWeImnl2IDAxbIjb6ky0ng7kxYDRxNtOgSsZKV2ZIR0Fw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
+ by PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Thu, 13 Aug
+ 2026 16:54:32 +0000
+Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
+ ([fe80::11ca:6b74:3234:d7de%5]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
+ 16:54:32 +0000
+Date: Thu, 13 Aug 2026 11:54:26 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: shengjiu.wang@oss.nxp.com, devicetree@vger.kernel.org,
+	Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH v4 3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params into
+ pair/context struct
+Message-ID: <an32wu6oTkCAwoe1@SMW015318>
+References: <20260813070020.719810-1-shengjiu.wang@oss.nxp.com>
+ <20260813070020.719810-4-shengjiu.wang@oss.nxp.com>
+ <20260813070944.C22CF1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260813070944.C22CF1F000E9@smtp.kernel.org>
+X-ClientProxiedBy: PH8P221CA0064.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:349::16) To DU4PR04MB11791.eurprd04.prod.outlook.com
+ (2603:10a6:10:623::11)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813-ti-keystone-devctrl-v1-1-6f0aa87d9af8@gmail.com> <20260813164117.DE8F01F00A3A@smtp.kernel.org>
-In-Reply-To: <20260813164117.DE8F01F00A3A@smtp.kernel.org>
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Thu, 13 Aug 2026 22:24:12 +0530
-X-Gm-Features: AUfX_mzwE_muvtzUi7sgoturtrvJi-GJEAPGrT1WA_uTWsInh6m2LlCJF_HFSLY
-Message-ID: <CAOWyW_6Wayw0gKMyhpy2wE6oSbikM3fKCopqxHodddM9zt1-FQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: mfd: ti,keystone-devctrl: Convert to DT schema
-To: sashiko-reviews@lists.linux.dev
-Cc: mfd@lists.linux.dev, robh@kernel.org, lee@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|PAXPR04MB8459:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2fcb18d-24f5-4a17-b4e7-08def95b8c23
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|376014|22082099003|18002099003|56012099006|3023799007|6133799003|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	GaD7RDj2sPy4JK1eY2io5UdgFFx7kkUVsyZov09Xzf90qQSj7lhyBfNvbDjW/WmgN8L7rKDWTtYO/9Xhd6cOrMIC3dUA/KwQpM9e+vR/nIRzvXJ29yD5xuxXE5FogdGT9sRPRD4CD+QwDHRP/SUSSaT7NRsNvwkg5XsqNkJSFcs9JX2pg8B1oXTszlHyOCnX1L1uHQwMzp8s5Uxkl9rsdwRVMl83yv4zfQ9qe8kGxfgTPzLSA6qIsnMeHmCHAdsqn+NQAIt3UTiZ47eBL4+74S9k0Rnq2mFx/Be511gKiGgGXXZiBlM+jdRLdlyvIVMAyr+Tv4vi+i99O5JI7GfRM+NZIEHBXH+pgYvx0vz199Mk1mW/iUfZW00e61WXUtlfQrCz/vqBoxm0cqKgdFJZ203bbKecf8gNu0NZykBzSZg+Svm7boYluPb2WCn87PXs0vrUvzlrRDpQIx7bvH3sNY+P/ePuXg4XtAZucVgkedGBi7m5mP1wORlreOSFKLl042byzaIWke7GJv+BTas+zyzTh9L4gJyeUupA8AvoxJ4xt/9J5385mfuwHJIuHqNa4YcZdNYmweIg5RhutVFPzDv+a1stktcIMzgr/Srkh9I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(3023799007)(6133799003)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?7RzNrhLU4zcPjhXqMlOOgQTR1zejp/nEFC+uyeVbNCfyKIloJlEYCRGtwL?=
+ =?iso-8859-1?Q?xFViz2GlOECr9JmAa7vMVawdPB+wbRh3jQmsD1rf7h9r2XY5EOygJ7e5ZE?=
+ =?iso-8859-1?Q?X6Ll+ZHhOF3pwjZK6lVvKWBr1NkHYV+rfoMs+PPYdO9O+mNsqYNp7wFfEB?=
+ =?iso-8859-1?Q?TGrT9hzn30MGbVo3Kk51Z1oHKTMN4PKj2AdTA6yITcHGoXhovcOQyoWrKG?=
+ =?iso-8859-1?Q?b0hXFImie2tYXSa/FUWJ9RmMGuks/tRxASGUX7XuuyHG3NXt/59MJEb5Dm?=
+ =?iso-8859-1?Q?k6vC2Ib3kLPj5KIUMM6IwAEfR9JumNJnMgBtlkXvh/NZc1DqYNbopd7oZJ?=
+ =?iso-8859-1?Q?USn77+9Rfv7t55oZOvjnK0l/IiP9KFrZzVkvPDwTt2Tkhm+fJVSZ2ixGgt?=
+ =?iso-8859-1?Q?wEb1DTrN+vg34sDbxisd9FF8+d5S+Aqgyq5Cw2wfiBu2oi6FzJoac4d77q?=
+ =?iso-8859-1?Q?BVrYYvf686rNR4MsjRfbu3MljlC4TOz7qxNeVaHHgGncnBb68/tEZBpylb?=
+ =?iso-8859-1?Q?0KDZ0F0iiYNsMfN2h4an1FTHbHBNVY1JKW3zZ+7o9IsYGphQrCm/svv2JM?=
+ =?iso-8859-1?Q?/kBuxLcfame40YEvuIU0Omn+Qwn0Y3Cgp5KziXsYe8t6JPZUfa3MYI1l3n?=
+ =?iso-8859-1?Q?Or4fYUmloNnlNE+0MMGD7M1kqyzWds29LNj0FLV59mndQtQ/0fXVLghq8L?=
+ =?iso-8859-1?Q?NzGTOVoi1LKRQuI2RiZ7LQdDqAWiwjAXnaxlmpaPOgo0JN0e407m+eyWMV?=
+ =?iso-8859-1?Q?skUH9DmetBE9p0CUdj+RUSPlP2RRgaeWzmRLCYDjcVvjP9POzOBrQNDY2+?=
+ =?iso-8859-1?Q?erDZSu0p3x8EfJV5Q+53B7mzvMtuSFjXpgt/YfIKHoGSD/NVDreJeq2mK9?=
+ =?iso-8859-1?Q?577+wf3HuBUBv4b5EZTbV/1ewsFBLrgehcr8AGS32jY9hDa8fbVTzA84ag?=
+ =?iso-8859-1?Q?/F7Eyteur2IpBRsQFZpDIYL6jZfP6TbaV1OQYglsIv1TJcZpzIMWFCY7RQ?=
+ =?iso-8859-1?Q?SP9u1dF/MaDT1ptmoZpmh/ivdcRiQ3HVCMWGCgmIWibWPcUAkbC7HOsu4b?=
+ =?iso-8859-1?Q?qzAthdC9N+YP7dLebvXb9UIvnnFYWW13296puH31eSaxNtMAGTW5WXgit6?=
+ =?iso-8859-1?Q?hZ1CqMcnPlj3eqtuSsaC9zyasbRmCmuP+DA21Qt/44IHpIXbzWuz5Eu2jF?=
+ =?iso-8859-1?Q?SsV7F5XSj+Eg6fnjscjM90hAZDIVul1FCBCYWYJqGcP/PhxqLalzcOSK/6?=
+ =?iso-8859-1?Q?vspztPbMOeOgq13RDCDEeeRZRVTYhUeym2JSuLr9x2k0wmhQHrtW1ee0+4?=
+ =?iso-8859-1?Q?YhWapZcpP3CcmlvWbQomKH9KGCwcy6kxk7xEqYyHI1lGJVIygg5ont1fBX?=
+ =?iso-8859-1?Q?BxoFw7btA1InhBVAF/UTl/LeRcprEaV4NJJSCesG48gfcg+vltS0kten3W?=
+ =?iso-8859-1?Q?rYSYdANuy24pKE2Uh3OnqZh9a7hXCLmKfmxvRe0tqNqyfWFW6io9Rhjsb0?=
+ =?iso-8859-1?Q?Pe2dvOej2W5BPRLMsDBJ5M3gPLnGZMj6AMEcOA4kpBVlcqJhdtDx736dxd?=
+ =?iso-8859-1?Q?tyRwWZzLqx33tO/JVvTdaezFysTFcgh66h/0E70zh7huBqPzOiYJP6VIfO?=
+ =?iso-8859-1?Q?Q0IwJjOfY9kDIcBoF0wmyCDVNcYSmIAY/6ApZh+faVkz1R8CCCtealyMrv?=
+ =?iso-8859-1?Q?VtXUkbeGoFCekAhlza28SmHJTeGO2BJhdSwz7ETgR+2bPW55gi2bHL/IFh?=
+ =?iso-8859-1?Q?Go33eJtm0tiypIAI5ehJS3O/EFFKdUenGuIlMqk6R2xMGkbxqNGn18bf5C?=
+ =?iso-8859-1?Q?7QLRfPfmEufWRHT5OVd5ssBrKDWzSLQ+UzaRTF4I4Fb7AhG/AGFg?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2fcb18d-24f5-4a17-b4e7-08def95b8c23
+X-MS-Exchange-CrossTenant-AuthSource: DU4PR04MB11791.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 16:54:32.4846
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0cV57zXRQA5GaQyeBsSL0uJfZNOAjdqsNEtNCGTwRqpIq7CY1E8JqWQvmf3tPAwMBhNCc9cUH/r2+dkmzm/d2zpcdGIcWyYlfU8lIp7VS2q2yqiWjahHeWjg90P3xYpu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8459
 
-On Thu, Aug 13, 2026 at 10:11=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [Medium] The schema enforces non-compliant, legacy device tree node nam=
-es (containing underscores) for child nodes via `patternProperties`, blocki=
-ng the use of standard generic names and contradicting the commit message.
-Yes nodes with underscores are kept not to break older dts/dtsi files
-which uses underscores
-> - [Low] The YAML example references undefined phandles (`&devctrl` and `&=
-pllctrl`), which will cause a fatal `dtc` compilation error during `make dt=
-_binding_check`.
-no this won't cause any errors related to references ( tested on version 20=
-26.7)
+On Thu, Aug 13, 2026 at 07:09:44AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Critical] The dynamically allocated `pair` is freed on stream shutdown without clearing the shared CPU DAI's `dma_data` pointer, leaving a dangling pointer that leads to a Use-After-Free on concurrent streams.
+> - [High] The patch fails to resolve concurrent stream corruption because it assigns the per-pair `dma_params` to a shared CPU DAI, meaning concurrent streams overwrite each other's DMA parameters pointer.
 > --
 >
-> --- Patch [1]: [PATCH] dt-bindings: mfd: ti,keystone-devctrl: Convert to =
-DT schema ---
-> commit f59b6bface010fc243ef7f899dbb8dddf737e2c5
-> Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+> --- Patch [3]: [PATCH v4 3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params into pair/context struct ---
+> commit 6f9d240bd6e939329ded07360e8ef36835e62929
+> Author: Shengjiu Wang <shengjiu.wang@nxp.com>
 >
-> dt-bindings: mfd: ti,keystone-devctrl: Convert to DT schema
+> ASoC: fsl_asrc/fsl_easrc: move DMA params into pair/context struct
 >
-> Converts the Texas Instruments Keystone Device State Control binding from
-> legacy text format to DT schema. Adds "simple-mfd" support, enforces chil=
-d
-> bus properties, and adds validations for standard child nodes.
+> The shared dma_params_tx/rx fields in struct fsl_asrc were a single
+> instance written by every concurrent fsl_asrc_dma_hw_params() call.
+> With multiple DAIs registered (one per pair/context), parallel stream
+> open+hw_params races would corrupt addr and maxburst for all active
+> streams.
 >
-> > diff --git a/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.=
-yaml b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
-> [ ... ]
-> > +patternProperties:
-> > +  "^keystone_dsp_gpio@[0-9a-f]+$":
-> > +    type: object
-> > +    description: Keystone DSP GPIO controller
+> Fix by moving dma_params into struct fsl_asrc_pair so each pair owns
+> its own copy. Initialise them in fsl_asrc_dma_startup() where
+> the pair is allocated, which makes the per-DAI probe callbacks in
+> fsl_asrc.c and fsl_easrc.c redundant; remove those as well.
+>
+> > diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+> > index 2f662bdf14d07..15f2dccc35840 100644
+> > --- a/sound/soc/fsl/fsl_asrc_dma.c
+> > +++ b/sound/soc/fsl/fsl_asrc_dma.c
+> > @@ -392,6 +392,20 @@ static int fsl_asrc_dma_startup(struct snd_soc_component *component,
+> >
+> >  	runtime->private_data = pair;
+> >
+> > +	/*
+> > +	 * Point the cpu DAI dma_data at the per-pair params so that
+> > +	 * concurrent hw_params calls on different pairs each write to
+> > +	 * their own struct and do not race on addr/maxburst.  Use the
+> > +	 * per-direction setters so that a concurrent open of the other
+> > +	 * direction on the same DAI does not NULL out its pointer.
+> > +	 */
+> > +	if (tx)
+> > +		snd_soc_dai_dma_data_set_playback(snd_soc_rtd_to_cpu(rtd, 0),
+> > +						  &pair->dma_params);
+> > +	else
+> > +		snd_soc_dai_dma_data_set_capture(snd_soc_rtd_to_cpu(rtd, 0),
+> > +						 &pair->dma_params);
 > > +
-> > +  "^keystone_irq@[0-9a-f]+$":
-> > +    type: object
-> > +    description: Keystone DSP to ARM interrupt controller
 >
-> [Severity: Medium]
-> The commit message mentions updating node names to conform with standard
-> Devicetree specifications. However, these patternProperties enforce names
-> with underscores like "keystone_dsp_gpio" and "keystone_irq".
+> [Severity: High]
+> Does this actually resolve the concurrent stream corruption?
 >
-> Does this block the use of standard generic names (like "gpio" or
-> "interrupt-controller")? Because additionalProperties is false, using gen=
-eric
-> names in a DTS file would cause validation errors. Could these patterns b=
-e
-> updated to match generic names instead?
+> If the driver registers only a single CPU DAI, won't multiple streams opening
+> in the same direction all assign their per-pair `dma_params` to the same shared
+> CPU DAI pointer?
 >
-> [ ... ]
-> > +examples:
-> [ ... ]
-> > +  - |
-> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > +
-> > +    device-state-control@2620000 {
-> > +        compatible =3D "ti,keystone-devctrl", "syscon", "simple-mfd";
-> > +        reg =3D <0x02620000 0x1000>;
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <1>;
-> > +        ranges =3D <0x0 0x02620000 0x1000>;
-> > +
-> > +        keystone_irq@2a0 {
-> > +            compatible =3D "ti,keystone-irq";
-> > +            reg =3D <0x2a0 0x4>;
-> > +            interrupts =3D <GIC_SPI 4 IRQ_TYPE_EDGE_RISING>;
-> > +            interrupt-controller;
-> > +            #interrupt-cells =3D <1>;
-> > +            ti,syscon-dev =3D <&devctrl 0x2a0>;
-> > +        };
-> > +
-> > +        reset-controller@328 {
-> > +            compatible =3D "ti,keystone-reset";
-> > +            reg =3D <0x328 0x10>;
-> > +            ti,syscon-pll =3D <&pllctrl 0xe4>;
-> > +            ti,syscon-dev =3D <&devctrl 0x328>;
-> > +            ti,wdt-list =3D <0>;
-> > +        };
-> > +    };
+> The last stream to open would overwrite the pointer. When concurrent streams
+> then call fsl_asrc_dma_hw_params(), wouldn't they all fetch this same
+> overwritten pointer and write their DMA configurations into a single shared
+> struct, continuing to corrupt the data?
 >
-> [Severity: Low]
-> The example uses phandles for &devctrl and &pllctrl, but it appears these
-> labels are not defined in the example block.
+> [Severity: Critical]
+> Can this also lead to a Use-After-Free when streams are closed?
 >
-> Won't this cause a fatal dtc compilation error during make dt_binding_che=
-ck?
-> Could we define these labels on the parent node or a dummy node in the
-> example so that the build succeeds?
+> If Stream A opens and sets the shared CPU DAI pointer to its dynamically
+> allocated `pair->dma_params`, and then Stream B opens concurrently and
+> overwrites the shared pointer with its own `pair->dma_params`:
+>
+> If Stream B then closes and frees its `pair` struct via kfree() in
+> fsl_asrc_dma_shutdown(), the pointer in the shared CPU DAI is left dangling.
+>
+> If Stream A then proceeds to fsl_asrc_dma_hw_params() and calls
+> snd_soc_dai_get_dma_data(), won't it fetch the dangling pointer and write
+> `addr` and `maxburst` into freed memory?
+
+
+Please double check this.
+
+Frank
+
 >
 > --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-ti-keyst=
-one-devctrl-v1-1-6f0aa87d9af8@gmail.com?part=3D1
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260813070020.719810-1-shengjiu.wang@oss.nxp.com?part=3
