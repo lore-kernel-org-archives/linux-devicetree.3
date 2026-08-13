@@ -1,243 +1,297 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013034.outbound.protection.outlook.com [40.107.162.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552252D7386;
-	Thu, 13 Aug 2026 12:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786624670; cv=fail; b=If9c6NFCqPhRYb4ExZuMzSx52u1K7pJYcqdnKgVFKoUWfakQaKmOcunNP3bGExC9u9sXUxda2V3s/DkvVGNOPHmtFev14LxZnoq3NdceOcn/EjTDZE+Gb77pnG3pFaGryF7ttneco+c0ujKC4JNOrhsTPjgnwgSG7uCIUPSPoyU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786624670; c=relaxed/simple;
-	bh=589p88QEXqmNbmHbLnVEIOp01D65st/1zd+FZZmOGGE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=sx6yv3QbgiR5m0TI4KaMJOJyt3bz3MNHfN8OTXDpp3BVPDWOYGavk4kyu5qbryALUabxo6xrYWVjVwSKxWZzW8KXGjrIZyVNpPE58CNI8uT5DhMH1liLPOUFhaaaEbFb4Lr0f4kGvrDBEVC8J5ONAFtlHoPIR9UL8Joz/P75iG0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=NEV+S1o6; arc=fail smtp.client-ip=40.107.162.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AAB3BD225;
+	Thu, 13 Aug 2026 12:38:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786624732; cv=none; b=G3YRrO5YWlopvIYXznvyNUVyrqGd2VhQkCI5794KUg2UkGr8RVd7SpzinG7ZwUNr25hQNCk30+bGGQRxxamqc/9OykKC2WxSj/33SdEz6QxYF7HZppT960XFA/ReJdkO8KeJj1on8Q2qd2O8jf6dauD7sPJfsWBd5gX7VhE9XEw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786624732; c=relaxed/simple;
+	bh=l6kqcTsMKzlAtJHGFOG2awd1t7J9zIBNdmxrYPkmxNQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PijT8Ye/mdSYaoLN4RuZDxIuQkbApxoqbnBHHuy4NFYrGHS+OyLTX41hywogk6jLhlKnNyg6uBMhM68xOmBZckGW+yKTrcToBcFc/H+UzrkTsjUMyz3sdG8+l/42Ch/spEUAX24DVBKskzihgJsLjMPhotmYQqXX7pvEGFg/fso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/qsNX5x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="NEV+S1o6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rNC4/vNU9joNOOvp5+XWyOBU2tYX8C0fCKdV6A6Bujuzkw/muLhNjEyFHIKXY5OGZ7lWoVpOPLtOfya+J8ISLtPnL8R6bpXQtAS9/R/6UHDyz9yJRkmopoaMXi0p1ISHkKqO5mOYg8x0kRhOoMfd9QVUNsAH2odg01cw2QfNtrKYtBkFZWPDi6NRimlU58i+G251AflpmVctGBza3B4bclzmp/zhjlnUepvc4BKeihgXchYaJ21D9yvwa5/6h+XblvVedD3m7qrfdZq+ZLDV0W/tFOgYax8VnT0odzBLYEw7rQH/lUPTmJhM3jumGFYiFePp3PCKcJfhGJQ+3Uepdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=589p88QEXqmNbmHbLnVEIOp01D65st/1zd+FZZmOGGE=;
- b=BRL4sHNbfbgUxjLaRuf9oQcPTCl/H+7mZazccHOjiFubOOdgZ5iP1iGyCRiiwq33/QzwFJtm76uHxDghrJvUdivxKQ+JsjTzRaU/gdvwRWkRVhcnHGkLEiBL9cO+d9dlXPs5HRJ8QkNYnDTD8bKkweqc14nmpws0srSm9eiPQv0P7/e/JgUADJiuGs3xMy8VpLOFQASCD+z3rWGkL6iLB3y/fozxeZIgwMAJ/h/f9eKbot5oDcC+XtCZoCtXY2mxWxIF5K3mlEmcodGRmnFnnUwzcwGPHRZI2RTPaSk6kIzk7ctGSOne65IG4DcOgZe7/Jz1SDj7lMq1vUytMWDx4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=589p88QEXqmNbmHbLnVEIOp01D65st/1zd+FZZmOGGE=;
- b=NEV+S1o6UHtkYsypGY4kkdN61h82LF4n7YHab3Y27WVgIRY8hpvvPl3azouyZBJBMI/xgnViw8CVtdW2tgm84NpxVAE3HdOG/39CR9qNITdb7HZOU+j+jk59ClEl5uD9D+0w8z+KFntiuaYpiEU47DqUWEe6cXgeK7PvpvcDC48=
-Received: from DB3PR0202MB9129.eurprd02.prod.outlook.com
- (2603:10a6:10:43a::19) by AS8PR02MB9814.eurprd02.prod.outlook.com
- (2603:10a6:20b:61d::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Thu, 13 Aug
- 2026 12:37:45 +0000
-Received: from DB3PR0202MB9129.eurprd02.prod.outlook.com
- ([fe80::7510:e8c3:db37:47ff]) by DB3PR0202MB9129.eurprd02.prod.outlook.com
- ([fe80::7510:e8c3:db37:47ff%4]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
- 12:37:45 +0000
-From: Kanak Shilledar <Kanak.Shilledar@axis.com>
-To: "joshua.crofts1@gmail.com" <joshua.crofts1@gmail.com>
-CC: "dlechner@baylibre.com" <dlechner@baylibre.com>, Henrik Grimler
-	<Henrik.Grimler@axis.com>, "nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"jean-baptiste.maneyrol@tdk.com" <jean-baptiste.maneyrol@tdk.com>,
-	"robh@kernel.org" <robh@kernel.org>, "jic23@kernel.org" <jic23@kernel.org>,
-	"andy@kernel.org" <andy@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	Kernel <Kernel@axis.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [PATCH 2/3] iio: accel: Add support for ICM42370P
-Thread-Topic: [PATCH 2/3] iio: accel: Add support for ICM42370P
-Thread-Index: AQHdJaGpkDBJeWC86ESJa7wUb7qbr7aSXnCAgAA7BgCACVxQAA==
-Date: Thu, 13 Aug 2026 12:37:45 +0000
-Message-ID: <aba48fde655c2f1c0a10c335dd50a07a8a52fb5d.camel@axis.com>
-References: <20260806-b4-inv_icm42370p-v1-0-670837f5842f@axis.com>
-	 <20260806-b4-inv_icm42370p-v1-2-670837f5842f@axis.com>
-	 <20260807120937.00004e3c@gmail.com>
-	 <ba866b98384dcd827d5a610de9f00386da5824e2.camel@axis.com>
-In-Reply-To: <ba866b98384dcd827d5a610de9f00386da5824e2.camel@axis.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB3PR0202MB9129:EE_|AS8PR02MB9814:EE_
-x-ms-office365-filtering-correlation-id: 6a4535cd-df23-43e8-473e-08def937ad13
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|6049299003|18002099003|22082099003|56012099006|4053099003|38070700021|4013099003|6133799003|11063799006|4143699003|10067099003;
-x-microsoft-antispam-message-info:
- aXSgp0LgHa2RrIyjk0o2mVHNoMWyrk1yPd1H+oe4boYnQ4P3GLf+MfGj/dRLjK6aPmySgDs8+Tu676kCw3DZlOxXaKSfGiL3Jjz3rcLiGURFl+ZMdvK937NjTkXbFgKG6I93JmSh9kA1oYzgT2en2QclaquCYoohutPI3HVgmcjpd9NnM6r1uL6vc06Z7ocowu5Roh4+L70MvqVyHBqtJ8/5jBBhDS1PY9rvEnlNFJtQ5I6i5cd43V0iT9H0g0yNgWSSZ58DDYKwcwZ9DLjIcZ/SjNtml9WOAfdePgTmJUW48MLhfzguZD2Dq9EvFss01Qc8zWcOzNkK+8tuoq1W2H65jxzpuU4jjfsxCxhiEt2zHnDbWX2uJDHmYf4G7nlSSR4ScajfrTvjD+Y4PfKn8xOcwuQFXUPO+GxL44VsxDEsFV18+2MxsfpXKL3Dn/b2mCW1tABU6dS8fJ1xnrbDliFOctNDj7vy7jleM+RbHdCFGyF+xDggQeO3hX3q2A6fR560SyXwF4axxYYe2yZ/kmyxORb+ppBiZcoHBXGZbRxMMDHlnvxg4l/GM0lhHsjkxQz3/1GTjt3dQZLf5SCR/JRONPmkZsUnypQJSE6945AjPeG/MKBZ9Ss7+rMcmq/J513ERzUNUOKggs13ydvyLKukP9T/5UZopBLyyIiNSXTsomhRMDv1o3DIHvBF1Le4UTReY7A/K+k6kxEajGdFXioL28lw0tYQiJRPZ9mVFOA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB3PR0202MB9129.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(6049299003)(18002099003)(22082099003)(56012099006)(4053099003)(38070700021)(4013099003)(6133799003)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ejFTRngrcmRzUDN3SUo2SE9KZVFqaVN5Mkd0cXhZdjUwN0FtdjZRNm1TQnB4?=
- =?utf-8?B?bWJCQ3Z2bVgvTHI5SDdYM0NPN2szSGlJRnlHVzFpdk0yRDFkeHdieHc0RVpY?=
- =?utf-8?B?ODdkd1hNTU95ZkQ1UnZ4NnlBMThDb3k2dVVrN0YybDFmM0dEYmNCT05rZnJs?=
- =?utf-8?B?TDJYUEIxVWk0c2NzOXRham5lbk5pbE4yT09wZTB0L2JGM2M2VXFTVWNMQzcr?=
- =?utf-8?B?MEF4SlQ3TUYzVGIybXZTclVFWWwrOEpUc0FWeSs4WTNNR3R1QlN0OUZnR3Fm?=
- =?utf-8?B?ZWw4emhRSitQNHFrZCtlUEtQQWN0dE5OS0tBZUU5eEgwZXdhWFF3YlZVSy9F?=
- =?utf-8?B?NjljazFnL2Q3RjB5YVBJYXhHRzRBVmdZT0VDbjV3emNJOXVQNVpFalROQ3Rs?=
- =?utf-8?B?R3hEdk5sSFpXYWdMMjhoQkxzOU9lck9RYXROekovelh1YjA4aS9lbFhYUmFS?=
- =?utf-8?B?dm90TS9PaFdTL2k4aU5jekpDK0NkVVVuaTE1T216MHJkVDZNZGdCd3htRUhI?=
- =?utf-8?B?YlBVK0poUXFZc0tPM3dJZ1FlNFJlYkxXNGkzN0UwMTdCQW5JRmxyeDBNL3RC?=
- =?utf-8?B?V3poeUdDd2Q3cEdTc29XellCVkttc284V2xCaDN6SEpxcHJYVlRQN2xPS3NH?=
- =?utf-8?B?TzVKWS9mU1Fra25GdHRRQjZiNU9XdHpjbko0UXVmdlZPK0d4WEtHL2swcGpP?=
- =?utf-8?B?UkNyQ1RLRHFFaE5HV1lETktWNTFYOWlidmtMQkFvNDhqeGpvUVZVSWVBVVU1?=
- =?utf-8?B?VzN2Uk1YZ3lPcSttNnRGMWZ2UHV0b2lzOWFjQmVUaGxUZGd3d1RDdjNwZENB?=
- =?utf-8?B?alVLWGxxVjZWOThVSyt0b09uZjJ6WTNZVklUdEozS08xNWZicEd5cFNWd3Fm?=
- =?utf-8?B?UURmeUZYaU9xRWNkTlFsUkkrd1cvSG4vNVBLWE5KVTBXM2h0ZjZCZXc3U1pN?=
- =?utf-8?B?R0ZpRzZ6OHF2MllFZGVYOC9nWmNMMDJxV0RSeTE2U3dWZENNK0JNbkZSaXZj?=
- =?utf-8?B?OEdMdVY1THc1R05nR3RkVnZKYjIrVDFiMHNLdFVMdmpBM1ZVbnB4NXBJWjZ6?=
- =?utf-8?B?SlIyVDJ0cE9tU3dnUDRvZUJkYVRvc3pIUHBCRDdBRStpTFg5WjhtdFM2cGk5?=
- =?utf-8?B?YS9yYVBPWE12RThJUFh2WG00N242WW9QQ09XcVI4L3VtMUpaZFdBQ3E5QVlL?=
- =?utf-8?B?NHFrZlkycW1JcFA0eE9VaWxIVlNQNjRRVEtaTWxtcS8yUW55dzA5eHFGNzhh?=
- =?utf-8?B?R0V5UVUwZThvVGRodmpGR2JpK010T1lpM0JQSTlRQ25aWnRUSGptZC85eGxV?=
- =?utf-8?B?WGlOZXVFN1JaT0FoMFRvdThVR0NIVE1DT0xPZnJrS1VERWd6dXZZaDl5a2xH?=
- =?utf-8?B?bXVkRUlUN1dsdFFickMwR0dWSy9UN1k1UThYZU9NREplR1EyNWdkazRqWnk3?=
- =?utf-8?B?VTNEZG94azUzVXRzc2JUVG9SanFaWjkvQ1pUMUlWRHN0aUdJdDNkTEdZK3ow?=
- =?utf-8?B?elI3emJhV2RmT0N4aXM5MitjTGxUMWF5a01lWlNEb2RKZ2pwOGxFVy9FK3ZT?=
- =?utf-8?B?emdOMnF4TEpPRlVZSmlHdHVPUjdOelNHKzJITHZvNkQyRjVMMCs1UVZnZVU2?=
- =?utf-8?B?TDd1TU1RdFAxZ0JJZXp5cHZ1TUpBYXlucmQvYU0rYWNScDhySy83SG1OQVNR?=
- =?utf-8?B?YVVZR3NJTUFXL0trTTNsbkU4UUJONnpSUm1rbkhZaTFleUdCQU50RG8rcThW?=
- =?utf-8?B?T05pY282UXFvdVdZb1FRMGIycEJOamM4cnUwTW5ldDNHZUQyOGx0cGpJQTFu?=
- =?utf-8?B?SDhoL2RQZmE0TzhreTBYakltb1FUZ0t5aTJZWWpOc3pTWTF2aXhaWDM0RlNQ?=
- =?utf-8?B?L2lpVDlBTW8xWG83WFdMbnZwYXZsMjJBSkRabnFld0NaZ0pXK3BTcVNveEcv?=
- =?utf-8?B?SXJBZnBod3UrQjdjekpvWk1qcG5rWGMvVEZSSU1Uby82ZytBWVNoM1FCa2dM?=
- =?utf-8?B?L0tjMnp5d3ZvRkNXaTFRMkFRRjdtbmIvc0pvdFhUTFhHT1dxMWpjQlpVTjJp?=
- =?utf-8?B?eHlRVTdDaXdaNkQrZXE4bTZwYVRScUVRbVdPYnVvMHdhOEJ3RndNV1RLdXhO?=
- =?utf-8?B?THdqOHp1WStEU29hZmhLOHJVckxVRjZodkhCbm9qTStvYXZtbnpwajBNaXk1?=
- =?utf-8?B?cnpLNDJMTVRiRlo3Tmt6K0xuZjlVQWd0RnRvSXFIeWJJNmt2M2dZL0ZqdzlQ?=
- =?utf-8?B?WVdYM1pwN2UxRzBZNjY0U0ZXcm9raUJwT3RHV0Nyb1NXbEpUQ3d2R0JHeFZC?=
- =?utf-8?B?b2VYZEtITHAyMTJDbjZiWDYyTWhzUTV6QlVYUk02empmOEVCTHUrZz09?=
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="=-ZD8AQ7qluWOsFXoqFlm9"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/qsNX5x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048DF1F000E9;
+	Thu, 13 Aug 2026 12:38:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786624731;
+	bh=LBP1ThiJDiqMaPUW1k9BGd4ceLpbU1ZyA9FI9qbdQ7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D/qsNX5xklT6SE2DiETI0i94S7g9+6U0xsNx33gQlU6zUQCsgryLjqLfDMnmhYOK0
+	 2bhiDt7foF/iK0glpKcOAc4o423Ry/3L7VJIfn0JWywvQBTEi9bZ5oaTPDO4tLpREj
+	 b4S/5B5/kH41ebLY4v53hDfK4NlYeXuf3Dxf+yJPB9WBdFOgt0TgJk7hf8obw7M97y
+	 6asPwAjuwjFHg7BA9TStZb44VKxrFf1uisjJYptSpigN0bG5dm6XRMFrbUK0ZaiXIO
+	 sKfUjOinvtJiMtcSjBxsRgMjbKnuGCG5kP6FmpQNdBeBug+typBAs53ml0rnrSP2JU
+	 Lc7O/qslA0ouA==
+Date: Thu, 13 Aug 2026 13:38:41 +0100
+From: Lee Jones <lee@kernel.org>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	John Stultz <john.stultz@linaro.org>,
+	Moritz Fischer <moritz.fischer@ettus.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Andre Draszik <andre.draszik@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, mfd@lists.linux.dev,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for
+ cpuidle-psci-domain cell
+Message-ID: <20260813123841.GC1820248@google.com>
+References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
+ <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB3PR0202MB9129.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a4535cd-df23-43e8-473e-08def937ad13
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2026 12:37:45.4994
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: V//Wyk9T+WGDzk4C11KrOjcKULB/zBesvuHAQQ8/3sviviLsta687cgexofTrSzw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB9814
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
 
---=-ZD8AQ7qluWOsFXoqFlm9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Mon, 03 Aug 2026, Shivendra Pratap wrote:
 
-Hi Joshua!
-On Fri, 2026-08-07 at 15:40 +0200, Kanak Shilledar wrote:
-> Hi Joshua,
->=20
-> On Fri, 2026-08-07 at 12:09 +0200, Joshua Crofts wrote:
-> > [You don't often get email from joshua.crofts1@gmail.com. Learn why
-> > this is important at
-> > https://aka.ms/LearnAboutSenderIdentification=C2=A0]
-> >=20
-> > On Thu, 6 Aug 2026 14:46:28 +0200
-> > Kanak Shilledar <kanak.shilledar@axis.com> wrote:
-> >=20
-> > > Add support for the Invensense ICM42370P MEMS MotionTracking 3-
-> > > axis
-> > > accelerometer with a built-in temperature sensor. Compared to
-> > > other
-> > > sensors from the same vendor ICM42370 uses a different way of
-> > > handling
-> > > register banks. Although the device supports I2C, SPI, and I3C,
-> > > implement only I2C support.=C2=A0 Provide basic support for raw senso=
-r
-> > > reads and a sysfs interface for setting the calibration bias.
-> > > Keep
-> > >=20
-[snip]
-> > > +static irqreturn_t inv_icm42370_irq_timestamp(int irq, void
-> > > *_data)
-> > > +{
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 struct inv_icm42370_data *dev_data =3D _dat=
-a;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 dev_data->timestamp =3D iio_get_time_ns(dev=
-_data-
-> > > >indio_accel);
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 return IRQ_WAKE_THREAD;
-> > > +}
-> > > +
-> > > +static irqreturn_t inv_icm42370_irq_handler(int irq, void
-> > > *_data)
-> > > +{
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 struct inv_icm42370_data *dev_data =3D _dat=
-a;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int status;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 int ret;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 mutex_lock(&dev_data->lock);
-> >=20
-> > Use guard(mutex) from cleanup.h, it eliminates the need to use
-> > gotos
-> > and
-> > labels for cleaning up functions (a lot of examples in IIO for
-> > this).
->=20
-> Will convert all instances of mutex operations with a guard(mutex).
->=20
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D regmap_read(dev_data->map,
-> > > INV_ICM42370_REG_INT_STATUS,
-> > > &status);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 if (ret)
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 goto out_unlock;
-> > > +
-> > > +out_unlock:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 mutex_unlock(&dev_data->lock);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 return IRQ_HANDLED;
-> >=20
-> > Not sure, but is it okay to always return IRQ_HANDLED, even on
-> > regmap
-> > failure?
->=20
-> From some reference drivers it seems to be common, but we will
-> investigate this.
+> PSCI has multiple kernel consumers, such as cpuidle-psci-domain.
+> Currently, both the PSCI core driver and cpuidle-psci-domain bind
+> directly to the same PSCI node "arm,psci-1.0". Additional consumers, if
+> introduced, would also need to bind in the same way, leading to several
+> drivers attached to a single device node.
+> 
+> Introduce a PSCI MFD driver that binds to "arm,psci-1.0" and registers
+> PSCI child cells. As the first user, register cpuidle-psci-domain as a
+> child cell.
+> 
+> Update cpuidle-psci-domain to probe as an MFD child and use the parent
+> PSCI node for power-domain traversal.
+> 
+> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
+>  MAINTAINERS                           |  1 +
+>  drivers/cpuidle/Kconfig.arm           |  1 +
+>  drivers/cpuidle/cpuidle-psci-domain.c |  9 +-------
+>  drivers/mfd/Kconfig                   | 12 ++++++++++
+>  drivers/mfd/Makefile                  |  2 ++
+>  drivers/mfd/psci-mfd.c                | 43 +++++++++++++++++++++++++++++++++++
 
-To conclude this thread, I went through the drivers and there are only
-3 return values (c.f. linux/irqreturn.h) and interrupt is caused by the
-device which is not shared by any other driver, thus we should mark the
-interrupt as handled even on failure.
->=20
-> >=20
-> > >=20
-Thanks and Regards,
-Kanak Shilledar
+We don't usually allow the use of the term MFD in devices.
 
---=-ZD8AQ7qluWOsFXoqFlm9
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+What does this do?  Is it a mux?  psci-mux?
 
------BEGIN PGP SIGNATURE-----
+If not, think about what it is and call it that instead.
 
-iHUEABYKAB0WIQRZbIB7R61KYt5yWsuslrbqDH4eIAUCan26kAAKCRCslrbqDH4e
-IOIAAP48VXNtMPwc/vHLJpePr1UD6kSoLkff1XOd3fn/Vwco7wEA1Apf0PlT2NLu
-tI+soFH8XPgkJLaUSF4ZhG0jSR/AnAk=
-=cQ1c
------END PGP SIGNATURE-----
+>  6 files changed, 60 insertions(+), 8 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index fe67f7bfa44c..0b6e4f89f319 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -21671,6 +21671,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/arm/psci.yaml
+>  F:	drivers/firmware/psci/
+> +F:	drivers/mfd/psci-mfd.c
+>  F:	include/linux/psci.h
+>  F:	include/uapi/linux/psci.h
+>  
+> diff --git a/drivers/cpuidle/Kconfig.arm b/drivers/cpuidle/Kconfig.arm
+> index b88b01aa5829..c5ecca0d7397 100644
+> --- a/drivers/cpuidle/Kconfig.arm
+> +++ b/drivers/cpuidle/Kconfig.arm
+> @@ -36,6 +36,7 @@ config ARM_PSCI_CPUIDLE_DOMAIN
+>  	bool "PSCI CPU idle Domain"
+>  	depends on ARM_PSCI_CPUIDLE
+>  	depends on PM_GENERIC_DOMAINS_OF
+> +	depends on MFD_PSCI
+>  	select DT_IDLE_GENPD
+>  	default y
+>  	help
+> diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
+> index b9e4ad7d43a3..a2d01810f295 100644
+> --- a/drivers/cpuidle/cpuidle-psci-domain.c
+> +++ b/drivers/cpuidle/cpuidle-psci-domain.c
+> @@ -17,7 +17,6 @@
+>  #include <linux/pm_runtime.h>
+>  #include <linux/psci.h>
+>  #include <linux/slab.h>
+> -#include <linux/string.h>
+>  
+>  #include "cpuidle-psci.h"
+>  #include "dt_idle_genpd.h"
+> @@ -122,14 +121,9 @@ static void psci_pd_remove(void)
+>  	}
+>  }
+>  
+> -static const struct of_device_id psci_of_match[] = {
+> -	{ .compatible = "arm,psci-1.0" },
+> -	{}
+> -};
+> -
+>  static int psci_cpuidle_domain_probe(struct platform_device *pdev)
+>  {
+> -	struct device_node *np = pdev->dev.of_node;
+> +	struct device_node *np = pdev->dev.parent->of_node;
 
---=-ZD8AQ7qluWOsFXoqFlm9--
+dev_of_node(pdev->dev.parent);
+
+>  	bool use_osi = psci_has_osi_support();
+>  	int ret = 0, pd_count = 0;
+>  
+> @@ -181,7 +175,6 @@ static struct platform_driver psci_cpuidle_domain_driver = {
+>  	.probe  = psci_cpuidle_domain_probe,
+>  	.driver = {
+>  		.name = "psci-cpuidle-domain",
+> -		.of_match_table = psci_of_match,
+>  	},
+>  };
+>  
+> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> index e4fd4572472f..d18655d76172 100644
+> --- a/drivers/mfd/Kconfig
+> +++ b/drivers/mfd/Kconfig
+> @@ -2374,6 +2374,18 @@ config MFD_KHADAS_MCU
+>  	  additional drivers must be enabled in order to use the functionality
+>  	  of the device.
+>  
+> +config MFD_PSCI
+> +	bool "PSCI MFD for psci child cells"
+
+"PSCI mux for registering PSCI component devices" ?
+
+> +	depends on ARM_PSCI_FW
+> +	depends on OF
+> +	select MFD_CORE
+> +	default y
+> +	help
+> +	  PSCI MFD registers PSCI child cells and exposes them as
+> +	  platform devices.
+
+This is what all DT related MFD devices do.
+
+> +       Child drivers are probed only if enabled in the
+> +	  kernel configuration.
+
+Nothing new here either.  This is the norm.
+
+"PSCI Mux is a Linux specific device splitter designed to register
+ multiple PSCI related components via a single Device Tree compatible.
+ Without it, devices would each bind to a single node ... <which causes
+ problems with x, y and z>"
+
+> +       Select this option whenever a supported PSCI
+> +	  child driver is selected.
+> +
+>  config MFD_ACER_A500_EC
+>  	tristate "Support for Acer Iconia Tab A500 Embedded Controller"
+>  	depends on I2C
+> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+> index 72d3944b0ad8..f3edfad702ff 100644
+> --- a/drivers/mfd/Makefile
+> +++ b/drivers/mfd/Makefile
+> @@ -24,6 +24,8 @@ obj-$(CONFIG_MFD_EXYNOS_LPASS)	+= exynos-lpass.o
+>  obj-$(CONFIG_MFD_GATEWORKS_GSC)	+= gateworks-gsc.o
+>  obj-$(CONFIG_MFD_MACSMC)	+= macsmc.o
+>  
+> +obj-$(CONFIG_MFD_PSCI)		+= psci-mfd.o
+> +
+>  obj-$(CONFIG_MFD_TI_LP873X)	+= lp873x.o
+>  obj-$(CONFIG_MFD_TI_LP87565)	+= lp87565.o
+>  obj-$(CONFIG_MFD_TI_AM335X_TSCADC)	+= ti_am335x_tscadc.o
+> diff --git a/drivers/mfd/psci-mfd.c b/drivers/mfd/psci-mfd.c
+> new file mode 100644
+> index 000000000000..7affd6bb09dd
+> --- /dev/null
+> +++ b/drivers/mfd/psci-mfd.c
+> @@ -0,0 +1,43 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/mfd/core.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +
+> +static const struct mfd_cell psci_cells[] = {
+> +	{
+> +		.name = "psci-cpuidle-domain",
+> +	},
+> +};
+
+MFD_CELL_NAME() ?
+
+MFD drivers have to support more than one device from the get-go.
+Please add your other device here in this patch.
+
+> +static int psci_mfd_probe(struct platform_device *pdev)
+
+No to _mfd_.
+
+> +{
+> +	return devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO, psci_cells,
+> +				   ARRAY_SIZE(psci_cells), NULL, 0, NULL);
+> +}
+> +
+> +static const struct of_device_id psci_mfd_of_match[] = {
+> +	{ .compatible = "arm,psci-1.0" },
+> +	{ }
+> +};
+> +
+> +static struct platform_driver psci_mfd_driver = {
+> +	.probe = psci_mfd_probe,
+> +	.driver = {
+> +		.name = "psci-mfd",
+> +		.of_match_table = psci_mfd_of_match,
+> +	},
+> +};
+> +
+> +static int __init psci_mfd_init(void)
+> +{
+> +	return platform_driver_register(&psci_mfd_driver);
+> +}
+> +
+
+Remove this line.
+
+> +core_initcall(psci_mfd_init);
+
+This is usually a hack.  Why can't you use -EPROBE_DEFER?
+
+> +
+> +MODULE_LICENSE("GPL");
+> 
+> -- 
+> 2.34.1
+> 
+
+-- 
+Lee Jones
