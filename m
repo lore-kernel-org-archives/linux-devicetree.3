@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A3636A008
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 06:51:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BC9413D62
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 06:53:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786603913; cv=none; b=H1rBsdIbCqT6RqcgM8qMiU4zmu+pF9aVPYvIUAwRyYcZJWMZXeYU4cen3l7r9/VFHg5koVzHRFAlpEtEQGarXz3xCAYPCwpwktk8BHtCOBPzkZSGmPXkhmmiKblX7tWH9ZRqdNSjeUAhQaaSRQksuGqUsS028410Iaiqj57Eb3U=
+	t=1786604040; cv=none; b=B3h4en/RUXHu852aOwGLPQ0dT/xqAFRXU6YtDnhOkxJSaQ3Om4/eYm/SXbPA0GReiHkmFSplPQmBt8n2FqrS783bq4Z7GlSdCMX0C9jwcHlwJXIey6vnUE4GwzEhThIgRBuwHt7pRhC0bL4zvX3z6Vrw1Z/WlsU5Ms3ET+D2O+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786603913; c=relaxed/simple;
-	bh=APeTdPMESCUQwjsO1OtpL7BCnkPY4rEet2PDN/x+t00=;
+	s=arc-20240116; t=1786604040; c=relaxed/simple;
+	bh=Tk1FG0B7DFzpFihs16y/LWLxuWK/3HdCTNpRjQiFCl0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C5KAzKKEKLqD2Rg+sqtVGIi3LBltOdque2PpRj3qZ3sUe1rXjGfW9pqmVQV5cpjd7AtpWYJlxuzt1GvFiZz0xzYBRMRxQGUrlrZsoKkz/K0aJY7ZJ57HYuNcZZgUAL2/qevIJfxvV9V3k/+Zxa7Wasp4BDNNqg2EqFZG4CO1Q4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGnRaQqK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=e4eBxJZRfFP/lHNBAyAwfbE9caiqEs8Z2KUjC3d00aKVpHWGpX15G0aLhIBroJNfOdIEZYJywMQqy40p0t6HFL74oeesVD+6aNAWmwDEKX3O1KmzSsKUFvw+HuIbujX/KRt/KpixmEtetu6r+cQzDnvT3qsnYgNTNkBfpPTxMHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZPsH6GA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGnRaQqK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1031F000E9;
-	Thu, 13 Aug 2026 06:51:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZPsH6GA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 326681F00A3A;
+	Thu, 13 Aug 2026 06:53:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786603911;
-	bh=iCklps7UWvDQSnKkwI95saEdh6rTCvDeROcwE3rWGmA=;
+	s=k20260515; t=1786604039;
+	bh=0Fr1fey4z1RmfoCm6VpWp5RCRLneyeH2BtwQQ0jIr4A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XGnRaQqKjqfTAwg1ToSjOIU42PmPe9X+SPX/8fBkJAgGbPi/z0werdRyGICirilcG
-	 Pu7QMwW23N/ySoVhhSb754feyY8n81s3CKj+nEvep5GZgrP58msfSaQmwvtb5bz06/
-	 BZu43ryQny1mc9Nbmw29IrtroP4IrRUFeVhJzcZA2OKM+Jle8fUGoxfuxpidyjXovx
-	 3ZVJ1tlHTSh85Ode92OQvkdkScaCSFmDZHCTXvOaezDTTlfkWtSGP97Do5pIcgX7sI
-	 e4abPptpJPz4Ag2OgD6ImKu46iryjx4uXgJsHGjZ/vi0sraYK5ykdrJFUZHS+VIdaX
-	 vMCGZQgkHOsdw==
+	b=bZPsH6GAryycxYiXP4qJdE7YVeXkClJlkjjDaZ7syUwS5EqHvB1/X4M6beRC1khud
+	 uJGElT9XOW+j5infXm1at7+5QSpsQe5X4biqamVRFBOVvLo4gUsAQbHm9ixEUpGhUc
+	 N1P+ewyf3pxD1VS1Y3QNgNMBAiXEwn9joFd5qmafLroEkJP4mXG9ujg1HkceMx/Xpi
+	 zScGOjrK2db5ciVQp0/zGSm13xw7GPhHkLbxyO0EMT5su7UoEclUDxq0+VC6HDxltT
+	 tAwR6xezJrV5xfuF06cj5bozFFCK9iiR7HTmf1/WO6ubuiupIqy69xJGqLEqFGN1uj
+	 0zPqHks1lqDDg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] firmware: stratix10-svc: Add for SDM mailbox
- doorbell interrupt
+Subject: Re: [PATCH v2 2/2] ipmi: kcs_bmc_aspeed: Support multiple LPC
+ controller instances
 Reply-To: sashiko-reviews@lists.linux.dev
-To: tze.yee.ng@altera.com
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <0635f2f00a167faf8bcffcf70fe095a86011da6f.1786600929.git.tze.yee.ng@altera.com>
-References: <cover.1786600929.git.tze.yee.ng@altera.com>
- <0635f2f00a167faf8bcffcf70fe095a86011da6f.1786600929.git.tze.yee.ng@altera.com>
+To: "Yu-Che Hsieh" <yc_hsieh@aspeedtech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260813-upstream_kcs_multiple_lpc-v2-2-775b1db3fe95@aspeedtech.com>
+References: <20260813-upstream_kcs_multiple_lpc-v2-0-775b1db3fe95@aspeedtech.com>
+ <20260813-upstream_kcs_multiple_lpc-v2-2-775b1db3fe95@aspeedtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 06:51:51 +0000
-Message-Id: <20260813065151.BE1031F000E9@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 06:53:58 +0000
+Message-Id: <20260813065359.326681F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,131 +47,123 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] devm_request_any_context_irq() positive success values are incorre=
-ctly rejected by strict `ret =3D=3D 0` check.
-- [High] Dropping trx_list_lock before callback execution allows client sta=
-ck popping, leading to UAF/stack corruption.
-- [Medium] Improper handling of -EPROBE_DEFER from of_irq_get().
+
+Pre-existing issues:
+- [High] Uninitialized spinlock crash when IRQ is triggered before `kcs_bmc=
+_add_device()` initializes it.
+- [High] Missing hardware cleanup on probe error leads to a shared IRQ stor=
+m.
+- [High] Use-After-Free due to dangling device pointer on `kcs_bmc_add_devi=
+ce()` failure.
 --
 
---- Patch [4]: [PATCH v3 4/4] firmware: stratix10-svc: Add for SDM mailbox =
-doorbell interrupt ---
-commit 0c0971a9e6fe55c0bfa458e38981b259f988e3ae
-Author: Mahesh Rao <mahesh.rao@altera.com>
+--- Patch [2]: [PATCH v2 2/2] ipmi: kcs_bmc_aspeed: Support multiple LPC co=
+ntroller instances ---
+commit 17a4462de4be19f6ce20e258d80cf2c95a1f7589
+Author: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
 
-firmware: stratix10-svc: Add for SDM mailbox doorbell interrupt
+ipmi: kcs_bmc_aspeed: Support multiple LPC controller instances
 
-Add support for SDM mailbox doorbell interrupt for async transactions. On
-interrupt, a workqueue is triggered which polls the ATF for pending respons=
-es
-and retrieves the bitmap of all retrieved and unprocessed transaction ids of
-mailbox responses from SDM. It then triggers the corresponding registered
-callbacks.
+Some SoCs (e.g. AST2700) expose more than one physical LPC controller,
+each instantiating its own independent set of KCS0-KCS3 channels.
+The driver is updated to derive kcs_bmc_device::channel based on an
+optional LPC controller alias, allowing multiple instances to register
+their chardevs properly.
 
-> diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix1=
-0-svc.c
-> index f8c2da207cb4e..8c86441eae58b 100644
-> --- a/drivers/firmware/stratix10-svc.c
-> +++ b/drivers/firmware/stratix10-svc.c
+> diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_b=
+mc_aspeed.c
+> index a13a3470c17a4..591c11a445039 100644
+> --- a/drivers/char/ipmi/kcs_bmc_aspeed.c
+> +++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
 
 [ ... ]
 
-> @@ -1659,14 +1666,96 @@ static inline void stratix10_smc_1_2(struct strat=
-ix10_async_ctrl *actrl,
->  	arm_smccc_1_2_smc(args, res);
->  }
+> @@ -590,9 +605,11 @@ static int aspeed_kcs_probe(struct platform_device *=
+pdev)
+>  	if (!priv)
+>  		return -ENOMEM;
 > =20
-[ ... ]
-> +static void stratix10_async_workqueue_handler(struct work_struct *work)
-> +{
-[ ... ]
-> +		do {
-> +			transaction_id =3D find_next_bit(pend_on_irq,
-> +						       TOTAL_TRANSACTION_IDS,
-> +						       transaction_id);
-> +			if (transaction_id >=3D TOTAL_TRANSACTION_IDS)
-> +				break;
+> +	priv->channel =3D channel;
 > +
-> +			cb =3D NULL;
-> +			cb_arg =3D NULL;
-> +			spin_lock(&actrl->trx_list_lock);
-> +			hash_for_each_possible(actrl->trx_list, handler,
-> +					       next, transaction_id) {
-> +				if (handler->transaction_id =3D=3D transaction_id) {
-> +					cb =3D handler->cb;
-> +					cb_arg =3D handler->cb_arg;
-> +					break;
-> +				}
-> +			}
-> +			spin_unlock(&actrl->trx_list_lock);
-> +			if (cb)
-> +				cb(cb_arg);
+>  	kcs_bmc =3D &priv->kcs_bmc;
+>  	kcs_bmc->dev =3D &pdev->dev;
+> -	kcs_bmc->channel =3D channel;
+> +	kcs_bmc->channel =3D bank * KCS_CHANNEL_MAX + channel;
+>  	kcs_bmc->ioreg =3D ast_kcs_bmc_ioregs[channel - 1];
+>  	kcs_bmc->ops =3D &aspeed_kcs_ops;
+> =20
 
 [Severity: High]
-Is there a risk of stack corruption or a use-after-free here?
+This isn't a bug introduced by this patch, but does this probe function hav=
+e a
+race condition where an uninitialized spinlock can be acquired?
 
-By executing the callback after dropping trx_list_lock, a racing client
-timeout might execute stratix10_svc_async_done() and delete the handler.
+The downstream IRQ is requested in aspeed_kcs_config_downstream_irq() and
+the hardware channel is enabled before kcs_bmc_add_device() is called:
 
-This could result in popping the client stack before the workqueue executes
-the callback on the now-invalid stack address cb_arg. Should the lock be he=
-ld=20
-during the callback or is there another way to ensure cb_arg remains valid?
+drivers/char/ipmi/kcs_bmc_aspeed.c:aspeed_kcs_probe() {
+    ...
+	/* Host to BMC IRQ */
+	rc =3D aspeed_kcs_config_downstream_irq(kcs_bmc, pdev);
+    ...
+	aspeed_kcs_irq_mask_update(kcs_bmc, (KCS_BMC_EVENT_TYPE_IBF | KCS_BMC_EVEN=
+T_TYPE_OBE), 0);
+	aspeed_kcs_enable_channel(kcs_bmc, true);
 
-> +
-> +			transaction_id++;
-> +		} while (transaction_id < TOTAL_TRANSACTION_IDS);
-> +	}
-> +	enable_irq(actrl->irq);
-> +}
+	rc =3D kcs_bmc_add_device(&priv->kcs_bmc);
+    ...
+}
 
-[ ... ]
-
-> @@ -1727,6 +1816,22 @@ static int stratix10_svc_async_init(struct stratix=
-10_svc_controller *controller)
->  	hash_init(actrl->trx_list);
->  	atomic_set(&actrl->common_achan_refcount, 0);
-> =20
-> +	irq =3D of_irq_get(dev_of_node(dev), 0);
-> +	if (irq <=3D 0) {
-
-[Severity: Medium]
-Does this improperly swallow -EPROBE_DEFER?
-
-Because of_irq_get() can return -EPROBE_DEFER as a negative value,
-this check will convert the probe deferral into a permanent fallback
-to polling mode. Should this propagate -EPROBE_DEFER instead?
-
-> +		dev_warn(dev, "Failed to get IRQ, falling back to polling mode\n");
-> +	} else {
-> +		ret =3D devm_request_any_context_irq(dev, irq, stratix10_svc_async_irq=
-_handler,
-> +						   IRQF_NO_AUTOEN, "stratix10_svc", controller);
-> +		if (ret =3D=3D 0) {
+The spinlock kcs_bmc->lock is only initialized inside kcs_bmc_add_device().
+If a shared interrupt fires, or a pending interrupt from the hardware is
+triggered right after enabling the channel, could kcs_bmc_handle_event()
+attempt to lock kcs_bmc->lock before it has been initialized?
 
 [Severity: High]
-Will this correctly handle nested IRQs?
+This is a pre-existing issue, but is there a missing hardware cleanup on the
+probe error path?
 
-devm_request_any_context_irq() returns IRQC_IS_NESTED (which is 1) on succe=
-ss=20
-for nested IRQs.
+If kcs_bmc_add_device() fails, the function returns immediately:
 
-By strictly checking for ret =3D=3D 0, successful nested IRQ assignments wi=
-ll
-be rejected. This skips INIT_WORK and enable_irq(), leaving the registered =
-IRQ
-permanently disabled and causing asynchronous transactions to time out.=20
-Should this check for ret >=3D 0 instead?
+drivers/char/ipmi/kcs_bmc_aspeed.c:aspeed_kcs_probe() {
+    ...
+	rc =3D kcs_bmc_add_device(&priv->kcs_bmc);
+	if (rc) {
+		dev_warn(&pdev->dev, "Failed to register channel %d: %d\n", kcs_bmc->chan=
+nel, rc);
+		return rc;
+	}
+    ...
+}
 
-> +			dev_info(dev,
-> +				 "Registered IRQ %d for sip async operations\n",
-> +				 irq);
-> +			actrl->irq =3D irq;
-> +			INIT_WORK(&actrl->async_work, stratix10_async_workqueue_handler);
-> +			enable_irq(actrl->irq);
-> +		}
-> +	}
+Because devm cleans up the IRQ handler but the hardware remains enabled and
+unmasked, will this unhandled shared IRQ fire continuously and cause an IRQ
+storm?
+
+[Severity: High]
+This is a pre-existing issue, but does a failure in kcs_bmc_add_device() le=
+ad
+to a use-after-free?
+
+In kcs_bmc_add_device(), kcs_bmc->entry is added to the global kcs_bmc_devi=
+ces
+list. If any registered driver fails to add the device, the function return=
+s an
+error without removing the device from the list:
+
+drivers/char/ipmi/kcs_bmc.c:kcs_bmc_add_device() {
+    ...
+	list_add(&kcs_bmc->entry, &kcs_bmc_devices);
+    ...
+	return error;
+}
+
+Since list_del() is not called on the error path, and the probe error causes
+devres to free the memory for priv (which embeds kcs_bmc), will any subsequ=
+ent
+driver registration or removal iterate over the global list and access freed
+memory?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786600929.gi=
-t.tze.yee.ng@altera.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-upstream_k=
+cs_multiple_lpc-v2-0-775b1db3fe95@aspeedtech.com?part=3D2
