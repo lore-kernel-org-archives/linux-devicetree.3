@@ -1,42 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CAD33939D;
-	Thu, 13 Aug 2026 09:29:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0B13B9937;
+	Thu, 13 Aug 2026 09:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786613345; cv=none; b=YaVsT+5UFjnHvkMLVEv+1vcizRnUUbdr8jNJUnfQAp4HOXRA96cMmEbB64W04TK/jECDRWovZLVdIzEPnHxwS6f2ao/DPmE8RQ2mFaUe3Tgq167mTahP+8wmb48ECDzL9AyQcNAf4hJ3bkSddnQynJP2SREHK+6QJF1+SOPZWdo=
+	t=1786613618; cv=none; b=oLeB+cXqiH8qd3r3V03j9RmDakPitd5gNg2uqKeAXk2YPE0wLMJ6+7bnFQBHbNncXYGWECw5cZAX/HenZQdWF6SqtHBm2sZan3egFohRTkWTGppRi8eDNnGKNOdA78CHd/6paYBtLow1ZMyJkflUiN+79fDLVgIFlj0iodh1VCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786613345; c=relaxed/simple;
-	bh=V7yz1xdUcYj69O1x3V+3WRVc824Oo8kW+lcILojXT64=;
+	s=arc-20240116; t=1786613618; c=relaxed/simple;
+	bh=gKTV4m8KlwEZMmaZaiuFA1ZLlnph1RyZ35y2zlnulDI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LPxbLvefJ39mhV+2XY++62t8hP6YLrjIN+isGGdgeDd+Wio/uUjvqyKeuLZNAjOWQ4pCiwToMlNhwm/R8w1sO9el50L1a7snC26Z5hTr5KHBRRRy5AUzwX/ti3vht3MH/kmseV7+4pna59CUhRL7Z8Lt3rIcOYZ+P1vzXsyzdHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNUHEzpX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RsR4iRXvj9VK49VYyr24Zzck+EAiSpZ91fVE4NSJDHCZDJZJh91+BjrHoIaA8zmdguzMPdcXMBE//UP7ddaFcqP/D62v+Xt4rDD7pHPTuJTM+oRkP/z9V3E6DvWzAt/6+LVjG4pjGo3k605IPpv/nb7M/yXffps1d3FMlbeXUEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqIU/tHe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNUHEzpX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10B21F00A3A;
-	Thu, 13 Aug 2026 09:29:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqIU/tHe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197591F000E9;
+	Thu, 13 Aug 2026 09:33:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786613344;
-	bh=tzfZOTg3euPGGgReeCodY9rzq6J9GOIejIL3iPZRIAM=;
+	s=k20260515; t=1786613616;
+	bh=dEGVOARleeHUWcidmmC2JG4jHPOG9h1aPB4xCemN8J0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jNUHEzpXTbP9KoV10pLCvQWuw6T015VemhiufP8I5jaQVQcuqS2ymcQI3rJXZwjeB
-	 B1IgNXGrkBj0BoXA4Jre+f8rlXCukwimLXggqV1rRSPSpng2oPAWPMHD65cSqKzR0s
-	 IX+knzD7HrxrHRLzcVIQwpCY2kLeYrvmSorJ2mIuteQ/m8ksIEovzDAmVvCGfCuB62
-	 g4lGSPZY1Cd4vshdnIjYIZId+0XuDXiX94zUq208lkyq0z9//X6/TRV79bMhk55ZqZ
-	 4Wi6nPSESEq86SUAg/hhin7RGTon4yWZ1QtSzhjiS4mZ7P7asu6+cSPHpj/cPQcH77
-	 B07IcfBE5glhQ==
-Date: Thu, 13 Aug 2026 11:28:58 +0200
+	b=ZqIU/tHeBulul8mJwS/Vrx7EEQdaCznHsJUhPVoKmONEV9WPxUYZfPH+y27SEkeyt
+	 eMnqgP/CNX+3jg+IHhaIQl4lE0lFEDFzxCw8ERQhnsfXL75HoZoHhqCxuCni2B4n2r
+	 MrCEHPly2nLMQFTY8XGYF5cNhLUTQ7q/RgumFVbTA3TP6mGJtu/V1QxEQq7yCpaiPx
+	 am0rYLYYJEnGvEF0a8y5rBuaqFC7+TL/Xrr5oeLY8fayMVEY3sC75RVD/ya5ehKQGs
+	 vQOhEakhUtrxC/MpgU/q0dfqZJ6wWWejzeUuzbCWoVKS3ZIhkBa6ZdTiz90Rhld26H
+	 CzTCzM6XJzhog==
+Date: Thu, 13 Aug 2026 11:33:25 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH v1 2/5] ASoC: qcom: q6prm: Fix QAIF clock ID typo
-Message-ID: <20260813-snobbish-acoustic-spider-8c0749@quoll>
-References: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
- <20260808181948.2489187-3-prasad.kumpatla@oss.qualcomm.com>
- <20260808184539.3C6601F000E9@smtp.kernel.org>
- <e88326f0-e945-4d63-b257-308cb00df756@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Jie Zhang <jie.zhang@oss.qualcomm.com>
+Subject: Re: [PATCH 2/6] dt-bindings: display/msm: Document Adreno 830 GPU/GMU
+Message-ID: <20260813-tidy-warthog-of-biology-e0a631@quoll>
+References: <20260809-pakala-gpu-v1-0-207ad1fac1c7@oss.qualcomm.com>
+ <20260809-pakala-gpu-v1-2-207ad1fac1c7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,61 +52,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <e88326f0-e945-4d63-b257-308cb00df756@oss.qualcomm.com>
+In-Reply-To: <20260809-pakala-gpu-v1-2-207ad1fac1c7@oss.qualcomm.com>
 
-On Sun, Aug 09, 2026 at 05:57:18PM +0530, Prasad Kumpatla wrote:
+On Sun, Aug 09, 2026 at 01:53:09AM +0530, Akhil P Oommen wrote:
+> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
 > 
-> On 8/9/2026 12:15 AM, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Low] The patch series breaks `git bisect` by splitting a macro rename across commits without retaining aliases, causing an intermediate build failure.
-> > --
-> > 
-> > --- Patch [2]: [PATCH v1 2/5] ASoC: qcom: q6prm: Fix QAIF clock ID typo ---
-> > commit 2d0653a87462572279fa5b7912ec981aed567a40
-> > Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> > 
-> > ASoC: qcom: q6prm: Fix QAIF clock ID typo
-> > 
-> > The Audio IF QAIF clock IDs were introduced with a "LAPSS" prefix instead
-> > of "LPASS". This commit renames the definitions and updates their users
-> > accordingly.
-> > 
-> > Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com
-> > 
-> > > diff --git a/sound/soc/qcom/qdsp6/q6prm-clocks.c b/sound/soc/qcom/qdsp6/q6prm-clocks.c
-> > > index f613e2aee75e6..b4f9abbe02cb0 100644
-> > > --- a/sound/soc/qcom/qdsp6/q6prm-clocks.c
-> > > +++ b/sound/soc/qcom/qdsp6/q6prm-clocks.c
-> > > @@ -64,34 +64,34 @@ static const struct q6dsp_clk_init q6prm_clks[] = {
-> > >   	Q6PRM_CLK(LPASS_CLK_ID_WSA2_CORE_TX_MCLK),
-> > >   	Q6PRM_CLK(LPASS_CLK_ID_WSA2_CORE_TX_2X_MCLK),
-> > >   	Q6PRM_CLK(LPASS_CLK_ID_RX_CORE_MCLK2_2X_MCLK),
-> > > -	Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF0_IBIT),
-> > [Severity: Low]
-> > Does this patch series break git bisect by splitting a macro rename across
-> > commits?
-> > 
-> > While this regression is fixed in this commit, it appears the preceding
-> > dt-bindings commit removes LAPSS_CLK_ID_QAIF_IF0_IBIT and related macros
-> > from include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h.
-> > 
-> > Because q6prm_clks still references those removed macros at the preceding
-> > dt-bindings commit, it causes an intermediate build failure when compiling
-> > the kernel at that point.
-> > 
-> > Should the dt-bindings commit temporarily retain the old misspelled macros as
-> > aliases until the driver is migrated, or should these changes be squashed?
+> Adreno 830 GPU present in SM8750 chipset belongs to the A8x family of
+> Adreno GPU. It is similar to Adreno 840 GPU with some meaningful
+> differences like GMEM , register file size etc.
 > 
-> Hi Sashiko,
+> Document Adreno 830 GPU and GMU present in the SM8750 chipset.
 > 
-> Thanks for reviewing.
-> 
-> The series remains bisectable as the renamed clock IDs are not
-> referenced by any in-tree users before the corresponding Q6PRM updates.
+> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/display/msm/gmu.yaml | 4 +++-
+>  Documentation/devicetree/bindings/display/msm/gpu.yaml | 2 ++
+>  2 files changed, 5 insertions(+), 1 deletion(-)
 
-Really? git grep LAPSS_CLK_ID_QAIF_IF0_IBIT told me different story. And
-it is even YOUR code which is reported by grep.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
