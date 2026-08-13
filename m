@@ -1,151 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EDA440A0D;
-	Thu, 13 Aug 2026 08:03:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE9B351C2E;
+	Thu, 13 Aug 2026 08:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786608182; cv=none; b=KMcxRu0xgFAIuRw/qsOcY4lKMfEVlrJKuUlj/Q4ygO1L9AJpQf8GEA18ucPolSekaaxT0jlnd4pT8tyHnhNr2H2uIeWUaS01seSX+jbIjCX/eGe9zqM6k4vzEtXr9BmY/9h5jUrtOqVCnfE/ANvRTJDFiBxZaEJY7J7Sljr/+W8=
+	t=1786608195; cv=none; b=owSsiq6rxK3CHgfm37wOazQP3cA1wAvcZhL/SF7Zu26oW6DnaCntGcXlPK/2vHtJLzhcclX21xb+t9RfHf0h/MlTzXbGCfUI1DP0MZBdmQf7+0gjuARCIH/Eh7YYqJRIwCPMw8HZgSDx00WdQr9jQRb5zrNAATWqLUKULhSv53w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786608182; c=relaxed/simple;
-	bh=8nLUodtkkvUBlZeLq2D6Jc5gmPQDsM737bg4GodXIkc=;
+	s=arc-20240116; t=1786608195; c=relaxed/simple;
+	bh=kI/5LyW1Rtte1JM4ZASzKTXDg/Ray+3xpolMxboIV+Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B79SA60T/YNTIfTKDIijF8nyzvC5z5QfaZab+1ZKTiaFQLC/uj/Ae0jSgLXbG9Ld2HdIAoXcowNIggjgIfDdN7hovD5EcacLKuX4QfaTi6gM4P5eJLil+TV+ULK43DJTzRNaWM6yBx1OELgjTgu1wWMxlt9iDzJI4K7rCQcWgig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SaNGcVZH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kd65vpsy0Ndmg3S+LbEk3kjTAfaSFZNYleV5WL1wq8RGfHRT1nlsjkcvLeFIv0g9PhFdyW3BsCnIqfVZQluJBgYBXztr8FhidNu0yQqiAbaVMqxssdyZGMQgUgXusqv1Of7WouX31/k/wAAY27ghET2oVfs5AyYOI6ARbpl5FmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jmS7+fMV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SaNGcVZH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE1B1F01558;
-	Thu, 13 Aug 2026 08:02:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jmS7+fMV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B1E1F00A3A;
+	Thu, 13 Aug 2026 08:03:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786608179;
-	bh=2bEeA3QcIy4db/6MIU9sw7QfU9y/J4Eq9FKa4t6/Eyg=;
+	s=k20260515; t=1786608190;
+	bh=Iz+7fETSbwxk9ayNUyshNIy8aC88+a5XyUeWOxqJ32c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SaNGcVZH+3Ya7NfZXWqej4DYOUcjJ3CJrW2XuQmj0L57Rq/dN2aVPhyFI0RGl9/8W
-	 HrfD/L23y+6E5jJxyzKAJ8UKCEAjeoXxUEbS7g3gG+8agprclXUqQxWYR5gDUUrjxl
-	 l+AcR04q6tfRLGAOjTTunEn/CRStaHxqOgX4SAGMTX+mO1fxXUaGgpvK8tz8uk5xha
-	 eL9ZmzuJeWV25Gdt2lDvPSG+U1GfdR+8hKp88OliPomQwyUvlTH+RudpcgAogCD6Lm
-	 XDSITicKR7ra0BFvUxoOQ1OZT0KDuC0StujWoiEgLvvKkqoCzo3g88btSHvw12nADT
-	 V1BDS57lsgajQ==
-Date: Thu, 13 Aug 2026 10:02:57 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-Message-ID: <20260813-ethereal-sawfish-of-downpour-c23da9@houat>
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
- <am2mvECnCcO9IxuI@monoceros>
- <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
- <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
- <20260810-devout-pig-of-performance-595ccc@houat>
- <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
- <20260812-neon-asp-of-completion-e9349e@houat>
- <CAEUXW=H-o+fqBjH1UQG7=UTm5x1a9Cj++XJM7twvFU4vJC4UrQ@mail.gmail.com>
+	b=jmS7+fMVZCpvHrkhQaY4In+DExrGR5g+1Et0SND7SJECykdUgC0uZMW6CYF07JxqU
+	 PZ4mZK82nF9+tPMd5NDDMvLGF4xAl4NAVOuhfKjXSZ0h3q/tVq10nw+gK2p9cUmyZg
+	 tqVM4hNp93spBCozscid0fY2lyXofaGtjogVKrqNvEAn2DdiK5Hrdz8fwlOzyvl774
+	 wDPo66C48ovfnkL/1DyY9Us0zotP2B4fidVMbWsqkX6G7ouOqqvEYtDG4dV9jmFPv7
+	 i/FtUXUIYU6ZG8FyfKryWuk+aCX+207T1lwZPD8c8YRGBQT844/O6Wr9Um22oh/dQF
+	 ZXU/gQaxFo6SQ==
+Date: Thu, 13 Aug 2026 10:03:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Esteban Urrutia <esteuwu@proton.me>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: usb: Add Parade PS5169 redriver
+ bindings
+Message-ID: <20260813-fortunate-gray-cockatrice-8b05ee@quoll>
+References: <20260810-ps5169-bup-v3-0-a2178b2834d7@proton.me>
+ <20260810-ps5169-bup-v3-1-a2178b2834d7@proton.me>
+ <20260811-watchful-turaco-of-opportunity-b8ddbf@quoll>
+ <5b70bc25-a255-4059-b020-da936e7432d5@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="a4kqwszl6ozjan6r"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAEUXW=H-o+fqBjH1UQG7=UTm5x1a9Cj++XJM7twvFU4vJC4UrQ@mail.gmail.com>
+In-Reply-To: <5b70bc25-a255-4059-b020-da936e7432d5@proton.me>
 
+On Wed, Aug 12, 2026 at 05:30:46AM +0000, Esteban Urrutia wrote:
+> On 8/11/26 5:11 AM, Krzysztof Kozlowski wrote:
+> > On Mon, Aug 10, 2026 at 11:31:36PM -0400, Esteban Urrutia wrote:
+> > 
+> > A nit, subject: drop second/last, redundant "bindings". The
+> > "dt-bindings" prefix is already stating that these are bindings.
+> > See also:
+> > https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+> 
+> Okay, will change that.
+> 
+> >> +
+> >> +  parade,dp-eq-db:
+> >> +    description:
+> >> +      Equalization for DP channels.
+> >> +      For example, <6 5> denotes an equalization of 6.5 dB.
+> >> +    oneOf:
+> >> +      - items:
+> >> +          - enum: [ 2, 8, 10 ]
+> >> +          - const: 0
+> >> +      - items:
+> >> +          - enum: [ 5, 6, 7, 8, 9 ]
+> >> +          - const: 5
+> > 
+> > Eh, this is on me. I did not pay attention that values are fractional.
+> > You should not be a list, but expressed as a single value, which is not
+> > possible with int32. This might be the only ever practical use of mB :),
+> > but I doubt that any engineer would find that readable, so let's go to
+> > your previous code - direct register values - for all three properties.
+> 
+> -db$ specifies an int32-array type so it should allow for a list.
+> So I'm not certain what you mean.
 
---a4kqwszl6ozjan6r
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-MIME-Version: 1.0
+List means two separate values, not integer and decimal part.
 
-On Thu, Aug 13, 2026 at 01:50:47AM +0200, M=E0xim Pedraza Padilla wrote:
-> El mi=E9, 12 ago 2026 a las 9:42, Maxime Ripard (<mripard@kernel.org>) es=
-cribi=F3:
-> > In such a case, you can (and really should) use KMS, and you should use
-> > an initramfs and setup the splash screen there.
->=20
-> Agreed that readout is the right answer where it applies, and I am not
-> looking to duplicate it. Three cases where it does not:
->=20
->   - Hardware whose only in-tree display driver is fbdev. There is no KMS
->     state to read at all, and there are still around a hundred of those
->     drivers.
+Best regards,
+Krzysztof
 
-Which are entirely deprecated, and kept mostly for historical reason.
-It's kind of irrelevant to this discussion.
-
->   - DRM drivers without readout implemented, which today is all of them
->     but tidss.
-
-The obvious answer to that being "just implement readout then". We won't
-merge a core feature to accomodate a driver not implementing an existing
-feature.
-
->   - Falcon mode, where U-Boot proper never runs, so there is no image and
->     no programmed CRTC to inherit.
-
-In this case, the first modeset is fine, and whoever does it doesn't
-matter, so it might as well be userspace.
-
-> On the initramfs: it moves the splash earlier, it does not close the gap.
-
-Which gap are you talking about?
-
-> Measured on our 4.19 product kernel:
->=20
->   1.09 s  tilcdc registers fb0, the logo can be drawn
->   2.68 s  ubi0 starts attaching        <- 1.59 s of built-in driver probes
->   3.39 s  Run /sbin/init               <- 0.70 s of UBI attach + UBIFS mo=
-unt
->=20
-> An initramfs removes the 0.70 s of storage. It cannot remove the 1.59 s,
-> because PID 1 does not exist until the initcalls have run.
-
-I mean, sure it can. Move built-in drivers to modules, and load them in
-the initramfs. It will reduce the kernel image size (so load and
-decompression time) and the kernel boot time itself.
-
-I personally did a subsecond boot to userspace with Falcon Boot, UBI and
-a similar platform (and no initramfs). 3.4s to run init seems subobtimal
-to me.
-
-> So the gap goes from 2.3 s to roughly 1.6 s, before the splash binary
-> has loaded and drawn anything. That figure is an estimate; the
-> breakdown it comes from is not.
->=20
-> It is also worth saying what this series is and is not. The kernel has
-> drawn a boot logo for decades; this does not add that. It changes where t=
-he
-> image comes from, so that one kernel binary can serve products that differ
-> only in branding. If the position is that the kernel should not draw a lo=
-go
-> at all, that is an argument about CONFIG_LOGO rather than about these
-> patches -- and drm_panic already calls fb_find_logo(), so the logo is not
-> purely an fbdev concern either.
-
-I understand where you're coming from. On the flip-side, why should we
-add an interface we'll have to maintain forever, while making a
-compromise because the fact that it should be in the DT to begin with is
-arguable, on a deprecated subsystem, for something where we have
-alternatives.
-
-Maxime
-
---a4kqwszl6ozjan6r
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCan16LQAKCRAnX84Zoj2+
-dsIUAYCz8NYpNrR0fsfu0V282mWPfF/ktotI46Lnf6bQsRzHz4DDDLe00UF3WRjU
-SPEMxgkBgKlNP2ks2w3VUbh6Y8/fw4CerSji2OxDCYcAoQA+5Tgb+Qq57XwD47Xw
-Lm9gnS4GVg==
-=xQLQ
------END PGP SIGNATURE-----
-
---a4kqwszl6ozjan6r--
