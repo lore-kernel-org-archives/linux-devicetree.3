@@ -1,90 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CDD36196E
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:42:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F11D416870;
+	Thu, 13 Aug 2026 10:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.20.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786617750; cv=none; b=s4/JPAWtJg72c4EEWVSbANyh/+HWDDqPWQGlaFfZ4f+gf8M16qArelvLdv3NxLIrwVJJh7MOd1ddgCEfTw/BXpEdPGPmk0awtNgYlzJBtYhcgCTW819ziVF62rVH2/9TXpSKKV1zDqo8XE7tmWr4VOlqJsOc80pCcNq00RiR8/c=
+	t=1786617907; cv=none; b=WyOkKrUJTccU9nHhvHs1oo6kpKXdy3LwtKa4o6U5btSLwRpXuECwUISPAgEFLDSvsN4tVTOpcQvM9yb8Cdd7LHnwLGoh5PdTAjf5RMObKtM+r4EbAYmyHE7/bovm2Y4F8KoHdJIo9QtdMRx1gztvqQl8wCNPlqeKEsKaoEacd5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786617750; c=relaxed/simple;
-	bh=LvslOFoyTsYWjz30QWpL3Vsf6PxuJGGQfhwhJk8qFm8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DfX61Y6Rn2f4pkXRSqYD9UcQOxy9YGY1bS7M1chC3uNchk4RjGGSzUV13tRr87GxApmPbJA9uzDXtVq4wZsASdI2oiMt5SEz6+DLpJbmHOb2SeCDoQmdllR+cI+bopC4ELNMpjVSdLuYSkSw3J5jay+AbinaJ9l6UhWLRAtMXgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BPzXUagH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786617907; c=relaxed/simple;
+	bh=QpgSVnq+Gf5khQMTvB3GNPXBubux7Xf0byFFaZxRR9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bhYLXk3PbfLkXjPwUn8mqJs5iBfZ64/xlTN1JPZ55LNr+FN2/dFoCJy+2B0R79i7AkoUqoDNlTF3MpCpCjwgCXtDgS3sBEoltRhcuoFlDVHMKGnsBTq5M+tGWT9le4a4NRSU1sw6gzODsOVjkO7xy9G5uVjs+oJmyZRZRuoozCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io; spf=pass smtp.mailfrom=dewith.io; dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b=Izimf/4J; arc=none smtp.client-ip=157.90.20.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dewith.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BPzXUagH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9471F000E9;
-	Thu, 13 Aug 2026 10:42:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786617748;
-	bh=LkwPA8TrDvw9HAE94S5TeGSkgdxy2uklzdTSxhyrR90=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BPzXUagHU7UOj+zt2KmCBCifkzL687meAFPx4DimlqSkuAfD+Jvy5mDiYmPBx8qwR
-	 0ENVrri4W8X2+8YvafT+b3PYuFpYOLMGsOG2dSaeU5JZIVucNklTGtLj7v2b6HtUK5
-	 mJngCUHbuC3qDPUL149bcZzsRsSc+U7Ohs9EfQ9/9gyNv21tHgPkJSRnwzOseZLKGm
-	 8LVJ+CqqysGPwTBmUCJKK3ZQkj8X1LBbh8yJHecFU/uL6d3PEiewVDWS+yRhRz2b0d
-	 asYwRxiVBZNUVTraPnv6McpfJxrVHLU9v2LASbxraFF3Vdj3gPJm0HnhuY0GHuO9+Y
-	 MYZMsBv2/B/HQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: serial: snps-dw-apb-uart: add
- ambarella,cv75-uart
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260813-cv75-v3-c-v3-1-9352b3fd6026@ambarella.com>
-References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
- <20260813-cv75-v3-c-v3-1-9352b3fd6026@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 10:42:28 +0000
-Message-Id: <20260813104228.6C9471F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b="Izimf/4J"
+Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by meve.dewith.io (Postfix) with ESMTPSA id 105FA209BA;
+	Thu, 13 Aug 2026 10:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default;
+	t=1786617904;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ENLaVUVqC0mYQp9TN/bCjqw09D0fL6xGKRTiCroOuDg=;
+	b=Izimf/4Jm6XrDG3fECjrkdKVcx5dfFp3aaG27c9skXn3LOJo16zvmxMoUZHbqlU+ccMyYS
+	MZYJQcZt/O/zoI2Tx9jluhf+zW+m6LhfrdXSqJFudIkd2BhJXpfOIRXSWTerbekACx7gsX
+	Ef5XdRqerHU+upFpTyJDp+u6xtuD/+U=
+Date: Thu, 13 Aug 2026 12:45:00 +0200
+From: Wim de With <wf@dewith.io>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH v2 2/2] backlight: Add support for Orient Chip OCP8178
+Message-ID: <an2gLPdQZDaubtRC@dewith.io>
+References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
+ <20260812-ocp8178-backlight-v2-2-4ad18b48bef8@dewith.io>
+ <20260812193457.002A61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812193457.002A61F000E9@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The 'ambarella' vendor prefix is newly introduced in this binding b=
-ut is not documented in vendor-prefixes.yaml.
---
+On Wed, Aug 12, 2026 at 07:34:56PM +0000, sashiko-bot@kernel.org wrote:
+> > +static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
+> > +{
+> > +	u8 data = 0;
+> > +
+> > +	/*
+> > +	 * We cannot set RFA (request for acknowledge) unless the GPIO pin is
+> > +	 * configured as open drain.
+> > +	 */
+> > +	data |= FIELD_PREP(OCP8178_DATA_RFA, 0);
+> > +	data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
+> > +	data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
+> > +
+> > +	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
+> > +	ocp8178_bl_write_u8(ocp8178, data);
+> 
+> [Severity: Medium]
+> Can a preemption or interrupt between these two byte writes delay the second
+> byte and violate the 1-Wire protocol timing?
+> 
+> The initialization sequence ocp8178_bl_enable_onewire() explicitly checks
+> duration >= OCP8178_1W_T_WIN_NS to verify that timing wasn't ruined by
+> preemption. However, in ocp8178_bl_set_brightness(), if the thread is preempted
+> between the two ocp8178_bl_write_u8() calls, the GPIO line is left idle HIGH.
+> 
+> Would this cause the hardware's 1-Wire state machine to time out and treat the
+> subsequent data byte as a new command, resulting in a silently lost brightness
+> update since the driver doesn't read an ACK?
+> 
 
---- Patch [1]: [PATCH v3 1/2] dt-bindings: serial: snps-dw-apb-uart: add am=
-barella,cv75-uart ---
-commit 09140ea99754febddffd7c03dfcd93c0fffe28fb
-Author: Long Zhao <longzhao@ambarella.com>
+This is the same point that Sashiko raised for v1, but now I tested it
+like so:
 
-dt-bindings: serial: snps-dw-apb-uart: add ambarella,cv75-uart
+ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
+msleep(1000);
+ocp8178_bl_write_u8(ocp8178, data);
 
-Add the Ambarella CV75 compatible string to the Synopsys DW APB UART
-binding.
+It still works for 90% of the brightness updates, and only misses some
+if you spam the updates during the sleep, so I'm inclined to say it is
+robust enough.
 
-> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.ya=
-ml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> index 49f51b0028795..cec5c679f1a9d 100644
-> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> @@ -51,6 +51,7 @@ properties:
->            - const: renesas,rzn1-uart
->        - items:
->            - enum:
-> +              - ambarella,cv75-uart
+> > +}
+> [ ... ]
+> > +static const struct backlight_ops ocp8178_bl_ops = {
+> > +	.options = BL_CORE_SUSPENDRESUME,
+> > +	.update_status = ocp8178_bl_update_status,
+> > +};
+> [ ... ]
+> > +static struct platform_driver ocp8178_bl_driver = {
+> > +	.driver = {
+> > +		.name = "ocp8178-bl",
+> > +		.of_match_table = ocp8178_bl_of_match,
+> > +	},
+> > +	.probe = ocp8178_bl_probe,
+> > +};
+> 
+> [Severity: High]
+> Does this driver need a resume PM hook to re-initialize the 1-Wire mode?
+> 
+> The BL_CORE_SUSPENDRESUME option causes the backlight core to call
+> update_status() on resume. Since power to the chip may be cut during suspend,
+> the device defaults to PWM mode upon power-on.
+> 
+> Without a resume hook in the platform driver to call
+> ocp8178_bl_enable_onewire(), the chip will misinterpret the 1-Wire brightness
+> data as a PWM signal. This leaves the GPIO HIGH at the end of the transaction,
+> which translates to 100% brightness in PWM mode.
 
-[Severity: Low]
-Has the ambarella vendor prefix added to properties:compatible been formally
-documented in vendor-prefixes.yaml?
+This is still an open question for me. I know the ClockworkPi platform
+doesn't cut power to the chip during suspend, because the cores it uses
+don't really support suspend power states.
 
-If this prefix is omitted from vendor-prefixes.yaml, evaluating this schema
-with dt-schema will encounter the undocumented ambarella prefix. This will
-cause make dt_binding_check to report a schema validation warning or error
-during the build.
+However, for mainline inclusion, should I assume that the chip might be
+used in situations where suspend does cut power to the chip and plan for
+it accordingly?
 
->                - anlogic,dr1v90-uart
->                - brcm,bcm11351-dw-apb-uart
->                - brcm,bcm21664-dw-apb-uart
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-cv75-v3-c-=
-v3-0-9352b3fd6026@ambarella.com?part=3D1
+Regards,
+Wim
