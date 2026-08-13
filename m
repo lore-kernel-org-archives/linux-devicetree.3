@@ -1,68 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C99B481FCF;
-	Thu, 13 Aug 2026 14:17:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E04A483803;
+	Thu, 13 Aug 2026 14:19:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786630664; cv=none; b=M0LpRvGKsWealmrhETQpzLah+kS8nZHZQLQfOR6xdUoXZAJNbq/9K4AOPC6f3A2kd4FwXSeGYFtX+oXL8qehU0UnUOpKO/QiV4sVWFN55a56j2ydyOxMj/WGepRfB2Zd+zGORc0YeRIdiI4TzsfARspVxEZyf6LQ3Qk/GsmWhlI=
+	t=1786630760; cv=none; b=MHzxzikMs3eYu4KPqaPiLvH09nQiWwx/9c7zpqz8mg6CSx12lbfuPyAJJV+wIIvd83Xs6vyIRV1RV3IfVSVNQbFYsJHubhDtsBIXWKuu3lFu57G1IGoRHIVesZiHYmZM0rFs5HIWIRH8SpDllZYLFYsQvUv44H33+xe1/WWCMz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786630664; c=relaxed/simple;
-	bh=NeHhTtBUnlX9QKbjYYgjyEIGiNz60R+D+ZRD2gTYwic=;
+	s=arc-20240116; t=1786630760; c=relaxed/simple;
+	bh=WySSisgcjpeVBL9eG9AmIIiwZ4liW2jiLuJScN+p0e0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WnCLN/FNSFl7r9mtI3yBV01q9hGlz6f5CClOrcKUepKFZJjaxbMIVVkkEiR4X4u47+RBpMTw62iEf8guBWRaK2a12S8PW+acMXVzUC/prHbpUwXFOwBAnZ3ZX7rtQVwYxqaUWz/Bivkg36TcuYHzDXyyHsX41mzE6obel1TrT8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRxTUXru; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=KcRzqv8yjgwXmZQVUjlQa3aNTC+Yi5PYChcumPktddVQtnw29nocTBjaiYN8RkM0AhUo44/StKlO+atEe22rmTpGP4Ey2DMAwRbJPfUnk/sDbt7tE50UTIp+ZLWljDnWiF4Ff/vcvLrNhHwz3tBytL+L/qSLDiTlyr3O9LroBeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5Fygg9Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRxTUXru"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A181F00A3A;
-	Thu, 13 Aug 2026 14:17:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5Fygg9Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103531F000E9;
+	Thu, 13 Aug 2026 14:19:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786630662;
-	bh=NeHhTtBUnlX9QKbjYYgjyEIGiNz60R+D+ZRD2gTYwic=;
+	s=k20260515; t=1786630756;
+	bh=l4x2nI/OM1EHRjmdNrc5N6c/xC3t0bmLbBKZt7oG+KI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eRxTUXrudNsYOq6HKklZ65G9I3/XQDIbWCNyEQP2TpJcOX0Y8Htkq6eBhsffOpmQL
-	 iorqky/QrMHUdMYRin31ggFyfM6ry2yt7iei7TqzLXlP/jDotpgePycp9gVppW/qEG
-	 UQHdK2NY9SFOfFr7WqqC0skShDbPJcJPP8jplz97b3WpMHjt5Ei6cGZua3rCcWB6fj
-	 V1SkgMkfo1kdc23vxTUnCaMGn/n6cxiu7CyTeHWj1fhWoCBq+DE51r8xJfQFWr+lJ0
-	 TQ6hhE3sGU/v1ojHqREU8bUVi+SuPhD1Mfh9XK3imK9kaD98TBFYNh1pRT0gkLrhIQ
-	 BzkybZRqu9a0A==
+	b=G5Fygg9YGPpgk2RgVNQUHlk751qzbPeNo5LD35lL/wHeA4a0c/lF1zQ7Sx226duwF
+	 3qilsGQGvn9ry1KRG3Uprl8jYK1urqLaNkBzS6LgyMCc0XMcIuZYXgcJoUL5cmq7IX
+	 nShMayrj6SMZSy6oYZTYyoiCimikvBWuVDQKBggdw3mVrHM92IcOTkcaTZAQJwnPJi
+	 Q8LvWHu7enuQZ2kf3bceJeW6RGUkMGNI74kWv/JjgPlF8kLQPCHihMsyngf1va5DZQ
+	 zt3MGz/AiVIY0T+1Mr2Jn3WSAsQwuj/X9zxvqPekfVD4YFgBBDzqT1HxP44vch/vo8
+	 hQz31rRg2ERDw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v4 5/5] ptp: ocp: Add Time Card V9 I2C
- peripheral topology
+Subject: Re: [PATCH 4/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex
+ Capacitive Touch Display 10.1" LVDS V2
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ahmad Byagowi" <ahmadexp@gmail.com>
-Cc: conor+dt@kernel.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, lee@kernel.org, robh@kernel.org
-In-Reply-To: <1db6580bc69f73f7b0273b0444484b1f391c8616.1786543681.git.ahmadexp@gmail.com>
-References: <cover.1786543681.git.ahmadexp@gmail.com>
- <1db6580bc69f73f7b0273b0444484b1f391c8616.1786543681.git.ahmadexp@gmail.com>
+To: "Leonardo Costa" <leoreis.costa@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260813133335.1941580-5-leoreis.costa@gmail.com>
+References: <20260813133335.1941580-1-leoreis.costa@gmail.com>
+ <20260813133335.1941580-5-leoreis.costa@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 14:17:42 +0000
-Message-Id: <20260813141742.98A181F00A3A@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 14:19:15 +0000
+Message-Id: <20260813141916.103531F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> Time Card V9 places a BME280 at 0x76, a BNO055 at 0x29, and an
-> IS32FL3207 at 0x37 on PCA9546 channel 1.
->=20
-> Describe GNSS1 and GNSS2 as RGB LEDs on outputs 0 through 5 and SMA1
-> through SMA4 on outputs 6 through 17. The board uses a 4.7 kohm RISET
-> resistor, sequential red, green, and blue output wiring, and an 8100 uA
-> per-output limit.
->=20
-> Select this profile only for the exact fixed-width EEPROM ID
-> "TIMECARD-V9". Earlier revisions expose the same I2C devices with
-> different LED routing, so probing cannot distinguish them safely. Leave
-> erased, malformed, and unknown board IDs unconfigured.
->=20
-> Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The device tree overlay uses an undocumented vendor prefix `optolog=
+ic` and compatible string `optologic,scx1001511ggc49`.
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+--- Patch [4]: [PATCH 4/6] arm64: dts: freescale: imx8mp-verdin: Add Torade=
+x Capacitive Touch Display 10.1" LVDS V2 ---
+commit ae998202e5daf5ce215671d831b6ffc33e8604ec
+Author: Leonardo Costa <leonardo.costa@toradex.com>
+
+arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display =
+10.1" LVDS V2
+   =20
+This commit adds a device tree overlay for the Toradex Capacitive Touch
+Display 10.1" LVDS V2. The display is connected via Verdin iMX8M Plus LCDIF
+and features an Opto Logic TFT LCD with an ILITEK capacitive touch controll=
+er.
+
+Link: https://developer.toradex.com/hardware/accessories/displays/capacitiv=
+e-touch-display-101inch-lvds
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-panel-cap-touch-=
+10inch-lvds-v2.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-panel-cap=
+-touch-10inch-lvds-v2.dtso
+> new file mode 100644
+> index 0000000000000..6b0c1a10ae2a9
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-panel-cap-touch-10inch-=
+lvds-v2.dtso
+
+[ ... ]
+
+> +&{/} {
+> +	panel-lvds-native {
+> +		compatible =3D "optologic,scx1001511ggc49", "panel-lvds";
+
+[Severity: Low]
+Does this code introduce an undocumented vendor prefix and compatible strin=
+g?
+The prefix `optologic` and compatible string `optologic,scx1001511ggc49`
+appear to be completely missing from `Documentation/devicetree/bindings/`,
+which will cause the Device Tree binding checker to emit warnings when
+validating the DT with `make dtbs_check`.
+
+> +		backlight =3D <&backlight>;
+> +		data-mapping =3D "vesa-24";
+> +		power-supply =3D <&reg_3p3v>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786543681.gi=
-t.ahmadexp@gmail.com?part=3D5
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813133335.1941=
+580-1-leoreis.costa@gmail.com?part=3D4
