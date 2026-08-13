@@ -1,106 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E084446C0C;
-	Thu, 13 Aug 2026 10:03:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE7F442379;
+	Thu, 13 Aug 2026 10:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.20.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786615407; cv=none; b=h600s2A/jXn5gaN2rjyCGgMlRyvq7bEOuj2+lm06ftltL2RCIuWdy4WDOIeIEV2uOf1GZn51HkDkqMyoC7a0+f4A/Nf3CkHj2+1tA3gCGrR8TaBCUK5TBSkApS6313zp4DdHtdVhdMS8cc6kmSkA8Npdd9W+14Y8tKZs0v2HD8o=
+	t=1786615409; cv=none; b=BUQ1fWvmzmAfHanZCrTez68efoL6Yg7XfjAKq3IcFHjd2KYmBDWLkKP+jrdp/+23KLiQwuLwq0xVTZ2s86h5Ax+8+bLJ8L7ObBuHpo+gtw899sDfDmpVnFb0co1sz95BdtDNYVXcFBnY4H7hW3N1Th/Xxub2aw3v8DqzKzUPRQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786615407; c=relaxed/simple;
-	bh=VOaUJbgZQU+pfw9W12tfoglM3U8ttSUAirKPWGKXiW0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m9l5DmwH62HGPZFntjRA+Vo9gQCAXpYXHWHb1vyFOjL28/XJdkNrXoA3wJ5ENfueelMdCX8+jFgPfZo5yONTZYzsH0aEg8rbNXn/sLrxtXnPECqbcodNApjtzmTEB469M+pKh1/LreA+Fl82D55ioK1/VZWvOdaQV0QCYR4POyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kNeA7iqP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786615409; c=relaxed/simple;
+	bh=dKbvqlet+y0vK6nezR6ggg2j1UZKrYZHBJB7tv1pDMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JwZiLDrtJ2RIWDFl5Gqf9lNrr3XkvCOHnRpJdk/ndtTBnhgu+zGmdt1oOAZvaWLpZnFZCabSDc6GimCNo9TmNtvwwfiH2nFGs1J3vJMPryWw8GkW73vqZLzg7DvNHLUEmO9L8YoDfjcNC+JJGzrGvSGvigulwO1s3oVVao7Xb3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io; spf=pass smtp.mailfrom=dewith.io; dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b=L6w4TkoS; arc=none smtp.client-ip=157.90.20.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dewith.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kNeA7iqP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B3C1F00A3D;
+	dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b="L6w4TkoS"
+Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by meve.dewith.io (Postfix) with ESMTPSA id A460023E65;
 	Thu, 13 Aug 2026 10:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786615406;
-	bh=OWvlJs9FRzUUCi+Kufsya56PwLrKBDMPWP5pJQAeebE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kNeA7iqPoN0+nrw6FPL27juAaY8KO1PIiVJ8/sYJJNl5Asmr7mlMlmDQT88Vd2tmT
-	 B/rM6+eDyF1qCK8Yizpcl4Iq95tKCvITXK8QEn6nxObWsomFUlkzV8zxQwugdxxksB
-	 pIP/wOlKrAwnhrgjYGNTU//XGxc3jRzbuRI8BdvhC5tOQnWKsKdxuYHjL9WoaRGhey
-	 ARxyqzjpG+jUL7GuOuxkmGWV6fKZYsTCX+Leg2hGa1vhNUGvKRUMpWLRlgWPNy7qzU
-	 fQbGg+xPf7S5HYIDfmX/Vl0is5a4sLf8qdfHr7yG2ZH91RC8tRs9IAe0N3sNX89OlY
-	 Y0wOF84io324Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/6] dt-bindings: mfd: syscon: add Ambarella CV75
- secure scratchpad
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: robh@kernel.org, linux-clk@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260813-cv75-v3-a-v3-2-cfdd20b1b4dd@ambarella.com>
-References: <20260813-cv75-v3-a-v3-0-cfdd20b1b4dd@ambarella.com>
- <20260813-cv75-v3-a-v3-2-cfdd20b1b4dd@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 10:03:25 +0000
-Message-Id: <20260813100325.C3B3C1F00A3D@smtp.kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default;
+	t=1786615405;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bLaN4f3N6hbPhZzEo8AH8L3A2vrPXXcp/6EZkbNc4Lw=;
+	b=L6w4TkoSNd7hnu6Nuxv73dllFQL9cOLiLvb4RBoGYI+2+AI/X0lbrjsrf6kXHSgQPUKFbh
+	X0dyYBsyKB4r7A/119THkHcIEGu0jhvfwJdT77oJJjJe5q36V9hIqmdFhj2nBo7xxAZxLw
+	Va7x/VjX0w9DD/wWHI2F2BbP2jaCEl0=
+Date: Thu, 13 Aug 2026 11:59:44 +0200
+From: Wim de With <wf@dewith.io>
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: backlight: Add Orient Chip OCP8178
+Message-ID: <an2VkN3446Ndxn9c@dewith.io>
+References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
+ <20260812-ocp8178-backlight-v2-1-4ad18b48bef8@dewith.io>
+ <an2RgGwu2YaglM7H@aspen.lan>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <an2RgGwu2YaglM7H@aspen.lan>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The compatible string 'ambarella,cv75-sec-scratchpad' was omitte=
-d from the 'select' block in syscon.yaml.
-- [Low] The commit message subject for the MFD subsystem change does not ca=
-pitalize the description.
---
+On Thu, Aug 13, 2026 at 10:42:24AM +0100, Daniel Thompson wrote:
+> On Wed, Aug 12, 2026 at 09:21:46PM +0200, Wim de With wrote:
+> > +  enable-gpios:
+> > +    description: GPIO to use to enable/disable and dim the backlight.
+> > +    maxItems: 1
+> 
+> Is this really an "enable" GPIO? The enable-gpio(s) for most backlights
+> is the HWEN pin rather than something used for protocol. Maybe
+> onewire-gpios or control-gpios?
 
---- Patch [2]: [PATCH v3 2/6] dt-bindings: mfd: syscon: add Ambarella CV75 =
-secure scratchpad ---
-commit ea79700d5daf0e265e9307d2ab596a80db0d5db8
-Author: Long Zhao <longzhao@ambarella.com>
+I agree, and there is prior art in the kernel for ctrl-gpios, so I'll go
+with that.
 
-dt-bindings: mfd: syscon: add Ambarella CV75 secure scratchpad
-
-Allow ambarella,cv75-sec-scratchpad with syscon for shared secure
-scratchpad registers used by pinctrl pull configuration.
-
-> dt-bindings: mfd: syscon: add Ambarella CV75 secure scratchpad
-
-[Severity: Low]
-This isn't a bug, but should the word "add" be capitalized here to follow
-the MFD subsystem naming conventions?
-
-> diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Document=
-ation/devicetree/bindings/mfd/syscon.yaml
-> index e228670880631..05c7f59aba5de 100644
-> --- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-> @@ -148,6 +148,7 @@ properties:
->                - allwinner,sun50i-a64-system-controller
->                - altr,l3regs
->                - altr,sdr-ctl
-> +              - ambarella,cv75-sec-scratchpad
->                - amd,pensando-elba-syscon
->                - amlogic,meson-mx-assist
->                - amlogic,meson-mx-bootrom
-
-[Severity: Medium]
-Will older dtschema tools skip validation for this new compatible string?
-
-It appears this compatible string was omitted from the select block earlier
-in the file, which is required for compatibility with dtschema <2024.02:
-
-select:
-  properties:
-    compatible:
-      contains:
-        enum:
-          ...
-          - altr,sdr-ctl
-          - amd,pensando-elba-syscon
-
-Should ambarella,cv75-sec-scratchpad also be added to this enum block so
-older tools correctly select and apply this schema?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-cv75-v3-a-=
-v3-0-cfdd20b1b4dd@ambarella.com?part=3D2
+Regards,
+Wim
