@@ -1,259 +1,210 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080B63644CA;
-	Thu, 13 Aug 2026 08:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786609753; cv=fail; b=ELEMjqfABgaAw1/u03QbzfnQcTKtmEfmazTNfTR6HC+bYuJ2qj92/2uauBTTcK/cdvAdutsWTix+yOq2kFru2gdaBM0eSBLHVKGE8msMW8/iAZ287GVif66ymEwECaYzwkginD06Ie7bfo6HtWalaPXLbScewqp5cdsnmKLAYAI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786609753; c=relaxed/simple;
-	bh=8sRCI84KKDP57I7dC42N+qUPP1rN35pGOkItcI8owDI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=LNzHYShF3rE9J8g8luvjSjDi0SgkNqj8EcsMXCmxsXtWHIuNqITJ7Y5vdOSienscjWNLGMALXWX1AQaf0j60Y1PtyDUK9NKK/n9t90EtCcqITkjF+XPZjoVPjlddaX1fjga/eBLFCflnn7Te4sVry55Z4fAlFKwnbBAP44jNZpk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=XFSxUsLF; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=QDmYXJ3Z; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FEE38DC4F;
+	Thu, 13 Aug 2026 08:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786610019; cv=none; b=ZANc3V51pCu0mg39Kp96CNdXFgm60krlwR4UxXwtB4DmbCeEa6V0hvWu+HnITtPRtsYajRRaLSN32g4v3c6aH6zhWiVC9SEUHvcaFqv/e4+xb4UEVngOoRNlV9UUwu1KvU+Cn7aVe/J8rT2/+JTJF++PvnMXTcuautlHBUMF20w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786610019; c=relaxed/simple;
+	bh=scwsrObXceIW25+t4EBOXP5mUC0R3030EikGBWBWLdQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kot75vZAMXuo0DFeodx8tLFRWFgudGTtE4zeAQ68JDcASgNv++zftDxwwzWK5rDdGcKayRqCFNqCjcIlOzwFFfRXM3b9igwV8Ueg7lLvsvI/SA8BosQj6jjuaXZANxM5pSocTxKfR+n9gegWuwbskn2B2fklEuJse5KtrkfCXjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhUlY0Ig; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="XFSxUsLF";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="QDmYXJ3Z"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67D5hp8Z2318664;
-	Thu, 13 Aug 2026 03:29:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=YzgO1j/8MivQS
-	wvQVC7dVf4CVT9xJLefrM0rMdcZ+SI=; b=XFSxUsLFVX2ycG3HGDDbLqCm91Pyg
-	enhpIn3CenDOLy1Emb9CzjY4l9xd0BIbjYGwwesU4HO8z5aidaUKj+Z9nUwmLpDl
-	wCWuT42cUZQWxJEdBDHu3CSu9pJUbthlej+Qfs5U5kD+SEGCgj65Sc0hnK1Lo4P+
-	M3nimX8CcXWGeFW3NK9HfUGfviEjA0kxSOwSOok/CXm+WXdhVA6F1KHfj2KjUsgz
-	I8ayxShQ3MVGSwkP9h6/SXTG6DYih6+RIIxeXCoq8RQQK9V48rmozkqpxVnWR/WY
-	YlR3lwdM/QlPrqezdXXY436g2WCJljxw8N4LPZ4S003NIhZ1Nsu73jAcg==
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010053.outbound.protection.outlook.com [52.101.56.53])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4g0mun7s4m-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 13 Aug 2026 03:29:03 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FWXHICNAc3tyT3Wd8nYp6KkLEMzm2k7zU8eZtH0dST0VQM2ni62tXZzYRk+wtTPODCA3mHz36mEtJ2lQO8WP6ie+F4NwWuSO56GTt2hOwbq9bOsXp9a8ZYR/tgPngM/4hMg9pDMzxzEFX/GDVgLiFIII5PBbSucOMuPEwY2I0wmMy5fu0TKszaneeFWI9RYH5Mtvxd8v0JvYmKnxys8yf8BWH8QGUmARu0bkod4l5NR6pBQmxs+ZgobOPizqxdZSFLsDJyMgj1uPy+zPHqtiWGx8fY/wMwyDzaxcPngb5AVr9PofjN30r1RyLEiSuT8/MLxvsQE8beiD2nFT5RX5iQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YzgO1j/8MivQSwvQVC7dVf4CVT9xJLefrM0rMdcZ+SI=;
- b=nz6eSiu+0JOlFZCIFTZ1JaKtHk98F0umpCVoFHUUIg9tJDcNv51HFDs6Es2LwP+NO74c8UI6OE6c5kM/ih0KE23kJPif8/DHwCdqOqxbEdu1SRtNbFXb1bkdKwEUYhXFgEwlTj3yyz8aqDhKjnhIWQLRdZJrusiVmTtTClM4mmxsOTS/jV617W/NObG3PLjjzsjz1DOLnZJiZ6IkkJ92EVjapD0xE3xQVVmr12QZRaD0zdvR78bggzam8n5ZAw/5VMe19yRS8b4NPESBvmi8JEJ94/tSagN6vLrHHKCGkB8vJV+H7rZ4Hj/5DyR/KZkpBg1PT2dWzW2fFk0WtncOXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YzgO1j/8MivQSwvQVC7dVf4CVT9xJLefrM0rMdcZ+SI=;
- b=QDmYXJ3Zv73e+O9ukGZtikt+oqRpk4OZsLTiGnfyI/hYFI/6uCT+UUoW6kFrN5sbe+8rOUXkKIoWtRZcF1E+WQQ/5+kYXAqXcb7DO/SkHaohRDt2kimGU5eNMJL1ub2gO5pBSuSZcWG8cmjOSZ+TLC6IK8XATZvKkPT4DTGH1gk=
-Received: from DS7PR06CA0004.namprd06.prod.outlook.com (2603:10b6:8:2a::19) by
- SN7PR10MB6285.namprd10.prod.outlook.com (2603:10b6:806:26f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 13 Aug
- 2026 08:29:01 +0000
-Received: from DM2PEPF00003FC5.namprd04.prod.outlook.com
- (2603:10b6:8:2a:cafe::95) by DS7PR06CA0004.outlook.office365.com
- (2603:10b6:8:2a::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.14 via Frontend Transport; Thu,
- 13 Aug 2026 08:29:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- DM2PEPF00003FC5.mail.protection.outlook.com (10.167.23.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 13 Aug 2026 08:28:59 +0000
-Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 13 Aug
- 2026 03:28:59 -0500
-Received: from DFLE212.ent.ti.com (10.64.6.70) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 13 Aug
- 2026 03:28:59 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE212.ent.ti.com
- (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 13 Aug 2026 03:28:59 -0500
-Received: from localhost (ada0543016.dhcp.ti.com [10.24.50.146])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67D8Sw6Q511648;
-	Thu, 13 Aug 2026 03:28:58 -0500
-From: Anshul Dalal <anshuld@ti.com>
-Date: Thu, 13 Aug 2026 13:58:53 +0530
-Subject: [PATCH] arm64: dts: ti: k3-am625-beagleplay: Add boot phase tags
- for pmic
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhUlY0Ig"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2DB1F000E9;
+	Thu, 13 Aug 2026 08:33:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786610017;
+	bh=3pi032W6HNnsB6a/BIb5totDN4yPYUsdDVDiwq7RYlc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NhUlY0Ig8/hSWLibzaLr+JJCEQmXS0sfO0JL8kclxf0T+91n6ZZDd0+nKJXWLhxpZ
+	 09tVkQB678PqQsFbOeg9pYw7crzGzTI0i4auYZJQJ7wBFrZ5YGMtm5lPRBfEbcaaRd
+	 LQWFtjCQENHSRxD40YvXz+EozeG7P7KKLWLlWahNMxjbP6iyaxnIsHDfXg2F7BkWo5
+	 aX6XDi1qBQL4VszD/EuJvWTiR6NN6CLh/J02onIhgFGuOclWCZmSjB73kLU5wKa2tQ
+	 P+UkSWqwJ/ZVacf9NFECFVloDb8hpssGVaqQAmQYjsVk+kdYOk/z8jbUsR7xfapWRv
+	 dT4pOOuNzDYQA==
+Date: Thu, 13 Aug 2026 10:33:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: phy: Add documentation for Airoha
+ AN7583 USB PHY
+Message-ID: <20260813-xanthic-sawfly-of-greatness-47e9bc@quoll>
+References: <20260811124724.702467-1-ansuelsmth@gmail.com>
+ <20260811124724.702467-2-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260813-beagleplay_pmic_boot_phase_fix-v1-1-4518e7cba940@ti.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNUQ6CMBCE4auQfbZJAUHjVQxp2jLAGqRNF42Gc
- HerPn7z8M9GgsQQuhQbJTxZOCwZ5aEgP9llhOI+mypdtfpc1srBjjPibN8m3tkbF8Jq4mQFZuC
- X8vroTkPT9GhrypGYkOffwbX7Wx7uBr9+q7TvH+nBibmCAAAA
-X-Change-ID: 20260813-beagleplay_pmic_boot_phase_fix-c04b7f55de63
-To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-        "Tero
- Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Anshul Dalal <anshuld@ti.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786609737; l=2232;
- i=anshuld@ti.com; s=20251022; h=from:subject:message-id;
- bh=8sRCI84KKDP57I7dC42N+qUPP1rN35pGOkItcI8owDI=;
- b=NXV+xa1cNEGTzSLreqpLKICiIq5mx43EXwQY3YS5xwBOHytorB0r/Ob+9picqxbEb+1bUo0ek
- oFBD+hUZy6LDRYXgjF0QN9iWkUcuZIhRF++fCnuy7dhfjrjUs4M25zl
-X-Developer-Key: i=anshuld@ti.com; a=ed25519;
- pk=Kv8FlQElcrR6efyEHmjtE83y8e0HKvqPyvVY+PJ4UFw=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC5:EE_|SN7PR10MB6285:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c1ebe6c-73f4-44ce-3c7f-08def914ecc2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	cNix+S/B65RGSpBQX0iUslon4vROJ1I+Tx0PCA4lWGGKuUhoXdb3Ib8fudCFw/KT/fLs5aYKB0l4+BJnK4FV/zypPG9gEvXWvzjEVD1aHIr85jarJZrDHUlVjAiuDd/m5ssANhHPdsK87yFYruIXkGVsRcgiMjRVHrp0TXMXNXYUdZ2UWRbVOmXXdglQCp6nJI+oTHNO08JHmqMrB2hBb6BO/SAa5gu5FrM49MHdK0xD+PZ8c1cSNHtE2MTOD+enZgXNPMcaHLPHyjCC1PtT4EM8STnF/KW3WE8FAx2tm7KrVShDenUg0wpzLzllAXflH4YEmOaMJU8rHyCF/NDNQrvR0wUsvCQdkMcl46TfnzG1bkV7kD22U6wNMpndSFZWM8g6hlgXS/cfP9Aj/Kc723hcHx9QbyR5vjDLbq5KUj+TeYiZkFSJiva1jME0JO8ivnwlEoi8cC5+FNPwFzocWbPT1KBNId0OeonO0BraOKDFuOgWARaXNXtI0hJEnLL6+Ltxq+Hna0z7w+gCLYbfG88r3XifEI5AOj6ioVjGlgjggqjfHgLTXiUWEnmYe8QASKme3KCmvIrZVW9bNHNY74Ns9rlITfvqCffF9wAoO/le9/lOI7dJbIPu6XcBEXCRhdO6KRhMXH/nAvj8J5D0A2dNEhLGBJykS5Vwscf4fRAccsSyn4I+tDNiMgyuAGI1wMzQLhOUmfDf08WvSwsWRA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5mHCuqxHGFoFSOCmX3nreKe00ZfKjBpLmiF4qddJzMx3PlHkHGqNBoWmBEJJLV7PyOkDImD9Nv3TGQS8OA7uH4oPJk6c8zxyxJ1Sqt/2JQ6bp+k+Rdr1lvqeTRLH3gHa0QXrRHxw/shBok4Cp5gttxCJLpseNcT87PJgXsG3lAcZwypToKykaMqHp3Sl/UB2/ZL4C347DKrYruIRH6+bfmOlyRym2vcLDC7WwvYplgA+YnQTWTE9wFMFpyNPiiXcnVUHIGJHBOE3BA81bQBr5MoIeF//DllrUUHEEJG3wVA5Ci7nDanRt4a4/KdTM5HiUuB7zIXQ6jy5wZU9N5cjZaxiRShQCMkmu2Hmn+r5pwHMX1qOv5kWKGEv0t/39MB354FG6m33DWzf62w4wnPJrMsMPnN3STJWmwjjdzyHYU3vF/HT5XXodUcRQ2/IFeEr
-X-Exchange-RoutingPolicyChecked:
-	YQzKuui97AQlRcuxQv57WYFkUFsz6sY1n5uO7XzQ0UWoDp4H9k2jRrzZ3Vy8cvwrXy/nrcsgIgsrUZD2TDQcBfd/eePt0hh2/1kc3fI5Sa0LXHeUOGNq7S4+5+hIflnhMLSA5N5moSvtXBLKURIloSL/MnCk6VomMyufW2YHZhVE+XkmyaMTS5/1If+GBRDKt0DvkP6/3Le6qDFzcG/ASQeRF6P96+FjPD8XYXVh/2WOm6/iSBB+8FfLG95tQkIvFhwJhxN38Xs/jADIJguMsjFSwkjg39lgWoK2yUduW1H9ujeYQzmvWOg7oHmAG9qNx7vEUlRHVVxkK/QzbpfN1g==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 08:28:59.9068
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c1ebe6c-73f4-44ce-3c7f-08def914ecc2
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM2PEPF00003FC5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6285
-X-Authority-Analysis: v=2.4 cv=JPQLdcKb c=1 sm=1 tr=0 ts=6a7d804f cx=c_pps
- a=PQms4psfS+nBHIg3Mxsk7g==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8 a=VkHODOqLX_bdU0skrrkA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEzMDA1OCBTYWx0ZWRfXxkANlndGcTq7
- I0qNv7zQcWikGTWYaywPv9MTnRBvIAhE5gqz6mrt91XAfqc2l2Gsmta8gleigDQ8/UA9HdaN1TS
- 1mjvJ58iFHvos83z0h9ef+hd9biQAOE=
-X-Proofpoint-GUID: Y_LIPW3DWkOy6OZa4meNkeOX3PpeJoIu
-X-Proofpoint-ORIG-GUID: Y_LIPW3DWkOy6OZa4meNkeOX3PpeJoIu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEzMDA1OCBTYWx0ZWRfX6k4UExIibY8O
- 4FGkKwbhBvAv5vA9qPqFl1nvjpEQkM9OzjY+8tNoNNE7Yo2l+RZqhc9Ri5Hv1FIJv28wpHDo+Lx
- qJdXRe9yR4KQrAZALXn07DE0UhUCX52RiYwX8wrQCZXI31geXGS5ysgVDra6dlZP6RFCDf8S6+4
- Ye7iwb8wDiue020tqBYqJ0F/8Z2ctEgEsnj8JdLMq6QXL9IynI8kLjR9i5InQtcTlP1Upi827V4
- LKPGbxoJzc6ml6HdOsiwHasN/OP7OdncsikKv27cumay5NZqM0jNGqjoby1ViEHZ4O+CVQbpa3W
- IV3ylux8zVJfo+9U3IP6F3MMryqo5YhgDesB7uOUNRsw02upjOMF7YtnAaXZ88j6r+X2/W4/iY/
- 05F8skc7qyC1PAbI/9vSTmvFmF/tsI+ZfgqFYDg9oDBiYGFqR8hMJH+4e8vC+cd3qL7zL77y6jA
- mw+xfT6vP2UHLNR9QVw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-13_02,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 clxscore=1011 bulkscore=0 impostorscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608130058
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260811124724.702467-2-ansuelsmth@gmail.com>
 
-The PMIC regulators for beagleplay are required for booting, therefore
-this patch moves the corresponding 'bootph-all' tag from the parent
-tps65219 node to all the regulator sub-nodes.
+On Tue, Aug 11, 2026 at 02:47:22PM +0200, Christian Marangi wrote:
+> Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
+> for the USB controller.
+> 
+> Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> always supported. The USB 3.0 mode is optional and depends on the Serdes
+> mode currently configured on the system for the relevant USB port.
+> 
+> To correctly calibrate, the USB 2.0 port require correct value in
+> "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+> selecting one of the 4 monitor clock for calibration (internal clock not
+> exposed to the system) but each port have only one of the 4 actually
+> connected in HW hence the correct value needs to be specified in DT
+> based on board and the physical port. Normally it's monitor clock 1 for
+> USB1 and monitor clock 2 for USB2.
+> 
+> To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+> property is required with the phandle pointing to the correct Serdes port
+> provided by the SCU node. Providing the phys property is optional if USB
+> 3.0 is not used.
+> 
+> The second USB PHY on Airoha AN7583 SoC is used for PCIe Gen2 usage and
+> similar to USB 3.0 require a phys property to configure the serdes.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/phy/airoha,an7583-usb-phy.yaml   | 205 ++++++++++++++----
+>  1 file changed, 168 insertions(+), 37 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> index a6e2c0b1acc4..46b311040e02 100644
+> --- a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> @@ -26,64 +26,195 @@ description: >
+>  
+>  properties:
+>    compatible:
+> -    const: airoha,an7583-usb-phy
+> +    enum:
+> +      - airoha,an7583-usb-phy
+> +      - airoha,an7583-pcie-phy
 
-Signed-off-by: Anshul Dalal <anshuld@ti.com>
----
- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Keep the list sorted.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
-index c468b9c5fc09a..5f7265c426bbe 100644
---- a/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
-@@ -681,7 +681,6 @@ rtc: rtc@68 {
- 	};
- 
- 	tps65219: pmic@30 {
--		bootph-all;
- 		compatible = "ti,tps65219";
- 		reg = <0x30>;
- 		buck1-supply = <&vsys_5v0>;
-@@ -709,6 +708,7 @@ buck1_reg: buck1 {
- 				regulator-max-microvolt = <850000>;
- 				regulator-boot-on;
- 				regulator-always-on;
-+				bootph-all;
- 			};
- 
- 			buck2_reg: buck2 {
-@@ -717,6 +717,7 @@ buck2_reg: buck2 {
- 				regulator-max-microvolt = <1800000>;
- 				regulator-boot-on;
- 				regulator-always-on;
-+				bootph-all;
- 			};
- 
- 			buck3_reg: buck3 {
-@@ -725,6 +726,7 @@ buck3_reg: buck3 {
- 				regulator-max-microvolt = <1200000>;
- 				regulator-boot-on;
- 				regulator-always-on;
-+				bootph-all;
- 			};
- 
- 			ldo1_reg: ldo1 {
-@@ -739,6 +741,7 @@ ldo1_reg: ldo1 {
- 				regulator-allow-bypass;
- 				regulator-boot-on;
- 				regulator-always-on;
-+				bootph-all;
- 			};
- 
- 			ldo2_reg: ldo2 {
-@@ -747,6 +750,7 @@ ldo2_reg: ldo2 {
- 				regulator-max-microvolt = <850000>;
- 				regulator-boot-on;
- 				regulator-always-on;
-+				bootph-all;
- 			};
- 
- 			ldo3_reg: ldo3 {
-@@ -755,6 +759,7 @@ ldo3_reg: ldo3 {
- 				regulator-max-microvolt = <1800000>;
- 				regulator-boot-on;
- 				regulator-always-on;
-+				bootph-all;
- 			};
- 
- 			ldo4_reg: ldo4 {
-@@ -763,6 +768,7 @@ ldo4_reg: ldo4 {
- 				regulator-max-microvolt = <2500000>;
- 				regulator-boot-on;
- 				regulator-always-on;
-+				bootph-all;
- 			};
- 		};
- 	};
+>  
+>    reg:
+> -    items:
+> -      - description: phy register
+> -      - description: ana register
+> -      - description: pma register
+> -      - description: dig register
+> +    minItems: 3
+> +    maxItems: 4
+>  
+>    reg-names:
+> -    itmes:
+> -      const: phy
+> -      const: ana
+> -      const: pma
+> -      const: dif
+> +    minItems: 3
+> +    maxItems: 4
+>  
+> -  usb2-phy:
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
 
----
-base-commit: 848acc8ffe1b7cd5f1bf427b93069becfebc2c9d
-change-id: 20260813-beagleplay_pmic_boot_phase_fix-c04b7f55de63
+I don't understand this diff. Why do you add cells if you do not have
+chidlren with addressing for new device (pcie)?
+
+> +
+> +  usb3-phy:
+>      type: object
+>  
+>      properties:
+> -      reg: [0, 0x1000]
+> +      phys:
+> +        items:
+> +          - description: phandle to Serdes PHY
+>  
+> -    airoha,usb2-monitor-clk-sel:
+> -      description: Describe what oscillator across the available 4
+> -        should be selected for USB 2.0 Slew Rate calibration.
+> -      $ref: /schemas/types.yaml#/definitions/uint32
+> -      enum: [0, 1, 2, 3]
+> +      '#phy-cells':
+> +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
+> +          as defined in dt-bindings/phy/phy.h.
+> +        const: 1
+>  
+> -    '#phy-cells':
+> -      description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
+> -        as defined in dt-bindings/phy/phy.h.
+> -      const: 1
+> +    required:
+> +      - phys
+> +      - '#phy-cells'
+>  
+> -  usb3-phy:
+> +    additionalProperties: false
+> +
+> +  pcie-phy:
+> +    type: object
+> +
+> +    properties:
+> +      phys:
+> +        items:
+> +          - description: phandle to Serdes PHY
+> +
+> +      '#phy-cells':
+> +        description: The cell contains the mode, PHY_TYPE_PCIE or PHY_TYPE_USB3,
+> +          as defined in dt-bindings/phy/phy.h.
+> +        const: 1
+> +
+> +    required:
+> +      - phys
+> +      - '#phy-cells'
+> +
+> +    additionalProperties: false
+>  
+> -  phys:
+> -    items:
+> -      - description: phandle to Serdes PHY. Optional if USB 3.0 is not used.
+> +patternProperties:
+> +  '^usb2-phy@[0-9-a-f]+$':
+> +    type: object
+> +
+> +    properties:
+> +      reg:
+> +        enum: [0x0, 0x1000]
+>  
+> +      airoha,usb2-monitor-clk-sel:
+> +        description: Describe what oscillator across the available 4
+> +          should be selected for USB 2.0 Slew Rate calibration.
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1, 2, 3]
+> +
+> +      '#phy-cells':
+> +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
+> +          as defined in dt-bindings/phy/phy.h.
+> +        const: 1
+> +
+> +    required:
+> +      - reg
+> +      - airoha,usb2-monitor-clk-sel
+> +      - '#phy-cells'
+> +
+> +    additionalProperties: false
+
+Looking at the amount of changes this should not be the same binding.
+Also, things would be simpler if children were called 'phy', but OTOH
+why do you need children in the first place? Your pcie-phy child has no
+resources, except phy which can go to the parent device.
 
 Best regards,
---  
-Anshul Dalal <anshuld@ti.com>
+Krzysztof
 
