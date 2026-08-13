@@ -1,140 +1,169 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61FF2D1911
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 17:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786642137; cv=none; b=FWxD1eMcF1oparQYqjSvjh4s0NKyLyhCB3DUVpovGayIg95FEpyuliDlVNU9ZbEIx3nk1sYQLmvK4mpg6pKBAX6v9dg0OlwpNrWqL2sw/c2CKBu0J4OJe/qrkgLusicaPMMm1r4lbuq0gZvtZgu1ADOKygEwdJtT94LnAaun5rw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786642137; c=relaxed/simple;
-	bh=TMSjSdPy1mFMoDQ0bB+ffUgJOOHQfmPq1+pZYXoAxm8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=VrH9H/bD9xShvaq3jJKojc8dQoRVK0X2rgf6D9uoSEjhmsK1MuQixCMWRB0EvBLrwyp+utPacF59P3UH2sjOrT6+/Pz66DvYL2R/BS52BiK1AlhAN3+gZjOBfUCiyy0NT46Pre8USyBGjJjq1anea47h1cRrDKaVVfZRYekrpUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N1oDSfDy; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7F12D739C
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 17:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786642249; cv=pass; b=a4Av+FbvxvJfEJvtG7XyUi5loPK8HrSGMg5ZOjXJdPi9BdBOVn+2HSx+kmu9A5sriSLVU48rVXiMbRPk+OSVCNPCCPAOzrvlnDpySxZdGrt8FU0lcf5uc4lSYDsjrUcbyzjwJRwkVcXriLQ4XcIp+rr0zLILAmCrpz7bgbmr1sE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786642249; c=relaxed/simple;
+	bh=j6QfLqXa8jcIwV7hSiUleBvLmTNg0gTGUTYVxXAyLqU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Db7YnMPpGCx0WGCQo8K1pctzurylURafanQG7ND+oumuDH99/k2k2PBdLwBxilsFy3AZzvpwIhnzReeozbhHLLF+oRm/RLTID5W55X4owwHY4fxbf6wAUfT48vfc1GLrphk3cvLm/saQCMyLUt5lgtsjITrRnb0H4KD6yzRmWDo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lrJ6xBQw; arc=pass smtp.client-ip=74.125.224.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N1oDSfDy"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84e3007a2b7so8489b3a.0
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:28:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lrJ6xBQw"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66807ba2f0fso168009d50.3
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:30:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786642246; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pWEAXW7p8WSfldeSX1fm49NmbsEB2rdyv5aO+ptBZAh2inJNiRT33Nk8IhbZBAZqNX
+         Z+GxnhR3hhaUv3iMhSSWD4yZKcScm0RvD97rqIONEP3QfH4yfhUweEMXdk8oyGF2WoBu
+         57Y9rjO3uKz22Y6V+NyMomB8+/6W0uWVeT8LX/2kOxIDmsyNQ0mpPAV37fYLSWuHOeVu
+         VH3sZSxNBJCgPDzzgkcngGDPdV/5jBZnwjpetxowHpHELyU5QuC7dtrDU8DysNMk97NE
+         1H/ntLCIhybvEDEQG3Y/eo4QG2VFo3vWt+A3K4UsKEmiSHnsc9cn2h4mIea5NsOgb++b
+         kXPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Lx9QfW1jBnBLne5zOp4UBd9Snkw8zs0lPJtwYteOAIM=;
+        fh=6+JzjkSni5M1yyUBg4/1CtpcDRqOPZWETr0+XFsFDmI=;
+        b=bIA7QOdE/RV3RtYCTh1F7mOeksRWaOYn7YMD9pMokKi5L7LGxjhBHavnU5dvrL6Xoy
+         r42ctDr0y1pD8v27lYZiQYSuJgfcEpzBOnPSDa+AH+L5w5xMHnQsx5NqjnLdNt4mf5Zz
+         Y23ZwV/HEJPI6C0aRLiwQp0CIKMoIvK1c6NSGIxdq1QhXePLOFjbCF5BY01EtWEVgeBS
+         wycFb3ZS4Kehn3XBIBx+Vr+y21FQlZSaEFswTu4S5XBJZ2zd+sxpjpnl7MacrJt/JSqN
+         CAvSOaABYxA13GVaiawhMSOCEoUULtgpubOdFZB6Zw3PngpyUIh9ZiiZSW/PazOHRgIb
+         qCeg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786642135; x=1787246935; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3QAmNckJusENFi3b8PAoUfCMcO2O6+LVywV/5dZdBLk=;
-        b=N1oDSfDyGX5k8skW3yIOFQQi7bAbr19XBgn57Rm2WVnpG7SBd1SGsYziURHPQvMf4D
-         rg+aWS2KZ+NUhT+QPwkcUp4kHDhK8qOGS/MRXkV8a2G3VH58yK+IWjZFjzZavGo8+CpC
-         zlXpv7r5HaeTgTI+SfUnzYE37i+wCprq9j+9Uz1DilkKZmtodKwl8mAOzfCJH8sZmcf8
-         eqZuRQV3GQKCWu2QkXjEQodkPQCy0S0Ivj6lchbvOCLBQAW6wAmQ0/6ydUp7TCOLuadS
-         bfJPIkSUYkAvfZGpXdFsTXsqa8CUUTniI8tWjGSVFzfkiu/skeZiJ6gYUiVzPEvGeLtS
-         YU8w==
+        d=gmail.com; s=20251104; t=1786642246; x=1787247046; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Lx9QfW1jBnBLne5zOp4UBd9Snkw8zs0lPJtwYteOAIM=;
+        b=lrJ6xBQwLMP9ohLhH9eznjaB2sJRcCKVdYlhnI4As6qk0KoF3r+fTTn+3Q0QrbvexF
+         03NABE1d1FPaNCExUyDNf10OP+ea7mh4Uibq2OGFMHfrXdYIOl4eOvfsBOSzuTna5sKM
+         ZVu6BR9vTdsyPJVeU53q0apQK7r3D0/jgFb0d3KgHuJmop42vAGvuutI/000ACT841Sa
+         sGrwFHM50J3Xk7/+EzZBkqg6kgS8JV2hspFfPyOT3mERtxkhBdSQbfNjvjafj1zkrqDm
+         GtmQ9eQ//h/nSp0ZI6lQ6xwM8sWtyvm978QIGjV6jVU0QoU8c4Rvl/ewab4Z4kMbDg6G
+         fGfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786642135; x=1787246935;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1786642246; x=1787247046;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3QAmNckJusENFi3b8PAoUfCMcO2O6+LVywV/5dZdBLk=;
-        b=dqZfB2hP+TkVAZn3qAzZchdqQI4Wu7JB2kJsRnVD+gU0Bl+z3hnheET/kFWfr/Qnsr
-         GzTBeIh8pbIniLvecp2A8pbXLg7ThtKg1Wk8PYF/21fZ+Td+uERQGnRFTTgyn+AgzVe8
-         C27k9kICO0BIclpEHf4dbwMtUuvC5RBOA/VscFrztyG7FAIogcTHRa1OG4iC5Yp6Hh0D
-         Z8OJuB+5AMH4DZFLyPjUloaMBWSoMIJDbgEY9mnvjkZ84IqLw8gMNnYF6a5Hg4zKSsf2
-         r40Z3Rbbr//NRfvC0pxZaWVEagO7kstggPJBUTR/L//dbOdoeVfcNPqCDWQghA8MELib
-         jv5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqiAGJfNBaPnqtTLxnJjifrfCBa/hUfSmKO9f4zc8BbDHdk/JiXnqs7lZjTIwVZSHmS4/d9HhK/gOAh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8UP71WCmE2ccgdjVefGmmjgVMF/KzLuGIu0gxzASVO0wWMM56
-	no8tRL2QwXt+nEh9Pv9OUnZxKqFMlNVVG/0Kb2RbcyLu9DzFLrC0wnI=
-X-Gm-Gg: AR+sD12cwxHMnJ1z3huQJK6BbomdGBATBRUqgdaYD+L/FmXtHq4K2zJeh+kj4bu9D4l
-	rjcWYjGBRn3BYK4mNWBr+H+MC7493zWekCX8XeO9eQfMl9+w5gjD0E6erNgznHZHQ0vPIXqV+KZ
-	ooiKc2SetDUQf4yWrthSmO87nZq2Orn9qlPUetXHTv8lZXqw+qAcXBGV7TedZd2WjpQ54teVD7V
-	uwuWKm+jqO/plN5hhD4TdG2dCfHKSJ6LtbF/tohx90BlKVSF3KA5VHNJBOqntq/tQgdPj0h8SgY
-	SdZTdLGubiAAbP4zHyfcVlB4xwhlnkLhz+HC8b7rCm9GRUXyRTBkKArEnCpawvmq/a4V8iU5bH6
-	JHGPTZN3H/sbqSCmNnMWSVR/zzDZzZhOwZJc+fOaP3jZhcpH9WWeijBEPYXZxm8Q81MOTPIE900
-	xN30qoHV6xGd4pg5X8kNNTKIjAZwTbAM07/xfXUNgGi40MDobk5IFv5a4hCBDAid16DIw0+WdsZ
-	7UZHLiH48MvFWiRBZZLMCvh
-X-Received: by 2002:a05:6a00:44ce:b0:848:6b43:35dc with SMTP id d2e1a72fcca58-84fc767caa3mr8813674b3a.35.1786642134845;
-        Thu, 13 Aug 2026 10:28:54 -0700 (PDT)
-Received: from localhost ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fc5a1bcaasm1251435b3a.29.2026.08.13.10.28.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 10:28:54 -0700 (PDT)
+        bh=Lx9QfW1jBnBLne5zOp4UBd9Snkw8zs0lPJtwYteOAIM=;
+        b=DN4WK7KqyrOc/BPtlQWGH+mcRtBRI0jf9ux/ToJ4PMsv0pzbfjRjZ9s5alZVJzqmFC
+         2J8WbADusx++NXo9OC7DJwUsdFFvGmvZ/nTEDurhe7gKr2VMaxmNPQ/x6eKjoq2hF/lN
+         DumNIFkV1f6cbLfn+DuTWQIZ7tkH+31wq/xLBG6hbf+9Q9Edv46ICnegbDK2WfuWxaZd
+         w2T6mfbpLanbzNPMHWfmYB2oczKnfHnMnmRjB56YKWPavfARNnZvoACAiQEY7YgH6R75
+         NX443b45yX3gq9rDrgf0g8GflIKgCdKI0nHMk6+DkOTSVKfBWxFdEeJ9aKFMZ9OO969o
+         rbKQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5UNpD/bJ0JsziJIAie94dR33Z6LWTB9pTprz+6j7PtV6e4PkCasqhzgG09PsOTRX9SRFG6NF75on9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1+4n/ignv521QP6yuoFD/YhrwFZHUw4p4ovoJmftaSpI9SKPw
+	xpxUjwO5C5BEh3Nf5RqjJ9dh1Qoglq4jTiSEhVFjMkjuEDn2ccemjq88XOUzfQ2G9gibL5wV3AI
+	q0IhvBpvjWrIrd/onTlOt7BRUfmUx99I=
+X-Gm-Gg: AR+sD10snMG4P2r2w9pplIn0DWRZ+g04Aobl6tWHN/b58wUjbe9MxjZEWUHGFoRSBgZ
+	R/Vq++1EGXjjK5AIp8zp5r2lnL6uq21LVeJaSXzS8bL5FrpAf9MrmeCXxQT5ER0aloKGj+BnMNE
+	wyC4QG/yv1PWy79SYHrA6FNPAskAMqt0tim+DIr2eNEorlQBF8b8ZKa/mE8nPi/5tLS4vurRrGL
+	mA3jnC0YaKodZkQsA2aGSenFSR8cCuMv4SOeVaRMUFhl3u9BtYFTHwejsIACHLeszqvHx44LDbM
+	stHusrgqPvMFSRKSUpq4dwElxRAZQw/ElbEHYz2mcyPJcVZistLNYXL2dMlyDrhzSnkhBAdBvt7
+	O
+X-Received: by 2002:a05:690e:a4e:b0:664:f064:f65f with SMTP id
+ 956f58d0204a3-66c72be335fmr44263d50.23.1786642246132; Thu, 13 Aug 2026
+ 10:30:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 13 Aug 2026 14:28:48 -0300
-Message-Id: <DKNZRYZZVSEA.I0LC7DRPXFK9@gmail.com>
-Cc: "David Airlie" <airlied@gmail.com>, "Jori Koolstra"
- <jkoolstra@xs4all.nl>, "Conor Dooley" <conor+dt@kernel.org>, "Brigham
- Campbell" <me@brighamcampbell.com>, <linux-kernel-mentees@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "Simona Vetter" <simona@ffwll.ch>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Maxime Ripard" <mripard@kernel.org>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: display: add Chipwealth CH1115 OLED
- controller
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+MIME-Version: 1.0
+References: <20260731174551.86367-1-challauday369@gmail.com> <178579584771.736715.6031577704790719107.robh@kernel.org>
+In-Reply-To: <178579584771.736715.6031577704790719107.robh@kernel.org>
+From: Uday Kiran <challauday369@gmail.com>
+Date: Thu, 13 Aug 2026 23:00:33 +0530
+X-Gm-Features: AUfX_mwXdyvwqFkMfTSB4bW5XkPxnXQPKGMGnB_Yh8wf4BAqLLqwT8ujk06-mCw
+Message-ID: <CAAj-GBmvcG62NddVS3UMEK6tQ2UKBr+=KCXe15jhCEtB+JWXKQ@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: pinctrl: microchip,pic32mzda-pinctrl:
+ Convert to DT schema
 To: "Rob Herring (Arm)" <robh@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <cover.1786110720.git.nico.antinori.7@gmail.com>
- <cf9b02d618db4eca88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com> <178611771198.882916.15330377894023589629.robh@kernel.org>
-In-Reply-To: <178611771198.882916.15330377894023589629.robh@kernel.org>
+Cc: conor+dt@kernel.org, me@brighamcampbell.com, skhan@linuxfoundation.org, 
+	linusw@kernel.org, linux-gpio@vger.kernel.org, krzk+dt@kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Rob,
+On Tue, Aug 4, 2026 at 3:54=E2=80=AFAM Rob Herring (Arm) <robh@kernel.org> =
+wrote:
+>
+>
+> On Fri, 31 Jul 2026 23:15:51 +0530, Udaya Kiran Challa wrote:
+> > Convert Microchip PIC32 Pin Controller devicetree binding
+> > from legacy text format to DT schema.
+> >
+> > Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+> > ---
+> > Changelog:
+> > Changes since v4:
+> > - Add reference to pincfg-node.yaml
+> >
+> > Link to v4:https://lore.kernel.org/all/20260722123243.341346-1-challaud=
+ay369@gmail.com/
+> >
+> > Changes since v3:
+> > - Drop "|" from description fields
+> > - Remove '#address-cells' and '#size-cells' properties from the schema
+> > - Consolidate repeated pin-node property definitions into a single
+> >   $defs/pin-node entry
+> > - Replace the two patternProperties blocks with additionalProperties
+> >   using oneOf to allow either:
+> >   - container nodes holding nested pin configuration nodes, or
+> >   - direct pin configuration nodes.
+> > - Update $ref to use the absolute schema path
+> >   /schemas/pinctrl/pinmux-node.yaml#
+> >
+> > Link to v3:https://lore.kernel.org/all/20260719183431.124061-1-challaud=
+ay369@gmail.com/
+> >
+> > Changes since v2:
+> > - Add container node for grouped pin configuration sub-nodes
+> > - Correct regex patterns of direct and nested child nodes
+> > - Fix interrupts values in uart2 example
+> >
+> > Link to v2:https://lore.kernel.org/all/20260707144223.120417-1-challaud=
+ay369@gmail.com/
+> >
+> > Changes since v1:
+> > - Add interrupts and clocks to uart2 example to satisfy uart schema val=
+idation
+> > - Corect regex patterns to accept standard DT node naming conventions
+> > - Add function property to top-level pin configuration nodes
+> > - Remove restrictive enum from function property to support all mux fun=
+ctions
+> >
+> > Link to v1:https://lore.kernel.org/all/20260705132521.159522-1-challaud=
+ay369@gmail.com/
+> > ---
+> >  .../pinctrl/microchip,pic32-pinctrl.txt       |  60 ----------
+> >  .../pinctrl/microchip,pic32mzda-pinctrl.yaml  | 109 ++++++++++++++++++
+> >  2 files changed, 109 insertions(+), 60 deletions(-)
+> >  delete mode 100644 Documentation/devicetree/bindings/pinctrl/microchip=
+,pic32-pinctrl.txt
+> >  create mode 100644 Documentation/devicetree/bindings/pinctrl/microchip=
+,pic32mzda-pinctrl.yaml
+> >
+>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>
 
-On Fri Aug 7, 2026 at 12:48 PM -03, Rob Herring (Arm) wrote:
->
-> On Fri, 07 Aug 2026 11:19:50 -0300, Nicol=C3=A1s Antinori wrote:
->> Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
->>=20
->> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
->> ---
->>  .../bindings/display/chipwealth,ch1115.yaml   | 73 +++++++++++++++++++
->>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
->>  2 files changed, 75 insertions(+)
->>  create mode 100644 Documentation/devicetree/bindings/display/chipwealth=
-,ch1115.yaml
->>=20
->
-> My bot found errors running 'make dt_binding_check' on your patch:
->
-> yamllint warnings/errors:
->
-> dtschema/dtc warnings/errors:
-> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
-display@3c (chipwealth,ch1115): 'contrast', 'first-page' do not match any o=
-f the regexes: '^pinctrl-[0-9]+$'
-> 	from schema $id: http://devicetree.org/schemas/display/chipwealth,ch1115=
-.yaml
-> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
-display@3c (chipwealth,ch1115): contrast: b'\x00\x00\x00\x7f' is not of typ=
-e 'object', 'integer', 'array', 'boolean', 'null'
-> 	from schema $id: http://devicetree.org/schemas/dt-core.yaml
-> Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: =
-display@3c (chipwealth,ch1115): first-page: b'\x00\x00\x00\x01' is not of t=
-ype 'object', 'integer', 'array', 'boolean', 'null'
-> 	from schema $id: http://devicetree.org/schemas/dt-core.yaml
->
-> doc reference errors (make refcheckdocs):
->
-> See https://patchwork.kernel.org/project/devicetree/patch/cf9b02d618db4ec=
-a88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com
->
-> The base for the series is generally the latest rc1. A different dependen=
-cy
-> should be noted in *this* patch.
+Thank you, Rob. This patch has 2 parts(dt-binding & dtsi changes).
+Can you also please review dtsi changes?
+https://lore.kernel.org/all/20260731174751.86819-1-challauday369@gmail.com/
 
-The patch is based in 7.2-rc6, I am going to rebase it to rc1 in v2
-(or wait until rc1 of 7.3, depending on how much it takes me to solve=20
-some observations found by sashiko).
-
-Thank you for the clarifications!
-
+Regards,
+Udaya Kiran Challa
