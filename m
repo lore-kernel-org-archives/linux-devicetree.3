@@ -1,96 +1,112 @@
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1323443E43
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:53:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DE83955E8;
+	Thu, 13 Aug 2026 08:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786611206; cv=none; b=o+D2k7dnfE+oEWyWXQ3A46SBmjfys62Ux/+AOxw4INMjRDsyx2L+rDG9F4mv1Cido7MoQsTg7sdduA0IjcZ7diRkMoQIpYuUcKAIkKKXMiThMCEiD4445b4trMTEAx8ZhyIEhn3Jdk4SZYuXJ9sL9Wks3rjGUVOzoTgT54Jq+uE=
+	t=1786611255; cv=none; b=Y95v8wVGQTmJQngyXqMGhsfJYq4qDpHSLDKztIXyVz8CNSknAQoNOHM9E1Mq9k0cBFRVekAVo4U00zHI3qFJK8kwcXyFzCLn3GCC2i14MGQDZQUZxSzyjMvWl4HhCUwMiRY5wg/9uv9R2oVYm++yVeFxy1BbdT266Xj0M9UkIBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786611206; c=relaxed/simple;
-	bh=R3n/DrlSp03RqjHgGJKI9hAF8mRDHpDvu06ToIv1xVY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FvNxiYCnHxRzZ4iPYUg2tlUQYaefl4Pq7ShJO11YASpU9dAjkMO04gg8okMupfLQ2dusbCjitpDqra3MUplIViTR3IPb9dTqVPGcEspSnJBW5B8m5+OhY0isUgxgN3Lhi4Y4l/+/vrTLD6RIv3fbknvtxMeqlBK46AcWFTTjFxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-75609e844faso509092137.0
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 01:53:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786611201; x=1787216001;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Jo7EGcjbRu+iSuq+kLMqw8b4MED/CzllCFiLFlmmj1o=;
-        b=LKZRGYfG21Wtu/zZk3aEvurf7rdvTS6eO68r8rVWLikkbGPu84KJc1AFQhotReWgpX
-         6OkMSWHpfCcBYOmvg1WLoa7lQAQuNo60nTGldpfDWGWvektzP1roU14KZoMj7vF6AJ/Q
-         Zr1QkIv91hR+qAoKrSlgFGpjgC302Ub/JUzUdr+la6O7nCtPtWxOpK1pvenwk1/zrHYN
-         exEjTAMWHNElQOzHsW2H0gYwtnIJGFuRR3tL3HSO4GiBrO7ldzeEPHISx2NsPx8/cu0x
-         NOdnIO+I25C8yRUwzf5FHZ63UUe/+p56D8kxUgX+auIGfrps/mKhRrtUNfzCNoP8Zwzt
-         L5LA==
-X-Forwarded-Encrypted: i=1; AHgh+RokOuWDDa6og/U4xTAP7xmWSwwe7fat2q/62JndyjO8iWwrgasqmKa0Yd/mStOuODmMMv7fF2i5W0VC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxn6WD9y5hfY4mImtdDjXTWknuY0JWeNSIDfDWsfBSxkXIkdTRz
-	26GhnjCWLQvHkfbrigqv+vsoqbgoElRvKz19+RgcZ2q7agzUJPCdkFB8ME1yx/n2
-X-Gm-Gg: AR+sD112JxTxYT6qsMPj6/2QgOogWgrJ78cmcbsJ9qiGNrek4WnkUdW06AvZGC9Rh9G
-	lXUaaTbLBduSBRmEPCqnsv8XuVnMQq++HwUEYkpj6OqMt1jWZeqG8fpl6ES+D3bCc1Lbis8ikVF
-	/N7hnWheH4O07AI3urUQAmvOTGsnFdEt9qQNGeMtc23Iadz1SYpR4AhT3tEp4bILfrQf3vpCnNu
-	8VA9gSRg4qY7bRM56eZaDUHVgfDROEBWyCrX/r2GNUN8Tjvcf3y+k5dRWb5DrRKa/R9IP/9jKFs
-	tGTrHY+mKq6OWMaIsVjuSjiocuv9AF7JRR6Pn3jKJh63lq4dYkQiUaQkojkU5DBTy7LNDUz9Izt
-	Sf4s62GVwDCLJ9pHtrLzCXLWN3+ZqhhOsZdjL230zWKDW3Ex5ChKswoGFth/7+H2ts4wIQAWM/B
-	6hD8+Aw6UDfTFIWv75IXCXKBaqTFccbRG68oI5Tp0271vcSLfPWlpnVkTnfUK03rKjDouwo2/nh
-	3T/TKoPs4dA6IH0tBkk478kLiFF09NLQH07
-X-Received: by 2002:a05:6102:5698:b0:756:d0c:525a with SMTP id ada2fe7eead31-76dd4eb7a40mr437016137.0.1786611201187;
-        Thu, 13 Aug 2026 01:53:21 -0700 (PDT)
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com. [209.85.222.52])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-76dd32b7483sm756195137.11.2026.08.13.01.53.20
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 01:53:20 -0700 (PDT)
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-977310532a7so549576241.0
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 01:53:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpNWKwXcxG3vsWU0e+3482I6hx9DXEo7BZorxwsOcqK0bdPO3s9c56wdYbOHP+hNJPKK2gM/KXW/nvJ@vger.kernel.org
-X-Received: by 2002:a05:6102:222b:b0:760:d86:a64a with SMTP id
- ada2fe7eead31-76dd156e2eamr407635137.4.1786611200686; Thu, 13 Aug 2026
- 01:53:20 -0700 (PDT)
+	s=arc-20240116; t=1786611255; c=relaxed/simple;
+	bh=ya7+gkMSCtIE0DuOHJ+7IIxcGMBtBW1vI2vxcmT3O6U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e9bt3jfdMKqVj4GHUkG65QF5B98/xE4d7x85HaY6dYr3v/onpKKXxq3/4ae9kg6Bv8sliRyNL/cxUAdIMQbddZNc3f+kZ33RE8m/n37s3DGrUtUsFoKGOGsnWXQ7W+xHaMqQ9bl18FG5Jd+UPP25GWik0qaqL9gh+ascCWoMuiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdDGGliG; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdDGGliG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0073F1F00A3A;
+	Thu, 13 Aug 2026 08:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786611254;
+	bh=I1MNXpPx0FgeCJXMj+UI/UAtsN5uIJXp6y3+35rpExk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LdDGGliGWac/IfmV9OJJNtwWI5dnnbJWAstzCfTp7XfOhNXKTAWwr2X2Mz1HNlKtp
+	 kny4vthYjJ+ZMntSTyWZCcGPeKca6mD7wr4JGCPYpBIu7jz5AxY6UeH4EcmPRSzYbC
+	 fGg1E9k/2B8s6nR54J6mH7iERcYln8iM7eQNcNLQnxoEepi015sNoJBDwUBFbtVMdr
+	 fkVrmvmDDYiQxzlP6/nkl0snqH9lInMgp+hxdspTV1+2tQuvgtO+EP+V6TtvbO4mLM
+	 QaX5lJwTcq1yemLZl3Zl9eZk3RANVSqOaXrGoEoWxnCAS24JMNaKaK5vYaqcE53081
+	 2K5AyjYdGLxaw==
+Date: Thu, 13 Aug 2026 10:54:07 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Robin Snyders <robin@snyders.xyz>
+Cc: Casey Connolly <casey.connolly@linaro.org>, 
+	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Joel Selvaraj <foss@joelselvaraj.com>
+Subject: Re: [PATCH v2 2/2] power: supply: qcom_smbx: add SMB5 support
+Message-ID: <20260813-granite-pronghorn-of-gaiety-d27f65@quoll>
+References: <20260812-submit-qcom-smbx-send-v1-v2-0-f504b8f9bfad@snyders.xyz>
+ <20260812-submit-qcom-smbx-send-v1-v2-2-f504b8f9bfad@snyders.xyz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604151855.307772-1-biju.das.jz@bp.renesas.com> <20260604151855.307772-4-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260604151855.307772-4-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 13 Aug 2026 10:53:07 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXp_hPXGVH1ijiYGQ8gxhP8CBYt_T0-ixbFH7eNXRSjiA@mail.gmail.com>
-X-Gm-Features: AUfX_mzGTfwgWLWA-7ELC6UmHJrg7VZ1gOYWOwDD70xY-8p9DWArpZ3fHYq9ckw
-Message-ID: <CAMuHMdXp_hPXGVH1ijiYGQ8gxhP8CBYt_T0-ixbFH7eNXRSjiA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] arm64: dts: renesas: rzg3l-smarc-som: Enable Mali-G31
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260812-submit-qcom-smbx-send-v1-v2-2-f504b8f9bfad@snyders.xyz>
 
-On Thu, 4 Jun 2026 at 17:26, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Enable the Mali-G31 (GPU) node on the RZ/G3L SMARC SoM board.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+On Wed, Aug 12, 2026 at 01:57:00AM +0200, Robin Snyders wrote:
+> +	if (chip->gen == SMB5) {
+> +		rc = regmap_update_bits(chip->regmap,
+> +					chip->base + CHARGING_ENABLE_CMD,
+> +					CHARGING_ENABLE_CMD_BIT,
+> +					CHARGING_ENABLE_CMD_BIT);
+> +		if (rc < 0)
+> +			return dev_err_probe(chip->dev, rc,
+> +					     "could not enable charging\n");
+> +
+> +		rc = regmap_update_bits(chip->regmap,
+> +					chip->base + USBIN_CMD_IL,
+> +					USBIN_SUSPEND_BIT, 0);
+> +		if (rc < 0)
+> +			return dev_err_probe(chip->dev, rc,
+> +					     "could not enable USB input\n");
+> +
+> +		devm_remove_action(chip->dev, smb_restore_charge_state, chip);
+> +	}
+>  
+>  	platform_set_drvdata(pdev, chip);
+> +	WRITE_ONCE(chip->probe_complete, true);
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+No, please do not invent custom probe ordering/synchronization patterns.
 
-Gr{oetje,eeting}s,
+If you need this, it means either core is broken or your driver has
+issues. In both cases the source must be fixed, not through custom
+one-driver solution.
 
-                        Geert
+>  
+>  	/* Initialise charger state */
+>  	schedule_delayed_work(&chip->status_change_work, 0);
+> @@ -1095,8 +1543,10 @@ static int smb_probe(struct platform_device *pdev)
+>  }
+>  
+>  static const struct of_device_id smb_match_id_table[] = {
+> -	{ .compatible = "qcom,pmi8998-charger", .data = "pmi8998" },
+> -	{ .compatible = "qcom,pm660-charger", .data = "pm660" },
+> +	{ .compatible = "qcom,pmi8998-charger", .data = &pmi8998_match_data },
+> +	{ .compatible = "qcom,pm660-charger", .data = &pm660_match_data },
+> +	{ .compatible = "qcom,pm7250b-charger", .data = &pm7250b_match_data },
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Your bindings commit msg claims this is fully compatible with pm8150b,
+so above is confusing. Is one superset of another? Then it should be
+explained in commit msg of the binding.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> +	{ .compatible = "qcom,pm8150b-charger", .data = &pm8150b_match_data },
+>  	{ /* sentinal */ }
+>  };
+>  MODULE_DEVICE_TABLE(of, smb_match_id_table);
+> @@ -1112,5 +1562,5 @@ static struct platform_driver qcom_spmi_smb = {
+>  module_platform_driver(qcom_spmi_smb);
+>  
+>  MODULE_AUTHOR("Casey Connolly <casey.connolly@linaro.org>");
+> -MODULE_DESCRIPTION("Qualcomm SMB2 Charger Driver");
+> +MODULE_DESCRIPTION("Qualcomm SMB2 and SMB5 Charger Driver");
+>  MODULE_LICENSE("GPL");
+> 
+> -- 
+> 2.54.0
+> 
+> 
