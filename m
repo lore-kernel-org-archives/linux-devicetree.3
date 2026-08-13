@@ -1,74 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD73388880;
-	Thu, 13 Aug 2026 05:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F04F3DFC8C;
+	Thu, 13 Aug 2026 05:32:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786598526; cv=none; b=AnqbI6rN/9Izh9uqBKHkYFtcap2GYzJJVebcDC20T4J1VCebkSzWtz5bHiDdgeIx+6uJE5khy1eHZfrkTctZYpSwvQasEdkgST2k6PVdf8IAkyfLB72C9SoTMJ+jw2Bbswh092DvgA0m79x6ABoxmRB1R7YK84H7gc4YoldaalY=
+	t=1786599125; cv=none; b=L9zRTKQA0fN938sNyv6a+k8lu7alUian1Wp5mf3UZiVjZOPdlRUQRO7XD1tpdRimTIwHXl47farIseXtnb774VRF9VNVnk4L0Xpj2hwAlSeSfjvK5pY5b3UY9Cdl9ebi0PW7KQ4XWUChBKtB/Q2FU18sWYryeL8C21BuLXi7x/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786598526; c=relaxed/simple;
-	bh=vNkIQJmIOgAn2Tp1XM31BwFPcnmlpDy+Fi4/g+OjiBk=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HW2QlMKUYqPerzZBLEPoNrK4Q0nW87l9nbr+1f3w9fclSuvr33Aj4mAa9RZlGq50U0OfAq8WbQrSEYlAXfpRNbGx1wiUGKGjfeOGF9xMqdbi4rE+W5pmN0fRmYRPoUVr2wo2xdOTb83loUgsDOQaCtqc6N3uOi18h4wLBtkbNOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD61B1F000E9;
-	Thu, 13 Aug 2026 05:21:54 +0000 (UTC)
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Christian Marangi <ansuelsmth@gmail.com>
-In-Reply-To: <20260806165334.7328-1-ansuelsmth@gmail.com>
-References: <20260806165334.7328-1-ansuelsmth@gmail.com>
-Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support +
- clock
-Message-Id: <178659851441.407130.13996130568120882339.b4-ty@b4>
-Date: Thu, 13 Aug 2026 07:21:54 +0200
+	s=arc-20240116; t=1786599125; c=relaxed/simple;
+	bh=QXvYquWMqcudevGlK7VpC9xkHfIZG9bGPfmBUnbvZ0M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MbrkE3PgA4EyklOvCwQlwt2rhgaNC82JU0ui7ZpsMi6eCdpHxg0sbWyXK4zqLkUynFgFEyJ+9HSPPWYgDRlftj39TPdOyiTMUwv7Hc6OsXNNK150QREA4rB7EU0L5A1Ul5b3LRDSJ+Hn7g+5IiAGq9DR+aFL94CTPswZhocPNdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AuVc1WpY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AuVc1WpY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C980D1F000E9;
+	Thu, 13 Aug 2026 05:31:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786599120;
+	bh=DLJfBO2G40OWzLwwxKFSXJTvkr9EzDntk9qp9Ghfjs4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AuVc1WpY1T6bq/8/8id/AclZBsRPdVWHX4ujGKWhx1kxXft+llsv/lKJ/+HGTUo2z
+	 A1m97hiRB//0h0zPrMSDFwFkzcF/q7FwNr19nJNvEngzQgBtRLXTMOtZgceI+bBh0A
+	 VKu3O7L7vGfYWSXidQaSE6XFLletXB8mH3ClvSsSDYrrZPocLIzgfjVwRocD9I8Jdv
+	 LWsTJTqHh1eh07oWpFRYfihd4vHySqMjRHcJsUXwg+zRfe8FvQPIbzkpCcfrYfH/NW
+	 FLYCEWAWSeSFwpZiymnfJ9YXZ+6e+OLACMsMLOA0M45oj/aBWsYq11BLICrcEk0oY/
+	 //7S+Lr3kyp1w==
+Date: Thu, 13 Aug 2026 07:31:51 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	devicetree@vger.kernel.org, Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v5 03/11] power: sequencing: Add pwrseq_is_controllable()
+ API
+Message-ID: <pacoomcusygcdszbt56scxj7kkdzwmv25pvqulft7scfdshwn4@2dgzce7zvunv>
+References: <20260720-monza-wireless-v5-0-69ec6743543c@oss.qualcomm.com>
+ <20260720-monza-wireless-v5-3-69ec6743543c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15.2
+In-Reply-To: <20260720-monza-wireless-v5-3-69ec6743543c@oss.qualcomm.com>
 
-
-On Thu, 06 Aug 2026 18:53:30 +0200, Christian Marangi wrote:
-> This small series introduce support for 2-lanes mode for Airoha AN7581
-> SoC. This is needed for correctly functionality of Eagle WiFi Card
-> normally attached to this SoC that require a 2-line PCIe card to
-> correctly work (and give the proper performance)
+On Mon, Jul 20, 2026 at 10:04:05AM +0200, Loic Poulain wrote:
+> On some boards a power sequencing target has no host-controllable enable
+> for its function, for instance when the enable line is not wired up to a
+> GPIO and is hardwired to an always-on level. The pcie-m2 "uart" target is
+> one such example: when the M.2 connector does not route the W_DISABLE2#
+> signal to a host GPIO, its enable/disable are no-ops and the consumer
+> cannot gate the Bluetooth function at all or exclusively.
 > 
-> The first 2 patch address a limitation of the PCIe implementation
-> where the PERSTOUT reset were indirectly asserted and deasserted
-> all at the same time (for all the 3 PCIe card) with PCIe
-> enable and disable.
-> The 2 patch address this and introduce correct reset to control
-> reset line for the relevant PCIe line.
+> Add a generic pwrseq_is_controllable() helper. It reports whether the
+> target's final unit provides a host-controllable dedicated power actuator.
+> The target can implement a new optional is_controllable() callback,
+> reporting whether that actuator is effective on this target (for example
+> depending on GPIO presence). If the target does not provide the callback,
+> it is assumed to be controllable.
 > 
-> [...]
+> Note this only describes the target's own enable actuator. It does not
+> imply that a power-off reaches an electrical OFF state, since a target may
+> have multiple consumers. It also does not mean that power is uncontrolled
+> for the target's dependencies: those may still be gated on their own. And
+> it does not restrict consumers from calling pwrseq_power_off() either,
+> which remains valid to drop this consumer's vote on the (possibly shared)
+> resources and dependencies of the target.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Applied, thanks!
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-[1/2] dt-bindings: PCI: mediatek-gen3: Split Airoha schema and document 2-lanes
-      commit: c48c637255625f23bbeabbe63dc2d6a4b70c680a
-[2/2] PCI: mediatek-gen3: Add 2-lanes mode support for Airoha AN7581
-      commit: 8d076be9a10c68f7fac5d6a180bff19053b91dca
+- Mani
 
-Best regards,
 -- 
 மணிவண்ணன் சதாசிவம்
-
-
