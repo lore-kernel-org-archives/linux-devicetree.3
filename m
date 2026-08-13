@@ -1,35 +1,49 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AFF396579;
-	Thu, 13 Aug 2026 10:17:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6BC408612
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:18:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786616256; cv=none; b=Kly1oZHHzQv/tn8Pg2G0KUfNUb5xS4ESF7Srk2BnqctGGRsUF8EdTMegvC23OlxTk8FPGmu7g9nNvJh/szDvHUMLZl9GSt1m9BjJ1aNTSaDCKr9qaI/1PbCV4KsetOX2n7BdBX2rTHTLBzi1HFBGvUAYwCkOJDlUCax3JZDAzkc=
+	t=1786616307; cv=none; b=E005OB7PZ9qXdbBqmW1rkYRdGwiyTrennsMA6ZMVrZ0dk4RBkSirkuCraTSGwtoLjHwhDKrH+tcTsax/yJgiopHRn7vpIpdkkkbDZoD2tjo5B7Hjb2WfTTbtqBzKHJ5vJXv7zLEtyblwUFB8kAVJJ4xyM73022gEKJP0F8xHmuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786616256; c=relaxed/simple;
-	bh=tuSKT5vnEGLzW3L1+Tg/g153UUo4Fo7bcNTh3Y87xTc=;
+	s=arc-20240116; t=1786616307; c=relaxed/simple;
+	bh=j/NIwXvPAxTMl7x2mvti7Jt54oR9iZD6daoZYqKMH/o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RU/SI7i5cY6Dr1k4Y7xlpHt8iKv+aCWmGU8/F4tEDkEJEb3GBhIvlbXXpY667I9QRLUPOEExUrKnqV9cZ2CEHazV6O1nFtgMFrjCEC7OxoOobsrnFGb/J55SnwYlSIIsg+n/MZWkkP06LCTE+UI5M+BDB1gqx19I9ymtJeL7Hqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=UNgWn58Z; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 In-Reply-To:Content-Type; b=A5RpTyiK0FE7u31TYMrRgIYpqX2/zYBmWS4AIIyB+d1TuLLB9OUjlvHmVtrxiNjVa5EGnAOdaBw6vjYLp/3FRGkk2keqjpMgFQ25Wm8Tfx/VkyHe5lx9+XZqRk0wwwAeXcE9WOCsCX/Umuq5W6sQ8RfWgkL8Q5qQ7lT3k/z/BQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TKsn6hhf; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="UNgWn58Z"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BE8F1112995;
-	Thu, 13 Aug 2026 12:17:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1786616247;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=/BuHPpnzZHteKsYDuUbfARlxgNnfnDbxBH+K+gw6fwA=;
-	b=UNgWn58Z7/RgRQnUiTN0w24Zxt47G2xD545mja3bMa1O29zmbIonUCe/pmi3b379YvLdnG
-	D4wtCOg3j5fEz/XiYXbH1J8beRq6WTjZcKSkp6xen+e05mXvx6X/f1I2I5jZHGwUq9nMpO
-	FCLTTZaYF7YiGNnxzamTK1yoFj8WgvixzW+6SQvpdOpNhlzSEQDNLssSebZrKEDxbv2RpF
-	4ufPn+CO/Bm1HBtbf/XVl/AaJ2NRJtK8zo3KCWxyLXWxUUDAd2dFdKGeI50Zv3UJq+l2HL
-	JVNCpsuXSwijoIhVBm1V40Du/rNbhB2bryA+PnRr/wXg9gu+wq/B7bM69TPFjg==
-Message-ID: <9921697d-ea7a-42da-b172-54412082ec8f@nabladev.com>
-Date: Thu, 13 Aug 2026 12:17:21 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TKsn6hhf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786616300;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fhVOT1NBoJWCMrs6MKS/xrLWaLicxdeO10OJF9EgLYQ=;
+	b=TKsn6hhf3iEBmaL2YECnJR7L9+3ASwOMOcoLbTUJiglTXui7YleMAt8VQ2pA5JZGr0q3AZ
+	nbvItR6hGXg6W38HX2cTu68mhj4MBZl9JIGebFa5p4LY/n9ABoGMRKrGuxrDm9yDTsyomm
+	fW2NSLKtW88d5rYFvevLPqpz8ynfbVU=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-82-S1IWFIC3NN-jCEXUX-Ocgg-1; Thu,
+ 13 Aug 2026 06:18:12 -0400
+X-MC-Unique: S1IWFIC3NN-jCEXUX-Ocgg-1
+X-Mimecast-MFC-AGG-ID: S1IWFIC3NN-jCEXUX-Ocgg_1786616290
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0F4CB1956096;
+	Thu, 13 Aug 2026 10:18:10 +0000 (UTC)
+Received: from [10.44.48.137] (unknown [10.44.48.137])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9043930001A2;
+	Thu, 13 Aug 2026 10:18:06 +0000 (UTC)
+Message-ID: <42682bd3-8291-4dec-bc10-23a0afe0b0a4@redhat.com>
+Date: Thu, 13 Aug 2026 12:18:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,75 +51,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
- PHY
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-usb@vger.kernel.org,
- Pankaj Dev <pankaj.dev@st.com>, Fabrice Gasnier
- <fabrice.gasnier@foss.st.com>, Rahul Kumar <rahul.kumar05@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Bruel <christian.bruel@foss.st.com>,
+Subject: Re: [PATCH 2/2] dpll: zl3073x: add ZL30643 chip support
+To: Vincent Jardin <vjardin@free.fr>
+Cc: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>,
+ Prathosh Satish <Prathosh.Satish@microchip.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rosen Penev <rosenp@gmail.com>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260812010157.1772849-1-marex@nabladev.com>
- <20260812010157.1772849-2-marex@nabladev.com>
- <20260812-silky-omniscient-dalmatian-b268cb@quoll>
- <ff691741-a110-44e8-90e7-ac54a96de1af@nabladev.com>
- <ff957fbb-b8ed-485d-adaa-18258ed693a6@kernel.org>
- <ea21d4fb-04a1-4280-9a73-6f566be2b015@nabladev.com>
- <20260812225105.GB693080-robh@kernel.org>
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260724-for-upstream-zl30643-v1-0-ea93ba4d85c8@free.fr>
+ <20260724-for-upstream-zl30643-v1-2-ea93ba4d85c8@free.fr>
+ <4CCA3CCC-C687-4658-8ACD-BC0CB3294A39@redhat.com>
+ <amuE9yIaBsFSgRhL@L30177.local>
+ <760d9664-14f6-4cf8-af55-699ea3021b47@redhat.com>
+ <anzQ04ySyCbjQPD5@L30177.local>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260812225105.GB693080-robh@kernel.org>
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <anzQ04ySyCbjQPD5@L30177.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On 8/13/26 12:51 AM, Rob Herring wrote:
-> On Wed, Aug 12, 2026 at 08:30:33PM +0200, Marek Vasut wrote:
->> On 8/12/26 1:22 PM, Krzysztof Kozlowski wrote:
->>> On 12/08/2026 12:56, Marek Vasut wrote:
->>>> On 8/12/26 12:15 PM, Krzysztof Kozlowski wrote:
->>>>> On Wed, Aug 12, 2026 at 02:55:41AM +0200, Marek Vasut wrote:
->>>>>> From: Pankaj Dev <pankaj.dev@st.com>
->>>>>>
->>>>>> Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
->>>>>> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
->>>>>> Two such PHYs in total are present in STM32MP25 SoC, they both are
->>>>>> slightly different, therefore they use different compatible string
->>>>>
->>>>> What is slightly different? This should be either here, or better, in
->>>>> "description" part.
->>>>
->>>> They are both Synopsys FEMTO-PHY , but they are each attached to a
->>>> different controller (one to USB 2.0 host , the other to DWC3 DRD) , and
->>>> their control bits in the system controller register are different for
->>>> each variant.
->>>>
->>>> I extended the description in V2.
->>>
->>> Depending on the actual difference, this rather belongs to the phandle
->>> to syscon, instead of separate compatible.
->>
->> Modeling that in the phandle to syscon won't scale, the PHY driver is simple
->> thus far and does not control all the bits in that syscon, if we were to
->> somehow extend the phandle to syscon to describe the various bit mappings
->> and differences in it, it would look awful quickly. Hence the separate
->> compatible strings, so the driver can match on them, derive match data from
->> them and use the match data to figure out differences of each instance.
+On 8/12/26 10:00 PM, Vincent Jardin wrote:
+> Hi Ivan,
 > 
-> There's no 'reg' so the syscon is the only control interface, right?
+>> Yes, minimal reference frequency for zl3064x is 1000Hz and also
+>> supported bandwidth range is different (not relevant now).
+>>
+>> So, we need to
+>> - add new field into zl3073x_chip_info that will describe minimal input
+>>    reference frequency
+>> - add a check into zl3073x_pin_check_freq()
+>>
+>> Let me know if you want to do it yourself or if I should do it (I would
+>> send it along with your two patches).
+> 
+> I'd prefer that you add it, please, cc me so I'll be review it.
+> 
+> Thanks for your help,
+>    Vincent
 
-Correct.
+OK, will send it... thanks!
 
-> So this should be child node of the syscon (with a reg property).
-All right, will do in V2 (already done locally).
+Ivan
 
-Thanks !
