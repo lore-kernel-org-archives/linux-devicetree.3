@@ -1,94 +1,106 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5613339F174;
-	Thu, 13 Aug 2026 09:28:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CAD33939D;
+	Thu, 13 Aug 2026 09:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786613334; cv=none; b=jqtkzFkphc6fd+bfu765rC8wc2BCt3y8yNnvNhbA2I7LQizl+zOcY5RbBCwxtjT7zckrqx38adVJMy8qgNW+8vJCWOLEVEqsXyjdCJBkm937Eo6JdO10Ug3xXukVz61inFu3kjXPu/RHFbaTHzrY4Ayv78mBQJ/FiBMhBCU9dHM=
+	t=1786613345; cv=none; b=YaVsT+5UFjnHvkMLVEv+1vcizRnUUbdr8jNJUnfQAp4HOXRA96cMmEbB64W04TK/jECDRWovZLVdIzEPnHxwS6f2ao/DPmE8RQ2mFaUe3Tgq167mTahP+8wmb48ECDzL9AyQcNAf4hJ3bkSddnQynJP2SREHK+6QJF1+SOPZWdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786613334; c=relaxed/simple;
-	bh=z+8F8eDNzKbFCSY2BG5dcuGU9parwTszYKX3j9tUbH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qtqgJ3faS5TIMH+7FoNsOjmonHYnKctvOKJaH/7B0M3uxGLaD61/0wTnNV1ftqhnl6VcVyBAQI96QXe+gAahxMC/5xwgj9s1Nt7qstzhzrc1YWmB34wFcKp46mmXJ6RUdyp6h/Mm/kXlAdTwsnBolBqecNl3n+gASPNjiIcaMcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Z/h3p0rm; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1786613345; c=relaxed/simple;
+	bh=V7yz1xdUcYj69O1x3V+3WRVc824Oo8kW+lcILojXT64=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LPxbLvefJ39mhV+2XY++62t8hP6YLrjIN+isGGdgeDd+Wio/uUjvqyKeuLZNAjOWQ4pCiwToMlNhwm/R8w1sO9el50L1a7snC26Z5hTr5KHBRRRy5AUzwX/ti3vht3MH/kmseV7+4pna59CUhRL7Z8Lt3rIcOYZ+P1vzXsyzdHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNUHEzpX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Z/h3p0rm"
-Received: from francesco-nb.. (2-224-16-253.ip168.fastwebnet.it [2.224.16.253])
-	by mail11.truemail.it (Postfix) with ESMTPA id 3C56822BB4;
-	Thu, 13 Aug 2026 11:28:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1786613331;
-	bh=8oRtz8j6WHCmwH9XsaEurPP37uBVzs7lIGw+sWlvKGA=; h=From:To:Subject;
-	b=Z/h3p0rmyvxuZ60Dah646UY+0Tml/Zi5m0e44X9cjel+PlXVyDEBZK1lmds5b3X4P
-	 U5TMnTT7lWTQAZdcUiL9RffBrzPBEBbzaBncSDP0gFcRmffiilWG3FTYikmuHMNZFk
-	 ptkHN2oaAYZXY64uSmNMbW4ZR8AXRubLgsrQvCxHJ6S4Hf+BumnYoUrWBLtKchjrgG
-	 JAdny/lJh7xONMU7dEVjAPbR0UpAqmC4fVfcjlCZ2RRaUAOOywTlesW6MeuSSfQkcf
-	 S3OMZyw38PqKYSxKLL9RrHSppzXAJNqFDI37r7sEIRdCWyNOd/s1wGFO3E+KrpueDZ
-	 h34n+0CWv7E7A==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v4 4/4] ARM: dts: imx7-colibri: Set LCDIF bus-width
-Date: Thu, 13 Aug 2026 11:28:34 +0200
-Message-ID: <20260813092836.38367-5-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260813092836.38367-1-francesco@dolcini.it>
-References: <20260813092836.38367-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNUHEzpX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10B21F00A3A;
+	Thu, 13 Aug 2026 09:29:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786613344;
+	bh=tzfZOTg3euPGGgReeCodY9rzq6J9GOIejIL3iPZRIAM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jNUHEzpXTbP9KoV10pLCvQWuw6T015VemhiufP8I5jaQVQcuqS2ymcQI3rJXZwjeB
+	 B1IgNXGrkBj0BoXA4Jre+f8rlXCukwimLXggqV1rRSPSpng2oPAWPMHD65cSqKzR0s
+	 IX+knzD7HrxrHRLzcVIQwpCY2kLeYrvmSorJ2mIuteQ/m8ksIEovzDAmVvCGfCuB62
+	 g4lGSPZY1Cd4vshdnIjYIZId+0XuDXiX94zUq208lkyq0z9//X6/TRV79bMhk55ZqZ
+	 4Wi6nPSESEq86SUAg/hhin7RGTon4yWZ1QtSzhjiS4mZ7P7asu6+cSPHpj/cPQcH77
+	 B07IcfBE5glhQ==
+Date: Thu, 13 Aug 2026 11:28:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v1 2/5] ASoC: qcom: q6prm: Fix QAIF clock ID typo
+Message-ID: <20260813-snobbish-acoustic-spider-8c0749@quoll>
+References: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260808181948.2489187-3-prasad.kumpatla@oss.qualcomm.com>
+ <20260808184539.3C6601F000E9@smtp.kernel.org>
+ <e88326f0-e945-4d63-b257-308cb00df756@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <e88326f0-e945-4d63-b257-308cb00df756@oss.qualcomm.com>
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Sun, Aug 09, 2026 at 05:57:18PM +0530, Prasad Kumpatla wrote:
+> 
+> On 8/9/2026 12:15 AM, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Low] The patch series breaks `git bisect` by splitting a macro rename across commits without retaining aliases, causing an intermediate build failure.
+> > --
+> > 
+> > --- Patch [2]: [PATCH v1 2/5] ASoC: qcom: q6prm: Fix QAIF clock ID typo ---
+> > commit 2d0653a87462572279fa5b7912ec981aed567a40
+> > Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+> > 
+> > ASoC: qcom: q6prm: Fix QAIF clock ID typo
+> > 
+> > The Audio IF QAIF clock IDs were introduced with a "LAPSS" prefix instead
+> > of "LPASS". This commit renames the definitions and updates their users
+> > accordingly.
+> > 
+> > Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com
+> > 
+> > > diff --git a/sound/soc/qcom/qdsp6/q6prm-clocks.c b/sound/soc/qcom/qdsp6/q6prm-clocks.c
+> > > index f613e2aee75e6..b4f9abbe02cb0 100644
+> > > --- a/sound/soc/qcom/qdsp6/q6prm-clocks.c
+> > > +++ b/sound/soc/qcom/qdsp6/q6prm-clocks.c
+> > > @@ -64,34 +64,34 @@ static const struct q6dsp_clk_init q6prm_clks[] = {
+> > >   	Q6PRM_CLK(LPASS_CLK_ID_WSA2_CORE_TX_MCLK),
+> > >   	Q6PRM_CLK(LPASS_CLK_ID_WSA2_CORE_TX_2X_MCLK),
+> > >   	Q6PRM_CLK(LPASS_CLK_ID_RX_CORE_MCLK2_2X_MCLK),
+> > > -	Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF0_IBIT),
+> > [Severity: Low]
+> > Does this patch series break git bisect by splitting a macro rename across
+> > commits?
+> > 
+> > While this regression is fixed in this commit, it appears the preceding
+> > dt-bindings commit removes LAPSS_CLK_ID_QAIF_IF0_IBIT and related macros
+> > from include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h.
+> > 
+> > Because q6prm_clks still references those removed macros at the preceding
+> > dt-bindings commit, it causes an intermediate build failure when compiling
+> > the kernel at that point.
+> > 
+> > Should the dt-bindings commit temporarily retain the old misspelled macros as
+> > aliases until the driver is migrated, or should these changes be squashed?
+> 
+> Hi Sashiko,
+> 
+> Thanks for reviewing.
+> 
+> The series remains bisectable as the renamed clock IDs are not
+> referenced by any in-tree users before the corresponding Q6PRM updates.
 
-The lcd DPI interface on colibri imx7 uses a 18-bit width bus, set
-the bus-width property accordingly.
+Really? git grep LAPSS_CLK_ID_QAIF_IF0_IBIT told me different story. And
+it is even YOUR code which is reported by grep.
 
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
-v4: no changes
-v3: no changes
-v2: use the common bus-width property instead of the legacy interface-pix-fmt
----
- arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-index 8666dcd7fe97..c4088d3c5ab1 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-@@ -537,6 +537,7 @@ &lcdif {
- 
- 	port {
- 		lcdif_out: endpoint {
-+			bus-width = <18>;
- 			remote-endpoint = <&lcd_panel_in>;
- 		};
- 	};
--- 
-2.47.3
+Best regards,
+Krzysztof
 
