@@ -1,147 +1,118 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513EF476061
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 12:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEBB4756D0
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786625718; cv=none; b=Z2224SyHD+0ZzgVzXClGV+V/ZyBeh4Y8LWtK3Ib0J/gVGnVMQWr/ImImnFFed+bFkW7Jw4YOq11Da6brs1Tkont6XpjPU4Kcc9n0Qt8z5xcdOg5z4Np/f31rdwz9JdwsicTXVkgtMrbjTncS/lX91/vYWPIuAK5usvj1vtd6pgk=
+	t=1786626403; cv=none; b=YWP4jUX2NIK+fV5A9tGFE8dLg6w6pA97mrmKHzwZFCsWWiBkNJ1xVWA9j4/4vYVM7bUevWEZ7YPssZeUSg7aO+q2sHDoDhWlFCLCMGPGRDB1Wv33GSngiHL+X4KEOXShKnDq5tCQfA7tKqgCmNPzxG6haBu4iVf8xaScTXCUl3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786625718; c=relaxed/simple;
-	bh=HrpuHtXRs3lkzPV2KF4jr4RPVBEPyIUfTr35gw5M1iI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nQklAOVtX6DFjMLaE4yF97Emk4ErRDjPIqUPhDFSYmBCh+gUS7GIx0Sg7nLLWaYXDZKoLURfUZ4Eigja1FrYbnMCVBv6ZCfl/7HVITf58sU25nTBAUgUt7Cc2EfZA6XGzhWzdlG5IPnjYfQK9/xUMh3mLaUhn8ahIaaQQ3Bal0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BOn0wESQ; arc=none smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786626403; c=relaxed/simple;
+	bh=RAl0NVbjiiOs/VyeCemRv0TwYR+tlbA9P9uIHNsY6dg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lWR3dsfe7H8UyBBqhnD4Ub+UyDQZhKuHw5q4DY7bg5ueXDErVU5/mLjxQ+8RuZG0dEfNoYwMJarcgA2ezizmgiA+aRg/z6fV3oxVNCurZDsZtICTNSysxcRON8axLc1Ko/yC/RnfprfPtFVrizbYLzG86b8lalSd0Ne3+1y/8+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+umkC0s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BOn0wESQ"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b2aab18795so726884e87.2
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 05:55:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786625714; x=1787230514; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9jhcvNWSwuNAllGIhB4lzw/CqsOc6VTmvp2k274Uc3o=;
-        b=BOn0wESQ+2KXUfLqYEyKA7tfVWjGL0NzreOazkA7IAImC5ucSAw39LOMfRQ3UEcvEv
-         wj3Rna02ifbHSVQffk3mukJmy+YYpoaa1kKKstx2j81X7rSSEANTzC1U7rUJ9qNm3JCN
-         ommatv8rgP5qeRD+TuT52BSwfgkz4UnOZDUQZZHDnlp2gasjvEI9GaikuWeBbHJUdBkg
-         63J+xha/o4O8sN6tQHm/SAMjYzHtNjd1AEVkpWnAEMIxjx6oFhZLntwfUERovklFT7bX
-         SlcSo2AMaJjObiH5DpfPlcGQYwuub9X//jvfJXCsQewrat1qAnynTf9H7PPT++REqjBR
-         x1uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786625714; x=1787230514;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9jhcvNWSwuNAllGIhB4lzw/CqsOc6VTmvp2k274Uc3o=;
-        b=SDkhH0lFCf333AQ5Q7iXPxToF7wWcabEITu/0alJ8xMFZkpqVqmZcRz3QHkAvh4oKx
-         C4uVMxHxpIm1g8h2QhIPQLT1z3D5YFuUci4eCSD2D2T1BpcCxec4pJ10iBJR7E1JpMIs
-         Q2Qxa4AwiMuTiU0BiBCVnluhfRrlfhB+QccesFDsQc1SRdaEqClXTT7OOMSNw9mME5WO
-         Rqk8MOMJf5U9u40naNsA66aSt2VpaLu0tM6oVG2MSZ9A5Yvdso1VSBVIhqiFCtLExntv
-         ML20pOYp/hq55uWEn28efLzqhUl88Kg62TyC3gtsIfmZrlEQ07loSpeYaDUZrA1HDP6D
-         yQ2g==
-X-Forwarded-Encrypted: i=1; AHgh+RqAgT1A5JiW7GcrLodGb2XyA9kmkTLcGG3GmE3wOl+74qK3UqBdI1CpH5VoSDL6ClH/J1P3EsnUjxDS@vger.kernel.org
-X-Gm-Message-State: AOJu0YzuC7V70bNw9LAEWHYmQAvKDtIAkz6CRW5YU55HsfqlLyG0q2qb
-	sz/o10SLhTHmUc/oBmZYnBOgkDRZ3slLglh7jwtY2x3R9cvUEdLgF1Ec
-X-Gm-Gg: AR+sD13gA1Nqqtm2IonkA/JCVIcsX91aOOlN7r2xgEO5nHGOpDP/fNZch7LCb+ZjcSV
-	ZFvJfc3Yqq2K2mMT7OK2tuuyYX/xi5nTl5CflN8L97lSvDbSbbiWwsBIfcynyqcsusCHzarFfcU
-	+UNy401EyZE13jWgV7ijRCZ9iAXSSL/8EDQsWo0nLuFdtEN+TjfF1to084okrzM76mwMAWQEd83
-	Vr52e0uxAdBF7SCYbI0RjJ3GXOUnbLTCrxkbE8W9RwjjtUA8pz35YXeTVEbz0Dm4X3kFnV0TSeX
-	oS2eoFsH3xnbQkjQNfbpasebp1tJa9JRLdJoxwG0iLNJ0iesbqJQG9RCP1xrNUPB3qR+KCwwZk4
-	HsAJ99axMealVpse7Ky3DWRDKfX5SYpWcPMwUfveXMbKKS7kyDWffTemLADEoLareHzdab+FJ73
-	OljiDzD1LgLw0I9luXLwbsNCQ9t52cJVBSHiD7MdzCoOcsuCml7IRKXy4Ui1nYJNQZEl8JHUu4B
-	ovglFYLHFgZwGrpes+BRjgtBKTdXJfbjf+7xFfH1XDrmETkpUcSZ2Nx
-X-Received: by 2002:a05:6512:1284:b0:5ae:b0c0:16bc with SMTP id 2adb3069b0e04-5b453f77a1dmr809693e87.27.1786625714101;
-        Thu, 13 Aug 2026 05:55:14 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4539ea237sm456405e87.18.2026.08.13.05.55.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 05:55:13 -0700 (PDT)
-Message-ID: <12f70e0f-5cef-4035-9b44-e2cb252932cf@gmail.com>
-Date: Thu, 13 Aug 2026 15:55:12 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+umkC0s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3EBD1F00A3D
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786626400;
+	bh=yQWzU2idhtJFEfGoc824MA5NHjwICFqfWvq6sgVbqeQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=E+umkC0s33nH00dgYrql/+1HWUE8gmpNOTJ3RMx8jlZ2sw/q2XMWvWpAntrSyfEgc
+	 GYLZrJY3+ZsSbZDgiw6wdN7ExX6Me5UhPc67VWZbvTxith4qe2TqGXsWhTvkRIjdq3
+	 EJUA31W71DsMtGgnghA0/PpZ6SI7na3Xp7KsvA4KnBjdU7fRqUxElryHLrxyhT8EFj
+	 jCFheFj0pjs0YXrDTLCUF9PgkN/GppPwlHOVaMcIGZ0PVRoo0oHsnlntqvh+QYzAu8
+	 7nWT+kT5G/bVD26DBNMTB4KQeCkASgRwOIlRhfDrGR10jQ9eD1fD0wQh18TduE0jvb
+	 bmRpHdl49tKkw==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b29599b81cso891104e87.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 06:06:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpuPsxnIC7GKPbujTm3JjRVUWWWH6iyMQwWQeL7xVkldp6q5lQlQrhMelblBGbkwiWVXV0M+sXho6pe@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuQh1KtBEpFRdO4XS6UHXuCedTWA0a/1XGGFUIRALFryc7Zbbj
+	vbi8QDEMT/9K0N1CtTyK5ooetndr+b4N32tyzht8ZNNyO0evpVWxwHojFWRn3+2jaQdFKtct65a
+	+5sYFoXY1x261VQBicdmup5YesuDdRK3qyOKp/v0fkQ==
+X-Received: by 2002:a05:651c:31cd:b0:39c:7859:a2d8 with SMTP id
+ 38308e7fff4ca-3a11a819760mr7294241fa.27.1786626399530; Thu, 13 Aug 2026
+ 06:06:39 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 13 Aug 2026 13:06:38 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 13 Aug 2026 13:06:38 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260813123841.GC1820248@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-To: Linus Walleij <linusw@kernel.org>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-rtc@vger.kernel.org
-References: <cover.1785838584.git.mazziesaccount@gmail.com>
- <9774b8d6663ea55b1682b32f825ec5689be3e1d8.1785838585.git.mazziesaccount@gmail.com>
- <CAD++jLmatJFfqhNWfgx=qUW2fEwuatxmJR7NyJLAv45LfLHZnw@mail.gmail.com>
- <f5c241a2-00a8-4a32-bad5-3c89fb204b25@gmail.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <f5c241a2-00a8-4a32-bad5-3c89fb204b25@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
+ <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
+ <20260813123841.GC1820248@google.com>
+Date: Thu, 13 Aug 2026 13:06:38 +0000
+X-Gmail-Original-Message-ID: <CAMRc=MdA_zM_pHCmk7dd7kosqvNmFgA+iXvHS4qpNs9bdsUMCg@mail.gmail.com>
+X-Gm-Features: AUfX_mxLcl-KphrvU6gLOMupiRghMpmm1J92bVQek0OJwjAsSLdXf3P9i5s9MC4
+Message-ID: <CAMRc=MdA_zM_pHCmk7dd7kosqvNmFgA+iXvHS4qpNs9bdsUMCg@mail.gmail.com>
+Subject: Re: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for
+ cpuidle-psci-domain cell
+To: Lee Jones <lee@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Bjorn Andersson <andersson@kernel.org>, Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, John Stultz <john.stultz@linaro.org>, 
+	Moritz Fischer <moritz.fischer@ettus.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 13/08/2026 11:34, Matti Vaittinen wrote:
-> On 07/08/2026 23:29, Linus Walleij wrote:
-
-...
-
->>   * @fixed_direction_output:
->>   *                      (Optional) Bitmap representing the fixed 
->> direction of
->>   *                      the GPIO lines. Useful when there are GPIO 
->> lines with a
->>   *                      fixed direction mixed together in the same 
->> register.
+On Thu, 13 Aug 2026 14:38:41 +0200, Lee Jones <lee@kernel.org> said:
+> On Mon, 03 Aug 2026, Shivendra Pratap wrote:
+>
+>> PSCI has multiple kernel consumers, such as cpuidle-psci-domain.
+>> Currently, both the PSCI core driver and cpuidle-psci-domain bind
+>> directly to the same PSCI node "arm,psci-1.0". Additional consumers, if
+>> introduced, would also need to bind in the same way, leading to several
+>> drivers attached to a single device node.
 >>
->> It seems you can set up the fixed_direction_output mask from OTP
->> and just use the library, right?
-> 
-> The BD73800 uses different registers for 'out' and 'in'. So there aren't 
-> really "GPIO lines with a fixed direction mixed together in the same 
-> register".
+>> Introduce a PSCI MFD driver that binds to "arm,psci-1.0" and registers
+>> PSCI child cells. As the first user, register cpuidle-psci-domain as a
+>> child cell.
+>>
+>> Update cpuidle-psci-domain to probe as an MFD child and use the parent
+>> PSCI node for power-domain traversal.
+>>
+>> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+>> ---
+>>  MAINTAINERS                           |  1 +
+>>  drivers/cpuidle/Kconfig.arm           |  1 +
+>>  drivers/cpuidle/cpuidle-psci-domain.c |  9 +-------
+>>  drivers/mfd/Kconfig                   | 12 ++++++++++
+>>  drivers/mfd/Makefile                  |  2 ++
+>>  drivers/mfd/psci-mfd.c                | 43 +++++++++++++++++++++++++++++++++++
+>
+> We don't usually allow the use of the term MFD in devices.
+>
+> What does this do?  Is it a mux?  psci-mux?
+>
+> If not, think about what it is and call it that instead.
+>
 
-...
+My two cents: I'd call it drivers/mfd/arm-psci.c
 
-> I think the BD73800 can indeed use the gpio-regmap, by keeping the pin 
-> direction information in private data and adding a custom xlate, which 
-> errors out if get is requested for output pin, or set is requested for 
-> input. I am not sure how much of an improvement it is compared to the 
-> patch v2, but I'll give it a shot :) I believe the new -rc1 isn't that 
-> far away, and hopefully the gpio-regmap -stuff from the next will be in 
-> it together with the regulator stuff bindings depended.
-
-Gah. Please, ignore the erroring-out part. I don't know where I picked 
-the idea that the hardware would always return '0' when reading the 
-GPO_OUT register. I think this might have been something I have 
-experienced on a setup where the pin was _not_ set to GPO by OTP. 
-Furthermore, the xlate will never get called if user tries to set value 
-for a GPI pin.
-
-Anyways, implementing xlate with op-check allows me to support this 
-PMIC, even though the register to read for pin status depends on OTP.
-
-So yes, v3 should be able to use gpio-regmap. I will probably delay 
-sending it until v7.3-rc1 is out so I get (all?) dependencies in.
-
-Yours,
-	-- Matti
-
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
-
-~~ When things go utterly wrong vim users can always type :help! ~~
+Bartosz
