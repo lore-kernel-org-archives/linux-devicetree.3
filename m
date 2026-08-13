@@ -1,132 +1,154 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4885438487;
-	Thu, 13 Aug 2026 11:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454B036196E;
+	Thu, 13 Aug 2026 12:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786622167; cv=none; b=OyVJBOh6RZRbhpjOxVaVBqMWItjJybOFB4VLJIkneT4tKskr+HNcpo3sDoL3CQx3KUTL3P77WItfgyOmNxu+ypp8L7C6kAYZtLda4iNUtQqiObVzQE885jO6uRj47oH4AR0w01PiyTnXU8S4wSW2RifO0EEjreiCTQm+XuccRrY=
+	t=1786622400; cv=none; b=ForaNZrA264/wj9vAnyuCREkrQpZSCG8bP0UeI4xC3PTDo9XxXFvKFaDT7bQ5KLamVf1edhBad3UXb68L5MCXXhCITlzr2E8ebly31dOO0gezW8L6QVDE+leb5ype2kpBwEgiDqTsTlEqEDD62ZCSDxh+CV62ITZaQDZDf8B664=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786622167; c=relaxed/simple;
-	bh=Uk7Il3FE65wXGCnqql8rYhFHiqw9lCRFg5eIkwXXd2E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nJyJr42ZrNm5xDLTfs8xFwc06XEWcJHxB3j1j8Birxc5tV/GfhGwgSVdPaEzHswGVI8QWhLqCAN39fYm9QR3STxm8JTYeYJIf6LOuEfPXBH/dsghQH6mdN00I8Av54ZLcNGDkdL0refnCzG4Twv658NMdX+FspgXUIT72cZPhZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=WIdOMCWu; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1786622400; c=relaxed/simple;
+	bh=KspGXcyx0zJEN9WlK/sXLb3sPuYZz8T7kJQlmBlGklA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VCcWwFKBB/seFZD9BCq3foRseMNOJloaKabOvbhmYDjokN42C0+wMOvBqXPIDxmyeuSeLp+Y2etowV3A+G8jN/7AFmUgVdebVtA34OT3x8Cjd0t2MqissgIvHbw/j5+kEhiYpR+VyODgFe73JmqHYMLzyFW+Q7/cC4K8bEWnZpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bC13H6GT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="WIdOMCWu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=jV+fr1YQSYU+Nk0tUAwhRpsmVLUxLPPUsySQv1/P7jU=; b=WIdOMCWuTO4eLAyYs6Kf6uR2Zv
-	Va89VhI+u9Dmu+cns7ATJDSn8UUqS+X3ZyihRtem3zTW74T96FVdWpmHSRVoME+79JG7AHVdiJYFu
-	a2zXUhIY4lTDLxpiAjlhfDQql1yI2Zo+/KewKwFDmJ4MbuqKk2CgXAvpW2YLvVAIgcWnx6aAS55mM
-	5OQr03rFN28yNM+2SkzuflKkewUehcJ4kSzhE6It/HC3EBRS4OdsQR70b8+H0aQzUYnyCyba1GnVK
-	Te/Gv4yskbCkmumZOWGkuliITOOdONnuyra4rqfhpGoVfmsObkermgEpIWG8t0vS2vuIZuDDtj5U4
-	DX9uyiBQ==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wuTgX-0002Fs-1v;
-	Thu, 13 Aug 2026 13:33:22 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wuTgW-000HCm-1a;
-	Thu, 13 Aug 2026 13:33:21 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- Francesco Dolcini <francesco@dolcini.it>
-Subject:
- Re: [PATCH v4 1/4] dt-bindings: lcdif: Add endpoint bus-width property
-Date: Thu, 13 Aug 2026 13:33:20 +0200
-Message-ID: <16977374.uLZWGnKmhe@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260813092836.38367-2-francesco@dolcini.it>
-References:
- <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-2-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bC13H6GT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AB6DBC19425;
+	Thu, 13 Aug 2026 11:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786622399;
+	bh=KspGXcyx0zJEN9WlK/sXLb3sPuYZz8T7kJQlmBlGklA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=bC13H6GT9bb5Rh800MSSS94DDhbZOr846x0Wqj4CNu3D6d+jX4lFuxKOgerfKG2s/
+	 O+heO6OjhR0aO5b8zV6jhj8tILolee9NLlF3/MjokTvmeH3YAHlSKHh1lswgdUuSGc
+	 3h/49EPFwEJfun2PP0sbFYMgkUHWKTZt3tq+fgYpGRX8+vKMqJUItlw9UHhlTDcKKw
+	 p6T5JVXlbohnyJ46B1vL7uiUns41Tj/6PLYFqfiaRpVKuYShAZhem0P09iN9kKRfDm
+	 mcfoVjFqlCwBe6nDm6FIWsQ+7/ChB9Nnq5IMdyllK5UE2fip2Sec9vJ07oNcbzWgo3
+	 Cr0jIqXvxKpfg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81EDAC5CFEB;
+	Thu, 13 Aug 2026 11:59:59 +0000 (UTC)
+From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
+Subject: [PATCH v5 00/15] ARM: dts: aspeed: anacapa: restructure devicetree
+ for development-phase
+Date: Thu, 13 Aug 2026 19:59:30 +0800
+Message-Id: <20260813-anacapa-devlop-phase-devicetree-v5-0-c7058f63dc67@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28091/Thu Aug 13 08:25:54 2026)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKKxfWoC/43NsW7DIBSF4VeJmEt1AQOmU98j6kAulxgpsS2IU
+ KrI716cJVEyuON/hu/cWKGcqLCv3Y1lqqmkaWyhP3YMBz8eiafQmkmQBjqw3I8e/ex5oHqaZj4
+ PvtAaCemSiXgnQAQVlZAIrClzppiu94f9T+shlcuUf++HVazr/+0qOHBnD84oY9Gj+j6efTp94
+ nRmq13ls+e2Pdk800cle2OF0W+eengG5LanmmfRKdQh9sEdXr3u4fWgt72ueToYS0DRG9TP3rI
+ sfyMIS5y+AQAA
+X-Change-ID: 20260407-anacapa-devlop-phase-devicetree-4101d3f312c0
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ colin.huang2@amd.com, Colin Huang <u8813345@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, Carl Lee <carl.lee@amd.com>, 
+ Rex Fu <rex.fu.amd@gmail.com>, Andy Chung <Andy.Chung@amd.com>, 
+ Peter Shen <peter.shen@amd.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786622378; l=4004;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=KspGXcyx0zJEN9WlK/sXLb3sPuYZz8T7kJQlmBlGklA=;
+ b=zJW+wxbsgrn7odameHSrHPNFOoXZrsOk1aKRQSZdYLK+ZFFLrxpbYx13lcUvpxoLLTh86LQIc
+ 5DGIJRDwC4WBE5N5ifI7bcvBcxB1DCkUCHaZO1jhbzOGYMoU0i7Upcq
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
+X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
+ auth_id=761
+X-Original-From: Colin Huang <u8813345@gmail.com>
+Reply-To: u8813345@gmail.com
 
-Am Donnerstag, 13. August 2026, 11:28:31 CEST schrieb Francesco Dolcini:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
->=20
-> The DPI output of the LCD interface can be configured with a bus width
-> of 16, 18, or 24 bits. Introduce a bus-width property to the output
-> endpoint, specifying the number of parallel RGB bits connected.
->=20
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+This series refactors the Anacapa BMC devicetree layout to better support
+development-phase hardware revisions (EVT1/EVT2/DVT) while keeping a platform
+entrypoint.
 
-Acked-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+Signed-off-by: Colin Huang <u8813345@gmail.com>
+---
+Changes in v5:
+- Remove redundant vhub pinctrl-names
+- Use default SPI2 memory mapping
+- Fix dt-check-style strict violations
+- Add Acked-by from Conor Dooley
+- Sort compatible strings in alphabetical order
+- More commit message for ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper to it.
+- Update commit message to describe both LPDB and RPDB GPIO expanders  
+- Link to v4: https://lore.kernel.org/r/20260805-anacapa-devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com
 
-> ---
-> v4: use /schemas/graph.yaml#/$defs/port-base
-> v3: use video-interfaces.yaml
-> v2: use the common bus-width property instead of the legacy interface-pix=
-=2Dfmt
-> ---
->  .../devicetree/bindings/display/fsl,lcdif.yaml       | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
-ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
-> index 2dd0411ec651..89cea0c14cf1 100644
-> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> @@ -68,9 +68,19 @@ properties:
->      maxItems: 1
-> =20
->    port:
-> -    $ref: /schemas/graph.yaml#/properties/port
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
->      description: The LCDIF output port
-> =20
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          bus-width:
-> +            enum: [ 16, 18, 24 ]
-> +
->    display:
->      $ref: /schemas/types.yaml#/definitions/phandle
->      description: phandle to display panel
->=20
+Changes in v4:
+- Capitalize the first word of the short description.
+- Rework the Anacapa development-phase devicetree hierarchy.
+- Ensure that anacapa-evt1 generates an identical devicetree to the existing aspeed-bmc-facebook-anacapa.dts.
+- Add SPI flash VCC supply.
+- Simplify leakage GPIO line names.
+- Add LPDB fuse monitor GPIO expander.
+- Link to v3: https://lore.kernel.org/r/20260602-anacapa-devlop-phase-devicetree-v3-0-7c93c5df8d9b@gmail.com
 
+Changes in v3:
+- Restructure the EVT2 devicetree to inherit from the EVT1 devicetree, making it incremental rather than standalone.
+- Add the DVT devicetree, inheriting from the EVT2 devicetree.
+- Enable MCTP and FRU support for the NIC.
+- Align PDB fan GPIO numbering.
+- Add an EEPROM device node for the NFC adaptor board.
+- Add an additional EEPROM device node for the SCM.
+- Add shunt resistor values for HSC monitors
+- Link to v2: https://lore.kernel.org/r/20260409-anacapa-devlop-phase-devicetree-v2-0-68f328671653@gmail.com
 
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+Changes in v2:
+- Fix dtbs_check fail.
+  Validated by following command:
+    make dt_binding_check DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa.dtb
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa-evt1.dtb
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa-evt2.dtb
+- Link to v1: https://lore.kernel.org/r/20260407-anacapa-devlop-phase-devicetree-v1-0-97b96367cac3@gmail.com
+
+---
+Andy Chung (1):
+      ARM: dts: aspeed: anacapa: Enable MCTP and FRU for NIC
+
+Carl Lee (1):
+      ARM: dts: aspeed: anacapa: Add eeprom device node for NFC adaptor board
+
+Colin Huang (9):
+      dt-bindings: arm: aspeed: Add Anacapa EVT1 EVT2 DVT board
+      ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper to it
+      ARM: dts: aspeed: anacapa: Add EVT2 devicetree inheriting EVT1
+      ARM: dts: aspeed: anacapa: Add DVT devicetree inheriting EVT2
+      ARM: dts: aspeed: anacapa: Add additional EEPROM node for SCM
+      ARM: dts: aspeed: anacapa: evt2: Add shunt resistor values for HSC monitors
+      ARM: dts: aspeed: anacapa: fix dt-check-style strict violations
+      ARM: dts: aspeed: anacapa: Use default SPI2 memory mapping
+      ARM: dts: aspeed: anacapa: Remove redundant vhub pinctrl-names
+
+Rex Fu (4):
+      ARM: dts: aspeed: anacapa: Align PDB fan GPIO numbering
+      ARM: dts: aspeed: anacapa: Add LPDB fuse monitor GPIO expander
+      ARM: dts: aspeed: anacapa: Simplify leakage GPIO line names
+      ARM: dts: aspeed: anacapa: Add SPI flash VCC supply
+
+ .../devicetree/bindings/arm/aspeed/aspeed.yaml     |    3 +
+ .../dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts |  270 +++++
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt1.dts    | 1128 ++++++++++++++++++++
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dts    |  435 ++++++++
+ .../dts/aspeed/aspeed-bmc-facebook-anacapa.dts     | 1078 +------------------
+ 5 files changed, 1837 insertions(+), 1077 deletions(-)
+---
+base-commit: 112264fb0bd0a7982b13da18cd3e289e2ab76eed
+change-id: 20260407-anacapa-devlop-phase-devicetree-4101d3f312c0
+
+Best regards,
+-- 
+Colin Huang <u8813345@gmail.com>
 
 
