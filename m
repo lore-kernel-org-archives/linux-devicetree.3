@@ -1,229 +1,269 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5E23C1F;
-	Thu, 13 Aug 2026 00:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786579401; cv=pass; b=OQWrXwYGxgofehHOULzXG187WTkmvyVZqGuduiyNViUzeD5nla6IVQ1hrBTJ/DuWHnPgfd7E+YZWUDUcclS4e+thKITGViJsMpKSYw1KsuCQe9Fe62f6abWnG452wuVeeXhPDzcDKdHmWgM8HeZ0Kk1DFLPxbZ1mboxyCkWZEqk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786579401; c=relaxed/simple;
-	bh=GwCTpCXh9rcScl0BR+msQzZZgOaQLIyE12sHaz6kHFY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XjtK1Ntc+ea45G5WrvSfk2DSRaXbN9eKFqL90m9wVOdfFJpjtNblt5oUuqtegFKHwsZYBAcMlHQ0BYxxhJNNjPhPLLCFTC2OvWgimEe4UglN/2Xgiate299kE/jRwOf9P/KcTEo1M8SHaEadS2HIcjGKTQm60px3Io7RcUjpjmI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=hpIspdne; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8B820E334
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 00:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786580652; cv=none; b=sqviUj+Z97z69BEYxs5t93s6DQextLiGj0qXRpCIRqe2Vfe6ZE4bgjjkugRh0D2z5S5V/IFnPv0+kx6pdohKXjqfF5pCgcYqypHlhDeV1Bh1JsZ8XdZAf34DijLpuw1SG0F8fmHUonYvcGMnckpf9W7gHqqM0gDELHPyEWCMC8U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786580652; c=relaxed/simple;
+	bh=KKhbaM4BxrQAo99VUNbaxK5TbHK9MBI5zEqik+L6/eg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gq791W8XXTmh/etHuS5WeKXgLn3Ypal8UNNChv8TzlCBDPLnjtDt2scB9T+qdSMd0j/GD/5a3o5ivXqtu7d+uVoqlUWA3tf1Pl/T0TigpHLPnMdVwmpwuenfKgbkpW9se+eW5iEaiC354FTOSxZAghYDgaaBA27mVIcajZnaVMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oWxgwHgx; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="hpIspdne"
-ARC-Seal: i=1; a=rsa-sha256; t=1786579367; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mE3WnUoLG3PUyof3yAn4yRvDiIrO4wbFpZ5Ud92qrGj9XTtKGSa6tSlrA7R303WjqU26tuU0tyz7jDpZaOh0fOtogp4MN5CqiqY4yfQ9ANQb4CrFe9MA2Ue48RzMu5aN0KYbtzZpi9hF2v0F0/U/H+BsVg1fQ+0jXO+uCgbnSFA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786579367; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GwCTpCXh9rcScl0BR+msQzZZgOaQLIyE12sHaz6kHFY=; 
-	b=ORJ/bNkhDm2UONTIxn3MZ0yL7MMfKYIt8+e8BY3FnlcHaDIHrsMMZcSBffinQCYWsn+N47d3a7iePjYpIsGuLP8lNidJqlhQqs80gLdAIAXXxLsv11Auqw5ykW/mn424uUV1Esz8M+e6/37Vwc2c+ACm6C9q1JwzHs/Iz2c77tk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786579367;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=GwCTpCXh9rcScl0BR+msQzZZgOaQLIyE12sHaz6kHFY=;
-	b=hpIspdneOTXlzv3nDG+Xon+wLKRBuMicjfpQglMZOWyYeHtal3rudHDv+pagWEPq
-	ScfCMYxDfDXByWgGdIdW2W8BrktQYqrgjd9cdxXIEJVy0I3JjC+wrePejalVGThQZuC
-	BogdP3Lfalu7LOXLIM9h5OaVut02sx9zWcubYmok=
-Received: by mx.zohomail.com with SMTPS id 1786579364116535.4259576810091;
-	Wed, 12 Aug 2026 17:02:44 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id B01EC18057D; Thu, 13 Aug 2026 02:02:38 +0200 (CEST)
-Date: Thu, 13 Aug 2026 02:02:38 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: =?utf-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] dt-bindings: phy: Add PHY_TYPE_DSI and
- PHY_TYPE_CSI definitions
-Message-ID: <an0FMnDSWbud8hPc@venus>
-References: <20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com>
- <20260810-dcphy-rx-v1-v3-1-a2d25c29adfc@gmail.com>
- <20260812-refreshing-rampant-gecko-b38ef9@quoll>
- <CAPwA33KM-sWkPVrP1h+swLinvrCZHzxPeS7h25KEO87Q_6WZuA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oWxgwHgx"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cf420670bbso3623865ad.1
+        for <devicetree@vger.kernel.org>; Wed, 12 Aug 2026 17:24:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786580650; x=1787185450; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NKCLFuxWFMT16xVoGG+Whvfm+fbrPxkhcIeAiIoBa7w=;
+        b=oWxgwHgxCv9nonA/gPWu3q/GHr808vZFjXwYo+6c622vQzs944229HPra58SfeC58C
+         Sih1XoepeR4ri8Fll7JR4FolkqK6ITkoerr4qsQ8StdhUx7kFuBDBBOtB1xbyLlR7Lbd
+         Qj2tlbf4Irhcxj767QsQYX2zEpBFk7vHlPiw2/eesQ087+OmDMr4QTJmaRSksg7Y7UEi
+         aauJVgPr67wnkNcq5TU4201Te0YMKrc3clULY6qauKku9WZaGRxkYhEbfq9wZaE3B62B
+         +mnzL4zACIFCNoarZ4IzOovsyCVaY+zhqK5JY7xN7lEsEbS6hC710CFwQhGXj6T30D/t
+         u94w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786580650; x=1787185450;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=NKCLFuxWFMT16xVoGG+Whvfm+fbrPxkhcIeAiIoBa7w=;
+        b=hWa+Br0Qefc0gFonLTydpjr4HtfR1sNP7w/dre1bannKKZe0qlVT90EXlJj/3TK5oz
+         Q5WjR0POEN8Vy9oEhKqwTsqPbcbHVjXCK5JkSJekKTIxlW2X52fPQeoViQrDB4lNjFwe
+         3owOglNHM01/bq6SWizhFd13T+B4JaIDMbQsrJ0I86L0x9CyJUfvOguQ2yqpFRIFLZcZ
+         dUAdT0TY4n3ZPI1Aq0la/3bCT1IE20Vzv83XHSfne98dJOYYfx44kzH7aYefoFYVYj2o
+         Obz6s0JE9z8Jsd3I8Slj7yeH3AjWqHy2Q+Mn91TexdrQjs6fEhe2/h7xBHvLjcY1kzzg
+         MJzA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr31BiUEnpbrhbeJUEEVtfsXs+6gAcFCwxUQyTXCIeQzyEPM80NYZ32uoE4Tztt80THfL4PeeRxwN41@vger.kernel.org
+X-Gm-Message-State: AOJu0YxE7BSSf6S3x1RjwBIqO1iSTeGReT2zNVpvRND2/2cs8tqOKaZT
+	6CsfRJhAY5UMD7PRBKiW0ek0JQhdi0J7F3ArNjSv0mSqeBa5nzT0et06
+X-Gm-Gg: AR+sD122A8tjXR2Gm2383Rc6T0ZBo2uo/zmCGBCTBfALPledKZzOydQ2sCN+M91N+hh
+	LGlBLzrAKhxwqc2YFVkHqElzSZYcc6HFMprZMHyBizH/HOBoMnqbe/CecQ3MGDjyup1589OICga
+	rQE9lmvNvEkdICBjSqb0shviuP80t6TDj6l3z5MpwDwrhKXDoZ3Kpf+C+IDAb3qBArwQc2Wdzwd
+	LSsfK4BsaV1FgLsFzubc3Alci26qWpd+4h+iujbf2iSTFb3wGOxLVuDx8JCu3SOpSHd/+tNnG0Z
+	K/y1McxgqLegMF1La0TjfWYtryIxM+Px62/PDG7VFSpfaBeqVNc9/v3B59LPISnWW33MGaVR8Pl
+	MoYroOcnjqj8i0UlrNcS5/R69w9uvIvntSqne6KlWLwEBfoLYAEW1vKUeTKkfahZRNgdcRf11TV
+	WLX5XRjo7JGTtX4rlbzCYclTw3PbjZ0DAWaRfd0XHYJraHtppGwrRdSqKPNpz28p0DUmvg+A==
+X-Received: by 2002:a17:903:2c50:b0:2c9:ed4a:c3a4 with SMTP id d9443c01a7336-2d37d19f10fmr16271005ad.0.1786580650275;
+        Wed, 12 Aug 2026 17:24:10 -0700 (PDT)
+Received: from [10.219.45.252] ([2409:40c2:504e:6b:b46f:70e9:d340:f24c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31ebc75d8casm1281289eec.3.2026.08.12.17.24.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 17:24:09 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Thu, 13 Aug 2026 05:53:55 +0530
+Subject: [PATCH] dt-bindings: power: reset: ti,keystone-reset: Convert to
+ DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kvsrere4zmtnxm4a"
-Content-Disposition: inline
-In-Reply-To: <CAPwA33KM-sWkPVrP1h+swLinvrCZHzxPeS7h25KEO87Q_6WZuA@mail.gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.560.97
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260813-ti-keystone-reset-v1-1-189389503324@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC0Nj3ZJM3ezUyuKS/LxU3aLU4tQSXcvEJKNkC2MLQzNTQyWgvoKi1LT
+ MCrCZ0bG1tQAIMI4MYwAAAA==
+X-Change-ID: 20260813-ti-keystone-reset-9ab2c8381651
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786580640; l=5960;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=KKhbaM4BxrQAo99VUNbaxK5TbHK9MBI5zEqik+L6/eg=;
+ b=rfvimOCvmz/n3PG+Z4uohyIHgOufEyjXp0KoHzEkCWj2NIX5R2s6a2f2YKxUyHeuQXlP+pTZC
+ lPH/5tSSLhIB9fsXouPWuNxQi94GKXS4u6AxUL5QhbimD1uBPThRp33
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
+Convert Texas Instruments Keystone SoC Reset Controller from text to DT
+schema. no new functional changes.
 
---kvsrere4zmtnxm4a
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 1/5] dt-bindings: phy: Add PHY_TYPE_DSI and
- PHY_TYPE_CSI definitions
-MIME-Version: 1.0
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../bindings/power/reset/keystone-reset.txt        | 67 ------------------
+ .../bindings/power/reset/ti,keystone-reset.yaml    | 81 ++++++++++++++++++++++
+ 2 files changed, 81 insertions(+), 67 deletions(-)
 
-Hi,
+diff --git a/Documentation/devicetree/bindings/power/reset/keystone-reset.txt b/Documentation/devicetree/bindings/power/reset/keystone-reset.txt
+deleted file mode 100644
+index c5c03789ed1e..000000000000
+--- a/Documentation/devicetree/bindings/power/reset/keystone-reset.txt
++++ /dev/null
+@@ -1,67 +0,0 @@
+-* Device tree bindings for Texas Instruments keystone reset
+-
+-This node is intended to allow SoC reset in case of software reset
+-of selected watchdogs.
+-
+-The Keystone SoCs can contain up to 4 watchdog timers to reset
+-SoC. Each watchdog timer event input is connected to the Reset Mux
+-block. The Reset Mux block can be configured to cause reset or not.
+-
+-Additionally soft or hard reset can be configured.
+-
+-Required properties:
+-
+-- compatible:		ti,keystone-reset
+-
+-- ti,syscon-pll:	phandle/offset pair. The phandle to syscon used to
+-			access pll controller registers and the offset to use
+-			reset control registers.
+-
+-- ti,syscon-dev:	phandle/offset pair. The phandle to syscon used to
+-			access device state control registers and the offset
+-			in order to use mux block registers for all watchdogs.
+-
+-Optional properties:
+-
+-- ti,soft-reset:	Boolean option indicating soft reset.
+-			By default hard reset is used.
+-
+-- ti,wdt-list:		WDT list that can cause SoC reset. It's not related
+-			to WDT driver, it's just needed to enable a SoC related
+-			reset that's triggered by one of WDTs. The list is
+-			in format: <0>, <2>; It can be in random order and
+-			begins from 0 to 3, as keystone can contain up to 4 SoC
+-			reset watchdogs and can be in random order.
+-
+-Example 1:
+-Setup keystone reset so that in case software reset or
+-WDT0 is triggered it issues hard reset for SoC.
+-
+-pllctrl: pll-controller@2310000 {
+-	compatible = "ti,keystone-pllctrl", "syscon";
+-	reg = <0x02310000 0x200>;
+-};
+-
+-devctrl: device-state-control@2620000 {
+-	compatible = "ti,keystone-devctrl", "syscon";
+-	reg = <0x02620000 0x1000>;
+-};
+-
+-rstctrl: reset-controller {
+-	compatible = "ti,keystone-reset";
+-	ti,syscon-pll = <&pllctrl 0xe4>;
+-	ti,syscon-dev = <&devctrl 0x328>;
+-	ti,wdt-list = <0>;
+-};
+-
+-Example 2:
+-Setup keystone reset so that in case of software reset or
+-WDT0 or WDT2 is triggered it issues soft reset for SoC.
+-
+-rstctrl: reset-controller {
+-	compatible = "ti,keystone-reset";
+-	ti,syscon-pll = <&pllctrl 0xe4>;
+-	ti,syscon-dev = <&devctrl 0x328>;
+-	ti,wdt-list = <0>, <2>;
+-	ti,soft-reset;
+-};
+diff --git a/Documentation/devicetree/bindings/power/reset/ti,keystone-reset.yaml b/Documentation/devicetree/bindings/power/reset/ti,keystone-reset.yaml
+new file mode 100644
+index 000000000000..ecc68d37f07e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/power/reset/ti,keystone-reset.yaml
+@@ -0,0 +1,81 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/power/reset/ti,keystone-reset.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI Keystone SoC Reset Controller
++
++maintainers:
++  - Andrew Davis <afd@ti.com>
++
++description:
++  This is intended to allow SoC reset in case of software reset of selected
++  watchdogs. The Keystone SoCs can contain up to 4 watchdog timers to reset
++  SoC. Each watchdog timer event input is connected to the Reset Mux block. The
++  Reset Mux block can be configured to cause reset or not. Additionally soft or
++  hard reset can be configured.
++
++properties:
++  compatible:
++    const: ti,keystone-reset
++
++  reg:
++    maxItems: 1
++
++  ti,syscon-pll:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description:
++      The phandle to syscon used to access pll controller registers and the
++      offset to use reset control registers.
++    items:
++      - items:
++          - description: phandle to pll controller syscon
++          - description: offset within pll controller register space
++
++  ti,syscon-dev:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description:
++      The phandle to syscon used to access device state control registers and
++      the offset in order to use mux block registers for all watchdogs.
++    items:
++      - items:
++          - description: phandle to device state control syscon
++          - description: offset within device state control register
++
++  ti,soft-reset:
++    type: boolean
++    description:
++      Boolean option indicating soft reset. By default hard reset is used.
++
++  ti,wdt-list:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    description:
++      WDT list that can cause SoC reset. It's not related to WDT driver, it's
++      just needed to enable a SoC related reset that's triggered by one of
++      WDTs. The list is in format- <0>, <2>; It can be in random order and
++      begins from 0 to 3, as keystone can contain up to 4 SoC reset watchdogs
++      and can be in random order.
++    minItems: 1
++    maxItems: 4
++    items:
++      minimum: 0
++      maximum: 3
++
++required:
++  - compatible
++  - reg
++  - ti,syscon-pll
++  - ti,syscon-dev
++
++additionalProperties: false
++
++examples:
++  - |
++    reset-controller@328 {
++        compatible = "ti,keystone-reset";
++        reg = <0x328 0x10>;
++        ti,syscon-pll = <&pllctrl 0xe4>;
++        ti,syscon-dev = <&devctrl 0x328>;
++        ti,wdt-list = <0>;
++    };
 
-On Wed, Aug 12, 2026 at 08:24:11PM +0800, =E6=A5=8A=E6=99=BA=E6=88=90 wrote:
-> Thanks for the review.
->=20
-> > I read above, but still do not get why TYPE_DPHY/CPHY is not enough.
-> > Isn't DPHY implying it is DSI?
->=20
-> I see your point, and I did not explain this clearly enough in the previo=
-us
-> version.
->=20
-> D-PHY only describes the electrical layer, and both MIPI DSI and MIPI CSI=
--2
-> can run on top of it. A CSI-2 receiver's PHY is a D-PHY just as much as a
-> DSI transmitter's is, so PHY_TYPE_DPHY alone does not tell us which one t=
-he
-> consumer is asking for.
->=20
-> That is the problem here. The RK3588 DC-PHY exposes both a transmitter and
-> a receiver from a single PHY block, which can be used by two independent
-> consumers at the same time. This is not a theoretical concern: on this
-> board a DSI panel is scanning out while the same PHY receives CSI-2 frames
-> from a camera. With only the electrical layer to identify the PHY, both
-> consumers would end up with the same phandle cell:
->=20
-> dsi@fde20000 {
-> phys =3D <&mipidcphy0 PHY_TYPE_DPHY>; /* wants the TX */
-> };
->=20
-> csi2@fdd10000 {
-> phys =3D <&mipidcphy0 PHY_TYPE_DPHY>; /* wants the RX */
-> };
->=20
-> There is then nothing in .of_xlate() to distinguish the two requests.
->=20
-> I will make this clearer in the v4 commit message and include the example
-> above so that the reasoning is easier to follow.
->=20
-> For context, v2 described the direction with a Rockchip-private
-> RK_DCPHY_DIR_* enum. Michael Riesch suggested using generic constants
-> instead [1], and Vinod agreed [2].
->=20
-> [1] https://lore.kernel.org/r/82da3622-9c3a-454c-87bc-fb4ec7adb68d@collab=
-ora.com
-> [2] https://lore.kernel.org/r/anSuxfeitSqmSHNr@vaman
+---
+base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
+change-id: 20260813-ti-keystone-reset-9ab2c8381651
 
-Your new binding is lacking too. If you select <&mipidcphy0 PHY_TYPE_CSI>
-you defined the direction of the PHY, but will it operate in C-PHY or in
-D-PHY mode?
+Best regards,
+-- 
+Bhargav
 
-Greetings,
-
--- Sebastian
-
-> > Your tag goes the last.
->=20
-> Sure, I will fix this in v4. The Signed-off-by tag will come last, and I
-> will check the whole series again.
->=20
-> > Two simple defines needed Claude.
->=20
-> Yes, I agree that these two defines themselves are simple and do not real=
-ly
-> need AI assistance.
->=20
-> I added the Assisted-by tag because I used AI during the development of t=
-he
-> series as a whole, including cross-checking the code, writing additional
-> test cases, and looking up the relevant sections of the TRM. (I checked t=
-he
-> corresponding sections in the TRM myself, reviewed the test cases, and
-> re-ran them on the hardware before sending the series.)
->=20
-> I also checked the current mainline guidance in
-> Documentation/process/submitting-patches.rst and
-> Documentation/process/coding-assistants.rst. Since I was not sure how much
-> AI involvement should warrant tagging individual patches, I chose to mark
-> the whole series consistently.
->=20
-> That said, I am happy to drop the tag from this patch in v4 if you prefer=
- -
-> I wrote these two lines myself.
->=20
-> Thanks,
-> Jason
->=20
->=20
-> Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B48=E6=9C=8812=
-=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=886:51=E5=AF=AB=E9=81=93=EF=BC=
-=9A
-> >
-> > On Mon, Aug 10, 2026 at 08:10:09PM +0800, Jason Yang wrote:
-> > > MIPI D-PHY and C-PHY blocks are increasingly direction-agnostic: the
-> > > same PHY IP can drive a MIPI DSI display or receive from a MIPI CSI-2
-> > > camera, and combo blocks like the Samsung IP on RK3588 expose both
-> > > directions to independent consumers at the same time. A binding that
-> > > needs to tell the two consumers apart has nothing generic to reach
-> > > for: most constants in this header name a protocol (PHY_TYPE_USB3,
-> > > PHY_TYPE_DP, ...), while the MIPI entries name only the electrical
-> > > layer.
-> > >
-> > > Add PHY_TYPE_DSI and PHY_TYPE_CSI to select a PHY by the MIPI
-> > > protocol it speaks, which also implies the direction. They do not
-> > > replace PHY_TYPE_DPHY/PHY_TYPE_CPHY, which remain the right choice
-> > > where the cell selects the electrical layer. First user is the
-> > > Rockchip RK3588 MIPI DC-PHY binding.
-> >
-> > I read above, but still do not get why TYPE_DPHY/CPHY is not enough.
-> > Isn't DPHY implying it is DSI?
-> >
-> > >
-> > > Suggested-by: Michael Riesch <michael.riesch@collabora.com>
-> > > Signed-off-by: Jason Yang <jason98166@gmail.com>
-> >
-> > Your tag goes the last.
-> >
-> > > Assisted-by: Claude:claude-fable-5
-> >
-> > Two simple defines needed Claude. Great, that probably makes AI
-> > conglomerates very happy that we do not type even two lines anymore and
-> > need their resource-hungry data centers to do that for us.
-> >
-> > Best regards,
-> > Krzysztof
-> >
->=20
-
---kvsrere4zmtnxm4a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmp9CZsACgkQ2O7X88g7
-+poMdA/+ICtBJCzEX7PKeAy7Yv55VjRVuT2TXm2zXEzL51T3bDJexKUirtRbfMe8
-MVsbhgPXfK0DqnsEqb3nRuKmW7ZFM73jfdVwkBHNHbbT9B8X6EjTqxWWKhJ1I7Rq
-wRx0Ibvgibz+Cua/l19VI15cVzD2/qSiOQVGgQ1ZJMB7bFRhUR5mFycUFnDpqeSZ
-Z6zPjsLlr9akUUFD0DM9uhLWPEdGbcfbOFDZMDmiby8QMuaL8Tiu/EEwIU/8CZyr
-2LUUB7m9bZlIU+sWiSs8O8Lt3sRApYLcHOhEL6fVbeK14hjtKCTUDRu/aQVRMftM
-p5pUwddJbbaoOYo8JAj1bj1M9HtAB0RhClp6zZ8hNsj9JWNaszbwi9K9T7TXW29E
-gAxx6+S5K4fQW/G74cRGdPfu76njGl38OMYd5zzKmq612AL2r0fDDQL6Be8FCCb3
-+amOu/h5bmtgq70/RtQvHC+gqvFU34KnOqkK1hZdOJR4cNZbdId4ZmdQvERrYozu
-CCCs9odN81VkRfdoWGEt5/eOyBSIdmY//4fjQlnwS9xaTnUdc2nXNTpMvtksbdAO
-G7rjixC0wzTL9nm+0ApIRPyOf9eE1B4uQU1a7HRhO5uK+IbXqpIbFe73ffGPL28b
-bga6qoBymYm693W+bXUAyLRQuNNIYNp4/FMCx6z3hKHDrv5lLa8=
-=EA91
------END PGP SIGNATURE-----
-
---kvsrere4zmtnxm4a--
