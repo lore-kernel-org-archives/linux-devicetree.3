@@ -1,109 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE1E3B8412;
-	Thu, 13 Aug 2026 09:53:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235653D5C12;
+	Thu, 13 Aug 2026 09:53:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786614816; cv=none; b=CDA8jneSGql8Zd/htqtv0yOWqJAYCAmkueoCtciTqqGKctOV8DLs3R/wtxOA/4XK6oi/mgvxb9c7zLqzTK0nH35Bt3AIK2h3sJkdTDmv+Q69R6mjAyTlqy/pRrSkzO3l/7xiKim5MCZDFSR17anQpXBQuA8nWJayG3L9UI75GEg=
+	t=1786614834; cv=none; b=sqGlDcuJkQj95Ir7rbcTj42e1KaEIrptNyj749WrHQ0KLh50AXHXC/10cvCNnvdOQ9PYy9J385QHUhRAiKYHJi8DfasdOZgc0E3UG6PF9XAxdGTlGOwLz6aOLzKSyASIvkDiXtOgf257UqgaowFDBCAslacUce259c8HdE7UoSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786614816; c=relaxed/simple;
-	bh=/OTNhh05kPBBLKFjqB5BbbQrxvsPtgpU6hd4Jcs6UCc=;
+	s=arc-20240116; t=1786614834; c=relaxed/simple;
+	bh=ERkzY3XKRtOcgcjvoUldK5iT4qh/eP245eOV2fHJkD4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S+NlrOtLIW1cOTh+kS1qXoGFwuckXJHgZGiNQMrdwH5yZDbadR4u9lVkKfZle3ZzFPD8rz9pz10t/JyjJNWjKE7AjdnufcBAs6+C3q73d83tAxcT8v9FMy3cTZ30rviyzGY6/l/7urqXVY7CeaAY1iNWmd7x4nZBT6vX4/w9Rvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IHkt5NAX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mKAk+tcCuKoJjE210dt9CEuYd2oDaS2kbVyvVJpPMI0w7r7Tj5Dtjl+4RSxfmBQvqzmQjbffQDFy8V8lbyFmG6F2juS+z6+o7Fik4ctEHn9yzlXZXu+OIJiiaVGK01nC6y+mcNWdDaMQVXgXtD5gLK46yJatMnPw+9s5bxpfJM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qx1JP6NM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IHkt5NAX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F188F1F00A3D;
-	Thu, 13 Aug 2026 09:53:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qx1JP6NM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF0D1F00A3A;
+	Thu, 13 Aug 2026 09:53:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786614814;
-	bh=fatAP2tKSo+FPkloTSGYPkH4ZOT18ygTPlW9hozx2oQ=;
+	s=k20260515; t=1786614832;
+	bh=TkseypEzImRBrRzDJilNZepBrSFi084HZ1yLzXcIWeo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IHkt5NAXG0sVXnCkEYfv7TxtHIt5suaqQuSYmUOrvuINRps4Ph8LuK7yZiTJHBom+
-	 sWbqstrcUN01lsXd2CiMCAKyRGfHo2IviLlDSkdD4vV8chDGZ5DhLDFgOLgmNAtThL
-	 uu4878GNPdQaeC/qaIWTGBSgGEtNKJVEcrdvjEhyNbiZalTKK6nZeZyzrxUts95vqg
-	 g0HszbZWw5h37qYco4QSL4ttlVHU6CRWmfG3hbK9PSSPvvTd42JRgASO7G+wdDANRZ
-	 VU6cQJglJKOzij6KmLnvEeAzlU3wGhVsM7ChbJSXaRzB4VlKu9GFxv3aBvRCenozSq
-	 9VhKhJMpqUb+A==
-Date: Thu, 13 Aug 2026 10:53:30 +0100
-From: Lee Jones <lee@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Stefan Wahren <wahrenst@gmx.net>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH V4] leds: rgb: leds-group-multicolor: Implement
- default-intensity
-Message-ID: <20260813095330.GZ1072730@google.com>
-References: <20260813091428.9072-1-wahrenst@gmx.net>
- <20260813092522.0228D1F00A3A@smtp.kernel.org>
+	b=Qx1JP6NMpMy4Jx0QNf0LOsQekAR8GODiRq89TX0z1rVotr30r9AHh9AqS/uxPDwsQ
+	 PbVQRTiFMiqYYsaKcQihSGIWqucsfgunLkObLDWorGLKpiOtI75/wJDc4hxPISvAaH
+	 q8HCqiG3YEd7p4Q+5L6U0iw371hgk+3ka97zSeQd6ICyKAm9R3snYW7m/1O3+/Ck0o
+	 bRJlbkRDOnPnB4OQpFFgE1J4lN7TDXNZClxSmhsM0gvd2QhORG5AzIhqq9F9cFD+OB
+	 7/IeVPNZR8X5ZwWVT93/cRN2ziDc1wYombmpO2GoP67I2XoF6kfytqkSPCmwWL7HLn
+	 0SZZnLFjVXsOA==
+Date: Thu, 13 Aug 2026 11:53:43 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Oleksij Rempel <o.rempel@pengutronix.de>, 
+	Matthias Kaehlcke <mka@chromium.org>, Fabio Estevam <festevam@gmail.com>, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH 4/8] dt-bindings: usb: microchip,usb2514: document the
+ USB4604 hub
+Message-ID: <20260813-visionary-fiery-saluki-ef86b5@quoll>
+References: <20260810-msm8974-onboard-usb-v1-0-08a805768328@oss.qualcomm.com>
+ <20260810-msm8974-onboard-usb-v1-4-08a805768328@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260813092522.0228D1F00A3A@smtp.kernel.org>
+In-Reply-To: <20260810-msm8974-onboard-usb-v1-4-08a805768328@oss.qualcomm.com>
 
-On Thu, 13 Aug 2026, sashiko-bot@kernel.org wrote:
+On Mon, Aug 10, 2026 at 03:42:35AM +0300, Dmitry Baryshkov wrote:
+> The SMSC/Microchip USB4604 HSIC hub on the APQ8074 Dragonboard has its
+> RESET_N pin wired to a PMIC GPIO. On this board the hub SMBus
+> configuration interface is not usable (the bus pull-ups are referenced
+> to 1.8V while the hub samples the strap against its 3.3V rail), so the
+> hub runs in standalone mode and only needs its reset released, which
+> has to be described in DT.
+> 
+> Document the USB4604 device ID (0424:4604, the ID used when the
+> upstream port operates in HSIC mode) in the onboard hub schema.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The `default-intensity` property read from individual monochromatic LED nodes is applied to the multicolor group without rescaling, causing incorrect brightness calculations.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Please review, explain or fix the Sashiko review(s).
+Best regards,
+Krzysztof
 
-If this is a set, this request includes the other patches too.
-
-> --
-> 
-> --- Patch [1]: [PATCH V4] leds: rgb: leds-group-multicolor: Implement default-intensity ---
-> commit 13399f1aaceaf09afa7e252e35000d7d61ab1925
-> Author: Stefan Wahren <wahrenst@gmx.net>
-> 
-> leds: rgb: leds-group-multicolor: Implement default-intensity
-> 
-> This commit introduces support for the default-intensity property during
-> boot for LED multicolor groups. If the property is missing, the code falls
-> back to the previous behavior of configuring the sub-LED intensity to its
-> maximum.
-> 
-> > diff --git a/drivers/leds/rgb/leds-group-multicolor.c b/drivers/leds/rgb/leds-group-multicolor.c
-> > --- a/drivers/leds/rgb/leds-group-multicolor.c
-> > +++ b/drivers/leds/rgb/leds-group-multicolor.c
-> > @@ -108,8 +108,10 @@ static int leds_gmc_probe(struct platform_device *pdev)
-> >  
-> >  		subled[i].color_index = led_cdev->color;
-> >  
-> > -		/* Configure the LED intensity to its maximum */
-> > -		subled[i].intensity = max_brightness;
-> > +		ret = device_property_read_u32(led_cdev->dev, "default-intensity",
-> > +					       &subled[i].intensity);
-> > +		if (ret || subled[i].intensity > max_brightness)
-> > +			subled[i].intensity = max_brightness;
-> 
-> [Severity: Medium]
-> Does this logic properly scale the intensity when the individual LEDs in the
-> group have different maximum brightness values?
-> 
-> If a multicolor group consists of LEDs with vastly different maximum brightness
-> capabilities (like a GPIO LED maxing at 1 and a PWM LED maxing at 255), the
-> overall group max_brightness will evaluate to 255.
-> 
-> When reading the default-intensity from the device tree, the value is typically
-> specified on the scale of the individual sub-LED's max brightness. If this
-> value is assigned directly to subled[i].intensity without being scaled up to
-> the group's max_brightness, the sub-LED might be initialized with only a tiny
-> fraction of its intended intensity, often resulting in the LED being completely
-> unlit instead of at the requested intensity.
-> 
-> >  	}
-> >  
-> >  	/* Initialise the multicolor's LED class device */
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260813091428.9072-1-wahrenst@gmx.net?part=1
-
--- 
-Lee Jones
