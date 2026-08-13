@@ -1,118 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEBB4756D0
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354294746D5
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:07:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786626403; cv=none; b=YWP4jUX2NIK+fV5A9tGFE8dLg6w6pA97mrmKHzwZFCsWWiBkNJ1xVWA9j4/4vYVM7bUevWEZ7YPssZeUSg7aO+q2sHDoDhWlFCLCMGPGRDB1Wv33GSngiHL+X4KEOXShKnDq5tCQfA7tKqgCmNPzxG6haBu4iVf8xaScTXCUl3g=
+	t=1786626453; cv=none; b=oxPQ+MTK8F3LmNcaSpBFcKHmLwkQlZ28dZW+2qcSEeF65ACm+dm2ZdlasGeFd17rMY2BzIIscJ1WeoyCC6E7KY5IfncgyWEGaI/gSAITBcP0bl+RdZ/mJlePrBjLVKgWZf0PU4RgacZOIndJ9CNuUgMbdGO5Q47V+BDEx4KX+sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786626403; c=relaxed/simple;
-	bh=RAl0NVbjiiOs/VyeCemRv0TwYR+tlbA9P9uIHNsY6dg=;
+	s=arc-20240116; t=1786626453; c=relaxed/simple;
+	bh=2V4LbzxXVRL8YYXBVPJDpy9FMQZDKpcQI4DTiuPtGRM=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lWR3dsfe7H8UyBBqhnD4Ub+UyDQZhKuHw5q4DY7bg5ueXDErVU5/mLjxQ+8RuZG0dEfNoYwMJarcgA2ezizmgiA+aRg/z6fV3oxVNCurZDsZtICTNSysxcRON8axLc1Ko/yC/RnfprfPtFVrizbYLzG86b8lalSd0Ne3+1y/8+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+umkC0s; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=CRV6Zo10mb9SPC9jw2SvpVYEo/SG3DVwQAotxt0Bq+ZPgWVFRd4XfJs8j6G6NNlc9H3GQPFResCN/ppREvYv/MGPeBgQsysIXV+h57XbvxlDChwYGxlGcehNO8XSQEsxChTKTdToYYI2S/NUUm9vwTmSVRQQQ8Nyxq/0EqAGnJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GUpPSu/U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+umkC0s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3EBD1F00A3D
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:06:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GUpPSu/U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B80B1F00A3A
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786626400;
-	bh=yQWzU2idhtJFEfGoc824MA5NHjwICFqfWvq6sgVbqeQ=;
+	s=k20260515; t=1786626452;
+	bh=2V4LbzxXVRL8YYXBVPJDpy9FMQZDKpcQI4DTiuPtGRM=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=E+umkC0s33nH00dgYrql/+1HWUE8gmpNOTJ3RMx8jlZ2sw/q2XMWvWpAntrSyfEgc
-	 GYLZrJY3+ZsSbZDgiw6wdN7ExX6Me5UhPc67VWZbvTxith4qe2TqGXsWhTvkRIjdq3
-	 EJUA31W71DsMtGgnghA0/PpZ6SI7na3Xp7KsvA4KnBjdU7fRqUxElryHLrxyhT8EFj
-	 jCFheFj0pjs0YXrDTLCUF9PgkN/GppPwlHOVaMcIGZ0PVRoo0oHsnlntqvh+QYzAu8
-	 7nWT+kT5G/bVD26DBNMTB4KQeCkASgRwOIlRhfDrGR10jQ9eD1fD0wQh18TduE0jvb
-	 bmRpHdl49tKkw==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b29599b81cso891104e87.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 06:06:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpuPsxnIC7GKPbujTm3JjRVUWWWH6iyMQwWQeL7xVkldp6q5lQlQrhMelblBGbkwiWVXV0M+sXho6pe@vger.kernel.org
-X-Gm-Message-State: AOJu0YzuQh1KtBEpFRdO4XS6UHXuCedTWA0a/1XGGFUIRALFryc7Zbbj
-	vbi8QDEMT/9K0N1CtTyK5ooetndr+b4N32tyzht8ZNNyO0evpVWxwHojFWRn3+2jaQdFKtct65a
-	+5sYFoXY1x261VQBicdmup5YesuDdRK3qyOKp/v0fkQ==
-X-Received: by 2002:a05:651c:31cd:b0:39c:7859:a2d8 with SMTP id
- 38308e7fff4ca-3a11a819760mr7294241fa.27.1786626399530; Thu, 13 Aug 2026
- 06:06:39 -0700 (PDT)
+	b=GUpPSu/UDE/kbIl3BJ/RVc2zcO5J8CXe7S3g8U/E8CFRWUd65fm/utkAv0QMeMT/p
+	 ZJ+7U+K0KRvX3PZ+OV3qYDcot7EpMx9kYntOvtt+M6Iid5u0EFHTuO5EsNFunUFP//
+	 /qW1GGzsH9GSd8aw+b4QB5vHcbgK2eDWQ+UZasKjtJxB5WwtIU0V3IHs0gRki6spxI
+	 sd92oaskWHWei4+MpVeTLqmf+wWeJq/EHfT0tSATMu8panJoqzOrUaNkPG7BvBrfPh
+	 QrB8jSJOiGkZi3bVCoPkfwUpPOXY+mPxGL5bg/I5NiWMbUtn6KrpkkW1OV8ktNJzo/
+	 A683Pjtj8eBog==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39c953950dfso19409141fa.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 06:07:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro3OzNQb4PN/mtgFeyhgLHP/hGoYDx6sIEVML85wqBi77coy882QSkDuorMLI+TrL6KmvncIoRSUkX7@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4IaB33pbrkYoSgAsTwsW/QPXjryT1JjOWmPbO2ZGx4HZl6CLA
+	LYFZbJdO5c4nE42IJM29vWeaPvrvaqB1qVVSFTBR4Tj3yJKsO6He8tCrg5c4YQttSxTIiRZ89Jo
+	Q+qOyhdcSKtOQFJQouxmPGadd5e6Md86tdqX2D+FgWA==
+X-Received: by 2002:a05:651c:43ce:10b0:39c:6d1f:2f13 with SMTP id
+ 38308e7fff4ca-3a11a5d087dmr5683661fa.13.1786626450893; Thu, 13 Aug 2026
+ 06:07:30 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 13 Aug 2026 13:06:38 +0000
+ HTTPREST; Thu, 13 Aug 2026 08:07:28 -0500
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 13 Aug 2026 13:06:38 +0000
+ HTTPREST; Thu, 13 Aug 2026 08:07:28 -0500
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260813123841.GC1820248@google.com>
+In-Reply-To: <20260813-cv75-v3-b-v3-2-1d82e18da09b@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
- <20260813123841.GC1820248@google.com>
-Date: Thu, 13 Aug 2026 13:06:38 +0000
-X-Gmail-Original-Message-ID: <CAMRc=MdA_zM_pHCmk7dd7kosqvNmFgA+iXvHS4qpNs9bdsUMCg@mail.gmail.com>
-X-Gm-Features: AUfX_mxLcl-KphrvU6gLOMupiRghMpmm1J92bVQek0OJwjAsSLdXf3P9i5s9MC4
-Message-ID: <CAMRc=MdA_zM_pHCmk7dd7kosqvNmFgA+iXvHS4qpNs9bdsUMCg@mail.gmail.com>
-Subject: Re: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for
- cpuidle-psci-domain cell
-To: Lee Jones <lee@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, John Stultz <john.stultz@linaro.org>, 
-	Moritz Fischer <moritz.fischer@ettus.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+References: <20260813-cv75-v3-b-v3-0-1d82e18da09b@ambarella.com> <20260813-cv75-v3-b-v3-2-1d82e18da09b@ambarella.com>
+Date: Thu, 13 Aug 2026 08:07:28 -0500
+X-Gmail-Original-Message-ID: <CAMRc=McWBqz3YyN8GUMLd6aZjvZ=wT2y6oUu81MgrpR-Dc4hWQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxQDHzznFCPjAFUr94xSbRi553VA-Ghe8BBzZsDyOuS_FyJt3JeSHnfmKY
+Message-ID: <CAMRc=McWBqz3YyN8GUMLd6aZjvZ=wT2y6oUu81MgrpR-Dc4hWQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] gpio: pl061: add Ambarella CV75 register layout variant
+To: longzhao@ambarella.com
+Cc: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 13 Aug 2026 14:38:41 +0200, Lee Jones <lee@kernel.org> said:
-> On Mon, 03 Aug 2026, Shivendra Pratap wrote:
+On Thu, 13 Aug 2026 12:19:37 +0200, Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> said:
+> From: Long Zhao <longzhao@ambarella.com>
 >
->> PSCI has multiple kernel consumers, such as cpuidle-psci-domain.
->> Currently, both the PSCI core driver and cpuidle-psci-domain bind
->> directly to the same PSCI node "arm,psci-1.0". Additional consumers, if
->> introduced, would also need to bind in the same way, leading to several
->> drivers attached to a single device node.
->>
->> Introduce a PSCI MFD driver that binds to "arm,psci-1.0" and registers
->> PSCI child cells. As the first user, register cpuidle-psci-domain as a
->> child cell.
->>
->> Update cpuidle-psci-domain to probe as an MFD child and use the parent
->> PSCI node for power-domain traversal.
->>
->> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
->> ---
->>  MAINTAINERS                           |  1 +
->>  drivers/cpuidle/Kconfig.arm           |  1 +
->>  drivers/cpuidle/cpuidle-psci-domain.c |  9 +-------
->>  drivers/mfd/Kconfig                   | 12 ++++++++++
->>  drivers/mfd/Makefile                  |  2 ++
->>  drivers/mfd/psci-mfd.c                | 43 +++++++++++++++++++++++++++++++++++
+> Extend gpio-pl061 with a per-variant register layout so the Ambarella
+> CV75 GPIO banks can reuse the PL061 driver instead of a duplicate.
 >
-> We don't usually allow the use of the term MFD in devices.
->
-> What does this do?  Is it a mux?  psci-mux?
->
-> If not, think about what it is and call it that instead.
->
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> ---
 
-My two cents: I'd call it drivers/mfd/arm-psci.c
+Devicetree bindings and driver code should be modified in separate patches.
 
 Bartosz
