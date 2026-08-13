@@ -1,184 +1,226 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D8343CEF6;
-	Thu, 13 Aug 2026 20:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786654675; cv=none; b=LljjAUFklUw8KMyNCojlNzfNv7FI9wq/8UuyJULak7b0CXgkwPkYZEXQQxPdtEvunZoDAhJRSloCwKQWAYirTStltL56dVHds7+KCHFmdy+4jh+xPsNheuB21XnGAPT2V4PeO7CGM263WlOOwGlEjnu6xhUsZnNJ9dsyxrSBQG0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786654675; c=relaxed/simple;
-	bh=xcKpKD5O/kkk/DdwRv8U2NfIFv9iJTg5yazZrxLkzIk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Gew0ZJ38N9Uik/xzWXtlXA3UHvb+QvOMNJg1y6Fcfh/Uus2u8sPF1DsvkTZ86oB+6Tq1+qzzKCfBmY3CY3cbGySUJYFHvscxTDhxVpIQ9HIhdXAiYBnu/JtbZDY3Yvk/7iTVTxEBVj14loIkAgVcaT7TMwCdLrH/Qkvb5LRfXzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=NKl+WI4R; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804740B6EF
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 20:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786654703; cv=pass; b=EukXAohhrCb+iieya5/Zg5rqTxANWzrNMW0IYhCFEfk/Lco9WwexII4McBuPESQ7atq99t0z9QOTmu5/fBTsQCqDP+B2HD1yTYv8bN6BqfMo8dgFZ0RMr3ZadEMJ325bRN6SX7M3ROMUoRN8phMBFP46ZR2sZG+LHbiJzlFcAww=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786654703; c=relaxed/simple;
+	bh=/xB5jWHXqzTzVpEIuX53vofBJ70T8JLPbOmbdW9c2j0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fBPkQ261HUb6yxPQZhp6rGExKSQD3nI4DnuFT4wgSjbyOqYJ4q6LcSGLAQV1rHXnrIKaUcLZgfQ2h4tYr6g021N/eR2DcPjV0dy89jSLbrPudVNtfuvvDoD3RRF+4YTtPVKxhyb8V+jMu2k7UpaeALFpR6e5VLVwI/CW89Va6w8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h19OaGZm; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="NKl+WI4R"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1786654669;
-	bh=xcKpKD5O/kkk/DdwRv8U2NfIFv9iJTg5yazZrxLkzIk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=NKl+WI4RxGulk+AqiNq7YSai2phhHL3CaMARcI9pXX8ORp80Zzd8v+YqwiRAndi0u
-	 zJM6VH4Bh2DnJXjJZ/nT/SaZKe36M14gd+EvKpAVrR2btpsTcLNQxCi4y107GYKC5q
-	 v8pkvgm0JhAnevzHSzoXPwemnUzjUqmbWT5I/kgy6cZf3rXV+QHSX6GsWtuEAFmYdJ
-	 DtEx0/1GIWRhKf6pAzVWnYLRSdmGGvxxl70WigEVAtsSsH5LrF9TGtXtbIxAPEGWQO
-	 UBWvj1Y5uLBMzi4swFUbqU2xjQgUdboB63hhoNuz7o8PhP1ddHq9Y7scHDbD6R9R3a
-	 rNyy+7TVLPJ4g==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E9BF517E12AE;
-	Thu, 13 Aug 2026 22:57:48 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id B962E48006A; Thu, 13 Aug 2026 22:51:49 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 13 Aug 2026 22:52:07 +0200
-Subject: [PATCH v14 24/38] phy: rockchip: usbdp: Add some extra debug
- messages
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h19OaGZm"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c15cb6f5c12so71599866b.0
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 13:58:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786654700; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FYgOgGutvu6a+CM72bj6DmbxuBQL/7aGaDKftjjI63vo9G0ytyGBM/fDJ2znJFy4/I
+         +qSbtaz/1zhjeQCpajiSkSL55B5xSBgmpzPkj5HeQfGb6gVtnBwqHUhmQcAfHEADAu1a
+         pYwhwZ0uDkyYTEIAAK0vGjvnRn7GDNrvM4485POKeWvELV/kglV0v2eudH1Lj3IYP4UZ
+         0+9GP7gtoocXXr/5RLfVtoCX+KPneklCYXCOHTrFMKCm8We0ufTFItEgptl1TBSNHST1
+         Yfq60AY23ICjT5ldK5i1jKbBgpa8HSrD4ckS1XZ++0YCKeXPoN19PcDVBxqv9oPF4GSR
+         J7Kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FMKOZgzufVVCLOJWeEGJ15IjqhNjAOcuZzkZmWD1eJY=;
+        fh=nChFmOCwmqicsiPzH0qBnZb5oApgT+hJ2RulQsL/71g=;
+        b=TuHrncE+QO11VhAq0FRNzimO2Z6zkAdfgjNzu8NMXRPlrDFh8nf3TIs3pxasjl10fO
+         ri/N32FuEwAEKc0ZPGHiRmZeG07PQzuZwSpnVkazqfQ5h+xh8/5nMoUMr2f7+zpAdrPA
+         11vhRnJxaAU85lErb8qU6V1Jcju92v/DaZ1AH5tLPqQ0D0nvcf5kBBofmR5z6wod+637
+         bvAsBg1ZwTpktF025twOJzdmefEycBG74pflCQah/twk55fbA8HCrK8PKLVqsKNK///c
+         A3SOTVY1gIA/zsMYWG9zDP60wHgZ08kZpMjF8WYwZwd7Z0ab6E5uWIVAUTeLyVgD5LG7
+         EM9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786654700; x=1787259500; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FMKOZgzufVVCLOJWeEGJ15IjqhNjAOcuZzkZmWD1eJY=;
+        b=h19OaGZmoG4y8EdQqoS+d3m7noBw5+nt2lRRRtROTMXim263mxbszy9tI7C0ucjnZA
+         /Krdp6YmpNxTwpfDOgnsT5yQ39dIFVWC0EdsrmEC+gRskbzuF6vZTo38edzWkSu0bsEg
+         w5gYGf4o/1T1Xd8OMeB7m4MmUpwqhSPkzE8t55CWgZC8Y4M8X19pVNDajDt1M2Wa9gQS
+         m9Z4QadUHbjkiC4ripB/t7BKufuLRjfDaggMBd2Hh/Ee6yWPbDlM620gzi+f2TqsF7aq
+         7glaLoO5S3t5PiaI97WH+1ML0IDmrCK1eypXiG6wy4vs/MNL5TpMSCeDm1eZS/HJ91zc
+         zVyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786654700; x=1787259500;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FMKOZgzufVVCLOJWeEGJ15IjqhNjAOcuZzkZmWD1eJY=;
+        b=eRINvuEL/V7V0eUheyhdQ/I2AGQf/3n98eUlvEW7qKzGnF59rk+elj7d4G0R+Jb5vu
+         rYnuCAd+b4ueW+0jl3PkLe2s8DwnxPYF7qs1556srk4L6TXp35nktcZbShIGkoPT9GE9
+         SRAO2dLugmGyev8Vcf+fTAGefcqoJuhEldClrJfUdPFRec8R8xiLEpWsNOJEXieqbooL
+         bOxGV2xYOdYsQzjYXG6YMu/GuBrRPKMeSPBkg27lGXbb1UtRjrS+TAZFaf+VozssMWNk
+         fCRjxHRu+1L0zMlEDrS/V8TLpYOFhsVQbqVVXOjl7HUik4dU4qx4O+I1E+oGW+b1+YOw
+         ooIA==
+X-Forwarded-Encrypted: i=1; AHgh+RqUJ7x6OQiUh9UWsiHjczxaz/rqDju7gYvZT+AwnAau67/HjxbmJB6KsDoRFSMoG119kUjrOqfxK1Ef@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1O+/IHUO1ZyuJWvQNoaDldfxbj+GyDDmavjAn+4RjIn2Tu8uz
+	aMfcp59ArAzMXsJH8413YYZBsi4wIiQB8S5gwFwipBVNIgHVfcNKs87gMhvZGgA2nij2uceXuGw
+	ioxKJC3E0rCJK1MzsJr9OZM2mDrouocQRkZSR
+X-Gm-Gg: AR+sD11Rdo0ogP31VS+K1vuvVIbWyirgsSCkzHPi6NTvFiEmOP440pSD5YIZ61SAEw1
+	YfOT8IhT1p1drjD1rOx97x0SXHp0uD18Idq6B+g5BTYXlgyYQe/aTgVbq/h9hazmaeaKj5BZms0
+	GlK3SKRj6jGlKJQq2U3zSnLznMN8C39jB9mEJ0/HhW0jiELFbkrygdS5Ei6J2+jUXBgH8aX9b1z
+	5RsuNdlYxdD6aUT3LXMk6YAsX6XHZ6MqNqxbkjzkV75dZlym783xRLtgvfMwi2qWoIUBsU99D/J
+	JTOEkNJd7K2zHhYb9z8ngHZ2N2HLDmxNw13BS+tFe6Ul52fIeA3Vpc8NkklRALoijxpGPo6+1W3
+	zq88chdHbFZqqG0IZXO6HkFeK7+VKjF3KEugaqE2JYiEHPciBUXzjMpsRuNbBhhmvsrWE5cjUpO
+	1Wij765XutLMVwAeeQNSToXJVDa+EhvA==
+X-Received: by 2002:a17:907:9612:b0:c20:2eee:97b7 with SMTP id
+ a640c23a62f3a-c212a0f45f8mr50426766b.10.1786654699886; Thu, 13 Aug 2026
+ 13:58:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-rockchip-usbdp-cleanup-v14-24-b5ad9c68fa11@collabora.com>
-References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
-In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
-To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Yubing Zhang <yubing.zhang@rock-chips.com>, 
- Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
- linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3301;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=xcKpKD5O/kkk/DdwRv8U2NfIFv9iJTg5yazZrxLkzIk=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp+LmU2IO6IVhvmwkL2c+dEjkD2Mb6ivJOn2
- iT6iiNCPnqadokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqfi5lAAoJENju1/PI
- O/qadrkP/3goplmXpxq2uEL1kizMtzwPArCpJzxXfdyGd+0d+PwrJYenuGdWduZknsNlGnnAP5m
- ozVcIzVj1KaH+Hc5lU/WZRzw9xsAOgbAEWkEoh8IYlZBTx6H5KQEmBeOq7MrklleUNdn1fIj6KX
- yTRY1nh2PkOtGiKAwx1d7nIKt0sPqTkPiDLHT4xWNQXenbtfeutUB925AM2CZnPxql9OXyAT6/Q
- f7FEp7H784aJmP9Bn55pfmP0EC4PJSqGNrlmXlDlomX+61s1C3mcQRBLrATtol2hF+7drHUjg1W
- VSQ87eClrqez5jy/1SLEtCMPTVbFWinI3qtV+74Q771m6QA6cDI+2cjvokj4zF0mu8Ylcj9stWk
- +PtpcuAyKAGv2xgaGvqnqkTyZnevLeaaXt1Z78igg3OWjf5EBXL9I5pE2hY5MeqR/So611MKLSB
- rIk7/a9UIRB4aKkz4hGJ2zahNY+ejU5I0WxTx7xmm+e0gTrTOK2u23niLRFvKVIawD6WNWWNPK1
- HBIp6FTHtFLua5y6FIUR3ihzLI47xPrSmPzLZhulKm/OEbBYjz5I8Z2z5171nJxHX5YSr4Uq4Hi
- 4dOlzCyIvopYM4jLN+RN213HBOonOYTteIWBsSmyh0gMZOZf4KtLGF+tWcBf5ijqm0jIdkjf3mI
- PGMgS3jRAXn+i+VS9HY86eA==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+References: <20260813160139.70000-1-andrei.stancovici@analog.com> <20260813160139.70000-3-andrei.stancovici@analog.com>
+In-Reply-To: <20260813160139.70000-3-andrei.stancovici@analog.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Thu, 13 Aug 2026 23:57:43 +0300
+X-Gm-Features: AUfX_mzQbBF40TX5-53l7NvXgRquRfw3jQNW53giSLK5VOi38_cPDpZfU8jUQPk
+Message-ID: <CAHp75Vd2_NwPjqM1MMBn-2KP2h=ug=Nv-v1CgfmfPdN3jE50Yg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] iio: adc: ltc2497: add LTC2499 internal
+ temperature channel
+To: Andrei Stancovici <andrei.stancovici@analog.com>
+Cc: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Beguin <liambeguin@gmail.com>, linux@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-It's useful to log PHY reinit to ease debugging issues around
-USB-C hotplugging.
+On Thu, Aug 13, 2026 at 7:02=E2=80=AFPM Andrei Stancovici
+<andrei.stancovici@analog.com> wrote:
+>
+> The LTC2499 has an internal PTAT (proportional to absolute temperature)
+> sensor that is activated by a second I2C configuration byte (EN2 | IM).
+> Expose it as an IIO_TEMP channel providing raw, scale and offset so the
+> standard IIO formula
+>
+>         T[m=C2=B0C] =3D (raw + offset) * scale
+>
+> reconstructs the temperature.
+>
+> The PTAT sensor yields the absolute temperature as
+>
+>         T(K) =3D DATAOUT24 * Vref / 1570          (Vref in volts)
+>
+> The raw value exported here is sign-extended and normalised to
+> 2^(resolution + 1) =3D=3D 2^25, i.e. raw =3D 2 * DATAOUT24, so on the IIO
+> milli-degree-Celsius convention
+>
+>         scale[m=C2=B0C/LSB] =3D Vref_uV / 3140000
+>         offset         =3D -273150 * 3140000 / Vref_uV
+>
+> The scale and offset are derived from the reference voltage returned by
+> regulator_get_voltage(); its error is propagated as before, so a board
+> that fails to describe vref-supply gets a clear read error instead of a
+> silently wrong temperature. No board-specific reference value is assumed
+> in the driver.
+>
+> The single temperature channel is appended as the last entry of the
+> shared channel array and excluded via num_channels for parts without an
+> internal sensor, so the existing LTC2497 channel layout and device name
+> are unchanged.
+>
+> The LTC2499 latches its converter configuration from the second command
+> byte and only re-evaluates it when that byte has EN2 set. EN2 | IM
+> selects the internal temperature sensor. Because a single-byte command,
+> or a second byte with EN2 =3D 0, means "keep previous", a one-byte channe=
+l
+> select cannot pull the device back out of temperature mode: after a
+> temperature read every subsequent voltage read would keep returning the
+> PTAT result instead of the selected input. Temperature support is
+> therefore only correct if the voltage path also emits a second command
+> byte that re-selects an external input.
+>
+> Send two-byte commands for all conversions on parts that have the sensor
+> (has_temp):
+>
+>         temperature:    EN2 | IM
+>         voltage:        EN2                     (IM =3D 0 -> external inp=
+ut)
+>
+> The LTC2497 and LTC2496, which lack the second-byte mechanism, keep using
+> the original single-byte channel select and are unchanged.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+...
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index b40b5d9ce587..e67c1df792ed 100644
---- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-+++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -24,6 +24,7 @@
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
-+#include <linux/string_choices.h>
- #include <linux/usb/ch9.h>
- #include <linux/usb/typec_dp.h>
- #include <linux/usb/typec_mux.h>
-@@ -462,6 +463,8 @@ static int rk_udphy_reset_deassert(struct rk_udphy *udphy, char *name)
- 			return reset_control_deassert(list[idx].rstc);
- 	}
- 
-+	dev_err(udphy->dev, "failed to de-assert missing reset line: %s\n", name);
-+
- 	return -EINVAL;
- }
- 
-@@ -488,6 +491,8 @@ static void rk_udphy_u3_port_disable(struct rk_udphy *udphy, u8 disable)
- 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
- 	const struct rk_udphy_grf_reg *preg;
- 
-+	dev_dbg(udphy->dev, "USB3 port %s\n", str_on_off(!disable));
-+
- 	preg = udphy->id ? &cfg->grfcfg.usb3otg1_cfg : &cfg->grfcfg.usb3otg0_cfg;
- 	rk_udphy_grfreg_write(udphy->usbgrf, preg, disable);
- }
-@@ -662,8 +667,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
- 		return 0;
- 	}
- 
--	if (udphy->flip != flipped)
-+	if (udphy->flip != flipped) {
-+		dev_dbg(udphy->dev, "cable orientation changed, PHY re-init required.\n");
- 		udphy->phy_needs_reinit = true;
-+	}
- 
- 	udphy->flip = flipped;
- 	rk_udphy_set_typec_default_mapping(udphy);
-@@ -781,6 +788,11 @@ static int rk_udphy_init(struct rk_udphy *udphy)
- 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
- 	int ret;
- 
-+	dev_dbg(udphy->dev, "reinit PHY with USB3=%s and DP=%s (%u lanes) flipped=%s\n",
-+		str_on_off(udphy->mode & UDPHY_MODE_USB),
-+		str_on_off(udphy->mode & UDPHY_MODE_DP),
-+		udphy->dp_lanes, str_yes_no(udphy->flip));
-+
- 	rk_udphy_reset_assert_all(udphy);
- 	usleep_range(10000, 11000);
- 
-@@ -851,6 +863,8 @@ static int rk_udphy_setup(struct rk_udphy *udphy)
- {
- 	int ret;
- 
-+	dev_dbg(udphy->dev, "enable PHY\n");
-+
- 	ret = clk_bulk_prepare_enable(udphy->num_clks, udphy->clks);
- 	if (ret) {
- 		dev_err(udphy->dev, "failed to enable clk\n");
-@@ -869,6 +883,7 @@ static int rk_udphy_setup(struct rk_udphy *udphy)
- 
- static void rk_udphy_disable(struct rk_udphy *udphy)
- {
-+	dev_dbg(udphy->dev, "disable PHY\n");
- 	clk_bulk_disable_unprepare(udphy->num_clks, udphy->clks);
- 	rk_udphy_reset_assert_all(udphy);
- }
-@@ -1308,8 +1323,12 @@ static int rk_udphy_typec_mux_set(struct typec_mux_dev *mux,
- 	struct rk_udphy *udphy = typec_mux_get_drvdata(mux);
- 
- 	/* Ignore mux events not involving USB or DP */
--	if (!rk_udphy_is_supported_mode(state))
-+	if (!rk_udphy_is_supported_mode(state)) {
-+		dev_dbg(udphy->dev, "ignore mux event with mode=%lu\n", state->mode);
- 		return 0;
-+	}
-+
-+	dev_dbg(udphy->dev, "new mode: %lu\n", state->mode);
- 
- 	guard(mutex)(&udphy->mutex);
- 
+> +                       /*
+> +                        * raw is normalised to 2^(resolution + 1), i.e.
+> +                        * raw =3D 2 * DATAOUT24, so the PTAT scale (data=
+sheet
+> +                        * Vref / 1570 per kelvin) doubles its denominato=
+r and,
 
--- 
-2.53.0
+Kelvin
 
+> +                        * in m=C2=B0C, becomes Vref_uV / 3140000.
+> +                        */
+
+...
+
+> +                       ret =3D regulator_get_voltage(ddata->ref);
+> +                       if (ret < 0)
+> +                               return ret;
+> +                       if (!ret)
+
+In this case I would rather see
+
+  if (ret =3D=3D 0)
+
+as it's about value and not a returned error code (success).
+
+> +                               return -EINVAL;
+> +                       /*
+> +                        * 0 =C2=B0C =3D=3D 273.15 K must map to raw + of=
+fset such that
+> +                        * (raw + offset) * scale =3D=3D 0 m=C2=B0C, i.e.
+> +                        *   offset =3D ABSOLUTE_ZERO_MILLICELSIUS / scal=
+e
+> +                        *          =3D ABSOLUTE_ZERO_MILLICELSIUS * 3140=
+000 / Vref_uV
+
+This is a bit too far. In the comments the plain numbers are much
+better, we should understand math and physics behind.
+
+> +                        * Computed in 64-bit to avoid overflow.
+> +                        */
+> +                       *val =3D div_s64((s64)ABSOLUTE_ZERO_MILLICELSIUS =
+* 3140000, ret);
+
+Casting is not needed, the trick is to add LL type suffix to the 3140000.
+
+> +                       return IIO_VAL_INT;
+> +               default:
+> +                       return -EINVAL;
+> +               }
+
+...
+
+>  struct ltc2497_chip_info {
+>         u32 resolution;
+>         const char *name;
+> +       bool has_temp;
+>  };
+
+Have you run `pahole`? It might be that on some architectures there
+will be a gap in between existing ones due to 64-bit required
+alignment.
+
+--=20
+With Best Regards,
+Andy Shevchenko
