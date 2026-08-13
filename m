@@ -1,153 +1,293 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EAB3C0626
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 17:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786643302; cv=pass; b=uSuMzFrGjqd2jsWDcj9lHR9zeS884VWNqAyehS+7e2rWC7eKhAIp/t8YONc1pyNtLW864VxetBR/SFu6N+ZcAxNU/UlDe5G9B/KAe7M1D0uPlC4uriNIlmxmwtAorM6JGbsqfCQnWjuzJbMvlJUrRsXzZaWhVyIyHV2NVVItX8M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786643302; c=relaxed/simple;
-	bh=fJN0yajHdbKNJg/Sb8r8Ae8JV9wC/JHTUgtXKZ3D0bI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=txNVkTFR5cC41ozEGUNNwZyNXIOLQUz9xiqZDbos27o8xa/zr2NK/xyAzlNSZ7h8U/qweWDJyCjiUt59G2bRKRNMtZEh4xwdnvXHKys5E9KqYouMuMkEkiUG1A9zVRepJO7yar4i8ZPIFkB1/E6iAuHSGKLmYzAPEYOmENEJVss=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YZ9NO7AS; arc=pass smtp.client-ip=74.125.224.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AEB3F2100
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 17:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786643768; cv=none; b=NjC+xY44L18+E194LdC/8o1Ev3UZQY6IacHiXqRtUeY465Ek5Cy1sviPlBi1RWG4M6VdkwOikNbLI1MZ0lBXSQtVPXqEuKTGbeee6sC+HjBtB1AxiouCJKq4XofySpG6f0KUU1AYVuEXvZm6eRLsm4bSaZJ5HYGQyi67511VkpY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786643768; c=relaxed/simple;
+	bh=/MG4w5vYohnVZiZCpla+/LhOQuPeP192SwY7ui51dd8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QdVsVGD19jt3sFC4NDXEoQxm2nkNhs0QMcPqrjJu8b3jNbONW3/EiJlP3Dypx2OuqOw4es6w4cAst7t3wqKo7eJTO3966IKLAVGFSGbY5JflUkxSMju553Nt12JWKq4mZIVRp/ah5rSKVcFqPdLDOI1/Exop3IWpgBF8H673XVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlR17Jzi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YZ9NO7AS"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-66807ba2f0fso195859d50.3
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 10:48:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786643290; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k++1WmL1nhb1zPaZY55ZAdcGRTtqPnt5qHiWnO8Im+xTcZgPkIliaeBOy8QuDNuD4H
-         5YCztaTrr4MhzBy0TFoiLWhkE5UH93zpFK2noxKeqds/JQbUx8ti+xnSm4txMmLzMwcT
-         Yn60gY4nh8hZOSSMqgb7ZMrnVwrBkp7heXS0VueoL7HXkyyAx+5V25IiXYLEJ4DgJuEV
-         ycLi9FpP+XwrfbTONNO/QTQ0H3JiehQVocICaZ+BV11FQMNv5RrVkKUytY5R7W5ZXl3M
-         69rMFNWegQA8gegPxcmB8f2nGogqA7ffSr4tjrOajpivV4wtAGxUlhZGRpkkyBlDyaVq
-         Zv6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xKBoZsKQChWoyWTHFeaA8fhBCl9pWtBCM4FH4MsoEI8=;
-        fh=1CTLhDbtzKafUufg8I+64Lr+0CSDxORZVvUPodg74/A=;
-        b=K5OR+ReWIMmR3+Q85NzDELcWNJJHC2ufT4N4K7U0ts/YOBMqcxtYcO3Jf2b1cRq2Q8
-         GjBtds1+8kCPRN3+mNhhx7jMHgzttYgSAr+SCA6Sc4xHWxYdFh9zgkw2Ih7uC2H5iYsg
-         d9G7Ne7c2MQmJOK7lNCMbIHmCokYpGVSeMtpokGVMXtVOOWVrEGSr4zvvE0znk/Uh1Lt
-         N59KhzcHgcPqhCFymqLMKoHL+cDqWHry9CrnFcdfeDf7UiybDIf5bxQbEK5qa89fW00M
-         bALDMW+nPW8487VUQxnwzpPtSvWXbjq2y97LIanEJdLl3Lq0bc/qCsh+38gERriDyPJx
-         2xxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786643290; x=1787248090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xKBoZsKQChWoyWTHFeaA8fhBCl9pWtBCM4FH4MsoEI8=;
-        b=YZ9NO7ASaOX4Gj9lC9QUFWE3Rt1OeX8dMJ7V7HoqrLD6LiMWrjz/Z394NlJZGmFg1M
-         Hj80QBvUCyQj8hQhDprlKVKsS37baIlbq/PAC8fYYq1U3/PgHFeQ/zJbJYYbBRHId9Dj
-         53VEfG3l6Zsxt+xmcrhshQwTHQ3Sw+1uCluzXZwBpxix3KV25YxYvzvbCoV7J7+vdYP2
-         LjXBXaYNVx+XtWm4U4Dzb5A8nCig65YNj06WMauEZX926U6hp0ZgG62o2MbfB3V8qfgR
-         V8O/CTua0Qyzd8CtG3HLATSUTuZt4ExrFCRljdo/ouoBlqj9O6xhtRRd8wulYD/TdJoP
-         1CyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786643290; x=1787248090;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xKBoZsKQChWoyWTHFeaA8fhBCl9pWtBCM4FH4MsoEI8=;
-        b=BQxtC81PDOQt16/dWi2buiaYt7GvSuxbgbUXREQmvd8eAynylxB7r2hS3gQmWv0r0s
-         u9wCB1AfMFAswksCRZfgWe/dVfGtBVSewR8e97INCuBuAbGuTZEBIlTu09e0ZF+X6TNb
-         6HjCXX+2lb3o6nAUEgdnKUMs9XUzptsGsM+8qfmI//A+S30Nb1FCmwcBR2CACoWpbpWv
-         7HOOl+S+QX7x+BKyjkQvO3+nV7y9znI/zt+qJTrguXR63ETtrYPdbw0Kw0fpOcB7c8Kg
-         oABkPP9eQw6QO5YwnUW2pmsMgNACaD50gPCn4wWX1a6o0GBFt5cD8jLJoXxmJKjnbkOx
-         1bxg==
-X-Forwarded-Encrypted: i=1; AHgh+RoQiA30BqJZFPOKjtSCFzONF6BySenDTkMeb6iGqj78/lYRnMgWJBONUIHAu3uma83v6C9mGWPfWGHK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxF/+6j9djV1botnP87cuS1eVQBhs3MCi17ZlpAci9Ckmyc2Do7
-	QvP+B+nmM57/0x7iv4UDbk6rIJiPGrAlxnhVlazd2cB7ETPi/Sp4uSsdF3V0sP8MCY6l4itIzih
-	RZHtfSxbYaluc6hmYFLopIme1MLI8N7w=
-X-Gm-Gg: AR+sD11NUZlm4PnjIaEczP9xzuQel5V7NttKpDeG0lp+DeHNniKkYjm9h0W+lN1vEGu
-	W29p+ZBjRCLBOHCNj7v2OgV98ZNDQBrcYCHqXkjCTzAUmu9lbfUTu9f15sRFAn2VArPLzqmYImS
-	ywCiYrMtpzT9RRfb1T2Y8rK0F+WosCicYMBF1QSJSYL7iu/XZcweJiQhtSiUVKbpVTMjRkmOUD2
-	8SU7XUI48AB+fxGBizHdpRKVJg0Ep+YmIu7MieLnzTll1hpIiZ024O/TpO8I+B8uutA5PWbsQ5h
-	77nY2AH9N3/E6hFS2nbLVkYvtJ0q5LCb/mBMfefZTI9VPMt4AUBTqhmjg1KHIGiCfwfXWyEolh1
-	Y
-X-Received: by 2002:a05:690e:4091:b0:66c:486c:aa1b with SMTP id
- 956f58d0204a3-66c72d2719bmr59581d50.38.1786643289594; Thu, 13 Aug 2026
- 10:48:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlR17Jzi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D57C31F000E9;
+	Thu, 13 Aug 2026 17:56:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786643762;
+	bh=9WWI1pH3buMCCv7ZhpPO4JiErDXVMw7b3muT9Z0Rav4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UlR17JziW3SjIxsRwQnU0o21moBkulzrC6R51BghB74ZGfpsIMs4B2Iec6Q/VgnKP
+	 1IH0a38+ETTnytRnI9DgMAW0+1tAa//WOla1g52EgPyBrlWXv8k17tAPP3s/Srq6BN
+	 UtpJuzqezQY2RpOknf6NRRxYdVUxLo6VoEnIKg+CzBecpAJr9DXcBrkYrj8iwgZSOW
+	 9CkQ7j8/FXk5dScopDBcpGvsQV+0ESIQBnSDoSfsY+wplAht6cokSTsFyd/zn14sma
+	 nLD/EfXcI5aS9VfZEzb7B6aZZP6gkx5sKyry12sFXo5DxrQjtBddmNqonTjdI1B8wK
+	 99LX+0ZMKh01A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v6 3/3] dpll: add SiTime SiT9531x DPLL clock
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ali Rouhi" <arouhi@sitime.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260812175337.18155-4-arouhi@sitime.com>
+References: <20260812175337.18155-1-arouhi@sitime.com>
+ <20260812175337.18155-4-arouhi@sitime.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 17:56:01 +0000
+Message-Id: <20260813175601.D57C31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260624055648.127399-1-challauday369@gmail.com> <178406687202.3036881.4468660016404184803.robh@kernel.org>
-In-Reply-To: <178406687202.3036881.4468660016404184803.robh@kernel.org>
-From: Uday Kiran <challauday369@gmail.com>
-Date: Thu, 13 Aug 2026 23:17:56 +0530
-X-Gm-Features: AUfX_mzsIi5SDyWoPwPYp7HUoDgTG5O7YDFhgh4xYm4uaptfNPMewu0uSRvCY6M
-Message-ID: <CAAj-GBnn8rGD6o5HmVfYtEksXsL8ZPKcc_AbfKUEHtTsN1pN-A@mail.gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: watchdog: microchip,pic32mzda-wdt:
- Convert to DT schema
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
-	skhan@linuxfoundation.org, tsbogend@alpha.franken.de, krzk+dt@kernel.org, 
-	linux-kernel@vger.kernel.org, conor+dt@kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, me@brighamcampbell.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 15, 2026 at 3:37=E2=80=AFAM Rob Herring (Arm) <robh@kernel.org>=
- wrote:
->
->
-> On Wed, 24 Jun 2026 11:26:48 +0530, Udaya Kiran Challa wrote:
-> > Convert Microchip PIC32 Watchdog Timer devicetree binding
-> > from legacy text format to DT schema.
-> >
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
-> > ---
-> > Changelog:
-> >
-> > Changes since v1:
-> > - Fix example indentation
-> > - Correct example clock specifier from REF2CLK to LPRCCLK
-> >
-> > Link to v1:https://lore.kernel.org/all/20260620172354.155565-1-challaud=
-ay369@gmail.com/
-> > ---
-> >  .../bindings/watchdog/microchip,pic32-wdt.txt | 18 --------
-> >  .../watchdog/microchip,pic32mzda-wdt.yaml     | 44 +++++++++++++++++++
-> >  2 files changed, 44 insertions(+), 18 deletions(-)
-> >  delete mode 100644 Documentation/devicetree/bindings/watchdog/microchi=
-p,pic32-wdt.txt
-> >  create mode 100644 Documentation/devicetree/bindings/watchdog/microchi=
-p,pic32mzda-wdt.yaml
-> >
->
-> Applied, thanks!
->
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [Critical] Use-After-Free of Pin Properties and Frequency Arrays
+- [High] State Mismatch / Logic Flaw in Pin Getters
+- [High] Destructive Priority Overwrite in Hardware Table
+- [High] Use-After-Free on Probe Error Path Due to Missing DPLL Unregistrat=
+ion
+- [Medium] Silent Failure on Manual Pin Connection Request
+- [Medium] Missing SYSREF/SYNCB/Pulser Features
+- [Medium] Hardware Routing Loop via INTSYNC
+--
 
-Thank you, Rob. There are similar microchip, pic32mzda patches related to s=
-pi,
-sqi & rtc which are reviewed/acknowledged.
+--- Patch [3]: [PATCH net-next v6 3/3] dpll: add SiTime SiT9531x DPLL clock=
+ driver ---
+commit 841a91aff3f30b8a2e2bee8952633134d7bbdee2
+Author: Ali Rouhi <arouhi@sitime.com>
+Subject: dpll: add SiTime SiT9531x DPLL clock driver
+Summary: This commit adds a DPLL subsystem driver for the SiTime SiT95316
+and SiT95317 clock generators. It supports hardware state monitoring, prior=
+ity
+management, and frequency/phase configuration.
 
-1. microchip,pic32mzda-spi.yaml
-https://lore.kernel.org/all/20260622-ingenious-finch-of-fantasy-7bafaf@quol=
-l/
+>  - SYSREF/SYNCB/Pulser output mode control
 
-2. microchip,pic32mzda-sqi.yaml
-https://lore.kernel.org/all/20260625-omen-stark-6bb827ebcc43@spud/
+[Severity: Medium]
+Is this functionality fully exposed to userspace? The commit message mentio=
+ns
+support for SYSREF/SYNCB/Pulser modes, but looking at the driver,
+sit9531x_output_pulse_ctrl_set() only appears to be called with a hardcoded
+default during embedded sync setup. It looks like the other modes might not
+be reachable.
 
-3. microchip,pic32mzda-rtc.yaml
-https://lore.kernel.org/all/20260703-identify-cringe-ef88079923cd@spud/
+> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> index 0000000000000..711ab16b0897a
+> --- /dev/null
+> +++ b/drivers/dpll/sit9531x/core.c
 
-Please let me know if any further action is required from my end to
-merge in the
-mainline.
+[ ... ]
 
-Regards,
-Udaya Kiran Challa
+> @@ -596,32 +596,25 @@ int sit9531x_input_prio_set(struct sit9531x_dev *si=
+tdev, u8 pll_idx,
+> =20
+>  	usleep_range(10000, 12000);
+> =20
+>  	/*
+>  	 * Write the requested slot on Page 1, then fill the remaining
+>  	 * slots with the same source, matching the procedure script's
+>  	 * backfill behaviour.
+>  	 */
+>  	for (slot =3D prio; slot < SIT9531X_PRIO_MAX_SLOTS; slot++) {
+>  		reg =3D sit9531x_prio_reg(pll_idx, slot);
+> =20
+>  		rc =3D sit9531x_read_u8(sitdev, reg, &val);
+>  		if (rc)
+>  			goto commit;
+> =20
+>  		val =3D sit9531x_prio_slot_set(val, slot, input_idx);
+
+[Severity: High]
+Does this loop unintentionally wipe out fallback configurations? When users=
+pace
+sets a priority, this loop fills not only the requested slot but also all
+lower-priority slots with the exact same input source. This appears to dest=
+roy
+any other fallback inputs the user might have configured in the hardware ta=
+ble.
+
+[ ... ]
+
+> @@ -2496,25 +2496,15 @@ int sit9531x_dev_start(struct sit9531x_dev *sitde=
+v)
+>  	if (rc)
+>  		return rc;
+> =20
+>  	list_for_each_entry(sitdpll, &sitdev->dplls, list) {
+>  		rc =3D sit9531x_dpll_register(sitdpll);
+>  		if (rc) {
+>  			dev_err_probe(sitdev->dev, rc,
+>  				      "Failed to register DPLL%u\n",
+>  				      sitdpll->id);
+>  			return rc;
+>  		}
+>  	}
+
+[ ... ]
+
+> @@ -2825,18 +2815,10 @@ static void sit9531x_dpll_list_free(struct sit953=
+1x_dev *sitdev)
+>  {
+>  	struct sit9531x_dpll *sitdpll, *next;
+> =20
+>  	list_for_each_entry_safe(sitdpll, next, &sitdev->dplls, list) {
+>  		list_del(&sitdpll->list);
+>  		sit9531x_dpll_free(sitdpll);
+>  	}
+>  }
+
+[Severity: High]
+Could this error path leave the DPLL subsystem with dangling pointers? If
+sit9531x_dpll_register() succeeds for the first DPLL but fails for the next,
+sit9531x_dev_start() returns an error without unwinding the already
+registered DPLLs. The error handler in sit9531x_devm_dpll_init() then calls
+sit9531x_dpll_list_free() to free the backing memory directly, bypassing
+dpll_device_unregister() and dpll_pin_unregister().
+
+> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
+> index 0000000000000..364f870ac3041
+> --- /dev/null
+> +++ b/drivers/dpll/sit9531x/dpll.c
+
+[ ... ]
+
+> @@ -259,32 +259,25 @@ static int
+>  sit9531x_dpll_input_pin_state_on_dpll_get(const struct dpll_pin *pin,
+>  					  void *pin_priv,
+>  					  const struct dpll_device *dpll,
+>  					  void *dpll_priv,
+>  					  enum dpll_pin_state *state,
+>  					  struct netlink_ext_ack *extack)
+>  {
+
+[ ... ]
+
+>  	if (chan->locked && !chan->inner_lol &&
+>  	    chan->selected_ref =3D=3D dpin->id)
+>  		*state =3D DPLL_PIN_STATE_CONNECTED;
+>  	/* In auto mode, enabled inputs with good signal are selectable */
+>  	else if (!chan->mode && ref->enabled && !ref->los && !ref->oof)
+>  		*state =3D DPLL_PIN_STATE_SELECTABLE;
+>  	else
+>  		*state =3D DPLL_PIN_STATE_DISCONNECTED;
+
+[Severity: High]
+Might this logic report an incorrect routing state? The ref->enabled flag
+represents a global physical state for the pin. If DPLL A requests an input
+and enables the receiver, DPLL B will also see ref->enabled as true and
+report the pin as DPLL_PIN_STATE_SELECTABLE, even if that pin isn't in DPLL
+B's priority table.
+
+Additionally, if a signal is lost (ref->los becomes true), this drops the
+state to DPLL_PIN_STATE_DISCONNECTED. Does the DPLL API expect degraded pins
+to still show as logically connected or selectable rather than entirely
+disconnected?
+
+[ ... ]
+
+> @@ -326,32 +319,25 @@ static int
+>  sit9531x_dpll_input_pin_state_on_dpll_set(const struct dpll_pin *pin,
+>  					  void *pin_priv,
+>  					  const struct dpll_device *dpll,
+>  					  void *dpll_priv,
+>  					  enum dpll_pin_state state,
+>  					  struct netlink_ext_ack *extack)
+>  {
+
+[ ... ]
+
+>  	switch (state) {
+>  	case DPLL_PIN_STATE_DISCONNECTED:
+>  		rc =3D sit9531x_input_prio_remove(sitdev, sitdpll->id, hw_src);
+>  		if (rc)
+>  			break;
+>  		ref->pll_mask &=3D ~pll_bit;
+>  		if (ref->pll_mask)
+>  			rc =3D 0;	/* another DPLL still uses this input */
+>  		else
+>  			rc =3D sit9531x_input_disable(sitdev, dpin->id);
+>  		break;
+>  	case DPLL_PIN_STATE_SELECTABLE:
+>  	case DPLL_PIN_STATE_CONNECTED:
+>  		rc =3D sit9531x_input_enable(sitdev, dpin->id);
+>  		if (rc)
+>  			break;
+>  		rc =3D sit9531x_input_prio_add(sitdev, sitdpll->id, hw_src);
+
+[Severity: Medium]
+Should DPLL_PIN_STATE_CONNECTED enforce a manual lock here? It appears to
+fall through to the exact same logic as DPLL_PIN_STATE_SELECTABLE, adding
+the input to the priority table but leaving the hardware in automatic
+selection mode instead of forcing a connection.
+
+[ ... ]
+
+> @@ -651,32 +637,25 @@ static int
+>  sit9531x_dpll_intsync_src_state_on_dpll_set(const struct dpll_pin *pin,
+>  					    void *pin_priv,
+>  					    const struct dpll_device *dpll,
+>  					    void *dpll_priv,
+>  					    enum dpll_pin_state state,
+>  					    struct netlink_ext_ack *extack)
+>  {
+
+[ ... ]
+
+>  	switch (state) {
+>  	case DPLL_PIN_STATE_CONNECTED:
+>  		if (sitdev->intsync_src =3D=3D sitdpll->id)
+>  			break;
+>  		if (sitdev->intsync_src >=3D 0) {
+>  			NL_SET_ERR_MSG(extack,
+>  				       "INTSYNC is already sourced by another PLL");
+>  			rc =3D -EBUSY;
+>  			break;
+>  		}
+>  		rc =3D sit9531x_intsync_enable(sitdev, sitdpll->id);
+
+[Severity: Medium]
+Is there a protection missing here against hardware routing loops? While the
+destination getter correctly prevents adding INTSYNC to a PLL's priority
+table if that PLL is already the source, this function doesn't seem to check
+if the PLL already has INTSYNC as a destination before making it the source.
+Could userspace configure a PLL to source from INTSYNC and then drive INTSY=
+NC
+with the same PLL?
+
+> diff --git a/drivers/dpll/sit9531x/prop.c b/drivers/dpll/sit9531x/prop.c
+> index 0000000000000..8a0105c8c6472
+> --- /dev/null
+> +++ b/drivers/dpll/sit9531x/prop.c
+
+[ ... ]
+
+> @@ -357,10 +357,8 @@ void sit9531x_pin_props_put(struct sit9531x_pin_prop=
+s *props)
+>  {
+>  	kfree(props->dpll_props.freq_supported);
+> =20
+>  	if (props->fwnode)
+>  		fwnode_handle_put(props->fwnode);
+> =20
+>  	kfree(props);
+>  }
+
+[Severity: Critical]
+Will this lead to a use-after-free when userspace queries the pin propertie=
+s?
+The sit9531x_pin_props_get() function dynamically allocates both the props
+structure and the freq_supported array. When passed into dpll_pin_get()
+in sit9531x_dpll_pin_register(), the DPLL core retains those pointers.
+Since sit9531x_pin_props_put() immediately frees these allocations on the
+success path, it looks like the DPLL core might be left holding dangling
+pointers.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812175337.1815=
+5-1-arouhi@sitime.com?part=3D3
