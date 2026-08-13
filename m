@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C322A390CB4;
-	Thu, 13 Aug 2026 07:02:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B06723E25B;
+	Thu, 13 Aug 2026 07:04:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786604536; cv=none; b=csPcek3sSsBxGUMSVWyRMLYiN/+vCJ7GCh8H9eAL13XGgtaLE5lqywEuRG8k/Qos5uVrKnnPnLXUdf/1578Ih81WCN147/1xSVG5CDr0DsVXkUAoikZp++gsbqU93mk0gAAtZFXL9Q8ynHs/0jHpnmgYTiw5FXcC7uMsq+xISCQ=
+	t=1786604688; cv=none; b=Cf7qUi2vn5F1zZ5OC1uQxnGT1aUMe077rYh0WJ4XUX8XCwUhXAMIkA0na1IJyda/xLNWvxjSXRxveUlSMHIEVVissSpysBwR1mpanNNxN25sUnDKPeD1mBVOwsqjLjaCba4X214CHRhuVQTYgP+g1m+p2jxAOm2vOmPblquUjyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786604536; c=relaxed/simple;
-	bh=TMp38GFfHkcUYOevGJYPyAfnC1j/t5my58XLzRCm/dY=;
+	s=arc-20240116; t=1786604688; c=relaxed/simple;
+	bh=Xwg6ij+JkN5Y9SjjYbTcaEwZL7mVJIq7yRMTLCz4L8w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QSb9dQxzkDLqo+YjZBQ0r1ceCv0qp3rOG18zdbjvHWFSJUx9i7/MPnfLqlrtjfp2Pg40+jG8U46v/Bwj/+ULpDPDomz6KMjVXiHGeoR4cUYs0ffThz6/m1/mWCC3DsCi4TXxF7KSM2Zor9UpVdXSNGuBqwoeasJf92yD6NoerpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VPNynnMK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lD7hdh/LYA5z2D+3hbZuiRE9dMuPo1o3xiE6XnKBZaQJ2hp6eF8fdRU0xMc1b9UnQgQZtb+jdQjZefBsCkKV8vgI5mzX20+bqeRl854J/dZRLm4liHUbETa6dONwTMPpf3o4zojQUEKxsRYvNg+c9R7XG2uu5mUaTOG5xxR54+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D5i0th3p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VPNynnMK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8A11F000E9;
-	Thu, 13 Aug 2026 07:02:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D5i0th3p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A561F000E9;
+	Thu, 13 Aug 2026 07:04:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786604527;
-	bh=/gqKioEF1GbavDA4gwe7ihUQosNd/QI2W5YICXn7nnM=;
+	s=k20260515; t=1786604686;
+	bh=UgWct9UeMHk4UFxQ8VlRHLlm0oUzUbQW0gcOeCF6jPk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VPNynnMKL0D+jC2TYBCxyz6/CIOrImpUbn9HaqmsYgbOJXdkyDNTUWGSAAkfUj210
-	 qzNYoVGaM2Lh/HZrM9fAkftOBaDQ1wReQ9dLFTc2G8JskEYyMCgpS6QZvKLfE5+cyP
-	 3Iw3Wb+BOP/gG6i9vqc6e+CIPywd97oWkr9otA7rHSZ3V6/dLZALCRccRgUzzs7qWn
-	 qQ1RO7HelgDVVyYRwLz4mNS9E1L7vEA8yop7bsKrklGsZZ3wiHzF682nsnyPwYbsf8
-	 4TrMzMPPokVRUcU23LStE2v79ttyY7xstReSObt4x9mtUpvW57g4uNYKprJLuXdM56
-	 2Wjwj97PEl8fw==
-Date: Thu, 13 Aug 2026 09:01:59 +0200
+	b=D5i0th3pYQMKiwMgNEoa1BpFL/0SSTZCFcvB9XduSctmIHD/XE/DkxQV4Hb7t7a3O
+	 jcxUPx+tHbFnXa51HVopZLAEfDmBsjpBtNo3qvptbCeOEEgvKGX2MwwGT9+/1Rwo1r
+	 Q+J+xq4+PAlB/1EFWPzaSKkl4bQoY0zvPu9cHv8wDrkV0FU/JNZpAUWOkf3jjPHX+x
+	 sv5BgEshyQkr4CuXPXvHydzBfpfl0ZvKdkoLFhbTS8o4N2AZyciqNqqPqU7GsZ5jAG
+	 UpJf5rlnBsuOyUvognZ0TKCPqnHlFtH7r9mXCA/fhoukVVrA2FcnkbYsxZXIXRrltP
+	 bRrcKN9+xOjKg==
+Date: Thu, 13 Aug 2026 09:04:37 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Zhentao Guo <zhentao.guo@amlogic.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
-Message-ID: <20260813-rustling-sassy-terrier-11b99d@quoll>
-References: <20260812-b4-s4-vdec-upstream-v7-0-3fae085861bd@amlogic.com>
- <20260812-b4-s4-vdec-upstream-v7-3-3fae085861bd@amlogic.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, 
+	robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org, 
+	zhangqing@rock-chips.com, royalnet026@gmail.com, alchark@flipper.net, 
+	chaoyi.chen@rock-chips.com, diederik@cknow-tech.com, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, iommu@lists.linux.dev, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 02/10] dt-bindings: npu: rockchip: add
+ rockchip,rk3576-rknn-core
+Message-ID: <20260813-apricot-bat-of-vigor-65ba20@quoll>
+References: <20260812094106.1391698-1-gahing@gahingwoo.com>
+ <20260812094106.1391698-3-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,106 +50,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260812-b4-s4-vdec-upstream-v7-3-3fae085861bd@amlogic.com>
+In-Reply-To: <20260812094106.1391698-3-gahing@gahingwoo.com>
 
-On Wed, Aug 12, 2026 at 10:41:25AM +0800, Zhentao Guo wrote:
-> Describe the initial support for the V4L2 stateless video decoder
-> driver used with the Amlogic S4 (S805X2) platform.
+On Wed, Aug 12, 2026 at 09:40:57PM +1200, Jiaxing Hu wrote:
+> The RK3576 NPU has two cores of the same RKNN block the RK3588 binding
+> already describes, but it wires them up differently: two extra CBUF
+> clocks, two power domains per core, and a single reset instead of two.
+> It also has no NPU SRAM supply.
 > 
-> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+> Widen the property ranges to cover both, then pin each SoC back to its
+> own shape in allOf so nothing loosens for RK3588, and keep sram-supply
+> required for rockchip,rk3588-rknn-core only.
+> 
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 > ---
->  .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 111 +++++++++++++++++++++
->  1 file changed, 111 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> new file mode 100644
-> index 000000000000..b5af3f931b26
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> @@ -0,0 +1,111 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic Video Decode Accelerator
-> +
-> +maintainers:
-> +  - Zhentao Guo <zhentao.guo@amlogic.com>
-> +
-> +description:
-> +  The Video Decoder Accelerator present on Amlogic SOCs.
-> +  It supports stateless h264 decoding.
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,s4-vdec
-> +
-> +  reg:
-> +    maxItems: 2
-> +
-> +  reg-names:
-> +    items:
-> +      - const: dos
-> +      - const: dmc
-> +
-> +  interrupts:
-> +    maxItems: 2
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: hvdec
-> +      - const: vdec
+>  .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++++++++++--
+>  1 file changed, 44 insertions(+), 3 deletions(-)
 
-vdec is the name of the module, so not really useful name.
-
-> +
-> +  clocks:
-> +    maxItems: 3
-> +
-> +  clock-names:
-> +    items:
-> +      - const: dos
-> +      - const: vdec
-
-Same here
-
-> +      - const: hevcf
-> +
-> +  power-domains:
-> +    maxItems: 2
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: vdec
-> +      - const: hvdec
-
-Same here.
-
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  amlogic,canvas:
-> +    description: should point to a canvas provider node
-
-You basically duplicate the property name. Say something useful, what is
-it used for?
-
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +
-> +  secure-monitor:
-> +    description: phandle to the secure-monitor node
-
-Can a property whose type is a phandle and is called "secure-monitor" be
-not "phandle to the secure-monitor node"?
-
-Write useful code, not redundant.
-
-Anyway, missing vendor prefix as it is not a generic property (otherwise
-point me to generic schema defining it).
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
