@@ -1,192 +1,155 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173053955D8
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 08:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF9C375F69;
+	Thu, 13 Aug 2026 08:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786610065; cv=none; b=s2cvcEhVXa4GoKiZXjCFe+OYfX5O0uSdJGr/lb6ryWLNrLISi5WEI6HLLnODa/tOTH4mqCg+XYM8Zj8OFABuapxTPoPkLbx7PkZteNjKWjXxTu9HTqffouNWBVe9XHiwQsuZG7o5OHNph5hflt2cxPlQAPuALXPNr2Wf1kJOHZo=
+	t=1786610078; cv=none; b=qk40jn9vjIqwbWT0K1e3bcEAANKBoVb0ltmoP+YamOmvnI3+xKGLCqKMXIW/54cUCT0Vqh1K0wXlMFiSNWSrrDZEgcJmdiDNP02ycmQJq/SRknVyrM5o2FbpdHb98ocFWfuRUPnyhu67HKjJKdv/tzErsO2MDwuaa++04hacwAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786610065; c=relaxed/simple;
-	bh=Et8yr7T4XI2QiD9tHPH6gogO1W8MVDfDmWwZXyvssoM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iQ9R93oqHFgiHXUr8eeYdbAUItAGkqB5GSNLuCIK54QmzE7Nw69sXYhbsSzle1NC5kUUExJiDd6fcsXeZjwtH1kDnN6Byldu/Y57ZQLApg71Esw0rjQZFs4J4Kzgl6QL9eZf5nE8xo5sy26iHyCgmoGswgDdPtIpyuuYWwi2as8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rRySEaGe; arc=none smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786610078; c=relaxed/simple;
+	bh=rCRNjIuldz0xhhG8g60oFPeTCdiYi/d8FgZDAFJT6vI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rG7rnPsAtPLmtl3thHSUdONf1plff3ycJL7u3/6FBRiq76tUwLp1yPb8dj2X5mIYTYS3bNCHKG+2lyCH526okpf6fmQr24yAJrnTc5zR+gI2AqpPhxGCD9mUmbz2lGpH2FHIjhJ+EeyozRz/J++oo5kRjHqYopwvBsn7vLI8ymc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ui2ZQIXb; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rRySEaGe"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39c9452244aso14184261fa.3
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 01:34:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786610061; x=1787214861; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mUlqoelOp41/qPHMuXnll43fbi7+sd/XaTpVYDwo8o4=;
-        b=rRySEaGe33GGD3rDArMTqpneiUzvS6BHFzj5YOcZyvbNkwUj8ouVDd5CmMG7ODCX4q
-         V9PSxwj/pNhYWS7enXDXJOOKUUSTkXWPQ1i/ub67BYC2xAnLz77u7lOQX0zUevnPUEZB
-         ruACOMxfJrs1H5YJABBisQ/2+oMQ7uaKAhW79YpIvY8eO+KB6DdnmjWPMdGshk/cmwPx
-         inqKF9qxNpYIWrI1ydZ+GF73F3XsR/dR2Nqv2nhBj2+4enluMOjDUdyC2+1utCLtf/hB
-         a4clU4OCAHrVL8uLZT2Kxw+h+mQNZeBXKpuOTtaNNMRoWHPQaodnng5w+d/gjhZU1Ugl
-         rD3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786610061; x=1787214861;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mUlqoelOp41/qPHMuXnll43fbi7+sd/XaTpVYDwo8o4=;
-        b=oFpvsFVILLnf+DvXlCOeLDvCAhGGnvd1+SBYmQyDsxkx1b95deFZOxJ+OOPFCrAyCg
-         Zix+xE1mgAKuK/LnJHTApRqnkih6TGen86s8a7j3LMODhvJXZWwjnrcasmau15MgYA/y
-         lzZUi3T3AJMX0+8Seq3TvmxtbrHBDuqRWWrA163ILYOIC2lYfuGm0RUFt1vUQyAMr6kD
-         Sx0e17d0kM7VYBDSz8qmlnrImp0K5CpIUrPeAb2yQkCW1rvkdy6zAdXP8/hQrP53+/tN
-         k9AZstBYXM3MFI01SmG0UEynDZq3BwRdhejKEm6yOY34VnfjNXVOS0lj4ySwe9ItppZb
-         T0qg==
-X-Forwarded-Encrypted: i=1; AHgh+RoaI6GiR9GmP8RvbIpBf2kJyCgo4t0GUPUZRVrs/o5uxIpeyPeQMFyjUIt1UIHLgaHOC0YCmLa7W540@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNnjQ6ZaY/xl7R0eAmNv+L5KvmXbMIxf1t/yEYxvFxdpPQ0VvJ
-	+YBAaHG1B3WzoBolSgFMO31q64piF3Pj+/Zg7Tt0HzghnlPOWDpAeDEY
-X-Gm-Gg: AR+sD13LiX+zUK2UmEJOopDY0ejFNNnBLtyD5ZpiBkheQK65dpkr4FQtvyxEBtfjZhK
-	ucVZXgO7Wm1KAt2+GmATm6QqcRKcAkT02DxRKs8teIhwviNG6XEwvZAzpEVLLcy07HMFzRQJiu3
-	6FaR6Sqi5UV/9PG3jFNoYTfk3pEJ9GW+5TkgfT9TpN26DIz9/UoV5Ne+maqpVkYvT0mCHUCz4d2
-	L2yuXz/XRpmsBLWUAGuWUXOgIffGyQbE36rw7y0JRi21ndw4QWHkL9T5XHUvhQk2EJlDDCDGubV
-	5gcQWgKaI9f6ddf+iqm0sg7IrwbLigN1FJufTlHb1wNmtNsNl+ExnMIJkHLga0EE8/hmdasriNW
-	RAXt4EZUWahUFAbznueyAKUtt5c7P8f2B0ZF7p9zrI8kygp9OUDoqe1wouvJ152GIebbTIUYMdO
-	X8765jOthSb2Lbxz/46jv3Oa70udtI9xiE5iYIhbWp2Ozllin2F0vtqo9Bu9fNbwJ+9ko+2xkY3
-	UEsLHNo3jYiHhWnhx2AFbG1eur7qTwDFcKnGWKDaXUTbguHjYVk9jo+awOcdWH/1yRE
-X-Received: by 2002:a05:651c:2108:b0:39c:f58e:5c5b with SMTP id 38308e7fff4ca-3a11a6b4a36mr4705651fa.18.1786610060867;
-        Thu, 13 Aug 2026 01:34:20 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a11b43f7fbsm2860831fa.37.2026.08.13.01.34.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 01:34:19 -0700 (PDT)
-Message-ID: <f5c241a2-00a8-4a32-bad5-3c89fb204b25@gmail.com>
-Date: Thu, 13 Aug 2026 11:34:17 +0300
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ui2ZQIXb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786610077; x=1818146077;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rCRNjIuldz0xhhG8g60oFPeTCdiYi/d8FgZDAFJT6vI=;
+  b=Ui2ZQIXbkHQisd6NtO0uBF+QxKu86VxrrdaM5eX42cGe7axPvXJwuDyb
+   N9XWU7t4aiCFSaXV+F763FXltcdxxlGTdmMQHgFscbpnGahA15aSteFMt
+   yzBDkBInUuCMHsHgt/L5TkSn6Dcn7x6BfbP1Jyez2DRuXextg2b+pW4nc
+   emqv+/SHRH24qIApptoyJb2Q2RFH+f71DJhylVHkiKKRILvoPAxj4S5KH
+   TVe8Q3M+9UpedNMwWxslIDtknp9KRLWiSrbmDd1xi9YyHdcIqVAOlT0UW
+   cB+03zchUop2qWlBIHvesOUqfZdFY7be2GgToGF/AKJhtDEvSib4WYXjN
+   Q==;
+X-CSE-ConnectionGUID: gmCnH/XxS6aGVtQQvcqxXg==
+X-CSE-MsgGUID: eOyEm/bbTvChnkz90JnIkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="87395150"
+X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
+   d="scan'208";a="87395150"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 01:34:37 -0700
+X-CSE-ConnectionGUID: d6UBiZVARGiKc3EzKFPmWA==
+X-CSE-MsgGUID: W+/IXHegSPWkT4rYOk4Xcw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
+   d="scan'208";a="267728343"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.250])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 01:34:31 -0700
+Date: Thu, 13 Aug 2026 11:34:28 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 3/4] iio: light: veml6031x00: add support for
+ triggered buffers
+Message-ID: <an2BlFKOpmxb4TqD@ashevche-desk.local>
+References: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
+ <20260812-veml6031x00-v6-3-7eef6e4ce290@gmail.com>
+ <20260813020958.5fc3f0da@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-To: Linus Walleij <linusw@kernel.org>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-rtc@vger.kernel.org
-References: <cover.1785838584.git.mazziesaccount@gmail.com>
- <9774b8d6663ea55b1682b32f825ec5689be3e1d8.1785838585.git.mazziesaccount@gmail.com>
- <CAD++jLmatJFfqhNWfgx=qUW2fEwuatxmJR7NyJLAv45LfLHZnw@mail.gmail.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <CAD++jLmatJFfqhNWfgx=qUW2fEwuatxmJR7NyJLAv45LfLHZnw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813020958.5fc3f0da@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 07/08/2026 23:29, Linus Walleij wrote:
-> Hi Matti,
-> 
-> thanks for your patch!
-> 
-> On Tue, Aug 4, 2026 at 12:23 PM Matti Vaittinen
-> <matti.vaittinen@linux.dev> wrote:
-> 
-> 
->> +static int bd73800gpio_get(struct gpio_chip *chip, unsigned int offset)
->> +{
->> +       struct bd73800_gpio *data = gpiochip_get_data(chip);
->> +       struct bd73800_gpio_pin_cfg *pin = &data->pin[offset];
->> +       int ret, val;
->> +
->> +       /* Only pins configured as GPI via OTP can have their status read */
->> +       if (pin->state != BD73800_PIN_GPI) {
->> +               dev_dbg(data->dev, "pin %d (%x) not input. State %d\n", offset,
->> +                       pin->mask, pin->state);
->> +               return -EINVAL;
->> +       }
->> +
->> +       ret = regmap_read(data->regmap, BD73800_REG_INT_5_SRC, &val);
->> +       if (ret)
->> +               return ret;
->> +
->> +       return val & pin->mask;
->> +}
->> +
->> +static int bd73800gpo_set(struct gpio_chip *chip, unsigned int offset,
->> +                         int value)
->> +{
->> +       struct bd73800_gpio *data = gpiochip_get_data(chip);
->> +       struct bd73800_gpio_pin_cfg *pin = &data->pin[offset];
->> +
->> +       if (pin->state != BD73800_PIN_GPO) {
->> +               dev_dbg(data->dev, "pin %d (%d) not output. State %d\n",
->> +                       offset, pin->mask, pin->state);
->> +
->> +               return -EINVAL;
->> +       }
->> +
->> +       if (value)
->> +               return regmap_set_bits(data->regmap, BD73800_REG_GPO_OUT,
->> +                                      pin->mask);
->> +
->> +       return regmap_clear_bits(data->regmap, BD73800_REG_GPO_OUT, pin->mask);
->> +}
-> 
-> These can probably be handled by the latest version of gpio-regmap
-> helpers (the version in linux-next).
-> 
-> We now support both input-only and output-only in gpio-regmap.
-> 
-> Latest <linux/gpio/regmap.h>:
-> 
->   * @fixed_direction_mask:
->   *                      (Optional) Bitmap representing the GPIO lines that
->   *                      make use of the @fixed_direction_output list to
->   *                      enforce direction of the GPIO. If this is NULL
->   *                      and @fixed_direction_output is defined, ALL GPIOs
->   *                      are assumed to be fixed direction (out or in).
->   * @fixed_direction_output:
->   *                      (Optional) Bitmap representing the fixed direction of
->   *                      the GPIO lines. Useful when there are GPIO lines with a
->   *                      fixed direction mixed together in the same register.
-> 
-> It seems you can set up the fixed_direction_output mask from OTP
-> and just use the library, right?
+On Thu, Aug 13, 2026 at 02:09:58AM +0100, Jonathan Cameron wrote:
+> On Wed, 12 Aug 2026 22:27:42 +0200
+> Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
 
-The BD73800 uses different registers for 'out' and 'in'. So there aren't 
-really "GPIO lines with a fixed direction mixed together in the same 
-register".
+...
 
-I, however, see some good stuff being in the linux-next! Finally a bit 
-of flexibility in a form of callbacks a driver can register is getting 
-in. So I am somewhat hopeful the usability of gpio-regmap will finally 
-increase.
+> > +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
+> > +{
+> > +	struct iio_poll_func *pf = p;
+> > +	struct iio_dev *iio = pf->indio_dev;
+> > +	struct veml6031x00_data *data = iio_priv(iio);
+> > +	IIO_DECLARE_BUFFER_WITH_TS(__le16, scan, 2) = { };
+> > +	unsigned int i = 0;
+> > +	int ch, ret;
+> > +
+> > +	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
+> > +	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
+> > +		ret = regmap_bulk_read(data->regmap,
+> > +				       VEML6031X00_REG_ALS_L,
+> > +				       scan,
+> > +				       2 * sizeof(*scan));
+> I don't care that much, but you could combine parameters on one line in
+> a few more places to reduced the code length a little.
+> e.g.
+> I'd be tempted to put the two lines above on one line or even
+> 
+> 		ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_ALS_L,
+> 				       scan, 2 * sizeof(*scan));
 
-I think the BD73800 can indeed use the gpio-regmap, by keeping the pin 
-direction information in private data and adding a custom xlate, which 
-errors out if get is requested for output pin, or set is requested for 
-input. I am not sure how much of an improvement it is compared to the 
-patch v2, but I'll give it a shot :) I believe the new -rc1 isn't that 
-far away, and hopefully the gpio-regmap -stuff from the next will be in 
-it together with the regulator stuff bindings depended.
+I usually suggest to combine that with
 
-Thanks again for the pointer!
+	struct regmap *map = data->regmap;
 
-Yours,
-	-- Matti
+so it will become
+
+		ret = regmap_bulk_read(map, VEML6031X00_REG_ALS_L,
+				       scan, 2 * sizeof(*scan));
+
+> > +		if (ret)
+> > +			goto done;
+> > +	} else {
+> > +		iio_for_each_active_channel(iio, ch) {
+> > +			ret = regmap_bulk_read(data->regmap,
+> > +					       iio->channels[ch].address,
+> > +					       &scan[i++],
+> > +					       sizeof(*scan));
+
+And here it will help
+
+			ret = regmap_bulk_read(map, iio->channels[ch].address,
+					       &scan[i++], sizeof(*scan));
+
+
+> > +			if (ret)
+> > +				goto done;
+> > +		}
+
+But I would even go with
+
+			ret = regmap_bulk_read(map, iio->channels[ch].address,
+					       &scan[i], sizeof(scan[i]));
+			if (ret)
+				goto done;
+
+			i++;
+
+> > +	}
+> > +
+> > +	iio_push_to_buffers_with_ts(iio, scan, sizeof(scan), pf->timestamp);
+> > +
+> > +done:
+> > +	iio_trigger_notify_done(iio->trig);
+> > +
+> > +	return IRQ_HANDLED;
+> > +}
 
 -- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+With Best Regards,
+Andy Shevchenko
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+
