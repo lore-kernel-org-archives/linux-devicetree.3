@@ -1,169 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C667647D947;
-	Thu, 13 Aug 2026 14:17:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44B947CA76;
+	Thu, 13 Aug 2026 14:17:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786630647; cv=none; b=qPf2IjGNIe9QMh5P+HkHqcYk20ZWYJ/y3bb+K5tcvSF2zKPhMFccu2RWdObUdinbiTrvqUhJI81IBeTf8NcN1mOqc9KIlES73Cbc4jwm8d9dXYgIl2hAKkXSZHHHoQyJGYB+qkX6lwRVHqL9KWJF0ALkWhxuKJvz+I/Jz+ICJqU=
+	t=1786630659; cv=none; b=MTadvb4y4O08ojNlWWy4Y5GHJfRUit88bxgj4Mko3jUoHnbtQByE0KAwwM6I9XaeufqahSz39vhjPG5hu6jghVl/T3Qn9C3y8UYwvzrH+T6mTNvDrwzajDbC+/PzVZBO1pKRa8Xzk62x+tzILfhDDBLaqNT01Wj4Nr0KW9nq+Js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786630647; c=relaxed/simple;
-	bh=xufGJCHZmAxCLz55bOgddxSyafV75ZhNOU8Mrg3XOwg=;
+	s=arc-20240116; t=1786630659; c=relaxed/simple;
+	bh=Xsl0Nh1jSfjzlV7Vj6lE9mAeQqm5bhlNqoDYilvdwT8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZmtsiaoGWJTPmH9awcMcOXqS8zFxGFbEFXlj/uwy2MkpewUZywolwQ6Y7AxiDk6lmjE+F7zvsKQpO7+0NzrLTe7EQ3bapkpBdfzMWJ7BpFaSQNYlZo9kAsZ2OPpFsKZsuexjZ7gcl1dZOMbmuibPWCXTKTBKzllxnnJerZQqJKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVIYuf/o; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RadRasBmjLZNZmwXtvL35pgxIk9X/PIgYSSUknhXzSYpAdDiSZNbWaDwxXPp6xHah1MPWbw66sXJX/I8NMRTIL2b/9q8zp/kfw+viJYGwP/qJvPa/Yw/COk5RjT7fypYYWlnyyVQ2kuMItT7N/CRiuCJ6vB2h4/O8ZYUMpaLtzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5mK07jb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVIYuf/o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735261F000E9;
-	Thu, 13 Aug 2026 14:17:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5mK07jb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E2A91F000E9;
+	Thu, 13 Aug 2026 14:17:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786630644;
-	bh=xAtaJN6M4HbQi3NVc67bMh+szwiUAcTgTNT8c3t4saI=;
+	s=k20260515; t=1786630657;
+	bh=jcxpOLQdoOr1rmfxtBOUq/K44mKuP9VeespzCCiY4jg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BVIYuf/ovh0tBffPEVGT/is4uKcXO3f0eOpJUk6BEo4tJ+ZaY4TOUTJ3aMJGuHetm
-	 gzvxeqtWbLKXurkpxN21diMxw6YeDVJZ9fZJ68nJnTVCYTrKrCt4KUx1hFfRGOoILz
-	 CrEPENJwiupINZFN+gMF71t1AVx3tFBZr7z7u9biM/A95aeRzG/++KXZZiUSkREkc8
-	 jsCsxdRIXac7Li5cLWr6RMi/WlafwLYWODiA+sqSU6TPGc7LhuOE5/6ZWLYRb+rZlh
-	 6BloUhMQBTXovga6FBv8j1bPB1zEP2H8U+RKCc+R6YsVZtcFasW+dSOZqANquosUNs
-	 KVbY39kqLYF7A==
+	b=F5mK07jboEj6aEFq2OVB+rGd18C8Y8Uirgb1ytlQbLT6lSUpK13u+Pz+MG1JLpvRY
+	 uIgKAnm0RqjwrDKt2mmqdQ51t/g446JRF/kRC8Do1662Ybaz1l9aO3BTahJZMZEPYT
+	 x5Asjc10OKuAAY+elwY4ImuYRMEvfkhDL2gtT+dwdQgcORitddwMxLpk4vZm8tVcCN
+	 VYeqapvrhSUDsr2lBCD+Q9acCmkwr/AdfAO96e+LDCTtRwiL6QvjESgI35ocRVAKEM
+	 n1INRCjG8alW8YcFgyLcV126sDUiejXQj15p/nbCKNzmnaC/B1wWefcvpnZ9MRzlw0
+	 8i1z9cp3S7zUw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/4] soc: qcom: geni-se: Keep pinctrl active for
- multi-owner controllers
+Subject: Re: [PATCH net-next v4 1/5] dt-bindings: leds: Add IS32FL3207
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mukesh Kumar Savaliya" <mukesh.savaliya@oss.qualcomm.com>
-Cc: vkoul@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260813140047.1006478-4-mukesh.savaliya@oss.qualcomm.com>
-References: <20260813140047.1006478-1-mukesh.savaliya@oss.qualcomm.com>
- <20260813140047.1006478-4-mukesh.savaliya@oss.qualcomm.com>
+To: "Ahmad Byagowi" <ahmadexp@gmail.com>
+Cc: linux-leds@vger.kernel.org, lee@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <361f85124583adba9aae710179af910c328a747b.1786543681.git.ahmadexp@gmail.com>
+References: <cover.1786543681.git.ahmadexp@gmail.com>
+ <361f85124583adba9aae710179af910c328a747b.1786543681.git.ahmadexp@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 14:17:24 +0000
-Message-Id: <20260813141724.735261F000E9@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 14:17:37 +0000
+Message-Id: <20260813141737.6E2A91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `qcom,qup-multi-owner` DeviceTree property is never parsed, ma=
-king the `multi_owner` feature completely non-functional.
-- [High] The runtime PM suspend callback `geni_se_resources_deactivate()` l=
-acks the `se->multi_owner` check, breaking multi-owner controller operation=
- during runtime suspend.
-- [High] The GPI DMA driver prematurely releases the hardware lock during m=
-ulti-message I2C read transactions, destroying bus atomicity.
+- [Medium] The `multi-led` node constraints arbitrarily limit the maximum b=
+ase channel to 15, preventing valid configurations like a bicolor LED group=
+ on the final two channels (OUT17 and OUT18).
 --
 
---- Patch [3]: [PATCH v9 3/4] soc: qcom: geni-se: Keep pinctrl active for m=
-ulti-owner controllers ---
-commit ceae3d1ac31371a041b92e87207badc3969f7e87
-Author: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+--- Patch [1]: [PATCH net-next v4 1/5] dt-bindings: leds: Add IS32FL3207 co=
+ntroller ---
+commit e5368ebd3d680b7d1dca52de92294047f625cbb9
+Author: Ahmad Byagowi <ahmadexp@gmail.com>
 
-soc: qcom: geni-se: Keep pinctrl active for multi-owner controllers
+dt-bindings: leds: Add IS32FL3207 controller
+   =20
+The IS32FL3207 is an 18-channel constant-current LED controller with
+per-output PWM and current scaling. Describe I2C addressing, power and
+shutdown controls, RISET, and individual or multicolor output groupings.
 
-On platforms where a GENI Serial Engine is shared with another system
-processor, selecting the "sleep" pinctrl state can disrupt ongoing
-transfers initiated by the other processor. This patch skips selecting
-the sleep state when the engine is marked as shared.
-
-> diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni=
--se.c
-> index 873bfbd6b2b7b..a4da75d54d6c3 100644
-> --- a/drivers/soc/qcom/qcom-geni-se.c
-> +++ b/drivers/soc/qcom/qcom-geni-se.c
-> @@ -610,9 +610,17 @@ int geni_se_resources_off(struct geni_se *se)
->  	if (has_acpi_companion(se->dev))
->  		return 0;
-> =20
-> -	ret =3D pinctrl_pm_select_sleep_state(se->dev);
-> -	if (ret)
-> -		return ret;
-> +	/*
-> +	 * Select the "sleep" pinctrl state only when the serial engine is
-> +	 * exclusively owned by this system processor. For shared controller
-> +	 * configurations, another system processor may still be using the pins,
-> +	 * and switching them to "sleep" can disrupt ongoing transfers.
-> +	 */
-> +	if (!se->multi_owner) {
-
-[Severity: High]
-Where is se->multi_owner populated from the DeviceTree?
-
-I don't see any parsing for the "qcom,qup-multi-owner" property in this
-patch, which seems to leave the multi_owner flag permanently false. Does
-this code require a device property read somewhere else to function?
-
-[Severity: High]
-Are runtime PM transitions handled correctly for shared controllers?
-
-Looking at geni_se_resources_deactivate(), which is used by protocol drivers
-like I2C for runtime suspend, it lacks a similar check:
-
-drivers/soc/qcom/qcom-geni-se.c:geni_se_resources_deactivate() {
-...
-	ret =3D pinctrl_pm_select_sleep_state(se->dev);
-	if (ret)
-		return ret;
-...
-}
-
-If a shared controller goes into local runtime suspend, won't it still force
-the pins into the sleep state and disrupt ongoing transfers on the other
-processor?
-
-> +		ret =3D pinctrl_pm_select_sleep_state(se->dev);
-> +		if (ret)
-> +			return ret;
-> +	}
-> =20
->  	geni_se_clks_off(se);
->  	return 0;
-
+> diff --git a/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml =
+b/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
 [ ... ]
+> +  "^multi-led@[0-9a-f]$":
+> +    type: object
 
-> diff --git a/include/linux/soc/qcom/geni-se.h b/include/linux/soc/qcom/ge=
-ni-se.h
-> index 29a53bbc0dd49..725f89a445511 100644
-> --- a/include/linux/soc/qcom/geni-se.h
-> +++ b/include/linux/soc/qcom/geni-se.h
-> @@ -78,6 +79,7 @@ struct geni_se {
->  	struct geni_icc_path icc_paths[3];
->  	struct dev_pm_domain_list *pd_list;
->  	bool has_opp;
-> +	bool multi_owner;
->  };
+[Severity: Medium]
+Does this pattern inadvertently reject valid unit addresses above 15?
 
-[Severity: High]
-Does this multi-owner configuration break transaction atomicity for
-multi-message I2C reads?
+Since the hardware supports 18 independent channels, a bicolor LED placed on
+channels 16 and 17 (OUT17 and OUT18) would logically need the node name
+multi-led@10, which this single hex digit pattern would reject.
 
-Looking at the I2C driver, it disables multi-descriptor batching for reads:
+> +    $ref: leds-class-multicolor.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        minimum: 0
+> +        maximum: 15
 
-drivers/i2c/busses/i2c-qcom-geni.c:geni_i2c_gpi_xfer() {
-...
-				gi2c->is_tx_multi_desc_xfer =3D false;
-				break;
-...
-}
+[Severity: Medium]
+Could this maximum limit be too restrictive?
 
-This causes DMA_PREP_INTERRUPT to be set on the write leg of the read
-transaction.
+If a bicolor LED group is placed on the final two channels (OUT17 and OUT18=
+),
+the base channel would need to be 16 (reg =3D <16>), which is rejected by t=
+his
+limit.
 
-The GPI DMA driver appears to interpret this flag as the end of the entire
-batch and inserts an unlock command:
+> +        description: |
+> +          Zero-based lowest-numbered LED output used by the group. Value=
+s 0
+> +          through 15 correspond to OUT1 through OUT16. A group based at
+> +          channel 15 (OUT16) may include channels 16 and 17 (OUT17 and O=
+UT18).
+[ ... ]
+> +    anyOf:
+> +      - required: [led@0]
+> +      - required: [led@1]
+> +      - required: [led@2]
+> +      - required: [led@3]
+> +      - required: [led@4]
+> +      - required: [led@5]
+> +      - required: [led@6]
+> +      - required: [led@7]
+> +      - required: [led@8]
+> +      - required: [led@9]
+> +      - required: [led@a]
+> +      - required: [led@b]
+> +      - required: [led@c]
+> +      - required: [led@d]
+> +      - required: [led@e]
+> +      - required: [led@f]
 
-drivers/dma/qcom/gpi.c:gpi_create_i2c_tre() {
-...
-	if (chan->multi_owner && is_last && i2c->op !=3D I2C_READ) {
-...
-}
+[Severity: Medium]
+Are there cases where a multicolor group could be formed exclusively by led=
+@10
+and/or led@11?
 
-Will this prematurely release the hardware lock before the read leg execute=
-s,
-allowing another processor to inject traffic and corrupt the bus?
+If a bicolor LED group uses the last two outputs, the schema validation wou=
+ld
+fail because this list stops checking at led@f.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813140047.1006=
-478-1-mukesh.savaliya@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786543681.gi=
+t.ahmadexp@gmail.com?part=3D1
