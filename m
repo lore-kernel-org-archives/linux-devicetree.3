@@ -1,140 +1,130 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43BB35975
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 07:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786604862; cv=pass; b=J1vlatoAn99xwFTdfm7IixwNfHiK4xf430dOvXfuvXipowSWoXNGfeD1qgcFJAg8bMj9996GB7ZPTAz5n8fHjOhUMg+TkdxWhOZgBOWd0GAnrzb8UG2HpAjFzb6JAzIryLsGv/4ST5BDOTUMSDo9a87dv3LP0vqw9ZxF6vrfKFs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786604862; c=relaxed/simple;
-	bh=dp2Ah3Jwmh/gxnQwhiJlHI+1ue3KxNmPH1XRHbvfACA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qow67Eqc4IcZ9KSHJQD/IIIjMd8gN2CZ9mMFc3uRqBCc3+ccJytJwj0y4eH8yho2JPC5KgpHDI4QDzZFUR3VepxHuOMaxhby9prUgqlRQWs8ndrISk7Y0BhLl8x+6iLxTen5yFta/K7yi/1s/5ocNxCTpLsdcpdp0v9VvXDu4gk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fYIZX/Fa; arc=pass smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A83536195D;
+	Thu, 13 Aug 2026 07:09:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786604986; cv=none; b=J+1elLYZUERf95o/SL80bNsYxoqcb5/GQ+k8/j10VXd7anvLdHhDaWtB5vsXsisiIX4Ps6YLu5ah9vNH5/LKNAu3NG9EQvspWPZxKePQKToLAaRYMo7pTKSMnbvOz3LZhl04BrMot1druBsKVL8T5U/iXPipSZEJ9JJEFBNAPV8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786604986; c=relaxed/simple;
+	bh=4K6lxjltMyTiqZvaHKpanfCHhba+lXimEr3f3Hba3cc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=plHZMP+/v/9xBuf27687epWIjSNOyDMAifghUddxVwZ/5T+C5o4m+SWbhlkd4z31brhR6u71EqY5bi0UWcBFSQ9/qk8r1hj8Q/N8d5qydXyUWuEMY1JsnffQ3QSgOBSc2tqDthbXPKVPCyAhfQcnJAp1eMAaOpeuw0LVR1M7Xpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sk1zCRFI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fYIZX/Fa"
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-747355a8565so94911137.3
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 00:07:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786604859; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Z3+WSTj+BZ00fM/R1cJvgy6atUBrSj3B2gw1NZqwQqxRW8ky/k73u0P9BZktMkGui7
-         QLjQDZZ68XOvVVnnt1sAxcaN/uLOucvBdxB+SE37o32ohmVOc+/4VS7TZis6B6v+lTcw
-         w0p1LjWsTzMMjnG2ipjfyFpnQtKbngHKgry2SDCB5myjY8aYrHZPqz5ikWKfEpE9/DcQ
-         40QJsb9gSAgLSA6Vaf15v7UKxs3UxJotoFT/NvnLkUhRNWbqA02FfpLML1wjEfAf1JnQ
-         JHhpMNFawDsh7Tj7o2v2BE3+C+px6anGgyfdN5nmhVtV1RKLPeofEDy6ztLKZQEEAxtk
-         Zwlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JawJ392oLiwqJSSKv/chS0lFTdfl550m6jZnWA87huc=;
-        fh=EHGLQ1tVKl64oCaAiEoCiaGm/55klzT76TWlyZvqUGg=;
-        b=iJEeexMDvFzQl7jB1UXTNRWojPuDFalbgd2XRDEEO3LFTyb1wH/GgBOhvPYxIGmy7A
-         c6sWakuEvYcJf4ilcsqx5x3vWd7p6x6oPDJiCpC11uVvka3ic6+sV8+2bcak7ZTnIK7O
-         hNkKFlQm28vDtj+blOenMecyb3k/k8PkHFdVAEcE46FCO8xlCnuEyjJA9E4/c+3HS5k4
-         nI9MUKBfXK0Drq+7Uqies5gxxvopRielp/AV2U5Cu7iaMaw1Qf0+8NXJdoFR3YuVCTf0
-         QSLTEbhRCoitVZZKTsYVtDbpOAeRzX+6qMSulLyLx9R/v6bwsVj9tzokuaxxWLlfTW7f
-         rODQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786604859; x=1787209659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JawJ392oLiwqJSSKv/chS0lFTdfl550m6jZnWA87huc=;
-        b=fYIZX/Fa5gclE/jOLG6DI0FhjSn6YJgKg8BBjUN9iYID8IOWyo1fMNFla8mSRv7vVi
-         ZvtWgKUwQ+Ssy8bpTTL1K9/f2BBWgiy5crpZMiBL4DFRi8Iq+qoxyraGNUB3SVoPeti+
-         IkwxkUcJfCAjxKcRDvH+Pz6dwftJMvBxCzm31W9xyI8zhHJkNN+vXgnhWt4FVfAqHF2g
-         Wc4thEvOpuFsrfQS5Ro+C29aIaA37HMW8SBXogXxmvPEh8sDKzhB6AH8q6JbxkDV3Qa5
-         RVxq0vFhciDH6Qb2j6NpbFeSbNa1sPxM6r0SaD/c4BHf2adHvLrHeXslepv60TjThl3q
-         02oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786604859; x=1787209659;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JawJ392oLiwqJSSKv/chS0lFTdfl550m6jZnWA87huc=;
-        b=VCWYh3z8piGUL3pD05I7LOxyzEznJ3g6nbfnLCiMDn02ZEAqC8q/S/piGRTwMIUcXw
-         kg6GtE4XJlcivzB6+cyS0vaFCQtMhaNNnAtvxRRD7LvF77YL9t4jwZoqaDkaDaMUQjqV
-         TXlINCJix6viSRW78sZyoK0hr3tqj5fBUr8Rks45rgboj8MxLA+mmy/QUMxyBuuDGbHG
-         z5VzP8FfP9JfRK7Ppq/pMBvy7L57cBIhWcqkGmSrEoCGP2N2XslMVgNJqsJ0ifTN7W0j
-         vsJNc7xUKt7ZdPf74NsMHv7G8RFk09Ly65x6A9dpf5FdLSaEtxMMUMZqhiS4OOSmE50V
-         ncsg==
-X-Forwarded-Encrypted: i=1; AHgh+RpFhyBUfXW+v4vItwhlcB8apgcW38VUW5B6/Efwgof3CQ0LgZMPtvkX7NOjSjXzVM+df8CltGfZAhR2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyg1gDSHkG9BBGSudIAeGa53OOK0ULjOTEQExmnpVTWLqctS8Ul
-	WBS2c9zYR+C8ts8GYRzzUgv03CZTBb415H2b5egUOctpTPbkUTdn4WXUKXFphIoATlRVJjFQ3kN
-	gqklNtQcSkPxnaxbhezSR1NT088oMrxM=
-X-Gm-Gg: AR+sD13P4fKw5Gs7OseoqYuk/APH3qlnc3jlmejIhTLN28M2lpBOWemk3+S3Kqv8D0e
-	CEtZFXOmIXh3dyDFV/5KqB/V6WH4xRTMduZWQIIPCmGlXFo7VslMoi3iE7pD4wuJ20qWBLqPQJo
-	Lms696biuDCt5q6UPafVuetxVQLL+j/i6tEEb7wGKzxbGgrNG4UfQwFToztNyzi3jjllNlcIgeQ
-	RGC1Udc5qxpWcljmH9fgjStgRx6nPBt+FjZq3zHQNAXedWl1r0rEEtA5dL1ogUJ8p5VxpYZPclN
-	8k9BHh/vg2VET+VabirNjZyJyB4bQYvBF0YB1r63lWQOislk8gg2kr50rw==
-X-Received: by 2002:a05:6102:f08:b0:745:6721:8c2e with SMTP id
- ada2fe7eead31-76db527b110mr828054137.2.1786604859600; Thu, 13 Aug 2026
- 00:07:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sk1zCRFI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22CF1F000E9;
+	Thu, 13 Aug 2026 07:09:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786604985;
+	bh=dFKoEMwl4/6hHOXDztVHBZ/r8kjGb3vBgyctCmWKV2s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Sk1zCRFIbugs7s9tQ/Zbbj1ptv1hRqPH59Yhojee5qQns7/X5RGA9ssAyOC+DmzQa
+	 fdjl5usEXGdB/bZH8zLdQbcx+R1Shz2WnYj0B7bJ6UwA3q+qNyBB0bHFKapN5GKA1Q
+	 h+KpMpqniXKk3JJz2dQESfT6Jl8HZSkd7tfFH59CwCO3sbblHJ04dvErNdtyYgmpJm
+	 8I0ns/kPr8GYewKWAWrBIPt4kIg4uOH9E1vD/+pYJ1+MxRZ5B4iX1T3xt5chfsMx4w
+	 a27eNQLnadgYpHwIX5m9Q+SKQIJCQ2/SJ1QZjH539QNr4wnq3zcC0dRxaGs5ARFl6b
+	 By3RHQpP5zYiA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params into
+ pair/context struct
+Reply-To: sashiko-reviews@lists.linux.dev
+To: shengjiu.wang@oss.nxp.com
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260813070020.719810-4-shengjiu.wang@oss.nxp.com>
+References: <20260813070020.719810-1-shengjiu.wang@oss.nxp.com>
+ <20260813070020.719810-4-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 07:09:44 +0000
+Message-Id: <20260813070944.C22CF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260805-anacapa-devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com>
- <20260805-anacapa-devlop-phase-devicetree-v4-1-5d67e0efa6c5@gmail.com> <20260807135417.GA63178-robh@kernel.org>
-In-Reply-To: <20260807135417.GA63178-robh@kernel.org>
-From: Colin Huang <u8813345@gmail.com>
-Date: Thu, 13 Aug 2026 15:07:28 +0800
-X-Gm-Features: AUfX_mz7a9dcIAK-s5cvIzuRv5XGFroygtfy3R9a9idtSFOSgE2XnApE3cVRlPY
-Message-ID: <CAPBH0A8NjrYVGdPBegFo+DcZDL-YGRHAzC3MzDc33Gvamd_dHQ@mail.gmail.com>
-Subject: Re: [PATCH v4 01/12] dt-bindings: arm: aspeed: Add Anacapa EVT1 EVT2
- DVT board
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, colin.huang2@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Rob Herring <robh@kernel.org> =E6=96=BC 2026=E5=B9=B48=E6=9C=887=E6=97=A5=
-=E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=889:54=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> On Wed, Aug 05, 2026 at 09:02:29PM +0800, Colin Huang wrote:
-> > Document Anacapa BMC EVT1, EVT2, and DVT compatibles.
-> >
-> > Signed-off-by: Colin Huang <u8813345@gmail.com>
->
-> Missing Conor's ack.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] The dynamically allocated `pair` is freed on stream shutdown w=
+ithout clearing the shared CPU DAI's `dma_data` pointer, leaving a dangling=
+ pointer that leads to a Use-After-Free on concurrent streams.
+- [High] The patch fails to resolve concurrent stream corruption because it=
+ assigns the per-pair `dma_params` to a shared CPU DAI, meaning concurrent =
+streams overwrite each other's DMA parameters pointer.
+--
 
-Thanks for this,  I will add this in v5 patches serial.
->
-> > ---
-> >  Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b=
-/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-> > index dd7996960de3..1c2656d99807 100644
-> > --- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-> > @@ -84,6 +84,9 @@ properties:
-> >                - asus,ast2600-kommando-ipmi-card
-> >                - asus,x4tf-bmc
-> >                - facebook,anacapa-bmc
-> > +              - facebook,anacapa-bmc-evt1
-> > +              - facebook,anacapa-bmc-evt2
-> > +              - facebook,anacapa-bmc-dvt
->
-> alphabetical order
-Thanks. I will modify in v5 patches serial
->
-> >                - facebook,bletchley-bmc
-> >                - facebook,catalina-bmc
-> >                - facebook,clemente-bmc
-> >
-> > --
-> > 2.34.1
-> >
+--- Patch [3]: [PATCH v4 3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params int=
+o pair/context struct ---
+commit 6f9d240bd6e939329ded07360e8ef36835e62929
+Author: Shengjiu Wang <shengjiu.wang@nxp.com>
+
+ASoC: fsl_asrc/fsl_easrc: move DMA params into pair/context struct
+   =20
+The shared dma_params_tx/rx fields in struct fsl_asrc were a single
+instance written by every concurrent fsl_asrc_dma_hw_params() call.
+With multiple DAIs registered (one per pair/context), parallel stream
+open+hw_params races would corrupt addr and maxburst for all active
+streams.
+
+Fix by moving dma_params into struct fsl_asrc_pair so each pair owns
+its own copy. Initialise them in fsl_asrc_dma_startup() where
+the pair is allocated, which makes the per-DAI probe callbacks in
+fsl_asrc.c and fsl_easrc.c redundant; remove those as well.
+
+> diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+> index 2f662bdf14d07..15f2dccc35840 100644
+> --- a/sound/soc/fsl/fsl_asrc_dma.c
+> +++ b/sound/soc/fsl/fsl_asrc_dma.c
+> @@ -392,6 +392,20 @@ static int fsl_asrc_dma_startup(struct snd_soc_compo=
+nent *component,
+> =20
+>  	runtime->private_data =3D pair;
+> =20
+> +	/*
+> +	 * Point the cpu DAI dma_data at the per-pair params so that
+> +	 * concurrent hw_params calls on different pairs each write to
+> +	 * their own struct and do not race on addr/maxburst.  Use the
+> +	 * per-direction setters so that a concurrent open of the other
+> +	 * direction on the same DAI does not NULL out its pointer.
+> +	 */
+> +	if (tx)
+> +		snd_soc_dai_dma_data_set_playback(snd_soc_rtd_to_cpu(rtd, 0),
+> +						  &pair->dma_params);
+> +	else
+> +		snd_soc_dai_dma_data_set_capture(snd_soc_rtd_to_cpu(rtd, 0),
+> +						 &pair->dma_params);
+> +
+
+[Severity: High]
+Does this actually resolve the concurrent stream corruption?
+
+If the driver registers only a single CPU DAI, won't multiple streams openi=
+ng
+in the same direction all assign their per-pair `dma_params` to the same sh=
+ared
+CPU DAI pointer?
+
+The last stream to open would overwrite the pointer. When concurrent streams
+then call fsl_asrc_dma_hw_params(), wouldn't they all fetch this same
+overwritten pointer and write their DMA configurations into a single shared
+struct, continuing to corrupt the data?
+
+[Severity: Critical]
+Can this also lead to a Use-After-Free when streams are closed?
+
+If Stream A opens and sets the shared CPU DAI pointer to its dynamically
+allocated `pair->dma_params`, and then Stream B opens concurrently and
+overwrites the shared pointer with its own `pair->dma_params`:
+
+If Stream B then closes and frees its `pair` struct via kfree() in
+fsl_asrc_dma_shutdown(), the pointer in the shared CPU DAI is left dangling.
+
+If Stream A then proceeds to fsl_asrc_dma_hw_params() and calls
+snd_soc_dai_get_dma_data(), won't it fetch the dangling pointer and write
+`addr` and `maxburst` into freed memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813070020.7198=
+10-1-shengjiu.wang@oss.nxp.com?part=3D3
