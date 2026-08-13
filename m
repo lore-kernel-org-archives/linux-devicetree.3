@@ -1,187 +1,208 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988B32F8E93
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 16:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C314637F8BC;
+	Thu, 13 Aug 2026 16:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786640256; cv=none; b=G+1KnkMdbX3LpvXboHdocBPeYh7ddC/QW/VFUSB0l/BBY46Okcr+r7pGKToA1kLSlT6QA3uwQZFFzqWzWDRrAZIh0WOiJIVsFUFMFKClxTJRe8yqQcsVJzCzpce2WagETAC5dthoDxSp0UaeRX0Igelnm0NjQeCS5mxzw7Uobkc=
+	t=1786640271; cv=none; b=XH7vmk+BdlclpC0aOEHL9CNy4yFiWgzqRoWFnpxLth3ZLSv1/+R34M+h4mTugXhJpo5bP3NhVe5ZEEh6+al01quWRPW2T9c6YgnDYHGNlfjX2bpMz/ii449ydkUI1iGomnH53xTw34O1qC11t5db/aQv8F5yQ1L93n2ck3dnMwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786640256; c=relaxed/simple;
-	bh=EmZ/SXlYIoH6oNWoGBBMTimPLa7HdbufD2s4lqhmn40=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bVypYFU7AZzV3Bmfw48XpdHQSou4PFqO7LUS6r/+azM+RbsMrC3Lp0NIBXoa3/U038yBU0yPXZAknRbrQobCqio/SLAikiRx+NXpf85D3/GLG9oG3J365+kjyh65LumfdCb2H1a2K3U0Sg9ii4dqUL3DO7353zFUsxpHVwluPLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PkOKxoDj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PVMTrMnh; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786640271; c=relaxed/simple;
+	bh=ZfxzHOqUt7VtQWz+0x3Kti3u9lFKTwZXzho0nnkkCWE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PW4ZQ5FtYdXdQ1quX9Ay9XbZhLWEKtOIt4zAC+wcnq2eGe5zKv2ZIlHx2Fdgx6W9FXgj1+/X9qkx/iItlM5VJPl1Aa6XSLanqd/2yJjPQ3zjkNJyTzyWXvfGVGvJcsSjQqXEC+Y0v1W2lCvDqsNaucvWkoGacwvuFbhOESkxGhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cksg9at1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PkOKxoDj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PVMTrMnh"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67DFUJo23501012
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 16:57:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JuqyeQncFMQAlsz3UP4wPM6zG2Fv0v6m/nXYCxjALMQ=; b=PkOKxoDj33bdC1P3
-	oz8NpOzn0Lp1h1EdjMAjYPkLjvV9J8h5B0/ydH0Xrw8mg2kXZBQ+vt4FwRpLSKKN
-	ujh1Zw9ZNYMlTrA6CAQpQc+GfZvxKKvn5deaktJ6h1si/hqx0j/XkNRJgSvutuAf
-	2tcAebQbWHlARVvNyPdyHGjZfzxSJ5hBk1rat+oKiQ03Yae379QpnEKn7iLvhl63
-	uOA10hcsjzjU4ZKabT16dozbRL2yhbibJhNA7HdUKS+RWnxRIcxo/favVHZ55PGE
-	a/G6p50MV6afL9Tsdro7D6cOX237ga1lwSMhs2xkg8m32fMkvgL7vRqG68H0BNAX
-	rVRGAQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g18182tr9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 16:57:34 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38fa7b09921so54948a91.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 09:57:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786640253; x=1787245053; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JuqyeQncFMQAlsz3UP4wPM6zG2Fv0v6m/nXYCxjALMQ=;
-        b=PVMTrMnhlSFDzzhEsg1AnyaRmc4y8WsKlC8qWrozLmQWZH04GkFp9T3rBedAkN+CuL
-         GV7nAE5caMLDgw+MJui+stoQUfF10pH0CHYexkRsCNKbVBxtMBTZgSXHfrhhbyu+sxuf
-         bwycRIhWUx1x/6iebN3g1AnG1bS8hWMm1NIn/DwlSaoJe4j517QB/qKLwietnziLlUrD
-         jAUc6fQlKirWva91QfbYOksRozALWDcWr7KJKyFn5/il7M0TGcoBbfXwzmtfPvY4ZxfS
-         WlgRUwb2GLfea2ITbWQ9kJXn2YadydvQ0RG4vlvVmjW5MDxGJYcX3DHR3gRRO027pI/X
-         1mlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786640253; x=1787245053;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JuqyeQncFMQAlsz3UP4wPM6zG2Fv0v6m/nXYCxjALMQ=;
-        b=rVYFUSocpOxfoQf4LOtNAL3LCOEUrav5PE9a1U8VFnEHM6zaRinoBrTUWORVpaMHhl
-         EM04p0S0597JNYcFLX7ZzT9SA1lvL2cAtTni3VKePeuNXBVwl2OnokcZWvPrg7HX3M2C
-         8Z+styarBSF/3/FSWNb0/kE7u36u6vZs4v0HoRNsOiEyB+j5MexEL4a0hfz0SsBG48xQ
-         vHSlBbnsUZxBPA1Y3KZdQQRJrfVj3A8n4UjI7BbVKv2My2bL4KtqaMMLU0IJLqruWlU1
-         zvPXFJ/B4uRANSo8nh2odRVxmd7LGCfilrG+tp1HDvbDywBmS2L5M0dhWebuFtzX7ehH
-         2w7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpvrUMh0MsKlq2ZOkXdaQFwJZMPCBNMcwhTEbJvVVEly8CpLcnHwgj5/xCH+cMQf+rxbtbTNUItzwvT@vger.kernel.org
-X-Gm-Message-State: AOJu0YxMfDTvDK45S9q8LeqWFeDv/Xt00CoazfD1c9DMdcTY0e4DLi1K
-	sAVD6NgyFKknVXYQgsLYysPUZYL6/JAO8AMZh+N54f3kCrGlpE09fKTYNydH9npcVE1saaffdW2
-	WHxWX6z4vI18u5YPfj7CwltBusH/dnKr9p3Nw2127P0lPh8LvFlR3SKrX1ZyL4SHR
-X-Gm-Gg: AR+sD12oL26xX78h10Mq3SOoEFhk41p957Im59DKrTeUCReaTfe/e8gNe4X6zSKkF5C
-	kfQmjpslSrc3s/ElitN3KgyXlxJEp13c14fd+R17HBqAttue9GBaeiBjKz0U2uhk5S4zv3r8uwH
-	A7XU5DTJV1AFlXnw2W8NcPBvSxFnl0HghLYGCBwfRRsPdztsBKI5RRqF91eswvRWzlgz/lnfBOW
-	/eElKS99M+eij50zpkSAiYJM/LgtYjzqlNeuxVlAQTbX4DL7tgae3p2PI9td0vrkOL9R9VLIFhn
-	t0Z/AA64SdS+/EZ3ValX9DR42U8RDnAnLK39yHDmQv1dQ2yykFB8pX2hkjBpvd1YWPlfL2igp//
-	lvFKDNAk2Wz6/nhuAwTJmIrybhqgkHpY=
-X-Received: by 2002:a17:90b:1b0c:b0:38e:542:6485 with SMTP id 98e67ed59e1d1-3931e2069c3mr6772685a91.12.1786640253069;
-        Thu, 13 Aug 2026 09:57:33 -0700 (PDT)
-X-Received: by 2002:a17:90b:1b0c:b0:38e:542:6485 with SMTP id 98e67ed59e1d1-3931e2069c3mr6772329a91.12.1786640247833;
-        Thu, 13 Aug 2026 09:57:27 -0700 (PDT)
-Received: from [192.168.1.6] ([122.171.19.66])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3931cd468cesm4121774a91.7.2026.08.13.09.57.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 09:57:27 -0700 (PDT)
-Message-ID: <7e42defa-f712-4d90-a328-344d9cee66fa@oss.qualcomm.com>
-Date: Thu, 13 Aug 2026 22:27:18 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cksg9at1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC501F000E9;
+	Thu, 13 Aug 2026 16:57:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786640269;
+	bh=SnwT1cEHRJvEYqBT7Fjk6kDERfhS+0474YvEZn9Xqh8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Cksg9at1sQGUSS0NrCzd8ull+5iK8CkNXs0UW0P0SaSc6zgAxQuXKVXKxt3zt9q6Q
+	 qqGTClvV3J6P6igpJ0EHo5A+ByQHvtCwjLpKfyiIm5a43YSmEKYfyH5bX2TQW1qkF0
+	 p1ZIMxjfUbwl5nQenvb3anYnJn9rRpQ/PjZ177Dqtg2dOBWk8JDR2gxDm5gmWL+lRD
+	 pYk1JNQ1RwMI+AFHZWnCmIPWbgukaTvPkRuVztKXbO5+nELZtOg2PTgqqjKEtNl2U0
+	 YlNXAVWd49pLN+NIJ73QoM5aPCrF6WoXNG+N2EoIcRQXjdBWz/JB3Qph+PUenRcWB6
+	 Vkwt4WfJY7tUA==
+Date: Thu, 13 Aug 2026 11:57:48 -0500
+From: Rob Herring <robh@kernel.org>
+To: Kyle Hsieh <kylehsieh1995@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: ti,ads112c04: Add binding
+ for ADS112C04
+Message-ID: <20260813165748.GA2065977-robh@kernel.org>
+References: <20260813-ti-ads112c04-driver-v5-0-79dff9e249cd@gmail.com>
+ <20260813-ti-ads112c04-driver-v5-1-79dff9e249cd@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/15] ARM: dts: qcom: Add initial device tree for Kuno
- SoC
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org
-References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
- <20260809-kuno-soc-support-v1-15-5e0ede4a0c72@oss.qualcomm.com>
- <wjzyvt7q4vpirxclbwexrhsmcoi23hmsqbjjpfto26ofci23t7@uufz7ilar4qk>
- <20260813-generous-romantic-asp-be92e8@quoll>
- <3zqx6nxp4wmzej3nokfggoji7nihosru6yyaquvwjfvtylf2fq@ucr235faztbl>
-Content-Language: en-US
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-In-Reply-To: <3zqx6nxp4wmzej3nokfggoji7nihosru6yyaquvwjfvtylf2fq@ucr235faztbl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEzMDEyMiBTYWx0ZWRfXwHVqXd6eq2oJ
- McnlWkspVmqEgmXnQBjV23My6mXGCR4s8HxBxFelBpBROzcrwLjki3V3py6ysjM0aAGxRT+c0QV
- UWCBGTfbFrRGyStwumEi+Aw6+MpH/vs=
-X-Authority-Analysis: v=2.4 cv=I45Vgtgg c=1 sm=1 tr=0 ts=6a7df77e cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=o18eRHaKI7CUylSTromjKw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=TlKW4IKFNLZu7OIdjWUA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: ptp8kGjbkHuDwRtFA5JH91l7SxBAqhlL
-X-Proofpoint-ORIG-GUID: ptp8kGjbkHuDwRtFA5JH91l7SxBAqhlL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEzMDEyMiBTYWx0ZWRfXxjGOYqRYEZYE
- QF69lDe5idYLEwje1Ci+D+VA/UQu9dSWi0NP5D9fQSO+tsSOfY/noyFT0eKKSm+33D4uh2L/HIG
- 1dl1agYAQsr2KxSb+uY3ZJ6XwoRUFKCtJm5EIzcE4XwJ1+faG2e+DW2ZZdzHFaqLJnXKnuN+tUc
- pujm1PHYeZ+DTu2/4knpHj87yu7mC0jAhNvM4Px6NuhmaY4/bT3L+04dRGLoTyRh5iHGkQmbcMP
- /XTNN/F2y77jNyU2ZI/0xT3W+7HI+3BH9bSDs3v6XjNy7Ld1BqNdA3WDH4hawyMd+WdGyjU2Ub3
- fcJT1yzXMfgoxthauFnHGwHHF/p/rH3KtCmhue8sUyZZhUpCZf9SfEPyItNrQEOKVjw2zp0b2nP
- RnEFIUVPR2u5hHdTi+EZU4DUnOTY3vdyP9vbImHon7Pfv1+y6moR6BIcdbqknBjQYwjR0c/+Kni
- izIBxsUabMtUSlkjC6w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-13_05,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0
- clxscore=1015 suspectscore=0 priorityscore=1501 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608130122
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813-ti-ads112c04-driver-v5-1-79dff9e249cd@gmail.com>
 
+On Thu, Aug 13, 2026 at 11:06:02AM +0800, Kyle Hsieh wrote:
+> Add device tree binding documentation for Texas Instruments ADS112C04
+> I2C Analog-to-Digital Converters.
+> 
+> These devices provide 4-channel, 16-bit delta-sigma ADCs with an I2C
+> interface, programmable gain amplifier (PGA), and data-ready (DRDY)
+> interrupt output.
+> 
+> The binding uses child nodes to dynamically define the connected
+> single-ended or differential channels.
+> 
+> Excitation current, burn-out current, and reference source properties
+> are also included to fully describe the chip's hardware capabilities,
+> aligned with the ti,ads112c14 binding conventions.
+> 
+> Reviewed-by: David Lechner <dlechner@baylibre.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> ---
+>  .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 148 +++++++++++++++++++++
+>  MAINTAINERS                                        |   6 +
+>  2 files changed, 154 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> new file mode 100644
+> index 000000000000..68a0df21cedd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> @@ -0,0 +1,148 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/ti,ads112c04.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments ADS112C04 ADC
+> +
+> +maintainers:
+> +  - Kyle Hsieh <kylehsieh1995@gmail.com>
+> +
+> +description:
+> +  The ADS112C04 (16-bit) are precision analog-to-digital converters (ADCs)
+> +  with an I2C interface. They feature a flexible input multiplexer, a
+> +  low-noise programmable gain amplifier (PGA), two programmable excitation
+> +  current sources, a voltage reference, and a precision temperature sensor.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,ads112c04
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: I2C address of the device.
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: Data ready (DRDY) interrupt output.
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: GPIO connected to the RESET pin. Active low.
+> +
+> +  avdd-supply: true
+> +  dvdd-supply: true
+> +
+> +  refp-supply: true
+> +  refn-supply: true
+> +
+> +  ti,refp-refn-resistor-ohms:
+> +    description: Resistance of the external resistor between REFP and REFN.
+> +
+> +patternProperties:
+> +  "^channel@[0-9a-b]$":
+> +    $ref: adc.yaml
+> +    unevaluatedProperties: false
+> +    properties:
+> +      reg:
+> +        items:
+> +          - maximum: 11
+> +
+> +      single-channel:
+> +        maximum: 3
+> +
+> +      diff-channels:
+> +        items:
+> +          maximum: 3
+> +
+> +      excitation-channels:
+> +        maxItems: 2
+> +        items:
+> +          maximum: 5
+> +        description:
+> +          Additionally to AIN0-AIN3, IDAC1/IDAC2 can also be routed to
+> +          REFP0 (4) and REFN0 (5).
+> +
+> +      excitation-current-nanoamp:
+> +        items:
+> +          - enum: [10000, 50000, 100000, 250000, 500000, 1000000, 1500000]
 
-On 8/13/2026 9:31 PM, Dmitry Baryshkov wrote:
-> On Thu, Aug 13, 2026 at 11:44:28AM +0200, Krzysztof Kozlowski wrote:
->> On Tue, Aug 11, 2026 at 04:13:40AM +0300, Dmitry Baryshkov wrote:
->>> On Sun, Aug 09, 2026 at 12:57:14PM +0530, Hardeep Sharma wrote:
->>>> Add SoC-level DTSI (qcom-kuno.dtsi) and IDP board DTS
->>>> (qcom-kuno-idp.dts) for the Qualcomm Kuno SoC.
->>>>
->>>> Peripherals included in this initial set:
->>>>    - Single Cortex-A7 CPU with PSCI idle states
->>>>    - RPMh RSC with clock controller, power domains, and BCM voter
->>>>    - GCC (Global Clock Controller)
->>>>    - TLMM pin controller (110 GPIOs)
->>>>    - Interconnect (aggre-noc, cnoc-main)
->>>>    - GENI UART console (QUP SE3)
->>>>    - SMEM, hardware spinlocks (TCSR mutex)
->>> This is pretty limited without any storage. Does it NAND?
->> It has serial connection. this is enough for a start. At least one
->> communication interface is needed for early upstreaming.
-> Yes, but then, as I wrote, it is pretty useless without the backing
-> storage. Also, it would be nice if we new the future plan. Is it going
-> to stop at this point? Is it going to be expanded in the next few weeks?
-> Will we see a spread of conflicting patches 'arm64: qcom: kuno: add
-> support for foo' with foo in 'USB, PCI, remoteproc, NAND, etc.'.
+Drop 'items'. Just enum is enough.
 
-Hi Dmitry
+> +
+> +      burn-out-current-nanoamp:
+> +        items:
+> +          - const: 10000
 
-Thanks for review.
+Just 'const'
 
-Kuno is 32-bit ARM (Cortex-A7), so follow-ups will be `ARM: qcom:
-kuno:`, not `arm64:`.
+> +
+> +      reference-sources:
+> +        items:
+> +          - enum: [internal, external, avdd]
+> +            default: internal
 
-This series is the minimum-viable base (console + core infra),
-following the sdx55/sdx75 pattern. Storage and the other drivers will
-follow in coordinated series on top of this base.
+default for an items entry doesn't make sense as the entry has to be 
+present. Instead (at the same level as 'items'):
 
-Best wishes,
-Hardeep Sharma
+default: [ internal ]
+
+> +
+> +    dependencies:
+> +      excitation-channels: [ excitation-current-nanoamp ]
+> +      excitation-current-nanoamp: [ excitation-channels ]
+> +
+> +    oneOf:
+> +      - required: [ single-channel ]
+> +      - required: [ diff-channels ]
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - avdd-supply
+> +  - dvdd-supply
+> +
+> +dependencies:
+> +  refn-supply: [ refp-supply ]
+> +
+> +oneOf:
+> +  - required:
+> +      - refp-supply
+
+Just to make sure, refp-supply is allowed without refn-supply? If not, 
+either this should be refn or the dependencies reversed.
+
+Rob
