@@ -1,113 +1,218 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C70470E84
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 11:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AC03BADB2
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 11:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786621979; cv=none; b=VaHxaapB36dFB4USYL0Nyuo6AEa19zAZErx2tr2jWwzENKFwgvk8GpcgjKQnmiCooKfhpAqRHVQEO5X5QNaJ/C6Y+SQaBRdLgG4u+I7Qvl+iU9E6QimAuawXCxOhxH/tMensDrDZ45w18Pih7VXSpq5aEXevUNJ8qxmjLdk6hik=
+	t=1786622167; cv=none; b=r3FVdx6zV9yDY7yHPQUEFa7zt/FjWTvUJfVv/Bk4OWJkH0w6VhzNcP2hUoseROyzv2gKrdB7aVmfn3VF0X5GD0jEIefmtf7t92BVhoC07l5p0RG6ZHWKYdWCSncC3dDMBMK5sWAf6qc6UgN7B4Dm6eXUF616hvuE/PKkxvTJD9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786621979; c=relaxed/simple;
-	bh=3+mL7sLw774TWm8srN2xcPDLwTpzOXiXFyMo1RJsCVg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=kEzqU0982CiBKAo7/L3tzRRp28dJSkDDxA8kpbskE1CP9JmMpIcUugMNOcYrfJlTrtlTiUX4acSV6nhDqYQ/WMM2RAkaOjMSPruXlu95bgv+SD6qlox7r1FM/STIY3i3HpOZxnBZJpcThU8uE1LgLe03xPoKw7pPee6foKuNf04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=k1apJ9LV; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="k1apJ9LV"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49802c418b5so19958925e9.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 04:52:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786621974; x=1787226774; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3+mL7sLw774TWm8srN2xcPDLwTpzOXiXFyMo1RJsCVg=;
-        b=k1apJ9LV3PV3h+qr58bcA94CHzubTPuSFKv94hxj76CLTNcuE1J7AC97EynuvO2TJ5
-         /foh9ocA4+OLI1jv/iPseljCcDNyHmRuNpOe3x57imNW6/FP+fj9C9egfBQ9QnEBIPbY
-         MgrERFXNvIe0+ZZc0LhUA+nG9cYKv4ikbwhoyyYPzti8D6uSDLal8pS3mayJHdYktVRq
-         hqAmmDyLI+98nk4zErP03mgrGZ64zvNnQ7gaahZ3sVR+zM4wXHwiCbKMstZX5/CpoehJ
-         1ZtqpGwbo3v2ih0LbptVtVL6PyPXYdv3DUl+uoC6eBvjv+UH/wr9gsrSYYO3LOBV2nP4
-         kcoA==
+	s=arc-20240116; t=1786622167; c=relaxed/simple;
+	bh=Gh4FCROeFaZf1jW3QYsBpoEWmm3y7wrSPhPxJNI+fQM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j8awboxO7Mh9kU+4KZB4kYEAW/WDsUfUabUX1rKAcPeDBnpen9ooIh0IS4lsobQIqLZcNvgzk+tnUrVmG9/DJzg/PH1DSBRMhAc3w3GtVcWh3RBzFD6aw23GqR4+MFja3Iz8EjbW6NgKqYE6C5hE1fDfHGvxam+DHWkrHL2rNs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-966d70b9e1cso1166007241.2
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 04:56:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786621974; x=1787226774;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3+mL7sLw774TWm8srN2xcPDLwTpzOXiXFyMo1RJsCVg=;
-        b=HJsx8HJTkPaA4JFG/oyUSpDbH2NjEdyPew+tOq8aMKSy5Od/FtvyE9UeWujizisyBd
-         9FjULD7ODxNjYrLjkR5R02sA4vSJ34aytSHJ1Th9Y6VHH3jk9AJyeQXpmjKdb8p4b/QA
-         iuP5EhyfgvAmk7wtcZ7kWPirFz7aJg1DaGU7F6KZQMDEzzPfBO/YXtrCYaogDPZIXiBS
-         8NRwZLkpUJtotZ5V9A4rN4BRzlv4M8mF6aX414XmZNbxthZYFBtGkVZk/wc7ZtKq0bvq
-         TcGCHMfG+6BJ0qxbfGSumOm/8XtdkW1+C4QCmHOb8ntBeAKCQcHCMpByK9OPWmXCaoKa
-         ivJg==
-X-Forwarded-Encrypted: i=1; AHgh+Roxkzc2YfrvViAJjyShkLSkdwN0CW7jZr8txNq/htYJNJYNR6NGzOpxYAvjiYa1ES9oYKcRIZjplLfg@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/a3EizwjQc51mxzlAqTS2MVQjNgXne18sKp/LFCg6r7n16KnR
-	bQ1w0YOhmgZ3jknO+7WsXTOeJYnHWo/5OoVbZry3xsi5KH5nnGq7yXGyGtkMhY3XkSQ=
-X-Gm-Gg: AR+sD11QW+O/DtZZnU3Ve2tXGAH0vCVmbMWq5mSHU3OZQx3wgIcptYapBKrQr84FOCu
-	abOEC/waRtSnmY63MEV3gKov8XDNfEc8ito3QyV9T0ObqAoEDJv0P/Z1DTom+lqyHDtMq/bLJye
-	0JpL3t3qjKSUMISxgOeSw4AsElSYnk4sTN908s9R8PcDm/BLyTUCh0wpllnT1zTbyy+3MMCtIxb
-	e57FXqOQ1hIZRrtbswMpHtN/Uh8nN4m088j7v6I+S2phcKOYHVR8VE7Sy1Jx/HF3iqm+5C7wT0s
-	U7JoTU5Sh4oOlLF1GptbwBZyqP9aSFXDwLK8FqTSm2+mbt1nF++mbIba8cLQTRBgOqhKLKuz5pD
-	R+rKzjZ7hUKBQy59clx6S8PizmZpC4hWkFGvaLrCQZ0TBoY1KQQ8P8VY+Mjiz2EjQnD4B8gmNG7
-	gnU2lpNjdCK5wUOEMYnrgIpKaghUNGDRo/AESN+Xy9aWB2FfHioGB5m+VN5xJhWkpFScOhmxkz6
-	bQmc6tBdB0T+puCpjgJ9SlgBzBkDMLZKj/qWXyaG+xM4aixBwyYyQglLjyIV5wX
-X-Received: by 2002:a05:600c:3153:b0:499:7ce1:d8af with SMTP id 5b1f17b1804b1-4998219bd2cmr62067605e9.1.1786621973610;
-        Thu, 13 Aug 2026 04:52:53 -0700 (PDT)
-Received: from localhost ([2a00:2381:fd67:101:c11:afa0:9e5d:4eee])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49981b0f4afsm72097455e9.5.2026.08.13.04.52.52
+        d=1e100.net; s=20251104; t=1786622164; x=1787226964;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CYB3iSUtjqKNSmgYUD8fg+WjonqllLzv5RJp+0OtOs8=;
+        b=QoWRxMYjkNlfJ74hzoBvkDDW5nOaRsBU30xt6g7KqtTtjhoed0tz7eaV5QQM67vwsz
+         NsmsVSk+wp3CidDznK8g71JO7cUD68esnM2Wm/ZsKMZl8pQKPLFBLDOr030r3yI30jTU
+         3TCabB0mytQ1gTxOgry2BB4bnjMgyyMmZoQQvhpJh5N4erTlVPc2ZSHzqW8oFx0CAh/n
+         woBwVZLaxLW9ICb2SL0rQqo/Xy85yiGMpmW79jo8+1elmGv69JjCIbY9m6efCcqyrFnN
+         hjBvjbKgHaSF3HU/6izk8bfF2yqjnpH+FYqSDjJXQxUZ1PFFB7J+vEm7fOHbQdTbJ1HF
+         Dh0g==
+X-Forwarded-Encrypted: i=1; AHgh+RrpBR2lWuhz1foSp8g4cFXOc+pArbNhbwTBDlWKBnmPa/YOyIDM82D3I8kXTqdQ7dfyxc8y66bNIUIM@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFADwVqAm5RwxXRPpQ6RmTh7pBieS6o1s5uXD0WvMEm4SEBTrj
+	MuM0uivKxqK8WnyW0d7443NyV3FvP+nnFyOcTYFitmCoKxb+9ftIMFoEz4ewNCIS
+X-Gm-Gg: AR+sD10jNCWmd61OyM/GAclMmbnWR992Uud7lUyg58ZLrF/I/hZSekYWfsuoxUjbgaG
+	5XjWnMv8k4+QCilmZW7kC4Y3OXDfhQWjUTDMQXym87tLHo00AUvMg3+g4a3nIDvhojpaR2Fzo3c
+	53uNxwzCKR6FtjUi5ij5aFMatPNMcNULbkw/5paGVe/7+cGEfiMOU2yrgl0EyHsZA6iPRt8VcWB
+	PcHGcuwF+ryjcJGf3/8b1eFj96K9AAcx7/uh7UWeBPGRWKY939AvUu5k+Z7YzZQ4CCfUO7nA8eA
+	Wi9tmv35fS18nFzHx6T6ZKAjGH+DJG9wmbu1vTriqsDiYpyVSwcWwOJm2ggPRst0JP8gK44X3XK
+	w/8btAy2VzgshL7v7sByBAOovik8g5PgBK6uzxd68BlqojGBiYHKcnAs6ikSjqQlGJmKjY9a1Az
+	cpxhmQEeq53QNoSf/zbyKx33OWkPfy/0hM5HFFWtAdUsJwjmDmox7hsiZ6GoiXTbcVzqAYCdyJY
+	xg3M9zCQ2Z4yTmb6LdgvsPRLH1mTA==
+X-Received: by 2002:a05:6102:3f86:b0:745:6b08:c338 with SMTP id ada2fe7eead31-76db7a95d11mr1722383137.10.1786622164617;
+        Thu, 13 Aug 2026 04:56:04 -0700 (PDT)
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97becb1cc4esm795667241.6.2026.08.13.04.56.01
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 04:52:53 -0700 (PDT)
+        Thu, 13 Aug 2026 04:56:02 -0700 (PDT)
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5bf959b820cso1337789e0c.3
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 04:56:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqKcCAkFmVrrQ6iVsjD/ctyY7WY92CDYouxT85FdxqA6nHVQrTsr2uoYwCKBHFdhKkiOBfRo1ungV7C@vger.kernel.org
+X-Received: by 2002:a05:6102:1481:b0:650:94b2:b209 with SMTP id
+ ada2fe7eead31-76db5784ab9mr1705726137.4.1786622161228; Thu, 13 Aug 2026
+ 04:56:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 13 Aug 2026 12:52:52 +0100
-Message-Id: <DKNSMR9KRFQH.3SQDYW46B42FV@linaro.org>
-Cc: <jyescas@google.com>, <linux-kernel@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski@oss.qualcomm.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Bartlomiej Zolnierkiewicz" <bzolnier@gmail.com>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Kees Cook" <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, "Alim Akhtar" <alim.akhtar@samsung.com>
-Subject: Re: [PATCH v8 0/5] thermal: samsung: Add support for Google GS101
- TMU
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Daniel Lezcano" <daniel.lezcano@kernel.org>, "Zhang
- Rui" <rui.zhang@intel.com>, "Lukasz Luba" <lukasz.luba@arm.com>
-X-Mailer: aerc 0.20.0
-References: <20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org>
-In-Reply-To: <20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org>
+MIME-Version: 1.0
+References: <20260615115455.1412098-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260615115455.1412098-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260615115455.1412098-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 13 Aug 2026 13:55:49 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUrD22vs+HyuxSRfgrGqugoNp4wfvet-1tRo2qF_CsFzQ@mail.gmail.com>
+X-Gm-Features: AUfX_myfnbm6UY7yoIkK-7C0m4oiXVacFM2N9TTPggfnS1Ryh7xr_S0ljIV4X3A
+Message-ID: <CAMuHMdUrD22vs+HyuxSRfgrGqugoNp4wfvet-1tRo2qF_CsFzQ@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] arm64: dts: renesas: Add LCDC overlays for RZ/T2H
+ and RZ/N2H EVKs with ADV7513
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi all,
+Hi Prabhakar,
 
-On Wed Jun 3, 2026 at 2:00 PM BST, Tudor Ambarus wrote:
-> Add support for the Thermal Management Unit (TMU) on the Google GS101
-> SoC.
+On Mon, 15 Jun 2026 at 13:55, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Add DT overlay support enabling the DU/LCDC pipeline on the RZ/T2H
+> (r9a09g077) and RZ/N2H (r9a09g087) evaluation kits when fitted with a
+> CN15/CN20 ADV7513 HDMI transmitter.
+>
+> Move the LED8 and LED9 preprocessor conditionals inside the node
+> definitions so that the nodes remain present in the base DTS. This
+> allows the LCDC overlay to reference and disable them when their pins
+> are reassigned to display functions.
+>
+> According to the hardware manual, the LCDC pins should use slew-rate
+> setting 1 (fast). However, testing on the RZ/T2H and RZ/N2H EVKs with
+> the ADV7513 HDMI transmitter showed unstable display output with visible
+> screen flicker when configured for fast slew-rate operation. Configure
+> the LCDC pins with slew-rate setting 0 (slow) instead, which provides
+> stable display output on the evaluation platforms.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-AFAICS there are no new comments and no updates and Tudor said he is
-waiting on feedback from thermal maintainers (for 2 months now),
-what's the status of this?
-Apart from some required updates [1], [2], is there anything else should
-be updated here?
+Thanks for your patch!
 
-Best regards,
-Alexey
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso
 
-[1]: https://lore.kernel.org/linux-samsung-soc/08d7299968e14e5fc07fa4791479=
-abd9a2b11c2d.camel@linaro.org/
-[2]: https://lore.kernel.org/linux-samsung-soc/DJHQR4IAYPDF.2BOI33M1O4CMO@l=
-inaro.org/
+> +/*
+> + * RZ/T2H LCDC configuration:
+> + * ----------------------------------------------------------
+> + * Function        Pin     SW Setting
+> + * ----------------------------------------------------------
+> + * LCDC_DATG0     P11_0, SW6[3]: OFF, SW6[4]: ON, SW6[5]: OFF
+> + * LCDC_DATB1     P18_0, SW8[3]: OFF, SW8[4]: ON
+> + * LCDC_DATB2     P18_1, SW8[1]: OFF, SW8[2]: ON
+> + * HEADER_IRQ8    P22_6, SW2[1]: ON, SW2[2]: OFF
 
+What is IRQ8 connected to on the display board?
+It is not described in the .dts[io].
+
+BTW, r9a09g077m44-rzt2h-evk.dts uses a mix of "SWx[y]" and "SWx-y" (and
+tables), which makes it harder than needed to see which functionality
+is affected by a given switch.
+
+> + */
+> +#include "rzt2h-n2h-evk-du-adv7513.dtsi"
+
+In case of dynamic overlays, any conflicting pins must be disabled
+first, so please move this #include to the end of this file.
+
+> +
+> +&{/leds/led-4} {
+> +       /* P18_0 is used for DU function LCDC_DATB1. */
+> +       status = "disabled";
+> +};
+> +
+> +&{/leds/led-5} {
+> +       /* P18_1 is used for DU function LCDC_DATB2. */
+> +       status = "disabled";
+> +};
+> +
+> +/*
+> + * Disable SDHI0 as SW2 settings for eMMC/SD card conflict with DU pin
+> + * settings.
+> + */
+> +&sdhi0 {
+> +       status = "disabled";
+> +};
+
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
+
+> +/*
+> + * RZ/N2H LCDC configuration:
+> + * ----------------------------------------------------------
+> + * Function        Pin     SW Setting
+> + * ----------------------------------------------------------
+> + * LCDC_DATG0     P11_0, DSW12[3]: ON, DSW12[4]: OFF
+> + * LCDC_DATG3     P14_3, DSW18[5]: OFF, DSW18[6]: ON
+
+and DSW19[3]: OFF, DSW19[4]: ON?
+
+> + * LCDC_DATG6     P14_6, DSW15[8]: ON, DSW15[9]: OFF, DSW15[10]: OFF
+> + * LCDC_DATB2     P18_1, DSW18[9]: OFF, DSW18[10]: ON
+> + * I2C_SDA1       P03_3, DSW7[1]: ON, DSW7[2]: OFF
+> + * I2C_SCL1       P03_4, DSW7[3]: ON, DSW7[4]: OFF
+
+I2C_SDA1 and I2C_SCL1 are exchanged?
+
+BTW, r9a09g087m44-rzn2h-evk.dts uses a mix of "SWx[y]" and "SWx-y" (and
+tables), which makes it harder than needed to see which functionality
+is affected by a given switch.
+
+> + * ------------------------------------------------
+> + */
+> +
+> +#include "rzt2h-n2h-evk-du-adv7513.dtsi"
+
+In case of dynamic overlays, any conflicting pins must be disabled
+first, so please move this #include to the end of this file.
+
+> +
+> +&{/keys/key-1} {
+> +       /* P18_2 is used for DU function LCDC_DATB3. */
+> +       status = "disabled";
+> +};
+> +
+> +&{/leds/led-4} {
+> +       /* P18_1 is used for DU function LCDC_DATB2. */
+> +       status = "disabled";
+> +};
+> +
+> +&{/leds/led-7} {
+> +       /* P14_3 is used for DU function LCDC_DATG3. */
+> +       status = "disabled";
+> +};
+> +
+> +&{/leds/led-8} {
+> +       /* P14_6 is used for DU function LCDC_DATG6. */
+> +       status = "disabled";
+> +};
+> +
+> +&i2c0 {
+> +       status = "disabled";
+
+Needs the same comment as led-8 above?
+
+The rest LGTM.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
