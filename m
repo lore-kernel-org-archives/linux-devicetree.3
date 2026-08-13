@@ -1,306 +1,155 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010063.outbound.protection.outlook.com [52.101.193.63])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011006.outbound.protection.outlook.com [52.101.65.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF533242B8;
-	Thu, 13 Aug 2026 11:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022C340B105;
+	Thu, 13 Aug 2026 11:50:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.6
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786620536; cv=fail; b=Pp4tFhfJXAGA0Gz4jSupVAd8q7Sshke3KE4XKu15Y7ywvNkpqPwApUb5mIxk+heD20g2023ltNS3Ao0H1aSAku0HHudko6CyTg7SsYkGWRXiFuhtAOUTie7jr7K8WUiXxmAnyw419j5ZBvdLw0+yb9+m8CCmuUT93bQLDrXOtaw=
+	t=1786621847; cv=fail; b=DkUM0x9++I0EpoOkj2BX3Iq6GUh0XDg+58VFlnqb63IvK8RJHnDBZJO61scQFEH2RGOy1Sup8ZL7zYD1/jFgoHkIWBBf/Nov7KhReqCNx+DG04xdgtmVD2VMZChUR9lQdhXrODjJOaWWNZZ2uAvo4D1VHl4hoxVpKbB5bzYGqLc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786620536; c=relaxed/simple;
-	bh=SF25IamisJzbUhbtJmDbQVA8/Okutmy4rdsNg75vRzs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=obsV+mNHb98VMI5K3Xn4wJTCP8BA0QnLadGDatF13MSUmFqrLEIfpie8FCFKkowRJpjIHVOTPQIMVSBy2AKQ7ShLyqyk3Lv7b+Vv9HOI0SX9+KvGcEjF2XamU2T0cHmk8cMrWaSceUJgwP2w1TlaXisCfij8DVLYZ1g8NATgpZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Rwn6zPkN; arc=fail smtp.client-ip=52.101.193.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1786621847; c=relaxed/simple;
+	bh=ZVfIe/DH0I/gcAPtlFthQx0cHPw0zm3fVJctnRZ/4LM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=DY/V6JBanbMcR37pLnTgaf6hNM9hp/9F3wFlQvvqRRiSkg2kMpsdxcCqlhhymkpuvpPedVZC3WbrpktFOl2pVmkfkkn97tXQ764IQDRdBhIoxRoX4ojS2SuWtNtxMggucZoqgC5o3UfGhrCYK7fhYFHpLOOgjDz0kbT6SgYtMHY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=XgVgZQ0R; arc=fail smtp.client-ip=52.101.65.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Rwn6zPkN"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="XgVgZQ0R"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GlcR+HI3OeFINckJt2Bv+haGrg6DsYGy1MLKM2nSyIrK2ug6uDXRNYT3ay1nRlxQSunlp+hDAy9wDZ0O7gASGmoK6gi+09tne5jcbsao7kSEh97yxIkioqJBN+RhThKBFzWrAnPf8AVvORCBf3cJ3VXFjs5ydfIDR4w/snSaD4r4tCkYdJbAVGxhl9fgXsHDih+7jYABvPl0sBK3xHI4ZoqAvXhU337zUgcFWO1Q5v6hxv+nTHCwzpHNYQgVwHOpK4a9ppbdUXIm4ziR9ANgQVjkLJuRlmAWD1KPBDdmUxgdymFeNaTfHD7SskK3gaksT4sGUNmfGUn5CP+9dfY3kg==
+ b=GK2q9bTPagZvNul8jvHqe50DkJn9Rf6eN+xNC5l25s8XtMVjsjBKCd09ThHqxHb+Py7a3xA9Kq6wGbDWv3nFlqbQITzIR3RAJwZf89M6FDpr5DHCEjxb0ae7d7ZtAaiLX6/asI4A5Bgz6Uu+XBeDHtA6OI75bGPOphbqKSXv6Vidtndv372TfKRxAzGVPTpXo4Uhv3B0nUgXcuHfE/F94bjuWl45WGHSKxvj1X+hxx2NK+ybkzDA37xDXvK1qjXPa2ocl+Kkpv3/5vSxj9FwhPT+SHKxMNLrVY47mYLkLh2dL2LjIph6xQ4kWxCcucTKVFx2virE1rWXKNMhiChRMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ufMDJaJbFXxAzyHZp1CtM51AJBUqVSe+cL2MlnZnC7c=;
- b=r/L2vuDwpHH2CVB3JCUQIblI3N5+Yh4qKoCjp6JsaX4xJhwq+Fh94OT30uz1ZMAnMg+s/fMvTCT+QRpDuQuepFDsgdrFMvK7rrRKKcp844opue7NC682Om5nJDdFz0cztB+zjuUND1REslURO84y5QLd8nRasgTAIl/v5k+zf8uvOaADhVGV1aNCT/ou+K00reTizlvYXLVQwBCpVllX2NTEW8vnElRg3ujbKIxJOWmT0QhJ98hHP7ClMhrCa1HIuLVDlUDb0gnob3TZXai4dWyCxIu+V1Ou40plcK/dkJbtXFk7RSUbvRKvW03wQj5HjPgTpFlknHMwMUEWQfiEgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=j1bG5S+zgex4fYsGxLk00dfHQybwBtauvPs4/e9/mQY=;
+ b=ljaLw+URoyVi9tJEZOFpNg1E5MaexBqGYDbRozbTjxELOcYzKW2O+45eHe1RgPg4Dfb8kdU9i90XH4Iy6aqIu3dqBlspO5DVZX4wKczsppD1LOznQtvEvZooGe4pmTMCeRZ9NsbTnoATn0/XL4eg3+NodX+qxjkTrDmXP5s3HlygsnSyia2G4Kkw5H48v0Do9bcltB7ieXWHRcKqURnEW/ieUfSnG9Mlb6Y2AD9rnfMZxEj9f3nd/9Crh1ljOoqTFmtbJVW5ro8VOtiz0Fh+Jn2Qh+GpUQLb/DV88ka/gXuUFwySrZVNJbLyY79nqPOvE1DGBWaVyouvicng4njeqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ufMDJaJbFXxAzyHZp1CtM51AJBUqVSe+cL2MlnZnC7c=;
- b=Rwn6zPkNqK5jt8ApdpiL1Cf1+uq7QElmUOh3/5WsBHeYp0ybvlGdWM8ohIf40H79ACkmNBMKDqVufzbowWVicd0ZagEhpiJnTLIZN4h5MXK7U98jThbE1bP/mpUEgVFx/XYD+I2mzSTaaOXZ46MAQwxczqs+8NmDhXOW430yeo8=
-Received: from IA4PR12MB9810.namprd12.prod.outlook.com (2603:10b6:208:551::13)
- by CY1PR12MB9583.namprd12.prod.outlook.com (2603:10b6:930:fe::18) with
+ bh=j1bG5S+zgex4fYsGxLk00dfHQybwBtauvPs4/e9/mQY=;
+ b=XgVgZQ0RphIzItQcFI+sz7KHkgGXGxviqL6wP9tklNYAA0rSGb2/rv9LnXS/E6acbc2r2xn9gtXU5+DkUfDxcZR1j+T7uGqgXc0RDLYmFqFunxUIBzndJA+zxLihMHwsvrVJ0Lr7SAL1Te/IAyC0vDztTqCzpwAMXi141G2DOLqShzzvbM/RvKQHYw5sxOX3Q9xjYMxvaLVH0K0R9cZxcAmeg6hvCXCe3FjdD/H3scAUs0OKEVZZwri51F84PDwtkpGes2H6+gap7ypc5XFOKXmMg7NGX1UvQmRCs8LV9X9ZMt/IxZALC3DutnrxoVkoZUDh10aND6ApkdbFJCdBoA==
+Received: from AS8PR07CA0031.eurprd07.prod.outlook.com (2603:10a6:20b:459::24)
+ by AM7PR10MB3560.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:138::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Thu, 13 Aug
- 2026 11:28:50 +0000
-Received: from IA4PR12MB9810.namprd12.prod.outlook.com
- ([fe80::2d21:ba94:fd95:5b0f]) by IA4PR12MB9810.namprd12.prod.outlook.com
- ([fe80::2d21:ba94:fd95:5b0f%4]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
- 11:28:50 +0000
-From: "Musham, Sai Krishna" <sai.krishna.musham@amd.com>
-To: Rob Herring <robh@kernel.org>
-CC: "bhelgaas@google.com" <bhelgaas@google.com>, "lpieralisi@kernel.org"
-	<lpieralisi@kernel.org>, "kw@linux.com" <kw@linux.com>, "mani@kernel.org"
-	<mani@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "cassel@kernel.org"
-	<cassel@kernel.org>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Simek,
- Michal" <michal.simek@amd.com>, "Gogada, Bharat Kumar"
-	<bharat.kumar.gogada@amd.com>, "Havalige, Thippeswamy"
-	<thippeswamy.havalige@amd.com>, "Sanwal, Pranav" <Pranav.sanwal@amd.com>
-Subject: RE: [PATCH v4 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
-Thread-Topic: [PATCH v4 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
-Thread-Index: AQHdJyQcjZj/arEQz0K0GROBFqdvhLabDK+AgADR8zA=
-Date: Thu, 13 Aug 2026 11:28:50 +0000
-Message-ID:
- <IA4PR12MB981037D2456B74894EDA65E5CDDB2@IA4PR12MB9810.namprd12.prod.outlook.com>
-References: <20260808105256.3705889-1-sai.krishna.musham@amd.com>
- <20260808105256.3705889-2-sai.krishna.musham@amd.com>
- <20260812225409.GA1363147-robh@kernel.org>
-In-Reply-To: <20260812225409.GA1363147-robh@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-08-13T11:25:47.0000000Z;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
- Public
- v26;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA4PR12MB9810:EE_|CY1PR12MB9583:EE_
-x-ms-office365-filtering-correlation-id: 2d9e48ba-db7f-4834-582d-08def92e0c29
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|18002099003|22082099003|11063799006|56012099006|3023799007|38070700021|6133799003|10067099003|4143699003;
-x-microsoft-antispam-message-info:
- DSAIqCeg5U004TMhj+bFwKBakLVLf/ZJpiGtmSAIOcrAbAUIfarClb7bOGHF5TZlDRcoRCDQZAjw3Ddy+S848hL+36Z7G+A1/ctQABf1fz8+smj5BePyM5ZZmHLmfxyul28K3qknBBcoxqUAkmhzastcAng6OWc662IIDskF91VO8I9tRS6+PNOqYhNUPP9ZClvkpYKmExCGmEZFQKDAyl71JnfU2XAd1gEpVFL115N9+c3YMwURMFPpypFJNT2zg/aknQetxviEs4fYIvYXuTT51Gm3qpvO8H99o2liATbKuJo7B4gAw6bhHgiwLEtOErJdKTz0qXFkyimZ0laHjqCPiK4BIzrTX0Bd2ltWc95MWIJixrptNDcdQO05nAAUOb2ejYhZJ9iis/tJ4ABKVEbA82NPmwOAH9MvAonMGzDCjxogVwfQlgfYhx6AQecXAmZjAkB8iIgf9rr3mc51YS60Pgad7zUCpCTi6tyPcxmKSOKqqqoX4wzc5MRTDgdBRxdZ4uYFXWXzH98J2KsOOP8o9MFylYeUajrrOI7dcYsCKePVkIeR/G6Ek/QYylltqbpy8nI5v6JwSXJmYkVQo5Ap+WMPmoPtz0VRjNKaoQnBlqPayStk7qzB21SgfrzLdEkKYnMopMP+23Ssr7tkc/x4LAe3LlvYMdHM7EHnBNG6yLAlTTC4EW4JMVrsLsOLgmd9C9In1e1jSTcsKObE6OwpqvXOnKitW1bPvMSzMGk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB9810.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(3023799007)(38070700021)(6133799003)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?nbPMwrNqXIM+mE7YUB+b5gQkvRtLBT8T4ySVuW7Jcrgoo7KPY849k5D3ePmr?=
- =?us-ascii?Q?CADSGV/Au7o/0/kJ1Wc40QTgKdVEhCGDyXfihzd49EhrdP4bRdhdKYBt7BF0?=
- =?us-ascii?Q?y96AAYFzhrt0FCNP+6B+HeGyknb8iaKDjsAACAfVUuO14tiKeaP6/oL0dBZ3?=
- =?us-ascii?Q?Z+/uyjgf0OFtXo9Q/xg8U7LtclSaEkFwoTJox9B1Bj44xviZCL34QdcaV22J?=
- =?us-ascii?Q?c/RrpTqlo+tDZ4JB4/pwlFocSMjjayCwwLEWFfWG0MVnDwXPCBdw2nZX9HE0?=
- =?us-ascii?Q?MwhKtiRAZYjTv1yMIxYMQd73qTK9OEGdYnNKJiat6QSwley/VsTgBQJlIjoG?=
- =?us-ascii?Q?zvaSV7v0KKlV2wS+GghNRIBTE28ksOJjX9ATk0F8I0TeSiXNjMtkeEWTYUOJ?=
- =?us-ascii?Q?xHv9kxIjbWxXRxm2luMayHub80e9o5WV1wmKuKzC85fINx7jHSZKzwBZ01P+?=
- =?us-ascii?Q?ge/hpWbKF7kJJKkBSvOYfMJ4MjwLouzEVZG3ekQ49oQDGMHwMTe9VzeEswRp?=
- =?us-ascii?Q?sVla90GMW8IDsJF6ceKta1iOb1Fk3yIurfbCI8IXACj0NCmqP55P2QOBz6bo?=
- =?us-ascii?Q?mP8T3xu0NQJUT4nwbAnCPZKOJ+Jh9wpatSUYC8wgIxOUrq5OuxMmILtRBcYH?=
- =?us-ascii?Q?aJrEkE6T/mGzwzgytntWTmtoxFIXw07d0du70/llTpRaVCL2acQUm7W/ahgX?=
- =?us-ascii?Q?+1lY4sRnZ4MjC2hUe0i6Ln8lBmrX6r496EAbyPVgmdqqP30zsxv44ieS+gry?=
- =?us-ascii?Q?hrxjOls7fMdAGQjMp8UsteJWKPnXBdDW1ktmOk7DbNj09SVMjGEfLT/CO5yX?=
- =?us-ascii?Q?3aoGKgvoChe/Z0KbRjqUmx71ab6k/9Vhw8sgGCxWoaLil8z10SJTNsCaqBgn?=
- =?us-ascii?Q?vG5IrlSVTIAZcRW9Z/cQZucZbWrduRwY5SIuJys7CtYMaBMZ8gHNlr8PTDa/?=
- =?us-ascii?Q?dbQ7JqgApo6TuXfXJN5CcTBJph44l99ffnOWI802S+26QLMUpwB5S7N1lgcu?=
- =?us-ascii?Q?DVYHI2D+Xay85lbjjm+5po+rglhH+MPt1ZzSSMw71GSUQXZXaN6QZ7VgG3Hc?=
- =?us-ascii?Q?UgpCj3/Rav/RJy8gVHBRTVFlx+xgEgHBEaTzeIXgEQCmCGunBsj3UD1JMxQQ?=
- =?us-ascii?Q?vlfEaP3Ng6DRA0zCl0BXPpPB2DjLUMfZ/abYRKpIT+lB8HFBZfdJ4HthaxB+?=
- =?us-ascii?Q?NvKtirIBVBimowhIYUpjAzVuDHTOFLaeaggZn9RlWAnKKt79T9XsJYcKDgGO?=
- =?us-ascii?Q?2yj5oxBSu+S3naDxkOziugu/MoMhfCzK61L97bhEBshRT6oDXDG1wr/SnJKX?=
- =?us-ascii?Q?Ea/UX4n1uGXrM2hwA2b8iBN+kgmFTWQAcKK6TyhDzpoEWZXISs9/Q8lcSd1h?=
- =?us-ascii?Q?hEy76UwtvN/KsW/L3bWsi8J5XR3ummXL8EMdhD3dj5lXk/KGiSs4zTttbGuA?=
- =?us-ascii?Q?N55PFu6pWhm7ch2GyslDzQx+MzelmGEJzcbbdubmuLROdjiF3+GcTRF73W/b?=
- =?us-ascii?Q?ariq0RuzaiVGF94MrsI4Zt9UdnKLaBbljhYv6sULN1bOdo04pfP+MesXSOKR?=
- =?us-ascii?Q?4booFHUYSY2kMZs4XdzYD8qUVBit2rRJ+PsFfwBNxQ/15CwD/q03B8mqbPK5?=
- =?us-ascii?Q?RcPIsNyAvGYoYqR/NrWMpL6nnLJv/TfkUgXgCFjsUTVkBEhoA+EW5nDIYEXk?=
- =?us-ascii?Q?AKC7SZ3W84LsOImT+8kgJ0lZBtl/F4CWwc+PDdDM0m01x9q5?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 11:50:43 +0000
+Received: from AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+ (2603:10a6:20b:459:cafe::ad) by AS8PR07CA0031.outlook.office365.com
+ (2603:10a6:20b:459::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.3 via Frontend Transport; Thu, 13
+ Aug 2026 11:50:43 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM4PEPF00025F9B.mail.protection.outlook.com (10.167.16.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.1 via Frontend Transport; Thu, 13 Aug 2026 11:50:42 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 13 Aug
+ 2026 13:55:37 +0200
+Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 13 Aug
+ 2026 13:50:40 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Thu, 13 Aug 2026 13:50:39 +0200
+Subject: [PATCH] ARM: dts: stm32: Remove User-PA13 button on stm32mp135f-dk
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB9810.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d9e48ba-db7f-4834-582d-08def92e0c29
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2026 11:28:50.0784
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260813-upstream_gpio_keys_removal_from_mp13-dk-v1-1-b333615ac6cf@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAI6vfWoC/yXNUQrCMBBF0a2U+TaQtFWKWxEJMZ3UsaYJM21RS
+ vdu1M8Dj/s2EGRCgXO1AeNKQmkqMIcK/N1NAyrqi6HW9Ul3plFLlpnRRTtkSnbEt1jGmFb3tIF
+ TtDGXUT8q32LnjGv1MWgotcwY6PV7ulz/luX2QD9/87DvH/HKXgqLAAAA
+X-Change-ID: 20260813-upstream_gpio_keys_removal_from_mp13-dk-c4e8a1a405f0
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM4PEPF00025F9B:EE_|AM7PR10MB3560:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab5bb86c-32db-46ce-5669-08def9311abb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|10067099003|56012099006|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	Lxkp3Wu2ebfBdXP+pGjogpuZaprjwVUDtxj0QYHWZbMkVKzmm0CSzIkkkMjhaaeIVsnDz+hfWg6dWk1QVfYlorE3VuKgCnn1UpFJ9wjPirncWo86Wx/8S3PyOb3+ovf06ecI60kSWcc/RNHMQPXZbL3wFzxdXi/3jUCwx0ZWYBdLj0lTapMaR4iNiWA7RThumMZ/gPIsnZHmXKniwbZ1Iud7oENc8Yo5XPIITkZv/UWHjWvJGjWro//neTX50KPzcuRd2YrmEDLSTZ2QW+Kp72lqB4e4qTXmIm1NVgERPwGjYAmIt8gYRGDfg2OZqpylkrymY8u2UbDi20LrWPl4O7IUaRlsEG2quls3EC2LYOpix7pUhQWNPurWozxIKE0Qovs4kBaMRH8IWwn+zhLbx2f2VUBFTzYJ6+wCkeUYembLzelhJXMKx6gEUizav4lXBivvIBAUBcW0sPyNuIML0Iq0jExV95SpSMMpXGQQeS7HL3cVCMdeFOcnof3hRQl+bAszo0wzjOxIVOdnRVGbdIuu8MQxwQKxUfNCOyINXR64S0Ah9ESk1FNYjvU1cz/SY/FEIAX2PBRgqwHE/vtC7Fa8L55EudzsOSAcgo1slWIiJgkajogFHEAqkUot595aHg7ANfX2rrhmqLmf1EldX81jYZ5o+W6d+SVfguB3bhpVpNjki99d44V4CU3JyAkJml0DP8Ka0FDJP4qrc+ds6g==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(10067099003)(56012099006)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9klzIjjTUjQrfNut89G6Akeu2VI3gzQbDbFqerTRbBMeBObHkeb+I+24zRIev+pngonKbSlJgbDezasTbUBR8wZ1nWvGdhNz1cHQ8aFi35EctgQk7jpsMbnrWnG6rI5IV5e5+uS3kPsPP834B2VQ71uwh8fVIKsNyBedO5gCSb8mXwgJegJzfU8SXWplxb5Wjhda1S4K8XXkFKKUwqRxp4MwGHUC9SSoek9+yyn8JKHOaUJ4U7GYHRn2ON85r0UEE/s9TEBl1u3srX8HlN5J51lstAEW9xwd8EcW/VxArW1agZL646oYsnISJcRwkWjMoNPbIsiPsrZnVcdpw4fzIVMKirBNIBuqUQ5d1dQpyt/QnAuASLEcb1z/5wySMd2jASr7hLZsWk5RQXUXPGJ3o88vGi13Zy10m3vSElbhDjbJ+q2E8SarlHC4GNmL9Y+g
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 11:50:42.9421
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LqW2S2QcoFkj8k5XAdXxXQVcSdxchf1I6peuX+0KbZyqjofvD2lE5tgQED91WZZm8gnmu9wuhyPPajwYhArGgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9583
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab5bb86c-32db-46ce-5669-08def9311abb
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3560
 
-Public
+User-PA13 button and led-red are connected to the same GPIOA13, this
+leads to a conflict when gpio-keys driver try to get gpio.
 
-Hi Rob,
+As led-red is mandatory in U-Boot to indicate the status during the
+boot phase, remove User-PA13 button from stm32mp135f-dk.
 
-> -----Original Message-----
-> From: Rob Herring <robh@kernel.org>
-> Sent: Thursday, August 13, 2026 4:24 AM
-> To: Musham, Sai Krishna <sai.krishna.musham@amd.com>
-> Cc: bhelgaas@google.com; lpieralisi@kernel.org; kw@linux.com;
-> mani@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org;
-> cassel@kernel.org; linux-pci@vger.kernel.org; devicetree@vger.kernel.org;
-> linux-kernel@vger.kernel.org; Simek, Michal <michal.simek@amd.com>;
-> Gogada, Bharat Kumar <bharat.kumar.gogada@amd.com>; Havalige,
-> Thippeswamy <thippeswamy.havalige@amd.com>; Sanwal, Pranav
-> <Pranav.sanwal@amd.com>
-> Subject: Re: [PATCH v4 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
->
-> On Sat, Aug 08, 2026 at 04:22:55PM +0530, Sai Krishna Musham wrote:
-> > The AMD CPM6 PCIe controller is based on the Synopsys DesignWare PCIe
-> IP.
-> > Add "intr" to snps,dw-pcie.yaml vendor-specific reg-names for the
-> > per-controller interrupt register region used by CPM6.
-> >
-> > Update amd,versal2-mdb-host.yaml with separate register definitions:
-> > - MDB5: 4 regions (slcr, config, dbi, atu)
-> > - CPM6: 5 regions (slcr, config, dbi, atu, intr)
-> >
-> > Signed-off-by: Sai Krishna Musham <sai.krishna.musham@amd.com>
-> > ---
-> > Changes in v4:
-> > - None
-> >
-> > Changes in v3:
-> > - Update subject to match history.
-> > - Move allOf to the end, after required block.
-> > - Drop the CPM6 example.
-> >
-> > Changes in v2:
-> > - Update the CPM6 device tree binding and example.
-> >
-> > v1 https://lore.kernel.org/all/20260402180006.486229-2-
-> sai.krishna.musham@amd.com/
-> > v2 https://lore.kernel.org/all/20260728202044.1785986-2-
-> sai.krishna.musham@amd.com/
-> > v3 https://lore.kernel.org/all/20260803144412.713639-2-
-> sai.krishna.musham@amd.com/
-> > ---
-> >  .../bindings/pci/amd,versal2-mdb-host.yaml    | 45 ++++++++++++++++---
-> >  .../devicetree/bindings/pci/snps,dw-pcie.yaml |  2 +
-> >  2 files changed, 42 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/pci/amd,versal2-mdb-
-> host.yaml b/Documentation/devicetree/bindings/pci/amd,versal2-mdb-
-> host.yaml
-> > index 406c15e1dee1..672589066854 100644
-> > --- a/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
-> > +++ b/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
-> > @@ -9,27 +9,30 @@ title: AMD Versal2 MDB(Multimedia DMA Bridge) Host
-> Controller
-> >  maintainers:
-> >    - Thippeswamy Havalige <thippeswamy.havalige@amd.com>
-> >
-> > -allOf:
-> > -  - $ref: /schemas/pci/pci-host-bridge.yaml#
-> > -  - $ref: /schemas/pci/snps,dw-pcie.yaml#
-> > -
-> >  properties:
-> >    compatible:
-> > -    const: amd,versal2-mdb-host
-> > +    enum:
-> > +      - amd,versal2-mdb-host
-> > +      - amd,versal2-cpm6-host
-> > +      - amd,versal2-cpm6-host1
->
-> What is host and host1 difference? Please explain somewhere.
->
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+ arch/arm/boot/dts/st/stm32mp135f-dk.dts | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-Thanks for the review, I will provide the difference between host and
-host1 in commit message in next patch.
+diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+index 6022e73f58af..215bce4738f0 100644
+--- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
++++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+@@ -60,17 +60,6 @@ optee@dd000000 {
+ 		};
+ 	};
+ 
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-
+-		button-user {
+-			/* GPIO on PA13 "User button 2 (B2)" */
+-			label = "User-PA13";
+-			linux,code = <BTN_1>;
+-			gpios = <&gpioa 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+-		};
+-	};
+-
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
 
-> >
-> >    reg:
-> > +    minItems: 4
-> >      items:
-> >        - description: MDB System Level Control and Status Register (SLC=
-R) Base
-> >        - description: configuration region
-> >        - description: data bus interface
-> >        - description: address translation unit register
-> > +      - description: CPM6 PCIe error and event interrupt registers
-> >
-> >    reg-names:
-> > +    minItems: 4
-> >      items:
-> >        - const: slcr
-> >        - const: config
-> >        - const: dbi
-> >        - const: atu
-> > +      - const: intr
-> >
-> >    ranges:
-> >      maxItems: 2
-> > @@ -92,6 +95,38 @@ required:
-> >    - "#interrupt-cells"
-> >    - interrupt-controller
-> >
-> > +allOf:
-> > +  - $ref: /schemas/pci/pci-host-bridge.yaml#
-> > +  - $ref: /schemas/pci/snps,dw-pcie.yaml#
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: amd,versal2-mdb-host
-> > +    then:
-> > +      properties:
-> > +        reg:
-> > +          minItems: 4
->
-> Drop. 4 is already the min.
->
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260813-upstream_gpio_keys_removal_from_mp13-dk-c4e8a1a405f0
 
-Thanks, I will fix it.
+Best regards,
+--  
+Patrice Chotard <patrice.chotard@foss.st.com>
 
-> > +          maxItems: 4
-> > +        reg-names:
-> > +          minItems: 4
-> > +          maxItems: 4
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            enum:
-> > +              - amd,versal2-cpm6-host
-> > +              - amd,versal2-cpm6-host1
-> > +    then:
-> > +      properties:
-> > +        reg:
-> > +          minItems: 5
-> > +          maxItems: 5
->
-> Drop. 5 is already the max.
->
-
-Thanks, I will fix it.
-
-> > +        reg-names:
-> > +          minItems: 5
-> > +          maxItems: 5
-> > +
-> >  unevaluatedProperties: false
-> >
-> >  examples:
-> > diff --git a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-> b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-> > index b3216141881c..21f86609ddb6 100644
-> > --- a/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-> > +++ b/Documentation/devicetree/bindings/pci/snps,dw-pcie.yaml
-> > @@ -117,6 +117,8 @@ properties:
-> >                enum: [ ecam ]
-> >              - description: AMD MDB PCIe SLCR region
-> >                const: slcr
-> > +            - description: AMD CPM6 PCIe error and event interrupt reg=
-isters
-> > +              const: intr
-> >      allOf:
-> >        - contains:
-> >            enum: [ dbi, ctrl ]
-> > --
-> > 2.44.4
-> >
