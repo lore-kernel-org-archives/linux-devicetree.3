@@ -1,210 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FEE38DC4F;
-	Thu, 13 Aug 2026 08:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACA8385D9D;
+	Thu, 13 Aug 2026 08:34:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786610019; cv=none; b=ZANc3V51pCu0mg39Kp96CNdXFgm60krlwR4UxXwtB4DmbCeEa6V0hvWu+HnITtPRtsYajRRaLSN32g4v3c6aH6zhWiVC9SEUHvcaFqv/e4+xb4UEVngOoRNlV9UUwu1KvU+Cn7aVe/J8rT2/+JTJF++PvnMXTcuautlHBUMF20w=
+	t=1786610052; cv=none; b=Zho/JjB352prnkbYC6scnmW1l29s7rY8YUDbLBEMXC6q/ScyWwJ3Ux7kGatEUtGoxzUHps+cSE53xHREQ0dhaLyiXsdfbfseNU5Dmr6c4LxkFjJM3pq3fyn4y8dy+J+4AKhqYPu90HNguRpAYacoficTWAFhGnnvgW8pcFKBtow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786610019; c=relaxed/simple;
-	bh=scwsrObXceIW25+t4EBOXP5mUC0R3030EikGBWBWLdQ=;
+	s=arc-20240116; t=1786610052; c=relaxed/simple;
+	bh=cJtrkwAE0/AwMlXE6GA9kcDCZyY31mzHywb9HBVFi3E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kot75vZAMXuo0DFeodx8tLFRWFgudGTtE4zeAQ68JDcASgNv++zftDxwwzWK5rDdGcKayRqCFNqCjcIlOzwFFfRXM3b9igwV8Ueg7lLvsvI/SA8BosQj6jjuaXZANxM5pSocTxKfR+n9gegWuwbskn2B2fklEuJse5KtrkfCXjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhUlY0Ig; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tm5htgfz1l5lOLyT9p0vAcolWOJLKtBUHLfNO5q1rTXvaI2TH+I48I04AFeSwQLF5aiJywLLaGKCunmuGjg2HKq0tR1Um+R8YWDOk6NjgqK1n3iT1nniRAJtD/Oc2VRE098ifYsQsyBl3cewBsQcqTQW26FSGnedzvvHH4vOE8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=xSZV/gXq; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhUlY0Ig"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2DB1F000E9;
-	Thu, 13 Aug 2026 08:33:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786610017;
-	bh=3pi032W6HNnsB6a/BIb5totDN4yPYUsdDVDiwq7RYlc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NhUlY0Ig8/hSWLibzaLr+JJCEQmXS0sfO0JL8kclxf0T+91n6ZZDd0+nKJXWLhxpZ
-	 09tVkQB678PqQsFbOeg9pYw7crzGzTI0i4auYZJQJ7wBFrZ5YGMtm5lPRBfEbcaaRd
-	 LQWFtjCQENHSRxD40YvXz+EozeG7P7KKLWLlWahNMxjbP6iyaxnIsHDfXg2F7BkWo5
-	 aX6XDi1qBQL4VszD/EuJvWTiR6NN6CLh/J02onIhgFGuOclWCZmSjB73kLU5wKa2tQ
-	 P+UkSWqwJ/ZVacf9NFECFVloDb8hpssGVaqQAmQYjsVk+kdYOk/z8jbUsR7xfapWRv
-	 dT4pOOuNzDYQA==
-Date: Thu, 13 Aug 2026 10:33:31 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: phy: Add documentation for Airoha
- AN7583 USB PHY
-Message-ID: <20260813-xanthic-sawfly-of-greatness-47e9bc@quoll>
-References: <20260811124724.702467-1-ansuelsmth@gmail.com>
- <20260811124724.702467-2-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="xSZV/gXq"
+Received: from francesco-nb (2-224-16-253.ip168.fastwebnet.it [2.224.16.253])
+	by mail11.truemail.it (Postfix) with ESMTPA id 9B75A1FBAF;
+	Thu, 13 Aug 2026 10:34:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1786610048;
+	bh=7xjwtghHlk2Hu/nCWdg14GhhhCsWUBT8CAjn3KZOlQw=; h=From:To:Subject;
+	b=xSZV/gXq/gh8q2vWa5+5RNpYaKm3SwFJk4OPD+WwW369+8GoL/OPto8pRtiw4b2Of
+	 1Zr24iWHmsCq5Rpat/hVjDBxXNuBhVSG6E7/MvpthNTYzA8cPOXGpdd34EilgikuDE
+	 qLdnwGvy96m/EU2gXKX5rLjkm1cCglHczpO4oITcL/+g5EPpkTV9ZOcEr3CX53Q3mA
+	 sp5RmTD5Q5X+HTt7g+XT4sPbRYfxUkU87Q8IqluXor+lSZmPAPJ1XuByRX4EglUgin
+	 kgRb5SHcLfBGp5z57/mwd5zIuYIHW7LzOg5v23/B1VnmuE4FfizlwL8MuTaiVSc6H4
+	 oDsPeIf8SL8/Q==
+Date: Thu, 13 Aug 2026 10:34:02 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width
+ property
+Message-ID: <20260813083402.GA19687@francesco-nb>
+References: <20260812132954.148571-1-francesco@dolcini.it>
+ <20260812132954.148571-2-francesco@dolcini.it>
+ <20260813-classy-boa-of-apotheosis-57207e@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260811124724.702467-2-ansuelsmth@gmail.com>
+In-Reply-To: <20260813-classy-boa-of-apotheosis-57207e@quoll>
 
-On Tue, Aug 11, 2026 at 02:47:22PM +0200, Christian Marangi wrote:
-> Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
-> for the USB controller.
+On Thu, Aug 13, 2026 at 10:10:43AM +0200, Krzysztof Kozlowski wrote:
+> On Wed, Aug 12, 2026 at 03:29:49PM +0200, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > 
+> > The DPI output of the LCD interface can be configured with a bus width
+> > of 16, 18, or 24 bits. Introduce a bus-width property to the output
+> > endpoint, specifying the number of parallel RGB bits connected.
+> > 
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > ---
+> > v3: use video-interfaces.yaml
+> > v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> > ---
+> >  Documentation/devicetree/bindings/display/fsl,lcdif.yaml | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > index 2dd0411ec651..1f3daf002707 100644
+> > --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > @@ -71,6 +71,15 @@ properties:
+> >      $ref: /schemas/graph.yaml#/properties/port
+> >      description: The LCDIF output port
+> >  
+> > +    properties:
+> > +      endpoint:
+> > +        $ref: /schemas/media/video-interfaces.yaml
 > 
-> Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
-> always supported. The USB 3.0 mode is optional and depends on the Serdes
-> mode currently configured on the system for the relevant USB port.
-> 
-> To correctly calibrate, the USB 2.0 port require correct value in
-> "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
-> selecting one of the 4 monitor clock for calibration (internal clock not
-> exposed to the system) but each port have only one of the 4 actually
-> connected in HW hence the correct value needs to be specified in DT
-> based on board and the physical port. Normally it's monitor clock 1 for
-> USB1 and monitor clock 2 for USB2.
-> 
-> To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
-> property is required with the phandle pointing to the correct Serdes port
-> provided by the SCU node. Providing the phys property is optional if USB
-> 3.0 is not used.
-> 
-> The second USB PHY on Airoha AN7583 SoC is used for PCIe Gen2 usage and
-> similar to USB 3.0 require a phys property to configure the serdes.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  .../bindings/phy/airoha,an7583-usb-phy.yaml   | 205 ++++++++++++++----
->  1 file changed, 168 insertions(+), 37 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> index a6e2c0b1acc4..46b311040e02 100644
-> --- a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> @@ -26,64 +26,195 @@ description: >
->  
->  properties:
->    compatible:
-> -    const: airoha,an7583-usb-phy
-> +    enum:
-> +      - airoha,an7583-usb-phy
-> +      - airoha,an7583-pcie-phy
+> This won't work, you need to test your DTS. The port schema does not
+> allow video-interfaces properties. You need port-base, like in every
+> other case.
 
-Keep the list sorted.
+Thanks for the review Krzysztof
 
->  
->    reg:
-> -    items:
-> -      - description: phy register
-> -      - description: ana register
-> -      - description: pma register
-> -      - description: dig register
-> +    minItems: 3
-> +    maxItems: 4
->  
->    reg-names:
-> -    itmes:
-> -      const: phy
-> -      const: ana
-> -      const: pma
-> -      const: dif
-> +    minItems: 3
-> +    maxItems: 4
->  
-> -  usb2-phy:
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
+Given my testing was not ok, and I am not sure what I did wrong exactly
+on my tests, is this the change I should do?
 
-I don't understand this diff. Why do you add cells if you do not have
-chidlren with addressing for new device (pcie)?
-
-> +
-> +  usb3-phy:
->      type: object
->  
->      properties:
-> -      reg: [0, 0x1000]
-> +      phys:
-> +        items:
-> +          - description: phandle to Serdes PHY
->  
-> -    airoha,usb2-monitor-clk-sel:
-> -      description: Describe what oscillator across the available 4
-> -        should be selected for USB 2.0 Slew Rate calibration.
-> -      $ref: /schemas/types.yaml#/definitions/uint32
-> -      enum: [0, 1, 2, 3]
-> +      '#phy-cells':
-> +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
-> +          as defined in dt-bindings/phy/phy.h.
-> +        const: 1
->  
-> -    '#phy-cells':
-> -      description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
-> -        as defined in dt-bindings/phy/phy.h.
-> -      const: 1
-> +    required:
-> +      - phys
-> +      - '#phy-cells'
->  
-> -  usb3-phy:
-> +    additionalProperties: false
-> +
-> +  pcie-phy:
-> +    type: object
-> +
-> +    properties:
-> +      phys:
-> +        items:
-> +          - description: phandle to Serdes PHY
-> +
-> +      '#phy-cells':
-> +        description: The cell contains the mode, PHY_TYPE_PCIE or PHY_TYPE_USB3,
-> +          as defined in dt-bindings/phy/phy.h.
-> +        const: 1
-> +
-> +    required:
-> +      - phys
-> +      - '#phy-cells'
-> +
-> +    additionalProperties: false
->  
-> -  phys:
-> -    items:
-> -      - description: phandle to Serdes PHY. Optional if USB 3.0 is not used.
-> +patternProperties:
-> +  '^usb2-phy@[0-9-a-f]+$':
-> +    type: object
-> +
-> +    properties:
-> +      reg:
-> +        enum: [0x0, 0x1000]
->  
-> +      airoha,usb2-monitor-clk-sel:
-> +        description: Describe what oscillator across the available 4
-> +          should be selected for USB 2.0 Slew Rate calibration.
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2, 3]
-> +
-> +      '#phy-cells':
-> +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
-> +          as defined in dt-bindings/phy/phy.h.
-> +        const: 1
-> +
-> +    required:
-> +      - reg
-> +      - airoha,usb2-monitor-clk-sel
-> +      - '#phy-cells'
-> +
-> +    additionalProperties: false
-
-Looking at the amount of changes this should not be the same binding.
-Also, things would be simpler if children were called 'phy', but OTOH
-why do you need children in the first place? Your pcie-phy child has no
-resources, except phy which can go to the parent device.
-
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+index 1f3daf002707..89cea0c14cf1 100644
+--- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
++++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+@@ -68,7 +68,8 @@ properties:
+     maxItems: 1
+ 
+   port:
+-    $ref: /schemas/graph.yaml#/properties/port
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
+     description: The LCDIF output port
 
