@@ -1,115 +1,107 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A23033E347
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 19:15:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1793345CCA;
+	Thu, 13 Aug 2026 19:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786648527; cv=none; b=hmTAV7a2MEAIGygkNYR5T6eGdQYIV6w7hXm41Y5FvXOE1Pvyc+InDAqQSVpfUfjgq2NqlpIkuUo4D/1mDtkSEPBmoQktNrgQMZWfdQPTZF5n7aJMQ/Qs0iZAUui0JdbHamLhRLb2+VgPko/jOvmbJy9rYkRbqYxhjsTJx7igHOs=
+	t=1786648700; cv=none; b=WfE3rpvQzwPKXmvI1RJV3iESrxYfieOjDVRu8V7YUwT8kNe50C1Vis3WouU5RXHq34cCZCPPJNPyJuQPBYw2GVPtsbGc5epklMZ2cKEIpUhqHgPXAjFmugTFtnVFrPbBen7pmJyHZhO/ZyJ+L/u4LcjRhtMnFstfk960c4jAvUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786648527; c=relaxed/simple;
-	bh=XTeaCcEc2SN8BtA8kLHMieDCplCMiP8uY0kYtrEqg4s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ITnk8AVSUJkMIh8bjwU9Qv8P8VZsEWIDqPOh2K0zZZMTtWbRE/irWxFOsOON9furVQTkj9WOdarSD669+WoWBZyrFa3KTNzE7WvATZxL5W1t8gaH5urFXjEgTGRbvVUWW4c/vlcWj7zZAOykGFqo6d5AOnQSfLhkRZRnF7RYZaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hd6VlOmS; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786648700; c=relaxed/simple;
+	bh=lO96tskk4BRZZKnOmL+tML8sLIREpAWv5tloB5iZl9w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QD+RZNFBi0ui14x72o3MeaP2rPLcfXiio4bLh4Ygga/DxSAayXR6jfs3OX+eTx/ss+QNDpd1t6jqKRU+2CaRzdEeVsLBcrSCw8FXYMG04g8Y7XuCs4w9oB9V0MuDbY2Ux+nhgQBIK/6hWTe8h2AJXdiZGrIavKk8soYXXgSKlpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enTLiGGs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hd6VlOmS"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47fecbb7000so97087f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 12:15:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786648524; x=1787253324; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XTeaCcEc2SN8BtA8kLHMieDCplCMiP8uY0kYtrEqg4s=;
-        b=hd6VlOmSAvR0YDn+QvjfNmSJ/F+fazdODr53SiezZOvzeZG8V0sV37xIyN5bNuAq3C
-         pTBHlNwZEpuiTcRLrhg5ZX7Ey7jOMODQQuYXcHar3rM7kzsIA52EM+46Iho15rHqQmRY
-         UuwTsRdcYcLtTfgUfNCwbHFhizsSEOfOcsxqH2YXhZxCuqP66MF6lEjW4GssHEEc/mid
-         g0RZcCc9ZAwE1qSTYVMV1Y/VbjFyZdBgA9Lk/R8yNODDQ5ZyTL7RPKl2wydzsuG7z14C
-         9JdGWVN/ywz4A7Kg+EKkApgOKKyYBfjnZ9OaQoks3Fw1tHG58+Rzbtpq0G4QTCzIeIdG
-         xOIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786648524; x=1787253324;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XTeaCcEc2SN8BtA8kLHMieDCplCMiP8uY0kYtrEqg4s=;
-        b=NnocClV33MIOgZzRv39BXeUqEFNbP4UmbhSvTKBo9Wul7Sv1e6qjfy+eHU7Q+ZL5UA
-         xWIV4uL7fJzuEdBG645Y2u+rAQn4Jo2ijW53UzwtYNTnqRWksMAq8Vz5LHpgLgNlH4Bu
-         gxwAm38FwwnudUwK9LiuG9dKovz3JulIyKWiUojSgXqoFz10EMUAsg+YD016lTtqLbl/
-         z/hZtPAM9uD7XKBDrMjYlEZc8OOZWzg1XAv/+OjAo5XgjUhe//orVOoJkrtqrGpRcxSM
-         fCOkdvLKJz1+DxJxGy35jyZpb0aBLpzB1ShnT4Nn6N4NJ0zalaMRbOiVTvehhkcQFg0l
-         9eDQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpDk9Er50hDMIm0Vb4tJGCCxGCyg4KO7k+TAPeaYvHqHNuTuUsq0TNBp+XqNLfBFPm/wl1moOtutCGR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3RYLXKPjc1pSrQlSnhRVj7XL3fuOexhqeoD/e9stPdHFi8BWJ
-	sWaLPANBWrb+odMgdfLTh0/qbWVQJD5H6At8WvYlYu+acu2jel94csLg
-X-Gm-Gg: AR+sD13benYN1BsnsQuzodqA94kT2qrT7niPVoItew8jq+8tRDTOaKwxIpTj2akMujG
-	jrerfPkQ69z4vcozwwwSDNoXUGZehig1OmHwf1jXS7AlqIP7gW2Z+eO+xKA2cAjOq3TQko4/vj9
-	LtjC1SgyNy8A2h6i2QU5Kxt8/fQOWoyNMF83UDHk7We3mZ0JGtfRkLf0IWOu1VNVZLPulX2tuhS
-	Huow1G3Z7xye8f/HPry13wmDPwG3gwLMOBcg6scQBSVXM3GRi2AoNlW3afI9UB7IZ1rql6H9dUO
-	VIuY9BsXfxnLSwUr0fZS+VYrTE3tfZKowIqev7cSNi8Sl7eMXN1szQFO+xcMh951txy/pYxVREO
-	nSiceLSv/+JN3DY45ACjQ9AQNhhGRtsrtx9JXAQFM9WGBm/Ea/ay/JpxU/xuTfw/p4Fq74lRbO0
-	q1acvZEA8+7Tca8ZC3+IW98VXKbEyB3A4GMgmhAD+tINiSM/3UUCucXEywDuLR3mp3Tw==
-X-Received: by 2002:a05:6000:38a:b0:481:5276:e4e3 with SMTP id ffacd0b85a97d-48160748b69mr654934f8f.19.1786648524165;
-        Thu, 13 Aug 2026 12:15:24 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f200752sm1618261f8f.1.2026.08.13.12.15.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 12:15:23 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: Re: [PATCH v4 0/4] ARM: dts: vf: Iris carrier board for the Colibri VF50 and VF61
-Date: Thu, 13 Aug 2026 21:15:22 +0200
-Message-ID: <20260813191522.2334974-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <CAOMZO5BwLCRd_cTV82J0KgPfSF6_kUKiSUbG-SKxNxiNu0VKOg@mail.gmail.com>
-References: <CAOMZO5BwLCRd_cTV82J0KgPfSF6_kUKiSUbG-SKxNxiNu0VKOg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enTLiGGs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630F21F00A3A;
+	Thu, 13 Aug 2026 19:18:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786648698;
+	bh=/bRmjgXu6JV/Aqm2iw8eY+RCx0tb3c4XDGxLtOQPdvw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=enTLiGGslO00jkvvSL897un/xaf5Ugipgm1k4q21z8leNO/t+FA1impndQ7jkZ73p
+	 c05iaf16umL/qe8WW7utfoNK9aHburZNBOIipCbYIpjnZzXvVMxrg25NZoF7NfBiIx
+	 TtFJyKMiiBav8CdmFVffaniQ/0cDg5ggn5ocb+XVeEnQXo3wWpuXJxqS7C+yy9rtec
+	 ge8XwuqLDyWMnsHCCVfvJ1fAMGtjliH37S1MSpEs9fCd52npgogQQtJA9C7oNDldEI
+	 6ApBp6nzqqe9NqHIrgPRT7jhFFXC1y7gUiUKJAc3nbOGDeUXT8aAIwgQGgejvCkbTi
+	 kB5WUcWIewOrg==
+Date: Thu, 13 Aug 2026 14:18:17 -0500
+From: Rob Herring <robh@kernel.org>
+To: Uday Kiran <challauday369@gmail.com>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+	skhan@linuxfoundation.org, tsbogend@alpha.franken.de,
+	krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
+	conor+dt@kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	me@brighamcampbell.com
+Subject: Re: [PATCH v2] dt-bindings: watchdog: microchip,pic32mzda-wdt:
+ Convert to DT schema
+Message-ID: <20260813191817.GA1981719-robh@kernel.org>
+References: <20260624055648.127399-1-challauday369@gmail.com>
+ <178406687202.3036881.4468660016404184803.robh@kernel.org>
+ <CAAj-GBnn8rGD6o5HmVfYtEksXsL8ZPKcc_AbfKUEHtTsN1pN-A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAj-GBnn8rGD6o5HmVfYtEksXsL8ZPKcc_AbfKUEHtTsN1pN-A@mail.gmail.com>
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On Thu, Aug 13, 2026 at 11:17:56PM +0530, Uday Kiran wrote:
+> On Wed, Jul 15, 2026 at 3:37 AM Rob Herring (Arm) <robh@kernel.org> wrote:
+> >
+> >
+> > On Wed, 24 Jun 2026 11:26:48 +0530, Udaya Kiran Challa wrote:
+> > > Convert Microchip PIC32 Watchdog Timer devicetree binding
+> > > from legacy text format to DT schema.
+> > >
+> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > > Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+> > > ---
+> > > Changelog:
+> > >
+> > > Changes since v1:
+> > > - Fix example indentation
+> > > - Correct example clock specifier from REF2CLK to LPRCCLK
+> > >
+> > > Link to v1:https://lore.kernel.org/all/20260620172354.155565-1-challauday369@gmail.com/
+> > > ---
+> > >  .../bindings/watchdog/microchip,pic32-wdt.txt | 18 --------
+> > >  .../watchdog/microchip,pic32mzda-wdt.yaml     | 44 +++++++++++++++++++
+> > >  2 files changed, 44 insertions(+), 18 deletions(-)
+> > >  delete mode 100644 Documentation/devicetree/bindings/watchdog/microchip,pic32-wdt.txt
+> > >  create mode 100644 Documentation/devicetree/bindings/watchdog/microchip,pic32mzda-wdt.yaml
+> > >
+> >
+> > Applied, thanks!
+> >
+> 
+> Thank you, Rob. There are similar microchip, pic32mzda patches related to spi,
+> sqi & rtc which are reviewed/acknowledged.
 
-Hi Fabio,
+I picked up watchdog only because watchdog DT patches have a tendency to 
+get missed. 
 
-> What about the latest mainline kernel, 7.2-rc7?
+> 1. microchip,pic32mzda-spi.yaml
+> https://lore.kernel.org/all/20260622-ingenious-finch-of-fantasy-7bafaf@quoll/
+> 
+> 2. microchip,pic32mzda-sqi.yaml
+> https://lore.kernel.org/all/20260625-omen-stark-6bb827ebcc43@spud/
 
-The series is based on it, the base-commit in the cover letter
-(3d6d817622b0) is 7.2-rc7; the 6.18 mentioned there is the LTS our
-reference image runs.
+You missed sending to linux-spi and/or Mark B on these. You'll need to 
+send another version.
 
-To make sure, I have now also boot tested exactly this combination on
-the hardware: 7.2-rc7 (multi_v7_defconfig) plus this series on the
-Colibri VF50 on an Iris boots to login, with Ethernet up, both PWM
-chips registering, the microSD slot, all three UARTs, the carrier RTC
-probing, the SODIMM gpio names in place, the EXT_IO pin group applied
-and both transceiver hogs holding their pins.
+> 
+> 3. microchip,pic32mzda-rtc.yaml
+> https://lore.kernel.org/all/20260703-identify-cringe-ef88079923cd@spud/
 
-One thing unrelated to this series showed up on the way: gpio-vf610
-has no get_direction callback, and the gpiolib in 7.2-rc7 now WARNs on
-every gpiod_get_direction() call because of that, so the boot log
-carries a number of identical gpiolib.c:431 backtraces on any Vybrid
-board. I will send a small gpio-vf610 patch for it separately.
+You missed Alexandre.
 
-Thanks,
-Mehmet
+In general, use what get_maintainers.pl gives you.
+
+Rob
