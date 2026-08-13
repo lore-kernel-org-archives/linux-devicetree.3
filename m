@@ -1,157 +1,73 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4323B7B79;
-	Thu, 13 Aug 2026 09:26:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1393B8111;
+	Thu, 13 Aug 2026 09:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786613213; cv=none; b=PrO56EjQViz9kZxswrEh3ge8uKnteBm0EAgsn/uyF1h8PBhb7FvhHE9OaUwGJTaKD7p/NISzxfSK5DciWT1kOVBtcI6IuBh0DZx45QXPZXKCeKkxwJPH6906e76CNBBWW1SIhRQyYydFVRaQ+BcB3gX29FYjxdqR2eX2Zz+5hNY=
+	t=1786613248; cv=none; b=AVG4RJzo7Og8DPABLJYURbFs5dP0/oPROiS3WNhJYZR6e9LTM2ZYJd8A8pAlIgZlDEkBAYQOAvZLTKa68iojQTIFcM6Sovj5aKCj6986zmvmEkDiS6VI+Qga6lF8WkWfGVvaiZQsh5Bkg6B6g10fjpVvzwTaY7mg7u+Jmyc8ZIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786613213; c=relaxed/simple;
-	bh=Z6v38tsb1CcOWA/5O8PCVvA+QbpJ3yaT73L5yIVeGoI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qPP7ZKozt4APAoIGdZS8bAzinwvmDjPYSxlBeZCB801QKUT6akSOultWMBpHjJCFP3yFbXdplLvzozVmM1uM/pYvR7I8Cn8AtYsi5xXIzOckQx3e33GeRK1tOsG6vR3ZITx9U/nlUC8ho1L0Wja0+vXG8EI9j1PvuI3d4mvEWc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=nKP72OPT; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1786613248; c=relaxed/simple;
+	bh=OZfQtgwufem8rlbDbiG95vnf2U3lVvDw16t7Kkqt7d4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MX3hio8aAG6+E3lmeg3Wnajo3dGxO2+e7hXQCJs26KXpcLTj2sT3mf8FrPcM/auwOZIVhs02iFgJdxZzRBmKQFhrKyXB+eMqJXxikB0TGpgd4EtKA4m4xvRREfs45vhkl3Rfk8uAwuSSi/YP8YGHSVl+wFiKhJbO+8OcVNat+HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+yDO3rS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="nKP72OPT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=IPz+pRNv6M2Bl3l0XU+3yKO/cuTqG+5OunpOwazZoio=; b=nKP72OPTQMRqcB57kmWSrGWTPj
-	esmryEFUibscPV2WL4LQE/LUfZ7EGKiutgMKBrrTAw5Pq3Uc8DXXtwU79wtvhDpTm1AA/nnzyw/RE
-	1qNnrFopYMghltvOCStmG6zSNtEts0rTgQXJtWJICX88j4x0JJt9Cao1vKCerX8ilg7PVrjDlqs6B
-	3Y5xoCiRLZ75fZWuKzkUE0an5ELxFy1MgnIYvk1CwTA9oWDP3JbCFVZ8VzIbsbS/Fr8cBq0enY7QK
-	i904iLYNM0Gv0aQ7CXWk6fUBbSX8pjk5tiIhU1Q5ajJ2wPMXxXJR3dd9SJg805E52gv57qEfwGwLX
-	Us7ErV7g==;
-Received: from sslproxy01.your-server.de ([78.46.139.224])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wuROI-000EhZ-0C;
-	Thu, 13 Aug 2026 11:06:22 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wuROH-000CPn-1b;
-	Thu, 13 Aug 2026 11:06:21 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Francesco Dolcini <francesco@dolcini.it>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject:
- Re: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width property
-Date: Thu, 13 Aug 2026 11:06:20 +0200
-Message-ID: <4870648.tdWV9SEqCh@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <cf1e1514-fb92-46cd-95a3-9c857bf08f66@kernel.org>
-References:
- <20260812132954.148571-1-francesco@dolcini.it> <7661119.LvFx2qVVIh@steina-w>
- <cf1e1514-fb92-46cd-95a3-9c857bf08f66@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+yDO3rS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3931C1F000E9;
+	Thu, 13 Aug 2026 09:27:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786613244;
+	bh=YFIri72onxVC5FarQAPn92IFND73hAGbg16B+ainggo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g+yDO3rSui4UVsRgyuXzXqaKB02XA6wVoa0I8/2IYgbr0rxOEoFwcPih2/JDzKr1c
+	 m1xB0qOvlH4kQ9520QG+68G9eQwoN8xULndlGDqUp7Id4zjWgXKzCd7cVmGkgQDd99
+	 /MyvEl9GTVe3M5JBylTUqA8RxcXrZpnm/RgIiA10ECwahZcc3VrxSgmP3GVGjUVMlB
+	 dkr/RVX6RtQD2/1AaPZVAHgpnkE3nNryuWLhNQOAgx/kHyWi9QSUuaM1UxFllFXwlo
+	 rVfqLEOYqdSHpwyujUIvbeybdPl6pE0klXrg1nMx4l2PQazr52JtgsVn6Upbpc/B2J
+	 RShbhgc+qcMOw==
+Date: Thu, 13 Aug 2026 11:27:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v1 1/5] dt-bindings: sound: qcom,q6dsp-lpass-ports:
+ Rename QAIF clock IDs
+Message-ID: <20260813-lucky-hog-of-contentment-333695@quoll>
+References: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260808181948.2489187-2-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28091/Thu Aug 13 08:25:54 2026)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260808181948.2489187-2-prasad.kumpatla@oss.qualcomm.com>
 
-Am Donnerstag, 13. August 2026, 11:03:06 CEST schrieb Krzysztof Kozlowski:
-> On 13/08/2026 10:56, Alexander Stein wrote:
-> > Am Donnerstag, 13. August 2026, 10:34:02 CEST schrieb Francesco Dolcini:
-> >> On Thu, Aug 13, 2026 at 10:10:43AM +0200, Krzysztof Kozlowski wrote:
-> >>> On Wed, Aug 12, 2026 at 03:29:49PM +0200, Francesco Dolcini wrote:
-> >>>> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> >>>>
-> >>>> The DPI output of the LCD interface can be configured with a bus wid=
-th
-> >>>> of 16, 18, or 24 bits. Introduce a bus-width property to the output
-> >>>> endpoint, specifying the number of parallel RGB bits connected.
-> >>>>
-> >>>> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> >>>> ---
-> >>>> v3: use video-interfaces.yaml
-> >>>> v2: use the common bus-width property instead of the legacy interfac=
-e-pix-fmt
-> >>>> ---
-> >>>>  Documentation/devicetree/bindings/display/fsl,lcdif.yaml | 9 ++++++=
-+++
-> >>>>  1 file changed, 9 insertions(+)
-> >>>>
-> >>>> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yam=
-l b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> >>>> index 2dd0411ec651..1f3daf002707 100644
-> >>>> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> >>>> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> >>>> @@ -71,6 +71,15 @@ properties:
-> >>>>      $ref: /schemas/graph.yaml#/properties/port
-> >>>>      description: The LCDIF output port
-> >>>> =20
-> >>>> +    properties:
-> >>>> +      endpoint:
-> >>>> +        $ref: /schemas/media/video-interfaces.yaml
-> >>>
-> >>> This won't work, you need to test your DTS. The port schema does not
-> >>> allow video-interfaces properties. You need port-base, like in every
-> >>> other case.
-> >>
-> >> Thanks for the review Krzysztof
-> >>
-> >> Given my testing was not ok, and I am not sure what I did wrong exactly
-> >> on my tests, is this the change I should do?
->=20
-> Yes
->=20
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml =
-b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> >> index 1f3daf002707..89cea0c14cf1 100644
-> >> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> >> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> >> @@ -68,7 +68,8 @@ properties:
-> >>      maxItems: 1
-> >> =20
-> >>    port:
-> >> -    $ref: /schemas/graph.yaml#/properties/port
-> >> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> >> +    unevaluatedProperties: false
-> >>      description: The LCDIF output port
-> >=20
-> > With that change:
-> > Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
->=20
-> Please do not. Build testing is not testing (in the meaning of
-> "Tested-by" tag), otherwise where is Rob's tested-by tag for all the
-> patches he build tested?
+On Sat, Aug 08, 2026 at 11:49:44PM +0530, Prasad Kumpatla wrote:
+> The QAIF clock IDs were added with a LAPSS prefix typo. These IDs are
+> new, so rename them directly to the existing LPASS naming convention
+> instead of keeping misspelled aliases.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+> ---
+>  .../sound/qcom,q6dsp-lpass-ports.h            | 56 +++++++++----------
+>  1 file changed, 28 insertions(+), 28 deletions(-)
 
-Well, I tested this on actual hardware, see patch 2. But then this
-is irrelevant for for dt-bindings. So let's go with:
-Acked-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+You never built your code...
 
-Thanks and best regards,
-Alexander
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+Fixing existing defines is on the edge of churn, because you would need
+to duplicate the defines. It's fine if you insist, but at least this has
+to be done correctly.
 
+Best regards,
+Krzysztof
 
