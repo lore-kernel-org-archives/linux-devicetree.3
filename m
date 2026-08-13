@@ -1,244 +1,396 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EBF47606E
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 12:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E75473C65
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 12:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786624844; cv=none; b=c5Qfb2NkSYho3uU5//80elBRlkxEuUAjEvTn43dMeKzdtX9dvg2NwRzYjwPVfP0kNXhhTMRN0rRFAOYPOLKL+wE+LCIMjLT/boUFpzXCB1hgixwXkzCIUvslzDBYx9y2msQOAcUuch/ccvJGG5W32P6arC04eV42JHt+D+50IGc=
+	t=1786624856; cv=none; b=lQbUIDOUcrbUF4q/RtFanGcgVU+qRnQdbc7K2yWrQQr+G5L8aOIexQNPh4Ya/CiL/GzCsmaXiXfaGr5IHddTWa6Q2+JPi94K8fuq/OwNdvLYytNsVUgXVjoUNqVxbXRD+xLf+SWQ4Bt99DaAs5YF1/b6ko+SesNOUvDhdQ5LZUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786624844; c=relaxed/simple;
-	bh=WYwkX1yh0Pta1wRluTjZ/jH/1tys5sS0UlkmPOp1EPE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XYwW4psZhqROrCRSv1Xy8jc8wTeZgLYZCqhChottzWbLCyn9BnG3u8BmEAHApXeIbKpdkEuoWkq72JuVlMsbWJNlUjnZs7K7THbNuOlsWBz2Ki3NYyEwBvgTacTWZUCpsbIKn2sAHKEy5VC5EizAemQhSD12ibgdGjFOXjbw0UM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Pzf8go5x; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1786624856; c=relaxed/simple;
+	bh=CSwMVYDVlvkUCpgKFitZPvydHYntWpbbsGwJ1jwaghw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mmNJoE8puB9rIL2/LRsxPqjMoZMN4joKRr2CWaEPv7qltj+8JfrOpmYXdD/WhA2I6OjAsIWy4KsF0ifm34YqLCVi4RC1SDJPKlp6fciyPKyleuIfDCR+4J5Ya9ZpPFNWiLY0Hy78JeaViTeuwbB+o+LHhaGcYB9pqOBAp045dq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nodWz2A4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Pzf8go5x"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495437bb891so7898085e9.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 05:40:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786624841; x=1787229641; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VJPCpNnotx0ECpUt+MKP1Xchlx2xXWGrMhf2UEWt9n0=;
-        b=Pzf8go5xmCnqTVPBvSA1zSC+H6VD7PQdkhX0FU3lLPEStYw3qmZ7+zwju2ag1FzZR6
-         96qq144ifJzdovPioTgA4IdNM/dYk35bU/CEiJs2enSdwYyGyxGh4RBgAXqHff9iVybU
-         HdhSDID2rtQlUGJee4XMdyHCSDOrJTBAyDdVoxDWvGaEGlZPj3wc8rnUDkonOfrRMhMc
-         plkxg4rNAopcy1h0KBGG2Y6H/Z4qG8GDBwMRfVFchTqxvlD3Dofv12CKu1s+jO4nFSXO
-         tkU8lkClPyJ6TyFrX93aSQvYxnxMPBWeIKqza/FbaN0bDlUy6QIY1amV4R6tB7YH+WzN
-         2Gjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786624841; x=1787229641;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VJPCpNnotx0ECpUt+MKP1Xchlx2xXWGrMhf2UEWt9n0=;
-        b=i9qIf/5pRbR3fKbkVgw7JInWDUSSk3AzWIkWxDEmgjTOOVjTVSZQ68NK/atGtpVg83
-         riC8z+ZUKydIRMAglTCz7U8sC7Q968f0Y4jFdcnz/mh6sbHNzAFEpsdLsYPfC4KLQZJX
-         jb4SSQqp89IyMToWNqY47ifxvRGyUc3fHayFo8sz5WP/IFYHbTjN9Yh2HXxTOSSFu1ya
-         PJ7MKSjmOG1RlAOJU6iGQg4NnkPFEM2utbLP1v3ympeDzywqDCeZHH3vasB4iGYZrlRY
-         SBmMaTFOsuUqxMiCb2kiFVEdeUbaE1ydPUFYM7A+l99ihigi+bx2Uayfz1QU00W7YbMl
-         Rr8Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rpdqba1IMna6pASHK9BAz8tQHlInTZy8qH7jJ7xanEd/jKkzVBjy1h+PSF0qwj2TaBAPne+lVbah6pn@vger.kernel.org
-X-Gm-Message-State: AOJu0YwggfAZ4lZQRr5cTnWW22mTkhbcrQSO5mkLi/U+KlxW5dUiGKEq
-	aSeEn40U9a604lQ5+c2HJkw1uKhLIFGQW5yeQiCOLoxpa30Z0kvvnJMNyeRAI/WrncA=
-X-Gm-Gg: AR+sD12bJ0Hyjl+yQKg3hSjpV4A9q9dPqq3ZEVTcVag/1V+Yerm1g8c8YsZgaO2Ctn2
-	EGMX+imRvu34JYoQ8spGkAvvUKS81epRfsiY4w+WsYlvukiLA38HWBtveT/W4ljkBWAcDSVykO9
-	UOYZMPxT0FmaUtMW+eeFPggDdZJl4vQGN62CgSWrp0f7iejGFRiWpvpwlF8g801ZuLHMOxRTFhO
-	rkkMmUwTZ5kUbBCugCZhthbuVrn+XPnGm4BzndGtk+l/zXE+LLAx7nfAQH0KLxEieXOSp/Le0O0
-	KHW+P9T1daAOD31kayI6dXR1+8pm7Aa/SPM5RJ7W9hfFbg/F1QHahzlhLqBCxq+N+X5/rZ21r40
-	Ps0qBfAhJNobAtlve16QSJbu5kp4oImyO9OQXlrEbstzmoc6Hbwty0fXeZ30jpHmoT7Vp8yctby
-	F6WAwjsIEPIB+XOW6ZZy7BMxIz+dSUpwjxFt1Ifwi4mAUU04BHfAeG9upkFFZMGcd9qpnTpXQq
-X-Received: by 2002:a05:600d:6409:10b0:499:84fc:4548 with SMTP id 5b1f17b1804b1-49984fc45c0mr21387325e9.5.1786624840981;
-        Thu, 13 Aug 2026 05:40:40 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff24:7210:4e0e:b1ef:ec35:a41b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49982121658sm65870555e9.3.2026.08.13.05.40.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 05:40:40 -0700 (PDT)
-Date: Thu, 13 Aug 2026 14:40:29 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	chris.lew@oss.qualcomm.com,
-	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Subject: Re: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
- single coherent block
-Message-ID: <an27PVxkCpD09xSR@linaro.org>
-References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
- <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
- <alXm0rp3NK62G3-3@linaro.org>
- <c8417ff3-db92-446a-acf8-8c73c83b85de@oss.qualcomm.com>
- <amMxkrW3mu48HIOr@linaro.org>
- <63bae39b-1256-4e19-a9de-840d8752ec69@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nodWz2A4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2981F000E9;
+	Thu, 13 Aug 2026 12:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786624854;
+	bh=Pbc9z8iogskPfMq63tZjBDAzsX8IgFJTxekOm6FDbBA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nodWz2A4L8MwxG7hScsW/eTr1GIbsEM2EmTiYu0T8Erwt5GXvR/KyssLM+EnXBcNf
+	 6UKPfMz0aCU0gn7sCMf4bHG8OKFrVufwtIjngLXY8eugZn7IOsin7yJGRTOIHPG7O1
+	 gARHPZvR6rhmM4ea5kUFqO8im0AqCYkYixGR2a0nnHK8hTkw5YaTT7F4FYF/GCrpfZ
+	 JSJ+OAlXaW3m5HUXu/pImo/CFTbxwj+5dH6A11knygv1q4Yx92cCfitHTg+3yVGSPt
+	 +PNzDI2lC0YXkph1+S9pE/opfau1ISLXevRG/2OW/onk1HriKOulJKcCgAHQ1hLqAz
+	 57SX4TIwyBChw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] iio: accel: icm42370: Add FIFO buffer
+ functionality
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kanak Shilledar" <kanak.shilledar@axis.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260813-b4-inv_icm42370p-v2-3-11aedfdf76d3@axis.com>
+References: <20260813-b4-inv_icm42370p-v2-0-11aedfdf76d3@axis.com>
+ <20260813-b4-inv_icm42370p-v2-3-11aedfdf76d3@axis.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 12:40:53 +0000
+Message-Id: <20260813124054.7C2981F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <63bae39b-1256-4e19-a9de-840d8752ec69@oss.qualcomm.com>
 
-On Thu, Aug 13, 2026 at 02:35:01PM +0530, Vishnu Santhosh wrote:
-> On 24-07-2026 03:04 pm, Stephan Gerhold wrote:
-> > On Fri, Jul 24, 2026 at 10:16:31AM +0530, Vishnu Santhosh wrote:
-> > > On 14-07-2026 01:05 pm, Stephan Gerhold wrote:
-> > > > On Tue, Jul 14, 2026 at 11:02:32AM +0530, Vishnu Santhosh wrote:
-> > > > > On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
-> > > > > NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
-> > > > > per-region access control, each individually DMA-mapped RX buffer
-> > > > > requires its own XPU resource group (RG). With ~16 RGs available, the
-> > > > > 32 per-buffer dma_map_single() calls exhaust the table and the first
-> > > > > inbound transfer faults with an XPU violation.
-> > > > > 
-> > > > > BAM-DMUX is a singleton (exactly one instance per SoC), so the
-> > > > > destination VMID does not need to be a DT property; it is looked up
-> > > > > from the compatible string's match data instead. Add struct
-> > > > > bam_dmux_data with a single vmid field, and a shikra_data instance
-> > > > > hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
-> > > > > 
-> > > > > When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
-> > > > > a single contiguous dma_alloc_coherent() block and SCM-assign that
-> > > > > block to HLOS plus the VMID once at probe. This reduces RG consumption
-> > > > > from 32 to 1. The block is never reclaimed across a modem power cycle
-> > > > > (bam_dmux_power_off() does not touch it), so the probe-time assignment
-> > > > > covers every subsequent restart without re-assigning or reclaiming. It
-> > > > > is reclaimed to HLOS only once, at remove or on a probe error, and if
-> > > > > that reclaim fails it is leaked rather than returned to the page
-> > > > > allocator.
-> > > > > 
-> > > > > Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
-> > > > > the block, so no per-buffer mapping is needed at power-on. Because the
-> > > > > coherent block is not page-backed, received payload is copied into a
-> > > > > regular netdev skb before handoff to the network stack; this is an
-> > > > > unavoidable extra copy on the XPU-enforced RX path.
-> > > > > 
-> > > > > Platforms without match data are unaffected: rx_virt stays NULL, no
-> > > > > coherent memory is allocated, and the per-buffer dma_map_single() path
-> > > > > is unchanged.
-> > > > > 
-> > > > > Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> > > > > Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> > > > > Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> > > > So how do you handle TX buffers? Right now, they are just passed on from
-> > > > the net subsystem. There can be up to 32 TX buffers in progress as well.
-> > > > 
-> > > > Overall, I have mixed feelings about this patch. It looks reasonably
-> > > > simple, but fundamentally I don't understand why we need to go back to
-> > > > the old days of implementing protection using a highly limited MPU (in
-> > > > your case: the xPU).
-> > > > 
-> > > > Why does the setup of BAM-DMUX differ e.g. from the setup for the crypto
-> > > > engine? Crypto is also using bam-dma, but it avoids this inflexibility
-> > > > by making use of the &apps_smmu. Is BAM-DMUX not covered by the SMMU? Or
-> > > > did you just decide to bypass the SMMU in this case? (If so: Why?)
-> > > I checked with secure systems team on this. Crypto BAM is
-> > > behind apps_smmu, so protection is enforced through the SMMU's Stage-2
-> > > page tables.
-> > > 
-> > > A2 BAM (used by BAM-DMUX) is present in secure domain and does not
-> > > support Stage-2 translation on this SoC, and there is no IOMMU domain
-> > > that can be attached to it. The only protection mechanism available is
-> > > the xPU.
-> > > 
-> >
-> > Thanks for investigating this!
-> > 
-> > So is this a hardware limitation or something you could change with a
-> > firmware update? Could you move the A2 BAM out of the secure domain and
-> > protect it via the IOMMU instead of the xPU mechanism? The other modern
-> > platforms with IPA do not have this limitation, they can use the IOMMU
-> > for this.
-> > 
-> > We can try to support the xPU protection mechanism in the BAM-DMUX
-> > driver, but it's pretty bad from a performance and memory usage point of
-> > view if you need to copy buffers around multiple times. So if you have
-> > some way to change this in the firmware (and there is still time to do
-> > so before production boards ship), I would strongly recommend to
-> > investigate that.
-> > 
-> 
-> Based on what we confirmed with the Secure Systems team, this is a limitation
-> of the current Shikra platform rather than something that can be addressed
-> through a firmware-only update.
-> 
-> The A2 BAM used by BAM-DMUX is not connected to an SMMU/IOMMU domain on Shikra,
-> which means Stage-2 translation is not available for this path. As a result,
-> it is not possible to move this path behind an IOMMU.
-> 
-> Modern IPA-based platforms differ because their data paths are physically routed
-> through SMMU interfaces and therefore do not rely on VMID/xPU ownership assignment
-> for this type of access control. On Shikra, the A2 BAM path is protected using the
-> xPU3 VM-based access-control model, where DDR memory access is restricted and
-> granted through the request-based Hypervisor VM assignment framework. In contrast,
-> older targets relied on the earlier xPU2 resource-sharing model, in which modem
-> access did not require this type of explicit VM ownership configuration. This
-> architectural difference explains why the issue does not occur on those older platforms.
-> 
-> So, for this path on Shikra, SCM-driven VMID assignment remains the only practical solution.
-> 
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] Missing `available_scan_masks` causes IIO buffer data corruption w=
+hen channels are disabled.
+- [High] Incorrect endianness parsing and scaling of the hardware `FIFO_COU=
+NT` register.
+- [High] Enabling only the TEMP channel causes the IIO buffer to hang indef=
+initely.
+- [High] Hardware registers are accessed without acquiring PM runtime in sy=
+sfs and IIO core callbacks.
+- [Medium] Mixing `goto` error handling with `guard(mutex)` causes device l=
+ock to be held during sleeps.
+- [Medium] The internal FIFO state tracker `data->fifo.on` leaks when hardw=
+are configuration fails.
+- [Medium] The sensor hardware is left powered on indefinitely if configura=
+tion steps fail during buffer state transitions.
+- [Medium] The FIFO watermark interrupt is permanently disabled if updating=
+ the watermark register fails.
+--
 
-Ok, thanks for looking into this further.
+--- Patch [3]: [PATCH v2 3/3] iio: accel: icm42370: Add FIFO buffer functio=
+nality ---
+commit 04755a7b27e94b2f885caf4cb6fed3815002934a
+Author: Kanak Shilledar <kanak.shilledar@axis.com>
+Subject: iio: accel: icm42370: Add FIFO buffer functionality
 
-Can you please try the following as alternative for the implementation?
+Add support for the hardware FIFO buffer to support high data rate capture.
+This includes necessary IIO buffer setup ops, watermark management and FIFO
+packet decoding. The accelerometer has 2.25kB FIFO size.
 
-1. Make sure that you have CONFIG_DMA_RESTRICTED_POOL=y.
-2. Define a restricted DMA pool for BAM-DMUX, e.g.:
+> diff --git a/drivers/iio/accel/inv_icm42370_buffer.c b/drivers/iio/accel/=
+inv_icm42370_buffer.c
+> new file mode 100644
+> index 0000000000000..c6a4d313c92c5
+> --- /dev/null
+> +++ b/drivers/iio/accel/inv_icm42370_buffer.c
+[ ... ]
+> +int inv_icm42370_buffer_update_watermark(struct inv_icm42370_data *data)
+> +{
+[ ... ]
+> +	/* changing FIFO watermark requires to turn off watermark interrupt */
+> +	ret =3D regmap_update_bits_check(
+> +		data->map, INV_ICM42370_REG_INT_SOURCE0,
+> +		INV_ICM42370_INT_SOURCE0_FIFO_THS_INT1_EN, 0, &restore);
+> +	if (ret)
+> +		return ret;
+> +
+> +	raw_wm =3D INV_ICM42370_FIFO_WATERMARK_VAL(wm_size);
+> +	memcpy(data->buffer, &raw_wm, sizeof(raw_wm));
+> +	ret =3D regmap_bulk_write(data->map, INV_ICM42370_REG_FIFO_WATERMARK,
+> +				data->buffer, sizeof(raw_wm));
+> +	if (ret)
+> +		return ret;
+        ^^^^^^^^^^
+[Severity: Medium]
+Will this return leave the watermark interrupt permanently disabled? If
+regmap_bulk_write() fails, the function exits before the restore block is
+reached, which might prevent future watermark interrupts.
 
-&{/reserved-memory} {
-        bam_dmux_pool: restricted-dma-pool {
-	    compatible = "restricted-dma-pool";
-            size = <0x40000>;	/* 32*2K*2 = 128K minimum, but 256K might be safer */
-	    alignment = <...>;	/* Check xPU alignment requirements */
-        };
-};
+> +
+> +	/* restore watermark interrupt */
+> +	if (restore) {
+> +		ret =3D regmap_set_bits(
+> +			data->map, INV_ICM42370_REG_INT_SOURCE0,
+> +			INV_ICM42370_INT_SOURCE0_FIFO_THS_INT1_EN);
+[ ... ]
+> +static int inv_icm42370_buffer_postenable(struct iio_dev *indio_dev)
+> +{
+[ ... ]
+> +	/* when FIFO_CONFIG_STREAM bit is set FIFO is enabled, so
+> +	 * increase the count
+> +	 */
+> +	data->fifo.on++;
+> +
+> +	ret =3D regmap_bulk_read(data->map, INV_ICM42370_REG_FIFO_COUNT, data->=
+buffer,
+> +			       2);
+> +	if (ret)
+> +		return ret;
+        ^^^^^^^^^^
+[Severity: Medium]
+Does this error path leak the internal FIFO state tracker? The
+data->fifo.on counter is incremented, but subsequent failures exit the
+function without rolling it back. This might lead to silent failures when
+enabling data capture later.
 
-3. Assign to BAM-DMUX together with the qcom,vmid:
+> +
+> +	ret =3D regmap_set_bits(data->map, INV_ICM42370_REG_INT_SOURCE0,
+> +			      INV_ICM42370_INT_SOURCE0_FIFO_THS_INT1_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int inv_icm42370_buffer_postdisable(struct iio_dev *indio_dev)
+> +{
+[ ... ]
+> +	guard(mutex)(&data->lock);
+> +
+> +	inv_sensors_timestamp_apply_odr(ts, 0, 0, 0);
+> +
+> +	ret =3D inv_icm42370_buffer_set_fifo_en(data, data->fifo.en & ~sensor);
+> +	if (ret)
+> +		goto out_unlock;
+> +
+> +	*watermark =3D 0;
+> +	ret =3D inv_icm42370_buffer_update_watermark(data);
+> +	if (ret)
+> +		goto out_unlock;
+        ^^^^^^^^^^^^^^
+[Severity: Medium]
+If the watermark update fails, could this leave the sensor hardware powered
+on indefinitely? The failure skips the INV_ICM42370_SENSOR_MODE_OFF
+configuration below, which might cause a power leak.
 
-&bam_dmux {
-	memory-region = <&bam_dmux_pool>;
-	qcom,vmid = <QCOM_SCM_VMID_NAV>;
-};
+> +
+> +	conf.mode =3D INV_ICM42370_SENSOR_MODE_OFF;
+> +	ret =3D inv_icm42370_set_accel_conf(data, &conf, &sleep_sensor);
+> +	if (ret)
+> +		goto out_unlock;
+> +
+> +out_unlock:
+> +	/* sleep maximum required time */
+> +	sleep =3D max(sleep_sensor, sleep_temp);
+> +	if (sleep)
+> +		msleep(sleep);
+> +
+> +	pm_runtime_put_autosuspend(dev);
+> +
+> +	return ret;
+        ^^^^^^^^^^
+[Severity: Medium]
+Are we holding the mutex during the sleep and autosuspend operations? Since
+guard() is used for locking, but error handling relies on goto out_unlock,
+the lock is not released at the label but held until the function exits.
 
-4. Extend qcom_bam_dmux.c to look up the DMA pool address and make it
-   accessible using SCM: Call of_reserved_mem_lookup() to get the
-   region, then invoke qcom_scm_assign_mem() with that.
+> +}
+[ ... ]
+> +int inv_icm42370_buffer_fifo_read(struct inv_icm42370_data *data,
+> +				  unsigned int max)
+> +{
+[ ... ]
+> +	/* Check and limit number of samples if requested. */
+> +	fifo_nb =3D le16_to_cpup(raw_fifo_count);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[Severity: High]
+Since the FIFO_COUNT is configured to use Big Endian in buffer_init(), is it
+correct to parse it using le16_to_cpup() here? This might cause a massive
+miscalculation of the count on little-endian systems.
 
-5. Keep RX/TX DMA code paths in qcom_bam_dmux.c unchanged.
+> +	if (fifo_nb =3D=3D 0)
+> +		return 0;
+> +	if (max > 0 && fifo_nb > max)
+> +		fifo_nb =3D max;
+> +
+> +	/*
+> +	 * Read all FIFO data into the internal buffer, clamping the
+> +	 * device-reported count to the buffer capacity.
+> +	 */
+> +	data->fifo.count =3D min(fifo_nb * packet_size, INV_ICM42370_FIFO_SIZE_=
+MAX);
+                               ^^^^^^^^^^^^^^^^^^^^^
+[Severity: High]
+Does this inadvertently inflate the read length? If the hardware count is
+configured to report bytes instead of samples, multiplying it by packet_size
+might result in reading vastly more bytes than the FIFO contains.
 
-6. When testing, make sure the kernel log contains
-   "Reserved memory: created restricted DMA pool at %pa, size %ld MiB"
+> +	ret =3D regmap_noinc_read(data->map, INV_ICM42370_REG_FIFO_DATA,
+> +				data->fifo.data, data->fifo.count);
+[ ... ]
+> +int inv_icm42370_buffer_init(struct inv_icm42370_data *data)
+> +{
+[ ... ]
+> +	/*
+> +	 * Default FIFO configuration (bits 6 to 5)
+> +	 * - FIFO count in bytes
+> +	 * - FIFO count in big endian
+> +	 */
+> +	val =3D INV_ICM42370_INTF_CONFIG0_FIFO_COUNT_ENDIAN;
+> +	ret =3D regmap_update_bits(data->map, INV_ICM42370_REG_INTF_CONFIG0,
+> +				 GENMASK(6, 5), val);
+[ ... ]
+> diff --git a/drivers/iio/accel/inv_icm42370_core.c b/drivers/iio/accel/in=
+v_icm42370_core.c
+> index 6266362e83f6a..b1713a2f533c8 100644
+> --- a/drivers/iio/accel/inv_icm42370_core.c
+> +++ b/drivers/iio/accel/inv_icm42370_core.c
+[ ... ]
+> +/* enable accelerometer sensor and FIFO write */
+> +static int inv_icm42370_accel_update_scan_mode(struct iio_dev *indio_dev,
+> +					       const unsigned long *scan_mask)
+> +{
+> +	struct inv_icm42370_data *st =3D iio_priv(indio_dev);
+> +	struct inv_icm42370_conf conf =3D INV_ICM42370_SENSOR_CONF_INIT;
+> +	unsigned int fifo_en =3D 0;
+> +	unsigned int sleep_accel =3D 0;
+> +	int ret;
+> +
+> +	guard(mutex)(&st->lock);
+        ^^^^^^^^^^^^^^^^^^^^^^^
+[Severity: High]
+Is it possible this function gets called when the device is asleep? The IIO
+core might invoke update_scan_mode before preenable. Missing a
+pm_runtime_resume_and_get() here could lead to hardware accesses on a
+suspended device.
 
-7. Add memory-region and qcom,vmid as optional in dt-bindings.
-   Add dependency: if qcom,vmid is specified, memory-region must be
-   specified.
+> +
+> +	if (*scan_mask & INV_ICM42370_SCAN_MASK_ACCEL_3AXIS) {
+> +		/* enable accel sensor */
+> +		conf.mode =3D st->conf.mode;
+> +		conf.filter =3D st->filter;
+> +
+> +		ret =3D inv_icm42370_set_accel_conf(st, &conf, &sleep_accel);
+> +		if (ret)
+> +			goto out;
+> +
+> +		fifo_en |=3D INV_ICM42370_SENSOR_ACCEL;
+> +	}
+> +
+> +	/* update data FIFO write */
+> +	ret =3D inv_icm42370_buffer_set_fifo_en(st, fifo_en | st->fifo.en);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[Severity: High]
+What happens if userspace requests only the TEMP channel? In that case,
+fifo_en evaluates to 0, meaning the sensor isn't powered on and the FIFO
+won't fill. This might cause the IIO buffer to hang indefinitely since
+watermark interrupts would never be generated.
 
-In a quick test (without the VMID stuff) this worked quite well for me,
-SWIOTLB should handle the copying behind the scenes without further
-changes to the qcom_bam_dmux driver.
+[Severity: Medium]
+Also, if inv_icm42370_buffer_set_fifo_en() fails here, the function returns
+without rolling back the sensor to its OFF state. Could this leave the sens=
+or
+hardware powered on indefinitely and drain power?
 
-I would prefer that over complicating the driver with two separate ways
-of buffer management. AFAICT, the restricted DMA feature is meant for
-this kind of setup where there is no IOMMU but the firmware can still
-restrict memory accesses to a limited amount of regions, see
-https://lwn.net/Articles/841916/ for a short introduction.
+> +
+> +out:
+> +	if (sleep_accel)
+> +		msleep(sleep_accel);
+> +
+> +	return ret;
+        ^^^^^^^^^^
+[Severity: Medium]
+Similar to the postdisable function, does using goto out with guard() cause
+the mutex to be held during the msleep() call, stalling concurrent driver
+operations?
 
-Thanks,
-Stephan
+> +}
+[ ... ]
+> +static int inv_icm42370_accel_hwfifo_set_watermark(struct iio_dev *indio=
+_dev,
+> +						   unsigned int val)
+> +{
+> +	struct inv_icm42370_data *st =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	st->fifo.watermark.accel =3D val;
+> +	ret =3D inv_icm42370_buffer_update_watermark(st);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[Severity: High]
+Does this interact with hardware registers without acquiring PM runtime? As=
+ a
+sysfs callback, this might be executed while the device is in auto-suspend,
+causing writes to a sleeping device.
+
+> +
+> +	return ret;
+> +}
+> +
+> +static int inv_icm42370_accel_hwfifo_flush(struct iio_dev *indio_dev,
+> +					   unsigned int count)
+> +{
+> +	struct inv_icm42370_data *st =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	if (count =3D=3D 0)
+> +		return 0;
+> +
+> +	mutex_lock(&st->lock);
+> +
+> +	ret =3D inv_icm42370_buffer_hwfifo_flush(st, count);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[Severity: High]
+Is it possible this flush sequence executes on a suspended device? There
+doesn't appear to be a pm_runtime lock here before accessing the hardware
+registers.
+
+> +	if (!ret)
+> +		ret =3D st->fifo.nb.accel;
+> +
+> +	mutex_unlock(&st->lock);
+> +
+> +	return ret;
+> +}
+[ ... ]
+>  struct iio_dev *inv_icm42370_accel_init(struct iio_dev *indio_dev,
+>  					struct inv_icm42370_data *data)
+>  {
+[ ... ]
+>  	indio_dev->name =3D "inv_icm42370";
+>  	indio_dev->info =3D &inv_icm42370_info;
+> -	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> +	indio_dev->modes =3D INDIO_DIRECT_MODE | INDIO_ALL_BUFFER_MODES;
+>  	indio_dev->channels =3D inv_icm42370_accel_channels;
+>  	indio_dev->num_channels =3D ARRAY_SIZE(inv_icm42370_accel_channels);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[Severity: High]
+Could the absence of indio_dev->available_scan_masks here cause data
+corruption? Without it, if a user enables only a subset of channels, the IIO
+core will expect the buffer to be packed densely.
+
+> =20
+> +	ret =3D devm_iio_kfifo_buffer_setup(dev, indio_dev,
+> +					  &inv_icm42370_buffer_ops);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+>  	return indio_dev;
+>  }
+> =20
+> +int inv_icm42370_accel_parse_fifo(struct iio_dev *indio_dev)
+> +{
+[ ... ]
+> +		if (temp)
+> +			buffer.temp =3D (s16)*temp * 64;
+> +		else
+> +			buffer.temp =3D (s16)INV_ICM42370_DATA_INVALID;
+> +
+> +		ts_val =3D inv_sensors_timestamp_pop(ts);
+> +		iio_push_to_buffers_with_timestamp(indio_dev, &buffer, ts_val);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
+^^^
+[Severity: High]
+Because the driver unconditionally pushes a fixed-layout buffer without man=
+ual
+repacking, if available_scan_masks is missing, the IIO core will read the
+Y-axis bytes as Z-axis data when certain channels are disabled. Is there a
+plan to provide the available scan masks?
+
+> +	}
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-b4-inv_icm=
+42370p-v2-0-11aedfdf76d3@axis.com?part=3D3
