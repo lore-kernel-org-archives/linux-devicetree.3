@@ -1,64 +1,64 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5E9481252
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 14:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C2F481658
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 14:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786629968; cv=none; b=VioiQlyCWQGwaKgwOJrAefS2o62xXvTUZljPuTuP1jgxTVtSxBsB9WbtnUnKVGIfvQE4lXY5+PfiauCcURa1pcp/O4fE6ufTpgyQwE/udlTyp1l9VZ1dXrJ6krIYElXOyaRDEsVPkHP981oK4DNkDqt7w5qoMpY2/hYozVz3xgk=
+	t=1786629968; cv=none; b=qr3/YrDp7JbcM2T9aM16OAQgiEbvskJsU9yAw8rwXsN45CAd5s3JMw/1RLfGNIbZzr+6C+SyAMq8d3TC3czP/mnJTPkmE1T4L2lR/0hcNgsP3zQmdLawVFXPTr+lLJyk7hYYq6Ql6bkf8UMeHYlqj0zbhC1VE+xX3qfY2jjCYd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786629968; c=relaxed/simple;
-	bh=DtBBey4d64BzrmJQjWf7nGu7p4IWW0scWJqjk2ftmDI=;
+	bh=ZQgiNiqYgsBrWLZgSSsY8QzFfXicVpacPgeKKriczcE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cl15AjyN7OSe1llGqz7QUiiEwII5zmQg9JNIkuf1VlUHTRcJXeMnwNz8IBua147iX1VLQgNtD/yrfNLxBfvaFsiJQpy+XVwe521yJLbQo6+fAB5A8ipRIxw27FvQxxjfprynzZwSm+NlA3INwnfKHrp4HxQqQCmERzhF4Tmlm5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BtibF8Wc; arc=none smtp.client-ip=209.85.221.50
+	 MIME-Version; b=WwCBcJpTjVjdSD9wDmYRHtYaCespkW+H1F2Uv0UOKLggzGfmztcdYCCEL3uS319OlNY5APwLqRR/xVn6qB2GtI7FG+wzfS/UNnC7zaQ5M8TKGHyu80m+4G9tZbMRRCewO9gveoT0xd659mB80yiIflDUOijZDJpO/R5Rg8p7+Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hrbtl/FD; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BtibF8Wc"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47fd66a094eso846939f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 07:06:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hrbtl/FD"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f703a9e5dso1039716f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 07:06:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786629964; x=1787234764; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786629965; x=1787234765; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XLxuxkEWmtkrUuXmIVaZI8Xooy+ldmx3AqQ9q/E6uec=;
-        b=BtibF8WcHJchqRCHq/J6GMS1CqU+eiRudXfT0nn4damBPWjgrigMBjDg1fMrUGizHC
-         V5271UFrjWArdRhQ3JFan+meQnylBLQQN/zBiv3dNjDLBxe/+DHhp4O+MZYhJcOUExb6
-         gA+kYXPNIpCDjC4fT/EH10J/BPXD3/v4JFhHejH8JJXf94oMLYXn0SxtkQFqWaQfVFEq
-         aky87+W8nwTFBTJw5IkGG5iSBZ7DkuBv10F/BCQwL2xawbNKOUGG1xCeOorTUsJUtEn9
-         6Gqe41sGmXhqVgve2H7hK8sO250ldQIfAEKOsHN5k40StRLuiVv3/ydSrISgle9jLR00
-         eoyw==
+        bh=6wNKUrjtVLeG944flpny8Q6wVXCAuoMBESObIQ6TAV0=;
+        b=Hrbtl/FDnaNkGhB9I+sXjCXlhG3ejw9NAcP2GObgX2vph1y+/HGD9eAaS06/EJj4oS
+         1d4hUT7Wmh43j9nrTZ7ECgSDUTt3fmY2acPuDIijkT0miap4zg5p7jhV3dF2u0DFmN7C
+         RyqdJmfSATf+AQuIpn0y5Drd0Utgs7s9VK5W31Yu3qnAvPltPv7biAoh+883ODwHstzX
+         6+bhqG65wlgHDLGYitFrOs6I9tVktSRRzObK84RDEMHP1pbRiA0xljnvFCs9uSZVnxC5
+         fJUjeUpWVV95S7bH14eKQuYaswKw6/lIYOfFQUeuOBwGNvHURkJrJDQIf1fqRj+lYKxD
+         3ang==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786629964; x=1787234764;
+        d=1e100.net; s=20251104; t=1786629965; x=1787234765;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XLxuxkEWmtkrUuXmIVaZI8Xooy+ldmx3AqQ9q/E6uec=;
-        b=Bggab6Eq5JXEIBbS9keDb03V1HQZxS+1K/AolyNEn/iWlTknA88da2TNk+YN5dIXbc
-         v8euUWhklxrc5SMTG5JaUG5flbU08s5nJCzEV4hBACc1Apq1IXHKc4Y3nFFFGnxU7mRZ
-         6sLE2dU1leQlkt86o/ROdSjMsKkBm01ndYttByHKxJDv5qZPmlQ9fGkZZ4S1FJSY/h8x
-         rEkrMl6o8kgKRwY0LMeqI7LZCZcPjDxlM9ZbyagDndTP7qh/UJSr9+qlu6vCJK4q7nCj
-         DjZS7t+cr2GfXssmVBEs0AxyzNIKkoKAS1fF4e9gPTcN86saPSLEWG8r7hXQWqblb1ve
-         Widw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro8HVB9gV2yV/qcsO9I4Johybr76yefcEJ7fySLUgTieY/XTQeJHFX6zGiTfWZTxpUIxU/axdp/Advi@vger.kernel.org
-X-Gm-Message-State: AOJu0YwIpMf2uMkdkerNEiLisrrXk9a18/9d35ncn/ZH2AH9cPu3/zYQ
-	eWUQxfP9/VQehrotnQNujaUCfrg3iBz64sCXLa67A3pF7f/bvfQxDvAd
-X-Gm-Gg: AR+sD10aLsJbDVc/BpMYeZvD1sB+QaWDYNAyXPeji6Xqr/cMvQ6khlFixK0KHsnxMi9
-	mmLflrKTNv+H2JYkLZGgvrbAdBHPUPYD2LGHVkCezQ1t0u+bYoGTdp9XBcypKRjJ8QGawF2UAth
-	ojeS1VcKBYjkLXoTXS/qZWd69O9G/EVjCXggrCKlE+/LPhntMaGj3jlKoDSS7yJPJsObWByQ94n
-	vygxsQeIvusPbT5rbsieHdmsTjcUF2bWFSja0CvmK2hBzjUyr1+EaH21j1UkDcYAg8vzlYrltTb
-	UDlGCSegJrEGhnLzjPa8a2h1mM95KD87xo0xnFydQvC/a4Qb1aEznjG4RK2JnKv/CT2PeIbrXK0
-	lZrb7kFlgXgqnotnLbOQNT1npXic/XErIupEZOhWUrVWP4pQt6uz3JWzqoI0U+L4dy1qt8jYdcM
-	8rQprxXJDQbdE9u6qSDdRauwjVUr6YrZSlm/8GLiSpmPIVswlUrurcr4u9u8T7rpEz+E/eIBFNa
-	itF
-X-Received: by 2002:a05:6000:46c9:b0:47f:e877:641b with SMTP id ffacd0b85a97d-48159cc7ec8mr5524380f8f.11.1786629963875;
-        Thu, 13 Aug 2026 07:06:03 -0700 (PDT)
+        bh=6wNKUrjtVLeG944flpny8Q6wVXCAuoMBESObIQ6TAV0=;
+        b=K9+kkD0NOtBXpJllHIKhJLBImRDaZKaVR5IXGD/iAjeVWT8lIJ4Qp2PQgiNlvklt7f
+         76adYiQxSBKZ/I4RiXJGIy66RSrtoWwMcv/7QwEIc3q0AAh+jtPKP8IGulfYv0ZmjjaK
+         88c5pBqaluIWH5PKTqNnfdwA/eUmEeKSeL0aZgg0d5tlPD7CeATMSpFzG38KUmNAwmDY
+         cvH4RAQ/la+6HdIEMGsYp2KdIIc74oTfo4b9BnO0uYHweJ1XrGKsAqmb82jR5NlU9YHq
+         IrZGPs8EKjFcRGoqS93waP/RTIeyaNLbzUs8IKC+kr/6Jc/XI72v/Eex3ReJhxrR+TdO
+         MDIw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3Vr25ZrLi3691jW1GBmuJTgxDC9D+AKkQPo6d8/UmfX3UM1Ij2xdVTnSpdZKB+/gBKGOm5YRrwWQW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwA0vJMBKQPSmiLh2vcamcJnAShlngVMeijt1TJWkdFN8UtHzKx
+	m7ZAiC4KOPvjoaJ/GnZQLerRoHAA2NtmBdZCBdFsrh/e4aRuiAz73+nX
+X-Gm-Gg: AR+sD12sxxOaPCKhsXxRysyfW/wus3Zlv6+dleWLstR6IFsT6NSaYfvUGpquk1bR/GE
+	DS1pEe7i3m7zu43klxwBtXBmeXL2RrkvGoIRz26OUNag2MOcxTaMPMntYSSLCXA8ePdjKAgA8tE
+	aUdSCg3KmQZ1e1CcmpkmcW+dpS+HR+XDCs9AxbncNHuU8n6C347QZAk2NZQQpL9JxTlswZeS+Za
+	yf6Ltd6mKFvn0QfadNFfXAE3G4MHK14zzJoOUM50EQJ2P3iXfGitesIUqOSOAiM3lhcLd4Csmeq
+	IKoT06o5HF+VBDwG2sbQwMtWho2tOhwP1h0pZA9wzA7rtcl/oRn0Yq08SikOM/qTQn8SUGs7H7R
+	gVKmBg1bdbFUToORBs4SiG4m3uluTdtTr0PQUyADAqk4jgc2JSV2GafOgUWjElmJrbHURNeQV6A
+	C3DLWf534Q1Y44pRQQYZmIT3LzHMt4eqC09IE9zCYrMarz9ycAT7uzxO/ocJQPCX1q0PVFtbZMZ
+	SPK
+X-Received: by 2002:a05:6000:430d:b0:481:568e:d6ed with SMTP id ffacd0b85a97d-48159ee5201mr8885423f8f.15.1786629964824;
+        Thu, 13 Aug 2026 07:06:04 -0700 (PDT)
 Received: from deb05.proceq.com ([213.160.61.66])
         by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815a5af191sm6690190f8f.19.2026.08.13.07.06.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 07:06:03 -0700 (PDT)
+        Thu, 13 Aug 2026 07:06:04 -0700 (PDT)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: Shawn Guo <shawnguo@kernel.org>,
 	Sascha Hauer <s.hauer@pengutronix.de>
@@ -75,9 +75,9 @@ Cc: Frank Li <Frank.Li@nxp.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: [PATCH v3 2/4] ARM: dts: vf-colibri: name the SODIMM gpio lines
-Date: Thu, 13 Aug 2026 16:05:58 +0200
-Message-ID: <20260813140600.1824949-3-mehmet.fide@gmail.com>
+Subject: [PATCH v3 3/4] dt-bindings: arm: fsl: add the Colibri VF50 and VF61 on Iris
+Date: Thu, 13 Aug 2026 16:05:59 +0200
+Message-ID: <20260813140600.1824949-4-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260813140600.1824949-1-mehmet.fide@gmail.com>
 References: <20260813140600.1824949-1-mehmet.fide@gmail.com>
@@ -91,182 +91,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-The Colibri modules expose most of their GPIOs on numbered SODIMM pins,
-and the i.MX ones already carry those numbers as gpio-line-names, so the
-gpiod tools print SODIMM_43 rather than a bank and an offset. Do the same
-for the Vybrid modules.
-
-The 99 names come from the pinout table of the Colibri VFxx datasheet
-(Toradex 101355). Verified on a Colibri VF50, where gpioinfo now names
-every pin the datasheet lists.
+The Iris is a small off-the-shelf carrier board for the Colibri
+family. Extend the evaluation board entries with the compatibles for
+a Colibri VF50 or VF61 sitting on it.
 
 Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
 ---
- arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi | 144 +++++++++++++++++++++++
- 1 file changed, 144 insertions(+)
+ Documentation/devicetree/bindings/arm/fsl.yaml | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi b/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-index 74afc7b0d74b..04b5d532b2c5 100644
---- a/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-+++ b/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-@@ -170,6 +170,120 @@ &usbphy1 {
- 	status = "okay";
- };
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 86876311ec59..6f95c17b363c 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1705,9 +1705,11 @@ properties:
+               - fsl,vf610
+               - fsl,vf610m4
  
-+&gpio0 {
-+	gpio-line-names = "",
-+			  "",
-+			  "SODIMM_89",
-+			  "",
-+			  "",
-+			  "SODIMM_102",
-+			  "SODIMM_18",
-+			  "SODIMM_134",
-+			  "SODIMM_16",
-+			  "SODIMM_14",
-+			  "SODIMM_23",
-+			  "",
-+			  "",
-+			  "",
-+			  "SODIMM_47",
-+			  "SODIMM_190",
-+			  "SODIMM_192",
-+			  "SODIMM_49",
-+			  "SODIMM_51",
-+			  "SODIMM_53",
-+			  "SODIMM_37",
-+			  "SODIMM_29",
-+			  "",
-+			  "SODIMM_30",
-+			  "SODIMM_20",
-+			  "SODIMM_24",
-+			  "SODIMM_21",
-+			  "SODIMM_19",
-+			  "SODIMM_94",
-+			  "SODIMM_81",
-+			  "SODIMM_28";
-+};
-+
-+&gpio1 {
-+	gpio-line-names = "SODIMM_35",
-+			  "SODIMM_33",
-+			  "SODIMM_27",
-+			  "SODIMM_25",
-+			  "SODIMM_196",
-+			  "SODIMM_194",
-+			  "SODIMM_63",
-+			  "SODIMM_55",
-+			  "SODIMM_65",
-+			  "SODIMM_45",
-+			  "SODIMM_43",
-+			  "SODIMM_73",
-+			  "SODIMM_77",
-+			  "SODIMM_71",
-+			  "SODIMM_98",
-+			  "SODIMM_101",
-+			  "SODIMM_103",
-+			  "SODIMM_79",
-+			  "SODIMM_97",
-+			  "",
-+			  "",
-+			  "SODIMM_85",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "SODIMM_106";
-+};
-+
-+&gpio3 {
-+	gpio-line-names = "SODIMM_105",
-+			  "",
-+			  "SODIMM_93",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "SODIMM_95",
-+			  "SODIMM_22",
-+			  "SODIMM_68",
-+			  "SODIMM_82",
-+			  "SODIMM_56",
-+			  "SODIMM_131",
-+			  "SODIMM_44",
-+			  "SODIMM_144",
-+			  "SODIMM_146",
-+			  "SODIMM_52",
-+			  "SODIMM_54",
-+			  "SODIMM_66",
-+			  "SODIMM_64",
-+			  "SODIMM_57",
-+			  "SODIMM_61",
-+			  "SODIMM_140",
-+			  "SODIMM_142",
-+			  "SODIMM_80",
-+			  "SODIMM_46",
-+			  "SODIMM_62",
-+			  "SODIMM_48",
-+			  "SODIMM_74",
-+			  "SODIMM_50",
-+			  "SODIMM_136",
-+			  "SODIMM_138";
-+};
-+
-+&gpio4 {
-+	gpio-line-names = "SODIMM_76",
-+			  "SODIMM_70",
-+			  "SODIMM_60",
-+			  "SODIMM_58",
-+			  "SODIMM_78",
-+			  "SODIMM_72",
-+			  "SODIMM_96";
-+};
-+
- &gpio2 {
- 	/*
- 	 * EXT_IO_0..2 belong to no device, so hog the pin group here rather
-@@ -177,6 +291,36 @@ &gpio2 {
- 	 */
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio_ext>;
-+
-+	gpio-line-names = "SODIMM_69",
-+			  "SODIMM_99",
-+			  "SODIMM_104",
-+			  "SODIMM_107",
-+			  "SODIMM_127",
-+			  "SODIMM_184",
-+			  "SODIMM_186",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "",
-+			  "SODIMM_38",
-+			  "SODIMM_36",
-+			  "SODIMM_34",
-+			  "SODIMM_32",
-+			  "SODIMM_129",
-+			  "SODIMM_86",
-+			  "SODIMM_90",
-+			  "SODIMM_92",
-+			  "SODIMM_88",
-+			  "SODIMM_133",
-+			  "SODIMM_135",
-+			  "SODIMM_188",
-+			  "SODIMM_75",
-+			  "SODIMM_100";
- };
+-      - description: Toradex Colibri VF50 Module on Colibri Evaluation Board
++      - description: Toradex Colibri VF50 Module on a carrier board
+         items:
+-          - const: toradex,vf500-colibri_vf50-on-eval
++          - enum:
++              - toradex,vf500-colibri_vf50-on-eval
++              - toradex,vf500-colibri-vf50-on-iris
+           - const: toradex,vf500-colibri_vf50
+           - const: fsl,vf500
  
- &iomuxc {
+@@ -1719,9 +1721,11 @@ properties:
+               - phytec,vf610-cosmic       # PHYTEC Cosmic/Cosmic+ Board
+           - const: fsl,vf610
+ 
+-      - description: Toradex Colibri VF61 Module on Colibri Evaluation Board
++      - description: Toradex Colibri VF61 Module on a carrier board
+         items:
+-          - const: toradex,vf610-colibri_vf61-on-eval
++          - enum:
++              - toradex,vf610-colibri_vf61-on-eval
++              - toradex,vf610-colibri-vf61-on-iris
+           - const: toradex,vf610-colibri_vf61
+           - const: fsl,vf610
+ 
 -- 
 2.54.0
 
