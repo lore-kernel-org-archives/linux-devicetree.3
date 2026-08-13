@@ -1,111 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E0041DEDE;
-	Thu, 13 Aug 2026 06:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3136C424D42;
+	Thu, 13 Aug 2026 06:42:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786603307; cv=none; b=JvMAuETZrF5SwI49bwQPTIV3WCpc77Wkd0mi3/MJezX5wFK11xvsY9k511dezaM1MF2ecPFTaefWGpt9G+LPFxxVVFA/7P1+NsbhnNiEVmd6QQ94QapkzcbM9bW4rg1ne97tDQo2YR1bBQuxQypztr4N+E+s5jhp2uXijUAnvLo=
+	t=1786603368; cv=none; b=GXjNZdBwLq6MTTDm1B9izilnBZLbx6f3RmnuvsoSO+DrvkNcoTvecuTNJaZFA4jmXBITbuVHvJMnsh/i8msVKkAtTgh8I234DGCzCNHTFhbluBMqqlXTDPmhHwxXYQ4ELV0aOozKZfZWuL3KcdiZ8QsGul0s2s6itv7jsmRK7Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786603307; c=relaxed/simple;
-	bh=QLnYd/G1eJkYm8ko2aUJtb2cP099G6r+l9haS8Vzen8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ZLLKo5AnP8uyZ2jXd8bRrv7BQvlQ/l6SBhi7JRL4f3evyU3oDLAyiFNFyp0Sd4YEBz6hZliBHUNq3JU+1L9/XF6v9AlSsfLX+DYoSUhkAT7XXLeUTvwN5S/HBUZ7TiO6Jmkxkzj1BKy6GQtYFuKID1i/ZRH8EFZq6gW7PeQl4v8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0sbCblU; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0sbCblU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A141F000E9;
-	Thu, 13 Aug 2026 06:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786603302;
-	bh=yNedPTBM0QaEAffSIPmHfR2JW1hntmhMUuPBtLmfSRI=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=L0sbCblUKhnN2QHTDhExySGl/q8zR3daX4ERhD2V/Q8lXl+lkJrF6bQt5+gpD8ov/
-	 ba8B7jZXOpGjmSwMVbMEerZHeWNIojWOO4eCSQZ70uqrHSuzGh86FCm5mmDep9q2bD
-	 woJYkR3p2GrO82NybxO0b5+eVWr7otvDh7gaLS0sqOodUX0AXJI/UtHIuYWAm2Uov2
-	 AGi3HLXCAXaNu4N2Q3QJP+hSnMuNlFbI2NZgJpyr+qfx+sDgKeuMAmzurrfswyxp0V
-	 MRt7P24pLAmNaowQ8skzfbpa7U3AQBKhB9Ip4u8PbmRL9VBOqf+bN+q2JN0Qes5H3U
-	 m16xDYfCfA+AA==
-Message-ID: <71aeba36-260f-4461-abf6-f59c31d1f106@kernel.org>
-Date: Thu, 13 Aug 2026 08:41:35 +0200
+	s=arc-20240116; t=1786603368; c=relaxed/simple;
+	bh=T3p08Mixb/u4ni/RDlvjAkSIBn3qHMVaciIoHqagm9M=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=Cr5rLYfB1ZyqLVbpupZizYJvao4R7DQHUPzI5Y1R59UJua4Cbv9Bgc7i2ZWqKMBz1hnr15yIWrZEzx8CNfdWRA/p/7U8s4HJxJnoOHwYzbBY/5knwWY85mQ1zuYcRBZyLL44EVQydVqCJkSiTZ4NzDNUkFeyOk1+Ik0M5YM/XvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 13 Aug
+ 2026 14:42:33 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Thu, 13 Aug 2026 14:42:33 +0800
+From: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+Subject: [PATCH v2 0/2] ipmi: kcs_bmc_aspeed: Support multiple LPC
+ controller instances
+Date: Thu, 13 Aug 2026 14:42:30 +0800
+Message-ID: <20260813-upstream_kcs_multiple_lpc-v2-0-775b1db3fe95@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 13/19] dt-bindings: dma: ti: Add K3 BCDMA V2
-To: Sai Sree Kartheek Adivi <s-adivi@ti.com>, peter.ujfalusi@gmail.com,
- vigneshr@ti.com, vkoul@kernel.org, Frank.Li@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, ssantosh@kernel.org,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- r-sharma3@ti.com, gehariprasath@ti.com
-References: <20260810151423.1948224-1-s-adivi@ti.com>
- <20260810151423.1948224-14-s-adivi@ti.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260810151423.1948224-14-s-adivi@ti.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFZnfWoC/32Nyw6CMBBFf4V0bU07yHPlfxhCoIwykUfTKURD+
+ HcriVuX5yT33E0wOkIWZbQJhysxzVMAOEXC9M30QEldYAEKUpUByMWyd9iM9dNwPS6DJztgPVg
+ jszgpLgBaJyoXYW8d3ul1tG9V4J7Yz+59XK36a3/V+E911VLJrtB5m0Cm2jy9NmwRO4+mP5t5F
+ NW+7x+FcsuTxwAAAA==
+X-Change-ID: 20260722-upstream_kcs_multiple_lpc-735942211508
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Joel
+ Stanley" <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Corey Minyard
+	<corey@minyard.net>
+CC: Andrew Jeffery <andrew@aj.id.au>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, <openipmi-developer@lists.sourceforge.net>,
+	<jammy_huang@aspeedtech.com>, Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786603353; l=2839;
+ i=yc_hsieh@aspeedtech.com; s=20260721; h=from:subject:message-id;
+ bh=T3p08Mixb/u4ni/RDlvjAkSIBn3qHMVaciIoHqagm9M=;
+ b=fnig07TEfuecXa6JTRfT91GpXACWIBVvCKuFrTLVUV7epepRZ87Wtat90R+8CLuA9Mis5XU27
+ epM6OLJpnPYDmdwobZJsltNVLjo3cxlcY50NXh0s9yrmbFt+4OCRupk
+X-Developer-Key: i=yc_hsieh@aspeedtech.com; a=ed25519;
+ pk=7KnU2ozXGF2IATT+Hvu7RbRwPxBA3/b+zhfM+UsPJMs=
 
-On 10/08/2026 17:14, Sai Sree Kartheek Adivi wrote:
-> New binding document for Texas Instruments K3 Block Copy DMA (BCDMA) V2.
-> 
-> BCDMA V2 is introduced as part of AM62L.
-> 
-> Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-> ---
->  .../bindings/dma/ti/ti,am62l-dmss-bcdma.yaml  | 211 ++++++++++++++++++
->  1 file changed, 211 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dma/ti/ti,am62l-dmss-bcdma.yaml
-> 
+Hi,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Aspeed AST2700 SoC exposes more than one physical LPC controller
+instance. Each instance provides its own KCS1-KCS4 devices, with
+identical IDR/ODR/STR register offsets within that controller's register
+file.
+
+kcs_bmc_device::channel currently serves two purposes at once:
+
+  1. Selecting which HICR0/HICR2/HICRB bit-group to touch within a single
+     LPC controller's register file. aspeed_kcs_of_get_channel() derives
+     this purely from the KCS node's register offset, yielding values
+     1..4.
+
+  2. Naming the misc chardev (/dev/ipmi-kcsN) exposed to userspace, which
+     must be unique system-wide. kcs_bmc_cdev_ipmi.c uses "ipmi-kcs%u".
+
+Both happen to be the same value only because this driver has only ever
+had to support SoCs with a single LPC controller. On AST2700, KCS1 on
+each LPC controller computes to the same channel number, and whichever
+instance probes second fails due to the duplicate miscdevice name.
+
+This series keeps a driver-private channel value (1..4) in struct
+aspeed_kcs_bmc for register access, and computes a globally unique
+kcs_bmc_device::channel as:
+
+	bank * KCS_CHANNEL_MAX + channel
+
+where bank identifies which LPC controller instance a KCS device belongs
+to.
+
+bank is derived via of_alias_get_id() from an optional "lpcN" alias on
+the LPC controller node, mirroring the existing alias-based numbering
+convention used by mmc/i2c/spi/serial. For example, with aliases
+assigning lpc0 and lpc1 to banks 0 and 1, their KCS channels are exposed
+as /dev/ipmi-kcs1..4 and /dev/ipmi-kcs5..8 respectively. If no lpcN
+alias is present, of_alias_get_id() fails and the driver uses bank 0,
+preserving the existing numbering for single-LPC-controller systems.
+
+This puts the numbering under DT-author control instead of deriving it
+from probe order or DT traversal order. It also generalizes across
+however many LPC-compatible instances a future SoC exposes, regardless
+of tree placement, while preserving compatibility for existing
+single-LPC-controller boards.
+
+Changes in v2:
+  - Drop the RFC tag, per Lee Jones' feedback.
+  - Keep the alias-based bank-numbering approach unchanged.
+
+Link to v1: https://lore.kernel.org/r/20260723-upstream_kcs_multiple_lpc-v1-0-d918b5270b86@aspeedtech.com
+
+---
+Yu-Che Hsieh (2):
+      dt-bindings: mfd: aspeed-lpc: Document lpcN alias for multi-instance SoCs
+      ipmi: kcs_bmc_aspeed: Support multiple LPC controller instances
+
+ .../devicetree/bindings/mfd/aspeed-lpc.yaml        |  7 ++++
+ drivers/char/ipmi/kcs_bmc_aspeed.c                 | 37 ++++++++++++++++------
+ 2 files changed, 34 insertions(+), 10 deletions(-)
+---
+base-commit: f0e6f20cb52b14c2c441f04e21cef0c95d498cac
+change-id: 20260722-upstream_kcs_multiple_lpc-735942211508
 
 Best regards,
-Krzysztof
+-- 
+Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+
