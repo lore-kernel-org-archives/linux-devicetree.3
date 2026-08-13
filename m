@@ -1,273 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f99.google.com (mail-oo1-f99.google.com [209.85.161.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D462EA754
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 23:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1D83CB2FA
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 23:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786665181; cv=none; b=I7CNjlO/m9DPVeE+5mC5pP8ozIJxHz3WRUu0q3fvYLQh32Y4x0MjFjCt757SsrTLg5VA2AQdmSCjUPtt3TUvrn3d1W4KQrKxqafRSY5fbTZh2WJ5F9dcomG2nOVQi23Um8VAq1suTq6q0MUD8nKmIyUdiU37OUWfi81zvIxJaYY=
+	t=1786665485; cv=none; b=aEBArIVBL8OVElBa8ORSIKTSwMy+7/UnZKOMKPL63ETBOvnb2qnXtQj0nfJErWQkI5pZhidRvY/aZ81VrS0iNKfiD43lZsYLpQLPVyZOoQ6YFJH68UoxXzBmf2GSSn3LbHlg3dehmsuoXx9DteiTENnyo1EkjnNol/YTnx0s/zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786665181; c=relaxed/simple;
-	bh=E1oYnmrCL1rZYvpjU/cZvCl9iwNS4BpQfDIlulgn6QQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=guKlij2VgVMEG+rxu4RGmmXatXP1EBBJ7D8OylWuN6nzECjd0zBpUpET6HtAsg6uSiS6CKeaxII4fCS48I+FGiHinlNO8OJA5rv7XC3uDl3OHEoKQloSPbmnmybif5oQVIPXt3zu4EeGiQLz2u4v8U6WPBAiPug/f44ZOgg1N3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSVeNUHS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786665485; c=relaxed/simple;
+	bh=6hEhZLRjiSXwimmsWRFHI3innYmAOqyLiXArbJ3l3Ac=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cyr9HgTyS47secNNF42slj3Wbc7HSTB4OXT5zp8DPG0UHU3nwx2Zv1tqbAOdeFr4mVY9CXGdKHRJQ0pfTYVZNlp2HPFEzg13Unbj63457TizD+BofjB6Mm8y3P9Douw0dP1uQjGwmtszv4BZhFkWFMFcaYvFRN34qmLLkAqnsT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=XCzhZjcy; arc=none smtp.client-ip=209.85.161.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSVeNUHS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D4A1F000E9;
-	Thu, 13 Aug 2026 23:52:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786665179;
-	bh=v9YPTvW9BKyKuh4w38EFEgEmYXAHwtOYCY34qaMfOFs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hSVeNUHSN0c0n/N8vOEOnFffy3jZ9Fg0OuHARU5ekh/iFs0h8rcj8OXNYZbkSNEf3
-	 iinIrU2k6Z+gPKJCQY+dEg/YTohKOmIDyypxXt6mmZZT7QsLnkL2eWSoMaKutxnL3s
-	 Hjxa4KAh5H1Y3DBagd+eOvj12A96LyeahIpLA6k+SbQkWjtK/cDNrqA3pB2OQphILi
-	 t9+o/Tt8gjrvqhT2i+4MKga3WVlGIEs+/aTqY07yln20blqLpZpSDueW8ZWCb9s62a
-	 b6BGi9NhtnxSlRt9ShYJYAa9mpguNE2mug3/ilFg5xGkvR9Gyh11blaE+wwB/qvMny
-	 y8aOvOrMuDMRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 07/12] net: airoha: Move airoha_qdma pointer
- in airoha_gdm_dev struct
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lorenzo Bianconi" <lorenzo@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260406-airoha-eth-multi-serdes-v3-7-ab6ea49d59ff@kernel.org>
-References: <20260406-airoha-eth-multi-serdes-v3-7-ab6ea49d59ff@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 23:52:58 +0000
-Message-Id: <20260813235259.14D4A1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="XCzhZjcy"
+Received: by mail-oo1-f99.google.com with SMTP id 006d021491bc7-6ae8445b7b6so257099eaf.0
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 16:58:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786665483; x=1787270283;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=HqzFBeTkl08g07JC6AeT1GoIZHKrk+NcGWCQbDWAixA=;
+        b=VxHWN7RjwCbRjFv3/0KtEEpC+iIi/6aPkEtXzrMxs+LtxKJBZtF9Z3Q2nRV0I4rN3t
+         LrjC1jjjp1uMaOvtij5i3pB6QCFUIvuX5h7GsqVuzHOIJB47yEkju+ULBSISfAb9GTuY
+         7jlqNhdQrDFwmuaalUozc1YliaGAmf9dUSxf8+9D9nt5fyWxO4h4fgH6kPoSZD6CW3Z4
+         FazF9BuYCxCom4yFBcTSi8jQ4Iay2otTwzcq3+Pbs6opUA/KruyNxvnyS8hHZuz223O0
+         DPEYt4GxfbWlBkcyWptGp7uJMjyFxcJ3NcNJIlODYOJRVc5Bg+aNxvI7o54CJhg54EoJ
+         kxPw==
+X-Forwarded-Encrypted: i=1; AHgh+RqS9DwhUf3cg9aIrvs9DixofG+3wBa0eZPS1wGAKZK0V+CzUmdBFMvzgnKhwrtfJT5P1rlgRoMrM2cJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVeAuwC3w7zn7a++MKN4t47Np7DHrYIlRuz6rd9/D77D5/3DYV
+	CF8nzRSBNZCOiJUFzuZgcoD/1P38ShfKCP3GfBsAd5K5fkcPM3Vf4vhBO+/2w8lksxAq+wHwy+r
+	Soizyy8D1tHsScQaNBs92pGGbt/GKXzkvX+3UNcPX2YnHJBh295aZP9eYvQjExPpMEsyPXpHHR1
+	LoBH/KRfAuP98iuVjoaJguv54SFMjq8dpjUPE7dOxqZ6udr0lRjwyrGll2JJLSPtwJMA2l3hGoc
+	UeMR6na01CIG2dlm+48Xg==
+X-Gm-Gg: AR+sD11yGXJfmYBsGUcjEtKOf2N52n9DrfGJAkXpnsjOgagDR7DFnGkH9sXGzV4n6aW
+	L9jMlqiFlJotNCaA8KzWYFW9Uu/BAeEXNIVbPf4NnJs6zMP/EFRw3al1oxzJd6F0eustlwGGR2W
+	YtkPT8f81b/OBBbSMr7KFw7nrxrKhVeix/E5tvWHg+DwSIrpo12fdDCO4zzSh8KAiWPlsgyO2RY
+	K6VNkUXW+TiJSuAADR75XdvrIazC1J87VGxgMOPcxBciN3hwE+iy5RoBj+lI30egCQZK2FVe8SU
+	IRhybe/HVdM7wHjEsQNmIjqn797c0aUn/bdoMTPrIOJdiYfAe7TQ3lOVkCM9NCD5TcPgsBX4bG4
+	aOOWwmcMnSumM5pMpL65GuNbZ4E+PoOkbJUtXwnUKFLlBMkyItlykjKm9w4FOm3MdEX6VvicZ1k
+	LKwCxNpVaG4lvIPgbaUrsFfumbz5Z5jzeZZACsUPBe
+X-Received: by 2002:a05:6820:1989:b0:6a1:3ee1:d679 with SMTP id 006d021491bc7-6b0d6905a55mr1974305eaf.30.1786665483216;
+        Thu, 13 Aug 2026 16:58:03 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
+        by smtp-relay.gmail.com with ESMTPS id 586e51a60fabf-45e8ffc4bc0sm41927fac.14.2026.08.13.16.58.02
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 13 Aug 2026 16:58:03 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e25e4b41cso434917a91.0
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 16:58:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1786665481; x=1787270281; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HqzFBeTkl08g07JC6AeT1GoIZHKrk+NcGWCQbDWAixA=;
+        b=XCzhZjcyj4S5x9A58aheCBtbOLU1jGBvZpjNE6L1k2o6k+DYGV/IKZAU9H2/V0YklJ
+         Yc8qoNf8xo2duDkRYjvOAFKKMP5TpcEaSzR5GPRmlKXNy0bq6cETLm7AVOBYN4bZAl4V
+         Rn1oZudfty8ITjcjpd2g6HXU0zMArNuef/jNs=
+X-Forwarded-Encrypted: i=1; AHgh+RpZ9/6UinyyIYT9phFwIhcUR1EkSoY7b4N1NrtDfz+0lw+rgoadSM43y1+ubb1tfdIxIVbcZYnRTbh9@vger.kernel.org
+X-Received: by 2002:a17:90b:5803:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-3933cb3b889mr1708599a91.8.1786665480771;
+        Thu, 13 Aug 2026 16:58:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:5803:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-3933cb3b889mr1708520a91.8.1786665480115;
+        Thu, 13 Aug 2026 16:58:00 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1413887ee70sm2452391c88.11.2026.08.13.16.57.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Aug 2026 16:57:59 -0700 (PDT)
+Message-ID: <d448dccd-27be-477b-8444-2574f95f7f37@broadcom.com>
+Date: Thu, 13 Aug 2026 16:57:58 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/3] Adding brcmstb-hwspinlock support
+To: Kamal Dasu <kamal.dasu@broadcom.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: robh@kernel.org, krzysztof.kozlowski@linaro.org, conor+dt@kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, linux-remoteproc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260427201233.380314-1-kamal.dasu@broadcom.com>
+ <22348975-bfb1-42c9-9593-06215f961845@broadcom.com>
+ <CAKekbevRigjTVMUvbOsnU0rAvWZRZnuqhnxprujvG_k4OFC0HA@mail.gmail.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <CAKekbevRigjTVMUvbOsnU0rAvWZRZnuqhnxprujvG_k4OFC0HA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+On 8/13/26 12:25, Kamal Dasu wrote:
+> On Tue, Jun 2, 2026 at 11:39 PM Florian Fainelli
+> <florian.fainelli@broadcom.com> wrote:
+>>
+>> Hi Bjorn, Baolin,
+>>
+>> On 4/27/2026 1:12 PM, Kamal Dasu wrote:
+>>> This series adds hardware semaphore support for Broadcom set-top SoCs
+>>> via the generic hwspinlock framework.
+>>>
+>>> The semaphore registers live in the sundry block; the DT binding
+>>> describes only the semaphore register range. The compatible is
+>>> brcm,bcm7038-sun-top-ctrl-semaphore (BCM7038 is where this block first
+>>> appeared on set-top chips).
+>>>
+>>> The driver has been tested built-in and as a module.
+>>
+>> Is there anything else you would want to see being done differently here
+>> or is this ready for being merged into your tree?
+>>
+>> Thanks!
+>> --
+>> Florian
+>>
+> 
+> Florian,
+> 
+> Since there hasn't been a response from the hwspinlock maintainers to
+> your ping from May, and given that:
+> 
+> Krzysztof reviewed the DT bindings (Reviewed-by),
+> The series is self-contained under Broadcom STB platform code and has
+> no core framework changes,
+> 
+> Could you please take this series through your Broadcom SoC tree for
+> the next merge window?
 
-New issues:
-- [Medium] Incomplete state isolation when moving QDMA pointer breaks QDMA =
-statistics and QoS
-
-Pre-existing issues:
-- [High] Out-of-bounds array access in TX fragment mapping loop
-- [High] `dma_map_single()` is incorrectly used to map paged SKB fragments,=
- crashing on highmem platforms
-- [High] Deadlock in hardware statistics update due to missing BH disable
-- [High] Missing SKB length and linearization checks before Ethernet header=
- and DSA tag access
-- [Medium] Hardware counters are permanently lost due to a race condition w=
-ith manual MIB clearing
-- [Medium] Incorrect 32-bit hardware counter wrap-around handling corrupts =
-64-bit stats
---
-
---- Patch [7]: [PATCH net-next v3 07/12] net: airoha: Move airoha_qdma poin=
-ter in airoha_gdm_dev struct ---
-commit 4404ad5980e6c77f2e4f802133236eaf61b63376
-Author: Lorenzo Bianconi <lorenzo@kernel.org>
-
-net: airoha: Move airoha_qdma pointer in airoha_gdm_dev struct
-
-This commit moves the airoha_qdma pointer from the airoha_gdm_port struct
-to the airoha_gdm_dev struct. This is a preliminary change to support
-multiple net_devices connected to the same GDM port via an external
-hardware arbiter.
-
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index c2fc4967c3400..716b73f0dff45 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-[ ... ]
-> @@ -1497,9 +1498,10 @@ static void airoha_qdma_stop_napi(struct airoha_qd=
-ma *qdma)
->  	}
->  }
-> =20
-> -static void airoha_update_hw_stats(struct airoha_gdm_port *port)
-> +static void airoha_update_hw_stats(struct airoha_gdm_dev *dev)
->  {
-> -	struct airoha_eth *eth =3D port->qdma->eth;
-> +	struct airoha_gdm_port *port =3D dev->port;
-> +	struct airoha_eth *eth =3D dev->eth;
->  	u32 val, i =3D 0;
-> =20
->  	spin_lock(&port->stats.lock);
-
-[Severity: High]
-This is a pre-existing issue, but can this lead to a deadlock on a single C=
-PU?
-
-airoha_update_hw_stats() acquires port->stats.lock using spin_lock(). While
-this disables preemption, it leaves softirqs (BH) enabled. The function is
-called from process context (e.g., via ethtool get_mac_stats).
-
-If a softirq triggers on the same CPU while the lock is held, and the
-softirq path attempts to read stats (e.g., via ndo_get_stats64), it will
-try to acquire the same spin_lock, deadlocking the CPU.
-
-Should spin_lock_bh() be used to protect stats shared with or accessible
-from softirq context?
-
-[Severity: Medium]
-This is a pre-existing issue, but does this cause hardware counters to be
-permanently lost?
-
-In airoha_update_hw_stats(), the driver reads a long sequence of hardware
-counters and then issues a manual register write (REG_FE_GDM_MIB_CLEAR) to
-clear all of them.
-
-Any packets processed by the hardware during the time window between
-reading a specific counter and the clear command taking effect will
-increment the hardware counter, but will be permanently lost when the
-counters are zeroed.
-
-Should the driver accumulate absolute counter values in software and handle
-wraparounds rather than clearing hardware counters?
-
-[ ... ]
-> @@ -1800,9 +1802,9 @@ static int airoha_dev_init(struct net_device *netde=
-v)
->  	int i;
-> =20
->  	/* QDMA0 is used for lan ports while QDMA1 is used for WAN ports */
-> -	port->qdma =3D &eth->qdma[!airoha_is_lan_gdm_port(port)];
-> -	dev->dev->irq =3D port->qdma->irq_banks[0].irq;
-> -	airoha_set_macaddr(port, netdev->dev_addr);
-> +	dev->qdma =3D &eth->qdma[!airoha_is_lan_gdm_port(port)];
-> +	dev->dev->irq =3D dev->qdma->irq_banks[0].irq;
-> +	airoha_set_macaddr(dev, netdev->dev_addr);
-
-[Severity: Medium]
-When moving the qdma pointer to struct airoha_gdm_dev to support multiple
-devices on the same physical port, are there incomplete state isolations
-that could corrupt hardware statistics and QoS?
-
-In airoha_dev_init(), the qdma pointer is still set based on the shared
-port configuration (!airoha_is_lan_gdm_port(port)), which seems to contradi=
-ct
-the commit message's claim that the QDMA block depends on the net_device
-configuration.
-
-Additionally, QDMA state variables like cpu_tx_packets and fwd_tx_packets
-used for ETS baselines were left in the shared struct airoha_gdm_port.
-When multiple devices share a port, they will read their distinct QDMA
-hardware counters but subtract from and overwrite the same shared
-port->cpu_tx_packets baseline.
-
-[ ... ]
-> @@ -1929,10 +1930,10 @@ static u32 airoha_get_dsa_tag(struct sk_buff *skb=
-, struct net_device *dev)
->  #endif
->  }
-> =20
-> -int airoha_get_fe_port(struct airoha_gdm_port *port)
-> +int airoha_get_fe_port(struct airoha_gdm_dev *dev)
->  {
-
-[Severity: High]
-This is a pre-existing issue, but is it possible to trigger out-of-bounds
-memory accesses or a kernel panic here?
-
-In airoha_get_dsa_tag() just above this change, the code casts skb->data to
-an ethhdr and uses memmove() to copy 2 * ETH_ALEN bytes. While
-skb_cow_head(skb, 0) ensures the header is writable, it does not verify the
-available linear length or pull paged fragments.
-
-If a maliciously crafted short packet is injected (e.g., via AF_PACKET), or
-if the header spans paged fragments, the memmove reads and writes out of
-bounds. Furthermore, __skb_pull(skb, MTK_HDR_LEN) lacks a bounds check and
-will underflow skb->len to a huge value if the packet is smaller than
-MTK_HDR_LEN.
-
-Should this use pskb_may_pull() or check skb_headlen() before accessing
-headers?
-
-> -	struct airoha_qdma *qdma =3D port->qdma;
-> -	struct airoha_eth *eth =3D qdma->eth;
-> +	struct airoha_gdm_port *port =3D dev->port;
-> +	struct airoha_eth *eth =3D dev->eth;
-> =20
->  	switch (eth->soc->version) {
->  	case 0x7583:
-[ ... ]
-> @@ -1949,8 +1950,7 @@ static netdev_tx_t airoha_dev_xmit(struct sk_buff *=
-skb,
->  				   struct net_device *netdev)
->  {
->  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> -	struct airoha_gdm_port *port =3D dev->port;
-> -	struct airoha_qdma *qdma =3D port->qdma;
-> +	struct airoha_qdma *qdma =3D dev->qdma;
->  	u32 nr_frags, tag, msg0, msg1, len;
->  	struct airoha_queue_entry *e;
->  	struct netdev_queue *txq;
-
-[Severity: High]
-This is a pre-existing issue, but can this out-of-bounds read lead to
-memory corruption or a kernel panic?
-
-In airoha_dev_xmit(), the loop iterates nr_frags times, where
-nr_frags =3D 1 + skb_shinfo(skb)->nr_frags. During the final iteration (when
-i =3D=3D skb_shinfo(skb)->nr_frags), it accesses &skb_shinfo(skb)->frags[i]=
- and
-dereferences it via skb_frag_address().
-
-Since the frags array contains exactly skb_shinfo(skb)->nr_frags initialized
-elements, this accesses one element past the end of the array. If the SKB
-has exactly MAX_SKB_FRAGS fragments, it reads beyond the skb_shared_info
-struct, which can cause a kernel panic if it crosses an unmapped page
-boundary.
-
-[Severity: High]
-This is also a pre-existing issue, but does this code crash on 32-bit
-platforms with HIGHMEM enabled?
-
-In airoha_dev_xmit(), the driver loops through all fragments and maps them
-using dma_map_single(..., data, ...) where data is obtained via
-skb_frag_address(frag).
-
-However, skb_frag_address() internally calls page_address(), which returns
-NULL for pages located in high memory. Passing a NULL pointer to
-dma_map_single() can result in a crash or map physical address 0.
-
-Should this use skb_frag_dma_map() or dma_map_page() to map paged fragments?
-
-[ ... ]
-> @@ -2253,9 +2250,9 @@ static int airoha_qdma_get_tx_ets_stats(struct net_=
-device *netdev, int channel,
->  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
->  	struct airoha_gdm_port *port =3D dev->port;
-> =20
-> -	u64 cpu_tx_packets =3D airoha_qdma_rr(port->qdma,
-> +	u64 cpu_tx_packets =3D airoha_qdma_rr(dev->qdma,
->  					    REG_CNTR_VAL(channel << 1));
-> -	u64 fwd_tx_packets =3D airoha_qdma_rr(port->qdma,
-> +	u64 fwd_tx_packets =3D airoha_qdma_rr(dev->qdma,
->  					    REG_CNTR_VAL((channel << 1) + 1));
-
-[Severity: Medium]
-This is a pre-existing issue, but does this improperly handle 32-bit
-hardware counter wrap-arounds, leading to corrupted 64-bit stats?
-
-In airoha_qdma_get_tx_ets_stats(), the 32-bit hardware counters read via
-airoha_qdma_rr are implicitly cast to u64 before subtracting the previously
-saved u64 baseline (port->cpu_tx_packets).
-
-When the 32-bit hardware counter wraps around (e.g., from 0xFFFFFFFF to
-0x00000000), the new value is numerically smaller. In 64-bit arithmetic,
-this subtraction does not wrap properly; it underflows, adding a massive
-value (e.g., 0xFFFFFFFF00000000) to the software stats.
-
-Should the difference be calculated as a u32 before being added to the u64
-total?
-
->  	u64 tx_packets =3D (cpu_tx_packets - port->cpu_tx_packets) +
->  			 (fwd_tx_packets - port->fwd_tx_packets);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260406-airoha-eth=
--multi-serdes-v3-0-ab6ea49d59ff@kernel.org?part=3D7
+I want to give Bjorn and Baolin a chance to respond, but would otherwise 
+have to seek help from the ARM SoCs maintainers in order to get these 
+patches moving forward.
+-- 
+Florian
