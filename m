@@ -1,84 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7562F39C2;
-	Thu, 13 Aug 2026 09:20:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57B432D0F5;
+	Thu, 13 Aug 2026 09:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786612810; cv=none; b=byEJOnWy1GpzIiyU8euFSLAjxZx17mc4hVt3c6RVvShCp8O7hYS4h/Pfyu7WEnm+4Zsr359mLofttGi19AYNXotYyOrOEHPRCu5cNaAYNDQ4WOSFpfFNppt9xh9p9QJ88PtNW9oWVpgzWHMVPwjQxxdM6gQDVokWWQxaj6G4S1E=
+	t=1786612831; cv=none; b=pc9cq6Q0YmGs1plpSl7cb4qXT2mwP9BPVpA+O1vLLYIu/fRkkZppodZ5Wna29qPOKamntEdYkgzdmBuM1xwAyYss1ZGObQmF/ZAp67enW6XPKKY3M6pAS1Emil3A8E3qdKfZcMfjfhQhGAhS5jBFKS5dvWzDIU/k2k1YnO9ytXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786612810; c=relaxed/simple;
-	bh=WD/K1Kwybt/UTK1xr9nUogPjHmDRSaMpQ7xP3IPbXzo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JYZFv1JrkaNLInFt7nRZVCTh8m1p6zgfsWt9RhgS4W8jUXfhdE7NYhqeD503F6F9cAJvolQ6flmnlyyPpwzrQ+MsJNaR19lFGJnRD9bmP2FnaijOXJoTh5AkNq2UvtnkgpT3SX+j352DN8q9+TqBoxHH1VUGQQLtdr0RxW9jfgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VXCzyror; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786612831; c=relaxed/simple;
+	bh=XSbxuFNDxlXVpQ/cS578M2yFcGMkc7DG8pgNdZPizcw=;
+	h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:References:
+	 Cc:In-Reply-To:To; b=r6MS6xcjUZisslsbzqA12opEBkddOi83zt8xbCOO2KUxk8K1Alxq1JFmsyNhRMdRcyA75EwzAqKvpz/KlsemzRLbfzwH5DeylfJdWt4h1YA/n8rMvHY9+HA5aCb+9rjrx28+gQPrEuxVEBcVNTTmU+qx3xxGv+Kn0vkYzDf9V54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=LZXlAaqM; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VXCzyror"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1DBF1F000E9;
-	Thu, 13 Aug 2026 09:20:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786612809;
-	bh=OHSkRs4KEkrny8lhy3H/h6oqzqJD/Yof8MZF9vXzETk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VXCzyrorL/HF4vkf5etfraIqCKEqrG5eDQA/tL2XvRHFG8rPZUu+xM2KO6AMx61Wv
-	 U0evXa1L0PY7akrWh5fwddRmOoQPGds2sx0JVCzZ2g/MZKiynbM/DCf5JKRBQr1JJY
-	 PejhchhDP75eFsWyfjg8RqLW99etO/1Kh2JzDhu56dlGETSjuITerG2S4LLuXPcB4+
-	 HEcr2TYaasFohqW/TJX4ONyiOCs9KIxWPbk7VB0MoG0+/HDZedVKSFVRfhU8x5bRS4
-	 UrwTMrhUN0YQ8kyKXz1JIrpk7HDnSvjj6fjck6b1v3nqGAlpOjMWuXKMNZ86gXTTkJ
-	 cxZXTREatdgeQ==
-Date: Thu, 13 Aug 2026 11:19:58 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stanimir Varbanov <stanimir.varbanov@linaro.org>, Mansur Alisha Shaik <mansur@codeaurora.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Hans Verkuil <hverkuil@kernel.org>, 
-	Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: sc7280: Add dma-coherent property
- into venus node
-Message-ID: <20260813-frisky-augmented-crow-fd5d3d@quoll>
-References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
- <20260801-iris-fixes-dma-pseq-fint-v1-2-aba0cb22f6ab@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="LZXlAaqM"
+Received: from smtpclient.apple (85-70-170-181.rcd.o2.cz [85.70.170.181])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id BC3165340217;
+	Thu, 13 Aug 2026 11:20:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1786612821;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XSbxuFNDxlXVpQ/cS578M2yFcGMkc7DG8pgNdZPizcw=;
+	b=LZXlAaqMDuz1Eu1qoATS2mQYnT7CsZwlU8A/IXlgD06ajK8b+e6H1n9LYw4UJuCZm5U/K1
+	45EC+UwLTUEFW7hK5NTe7T8cn5/fV82S+8GeZjkxTS2flC4JayGWz1E96Y3dcIj8ur1J4R
+	hWWn2JaZ0EhUTvH7hyEn/4YiTGlPbJw=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: David Heidelberg <david@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260801-iris-fixes-dma-pseq-fint-v1-2-aba0cb22f6ab@oss.qualcomm.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH 00/33] Add support for Qualcomm Snapdragon SM7150 SoC and Google Pixel 4a
+Date: Thu, 13 Aug 2026 11:20:11 +0200
+Message-Id: <7B026D92-3826-494D-B1A9-EF01D41B4461@ixit.cz>
+References: <b15b2687-0c2e-43b2-ac9e-78e04e77e065@mainlining.org>
+Cc: Jens Reidel <adrian@mainlining.org>,
+ Danila Tikhonov <danila@jiaxyga.com>, Miro Mraz <mraz.miro@seznam.cz>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ neil.armstrong@linaro.org, linux-hardening@vger.kernel.org,
+ linux@mainlining.org, Connor Mitchell <c.dog29@hotmail.com>
+In-Reply-To: <b15b2687-0c2e-43b2-ac9e-78e04e77e065@mainlining.org>
+To: Danila Tikhonov <danila@mainlining.org>
+X-Mailer: iPhone Mail (23G71)
 
-On Sat, Aug 01, 2026 at 01:07:28PM +0530, Vishnu Reddy wrote:
-> While testing with some higher resolution clips, the venus hardware
-> triggers a fault due to wrong input data being received. Corruption
-> was also observed in the captured output when the client dumped it
-> to a file.
-> 
-> On debugging, this was traced to the venus node not declaring
-> dma-coherent. As a result, DMA buffers shared between the CPU and the
-> venus video hardware/controller are not guaranteed to be I/O coherent:
-> CPU writes to an input buffer can remain in CPU caches without being
-> visible to the video hardware when it reads the same buffer, so the
-> hardware receives input data that does not match what the CPU wrote.
-> Likewise, on the capture path, data written by the video hardware to
-> the output buffer may not be visible to the CPU, so the client reads
-> stale or partial data, resulting in corruption.
-> 
-> Add the dma-coherent property to the venus node so that DMA buffers
-> shared between the CPU and the video hardware and controller remain
-> coherent.
-> 
-> Fixes: 37613aee2179 ("arm64: dts: qcom: sc7280: Add venus DT node")
 
-Really does not look like a fix. How skipping a cache sync can fix
-anything exactly?
+> On 12. 8. 2026, at 22:54, Danila Tikhonov <danila@mainlining.org> wrote:
+>=20
+> =EF=BB=BFHi David,
+>=20
+> Thank you for your comment.
+>=20
+>> On 12/08/2026 14:40, David Heidelberg wrote:
+>>=20
+>>=20
+>>> On 23/04/2025 09:26, Neil Armstrong wrote:
+>>> Hi,
+>>>=20
+>>> On 23/04/2025 00:07, Jens Reidel wrote:
+>>>> Hi everyone,
+>>>>=20
+>>>> apologies for the mess this created. Danila's mail provider ratelimited=
+ him halfway through sending the series and the attempt to re-try sending th=
+e second half an hour later ended up with a new message ID (I think due to n=
+ot using --in-reply-to).
+>>>> He asked me to let you know that this will be resolved later and the wh=
+ole series will be re-sent once the problems are resolved.
+>>>=20
+>>> The b4 web submission is a great alternative when the mail provider is r=
+ate limited:
+>>> https://b4.docs.kernel.org/en/latest/contributor/send.html#web-endpoint
+>>>=20
+>>=20
+>> I see people interested in moving Pixel 4a forward, but it seems this was=
+ never upstreamed? I looked at sm7150 repository [1] where I see FROMLIST, b=
+ut these patches never arrived to the list and this series is from 2025.
+>>=20
+>> Should we expect v2 (re)based on recent tree?
+>>=20
+>=20
+> I'd definitely like to get back to upstreaming SM7150 and the devices
+> based on it, but I don't think there's much value in continuing with
+> this particular series as-is. A lot has changed in the kernel over the
+> past year, which would require substantial changes throughout the series
+> and would effectively force the maintainers to review it from scratch
+> anyway.
 
-Best regards,
-Krzysztof
+After longer period of time maintainers will have to do full review anyway. S=
+ure, the reviews needs to be addressed :)
 
+>=20
+> I'd also like to split the series up to avoid targeting such a large
+> number of maintainers in a single submission.
+
+Yes, that=E2=80=99s exactly what=E2=80=99s needed (at least for the part pat=
+ches I saw).
+
+> Hopefully, I'll be able to
+> find some time to work on this in the near future.
+
+Where the most recent patchset can be found? Just in case someone wanted to p=
+ush some bits in meantime.
+
+Thanks
+David
+
+>=20
+>=20
+>> Thanks
+>> David
+>>=20
+>> [1] https://github.com/sm7150-mainline/linux/commit/7ea41523c678e94a7c048=
+936052b5b1b1b109cdd
+>>=20
+>>> Neil
+>>>=20
+>>>>=20
+>>>> Best regards,
+>>>> Jens
+>>>=20
+>>>=20
+> ---
+> Best regards,
+> Danila
