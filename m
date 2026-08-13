@@ -1,28 +1,28 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010013.outbound.protection.outlook.com [52.101.56.13])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013070.outbound.protection.outlook.com [40.93.196.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D87368D47;
-	Thu, 13 Aug 2026 10:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BF92EEE88;
+	Thu, 13 Aug 2026 10:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.70
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786616625; cv=fail; b=Nu47PMowQYw74/YTE++PfdDj/dDZglWzu7yboch48HfgH+bCuQQ4nqQwVffgPZqnwGWaX/xPSbbY6+NUan3KGELubpbTI3BGfNCWwX43VyhDucyIumS/wcHbU6qOtzLbq71U/VXyjSAcls9bJeyHAi8xCYQGMKxZFwzO7Vdv6oY=
+	t=1786616623; cv=fail; b=Vvgl52WNEdpQNTrsR1teVhV8hVRunyjvdEnLyJrWwibr3QQILrAwFYkoXGdQ8ym050al4Cl/jGA8vyvCwvK3dVVzEp/+x4k63JtuoLx8CiDEApIuhDrrMt7G6Vu9OIBgY8yc0mbKxMlkzI2oeFxlWgEETZRX3OnH0LyiI9bR/ug=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786616625; c=relaxed/simple;
-	bh=0VpDITtggvzDya9c9gOPbFKA9rIQYetgd1cb261RRjQ=;
+	s=arc-20240116; t=1786616623; c=relaxed/simple;
+	bh=Egx295cva7Zmd6wvngjlTEaB1tN+xl0CU1NRTmSJlq0=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p5Dxe9Qx07wUNkBOrI64aHd4bVsZULOuL2xYpLxrnKGUl3jHTtYCW41IYZNZ1aStA/NcuKixVOepfZIRIu08e+shEuYDXUl88637qx90Lgcg/H2EPlsVOLxF+IUybWE2l4BkUI4pj3FrEL95TOXQuelTcOq6O0Q4FTRQMbrDGJk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cT+bMMyZ; arc=fail smtp.client-ip=52.101.56.13
+	 MIME-Version:Content-Type; b=lntEDjnUTDYMZrgDc2Jij6et9zqhoZYly/hOdHDCfsVTvAwljeSHRN+UkLsoxU/+ioXYM4MxF0bY07XCHwwvlWzJNLbiY68ZLOMtC0GlpeOIBth/hQeu7jyUnozBKoZ9899VfNXYn3jo6/U/uOH4chflbwU+m/8DO/5dqGnRhGs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JqiKP+7S; arc=fail smtp.client-ip=40.93.196.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cT+bMMyZ"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JqiKP+7S"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ed3eN6tTi8fgY9Odp54L+rIpeOWt24zqUSe2oBdMNtheF3lmrwCuvrQXQrdXV0AyK/DE067v5vr2yO2XMaTMcuoevVxSPL6d0Z6ezH/9qJaZ0Xw0qUYjEcoGmFmOGIKbL1dHzIByLhoEJe+YE6IwlzsF4qTILx9r3l6tSPDHbOuNRXk9VS3MUWeJ6u1jmSY6Qnqf6X1tBZi4Z8kB3BWsdbW9+2OpxpKBYps9PlH/wZa2qGTz6tt7Y6CxxLjZwR85CR+LEAqq+SPb/VL4/QdMw1S4WBrD+NNVRGdofJKHFhsxEROhw8IrHkHMSc4U4y/O3+3lHDHUqkasPVlWBba1+w==
+ b=p7tlT+n4R7NGL1HMC0fMt8QoFTjBPIlkzcf8g1dOb99hXUldOziJkXoVnVkKA0qnO0sw2ZfQDPgYZc87n264gQj1lZnY4c0fKyRHnPyabttV5e+ZmrB1GqJJqj+JgrVAeb5nCh5U6ydnYRRlKKVVLY1N2g3DsykjADMhuvC0zOfMTlGFhb7AfwjwPi5JVGTKoEwTcbxU9kLUe/ciHhoQRVFdLDTx7OAROtjfRm26zfJLzMAVSGOYBO4apa4+U6zM3VXnnOtd6NdiBdgwM/y25Z6YrongHVMKANdGU9P5VVuuifEwXjb8M5O9/7uIGuWblJkceWGnssOhWg7uAz8Jqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rl9IHulDDn77bEqosAdpIWdVzxt30MaAe2/s0Bcwu1I=;
- b=FtTm1cghq+TTsnjATmTVYGuVN3U/DxOEcvcyWVzfui7ZHXHY2XJ3eJxXWXTDz1EqpwP8bN3+E7H9I+GVAUDg8rlcCgsSSh9dLaSeG02Muce6DkdW//PNAHrtMrhg8TfUJmZoP7jjje5n94h4ilFrUwBjZFvAs5IOZiWO9CK+s/RTIjkmCc6kMpYLX4kAuq1Lao8biPiSoaA+KvBWe8xQDSdYpgtrGiws+phLxqUFGiC/X2Dvpg8qD/ma7p+22DYrtykvH8vjKIGTtF9T5oi9dXvW/3rVwt0hWAc1VeSf8LtpZ/IRfnFnvNqXgeB6KQytUwDPJEQt4/iY3VFA76Et/g==
+ bh=04cXYLRJ4kD0BXV+N19EfarZadNTZMNe2eQxiQ5cnkE=;
+ b=V0w4Aechgqo2mrRDOnt9NvvvsA2JKft5u2sjI1IuIp3iuDkGP1ilSrI1rH1BX4qS5bntZO0Utvd7tmMp5SJlZDE0o92Y6oa9NX6R1YSfgUlVnZV5bNHK4DHFYjdkTHzcTi6nVunzCefyqIc3O+WtMjSoiuP2kPr/RJPtXYvTy5wmlmnFIY5UjzDSTHyDV2l159eRyoZ7+KOL8j86vQIy+9AeLUeTK6MXh+3TuVJxFbv33MrCRKoSNANSF2bQ2e0IIqWmnDhKon+miGNkLmW1PRTFIa91abveQG+JYgJ+7UqufZ/mJ5aSjFkWH5hL5WU+2EkT4l54ykn4ppw4A0hJTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=codeconstruct.com.au
  smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rl9IHulDDn77bEqosAdpIWdVzxt30MaAe2/s0Bcwu1I=;
- b=cT+bMMyZXJ5KeVlyzjE65ahey9VmqGqpVZuLvD9zSsIApF40+i+NkipIoFhsnSWGl3yw88WHn94z3SHnDYWRvW53Tg1+NBJgmUUoIsbOqXABTi+HFqg1wJOXnMb092oVMKZm+3AlKPGtTmGmVhMNmASBlb2zAka2H0vL95+hBd4z/TaqMs6bQvftblvKc6FuGxEmqkAZd3+ftM9ZDPgz/UlM9Q+p9lJf/MMLeWzxVzY9b6BTXIubBXFuPdHeaCTJMpTEBHX8ievX1NfEGFh7jSjJeFB34VYW2of2ht0xxCQMhCNoGYRrzDUwwU+Y/OltTYhD/ccpCtSmZkNt6k8P9g==
-Received: from CH2PR07CA0060.namprd07.prod.outlook.com (2603:10b6:610:5b::34)
- by CY5PR12MB6527.namprd12.prod.outlook.com (2603:10b6:930:30::13) with
+ bh=04cXYLRJ4kD0BXV+N19EfarZadNTZMNe2eQxiQ5cnkE=;
+ b=JqiKP+7SvRsVlE33s45yD+JaMIx8ScelOkwr+OrQCymiKiUotWr/qHk6jE+SP0R1QaFPhSXkLKoHJFW5QpePwbZjCnDkLwAfaKisD0YClbyZkwkQqodjgaDzmrZB0iYuslv8ZGqtWVBEX5SxOaQDd/MERxZPoyoNS7DeX7hoYVfWM9UEMtWIE4DG1H1cogbwdreRC1/hYYsDhWanduRbEeSymczQ0U9BfWyjMhEc8lH2QC10zjgzZxzGgOjSVNG8xbM2GfnzGym5oU8U+nPIy2iO6D+0e5jlwiYaCcPwj67YO8eVmcgKb/S26uAKLIrItE/mnDVr6fBo1j9ozIjlyA==
+Received: from CH0P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::18)
+ by DS4PR12MB9636.namprd12.prod.outlook.com (2603:10b6:8:27f::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Thu, 13 Aug
- 2026 10:23:22 +0000
-Received: from CH2PEPF0000009F.namprd02.prod.outlook.com
- (2603:10b6:610:5b:cafe::74) by CH2PR07CA0060.outlook.office365.com
- (2603:10b6:610:5b::34) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 10:23:29 +0000
+Received: from CH2PEPF0000009E.namprd02.prod.outlook.com
+ (2603:10b6:610:ef:cafe::7b) by CH0P220CA0012.outlook.office365.com
+ (2603:10b6:610:ef::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.14 via Frontend Transport; Thu,
- 13 Aug 2026 10:23:22 +0000
+ 13 Aug 2026 10:23:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -49,17 +49,17 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.161 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.161) by
- CH2PEPF0000009F.mail.protection.outlook.com (10.167.244.21) with Microsoft
+ CH2PEPF0000009E.mail.protection.outlook.com (10.167.244.27) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 13 Aug 2026 10:23:21 +0000
+ 15.21.339.3 via Frontend Transport; Thu, 13 Aug 2026 10:23:28 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 13 Aug
- 2026 03:23:06 -0700
+ 2026 03:23:11 -0700
 Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
  (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 13 Aug
- 2026 03:23:03 -0700
+ 2026 03:23:08 -0700
 From: Jacky Huang <jackyhuang@nvidia.com>
 To: Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley
 	<joel@jms.id.au>
@@ -69,9 +69,9 @@ CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	<linux-aspeed@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>, Jacky Huang
 	<jackyhuang@nvidia.com>
-Subject: [PATCH 1/8] ARM: dts: aspeed: facebook: Declare SPI NOR flashes on boards
-Date: Thu, 13 Aug 2026 19:22:26 +0900
-Message-ID: <20260813102233.3088939-2-jackyhuang@nvidia.com>
+Subject: [PATCH 3/8] ARM: dts: aspeed: nvidia: Declare SPI NOR flashes on boards
+Date: Thu, 13 Aug 2026 19:22:28 +0900
+Message-ID: <20260813102233.3088939-4-jackyhuang@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260813102233.3088939-1-jackyhuang@nvidia.com>
 References: <20260813102233.3088939-1-jackyhuang@nvidia.com>
@@ -87,30 +87,30 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009F:EE_|CY5PR12MB6527:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1873da85-bda0-4db7-500f-08def924e6bb
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009E:EE_|DS4PR12MB9636:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76dc69c8-5082-43ae-6af9-08def924eaac
 X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|376014|82310400026|23010399003|1800799024|36860700016|6133799003|18002099003|22082099003|56012099006|11063799006|10067099003;
+ BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|7416014|23010399003|18002099003|22082099003|11063799006|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
- Lv4lEHsLSJvU31IsfSUQv0Ki0joLpUX1GeNuHsPo8iL5yYrvAhcdXjJ73U4E/vCJO6R8BiwvpU0nk7fexFpcMube+NP15suP1jIpxDBEjkP+tskmJ7Ts2sMkUI+tUT+Y9D9G2vxsOZAy9u50MurMJ3/my2Et3AOR6Gl3UrI2DCLkNINiiqaBKXq/KOX+JshT3l2vMZYg1iRcarJz46KJkwLadKN0exfNe3Z2GJrqY/LkP/w5KyVjjEEraQ/5QIfw/zZ2bzVocwvlWeLJ99nTBT/j8pa5EgnAhW3VntAe9G2xUX80qv7J2r+OhNLbgS6DtknHD7myOdeH8XfsyhvVQMbTGPHeReBuBihntmSUI0WKf40ZAm5rt9RX6IWDoY0XzYKu7czid/mPgr7UXl3tOOAc3c7PoAFSnwWUPQLPxBojxhoX7YUGqF9uRcx+EjFFurArcX4mOC0lPVsfkOCVg77zKSDfSzHPUASzeQHcljbeGEskjXz0dwabIvEF24UzeiDa6LD1K5lMf48aUTj8xpH3XHBkj+TPQC+0fpVWEeDgYzryMcZJZDGisYyLJcIPr8ofjmU6On3MvE/cF5TSeKN1G+Hwxw12x5r7suzRLErCnzKPJOv2j/xsJDiJKH+1mqzkkFzcsw5whFW3yoa2uu4H0RHIeUwP5CdIWNq0PserNQWNseBAt2Dp1vH0Zx2SStM/i2q+k7tyvSWtMXbRog==
+ e+PhBof/eutx2yiMMavwrv1qCXwLWh7ndCYp0/+Y32MG1/6x5OZRV3aBki4cKs5I6pM8N4LKYklr5PieoNZSj8Qo+XBhq9dpw3DkeaDJJEFkplvhcm6k5gavLoH89uRw5BCt88AcERQeEYzkiq7TDm29DkQyeHsbF2XcJ5ZHfI5+ms9t5bAp1M0f0EZ2mGyeoONLvcQFDJw9YUQpA4tIczjgen7rgzN9WI0m8PHpHnB2w9LQbFdfFKQk7uln3gR6IKAcml69PVt05t7EQmmlLRQLzXzBBjHhn7EVCSdPTNcqT2MlgppzprhDfW37BL5lXu6HrZ4GybwYaJRzlN8oX8GRHtniFfA+H6wLcoilSOki/ZMu5Gwe6XQYSAenkoQju7wL4Rzh0RwkvzYnTR40TYlTJcG1n7ZcV0WDXMnb87UU6m7CBlKCqvFFZPuhmYrDSZbMHJk+aeGfT3yb9UFPLER1dBXxPS8FEf+apVrqWyExjeEe5b+hdJY+hVQtlzj8houMjrm8a4yeLwEhS3EHEmIgiBWlQf3UpgK/PqI1HzlWTpgNHr0Pd/zmW380yuhFUtMML3VOm1NYx7ZcwX+WsK7XpGukqNlGbW+5o+bI4YBJFn0M7tsKL6Wa5IkzOWqnUQSgtcefdfJCBUeeddSeDJqJmPOg7j9gK8EK0RARWuGEuqC1QuEtygPHY2pc0fEO5TJxHYHnAT2T7xfwWqmuTw==
 X-Forefront-Antispam-Report:
- CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+ CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(7416014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- +S30VV/KzNdpg97QDRtTAb3nvdLR4g6Wd2zq1UxgtimuYeJVcMH1Ckun/rw2Qr/DCHW/M+6FZ60e7MzM3NW+EbyP59TjrYiHldC5tZ2PS27T6WGGJrm9oUB4iglfRLv1s2g1hO7Nc6HYdRWTpzN8cyYpVKtDC0psFTyFE+IueuPJhUf81NjRH11a3XKBAejMg/XOvT8ZxLJD5PyEvtkx/QRI8oHKqvn/kHIU4Zefdq6j74LZCV6d6EtSA46pUIIvwJk5sTlwI1T0r9XnJ1ODrE4/7IxUVgBiyV3KMxm4gIEjFi0A0bZV+kvmXKPO5bQCLiFX1R73PYqTzjgXGJXaF6xa9cDiPyH7SaTnVoooM1SyEYTaeTEILdfZEBc8s9zL5sJrLG/EgsbPd30MhAPrjYHjTg2sL/lJmJDNuA95RzXmEBs9TanhHZYU4KsUgNC6
+ 5jr0TR2zo2vCmBE2T4dsBQVZ/udVcLUDoYAQPubLybmVPy2jd6HxZVS2bPVJXAjyAmeoD277l2PV0/LnbjqIZZnmKxTcw0iY9zDyodldQjppLVTD+AE35ezRnjFRQOf8RvfDiV4MeLwz0lAkSZ9qITf42EcEgXXjacx/gxOXx5rsxRN5q/HIA2lqnF3gsvnOWzxqqdYwmvdqTUXz2+nfADXK9kxxZ/yhGtiBK3deXi5lW1bAUTDyu95LibY+1EX7A4ggKcBcrpi7AH5hqtscnPxQtVlg2E4nf/sK34Iz1ejaiRFzJ0hrjSJXWLOSykMik8IsVZy4z/3GrExBzCxMZtm+tMykIEmp1QbxotH3ulmk7l5SgZObIgbGi+wPDlWodGu44YURa7/oAm9Fl+lLa8ZD6FIXoKnD/COde9b3aw1UzF5i1szvsoBtqL0Yz9Gj
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 10:23:21.6716
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 10:23:28.3237
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1873da85-bda0-4db7-500f-08def924e6bb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76dc69c8-5082-43ae-6af9-08def924eaac
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6527
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9636
 
 Declare jedec,spi-nor flash nodes with the properties previously
 inherited from aspeed-g6.dtsi stubs. Keep status = "okay" so these
@@ -118,442 +118,65 @@ boards stay enabled while the SoC stubs still exist.
 
 Signed-off-by: Jacky Huang <jackyhuang@nvidia.com>
 ---
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts | 7 +++++++
- .../boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts    | 9 +++++++++
- .../arm/boot/dts/aspeed/aspeed-bmc-facebook-catalina.dts | 6 ++++++
- .../arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts | 6 ++++++
- .../boot/dts/aspeed/aspeed-bmc-facebook-greatlakes.dts   | 4 ++++
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-harma.dts   | 8 ++++++++
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-minerva.dts | 6 ++++++
- .../boot/dts/aspeed/aspeed-bmc-facebook-rainiera6.dts    | 8 ++++++++
- .../boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts    | 6 ++++++
- .../boot/dts/aspeed/aspeed-bmc-facebook-santabarbara.dts | 8 ++++++++
- .../boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts    | 4 ++++
- .../boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts    | 8 ++++++++
- .../boot/dts/aspeed/ast2600-facebook-netbmc-common.dtsi  | 8 ++++++++
- 13 files changed, 88 insertions(+)
+ arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts | 5 +++++
+ arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts     | 5 +++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-index 1fddf3a5d138..e3b0e21e8e03 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-@@ -166,18 +166,24 @@ &fmc {
- 	status = "okay";
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts
+index 4de38613b0ea..c8788c67ddec 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts
+@@ -145,8 +145,10 @@ &fmc {
+ 	flash@0 {
+ 		status = "okay";
+ 		compatible = "jedec,spi-nor";
++		reg = <0>;
+ 		label = "bmc";
+ 		spi-max-frequency = <50000000>;
++		spi-rx-bus-width = <2>;
+ 		partitions {
+ 			compatible = "fixed-partitions";
+ 			#address-cells = <1>;
+@@ -180,9 +182,12 @@ &spi2 {
  
+ 	// Data SPI is 64MB in size
  	flash@0 {
 +		compatible = "jedec,spi-nor";
 +		reg = <0>;
  		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
+ 		label = "config";
  		spi-max-frequency = <50000000>;
 +		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-@@ -1023,6 +1029,7 @@ &spi2 {
+ 		partitions {
+ 			compatible = "fixed-partitions";
+ 			#address-cells = <1>;
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
+index 29f56176e2ca..0228764721bf 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
+@@ -56,17 +56,22 @@ &fmc {
  
  	flash@0 {
  		compatible = "jedec,spi-nor";
 +		reg = <0>;
- 		label = "pnor";
- 		spi-max-frequency = <12000000>;
- 		spi-tx-bus-width = <2>;
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-index d1a04b63df9e..409757a10120 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-@@ -314,17 +314,23 @@ fixed-link {
- &fmc {
- 	status = "okay";
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
  		label = "bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
  		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-@@ -334,10 +340,13 @@ &spi2 {
- 	pinctrl-0 = <&pinctrl_spi2_default>;
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "pnor";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-catalina.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-catalina.dts
-index 14dd0ab64130..c6b9c67bd965 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-catalina.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-catalina.dts
-@@ -170,17 +170,23 @@ &mac3 {
- &fmc {
- 	status = "okay";
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts
-index 820d39a92974..82e5d7b9ab71 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts
-@@ -189,18 +189,24 @@ &ehci0 {
- &fmc {
- 	status = "okay";
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-greatlakes.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-greatlakes.dts
-index 49914a4a179f..a7df5e7ed650 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-greatlakes.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-greatlakes.dts
-@@ -82,6 +82,8 @@ &rtc {
- &fmc {
- 	status = "okay";
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
-@@ -90,6 +92,8 @@ flash@0 {
- #include "openbmc-flash-layout-64.dtsi"
- 	};
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc2";
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-harma.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-harma.dts
-index 5602a502d07b..e35041946d33 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-harma.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-harma.dts
-@@ -139,18 +139,24 @@ &fmc {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-@@ -161,6 +167,8 @@ &spi2 {
- 	pinctrl-0 = <&pinctrl_spi2_default>;
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "pnor";
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-minerva.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-minerva.dts
-index eb8d4b95596c..3bf8945691c8 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-minerva.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-minerva.dts
-@@ -161,17 +161,23 @@ &mdio3 {
- &fmc {
- 	status = "okay";
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-rainiera6.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-rainiera6.dts
-index b29e08cea254..cb41b78536bf 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-rainiera6.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-rainiera6.dts
-@@ -128,18 +128,24 @@ &fmc {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-@@ -969,6 +975,8 @@ &spi2 {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		m25p,fast-read;
- 		label = "pnor";
- 		spi-max-frequency = <12000000>;
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
-index 3cc6e772cc8c..73d013cf3dc6 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
-@@ -117,20 +117,26 @@ &fmc {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		label = "bmc";
- 		spi-max-frequency = <50000000>;
- 		m25p,fast-read;
- 
- 		status = "okay";
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
- 		m25p,fast-read;
- 
- 		status = "okay";
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128-alt.dtsi"
- 	};
- };
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-santabarbara.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-santabarbara.dts
-index 0a3e2e241063..efe1a2ea52fd 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-santabarbara.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-santabarbara.dts
-@@ -173,18 +173,24 @@ &fmc {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-@@ -1867,6 +1873,8 @@ &spi2 {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		m25p,fast-read;
- 		label = "pnor";
- 		spi-max-frequency = <12000000>;
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-index e4172be84e7f..bfc7df61bfc8 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-@@ -162,6 +162,8 @@ &mac3 {
- &fmc {
- 	status = "okay";
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
-@@ -171,6 +173,8 @@ flash@0 {
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
-index 6287f80d70d9..e2d4aafb6437 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
-@@ -128,18 +128,24 @@ &fmc {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout-128.dtsi"
- 	};
- 
- 	flash@1 {
-+		compatible = "jedec,spi-nor";
-+		reg = <1>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "alt-bmc";
- 		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 	};
- };
- 
-@@ -1028,6 +1034,8 @@ &spi2 {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		m25p,fast-read;
- 		label = "pnor";
- 		spi-max-frequency = <12000000>;
-diff --git a/arch/arm/boot/dts/aspeed/ast2600-facebook-netbmc-common.dtsi b/arch/arm/boot/dts/aspeed/ast2600-facebook-netbmc-common.dtsi
-index 0ef225acddfc..180015ccb209 100644
---- a/arch/arm/boot/dts/aspeed/ast2600-facebook-netbmc-common.dtsi
-+++ b/arch/arm/boot/dts/aspeed/ast2600-facebook-netbmc-common.dtsi
-@@ -51,17 +51,25 @@ &fmc {
- 	status = "okay";
- 
- 	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
- 		status = "okay";
- 		m25p,fast-read;
- 		label = "spi0.0";
 +		spi-max-frequency = <50000000>;
 +		spi-rx-bus-width = <2>;
- 
- #include "facebook-bmc-flash-layout-128.dtsi"
+ 		#include "openbmc-flash-layout-128.dtsi"
  	};
  
  	flash@1 {
-+		compatible = "jedec,spi-nor";
+ 		compatible = "jedec,spi-nor";
 +		reg = <1>;
+ 		label = "alt-bmc";
+ 		spi-tx-bus-width = <1>;
+ 		spi-rx-bus-width = <1>;
  		status = "okay";
- 		m25p,fast-read;
- 		label = "spi0.1";
 +		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <2>;
- 
- 		partitions {
- 			compatible = "fixed-partitions";
+ 		#include "openbmc-flash-layout-128-alt.dtsi"
+ 	};
+ };
 -- 
 2.43.0
 
