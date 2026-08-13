@@ -1,71 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AAB3BD225;
-	Thu, 13 Aug 2026 12:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EBF47606E
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 12:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786624732; cv=none; b=G3YRrO5YWlopvIYXznvyNUVyrqGd2VhQkCI5794KUg2UkGr8RVd7SpzinG7ZwUNr25hQNCk30+bGGQRxxamqc/9OykKC2WxSj/33SdEz6QxYF7HZppT960XFA/ReJdkO8KeJj1on8Q2qd2O8jf6dauD7sPJfsWBd5gX7VhE9XEw=
+	t=1786624844; cv=none; b=c5Qfb2NkSYho3uU5//80elBRlkxEuUAjEvTn43dMeKzdtX9dvg2NwRzYjwPVfP0kNXhhTMRN0rRFAOYPOLKL+wE+LCIMjLT/boUFpzXCB1hgixwXkzCIUvslzDBYx9y2msQOAcUuch/ccvJGG5W32P6arC04eV42JHt+D+50IGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786624732; c=relaxed/simple;
-	bh=l6kqcTsMKzlAtJHGFOG2awd1t7J9zIBNdmxrYPkmxNQ=;
+	s=arc-20240116; t=1786624844; c=relaxed/simple;
+	bh=WYwkX1yh0Pta1wRluTjZ/jH/1tys5sS0UlkmPOp1EPE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PijT8Ye/mdSYaoLN4RuZDxIuQkbApxoqbnBHHuy4NFYrGHS+OyLTX41hywogk6jLhlKnNyg6uBMhM68xOmBZckGW+yKTrcToBcFc/H+UzrkTsjUMyz3sdG8+l/42Ch/spEUAX24DVBKskzihgJsLjMPhotmYQqXX7pvEGFg/fso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/qsNX5x; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XYwW4psZhqROrCRSv1Xy8jc8wTeZgLYZCqhChottzWbLCyn9BnG3u8BmEAHApXeIbKpdkEuoWkq72JuVlMsbWJNlUjnZs7K7THbNuOlsWBz2Ki3NYyEwBvgTacTWZUCpsbIKn2sAHKEy5VC5EizAemQhSD12ibgdGjFOXjbw0UM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Pzf8go5x; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/qsNX5x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048DF1F000E9;
-	Thu, 13 Aug 2026 12:38:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786624731;
-	bh=LBP1ThiJDiqMaPUW1k9BGd4ceLpbU1ZyA9FI9qbdQ7Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D/qsNX5xklT6SE2DiETI0i94S7g9+6U0xsNx33gQlU6zUQCsgryLjqLfDMnmhYOK0
-	 2bhiDt7foF/iK0glpKcOAc4o423Ry/3L7VJIfn0JWywvQBTEi9bZ5oaTPDO4tLpREj
-	 b4S/5B5/kH41ebLY4v53hDfK4NlYeXuf3Dxf+yJPB9WBdFOgt0TgJk7hf8obw7M97y
-	 6asPwAjuwjFHg7BA9TStZb44VKxrFf1uisjJYptSpigN0bG5dm6XRMFrbUK0ZaiXIO
-	 sKfUjOinvtJiMtcSjBxsRgMjbKnuGCG5kP6FmpQNdBeBug+typBAs53ml0rnrSP2JU
-	 Lc7O/qslA0ouA==
-Date: Thu, 13 Aug 2026 13:38:41 +0100
-From: Lee Jones <lee@kernel.org>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Pzf8go5x"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495437bb891so7898085e9.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 05:40:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1786624841; x=1787229641; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VJPCpNnotx0ECpUt+MKP1Xchlx2xXWGrMhf2UEWt9n0=;
+        b=Pzf8go5xmCnqTVPBvSA1zSC+H6VD7PQdkhX0FU3lLPEStYw3qmZ7+zwju2ag1FzZR6
+         96qq144ifJzdovPioTgA4IdNM/dYk35bU/CEiJs2enSdwYyGyxGh4RBgAXqHff9iVybU
+         HdhSDID2rtQlUGJee4XMdyHCSDOrJTBAyDdVoxDWvGaEGlZPj3wc8rnUDkonOfrRMhMc
+         plkxg4rNAopcy1h0KBGG2Y6H/Z4qG8GDBwMRfVFchTqxvlD3Dofv12CKu1s+jO4nFSXO
+         tkU8lkClPyJ6TyFrX93aSQvYxnxMPBWeIKqza/FbaN0bDlUy6QIY1amV4R6tB7YH+WzN
+         2Gjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786624841; x=1787229641;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VJPCpNnotx0ECpUt+MKP1Xchlx2xXWGrMhf2UEWt9n0=;
+        b=i9qIf/5pRbR3fKbkVgw7JInWDUSSk3AzWIkWxDEmgjTOOVjTVSZQ68NK/atGtpVg83
+         riC8z+ZUKydIRMAglTCz7U8sC7Q968f0Y4jFdcnz/mh6sbHNzAFEpsdLsYPfC4KLQZJX
+         jb4SSQqp89IyMToWNqY47ifxvRGyUc3fHayFo8sz5WP/IFYHbTjN9Yh2HXxTOSSFu1ya
+         PJ7MKSjmOG1RlAOJU6iGQg4NnkPFEM2utbLP1v3ympeDzywqDCeZHH3vasB4iGYZrlRY
+         SBmMaTFOsuUqxMiCb2kiFVEdeUbaE1ydPUFYM7A+l99ihigi+bx2Uayfz1QU00W7YbMl
+         Rr8Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rpdqba1IMna6pASHK9BAz8tQHlInTZy8qH7jJ7xanEd/jKkzVBjy1h+PSF0qwj2TaBAPne+lVbah6pn@vger.kernel.org
+X-Gm-Message-State: AOJu0YwggfAZ4lZQRr5cTnWW22mTkhbcrQSO5mkLi/U+KlxW5dUiGKEq
+	aSeEn40U9a604lQ5+c2HJkw1uKhLIFGQW5yeQiCOLoxpa30Z0kvvnJMNyeRAI/WrncA=
+X-Gm-Gg: AR+sD12bJ0Hyjl+yQKg3hSjpV4A9q9dPqq3ZEVTcVag/1V+Yerm1g8c8YsZgaO2Ctn2
+	EGMX+imRvu34JYoQ8spGkAvvUKS81epRfsiY4w+WsYlvukiLA38HWBtveT/W4ljkBWAcDSVykO9
+	UOYZMPxT0FmaUtMW+eeFPggDdZJl4vQGN62CgSWrp0f7iejGFRiWpvpwlF8g801ZuLHMOxRTFhO
+	rkkMmUwTZ5kUbBCugCZhthbuVrn+XPnGm4BzndGtk+l/zXE+LLAx7nfAQH0KLxEieXOSp/Le0O0
+	KHW+P9T1daAOD31kayI6dXR1+8pm7Aa/SPM5RJ7W9hfFbg/F1QHahzlhLqBCxq+N+X5/rZ21r40
+	Ps0qBfAhJNobAtlve16QSJbu5kp4oImyO9OQXlrEbstzmoc6Hbwty0fXeZ30jpHmoT7Vp8yctby
+	F6WAwjsIEPIB+XOW6ZZy7BMxIz+dSUpwjxFt1Ifwi4mAUU04BHfAeG9upkFFZMGcd9qpnTpXQq
+X-Received: by 2002:a05:600d:6409:10b0:499:84fc:4548 with SMTP id 5b1f17b1804b1-49984fc45c0mr21387325e9.5.1786624840981;
+        Thu, 13 Aug 2026 05:40:40 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff24:7210:4e0e:b1ef:ec35:a41b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49982121658sm65870555e9.3.2026.08.13.05.40.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 05:40:40 -0700 (PDT)
+Date: Thu, 13 Aug 2026 14:40:29 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Stephan Gerhold <stephan@gerhold.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	John Stultz <john.stultz@linaro.org>,
-	Moritz Fischer <moritz.fischer@ettus.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andre Draszik <andre.draszik@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, mfd@lists.linux.dev,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for
- cpuidle-psci-domain cell
-Message-ID: <20260813123841.GC1820248@google.com>
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	chris.lew@oss.qualcomm.com,
+	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Subject: Re: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
+ single coherent block
+Message-ID: <an27PVxkCpD09xSR@linaro.org>
+References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
+ <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
+ <alXm0rp3NK62G3-3@linaro.org>
+ <c8417ff3-db92-446a-acf8-8c73c83b85de@oss.qualcomm.com>
+ <amMxkrW3mu48HIOr@linaro.org>
+ <63bae39b-1256-4e19-a9de-840d8752ec69@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,224 +94,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
+In-Reply-To: <63bae39b-1256-4e19-a9de-840d8752ec69@oss.qualcomm.com>
 
-On Mon, 03 Aug 2026, Shivendra Pratap wrote:
-
-> PSCI has multiple kernel consumers, such as cpuidle-psci-domain.
-> Currently, both the PSCI core driver and cpuidle-psci-domain bind
-> directly to the same PSCI node "arm,psci-1.0". Additional consumers, if
-> introduced, would also need to bind in the same way, leading to several
-> drivers attached to a single device node.
+On Thu, Aug 13, 2026 at 02:35:01PM +0530, Vishnu Santhosh wrote:
+> On 24-07-2026 03:04 pm, Stephan Gerhold wrote:
+> > On Fri, Jul 24, 2026 at 10:16:31AM +0530, Vishnu Santhosh wrote:
+> > > On 14-07-2026 01:05 pm, Stephan Gerhold wrote:
+> > > > On Tue, Jul 14, 2026 at 11:02:32AM +0530, Vishnu Santhosh wrote:
+> > > > > On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
+> > > > > NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
+> > > > > per-region access control, each individually DMA-mapped RX buffer
+> > > > > requires its own XPU resource group (RG). With ~16 RGs available, the
+> > > > > 32 per-buffer dma_map_single() calls exhaust the table and the first
+> > > > > inbound transfer faults with an XPU violation.
+> > > > > 
+> > > > > BAM-DMUX is a singleton (exactly one instance per SoC), so the
+> > > > > destination VMID does not need to be a DT property; it is looked up
+> > > > > from the compatible string's match data instead. Add struct
+> > > > > bam_dmux_data with a single vmid field, and a shikra_data instance
+> > > > > hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
+> > > > > 
+> > > > > When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
+> > > > > a single contiguous dma_alloc_coherent() block and SCM-assign that
+> > > > > block to HLOS plus the VMID once at probe. This reduces RG consumption
+> > > > > from 32 to 1. The block is never reclaimed across a modem power cycle
+> > > > > (bam_dmux_power_off() does not touch it), so the probe-time assignment
+> > > > > covers every subsequent restart without re-assigning or reclaiming. It
+> > > > > is reclaimed to HLOS only once, at remove or on a probe error, and if
+> > > > > that reclaim fails it is leaked rather than returned to the page
+> > > > > allocator.
+> > > > > 
+> > > > > Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
+> > > > > the block, so no per-buffer mapping is needed at power-on. Because the
+> > > > > coherent block is not page-backed, received payload is copied into a
+> > > > > regular netdev skb before handoff to the network stack; this is an
+> > > > > unavoidable extra copy on the XPU-enforced RX path.
+> > > > > 
+> > > > > Platforms without match data are unaffected: rx_virt stays NULL, no
+> > > > > coherent memory is allocated, and the per-buffer dma_map_single() path
+> > > > > is unchanged.
+> > > > > 
+> > > > > Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> > > > > Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> > > > > Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> > > > So how do you handle TX buffers? Right now, they are just passed on from
+> > > > the net subsystem. There can be up to 32 TX buffers in progress as well.
+> > > > 
+> > > > Overall, I have mixed feelings about this patch. It looks reasonably
+> > > > simple, but fundamentally I don't understand why we need to go back to
+> > > > the old days of implementing protection using a highly limited MPU (in
+> > > > your case: the xPU).
+> > > > 
+> > > > Why does the setup of BAM-DMUX differ e.g. from the setup for the crypto
+> > > > engine? Crypto is also using bam-dma, but it avoids this inflexibility
+> > > > by making use of the &apps_smmu. Is BAM-DMUX not covered by the SMMU? Or
+> > > > did you just decide to bypass the SMMU in this case? (If so: Why?)
+> > > I checked with secure systems team on this. Crypto BAM is
+> > > behind apps_smmu, so protection is enforced through the SMMU's Stage-2
+> > > page tables.
+> > > 
+> > > A2 BAM (used by BAM-DMUX) is present in secure domain and does not
+> > > support Stage-2 translation on this SoC, and there is no IOMMU domain
+> > > that can be attached to it. The only protection mechanism available is
+> > > the xPU.
+> > > 
+> >
+> > Thanks for investigating this!
+> > 
+> > So is this a hardware limitation or something you could change with a
+> > firmware update? Could you move the A2 BAM out of the secure domain and
+> > protect it via the IOMMU instead of the xPU mechanism? The other modern
+> > platforms with IPA do not have this limitation, they can use the IOMMU
+> > for this.
+> > 
+> > We can try to support the xPU protection mechanism in the BAM-DMUX
+> > driver, but it's pretty bad from a performance and memory usage point of
+> > view if you need to copy buffers around multiple times. So if you have
+> > some way to change this in the firmware (and there is still time to do
+> > so before production boards ship), I would strongly recommend to
+> > investigate that.
+> > 
 > 
-> Introduce a PSCI MFD driver that binds to "arm,psci-1.0" and registers
-> PSCI child cells. As the first user, register cpuidle-psci-domain as a
-> child cell.
+> Based on what we confirmed with the Secure Systems team, this is a limitation
+> of the current Shikra platform rather than something that can be addressed
+> through a firmware-only update.
 > 
-> Update cpuidle-psci-domain to probe as an MFD child and use the parent
-> PSCI node for power-domain traversal.
+> The A2 BAM used by BAM-DMUX is not connected to an SMMU/IOMMU domain on Shikra,
+> which means Stage-2 translation is not available for this path. As a result,
+> it is not possible to move this path behind an IOMMU.
 > 
-> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
->  MAINTAINERS                           |  1 +
->  drivers/cpuidle/Kconfig.arm           |  1 +
->  drivers/cpuidle/cpuidle-psci-domain.c |  9 +-------
->  drivers/mfd/Kconfig                   | 12 ++++++++++
->  drivers/mfd/Makefile                  |  2 ++
->  drivers/mfd/psci-mfd.c                | 43 +++++++++++++++++++++++++++++++++++
-
-We don't usually allow the use of the term MFD in devices.
-
-What does this do?  Is it a mux?  psci-mux?
-
-If not, think about what it is and call it that instead.
-
->  6 files changed, 60 insertions(+), 8 deletions(-)
+> Modern IPA-based platforms differ because their data paths are physically routed
+> through SMMU interfaces and therefore do not rely on VMID/xPU ownership assignment
+> for this type of access control. On Shikra, the A2 BAM path is protected using the
+> xPU3 VM-based access-control model, where DDR memory access is restricted and
+> granted through the request-based Hypervisor VM assignment framework. In contrast,
+> older targets relied on the earlier xPU2 resource-sharing model, in which modem
+> access did not require this type of explicit VM ownership configuration. This
+> architectural difference explains why the issue does not occur on those older platforms.
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index fe67f7bfa44c..0b6e4f89f319 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -21671,6 +21671,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/arm/psci.yaml
->  F:	drivers/firmware/psci/
-> +F:	drivers/mfd/psci-mfd.c
->  F:	include/linux/psci.h
->  F:	include/uapi/linux/psci.h
->  
-> diff --git a/drivers/cpuidle/Kconfig.arm b/drivers/cpuidle/Kconfig.arm
-> index b88b01aa5829..c5ecca0d7397 100644
-> --- a/drivers/cpuidle/Kconfig.arm
-> +++ b/drivers/cpuidle/Kconfig.arm
-> @@ -36,6 +36,7 @@ config ARM_PSCI_CPUIDLE_DOMAIN
->  	bool "PSCI CPU idle Domain"
->  	depends on ARM_PSCI_CPUIDLE
->  	depends on PM_GENERIC_DOMAINS_OF
-> +	depends on MFD_PSCI
->  	select DT_IDLE_GENPD
->  	default y
->  	help
-> diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
-> index b9e4ad7d43a3..a2d01810f295 100644
-> --- a/drivers/cpuidle/cpuidle-psci-domain.c
-> +++ b/drivers/cpuidle/cpuidle-psci-domain.c
-> @@ -17,7 +17,6 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/psci.h>
->  #include <linux/slab.h>
-> -#include <linux/string.h>
->  
->  #include "cpuidle-psci.h"
->  #include "dt_idle_genpd.h"
-> @@ -122,14 +121,9 @@ static void psci_pd_remove(void)
->  	}
->  }
->  
-> -static const struct of_device_id psci_of_match[] = {
-> -	{ .compatible = "arm,psci-1.0" },
-> -	{}
-> -};
-> -
->  static int psci_cpuidle_domain_probe(struct platform_device *pdev)
->  {
-> -	struct device_node *np = pdev->dev.of_node;
-> +	struct device_node *np = pdev->dev.parent->of_node;
-
-dev_of_node(pdev->dev.parent);
-
->  	bool use_osi = psci_has_osi_support();
->  	int ret = 0, pd_count = 0;
->  
-> @@ -181,7 +175,6 @@ static struct platform_driver psci_cpuidle_domain_driver = {
->  	.probe  = psci_cpuidle_domain_probe,
->  	.driver = {
->  		.name = "psci-cpuidle-domain",
-> -		.of_match_table = psci_of_match,
->  	},
->  };
->  
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index e4fd4572472f..d18655d76172 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -2374,6 +2374,18 @@ config MFD_KHADAS_MCU
->  	  additional drivers must be enabled in order to use the functionality
->  	  of the device.
->  
-> +config MFD_PSCI
-> +	bool "PSCI MFD for psci child cells"
-
-"PSCI mux for registering PSCI component devices" ?
-
-> +	depends on ARM_PSCI_FW
-> +	depends on OF
-> +	select MFD_CORE
-> +	default y
-> +	help
-> +	  PSCI MFD registers PSCI child cells and exposes them as
-> +	  platform devices.
-
-This is what all DT related MFD devices do.
-
-> +       Child drivers are probed only if enabled in the
-> +	  kernel configuration.
-
-Nothing new here either.  This is the norm.
-
-"PSCI Mux is a Linux specific device splitter designed to register
- multiple PSCI related components via a single Device Tree compatible.
- Without it, devices would each bind to a single node ... <which causes
- problems with x, y and z>"
-
-> +       Select this option whenever a supported PSCI
-> +	  child driver is selected.
-> +
->  config MFD_ACER_A500_EC
->  	tristate "Support for Acer Iconia Tab A500 Embedded Controller"
->  	depends on I2C
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index 72d3944b0ad8..f3edfad702ff 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -24,6 +24,8 @@ obj-$(CONFIG_MFD_EXYNOS_LPASS)	+= exynos-lpass.o
->  obj-$(CONFIG_MFD_GATEWORKS_GSC)	+= gateworks-gsc.o
->  obj-$(CONFIG_MFD_MACSMC)	+= macsmc.o
->  
-> +obj-$(CONFIG_MFD_PSCI)		+= psci-mfd.o
-> +
->  obj-$(CONFIG_MFD_TI_LP873X)	+= lp873x.o
->  obj-$(CONFIG_MFD_TI_LP87565)	+= lp87565.o
->  obj-$(CONFIG_MFD_TI_AM335X_TSCADC)	+= ti_am335x_tscadc.o
-> diff --git a/drivers/mfd/psci-mfd.c b/drivers/mfd/psci-mfd.c
-> new file mode 100644
-> index 000000000000..7affd6bb09dd
-> --- /dev/null
-> +++ b/drivers/mfd/psci-mfd.c
-> @@ -0,0 +1,43 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/mfd/core.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +
-> +static const struct mfd_cell psci_cells[] = {
-> +	{
-> +		.name = "psci-cpuidle-domain",
-> +	},
-> +};
-
-MFD_CELL_NAME() ?
-
-MFD drivers have to support more than one device from the get-go.
-Please add your other device here in this patch.
-
-> +static int psci_mfd_probe(struct platform_device *pdev)
-
-No to _mfd_.
-
-> +{
-> +	return devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO, psci_cells,
-> +				   ARRAY_SIZE(psci_cells), NULL, 0, NULL);
-> +}
-> +
-> +static const struct of_device_id psci_mfd_of_match[] = {
-> +	{ .compatible = "arm,psci-1.0" },
-> +	{ }
-> +};
-> +
-> +static struct platform_driver psci_mfd_driver = {
-> +	.probe = psci_mfd_probe,
-> +	.driver = {
-> +		.name = "psci-mfd",
-> +		.of_match_table = psci_mfd_of_match,
-> +	},
-> +};
-> +
-> +static int __init psci_mfd_init(void)
-> +{
-> +	return platform_driver_register(&psci_mfd_driver);
-> +}
-> +
-
-Remove this line.
-
-> +core_initcall(psci_mfd_init);
-
-This is usually a hack.  Why can't you use -EPROBE_DEFER?
-
-> +
-> +MODULE_LICENSE("GPL");
-> 
-> -- 
-> 2.34.1
+> So, for this path on Shikra, SCM-driven VMID assignment remains the only practical solution.
 > 
 
--- 
-Lee Jones
+Ok, thanks for looking into this further.
+
+Can you please try the following as alternative for the implementation?
+
+1. Make sure that you have CONFIG_DMA_RESTRICTED_POOL=y.
+2. Define a restricted DMA pool for BAM-DMUX, e.g.:
+
+&{/reserved-memory} {
+        bam_dmux_pool: restricted-dma-pool {
+	    compatible = "restricted-dma-pool";
+            size = <0x40000>;	/* 32*2K*2 = 128K minimum, but 256K might be safer */
+	    alignment = <...>;	/* Check xPU alignment requirements */
+        };
+};
+
+3. Assign to BAM-DMUX together with the qcom,vmid:
+
+&bam_dmux {
+	memory-region = <&bam_dmux_pool>;
+	qcom,vmid = <QCOM_SCM_VMID_NAV>;
+};
+
+4. Extend qcom_bam_dmux.c to look up the DMA pool address and make it
+   accessible using SCM: Call of_reserved_mem_lookup() to get the
+   region, then invoke qcom_scm_assign_mem() with that.
+
+5. Keep RX/TX DMA code paths in qcom_bam_dmux.c unchanged.
+
+6. When testing, make sure the kernel log contains
+   "Reserved memory: created restricted DMA pool at %pa, size %ld MiB"
+
+7. Add memory-region and qcom,vmid as optional in dt-bindings.
+   Add dependency: if qcom,vmid is specified, memory-region must be
+   specified.
+
+In a quick test (without the VMID stuff) this worked quite well for me,
+SWIOTLB should handle the copying behind the scenes without further
+changes to the qcom_bam_dmux driver.
+
+I would prefer that over complicating the driver with two separate ways
+of buffer management. AFAICT, the restricted DMA feature is meant for
+this kind of setup where there is no IOMMU but the firmware can still
+restrict memory accesses to a limited amount of regions, see
+https://lwn.net/Articles/841916/ for a short introduction.
+
+Thanks,
+Stephan
