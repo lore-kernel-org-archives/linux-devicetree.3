@@ -1,132 +1,130 @@
-Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F11D416870;
-	Thu, 13 Aug 2026 10:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.20.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E5B6267B89;
+	Thu, 13 Aug 2026 10:46:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786617907; cv=none; b=WyOkKrUJTccU9nHhvHs1oo6kpKXdy3LwtKa4o6U5btSLwRpXuECwUISPAgEFLDSvsN4tVTOpcQvM9yb8Cdd7LHnwLGoh5PdTAjf5RMObKtM+r4EbAYmyHE7/bovm2Y4F8KoHdJIo9QtdMRx1gztvqQl8wCNPlqeKEsKaoEacd5o=
+	t=1786617978; cv=none; b=Q3WIhV2yJzV/r1pN3oxkxqIuao4waIEMQXCNjTB+tL8zH6z6Tom59qzYEQ0F+tpI3QsCVPxAikv8D2ANfI0hYXKxMV7UJWzwwaA6iysyWOW/lHZI3u8UkDJZMCCDJmQPM/EJFH9bwjZG/C+igO1Db7Ft07qgYqG0zOUs8vn3GZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786617907; c=relaxed/simple;
-	bh=QpgSVnq+Gf5khQMTvB3GNPXBubux7Xf0byFFaZxRR9o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bhYLXk3PbfLkXjPwUn8mqJs5iBfZ64/xlTN1JPZ55LNr+FN2/dFoCJy+2B0R79i7AkoUqoDNlTF3MpCpCjwgCXtDgS3sBEoltRhcuoFlDVHMKGnsBTq5M+tGWT9le4a4NRSU1sw6gzODsOVjkO7xy9G5uVjs+oJmyZRZRuoozCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io; spf=pass smtp.mailfrom=dewith.io; dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b=Izimf/4J; arc=none smtp.client-ip=157.90.20.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dewith.io
+	s=arc-20240116; t=1786617978; c=relaxed/simple;
+	bh=Fds5UbBmCipZ8N0vv0DCOyQx8tD4HuIpz8GLtrhKgxg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=XfsAirPsesBj+BLyt7A/G/UvQcbMk8ZwmI8wlHVwuViy9NL8V+m1c2paLcRust0heFqj/Jk+aKONNvq/5OSloLtUp99wfR1m/n01MMQaG619Sa4RxZ5W1NrfuvVbzI9BdAHGRMdZ/XkVWyliquH2kEcdRc22ky1URsaw1fzy9jE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCAG+5eE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b="Izimf/4J"
-Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by meve.dewith.io (Postfix) with ESMTPSA id 105FA209BA;
-	Thu, 13 Aug 2026 10:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default;
-	t=1786617904;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ENLaVUVqC0mYQp9TN/bCjqw09D0fL6xGKRTiCroOuDg=;
-	b=Izimf/4Jm6XrDG3fECjrkdKVcx5dfFp3aaG27c9skXn3LOJo16zvmxMoUZHbqlU+ccMyYS
-	MZYJQcZt/O/zoI2Tx9jluhf+zW+m6LhfrdXSqJFudIkd2BhJXpfOIRXSWTerbekACx7gsX
-	Ef5XdRqerHU+upFpTyJDp+u6xtuD/+U=
-Date: Thu, 13 Aug 2026 12:45:00 +0200
-From: Wim de With <wf@dewith.io>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH v2 2/2] backlight: Add support for Orient Chip OCP8178
-Message-ID: <an2gLPdQZDaubtRC@dewith.io>
-References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
- <20260812-ocp8178-backlight-v2-2-4ad18b48bef8@dewith.io>
- <20260812193457.002A61F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCAG+5eE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A70D3C2BCF5;
+	Thu, 13 Aug 2026 10:46:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786617977;
+	bh=Fds5UbBmCipZ8N0vv0DCOyQx8tD4HuIpz8GLtrhKgxg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NCAG+5eE9iK65K4FEc7hup1/DPvCGaWYb2XWBZmUUCUguTWy3qR2ikynL1RSAuNMq
+	 3YuCCg2s/goA6u8aY4wgdkrBylrrqCdjkKbIhPEMkwi9Gpuqd4z8mObZNBUNXyorti
+	 LN13f4Phyx2Z4llaSXJfNIVjwnS0P4JuH1CzIoqSkMMqHEz19bYhGkm1jISA4KbqZu
+	 KUt2xMCOSHQ2C4Iukn36FM1G1QbvRAQjAL7JngBgu5m2sbvd0eFlhrDvQRAOc60lZl
+	 I46IYYXBNVZcpMooN1FyuEn2bKhhAvQavfdH/XHa0Isu7eWLeSj6xxfv6NB4Bm3OE6
+	 FzhZyuKlWFmNA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B531C5CFEB;
+	Thu, 13 Aug 2026 10:46:17 +0000 (UTC)
+From: Robin Snyders via B4 Relay <devnull+robin.snyders.xyz@kernel.org>
+Date: Thu, 13 Aug 2026 12:45:41 +0200
+Subject: [PATCH v3 1/2] dt-bindings: power: supply: qcom,pmi8998-charger:
+ add SMB5 PMICs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812193457.002A61F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260813-submit-qcom-smbx-send-v1-v3-1-27be0091d7c7@snyders.xyz>
+References: <20260813-submit-qcom-smbx-send-v1-v3-0-27be0091d7c7@snyders.xyz>
+In-Reply-To: <20260813-submit-qcom-smbx-send-v1-v3-0-27be0091d7c7@snyders.xyz>
+To: Casey Connolly <casey.connolly@linaro.org>, 
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Robin Snyders <robin@snyders.xyz>, linux-arm-msm@vger.kernel.org, 
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786617973; l=2126;
+ i=robin@snyders.xyz; s=default; h=from:subject:message-id;
+ bh=Qrmj6D1SWDvnIOdgQCKRDYGJ64appwKwuieBTEfpb3c=;
+ b=DDSmo4uCV13PLfRS+ALPz1ygZvv689DMRxsm9IE+T7A0g+Ar3ymYtvTT4g1Fx7Hk/PWxxoH+a
+ jPuyvUR5cK3AfjehkvX0jSQKjUzWY3dV1LwZdj2p92qqqZxderkyk1+
+X-Developer-Key: i=robin@snyders.xyz; a=ed25519;
+ pk=Mdk5dNn+Tkcy7BWexDxBLR/s1BNz8WdqDPnr3qtYBIU=
+X-Endpoint-Received: by B4 Relay for robin@snyders.xyz/default with
+ auth_id=938
+X-Original-From: Robin Snyders <robin@snyders.xyz>
+Reply-To: robin@snyders.xyz
 
-On Wed, Aug 12, 2026 at 07:34:56PM +0000, sashiko-bot@kernel.org wrote:
-> > +static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
-> > +{
-> > +	u8 data = 0;
-> > +
-> > +	/*
-> > +	 * We cannot set RFA (request for acknowledge) unless the GPIO pin is
-> > +	 * configured as open drain.
-> > +	 */
-> > +	data |= FIELD_PREP(OCP8178_DATA_RFA, 0);
-> > +	data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
-> > +	data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
-> > +
-> > +	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
-> > +	ocp8178_bl_write_u8(ocp8178, data);
-> 
-> [Severity: Medium]
-> Can a preemption or interrupt between these two byte writes delay the second
-> byte and violate the 1-Wire protocol timing?
-> 
-> The initialization sequence ocp8178_bl_enable_onewire() explicitly checks
-> duration >= OCP8178_1W_T_WIN_NS to verify that timing wasn't ruined by
-> preemption. However, in ocp8178_bl_set_brightness(), if the thread is preempted
-> between the two ocp8178_bl_write_u8() calls, the GPIO line is left idle HIGH.
-> 
-> Would this cause the hardware's 1-Wire state machine to time out and treat the
-> subsequent data byte as a new command, resulting in a silently lost brightness
-> update since the driver doesn't read an ACK?
-> 
+From: Casey Connolly <casey.connolly@linaro.org>
 
-This is the same point that Sashiko raised for v1, but now I tested it
-like so:
+Add compatible strings for PM7250B and PM8150B, which contain the SMB5
+generation of the Qualcomm switch-mode battery charger. PM7250B uses the
+same charger interface and parameters as PM8150B, so require the PM8150B
+compatible as its fallback.
 
-ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
-msleep(1000);
-ocp8178_bl_write_u8(ocp8178, data);
+Clarify the IIO channel descriptions because SMB5 exposes a USB current-
+sense voltage while SMB2 exposes an already-converted current.
 
-It still works for 90% of the brightness updates, and only misses some
-if you spam the updates during the sleep, so I'm inclined to say it is
-robust enough.
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Robin Snyders <robin@snyders.xyz>
+---
+ .../bindings/power/supply/qcom,pmi8998-charger.yaml     | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-> > +}
-> [ ... ]
-> > +static const struct backlight_ops ocp8178_bl_ops = {
-> > +	.options = BL_CORE_SUSPENDRESUME,
-> > +	.update_status = ocp8178_bl_update_status,
-> > +};
-> [ ... ]
-> > +static struct platform_driver ocp8178_bl_driver = {
-> > +	.driver = {
-> > +		.name = "ocp8178-bl",
-> > +		.of_match_table = ocp8178_bl_of_match,
-> > +	},
-> > +	.probe = ocp8178_bl_probe,
-> > +};
-> 
-> [Severity: High]
-> Does this driver need a resume PM hook to re-initialize the 1-Wire mode?
-> 
-> The BL_CORE_SUSPENDRESUME option causes the backlight core to call
-> update_status() on resume. Since power to the chip may be cut during suspend,
-> the device defaults to PWM mode upon power-on.
-> 
-> Without a resume hook in the platform driver to call
-> ocp8178_bl_enable_onewire(), the chip will misinterpret the 1-Wire brightness
-> data as a PWM signal. This leaves the GPIO HIGH at the end of the transaction,
-> which translates to 100% brightness in PWM mode.
+diff --git a/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml b/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
+index 70f5cd6eaeab..25511e2e3369 100644
+--- a/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
++++ b/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
+@@ -4,16 +4,21 @@
+ $id: http://devicetree.org/schemas/power/supply/qcom,pmi8998-charger.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Qualcomm PMI8998/PM660 Switch-Mode Battery Charger "2"
++title: Qualcomm SMB2 and SMB5 Switch-Mode Battery Charger
+ 
+ maintainers:
+   - Casey Connolly <casey.connolly@linaro.org>
+ 
+ properties:
+   compatible:
+-    enum:
+-      - qcom,pmi8998-charger
+-      - qcom,pm660-charger
++    oneOf:
++      - enum:
++          - qcom,pmi8998-charger
++          - qcom,pm660-charger
++          - qcom,pm8150b-charger
++      - items:
++          - const: qcom,pm7250b-charger
++          - const: qcom,pm8150b-charger
+ 
+   reg:
+     maxItems: 1
+@@ -30,8 +35,8 @@ properties:
+ 
+   io-channels:
+     items:
+-      - description: USB in current in uA
+-      - description: USB in voltage in uV
++      - description: USB input current or current-sense voltage measurement
++      - description: USB input voltage measurement
+ 
+   io-channel-names:
+     items:
 
-This is still an open question for me. I know the ClockworkPi platform
-doesn't cut power to the chip during suspend, because the cores it uses
-don't really support suspend power states.
+-- 
+2.54.0
 
-However, for mainline inclusion, should I assume that the chip might be
-used in situations where suspend does cut power to the chip and plan for
-it accordingly?
 
-Regards,
-Wim
