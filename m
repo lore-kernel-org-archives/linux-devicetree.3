@@ -1,236 +1,367 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A8A3D0BED;
-	Thu, 13 Aug 2026 22:15:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779783D47CF;
+	Thu, 13 Aug 2026 22:19:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786659307; cv=none; b=ZGfLFXyU+rTNzvCd150f2lC05ESzRG7qPuiLLgzAOiEufd01dTf7k2PRFnCk/wwCc4Vb7IrEtkfNJekVu6d0pPkEplRwT/t+wPpjYB106iXIBz5xtw7blzZay6q8JjqSoMWvuY3A+z6Mahox+/Ys3qkt2gYTtdA56j5+clI9RZM=
+	t=1786659594; cv=none; b=q+BXFy32+tGnehABf52/BIiRnScj8SWJ2ICjoLG4WfEz7/WNTIajCrO5dUIT91aKPW4FfXl1grLWG4ivfor3YgFBJWatWCrYBp7ZEG97fp44W0pzsemAs9kauQJmTl3Fvt5sZsDKLOvEsIskxTzPWrRMHbB4qcXHSoxqVR3T328=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786659307; c=relaxed/simple;
-	bh=FEX26yO6PwOX0SemX369uv/8W7TARAfwOkAALDjzK6c=;
+	s=arc-20240116; t=1786659594; c=relaxed/simple;
+	bh=uXx/DtGoNN5UreV5uZHCShp+Wkcc8FG0icq0kj88TOk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ICMit5DzA1gWmNuWtS3V+4siQANkW0EBCBkdp4XIirwiMy5CuswyO2JlPG75JceRNspWLRu6O/mrON4pyNgiNKFaPgzVL8TTnq7oU3+/yGwAHzh+fNVaw0p2WHkbM9m2CPB31o4drDv3UB8+edWgfWk2AVmBAq4UfOsBCkLXqP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lckZuRjs; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LdzZFZcjx24ormtrWsKAk+CnRYcsI1CpZMYMnXg/J5Jd2KMasVsoq0iyDcTUB1Qc0Bb1hsyYwKBlQ1c3lXG7BQOGt8vFnCIs292XTdkFTiVq5M8N7Poz+O4MB+PtqPmBrEV1WiLn14B1lQfBlMQQVJOZ/KmrTWRO3xg/7B1puEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=leZw4yMC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lckZuRjs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1AA1F000E9;
-	Thu, 13 Aug 2026 22:15:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="leZw4yMC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7E9F1F00A3A;
+	Thu, 13 Aug 2026 22:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786659305;
-	bh=TK3vje5CLu5MA1uJT0vmqMO9IkciVSJ4rlFIUhlNWWI=;
+	s=k20260515; t=1786659593;
+	bh=krjlTRbkhrWV7A3gvuwmcD0kFvGRk66HCuPDB5XVQcY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lckZuRjsQY7QBmN4c0DvnlM+bVymfoj4OBmvav96Er7j64yNcjwBu1cce1bqZpgTP
-	 rcJIbwZ0zpsBGWjTlAhhiYG7nb1c5pBVgADoYpVloO1qlmO0uqw5x8Cibl9cEj09zW
-	 ZVlq5iigHDPOEa2mtDNKyfFHHabgikEVzk5oR/UUHto5XhSBFEyrOCRIRE2bg4aJne
-	 Yvi4qP4jHtKdOCAH4c9Ucbe7BWTcN4OFj/57lASqqcy70C0OLUxq38K2ooRKrA5jle
-	 aNRrPJTAh2gZktk/cpvK3J4yHBk35Vbo3B47c/hnF4A/OeAe28ztAbxB3YOm54ezF7
-	 AnaKfPg6iPI7w==
+	b=leZw4yMCUNieoZt29/MjT6BUOPuIxj16RQK5tsz5FTzqM6gM3qezryESD4jNceG2c
+	 7G2IV38xlYhNL+8jcGyOBqWjRgm3D2V40vg+x8HGmD7puyKnas2r/0XOSXFPSxWOeo
+	 DKODtDmTbXvzwu2w5qk4+TNzPnMRilLR8zJyVISBhh1sshKpixzGZ5YJEljodoEvRr
+	 +2xz8aQC5b6Ejy1HvmpBQ+tVGmFrSTX5QycEaafyi3OJo2uO2DCsPPVSdt66HfrS1F
+	 OpKqU1YgAJhqftp9JSBMqnyQlgsljSkvmeJ6SU8ySNqPYEBm1igX6g7CAC0SlkjXY1
+	 hLR04uieKztUA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH WIP v2 10/11] Input: stmfts - support FTS5
+Subject: Re: [PATCH v6 2/7] mfd: add NXP MC33978/MC34978 core driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg via B4 Relay" <devnull+david.ixit.cz@kernel.org>
-Cc: linux-input@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, robh@kernel.org
-In-Reply-To: <20260315-stmfts5-v2-10-70bc83ee9591@ixit.cz>
-References: <20260315-stmfts5-v2-10-70bc83ee9591@ixit.cz>
+To: "Oleksij Rempel" <o.rempel@pengutronix.de>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260321065146.3918882-3-o.rempel@pengutronix.de>
+References: <20260321065146.3918882-3-o.rempel@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 22:15:04 +0000
-Message-Id: <20260813221504.ED1AA1F000E9@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 22:19:52 +0000
+Message-Id: <20260813221952.D7E9F1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Incorrect bitwise assembly of the Y coordinate for FTS5 touch even=
-ts causes severely corrupted Y axis reporting.
-- [High] Unconditional per-slot `BTN_TOUCH` reporting incorrectly releases =
-global touch state during multi-touch hover.
-- [High] Negative coordinate corruption due to uninitialized max bounds.
-- [High] Kernel panic due to NULL pointer dereference when the device is in=
-stantiated without an OF node.
-- [High] I2C command sent to the FTS5 device while it is held in reset.
-- [Medium] The FTS5 touch area (major/minor axes) parsing logic extracts bi=
-ts from the fixed event ID, corrupting the reported values.
-- [Medium] The FTS5 device is left fully powered on and active at the end o=
-f probe, causing a power state mismatch.
-- [Medium] State variable `sdata->running` is permanently left as `true` if=
- `stmfts5_set_scan_mode` fails.
-
-Pre-existing issues:
-- [High] The touchscreen device remains unconfigured and unresponsive after=
- a system suspend/resume cycle if it was left open.
+Thank you for your contribution! Sashiko AI review found 12 potential issue=
+(s) to consider:
+- [Critical] Incompatible use of hierarchical IRQ domains with MFD core cau=
+ses a NULL pointer dereference in the `.alloc` callback during probe.
+- [High] The dynamically scheduled `event_work` is never canceled upon driv=
+er removal or probe failure, leading to a use-after-free.
+- [High] A SPI bus error during event processing causes an infinite loop in=
+ the event handling thread, stalling the CPU.
+- [High] The result of `irq_find_mapping()` is passed directly to `handle_n=
+ested_irq()` without checking if it is non-zero.
+- [High] Missing memory barriers between lockless accesses to `is_handling`=
+ and `harvested_flags` creates a race condition that permanently drops even=
+ts.
+- [High] Casting a `u32` pointer to `unsigned long *` for `for_each_set_bit=
+` causes out-of-bounds stack reads and logical failures on 64-bit Big Endia=
+n systems.
+- [High] The `MC33978_REG_WET_SG1` register is missing from the `mc33978_rx=
+_decode` status exclusion switch.
+- [Medium] Platform data (`mfd_cell` arrays) is passed directly via the `.d=
+ata` field of device match tables.
+- [Medium] Using `PLATFORM_DEVID_NONE` for MFD cell indexing prevents multi=
+ple device instances and causes sysfs collisions.
+- [Medium] The driver fails to validate `hwirq` in `mc33978_irq_domain_allo=
+c`, allowing out-of-bounds interrupt mappings that lead to undefined behavi=
+or.
+- [Medium] Missing stabilization delay after enabling power supplies before=
+ initiating the first SPI transaction.
+- [Low] The driver violates MFD commit prefix rules and data structure nami=
+ng conventions.
 --
 
---- Patch [10]: [PATCH WIP v2 10/11] Input: stmfts - support FTS5 ---
-commit ad13c14f5e550fb31aa12d11e439dd6f055dfeae
-Author: Petr Hodina <petr.hodina@protonmail.com>
-Subject: Input: stmfts - support FTS5
+--- Patch [2]: [PATCH v6 2/7] mfd: add NXP MC33978/MC34978 core driver ---
+commit 573144fde701ff82da9c6492a0c0004903d3501c
+Author: Oleksij Rempel <o.rempel@pengutronix.de>
+Subject: mfd: add NXP MC33978/MC34978 core driver
 
-Introduce basic FTS5 support including SLPI and AP mode handling.
-Currently handles full power AP mode for devices like Pixel 3 (blueline).
+This commit adds the core Multi-Function Device (MFD) driver for the NXP
+MC33978 and MC34978 Multiple Switch Detection Interfaces (MSDI). It handles
+SPI communications, power sequencing, and interrupt routing, and
+instantiates child devices for pinctrl, hwmon, and amux.
 
-> diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscre=
-en/stmfts.c
-> --- a/drivers/input/touchscreen/stmfts.c
-> +++ b/drivers/input/touchscreen/stmfts.c
-> @@ -204,6 +245,157 @@ static void stmfts_report_contact_release(struct st=
-mfts_data *sdata,
-> [ ... ]
-> +static void stmfts5_report_contact_event(struct stmfts_data *sdata,
-> +					 const u8 event[])
-> +{
-> [ ... ]
-> +	/* Parse coordinates with better precision */
-> +	x =3D (((int)event[3] & STMFTS_MASK_X_MSB) << 8) | event[2];
-> +	y =3D ((int)event[4] << 4) | ((event[3] & STMFTS_MASK_Y_LSB) >> 4);
+> diff --git a/drivers/mfd/mc33978.c b/drivers/mfd/mc33978.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/mfd/mc33978.c
 
-[Severity: High]
-Is this Y coordinate assembly correct? The block comment states event[3]
-contains the Y MSB in the high 4 bits, and event[4] contains the Y LSB.
-By left-shifting event[4] and right-shifting event[3], could this
-completely scramble the Y axis mapping?
+[ ... ]
 
+> +struct mc33978_data {
+> +	const struct mfd_cell *cells;
+> +	int num_cells;
+> +};
 > +
-> +	/* Parse pressure - ensure non-zero for active touch */
-> +	area =3D event[5];
-> [ ... ]
-> +	/* Parse touch area with improved bit extraction */
-> +	maj =3D (((event[0] & 0x0C) << 2) | ((event[6] & 0xF0) >> 4));
-> +	min =3D (((event[7] & 0xC0) >> 2) | (event[6] & 0x0F));
+> +struct mc33978_mfd_priv {
+
+[Severity: Low]
+Is this naming convention intentional? Following MFD subsystem rules,
+structures are typically named after the device (e.g. struct mc33978)
+rather than including mfd_priv.
+
+> +	struct spi_device *spi;
+> +	struct regmap *map;
+
+[ ... ]
+
+> +static int mc33978_irq_domain_alloc(struct irq_domain *domain,
+> +				    unsigned int virq,
+> +				    unsigned int nr_irqs, void *arg)
+> +{
+> +	struct mc33978_mfd_priv *mc =3D domain->host_data;
+> +	struct irq_fwspec *fwspec =3D arg;
+> +	irq_hw_number_t hwirq;
+> +	int i;
+> +
+> +	if (fwspec->param_count < 1)
+
+[Severity: Critical]
+Could arg be NULL here?
+
+When the hwmon child is instantiated via mfd_add_devices(), the IRQ core
+calls irq_domain_alloc_irqs_hierarchy() passing NULL for arg. Unconditional=
+ly
+casting and dereferencing fwspec->param_count could lead to a NULL pointer
+dereference during probe.
+
+> +		return -EINVAL;
+> +
+> +	hwirq =3D fwspec->param[0];
 
 [Severity: Medium]
-Does this parsing logic for the touch area extract from the correct bits?
-Since event[0] is the event ID byte (e.g., 0x13 or 0x23), bits 2 and 3
-are always 0. Furthermore, extracting the major axis from the high 4 bits
-of event[6] contradicts the documented format where event[6] contains the
-major axis in the low 4 bits.
+Should we validate hwirq against MC33978_NUM_PINS + 1 here?
 
-> [ ... ]
-> +	/* Boundary check - some devices report max value, adjust */
-> +	if (x >=3D sdata->prop.max_x)
-> +		x =3D sdata->prop.max_x - 1;
-> +	if (y >=3D sdata->prop.max_y)
-> +		y =3D sdata->prop.max_y - 1;
-
-[Severity: High]
-Could this force valid touch coordinates to -1? If the platform does not
-specify touchscreen boundaries in the Device Tree,
-touchscreen_parse_properties() leaves max_x and max_y as 0. Without a call
-to input_set_abs_params() to establish default maximums, this check would
-evaluate as x >=3D 0 and set the coordinate to -1.
+A malformed device tree could provide an out-of-bounds hwirq, which might
+later be used in mc33978_irq_set_type() where BIT(hwirq) could overflow
+and cause undefined behavior.
 
 > +
-> +	input_mt_slot(sdata->input, touch_id);
-> +	input_report_key(sdata->input, BTN_TOUCH, touch_condition);
+> +	for (i =3D 0; i < nr_irqs; i++) {
+> +		irq_domain_set_hwirq_and_chip(domain, virq + i, hwirq + i,
+> +					      &mc33978_irq_chip, mc);
 
-[Severity: High]
-Can this unconditional per-slot BTN_TOUCH reporting cause active touches
-to be abruptly dropped? BTN_TOUCH is a global property. If one finger is
-actively touching the screen (touch_condition =3D true) and a second finger
-triggers a hover event (touch_condition =3D false) in the same packet,
-processing the hover slot will emit BTN_TOUCH, 0, releasing the global
-touch state.
+[ ... ]
 
-> +	input_mt_report_slot_state(sdata->input, tool, true);
-> @@ -372,6 +620,28 @@ static int stmfts_input_open(struct input_dev *dev)
-> [ ... ]
-> +static int stmfts5_input_open(struct input_dev *dev)
+> +static bool mc33978_handle_pin_changes(struct mc33978_mfd_priv *mc,
+> +				       unsigned int pin_state)
 > +{
-> [ ... ]
-> +	mutex_lock(&sdata->mutex);
-> +	sdata->running =3D true;
-> +	mutex_unlock(&sdata->mutex);
+> +	u32 fired_pins =3D 0;
+> +	u32 changed_pins;
+> +	u32 rise, fall;
+> +	int i;
 > +
-> +	err =3D stmfts5_set_scan_mode(sdata, 0xff);
-> +	if (err) {
-> +		pm_runtime_put_sync(&sdata->client->dev);
-> +		return err;
+> +	changed_pins =3D pin_state ^ mc->cached_pin_state;
+
+[ ... ]
+
+> +	for_each_set_bit(i, (unsigned long *)&fired_pins, MC33978_NUM_PINS) {
+
+[Severity: High]
+Does casting a u32 pointer to unsigned long * here cause issues on 64-bit
+systems?
+
+On 64-bit architectures, unsigned long is 8 bytes, which might lead to
+a 4-byte out-of-bounds stack memory read. Furthermore, on 64-bit Big Endian
+systems, the 32 bits might be placed in the upper half of the 64-bit word,
+meaning the bit iterator reads uninitialized stack memory from the lower
+32 bits.
+
+> +		int virq =3D irq_find_mapping(mc->domain, i);
+> +
+> +		handle_nested_irq(virq);
+
+[Severity: High]
+Should virq be checked before calling handle_nested_irq()?
+
+If the IRQ mapping was disposed or never created, irq_find_mapping()
+could return 0. Passing 0 to handle_nested_irq() attempts to look up
+and dereference the descriptor for IRQ 0, which could lead to a NULL
+pointer dereference.
+
 > +	}
+> +
+> +	return true;
+> +}
+
+[ ... ]
+
+> +static bool mc33978_process_single_event(struct mc33978_mfd_priv *mc)
+> +{
+> +	unsigned int pin_state;
+> +	bool handled =3D false;
+> +	u8 hw_flags;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(mc->map, MC33978_REG_READ_IN, &pin_state);
+> +	if (ret)
+> +		return false;
+
+[Severity: High]
+Can an early return here lead to an infinite loop?
+
+If regmap_read() fails, the function returns early without clearing
+harvested_flags via atomic_xchg(). Back in mc33978_handle_events(),
+the loop condition atomic_read(&mc->harvested_flags) !=3D 0 will remain
+perpetually true, causing the worker thread to spin indefinitely.
+
+> +
+> +	/*
+> +	 * harvested_flags will be set by regmap_read() above if the FAULT_STAT
+> +	 * or INT_flg bits were detected in the response
+> +	 */
+> +	hw_flags =3D atomic_xchg(&mc->harvested_flags, 0);
+
+[ ... ]
+
+> +static bool mc33978_handle_events(struct mc33978_mfd_priv *mc)
+> +{
+> +	bool handled =3D false;
+> +
+> +	guard(mutex)(&mc->event_lock);
+> +
+> +	do {
+> +		atomic_set(&mc->is_handling, 1);
+> +
+> +		if (mc33978_process_single_event(mc))
+> +			handled =3D true;
+> +
+> +		atomic_set(&mc->is_handling, 0);
+
+[Severity: High]
+Are memory barriers needed between accesses to is_handling and
+harvested_flags here and in mc33978_harvest_status()?
+
+Because atomic_set(), atomic_read(), and atomic_or() do not imply barriers
+on weakly ordered architectures like ARM, the loads and stores can be
+reordered by the CPU.
+
+If they are reordered, both threads might assume the other is handling
+the event, which could result in dropped hardware interrupts.
+
+> +
+> +	} while (atomic_read(&mc->harvested_flags) !=3D 0);
+> +
+> +	return handled;
+> +}
+
+[ ... ]
+
+> +static u8 mc33978_rx_decode(const u8 *rx_frame, u8 *val_buf)
+> +{
+> +	u8 cmd =3D rx_frame[MC33978_FRAME_CMD] & ~MC33978_CMD_BYTE_WRITE;
+> +	bool has_status;
+> +	u8 status =3D 0;
+> +
+> +	switch (cmd) {
+> +	case MC33978_REG_CHECK:
+> +	case MC33978_REG_WET_SP:
+> +	case MC33978_REG_WET_SG0:
+
+[Severity: High]
+Should MC33978_REG_WET_SG1 be included in this exclusion list?
+
+Since WET_SP and WET_SG0 are excluded from status harvesting, reading
+the sibling register WET_SG1 (0x0c) might cause its payload to fall through
+to the default case. This could incorrectly interpret the data as FAULT_STAT
+and INT_flg bits, triggering false interrupt events.
+
+> +		has_status =3D false;
+> +		break;
+> +	default:
+> +		has_status =3D true;
+> +		break;
+> +	}
+
+[ ... ]
+
+> +static int mc33978_probe(struct spi_device *spi)
+> +{
+> +	const struct mc33978_data *match_data;
+
+[ ... ]
+
+> +	ret =3D mc33978_power_on(mc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D devm_add_action_or_reset(dev, mc33978_power_off, mc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	mutex_init(&mc->event_lock);
+> +	INIT_WORK(&mc->event_work, mc33978_event_work);
+
+[Severity: High]
+Does this dynamically scheduled work need a cancellation action?
+
+If the driver is removed or probe fails after the work is scheduled,
+the allocated mc context is freed. Without devm_work_autocancel() or
+a manual cancellation action, the workqueue could execute later and
+dereference freed memory.
+
+> +
+> +	atomic_set(&mc->harvested_flags, 0);
+> +	atomic_set(&mc->is_handling, 0);
+> +
+> +	mc33978_prepare_messages(mc);
+> +
+> +	mc->map =3D devm_regmap_init(dev, &mc33978_regmap_bus, mc,
+> +				   &mc33978_regmap_config);
+> +	if (IS_ERR(mc->map))
+> +		return dev_err_probe(dev, PTR_ERR(mc->map), "can't init regmap\n");
+> +
+> +	ret =3D mc33978_check_device(mc);
+
+[Severity: Medium]
+Is a stabilization delay required after enabling regulators before the
+first SPI communication?
+
+Without a delay, the hardware Power-On Reset (POR) circuit might not
+have finished ramping up, which could cause mc33978_check_device() to fail.
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "can't use SPI bus\n");
+
+[ ... ]
+
+> +	ret =3D devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
+
+[Severity: Medium]
+Does using PLATFORM_DEVID_NONE prevent multiple instances of this driver?
+
+If multiple MC33978 devices exist on the same board, the core will
+attempt to register identically named child devices (like mc33978-pinctrl),
+causing sysfs collisions. The MFD subsystem typically requires
+PLATFORM_DEVID_AUTO for this.
+
+> +				   match_data->cells, match_data->num_cells,
+> +				   NULL, 0, mc->domain);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to add MFD child devices\n");
 > +
 > +	return 0;
 > +}
-
-[Severity: Medium]
-Should the error path reset the sdata->running flag back to false? If
-stmfts5_set_scan_mode() fails, the function returns an error without
-clearing this flag, permanently desynchronizing the driver's internal
-state tracking.
-
-> @@ -615,6 +902,41 @@ static int stmfts_power_on(struct stmfts_data *sdata)
-> [ ... ]
-> +static int stmfts5_power_on(struct stmfts_data *sdata)
-> +{
-> [ ... ]
-> +	enable_irq(sdata->client->irq);
 > +
-> +	return 0;
+> +static const struct of_device_id mc33978_of_match[] =3D {
+> +	{ .compatible =3D "nxp,mc33978", .data =3D &mc33978_match_data },
 
 [Severity: Medium]
-Is the FTS5 device left fully active while the PM core tracks it as
-suspended? At the end of the probe function, pm_runtime_enable()
-initializes the PM runtime state to RPM_SUSPENDED. Unlike
-stmfts_power_on() which explicitly puts the hardware to sleep before
-returning, this function enables interrupts and returns without sending
-a sleep command, causing a power state mismatch.
+Is it safe to pass platform data pointers directly via the match data field?
 
-> [ ... ]
->  static void stmfts_power_off(void *data)
->  {
-> [ ... ]
->  	if (sdata->reset_gpio)
->  		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
-> =20
-> +	if (sdata->is_fts5) {
-> +		i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+According to MFD subsystem guidelines, passing complex pointers through
+match data tables can cause initialization ordering races. The standard
+approach is to pass an enum or integer ID in the match table, and use a
+switch statement in the probe function to select the correct mfd_cell array.
 
-[Severity: High]
-Will this I2C command succeed while the device is held in hardware reset?
-The reset line is asserted immediately prior to this block. Because the
-chip is held in reset, its I2C interface is disabled and the transfer is
-likely to time out or return a NACK.
-
-> +		msleep(20);
-> +	}
-> @@ -657,6 +984,7 @@ static int stmfts_probe(struct i2c_client *client)
-> [ ... ]
-> +	sdata->ops =3D of_device_get_match_data(dev);
-> [ ... ]
-> -	sdata->input->open =3D stmfts_input_open;
-> -	sdata->input->close =3D stmfts_input_close;
-> +	sdata->input->open =3D sdata->ops->input_open;
-
-[Severity: High]
-Can this cause a NULL pointer dereference during device probe? If the
-driver is bound to a device without a Device Tree node (e.g., via I2C
-sysfs legacy matching), of_device_get_match_data() returns NULL. The
-code then immediately dereferences this pointer to assign the callbacks.
-
-> @@ -810,7 +1231,7 @@ static int stmfts_resume(struct device *dev)
->  {
->  	struct stmfts_data *sdata =3D dev_get_drvdata(dev);
-> =20
-> -	return stmfts_power_on(sdata);
-> +	return sdata->ops->power_on(sdata);
-
-[Severity: High]
-This is a pre-existing issue, but does this leave the touchscreen device
-unconfigured and unresponsive after a system suspend/resume cycle if it
-was left open?
-
-If the device is open when the system enters suspend, the PM core
-considers its runtime state to be RPM_ACTIVE across the cycle. On resume,
-power_on() is called. For FTS4, this puts the device into STMFTS_SLEEP_IN,
-and for FTS5, it does not re-enable interrupts or set the scan mode.
-Because the PM core tracks it as already RPM_ACTIVE,
-stmfts_runtime_resume() is never called to restore functionality, leaving
-the hardware physically powered but logically unconfigured.
+> +	{ .compatible =3D "nxp,mc34978", .data =3D &mc34978_match_data },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, mc33978_of_match);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260315-stmfts5-v2=
--0-70bc83ee9591@ixit.cz?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260321065146.3918=
+882-1-o.rempel@pengutronix.de?part=3D2
