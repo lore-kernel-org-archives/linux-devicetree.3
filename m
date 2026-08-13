@@ -1,116 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032AE480955;
-	Thu, 13 Aug 2026 14:13:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05715478E5E;
+	Thu, 13 Aug 2026 14:14:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786630438; cv=none; b=rGT9I4WJwEA8qfpKLbXW7ySMoapPzofMZJw4T/ZIs9c1MoZl1E4O2SJqmKi7EuiCPbu84FN6mEBWdoA+ojhQpuV5dn2fJhuKk/OtAEX0S3y/gM5Hos0sJoU0wV53ioC4WzkgLzW2WRAYN2oSndOgMIhxYyzveBLiQNu1+hCBp8c=
+	t=1786630491; cv=none; b=e7F3lnZ9JlUupQe3ugP808jw1jwAj9iW1BX5VEAGlkEKLtyFCoTKgrm0x32P1TrkUSaxVSwZoao9IRepKKvqyImCjDUr0wIrtnUVBA8zYEWsHaqX6vaWYiy735ogKxHoxhLq8PWwXuhH/afH/HJXpSJ5F+guCdd87y0oFWjrDcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786630438; c=relaxed/simple;
-	bh=Eu/Wc8Z8YklXfcOwVUMafJhK6o32zLtJq1abNAJMx54=;
+	s=arc-20240116; t=1786630491; c=relaxed/simple;
+	bh=3Ldiv6qKaF7WTl9mITxfZusGD7VlDtn3WbU0WNRR7E0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lUc0PGDLHEevGRMGP2P+afj78nHaPG+OFHWgwRrmIx+k0m1R4222qX8qsYsHEC/ZT8zRUrhJClT42SYAiDmOOFLyGOf1rv9KnZh6KPGh771X6MbGBf6GNf7mp7oTECj+8zKGZgYthcAlr/WLtVgf4V++bo8phb8nZwqXi+zIlgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bAb+ysex; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=esvcc57xxQ4HvLW4SuGkU9ffhwi9yJnq9+nepUvNgoYoDFydOQ84FpZychA7mioeLfle5+tZanPys/+izX+3uMXWk+UeRRNnIUPH4f7/6MAoyCSciFcsnml4z2Rl/7NrjR970eCV5XD9ROe51YPhPp00SdIzmhEKXwUpeQs+Mfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgdFBlpj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bAb+ysex"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1221D1F000E9;
-	Thu, 13 Aug 2026 14:13:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgdFBlpj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338661F00A3A;
+	Thu, 13 Aug 2026 14:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786630436;
-	bh=NZNoADXhFw+9O9IxP2fTYV1zJAmNyfefsNizDKMPUwQ=;
+	s=k20260515; t=1786630489;
+	bh=WttXvDp29y169g7N91pAtzFglCfJrv7CFIxCYNeCODc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bAb+ysex1v5Z4WfrH19je176j+ZIKKuMc07D8HKpoWJoYQy+o69jutfPwW/ZuhsTO
-	 iIJiSOKCI89sEGV++ort5DlfDhsYt8CZQLDYl/lCvIr9SI09tPzzzlR2RcEbTIq3nZ
-	 AvP0tlEGbX8Qz87+1+JEzPILDs/3viqOvVDcx2R82n8/ERGo3OcIeFe6U8KobdWWlG
-	 NBZIHFKT0IlZFhoqJor0KaaaELCW84voUM9+cztSXRD1lXRZThiVerLhTJ7oDCxweo
-	 d0avBtgnHY36KIS64nfe2W+kFEdXQChr5kzhc0MAYK5XUrMGrEt68bpuP1Rrb6wE5e
-	 ztLAU28ej23ug==
+	b=HgdFBlpjvBRLTfqdao3yUUY0KZ47RglDZfVPa8VRcUM3faK4lmDRm2wzXrgNgsjYp
+	 gYWwFj1iugVPzj1MzEm3DIQmD5RTd6C+T6X3NzgjHKCbX8r2AfMl/goQoXhL65U+g/
+	 Iu/HPnF9o/ILPHe7gEeno4GkTajxtEU4V6PyWgRPGXi5MOJG1E+h3/yFH7YRhol6AA
+	 x0MXdZZQhZMH86dr6Xl71N2jw3zCPgM7R6K4yDOJAil48U6TiIPCP0YOSPEvKos7nZ
+	 dJQQXyZtMLSpB8ljysHestcyDYW3qIp5oHLxxQantG+NAh948w7btYF8fC5quI+YOb
+	 xBBdnrtymwLLw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] dt-bindings: arm: fsl: add the Colibri VF50 and
- VF61 on Iris
+Subject: Re: [PATCH v9 4/4] i2c: qcom-geni: Support multi-owner controllers
+ in GPI mode
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mehmet Fide" <mehmet.fide@gmail.com>
-Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260813140600.1824949-4-mehmet.fide@gmail.com>
-References: <20260813140600.1824949-1-mehmet.fide@gmail.com>
- <20260813140600.1824949-4-mehmet.fide@gmail.com>
+To: "Mukesh Kumar Savaliya" <mukesh.savaliya@oss.qualcomm.com>
+Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org
+In-Reply-To: <20260813140047.1006478-5-mukesh.savaliya@oss.qualcomm.com>
+References: <20260813140047.1006478-1-mukesh.savaliya@oss.qualcomm.com>
+ <20260813140047.1006478-5-mukesh.savaliya@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 14:13:55 +0000
-Message-Id: <20260813141356.1221D1F000E9@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 14:14:48 +0000
+Message-Id: <20260813141449.338661F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Low] Inconsistent compatible string naming due to mismatched hyphen.
+
+New issues:
+- [High] Premature hardware lock release breaks multi-owner transaction ato=
+micity
+- [Medium] PM runtime usage counter leak on `geni_i2c_init` error path
+
+Pre-existing issues:
+- [Critical] Double free and use-after-free of DMA bounce buffers in `geni_=
+i2c_gpi_xfer()`
+- [High] Memory leak of DMA tracking arrays on multi-descriptor transfer er=
+ror paths
 --
 
---- Patch [3]: [PATCH v3 3/4] dt-bindings: arm: fsl: add the Colibri VF50 a=
-nd VF61 on Iris ---
-commit 04c8812c4587059c616ac3a5abaa28f6f14d974a
-Author: Mehmet Fide <mehmet.fide@screeningeagle.com>
+--- Patch [4]: [PATCH v9 4/4] i2c: qcom-geni: Support multi-owner controlle=
+rs in GPI mode ---
+commit e932d5c4bcfb356d1e0cbaf5c247b0bd50b4e7e8
+Author: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
 
-dt-bindings: arm: fsl: add the Colibri VF50 and VF61 on Iris
+i2c: qcom-geni: Support multi-owner controllers in GPI mode
+   =20
+Some platforms use a QUP-based I2C controller in a configuration where the
+controller is shared with another system processor. In this setup the
+operating system must not assume exclusive ownership of the controller or
+its associated pins.
+   =20
+Add support for enabling multi-owner operation when DeviceTree specifies
+qcom,qup-multi-owner.
 
-This commit extends the evaluation board entries to include compatible
-strings for the Toradex Colibri VF50 and VF61 modules on the Iris carrier
-board.
+> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-=
+qcom-geni.c
+> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+> @@ -829,6 +829,7 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2=
+c, struct i2c_msg msgs[], i
+>  	peripheral.clk_div =3D itr->clk_div;
+>  	peripheral.set_config =3D 1;
+>  	peripheral.multi_msg =3D false;
+> +	peripheral.multi_owner =3D gi2c->se.multi_owner;
 
-> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentati=
-on/devicetree/bindings/arm/fsl.yaml
-> index 86876311ec59a..6f95c17b363c0 100644
-> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> @@ -1705,9 +1705,11 @@ properties:
->                - fsl,vf610
->                - fsl,vf610m4
-> =20
-> -      - description: Toradex Colibri VF50 Module on Colibri Evaluation B=
-oard
-> +      - description: Toradex Colibri VF50 Module on a carrier board
->          items:
-> -          - const: toradex,vf500-colibri_vf50-on-eval
-> +          - enum:
-> +              - toradex,vf500-colibri_vf50-on-eval
-> +              - toradex,vf500-colibri-vf50-on-iris
+[Severity: High]
+Does this setup cause premature hardware lock releases, breaking the
+multi-owner atomicity?
 
-[Severity: Low]
-This isn't a bug, but should this compatible string use an underscore for
-colibri_vf50 to match the base module name?
+In geni_i2c_gpi(), the interrupt flag is unconditionally set for sequential
+transfers:
 
-The new string uses a hyphen, whereas the existing eval board compatible
-uses toradex,vf500-colibri_vf50-on-eval. Could this inconsistency cause
-confusion when parsing or authoring device trees?
+geni_i2c_gpi() {
+    ...
+    } else {
+        flags =3D DMA_PREP_INTERRUPT | DMA_CTRL_ACK;
+    }
+    ...
+}
 
->            - const: toradex,vf500-colibri_vf50
->            - const: fsl,vf500
+Since the GPI driver inserts an UNLOCK TRE when DMA_PREP_INTERRUPT is set,
+would a multi-message sequence like Write-then-Read drop the hardware lock
+mid-transaction while the bus is stretched?
+
+[Severity: Critical]
+This is a pre-existing issue, but does geni_i2c_gpi_xfer() have a double fr=
+ee
+bug on its DMA bounce buffers?
+
+The tx_buf and rx_buf variables are initialized outside the loop, but are n=
+ot
+reset at the top of each iteration:
+
+geni_i2c_gpi_xfer() {
+    void *tx_buf =3D NULL, *rx_buf =3D NULL;
+    ...
+    for (i =3D 0; i < num; i++) {
+        ...
+        if (msgs[i].flags & I2C_M_RD) {
+            geni_i2c_gpi(..., &rx_buf, ...);
+        }
+        ...
+        geni_i2c_gpi_unmap(..., rx_buf, ...);
+    }
+}
+
+If a message sequence contains a Read followed by a Write, rx_buf is mapped
+in the Read iteration and then freed in geni_i2c_gpi_unmap(). In the next
+Write iteration, rx_buf is not reset to NULL and not overwritten, causing
+geni_i2c_gpi_unmap() to use and free the stale pointer again:
+
+geni_i2c_gpi_unmap() {
+    ...
+    if (rx_buf) {
+        dma_unmap_single(...);
+        i2c_put_dma_safe_msg_buf(rx_buf, ...);
+    }
+}
+
+[Severity: High]
+This is a pre-existing issue, but is there a memory leak of the DMA tracking
+arrays on the multi-descriptor transfer error paths?
+
+If a multi-descriptor transfer encounters an error (like a device NACK),
+gi2c->err is set and the cleanup loop in geni_i2c_gpi_multi_desc_unmap()
+aborts early:
+
+geni_i2c_gpi_multi_desc_unmap() {
+    ...
+    if (tx_multi_xfer->unmap_msg_cnt =3D=3D gi2c->num_msgs - 1) {
+        kfree(tx_multi_xfer->dma_buf);
+        kfree(tx_multi_xfer->dma_addr);
+        break;
+    }
+    ...
+}
+
+Since unmap_msg_cnt never reaches num_msgs - 1 on an early error path, are
+dma_buf and dma_addr permanently leaked?
 
 [ ... ]
 
-> -      - description: Toradex Colibri VF61 Module on Colibri Evaluation B=
-oard
-> +      - description: Toradex Colibri VF61 Module on a carrier board
->          items:
-> -          - const: toradex,vf610-colibri_vf61-on-eval
-> +          - enum:
-> +              - toradex,vf610-colibri_vf61-on-eval
-> +              - toradex,vf610-colibri-vf61-on-iris
+> @@ -1075,6 +1080,11 @@ static int geni_i2c_init(struct geni_i2c_dev *gi2c)
+>  		dev_dbg(gi2c->se.dev, "Using GPI DMA mode for I2C\n");
+>  	} else {
+>  		gi2c->gpi_mode =3D false;
+> +
+> +		if (gi2c->se.multi_owner)
+> +			return dev_err_probe(gi2c->se.dev, -EINVAL,
+> +					     "I2C sharing not supported in non-GSI mode\n");
+> +
 
-[Severity: Low]
-Does this compatible string also have a mismatched hyphen instead of an
-underscore for the colibri_vf61 base module?
+[Severity: Medium]
+Does this early return leak the PM runtime usage counter?
 
-Like the VF50 entry above, maintaining the exact base module string as a
-prefix would stay consistent with toradex,vf610-colibri_vf61-on-eval.
+By returning directly here, it seems to bypass the pm_runtime_put() cleanup
+step at the err: label that the rest of the function uses on failure.
 
->            - const: toradex,vf610-colibri_vf61
->            - const: fsl,vf610
+>  		tx_depth =3D geni_se_get_tx_fifo_depth(&gi2c->se);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813140600.1824=
-949-1-mehmet.fide@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813140047.1006=
+478-1-mukesh.savaliya@oss.qualcomm.com?part=3D4
