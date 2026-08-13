@@ -1,132 +1,176 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA4A480955;
-	Thu, 13 Aug 2026 18:49:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ABD41D200
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 19:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786647001; cv=none; b=Xzj9us3MpESdFZQHNEcLFN69awb/FVJKYWP5z4K2MciutZ6cipTORGsiMJCCMGpSkaBIMmCYZi7n2zivoAmzCtf8flgZLEluON4ZGJA0BuHxnjZqvQARQo9YbdRFItnroOQLjXR8OfecnkbI+SPE4qHA7N9/dSmgHyk/pKtmmD8=
+	t=1786647845; cv=none; b=YbT2gPtL/p7PGGIZozJ3lp5KlTikwQOwcmorHFoLA+IUbqI43LEX/dRgXyGcRln3gfWgff7/ABQ894/PmscQO5ADRg/6z77iMxNVg3vP9k2MsYwi+KEHmEe2hhUyNSFw86HvBAHZYXgONFi9Z2fpqUfCZbF1ayvhN/iWgww2y0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786647001; c=relaxed/simple;
-	bh=N2tXyEP5k6siy2BStVXxZGhHfQNVOTkLt4pjp7m6PDE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B2C7TbSdl4S4S0/Q3I0hmdTG1/FCg3rSzExIXfiRzBvkVVBZoQzyr+Uylbp1fXgdSFtr3B+v5GpPUqnRLjWYbNEpX6IZ6qX641sgjYepAsFo1l+kWehN9Hcp0zBWhrmCquU69PQhDZCKpfodVs1DDK3n9rj8keQhJQDx/CQ6J8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YkS6aTgA; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1786647845; c=relaxed/simple;
+	bh=h4fLtGo7L69mVcw54e0Pb54zpPd24shJdWWvb7gIyyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fWXVBc01eOpi2XvFgjc2qVvhdFb44D4mKjEnhoyr396UvlgJ3CLZZiha9+X4uRLr9x9qDOE0df/sYGC2yMq4W6Dq9NY2uKJY9iNNbVz3WKkv8+IXkCoUPwFXXRr24YIApO/hWS3ipJt9mjbTsm4h/KnCDfaiBDVUumpts/SdIMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=sA30iXCX; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=hSuRYtde; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YkS6aTgA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1786646997;
-	bh=N2tXyEP5k6siy2BStVXxZGhHfQNVOTkLt4pjp7m6PDE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YkS6aTgAFuPqpi0u5/aB6g7a15Bilrqtg6musRFtx/4kw0wLutmPosTYiyebpbwXK
-	 D4SjwtqCGdGEYgot7Enpzx39nyhwHjnI4I6Ck4E2psL1rnl2W8EUbV/gbg9EO57Bk9
-	 5w4aihJYMG5r+9QVyAUF6u4cOAlFG23dhgsuLfoP11l3Oli/tGFkKfmiEhRIjY0FqT
-	 iloV4uejjNmbKqiUd/ucjDoEXJDJuSz0pmSrrOcKosBhkaHmxpLH8RFgengBl7F49P
-	 Im14ke4nAsRVxlWBT628o28kpmPidzmkBhf7I2KC/Pq7hDNT/O7jZ8YxWpyFwIUc0q
-	 K1BInUr0PUmRw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D5C7E17E013E;
-	Thu, 13 Aug 2026 20:49:56 +0200 (CEST)
-Message-ID: <7278a889-15a8-42f4-806e-7a28bc7d9495@collabora.com>
-Date: Thu, 13 Aug 2026 21:49:56 +0300
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="sA30iXCX";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="hSuRYtde"
+Authentication-Results: purelymail.com; auth=pass
+DKIM-Signature: a=rsa-sha256; b=sA30iXCXWlrQXllzr8GkR3qhzjT+hclWF8Uw2QVWa+3ehVo8fuuG9640Znfnk9Pzp3HC6GDx/mTV40xwzRu/k3GUOeu2Ppg/Xyhc7+Nck3R8+kNTJthxAQs36/K5nB605dFg97agccZqcRP9LD3UWNVYZ5C9213Uuzj59Nmwc8sWI4eH92ocSxvaOBxCDGX1tQuHz3QYg95FkyJZFRkpD9+VW4M9ImA7L4gKMfnzY7wy6pzgkXvukgIHuZyg8+1H3Xy718eq3F9dKAlvfGJkbCFZWcOoQqfv8PbMreY8XBmNSL1p1U2CaC39+XObntj0noJotNj1+ePH4lCyjOtR7Q==; s=purelymail3; d=tinyisr.com; v=1; bh=h4fLtGo7L69mVcw54e0Pb54zpPd24shJdWWvb7gIyyE=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=hSuRYtdev1Zd1tMy/7jBRWsW1ugClYYHqZNSZk6zgh+C+Q1tkMFmwoPgn8ccpr1dqvvlkmIuwhb3AZ4tmcoJ13Yeyj+3/OZiCmOrjcGJFrzHrEytARl5JTRJqBqNYI24eFPkWNYAtvrmK8JMCZipf+7WIuz1mgXCahSE6JjhuAL+HxwTetWZY1MCw/IMKFmqJkGKNX7XY6wGXllYM8dt+nfIIVoSVKHs6KJv5mA+9LiKwZUEBFo5IdhBwXpwgaN7fFPf77ZjcygES7dyZjr1e4rQKGklFCpB9qTZGjvgNotqkwisy5/yk7QxGCrItz9yRUXTJ3G1jYoO53t1AJxuNA==; s=purelymail3; d=purelymail.com; v=1; bh=h4fLtGo7L69mVcw54e0Pb54zpPd24shJdWWvb7gIyyE=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 99681:12517:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1221505461;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Thu, 13 Aug 2026 19:03:46 +0000 (UTC)
+From: Joris Vaisvila <joey@tinyisr.com>
+To: netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	pabeni@redhat.com,
+	kuba@kernel.org,
+	edumazet@google.com,
+	davem@davemloft.net,
+	olteanv@gmail.com,
+	Andrew Lunn <andrew@lunn.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?UTF-8?q?Ar=C4=B1n=C3=A7=20=C3=9CNAL?= <arinc.unal@arinc9.com>,
+	Landen Chao <Landen.Chao@mediatek.com>,
+	DENG Qingfang <dqfext@gmail.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Joris Vaisvila <joey@tinyisr.com>
+Subject: [PATCH net-next v7 0/4] net: dsa: mt7628 embedded switch initial support
+Date: Thu, 13 Aug 2026 22:02:37 +0300
+Message-ID: <20260813190241.789323-1-joey@tinyisr.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/14] Support 10-bit YUV422 and 8/10-bit YUV420 color
- format on DW HDMI QP
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Andy Yan <andyshrk@163.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, kernel@collabora.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
- <20260813164356.9625-1-royalnet026@gmail.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260813164356.9625-1-royalnet026@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Igor,
+This patch series adds initial support for the MediaTek MT7628 Embedded
+Switch.
 
-On 8/13/26 7:43 PM, Igor Paunovic wrote:
-> Hi Cristian,
-> 
-> I tested this series on an RK3588 (Orange Pi 5 Plus) with a sink that
-> actually needs it: a Sony TV with a 256-byte HDMI 1.4 EDID -- max TMDS
-> clock 300 MHz, no HF-VSDB and no SCDC, and 4K above 30 Hz offered only
-> through the YCbCr 4:2:0 Video Data Block (VIC 96/97/101/102). Without
-> YUV420 output this display has had no 4K mode above 30 Hz on the
-> Rockchip HDMI path.
-> 
-> Base: drm-misc-next dc2f9f7fed1a ("drm/komeda: Set display/writeback
-> clone masks"), with the dw-dp v11 and usbdp v13 series applied, plus
-> three local patches: board DT changes enabling USB-C DP Alt Mode and
-> pinning the VP2 dclk to V0PLL (DisplayPort side only; HDMI ran on VP0
-> from the HDMI PHY PLL), and CLOCK_ALLOW_WRITE_DEBUGFS for unrelated
-> clock experiments. On top of that, the samsung-hdptx clock fixes v6
-> [1] as the runtime dependency noted in your cover letter, 
+The driver implements the basic functionality required to operate the
+switch using DSA. The hardware provides five internal Fast Ethernet user
+ports and one Gigabit port connected internally to the CPU MAC.
 
-That is indeed the most recent revision of the PHY fixes - the patches have
-already been applied (available since next-20260812), thereby unblocking this
-series.
+Bridge offloading is not yet supported, but due to the CPU to switch
+link being Gigabit and all the user ports being Fast Ethernet, software
+bridging is a practical solution for the initial driver.
 
-> then this series.
-> 
-> Results on the HDMI-A-1 connector:
-> 
-> - The connector now lists 3840x2160 at 60/59.94/50 and 4096x2160 at
->   60/50 for the first time on this setup, and 3840x2160@60 shows a
->   stable picture.
-> 
-> - The negotiated wire format matches expectations
->   (/sys/kernel/debug/dri/0/state):
-> 
->     output_format=YUV 4:2:0
->     output_bpc=8
->     tmds_char_rate=297000000
-> 
->   and clk_summary agrees: clk_hdmiphy_pixel0 = dclk_vop0 = 297 MHz,
->   just under the sink's 300 MHz ceiling.
-> 
-> - Cycling 60 -> 30 -> 60 -> 50 -> 60 re-synced cleanly every time,
->   with no errors in the kernel log and the VOP interrupt rate at the
->   expected per-frame values throughout (no underrun storms).
-> 
-> To be explicit about the scope, three things were not covered: 10-bit
-> output in either format (this sink's 300 MHz TMDS limit rules out
-> 10-bit 4:2:0 at 4K, and my compositor cannot force an output format
-> to exercise 10-bit 4:2:2 -- I can retest with modetest from a console
-> if that would be useful), and the 4096-wide modes were only verified
-> in the mode list.
-> 
-> For the series as tested above:
-> 
-> Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Tested on an MT7628NN-based board.
 
-Thanks for checking this out!
+Changes since v6:
+=09- added depends on HAS_IOMEM && (SOC_MT7620 || COMPILE_TEST) and
+=09  select REGMAP_MMIO to NET_DSA_MT7628 kconfig entry
+=09- added comment about all ports being disabled by reset in
+=09  port_enable function
+=09- added depends on SOC_MT7620 || COMPILE_TEST to MEDIATEK_FE_SOC_PHY
+=09  kconfig entry
+=09- added genphy suspend and resume features to mtk-fe-soc driver
+=09- rebased on net-next
+Link: https://lore.kernel.org/netdev/20260704105659.140970-1-joey@tinyisr.c=
+om/t/#u
 
-Cristian
+Changes since v5:=20
+=09- updated tag_mt7628 to kfree_skb() on error in receive path
+=09- removed Reviewed-by tags from tag_mt7628
+=09- removed mmio base pointer from mt7628_esw since it's only used to
+=09  initialize the regmap
+=09- rebased on net-next
+Link: https://lore.kernel.org/netdev/20260613181845.111877-1-joey@tinyisr.c=
+om/t/#u
+
+Changes since v4:
+=09mt7628 dsa driver:
+=09=09- updated mdiobus allocation to use ds->dev instead of esw->dev,
+=09=09  matching other DSA drivers (no functional change)
+=09mt7628 phy driver:
+=09=09- replaced phy_write() with phy_modify() when setting PHY init
+=09=09  bit (no functional change)
+=09mt7628 dt binding:
+=09=09- moved unevaluatedProperties after required block
+=09=09- removed blank line between compatible and reg in example
+Link: https://lore.kernel.org/netdev/20260608192948.289745-1-joey@tinyisr.c=
+om/t/#u
+
+Changes since v3:
+=09- rebased on latest net-next
+=09mt7628 dsa driver:
+=09=09- simplified vlan_add hardware vlan slot search
+=09=09- fixed vlan_del not removing vid from port pvid
+=09=09- separated mii_read/mii_write error handling from return
+=09=09  value parsing. Updated RD_DONE/WT_DONE bit checking
+=09=09  with clearer logic and a comment.
+=09=09- moved NET_DSA_MT7628 after NET_DSA_MT7530 in Kconfig
+=09=09- added missing reset return value checks in probe
+=09=09- fixed mt7628_switch_ops missing const specifier
+=09=09- removed mdio node parsing from of, as there is nothing
+=09=09  to configure
+=09mt7628 dt binding:
+=09=09- updated description to be more clear about port count
+=09=09- dropped optional mdio subnode. the switch does not
+=09=09  expose an external MDIO bus and all integrated PHY
+=09=09  access is handled by the driver.
+=09=09- removed unused switch0 label in example
+Link: https://lore.kernel.org/netdev/20260428185510.261521-1-joey@tinyisr.c=
+om/t/#u
+
+Changes since v2:
+=09- fix binding issues found in review
+=09- fix ignored dsa_tag_8021q_register return value
+=09- add switch teardown to clean up tag_8021q
+=09- fix ordering issue where mdio probe fail would leak tag_8021q
+Link: https://lore.kernel.org/netdev/20260330184017.766200-1-joey@tinyisr.c=
+om/t/#u
+
+Changes since v1:
+=09- changed port 6 phy-mode to internal
+=09- cleaned up tag_mt7628 rcv function and mask defines
+=09- fixed sorting error in drivers/net/dsa/ Kconfig and Makefile
+=09- fixed sorting error in net/dsa/ Kconfig and Makefile
+=09- fixed mt7628_mii_read/write return values on error
+Link: https://lore.kernel.org/netdev/20260326204413.3317584-1-joey@tinyisr.=
+com/t/#u
+
+Thanks,
+Joris
+
+Joris Vaisvila (4):
+  dt-bindings: net: dsa: add MT7628 ESW
+  net: phy: mediatek: add phy driver for MT7628 built-in Fast Ethernet
+    PHYs
+  net: dsa: initial MT7628 tagging driver
+  net: dsa: initial support for MT7628 embedded switch
+
+ .../bindings/net/dsa/mediatek,mt7628-esw.yaml |  96 +++
+ drivers/net/dsa/Kconfig                       |  10 +
+ drivers/net/dsa/Makefile                      |   1 +
+ drivers/net/dsa/mt7628.c                      | 652 ++++++++++++++++++
+ drivers/net/phy/mediatek/Kconfig              |  11 +-
+ drivers/net/phy/mediatek/Makefile             |   1 +
+ drivers/net/phy/mediatek/mtk-fe-soc.c         |  52 ++
+ include/net/dsa.h                             |   2 +
+ net/dsa/Kconfig                               |   6 +
+ net/dsa/Makefile                              |   1 +
+ net/dsa/tag_mt7628.c                          |  93 +++
+ 11 files changed, 924 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/net/dsa/mediatek,mt76=
+28-esw.yaml
+ create mode 100644 drivers/net/dsa/mt7628.c
+ create mode 100644 drivers/net/phy/mediatek/mtk-fe-soc.c
+ create mode 100644 net/dsa/tag_mt7628.c
+
+--=20
+2.55.0
+
