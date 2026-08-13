@@ -1,139 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D908E32FA18;
-	Thu, 13 Aug 2026 09:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A734736196E
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 09:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786613048; cv=none; b=DOKSMI+QonDrrWvGaRQOYqNDUILercxzv2PdfXb3IVPimFy/yrQi3+ehgfn/OSWKWO04evo+d8aXatAl0VGeT6U65EoFgOvZKqiniVqS3J+VqGOOsrt8sUwMbw25wSoyDxH2tLBwznj/mVAGOreBG/PsyeMvkxLKvqNcrH6VjUc=
+	t=1786613092; cv=none; b=ewGujGPMAdEnLox2QmICwpNGAfSo62yQay4vE2BhTPHNfWg+UUmQfS3zcjm3q48Hm58t9Z3oOQ5bSRVdJFsIyOZXgtPKvUyT9pIwexWDVn12/VV0Je4k0uRdUl4hmUtmDHAehyfgzj0wdtKx/U6YIuFKU5dLP0pnGWxCqH7U8tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786613048; c=relaxed/simple;
-	bh=IsY7b0zzvexHzw/KiMjjdFEGFxccluYG6hRzEIZ8WrU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q0sDNu/UwIDyzeazMSyr37BwPucNdjZoeqAxLjV0zNk9PQoVrIGolO0Ori0ycvtUZsP/LXvt6fYUSU9Hx5itZtRa4P7Lk4Q2e+KgIcoYmC/qs+GDZChVbxJ7rwWq6GYUAdpweDgB4FMBRsPHSEk1qQqzfwkR5IvQxjTqi6yqkVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AE11HJYx; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AE11HJYx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE691F00A3D;
-	Thu, 13 Aug 2026 09:24:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786613046;
-	bh=oh+ttAZGQTbA2HM9crNJkaTZwm2Ftb710NCI17YLxbE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AE11HJYx8uZ9he+m2LlvlcT/r97ILYwQ8Fob6xvPRJdvCDxqIMoQhIaDHqdoipn33
-	 LNhIQ9/6cBYO854grYmHG2sKTtpkMaAJkDS0Tlc28fJArf7KWpIE7ZmgcPQl4Cy0zZ
-	 fqWXda5Euch8Tk4BC6BJySEA7B1p9NcVOEqn1NAs4k4FVhByuNXUzHeYzDpR/Si+bs
-	 tnX6/9YLMSud5s9fga/9MMV0QGLldSJQSDcAywz/RFZnXMWSzWBAuxoMTIq7d4aHRG
-	 HR2A+QivBc+0Q+1wNpECYoxCZ/agqYbgNr3y3zh+UE7nqxZigtXvfIJpda0maGQCNN
-	 34eyQgip3tIyw==
-Date: Thu, 13 Aug 2026 11:24:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: Add Retroid Pocket Nova
-Message-ID: <20260813-private-brass-rhino-81d7a9@quoll>
-References: <20260808-rp-qcs8550-v1-0-a5a365ba3dc5@gmail.com>
- <20260808-rp-qcs8550-v1-4-a5a365ba3dc5@gmail.com>
+	s=arc-20240116; t=1786613092; c=relaxed/simple;
+	bh=jd48x0JDaMadZvGCtOW40fgYj3SqSfl6jVqR/YltFCM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ze1wkZ5/s3JQEZqAu8dk/8YLgbod9bjlq0gVsE7L4mWSYRi2S/+e44r/tSoUWcwe9AFKoh4EEjUFKsyPFQeSuvqm8viuA30gyQMoN7w/Nk9SeUJRqeYqzavXk7OLl5fyDcbfD5digAHJ00Y2gCYRNXD52KxI3jmfREgsMqc+lh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-74ac3ea9c60so535505137.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 02:24:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786613089; x=1787217889;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pTzoQkw/EdhxE8XX/iXjCk7UuKhM31vDtUCV7Bto21I=;
+        b=EiLD2iH0gQGjkJDnVpSFfbOe6gUCrqtOEEEsRJnUIEtyOu66YjkQeSzFLjR2ABZNA1
+         gfFAnv9lf4ZqsNK5S6nggms4VQjUnRtA/OL8fvR0/0tWJoeqqrffA22qZavMrdc2UT8p
+         bLPrUV2zopsVAksfTUitT8jatgzQNQ5eEqgh+ddYq/VaonXM+Y957CJjgy83teEohylA
+         RTspalKQhDhz7NPTrYcPZyjNuKqrwWkdjanjZD5tgIFiFwBE731iGEj8M4dao4GhmaVq
+         zgnkcE802l68jFwrEnA7BRGsc37itm7ahHV0CA1+8jncazd80OH6tEdwVmhea7k9x33F
+         jrHg==
+X-Forwarded-Encrypted: i=1; AHgh+RrjuVgDd7feV+bum5//iLop3Pv2W+cP/q84XAYa01Ak3j064b52f/KZHn2tOrM6/CK0On53cqteC9kp@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdEqC7DGDOMfOHTr/D6mso6pPnrGkK4ndSe7JWn62mZfm6hYiC
+	PqYaLQbsOzw8XAHAxedvIGJEyTeYQFkj7CmYK0IKeme0CP871vpzMJi8VoD0q91o
+X-Gm-Gg: AR+sD122cXd1h1kUE4SxH9S1sWLwraovxXegq2VAYM8k3BFmDMcbbWtNQOkM3OugpOL
+	IcRLS/6I4RlJzFP237Z35zhZK6sGRHN1ALsio5v90QCtMDbcnaJocuYIeyKfwK39FUZmaMLx4HV
+	AM7cDedRJjvzbhoZPbzz83lu3UrxMwT425PoNYw5AzmCP4V2epqOXwvk8a+SV8fHSF9N9vUG8v4
+	MJoYC6QkYasx6q9huxBvGn+TmkmGo0aZPa6ksLgI1JokH39/1knHXjwMDMt8WCyEjxWPf31Gy5h
+	v4YoYwYIBEvHs7L3NjCGR7NuruINmj5zyjg9eqHx+X5gr3I8tjhSQAdPuQWN0EDPvMcESQ+vXKi
+	rUQdzaw+YdcBcWAxVsozVZ+N5SHtFX8B7ZBiDiQ6rQmVxhqutqpw+L6lgToLMSKreBjG6gjh8lZ
+	sgCy/hwOb9paaoAnSPkH2i3AJx+Cs6x69RNWvJnBYOX4XLDOxKAHxvVAKM2Qkp233pl11phZukB
+	Q4+ROxQ3E90xbm+4h+1lB7VYQ==
+X-Received: by 2002:a05:6102:1485:b0:737:783d:1916 with SMTP id ada2fe7eead31-76db7b91137mr1053811137.11.1786613089577;
+        Thu, 13 Aug 2026 02:24:49 -0700 (PDT)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97becc5f312sm617690241.9.2026.08.13.02.24.48
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Aug 2026 02:24:48 -0700 (PDT)
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9770fffa5a6so532484241.3
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 02:24:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rrp2GKKODOUYx2DkYa2hSZmhpoiZ/5lhe3MqePl1hdsxcMw0NvT7yartS9umhHqn6ALyRVoIENnJh20@vger.kernel.org
+X-Received: by 2002:a05:6102:1485:b0:737:783d:1916 with SMTP id
+ ada2fe7eead31-76db7b91137mr1053786137.11.1786613087765; Thu, 13 Aug 2026
+ 02:24:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260808-rp-qcs8550-v1-4-a5a365ba3dc5@gmail.com>
+References: <20260615115455.1412098-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260615115455.1412098-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260615115455.1412098-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 13 Aug 2026 11:24:35 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUQKmDQz=V6oa-7HC6NNUTzYUddOrCmHMaRXvHSBrF9pQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxIUL2dSfgpmaEW9n5O8N-uwqoJgDk0_CZpOV-32gxYiS60Hp8O10qmVn4
+Message-ID: <CAMuHMdUQKmDQz=V6oa-7HC6NNUTzYUddOrCmHMaRXvHSBrF9pQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] arm64: dts: renesas: r9a09g077: Add VSPD and FCPVD nodes
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Aug 08, 2026 at 12:37:58PM -0500, Aaron Kling wrote:
-> The Retroid Pocket Nova is a high-performance Android-based handheld
-> gaming console powered by the Qualcomm Snapdragon 8 Gen 2 processor
-> featuring a 4.5-inch 4:3 AMOLED touchscreen.
-> 
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile                  |   1 +
->  .../boot/dts/qcom/qcs8550-retroidpocket-nova.dts   | 118 +++++++++++++++++++++
->  2 files changed, 119 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 09b3c5b2d9dab..582805e89f4cb 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -196,6 +196,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2mini.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2portal.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-thor.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-retroidpocket-nova.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-retroidpocket-rp6.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-rb5gen2.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-> new file mode 100644
-> index 0000000000000..10dabb1d51f5a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-> @@ -0,0 +1,118 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +#include "qcs8550-ayntec-common.dtsi"
-> +
-> +&{/} {
-> +	model = "Retroid Pocket Nova";
-> +	compatible = "retroidpocket,nova", "qcom,qcs8550", "qcom,sm8550";
-> +
-> +	backlight: backlight {
-> +		compatible = "pwm-backlight";
-> +		pwms = <&pmk8550_pwm 0 860000>;
-> +		brightness-levels = <1023 0>;
-> +		num-interpolated-steps = <1023>;
-> +		default-brightness-level = <600>;
-> +		power-supply = <&vph_pwr>;
-> +		enable-gpios = <&pmk8550_gpios 5 GPIO_ACTIVE_HIGH>;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&pwm_backlight_default>;
-> +
-> +		status = "okay";
-> +	};
-> +
-> +	vdd_disp_1v8: vdd-disp-1v8-regulator {
+On Mon, 15 Jun 2026 at 13:55, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Add VSPD and FCPVD nodes to RZ/T2H SoC DTSI.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-So foo-regulator?
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vdd_disp_1v8";
-> +
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +
-> +		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
-> +
-> +	vdd_disp_2v8: vdd-disp-2v8-regulator {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vdd_disp_2v8";
-> +
-> +		regulator-min-microvolt = <2800000>;
-> +		regulator-max-microvolt = <2800000>;
-> +
-> +		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
-> +
-> +	ts_avdd_3v0: regulator-ts-avdd-3v0 {
+Gr{oetje,eeting}s,
 
-Or regulator-foo?
+                        Geert
 
-Decide and also read:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/regulator/fixed-regulator.yaml
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Best regards,
-Krzysztof
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
