@@ -1,112 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DE83955E8;
-	Thu, 13 Aug 2026 08:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFA233A708;
+	Thu, 13 Aug 2026 08:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786611255; cv=none; b=Y95v8wVGQTmJQngyXqMGhsfJYq4qDpHSLDKztIXyVz8CNSknAQoNOHM9E1Mq9k0cBFRVekAVo4U00zHI3qFJK8kwcXyFzCLn3GCC2i14MGQDZQUZxSzyjMvWl4HhCUwMiRY5wg/9uv9R2oVYm++yVeFxy1BbdT266Xj0M9UkIBo=
+	t=1786611371; cv=none; b=PrS+24TcWXWTIxs2qGvLI95WREkBWuQ8SjNetM9CB8LBtNLKQPaD1FUa930fYGwPId6n++8J4GVpYexxM2UJT8U8E2FdPSn+2Cq7OVOXk4Y0vujoLwdzr3em+9wisrh/HLSM0GuRgFjtPuaEq7A0PBHB7VB/e9V2G38VHTXF6B8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786611255; c=relaxed/simple;
-	bh=ya7+gkMSCtIE0DuOHJ+7IIxcGMBtBW1vI2vxcmT3O6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e9bt3jfdMKqVj4GHUkG65QF5B98/xE4d7x85HaY6dYr3v/onpKKXxq3/4ae9kg6Bv8sliRyNL/cxUAdIMQbddZNc3f+kZ33RE8m/n37s3DGrUtUsFoKGOGsnWXQ7W+xHaMqQ9bl18FG5Jd+UPP25GWik0qaqL9gh+ascCWoMuiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdDGGliG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786611371; c=relaxed/simple;
+	bh=tgBSmDvnOxqOIbfBqzVBfqvF1vXachxn+dE510jSfmU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UBxF/uT92EqgMPOXLQqMIznk5xfMPqy7fI/pCLmIxIRE0+lYh3rfkQp8e8oSYs7nCtkwEq+y4Mk87hxyOMSj6Bh4+34AvYSizJccRed0hgI34gwWgSoWQZzaF9HEr51UOGj7DQ/p9zlPPGuwF8I4LD85V1jQG19lN/XvavxCor0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=RkP5++jD; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdDGGliG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0073F1F00A3A;
-	Thu, 13 Aug 2026 08:54:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786611254;
-	bh=I1MNXpPx0FgeCJXMj+UI/UAtsN5uIJXp6y3+35rpExk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LdDGGliGWac/IfmV9OJJNtwWI5dnnbJWAstzCfTp7XfOhNXKTAWwr2X2Mz1HNlKtp
-	 kny4vthYjJ+ZMntSTyWZCcGPeKca6mD7wr4JGCPYpBIu7jz5AxY6UeH4EcmPRSzYbC
-	 fGg1E9k/2B8s6nR54J6mH7iERcYln8iM7eQNcNLQnxoEepi015sNoJBDwUBFbtVMdr
-	 fkVrmvmDDYiQxzlP6/nkl0snqH9lInMgp+hxdspTV1+2tQuvgtO+EP+V6TtvbO4mLM
-	 QaX5lJwTcq1yemLZl3Zl9eZk3RANVSqOaXrGoEoWxnCAS24JMNaKaK5vYaqcE53081
-	 2K5AyjYdGLxaw==
-Date: Thu, 13 Aug 2026 10:54:07 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Robin Snyders <robin@snyders.xyz>
-Cc: Casey Connolly <casey.connolly@linaro.org>, 
-	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Joel Selvaraj <foss@joelselvaraj.com>
-Subject: Re: [PATCH v2 2/2] power: supply: qcom_smbx: add SMB5 support
-Message-ID: <20260813-granite-pronghorn-of-gaiety-d27f65@quoll>
-References: <20260812-submit-qcom-smbx-send-v1-v2-0-f504b8f9bfad@snyders.xyz>
- <20260812-submit-qcom-smbx-send-v1-v2-2-f504b8f9bfad@snyders.xyz>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="RkP5++jD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=NY/kTVoJS7JBCe0ZeDKhM9AwzQeDZAj/AYt9Nsuv+oE=; b=RkP5++jDJ43V7LuFqHVwcMXj/p
+	yK9l14sgq87/6fQbgJHH8iwsTpnmjlQjbSnEHZqlNyur8Zm9uLsQ0/TaTiOz71VjeDP1EEutc5pJV
+	5AxZzh4WXctSrybsQ+tRUONJTWIcJ+FKXk6YXAAG0OOJlGHrAGYkWw2+rQj8fNudFQJqSC06OLpKv
+	LMqmLERhJtwXBHm6sfMMm+s/ppAl+xrUQ7TvzyxqRQX1fyujOhm+PqLRBSirt73H7W50sgXe2sFtP
+	z78STzZeu5kC9hCDhTgZ4pFAejX/wG/SsXNRPdPxLoemWJOhpSpT2UlNYCfpwv7H19CYY5aMqOfio
+	HKAx6hhw==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wuREK-000Bx1-05;
+	Thu, 13 Aug 2026 10:56:04 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wuREJ-000PrA-1O;
+	Thu, 13 Aug 2026 10:56:03 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Francesco Dolcini <francesco@dolcini.it>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject:
+ Re: [PATCH v3 1/4] dt-bindings: lcdif: Add endpoint bus-width property
+Date: Thu, 13 Aug 2026 10:56:02 +0200
+Message-ID: <7661119.LvFx2qVVIh@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260813083402.GA19687@francesco-nb>
+References:
+ <20260812132954.148571-1-francesco@dolcini.it>
+ <20260813-classy-boa-of-apotheosis-57207e@quoll>
+ <20260813083402.GA19687@francesco-nb>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260812-submit-qcom-smbx-send-v1-v2-2-f504b8f9bfad@snyders.xyz>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28091/Thu Aug 13 08:25:54 2026)
 
-On Wed, Aug 12, 2026 at 01:57:00AM +0200, Robin Snyders wrote:
-> +	if (chip->gen == SMB5) {
-> +		rc = regmap_update_bits(chip->regmap,
-> +					chip->base + CHARGING_ENABLE_CMD,
-> +					CHARGING_ENABLE_CMD_BIT,
-> +					CHARGING_ENABLE_CMD_BIT);
-> +		if (rc < 0)
-> +			return dev_err_probe(chip->dev, rc,
-> +					     "could not enable charging\n");
-> +
-> +		rc = regmap_update_bits(chip->regmap,
-> +					chip->base + USBIN_CMD_IL,
-> +					USBIN_SUSPEND_BIT, 0);
-> +		if (rc < 0)
-> +			return dev_err_probe(chip->dev, rc,
-> +					     "could not enable USB input\n");
-> +
-> +		devm_remove_action(chip->dev, smb_restore_charge_state, chip);
-> +	}
->  
->  	platform_set_drvdata(pdev, chip);
-> +	WRITE_ONCE(chip->probe_complete, true);
+Am Donnerstag, 13. August 2026, 10:34:02 CEST schrieb Francesco Dolcini:
+> On Thu, Aug 13, 2026 at 10:10:43AM +0200, Krzysztof Kozlowski wrote:
+> > On Wed, Aug 12, 2026 at 03:29:49PM +0200, Francesco Dolcini wrote:
+> > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > >=20
+> > > The DPI output of the LCD interface can be configured with a bus width
+> > > of 16, 18, or 24 bits. Introduce a bus-width property to the output
+> > > endpoint, specifying the number of parallel RGB bits connected.
+> > >=20
+> > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > ---
+> > > v3: use video-interfaces.yaml
+> > > v2: use the common bus-width property instead of the legacy interface=
+=2Dpix-fmt
+> > > ---
+> > >  Documentation/devicetree/bindings/display/fsl,lcdif.yaml | 9 +++++++=
+++
+> > >  1 file changed, 9 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml=
+ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > index 2dd0411ec651..1f3daf002707 100644
+> > > --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> > > @@ -71,6 +71,15 @@ properties:
+> > >      $ref: /schemas/graph.yaml#/properties/port
+> > >      description: The LCDIF output port
+> > > =20
+> > > +    properties:
+> > > +      endpoint:
+> > > +        $ref: /schemas/media/video-interfaces.yaml
+> >=20
+> > This won't work, you need to test your DTS. The port schema does not
+> > allow video-interfaces properties. You need port-base, like in every
+> > other case.
+>=20
+> Thanks for the review Krzysztof
+>=20
+> Given my testing was not ok, and I am not sure what I did wrong exactly
+> on my tests, is this the change I should do?
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
+ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
+> index 1f3daf002707..89cea0c14cf1 100644
+> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> @@ -68,7 +68,8 @@ properties:
+>      maxItems: 1
+> =20
+>    port:
+> -    $ref: /schemas/graph.yaml#/properties/port
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    unevaluatedProperties: false
+>      description: The LCDIF output port
 
-No, please do not invent custom probe ordering/synchronization patterns.
+With that change:
+Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 
-If you need this, it means either core is broken or your driver has
-issues. In both cases the source must be fixed, not through custom
-one-driver solution.
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
 
->  
->  	/* Initialise charger state */
->  	schedule_delayed_work(&chip->status_change_work, 0);
-> @@ -1095,8 +1543,10 @@ static int smb_probe(struct platform_device *pdev)
->  }
->  
->  static const struct of_device_id smb_match_id_table[] = {
-> -	{ .compatible = "qcom,pmi8998-charger", .data = "pmi8998" },
-> -	{ .compatible = "qcom,pm660-charger", .data = "pm660" },
-> +	{ .compatible = "qcom,pmi8998-charger", .data = &pmi8998_match_data },
-> +	{ .compatible = "qcom,pm660-charger", .data = &pm660_match_data },
-> +	{ .compatible = "qcom,pm7250b-charger", .data = &pm7250b_match_data },
 
-Your bindings commit msg claims this is fully compatible with pm8150b,
-so above is confusing. Is one superset of another? Then it should be
-explained in commit msg of the binding.
-
-> +	{ .compatible = "qcom,pm8150b-charger", .data = &pm8150b_match_data },
->  	{ /* sentinal */ }
->  };
->  MODULE_DEVICE_TABLE(of, smb_match_id_table);
-> @@ -1112,5 +1562,5 @@ static struct platform_driver qcom_spmi_smb = {
->  module_platform_driver(qcom_spmi_smb);
->  
->  MODULE_AUTHOR("Casey Connolly <casey.connolly@linaro.org>");
-> -MODULE_DESCRIPTION("Qualcomm SMB2 Charger Driver");
-> +MODULE_DESCRIPTION("Qualcomm SMB2 and SMB5 Charger Driver");
->  MODULE_LICENSE("GPL");
-> 
-> -- 
-> 2.54.0
-> 
-> 
