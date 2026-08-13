@@ -1,97 +1,220 @@
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DD43B9937
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 09:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D689A3B5847;
+	Thu, 13 Aug 2026 09:26:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786613158; cv=none; b=Hpc7B8NHkU7xMfsQYNWSxg490Q4xYrrwWbq/xh80XvKQnIjxYus5BUCeAQZmHrCo2A5FAXWCfuLclden+nsRqF81h0XgNbbwPt21FdCZaxn8i4WJt0+zQTlyNkshMI9S6Gbw5Nt6hjD2E4tKbNNr4HkIIoOCgRXTbZFORzXGp84=
+	t=1786613183; cv=none; b=WqVjAhl8Qmi63C6VjUlSWBcLUUxqmg2WnPxGfWnY3OREwx14TJFL5CiO76ghtY7wZ3HliWKO+jgLZPizJHRxxkbezhQKgFen3w6R1TUySCG/ESbn75pzTRFC2ENtJnehUenhoUvjc/DYYqq6epCpdaUBhfIa/GkUDhhE7pArp34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786613158; c=relaxed/simple;
-	bh=z6DTFuPGv6FWaGZrtsoIb4p3tEuSyUOB0Uv5doIJz9s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BKZjGggr0yEnCOUcU1xRRch4o5eBgMD2+FHIXCfDmPOpGXi5c9Bl8Km85tdN/pmQ89mKYVWs8gQzC7kBE6HhpYLz+hkSq7Kr7Q9qzkgkmmEh0xRtSDFnUIEmlHbZO8dm2ccg7NaTvrgkU7Iz08m0lznwAaZULtMiNWUraGMNiqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-977ba4d3b49so598969241.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 02:25:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786613155; x=1787217955;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RqwpdLB7TrtYeRCXVjCM9omQuKhZ1BXK2srBTA+xeu8=;
-        b=P/f67kNx3HmtWzG0JbYooH7I6Q9U1pcU3MvMpN+KG1/nOiTSTmvu4wIMYoqL2/e6od
-         rxy6GebeeB116bB9URh1twDy7EjNgkRopXgCcBy1IKg/8f0jtAb6doOF3qlD0ytxO/Ed
-         j/EmUh7RQZm7YHqBocuJEeSzyqJQQYHV5WZ3qARHOyLkReZvyohuDfpZHR8Q6bSgQzKj
-         Q3LFfMTWVenZksHGyK9HcrxlryjBKH4Zr044G+0W7WitB/kTvz7Xi9VrmagolDdsascJ
-         7qoxGE5zGsInHQiTnRSfAF57f6kEk51auvOo5lIyig5jZDSPs0n6D097GbxWz3b0M+aX
-         yyZg==
-X-Forwarded-Encrypted: i=1; AHgh+RrQtw0fbZyjHG96iCaQbs4JxuvO1D+P4JK19aiELdc4kk78L3lYWFK4iJjkwrMJ0GaG0DNJdi1zLMxk@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhydNhCfNXYO28f7+u8bYMLKwATTINuum/ZwmwlZjEVQS3perK
-	Hj81nQWhP/aH3PY/Xhj23OjDYSkoCesr2VtHs2ToBuxbnFPwd9W0TzdlYlTpSMnF
-X-Gm-Gg: AR+sD12ISYrB5lIgiUyLqhkUkPxGgCGEGtpfNRwIglf3xBj4IEpuJcimMpznonP/HLl
-	f62/9LtzPWjkhlWWmSFWCEn0Vj8R04uW9zjRkl2kS2zLVdLsslqZHjUJ/z9hAb98xnaSYmyr5Pj
-	mYMjQrg99cErXSsYm86Tns0sykeQl5bpRo4OCZpJy1i4XM9UvpgR7qetH9XKB6YE5RIAC2Y+y6/
-	JbUo9ue69VqEbotXz6Qe4Yw41BgHkK/zaueqsAvftWWS0sRtQwUlrqt0DvKzqUUhytXb52GpYUk
-	Ukv6oc1mSpH4u7Q7xhRkjtVVVnAPPjxKtnpV7dONLdGUEj4zEbDz7++s0d9IV0fCcNgJMU8dwdr
-	rK6+hlKAkB7m2gWgNaFXISSPCytnlkLOez0sPx0gyxxD0wxe6tmlYfglUb6maAU9MphAJ2L8LNc
-	3ClDLU/cvxwfFdg30qkCPkChEm1NOWxfIKKzzi6ogrIM7MWWIl/RWqkP431Yq60V6JK3H5E2jTn
-	YcsqLtrvtC7moHpOGDKo2Io2bWLBw==
-X-Received: by 2002:a67:f707:0:b0:745:36ea:415b with SMTP id ada2fe7eead31-76dd1573628mr385089137.5.1786613155393;
-        Thu, 13 Aug 2026 02:25:55 -0700 (PDT)
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com. [209.85.221.176])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97becc5ef5csm636508241.10.2026.08.13.02.25.54
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 02:25:54 -0700 (PDT)
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5bfbbe5220dso422297e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 02:25:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Ro/RieFkmoRdLNA7nqdbtMNNw4wNfrSx+qUl/1YBwe6KkHEti/NOxvePooZkKu8D4E35xfLCUom1qgb@vger.kernel.org
-X-Received: by 2002:ac5:c74c:0:b0:5c2:a30a:1a08 with SMTP id
- 71dfb90a1353d-5c57bad1c3fmr407701e0c.2.1786613154174; Thu, 13 Aug 2026
- 02:25:54 -0700 (PDT)
+	s=arc-20240116; t=1786613183; c=relaxed/simple;
+	bh=OJg286iu0qYAAr4kx4ggHrhT7nJqXK85IwiMmTzM3yM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X8/xxlN2pDs5rOR0LGe34lqrt/cPZpd9ljMS3XdMihZISat0MRz0nUtJOC0+cn0WY91glskZrWeU+9BssfCHYUUv/W/kQdggxxH4eK7SU0YqXkrpaFXxIBbwWKmx3UIZGycUtDlfEiH07fiNDCPuXsJ7wLMsblBwkzZrN9//t/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=nykcABIS; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="nykcABIS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=eGx9tTiQdOBn7DN5qCJ32D8R2TduRxZShtLtOWV9bwk=; b=nykcABISTLy7A0Km0vFoKMmp19
+	J7uanBGGFGeQ/YS+/ctlTFzX1jh/KIBrD9/DPU2QL0O1Pt1VXIxeeN2N+UrRJvoX3oHUlWG4uLvBj
+	JUW0l2NlEMJq0uzH3Gj0bXVWTzZBeFKMqM9SFzs25PQLNc/bXhFcFbszPCaZF/4R7SiS/JoV1RzHb
+	c/rfahjyRodt/Ze43t5JkBfUdsSA48voxaebMePchMSuyGOGpiCmKtpjD5y+jLz8k0Z6SPkzS0Fc+
+	c6WeypKvIQ2AYr7dtUq5LKxcw6gvXEehMwUrfDtbx2qx7U0ssyyc8S1QVihjIagKJx2EsViWht2c1
+	vO1fJrGQ==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wuRBz-000BKa-2p;
+	Thu, 13 Aug 2026 10:53:40 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wuRBz-0004dI-17;
+	Thu, 13 Aug 2026 10:53:39 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Francesco Dolcini <francesco@dolcini.it>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject:
+ Re: [PATCH v3 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Date: Thu, 13 Aug 2026 10:53:38 +0200
+Message-ID: <9200378.lOV4Wx5bFT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260812132954.148571-3-francesco@dolcini.it>
+References:
+ <20260812132954.148571-1-francesco@dolcini.it>
+ <20260812132954.148571-3-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260615115455.1412098-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260615115455.1412098-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260615115455.1412098-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 13 Aug 2026 11:25:42 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVD5OHjnpBJS7hgFoU1i+6AFHctB4d30HFHHpRPazsESA@mail.gmail.com>
-X-Gm-Features: AUfX_my2gqI3H_UNJDW6a68Up-CId8ad7_1-724yfN_7o7bmeKyk3Bb75eFn08Q
-Message-ID: <CAMuHMdVD5OHjnpBJS7hgFoU1i+6AFHctB4d30HFHHpRPazsESA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] arm64: dts: renesas: r9a09g087: Add DU node
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28091/Thu Aug 13 08:25:54 2026)
 
-On Mon, 15 Jun 2026 at 13:55, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Add Display Unit (DU) node to SoC DTSI.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Am Mittwoch, 12. August 2026, 15:29:50 CEST schrieb Francesco Dolcini:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+>=20
+> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> format reported by the downstream panel or bridge describes the display
+> input, but it does not describe how the LCDIF data pins are physically
+> wired on the board.
+>=20
+> These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> 24-bit display by wiring the available color bits to the corresponding
+> display inputs. In that case, using the display's 24-bit format to
+> configure LCDIF selects the wrong data-bus mode and changes the assignment
+> of color bits on the LCD_DATA pins.
+>=20
+> Read the optional bus-width endpoint property from the LCDIF output port
+> and use it to select the media bus format used to configure LCDIF. This
+> allows the LCDIF bus mode to describe the physical interface
+> independently of the downstream display format.
+>=20
+> When the optional property is absent, or it has an invalid value, continue
+> using the format reported by the downstream display device, preserving
+> the existing behavior. The code is not validating the DT for
+> correctness and just fall back to the previous behavior in case of
+> errors.
+>=20
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+Thanks.
 
-Gr{oetje,eeting}s,
+Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa6UL[L]x
 
-                        Geert
+> ---
+> v3: improve commit message and make it clear that the code assumes that
+>     the DT is correct, when the DT contains an invalid property value,
+>     the code safely fall-back to the previous behavior
+> v2: use the common bus-width property instead of the legacy interface-pix=
+=2Dfmt
+> ---
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+>  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
+>  3 files changed, 38 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mx=
+sfb_drv.c
+> index 8b4a500347fb..f8ecc8bbd63c 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> @@ -12,7 +12,10 @@
+>  #include <linux/clk.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/io.h>
+> +#include <linux/media-bus-format.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_graph.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/property.h>
+>  #include <linux/pm_runtime.h>
+> @@ -211,7 +214,10 @@ static int mxsfb_load(struct drm_device *drm,
+>  		      const struct mxsfb_devdata *devdata)
+>  {
+>  	struct platform_device *pdev =3D to_platform_device(drm->dev);
+> +	struct device_node *np =3D pdev->dev.of_node;
+>  	struct mxsfb_drm_private *mxsfb;
+> +	struct device_node *ep;
+> +	u32 bus_width =3D 0;
+>  	int ret;
+> =20
+>  	mxsfb =3D devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+> @@ -238,6 +244,24 @@ static int mxsfb_load(struct drm_device *drm,
+>  	if (IS_ERR(mxsfb->clk_disp_axi))
+>  		mxsfb->clk_disp_axi =3D NULL;
+> =20
+> +	ep =3D of_graph_get_next_endpoint(np, NULL);
+> +	if (ep) {
+> +		of_property_read_u32(ep, "bus-width", &bus_width);
+> +		of_node_put(ep);
+> +	}
+> +
+> +	switch (bus_width) {
+> +	case 16:
+> +		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB565_1X16;
+> +		break;
+> +	case 18:
+> +		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB666_1X18;
+> +		break;
+> +	case 24:
+> +		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB888_1X24;
+> +		break;
+> +	}
+> +
+>  	ret =3D dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mx=
+sfb_drv.h
+> index d160d921b25f..bdc47ce5be79 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
+>  	struct drm_connector		*connector;
+>  	struct drm_bridge		*bridge;
+> =20
+> +	u32				bus_format;
+> +
+>  	bool				crc_active;
+>  };
+> =20
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mx=
+sfb_kms.c
+> index d8ebebc5314b..1d78c486d147 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> @@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc=
+ *crtc,
+>  	if (!bus_format)
+>  		bus_format =3D MEDIA_BUS_FMT_RGB888_1X24;
+> =20
+> +	/*
+> +	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
+> +	 * property when available. Otherwise, use the bus format reported by
+> +	 * the downstream bridge or panel.
+> +	 *
+> +	 * This supports mismatched display and interface bus widths, such as
+> +	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
+> +	 * panel connected through a 24-bit interface.
+> +	 */
+> +	if (mxsfb->bus_format)
+> +		bus_format =3D mxsfb->bus_format;
+> +
+>  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
+> =20
+>  	/* Write cur_buf as well to avoid an initial corrupt frame */
+>=20
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
+
