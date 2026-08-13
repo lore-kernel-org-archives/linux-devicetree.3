@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0145A431482;
-	Thu, 13 Aug 2026 20:51:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497D537F320;
+	Thu, 13 Aug 2026 20:51:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786654314; cv=none; b=Z8AV2VQ9yrk2Ponq4ybD0e9yEaqxYFw1+nqOUvoETQdfkZ3JI/K7KxTDkLsijKA0xfuE2OXstbNCYBPx9vnk+oegP8ld62jXXGYIdyQN9moKV8gzgkearmCAHj2gh3NEOgkhOFjRmiB/n+mQEFtR574pdJVxjZax5jOJOoGy4TU=
+	t=1786654314; cv=none; b=V4Z3itIumvhq/WEEgCfd5ArM7FgI1s/vTULToeSFzfvF1C6z+DqigeeKqyvQSnEtULwcv04KsQMPOyx8HM53TuW73OyGmCvXJZZOSixseCT/qXoHmRm+0lVLTZ8WjstAvuYTJ92xl4bWDyuZT9OnNIhmHTICosbnPs9nrQMB5D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786654314; c=relaxed/simple;
-	bh=mUcbOwAR6yXSrFE55prrZ2ir3KShnytA84FyYDFCZhk=;
+	bh=4f7kNJiMFTnP9e9rkfZdI625/gkPYEgxMISSEZRPNeA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FM9nyshNrRQhIVQjRrrFaD4dP76+0aj26fc3q8kcoZ5d/Kmxgxj76oEl/het7KHuAJs+WL9XxJ7+jVvhsyvZe/z2ekaoYnVSbV975plGJl54ho8nv3V8TNtxyQG0fL7huaz/yoIHabdswH5ASFpAxextBWYbcEpZg6xVxzCchOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=gg9okzcE; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=UZ19cheEW9xyUIPoD+2pty4DuP7cd6NeAVFpkhp3IHICiQBttZSbjzq2hTIq0zSQX2WEufzm8yZ6z3LHbbkKDhTGl4BTZjxLpgyGTKxygTBDa1nJub0WO8tqEZMJZlV/NeIWkCAkME/J45KnB+Byvy5CCYbMrG0VK4HSpYdv2ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HyRaaVQl; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="gg9okzcE"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HyRaaVQl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1786654310;
-	bh=mUcbOwAR6yXSrFE55prrZ2ir3KShnytA84FyYDFCZhk=;
+	bh=4f7kNJiMFTnP9e9rkfZdI625/gkPYEgxMISSEZRPNeA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=gg9okzcEksFatFkfO3cGn/2T2oyTK46Q1Jg+sGkILDYO4EO15goK6A4H++ou2LqsH
-	 LgPEMV61Eyh3pMG6mWtkju+YBHE2Fhf3RXOX8/ygOCWHunyKAtrQrB75VdU8TUN8E2
-	 qt47OF1JJSG4aDCQi/pPyRfHaavEEsm12Aqs9q7qDo+vO2/6rBspMyWHAvV49r1BxD
-	 bKZT6ZTI5HrFoihRymC712nDaV08e3mZqqi6avbMwbh8l4E7GBRY+iGF7mFImpRbpJ
-	 13CasERfHHgEZ2ken3usnKihoA+5bxxMLSwH//KDJnq2eVOmAIqjXpcoVQqOhKJ8G5
-	 TwpaYGg33M3vw==
+	b=HyRaaVQlB0C1M+VcM3jhKD1YB0OfPGJIRaqoxTBnaLwGq7hRIScAF/kJIIce8n1ey
+	 TrMfpEukcNTH6oe8ZpwXg5zY4LupYaC+9pbOFkKaZnB7SXyWUBemWQeA1oXWWTEtHX
+	 ZJljVnuAndTs5Cwn5UhjoDTqbg/YDw1pZK8nzDASEsHbD3uqj0rDKnDm6tswVG94ZP
+	 nl1wsCagfxxOK86oPFskXhGkgcF9FKmeTe1A69p3+05VcuPck1d28gPCPUpV4hJoCZ
+	 wD5EpMduL6TFA3Agh1GyEzZDvVcy9egh3SgapKuZ2hj/jnI9oMa/dY5xOjpGsfOHgy
+	 FsLiQ6GvqtQRQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D809B17E0F83;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D6D2417E0EF0;
 	Thu, 13 Aug 2026 22:51:49 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 97EB348002F; Thu, 13 Aug 2026 22:51:49 +0200 (CEST)
+	id 9645948002C; Thu, 13 Aug 2026 22:51:49 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 13 Aug 2026 22:51:46 +0200
-Subject: [PATCH v14 03/38] phy: rockchip: usbdp: Do not lose USB3 PHY
- status
+Date: Thu, 13 Aug 2026 22:51:45 +0200
+Subject: [PATCH v14 02/38] phy: rockchip: usbdp: Update mode_change after
+ error handling
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-rockchip-usbdp-cleanup-v14-3-b5ad9c68fa11@collabora.com>
+Message-Id: <20260813-rockchip-usbdp-cleanup-v14-2-b5ad9c68fa11@collabora.com>
 References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
 In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
@@ -64,57 +64,74 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  kernel@collabora.com, devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1478;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1858;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=mUcbOwAR6yXSrFE55prrZ2ir3KShnytA84FyYDFCZhk=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp+LmT8KOoaa/liNprPu7f2o0xwgpJU0pvNR
- PtRQCMmCXAqZ4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqfi5kAAoJENju1/PI
- O/qaUeUP/3JuF0jplmRx0UHZjcG5wySSi3qRfp/FxI2lyqSWFn+IOkks6ArSsEkiDUrEyTK7Ld8
- ctmb1jiP6sN9JxTxm6V5yZnRWUB7uY7tOpFMGdAo6PC9AFuXA/Hg7TIat/oELrnV67epRalizcT
- UyVpsHzlX+FmQzCVB1NexzWAH53E/9OSne+B23TyRU64Yhd3w/q81dut817aPnVQ6S8uwD6fkLx
- y1K/h20Ry8VlpBFOUUG38kNwVmCm5Gqx05iD93euKxd8bIzn15nacUQdyoHeH5A0J0gzqh6zxpK
- oj6aiOgbM1d6Hp8XP2whDKNCfLoLFjFUir+yDx+FyHYIgSYMIyf7oleZTRNKiU42klLIIUtkRLn
- fzO7L5OgUvnUjrc05ZFl59dHvj4xrudsIA6vi9KPsVL0AWNIvRpUqRbVJ3/S97bvFih5ESgjRzi
- +KtBF1XIJsIHR2/7X7vVb3zeu4tQkvGpDEdw0oP0kg35MlJsPBpR0vUOotbL0bT6v/HlMNwebPM
- VoCm2W2ML2f5gKu3svYfVC6h9fd/HZgbJpamrlfrIYMuoVcepVmijFdRx48jbdMoCLCbfeaW+ij
- HEv/sf/PrJjiJaULJGJY5jX3N+r2ROLwuJpLZNEck16AhgdsU4vTk3dIIx+hAOOcvfheFHGhNPS
- CQsdBKOErBrUHj3/l73MqKw==
+ bh=4f7kNJiMFTnP9e9rkfZdI625/gkPYEgxMISSEZRPNeA=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp+LmQtSHGGmamE4dLHmLB/fQ/lnZJgNUyrt
+ Ji2TzxuB6+Tn4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqfi5kAAoJENju1/PI
+ O/qahuMQAIwNoeAEnEa6Fe33wG12W3T7Y4Gvwkz8PlvrlG1cNN2Xg6ibb5jFXQ37bgHtK9SJ7hC
+ OPQszbNQHTQHQOyhIQluF7uqyYPqIz4w0drlurX8ttCcFXRgc+R+rTy88ZeaESdGFtUdOSdmwZt
+ m5x9pxmgGk0xkPfViQcks/Ufu/bfgzexHFGG7q8VX0W+m4oUpvfxEcV1RsOBVBXoj6X4VffR1Hd
+ OsA/jfztg6FiXhs2xQMVDG3y9EabZ60UxhVf3bAVXVpbGGKEzcpQREs5iMUTS/FodGDR4bf2uQF
+ ZqFvk80MiEGrSkLhzGGvpyA9d7PJQfQ3xu0sF5bz4+YqpJeB03EmuQsBi9QzE8SRkL3vbVaJnb0
+ YWDtN3WzZ1shhWZP3vzElpx7vne4efiiwi9c2nKXXP/J56uTm8vQ5YOJnPaAkbRtqty5A9ab5oC
+ YqVqTv6eZQDRQpTYA7vfg8E8dj6hBEmwmnOf13kpUErsUJ/akbSwKmCGwtoI9Zsu+XGSRbKMg4c
+ yNKrcWCxzLAwlHg/LZF7nBpvqvIkCGrWstcmPiImTeW2iX6mWhc9ah6lZT6G8o4g4oHSNVjHjbg
+ yzNTB5OQoEPEY2sVXbGSukJzzhwsb54pIHOuNlJaz1HBNzw3vVZJ5HTBE5O3t7yuN/u1pbynUnH
+ 6BBzsCsjjpj/D5mIlE7ErsA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-By default (i.e. without manually enabling runtime PM) DWC3 requests the
-USB3 PHY once and keeps it enabled all the time. When DisplayPort is
-being requested later on, a mode change is needed. This re-initializes
-the PHY. During re-initialization the status variable has incorrectly
-been cleared, which means the tracking information for USB3 is lost.
+If rk_udphy_init() or rk_udphy_setup() fails, the reinit will not be
+tried again. Fix this by only updating the variable after all potential
+errors have been handled.
 
-This is not an immediate problem, since the DP side keeps the PHY
-enabled. But once DP is toggled off, the whole PHY will be disabled.
-This is a problem, because the USB side still needs it powered.
-
-Fix things by not clearing the status flags.
+Note, that no errors have been seen on real hardware and failures would
+most likely be fatal and require at least a full reboot as the function
+already asserts the PHY reset lines. So this is more of a theoretical
+issue.
 
 Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-phy/20260612163835.8D5471F000E9@smtp.kernel.org/
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index a5ffdf7a6e76..12dfdd470a78 100644
+index fba35510d88c..a5ffdf7a6e76 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -1008,7 +1008,6 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+@@ -1000,15 +1000,14 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 	}
+ 
+ 	if (udphy->status == UDPHY_MODE_NONE) {
+-		udphy->mode_change = false;
+ 		ret = rk_udphy_setup(udphy);
+ 		if (ret)
+ 			return ret;
+ 
+ 		if (udphy->mode & UDPHY_MODE_USB)
  			rk_udphy_u3_port_disable(udphy, false);
+-	} else if (udphy->mode_change) {
  		udphy->mode_change = false;
- 	} else if (udphy->mode_change) {
--		udphy->status = UDPHY_MODE_NONE;
++	} else if (udphy->mode_change) {
+ 		udphy->status = UDPHY_MODE_NONE;
  		if (udphy->mode == UDPHY_MODE_DP)
  			rk_udphy_u3_port_disable(udphy, true);
+@@ -1017,6 +1016,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 		ret = rk_udphy_setup(udphy);
+ 		if (ret)
+ 			return ret;
++		udphy->mode_change = false;
+ 	}
  
+ 	udphy->status |= mode;
 
 -- 
 2.53.0
