@@ -1,279 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238773EBF04;
-	Thu, 13 Aug 2026 22:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFE33ECBE3
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 22:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786660027; cv=none; b=nyV77d/etjlR8r9d2wogAQEVhW0dVYAu/Ph4nkNWyyjIIh7DBL08a+iEyMScDcvdHDqnv52141aBgwArZwdOUI2P9P7cdrYGVYhnu0kPyiT7M4ed1TBOqYDVaV9fDH4a8pcXC0/wwym2dTZGazJdp02Ud4vDiTrLE/E7kizzo4M=
+	t=1786660189; cv=none; b=IEYhs1lQS0Zs3fAeNijtkdwLtrKSxx2twVW96so26Fs6pWFHJwRM+/7K92/ClWnzlaviJtSzeV2TRfQLnCIaOOQuJMC6uf2q3LwlpQ9/kMbAKl6blfneQUpEOQJY2/u7J+ezkoN3R5JZEZWi2SOdF0jOd4I3zcRSs1hBvPc9HKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786660027; c=relaxed/simple;
-	bh=u/WGYSeKtF4yo9eGNBKKX2gHq3GM7Gyu3ZtSHoPv1mc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t2rwIOvAhvppzSqFZAPK9SxIl1/Wrrmkg8Ufv7RIBEPG76H57gPctL7KvwrLa8h5k3TY5Ftgl7F7SyH/kfvRWmp5uBk0AYzyE9icn0xtv8t5oIUVxgEpdCP/7gA0il5d2fFEYMHiMuweQejkYLSTgOw0eQ/XN+FDsoRKFNbPOtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LIihG9zA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786660189; c=relaxed/simple;
+	bh=ZO88XOEuTHqYzmZi8dXnbViwKZdVDzeRLhiEIAjP0uo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BQLc80btBxx3p8pXKaZZdCk6bsqzByFBnBQmfLJSpCiGyvSIs7v/OThDhcci5k8qLgFcPOtzfWb7H9GcFoXfbyseBnKn9jyX8no+65kZnDDF4l4KvbWFUsnL5y/xpLzS4ysIjs2L7jFPEQQYcb96t+HDVYsGM9bJCQwotZM6DIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=EpDcJsNm; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LIihG9zA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 074211F000E9;
-	Thu, 13 Aug 2026 22:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786660025;
-	bh=BWVW1cwzxQxQwgomPqm2Gd4ncZj12iJyHYqy4Y91msg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LIihG9zAqiPkoQ/e4nWZqMNQwyVHL8232yBTZlAvgkcvhA8YP8uCCQapqrR7GSH7n
-	 rH2B4jVrY8zt/T37vFhDCJcTaKyDm3EmOQj1RWJDgKR2L2mFAi26qYDKLKghgkANPR
-	 NdZ221nKqpY4cIi2/ZtVizKMl3xVDmKuyGfBYicwyTR8yBOEjgAWBcSaiZkZfSlYoG
-	 Vn4KIQK9w4DY0OXrIbHBrXSiK6spi5Tp3iQClxu/+HC3Bfes47VL81hJtihFwtf54C
-	 ELBH7TnjviDgP2Cgo7vi+tb2hWw/qe89NzAQh734aXPEN3BEFuqWT6NsK4tG3GjO4+
-	 L5ye9Dj9uiwnw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 net-next 12/14] net: dsa: netc: add more basic
- functions support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wei Fang" <wei.fang@nxp.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260323060752.1157031-13-wei.fang@nxp.com>
-References: <20260323060752.1157031-13-wei.fang@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 22:27:04 +0000
-Message-Id: <20260813222705.074211F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="EpDcJsNm"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-8f186025973so3422406d6.0
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 15:29:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786660187; x=1787264987; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sFkwa8HUud5XDO3/3xKZyjyFBtxxa+T5lMX1cZ1lnac=;
+        b=EpDcJsNmLpN8TsalIlsJDggqmOSE0w1i66J0T4HWYb/uCTW8GwRTtEyRgftEYC+Dan
+         AaL4V/+il7yU2a2VlV8b/DQTlIgvz1WLW208oT6MMHouYWhZiUpqtJ0skr2jJcyZJ1UD
+         QDHTTMlVOlzQVFJlmMZ84BikXud2lv2n0bjbW1neU1BKU81S05QRfulzejMn7gQe/+Eq
+         WmPaPAIhoNIVlOWnUXcQW+brgFBI1U5jU+q+gnlno6cDzte3B3cLy4R2MND4D2tC/Z5z
+         HfbIUAlrZeJFJH5jMZthF/j26tARi2mWknJs5kjtMoBpRmU0POEcEfWx2uvg9kXpMpGr
+         x7lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786660187; x=1787264987;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sFkwa8HUud5XDO3/3xKZyjyFBtxxa+T5lMX1cZ1lnac=;
+        b=na6YSAbX/3+xscuOC7XXaf0OOly7cf/sdiv6zgSkb/O31Aeh8zOPBGNFJltiBhx0Xx
+         8JSwDR/q+hgJDt1NX0mzBoJt9cJOcIwva/e04ntYEZiVjOYh4jHytcnWxAfdFzZlIcwb
+         kagYAoYiEd+pUGhNXqrDpAlyEiKjgE0zy9yej9F0HZkw8rmjeJXQwC7J16OT3X9Urt2q
+         Bcroam481Sc9mYoueGRGlyhu52OhrUPmp7kMbCcPH4S1sQDRFwDpbob+MtF13Ai+L4pj
+         /qsCcvpikfFAim2nW1cYwdmNA2UOGS78cQRvnuEryDfK8LvWqMzlTW+DHzdBW0+g8GzM
+         RdNA==
+X-Forwarded-Encrypted: i=1; AHgh+RqlCV4fvPSqDTQy033AoyLCN9SkH/K8a2nQ5v+JDcp2SaZ9MAN1VwH0pzi04Njp7pEY/WWsUtaL9t72@vger.kernel.org
+X-Gm-Message-State: AOJu0YybAFMciJlJCgb/yxGAYEk3H1EUcuQh2OuwYV4uikVuuUvePXkZ
+	cvBM00oFQy+XM1VztwIfgQIc76YjRbKSCzWzb7v4lRiAkJbYyclHPejrfkamLirCvKI=
+X-Gm-Gg: AR+sD1092F4spTkHsGHyYe6qfZ6QC94kWhtKk1yHD3W9j+mPUhPn8APUAf6y9Pyn/Xj
+	up944dyhuw0Uamju5hzgd38b+l7DF9f2uDDOmNaz+jMf47amRNJdbu49DKP5me58F9kPPeghfQN
+	PL6lu51QwHbbY+o/PSyuxQCAOxcMlUZRKqOEker6WI7r0tLvUbjTwwt+K0LFYXhHx+OSSEY/g6O
+	PtaruJclUolp163WaSWZ8SK7Fn9aeH0oqnDfsT75V9pFytCLd6EoxcIl5x9t1Iq5Dtifh7FZ5DI
+	bkzwxgDZOk3JpWmRbFHXWZceGAaE9AFE4eJ+aoRBH4/lh3xuS0CbZOBWSQYgMcB1F8gEQXDJOgV
+	pyGk6RMW8oesy8430YepMXbERGP/knxhXrggHWrVtQVpgLXGFXmnzC1nF1i0I+n7yuDRS1mchLu
+	cHZp4VWx8Q8U0Pq7DJhUDDyO4DauL/vIQ/POGOSUylajmEIVXuQvytYxUh8IiWd7Ol
+X-Received: by 2002:a05:6214:468a:b0:8ca:f47:25ea with SMTP id 6a1803df08f44-90a91a3c8edmr18120326d6.0.1786660186729;
+        Thu, 13 Aug 2026 15:29:46 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a921ea2dbsm2367506d6.7.2026.08.13.15.29.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Aug 2026 15:29:46 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org,
+	bhelgaas@google.com
+Cc: daniel@riscstar.com,
+	mohdayaa@qti.qualcomm.com,
+	lbiancon@qti.qualcomm.com,
+	devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] PCI: introduce TC9564 misc driver
+Date: Thu, 13 Aug 2026 17:29:40 -0500
+Message-ID: <20260813222943.1655453-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+The Toshiba TC9564 is specialized SoC that implements a PCIe switch as
+well as an Ethernet AVB/TSN bridge.  It also implements other functions,
+including a reset and clock controller, an address translation unit, and
+a few other devices.  PCIe BARs provide access to registers that manage
+these IP blocks, and the SoC is modeled using a PCI endpoint bus in
+devicetree.  This allows the IP blocks to be bound to platform drivers
+using MMIO through the PCI BARs.
 
-New issues:
-- [High] Hardware state (FDB, IPFT, and VLAN entries) is not cleared during=
- `netc_teardown()`, leading to stale configuration and state leaks.
-- [Medium] Inconsistent MTU limits cause the TC policer to drop legitimate =
-CPU port jumbo frames.
-- [Medium] FDB and MDB operations silently ignore the VLAN ID (vid), leadin=
-g to cross-VLAN corruption and API violations.
-- [Medium] Unicast MAC mobility creates unintended multicast floods due to =
-XOR-ing the port bitmap.
+This series introduces the simple PCI driver necessary to implement the
+PCI endpoint bus.  It enables the device, enables master access, and
+then scans the devicetree subnodes to discover any devices defined
+within the endpoint buses.
 
-Pre-existing issues:
-- [High] Missing pskb_may_pull() in netc_rcv() before accessing tag fields =
-and pulling data.
-- [High] Division by zero in netc_ipv_to_buffer_pool_mapping() if the hardw=
-are reports fewer buffer pools than the number of ports.
-- [High] Device-managed allocations (`devm_*`) in `netc_setup()` cause memo=
-ry and resource leaks across DSA setup/teardown cycles.
---
+					-Alex
 
---- Patch [12]: [PATCH v2 net-next 12/14] net: dsa: netc: add more basic fu=
-nctions support ---
-commit ac2553a1ce247dcd666d98e8376bbe7442e21002
-Author: Wei Fang <wei.fang@nxp.com>
-Subject: net: dsa: netc: add more basic functions support
+Note: to work correctly, this series depends on this:
+  https://lore.kernel.org/lkml/20260813220717.1394644-1-elder@riscstar.com/
 
-This patch expands the NETC switch driver with several foundational
-features, including FDB and MDB management, STP state handling, MTU
-configuration, port setup/teardown, and host flooding support.
+Alex Elder (2):
+  dt-bindings: misc: introduce pci1179,0220.yaml
+  misc: tc9564: introduce base PCI driver
 
-Before getting into the diff, there are two pre-existing issues observed in
-the broader NETC driver code that might be worth addressing:
+ .../bindings/misc/pci1179,0220.yaml           | 150 ++++++++++++++++++
+ MAINTAINERS                                   |   7 +
+ drivers/misc/Kconfig                          |  10 ++
+ drivers/misc/Makefile                         |   1 +
+ drivers/misc/tc9564-pci.c                     |  89 +++++++++++
+ drivers/pci/quirks.c                          |   1 +
+ 6 files changed, 258 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+ create mode 100644 drivers/misc/tc9564-pci.c
 
-[Severity: High]
-This is a pre-existing issue, but does netc_rcv() in net/dsa/tag_netc.c
-safely handle packet headers that cross page boundaries?
 
-Looking at netc_rcv(), the tag is dereferenced and pulled from the SKB
-without first calling pskb_may_pull(skb, tag_len):
+base-commit: 5e6de6a2b522f659defacb1551d0465ba6ce13cf
+-- 
+2.53.0
 
-struct netc_tag_cmn *tag_cmn =3D dsa_etype_header_pos_rx(skb);
-int tag_len =3D netc_get_rx_tag_len(tag_cmn->type);
-...
-skb_pull_rcsum(skb, tag_len);
-
-If the driver receives a packet where the DSA tag crosses a page boundary
-or isn't fully in the linear skb->data region, could calling
-skb_pull_rcsum() trigger a BUG_ON() inside __skb_pull()?
-
-[Severity: High]
-This is a pre-existing issue, but can netc_ipv_to_buffer_pool_mapping()
-in drivers/net/dsa/netc/netc_main.c trigger a divide-by-zero panic?
-
-The function reads the buffer pool count from hardware and uses it as a
-divisor:
-
-int num_port_bp =3D priv->num_bp / priv->info->num_ports;
-int q =3D NETC_IPV_NUM / num_port_bp;
-
-If the NETC_BPCAPR register reports 0 buffer pools, or a value smaller
-than the number of ports (due to a firmware glitch or hardware quirk),
-num_port_bp will evaluate to 0, causing a panic on the next line.
-
-> diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc=
-_main.c
-> index e2d88496f5f34..4b331971dd8c9 100644
-> --- a/drivers/net/dsa/netc/netc_main.c
-> +++ b/drivers/net/dsa/netc/netc_main.c
-> @@ -7,11 +7,36 @@
-
-[ ... ]
-
-> +static void netc_destroy_fdb_list(struct netc_switch *priv)
-> +{
-> +	struct netc_fdb_entry *entry;
-> +	struct hlist_node *tmp;
-> +
-> +	hlist_for_each_entry_safe(entry, tmp, &priv->fdb_list, node)
-> +		netc_del_fdb_entry(entry);
-> +}
-
-[Severity: High]
-Does this clear the hardware FDB entries?
-
-It appears to only delete the software tracking entries without issuing a
-hardware delete command. If DSA setup/teardown occurs without a full PCI
-driver unbind, could stale hardware FDB rules persist and corrupt future
-switch configurations?
-
-> @@ -386,6 +411,212 @@ static void netc_port_default_config(struct netc_po=
-rt *np)
-
-[ ... ]
-
-> +static int netc_port_set_fdb_entry(struct netc_port *np,
-> +				   const unsigned char *addr, u16 vid)
-> +{
-
-[ ... ]
-
-> +	port_bitmap =3D le32_to_cpu(entry->cfge.port_bitmap);
-> +	/* If the entry already exists on the port, return 0 directly */
-> +	if (unlikely(port_bitmap & BIT(port)))
-> +		goto unlock_fdbt;
-> +
-> +	/* If the entry already exists, but not on this port, we need to
-> +	 * update the port bitmap. In general, it should only be valid
-> +	 * for multicast or broadcast address.
-> +	 */
-> +	port_bitmap ^=3D BIT(port);
-> +	entry->cfge.port_bitmap =3D cpu_to_le32(port_bitmap);
-
-[Severity: Medium]
-Does this XOR logic correctly handle unicast MAC mobility?
-
-If a unicast MAC moves from one port to another, it seems this logic would
-add the new port to the bitmap instead of replacing the old one. Could
-this cause packets for a unicast MAC to be unintentionally duplicated and
-flooded to multiple ports?
-
-> @@ -404,19 +635,61 @@ static int netc_setup(struct dsa_switch *ds)
->  	if (err)
->  		return err;
-> =20
-> +	INIT_HLIST_HEAD(&priv->fdb_list);
-> +	mutex_init(&priv->fdbt_lock);
-> +
->  	netc_switch_fixed_config(priv);
-
-[Severity: High]
-This is a pre-existing issue, but does netc_setup() leak memory and
-resources if the DSA switch is torn down and set up repeatedly?
-
-Looking at netc_init_all_ports() and netc_port_create_emdio_bus() which
-run during setup, they use devm_kcalloc() and devm_of_mdiobus_register()
-attached to the PCI device.
-
-Since DSA's setup/teardown lifecycle is independent of the PCI lifecycle
-(for instance, when bringing the DSA master netdev down and up), could
-repeated setups leak these allocations and result in -EEXIST errors during
-MDIO bus registration?
-
->  	/* default setting for ports */
->  	dsa_switch_for_each_available_port(dp, ds)
->  		netc_port_default_config(priv->ports[dp->index]);
-
-[ ... ]
-
-> +static void netc_free_host_flood_rules(struct netc_switch *priv)
-> +{
-> +	struct dsa_port *dp;
-> +
-> +	dsa_switch_for_each_user_port(dp, priv->ds) {
-> +		struct netc_port *np =3D priv->ports[dp->index];
-> +
-> +		/* No need to clear the hardware IPFT entry. Because PCIe
-> +		 * FLR will be performed when the switch is re-registered,
-> +		 * it will reset hardware state. So only need to free the
-> +		 * memory to avoid memory leak.
-> +		 */
-> +		kfree(np->host_flood);
-> +		np->host_flood =3D NULL;
-> +	}
->  }
-
-[Severity: High]
-Is the assumption about the PCIe FLR correct during a standard DSA
-setup/teardown cycle?
-
-DSA setup and teardown can occur without unbinding the PCI driver (meaning
-no PCIe FLR occurs). Could this leave stale IPFT hardware entries active
-across administrative actions like restarting the master netdev?
-
-> @@ -569,6 +842,261 @@ static void netc_switch_get_ip_revision(struct netc=
-_switch *priv)
-
-[ ... ]
-
-> +static int netc_port_change_mtu(struct dsa_switch *ds,
-> +				int port, int mtu)
-> +{
-> +	u32 max_frame_size =3D mtu + VLAN_ETH_HLEN + ETH_FCS_LEN;
-> +	struct netc_port *np =3D NETC_PORT(ds, port);
-> +
-> +	if (dsa_is_cpu_port(ds, port))
-> +		max_frame_size +=3D NETC_TAG_MAX_LEN;
-> +
-> +	netc_port_set_max_frame_size(np, max_frame_size);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Can legitimate jumbo frames destined for the CPU be silently dropped by the
-traffic class policer?
-
-The maximum MTU for user ports is derived from NETC_MAX_FRAME_LEN (9600),
-but here the CPU port adds NETC_TAG_MAX_LEN (14) for a max size of 9614.
-Looking at netc_port_set_all_tc_msdu(), the traffic class max SDU is
-hardcoded to 9600 bytes.
-
-If frames larger than 9600 bytes are forwarded to the CPU port, won't the
-TC policer drop them because its limit wasn't scaled to account for the
-DSA tag overhead?
-
-> +static int netc_port_fdb_add(struct dsa_switch *ds, int port,
-> +			     const unsigned char *addr, u16 vid,
-> +			     struct dsa_db db)
-> +{
-> +	struct netc_port *np =3D NETC_PORT(ds, port);
-> +
-> +	/* Currently, we only support standalone port mode, so all VLANs
-> +	 * should be converted to NETC_STANDALONE_PVID.
-> +	 */
-> +	return netc_port_set_fdb_entry(np, addr, NETC_STANDALONE_PVID);
-> +}
-
-[Severity: Medium]
-Does substituting the user-provided 'vid' with NETC_STANDALONE_PVID cause
-unintended cross-VLAN behavior?
-
-If a user attempts to add an FDB or MDB entry for a specific non-zero VLAN,
-it is silently applied to VLAN 0 here, which could cause collisions or
-incorrect deletions. If the driver does not support VLAN-specific entries
-yet, would it be safer to return -EOPNOTSUPP rather than silently redirecti=
-ng
-the entry?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260323060752.1157=
-031-1-wei.fang@nxp.com?part=3D12
