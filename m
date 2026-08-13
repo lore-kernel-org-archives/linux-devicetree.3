@@ -1,447 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE883B47F1
-	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 22:07:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807C831B10B
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 22:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786658844; cv=none; b=XYJje3uD8+uGXKJ5BaoOoY2Kqk8lb3HlxjvpwAmqMCLIhihdUvDWaTbeESynoQR8UnjF/2HMrOZe42Z1BGaACLON+sKkyDTY3RSiRuLH136dU2FWBIO+omZ5GVzHdwa4eFK6wGpu4DC4TlSooqIbCDGRU/xa1Ti/mvouXG8mf0c=
+	t=1786659009; cv=none; b=dHcY4NkEyWuUX8yM7d+7NAnZoUX/yAqR9CwFrTrPZq0oH2MFRbjer3FebqF8nw3cGib2dKwFXAJxq+B5+QlYOGBh0agPxCuFZeQXQuNPEnjv9xbbbpkyudVXjglt6DBAYhGOZ6JpXQEJibbjXdRuNG0DbLDwflDSuQSrNqtB31I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786658844; c=relaxed/simple;
-	bh=RaPiOLpn19r1a6RNdl++80Zb+5EQwLo/Y6zywp69qCg=;
+	s=arc-20240116; t=1786659009; c=relaxed/simple;
+	bh=79D0SAYb6RXIOuHQ109gsQGkGERX0xKPvIT/J4jAiCI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rEsKKPtY/9i1Kmojfhw7hENjhiTqcg3pAMEGGC5WOiLq3wswO7Z39Y7owHscKlATLc+gQEBizwCvC7sH7JDhHZYpOKkDpU2fL1ff6TOGW8Lkfu+nFKdNAUhCDsnsMp3Cpq+dUdfkE/aFNcR/VQjnCDyfShW2cuqb7JLh31l7oUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iE2eEBER; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=K53/u3O0G8mA4h7nZlJYmeazvjvXtzrGzN1+APg/0Y+04IU9rjfKV3U8xZkT/XnD/TtjH58b6tMqpBZ+igzhZHC+TIqLyL54XVLnrYm/YkA6DRy3jIgsfO9Je6Zyup6mXhkFlVslAUs0qiEJeJeucGijahRntoR8WgXtJvtoy60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flThoROj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iE2eEBER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123571F000E9;
-	Thu, 13 Aug 2026 22:07:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flThoROj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101C01F000E9;
+	Thu, 13 Aug 2026 22:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786658842;
-	bh=Ez2O9EsudjqKbgFt8anSxfHUeZ2ZMxQcNR7I27pkmB0=;
+	s=k20260515; t=1786659008;
+	bh=79D0SAYb6RXIOuHQ109gsQGkGERX0xKPvIT/J4jAiCI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iE2eEBERz3CImuJeTC14peEtP6MZMqtZ0bdt1AwZ4C9hcqozPps9BkJEAdQ1aI3IU
-	 iOZLDB2DAOLDrPjKIhj8P2sGuTa6x2b5PEgiXvg7bVPziIVUgKY3VbAedz8puDXqJo
-	 gE5lnt4ZErlmwj7pt1uJKKldECVf9COGJPcO83sjEIsMzxA9WVhrtyFKu7qNanjU6R
-	 Q4eI+kP9bH6JrUOMLl5m88lV9fTRDjqV+E7PkFhSoj/7Rhvtkg7XssZ7W4duv+g8q1
-	 kXbVZekCoIFcEMAw/tJOH+kVCqGZBVL4U+BUBj0HMQMgwKHVQEKmioMfUdv91RRI5Z
-	 b6nltxUpeTZfA==
+	b=flThoROj92BF1VsUT2BqbG3FmntSdwGL6+XyKs3LAbxo1syJNLB/U29J+BRdxtDs9
+	 hp3j9DjlsxM9MCGxOaUlvdhO+JWRaLwGmqyoj7dObnwJDvv/swIsml8amKMottC46M
+	 LTTawqjLOCGiLrJnKBBaezhr4/XKMmPib0yei2FsH3wnXB8De+N2Bwdge+1w7ZolvR
+	 KFg+04XOWxWMiMzfDygsXhIMYb/QB6EjKhkMuRpTOz4TCJPN0CuhSxIP2bFtPXqZ7A
+	 zOGbhnJ34Tu7H+k/tNprdTB9ek0vIkhLT77PCLVi1ZbLqzcf7tVE8ER5nNzx+WYjKs
+	 oUCdeSp4ohLHQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] drm/bridge: Add ITE IT6162 MIPI DSI to HDMI
- bridge driver
+Subject: Re: [PATCH v3 3/6] firmware: mediatek: Add VCP IPC protocol
+ interfaces driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu via B4 Relay" <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260319-upstream-6162-v4-2-7268483ef03d@ite.com.tw>
-References: <20260319-upstream-6162-v4-2-7268483ef03d@ite.com.tw>
+To: "Xiangzhi Tang" <xiangzhi.tang@mediatek.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260320032014.13608-4-xiangzhi.tang@mediatek.com>
+References: <20260320032014.13608-4-xiangzhi.tang@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 22:07:18 +0000
-Message-Id: <20260813220722.123571F000E9@smtp.kernel.org>
+Date: Thu, 13 Aug 2026 22:10:04 +0000
+Message-Id: <20260813221005.101C01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 12 potential issue=
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
 (s) to consider:
-- [High] Unbalanced regulator enable calls cause permanent resource leaks d=
-uring probe error paths, duplicate enables on successful probe, and missing=
- disables on driver removal.
-- [High] Missing mutex lock in `it6162_write_infoframe()` and `it6162_clear=
-_infoframe()` causes concurrent I2C register corruption.
-- [High] The HDCP worker thread calls `drm_hdcp_update_content_protection()=
-` without holding the required DRM `connection_mutex`.
-- [High] The `video_setting` struct is missing zero-initialization, causing=
- uninitialized stack memory to be written to hardware registers.
-- [High] Ignored return values from I2C regmap reads cause hardware logic t=
-o execute based on uninitialized stack memory.
-- [High] Premature destruction of mutex and workqueue before the DRM bridge=
- is unregistered, creating a Use-After-Free/Use-After-Destroy window.
-- [High] Incorrect bitwise assembly of `chip_id` and `version` due to rever=
-sed endianness, causing probe to fail on real hardware.
-- [Medium] Adjusted display timings validated during `atomic_check` are com=
-pletely ignored in `atomic_enable`.
-- [Medium] Device tree node reference leak in `it6162_load_mipi_pars_from_p=
-ort()` on early error return.
-- [Medium] Potential NULL pointer dereference of `chip_info` in `it6162_det=
-ect_devices()`.
-- [Medium] `it6162_get_edid_block()` ignores the provided `len` parameter, =
-potentially writing past the bounds of the destination buffer.
-- [Medium] Lockless concurrent access to `it6162->connector_status` can lea=
-d to missed HPD notifications.
+- [High] Concurrent messages on different IPI channels sharing the same mai=
+lbox will silently corrupt shared metadata.
+- [High] Missing unregister API permanently leaks ipi_chan_table and causes=
+ a dangling pointer.
+- [High] Missing `reinit_completion()` allows late interrupts to falsely co=
+mplete subsequent requests.
+- [High] Assigning -ENOENT to the u32 mbox index causes a massive out-of-bo=
+unds array access.
+- [High] Comparing payload length in bytes directly with slot capacity inco=
+rrectly rejects valid messages.
+- [High] Lack of synchronization in `mtk_vcp_mbox_ipc_unregister` causes a =
+NULL pointer dereference race with the receive handler.
+- [High] `mtk_vcp_ipc_recv` dereferences `vcp_ipc->ipi_priv` before it is i=
+nitialized.
+- [Medium] Error path for `setup_mbox_table()` leaks memory and mailbox cha=
+nnels.
+- [Medium] Spurious completions due to checking an uninitialized field (`ta=
+ble->recv_opt`).
+- [Medium] Exported APIs use user-supplied IDs as array indices without bou=
+nds checking.
 --
 
---- Patch [2]: [PATCH v4 2/2] drm/bridge: Add ITE IT6162 MIPI DSI to HDMI b=
-ridge driver ---
-commit 53d21a12a42eb37de64cf50aa087df4e67188c9d
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
-Subject: drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
+--- Patch [3]: [PATCH v3 3/6] firmware: mediatek: Add VCP IPC protocol inte=
+rfaces driver ---
+Note: The format of this review has been altered due to recitation restrict=
+ions. I am providing a free-form summary of the findings without directly q=
+uoting the original patch code.
 
-This commit adds support for the ITE IT6162 MIPI DSI to HDMI 2.0 bridge chi=
-p.
-It implements the DRM bridge and connector frameworks, supporting mode sett=
-ing,
-EDID retrieval, and HPD.
+commit f8da7c9eaf7b9e57116dc5cb1b79d9e5e51adfc9
+Author: Xiangzhi Tang <xiangzhi.tang@mediatek.com>
+Subject: firmware: mediatek: Add VCP IPC protocol interfaces driver
 
-> diff --git a/drivers/gpu/drm/bridge/ite-it6162.c b/drivers/gpu/drm/bridge=
-/ite-it6162.c
-> new file mode 100644
-> index 0000000000000..09274468dc73f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/ite-it6162.c
-
-[ ... ]
-
-> +static void it6162_tx_hdcp_enable(struct it6162 *it6162,
-> +				  struct it6162_hdcp_cfg *tx_out)
-> +{
-> +	int val;
-> +	struct regmap *regmap =3D it6162->regmap;
-> +
-> +	guard(mutex)(&it6162->lock);
-> +	it6162->hdcp_sts =3D HDCP_STATE_IDLE;
-> +
-> +	regmap_read(regmap, OFFSET_TX_SETTING, &val);
-> +	val &=3D 0x0F;
+This patch adds support for the MediaTek VCP IPC between the host AP and th=
+e firmware running on the VCP. It offers send and receive interfaces using =
+mediatek-mailbox APIs.
 
 [Severity: High]
-Does this code process uninitialized memory if the regmap_read() fails?
-If the I2C read encounters an error, regmap_read() will leave val=20
-uninitialized, but its return value is ignored here. The driver then applie=
-s=20
-a bitmask to stack garbage and writes it back to the hardware.
-
-[ ... ]
-
-> +static inline void
-> +it6162_display_mode_to_settings(struct drm_display_mode *mode,
-> +				struct it6162_video_settings *settings)
-> +{
-> +	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
-> +		settings->hpol =3D 1;
-> +
-> +	if (mode->flags & DRM_MODE_FLAG_NVSYNC)
-> +		settings->vpol =3D 1;
-> +
-> +	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-> +		settings->prog =3D 0;
+In mtk_vcp_ipc_send() and mtk_vcp_ipc_send_compl(), the code acquires a
+per-channel lock (table[id].mutex_send) but then modifies the shared
+per-mailbox state (minfo->ipi_info.msg). If multiple threads send messages
+concurrently on different IPI channels mapped to the same mailbox, won't
+this overwrite the shared message metadata? Since the mailbox framework
+queues this asynchronously, this might lead to corrupted or duplicated
+payloads being sent.
 
 [Severity: High]
-Can this leave hardware settings uninitialized? In
-it6162_bridge_atomic_enable(), video_setting is declared without zero
-initialization. Here in it6162_display_mode_to_settings(), hpol, vpol,
-and prog are conditionally assigned. If the corresponding flags are missing
-from mode->flags, these fields will contain uninitialized stack memory,
-which is later packed into a byte and sent to the hardware in
-it6162_pack_video_setting().
-
-[ ... ]
-
-> +static void it6162_hdcp_handler(struct it6162 *it6162)
-> +{
-[ ... ]
-> +			case HDCP_STATE_AUTH_FAIL:
-> +				if (hdcp_ver =3D=3D HDCP_23)
-> +					it6162_tx_hdcp_setup(it6162, HDCP_14,
-> +							     true);
-> +				else
-> +					it6162_tx_hdcp_disable(it6162);
-> +
-> +				break;
-> +			default:
-> +				it6162_tx_hdcp_setup(it6162,
-> +						     it6162->hdcp_version,
-> +						     true);
-> +				break;
-> +			}
-> +			drm_hdcp_update_content_protection(it6162->connector,
-> +							   cp_status);
-> +		}
-> +	}
-> +}
+The mtk_vcp_ipc_device_register() function allocates ipi_chan_table and
+sets the global vcp_ipc->ipi_priv pointer, but there doesn't seem to be a
+corresponding unregister function. If the client device module unbinds or
+is unloaded, doesn't this permanently leak the allocated table and leave a
+dangling pointer in vcp_ipc->ipi_priv that will crash on the next mailbox
+interrupt?
 
 [Severity: High]
-Is it safe to call drm_hdcp_update_content_protection() from this context?
-This is executed asynchronously from a delayed workqueue thread
-(it6162_hdcp_work). The DRM helper requires the caller to hold the
-dev->mode_config.connection_mutex lock, which is not acquired here. This
-could lead to a kernel warning splat and data races.
+In mtk_vcp_ipc_send_compl(), wait_for_completion_timeout() is used on
+table[id].notify. However, reinit_completion() is never called before
+starting a new request. If a previous request times out and the hardware
+interrupt fires late (calling complete()), won't the next call to
+mtk_vcp_ipc_send_compl() immediately consume the stale token and return
+success prematurely?
 
-[ ... ]
+[Severity: High]
+In mtk_fill_in_entry(), the u32 mbox index is assigned -ENOENT if an IPI
+mapping is missing. This underflows to a massive unsigned value. Later in
+mtk_vcp_ipc_send(), this index is used to look up minfo:
+minfo =3D &ipidev->vcp_ipc->info_table[table[id].mbox].
 
-> +static void it6162_interrupt_handler(struct it6162 *it6162)
-> +{
-[ ... ]
-> +	connector_status =3D GET_TX_HPD_STATUS(tx_status) ?
-> +			   connector_status_connected :
-> +			   connector_status_disconnected;
-> +
-> +	if (it6162->connector_status !=3D connector_status) {
-> +		it6162->connector_status =3D connector_status;
-> +		drm_bridge_hpd_notify(&it6162->bridge,
-> +				      it6162->connector_status);
-> +	}
+Because this simply computes an out-of-bounds pointer, the subsequent NULL
+check (!minfo) will pass. Will this cause arbitrary memory corruption when
+the driver writes to minfo->ipi_info?
+
+[Severity: High]
+In mtk_vcp_ipc_send(), the caller-provided length (len) is compared directly
+against table[id].msg_size. However, the receive path shows that msg_size
+represents the number of 4-byte slots, whereas len is in bytes. If a client
+sends an 8-byte message on a 2-slot channel, won't 8 > 2 evaluate to true
+and incorrectly reject the valid message with IPI_MSG_TOO_BIG?
 
 [Severity: Medium]
-Could this miss HPD notifications due to lockless state tracking?
-The it6162_detect() function reads hardware status and updates
-it6162->connector_status without locks. If a concurrent ioctl triggers
-it6162_detect() right before this check in the IRQ handler, the IRQ might
-observe no change and fail to call drm_bridge_hpd_notify().
-
-[ ... ]
-
-> +static int it6162_platform_set_power(struct it6162 *it6162)
-> +{
-> +	int err;
-> +
-> +	err =3D regulator_enable(it6162->ivdd);
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D regulator_enable(it6162->pwr1833);
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D regulator_enable(it6162->ovdd);
-> +	if (err)
-> +		return err;
-
-[Severity: High]
-Does this code leak enabled regulators on failure? If enabling pwr1833
-or ovdd fails, the function returns early without calling
-regulator_disable() for the already-enabled ivdd and pwr1833.
-
-[ ... ]
-
-> +static int it6162_detect_devices(struct it6162 *it6162)
-> +{
-> +	struct device *dev =3D it6162->dev;
-> +	const struct it6162_chip_info *chip_info;
-> +	u32 chip_id, version;
-> +	u8 buf[6];
-> +
-> +	if (it6162_platform_set_power(it6162) < 0)
-> +		return -ENODEV;
-> +
-> +	/* Firmware must finish booting before register access is valid */
-> +	if (!it6162_wait_mcu_ready(it6162))
-> +		return -ENODEV;
-> +
-> +	chip_info =3D of_device_get_match_data(dev);
-> +	regmap_bulk_read(it6162->regmap, OFFSET_CHIP_ID_L, &buf[0], 6);
+In mtk_vcp_ipc_probe(), if setup_mbox_table() returns an error for any
+channel other than the first one, the function immediately returns the error
+code. Does this error path leak the previously allocated info_table memory
+and fail to release the previously acquired mailbox channels using
+mbox_free_channel()?
 
 [Severity: Medium]
-Will this crash if probed without a device tree? If the driver is bound
-via sysfs or an ACPI fallback using it6162_i2c_ids, of_device_get_match_dat=
-a()
-will return NULL, which is unconditionally dereferenced below.
+In mtk_vcp_ipc_recv(), there is a check comparing table->recv_opt to
+MBOX_RECV_MESSAGE. However, recv_opt doesn't appear to be populated from
+the platform data during mtk_fill_in_entry(), leaving it initialized as 0
+(MBOX_RECV_MESSAGE). Won't this condition always evaluate to true, falsely
+triggering a complete() for every received message even if it is meant to
+be ignored?
 
 [Severity: High]
-Does this code process uninitialized memory if the regmap_bulk_read() fails?
-The return value is ignored. If the read fails, the stack buffer buf
-remains uninitialized, and the driver will attempt to match a chip ID
-built from garbage memory.
-
-> +	chip_id =3D (buf[0] << 16) | (buf[1] << 8) | (buf[2]);
-> +	version =3D (buf[3] << 16) | (buf[4] << 8) | (buf[5]);
-
-[Severity: High]
-Is the bitwise assembly of chip_id correct for little-endian hardware?
-If buf[0] holds the LSB from OFFSET_CHIP_ID_L, shifting it by 16 places it
-in the MSB position. This reverses the endianness, causing the chip ID and
-version comparison to fail on real hardware.
-
-> +	if (chip_id =3D=3D chip_info->chip_id && version >=3D chip_info->versio=
-n)
-> +		return 0;
-
-[ ... ]
-
-> +static enum drm_connector_status it6162_detect(struct it6162 *it6162)
-> +{
-> +	struct regmap *regmap =3D it6162->regmap;
-> +	unsigned int tx_status;
-> +
-> +	regmap_read(regmap, OFFSET_TX_STATUS, &tx_status);
-> +	it6162->connector_status =3D GET_TX_HPD_STATUS(tx_status) ?
-> +				   connector_status_connected :
-> +				   connector_status_disconnected;
-> +	return it6162->connector_status;
-> +}
+In mtk_vcp_mbox_ipc_unregister(), table[id].pin_buf is set to NULL without
+any locking. Concurrently, an interrupt might fire and enter
+mtk_vcp_ipc_recv(). If the receive handler passes the NULL check but the
+unregister thread clears the pointer right before the memcpy executes,
+could this cause a NULL pointer dereference or a use-after-free if the
+client frees the buffer?
 
 [Severity: High]
-Does this ignore the return value of regmap_read()? If the I2C read fails,
-tx_status contains uninitialized stack memory, which will be parsed as a
-hot-plug status, causing erratic or false connector state tracking.
-
-[ ... ]
-
-> +static int it6162_get_edid_block(void *data, u8 *buf, unsigned int block,
-> +				 size_t len)
-> +{
-> +	struct it6162 *it6162 =3D data;
-> +	unsigned int i, cnt;
-> +	int ret;
-> +	u8 config;
-> +
-> +	if (len > EDID_LENGTH)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&it6162->lock);
-> +	for (i =3D 0, cnt =3D 0; i < EDID_LENGTH; i +=3D DATA_BUFFER_DEPTH, cnt=
-++) {
-> +		config =3D (block << 2) | (cnt);
-> +		ret =3D it6162_infoblock_request_data(it6162, HOST_SET_EDID_R,
-> +						    config, buf + i);
+During mtk_vcp_ipc_probe(), mbox_request_channel_byname() is called, which
+registers mtk_vcp_ipc_recv and enables interrupts. But vcp_ipc->ipi_priv
+is only initialized later during client registration. If a pending message
+or spurious interrupt triggers the handler early, won't mtk_vcp_ipc_recv()
+dereference a NULL ipidev pointer and panic the kernel?
 
 [Severity: Medium]
-Will this overwrite memory if the requested len is smaller than EDID_LENGTH?
-While it ensures len is not too large, the loop always unconditionally
-reads exactly EDID_LENGTH (128) bytes from hardware into buf.
-
-[ ... ]
-
-> +static int it6162_load_mipi_pars_from_port(struct it6162 *it6162, int po=
-rt)
-> +{
-> +	struct device_node *of =3D it6162->dev->of_node;
-> +	struct device_node *endpoint;
-> +	struct it6162_mipi_cfg *mipicfg =3D &it6162->mipi_cfg;
-> +	u32 data_lanes[4] =3D {1};
-> +	u32 lane_polarities[5] =3D {0};
-> +	int dsi_lanes;
-> +
-> +	endpoint =3D of_graph_get_endpoint_by_regs(of, port, -1);
-> +	if (!endpoint)
-> +		return 0;
-> +
-> +	dsi_lanes =3D drm_of_get_data_lanes_count(endpoint, 1, 4);
-> +	if (dsi_lanes < 0)
-> +		return dsi_lanes;
-
-[Severity: Medium]
-Does this code leak the endpoint device node? If drm_of_get_data_lanes_coun=
-t()
-returns a negative error, the function returns without calling of_node_put()
-to release the reference acquired by of_graph_get_endpoint_by_regs().
-
-[ ... ]
-
-> +static int it6162_attach_dsi(struct it6162 *it6162)
-> +{
-[ ... ]
-> +		dsi->lanes =3D mipi_cfg->lane_num;
-> +		dsi->format =3D mipi_cfg->format;
-> +		dsi->mode_flags =3D mipi_cfg->mode_flags;
-> +		ret =3D devm_mipi_dsi_attach(dev, dsi);
-> +		if (ret) {
-> +			dev_err(dev, "failed to attach dsi device %d", port);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	it6162_poweron(it6162);
-> +	return 0;
-> +}
-
-[Severity: High]
-Does this cause duplicate regulator enables? The driver's probe function
-calls it6162_detect_devices(), which successfully calls
-it6162_platform_set_power(). Later, it6162_attach_dsi() calls it6162_powero=
-n(),
-which calls it6162_platform_set_power() a second time, leaving the regulator
-enable counts permanently unbalanced.
-
-[ ... ]
-
-> +static void it6162_bridge_atomic_enable(struct drm_bridge *bridge,
-> +					struct drm_atomic_state *state)
-> +{
-> +	struct it6162 *it6162 =3D bridge_to_it6162(bridge);
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_connector_state *conn_state;
-> +	struct drm_connector *connector;
-> +	struct hdmi_avi_infoframe *avi;
-> +	struct it6162_video_settings video_setting;
-[ ... ]
-> +	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
-> +	avi =3D &conn_state->hdmi.infoframes.avi.data.avi;
-> +	video_setting.colorspace =3D conn_state->hdmi.output_format;
-> +	it6162_avi_to_video_setting(avi, &video_setting);
-> +	it6162_display_mode_to_settings(&crtc_state->mode, &video_setting);
-> +
-> +	it6162_mipi_set_video_timing(it6162, &video_setting);
-> +	it6162_tx_enable(it6162);
-> +	it6162_mipi_enable(it6162);
-> +}
-
-[Severity: Medium]
-Should this use crtc_state->adjusted_mode instead of crtc_state->mode?
-The it6162_bridge_atomic_check() function enforces hardware constraints by
-modifying the horizontal front porch in crtc_state->adjusted_mode. However,
-this function discards those adjustments and passes the original unadjusted
-mode directly to it6162_display_mode_to_settings().
-
-[ ... ]
-
-> +static inline int
-> +it6162_write_infoframe(struct it6162 *it6162, const u8 *buffer, size_t l=
-en)
-> +{
-> +	if (len > DATA_BUFFER_DEPTH)
-> +		return -EINVAL;
-> +
-> +	regmap_bulk_write(it6162->regmap, OFFSET_DATA_BUFFER, buffer, len);
-> +	regmap_write(it6162->regmap, OFFSET_DATA_TYPE_IDX, len);
-> +	it6162_infoblock_trigger(it6162, HOST_SET_CEA_INFOFRAME);
-> +	return 0;
-> +}
-> +
-> +static inline int it6162_clear_infoframe(struct it6162 *it6162, u8 type)
-> +{
-> +	regmap_write(it6162->regmap, OFFSET_DATA_TYPE_IDX, 3);
-> +	regmap_write(it6162->regmap, OFFSET_DATA_BUFFER, type);
-> +	regmap_write(it6162->regmap, OFFSET_DATA_BUFFER + 1, 0x00);
-> +	regmap_write(it6162->regmap, OFFSET_DATA_BUFFER + 2, 0x00);
-> +	it6162_infoblock_trigger(it6162, HOST_SET_CEA_INFOFRAME);
-> +	return 0;
-> +}
-
-[Severity: High]
-Do these functions lack the necessary mutex lock? They write to the shared
-mailbox registers (OFFSET_DATA_BUFFER and OFFSET_DATA_TYPE_IDX) and trigger
-firmware commands without acquiring it6162->lock. Since they are called dur=
-ing
-atomic commits, they could corrupt concurrent I2C register accesses from
-it6162_get_edid_block() or it6162_hdcp_read_information().
-
-[ ... ]
-
-> +static void it6162_remove(struct i2c_client *client)
-> +{
-> +	struct it6162 *it6162 =3D i2c_get_clientdata(client);
-> +
-> +	disable_irq(client->irq);
-> +	cancel_delayed_work_sync(&it6162->hdcp_work);
-> +	mutex_destroy(&it6162->lock);
-> +}
-
-[Severity: High]
-Does this code leak the enabled regulators during driver removal? There is =
-no
-call to regulator_disable() or the it6162_poweroff() helper during teardown.
-
-[Severity: High]
-Is this prone to a use-after-destroy window? The DRM bridge is registered
-with devm_drm_bridge_add(), so it remains globally active until after this
-remove function returns. If userspace issues an ioctl (e.g., an EDID read or
-modeset) concurrently during unbind, the bridge callbacks will try to lock =
-the
-already-destroyed mutex.
+Exported APIs like mtk_vcp_ipc_send() and mtk_vcp_mbox_ipc_register() take
+an id parameter from the caller and directly use it to index ipidev->table
+without any bounds checking. Since ipi_chan_count is not saved during
+registration, bounds validation isn't currently possible. Can a bad ID=20
+passed from a client module silently corrupt adjacent heap memory?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260319-upstream-6=
-162-v4-0-7268483ef03d@ite.com.tw?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260320032014.1360=
+8-1-xiangzhi.tang@mediatek.com?part=3D3
