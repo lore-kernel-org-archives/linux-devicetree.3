@@ -1,119 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FEE3A872C;
-	Thu, 13 Aug 2026 12:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513EF476061
+	for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 12:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786625544; cv=none; b=OrxjLF+/BkxLI4bttr0CY1HQGRZFIrkSII00SzkSWOGK3cDBpkngIfa/L08vDLTsTQmqnmqFjsJsl0Eu5lENTQHr4GnhIrlMGfWryQlYquyfhBOdJL7WA1Q5ac6TmoqApy5A79TeQ/ANmpu+jsrbhDjnIBnqTO2w2PG8EmjbjaY=
+	t=1786625718; cv=none; b=Z2224SyHD+0ZzgVzXClGV+V/ZyBeh4Y8LWtK3Ib0J/gVGnVMQWr/ImImnFFed+bFkW7Jw4YOq11Da6brs1Tkont6XpjPU4Kcc9n0Qt8z5xcdOg5z4Np/f31rdwz9JdwsicTXVkgtMrbjTncS/lX91/vYWPIuAK5usvj1vtd6pgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786625544; c=relaxed/simple;
-	bh=QYY2ie7zYEWaAwejEnDa3/Fa/F4ZSbe1MI8fpQByjDU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=q9oiTYZQOozptbggrtIP3bmN0jxOXPS0T7w/YuY3e6sH6vQ/+YpooQFLpha6ic6X5xAMVmSuR07XyJ6Zd0rItN9n03pO7plxEoawmDnv0vES4R0win3TU3Bi8fGxTM9P/GI075tvQsl0uu7eeexVLISs5E4qf+lK0Tw2XYiQDJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=edKsLw8d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786625718; c=relaxed/simple;
+	bh=HrpuHtXRs3lkzPV2KF4jr4RPVBEPyIUfTr35gw5M1iI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nQklAOVtX6DFjMLaE4yF97Emk4ErRDjPIqUPhDFSYmBCh+gUS7GIx0Sg7nLLWaYXDZKoLURfUZ4Eigja1FrYbnMCVBv6ZCfl/7HVITf58sU25nTBAUgUt7Cc2EfZA6XGzhWzdlG5IPnjYfQK9/xUMh3mLaUhn8ahIaaQQ3Bal0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BOn0wESQ; arc=none smtp.client-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="edKsLw8d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA121F000E9;
-	Thu, 13 Aug 2026 12:52:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786625543;
-	bh=fzZppP5cHZpR/ePSPovywfIqHUyD/7/zmmCnua6V1OI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=edKsLw8dpSo0BzZdkIhXxIbTErpAhoL3dUiQMoSwKgGmK+cOI84mBBDXtIQcJWDl5
-	 ok8/Whwgk/T+/LN7D+B/2lxIyfH2xcL6uP4IeTbK6lGJIPnjuSreWRBxcY7F3vbuMu
-	 ECHkRcHhPNoM9Vpqzb39dnOHXGQlArVu0MfPOpsCPlHyN6Q4c+03ZEd0OKYyslJ8Pz
-	 f99nI49F+XEOSz2JhZf+cJNmlGSAv827VtCn0wiKW5gptoWi3cDdFpt0nIlR7WHylR
-	 dk0WKKxtgAlvsSYbsikdgkReBuIZXklg/dS0Oy/TtwRm6AioQgs/tkGKxsD74uBshx
-	 jIEJkA4t/tyuw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] ARM: dts: mba6ulx: Add USB hub node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexander Stein" <alexander.stein@ew.tq-group.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260813121250.3993187-3-alexander.stein@ew.tq-group.com>
-References: <20260813121250.3993187-1-alexander.stein@ew.tq-group.com>
- <20260813121250.3993187-3-alexander.stein@ew.tq-group.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 12:52:22 +0000
-Message-Id: <20260813125222.BDA121F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BOn0wESQ"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b2aab18795so726884e87.2
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 05:55:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786625714; x=1787230514; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9jhcvNWSwuNAllGIhB4lzw/CqsOc6VTmvp2k274Uc3o=;
+        b=BOn0wESQ+2KXUfLqYEyKA7tfVWjGL0NzreOazkA7IAImC5ucSAw39LOMfRQ3UEcvEv
+         wj3Rna02ifbHSVQffk3mukJmy+YYpoaa1kKKstx2j81X7rSSEANTzC1U7rUJ9qNm3JCN
+         ommatv8rgP5qeRD+TuT52BSwfgkz4UnOZDUQZZHDnlp2gasjvEI9GaikuWeBbHJUdBkg
+         63J+xha/o4O8sN6tQHm/SAMjYzHtNjd1AEVkpWnAEMIxjx6oFhZLntwfUERovklFT7bX
+         SlcSo2AMaJjObiH5DpfPlcGQYwuub9X//jvfJXCsQewrat1qAnynTf9H7PPT++REqjBR
+         x1uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786625714; x=1787230514;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9jhcvNWSwuNAllGIhB4lzw/CqsOc6VTmvp2k274Uc3o=;
+        b=SDkhH0lFCf333AQ5Q7iXPxToF7wWcabEITu/0alJ8xMFZkpqVqmZcRz3QHkAvh4oKx
+         C4uVMxHxpIm1g8h2QhIPQLT1z3D5YFuUci4eCSD2D2T1BpcCxec4pJ10iBJR7E1JpMIs
+         Q2Qxa4AwiMuTiU0BiBCVnluhfRrlfhB+QccesFDsQc1SRdaEqClXTT7OOMSNw9mME5WO
+         Rqk8MOMJf5U9u40naNsA66aSt2VpaLu0tM6oVG2MSZ9A5Yvdso1VSBVIhqiFCtLExntv
+         ML20pOYp/hq55uWEn28efLzqhUl88Kg62TyC3gtsIfmZrlEQ07loSpeYaDUZrA1HDP6D
+         yQ2g==
+X-Forwarded-Encrypted: i=1; AHgh+RqAgT1A5JiW7GcrLodGb2XyA9kmkTLcGG3GmE3wOl+74qK3UqBdI1CpH5VoSDL6ClH/J1P3EsnUjxDS@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuC7V70bNw9LAEWHYmQAvKDtIAkz6CRW5YU55HsfqlLyG0q2qb
+	sz/o10SLhTHmUc/oBmZYnBOgkDRZ3slLglh7jwtY2x3R9cvUEdLgF1Ec
+X-Gm-Gg: AR+sD13gA1Nqqtm2IonkA/JCVIcsX91aOOlN7r2xgEO5nHGOpDP/fNZch7LCb+ZjcSV
+	ZFvJfc3Yqq2K2mMT7OK2tuuyYX/xi5nTl5CflN8L97lSvDbSbbiWwsBIfcynyqcsusCHzarFfcU
+	+UNy401EyZE13jWgV7ijRCZ9iAXSSL/8EDQsWo0nLuFdtEN+TjfF1to084okrzM76mwMAWQEd83
+	Vr52e0uxAdBF7SCYbI0RjJ3GXOUnbLTCrxkbE8W9RwjjtUA8pz35YXeTVEbz0Dm4X3kFnV0TSeX
+	oS2eoFsH3xnbQkjQNfbpasebp1tJa9JRLdJoxwG0iLNJ0iesbqJQG9RCP1xrNUPB3qR+KCwwZk4
+	HsAJ99axMealVpse7Ky3DWRDKfX5SYpWcPMwUfveXMbKKS7kyDWffTemLADEoLareHzdab+FJ73
+	OljiDzD1LgLw0I9luXLwbsNCQ9t52cJVBSHiD7MdzCoOcsuCml7IRKXy4Ui1nYJNQZEl8JHUu4B
+	ovglFYLHFgZwGrpes+BRjgtBKTdXJfbjf+7xFfH1XDrmETkpUcSZ2Nx
+X-Received: by 2002:a05:6512:1284:b0:5ae:b0c0:16bc with SMTP id 2adb3069b0e04-5b453f77a1dmr809693e87.27.1786625714101;
+        Thu, 13 Aug 2026 05:55:14 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4539ea237sm456405e87.18.2026.08.13.05.55.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Aug 2026 05:55:13 -0700 (PDT)
+Message-ID: <12f70e0f-5cef-4035-9b44-e2cb252932cf@gmail.com>
+Date: Thu, 13 Aug 2026 15:55:12 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Linus Walleij <linusw@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-rtc@vger.kernel.org
+References: <cover.1785838584.git.mazziesaccount@gmail.com>
+ <9774b8d6663ea55b1682b32f825ec5689be3e1d8.1785838585.git.mazziesaccount@gmail.com>
+ <CAD++jLmatJFfqhNWfgx=qUW2fEwuatxmJR7NyJLAv45LfLHZnw@mail.gmail.com>
+ <f5c241a2-00a8-4a32-bad5-3c89fb204b25@gmail.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <f5c241a2-00a8-4a32-bad5-3c89fb204b25@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] I2C GPIO expander used as reset-gpios for onboard_usb_dev causes P=
-M phase mismatch, breaking reset timing during resume.
---
+On 13/08/2026 11:34, Matti Vaittinen wrote:
+> On 07/08/2026 23:29, Linus Walleij wrote:
 
---- Patch [2]: [PATCH 2/2] ARM: dts: mba6ulx: Add USB hub node ---
-commit 52d9db850f98165215d9ab4ba1bee0bd2993c73e
-Author: Alexander Stein <alexander.stein@ew.tq-group.com>
+...
 
-ARM: dts: mba6ulx: Add USB hub node
+>>   * @fixed_direction_output:
+>>   *                      (Optional) Bitmap representing the fixed 
+>> direction of
+>>   *                      the GPIO lines. Useful when there are GPIO 
+>> lines with a
+>>   *                      fixed direction mixed together in the same 
+>> register.
+>>
+>> It seems you can set up the fixed_direction_output mask from OTP
+>> and just use the library, right?
+> 
+> The BD73800 uses different registers for 'out' and 'in'. So there aren't 
+> really "GPIO lines with a fixed direction mixed together in the same 
+> register".
 
-This commit replaces a fixed regulator previously used for USB hub reset wi=
-th
-a proper onboard USB hub device node that utilizes reset-gpios.
+...
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi b/arch/arm/boot/dts/n=
-xp/imx/mba6ulx.dtsi
-> index 244376b38835a..322fbd82531e6 100644
-> --- a/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
+> I think the BD73800 can indeed use the gpio-regmap, by keeping the pin 
+> direction information in private data and adding a custom xlate, which 
+> errors out if get is requested for output pin, or set is requested for 
+> input. I am not sure how much of an improvement it is compared to the 
+> patch v2, but I'll give it a shot :) I believe the new -rc1 isn't that 
+> far away, and hopefully the gpio-regmap -stuff from the next will be in 
+> it together with the regulator stuff bindings depended.
 
-[ ... ]
+Gah. Please, ignore the erroring-out part. I don't know where I picked 
+the idea that the hardware would always return '0' when reading the 
+GPO_OUT register. I think this might have been something I have 
+experienced on a setup where the pin was _not_ set to GPO by OTP. 
+Furthermore, the xlate will never get called if user tries to set value 
+for a GPI pin.
 
-> @@ -379,10 +369,18 @@ &usbotg1 {
->  /* 7-port usb hub */
->  /* id, pwr, oc pins not connected */
->  &usbotg2 {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
->  	disable-over-current;
-> -	vbus-supply =3D <&reg_otg2vbus_5v0>;
->  	dr_mode =3D "host";
->  	status =3D "okay";
-> +
-> +	hub_2_0: hub@1 {
-> +		compatible =3D "usb424,2517";
-> +		reg =3D <1>;
-> +		reset-gpios =3D <&expander_out1 0 GPIO_ACTIVE_LOW>;
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Anyways, implementing xlate with op-check allows me to support this 
+PMIC, even though the register to read for pin status depends on OTP.
 
-[Severity: High]
-Does using an I2C GPIO expander for the onboard USB hub reset cause a PM ph=
-ase
-mismatch during system suspend and resume?
+So yes, v3 should be able to use gpio-regmap. I will probably delay 
+sending it until v7.3-rc1 is out so I get (all?) dependencies in.
 
-The onboard_usb_dev driver uses suspend_late() and resume_early() power
-management operations, while standard I2C GPIO expanders typically use norm=
-al
-suspend() and resume() operations.
+Yours,
+	-- Matti
 
-During system suspend, the expander suspends first (in the suspend phase) a=
-nd
-puts its regmap into cache_only mode. When the hub driver suspends later in
-suspend_late(), its reset GPIO assertion is merely cached.
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
-During system resume, the hub driver attempts to deassert the reset in
-resume_early() and waits for power_on_delay_us. Because the expander is
-still in cache_only mode, the physical pin remains unchanged.=20
-
-Later, during the normal resume phase, the expander finally syncs its cache
-to hardware and physically deasserts the reset pin. This entirely bypasses =
-the
-hub driver's power_on_delay_us wait and causes a race with the USB host
-controller, which could result in enumeration failures upon wake.
-
-> +		vdd-supply =3D <&reg_mba6ul_3v3>;
-> +	};
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813121250.3993=
-187-1-alexander.stein@ew.tq-group.com?part=3D2
+~~ When things go utterly wrong vim users can always type :help! ~~
