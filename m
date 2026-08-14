@@ -1,120 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5375C381E86
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 02:06:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9076A3644B3;
+	Fri, 14 Aug 2026 02:07:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786673184; cv=none; b=FlKM0V7nBrtKkkTQryGGi/s9XdrNRXOTBD56+8Q8hDkGvWWEFpbHGWrXBKmJaA+03GqkTBN/jKcRUPkjdOIUyWS8AoglxC0RJUd6EjhwyLIfot0eeYRVqP63rj4G7KINk0ZPtPL6GEwHdW2B9JgraaUN839bJte3xITkx5o92Lk=
+	t=1786673222; cv=none; b=Ud3P3sCONyRGoqcXKREm3x1fkcBgliXU023jx9Twx1eztECgdul4eucrv4rPtDJqHJ6saw9dtVlTQUzkgoguIvE+Syl4fwmLeaeKIQsYHQz4IL2l1PjoY6RY2oPZr18brHhQJgEoY3FrwPRmcdhvd62W6QDcdfpXZkGLwg+KcsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786673184; c=relaxed/simple;
-	bh=6EiiiQ/FxREKcE8BccZDn4Wv8Hfzcv8X+SiMoa7tYVE=;
+	s=arc-20240116; t=1786673222; c=relaxed/simple;
+	bh=igiOZ7yxZzxux1kocLeNwzKssuUhs66vlxE3DT/TM4g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HtRbueeiCzlNyLqSxhm19RwvVrWJ7OU6dM6XuURh/7M6sTtAenjj/wbCSWNYtsOYup/Nt8YdDnIBo3dEnE6+aPe63Kp4YXYyT9fNhjszaqEBZiObKuEmRtiCdqBeMFd9erDPaG0lS0iB+I8U1hR8jh4NJVwtyAbWXPDHraSzdI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIptuvhp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HF94gNtDJRhJ0Kwwnxdvwco88r8AtVS7NK0t15oV3S+0NFbJxNLaystv4g9BZHmd5I2jbINmZIXiR/TM6wFexIKK9F9MFZpXHAfcjm8ap/2wMRHTj0kANeg+jo31dH9ugryhLp/QGM2THPmVk2KMlHzy6z80VU9m/6FfybBb0/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=apYfVO2S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIptuvhp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28AE1F000E9;
-	Fri, 14 Aug 2026 02:06:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="apYfVO2S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9CE51F000E9;
+	Fri, 14 Aug 2026 02:07:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786673183;
-	bh=ytcy07OYll58mGNUv7bSH6a0dGOxB8RFENLaPK4k8lY=;
+	s=k20260515; t=1786673221;
+	bh=zjzDW3sIJ5djjF79pRM8tUgqOBXOdugvzk5nL/mD4AM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IIptuvhp78QpxcqvIDBU3X0zrpxiSm8AYzbPa6MtESn4whahalT4JnwtIgObT6XR/
-	 8luGj12DTTR6JFBn6PC7sgq1badtjkYZuzS0IoUD5WC4Taoc9Hh8SHSW2tB1qm8FPz
-	 jYt8NflfFnAJKxnql5D2qCus29QZvY+zKEjfNqYqhUFabOBJO6HntMEQyHWdVUd9O5
-	 nLtSmzJRnnG70HRmlVf4T64d3+SYbWLNKsme+LJ0JhJ6EzzFVtfYXa3J9lnaM1ITNC
-	 ExCxyWJM/msPgN7HB+vXj6hJc9KIAcSOjjF5bY9so2BRvmoihUh+XDWr0yMLwrYmN3
-	 n1iqn/wwbEaLg==
+	b=apYfVO2SCULrffiRA+/xWBGar1ZPU7uSyf7kVh4DUko/SHmPah76Jr9bnYRPfsjhP
+	 SnlFyBvtYVNuYEuV2C2jjnQzUO7l5Ou5YT7Up5biNsn1R2iqQTbBauFEJp7v+VH4yl
+	 HkbI5KZmTqsTURebYPSk9Qpo1uGvDFl7H4zKEweFHEi4McZbcyuOlGoJDQWJ1Nce5/
+	 HiBDorlMIrGMG6s54ju35RFJ+JO1kUBIH7MR9nc7cmhrl/xzBnumHHQe1SFxYJsvVH
+	 Aq19agzLGvHisi8C/xyCzRGhYk9qcPZL9EFRNcw68D88l0vxvdan6d+nmIxLV8RFNa
+	 PcLA0Ej3nN+ZA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 06/38] phy: rockchip: usbdp: Drop seamless DP
- takeover
+Subject: Re: [PATCH v4 7/9] rtc: abx80x: replace read-modify-write pattern
+ with regmap helpers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-6-b5ad9c68fa11@collabora.com>
-References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-6-b5ad9c68fa11@collabora.com>
+To: "Antoni Pokusinski" <apokusinski01@gmail.com>
+Cc: linux-rtc@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260810193826.210683-8-apokusinski01@gmail.com>
+References: <20260810193826.210683-1-apokusinski01@gmail.com>
+ <20260810193826.210683-8-apokusinski01@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 02:06:22 +0000
-Message-Id: <20260814020622.B28AE1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 02:07:00 +0000
+Message-Id: <20260814020700.D9CE51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] If PHY setup fails during a mode change, the driver returns an err=
-or but leaves the software state `udphy->status` incorrectly indicating tha=
-t the PHY is still powered on, leading to an unbalanced clock disable later.
-- [High] The driver no longer asserts the PHY resets during probe, leaving =
-the hardware in an unknown, potentially active state inherited from the boo=
-tloader. If the bootloader left the PHY enabled, the CCF will cut its clock=
-s during late initcall, which can cause a bus lockup.
+- [High] Using regmap_update_bits() or regmap_write_bits() breaks the hardw=
+are Configuration Key unlock sequence by injecting an I2C read between the =
+unlock write and the protected register write.
 --
 
---- Patch [6]: [PATCH v14 06/38] phy: rockchip: usbdp: Drop seamless DP tak=
-eover ---
-commit 50b49f9a40304fe270c1d3495217384507476b1d
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: phy: rockchip: usbdp: Drop seamless DP takeover
+--- Patch [7]: [PATCH v4 7/9] rtc: abx80x: replace read-modify-write patter=
+n with regmap helpers ---
+commit 9a313450ff6d4e2395638f901f9fccf926bd1dda
+Author: Antoni Pokusinski <apokusinski01@gmail.com>
 
-This commit removes seamless DisplayPort takeover functionality from the
-rockchip usbdp driver, as it is incomplete and untestable. It removes the
-initial status checking and reset deassertion logic during probe.
+rtc: abx80x: replace read-modify-write pattern with regmap helpers
 
-Closes: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.=
-kernel.org/
+This commit replaces manual read-modify-write sequences with
+regmap_update_bits() and regmap_write_bits() to simplify the code.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 3fc8222fcaec2..6cb9f6b4dbf6d 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> index 5d41882f3c704..ab88af43b4fa0 100644
+> --- a/drivers/rtc/rtc-abx80x.c
+> +++ b/drivers/rtc/rtc-abx80x.c
 
 [ ... ]
 
-> @@ -1495,10 +1468,6 @@ static int rk_udphy_probe(struct platform_device *=
-pdev)
->  	if (ret)
->  		return ret;
+> @@ -403,13 +389,15 @@ static int abx80x_rtc_set_autocalibration(struct de=
+vice *dev,
+>  		flags |=3D (ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512);
+>  	}
 > =20
-> -	ret =3D rk_udphy_get_initial_status(udphy);
-> -	if (ret)
-> -		return ret;
+> +	guard(mutex)(&priv->lock);
+> +
+>  	/* Unlock write access to Oscillator Control Register */
+>  	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
+>  		return -EIO;
+> =20
+> -	retval =3D regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
 > -
+> -	return retval;
+> +	return regmap_write_bits(priv->regmap, ABX8XX_REG_OSC,
+> +				 ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512,
+> +				 flags);
+>  }
 
 [Severity: High]
-Since rk_udphy_get_initial_status() is removed, the driver no longer manages
-the initial bootloader state of the PHY. If the bootloader left the PHY
-enabled, could the clock framework's late initcall disable the clocks while
-the hardware is still active?
+Does using regmap_write_bits() here break the hardware Configuration Key un=
+lock
+sequence?
 
-Should a forceful rk_udphy_reset_assert_all(udphy) be added here to ensure
-the PHY is cleanly suspended and prevent a bus lockup when unused clocks
-are disabled?
+Since regmap_write_bits() performs a read-modify-write cycle, it injects an
+I2C read between the unlock write (abx80x_write_config_key) and the actual
+register write.
 
->  	mutex_init(&udphy->mutex);
->  	platform_set_drvdata(pdev, udphy);
+If the hardware resets the key on any intervening I2C access, this might lo=
+ck
+the register again, causing the subsequent write to fail silently.
 
 [ ... ]
 
-> 		rk_udphy_disable(udphy);
-> 		ret =3D rk_udphy_setup(udphy);
-> 		if (ret)
-> 			return ret;
+> @@ -486,24 +473,14 @@ static ssize_t oscillator_store(struct device *dev,
+[ ... ]
+>  	/* Unlock write access on Oscillator Control register */
+>  	if (abx80x_write_config_key(dev->parent, ABX8XX_CFG_KEY_OSC) < 0)
+>  		return -EIO;
+> =20
+> -	retval =3D regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
+> -	if (retval < 0) {
+> +	retval =3D regmap_write_bits(priv->regmap, ABX8XX_REG_OSC, ABX8XX_OSC_O=
+SEL,
+> +				   rc_mode =3D=3D 0 ? 0 : (ABX8XX_OSC_OSEL));
+> +	if (retval < 0)
+>  		dev_err(dev, "Failed to write Oscillator Control register\n");
 
 [Severity: High]
-If rk_udphy_setup() fails during a mode change, does returning here leave
-udphy->status incorrectly indicating the PHY is still powered on?
+Will this read-modify-write cycle also invalidate the unlock key before the
+write occurs, similar to the issue in abx80x_rtc_set_autocalibration()?
 
-If the status is not cleared, could a subsequent teardown via
-rk_udphy_power_off() observe the stale udphy->status and call
-rk_udphy_disable() again, resulting in an unbalanced clock disable?
+[ ... ]
+
+> @@ -946,8 +890,14 @@ static int abx80x_probe(struct i2c_client *client)
+>  		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
+>  			return -EIO;
+> =20
+> -		err =3D regmap_write(regmap, ABX8XX_REG_OUT_CTRL,
+> -				   data | ABX8XX_OUT_CTRL_EXDS);
+> +		/*
+> +		 * Avoid extra power leakage. The RV1805 uses smaller
+> +		 * 10pin package and the EXTI input is not present.
+> +		 * Disable it to avoid leakage.
+> +		 */
+> +		err =3D regmap_write_bits(regmap, ABX8XX_REG_OUT_CTRL,
+> +					ABX8XX_OUT_CTRL_EXDS,
+> +					ABX8XX_OUT_CTRL_EXDS);
+>  		if (err < 0) {
+>  			dev_err(&client->dev,
+>  				"Unable to write output control register\n");
+
+[Severity: High]
+Could the implicit I2C read inside regmap_write_bits() invalidate the MISC
+unlock key here as well, causing the EXTI disable write to fail on RV1805
+chips and leading to extra power leakage?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-rockchip-u=
-sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810193826.2106=
+83-1-apokusinski01@gmail.com?part=3D7
