@@ -1,172 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF4542AFAF;
-	Fri, 14 Aug 2026 09:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786698434; cv=none; b=e78mJ+YonH4ioShlZLgfXmNLF0v0O/1rArT9lCStGaMBAUSo2xIhcxKHirwyiEnXM5U0uc7qchYbserzBFYgwpmjVqPfY5HzH47NRu5Pn9akpo4PFQbXczifpgPca5geSsG2XJ18D5vpqbGcZaAsOIiWzfQW6Pw3n9aN1/TqNdk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786698434; c=relaxed/simple;
-	bh=/tDtFX3EjQsn+3Z8JEA1ppYnqFQ/G/7gBPpEhs+uTQc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j8bsXX5DvPy2RkdPjllxRgNumbyIGTDpjoC4hWXQDfysZPKh7bTFeA+wiWhkJNHSbq4a0zfZ62DA/3gGelZ1BEhw0V2lGcad+AN8n4Zu4FD/oLb1pY7UiODOoC8T+Ht8Hp+ScTrNm+9UnC4EsokBhdEwJ+7AuzUU+7DwfGw12DY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jZI+M8Gi; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2D34582EA
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786698503; cv=pass; b=DUS22pwQOETx/nB9Pv3Wb0UShAvm2xg2B8n1l3RMdZ9iaxxUe6zif4DEdTTj2khBx9HLHSWbiqY19lfdLx6pFke+VB28C20gxwUYOiXjDJrYkdSzi9lh+ONSlIeXnrL12EskQt/ExxkHTx4tnmQ1PJK0DnZhglIFxSbmwxJGtTg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786698503; c=relaxed/simple;
+	bh=HYuWGT9uBk6DYJSNsZ7JcYY7syMooP0ymWSP1i7eR5w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SaNHNp9v844s+dhkn/c6UTrsbJimA8uJrCoJaaFM0C7r9htVLD+vb1WuWzFDYFnGlMNuDfxHJVXLTHnwOShpkXvkVDti7CK4l3hGtjRkHl8tjPXIEgXsEZHGe40qrnSFU3HdC7EyIH5pwU2m0hfedwzQnHnbpAJgpfRueJwIRx8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HwA2gp9m; arc=pass smtp.client-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jZI+M8Gi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786698433; x=1818234433;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/tDtFX3EjQsn+3Z8JEA1ppYnqFQ/G/7gBPpEhs+uTQc=;
-  b=jZI+M8GidHxFF2Q1SylSC9CEU5/PyqhqS4oIBHvGDfQ3ZY8RzLJ0ZMa3
-   HfRmttbxjeMGWRLZ+JQYHxW6Wk1aEkxJuX5xG2c79Rj9H3IeqovA16nyH
-   MsJVCplPHL9mpDy5bWtLIc3Uyx7M/6kRpujwLYMcBazB60lUQzNPviFWr
-   4A91c9kxLPmS0CAEkYXnOZa2mu4oYrFctkL/R57L2rKolq7O49jxjzpyW
-   ynYHQgL7Obt9E1WCvcV63lQu65pTRUFXOvdswcjnA05pZn96SN6vTKoYe
-   yXz6SWqzdIpMkm7B8zARixCUV1TzPDbH9j5UvA2Wn43rw5ok2srA5odY7
-   w==;
-X-CSE-ConnectionGUID: z6IGDYBVS2Wwa7tedaJAzg==
-X-CSE-MsgGUID: FsfdBfiiRZW7TiJn5Je7jQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="90952611"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="90952611"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 02:07:09 -0700
-X-CSE-ConnectionGUID: BnpMgjOLSt2rDG9cVx6nNA==
-X-CSE-MsgGUID: b57VzxImRLaVlyUydjW5IA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="257955540"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.134])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 02:07:06 -0700
-Date: Fri, 14 Aug 2026 12:07:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/4] iio: light: add support for veml6031x00 ALS series
-Message-ID: <an7atynATsJHlt7_@ashevche-desk.local>
-References: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
- <20260812-veml6031x00-v6-2-7eef6e4ce290@gmail.com>
- <an1rR07iJd_XLSPr@ashevche-desk.local>
- <DKNPY12RSCH4.2KQCX98171G2H@gmail.com>
- <an7IpvdXnxzzDknS@ashevche-desk.local>
- <DKOJJJSXCZ8Y.KCR5NRYX7PVL@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HwA2gp9m"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66b32bb75beso1204041d50.2
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 02:08:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786698500; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dQ7iTgW4bYx93xwMgAui5paTvCR2dYP9Na3yaB1I40KpfHiOx3ySej352Uajd/Ep8H
+         7gAJUO2ZknCDJYbCKESHodp9ZySoBihhYgVpPrxU16BY5GwrkdcaBkN49Rof07nTERxN
+         FPLIdLxS+H9/6/giLzpyCX0b/4PIiXCJjxI5ewsCTjYVorAlFl/WA+f3ENR7s7gCQJ50
+         hcL5RkYnOj90DyImsIaj2bwvPOUmkxuHi3jbj+GDn9BznC5jLB+ADjkZXCATa1jZAUiO
+         ecHNwLTeIW7uN4MXYgM6hYkBf1QR9ELZoDbAbN7yJIA2l5gSzVRLQoJ/X3TrnFIBvdcB
+         5ZeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HYuWGT9uBk6DYJSNsZ7JcYY7syMooP0ymWSP1i7eR5w=;
+        fh=Nw9iHe0Tx8iogKNLCXpYRuHSidZ5AtilQdCwNKKyOQw=;
+        b=bh5YgDaFVNaBIkKTPvXspSRVTbcnLtlCpVS1MV8mlH/xS1XA/kuLTK5N0JU5c9FX5O
+         +mNoaHdVX7k3QFehXKvveXLTLvQwkFnh+xmpWY3kt6R9+WofBR0AMSo+L8dpQ4LbAbWr
+         erEBL5nQgHrxbP8f8jI1xhhzxeDgtfgf4rOPqTD5C75S7akW67k5uariMZDS2idG4b8n
+         DOvu2OfCcg1luaCWdmuPMZF5M1xxEi0eKCQbgjNzW5xtuYZEx6hF8I9jOp5bH/jVDfbX
+         EtRocYqiAqyrwKrJfmrneB5p/YEOFsBwAGqKKGdIN8LMF6BaRIL5Lg/2qY9VXnrKXv7U
+         IQrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786698500; x=1787303300; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HYuWGT9uBk6DYJSNsZ7JcYY7syMooP0ymWSP1i7eR5w=;
+        b=HwA2gp9mIBUqDAocA0WAZa7eXnQq5Dm9bOFyTOg78u/hsSWb8B8YdvO5+2mhzoGarx
+         e+M2IxLQSTFenwfrmx3CeQ5E0WnJfjA/YcEoIMGMCw21qBxlPzTd6F2KxDBO8B2BKIAN
+         /4osf6Yx2wnNuDUkN8FrB6BHorUpupZXqobE5kuvBC4I1F/CewJpO2cKEnGNyU87w8X9
+         CyWHazcmy+ULaJuw+d5A+eH17uUs3j9NZ0LIvTRJJLb5r+w/B9w/5Zta7tzEOEwyiOWy
+         OcuAd63cqIUo5UK0MHch4CQTItRHqiINNG7sG2/c8zv+PtQe/LKUf5Q/ttGRRF1P+Fm2
+         Nm0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786698500; x=1787303300;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HYuWGT9uBk6DYJSNsZ7JcYY7syMooP0ymWSP1i7eR5w=;
+        b=C6nyXjkHunumk3cM6lwlGW1chkyIVXtwreVwYGtMgxGBWrffKx5fIKfsRwI1VtBWb/
+         JKNOkugDuIxrlSzzVDi6tfuJ8u9F+EvPDAtb2QWLkApbq4pPMBtrEtp/Gy7EtTyokmTy
+         y/yS7+RWSYtlNOHvNWmex1JVxiT0isEMR8Tf5lEPMAxr9aSSuLa81TlbWBqiOiYjyuyI
+         MlFFbBvYbHJ6JSDj0nAwaKZNcRoUN9nkFRExU2bLrQQtG8tM1mcU8ldDdJ4iqMCHN01o
+         UjWbAzi2IM9cs4gaKrqyvWa2QILKcIR5RVqnLYgQv5T7ky0rM+GR0bs9GTlCahoSYNpV
+         Eblw==
+X-Forwarded-Encrypted: i=1; AHgh+RqHu9ETSlmfsFsYVi/8jsr+j1ZyqWL/sk0pKSIXXoCY4tiHQ8iy+ZOCkyVhVs0dDtTCLpWkZ0tS21AG@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywq+++X+JJxHmzoGUr9DB4muhuibohX3KW9fjcD9EoqXcYH0uB+
+	XkkvWhAqppZ13yYzYf5fPkTyTg4j9rE4bepxMf8s+QuSsxLU3XP/tp7SgK4JDE2h/8OZUjCuwu9
+	QulWfidfazCRM+Btz1ZpSCedRuQhwz3s=
+X-Gm-Gg: AR+sD11XxJYqOjJ/H97U6fG32XO4CeqRlM/eWM8CUkS0i9lmIyq8zcfx7SUkC7gD6rQ
+	nUHjcr/y3qVarh8vDPRnaVU5VP8IpszjU7TOINherwQxEMIZVhsJlk9CxtXDV0m4TltpW+L+WH6
+	0Y/l9Sd/uvOm6GvNkwE/dXWSU2KBwKc2nGooWu+Umpt9HanLHwH1VSb/Pxge5DKbo9KWNyskHED
+	vunMgUSqZPRmDyc8pAymKkp4C36p0DBguCKEA59J1+v6lR61nzDFeWabDKve8RlGzZId3xhEdSQ
+	WApBn6YfnmtEqc+8v+augx7oTznsjF+2hFnBiQhUSFKO+RyktoIS4uTt9xIRrGjFvv/IlWIREMX
+	UYXaM+Q==
+X-Received: by 2002:a05:690e:47:b0:668:99c8:bf15 with SMTP id
+ 956f58d0204a3-66c72b054d2mr1376716d50.11.1786698500469; Fri, 14 Aug 2026
+ 02:08:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKOJJJSXCZ8Y.KCR5NRYX7PVL@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260624055648.127399-1-challauday369@gmail.com>
+ <178406687202.3036881.4468660016404184803.robh@kernel.org>
+ <CAAj-GBnn8rGD6o5HmVfYtEksXsL8ZPKcc_AbfKUEHtTsN1pN-A@mail.gmail.com> <20260813191817.GA1981719-robh@kernel.org>
+In-Reply-To: <20260813191817.GA1981719-robh@kernel.org>
+From: Uday Kiran <challauday369@gmail.com>
+Date: Fri, 14 Aug 2026 14:38:07 +0530
+X-Gm-Features: AUfX_mysdJZURZMpWD2u5czIFjSBNKyPyqpb58_YjGlV5lTuJ2_g3vYfefsKrMY
+Message-ID: <CAAj-GBm7GcbyB-A7R9aomVCxhbh7d8D7tUxO3qCMYZV8d2N=Xw@mail.gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: watchdog: microchip,pic32mzda-wdt:
+ Convert to DT schema
+To: Rob Herring <robh@kernel.org>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+	skhan@linuxfoundation.org, tsbogend@alpha.franken.de, krzk+dt@kernel.org, 
+	linux-kernel@vger.kernel.org, conor+dt@kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, me@brighamcampbell.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Aug 14, 2026 at 10:58:10AM +0200, Javier Carrasco wrote:
-> On Fri Aug 14, 2026 at 9:49 AM CEST, Andy Shevchenko wrote:
-> > On Thu, Aug 13, 2026 at 11:46:32AM +0200, Javier Carrasco wrote:
-> >> Hello Andy, thank you again for your thorough review.
-> >> On Thu Aug 13, 2026 at 8:59 AM CEST, Andy Shevchenko wrote:
-> >> > On Wed, Aug 12, 2026 at 10:27:41PM +0200, Javier Carrasco wrote:
-
-...
-
-> >> >> +	data->regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
-> >> >> +	if (IS_ERR(data->regmap))
-> >> >> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
-> >> >> +				     "Failed to set regmap\n");
-> >> >
-> >> > Is debugfs access already enabled for regmap after this call? Perhaps you want
-> >> > mutex to be initialised before that?
-> >>
-> >> Could you please explain what you are trying to avoid? Even if the
-> >> debugfs is already enabled for regmap at this point, what is the
-> >> possible race condition?
+> > >
+> > > Applied, thanks!
+> > >
 > >
-> > That's my question to you. If you think there is none, then we are all good.
-> > Basically the Q is if that mutex (that is initialised later in the probe) is
-> > required for the device IO which might be possible immediately when regmap
-> > is registered.
+> > Thank you, Rob. There are similar microchip, pic32mzda patches related to spi,
+> > sqi & rtc which are reviewed/acknowledged.
+>
+> I picked up watchdog only because watchdog DT patches have a tendency to
+> get missed.
+
+Understood Rob. Thank you very much for picking up the patches.
+
+>
+> > 1. microchip,pic32mzda-spi.yaml
+> > https://lore.kernel.org/all/20260622-ingenious-finch-of-fantasy-7bafaf@quoll/
 > >
-> >> The IIO device is still not registered at this
-> >> point, and the registers are set to their right values in _hw_init()
-> >> after the mutexes were initialized. Moving the mutex initialization a
-> >> couple of lines towards the top is not an issue, but I would like to
-> >> understand the reasoning behind.
+> > 2. microchip,pic32mzda-sqi.yaml
+> > https://lore.kernel.org/all/20260625-omen-stark-6bb827ebcc43@spud/
+>
+> You missed sending to linux-spi and/or Mark B on these. You'll need to
+> send another version.
+
+Sorry, I missed to include SPI subsystem maintainers. I will include and send
+updated patches.
+
+>
 > >
-> > User may read (and depending on the driver case writing) the register map.
-> > Would it be a problem?
-> 
-> That is not a problem, as no assumptions about the original values are
-> made.
+> > 3. microchip,pic32mzda-rtc.yaml
+> > https://lore.kernel.org/all/20260703-identify-cringe-ef88079923cd@spud/
+>
+> You missed Alexandre.
 
-It's not about the values, it's about the *access* HW during that time when
-there is no mutex available yet.
+Alexandre Belloni <alexandre.belloni@bootlin.com> is in the send list. Not
+sure why it is not picked up.
 
-> >> >> +	ret = devm_mutex_init(dev, &data->scale_lock);
-> >> >> +	if (ret)
-> >> >> +		return ret;
-
-...
-
-> >> >> +err_pm_put:
-> >> >> +	pm_runtime_put_noidle(dev);
-> >> >
-> >> > Hmm... This is usually a red flag to see a goto after devm_*() calls.
-> >>
-> >> Could you please elaborate on this? I am aware of the dangers of a goto
-> >> after the cleanup attribute, but devm_*() calls work on a different
-> >> scope, not local to the function. What could go wrong? This goto is just
-> >> a way not to repeat pm_runtime_put_noidle(); return ret; and I am not
-> >> strongly against repeating these two lines wherever there is a goto, but
-> >> I am not sure what we are avoiding in this case.
-> >
-> > No, the goto here may (or may not) lead to the wrong ordering on the cleanup
-> > and/or error paths. It's usually recommended to avoid such a style even if
-> > it works without races in that case. That's why when switching to managed
-> > resources it's highly recommended to wrap everything to be managed (in case
-> > there is no native APIs available) and avoid any flow disruption (goto:s).
-> 
-> In this case I can't see any issue with the goto. It only leads to a
-> call to pm_runtime_put_noidle(), and after returning 'ret', the
-> device-managed resources are released. If the goto is removed and a
-> call to pm_runtime_put_noidle() is carried out in every error path, the
-> result is exactly the same as there are no operations within the probe
-> execution path that affect their behavior.
-
-Right, but again "It's usually recommended to avoid such a style...".
-
-> I can imagine that it might be problematic in some special cases, but
-> the use of devm_*() and goto jumps within a function is allowed and used
-> in the official documentation [1], and in several upstream drivers in IIO
-> [2][3] and other subsystems [4]. Of course, all those examples might be bad
-> examples, but I could not find any reference discouraging the use of
-> goto with devm_*().
-
-> [1] https://docs.kernel.org/driver-api/usb/writing_musb_glue_layer.html
-
-It's not kernel-wide documentation. At a brief glance it has more issues than
-just that one. I would not recommend to refer and use that piece of the
-documentation without fixing it first.
-
-> [2] drivers/iio/accel/kxcjk-1013.c
-> [3] drivers/iio/pressure/hid-sensor-press.c
-> [4] drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Regards,
+Udaya Kiran Challa
