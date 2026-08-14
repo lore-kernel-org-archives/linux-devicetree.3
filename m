@@ -1,57 +1,78 @@
-Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C8E4582EB
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:09:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C4D45A28C
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786698567; cv=none; b=seFvNzYvpOfcN50bVdB09IaWkqjXig5TTrZyPAGQjqnnod3tSpUExc0ZrxG9VxCI1A/f6/kLF+JXRRdPuYciiTYawpWV7ple72kfDF8VnqFpH8FGsgGakh//DP1H1+hq3MpIL8/b6KiNjpMzD5ThzSGbiurboUN96DEx/g+ukKc=
+	t=1786698716; cv=none; b=Qu9eCIGFu5tl/YiWm+TyXWAYm1TwatGemNlQrqm/q3ZsakC3fPMkgYBr2sSKxwIYD9Oq9jAOU57jCBE/g/f0H0mjpHJaFDVa5XcffiNyH2+BGWz6ODDTe426TC6sXOaTmf0xJJrMy09y6uG7Eyuxc1i/DwYBPP8Qhp2RsWiv+18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786698567; c=relaxed/simple;
-	bh=JmT62r1LQFUMewiOjNoxJSZLjb5Rke2Ty3fgGYMzUjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G7AMvw9L/Q2/Yk3L4hKCQ2Vc0Xa561BLYo5w3oN7MOXWAsj1ppLck1zPMUlEMIG/hUWdd7xJk02+BZRiM3hPPWJaW7AOtbCAx3QmVrCcWcHeeumxiZtcxOvQWbdbtSDB34wY6fzlzHPtuw5kEgO6sIAWxRLoEwW6OelCpmG5dKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=aFQbwDBU; arc=none smtp.client-ip=185.136.64.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1786698716; c=relaxed/simple;
+	bh=b1flEFBBB5pSRywJbhy0tWS1DoKL3Xvpz+gL+1tBUlo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eTXwtdpFX5HFkFV+60S/jVl0RdG+IVj8TOTva9BEVPlfXdntmNeoOvfUYVVSLnXKR8WPtFMMJ6L+7MVkaqLeJ0g8CXka285xUg5xH+p7pNqjszXDl6W3wHL/twiFe9a3iBwS0NlfPDotCCyQB7vP9ZWBOq831SYfCUQwqQl3WBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YuHTWmpM; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="aFQbwDBU"
-Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 202608140909110ead9f7fae00020729
-        for <devicetree@vger.kernel.org>;
-        Fri, 14 Aug 2026 11:09:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=WMBYKt6pXyX/he4h/0lqd2dFpbK1SOcahc23JBZCrXA=;
- b=aFQbwDBUcXsjxrjR8In9gObCKyk903HbObS6ctu+LEEll4GHW3elsYUCydAboMMbBzV7Bu
- mfUOCTgmQcCoiNpLcqqoXbfDV04op8pXs8d2JBgAHBvog7K7t3zzGahO7GvZfXe2tbYkgnUH
- RPlEIqQI9JfWX3Ri6wEtJGvqwZi+6tAEiQrUfqAWF9ikIm4zXRccK09Gq8h9OvUU6BTBT8AF
- VhzdVsX8SNKgMRrsz66YULWck4n1nT7aH/8pfrSq+oX5Eg0fy7c3cbOFSP/aM9iLIQ7K5UP+
- q0hjdJsWV5i6ceaoQry7XxIYENBYFqCx0ZwMb9Y+uQTqEBvndaiNviGg==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: netdev@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Wei Fang <wei.fang@nxp.com>,
-	Frank Li <frank.li@nxp.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Linux Team <linux-imx@nxp.com>,
-	imx@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YuHTWmpM"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cf6d65d8a7so10720935ad.0
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 02:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786698714; x=1787303514; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sh0jELV6wXAl8geoy8ozmQkFmiQd9XY1RhSMTEwwSY0=;
+        b=YuHTWmpM/r4nDvtxH9NbyfC/PocxJH1vJhbOtlEcGXLzDc3Wntxi1jwC/TC/yRQGuG
+         yXMY30h5eAePIDnfZoOIoJIO76vDX2XBdA1HYSlrKivPAPkUyWXiVIJA0GvgaC5tfLaJ
+         RuxqlrxVgDF7XWUIkuPAZd1S6A+mtbbSQsvj3CdlTP7Cj0vnTriC0qaacN1iicZ/vKeg
+         R1az962jTmhQYzKUSo70cifL9qB2VvNnEyPFtzXWWWXkLOjIF0YJmYvTs2/Bac4nLe5R
+         MEdSTtVdiKCeeKKtnWK95Uzu596xvb7hzLZBz7+eVKDl9OAyQ5CcZO49olUCB/bvDp97
+         rv8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786698714; x=1787303514;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sh0jELV6wXAl8geoy8ozmQkFmiQd9XY1RhSMTEwwSY0=;
+        b=LTIgIX1pQhwf1/sPRgd93DklDFyGmEOI3A8hxnTAzoP3y2PvGDmSBK9rHS1w5sF93U
+         41O8ukqX4yraLrSpKxsimO+QLgVjiZivDp1QoN4xbo4xwpz+1Gxjk2pKTd//gXsfZG6g
+         vu/7udZwnH3gBAg637OlSi6reLM6ZryztI8XFHwcKL/a6eebmTKPN4g6XDJSOX7IoQn/
+         Ex2/ZF8P4s0FQYH3fFFIwLKxos4lFRACPJVA9WjdK5Eb3VLHIKAczeZFs2ZIQ6EXdatD
+         9A2qCyqWCBmcPfhUpHmLPjiaA5VkZl/jD9rkBJGR/vgr2Vh3NR0qvlkJqTqT36QIUcgr
+         wd5g==
+X-Forwarded-Encrypted: i=1; AHgh+RorZYvtoJQTV0vkHVSFnoZ6JLYqcpfNgAOfJfTs2/oin6fTydSTfLUk4oaxZRUF2TKL9w77oHC+iufR@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8UyS3IAIczqdrYc2czxBfdgYWezaP4jyVVx1kU/+RBhSZJl88
+	Ny5Qu4luIC0StpOBrMI9Ac685YrekcRlUMF5SRjGfiueNb/phCG5Z2I8
+X-Gm-Gg: AR+sD12/2Fu0HhVuAH8i9VbTYQBJIW5GrFn01Fo8V0JN5W4uVfhnawkede0b85Z7rR/
+	/GZV/h+pRaFTI47Dsns6Ea093PaJm2GLQkVZYZH8RkEu8w/Om8vmFRoyKVifJiYk7RKoKQI0VjL
+	nfFe46HyWcX8Tqprnb2P31461zJ5cj+dbaoIWBYCWFzwlM7T4U5wA05+pqXjCNDkmhvT1ZIzcwW
+	Xl4X5LA3j7OdZZYB/7VCNi+R/C+YDXtB29ZnnSjxRCTxWTVgIz9ic8o7C1AyvHQOGIXGzXNar4/
+	qFXwIuWvT47I/8835iXDs8YV/XKQ+Ei+Y7eBxExvUkGf4hs3MCf7OcFcbYDOwwEr8dkVVHXRhMI
+	loMwnjh+hGQ0vHCKkF2QeuM9zrPl4/rCCYj5Sy/JqpvN6pOhn4NoFwE/uJQQDN7mkjM43Z94rbY
+	IWftDps9qV4N6ds7aJw8jHtwsWuLfpLiq2F95f9ORUaCnyTASVQbZiFKhTFMnRICRzsR8m77lCL
+	8Anu3OyuNy6ZvnNTQ==
+X-Received: by 2002:a17:903:1ac3:b0:2ca:d9b3:715e with SMTP id d9443c01a7336-2d3b088ac7fmr57723285ad.9.1786698713992;
+        Fri, 14 Aug 2026 02:11:53 -0700 (PDT)
+Received: from inhnjlux1020.ls.ege.ds ([2406:b400:53:97cb:f41d:ee6c:db4b:ab7c])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3aeb88bddsm6702765ad.63.2026.08.14.02.11.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Aug 2026 02:11:53 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-spi@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 2/2] net: fec: support receive flushing via fsl,rx-flush-queues
-Date: Fri, 14 Aug 2026 11:09:01 +0200
-Message-ID: <20260814090906.2225075-3-alexander.sverdlin@siemens.com>
-In-Reply-To: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
-References: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v4] spi: dt-bindings: microchip,pic32mzda-spi: Convert to DT schema
+Date: Fri, 14 Aug 2026 14:02:21 +0530
+Message-Id: <20260814083221.34606-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,130 +80,164 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Convert Microchip PIC32 SPI controller devicetree binding
+from legacy text format to DT schema.
 
-The FEC/ENET controller can flush frames stuck at the head of the RX FIFO
-when their destination ring has no empty buffer descriptor, instead of
-letting them block the FIFO. This is controlled per RX queue through the
-RX_FLUSHn bits of the QOS Scheme register (FEC_QOS_SCHEME).
-
-Parse the new fsl,rx-flush-queues property, build the RX flush mask and
-program it in fec_enet_enable_ring().
-
-Erratum ERR050395 (e.g. i.MX8QXP) can cause an RX path lock-up when
-flushing is enabled on more than one queue at a time. Rather than encoding
-that limitation in the binding, enforce it in the driver: reject a
-configuration that enables flushing on multiple queues unless the
-controller advertises FEC_QUIRK_HAS_MULTI_RX_FLUSH, which future parts with
-the erratum fixed can set.
-
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
 ---
- drivers/net/ethernet/freescale/fec.h      | 14 ++++++++++
- drivers/net/ethernet/freescale/fec_main.c | 34 +++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
+Changelog:
+Changes since v3:
+- Change maintainer to SPI subsystem maintainer
 
-diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/freescale/fec.h
-index 7176803146f3d..4af3ae286895f 100644
---- a/drivers/net/ethernet/freescale/fec.h
-+++ b/drivers/net/ethernet/freescale/fec.h
-@@ -186,6 +186,7 @@
- #define FEC_RCMR_2		0xfff
- #define FEC_DMA_CFG_1		0xfff
- #define FEC_DMA_CFG_2		0xfff
-+#define FEC_QOS_SCHEME		0xfff
- #define FEC_TXIC0		0xfff
- #define FEC_TXIC1		0xfff
- #define FEC_TXIC2		0xfff
-@@ -322,6 +323,10 @@ struct bufdesc_ex {
- #define RCMR_CMP(X)		(((X) == 1) ? RCMR_CMP_1 : RCMR_CMP_2)
- #define FEC_TX_BD_FTYPE(X)	(((X) & 0xf) << 20)
- 
-+/* FEC_QOS_SCHEME bits */
-+#define QOS_RX_FLUSH(X)		(1 << (3 + (X)))	/* RX_FLUSHn, n = 0, 1, 2 */
-+#define QOS_RX_FLUSH_MASK	(QOS_RX_FLUSH(0) | QOS_RX_FLUSH(1) | QOS_RX_FLUSH(2))
+Link to v3: https://lore.kernel.org/all/20260617101009.148851-1-challauday369@gmail.com/
+
+Changes since v2:
+- Add cs-gpios to required property
+
+Link to v2: https://lore.kernel.org/all/20260615115311.515404-1-challauday369@gmail.com/
+
+Changes since v1:
+- Rename schema file to microchip,pic32mzda-spi.yaml
+- Update subject prefix to match SPI DT binding conventions
+
+Link to v1:https://lore.kernel.org/all/20260614175005.435826-1-challauday369@gmail.com/
+---
+ .../bindings/spi/microchip,pic32mzda-spi.yaml | 82 +++++++++++++++++++
+ .../bindings/spi/microchip,spi-pic32.txt      | 34 --------
+ 2 files changed, 82 insertions(+), 34 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml
+ delete mode 100644 Documentation/devicetree/bindings/spi/microchip,spi-pic32.txt
+
+diff --git a/Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml
+new file mode 100644
+index 000000000000..2ef3480fa63e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml
+@@ -0,0 +1,82 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/microchip,pic32mzda-spi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- /* The number of Tx and Rx buffers.  These are allocated from the page
-  * pool.  The code may assume these are power of two, so it is best
-  * to keep them that size.
-@@ -499,6 +504,12 @@ struct bufdesc_ex {
- /* Jumbo Frame support */
- #define FEC_QUIRK_JUMBO_FRAME		BIT(25)
- 
-+/* Receive flushing (QOS Scheme register RX_FLUSHn) may be enabled on more than
-+ * one RX queue at a time. Parts without this quirk are subject to erratum
-+ * ERR050395 and must limit RX flushing to a single queue.
-+ */
-+#define FEC_QUIRK_HAS_MULTI_RX_FLUSH	BIT(24)
++title: Microchip PIC32MZDA SPI Controller
 +
- struct bufdesc_prop {
- 	int qid;
- 	/* Address of Rx and Tx buffers */
-@@ -604,6 +615,9 @@ struct fec_enet_private {
- 	unsigned int num_tx_queues;
- 	unsigned int num_rx_queues;
- 
-+	/* Bitmask of RX queues with receive flushing enabled */
-+	u32 rx_flush_mask;
++maintainers:
++  - Mark Brown <broonie@kernel.org>
 +
- 	struct fec_enet_priv_tx_q *tx_queue[FEC_ENET_MAX_TX_QS];
- 	struct fec_enet_priv_rx_q *rx_queue[FEC_ENET_MAX_RX_QS];
- 
-diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-index ced4dbf8cd90f..a4fe8423630b5 100644
---- a/drivers/net/ethernet/freescale/fec_main.c
-+++ b/drivers/net/ethernet/freescale/fec_main.c
-@@ -1090,6 +1090,15 @@ static void fec_enet_enable_ring(struct net_device *ndev)
- 			       fep->hwp + FEC_RCMR(i));
- 	}
- 
-+	/* Enable receive flushing for the selected queues */
-+	if (fep->rx_flush_mask) {
-+		u32 val = readl(fep->hwp + FEC_QOS_SCHEME);
++allOf:
++  - $ref: spi-controller.yaml#
 +
-+		val &= ~QOS_RX_FLUSH_MASK;
-+		val |= fep->rx_flush_mask;
-+		writel(val, fep->hwp + FEC_QOS_SCHEME);
-+	}
++properties:
++  compatible:
++    const: microchip,pic32mzda-spi
 +
- 	for (i = 0; i < fep->num_tx_queues; i++) {
- 		txq = fep->tx_queue[i];
- 		writel(txq->bd.dma, fep->hwp + FEC_X_DES_START(i));
-@@ -5239,6 +5248,31 @@ fec_probe(struct platform_device *pdev)
- 	fep->num_rx_queues = num_rx_qs;
- 	fep->num_tx_queues = num_tx_qs;
- 
-+	/* Enable receive flushing on the requested queues. Erratum ERR050395
-+	 * restricts flushing to a single queue; only accept more than one queue
-+	 * on controllers known to have the erratum fixed.
-+	 */
-+	for (i = 0; i < of_property_count_u32_elems(np, "fsl,rx-flush-queues"); i++) {
-+		u32 q;
++  reg:
++    maxItems: 1
 +
-+		if (of_property_read_u32_index(np, "fsl,rx-flush-queues", i, &q))
-+			break;
-+		if (q >= num_rx_qs) {
-+			dev_warn(&pdev->dev,
-+				 "fsl,rx-flush-queues: queue %u exceeds num-rx-queues, ignoring\n",
-+				 q);
-+			continue;
-+		}
-+		fep->rx_flush_mask |= QOS_RX_FLUSH(q);
-+	}
-+	if (hweight32(fep->rx_flush_mask) > 1 &&
-+	    !(fep->quirks & FEC_QUIRK_HAS_MULTI_RX_FLUSH)) {
-+		dev_err(&pdev->dev,
-+			"fsl,rx-flush-queues: RX flush on multiple queues not supported\n");
-+		ret = -EINVAL;
-+		goto failed_ioremap;
-+	}
++  interrupts:
++    items:
++      - description: Fault interrupt
++      - description: Receive interrupt
++      - description: Transmit interrupt
 +
- 	/* default enable pause frame auto negotiation */
- 	if (fep->quirks & FEC_QUIRK_HAS_GBIT)
- 		fep->pause_flag |= FEC_PAUSE_FLAG_AUTONEG;
++  interrupt-names:
++    items:
++      - const: fault
++      - const: rx
++      - const: tx
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    items:
++      - const: mck0
++
++  cs-gpios:
++    maxItems: 1
++
++  dmas:
++    items:
++      - description: RX DMA channel
++      - description: TX DMA channel
++
++  dma-names:
++    items:
++      - const: spi-rx
++      - const: spi-tx
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++  - clocks
++  - clock-names
++  - cs-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    spi@1f821000 {
++        compatible = "microchip,pic32mzda-spi";
++        reg = <0x1f821000 0x200>;
++        interrupts = <109 IRQ_TYPE_LEVEL_HIGH>,
++                     <110 IRQ_TYPE_LEVEL_HIGH>,
++                     <111 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "fault", "rx", "tx";
++        clocks = <&PBCLK2>;
++        clock-names = "mck0";
++        cs-gpios = <&gpio3 4 GPIO_ACTIVE_LOW>;
++        dmas = <&dma 134>, <&dma 135>;
++        dma-names = "spi-rx", "spi-tx";
++    };
+diff --git a/Documentation/devicetree/bindings/spi/microchip,spi-pic32.txt b/Documentation/devicetree/bindings/spi/microchip,spi-pic32.txt
+deleted file mode 100644
+index 79de379f4dc0..000000000000
+--- a/Documentation/devicetree/bindings/spi/microchip,spi-pic32.txt
++++ /dev/null
+@@ -1,34 +0,0 @@
+-Microchip PIC32 SPI Master controller
+-
+-Required properties:
+-- compatible: Should be "microchip,pic32mzda-spi".
+-- reg: Address and length of register space for the device.
+-- interrupts: Should contain all three spi interrupts in sequence
+-              of <fault-irq>, <receive-irq>, <transmit-irq>.
+-- interrupt-names: Should be "fault", "rx", "tx" in order.
+-- clocks: Phandle of the clock generating SPI clock on the bus.
+-- clock-names: Should be "mck0".
+-- cs-gpios: Specifies the gpio pins to be used for chipselects.
+-            See: Documentation/devicetree/bindings/spi/spi-bus.txt
+-
+-Optional properties:
+-- dmas: Two or more DMA channel specifiers following the convention outlined
+-        in Documentation/devicetree/bindings/dma/dma.txt
+-- dma-names: Names for the dma channels. There must be at least one channel
+-             named "spi-tx" for transmit and named "spi-rx" for receive.
+-
+-Example:
+-
+-spi1: spi@1f821000 {
+-        compatible = "microchip,pic32mzda-spi";
+-        reg = <0x1f821000 0x200>;
+-        interrupts = <109 IRQ_TYPE_LEVEL_HIGH>,
+-                     <110 IRQ_TYPE_LEVEL_HIGH>,
+-                     <111 IRQ_TYPE_LEVEL_HIGH>;
+-        interrupt-names = "fault", "rx", "tx";
+-        clocks = <&PBCLK2>;
+-        clock-names = "mck0";
+-        cs-gpios = <&gpio3 4 GPIO_ACTIVE_LOW>;
+-        dmas = <&dma 134>, <&dma 135>;
+-        dma-names = "spi-rx", "spi-tx";
+-};
 -- 
-2.55.0
+2.34.1
 
