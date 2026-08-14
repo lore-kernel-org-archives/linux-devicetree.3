@@ -1,69 +1,69 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0833E8C70
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 21:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF818363C63
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 21:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786742503; cv=none; b=I2lLMw2qIePjd947MZ9rcgfsxtMorSbv3bdFWxHLc80bsIPb+qXB04G2Yp2QlxP8eH0BhnjUHCuOMyZVrdnA8TuCmAZyxyXJIqNus0mmYqc2ketSqrx288ajnZC5zzK5mXbSmub/YcaSqyKx0BTus9Qyznj2MZqlWxJR+jEadP4=
+	t=1786742515; cv=none; b=uN84qotI2jBY/yNrk74uOOpvSqMam6W/fqWm7LkcY46YcgyYDlT0XXZfqP6FE9kfw03+zFl7yltC2olediNJNdipRa7OF4MnpNp+oaz63EVfjcJh2+fzSVP622y4Tomf3XHweUKIHFYkWJOaDTaWQjkaj/lr0sYaUCFU9ScYEbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786742503; c=relaxed/simple;
-	bh=u6r8H0pSqbZuRl447oiZjO+lUFL/LjDSOxn4d+FN7EQ=;
+	s=arc-20240116; t=1786742515; c=relaxed/simple;
+	bh=PVilgbHHs7aR8Qkx3HORWWvrIUgpzson356NM/5tNnY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kkXEgfndOLEFLCioMTgXATMaHbhEwhELpq1tWtdi2UukzGnWiqxg4dkMM0PLmIrFxbDjWBureX6nHZ0bmKhy2kUYmyzpJkH65eW+Nf7OUf7TZLZTuKjWeQpWWraMPtmhxukaKzcRwc8+itj3byarN1nSO18tATwidKug4fabBSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NmI4/gmS; arc=none smtp.client-ip=209.85.216.48
+	 In-Reply-To:To:Cc; b=FXpCSnOBxyntnyXV/PfOBgt1lDP7WLV6RngAdcr3CwRd1CLaE3sUSvza0wlf813XtYYCsmWJlX/6Vk3AFei0jWnztk55c/jhROxTaoVjD//uTBZiULE1yO1zj2G9BaG4LfxC/x8991Z1rK+stJd2Gh8un7SHboJ8ePNL6IvAl+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L4fuQCF+; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NmI4/gmS"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38fe113c792so148509a91.3
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 14:21:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L4fuQCF+"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-384422b05b5so166149a91.2
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 14:21:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786742498; x=1787347298; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786742512; x=1787347312; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0lip8n6xP9eOpioWoISckMOq1UctyXUT+/l6I9kdKKU=;
-        b=NmI4/gmSTiLXYjP1qim4JIIR3WJhSUyOkVY9I9qKlHx/0W0TF5riNMIgSPHqYk06OR
-         hAbthlhvse3OBVwfWwCWZKGeQflwxron7mFCYhiuEfeanjSeGMqpWvp/Bmuk5a5N7bW9
-         VAN1L37eHWXmPWN/SNXkmzfg7F3XKbquK3n0HwJXZ7pKnSTKKXsBT8ksV3ID5fR1wvfK
-         S8nlTVJIACwqaq8F4xf5Ndypr3TF/p516MlSmnMT7ajeyykUPsKj9MnQMX5RDgRkgrJg
-         eHQgz82VDJrrwd+WLYqi2JAcmzso71uNKNQsFUDTJlESgHxp3Zoe8xvk4vmjSTKqM9xb
-         ebfA==
+        bh=r+WACWGGRxnr7upWs/bzK9T7rZ+TwizKBmDY48I3U9o=;
+        b=L4fuQCF+GUE0ZtJ9+srFqL316vSwFGdL+DfrTi1AVFevoL5sBXd+ic4gojRies/F1a
+         Q0TPsjBVpSZj9llx5Craxbwf8hEh6+yvEFUtqao3/zlkd+0Gx26eRQ7zTHVPsdbXis9f
+         YKFsWGzvzYiOTL9y8Y6GOeIdmQu3eiGRLnODcRUJCueXdWLZzki1KlHtCvCim47GXWbh
+         H5lSqHc0x63mV/sVg1ujL2q3nIVB2ki0lZfoUbyM/qZytrUj60k6u8WUz+Ov3MTL6ORn
+         n6oQUBil+rZ5VkkSq5pO2UdGwdKzX7/Hj0BBVqy62qm8G4ubAcDCXfH/3tTNM/5q4JWK
+         QTaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786742498; x=1787347298;
+        d=1e100.net; s=20251104; t=1786742512; x=1787347312;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0lip8n6xP9eOpioWoISckMOq1UctyXUT+/l6I9kdKKU=;
-        b=c4paPZQ2BUMy29YO3CR5uJwL8UWgMe/JoywZVFecDnKA2Jb89TJV54K9l5Lcc9pNHZ
-         HZaDcHCMjEh9pCVBOaZAm0NyIdf0WzApPqhqRhtAIyOCAg/o2RD9uBiN278kdFfAaICU
-         T2hhI01bIz5DLhmLTqP7OVGFfUgbZLVTImYVjq2H8ngmIF7H1FWw63SXPhhU/iVXq0uQ
-         hWTDzL69XHdsFHib4iANE8JeTCOnoMiAo7V955lvqqu55rKX+9MEKU4xNuaFwG8sYDkL
-         90I/6ocRyi9T1pG3k83lfk3A0oY/LZk0ZGYf+Y3ynWcbrzElWefmFbk3OkAkG5od/M02
-         1Nag==
-X-Forwarded-Encrypted: i=1; AHgh+RoCGYK2Dneawgg9H42XS7hhicbyU+DRdjUN/6yPbtubceHRdG0F7TOyb1A6Kl46alWIZKv4Vx0UZJ3J@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIafrgudGbk2++W4jgnQVSt4eZxt5RhtvsB05aOZ7H5BwPUpJu
-	bWqBaqIDha8zSgbTetp+5GirVYXWnVTs6rV0AFAs0nAcy9tiWDTLTTKd
-X-Gm-Gg: AR+sD10kQGVnf49ZR671efvabHy0cVstMF4B2TjIUJYNYcWqymuy1kMhmbwQt8E96q3
-	6t2tULinU/LyZO8x7IX3RnHsHGi6ufi/vgURHrim3f2krQM7QyteJOp6AH0xKAuiCy7Sp/Q+XC7
-	z/5l7pNv6W7ORA6tWbuVF5pI8/OXOq1QCdYEiEJc6R4qgHlPqQqkO8vYCmOAe4lQJmanLCKunVq
-	KDT/h0+Z+VIr4yRJpnFpif3TmOw6BE26dUrdqfreJ4zZa51inJevnzzi7hws8MaPo/ppTjmK1Ak
-	D2e42iyrmB5F9U82FLQWItLEvRlzcSJayW3bAUuBAQLyKc45x7S2W9dQKBK5Yhh5AsgvQdoQcFi
-	CiY2jlmcLHR3VvOGEc+GiGTXhyuS7L6ccMdGFpUfmLXnAzsYxCVkGI3LNktGgZdLGbSbSvT9zJO
-	vkyFVbqGqOQihcNjCnKTZ2L7j1l/j+saPXFmBHsDWkV33EJlWbEnDiywFJyPJ8OD0EN4nqZxfLd
+        bh=r+WACWGGRxnr7upWs/bzK9T7rZ+TwizKBmDY48I3U9o=;
+        b=WKY+2klCpSUj0Wk/nuo/Jiqc/xZgJmbw8BCFRZZrPwDx5bxbt6+9K+Jf1btUpQyoJs
+         toD0f8UqLtiO2gSHjvasJLo+SwU3dJXS0BY6961FICPZrRwwvUNasqxV3hzzQuyXq/So
+         n4NDC4EZ7ptGZokmHxP/J+ZM4l7l3R2bmcSEuVvpRzRRpSaPpyaASCostTn7KG6rB17J
+         7Qr4lTfWpqcMqzOGGY8EVW+QskNTMdXgfH/isCzaWAxar8vh7AiRZDbLN89k0a8kHHal
+         UO8rYacFTLTjCGRq0d5+8+iZ62VJ3Bq9e7s9Jqf7yF55eluWfRxpfmwaPjfs9tOAUIzf
+         NhXw==
+X-Forwarded-Encrypted: i=1; AHgh+RpIXRU8TiYxhhZ4aI1ogc9ej7kEm4zvyHlz6Dbca4c4/ByF21oasQG528199cYPb4WDPvlKTaDWK1uV@vger.kernel.org
+X-Gm-Message-State: AOJu0YzyPzkWWWCyLrPTFgQR8pYoMtjh/ONwD1Mhdu5zAms9FMnI6v78
+	sKqnQpj/LS6xBdF1FnJJbdL8zAQNPBNHKstZA1JgKsz6a08QMh0rBiA2
+X-Gm-Gg: AR+sD10p6JXQOYC52Q4gr2wOD7t1yx9cDMC/qsHYWm5rnz8ovPsPBkNwxfDavhF4VOl
+	MYlknZuvkDlg4LdseneJmMBtyEs8UkHDpbSKlhpwv8f+F9LHwPcH4hSlC3kv1GwrbO337lW7s8c
+	BAfoCbl8ZIpkfI7pQHzH7jCRRtFRct6RWKBnkpevblvVehi6Y44tvYAYztdKHawggsq7ONnAQuT
+	UJUrW4ElDfZkqDPkmGMVet6CUJNN39AukgzGGZoVvmArikfMjRjI+7u5bc4jvsjBFC0/MsD0/qb
+	NVyf6px2Erck9Z/yYclB6RYm1y/CY6zfydn1I7J+ols8jrLEhoposHOcCt+tULiQEHYGEtbVQh5
+	aqoyZzjSSyOueCihdvxrvOnzqXMrHAGX54YfCPI/8aEVoipZ22240BekOyWdcdbz8toErwHwUnM
+	mWe0Aw41DYmLRXtASK+yAKV4ZaTYOa5fO6TlufbdBp9DjFOGm6BlIDRJ1H+LfcPOwpLqJSv62re
 	A==
-X-Received: by 2002:a17:90b:4c47:b0:381:28e0:6248 with SMTP id 98e67ed59e1d1-3933b6fa584mr7435398a91.1.1786742498536;
-        Fri, 14 Aug 2026 14:21:38 -0700 (PDT)
+X-Received: by 2002:a17:90b:2d8e:b0:38e:6d4c:14df with SMTP id 98e67ed59e1d1-3933bd2c8bdmr6895808a91.1.1786742512207;
+        Fri, 14 Aug 2026 14:21:52 -0700 (PDT)
 Received: from [10.112.173.252] ([2409:40c2:504f:ca49:504a:79dd:fd2b:ca2d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141387c6f95sm16678893c88.6.2026.08.14.14.21.25
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141387c6f95sm16678893c88.6.2026.08.14.14.21.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 14:21:37 -0700 (PDT)
+        Fri, 14 Aug 2026 14:21:51 -0700 (PDT)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sat, 15 Aug 2026 02:50:56 +0530
-Subject: [PATCH v2 1/2] dt-bindings: clock: ti,dra7-atl-clock: convert to
- DT schema
+Date: Sat, 15 Aug 2026 02:50:57 +0530
+Subject: [PATCH v2 2/2] dt-bindings: clock: ti,dra7-atl: convert to
+ dt-schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260815-ti-dra7-atl-v2-1-db64c147c2e2@gmail.com>
+Message-Id: <20260815-ti-dra7-atl-v2-2-db64c147c2e2@gmail.com>
 References: <20260815-ti-dra7-atl-v2-0-db64c147c2e2@gmail.com>
 In-Reply-To: <20260815-ti-dra7-atl-v2-0-db64c147c2e2@gmail.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -83,124 +83,198 @@ Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
  daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786742472; l=3650;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786742472; l=5776;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=u6r8H0pSqbZuRl447oiZjO+lUFL/LjDSOxn4d+FN7EQ=;
- b=NxRGxjBC6lb3qhT51jyu5o5aj/7tuEIEWGRLSdfZMZtkOpncHoZvRHUUH1XfQNHXASuhnw3e1
- b5++ip9N8jAB2G6TgmpLLhoZavWozwfFfJtlwxLXDeRmqTWIvQbzaK1
+ bh=PVilgbHHs7aR8Qkx3HORWWvrIUgpzson356NM/5tNnY=;
+ b=pgbT+SoflQx2pYJlN5Eq+wwiTUtYrprrXthMZ+Wmi4yObdI0CvdjckhrFyhWYWZb31tWNVhfc
+ BTUMwhK2LCWAP8awTDZUuu11NCh9O0vbw1bbN1DL48mH1Fn5jL9o0pT
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert the clock output portion of the DRA7 ATL (Audio Tracking Logic)
-binding from text to DT schema. property clock-output-names is added
-that is used by existing dts/dtsi.
+Convert the IP driver portion of the DRA7 ATL (Audio Tracking Logic)
+binding from the freeform text binding to dt-schema. Together with
+ti,dra7-atl-clock.yaml this fully replaces dra7-atl.txt.
+
+ti,hwmods is marked deprecated as modern DTS uses ti,sysc target-module
+wrappers and the property is absent from current dra7-l4.dtsi.
+
+bws/aws maximum set to 15 per the 16 mux sources in
+dt-bindings/clock/ti-dra7-atl.h.
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- .../devicetree/bindings/clock/ti/dra7-atl.txt      | 38 ----------------------
- .../bindings/clock/ti/ti,dra7-atl-clock.yaml       | 38 ++++++++++++++++++++++
- 2 files changed, 38 insertions(+), 38 deletions(-)
+ .../devicetree/bindings/clock/ti/dra7-atl.txt      |  56 ------------
+ .../devicetree/bindings/clock/ti/ti,dra7-atl.yaml  | 100 +++++++++++++++++++++
+ 2 files changed, 100 insertions(+), 56 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt b/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt
-index 68504079f99f..e3c05844ae86 100644
+deleted file mode 100644
+index e3c05844ae86..000000000000
 --- a/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt
-+++ b/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt
-@@ -9,20 +9,6 @@ signals - can compensate the drift between the two ws signal.
- In order to provide the support for ATL and its output clocks (which can be used
- internally within the SoC or external components) two sets of bindings is needed:
- 
--Clock tree binding:
--This binding uses the common clock binding[1].
--To be able to integrate the ATL clocks with DT clock tree.
--Provides ccf level representation of the ATL clocks to be used by drivers.
--Since the clock instances are part of a single IP this binding is used as a node
--for the DT clock tree, the IP driver is needed to handle the actual configuration
--of the IP.
++++ /dev/null
+@@ -1,56 +0,0 @@
+-Device Tree Clock bindings for ATL (Audio Tracking Logic) of DRA7 SoC.
 -
--[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+-The ATL IP is used to generate clock to be used to synchronize baseband and
+-audio codec. A single ATL IP provides four ATL clock instances sharing the same
+-functional clock but can be configured to provide different clocks.
+-ATL can maintain a clock averages to some desired frequency based on the bws/aws
+-signals - can compensate the drift between the two ws signal.
+-
+-In order to provide the support for ATL and its output clocks (which can be used
+-internally within the SoC or external components) two sets of bindings is needed:
+-
+-
+-Binding for the IP driver:
+-This binding is used to configure the IP driver which is going to handle the
+-configuration of the IP for the ATL clock instances.
 -
 -Required properties:
--- compatible : shall be "ti,dra7-atl-clock"
--- #clock-cells : from common clock binding; shall be set to 0.
+-- compatible : shall be "ti,dra7-atl"
+-- reg : base address for the ATL IP
+-- ti,provided-clocks : List of phandles to the clocks associated with the ATL
 -- clocks : link phandles to functional clock of ATL
- 
- Binding for the IP driver:
- This binding is used to configure the IP driver which is going to handle the
-@@ -47,30 +33,6 @@ For valid word select signals, see the dt-bindings/clock/ti-dra7-atl.h include
- file.
- 
- Examples:
--/* clock bindings for atl provided clocks */
--atl_clkin0_ck: atl_clkin0_ck {
--	#clock-cells = <0>;
--	compatible = "ti,dra7-atl-clock";
--	clocks = <&atl_gfclk_mux>;
+-- clock-names : Shall be set to "fck"
+-- ti,hwmods : Shall be set to "atl"
+-
+-Optional properties:
+-Configuration of ATL instances:
+-- atl{0/1/2/3} {
+-	- bws : Baseband word select signal selection
+-	- aws : Audio word select signal selection
 -};
 -
--atl_clkin1_ck: atl_clkin1_ck {
--	#clock-cells = <0>;
--	compatible = "ti,dra7-atl-clock";
+-For valid word select signals, see the dt-bindings/clock/ti-dra7-atl.h include
+-file.
+-
+-Examples:
+-
+-/* binding for the IP */
+-atl: atl@4843c000 {
+-	compatible = "ti,dra7-atl";
+-	reg = <0x4843c000 0x3ff>;
+-	ti,hwmods = "atl";
+-	ti,provided-clocks = <&atl_clkin0_ck>, <&atl_clkin1_ck>,
+-				<&atl_clkin2_ck>, <&atl_clkin3_ck>;
 -	clocks = <&atl_gfclk_mux>;
+-	clock-names = "fck";
 -};
 -
--atl_clkin2_ck: atl_clkin2_ck {
--	#clock-cells = <0>;
--	compatible = "ti,dra7-atl-clock";
--	clocks = <&atl_gfclk_mux>;
--};
+-#include <dt-bindings/clock/ti-dra7-atl.h>
 -
--atl_clkin3_ck: atl_clkin3_ck {
--	#clock-cells = <0>;
--	compatible = "ti,dra7-atl-clock";
--	clocks = <&atl_gfclk_mux>;
+-&atl {
+-
+-	atl2 {
+-		bws = <DRA7_ATL_WS_MCASP2_FSX>;
+-		aws = <DRA7_ATL_WS_MCASP3_FSX>;
+-	};
 -};
- 
- /* binding for the IP */
- atl: atl@4843c000 {
-diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl-clock.yaml
+diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml
 new file mode 100644
-index 000000000000..c0795f4abcfa
+index 000000000000..f4bb233be83d
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl-clock.yaml
-@@ -0,0 +1,38 @@
++++ b/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml
+@@ -0,0 +1,100 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/clock/ti/ti,dra7-atl-clock.yaml#
++$id: http://devicetree.org/schemas/clock/ti/ti,dra7-atl.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: TI DRA7 ATL (Audio Tracking Logic) clock output
++title: TI DRA7 ATL (Audio Tracking Logic) Clock Controller
 +
 +maintainers:
 +  - Peter Ujfalusi <peter.ujfalusi@ti.com>
 +
++description:
++  The ATL IP is used to generate clock to be used to synchronize baseband and
++  audio codec. A single ATL IP provides four ATL clock instances sharing the
++  same functional clock but can be configured to provide different clocks.
++  ATL can maintain a clock averages to some desired frequency based on the
++  bws/aws signals - can compensate the drift between the two ws signal.
++
++  See also Documentation/devicetree/bindings/clock/ti/ti,dra7-atl-clock.yaml
++
 +properties:
 +  compatible:
-+    const: ti,dra7-atl-clock
++    const: ti,dra7-atl
 +
-+  "#clock-cells":
-+    const: 0
++  reg:
++    maxItems: 1
 +
 +  clocks:
 +    maxItems: 1
 +
-+  clock-output-names:
-+    maxItems: 1
++  clock-names:
++    items:
++      - const: fck
++
++  ti,provided-clocks:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description:
++      List of phandles to the clocks associated with the ATL.
++    minItems: 4
++    maxItems: 4
++    items:
++      maxItems: 1
++
++  ti,hwmods:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      Name of the hwmod associated with the ATL.
++    deprecated: true
++    const: atl
++
++patternProperties:
++  "^atl[0-3]$":
++    type: object
++    additionalProperties: false
++    description:
++      Configuration of ATL instances.
++
++    properties:
++      bws:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          Baseband word select signal selection.
++        maximum: 15
++
++      aws:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          Audio word select signal selection.
++        maximum: 15
++
++    required:
++      - bws
++      - aws
 +
 +required:
 +  - compatible
-+  - "#clock-cells"
++  - reg
 +  - clocks
++  - clock-names
++  - ti,provided-clocks
 +
 +additionalProperties: false
 +
 +examples:
 +  - |
-+    atl_clkin0_ck {
-+        compatible = "ti,dra7-atl-clock";
-+        #clock-cells = <0>;
++    #include <dt-bindings/clock/ti-dra7-atl.h>
++
++    atl@4843c000 {
++        compatible = "ti,dra7-atl";
++        reg = <0x4843c000 0x3ff>;
 +        clocks = <&atl_gfclk_mux>;
++        clock-names = "fck";
++        ti,provided-clocks = <&atl_clkin0_ck>, <&atl_clkin1_ck>,
++                             <&atl_clkin2_ck>, <&atl_clkin3_ck>;
++
++        atl2 {
++            bws = <DRA7_ATL_WS_MCASP2_FSX>;
++            aws = <DRA7_ATL_WS_MCASP3_FSX>;
++        };
 +    };
 
 -- 
