@@ -1,164 +1,145 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DF1472F97;
-	Fri, 14 Aug 2026 14:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46972E739E
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 14:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786717908; cv=none; b=uulbDi92zZ9UrH6/tOsQCRAS/b7vBDvZ+I9n5xmxgwhrouJO9b2mMaWHw50bqag0WU34lj2X1UfvMBxaeLUps4e8NQiMYN2vpK4qz3tC+CSYBsK8NkIS/vx2q3kN/jvlnZR+X6q9UyiDUBwYHS5QscIvs7+QDvxsaW/kd+33DEY=
+	t=1786718375; cv=none; b=F1EN+4F1gLbJwP+7Gqs2LdwHBx3Oj2loJFMNtoMw25a+hMPF2TtZQR61LBf06eItVCGC9sGx9n6Em8tkp9msW48BBa9/LdQ1AI9AU4kT67BIYYJqX17vx3QPZIp3PNfXDdZ4DSdhaiF6sn4QyZMSwwsLlRRtNUgI9z5MP+eOR/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786717908; c=relaxed/simple;
-	bh=OcLA+9NxXaZ0Z8qAWG9RrfMqZWDWTvs48FyXhXFFOCg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KqIxKpkiNadZR1mfNRQgL0d3qssQex+ntZe73WkSZLiw+9Fy84bO21T4aNMVaOpiGFGWb1FhWG41JHPPuK83i6Qk0XosXRcvotm2fbnVBYrVbVZ99diOefFE3nNJq2c3oded1v8sGL8q8KVMEi3orvWy9wirBoT+PC/pRc06JmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pfUKVYmb; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1786718375; c=relaxed/simple;
+	bh=xzZ8jy/eB3bOQ+CcYNMdRNrUdThdyWrUwV1urwTAXe8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RnUPbFBcj20wl0IgNC1lt1DS+FwimjDVRgRNcMSzJGm0CfqE1icYDpBvVs0yFdpktBV3oak6PrwV4SqP7SV7M7ziCN39lQreggWH8xYT6ME/ITBknpCN9zWeju0HEDNGAqVuGSZE5cpIVNrDSY2I+6vkgmo2k/ENyPf8rKjHwrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=hQgy00tv; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pfUKVYmb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1786717902;
-	bh=OcLA+9NxXaZ0Z8qAWG9RrfMqZWDWTvs48FyXhXFFOCg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=pfUKVYmbkxlA+SMcEC8ybrcIQqZtCcqxkwdD4V+FUYhiI2NHNLPCg+n18pYPmf7CN
-	 g6CISMdt6CDVXaBKviCpMUoXDjyx6YdG3u/oSCsc4SSXvioxGl0ADHjxP7apIUmz6W
-	 8EIZDrCsa3vR1aq9Ot2u8zgQ2jZFh0GjiHZFxPHcU3Ymc2kUvXNiNoqEnnXqLxiai6
-	 UqjulyZxOj3rl6/shuSU0DLi3oUNlIs0RKMXKcOfgn1jthZdJS/GvZjtKLwHmKEByF
-	 GrWyw2zbA8vVSoY/ffcom4AJCqtOTVO7nWjCyaFQt8/lN64ighUUkHTqh9qQVFH756
-	 UZZI+qsDcohRQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id EB00617E07B5;
-	Fri, 14 Aug 2026 16:31:38 +0200 (CEST)
-Message-ID: <dcb6ecbd6184c01861c7d36068abb266df4587c5.camel@collabora.com>
-Subject: Re: [PATCH v6 01/14] media: mediatek: vcodec: support vcp
- architecture
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Kyrie Wu =?UTF-8?Q?=28=E5=90=B4=E6=99=97=29?= <Kyrie.Wu@mediatek.com>, 
- "fshao@chromium.org"	 <fshao@chromium.org>, Yunfei Dong
- =?UTF-8?Q?=28=E8=91=A3=E4=BA=91=E9=A3=9E=29?=	 <Yunfei.Dong@mediatek.com>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,  "fanwu01@zju.edu.cn"	
- <fanwu01@zju.edu.cn>, "jacopo.mondi@ideasonboard.com"	
- <jacopo.mondi@ideasonboard.com>, "haoxiang_li2024@163.com"	
- <haoxiang_li2024@163.com>, "tfiga@chromium.org" <tfiga@chromium.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andrew-CT Chen =?UTF-8?Q?=28=E9=99=B3=E6=99=BA=E8=BF=AA=29?=	
- <Andrew-CT.Chen@mediatek.com>, "linux-media@vger.kernel.org"	
- <linux-media@vger.kernel.org>, "ribalda@chromium.org"
- <ribalda@chromium.org>,  "wenst@chromium.org"	 <wenst@chromium.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "kees@kernel.org" <kees@kernel.org>,  "rongqianfeng@vivo.com"	
- <rongqianfeng@vivo.com>, Irui Wang =?UTF-8?Q?=28=E7=8E=8B=E7=91=9E=29?=	
- <Irui.Wang@mediatek.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
- "linux-mediatek@lists.infradead.org"	 <linux-mediatek@lists.infradead.org>,
- Tiffany Lin =?UTF-8?Q?=28=E6=9E=97=E6=85=A7=E7=8F=8A=29?=	
- <tiffany.lin@mediatek.com>, "p.zabel@pengutronix.de"
- <p.zabel@pengutronix.de>,  "benjamin.gaignard@collabora.com"	
- <benjamin.gaignard@collabora.com>, "matthias.bgg@gmail.com"	
- <matthias.bgg@gmail.com>, "mchehab@kernel.org" <mchehab@kernel.org>, 
- "sebastian.fricke@collabora.com"	 <sebastian.fricke@collabora.com>,
- "robh@kernel.org" <robh@kernel.org>, 
- "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, 
- "laurent.pinchart+renesas@ideasonboard.com"	
- <laurent.pinchart+renesas@ideasonboard.com>, "hverkuil+cisco@kernel.org"	
- <hverkuil+cisco@kernel.org>
-Cc: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-Date: Fri, 14 Aug 2026 10:31:37 -0400
-In-Reply-To: <44d9ec5c5f856b378f745fae8bd60aa4730df044.camel@mediatek.com>
-References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
-		 <20260720012056.1026551-2-kyrie.wu@mediatek.com>
-		 <c3abd49fc12e8cfab6993feb60b361ba07b6fb7d.camel@collabora.com>
-		 <275503aae6ff76a4c186efe665acf996dec9229d.camel@mediatek.com>
-		 <c8ab26c2edfa4ee4fbbb83faf5f54547f252464f.camel@collabora.com>
-	 <44d9ec5c5f856b378f745fae8bd60aa4730df044.camel@mediatek.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-1Pa9FEAnN6BDVnhiPDGq"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="hQgy00tv"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so10356715e9.1
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:39:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1786718370; x=1787323170; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VWSFL1IqtGsSxd9as+S5YrQgQ2uQorKxfncBRjktmv8=;
+        b=hQgy00tvRZS9PgjlkmT2FBYZeq8fNyNDVWKK0y1BjwzTIk91wJF2PcQgUefyYkkXdS
+         yNYl3GubsEYrYmoZZ6yWFoprI3byvCp7hUt8ASpOaKQ6C2gRx8WSJY2aFTiBc3UCu1ZJ
+         ROkK7lusvWv/07uJY0aXFnVJWCgj6WcsFr+Y4R4DCupi/1xQJynMys0RXOVCDdDEgNxO
+         MbVC4n0+CmEZS5FImIrByvpR/2bNOayQrNTOOfJM/fFfaranFaqJ5TPuXmIna5JyDCnx
+         ljVDOG/dl9vicmGmEstJ5+ebONS5ujwuMtCkJhI/9TBhXNP1LoxyXjpbv+SYNY9wVFOt
+         enTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786718370; x=1787323170;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VWSFL1IqtGsSxd9as+S5YrQgQ2uQorKxfncBRjktmv8=;
+        b=S5lmtwwBvT+xOFKeenna+Fvb/apk8NeLEqPn3GZ7uUKOT2Ubr/HJlzmYZckAqFoKXs
+         QiWaPy3pP+KKKYOO6qRzCS1MIHFom0pHfNNtdiO6QJ8DlrQ4vkUJgHXtbikVNFJjjqlV
+         VI5D3JfO9ByBfiTboHOGIfE5q6kZgJi9YX0U4MkUkCdyqkOKKx4IZben/q7+qMGEyhiI
+         wSCyUuxVbFkYoymK2obNq73egoumvL3xdYYkMWScykyHYAaVt6GGOicoOBtu3ST5fDEN
+         Bsm9AUcIdyVsytpWZm/XDX9z8YpzT8bBN9uAkfkvqIUSSFIX+Y+DzGNQgyCsmpnK0wDt
+         hJzA==
+X-Gm-Message-State: AOJu0YyXpTnQiMJ1lUyMf0mDaBH3/QAMqTFq5W6PFJ1WWxkDxQtqkvs0
+	oIue3kJ3pFg/WHWDlvVxP48H2s8ljJQFDrESLxfL0KA268t+jtZsuqpmMX8tS11WJw0=
+X-Gm-Gg: AR+sD139dquXxMh27jnuTJ/2vL+QSNOAHJSnOHYE2He1vX8w7AlJZMKo9IHsjkgeXMu
+	URQjvDr08EaPEjbLNNUIc7UQqzSkKBRQPn4DJdFjoHofpBqTLwMOW46f7BtLPhpQATP1c2FfK08
+	pqOTm6BPoLJv89PD0Dj6GZbMrKG8BX0kVAdhGF/EOpWErWehEKBA6aNSHHTem0xzPWEmOUB7glw
+	EkzuSrsURhJHUWWNEIr4nDTMupf7n1G7oMo6GDJa+1iIHyL1/ahS7Eg66JLhmr6E+ypG1Gomltg
+	HZBLxxLEO211C/tKSRbmRx9Ry0pGMgKV72pSHcAgwwwzPz5c6Grgg0/U30Jcy1+VOwHF3JeNa+C
+	lzKWLZ/srS/eEPvwYmxzJzlxmmVDqOXSenpntVQwTP5zvXdLcFUV1HmLLL3qxfL+FPw3gHqIiYD
+	nMwNLQJccBQ8heJ5HU+TQ90kYa7k4t2mMsEfLfg5WVPWvAOfgLgvYtL8WV+09yte6npckQUk2ve
+	xv6DZJ9K17V7+ZetoWL52CZPxKZY3sU7e1MH7HC5tZH17KwTfQ53hS/heCnGwSgmhpGT8b43nwh
+	VhoHKJGQIsMaQCUqqsZ+/VNe9fMh
+X-Received: by 2002:a05:600c:5397:b0:493:bb6b:5bb5 with SMTP id 5b1f17b1804b1-499879857d0mr93390555e9.13.1786718369651;
+        Fri, 14 Aug 2026 07:39:29 -0700 (PDT)
+Received: from ?IPV6:2003:e6:6714:e500:bfe4:7b00:fa11:e276? (p200300e66714e500bfe47b00fa11e276.dip0.t-ipconnect.de. [2003:e6:6714:e500:bfe4:7b00:fa11:e276])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499899bff2csm31594145e9.7.2026.08.14.07.39.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 Aug 2026 07:39:29 -0700 (PDT)
+Message-ID: <b88b5e1c-e85f-4fa1-80ac-1ab66592a86c@9elements.com>
+Date: Fri, 14 Aug 2026 16:39:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-1Pa9FEAnN6BDVnhiPDGq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le vendredi 14 ao=C3=BBt 2026 =C3=A0 02:38 +0000, Kyrie Wu (=E5=90=B4=E6=99=
-=97) a =C3=A9crit=C2=A0:
-> On Tue, 2026-08-11 at 16:22 -0400, Nicolas Dufresne wrote:
-> > Hi Kyrie,
-> >=20
-> > Le lundi 10 ao=C3=BBt 2026 =C3=A0 03:05 +0000, Kyrie Wu (=E5=90=B4=E6=
-=99=97) a =C3=A9crit=C2=A0:
-> > > I agree. Since the platform data is introduced in the MT8189 patch
-> > > series, I will move fw_type to the platform data and make
-> > > mtk_vcodec_dec_get_chip_name() derive the chip identifier from it
-> > > in
-> > > the MT8189 series.
-> >=20
-> > I'm not sure I have captured the plan correctly. Would you mind
-> > clarifying ?
-> >=20
-> > Nicolas
->=20
-> Hi Nicolas,
->=20
-> Sorry, my previous reply was unclear.
->=20
-> The platform-data refactoring will be included in the next revision of
-> the MT8189 series. That series depends on the updated MT8196 encoder
-> series, so I need to wait for the new MT8196 encoder revision to be
-> posted before I can rebase and send the updated MT8189 series.
->=20
-> In the updated MT8189 series, `fw_type` and the chip identifier will be
-> set in the platform data for each compatible, rather than being derived
-> by probing DT properties. Consequently, the DT-property-based selection
-> shown in this patch will be removed.
->=20
-> I will make this dependency explicit in the cover letter. Sorry again
-> for not explaining the plan clearly.
-
-Thanks, this will be helpful to handle follow-up series.
-
-Nicolas
-
->=20
-> Best regards,
-> Kyrie
-
---=-1Pa9FEAnN6BDVnhiPDGq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 13/15] ARM: dts: aspeed: anacapa: fix dt-check-style
+ strict violations
+To: u8813345@gmail.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ colin.huang2@amd.com
+References: <20260813-anacapa-devlop-phase-devicetree-v5-0-c7058f63dc67@gmail.com>
+ <20260813-anacapa-devlop-phase-devicetree-v5-13-c7058f63dc67@gmail.com>
+Content-Language: en-US
+From: Tan Siewert <tan.siewert@9elements.com>
+In-Reply-To: <20260813-anacapa-devlop-phase-devicetree-v5-13-c7058f63dc67@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+On 8/13/26 1:59 PM, Colin Huang via B4 Relay wrote:
+> From: Colin Huang <u8813345@gmail.com>
+> 
+> Run scripts/dtc/dt-check-style --mode strict against the Facebook
+> Anacapa board device trees and fix the reported violations:
+> 
+>   - aspeed-bmc-facebook-anacapa.dts: drop a duplicate trailing blank
+>     line at end of file.
+>   - aspeed-bmc-facebook-anacapa-dvt.dts,
+>     aspeed-bmc-facebook-anacapa-evt2.dts,
+>     aspeed-bmc-facebook-anacapa-evt1.dts:
+>     - reorder compatible/model so compatible comes first
+>     - add required blank lines before child nodes and before the
+>       status property
+>     - sort properties into the tool's canonical bucket order (e.g.
+>       bus-frequency before gpio-line-names before ngpios before
+>       status in the &sgpiom0 override, m25p,fast-read/label ordering
+>       in flash@0, #gpio-cells/gpio-controller/gpio-line-names
+>       ordering in gpio@24 and gpio@38)
+>     - align multi-line property continuations (io-channels,
+>       pinctrl-0) under the opening '<' column
+>     - fix child-name-order and child-address-order violations
+>       (framebuffer before video in reserved-memory, gpio@24 before
+>       power-monitor@N, regulator-p3v3-bmc-aux before reserved-memory)
+>     - remove redundant node labels that were never &-referenced
+>       anywhere in the tree (i2c8mux0ch0, i2c8mux0ch1, i2c13mux0ch7,
+>       spi_gpio); these labels only existed for node-merge overrides
+>       via #include and are not needed since nodes merge by name and
+>       unit address
+> 
+> One unused-labels warning remains in evt1.dts for the p3v3_bmc_aux
+> label: it is genuinely referenced via "&p3v3_bmc_aux" in
+> aspeed-bmc-facebook-anacapa-evt2.dts, which #include's evt1.dts.
+> dt-check-style only tracks same-file references for non-.dtsi
+> files, so this is a known false positive of the per-file checker
+> given this board family's #include-based override architecture,
+> and is not fixed here to avoid breaking the regulator reference.
+> 
+> All four files pass "dt-check-style --mode strict" except for that
+> documented false positive.
+> 
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCan8myQAKCRDZQZRRKWBy
-9AjrAP47W1O0MlybGV5nddQLSeB987/IQrb90AsBaMHCuSPMNwEAqHnDqWue4hCg
-bIF5omk88zNifV9lAU/7JgU1KPCuiAU=
-=bcq9
------END PGP SIGNATURE-----
+Hi Colin,
 
---=-1Pa9FEAnN6BDVnhiPDGq--
+I might be wrong here, but the commit message feels written by an LLM.
+
+If you have used AI assistance for your series (or only for this patch) 
+then please note that, even if you have only used it for the commit 
+message, you must declare it via the "Assisted-by" trailer [0][1].
+
+Tan
+
+[0] 
+https://docs.kernel.org/process/submitting-patches.html#using-assisted-by
+[1] https://docs.kernel.org/process/coding-assistants.html
