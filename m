@@ -1,32 +1,33 @@
-Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA876459AC6
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C8E4582EB
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786698564; cv=none; b=hwd1jY9UMB4yy8qhDxOIMmtKAtNlE8Uli93KrdVJXIUeQLu4WWHbU/LaFeGPvqlLPnkoeWN6FvrS6Yc6oVfeUhPk3BF54VFaXPJhfjQQICJqsJBYjLRgpud7DqxNMQ9Zrycw75eEPrGZTjQR7su16Ik3QSba/ouVR11vqaU+iic=
+	t=1786698567; cv=none; b=seFvNzYvpOfcN50bVdB09IaWkqjXig5TTrZyPAGQjqnnod3tSpUExc0ZrxG9VxCI1A/f6/kLF+JXRRdPuYciiTYawpWV7ple72kfDF8VnqFpH8FGsgGakh//DP1H1+hq3MpIL8/b6KiNjpMzD5ThzSGbiurboUN96DEx/g+ukKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786698564; c=relaxed/simple;
-	bh=ajhbPbhhFDopfE+pfRmjoiyf+z5rmdgu/+yBZgxSJn8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U17/xNgZ9ei4gf5AYVxe7rZha3lqjBuimIIrZMBOqakSJ6Eh5vfoyep80Rl8efXjS3ZIA9bL7USYrFCCXKLb/TcBsFW26gmupPZZR18msyH49teVmEwjEKrh3Sab7/0ItV9enpEPvLsCOMelFPUpFCuRfBQqTxh3vl9/7Dp+GJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=L8+DGK+m; arc=none smtp.client-ip=185.136.64.227
+	s=arc-20240116; t=1786698567; c=relaxed/simple;
+	bh=JmT62r1LQFUMewiOjNoxJSZLjb5Rke2Ty3fgGYMzUjM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G7AMvw9L/Q2/Yk3L4hKCQ2Vc0Xa561BLYo5w3oN7MOXWAsj1ppLck1zPMUlEMIG/hUWdd7xJk02+BZRiM3hPPWJaW7AOtbCAx3QmVrCcWcHeeumxiZtcxOvQWbdbtSDB34wY6fzlzHPtuw5kEgO6sIAWxRLoEwW6OelCpmG5dKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=aFQbwDBU; arc=none smtp.client-ip=185.136.64.226
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="L8+DGK+m"
-Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 2026081409090931b1f5178300020702
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="aFQbwDBU"
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 202608140909110ead9f7fae00020729
         for <devicetree@vger.kernel.org>;
-        Fri, 14 Aug 2026 11:09:10 +0200
+        Fri, 14 Aug 2026 11:09:11 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=G0t4G5gv+ZWxMZdsCXrUvBl9B11OyaGMOviXCuRt+tI=;
- b=L8+DGK+msJ7hvV0zCpHlpoTSEbQOk4zqT96RCUI6bgzHAuMSfXR7eampmcl23y830PLb1N
- 1n5cX7QopuN2I3LYm1Qh9K0HxqzvqE+L5ZUS/wFbgKQH6Cd59XH8SUPsOcUNlBh+U9Dfudcx
- XFt9BnVUs3g6zSKvJ9Fu5ivnc4bghdw303xrqMHz/8Iezq5p2lFr6XgTRXP60BgRQ3PbyDUm
- 7Q746Bfk/2DmzFctcMVeejlwV6Z7keBOQTktbVayMUz4Op2S5f/Gv8Ge2HJkeTc+eShXr5ln
- Djg6mSwrSZtkRtvJTLw2hg1Cz1WgxPCPITWwHx7RGJp/Shw6Flx1magA==;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=WMBYKt6pXyX/he4h/0lqd2dFpbK1SOcahc23JBZCrXA=;
+ b=aFQbwDBUcXsjxrjR8In9gObCKyk903HbObS6ctu+LEEll4GHW3elsYUCydAboMMbBzV7Bu
+ mfUOCTgmQcCoiNpLcqqoXbfDV04op8pXs8d2JBgAHBvog7K7t3zzGahO7GvZfXe2tbYkgnUH
+ RPlEIqQI9JfWX3Ri6wEtJGvqwZi+6tAEiQrUfqAWF9ikIm4zXRccK09Gq8h9OvUU6BTBT8AF
+ VhzdVsX8SNKgMRrsz66YULWck4n1nT7aH/8pfrSq+oX5Eg0fy7c3cbOFSP/aM9iLIQ7K5UP+
+ q0hjdJsWV5i6ceaoQry7XxIYENBYFqCx0ZwMb9Y+uQTqEBvndaiNviGg==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: netdev@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
@@ -46,9 +47,11 @@ Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
 	imx@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 0/2] net: fec: support RX flushing via fsl,rx-flush-queues
-Date: Fri, 14 Aug 2026 11:08:59 +0200
-Message-ID: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
+Subject: [PATCH net-next 2/2] net: fec: support receive flushing via fsl,rx-flush-queues
+Date: Fri, 14 Aug 2026 11:09:01 +0200
+Message-ID: <20260814090906.2225075-3-alexander.sverdlin@siemens.com>
+In-Reply-To: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
+References: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,42 +64,125 @@ Feedback-ID: 519:519-456497:519-21489:flowmailer
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-The FEC/ENET controller can flush frames that get stuck at the head of the
-RX FIFO because their destination ring has no empty buffer descriptor
-(RxBD[E] clear or ENET_RDARn not set). Without flushing, such a frame blocks
-the FIFO and stalls reception on all queues; with flushing enabled the
-offending frame is discarded instead. Flushing is configured per RX queue
-through the RX_FLUSHn bits of the QOS Scheme register (FEC_QOS_SCHEME).
+The FEC/ENET controller can flush frames stuck at the head of the RX FIFO
+when their destination ring has no empty buffer descriptor, instead of
+letting them block the FIFO. This is controlled per RX queue through the
+RX_FLUSHn bits of the QOS Scheme register (FEC_QOS_SCHEME).
 
-This series adds a device tree property, fsl,rx-flush-queues, listing the RX
-queues for which flushing should be enabled, and programs the corresponding
-RX_FLUSHn bits.
+Parse the new fsl,rx-flush-queues property, build the RX flush mask and
+program it in fec_enet_enable_ring().
 
-Erratum ERR050395 (e.g. i.MX8QXP) can lock up the RX path when flushing is
-enabled on more than one queue at the same time; recovery requires a full
-ENET reset. Rather than encoding that hardware limitation in the binding,
-the DT property is kept generic and the single-queue restriction is enforced
-in the driver: a configuration enabling flushing on multiple queues is
-rejected unless the controller advertises FEC_QUIRK_HAS_MULTI_RX_FLUSH.
-Future parts with the erratum fixed can set that quirk to allow flushing on
-several queues.
+Erratum ERR050395 (e.g. i.MX8QXP) can cause an RX path lock-up when
+flushing is enabled on more than one queue at a time. Rather than encoding
+that limitation in the binding, enforce it in the driver: reject a
+configuration that enables flushing on multiple queues unless the
+controller advertises FEC_QUIRK_HAS_MULTI_RX_FLUSH, which future parts with
+the erratum fixed can set.
 
-Example:
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ drivers/net/ethernet/freescale/fec.h      | 14 ++++++++++
+ drivers/net/ethernet/freescale/fec_main.c | 34 +++++++++++++++++++++++
+ 2 files changed, 48 insertions(+)
 
-    &fec {
-        fsl,num-rx-queues = <3>;
-        fsl,rx-flush-queues = <1>;
-    };
-
-Alexander Sverdlin (2):
-  dt-bindings: net: fsl,fec: add fsl,rx-flush-queues
-  net: fec: support receive flushing via fsl,rx-flush-queues
-
- .../devicetree/bindings/net/fsl,fec.yaml      | 14 ++++++++
- drivers/net/ethernet/freescale/fec.h          | 14 ++++++++
- drivers/net/ethernet/freescale/fec_main.c     | 34 +++++++++++++++++++
- 3 files changed, 63 insertions(+)
-
+diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/freescale/fec.h
+index 7176803146f3d..4af3ae286895f 100644
+--- a/drivers/net/ethernet/freescale/fec.h
++++ b/drivers/net/ethernet/freescale/fec.h
+@@ -186,6 +186,7 @@
+ #define FEC_RCMR_2		0xfff
+ #define FEC_DMA_CFG_1		0xfff
+ #define FEC_DMA_CFG_2		0xfff
++#define FEC_QOS_SCHEME		0xfff
+ #define FEC_TXIC0		0xfff
+ #define FEC_TXIC1		0xfff
+ #define FEC_TXIC2		0xfff
+@@ -322,6 +323,10 @@ struct bufdesc_ex {
+ #define RCMR_CMP(X)		(((X) == 1) ? RCMR_CMP_1 : RCMR_CMP_2)
+ #define FEC_TX_BD_FTYPE(X)	(((X) & 0xf) << 20)
+ 
++/* FEC_QOS_SCHEME bits */
++#define QOS_RX_FLUSH(X)		(1 << (3 + (X)))	/* RX_FLUSHn, n = 0, 1, 2 */
++#define QOS_RX_FLUSH_MASK	(QOS_RX_FLUSH(0) | QOS_RX_FLUSH(1) | QOS_RX_FLUSH(2))
++
+ /* The number of Tx and Rx buffers.  These are allocated from the page
+  * pool.  The code may assume these are power of two, so it is best
+  * to keep them that size.
+@@ -499,6 +504,12 @@ struct bufdesc_ex {
+ /* Jumbo Frame support */
+ #define FEC_QUIRK_JUMBO_FRAME		BIT(25)
+ 
++/* Receive flushing (QOS Scheme register RX_FLUSHn) may be enabled on more than
++ * one RX queue at a time. Parts without this quirk are subject to erratum
++ * ERR050395 and must limit RX flushing to a single queue.
++ */
++#define FEC_QUIRK_HAS_MULTI_RX_FLUSH	BIT(24)
++
+ struct bufdesc_prop {
+ 	int qid;
+ 	/* Address of Rx and Tx buffers */
+@@ -604,6 +615,9 @@ struct fec_enet_private {
+ 	unsigned int num_tx_queues;
+ 	unsigned int num_rx_queues;
+ 
++	/* Bitmask of RX queues with receive flushing enabled */
++	u32 rx_flush_mask;
++
+ 	struct fec_enet_priv_tx_q *tx_queue[FEC_ENET_MAX_TX_QS];
+ 	struct fec_enet_priv_rx_q *rx_queue[FEC_ENET_MAX_RX_QS];
+ 
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index ced4dbf8cd90f..a4fe8423630b5 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -1090,6 +1090,15 @@ static void fec_enet_enable_ring(struct net_device *ndev)
+ 			       fep->hwp + FEC_RCMR(i));
+ 	}
+ 
++	/* Enable receive flushing for the selected queues */
++	if (fep->rx_flush_mask) {
++		u32 val = readl(fep->hwp + FEC_QOS_SCHEME);
++
++		val &= ~QOS_RX_FLUSH_MASK;
++		val |= fep->rx_flush_mask;
++		writel(val, fep->hwp + FEC_QOS_SCHEME);
++	}
++
+ 	for (i = 0; i < fep->num_tx_queues; i++) {
+ 		txq = fep->tx_queue[i];
+ 		writel(txq->bd.dma, fep->hwp + FEC_X_DES_START(i));
+@@ -5239,6 +5248,31 @@ fec_probe(struct platform_device *pdev)
+ 	fep->num_rx_queues = num_rx_qs;
+ 	fep->num_tx_queues = num_tx_qs;
+ 
++	/* Enable receive flushing on the requested queues. Erratum ERR050395
++	 * restricts flushing to a single queue; only accept more than one queue
++	 * on controllers known to have the erratum fixed.
++	 */
++	for (i = 0; i < of_property_count_u32_elems(np, "fsl,rx-flush-queues"); i++) {
++		u32 q;
++
++		if (of_property_read_u32_index(np, "fsl,rx-flush-queues", i, &q))
++			break;
++		if (q >= num_rx_qs) {
++			dev_warn(&pdev->dev,
++				 "fsl,rx-flush-queues: queue %u exceeds num-rx-queues, ignoring\n",
++				 q);
++			continue;
++		}
++		fep->rx_flush_mask |= QOS_RX_FLUSH(q);
++	}
++	if (hweight32(fep->rx_flush_mask) > 1 &&
++	    !(fep->quirks & FEC_QUIRK_HAS_MULTI_RX_FLUSH)) {
++		dev_err(&pdev->dev,
++			"fsl,rx-flush-queues: RX flush on multiple queues not supported\n");
++		ret = -EINVAL;
++		goto failed_ioremap;
++	}
++
+ 	/* default enable pause frame auto negotiation */
+ 	if (fep->quirks & FEC_QUIRK_HAS_GBIT)
+ 		fep->pause_flag |= FEC_PAUSE_FLAG_AUTONEG;
 -- 
 2.55.0
 
