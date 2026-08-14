@@ -1,174 +1,239 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF68B423EAB
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4BC41D210
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786693651; cv=none; b=uxdb0Kk3b6kJlCXtm+56429toVrFwF1PF+kpbySe1eypuMVNEK3/vrpgp6lgsHb3WfgpNmXL7yXCZPSlHUtiB2IMbFPLinNx7IIfFsr8KgOHmvZp4zeOYmjcmTATrmmmbaR8xXzIvjWl/WKZyZ9S0nBXrHCAymeuedNMmYK1qDs=
+	t=1786693747; cv=none; b=UCRvwqPOXdSDobTO8wp/klkbjLt5XgYA+T+1pzIejTivmN4T9iLEaYgY3oOfwFWNbQnFeXDdU6Toaafu+mmN/kxQY0M34WvoIMfX+GgnY8HNYHGoJ9ebYUQ0MJ1kM6pfVd0Slw40GDJe7CPrpoOAhn9QBdlABLAbgAhJMtFS3Ug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786693651; c=relaxed/simple;
-	bh=6nVCymDshiLBnvd0Lbn5kEqBkJVHBIOcBWVQLVhrldo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jVpET6EBmnjtOcOM//Etgn9DtjNHVf62ExBlu+3SUOMgTpI3jSyiBROSXeoOqRvwFEF2bGfzP/ppMMioJtQO1grrWzHkqCMrhWbHn64smtNM06Sq80Q8xJzp+/luq96jRVoRnmlMVaQm7TqysffmR4vhMYaAZuQuuiR4aKoiGOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fELRUoT9; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786693747; c=relaxed/simple;
+	bh=v2/1rGY1jbTV6mnksaNbt64aVjPeYee2pckvADnDVtA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZVfT2PJKaxHjaYFgJATXVczAqtul7ECN/nGCLKnuEL8HxRSmNfHWRKQySNXN9H8b543zO+eYFMM86XkffKq9sQ0PoTTDf214WEtgA5E178XobRolpEa5AdvzYe6K/9GeX97HSQGvQJWqG1nIcTtXDZxiMppN0q7Oyc8rdSTP/LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cIYdhht5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XN/SbgKS; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fELRUoT9"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47fe89fb333so378632f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:47:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cIYdhht5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XN/SbgKS"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67E7fNma1079077
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:48:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2EEdADYVf7PZDDxkAC3RN/57VZYCx8imRtEtjUOGyeU=; b=cIYdhht5ffjkWy8X
+	HY56cQq9eoqMPrqXHrlYQ32Jr01S2EKEnWadPVUbsnx4eUmU1ktUyTcOBpumUy+K
+	U3yg/ti81tgu2QAcbR7Cap1dG+8jlyBs4ox0LF38pRt9P0hQ02osvPFKE7lE1djx
+	Ty7VsRW9iCy32lkVyfuQhK+F9oyJgxYV7PR2zqeBNkWTNMjqomyZdpO+fCVp53Pd
+	9AC4rthqt5DMmOEK77zFHoWRit8nY76Mujatu4Q23j+DKbWqXELiwRLymGT6ti3v
+	0gkgjUHbrZE66sd3B49h3HnyMwEsFFZe/UzdIE0TD1lHQsr1Hc8eym92IYO4uIUd
+	PA76Nw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1xexg41h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:48:55 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f57e31b6eso700208a91.1
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:48:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786693625; x=1787298425; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LYhCVw+NpWfIZb24NzCd/Bpfh96NwI4s0HyFWrf+QtM=;
-        b=fELRUoT9EUg/tyFolnNxAvcziqHO9LIEd9flY6Rq3dORzOD9CZI7DsLVODCWBPmMX8
-         BOfEL4R1GprK1iI6qpzzE+qAPJwU7pMWHQDVCpByYOwA8R04/vdx1wssSfycQYDPV1PA
-         KTcoLhdgEew7t/M9YBGaJ8GB6nP0RTgDlTod6pXQj68TYWTGaigW7Eybht3uauBpQSYi
-         FmKzH8c7ySDkw89npZof9Heuaso4Gw9UJFfN0BaRN84PVhoBk14SUvaTEbTirZPk0cqs
-         bQ2Xj59aZ1uIByZhQtGFUFHcKHH8Nd40Y44O72ImfJcLGz96P8/iG0kOmCn1PJ9z7PpR
-         583A==
+        d=oss.qualcomm.com; s=google; t=1786693735; x=1787298535; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2EEdADYVf7PZDDxkAC3RN/57VZYCx8imRtEtjUOGyeU=;
+        b=XN/SbgKSICRL01iXY6vgpmk89zC+7ZIN+jy/iXsVSH+s2R9RlfuJuskoNrG0FXeYD3
+         kyE1sJT/AZg9/786SNZ0X8g1xAxwVr0f3fqNsAbG563cE6lbYD0SKo0HkR9iezJvHGkp
+         jjgQKUOS0rsq9s6VTJPm3SNQE4e18P27cONz10CURQwptrFDCFNk8whyx0Uv0I2wMtTk
+         tdmUdkypKkL1l64EK3fjPMTrDJG3cJSwOUmZwUYAiBY2I3ufHyS87kLAj2s8N4vDASd2
+         N5OUsfHiF8kU/vBfVgMGwO2ywC8qw2EPXToBDH0S5pfRg6dIleATxfNXMZuYV6KxRIN/
+         kPGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786693625; x=1787298425;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LYhCVw+NpWfIZb24NzCd/Bpfh96NwI4s0HyFWrf+QtM=;
-        b=fosKmjVvilGEOMeD2wqiqY0+UpoLX7B5z1EKrxdrNOmek9M3rfBe0l1EgAEXNfeh/b
-         sPCEvyH7iJtFozKGFFjNC39LIJJKNLEO3DaC/N+Tv4cfouKmh44caZcvWZs2BqMLvS07
-         upjMif4PLQ+PRuKAVqiek1xAzu+OzVyN0geb28ZfhGEdNW2flsaAh07OQEadl3QPdeuR
-         LovdJ8wHGd2HX6IMEktzJAHqHDW5iw3rTvS4HReq0Lg8VQJeFWiZz1++3XsZ2Rb0Le54
-         FJRKD60+1t2wuNIrBpaj79DKDtSPT/57U1dxHBmXb0hUP3eVbtJhiaNpO1zkulc88Gx4
-         frKw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/6fFN8bN7B6UYmzOrWDa+W0ysMuteT+1G7Dx7HQbZNvhgsw/hQqPB1AbfFF25hRxnYSU7RflpXqVy@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqBOCKXA26uc14ae6bAb5/u6SwmWNi7yZ4Ca8Bh4fklo4j9z7k
-	xjERXhHh189PddMbW65AhZTttbhTVtJXAJEn8qxuXz6JmNyxbkY79Hyc
-X-Gm-Gg: AR+sD13LzgdOGPbn5O/CpaTjG9NUvI4BKhtojGULT5xIr/IGDco09llfrhVW5yNEqNQ
-	GvShueQgZPRg+dXD24Q7NiP/82d0KduqeHPKKBrQXPIlFm50lwhzlG8RsAdwNUD6yjAITFX+O09
-	7KXEjfKvDCLE+3G6/TqslkqqITPZ6LWWdpsVpl3XQ17MIUGKjSJUI0Y5BXS2iVmd5IMqPIe4lvI
-	wxYSkzKaaT8RPufn8lvCrR75MY2KN3t4SPa/G+ChtqpFQtisdgEH2MK9RdMg02oZWFHFXnceVY6
-	9Uni7r4iW+oVcOxAGHsoGSYB2gjpng1bmGBKmR79XA+imINgMt1o25syy/Nv75PRtxfXD6p2rme
-	P2BgI5JE+2Btz76AWYkLzderP9toTeShTUR462Vb8RN4gQDqT6sRwrx6yJ2phx7bfLnGk153nG/
-	vibMCe1Q/oExufRMF3vh8nIie5EBiSqHHGlNXBsU/XwLMe+edGUlwpCiGyR8V1nG1Skg==
-X-Received: by 2002:a05:600c:468e:b0:495:6a50:3fb8 with SMTP id 5b1f17b1804b1-49987944202mr40781705e9.1.1786693624449;
-        Fri, 14 Aug 2026 00:47:04 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499899b5f86sm8172825e9.5.2026.08.14.00.47.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 00:47:03 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: [PATCH v5 2/4] ARM: dts: vf-colibri: name the SODIMM gpio lines
-Date: Fri, 14 Aug 2026 09:46:58 +0200
-Message-ID: <20260814074700.2491256-3-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260814074700.2491256-1-mehmet.fide@gmail.com>
-References: <20260814074700.2491256-1-mehmet.fide@gmail.com>
+        d=1e100.net; s=20251104; t=1786693735; x=1787298535;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2EEdADYVf7PZDDxkAC3RN/57VZYCx8imRtEtjUOGyeU=;
+        b=EfrDw5DV68lqdUyBj0pMQJXMe2rOUhlqk2vxI+Ot1ugn4+Hbpzd85m/0r3349+/m4y
+         Xw6pz9+OL3MF9ppjm0JGT2GJnUgxbDBa4WVrtyGB46AbYhvQgw1opWkAC8CvIHORDzW1
+         fj8YBOtYRwuJAZQaHoLCWh47CeBM4WzYEtx6xnIMiMbNkYRI5GodyiB27FaNlQWdksUd
+         dn8FkehfDiHY71hnbPSzJHSpCKQ4irvisaziO9Cd3AAqOTNkHGEVt5ckZhsR0S1Piho/
+         h5JC4mya3s7XdO08IXDoxOUD/xCGVpyzn2ylew6JsH6oNsb4URKfdkJhLpQIVO9XnQgo
+         0Vew==
+X-Forwarded-Encrypted: i=1; AHgh+RqS6lWv7FCfw9VF6IsZ88xD3JPz1BR0R4hNlIKmu8ZIz9P0o52KvZ9cjS9zdo5oNwfhUZ4zYDp3awow@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrZEXYOISXrWeMqbQyL6Q93uf8wltQvTtr9i3qgAP1zaH+9b+j
+	Q2XZbYDvqVhxgIZ+SwZn0NvGW/JTf8CSqUIzkYaY2wHDQrflBo6qN2HUr722V8Nnto9na2kdzeL
+	2Uwh2Q11P55M9BdxFXjVW6ZYQef+nUfaN0CChoFLMPvMn1ME5m6/zXfij6f62uMd/
+X-Gm-Gg: AR+sD12Zit4nTYZHLcTv7GuS6s6KUwwfErMPtczB1pItjOJJFMtqUWkcLpW/ir9Yqaw
+	xaP6N6zz4AQzOePfd4rfjFayrjYFwUYiMWAItBJAx6lWEDzk6x9e782UyJLw0PhHDQdN2P6tyaq
+	ch9497lWwgylHGgGtK9cMZDrcPR3BkZfr6toHbeHg8peoReDs/BR/cDFDnBy2NsL7lWdG9RVwlR
+	Ryo7NabGakQUNCAAcijOmID5CBH2N4Xr9107C9xYoCdWHftmyksbPJMnlH8nmn1UCHp65jwCUM7
+	rW86OYiYnb9bQxNRmBENmo/vWZyjBQ6i+ecL5DxWgYrieqEFGv+ED8M08Nwrpx7IvNtfleSyyT/
+	96XjzGPf0otI9OiDVj1rs+ahdmyUnlA+dJJ9o5z+IaOkj4SVrCz44NtMsHxg4YmT0pZqItmzN+e
+	1YnsouBTVue75scEFnoHM=
+X-Received: by 2002:a17:90b:4cc1:b0:37f:be6c:f3f2 with SMTP id 98e67ed59e1d1-3933bd0dd0fmr4662255a91.2.1786693735384;
+        Fri, 14 Aug 2026 00:48:55 -0700 (PDT)
+X-Received: by 2002:a17:90b:4cc1:b0:37f:be6c:f3f2 with SMTP id 98e67ed59e1d1-3933bd0dd0fmr4662206a91.2.1786693734924;
+        Fri, 14 Aug 2026 00:48:54 -0700 (PDT)
+Received: from [10.79.117.20] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-394ebbcbb78sm1556274a91.13.2026.08.14.00.48.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 Aug 2026 00:48:54 -0700 (PDT)
+Message-ID: <c25cf793-477a-4294-8027-e1f4690dc0b9@oss.qualcomm.com>
+Date: Fri, 14 Aug 2026 13:18:46 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/15] pinctrl: qcom: Add Kuno pinctrl driver
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>
+References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
+ <20260809-kuno-soc-support-v1-9-5e0ede4a0c72@oss.qualcomm.com>
+ <CAMRc=MeRNMug6hZ8Jcv7drVfKbLRxG=FG8r9--PkwEpcj5JuCA@mail.gmail.com>
+Content-Language: en-US
+From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+In-Reply-To: <CAMRc=MeRNMug6hZ8Jcv7drVfKbLRxG=FG8r9--PkwEpcj5JuCA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDA1OSBTYWx0ZWRfX9/URu112YZCE
+ 5LhgvKI1nbaCDVJGgrqdXgyAUnIBMt8FlorbNuvhlM6wekwD92c6Rqwytfu6k1wECPVtMgfVY9E
+ kq7YNjoMXcxZ8sXVFbH4P0ea7xfIjdE=
+X-Proofpoint-GUID: 3lc0JwzbtutnmbBdhxXc_oA9dgRiDYv3
+X-Authority-Analysis: v=2.4 cv=eO4jSnp1 c=1 sm=1 tr=0 ts=6a7ec868 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=S7Hclr-U69tWnHOGgbMA:9 a=QEXdDO2ut3YA:10
+ a=O8hF6Hzn-FEA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDA1OSBTYWx0ZWRfX/aNP/8rqd2LU
+ 93iNaoy46mgXobakAFu9g4N3SUm3W1Uh4O5v+lXC1yvBPweG+D6iGF/JTTUu8qNBPO4tf5YNHCP
+ mNARA2q3E+vr6lUS3R9p8eZeZ31sG1Nr070rn2PYbDzu1OCNmIKQyRU3dyNgpxZlEee+oqKrQGq
+ Zym6snJyexrFj+CCGWTTIshFSibOBWIa1xo95nL4M2tkYqikpmFk/Gq5wMEr7xJD/kB4yJdKF6H
+ W4z3IyexWv+JVxRbcHHnj6JGEb8yVqxnl1Z3B1Y1IY+H1lZQGNXrQLNqFJapbjJ4Qv6078/weH3
+ ICoYZk8sB+Mc2EgvxyW3W3trmV0QaY+Em0lEoAj7JOlkPM9XojdPFScpcKssNpBDsw7VefYeuxS
+ FosIuRC6MUQx/bFWKGABCIE+hrJTo8b5I3jnONl/aGQlB3LmxvjTxj1AO3LR20HZ8DpQcCc8CFf
+ o3hUoVXXlaqieLY/UPQ==
+X-Proofpoint-ORIG-GUID: 3lc0JwzbtutnmbBdhxXc_oA9dgRiDYv3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-14_03,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 phishscore=0 bulkscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140059
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-The Colibri modules expose most of their GPIOs on numbered SODIMM pins,
-and the i.MX ones already carry those numbers as gpio-line-names, so the
-gpiod tools print SODIMM_43 rather than a bank and an offset. Do the same
-for the Vybrid modules.
+On 8/10/2026 4:33 PM, Bartosz Golaszewski wrote:
+> On Sun, 9 Aug 2026 09:27:08 +0200, Hardeep Sharma
+> <hardeep.sharma@oss.qualcomm.com> said:
+>> Add the TLMM pinctrl driver for the Qualcomm Kuno platform, supporting
+>> 110 GPIOs and their pin multiplexing, pin configuration and gpiolib
+>> interface through the common pinctrl-msm driver.
+>>
+>> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+>> ---
+>> +
+> ...
+>
+>> +static const struct pinfunction kuno_functions[] = {
+>> +	MSM_PIN_FUNCTION(gpio),
+> MSM_GPIO_PIN_FUNCTION() ?
 
-The 99 names come from the pinout table of the Colibri VFxx datasheet
-(Toradex 101355). Verified on a Colibri VF50, where gpioinfo now names
-every pin the datasheet lists.
+Thanks for review.
 
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi | 47 ++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+Done in v2 : 
+https://lore.kernel.org/all/20260814-kuno-soc-support-v2-0-3079794f0f73@oss.qualcomm.com/
 
-diff --git a/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi b/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-index 74afc7b0d74b..a9269857df2c 100644
---- a/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-+++ b/arch/arm/boot/dts/nxp/vf/vf-colibri.dtsi
-@@ -170,6 +170,44 @@ &usbphy1 {
- 	status = "okay";
- };
- 
-+&gpio0 {
-+	gpio-line-names = "", "", "SODIMM_89", "",
-+			  "", "SODIMM_102", "SODIMM_18", "SODIMM_134",
-+			  "SODIMM_16", "SODIMM_14", "SODIMM_23", "",
-+			  "", "", "SODIMM_47", "SODIMM_190",
-+			  "SODIMM_192", "SODIMM_49", "SODIMM_51", "SODIMM_53",
-+			  "SODIMM_37", "SODIMM_29", "", "SODIMM_30",
-+			  "SODIMM_20", "SODIMM_24", "SODIMM_21", "SODIMM_19",
-+			  "SODIMM_94", "SODIMM_81", "SODIMM_28";
-+};
-+
-+&gpio1 {
-+	gpio-line-names = "SODIMM_35", "SODIMM_33", "SODIMM_27", "SODIMM_25",
-+			  "SODIMM_196", "SODIMM_194", "SODIMM_63", "SODIMM_55",
-+			  "SODIMM_65", "SODIMM_45", "SODIMM_43", "SODIMM_73",
-+			  "SODIMM_77", "SODIMM_71", "SODIMM_98", "SODIMM_101",
-+			  "SODIMM_103", "SODIMM_79", "SODIMM_97", "",
-+			  "", "SODIMM_85", "", "",
-+			  "", "", "", "",
-+			  "", "", "", "SODIMM_106";
-+};
-+
-+&gpio3 {
-+	gpio-line-names = "SODIMM_105", "", "SODIMM_93", "",
-+			  "", "", "", "SODIMM_95",
-+			  "SODIMM_22", "SODIMM_68", "SODIMM_82", "SODIMM_56",
-+			  "SODIMM_131", "SODIMM_44", "SODIMM_144", "SODIMM_146",
-+			  "SODIMM_52", "SODIMM_54", "SODIMM_66", "SODIMM_64",
-+			  "SODIMM_57", "SODIMM_61", "SODIMM_140", "SODIMM_142",
-+			  "SODIMM_80", "SODIMM_46", "SODIMM_62", "SODIMM_48",
-+			  "SODIMM_74", "SODIMM_50", "SODIMM_136", "SODIMM_138";
-+};
-+
-+&gpio4 {
-+	gpio-line-names = "SODIMM_76", "SODIMM_70", "SODIMM_60", "SODIMM_58",
-+			  "SODIMM_78", "SODIMM_72", "SODIMM_96";
-+};
-+
- &gpio2 {
- 	/*
- 	 * EXT_IO_0..2 belong to no device, so hog the pin group here rather
-@@ -177,6 +215,15 @@ &gpio2 {
- 	 */
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio_ext>;
-+
-+	gpio-line-names = "SODIMM_69", "SODIMM_99", "SODIMM_104", "SODIMM_107",
-+			  "SODIMM_127", "SODIMM_184", "SODIMM_186", "",
-+			  "", "", "", "",
-+			  "", "", "", "SODIMM_38",
-+			  "SODIMM_36", "SODIMM_34", "SODIMM_32", "SODIMM_129",
-+			  "SODIMM_86", "SODIMM_90", "SODIMM_92", "SODIMM_88",
-+			  "SODIMM_133", "SODIMM_135", "SODIMM_188", "SODIMM_75",
-+			  "SODIMM_100";
- };
- 
- &iomuxc {
--- 
-2.54.0
+Best Wishes
+Hardeep Sharma
 
+>
+>> +	MSM_PIN_FUNCTION(audio_ref_clk),
+>> +	MSM_PIN_FUNCTION(coex_uart),
+>> +	MSM_PIN_FUNCTION(ebi2_lcd_a),
+>> +	MSM_PIN_FUNCTION(ebi2_lcd_cs),
+>> +	MSM_PIN_FUNCTION(ebi2_lcd_reset),
+>> +	MSM_PIN_FUNCTION(ebi2_lcd_te),
+>> +	MSM_PIN_FUNCTION(emac_mdc),
+>> +	MSM_PIN_FUNCTION(emac_mdio),
+>> +	MSM_PIN_FUNCTION(emac_pps_in),
+>> +	MSM_PIN_FUNCTION(emac_ptp_aux),
+>> +	MSM_PIN_FUNCTION(emac_ptp_pps),
+>> +	MSM_PIN_FUNCTION(gcc_gp1_clk),
+>> +	MSM_PIN_FUNCTION(gcc_gp2_clk),
+>> +	MSM_PIN_FUNCTION(gcc_gp3_clk),
+>> +	MSM_PIN_FUNCTION(mi2s0_data0),
+>> +	MSM_PIN_FUNCTION(mi2s0_data1),
+>> +	MSM_PIN_FUNCTION(mi2s0_sck),
+>> +	MSM_PIN_FUNCTION(mi2s0_ws),
+>> +	MSM_PIN_FUNCTION(mi2s1_data0),
+>> +	MSM_PIN_FUNCTION(mi2s1_data1),
+>> +	MSM_PIN_FUNCTION(mi2s1_sck),
+>> +	MSM_PIN_FUNCTION(mi2s1_ws),
+>> +	MSM_PIN_FUNCTION(mi2s_mclk),
+>> +	MSM_PIN_FUNCTION(nav_gpio),
+> Possibly here too?
+
+This one not required.
+
+Grepped the tree for peer TLMM drivers that expose a `nav_gpio`
+function: all 10 use MSM_PIN_FUNCTION(nav_gpio, ...), none use
+MSM_GPIO_PIN_FUNCTION. Kuno matches that convention.
+
+Best Wishes
+
+Hardeep Sharma
+
+>
+>> +	MSM_PIN_FUNCTION(pci_e_rst),
+>> +	MSM_PIN_FUNCTION(pcie_clkreq_n),
+>> +	MSM_PIN_FUNCTION(pll_bist_sync),
+>> +	MSM_PIN_FUNCTION(pll_clk_aux),
+>> +	MSM_PIN_FUNCTION(qdss_cti_trig0),
+>> +	MSM_PIN_FUNCTION(qdss_cti_trig1),
+>> +	MSM_PIN_FUNCTION(qdss_gpio_traceclk),
+>> +	MSM_PIN_FUNCTION(qdss_gpio_tracectl),
+>> +	MSM_PIN_FUNCTION(qup0_se0),
+>> +	MSM_PIN_FUNCTION(qup0_se1),
+>> +	MSM_PIN_FUNCTION(qup0_se2),
+>> +	MSM_PIN_FUNCTION(qup0_se3_mira),
+>> +	MSM_PIN_FUNCTION(qup0_se3_mirb),
+>> +	MSM_PIN_FUNCTION(qup0_se4),
+>> +	MSM_PIN_FUNCTION(sdc4_clk),
+>> +	MSM_PIN_FUNCTION(sdc4_cmd),
+>> +	MSM_PIN_FUNCTION(sdc4_data),
+>> +	MSM_PIN_FUNCTION(sdc4_tb_trig),
+>> +	MSM_PIN_FUNCTION(sgmii_phy_intr),
+>> +	MSM_PIN_FUNCTION(spmi_coex_clk),
+>> +	MSM_PIN_FUNCTION(spmi_coex_data),
+>> +	MSM_PIN_FUNCTION(spmi_vgi_hwevent),
+>> +	MSM_PIN_FUNCTION(uim1_clk),
+>> +	MSM_PIN_FUNCTION(uim1_data),
+>> +	MSM_PIN_FUNCTION(uim1_present),
+>> +	MSM_PIN_FUNCTION(uim1_reset),
+>> +	MSM_PIN_FUNCTION(usb2phy_ac_en),
+>> +};
+>> +
+> Bart
