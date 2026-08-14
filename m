@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8955F3C9EDD;
-	Fri, 14 Aug 2026 01:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2730A2853E9;
+	Fri, 14 Aug 2026 01:59:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786672641; cv=none; b=tI+0EHq4kbCa2j90yyE+nTgm5S4hI3byeXxpPAOnXmzvWTfuZPrBG6dUkQtir4WUI0OPx8NkUpGDbnRprrBmp1y99njzP0IF5FQtv5CMa1fw47QoBe1cmz55p3eFRsRpg2D2Fd17kTgpMJPmFhIp3cOC5d8yuvInToU+jBk2e9s=
+	t=1786672769; cv=none; b=Fq6AjKl6JLVJhqXU30ZruBmAv3PsScY4JoNUFMZw1DnNqqqdwlx5rCgs6+cm/azMRwjB4cRevzEscwuDqHVU8GDgkrMLvKsku5k6BrkzPaCX6KE4o+8AgtELwYei4FP9vS/+oCLAwAHbPjUPX0jG/dsv08lPPvypWKZrBpMwwrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786672641; c=relaxed/simple;
-	bh=j20M0Oua+6LQWMnCacxrzHwMX4t9YOY90fkinzTw7a8=;
+	s=arc-20240116; t=1786672769; c=relaxed/simple;
+	bh=Je8TltdyHE6kx9O3zZX0hkzdsDD12JppP/O6xIbCuAU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ty/7xrVP5AXVhQ12e6xev17ULwrNvKRybgEPSVctAHFsCISzMXEWS5qXxia6l6Gn4Yk2fRGHG6y755i7YuPQr/QPThIt2AOloVLBnBhmgrHqHyqegGwzy++jqIKtf8wOG12Naxps2NGJslbeXIYwvJLsO4Hf8xzFcSLNOJfebBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQ6bmwM/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nsMaoUVVUVZx7sPn7NIEmI8FWUlpPsZ+pgL2T9YJwrjtxgr9Gm+7y1FTmzUpl8HWIGatMWES9/eO4MPS6Kw0b/jWBW8+iuuDT5JoYvF1JURryGtJ/rDm73GfFSak/2A3xmY/De20VU01bkao0qHlrLHoacoOllRo9NJHlR8teRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnl3drbd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQ6bmwM/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7101F000E9;
-	Fri, 14 Aug 2026 01:57:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnl3drbd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7E21F000E9;
+	Fri, 14 Aug 2026 01:59:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786672640;
-	bh=PGKzsdsZVW4zqkgNvmuAyW55mO8VOa3XQ+TY4FW8cdM=;
+	s=k20260515; t=1786672767;
+	bh=jNJjg0cra7hzFp1KgjtYRWvHJjPYAOwD+hVOb6V5C0w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lQ6bmwM/g1UH6yOW2aSEsMJXRqaY4Al8GZuhnARoGK+10OTKPQvrd/kuuq5z8qpBq
-	 bNv6HsCEdERRFlAejgGWMcWNmetQxQB9r2klHNB08m+JLJhV6LAkXT9G+IZLFSFsB0
-	 5vBFiurK5GTZfT/9RczeawFeLJ00WYVH1/JEz9RzWlpvIoXGy4A9p7roP5vrs3G48b
-	 6BAqTZ6BUFPVMyNG8tGqJ8yCyzqaO7uWevaEFVmMVXo9TAKhov2BLvg3ievf1wVFKx
-	 UIr1I6wKy3k7aE8Y11MP+/EeWqGXEHJD/o4/Z0tLMSI0EPyPm1oUeYHS78XnzstNzn
-	 A1uTYcD24umVQ==
+	b=dnl3drbd8nwGTgVKj4jnLxNd63AnBlK+irat6NzPZk6WcXI85SR9K0A/k12JogSjb
+	 IdDuTIqdruzq+vNk+w3YlRq67ldPi0oDY+TL1Ysf4jjM9PmZr/zq8Y6Rn2wO7wD3Ex
+	 TiBrNM8GC6lfu2JjwPo4S1+E88EFRWXIUGwXhkgpsdxJRiYN2GkdEWCKgh6EBOh+Ny
+	 04QNZfTijMTdnU0MpvDZ1PjteQ1SaJ1a1UDG3pVSz+V1/Q/PpgGiIrRYPgQQoVbbnN
+	 xY+8KtVVxDNv+AXybW7qUMjVbm5/OvmL7+3bzlz4Op0vIUd2TunVlpWiIG4IAPlP2e
+	 l+yiGjS5EMhyQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/9] rtc: abx80x: use regmap instead of I2C specific
- API
+Subject: Re: [PATCH 2/2] misc: tc9564: introduce base PCI driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoni Pokusinski" <apokusinski01@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260810193826.210683-7-apokusinski01@gmail.com>
-References: <20260810193826.210683-1-apokusinski01@gmail.com>
- <20260810193826.210683-7-apokusinski01@gmail.com>
+To: "Alex Elder" <elder@riscstar.com>
+Cc: robh@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260813222943.1655453-3-elder@riscstar.com>
+References: <20260813222943.1655453-1-elder@riscstar.com>
+ <20260813222943.1655453-3-elder@riscstar.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 01:57:14 +0000
-Message-Id: <20260814015720.2C7101F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 01:59:23 +0000
+Message-Id: <20260814015923.8E7E21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,73 +46,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Pointer target signedness mismatch due to passing `int *` to `regma=
-p_read()`.
+- [High] Missing PCI IRQ vector allocation prevents MSI/MSI-X usage for hig=
+h-speed child devices.
 --
 
---- Patch [6]: [PATCH v4 6/9] rtc: abx80x: use regmap instead of I2C specif=
-ic API ---
-commit 2c13ab934066f6ede54c1bee1c9c8966213b138d
-Author: Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: rtc: abx80x: use regmap instead of I2C specific API
+--- Patch [2]: [PATCH 2/2] misc: tc9564: introduce base PCI driver ---
+commit e66bfe4041c21f48829a22eb54cde73756806870
+Author: Alex Elder <elder@riscstar.com>
+misc: tc9564: introduce base PCI driver
 
-This commit converts the ABX80x RTC driver to use regmap instead of i2c_smb=
-us
-functions. This enables future support for ABX81X SPI-based variants.
-
-> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> index 12a4dbfec6396..5d41882f3c704 100644
-> --- a/drivers/rtc/rtc-abx80x.c
-> +++ b/drivers/rtc/rtc-abx80x.c
-[ ... ]
-> @@ -227,8 +230,7 @@ static int abx80x_rtc_read_time(struct device *dev, s=
-truct rtc_time *tm)
-> =20
->  static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
->  {
-> -	struct i2c_client *client =3D to_i2c_client(dev);
-> -	struct abx80x_priv *priv =3D i2c_get_clientdata(client);
-> +	struct abx80x_priv *priv =3D dev_get_drvdata(dev);
->  	unsigned char buf[8];
->  	int err, flags;
+This commit introduces a base PCI driver for the Toshiba TC9564 SoC which
+implements a PCIe switch and Ethernet AVB/TSN bridge. The driver binds to t=
+he
+embedded PCI endpoint functions, performs basic PCI initialization, and uses
+devicetree to populate any endpoint bus children.
 
 [ ... ]
 
-> @@ -246,22 +248,22 @@ static int abx80x_rtc_set_time(struct device *dev, =
-struct rtc_time *tm)
-> =20
->  	guard(mutex)(&priv->lock);
-> =20
+> diff --git a/drivers/misc/tc9564-pci.c b/drivers/misc/tc9564-pci.c
+> new file mode 100644
+> index 0000000000000..d3ffcac1c522f
+> --- /dev/null
+> +++ b/drivers/misc/tc9564-pci.c
+
 [ ... ]
-> =20
->  	/* Clear the OF bit of Oscillator Status Register */
-> -	flags =3D i2c_smbus_read_byte_data(client, ABX8XX_REG_OSS);
-> -	if (flags < 0)
-> -		return flags;
-> +	err =3D regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
 
-[Severity: Low]
-This isn't a bug, but could passing a pointer to the signed int flags into
-regmap_read() trigger a pointer target signedness mismatch warning?=20
+> +static int
+> +tc9564_function_probe(struct pci_dev *pdev, const struct pci_device_id *=
+id)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct device_node *np;
+> +	int ret;
+> +
+> +	/* Despite being a PCI device, we require devicetree */
+> +	np =3D dev_of_node(dev);
+> +	if (!np)
+> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
+> +
+> +	ret =3D pcim_enable_device(pdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	pci_set_master(pdev);
+> +
+> +	/* Scan for pci-ep-bus nodes and probe their sub-devices */
 
-Since regmap_read() expects an unsigned int pointer for its value parameter,
-would it be better to change the declaration of flags in abx80x_rtc_set_tim=
-e()
-to unsigned int to avoid cluttering the build output?
+[Severity: High]
+Does this setup sequence omit PCI IRQ vector allocation?=20
 
-> +	if (err < 0)
-> +		return err;
-> =20
-> -	err =3D i2c_smbus_write_byte_data(client, ABX8XX_REG_OSS,
-> -					flags & ~ABX8XX_OSS_OF);
-> +	err =3D regmap_write(priv->regmap, ABX8XX_REG_OSS,
-> +			   flags & ~ABX8XX_OSS_OF);
->  	if (err < 0) {
-> -		dev_err(&client->dev, "Unable to write oscillator status register\n");
-> +		dev_err(dev, "Unable to write oscillator status register\n");
->  		return err;
->  	}
+Without calling pci_alloc_irq_vectors() in tc9564_function_probe() before
+populating the child devices, the Linux PCI core won't configure the device=
+'s
+MSI/MSI-X capabilities with host addresses and data payloads.=20
+
+Since child platform drivers cannot safely allocate PCI IRQ vectors on beha=
+lf
+of their parent PCI device, will the high-speed child devices (like the 10G=
+bps
+Ethernet XGMACs) be forced to share a single legacy INTx interrupt, or fail
+entirely if the host platform does not support legacy PCI interrupts?
+
+> +	ret =3D of_platform_default_populate(np, NULL, dev);
+> +	if (ret)
+> +		goto err_clear_master;
+> +
+> +	return 0;
+> +
+> +err_clear_master:
+> +	pci_clear_master(pdev);
+> +
+> +	return dev_err_probe(dev, ret, "failed to populate platform bus\n");
+> +}
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810193826.2106=
-83-1-apokusinski01@gmail.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813222943.1655=
+453-1-elder@riscstar.com?part=3D2
