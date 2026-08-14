@@ -1,41 +1,41 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C773B813C
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 22:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BDA3C0A13
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 22:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786748251; cv=none; b=KLcw73St5sJO2DdPjQbrMA9m4OkBTZWoZ6OOETzn/yuoC4ODhRzUrj915iAG9KiK92sa7PLKbI9xWBgJe4pQJSt+KrQaJ+TzJZ1boynJV7VjuQICwmhC8ioEHxj+u/0UJqYL2Ie/WD8f1lAWYnn4JJG5wn1DZbeoxCn+2g1TMps=
+	t=1786748254; cv=none; b=fezWYGD3LT8vtZkA+JV0ViaoXy/hFE3LBWWGMPGQc/Aq+JtxrWP3K1BiA6BUpGbnbRVElSVhcyet3NXWbeRyc5PwCzzp+X+Iv68NsCRnp0teqWSz/qHNUd6uuW8v2f4UJiRVJJk/UIf8JQQ+GdtqLaatHAUduUrPaq5PyWRHVog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786748251; c=relaxed/simple;
-	bh=6wArxx1l8Hm9Dqx4mugbk8wsFGsXoxVI7ksSr89OEeg=;
+	s=arc-20240116; t=1786748254; c=relaxed/simple;
+	bh=QV/D+X9L6iHtWxf2FTb2FsPSMVe+HAIVh5ovcaU9Yq0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=s/TW/ItbTZC1EXweRYBaO6X26TzWb/ESK2Lm7CoWh1nWxG5oBmH2X8vt6n4ni2CaUOi3WcwgIKvE8pWWLhYt71Axdgp7MF6mdonp2bdvciiOtYlAvu9E2SpcoUT+AQiMf55ND6krrYB299PajN9pmIrAgbKKdPkB3oAx36WwXEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=me5qR4N3; arc=none smtp.client-ip=185.67.36.66
+	 In-Reply-To:To:Cc; b=tKPjZBuYkkJnpDl/SdHqsJ3KJj/bKFbdpdk4TiQyH8ZBMzuYcmWy4kDgttOMZHfXiYTv0xZgImquenozbFAXzdKigTkBO63uNgEilzQUW0Q0dqKwCdtpMMx6VDL34B5L9mNHqlhL+nyvp984DIwpF487tZ2M0sIC3vFec7LF7u0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=QzecTEUO; arc=none smtp.client-ip=185.67.36.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="me5qR4N3"
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="QzecTEUO"
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 642CD240103
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 00:57:26 +0200 (CEST)
+	by mout01.posteo.de (Postfix) with ESMTPS id 131F4240028
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 00:57:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1786748246;
-	bh=/IrZMEnYMWz3cHmLNm2dkUh37mtplEA3JG88ye8+6jg=;
+	s=1984.8680eb; t=1786748245;
+	bh=RGGhD71B+UtcIgYaLVJcbUJD2ZD+NnVvBK4/H22TbeY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=me5qR4N3HyRp19Y3xlnmPAY8G8lel+OvKqPSUsUi6GHFe2yo+YWhHZvj5hmpsuJm+
-	 mgifjLsh29SxpnQ1RszDJaH4k5moLIp2RRfrSrw3FommxhZ3kBLBW4JfMOQtHFaMqf
-	 c5nxACAeJ3hefvd/XA7ysphRwCPGSrf1yh3/aKlvCX+weCN1ts4sBujk3jmwS2vinu
-	 vuxbqH+KD7RjoCiIVVvTup5ZYn14f0sga2dYIt/BHQa8qprqkyFqR0aFcbPeS0dIqh
-	 o5a4RIRUFsDgqPAM+2xDqAyk4YR8pIjQzKwYd81N/rtQ2dB6ywxKmoPmeTg2Z0iD6m
-	 L/RMXl4mnqcKg==
+	b=QzecTEUO6YoADbHpv6Hx7+ZERrzGa4S5mx838R1VDoP7WeYqca13LKD5Wk/IPxAgr
+	 Ao3FKaZr7xPetCEpiK4PufoLLLpTJEaykZcXO8sQcpclIWgj3XJqJby1BNErRrhCfu
+	 zJ3K2AG9eiYfZdoCJaVktr5qjHxXlhVaDFwFurXcs6wqSsPqtBvOx/0HalZ9yX0/jd
+	 AAysF7dSkPbckRq4EDAv2gbXX8YKsBRy0E70uP6162Qp/5HYqTj5S3GszwArVujTTr
+	 WCWlrsfYmYWBeK1hnh+WAUlivFnnm8FFiw27C6TvlJbmb9yUF14eZRhclz7j+bk8Bb
+	 bcpQ3S1tnYTXA==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hMHg838p5z6txb;
-	Sat, 15 Aug 2026 00:57:24 +0200 (CEST)
+	by submission (posteo.de) with ESMTPSA id 4hMHg70BZZz6twY;
+	Sat, 15 Aug 2026 00:57:23 +0200 (CEST)
 From: Markus Probst <markus.probst@posteo.de>
-Date: Fri, 14 Aug 2026 22:57:25 +0000
-Subject: [PATCH v4 3/6] rtc: s35390a: Fix alarm not disabling
+Date: Fri, 14 Aug 2026 22:57:24 +0000
+Subject: [PATCH v4 2/6] rtc: s35390a: Add missing newline to dev_err
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260815-rtc_s35390a_int1-v4-3-3133309c365f@posteo.de>
+Message-Id: <20260815-rtc_s35390a_int1-v4-2-3133309c365f@posteo.de>
 References: <20260815-rtc_s35390a_int1-v4-0-3133309c365f@posteo.de>
 In-Reply-To: <20260815-rtc_s35390a_int1-v4-0-3133309c365f@posteo.de>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
@@ -59,21 +59,21 @@ To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1828;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=693;
  i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=6wArxx1l8Hm9Dqx4mugbk8wsFGsXoxVI7ksSr89OEeg=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqf51OvhCrgwPU0/q/7rufCmwQPXNdA5sQtW9Ll
- YyVNuRmbe2JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCan+dThsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KmdA//Swj4yqLU7XVsOwayVMCMrRGBzNlFwY2
- Naj//Dv/ekVkTvNhsbyj0MRuXPkL1suPUXkMNk1xdIoZUac2/LcYZXCgRoyk9c1qZ5oe5qUDD1p
- jurHVqSPN1o42BNSAssibDoFvxcZGeYK883CS9mZbLZYon1CG/PfMRimb7P27elEY2tWx8q5vsb
- O0oTxX+FE8yOCyks4z/roNLUrEFHmCuq3h33spU6gil1XPP3jwqIG2Hf9wVxGiODfYKH0obNn2Q
- vl60YVG0xX7VVLMZyYbGnUOp4JiydnOqiuO2CIHqGMUwYWbpwWR3uIv+sqIG2rZoIDce9RaFYxm
- AKwFJoCaNv7pdhXuXd5QhF3rXf6wbewW+KFJ5sNEjqVZI8qbzTl647LQOKFtJxxfoZpxgiX0RJ/
- OR+40kqPxqnnWMV8WTx5y8p9+//NP0mWQubZc2nrqNHfJjuS04tQAWhrc+Q3n1t+JfZepUtAqd3
- 8zXWNodFJy0ji/SnLeVNd6H2KzOSGTHBJjM8+2OKJ95txPZ5EN1gf4rtLO9d/VPeaz8+b4Vx1fi
- b4CrJPUO/ls2sPNYzGLdbDgHMwK9EtwmRApFGLpZIET29dgDBFNgUDA6F0149VfCJlUFxn2eYUG
- 1Ys5wTs3i4ZClYRtKIoZES3zi2nuqFkHZETE+HuTdXUIA9a0gjsk=
+ bh=QV/D+X9L6iHtWxf2FTb2FsPSMVe+HAIVh5ovcaU9Yq0=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqf51ONqVIDN4/l5E/85Dv42h1ho9Eq63mczi24
+ IvyJ4Py4f2JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCan+dThsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9LS/A//TrXN9qUKxG0Lq1GBfRpTjd7AWThvqTL
+ aOYrThGOZ6d4UY+OIa2kRXqBK53KQuyR5tbg9JEF97ks/QHTOmbBo70QkuWYWhbgkxiMfWkqlOJ
+ xym4+p35Q63eepnU5DlQ+cXwlt7IPMkeUi/6vH7b8AjOm5mNW/JaizNvA1fUlxizONhMeTFEyOR
+ kRfAsiO9+1juIEXa6ptWmzWfHOne4oMLe3odm+0/ROZJIkK+4fH5jCMDlcUY0D9LfA8G9i+p9zU
+ t1dW2GLHFf6f70l3K97gB86bOU8Nk10Gh1pzZ+Zqy9QHP5l/xftC3PbIm0jVILx5sOy3DrOIJ+e
+ sU8aqdw1kQ+Gq8PJOXRhpV7qtWqrdbV/Sk/RVeExf7cSaxrzxYLOEuK6Lyvmd67/JTV0ynxSPDB
+ mNeDhKwINKrOohOOSu0W66Ga5HaNz13+Hm4y3gBRBbmVJ3g+OsH5hCgUjLJnrczGsiptEM1Rvw7
+ y7KiFBeGsVe/vxduYR461HOcCNNsqHr+B4DlDwTwgjFsXtfN5e4O30T8fQanVuuw/URgZHBPOQj
+ bRrKZDXPWe6t1KRKbbOcHBFHif9OOJPzR7jsLgELAP3gYfI63amHw/08IZY6Xa0J+X/paajKnvT
+ zxeZM1eABoBz2M9buNUcIuEgsXbRazgmyDDFeySyqV11YljiRhhg=
 X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
  fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
 Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
@@ -119,61 +119,25 @@ Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
   aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
 OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-Implement alarm_irq_enable callback.
-
-Fixes: 542dd33a4925 ("drivers/rtc/rtc-s35390a.c: add wakealarm support for rtc-s35390A rtc chip")
+Fixes: 3bd32722c827d ("rtc: s35390a: improve irq handling")
 Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
- drivers/rtc/rtc-s35390a.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
+ drivers/rtc/rtc-s35390a.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-index 4cfe7034c516..575bb256eb25 100644
+index b72eef4fb099..4cfe7034c516 100644
 --- a/drivers/rtc/rtc-s35390a.c
 +++ b/drivers/rtc/rtc-s35390a.c
-@@ -270,6 +270,24 @@ static int s35390a_rtc_read_time(struct device *dev, struct rtc_time *tm)
- 	return 0;
- }
- 
-+static int s35390a_rtc_alarm_irq_enable(struct device *dev, unsigned int enabled)
-+{
-+	struct s35390a *s35390a = dev_get_drvdata(dev);
-+	u8 sts;
-+	int err;
-+
-+	if (enabled)
-+		sts = S35390A_INT2_MODE_ALARM;
-+	else
-+		sts = S35390A_INT2_MODE_NOINTR;
-+
-+	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
-+	if (err < 0)
-+		return err;
-+
-+	return 0;
-+}
-+
- static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
- {
- 	struct i2c_client *client = to_i2c_client(dev);
-@@ -410,11 +428,12 @@ static int s35390a_rtc_ioctl(struct device *dev, unsigned int cmd,
- }
- 
- static const struct rtc_class_ops s35390a_rtc_ops = {
--	.read_time	= s35390a_rtc_read_time,
--	.set_time	= s35390a_rtc_set_time,
--	.set_alarm	= s35390a_rtc_set_alarm,
--	.read_alarm	= s35390a_rtc_read_alarm,
--	.ioctl          = s35390a_rtc_ioctl,
-+	.read_time		= s35390a_rtc_read_time,
-+	.set_time		= s35390a_rtc_set_time,
-+	.set_alarm		= s35390a_rtc_set_alarm,
-+	.read_alarm		= s35390a_rtc_read_alarm,
-+	.alarm_irq_enable	= s35390a_rtc_alarm_irq_enable,
-+	.ioctl			= s35390a_rtc_ioctl,
- };
- 
- static int s35390a_nvmem_read(void *priv, unsigned int offset, void *val,
+@@ -494,7 +494,7 @@ static int s35390a_probe(struct i2c_client *client)
+ 		buf = 0;
+ 		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &buf, 1);
+ 		if (err < 0) {
+-			dev_err(dev, "error disabling alarm");
++			dev_err(dev, "error disabling alarm\n");
+ 			return err;
+ 		}
+ 	} else {
 
 -- 
 2.54.0
