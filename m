@@ -1,76 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4242C3E8695
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:13:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F823EDE68
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:14:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786691603; cv=none; b=a7H78h7TqTl1XmJV7ebipFeEpFYjmC1hZ487Iw/Z24pMmyaaWCm/X0xwjsxd/Y9I2JRtZ0JxkFbTt3kAqJyMKqFJ6Aq0FxZbJ8rQjM+kSKjEu/PwpIw4HcnTRpjiLe2Yph7OyCDFBYMzDumJ9yZ4lI+PWvB3sgwV+CQy6Zvq1vY=
+	t=1786691672; cv=none; b=nhoCTQMtbPCMJnQcUgcoO7TC6juMJSYPJVkIQJIAhAEFxnmQtm+0FiX4i+OhFApQIDUtiO9m59c/TmEPIhD6UlsaCmivp2w0QXzcTn3Z/uTx/vv+atzq9K5vZY8qmQbuuWZtcfzf8jXnKCFBF01yEUnhz3fY14AoUITSs+rv0pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786691603; c=relaxed/simple;
-	bh=WG5j3DmY54M2zsyy4epXTXCRXkE5LeniIG0zsq81RtA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XKbuAPfWft2pdv4eJOCMQIV2tIXxqDgAcLIEE4ka+UerBOmXSjgp2TWrE78Tm+heZBTjxkvBmcn1kwftxevICdBwitTKUheyr/hGADx/DEnk5+Lj02RlaOaUC/EokPGJZfd5hO41qH7xLIHr0Ff63oXU32pSR0CH0OZe+gJgR38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PeL61BwD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786691672; c=relaxed/simple;
+	bh=Zan0XVs1zUvspbph2jdChopwri0PiSn3SCV+2iMH3js=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=R3SQ2s/dj6mnq6qh2GLxU8J0b1yj8G6kQtC7s/vN14mRNfjnlatedspOmp6l0nH+WuFj46d5zypIQUmQqJ/L/JUI1FG+KmdSh8X+u5NMZ3Lq39tEh8HuvD1IcutB+5OXDWIHtqVqIPtGReJXNmOzDmifkfcO1WBPDsIRlN/j2wI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWXVY6rv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PeL61BwD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39D51F00A3E
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:13:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWXVY6rv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D0F1F000E9;
+	Fri, 14 Aug 2026 07:14:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786691595;
-	bh=WG5j3DmY54M2zsyy4epXTXCRXkE5LeniIG0zsq81RtA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PeL61BwDV75P+u9eA/i5Q+sTKF+zNL9geHSVGfjBMDNv0ufP9YRbNMp3eDwlhpZcS
-	 aeVgEmgiJ+Uw3N4dule9Z7A8ehB7uzpXUzBa0QCdMwieJt4hbIaEHtKJ/QK687r5IU
-	 mRdUU22x+ISQf63VkdnVhlc4VOy6Ycn4si8C0qcklvhFJWhMAe37N8u53vK6BUsjBo
-	 99pq5yJKiE1Ce2RvEMFqkFd1GrplZrCqwutaNKYjWyDmS3lAeY8INloZ7OzxaWOmLf
-	 Cu4VD0MQ1Ti507aDoLUEnm63Cm9s2hR6R5BvV1VT/VrWB7C+o8cWNhNl/U4wcOdt9A
-	 k9Po2xGFgm/Wg==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aec6360133so462526e87.1
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:13:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqwsU1wJhs1y/8yp0FGkmmLvpLdDEB6GOy1MLviV0K4RBIOF2VgiPeidc/SL1LeH7LlrN9mAacosxhl@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUn3pk7lOvosCp8EriAtV0vff68e/y1x2eScPqd7KIdRviOkhy
-	iZ57n2WCpJPlvlRJHR8W8B8Ay0pVb391x7RRIsfUVd1X1ySnG83N0Txb8b3dLViqtjnr9BJZc4Z
-	ATO2kScg+0nQgGB5y5PPJRA3nvaOMmXk=
-X-Received: by 2002:a05:6512:8041:b0:5aa:6e86:55e5 with SMTP id
- 2adb3069b0e04-5b459115ffcmr357656e87.13.1786691594513; Fri, 14 Aug 2026
- 00:13:14 -0700 (PDT)
+	s=k20260515; t=1786691669;
+	bh=9u8qt8G7iy9o/dUZGz/zazvAGfGw2W0wwOVnR4qHx84=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QWXVY6rvth16mW9zpUB7tS0R61ARPrH5OqrO7RSgzl8ZoaBWcnt7D3Nc1FLxFgCSd
+	 DH5lS14feWX8GTiKnhsntI1XY4bwg6M7X80FvmlHcx0urKrk0LXi4GlCRNuMI2OxzU
+	 kUit9Y1AzuYxPSLkabpIKpbSAjoKnke3bFhDW7rQlFMgmGo7ZsnM7RDlRNJpDDW8tq
+	 2/g5q+krGmbgLX9mtXnqDIjcPwMavSedRHK09HrTKfpKTAX4n2hOXiQ0i9rFjtBV29
+	 gYeb1JhZIdjIQ5SvpCjQBDKMoZCE8X/GUhfGqPX4rS1a9LQAQfrRxJnLnWB78CzYQ+
+	 DWD0g0LAiXLmw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 7/7] riscv: dts: eswin: add watchdog support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260814070007.1662455-8-pinkesh.vaghela@einfochips.com>
+References: <20260814070007.1662455-1-pinkesh.vaghela@einfochips.com>
+ <20260814070007.1662455-8-pinkesh.vaghela@einfochips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 07:14:28 +0000
+Message-Id: <20260814071429.62D0F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260731174551.86367-1-challauday369@gmail.com>
- <178579584771.736715.6031577704790719107.robh@kernel.org> <CAAj-GBmvcG62NddVS3UMEK6tQ2UKBr+=KCXe15jhCEtB+JWXKQ@mail.gmail.com>
-In-Reply-To: <CAAj-GBmvcG62NddVS3UMEK6tQ2UKBr+=KCXe15jhCEtB+JWXKQ@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 14 Aug 2026 09:13:02 +0200
-X-Gmail-Original-Message-ID: <CAD++jLms=ufSTgUo1jm2o02MWfU=vWQEz9Hbj4EoK1r2tuOj8A@mail.gmail.com>
-X-Gm-Features: AcwNN1U8PXigGeNQ8o9kh9fYFdQSSUwCakTvhUUWDDUJOQiB3i0iebtic0u22qo
-Message-ID: <CAD++jLms=ufSTgUo1jm2o02MWfU=vWQEz9Hbj4EoK1r2tuOj8A@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: pinctrl: microchip,pic32mzda-pinctrl:
- Convert to DT schema
-To: Uday Kiran <challauday369@gmail.com>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>, conor+dt@kernel.org, me@brighamcampbell.com, 
-	skhan@linuxfoundation.org, linux-gpio@vger.kernel.org, krzk+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 13, 2026 at 7:30=E2=80=AFPM Uday Kiran <challauday369@gmail.com=
-> wrote:
-> On Tue, Aug 4, 2026 at 3:54=E2=80=AFAM Rob Herring (Arm) <robh@kernel.org=
-> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The watchdog device tree nodes map the APB bus clock to the watchd=
+og timer reference clock, ignoring the dedicated Watchdog Reference clock.
+--
 
-> Thank you, Rob. This patch has 2 parts(dt-binding & dtsi changes).
-> Can you also please review dtsi changes?
-> https://lore.kernel.org/all/20260731174751.86819-1-challauday369@gmail.co=
-m/
+--- Patch [7]: [PATCH v4 7/7] riscv: dts: eswin: add watchdog support ---
+commit 8bb5be57363c57f6d3977083d5441f186e416e96
+Author: Pritesh Patel <pritesh.patel@einfochips.com>
 
-The MIPS maintainer will deal with patch 2/2!
-The binding maintainers usually don't need to consider
-per-arch DTS(I) files.
+riscv: dts: eswin: add watchdog support
 
-Yours,
-Linus Walleij
+Add watchdog node for ESWIN EIC7700 SoC and enable them for HiFive
+Premier P550 board
+
+> diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts=
+/eswin/eic7700.dtsi
+> index c13432d145042..f873e9eeb9290 100644
+> --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> @@ -265,6 +265,46 @@ syscon: syscon@50440000 {
+>  			};
+>  		};
+> =20
+> +		wdt0: watchdog@50800000 {
+> +			compatible =3D "snps,dw-wdt";
+> +			reg =3D <0x0 0x50800000 0x0 0x4000>;
+> +			interrupts =3D <87>;
+> +			clocks =3D <&clk EIC7700_CLK_GATE_LSP_WDT0_PCLK>;
+> +			clock-names =3D "tclk";
+
+[Severity: High]
+Is this node missing the dedicated watchdog reference clock?
+
+The DesignWare APB Watchdog driver uses the frequency of tclk to calculate
+watchdog timeout durations. Because only the APB bus clock
+(EIC7700_CLK_GATE_LSP_WDT0_PCLK) is provided here, it appears the driver
+will use the higher frequency of the APB clock for timeout calculations,
+resulting in incorrectly calculated timeout values.
+
+Additionally, if the dedicated watchdog reference clock
+(EIC7700_CLK_GATE_NOC_WDREF) is omitted from the device tree entirely,
+will the clock subsystem consider it unused and automatically disable it
+during late boot?=20
+
+If the hardware is synthesized in asynchronous dual-clock mode, stopping the
+reference clock might silently prevent the watchdog hardware from counting
+altogether.
+
+Should both the timer reference clock and the APB interface clock be
+provided in the clocks list?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814070007.1662=
+455-1-pinkesh.vaghela@einfochips.com?part=3D7
