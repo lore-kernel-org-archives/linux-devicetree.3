@@ -1,195 +1,104 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B667355F4E
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 17:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57359477E31;
+	Fri, 14 Aug 2026 17:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786729589; cv=none; b=JKraPK3A4GCK3bhycrgSWokDz9dHnOQ39HRcMGu4ajw5K/hu+PA2IVmqxe4q8ozttuIc7EcQIe9OjFNJM+ygfuVNKT0QWJJkvAygHCu0OnHm1LPYai7uqShUm/vQ5duRkbfi8Y09wWAp1H0K5bSPPslVu1RP2J6QzagL8Ta1SfI=
+	t=1786729749; cv=none; b=V5Sm/52AVDlZquqTO2nhH+xo2QBn38Naxvnr+D8Em8/EVYCPl4uOhi58NFCo313DDelK5b47ENnYFmFgH6MqSQn2Wl1jyiAF7+30cv+6Mh3l8nr4BgF3e8h0EcBnHzwY8qvJUYZfn+z+JgLvF2dDcXrKa3PpZgu3mB3zh+dmuYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786729589; c=relaxed/simple;
-	bh=pHQHDxbUgUXawpMBwNmBaKB96flhW2yqXf2kNVAMug8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cUkx4g8aY4yjGFExR8yRfq/BtVIrMKDlh2w9V9pKQD/nFaZebzEs57bRiBxm1CUYFQb+Cw90dM/rl4l/kAJedvWOqw8/atFOTfgv6xWfKmrJ97SyFzr2tCceoDZC4bPbKiyLXzY6LRSeWp1thRU4jMm5u5x/OZh9N/nE+E61zxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pT6ED4Tu; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786729749; c=relaxed/simple;
+	bh=WiMdb59+b31lr74VpZ1vPRs0h/z5NpcPddg6oaeJ/HM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kzg2KptjuEl3sXnug1xZtkNb5Fq0kdUEbxasc4yvzQBK+1vdf32pfyyIw3WAKjssEGl2L3smjRPl/HebcxRA/i2k44it7/IrzgWjNAuOqPOCtzfjsMHTS6CCppSkj9ZlNfYOetwdqExOKV8FZhxnG73OMGif0KBea0zWRL2cU30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WiO5de/2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pT6ED4Tu"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47fe377a217so825102f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 10:46:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786729586; x=1787334386; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i1r2xPJfkJhEKLocmkcDET9WPaG8FwcMD2/2OeeTJFY=;
-        b=pT6ED4Tu7+iEGW0cmYvc9QJe7ANILzoGArP6yV+EaFqeNweV2SQYACOnyvO3ffgW8n
-         aK5n4PX5AOVeW1C+Ggb11FMlEor9z4dHgk8h/9nkvtQbH7iac2mKuw5SH3snt/F6aSVj
-         vBBMeSgyuYwbMDBBobMq0/iT5d/vGutKsFTYHtPd9QfRmbblt5VT5oRx27DrVZkaKqQc
-         SET/niXwxhIP4rHANPd8G71UbI2bMsVZdraZOZABpp1bX1tUeIhORgayifIdM6NjmbDs
-         FvBpmfX5R/zUtzIrYg4Ou89HEna9Q49R6TT1h0qI/ZZHGdMmssZ9oRJKpmDV+tKVbGxN
-         /xyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786729586; x=1787334386;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i1r2xPJfkJhEKLocmkcDET9WPaG8FwcMD2/2OeeTJFY=;
-        b=qGq3u3YhfpTBnWNJ0THrivgsl5zejvvIsr2Y0UPU9AXumSZhDGXFJsowIpvd5ZU4SW
-         GISU8o+EISqtcbTrWEiZT2qCQfEehPYySibCUr2CkSIFkFyADeMEAsSDXoHtthxmgrub
-         PSuRRFv5JxZP2xwpnxTu2xIpIOU8Srd9wEhg+BBW+WY4FFkuEBgkixmopzWDjSXM64aG
-         2B/azl+EyjsYAt33cucKKHdAqby82wUGjQQksK+AzsbS0pErJifx9iezg3SjDFg2yNEh
-         I8zda0Qia55Ey9nHECTR+9K10NnyYz0SK88Ry9QopeXWh3REHabrkcZosppfngC/6aNT
-         kFlQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqguQ/eSUchHGrBznx2DW4ovWLU2B1gduhCFGNzRGlJoEr1MtWgzRwIxZoRfFF/KX8wOgnCLQF/VFjV@vger.kernel.org
-X-Gm-Message-State: AOJu0YySL7XoivhryQ0qfUhqgzAqz+bB7PBoZkuFzexDMj2EX1CcL7Ad
-	py9RPFoT33BzAeHsqn3OFqiLkmTPRysu4m9sHCNtRxHCUwwD22zZZsku
-X-Gm-Gg: AR+sD10iSlq3OzQZo5YQT+2GPvos2iZGt3LgXF0SKsqLqytotJYQ6AdM3rR45XucBlk
-	C4wd30Ti7zaPuatMSCNjz4NS8QZ1qkGb2AVcna4oIGnU1O7ExwVIlefpv2TKJU/iNRYPECesAkN
-	JHq/2KBfcRVv3fIAatp+KeM1ItFf0NmQIXhQrs7KYqViGbY1uivFsSJU4Oq652Pf8aFc7c2fGCS
-	7231/rclxvBqf4JCYZ2ycXhR8E3xXYrrjupWC7GmZI7lItS/diyXDYVomVvs2z/oc6+XcQ4qkJu
-	wzWV+KjQ/yntDJhGn/UCbwIuDC+6qoLWeb56sUnEQ2PN32Dgt8PZ6mMk7oCgJ/H3w+HbYbrwmQL
-	0VyA4bdzPVmbGj2z55J4rlpktWaXZdh71Dhw8p1fVlVz32afLuzZjemdJayw8cuq+PYmRPXRqkL
-	V7OkmH+1xNqwugYNOlOOzrKMUwAKvTWolhw2aBJJX+4DWJ2dsx6bCPIb3NmGp2AqG7Ps9ZOmNQk
-	cWfhiMFxsU=
-X-Received: by 2002:a05:6000:2087:b0:47f:96e6:70a with SMTP id ffacd0b85a97d-481606bcec4mr8999132f8f.0.1786729586010;
-        Fri, 14 Aug 2026 10:46:26 -0700 (PDT)
-Received: from strix.localnet ([197.250.226.224])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f219d3dsm10124274f8f.14.2026.08.14.10.46.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 10:46:24 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- mfd@lists.linux.dev
-Subject:
- Re: [PATCH v10 04/12] mfd: zx297520v3: Add a clock and reset MFD driver
-Date: Fri, 14 Aug 2026 20:46:11 +0300
-Message-ID: <gxF9XGmoS_qmWIfVagXDVQ@gmail.com>
-In-Reply-To: <20260812131503.GR1072730@google.com>
-References:
- <20260810-zx29clk-v10-0-63846490712c@gmail.com>
- <20260810-zx29clk-v10-4-63846490712c@gmail.com>
- <20260812131503.GR1072730@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WiO5de/2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D011F000E9;
+	Fri, 14 Aug 2026 17:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786729747;
+	bh=vUScZQaDO9LOJUAA7/eGGTWqCSli6iZ/EX6QJoxuS+0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WiO5de/2thRArGyJ9iBATrXsY/4ttOOkENioAGX2qsM7Xe1dCzIpn+CYG85tfRK08
+	 ZftIPiRzngAPGPQMlFzLfadtoZrEFjALLk7BCrPk+eogNNwaNEZXRzwXJO5fdBtvLi
+	 uPlNbAMvuGvBowQ7aPEa3+5i6tvNxawjZhsbFjbFuDsmXWwQHF3AVKrXoA59ZYxVEd
+	 fckTnIMKzNKBP3YG4vMUC+OVDmam2Ib69kZytKUEHKSan1Bbl24ks9s2gJ0v3DmQ6Y
+	 sFvWfIjE2keRNpjUUIPIBTllUsS5/03U1tIEe9bOecO55CP0Cw2MeoLiCgaZ7M/mW4
+	 6fc6h9/mJRxHQ==
+Date: Fri, 14 Aug 2026 12:49:07 -0500
+From: Rob Herring <robh@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+	Mansur Alisha Shaik <mansur@codeaurora.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Stefan Schmidt <stefan.schmidt@linaro.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: media: qcom,sc7280-venus: Add
+ dma-coherent property
+Message-ID: <20260814174907.GD1981719-robh@kernel.org>
+References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
+ <20260801-iris-fixes-dma-pseq-fint-v1-1-aba0cb22f6ab@oss.qualcomm.com>
+ <20260811135103.GA2063083-robh@kernel.org>
+ <46af20c8-1182-2db3-0099-63e27903a6f5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextParthu9EI7NhQy6giXCUf6L9sg";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <46af20c8-1182-2db3-0099-63e27903a6f5@oss.qualcomm.com>
 
---nextParthu9EI7NhQy6giXCUf6L9sg
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Date: Fri, 14 Aug 2026 20:46:11 +0300
-Message-ID: <gxF9XGmoS_qmWIfVagXDVQ@gmail.com>
-In-Reply-To: <20260812131503.GR1072730@google.com>
-MIME-Version: 1.0
+On Fri, Aug 14, 2026 at 10:58:47AM +0530, Vishnu Reddy wrote:
+> 
+> On 8/11/2026 7:21 PM, Rob Herring wrote:
+> > On Sat, Aug 01, 2026 at 01:07:27PM +0530, Vishnu Reddy wrote:
+> >> While testing with some higher resolution clips, the venus hardware
+> >> triggers a fault due to wrong input data being received. Corruption
+> >> was also observed in the captured output when the client dumped it
+> >> to a file.
+> >>
+> >> On debugging, this was traced to the venus node not declaring
+> >> dma-coherent. As a result, DMA buffers shared between the CPU and the
+> >> venus video hardware/controller are not guaranteed to be I/O coherent:
+> >> CPU writes to an input buffer can remain in CPU caches without being
+> >> visible to the video hardware when it reads the same buffer, so the
+> >> hardware receives input data that does not match what the CPU wrote.
+> >> Likewise, on the capture path, data written by the video hardware to
+> >> the output buffer may not be visible to the CPU, so the client reads
+> >> stale or partial data, resulting in corruption.
+> > The only side effect of 'dma-coherent' not being present should be doing 
+> > unnecessary cache flushes. It should still work. Maybe you are missing 
+> > some DMA API sync functions?
+> 
+> dma-coherent tells the kernel that this device DMA path is hardware-coherent,
+> so the SMMU maps its buffers as cacheable. That attribute is what causes the
+> coherent interconnect to snoop CPU cache lines on every VPU transaction, so
+> hardware keeps CPU caches and VPU visible memory in sync — which is why the
+> dma-coherent property lets us skip the unnecessary cache clean/invalidate.
+> 
+> If a device doesn't support I/O coherence, its buffers would instead be mapped
+> non-cacheable, no snooping would occur, and the driver would need explicit
+> dma_sync_*() calls at each transition.
 
-Hi,
+The driver should have dma_sync_*() calls regardless. Even if cache 
+flush/invalidate are not needed, IIRC the calls still provide barriers 
+which may be needed.
 
-Thanks for your feedback!
-
-Am Mittwoch, 12. August 2026, 16:15:03 Ostafrikanische Zeit schrieb Lee Jon=
-es:
-> > +config MFD_ZTE_ZX297520V3_CRM
-> > +	tristate "ZTE zx297520v3 Clock and Reset Manager"
-> > +	depends on ARCH_ZTE || COMPILE_TEST
-> > +	select MFD_CORE
-> > +	select REGMAP_MMIO
->=20
-> Is this used?
-
-Thinking about it: Not in the way the build system cares, so I'll remove it.
-
-The MFD child drivers call device_node_to_regmap(dev->parent->of_node), so =
-a=20
-MMIO regmap gets constructed for the MFD parent. But since the calls are in=
-=20
-the child drivers, REGMAP_MMIO shouldn't be needed to build and run this=20
-particular driver, and the child drivers enable REGMAP_MMIO on their own.
-
-
-> > + * Copyright (C) 2026 Stefan D=C3=B6singer
->=20
-> Personal copyright, are you sure?
->=20
-> Is that okay with ZTE?
-
-I'm not affiliated with them. This work is my personal hobby project to hav=
-e=20
-some fun and learn things.
-
-I'm not copying code from their kernel dumps either, the quality of the=20
-drivers there is pretty atrocious.
-
-If ZTE wants to have copyright of the upstream drivers I won't stop them fr=
-om=20
-doing the work themselves :-)
-
-> > +enum zx297520v3_parent_type {
-> > +      ZX297520V3_INVALID =3D 0,
-> > +      ZX297520V3_TOPCRM,
-> > +      ZX297520V3_MATRIXCRM,
-> > +      ZX297520V3_LSPCRM,
->=20
-> None of these are readable.  I suggest you improve the nomenclature.
-
-I saw that most existing drivers use "undecorated" device names, i.e.=20
-"TOPCRM", "MATRIXCRM", "LSPCRM" in this driver's case. I am concerned that=
-=20
-"TOPCRM" is generic enough that a (future) global header might define a mac=
-ro=20
-or enum value with that name, so I opted to semi-namespace them with the So=
-C=20
-name.
-
-=46ollowing the example of max*.c, what do you think of TYPE_TOPCRM,=20
-TYPE_MATRIXCRM etc?
-
-The rest of your comments are clear to me, I'll implement them in the next=
-=20
-submission.
-
-Cheers,
-Stefan
-
---nextParthu9EI7NhQy6giXCUf6L9sg
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmp/VGMbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiPokP/iptbRf3/QgYkQF1HNMx
-5pOuSmrcFnzvT8WG+mpgA+2uorsOmUfPhxRF+BA9CgOgazibEyWWETdrkvPHy+/f
-See03pTw5mH4LSt90AOqFDCck47OmmAfzY3AP48o61IR47EiB5eFxf0r1S35tYuE
-ms1C/2a98Rw60mw+eFUz3iBHWOI5fX2+DXZjOaEf/Q7d5KsZyiHOg5QUop8bsmCh
-YRKrMdRwLIbT8nZQyEwLiMJlFGvzdDrZc2Vo39rsPFrRjP+FZGvUc7YIymjWXYi0
-m/GfFV6RQSmxxph+zLCnYfoG2MeHDc+ihgBRACTeYXy3B6FbOUNVfsCB3ENvw/4K
-P+OhBdxhxSIswe5KMDR1zUAeCQfNCsnrzXlLyhMxuFm1VwgzA/DJOucR96rj69hl
-Cne8/8AqirlMgKLNek1Fsze0DkKuxOLMsrDVHYTvlMMt/giA0EtsoQT9iNp7z0Q0
-/dqmTve95/f18m4sorji135TkTiEpmYTdtn1FZVY/2/aUD4z907S7mAomm7kYviq
-jIesXSWzh9SFfRugYKDWsk9AqiP7Av77bafFuLzpgQ5MBnsDPpYTdCZR0ngLaP3F
-phrCAX4IayRFni2+kBYkRMgaGosJolehc+mC04px0CwobqERnJGQGlVbRvuPYVJv
-jL7hUaUKDj90M7cPPNEtjQf9
-=kRv0
------END PGP SIGNATURE-----
-
---nextParthu9EI7NhQy6giXCUf6L9sg--
-
-
+Rob
 
