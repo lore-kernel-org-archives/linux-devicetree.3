@@ -1,125 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AD24137AB;
-	Fri, 14 Aug 2026 07:30:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99777412C08;
+	Fri, 14 Aug 2026 07:30:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786692619; cv=none; b=Hum81rvT3ZXWocQH8+Ah6iAUK/+e5mlSW5KEoT+Lr9Tzvab+JOWaEFll6l1mqnaWZYEs+K12kbBvYqmcoIMvja8O/aqS/3iRepl44E7iCnHKgP4YOGddf2dLYm8i2qc0FOXPotLEyo3bEuBiHnxHe9CTTCLiefeWwdAws/uL8C4=
+	t=1786692622; cv=none; b=S93ZXguHPgHDlOXHpX6eQdf9bOJoiMzUvOcdDdr96NJFE/u2uqUWfO7tO1D3h4ul5IYUJJVGVBGnI9R5FVwL6rXx+cAA+qCYmv6F450VRYyDGh12Ks5YS5ARt6yq+VyXUg+LnkbI3aKB79/df8AWrE1a8ixB8VMkXbqY+iPDz9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786692619; c=relaxed/simple;
-	bh=iENJuKUMY8eOPlT9mzKwoNfco8HPAAjNVJikKWTSYyQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=XcE6o+lLIGsLJqewx+eETIMMHEApIE6vZwi6Fo//tkCbRgOOawuXeKzLVyAJmh7UyCCNRIhL929LCb7RjVyibvjjc8POY1XXWEOtTvyP67rvZ4TtuBoDK2QqOUp2yH6LILVM97o8CrJcp1z//Q6TGElcqjOp7u0m0BLAHiu+wP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ovGyXzlR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786692622; c=relaxed/simple;
+	bh=LUZDNdE321gmaKZIvoZ5pWzsCUHew458rlYe5ZyL88k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GhRiysgqcdSprzpmO+xRpMsyA88Mp/YCZxCWNR3V/i9L2iSNzy8s+ivQcLr9joGW/Bq4WpShWqAJoW0DD9AzAVvuURvTLOS8Cj8zViRyata9ah4bqyMXcv3jO2MFG6d/HSoyAadAmJNuGQ89xHf9rifQ8BH4xuVselWmWM9xfxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAPAprBX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ovGyXzlR"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DB9741F000E9;
-	Fri, 14 Aug 2026 07:30:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAPAprBX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46241F00A3D;
+	Fri, 14 Aug 2026 07:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786692611;
-	bh=fAcxQ0KOUcMWRzzlTnz64uZJ6JDOLh/7o7dkLSx2CnY=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=ovGyXzlRxmXaDYtef4aGoHw9YOqBv59qswLEUBFUr6bbFZySUTas9ByaDK3LrynfE
-	 YqrzlMtkaSoxp6zIwZIlh9/isbICI4RwwGj+0OB4bmsMctsdksXyvLZxnUMVSYdEBs
-	 SkRWEKfyxCRXCetlihJTFMd1ylLG2XFwaNhReVShHBEcUGpxb6bKPcnMHVJ5OKQgKd
-	 0EPMDFBUvnJ2mgEy+FQq2UqmYrPtWDm/y3+bJdPWG1NfNZ7nHKvRW8KQ5XDUpfRYsz
-	 /yHvJhMMMmZOmVj4GRLxAHEIMKmzSZ+rBRRdc/fh+R6DyqWAgytS5qYq3GvCErCHMF
-	 0OEBZF78D42jQ==
+	s=k20260515; t=1786692617;
+	bh=qOIzaRLC6/C0D7bUB55H0PUxztS+BBXt5LXpGCjd8/Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TAPAprBXMTWXKIEQYUJhqPU0SdjbcTWQhlWu32iuX/pbwL7QPy747WRzCHFxTsv6M
+	 qHFSxoammoNEmy4P4gJ8XTU0bxgw0dvKCWM4DSRyQHdo0E5tUec5Vc22bcTiRqa6xD
+	 HvHs1/kmxTAoi+RNEFb+s9gT+6y+Lo01csyHCchAmj9OZJYRDIxXDqFy7ByTZc9h47
+	 I+bse0s+wnou5Pl1KCXp4lCwKEPFofGjrpH2dwyAiIb375kLj4RW5CODroeUQMTNAB
+	 rz790raQA3AYyBbiGcoeXfNqAj/q6lsGV0wAeLlSZxrdEkPR7O1NS6D/+A242a1ME9
+	 ykxz5W1iOSLmw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 11/17] arm64: dts: imx95: Add clock and sound-dai-cells
+ properties for MQS1
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chancel Liu" <chancel.liu@oss.nxp.com>
+Cc: conor+dt@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260814072022.4064009-12-chancel.liu@oss.nxp.com>
+References: <20260814072022.4064009-1-chancel.liu@oss.nxp.com>
+ <20260814072022.4064009-12-chancel.liu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 07:30:13 +0000
+Message-Id: <20260814073016.E46241F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=e50af02b9babad11da73eac21cd43fb816234b4908fcfdb70e72eaf484ca;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 14 Aug 2026 09:30:07 +0200
-Message-Id: <DKOHO4TEW9SJ.1952Z1TEMQ75T@kernel.org>
-Subject: Re: [PATCH v3 12/14] gpio: regmap: Add optional runtime PM support
-Cc: <linux@analog.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <jananisunil.dev@gmail.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Janani Sunil" <janani.sunil@analog.com>, =?utf-8?q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, "Michael Hennerich" <Michael.Hennerich@analog.com>,
- "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, "Andy Shevchenko" <andy@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Olivier Moysan"
- <olivier.moysan@foss.st.com>, "Philipp Zabel" <p.zabel@pengutronix.de>,
- "Linus Walleij" <linusw@kernel.org>, "Bartosz Golaszewski"
- <brgl@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
- <skhan@linuxfoundation.org>
-X-Mailer: aerc 0.20.0
-References: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com>
- <20260813-ad7768-driver-v3-12-cb554399ad26@analog.com>
-In-Reply-To: <20260813-ad7768-driver-v3-12-cb554399ad26@analog.com>
 
---e50af02b9babad11da73eac21cd43fb816234b4908fcfdb70e72eaf484ca
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The commit adds `clocks` and `clock-names` properties to the common=
+ `imx95.dtsi` but fails to remove the duplicate definitions from the board-=
+specific DTS files as claimed in the commit message.
+--
 
-On Thu Aug 13, 2026 at 3:57 PM CEST, Janani Sunil wrote:
-> Some gpio-regmap consumers share their regmap with a parent device that
-> may be runtime suspended. GPIO register accesses must resume that device
-> first.
->
-> Add an optional pm_dev field and acquire it before register translation
-> or access. Release it using runtime autosuspend after each operation.
-> Keep the device active across the complete direction-output sequence and
-> propagate failure when setting the initial output value.
->
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+--- Patch [11]: [PATCH 11/17] arm64: dts: imx95: Add clock and sound-dai-ce=
+lls properties for MQS1 ---
+commit d5073b98fc81da9751dc1ae974fe122948c15d30
+Author: Chancel Liu <chancel.liu@nxp.com>
 
-With a nitpick below, that if there will be a new version could be
-fixed:
+arm64: dts: imx95: Add clock and sound-dai-cells properties for MQS1
 
-Reviewed-by: Michael Walle <mwalle@kernel.org>
+This commit adds clock and sound-dai-cells properties to the MQS1 node in t=
+he
+common imx95.dtsi file. It notes that these are fixed SoC integration
+properties that shouldn't be duplicated across board-specific files.
 
+> MQS1 MCLK input is driven from the respective SAI1 MCLK output, and
+> sound-dai-cells describes the node as an ASoC DAI provider. Both are
+> fixed SoC integration properties rather than board specific, so add them
+> here in the common dtsi instead of duplicating them in each board dts.
 
-> diff --git a/include/linux/gpio/regmap.h b/include/linux/gpio/regmap.h
-> index 06255756710d..aae32a569914 100644
-> --- a/include/linux/gpio/regmap.h
-> +++ b/include/linux/gpio/regmap.h
-> @@ -29,6 +29,7 @@ struct regmap;
->   * @reg_clr_base:	(Optional) clear register base address
->   * @reg_dir_in_base:	(Optional) in setting register base address
->   * @reg_dir_out_base:	(Optional) out setting register base address
-> + * @pm_dev:		(Optional) Device to use for runtime power management.
->   * @reg_stride:		(Optional) May be set if the registers (of the
->   *			same type, dat, set, etc) are not consecutive.
->   * @ngpio_per_reg:	(Optional) Number of GPIOs per register
-> @@ -92,6 +93,7 @@ struct gpio_regmap_config {
->  	unsigned int reg_clr_base;
->  	unsigned int reg_dir_in_base;
->  	unsigned int reg_dir_out_base;
-> +	struct device *pm_dev;
+[Severity: Low]
+The commit message mentions adding these properties here "instead of
+duplicating them in each board dts", but it looks like the duplicate
+definitions still exist in the board files and weren't removed by this
+patch.
 
-Why wasn't that added at the end of the config? It (logically)
-doesn't make any sense to just put it in between. Just put it below
-the irq_domain.
+For example, in arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts:
 
--michael
+&mqs1 {
+        clocks =3D <&scmi_clk IMX95_CLK_SAI1>;
+        clock-names =3D "mclk";
 
->  	int reg_stride;
->  	int ngpio_per_reg;
->  	struct irq_domain *irq_domain;
+And similarly in arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts:
 
+&mqs1 {
+        clocks =3D <&scmi_clk IMX95_CLK_SAI1>;
+        clock-names =3D "mclk";
 
---e50af02b9babad11da73eac21cd43fb816234b4908fcfdb70e72eaf484ca
-Content-Type: application/pgp-signature; name="signature.asc"
+Should this patch also remove these redundant properties from those board
+files to fully consolidate them?
 
------BEGIN PGP SIGNATURE-----
+> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/d=
+ts/freescale/imx95.dtsi
+> index 38fc47024841f..7bc74307d9ae6 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
+> @@ -439,6 +439,9 @@ hugo_funnel_out_port0: endpoint {
+> =20
+>  	mqs1: mqs-1 {
+>  		compatible =3D "fsl,imx95-aonmix-mqs";
+> +		clocks =3D <&scmi_clk IMX95_CLK_SAI1>;
+> +		clock-names =3D "mclk";
+> +		#sound-dai-cells =3D <0>;
+>  		status =3D "disabled";
+>  	};
 
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCan7EABIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/gpkQGAuMtOcBpig/wiKXRZxo5dnZWZytuizi81
-9gdKnnLs2SwWDhVWeMI3KqyskL9c8npyAYDxudngtFW003ppqWmitRqZajlOE5Yc
-aqIa4ieGjeGa6vIw8n3kW7J3+ulzY76wN80=
-=UzzR
------END PGP SIGNATURE-----
-
---e50af02b9babad11da73eac21cd43fb816234b4908fcfdb70e72eaf484ca--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814072022.4064=
+009-1-chancel.liu@oss.nxp.com?part=3D11
