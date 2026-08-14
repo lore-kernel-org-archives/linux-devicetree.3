@@ -1,161 +1,133 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C81456E19;
-	Fri, 14 Aug 2026 08:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB782C027B
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786697113; cv=none; b=L0TGjaZQgh9jM3UghXAzU3gD2g79UWl1ql4BQncxV2odwN8Vxzlny7pWGu2lMv5KD6IPxW5ivq4N9RtQeEvTEH+cFSvaPAAw9xSdqucYkHI28kIo2I0Q5NL+fso42Ovo715mGMm6Qpoqw1MMRVXqFDFfXG3ZPALa5hMbeRQVF/I=
+	t=1786697240; cv=none; b=kMsnMhaCa6bQyhiYLCwISXM8jt6JROGdjC/eQLZb65XL7+eQFA2SuKoKw4AprGkfmsd6btyaTe0rirSWXh1O3pK8Ynelyxa4XsVKlt8KG6yxSbxoiqUEfWdYsy0bHLv2BNISOTunia62cWfQlhdZ6JRgpzjCVyqL+IHOLjSWXLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786697113; c=relaxed/simple;
-	bh=02GCKdl+4caKPV47L7dD6vJAkQbS9I9BYEv+tXUl/lQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I0OYFKbvtbuyPXKwkrI/PQSJH0ehgtXlRTulHfuxUYqO1w4i2TuyE8EUeZT2a3hcEEj0PEkv8FxIxXNXDlvB2GZC1sV11t2SV9/SmVU65jcJAtiO2VD2MhCOzT0D7BhXS4f3lk2VvwJ+uWeMoWIRSTvpZlrgT8skVtFWmkoKp3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GkuVu537; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786697240; c=relaxed/simple;
+	bh=Vgd3Q44kqJRqgaBsQmuEsJJSs3Co0GBcE6V472jwNrE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PHlSNqEyTifJZG6HVmkXUIgZvsVYwcmiqRZDtTZJYSe03wZCeQ/Q2s4X1qrSEpV2WfFqFhzsxM2kx+2ZXwgWYSKmeSCRMTOahCovdn2PMmHJbJrShNKIf+1PXNvBYMavqOSDWuOWi+KmcbIfyNqcACewvntZmLa+pdF2q0zfvVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEYD5LhV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GkuVu537"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786697112; x=1818233112;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=02GCKdl+4caKPV47L7dD6vJAkQbS9I9BYEv+tXUl/lQ=;
-  b=GkuVu537BoSosgPwMgZow2TJnSbnJa3UlVtPquQYnpnUNyRBDG81Z1B9
-   gqRY/arvMWQ5ux6s9rgKJq9Gmy++MtWs6ZvfFNNC4zQTLXMbcttZFxxK3
-   4U3bIynaUdk8ywMz/+Y37b3XcbKArZM4KJ6uTTRb7FRGI/BEFIYsC+uIC
-   jWv8DNj1xVXpjaBDcCltr2RLMBYVZ5bIVtWd6GXDexqR0tLLg5vE0S6/v
-   IlEam2AI5FwzmNoL7lys+qLRsYfhx6uJCdDwcIha4UmiEkhxx+5lVQI3G
-   nvsWo4ixlaYFfT0c6g+zg1LQwTDPXU7/u2j7U55jWPiFgZ5tlMrFkJzDo
-   g==;
-X-CSE-ConnectionGUID: lflkE7/bR/WiMoZRLn0+GA==
-X-CSE-MsgGUID: N/NWRAPBQ1K/x5OizoNPqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87038888"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="87038888"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:45:11 -0700
-X-CSE-ConnectionGUID: 8vQJPTKRRSCLpJfB6rG1Yw==
-X-CSE-MsgGUID: +GRaxc2CRSG+FAOVxmRsoA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="294096857"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.134])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:45:06 -0700
-Date: Fri, 14 Aug 2026 11:45:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v3 00/14] iio: adc: Add AD7768/AD7768-4 ADC driver support
-Message-ID: <an7VkAg_MIc8HneT@ashevche-desk.local>
-References: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEYD5LhV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C341F000E9;
+	Fri, 14 Aug 2026 08:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786697238;
+	bh=6VVSfKOP6djzlAvKGTsAM4uD1eL/c7zJjv1uc+YtnZ0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BEYD5LhVVm5yKEbV+j2gwzD7m8EQRRhOakl52Mfh3Al0OYB3pY3HrXVB3m9YsCTDF
+	 chcJ55I9uus1ABe+SYO84vleCeba0XBrVtPHYy7gviAVIsE5qV5pVEllTdSdwebXJV
+	 sHAFNbs4c5n3BYDBVL0wKKiizkCoiqgZv4vRVBrCZfCkXg5ha/2eyZ20Rfe+zX4USy
+	 zYS4gZwXf8rFBTBp0Y6clBHBtHTD78uuCTgkvik+FH+pond5cfHm5jl0gERO49Q4uZ
+	 ZlUmkskUq4h4DwI30RNuV/3Px8umteFpKf1j+UF7U+ZDYVWQqttrlBI9RFZGAz8GWN
+	 9VVMOD3cgZnYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] of: reserved_mem: reject statically placed regions
+ overlapping existing reservations
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wandun Chen" <chenwandun1@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260814081443.1061046-3-chenwandun1@gmail.com>
+References: <20260814081443.1061046-1-chenwandun1@gmail.com>
+ <20260814081443.1061046-3-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 08:47:17 +0000
+Message-Id: <20260814084718.29C341F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 13, 2026 at 03:56:53PM +0200, Janani Sunil wrote:
-> Add support for Analog Devices AD7768 and AD7768-4, 24-bit simultaneous
-> sampling Sigma-Delta ADCs with automatic power mode selection.
-> 
-> Datasheet:
-> https://www.analog.com/media/en/technical-documentation/data-sheets/ad7768.pdf
-> 
-> **Device Overview:**
-> The AD7768 is an 8-channel, 24-bit simultaneous sampling ADC. The
-> AD7768-4 is a 4-channel variant. Both support configurable power modes,
-> programmable decimation filters, and a high-speed serial interface with
-> 1, 2, 4, or 8 data output lines. Per-channel offset, gain, and phase
-> calibration registers are available.
-> 
-> **Features Implemented:**
-> - Support for AD7768 (8-channel) and AD7768-4 (4-channel) via device
->   match data.
-> - Automatic low-noise power mode selection (fast, median, low power)
->   with associated decimation rate and output data rate tables.
-> - Per-channel offset, gain, and conversion delay via IIO attributes.
-> - SPI communication with custom regmap bus for the device's protocol.
-> - IIO backend integration with adi-axi-adc for high-speed data capture.
-> - CRC data integrity verification over the serial interface.
-> - GPIO auxiliary driver to expose the 5 on-chip GPIO pins.
-> - VCM common-mode output exposed through the regulator framework, with
->   runtime PM management while the output is enabled.
-> 
-> **Patch Summary:**
-> 1. Add the AD7768 and AD7768-4 devicetree binding.
-> 2. Add the IIO backend CRC operation.
-> 3. Initialize the AXI ADC state mutex.
-> 4. Implement CRC control in the AXI ADC backend.
-> 5. Add core AD7768 and AD7768-4 capture support.
-> 6. Add configurable sampling rates, power modes, and filters.
-> 7. Add per-channel offset and gain calibration controls.
-> 8. Add per-channel conversion delay.
-> 9. Expose the VCM output through the regulator framework.
-> 10. Register the GPIO auxiliary device from the parent driver.
-> 11. Use regmap_test_bits() for single-bit gpio-regmap reads.
-> 12. Add optional runtime PM support to gpio-regmap.
-> 13. Add the AD7768 GPIO auxiliary driver.
-> 14. Add driver documentation.
-> 
-> **Testing:**
-> The driver was compiled and tested on the EVAL-AD7768FMCZ using a
-> Zedboard with a mainline kernel.
-> 
-> **Driver Rationale:**
-> The AD7768/AD7768-4 warrants its own driver due to several
-> device-specific characteristics:
-> 
-> 1. A custom SPI framing protocol: register reads and writes use 16-bit
->    frames with embedded read/write bits and register address fields,
->    requiring a custom regmap bus implementation rather than the standard
->    SPI regmap backend.
-> 
-> 2. A coupled power mode / sample rate model: available output data rates
->    are not a flat list but depend on the active power mode (fast, median,
->    low power), each with its own set of valid decimation rates. This
->    relationship must be managed in the driver.
-> 
-> 3. Simultaneous sampling across all channels with per-channel calibration
->    registers (24-bit offset, gain, and phase) that are laid out
->    differently between the 8-channel AD7768 and the 4-channel AD7768-4,
->    requiring device-specific register mapping.
-> 
-> 4. IIO backend integration for high-speed data capture via adi-axi-adc,
->    including CRC data integrity verification over the serial interface.
-> 
-> 5. On-chip GPIO: 5 general-purpose I/O pins exposed via an auxiliary bus
->    driver, sharing the parent's regmap and runtime PM.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-The GPIO driver looks nice, but regmap API should use cleanup.h instead of
-custom (legacy) approach.
+New issues:
+- [High] Rejecting partially overlapping reserved memory regions without ca=
+lling memblock_reserve leaves non-overlapping parts exposed to the buddy al=
+locator.
+- [Low] The overlap error message prints an exclusive end address using a f=
+ormat conventionally used for inclusive ranges, and can wrap around to 0 on=
+ integer overflow.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Pre-existing issues:
+- [High] The patch fails to reject overlaps for 'no-map' regions, leaving t=
+he memory corruption vulnerability it intended to fix fully exploitable in =
+that case.
+--
 
+--- Patch [2]: [PATCH 2/3] of: reserved_mem: reject statically placed regio=
+ns overlapping existing reservations ---
+commit 5a1dc7b658795d38b565b07f22ac870257f66deb
+Author: Wandun Chen <chenwandun@lixiang.com>
+Subject: of: reserved_mem: reject statically placed regions overlapping exi=
+sting reservations
 
+This patch rejects statically placed reserved memory regions that overlap
+with existing reservations. It prevents the overlapping memory from being
+used concurrently or returned to the buddy allocator if a region's driver
+fails to initialize.
+
+Link: https://lore.kernel.org/all/20260806100605.2C2C01F000E9@smtp.kernel.o=
+rg/ [1]
+
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index f20747725de42..67cb60616fc69 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -146,6 +146,15 @@ static int __init early_init_dt_reserve_memory(phys_=
+addr_t base,
+> =20
+>  		return memblock_mark_nomap(base, size);
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but in early_init_dt_reserve_memory() does the
+overlap check for nomap regions fail to detect overlaps between two nomap
+regions?
+
+Because memblock_mark_nomap() does not add the region to memblock.reserved,
+a second overlapping nomap region bypasses the check. If the second driver
+later fails and clears the flag, could memblock_free_all() release the memo=
+ry
+to the buddy allocator while the first driver is still using it?
+
+> +
+> +	if (memblock_is_region_reserved(base, size)) {
+> +		phys_addr_t end =3D base + size;
+
+[Severity: Low]
+Does this calculate an exclusive end address instead of an inclusive one?
+
+If base + size reaches the physical address limit, could this overflow to 0
+and print a misleading log message?
+
+> +
+> +		pr_err("Reserved memory: [%pa-%pa] overlaps an existing reservation, i=
+gnoring\n",
+> +		       &base, &end);
+> +		return -EBUSY;
+
+[Severity: High]
+If a statically placed region only partially overlaps an existing
+reservation, does returning -EBUSY here without calling memblock_reserve()
+leave the non-overlapping parts exposed to the buddy allocator?
+
+To safely protect the non-overlapping physical pages from being used for
+general kernel use, should the code still call memblock_reserve() before
+returning -EBUSY?
+
+> +	}
+> +
+>  	return memblock_reserve(base, size);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814081443.1061=
+046-1-chenwandun1@gmail.com?part=3D2
