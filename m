@@ -1,85 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D83340DB5B
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DC3414A2F;
+	Fri, 14 Aug 2026 07:27:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786692382; cv=none; b=dFtw48MAtXuVdwCgCUJ4F1a6NwUJ9x83/XtJUKb6qCPUTl5yDgr4+13tuCvubxcjWFDzW1rgQJigca5XIblhmlahVHKsxhBhjNVZhvEc1olL0+DSK09RoFa/M+yJgcCd5/xK5BfcacL+XPADcvzAB6pfzaqDRx699davumoiRCk=
+	t=1786692484; cv=none; b=IySe5IQ73nk5ggY95SiahKZ9L/N9MdtI07CyXzoJeq2uxxFop6wZNK/AQGBQvTwmMkhK5zv9+3oq3CDNEJodmR7HKyvPmNHJfAgQSxhRATRYbrkkFzhC+qm2aj/1RuzFJOd2mUqJGy9snd3O0so2B9nILNPEm7TDQ2AkNibCjTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786692382; c=relaxed/simple;
-	bh=XUQT37v5nndWRb0WlzDNA/x4ySUuWCY6uRQ4HzaiAOE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FoPstOupHVah2ED0wyn8/3+N7etKJt3xFFctIkZRv74lqNSFlH117laqM5w2NLaJa4lePUavNxsYfZkT3NqHKnX/Nh9UESb10WNqb55r3HRx9sP9XFsyjyAWO4RaSKi0hWnHv7c7RLTEOPvg35kKMC519bMJ/Aowzbm+TpYRdeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OiACllOF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786692484; c=relaxed/simple;
+	bh=1xHew+fT+N2yBDid+AaG8M+YjglFr6Mdyc1l2D4X7Xw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IyrlNlyZ4hgShRWgFduAZ/GUfnUjDF4hw06VTGi74OPMMJkP2Cxd7Ht29PJerrHmJuw43jBR0C/VYTV1DRSYqr+by6p/nbtfLc3RyeXx+OXVoyvYYR+1twSSseg1HO9OVO1y7h7Az6pcPpbhcg0cl3nxp0JxfmOLk9Kn7c0y9Ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qy8Xe91b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OiACllOF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7345A1F00ACF
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:26:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qy8Xe91b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1741F000E9;
+	Fri, 14 Aug 2026 07:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786692376;
-	bh=XUQT37v5nndWRb0WlzDNA/x4ySUuWCY6uRQ4HzaiAOE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OiACllOFO8QIAhf7lvLqsh35TAFyWvCe2xq2GXnZDpaFdAjecqBiw4YZwYFskiXjX
-	 /d8gLs5hZuR3Kq357/4oocJQCGu/IQ/pYyMzccY2/vfFsVN/3m+96EusRCT+RpsYmr
-	 sGL2dn4xdPbeEC+GD4CWZ6I5SLa6AKx6yL5c6SldwZ7KNFuhtbrgQvhzsoYc130sRI
-	 T6+Ud+WZbVXy6WGydsDXWMbs4HbdeEiSU5dVgPq+7+D1If1tyLR797LO+bqv18Ez6g
-	 hrfRD26wtoqXLuim5hUZPNJPO9cl9GfO4O31Ny5vQXr0dwoCBARnKmjZtNL062XH5i
-	 n8TAKAFJ6fsuw==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b011edaf7dso705866e87.2
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:26:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RogLEJc1vwSwXXY9n6anDpando6bpCMYAOmQv3ZM0aLhw6sXtA11nAaN08iNsO8Zn+KrLBi6gdDYp60@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJQHsIY+CHrv2OavpmA4o6Gy0+AwpXMUQ/Yai2mGZ4/jHet3JG
-	YUEolZg37JVXDJEuPkNBGRxg6NBPF5KEkL0fyo0TrL8FIbdkRqmYg+aaJTjjlmhibs/5iSy3xXd
-	MyZu1vGq25cQ0t+F5MTV+7qPvhsjHfpU=
-X-Received: by 2002:ac2:51d1:0:b0:5b2:a328:cdd5 with SMTP id
- 2adb3069b0e04-5b45919ee31mr544880e87.49.1786692375262; Fri, 14 Aug 2026
- 00:26:15 -0700 (PDT)
+	s=k20260515; t=1786692474;
+	bh=fLzxgQunLn3rTDnZhCwKBAHKrSDwRymxoZHim98a9WQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qy8Xe91buoX7ocsf4E+E5gn8kT1wTwvYKYLm4lGfeDhamN/un+PO/+MtmLqXgBhaz
+	 3qGAtS8xYbggsM3Pt4lx8dciyZ21YuUQpcy0q0Za8xcoEtAelOMGNQWg/n+niA1EyY
+	 /LHoEvQFv+upPL+ygjQk0btCnKCSS+tzX0SkWRJUdeIDfI5Q+BdIwzCyKUhmMCMXHL
+	 0k/n7JDQmUM1Ma1qthrgM9jx5CGkAYqG3aczByIa/QaY2iOFOrT+5xgd1HEyzV3aOE
+	 G4711+8IoSLg9EXTgbH8G3YGeN3TYML4kmdlmTJjtEX5av0RpgjgzudrAtoF2RY9tt
+	 Pn7cd39oY8hcA==
+Date: Fri, 14 Aug 2026 09:27:45 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Stefan Agner <stefan@agner.ch>, Fabio Estevam <festevam@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Francesco Dolcini <francesco@dolcini.it>, 
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Mehmet Fide <mehmet.fide@screeningeagle.com>
+Subject: Re: [PATCH v4 4/4] ARM: dts: vf: add Iris carrier board support for
+ Colibri VF50 and VF61
+Message-ID: <20260814-indefinable-grateful-buzzard-4eefbc@quoll>
+References: <20260813161101.2274327-1-mehmet.fide@gmail.com>
+ <20260813161101.2274327-5-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1785838584.git.mazziesaccount@gmail.com> <d419dcf8776f7ea88e4a66b9a0f0087f11e6622c.1785838585.git.mazziesaccount@gmail.com>
-In-Reply-To: <d419dcf8776f7ea88e4a66b9a0f0087f11e6622c.1785838585.git.mazziesaccount@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 14 Aug 2026 09:26:02 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnzLiyBsDi2zeR13_95hpip7i3fOSwMbMXD7KYeJj5X=w@mail.gmail.com>
-X-Gm-Features: AcwNN1XqzgmqVA0UuXzJafrByAbtpxUiXy_C_XbrwJ4yAGRJ9EaFb9OIaRI3WXM
-Message-ID: <CAD++jLnzLiyBsDi2zeR13_95hpip7i3fOSwMbMXD7KYeJj5X=w@mail.gmail.com>
-Subject: Re: [PATCH v2 02/10] dt-bindings: rohm,bd*: Ref common ROHM bindings
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
-	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-rtc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260813161101.2274327-5-mehmet.fide@gmail.com>
 
-On Tue, Aug 4, 2026 at 12:21=E2=80=AFPM Matti Vaittinen
-<matti.vaittinen@linux.dev> wrote:
+On Thu, Aug 13, 2026 at 06:11:01PM +0200, Mehmet Fide wrote:
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+> 
+> The Iris is a small off-the-shelf carrier board for the Colibri
+> family. Describe what the board itself provides: Ethernet, one USB
+> host and one OTG port, the pin header UARTs, i2c with the carrier
+> RTC on it, the PWM pins on the X16 header, SPI and the microSD slot.
+> The host port gets its VBUS through a regulator on SODIMM 129, and
+> the two GPIOs that turn the RS232 transceivers on, SODIMM 102 and
+> 104, are hogged. The touchscreen is an add-on rather than part of
+> the board, so it is left out.
+> 
+> This describes an Iris V1.1. A V2.0 carries the same signals on the
+> same pins; what it adds, and what this does not describe, is the
+> regulator on SODIMM 100 that can cut power to the uSD slot.
+> 
+> Tested on a Colibri VF50 on an Iris V1.1 running 6.18: Ethernet at
 
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
->
-> The commonly used ROHM PMIC bindings were added into
-> rohm,pmic-pins.yaml. Keeping commonly used properties in one file can
-> ease both the maintaining the bindings and the reviewing process.
->
-> Reference the common bindings from rohm,pmic-pins.yaml, instead of
-> declaring them from the scratch for every PMIC using them. Keep the PMIC
-> variant specific information (like supported pin functions) in PMIC the
-> specific files, so unsupported values won't be allowed.
->
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Since you booted now on v7.2, drop the version description.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+> 100Mbps/Full, a USB dongle enumerating once the VBUS regulator is in
+> place, the RTC read back over i2c0, all three UARTs, the SPI
+> controller registering, both PWM chips registering, the microSD
+> slot, the EXT_IO pin group still applied next to the carrier hog
+> group, and both hogs holding their pins.
+> 
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+> ---
+>  arch/arm/boot/dts/nxp/vf/Makefile             |   2 +
+>  arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi | 126 ++++++++++++++++++
+>  .../boot/dts/nxp/vf/vf500-colibri-iris.dts    |  14 ++
+>  .../boot/dts/nxp/vf/vf610-colibri-iris.dts    |  14 ++
 
-Yours,
-Linus Walleij
+Good old ScreeningEagle/Proceq times, had a lot of fun with this tiny
+tiny board and module.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
