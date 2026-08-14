@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE01647884D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE09F47ECCE;
 	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786731445; cv=none; b=arkPTMXnzbh6BuWdMLBasoVoOFVawLl4C9+5yCI2KEaeAI6RowSz8eBzhtWp/wflnSMggNC5RsQFQCUaA3HOeOqrfPxD72OTC31MV5z/5bQGL6r4KkMXfDVTqAUzxx+Mfm+X5F4bCW4czBxAzos7+U1QanF8JzWmIVikViy/Yyc=
+	t=1786731445; cv=none; b=mkLwa7hokuJOtbjU1mocXFxlmVtJK83SIl+KqzaCxKPw/2nnqEYGC6EaC8zhaf+1KMTiFzCkbsbIOQ5ylUqhdSDFr55ISQepGhuWsQJ+3aRm22KuDaJB2q1kXG9XbRH0nTYrhZ8vPwSeqZRBvrZPDTesjwVGUv6RxsKbSKjFN1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786731445; c=relaxed/simple;
-	bh=ni83lAkjW3cN40ar+5EYINhjWhYIukoZMP7+kR2Mdoc=;
+	bh=1MPr4rGoFxfu9TCrLGTGX7zedHFXd2bdnPYvUds2ZtQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OKcRaAqKCcGGkSN/7K7g3oIb1I25fjVKNNNulc78NPSP/UgsaWw7079sAyZENEvA3KkXqouffkFIEJJY/Dz0pZT3bak8sVDdGUT0EE9UapEgWxrl8yLzmrvOnfzuF9eivgmpUPcjmvBIEyFZtwlF9oLyyT/qwpOdPy+py73DTkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQ/bzyuj; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=JUrqAIFiVpc0g8IVVZnpbuutq8N/I9N59zV/qt9bemgt3LuNARaS7UWZhQ2l+sLBwVG9RfPM6X4dyFE1LJHlhkbycCpYqIsGRkhrhqcDfVtJS1YQLB7Nf+Q61gAgsRZ6TkvC8FGX6pS+DLg31y6wyGP2FAzO2UX0Cnk6l/9NRMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMaSB3Oq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQ/bzyuj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8F165C2BCF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMaSB3Oq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A7BABC2BCFD;
 	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786731445;
-	bh=ni83lAkjW3cN40ar+5EYINhjWhYIukoZMP7+kR2Mdoc=;
+	bh=1MPr4rGoFxfu9TCrLGTGX7zedHFXd2bdnPYvUds2ZtQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=eQ/bzyujoUCVHp2AS7DA9uIZgH/i8uKpzes8X6en8XldPbcFgPlV+SskUkS/MsQ7v
-	 zJTLogeeY7Mf2ShNk6QY3jrRUa1/8w6lR1ua5oe1RR6ZfBg0rIfdhVJVMtP4WClzkG
-	 6RuyCUKBQKqFyVns4r4A7TD8qUsKJ9eFYXU03yg2hoGlnhJv9LYE3wlXw1kFI+n7Zh
-	 Yzv+U7hYlQSbnVIggULakAyuLZOzAOEfV98r6ctsGIEURaZ1wyQoVVXoxlwl3yY0cw
-	 aO2To36ZKAb6DvMqcanZfHKGIJNGHyGx5qq6dx7rzyxTTXXODHHy/jDSwVjBKqYagx
-	 YprXpb6i5mvqQ==
+	b=AMaSB3OqASGKiW/5XBx+yppEL7QgWgzT4Sxa9qZtBafaW8+RovCdbN1r0GR/PRqJE
+	 SwCs2exAxnJXv0Pl9PrrDcKaxCU+19zYZfeo19EH5RlhBEXlwUM3NoX654dizq1qXk
+	 /4z03g+eg3IW77dXnGx3UdiVRmBQL6D8Ktg68HUVkZvfj9Sd9OTY6hL0acmjuJoM37
+	 5Bafktfm/hX+a1c3qQq4VwVgqZ9LhBrU8oIew/GkZZKl4aOX8N2CjZdoc+J/tUFRuE
+	 kOwTk4qwnh8MZmuhJ6dDnB5VEtsRnYNUng7hSugSgghS/CW/uIX5gLiYd1zYKvc6P1
+	 0TvWGdf618TYQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70A5AC5CFC1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AE04C5DF67;
 	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Fri, 14 Aug 2026 13:17:16 -0500
-Subject: [PATCH 2/4] drm/panel: visionox-vtdr6130: Add panel orientation
- support
+Date: Fri, 14 Aug 2026 13:17:18 -0500
+Subject: [PATCH 4/4] drm/panel: visionox-vtdr6130: Add Retroid Pocket 6
+ panel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-rp6-panel-v1-2-111c1aeccf0f@gmail.com>
+Message-Id: <20260814-rp6-panel-v1-4-111c1aeccf0f@gmail.com>
 References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
 In-Reply-To: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -54,11 +54,11 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786731444; l=2151;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786731444; l=5955;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=4JX6sGMnacRMev7Y2NB1fqlDR3ay0oZY4tGf8LDcUXo=;
- b=6/+fhseOqGwuzVTrK8mjJIk6IAvTfvSSDevDcYlE1IDi9uaZS7uCpilQC+CPlK7cCfl6sbb+N
- N4OQ1jIWz4eAZiG+Tbtne8i+mM4rorRL50C7rVSj4vfqtJFVmrukTq0
+ bh=ScONlIwrZwNMIN+M+MGr8r32XLjgu4rOUqB4e+erUgM=;
+ b=p9lT/EMgzOHfrzYKT9P7Pdttysxrovh1I7+q7zIQ9X2FyuG0ekb4kXgPVFrv3g2hWGRg6zNXb
+ WgaXolNh38XCru0gvJoR5DLNz1+kx+nPy+Oen6YGukigzDwdeMuZuMH
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -68,65 +68,152 @@ Reply-To: webgeek1234@gmail.com
 
 From: Aaron Kling <webgeek1234@gmail.com>
 
-Fetch orientation from the device tree if provided.
+Add support for the 1080x1920 panel used in the Retroid Pocket 6.
 
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 114 ++++++++++++++++++++++++
+ 1 file changed, 114 insertions(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-index 6733e0e1d0612..b66d6c7128c75 100644
+index 805c9846c2a0b..5c826f95ec478 100644
 --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
 +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-@@ -11,6 +11,7 @@
- #include <drm/display/drm_dsc.h>
- #include <drm/display/drm_dsc_helper.h>
- #include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_of.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_panel.h>
- 
-@@ -22,6 +23,7 @@ struct visionox_vtdr6130 {
- 	struct mipi_dsi_device *dsi;
- 	struct gpio_desc *reset_gpio;
- 	struct regulator_bulk_data *supplies;
-+	enum drm_panel_orientation orientation;
- };
- 
- static const struct regulator_bulk_data visionox_vtdr6130_supplies[] = {
-@@ -218,10 +220,18 @@ static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
- 	return 1;
+@@ -64,6 +64,82 @@ static void visionox_vtdr6130_reset(struct visionox_vtdr6130 *ctx)
+ 	usleep_range(10000, 11000);
  }
  
-+static enum drm_panel_orientation visionox_vtdr6130_get_orientation(struct drm_panel *panel)
++static int retroidpocket_rp6_on(struct visionox_vtdr6130 *ctx)
 +{
-+	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
++	struct mipi_dsi_device *dsi = ctx->dsi;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
++	struct drm_dsc_picture_parameter_set pps;
 +
-+	return ctx->orientation;
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x01);
++	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx,
++				     MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
++	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xff07);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_ADDRESS_MODE, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x11, 0x00, 0x00, 0x89,
++				     0x30, 0x80, 0x07, 0x80, 0x04, 0x38, 0x00,
++				     0x14, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
++				     0x02, 0x25, 0x00, 0x20, 0x01, 0xd5, 0x00,
++				     0x07, 0x00, 0x0d, 0x05, 0x7a, 0x05, 0x16,
++				     0x18, 0x00, 0x10, 0xf0, 0x03, 0x0c, 0x20,
++				     0x00, 0x06, 0x0b, 0x0b, 0x33, 0x0e, 0x1c,
++				     0x2a, 0x38, 0x46, 0x54, 0x62, 0x69, 0x70,
++				     0x77, 0x79, 0x7b, 0x7d, 0x7e, 0x01, 0x02,
++				     0x01, 0x00, 0x09, 0x40, 0x09, 0xbe, 0x19,
++				     0xfc, 0x19, 0xfa, 0x19, 0xf8, 0x1a, 0x38,
++				     0x1a, 0x78, 0x1a, 0xb6, 0x2a, 0xb6, 0x2a,
++				     0xf4, 0x2a, 0xf4, 0x4b, 0x34, 0x63, 0x74,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb1, 0x02, 0x15, 0x00, 0x14,
++				     0x00, 0x20, 0x00, 0x02, 0x16, 0x00, 0x14,
++				     0x07, 0xb4, 0x00, 0x02, 0x16, 0x00, 0x14,
++				     0x00, 0x10, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x14);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb2, 0x03, 0x33);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb4, 0x0a, 0x72, 0x00, 0x00,
++				     0x0a, 0x72, 0x00, 0x00, 0x0a, 0x72, 0x00,
++				     0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5, 0x00, 0x1e, 0x1e, 0x1e,
++				     0x1e, 0x1e, 0x1e, 0x06, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb9, 0x00, 0x00, 0x08, 0x1e,
++				     0x1e, 0x1e);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbc, 0x10, 0x00, 0x00, 0x08,
++				     0x11, 0x1e, 0x7c, 0x1e, 0x7c, 0x1e, 0x7c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbe, 0x10, 0x10, 0x00, 0x0c,
++				     0x22, 0x1e, 0x62, 0x1e, 0x62, 0x1e, 0x62);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x80);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x13);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfd, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x81);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf9, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x83);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x04);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x00);
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 150);
++
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 50);
++
++	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
++	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
++	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
++
++	return dsi_ctx.accum_err;
 +}
 +
- static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
- 	.prepare = visionox_vtdr6130_prepare,
- 	.unprepare = visionox_vtdr6130_unprepare,
- 	.get_modes = visionox_vtdr6130_get_modes,
-+	.get_orientation = visionox_vtdr6130_get_orientation,
- };
+ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
+ {
+ 	struct mipi_dsi_device *dsi = ctx->dsi;
+@@ -204,6 +280,43 @@ static int visionox_vtdr6130_unprepare(struct drm_panel *panel)
+ 	return 0;
+ }
  
- static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
-@@ -293,6 +303,12 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
- 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
- 	ctx->panel.prepare_prev_first = true;
- 
-+	ret = drm_of_get_panel_orientation(dev->of_node, &ctx->orientation);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to get orientation %d\n", ret);
-+		return ret;
-+	}
++static const struct drm_display_mode retroidpocket_rp6_modes[] = {
++	{
++		.clock = (1080 + 22 + 2 + 16) * (1920 + 16 + 2 + 20) * 120 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 22,
++		.hsync_end = 1080 + 22 + 2,
++		.htotal = 1080 + 22 + 2 + 16,
++		.vdisplay = 1920,
++		.vsync_start = 1920 + 16,
++		.vsync_end = 1920 + 16 + 2,
++		.vtotal = 1920 + 16 + 2 + 20,
++	},
++};
 +
- 	ctx->panel.backlight = visionox_vtdr6130_create_backlight(dsi);
- 	if (IS_ERR(ctx->panel.backlight))
- 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
++static struct visionox_vtdr6130_desc retroidpocket_rp6_panel_desc = {
++	.modes = retroidpocket_rp6_modes,
++	.num_modes = ARRAY_SIZE(retroidpocket_rp6_modes),
++	.width_mm = 69,
++	.height_mm = 122,
++	.bpc = 8,
++	.lanes = 4,
++	.format = MIPI_DSI_FMT_RGB888,
++	.mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET |
++		      MIPI_DSI_CLOCK_NON_CONTINUOUS,
++	.init_sequence = retroidpocket_rp6_on,
++	.dsc = {
++		.dsc_version_major = 0x1,
++		.dsc_version_minor = 0x1,
++		.slice_height = 12,
++		.slice_width = 540,
++		.slice_count = 2,
++		.bits_per_component = 8,
++		.bits_per_pixel = 8 << 4,
++		.block_pred_enable = true,
++	},
++};
++
+ static const struct drm_display_mode visionox_vtdr6130_modes[] = {
+ 	{
+ 		.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
+@@ -357,6 +470,7 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ }
+ 
+ static const struct of_device_id visionox_vtdr6130_of_match[] = {
++	{ .compatible = "retroidpocket,rp6-panel", .data = &retroidpocket_rp6_panel_desc },
+ 	{ .compatible = "visionox,vtdr6130", .data = &visionox_vtdr6130_panel_desc },
+ 	{ /* sentinel */ }
+ };
 
 -- 
 2.54.0
