@@ -1,135 +1,198 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D06041CB31;
-	Fri, 14 Aug 2026 08:34:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD6A3EB7F4
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786696487; cv=none; b=jtBmVHFCtlKcIdOz9k1lCbVkvgvGl7Xh2uTxRYKxJy0yk5gmSzxuQPEPoHXnLlX+1Q6QeL1MZodt4+hZNIlCqYox/UWlQn0581gAEuceIfFHK8xL01HsOFoiqfNjEkavNds2eX9J8Xz0qfmy/G8LxdxVS8LaApJk55+f8Ry1SyQ=
+	t=1786696598; cv=none; b=LpWpNiv/owg13/oMc9ihD6e4pRR3fHlwdnUJ3sMKPgd4Y99ReHWU8WrxugKyj4qsUT+HVbPnlsi1CArCofILXZtIecFs/mvyG/w+D9vCaO1XzPbL8iSYENJE3nNsUe6S5KN8ZaA/wLQ7zJk0d+TjggX/eiWklNkvm3pp654C2jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786696487; c=relaxed/simple;
-	bh=buFWeEW9LvwwOZ3vaSL33shbTFTKRmeLX32d2rQm6Lg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o0opVdshK6wJRecVoabQ5ls0KSwKhQJ1C62XttC8g2pa2lsfSTDBUOtQU+isk83Re1UVSW43SyPTzAdTXYStsDcAZAu8toeEwIGXea3MODMCW33RAAk4w4tXxpmSrzeQ8zY8SmpjLpYLGTdVjBLY2k1QBmqQuUoS3f0z/mrGXAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bUUVbk6a; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786696598; c=relaxed/simple;
+	bh=1WqGkRKa3UYJses2NNFdh+4OynQ7zXVcp0lcl7svQxo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UkB/99IlPKTx9ghP9h2sD9uo8uWvWXuAkqr5l4X8SdoggS8Ebb2FRj2Nu/XQeARLC8vBbT8DPulUgHPI9tTMvRSq33091hGD2XKQNDWuc++AxGYsOp1A4lSE/DBKo95Kbe/qen68UejzmW6qlwazN3FHLYJUSBSVmStl4i55ufw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGmnBhQ7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bUUVbk6a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786696468; x=1818232468;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=buFWeEW9LvwwOZ3vaSL33shbTFTKRmeLX32d2rQm6Lg=;
-  b=bUUVbk6aWgvbld5s65jSguAnyaaFRGllyoD5gtxWZCROxchOfhSMTkkd
-   AOK6aTQ40PV7lGiGr8R3moM7USGkY4GHSDtDPsjerpu6yt4y1fvGZvwQr
-   Hmy5ywUc0wV3EZYBxsojLnHbk8QABbjGHwpt2CcSEpmaenyMv1TqeB450
-   1K+1jE9B3TX6MRcZYWQaCXL0b5sV/jh91BrYx7tSojIqi58jtpOKQojpG
-   3EmAVhwXV+++nh306vjiimc+bA3KpV5PD71gIinlNTr8BUM92vXGovdHO
-   0TGdL38ZS5so5+t+9kojw5GJfR2HWEda37yYST06gH6bkjnRiNyzMoZLq
-   g==;
-X-CSE-ConnectionGUID: OZhSKefdSZ+o8anH1mq8ag==
-X-CSE-MsgGUID: 9cJ102/YTdq2foa7aBvQHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="91149444"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="91149444"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:34:22 -0700
-X-CSE-ConnectionGUID: UtuaY2aBRLactMlU64MIxA==
-X-CSE-MsgGUID: HVvin0m5SkWXZopXr/QPBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="268022352"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.134])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:34:16 -0700
-Date: Fri, 14 Aug 2026 11:34:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v3 12/14] gpio: regmap: Add optional runtime PM support
-Message-ID: <an7TBThRam_n7hKg@ashevche-desk.local>
-References: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com>
- <20260813-ad7768-driver-v3-12-cb554399ad26@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGmnBhQ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E521F000E9;
+	Fri, 14 Aug 2026 08:36:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786696590;
+	bh=vkdiOAnQruevDwznzINn6pgPVydei8L2EK6ahGNtv2M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EGmnBhQ7DpLWJ33ClQpYLwi7dRMoz/YHaSA1a2IUjBDtAItIbQ6B04+kdPzhBn26X
+	 U+57IY9t4vE9gGJ3dsXx06xMS9he4iiUZAlF3LEkt8j6L6au6aLYaqMufbMoLpkxuo
+	 USIuFEXaTrM4NgeYPh1YrHi7IOP74VaNZn4TgOmfSm7FLiKm598/HVpB77tKUK43vN
+	 m06+9z9i6QTt6+fi236Y0UPOqChsHaPCn3sJZEPrqVVkEWUKcumLnlm3i9EgIND83t
+	 U6VfpapU22skxFrv4cOplIYDDzV0d72qLTUcAdxM2nJzawJb9G2MCDssOGODRcMZHy
+	 TLqDkIZ832sDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 05/12] net: phylink: support PCS provider release
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260813083536.970196-6-ansuelsmth@gmail.com>
+References: <20260813083536.970196-1-ansuelsmth@gmail.com>
+ <20260813083536.970196-6-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 08:36:29 +0000
+Message-Id: <20260814083630.05E521F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813-ad7768-driver-v3-12-cb554399ad26@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 13, 2026 at 03:57:05PM +0200, Janani Sunil wrote:
-> Some gpio-regmap consumers share their regmap with a parent device that
-> may be runtime suspended. GPIO register accesses must resume that device
-> first.
-> 
-> Add an optional pm_dev field and acquire it before register translation
-> or access. Release it using runtime autosuspend after each operation.
-> Keep the device active across the complete direction-output sequence and
-> propagate failure when setting the initial output value.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-...
+New issues:
+- [Medium] Stale linkmode capabilities when a PCS provider is dynamically d=
+eleted.
+- [Medium] Data race on the `pcs->phylink` pointer could lead to a NULL poi=
+nter dereference.
 
->  static int gpio_regmap_get(struct gpio_chip *chip, unsigned int offset)
+Pre-existing issues:
+- [High] Unchecked error pointer dereference from `mac_select_pcs` in `phyl=
+ink_inband_caps`.
+--
+
+--- Patch [5]: [PATCH v14 05/12] net: phylink: support PCS provider release=
+ ---
+commit 33b352668c4f60d5ab772e19eb7823565b80a8ab
+Author: Christian Marangi <ansuelsmth@gmail.com>
+
+net: phylink: support PCS provider release
+   =20
+Add support for release of fwnode PCS from a PCS provider.
+This works by creating a global notifier for the PCS provider and
+making each phylink instance that makes use of fwnode subscribe to
+this notifier.
+
+The PCS notifier will emit the event FWNODE_PCS_PROVIDER_DEL every time
+a new PCS provider is released.
+
+[ ... ]
+
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index 82eae20daed00..967cc919a3656 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+
+[ ... ]
+
+> @@ -998,6 +1010,9 @@ static unsigned int phylink_inband_caps(struct phyli=
+nk *pl,
 >  {
->  	struct gpio_regmap *gpio = gpiochip_get_data(chip);
-
->  
-> -	ret = gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
-> +	ret = gpio_regmap_runtime_get(gpio);
->  	if (ret)
->  		return ret;
->  
-> +	ret = gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
-> +	if (ret)
-> +		goto out_pm_put;
+>  	struct phylink_pcs *pcs;
+>  	bool pcs_found =3D false;
+> +	int ret =3D 0;
 > +
->  	/* ensure we don't spoil any register cache with pin input values */
->  	if (gpio->reg_dat_base == gpio->reg_set_base) {
->  		ret = regmap_read_bypassed(gpio->regmap, reg, &val);
->  		if (ret)
-> -			return ret;
-> +			goto out_pm_put;
->  
-> -		return !!(val & mask);
-> +		ret = !!(val & mask);
-> +	} else {
-> +		ret = regmap_test_bits(gpio->regmap, reg, mask);
+> +	mutex_lock(&pl->state_mutex);
+> =20
+>  	if (pl->mac_ops->mac_select_pcs) {
+>  		pcs =3D pl->mac_ops->mac_select_pcs(pl->config,
+> @@ -1013,9 +1028,14 @@ static unsigned int phylink_inband_caps(struct phy=
+link *pl,
 >  	}
->  
-> -	return regmap_test_bits(gpio->regmap, reg, mask);
-> +out_pm_put:
-> +	gpio_regmap_runtime_put(gpio);
+> =20
+>  	if (!pcs_found)
+> -		return 0;
+> +		goto exit;
+> +
+> +	ret =3D phylink_pcs_inband_caps(pcs, interface);
+
+[Severity: High]
+This is a pre-existing issue, but can mac_select_pcs() return an error poin=
+ter
+here?
+
+If so, the !!pcs check earlier in the function evaluates to true for error
+pointers. Is it possible that phylink_pcs_inband_caps() is then passed an
+error pointer, which it unconditionally dereferences?
+
+> +
+> +exit:
+> +	mutex_unlock(&pl->state_mutex);
+> =20
+> -	return phylink_pcs_inband_caps(pcs, interface);
 > +	return ret;
 >  }
 
-Instead of adding ugly goto:s, I would rather define the guard and acquire and
-use in the same way as other PM_RUNTIME_ACQUIRE*() work.
+[ ... ]
 
--- 
-With Best Regards,
-Andy Shevchenko
+> @@ -1937,11 +1962,89 @@ static int phylink_fill_available_pcs(struct phyl=
+ink *pl,
+>  	}
+> =20
+>  out:
+> +	mutex_unlock(&pl->state_mutex);
+> +
+>  	kfree(pcss);
+> =20
+>  	return ret;
+>  }
+> =20
+> +static void phylink_del_pcs(struct phylink *pl, struct phylink_pcs *pcs)
+> +{
+> +	lockdep_assert_held(&pl->state_mutex);
+> +
+> +	list_del(&pcs->list);
+> +	pcs->phylink =3D NULL;
 
+[Severity: Medium]
+Is it possible for a lockless reader like phylink_pcs_change() to access
+pcs->phylink concurrently when a provider is removed?
 
+If phylink_pcs_change() reads pcs->phylink without READ_ONCE(), and we do a
+plain store here without WRITE_ONCE(), could compiler optimizations lead to=
+ a
+NULL pointer dereference?
+
+> +
+> +	/*
+> +	 * Check if we are removing the PCS currently
+> +	 * in use by this phylink instance. If this is the case,
+> +	 * tear down the link, force phylink resolve to reconfigure the
+
+[ ... ]
+
+> +static int pcs_provider_notify(struct notifier_block *self,
+> +			       unsigned long val, void *data)
+> +{
+> +	struct phylink *pl =3D container_of(self, struct phylink, fwnode_pcs_nb=
+);
+
+[ ... ]
+
+> +	/* Refresh supported interfaces */
+> +	phy_interface_copy(pl->supported_interfaces,
+> +			   pl->config->supported_interfaces);
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		phy_interface_or(pl->supported_interfaces,
+> +				 pl->supported_interfaces,
+> +				 pcs->supported_interfaces);
+
+[Severity: Medium]
+When a PCS provider is dynamically deleted and we update
+pl->supported_interfaces here, do we also need to recalculate the global
+pl->supported and pl->link_config.advertising linkmode masks?
+
+Without calling phylink_validate() to update these masks, is it possible
+they retain the stale capabilities of the removed PCS, causing ethtool to
+report incorrect capabilities?
+
+> +
+> +	mutex_unlock(&pl->state_mutex);
+> +
+> +	rtnl_unlock();
+> +
+> +	phylink_run_resolve(pl);
+> +
+> +	return NOTIFY_OK;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813083536.9701=
+96-1-ansuelsmth@gmail.com?part=3D5
