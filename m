@@ -1,133 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB782C027B
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3B519E839;
+	Fri, 14 Aug 2026 08:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786697240; cv=none; b=kMsnMhaCa6bQyhiYLCwISXM8jt6JROGdjC/eQLZb65XL7+eQFA2SuKoKw4AprGkfmsd6btyaTe0rirSWXh1O3pK8Ynelyxa4XsVKlt8KG6yxSbxoiqUEfWdYsy0bHLv2BNISOTunia62cWfQlhdZ6JRgpzjCVyqL+IHOLjSWXLU=
+	t=1786697632; cv=none; b=kXgx6J7Nak+D6KloqEw/50Zs775lxu9ieGX++9XWejTZ4oBnkNJgm1RbnKUAYiuiJJ9KVIoFs2Zefzmf9W03DLbAO/UwQuIamfXKvBQcUcbN5pfnXS+BeQaUimbSnxS0QF6N+e0ygmIH6n95h+jVHz2Qn5WSgv7wvXAoJJascxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786697240; c=relaxed/simple;
-	bh=Vgd3Q44kqJRqgaBsQmuEsJJSs3Co0GBcE6V472jwNrE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PHlSNqEyTifJZG6HVmkXUIgZvsVYwcmiqRZDtTZJYSe03wZCeQ/Q2s4X1qrSEpV2WfFqFhzsxM2kx+2ZXwgWYSKmeSCRMTOahCovdn2PMmHJbJrShNKIf+1PXNvBYMavqOSDWuOWi+KmcbIfyNqcACewvntZmLa+pdF2q0zfvVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEYD5LhV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786697632; c=relaxed/simple;
+	bh=DnhcwNnwlcyKQ2spT5xCGOydkrovj/Cy+Ap2rn9VX5I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qzD0k4y0KdF8OwNfF95cHbWLaX6DOa3OTXihAFU1sFcsj9yszEmULI7ZU9lHt+epRGvb0FVh0TuePmHtUtQnV5g1xCHg7Z0zkskwtBK9VW+9wiKcCMFvcKKxkpGgXSIiDgKHL1ls+ZQLInnzjUPkzFgxdySmhGOgKAE0zWPWq6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HBjFmEA9; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEYD5LhV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C341F000E9;
-	Fri, 14 Aug 2026 08:47:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786697238;
-	bh=6VVSfKOP6djzlAvKGTsAM4uD1eL/c7zJjv1uc+YtnZ0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BEYD5LhVVm5yKEbV+j2gwzD7m8EQRRhOakl52Mfh3Al0OYB3pY3HrXVB3m9YsCTDF
-	 chcJ55I9uus1ABe+SYO84vleCeba0XBrVtPHYy7gviAVIsE5qV5pVEllTdSdwebXJV
-	 sHAFNbs4c5n3BYDBVL0wKKiizkCoiqgZv4vRVBrCZfCkXg5ha/2eyZ20Rfe+zX4USy
-	 zYS4gZwXf8rFBTBp0Y6clBHBtHTD78uuCTgkvik+FH+pond5cfHm5jl0gERO49Q4uZ
-	 ZlUmkskUq4h4DwI30RNuV/3Px8umteFpKf1j+UF7U+ZDYVWQqttrlBI9RFZGAz8GWN
-	 9VVMOD3cgZnYA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] of: reserved_mem: reject statically placed regions
- overlapping existing reservations
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260814081443.1061046-3-chenwandun1@gmail.com>
-References: <20260814081443.1061046-1-chenwandun1@gmail.com>
- <20260814081443.1061046-3-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 08:47:17 +0000
-Message-Id: <20260814084718.29C341F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HBjFmEA9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786697630; x=1818233630;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DnhcwNnwlcyKQ2spT5xCGOydkrovj/Cy+Ap2rn9VX5I=;
+  b=HBjFmEA9uT0qKZLXjtRhJ9rOFpI81UVt5/EOibxrKBBXUv/1RknOikPw
+   OlsaX+DpX+gcot8S24GFgD1IxkAwcuDgTMhMWfZH+f2nog5r38gZphZKa
+   4sX6sMOQSBQTMQUf7sxTgyyusXf/ZyD2GrIoDLQvNGBDAQXDvyEs+uR4d
+   erIZQGLlM/BAgPno2FIeY+cQwvKpjWfvrYS0LUKjE7tQ+faiO7ldAA7HQ
+   3y7u3FiM6C6wFD7wdJUGk6R8DjfJQKcMswGtdFQi5LjB8MJu22kxgj+gT
+   8QtrUojKIZYMhIAcG7e1CAmfzOMpl187UOWkRoYb2gVIa2Q2/DLbKJKw4
+   g==;
+X-CSE-ConnectionGUID: A5wQ5rVkRf+0oTBO5SoU7Q==
+X-CSE-MsgGUID: iNFKfznoRwuALTWyOY2kGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87039328"
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
+   d="scan'208";a="87039328"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:53:50 -0700
+X-CSE-ConnectionGUID: Gk61uU6/T52dbWnh+K1DWA==
+X-CSE-MsgGUID: mWDPMdVEQr2tOQ52mDVVjA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
+   d="scan'208";a="262420320"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.134])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:53:48 -0700
+Date: Fri, 14 Aug 2026 11:53:45 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] serial: 8250_dw: add Ambarella CV75 quirks
+Message-ID: <an7XmT5Wg_QeFwzk@ashevche-desk.local>
+References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
+ <20260813-cv75-v3-c-v3-2-9352b3fd6026@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813-cv75-v3-c-v3-2-9352b3fd6026@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Thu, Aug 13, 2026 at 06:35:13PM +0800, Long Zhao via B4 Relay wrote:
 
-New issues:
-- [High] Rejecting partially overlapping reserved memory regions without ca=
-lling memblock_reserve leaves non-overlapping parts exposed to the buddy al=
-locator.
-- [Low] The overlap error message prints an exclusive end address using a f=
-ormat conventionally used for inclusive ranges, and can wrap around to 0 on=
- integer overflow.
+> Add CV75 platform data with an ETOI IER mask and skip-set-rate so the
+> DesignWare 8250 driver can drive the Ambarella UART for console use.
 
-Pre-existing issues:
-- [High] The patch fails to reject overlaps for 'no-map' regions, leaving t=
-he memory corruption vulnerability it intended to fix fully exploitable in =
-that case.
---
+This is way too cryptic commit message, we need much more details.
+What's wrong with HW implementation? Is it integration HW bug or some specific
+case of the IP synthesis? What is happening when this patch is *not*
+applied? Et cetera, et cetera...
 
---- Patch [2]: [PATCH 2/3] of: reserved_mem: reject statically placed regio=
-ns overlapping existing reservations ---
-commit 5a1dc7b658795d38b565b07f22ac870257f66deb
-Author: Wandun Chen <chenwandun@lixiang.com>
-Subject: of: reserved_mem: reject statically placed regions overlapping exi=
-sting reservations
+-- 
+With Best Regards,
+Andy Shevchenko
 
-This patch rejects statically placed reserved memory regions that overlap
-with existing reservations. It prevents the overlapping memory from being
-used concurrently or returned to the buddy allocator if a region's driver
-fails to initialize.
 
-Link: https://lore.kernel.org/all/20260806100605.2C2C01F000E9@smtp.kernel.o=
-rg/ [1]
-
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index f20747725de42..67cb60616fc69 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -146,6 +146,15 @@ static int __init early_init_dt_reserve_memory(phys_=
-addr_t base,
-> =20
->  		return memblock_mark_nomap(base, size);
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but in early_init_dt_reserve_memory() does the
-overlap check for nomap regions fail to detect overlaps between two nomap
-regions?
-
-Because memblock_mark_nomap() does not add the region to memblock.reserved,
-a second overlapping nomap region bypasses the check. If the second driver
-later fails and clears the flag, could memblock_free_all() release the memo=
-ry
-to the buddy allocator while the first driver is still using it?
-
-> +
-> +	if (memblock_is_region_reserved(base, size)) {
-> +		phys_addr_t end =3D base + size;
-
-[Severity: Low]
-Does this calculate an exclusive end address instead of an inclusive one?
-
-If base + size reaches the physical address limit, could this overflow to 0
-and print a misleading log message?
-
-> +
-> +		pr_err("Reserved memory: [%pa-%pa] overlaps an existing reservation, i=
-gnoring\n",
-> +		       &base, &end);
-> +		return -EBUSY;
-
-[Severity: High]
-If a statically placed region only partially overlaps an existing
-reservation, does returning -EBUSY here without calling memblock_reserve()
-leave the non-overlapping parts exposed to the buddy allocator?
-
-To safely protect the non-overlapping physical pages from being used for
-general kernel use, should the code still call memblock_reserve() before
-returning -EBUSY?
-
-> +	}
-> +
->  	return memblock_reserve(base, size);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814081443.1061=
-046-1-chenwandun1@gmail.com?part=3D2
