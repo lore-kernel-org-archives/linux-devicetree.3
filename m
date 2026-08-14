@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE973CD8A4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDDC353A75;
 	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786731445; cv=none; b=bX9yy3dU9PU4+gLDZiEpUaZx4WtSDVVt4Ie3WbwLbViQ+xZn87uQXmSWsjJOey26PbxgEwCSMIJ7tQbHKM9pVJcpRRCpgTFfR1uu1LCOzKq9iasgnhQbYxHcukJW7oKf6BjoEuCJPxIIrethYSSiDwpL5PbE399HLQBUBH7JXO8=
+	t=1786731445; cv=none; b=PsLPaHflm8/Q81BV4hHR6x+XKd1iMUEk8yFGRD8oqZOf+Hheb4JJ52o+lUxh3lMhBX1mEDv1P7dcMTLcrVcbJz42BkVWkOyiqtsZVSqc72PwrNG4vmFVXtCEHGFuSzV4kgKoi8N5AL1f+fFXslQEM547OkCOMF98tsMdpRCZyCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786731445; c=relaxed/simple;
-	bh=05UlI8U8+ox12Iu078tYqJXr6YhBgqKRLtpJyQ3O4/4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BlIEj0XwXSUgyCx9MHhRmsgdIyWLnRObGaoh/KKm+a1ILXnLSmgPfL4iBvnTn40IXrYcR3rOEovglAZbdOGnb0QPvTO+7YyPkfxOlaLs3dcuv3I8BNiqTgq98CciJfi8pLDlw/EyCiJBiik4eh6vz/NbDh7A5mNIim47uWh0CmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6gbNW9a; arc=none smtp.client-ip=10.30.226.201
+	bh=WYFvB3Li1+6xn+zfnX9sd8rDHAr1cCTWibX8WJb+s1E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=XxCLnhqMAG8YcveTpmisOVhdsDb0RVgjpjI1QRh8m0cyFliOynlqNJ5nzJDZ/uQ3bVQtI3MlDcwrd7kZ7kC4eVoUYajkqwiQB8tYG7RfS90wQe9MZcav1Sjb7rMQ3IMApQGXkecMT2G9h+uoziWAYSHi4+jMOMzQ8GaZWFvlap8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXHsQVhD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6gbNW9a"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B360C2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXHsQVhD"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9A286C2BCF6;
 	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786731445;
-	bh=05UlI8U8+ox12Iu078tYqJXr6YhBgqKRLtpJyQ3O4/4=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=D6gbNW9a4dhNwa6geMlIiQnzgNhvX8vqfTAq/IiHPAu9vzZACw1lVxev8KevXTHiJ
-	 Cr5kq0XJ+nhO8Vne8UQcHPNUSvHDdtOp7PX+6lVOZeqWzFDgRw0yiVcU886c3me5sD
-	 3j48nVfVcz4XmsOTiHYX8a40DeWE0BQN0ViNFUjiVUwVvC/ht+y19KQ35QyKsOh+2X
-	 a7wGipyJN15FduaN6G1ahKl6MKTGBqa90KgQXTt8iP2sM3BWOFxZ1/Yr9RSE8HUQCR
-	 lRwD4SzJe6b6+iAM4mFRWQJB2RpTymtKOuFE3CH0GmCi3mqpXbBeuYK7Y8GJjs+xll
-	 sl/RSRJASbFYQ==
+	bh=WYFvB3Li1+6xn+zfnX9sd8rDHAr1cCTWibX8WJb+s1E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=jXHsQVhDzAE8ZB+X1KWQoqSTfFjq7DYG3J+3PFJnmAEMM8Qx+3h8sJ9ZmGeWX19sV
+	 qQVreji2pI+R3JlqkGemtwn5CN7nlRI0Z/AjAw4krkqxWAYg/rb3jOUMCY3IS49cdE
+	 y3gBie0rtWLqzzo1nrv3dBwhMTsvFCFa457ft7HFaTWa+MGRXaML75wy7L5cAK4os3
+	 boxtnNd2GWO8Uw5SYdOwSqlA9Pqi6s7j58XoRXFL8ap/2o1ouuuJxFxjIimkjz69do
+	 xMwZRrDk6Cthc4SYv8ufQpbd0aowhbtVOd9NZv6xkK7RDfciRMIRpNwplkC8i3r2Av
+	 iNTk5YwsUzHVg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57108C5B572;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DEBEC5DF6A;
 	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Subject: [PATCH 0/4] drm/panel: Support Retroid Pocket 6 panel
-Date: Fri, 14 Aug 2026 13:17:14 -0500
-Message-Id: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
+Date: Fri, 14 Aug 2026 13:17:17 -0500
+Subject: [PATCH 3/4] drm/panel: visionox-vtdr6130: Modularize panel config
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,11 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22O0WrDMAxFfyX4eQY5tiXVv1L64CjKZljT1O7CR
- um/L0uhT3s8Qvdw7qZpLdpM6u6m6lpaucwbuLfOyEee39WWcWPTQ4/gHdu6oF3yrJ+W0XGAGAA
- dmu1/qTqV7911PD256vVrU96eRzPkplYu53O5pS4EokzsKeRI4hkOg6M+jx5ENA9jDiyBZFe/U
- lK3h/SObP6Z7VUaxwjWoQAN6EftMa2H/yYMf+2vBUfhQAgTTj6tzpwej1/II9LrDAEAAA==
-X-Change-ID: 20260318-rp6-panel-861840540616
+Message-Id: <20260814-rp6-panel-v1-3-111c1aeccf0f@gmail.com>
+References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
+In-Reply-To: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -55,11 +53,11 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786731444; l=2531;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786731444; l=5467;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=05UlI8U8+ox12Iu078tYqJXr6YhBgqKRLtpJyQ3O4/4=;
- b=scEWgA4YR3TDfadbQQ+muEYFqhjR7300Z8EJM0Yt/Wm2tOSAFBnusy8gRg+Lhwc1gX1yDtSPl
- tOsVyttPGi+CUM4pncKOQzleknM/tkIEDX1QiI0Yc2Oj/uzVpIVtWP/
+ bh=DCitivrRVpNuYH4Jt4HFt8eBqH1HZ4CWSQVXa+YmjUU=;
+ b=Z4WxlA+rHdTHwk1JjtkjjZrFN8y0j6keSVeVkhdu6FCpmSBUtSA2d5OWFy5gKaKHhPcPJzfyg
+ 2rRXcgU7y1uDi/INWgHUuKPdRG1DHwL5a65oO5rNshz3AC+cm12jaG3
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -67,53 +65,174 @@ X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
 X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 Reply-To: webgeek1234@gmail.com
 
-This panel uses a Visionox VTDR6130 DDIC. There is an existing driver
-for this ddic, however it is currently hardcoded for a panel used on
-several Qualcomm devkits. This series sets up the driver to support
-multiple panels, then adds the RP6 panel. It also adds support for
-rotation as the RP6 panel is mounted sideways.
+From: Aaron Kling <webgeek1234@gmail.com>
 
-This depends on the Retroid Pocket dt series [0] for the vendor prefix
-patch. That series depends on the AYN dt series [1] to apply cleanly.
-    
-[0] https://lore.kernel.org/linux-arm-msm/20260808-rp-qcs8550-v1-0-a5a365ba3dc5@gmail.com/
-[1] https://lore.kernel.org/linux-arm-msm/20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com/
+The vtdr6130 is a DDIC, a common chip that is used by multiple panels.
+Prepare the driver for more panels.
 
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
-Aaron Kling (4):
-      dt-bindings: display: visionox,vtdr6130: Add Retroid Pocket 6 panel
-      drm/panel: visionox-vtdr6130: Add panel orientation support
-      drm/panel: visionox-vtdr6130: Modularize panel config
-      drm/panel: visionox-vtdr6130: Add Retroid Pocket 6 panel
+ drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 95 +++++++++++++++++--------
+ 1 file changed, 65 insertions(+), 30 deletions(-)
 
- .../bindings/display/panel/visionox,vtdr6130.yaml  |   8 +-
- drivers/gpu/drm/panel/panel-visionox-vtdr6130.c    | 225 ++++++++++++++++++---
- 2 files changed, 201 insertions(+), 32 deletions(-)
----
-base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
-change-id: 20260318-rp6-panel-861840540616
-prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v9
-prerequisite-patch-id: 17ba304f7a8a08cc78f98e198db9c51f4786a22c
-prerequisite-patch-id: 21873631f5dcdb9bbbdb5c20c3f5e9816cc405f9
-prerequisite-patch-id: bf7b5dea0097cbbdf04929a4246d1fc65c607ea8
-prerequisite-patch-id: d7f546eddc96a4f31a1e681abddbc96bd68abb32
-prerequisite-patch-id: d40d784ad8efbb1204c024408be2067725a06cf2
-prerequisite-patch-id: 25bbd55199a8250a912ef542b31f43dd5ccdbc90
-prerequisite-change-id: 20260808-rp-qcs8550-85c84760f6f3:v1
-prerequisite-patch-id: 17ba304f7a8a08cc78f98e198db9c51f4786a22c
-prerequisite-patch-id: 21873631f5dcdb9bbbdb5c20c3f5e9816cc405f9
-prerequisite-patch-id: bf7b5dea0097cbbdf04929a4246d1fc65c607ea8
-prerequisite-patch-id: d7f546eddc96a4f31a1e681abddbc96bd68abb32
-prerequisite-patch-id: d40d784ad8efbb1204c024408be2067725a06cf2
-prerequisite-patch-id: 25bbd55199a8250a912ef542b31f43dd5ccdbc90
-prerequisite-patch-id: c79dacb2a8ca1298387bc9bc4a543de97c670a50
-prerequisite-patch-id: 9c058fb9b13442f5434b8aaa2f1907eff1b43684
-prerequisite-patch-id: c13130099b60aa7c412181e99070718eb2c68ecd
-prerequisite-patch-id: d0dad3c4fa9c4b98e6cc53bbd0874df9113ab5f6
+diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+index b66d6c7128c75..805c9846c2a0b 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
++++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+@@ -19,11 +19,28 @@
+ 
+ struct visionox_vtdr6130 {
+ 	struct drm_panel panel;
+-	struct drm_dsc_config dsc;
++	struct drm_connector *connector;
+ 	struct mipi_dsi_device *dsi;
+ 	struct gpio_desc *reset_gpio;
+ 	struct regulator_bulk_data *supplies;
+ 	enum drm_panel_orientation orientation;
++	struct visionox_vtdr6130_desc *desc;
++};
++
++struct visionox_vtdr6130_desc {
++	unsigned int width_mm;
++	unsigned int height_mm;
++
++	unsigned int bpc;
++	unsigned int lanes;
++	unsigned long mode_flags;
++	enum mipi_dsi_pixel_format format;
++
++	const struct drm_display_mode *modes;
++	unsigned int num_modes;
++	int (*init_sequence)(struct visionox_vtdr6130 *ctx);
++
++	struct drm_dsc_config dsc;
+ };
+ 
+ static const struct regulator_bulk_data visionox_vtdr6130_supplies[] = {
+@@ -162,7 +179,7 @@ static int visionox_vtdr6130_prepare(struct drm_panel *panel)
+ 
+ 	visionox_vtdr6130_reset(ctx);
+ 
+-	ret = visionox_vtdr6130_on(ctx);
++	ret = ctx->desc->init_sequence(ctx);
+ 	if (ret < 0) {
+ 		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+ 		regulator_bulk_disable(ARRAY_SIZE(visionox_vtdr6130_supplies),
+@@ -187,34 +204,58 @@ static int visionox_vtdr6130_unprepare(struct drm_panel *panel)
+ 	return 0;
+ }
+ 
+-static const struct drm_display_mode visionox_vtdr6130_mode = {
+-	.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
+-	.hdisplay = 1080,
+-	.hsync_start = 1080 + 20,
+-	.hsync_end = 1080 + 20 + 2,
+-	.htotal = 1080 + 20 + 2 + 20,
+-	.vdisplay = 2400,
+-	.vsync_start = 2400 + 20,
+-	.vsync_end = 2400 + 20 + 2,
+-	.vtotal = 2400 + 20 + 2 + 18,
++static const struct drm_display_mode visionox_vtdr6130_modes[] = {
++	{
++		.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 20,
++		.hsync_end = 1080 + 20 + 2,
++		.htotal = 1080 + 20 + 2 + 20,
++		.vdisplay = 2400,
++		.vsync_start = 2400 + 20,
++		.vsync_end = 2400 + 20 + 2,
++		.vtotal = 2400 + 20 + 2 + 18,
++	},
++};
++
++static struct visionox_vtdr6130_desc visionox_vtdr6130_panel_desc = {
++	.modes = visionox_vtdr6130_modes,
++	.num_modes = ARRAY_SIZE(visionox_vtdr6130_modes),
+ 	.width_mm = 71,
+ 	.height_mm = 157,
++	.bpc = 8,
++	.lanes = 4,
++	.format = MIPI_DSI_FMT_RGB888,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
++		      MIPI_DSI_CLOCK_NON_CONTINUOUS,
++	.init_sequence = visionox_vtdr6130_on,
++	.dsc = {
++		.dsc_version_major = 0x1,
++		.dsc_version_minor = 0x2,
++		.slice_height = 40,
++		.slice_width = 540,
++		.slice_count = 2,
++		.bits_per_component = 8,
++		.bits_per_pixel = 8 << 4,
++		.block_pred_enable = true,
++	},
+ };
+ 
+ static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
+ 				       struct drm_connector *connector)
+ {
++	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
+ 	struct drm_display_mode *mode;
+ 
+-	mode = drm_mode_duplicate(connector->dev, &visionox_vtdr6130_mode);
++	mode = drm_mode_duplicate(connector->dev, ctx->desc->modes);
+ 	if (!mode)
+ 		return -ENOMEM;
+ 
+ 	drm_mode_set_name(mode);
+ 
+ 	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
+-	connector->display_info.width_mm = mode->width_mm;
+-	connector->display_info.height_mm = mode->height_mm;
++	connector->display_info.width_mm = ctx->desc->width_mm;
++	connector->display_info.height_mm = ctx->desc->height_mm;
+ 	drm_mode_probed_add(connector, mode);
+ 
+ 	return 1;
+@@ -284,23 +325,17 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+ 				     "Failed to get reset-gpios\n");
+ 
++	ctx->desc = (struct visionox_vtdr6130_desc *)of_device_get_match_data(dev);
++	if (!ctx->desc)
++		return -ENODEV;
++
+ 	ctx->dsi = dsi;
+ 	mipi_dsi_set_drvdata(dsi, ctx);
+ 
+-	ctx->dsc.dsc_version_major = 0x1;
+-	ctx->dsc.dsc_version_minor = 0x2;
+-	ctx->dsc.slice_height = 40;
+-	ctx->dsc.slice_width = 540;
+-	ctx->dsc.slice_count = 2;
+-	ctx->dsc.bits_per_component = 8;
+-	ctx->dsc.bits_per_pixel = 8 << 4;
+-	ctx->dsc.block_pred_enable = true;
+-
+-	dsi->dsc = &ctx->dsc;
+-	dsi->lanes = 4;
+-	dsi->format = MIPI_DSI_FMT_RGB888;
+-	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
+-			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++	dsi->dsc = &ctx->desc->dsc;
++	dsi->lanes = ctx->desc->lanes;
++	dsi->format = ctx->desc->format;
++	dsi->mode_flags = ctx->desc->mode_flags;
+ 	ctx->panel.prepare_prev_first = true;
+ 
+ 	ret = drm_of_get_panel_orientation(dev->of_node, &ctx->orientation);
+@@ -322,7 +357,7 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ }
+ 
+ static const struct of_device_id visionox_vtdr6130_of_match[] = {
+-	{ .compatible = "visionox,vtdr6130" },
++	{ .compatible = "visionox,vtdr6130", .data = &visionox_vtdr6130_panel_desc },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, visionox_vtdr6130_of_match);
 
-Best regards,
 -- 
-Aaron Kling <webgeek1234@gmail.com>
+2.54.0
 
 
