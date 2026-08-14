@@ -1,195 +1,99 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16274442B3E
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 10:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9999A3E9584;
+	Fri, 14 Aug 2026 10:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786702729; cv=none; b=qr3GMgMGE8uzkM4zvv634yPBuqN+ia+DsKy9LyFyHG7PeMze1EAa95o2NFsZv0D6AppkaQAgekAAbsrBSnXhGfXppFa529wqiLC+N087oVPX71LevdjLFcOr7adUBmCWT4/zskGcCdJ3n7O1tcXKtQ2SkGlmtHRnkNZkmPlc9ng=
+	t=1786702753; cv=none; b=bRL00gk6/9efycoSqdxzeGA7T8Lt3e79wb09HEbOF7yQ332zMRxJdue4Lc/q8R6c4c4KjmsSokwmJKV8j89hFbMT2Zzs+dRU+fnkLdgIgPEWZC4YBoIlZx9yJkaLe33Z3oomsuV06NS/dmEQXIYE3HhIYHJiThwJofG6cisbJb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786702729; c=relaxed/simple;
-	bh=GCnr4Mvm18woqcPyatGz9lyWobnOtJmYTMXDBVkkUVw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TkrnNrtNW13SRviJ2ZQYC3Zdg9fr0kx2+uZbrA479OlnayGZ3xrZp4pPlNgCfO8MAFw8+0XqLFwX2AQ6++tV9QY4CQJYIFn8V/MQMMow8LaqaO8BVFCREXSuNh6bL6yZNknyWvWybE1LbZQum/QB3+ZkkEYoK8vOh+ylxbqw8Zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FSRNdY5c; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786702753; c=relaxed/simple;
+	bh=K/JybFN4RV/75dALSWrTrUgHeP544FPa/fH1D6v5AEQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IReUELg9MbgRlxUK9xaQPLC43WFqYypJM1eCfxZ+gVBwp+7ShzFtFmJn/Em9F8XoD5qYJ7R+S8j+H6EJ4Ad2ixwlSDpXAdBZ5k2IxoqX3hoBNML37b9DIi5764pLbMtpUntx5okRqHfS464T7NnRGTFgdN92/In2ynw2QATYCt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/QXCTjI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FSRNdY5c"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ccf2360620so8777535ad.3
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 03:18:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786702721; x=1787307521; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SoVS6TyvWyTEmYUl+BaMNjP58PtMCPWRwsnVl6nfaY0=;
-        b=FSRNdY5cUjftjEXHR6nwlsxaOEKsW1rKBmmdNZNYZbNET0taa+WJR9UkLTRgm9DTVs
-         BufwmboZzKapO6Hn/oo2CIgszxvWpxKhLjBEVgMjdzPuxqMS6hrXfyaCzzNTWzn/Mlrq
-         tzVQI6nqtcl1kV8hY/EFFSPrE8okFLZ6X7IsQr+Zvv3Sz7FptqEdgsMpb4xl41wlqjA6
-         18EVEwe853+2e7s2XwCgMeVMjxCLMDksJtagBy8JLdiZoJ6tka2wYLchOYWExqqO9Vaf
-         6mbqm8406Mi3ssn3ejybO36zvNOvNHoS2m23NfKrM2vQKF9WNnayZWzUTwG49OkbydRq
-         YChg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786702721; x=1787307521;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SoVS6TyvWyTEmYUl+BaMNjP58PtMCPWRwsnVl6nfaY0=;
-        b=om+WbvXhLVilek9YGP8shsA5Jc3EOLmasjo8tTvI9yUKlPnG/O5EM5skRPYq0Fk774
-         vKHA7mDiKB51zu73YYmVFRcC59okPFsdzZXgm/DzyWTbj2SBYicSxVrOhTyraLzE+KTx
-         b0ZJGVL/hjjyzkyIMBeQRx2E6oh3RaDIcGTP9Mkm+GqgPCzLeRVu4uchpEG6qbSpNLnt
-         yKVQe7eB1Ou02l2fDF5H+8GIu7Njq5x6s+g3MFdhbBG/ZtOSreW9QR6jutpXwEMagu43
-         xAgQh7EL1ejaGhZOD6e6flp7KQQ+jICYMWLSg2iuc87FGa9sInoirbGoxyH3LFSdZQhr
-         0wsQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrPdYDpNPTnUtp90cNapda67WI3n5hSwkJkceXamuOs1hW/UUWnYT1mjutsDj4FxStDkb8mOvYl/e9u@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxh8Me/26eLlL1XBS7IOducOPAV2YvL+SJ0MBRDSz08bqvnF/us
-	TqBwoJ/DCxyfYC0iohxVqqrtO0meHXlN0c5rmv3VJxCzzKr/xrTEMYqz
-X-Gm-Gg: AR+sD11Hb5a0WTGt5cLxzVZxozy3Sjw7xW7yW/h4zTxNUNgF3Kwk5NP6wPDMR4OFSxC
-	AQ4KpN0NO819/Ok3/AbPdA2087u3bJf9LW0/lz+rpLWReuDihmSs0mxI9Sp9C1OsUG7eszpJteL
-	m5e3PUKajCbJ441mEjOCHHOrkw8V5vRrktymgiKaZodmH5oiNtnAg9mzNlIe9OZ5Bj0sPe8WR8+
-	+7l+jrAIEC5nSDagZQnJyWl4qazHevLG+JfI3kEHYFwp6fIRS7OBnoGyRW5BT1dcHB0YsV6OOWa
-	tBcXXTeAFu6Fv0xGOphcQItswvGD7aW7l/4vjcnVo4viIwOj+f13z8udP84xSi7PwPUMTujGaEs
-	/IXKChMX1tgM0xOsKNs5vo4e+CFdB06JhRWTdxbeMhaDCaxBkuJ4ntmqgejqexEeAgm+03kM6sU
-	hb9teFjg9vzSsFRODcqKxwGXwni8/ucEUka+mtPQt72PkQ30VNBHzIVMoYVjmMyipZqFb9PQrl1
-	JiUraw=
-X-Received: by 2002:a17:903:360c:b0:2ca:b8fd:f31 with SMTP id d9443c01a7336-2d3b0d5e37amr51097825ad.15.1786702720815;
-        Fri, 14 Aug 2026 03:18:40 -0700 (PDT)
-Received: from inhnjlux1020.ls.ege.ds ([2406:b400:53:97cb:44f1:865e:4c69:6423])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3aebc81a6sm7393685ad.72.2026.08.14.03.18.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 03:18:39 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v3] spi: dt-bindings: microchip,pic32mzda-sqi: Convert to DT schema
-Date: Fri, 14 Aug 2026 15:47:33 +0530
-Message-Id: <20260814101733.46406-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/QXCTjI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B73A1F000E9;
+	Fri, 14 Aug 2026 10:18:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786702742;
+	bh=NXdGXpEaeSzo6LucHd30eYR/GtpdrDPatB4CgfYUQF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E/QXCTjI36E8mBXEr6GvChfoeqasCRqIBQhD+HHSxLkNy/ZkATKjNyVKWxSFnDy3R
+	 o01xFHf7H63TWszeKcUx7lJTvk6qMIXPWPoBzJ0h+EbMzWr9dH+9Qd9GE1k7YFp2TH
+	 1sPCvaVkqjB7uR5mqkCfGoaaqNsu7Ki3477kNdUXzrn8/OMane3Gl+7vb5UHmJAvyp
+	 tFmN/agBMSAAgKSRAth53CIWXe/CE7KXsmUdELHOi4gIJnxwIpn0l1InPUPcP0IFW6
+	 jVhFtxWsRp0/vyYrS8gXqIVkj88/r3e3OoAwlgujhMK+I00XX6qpxww0bQsGeAptdA
+	 Of4GkzD49p0Dg==
+Date: Fri, 14 Aug 2026 12:18:45 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, Vladislav Leonov <vlad@zlab.su>, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	Simon Glass <sjg@chromium.org>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Andi Shyti <andi.shyti@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Aurelien Jarno <aurelien@aurel32.net>, Brian Masney <bmasney@redhat.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Daniel Golle <daniel@makrotopia.org>, 
+	"David S. Miller" <davem@davemloft.net>, David Wu <david.wu@rock-chips.com>, 
+	Eric Dumazet <edumazet@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Mark Brown <broonie@kernel.org>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Olivia Mackall <olivia@selenic.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	linux-crypto@vger.kernel.org, linux-i2c@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-pwm@vger.kernel.org, linux-spi@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH 00/25] ARM: rockchip: Add peripheral support for RV1106
+Message-ID: <20260814-vivacious-nickel-copperhead-c746f6@quoll>
+References: <20260810121121.210040-1-vlad@zlab.su>
+ <20260810113548.7fd24d56@kernel.org>
+ <anq1ouUnKA02Eauj@monoceros>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <anq1ouUnKA02Eauj@monoceros>
 
-Convert Microchip PIC32 Quad SPI controller devicetree binding
-from legacy text format to DT schema.
+On Tue, Aug 11, 2026 at 07:43:16AM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> On Mon, Aug 10, 2026 at 11:35:48AM -0700, Jakub Kicinski wrote:
+> > On Mon, 10 Aug 2026 15:10:51 +0300 Vladislav Leonov wrote:
+> > > Basic support for the Rockchip RV1106/RV1103 SoCs currently under rev=
+iew.
+> > > This series builds on top of that and enables the peripherals needed =
+to
+> > > bring up a board beyond a serial console:
+> >=20
+> > Don't expect maintainers to dig out patches for their subsystems
+> > from a big series. This is not how upstream development works.
+>=20
+> I see this from time to time and I personally think it's fine to have
+> these patches together. Also the only the patch that affects my
+> subsystem was Cc:d to me which is how I like it (but I think opinions
+> differ on that one, too).
+>=20
+> `b4 am -P _` is great!
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
-Changelog:
-Changes since v2:
-- Change maintainer to SPI subsystem maintainer
+Yeah, and with DTS being patch 3, patch 6, 10 ...  and so on, it is
+every easy to review and pick up.
 
-Link to v2: https://lore.kernel.org/all/20260625060903.14661-1-challauday369@gmail.com/
+No, there is only one case of combining multiple subsystems together -
+upstreaming new SoC vendor. All other cases are wrong and spreading DTS
+all over is just proof that this is poorly readable and poorly
+reviewable.
 
-Changes since v1:
-- Drop maxItems and add items list in 'clocks' property
-- Remove unsed label from example node
+Not even mentioning the rules of dependency on DTS expressed in
+submitting patches.
 
-Link to v1: https://lore.kernel.org/all/20260624061329.130468-1-challauday369@gmail.com/
----
- .../bindings/spi/microchip,pic32mzda-sqi.yaml | 55 +++++++++++++++++++
- .../devicetree/bindings/spi/sqi-pic32.txt     | 18 ------
- 2 files changed, 55 insertions(+), 18 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
- delete mode 100644 Documentation/devicetree/bindings/spi/sqi-pic32.txt
-
-diff --git a/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
-new file mode 100644
-index 000000000000..f684c359a199
---- /dev/null
-+++ b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
-@@ -0,0 +1,55 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/spi/microchip,pic32mzda-sqi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip PIC32MZDA Quad SPI controller
-+
-+maintainers:
-+  - Mark Brown <broonie@kernel.org>
-+
-+allOf:
-+  - $ref: spi-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: microchip,pic32mzda-sqi
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: SPI source clock
-+      - description: SQI register interface clock
-+
-+  clock-names:
-+    items:
-+      - const: spi_ck
-+      - const: reg_ck
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/microchip,pic32-clock.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    spi@1f8e2000 {
-+        compatible = "microchip,pic32mzda-sqi";
-+        reg = <0x1f8e2000 0x200>;
-+        interrupts = <169 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&rootclk REF2CLK>, <&rootclk PB5CLK>;
-+        clock-names = "spi_ck", "reg_ck";
-+    };
-diff --git a/Documentation/devicetree/bindings/spi/sqi-pic32.txt b/Documentation/devicetree/bindings/spi/sqi-pic32.txt
-deleted file mode 100644
-index c82d021bce50..000000000000
---- a/Documentation/devicetree/bindings/spi/sqi-pic32.txt
-+++ /dev/null
-@@ -1,18 +0,0 @@
--Microchip PIC32 Quad SPI controller
-------------------------------------
--Required properties:
--- compatible: Should be "microchip,pic32mzda-sqi".
--- reg: Address and length of SQI controller register space.
--- interrupts: Should contain SQI interrupt.
--- clocks: Should contain phandle of two clocks in sequence, one that drives
--          clock on SPI bus and other that drives SQI controller.
--- clock-names: Should be "spi_ck" and "reg_ck" in order.
--
--Example:
--	sqi1: spi@1f8e2000 {
--		compatible = "microchip,pic32mzda-sqi";
--		reg = <0x1f8e2000 0x200>;
--		clocks = <&rootclk REF2CLK>, <&rootclk PB5CLK>;
--		clock-names = "spi_ck", "reg_ck";
--		interrupts = <169 IRQ_TYPE_LEVEL_HIGH>;
--	};
--- 
-2.34.1
+Best regards,
+Krzysztof
 
