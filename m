@@ -1,67 +1,67 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B60488D92
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 16:55:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1C246F48F
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 16:55:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786726525; cv=none; b=Ioyb3H8+xRmS+PQWG0ckQHQhwvMHzvz+dPCAJJiIWeBDa1TE+6GYKpvIoetlVAe+EVT/SBERo4angnZyml5QFhN/S7dEX0Xw7PwJJ0T4SitXHz+2kmFwkT2JLrvg/pjhr76GQLv5k4ALcK037AZXwFFcYX+bc48Ks9iSeEtocLo=
+	t=1786726528; cv=none; b=f1juy7Aj6A4+f02kSA44rDsl8Ysz3cJNSp/OTvLOCvcpWGBv0UB4aLUKlspPdqeGSRHC9OJIjR57p7N9Cq4MnzYFUOT1/235s33B9G+BFGa7ia8GWCpwvJSIj5okJpSZd2EmcV88CwqA5DFKeAf4WWErUQIAlMu6adsKPZVOkrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786726525; c=relaxed/simple;
-	bh=U2Fi0fUXcyr4ajuyQ+1SJVPQMJSslUm4IcWpXw2vM+8=;
+	s=arc-20240116; t=1786726528; c=relaxed/simple;
+	bh=WqmD5hXYOAK6kBvhlyX9kY4EFHWaHHEjeY00+AR2Vzw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=odrB3+fVRJg77jK2hKT2lnBOc54j9YI1gmkoA/XCdeq3YaSQ/yq8kDYPYn15Y/pFH9HvJFXSC747GUql0W63Z6w7JmPYhub5C5wujwzlKZBj3tr1uKbtOUSh1yBACXqcHWAzb3geuELfjNeX+mefqg2h9Irh59n6u2fEjuSxk1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=n99Aqgl+; arc=none smtp.client-ip=209.85.160.182
+	 In-Reply-To:Content-Type; b=Op4WyIZG7AnS9tRCNY1VocLYKnwhtGNGvZxBPhH2DfwxvQwyR4tY4Um4syyRY31bR4l7h8AEanGlILNJalemCSfsYt8LaNUCsKgfXhmRBGup3T5AP5ShZIiyrDpiLROxLwnD6OH09hj2RxSt6+2RRFy6ZoWkz86KvKQ+cAkz/1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Q3kJfHfE; arc=none smtp.client-ip=209.85.160.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="n99Aqgl+"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c1372f84dso9228171cf.2
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:55:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Q3kJfHfE"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-51c2a76536bso12834131cf.1
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:55:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786726520; x=1787331320; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786726526; x=1787331326; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2fUO4WpkJvelzuWRr/Cxlr530ZgjlNYPQtPN5heFg2w=;
-        b=n99Aqgl+p+y3yxZxfbkQejFqpz948hLFD2Q7GjG0I0s/7Oer1RccjzZOjnswgNnMId
-         QSjpi0EiIeZ6YWa/I1VnFe1O/UJplBv3NQrTihzUKbi9ckjwcYlQsT9E7lWVlquSCgin
-         OQ8c65ysASAhon5RDVJX0LerrmUktaVTOaheWtypgd0kPYNSBAsj095oyBqMHaPVRiEz
-         OqWrZBuok71Jx5iBg2riM6kM16b3XvTkcd2jg3shSQk00Brg/sPk7eN5tZwJT+9h0yKO
-         3kbifpBvbJ0/py9M36EEliEIC2xlvFhL9e2/PBMOd2w4WwofBjidcA/kDdGJ2KMawae3
-         YVkQ==
+        bh=MBdDNyiCPGHvqfQIw5TnuF+7Orj5dVBLCug+K5ZvgvU=;
+        b=Q3kJfHfEJlIWB0LDUDyD+PHkvC5HpNL+bUBXYvoAEGUF9TuDCgno5MFbIXWwmtggbg
+         mbopcxjH3wNpzOzHVLKx6+Y2WNY7WNn9AgzPB1PM7ChF9s156zoEh+ejU6ifz/bEnztS
+         jsEk6hlg5HiAIgVYE+EcAMef8csKoJ1My3ro4Z2yFvkG9oK38vkgSFwBdl1JGV6qiykW
+         oQq9rFW6XN41kBEiEK83xKmouDYEtI1pbhSWbnEl26SapwoYS6rl7VwexiSSzVU7sWuU
+         0+ycPJme4DfeuChclO5WWvoiL4XNk/KS3wsrrQS5zmHqzmQ/GXKptFMrf8A6L9AAsFhC
+         kWvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786726520; x=1787331320;
+        d=1e100.net; s=20251104; t=1786726526; x=1787331326;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2fUO4WpkJvelzuWRr/Cxlr530ZgjlNYPQtPN5heFg2w=;
-        b=bR9lTilTka10spiJnbgHKU1q/CcQYa8rnD1gBBV/gq4K4ZMRA40GMgP73BXbfvrRs3
-         /GSpXUjg2OztdidysHEL7ZyOIkHuA1I51slBNs3buxKpd5m+8GHEWHcVHo7YF7+gocpx
-         wlD+xUHzlWO5vaMqxTjsw6s4yqpOc8xFUcd2znQlJH2yRcdtVM4DEGHkiosT4W1Tf9wa
-         0K2zllHJ5kO1zcGy+4XbwZarpE8loBw+07PZyowXs4xyPgXst5RBCzDLu96jolwmXRLf
-         wcWRfqElWR3A69S1gOK37YzdwQ4oaQnBCk7NGjJVD8GbY4E93ZfosEf+AXU9NJRJnrJy
-         pcrQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9aXsWAiAqTQgc8wJ0E3W5VVrt1heCzgzHndL0tT5G3m4bD2YQKj7mC0Og3ja/RLgYfbYxqjXK5AkB@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWMtsQWVrdN70EAt6Y2tvlC+Prl4uGiU6s14d9bofQ67lOqZa/
-	6mjcDzzuSXFHlT2awiwdRyyXZXw8KaN1BjRqLj6PalS0zioYVvq9hUj4FYswWoA8hGQ=
-X-Gm-Gg: AR+sD10M8In2UDRSvxqz8zlckp7GDzmsy98w7c84zApM1VbwmrkHSec0aCUNRrWKlO2
-	1yCVBvQOGYIEAGGO/uURG33CI2uXdaLWvUUma0cKAiqxY5WNAc2x7JxngwuqRJNdQXiBfDExwtG
-	lYdNjS499dl4ru68lgpSb2r6lx8DZ6YrXxSPWXagdks3mTdWqatHw194IjmuskBDEZfRzAyiVdu
-	GPBWj/23fKoWIhTEahl5d10auH1F15lDekF+gT8Ut6knCS1VelOwRvNUgntt8/271i9wyfsJ12q
-	esx6du/xdEPa1vzbMVfYt7laKMRxT2kBsXGLxq2kIKzPRvWsw8pHOhV3VBRUdKwk2docG2VP6++
-	KdqQBSh7VOHOla633Cbh0pTj1+/3yfN9+DHAoE2qDTl/iIGAyYtWqCnPmsiuCuCRJNrDEUieYCC
-	ES2OtuYBoj0Ek4LxQJKXwmjAmK1oqgMTyMqNEvo7F/lKsSc+uM8B8EU1jaRK1u
-X-Received: by 2002:a05:622a:15c5:b0:51c:2022:cef5 with SMTP id d75a77b69052e-52d855014bamr78999821cf.26.1786726519769;
-        Fri, 14 Aug 2026 09:55:19 -0700 (PDT)
+        bh=MBdDNyiCPGHvqfQIw5TnuF+7Orj5dVBLCug+K5ZvgvU=;
+        b=BTrepi7ej1IaiMNLQjMSslzRh8G2OwlLQnqSb4IA+4/xWhCt9xzDv5yP2dVYR3UHWU
+         SvFcVG1TAgUYDWfpO2Lhk9HWIXrhTL2l3G7v8WiO/2yDecrEI9r+3yjMyQUFoe5LoOFe
+         IODenuk3PnomYPDRNWSeIcaskjM+wmLE88kj/4pco6uTErDifdsG00FKTWB9iAT7nl08
+         KZchT0XxCZqh8A+FcnGA2FURG5L5nQbT4EQunEFbhkIvjdD7xFVtv3UcFkbgcrOHGGAm
+         c+FInguug6qzQSQI5i2d7hAvecWgjMIsO+5Ej0Mv9qrUSKBnuDVAODPGfFGaGZC5Pdpv
+         BhEQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9+rI8mcNpvuJiaCu3LM/Ojrw/PWOftg5wZv2Fy890afmvULAzSpqZXaf9FC/7l18JQopLmVy7L3RV@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpkxHG7ymJOor9+1T14N54JCS+Em4nxFmUxNFkVAPS+fn8KSyX
+	LAcuIl1eoD3/rBLV24ggp4mFVmWa2+dhzA+fTSFDUldCdPXtl4h7SSpHhC8E061+Fw8=
+X-Gm-Gg: AR+sD13/a9pCvJO7jvGKPTaL6Y3R3OMMx1OIsbbWgiC6ydYssnQ8mX/MeSLcRXptOu1
+	e/sDZrXxo5Gb2lY+sGFZpBRSCLo46lFsqNey/NACyJ7NFqi4XJsc+mlea+h3zyY+hXKTktStwTX
+	S8kXEaGDbvPTKwDlq3CdPQNNl5nsznbazdjeev9w4mjtu5xzFOi3/QZYwDNi/br/+FFApqerF74
+	qnFJp4eTQMFuvLHO9jQZzI3R7dZxKHwfE5y0FegW6XRTI4H63upO4u3EPdq643hbPo1sZiBjjqe
+	Q+vIive3xeM16Z1sN0Af7dxveoxBI8d6B/euQ3y6ezjbmuT35bAm4vp5okRpwpf0OKXj8sktwri
+	bn3ccpXvUY6PP/3qRjtleIETxCzb7wWcUhAJNvKi+NVuiBPgsw8AZBjfSiNLdvJJonlhsheQp0x
+	3j0unPJhi/iDXRfEE3wRBJ6+yMjbOYzAVyqfgI2qsnmR1rgpEhvQ4ALDW3JJi/Jt1DXalz7EM=
+X-Received: by 2002:a05:622a:409:b0:52d:844c:b176 with SMTP id d75a77b69052e-52d853c9846mr76430861cf.11.1786726525996;
+        Fri, 14 Aug 2026 09:55:25 -0700 (PDT)
 Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d84071799sm24476161cf.20.2026.08.14.09.55.18
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d84071799sm24476161cf.20.2026.08.14.09.55.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Aug 2026 09:55:19 -0700 (PDT)
-Message-ID: <000a3672-3b93-4d62-8193-04ca6bbbd6f0@riscstar.com>
-Date: Fri, 14 Aug 2026 11:55:18 -0500
+        Fri, 14 Aug 2026 09:55:25 -0700 (PDT)
+Message-ID: <8c33e30a-e35e-47d4-a851-c82e18ed7472@riscstar.com>
+Date: Fri, 14 Aug 2026 11:55:23 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,92 +69,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] misc: tc9564: introduce base PCI driver
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: misc: introduce pci1179,0220.yaml
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
+ gregkh@linuxfoundation.org, bhelgaas@google.com, daniel@riscstar.com,
+ mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
+ devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 References: <20260813222943.1655453-1-elder@riscstar.com>
- <20260813222943.1655453-3-elder@riscstar.com>
- <20260814015923.8E7E21F000E9@smtp.kernel.org>
+ <20260813222943.1655453-2-elder@riscstar.com>
+ <20260814-deft-unnatural-teal-1dbac3@quoll>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260814015923.8E7E21F000E9@smtp.kernel.org>
+In-Reply-To: <20260814-deft-unnatural-teal-1dbac3@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 8/13/26 8:59 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Missing PCI IRQ vector allocation prevents MSI/MSI-X usage for high-speed child devices.
-> --
+On 8/14/26 2:01 AM, Krzysztof Kozlowski wrote:
+> On Thu, Aug 13, 2026 at 05:29:41PM -0500, Alex Elder wrote:
+>> Define the binding for the Toshiba TC9564 PCI endpoint function device.
+>> The third downstream PCIe switch port within this chip has an embedded
+>> PCIe controller, and that implements two of these PCIe functions.
+>>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> ---
+>>   .../bindings/misc/pci1179,0220.yaml           | 150 ++++++++++++++++++
+>>   MAINTAINERS                                   |   6 +
+>>   2 files changed, 156 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+>>
 > 
-> --- Patch [2]: [PATCH 2/2] misc: tc9564: introduce base PCI driver ---
-> commit e66bfe4041c21f48829a22eb54cde73756806870
-> Author: Alex Elder <elder@riscstar.com>
-> misc: tc9564: introduce base PCI driver
-> 
-> This commit introduces a base PCI driver for the Toshiba TC9564 SoC which
-> implements a PCIe switch and Ethernet AVB/TSN bridge. The driver binds to the
-> embedded PCI endpoint functions, performs basic PCI initialization, and uses
-> devicetree to populate any endpoint bus children.
-> 
-> [ ... ]
-> 
->> diff --git a/drivers/misc/tc9564-pci.c b/drivers/misc/tc9564-pci.c
->> new file mode 100644
->> index 0000000000000..d3ffcac1c522f
->> --- /dev/null
->> +++ b/drivers/misc/tc9564-pci.c
-> 
-> [ ... ]
-> 
->> +static int
->> +tc9564_function_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct device_node *np;
->> +	int ret;
->> +
->> +	/* Despite being a PCI device, we require devicetree */
->> +	np = dev_of_node(dev);
->> +	if (!np)
->> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
->> +
->> +	ret = pcim_enable_device(pdev);
->> +	if (ret)
->> +		return ret;
->> +
->> +	pci_set_master(pdev);
->> +
->> +	/* Scan for pci-ep-bus nodes and probe their sub-devices */
-> 
-> [Severity: High]
-> Does this setup sequence omit PCI IRQ vector allocation?
-> 
-> Without calling pci_alloc_irq_vectors() in tc9564_function_probe() before
-> populating the child devices, the Linux PCI core won't configure the device's
-> MSI/MSI-X capabilities with host addresses and data payloads.
+> There are no properties in the binding except standard PCIe ones, so why
+> do you need it in DT in the first place? We do not describe PCI devices
+> in DT by default, so you are doing something unusual. Commit msg should
+> explain that.
 
-I will investigate this.  I don't have a good answer at the moment.
+Maybe because it's using pci-ep-bus?  I'm not sure I can answer your
+question though.
+
+An earlier version used auxiliary devices.  This time the PCI device
+sort of stands by itself as provider of the endpoint buses that are
+used by other devices within the SoC.  There is otherwise no single
+driver (e.g., for an Ethernet interface) that is implemented as a
+PCI driver to bind with the hardware.  The SoC drivers will all be
+platform drivers.
+
+If you don't think this is needed, I'll gladly accept that.
+
+But the PCI endpoint bus is a devicetree construct, and it seemed
+to me that using it needed to be documented somehow.
+
+I'd appreciate guidance on how to think about it so I can document
+it properly (or not).
+
+Thanks.
 
 					-Alex
 
-> Since child platform drivers cannot safely allocate PCI IRQ vectors on behalf
-> of their parent PCI device, will the high-speed child devices (like the 10Gbps
-> Ethernet XGMACs) be forced to share a single legacy INTx interrupt, or fail
-> entirely if the host platform does not support legacy PCI interrupts?
-> 
->> +	ret = of_platform_default_populate(np, NULL, dev);
->> +	if (ret)
->> +		goto err_clear_master;
->> +
->> +	return 0;
->> +
->> +err_clear_master:
->> +	pci_clear_master(pdev);
->> +
->> +	return dev_err_probe(dev, ret, "failed to populate platform bus\n");
->> +}
-> 
-> [ ... ]
+
+> Best regards,
+> Krzysztof
 > 
 
