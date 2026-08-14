@@ -1,149 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E95E422521
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:58:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB0A453A54;
+	Fri, 14 Aug 2026 08:59:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786697935; cv=none; b=njAzpFqtZWLElj02kOoC8ubjnKBVt6FQnXhfkvqwSBs88zGDJrettZNxpVnsMRoAoapVNw6q/DeiazvOoxRlb9FeqLtNeXwp1qT3QXMpvW/cmbpRpYSWn5PpdMx200/GhLpNc7ySCNQzHg2ZgIB0eSeG8icJ6AAmT+PGET9MaHM=
+	t=1786697961; cv=none; b=FB7HOeLPVdPvz8ewd++r0O0jeVokf5oum+Hx/zTBI6uKOMJKZYpxfiItrjrgmu5D7hN8Q/qTi980Ae0/6FJb/frHJOc7uodu5kjyrGlHezi3Zo3RNnw45knSh3qnntz4R++EZnOhwfKBRdcfczDGBTLtotq8pcxOelcRwTmE+UY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786697935; c=relaxed/simple;
-	bh=BzsKp7KQfLTorEghlB/bfjZLCmtQz2mwbJ0jwnLe48g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UNF3E5zNB5iai7zuDx1RumweLODEAYUpZallIf1c+2sfdimuW4kxK4Vq9jCAzhbiLfOniUAP9KRunr/ZMFruQdlPkRFISXVApaWXEU2hcdTfTlZPtnHAjxakvpJrzMTIY8Je+jRpfAfFNShg3VWoG5l+/WjFrdcGKUCp9qL785Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQzs765S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786697961; c=relaxed/simple;
+	bh=TF3ZNkxPaHFHw6jQnK0xA8IcvZ0iGMMBMW2bwnJXS38=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c/jVfSUh4WYLivqBlWq7eDd2jiv2WJzO2L4PfiCUQ2nSoSpazob0u0AlAbESRK0xgn+0VRqKVrKiw3rIg4XFhVwQBOoik8Uyps1qfeOCr5hzEpzzNwTUGEgPGj7TRDx6r3PUyZaFrVpQO75/yAH3tDgaiN3bCh57thSZ1hTJ4PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDefZm4x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQzs765S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4642D1F000E9;
-	Fri, 14 Aug 2026 08:58:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDefZm4x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CF7B1F00A3A;
+	Fri, 14 Aug 2026 08:59:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786697934;
-	bh=QfaCfEdmxAZ+kluTIULjZca4omOGL18uhFjMUpw6Vns=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MQzs765SUk0s+gLhJqCaK7r7Z5/zypr5FHrDDWfsYcBDpvj5WXWkp7SNRzM2JD0qM
-	 GyybEzyX0+xf8kl0IFi0fjc7itphxVWrYw3btE+q9Xvlcg5JyWMYPcca5P2Ij1rmi8
-	 EsdeE89pe8Gp/svuUHz5kCPrNCoJ+26CFMDcrRm2qNub7f4d0JK2K/zxWx1ggpaerk
-	 AE8GubspxsFKUC0jEyIxwuBYBnUfT6ix6zBSsPSSEannfHlvTp8zEz0PY8Ky/FJlUj
-	 YIT0CZ4q2H1amDhmrHxzWKkXO9xPrBmdpcFd7ZM1O+QhICzGwXII+3MZDchgvMAOlK
-	 CNy+2rcvg6xbg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 2/3] dt-bindings: net: wiznet,w5100: add
- link status interrupt
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arthur Crepin Leblond" <arthur@marmottus.net>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260813-wiznet-link-gpio-v5-2-ac8046f24413@marmottus.net>
-References: <20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net>
- <20260813-wiznet-link-gpio-v5-2-ac8046f24413@marmottus.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 08:58:49 +0000
-Message-Id: <20260814085850.4642D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1786697960;
+	bh=64zJfBFVLsa/r/hTy+ZXMCvUd6FMvrCGvORICSfFTTI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lDefZm4xUhCy9ejdkmsluExNgWKYDYzlhpqB49+oJNzwu6KULQR4CC/u+dJ9Q0nUt
+	 h1/cGA217YAC+i22n7oYGt1SfzGAciNP+zlpncOv7KWdY555a13t60+D4jVAijvNkb
+	 00WxGVThrlKmqLg422hRdEGUl0UQ2c2Ghm1PadWFLPQJfdV8TKDlybCtzzUdczWVkJ
+	 dpcB50dMtQzyUG32vSkHvhhOSSf2qVsFsc/uDouFnF7O0Kl3/V1kfHcLIExNW3QIsM
+	 vkQvvrON+FI+9xkMuh18hfIEULJUgfjdY9ubP63L9zNB/rX6+eKOF6P8M/XrBF8uSK
+	 466zDanAjOk3A==
+Date: Fri, 14 Aug 2026 10:59:13 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] gpio: pl061: add Ambarella CV75 register layout
+ variant
+Message-ID: <20260814-nondescript-quartz-shrimp-3ce74d@quoll>
+References: <20260813-cv75-v3-b-v3-0-1d82e18da09b@ambarella.com>
+ <20260813-cv75-v3-b-v3-2-1d82e18da09b@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260813-cv75-v3-b-v3-2-1d82e18da09b@ambarella.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Removing the `interrupts` property from the top-level `propertie=
-s` block without explicitly specifying `maxItems` in the conditional branch=
-es removes the upper bound on the array length, allowing invalid configurat=
-ions to pass validation.
---
+On Thu, Aug 13, 2026 at 06:19:37PM +0800, Long Zhao wrote:
+> Extend gpio-pl061 with a per-variant register layout so the Ambarella
+> CV75 GPIO banks can reuse the PL061 driver instead of a duplicate.
+> 
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> ---
+>  .../devicetree/bindings/gpio/pl061-gpio.yaml       |  35 ++-
+>  drivers/gpio/gpio-pl061.c                          | 280 ++++++++++++++++-----
 
---- Patch [2]: [PATCH net-next v5 2/3] dt-bindings: net: wiznet,w5100: add =
-link status interrupt ---
-commit 27905addd6c59c9b61baecb1400ea1f5c8b0242f
-Author: Arthur Crepin Leblond <arthur@marmottus.net>
+And what does the checkpatch say?
 
-dt-bindings: net: wiznet,w5100: add link status interrupt
+Best regards,
+Krzysztof
 
-Add an optional link status interrupt which can be connected to the
-LINKLED pin on the device to detect link status changes.
-
-> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Do=
-cumentation/devicetree/bindings/net/wiznet,w5100.yaml
-> index 217f301db182b..81f4382eb96c5 100644
-> --- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-> @@ -15,6 +15,33 @@ description: |
->  allOf:
->    - $ref: /schemas/net/ethernet-controller.yaml#
->    - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - wiznet,w5500
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          minItems: 1
-> +          items:
-> +            - description: Main interrupt (INT pin on the device).
-> +            - description:
-> +                Optional interrupt for link status changes (LINKLED pin =
-on
-> +                w5500).
-
-[Severity: Medium]
-Does this leave the array length unbounded for the wiznet,w5500 conditional
-block?
-
-Because the items keyword in standard JSON Schema only applies constraints =
-to
-the specified indices without capping the array size, it appears maxItems: 2
-is missing here.=20
-
-This could allow device tree configurations with 3 or more extraneous
-interrupts elements to silently pass schema validation.
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - wiznet,w5100
-> +              - wiznet,w5200
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Main interrupt (INT pin on the device).
-
-[Severity: Medium]
-Does this branch for wiznet,w5100 and wiznet,w5200 also require an explicit
-maxItems: 1 constraint?
-
-Without an explicit cap, invalid device tree configurations specifying 2 or
-more interrupts for these devices could similarly go undetected.
-
->  properties:
->    compatible:
-> @@ -23,10 +50,6 @@ properties:
->        - wiznet,w5200
->        - wiznet,w5500
-> =20
-> -  interrupts:
-> -    items:
-> -      - description: Main interrupt (INT pin on the device).
-> -
-
-[Severity: Medium]
-Does removing the interrupts property from this top-level properties block
-prevent dt-schema from automatically inferring and injecting a maxItems
-constraint?
-
-Leaving maxItems unspecified in the allOf conditional branches while removi=
-ng
-it from the top-level block removes the upper bound on the array length,
-allowing invalid hardware descriptions to go undetected during dtbs_check.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-wiznet-lin=
-k-gpio-v5-0-ac8046f24413@marmottus.net?part=3D2
