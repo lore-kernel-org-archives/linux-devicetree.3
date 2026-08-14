@@ -1,166 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6519336881
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 02:41:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F264535DA55
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 02:55:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786675312; cv=none; b=uBrEhkILqufKBYy5k8umqxkqRE3HDvOc/Ulb/wHbiwGBlcxPRvWMJay4vGkhL3fqbRjMxdgQhgBOxa79VADgx21FeXrEEgZ+kOZXMWCppSk3SoZEmM2bDaUAo2blqfrgv9a03X66frBs5Ao0mw5UQKpdr7JpUe0sv0ZkuYruJFw=
+	t=1786676107; cv=none; b=rxKbS13Fn5hZUhXvInIThCXJZlVKrDax89dajx+e4Rk0GtXh5sXmcguHPkKLr7rwf38Y2XFBCohdwQOj46w+k6zGi9hYtvuY/MGji12o66yiGtU4uoUwemGXsWlyzX6TN6ki16LCKS5OSF83v+LyWQuuPlgkvzKkbkFXOgKcYY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786675312; c=relaxed/simple;
-	bh=xdWcD+HPDEB9bSukuWDb7jz+ZbC/tJBtzFDqHHWiKz0=;
+	s=arc-20240116; t=1786676107; c=relaxed/simple;
+	bh=WYOQLlouBJvTMhyPRgwjY2pyGneRZJeEaYWQW04RXic=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N8lywqZ2DiQ7WIiVFST/rL+pF4U+7dBrVQ1LDMh8hli0R3HeXUlr7OQQ+5VHPHYVMb+5qvl3nbXJDZR8jjxLb+TYhUllcqDhLI0zJmkFuTUdBpCS4tAnok+eBhFnmHa7AL6xee9VM48/X82651k8LRoJKCjnkNpN1V1vmS92aN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NxttqOd3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Z1fZhY7kbN7sf/dnfeci/+59i9nqht1naH5vZX4sFAppzNn+CnYk2fN5O5Tbsh79oMI1bQ+vXQuV8J3VfymDbDVe1/Ka+Ic8NcR8gaq/OTJcWBhYeRHmxSUGZIwK+D0q4a+qa72agtIFY5l2WdoH/fzflrVCnY8sSO14vqCeHKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WJaAxGxK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NxttqOd3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F801F000E9;
-	Fri, 14 Aug 2026 02:41:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WJaAxGxK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23AF81F000E9;
+	Fri, 14 Aug 2026 02:55:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786675311;
-	bh=WqTd6hTvZP+7jr4CnwgT2uItwEHTmJCWS0N2lOJVzwQ=;
+	s=k20260515; t=1786676105;
+	bh=rwPRnyptNPDBWJdKf9G8LpSZVBgrZjgwStyoBKkGHtA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NxttqOd3EAC4rRwNzQFauADKHZyKwAoZmPVJUKdsv69f1sc53/Ryt22QSl4pZ1tgh
-	 uoRUV2vvpp4ORqZ/r38+mcfqNaZFJPpMVAKQ6/oP7VwcLiCAn7CPD4ftgAokgjmLel
-	 /DsRVD7njV0CzB4x5uR3OXRcmf+PXikL/k1fWyDm65EAVkJLdFaLsgfr7/+SxP2wt/
-	 o7jdVct2d0eLes/9BhUWzVx7rxiADfC4rVdx1UBVkJNaaZOeqJ1OdBNGgJRDAHZAAw
-	 yvFJMDY0V/kjM0vbpHrqVDM5mKRmECD53EcP8VyrYT2QEk8Kv9VJHiDU9T+7uCoDus
-	 GXjp6GSsXr0Og==
+	b=WJaAxGxKAAW6iT0Nda+StyRMIjNtuiV1aPrCcHpOz9KXHYG91CDBhW0JafK2SjQZk
+	 d+aig03L/Vog0X7dxKLsBX5wb3dyhKV7Pcy04BjUbOOKE6gdSclDLg8vNHx1AXvfv0
+	 3LmtXaSPUQLvGQr00Y+U8S3V9HlKNW1qgG0wUhYVwPoTANPU1xTBYLsiGklhanCydX
+	 lJGw4eHCgojPC67UVGNOueI+joprdoNxOcfJNY0h/RBwNSKe8RLzvo3Au9j+Gmedrl
+	 pxo3w6HKG2cB16yvRor6xiLDESq8p8ajfu5ApMlGflztR3AHwQtk7nsWRgKeD0pJS1
+	 rby0O8uawBp1A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 10/38] phy: rockchip: usbdp: Add missing mode_change
- update
+Subject: Re: [PATCH v14 11/38] phy: rockchip: usbdp: Support single-lane DP
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-10-b5ad9c68fa11@collabora.com>
+Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
+In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-11-b5ad9c68fa11@collabora.com>
 References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-10-b5ad9c68fa11@collabora.com>
+ <20260813-rockchip-usbdp-cleanup-v14-11-b5ad9c68fa11@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 02:41:50 +0000
-Message-Id: <20260814024151.31F801F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 02:55:01 +0000
+Message-Id: <20260814025505.23AF81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Type-C state fallback to USB/Safe modes skips the PHY mode update =
-and HPD reset, permanently breaking USB 3.0 and leaving a ghost DisplayPort=
- connection.
-- [High] The PHY driver indefinitely leaks active power states (clocks and =
-resets) if the Type-C mux mode changes before the USB or DP controllers exe=
-cute their teardown routines.
+- [High] Prematurely caching `udphy->dp_lanes` based on Type-C state causes=
+ unintended DP physical lane enablement when DP mode is not active.
 --
 
---- Patch [10]: [PATCH v14 10/38] phy: rockchip: usbdp: Add missing mode_ch=
-ange update ---
-commit 9bed4fa08dd116716a39f228bdd961c66a8f8b64
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [11]: [PATCH v14 11/38] phy: rockchip: usbdp: Support single-lane=
+ DP ---
+commit 9992535ad6ec018fe7cd04829eeaaa211b9c6078
+Author: Zhang Yubing <yubing.zhang@rock-chips.com>
 
-phy: rockchip: usbdp: Add missing mode_change update
+phy: rockchip: usbdp: Support single-lane DP
 
-rk_udphy_set_typec_default_mapping() updates the available modes,
-but does not set the mode_change as required. This results in
-missing re-initialization and thus non-working DisplayPort.
+Implement support for using just a single DisplayPort line.
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index 982315535caf7..7540c897dde13 100644
+> index 7540c897dde13..c4d62b234ea80 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -617,6 +617,15 @@ static void rk_udphy_dp_hpd_event_trigger(struct rk_=
-udphy *udphy, bool hpd)
->  	rk_udphy_grfreg_write(udphy->vogrf, &cfg->vogrfcfg[udphy->id].hpd_trigg=
-er, hpd);
->  }
-> =20
-> +static void rk_udphy_mode_set(struct rk_udphy *udphy, u8 mode)
-> +{
-> +	if (udphy->mode =3D=3D mode)
-> +		return;
-> +
-> +	udphy->mode_change =3D true;
-> +	udphy->mode =3D mode;
-> +}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since we are updating how the
-mode is set, can this asynchronous update to udphy->mode lead to a power st=
-ate
-leak?
-
-If the Type-C subsystem asynchronously updates the requested mode via
-rk_udphy_typec_mux_set() (e.g., changing from UDPHY_MODE_DP_USB to
-UDPHY_MODE_DP), does this cause later teardown routines to fail?
-
-For example, when the USB controller suspends and calls phy_exit() or
-phy_power_off(), routines like rk_udphy_usb3_phy_exit() check the mode:
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_usb3_phy_exit() {
-    ...
-	/* DP only or high-speed */
-	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs)
-		goto unlock;
-    ...
-}
-
-Similarly in rk_udphy_power_off():
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_power_off() {
-    ...
-	if (!(udphy->mode & mode)) {
-		dev_info(udphy->dev, "mode 0x%02x is not support\n", mode);
-		return;
-	}
-    ...
-}
-
-Because udphy->mode has already changed, do these functions return early
-without clearing the USB bit from udphy->status, leaving active hardware
-clocks and resets leaked indefinitely?
 
 [ ... ]
 
-> @@ -1361,10 +1370,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux=
-_dev *mux,
->  			usleep_range(750, 800);
->  			rk_udphy_dp_hpd_event_trigger(udphy, true);
->  		} else if (data->status & DP_STATUS_HPD_STATE) {
-> -			if (udphy->mode !=3D mode) {
-> -				udphy->mode =3D mode;
-> -				udphy->mode_change =3D true;
-> -			}
-> +			rk_udphy_mode_set(udphy, mode);
->  			rk_udphy_dp_hpd_event_trigger(udphy, true);
->  		} else {
->  			rk_udphy_dp_hpd_event_trigger(udphy, false);
+> @@ -1050,18 +1039,17 @@ static int rk_udphy_dp_phy_exit(struct phy *phy)
+>  static int rk_udphy_dp_phy_power_on(struct phy *phy)
+>  {
+>  	struct rk_udphy *udphy =3D phy_get_drvdata(phy);
+> -	int ret, dp_lanes;
+> +	int ret;
+> =20
+>  	mutex_lock(&udphy->mutex);
+> =20
+> -	dp_lanes =3D rk_udphy_dplane_get(udphy);
+> -	phy_set_bus_width(phy, dp_lanes);
+> +	phy_set_bus_width(phy, udphy->dp_lanes);
+> =20
+>  	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_DP);
+>  	if (ret)
+>  		goto unlock;
+> =20
+> -	rk_udphy_dplane_enable(udphy, dp_lanes);
+> +	rk_udphy_dplane_enable(udphy, udphy->dp_lanes);
 
 [Severity: High]
-This is a pre-existing issue, but I have a question about the broader logic
-in rk_udphy_typec_mux_set() when the mode changes.
+Does this code inadvertently enable physical DP lanes when DP mode is not a=
+ctive?
 
-When the Type-C port exits Alt Mode to a safe or USB-only state, does this
-skip the PHY mode update and HPD reset entirely?
+By using the unconditionally cached udphy->dp_lanes instead of evaluating it
+dynamically with rk_udphy_dplane_get(), could this be bypassing a safety ch=
+eck?
 
-It looks like the vital state updates (including the new rk_udphy_mode_set()
-call) are gated behind an earlier check in rk_udphy_typec_mux_set():
+If HPD is not asserted or the mode is unsupported during rk_udphy_typec_mux=
+_set(),
+udphy->mode is not updated to include UDPHY_MODE_DP. Later, rk_udphy_power_=
+on()
+will return 0 because it ignores unsupported modes.
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_typec_mux_set() {
-    ...
-	if (state->alt && state->alt->svid =3D=3D USB_TYPEC_DP_SID) {
-		struct typec_displayport_data *data =3D state->data;
-    ...
-}
+This would result in calling rk_udphy_dplane_enable(udphy, udphy->dp_lanes)
+with a >0 lane count on a PHY that is not fully configured for DP, instead =
+of
+safely asserting reset as it did when the lane count evaluated to 0.
 
-Because state->alt is NULL when exiting DisplayPort Alt Mode, this block is
-bypassed. Can this leave udphy->mode stuck in UDPHY_MODE_DP, potentially
-breaking USB 3.0 functionality and leaving a ghost DisplayPort connection?
+[ ... ]
+
+> @@ -1341,6 +1329,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux_=
+dev *mux,
+>  		udphy->lane_mux_sel[2] =3D PHY_LANE_MUX_DP;
+>  		udphy->lane_mux_sel[3] =3D PHY_LANE_MUX_DP;
+>  		mode =3D UDPHY_MODE_DP;
+> +		udphy->dp_lanes =3D 4;
+>  		break;
+> =20
+>  	case TYPEC_DP_STATE_D:
+> @@ -1357,6 +1346,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux_=
+dev *mux,
+>  			udphy->lane_mux_sel[3] =3D PHY_LANE_MUX_DP;
+>  		}
+>  		mode =3D UDPHY_MODE_DP_USB;
+> +		udphy->dp_lanes =3D 2;
+>  		break;
+>  	}
+
+[Severity: High]
+Is it safe to unconditionally cache udphy->dp_lanes here before verifying H=
+PD
+assertion, knowing that it might desynchronize from the actual udphy->mode?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-rockchip-u=
-sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D10
+sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D11
