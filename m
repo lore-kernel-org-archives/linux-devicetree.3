@@ -1,111 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE259412C1A;
-	Fri, 14 Aug 2026 07:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786693270; cv=none; b=WBxHw5RiO/MTRfZDepTe6Fy2jMO85Y5B4kdU93isJuIOt5/rxJG0ZcdYAeizd5moqGYFz4gf1q6hkUwTZiG1SufjlqNVVs8X91FvB7pWDs9Zozjv1VLIz+7pnrvr+BbysfYjvPU1X+0ccw31ZgwkaVZ/mzuQZRFINtql2+Y1Uks=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786693270; c=relaxed/simple;
-	bh=86JXjCR1mW7Np0YdX48qO7+Z3/KOy2dB/kaPR+AdVrA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u3JlZQAapWAXWLHxo9guXJKBvQ9i7l8yYhzige/f4jnIbTgAmnXPlGlRsepqQO5wqWRzhih0jD/6TT6D1gdwNboWsPx8XsKunln4hWx/Gx4LFqJNNDNnfKVKbm8NIK0F+Wax/JgL0eQEsa0vRMqomd2bEZGt3c1LWkvhyzEx0Jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0apSp46; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE5341DEDE
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:41:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786693284; cv=pass; b=OTmqK3aVdE7YYzy95ZUe6/1tMpvmKUec1+tmMDFY8Sfix93OaoSS6eDf5ypgV+1sutlmYEpftVCXdNiCvayVPUM/MbbsqF2EwU6JU+iaq76Ehx+iFYLE71m2l17cm9LojWIvCY5hXz/8Ep8K92I9/c3AX45/rl9/SuZwaG/Kg6s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786693284; c=relaxed/simple;
+	bh=W4o1ZmlBfyrCH3y2jdCkwEByqgWhppc/8xEUvhcD0rE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o1N64vkoBn65snAlQK/J3TWePVFmDPxY8cWcliS3+hmnb28WprubVuSynEaAYDq/yzbLgVR1Tm34k3jWpt8V1L2MMoKnntjTzZ/xc+7MRrai6SdhWrdYbu3mIw2ReBsu3yuaF2q9TRmenuGbb7f5d9BfjSagM5L+Q8/K0nSjQDo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EazMxGCy; arc=pass smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0apSp46"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31EE51F000E9;
-	Fri, 14 Aug 2026 07:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786693262;
-	bh=tA73GwbwFL+vXCN8LXzG8fEIvkN1mhhSz2ulAFlWh60=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c0apSp46Va+nNQEjJXLrdI2xdYmdypTfuNYApohDnuxjMwT9kvUlGgk9km+FL0Mur
-	 qVjfbCVgP/RjeLjh/rlw3tt2ihgTgKqhk1jnRq8yQcLXUMkJODRvP0aZupK/IdF+6f
-	 9LqQ5aL5JlvI3BX6ex06goyUd+mU+/mLNi4TmDFYOoxonmYN75TQrSLQgzJLEZUFDg
-	 BD7WUySzAJIrkJk3W3qOM1ld/xYJU7LdQFQbTlV5shJTAChdFieRxM2vWVkNOBIwCZ
-	 GEsslJczDxaajHUirX5qWT7PW51wxqtJEuaH09231CGODsYBzZPXHObUEHDOf5uczJ
-	 Iuf0GsVVI7Yag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 17/17] arm64: dts: fsl: Add DT overlay to build MQS1
- sound cards on i.MX9 platforms
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chancel Liu" <chancel.liu@oss.nxp.com>
-Cc: Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260814072022.4064009-18-chancel.liu@oss.nxp.com>
-References: <20260814072022.4064009-1-chancel.liu@oss.nxp.com>
- <20260814072022.4064009-18-chancel.liu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 07:40:58 +0000
-Message-Id: <20260814074102.31EE51F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EazMxGCy"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so960973a91.0
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:41:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786693277; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TLQCRnQ0Wv0NldPb9ZNzb3tFnt9SNUBW1DPS0JPJv0tId9KUbapPdwoCqGSp5lQjDF
+         H/tjXisJWMaLLbgj9wsLTb5+uu42utfjJbQjvN+BP0D/RQgOGC3DL/e/Nt0cei7NOpqb
+         Cetv+rITpHF3OTJdNhmer/nVlHNgYz3ayHFM+NZrrW6A0iXno2ibEl84yWsrhIwdiQJD
+         z+GgN6p1dygj6zGcZ/42fY8z29niBfuhhIdfwC/FmAzQE9aBgpSSo8a4BAngIuvoIya5
+         1mufjIewRc/jy+eJw2XjaePQM7FLO81dymOK7yUQOOHAUJORaNdmSJMlopHmhL15Sp8U
+         o4Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=W4o1ZmlBfyrCH3y2jdCkwEByqgWhppc/8xEUvhcD0rE=;
+        fh=dhv6wo2oCQlGqy8vmO02UsUMTtuswYFTIbqpG40RMRM=;
+        b=gP0sMnfOIwLgJO+/FHFykXhq5a5+XMJ2ebXusCoSiuHDuCAYcIE5ylvZqkKoNJrjMR
+         SgK9BOxw6Gm0szJD2Ybtpm4jRKFfPwVcXDuSs5s+l8o3iCSzbrG5BZk9lli4+I1NOu4A
+         EKuxtelHy0N+KP5Ko5pynyiAv5ARRAHvlLfSKausuRExieyVyIpMnpyIPk8QrgyC4VmK
+         TyvGtJvoChjOO0ZrIgESfh6FhZspXfZAheH15wJ8i5VvQM/YmQB86iEdYgpYRoNH0LMU
+         TArs57wpr4ZOT+wqkJV3FmpiomNTv2dDUe0Ja3NoN3d+ApI0MyMQBWlWVXt5FwBGFKeO
+         XNAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786693277; x=1787298077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W4o1ZmlBfyrCH3y2jdCkwEByqgWhppc/8xEUvhcD0rE=;
+        b=EazMxGCyQltK6qCWpEez4e1UxuXswYnZNKpc2CkSRvCO3b/N0NwRHfD+glg4GjVDT/
+         Mn9gvA2cX3BbVv4hGWsM6jCkjsiygXWJB0kpJzDY9558jsmR/bm6j8paSxkBcNmkW5dJ
+         z8pcXszFYGNVq6IUIj8LbrrttjKzx9ld9WauPYuaFjSzfKVgLj2pkuP+BKIBkLH8OOHP
+         Y9WECnH/vdmtvrdk71jVy+YTh41tNc/qO5QIKfkiIqj1jGv5hJ8ao5gSDrNvrT9bVCwF
+         oIvk7JU2evyZFftqRakBffBz7cH/TmeunOQ7u5TBeflt25if4Ux5C51OxZNxrIHrTcsd
+         EwXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786693277; x=1787298077;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W4o1ZmlBfyrCH3y2jdCkwEByqgWhppc/8xEUvhcD0rE=;
+        b=IN3zIbuFSjWejh32VnrZV/5T9CNz5sV8ut5RXkOMlzOf6lfMSOCL8uP41OkL/zOMyR
+         ef4M1maRjfjsCHRbhHhNP4DPd7fLwGbUxkjBQ+puo6FkwB0/EH1abYqp4h/zGqsfLfhD
+         /9jNs/BFo93WLipICmuXxsx5WIZWLicuL2Y4eBHDOd0j+HpCy9QxJ2CVtqkcNzC3OXi0
+         RfWyRZ8G8xfOC5wPbpvcfWQ/itPO/TElQTr1jP9M8qGZwdcbeCZ9UlZB6HGued8nPYTm
+         KzjE06TVzt6l2RCDIb2/xEz9bU9XMnCnKXEqC3wqOmUeRXAOq8Mo4ZOjRLwWLwlYVrPF
+         faQQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5l9NwE9kGxwoTDK1gjn5uMr5oX3OP/7T1usk03oQmgyRs2MLaLknI0dhxqPaKXjUGIkr8HtFSwqMy@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVHNJL8jgLqUY1O6v1+6nHXh7JpiDb4sX4SRc+ElkimJ3uIaWj
+	Hi/yOJRlrF7Cx35Vl0BSu2N7wZEmRaw7+a9AFuKp9wLyX5cKoLLR9Vqcnt0bAtfsnZqtbOjl3J1
+	QcgjDfqD9PVLWNetETxWT2/6FZDakjFI=
+X-Gm-Gg: AR+sD10pktH/Dr5hBolRZ5JxC/Sgd8XbLUx+6PglLKIwNFDfKOxOI3RK8bYKofmI7UQ
+	3IQMZdXUMj24/BOZJWmZiFLWTOFimhC5w5KlfatpqbVJxfrBUAtTFXfx5rBYduw7r6eaW4EahgN
+	38Oz602lIMWcftSpRqORItzjPfoteViyZMb7MAVSIFGCKjnEl/WN3VL+rJjCy7fhsN8lbe0RVjv
+	nLtVGE1PhPImcM0yS9ecJ1Sr295mjQZvxzph/j9QtrpOK/7OX21Xzwxl+zYz28Dht9IlahUIkDY
+	GhHyBRci3GM3c1UhC5jiQzxOG3uKk5rGb8dnJC3fDs8CdQ==
+X-Received: by 2002:a17:90b:3d8b:b0:38e:1497:af5b with SMTP id
+ 98e67ed59e1d1-3933b77ece8mr4578497a91.1.1786693276690; Fri, 14 Aug 2026
+ 00:41:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260813070020.719810-1-shengjiu.wang@oss.nxp.com>
+ <20260813070020.719810-2-shengjiu.wang@oss.nxp.com> <20260814-lean-classy-hyrax-60aab2@quoll>
+In-Reply-To: <20260814-lean-classy-hyrax-60aab2@quoll>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 14 Aug 2026 15:41:01 +0800
+X-Gm-Features: AUfX_mxVp0mCUmIh3cD49Kgp4iw4sN-NjfTifnUiJEeotRXNzWAYJPCWyxB1G3Y
+Message-ID: <CAA+D8AOdF08PyOqQX6HTz-bWZmyB0bmKoW2DxYtnGS3g72aWrA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/5] ASoC: dt-bindings: fsl,imx-asrc: update port
+ binding to support multiple paths
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: shengjiu.wang@oss.nxp.com, lgirdwood@gmail.com, broonie@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com, 
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, 
+	shawnguo@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com, 
+	perex@perex.cz, tiwai@suse.com, linuxppc-dev@lists.ozlabs.org, 
+	Shengjiu Wang <shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The MQS overlay orphans the `sound-micfil` ASoC card, leading to=
- an indefinite deferred probe.
---
+On Fri, Aug 14, 2026 at 3:21=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Thu, Aug 13, 2026 at 03:00:16PM +0800, shengjiu.wang@oss.nxp.com wrote=
+:
+> > From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> >
+> > The i.MX ASRC hardware supports up to three conversion pairs (A, B, C).
+>
+> Each one or only the newest? You will be getting the same questions.
 
---- Patch [17]: [PATCH 17/17] arm64: dts: fsl: Add DT overlay to build MQS1=
- sound cards on i.MX9 platforms ---
-commit 3fb4d43fd09e2139234f5b149b073a22039d004c
-Author: Chancel Liu <chancel.liu@nxp.com>
+Each one.
 
-arm64: dts: fsl: Add DT overlay to build MQS1 sound cards on i.MX9 platforms
+Best regards
+Shengjiu Wang
 
-This commit adds a common DT overlay to support MQS sound cards on i.MX9
-platforms. It routes SAI1 to MQS1 and disables conflicting devices and sound
-cards.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx9-mqs.dtso b/arch/arm64/boo=
-t/dts/freescale/imx9-mqs.dtso
-> new file mode 100644
-> index 0000000000000..9ac6d58eacbb9
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx9-mqs.dtso
-[ ... ]
-> +&mqs1_conflict_card {
-> +	status =3D "disabled";
-> +};
-> +
-> +&mqs1_conflict_dev {
-> +	status =3D "disabled";
-> +};
-
-[Severity: Medium]
-When the MQS overlay is applied on boards like imx93-11x11-evk.dts, this
-disables the conflicting device (which aliases to &micfil), but does it lea=
-ve
-its consumer sound-micfil active?
-
-Looking at arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts:
-
-	sound-micfil {
-		compatible =3D "fsl,imx-audio-card";
-		model =3D "micfil-audio";
-
-		pri-dai-link {
-			link-name =3D "micfil hifi";
-			format =3D "i2s";
-
-			cpu {
-				sound-dai =3D <&micfil>;
-			};
-		};
-	};
-
-If sound-micfil is not explicitly disabled by an alias here (such as
-mqs1_conflict_card2), will the audio subsystem repeatedly attempt to probe =
-it
-since its CPU component (&micfil) is missing, resulting in an endless defer=
-red
-probe loop?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814072022.4064=
-009-1-chancel.liu@oss.nxp.com?part=3D17
+>
+> > The existing binding exposed only a single generic audio-graph port,
+> > which cannot represent independent conversion paths when multiple pairs
+> > are in use simultaneously.
+>
+> Best regards,
+> Krzysztof
+>
