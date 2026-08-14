@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457433B3883
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 01:41:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4528B361DAE;
+	Fri, 14 Aug 2026 01:44:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786671705; cv=none; b=QTV3p5Wva/CwRvUUMjfjT1VCKTEWx9IO/JBKdC6G+NvNQyMnppdoOdA7jWfL/D3m7teeGj08akWPw5DZSIvQQlq9VwvdiLWh+OSiT9peRnEvQ92EYWT9iDUmPYohjKEJ1o9Jtw8XpCDqtnqNtZnc6TSQ/CLgq3S7IuD2Rv2ph1I=
+	t=1786671878; cv=none; b=P6seiuQDmxMCB2sJKXlr48MzTiuQOaVEBDS7c/+k7qElauo9KO4Vu5slvxrfPE9KEzc5CrrJa6sQ6qCGxY81NR17fCsW2iSh4JbnBjsqZ/nE7xfWB+n+WpUoNYHUqRYtwM5yGN5E74kvwUCRAaF53pyBn6HXL48tte4wp/wMQr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786671705; c=relaxed/simple;
-	bh=268Z1jMtA1v+TKVvdARuNECGqi8/rrt6v+epyIm9fJg=;
+	s=arc-20240116; t=1786671878; c=relaxed/simple;
+	bh=v59VheVSCt+jH3mp1k0ic2aNX/TxxMJXT0fA8lUuw+8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=It/zK0IDkCLnfaoRXYu1oYQ5irAedULy7AFDYuFSgwOC31qrmkGxyQzBR21sL6ulg+y7wSPj/JqRVmPnojUDusIZzhzKcIuJxOOP1j28U/qf/ONMds2CQb6phd+dWjJqxGyOzFb8/sVUynNlUF0O+PKxQiRlNKpbT7sd+RYzPKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YGhL61Hj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QqR6mY+k4M+9ndBDwTGL4RwqeS0evTkh4eFSpGJ6j2ok2BFmZIZojm9KTVZIuZ1B78Bp1oeROqnFatTZ1A38zVcwpcJ9MUSZRJwnv958QFV4J+x0OxT6JK/ouQ5D0aEf3d3fnCDkS1SYwpD7htd49FRSnFsSpNYf4lySTRAPNa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b8SSVybs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YGhL61Hj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646B01F000E9;
-	Fri, 14 Aug 2026 01:41:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b8SSVybs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D8C1F000E9;
+	Fri, 14 Aug 2026 01:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786671703;
-	bh=/EenDhRSOJW4Ua5QWdGi+Vmps/qq91l9SEBZZaXRZHg=;
+	s=k20260515; t=1786671876;
+	bh=Z5x8Ib9GQfE7DxkYErfqFDplZ5qD9IHtBho26SZXAOE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YGhL61Hji3BZ/BJw4eMf+3UlRxqyLXdJS1kBDaMhflY3r8GSxooPzeOMdSCLHfuVr
-	 y0zxV5ioboUMd+EIvo0vZNydB6k5HDzf1IRVHtJsyZl18rRCdCGS3/Jn0F9V975VX2
-	 F+Sfpin1Emn0A6PMcGmQCn8ocLsFaGpnq5pT3tIHJD8wtEUSN4ivrY+X/XKN+I4zo+
-	 ackzKZzFHUr0f2eHdc+cU9xDHi86MDCdniOlb3tXwhBJlM+CrNVGVv4FaxjYbYcxE3
-	 jj/hpFWOfXDtf9+qPhb/ljXjcmgYIyZZz/yy/vEpd/hYxEF2swVz/lMIkc8vLPRNvc
-	 nSrqfSA+we8/g==
+	b=b8SSVybscKf63zH5aVqcEno/trNTvry2tPzYAtsvIjsPmlt5/yq97KIsZi/1ExyeR
+	 k7PY3GYQu7Z+F/7I6qeEan0lCveYGuOzFWZP+UmAeU/JhR/ODerKg4Vo+iHzc1nTR+
+	 UPjHp2kn+PCXguHRqSygQQhroBF1r6jCKJitUNEcyqx9vEwL/gzHbI7WSYu4hDc1gZ
+	 OzGenticG5lN235jA0TNjAXNMZBTuAdyW1DhXXdPv0c1SX/FgbCSme2q8frVhUSOUd
+	 eqk9UGUZingSbJjKUpcmoPijZ+QIBaRKCDphCE1MZIsV5426C4LUTJDJX+6+sNiLwY
+	 R0KZtvhIlqTEw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 04/38] phy: rockchip: usbdp: Fix
- devm_clk_bulk_get_all check
+Subject: Re: [PATCH v4 5/9] rtc: abx80x: add irq to struct abx80x_priv
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, robh@kernel.org, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-4-b5ad9c68fa11@collabora.com>
-References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-4-b5ad9c68fa11@collabora.com>
+To: "Antoni Pokusinski" <apokusinski01@gmail.com>
+Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org
+In-Reply-To: <20260810193826.210683-6-apokusinski01@gmail.com>
+References: <20260810193826.210683-1-apokusinski01@gmail.com>
+ <20260810193826.210683-6-apokusinski01@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 01:41:36 +0000
-Message-Id: <20260814014143.646B01F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 01:44:36 +0000
+Message-Id: <20260814014436.82D8C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,60 +46,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing NULL check on `udphy->clks[i].id` before passing to `strnc=
-mp`.
+- [High] Short reads from I2C block transfers leave stack buffers partially=
+ uninitialized, leading to a kernel information leak.
 --
 
---- Patch [4]: [PATCH v14 04/38] phy: rockchip: usbdp: Fix devm_clk_bulk_ge=
-t_all check ---
-commit 744151abc279ab01b34daf0e77ee2a3dbe3ad834
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [5]: [PATCH v4 5/9] rtc: abx80x: add irq to struct abx80x_priv ---
+commit efc6d887b1cb64fa6fee7b2ea258d8477f65792a
+Author: Antoni Pokusinski <apokusinski01@gmail.com>
 
-phy: rockchip: usbdp: Fix devm_clk_bulk_get_all check
+rtc: abx80x: add irq to struct abx80x_priv
+   =20
+This way the irq number is not tied to the i2c_client and can be
+easily accessed also in the case of ABX81X SPI clocks.
 
-This commit changes the error handling for devm_clk_bulk_get_all() to
-properly return its error code, such as -EPROBE_DEFER, rather than masking
-it with -ENODEV. The change allows the driver to defer probing when
-necessary. Missing clocks are now handled by the subsequent refclk search
-check.
-
-Closes: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.=
-kernel.org/
-
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -427,8 +427,8 @@ static int rk_udphy_clk_init(struct rk_udphy *udphy, =
-struct device *dev)
->  	int i;
+> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> index 485d1ea08030d..12a4dbfec6396 100644
+> --- a/drivers/rtc/rtc-abx80x.c
+> +++ b/drivers/rtc/rtc-abx80x.c
+[ ... ]
+> @@ -305,11 +306,12 @@ static irqreturn_t abx80x_handle_irq(int irq, void =
+*dev_id)
+>  static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
+>  {
+>  	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct abx80x_priv *priv =3D i2c_get_clientdata(client);
+>  	unsigned char buf[7];
 > =20
->  	udphy->num_clks =3D devm_clk_bulk_get_all(dev, &udphy->clks);
-> -	if (udphy->num_clks < 1)
-> -		return -ENODEV;
-> +	if (udphy->num_clks < 0)
-> +		return udphy->num_clks;
+>  	int irq_mask, err;
 > =20
->  	/* used for configure phy reference clock frequency */
->  	for (i =3D 0; i < udphy->num_clks; i++) {
->  		if (!udphy->clks[i].id)
->  			continue;
+> -	if (client->irq <=3D 0)
+> +	if (priv->irq <=3D 0)
+>  		return -EINVAL;
 > =20
->  		if (!strncmp(udphy->clks[i].id, "refclk", 6)) {
+>  	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
 
 [Severity: High]
-This is a pre-existing issue, but can this lead to a NULL pointer
-dereference in rk_udphy_clk_init()?
+Does the error check following this read adequately handle short reads?
 
-If a device tree defines the clocks property but omits the clock-names
-property, devm_clk_bulk_get_all() returns a positive clock count but
-initializes clks[i].id to NULL.
+Because i2c_smbus_read_i2c_block_data() returns the number of bytes read on
+success, a short read will return a positive value less than sizeof(buf).
+With the error check changed to if (err < 0) in this patch series, it fails
+to catch short reads.
 
-Does this loop unconditionally pass that NULL pointer to strncmp(),
-resulting in a kernel panic during probe?
+This bypasses the check and leaves the stack-allocated buf partially
+uninitialized. When this uninitialized memory is parsed and eventually expo=
+sed
+to userspace via RTC ioctls, it introduces a kernel information leak.
+
+This is a pre-existing issue in other functions as well, but I wanted to
+point it out since it affects this code path now:
+
+drivers/rtc/rtc-abx80x.c:abx80x_rtc_read_time() {
+    ...
+	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_HTH,
+					    sizeof(buf), buf);
+	if (err < 0) {
+		dev_err(&client->dev, "Unable to read date\n");
+		return -EIO;
+	}
+    ...
+}
+
+and:
+
+drivers/rtc/rtc-abx80x.c:abx80x_probe() {
+    ...
+	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ID0,
+					    sizeof(buf), buf);
+	if (err < 0) {
+		dev_err(&client->dev, "Unable to read partnumber\n");
+		return -EIO;
+	}
+    ...
+}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-rockchip-u=
-sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810193826.2106=
+83-1-apokusinski01@gmail.com?part=3D5
