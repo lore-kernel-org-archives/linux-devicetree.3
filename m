@@ -1,145 +1,273 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013010.outbound.protection.outlook.com [52.101.72.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46972E739E
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 14:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786718375; cv=none; b=F1EN+4F1gLbJwP+7Gqs2LdwHBx3Oj2loJFMNtoMw25a+hMPF2TtZQR61LBf06eItVCGC9sGx9n6Em8tkp9msW48BBa9/LdQ1AI9AU4kT67BIYYJqX17vx3QPZIp3PNfXDdZ4DSdhaiF6sn4QyZMSwwsLlRRtNUgI9z5MP+eOR/Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786718375; c=relaxed/simple;
-	bh=xzZ8jy/eB3bOQ+CcYNMdRNrUdThdyWrUwV1urwTAXe8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RnUPbFBcj20wl0IgNC1lt1DS+FwimjDVRgRNcMSzJGm0CfqE1icYDpBvVs0yFdpktBV3oak6PrwV4SqP7SV7M7ziCN39lQreggWH8xYT6ME/ITBknpCN9zWeju0HEDNGAqVuGSZE5cpIVNrDSY2I+6vkgmo2k/ENyPf8rKjHwrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=hQgy00tv; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C58E2441B8;
+	Fri, 14 Aug 2026 14:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786719067; cv=fail; b=ouTZrmVmffsAIrvA4A7mxh5zhP6YUEm1zuSHbEfarO280INnPLM877+1mlmLb/ZtrWuHWXW5yQXjvQioh/bDVa8W98GO/Qu86E2zv0/F0aYfghEQ4CvXzd8QdBDDe+dNA/xOLnINxM2hAX5+jYxbhf/hVHKcvfc+eAnJF1F+G9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786719067; c=relaxed/simple;
+	bh=ytdQyXJO5EaJZx8lCCIGGTFmO+kFqYpHzRjt7aOyAHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=jgpRnMeQuB/m2ocAi24MVzkhlswHRzgy6w6DnDO2QgR/7402Mqn8Tu+M4pnJNmTgJ2VfzLkH5HnsXU7mEb0CB1etj/fTo+QSIhbKNml8+SQal9cxlxvoTp9mueawMjVQqr3rgL0MCXSaT16Gq6f9Oikwvk7xbaja7ZbASpy+bp8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=eAy0q9Qs reason="signature verification failed"; arc=fail smtp.client-ip=52.101.72.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="hQgy00tv"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so10356715e9.1
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:39:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1786718370; x=1787323170; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VWSFL1IqtGsSxd9as+S5YrQgQ2uQorKxfncBRjktmv8=;
-        b=hQgy00tvRZS9PgjlkmT2FBYZeq8fNyNDVWKK0y1BjwzTIk91wJF2PcQgUefyYkkXdS
-         yNYl3GubsEYrYmoZZ6yWFoprI3byvCp7hUt8ASpOaKQ6C2gRx8WSJY2aFTiBc3UCu1ZJ
-         ROkK7lusvWv/07uJY0aXFnVJWCgj6WcsFr+Y4R4DCupi/1xQJynMys0RXOVCDdDEgNxO
-         MbVC4n0+CmEZS5FImIrByvpR/2bNOayQrNTOOfJM/fFfaranFaqJ5TPuXmIna5JyDCnx
-         ljVDOG/dl9vicmGmEstJ5+ebONS5ujwuMtCkJhI/9TBhXNP1LoxyXjpbv+SYNY9wVFOt
-         enTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786718370; x=1787323170;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VWSFL1IqtGsSxd9as+S5YrQgQ2uQorKxfncBRjktmv8=;
-        b=S5lmtwwBvT+xOFKeenna+Fvb/apk8NeLEqPn3GZ7uUKOT2Ubr/HJlzmYZckAqFoKXs
-         QiWaPy3pP+KKKYOO6qRzCS1MIHFom0pHfNNtdiO6QJ8DlrQ4vkUJgHXtbikVNFJjjqlV
-         VI5D3JfO9ByBfiTboHOGIfE5q6kZgJi9YX0U4MkUkCdyqkOKKx4IZben/q7+qMGEyhiI
-         wSCyUuxVbFkYoymK2obNq73egoumvL3xdYYkMWScykyHYAaVt6GGOicoOBtu3ST5fDEN
-         Bsm9AUcIdyVsytpWZm/XDX9z8YpzT8bBN9uAkfkvqIUSSFIX+Y+DzGNQgyCsmpnK0wDt
-         hJzA==
-X-Gm-Message-State: AOJu0YyXpTnQiMJ1lUyMf0mDaBH3/QAMqTFq5W6PFJ1WWxkDxQtqkvs0
-	oIue3kJ3pFg/WHWDlvVxP48H2s8ljJQFDrESLxfL0KA268t+jtZsuqpmMX8tS11WJw0=
-X-Gm-Gg: AR+sD139dquXxMh27jnuTJ/2vL+QSNOAHJSnOHYE2He1vX8w7AlJZMKo9IHsjkgeXMu
-	URQjvDr08EaPEjbLNNUIc7UQqzSkKBRQPn4DJdFjoHofpBqTLwMOW46f7BtLPhpQATP1c2FfK08
-	pqOTm6BPoLJv89PD0Dj6GZbMrKG8BX0kVAdhGF/EOpWErWehEKBA6aNSHHTem0xzPWEmOUB7glw
-	EkzuSrsURhJHUWWNEIr4nDTMupf7n1G7oMo6GDJa+1iIHyL1/ahS7Eg66JLhmr6E+ypG1Gomltg
-	HZBLxxLEO211C/tKSRbmRx9Ry0pGMgKV72pSHcAgwwwzPz5c6Grgg0/U30Jcy1+VOwHF3JeNa+C
-	lzKWLZ/srS/eEPvwYmxzJzlxmmVDqOXSenpntVQwTP5zvXdLcFUV1HmLLL3qxfL+FPw3gHqIiYD
-	nMwNLQJccBQ8heJ5HU+TQ90kYa7k4t2mMsEfLfg5WVPWvAOfgLgvYtL8WV+09yte6npckQUk2ve
-	xv6DZJ9K17V7+ZetoWL52CZPxKZY3sU7e1MH7HC5tZH17KwTfQ53hS/heCnGwSgmhpGT8b43nwh
-	VhoHKJGQIsMaQCUqqsZ+/VNe9fMh
-X-Received: by 2002:a05:600c:5397:b0:493:bb6b:5bb5 with SMTP id 5b1f17b1804b1-499879857d0mr93390555e9.13.1786718369651;
-        Fri, 14 Aug 2026 07:39:29 -0700 (PDT)
-Received: from ?IPV6:2003:e6:6714:e500:bfe4:7b00:fa11:e276? (p200300e66714e500bfe47b00fa11e276.dip0.t-ipconnect.de. [2003:e6:6714:e500:bfe4:7b00:fa11:e276])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499899bff2csm31594145e9.7.2026.08.14.07.39.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Aug 2026 07:39:29 -0700 (PDT)
-Message-ID: <b88b5e1c-e85f-4fa1-80ac-1ab66592a86c@9elements.com>
-Date: Fri, 14 Aug 2026 16:39:28 +0200
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="eAy0q9Qs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LguZRnRieGH+kRk7mzKUvTGgf6pCJCMK7LufYiDR3chIN2dlAr9hxYCzRTUD8AtQWKAdFLGpgvD4QCSqfM8CGcmho+qKgIAG0iGw47KpkK9Lh4nPwsupDC8eSfBuDf4tSBKani4RKwakwvmKFrdWF1b2UNgarPw/TeEpmxya+u5ozS3GhobMGP7387ZVEr9B/UQ5Zs6DanbkMbf1v9qoZhNcotwIvHTkJFd/LkwqYGn6+tZgBOIC8AclcjQsPT2RWKbGzjuMp0XNNe8qcq6JnDVGQgjKV/ezXqEsIoXROLcTZQ/OK+lbfvjskt9LpcR6fYQ+H4kaqXggh9s+cBQzQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ywPg+TZW9+jAI2UUnXmYW1ySlp1Ggn9e8lp20qr2nbM=;
+ b=SzI51CqnspWCSb0nwthdMNpBSKCHCWMlw4be/ojnlj/A5sjKZ1CeWJM73DZXY58Tq2DFUvlph+2NyD2s5MZ63z3AsWLEu2DGY9A1K04WuYNsbjvWiEyYczH94bl5R7HEKmGicAzq98Yz6yegYGE5IVMBJNroDupPtVuUGD/fW8J3hwrrYUVavQYRIhmK1FR4nOuD0j7Gv6Esw68HDRWpI6mPGrRcyeZ1rym1YqYdoJ7yZb2H9V+kY2uPdCEGnIasmNmUi+NBzyFHbScS84GXqVsaU+sbP9ZgkGSHiJRL4WZk9Ov0NM9rn7Ru8nBT4q6hGGtaiJ7pH37MWx8e3iRLrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ywPg+TZW9+jAI2UUnXmYW1ySlp1Ggn9e8lp20qr2nbM=;
+ b=eAy0q9QsFiLu21Ya8EhvNVR7H2PBx6XMQWeQxhsHh1h0XnF8/7PLbsgM+HOnz5L0vZWUB4Ux56YkqJ0mGRlZQq0HYbT4QheyN3/kR3b8gFl+A8qdgXm0RrFIMGH6umuxHm830fvcBSL4mht3Ig5ozp1CnsSfdsHRXhLNUhd/BrPGT4a8si6DuwqFHRIdJHkJavGFhDsU2rzz2ldtdgtt3Szb833WU1pniwbLQU94bXqrbMFRRm5KzLMkzRAgVPKSA98Z2LwEgv7n/vnnsmFFBUBP7UIeDMyeVhnketGUgc0grdNr0x7YMqACtSbhzwt5+YYeDBs4rZO4UoGiEaBUXg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DBAPR04MB7462.eurprd04.prod.outlook.com (2603:10a6:10:1a0::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 14:50:57 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 14:50:54 +0000
+Date: Fri, 14 Aug 2026 09:50:44 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>, imx@lists.linux.dev,
+	Oliver Hartkopp <socketcan@hartkopp.net>, robh@kernel.org,
+	Frank.Li@kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>, linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [RESEND PATCH v6 1/6] can: flexcan: use dedicated IRQ handlers
+ for multi-IRQ platforms
+Message-ID: <an8rRKaadKgTdBFS@SMW015318>
+References: <20260814090324.647898-1-ciprianmarian.costea@oss.nxp.com>
+ <20260814090324.647898-2-ciprianmarian.costea@oss.nxp.com>
+ <20260814092027.86BA51F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260814092027.86BA51F000E9@smtp.kernel.org>
+X-ClientProxiedBy: PH8PR15CA0016.namprd15.prod.outlook.com
+ (2603:10b6:510:2d2::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/15] ARM: dts: aspeed: anacapa: fix dt-check-style
- strict violations
-To: u8813345@gmail.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- colin.huang2@amd.com
-References: <20260813-anacapa-devlop-phase-devicetree-v5-0-c7058f63dc67@gmail.com>
- <20260813-anacapa-devlop-phase-devicetree-v5-13-c7058f63dc67@gmail.com>
-Content-Language: en-US
-From: Tan Siewert <tan.siewert@9elements.com>
-In-Reply-To: <20260813-anacapa-devlop-phase-devicetree-v5-13-c7058f63dc67@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBAPR04MB7462:EE_
+X-MS-Office365-Filtering-Correlation-Id: 961a66ab-fdb0-49dc-9712-08defa1370fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|1800799024|7416014|23010399003|6133799003|5023799004|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	6yXjjTO91Olx2AW/xyNnyB2TRtxocSj3zX34Rppb03XMYtnMwXqWE3bOu5CCI3W3hATJjonWNXKTg/Uc7vaVBZXvvmVS5ENMXGInoz7933VBsdjDhuA9e/hEtRA83HZO/nUJSOqcygYzhdjcS18z+YspFL5rgwUfBfhxIPhh5Nt4Qx25y1pJbkdwLBpPf973W1DW92QCS/pZ0+iFefFzuETH35pK9qaCa0G3nwHojTNT2wGlLhfqG+Ec4Cr8zxAUwQOgQyJ/zUht0kAA4iNQuXBEO4a0ADEd9sV+wRjUw3+rscyoCxmSRMi1ukKm2BkG1CNKYl2QNMFPOvJm8j8vTuVTbFtVuH91xbiXOEcTEjI9jMNgd1UT51x73YNwaWcpzhJHtMKJ7Q3YdxpC0n6niZKpmAiwtIze3uR9wUgXAICVTLTi22tFWszTRzQn5HkN6pJA9sGDwzjxI6tLejjBtjVhcWOjs7LOWp+5bbmFo94fzVXkM9gJDo/iYzYrJgqgS3eZaytuxXwRYG448Je2OWgsW96+xk0KOJ3DtmXgiSNT5hsUte0Ak8pASqktOjGovbc5TzDAtdWmJND1BFmWprCvisyyrGd/0z+MSQqBIJc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(1800799024)(7416014)(23010399003)(6133799003)(5023799004)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?/7NP0nyscA62za/tQL/NTy7bCGxMPBJmfhDFjVMYWTopd021eXvHuNb1XT?=
+ =?iso-8859-1?Q?3fiSRtgGW1n8KjrzNM/aOay3/Q/IDsWbgrMKGmE9YY0mYdOmcQParRpM0W?=
+ =?iso-8859-1?Q?E41HKjPGF4J1otWbHfYLLz1Sm3syRaxno8SrJxEJNvK7J5720nCQ6YfsSt?=
+ =?iso-8859-1?Q?mXx+CZvPsV1wuqm/JHFy19cOUWV9cg22AhZy3MVp/QrDLW5zMoBw38NoV5?=
+ =?iso-8859-1?Q?NVxPqRpkwv8vUa0HlXEWTPMH1tRTCxiwJ0BYxobMf0UkTsTK0inW0V7XxB?=
+ =?iso-8859-1?Q?bn1NzQsiQBSMnZiwJkTDUPKR2LxY8jOxAJ4MRYRAoX8mAx0xCimMqV9TJ+?=
+ =?iso-8859-1?Q?1mo1aNFYrak5N5VsUfQPSuO7Ebgl9pj9O6buP+Ujyco0VhOqYkSINKK5QL?=
+ =?iso-8859-1?Q?doIDH7+sk5ZeQKqTg5oNU33t91le7+ty2uwtIzlW0bwJ1FhwCHMkppr/BI?=
+ =?iso-8859-1?Q?VpwDhhBJbl18UE1zpr5mwaJMGdxrrFsdErgTcrz3rZ6cn9LApMyyIxcJ9U?=
+ =?iso-8859-1?Q?gw6pgZ5SKmVgYk/hF74/6nX128Q+WbErDZ86E/mxtB2um1zZDHLKszOxRY?=
+ =?iso-8859-1?Q?vnXELz1KRamTgfIxqEneHkclvulc02kOMhsFOg9AR0eaZxAPat1RABa80a?=
+ =?iso-8859-1?Q?A+N39x4UMtONIZTp4Sif3CsgQhdl4RNa5110eToQfTIWbLydCaPglsfvDI?=
+ =?iso-8859-1?Q?gqgyFrUWsu5eWG9JVPC9ntx2Tdog1GLBRwbocBA9/tvEKTDLrjGJ93wIOj?=
+ =?iso-8859-1?Q?r7zm+NGkbIIpGBWlg2LYTbG3eRS2MMc7+1G5UUrF8QIeU2GX41m+BEtNys?=
+ =?iso-8859-1?Q?RLY2cmRDvgxGC2oNk0coQL+8T4c3/sypBsu6Aa+XIcA+IpA04iQdD5jXMk?=
+ =?iso-8859-1?Q?MeB9mPZxmxQnS2sIPV71OWTXs31zquBrG8GswMFCutWOJ62NiI+FqoLks7?=
+ =?iso-8859-1?Q?amS0Y/yO46d3sIVeevS/Zt7ghCqcuRiu2BmXu3Gqb9SJyK8nDDSK0GCOkx?=
+ =?iso-8859-1?Q?fHO1SS/RYFOgY5yzoCNkrHkA4m78FnsFB2+RA1f0+4etSbOu6GugLkXBTy?=
+ =?iso-8859-1?Q?ir6J6TKhKnrqqwD8NHW5+ZIy3pLsOOHqYegYAlsG8Yk98/0canqj5KgE4r?=
+ =?iso-8859-1?Q?NkmWvtJgS+dMSdHc+tJUrXY5IUiPepSCG0C+AcAr7U6KPAmt8Y9h2wSDAg?=
+ =?iso-8859-1?Q?Rt9WwoiPyRAOYcNkyNUQFS+ZTSHxWjKJJM7Nx5Q9FeEhsok53WCNq1Z670?=
+ =?iso-8859-1?Q?qW/l6DlpLOv5YbHryhjMzM8AS8ec7nnVjkRWkAn98khjxMVH2IELjeh/mF?=
+ =?iso-8859-1?Q?ZAXuTqGQBlMKmdTPVFxa0qtFSrqWmjpa6ZqwaEGrlyqI+lJfwWntp9Dob/?=
+ =?iso-8859-1?Q?WTE0IUdwl51OeI3rwj5HmmhEamRHcuI4PAgvcS08iBKmZt+F88jNx8BDYE?=
+ =?iso-8859-1?Q?TDCVgWF8FB8ZIsq0ZbrDbFUj9dnqITfnfuNN8yG7Gc2wDt0gswaP8X24ar?=
+ =?iso-8859-1?Q?Vj1IC6R0IRJz9ud8rnXWi4QdfCpuLNSz6ZtJzZc5W1AQxjoS1INBGi0gu4?=
+ =?iso-8859-1?Q?D44/cWdmF64S+HLst+v5tUXIPviISB3M5fU7gv21Va6qdL1HP60/nSSXMl?=
+ =?iso-8859-1?Q?aeqgF0UZkz8O73RHGXLykDso7BLsEnSTB1Ndu87Ds9U/BEaR3GEvT6N9kH?=
+ =?iso-8859-1?Q?agq5hEcn/jzBZht8I4cTZBwnSMWoZX+z48iiym8cRJKgvG0V1DvjeDk5Rs?=
+ =?iso-8859-1?Q?M0ErlNCGa6RRA35sHEpHg4U1BcpokRJ1SOQ/x+bAX764kXfs78BK9+K9Ml?=
+ =?iso-8859-1?Q?CKe0RZnjnTT0qImS9L8hhDANlB37Owpf/9Od2BuNb7Emggt8W/bI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 961a66ab-fdb0-49dc-9712-08defa1370fc
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 14:50:54.3173
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GCuzxxBQJVMffCe4sCGix9Jx8cfb3dFpN5jdQHAt8kH4C5uV1qEyOjAMzaJmdEtSsTr4tDRqTwEfeqcgyqtKpOpGNvLCMmuQ2Fep4fTia2i1wj6XFgRr1xtnw1I1H7IJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7462
 
-On 8/13/26 1:59 PM, Colin Huang via B4 Relay wrote:
-> From: Colin Huang <u8813345@gmail.com>
-> 
-> Run scripts/dtc/dt-check-style --mode strict against the Facebook
-> Anacapa board device trees and fix the reported violations:
-> 
->   - aspeed-bmc-facebook-anacapa.dts: drop a duplicate trailing blank
->     line at end of file.
->   - aspeed-bmc-facebook-anacapa-dvt.dts,
->     aspeed-bmc-facebook-anacapa-evt2.dts,
->     aspeed-bmc-facebook-anacapa-evt1.dts:
->     - reorder compatible/model so compatible comes first
->     - add required blank lines before child nodes and before the
->       status property
->     - sort properties into the tool's canonical bucket order (e.g.
->       bus-frequency before gpio-line-names before ngpios before
->       status in the &sgpiom0 override, m25p,fast-read/label ordering
->       in flash@0, #gpio-cells/gpio-controller/gpio-line-names
->       ordering in gpio@24 and gpio@38)
->     - align multi-line property continuations (io-channels,
->       pinctrl-0) under the opening '<' column
->     - fix child-name-order and child-address-order violations
->       (framebuffer before video in reserved-memory, gpio@24 before
->       power-monitor@N, regulator-p3v3-bmc-aux before reserved-memory)
->     - remove redundant node labels that were never &-referenced
->       anywhere in the tree (i2c8mux0ch0, i2c8mux0ch1, i2c13mux0ch7,
->       spi_gpio); these labels only existed for node-merge overrides
->       via #include and are not needed since nodes merge by name and
->       unit address
-> 
-> One unused-labels warning remains in evt1.dts for the p3v3_bmc_aux
-> label: it is genuinely referenced via "&p3v3_bmc_aux" in
-> aspeed-bmc-facebook-anacapa-evt2.dts, which #include's evt1.dts.
-> dt-check-style only tracks same-file references for non-.dtsi
-> files, so this is a known false positive of the per-file checker
-> given this board family's #include-based override architecture,
-> and is not fixed here to avoid breaking the regulator reference.
-> 
-> All four files pass "dt-check-style --mode strict" except for that
-> documented false positive.
-> 
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
+On Fri, Aug 14, 2026 at 09:20:27AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+>
+> New issues:
+> - [High] The split IRQ handlers break the FLEXCAN_QUIRK_BROKEN_PERR_STATE workaround on multi-IRQ platforms.
 
-Hi Colin,
+Please check this one, You can fix pre-existing issue later.
 
-I might be wrong here, but the commit message feels written by an LLM.
+Frank
 
-If you have used AI assistance for your series (or only for this patch) 
-then please note that, even if you have only used it for the commit 
-message, you must declare it via the "Assisted-by" trailer [0][1].
-
-Tan
-
-[0] 
-https://docs.kernel.org/process/submitting-patches.html#using-assisted-by
-[1] https://docs.kernel.org/process/coding-assistants.html
+>
+> Pre-existing issues:
+> - [Critical] Concurrent execution of split IRQ handlers locklessly corrupts the shared `skb_irq_queue`.
+> - [High] The patch fails to fix duplicate frame processing for platforms with multiple mailbox IRQs.
+> --
+>
+> --- Patch [1]: [RESEND PATCH v6 1/6] can: flexcan: use dedicated IRQ handlers for multi-IRQ platforms ---
+> commit 4696683063946bcc95216f931b7fa509b55610f8
+> Author: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+> Date:   Fri Aug 14 09:03:18 2026 +0000
+>
+>     can: flexcan: use dedicated IRQ handlers for multi-IRQ platforms
+>
+> This commit splits the monolithic flexcan IRQ handler into dedicated
+> handlers for mailbox, bus error, and state change events. This is intended
+> to prevent duplicate frame processing on multi-IRQ platforms where distinct
+> IRQ lines can dispatch concurrently.
+>
+> > diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
+> > index f5d22c61503fa..f73ff442d5304 100644
+> > --- a/drivers/net/can/flexcan/flexcan-core.c
+> > +++ b/drivers/net/can/flexcan/flexcan-core.c
+> [ ... ]
+> > @@ -1131,25 +1129,57 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
+> >  		netif_wake_queue(dev);
+> >  	}
+> >
+> > +	return handled;
+> > +}
+> > +
+> > +/* Process bus error events */
+> > +static irqreturn_t flexcan_do_berr(struct net_device *dev)
+> > +{
+> > +	struct flexcan_priv *priv = netdev_priv(dev);
+> > +	struct flexcan_regs __iomem *regs = priv->regs;
+> > +	irqreturn_t handled = IRQ_NONE;
+> > +	u32 reg_esr;
+> > +
+> >  	reg_esr = priv->read(&regs->esr);
+> >
+> > -	/* ACK all bus error, state change and wake IRQ sources */
+> > -	if (reg_esr & (FLEXCAN_ESR_ALL_INT | FLEXCAN_ESR_WAK_INT)) {
+> > +	/* ACK bus error interrupt source */
+> > +	if (reg_esr & FLEXCAN_ESR_ERR_INT) {
+> >  		handled = IRQ_HANDLED;
+> > -		priv->write(reg_esr & (FLEXCAN_ESR_ALL_INT | FLEXCAN_ESR_WAK_INT), &regs->esr);
+> > +		priv->write(FLEXCAN_ESR_ERR_INT, &regs->esr);
+> >  	}
+> >
+> > -	/* state change interrupt or broken error state quirk fix is enabled */
+> > -	if ((reg_esr & FLEXCAN_ESR_ERR_STATE) ||
+> > -	    (priv->devtype_data.quirks & (FLEXCAN_QUIRK_BROKEN_WERR_STATE |
+> > -					   FLEXCAN_QUIRK_BROKEN_PERR_STATE)))
+> > -		flexcan_irq_state(dev, reg_esr);
+> > -
+> >  	/* bus error IRQ - handle if bus error reporting is activated */
+> >  	if ((reg_esr & FLEXCAN_ESR_ERR_BUS) &&
+> >  	    (priv->can.ctrlmode & CAN_CTRLMODE_BERR_REPORTING))
+> >  		flexcan_irq_bus_err(dev, reg_esr);
+> >
+> > +	return handled;
+> > +}
+>
+> [Severity: High]
+> Does this break the FLEXCAN_QUIRK_BROKEN_PERR_STATE workaround?
+>
+> Before this patch, the monolithic flexcan_irq() checked this quirk and called
+> flexcan_irq_state() on any interrupt.
+>
+> The FLEXCAN_QUIRK_BROKEN_PERR_STATE workaround relies on enabling the bus error
+> interrupt to catch state changes on platforms where the state interrupt is
+> broken.
+>
+> Now that the bus error interrupt is routed exclusively to flexcan_do_berr(),
+> which never invokes flexcan_irq_state(), won't state transitions (like bus
+> warning or bus-off) be silently ignored on affected platforms?
+>
+> [ ... ]
+> > +/* Mailbox IRQ handler for multi-IRQ platforms */
+> > +static irqreturn_t flexcan_irq_mb(int irq, void *dev_id)
+> > +{
+> > +	struct net_device *dev = dev_id;
+> > +	struct flexcan_priv *priv = netdev_priv(dev);
+> > +	irqreturn_t handled;
+> > +
+> > +	handled = flexcan_do_mb(dev);
+>
+> [Severity: High]
+> This is a pre-existing issue, but does this still allow duplicate frame
+> processing?
+>
+> If a platform has a secondary mailbox IRQ (FLEXCAN_QUIRK_SECONDARY_MB_IRQ),
+> flexcan_open() registers flexcan_irq_mb() for the secondary IRQ, and the
+> primary IRQ registers either flexcan_irq() or flexcan_irq_mb().
+>
+> Because these can run concurrently on different CPUs, and flexcan_do_mb()
+> unconditionally processes all active mailboxes globally, won't both threads
+> still race and process the same frames?
+>
+> > +
+> > +	if (handled)
+> > +		can_rx_offload_irq_finish(&priv->offload);
+>
+> [Severity: Critical]
+> This is a pre-existing issue, but does splitting the IRQ handlers make
+> skb_irq_queue vulnerable to lockless corruption?
+>
+> When flexcan_irq_mb(), flexcan_irq_boff(), and flexcan_irq_berr() run
+> concurrently on different CPUs, they can independently call the can_rx_offload
+> API (like can_rx_offload_irq_offload_timestamp() and
+> can_rx_offload_queue_timestamp()).
+>
+> These functions insert SKBs into offload->skb_irq_queue using the lockless
+> __skb_queue_add_sort().
+>
+> Additionally, they concurrently call can_rx_offload_irq_finish(), which
+> splices the list locklessly:
+>
+> drivers/net/can/dev/rx-offload.c:can_rx_offload_irq_finish() {
+>     ...
+>     spin_lock_irqsave(&offload->skb_queue.lock, flags);
+>     skb_queue_splice_tail_init(&offload->skb_irq_queue, &offload->skb_queue);
+>     spin_unlock_irqrestore(&offload->skb_queue.lock, flags);
+>     ...
+> }
+>
+> Will this concurrent lockless access corrupt the skb->next / skb->prev pointers
+> leading to a kernel panic?
+>
+> > +
+> > +	return handled;
+> > +}
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260814090324.647898-1-ciprianmarian.costea@oss.nxp.com?part=1
