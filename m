@@ -1,125 +1,195 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC8C448B99;
-	Fri, 14 Aug 2026 08:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D83D44C510
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786696127; cv=none; b=bjkdLdqHg3VZqrhv3I2mABIYByxM0n8U8pjaTemVwRnxJBthIwKsY4mmDnRzqwnVGu/zZbuS1OxpDgWTywBTG21BixgcxvYZ/plHXogKNtr6zzDDxB8LD4NmDEYZUCq7rw4k7e3wyelowyR+oqAzbISJwxMSgXWesoUu8rV+jXs=
+	t=1786696174; cv=none; b=cJqucFQ9tgqAh9T4QYV0na+addod8sthaXbzNDlb2iDrNBMyEZyD3+aisnKaaIT4fVH46jiPWZQL03RBYsYmqH7XcF5X5HYjqorvyaB6gZyxZS4kYFEBz4SOfpxeafen4VJXZn6mWHRmtLarutKK4dRAP4ot6nqpTbmNE1vqlKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786696127; c=relaxed/simple;
-	bh=HRljGX3TSBiQ/d+PmHmhkQ/8ZPeNNwKqNQZPe9EayZg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PlxzcSSWLg6WtjDngQFI8LtxQxqC0qnAPxX5AYvBIdzMFvY5usAJBgYxyDRGU8AJiju4peypQpQHx7WBtSDNIvnWiy2oQyNeG9ILiXhZMh5CQ72VjGnbYExllzwGNcdl43RipztBX9CigqJ6ZNPv6clNDDf5T7TGt/A4KmgQkjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ClVIRtHz; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786696174; c=relaxed/simple;
+	bh=T73XddjDhxf/vYApUi77bqLujQPh+6Itq6r+GeWcxKU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GxNzTXNc1dyYrH1MOXIA98x4BJNTTh+ZqVW7SczZDPW0wLqaPZD8iHXn/KpSCNEFME9DIQrUCt852YVDbZhrdY1+9rCI73P8xYYIr0xlm2iZQuss60WTH2jkod0FG7phCLksIW8y9uHyw2Ylc2xenENqxee5/ceJjaTNasns0TA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O18UvK+5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ClVIRtHz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786696118; x=1818232118;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HRljGX3TSBiQ/d+PmHmhkQ/8ZPeNNwKqNQZPe9EayZg=;
-  b=ClVIRtHzeGGp3/bAiQti0VfQQYBp0dR03U9nDn5qWD/dysaM5UorDUWS
-   WEbIM6ipnXUyOy/1aSbyIayw/FTmmH0DuSjFJCq1tZ4MrZJADPJBRDYk9
-   PD4Dbo01Y/j5JcvqjiEK02NIVZmlRRYVloe6ioxPwAqwVzlDtJrIjYCHT
-   gq7WQbze1qc8eWuwFky7VimDhXiVaDSftMfwLof3IEA2gM51xromLTF0w
-   ARdWatkjH/BhZh3vWb3oV10e2BhtubY/FuaqMI3CpNfYwv6Sz35Ho8j9C
-   Rd9yS3yjPUKMyR5qiA86+NiWIuqMZ+vWgo+YKQMYYZuXNzH8yw5ReznSA
-   Q==;
-X-CSE-ConnectionGUID: JEhsbZ3BQOC/toD0rmvXkg==
-X-CSE-MsgGUID: yXaQMuYZSnqBwsirqEemNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87403281"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="87403281"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:28:32 -0700
-X-CSE-ConnectionGUID: RWC9eLUXSrqk/rq4I9xX1w==
-X-CSE-MsgGUID: pNJT3lZ+S7qXobv4VXgHwA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="260377327"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.134])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:28:27 -0700
-Date: Fri, 14 Aug 2026 11:28:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v3 11/14] gpio: regmap: Use regmap_test_bits() for single
- bit reads
-Message-ID: <an7RqI9bBIX6lu_5@ashevche-desk.local>
-References: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com>
- <20260813-ad7768-driver-v3-11-cb554399ad26@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O18UvK+5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5452D1F000E9;
+	Fri, 14 Aug 2026 08:29:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786696149;
+	bh=jVodL2FsUfxA8EZdIhvuo4kv+5TIR62glktI6+QPK9A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=O18UvK+5sR8c1PDXmSpSbTsFOCoCn+Wf4El6nq4hwRo3ohfWrGhO2uYXalxgRAJfn
+	 9cN/nHrMo7Boli6cq0CJ8Ll2c0o3qCWSYl5RlRBPWHzZAJOCENC+vIuc/4tWSqG8fR
+	 GMPlt+UIF3U/ts3pKGcQudlbE9D6NkxLcQGEaCHiXGjThTnmcid+JTbtXrgiiS00wM
+	 uWZmLBDfd6ee8eNPQawqV4MXSTpECRs/rjIbrhSVWmNfvf7TJdffID5WYOyMO8S6Lb
+	 /F7k9xSaK7aSNdI7wv48uiPtSpx1BOQuF8Ms/I9k3MTiBcz8rtVTXuOxkpZP5yyDAk
+	 +e08l2s5l5YTw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] of: reserved_mem: skip init for regions whose early
+ reservation failed
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wandun Chen" <chenwandun1@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260814081443.1061046-2-chenwandun1@gmail.com>
+References: <20260814081443.1061046-1-chenwandun1@gmail.com>
+ <20260814081443.1061046-2-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 08:29:04 +0000
+Message-Id: <20260814082905.5452D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813-ad7768-driver-v3-11-cb554399ad26@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 13, 2026 at 03:57:04PM +0200, Janani Sunil wrote:
-> Use regmap_test_bits() when reading a single GPIO value from a normal
-> register and when reading the direction bit.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] Exceeding `MAX_RESERVED_REGIONS` failed memory reservations ca=
+uses unrecorded failures to steal dynamic array slots from valid nodes, lea=
+ding to skipped valid regions and potential arbitrary physical memory frees.
+- [High] Redundant recording of natively skipped zero-sized nodes wastes ca=
+pacity in the bounded `reserve_failed_nodes` array, artificially accelerati=
+ng array slot stealing overflows.
+- [High] Unconditionally skipping initialization for regions whose early me=
+mory reservation fails breaks valid legacy configurations.
+--
 
-...
+--- Patch [1]: [PATCH 1/3] of: reserved_mem: skip init for regions whose ea=
+rly reservation failed ---
+commit 89c6cc50df5c4bf222e4058d5f0ce76a20439009
+Author: Wandun Chen <chenwandun@lixiang.com>
 
->  	/* ensure we don't spoil any register cache with pin input values */
-> -	if (gpio->reg_dat_base == gpio->reg_set_base)
-> +	if (gpio->reg_dat_base == gpio->reg_set_base) {
->  		ret = regmap_read_bypassed(gpio->regmap, reg, &val);
-> -	else
-> -		ret = regmap_read(gpio->regmap, reg, &val);
-> -	if (ret)
-> -		return ret;
-> +		if (ret)
-> +			return ret;
->  
-> -	return !!(val & mask);
-> +		return !!(val & mask);
-> +	}
+of: reserved_mem: skip init for regions whose early reservation failed
+
+The patch modifies reserved memory initialization to propagate errors from
+early memory reservation. It tracks nodes that failed to reserve and skips
+them during the late scan, preventing devices from using memory that was
+not actually protected.
+
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 8c9d6395d6a39..f20747725de42 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+
+[ ... ]
+
+> @@ -167,14 +180,19 @@ static int __init __reserved_mem_reserve_reg(unsign=
+ed long node,
+>  	base =3D b;
+>  	size =3D s;
+> =20
+> -	if (size && early_init_dt_reserve_memory(base, size, nomap) =3D=3D 0) {
+> -		fdt_fixup_reserved_mem_node(node, base, size);
+> -		pr_debug("Reserved memory: reserved region for node '%s': base %pa, si=
+ze %lu MiB\n",
+> -			 uname, &base, (unsigned long)(size / SZ_1M));
+> -	} else {
+> +	if (!size)
+> +		return -EINVAL;
+
+[Severity: High]
+Does returning -EINVAL here needlessly waste slots in the reserve_failed_no=
+des
+array?
+
+Since fdt_scan_reserved_mem_late() in drivers/of/of_reserved_mem.c naturally
+skips zero-sized nodes with its own if (!size) continue check before
+evaluating the failure array, returning an error here will consume one of t=
+he
+limited slots in reserve_failed_nodes for a node that doesn't need tracking.
+
 > +
-> +	return regmap_test_bits(gpio->regmap, reg, mask);
+> +	err =3D early_init_dt_reserve_memory(base, size, nomap);
+> +	if (err) {
+>  		pr_err("Reserved memory: failed to reserve memory for node '%s': base =
+%pa, size %lu MiB\n",
+>  		       uname, &base, (unsigned long)(size / SZ_1M));
+> +		return err;
 
-Wouldn't it look cleaner if written as
+[Severity: High]
+Does propagating the -EBUSY error from early_init_dt_reserve_memory() break
+valid legacy configurations?
 
-	if (gpio->reg_dat_base != gpio->reg_set_base)
-		return regmap_test_bits(gpio->regmap, reg, mask);
+If a region is validly pre-reserved by EFI runtime services, a standard
+/memreserve/ entry, or a bootloader, early_init_dt_reserve_memory() correct=
+ly
+returns -EBUSY.=20
 
-	/* ensure we don't spoil any register cache with pin input values */
-	ret = regmap_read_bypassed(gpio->regmap, reg, &val);
-	if (ret)
-		return ret;
+Prior to this patch, the error was ignored, allowing the node to be
+initialized so devices could still parse its properties like no-map or
+reusable. By returning the error here and skipping the node during
+fdt_scan_reserved_mem_late(), these valid regions are completely removed
+from the subsystem, which could cause legitimate device drivers to fail to
+probe.
 
-	return !!(val & mask);
+>  	}
+> +
+> +	fdt_fixup_reserved_mem_node(node, base, size);
 
-?
+[ ... ]
 
--- 
-With Best Regards,
-Andy Shevchenko
+> @@ -357,8 +379,15 @@ int __init fdt_scan_reserved_mem(void)
+>  		uname =3D fdt_get_name(fdt, child, NULL);
+> =20
+>  		err =3D __reserved_mem_reserve_reg(child, uname);
+> -		if (!err)
+> +		if (!err) {
+>  			count++;
+> +		} else if (err !=3D -ENOENT) {
+> +			if (reserve_failed_nodes_cnt < MAX_RESERVED_REGIONS)
+> +				reserve_failed_nodes[reserve_failed_nodes_cnt++] =3D child;
+> +			else
+> +				pr_err("too many failed regions, '%s' reservation failed\n",
+> +				       uname);
+> +		}
 
+[Severity: Critical]
+Can overflowing the reserve_failed_nodes array cause arbitrary physical mem=
+ory
+frees and valid device reservations being skipped?
 
+If more than the maximum limit of statically placed reserved memory regions=
+ fail
+their early reservation, the reserve_failed_nodes array overflows. These
+overflowed nodes are not recorded, and their count is not added to
+total_reserved_mem_cnt.
+
+During fdt_scan_reserved_mem_late() in drivers/of/of_reserved_mem.c, the ar=
+ray
+is dynamically allocated based on total_reserved_mem_cnt. However, the
+unrecorded failed nodes bypass the skip check:
+
+drivers/of/of_reserved_mem.c:fdt_scan_reserved_mem_late() {
+    ...
+		if (reserved_mem_node_reserve_failed(child))
+			continue;
+    ...
+}
+
+These nodes then steal array slots from valid regions that appear later. If
+the unrecorded region's driver node_init callback subsequently fails, the
+error path in fdt_init_reserved_mem_node() will call memblock_phys_free()
+on the region:
+
+drivers/of/of_reserved_mem.c:fdt_init_reserved_mem_node() {
+    ...
+		if (nomap)
+			memblock_clear_nomap(rmem->base, rmem->size);
+		else
+			memblock_phys_free(rmem->base, rmem->size);
+    ...
+}
+
+Since the region originally failed reservation, this memory is owned by
+another subsystem, resulting in an arbitrary free of in-use memory.
+
+> =20
+>  		/*
+>  		 * Save the nodes for the dynamically-placed regions
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814081443.1061=
+046-1-chenwandun1@gmail.com?part=3D1
