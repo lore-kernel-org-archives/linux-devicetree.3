@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5283D430CDC;
-	Fri, 14 Aug 2026 15:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E4F3CF976;
+	Fri, 14 Aug 2026 15:44:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786722249; cv=none; b=U/Cjpbj3dhQemCLck2MmppdCIx2r3QlOra5HEt9hWem/OQyQcQdKU8bZuXT2owqsHt8xrW6Je3AfqR0Cq4LtFJyXnt3YIxovT+lETHjz6Z5O0fBzbbYQlxw5QUsBrg9DPJ93K0jrdQiSZ9IaeA9klSKfD1Mqe1wQdRCnTfsEpQg=
+	t=1786722288; cv=none; b=otrKvvdWerBE2LCJulM02dKB/LGCXW45FuGkdrEPss06jh4Ua4IUXWkbnN2+KVIPGbQG+MPaSywcUGQt4eFo+K7sJaDY1imlT6oheWSlUiBWZmJ58NF3R6tCDdKxm+CpIZ1Vy6YSytqdWsk9nulCLqbd3Tj6/eQ8ZRnnPcbpjwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786722249; c=relaxed/simple;
-	bh=oH6Itit7sXpXdfxkFH4iS60KRx+5GjvAWa6hE67W5g0=;
+	s=arc-20240116; t=1786722288; c=relaxed/simple;
+	bh=Kka3amGyNuGFimuZzDfVcMXhcgkz2Qdyo0LQnvQDC8w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nxOsX2x7DC/mLDN4l1tag7UVKazxvKxBbJqtxHbNSQwk1keAbnydv0lXqAZLCjCLVQof21eLuqJ0fWA8farfTO16HhVNRqRjRRwkiYDRJQeGCoHbt9iozdQx2gbRL2hSCJyVXmqgCGrWr8zt+ASUYJCMU3gSoDGNjxT7krIXzSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUeOZ7nR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ejf8JX3NrW6fMaoLRTFEujlriU5zz5VCIJ05OjG9l+Jktvu67xEL4bTgthRevtFs+PjVaunVwKm14xE0aEMbRmchmYQ9w9pHj6aWcBHIz/jQrtuhSx0YP6IiQ9h5fcamQCnd1sizAOvXzCfa0QCjs8BwNfu8BX2ULK3e8zQf+oQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bHlyJV2N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUeOZ7nR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B6071F000E9;
-	Fri, 14 Aug 2026 15:44:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bHlyJV2N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C64A1F000E9;
+	Fri, 14 Aug 2026 15:44:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786722245;
-	bh=oH6Itit7sXpXdfxkFH4iS60KRx+5GjvAWa6hE67W5g0=;
+	s=k20260515; t=1786722286;
+	bh=Kka3amGyNuGFimuZzDfVcMXhcgkz2Qdyo0LQnvQDC8w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XUeOZ7nRi1ZnTrZwkJxwUeNU7iRp+MeMv4z6P6VHnFUtOBjSvpAegyufy1PW2+CvU
-	 SAwY7q7VKepdikJoJOrgEUAGhl6j71WZE7j7RpZeY4OLmvDGTgpiwmyhl30jSmJlN3
-	 isF1rFBItkYA4Kpxj63pqQ51BH62aKZb6yMBC9CNCfhiQNWrSub3NQWziwAy355Wq5
-	 GCNpmm9MB97pIawXK0caVXakUtbFugfOgwo/EkMihCcTNsPRiR6sFx1By0ddE85YDt
-	 es8TQ4fHOIRZVkz6SJY5h5RYGhC1L2qn+5VenmxmOKXXO1ulYwklxIOS1gySyq1tdb
-	 8jRY26n2y391A==
+	b=bHlyJV2NXkTaVKIGpHbBvOU1y+E4nGz5fjYB7Xmu+OSfScNdK4U9Dt2IHX4UowLHp
+	 TrlTIKvt9j51yoA74yhaPG1fymMoOrtWtzssrEsOGT3ID/VygdLiiNXiU3GL4kn2fL
+	 dkeHDbeEhbRAejN3vE8a/uZW3nlg/JmohG5A8uLWG8BYzm52bC8eGnIq8dNo8F+g80
+	 kUvM4kD8JpBu0XnRblMrXBi8uZ1WDi3+bj8leQA9r5jWDeLYadIi6w6MYzsYPREgec
+	 Ux9wKaJ0QcNRC4z8iNM8bpkgRqRVlinnpnmiaYIGrB9J7/NdL0LqpxA8rC9HUGkfZQ
+	 LKEBVVSbsOxQw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 09/10] arm64: tegra: Hook up VPR to host1x
+Subject: Re: [PATCH v10 2/5] dt-bindings: pci: tegra264: Switch to PCIe root
+ port bindings
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: "Christian Borntraeger" <borntraeger@linux.ibm.com>, robh@kernel.org, linux-s390@vger.kernel.org, "Heiko
- Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org
-In-Reply-To: <20260814-tegra-vpr-v5-9-71832b5d0246@nvidia.com>
-References: <20260814-tegra-vpr-v5-0-71832b5d0246@nvidia.com>
- <20260814-tegra-vpr-v5-9-71832b5d0246@nvidia.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260814-tegra264-pcie-v10-2-05d08c592b05@nvidia.com>
+References: <20260814-tegra264-pcie-v10-0-05d08c592b05@nvidia.com>
+ <20260814-tegra264-pcie-v10-2-05d08c592b05@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 15:44:04 +0000
-Message-Id: <20260814154405.4B6071F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 15:44:46 +0000
+Message-Id: <20260814154446.7C64A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,14 +47,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 > From: Thierry Reding <treding@nvidia.com>
 >=20
-> The host1x needs access to the VPR region, so make sure to reference it
-> via the memory-region property.
+> Switch to using the PCIe root port bindings in preparation for using the
+> standard WAKE# handling.
 >=20
 > Signed-off-by: Thierry Reding <treding@nvidia.com>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-tegra-vpr-=
-v5-0-71832b5d0246@nvidia.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-tegra264-p=
+cie-v10-0-05d08c592b05@nvidia.com?part=3D2
 
