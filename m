@@ -1,83 +1,119 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522D43F7AB2;
-	Fri, 14 Aug 2026 07:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0BA377019;
+	Fri, 14 Aug 2026 07:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786691763; cv=none; b=I0UP/5PAgNr0bR/3o2T3g7jfrCcwQtkOwtGFTPu7LmLvRCppxE7NYAChK3Q3EQRNphCerKMWeYhuGiTyYCqNt4Hpq/oqKYbf9Nfj1QP6INudTDgXrjyXaeecWCjVGWQd9JojOHAuiYssIqwjY83EBaQtBpGUQP4VWqEVRiEpkmc=
+	t=1786691850; cv=none; b=qGno8VP1BD7QUzlhqwoyfc65k1oGYLLe/FXQZ3kvzGiMrPKcctFQL7XmwDFVg4U5XBOhNlS0GVmFy1/1vbRtYFjK/OoBr4RbtoOEI2nFK1ekYrUcmrdLlbiPwLG0VCowaHnzjPVn2hgBooLD11LBS0zo6KwhjYW7XGZ9pre7QcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786691763; c=relaxed/simple;
-	bh=1Mb2/oIQ9CzX6vlA6gt9znfYYn3xE5keKNRsc/iMpAE=;
+	s=arc-20240116; t=1786691850; c=relaxed/simple;
+	bh=j24KVkyB0q0OaJ/yOFCb3wfuFrfDxqNqg1xYunq2vqs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sVjmitHOW0YP292NetwN1lNQSJ31g61qba1IEYu6NELTLk6aMYXWzas1o3Lh9f3GjCFB0GjyoqmiwG35dA7nrEJyk9d1kH2gwy+C0VQqBwufv1ShFCYMkrXa4kAn53Gq75aYJrxLDZjagoYzCmS9GctlbQmYyo5kwaxE5qLB69M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=veiWjwlH; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zplk0dRgDrk7jhwu7B1cP5vbq8nqaUzATEtrGEEuT4yp72+Cj6Vz494ChcOD9GvxHoFJU22S4dOZ0EqacLI6MxBnIqsYDeqRsSiwyTjEOp8PMgfFEoxyVJQIVJWvbokRTt/sbyVmE800uSfmpnrLePMnH5ltrIldCPUXnnXxYYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EblVmG2p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="veiWjwlH"
-Received: from francesco-nb (2-224-16-253.ip168.fastwebnet.it [2.224.16.253])
-	by mail11.truemail.it (Postfix) with ESMTPA id BED5A1FC4F;
-	Fri, 14 Aug 2026 09:15:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1786691754;
-	bh=nJegQlhq+MewOGnUHRHewet7G68KbvwxdB/Y6qxCKYc=; h=From:To:Subject;
-	b=veiWjwlHd6rzmgYHFb7ThT9a8HzK66BDVr5D8gAHGKvhPy1cQJSZknojCU4X11s0w
-	 V6k37NA5zyflCR7xOa8JKjl1tDNnTvVcI4qL5s7YYD4lHVwQLZC/IoVtUIXgPqkF57
-	 nF1cdCXBWI4xGFczPsbCPpVOYkeCvssCASUZvmGEFXmanDYEXYu4InlM+kAVcOnGuT
-	 MmFrj4S56xI2sKfCRw2BaT/X9wcydhRaygKDv9zcyPdhh7x9YWi43p3tIWqVymbn0a
-	 SwqAPh6I3u69i/2keYsfzceUMok+p8u/SKKMMl+yl9LX9ZnbIXyMwECdr9RiM0wTiO
-	 a4bim8DWgE9dA==
-Date: Fri, 14 Aug 2026 09:15:49 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: "Mendez, Judith" <jm@ti.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Moteen Shah <m-shah@ti.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as
- OUTPUT
-Message-ID: <20260814071549.GA5246@francesco-nb>
-References: <20260813111238.56892-1-francesco@dolcini.it>
- <b4ed6b46-07c3-4ebf-9fc8-b9ae0dc03a51@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EblVmG2p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00E7F1F000E9;
+	Fri, 14 Aug 2026 07:17:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786691848;
+	bh=ls4Coej5vHvo87jU/0JKjM0skjKUPAZb4e9xNYa6dSQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EblVmG2pbfiwzzs4V5mAU4ufoI4CBl7xvj9GW3d9Ig2iw6CdPAY/DhDytQYY/VEgO
+	 dpQH4Z2Jj2qP7IM5cwc2RlpmTimxubJV3tZ0GnVe1JCSj37WZgdqOr1BIiaLAaJDgj
+	 f50pXBnbRAKvIqOkuf+Xx2k6Lcu1VOHCn3fMcfdZRLcUN49X01JzE7SDoXrjNTYfPb
+	 Nw/avFbNxM5q4Oen14SO9iR0O9TyAYCUI2a5hFRoFckI61A6IpPlcOcEncL42lWjqI
+	 RtxTPaPq8CimailDt1J1hmIAfyyoRsB3S5QJHhb6UaqDC4TEKSHLXKp67dy/u4hSEP
+	 2HWHKM8g/sd+Q==
+Date: Fri, 14 Aug 2026 09:17:19 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arthur Crepin Leblond <arthur@marmottus.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5 2/3] dt-bindings: net: wiznet,w5100: add link
+ status interrupt
+Message-ID: <20260814-loris-of-rampant-fragrance-bd2bf7@quoll>
+References: <20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net>
+ <20260813-wiznet-link-gpio-v5-2-ac8046f24413@marmottus.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <b4ed6b46-07c3-4ebf-9fc8-b9ae0dc03a51@ti.com>
+In-Reply-To: <20260813-wiznet-link-gpio-v5-2-ac8046f24413@marmottus.net>
 
-On Thu, Aug 13, 2026 at 02:57:52PM -0500, Mendez, Judith wrote:
-> Hi Francesco,
+On Thu, Aug 13, 2026 at 10:58:15AM +0200, Arthur Crepin Leblond wrote:
+> Add an optional link status interrupt which can be connected to the
+> LINKLED pin on the device to detect link status changes.
 > 
-> On 8/13/2026 6:12 AM, Francesco Dolcini wrote:
-> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > 
-> > MMC clock pins must be configured as OUTPUT-only per TRM [0] with
-> > receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
-> > PIN_INPUT to PIN_OUTPUT to match documentation.
-> > 
-> > Link: https://www.ti.com/lit/pdf/spruiv7 Rev. C: Table 12-246. MMCSDi I/O Signals [0]
-> > Fixes: 316b80246b16 ("arm64: dts: ti: add verdin am62")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
+> ---
+>  .../devicetree/bindings/net/wiznet,w5100.yaml      | 34 ++++++++++++++++++----
+>  1 file changed, 29 insertions(+), 5 deletions(-)
 > 
-> Assuming defaults are set.
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> index 217f301db182..81f4382eb96c 100644
+> --- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> @@ -15,6 +15,33 @@ description: |
+>  allOf:
+>    - $ref: /schemas/net/ethernet-controller.yaml#
+>    - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - wiznet,w5500
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          minItems: 1
+> +          items:
+> +            - description: Main interrupt (INT pin on the device).
+> +            - description:
+> +                Optional interrupt for link status changes (LINKLED pin on
+> +                w5500).
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - wiznet,w5100
+> +              - wiznet,w5200
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          items:
+> +            - description: Main interrupt (INT pin on the device).
 
-We have
+allOf goes under required: block.
 
-  AM62X_IOPAD(0x11c, PIN_INPUT, 0) /* (#N/A) MMC2_CLKB */
+>  
+>  properties:
+>    compatible:
+> @@ -23,10 +50,6 @@ properties:
+>        - wiznet,w5200
+>        - wiznet,w5500
+>  
+> -  interrupts:
+> -    items:
+> -      - description: Main interrupt (INT pin on the device).
+> -
 
-is this what you are referring to here and in the other discussion
-thread?
+Properties are always defined in top-level
 
-Francesco
+I do not understand why you made such changes. I did not ask for them.
+Read again WHERE exactly my comment appears.
+
+Best regards,
+Krzysztof
 
