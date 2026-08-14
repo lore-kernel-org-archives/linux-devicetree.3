@@ -1,67 +1,68 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D26948EBEA
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 16:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE3C3CFF44
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 16:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786726530; cv=none; b=fyOVNmaz0okCgfQ29GeQ+uQi32F+wf618suJBERZWHbmHtCxsJj5QaEFtPduZ+DbrQNZLFUhbPkPZa+987d2hlAjRnWfdCppPYL/Q8hwd52FLZ7/3KLMcES0Q4YhIQ1K7hgNxftNdrc0UxTllduiL1wkUHF8oy9BAtpcgcRDNz8=
+	t=1786726535; cv=none; b=ALeMHn0R2HwjzbUMJ347/m9HIOdw9L4L0S6clYz/AFzBiW71WCgfZ5lEuLXEWGjt0+2JHUULT9VewUp0nBw/vR6Vg5afPOhLxz2tuGDDpD+k8JbQ5imLT3jdEAVgkraaYKyvDRYzYNN22z+PVLd31+bZA4vc8vDlfk2h8GZxltA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786726530; c=relaxed/simple;
-	bh=K5dcQJf2Ch/6vpTqCE5mVe/Cn73el9CTj0AfswwkkrU=;
+	s=arc-20240116; t=1786726535; c=relaxed/simple;
+	bh=k5EloMOSTVAa9CzBTiI/tnt1aw0B//WUVChQ0e1YpDk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UGu1Bx140XaQ/wf+Y43czN4BDsQuDpXoRbMfiwaWM7dDP1xZUtK+w/RtBvWun5V3gWppg87ZmY/jvvZVsxUfzTKXum6G6fJfq2SYp1Q3hXfkQRSBvdAixCcwiryozYOqRGKozGBYNN42aROrUEOOOWrWdAj+H6/M4s3fAM0REMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=hZl4XSeo; arc=none smtp.client-ip=209.85.160.182
+	 In-Reply-To:Content-Type; b=T6AADX3YLw3ZyNmdxqhTEXgxlbiTsXDZWSBEr5YZyOcyPKCwBLCpBX2+JaxFNYVDI3SGHA9oFFdCBfuyheh/pF1Kka6t8swB6PefYT5ZcmIVIO8Uk50JQ3kRMtNpG9lIK0CeHRDTWdB0mB9Ks/Qa9/ltpw2VYAdobBsS15k2Fc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=CTmaAcJl; arc=none smtp.client-ip=209.85.160.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="hZl4XSeo"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-52cd38ddcdfso3199621cf.3
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:55:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="CTmaAcJl"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52b4e988c77so8909601cf.3
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:55:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786726528; x=1787331328; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786726532; x=1787331332; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=anIgQ2iX3wKwO3iZRXoJM1Kp7efYwEyDsRDYZCL7bQI=;
-        b=hZl4XSeoJSQ1E5VaDwJCpUi82lFCjvf5F0Qc4TmiLi/n0N5YNnVq0wg/W8oZu42xfn
-         Qw/MtJWsT2x+peeaBieNucWefU96eullYWPr5ut7AMvRNE9+kaItWj7KLt3ozSGWjQu+
-         mHsElWeA+U7auxXZpBd9Hozvvd2Oio/ijZsyGYU6wbEuxKl9ZgyMU5eyIhgnAyajRX/S
-         r3E2QEHU92X8i/STt2500nr9b1jF/n5qz2X4K2+5Hjw8TKviLmw0fCQ18IP++Ee15bkU
-         kFcd5b0Xg6cw/Im6eNPbpfPu+YehOJk0FogK6ECA33dtbuCYBeYqaI7D5oCAGVYi9Hpo
-         vKGA==
+        bh=PTW05gzNIpG2NVGNH+SKktP5f5MLzIfsgAEdY/wEjzU=;
+        b=CTmaAcJleqxEnKYz3WBrXorkx+ByXEpbjMMbQNZelj6TbqSPWjUqYtFmrI1qpJgGkv
+         TKPAMRNNLIQWw3ekDT2Im+6WGAPPhFJCQrnT7ZhkD+DAsIbvnaXr3o+TuFpT7gBO745P
+         gnTYG4A4Y7lpYRZmD9kfITzxPc36zTgHlPh4K8m3bZ6bw94SH3hv9buYgUjx0KVjmf6Q
+         DrRO9SvcDwi8mBg/ioggEWW0fIYiluhZbOJTQQLuh9VgHxj9i5z2XHXn+JfwKmFsDoNC
+         sZgGE3x9MvH5SCVaLs4RRCiTunSKA+6YsU5POJ5tD7sijsUjozid50Or0xFU4rwaLBi+
+         a35w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786726528; x=1787331328;
+        d=1e100.net; s=20251104; t=1786726532; x=1787331332;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=anIgQ2iX3wKwO3iZRXoJM1Kp7efYwEyDsRDYZCL7bQI=;
-        b=QoMu/xPg4XAT4XlK8TBNYYzsXR/7RrKp/BEYTCZ7+PS71m0mv4wTZvrEbdclN2qVbP
-         w3ZieHz3R5ZT+qru48xRAjYseZTTdq9tTM30N+wq+s0OYrE6hDoaBhI7Az31ldZyARos
-         q08rX/T6prVPopwJIsOVorxAmZJBKN5gDL6rfZFxVfe5AuHyQZ6riQomoroXMzP2waZO
-         xHc7bX7slRsNPLWzlcYwn4f3xrdnRJiyjv6kYhNJCbd2NlhhpfQ2uDD3eYENF6HuxRnd
-         dYeUioR2tNyXwSX1ZWIqzw3sZwCpEmBb5IpTRWBG1WRbAj8Z3UZ48Elt2Do15emM7V8L
-         H5tw==
-X-Forwarded-Encrypted: i=1; AHgh+RqElhdrx/hC9otr3d1G1dZG6M1yLkXPPExkn9iP5kI+vI5CLIEflO+bUypLOJcsqIneg/TSgoYv2PZ1@vger.kernel.org
-X-Gm-Message-State: AOJu0YzaQpdDzLGnyKmmPVly5l1qRnvbMSuIRfr7vNpeLJ9Obn6Gc4wn
-	yXWBeQWOVuLxmYo74H3/UXZeWPGSZPOUgl8GQQJpk+8x9TQuVUFXa2lgHPsC+meUx6k=
-X-Gm-Gg: AR+sD12heprTgLmZmjSPPdqLhwsWjvLk52gLSpXspRUigmHnZ55bRZr3EwFkx4NYnaI
-	I7jK51NW2+vzWUfbiyVNiDSD3UmiXtCRBtL5pIHAcfkMmXMeCaA/4ahaMw04FQKiQzqYbO0k7lE
-	PU5BClk2ZMJS8c6bBeh/2ERfJin1z0Nia6DZCpZ/mW7v3n2fGip0fYgkohKTbl8YkGEQzodMIbQ
-	USTS7mFdPD9l080mTl0W/Ki9MTyGuRd4yfII7mLHBk4LfCo9cpojwmsrElqAVlwnyb/8/0McbnQ
-	zyGz68eH4m4XXHch8rGZWSES826VEyXf5m5ZfFy+xSJTB1i4Wd616R+V+hKIfZzOnKJMzzdT1m5
-	2q7wufRsGZBg/dnNhFBYtD+1Oqyr44WYnv44UjgeXlLYGcTlVhLDpHVEvBGl8zeYrMhbJDF3f+i
-	99zcdDvcVOKzxfNb09fy7/9gEkz+TqzpwyY7Mb4/llJePO45WuH1o4epyGZJGmy0O0sf5wap8=
-X-Received: by 2002:a05:622a:17c5:b0:51b:fadc:ed7d with SMTP id d75a77b69052e-52d855893ccmr86941561cf.44.1786726528261;
-        Fri, 14 Aug 2026 09:55:28 -0700 (PDT)
+        bh=PTW05gzNIpG2NVGNH+SKktP5f5MLzIfsgAEdY/wEjzU=;
+        b=RRQMsYP+sAk/MJ3loOgUFwSbf21eo9RCJrxuWs0a8o6phbnwzGpSxblKFCDLiERDEc
+         lDFZw14lD11jpQYza7O9Eo0xsmXaO5FKbmrSsTyzbt66VlkzuFoncaJ1uI2I4L1E4oQq
+         maTXgT2o/KpEu2b56lFL1wSp9h8gM9h9YIuNE9C1YVOloExoAhaPtQgNzZuZt63yy1ki
+         0U1suovTXuTea6epLolJGF2R93c2EiEUgaTWELMabWxj/S8T0D8hlT4fEaYEvpHDhrd3
+         eDjubBJ7rbixh16hmnieVXjbQmD+YzzeA/2198ZVndph+6sYugE+u9NjH0NqR2bR8Pz7
+         zgkw==
+X-Forwarded-Encrypted: i=1; AHgh+RpOE+6RvVi3Fdb4BlNesA9+zhk9l6E/L4oVDWJQbNIqJuGH+yYf+FsBSjRpUXA3iVJ5kGzg7LxHugCG@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1c8dyadle3V/RYGJBxhvct1P3/ZGA/wqORdzXNxYdE6GhFrqf
+	O+KI9Xgar0nsPsVT7sXh0etuj/KCm9w5yXDDtKKabrSKzP6rO1WoVyBQy+ea4TKNZlWrwHH6YRY
+	jUCekZX8=
+X-Gm-Gg: AR+sD11nx1Qaryk5GWkXptzRydpeHPztnnfoWplurKdLXUkIf/grSJOdFvma0Xwdmub
+	SBQSlb9eX2ZAjgc6sqFVdNhrSzPZunp7tyUBEKmv04QBO3Ft+sgCi8e4bqaYdfOOVaVMVnawq1x
+	wehk0Wu4lhX+FjP8gIyILzWotDSj8a/2QgUeUnLPcOv4yt2kfgWI+7VRH5Bnq+M0kinW/7sXTdS
+	ZyncMOY9YYblRHSex43eE4xoQFK+eWI4htepfO9DNv6uy6V5p1oQDc8fUIvOXLyZcwLNSViRgwV
+	ZbHRevrAGFZ2GLdbC8zBscFQAcX5JBHXbvoq+vpOIlUETq6/QL9NVwQYrGGrWzu9SwwY5Albeo3
+	l8ctqoo2Hj5Dwfoe2Wk2toyMGMRR3xuDLwyMF//hDP15aIHmiIE/hlamnrX684uar6vE8cMwZeg
+	K+9Th/iSHkwSrWsg7OLeYQLMhPmi1B/HqKsoncpvlrAdmAeZbNgDGwBqeADe7x
+X-Received: by 2002:a05:622a:608a:b0:52d:8257:666d with SMTP id d75a77b69052e-52d8541dcd5mr85954931cf.11.1786726532365;
+        Fri, 14 Aug 2026 09:55:32 -0700 (PDT)
 Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d84071799sm24476161cf.20.2026.08.14.09.55.26
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d84071799sm24476161cf.20.2026.08.14.09.55.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Aug 2026 09:55:27 -0700 (PDT)
-Message-ID: <d00b4b0f-5958-4c7d-9f80-7fb283ef90e6@riscstar.com>
-Date: Fri, 14 Aug 2026 11:55:26 -0500
+        Fri, 14 Aug 2026 09:55:31 -0700 (PDT)
+Message-ID: <4bb8bd0a-3e33-4fe4-903a-69b2c708a017@riscstar.com>
+Date: Fri, 14 Aug 2026 11:55:31 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,61 +71,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] misc: tc9564: introduce base PCI driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
- gregkh@linuxfoundation.org, bhelgaas@google.com, daniel@riscstar.com,
- mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
+To: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Rob Herring <robh@kernel.org>, krzk+dt@kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, bhelgaas@google.com,
+ daniel@riscstar.com, mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
  devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260813222943.1655453-1-elder@riscstar.com>
  <20260813222943.1655453-3-elder@riscstar.com>
- <20260814-rainbow-alchemical-gaur-9fd8de@quoll>
+ <2026081455-eternity-douche-900b@gregkh>
+ <56aef294-8d1d-40f2-a371-ea3f5ede2ccf@app.fastmail.com>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260814-rainbow-alchemical-gaur-9fd8de@quoll>
+In-Reply-To: <56aef294-8d1d-40f2-a371-ea3f5ede2ccf@app.fastmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 8/14/26 2:03 AM, Krzysztof Kozlowski wrote:
-> On Thu, Aug 13, 2026 at 05:29:42PM -0500, Alex Elder wrote:
->> +static struct pci_driver tc9564_function_driver = {
->> +	.name		= DRIVER_NAME,
->> +	.id_table	= tc9564_function_id_table,
->> +	.probe		= tc9564_function_probe,
->> +	.remove		= tc9564_function_remove,
->> +	.driver		= {
->> +		.name		= DRIVER_NAME,
->> +		.owner		= THIS_MODULE,
-> 
-> You just copied some old driver. Why do you need this?
-
-What do you mean I "just copied some old driver"?
-
-I do now see that a PCI driver doesn't need to set it,
-because pci_register_driver() sets it automatically.
-
-I will remove that in the next version.
-
-					-Alex>
->> +	},
->> +};
->> +module_pci_driver(tc9564_function_driver);
->> +
->> +MODULE_DESCRIPTION("Toshiba TC9564 PCIe Embedded Function Driver");
->> +MODULE_LICENSE("GPL");
->> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
->> index 6501c949c5b76..b484f1b1d0e71 100644
->> --- a/drivers/pci/quirks.c
->> +++ b/drivers/pci/quirks.c
->> @@ -6388,6 +6388,7 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5020, of_pci_make_dev_node);
->>   DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5021, of_pci_make_dev_node);
->>   DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_REDHAT, 0x0005, of_pci_make_dev_node);
->>   DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_EFAR, 0x9660, of_pci_make_dev_node);
->> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_TOSHIBA, 0x0220, of_pci_make_dev_node);
->>   
->>   /*
->>    * Devices known to require a longer delay before first config space access
->> -- 
->> 2.53.0
+On 8/14/26 2:31 AM, Arnd Bergmann wrote:
+> On Fri, Aug 14, 2026, at 03:11, Greg KH wrote:
+>> On Thu, Aug 13, 2026 at 05:29:42PM -0500, Alex Elder wrote:
+>>> +#define DRIVER_NAME "tc9564-pci"
 >>
+>> What about just using KBUILD_MODNAME?
+>>
+>>> +static int
+>>> +tc9564_function_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>>
+>> But wow, this is a tiny driver, feels odd to have it in misc/ but ok, if
+>> you think it should be here...
+> 
+> We have drivers/misc/rp1/ and drivers/misc/lan966x_pci*.c with similar
+> functionality, so at least there is precedence for putting them here.
+
+Yes, exactly.
+
+>  From the old days, we still have drivers/mfd/sm501.c, drivers/mfd/cs5535-mfd.c,
+> and a few others that open-code the on-chip components as mfd cels
+> instead of using devicetree description.
+> 
+> At some point, we should think about grouping them into a separate
+> subdirectory.
+
+You mean for systems modeled with PCI endpoint bus, right?
+
+If there is consensus that now is a good time to do that I
+don't mind doing that work, but won't unless it's clearly
+requested.
+
+					-Alex
+> 
+>       Arnd
 
