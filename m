@@ -1,148 +1,229 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011041.outbound.protection.outlook.com [52.101.65.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51B5480DCF
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 18:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3A5367F36;
+	Fri, 14 Aug 2026 18:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786732822; cv=pass; b=Xam5T22VgpeJFEWZkXYR7TdOR594EGCAprXZbjr/pjyVauQkkdmOtvWGdOjj/fAQVZiPAzmY/7lvZ2yWwAQHwvDbol4SYGco4qaF2+xkT44PM/IKGBaiS+XW+WoRgBUEKfnRASejUpsvWP5iHVEmNtN+Ph7gA78T04gN2iAkoKo=
+	t=1786733649; cv=fail; b=j4r8ko8x/rKDsJJazOVQQLNLoVAugi5JptuQBVxpzXEIrE0VPCc+hKuxoAxL2Ew6fYjJ5wXA3DKmsf+eqE7NMGMbNkIe0B0uyMbc6wPjkad/tcuobAVr+JR2ZRgrnuwuCTOjuZCb1TaFNneVM//hH/5VO45xPD7NSedQS+g3o2Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786732822; c=relaxed/simple;
-	bh=8d5fIHcGxiBmuF/sD0uaRboGKU+fIylTceIvjRas9vQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YkK9f35YkpqiHWGPbGVIhxJ1cR3b2v+74N9UpnzQv21CAmdk06XuJnHTN51VsddU/jX1kyWJILs2+aEbrgO4O/rIAV5pRfjo0x3Ccb2xowGAe+eeIvCu9Pc184xG+XTP7TijfOv0bsO1m0Bueq14c/Dg0Ghz/snkf5tsKHsDbD4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cyH7j+e2; arc=pass smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786733649; c=relaxed/simple;
+	bh=iwf58rB0KyeFEDPeF/EP4itHN28cWyOoGNABTcoB4l4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BLuF29NKr/EIxD4YCaIikmcXpEzsRDeX33IgeioMpkdKkJQuUqCkTtb7DU9tLCpPiZD+yeB4UvlcC99qgP65zOczfTjilxf4puPwLkM3q0iv0TVdu+b7HvuqwFzR684WHuQppoQPeUCuZ2PDXtC7PyeiJEpqBKADw8s1NvLrA5Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=b87OsxjQ; arc=fail smtp.client-ip=52.101.65.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cyH7j+e2"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c8dbf4f38so11595081fa.3
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 11:40:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786732819; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r6Xuh9rL9JsPEVFe5pb1+283h7zYXExXbncZxPNzKg8BxFO9zmafNbqbde3gHxgOaF
-         PA7iapMYH+0dYUyZq82FLUXRe5NiXXxiWpX/1BQeWcnL22FixRZ37EV4vCoK15Thz3Oh
-         1UDQDbKRoYrzPHtSA6h/NNHt+8G/PI9BG6LUxWyAAeFv/uvXQMbV+Wu0NVC6vHiDRXWj
-         F36y8kRjp3MB4F7+svyWQrEh64im90h8x9tnjk617n7jsL6dcM0lcYo6z4zOafoE8gtU
-         B/couRoxeMOy46MhUIjUR+zyGaOozrwns0TZMx9XFqXNa82Stvt+ImWp501hNW4vyBjg
-         vP3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1ygIoIg7RActdGA1L4Eix3cXFvKMcEifV62JIap/v9w=;
-        fh=ttASCDdvMdrvfRSHvYrVFlETOK4FEFEC9AZyACpsfn0=;
-        b=SbETA3abCqeKWnO7khxaojkm1giYDDer1DS0f8HZz/ds5A2uVAbWBBbLvmWRCgrEr2
-         UkUNrk4X8yFq5sEsY6VpA58EgM2RGPXM37VAkXngpzuVKN8Pm5q5h9jZlAbsLGBFfyyP
-         COWOYOvDi8hj2uAMs2jeapA2qVwIx/XytTDDmYj7tqVGFDzRMAsBVj6ZUhifnEE3d9rg
-         DjVwjkKQmgpJZ+orW5Xygyw+srD3YWff6GK+pAt+Klv80yoUrLSwB3gwxZyH+qTbc8Ai
-         UCff0ulRuVSNnucbmFTuv6RJlOjuxf5AArWMghBJRA0hqmv8CBGwoS8v6lLXCZWyE6cX
-         KaPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786732819; x=1787337619; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1ygIoIg7RActdGA1L4Eix3cXFvKMcEifV62JIap/v9w=;
-        b=cyH7j+e290opi1nKETwybhOAbfjV8fZeWVYYMOuytD15EK6ELGXY6HdGHx+IrFWLmm
-         MhxSsOlPPURztOm3bfIIz2zMGjhKkY/76KR/eMoTHWZP69l6lHc9LpNkfnxfq4YmXN0o
-         sUF7DgsmD4w1Ux/xqG4o5QQ5+0sXk40u/+o2PJT10ohhbxZDSZvDhzMB2tUX8kLErDaD
-         aCAC88LepO07iW/zwoWl+QeV5/CEo6UHYpJzieA4zsbmJLJ4RNDJ8u9afnJM4qF/rurB
-         +vvvfiO9DbrYjzvDN2iV55JGICPmM0Gc9fZVePlEEO5xPdu0685+FtNuCDlEyhOtAUTr
-         peGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786732819; x=1787337619;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1ygIoIg7RActdGA1L4Eix3cXFvKMcEifV62JIap/v9w=;
-        b=rFHPoCNM3v7CyqRkdfg7o6KIFNa1nLvdcSOn4lr3wlqwUfDB2Ph3pVgkQaSLVUc4Pw
-         4LAna2vm4jj3paUQUWdKg4yD8/VHFyvhl55kEWDLQOBGUMLc8MTVc8a+qO718P8YQ/4m
-         GSYtTyAo/lwsLiItPkz+UfJ2uaLoJpyQGe8qMgiznPDpM+Pei91zWjwz+Mm8IuuSfpo3
-         9OhKzl2SBNNkNeZCaOIdtzMzd5l3sStnkfLodmysouNG6hqG0j2LrXTHZfPTRI7v0HuI
-         MipRNlWc/cAMcJyApsVQosjQBb1yCQLcy91ZAE6Ct8PMjDWtzoQqb7O/TRCcYY1ZF/yp
-         YaKQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoA2PPhuuz13dJiHfaov9po3pb2oIDrtTjidc8Dt1UofMqfGjDtBUkoeLa8ECKYkMyD/9Ya2G4OAAqW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz94v0le10zxuBe8fmVsufAcxHz5mdav731l/gZnPB8g/MWItvD
-	GiNxK+dU+9endyC7x8kO8TTmFoLiA4go7ll9iU/QBSXGfT2tKoIdZULdBIBhZ9srrBa+GJ//8mK
-	lUnINhVEsgdoywqY3TcGOjJTsUu/XZfs=
-X-Gm-Gg: AR+sD13eWbkSkN6aRgsMjP7ZnMs+asDSkqlUd/ja/Gaak7RLuRasULsPD1zUXj+Fr6o
-	lrQjvcA1o1D+OyBORTcGn7rL+SkfbOp1qpwADlCdg08xlQn9pCxQnwolqm3Tif0UrMfHY0IuONw
-	IcTd6iRb20G5iB1QphrvzNVBck/z4wF+iDjliJ76nPOmvGCUAPrzcheeOy7iioyCjBdHqil7QDD
-	cUn7OwKCzm7LFZlH5MoxCQw35SB04e18oNmjEM51u8YmzJQJsXabzwglen5mEGZN10k7RRrwGt9
-	4TYkhjmy4mXIgmNSAbciR/AAE2JYsUhLO/ri1CXuCW+xxFU1KM5LfNkHwJ7c/biBnaEphjk1diq
-	LLcNxA3sLqL/yfvXGzlXb/d4coS9AQ7E=
-X-Received: by 2002:a2e:a54f:0:b0:39b:15b4:79ef with SMTP id
- 38308e7fff4ca-3a13249d4afmr7736551fa.17.1786732818596; Fri, 14 Aug 2026
- 11:40:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="b87OsxjQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HEdRvsPQdYiQp/EH0h751+72F6rXdi18SRCpnrcRrh7MBa+96l6pQuVkCg+ghy71YPZxyAw+xKl1ujXJOtZ7cCFBiwGLDQd6bvc22aH9Rm1D2U+yFHTBRx1eFoVfwSE1wZGkIYGriskVfLpSn8L2dVtyPD4/pOQ1jQNVJB4Lnfo1v3X2gIsctrLZOxbxVn39HaSMBATdHyk2urR8pboFSY5t7aosGm0rC6WNOjlosPf5Huh47/hrZHlV3FfmzzhPbG2q69QF65WH8SANL6MLlHVu+GImefjbrrYpSvZPvXBeo56/jc+JtVNvAhPV8c5fnZzzREMBLJOwyOpXeylaiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3rLGBlGlLklVE9Jy75IvX9umgOpni/fGEHbBpcfgO4c=;
+ b=mgcr4QTUbkekN71PQOsJ1x2OuUpP/BgmGx7tXGBm9k9biGsse+CPqG3EDHe+Kvz+1tGp84C59H9nERgK4+ZJte+l7F3Vgepw5HlzYhiJ6JKkbcUae1LkYl7OxzXNuvz7RNWLtlS2+jh1JFRb6LRFGBrKTPrJ5VLGPXs98ZAvfbBT441uGan6sxIw7jElaj7MdCEd+iOgdcZUEe3I2xrgMlnZn8o8rP8Ygpj8KvYtCJh9qMNh+IA14suzymK4NZTUfZWn1navuNXOHO/jJhRp8wjCEGLBQ3e7uGtq1af+bUHPRWSlYv+zS627SzOPG0ThGJPO7BU9uRPkPU4f+v5WNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3rLGBlGlLklVE9Jy75IvX9umgOpni/fGEHbBpcfgO4c=;
+ b=b87OsxjQn9Fe2d+mFA36dGCbg33YsrX7I0NbEPJyKrfuHHH7zRA0WCa73wnSlBwfBUaHxnl+ete3EjSQB4+pznxU4S61t8leLWHQHofpw52+ANIMpumYwa4OaYa0WhQqXVxbcjEZlFlytrJNwJewhTsMjuCnk9A0TRiqCNRVOOoD51NwaPFY82ZaGnJIZV54CJaGOHXrvZ1+gQ4HQbjMKx2xfmP6+xB6V8mJp3HEIUu6ePlAST5u7uQ9+eAgspZxQud7Ei0jt1kLCLqYVERxTKx4DJiWUzvQr6OruwOjeoRFHQwJHG9Y+UmAuV4FeQGBUPkOX/zNHIEhuBFa7yWucw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV1PR04MB9118.eurprd04.prod.outlook.com (2603:10a6:150:25::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
+ 2026 18:54:04 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 18:54:04 +0000
+Date: Fri, 14 Aug 2026 14:53:56 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] dmaengine: apple-admac: Add M3 generation ADMACs
+Message-ID: <an9kRPppZmUFH5uJ@lizhi-Precision-Tower-5810>
+References: <20260812-t603x-admac-v3-0-d1f137f803e1@chaosmail.tech>
+ <20260812-t603x-admac-v3-2-d1f137f803e1@chaosmail.tech>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812-t603x-admac-v3-2-d1f137f803e1@chaosmail.tech>
+X-ClientProxiedBy: SA9PR10CA0023.namprd10.prod.outlook.com
+ (2603:10b6:806:a7::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260808-rp-qcs8550-v1-0-a5a365ba3dc5@gmail.com>
- <20260808-rp-qcs8550-v1-2-a5a365ba3dc5@gmail.com> <20260813-tuna-of-pastoral-mastery-8ca99c@quoll>
-In-Reply-To: <20260813-tuna-of-pastoral-mastery-8ca99c@quoll>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Fri, 14 Aug 2026 13:40:07 -0500
-X-Gm-Features: AUfX_mzDUb6yCmFQOqV6Z_Inwx5K-nKduw5VZvYKwLZcIntAcJyWm3qdaFbJMHE
-Message-ID: <CALHNRZ-jfdscwM86cDK3ya4XC5pKVm5y+ZMcdoDYzowDCmF1MQ@mail.gmail.com>
-Subject: Re: [PATCH 2/4] dt-bindings: arm: qcom: Add Retroid Pocket QCS8550 Devices
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB9118:EE_
+X-MS-Office365-Filtering-Correlation-Id: d05d55ac-5cde-432f-7dd7-08defa356923
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|19092799006|376014|1800799024|7416014|56012099006|10067099003|3023799007|18002099003|4143699003|11063799006|5023799004|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	pvWoyKSxWGuPtaH4KU5KMqr1d5LYnf+v+X7pCfMOw1OAnLn0H+l8SnAQe/Bawg2qlnYhDadhBBKcqIJD3fDnPGz150nZveszoDLZKvvMreKSfZVG58TC0ydaBN6fxnIyp7xKFOEnrlcin+XOCrLJG8FfkVCyHabRe3CXiszzMsI9jCq2j2zI2yzXgAQtNxWUzeqKT6ZCkVzKFsO7zem9154SEg1A5tLLw9nMGyNBUQAt7ICuthjCeBTQB2hCaZyGmTeFIJqQTxjlTXJzMIAUMKVj0iZMda9SZnmumPz7CFS38rYm5dJ1HhZKewrcReoKN/pLF5wIjy5yO0rx8BIURpZ0f6Rj6g/wRNZ5s4TBPm+jAx58oFoLqeoutIqiCbkSIAGj4jBKjFQEpbPM54FJtiAGwEvjmvuRvhjViONu4w8abqAIUJbzJLV+WG4eBS9eDBRc80lXz7wpDs7Ug/pp2uKkzZPkAAlGESxqiTPlZyTlsmk02o9SSlgFQ52jSHjx3xWuFD+9xMpVCBwMmYWBnUZtF06puINFXBKvEPLBzkGNMa0GKi8YLT4WJ5VuoTysLpSGsNvdZ3cCXK5u/PsEho5/bVcrW/9R2zuHAzzp8uLEFgHfaM+/oXFQDF5GkfmxYoCg6HfXElzTvQMUuo3rRxQ+y9pAmG/46V/YpsdeivY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(376014)(1800799024)(7416014)(56012099006)(10067099003)(3023799007)(18002099003)(4143699003)(11063799006)(5023799004)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?mgoY71fCwKJLJZtkr6tbPTh5UHRE4Xg/t9tTN9SdYF25UeGXZ8BD3saBjoo/?=
+ =?us-ascii?Q?GxdoJs+iIQxWSa6Pe+6JIrIsJFP34BqwS096sbK9T2oytdHy63KaOabgFO8V?=
+ =?us-ascii?Q?oMC2W3LYHkx9lcvgPxuOi/dKRy0UV5nqUSO8yAcyeE5/MqweXUTvy5Y9GvYF?=
+ =?us-ascii?Q?EKZzkqA2w6t76RZwwrE1DA3xE+D41OnrgXCbgYcFPcsjrS1VfF5CadyPZnl0?=
+ =?us-ascii?Q?jgHTM6S49k3hxvahdLhPHxGOXyM5IZkwARSirFbWG7xgiIame2fxDk3zbci6?=
+ =?us-ascii?Q?nZQPr2BW9YfL/xxUHnwOtIhx3v7j7lILJVL+N/DJ73TWzhbX6Sp3Nk+DmfRZ?=
+ =?us-ascii?Q?BrSNYOO4yyyTsbOPz6Mu6T04xUNItxwOL2jZ7+z+ubTPpf1HnIYhKuAQpKt4?=
+ =?us-ascii?Q?9C95KcCKlsqw10ZKJsB2LCp7SfQGOYjGOPFi3bHWZf5e3wQ+zheMhHPqJWy7?=
+ =?us-ascii?Q?Z++21IVVerYECKoFBArmJ2SO3dwzvy+HHAAevy7kIcw/l4iSKwN8a4HRQjbd?=
+ =?us-ascii?Q?ez7NF2NhLj78niWK2vUVpzewwYeiIG8QUQR9kUNeibxGHmuFK+zilbJ6SesY?=
+ =?us-ascii?Q?HeNeTa76Xx4mVysM5d2b4q42eGo+1itnOlDE5gEBepKTp9D99CKXV2ZENB7x?=
+ =?us-ascii?Q?XoomOlrxkO+9oChdyvFkkPNzSyrw2mXyySC3zj8Hvps530ZH/7DsZ/m3kyIm?=
+ =?us-ascii?Q?2ybTntoefTrct1De5Dro4TfGPdTSWVGYB8rW25Xc1PKo7KVeNgvKXneMZOvh?=
+ =?us-ascii?Q?I9COvzUAAmzi7LaitRfVtD+z0VmON+xHIVVyYRm2XGqT6TZnn1NkkrOoE5Tn?=
+ =?us-ascii?Q?BAREIMSiAmp6sAYQax6xHshS89ZIuX2rsC88+EXEz7OVW2AQpTSWFmHXeucJ?=
+ =?us-ascii?Q?deXDzNZhzCUQnIf1M8Cwuwu7BB7oMKHxm4Gx/u5QWinHpIEa1N+Yvz8DV8tC?=
+ =?us-ascii?Q?vnhyRa5SOoFseva9TSneXAk4ImXSfe9LbklwAcKZzB/a2nxYpoCT0Y5Mmbye?=
+ =?us-ascii?Q?xQjLnIi+CykP94F1eWwIsdplJlcS8w1envpgKSxFNwQoyYwhgnRWuHsBehBX?=
+ =?us-ascii?Q?D7BYmE7z7iNz76k8/zXPqk7CzFIeQzFXrYFrtr1Ugq4traj1AQQImcmtPNO1?=
+ =?us-ascii?Q?e10qIVhj5mN6huZ43Iuif+2NXthQZpbu7NOq4SPxzb6m+A+QLhQIfwDOiRJF?=
+ =?us-ascii?Q?wOPUpCLCn4/7ZW4MTEyXpOzT9znMl7x2MtXbZNhZpq2QtGboh4DugowOd7YC?=
+ =?us-ascii?Q?qtUtkEMagNgoRPYMSDZ53GnHLjb21dAeq/34nk1+IruXxR8CQMe1wG16+kVR?=
+ =?us-ascii?Q?Kf1TQmHoiXSVPq+MAO6lJMeWCChrx5tvLv7qLn3LY3YQ3C7Ncz+JoCj7IQ7U?=
+ =?us-ascii?Q?sWiyjM9N0PJJFCn29iqXPfVnyrU8PF/lt0wr1v4Lecbo/2G5dYet2Bjpv5RI?=
+ =?us-ascii?Q?SY+9JuvoMaxvWW8YuOZaFUMAnBP6rKXJp0S/SQK6469dYAVuZO2sC3qUtGrS?=
+ =?us-ascii?Q?ies7DUUip7MRAuyjX84pZweUVTCe2p7vGTWtfi4+wMfsA1BMTRL7j7Ax6Sqz?=
+ =?us-ascii?Q?+O2TNVTyVC6Oj1Q+2Z+ivkjc4FuIcDnUKj9JqArFol03mt6q64Xd93q4KHRQ?=
+ =?us-ascii?Q?PpLxkRO8BQgC42gZ5pYeNQEjdoUGQjdxNoWex0Y3FefFA3rp7nymE/b8/nAv?=
+ =?us-ascii?Q?f/nA1qSK4WCXx3ko00BqJInETrhHqelleUo6rWh9NQjzmfUXna1geQc23WqS?=
+ =?us-ascii?Q?dTE6qxBJ/2guJGzhkh79p5Rn8NXHY4C5+EXRdrQ5v9Hbtxc0WuM9?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d05d55ac-5cde-432f-7dd7-08defa356923
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 18:54:03.9974
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OkRvjINOLAy0VLW3/voZDaA7oS/jIVRXpk0iXFIVT9lMdx626IhKjC06hBqfHD17N1DIZkY81BJ4yDmOe2stvBA3H7or9dKQ6kJ4Ons98+/LLx0Tz8xRItva69EiHjzt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9118
 
-On Thu, Aug 13, 2026 at 4:23=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+On Wed, Aug 12, 2026 at 11:26:34AM +0200, Sasha Finkelstein wrote:
+> The admacs present on t8122 and t603x SoCs need additional writes in
+> order to operate correctly. The exact purpose of this register
+> is unknown
 >
-> On Sat, Aug 08, 2026 at 12:37:56PM -0500, Aaron Kling wrote:
-> >     Namely:
-> >     * Nova
-> >     * RP6
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>  drivers/dma/apple-admac.c | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
 >
-> Nova what? This is some cut commit msg.
-
-This is the same structure I used for the matching AYN commit. The
-vendor is Retroid Pocket and the product is Nova. It's marketed as the
-Retroid Pocket Nova. The vendor is listed in the subject line and I'm
-listing the product names in the bullet list.
-
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Document=
-ation/devicetree/bindings/arm/qcom.yaml
-> > index 954be28203017..52ef669d6fe9b 100644
-> > --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> > @@ -1161,6 +1161,13 @@ properties:
-> >            - const: qcom,qcs8550
-> >            - const: qcom,sm8550
-> >
-> > +      - items:
-> > +          - enum:
-> > +              - retroidpocket,nova
-> > +              - retroidpocket,rp6
+> diff --git a/drivers/dma/apple-admac.c b/drivers/dma/apple-admac.c
+> index 14a5ee14a481..fd6236c7c024 100644
+> --- a/drivers/dma/apple-admac.c
+> +++ b/drivers/dma/apple-admac.c
+> @@ -39,10 +39,14 @@
 >
-> This goes to the existing enum.
-
-Ack.
-
-> > +          - const: qcom,qcs8550
-> > +          - const: qcom,sm8550
+>  #define FLAG_DESC_NOTIFY	BIT(16)
 >
-> Best regards,
-> Krzysztof
+> +#define T8122_UNK_28_VAL	0x200000
+> +
+>  #define REG_TX_START		0x0000
+>  #define REG_TX_STOP		0x0004
+>  #define REG_RX_START		0x0008
+>  #define REG_RX_STOP		0x000c
+> +#define REG_UNK_28		0x0028
+> +#define REG_UNK_2C		0x002c
+>  #define REG_IMPRINT		0x0090
+>  #define REG_TX_SRAM_SIZE	0x0094
+>  #define REG_RX_SRAM_SIZE	0x0098
+> @@ -127,6 +131,7 @@ struct admac_data {
+>  	struct mutex cache_alloc_lock;
+>  	struct admac_sram txcache, rxcache;
 >
+> +	bool set_unk28;
 
-Aaron
+const struct admac_hw *drvdata;
+
+So needn't copy set_unk28 to here, in case need more quirk in future
+
+Frank
+
+>  	int irq;
+>  	int irq_index;
+>  	int nchannels;
+> @@ -147,6 +152,10 @@ struct admac_tx {
+>  	struct list_head node;
+>  };
+>
+> +struct admac_hw {
+> +	bool set_unk28;
+> +};
+> +
+>  static int admac_alloc_sram_carveout(struct admac_data *ad,
+>  				     enum dma_transfer_direction dir,
+>  				     u32 *out)
+> @@ -747,6 +756,11 @@ static int admac_device_config(struct dma_chan *chan,
+>  	u32 bus_width = readl_relaxed(ad->base + REG_BUS_WIDTH(adchan->no)) &
+>  		~(BUS_WIDTH_WORD_SIZE | BUS_WIDTH_FRAME_SIZE);
+>
+> +	if (ad->set_unk28) {
+> +		writel_relaxed(T8122_UNK_28_VAL, ad->base + REG_UNK_28);
+> +		writel_relaxed(T8122_UNK_28_VAL, ad->base + REG_UNK_2C);
+> +	}
+> +
+>  	switch (is_tx ? config->dst_addr_width : config->src_addr_width) {
+>  	case DMA_SLAVE_BUSWIDTH_1_BYTE:
+>  		wordsize = 1;
+> @@ -805,6 +819,7 @@ static int admac_probe(struct platform_device *pdev)
+>  	struct device_node *np = pdev->dev.of_node;
+>  	struct admac_data *ad;
+>  	struct dma_device *dma;
+> +	const struct admac_hw *hw;
+>  	int nchannels;
+>  	int err, irq, i;
+>
+> @@ -822,6 +837,9 @@ static int admac_probe(struct platform_device *pdev)
+>  	ad->dev = &pdev->dev;
+>  	ad->nchannels = nchannels;
+>  	mutex_init(&ad->cache_alloc_lock);
+> +	hw = of_device_get_match_data(&pdev->dev);
+> +	if (hw)
+> +		ad->set_unk28 = hw->set_unk28;
+>
+>  	/*
+>  	 * The controller has 4 IRQ outputs. Try them all until
+> @@ -935,7 +953,12 @@ static void admac_remove(struct platform_device *pdev)
+>  	reset_control_rearm(ad->rstc);
+>  }
+>
+> +static const struct admac_hw admac_t8122_hw = {
+> +	.set_unk28 = true,
+> +};
+> +
+>  static const struct of_device_id admac_of_match[] = {
+> +	{ .compatible = "apple,t8122-admac", .data = &admac_t8122_hw },
+>  	{ .compatible = "apple,t8103-admac", },
+>  	{ .compatible = "apple,admac", },
+>  	{ }
+>
+> --
+> 2.55.0
+>
