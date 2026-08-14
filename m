@@ -1,115 +1,185 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED32B399342
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 16:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21FD48988A;
+	Fri, 14 Aug 2026 16:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786723725; cv=none; b=eYzONNjifnc5a55hLfRnKClrzIyeBIh/u6hY0j+tMSS+yX5zW4eF3ekZYvqmc8QgzP9ME6ZuZg7gfpTQTvXeE4U4buxLBq1zPp9e91FZ2TN7FvB482Nzn0fEVx2a5MmMFqIgqiwZcslC/g/AolAyOGia77TmTjoC672QJ9rkovk=
+	t=1786724271; cv=none; b=FDSdY9ICn2tEEcR1lKQ6dde8hdwrkhPp+baHi6zH3SwnWjghjPmG2113O1FVCY8kIKZlxJxJc1aTL42saebQVIiybWe3ty23s+r+cfZ2NCa8H7/+yQfoxohneigktN69etxywuDTFYPGMR1a8Q17+GjgRPcsGpKZknvJMiB/wis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786723725; c=relaxed/simple;
-	bh=OvC+uCX22OxiCm/ADZIrl4k/Q2qjrp6B/VU/TsLraGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p7i8om+EEjZFRQczRagHp7uptqNgfOBG+8klllRQRRNGRnc3ihGDpn2IB1N6d+GHubcZb9XC41zJP0vQGvd2Pz6ZnNahJ3hVd5dj0GhzB281A1T1B6xiUxQxsyF9w+wNDKWprrHymGUER307G6IedefkRfJmRViUoUK33/I/muc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dbuXRXot; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786724271; c=relaxed/simple;
+	bh=Hsm0ilBUsFYmcZnIHDNIMH0kZG/jJyXYiYiNXg/ePj0=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=Dokgrn2yd7YnfDaQdgUf6D8u9BjWdGKN054LUU0wCHXKzU0HMFOTJQdU/rcIPrSgCuwPk3c6/V7jb4rzmAFRdQBpLfeHgQBhWgxGNvrweZj9tVWYl5/jZrnUzijtwNDz5+HFFW5EpB3AWHqnOPXPBU3EUQQg+rXmbJAsUE9sCrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=avUjzz+y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dbuXRXot"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso11605295e9.3
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:08:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786723708; x=1787328508; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6ZnefS8leD5EpLhfx/2yL2ejpM4dklOoHUq4vSAQtGU=;
-        b=dbuXRXot/HKJArG0F0QwksTxblB1A8YetbG+JPqAjp7I8X3WkNNm/Zz9hIbqrF7aw3
-         5k+YfjsUtRVCrij8euk+f+9D+59K09JS0El0OmQ47uHZBVtKMuttJezWdNcVig0qstn7
-         QECB+TptQBVlTqxkq3/9vA+GHeEZk5EGmCCawDpR5u8/a1YIRvWFNC2wcg2SHk3Ity78
-         AisVUaeWcb2CLGcNAwGqEpyFR42QvpyEFwhGorZZfSpKrvmNei0t+3j/ZRKx+ODRuMxc
-         5Y+luwdrwyl0h+AF5tX+r1EMN36+6p6AI5VvQdDXGHIpwgE206DpdlInaVoP9sJcub2R
-         iKdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786723708; x=1787328508;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6ZnefS8leD5EpLhfx/2yL2ejpM4dklOoHUq4vSAQtGU=;
-        b=ml6LpPxinvozK7JRz0sWucHGt7lUvfoFV+5xoYy/mKhQIu6OvG2YiILslwcXr6Wql3
-         rpL8SPnfqoXwIeTYzMA1lW2m5/E0VPUCu3fyTIdueg5jgZcrnEQwOs25HtfaPvVBeB7o
-         pgWDL0sgsIfQmE6wyhclzm7NijyTIwT7sGyA9ywE2nnxFXJfAyisFSgyoEdyflsVNu/G
-         fdOY4WQwpAgrRF2g4c2/hema+dNPCbeCeCDjNATrzL6+aGZxQY3l037DMrgn6zu2xaZ3
-         GRHPfb+/rIilPZPSq6L5xaeCTgD1yMngyxHPN+o4X59pjJ7xptYvF73evDl1QIxbFi6P
-         x07A==
-X-Forwarded-Encrypted: i=1; AHgh+RrrCDo6bdERJCQd/Zh06xK0a5nCB0+zm8nSsj6cn/rUD9IUKlDldxyWFMdVXIF3QKgHE93A//JTgKzZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWXQH9LpFm1WS4hR6i0ps4DgyDBSHQo+wJmOg1Hh5dEGhky/1k
-	Kkxa8DHoaGaXW5XBRgo9MDY4E+FkmOoISV3Hzd1BEtTYN6/vvnqIkycT
-X-Gm-Gg: AR+sD12+hq/Sd6OhexdU8zNYC2fM+/naLfc3l9yGbzXcbEB8FgVL5tM2AfDzVe3Gqyl
-	u8yVxkt4WXuSmUs+NGsH9FPSJY39x5ZoydJVzajx2hbhECqlXq2ho5KI7XXbsXZ2RilggbjBo5y
-	WjyrN+3zmizlJ444fXJSYfRSKyp/EUNSG3jzwe+ZZwuxNITzHOtsp/VPbqueUi6G3zvPVaUkNjN
-	MQWghhdDp3xYZi67Pv/AVBR9OvI+dhChRll3vqCuwy3ec6uWs4uoOD84lbE0DnISTcsrg94qEie
-	bSEo4bLPvHvQPMHwYFB3GkuBL0XllsO8rkaO72jYV5LWhs5MQZJMdhVSgMFWp7jvsAApn3tLKi/
-	R1gp7zAxF5QnnSzZIwfBRq4u5/H0D1nsWKGRMB553PN66pQ9+rrQr2ti9JJvlypJT4BhMdvDdWG
-	yKbga+CvRk8PD8QkqFRNzDEPOZLe74zWbjBcEXOtpCulIM5g4HsOSkIEvighr5fmYMyearuaCQY
-	Ma3FKwmt1VC2y4tvk+rAxiNNGIkNTsnjrb9ybXmZdCSmYq3S+WOLObg
-X-Received: by 2002:a05:600c:138a:b0:499:51cc:4e57 with SMTP id 5b1f17b1804b1-499878cf3b0mr74633095e9.0.1786723707410;
-        Fri, 14 Aug 2026 09:08:27 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f2c18cbsm8127896f8f.29.2026.08.14.09.08.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Aug 2026 09:08:26 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <e0775be9-9773-424e-9109-5b4b6b620e61@gmail.com>
-Date: Fri, 14 Aug 2026 17:08:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="avUjzz+y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA741F000E9;
+	Fri, 14 Aug 2026 16:17:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786724270;
+	bh=cl56UCgbHJRz1uOcu/M7rczSp3Dhl8lXYJV+SJ/Lhis=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date;
+	b=avUjzz+yEfxOpteWqliw+htABr9q/NMWNGAUsQ6Q4OjaQ+SneYzlYJr68gDXTwhBK
+	 EuvYj1AtZdE/8BegGl0HPNQcDXPvpRPWYNeFMGfdd8ZU7+J13YSAdKhtINaeDNUvvu
+	 MRBHawY9o0PPE4Cmco7/5azcSZ7Ye0BUzTHnb7/TnEfzcl6lI/6JTPGHHSvCPJdo6V
+	 Qf2bnw/Spav0TWabA+Cs00b/BIparu2xFxB8dF16FZDJfhIP3KzgxmsiHSNw7t/2LM
+	 axlX16t36smf9X7VHabvAJIEwkKOsiMFmrg3BZIn0ObrU5oUAkRAoD6febzhr9RLjt
+	 E5dpEx5HvoLZg==
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] rtc: pcf8525: Add watchdog support
-To: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>,
- linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-watchdog@vger.kernel.org,
- devicetree@vger.kernel.org
-Cc: alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
- conor+dt@kernel.org, linux@roeck-us.net, wim@linux-watchdog.org,
- vikash.bansal@nxp.com, priyanka.jain@nxp.com, lakshay.piplani@nxp.com
-References: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
- <20260807082855.3762394-4-shivprakash.gupta@nxp.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260807082855.3762394-4-shivprakash.gupta@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260612085812.AA15D1F000E9@smtp.kernel.org>
+References: <20260612-clk-v10-v10-6-eb92484eda38@nxp.com> <20260612085812.AA15D1F000E9@smtp.kernel.org>
+Subject: Re: [PATCH v10 6/6] clk: scmi: Add i.MX95 OEM extension support for SCMI clock driver
+From: Stephen Boyd <sboyd@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+To: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, Brian Masney <bmasney@redhat.com>, Peng Fan <peng.fan@nxp.com>
+Date: Fri, 14 Aug 2026 09:17:48 -0700
+Message-ID: <178672426822.5897.11563790103554525148@lazor>
+User-Agent: alot/0.12
 
-Hi Shiv,
++Brian and Peng
 
-On 8/7/26 09:28, Shiv Prakash Gupta wrote:
-> Add watchdog support for NXP PCF8525 real time clock(RTC) device
-> 
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-> Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-> ---
->  drivers/rtc/Kconfig       |   1 +
->  drivers/rtc/rtc-pcf8525.c | 245 +++++++++++++++++++++++++++++++++++++-
->  2 files changed, 244 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-> index 3c22c7253aae..6c1c7b3d27b6 100644
-> --- a/drivers/rtc/Kconfig
-> +++ b/drivers/rtc/Kconfig
-> @@ -516,6 +516,7 @@ config RTC_DRV_PCF8523
->  config RTC_DRV_PCF8525
->          tristate "NXP PCF8525"
->          select REGMAP_I2C
-> +	select WATCHDOG_CORE if WATCHDOG
->          help
-Nitpick, sorry: this Kconfig file uses spaces for indentation, but your
-addition uses a tab.
+It doesn't link for allmodconfig build
 
-- Julian Braha
+Quoting sashiko-bot@kernel.org (2026-06-12 01:58:12)
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+>=20
+> New issues:
+> - [High] The driver fails to link when compiled as a module (`CONFIG_COMM=
+ON_CLK_SCMI=3Dm`) because `clk-scmi.c` and `clk-scmi-oem.c` are built as se=
+parate modules without exporting their shared symbols.
+> - [High] Incorrect unit conversion for spread spectrum percentage causes =
+valid spread values to be truncated to 0.
+>=20
+> Pre-existing issues:
+> - [High] Missing bounds check on SCMI firmware-provided parent clock inde=
+x leads to heap out-of-bounds read and wild pointer dereference.
+> --
+>=20
+> commit 02412e4d55042034939e6eece844d1bd4d62d5e9
+> Author: Peng Fan <peng.fan@nxp.com>
+>=20
+> clk: scmi: Add i.MX95 OEM extension support for SCMI clock driver
+>=20
+> Introduces clk-scmi-oem.c to support vendor-specific OEM extensions for t=
+he
+> SCMI clock driver. This enables querying OEM-specific features and setting
+> spread spectrum configurations.
+>=20
+> > diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+> > index 6a726331b6c9e..c2ae700ec0f2a 100644
+> > --- a/drivers/clk/Makefile
+> > +++ b/drivers/clk/Makefile
+> > @@ -98,7 +98,7 @@ obj-$(CONFIG_COMMON_CLK_RP1)            +=3D clk-rp1.o
+> >  obj-$(CONFIG_COMMON_CLK_RPMI)                +=3D clk-rpmi.o
+> >  obj-$(CONFIG_COMMON_CLK_HI655X)              +=3D clk-hi655x.o
+> >  obj-$(CONFIG_COMMON_CLK_S2MPS11)     +=3D clk-s2mps11.o
+> > -obj-$(CONFIG_COMMON_CLK_SCMI)           +=3D clk-scmi.o
+> > +obj-$(CONFIG_COMMON_CLK_SCMI)           +=3D clk-scmi.o clk-scmi-oem.o
+>=20
+> [Severity: High]
+> Will this fail to link when compiled as a module (CONFIG_COMMON_CLK_SCMI=
+=3Dm)?
+>=20
+> It looks like Kbuild will treat clk-scmi.o and clk-scmi-oem.o as separate
+> kernel modules rather than linking them into a single composite module.
+> Since neither file exports their shared symbols (like scmi_proto_clk_ops
+> or scmi_clk_oem_init), won't this result in undefined reference errors?
+>=20
+> Should this use a composite module definition instead?
+>=20
+> scmi-clk-y :=3D clk-scmi.o clk-scmi-oem.o
+> obj-$(CONFIG_COMMON_CLK_SCMI) +=3D scmi-clk.o
+>=20
+> [ ... ]
+>=20
+> > diff --git a/drivers/clk/clk-scmi-oem.c b/drivers/clk/clk-scmi-oem.c
+> > new file mode 100644
+> > index 0000000000000..be11d359b4ec3
+> > --- /dev/null
+> > +++ b/drivers/clk/clk-scmi-oem.c
+>=20
+> [ ... ]
+>=20
+> > +static int
+> > +scmi_clk_imx_set_spread_spectrum(struct clk_hw *hw,
+> > +                              const struct clk_spread_spectrum *ss_con=
+f)
+> > +{
+> > +     struct scmi_clk *clk =3D to_scmi_clk(hw);
+> > +     int ret;
+> > +     u32 val;
+> > +
+> > +     /*
+> > +      * extConfigValue[7:0]   - spread percentage (%)
+> > +      * extConfigValue[23:8]  - Modulation Frequency
+> > +      * extConfigValue[24]    - Enable/Disable
+> > +      * extConfigValue[31:25] - Reserved
+> > +      */
+> > +     val =3D FIELD_PREP(SCMI_CLOCK_IMX_SS_PERCENTAGE_MASK, ss_conf->sp=
+read_bp / 10000);
+>=20
+> [Severity: High]
+> Does this integer division by 10000 inadvertently truncate valid spread
+> spectrum values to 0?
+>=20
+> Since ss_conf->spread_bp is in basis points (where 100 basis points equals
+> 1%), and standard configurations usually range from 50 to 500 basis points
+> (0.5% to 5%), dividing by 10000 will always result in zero. Could this
+> divide by 100 instead to correctly convert basis points to a percentage?
+>=20
+> [ ... ]
+>=20
+> > diff --git a/drivers/clk/clk-scmi.c b/drivers/clk/clk-scmi.c
+> > index d88e78cc9a12e..2dd50c5b4ea8f 100644
+> > --- a/drivers/clk/clk-scmi.c
+> > +++ b/drivers/clk/clk-scmi.c
+>=20
+> [ ... ]
+>=20
+> > @@ -406,7 +419,7 @@ static int scmi_clocks_probe(struct scmi_device *sd=
+ev)
+> >                * to avoid sharing the devm_ allocated clk_ops between m=
+ultiple
+> >                * SCMI clk driver instances.
+> >                */
+> > -             scmi_ops =3D scmi_clk_ops_select(sclk, transport_is_atomi=
+c,
+> > +             scmi_ops =3D scmi_clk_ops_select(sdev, sclk, transport_is=
+_atomic,
+> >                                              atomic_threshold_us,
+> >                                              scmi_clk_ops_db,
+> >                                              ARRAY_SIZE(scmi_clk_ops_db=
+));
+>=20
+> [Severity: High]
+> This is a pre-existing issue, but is it possible for the SCMI firmware to
+> trigger an out-of-bounds read right after this ops setup?
+>=20
+> Looking at scmi_clocks_probe(), it uses the parent index provided by the
+> SCMI firmware to directly access the dynamically allocated hws array:
+>=20
+> drivers/clk/clk-scmi.c:scmi_clocks_probe() {
+>     ...
+>         for (int i =3D 0; i < sclk->info->num_parents; i++) {
+>                 sclk->parent_data[i].index =3D sclk->info->parents[i];
+>                 sclk->parent_data[i].hw =3D hws[sclk->info->parents[i]];
+>     ...
+> }
+>=20
+> If the firmware provides an index greater than or equal to the total clock
+> count, won't this result in an out-of-bounds read on the heap, potentially
+> dereferencing a wild pointer? Should this index be verified against count
+> first?
+>=20
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-clk-v10-=
+v10-0-eb92484eda38@nxp.com?part=3D6
