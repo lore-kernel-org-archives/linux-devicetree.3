@@ -1,132 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8900F3382F4
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE9735C6AC;
+	Fri, 14 Aug 2026 09:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786699299; cv=none; b=r5he6EBU8SV7PTWFry5UQbV6EGy5V2QKzErALHgfarwlVVA8uQN5uK1LmB3xgNl1Q9rtph3SW16Y6kbK8/NSiMO8jnIWyPMBa/vbw0BBOBbbw6Dx74xeDKNVzEm2sXT9pd4D9kMIQ6UPvYcowzLhgKcR2mXG/KkBOoHYQcl8xH0=
+	t=1786699345; cv=none; b=OYAHCZ9ORtI4sEqb4lnPzNTlofMn1sk1fFJpZC+8+8JFDtOVSj7PQ13SYSBogsWi8wste01W6sE5E2sIysfWM5YCmTsUEToqdJYqLpYJK8u6MaHrk43zjEvHSktz0znacPUCXvzt+0PIGCDWx0RFXMLDWf3y2/RUmsXVgP6umyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786699299; c=relaxed/simple;
-	bh=F3XPN48LFbBaEq7zQjGvUnRNGtF8Xvu/SUwsgoakoaU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OyXIP+WYLLXhikyZjy+0mb4cEGg7azYuX1JSWp1St7d7XC5tTbcQMliF58L41GtUzHfHcPxxs2CmS0oJ38nJs/tdIphOyIfXzboIJ0Dvflxio6C/z6V59GQ2B4etNGaO5dv+abj+D5unAA8kTWkZQGEO2bbzTuOEoyWHWnLvm1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jg9s+WGl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786699345; c=relaxed/simple;
+	bh=Z9utvW+lVsCYkk/ao1XgLX/4iCAmFON0YfBwYJuecYo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LdxV/O1FY8QZkm2kkQUSdgi3HRXy4CGdKxuQzUnJYkni8dyo7pMQLcPaMcrEV1fIbJ4dufeZYuVBYVSdepblgodbiZx5HwAJ/niH88C9362GIH80eQhX//OsHtdZQ4ndxQ6lCxzh45WZTbBHS/yMhZnDv6X5Zf8/xJ63BtCLgZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2Gi1Qeg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jg9s+WGl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E38071F000E9;
-	Fri, 14 Aug 2026 09:21:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2Gi1Qeg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260041F000E9;
+	Fri, 14 Aug 2026 09:22:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786699298;
-	bh=+k6lz5wITIjgCMlv0GmnSzyUs9K7G705sJVOVK7tJN0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jg9s+WGlonZZ7vPhUF+zERNYcHA+ZVS1EYatf6wnSCIF5z1DrUbOFoHZNpuP7lyjf
-	 XFotqM4mjEh0qzJagc4pLm63kbG7NOvIQP/StCVxNaGmDs+6YnrWiwog7e07R9wU6y
-	 1uyZ0Hjs8jKz1Uy1hgS6eGXyL5nyuR6j92y1aIK342kXG3B/Wm8/1n+5exlCQIMwQW
-	 ehpX8YWB+tEqyykUSt9ZWCY5v2yp7maluJxgZdqWprP8G4ty3Iu+1ekRpU7K5nDFWf
-	 pWl7YDIOWE1oY2xaKYcaSmGDintvx7Q795Wo8b8RpFJhR8qY45su0mgwBnwZgtPSVm
-	 uxtOLCh1hbVyw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] spi: dt-bindings: microchip,pic32mzda-spi: Convert
- to DT schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Udaya Kiran Challa" <challauday369@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260814083221.34606-1-challauday369@gmail.com>
-References: <20260814083221.34606-1-challauday369@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 09:21:33 +0000
-Message-Id: <20260814092137.E38071F000E9@smtp.kernel.org>
+	s=k20260515; t=1786699344;
+	bh=/BE5TBGxjSVANRjvlpPQ+jBGmT/P99F+2F3AmRMyMRI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J2Gi1Qeg9af4pXA15rxLOYF98Mv79l2nNHVq3SFuXK/xWrrjdtu6XXbSzSBTAhdjE
+	 jOX5m0k4LAh/uKg0oNsf5pftVzGwMoOVRGacwJHrsH7GGjkO2xiO4/UZwf2gKAezsu
+	 KvkwvIf2k0aFatQnPDoyzlptCWl+TJ5fwO0gvrQoQRibByUFN3IDq/shJ5Jb5vtSe6
+	 +IwG98Av+lTQaF4hLQmz/fQe0DOcefvng/bnYVSHDHEhMBweejgK2iBUw640wG33TI
+	 Uq9QCr8TpofGVRuYFg80mEVltk/vDK2EnGQ0K33UCYtW5zB5xGiCRzburH6cmIQ91S
+	 TD2IcHVtQeLzA==
+Date: Fri, 14 Aug 2026 11:22:15 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wim de With <wf@dewith.io>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] backlight: Add support for Orient Chip OCP8178
+Message-ID: <20260814-peculiar-mega-mandrill-3a3148@quoll>
+References: <20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io>
+ <20260812-ocp8178-backlight-v2-2-4ad18b48bef8@dewith.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260812-ocp8178-backlight-v2-2-4ad18b48bef8@dewith.io>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The schema incorrectly restricts `cs-gpios` to `maxItems: 1` and=
- makes it strictly required, breaking multi-device and grounded-CS SPI bus =
-configurations.
---
-
---- Patch [1]: [PATCH v4] spi: dt-bindings: microchip,pic32mzda-spi: Conver=
-t to DT schema ---
-commit fca958be633f7ae75e390f0bb61a2c6c29a85193
-Author: Udaya Kiran Challa <challauday369@gmail.com>
-
-spi: dt-bindings: microchip,pic32mzda-spi: Convert to DT schema
-
-Convert Microchip PIC32 SPI controller devicetree binding from legacy text
-format to DT schema.
-
-Link to v3: https://lore.kernel.org/all/20260617101009.148851-1-challauday3=
-69@gmail.com/
-Link to v2: https://lore.kernel.org/all/20260615115311.515404-1-challauday3=
-69@gmail.com/
-Link to v1: https://lore.kernel.org/all/20260614175005.435826-1-challauday3=
-69@gmail.com/
-
-> diff --git a/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sp=
-i.yaml b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml
-> new file mode 100644
-> index 0000000000000..2ef3480fa63e4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml
-
-[ ... ]
-
-> +  clocks:
-> +    maxItems: 1
+On Wed, Aug 12, 2026 at 09:21:47PM +0200, Wim de With wrote:
+> +	props = (typeof(props)){
+> +		.type = BACKLIGHT_RAW,
+> +		.brightness = brightness,
+> +		.max_brightness = max_brightness,
+> +		.power = BACKLIGHT_POWER_ON,
+> +		.scale = BACKLIGHT_SCALE_NON_LINEAR,
+> +	};
 > +
-> +  clock-names:
-> +    items:
-> +      - const: mck0
+> +	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ocp8178,
+> +					    &ocp8178_bl_ops, &props);
+> +	if (IS_ERR(bl))
+> +		return dev_err_probe(dev, PTR_ERR(bl),
+> +				     "failed to register backlight\n");
 > +
-> +  cs-gpios:
-> +    maxItems: 1
-
-[Severity: Medium]
-Does this limit the controller to a single device? The legacy text binding
-explicitly allowed multiple pins to be used for chip selects.=20
-
-The SPI core in drivers/spi/spi.c supports multiple devices by dynamically
-expanding the number of chip selects if multiple GPIOs are provided. Setting
-this to a maximum of one breaks valid multiplexed SPI bus configurations.
-
+> +	platform_set_drvdata(pdev, bl);
+> +	backlight_update_status(bl);
 > +
-> +  dmas:
-> +    items:
-> +      - description: RX DMA channel
-> +      - description: TX DMA channel
+> +	dev_dbg(dev, "probed, brightness=%u/%u\n", brightness, max_brightness);
 
-[ ... ]
+You should not have probe success messages even as debug. It's not
+printing anything useful as brightness is fixed (comes from DTB) and
+devices appear in sysfs thus you can check them. Printing debug probe
+success messages applies for core SoC drivers which might fail before
+reaching initramfs mount and starting init.
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-names
-> +  - clocks
-> +  - clock-names
-> +  - cs-gpios
+Best regards,
+Krzysztof
 
-[Severity: Medium]
-Should cs-gpios be strictly required?=20
-
-Making it mandatory breaks device tree backward compatibility for valid
-hardware configurations where a single SPI device's chip select is permanen=
-tly
-tied to its active state (e.g., tied to ground). In such tied-low
-configurations, no software chip select toggling is needed, so the property
-is legitimately omitted from the hardware description.
-
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814083221.3460=
-6-1-challauday369@gmail.com?part=3D1
