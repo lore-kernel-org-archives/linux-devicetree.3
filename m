@@ -1,239 +1,136 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4BC41D210
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3FF41D104;
+	Fri, 14 Aug 2026 07:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786693747; cv=none; b=UCRvwqPOXdSDobTO8wp/klkbjLt5XgYA+T+1pzIejTivmN4T9iLEaYgY3oOfwFWNbQnFeXDdU6Toaafu+mmN/kxQY0M34WvoIMfX+GgnY8HNYHGoJ9ebYUQ0MJ1kM6pfVd0Slw40GDJe7CPrpoOAhn9QBdlABLAbgAhJMtFS3Ug=
+	t=1786693809; cv=none; b=aEESNOfBzmeRbvN93AGoYcJRVG5+XFnjcm65NrvK5azBmAhWga0wVkEyXZjRMaf4aLFTIxCXOczMiIr6fMx1AiC9/VHtO9B2CtF5SfG8uaJj3wWw1/b4fjNsxj+359iD7yiPmNmhNUQxAI4qM0ed3ymCHI4SzGhG+jxXeyyxwiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786693747; c=relaxed/simple;
-	bh=v2/1rGY1jbTV6mnksaNbt64aVjPeYee2pckvADnDVtA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZVfT2PJKaxHjaYFgJATXVczAqtul7ECN/nGCLKnuEL8HxRSmNfHWRKQySNXN9H8b543zO+eYFMM86XkffKq9sQ0PoTTDf214WEtgA5E178XobRolpEa5AdvzYe6K/9GeX97HSQGvQJWqG1nIcTtXDZxiMppN0q7Oyc8rdSTP/LY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cIYdhht5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XN/SbgKS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786693809; c=relaxed/simple;
+	bh=kW/g5y5wQhUxRsqytR7Az0Nb/kG2mfwtVXLKQr0FL4c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EBn2yxeOeLvwAkY0FKzuwDmYKhPmFYYeY7FTjQ4vHk8ibSUoz6spE0cXeXqAj77cbNkezlhin+bMsrIudbSjSCEC6Nksdb6zGUIVjy4MFI5oKm1Z3qNu/oqrx9x2Y6oUQURhpOHOFrfeiCEKE9O540eg+AluBnLWIE7vBs1PTmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jdtIBEla; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cIYdhht5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XN/SbgKS"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67E7fNma1079077
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:48:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2EEdADYVf7PZDDxkAC3RN/57VZYCx8imRtEtjUOGyeU=; b=cIYdhht5ffjkWy8X
-	HY56cQq9eoqMPrqXHrlYQ32Jr01S2EKEnWadPVUbsnx4eUmU1ktUyTcOBpumUy+K
-	U3yg/ti81tgu2QAcbR7Cap1dG+8jlyBs4ox0LF38pRt9P0hQ02osvPFKE7lE1djx
-	Ty7VsRW9iCy32lkVyfuQhK+F9oyJgxYV7PR2zqeBNkWTNMjqomyZdpO+fCVp53Pd
-	9AC4rthqt5DMmOEK77zFHoWRit8nY76Mujatu4Q23j+DKbWqXELiwRLymGT6ti3v
-	0gkgjUHbrZE66sd3B49h3HnyMwEsFFZe/UzdIE0TD1lHQsr1Hc8eym92IYO4uIUd
-	PA76Nw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1xexg41h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:48:55 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f57e31b6eso700208a91.1
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:48:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786693735; x=1787298535; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2EEdADYVf7PZDDxkAC3RN/57VZYCx8imRtEtjUOGyeU=;
-        b=XN/SbgKSICRL01iXY6vgpmk89zC+7ZIN+jy/iXsVSH+s2R9RlfuJuskoNrG0FXeYD3
-         kyE1sJT/AZg9/786SNZ0X8g1xAxwVr0f3fqNsAbG563cE6lbYD0SKo0HkR9iezJvHGkp
-         jjgQKUOS0rsq9s6VTJPm3SNQE4e18P27cONz10CURQwptrFDCFNk8whyx0Uv0I2wMtTk
-         tdmUdkypKkL1l64EK3fjPMTrDJG3cJSwOUmZwUYAiBY2I3ufHyS87kLAj2s8N4vDASd2
-         N5OUsfHiF8kU/vBfVgMGwO2ywC8qw2EPXToBDH0S5pfRg6dIleATxfNXMZuYV6KxRIN/
-         kPGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786693735; x=1787298535;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2EEdADYVf7PZDDxkAC3RN/57VZYCx8imRtEtjUOGyeU=;
-        b=EfrDw5DV68lqdUyBj0pMQJXMe2rOUhlqk2vxI+Ot1ugn4+Hbpzd85m/0r3349+/m4y
-         Xw6pz9+OL3MF9ppjm0JGT2GJnUgxbDBa4WVrtyGB46AbYhvQgw1opWkAC8CvIHORDzW1
-         fj8YBOtYRwuJAZQaHoLCWh47CeBM4WzYEtx6xnIMiMbNkYRI5GodyiB27FaNlQWdksUd
-         dn8FkehfDiHY71hnbPSzJHSpCKQ4irvisaziO9Cd3AAqOTNkHGEVt5ckZhsR0S1Piho/
-         h5JC4mya3s7XdO08IXDoxOUD/xCGVpyzn2ylew6JsH6oNsb4URKfdkJhLpQIVO9XnQgo
-         0Vew==
-X-Forwarded-Encrypted: i=1; AHgh+RqS6lWv7FCfw9VF6IsZ88xD3JPz1BR0R4hNlIKmu8ZIz9P0o52KvZ9cjS9zdo5oNwfhUZ4zYDp3awow@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrZEXYOISXrWeMqbQyL6Q93uf8wltQvTtr9i3qgAP1zaH+9b+j
-	Q2XZbYDvqVhxgIZ+SwZn0NvGW/JTf8CSqUIzkYaY2wHDQrflBo6qN2HUr722V8Nnto9na2kdzeL
-	2Uwh2Q11P55M9BdxFXjVW6ZYQef+nUfaN0CChoFLMPvMn1ME5m6/zXfij6f62uMd/
-X-Gm-Gg: AR+sD12Zit4nTYZHLcTv7GuS6s6KUwwfErMPtczB1pItjOJJFMtqUWkcLpW/ir9Yqaw
-	xaP6N6zz4AQzOePfd4rfjFayrjYFwUYiMWAItBJAx6lWEDzk6x9e782UyJLw0PhHDQdN2P6tyaq
-	ch9497lWwgylHGgGtK9cMZDrcPR3BkZfr6toHbeHg8peoReDs/BR/cDFDnBy2NsL7lWdG9RVwlR
-	Ryo7NabGakQUNCAAcijOmID5CBH2N4Xr9107C9xYoCdWHftmyksbPJMnlH8nmn1UCHp65jwCUM7
-	rW86OYiYnb9bQxNRmBENmo/vWZyjBQ6i+ecL5DxWgYrieqEFGv+ED8M08Nwrpx7IvNtfleSyyT/
-	96XjzGPf0otI9OiDVj1rs+ahdmyUnlA+dJJ9o5z+IaOkj4SVrCz44NtMsHxg4YmT0pZqItmzN+e
-	1YnsouBTVue75scEFnoHM=
-X-Received: by 2002:a17:90b:4cc1:b0:37f:be6c:f3f2 with SMTP id 98e67ed59e1d1-3933bd0dd0fmr4662255a91.2.1786693735384;
-        Fri, 14 Aug 2026 00:48:55 -0700 (PDT)
-X-Received: by 2002:a17:90b:4cc1:b0:37f:be6c:f3f2 with SMTP id 98e67ed59e1d1-3933bd0dd0fmr4662206a91.2.1786693734924;
-        Fri, 14 Aug 2026 00:48:54 -0700 (PDT)
-Received: from [10.79.117.20] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-394ebbcbb78sm1556274a91.13.2026.08.14.00.48.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Aug 2026 00:48:54 -0700 (PDT)
-Message-ID: <c25cf793-477a-4294-8027-e1f4690dc0b9@oss.qualcomm.com>
-Date: Fri, 14 Aug 2026 13:18:46 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jdtIBEla"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786693806; x=1818229806;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kW/g5y5wQhUxRsqytR7Az0Nb/kG2mfwtVXLKQr0FL4c=;
+  b=jdtIBElaPQYbpOE+fOT17z19yxFudtwqIhwgIza/93POM0yeoP0KYsqN
+   vI+I/Trw3F2bKKk1XK4JEZah2LygO+VR4N1ACLz8BLfdR9/QmGbB8Bvj4
+   wluB2MvRNxx/AiU09wkeJS4v4el3Ko1sXfalp4uxOtHVhW3dHQ0tCn1jn
+   wtggeHCHhW/ISejYUWXOHi5P7as/CYiXBL0pDpVUdzfFNkneA3enhrqtY
+   zT8mYjtiFGtSNWCvwADbjvlzJlaebwGe5DEUi7eKOudHm0Ge8KEF+D1Et
+   ZhdVvTKLf4+mZVJAjt8QkULdtnxSlZP2Y8XwsbsrpTRyoJXQc48Kp36so
+   g==;
+X-CSE-ConnectionGUID: +zsTn1M5Tt+kKk4FCMjwVQ==
+X-CSE-MsgGUID: ILC9+WoBQKqtLT1sD2z8cA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87490249"
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
+   d="scan'208";a="87490249"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 00:50:03 -0700
+X-CSE-ConnectionGUID: kUp9qcgHQPW1L70l38yW1g==
+X-CSE-MsgGUID: s7mOhmxqQam0auPBFjN25Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
+   d="scan'208";a="259918686"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.134])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 00:50:00 -0700
+Date: Fri, 14 Aug 2026 10:49:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/4] iio: light: add support for veml6031x00 ALS series
+Message-ID: <an7IpvdXnxzzDknS@ashevche-desk.local>
+References: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
+ <20260812-veml6031x00-v6-2-7eef6e4ce290@gmail.com>
+ <an1rR07iJd_XLSPr@ashevche-desk.local>
+ <DKNPY12RSCH4.2KQCX98171G2H@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/15] pinctrl: qcom: Add Kuno pinctrl driver
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>
-References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
- <20260809-kuno-soc-support-v1-9-5e0ede4a0c72@oss.qualcomm.com>
- <CAMRc=MeRNMug6hZ8Jcv7drVfKbLRxG=FG8r9--PkwEpcj5JuCA@mail.gmail.com>
-Content-Language: en-US
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-In-Reply-To: <CAMRc=MeRNMug6hZ8Jcv7drVfKbLRxG=FG8r9--PkwEpcj5JuCA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDA1OSBTYWx0ZWRfX9/URu112YZCE
- 5LhgvKI1nbaCDVJGgrqdXgyAUnIBMt8FlorbNuvhlM6wekwD92c6Rqwytfu6k1wECPVtMgfVY9E
- kq7YNjoMXcxZ8sXVFbH4P0ea7xfIjdE=
-X-Proofpoint-GUID: 3lc0JwzbtutnmbBdhxXc_oA9dgRiDYv3
-X-Authority-Analysis: v=2.4 cv=eO4jSnp1 c=1 sm=1 tr=0 ts=6a7ec868 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=S7Hclr-U69tWnHOGgbMA:9 a=QEXdDO2ut3YA:10
- a=O8hF6Hzn-FEA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDA1OSBTYWx0ZWRfX/aNP/8rqd2LU
- 93iNaoy46mgXobakAFu9g4N3SUm3W1Uh4O5v+lXC1yvBPweG+D6iGF/JTTUu8qNBPO4tf5YNHCP
- mNARA2q3E+vr6lUS3R9p8eZeZ31sG1Nr070rn2PYbDzu1OCNmIKQyRU3dyNgpxZlEee+oqKrQGq
- Zym6snJyexrFj+CCGWTTIshFSibOBWIa1xo95nL4M2tkYqikpmFk/Gq5wMEr7xJD/kB4yJdKF6H
- W4z3IyexWv+JVxRbcHHnj6JGEb8yVqxnl1Z3B1Y1IY+H1lZQGNXrQLNqFJapbjJ4Qv6078/weH3
- ICoYZk8sB+Mc2EgvxyW3W3trmV0QaY+Em0lEoAj7JOlkPM9XojdPFScpcKssNpBDsw7VefYeuxS
- FosIuRC6MUQx/bFWKGABCIE+hrJTo8b5I3jnONl/aGQlB3LmxvjTxj1AO3LR20HZ8DpQcCc8CFf
- o3hUoVXXlaqieLY/UPQ==
-X-Proofpoint-ORIG-GUID: 3lc0JwzbtutnmbBdhxXc_oA9dgRiDYv3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-14_03,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 phishscore=0 bulkscore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140059
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKNPY12RSCH4.2KQCX98171G2H@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Thu, Aug 13, 2026 at 11:46:32AM +0200, Javier Carrasco wrote:
+> Hello Andy, thank you again for your thorough review.
+> On Thu Aug 13, 2026 at 8:59 AM CEST, Andy Shevchenko wrote:
+> > On Wed, Aug 12, 2026 at 10:27:41PM +0200, Javier Carrasco wrote:
+
+...
+
+> >> +	data->regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
+> >> +	if (IS_ERR(data->regmap))
+> >> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> >> +				     "Failed to set regmap\n");
+> >
+> > Is debugfs access already enabled for regmap after this call? Perhaps you want
+> > mutex to be initialised before that?
+> 
+> Could you please explain what you are trying to avoid? Even if the
+> debugfs is already enabled for regmap at this point, what is the
+> possible race condition?
+
+That's my question to you. If you think there is none, then we are all good.
+Basically the Q is if that mutex (that is initialised later in the probe) is
+required for the device IO which might be possible immediately when regmap
+is registered.
+
+> The IIO device is still not registered at this
+> point, and the registers are set to their right values in _hw_init()
+> after the mutexes were initialized. Moving the mutex initialization a
+> couple of lines towards the top is not an issue, but I would like to
+> understand the reasoning behind.
+
+User may read (and depending on the driver case writing) the register map.
+Would it be a problem?
+
+> >> +	ret = devm_mutex_init(dev, &data->scale_lock);
+> >> +	if (ret)
+> >> +		return ret;
+
+...
+
+> >> +err_pm_put:
+> >> +	pm_runtime_put_noidle(dev);
+> >
+> > Hmm... This is usually a red flag to see a goto after devm_*() calls.
+> 
+> Could you please elaborate on this? I am aware of the dangers of a goto
+> after the cleanup attribute, but devm_*() calls work on a different
+> scope, not local to the function. What could go wrong? This goto is just
+> a way not to repeat pm_runtime_put_noidle(); return ret; and I am not
+> strongly against repeating these two lines wherever there is a goto, but
+> I am not sure what we are avoiding in this case.
+
+No, the goto here may (or may not) lead to the wrong ordering on the cleanup
+and/or error paths. It's usually recommended to avoid such a style even if
+it works without races in that case. That's why when switching to managed
+resources it's highly recommended to wrap everything to be managed (in case
+there is no native APIs available) and avoid any flow disruption (goto:s).
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-On 8/10/2026 4:33 PM, Bartosz Golaszewski wrote:
-> On Sun, 9 Aug 2026 09:27:08 +0200, Hardeep Sharma
-> <hardeep.sharma@oss.qualcomm.com> said:
->> Add the TLMM pinctrl driver for the Qualcomm Kuno platform, supporting
->> 110 GPIOs and their pin multiplexing, pin configuration and gpiolib
->> interface through the common pinctrl-msm driver.
->>
->> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
->> ---
->> +
-> ...
->
->> +static const struct pinfunction kuno_functions[] = {
->> +	MSM_PIN_FUNCTION(gpio),
-> MSM_GPIO_PIN_FUNCTION() ?
-
-Thanks for review.
-
-Done in v2 : 
-https://lore.kernel.org/all/20260814-kuno-soc-support-v2-0-3079794f0f73@oss.qualcomm.com/
-
-Best Wishes
-Hardeep Sharma
-
->
->> +	MSM_PIN_FUNCTION(audio_ref_clk),
->> +	MSM_PIN_FUNCTION(coex_uart),
->> +	MSM_PIN_FUNCTION(ebi2_lcd_a),
->> +	MSM_PIN_FUNCTION(ebi2_lcd_cs),
->> +	MSM_PIN_FUNCTION(ebi2_lcd_reset),
->> +	MSM_PIN_FUNCTION(ebi2_lcd_te),
->> +	MSM_PIN_FUNCTION(emac_mdc),
->> +	MSM_PIN_FUNCTION(emac_mdio),
->> +	MSM_PIN_FUNCTION(emac_pps_in),
->> +	MSM_PIN_FUNCTION(emac_ptp_aux),
->> +	MSM_PIN_FUNCTION(emac_ptp_pps),
->> +	MSM_PIN_FUNCTION(gcc_gp1_clk),
->> +	MSM_PIN_FUNCTION(gcc_gp2_clk),
->> +	MSM_PIN_FUNCTION(gcc_gp3_clk),
->> +	MSM_PIN_FUNCTION(mi2s0_data0),
->> +	MSM_PIN_FUNCTION(mi2s0_data1),
->> +	MSM_PIN_FUNCTION(mi2s0_sck),
->> +	MSM_PIN_FUNCTION(mi2s0_ws),
->> +	MSM_PIN_FUNCTION(mi2s1_data0),
->> +	MSM_PIN_FUNCTION(mi2s1_data1),
->> +	MSM_PIN_FUNCTION(mi2s1_sck),
->> +	MSM_PIN_FUNCTION(mi2s1_ws),
->> +	MSM_PIN_FUNCTION(mi2s_mclk),
->> +	MSM_PIN_FUNCTION(nav_gpio),
-> Possibly here too?
-
-This one not required.
-
-Grepped the tree for peer TLMM drivers that expose a `nav_gpio`
-function: all 10 use MSM_PIN_FUNCTION(nav_gpio, ...), none use
-MSM_GPIO_PIN_FUNCTION. Kuno matches that convention.
-
-Best Wishes
-
-Hardeep Sharma
-
->
->> +	MSM_PIN_FUNCTION(pci_e_rst),
->> +	MSM_PIN_FUNCTION(pcie_clkreq_n),
->> +	MSM_PIN_FUNCTION(pll_bist_sync),
->> +	MSM_PIN_FUNCTION(pll_clk_aux),
->> +	MSM_PIN_FUNCTION(qdss_cti_trig0),
->> +	MSM_PIN_FUNCTION(qdss_cti_trig1),
->> +	MSM_PIN_FUNCTION(qdss_gpio_traceclk),
->> +	MSM_PIN_FUNCTION(qdss_gpio_tracectl),
->> +	MSM_PIN_FUNCTION(qup0_se0),
->> +	MSM_PIN_FUNCTION(qup0_se1),
->> +	MSM_PIN_FUNCTION(qup0_se2),
->> +	MSM_PIN_FUNCTION(qup0_se3_mira),
->> +	MSM_PIN_FUNCTION(qup0_se3_mirb),
->> +	MSM_PIN_FUNCTION(qup0_se4),
->> +	MSM_PIN_FUNCTION(sdc4_clk),
->> +	MSM_PIN_FUNCTION(sdc4_cmd),
->> +	MSM_PIN_FUNCTION(sdc4_data),
->> +	MSM_PIN_FUNCTION(sdc4_tb_trig),
->> +	MSM_PIN_FUNCTION(sgmii_phy_intr),
->> +	MSM_PIN_FUNCTION(spmi_coex_clk),
->> +	MSM_PIN_FUNCTION(spmi_coex_data),
->> +	MSM_PIN_FUNCTION(spmi_vgi_hwevent),
->> +	MSM_PIN_FUNCTION(uim1_clk),
->> +	MSM_PIN_FUNCTION(uim1_data),
->> +	MSM_PIN_FUNCTION(uim1_present),
->> +	MSM_PIN_FUNCTION(uim1_reset),
->> +	MSM_PIN_FUNCTION(usb2phy_ac_en),
->> +};
->> +
-> Bart
