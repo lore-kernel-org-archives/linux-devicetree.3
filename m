@@ -1,210 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D624749DF;
-	Fri, 14 Aug 2026 15:38:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDC33C9ED9;
+	Fri, 14 Aug 2026 15:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786721898; cv=none; b=gDSKq3A2G0lLj7yBLs2jkk5qhQjpgo1OxDOGDX2iqhau66I0YwqnaHnfBIFAULpt2XoxUymSbcCgIBuczcZSYzjh4jGv2NibEesLcET1kj2DVQ1qg7K4DphOKgza4eSlioVRiTOOGGNqwygypWXC39xx22y7c4/vvEZZx6BSOWQ=
+	t=1786721920; cv=none; b=qakDt6jVz59I3+RHg0z/eCiJkAOAb9amtZx2bp42/fNPGAqCqnZT6QM4BXWZlIArzMMXXmfa/MYbT8Q6ms/AgaIHH3TfF/NLU2xVv24CEUhatWQxuX5AJLu2YVZl9q5Ud4LY0Ls1gzn8VtutVMXv5x8wB+H9gKXweMvUgDm+qA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786721898; c=relaxed/simple;
-	bh=CngfvDzXBoP0h3Gz5CG205aJbVzOftMP9dKGT/egcpU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lkBkWj1+E4aQEFfyNAx2wFRxfnUjobiAn35JfghdjQO2Royegaj3dlWti3oGOhAqseX4iiEwtQl4dCc22mEy7wLJAEIlAoiyeIUbqfukMKj0Q8RUZLafRaeESqjgUaPyYgDW6XlqtoNkOB2qXoH0ZjQy5Z7psBQsqZ6Cvq7ekkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bc2mb+2W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786721920; c=relaxed/simple;
+	bh=VYCsYcoKAQarcFZS1n6H5PPwHdRgjJp4Rg53VulkzTI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BoTTBVTOXy0ave2XDF2FMKxPf6e5xHaSxFCfXcjmZhVbMoLihSYMEwQhkxOqAcAFrRPYcp8w3YDRWErR3UI4jtG3wbMBJdoU/jYaFhqShRvVzSFCrWwKAY10KOJQiyUnbm93D1g8nBqaxbRd+g7oZJsXZb6z3uIdaLV6hl0V/6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fzg4PSI9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bc2mb+2W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A451F000E9;
-	Fri, 14 Aug 2026 15:38:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fzg4PSI9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF8C1F000E9;
+	Fri, 14 Aug 2026 15:38:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786721897;
-	bh=wkZclO5EFfp/AsPP9NT1ry0Ob1y27MoSJujNhZw0tu8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bc2mb+2WZkgvu2sdfBbYCscAJDY1wLlb6/bI9WWlzGEjrAqXdeHjy74HbiC3a/VuF
-	 usrd1zcOvadZUgTqBsdEuS+SDRqFhOQDbXCg63nGjG9WPs+3qICwUK4tuauzG07Tfj
-	 NRIpGZjDF2cAcQ/rPcF2pFwef5mL2KWebMaCEXkltmUrrWQL8UQo/WPqIByuQlF1qX
-	 dJkH/wad8dzpUd7uDtrAIbSNABe+5Efp7OoflKd3nu2pE+mTwfg27I/3LcrL0/4yng
-	 CG1B4iKej2g2Sih7canzxJX1mM1fB5N1lPKDKZYmH2EI8yUMjFIe/YW7jnTz7SftS+
-	 RfUElZEZw4jFw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 05/10] mm/cma: Introduce cma_alloc_at() API
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: "Christian Borntraeger" <borntraeger@linux.ibm.com>, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, "Vasily
- Gorbik" <gor@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>, conor+dt@kernel.org, media-ci@linuxtv.org, linux-trace-kernel@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, linux-s390@vger.kernel.org
-In-Reply-To: <20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
-References: <20260814-tegra-vpr-v5-0-71832b5d0246@nvidia.com>
- <20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 15:38:16 +0000
-Message-Id: <20260814153816.B9A451F000E9@smtp.kernel.org>
+	s=k20260515; t=1786721919;
+	bh=2zDsdfvqyAQGNQFpULwmV74pld1nNrSo0Q52aSj3naM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fzg4PSI9SdrWRn6jAIQSbkKwFucvq0bVzHIsg4DRzhiAXdrkzVna9PG5F6kkhfrAn
+	 QHgTltd//bEtUfJ35JFWt5f2dzI5Wzf9UFDEXuwvTJ+noHEgbkbtj1hTiueaySVT7+
+	 qop6gUunUCoBLG83gO2Fh1J1BuG8iFqev9lqnZN+/WJK3i8wm16z4fPLQp4cAJFLjG
+	 l4h5JA8+cMGGeIkAVTCsgWCXYSsIviM9Tej7jZXsSiu+4F1WeaZmoAvsyLJY23P2SS
+	 28PhBWOF8pBHz/iPLv60IvPqpGE9BjIOPasGi2+J8O+TZxrdObj3qinONq1xkDuvaf
+	 u/3WlPWty5/Zw==
+Date: Fri, 14 Aug 2026 16:38:34 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Shubham Patil <shubhamsanjay.patil@amd.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-i3c@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <20260814-cubical-transpire-413101a0c4c2@spud>
+References: <20260814115155.3974988-1-shubhamsanjay.patil@amd.com>
+ <20260814115155.3974988-2-shubhamsanjay.patil@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+DtxFDk3UUG+rw01"
+Content-Disposition: inline
+In-Reply-To: <20260814115155.3974988-2-shubhamsanjay.patil@amd.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] Missing bounds check on `offset` and `count` in `cma_range_all=
-oc_at()` allows out-of-bounds heap read/write.
-- [High] Failure to scale offsets and counts by `cma->order_per_bit` causes=
- state corruption and memory leaks.
-- [High] `__cma_alloc_at_frozen()` illogically applies the exact same relat=
-ive `offset` to every disjoint range.
-- [Medium] Misleading parameter naming (`pfn` vs `offset`) in `cma_alloc_at=
-()` leads to dangerous misinterpretations.
---
+--+DtxFDk3UUG+rw01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [5]: [PATCH v5 05/10] mm/cma: Introduce cma_alloc_at() API ---
-commit 86953b3fddeca8ceb93fb736c755a0bfda094530
-Author: Thierry Reding <treding@nvidia.com>
-
-mm/cma: Introduce cma_alloc_at() API
-   =20
-This API can be used to allocate a number of CMA pages starting at a
-fixed offset. This is useful, for example, if the CMA area is used as
-backing storage for a nested allocator that has stricter requirements
-than CMA itself.
-
-> diff --git a/include/trace/events/cma.h b/include/trace/events/cma.h
-> index 37195edf24986..00b622a9da97b 100644
-> --- a/include/trace/events/cma.h
-> +++ b/include/trace/events/cma.h
-[ ... ]
-> @@ -132,6 +132,69 @@ TRACE_EVENT(cma_alloc_busy_retry,
->  		  __entry->align)
->  );
+On Fri, Aug 14, 2026 at 05:21:53PM +0530, Shubham Patil wrote:
+> In-Band Interrupt and Hot-Join are synthesis-time options of the AXI I3C
+> IP. Describe them with two boolean properties.
+>=20
+> A Hot-Join request is acknowledged by the IBI machinery, so a hot-join
+> capable design is always IBI capable as well. Both events are reported
+> through the controller interrupt, which is therefore required whenever
+> the capability is present.
+>=20
+> Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+> ---
+>  .../bindings/i3c/xlnx,axi-i3c-1.0.yaml        | 23 +++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml =
+b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> index 2caa245a8656..07e3d0b4d767 100644
+> --- a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> @@ -32,13 +32,34 @@ properties:
+>    interrupts:
+>      maxItems: 1
 > =20
-> +TRACE_EVENT(cma_alloc_at_start,
+> +  xlnx,ibi-capable:
+> +    type: boolean
+> +    description:
+> +      The IP is synthesized with In-Band Interrupt support. IBIs are rep=
+orted
+> +      through the controller interrupt.
 > +
-> +	TP_PROTO(const char *name, unsigned long pfn,
+> +  xlnx,hj-capable:
 
-[Severity: Medium]
-Could this parameter name cause confusion? The function signature in cma.h =
-uses
-offset, but this tracepoint logs it as pfn. If a caller mistakenly passes an
-absolute physical frame number instead of a relative offset, could this lead
-to an incorrect allocation address computation later in cma_range_alloc_at(=
-)?
+tbh, I'd prefer if these were spelt out a little bit more, characters
+are cheap. Not a big deal though.
 
-> +		 unsigned long request_count, unsigned long available_count,
-> +		 unsigned long total_count),
-[ ... ]
-> diff --git a/mm/cma.c b/mm/cma.c
-> index a13ce4999b39f..4bc6eef8b6060 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-[ ... ]
-> +static int cma_range_alloc_at(struct cma *cma, struct cma_memrange *cmr,
-> +			      unsigned long offset, unsigned long count,
-> +			      struct page **pagep, gfp_t gfp)
-> +{
-> +	struct page *page =3D NULL;
-> +	unsigned long pfn;
-> +	int ret =3D -EBUSY;
+> +    type: boolean
+> +    description:
+> +      The IP is synthesized with Hot-Join support. A Hot-Join request is
+> +      acknowledged by the same machinery as an In-Band Interrupt.
 > +
-> +	spin_lock_irq(&cma->lock);
+>  required:
+>    - compatible
+>    - reg
+>    - clocks
+> =20
+> +dependencies:
+> +  xlnx,hj-capable: ["xlnx,ibi-capable"]
 > +
-> +	/*
-> +	 * If the request is larger than the available number of pages, stop
-> +	 * right away.
-> +	 */
-> +	if (count > cma->available_count)
-> +		goto unlock;
-> +
-> +	ret =3D bitmap_allocate(cmr->bitmap, offset, count);
+>  allOf:
+>    - $ref: i3c.yaml#
+> +  - if:
+> +      required:
+> +        - xlnx,ibi-capable
+> +    then:
+> +      required:
+> +        - interrupts
 
-[Severity: Critical]
-Does this code allow an out-of-bounds read or write on the bitmap? It does =
-not
-appear to check if offset + count is within cma_bitmap_maxno(cma, cmr).
-Because bitmap_allocate() scans and sets bits without knowing the allocation
-bounds, a large offset + count could overrun the bitmap.
+Why is one dependency expressed this way, and the other expressed using
+the dependencies property? Can the interrupts property be handled that
+way too?
 
-[Severity: High]
-Does this code treat page counts as raw bit indices? The offset and count
-parameters represent pages, but are passed directly to bitmap_allocate()
-without scaling by cma->order_per_bit.
+Cheers,
+Conor.
 
-> +	if (ret < 0)
-> +		goto unlock;
-> +
-> +	pfn =3D cmr->base_pfn + offset;
+> =20
+>  unevaluatedProperties: false
+> =20
+> @@ -54,5 +75,7 @@ examples:
+>          interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+>          #address-cells =3D <3>;
+>          #size-cells =3D <0>;
+> +        xlnx,ibi-capable;
+> +        xlnx,hj-capable;
+>      };
+>  ...
+> --=20
+> 2.34.1
+>=20
 
-[Severity: High]
-If offset represents raw pages, shouldn't it be consistent with how the
-bitmap was updated above? If cma->order_per_bit is non-zero, this treats
-offset as pages while the bitmap logic treated it as bits.
+--+DtxFDk3UUG+rw01
+Content-Type: application/pgp-signature; name=signature.asc
 
-> +	page =3D pfn_to_page(pfn);
-[ ... ]
-> +free:
-> +	/* we need to reacquire the lock to clean up the internal state */
-> +	spin_lock_irq(&cma->lock);
-> +	cma->available_count +=3D count;
-> +clear:
-> +	bitmap_clear(cmr->bitmap, offset, count);
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Does this similarly fail to convert the page offset and count to bit indice=
-s?
-If cma_release() later frees these pages, it will convert the PFNs to bits,
-potentially clearing different bits than were set and permanently leaking t=
-he
-original allocation.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCan82egAKCRB4tDGHoIJi
+0iQrAQCs8qebR4quXdJpbjsXqfeQ608+ln1zNqvEfX7zedYCOAD/cYD8S+Ph/N6i
+2fWFRkepRMirbphPDInTh0ZEKaL38Aw=
+=GetW
+-----END PGP SIGNATURE-----
 
-> +unlock:
-> +	spin_unlock_irq(&cma->lock);
-> +	return ret;
-> +}
-> +
-> +static struct page *__cma_alloc_at_frozen(struct cma *cma, unsigned long=
- offset,
-> +					  unsigned long count, gfp_t gfp)
-> +{
-[ ... ]
-> +	for (r =3D 0; r < cma->nranges; r++) {
-> +		page =3D NULL;
-> +
-> +		ret =3D cma_range_alloc_at(cma, &cma->ranges[r], offset, count,
-> +					 &page, gfp);
-
-[Severity: High]
-Does this apply the same unadjusted offset to every physical memrange? If t=
-he
-allocation falls back to a subsequent range, it will attempt the allocation=
- at
-ranges[r].base_pfn + offset. If offset is meant to be a logical index across
-the contiguous CMA area, it seems it should be decremented by the size of
-preceding ranges as the loop iterates.
-
-> +		if (ret !=3D -EBUSY || page)
-> +			break;
-> +	}
-[ ... ]
-> +struct page *cma_alloc_at(struct cma *cma, unsigned long pfn,
-> +			  unsigned long count, bool no_warn)
-
-[Severity: Medium]
-Is pfn the correct name for this parameter? It appears to be used as a
-relative offset in cma_range_alloc_at(). Passing an absolute physical frame
-number could result in computing cmr->base_pfn + pfn, producing an incorrect
-physical address.
-
-> +{
-> +	struct page *page;
-> +
-> +	page =3D cma_alloc_at_frozen(cma, pfn, count, no_warn);
-> +	if (page)
-> +		set_pages_refcounted(page, count);
-> +
-> +	return page;
-> +}
-> +EXPORT_SYMBOL_GPL(cma_alloc_at);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-tegra-vpr-=
-v5-0-71832b5d0246@nvidia.com?part=3D5
+--+DtxFDk3UUG+rw01--
