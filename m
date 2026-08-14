@@ -1,154 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAFF35C6A4;
-	Fri, 14 Aug 2026 06:31:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933013515C5;
+	Fri, 14 Aug 2026 06:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786689088; cv=none; b=CvuvTVni9JqPtDJ6mOL38DlIuCiURJ+jofHsYUfE+kpBZA2ojefGx1LLukoXTFCiEmKLXdlNZJs9ltQ3UaTmqdmvjHFRN0Hql0oCbWTOacQ/APGm7GjnUUidfS7+0uya1V4emonHeUMcFSj4rLsBU9dlpt/PwIF+9QwOtqe7S4w=
+	t=1786689183; cv=none; b=jUittZvlHd7/il+lZEacTZ7O75uDoMjA67zzukhSsbqGZ0poEMVJArMTZ7nPb/nB32/cdS7GAGog+mgNCQ7SNwQDME33itfhu4Q3lSRMqFsrTYw0MXGEB6bfPTSb9kzAmsmG6ciDuwuEB9dGX7pr/zXNOZSsViCIghrO24QwWWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786689088; c=relaxed/simple;
-	bh=tNLkukBFlZ5O9NnrddUpuWJ6amN7Aw9zKWdUWheI+sM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HBmPuNh27Tl1Sg4xj2xsL2wJTPnTT5ekkihdaNiWHh8M5tip3E7XURoEhI4nTDBNMZBAhUl745dm6s9IWvWyiQ66CS/OHihESZKr9/rsQPSzdb2OJ7L3jv2P5ZNl3cGlwol9fvw3uMcmiuqDS0Hvu6tpG+M4YWoxTjekbIPQH5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GKNJk3Ug; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKNJk3Ug"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCC61F000E9;
-	Fri, 14 Aug 2026 06:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786689087;
-	bh=7oNqMiAFg7mEVLeDxEPskJG0PHxI5bCBRjH5Co0WXoE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GKNJk3UgLSkx7VtaChHezJ/2W8t8wFefaGLeG/e8F9gbbgxmNzUA81vvoOVupx/ih
-	 MjnyjwrbZsi8Z0W3AOeBQfs8ifcIzxCzIUpB5XMYMDKM/YXvkq/aQglM8tePqb91HR
-	 e2WGU3n9XKBcjg1kamd9NfK79Nwwq5IGj9BV/mGnm70ys2Rlym6g5pl4L5oEZhqUwh
-	 +0IttwhXh/sEDYAp/LKa2/TgCkjggiT5yFXuoFuVxntVFskllxkJZUEPghmRIwVEcF
-	 QwPuTd7EAwdmMDyvNRNS4mypNU+xXoLKsnSZ68KnNTLDwjhXV1sBWXx2BIH0BRFR2k
-	 QGfz5gr/7C7ig==
-Message-ID: <30195e14-0dcb-476d-af0d-f85ee57e2aa5@kernel.org>
-Date: Fri, 14 Aug 2026 08:31:16 +0200
+	s=arc-20240116; t=1786689183; c=relaxed/simple;
+	bh=XHpL4UPy+zpKTpJzlG0smCgtp+vHZatvag28j6x5Hfc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YXp9D8TSNoCHZ3oqtAOy2vvOQKuvL78SMVVvWpFIYO31cudhvsELAhup4F/m6gVlxhudIF3xvDxPObf16UPha5Jwid0lEpIfNXf4sr7RYdfE/vbz12k8fZOfPgJLpeNam6FTIeZJHqNSm+tp7U1r+kx/sYbx4jhqK9L6pt3tfLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 25F761A00F2;
+	Fri, 14 Aug 2026 08:32:53 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id DC21E1A0153;
+	Fri, 14 Aug 2026 08:32:52 +0200 (CEST)
+Received: from lsvm11u0000395.swis.ap-northeast-2.aws.nxp.com (lsvm11u0000395.swis.ap-northeast-2.aws.nxp.com [10.52.9.99])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 1925D18000B5;
+	Fri, 14 Aug 2026 14:32:51 +0800 (+08)
+From: Joseph Guo <qijian.guo@nxp.com>
+Date: Fri, 14 Aug 2026 15:32:38 +0900
+Subject: [PATCH] arm64: dts: imx95-15x15-frdm: add boot phase properties
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: sc7280: Add dma-coherent property
- into venus node
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
- <20260801-iris-fixes-dma-pseq-fint-v1-2-aba0cb22f6ab@oss.qualcomm.com>
- <20260813-frisky-augmented-crow-fd5d3d@quoll>
- <4b34e718-0878-25cc-a5bd-0d8858df5133@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <4b34e718-0878-25cc-a5bd-0d8858df5133@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260814-bootph-frdm-imx95-v1-1-c0e3f1b9d2ed@nxp.com>
+X-B4-Tracking: v=1; b=H4sIAIW2fmoC/x3MTQqAIBBA4avErBtQsd+rRIvKMWdhhkYI0d2Tl
+ t/ivQcSRaYEY/VApJsTh6NA1hVsbjl2QjbFoIRqRS81riFcp0MbjUf2eWhw0VJp061kSEPpzki
+ W8/+c5vf9AP5wmXdjAAAA
+X-Change-ID: 20260814-bootph-frdm-imx95-a4124d7bede4
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ qijian.guo@oss.nxp.com, Joseph Guo <qijian.guo@nxp.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786689170; l=3612;
+ i=qijian.guo@nxp.com; s=20250519; h=from:subject:message-id;
+ bh=XHpL4UPy+zpKTpJzlG0smCgtp+vHZatvag28j6x5Hfc=;
+ b=TOgrspMoWBdhzLv/eeUze6wGkKIhcXR7zPobZjjvg2CaNFohuMm0TKad25QfoueJXKuzzCZB0
+ pUyBDWTSkOBB2BO0QUsSvIhfI3wsN3EC+UKeUqMMSrz99eS7gFH7bKr
+X-Developer-Key: i=qijian.guo@nxp.com; a=ed25519;
+ pk=VRjOOFhVecTRwBzK4mt/k3JBnHoYfuXKCm9FM+hHQhs=
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 14/08/2026 07:29, Vishnu Reddy wrote:
-> 
-> On 8/13/2026 2:49 PM, Krzysztof Kozlowski wrote:
->> On Sat, Aug 01, 2026 at 01:07:28PM +0530, Vishnu Reddy wrote:
->>> While testing with some higher resolution clips, the venus hardware
->>> triggers a fault due to wrong input data being received. Corruption
->>> was also observed in the captured output when the client dumped it
->>> to a file.
->>>
->>> On debugging, this was traced to the venus node not declaring
->>> dma-coherent. As a result, DMA buffers shared between the CPU and the
->>> venus video hardware/controller are not guaranteed to be I/O coherent:
->>> CPU writes to an input buffer can remain in CPU caches without being
->>> visible to the video hardware when it reads the same buffer, so the
->>> hardware receives input data that does not match what the CPU wrote.
->>> Likewise, on the capture path, data written by the video hardware to
->>> the output buffer may not be visible to the CPU, so the client reads
->>> stale or partial data, resulting in corruption.
->>>
->>> Add the dma-coherent property to the venus node so that DMA buffers
->>> shared between the CPU and the video hardware and controller remain
->>> coherent.
->>>
->>> Fixes: 37613aee2179 ("arm64: dts: qcom: sc7280: Add venus DT node")
->> Really does not look like a fix. How skipping a cache sync can fix
->> anything exactly?
-> 
-> dma-coherent tells the kernel that this device DMA path is hardware-coherent,
-> so the SMMU maps its buffers as cacheable. That attribute is what causes the
-> coherent interconnect to snoop CPU cache lines on every VPU transaction, so
-> hardware keeps CPU caches and VPU-visible memory in sync — which is why the
-> dma-coherent property lets us skip the unnecessary cache clean/invalidate.
+Add boot phase properties to essential resources during boot phase.
 
-You just repeated what I wrote. What for?
+FRDM-IMX95 need UART, SD-Card, eMMC access during boot process.
 
-> 
-> If a device doesn't support I/O coherence, its buffers would instead be mapped
-> non-cacheable, no snooping would occur, and the driver would need explicit
-> dma_sync_*() calls at each transition. Venus on SC7280 does support I/O
-> coherence, so dma-coherent describes that existing hardware capability to
-> the DMA subsystem.
+Signed-off-by: Joseph Guo <qijian.guo@nxp.com>
+---
+ arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-How does this anyhow explain your commit msg? Are you saying driver is
-buggy that it misses sync calls?
+diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+index 0f43e3be70589532763f65f1699f31dd361cc841..ba17d87f197a3d3498a815fb82547bd810b3e57d 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+@@ -140,6 +140,7 @@ reg_usdhc2_vmmc: regulator-usdhc2 {
+ 		regulator-name = "VDD_SD2_3V3";
+ 		gpio = <&gpio3 7 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
++		bootph-pre-ram;
+ 	};
+ 
+ 	reg_usdhc3_vmmc: regulator-usdhc3 {
+@@ -445,6 +446,7 @@ led_backlight1: led@1 {
+ &lpuart1 {
+ 	pinctrl-0 = <&pinctrl_uart1>;
+ 	pinctrl-names = "default";
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
+@@ -721,6 +723,7 @@ pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
+ 		fsl,pins = <
+ 			IMX95_PAD_SD2_RESET_B__GPIO3_IO_BIT7			0x31e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_uart1: uart1grp {
+@@ -728,6 +731,7 @@ pinctrl_uart1: uart1grp {
+ 			IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX		0x31e
+ 			IMX95_PAD_UART1_TXD__AONMIX_TOP_LPUART1_TX		0x31e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_uart5: uart5grp {
+@@ -753,6 +757,7 @@ IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
+ 			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
+ 			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
+@@ -769,6 +774,7 @@ IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
+ 			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
+ 			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
+@@ -785,12 +791,14 @@ IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x13fe
+ 			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x13fe
+ 			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x15fe
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
+ 		fsl,pins = <
+ 			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc2: usdhc2grp {
+@@ -803,6 +811,7 @@ IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
+ 			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
+ 			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
+@@ -815,6 +824,7 @@ IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
+ 			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
+ 			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
+@@ -827,6 +837,7 @@ IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
+ 			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
+ 			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
+ 		>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	pinctrl_usdhc3: usdhc3grp {
+@@ -1001,6 +1012,7 @@ &usdhc1 {
+ 	pinctrl-3 = <&pinctrl_usdhc1>;
+ 	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
+ 	fsl,tuning-step = <1>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
+@@ -1014,6 +1026,7 @@ &usdhc2 {
+ 	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
+ 	vmmc-supply = <&reg_usdhc2_vmmc>;
+ 	fsl,tuning-step = <1>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
+
+---
+base-commit: eba4724641990bd9975ca10ababe726b6143f0b6
+change-id: 20260814-bootph-frdm-imx95-a4124d7bede4
 
 Best regards,
-Krzysztof
+-- 
+Joseph Guo <qijian.guo@nxp.com>
+
