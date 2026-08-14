@@ -1,116 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0538A3E49F2
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0783E44F6
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:11:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786691489; cv=none; b=DunTfB5FPsfrZ6atPQhJx1DVH8N6z5BlyrhotIOOlE/oVyeCQKqkQNglZDfmjZrQfKhUF+J/AWY0rddnoLIjWWVhZutHcEB2wEYgT4hpNaQwV9S7f2guxNlzyyiflswQ917TTv0T/iehQQXRouAQ+d/O4ymxDY/G3oR5IOn9t9w=
+	t=1786691514; cv=none; b=qk4txdkvE0epIq3tD1TCtgzSgN3eO0y+u2veV3bNHkze4pw4JJP8V8zPyqtC3cC1KUBxYQCJW8rz5xl0it24W2P1fncvgGcL7iMeGGK51XL8ITbOeFDQ04pU9i99Y+NNljWJ0WxtB3h38OAzgPopl89rAeDY37lgp3rhQy9pSgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786691489; c=relaxed/simple;
-	bh=oopDUr7HbyOBpNekMXJhFTmQE2m7SAXdWvhFqIuQXb0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=THXabwwCxthZBoMUh9mA+gNiR6610qvZZqe26YSyQc1HHA26CHVrEJJYTB4XS/bHX8GMRb28wDkhgzxkmg30cCCoRWPRDj6y3N4Il//zrZvXS9Yn0ba2Hk1cbjiOvUAKwpNs5DB2FsoyzFyrm/5opCNajzGdFY2SYn6bC5hRDj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VeyzkoMh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786691514; c=relaxed/simple;
+	bh=oe6TFemgW7Xqh8zpkwUeJGiu2zlIIPM4zRz+Y9hHJB8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=INcwSRVY+AuBBnuhPCjPKk0J4sh3nISy0fQCNrQ8JoBku7gVg2CoH8d8e4j+PoITECio+dowZv163N37eYk1aVDh0DYv8KLSRC1byJw/7L5C/6bYId2AXoryp/rPvn4gdQ+B2a8LBzoHEhURAq0aNA0vngQpwyoY/NpNVnG8O54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBu404+y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VeyzkoMh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434B01F000E9;
-	Fri, 14 Aug 2026 07:11:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBu404+y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30ABA1F00A3D
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:11:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786691487;
-	bh=lRbc/goT2DfcUXkzNbjcoCNLTuOda4bmKeLaWrTBboA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VeyzkoMh74fpF11A+lBiLZw+HIPOA8gHzpiJdTo3xwsP/NKbqKfiLAk6ikLdxCPwL
-	 SeL0J4DA863zlw9sygFcitCVfKPSrcCHb8SG7uVwyhRozdZfQtOVVZSkFyeLRWHise
-	 iZjCfy3ebJbRcobjRSqB+YuZUPtN5yUrHWzT6gWPLM53Ygeot9roS0PL+QbKOIKcWM
-	 s/vRCbI7g0qQqM/Oc2xv6WrtBYvJ70vcMWPdxKi/XLKgsUR2iekXSugAUB8gfT1T6O
-	 OGRHTUpuXXFpV3gwIjn4AeiFFX74x7GwNDrUgFwUAXIf0ftf19sS65U3JJXs7ul4HP
-	 LUXdPFazDQF9w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/7] riscv: dts: eswin: add hsp bus node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260814070007.1662455-5-pinkesh.vaghela@einfochips.com>
-References: <20260814070007.1662455-1-pinkesh.vaghela@einfochips.com>
- <20260814070007.1662455-5-pinkesh.vaghela@einfochips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 07:11:26 +0000
-Message-Id: <20260814071127.434B01F000E9@smtp.kernel.org>
+	s=k20260515; t=1786691513;
+	bh=oe6TFemgW7Xqh8zpkwUeJGiu2zlIIPM4zRz+Y9hHJB8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EBu404+yCZUzCuJU4eeoo+D5zVlkjqIFu9yu1+pvrl6K5uIdftKL9q5X8MTgZHgVK
+	 gLrlcGSGQrp+1Jr0hLoE7/MpMc6+MsqcdffbA5i2md+XpZzpXYyZjf/dbk4o3XYRe5
+	 wOKpSA1dbG027qpW1qmCFANadTNdsOtf2hsC7FyyodLr7pob7OvjvoOLE3gvGDx0St
+	 kG1KaqOTz+GyGAvwVEMAndEoLSJtelFcB529tYbfbP1ekvDKS9SBdZdHeD7OxTTD15
+	 sNqwVHgihI+3mGKjp4croXOAgaosLPcWHPDvCrv2/9wA34opOwgZId9d48b+HLPyVd
+	 9w6kxYSSY7gNQ==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so755388e87.1
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:11:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrzY4V/W+iiOfLLUgoAwEXuExMkNigLtrlecw3OsH11GNb9nhyIi5J0vtuCaZLfeGXo3Zkr2aR6FhOy@vger.kernel.org
+X-Gm-Message-State: AOJu0YysGlynIRh9V6FJjRLbcK+sPeL6r6I2qOkl/Q9ENc5JxiuphB8n
+	9MOMAYV8JHlKQsQWgKoyNwoBORDwmBxQtYRkwhLRKMENamDJztxiyZM7ycVhgkhWKPOMDA5zUlh
+	CD5qa2/J950M4Ue6WPUixt+eWhdbDxsU=
+X-Received: by 2002:a05:6512:150e:20b0:5ad:68aa:8a78 with SMTP id
+ 2adb3069b0e04-5b453b9adeemr1676478e87.5.1786691511886; Fri, 14 Aug 2026
+ 00:11:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260731174551.86367-1-challauday369@gmail.com>
+In-Reply-To: <20260731174551.86367-1-challauday369@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 14 Aug 2026 09:11:39 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm8bCWsQPcOrE5vEnLU1hghirv-RgnDpYNb4kwaRcKhNg@mail.gmail.com>
+X-Gm-Features: AcwNN1VR9dA2uycWXeOfWxjBU-gqnztqsD7n_MUZQrz9Si5mIM2KHBCLSvLnt0o
+Message-ID: <CAD++jLm8bCWsQPcOrE5vEnLU1hghirv-RgnDpYNb4kwaRcKhNg@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: pinctrl: microchip,pic32mzda-pinctrl:
+ Convert to DT schema
+To: Udaya Kiran Challa <challauday369@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	skhan@linuxfoundation.org, me@brighamcampbell.com, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The syscon node is nested under a simple-pm-bus, which relies on c=
-hild PM runtime to enable its clock, but syscon bypasses PM runtime, leadin=
-g to unclocked MMIO accesses.
-- [Low] The compatible string 'eswin,eic7700-syscfg' is introduced without =
-corresponding device tree binding documentation.
---
+On Fri, Jul 31, 2026 at 7:46=E2=80=AFPM Udaya Kiran Challa
+<challauday369@gmail.com> wrote:
 
---- Patch [4]: [PATCH v4 4/7] riscv: dts: eswin: add hsp bus node ---
-commit 478468d2187b14120b83e2c525f0193b36412f11
-Author: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+> Convert Microchip PIC32 Pin Controller devicetree binding
+> from legacy text format to DT schema.
+>
+> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
 
-riscv: dts: eswin: add hsp bus node
+This patch (1/2) applied to the pin control tree.
 
-This commit adds an HSP bus node to manage the HSP CFG clock used by HSP
-peripherals. This clock is required for accessing both the HSP CSR registers
-and the register spaces of HSP peripheral devices.
+I don't know where 2/2 went, it's not even on lore.
 
-> diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts=
-/eswin/eic7700.dtsi
-> index b16e3e28632c2..771a88645d835 100644
-> --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-[ ... ]
-> @@ -252,6 +252,19 @@ plic: interrupt-controller@c000000 {
->  			#interrupt-cells =3D <1>;
->  		};
-> =20
-> +		hsp: bus@50400000 {
-> +			compatible =3D "simple-pm-bus";
-> +			ranges =3D <0x0 0x50400000 0x0 0x50400000 0x0 0xa0000>;
-> +			clocks =3D <&clk EIC7700_CLK_GATE_HSP_CFG_CLK>;
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +
-> +			syscon: syscon@50440000 {
+Resend as a separate patch if it's still to be considered
+or even exist.
 
-[Severity: High]
-Will placing the syscon node under a simple-pm-bus lead to unclocked MMIO
-accesses and system hangs?
-
-The simple-pm-bus relies on child PM runtime to enable its clock
-(EIC7700_CLK_GATE_HSP_CFG_CLK). However, syscon does not instantiate a stan=
-dard
-platform driver. When syscon_node_to_regmap() is called by any dependent
-driver, it initializes a regmap with a NULL device and performs raw MMIO
-accesses without calling pm_runtime_get_sync().
-
-Because the parent bus is never resumed by the child, the clock remains gat=
-ed,
-which can cause any read/write to the syscon registers to hang the system.
-
-> +				compatible =3D "eswin,eic7700-syscfg", "syscon";
-
-[Severity: Low]
-Is the "eswin,eic7700-syscfg" compatible string missing its device tree
-binding documentation?
-
-Without corresponding schema documentation in the bindings tree, this will
-cause schema validation warnings during dtbs_check.
-
-> +				reg =3D <0x0 0x50440000 0x0 0x2000>;
-> +			};
-> +		};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814070007.1662=
-455-1-pinkesh.vaghela@einfochips.com?part=3D4
+Yours,
+Linus Walleij
