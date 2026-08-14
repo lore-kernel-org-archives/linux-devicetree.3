@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EF1395AF6
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 01:53:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4C017B418
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 01:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786672389; cv=none; b=Q6JuRjIG+DbCte30gRRLrwz5IJUoRhfN7utuQDe2BMBlXHsBvNr0Te1CLuzdtysF01WMrIfZF0R2mbjRRjOjvjczOiVE2ScRTymfqRMhVeC3C1xEhdXEnW39E8TTnvXh++xiTECO4h5ofgXzGbuDWsG3EUPxCH2p/29eEvy77YM=
+	t=1786672577; cv=none; b=f29B+M5sTkcGFhWZmgxTI6MMpTt9JnBLkncKKe6RhYVSlljhlo8bBRPtdNLDgjobSE66VKFXhaus6oCJPujIXGVx2y7639qsR0U9+ZCK8Hp07ilP8pRlq+DdhvxNo45GRyfz+USUNnn0TxBkW3Mev6IW5E8Ypp5G2+1SnvoK4k4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786672389; c=relaxed/simple;
-	bh=manbfwtyanqwz6hRC5SG6gqgnbJqBEbE6lXUoZ7wX5g=;
+	s=arc-20240116; t=1786672577; c=relaxed/simple;
+	bh=N13SkcRrnR39wvYU/J/LRJSjQ/13lm685jNCCa5Sg68=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sPA3+n9wGdcG3fY/XZN/pNKTOiHFpGoAEQBKbBdbkIo52o1b/Z96oLyLRiUsjJZRLBk1Sa9+qnaIxPA9Kv625geAXjE3+3fW3dNia/pWZmiObS8uGTEeKBTckEp3kz8SUYZQX0BagC55KwXToRfFHMvPPI0irsqOnLOsXXH8qcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QE+GzE70; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nIjJD1DKkGB72mnqhHWIDs8VNlu2kEig374Y2zaBtGJPKMwLesHLLpOgoq2KWmh/mrw2jrv4U4QSe7faiLVDRbq5qaTFuRXY/Fm87ZJlgZbcxj3tTAdbNftco2fnAxJCZuECMru0sXj2U83LxkwFe7DdSqK3zLfGw3+2kYs9r7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GwXSkQws; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QE+GzE70"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396081F000E9;
-	Fri, 14 Aug 2026 01:53:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GwXSkQws"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9D51F000E9;
+	Fri, 14 Aug 2026 01:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786672387;
-	bh=sBcrndKlrqCKkS+aa8j8aNVC8PUU+1oo+sL76LiA/3E=;
+	s=k20260515; t=1786672575;
+	bh=fp9Luq5tJMNd1NfmlqQcXiJAhnFSe01gOETX37hVKaU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QE+GzE705/Xyz0xKUt8ks3A/6I0s6A+x2Hma3NtSHExK8lynWjwWtR+EHfomfDsrA
-	 mab/LHVPeCYX4N1i4I37rU+FhPBu24Ett36GnW06vLHK33sx7KXNpe31EGBgSj8jZy
-	 yluGePLocxSH2YJpC5jyE7NNn0dfVLYj8b2gun35hUz6MfAkrdLDq+Tbrm2n6lqiDG
-	 H6bE+vT5yaKKhcMTDQLqSVZPSGJNr48v+rNQOf9HI0PyK5jFiiXugboCFvLWg1QdgR
-	 j7EoqSAdvqU/1vjsFR9IjgpvkLY8rOOPiKES2FMIAGuYpo7lVcqBgusLDR6abD4lBE
-	 Xuo+4m3YcWh6g==
+	b=GwXSkQwsLFmRFWJeueeBWKrWAfoEE4bNJPyPuww4B+V4aI4ucWQRu4ObEwW2J/j+N
+	 RPURapAoU6aXDCFqMWZFd2paSFkXJjpRHOAMOIqgXJNPHjBJMAu3MFY4N1agFh7siJ
+	 QylT7aJLJSvNQAhWKkmbeV8sSOL2ZpsX5U5l6juP2LcsHPgdbSr38+NjD1HZfVZ8Tn
+	 qdiVVlwqVsMdM+XH7bU/nySFLOhA7qtTl4TKwtPtSgQE9/uMb05P/Dq8rn4AZXOmrf
+	 kATDr0RAV8xtR8QhkQGbK9oYs5j8bgN8/csOg4eJbqcv2gJLHcBVie9uJOTx9fUe1L
+	 wz7rFk2ohvKMA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 05/38] phy: rockchip: usbdp: Handle missing
- clock-names DT property gracefully
+Subject: Re: [PATCH V1] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add QMP
+ UFS PHY compatible for Maili
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org
-In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-5-b5ad9c68fa11@collabora.com>
-References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-5-b5ad9c68fa11@collabora.com>
+To: "Nitin Rawat" <nitin.rawat@oss.qualcomm.com>
+Cc: olteanv@gmail.com, conor+dt@kernel.org, vkoul@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260814004725.1368027-1-nitin.rawat@oss.qualcomm.com>
+References: <20260814004725.1368027-1-nitin.rawat@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 01:53:02 +0000
-Message-Id: <20260814015307.396081F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 01:56:15 +0000
+Message-Id: <20260814015615.6C9D51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,107 +46,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The exact NULL pointer dereference vulnerability fixed in `phy-roc=
-kchip-usbdp.c` exists in multiple other drivers which were overlooked in th=
-is patch.
-- [High] Clock prepare/enable and reset assertion imbalance if probe fails =
-when PHY is already in DP mode.
+- [Medium] The new compatible strings `qcom,maili-qmp-ufs-phy` and `qcom,ha=
+wi-qmp-ufs-phy` are omitted from the `allOf` conditional blocks that enforc=
+e strict constraints for clocks.
+- [Medium] The fallback compatible `qcom,hawi-qmp-ufs-phy` is not defined a=
+s a standalone base compatible in the schema.
 --
 
---- Patch [5]: [PATCH v14 05/38] phy: rockchip: usbdp: Handle missing clock=
--names DT property gracefully ---
-commit 6c56ea962e4b5726f304742232f476db1aa9e0f2
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [1]: [PATCH V1] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add =
+QMP UFS PHY compatible for Maili ---
+commit c983ddf99ae7f556a6b7a2870c88327054b94d8c
+Author: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
 
-phy: rockchip: usbdp: Handle missing clock-names DT property gracefully
+dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add QMP UFS PHY compatible for=
+ Maili
 
-This commit fixes a null pointer dereference in the phy clock initialization
-when a non-compliant device tree specifies clocks but no clock-names.
+Document the QMP UFS PHY compatible for Qualcomm Maili to support
+physical layer functionality for UFS found on the SoC. Use fallback to
+indicate the compatibility of the QMP UFS PHY on the Maili with that on
+the Hawi.
 
-Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/message/20260619154349.071321F000E9%40smtp.ke=
-rnel.org
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-=
+phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.=
+yaml
+> index b2c5c9a375a35..f74434f51653c 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
+> @@ -16,6 +16,10 @@ description:
+>  properties:
+>    compatible:
+>      oneOf:
+> +      - items:
+> +          - enum:
+> +              - qcom,maili-qmp-ufs-phy
+> +          - const: qcom,hawi-qmp-ufs-phy
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 2845a012eafcc..3fc8222fcaec2 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -432,6 +432,9 @@ static int rk_udphy_clk_init(struct rk_udphy *udphy, =
-struct device *dev)
-> =20
->  	/* used for configure phy reference clock frequency */
->  	for (i =3D 0; i < udphy->num_clks; i++) {
-> +		if (!udphy->clks[i].id)
-> +			continue;
-> +
+[Severity: Medium]
+If qcom,hawi-qmp-ufs-phy is used as a fallback here, shouldn't it also
+be added to the standalone enum list further down in this file at line 42
+under properties:compatible:oneOf:enum?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but since you are fixing the
-missing clock-names property gracefully here, should similar fixes be
-applied to other drivers that use devm_clk_bulk_get_all() and check the id?
+Without it being defined as a standalone compatible string, a device tree
+node for the base Hawi hardware using just
+compatible =3D "qcom,hawi-qmp-ufs-phy" will fail schema validation when run=
+ning
+dt_binding_check.
 
-The same null pointer dereference can occur in these locations if
-clock-names is missing from the device tree:
 
-drivers/phy/rockchip/phy-rockchip-inno-usb2.c:rockchip_usb2phy_clk480m_regi=
-ster()
-    if (!strncmp(rphy->clks[i].id, "phyclk", 6)) {
+[Severity: Medium]
+Do these new compatibles need to be added to the allOf conditional block
+that enforces strict clock constraints at line 88?
 
-drivers/phy/rockchip/phy-rockchip-naneng-combphy.c:rockchip_combphy_parse_d=
-t()
-    if (!strncmp(priv->clks[i].id, "ref", 3)) {
+Currently, Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.=
+yaml
+has an allOf:if block starting at line 88 that enforces a strict 3-clock
+limit (ref, ref_aux, qref) for most modern PHYs.
 
-drivers/pci/controller/dwc/pci-imx6.c:imx_setup_phy_mpll()
-    if (strncmp(clks[i].id, "pcie_phy", 8) =3D=3D 0)
+Since they are missing from that enum list, device trees using these new
+compatible strings will silently bypass the strict clock constraints and
+fall back to the loose global defaults. This regression allows incomplete or
+invalid clock configurations to pass dt_binding_check validation.
 
-drivers/pci/controller/dwc/pci-imx6.c:imx_pcie_probe()
-    if (strncmp(imx_pcie->clks[i].id, "extref", 6) =3D=3D 0)
-
-drivers/spi/spi-rzv2h-rspi.c:rspi_probe()
-    if (!strcmp(clks[i].id, rspi->info->tclk_name)) {
-
-Could these drivers also crash on boot with a malformed device tree?
-
->  		if (!strncmp(udphy->clks[i].id, "refclk", 6)) {
->  			udphy->refclk =3D udphy->clks[i].clk;
->  			break;
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but does probe failure lead to a resource
-leak if the phy is already in dp mode?
-
-If the phy is already active, rk_udphy_get_initial_status() prepares and
-enables the clocks but intentionally skips rk_udphy_disable() to keep them
-active:
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_get_initial_status() {
-    ...
-    rk_udphy_disable(udphy);
-}
-
-If a subsequent step in probe fails, the function returns without cleaning
-up those resources:
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_probe() {
-    ret =3D rk_udphy_get_initial_status(udphy);
-    if (ret)
-        return ret;
-    ...
-    if (ret)
-        return ret;
-}
-
-Since devm_clk_bulk_get_all() only registers a devres action to call
-clk_put(), wouldn't this permanently leak the enable counts and unasserted
-resets on probe deferral?
+>        - items:
+>            - enum:
+>                - qcom,qcs8300-qmp-ufs-phy
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-rockchip-u=
-sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814004725.1368=
+027-1-nitin.rawat@oss.qualcomm.com?part=3D1
