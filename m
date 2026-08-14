@@ -1,139 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092BA46983C;
-	Fri, 14 Aug 2026 12:59:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692E1470116
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 13:00:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786712365; cv=none; b=a7Dxd1EkLqrgw0Aye2aYsT2eVr6PNm5vVUdJkdZVHQJ0HcPMyT1AGsEF5n9y7yIKxKG2D4vrf7cYS8y8ZUc5PTyUNxbdVxE2yVTCNrpPJBzFUMCzE4ruZUoeFWrSnXQkxxFB8fJrh9MzM7a7oSYYRLdwV7Cl4WEwEpmmjAHF/6Y=
+	t=1786712448; cv=none; b=Fr81Ab4ekQVSPOepw/84xM2uxoqAFT3MwkONxaCJpoE2yv7jvhxsSONGxlpM772cjb3qTF6Q8WilTbZFpBOc5lqJk099pEAuO6/G3lgbluQz6aBBgnkKU0QpoaRonI9X9fUhDc0a9BbDjobKNcngfDEruvkp/0MzEN2ix7pq9O4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786712365; c=relaxed/simple;
-	bh=nw9KJB2mYQAX/+pMzKQjmQO5z4pdgl3Giv+mqO3B6IQ=;
+	s=arc-20240116; t=1786712448; c=relaxed/simple;
+	bh=E+67jbQXNGPkjICXdFPGJp4nou7ncQduKQF+HW8eAlw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=goiOCNsOfn9zvyuLOzTxnOVp9BpH3VOkVnFaOeu5Iih7XHEvPzk/lPnsPpWCESX8whjbJKn4Hc6g1bmc8yuUIAb2xrGYxi7AOc4NFVXH9GcTQsS+5KddZ65vknJx8lEYaSgi680Ua26y2ztq+xXxke274xZtKRgGhtPoI86FS2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FpmqAJvr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cHl24LtYGFNp7uFseD1rB4dXZYsZlx/TuzK2Lfp+jLkXEFusSUun1J2fX98Bzw9kuucXHZbAHXPHpbJmYCwhQsF9Wf9DsOzNhQ656lWIRsi0uCbxVP7++ATqqrky0bkWRz4d4UVIptVRgIMSdtrHSnoWQeZs4h9OmBMNO7lbVIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfLDxMv4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FpmqAJvr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C8AE1F000E9;
-	Fri, 14 Aug 2026 12:59:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfLDxMv4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4632E1F000E9;
+	Fri, 14 Aug 2026 13:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786712363;
-	bh=uXoIwtcljLqXIJs8AgeEkxzkI+FeK7XuzznqVLLAKa0=;
+	s=k20260515; t=1786712439;
+	bh=MA4Am1PGpMxQd4tsvT/jAeu5xlnBjKJph57Wkz8Czm8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FpmqAJvrFmGF7xen0F6OcYImc7bfg3Bi6lOV5CITjSihbYCAWL8oeb04m2WGi1W3H
-	 aBWNh4tAxVOeg/u8ZbLiJFxPwNiFC1aFw6eNTolCV7ZIVX7pXVKcH8U6NlJeiFEcLt
-	 7c8oCWZrwoMB28MPrTRFc1gfmw81cBK3Kqyb1KDHvhsqaTBHvN4gp2AIw5eHVsPayH
-	 ertBaSVSfBnSxcMTYRki04KxnjpqPVtnC7gZ06jU1LsJ3VZ4FIDB1gaThScTPagbpA
-	 WCEs2pCiXzFeAN9k09Lndw1inHBLVn0zGpjLoFP8JGLvv6gKbhacL4LspEmJWgdHXj
-	 9Po/aOXp5YEPQ==
+	b=CfLDxMv4haXsVcthA04KIt41VzOGoexzX9J83RKYSkxLNz1wByWpn66RuchbxzXra
+	 BSiLsgKCp64f7CvjQ5c+1oCknowzQSEr++5OJZ6hTwqHTd+x6x9YTv4f2SGgBvCRlE
+	 hrgtU567C7blhHRwM3iDONpmQC8zd7Tqc4ZW8905RiiUUCzrw+j/MP+k/bLghaqcot
+	 sh2+iyO+c/phnu0mx4gn+IgAMfAwyEG1l4dE95/pImpaHHr2x/ahRkG4pegsq6+8DE
+	 bdMM09um9Fj/VZ8CPOHV+q1M6suy+gES9ZtRS0Wea7H1iSbbJk4X5MoqtLEs4X3gdL
+	 3HRNRSXS/moVA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/12] clk: qcom: clk-regmap-divider: Support
- CLK_DIVIDER_* flags
+Subject: Re: [PATCH 2/3] ARM: dts: armada: WRT3200ACM: add
+ marvell,ignore-regulatory-hint
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luo Jie" <jie.luo@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260814-qcom_ipq5210_cmnpll-v3-3-21c3db378611@oss.qualcomm.com>
-References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
- <20260814-qcom_ipq5210_cmnpll-v3-3-21c3db378611@oss.qualcomm.com>
+To: "Georgi Valkov" <gvalkov@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260814125025.90522-2-gvalkov@gmail.com>
+References: <anoYr9H4KojJv-aZ@google.com>
+ <20260814125025.90522-1-gvalkov@gmail.com>
+ <20260814125025.90522-2-gvalkov@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 12:59:22 +0000
-Message-Id: <20260814125923.5C8AE1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 13:00:38 +0000
+Message-Id: <20260814130039.4632E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Uninitialized stack variable used in clock calculations if regmap_=
-read() fails.
-- [High] Divide-by-zero kernel panic in divider_ro_determine_rate() exposed=
- by CLK_DIVIDER_ONE_BASED.
+- [Low] Missing `#address-cells` and `#size-cells` in the `&sdhci` node cau=
+ses the `wifi@1` child node's `reg` property to be malformed, triggering dt=
+c compilation warnings.
 --
 
---- Patch [3]: [PATCH v3 03/12] clk: qcom: clk-regmap-divider: Support CLK_=
-DIVIDER_* flags ---
-commit dbde27a9bd18456c99d0f970183ac77f2661a8eb
-Author: Luo Jie <jie.luo@oss.qualcomm.com>
+--- Patch [2]: [PATCH 2/3] ARM: dts: armada: WRT3200ACM: add marvell,ignore=
+-regulatory-hint ---
+commit 28267c9e17b352aed9318b01c48207c391929954
+Author: Georgi Valkov <gvalkov@gmail.com>
 
-clk: qcom: clk-regmap-divider: Support CLK_DIVIDER_* flags
+ARM: dts: armada: WRT3200ACM: add marvell,ignore-regulatory-hint
 
-Add a flags field to struct clk_regmap_div and OR it into the flag
-passed to divider determine/recalc rate functions. This allows qcom
-drivers to opt into behavior variants such as CLK_DIVIDER_ONE_BASED.
+This commit adds the marvell,ignore-regulatory-hint flag to the WRT3200ACM
+device tree. It creates a new wifi@1 child node within the sdhci node to
+instruct mwifiex to ignore incorrect regulatory hints from ROM.
 
-> diff --git a/drivers/clk/qcom/clk-regmap-divider.c b/drivers/clk/qcom/clk=
--regmap-divider.c
-> index 672e82caf2050..6e12aebf14b6a 100644
-> --- a/drivers/clk/qcom/clk-regmap-divider.c
-> +++ b/drivers/clk/qcom/clk-regmap-divider.c
-> @@ -27,7 +27,8 @@ static int div_ro_determine_rate(struct clk_hw *hw,
->  	val &=3D BIT(divider->width) - 1;
+> diff --git a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts b/arc=
+h/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+> index 4ab45f294de22..c5f94463ef710 100644
+> --- a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+> +++ b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+> @@ -165,6 +165,12 @@ &sdhci {
+>  	wp-inverted;
+>  	bus-width =3D <8>;
+>  	status =3D "okay";
+> +
+> +	wifi@1 {
+> +		compatible =3D "marvell,sd8897";
+> +		reg =3D <1>;
 
-[Severity: High]
-This is a pre-existing issue, but does this code need to check the return
-value of regmap_read() that populates 'val' right before this line?
+[Severity: Low]
+Does the parent &sdhci node need #address-cells =3D <1>; and #size-cells =
+=3D <0>;
+defined so the dtc compiler can correctly parse the reg =3D <1>; property?
 
-If regmap_read() fails (for example, due to a bus error or the power domain
-being off), 'val' remains uninitialized on the stack.
+Without these, dtc falls back to default cell sizes, which can cause
+compilation warnings about invalid property lengths.
 
-Will proceeding to shift and mask this uninitialized stack memory lead to
-unpredictable clock frequencies being passed to the core framework?
-
-> =20
->  	return divider_ro_determine_rate(hw, req, NULL, divider->width,
-> -					 CLK_DIVIDER_ROUND_CLOSEST, val);
-> +					 CLK_DIVIDER_ROUND_CLOSEST | divider->flags,
-> +					 val);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this addition of
-divider->flags trigger a divide-by-zero panic in the core clock framework?
-
-If a QCOM driver opts into CLK_DIVIDER_ONE_BASED, and the hardware register
-reads 0 (or is uninitialized due to a regmap_read failure), _get_div() will
-return 0.
-
-Unlike divider_recalc_rate() which checks for a zero divisor,
-divider_ro_determine_rate() in drivers/clk/clk-divider.c lacks this check:
-
-drivers/clk/clk-divider.c:divider_ro_determine_rate() {
-    ...
-    div =3D _get_div(table, val, flags, width);
-    ...
-    req->rate =3D DIV_ROUND_UP_ULL((u64)req->best_parent_rate, div);
-    return 0;
-}
-
-Will passing CLK_DIVIDER_ONE_BASED through divider->flags cause a
-divide-by-zero exception here when div is 0?
-
->  }
-
-[ ... ]
-
-> @@ -65,7 +68,8 @@ static unsigned long div_recalc_rate(struct clk_hw *hw,
->  	div &=3D BIT(divider->width) - 1;
-
-[Severity: High]
-This is also a pre-existing issue, but similar to div_ro_determine_rate(),
-does the return value of regmap_read() need to be checked here before
-manipulating 'div'?
-
-If regmap_read() returns an error code, 'div' will contain uninitialized
-stack data which is then used in hardware clock frequency calculations.
-
-> =20
->  	return divider_recalc_rate(hw, parent_rate, div, NULL,
-> -				   CLK_DIVIDER_ROUND_CLOSEST, divider->width);
-> +				   CLK_DIVIDER_ROUND_CLOSEST | divider->flags,
-> +				   divider->width);
->  }
+> +		marvell,ignore-regulatory-hint;
+> +	};
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-qcom_ipq52=
-10_cmnpll-v3-0-21c3db378611@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814125025.9052=
+2-1-gvalkov@gmail.com?part=3D2
