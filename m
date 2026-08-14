@@ -1,97 +1,115 @@
-Received: from mailrelay-egress4.pub.mailoutpod2-cph3.one.com (mailrelay-egress4.pub.mailoutpod2-cph3.one.com [46.30.211.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C543647044B
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 15:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.211.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED32B399342
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 16:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786722883; cv=none; b=ITZZVmzQJ1ofEJrRbA7gkx4Jy9bTh25ysi7chpZtcgEFtaUAf/Inx+OTPjxfxqM+Jv4VUyzodyhg6M+sYSjf5KxGUAYBhSa+y7WVvbLNMJGmSKIlYLd7xfyMVvwpoD/6m7fUv5QPMnKL51Zsw2UXDHFPJ8UdeRNki6WvuJmR45A=
+	t=1786723725; cv=none; b=eYzONNjifnc5a55hLfRnKClrzIyeBIh/u6hY0j+tMSS+yX5zW4eF3ekZYvqmc8QgzP9ME6ZuZg7gfpTQTvXeE4U4buxLBq1zPp9e91FZ2TN7FvB482Nzn0fEVx2a5MmMFqIgqiwZcslC/g/AolAyOGia77TmTjoC672QJ9rkovk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786722883; c=relaxed/simple;
-	bh=QGBzJP2QI9fiZMw8xRjRur+lgwtJJP60mATY37xXmfM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MHYLngpLM2uikYjfc+6H2sM6+3+ks+d0YQpUYAmbSy3MoLSNzNKYnfYIBQSK2tXGuIwim8l3pdUFrWJ3YmQ2chTDzF/KP4qQ0pgMc+PeMFjf7eeVDdNwzkUFmrtB88yoyEGyQUNz4h8BRAfRZFWXxTCNJ875AwY7YTawM2vUVqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org; spf=none smtp.mailfrom=ravnborg.org; dkim=pass (2048-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b=VKJxlyjc; dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b=+bcLyjFz; arc=none smtp.client-ip=46.30.211.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ravnborg.org
+	s=arc-20240116; t=1786723725; c=relaxed/simple;
+	bh=OvC+uCX22OxiCm/ADZIrl4k/Q2qjrp6B/VU/TsLraGE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p7i8om+EEjZFRQczRagHp7uptqNgfOBG+8klllRQRRNGRnc3ihGDpn2IB1N6d+GHubcZb9XC41zJP0vQGvd2Pz6ZnNahJ3hVd5dj0GhzB281A1T1B6xiUxQxsyF9w+wNDKWprrHymGUER307G6IedefkRfJmRViUoUK33/I/muc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dbuXRXot; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="VKJxlyjc";
-	dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="+bcLyjFz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786722807; x=1787327607;
-	d=ravnborg.org; s=rsa1;
-	h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
-	 from:date:from;
-	bh=ETAbJekTKq7/C0E0ng0HA47FjvDztMKRhBFG1L/c6jc=;
-	b=VKJxlyjce8chAlpqGFSW/zNF8pWL3vDuk0YSwhK6YgmGt2OXN8WEr2zwOMfPHeGaUbTZ9uTdPoxpr
-	 DpRSSBchSXxPo/30t6XuzVG2+lAvB6T9cdjcgMZTwIiy3eC+n/he9zq3IWsPoCeT1umGfGmbdO9dxi
-	 NZ4E5I50WtnCQjKbOddPSrKiR680Q5AYKgpky6oLvMppvNP/RAV7izR56xlkZg3guJGoemXVKD/KxJ
-	 Qu/6cSl96lIbwY1cI2FeLPSkaOZWiWmgOMPX+Wu4Anud/GRKqtdriPJ5ICWCdCgxvakwnXvOpur70D
-	 mRyeWJKu9A9UrsIke7H/zcGVXtRmocQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786722807; x=1787327607;
-	d=ravnborg.org; s=ed1;
-	h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
-	 from:date:from;
-	bh=ETAbJekTKq7/C0E0ng0HA47FjvDztMKRhBFG1L/c6jc=;
-	b=+bcLyjFzFfdoZAOUcbMvrKbcCe6MFYUHe9j2rfTpKkEa4DRTGsQ6XsN68ja6gNvJWTk//jAKcjZEb
-	 OZAmEViBQ==
-X-HalOne-ID: 489b43a4-97f8-11f1-8842-5fcedd255746
-Received: from ravnborg.org (unknown [2a00:fd01:81e9:6100:119c:2d17:fdc1:9930])
-	by mailrelay5.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
-	id 489b43a4-97f8-11f1-8842-5fcedd255746;
-	Fri, 14 Aug 2026 15:53:26 +0000 (UTC)
-Date: Fri, 14 Aug 2026 17:53:25 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: =?iso-8859-1?Q?M=E0xim?= Pedraza Padilla <maximpedraza@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, Helge Deller <deller@gmx.de>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel@pengutronix.de, Francesco Valla <francesco@valla.it>
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-Message-ID: <20260814155325.GB516994@ravnborg.org>
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
- <am2mvECnCcO9IxuI@monoceros>
- <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
- <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
- <20260810-devout-pig-of-performance-595ccc@houat>
- <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
- <20260812-neon-asp-of-completion-e9349e@houat>
- <CAEUXW=H-o+fqBjH1UQG7=UTm5x1a9Cj++XJM7twvFU4vJC4UrQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dbuXRXot"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso11605295e9.3
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:08:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786723708; x=1787328508; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6ZnefS8leD5EpLhfx/2yL2ejpM4dklOoHUq4vSAQtGU=;
+        b=dbuXRXot/HKJArG0F0QwksTxblB1A8YetbG+JPqAjp7I8X3WkNNm/Zz9hIbqrF7aw3
+         5k+YfjsUtRVCrij8euk+f+9D+59K09JS0El0OmQ47uHZBVtKMuttJezWdNcVig0qstn7
+         QECB+TptQBVlTqxkq3/9vA+GHeEZk5EGmCCawDpR5u8/a1YIRvWFNC2wcg2SHk3Ity78
+         AisVUaeWcb2CLGcNAwGqEpyFR42QvpyEFwhGorZZfSpKrvmNei0t+3j/ZRKx+ODRuMxc
+         5Y+luwdrwyl0h+AF5tX+r1EMN36+6p6AI5VvQdDXGHIpwgE206DpdlInaVoP9sJcub2R
+         iKdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786723708; x=1787328508;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6ZnefS8leD5EpLhfx/2yL2ejpM4dklOoHUq4vSAQtGU=;
+        b=ml6LpPxinvozK7JRz0sWucHGt7lUvfoFV+5xoYy/mKhQIu6OvG2YiILslwcXr6Wql3
+         rpL8SPnfqoXwIeTYzMA1lW2m5/E0VPUCu3fyTIdueg5jgZcrnEQwOs25HtfaPvVBeB7o
+         pgWDL0sgsIfQmE6wyhclzm7NijyTIwT7sGyA9ywE2nnxFXJfAyisFSgyoEdyflsVNu/G
+         fdOY4WQwpAgrRF2g4c2/hema+dNPCbeCeCDjNATrzL6+aGZxQY3l037DMrgn6zu2xaZ3
+         GRHPfb+/rIilPZPSq6L5xaeCTgD1yMngyxHPN+o4X59pjJ7xptYvF73evDl1QIxbFi6P
+         x07A==
+X-Forwarded-Encrypted: i=1; AHgh+RrrCDo6bdERJCQd/Zh06xK0a5nCB0+zm8nSsj6cn/rUD9IUKlDldxyWFMdVXIF3QKgHE93A//JTgKzZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWXQH9LpFm1WS4hR6i0ps4DgyDBSHQo+wJmOg1Hh5dEGhky/1k
+	Kkxa8DHoaGaXW5XBRgo9MDY4E+FkmOoISV3Hzd1BEtTYN6/vvnqIkycT
+X-Gm-Gg: AR+sD12+hq/Sd6OhexdU8zNYC2fM+/naLfc3l9yGbzXcbEB8FgVL5tM2AfDzVe3Gqyl
+	u8yVxkt4WXuSmUs+NGsH9FPSJY39x5ZoydJVzajx2hbhECqlXq2ho5KI7XXbsXZ2RilggbjBo5y
+	WjyrN+3zmizlJ444fXJSYfRSKyp/EUNSG3jzwe+ZZwuxNITzHOtsp/VPbqueUi6G3zvPVaUkNjN
+	MQWghhdDp3xYZi67Pv/AVBR9OvI+dhChRll3vqCuwy3ec6uWs4uoOD84lbE0DnISTcsrg94qEie
+	bSEo4bLPvHvQPMHwYFB3GkuBL0XllsO8rkaO72jYV5LWhs5MQZJMdhVSgMFWp7jvsAApn3tLKi/
+	R1gp7zAxF5QnnSzZIwfBRq4u5/H0D1nsWKGRMB553PN66pQ9+rrQr2ti9JJvlypJT4BhMdvDdWG
+	yKbga+CvRk8PD8QkqFRNzDEPOZLe74zWbjBcEXOtpCulIM5g4HsOSkIEvighr5fmYMyearuaCQY
+	Ma3FKwmt1VC2y4tvk+rAxiNNGIkNTsnjrb9ybXmZdCSmYq3S+WOLObg
+X-Received: by 2002:a05:600c:138a:b0:499:51cc:4e57 with SMTP id 5b1f17b1804b1-499878cf3b0mr74633095e9.0.1786723707410;
+        Fri, 14 Aug 2026 09:08:27 -0700 (PDT)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f2c18cbsm8127896f8f.29.2026.08.14.09.08.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 Aug 2026 09:08:26 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <e0775be9-9773-424e-9109-5b4b6b620e61@gmail.com>
+Date: Fri, 14 Aug 2026 17:08:25 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAEUXW=H-o+fqBjH1UQG7=UTm5x1a9Cj++XJM7twvFU4vJC4UrQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] rtc: pcf8525: Add watchdog support
+To: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>,
+ linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org
+Cc: alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
+ conor+dt@kernel.org, linux@roeck-us.net, wim@linux-watchdog.org,
+ vikash.bansal@nxp.com, priyanka.jain@nxp.com, lakshay.piplani@nxp.com
+References: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
+ <20260807082855.3762394-4-shivprakash.gupta@nxp.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260807082855.3762394-4-shivprakash.gupta@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Maxim.
+Hi Shiv,
 
-> On doing it through KMS: you are right, and the follow-up series should be
-> a DRM client alongside drm_log rather than a hook in drm_fb_helper. I will
-> rework it that way before posting it.
+On 8/7/26 09:28, Shiv Prakash Gupta wrote:
+> Add watchdog support for NXP PCF8525 real time clock(RTC) device
+> 
+> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+> Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+> ---
+>  drivers/rtc/Kconfig       |   1 +
+>  drivers/rtc/rtc-pcf8525.c | 245 +++++++++++++++++++++++++++++++++++++-
+>  2 files changed, 244 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+> index 3c22c7253aae..6c1c7b3d27b6 100644
+> --- a/drivers/rtc/Kconfig
+> +++ b/drivers/rtc/Kconfig
+> @@ -516,6 +516,7 @@ config RTC_DRV_PCF8523
+>  config RTC_DRV_PCF8525
+>          tristate "NXP PCF8525"
+>          select REGMAP_I2C
+> +	select WATCHDOG_CORE if WATCHDOG
+>          help
+Nitpick, sorry: this Kconfig file uses spaces for indentation, but your
+addition uses a tab.
 
-Take a look at:
-https://lkml.iu.edu/2605.1/03465.html
-
-The work Francesco Valla did seems to overlap a lot with what you
-suggest.
-
-From the intro mail:
-
-"
-in a nutshell, the splash DRM client can draw a splashscreen using:
-
-- the BMP image supplied by the EFI BGRT;
-- a BMP image loaded as firmware (either built-in or loaded from the
-filesystem);
-- a colored background.
-"
-
-	Sam
+- Julian Braha
