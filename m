@@ -1,194 +1,164 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550CA3C945A
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 14:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DF1472F97;
+	Fri, 14 Aug 2026 14:31:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786717373; cv=none; b=gOwdHDZRHrjs/s/9E8xXzPEzOa/yUojzx5dAkdZm4hPULtmHTupmHacjh+LZLsF3akg9knw0oqQ6ccTuhIerWZw0CaBjC9IJsH5xmkASd9dXVCjOqzNJSrEPSImZW/l2rNd81QeoCgulgznJpJndR1S82itUzy4tiSt+Jqnen7E=
+	t=1786717908; cv=none; b=uulbDi92zZ9UrH6/tOsQCRAS/b7vBDvZ+I9n5xmxgwhrouJO9b2mMaWHw50bqag0WU34lj2X1UfvMBxaeLUps4e8NQiMYN2vpK4qz3tC+CSYBsK8NkIS/vx2q3kN/jvlnZR+X6q9UyiDUBwYHS5QscIvs7+QDvxsaW/kd+33DEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786717373; c=relaxed/simple;
-	bh=5v6E1c1bpUjv6tsevr8SUqv4GilTVaBJ1UqgDQojZPc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=h8Gq5Gfx+PJy6H3SoUd9icXiDWuUaIQWm9K+e7i+A+0VQ60r1I1lPvfBWOJwF/01HCgnVlJE1QGYHH9qRJu3ZK9MViEvJl+JlUCO6c9smoRbbKkjGBo+hcEMmC4VVkbtT+x5JNd5j3fNBad9Qpgw8ApvYfQYCDuGTTQmWtGxEJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oYfm/5TC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fUe7vNlw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786717908; c=relaxed/simple;
+	bh=OcLA+9NxXaZ0Z8qAWG9RrfMqZWDWTvs48FyXhXFFOCg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KqIxKpkiNadZR1mfNRQgL0d3qssQex+ntZe73WkSZLiw+9Fy84bO21T4aNMVaOpiGFGWb1FhWG41JHPPuK83i6Qk0XosXRcvotm2fbnVBYrVbVZ99diOefFE3nNJq2c3oded1v8sGL8q8KVMEi3orvWy9wirBoT+PC/pRc06JmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pfUKVYmb; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oYfm/5TC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fUe7vNlw"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67EDxnkd1101081
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 14:22:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hBkqtOsAJvOsFOMYqdz9keOMghTLdXhNWXLS0vjntog=; b=oYfm/5TChw+Dmdkb
-	17//r+GqHg1Joc/FTAevJW9FB+0P2hfE254+YuXrdtQhHWcV+uZRJ8ZU3M6jwmvz
-	fTPEdnTsC3OVO7yS34PZswi/af+C6fIHIaAXdgbicaL0tMtr5bVBTH4ZLudumVWe
-	Hh4oEvVeo4BW8+vs9pUxEg9Wlq9X9QnNqC+xkMcDf0cYK2n99kLWAxUk2W2e/njU
-	7elhd1iG1jlHcDuAxpxdBmu+Uxm+cuP/68e1fS+1oxBBwI9/7DDWtfG+a8rkNeDF
-	sLEFKbfynfv9gq8nE8qAxlT3fG6JD4GdqA9Rk6wHsAScsUaKi+vPwowpyitrTpDb
-	X2uOuw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1m42kuxk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 14:22:29 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38dc085b0a7so1806601a91.2
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:22:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786717349; x=1787322149; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hBkqtOsAJvOsFOMYqdz9keOMghTLdXhNWXLS0vjntog=;
-        b=fUe7vNlwYejosxpwMESr6NquxOYFQKPDYBYgtEr36VSSiwbb/SR6yNVgCMFs5vG2d9
-         B1/R3yRBzZZ2ZTP8shlpVV4zz3gex07uZ4YmBih0Lkp3IacbYQ6Ww0d6HwKfjMYLNiMb
-         YvhABFY8P+4kWMCjxF1ccwSeiBqLhv6x8MGYXPfcP/NNdJZ4DJ5co74UGyA6ektjIDQl
-         jeKgXqEpASjkk5aQ1uVQ4eFe/pOLoRWFDNxiFGVivmguwCrLMXqovW5cJzeAon3Ff4p6
-         4i1b+MsDECrkLIQFI6GaQCR6ypL/ZohGzwt48bzJvGIEvUgyFDyG3t9E3xNmYD/mT44w
-         88qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786717349; x=1787322149;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hBkqtOsAJvOsFOMYqdz9keOMghTLdXhNWXLS0vjntog=;
-        b=LbTCCJX/xYIBhxlZpXBHadAOy0ZV+R0QPmFfTzenU42+PdHvvdGIKPF8MNCdnDyHCn
-         uzNJTy5a7seELxt9PuoqkmgQHArwQyauAngCBOiqrv7j9VOlV85GcjAwSHFNogY7eQvu
-         rAb6A3e90EYYBN+4N12jAWMUiCWjLoKulZH5nOAi5UegLYxH4EUcoKNsN4/JonDCXdHv
-         yy6vpNsQM8o3wElM/sSCoPXYHd2vw6DQr3y+YKVAehi0KK44LO99Iiz6Id/D2LxLXsZw
-         XACr+BC7NVmsuphui48fopvOQ/qCr+1WfhoaaHuMLT0mRyedSQEp3D9IUK4bqONzh9SY
-         rjUw==
-X-Forwarded-Encrypted: i=1; AHgh+RrlO4jk43MNB4dVhgGqOf2uGmRzTC01Z3wQvrCO1jGmLStUomLle06J1utMfLoAxMyxDbStaPCSTWKx@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtVHDIIqRRfJ54Oo1TS5juN4JCckLfuehyH2D7cbz/sB4oIwV9
-	bZSzu5LskzlB/mTXpW2r1RxYX4wsAhqhNs2Jszc0t84SB8SY/YTcFUbn00Sskas8mkpxj0Jkx0V
-	f/gDmhaHfVVcPDX55hI/N32VfRzW/SvVZLaLeH+vDPiDneVxW/kiaO0Qxx+RsCzzA
-X-Gm-Gg: AR+sD13jzXpFxWp5TdMOaOYImfxEzBwHE9Vusv65ZAqXRaFLqeInqK9oVLBL2w9K21p
-	15F1i52Qpb9Xa5WtG/lWc0kvS8EQvvFUL7LOIjuC1DiSx7ws4wWV9wAmo74ti/gHDxtwc88MQiI
-	BgFJLNram+b+5FNNtiIF67v4qgymu3MYXrXaFDOPPgMG7tmewgRik92KcZE+YVNnSF9/F9jU7sM
-	/Dr+C+6QNdpweNkDRDgiZ9672n7D/2wTiPC3qKcYDQO49GzEhEMjtGkV9NQ13UjEUq1vpcWHEc8
-	p+x/6m70QrNRiWyKy7a4vhvf9IPlNiSbbvgcMGS16WW8wlOWpyQ9UtI2h2Pld5p9MOAZ7W03MVh
-	xO+eloCG8mT0TuUOgPAuMrj13mVYRSkvrmNklwnl2vHQ=
-X-Received: by 2002:a17:90b:2c8d:b0:38f:caa2:5721 with SMTP id 98e67ed59e1d1-3933e62f4f8mr7099618a91.17.1786717348347;
-        Fri, 14 Aug 2026 07:22:28 -0700 (PDT)
-X-Received: by 2002:a17:90b:2c8d:b0:38f:caa2:5721 with SMTP id 98e67ed59e1d1-3933e62f4f8mr7099502a91.17.1786717347742;
-        Fri, 14 Aug 2026 07:22:27 -0700 (PDT)
-Received: from hu-luoj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320ead105a9sm4895520eec.31.2026.08.14.07.22.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 07:22:27 -0700 (PDT)
-From: Luo Jie <jie.luo@oss.qualcomm.com>
-Date: Fri, 14 Aug 2026 07:22:25 -0700
-Subject: [PATCH v2 1/2] arm64: dts: qcom: ipq5018: Add pinctrl for MDIO bus
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pfUKVYmb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1786717902;
+	bh=OcLA+9NxXaZ0Z8qAWG9RrfMqZWDWTvs48FyXhXFFOCg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=pfUKVYmbkxlA+SMcEC8ybrcIQqZtCcqxkwdD4V+FUYhiI2NHNLPCg+n18pYPmf7CN
+	 g6CISMdt6CDVXaBKviCpMUoXDjyx6YdG3u/oSCsc4SSXvioxGl0ADHjxP7apIUmz6W
+	 8EIZDrCsa3vR1aq9Ot2u8zgQ2jZFh0GjiHZFxPHcU3Ymc2kUvXNiNoqEnnXqLxiai6
+	 UqjulyZxOj3rl6/shuSU0DLi3oUNlIs0RKMXKcOfgn1jthZdJS/GvZjtKLwHmKEByF
+	 GrWyw2zbA8vVSoY/ffcom4AJCqtOTVO7nWjCyaFQt8/lN64ighUUkHTqh9qQVFH756
+	 UZZI+qsDcohRQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id EB00617E07B5;
+	Fri, 14 Aug 2026 16:31:38 +0200 (CEST)
+Message-ID: <dcb6ecbd6184c01861c7d36068abb266df4587c5.camel@collabora.com>
+Subject: Re: [PATCH v6 01/14] media: mediatek: vcodec: support vcp
+ architecture
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Kyrie Wu =?UTF-8?Q?=28=E5=90=B4=E6=99=97=29?= <Kyrie.Wu@mediatek.com>, 
+ "fshao@chromium.org"	 <fshao@chromium.org>, Yunfei Dong
+ =?UTF-8?Q?=28=E8=91=A3=E4=BA=91=E9=A3=9E=29?=	 <Yunfei.Dong@mediatek.com>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,  "fanwu01@zju.edu.cn"	
+ <fanwu01@zju.edu.cn>, "jacopo.mondi@ideasonboard.com"	
+ <jacopo.mondi@ideasonboard.com>, "haoxiang_li2024@163.com"	
+ <haoxiang_li2024@163.com>, "tfiga@chromium.org" <tfiga@chromium.org>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andrew-CT Chen =?UTF-8?Q?=28=E9=99=B3=E6=99=BA=E8=BF=AA=29?=	
+ <Andrew-CT.Chen@mediatek.com>, "linux-media@vger.kernel.org"	
+ <linux-media@vger.kernel.org>, "ribalda@chromium.org"
+ <ribalda@chromium.org>,  "wenst@chromium.org"	 <wenst@chromium.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
+ "kees@kernel.org" <kees@kernel.org>,  "rongqianfeng@vivo.com"	
+ <rongqianfeng@vivo.com>, Irui Wang =?UTF-8?Q?=28=E7=8E=8B=E7=91=9E=29?=	
+ <Irui.Wang@mediatek.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+ "linux-mediatek@lists.infradead.org"	 <linux-mediatek@lists.infradead.org>,
+ Tiffany Lin =?UTF-8?Q?=28=E6=9E=97=E6=85=A7=E7=8F=8A=29?=	
+ <tiffany.lin@mediatek.com>, "p.zabel@pengutronix.de"
+ <p.zabel@pengutronix.de>,  "benjamin.gaignard@collabora.com"	
+ <benjamin.gaignard@collabora.com>, "matthias.bgg@gmail.com"	
+ <matthias.bgg@gmail.com>, "mchehab@kernel.org" <mchehab@kernel.org>, 
+ "sebastian.fricke@collabora.com"	 <sebastian.fricke@collabora.com>,
+ "robh@kernel.org" <robh@kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org"	
+ <linux-arm-kernel@lists.infradead.org>, 
+ "laurent.pinchart+renesas@ideasonboard.com"	
+ <laurent.pinchart+renesas@ideasonboard.com>, "hverkuil+cisco@kernel.org"	
+ <hverkuil+cisco@kernel.org>
+Cc: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+Date: Fri, 14 Aug 2026 10:31:37 -0400
+In-Reply-To: <44d9ec5c5f856b378f745fae8bd60aa4730df044.camel@mediatek.com>
+References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
+		 <20260720012056.1026551-2-kyrie.wu@mediatek.com>
+		 <c3abd49fc12e8cfab6993feb60b361ba07b6fb7d.camel@collabora.com>
+		 <275503aae6ff76a4c186efe665acf996dec9229d.camel@mediatek.com>
+		 <c8ab26c2edfa4ee4fbbb83faf5f54547f252464f.camel@collabora.com>
+	 <44d9ec5c5f856b378f745fae8bd60aa4730df044.camel@mediatek.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-1Pa9FEAnN6BDVnhiPDGq"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+
+
+--=-1Pa9FEAnN6BDVnhiPDGq
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le vendredi 14 ao=C3=BBt 2026 =C3=A0 02:38 +0000, Kyrie Wu (=E5=90=B4=E6=99=
+=97) a =C3=A9crit=C2=A0:
+> On Tue, 2026-08-11 at 16:22 -0400, Nicolas Dufresne wrote:
+> > Hi Kyrie,
+> >=20
+> > Le lundi 10 ao=C3=BBt 2026 =C3=A0 03:05 +0000, Kyrie Wu (=E5=90=B4=E6=
+=99=97) a =C3=A9crit=C2=A0:
+> > > I agree. Since the platform data is introduced in the MT8189 patch
+> > > series, I will move fw_type to the platform data and make
+> > > mtk_vcodec_dec_get_chip_name() derive the chip identifier from it
+> > > in
+> > > the MT8189 series.
+> >=20
+> > I'm not sure I have captured the plan correctly. Would you mind
+> > clarifying ?
+> >=20
+> > Nicolas
+>=20
+> Hi Nicolas,
+>=20
+> Sorry, my previous reply was unclear.
+>=20
+> The platform-data refactoring will be included in the next revision of
+> the MT8189 series. That series depends on the updated MT8196 encoder
+> series, so I need to wait for the new MT8196 encoder revision to be
+> posted before I can rebase and send the updated MT8189 series.
+>=20
+> In the updated MT8189 series, `fw_type` and the chip identifier will be
+> set in the platform data for each compatible, rather than being derived
+> by probing DT properties. Consequently, the DT-property-based selection
+> shown in this patch will be removed.
+>=20
+> I will make this dependency explicit in the cover letter. Sorry again
+> for not explaining the plan clearly.
+
+Thanks, this will be helpful to handle follow-up series.
+
+Nicolas
+
+>=20
+> Best regards,
+> Kyrie
+
+--=-1Pa9FEAnN6BDVnhiPDGq
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-qcom_ipq5018_mdio_pinctrl-v2-1-ff90d6605d61@oss.qualcomm.com>
-References: <20260814-qcom_ipq5018_mdio_pinctrl-v2-0-ff90d6605d61@oss.qualcomm.com>
-In-Reply-To: <20260814-qcom_ipq5018_mdio_pinctrl-v2-0-ff90d6605d61@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Luo Jie <jie.luo@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786717346; l=1659;
- i=jie.luo@oss.qualcomm.com; s=20251128; h=from:subject:message-id;
- bh=5v6E1c1bpUjv6tsevr8SUqv4GilTVaBJ1UqgDQojZPc=;
- b=NTIDu3PxGlGclXFeGGp7FDU3jfos6GzWmtenh6zWKUtPSaGXshaA0f+ULMLGWGq2lqBhTr9ce
- 1C8pJP5YKfBB75sV3fsc9ebv+JVgInKsL4Hpnhtigm34A4moTcXz/Ud
-X-Developer-Key: i=jie.luo@oss.qualcomm.com; a=ed25519;
- pk=gSsYMDakxtd6UDFYDdA9y9yjIs5Etp5GK/3DoXWPyS0=
-X-Authority-Analysis: v=2.4 cv=I+dVgtgg c=1 sm=1 tr=0 ts=6a7f24a5 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=etYmfIWrwypQtZQWCWAA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: m3cOxkOG2rRtc2th41lw0nl9IpDl2xUE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDEwOSBTYWx0ZWRfX6mYWCCjzcK/D
- ckQ3AcRSSVYPIeBRQYCJ6+Ow+qs3EJvfwgvKgwKi5NLluBm5CymxAeqkLo6gh6Y4fX1Mn41sl3S
- mqwIv635oGwVYw4HMy8laMiVsWv/GDpAUg77OoX3xNytA4PoxGO+BO04Uj44JymgXYxrf6OMu2U
- rflWCl0aHZRh0IzEwyl5+/cnOlFjKedypgqLjnlsDxpT/lqvS1Y/dcrvxJ7faZRE2gPNvnJeBpw
- bzOGRR4IAAcJbUCPR/LZ5Q8rd5eFXQ24eqp8Vm3v0l1CW1CW3V0EfsmkNvOKsLEjXi4fqSvcyw2
- M1XSD95Qt1QbxBCEnda/ZIx4ZE2LYcNiXX9GUdezQDbo0+yI/oxP/awr50b0wws33YeIuzVCtP9
- IGo+3Yw3odenzyYNuSufaJs6Gwv2+ng6PQrhOxA8hldpEj6B7HPz6E4cQXACQ1daeBTk/y2emtA
- 203BdDu41j5husijg5A==
-X-Proofpoint-GUID: m3cOxkOG2rRtc2th41lw0nl9IpDl2xUE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDEwOSBTYWx0ZWRfX76cCpP5SLlf9
- KARLFNRbl6Kvrq/eGPvazmd8BAU47S+Ne2k63uB74YBXL3y7C+zc8Wdu9pHGSuHQdi6ksXQwqR8
- hI8M+cARjPbZNsklpZGbudgkSFiXieU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-14_05,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0 adultscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608140109
 
-The external MDIO bus (mdio1) needs its MDC/MDIO lines configured via
-TLMM pinctrl; without this the pins are left in their default state and
-the bus does not function on boards that enable it.
+-----BEGIN PGP SIGNATURE-----
 
-The MDIO pin configuration is identical across all IPQ5018 RDP boards,
-so add it to the shared SoC dtsi.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCan8myQAKCRDZQZRRKWBy
+9AjrAP47W1O0MlybGV5nddQLSeB987/IQrb90AsBaMHCuSPMNwEAqHnDqWue4hCg
+bIF5omk88zNifV9lAU/7JgU1KPCuiAU=
+=bcq9
+-----END PGP SIGNATURE-----
 
-Add a mdio_pins pinctrl state for gpio36 (mdc) and gpio37 (mdio) with
-8mA drive strength and pull-up, and reference it from the mdio1 node
-via pinctrl-0/pinctrl-names.
-
-Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/ipq5018.dtsi | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-index 4fc627b47fe7..cb3e1202b582 100644
---- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-@@ -241,6 +241,8 @@ mdio1: mdio@90000 {
- 			reg = <0x00090000 0x64>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			pinctrl-0 = <&mdio_pins>;
-+			pinctrl-names = "default";
- 
- 			clocks = <&gcc GCC_MDIO1_AHB_CLK>;
- 			clock-names = "gcc_mdio_ahb_clk";
-@@ -421,6 +423,22 @@ tlmm: pinctrl@1000000 {
- 			interrupt-controller;
- 			#interrupt-cells = <2>;
- 
-+			mdio_pins: mdio-state {
-+				mdc-pins {
-+					pins = "gpio36";
-+					function = "mdc";
-+					drive-strength = <8>;
-+					bias-pull-up;
-+				};
-+
-+				mdio-pins {
-+					pins = "gpio37";
-+					function = "mdio";
-+					drive-strength = <8>;
-+					bias-pull-up;
-+				};
-+			};
-+
- 			uart1_pins: uart1-state {
- 				pins = "gpio31", "gpio32", "gpio33", "gpio34";
- 				function = "blsp1_uart1";
-
--- 
-2.43.0
-
+--=-1Pa9FEAnN6BDVnhiPDGq--
