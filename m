@@ -1,77 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CE640B363;
-	Fri, 14 Aug 2026 07:24:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5924837AA77
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:24:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786692249; cv=none; b=KOR79NtSjxFmNyUda8xU01zWsSINE79G0LhaGfT60IILe1Wg/2ev7bTAExiaiTMRw5wPCDM3TiuHtC5E5h9qCTRlwdfifGBStMoMhFCfkT2SL7It3EtJ8tHC4QY+3unEFoRJLa2mmhTxm2Lb/97jM6zLRU3qFt9NX40fh9tmtLU=
+	t=1786692287; cv=none; b=qnQvlm4uHokS+rMqCyaxNvPX/yhtW57RtJD4xcmw2/RgP6MhklqDnyYx8WTw1qOzC7N/j0x3l9XVmeO/Tfk9b2XFo47DDA6xeRHu+RtSZPkTyGGw6xRiznLB0dDKRYLU4CCDga/Au5Q5XXqcgnrpRGDYQeQYKJgjMd5rn/C6vVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786692249; c=relaxed/simple;
-	bh=0ud3Fhh8QpXuD+rWafjvRHSMcCjbiDLtJdgUWL3yBOs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L8IBvToNsPaEAjt/6EeNmJgNv+7pDsmEN0zN49ciaer7nr5e2k+T/X2qjqtW1282LWEPGiT18MfuIU90G2WYPUQJmzrk8vxXpEFkgNmplZ1CsHhkgIsPtTJC6yhp+f5LFm3+fyA3m1emrdSH0WhzjxcXDdTSnZWNe1PC7Av+mNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OW2UT+ez; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786692287; c=relaxed/simple;
+	bh=rdlUChRX55vO9PpflsrwyY/Uty0XIuzlPAZzfWduU2w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jps2J3C1g9ExvbwY4s+JVfWygmaycrVghqwNQdKI6N78W43vhHFKkg512WbZp45J+p93XhLs5qWW+BJIP1nBXeVoc242q9ozQLmq1/pc7rhFc9zzqqhFqA05/Ms9/9QeKPu346WQ2RsarGMmcdljABUQWo57NBaHYkYECTttsN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NdobK5P7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OW2UT+ez"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CFB1F000E9;
-	Fri, 14 Aug 2026 07:23:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NdobK5P7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7581F0155B
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:24:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786692247;
-	bh=GconpR1MA/GTVdeRlXQuN3B3FW4f1/Edi66aRXMV/js=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OW2UT+ezX/SXADFrkSMBWH0MqfiiBO2hMH387sHpi5iyuWtskdx1+aT9ftnn2CuBn
-	 4lvmd7GV3lErJX1ONGq6X92PfwexHdjS1MvjBBYcnhteFynBJULmQpzGf6wUQRf4x5
-	 KYgVdaqNi97cp/Y8VGLHdsaN4sor0FnTp/bh2K0GRGCovZDoCt8/Bpm+FAsEO2Ytsr
-	 /cAEY2pmYnnf87wXTDykVvybhpOJUhU8e3j9FCDH/OaxyGXFW3RYZUNKVsIH8i2auU
-	 pnKvzOuDmFwAKVtUE9ih9mOVHDUl5MdSGWXEYb7K7CJxTWyA8dW8ncL9wJ6+XZB5cD
-	 G30hHC4c5xmgg==
-Date: Fri, 14 Aug 2026 09:23:57 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v4 1/4] dt-bindings: lcdif: Add endpoint bus-width
- property
-Message-ID: <20260814-astute-polite-binturong-1abfe9@quoll>
-References: <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-2-francesco@dolcini.it>
+	s=k20260515; t=1786692285;
+	bh=rdlUChRX55vO9PpflsrwyY/Uty0XIuzlPAZzfWduU2w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NdobK5P7ltwmAODtEn59kDPeamBRluZxJnXO/nVVW+l6uDYRYpOdFpC1Qw4NmYNhd
+	 lRrOvNmFvZznVWctNMIwMF+LwqUWKEBQOpZh7CcfT6aPbL6ytHNBMsqddT3GJhjojm
+	 zwAcHFmsgoCl2aORKVrzGFVEMDl4rkjT2TgD3Y5bhVCLTs+ZBQpXIdasLjuPwBU3Af
+	 Lzka/D50/HRcAcwVAvWN3x129nZIkkJamcngZ0yXeGLRkrjEWcm/C5m5mb87xgl6xJ
+	 fgfXg+Rd4zfrSge6O6pl/r6ptqmZieogAqn2PCAKxN6rJ3kmb73OniseZhETNNYoul
+	 OmUozkBbB2pKg==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5aeb98460c6so530034e87.2
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:24:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq/2lC3L9cY0qU8IgaTELQg15cbLxi72ifzgd0tW3ErZY2WeTt78dwoEieht/JFBmN/Lw3FDFVrBhHg@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmqLvxAalRixFyDFLDBNE8ymEhXFnIc7vYEbs8o3YZWoBHXSfn
+	HWzHH/3McGo1ncnf1iTa2Q8kbpQ0q+Vrs2m0a+WfEw/QpvaMkdVPpdAre4OS1cV1Gn+LQ+qvCFx
+	rAf9OnktuR9PiLZehoD4F1dRLquZ6+8U=
+X-Received: by 2002:a05:6512:3b11:b0:5ae:c636:78 with SMTP id
+ 2adb3069b0e04-5b459194595mr444450e87.53.1786692283880; Fri, 14 Aug 2026
+ 00:24:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260813092836.38367-2-francesco@dolcini.it>
+References: <20260811-apple-m4-initial-devicetrees-v3-0-6bf32d45ad0b@cyberchaos.dev>
+ <20260811-apple-m4-initial-devicetrees-v3-9-6bf32d45ad0b@cyberchaos.dev>
+In-Reply-To: <20260811-apple-m4-initial-devicetrees-v3-9-6bf32d45ad0b@cyberchaos.dev>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 14 Aug 2026 09:24:32 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkRs5m1m3Y3vBfXvxn13i-3cMXhcEWq5ScD-xbN9uta5A@mail.gmail.com>
+X-Gm-Features: AcwNN1U4pSEQhXzI6xw99X3FAIiwxI9oO82g146e3gwAfl2evI9yLHdfuJ1SQuA
+Message-ID: <CAD++jLkRs5m1m3Y3vBfXvxn13i-3cMXhcEWq5ScD-xbN9uta5A@mail.gmail.com>
+Subject: Re: [PATCH v3 9/9] arm64: dts: apple: Add minimal t8132 (M4) device trees
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Hector Martin <marcan@marcan.st>, 
+	Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	Sasha Finkelstein <k@chaosmail.tech>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-pwm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 13, 2026 at 11:28:31AM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> The DPI output of the LCD interface can be configured with a bus width
-> of 16, 18, or 24 bits. Introduce a bus-width property to the output
-> endpoint, specifying the number of parallel RGB bits connected.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> ---
-> v4: use /schemas/graph.yaml#/$defs/port-base
-> v3: use video-interfaces.yaml
-> v2: use the common bus-width property instead of the legacy interface-pix-fmt
-> ---
->  .../devicetree/bindings/display/fsl,lcdif.yaml       | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
+On Tue, Aug 11, 2026 at 9:37=E2=80=AFPM Yureka Lilian <yureka@cyberchaos.de=
+v> wrote:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Added device trees for the following devices:
+> - apple,j604 - MacBook Pro (14-inch, M4, 2024)
+> - apple,j623 - iMac (24-inch, 2x USB-C, M4, 2024)
+> - apple,j624 - iMac (24-inch, 4x USB-C, M4, 2024)
+> - apple,j713 - MacBook Air (13-inch, M4, 2025)
+> - apple,j715 - MacBook Air (15-inch, M4, 2025)
+> - apple,j773g - Mac mini (M4, 2024)
+>
+> The device trees have a minimal set of devices limited to CPU cores,
+> interrupt controller, power states, watchdog, serial, pin controller,
+> i2c and framebuffer.
+> The device trees for the notebooks add a PWM controller for the keyboard
+> LED illumination.
+>
+> Using the macOS 26.6 iBoot/firmware, the Mac mini reliably boots on a
+> single core using the stock kernel.
+> Booting with smp requires avoiding the wfi and wfit instructions
+> in the idle loop and `delay()` respectively, since those instructions
+> cause a loss of architectural state on the secondary cores, and even
+> then boot is unreliable.
+>
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 
-Best regards,
-Krzysztof
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
+Yours,
+Linus Walleij
