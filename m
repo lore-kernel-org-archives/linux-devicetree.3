@@ -1,89 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFEF40B6F9;
-	Fri, 14 Aug 2026 07:25:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7A840DB2A
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:25:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786692344; cv=none; b=BNkg7KsFkZGZ0DTPfdIQtMHZzfE7s7UK8s4vLewWoPsOUwVR6SiI3wigSOZsrryBOS1vcUuFDXv+6zAVVqyebe5A6M065twXwoOotMWm8HNoGBQgxWWtY05IalHrXbwmHmr+6Hy1k6zaeCXvHsGlXf3A0ZQEhWO0fyRnAjYeoqU=
+	t=1786692355; cv=none; b=pCxc7wihrGCX3czGssiivA91d9yH1hc1JT7kCAoms360r3hL0jhK+UexK0BMwAtABkGAUjnpbpUqEOu0LgjSENIhBs8Q8ZMnFvP0SCfpHMBKLvX78giF4S0hwFI6qvz6LD067jvNwfzWTGYJLF6Q49popTxineSFE4PHMGHgjng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786692344; c=relaxed/simple;
-	bh=tNYJ2eWxwWvEE362MGFf/Mrb4qNC3D5AtCyhgqAjtb4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SXsZ0J1g/SczUOQcCy7AnqHIkmwBFp98ftAntVtPRJC2kfnE3g3ZdtI805lradbJdNH/InBSMFPj6Tu+daSJonf52kMfbmDYxViW2C4KpR1BEsrL0HUAW1h2AodC1J4/hYl05p360EmSkAVix4BKPdjgETsKfmZFgv+aJhc/oJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhwsSZJx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786692355; c=relaxed/simple;
+	bh=1GrAZMcm1LPXjU+/Qsg9/1FMvUYDa+8Y1O9nxVVer9g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S1PXSb2bEBR4VGu2mQv5N4xVBLhojv9IQsPUin80Kkkc/LWpFquPlpTHi0t7YkJYnzXuCjNm5cjkae4XvVfxo/PkcEMkEv8sH2GovTOSnPmxUsxbF1eS+Zozan/B2gWEAaQmdTN1ov2SpMlVWMWRRUZJzjM9/yfWXaBQW41fc4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YBucVLV8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhwsSZJx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A561F000E9;
-	Fri, 14 Aug 2026 07:25:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YBucVLV8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2AD91F00A3A
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:25:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786692342;
-	bh=Hdl9rrAdXNWCw5d2q0AKYUQBWJKl/0rkGZZe7p4rSzQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lhwsSZJxnx9ISsXprAZbl28KzDibDsmlOm/c0FD19Ul7XyJwEvcxiVg66nsJkXkgP
-	 dt1yleTWqE4S0AFtkCAM5ZCGMfDrGbMgOAsP9GegEB5BDmLwlhlZde301oztBkcdwg
-	 lz5Bj84YX72rXnmqWrV2fl4XEnbZZuwPWtGmcAH9coJ0nnL/ejI91SwxRe1gl1bfgV
-	 sTTZepONsp91rNQVJ0cJmF400Z+PlMSsQDYZ3nrr1/XEMPVkUxjeDC1bvCEuIJKUwx
-	 e0KWBrCb+aDS+Q07IpwUeVsZ6/PrPYXq2INRHHqBaJt5wI7z7wPh6mriAg9isPurNu
-	 kjb5XL1gx0RUQ==
-Date: Fri, 14 Aug 2026 09:25:33 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-Cc: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Frank Li <Frank.Li@nxp.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Stefan Agner <stefan@agner.ch>, Fabio Estevam <festevam@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Francesco Dolcini <francesco@dolcini.it>, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: Re: [PATCH v4 3/4] dt-bindings: arm: fsl: add the Colibri VF50 and
- VF61 on Iris
-Message-ID: <20260814-slick-brilliant-termite-72c754@quoll>
-References: <20260813161101.2274327-1-mehmet.fide@gmail.com>
- <20260813161101.2274327-4-mehmet.fide@gmail.com>
+	s=k20260515; t=1786692353;
+	bh=zjWapYZHdMgxtzEvLQ2Ffr/6FRwRhpZGjvbVIfTls9w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YBucVLV8nNOmJxz6sXoRqisDNRAiPDkVfy5N5miqpCJyoRpBJ63CVWJyu0iDKRo9C
+	 djj2iKNa4SHNljMpvMFxolyBrQYAfP1wJMJqFt6XRQeFifeRg7ohA/7Qy4sUWT1LvM
+	 9D0QGsRGs7trv0J1di8tO+c04y6+8VAYISDsqpR6GIo2S/UmM9y1GLbl3zPV3vasGC
+	 cTFj7p77B5D3phnxOXvsoZbDAzH4fffl2xDjlksD/GP+nLwpiRjvn1FRmgY+YRwmVR
+	 IxJ6FhteB3dhMMzvYdzPhbtdo/SXQ39k8P3A0KHzHHugLJi+KVXRui3yNn6u1SGwR1
+	 sODHmDJQNqqJA==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b01146b205so482351e87.2
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:25:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RotxlAxkElMVwMy7UIA1s6SZPZhGfeZcxsVxuDOr3G4d0dWyIpc+YWQtn54aYEKwFnO5c//fka/5Sg6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyru5YiFOyXkoBDEwog2UL9MUW+d5l1+nhNgLA3gBkBKBt6Lka4
+	o/qQP/xdgSKUMx5oWbW0nk7sfo3ZwqPIsesRyxbOCZNWnjE/BOYYg9ehoCmm4sV+1z27Xl3diFn
+	U5+om4GdMN0tXg91C6CaKGlHRGiC0qAQ=
+X-Received: by 2002:a05:6512:8348:b0:5b0:2176:69f6 with SMTP id
+ 2adb3069b0e04-5b459184b7emr258626e87.37.1786692351807; Fri, 14 Aug 2026
+ 00:25:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260813161101.2274327-4-mehmet.fide@gmail.com>
+References: <cover.1785838584.git.mazziesaccount@gmail.com> <838486b443af9188410d8b802a818dc0af20ea9d.1785838585.git.mazziesaccount@gmail.com>
+In-Reply-To: <838486b443af9188410d8b802a818dc0af20ea9d.1785838585.git.mazziesaccount@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 14 Aug 2026 09:25:40 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=mhchM2L84Dt3myY26cx=ZA4cUr-d6qjqNrw6V=7aPug@mail.gmail.com>
+X-Gm-Features: AcwNN1U780XpZGwhxDiNYxBOxKNu9WP_wvZzUmCrRyQzMpwkyf9iHdEMZlasOC4
+Message-ID: <CAD++jL=mhchM2L84Dt3myY26cx=ZA4cUr-d6qjqNrw6V=7aPug@mail.gmail.com>
+Subject: Re: [PATCH v2 01/10] dt-bindings: mfd: common ROHM PMIC properties
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
+	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-rtc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 13, 2026 at 06:11:00PM +0200, Mehmet Fide wrote:
-> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
-> 
-> The Iris is a small off-the-shelf carrier board for the Colibri
-> family. Extend the evaluation board entries with the compatibles for
-> a Colibri VF50 or VF61 sitting on it.
-> 
-> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
+On Tue, Aug 4, 2026 at 12:20=E2=80=AFPM Matti Vaittinen
+<matti.vaittinen@linux.dev> wrote:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>
+> ROHM PMICs keep having similar functionalities from one generation to the
+> next. Keeping the device-trees describing these functionalities similar
+> helps users because:
+>   1. They can re-use existing device-tree properties when switching from
+>      one project, using a ROHM PMIC, to next project using newer
+>      variant.
+>   2. The users can find and re-use examples from old projects - even if
+>      they never worked with ROHM PMICs before.
+> Similarly, introducing new and different properties for same
+> functionality previous variant had, will be adding confusion.
+>
+> Sometimes the existing properties aren't 100% what reviewers would
+> prefer. When issues are minor or just cosmetic, changing the existing
+> properties is not feasible. Reviewers can't be expected to know which
+> properties are new, and which are existing - and this can lead to
+> unnecessary review discussion wasting time and energy from everyone.
+>
+> Adding a common file for re-used ROHM PMIC properties should make it
+> clearly visible that a property is re-used, when a new PMIC binding
+> refers to this file instead of (re-)describing all the existing
+> bindings. This will also help keeping the common properties identical
+> across the variants.
+>
+> Add new file listing commonly used ROHM PMIC properties.
+>
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
 
-<form letter>
-This is an automated instruction, just in case, because many review
-tags are being ignored. If you know the process, just skip it entirely
-(please do not feel offended by me posting it here - no bad intentions
-intended, no patronizing, I just want to avoid wasted efforts). If you
-do not know the process, here is a short explanation:
+DT maintainers think it's fine in two patches so:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions of patchset, under or above your Signed-off-by tag, unless
-patch changed significantly (e.g. new properties added to the DT
-bindings). Tag is "received", when provided in a message replied to you
-on the mailing list. Tools like b4 can help here ('b4 trailers -u ...').
-However, there's no need to repost patches *only* to add the tags. The
-upstream maintainer will do that for tags received on the version they
-apply.
-
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/process/submitting-patches.rst#L591
-</form letter>
-
-Best regards,
-Krzysztof
-
+Yours,
+Linus Walleij
