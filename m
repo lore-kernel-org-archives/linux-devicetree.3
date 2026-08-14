@@ -1,198 +1,184 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD6D25B098
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 05:59:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF0634CFAB
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 06:12:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786687168; cv=none; b=iW7wkcVflQ5UUgtWMq49zMa/RyzF9E6szsQnE2HqjgB9uFFw7slW3z7xf+yBN0FVKCs079BnFfjWntTMGOWRSCTcQz5/QpI8NwO0Q1d95MrPQkeCb1p048BWlz/V0pPq7q8tLwkW2Z4ektrbMxClTtJauVmc5YVI+fIK18ORAb0=
+	t=1786687942; cv=none; b=l+NtlO8srwgwK8kwuVxp6hmvCBHwbWYQhfqR+rV9+Lf2Qt9RtgahgRPtmbMAs3fMUmj7vasX2tU7YXUvP43/G6CAkoTGA10vWzWqeddFVjM/cNawhbNLMobyHACBqGJupsagOVZMEWS/JryKkaWCo/NAbyHM/hDfuJqrNX6ga50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786687168; c=relaxed/simple;
-	bh=hQwiKBNLanvcgm8kUX9QuAe1qNuEcQTlUI8O1dOVl2Y=;
+	s=arc-20240116; t=1786687942; c=relaxed/simple;
+	bh=10Kv2FmJUnjrrO2pajAEBNT0DNrUDPOaOU1/K3fMwlA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HZsGkARS9r3xGG6FjCdKV7pjBXrE4BHR8LEuc40BXVd5R2r7xityVR4Raq/IP8Nrwf/5LY+L/Pjk2t37wyLD/omRKy73zzXmOuO8iHkTo6itdtN5dmJ4DiEx/3d18+bDc0tc74XDrVBqiL99uGCO1xJY6VrMoEh0yOlwU9f2cHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AU5vPqVB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sS8l82b3L3iJyvupxJTJwLG4U0N5k/90QZPr4xyY73Dm7a0OSGadOPJUZeGTIGa8zverhnG2cEEL4qKhAcMwTjOxsVmAKPwYLcqz4GbkXbQ7EL2E/SvLnC8Cb59vf8cx5m4NU9PgzbEn5mIgi//J1NYbE5ROXYZGA2bu6pUUBkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k0Ngs/3y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AU5vPqVB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C847E1F000E9;
-	Fri, 14 Aug 2026 05:59:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k0Ngs/3y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A8541F00A3A;
+	Fri, 14 Aug 2026 06:12:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786687167;
-	bh=dwYkajfXVsc/lluqOH69OJDf3Dzy05FDpzrJUVIwxlg=;
+	s=k20260515; t=1786687940;
+	bh=0QGhHeW9YcqLHztoxW0E6BfBeGTn/wrVNhcdEL0Ua7M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AU5vPqVB1o8G4Ar/rE9VMSoJZXr5CKk/CTForunfOi9ErpVzyLkcghmJoEr4y4iTR
-	 0BZWfEe7YhBrh/2xI2ZWNyHN2skJHE5GQqFhsAALcgB2IH/aQT8cY2jl6PmW4l8kjt
-	 B4nszCBMbEGtsbrK8Y8gbIcBMHgDZhR1h6gmjyl/eUHDXKbW+GAYTJKMHrRhxLrXOJ
-	 dfM1HtDsAOCmYmxYcU6t0pOEWNjkAixuriyheCELzhNtis3eG69OTEUNc5R5yq3Cg8
-	 Os5cQjbhMelS2d4brBmagfgCxdmieFmBNg7YJ+6IiKHju4o+AxQqVwwABtD2llp6O+
-	 Sja0suslWp7gA==
+	b=k0Ngs/3yTE6GZSGPhauxuCzhoYh4VfapjNAbSzOsx81lK1fOQEiipzblYlHdnwtLN
+	 gQH4Ga0tdL2CB5ymqC7l23rQF0OY0V/fJnqvPlLfRU+OBuVv5z1c1UE2MQEM0G7Qis
+	 dClOio56R832WXNV9gmf6qBonMg6LkQDwJLqWffo840q9aUxxp750cqcE6pTt5vDFK
+	 dqYLflwtFjjkuQZov20b0+Q69aecove1Pm4lV7oxYiOkWWFYw9SxTRuV02EFWQ/5P9
+	 sSgeadDO1/NA6LEduXuYNL6Rftcnd+AuM+ny9nmFXsOJs9+7UVKGAIgKclA5JT5ktE
+	 MUeV5Y0agpgCQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 32/38] usb: dwc3: rockchip: fix USB-C reconnect in
- gadget mode
+Subject: Re: [PATCH v14 33/38] phy: rockchip: usbdp: Add phy reset
+ notification support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-32-b5ad9c68fa11@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com
+In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-33-b5ad9c68fa11@collabora.com>
 References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-32-b5ad9c68fa11@collabora.com>
+ <20260813-rockchip-usbdp-cleanup-v14-33-b5ad9c68fa11@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 05:59:26 +0000
-Message-Id: <20260814055926.C847E1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 06:12:16 +0000
+Message-Id: <20260814061217.3A8541F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Checking !dwc->gadget_driver in dwc3_rockchip_vbus_handler breaks =
-the UDC core's VBUS state tracking, defeating the patch's intended PM resum=
-e logic.
-- [High] TOCTOU race in dwc3_rockchip_vbus_handler leading to Use-After-Fre=
-e of gadget and UDC structures.
-
-Pre-existing issues:
-- [High] Using asynchronous pm_runtime_put_autosuspend() in the device remo=
-val path introduces race conditions.
-- [High] Mishandling of -EINVAL from pm_runtime_get_if_active() causes PM u=
-sage count underflow and unsafe MMIO access without clocks.
+- [High] Unbalanced PM runtime reference decrement in the DWC3 PHY reset no=
+tifier due to mishandling of `-EINVAL`.
+- [High] The PHY reset notification handler in the DWC3 Rockchip driver acc=
+esses `dwc->gadget` without adequate synchronization, leading to a potentia=
+l Use-After-Free during a concurrent USB role switch.
+- [Medium] The return value of `phy_notify_reset(..., PHY_NOTIFY_PRE_RESET)=
+` is ignored in `rk_udphy_power_on()`, potentially forcing a hardware reset=
+ even if a consumer rejects the request.
 --
 
---- Patch [32]: [PATCH v14 32/38] usb: dwc3: rockchip: fix USB-C reconnect =
-in gadget mode ---
-commit 9dbfd69b985e240b0787670a034f6b9c37a180d0
+--- Patch [33]: [PATCH v14 33/38] phy: rockchip: usbdp: Add phy reset notif=
+ication support ---
+commit 101376e3124c8975c12127c9a52db0a5300092c4
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: phy: rockchip: usbdp: Add phy reset notification support
 
-usb: dwc3: rockchip: fix USB-C reconnect in gadget mode
+To resolve issues with running into permanent cmn ana lcpll lock timeout
+errors after a few device replugs, this commit adds support for reset
+notifications. These notifications will be handled by the DWC3 driver to
+gracefully handle the PHY being disabled. This avoids corrupting the
+controller's internal state.
 
-When USB-C is configured in gadget mode and the cable is unplugged the
-USB controller is suspended. This patch triggers a runtime PM resume
-when the role is changed to fix an issue where the controller stays
-suspended and the port status remains not-attached after reconnecting.
-
-> diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-roc=
-kchip.c
-> index 9e91e5f7e53d6..246d7dcafc68f 100644
-> --- a/drivers/usb/dwc3/dwc3-rockchip.c
-> +++ b/drivers/usb/dwc3/dwc3-rockchip.c
-> @@ -25,8 +25,17 @@ struct dwc3_rockchip {
->  	struct dwc3		dwc;
->  	struct dwc3_rk_phy_nb	usb3_phy_nb[DWC3_USB3_MAX_PORTS];
->  	u8			phy_reset_active;
-> +	enum usb_role		role;
->  };
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> index 59b836a3796ce..21f282216aef7 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> @@ -1005,24 +1005,39 @@ static int rk_udphy_power_on(struct rk_udphy *udp=
+hy, u8 mode)
+>  	}
 > =20
-> +static void dwc3_rockchip_vbus_handler(struct dwc3 *dwc, bool present)
-> +{
-> +	if (!dwc->gadget || !dwc->gadget_driver)
-> +		return;
+>  	if (udphy->status =3D=3D UDPHY_MODE_NONE) {
+> +		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_PRE_RESET);
+> +
+
+[Severity: Medium]
+Is it intentional to ignore the return value of phy_notify_reset() here?
+
+In rk_udphy_update_power_state() the return value is checked and propagated,
+but here the reset proceeds even if a consumer rejects the request. Can this
+force a hardware reset when the consumer is unready, risking state corrupti=
+on?
+
 
 [Severity: High]
-Does this early return break the UDC core's VBUS state tracking when a gadg=
-et
-driver is not yet bound?
+Does triggering this notification expose a PM runtime usage counter underfl=
+ow
+in the DWC3 driver?
 
-If the system boots with the cable unplugged and no gadget driver is loaded,
-this returns early and drops the unplug event. The UDC core's udc->vbus wou=
-ld
-remain true.
+If the PHY mode change triggers a PRE_RESET notification while runtime PM is
+disabled for the device:
 
-When the gadget driver is later loaded, this true state would cause a
-premature pullup that wakes the device but then lets it autosuspend. When t=
+drivers/usb/dwc3/dwc3-rockchip.c:dwc3_usb3_phy_notify() {
+    ...
+    ret =3D pm_runtime_get_if_active(dwc->dev);
+    if (!ret)
+        return NOTIFY_OK;
+    ...
+}
+
+The pm_runtime_get_if_active() call returns -EINVAL if PM is disabled. Beca=
+use
+this is non-zero, the driver bypasses the !ret check without incrementing t=
 he
-cable is actually plugged in later, the UDC core might see the state hasn't
-changed and skip the pullup, meaning the device never receives the PM resume
-needed to detect the connection.
+usage count.
+
+However, during POST_RESET, it unconditionally calls:
+
+    pm_runtime_put_autosuspend(dwc->dev);
+
+Will this internally force a decrement of the usage count and cause an
+underflow?
+
 
 [Severity: High]
-Can this lead to a use-after-free of the gadget and UDC structures?
+Does triggering this notification also expose a potential use-after-free in=
+ the
+DWC3 driver during a concurrent USB role switch?
 
-This function is called locklessly from the asynchronous PHY notifier
-dwc3_usb3_phy_notify(). If a concurrent role switch occurs (like DEVICE to
-HOST), dwc3_gadget_exit() could be freeing the gadget structure under
-dwc->mutex:
+When the POST_RESET notification is handled, dwc3_usb3_phy_notify() drops
+the lock and calls dwc3_rockchip_vbus_handler():
 
-dwc3_rockchip_vbus_handler()
+drivers/usb/dwc3/dwc3-rockchip.c:dwc3_usb3_phy_notify() {
+    ...
+    spin_unlock_irqrestore(&dwc->lock, flags);
+    dwc3_rockchip_vbus_handler(dwc, dwc_rk->role =3D=3D USB_ROLE_DEVICE);
+    ...
+}
+
+Inside dwc3_rockchip_vbus_handler():
+
     if (!dwc->gadget || !dwc->gadget_driver)
+        return;
 
-Concurrent dwc3_gadget_exit()
-    usb_put_gadget() -> kfree(gadget)
+    usb_udc_vbus_handler(dwc->gadget, present);
 
-Would this result in the notifier dereferencing a freed gadget pointer when
-it calls usb_udc_vbus_handler() below?
+Since this runs asynchronously, a concurrent USB role switch to host mode
+could trigger dwc3_gadget_exit(), which unregisters and frees dwc->gadget.
 
+Is there a time-of-check to time-of-use window between the NULL check and t=
+he
+dereference of dwc->gadget?
+
+> +		rk_udphy_u3_port_disable(udphy, true);
+> +		udelay(10);
 > +
-> +	usb_udc_vbus_handler(dwc->gadget, present);
-> +}
+>  		ret =3D rk_udphy_setup(udphy);
+> -		if (ret)
+> +		if (ret) {
+> +			phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_POST_RESET);
+>  			return ret;
+> +		}
+> =20
+>  		if (!udphy->hs && udphy->mode & UDPHY_MODE_USB)
+>  			rk_udphy_u3_port_disable(udphy, false);
+>  		udphy->phy_needs_reinit =3D false;
+> +
+> +		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_POST_RESET);
+>  	} else if (udphy->phy_needs_reinit) {
+> +		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_PRE_RESET);
 > +
 
-[ ... ]
+[Severity: Medium]
+Similarly here, the return value of phy_notify_reset() for PHY_NOTIFY_PRE_R=
+ESET
+is ignored before proceeding with the hardware reset. Should it be checked?
 
-> @@ -57,6 +66,8 @@ static int dwc3_usb3_phy_notify(struct notifier_block *=
-nb,
->  		if (!ret)
->  			return NOTIFY_OK;
-
-[Severity: High]
-This is a pre-existing issue, but does this check properly handle the
--EINVAL return from pm_runtime_get_if_active()?
-
-pm_runtime_get_if_active() returns -EINVAL when runtime PM is disabled.
-By checking if (!ret), the -EINVAL case falls through and allows the code
-to proceed. This can cause unsafe MMIO access without clocks.
-
-Additionally, in the PHY_NOTIFY_POST_RESET case, pm_runtime_put_autosuspend=
-()
-is called unconditionally:
-
-dwc3_usb3_phy_notify() {
-    ...
-    case PHY_NOTIFY_POST_RESET:
-        ...
-        pm_runtime_put_autosuspend(dwc->dev);
-        break;
-}
-
-Since pm_runtime_put_autosuspend() calls rpm_drop_usage_count(), this would
-decrement the usage count and cause an underflow if the corresponding get
-failed with -EINVAL.
-
-> +		dwc3_rockchip_vbus_handler(dwc, false);
+> +		rk_udphy_u3_port_disable(udphy, true);
+> +		udelay(10);
 > +
->  		/*
->  		 * Assert USB3 PHY soft reset within DWC3 before the external
-
-[ ... ]
-
-> @@ -130,7 +144,16 @@ static int dwc3_rk_phy_register_notifiers(struct dwc=
-3 *dwc)
->  	return devm_add_action_or_reset(dwc->dev, dwc3_rk_phy_unregister_notifi=
-ers, dwc_rk);
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the cleanup function
-dwc3_rk_phy_unregister_notifiers() safely handle device removal?
-
-The cleanup function executes during devres teardown:
-
-dwc3_rk_phy_unregister_notifiers() {
-    ...
-    for (i =3D 0; i < dwc->num_usb3_ports; i++) {
-        if (dwc_rk->phy_reset_active & BIT(i))
-            pm_runtime_put_autosuspend(dwc->dev);
-    }
-}
-
-Since this runs during device removal, the asynchronous suspend could fire
-after device memory is freed or during bus teardown. Should this use
-pm_runtime_put_sync() instead to ensure hardware is in the correct state
-before removal completes?
+>  		ret =3D rk_udphy_init(udphy);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-rockchip-u=
-sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D32
+sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D33
