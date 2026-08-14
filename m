@@ -1,125 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4528B361DAE;
-	Fri, 14 Aug 2026 01:44:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE972F7EF6;
+	Fri, 14 Aug 2026 01:45:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786671878; cv=none; b=P6seiuQDmxMCB2sJKXlr48MzTiuQOaVEBDS7c/+k7qElauo9KO4Vu5slvxrfPE9KEzc5CrrJa6sQ6qCGxY81NR17fCsW2iSh4JbnBjsqZ/nE7xfWB+n+WpUoNYHUqRYtwM5yGN5E74kvwUCRAaF53pyBn6HXL48tte4wp/wMQr4=
+	t=1786671915; cv=none; b=RicYtrnJubfbsVXK0VHCTOQ+d2KB8yuII8AzT0jmo0mWybRNoprOUNtQ61AjMW3mvdqhOTKi0uPMtxuOSDQOzvePWln1ny4vm+3vbr5m8Ru+xOcRiBPwVJEErHW/rzGES1hzdxkOs2WxpmBmO1V+bBYkFsKZVrA+cqmsMn+aLik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786671878; c=relaxed/simple;
-	bh=v59VheVSCt+jH3mp1k0ic2aNX/TxxMJXT0fA8lUuw+8=;
+	s=arc-20240116; t=1786671915; c=relaxed/simple;
+	bh=eAFigvV+VC6GKm+rhwyN+U8sCZSgz2fT1o0C1cCTKP4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QqR6mY+k4M+9ndBDwTGL4RwqeS0evTkh4eFSpGJ6j2ok2BFmZIZojm9KTVZIuZ1B78Bp1oeROqnFatTZ1A38zVcwpcJ9MUSZRJwnv958QFV4J+x0OxT6JK/ouQ5D0aEf3d3fnCDkS1SYwpD7htd49FRSnFsSpNYf4lySTRAPNa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b8SSVybs; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=csvkGWDJbypsIT3SaT/9ywPrZdyblByLqxvMx+A3cOdUwoaUAjdiSo8MliIZSPwXZl20HKP8OmO1I5wBX3oI+mqIkxFLL25CJPbtMA5P55diVaxmVfRpypjYHzO0alD6eWfSvDt5V+6mZjEZ8eg81qfIqyZmkP/FL2M5Q8U3VF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVZ7feW7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b8SSVybs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D8C1F000E9;
-	Fri, 14 Aug 2026 01:44:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVZ7feW7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF1A1F000E9;
+	Fri, 14 Aug 2026 01:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786671876;
-	bh=Z5x8Ib9GQfE7DxkYErfqFDplZ5qD9IHtBho26SZXAOE=;
+	s=k20260515; t=1786671913;
+	bh=dLrWIY4rV/mBdgkmGy2NuZDTPYuQHCcbEI84bWaPAe4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b8SSVybscKf63zH5aVqcEno/trNTvry2tPzYAtsvIjsPmlt5/yq97KIsZi/1ExyeR
-	 k7PY3GYQu7Z+F/7I6qeEan0lCveYGuOzFWZP+UmAeU/JhR/ODerKg4Vo+iHzc1nTR+
-	 UPjHp2kn+PCXguHRqSygQQhroBF1r6jCKJitUNEcyqx9vEwL/gzHbI7WSYu4hDc1gZ
-	 OzGenticG5lN235jA0TNjAXNMZBTuAdyW1DhXXdPv0c1SX/FgbCSme2q8frVhUSOUd
-	 eqk9UGUZingSbJjKUpcmoPijZ+QIBaRKCDphCE1MZIsV5426C4LUTJDJX+6+sNiLwY
-	 R0KZtvhIlqTEw==
+	b=WVZ7feW7D1hscC3uqbQvXVuoUUVQZCnXE0nXw5p0hgMe8FN2EDL86ZTbZ+68WmIV2
+	 KcygSyVwuPC+2+g7IWVaNcquwZAgNusW2Mu5DB0faJn13RiGyQcDNCnRCYy4RQoATC
+	 Iem4Jq0AAvimENud/njmhGSDiM369Fma+CXhovS5NE7WYZY7qoDJmcCPU4GnBydn9P
+	 mrX07rXqPJZt9I1EgLVSBi5LZgi9q+zo5+CwLQ27lZ/hTSK5TVIJqN7yaqz6FvLtru
+	 P00YLGbamE2PFH8SA6KXJixN+55J2d1N9wgInZ70ZEeTtJXAOldDSJ3aOMPKdsU4iP
+	 OXiX3ernRd13g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/9] rtc: abx80x: add irq to struct abx80x_priv
+Subject: Re: [PATCH 1/2] dt-bindings: misc: introduce pci1179,0220.yaml
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoni Pokusinski" <apokusinski01@gmail.com>
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org
-In-Reply-To: <20260810193826.210683-6-apokusinski01@gmail.com>
-References: <20260810193826.210683-1-apokusinski01@gmail.com>
- <20260810193826.210683-6-apokusinski01@gmail.com>
+To: "Alex Elder" <elder@riscstar.com>
+Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260813222943.1655453-2-elder@riscstar.com>
+References: <20260813222943.1655453-1-elder@riscstar.com>
+ <20260813222943.1655453-2-elder@riscstar.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 01:44:36 +0000
-Message-Id: <20260814014436.82D8C1F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 01:45:12 +0000
+Message-Id: <20260814014513.5CF1A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Short reads from I2C block transfers leave stack buffers partially=
- uninitialized, leading to a kernel information leak.
+- [Low] The example DT nodes map multiple PCI BARs to the exact same parent=
+ physical address, and define unused BARs that contradict the hardware diag=
+ram.
+- [Low] Typographical error in the compatible string comment.
 --
 
---- Patch [5]: [PATCH v4 5/9] rtc: abx80x: add irq to struct abx80x_priv ---
-commit efc6d887b1cb64fa6fee7b2ea258d8477f65792a
-Author: Antoni Pokusinski <apokusinski01@gmail.com>
+--- Patch [1]: [PATCH 1/2] dt-bindings: misc: introduce pci1179,0220.yaml -=
+--
+commit ee5f64080011b047dd81e1bbdc568f784c09b77f
+Author: Alex Elder <elder@riscstar.com>
 
-rtc: abx80x: add irq to struct abx80x_priv
-   =20
-This way the irq number is not tied to the i2c_client and can be
-easily accessed also in the case of ABX81X SPI clocks.
+dt-bindings: misc: introduce pci1179,0220.yaml
 
-> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> index 485d1ea08030d..12a4dbfec6396 100644
-> --- a/drivers/rtc/rtc-abx80x.c
-> +++ b/drivers/rtc/rtc-abx80x.c
+Define the binding for the Toshiba TC9564 PCI endpoint function device.
+The third downstream PCIe switch port within this chip has an embedded
+PCIe controller, and that implements two of these PCIe functions.
+
+> diff --git a/Documentation/devicetree/bindings/misc/pci1179,0220.yaml b/D=
+ocumentation/devicetree/bindings/misc/pci1179,0220.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/misc/pci1179,0220.yaml
 [ ... ]
-> @@ -305,11 +306,12 @@ static irqreturn_t abx80x_handle_irq(int irq, void =
-*dev_id)
->  static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
->  {
->  	struct i2c_client *client =3D to_i2c_client(dev);
-> +	struct abx80x_priv *priv =3D i2c_get_clientdata(client);
->  	unsigned char buf[7];
-> =20
->  	int irq_mask, err;
-> =20
-> -	if (client->irq <=3D 0)
-> +	if (priv->irq <=3D 0)
->  		return -EINVAL;
-> =20
->  	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
+> +properties:
+> +  compatible:
+> +    const: pci1179,0220 # Toshiba TC96564 (a.k.a. Qualcomm QPS615)
 
-[Severity: High]
-Does the error check following this read adequately handle short reads?
+[Severity: Low]
+This isn't a bug, but there's a typo in this comment. It says TC96564 inste=
+ad
+of TC9564.
 
-Because i2c_smbus_read_i2c_block_data() returns the number of bytes read on
-success, a short read will return a positive value less than sizeof(buf).
-With the error check changed to if (err < 0) in this patch series, it fails
-to catch short reads.
+[ ... ]
+> +        pci@0,0 {
+> +            compatible =3D "pci1179,0220";
+> +            reg =3D <0x0 0x0 0x0 0x0 0x0>;
+> +            #address-cells =3D <3>;
+> +            #size-cells =3D <2>;
+> +            /* Ranges will be updated dynamically */
+> +            ranges =3D <0x0 0x0 0x0  0x83000000 0x0 0x0  0x0 0x4000>,
+> +                     <0x2 0x0 0x0  0x83000000 0x0 0x0  0x0 0x80000>,
+> +                     <0x4 0x0 0x0  0x83000000 0x0 0x0  0x0 0x200000>;
 
-This bypasses the check and leaves the stack-allocated buf partially
-uninitialized. When this uninitialized memory is parsed and eventually expo=
-sed
-to userspace via RTC ioctls, it introduces a kernel information leak.
+[Severity: Low]
+Are these example ranges accurate for the hardware? The mappings configure
+BAR 0, BAR 2, and BAR 4 to use the identical parent physical address=20
+(0x83000000), which would result in overlapping memory regions.
 
-This is a pre-existing issue in other functions as well, but I wanted to
-point it out since it affects this code path now:
+Additionally, the hardware diagram in the binding description indicates
+BAR 2 is not present, but it is configured in this example.
 
-drivers/rtc/rtc-abx80x.c:abx80x_rtc_read_time() {
-    ...
-	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_HTH,
-					    sizeof(buf), buf);
-	if (err < 0) {
-		dev_err(&client->dev, "Unable to read date\n");
-		return -EIO;
-	}
-    ...
-}
+[ ... ]
+> +        pci@0,1 {
+> +            compatible =3D "pci1179,0220";
+> +            reg =3D <0x100 0x0 0x0 0x0 0x0>;
+> +            #address-cells =3D <3>;
+> +            #size-cells =3D <2>;
+> +            /* Ranges will be updated dynamically */
+> +            ranges =3D <0x0 0x0 0x0  0x83000100 0x0 0x0  0x0 0x4000>,
+> +                     <0x2 0x0 0x0  0x83000100 0x0 0x0  0x0 0x80000>,
+> +                     <0x4 0x0 0x0  0x83000100 0x0 0x0  0x0 0x200000>;
 
-and:
+[Severity: Low]
+Do these ranges match the hardware design for Function 1? The example maps
+BAR 0 and BAR 2 here, but the hardware diagram indicates Function 1 only
+uses BAR 4.
 
-drivers/rtc/rtc-abx80x.c:abx80x_probe() {
-    ...
-	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ID0,
-					    sizeof(buf), buf);
-	if (err < 0) {
-		dev_err(&client->dev, "Unable to read partnumber\n");
-		return -EIO;
-	}
-    ...
-}
+These mappings also map to the same parent physical address (0x83000100),
+causing overlapping memory regions similar to the previous node.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810193826.2106=
-83-1-apokusinski01@gmail.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813222943.1655=
+453-1-elder@riscstar.com?part=3D1
