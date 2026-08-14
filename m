@@ -1,223 +1,155 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08552836F;
-	Fri, 14 Aug 2026 12:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06C74657C0
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 12:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786708906; cv=none; b=bMRmgaws/4koUYbFW8kkhnoP8EWIQcJHU6UjXHE3uwDF+3XCz5oPJuZagZ5IhByDyKHD/F1A3ef4Dc7A0JOZZlypXSRoYRIRBfPj19xG2GVOSUGPLq2OyjiWNUCV+fm0pEMwpgPYg/xINJTGhMbor64v/HoVyudECh2mGfSAFaQ=
+	t=1786709128; cv=none; b=uZRpbIFSCiXjyEki7cZufIms4oxvP/zCs/fP0NL70LpAx7m9RI6Jf29k1hmlZk8POtyqBENC+p1+30noCNpqYEvOPAiN9IK5gegeoW+kWpm6qTf0s3MYbqcOK4W8ys2+/X4jLH/9n6xeNinrdkAvgvKbjNGSRhCv+U/hO+2uuuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786708906; c=relaxed/simple;
-	bh=LsZ1ffheV4O7q3moUGa5YcGjkztBypSGSErLt2fBA/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vke6cALm4BfKni9n3jKXQQw2KKuMAb9E5WQL9RZCQea/B4XPdD0aYcDMXMziWxSiWiqqkFgP6JS8gFPx7WhxJjBDVW+DMQZpMcEDH3bRenZXjWRnD1gLqzf27Wn2yyI/FGuDKP5ZfwuYASy13BbgZe2ym+poAySeVY36CnacP6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I0bbuOed; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786709128; c=relaxed/simple;
+	bh=o5jd90A42ZW75HIH2fae5Txk4XINJhJ5RPrwgIQJ3Ag=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hwejzg8gvM9nJLdG/RjDOBbIegIjvQkw4ZW4PaCrlo4c6ZBJ2YeuYhTFyF/eTJZEA3JxkUmhhVt3QNggv6WbVjEXG338U78Da85x6bL6gPNw9fdPOeuzP+KILoD5uAfxBzzgXQLcnoedAnaMqjcWSFvhOcFChmdl6scQlHHVIBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MMZIqqqO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I0bbuOed"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786708903; x=1818244903;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LsZ1ffheV4O7q3moUGa5YcGjkztBypSGSErLt2fBA/o=;
-  b=I0bbuOed4Ec1hqIlylrRvpXxMfN6hsNh59rd0RwONRhTxyHoBQ9f00UT
-   w0QfaWIHIfClwirPyicYb6zIud9jLupFpm/KNocyq7p8yeCzNd4RD8h55
-   A4/2DWJIMPz19VegMlheOSGiCoQ91Nyack0ONCgnisHMjp5/xwo3hsthA
-   CyPtfL5HBqUPkXdukCqbnD1UtUbm8269F4GV32PbNCs1iKSBlsG07VH41
-   abuA0u+qPd3qd+QMHb/B9E1bDmDwZZaQcDrQyuKw25JLMtkmThKHKl3f7
-   LL9VxosIaFHHWDXQxfbx2iNwIwm3itaJ2lhRC9oS3IWUxHtpwjA5vn1Wk
-   w==;
-X-CSE-ConnectionGUID: aAuQEf/RRHeXL7cdC1DjOg==
-X-CSE-MsgGUID: oScaSBjBSwi8DUBNXAPWRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="97878071"
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="97878071"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 05:01:42 -0700
-X-CSE-ConnectionGUID: BLDSw9ZCQYqdx0rvZmGwlw==
-X-CSE-MsgGUID: WIyz2X6MTlaYrF2XCvQQBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
-   d="scan'208";a="289003358"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.134])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 05:01:39 -0700
-Date: Fri, 14 Aug 2026 15:01:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Andrei Stancovici <andrei.stancovici@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Beguin <liambeguin@gmail.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] iio: adc: ltc2497: add 2x conversion speed mode
-Message-ID: <an8DoMHly_vwwnni@ashevche-desk.local>
-References: <20260813160139.70000-1-andrei.stancovici@analog.com>
- <20260813160139.70000-4-andrei.stancovici@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MMZIqqqO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D5C1F000E9;
+	Fri, 14 Aug 2026 12:05:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786709126;
+	bh=da6QMOOTS47oqmV+uMOmXrkFq5NFs5k6BPvCf9jG+/o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MMZIqqqOU91iux4sT/jHY9MJ5cKqUScj500zATapqE9cx2q8lRQ+GnA3NMYyToa/f
+	 ODdJ8dcth7xzJI/punAcf9Xz04kRXeYxq4nm9+JoBHte7BzIi3SclBL66lVYgHoqk6
+	 OeNqNPth9NvoCTaUxjcrPuBfcpfHAuIkXhjEheI7tySwOSF7XU8JD1Tlcsx+vfTSur
+	 fOqwyg5zoQPNA87UNFM+q92C0sRkdfDsvO1+KlLr/3Tl3GMo62DUwbuaTBX0lZL4KR
+	 hk4Ybh5qkAe+lpyT+EwEca4mjxKCZyIo7lmaRxkxvD0KI9U1MJBYbTJ4yMXZBdkQt0
+	 sztljURneIsDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] i3c: master: amd: Add hot-join support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shubham Patil" <shubhamsanjay.patil@amd.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, linux-i3c@lists.infradead.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260814115155.3974988-4-shubhamsanjay.patil@amd.com>
+References: <20260814115155.3974988-1-shubhamsanjay.patil@amd.com>
+ <20260814115155.3974988-4-shubhamsanjay.patil@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 12:05:25 +0000
+Message-Id: <20260814120525.E5D5C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813160139.70000-4-andrei.stancovici@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 13, 2026 at 07:01:37PM +0300, Andrei Stancovici wrote:
-> The LTC2499 supports a 2x output rate (SPD bit in the second
-> configuration byte).  In 2x mode the offset auto-calibration is
-> disabled, roughly doubling the conversion rate (~13.6Hz vs ~6.8Hz in
-> simultaneous 50/60Hz rejection) while leaving linearity and full-scale
-> errors unchanged (datasheet).  During a temperature measurement the part
-> always converts at 1x regardless of SPD.
-> 
-> Expose the rate through the standard sampling_frequency /
-> sampling_frequency_available ABI on the voltage channels only: SPD is
-> ignored for temperature conversions, so the temperature channel
-> deliberately carries no SAMP_FREQ attribute.  A new has_speed_mode
-> capability flag gates the feature (LTC2499); the two-byte command path
-> is now taken for has_temp || has_speed_mode, since both features need the
-> second config byte.
-> 
-> The conversion-time wait becomes mode dependent: 150ms at 1x, 76ms at 2x
-> (datasheet t_CONV max, simultaneous rejection, rounded up).  The wait is
-> keyed on the conversion currently in flight, whose duration is fixed by
-> the mode that was active when it started - not by the newly selected
-> mode.  This matters on a 1x->2x switch: a 1x conversion may still be
-> running when the first 2x read arrives, and reprogramming the device
-> before it finishes would be NACKed with -EIO.  Timing is centralized in
-> ltc2497core_conv_time_ms() so a future FA/FB rejection-mode selection
-> can extend it into a [rejection][speed] lookup without touching callers.
-> 
-> LTC2496/LTC2497 (no speed mode) keep the single-byte path and the
-> unchanged 150ms wait.
-> 
-> Validated on a live LTC2499: 20 reads take ~3.1s at 1x and ~1.6s at 2x
-> (~0.5x, no -EIO), voltage and temperature readings stay sane in both
-> modes, and the temperature/voltage interleave (sticky-PTAT) regression
-> still passes at 1x and 2x.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The driver duplicates the I3C core framework's Hot-Join work mecha=
+nism but conditionally cancels it, leading to a Use-After-Free during drive=
+r unbind.
+--
 
-...
+--- Patch [3]: [PATCH 3/3] i3c: master: amd: Add hot-join support ---
+commit 06fad25ac0b3ab8838ac7e9c3c0f9c33f86244dc
+Author: Shubham Patil <shubhamsanjay.patil@amd.com>
 
-> -static int ltc2497core_wait_conv(struct ltc2497core_driverdata *ddata)
-> +static unsigned int ltc2497core_conv_time_ms(struct ltc2497core_driverdata *ddata,
-> +					     u8 address)
+i3c: master: amd: Add hot-join support
 
-Wondering if you use --histogram when preparing patches. If not, try it, it may give
-more human-readable diffs.
+This patch adds hot-join support for the AMD AXI I3C master controller.
+By default, the hot-join acknowledgment is disabled, but it can be enabled
+via sysfs. A hot-join event is serviced by re-running DAA from a work
+item so the i3c core enumerates the new device.
 
-...
-
-> +static int ltc2497core_write_raw(struct iio_dev *indio_dev,
-> +				 struct iio_chan_spec const *chan,
-> +				 int val, int val2, long mask)
-> +{
-> +	struct ltc2497core_driverdata *ddata = iio_priv(indio_dev);
-> +	bool sped_2x;
-> +	unsigned int i;
-
-Reversed xmas tree ordering (longer lines first).
-
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		/* Match the (val, val2) pair against the advertised rates. */
-> +		for (i = 0; i < ARRAY_SIZE(ltc2497core_samp_freq_avail); i += 2) {
-> +			if (val == ltc2497core_samp_freq_avail[i] &&
-> +			    val2 == ltc2497core_samp_freq_avail[i + 1])
-> +				break;
-> +		}
-> +		if (i == ARRAY_SIZE(ltc2497core_samp_freq_avail))
-> +			return -EINVAL;
-> +
-> +		sped_2x = i / 2;
-> +
-> +		mutex_lock(&ddata->lock);
-> +		ddata->sped_2x = sped_2x;
-> +		/*
-> +		 * The new speed only takes effect once the second command byte
-> +		 * is reprogrammed, so force the next read to reprogram rather
-> +		 * than reuse the value already latched for this address.
-> +		 * LTC2497_CONFIG_DEFAULT is not a valid channel/temperature
-> +		 * address, so it is a safe re-arm sentinel (as used at probe).
-> +		 *
-> +		 * A conversion started under the old speed may still be in
-> +		 * flight; its own duration (conv_time_prev), not the new mode's,
-> +		 * still gates the next reprogram, so the timing state is left
-> +		 * untouched here.
-> +		 */
-> +		ddata->addr_prev = LTC2497_CONFIG_DEFAULT;
-> +		mutex_unlock(&ddata->lock);
-> +
-> +		return 0;
-> +
->  	default:
->  		return -EINVAL;
->  	}
-
+> diff --git a/drivers/i3c/master/amd-i3c-master.c b/drivers/i3c/master/amd=
+-i3c-master.c
+> --- a/drivers/i3c/master/amd-i3c-master.c
+> +++ b/drivers/i3c/master/amd-i3c-master.c
+[ ... ]
+> @@ -221,12 +228,14 @@ struct xi3c_master {
+>  	bool xfer_resp_valid;
+>  	int irq;
+>  	bool ibi_capable;
+> +	bool hj_capable;
+>  	struct i3c_master_controller_ops ops;
+>  	struct {
+>  		spinlock_t lock; /* protects slots[] against the IBI handler */
+>  		struct i3c_dev_desc *slots[XI3C_MAX_DEVS];
+>  		unsigned int enabled_count;
+>  	} ibi;
+> +	struct work_struct hj_work;
 >  };
 
-...
+[Severity: High]
+Could this custom hj_work bypass the safety checks in the core framework?
 
-> +	/*
-> +	 * Parts with a speed mode expose in_voltage_sampling_frequency /
-> +	 * _available on the voltage channels only.  SPD is ignored during a
+The I3C core provides i3c_master_queue_hotjoin() which safely handles
+queuing, checks the shutting_down flag, and guarantees unconditional
+cancellation during i3c_master_unregister(). Defining a custom work item
+here bypasses those safeguards.
 
-Spell the node name in full, I can't really get if you meant
-in_voltage_available or something else.
+[ ... ]
+> @@ -1474,6 +1483,40 @@ static void xi3c_master_handle_ibi(struct xi3c_mas=
+ter *master)
+[ ... ]
+> +static void xi3c_master_hj_work(struct work_struct *work)
+> +{
+> +	struct xi3c_master *master =3D container_of(work, struct xi3c_master,
+> +						  hj_work);
+> +
+> +	i3c_master_do_daa(&master->base);
+> +}
+> +
+>  static irqreturn_t xi3c_master_irq_handler(int irq, void *dev_id)
+>  {
+>  	struct xi3c_master *master =3D dev_id;
+> @@ -1494,6 +1537,9 @@ static irqreturn_t xi3c_master_irq_handler(int irq,=
+ void *dev_id)
+>  			xi3c_master_handle_ibi(master);
+>  	}
+> =20
+> +	if (status & XI3C_INTR_HJ_MASK)
+> +		queue_work(master->base.wq, &master->hj_work);
+> +
+>  	return IRQ_HANDLED;
+>  }
 
-> +	 * temperature measurement, so the temperature channel deliberately
-> +	 * carries no SAMP_FREQ attribute.  Patch a private copy of the shared
-> +	 * channel array so parts without a speed mode stay untouched.
-> +	 */
+[Severity: High]
+Can this unconditionally queue the work even if hj_capable is false?
 
-...
+If the device tree lacks Hot-Join support (hj_capable is false), but the
+hardware status register still records a Hot-Join event (for instance, from
+an I3C target issuing a request while an IBI interrupt triggers the handler=
+),
+this will queue hj_work since master->hj_capable is not checked here.
 
->  	/*
-> -	 * Parts with the internal PTAT sensor (LTC2499) latch their converter
-> -	 * configuration via a second command byte and only re-evaluate it when
-> -	 * that byte has EN2 set; a single byte, or a second byte with EN2 = 0,
-> -	 * means "keep previous". A one-byte channel select therefore cannot pull
-> -	 * the device back out of temperature mode, so a voltage read after a
-> -	 * temperature read would keep returning the PTAT result. Always drive the
-> -	 * second byte with EN2 set on these parts: IM = 1 for a temperature read,
-> -	 * EN2 alone (IM = 0) to (re)select an external input. FA = FB = 0 keeps
-> -	 * the power-on simultaneous 50/60Hz rejection, whose worst-case
-> -	 * conversion time the driver's wait already covers.
-> +	 * Parts with a second config byte (LTC2499: internal PTAT sensor and/or
-> +	 * the 2x speed mode) latch their converter configuration from that byte
-> +	 * and only re-evaluate it when EN2 is set; a single byte, or a second
-> +	 * byte with EN2 = 0, means "keep previous". A one-byte channel select
+[ ... ]
+> @@ -1588,6 +1647,12 @@ static void xi3c_master_remove(struct platform_dev=
+ice *pdev)
+>  	if (master->ibi_capable)
+>  		disable_irq(master->irq);
+> =20
+> +	if (master->hj_capable) {
+> +		/* Stop new Hot-Join IRQs before flushing, so the work can't be re-que=
+ued. */
+> +		xi3c_master_disable_hotjoin(&master->base);
+> +		cancel_work_sync(&master->hj_work);
+> +	}
+> +
+>  	i3c_master_unregister(&master->base);
+>  }
 
-Please, be consistent with 1-space versus double-space at the start of a new
-sentences. See just above comment and compare.
+[Severity: High]
+Could this lead to a use-after-free during driver unbind?
 
-> +	 * therefore cannot pull the device back out of temperature mode, so a
-> +	 * voltage read after a temperature read would keep returning the PTAT
-> +	 * result. Always drive the second byte with EN2 set on these parts:
-> +	 *   - temperature read: IM = 1 (SPD is ignored by the part in
-> +	 *     temperature mode and is left 0 here);
-> +	 *   - voltage read: IM = 0 (external input), plus SPD when 2x is
-> +	 *     selected.
-> +	 * FA = FB = 0 keeps the power-on simultaneous 50/60Hz rejection, whose
-> +	 * worst-case conversion time the driver's wait already covers.
->  	 *
->  	 * The two bytes are assembled in the DMA-safe st->data buffer rather than
->  	 * on the stack, so the pointer handed to i2c_master_send() stays valid on
->  	 * adapters that DMA the transfer (e.g. with CONFIG_VMAP_STACK).
->  	 */
+If the work was queued while hj_capable is false, this conditional block is
+skipped and the work is never cancelled. The devres framework will free the
+master structure, but the work remains on the workqueue and will access fre=
+ed
+memory when it executes.
 
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814115155.3974=
+988-1-shubhamsanjay.patil@amd.com?part=3D3
