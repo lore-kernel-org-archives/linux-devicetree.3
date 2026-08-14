@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F7733F5BC
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 05:14:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708D92737F9
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 05:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786684495; cv=none; b=l6Aa+r/4D6Clzy41naswwuoJAiZo8mCAX6E2tdDkc0WTetL4FoJV30ShKE4ELo6YbW2/8Dq+1rSVD6inmqyuhUIDWpKvy7kGlVPn4VBD9ybEaaIWJ8eU4d7RwarOHa28GeEoH4tbONTP1wmZq0FVVQq81UwqYRTlXoYg2U5CCeA=
+	t=1786684929; cv=none; b=PHFdm5141ym+irJgOpxmkt10a25yf9wcFplt1W2UcysCSRBFoAuLrTUp/DFoG3HTQHeVGK72CGcuvEogBzmtPj+r1qdo6GEEmh0N8468R7xCy+HiQu07s7vIqQ4dm8KE++01CuIEr1Z82eiO5kkDdvhsk3wWB8taz4/mUo0BPAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786684495; c=relaxed/simple;
-	bh=zGxFwoBKG4bstg/JyriU6zXQZnHWX1Ed/GNjRRqey2U=;
+	s=arc-20240116; t=1786684929; c=relaxed/simple;
+	bh=c7koO6nT+Ho+y/dMCCC3NGw5MPZ+oygRxYJSdswr+SE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Fk9YD3Q3GKyO++Qz7qbud0/fXKdc18tqL8PEvKWdOEiFZY0SDb49F+TIVPN+Af6mOuV6iu50Gqv1dfpKHjOxlbuMOvp05CNij/2+PXF3tpIPHzUgaH3UpIpaktk1kPu8oi3+icCMeKnwyf6KFQEQbuQ9gGSFGINM92KVQiO7lzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2tCDB/a; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=N6HupZFE3x3oHI1ZtVBKQ4qHysLb0TmSN24MVoi/FI8st9LjtvFyjwj6X8Cn0gXx55vokkidst/24gByje3Iws/kNYf9bFpUp9WCy3HIddfj6uO5FNr/rdB5UK+gixwEZvCn4qbTvWax/GTTJ7qpjz3YmjxU5MHg0fLX7t9jWq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3f+n18f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2tCDB/a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BD421F000E9;
-	Fri, 14 Aug 2026 05:14:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3f+n18f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB591F000E9;
+	Fri, 14 Aug 2026 05:22:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786684494;
-	bh=0tabxgf2HqNhSwGzmW0+5bJFHR/phfXBWPKnsW3RNhY=;
+	s=k20260515; t=1786684928;
+	bh=6a6P7CsSBem5EZ6nRrdno+qrJxbQ7T6Q1QTl9N8EXYM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T2tCDB/agh63veMMOhnw/iRUveYvHD6bwoBeBDh6RyU1K+j74Zzem96OFNNzZhJNx
-	 djMN0zmuEB8G5Yv2wf8f+xiTDws0EOGn7oR15Hfy66ggLdRn2ia7ftedCUDzBF+EG2
-	 IRMALNeyCtC2/i6SSxYk/aRdUnYaSzruvk7jvZWsrmLm2CCJwIE6Ku4/vV1uooLJBY
-	 x/J+8J1PYTRpGYmXEZKBl0XtYnZrVYaAS/cRs7X+8aYFRqrVe5J3Ct+etUiHoy1WQ1
-	 nrjsf6KXQXcp63Bz29cTQEV8PPt5b0D2U9V1KEXxFK2ES2yg1gS7xKURhLJtTkgA5F
-	 19NZlwY3PnUPA==
+	b=m3f+n18f5SrihziYzRDCddGQlhY0Wa19tQZWrHWIvaGaw6rNnIZSkDfZ+8Q/ywDd2
+	 r+89LFMpA46z5rcU4vT75sDNRGgO+oOzOjF8XzAQQHL3GInIbAbwWz/PLWlCbKrXO9
+	 PvX1cH5HypK0H+dKuLn/xbehLvsWgyVt321E/8xfn73PXU4QNmnktMwORcbQuNLN63
+	 kOWPDYrDm38BFGxxSSvdXj07YMriJTR6b5Ay8o0ErBS+kt/bLVMZXY88DxU+2xmiiw
+	 4NHlxdWNeXKXTm+QZHS7aBicmtOPI3xCP3DodelhPOqDE25tjMvj+lDkjKi+q0oS0S
+	 eCcEIuP29784A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 28/38] phy: core: add notifier infrastructure
+Subject: Re: [PATCH v14 29/38] usb: dwc3: rockchip: introduce glue driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-28-b5ad9c68fa11@collabora.com>
+Cc: neil.armstrong@linaro.org, robh@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-29-b5ad9c68fa11@collabora.com>
 References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-28-b5ad9c68fa11@collabora.com>
+ <20260813-rockchip-usbdp-cleanup-v14-29-b5ad9c68fa11@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 05:14:53 +0000
-Message-Id: <20260814051453.9BD421F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 05:22:06 +0000
+Message-Id: <20260814052207.8CB591F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,85 +46,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] AB-BA lock inversion deadlock between PHY consumer state locks and=
- phy->mutex via synchronous notifier.
+- [Low] Unconditional assignment of conditionally compiled `.complete` and =
+`.prepare` PM callbacks in `dwc3_rockchip_dev_pm_ops` causes a build failur=
+e when `CONFIG_PM_SLEEP` is disabled.
 --
 
---- Patch [28]: [PATCH v14 28/38] phy: core: add notifier infrastructure ---
-commit 140d5ba0c3927a01cec06534c2dc22cf14579ba0
+--- Patch [29]: [PATCH v14 29/38] usb: dwc3: rockchip: introduce glue drive=
+r ---
+commit 09abcbc065934ad4bfba3499b24e1bd888881c9d
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: core: add notifier infrastructure
+usb: dwc3: rockchip: introduce glue driver
 
-This commit introduces a notifier API for PHY devices, allowing consumer
-drivers to hook into PHY reset events. This provides a mechanism for consum=
-ers
-to gracefully handle the PHY going down during configuration or orientation
-changes.
+Introduce Rockchip specific glue code for the Synopsys DWC3 USB driver.
+For now this handles things identical to the default glue.
 
-> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> index 21aaf2f76e53e..51d261daae7a9 100644
-> --- a/drivers/phy/phy-core.c
-> +++ b/drivers/phy/phy-core.c
-
+> diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-roc=
+kchip.c
+> new file mode 100644
+> index 0000000000000..1df33625b69f8
+> --- /dev/null
+> +++ b/drivers/usb/dwc3/dwc3-rockchip.c
 [ ... ]
-
-> @@ -542,6 +542,70 @@ int phy_notify_state(struct phy *phy, union phy_noti=
-fy state)
-
-[ ... ]
-
-> +/**
-> + * phy_notify_reset() - notify consumers of a PHY reset event
-> + * @phy: the phy that is being reset
-> + * @event: the notification event (PRE_RESET or POST_RESET)
-> + *
-> + * Called by PHY providers to notify consumers that the PHY is about to
-> + * be reset or has completed a reset. This allows consumers to quiesce
-> + * hardware before the PHY becomes unavailable.
-> + *
-> + * This may be called from within PHY provider callbacks (e.g. set_mode,
-> + * power_on) where phy->mutex is held. Consumer notification handlers mu=
-st
-> + * therefore NOT call back into the PHY framework (e.g. phy_power_off,
-> + * phy_exit) on the same PHY, as this would result in a deadlock.
-> + *
-> + * Returns: %0 if successful or no notifiers registered, a negative error
-> + * code if a notifier returns an error (for PRE_RESET only)
-> + */
-> +int phy_notify_reset(struct phy *phy, enum phy_notification event)
+> +static void dwc3_rockchip_complete(struct device *dev)
 > +{
-> +	int ret;
-> +
-> +	if (!phy)
-> +		return 0;
-> +
-> +	ret =3D blocking_notifier_call_chain(&phy->notifier, event, phy);
-
-[Severity: High]
-Does this synchronous notification under phy->mutex introduce an AB-BA lock
-inversion risk with consumer driver state locks?
-
-For example, if a multi-port PHY has multiple consumers (like DP and USB),
-Consumer A could acquire its driver state lock (e.g., dp_lock) and call
-phy_power_on(phy), blocking on phy->mutex.
-
-Concurrently, if Consumer B triggers a phy_set_mode(phy) call, the PHY core
-acquires phy->mutex and invokes the provider's callback, which in turn calls
-phy_notify_reset(). This synchronously invokes Consumer A's notifier callba=
-ck
-via blocking_notifier_call_chain().
-
-If Consumer A attempts to acquire its state lock (dp_lock) within the notif=
-ier
-callback to safely quiesce its hardware, it will deadlock. Is it safe to ex=
-ecute
-this blocking notifier chain while holding phy->mutex?
-
-> +	return notifier_to_errno(ret);
+> +	dwc3_pm_complete(dev_get_drvdata(dev));
 > +}
-> +EXPORT_SYMBOL_GPL(phy_notify_reset);
+> +
+> +static int dwc3_rockchip_prepare(struct device *dev)
+> +{
+> +	return dwc3_pm_prepare(dev_get_drvdata(dev));
+> +}
+> +#endif
+> +
+> +static const struct dev_pm_ops dwc3_rockchip_dev_pm_ops =3D {
+> +	SET_SYSTEM_SLEEP_PM_OPS(dwc3_rockchip_suspend, dwc3_rockchip_resume)
+> +	.complete =3D dwc3_rockchip_complete,
+> +	.prepare =3D dwc3_rockchip_prepare,
+
+[Severity: Low]
+Will this cause a build failure when CONFIG_PM_SLEEP is disabled?
+
+The functions dwc3_rockchip_complete() and dwc3_rockchip_prepare() are
+defined inside an #ifdef CONFIG_PM_SLEEP block, but they are referenced
+unconditionally here in dwc3_rockchip_dev_pm_ops.
+
+This would leave them undeclared if sleep support is not configured.
+
+> +	/*
+> +	 * Runtime suspend halts the controller on disconnection. It relies on
+> +	 * platforms with custom connection notification to start the controller
+> +	 * again.
+> +	 */
+> +	SET_RUNTIME_PM_OPS(dwc3_rockchip_runtime_suspend, dwc3_rockchip_runtime=
+_resume,
+> +			   dwc3_rockchip_runtime_idle)
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-rockchip-u=
-sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D28
+sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D29
