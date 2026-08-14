@@ -1,95 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BFD46AA66;
-	Fri, 14 Aug 2026 17:19:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03098486653;
+	Fri, 14 Aug 2026 17:35:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786727965; cv=none; b=OpYizwVS3Hd4Q9wHxldJnRSZeZqYcnIq5m1krArcExQK4GiUcFR3dJVZ3BsuHXJ0JDgkAbB+1+hh+pOqzX6V0YbL/Y9Bho+Wy4+HzvKhMPaFD6gs70jivP8bkWfhCiMk9fdnR7buxM3ESUrT6k76vJacCIF95IuIKtO37nVGlSQ=
+	t=1786728954; cv=none; b=VxyW4jrav7aUfFruqMPSUkNgTWj6zRJRzFSrgAMT67gZ5Id6RETS0lxNOVLqhGjcDOEnY/3eTjzjNMEuV7iz3poYm6V+mpB+0f6HZWwxRmJRsaRvIPKS4qYYRx+/5ioPIeHxYRgTK2mJFrstCmLivtDPIwI1gC2Xhu5kiCU4Zls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786727965; c=relaxed/simple;
-	bh=bNQQkYakACPfetut/Hrnd5fReIktWvuG7g8ZN9UEy0E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ENFawbc0yQOt1ASGNUT5ZPcaAlqMEkN9dQxPnkZp/Tb9xZgPaHl/Aimz2aYzXospHCqoelEYiO3P1/eSFylmrjBP7fmc/pc6yMPBBARKD0yBCrFzGYrAKF45u2LvbT3sfY+002FVa52X02AcE/aQDFoU+uh7m9vi/am4dPCEKgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2nLD+Hx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786728954; c=relaxed/simple;
+	bh=UCRNcwRImCmt2J2xUVAzQFTxwRUI3SmxX1HYimsMysY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n54JwT5DSjSyuCc+jY6B88gbn9sAZLVAA3j1DWdua/oqFavBeX8c8KJfEvNc6oB7YlV0fQBYF67A9ShwjB5IIyhFRK/c+HeD7X0V32iHPzBEfyM85Wj7rkdo9XL6iyko2ke6rr6qARtQZ+h4HAT3dnyjQqa9qLRuz89SlMB4Jv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dyPUmySi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2nLD+Hx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431451F000E9;
-	Fri, 14 Aug 2026 17:19:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dyPUmySi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EB61F000E9;
+	Fri, 14 Aug 2026 17:35:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786727963;
-	bh=KSYx9ZZUYMAPeym+Mt5kiHPv2+BGUb/x9Q5bfeD9cUE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=C2nLD+Hx0UoK86yumknAXU4BZ9ECT/oifGe3aNgkCw5FxuXt5MzhiXTQFwFOdmzU2
-	 i5vC/0NOFw/d9ITN2r7p60FZR9XqDesqDdo3BLJHSIl1MJ/4gRq5Qnez7gdCyZQ538
-	 2tpqv1up1ne9ohDfq8m9pXp5aNcIqptN3euzpvFhMxtVByd9OXvYLFItw6wCtUCyNB
-	 RPb5jPZW549TDvGL+WoQ+IAUW2KMD5HxFKz0IrHQUK033ZhMWpdyD8dNHEWhApyc94
-	 1Bjs78VZ410BVyVYp4Bo7Q+EPnLEBYq9OCb6SZXyZOE1YHqFfedgE0cTtfvdBUs794
-	 VxFatYe9xc/Mw==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- Jerome Brunet <jbrunet@baylibre.com>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260812-allwinner-a733-spi-support-v2-1-937bff0fa78e@baylibre.com>
-References: <20260812-allwinner-a733-spi-support-v2-1-937bff0fa78e@baylibre.com>
-Subject: Re: [PATCH v2] spi: dt-bindings: sun6i: Add compatibles for A733's
- SPI controllers
-Message-Id: <178671194118.152149.7100117207191275264.b4-ty@b4>
-Date: Fri, 14 Aug 2026 13:52:21 +0100
+	s=k20260515; t=1786728952;
+	bh=weuJZ1VT7QEqJEBbSMZvTgF8lW041Ae6CRqMd/15R38=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dyPUmySilHpNl+6FpK3pmtJiPcaETF2AdziT3xBiV+YQAjI8CoYwXy7B8NkWqFUsd
+	 TdohTOXPCtSHiSpIbH3EWTlWqTWenT5XlH4LOPIv5o9J6Jc/AIW9zPEmZeCV4hYPma
+	 tEXBSCDZSG6KJhIOeJqukpCtr3UXB7l2m0uJtjT2aU8yTqhNPcTm/iuXHrPXe4Lc1F
+	 ulaMB8M3AHTbXj4rSIi/CJpVA7gA1LHjj+ojJYCtJUPFG94ucMcZnK7AhIGO+w4MbO
+	 wrZGNgMzDAvZQWRibepzw4bMcnxlzqxgB8vBSFXZ6pMxugCGLn2nYGqoGS3YI37EQC
+	 LX0Gh9VtUYMUw==
+Date: Fri, 14 Aug 2026 12:35:51 -0500
+From: Rob Herring <robh@kernel.org>
+To: "Chiam, Evon" <evon.chiam@altera.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Lothar Rubusch <l.rubusch@gmail.com>,
+	Ng Tze Yee <tzeyee.ng@altera.com>,
+	Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
+	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+	Brian Masney <bmasney@redhat.com>, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: arm: altera: fix Agilex72 compatible
+ vendor prefix
+Message-ID: <20260814173551.GC1981719-robh@kernel.org>
+References: <cover.1786006669.git.evon.chiam@altera.com>
+ <b467b990e5290a2eccaedff826968a50fb51100a.1786006669.git.evon.chiam@altera.com>
+ <20260812024937.GA616612-robh@kernel.org>
+ <b027b8cf-a97b-4670-a57c-1585feccb21e@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1149; i=broonie@kernel.org;
- h=from:subject:message-id; bh=bNQQkYakACPfetut/Hrnd5fReIktWvuG7g8ZN9UEy0E=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqf04WV38MYa+TjkgnEVdm4OLNbjANLf1XeaHY/
- rqHkWpcIiKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCan9OFgAKCRAk1otyXVSH
- 0PrcCACBvJ+H1tmJSIBWPSR2CJHK34Rn8M3B6C3H5/a4oFZhJorHkNmXZMykTGbuMmcRajKySLz
- bcZ4z/yknUVJLJ1tsTSBBQuLMiyYZ/7Lkbz0hiBzYuKyNQtvVa5LOQd5ofI1Kxnyz0oW77E/Kr5
- Rsh/9gHCJfkYLCBvEgqf+IDR7OzJyNmzxk/NQmJiNUtxldO4C5E7bZO9AZSVg9uIgcLsRgZpugW
- 4hLAtUVdByY6YichGEtt6vdGuVXPDDPsdYgkbRNaVTkYHwHWeUxSUD/8ly7+NkEEVsXM3mB1I43
- 8w6+YzSRcYwvcyQkWtEOjhLFSe1KKTBs4b68a1SB+7y8oo4G
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b027b8cf-a97b-4670-a57c-1585feccb21e@altera.com>
 
-On Wed, 12 Aug 2026 23:02:02 +0200, Jerome Brunet wrote:
-> spi: dt-bindings: sun6i: Add compatibles for A733's SPI controllers
+On Fri, Aug 14, 2026 at 04:18:59PM +0800, Chiam, Evon wrote:
+> 
+> 
+> On 12/8/2026 10:49 am, Rob Herring wrote:
+> > On Thu, Aug 06, 2026 at 05:25:01PM +0800, evon.chiam@altera.com wrote:
+> > > From: "Chiam, Evon" <evon.chiam@altera.com>
+> > > 
+> > > Altera has separated from Intel. Update the Agilex72 SoC and board
+> > > compatible strings to use the Altera vendor prefix instead of intel.
+> > 
+> > Sorry, without better reasoning, you are stuck with them as sashiko
+> > pointed out.
+> > 
+> Sashiko’s comment on the DTS still using the intel compatible strings was
+> based on reviewing patch 1/5 alone. Patch 4/5 moves the Agilex72 DT from
+> arch/arm64/boot/dts/intel/ to arch/arm64/boot/dts/altera/ and updates the
+> compatible strings to altr. With both patches applied, the bindings and DTS
+> remain consistent.
+> 
+> Would you prefer that I combine the patches 1/5 and 4/5 into a single patch
+> so the binding and DTS updates land together?
 
-Applied to
+Moving the dts directory is fine (though that is really up to SoC 
+maintainers). Changing compatible strings is not. It is not about the 
+patch split. It is an ABI. There are exceptions though. Generally that 
+is if there is no one with the h/w or the current .dts is so incomplete 
+that anyone using the h/w will need to update their DTB anyways.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
-
-Thanks!
-
-[1/1] spi: dt-bindings: sun6i: Add compatibles for A733's SPI controllers
-      https://git.kernel.org/broonie/spi/c/122970a4a6f3
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Rob
