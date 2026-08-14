@@ -1,138 +1,110 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2D34582EA
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786698503; cv=pass; b=DUS22pwQOETx/nB9Pv3Wb0UShAvm2xg2B8n1l3RMdZ9iaxxUe6zif4DEdTTj2khBx9HLHSWbiqY19lfdLx6pFke+VB28C20gxwUYOiXjDJrYkdSzi9lh+ONSlIeXnrL12EskQt/ExxkHTx4tnmQ1PJK0DnZhglIFxSbmwxJGtTg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786698503; c=relaxed/simple;
-	bh=HYuWGT9uBk6DYJSNsZ7JcYY7syMooP0ymWSP1i7eR5w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SaNHNp9v844s+dhkn/c6UTrsbJimA8uJrCoJaaFM0C7r9htVLD+vb1WuWzFDYFnGlMNuDfxHJVXLTHnwOShpkXvkVDti7CK4l3hGtjRkHl8tjPXIEgXsEZHGe40qrnSFU3HdC7EyIH5pwU2m0hfedwzQnHnbpAJgpfRueJwIRx8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HwA2gp9m; arc=pass smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A63C45A285
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 09:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.227
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786698565; cv=none; b=NJV6pLiDo6MZ39qfLSLL656GY9m/XdZgyapN9T8S0tJ4+1mYkAQuRNonELg67fL6JxoDWjY+mmxk1txt8ZKOXaXyojp5kk0sGJpZ8VlTzKc5dT8/3Z0Fm47BsdQQ/qUzg+GSLFC3b1I4F2BJSJHvG9+LWXgA3AmA2Pyl+sbnK8E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786698565; c=relaxed/simple;
+	bh=wFOJGu0UcuBUmUcbX+jWOx9GxjPqzlP3B2t1idchaHw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pqz/iD2e0XrGtwAHi02YuGNfNQ8qBx5Oa99uVG+fzq9bZkv72ScoPsXKbb/0N3APduj78ZxA5AQ7vFP331Rst3UfxYMAw768Sgf/enJn8sEQRcIdb3WgTXZmg4lDVT70cNmY7/jDkFPu+oRKmIYLrT6uQYbQ1IzCGNYXbdPBn/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=LFdHQEFD; arc=none smtp.client-ip=185.136.65.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HwA2gp9m"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66b32bb75beso1204041d50.2
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 02:08:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786698500; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dQ7iTgW4bYx93xwMgAui5paTvCR2dYP9Na3yaB1I40KpfHiOx3ySej352Uajd/Ep8H
-         7gAJUO2ZknCDJYbCKESHodp9ZySoBihhYgVpPrxU16BY5GwrkdcaBkN49Rof07nTERxN
-         FPLIdLxS+H9/6/giLzpyCX0b/4PIiXCJjxI5ewsCTjYVorAlFl/WA+f3ENR7s7gCQJ50
-         hcL5RkYnOj90DyImsIaj2bwvPOUmkxuHi3jbj+GDn9BznC5jLB+ADjkZXCATa1jZAUiO
-         ecHNwLTeIW7uN4MXYgM6hYkBf1QR9ELZoDbAbN7yJIA2l5gSzVRLQoJ/X3TrnFIBvdcB
-         5ZeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=HYuWGT9uBk6DYJSNsZ7JcYY7syMooP0ymWSP1i7eR5w=;
-        fh=Nw9iHe0Tx8iogKNLCXpYRuHSidZ5AtilQdCwNKKyOQw=;
-        b=bh5YgDaFVNaBIkKTPvXspSRVTbcnLtlCpVS1MV8mlH/xS1XA/kuLTK5N0JU5c9FX5O
-         +mNoaHdVX7k3QFehXKvveXLTLvQwkFnh+xmpWY3kt6R9+WofBR0AMSo+L8dpQ4LbAbWr
-         erEBL5nQgHrxbP8f8jI1xhhzxeDgtfgf4rOPqTD5C75S7akW67k5uariMZDS2idG4b8n
-         DOvu2OfCcg1luaCWdmuPMZF5M1xxEi0eKCQbgjNzW5xtuYZEx6hF8I9jOp5bH/jVDfbX
-         EtRocYqiAqyrwKrJfmrneB5p/YEOFsBwAGqKKGdIN8LMF6BaRIL5Lg/2qY9VXnrKXv7U
-         IQrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786698500; x=1787303300; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HYuWGT9uBk6DYJSNsZ7JcYY7syMooP0ymWSP1i7eR5w=;
-        b=HwA2gp9mIBUqDAocA0WAZa7eXnQq5Dm9bOFyTOg78u/hsSWb8B8YdvO5+2mhzoGarx
-         e+M2IxLQSTFenwfrmx3CeQ5E0WnJfjA/YcEoIMGMCw21qBxlPzTd6F2KxDBO8B2BKIAN
-         /4osf6Yx2wnNuDUkN8FrB6BHorUpupZXqobE5kuvBC4I1F/CewJpO2cKEnGNyU87w8X9
-         CyWHazcmy+ULaJuw+d5A+eH17uUs3j9NZ0LIvTRJJLb5r+w/B9w/5Zta7tzEOEwyiOWy
-         OcuAd63cqIUo5UK0MHch4CQTItRHqiINNG7sG2/c8zv+PtQe/LKUf5Q/ttGRRF1P+Fm2
-         Nm0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786698500; x=1787303300;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HYuWGT9uBk6DYJSNsZ7JcYY7syMooP0ymWSP1i7eR5w=;
-        b=C6nyXjkHunumk3cM6lwlGW1chkyIVXtwreVwYGtMgxGBWrffKx5fIKfsRwI1VtBWb/
-         JKNOkugDuIxrlSzzVDi6tfuJ8u9F+EvPDAtb2QWLkApbq4pPMBtrEtp/Gy7EtTyokmTy
-         y/yS7+RWSYtlNOHvNWmex1JVxiT0isEMR8Tf5lEPMAxr9aSSuLa81TlbWBqiOiYjyuyI
-         MlFFbBvYbHJ6JSDj0nAwaKZNcRoUN9nkFRExU2bLrQQtG8tM1mcU8ldDdJ4iqMCHN01o
-         UjWbAzi2IM9cs4gaKrqyvWa2QILKcIR5RVqnLYgQv5T7ky0rM+GR0bs9GTlCahoSYNpV
-         Eblw==
-X-Forwarded-Encrypted: i=1; AHgh+RqHu9ETSlmfsFsYVi/8jsr+j1ZyqWL/sk0pKSIXXoCY4tiHQ8iy+ZOCkyVhVs0dDtTCLpWkZ0tS21AG@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywq+++X+JJxHmzoGUr9DB4muhuibohX3KW9fjcD9EoqXcYH0uB+
-	XkkvWhAqppZ13yYzYf5fPkTyTg4j9rE4bepxMf8s+QuSsxLU3XP/tp7SgK4JDE2h/8OZUjCuwu9
-	QulWfidfazCRM+Btz1ZpSCedRuQhwz3s=
-X-Gm-Gg: AR+sD11XxJYqOjJ/H97U6fG32XO4CeqRlM/eWM8CUkS0i9lmIyq8zcfx7SUkC7gD6rQ
-	nUHjcr/y3qVarh8vDPRnaVU5VP8IpszjU7TOINherwQxEMIZVhsJlk9CxtXDV0m4TltpW+L+WH6
-	0Y/l9Sd/uvOm6GvNkwE/dXWSU2KBwKc2nGooWu+Umpt9HanLHwH1VSb/Pxge5DKbo9KWNyskHED
-	vunMgUSqZPRmDyc8pAymKkp4C36p0DBguCKEA59J1+v6lR61nzDFeWabDKve8RlGzZId3xhEdSQ
-	WApBn6YfnmtEqc+8v+augx7oTznsjF+2hFnBiQhUSFKO+RyktoIS4uTt9xIRrGjFvv/IlWIREMX
-	UYXaM+Q==
-X-Received: by 2002:a05:690e:47:b0:668:99c8:bf15 with SMTP id
- 956f58d0204a3-66c72b054d2mr1376716d50.11.1786698500469; Fri, 14 Aug 2026
- 02:08:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="LFdHQEFD"
+Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 20260814090910c10813eabe0002077d
+        for <devicetree@vger.kernel.org>;
+        Fri, 14 Aug 2026 11:09:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=pEAWZMUCnZp1tau2mG/PHGMRuIUt+oO0/JiRyASXCtg=;
+ b=LFdHQEFDUTsy9clQdzxNN3VtB3DUnvu1rePp6wmNr2syJu3qs/TojC3ilL6l3VqCMCILnw
+ L7MnxHTK3m89bqzitvYKxLgKqJlmOobg7/7+2pO7Tgb6WKtB3Aby9vkpg96y8u7mGtObo/Rx
+ esPt0htQrs0ijpDd1FGRNZL2EQvHKC6q9A6iM27B9bSaepS4JVx/Unoq7Nzj723pI6Mxey1e
+ 8DL5Ac4cmnDDoebF1lmzSsgs6VdWT7DplYJ1uMjWJqEdB7JDvHBb3RaSr/FFsEdu16ejAPLO
+ auV33AXlSmR4+BjkfHaEB/KrAcXKVikWOpQFszkwrSZSu845sIZfYFxQ==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: netdev@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Wei Fang <wei.fang@nxp.com>,
+	Frank Li <frank.li@nxp.com>,
+	Shenwei Wang <shenwei.wang@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Linux Team <linux-imx@nxp.com>,
+	imx@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next 1/2] dt-bindings: net: fsl,fec: add fsl,rx-flush-queues
+Date: Fri, 14 Aug 2026 11:09:00 +0200
+Message-ID: <20260814090906.2225075-2-alexander.sverdlin@siemens.com>
+In-Reply-To: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
+References: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260624055648.127399-1-challauday369@gmail.com>
- <178406687202.3036881.4468660016404184803.robh@kernel.org>
- <CAAj-GBnn8rGD6o5HmVfYtEksXsL8ZPKcc_AbfKUEHtTsN1pN-A@mail.gmail.com> <20260813191817.GA1981719-robh@kernel.org>
-In-Reply-To: <20260813191817.GA1981719-robh@kernel.org>
-From: Uday Kiran <challauday369@gmail.com>
-Date: Fri, 14 Aug 2026 14:38:07 +0530
-X-Gm-Features: AUfX_mysdJZURZMpWD2u5czIFjSBNKyPyqpb58_YjGlV5lTuJ2_g3vYfefsKrMY
-Message-ID: <CAAj-GBm7GcbyB-A7R9aomVCxhbh7d8D7tUxO3qCMYZV8d2N=Xw@mail.gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: watchdog: microchip,pic32mzda-wdt:
- Convert to DT schema
-To: Rob Herring <robh@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
-	skhan@linuxfoundation.org, tsbogend@alpha.franken.de, krzk+dt@kernel.org, 
-	linux-kernel@vger.kernel.org, conor+dt@kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, me@brighamcampbell.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-> > >
-> > > Applied, thanks!
-> > >
-> >
-> > Thank you, Rob. There are similar microchip, pic32mzda patches related to spi,
-> > sqi & rtc which are reviewed/acknowledged.
->
-> I picked up watchdog only because watchdog DT patches have a tendency to
-> get missed.
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-Understood Rob. Thank you very much for picking up the patches.
+The FEC/ENET controller can enable receive flushing per RX queue via the
+QOS Scheme register (RX_FLUSHn bits). When enabled, a frame at the head of
+the RX FIFO that cannot be forwarded (because its ring has no empty buffer
+descriptor) is discarded instead of blocking the FIFO.
 
->
-> > 1. microchip,pic32mzda-spi.yaml
-> > https://lore.kernel.org/all/20260622-ingenious-finch-of-fantasy-7bafaf@quoll/
-> >
-> > 2. microchip,pic32mzda-sqi.yaml
-> > https://lore.kernel.org/all/20260625-omen-stark-6bb827ebcc43@spud/
->
-> You missed sending to linux-spi and/or Mark B on these. You'll need to
-> send another version.
+Add the fsl,rx-flush-queues property to describe the set of RX queues for
+which flushing is enabled. Most controllers are subject to erratum
+ERR050395 and support flushing on a single queue only; the driver enforces
+that constraint, so keep the binding generic to allow future controllers
+with the erratum fixed to enable flushing on several queues.
 
-Sorry, I missed to include SPI subsystem maintainers. I will include and send
-updated patches.
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ .../devicetree/bindings/net/fsl,fec.yaml          | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
->
-> >
-> > 3. microchip,pic32mzda-rtc.yaml
-> > https://lore.kernel.org/all/20260703-identify-cringe-ef88079923cd@spud/
->
-> You missed Alexandre.
+diff --git a/Documentation/devicetree/bindings/net/fsl,fec.yaml b/Documentation/devicetree/bindings/net/fsl,fec.yaml
+index 24e863fdbdab0..808aaf3fd9f27 100644
+--- a/Documentation/devicetree/bindings/net/fsl,fec.yaml
++++ b/Documentation/devicetree/bindings/net/fsl,fec.yaml
+@@ -162,6 +162,20 @@ properties:
+       Should specify the rx queue number, otherwise set rx queue number to 1.
+     enum: [1, 2, 3]
+ 
++  fsl,rx-flush-queues:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 3
++    items:
++      enum: [0, 1, 2]
++    description:
++      List of RX queue indices for which the receive flushing feature (QOS
++      Scheme register RX_FLUSHn) is enabled. When enabled, a frame at the head
++      of the RX FIFO that cannot be forwarded (because its ring has no empty
++      buffer descriptor) is discarded instead of blocking the FIFO. On most
++      controllers erratum ERR050395 restricts flushing to a single queue. If
++      absent, RX flushing is disabled for all queues.
++
+   fsl,magic-packet:
+     $ref: /schemas/types.yaml#/definitions/flag
+     description:
+-- 
+2.55.0
 
-Alexandre Belloni <alexandre.belloni@bootlin.com> is in the send list. Not
-sure why it is not picked up.
-
-Regards,
-Udaya Kiran Challa
