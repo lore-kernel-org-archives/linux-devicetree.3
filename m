@@ -1,132 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE2835E944
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 03:57:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F453515D6
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 04:10:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786679876; cv=none; b=uZZsjy7P14KBQI1nW3Rz2/NdmOeqJBYkdTPue+nfSmEyJNjpCTZzLvjurp2MV6Ka6KZqBDlWBo1/N9HKTy1qceF3RJLkeALlWdcipcITLtG0++hGkphOkcrKPYk3Ujd8auBRHAU69o14oWe308ddmULKrsn0axdbZjjkSbAYqI8=
+	t=1786680659; cv=none; b=Jt1J8D4xXplVRbMig0ao3l9xSTTxThdMVUs8hVnp/81XR+U28aLyeBx27cTUj2Oz0JNCW4JaqIE8H4WZGKEDntPQd/flh2ZhQpogPaz3r+oJdGVbiKcn99OnTfsAuCiP6s97rG1DnpAKTXz3J8jjaVIUwkB7nlQuOgu4HAZZZCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786679876; c=relaxed/simple;
-	bh=XUdOIJVwFmqATchMnmkNPs/TRAozTpopVr5H9ZiMTas=;
+	s=arc-20240116; t=1786680659; c=relaxed/simple;
+	bh=iIdwkWqkwhLUG/JN9f/lXgtwn35m3Pfg5ECEGv1TRPI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t9X1vtfN5NeN9S2D+vtBA5sG87xZnKOPSofo9ZGhnL97lJtaR04zoaUmCjlcqhVW4lHBmi6LSfK+2EG2H1+ePxmOXI8mb5d1b1pmw8qURAC4NWj9Z60lRP2KPHVvCeIthYcKRjlFFaYskIwj5OZK8HR8l//Z/h8kGotv94bWc+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYWu9VBh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WAOedGd6JWeZWrRwMw+xSe8kdY5j3vIIfDHCIa1ZfEvnFpL9y+okYjRa/5OVGIhI456TPKAhm3i/XwJlnaDx30A1+Yn+clHq8dajBeSPTPEBgLzWmzw/9br2SHDIhaQEqDKtCrsRIwJPUU0BPqZ+5Y20mgxR7L9mo3gImlQdiC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NTMFrCgo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYWu9VBh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B9F91F000E9;
-	Fri, 14 Aug 2026 03:57:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NTMFrCgo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A912D1F000E9;
+	Fri, 14 Aug 2026 04:10:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786679875;
-	bh=6ON5mIt7Is6oZwpsbZ6ExbGPRA+cK+XyojDc4+eYXXw=;
+	s=k20260515; t=1786680658;
+	bh=wsMbl8FoGh7KTn3Z4KEFN7fT7UmCwOxo9NPY6ckr9Xc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nYWu9VBhUPnMF84np4azvhqPstk9/3p9sOcsq/BuBRmGoCZAdWJeINtf+kNyTDMHI
-	 Q3sSxexrUxGCIZS7eKjKTeuM30aWqJBVFphZkSYHhAwVNZAn7KYrhWWb8D+EnUctEE
-	 ZJLPu9dLcOSNA6F29v5EaBgjUn7D1qzk5L88MBdSeSaCajnW3bIEsgJo2/LCmSM19F
-	 cMioH2xgVwcLXOpF6PrC84/oRIyEIUaF+KaR5CI4yiJ984FRsV4KoZlP2FmfZSiJ2N
-	 ctPu6pZAkIGMOBBJ32a/sFA4FD3WH5xWG5KyQGrC7IuskYKV5d/0zjrGP6mvOMj2hX
-	 UirNYTDY5YPpg==
+	b=NTMFrCgoGKYZXnCxrL862aJYndwcUpWhjyoGHILd5g9hd807s6o0mF2l2WKsHC4e/
+	 jWtcTFL7M9ratISdzkPH1EA60TTU/xwjP/5RXzaE1Cncm1lVCt5C1/ziqF7xDjUq+k
+	 uaUFzjgaqi7g8lQOeYAGycRWWvR4OZZUguWbiGVBjlRH7hnQsBK5FosZOP81i9qhYX
+	 KHnkYm+AlsMrQ7bkeQiKnzbzbS8lLZYpSKQX/M0meOsM2HCq67rqSFhRr++f1ggI+E
+	 YbcsFl4epgBDH+8wm3LNZGF3XNugHUZVVizUjwgKFSS5sRhSvYUtr18Gt3+nsNsoZB
+	 8xBb4WpamgHAA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 19/38] phy: rockchip: usbdp: Re-init the PHY on
- orientation change
+Subject: Re: [PATCH v14 20/38] phy: rockchip: usbdp: Factor out lane_mux_sel
+ setup
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-19-b5ad9c68fa11@collabora.com>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
+In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-20-b5ad9c68fa11@collabora.com>
 References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <20260813-rockchip-usbdp-cleanup-v14-19-b5ad9c68fa11@collabora.com>
+ <20260813-rockchip-usbdp-cleanup-v14-20-b5ad9c68fa11@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 03:57:48 +0000
-Message-Id: <20260814035752.9B9F91F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 04:10:49 +0000
+Message-Id: <20260814041052.A912D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing hardware re-initialization for active USB connections upon=
- orientation swap.
-- [High] Data race in `rk_udphy_dp_phy_configure` due to missing `udphy->mu=
-tex` acquisition.
+- [High] Data race in `rk_udphy_dp_phy_configure` allows DP link training t=
+o corrupt USB PHY lanes.
 --
 
---- Patch [19]: [PATCH v14 19/38] phy: rockchip: usbdp: Re-init the PHY on =
-orientation change ---
-commit c57df7f56eefba79468e8b70c0ccc01c090e116d
+--- Patch [20]: [PATCH v14 20/38] phy: rockchip: usbdp: Factor out lane_mux=
+_sel setup ---
+commit 312855a280db1af8a51a65d7c305801cd55a506d
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Re-init the PHY on orientation change
+phy: rockchip: usbdp: Factor out lane_mux_sel setup
 
-This commit addresses DisplayPort functionality breaking upon cable
-re-plugging with swapped orientation. It tracks the orientation flip and
-sets a flag to trigger PHY re-initialization.
+Avoid describing the USB+DP lane_mux_sel logic twice by introducing
+a helper function to reduce code duplication.
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index e44d19c9d1193..4b454798c4ed4 100644
+> index 4b454798c4ed4..4e54020d17551 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-
-[ ... ]
-
-> @@ -631,7 +632,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch=
-_dev *sw,
->  		goto unlock_ret;
->  	}
+> @@ -582,6 +582,42 @@ static void rk_udphy_mode_set(struct rk_udphy *udphy=
+, u8 mode)
+>  	udphy->mode =3D mode;
+>  }
 > =20
-> -	udphy->flip =3D orien =3D=3D TYPEC_ORIENTATION_REVERSE;
-> +	if (udphy->flip !=3D flipped)
-> +		udphy->phy_needs_reinit =3D true;
-
-[Severity: High]
-This is a pre-existing issue, but does setting this flag actually
-re-initialize the hardware synchronously if the USB PHY is already active?
-
-If a pure USB 3.0 Type-C device is plugged in a flipped orientation, the
-Type-C subsystem calls rk_udphy_orien_sw_set() which defers the state via
-phy_needs_reinit.
-
-Since USB controllers like DWC3 do not typically power-cycle the PHY on
-orientation changes, won't the hardware remain in the previous orientation,
-causing SuperSpeed USB connections to silently fail and fall back to USB 2.=
-0?
-
+> +static void rk_udphy_set_typec_state(struct rk_udphy *udphy, unsigned lo=
+ng state)
+> +{
+> +	u8 mode;
 > +
-> +	udphy->flip =3D flipped;
->  	rk_udphy_set_typec_default_mapping(udphy);
->  	rk_udphy_usb_bvalid_enable(udphy, true);
-> =20
-
-Additionally, while reviewing this file, I noticed another pre-existing
-issue regarding concurrency:
+> +	switch (state) {
+> +	case TYPEC_DP_STATE_C:
+> +	case TYPEC_DP_STATE_E:
+> +		udphy->lane_mux_sel[0] =3D PHY_LANE_MUX_DP;
+> +		udphy->lane_mux_sel[1] =3D PHY_LANE_MUX_DP;
+> +		udphy->lane_mux_sel[2] =3D PHY_LANE_MUX_DP;
+> +		udphy->lane_mux_sel[3] =3D PHY_LANE_MUX_DP;
+> +		mode =3D UDPHY_MODE_DP;
+> +		udphy->dp_lanes =3D 4;
+> +		break;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does
-rk_udphy_dp_phy_configure() race with Type-C events?
+This is a pre-existing issue, but can this code race with DisplayPort link
+training?
 
-The DP controller driver calls phy_configure() which executes
-rk_udphy_dp_phy_configure() holding only the generic phy->mutex:
+If a user rapidly unplugs or rotates the Type-C cable while a display is
+attached and undergoing link training, the Type-C subsystem could
+asynchronously call rk_udphy_typec_mux_set(). This modifies lane_mux_sel and
+dp_lanes here in rk_udphy_set_typec_state() while holding udphy->mutex.
+
+Meanwhile, the DP MAC driver might be calling phy_configure() to perform
+link training, which invokes rk_udphy_dp_phy_configure():
 
 drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
-        struct rk_udphy *udphy =3D phy_get_drvdata(phy);
-        ...
+...
+		for (i =3D 0; i < udphy->lanes; i++) {
+			lane =3D udphy->dp_lane_sel[i];
+			switch (udphy->link_rate) {
+			case 1620:
+			case 2700:
+				regmap_update_bits(udphy->pma_regmap,
+						   TRSV_ANA_TX_CLK_OFFSET_N(lane),
+						   LN_ANA_TX_SER_TXCLK_INV,
+						   FIELD_PREP(LN_ANA_TX_SER_TXCLK_INV,
+						   udphy->lane_mux_sel[lane]));
+...
 }
 
-Concurrently, Type-C events like unplug or orientation swap trigger
-rk_udphy_orien_sw_set() or rk_udphy_typec_mux_set(), which modify shared
-state (udphy->dp_lane_sel, udphy->lane_mux_sel, and udphy->dp_lanes) while
-holding udphy->mutex.
-
-Because rk_udphy_dp_phy_configure() accesses and writes to this shared
-hardware state without acquiring udphy->mutex, can the DisplayPort PHY be
-programmed with inconsistent lane assignments if a Type-C unplug or
-orientation event occurs during DisplayPort link training?
+If rk_udphy_dp_phy_configure() locklessly verifies dp->lanes <=3D udphy->dp=
+_lanes
+and loops over udphy->lanes, could it read a torn lane_mux_sel array or a s=
+tale
+dp_lanes value? This might result in applying DisplayPort voltages to PHY l=
+anes
+that have just been reassigned to USB, potentially corrupting the USB link =
+and
+leaving the PHY in an inconsistent state.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813-rockchip-u=
-sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D19
+sbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com?part=3D20
