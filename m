@@ -1,183 +1,183 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933013515C5;
-	Fri, 14 Aug 2026 06:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17202E06D2
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 06:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786689183; cv=none; b=jUittZvlHd7/il+lZEacTZ7O75uDoMjA67zzukhSsbqGZ0poEMVJArMTZ7nPb/nB32/cdS7GAGog+mgNCQ7SNwQDME33itfhu4Q3lSRMqFsrTYw0MXGEB6bfPTSb9kzAmsmG6ciDuwuEB9dGX7pr/zXNOZSsViCIghrO24QwWWM=
+	t=1786689335; cv=none; b=oRq6cGCqHmLZafSdy4Cg/HbdJutRimgoyndY7ea+5h1ZgReCvVb5h25d3zOuuHs3Boe52oCddQQNvtPioiwhrFtHBXrK3wWtExPlT/JFfujpDTO1dTFnQaHAwOvFngjWySsiGVQIPOjka6/cnUXp0vLo1YrsxDwC+tiHmveGeNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786689183; c=relaxed/simple;
-	bh=XHpL4UPy+zpKTpJzlG0smCgtp+vHZatvag28j6x5Hfc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YXp9D8TSNoCHZ3oqtAOy2vvOQKuvL78SMVVvWpFIYO31cudhvsELAhup4F/m6gVlxhudIF3xvDxPObf16UPha5Jwid0lEpIfNXf4sr7RYdfE/vbz12k8fZOfPgJLpeNam6FTIeZJHqNSm+tp7U1r+kx/sYbx4jhqK9L6pt3tfLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 25F761A00F2;
-	Fri, 14 Aug 2026 08:32:53 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id DC21E1A0153;
-	Fri, 14 Aug 2026 08:32:52 +0200 (CEST)
-Received: from lsvm11u0000395.swis.ap-northeast-2.aws.nxp.com (lsvm11u0000395.swis.ap-northeast-2.aws.nxp.com [10.52.9.99])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 1925D18000B5;
-	Fri, 14 Aug 2026 14:32:51 +0800 (+08)
-From: Joseph Guo <qijian.guo@nxp.com>
-Date: Fri, 14 Aug 2026 15:32:38 +0900
-Subject: [PATCH] arm64: dts: imx95-15x15-frdm: add boot phase properties
+	s=arc-20240116; t=1786689335; c=relaxed/simple;
+	bh=OFsEBoJpPI79JybMuQD9SmyuOCPr75edl9kgdSThyGA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BgOylZRklOkiKpl/1GZ5spmxmXAkBWqcLoDqq1RsYvrvQ+P4XN6y87K1qFYlRkehyt/bmZLDItaeP+rWSyRGcqo/RscsRGUqrBAzEC0FophNTrdlJ4+hwtDcjwIU79tVPvowdcoaLKtAOFiOPffNZsWlrJLecQ533EBpxD6Dexs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NvxLPHBo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OtLzfNuI; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NvxLPHBo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OtLzfNuI"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67E4QYU6979898
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 06:35:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Q62LA/TLjmvPWhJyTRg3Jbr4r61LixtTZckidFb0VyQ=; b=NvxLPHBoNRwOUIXz
+	m8ef2WVoREGLPeuJt6rQrAmTWoSGUJlMZeOkNbbf3iBguR7qMAFowZnc8Y46v/P4
+	OTFSExoR/QowA2YXD8x4mj+QqBVg78YX94fVSRpGR85XAXlJL+yUb9L5DaFcQQ04
+	OXxU//SBBsIPbwMExkFHtxQAdZSHiFP6syzG5iweVpxZ9zAbeEWTPe0R6j8JrtLx
+	CfH6sUhQ+0yYUJQ0xQlCM8pmcEzNJfIaKhRgEe2y2eBEXnNAyrojUtkUHKCp2Gcl
+	u++NIftyhrKaVpwDEUgAD+0qhc0a5PsGefXGA2VN/Pt+XMvSJCeLSWcw+uNA9NeX
+	l9Lggg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1pea1gxf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 06:35:32 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cd01a14e81so10651605ad.1
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 23:35:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786689331; x=1787294131; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q62LA/TLjmvPWhJyTRg3Jbr4r61LixtTZckidFb0VyQ=;
+        b=OtLzfNuIawu6DHT+8l2aB3Xm8aojtweq1Xd1zGgT/EfLTf80PoPGOH9O/PCze4S2jk
+         P5xkAbUq9kx7wQeWf5xTNdluhuZAnz+wOYZR86V8R8v9rFHHtii1XsL5TQ5fwkktipU4
+         MDN+Y2z5NNEFL2QkaSKGocWzlN6hBeFOC/7Ij/dp8g+n/YEY49aOUelLWD0cV5iIdLdW
+         Sm32jXEGJC7Rpom3DqLGEfV6yDGBgj/NT+f1EZw9iAs4fTMYAhixdCGCF6j5Jq9DXFMf
+         SaAgDoJULnJ8ED/C2QPfekkBv7Z2PYq6DblHFYvY7Rez1V+UHf2jwAlzbVUsd1IaRJoU
+         GseA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786689331; x=1787294131;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q62LA/TLjmvPWhJyTRg3Jbr4r61LixtTZckidFb0VyQ=;
+        b=bMNAVQph1jC+jaRBsT+u79whTmFr4rg1d77mwlUrz02TFdB6i4qswNvF+7paR3VVt6
+         r0Buj/Cd2C62XIy3sJ0tvSZ0o53clO/6hUET11z6Y4dehAsG4n/WAIR28YiE9UL80EfM
+         13G0VKRLJZ+z6IIRGxlCcPxxG1qFUhsKU0PR7lIR5KfYbC4jqHTCrWm83B6D3ZojC818
+         w+bHWlhYfHSNtJhljh6gi6FoN2zQ1D0gB3GaAqRfuDQvoLVBVTulnCmMI3ZBMLlDjGSF
+         20xVsSKsam2vinvsdGmEY/iEpqu3Ek6S6sOtyNM+nTfJZWz6OD0GMMA1BmwyDg81UQfJ
+         t2Og==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1dTJKvg93m2NkIjTBUNPSUmcUawonzVuOwg6hE5e49Rw7lXzy9mo4AwZ80rlouh4tnuQDE/HZq884@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYLbals+gBg9sMbsRIVTL8FOAXHAVMcSO4kiHVGy7aGUKAs8KN
+	sofgxZt28eVmAbpsrvYTGXty5wwlp9OQHHF425b5Oyak7HAVdM8rU2Qm0pm3xuVdVHM8MThFh73
+	MJM/il1D0QuLZE4ki+tQxifCS2vCXcJDd+PlbKma3eo0X8Y7I2wpuP74qlxaOMtqQRNAZxQZD
+X-Gm-Gg: AR+sD12+IEQ4TAE0+qPtdCEJaOJLn9lJMVOEBXK6RfhrfcFHDEJ+MzobttB1B13jVUO
+	QsVCabdJFijvGcC3xciTwJfm3XQF2HrUQh+8+/87Z9mYeM4nNENKD5ejYOrwVLbEF2vxFJi0YKh
+	6H9eOzuxVftfMa1iEkc4SNzi0B8cNvKM4vdAT8aL1gj0jy9xWxc9cwy7mh0iwUvdLmdMfJ2LkT2
+	aOfrFEmMqqG60Hjx/4W2DgBy46NOEOCroUvDb5sODxSypoow9u7wGgwBx+eSNTldLSuETsawh5f
+	SbFeek/ZcfHPI210yPBsR4zY/KAF6j9wHt3Txe+s/YuDzF7RWKvgbb6JaxQGr0cz4eoFVosgYMu
+	HQPNdbyFa1i1zIT+CcDyXeJpbb6I=
+X-Received: by 2002:a17:902:e742:b0:2c9:cf62:6f61 with SMTP id d9443c01a7336-2d3b0f3f6b0mr34316655ad.17.1786689331402;
+        Thu, 13 Aug 2026 23:35:31 -0700 (PDT)
+X-Received: by 2002:a17:902:e742:b0:2c9:cf62:6f61 with SMTP id d9443c01a7336-2d3b0f3f6b0mr34316175ad.17.1786689330925;
+        Thu, 13 Aug 2026 23:35:30 -0700 (PDT)
+Received: from [10.216.43.17] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3aebc81a6sm5222685ad.72.2026.08.13.23.35.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Aug 2026 23:35:30 -0700 (PDT)
+Message-ID: <b8c9b2e7-87ea-47d6-b01b-b773ebd7882b@oss.qualcomm.com>
+Date: Fri, 14 Aug 2026 12:05:24 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-bootph-frdm-imx95-v1-1-c0e3f1b9d2ed@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAIW2fmoC/x3MTQqAIBBA4avErBtQsd+rRIvKMWdhhkYI0d2Tl
- t/ivQcSRaYEY/VApJsTh6NA1hVsbjl2QjbFoIRqRS81riFcp0MbjUf2eWhw0VJp061kSEPpzki
- W8/+c5vf9AP5wmXdjAAAA
-X-Change-ID: 20260814-bootph-frdm-imx95-a4124d7bede4
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- qijian.guo@oss.nxp.com, Joseph Guo <qijian.guo@nxp.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786689170; l=3612;
- i=qijian.guo@nxp.com; s=20250519; h=from:subject:message-id;
- bh=XHpL4UPy+zpKTpJzlG0smCgtp+vHZatvag28j6x5Hfc=;
- b=TOgrspMoWBdhzLv/eeUze6wGkKIhcXR7zPobZjjvg2CaNFohuMm0TKad25QfoueJXKuzzCZB0
- pUyBDWTSkOBB2BO0QUsSvIhfI3wsN3EC+UKeUqMMSrz99eS7gFH7bKr
-X-Developer-Key: i=qijian.guo@nxp.com; a=ed25519;
- pk=VRjOOFhVecTRwBzK4mt/k3JBnHoYfuXKCm9FM+hHQhs=
-X-Virus-Scanned: ClamAV using ClamSMTP
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add QMP
+ UFS PHY compatible for Maili
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>, vkoul@kernel.org,
+        krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20260814004725.1368027-1-nitin.rawat@oss.qualcomm.com>
+ <c37708f3-5043-4ad5-944e-64ceedeecad6@oss.qualcomm.com>
+Content-Language: en-US
+From: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+In-Reply-To: <c37708f3-5043-4ad5-944e-64ceedeecad6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=TbGmcxQh c=1 sm=1 tr=0 ts=6a7eb734 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=ZzmLuljT6Y08Yp8wPLQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: gX-zINMxcc1N-dARw5rUd2nFRAoFZAnG
+X-Proofpoint-ORIG-GUID: gX-zINMxcc1N-dARw5rUd2nFRAoFZAnG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDA1MCBTYWx0ZWRfXwrfBS+v4hxdr
+ zr8ieEMHPuaulK1PQRYfi58Kzx8M0QvC2+l8OTSF5juBhEOQsXzjPzGoHS5UPXcfDfrbvTAVwXs
+ Jc9PmDW4ujqkvnjHwWL8LFea1MgZ6f1O8OMa93QUqULN97G34QZfIN4I5h7pdbtJVp/Zz1cbLI8
+ 5zBwtsLuK1G+ruHOT4+Z4nVzOac8GHFZDRZn0h98umnxd/zWRJ0NettfHw/CBs8x2aoHUCvpZc6
+ Mz2gSpkPPmksHg39t7xrZ+wHcyTRqBc8cZu4Mb1yEwtcJmWIuWG8phngs+iqkqYa9xxT7HymOhi
+ 5Tt4RUeIvcEIpLz7WH+3AZw6F/oTEapBVlS+NV/J2Xcj8pNW518LbDEEz8yRmeZcLygGethk2Lu
+ xeVNLhUaWKC09Dv48+D198hrznPIyxkEp3siLC6wsNTZ4Q8fzfQ7TeEafdsEeOU3LqudrlIS5eJ
+ +ihQv23CfnxATJrM9cw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDA1MCBTYWx0ZWRfX6A0xbRgUWdy+
+ gr1r7gr4rLRhztFdJZc51ywPuyAadpwf68absb8TmTo5YMaLd9tmfTm2qlhBSvQlclh61ff1bpq
+ DBZ8cHAtRhv2++TfCwiQYrI2q4UOFsE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-14_02,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140050
 
-Add boot phase properties to essential resources during boot phase.
 
-FRDM-IMX95 need UART, SD-Card, eMMC access during boot process.
 
-Signed-off-by: Joseph Guo <qijian.guo@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+On 8/14/2026 8:01 AM, Jingyi Wang wrote:
+> 
+> 
+> On 8/14/2026 8:47 AM, Nitin Rawat wrote:
+>> Document the QMP UFS PHY compatible for Qualcomm Maili to support
+>> physical layer functionality for UFS found on the SoC. Use fallback to
+>> indicate the compatibility of the QMP UFS PHY on the Maili with that on
+>> the Hawi.
+>>
+>> Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+>> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+>> ---
+> 
+> incorrect DCO chain, the last SoB should be same as the one who
+> send the patch.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-index 0f43e3be70589532763f65f1699f31dd361cc841..ba17d87f197a3d3498a815fb82547bd810b3e57d 100644
---- a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-@@ -140,6 +140,7 @@ reg_usdhc2_vmmc: regulator-usdhc2 {
- 		regulator-name = "VDD_SD2_3V3";
- 		gpio = <&gpio3 7 GPIO_ACTIVE_HIGH>;
- 		enable-active-high;
-+		bootph-pre-ram;
- 	};
- 
- 	reg_usdhc3_vmmc: regulator-usdhc3 {
-@@ -445,6 +446,7 @@ led_backlight1: led@1 {
- &lpuart1 {
- 	pinctrl-0 = <&pinctrl_uart1>;
- 	pinctrl-names = "default";
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-@@ -721,6 +723,7 @@ pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
- 		fsl,pins = <
- 			IMX95_PAD_SD2_RESET_B__GPIO3_IO_BIT7			0x31e
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_uart1: uart1grp {
-@@ -728,6 +731,7 @@ pinctrl_uart1: uart1grp {
- 			IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX		0x31e
- 			IMX95_PAD_UART1_TXD__AONMIX_TOP_LPUART1_TX		0x31e
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_uart5: uart5grp {
-@@ -753,6 +757,7 @@ IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
- 			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
- 			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
-@@ -769,6 +774,7 @@ IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
- 			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
- 			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
-@@ -785,12 +791,14 @@ IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x13fe
- 			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x13fe
- 			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x15fe
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
- 		fsl,pins = <
- 			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc2: usdhc2grp {
-@@ -803,6 +811,7 @@ IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
- 			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
- 			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
-@@ -815,6 +824,7 @@ IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
- 			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
- 			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-@@ -827,6 +837,7 @@ IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
- 			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
- 			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc3: usdhc3grp {
-@@ -1001,6 +1012,7 @@ &usdhc1 {
- 	pinctrl-3 = <&pinctrl_usdhc1>;
- 	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
- 	fsl,tuning-step = <1>;
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-@@ -1014,6 +1026,7 @@ &usdhc2 {
- 	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
- 	vmmc-supply = <&reg_usdhc2_vmmc>;
- 	fsl,tuning-step = <1>;
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-
----
-base-commit: eba4724641990bd9975ca10ababe726b6143f0b6
-change-id: 20260814-bootph-frdm-imx95-a4124d7bede4
-
-Best regards,
--- 
-Joseph Guo <qijian.guo@nxp.com>
+I'll fix in next Patchset.
+Thanks
+> 
+> Thanks,
+> Jingyi
+> 
+>>   .../devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml    | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp- 
+>> ufs-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp- 
+>> qmp-ufs-phy.yaml
+>> index 7e83cb3238ec..d94503fc26e7 100644
+>> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs- 
+>> phy.yaml
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs- 
+>> phy.yaml
+>> @@ -16,6 +16,10 @@ description:
+>>   properties:
+>>     compatible:
+>>       oneOf:
+>> +      - items:
+>> +          - enum:
+>> +              - qcom,maili-qmp-ufs-phy
+>> +          - const: qcom,hawi-qmp-ufs-phy
+>>         - items:
+>>             - enum:
+>>                 - qcom,qcs8300-qmp-ufs-phy
+>> -- 
+>> 2.34.1
+>>
+> 
 
