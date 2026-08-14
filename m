@@ -1,129 +1,125 @@
-Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D501B43DA38;
-	Fri, 14 Aug 2026 08:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC8C448B99;
+	Fri, 14 Aug 2026 08:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786695733; cv=none; b=Ff6cs+6m6qJeWfJdUzZJw+7mo/4Vw7ClczEA4PuH1ouTAecV1ewtwr8AwA9sOWFRHDFJIDn106t7fZVAP0Pc2qh04EajDbIaE9WmvnI8bQ1V7gKd50LPXDDfF9PWFgEMccWpBNMQw42r1Wel21dZ0fzfysH+O7Dh9ZHQfHsUg28=
+	t=1786696127; cv=none; b=bjkdLdqHg3VZqrhv3I2mABIYByxM0n8U8pjaTemVwRnxJBthIwKsY4mmDnRzqwnVGu/zZbuS1OxpDgWTywBTG21BixgcxvYZ/plHXogKNtr6zzDDxB8LD4NmDEYZUCq7rw4k7e3wyelowyR+oqAzbISJwxMSgXWesoUu8rV+jXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786695733; c=relaxed/simple;
-	bh=tYbMsjsVclywWT4pqdNdVvgEUPkc32oE3bvrFaDx+p8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rm+H1utiwfczhEIMU6C2pvj2UD95KgdAX8aDbe/m86LxR9JLH0aO9zNdY1plgItiOVZqQcJoq0cyyyS+kmzxBgmxxZgE8bf9XFjK3FN9XWE9Rl611UK7WBy3FhAJlXNdLnWeXabfSZ+4Rndy6ZUIg1WNmUDyDYCGe2A9hQP0Goc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=qcQ3s3l0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Qtto3IC1; arc=none smtp.client-ip=103.168.172.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	s=arc-20240116; t=1786696127; c=relaxed/simple;
+	bh=HRljGX3TSBiQ/d+PmHmhkQ/8ZPeNNwKqNQZPe9EayZg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PlxzcSSWLg6WtjDngQFI8LtxQxqC0qnAPxX5AYvBIdzMFvY5usAJBgYxyDRGU8AJiju4peypQpQHx7WBtSDNIvnWiy2oQyNeG9ILiXhZMh5CQ72VjGnbYExllzwGNcdl43RipztBX9CigqJ6ZNPv6clNDDf5T7TGt/A4KmgQkjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ClVIRtHz; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="qcQ3s3l0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Qtto3IC1"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailflow.phl.internal (Postfix) with ESMTP id CC9221380234;
-	Fri, 14 Aug 2026 04:22:06 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Fri, 14 Aug 2026 04:22:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1786695726; x=
-	1786699326; bh=tYbMsjsVclywWT4pqdNdVvgEUPkc32oE3bvrFaDx+p8=; b=q
-	cQ3s3l0LQ19OGpr5qYNO/r4yT0f21MjSi8LdnV4IKLjy/Uel2+CuFUkSO/ZfIvah
-	x5Zomvts4h7qeLy+0tyXRTFEp/uV6ruwIBSn00gzeA4WdtiS8QQ2hs0lIXMQePtZ
-	CgXRmsEjDze/HRZzSAXToBIVSzlind8dovZz70nwGBHVHAAZu1sdOhi321znXNVS
-	yQgv9bv5l59m1W57CXHmnUtI2rIIFqhV9OIVuxK1jHnSkfz3fdxul8ftYarQc1wp
-	7zRWaHtHV16db/9kY96X/mWCw/LVH83rTYJIXdbHUf/U3edZHZvKXyGeDcJLMJOA
-	QQmjYEFNAp/dBhotLgz0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1786695726; x=1786699326; bh=t
-	YbMsjsVclywWT4pqdNdVvgEUPkc32oE3bvrFaDx+p8=; b=Qtto3IC1Xc6+/iUYo
-	162Qn5KNnllkP26KVmf0UXDaF3qNg81XxDy+1GVH571iYboPq9aromumVTgDUsk6
-	bR1mm9iPVKHwPK8zyqwSEdTOeU6rdjp3iduFbinLtpMq49897PmgelfZ2yg0AeJi
-	wQ/YtUaoawWW1T6Lt1K39way7WZrcQWYqesdJGDuS5BBkETNnA4pgNt1m/JkA0v+
-	1M4XmZ02rYLkCMAAvUWbUTxW6ZeB2IQ7zfZna01DfOCkbDJQFqiFyzWHUBntBZVK
-	a2wfVg/HFdO3BcRXzNmgWLIeB305ruycsDPw05Zm1YM8wu16s5HJTgCDzMFqn41A
-	Bofcw==
-X-ME-Sender: <xms:LdB-alNfGkSoIMmXfAWOdT0VN3wLWkeh7v6AsrWYsUfPGiVRXKHDSQ>
-    <xme:LdB-ahV0yVwNm8E8jTi1I3VSXeb7POAbbbBh203tietHYifiZsDxT7mu3nTekI-Yu
-    0Cj-0Pcg7ysfC65Qto5OB-xmPu3LtDSnEHoLbDcjKyqD3y-Cv5uqghC>
-X-ME-Received: <xmr:LdB-asyIbIkA37gu-j9Hz8SF9FgGbJ1JHTemCFwr-MDX6ZkFiD8jDAqx4ks9TSPVZyMYRMDGiA>
-X-ME-Proxy-Cause: dmFkZTFVlanrXEW8K19TWP1UI6tsJJsG6MwxDm1iiLMNJuK90FsZo1caHlyjFdEE11j5nY
-    CZC2CGq3A+Ut1sUKen/cWewPEce9+IQKVa7Jy61Kup4KPTbB9ytN5SjRQkhnWJYgLQhIPm
-    VRyS/7i0pELo446ufviXofoH9RHcuKkfBOsMxlOavi3G9MW9mePPnvEPD9buRe0GO+pQ8n
-    CRFJuOPmKLfzQl9eYDWKZZm6eHC+LYAtQE8pAJ6wQnzXEUKAqnpJqs3kuWClGGY9Gjp5wm
-    yaI30idSZ5MW+ZHe7Cnj2u03U5r7qw+yBOsncREJtTNrfwrQV8V/ItB/Wrwu64dBL+lPQX
-    3cjLzuzT4miXsEVIGPYdeiK6MJeeHYXuW3yqd5lweMQaa5ZzXeRN34uvf+VIZbFzAqObhS
-    2CU/xO4IT9M7Avntq1oNj1obA29lr+mhu5z+UrO/DDR3RlMNjQmm1Sc739FAZWCpjSHA6U
-    pAKr8ePu3vrTizvTXScxzQgU+6vgr94MlX89l1rAsgeyoNmfnerdZraYmibQsGxaSBubI6
-    eQhdD5FAbSO17gVDFZUqGFqD7zRwVpONbP9L5Wk7NpCNwEUe7SQM1P8ohpUftjhe8Tk4PG
-    Z30OIi1lHZ3DaGcTkK2abWPicZU3fr7vY/d8p6TQjUY+dAq2fvxVjwb3KLyw
-X-ME-Proxy: <xmx:LdB-ahMFZkY8YCwYaCiccxhPRCyzjq2uN1SWt9ijCxqbvvyz233hMg>
-    <xmx:LdB-aupAMKiOjdFOgFLSMZOq8I3qUiYq53JfloN4XezOV0pFqLGy0A>
-    <xmx:LdB-ao-pF2irN6diRDlC9TJQZ3KED7VYps2h0AL5vHQavT7_aETntA>
-    <xmx:LdB-ak1OM6AFIg1T0vwZlcj8HX0I5x9Gl5eBKq6wYX6K9V62BYhZ6g>
-    <xmx:LtB-arbFxQ4kACEdvM790iEBHB7-hvcExhrKbM7F3GHF19N6LcfIrFSW>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 14 Aug 2026 04:21:59 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: krzk@kernel.org
-Cc: heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ulf.hansson@linaro.org,
-	tomeu@tomeuvizoso.net,
-	royalnet026@gmail.com,
-	diederik@cknow-tech.com,
-	chaoyi.chen@rock-chips.com,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [PATCH v7 03/10] dt-bindings: power: rockchip: allow resets in a power domain node
-Date: Fri, 14 Aug 2026 20:21:57 +1200
-Message-ID: <20260814082158.3851740-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260813-squid-of-splendid-hail-d968bf@quoll>
-References: <20260812094106.1391698-1-gahing@gahingwoo.com> <20260812094106.1391698-4-gahing@gahingwoo.com> <20260813-squid-of-splendid-hail-d968bf@quoll>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ClVIRtHz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786696118; x=1818232118;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HRljGX3TSBiQ/d+PmHmhkQ/8ZPeNNwKqNQZPe9EayZg=;
+  b=ClVIRtHzeGGp3/bAiQti0VfQQYBp0dR03U9nDn5qWD/dysaM5UorDUWS
+   WEbIM6ipnXUyOy/1aSbyIayw/FTmmH0DuSjFJCq1tZ4MrZJADPJBRDYk9
+   PD4Dbo01Y/j5JcvqjiEK02NIVZmlRRYVloe6ioxPwAqwVzlDtJrIjYCHT
+   gq7WQbze1qc8eWuwFky7VimDhXiVaDSftMfwLof3IEA2gM51xromLTF0w
+   ARdWatkjH/BhZh3vWb3oV10e2BhtubY/FuaqMI3CpNfYwv6Sz35Ho8j9C
+   Rd9yS3yjPUKMyR5qiA86+NiWIuqMZ+vWgo+YKQMYYZuXNzH8yw5ReznSA
+   Q==;
+X-CSE-ConnectionGUID: JEhsbZ3BQOC/toD0rmvXkg==
+X-CSE-MsgGUID: yXaQMuYZSnqBwsirqEemNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87403281"
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
+   d="scan'208";a="87403281"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:28:32 -0700
+X-CSE-ConnectionGUID: RWC9eLUXSrqk/rq4I9xX1w==
+X-CSE-MsgGUID: pNJT3lZ+S7qXobv4VXgHwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,222,1779174000"; 
+   d="scan'208";a="260377327"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.134])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Aug 2026 01:28:27 -0700
+Date: Fri, 14 Aug 2026 11:28:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v3 11/14] gpio: regmap: Use regmap_test_bits() for single
+ bit reads
+Message-ID: <an7RqI9bBIX6lu_5@ashevche-desk.local>
+References: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com>
+ <20260813-ad7768-driver-v3-11-cb554399ad26@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813-ad7768-driver-v3-11-cb554399ad26@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Krzysztof,
+On Thu, Aug 13, 2026 at 03:57:04PM +0200, Janani Sunil wrote:
+> Use regmap_test_bits() when reading a single GPIO value from a normal
+> register and when reading the direction bit.
 
-> This paragraph is redundant. Why are you explaining correct syntax?
+...
 
-No good reason. v8 drops it.
+>  	/* ensure we don't spoil any register cache with pin input values */
+> -	if (gpio->reg_dat_base == gpio->reg_set_base)
+> +	if (gpio->reg_dat_base == gpio->reg_set_base) {
+>  		ret = regmap_read_bypassed(gpio->regmap, reg, &val);
+> -	else
+> -		ret = regmap_read(gpio->regmap, reg, &val);
+> -	if (ret)
+> -		return ret;
+> +		if (ret)
+> +			return ret;
+>  
+> -	return !!(val & mask);
+> +		return !!(val & mask);
+> +	}
+> +
+> +	return regmap_test_bits(gpio->regmap, reg, mask);
 
-> 30 resets per one power domain? and none got to the example in this
-> file?
+Wouldn't it look cleaner if written as
 
-One. Both RK3576 NPU domains carry exactly one, SRST_A_RKNN0_BIU and
-SRST_A_RKNN1_BIU, and 30 came from the clocks property above it, copied
-without asking what it would mean here. v8 has maxItems: 1, which is
-what this series actually needs, and it can be widened by whoever turns
-up with a domain that needs more.
+	if (gpio->reg_dat_base != gpio->reg_set_base)
+		return regmap_test_bits(gpio->regmap, reg, mask);
 
-And no, nothing got to the example, which it should have. v8 adds one.
+	/* ensure we don't spoil any register cache with pin input values */
+	ret = regmap_read_bypassed(gpio->regmap, reg, &val);
+	if (ret)
+		return ret;
 
-> Do not need '|' unless you need to preserve formatting.
+	return !!(val & mask);
 
-v8 drops it.
+?
 
-Nothing above is fixed yet, only decided. I told another reviewer on v6
-that something was fixed for v7 and then sent v7 without it, so I would
-rather say what v8 will contain than describe it as done.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks for the review.
 
-Jiaxing
