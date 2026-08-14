@@ -1,208 +1,131 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D31A4963B8
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 19:03:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786734222; cv=pass; b=Z9HaNoed/C9VPwLBapAtF5D+FHyTpsPpv2OC1BkVlK7dgtmekYO2hNwbtBxD54uivfzQ9Zssg6h3izrBmGDOtGcvNTv1K4x80dzjt4ZusnQvHHlLUfwvYZZ0+7w9nzh5bwGAKLBjsNp8g/1Mfo/zpyqHGjD3XoU5zksULNj0WMA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786734222; c=relaxed/simple;
-	bh=qQI/JXDVczQ7y8XoDStx4EtR3tJDwfAXTphzlNpcO7g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OxS9hUDjYYk38uCw22ogS2ZRJUnSbvdigKb7cVBlsUyynpaqVPc2hhaDc/6/SATck6U1DnlxdZy+WbaA/XcBOVlEt6ntjgseaC3nhxxdvkOf0+60fkr66z3ZRsZs5wd78siDfjSPp1JsIsu1Tl3HH1daop0r3J/lcSopoXC+q8E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qvoor54R; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B0E492196
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 19:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786734274; cv=none; b=q+1jkwTQgisBgVyaoVPzYTjd3dnBscc+JhuV+TDD49+vPrh7zH9IxpkY+6iy2zop9QU1hXaNvcnXX7rqMd0nRFqCRGkMZLD/8konfXYVzcFo0hUP+DzJ3DlxQr9x3M8hDS6JPuv9rL4KQR1ITF8+X3rAFrvRoKkZP+sk/Reb8qY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786734274; c=relaxed/simple;
+	bh=1yueDIRcNmp0i/VOmEhCTZMB+CwGilUMHPQ0pkxUdZE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IRUiECh8Z73F9eGsMlCg1rBMVrssJpQ4CWzD17EncLU397z/EQ3gqxIVhhlHLnEHO7+R8Q1XUE8KbtLNjqWoHS0gIb2Ql5LT7FyauKfSim6nDJXT8n3NCjR9atgQDBA4EnMX7iD0SigWDnWBzOo0KLjlwEZ3OV0VMIOMZyuTMCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aaaoq9TF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qvoor54R"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a1321319a9so11489691fa.0
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 12:03:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786734218; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Bjsg98VCRiwhoq9fmGmHpO2k7KGwTBhYctJWQ1MEe/uhM9GFzo8GW2eJUgN/5QfDj+
-         82fYQKvdbjBuNPS4gRSWzoFbJHhZDmrCHHTvojHoc2C0zM2se6XGXbHDsH48g3pxxrqD
-         X5yT9KaPahmR9xTkOM5PVhQKSn7LMbt2bNPg1G6+EYRJUDYnXPjNB0DEccSTEFDQECtd
-         FvDP8BoKpIbXMVoNl6NXIJGHN4qtDl3AlADp6+g/ULGcdC1EDxhJaBY5rPetJSLgN2LR
-         siZGuBXhGHREc/JpV1PNwYPSOTnPLJb1qrNUuIdZBGn5lqH4PXv2egKbZxuiuA3aS4HQ
-         0qMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tg7eFnXbdlEJOVdwgdnj7Wlcb/VkpASkYOtfHYmgAf8=;
-        fh=hCMHrySSrIimSPSFEtEyaoyHlHx3KelWHxRhMa68WZI=;
-        b=pPZtWLdBeGgA8BBk1OEa8+cx93tottAaZAE7GtPTlmTiCW6ZFGd9Ly9qW84S3cYnRL
-         bq3csfjfcRJGVENprr2dWPUd3yEfEkH3+qJIYt6rFI41ylkJnccQx8fGBMy2tr0p34O8
-         QzZx1hSLFXGq56mk+gWe4Te0gJ2v9DiLkB2uhADPaKK3mGXevR4gZrQIsvyna5AJEPpD
-         k2hwckIbtMjPG3jMRvpoHK7GWu/7cSQ7fV4lQwRA/bzhmWxJux8PHaA/ufUi1EfbM+eH
-         50BCT+33zqWt3a7/jBj4EeYWaU8wk4K9vFZTvUm19Fr5odIq2U4Ko6peZeUVLnMyzBeZ
-         vo8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786734218; x=1787339018; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tg7eFnXbdlEJOVdwgdnj7Wlcb/VkpASkYOtfHYmgAf8=;
-        b=qvoor54RLzKuPOgyE8jx0snm6L5a0TXzc038AZ0lkTEwl9dHwlVAAszGW+t7CmXi15
-         XbevtDT7LBiZl/3FUCWWzcq45NWYe6TqksLLiFMgypJ4fL/gSvI/4SMBglIisS1oC6il
-         laoemXEG5zdgg0mtmezz4QJj28lX7k2Ivb/rLRTONq6gXfpEIctxJmeBaB7Hw/t6c7Vx
-         Wi5AyGhxGaWn0pr1E7sejT6A/UKuOZr1s5FFFyHCy3d8Y1pG68/JfilP+Mo9RN4p6S/7
-         odSdASDFuSR1JIvekPtu2S3tRE/0twtWoJz6pZ1JuORH4xgJeZzk9WkLbcuXkFm8nsKS
-         0KBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786734218; x=1787339018;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tg7eFnXbdlEJOVdwgdnj7Wlcb/VkpASkYOtfHYmgAf8=;
-        b=msc/kgLn6Ftbcx7Hrhhkmv9bWsEEPOHJJ52CpxHE/8U4K2ONtj2e2d1uJZe3+CmaFG
-         MPJRmsUBm6Pw9Kqv0zGK7wvaMQov+fhvPauNgub4bkqPi0MQFcPe7sRAgSSiJMqg+e9/
-         qSpmBR+ictgURntjw2kQ+bkdCQyuQ8hwwFtqQkmYrKbKp/ZUxsVsmu4AHSPCaPcqwR4u
-         PGcj2nTdTuIrsYn7Wi07K+1fMdGVrqME3/VXUQ/JwzJBoL2c5VLd2ZPhwCAef6fs0L09
-         EQo/uuO+jYjKZ64n8YUJ11JVYcjtGuUofi9nJq6qio6JRHlR+uTiUdIxd4wzvD7IW2HL
-         H4EA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0tOtzrGTcTxWpnqgKYjKX3ScD0a88+VMoBJj9qjen8pBqyc2ItrSowjAbMxWtIk2akSI7rGPNUb+M@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTnYwA6Avwk4mByYzjCSy1Zv9WY9R1hLka+Ctong+0skOhpmL0
-	njPyrgfZYNBaoiKYvBPbs3P8CpVkMtGPVF1kgjQIKWbtBTu9BrIt2Oqh3NFUVNR86svPugFPe9w
-	5xfsOyIMVOIDjK3JaA1hpMzHF5/0+Vcw=
-X-Gm-Gg: AR+sD12hJqh3YGxM++UjAn3hOXEffb6tUJ9Dp7HKVNQuTvVCOx5TLwzJ+XS4P+1CaA8
-	I3+Wu2wvQZBwKJj7RtUTyK+1nalFHJuQ31DfWJ/QrILaQcbpdq0Q3mEtZbQXoMh6HUxaOIqGev9
-	sb489ozgILkL2iQr20dweBb7gNUhdOC+CLOmO2LyMdtQZd6ixtWjxX/7nPxaUKsUt7HZL0ff3Nf
-	v8TrTUwOP07nsw3Eh2asrChLskNr8Bqo2hfU3rHzXcpNO8Ow4y2ElAozaG5LU5h/VScJfNwLBxb
-	GRwBX0fl7a6xz5NPgC+ZsPXbR0E6xYtxUGZVyCzWxc2c42grcuzY5Vcehg0dBMy7Atl6Nhr+pVh
-	CBJ0NdrhVcULYFSPUpEAgn1uKoIQ6uA==
-X-Received: by 2002:a2e:a985:0:b0:39a:da70:2c77 with SMTP id
- 38308e7fff4ca-3a1323afc12mr9160441fa.3.1786734218362; Fri, 14 Aug 2026
- 12:03:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aaaoq9TF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96E361F000E9;
+	Fri, 14 Aug 2026 19:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786734272;
+	bh=H0ZezNgI+a4fphSbUlYN13tI5NbNK13WIj++AfDxNE0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Aaaoq9TFFA1UevdpvOSgVn7TyFpY9c8ZoCIG7IqT3GlXwYI/hAheLZkzzIxLGrmG1
+	 upWggAhMjliJLiL3aMqiBS60gfPe6MLUdlmwiBtB30dYTKhsfiKhZg4ct9eG9qQnQy
+	 x7UYovivqPUql36GIb2s9GuQKw5fSSYv+LitXvAKrdKu+x3TVe9uCe2CyyJBIZSbsc
+	 eShP54/Pj5KA77vTOxZplMB5RA1CCrUEoA5l1QcH6WcQ6Td6S/sMAy2Bk3s54MvXHl
+	 f4dOYYxK1ZZgHhyu/MS+g4yvTYwX+v5qtJzDPm4BwcSG+28tFEPi8GHAzkfOFzW9VT
+	 MvRaK+b1WUnqg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v7 4/4] net: dsa: initial support for MT7628
+ embedded switch
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joris Vaisvila" <joey@tinyisr.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260813190241.789323-5-joey@tinyisr.com>
+References: <20260813190241.789323-1-joey@tinyisr.com>
+ <20260813190241.789323-5-joey@tinyisr.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 19:04:32 +0000
+Message-Id: <20260814190432.96E361F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260808-rp-qcs8550-v1-0-a5a365ba3dc5@gmail.com>
- <20260808-rp-qcs8550-v1-4-a5a365ba3dc5@gmail.com> <20260813-private-brass-rhino-81d7a9@quoll>
-In-Reply-To: <20260813-private-brass-rhino-81d7a9@quoll>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Fri, 14 Aug 2026 14:03:26 -0500
-X-Gm-Features: AUfX_myLhnVJMTjLABXPnREVf77347qXPc1GGgdYTRAzQmrMSKyYh9ZAhwJ9YqM
-Message-ID: <CALHNRZ8U3BgQJoKiQi-yX8pT+YDdp_BE6NVK7M3v-Jwe1qh3YA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: Add Retroid Pocket Nova
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 13, 2026 at 4:24=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Sat, Aug 08, 2026 at 12:37:58PM -0500, Aaron Kling wrote:
-> > The Retroid Pocket Nova is a high-performance Android-based handheld
-> > gaming console powered by the Qualcomm Snapdragon 8 Gen 2 processor
-> > featuring a 4.5-inch 4:3 AMOLED touchscreen.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/Makefile                  |   1 +
-> >  .../boot/dts/qcom/qcs8550-retroidpocket-nova.dts   | 118 +++++++++++++=
-++++++++
-> >  2 files changed, 119 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qc=
-om/Makefile
-> > index 09b3c5b2d9dab..582805e89f4cb 100644
-> > --- a/arch/arm64/boot/dts/qcom/Makefile
-> > +++ b/arch/arm64/boot/dts/qcom/Makefile
-> > @@ -196,6 +196,7 @@ dtb-$(CONFIG_ARCH_QCOM)   +=3D qcs8550-aim300-aiot.=
-dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-ayntec-odin2mini.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-ayntec-odin2portal.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-ayntec-thor.dtb
-> > +dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-retroidpocket-nova.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-retroidpocket-rp6.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-rb5gen2.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs9100-ride.dtb
-> > diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts b/=
-arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-> > new file mode 100644
-> > index 0000000000000..10dabb1d51f5a
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-> > @@ -0,0 +1,118 @@
-> > +// SPDX-License-Identifier: BSD-3-Clause
-> > +
-> > +/dts-v1/;
-> > +
-> > +#include <dt-bindings/gpio/gpio.h>
-> > +#include <dt-bindings/interrupt-controller/irq.h>
-> > +#include "qcs8550-ayntec-common.dtsi"
-> > +
-> > +&{/} {
-> > +     model =3D "Retroid Pocket Nova";
-> > +     compatible =3D "retroidpocket,nova", "qcom,qcs8550", "qcom,sm8550=
-";
-> > +
-> > +     backlight: backlight {
-> > +             compatible =3D "pwm-backlight";
-> > +             pwms =3D <&pmk8550_pwm 0 860000>;
-> > +             brightness-levels =3D <1023 0>;
-> > +             num-interpolated-steps =3D <1023>;
-> > +             default-brightness-level =3D <600>;
-> > +             power-supply =3D <&vph_pwr>;
-> > +             enable-gpios =3D <&pmk8550_gpios 5 GPIO_ACTIVE_HIGH>;
-> > +             pinctrl-names =3D "default";
-> > +             pinctrl-0 =3D <&pwm_backlight_default>;
-> > +
-> > +             status =3D "okay";
-> > +     };
-> > +
-> > +     vdd_disp_1v8: vdd-disp-1v8-regulator {
->
-> So foo-regulator?
->
-> > +             compatible =3D "regulator-fixed";
-> > +             regulator-name =3D "vdd_disp_1v8";
-> > +
-> > +             regulator-min-microvolt =3D <1800000>;
-> > +             regulator-max-microvolt =3D <1800000>;
-> > +
-> > +             gpio =3D <&tlmm 70 GPIO_ACTIVE_HIGH>;
-> > +             enable-active-high;
-> > +     };
-> > +
-> > +     vdd_disp_2v8: vdd-disp-2v8-regulator {
-> > +             compatible =3D "regulator-fixed";
-> > +             regulator-name =3D "vdd_disp_2v8";
-> > +
-> > +             regulator-min-microvolt =3D <2800000>;
-> > +             regulator-max-microvolt =3D <2800000>;
-> > +
-> > +             gpio =3D <&tlmm 142 GPIO_ACTIVE_HIGH>;
-> > +             enable-active-high;
-> > +     };
-> > +
-> > +     ts_avdd_3v0: regulator-ts-avdd-3v0 {
->
-> Or regulator-foo?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Using `devm_mdiobus_alloc()` and `devm_mdiobus_register()` in the =
+DSA `.setup()` callback leads to resource leaks and sysfs collisions on re-=
+bind.
+- [High] The VLAN Untag Bitmap (VUB) register stride is incorrectly set to =
+7 instead of 8, which will write to the wrong hardware bits for VLANs 1, 2,=
+ and 3 within a register block.
+--
 
-Given that the associated AYN series uses foo-regulator, it makes more
-sense to me to remain consistent with that. The question has been
-raised on the RP6 patch in this series, so I will wait for a response
-there before sending a new revision.
+--- Patch [4]: [PATCH net-next v7 4/4] net: dsa: initial support for MT7628=
+ embedded switch ---
+commit 94f2355ae398ce31cce3f01105a3f2af1b3c61d6
+Author: Joris Vaisvila <joey@tinyisr.com>
 
-> Decide and also read:
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tr=
-ee/Documentation/devicetree/bindings/regulator/fixed-regulator.yaml
+net: dsa: initial support for MT7628 embedded switch
 
-Ack.
+Add support for the MT7628 embedded switch.
 
-> Best regards,
-> Krzysztof
+The switch has 5 built-in 100Mbps user ports (ports 0-4) and one 1Gbps
+port that is internally attached to the SoCs CPU MAC and serves as the
+CPU port.
 
-Aaron
+> diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
+> new file mode 100644
+> index 0000000000000..fb63f6f644b9e
+> --- /dev/null
+> +++ b/drivers/net/dsa/mt7628.c
+
+[ ... ]
+
+> +#define MT7628_ESW_VMSC_PREP(vlan, vmsc) \
+> +	(((vmsc) & MT7628_ESW_VMSC_M) << MT7628_ESW_VMSC_SHIFT(vlan))
+> +
+> +#define MT7628_ESW_VUB_S 7
+> +#define MT7628_ESW_VUB_M GENMASK(6, 0)
+> +#define MT7628_ESW_VUB_SHIFT(vlan) \
+> +	(MT7628_ESW_VUB_S * ((vlan) % 4))
+> +#define MT7628_ESW_VUB_MASK(vlan) \
+
+[Severity: High]
+Is the register stride for the VLAN Untag Bitmap (VUB) incorrectly set to 7
+instead of 8?
+
+The MT7628 switch packs 4 VLAN configurations per 32-bit register. Using a
+7-bit stride means the shift offsets will be 7, 14, and 21 for the upper
+VLANs in the register block, rather than the standard byte-aligned 8, 16,
+and 24.
+
+Could this write the untagged port mask into the wrong hardware bits and
+corrupt the VLAN configuration?
+
+[ ... ]
+
+> +static int mt7628_setup_internal_mdio(struct dsa_switch *ds)
+> +{
+> +	struct mt7628_esw *esw =3D ds->priv;
+> +	struct device *dev =3D ds->dev;
+> +	struct mii_bus *bus;
+> +
+> +	bus =3D devm_mdiobus_alloc(dev);
+
+[Severity: High]
+Does allocating a devm-managed MDIO bus inside a DSA setup callback
+cause resource leaks or sysfs collisions on re-bind?
+
+The mt7628_setup_internal_mdio() function is called from the main
+mt7628_setup() callback. This setup callback runs every time the master
+conduit device binds. If the conduit interface is unbound and bound again,
+the setup callback is invoked a second time.
+
+Because the bus lifecycle is tied to the switch platform device via devm_,
+the old bus is not freed when the conduit unbinds. Will the second
+devm_mdiobus_register() attempt fail with a sysfs name collision (-EEXIST),
+preventing the switch from initializing?
+
+> +	if (!bus)
+> +		return -ENOMEM;
+> +
+> +	bus->name =3D "MT7628 internal MDIO bus";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813190241.7893=
+23-1-joey@tinyisr.com?part=3D4
