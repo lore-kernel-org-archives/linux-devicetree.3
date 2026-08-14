@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAEA9463
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:02:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC62833998;
+	Fri, 14 Aug 2026 00:07:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786665725; cv=none; b=JwRZXz5lKiC9DJfq29jvaKKocQiQofehvtj5FQg56h+cVpZWEaZF/WfiAyKVyJOuQExPf6Q7rYBGOnU9jb9bfJQJm8VvuhMv481ezrkgEVSCxhjVDL4xmsWy3TR4Q2idpPSzgdUPFH7dGatXN7HV9LpmU/LeS+e5cDcUy3JQKQI=
+	t=1786666059; cv=none; b=p5uat3ibwMeFGcumRHTVxU0tR83pR3fgv45OMJvCqx1pMuq7UMr4wa/cJoYgWs6DcXAPPsqPUFohQ5skr1M1Jr6ZGXEc240rZuZdxOQ8tHVJqIeUq/hwGyh0S421u/nvd8UJ0qp+ptBOp3wZhYc5g6C1w3XCQGOSbNEuHegvEoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786665725; c=relaxed/simple;
-	bh=JLnw89HykUa8y04XPlWoyX70CUTYsfJtbUsePWedmOc=;
+	s=arc-20240116; t=1786666059; c=relaxed/simple;
+	bh=F9WN2jcgKH8OBpB3awsYRMXkl8iCX7optOKKQsJHUYQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hls7Puv7x87ogVlePqxeDzp7pR+V7R5TLwq/f/SAGMmf4MdGFhaCGhYEy5/hBMsCwTBaz43bDSdwABPe1kHPrq/kK0uYQ6bcjwo4wUQ5V4QfRPnHnfHspLhs5WBHNVc/yGvq1ZJPhzrM8qMHf0L0tzYxcrXg7aOS2vxB6xDvka0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9kYhaF1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fCCHx2/dDgeqXxtN3Ms130wC1vXdhFsecEO3tp/DMkECa6j8nhcn4XblQen5uI/EmrjpYXWsHvgrx2iZlCcTApzgdsMp7C/531QuzsNYesAzTRvhN1uCFJbXHMXY6BzysoPaVLExn1dTDEUFBcgtU94j72q1rlKRZtwwLfxDPoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k++MjmEz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9kYhaF1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EFA21F000E9;
-	Fri, 14 Aug 2026 00:02:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k++MjmEz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF6B1F00A3A;
+	Fri, 14 Aug 2026 00:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786665723;
-	bh=Qcxv4s+OvqmKIWHUwwknU3ytd63ZnuWHjigY9Lm8Etc=;
+	s=k20260515; t=1786666058;
+	bh=kQR/D4f/M0kUr2tiIdmn5AytzPSBzP+a2mASFJEakYQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n9kYhaF1xL4wfkz1QDvYqS7udnQ2ehbSajzdwl93qJ1XisTSDW41dCmagolh2cBUw
-	 NQNuiGM5WAjwC8aL7HXx2KjM8Urq8cgPXIG6nrP54/O1iqXkVU1dgsVNb7V0Jz5+zC
-	 HuTmyOWEGv2Jis330pR9bYHlnijcYQOHOKvmTjFz4cPF/Fr4wRQFUTJrtiXrE7ODXy
-	 R1lXqIDPyfPP3LkPm+V7hX4kkfQBeFkqkXXGA2TPK03V3ZbbZUdJjvbI52INRXrUxB
-	 0Q8FmLofOoixaea6KTmnXx0gcDtB8g7n7/7bBX7DH0D9k7eOdkmEtsyHz0aphGVBMl
-	 zrcdex4t/m+KQ==
+	b=k++MjmEzMmTntXRbL0VXF9t/l6O0PzzA8x1F4zrcMNTVZObvKzVpeq8Sa5fgGEivo
+	 4mNAGtqsl6fDrQ92moV+kI6aPUNQF1HN7n8nlmgsmVDzqTmOZLWjMYBbyLpYIvtZHN
+	 ntehyupwcmqcV9dWMRXD+Ygt6t7sc8yVH75Xw10n+8wq6/CYJrqsYC9zGAFNYVCbJK
+	 UDSNiV/uNT3S0cUqDTsH0dHHJpzVp4xxmzMasUYbdVhdn+Z2cpm6hrGEP1gkrpTGWb
+	 vazvvLtYBKsBdTDL3ieCi6E5NM5A3jL+VWXuil4ypgJkbQ7FfZwNgNaCy6AmbpGEqw
+	 cbBwI6Oj9YJxg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 01/12] ASoC: dt-bindings: renesas,rsnd: Split into
- generic and SoC-specific parts
+Subject: Re: [PATCH v2 02/10] mfd: rz-mtu3: use device-managed reset
+ deassert
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
-In-Reply-To: <20260409090302.2243305-2-john.madieu.xa@bp.renesas.com>
-References: <20260409090302.2243305-2-john.madieu.xa@bp.renesas.com>
+To: "Cosmin Tanislav" <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260410163530.383818-3-cosmin-gabriel.tanislav.xa@renesas.com>
+References: <20260410163530.383818-3-cosmin-gabriel.tanislav.xa@renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 00:02:03 +0000
-Message-Id: <20260814000203.9EFA21F000E9@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 00:07:37 +0000
+Message-Id: <20260814000737.EDF6B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,120 +46,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The extracted common schema silently drops strict validation con=
-straints on `dmas` and `dma-names` for the `dvc`, `src`, `ssiu`, and `ssi` =
-subnodes.
-- [Medium] Validation string pattern constraints for `clock-names` and `res=
-et-names` were entirely dropped for Gen1 SoCs.
-- [Medium] The `reg` property strict length constraints for Gen2/Gen3 and G=
-en4 SoCs were unintentionally relaxed by replacing `minItems` with `maxItem=
-s`.
+
+New issues:
+- [Low] The commit message description is not capitalized.
+- [Low] The newly renamed function `rz_mtu3_mfd_remove` includes the string=
+ 'mfd'.
+
+Pre-existing issues:
+- [High] Child drivers silently overwrite shared parent state (`ch->dev`), =
+leading to incorrect PM runtime behavior and potential crashes if one sibli=
+ng driver is unbound.
 --
 
---- Patch [1]: [PATCH v4 01/12] ASoC: dt-bindings: renesas,rsnd: Split into=
- generic and SoC-specific parts ---
-commit 6e078a2691ebf1fb098584188a1f25bc334a8942
-Author: John Madieu <john.madieu.xa@bp.renesas.com>
+--- Patch [2]: [PATCH v2 02/10] mfd: rz-mtu3: use device-managed reset deas=
+sert ---
+commit 24acc3a25ff8c1834d9bfb7c89b33b5e39d1f472
+Author: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
-ASoC: dt-bindings: renesas,rsnd: Split into generic and SoC-specific parts
+mfd: rz-mtu3: use device-managed reset deassert
 
-Refactors the renesas,rsnd.yaml binding by extracting common properties
-shared across all SoCs into a dedicated renesas,rsnd-common.yaml schema
-to simplify future additions.
+Replace devm_reset_control_get_exclusive() and the manual
+reset_control_deassert()/reset_control_assert() with handling by
+devm_reset_control_get_exclusive_deasserted().
 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd-common.=
-yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd-common.yaml
-> new file mode 100644
-> index 0000000000000..ec6bf644d1a4e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd-common.yaml
+> mfd: rz-mtu3: use device-managed reset deassert
 
+[Severity: Low]
+This isn't a bug, but should the description after the subsystem prefix be
+capitalized? MFD guidelines typically prefer "mfd: <Driver>: <Capitalized
+description>".
+
+> diff --git a/drivers/mfd/rz-mtu3.c b/drivers/mfd/rz-mtu3.c
+> index 9cdfef610398f..6b9c6831dffa9 100644
+> --- a/drivers/mfd/rz-mtu3.c
+> +++ b/drivers/mfd/rz-mtu3.c
 [ ... ]
+> -static void rz_mtu3_reset_assert(void *data)
+> +static void rz_mtu3_mfd_remove(void *data)
+>  {
+>  	mfd_remove_devices(data);
+>  }
 
-> +  rcar_sound,dvc:
-> +    description: DVC subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^dvc-[0-1]$":
-> +        type: object
-> +        additionalProperties: false
-> +        properties:
-> +          dmas: true
-> +          dma-names: true
+[Severity: Low]
+This isn't a bug, but does this function name violate the MFD naming
+conventions? The guidelines suggest avoiding the string "mfd" in driver,
+struct, or device names to prevent hard-coding implementation details.
 
-[Severity: Medium]
-Does this unintentionally drop the validation rules for DMA channels and
-names inside the dvc, src, ssiu, and ssi subnodes?
+[Severity: High]
+This is a pre-existing issue, but does this design allow child drivers to
+silently overwrite shared parent state?
 
-The original schema had explicit constraints for these properties, such as
-array boundaries and specific enum lists for dma-names. Setting these
-properties to true in the common schema might allow arrays of arbitrary
-lengths or string typos to silently pass validation.
+The parent MFD driver allocates a shared array of channels. Both pwm-rz-mtu3
+and rz-mtu3-cnt drivers share access to channels 1, 2, and 3.
 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/=
-Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> index e8a2acb926460..0d989922a5b4b 100644
-> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+In drivers/pwm/pwm-rz-mtu3.c:rz_mtu3_pwm_probe(), the PWM child driver
+unconditionally sets its own device pointer on the shared channel:
 
-[ ... ]
+    rz_mtu3_pwm->channel_data[j].mtu->dev =3D dev;
 
->  allOf:
-> -  - $ref: dai-common.yaml#
-> +  - $ref: renesas,rsnd-common.yaml#
-> =20
-> -  # --------------------
-> -  # reg/reg-names
-> -  # --------------------
-> -  # for Gen1
->    - if:
->        properties:
->          compatible:
-> @@ -295,11 +134,10 @@ allOf:
->            maxItems: 3
->          reg-names:
->            items:
-> -            enum:
-> -              - sru
-> -              - ssi
-> -              - adg
-> -  # for Gen2/Gen3
-> +            - const: sru
-> +            - const: ssi
-> +            - const: adg
-> +
+In drivers/counter/rz-mtu3-cnt.c:rz_mtu3_cnt_probe(), the Counter child
+driver also unconditionally sets its own device pointer on the same shared
+channel:
 
-[Severity: Medium]
-Are we leaving clock-names and reset-names completely unrestricted for Gen1
-SoCs here?
+    ch->dev =3D dev;
 
-The global else block containing the string pattern validations was moved
-to the Gen2/Gen3 conditional block, but it seems to have been omitted
-entirely for Gen1.
+Whichever driver probes last will overwrite the pointer. If the surviving
+driver calls pm_runtime_get_sync(ch->dev), it will inadvertently invoke PM
+runtime on the other driver's device structure.
 
->    - if:
->        properties:
->          compatible:
-> @@ -310,16 +148,34 @@ allOf:
->      then:
->        properties:
->          reg:
-> -          minItems: 5
-> +          maxItems: 5
->          reg-names:
->            items:
+If that other driver is unbound via sysfs, its PM runtime is disabled,
+causing pm_runtime_get_sync() to fail with -EACCES. The counter driver might
+ignore this return value and proceed to access hardware registers without
+being properly clocked or powered on.
 
-[Severity: Medium]
-Could this relax the register mapping length constraints by replacing
-minItems with maxItems?
-
-Gen2 and Gen3 previously required exactly 5 regions. A device tree
-supplying fewer elements might now silently pass validation since the
-schema evaluates successfully if the input array is shorter than the list.
-
-This same minItems replacement appears to have occurred in the Gen4 block
-as well.
+Could this lead to a synchronous external abort or silent data corruption?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260409090302.2243=
-305-1-john.madieu.xa@bp.renesas.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260410163530.3838=
+18-1-cosmin-gabriel.tanislav.xa@renesas.com?part=3D2
