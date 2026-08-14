@@ -1,89 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0AE3B8D4A;
-	Fri, 14 Aug 2026 07:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522D43F7AB2;
+	Fri, 14 Aug 2026 07:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786691739; cv=none; b=G+/becz2GU3hW9gYiI8FBxKPIiRmwmy5vLuyalM2Dl7ENixhD6gHRy5PJED52KN2ii7C5OpwJjADScKNvuM2jVt8X7YqG880dpVhFvM3mEv5PkE1c/DlmYmcEe2kK8vr4hC9iKIPoCDQUQgTHR2EJoZMJlw4aW+1JzsK7eC8ayk=
+	t=1786691763; cv=none; b=I0UP/5PAgNr0bR/3o2T3g7jfrCcwQtkOwtGFTPu7LmLvRCppxE7NYAChK3Q3EQRNphCerKMWeYhuGiTyYCqNt4Hpq/oqKYbf9Nfj1QP6INudTDgXrjyXaeecWCjVGWQd9JojOHAuiYssIqwjY83EBaQtBpGUQP4VWqEVRiEpkmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786691739; c=relaxed/simple;
-	bh=Inrp166h2GE7K1y91QM46IrBTnorXG/hv6IR62VnbTE=;
+	s=arc-20240116; t=1786691763; c=relaxed/simple;
+	bh=1Mb2/oIQ9CzX6vlA6gt9znfYYn3xE5keKNRsc/iMpAE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J8T8e2JtVIopxUXCjgaOeTruhIBz8CD7PqGbvEL/zpUwMgI1acFb3as8QAvSQ7EE5G+dm01oUsE2Vt8WCrMw8OtF+BH/dnAtH2qxTYfw+CTa0rB7r8zZIeTXJTolbgKx0ZB/vQMYaoMtZYjD/uqJM+KIycWRTaTUX7Iy8AnADO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Svw0n5XB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sVjmitHOW0YP292NetwN1lNQSJ31g61qba1IEYu6NELTLk6aMYXWzas1o3Lh9f3GjCFB0GjyoqmiwG35dA7nrEJyk9d1kH2gwy+C0VQqBwufv1ShFCYMkrXa4kAn53Gq75aYJrxLDZjagoYzCmS9GctlbQmYyo5kwaxE5qLB69M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=veiWjwlH; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Svw0n5XB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590511F000E9;
-	Fri, 14 Aug 2026 07:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786691735;
-	bh=ztEGami85lSCZRCXrLsjABy3z5E8Fb1rYtiebbuHNZc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Svw0n5XBCOtp3AgaMnTJK0PGbPR8tLxczEoaQWpZHMmmMxTnMUsftLT1UuHVevwq+
-	 70QJZmYPVvcRRUfIFYZqHFu9C0/6pvJscG6BjJ4no0rncC7xW/tqTApVMOEUJrLFBj
-	 pjYS1Oo6o5kmiaH8vgCKAIDtdz3DBsst2iSI0j89smQbQTSRNUxvROZ9kTCm+h44Mf
-	 b6Dzb74+aNtfaeaF25L26V9yfG1CSkFXwS8JOtvFb+mish9ht2US+W7OVgawurlCVa
-	 12/4A+N4a1EtIvGoLiCYx3yZh4b0rEYTOZlRodfygOmC8uLbcbL/CNEVM39tOPpWbs
-	 HCS7ZFnrMyccQ==
-Date: Fri, 14 Aug 2026 09:15:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arthur Crepin Leblond <arthur@marmottus.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5 1/3] dt-bindings: net: wiznet,w5100: convert
- to DT schema
-Message-ID: <20260814-violet-condor-of-expression-c491ed@quoll>
-References: <20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net>
- <20260813-wiznet-link-gpio-v5-1-ac8046f24413@marmottus.net>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="veiWjwlH"
+Received: from francesco-nb (2-224-16-253.ip168.fastwebnet.it [2.224.16.253])
+	by mail11.truemail.it (Postfix) with ESMTPA id BED5A1FC4F;
+	Fri, 14 Aug 2026 09:15:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1786691754;
+	bh=nJegQlhq+MewOGnUHRHewet7G68KbvwxdB/Y6qxCKYc=; h=From:To:Subject;
+	b=veiWjwlHd6rzmgYHFb7ThT9a8HzK66BDVr5D8gAHGKvhPy1cQJSZknojCU4X11s0w
+	 V6k37NA5zyflCR7xOa8JKjl1tDNnTvVcI4qL5s7YYD4lHVwQLZC/IoVtUIXgPqkF57
+	 nF1cdCXBWI4xGFczPsbCPpVOYkeCvssCASUZvmGEFXmanDYEXYu4InlM+kAVcOnGuT
+	 MmFrj4S56xI2sKfCRw2BaT/X9wcydhRaygKDv9zcyPdhh7x9YWi43p3tIWqVymbn0a
+	 SwqAPh6I3u69i/2keYsfzceUMok+p8u/SKKMMl+yl9LX9ZnbIXyMwECdr9RiM0wTiO
+	 a4bim8DWgE9dA==
+Date: Fri, 14 Aug 2026 09:15:49 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: "Mendez, Judith" <jm@ti.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Moteen Shah <m-shah@ti.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1] arm64: dts: ti: k3-am62-verdin: Set MMC clock pins as
+ OUTPUT
+Message-ID: <20260814071549.GA5246@francesco-nb>
+References: <20260813111238.56892-1-francesco@dolcini.it>
+ <b4ed6b46-07c3-4ebf-9fc8-b9ae0dc03a51@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260813-wiznet-link-gpio-v5-1-ac8046f24413@marmottus.net>
+In-Reply-To: <b4ed6b46-07c3-4ebf-9fc8-b9ae0dc03a51@ti.com>
 
-On Thu, Aug 13, 2026 at 10:58:14AM +0200, Arthur Crepin Leblond wrote:
-> Convert the Wiznet w5x00 SPI Ethernet controller binding from
-> plain text to DT schema.
+On Thu, Aug 13, 2026 at 02:57:52PM -0500, Mendez, Judith wrote:
+> Hi Francesco,
 > 
-> Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
-> ---
->  .../devicetree/bindings/net/wiznet,w5100.yaml      | 67 ++++++++++++++++++++++
->  .../devicetree/bindings/net/wiznet,w5x00.txt       | 50 ----------------
->  2 files changed, 67 insertions(+), 50 deletions(-)
+> On 8/13/2026 6:12 AM, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > 
+> > MMC clock pins must be configured as OUTPUT-only per TRM [0] with
+> > receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
+> > PIN_INPUT to PIN_OUTPUT to match documentation.
+> > 
+> > Link: https://www.ti.com/lit/pdf/spruiv7 Rev. C: Table 12-246. MMCSDi I/O Signals [0]
+> > Fixes: 316b80246b16 ("arm64: dts: ti: add verdin am62")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> Assuming defaults are set.
 
-Where did you explain reasons of dropping tags? Why would I need to do
-the work twice?
+We have
 
-<form letter>
-This is a friendly reminder during the review process.
+  AM62X_IOPAD(0x11c, PIN_INPUT, 0) /* (#N/A) MMC2_CLKB */
 
-It looks like you received a tag and forgot to add it.
+is this what you are referring to here and in the other discussion
+thread?
 
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions of patchset, under or above your Signed-off-by tag, unless
-patch changed significantly (e.g. new properties added to the DT
-bindings). Tag is "received", when provided in a message replied to you
-on the mailing list. Tools like b4 can help here. However, there's no
-need to repost patches *only* to add the tags. The upstream maintainer
-will do that for tags received on the version they apply.
-
-Please read:
-https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
-
-If a tag was not added on purpose, please state in the patch changelog
-or cover letter why and what changed.
-</form letter>
-
-Best regards,
-Krzysztof
+Francesco
 
