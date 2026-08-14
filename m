@@ -1,104 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86363CB559;
-	Fri, 14 Aug 2026 07:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FC4418A29;
+	Fri, 14 Aug 2026 07:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786692706; cv=none; b=A6op8IwJ60SlyQyfIIS06uenmfo/6Qlq13sJvL/fhka/lv6wb9C/gP+MpmyEUWKhyNQ4/4iDlyHEnUiYhh1wCfki4BdfzFvJQsFXpHgfg/gQV/UJEVCBggch2CMpsibldrHiCEd/Qznyzob8Z8eTpGnAmDcesanmT6Y01GNSsUY=
+	t=1786692732; cv=none; b=r7reaRjiuypQf06j932U2tNbBtRRvnx05tsfFTnEuVdo1GL28J/zUab/leBGKghcgYXBMeZY5oRQz6slF4UiiyTHDomeW7iS5Z1aZ5y666rCU2M43GlO/0+3S6cMGxlaGBD4cFQPdZv0K9FwUC++OB9nx1r/XAJ4uCu1RIiVy34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786692706; c=relaxed/simple;
-	bh=cUk/40Y0B07k5Bw6wDs35pg1hE+4zKcg4XVzi8pU7s8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zr0lGDPzVsDz4ZS/RSML8e57m53d9cTwQcF3pulqa/daqWn8XfLr/5rL6recLcwDmt3VQeAfaov1igATnndeCf/eJu3Rz9jofJQilO+g6RHEspBN7/ZBtVHu51fzKzIeJiQHOF5MXgdtZU+wNU4UR0vQ+H+09pnVC2ZX9tY6KZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKJGRRmR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786692732; c=relaxed/simple;
+	bh=MqkTDxp/8qXnVd+GFPAt4lv/oZVBdhlanRag9FkJtGI=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=o/iiNpcDsK7ifOhXbNLHyUN2pnK09fqwNGSf85lMwxfXZpofRVc9NFKzpX3CdR5JBhFha6cMp2VpQjfKK+9w1sTOHD3fSzSC/e1ja4gPO+QuqmO9S1T1ACZcWHXSXgocqwcXpSSdfd9D3gWpZpcc2PmwiTtjnhZizKDyF6C91v8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=VZV+t0yd; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jy7Fsfhh; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKJGRRmR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7891F000E9;
-	Fri, 14 Aug 2026 07:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786692697;
-	bh=w49rFdbKjKqhVd4J0L2ZcR59ZpPJYhqbLkSNtK+T5jo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jKJGRRmRomzKl4lQGIr+B5yNnuV9pNhf56ERBuaRALSYaB7Yw2/JGocg1FIHNTMwg
-	 W/A8QEZ7JbKm6QTteirf/IvweOvWHmCsxyqqdl8Ad4yi9qKKaVg3TL/LgGLLgylp/3
-	 qDewqhVF25oySWFxBvc74bRktA1LJyjxthh0s+aVzTkIu9hgJBNdPUNlhGBKwAqj2F
-	 pbVpNNai2U4D6lsOs+XKONOvZkkG4SPVaG7gvlTrdSO+KJSvX/kKBTYnnalcdHReeE
-	 VutVYgjBUsk6u3kADFYxmPLAwV6uwmD37SgPrR7sdT8YD7oeQYnK3ZD9JhhC5dCzSy
-	 9fkruKffKpKZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/17] arm64: dts: imx93-14x14-evk: Add board muxes to
- select between FlexCAN1 and MQS1
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chancel Liu" <chancel.liu@oss.nxp.com>
-Cc: robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260814072022.4064009-7-chancel.liu@oss.nxp.com>
-References: <20260814072022.4064009-1-chancel.liu@oss.nxp.com>
- <20260814072022.4064009-7-chancel.liu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 07:31:36 +0000
-Message-Id: <20260814073137.4C7891F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="VZV+t0yd";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jy7Fsfhh"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id B289CEC0251;
+	Fri, 14 Aug 2026 03:32:00 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 14 Aug 2026 03:32:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1786692719;
+	 x=1786779119; bh=EPYSxmmnMRKyTN2BMjoGO85koxWbRxQ1smpRMmbGK5Y=; b=
+	VZV+t0ydYPTRuUDg8ZBni2vQa6QPQm2JQuFvsGkcjsPDUHYs46V729ByeFP3G7mR
+	2L//GrE5tTXJktCx6r0536ELpBOsMwKoKg18qjLcUzVANNAdQYeiGh6UGUyaukBa
+	7Z4/hYm3VeU8N9skTbDCPVia+rxrTA+Azb4hp8t8gUzB4mdGvS036SExJe7Nrl+y
+	QbqeWmmjdYoldyWAIIhatvlBdG9oXxrpbOZq3rXEOpQLI19gvCeAh3eLaaVta2nY
+	9ok9TahzUKW7uVFDfO4RUlHca3bLwFoGgY4FQ2KfWQSoUkcASl63h5CDF5OTD5k+
+	w/tYQrDlvZqfk4uO+sKpuQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786692719; x=
+	1786779119; bh=EPYSxmmnMRKyTN2BMjoGO85koxWbRxQ1smpRMmbGK5Y=; b=j
+	y7FsfhhCvqETovnQgi+hDaatMg5EdcS5d9sgrigUczMj9nvl7fE0b7HzIk9hbXPY
+	/eDLeRCJMv1RqkerP6C1Pd1So3YZ82sHgulWoec/QCrZPCrIkSPWKPghawrbMlcu
+	Kd+CBAUU2iXuoCsBla7iMK75oNrBWbFR2JSyWC5nxcFGcCKnI/rzsnfe8YMLl0qu
+	ZQlcgqUXhBIdzg3IzOeAvLqO5Nw+TjCiU+7m82FAtvFRKeuHBqhvOP2KQ9ZP7Cbb
+	dXNURiz/DRpfo8L2VjxM1G9Qnk3IMYv0bRwJl+jo56EX6CVJhiJLLuKuKfEPxxYw
+	X/leqlHCtg9paZFr+PPfQ==
+X-ME-Sender: <xms:asR-apjzegEhbYFW6mKiAN2iu8HGT80KYEpiSyQeBbpJNAhXmtCAbQ>
+    <xme:asR-ao0b41O3pR2y2K8xfFFzQclAQQ9UGVmm6Q1Z2sh1uSiKP3dSQ4dOwunZdBKiV
+    LUoy0oX-e86M_u3knuDr1k_HaYlnAUYEC1L_SHoErpKCvdbhXhhXwR9>
+X-ME-Proxy-Cause: dmFkZTG0OtlspBZbr4RZcO1Rzu1wUeNGWwaFqM0V+cwtwYj4L0XiTrR+8yMJxmDFZ6B9l2
+    OLlA53d/9AQnT2QBrkniFswJId1MctwDfIbml38kVnafMWUbei3zeWc/Sy76HFTW67JCbz
+    X3NvrQAHO1MTymzeOxYCepwaP+nvSfhR/6lErNXHevR3cuYfhX/sSGo1/B43XOWxv+7Znp
+    IrjFKsNqg3cKpy8sVwM+zwn/JcrKSD1WmPurlGrwY/JG/fNiyPXMQxRUocb5NtuGFtSvi0
+    yiFRpvLDvgCWFSHjWZ9xyzojheHW/CQTWmjsH4U4IARrtshtFlMS/bQ9pWJKTBsxqwXTOB
+    0dxeyH+6DDulGlVfaB53iQCqYYpQ/vkK+wtRwnTRc2joLYf6ZADzcf7wY5B0LvhkoLVitw
+    nsZfxYuJEaRUz0JeAdSAJa6l2e0rd9EK7v10yVfhE9PRL1Wr/az5pWyapXrbl6MciD83T5
+    LJI9AmEVrHtJWwZcSRnPJvEDfGiBefnty+NTBk2yT+7JZP5h2nipU+UQR3ymHrxFuW+KX4
+    n7kLNqvx/Kx7RAPIGu9yW7NcRJ2K9jyiNAHoXhSBUkfT+zcWPJBv5tZCqF++y7qdVckY05
+    fqiBd/PXuin9NXk1mFr3UCQiJSvrBFskBgKVmKrdbm+Zgvb6O3rG8tgn9H6g
+X-ME-Proxy: <xmx:bMR-aiXdqKhw4U7OqMtOMri9eBclt812FS8jlWHtR5AHPVYtUYXxog>
+    <xmx:bcR-arSyW4iymXqHTiB_Jg3smTHrfOIKhnr37UUsUVAqbo5nONxkGQ>
+    <xmx:bcR-aqSxdsF3Oam6mIpGEODLvyMKi9NHr_atmGuk6Cz3Ily2J8g86Q>
+    <xmx:bcR-ajfuGJzlQHfvB6hK9j9y3k8OIqCeKhySNq7OsZBESBTJJm2dQQ>
+    <xmx:b8R-ampoPNN0-awPuTEb7I2fcTbBFHHO1SiKGSvM06NDFjwZ9sH_PNNq>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A5D3D32A006F; Fri, 14 Aug 2026 03:31:54 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-ThreadId: AoFL_al2QlXV
+Date: Fri, 14 Aug 2026 09:31:11 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Alex Elder" <elder@riscstar.com>
+Cc: "Rob Herring" <robh@kernel.org>, krzk+dt@kernel.org,
+ "Conor Dooley" <conor+dt@kernel.org>, bhelgaas@google.com,
+ daniel@riscstar.com, mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
+ devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <56aef294-8d1d-40f2-a371-ea3f5ede2ccf@app.fastmail.com>
+In-Reply-To: <2026081455-eternity-douche-900b@gregkh>
+References: <20260813222943.1655453-1-elder@riscstar.com>
+ <20260813222943.1655453-3-elder@riscstar.com>
+ <2026081455-eternity-douche-900b@gregkh>
+Subject: Re: [PATCH 2/2] misc: tc9564: introduce base PCI driver
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incomplete device tree wiring for board muxes. The newly added p=
-inctrl mux states (`can1_fun`, `mqs1_fun`, `mqs1_amp_en`) are defined but n=
-ever referenced by any consumer device node (such as `flexcan1`), rendering=
- the board mux configuration functionally dead code.
---
+On Fri, Aug 14, 2026, at 03:11, Greg KH wrote:
+> On Thu, Aug 13, 2026 at 05:29:42PM -0500, Alex Elder wrote:
+>> +#define DRIVER_NAME "tc9564-pci"
+>
+> What about just using KBUILD_MODNAME?
+>
+>> +static int
+>> +tc9564_function_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>
+> But wow, this is a tiny driver, feels odd to have it in misc/ but ok, if
+> you think it should be here...
 
---- Patch [6]: [PATCH 06/17] arm64: dts: imx93-14x14-evk: Add board muxes t=
-o select between FlexCAN1 and MQS1 ---
-commit adc8546ef31dc705c01516aa1b8dc15eb6eaa575
-Author: Chancel Liu <chancel.liu@nxp.com>
+We have drivers/misc/rp1/ and drivers/misc/lan966x_pci*.c with similar
+functionality, so at least there is precedence for putting them here.
 
-arm64: dts: imx93-14x14-evk: Add board muxes to select between FlexCAN1 and=
- MQS1
+From the old days, we still have drivers/mfd/sm501.c, drivers/mfd/cs5535-mfd.c,
+and a few others that open-code the on-chip components as mfd cels
+instead of using devicetree description.
 
-This commit adds GPIO-controlled board muxes to resolve a pin conflict
-between FlexCAN1 and MQS1 on the imx93-14x14-evk board. It defines the
-mux controllers and their corresponding pinctrl states.
+At some point, we should think about grouping them into a separate
+subdirectory.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts b/arch/arm=
-64/boot/dts/freescale/imx93-14x14-evk.dts
-> index ec78c03f4788b..502237fab3324 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts
-[ ... ]
-> +	pinctrl-gpiomux {
-> +		compatible =3D "pinctrl-multiplexer";
-> +
-> +		can1_fun: can1-grp {
-> +			mux-states =3D <&can1_mqs1_mux 0>;
-> +		};
-> +
-> +		mqs1_amp_en: mqs1-amp-en-grp {
-> +			mux-states =3D <&mqs1_amp_en_mux 1>;
-> +		};
-> +
-> +		mqs1_fun: mqs1-grp {
-> +			mux-states =3D <&can1_mqs1_mux 1>;
-> +		};
-> +	};
-
-[Severity: Medium]
-Are these new pinctrl mux states missing references from their consumer dev=
-ice
-nodes?
-
-The can1_fun, mqs1_amp_en, and mqs1_fun states are defined here, but they
-don't appear to be referenced by the flexcan1 or mqs1 device nodes.
-
-For example, if the active flexcan1 device node doesn't include <&can1_fun>
-in its pinctrl-0 list, won't this configuration remain unapplied and fail to
-resolve the hardware routing?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814072022.4064=
-009-1-chancel.liu@oss.nxp.com?part=3D6
+     Arnd
