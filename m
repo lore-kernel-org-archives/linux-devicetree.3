@@ -1,126 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC62833998;
-	Fri, 14 Aug 2026 00:07:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19576175A80
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786666059; cv=none; b=p5uat3ibwMeFGcumRHTVxU0tR83pR3fgv45OMJvCqx1pMuq7UMr4wa/cJoYgWs6DcXAPPsqPUFohQ5skr1M1Jr6ZGXEc240rZuZdxOQ8tHVJqIeUq/hwGyh0S421u/nvd8UJ0qp+ptBOp3wZhYc5g6C1w3XCQGOSbNEuHegvEoU=
+	t=1786666734; cv=none; b=r3MKy1mJe3kWEexMCBqk/29E3pgozIJMy4vvhpKaaAw3q7A4jtPsiU+AjFxfQ8JGwQX5sIRNLVkqyz0WZa8DmrM7NbD6ImVU3cdhApe76m5ezwe/cO08HLC0Fmf70UTFzA4JynODPowQVWpViBY1DnUbKBh6IH9nx884Zw3YROQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786666059; c=relaxed/simple;
-	bh=F9WN2jcgKH8OBpB3awsYRMXkl8iCX7optOKKQsJHUYQ=;
+	s=arc-20240116; t=1786666734; c=relaxed/simple;
+	bh=K/u7FhsGQuhOctj9LNHMoojT5gqU35rkufpzCSW6B/Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fCCHx2/dDgeqXxtN3Ms130wC1vXdhFsecEO3tp/DMkECa6j8nhcn4XblQen5uI/EmrjpYXWsHvgrx2iZlCcTApzgdsMp7C/531QuzsNYesAzTRvhN1uCFJbXHMXY6BzysoPaVLExn1dTDEUFBcgtU94j72q1rlKRZtwwLfxDPoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k++MjmEz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NVsDhh4XKW+P1KeF0x7FrPnUt5tuRKBgsIohT4Cl9LhaVLX/HwxiXcCTgItxFHp7MfsJlxB1PW+QJ39T8CErX3GFR7Uoh48FHwckKCI+lyZaq0bMql20BPdPRpIaGv/k45rSEs7w7YWvJn4RHzvW3PBmQpLFEBD1SLGd1QZD7Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/xW+J8I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k++MjmEz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF6B1F00A3A;
-	Fri, 14 Aug 2026 00:07:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/xW+J8I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45AFA1F000E9;
+	Fri, 14 Aug 2026 00:18:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786666058;
-	bh=kQR/D4f/M0kUr2tiIdmn5AytzPSBzP+a2mASFJEakYQ=;
+	s=k20260515; t=1786666732;
+	bh=RRo//RUuVnZRQfOLlltOs+eFMqdXSbJi39KV9fELxlg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k++MjmEzMmTntXRbL0VXF9t/l6O0PzzA8x1F4zrcMNTVZObvKzVpeq8Sa5fgGEivo
-	 4mNAGtqsl6fDrQ92moV+kI6aPUNQF1HN7n8nlmgsmVDzqTmOZLWjMYBbyLpYIvtZHN
-	 ntehyupwcmqcV9dWMRXD+Ygt6t7sc8yVH75Xw10n+8wq6/CYJrqsYC9zGAFNYVCbJK
-	 UDSNiV/uNT3S0cUqDTsH0dHHJpzVp4xxmzMasUYbdVhdn+Z2cpm6hrGEP1gkrpTGWb
-	 vazvvLtYBKsBdTDL3ieCi6E5NM5A3jL+VWXuil4ypgJkbQ7FfZwNgNaCy6AmbpGEqw
-	 cbBwI6Oj9YJxg==
+	b=c/xW+J8IM+sBY0/2YfPmkFAOTwSY5fIm+IjEs233e0gEFf+QreRzVTjuAJE723pcU
+	 zDMzAc4Yp6t+zV9UC3AXLf4ZnLKyM0J1WohEK3AvSLqZpEyEewRIgYwJYs2fFaVd20
+	 xArO1LYJCWFEPc5N0u6IYzf2Vq7S7ld2coNVq+X/pRjsPMK3tABGhnu/f24/gXpVCL
+	 DSnqUbf3ZoJ4rEtUAdrmBVVQim9xpHa3qofRxHRXq/AWnPX0PuAMT4kaJYVc7JiWBq
+	 M9cxlrUt9Ai5ZXRFdE/IRuy2QUFYQTrLBcinCqUfH5/v8lr/D7nlxEYCbtZIl+hZ6m
+	 /gySL3z3cIxLQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/10] mfd: rz-mtu3: use device-managed reset
- deassert
+Subject: Re: [PATCH v3 08/21] drm/panel: himax-hx8394: set
+ prepare_prev_first
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cosmin Tanislav" <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260410163530.383818-3-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20260410163530.383818-3-cosmin-gabriel.tanislav.xa@renesas.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260413-waveshare-dsi-touch-v3-8-3aeb53022c32@oss.qualcomm.com>
+References: <20260413-waveshare-dsi-touch-v3-8-3aeb53022c32@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 00:07:37 +0000
-Message-Id: <20260814000737.EDF6B1F00A3A@smtp.kernel.org>
+Date: Fri, 14 Aug 2026 00:18:47 +0000
+Message-Id: <20260814001852.45AFA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] The commit message description is not capitalized.
-- [Low] The newly renamed function `rz_mtu3_mfd_remove` includes the string=
- 'mfd'.
-
-Pre-existing issues:
-- [High] Child drivers silently overwrite shared parent state (`ch->dev`), =
-leading to incorrect PM runtime behavior and potential crashes if one sibli=
-ng driver is unbound.
+- [High] Incorrectly setting `prepare_prev_first =3D true` reverses the pow=
+er-on sequence, causing the DSI host to drive the PHY (LP-11) before the pa=
+nel is powered on, risking hardware latch-up.
 --
 
---- Patch [2]: [PATCH v2 02/10] mfd: rz-mtu3: use device-managed reset deas=
-sert ---
-commit 24acc3a25ff8c1834d9bfb7c89b33b5e39d1f472
-Author: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+--- Patch [8]: [PATCH v3 08/21] drm/panel: himax-hx8394: set prepare_prev_f=
+irst ---
+commit c09b3f2141b3b76647c1bce815022a8389dcf60f
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-mfd: rz-mtu3: use device-managed reset deassert
+drm/panel: himax-hx8394: set prepare_prev_first
 
-Replace devm_reset_control_get_exclusive() and the manual
-reset_control_deassert()/reset_control_assert() with handling by
-devm_reset_control_get_exclusive_deasserted().
+This commit sets the prepare_prev_first flag for the Himax hx8394 panel.
+The flag reverses the pre_enable and prepare ordering in the DRM bridge
+chain so the DSI host powers on before the panel.
 
-> mfd: rz-mtu3: use device-managed reset deassert
+> Sending DSI commands from the prepare() callback requires DSI link to be
+> up at that point.
 
-[Severity: Low]
-This isn't a bug, but should the description after the subsystem prefix be
-capitalized? MFD guidelines typically prefer "mfd: <Driver>: <Capitalized
-description>".
+Is this description accurate? Looking at panel-himax-hx8394.c, the DSI
+commands are actually sent in the enable callback, not prepare():
 
-> diff --git a/drivers/mfd/rz-mtu3.c b/drivers/mfd/rz-mtu3.c
-> index 9cdfef610398f..6b9c6831dffa9 100644
-> --- a/drivers/mfd/rz-mtu3.c
-> +++ b/drivers/mfd/rz-mtu3.c
-[ ... ]
-> -static void rz_mtu3_reset_assert(void *data)
-> +static void rz_mtu3_mfd_remove(void *data)
->  {
->  	mfd_remove_devices(data);
->  }
+drivers/gpu/drm/panel/panel-himax-hx8394.c:hx8394_enable() {
+    ...
+    ctx->desc->init_sequence(&dsi_ctx);
+    ...
+}
 
-[Severity: Low]
-This isn't a bug, but does this function name violate the MFD naming
-conventions? The guidelines suggest avoiding the string "mfd" in driver,
-struct, or device names to prevent hard-coding implementation details.
+During enable, the DSI host is already fully powered on and initialized,
+rendering prepare_prev_first unnecessary.
+
+> diff --git a/drivers/gpu/drm/panel/panel-himax-hx8394.c b/drivers/gpu/drm=
+/panel/panel-himax-hx8394.c
+> index c4d3e09a228da..d64f3521eb15b 100644
+> --- a/drivers/gpu/drm/panel/panel-himax-hx8394.c
+> +++ b/drivers/gpu/drm/panel/panel-himax-hx8394.c
+> @@ -792,6 +792,8 @@ static int hx8394_probe(struct mipi_dsi_device *dsi)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ctx->panel.prepare_prev_first =3D true;
+> +
 
 [Severity: High]
-This is a pre-existing issue, but does this design allow child drivers to
-silently overwrite shared parent state?
+Does setting this flag reverse the power-on sequence, causing the DSI host
+to drive the PHY (LP-11) before the panel is powered on?
 
-The parent MFD driver allocates a shared array of channels. Both pwm-rz-mtu3
-and rz-mtu3-cnt drivers share access to channels 1, 2, and 3.
+Because of this flag, panel power-on executes after the host has already
+driven the DSI lanes. For example, in hx8394_prepare():
 
-In drivers/pwm/pwm-rz-mtu3.c:rz_mtu3_pwm_probe(), the PWM child driver
-unconditionally sets its own device pointer on the shared channel:
+drivers/gpu/drm/panel/panel-himax-hx8394.c:hx8394_prepare() {
+    ...
+    ret =3D regulator_enable(ctx->vcc);
+    ...
+}
 
-    rz_mtu3_pwm->channel_data[j].mtu->dev =3D dev;
+This executes after the host is initialized, which is a hardware sequencing
+violation. Could this lead to current leakage, potential hardware latch-up,
+or PHY initialization timeouts on strict DSI hosts?
 
-In drivers/counter/rz-mtu3-cnt.c:rz_mtu3_cnt_probe(), the Counter child
-driver also unconditionally sets its own device pointer on the same shared
-channel:
-
-    ch->dev =3D dev;
-
-Whichever driver probes last will overwrite the pointer. If the surviving
-driver calls pm_runtime_get_sync(ch->dev), it will inadvertently invoke PM
-runtime on the other driver's device structure.
-
-If that other driver is unbound via sysfs, its PM runtime is disabled,
-causing pm_runtime_get_sync() to fail with -EACCES. The counter driver might
-ignore this return value and proceed to access hardware registers without
-being properly clocked or powered on.
-
-Could this lead to a synchronous external abort or silent data corruption?
+>  	drm_panel_add(&ctx->panel);
+> =20
+>  	ret =3D mipi_dsi_attach(dsi);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260410163530.3838=
-18-1-cosmin-gabriel.tanislav.xa@renesas.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260413-waveshare-=
+dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com?part=3D8
