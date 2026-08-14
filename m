@@ -1,76 +1,76 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012030.outbound.protection.outlook.com [52.101.43.30])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013062.outbound.protection.outlook.com [40.93.196.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99283C1F54;
-	Fri, 14 Aug 2026 11:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1729937B019;
+	Fri, 14 Aug 2026 11:52:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.62
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786708342; cv=fail; b=N9ZZnWNWmUw0PGyCDcCkpoqXTxwRVO1DEU/KyWKyDijjg9dkoBFu+VjIULs2czXJlZwPcFM1N8L69khwViDPK70uH2vn5R13z/4TV3D/1W9YJcd4FgwVSdxXh5Wtk5+4CwkfIETDGAg7AH3BqdMw4Tlm5HYi+RgA6iNnDz+RKiM=
+	t=1786708343; cv=fail; b=bU4a2JwhAT1CcSbzqV8MdiXm7q91I2FVHbCZP36EEH3Km6BtRRodvE8vo3O3rcNFu0uzv5P0TOxVNdsTHzbwAbwKY9CfDCvNmqxSsuM7tQAZjczUsTHFsNMPUVEths2yxobaencHwQz8pcrh6hoGlUP5/fTG0PUXTmYxUkLsCDM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786708342; c=relaxed/simple;
-	bh=zBASzBJ+uPuvqYZfMPeQAl8p0KQ7jgSkKVa0PcePek0=;
+	s=arc-20240116; t=1786708343; c=relaxed/simple;
+	bh=mqG4LxARd+hRvR4y1C5iyZQZx2KleRe589X/3Dtipao=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WtHBTFzOdWv+Z8mIuOMI0KvoHVqsNv/NjornAnxKYZYKgMTzkt6E1KjxmbHKGI9bb5v/aSuEttZ4+QRBHcYoGHcx+96E06VM9cUmIjE42rWYgEHujIWWBZ89ohI2c9uxaRBk8+27eFbZuj68rCr5H1gJlueJW5jfzoq65LNE3zk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xaFTaFv2; arc=fail smtp.client-ip=52.101.43.30
+	 MIME-Version:Content-Type; b=cMWezT/JXM2NMVn3S1NEph6tz0nh8rdZxNJpnNglE4kIlVw00bFwT27aawdyiInQcdvws/qOD/rwCXB1Vb7ukFed7hUToqdi27EmKqskb3iWNX/Emft7HU52Bz515T7IAMCJbM318qbUulVGsYBwJCDQkemVkLcK1AKWEeiNDzk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ehzXB3gn; arc=fail smtp.client-ip=40.93.196.62
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xaFTaFv2"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ehzXB3gn"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pavb5DdFBo2pUR6zI9BDtr2+GNZsCHspkUfHwhhFQuCqVLRBGMu/QkBnWX7eBRd1gu45GdRgNEsfmqqh4BnGSTWOcBSxmGExcRg+bkLdnUUo/mKxicppaq2BM3E33EZvhLLahNjZ0S/ul7HDRhcnQfkrEjQaMCqAetAAHzNaDOw9jz6/zFTLTCrx1Ed8K3pgBZSOpjj1ody3PP5hTuvT3au5g6N5xnToMQHjK7jXmOJsTSlbYmyAd3tWXpFvPmBaNYQodu3NVX9vEebNoXRiWdtKQACRllxQqoI3+eLR1jroTPVxi4dPo7jcXwHsNqCHRmIlDe4aFnz+Bfl/huBQ0A==
+ b=hYlMpWN6iG+ZCfA8iBDJf9bMWYEMF4lrAM02ZPn3Esk+F9hgKVB9YOwGRo4E60677cy8dorRUUdJBV5EYFHocKfKAYCRqeDBnXE5/uxbfEXrEOdkbrfQBhd4V6Wlil9aMflWXOnFpjPd40V+KjjcJbc7GQF5M7wyCRMrQaQU2DKXOWk8UBOw/zpdiizBuQxBmYRkM1PFCPdFxevziQ/QISvqXtvoZQ/wHOsYUxLF+f2WxrU/7y1TFB2PPlr/8kVxXsPQ4dk7dTJXTDaqX4L54DHLrAHbco/sOS5GvqnIi/lo0MyUO1WytR6eb1XJ5Msrz6P/k5JSMkoifl/fyJPzSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ywzbkT2SOalCtmwPjBmVO1O2IGa1WEYquigf5Wqn5O8=;
- b=rW5QCmNuEyMf0Te6YUJS7t/vyVmzyvZw1KJjHCq85/O5zoyGZ8PnvATyJB7e+8TbQjveEvzu0ODyCRguyrOpH9XTbOpEKqJoFGgKUPOckaRwdTbjsjqSaQHL1pXWOr2ug6SxxMotkOld2cf26oNlSbj/ZryWnFLxzGPfnGGaI0MAb/kfVIfNIF+OqHnEYGY+y7kml/sgFjRsAcrVk5Y/rCvyf5PfsWceerjH/ms9Ba7gVa1CjrfXMKg5G24jRXICw33dAN86hSoJyadjaAW9aaMrNOnG2rog3bcVHt4NZqk7uBl/4PiF3pztJ3PteX/R6NVdHpmtZBCOVM3nfSRT5g==
+ bh=e0c9xvH/QHVuTn31LrEZ8f1536VOL6Kl9GQlBp5V1/Q=;
+ b=sbF9GDC3arYSHeYExQQx41aqBsOHRPDDVANuyEBDdsM0GDFtYEaQ+HJiilto6BXsYfJEWLCp8P6WjGHmuuJRjJ3Y/Uu2QeEd2aORMQk6HsqTlZvmaMUyRtIjz7eblS8fn/qILHFWYpx46xfIqEv5mNYB7xmEqqxIcC9bi9OF57IKAwvf08HZrUx7ajd28vEnRjdiKiPPSFzXQYQJthFuIw2EIa0uo4IAqtYV/IcfkSQCbgIeJ+tqhKO4bP+6ZYCvAkNyRVFJxOUf3Smks5uXGnBfn55icZNDNdTxqcJBpiS2cFiQpDmOSsaG6rG1dM+6CgbHeZYblkigPqxtr+RfoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ywzbkT2SOalCtmwPjBmVO1O2IGa1WEYquigf5Wqn5O8=;
- b=xaFTaFv2F1yCvLonArSWs/e/VUwQLpZNbeAMkozlbxObsG+D2ZRG5b9wkKlqytcXbh3zZWNxgzlizPie9FHswCrIHsR9aqg0egh4WCthHwFoBZyQI8Thvmo3gTmS1/YnrPs29VVTHw0uttt8EtzG935zIm4e5wFBZocq6nh2fXk=
-Received: from CH5P223CA0011.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::20)
- by SAWPR12MB999117.namprd12.prod.outlook.com (2603:10b6:806:4e3::17) with
+ bh=e0c9xvH/QHVuTn31LrEZ8f1536VOL6Kl9GQlBp5V1/Q=;
+ b=ehzXB3gnradwkA4byaGIW1MyXvn9mgI51u9HQeIGI17uR6N3yPkEeD2F/ypUU5+PqSV/TQ3WtxCWLHWnzuRHbPFcDP8rQNyWbYa/aEVkvxVOjMjZu+QzhvF7R52Ra2TeZUTyXDoUhAyuCPfPP9umgON09BwXaPRqrGP8Qs72fdU=
+Received: from CH2PR16CA0005.namprd16.prod.outlook.com (2603:10b6:610:50::15)
+ by MN2PR12MB4471.namprd12.prod.outlook.com (2603:10b6:208:26f::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Fri, 14 Aug
- 2026 11:52:12 +0000
-Received: from CH2PEPF00000144.namprd02.prod.outlook.com
- (2603:10b6:610:1f3:cafe::f) by CH5P223CA0011.outlook.office365.com
- (2603:10b6:610:1f3::20) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 11:52:17 +0000
+Received: from CH2PEPF0000013D.namprd02.prod.outlook.com
+ (2603:10b6:610:50:cafe::8e) by CH2PR16CA0005.outlook.office365.com
+ (2603:10b6:610:50::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
- 14 Aug 2026 11:52:12 +0000
+ 14 Aug 2026 11:52:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000144.mail.protection.outlook.com (10.167.244.101) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF0000013D.mail.protection.outlook.com (10.167.244.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 11:52:11 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 11:52:17 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 06:52:11 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 06:52:16 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 06:52:10 -0500
+ 2026 06:52:15 -0500
 Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 06:52:07 -0500
+ Transport; Fri, 14 Aug 2026 06:52:13 -0500
 From: Shubham Patil <shubhamsanjay.patil@amd.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
 	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
 	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Shubham Patil <shubhamsanjay.patil@amd.com>
-Subject: [PATCH 2/3] i3c: master: amd: Add support for in-band interrupts
-Date: Fri, 14 Aug 2026 17:21:54 +0530
-Message-ID: <20260814115155.3974988-3-shubhamsanjay.patil@amd.com>
+Subject: [PATCH 3/3] i3c: master: amd: Add hot-join support
+Date: Fri, 14 Aug 2026 17:21:55 +0530
+Message-ID: <20260814115155.3974988-4-shubhamsanjay.patil@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260814115155.3974988-1-shubhamsanjay.patil@amd.com>
 References: <20260814115155.3974988-1-shubhamsanjay.patil@amd.com>
@@ -84,780 +84,203 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000144:EE_|SAWPR12MB999117:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7261e21-d2d0-49f8-cf20-08def9fa79dc
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013D:EE_|MN2PR12MB4471:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7a88001-3cfb-457f-7e8c-08def9fa7d34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|10067099003|11063799006|5023799004|56012099006|6133799003|3023799007|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|22082099003|18002099003|11063799006|6133799003|5023799004|3023799007|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	y1Y04/RYVoqjyZg2TPDIWDKO2Q3J78cnjIjJ72rlObWLtn7IACB0G+4KQMqlspLX9kht649NhehcSJY66ad35uxqlIPoavoyVvl+cFJ27H2SH7CobWpOb6V3FEXPsNc+eiGhL/jTQZeaqC9TTiSpgOUDciogf+/5mplUEvq0/kE27UbexdDKoxedgm6RLiGZ48HuYzjdJU6wZizJygPApow9RD7DWV6foo1/sxcY7nbiOmBHA3JehSxueCfftN7nmfINLaNC/2LkrqOjmf14F5r0q4+VN8c3N3qmqPF4G1/+vscw1B7zAgUPU8w3ATW13UgIqliRspMUmKmiEr7uuXqfBkgsyi0i5Sbm5YEU3xHyXliLUkfmPjxHJ2ByY39mUvr8ShzMP3tiDQTkoeT4CqllInqo+r+hRbGQZ9CkpvKP/63E+pV78jqGW4rUR0IBv1/ipRS4I18FS2GPAcxAZMeFfc38k+6AnMPzbv3XdoXwTExb6g61TBzJmKZVccVobW1WxdAN11wHvzdHAPtHtHgKN93g8MBLm1DvLucA1McFcQ2wdmLonLV6Q4of5sJvANg4qPrlCDvHl7IwFcy1HCI20lKWf2qVV3u4nDu5Wx1X8PbWChvSVV1Gj9VvjkKOWfJa7jC3n8OLsw+Spvf7cWEzMyHcMReNM8+ODohP2GqWB2ReGnaBbZXyeHam5j5ex0w0Af38QgDj1jgl8LEvFA==
+	MfGmX/ci+laxSXR+4RbDTfhGd1zS+ykE0AJ40Ns+ck5wB2nHa4eaHIxcVqTf41zVT302cQpeSeehG2LwmU5DCbvrmyFxvu69DKf96/As1c2qOkb8tQ6ps1UWI6nzrCTeb7Uvmv/pNNOCQLllE/PuCYqGNBc7v1lTRysLnWX+NHOToH98puKzb8fs/ecIvsc0SPbg0eFvcHr/Tsiq10TUrpG4s0bzhlCdI4Sm9LD6WWG9jYD88sl5BWhLcvRm7p+tbuDsdE8LRbRwFKYftDe6q0P4bWyyzgP21MMwMKG24gwanL4+8Yb1O8xJf6KFbbJrUy2BYPWCRNI8suZcLL5sTygCI67Z1YVf+5A7IqmadVcN7D//wV6kqGX1tdBz0p3blAdmWv5yU0xse93lDtcGmYgcF3BjZFi2cutmw6WWxsO7ixErqN4+vfMI0ADjF1Ik7cWpfYCdJV2Doee+5NX51nPn7PbcKPwlJtPoJdIUBRd1ZAC65uFCr1vgmeCaSedYaXWkiqqeROQuauhOCRrizOA5V3ySB8RFw0gZs83EZa6oCdlayBRl3D12Nam5jToXAyHxQatEyAEUHpQDoCFyvdcQsefuJTKfrFL6Aqz0uMdHfjAEf30W2idYwU1iM6DLBvQxJPx7vCJGZIFZKE80Mls4JU1zCo0geMRKbn9jjy81WqiOyECjgCQXV7FTlAWtMiyyERfRogUKS5T6xAHKsw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(10067099003)(11063799006)(5023799004)(56012099006)(6133799003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(11063799006)(6133799003)(5023799004)(3023799007)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	cl2dHUt9RHeBv2oE6j9U1cRBBSqWn45mGlbuFlVfJ2ZMdySv4QXa6wQuLBOAeLsfDFYUv+xs0kLiMaEFJnBNfAJ2Kj5g29xpBccAjSQFUgBkxHusfzH7KtYptHXUiilJs12ZZ4itHXF9k1616Jk9EC9Q05wU9lGJ0y69yO9d2+otbUJsJvzwhCmqm4iDR0IPqLSibxmuG7+bYh986VDM9tWP7387OOL7tFk1o5il0PzL4N0kVlN4kLoKQWAmxv8g/Triq7Zb6euZqfi4UAY6e9djNWAU8SlHH3VghbCJ2MbzUjNm8odqoJ8uOKoNavk6OZ27dodRtUfhoijwWgHH05FgvtvQZm992QonR1aRnTTneLQlhSOaxQKxF2t72fLCiBXN51QMt1xtJ9yjpuWdjO0QiNJlJovvkuCpgXWI6HPdsF4l5RenuFwc6djFq0VZ
+	bYfdhrlBfLNE/3yGNJ3X5yOCi1dJPhcVaj/ay1j3BmZqNUznMzke5jRQfkrnU7/9VUtxQW4EzeS7EwaAzSq2Hytez7kpc9TB4CEAWLO2+emBV8mF1vERCs4syQHBoeUnnG+HMkn4M9aY3SlNK6sy3x1pC14bOkM6v3SYzAa/Rc6Zuep9x7Mx3NmGCKpUdHTSQEzCzYF6CsSWk27ylrK8MEzPpNc3Cl0vc6FPk8IgTvtGtI1cegeRta7c4AMm9nUpanwg9mnW0zRz/VJzVEdjcaZYRIpY8mk0I0Ye2eoyuUo7rTNHfgGwq+daT/XKB7IMrBwDxad/vhm92dQrgB6Glg0N/w51JKQowmVGAKC8BduxWXS6el9vBhnWCXQEHw/uVwKJ8zNVcn2aCACQUU4jgRkWODTiQc56UMo59t7yLp9ftB7p03hbW1CjcSJ6xTmG
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 11:52:11.4316
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 11:52:17.0373
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7261e21-d2d0-49f8-cf20-08def9fa79dc
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7a88001-3cfb-457f-7e8c-08def9fa7d34
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000144.namprd02.prod.outlook.com
+	CH2PEPF0000013D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999117
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4471
 
-Add support for receiving and dequeueing I3C in-band interrupts.
-
-IBI support is optional at synthesis time, so the ops are assembled at
-probe from the base set plus the IBI callbacks, and the callbacks are
-only registered when the "xlnx,ibi-capable" property is present. The
-controller interrupt carries IBI events only, so it is likewise only
-requested for such designs.
-
-The IBI ACK enable and its interrupt mask are controller-wide rather
-than per-target, so they are armed when the first target enables IBIs
-and disarmed when the last one disables them. Per-target control stays
-on the bus via ENEC/DISEC.
-
-IBIs share the response and read FIFOs with normal transfers and are
-tagged with the reserved TID 0x0F. Masking the interrupt for the
-duration of a transfer keeps the handler from running, but does not
-stop the controller from ACKing an IBI, so one taken in an idle moment
-can still queue its response word and payload ahead of the transfer's
-own. The polled transfer path therefore demultiplexes the response FIFO
-by TID: an IBI response and its payload are discarded, and the
-transfer's own response is claimed into the master state for the caller
-to consume.
+Add hot-join support for the AMD AXI I3C master controller.
+By default, the hot-join acknowledgment is disabled. Users can use the
+sysfs entry to enable it. A hot-join event is serviced by re-running DAA
+from a work item so the i3c core enumerates the new device.
 
 Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
 ---
- drivers/i3c/master/amd-i3c-master.c | 528 ++++++++++++++++++++++++++--
- 1 file changed, 508 insertions(+), 20 deletions(-)
+ drivers/i3c/master/amd-i3c-master.c | 77 ++++++++++++++++++++++++++---
+ 1 file changed, 71 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/i3c/master/amd-i3c-master.c b/drivers/i3c/master/amd-i3c-master.c
-index ef5ad5abb788..d47b04326ea4 100644
+index d47b04326ea4..62221b138bfe 100644
 --- a/drivers/i3c/master/amd-i3c-master.c
 +++ b/drivers/i3c/master/amd-i3c-master.c
-@@ -12,6 +12,7 @@
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/i3c/master.h>
-+#include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/kernel.h>
-@@ -19,7 +20,9 @@
- #include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
-+#include <linux/spinlock.h>
+@@ -25,6 +25,7 @@
+ #include <linux/spinlock.h>
  #include <linux/time.h>
  #include <linux/unaligned.h>
++#include <linux/workqueue.h>
  
-@@ -28,6 +31,8 @@
- #define XI3C_CR_OFFSET				0x08	/* Control Register */
- #define XI3C_ADDRESS_OFFSET			0x0C	/* Target Address Register */
- #define XI3C_SR_OFFSET				0x10	/* Status Register */
-+#define XI3C_INTR_STATUS_OFFSET			0x14	/* Interrupt status event (W1C) */
-+#define XI3C_INTR_RE_OFFSET			0x18	/* Interrupt rising-edge enable mask */
- #define XI3C_CMD_FIFO_OFFSET			0x20	/* I3C Command FIFO Register */
- #define XI3C_WR_FIFO_OFFSET			0x24	/* I3C Write Data FIFO Register */
- #define XI3C_RD_FIFO_OFFSET			0x28	/* I3C Read Data FIFO Register */
-@@ -42,13 +47,17 @@
- #define XI3C_TSU_STOP_OFFSET			0x50	/* I3C STOP Setup Register */
- #define XI3C_OD_SCL_HIGH_TIME_OFFSET		0x54	/* I3C OD SCL HIGH Register */
- #define XI3C_OD_SCL_LOW_TIME_OFFSET		0x58	/* I3C OD SCL LOW Register */
-+#define XI3C_IBI_TARGET_ADDR_OFFSET		0x5C	/* IBI source address register */
-+#define XI3C_TARGET_ADDR_BCR_OFFSET		0x60	/* Per-target {DA, BCR} SPRAM */
- #define XI3C_PID0_OFFSET			0x6C	/* LSB 4 bytes of the PID */
- #define XI3C_PID1_BCR_DCR			0x70	/* MSB 2 bytes of the PID, BCR and DCR */
- 
+ #define XI3C_VERSION_OFFSET			0x00	/* Version Register */
+ #define XI3C_RESET_OFFSET			0x04	/* Soft Reset Register */
+@@ -55,9 +56,11 @@
  #define XI3C_CR_EN_MASK				BIT(0)	/* Core Enable */
  #define XI3C_CR_RESUME_MASK			BIT(2)	/* Core Resume */
-+#define XI3C_CR_IBI_MASK			BIT(3)	/* IBI ACK enable */
+ #define XI3C_CR_IBI_MASK			BIT(3)	/* IBI ACK enable */
++#define XI3C_CR_HJ_MASK				BIT(4)	/* Hot-Join ACK enable */
  #define XI3C_SR_RESP_NOT_EMPTY_MASK		BIT(4)	/* Resp Fifo not empty status mask */
  #define XI3C_RD_FIFO_NOT_EMPTY_MASK		BIT(15)	/* Read Fifo not empty status mask */
-+#define XI3C_INTR_IBI_MASK			BIT(7)	/* IBI event (INTR status/enable) */
+ #define XI3C_INTR_IBI_MASK			BIT(7)	/* IBI event (INTR status/enable) */
++#define XI3C_INTR_HJ_MASK			BIT(8)	/* Hot-Join event */
  
  #define XI3C_BCR_MASK				GENMASK(23, 16)
  #define XI3C_DCR_MASK				GENMASK(31, 24)
-@@ -57,6 +66,7 @@
- #define XI3C_REV_NUM_MASK			GENMASK(15, 8)
- #define XI3C_PID1_MASK				GENMASK(15, 0)
- #define XI3C_FIFO_LEVEL_MASK			GENMASK(15, 0)
-+#define XI3C_RESP_FIFO_LEVEL_MASK		GENMASK(31, 16)
- #define XI3C_RESP_CODE_MASK			GENMASK(8, 5)
- 
- /* Controller response codes; PG439 page 34, Table 46 */
-@@ -69,7 +79,9 @@
- #define XI3C_XFER_SHORT_READ			1
- 
- #define XI3C_RESP_BYTES_MASK			GENMASK(20, 9)	/* NUM_BYTES processed */
-+#define XI3C_RESP_TID_MASK			GENMASK(3, 0)	/* response transfer ID */
- #define XI3C_ADDR_MASK				GENMASK(6, 0)
-+#define XI3C_TGT_BCR_MASK			GENMASK(15, 8)	/* TARGET_ADDR_BCR: BCR field */
- #define XI3C_FIFOS_RST_MASK			GENMASK(4, 1)
- 
- /* Command FIFO word layout (bit ranges encoded in the GENMASK/BIT args) */
-@@ -121,9 +133,15 @@
- #define XI3C_POLL_INTERVAL_US			10
- 
- #define XI3C_I2C_MODE				0
--#define XI3C_I2C_TID				0
- #define XI3C_SDR_MODE				1
-+
-+/*
-+ * TID tags: I2C/SDR are driver-chosen for normal transfers;
-+ * 0x0F is the spec-reserved IBI response TID.
-+ */
-+#define XI3C_I2C_TID				0
- #define XI3C_SDR_TID				1
-+#define XI3C_IBI_RESP_TID			0x0F
- 
- #define XI3C_WORD_LEN				4
- 
-@@ -132,6 +150,9 @@
- /* Software guard: 1 s (ms, for msecs_to_jiffies) to bail out if a transfer never completes */
- #define XI3C_XFER_TIMEOUT_MS			1000
- 
-+/* IBI response wait in hard-IRQ context; software-chosen safety cap. */
-+#define XI3C_IBI_RESP_TIMEOUT_US		1000
-+
- struct xi3c_cmd {
- 	const void *tx_buf;
- 	void *rx_buf;
-@@ -160,9 +181,30 @@ struct xi3c_xfer {
-  * @membase: Memory base of the HW registers.
-  * @pclk: Input clock driving the controller.
-  * @lock: Serializes transfers and CCC submission.
-+ * @reg_lock: IRQ-safe lock serializing read-modify-write of the shared
-+ *	      control (XI3C_CR_OFFSET) and interrupt-enable
-+ *	      (XI3C_INTR_RE_OFFSET) registers.
-  * @daa: ENTDAA enumeration state.
-  * @daa.addrs: Dynamic addresses assigned in enumeration order.
-  * @daa.index: Number of responders enumerated so far.
-+ * @xfer_resp: Response word claimed for the transfer in flight; valid while
-+ *	       @xfer_resp_valid is set. Guarded by @lock.
-+ * @xfer_resp_valid: True once the in-flight transfer's own response word has
-+ *		     been taken from the shared response FIFO. Guarded by @lock.
-+ * @irq: Controller interrupt line, used for IBI events. Only valid when
-+ *	 @ibi_capable is set.
-+ * @ibi_capable: True when the IP was synthesized with In-Band Interrupt
-+ *		 support ("xlnx,ibi-capable"); also the condition for the
-+ *		 controller interrupt being present.
-+ * @ops: Controller ops handed to the framework, assembled at probe time from
-+ *	 the base ops plus the callbacks the design actually supports.
-+ * @ibi: In-Band Interrupt slot tracking.
-+ * @ibi.lock: Protects @ibi.slots against the IBI handler.
-+ * @ibi.slots: Per-device IBI registration, indexed by slot.
-+ * @ibi.enabled_count: Number of devices with IBI currently enabled; the
-+ *		       controller-wide IBI ACK/interrupt is armed on the
-+ *		       first enable and disarmed on the last disable. Guarded
-+ *		       by @reg_lock.
+@@ -191,11 +194,14 @@ struct xi3c_xfer {
+  *	       @xfer_resp_valid is set. Guarded by @lock.
+  * @xfer_resp_valid: True once the in-flight transfer's own response word has
+  *		     been taken from the shared response FIFO. Guarded by @lock.
+- * @irq: Controller interrupt line, used for IBI events. Only valid when
+- *	 @ibi_capable is set.
++ * @irq: Controller interrupt line, used for IBI/Hot-Join events. Only valid
++ *	 when @ibi_capable is set.
+  * @ibi_capable: True when the IP was synthesized with In-Band Interrupt
+- *		 support ("xlnx,ibi-capable"); also the condition for the
+- *		 controller interrupt being present.
++ *		 support ("xlnx,ibi-capable"). Since Hot-Join requests are
++ *		 ACKed by the IBI machinery, this is also the condition for
++ *		 the controller interrupt being present at all.
++ * @hj_capable: True when the IP was synthesized with Hot-Join support
++ *		("xlnx,hj-capable"); implies @ibi_capable.
+  * @ops: Controller ops handed to the framework, assembled at probe time from
+  *	 the base ops plus the callbacks the design actually supports.
+  * @ibi: In-Band Interrupt slot tracking.
+@@ -205,6 +211,7 @@ struct xi3c_xfer {
+  *		       controller-wide IBI ACK/interrupt is armed on the
+  *		       first enable and disarmed on the last disable. Guarded
+  *		       by @reg_lock.
++ * @hj_work: Deferred re-DAA triggered from the Hot-Join interrupt.
   */
  struct xi3c_master {
  	struct i3c_master_controller base;
-@@ -170,10 +212,31 @@ struct xi3c_master {
- 	void __iomem *membase;
- 	struct clk *pclk;
- 	struct mutex lock; /* serializes transfers and CCC submission */
-+	spinlock_t reg_lock;
+@@ -221,12 +228,14 @@ struct xi3c_master {
+ 	bool xfer_resp_valid;
+ 	int irq;
+ 	bool ibi_capable;
++	bool hj_capable;
+ 	struct i3c_master_controller_ops ops;
  	struct {
- 		u8 addrs[XI3C_MAX_DEVS];
- 		u8 index;
- 	} daa;
-+	u32 xfer_resp;
-+	bool xfer_resp_valid;
-+	int irq;
-+	bool ibi_capable;
-+	struct i3c_master_controller_ops ops;
-+	struct {
-+		spinlock_t lock; /* protects slots[] against the IBI handler */
-+		struct i3c_dev_desc *slots[XI3C_MAX_DEVS];
-+		unsigned int enabled_count;
-+	} ibi;
-+};
-+
-+/**
-+ * struct xi3c_i3c_dev_data - Per-device controller state.
-+ * @ibi_pool: Generic IBI slot pool backing this device's IBIs.
-+ * @ibi_slot: Index into &xi3c_master.ibi.slots, or -1 when unregistered.
-+ */
-+struct xi3c_i3c_dev_data {
-+	struct i3c_generic_ibi_pool *ibi_pool;
-+	s16 ibi_slot;
+ 		spinlock_t lock; /* protects slots[] against the IBI handler */
+ 		struct i3c_dev_desc *slots[XI3C_MAX_DEVS];
+ 		unsigned int enabled_count;
+ 	} ibi;
++	struct work_struct hj_work;
  };
  
- static inline struct xi3c_master *
-@@ -206,23 +269,79 @@ static inline bool xi3c_is_resp_available(struct xi3c_master *master)
- 			 ioread32(master->membase + XI3C_SR_OFFSET));
+ /**
+@@ -1474,6 +1483,40 @@ static void xi3c_master_handle_ibi(struct xi3c_master *master)
+ 	xi3c_master_drain_ibi_fifo(master, len);
  }
  
-+static inline u16 xi3c_resp_fifo_level(struct xi3c_master *master)
++static int xi3c_master_enable_hotjoin(struct i3c_master_controller *m)
 +{
-+	return FIELD_GET(XI3C_RESP_FIFO_LEVEL_MASK,
-+			 ioread32(master->membase + XI3C_FIFO_LVL_STATUS_1_OFFSET));
-+}
-+
-+/*
-+ * Discard an unconsumed IBI payload from the RX FIFO, keeping the FIFO
-+ * aligned for the next transfer.
-+ */
-+static void xi3c_master_drain_ibi_fifo(struct xi3c_master *master, u16 len)
-+{
-+	unsigned int words = DIV_ROUND_UP(len, XI3C_WORD_LEN);
-+
-+	while (words--)
-+		ioread32(master->membase + XI3C_RD_FIFO_OFFSET);
-+}
-+
-+/*
-+ * Tell whether the transfer in flight has had its response posted, claiming
-+ * that response into @master->xfer_resp when it has.
-+ *
-+ * The response and read FIFOs are shared with IBIs, and masking the interrupt
-+ * for the duration of a transfer does not stop the controller from ACKing one:
-+ * an IBI taken in an idle moment queues its response word and its payload
-+ * ahead of ours. Drop such an IBI here, so a transfer cannot mistake the IBI's
-+ * response code and byte count for its own, nor the IBI's payload for read
-+ * data.
-+ */
-+static bool xi3c_xfer_resp_available(struct xi3c_master *master)
-+{
-+	u32 resp;
-+	u16 len;
-+
-+	if (master->xfer_resp_valid)
-+		return true;
-+
-+	while (xi3c_is_resp_available(master)) {
-+		resp = ioread32(master->membase + XI3C_RESP_STATUS_FIFO_OFFSET);
-+
-+		if (FIELD_GET(XI3C_RESP_TID_MASK, resp) != XI3C_IBI_RESP_TID) {
-+			master->xfer_resp = resp;
-+			master->xfer_resp_valid = true;
-+			return true;
-+		}
-+
-+		len = FIELD_GET(XI3C_RESP_BYTES_MASK, resp);
-+		dev_dbg_ratelimited(master->dev,
-+				    "IBI raced with transfer, dropping %u bytes\n",
-+				    len);
-+		xi3c_master_drain_ibi_fifo(master, len);
-+	}
-+
-+	return false;
-+}
-+
- static int xi3c_get_response(struct xi3c_master *master, struct xi3c_cmd *cmd)
- {
- 	u32 response_data;
--	u32 resp_reg;
-+	bool available;
- 	u8 code;
- 	int ret;
- 
--	ret = readl_poll_timeout(master->membase + XI3C_SR_OFFSET,
--				 resp_reg,
--				 resp_reg & XI3C_SR_RESP_NOT_EMPTY_MASK,
--				 XI3C_POLL_INTERVAL_US, XI3C_RESP_TIMEOUT_US);
-+	ret = read_poll_timeout(xi3c_xfer_resp_available, available, available,
-+				XI3C_POLL_INTERVAL_US, XI3C_RESP_TIMEOUT_US,
-+				false, master);
- 	if (ret) {
- 		dev_err(master->dev, "XI3C response timeout\n");
- 		return ret;
- 	}
- 
--	response_data = ioread32(master->membase + XI3C_RESP_STATUS_FIFO_OFFSET);
-+	response_data = master->xfer_resp;
-+	master->xfer_resp_valid = false;
- 	code = FIELD_GET(XI3C_RESP_CODE_MASK, response_data);
- 
- 	switch (code) {
-@@ -247,6 +366,19 @@ static int xi3c_get_response(struct xi3c_master *master, struct xi3c_cmd *cmd)
- 	}
- }
- 
-+/*
-+ * Wait for a response in hard-IRQ context (IBI path). Uses the atomic
-+ * poll variant since the IBI handler must not sleep.
-+ */
-+static int xi3c_wait_resp_atomic(struct xi3c_master *master)
-+{
-+	u32 sr;
-+
-+	return readl_poll_timeout_atomic(master->membase + XI3C_SR_OFFSET, sr,
-+					 sr & XI3C_SR_RESP_NOT_EMPTY_MASK,
-+					 0, XI3C_IBI_RESP_TIMEOUT_US);
-+}
-+
- static inline void xi3c_writesl_be(void __iomem *addr, const void *buffer,
- 				   unsigned int count)
- {
-@@ -331,6 +463,7 @@ static inline void xi3c_master_disable(struct xi3c_master *master)
- 
- static inline void xi3c_master_resume(struct xi3c_master *master)
- {
-+	guard(spinlock_irqsave)(&master->reg_lock);
- 	iowrite32(ioread32(master->membase + XI3C_CR_OFFSET) |
- 		  XI3C_CR_RESUME_MASK, master->membase + XI3C_CR_OFFSET);
- }
-@@ -356,6 +489,11 @@ static void xi3c_master_reset_fifos(struct xi3c_master *master)
- 
- static inline void xi3c_master_init(struct xi3c_master *master)
- {
-+	/* Mask all interrupt sources and clear any stale latched events. */
-+	iowrite32(0, master->membase + XI3C_INTR_RE_OFFSET);
-+	iowrite32(ioread32(master->membase + XI3C_INTR_STATUS_OFFSET),
-+		  master->membase + XI3C_INTR_STATUS_OFFSET);
-+
- 	/* Reset fifos */
- 	xi3c_master_reset_fifos(master);
- 
-@@ -437,13 +575,19 @@ static int xi3c_master_read(struct xi3c_master *master, struct xi3c_cmd *cmd)
- 		return ret;
- 	}
- 
--	if (!(status_reg & XI3C_RD_FIFO_NOT_EMPTY_MASK))
-+	/*
-+	 * No data queued means this read produced none, unless what is queued
-+	 * is an IBI response that raced with it; xi3c_xfer_resp_available()
-+	 * discards that case so the wait for our own data can continue.
-+	 */
-+	if (!(status_reg & XI3C_RD_FIFO_NOT_EMPTY_MASK) &&
-+	    xi3c_xfer_resp_available(master))
- 		return 0;
- 
- 	timeout = jiffies + msecs_to_jiffies(XI3C_XFER_TIMEOUT_MS);
- 
- 	/* Read data from rx fifo */
--	while (cmd->rx_len > 0 && !xi3c_is_resp_available(master)) {
-+	while (cmd->rx_len > 0 && !xi3c_xfer_resp_available(master)) {
- 		if (time_after(jiffies, timeout)) {
- 			dev_err(master->dev, "XI3C read timeout\n");
- 			return -EIO;
-@@ -503,7 +647,7 @@ static int xi3c_master_write(struct xi3c_master *master, struct xi3c_cmd *cmd)
- 
- 	timeout = jiffies + msecs_to_jiffies(XI3C_XFER_TIMEOUT_MS);
- 	/* Fill if any remaining data to tx fifo */
--	while (cmd->tx_len > 0 && !xi3c_is_resp_available(master)) {
-+	while (cmd->tx_len > 0 && !xi3c_xfer_resp_available(master)) {
- 		if (time_after(jiffies, timeout)) {
- 			dev_err(master->dev, "XI3C write timeout\n");
- 			return -EIO;
-@@ -547,22 +691,33 @@ static int xi3c_master_common_xfer(struct xi3c_master *master,
- 				   struct xi3c_xfer *xfer)
- {
- 	unsigned int i;
--	int ret;
-+	int ret = 0;
- 
- 	guard(mutex)(&master->lock);
- 
-+	/*
-+	 * IBIs share the response/read FIFOs; mask the IRQ so the handler
-+	 * cannot take this transfer's response.
-+	 */
-+	if (master->ibi_capable)
-+		disable_irq(master->irq);
-+
-+	/* Discard any response claimed but not consumed by an aborted transfer. */
-+	master->xfer_resp_valid = false;
-+
- 	for (i = 0; i < xfer->ncmds; i++) {
- 		ret = xi3c_master_xfer(master, &xfer->cmds[i]);
--		if (ret) {
--			/* Count commands sent on the bus; the rest never ran */
--			xfer->nissued = i + 1;
--			return ret;
--		}
-+		if (ret)
-+			break;
- 	}
- 
--	xfer->nissued = xfer->ncmds;
-+	if (master->ibi_capable)
-+		enable_irq(master->irq);
- 
--	return 0;
-+	/* On failure @i is the command that failed; the rest never ran. */
-+	xfer->nissued = (i < xfer->ncmds) ? i + 1 : xfer->ncmds;
-+
-+	return ret;
- }
- 
- static int xi3c_master_do_daa(struct i3c_master_controller *m)
-@@ -1052,9 +1207,296 @@ static void xi3c_master_bus_cleanup(struct i3c_master_controller *m)
- {
- 	struct xi3c_master *master = to_xi3c_master(m);
- 
-+	/*
-+	 * Disarm all interrupt sources and the IBI ACK so the controller can't
-+	 * assert once disabled; reset the refcount that tracks them.
-+	 */
-+	scoped_guard(spinlock_irqsave, &master->reg_lock) {
-+		iowrite32(0, master->membase + XI3C_INTR_RE_OFFSET);
-+		iowrite32(ioread32(master->membase + XI3C_CR_OFFSET) &
-+			  ~XI3C_CR_IBI_MASK, master->membase + XI3C_CR_OFFSET);
-+		master->ibi.enabled_count = 0;
-+	}
-+
- 	xi3c_master_disable(master);
- }
- 
-+static int xi3c_master_request_ibi(struct i3c_dev_desc *dev,
-+				   const struct i3c_ibi_setup *req)
-+{
-+	struct i3c_master_controller *m = i3c_dev_get_master(dev);
 +	struct xi3c_master *master = to_xi3c_master(m);
-+	struct xi3c_i3c_dev_data *data;
-+	unsigned long flags;
-+	unsigned int i;
 +
-+	data = kzalloc_obj(*data, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->ibi_slot = -1;
-+	data->ibi_pool = i3c_generic_ibi_alloc_pool(dev, req);
-+	if (IS_ERR(data->ibi_pool)) {
-+		int ret = PTR_ERR(data->ibi_pool);
-+
-+		kfree(data);
-+		return ret;
-+	}
-+
-+	spin_lock_irqsave(&master->ibi.lock, flags);
-+	for (i = 0; i < ARRAY_SIZE(master->ibi.slots); i++) {
-+		if (!master->ibi.slots[i]) {
-+			data->ibi_slot = i;
-+			master->ibi.slots[i] = dev;
-+			break;
-+		}
-+	}
-+	spin_unlock_irqrestore(&master->ibi.lock, flags);
-+
-+	if (data->ibi_slot < 0) {
-+		dev_err(master->dev, "IBI: no free slot for addr 0x%02x\n",
-+			dev->info.dyn_addr);
-+		i3c_generic_ibi_free_pool(data->ibi_pool);
-+		kfree(data);
-+		return -ENOSPC;
-+	}
-+
-+	i3c_dev_set_master_data(dev, data);
-+
-+	return 0;
-+}
-+
-+static void xi3c_master_free_ibi(struct i3c_dev_desc *dev)
-+{
-+	struct xi3c_i3c_dev_data *data = i3c_dev_get_master_data(dev);
-+	struct i3c_master_controller *m = i3c_dev_get_master(dev);
-+	struct xi3c_master *master = to_xi3c_master(m);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&master->ibi.lock, flags);
-+	master->ibi.slots[data->ibi_slot] = NULL;
-+	spin_unlock_irqrestore(&master->ibi.lock, flags);
-+
-+	i3c_generic_ibi_free_pool(data->ibi_pool);
-+	i3c_dev_set_master_data(dev, NULL);
-+	kfree(data);
-+}
-+
-+/*
-+ * Arm the controller-wide IBI ACK enable and event interrupt on the first
-+ * device to enable IBIs. Per-device SIR control is still done on the bus via
-+ * ENEC/DISEC; this only gates whether the controller reacts to IBIs at all.
-+ */
-+static void xi3c_master_ibi_arm(struct xi3c_master *master)
-+{
 +	guard(spinlock_irqsave)(&master->reg_lock);
-+
-+	if (master->ibi.enabled_count++)
-+		return;
-+
-+	iowrite32(ioread32(master->membase + XI3C_CR_OFFSET) | XI3C_CR_IBI_MASK,
++	iowrite32(ioread32(master->membase + XI3C_CR_OFFSET) | XI3C_CR_HJ_MASK,
 +		  master->membase + XI3C_CR_OFFSET);
 +	iowrite32(ioread32(master->membase + XI3C_INTR_RE_OFFSET) |
-+		  XI3C_INTR_IBI_MASK, master->membase + XI3C_INTR_RE_OFFSET);
-+}
-+
-+/* Disarm the controller-wide IBI enable once the last device disables IBIs. */
-+static void xi3c_master_ibi_disarm(struct xi3c_master *master)
-+{
-+	guard(spinlock_irqsave)(&master->reg_lock);
-+
-+	if (WARN_ON(!master->ibi.enabled_count))
-+		return;
-+
-+	if (--master->ibi.enabled_count)
-+		return;
-+
-+	iowrite32(ioread32(master->membase + XI3C_INTR_RE_OFFSET) &
-+		  ~XI3C_INTR_IBI_MASK, master->membase + XI3C_INTR_RE_OFFSET);
-+	iowrite32(ioread32(master->membase + XI3C_CR_OFFSET) & ~XI3C_CR_IBI_MASK,
-+		  master->membase + XI3C_CR_OFFSET);
-+}
-+
-+static int xi3c_master_enable_ibi(struct i3c_dev_desc *dev)
-+{
-+	struct i3c_master_controller *m = i3c_dev_get_master(dev);
-+	struct xi3c_master *master = to_xi3c_master(m);
-+	u32 val;
-+	int ret;
-+
-+	/*
-+	 * Program {DA, BCR} into the IBI SPRAM; the DA field self-selects the
-+	 * row, so a plain write keeps the entry fresh after DAA reassigns the
-+	 * address.
-+	 */
-+	val = FIELD_PREP(XI3C_ADDR_MASK, dev->info.dyn_addr) |
-+	      FIELD_PREP(XI3C_TGT_BCR_MASK, dev->info.bcr);
-+	iowrite32(val, master->membase + XI3C_TARGET_ADDR_BCR_OFFSET);
-+
-+	/* Arm the controller IBI path before allowing this device to SIR. */
-+	xi3c_master_ibi_arm(master);
-+
-+	ret = i3c_master_enec_locked(m, dev->info.dyn_addr, I3C_CCC_EVENT_SIR);
-+	if (ret) {
-+		dev_err(master->dev, "IBI: ENEC failed addr 0x%02x (%d)\n",
-+			dev->info.dyn_addr, ret);
-+		xi3c_master_ibi_disarm(master);
-+	}
-+
-+	return ret;
-+}
-+
-+static int xi3c_master_disable_ibi(struct i3c_dev_desc *dev)
-+{
-+	struct i3c_master_controller *m = i3c_dev_get_master(dev);
-+	struct xi3c_master *master = to_xi3c_master(m);
-+	int ret;
-+
-+	ret = i3c_master_disec_locked(m, dev->info.dyn_addr, I3C_CCC_EVENT_SIR);
-+
-+	xi3c_master_ibi_disarm(master);
-+
-+	return ret;
-+}
-+
-+static void xi3c_master_recycle_ibi_slot(struct i3c_dev_desc *dev,
-+					 struct i3c_ibi_slot *slot)
-+{
-+	struct xi3c_i3c_dev_data *data = i3c_dev_get_master_data(dev);
-+
-+	i3c_generic_ibi_recycle_slot(data->ibi_pool, slot);
-+}
-+
-+static void xi3c_master_handle_ibi(struct xi3c_master *master)
-+{
-+	struct xi3c_i3c_dev_data *data;
-+	struct i3c_ibi_slot *slot;
-+	struct i3c_dev_desc *dev;
-+	u32 ibi_reg, resp;
-+	unsigned int id;
-+	u8 da, code;
-+	u16 len;
-+
-+	ibi_reg = ioread32(master->membase + XI3C_IBI_TARGET_ADDR_OFFSET);
-+	da = FIELD_GET(XI3C_ADDR_MASK, ibi_reg);
-+
-+	if (xi3c_wait_resp_atomic(master)) {
-+		dev_err_ratelimited(master->dev, "XI3C IBI response timeout\n");
-+		/* Controller parks in STOP on failure; RESUME to recover (PG439). */
-+		xi3c_master_resume(master);
-+		return;
-+	}
-+
-+	resp = ioread32(master->membase + XI3C_RESP_STATUS_FIFO_OFFSET);
-+	code = FIELD_GET(XI3C_RESP_CODE_MASK, resp);
-+	len = FIELD_GET(XI3C_RESP_BYTES_MASK, resp);
-+
-+	/*
-+	 * TID 0x0F marks an IBI response. A transfer masks this interrupt and
-+	 * demuxes the response FIFO itself, so its response must never reach
-+	 * here; draining one would eat that transfer's read data.
-+	 */
-+	if (FIELD_GET(XI3C_RESP_TID_MASK, resp) != XI3C_IBI_RESP_TID) {
-+		WARN_ONCE(1, "XI3C: transfer response in IBI handler, dropping %u bytes\n",
-+			  len);
-+		xi3c_master_drain_ibi_fifo(master, len);
-+		/* A non-success stray response parks the controller in STOP (PG439). */
-+		if (code != XI3C_RESP_CODE_SUCCESS)
-+			xi3c_master_resume(master);
-+		return;
-+	}
-+
-+	if (code != XI3C_RESP_CODE_SUCCESS) {
-+		dev_dbg_ratelimited(master->dev,
-+				    "IBI: non-success code %u, dropping %u bytes\n",
-+				    code, len);
-+		xi3c_master_drain_ibi_fifo(master, len);
-+		xi3c_master_resume(master);
-+		return;
-+	}
-+
-+	spin_lock(&master->ibi.lock);
-+
-+	for (id = 0; id < ARRAY_SIZE(master->ibi.slots); id++)
-+		if (master->ibi.slots[id] &&
-+		    master->ibi.slots[id]->info.dyn_addr == da)
-+			break;
-+
-+	if (id == ARRAY_SIZE(master->ibi.slots)) {
-+		dev_dbg_ratelimited(master->dev,
-+				    "IBI: no registered device for addr 0x%02x\n",
-+				    da);
-+		goto err_drain;
-+	}
-+
-+	dev = master->ibi.slots[id];
-+
-+	if (!dev->ibi) {
-+		dev_dbg_ratelimited(master->dev,
-+				    "IBI: addr 0x%02x not fully set up\n", da);
-+		goto err_drain;
-+	}
-+
-+	if (len > dev->ibi->max_payload_len) {
-+		dev_dbg_ratelimited(master->dev,
-+				    "IBI: payload %u > max %u for addr 0x%02x\n",
-+				    len, dev->ibi->max_payload_len, da);
-+		goto err_drain;
-+	}
-+
-+	data = i3c_dev_get_master_data(dev);
-+	slot = i3c_generic_ibi_get_free_slot(data->ibi_pool);
-+	if (!slot) {
-+		dev_dbg_ratelimited(master->dev,
-+				    "IBI: no free pool slot for addr 0x%02x\n",
-+				    da);
-+		goto err_drain;
-+	}
-+
-+	slot->len = 0;
-+	if (len) {
-+		xi3c_readl_fifo(master->membase + XI3C_RD_FIFO_OFFSET,
-+				slot->data, len);
-+		slot->len = len;
-+	}
-+
-+	i3c_master_queue_ibi(dev, slot);
-+	spin_unlock(&master->ibi.lock);
-+
-+	return;
-+
-+err_drain:
-+	/*
-+	 * Reached only with code == SUCCESS, so the controller is not parked in
-+	 * STOP; no resume needed (PG439).
-+	 */
-+	spin_unlock(&master->ibi.lock);
-+	xi3c_master_drain_ibi_fifo(master, len);
-+}
-+
-+static irqreturn_t xi3c_master_irq_handler(int irq, void *dev_id)
-+{
-+	struct xi3c_master *master = dev_id;
-+	u32 status;
-+
-+	status = ioread32(master->membase + XI3C_INTR_STATUS_OFFSET);
-+	if (!status)
-+		return IRQ_NONE;
-+
-+	/* Write-1-to-clear the latched events before servicing them. */
-+	iowrite32(status, master->membase + XI3C_INTR_STATUS_OFFSET);
-+
-+	/* Event latches once; drain the queued IBI responses (TID checked per entry). */
-+	if (status & XI3C_INTR_IBI_MASK) {
-+		u16 pending = xi3c_resp_fifo_level(master);
-+
-+		while (pending-- && xi3c_is_resp_available(master))
-+			xi3c_master_handle_ibi(master);
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
- static const struct i3c_master_controller_ops xi3c_master_ops = {
- 	.bus_init = xi3c_master_bus_init,
- 	.bus_cleanup = xi3c_master_bus_cleanup,
-@@ -1065,6 +1507,15 @@ static const struct i3c_master_controller_ops xi3c_master_ops = {
- 	.i2c_xfers = xi3c_master_i2c_xfers,
- };
- 
-+static void xi3c_master_init_ibi_ops(struct xi3c_master *master)
-+{
-+	master->ops.request_ibi = xi3c_master_request_ibi;
-+	master->ops.free_ibi = xi3c_master_free_ibi;
-+	master->ops.enable_ibi = xi3c_master_enable_ibi;
-+	master->ops.disable_ibi = xi3c_master_disable_ibi;
-+	master->ops.recycle_ibi_slot = xi3c_master_recycle_ibi_slot;
-+}
-+
- static int xi3c_master_probe(struct platform_device *pdev)
- {
- 	struct xi3c_master *master;
-@@ -1090,16 +1541,53 @@ static int xi3c_master_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	master->ops = xi3c_master_ops;
-+
-+	spin_lock_init(&master->ibi.lock);
-+	spin_lock_init(&master->reg_lock);
-+
-+	master->ibi_capable = device_property_read_bool(master->dev,
-+							"xlnx,ibi-capable");
-+
-+	/*
-+	 * The interrupt only carries IBI events, so it is only described for
-+	 * designs synthesized with that feature.
-+	 */
-+	if (master->ibi_capable) {
-+		xi3c_master_init_ibi_ops(master);
-+
-+		master->irq = platform_get_irq(pdev, 0);
-+		if (master->irq < 0)
-+			return master->irq;
-+
-+		ret = devm_request_irq(master->dev, master->irq,
-+				       xi3c_master_irq_handler, IRQF_NO_AUTOEN,
-+				       dev_name(master->dev), master);
-+		if (ret)
-+			return dev_err_probe(master->dev, ret,
-+					     "Failed to request IRQ\n");
-+	}
-+
- 	platform_set_drvdata(pdev, master);
- 
--	return i3c_master_register(&master->base, master->dev,
--				   &xi3c_master_ops, false);
-+	ret = i3c_master_register(&master->base, master->dev, &master->ops,
-+				  false);
-+	if (ret)
-+		return ret;
-+
-+	if (master->ibi_capable)
-+		enable_irq(master->irq);
++		  XI3C_INTR_HJ_MASK, master->membase + XI3C_INTR_RE_OFFSET);
 +
 +	return 0;
++}
++
++static int xi3c_master_disable_hotjoin(struct i3c_master_controller *m)
++{
++	struct xi3c_master *master = to_xi3c_master(m);
++
++	guard(spinlock_irqsave)(&master->reg_lock);
++	iowrite32(ioread32(master->membase + XI3C_INTR_RE_OFFSET) &
++		  ~XI3C_INTR_HJ_MASK, master->membase + XI3C_INTR_RE_OFFSET);
++	iowrite32(ioread32(master->membase + XI3C_CR_OFFSET) & ~XI3C_CR_HJ_MASK,
++		  master->membase + XI3C_CR_OFFSET);
++
++	return 0;
++}
++
++static void xi3c_master_hj_work(struct work_struct *work)
++{
++	struct xi3c_master *master = container_of(work, struct xi3c_master,
++						  hj_work);
++
++	i3c_master_do_daa(&master->base);
++}
++
+ static irqreturn_t xi3c_master_irq_handler(int irq, void *dev_id)
+ {
+ 	struct xi3c_master *master = dev_id;
+@@ -1494,6 +1537,9 @@ static irqreturn_t xi3c_master_irq_handler(int irq, void *dev_id)
+ 			xi3c_master_handle_ibi(master);
+ 	}
+ 
++	if (status & XI3C_INTR_HJ_MASK)
++		queue_work(master->base.wq, &master->hj_work);
++
+ 	return IRQ_HANDLED;
  }
  
- static void xi3c_master_remove(struct platform_device *pdev)
- {
- 	struct xi3c_master *master = platform_get_drvdata(pdev);
+@@ -1514,6 +1560,11 @@ static void xi3c_master_init_ibi_ops(struct xi3c_master *master)
+ 	master->ops.enable_ibi = xi3c_master_enable_ibi;
+ 	master->ops.disable_ibi = xi3c_master_disable_ibi;
+ 	master->ops.recycle_ibi_slot = xi3c_master_recycle_ibi_slot;
++
++	if (master->hj_capable) {
++		master->ops.enable_hotjoin = xi3c_master_enable_hotjoin;
++		master->ops.disable_hotjoin = xi3c_master_disable_hotjoin;
++	}
+ }
  
-+	if (master->ibi_capable)
-+		disable_irq(master->irq);
+ static int xi3c_master_probe(struct platform_device *pdev)
+@@ -1545,13 +1596,21 @@ static int xi3c_master_probe(struct platform_device *pdev)
+ 
+ 	spin_lock_init(&master->ibi.lock);
+ 	spin_lock_init(&master->reg_lock);
++	INIT_WORK(&master->hj_work, xi3c_master_hj_work);
+ 
+ 	master->ibi_capable = device_property_read_bool(master->dev,
+ 							"xlnx,ibi-capable");
++	master->hj_capable = device_property_read_bool(master->dev,
++						       "xlnx,hj-capable");
++
++	/* Hot-Join requests are ACKed by the IBI machinery. */
++	if (master->hj_capable && !master->ibi_capable)
++		return dev_err_probe(master->dev, -EINVAL,
++				     "xlnx,hj-capable requires xlnx,ibi-capable\n");
+ 
+ 	/*
+-	 * The interrupt only carries IBI events, so it is only described for
+-	 * designs synthesized with that feature.
++	 * The interrupt only carries IBI and Hot-Join events, so it is only
++	 * described for designs synthesized with those features.
+ 	 */
+ 	if (master->ibi_capable) {
+ 		xi3c_master_init_ibi_ops(master);
+@@ -1588,6 +1647,12 @@ static void xi3c_master_remove(struct platform_device *pdev)
+ 	if (master->ibi_capable)
+ 		disable_irq(master->irq);
+ 
++	if (master->hj_capable) {
++		/* Stop new Hot-Join IRQs before flushing, so the work can't be re-queued. */
++		xi3c_master_disable_hotjoin(&master->base);
++		cancel_work_sync(&master->hj_work);
++	}
 +
  	i3c_master_unregister(&master->base);
  }
