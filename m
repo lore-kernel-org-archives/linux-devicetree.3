@@ -1,190 +1,128 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01103546E0
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 05:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786685386; cv=none; b=sPy0GbEP3JCb56aa0XeKj04S9XssBUudskcsrz3C9x5H2Xe3lzkcM3O9qLj0mgkj0tS1LxokJ74Z22ZN2kt8Eqw/ULxG5b5ZSVv6X6fZFmpt6lqXpSUfI/g+RkszNzQ7P8mCZeab+qQDeNO4Q8+loKBGYV9yc2o1KaRCCYNfeGk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786685386; c=relaxed/simple;
-	bh=2n680nI1lYLXDSKnF2Drtq6F5MjNALsTF9iACEG9iGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mm902IGb6+13eCiOTXj8nZT72ahxTkJs2Zxymgh22zoP4XVK5IzGXr4viYL9AgxCo1zZ27I7kO3yfJMhzbg4Wx0WmI4ghsgbOewOM7gIjAh5kIKIjXSpb1zCQkSUIid7mU7DWrLEpzrz+rnGucWV7xK3+qEMyKK9rXRVAZl0DLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G7H2iHLe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eIIiodOm; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2D63515E8
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 05:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786685904; cv=pass; b=X77Xazqm5V6aF3LeZxdb28Y9I7v2gZw1x7W5FDQn6cDH7+VLLShALCY8ZKVBHkgwy+ToH+anjFfmc361NM3e8gKekmXvfTNVqQ+RIIcWBuFeObTGhYXrdpuPBPIspVX718BHEhn0Ws2ha3E0FvDjYROLCW2wmGi0INBRRLvD4NU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786685904; c=relaxed/simple;
+	bh=bFXrIBCwNXQf5uSzSbdWq2pW0DAs87dD/iRxpbolg+8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rjiY8/fLB7ZZiiW7nwK2I4yr8Iq2W/7V1i5Kfnv9+Ys4WLjuFjSD60nh4D8JhS2yzeBtpMEsLlJovuhWHgatcYrRgFnUXPIEWGdRss0/9BzD2CzVl5VOAcGm2agCxsxkTlYzLDFTkCYlsxfBQhUlC3W7cUbRqiljVR6FB7bIp90=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DbDX5+Ww; arc=pass smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G7H2iHLe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eIIiodOm"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67E4QwMG3615507
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 05:29:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2n680nI1lYLXDSKnF2Drtq6F5MjNALsTF9iACEG9iGE=; b=G7H2iHLeUvMZZIXY
-	gX1DFTdJG7B5FUxQE5nWZ2YIVdX6IyHzxcayvMaRrgl3tuMoutbT/zfLDvdtgwtO
-	smZA5Bk7UQQIwgzBop6J7tqzpCdKfbr0KAgR6Pmv5sIZ2OvntXUimJ8T8ED2JEiQ
-	T1k7bT0fDeNEYeeRRKmeGDPxQQFmIp3ZpypZ1b+OgNo38eAF19lBj1/a+nYqEw3N
-	ztVK+3nF/pu2QGvsVhnZCqdK7z82pDwgyT3TltzZG3CGN31xHlSaSypOHQxvMa6x
-	Zuo5b2ASFVQcsWozLNKBwYFy9pmIbGaNrgg7p2vMLqlBIwVeZzJcWU3s+JUBuW4c
-	HzQL6g==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1hgy2m02-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 05:29:43 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb7049fa552so419440a12.2
-        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 22:29:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DbDX5+Ww"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cc61541f8cso22835095ad.0
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 22:38:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786685903; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bi1vjDN2AU4IAIaj4EVAX7mNYps6k+VPHr0YFCZLmBNiMvAJPG0mbihp6YiUbOf0yL
+         rg0q6d0YYKRH4Zqi+JYB1KE4fYJKYfntlZIbF5c4QumOh4uX3Z5kOUmOVM3xOPuctKR+
+         OztNNRIYFdtNxifT3rzURKEPeba+chyhQxa4Gb9uyRl4PsuJez/GG0eONA/zaLiS+el1
+         6pXO6VJ/fY6SmV8705A/l7LVenbAPfh0BT/ePuJMBTa32DgjiHj32UZqlkXhnPnyt60Y
+         /Tkudq73a2ATJQj7YruLIGU6IoFRMOvr2P2eIJiO/WfaphGAyLN1HYEdvaJpTu0kNUue
+         WfYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bFXrIBCwNXQf5uSzSbdWq2pW0DAs87dD/iRxpbolg+8=;
+        fh=bw15SJZdw4yvbZrlpWKkMwo7CcX3wCqIYDhjQB5JTh8=;
+        b=Rc7X1+e4TdthZx+dneinIs40/7wP1Ii6y4kvCYA3gxYDVeK8eyku9npv0XFb7pO2/D
+         y67hLdDEIP7raWof7jfI4wFPdBenOECIFuVXcVScBGk8BoyXzgE1F8+nzHeRR+G/lkH+
+         0dB2/ZlAc45ixWtOFHKogGg2d4Mqxi2jiRxApmTLGnCfwpxrXSWI9nP/d4jvK9bb7Wp6
+         JTn9ouNJ5hZAP0yzKjDrVJ9TK74T/eTxOKYGVLMfmXHTEkkkztXeb49s5zJ7rmUJmMAO
+         Jvl8uTcPY0QSVHNTt1pMBQORxJ0h88S86d8dm4+bHNW3fJ5Bcc4aNMaMkVf0IRhS/dG6
+         yeTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786685383; x=1787290183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2n680nI1lYLXDSKnF2Drtq6F5MjNALsTF9iACEG9iGE=;
-        b=eIIiodOmLsW3rdpZgCuiTVoF46TlhPMVtfmSMYNSzZnXwWmHFJQ5HZyJ0eOPErzr4T
-         cMen1wmtOvWlRUA6NZ/GOhp/NfwPwbpyNSpodfjsywIav4Wo7FTdSv6lGDM7eBdOv+Q5
-         BbJu22KpHOOfxQiMt0B0qUsSUTA4yieVYqSHe07mJR0JjyObpj7eu6BN5mx6TUDR0gZy
-         TGDIVKClSgdseDNzxmtqgyU4di3lovLnixYlnaSAkeyan6e75x+YQ5jqxd9eDpsqbE/4
-         nOae50JRXmBmyrqwg+2UbP6rDxs1Z8ZkBMAdCN+UE8VHj5kyyTHU7OEmPiOVUwH4mf8a
-         JkyQ==
+        d=gmail.com; s=20251104; t=1786685903; x=1787290703; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bFXrIBCwNXQf5uSzSbdWq2pW0DAs87dD/iRxpbolg+8=;
+        b=DbDX5+Ww7/0OEmHX51B2obaIdohdCQoNNo5DblpToErzGv7uj+376CFFno5PbLzT7T
+         1ecBq7eXDfU+Qiz0DUVritW/wCHdQ0FllospIygIeQ8dsC5qFVSCcvyEJO2HmKRTUsc3
+         wy5YCUY0Fo96Y+Ve2GR+8L7ytmssp4WkoOJSQK8q93xr5I5pa44e+rQePrbxiL2cZQ8H
+         vuywSolv/xkTUBG0F5P5Vuay18L0AZeI+o6gcMifvfHDAt2YNUeFp3IUf4nhA9c6IqbY
+         ZnnOFtjiLWW5w9mCu35tL0DEuq0eEUWmoZ3oPu9CawEISH0PDjHJykz1KTGIOmDq2xWC
+         kvnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786685383; x=1787290183;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2n680nI1lYLXDSKnF2Drtq6F5MjNALsTF9iACEG9iGE=;
-        b=FfOTA/wDGiak0RXOw9FP2R6CeYZrYpXMn3SdfxfSyGf9o7aFTJFx7aj7ybEkT4khm8
-         QfjB+bPHokhQCI9gCKcG+tUfss403U6wD8vAx6cyiI2TRmMqP09Rux5lupX8SDgZGPri
-         rhzu/3IM+tPrtbzvmZVrYfus3AYfC9s714AnL/hRD88ISU+2dTV4PGrCME6s5ctPFqcd
-         GEUCgqIN/5CjCjZNVQIHc35ihzYCM9NNFGa4SbZwUU3+5eb+6s8eiu58nmbENFsV1K+g
-         V4Fg+kJgdHfMjZSBGXORexgIXV1mb0L0ma7hQZlRQMCFZGEC/hA5uLJQonMYZ7GSIWT+
-         P24A==
-X-Forwarded-Encrypted: i=1; AHgh+RrRBZ25JOBOSLu9SaoTLiQiLkP/1Tj09IaXkBeFV+8iU9Ew31jCEFKJ5IxqTI8l4kSC2NxU+sMulem/@vger.kernel.org
-X-Gm-Message-State: AOJu0YxH3zoPmRf3E0YqLvNBNvrkiZQfzNwT/Lpa0JfMytz0FIie5lSi
-	HrAZRHRIG5X9NY2+q7oRAW3ut7jYd9qZtfCYNWrhlLN5g0lOuhWRLy7sjHSPQ/zz6onGj+LnTh9
-	XX8DfeR401yssXmIznMrMifBNyM3hY8EwUal6Ltltf9BhDK5Yy9wBgai5eCESIywo
-X-Gm-Gg: AR+sD11uttgm2fvyoba/3v7UWCTCvERhf0w5c/djsKG8Lq0AIDlNq4IbXU1OlY0TvJR
-	nfL5KEJ7n+JRfizblzLjYtjrOUUQFB0hBWEvge67u+1sCctRP/Wziz9XgPvCmlpfmEcTPThrWb5
-	qRX0JSGrq3I1JapR56dtdNyPS1i1lr4DbykrmMmlvjxx1iElVi/dmmerDdNnOUz1215uQ18RmPU
-	xzbTwkYtObWXUsF+gCUeTxcBPVrtrmtsOzBuruRSl8f7unOx9MLwJlsWKf73+F4b5umDcaNPcV/
-	FPxRFpcOZn7GjW3tvNyqAbMSjumYwaR/YbrShSsn2A2bMyOIAPJaObwXdZRLfGftvGY0IlPzlYf
-	uRKV1jPRWmyg70ecOqor4UToZmpDsfey3
-X-Received: by 2002:a05:6a20:12d2:b0:3c3:9746:1fcb with SMTP id adf61e73a8af0-3cc71dc524bmr3468883637.35.1786685382680;
-        Thu, 13 Aug 2026 22:29:42 -0700 (PDT)
-X-Received: by 2002:a05:6a20:12d2:b0:3c3:9746:1fcb with SMTP id adf61e73a8af0-3cc71dc524bmr3468828637.35.1786685382278;
-        Thu, 13 Aug 2026 22:29:42 -0700 (PDT)
-Received: from [10.206.101.140] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320d61e1568sm56924eec.11.2026.08.13.22.29.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 22:29:41 -0700 (PDT)
-Message-ID: <4b34e718-0878-25cc-a5bd-0d8858df5133@oss.qualcomm.com>
-Date: Fri, 14 Aug 2026 10:59:32 +0530
+        d=1e100.net; s=20251104; t=1786685903; x=1787290703;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bFXrIBCwNXQf5uSzSbdWq2pW0DAs87dD/iRxpbolg+8=;
+        b=ilo4TTvFZDhVPEzWdXLrOFzmfDAD7U9mQMfZJaWeXrRHzjCIu+yd5P+bDYludgJcYN
+         fYA9Mp/FIQ6bvfSYa6xgvxrBhAMd/Ekk6c/Qs1m8ZveLzGQkgvOpJ8cNNSizOBGzy2oK
+         cFQ5CCPiD1UY29YS8dFqnWuLjSRcicjyv6yPrelhGua+wjGVT0skUpMBCS2/H0NAjWvT
+         MiU0rPD8wAeXYvAIk20BQqi0ISBXrjwyoAZFwbHsGuYxv1N+VvgUikG7XB2EbH7Yh9tI
+         IHFTz5htZdEPzVt8dLwJGzr+KWq543pYajcUO2ZbyoIhx1McpKaP/Mo0sbrCfTfGmE/p
+         M1Eg==
+X-Forwarded-Encrypted: i=1; AHgh+RrM/tvqahsNfci/VY3yOw/ghs23xUbXeKPBbaJxD0LBSpnGG7fKO8/1kwXdIicv047NuxRWeHi5IHOH@vger.kernel.org
+X-Gm-Message-State: AOJu0YyGh3eaF8r8OG7f80GxiBP+WRB+P9MoU/HjXdAQGB1mCWPK6/0Q
+	9AGGMFvlfvBht8cTlbJ1vmK64arJaa9Hk3bzvRz3j0cuvUyqUgWlp9QztLma3pr0sagSZNRkujR
+	jSkfqyXP4aCHSFfrDpPO7zXLxrwotPM1EV2oQyg8=
+X-Gm-Gg: AR+sD110Q/5NB+vGbk9/hD0V8fvsMDvpYBlzBsG1iZ7+xVghu2WVkzSK2Homir6cYqT
+	S8V2PFAD561DL7dJ4qCdzddm1uqphCMUhfDWnMdJ78BWS4WpeR5OaCCxzKp+6zQUjz+8WjsWq92
+	WdlZH+dQqyJtTVL9prxMkVbzUkrFQwfw/vULS4PufyWODN+azANTDjZk8dUeg8mk7JhOepO3qCc
+	m27dnrxUsW2djiF2xsmn15tVSF6wL/skjEX7HTpyK4XLoY0rXXctJL4MQxte+n/nlN54pJ3RKp0
+	r0qmF0/M85n0qQJgGFpq5XeBODqN5b5XrFF3NQz6QOiqvg==
+X-Received: by 2002:a17:903:15c3:b0:2cf:b9f9:18bb with SMTP id
+ d9443c01a7336-2d3afdacabfmr29441175ad.4.1786685902925; Thu, 13 Aug 2026
+ 22:38:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: sc7280: Add dma-coherent property
- into venus node
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Mansur Alisha Shaik <mansur@codeaurora.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
- <20260801-iris-fixes-dma-pseq-fint-v1-2-aba0cb22f6ab@oss.qualcomm.com>
- <20260813-frisky-augmented-crow-fd5d3d@quoll>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260813-frisky-augmented-crow-fd5d3d@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDA0MCBTYWx0ZWRfX+I2E7M6lSybw
- kF77Ma1j8332W7YtbQ7Ofn8WSg5iH/3Iv2CwTN+qfOa3ulL/u+oyAIev8/HrVvevj2uHGw0fe1R
- Pid736QqIY888KB+QKv5JAxI+Y5h1Evjtu0ok0SBOJybu4TWWFW8cdKvcwZ+l3YFzqU+gdLOiQt
- mM7eA8OP8nN8SWsxkAw5E7zIQ0Wy8QkukN7FEUDf2ukC8uHFpnfndWGXYz/aQmZJVFZM6mBqfbz
- vYOKr7aHjRiGDi84QlgE8TToSGLTmwE3+tOdjP+1XJehCfqW4cUJlc0n14OxyrzHI9ircjaI9tb
- NGxs66q85/gWL3M+Egjovo9yjVhp/8yUFAnhxV3ke1/+iWTlpCBaZtB0bqJxO6ZqmwKQXAZwh5P
- LsN831OijNrcDHMbumh3SGjEUxPyfuN0lYSNE1yCrRhlAPbeDf7mFwOqqgtb/wt+Vj+O+oEqyg/
- JWdEt2KGMeY78PsJQ5Q==
-X-Authority-Analysis: v=2.4 cv=AaSB2XXG c=1 sm=1 tr=0 ts=6a7ea7c7 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=2wY4_1yd3szzHPvr_iMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: pKczciqgS_RgVv7MZsctj8SP9fppVkC2
-X-Proofpoint-GUID: pKczciqgS_RgVv7MZsctj8SP9fppVkC2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDA0MCBTYWx0ZWRfX+xui94q4YOkb
- dFqDIFHU0skLbMQV2e7nBjHgoRfMJwj4sEH8cnBvnOMw+opmUHQIWVAL07qXpMmSPloe5pKIptF
- Ktnm+iLodgWwpQHdBzaPiabLrcQN7YI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-14_02,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
- impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140040
+References: <20260812132755.32585-1-zajec5@gmail.com> <CAAsRjRn4Pfv3LzQtVbeBzw49fN3Fk+M4JGwKkKq6pvo5Uk-fpQ@mail.gmail.com>
+ <20260813190813.63fjmjmciry6ubaf@skbuf>
+In-Reply-To: <20260813190813.63fjmjmciry6ubaf@skbuf>
+From: Semih Baskan <strst.gs@gmail.com>
+Date: Fri, 14 Aug 2026 08:38:11 +0300
+X-Gm-Features: AUfX_mxL4JRFHzU19Y1xhgEzNg2PbVC97aaf1LW7NSX7i3h8ym5DbVvC39-eL8I
+Message-ID: <CAAsRjRkQuR8u+vxhZXOzKpVDMUM-tG2AoiTr+qGg05ewjD+4yA@mail.gmail.com>
+Subject: Re: [PATCH V3 1/4 net] net: dsa: b53: deal with Northstar devices
+ using CPU port 5 or 7
+To: Vladimir Oltean <olteanv@gmail.com>
+Cc: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Andrew Lunn <andrew@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Jonas Gorski <jonas.gorski@gmail.com>, 
+	netdev@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	bcm-kernel-feedback-list@broadcom.com, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Vladimir,
 
-On 8/13/2026 2:49 PM, Krzysztof Kozlowski wrote:
-> On Sat, Aug 01, 2026 at 01:07:28PM +0530, Vishnu Reddy wrote:
->> While testing with some higher resolution clips, the venus hardware
->> triggers a fault due to wrong input data being received. Corruption
->> was also observed in the captured output when the client dumped it
->> to a file.
->>
->> On debugging, this was traced to the venus node not declaring
->> dma-coherent. As a result, DMA buffers shared between the CPU and the
->> venus video hardware/controller are not guaranteed to be I/O coherent:
->> CPU writes to an input buffer can remain in CPU caches without being
->> visible to the video hardware when it reads the same buffer, so the
->> hardware receives input data that does not match what the CPU wrote.
->> Likewise, on the capture path, data written by the video hardware to
->> the output buffer may not be visible to the CPU, so the client reads
->> stale or partial data, resulting in corruption.
->>
->> Add the dma-coherent property to the venus node so that DMA buffers
->> shared between the CPU and the video hardware and controller remain
->> coherent.
->>
->> Fixes: 37613aee2179 ("arm64: dts: qcom: sc7280: Add venus DT node")
-> Really does not look like a fix. How skipping a cache sync can fix
-> anything exactly?
+On Thu, Aug 13, 2026 at 10:08 PM Vladimir Oltean <olteanv@gmail.com> wrote:
+> Where is the code that configures this GMNGCFG register?
 
-dma-coherent tells the kernel that this device DMA path is hardware-coherent,
-so the SMMU maps its buffers as cacheable. That attribute is what causes the
-coherent interconnect to snoop CPU cache lines on every VPU transaction, so
-hardware keeps CPU caches and VPU-visible memory in sync — which is why the
-dma-coherent property lets us skip the unnecessary cache clean/invalidate.
+b53_brcm_hdr_setup(). Setting up port 8 ORs the 0b10 value into the
+GMNGCFG management port field. Setting up port 5 ORs the whole field
+mask, which sets 0b11, dual IMP mode. The chip has no IMP1 only
+encoding (0b01 is reserved), so there was no single port value to use
+there. Nothing clears the field. That gives 0xc2 whenever port 5 is a
+CPU port, and 0x82 with port 8 alone.
 
-If a device doesn't support I/O coherence, its buffers would instead be mapped
-non-cacheable, no snooping would occur, and the driver would need explicit
-dma_sync_*() calls at each transition. Venus on SC7280 does support I/O
-coherence, so dma-coherent describes that existing hardware capability to
-the DMA subsystem.
+> In the previous version, Rafal included a patch so that gmac2 uses the
+> same MAC address as gmac0. Is this better?
+> https://lore.kernel.org/netdev/20260811193658.14304-2-zajec5@gmail.com/
 
-> Best regards,
-> Krzysztof
->
->
+Yes. The IMPs never learn: b53_setup_port() disables learning
+everywhere and only bridged user ports re-enable it, DIS_LEARNING
+reads 0x01e1 on both conduit configurations, and the ARL holds the
+host MAC only as the driver's static entry. So one MAC across gmac0
+and gmac2 cannot flap anything, and the bridge MAC stops changing
+every boot.
+
+Best regards,
+Semih
