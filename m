@@ -1,94 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A267E369D6F
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A96E3168EF
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786696610; cv=none; b=Zm8ZZc51xuCeW8ZQ8YpDZMnBPoDFiJa/4UAUCkYUCNROBvMFXdUnKvnyWLupZStmOfqZcZzinj5VziQfSlpCI6WjOsY5mlXqqO3ne1R61UxCXIInj2HW3E8XEC8ARLJoGB11fiilYhIBPG+wV2TKRL1iPYhKG3ABIR7aK+tX5eQ=
+	t=1786696782; cv=none; b=Rjva2jZdl40LUrNXL+FhOvy6FEzrYi+XFVFpwAyBAQ2wDU2ZLhix0NfgJuFyJW8AOyYVxt+mgC1MmooL9JLJoKr9iCIF5awV7mEX9q4qFInYDFmFhqZhYilvW/47S0nJWmpDewUUVst8Iu4E60yMWRqDeUCCTtCTqpB3oGoCIOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786696610; c=relaxed/simple;
-	bh=LQ6+ywlbog2eXRQ1zP2M1nj3VTlEoiVhj3AZ8vB5i/Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uTODx8btga4StJXDKr5xod5nGJVJwy/gJIcPb9gXOC4R6FSi/wo5elXvB85+5xZaarJ8BtjXT1Q3fdHdMbIXiOHuQ+lPWW26wdW6OnLN+PshYbx49zHWu4JKM3GXOCg2OarlDCzdbKhQkyKDfCw1AxSj3Mcm70BNp099pCTP3cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j75N99eA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786696782; c=relaxed/simple;
+	bh=e05F9ezF4PKO3QWRxGecNfgjkdRbxg6z9NAmRbFVpKA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BfjZbt10Nc/pG1q/sFdvpjeQh1QwssaDodozNCVqu8Cjvh00ttl29TGQfcXqJH08UvlwUMozEXDdrzKHMlieVgWBprh8RaaCVJRA3TbhoLMzLk6wjKFtCsSH8n31nvbut8R3LwnSqwjk3tkGu/GvQyVpMq+QckUjSVbbuzo8u6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MNJv3nfM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CbmaBRd9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j75N99eA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FC41F000E9;
-	Fri, 14 Aug 2026 08:36:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786696604;
-	bh=GqN+hUv007NhWdKfTux1NN4ntBEPu0k95EXECjZF1lw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j75N99eAyQeAJDkq3ZfIx41PPdjHRVjXZVY6/T1DlM7yqYKq8QzkZHzQlX0mOOD14
-	 Rk2DQXHv0Z9JXpShbkkwewkYYPvs9pQmRhd/Fv0xL2HTBvVmwgEmaB0w9/DYMQvS87
-	 4rBjeQzY1X5zhkVlmjibhS3/diCIlInz47DI9PCNxJbOd4N+0eNZlx2dXgqYHxrIYo
-	 omO83X/JhaM11pV1rTmIccAGdwHuqkXBKK1aDkoDcZLiJAjEtyAo9AiNoKi/7oMNyz
-	 SALSukc+iPRX7zZEmz3VUpQJ5fVQdkXokMcwhUzkbDQOJSkFwuAnOD5xMpVfMQ0FF6
-	 /RzNFwlx0JpsA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 12/12] net: airoha: add phylink support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260813083536.970196-13-ansuelsmth@gmail.com>
-References: <20260813083536.970196-1-ansuelsmth@gmail.com>
- <20260813083536.970196-13-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 08:36:39 +0000
-Message-Id: <20260814083643.B3FC41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MNJv3nfM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CbmaBRd9"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67E7ffV01100176
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:39:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ea5w2Lqty5Yt5//TNzt0Du9L4M/1RYPtE6BB0ik7PAU=; b=MNJv3nfMEBeeeFcF
+	IWyur0HcemvAYI6S5QEC/7PfYTTelv+LckFmkG2ZUewWRM4REnKJOyX0iZn5avw7
+	djG9oEytA5tP+nXvYc/3nzArzQwWwnmYu1i9iENDO0ePq943X2IVOi5dKKmPpCkc
+	wqRHtr8iWEYbLLfMawRXh3DXrcBhH3k8lD3KSq0qJ9qo9Rwkc6Uoey5yZcMzTo1p
+	Zb8GZ4imxhPn5BWUQjhNeZ+M9OcIPp9jd1SkEI2eVgMFe2N8VIjNr4moXL9fGZ3p
+	kn9SW2FYu8UOoZBbt3pCf+DIs4j+7eA7K+LK9mVjTif9yqJh7AHVwqeK0QF1rg/+
+	7gkGrg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1h1uuk5t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 08:39:31 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cf1c86963bso17295345ad.0
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 01:39:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786696770; x=1787301570; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ea5w2Lqty5Yt5//TNzt0Du9L4M/1RYPtE6BB0ik7PAU=;
+        b=CbmaBRd9uIcUlUoYH3oKcTbVnVSzjn6xD/Icr+GaZDO0WTTDLKacaYeyODi3K1YhiY
+         CKAi5x4A6C+KjqLu7VQr63s7crNgLuCBKbSFh7llboIDIxwjRV/zStBYMj8r3GegLFZY
+         +8KOo1FgfdigHqdNgTJtOyEBUA8+zPqqVHI/XRnuatlE9zu3yirjZBlZcQtSCTdaU9sy
+         luQA7p0Zq2E9f9PcVD/2v8JfcoCLwL7+BSohX3yucVLDWcM+V7o03k57TuuasdQevE1A
+         J9PVUn6dMj3CLiiPInIWKemrQhEtVTCnU/SW3OY824l1ALXcc8jpcF8a3mgeQZ8hScGB
+         PYXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786696770; x=1787301570;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ea5w2Lqty5Yt5//TNzt0Du9L4M/1RYPtE6BB0ik7PAU=;
+        b=d9c6/moS9O5p9ssqCd1Oy43P4xr6jwCpC8lN7WvCq+L6jAIAo5NqpRsSt7BK3cRnCG
+         BguK+o6c6mqrzq1V+c+zX3VnH6U1cmIs7Y5gjXptNjiGJlBeA7qZrzM9moBny/fTu1jO
+         bDE92hz1GKrCg3VRLfXMolaItx7wRTIteX+284/jEYZtRkm3lrOGClkypxS+QlxSgqV3
+         EwrmlIV4Q+0KWdsrB6XLvIKb5Lpn702fh6yQEB/hvF6p55leRrcXvlGeYPdBgAhXMYti
+         YLHxQGXFkQlNguOTItdc0Sd71RE8h5vrj20NoRUCMw5sCKQjrzPmaolFxAavjhm130ID
+         ZRiA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7RcfdFhSbSYf88lNmo19b5+0AWK2Ed7I9eAXM/Gw8SQX9bGOkVKRCv+5EyW5M/xUF7VHCX2yqmFsG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHuUbgoqiFbBlABbTYml/fq1fq6OslQ5n6OyWui0yI/NXJ+Cbd
+	eWYOHYRzyquj1GHrPWzhThLUTSHIFiowUQF+ZVTOVsYMnXQhThNdpLgYR2aEbCitv5Kcilm9QSX
+	cOa6UNKlNb+uyykbOgOCGFnHDCNJZEF9SLnTn/yLRWyB8bMxWhPhTl/t6HK4TITJ8
+X-Gm-Gg: AR+sD13wnJ9IlbG6ZutjCBvVNS7VWBGkf7uqCMQ4NCdy38ZMwOPFcQayq49paZYq+d2
+	8Q1+vaXWOkJ1icuauWhWPUZL7q6tT+v+1zjen06FmuOqL1rcug12dzKY9m+QbDu0HftsEvP5bIJ
+	kaj5LpT3dSfEvbEeuoGYR6XZnr43middfhTRsEfz+ApIDjyLWFw3qX6Mp49YazqUMGevHZxkKSs
+	b6AmexVyiFG7OIYBZH8FR1zVupfT6PJLZk1ItblIcyn63CTe79KqaoeYiwvny5Ou8SiG/OOWzo5
+	eZrKZxkaw7wlU+QM92voSQqx3KQHyXsMzia7+SMTUhGrAHVq6+WSWLPg8Ix9XOsk9pnVAthUwUC
+	Q+/U/UVZcrYBBLjdh76gYgRexmctkWd1wK1PvNxrU7FHVV5Jr7hx9Zc6qAu8l2epBLj+3c9DY9r
+	UlMKuOtGlRdP6S3/+7WkA=
+X-Received: by 2002:a17:903:28f:b0:2cc:db7a:251 with SMTP id d9443c01a7336-2d37f5cdcebmr138080785ad.2.1786696770278;
+        Fri, 14 Aug 2026 01:39:30 -0700 (PDT)
+X-Received: by 2002:a17:903:28f:b0:2cc:db7a:251 with SMTP id d9443c01a7336-2d37f5cdcebmr138080385ad.2.1786696769795;
+        Fri, 14 Aug 2026 01:39:29 -0700 (PDT)
+Received: from [10.79.117.20] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3ae7ea4cbsm6518765ad.32.2026.08.14.01.39.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 Aug 2026 01:39:29 -0700 (PDT)
+Message-ID: <b0f96877-a48d-4b19-9904-426b5993d8b8@oss.qualcomm.com>
+Date: Fri, 14 Aug 2026 14:09:19 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/15] dt-bindings: interconnect: Add Qualcomm Kuno NoC
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-gpio@vger.kernel.org
+References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
+ <20260809-kuno-soc-support-v1-6-5e0ede4a0c72@oss.qualcomm.com>
+ <vexqghyxtf5ntmu5mpijgql7atlzhci5fhde2j7gyrw4f2tpdn@pm2qzwtefmrv>
+Content-Language: en-US
+From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+In-Reply-To: <vexqghyxtf5ntmu5mpijgql7atlzhci5fhde2j7gyrw4f2tpdn@pm2qzwtefmrv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: qfeP10x50oIUBjo4N3UsQkSuFF2e3jK3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDA2NSBTYWx0ZWRfX0pd9FNbEFj9f
+ MWwRssleIQ6M6GpFSI6xZhJJUaozGxCC+nzoWDuGb7Jd7UsgzK7f0T3qG18+mgpewfRS8EG2H6O
+ /ZoH5eUHH4bsZNADbaWDD+8yzRYTLnSzLVEIlaeN3g2OezfNBECYS92YzPzpZF0a2+HFMAP2wvj
+ jlJJ+9udIj+ld9MPP2EL1EA+fNXrFLdQcWvaGmn7k0jCWShbsyIxrz/ctbHwBT7R25Of9iPs+bw
+ EnVJkPdcwMXL4uxI5vz9iPqpz7v7VD/Ow7G9PxnjRKwTwvCZ0ppH4XdyDI6T9Wz0XYvS0J1Yd/y
+ Tje29kueOZ0CgVbxf8/55CT7NhyOmw3EG98CFnUj5foD8HjXYbYSmgu6mHVNlS5wUsDrOXhKpJP
+ 1hIey0R2AlEBxEIRt4DnGaAu2+gNCs+5zX+F7UuzTf80g8MawPLJZ/nB7QKnzZHyluxmO9HNxEA
+ c6PlN+oiDjl6lUfQhzg==
+X-Proofpoint-ORIG-GUID: qfeP10x50oIUBjo4N3UsQkSuFF2e3jK3
+X-Authority-Analysis: v=2.4 cv=HMjz0Itv c=1 sm=1 tr=0 ts=6a7ed443 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=4JL2KtdrCnkvdebHkfEA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDA2NSBTYWx0ZWRfXzCrtUNn6+sgh
+ KQifMp2Zvx6aVcbtiWpfGoaj3loQTvaYwD/ZyxyyGJwMfJruoKaHf4dichFjBPqKAy7+2Y8tM8l
+ zU77m6SQfNLn0VJcNv8Krn+H0dl3sVE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-14_03,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 spamscore=0 phishscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1015 impostorscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140065
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing `.nway_reset` callback in `ethtool_ops`, preventing users f=
-rom restarting autonegotiation.
---
 
---- Patch [12]: [PATCH v14 12/12] net: airoha: add phylink support ---
-commit 04ce17914816acfbcbe80f577754f5b7cd6c55ff
-Author: Christian Marangi <ansuelsmth@gmail.com>
+On 8/11/2026 6:29 AM, Dmitry Baryshkov wrote:
+> On Sun, Aug 09, 2026 at 12:57:05PM +0530, Hardeep Sharma wrote:
+>> Add the Devicetree bindings and node-ID definitions for the RPMh-based
+>> Network-on-Chip interconnect providers on the Qualcomm Kuno SoC,
+>> enabling DT validation and interconnect bandwidth voting.
+>>
+>> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+>> ---
+>>   .../bindings/interconnect/qcom,kuno-rpmh.yaml      | 72 +++++++++++++++++
+>>   include/dt-bindings/interconnect/qcom,kuno.h       | 89 ++++++++++++++++++++++
+>>   2 files changed, 161 insertions(+)
+> Are there no clocks requires for QoS?
 
-net: airoha: add phylink support
+I've addressed the binding-side follow-up in this v2:
 
-This commit adds phylink support for each GDM port, configuring internal
-interface modes for GDM1 and necessary PCS settings for external PHYs or SFP
-cages on GDM2/3/4. It also updates the ethtool get and set link ksettings
-functions to use phylink.
+https://lore.kernel.org/all/20260814-kuno-soc-support-v2-0-3079794f0f73@oss.qualcomm.com/
 
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 64619e9a704dd..c3827bf9791b6 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-[ ... ]
-> @@ -3353,7 +3392,8 @@ static const struct ethtool_ops airoha_ethtool_ops =
-=3D {
->  	.get_drvinfo		=3D airoha_ethtool_get_drvinfo,
->  	.get_eth_mac_stats      =3D airoha_ethtool_get_mac_stats,
->  	.get_rmon_stats		=3D airoha_ethtool_get_rmon_stats,
-> -	.get_link_ksettings	=3D phy_ethtool_get_link_ksettings,
-> +	.get_link_ksettings	=3D airoha_ethtool_get_link_ksettings,
-> +	.set_link_ksettings	=3D airoha_ethtool_set_link_ksettings,
->  	.get_link		=3D ethtool_op_get_link,
->  };
 
-[Severity: Low]
-Since this patch fully supports phylink and implements set_link_ksettings,
-should airoha_ethtool_ops in drivers/net/ethernet/airoha/airoha_eth.c also
-include the .nway_reset callback?
+qcom,kuno-rpmh.yaml now permits up to 4 QoS AHB clocks
+(clocks/clock-names: minItems: 1, maxItems: 4) matching sdx75/glymur,
+so consumers can wire them if they choose. The Kuno DTS itself lands
+with no clocks= on the interconnect nodes since RPMh BCM covers the
+paths — same shape as sdx75.
 
-Without this callback, userspace attempts to manually restart
-autonegotiation via "ethtool -r <interface>" will receive -EOPNOTSUPP. It
-is standard in phylink conversions to also provide an nway_reset wrapper
-that calls phylink_ethtool_nway_reset(dev->phylink) to allow administrators
-to trigger autonegotiation restarts.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813083536.9701=
-96-1-ansuelsmth@gmail.com?part=3D12
