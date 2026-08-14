@@ -1,123 +1,92 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31976477280
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 13:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF629463;
+	Fri, 14 Aug 2026 13:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786714927; cv=none; b=uLy3NxiJA3bSaCec6/prz5V1pyqWt8yKoqT//FKQ0LjL/CSBN9EEsCx1xIT1JLkZ3wBD63TxWH39pp0U5kw/b74ee4+sXSXd1pMLJMZbRoY3M2FpSO8Xo3y5z8d5CQ31X3XUkzdzGS2DbqJ8ebDijqOd3F62BDia5bWLdjonl9s=
+	t=1786715798; cv=none; b=AWeJSiD5lOfaqZXX5/5Z8oqUjTD1gaUyG1GNm+Rs4re76jNJYUAHRcfiPgdC4wBXxNJsjNe8GKQfocnn7vxXHo6OtWc8vXwFoGaqSlGh+v7jOy3Jqr12Hf35MY6eZipjFl2VH5e3MnzLCcY49X1QO+vLAjViVxkb+K9daFx62go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786714927; c=relaxed/simple;
-	bh=Ighuvc8zNEvdMdTBj2MgkY+Ru3uT8BFEEQGLZyHwDyo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lVipiFjQv0M9K0MVZLSlh8xh6S8jcF6eMAsFLVgGct96DjqJ+qYO97KMm41gF3syEb3tEOrfgl5LWICgpzHl1qN+g7xMM5o1twbpTTM/FlkqyD/LCqjBNa5oDEtka3jlf8h0Kiu29cnRAOQaywvwzZvD+q2PoA1XsME2BTjrOtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=L6joda0g; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1786715798; c=relaxed/simple;
+	bh=EoCsd4IRg5rBanxrSCv9dZ0XRhHzFJr6rVPsVrU5GY4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ut2Oq9gvzgrJHAXiELKuDd4Z+wud3HnCiMFkRdcqh0ibr0jNGuWdnwowuBinXS4khYzNGsb10i0+9NJKRR5jEje9dzBG2cXPKrOQG4WCATQ1BN3n4Uouan1CZ6MrtP8sV9Clf7LXEId4qzPrLGt5EWr+wHFaQwS4XE0z0l9DM3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=nRfzlqLl; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="L6joda0g"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4980dc26022so11104265e9.1
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 06:42:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786714923; x=1787319723; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xhKuc7koDaTER66hHC21DLwLn/weA2lcrprNlj91Qto=;
-        b=L6joda0gEZVkGKk7LCqs1o1iMMVyGk8T8dWdMOuRE+U6RyX90s0HG7yWbTxfbG2zCo
-         AxjjBo0Tgff0b0Y9afPn8z0VWaljSriLH808X4GJTzjlqqyQslIDgWhP+5DY2sX7sn0W
-         kuCcCpEfEw+KfNTG9wFcgFyBQyritwqrYnVcut1bj/sFKtVJ55hmAHYkVpWelO0npyRd
-         Fg0EcXNabskOGBUkoLWCF18NagdCidUdT+xApEf+dd0N5xYIvScamN8r/S1GkL14EhH1
-         PU3DQpkDqAzO4nQdMtIToYRDo9Zb/uobdoA+62BFk4LZW/dqtZSlUXZMjllwKwnQ+F2i
-         ugWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786714923; x=1787319723;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=xhKuc7koDaTER66hHC21DLwLn/weA2lcrprNlj91Qto=;
-        b=m0zXqAf80RX5vkXlVT3SAEwW1uKywb1j4d8Dv8lH3ajEGRVZfQ9NMR1+3ZLL12Yjft
-         MHJdEOFzrNLZo8RE47vXFrZfWssPQWLtZDgiIPwQrrJ2/AnynbK5ABGFXppp7f3sZLmt
-         xb2x1/seaaXcyCcQeMJfBvbfyeU9SVcuDAAwo0oY9tyIPBwCCO8M5JXX2JK+z+TGvYbn
-         f1ADQm4NvERdeYjVjr7O4QlcqQW6RTnyTv6rYYJqsdlTbLPfY0WiZyeCb/4caPsaqxqG
-         B8kIyKZmFVPe20iqkJkY3KNYmut9TIVHgSNHN+aSLWgLkW2TnpBS9/7T7BoWW/ewMwNL
-         +lkg==
-X-Forwarded-Encrypted: i=1; AHgh+RrehTYT6rgF13rdQ2xCuoMW91P5kAzyqyjOHm3knCJAsq6ojLGCvrviKjNgkJ1JEsEK8F8ZmQRCfYYd@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtHpnj1gPvmCYsC38r1uSXbbNl1aNYqUThPX1xyzIDhOrYtCvg
-	Zrci3DPaydWQhwNZkyqW1p4xCa+DoTD+4+3O8AEgyX1RdcAMzpb+brYd58VbI3dZIY4=
-X-Gm-Gg: AR+sD104sKH6CVzp+3fCbPOfGo+N0B7dwemCTKYieE9hx8gL9lWZIY4oXS5ubuAlu5l
-	DBMqCgEnk8MJP2YHn45DIg5pxRoJxJC5lyyDg/bhkPlRlQz+lBHNGHBUEBEaUBuE7s2f61lKCyG
-	IDBJQI+JU8NZo8lx1dTP/cYnXwj7d/JqpmUW4AwOK6llFsXTkYQ0/5SEEKxRMcg6k4bfg2Aqy24
-	4FFZHOIe8ukyQFlcJJrhnJN+UGdwQKZmweBHJcIriRn6Z2P9rV3Kla0mTCCKjfIxoexJMl6uGaE
-	crUX5kIfWs4B+OoATGfe9iIo3BOyDLSo21uZGLOJDoPDY4kgJON0yw4Xv9x18OY2t5OsopnSt9T
-	4afnnSs0qJnz4TutLtOtENYijvm6LHzQxt6liIqicWsM/6qFIvkV3XBClDjXcuMUkEMzCO79Xbr
-	jj4qirfCue2KulhHjxZQ/Ew5of5f/LvStqtjg36mZzOww6N6EEkymRx68M0LpE0exyZPwcSw==
-X-Received: by 2002:a05:600c:810a:b0:495:737a:7afe with SMTP id 5b1f17b1804b1-49987985df1mr76542075e9.15.1786714923535;
-        Fri, 14 Aug 2026 06:42:03 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:9886:6a22:ee2a:d5e1])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-499899c138dsm32119835e9.8.2026.08.14.06.42.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 06:42:02 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Lee Jones <lee@kernel.org>
-Cc: sashiko-bot@kernel.org, Mark Brown <broonie@kernel.org>,
- sashiko-reviews@lists.linux.dev, robh@kernel.org, mfd@lists.linux.dev,
- conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
-In-Reply-To: <20260813095600.GA1072730@google.com> (Lee Jones's message of
-	"Thu, 13 Aug 2026 10:56:00 +0100")
-References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com>
-	<20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
-	<20260812214019.CDF921F000E9@smtp.kernel.org>
-	<1jldaafmpd.fsf@starbuckisacylon.baylibre.com>
-	<20260813095600.GA1072730@google.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Fri, 14 Aug 2026 15:41:59 +0200
-Message-ID: <1j33wg6cpk.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="nRfzlqLl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=f8cez0dNwC6XFSTElHJVt3452UL2y+uFiU7Rh2pSAK0=; b=nRfzlqLlTUAcsxu6852rtdj766
+	kFDKRwXmUxkIymANzF/594YOMSYUJZynRuHd0hVe1IPwCjFy/8m+wLE2OdBLyoEAr+AHHx61ga81A
+	YZsmWmL4GUrnyPLupofLNTb1pcU5MgALqa2cZW7eejGF40mNhhd2j3ANI42vCmKsVX4A=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wusOU-00Hagl-Vr; Fri, 14 Aug 2026 15:56:22 +0200
+Date: Fri, 14 Aug 2026 15:56:22 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: netdev@vger.kernel.org, Wei Fang <wei.fang@nxp.com>,
+	Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Linux Team <linux-imx@nxp.com>, imx@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/2] net: fec: support RX flushing via
+ fsl,rx-flush-queues
+Message-ID: <d40f618a-8c04-42a2-904c-00cdb14ff988@lunn.ch>
+References: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
 
-On dim. 13 janv. 2008 at 11:56, Lee Jones <lee@kernel.org> wrote:
+On Fri, Aug 14, 2026 at 11:08:59AM +0200, A. Sverdlin wrote:
+> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> 
+> The FEC/ENET controller can flush frames that get stuck at the head of the
+> RX FIFO because their destination ring has no empty buffer descriptor
+> (RxBD[E] clear or ENET_RDARn not set). Without flushing, such a frame blocks
+> the FIFO and stalls reception on all queues; with flushing enabled the
+> offending frame is discarded instead. Flushing is configured per RX queue
+> through the RX_FLUSHn bits of the QOS Scheme register (FEC_QOS_SCHEME).
+> 
+> This series adds a device tree property, fsl,rx-flush-queues, listing the RX
+> queues for which flushing should be enabled, and programs the corresponding
+> RX_FLUSHn bits.
 
-> On Thu, 13 Aug 2026, Jerome Brunet wrote:
->
->> On sam. 12 janv. 2008 at 23:40, sashiko-bot@kernel.org wrote:
->> 
->> > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->> > - [High] The corresponding regulator driver lacks support for
->> > `AXP318_ID`, causing the `axp20x-regulator` child device probe to fail.
->> 
->> Funny sashiko did not pick up on this when v6 was first sent. This is an
->> ordering problem. The regulator part should be applied before the mfd
->> one.
->> 
->> I could reorder here but there is not much point since the 2 changes will
->> land in different subsystems but it does bring a valid question:
->> 
->> Lee, Mark, are you OK with picking the patches indended for your
->> subsystem or would you prefer that I split the series, regulator on one
->> side, mfd on the other (with a dep on the regulator one, of course) ?
->
-> Does this break existing devices or simply delay support for this new one?
+DT described hardware, not policy for how hardware is configured.
 
-Existing device are fine and untouched.
+Maybe use an ethtool private flags?
 
-I've just checked and if someone tried to run without PATCH 5 (regulators),
-the main axp driver loads fine but the regulator part gives this
+> Erratum ERR050395 (e.g. i.MX8QXP) can lock up the RX path when flushing is
+> enabled on more than one queue at the same time; recovery requires a full
+> ENET reset. Rather than encoding that hardware limitation in the binding,
+> the DT property is kept generic and the single-queue restriction is enforced
+> in the driver: a configuration enabling flushing on multiple queues is
+> rejected unless the controller advertises FEC_QUIRK_HAS_MULTI_RX_FLUSH.
+> Future parts with the erratum fixed can set that quirk to allow flushing on
+> several queues.
 
-axp20x-regulator axp20x-regulator.0: Unsupported AXP variant: 8
+We generally avoid adding features without users. I would suggest
+leaving FEC_QUIRK_HAS_MULTI_RX_FLUSH until such hardware exists.
 
-Seems sane enough if the regulator part is not present (and no board
-using it has landed yet)
 
-To completly avoid this, the ID would need to be in its own patch,
-then the regulators, finally the MFD. It seems like an unecessary churn
-but I can do that if you prefer.
+    Andrew
 
--- 
-Jerome
+---
+pw-bot: cr
