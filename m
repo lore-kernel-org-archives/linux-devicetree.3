@@ -1,127 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B34C3769E0;
-	Fri, 14 Aug 2026 06:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A61C347FCD
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 06:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786690204; cv=none; b=mN7iT+aVIHkZvDZm0ClWtgkch9MlblOdNcc/iymLScaP8Wbs/Oy7LI+gErtF48MXnTOjrHhLZSZMcxJz7c+LaFlo/tJpv8w1N4HGPLypnFuquWvMMObukNx3ryRv0hyBfOWdnFSSsTTF1mY6LHOvs8oMnZPUJ9yw0JYc7MCYinE=
+	t=1786690721; cv=none; b=G+eCNvQNxOrI222dvVk5yBVX2BuNnGhyMClpupz/y/hgigFn4d0S82GFq3j9wX9npbeb/DnWbZynsz/9cWTzf+PvCKSo7PDsNUF8FpFi3DJ2KiZ6LnXGmzSxZIFibdLn5EcmsGcEKa0nyH4yG0395I05tmSKPboMNfw25VXGCbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786690204; c=relaxed/simple;
-	bh=T3uGTV5WI3V4/Y5gkA0VRrbhrbY2JhqbwDMPdi3EtJs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X7ofcoLW8GODK1aOhOjzQUmfkcoABgJjnsQMQRdZ1ZqjLyjeMxa8ZTcKF3e91Nw7DhwWR6hBjGTN6wYm4by6F1dKDVZtzmHU8WeInUyOCOzys9QAXVHEX8AERpQeUATS8DF5hPtecz6HTBtJVzsAOvNeA3Jh1aYOQmx0RhR8TTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5MwQSQE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786690721; c=relaxed/simple;
+	bh=csIsvLf1U9LsyENkdQVy1zbSHkYcN8Of8/B075321fU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eOs7S+7cMZYGVBkxC4FGzpXk4LwtDYtiySQ6R5kdvGZXS61ui6vvDJdkKWxAFRXWul+1q7nJY37vcBoCJ3uWy1vJfZnPOp+BBY1V1c+p693DOSKH1oYXUhubpb97GzvdcRMJeJhR1MAfOjTgGYU7WBJCBd1arxNShHeYhdDNUig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/bP5ViT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5MwQSQE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4DB71F000E9;
-	Fri, 14 Aug 2026 06:49:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/bP5ViT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EE91F00A3F
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 06:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786690202;
-	bh=GO7u1XyMdAqlxZ/o8hlB37t+KyCDfa8dCUlOtLxSEr0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q5MwQSQEQuRuVChoIsnpQlDWBw9kMRCiIP+MC9Eux/NLBImTmJ0Rj+3HFiGJCoA1b
-	 5TXaVvQF6TdZ1d9s1t4mfZ0wTSCFDHJjTB33TxDZ0HOXGIPw4Wsep7FnAFZkpIXQas
-	 3RLhUICWJIyjw0f8Z4fNhXPglp7r1SjsMDKt7WQFilIA+so3ffDxEXLQ3hBjdKvy4W
-	 jTYLIAaY7RjlVQ+xdyVnDTgWfpUAUVtu8SSXa0T2CciGKEJIwp3XSmtOCU/L+hFbsB
-	 kFeXifyDIyrMSkvRTMP7VtWqh65uBUqVxU4RV+kpjfykTIa7O5C0FtuWEj8ASIl/2p
-	 /LeKf/vCRj+FA==
-Date: Fri, 14 Aug 2026 08:49:54 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ivan Khoronzhuk <ivan.khoronzhuk@ti.com>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
-	simona.toaca@nxp.com
-Subject: Re: [PATCH] dt-bindings: mfd: ti,keystone-devctrl: Convert to DT
- schema
-Message-ID: <20260814-brilliant-real-moose-e4158c@quoll>
-References: <20260813-ti-keystone-devctrl-v1-1-6f0aa87d9af8@gmail.com>
+	s=k20260515; t=1786690719;
+	bh=csIsvLf1U9LsyENkdQVy1zbSHkYcN8Of8/B075321fU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=D/bP5ViTAhcQxJkz9ISTAsbQQJx/HxuNi6D2zTuf+sMjx4s52nIlOcWFsiQBgNXwz
+	 BVAu406wVJe0JnfgSZawXiEVMpvrkEjhibwRwTVJRbgBRctlAyt29i6yVmG5r6uNbm
+	 bXlz5ARqU+T34etDQ+1HIkA6MPysN0tAL+/UefNTCkmjj9Vh0cjOAWZZBfXGTC0Zg/
+	 kpbdS1EqO5+vPbEywaJN/NO7yIcwSXC2mGK3ode9qBTk2Eu1kvB0YkSCKAY7hH8Hs1
+	 Mgg7zM2itiqjfIOh90vyInZ4rJJeIsTn1mZ/H9CQ/BLRCU5TQmxcWJi3GCXgA4orgN
+	 ErmlxlZfN5R7Q==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b01cb18515so606444e87.2
+        for <devicetree@vger.kernel.org>; Thu, 13 Aug 2026 23:58:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrRXLe3Myhooblhf2U40SvfqMQj+6QlG+xU8GOTJqlKSRkPvBkqvazwBZR4zMyhqWhbdYyRy8yy3XPA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPGPTT//7Q3mZpnbWrgt5+OaggrOnLDlWTkJkGTzVPaceptdFE
+	tHGA1ut/9l+p2cNzx8WdbX+bHLNytOgMvmaQ3eb95N245ml/6X02jxU7Fcs0/Wgi++hhsAfr4QC
+	+3fvf1MP9Or+6485mwY9VDIGPuR6AylU=
+X-Received: by 2002:ac2:4f11:0:b0:5b0:1ace:3bc7 with SMTP id
+ 2adb3069b0e04-5b459164d3cmr561959e87.31.1786690718590; Thu, 13 Aug 2026
+ 23:58:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260813-ti-keystone-devctrl-v1-1-6f0aa87d9af8@gmail.com>
+References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com> <20260813-cv75-v3-c-v3-1-9352b3fd6026@ambarella.com>
+In-Reply-To: <20260813-cv75-v3-c-v3-1-9352b3fd6026@ambarella.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 14 Aug 2026 08:58:26 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnFqSy0yUfn_NtmxAij_jN5BeMXNNNuQFv99Q82hRxpHw@mail.gmail.com>
+X-Gm-Features: AcwNN1XuvUL75RlWfYI66nkaW_h1Km9OIlm1Ef0qiIjxZ-dRRgrwe-r9r6XcyPY
+Message-ID: <CAD++jLnFqSy0yUfn_NtmxAij_jN5BeMXNNNuQFv99Q82hRxpHw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: serial: snps-dw-apb-uart: add ambarella,cv75-uart
+To: longzhao@ambarella.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 13, 2026 at 10:03:53PM +0530, Bhargav Joshi wrote:
-> Convert the Texas Instruments Keystone Device State Control binding from
-> legacy text format to DT schema.
-> 
-> During the conversion, the following updates were made:
-> - Added "simple-mfd" to the allowed compatible strings.
-> - Enforced child bus properties (#address-cells, #size-cells, and ranges)
->   to be required only when the "simple-mfd" compatible is present.
-> - Added patternProperties definitions to validate standard child nodes
-> - Updated the examples to demonstrate simple-mfd parent usage and updated
->   node names to conform with standard Devicetree specifications.
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
-> Note:
-> Running dt_binding_check on patch will yield a warning for
-> 'ti,keystone-reset' in the example block. The YAML conversion patch
-> for that child node is already in progress here:
-> https://lore.kernel.org/linux-devicetree/20260813-ti-keystone-reset-v1-1-189389503324@gmail.com/
-> ---
->  .../bindings/mfd/ti,keystone-devctrl.yaml          | 105 +++++++++++++++++++++
->  .../bindings/mfd/ti-keystone-devctrl.txt           |  19 ----
->  2 files changed, 105 insertions(+), 19 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
-> new file mode 100644
-> index 000000000000..33a72c290fb1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/ti,keystone-devctrl.yaml
-> @@ -0,0 +1,105 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/ti,keystone-devctrl.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments Keystone Device State Control
-> +
-> +maintainers:
-> +  - Ivan Khoronzhuk <ivan.khoronzhuk@ti.com>
-> +
-> +description:
-> +  The Keystone II devices have a set of registers that are used to control the
-> +  status of its peripherals. This node is intended to allow access to this
-> +  functionality.
-> +
-> +properties:
-> +  compatible:
-> +    minItems: 2
+On Thu, Aug 13, 2026 at 12:35=E2=80=AFPM Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> wrote:
 
-Why? Where is it explained in commit msg?
+> From: Long Zhao <longzhao@ambarella.com>
+>
+> Add the Ambarella CV75 compatible string to the Synopsys DW APB UART
+> binding.
+>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-> +    items:
-> +      - const: ti,keystone-devctrl
-> +      - const: syscon
-> +      - const: simple-mfd
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +patternProperties:
-> +  "^keystone_dsp_gpio@[0-9a-f]+$":
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-
-Incorrect names added without explanation.
-
-Best regards,
-Krzysztof
-
+Yours,
+Linus Walleij
