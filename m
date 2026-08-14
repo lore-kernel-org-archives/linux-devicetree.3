@@ -1,92 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076B04908DD;
-	Fri, 14 Aug 2026 18:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE973CD8A4;
+	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786731313; cv=none; b=Q1sOm6kCZUhAbu7WzDRvzXK/0VGTyWxUCkUQE2U3n69mZHizPawIesv1aQJhbMJMApeu/loazc+vgSzMtqNhrae9CV3LYjLI3LNghQpYG1eqMoEN4KgwEPpAUu0K9rzzxjl6jzKfe3i9gqgjXH6TsZlfqt0e514y6aENLo2liRw=
+	t=1786731445; cv=none; b=bX9yy3dU9PU4+gLDZiEpUaZx4WtSDVVt4Ie3WbwLbViQ+xZn87uQXmSWsjJOey26PbxgEwCSMIJ7tQbHKM9pVJcpRRCpgTFfR1uu1LCOzKq9iasgnhQbYxHcukJW7oKf6BjoEuCJPxIIrethYSSiDwpL5PbE399HLQBUBH7JXO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786731313; c=relaxed/simple;
-	bh=FAQe8K3WtXf9zE/h1I1r4dxas6Lxm4YxHWV9a8iY4ec=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I8PWZBBPxWD3y0uASgfDVbVQ1dmcGjp7quJ+95BEheUBX4Y83Rr1GS682/oWbGucgA5R/4QnZrCRJhuWicMTEe3n9T/iuetjFcmFSjZMb7fFF9S58fIcCt16cnLj63yF+WZWrwDv2OMk3lLFYhERV401XK6i2AGyNX7D+P/Zu28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nnu17Gao; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786731445; c=relaxed/simple;
+	bh=05UlI8U8+ox12Iu078tYqJXr6YhBgqKRLtpJyQ3O4/4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BlIEj0XwXSUgyCx9MHhRmsgdIyWLnRObGaoh/KKm+a1ILXnLSmgPfL4iBvnTn40IXrYcR3rOEovglAZbdOGnb0QPvTO+7YyPkfxOlaLs3dcuv3I8BNiqTgq98CciJfi8pLDlw/EyCiJBiik4eh6vz/NbDh7A5mNIim47uWh0CmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6gbNW9a; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nnu17Gao"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40BE51F000E9;
-	Fri, 14 Aug 2026 18:15:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786731311;
-	bh=/3aVrEO/ZPRcGp0+GUOquBEpY6pCN/wvllzg5oTpbkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nnu17GaoNyqCgHqKyQxHj/1nOCPUyXP9tycdxQQ3omUVzWnoYN2tayo1mhYRSC/ha
-	 48c/8enKupfxCByMuQ9eIVMo4tnoSuhdGJUHUR8Cs9wQDSSoffFaihh7cbYUeeZ3gF
-	 vU9LZKUkYbvkCUEVe4b5nJQqXwwQeKak/HYg5xQuI1dJdbS79CWR0+T6RoNepPilIu
-	 DaklX2bGTo9q14vqm1KxGK3t9pz6CTJzByiarMq+YTTXoQsWRxtTvb0K3aJfFzOZ6Q
-	 LwOpb4t8Ctc4prVc+1PLKY7pRCpfK0TwVv0RkIdixRqLrmcueJvnpacTFTZGJx3/do
-	 5+8szAVPyMmTQ==
-Date: Fri, 14 Aug 2026 13:15:10 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Abdurrahman Hussain <abdurrahman@nexthop.ai>, conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] of: property: add i2c-parent to fw_devlink supplier
- bindings
-Message-ID: <20260814181510.GH1981719-robh@kernel.org>
-References: <20260813-b4-of-property-add-i2c-parent-v1-1-a2487e920ce1@nexthop.ai>
- <20260814010950.051261F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6gbNW9a"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B360C2BCB3;
+	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786731445;
+	bh=05UlI8U8+ox12Iu078tYqJXr6YhBgqKRLtpJyQ3O4/4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=D6gbNW9a4dhNwa6geMlIiQnzgNhvX8vqfTAq/IiHPAu9vzZACw1lVxev8KevXTHiJ
+	 Cr5kq0XJ+nhO8Vne8UQcHPNUSvHDdtOp7PX+6lVOZeqWzFDgRw0yiVcU886c3me5sD
+	 3j48nVfVcz4XmsOTiHYX8a40DeWE0BQN0ViNFUjiVUwVvC/ht+y19KQ35QyKsOh+2X
+	 a7wGipyJN15FduaN6G1ahKl6MKTGBqa90KgQXTt8iP2sM3BWOFxZ1/Yr9RSE8HUQCR
+	 lRwD4SzJe6b6+iAM4mFRWQJB2RpTymtKOuFE3CH0GmCi3mqpXbBeuYK7Y8GJjs+xll
+	 sl/RSRJASbFYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57108C5B572;
+	Fri, 14 Aug 2026 18:17:25 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Subject: [PATCH 0/4] drm/panel: Support Retroid Pocket 6 panel
+Date: Fri, 14 Aug 2026 13:17:14 -0500
+Message-Id: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814010950.051261F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22O0WrDMAxFfyX4eQY5tiXVv1L64CjKZljT1O7CR
+ um/L0uhT3s8Qvdw7qZpLdpM6u6m6lpaucwbuLfOyEee39WWcWPTQ4/gHdu6oF3yrJ+W0XGAGAA
+ dmu1/qTqV7911PD256vVrU96eRzPkplYu53O5pS4EokzsKeRI4hkOg6M+jx5ENA9jDiyBZFe/U
+ lK3h/SObP6Z7VUaxwjWoQAN6EftMa2H/yYMf+2vBUfhQAgTTj6tzpwej1/II9LrDAEAAA==
+X-Change-ID: 20260318-rp6-panel-861840540616
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786731444; l=2531;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=05UlI8U8+ox12Iu078tYqJXr6YhBgqKRLtpJyQ3O4/4=;
+ b=scEWgA4YR3TDfadbQQ+muEYFqhjR7300Z8EJM0Yt/Wm2tOSAFBnusy8gRg+Lhwc1gX1yDtSPl
+ tOsVyttPGi+CUM4pncKOQzleknM/tkIEDX1QiI0Yc2Oj/uzVpIVtWP/
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-On Fri, Aug 14, 2026 at 01:09:49AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] fw_devlink incorrectly parses I2C slave addresses as phandles due to 0-cell supplier binding definition for `i2c-parent`.
-> --
-> 
-> --- Patch [1]: [PATCH] of: property: add i2c-parent to fw_devlink supplier bindings ---
-> commit 85f34a66eac871d9e36bccb6795b94b17ab065d4
-> Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> 
-> of: property: add i2c-parent to fw_devlink supplier bindings
-> 
-> This commit teaches fw_devlink about i2c-parent so the core creates the
-> corresponding device links. This ensures consumers are unbound before the
-> parent adapter's device, removing the need for -EPROBE_DEFER.
-> 
-> > diff --git a/drivers/of/property.c b/drivers/of/property.c
-> > --- a/drivers/of/property.c
-> > +++ b/drivers/of/property.c
-> > @@ -1409,6 +1409,7 @@ DEFINE_SIMPLE_PROP(resets, "resets", "#reset-cells")
-> >  DEFINE_SIMPLE_PROP(leds, "leds", NULL)
-> >  DEFINE_SIMPLE_PROP(backlight, "backlight", NULL)
-> >  DEFINE_SIMPLE_PROP(panel, "panel", NULL)
-> > +DEFINE_SIMPLE_PROP(i2c_parent, "i2c-parent", NULL)
-> 
-> [Severity: High]
-> Will this correctly handle device tree bindings where the i2c-parent
-> property includes a slave address argument?
-> 
-> For example, platforms using devices like the Toshiba TC9563 PCIe switch
-> might use a property such as: i2c-parent = <&qup_i2c 0x77>;
-> 
-> By passing NULL as the cells argument to DEFINE_SIMPLE_PROP(), the parser
-> assumes a 0-cell list. When fw_devlink iterates over the property, it finds
-> the first phandle correctly, but won't it erroneously interpret the slave
-> address argument (0x77 / 119) as a second, independent 0-cell phandle?
-> 
-> If another unrelated device tree node happens to match this phandle ID,
-> could this cause fw_devlink to link the consumer to the wrong device,
-> potentially leading to spurious probe deferrals or circular dependencies?
+This panel uses a Visionox VTDR6130 DDIC. There is an existing driver
+for this ddic, however it is currently hardcoded for a panel used on
+several Qualcomm devkits. This series sets up the driver to support
+multiple panels, then adds the RP6 panel. It also adds support for
+rotation as the RP6 panel is mounted sideways.
 
-I think you need custom parsing for this one to read the first cell and 
-ignore the 2nd cell if present.
+This depends on the Retroid Pocket dt series [0] for the vendor prefix
+patch. That series depends on the AYN dt series [1] to apply cleanly.
+    
+[0] https://lore.kernel.org/linux-arm-msm/20260808-rp-qcs8550-v1-0-a5a365ba3dc5@gmail.com/
+[1] https://lore.kernel.org/linux-arm-msm/20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com/
 
-Rob
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+Aaron Kling (4):
+      dt-bindings: display: visionox,vtdr6130: Add Retroid Pocket 6 panel
+      drm/panel: visionox-vtdr6130: Add panel orientation support
+      drm/panel: visionox-vtdr6130: Modularize panel config
+      drm/panel: visionox-vtdr6130: Add Retroid Pocket 6 panel
+
+ .../bindings/display/panel/visionox,vtdr6130.yaml  |   8 +-
+ drivers/gpu/drm/panel/panel-visionox-vtdr6130.c    | 225 ++++++++++++++++++---
+ 2 files changed, 201 insertions(+), 32 deletions(-)
+---
+base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
+change-id: 20260318-rp6-panel-861840540616
+prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v9
+prerequisite-patch-id: 17ba304f7a8a08cc78f98e198db9c51f4786a22c
+prerequisite-patch-id: 21873631f5dcdb9bbbdb5c20c3f5e9816cc405f9
+prerequisite-patch-id: bf7b5dea0097cbbdf04929a4246d1fc65c607ea8
+prerequisite-patch-id: d7f546eddc96a4f31a1e681abddbc96bd68abb32
+prerequisite-patch-id: d40d784ad8efbb1204c024408be2067725a06cf2
+prerequisite-patch-id: 25bbd55199a8250a912ef542b31f43dd5ccdbc90
+prerequisite-change-id: 20260808-rp-qcs8550-85c84760f6f3:v1
+prerequisite-patch-id: 17ba304f7a8a08cc78f98e198db9c51f4786a22c
+prerequisite-patch-id: 21873631f5dcdb9bbbdb5c20c3f5e9816cc405f9
+prerequisite-patch-id: bf7b5dea0097cbbdf04929a4246d1fc65c607ea8
+prerequisite-patch-id: d7f546eddc96a4f31a1e681abddbc96bd68abb32
+prerequisite-patch-id: d40d784ad8efbb1204c024408be2067725a06cf2
+prerequisite-patch-id: 25bbd55199a8250a912ef542b31f43dd5ccdbc90
+prerequisite-patch-id: c79dacb2a8ca1298387bc9bc4a543de97c670a50
+prerequisite-patch-id: 9c058fb9b13442f5434b8aaa2f1907eff1b43684
+prerequisite-patch-id: c13130099b60aa7c412181e99070718eb2c68ecd
+prerequisite-patch-id: d0dad3c4fa9c4b98e6cc53bbd0874df9113ab5f6
+
+Best regards,
+-- 
+Aaron Kling <webgeek1234@gmail.com>
+
+
