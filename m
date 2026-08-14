@@ -1,71 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14A93CAA50
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 20:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D5E3C661D;
+	Fri, 14 Aug 2026 20:18:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786738638; cv=none; b=iaicVPhCb0hBqWUFMF+iez3weONNxzx75bagtu2DyPE3E/AINzT+pdv2bktkbWCCpHUgPqays5dwZxqczDSMrNZtL8NjTuBFvklhGywmUvR4798YhYDEON6IQfk1MyGUShsNDt9VGw1TLK8CjUGA/qyIR5MbcHcFWJ6mJehbjTI=
+	t=1786738688; cv=none; b=WXM5UzssxQiE0Gznj2+BC6lewVKSUCJZHo/Gq5cyN/senWrzMngSZC3nkhguyDYQjPT/yDLnMCzhMwxue5njiivYfvt4rB28DuaU6sH2QJTV7tuxDez0s8mISQZIUiKRDZVGnK7OVPQ1x+WtuqMzAy1HfLE1BOWipYwvPVpxzr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786738638; c=relaxed/simple;
-	bh=0tpE5kbVn5FysdUkDs5gDFuGs7MOAHBI2JyAI3zHkv4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nrqsEbBUxy3itG9FT/aOlG1se/rHulBzKbKXSGfDkbIAmSPS5WkWpzS8vAlSCwpLK5c/mJdIPvAXc7lFXJYSeixC/RLTG94dM5FHygBkZU51lQ8rWVRYh8+YUDUYNvsILBgvoVm/ZBL/yTdxurBCnquYGPsbdNk+wxlLJDZwPoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EbH+03J9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786738688; c=relaxed/simple;
+	bh=ItqUVC67yhzB+kYS/w+PEv43myyEK386fJ9fnQIqQ58=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u8S9HqzVYuRTAxoHYdkegF8EO+nAgIHzI8yk+wMiaWrhE1Wh5etFM4ZJRsIrE5mRJ4PIKrRGKMOQFqx040KR1W86oRGP1X/HO5a43p4K0JusBDhlf/78pQjNkg2WHbYFpFncPjgmuBbjsd/R5VV/UqaN2+1Mo9WlP8yC9jdgAjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7S0NHd2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EbH+03J9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968B61F00AC4
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 20:17:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7S0NHd2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00ECA1F00A3A;
+	Fri, 14 Aug 2026 20:18:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786738636;
-	bh=0tpE5kbVn5FysdUkDs5gDFuGs7MOAHBI2JyAI3zHkv4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EbH+03J985tUN6EBv2Oy/zi4uGP+1pGYxRSoFK1TaGSA5Q2QerW2t5Y4it01pLsXq
-	 HdHswp/xITkHItdB7xC9tsJZAXA3lHOwtuxKqGp4FUIkk6ltlSk09lDu+aojcX/plx
-	 J3YbDTqkt9CUoN1SsQXT4p3fvmAaQ4OKvfWgOLis8bFZBQoOcR2tyjQEOA0A8tekLr
-	 NTjLI4dkYMvepG2rMIp9lIYj65WD0cRbWVHjANxJTuPmnpDh91DUejZ4ycN3rexczM
-	 iVIi0EVJE5+ilTvviBgP3Z1YXfrpL/FhYiikUPzee70DxyPUgWjq8gLViHwV5mXT9s
-	 QY3Qh5RdbXwFw==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b14d1f9315so1244525e87.2
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 13:17:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rpeyzo5iylRUXE5n3lIbaytfn/FwJK95zaMlCZRVApra2IQS7PUUvZ5D3+BMfJYa+Ht8oPNwgxuq5Qb@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFoqaVz4mZLa9/MeYDMVE4xaIEd/hfAiNh9taQVEAQJGeXqRIo
-	X+6zXD5sLwlYta6iGP11ItJmZfG0YEtGjyiXP48nNB3nMM+mW/MhfOA5RJ2WOkH1FUfg4QNgFhE
-	rU9RZt90EdEidUJu1zuG/HT76RBTBB2Y=
-X-Received: by 2002:a05:6512:3e1c:b0:5b0:129c:ed76 with SMTP id
- 2adb3069b0e04-5b45913b9dbmr1575455e87.29.1786738635414; Fri, 14 Aug 2026
- 13:17:15 -0700 (PDT)
+	s=k20260515; t=1786738687;
+	bh=Imz6CUSjREa7uZWu186ap/XfqAiaJ0XB3CzccTNztnU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h7S0NHd2kmPZTG9Zh+rH7XlJ+pKn4+9yUya3gIEoXNQMYqdtJvtrN5ncNifI0iz98
+	 zc7TpQlovY1ihHdbHD5IV3CAhPH/CzvIkT3kfRXqkKV2DSW3lmXPmxkdjs1tivqhSX
+	 REZj8Xh/OOPhHMdOdxyqlHgJJshpQqPynxYoOrE2b9dn8hM+bVssUN83Y2HfHPB6eh
+	 hkhJm0yzkH67w+FZ0kN2qqXmHe4y3CcCoCtsK2qy8zAyzHXEb7w/9VH9v+wNdWBjaX
+	 l4OBH+JrEV/gBPAPek3w4osaHyiqKoTeo08iLSgDX074+XuJQ/nrQUYLRYkQ3GzLwb
+	 gfvHdIEHSn/vA==
+Date: Fri, 14 Aug 2026 15:18:06 -0500
+From: Rob Herring <robh@kernel.org>
+To: Peter Rosin <peda@lysator.liu.se>
+Cc: Bhargav Joshi <j.bhargav.u@gmail.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
+	simona.toaca@nxp.com
+Subject: Re: [PATCH] ASoC: dt-bindings: tse850: Convert to DT schema
+Message-ID: <20260814201806.GA2839748-robh@kernel.org>
+References: <20260813-ti-axtensia-v1-1-768a1089fd5f@gmail.com>
+ <d473d13e-bb5d-4d9b-b647-25a0b1b35364@lysator.liu.se>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260812103621.1096140-1-egbostina@gmail.com>
-In-Reply-To: <20260812103621.1096140-1-egbostina@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 14 Aug 2026 22:17:02 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=v12Sa7Rwwp6YjPV6V1jg86m=mzWxMqRCB8L3qe4H9pw@mail.gmail.com>
-X-Gm-Features: AcwNN1Va7cLQlkMZSoKgAsX0-hFhQOzOsoVfQcjo6LOAswc2jmNPAVaRoDpizDo
-Message-ID: <CAD++jL=v12Sa7Rwwp6YjPV6V1jg86m=mzWxMqRCB8L3qe4H9pw@mail.gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: pinctrl: Convert TI DA850 pupd to DT schema
-To: Eduard Bostina <egbostina@gmail.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, daniel.baluta@nxp.com, 
-	simona.toaca@nxp.com, goledhruva@gmail.com, m-chawdhry@ti.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d473d13e-bb5d-4d9b-b647-25a0b1b35364@lysator.liu.se>
 
-On Wed, Aug 12, 2026 at 12:36=E2=80=AFPM Eduard Bostina <egbostina@gmail.co=
-m> wrote:
+On Thu, Aug 13, 2026 at 12:51:31PM +0200, Peter Rosin wrote:
+> On 2026-08-13 01:33, Bhargav Joshi wrote:
+> > Convert Axentia TSE-850 audio complex from text to DT schema. No
+> > funcational changes.
+> > 
+> > Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> > ---
+> >  .../bindings/sound/axentia,tse850-pcm5142.txt      |  92 ------------------
+> >  .../bindings/sound/axentia,tse850-pcm5142.yaml     | 104 +++++++++++++++++++++
+> >  2 files changed, 104 insertions(+), 92 deletions(-)
 
-> Convert the Texas Instruments DA850/OMAP-L138/AM18x pullup/down
-> controller bindings to DT schema.
->
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 
-Patch applied.
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/sound/axentia,tse850-pcm5142.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Axentia TSE-850 audio complex
+> > +
+> > +maintainers:
+> > +  - Peter Rosin <peda@axentia.se>
+> 
+> Bzzzt, this is no longer the case. This binding is orphaned (as is its
+> corresponding driver).
 
-Yours,
-Linus Walleij
+So we can remove them?
+
+Rob
