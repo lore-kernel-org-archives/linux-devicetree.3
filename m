@@ -1,83 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE4F3655FA;
-	Fri, 14 Aug 2026 22:36:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1E426ED59
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 22:40:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786747001; cv=none; b=iYnoz8lXaicljy2MtpCj7wa6Pf9GfuoLDoRn/Lx/JwPR0dvYfKcfVP05Zqi9urpg+N5EQZJn320bYd1gDRCBB/JH4Il6tRjPegd4Cdl65Ih5CdOws3bOehiDJsbwAM+Hd1xYL8iJejdtkxZ9c+vAFgPGmmQKmZ8HVXZASb8CLFU=
+	t=1786747256; cv=none; b=nrnVEiS09H5ha4b4bxzcdozTa1GBk8ivHB1q+cDmp1g6GmJrYIpaYQIPVRTnioYIzqmjBvkPlsn1lDy6RJIA42gHnlhHQD6Nr8OyEfUlz5ZTFpI2dJ7vELjeFST6+HjkbGAqeA0tqK27ieUa+wX9YN3sDm2j+nQJjvXTqxcU7/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786747001; c=relaxed/simple;
-	bh=r6nLz7OgQW8GYy6ajxbyaSTyAZnnkOgssv59ys8N8Gw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=lkqRRcSubISbThgfJDvLaLd+iKtAeSLz+Q7d9Q1fXYmo2ADm8tIevetYPSxcOLhh3J/Sa0IMQ2whiym8juU2mLBBxi8NnGywsE5vzA8BvSSxo3Q1sm5yI/mSIqWCTg/YF/apEcWKPckdsOBpLZ5YFxf8Tbjlva/tdVS6gqkuWdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqimssAJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786747256; c=relaxed/simple;
+	bh=ZWartToHNYnJ6GJ9i7YMo91CyjmYa5HxYkEUvHGjyds=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=snDZgfvCr/FHkGqiaaeVLlk7Ibyinjjeh606m+GdmE0cCTzkoXjT+tG4IMQk59gPbfM4cbN2FCrzqwYzsDHgNc/jCzmsyx43zxUqzvFQQVVoFjiVVJ7Vww0huSH8+gf5PPoNt0gKZPzFxiGeo2Kt8OWhlGCHiTQl6QTb0r2wBSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJz1tW3G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqimssAJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6684D1F000E9;
-	Fri, 14 Aug 2026 22:36:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJz1tW3G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6C31F000E9;
+	Fri, 14 Aug 2026 22:40:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786746999;
-	bh=YUAbOEyEyBMxZ+qzv/qxdrNwShBAdqijr1A2NR4ulUQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=dqimssAJJb8IVS+A8bwvUFYFMRA1HzWgD9IMQJxF4NfE0BSnHnoTzzBWHbCSK9lDA
-	 iovQLPN+qGeBAvEO3wGcQFoRoqAeL0k7jSXUDXJvI/IJERvuuTh12zeU1BbAwwc8SX
-	 JyUPqb/eDe/ua8JMX99aKksyKcGZc4N/nzc+X7vYdRoXwin/dgtA/+CQyRmScs5Bg2
-	 qhHsJVGoJXVtZTj6p8aVBvPIXXpGQfXdAJ27DB7gT+09MJKsYuv9a/H/NbNJSCG5UT
-	 IgZ55c1tTS1NphLDEvpD5ANVxQmgAlX04Ts7byuIbEFlVGeWeu7tYy8b8JLTu7iBUa
-	 fhxgpkIkYqXcg==
-Date: Fri, 14 Aug 2026 17:36:38 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Chen-Yu Tsai <wenst@chromium.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support +
- clock
-Message-ID: <20260814223638.GA181706@bhelgaas>
+	s=k20260515; t=1786747255;
+	bh=eJY9zQBFbmbfdqahVy5Gl9w7+UslOvwdYTvuEGX9MxY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KJz1tW3GYyIpIJqsdkTdTBYRCm0UyG2aPKwmT/LcndiKwiOmnxX+HP9p2Wf5Jc1HH
+	 nUQhqi64jsKbWa96vSH53Zpmvh4Oz+iPbZDivsGwf+ECP75SV1+sY22cPVJkv/J3No
+	 A10SV1CA9rrXDd5QX+rL+qnbQEogLcAkl8be/4WX2m7rgqUPAjSsRbNHxM55rOzri0
+	 J+bW315bvJKueCf311SCHMlKXBdzpDvq3/NkDT7YcONtAEbMvk9hv5zKFyRf8p4++D
+	 II23zj4UZeYaYtYePFIahEP7dWYIeMoF64t6v3OqlOjpQ5L2mZOf5a2UTkA/fu0Wmv
+	 5BK5mUBm+pwaw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ricardo Rivera-Matos" <rriveram@opensource.cirrus.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260814223456.611160-1-rriveram@opensource.cirrus.com>
+References: <20260814223456.611160-1-rriveram@opensource.cirrus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 22:40:54 +0000
+Message-Id: <20260814224055.3A6C31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806165334.7328-1-ansuelsmth@gmail.com>
 
-On Thu, Aug 06, 2026 at 06:53:30PM +0200, Christian Marangi wrote:
-> This small series introduce support for 2-lanes mode for Airoha AN7581
-> SoC. This is needed for correctly functionality of Eagle WiFi Card
-> normally attached to this SoC that require a 2-line PCIe card to
-> correctly work (and give the proper performance)
-> ...
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Unnecessary use of a child node (`sync`) merely to group configurat=
+ion properties.
+--
 
-> Christian Marangi (2):
->   dt-bindings: PCI: mediatek-gen3: Split Airoha schema and document
->     2-lanes
+--- Patch [1]: [PATCH v2 1/2] ASoC: dt-bindings: cs35l45: Adds SYNC propert=
+ies ---
+commit d073a7883f1698278c7c1d6cde1ee5dc878931ca
+Author: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
 
-This is applied on pci/controller/mediatek-gen3:
-https://git.kernel.org/cgit/linux/kernel/git/pci/pci.git/commit/?id=39f758dc5fbd
-("dt-bindings: PCI: mediatek-gen3: Split Airoha schema and document
-2-lanes")
+ASoC: dt-bindings: cs35l45: Adds SYNC properties
 
-Just a heads-up that it conflicts with Chen-Yu's patch on
-pci/dt-binding:
-https://git.kernel.org/cgit/linux/kernel/git/pci/pci.git/commit/?id=7e38b7b0e0e5
-("dt-bindings: PCI: mediatek-gen3: Allow memory-region for restricted
-DMA buffer")
+This commit introduces support for the multidevice synchronization (SYNC)
+bus by adding properties that allow for the configuration of the device's
+transmitter IDs.
 
-https://git.kernel.org/cgit/linux/kernel/git/pci/pci.git/commit/?id=f281334a4e82
-is the resolution; let me know if I did it wrong.
+> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml =
+b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+> index 70f6c62aedca8..f64ba8c872b95 100644
+> --- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
+
+[ ... ]
+
+> @@ -53,6 +53,29 @@ properties:
+>      maximum: 3
+>      default: 2
+> =20
+> +  sync:
+> +    description:
+> +      Multidevice synchronization (SYNC) bus configuration
+> +    type: object
+> +    additionalProperties: false
+
+[Severity: Low]
+Is it necessary to use a child node here just to group configuration
+properties? In Device Tree design, child nodes usually represent distinct
+hardware components, sub-devices, buses, or standardized structural elements
+rather than serving as logical folders to group related configuration
+properties.=20
+
+Could the cirrus,sync-lsw-txid and cirrus,sync-sw-txid properties be placed
+directly in the main device node instead?
+
+[ ... ]
+
+> @@ -155,5 +178,9 @@ examples:
+>               gpio-ctrl =3D <0x1>;
+>               gpio-dir =3D <0x1>;
+>            };
+> +          sync {
+> +             cirrus,sync-lsw-txid =3D <0x1>;
+> +             cirrus,sync-sw-txid =3D <0x1>;
+> +          };
+
+[Severity: Low]
+Similarly, does the example need to encapsulate these properties in a sync
+node? If the node is flattened in the schema, this example would need to be
+updated to match.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814223456.6111=
+60-1-rriveram@opensource.cirrus.com?part=3D1
