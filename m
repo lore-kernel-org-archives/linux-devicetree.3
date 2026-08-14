@@ -1,123 +1,204 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C04E19D074;
-	Fri, 14 Aug 2026 00:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4340719E96D;
+	Fri, 14 Aug 2026 01:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786668464; cv=none; b=WFgBEnBSlX6Vv10SGIiC9QXDdDfbYdw9dyQAMMhTCTxnPbMObiPdH9JZW0cD7tbHFxEd9qbKc+DmLJSVivJRKdteQAy1ko+m+0WLaHKpV0AjKfaJ1I3JomSg64m5/FOEvIPkUn3quQmJFTMSwhrv18d6hnRpzq/nQAjK6o+lka8=
+	t=1786669366; cv=none; b=RGPkPaELo4Ib6jPJrgPo8VgNyTW9QG69LkDUl58M+21SFWL1Ah8psdoZkOskVXGOV8RcyoRslkqXL/0qCOGTu1Xs1YXJr0j2zOitnYPW4DhcVeZaPcB+zrD+0sZrDmBS5mTFAv8CB/UbZDl5r/WgK86bh6ifXI4U+TY/tfZUWCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786668464; c=relaxed/simple;
-	bh=5kzt6kTpJqAqtPKCv6BwPwx7/A5p9Iwlfihrgw2qq8A=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aJ6+WdCR0rFB3QERcmSiZGn40P8Pvmgxk9nQOp19XhyTznogwjBpVVQn0hqT++Lv/YSL+lb5Rd9Ve0cZ1Hccuq59hsT44imUmPOFLNBBvjDpwvlkVGpX3revVASTpj5kH9ZEWre26FQCGsuxdNirMh0+pWIpz+nMmOY40G4fOSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WBSNhKdq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1786669366; c=relaxed/simple;
+	bh=lx69EUVhSVapESfkfYpAkQSbtE9Z9I4UgvXUfz7RNkA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HXYWqGUW8T9F9IgVkG4VTb8GDxg2IUx9RxXP8eYGrnIB5zU5yaj35vbgbAqIsNUO2NC6t37hLGqih3A+M2iqp8AqIE/bAzWsXQKGs9yitYpYyjYh+e1ThulQGDMTrX4o0KWgB0DxDluLrjzL9adq26SFsLSUlMxHkpYeKrFeznQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g1F8SW0a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WBSNhKdq"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67DLWlqO3981766;
-	Fri, 14 Aug 2026 00:47:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=rl6qTc4ik99JKPX6LYsfjwOm1Gds3lOqIUm
-	bJ/ULlBE=; b=WBSNhKdq4+qgKrYaVaA5s+bu/RSQyoS/HbAJ0xKogXB7AEke/Ix
-	zRx8SELMJ6qcrRcY1LN+X+1M+2y8rDzI2L+b6tPsgWkBBzTUBCYlX0XWCD8ei+5u
-	L9LXT7JBouy4Q1/EHsRQ746CibSQukwntjhyclFatVh54ME/O8F/pA89JQ4KPnGI
-	tTeJXo5ec/9GlaDJ+P4pskZYc3+XdGu976ztvrGPjMVYc4CTJnFMcSVhIekIHd3e
-	O/uZMb2bB4pwtHSeAGpuerDo3wEWMOKLKXgw22pOWF6MQdowCTl1EkOMGMHE3SN0
-	FEbujfmW1YpGQDoq8KcvcwRNrtvkq/AyjeQ==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1h1ut0a2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 14 Aug 2026 00:47:31 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67E0lSES029319;
-	Fri, 14 Aug 2026 00:47:28 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4g0bs0pj7m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 14 Aug 2026 00:47:28 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67E0lSWL029314;
-	Fri, 14 Aug 2026 00:47:28 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com ([10.213.101.157])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 67E0lRRo029313
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 14 Aug 2026 00:47:28 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2342877)
-	id 0DE4860C; Fri, 14 Aug 2026 06:17:27 +0530 (+0530)
-From: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-To: vkoul@kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-phy@lists.infradead.org,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Subject: [PATCH V1] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add QMP UFS PHY compatible for Maili
-Date: Fri, 14 Aug 2026 06:17:25 +0530
-Message-Id: <20260814004725.1368027-1-nitin.rawat@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g1F8SW0a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248371F000E9;
+	Fri, 14 Aug 2026 01:02:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786669364;
+	bh=+ZDDvjWvIQn0fypX16cft1l3TgJEHZQ88mTxrOYGy8U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=g1F8SW0a5yLaTCZoYDx6yXuL4QOMtBEJtji/VQp6EX6Enj+CVZ8eGouuUfDcxxcee
+	 JG/SYX8LbPXDbfrI8A53XIolsFHX7mOT/a7vQnM2/6g+7ZCl/p9UWljcFL3ZoeJA21
+	 btBNsOyNf3DzAg2446eAKLCw+0Kgmyn3YJD/oIbC+ljjxQgYS/LKi2Q2iwpD7D2ckR
+	 NO1SiqT49GQpC1h91B9QLqitiJY9HrzI3oqKwj8D1xpibVd6tWbXXYUMPEHFjip/Ci
+	 Yoe+2ct3f36gc82GQ2htJFMX3/qzzbVZkMLDVOVJpfMapWjHJzWvazq6mo2Qx/Ulu1
+	 1e3Lguc2XF3qA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/9] rtc: abx80x: fix error check after
+ i2c_smbus_read in read_alarm()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antoni Pokusinski" <apokusinski01@gmail.com>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org
+In-Reply-To: <20260810193826.210683-3-apokusinski01@gmail.com>
+References: <20260810193826.210683-1-apokusinski01@gmail.com>
+ <20260810193826.210683-3-apokusinski01@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Aug 2026 01:02:43 +0000
+Message-Id: <20260814010244.248371F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: oIHaxPWeYMZFgmYSike5RM7xZT5sEMUm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDAwNCBTYWx0ZWRfX1sk3UyViYIrD
- QJ0boUA9HmtQaBxQj8ktDUWAw8b3zmf3oakplaybEmaHUeDCWns4Bq19UJZU8ltYap1Gk+0dPFe
- QN4ZN4yyFgHKndz20DBjndk9unmWmEIp+T+yBverKXT6x6vx1RNSQgECsLrHa/RZ2EAKySnPKxa
- Wcou1o89zf15WfZh+0MQXWYU1t6qtPaM8w7DSbkggX5Arx48aVVWjwKgr8MTC0xu7C0J0XOOSzH
- nVy/9lWHsm/0OcF94ghRO/8hL2JwG6UQRMIdqKTpyHIklOfFv3LyndFnvilAp8OJ5s5DUYZuPA+
- Ot9UlsDGJEpckBvbrXKhqfNJrGtEwgxeTUOmWbDvOac0fTlC93r3mfVX5JabzLYHOHfgc6tCBw4
- Zlsf22ZdCFC7/x6V8T882Utr3TYlXKnWWgkKXJFpByEetuuj05KKFQtvmHJcMRR4oCMoGccEglK
- R6gwfOyBOzbdUGoyVdQ==
-X-Proofpoint-ORIG-GUID: oIHaxPWeYMZFgmYSike5RM7xZT5sEMUm
-X-Authority-Analysis: v=2.4 cv=HMjz0Itv c=1 sm=1 tr=0 ts=6a7e65a3 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=UH2bE8EBJgXlDjawRugA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDAwNCBTYWx0ZWRfXxVIywajZU7Ft
- EmUN+oHFwDX6hH3zKO54eSZxI3/+fX5UPXpyRq9yxZ+5cOhlYSSYZkBrsTYjzgouLblZa2qSN55
- BrP10TPlPIP/66BqVpGW1RlTcFlHn7Q=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-13_07,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 spamscore=0 phishscore=0 priorityscore=1501
- suspectscore=0 clxscore=1011 impostorscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140004
 
-Document the QMP UFS PHY compatible for Qualcomm Maili to support
-physical layer functionality for UFS found on the SoC. Use fallback to
-indicate the compatibility of the QMP UFS PHY on the Maili with that on
-the Hawi.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
----
- .../devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml    | 4 ++++
- 1 file changed, 4 insertions(+)
+New issues:
+- [High] The relaxed error check allows short I2C reads to bypass validatio=
+n, resulting in uninitialized stack memory being parsed and used.
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-index 7e83cb3238ec..d94503fc26e7 100644
---- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-@@ -16,6 +16,10 @@ description:
- properties:
-   compatible:
-     oneOf:
-+      - items:
-+          - enum:
-+              - qcom,maili-qmp-ufs-phy
-+          - const: qcom,hawi-qmp-ufs-phy
-       - items:
-           - enum:
-               - qcom,qcs8300-qmp-ufs-phy
+Pre-existing issues:
+- [High] The patch fails to properly fix the issue it claims to address bec=
+ause it returns a positive byte count on success, which the RTC subsystem t=
+reats as an error.
+- [High] Concurrent sysfs accesses can cause data corruption in the hardwar=
+e oscillator control register.
+- [High] Concurrent NVMEM accesses cause data corruption due to unprotected=
+ page register updates.
 --
-2.34.1
 
+--- Patch [2]: [PATCH v4 2/9] rtc: abx80x: fix error check after i2c_smbus_=
+read in read_alarm() ---
+commit 0f39bb1c012fd3e70a85b6d2103b11a6c2ce0801
+Author: Antoni Pokusinski <apokusinski01@gmail.com>
+
+    rtc: abx80x: fix error check after i2c_smbus_read in read_alarm()
+   =20
+    i2c_smbus_read_i2c_block_data() returns the number of bytes read on
+    success and a negative error code on failure. The existing code treated
+    any non-zero return value as an error.
+   =20
+    Fix the error handling by checking only for negative return values.
+
+> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> index 5486d9d0b1e5d..fdf9664ebb6f0 100644
+> --- a/drivers/rtc/rtc-abx80x.c
+> +++ b/drivers/rtc/rtc-abx80x.c
+> @@ -294,7 +294,7 @@ static int abx80x_read_alarm(struct device *dev, stru=
+ct rtc_wkalrm *t)
+> =20
+>  	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
+>  					    sizeof(buf), buf);
+> -	if (err)
+> +	if (err < 0)
+
+[Severity: High]
+Does this relaxed error check allow short I2C reads to bypass validation?
+
+If i2c_smbus_read_i2c_block_data() returns a positive byte count less than
+sizeof(buf), this check will pass and execution continues. The subsequent c=
+ode
+will then parse uninitialized stack memory from buf to populate the alarm
+configuration, which could cause undefined behavior.
+
+>  		return err;
+> =20
+>  	irq_mask =3D i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since err contains the posit=
+ive
+number of bytes read on success, does returning it unmodified at the end of
+abx80x_read_alarm() cause the RTC core to treat the success case as a failu=
+re?
+
+drivers/rtc/rtc-abx80x.c:abx80x_read_alarm() {
+...
+	t->enabled =3D !!(irq_mask & ABX8XX_IRQ_AIE);
+	t->pending =3D (buf[6] & ABX8XX_STATUS_AF) && t->enabled;
+
+	return err;
+}
+
+Since the caller will still see a positive return value, the alarm feature=
+=20
+remains broken. Should this be updated to return 0 on success?
+
+
+[Severity: High]
+This is a pre-existing issue, but does abx80x_rtc_read_time() also suffer f=
+rom
+the same missing length check pattern?
+
+drivers/rtc/rtc-abx80x.c:abx80x_rtc_read_time() {
+...
+	err =3D i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_HTH,
+					    sizeof(buf), buf);
+	if (err < 0) {
+		dev_err(&client->dev, "Unable to read date\n");
+		return -EIO;
+	}
+
+	tm->tm_sec =3D bcd2bin(buf[ABX8XX_REG_SC] & 0x7F);
+...
+}
+
+If a short read occurs, this allows uninitialized stack memory to be used w=
+hen
+setting the time.
+
+
+[Severity: High]
+This is a pre-existing issue, but can concurrent sysfs accesses cause data
+corruption in the hardware oscillator control register?
+
+The operations in abx80x_rtc_set_autocalibration() and oscillator_store() b=
+oth
+perform lockless read-modify-write on ABX8XX_REG_OSC:
+
+drivers/rtc/rtc-abx80x.c:abx80x_rtc_set_autocalibration() {
+...
+	flags =3D i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
+...
+	retval =3D i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC, flags);
+...
+}
+
+drivers/rtc/rtc-abx80x.c:oscillator_store() {
+...
+	flags =3D  i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
+...
+	retval =3D i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC, flags);
+...
+}
+
+Because these sysfs operations do not serialize through the RTC core's ops_=
+lock,
+is it possible for one thread's modification to be clobbered by another?
+
+
+[Severity: High]
+This is a pre-existing issue, but do concurrent NVMEM accesses cause data
+corruption due to unprotected page register updates?
+
+In abx80x_nvmem_xfer(), the driver writes to the page register before
+performing an I2C block operation:
+
+drivers/rtc/rtc-abx80x.c:abx80x_nvmem_xfer() {
+...
+		ret =3D i2c_smbus_write_byte_data(priv->client, ABX8XX_REG_EXTRAM,
+						extram);
+		if (ret)
+			return ret;
+
+		if (write) {
+			ret =3D i2c_smbus_write_i2c_block_data(priv->client, reg,
+							     len, val);
+...
+}
+
+Since the NVMEM core does not serialize accesses and the driver provides no
+internal locking, could concurrent reads or writes from userspace interleav=
+e,
+causing operations to target the incorrect memory page?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810193826.2106=
+83-1-apokusinski01@gmail.com?part=3D2
