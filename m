@@ -1,98 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89F120D4E9
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C4C3D9043
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786691254; cv=none; b=O3OahXBDnPXeKdp52rZ5Wn8xumxaQgRkcA+IF8FKSP42o/hqsn70rOD1HB8hjBkRN3hTxUVF5IW27xpvraRBhC768FqwD8ppLl//kLPKQd9afZ7aLTYzKVz2PQFdQs1XYaqfXnwViVTXnmte+Na7fxNK4Q3imnpRvUGmLQMRv7c=
+	t=1786691273; cv=none; b=ElQnMoqOMnwyCDHaJn9Q/rCngr8HHB6B6I160oI5VcKPzjm+vpvVlyK82IdHECo8je4td1bvdZ2gb8LRCWZBVNHKetuTtjX+09xRWy0CyL8Vw5JXDkITUHDS3rAodXtu/ZVVLHcO4X0EHY577xljsrSUjH3roXxLnWtttJKyepw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786691254; c=relaxed/simple;
-	bh=1CvtTvkVB544oP426TDn3pSliB8bQMxrYTA3tgaxkhI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ge9PVLsZjPF6wmCiYJrA4UJdfxv8KZtL3jGkEApKWNpN8f6iUUSC1/QFIZsQFsmPcEni3ygsXME7rXpA4KC6Vm+Evk71p2/5ugJWUIBSN1J4R4t3R2Y5PycTb8knLqNmesYGjpDzw5ArJEjadH/RYulMmRrxKzZNpFZwdbHU+qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwEiiZCt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786691273; c=relaxed/simple;
+	bh=f6CmMWijGsHe15z5qznB0gE26Z01y8zcvOoaRGn9bk0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PbFEFMQ8yi/MmpJoBvDtpG5p9YE/pgyAU/nXFZqcx0OwXvW5Ecsx/VuTlMKJROGzeQXScl7+eAYZCWnAmRt8YoVUObtu2adKs5tIiO/sNzzgWEAFtv6R04lMpKKxpcqt7+75omUGtIumoAAIqTgf/GWvIVxNU1hQltj+lHNW/cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPqz7i6S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwEiiZCt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630741F000E9;
-	Fri, 14 Aug 2026 07:07:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPqz7i6S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC7641F0155A
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:07:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786691253;
-	bh=OeZ2LFW0/C9pLyWOg6SLsbGrzKt+V49tNfC0sARAgVs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HwEiiZCt9pkNhSJszXiScfLW678wbpOsZYlne6yj9NSUne+crj8VrMho6sMR0NmF5
-	 +0cH0d/pm6F5oOZCboRbSHitSPkjhDgJ1zdU8tt3RCYxQqM7yx67wRV6vmprkX6OFD
-	 tXvQ5kQs3J7qizJ6xCQkb4xaqHUei9R1Jm7wQ5mZyGnQVEZoGVuXXMKvOYtSwH8+mq
-	 rngvF4KBqJFeGQUmOFBqwTXLW/TcCalIkz8FkoFEo/P+v6J23jNQy0vABvXI+EvaHq
-	 2sub7TZdYqWEAqgRXFU1oARXt9DFpwhJi/p4z56aidPq1UDI0QL1J7Ls5bE50DqKeI
-	 FbkOfytXQ/opQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/7] riscv: dts: eswin: add clock generator for
- EIC7700 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260814070007.1662455-3-pinkesh.vaghela@einfochips.com>
-References: <20260814070007.1662455-1-pinkesh.vaghela@einfochips.com>
- <20260814070007.1662455-3-pinkesh.vaghela@einfochips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 14 Aug 2026 07:07:27 +0000
-Message-Id: <20260814070728.630741F000E9@smtp.kernel.org>
+	s=k20260515; t=1786691271;
+	bh=f6CmMWijGsHe15z5qznB0gE26Z01y8zcvOoaRGn9bk0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SPqz7i6SIbV0clmYONQJ57ES/0mFDpCMNjaKeqlQNL1dazFKgXul2eRaHFsNrSMlC
+	 E2xefUMurqYgvjNB26B2ZO38gMUiL3Zdub2Vtuj0CjVzff8ysNT6EvBA4xfAdJe+U4
+	 m5xG6+3orXw3zMeWEPDFbKoYCCoikJjulkQ8hIPPSG1zcR4HbWYb9W1/yYkzKT5TMN
+	 WaCHtBxDFOoSSoM4S0rDbwvESJrmYqAnUKo2U91aM6ceTQwsYmi07BN/6XUe/PrOSv
+	 FQv8anc7r3uu6UAzEzwcOjfIHBfXs0pM+u/8GbFB1wWwHQS65dMjIRL1K+XT5GNCCH
+	 yjH638Yy6uhbA==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b0115b9e17so736287e87.0
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:07:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqHvtJrBpWuC4K0I3qFnK2NgWsdGWXsKvgKmNdue3KUq5luLY+JfVEC+asfO8RDpgspjtx9/8Sv3/GU@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywr6oWRHQ/9L0ShIbenf5QbFuDdzQFWfCkQF9TIw8Q9JrOefCMl
+	AWgmZPJGFNYuOJh5yqXmPvd8ShgKvr8IKiHotUczCt+Nw6v3RmLT2uw5p6LTdyAIulmHkZIcQXb
+	S4wEzizGRdH2l5QOkk4VDUbj57W6UZS8=
+X-Received: by 2002:ac2:4c50:0:b0:5b2:a6e6:8d83 with SMTP id
+ 2adb3069b0e04-5b45916c878mr571026e87.23.1786691270612; Fri, 14 Aug 2026
+ 00:07:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com> <20260813-ad7768-driver-v3-12-cb554399ad26@analog.com>
+In-Reply-To: <20260813-ad7768-driver-v3-12-cb554399ad26@analog.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 14 Aug 2026 09:07:35 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnz8vcK06AfvbipscDDBvbUPA+bcXc+kDE1ZV7eozDviw@mail.gmail.com>
+X-Gm-Features: AcwNN1UTDcDtxZ3Y793tIOH5s58hI_BjN29iCZCUfXKdr-ZoWTYxol2qFk8yM8o
+Message-ID: <CAD++jLnz8vcK06AfvbipscDDBvbUPA+bcXc+kDE1ZV7eozDviw@mail.gmail.com>
+Subject: Re: [PATCH v3 12/14] gpio: regmap: Add optional runtime PM support
+To: Janani Sunil <janani.sunil@analog.com>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Michael Walle <mwalle@kernel.org>, linux@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org, 
+	jananisunil.dev@gmail.com, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added 'fixed-clock' node uses the deprecated node name 'o=
-scillator'. According to the fixed-clock DT bindings, the node name should =
-match the pattern '^clock-([0-9]+|[a-z0-9-]+)$' (e.g., 'clock-24m'). The na=
-me 'oscillator' is marked as deprecated in the schema and will trigger a dt=
-bs_check warning.
---
+On Thu, Aug 13, 2026 at 3:58=E2=80=AFPM Janani Sunil <janani.sunil@analog.c=
+om> wrote:
 
---- Patch [2]: [PATCH v4 2/7] riscv: dts: eswin: add clock generator for EI=
-C7700 SoC ---
-commit 2b4ebcd54553e592642ebabb9a2f8063cbd1f050
-Author: Pritesh Patel <pritesh.patel@einfochips.com>
+> Some gpio-regmap consumers share their regmap with a parent device that
+> may be runtime suspended. GPIO register accesses must resume that device
+> first.
+>
+> Add an optional pm_dev field and acquire it before register translation
+> or access. Release it using runtime autosuspend after each operation.
+> Keep the device active across the complete direction-output sequence and
+> propagate failure when setting the initial output value.
+>
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 
-riscv: dts: eswin: add clock generator for EIC7700 SoC
+I like it.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-This commit adds the clock generator node for the EIC7700 SoC. It also conf=
-igures
-a 24MHz crystal oscillator to provide the input clock for HiFive Premier P5=
-50 boards.
+This also looks like it could be merged orthogonally to the GPIO
+tree though I see there are runtime dependencies. What about
+Bartosz queue the two GPIO patches on an immutable branch
+for Jonathan to pick?
 
-> diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts=
-/eswin/eic7700.dtsi
-> --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-
-[ ... ]
-
-> @@ -203,6 +204,11 @@ pmu {
->  				<0x00000000 0x0000000f 0xfffffffc 0x000000ff 0x00000078>;
->  	};
-> =20
-> +	osc: oscillator {
-> +		compatible =3D "fixed-clock";
-
-[Severity: Low]
-This isn't a bug, but does the node name "oscillator" trigger a dtbs_check
-warning during validation?=20
-
-According to the fixed-clock DT bindings, the node name "oscillator" is=20
-marked as deprecated. The schema expects a pattern matching=20
-"^clock-([0-9]+|[a-z0-9-]+)$", for example, "clock-24m".
-
-> +		#clock-cells =3D <0>;
-> +	};
-> +
->  	soc {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814070007.1662=
-455-1-pinkesh.vaghela@einfochips.com?part=3D2
+Yours,
+Linus Walleij
