@@ -1,218 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9A53D093A;
-	Fri, 14 Aug 2026 13:38:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31976477280
+	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 13:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786714692; cv=none; b=VyTNt4sOPTyGOGeN4oUiS+eX7DRhQWB6Wha/zO2/+NjorPQ0ba6eBx8UJNVTBOCsDxUosQB4To2S6XVtJugObqCy6UL6Q6ezO+ulCCps0eQboFpu9212O1QRanVMEJRgwJml4eyOeVY5j1neFrSMP0Ke83YCcZVNJiIW9tLP6/k=
+	t=1786714927; cv=none; b=uLy3NxiJA3bSaCec6/prz5V1pyqWt8yKoqT//FKQ0LjL/CSBN9EEsCx1xIT1JLkZ3wBD63TxWH39pp0U5kw/b74ee4+sXSXd1pMLJMZbRoY3M2FpSO8Xo3y5z8d5CQ31X3XUkzdzGS2DbqJ8ebDijqOd3F62BDia5bWLdjonl9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786714692; c=relaxed/simple;
-	bh=ezFvlaRPnGGVbw/wRkHJ8pEQKdswmwUQDcfVzJERjtg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U5+n1An7tYf9cuF22U+a859YiiNltrC1pBo49pw3Qnnms0kft3s/OgdvYjfFkoUbVzGMOtFbI7pV5qW2xX81VIPwEHgrQqvwE33r1PkTHWPrntBxTlEwGgT5ixphcnjVd45/6P5RvaAOQjMQyMYbbCDgTvCmEbtkBP5sK4YFCr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mnCwHyga; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786714927; c=relaxed/simple;
+	bh=Ighuvc8zNEvdMdTBj2MgkY+Ru3uT8BFEEQGLZyHwDyo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=lVipiFjQv0M9K0MVZLSlh8xh6S8jcF6eMAsFLVgGct96DjqJ+qYO97KMm41gF3syEb3tEOrfgl5LWICgpzHl1qN+g7xMM5o1twbpTTM/FlkqyD/LCqjBNa5oDEtka3jlf8h0Kiu29cnRAOQaywvwzZvD+q2PoA1XsME2BTjrOtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=L6joda0g; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mnCwHyga"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 707161F00A3A;
-	Fri, 14 Aug 2026 13:38:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786714690;
-	bh=dUqihhCTp+fPeUQLTUG0twiBw++x8qelMHcg/V6RTE8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mnCwHyga2LHGMJvu1/BL2xhhMRzw6aJZoH+iGvFUBPKCOAzYFTsJ+7IvvKrUFubxt
-	 Ede9+wPexYfc5BHXC19+z8+tbNNDIR6pzTxQM5TcoUBOpQvDU2qmVrXSf46fBpB2dl
-	 63pt6JNQgXu5M9rwsjp5pZM6gSs6SQoZiLkXAtcTw5YKFFsZJkW3S6q4IeNRf0FXxI
-	 VYb80ixX5KpSJpgh1Q8uohFlOZcIxfFhscKPoqYM1ifat8x4YRVv9pNCJGSOBfDDZA
-	 nmPIR/LZguoQlEFEnTZzyyxaUqRRIxJTeiUDzdvoJX7HR/xI5WOmFLr66UN/k7FEur
-	 0jGTM9FGUmL9g==
-Date: Fri, 14 Aug 2026 14:38:04 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Chen Wang <unicorn_wang@outlook.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v4 7/8] soc: starfive: Add socinfo driver for JHB100 SoC
-Message-ID: <20260814-reverb-mourner-283116bcc014@spud>
-References: <20260809015054.210577-1-changhuang.liang@starfivetech.com>
- <20260809015054.210577-8-changhuang.liang@starfivetech.com>
- <20260810-caress-rack-45615c8d9747@spud>
- <ZQ4PR01MB120276A1DA91FAC19C852F14F2DD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260811-populace-afflicted-40a40e0f484c@spud>
- <ZQ4PR01MB1202DDE6C255441E1FC4F916F2DC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260812-snowplow-punctured-28d19616f707@spud>
- <ZQ4PR01MB1202F016AD1F1E699429DDC0F2DB2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260813-presoak-scarily-b6cdecfcb7cc@spud>
- <ZQ4PR01MB1202CD24FCDA9039EDF2C7A0F2DA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="L6joda0g"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4980dc26022so11104265e9.1
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 06:42:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1786714923; x=1787319723; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xhKuc7koDaTER66hHC21DLwLn/weA2lcrprNlj91Qto=;
+        b=L6joda0gEZVkGKk7LCqs1o1iMMVyGk8T8dWdMOuRE+U6RyX90s0HG7yWbTxfbG2zCo
+         AxjjBo0Tgff0b0Y9afPn8z0VWaljSriLH808X4GJTzjlqqyQslIDgWhP+5DY2sX7sn0W
+         kuCcCpEfEw+KfNTG9wFcgFyBQyritwqrYnVcut1bj/sFKtVJ55hmAHYkVpWelO0npyRd
+         Fg0EcXNabskOGBUkoLWCF18NagdCidUdT+xApEf+dd0N5xYIvScamN8r/S1GkL14EhH1
+         PU3DQpkDqAzO4nQdMtIToYRDo9Zb/uobdoA+62BFk4LZW/dqtZSlUXZMjllwKwnQ+F2i
+         ugWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786714923; x=1787319723;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=xhKuc7koDaTER66hHC21DLwLn/weA2lcrprNlj91Qto=;
+        b=m0zXqAf80RX5vkXlVT3SAEwW1uKywb1j4d8Dv8lH3ajEGRVZfQ9NMR1+3ZLL12Yjft
+         MHJdEOFzrNLZo8RE47vXFrZfWssPQWLtZDgiIPwQrrJ2/AnynbK5ABGFXppp7f3sZLmt
+         xb2x1/seaaXcyCcQeMJfBvbfyeU9SVcuDAAwo0oY9tyIPBwCCO8M5JXX2JK+z+TGvYbn
+         f1ADQm4NvERdeYjVjr7O4QlcqQW6RTnyTv6rYYJqsdlTbLPfY0WiZyeCb/4caPsaqxqG
+         B8kIyKZmFVPe20iqkJkY3KNYmut9TIVHgSNHN+aSLWgLkW2TnpBS9/7T7BoWW/ewMwNL
+         +lkg==
+X-Forwarded-Encrypted: i=1; AHgh+RrehTYT6rgF13rdQ2xCuoMW91P5kAzyqyjOHm3knCJAsq6ojLGCvrviKjNgkJ1JEsEK8F8ZmQRCfYYd@vger.kernel.org
+X-Gm-Message-State: AOJu0YwtHpnj1gPvmCYsC38r1uSXbbNl1aNYqUThPX1xyzIDhOrYtCvg
+	Zrci3DPaydWQhwNZkyqW1p4xCa+DoTD+4+3O8AEgyX1RdcAMzpb+brYd58VbI3dZIY4=
+X-Gm-Gg: AR+sD104sKH6CVzp+3fCbPOfGo+N0B7dwemCTKYieE9hx8gL9lWZIY4oXS5ubuAlu5l
+	DBMqCgEnk8MJP2YHn45DIg5pxRoJxJC5lyyDg/bhkPlRlQz+lBHNGHBUEBEaUBuE7s2f61lKCyG
+	IDBJQI+JU8NZo8lx1dTP/cYnXwj7d/JqpmUW4AwOK6llFsXTkYQ0/5SEEKxRMcg6k4bfg2Aqy24
+	4FFZHOIe8ukyQFlcJJrhnJN+UGdwQKZmweBHJcIriRn6Z2P9rV3Kla0mTCCKjfIxoexJMl6uGaE
+	crUX5kIfWs4B+OoATGfe9iIo3BOyDLSo21uZGLOJDoPDY4kgJON0yw4Xv9x18OY2t5OsopnSt9T
+	4afnnSs0qJnz4TutLtOtENYijvm6LHzQxt6liIqicWsM/6qFIvkV3XBClDjXcuMUkEMzCO79Xbr
+	jj4qirfCue2KulhHjxZQ/Ew5of5f/LvStqtjg36mZzOww6N6EEkymRx68M0LpE0exyZPwcSw==
+X-Received: by 2002:a05:600c:810a:b0:495:737a:7afe with SMTP id 5b1f17b1804b1-49987985df1mr76542075e9.15.1786714923535;
+        Fri, 14 Aug 2026 06:42:03 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:9886:6a22:ee2a:d5e1])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-499899c138dsm32119835e9.8.2026.08.14.06.42.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Aug 2026 06:42:02 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Lee Jones <lee@kernel.org>
+Cc: sashiko-bot@kernel.org, Mark Brown <broonie@kernel.org>,
+ sashiko-reviews@lists.linux.dev, robh@kernel.org, mfd@lists.linux.dev,
+ conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
+In-Reply-To: <20260813095600.GA1072730@google.com> (Lee Jones's message of
+	"Thu, 13 Aug 2026 10:56:00 +0100")
+References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com>
+	<20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
+	<20260812214019.CDF921F000E9@smtp.kernel.org>
+	<1jldaafmpd.fsf@starbuckisacylon.baylibre.com>
+	<20260813095600.GA1072730@google.com>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Fri, 14 Aug 2026 15:41:59 +0200
+Message-ID: <1j33wg6cpk.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q4nI28h3rGiaFoks"
-Content-Disposition: inline
-In-Reply-To: <ZQ4PR01MB1202CD24FCDA9039EDF2C7A0F2DA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+Content-Type: text/plain
 
---q4nI28h3rGiaFoks
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On dim. 13 janv. 2008 at 11:56, Lee Jones <lee@kernel.org> wrote:
 
-On Fri, Aug 14, 2026 at 01:13:38AM +0000, Changhuang Liang wrote:
-> Hi,Conor
->=20
-> Thanks for the review.
->=20
-> > On Thu, Aug 13, 2026 at 08:10:12AM +0000, Changhuang Liang wrote:
-> > > Hi ,Conor
-> > >
-> > > Thanks for the review.
-> > >
-> > > > On Wed, Aug 12, 2026 at 10:37:16AM +0000, Changhuang Liang wrote:
-> > > > > Hi, Conor
-> > > > >
-> > > > > Thanks for the review.
-> > > > >
-> > > > > > On Tue, Aug 11, 2026 at 05:36:19AM +0000, Changhuang Liang wrot=
-e:
-> > > > > >
-> > > > > > > > On Sat, Aug 08, 2026 at 06:50:53PM -0700, Changhuang Liang
-> > wrote:
-> > > > > >
-> > > > > > > > > +static int __init starfive_socinfo_init(void) {
-> > > > > > > > > +	struct soc_device_attribute *attrs;
-> > > > > > > > > +	struct soc_device *soc_dev;
-> > > > > > > > > +	const char *machine =3D NULL;
-> > > > > > > > > +	struct device_node *np;
-> > > > > > > > > +	struct regmap *regmap;
-> > > > > > > > > +	char rev_char;
-> > > > > > > > > +	u32 rev_id;
-> > > > > > > > > +	int ret;
-> > > > > > > > > +
-> > > > > > > > > +	np =3D of_find_compatible_node(NULL, NULL,
-> > > > > > > > > +"starfive,jhb100-sys0-syscon");
-> > > > > > > >
-> > > > > > > > Remind me again why this is not just probed as an mfd cell
-> > > > > > > > from the syscon driver?
-> > > > > > > >
-> > > > > > > > (Hint: please put this info in the commit message).
-> > > > > > >
-> > > > > > > The discussion result with Krzysztof at that time is recorded=
- here:
-> > > > > > > https://lore.kernel.org/all/20260405-strong-watchful-marmot-fd
-> > > > > > > fad6
-> > > > > > > @quo
-> > > > > > > ll/
-> > > > > > >
-> > > > > > > One register should not be treated as a separate device node.
-> > > > > >
-> > > > > > That's a different question. In the case of an mfd cell probed
-> > > > > > from the syscon driver there would be no devicetree
-> > > > > > modifications required compared to what you have now. e.g.
-> > > > > > sg2044-topsys.c
-> > > > >
-> > > > > This seems feasible, and I can introduce this modification in the
-> > > > > next
-> > > > version.
-> > > >
-> > > >
-> > > > In fact, you don't even need the mfd cell, because your driver is
-> > > > going to be in drivers/soc/starfive anyway? You can just bind
-> > > > directly to the
-> > > > sys0 syscon I think.
-> > >
-> > > I suddenly realized that I missed one issue:
-> > > starfive,jhb100-sys0-syscon is already bound to the PLL driver by def=
-ault, I
-> > can't use it to bind another device anymore.
-> > >
-> > > which is why I used
-> > >
-> > > np =3D of_find_compatible_node(NULL, NULL,
-> > > "starfive,jhb100-sys0-syscon");
-> > >
-> > > in jhb100-socinfo.c.
-> > >
-> > > So it seems the MFD cell approach isn't really feasible either?
-> >=20
-> > You could, in that case, probe the clock driver using the mfd_cell like
-> > sg2044-topsys. What else other than the pll controls and the soc info r=
-egister
-> > is in this register region?
->=20
-> We don't have any other drivers right now in this register region.
+> On Thu, 13 Aug 2026, Jerome Brunet wrote:
+>
+>> On sam. 12 janv. 2008 at 23:40, sashiko-bot@kernel.org wrote:
+>> 
+>> > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>> > - [High] The corresponding regulator driver lacks support for
+>> > `AXP318_ID`, causing the `axp20x-regulator` child device probe to fail.
+>> 
+>> Funny sashiko did not pick up on this when v6 was first sent. This is an
+>> ordering problem. The regulator part should be applied before the mfd
+>> one.
+>> 
+>> I could reorder here but there is not much point since the 2 changes will
+>> land in different subsystems but it does bring a valid question:
+>> 
+>> Lee, Mark, are you OK with picking the patches indended for your
+>> subsystem or would you prefer that I split the series, regulator on one
+>> side, mfd on the other (with a dep on the regulator one, of course) ?
+>
+> Does this break existing devices or simply delay support for this new one?
 
-I'm not asking about what's got a driver right now though, I am wondering
-what else the registers in this region are for.
+Existing device are fine and untouched.
 
->=20
-> So does that mean I can revise it to the format below:
->=20
-> static const struct mfd_cell jhb100_sys0_subdev[] =3D {
-> 	{
-> 		.name =3D "jhb100-sys0-pll",
-> 	},
+I've just checked and if someone tried to run without PATCH 5 (regulators),
+the main axp driver loads fine but the regulator part gives this
 
-> 	{
-> 		.name =3D "jhb100-socinfo",
+axp20x-regulator axp20x-regulator.0: Unsupported AXP variant: 8
 
-Why would this be needed? The driver with the mfd_cell would be the same
-one that provides the soc info, no?
+Seems sane enough if the regulator part is not present (and no board
+using it has landed yet)
 
-> 	},
-> };
->=20
-> static const struct mfd_cell jhb100_per0_subdev[] =3D {
-> 	{
-> 		.name =3D "jhb100-per0-pll",
+To completly avoid this, the ID would need to be in its own patch,
+then the regulators, finally the MFD. It seems like an unecessary churn
+but I can do that if you prefer.
 
-Why do these other ones need to be modified?
-
-> 	},
-> };
->=20
-> static const struct mfd_cell jhb100_per1_subdev[] =3D {
-> 	{
-> 		.name =3D "jhb100-per1-pll",
-> 	},
-> };
->=20
-> static const struct mfd_cell jhb100_ pcierp _subdev[] =3D {
-> 	{
-> 		.name =3D "jhb100-pcierp-reset",
-> 	},
-> };
->=20
-> Best Regards,
-> Changhuang
->=20
-
---q4nI28h3rGiaFoks
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCan8aPAAKCRB4tDGHoIJi
-0kOqAPsGeCAPpE7N46vGdjXobBZre+Ywd6lVU7KwdBnv/LbmawD/Z4/VHI6b3P3F
-pX/Hl1QaTgbFV37yLa8ntnUyfqr3NAs=
-=Plw4
------END PGP SIGNATURE-----
-
---q4nI28h3rGiaFoks--
+-- 
+Jerome
