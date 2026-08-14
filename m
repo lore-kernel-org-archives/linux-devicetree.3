@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B0D3B637C;
-	Fri, 14 Aug 2026 10:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33453515EE;
+	Fri, 14 Aug 2026 10:36:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786703699; cv=none; b=Yfb2KrGlaUb1t9WGegOxU7cvMvzhH2nzWgvpfKtbm9JxWo/LKZe5zHhirLfO8vo1HKzUieVuIsnRlDyQN5RWowWqAyOfkasy7qcPz0H/l8va5XkyBSoaH5Jwt/fzAYbNOgxmFBNqKi8aGkEPBijPH/IL0HRvNmWQzxp1chJr50U=
+	t=1786703822; cv=none; b=aaUwHlMFYkqMhh8bWgqkDbsXLA7RoyO2/17HasZk4bKqOYb9jPy+zQ8gOPGCGPPBgqSpAjbU+xsYE52uWomVtwTq/+rjRKkMN9DhUOs97Q/SMWHs36Kg5yMDDYljdgnzB3HI/7QEXcI2Tf5hmi1QeP55qaesTzyd7vPfRXNQYJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786703699; c=relaxed/simple;
-	bh=jSgH07T1T1GPvz2qg7Pd/HQPLo9H1ZT4I3dPszGWKXs=;
+	s=arc-20240116; t=1786703822; c=relaxed/simple;
+	bh=mhBFXC+ZR25f8KOXVUpz/y5wnKdP0U5PozYTFgZxfKs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J+dsY+tyyWYQzODRn5xZ84UArYurMH3NoGTsLLe0GfrmWqCz0ZBain/zsCZlMif0XiC1QVxeR7+lpa4Y3CVYXijZNEPkLSOrPsE1Mxb9iaBqOWT47EH0q9UBs9PqVbzI0Q/MdqvDs/5wJACprSn93TLwBZpuUZY4xCj8s7kn+vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cMkKl8fZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cfu7Thytq7eMAc4M6khUlRaB/iaYRY0pUp8nm7lSL5Qc74XUNmAhS8uj99jzE0uEceFqIe2DqZ/TM6zBiwTsKhI01Gcj6xM3krX9gPRyD5BaMUfR0tG15n3Ww4hdKz7b/WsPGJ/4jE3vNXwZBniUXmf/XBkqzVOta7v9XhwG1kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j5nndVoo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cMkKl8fZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0F01F000E9;
-	Fri, 14 Aug 2026 10:34:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j5nndVoo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806D11F000E9;
+	Fri, 14 Aug 2026 10:36:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786703687;
-	bh=4RIu9UZ9bVZVLDk/aNoSWVU7vQlBGpgluA294lEBvNs=;
+	s=k20260515; t=1786703815;
+	bh=TLTSMt3dVlaVBE5gQDt5OMCyAy0P0M4s4BwBgAereRQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cMkKl8fZHQbHiyJDHDx4ntZfVQJyqXZK+F1XzupY/GgrJ6MJ+7aldgS0kpe2m5a97
-	 BYvYvE+yZY6NlBMItJHc4rfWyOESUjWcBOb9ouW9F9Upmsl+FuE6Icdp6QTK8kOqAj
-	 /unLnKbbAzTKR++n5TolvbAXuUMphKjU/zxpAei/XMzEA2VNLBtjxDS4356Rw0F7K/
-	 1KUix4Z8OiDC3jN+njAgEiBh4kYvWs8Vi1ztG6u5Ke0AmPwbfOneuoZkA/xLYgEthu
-	 BQpjuHE2WwjPSp5P3uzBaE5pWqZfz4GrHJsTS3GPihJqz732eW38Ocwr7X2S2J87WM
-	 Ev7wbmP612BIw==
-Date: Fri, 14 Aug 2026 12:34:39 +0200
+	b=j5nndVoout99Q2akG6iExCML91Yf79Dv7l30g1bbaAW+mQKMTCyS7+Fq1ZO/cjbsh
+	 Kc7B5D3KjEWftsTEsACxy4m6a4T88gdZn4uTkad6LpK7DQSIezrXlrDHWiZIfrgVVG
+	 DQHG3yYUrS3fgsoKMNXYG58SwvsOj5TQq+8B6lk99BPbAFz9Wn75jkph0SeXbjIFZq
+	 KRLsgBByhSPsvgupVYjH8g2Sd83ehnFm51cPdGSJQ5jlZQh1R64rV97FoPv1DkHv2N
+	 As08vf9z0a+wXw6HAw/GXFI1ux+Svrt8Y0UBcWAZNO6k8FfGMevvymh2HiEZ/kInK5
+	 KHupuu18DkRNA==
+Date: Fri, 14 Aug 2026 12:36:45 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Adam Skladowski <a39.skl@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 6/7] dt-bindings: arm: qcom: Document Xiaomi Redmi 9T
-Message-ID: <20260814-amazing-flying-tarsier-9e78ca@quoll>
-References: <20260810-next-patches-v1-0-79a779d76173@gmail.com>
- <20260810-next-patches-v1-6-79a779d76173@gmail.com>
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Heiko Stuebner <heiko@sntech.de>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: gpu: arm,mali-utgard: add mt6572
+Message-ID: <20260814-portable-premium-avocet-eafbe2@quoll>
+References: <20260810-6572-dt-mali-v1-1-fb908627bf23@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,16 +48,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260810-next-patches-v1-6-79a779d76173@gmail.com>
+In-Reply-To: <20260810-6572-dt-mali-v1-1-fb908627bf23@protonmail.com>
 
-On Mon, Aug 10, 2026 at 06:55:39PM +0200, Adam Skladowski wrote:
-> Add compatible for Xiaomi Redmi 9T NFC codename lemon which is one
-> of variants of Xiaomi Citrus lineup based on Snapdragon 662 SoC.
+On Mon, Aug 10, 2026 at 11:16:19PM +0300, Roman Vivchar wrote:
+> Add a compatible string for the mt6572 Mali-400 MP1 GPU.
 > 
-> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+
+Does not come with resets?
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
