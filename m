@@ -1,96 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5924837AA77
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:24:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFEF40B6F9;
+	Fri, 14 Aug 2026 07:25:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786692287; cv=none; b=qnQvlm4uHokS+rMqCyaxNvPX/yhtW57RtJD4xcmw2/RgP6MhklqDnyYx8WTw1qOzC7N/j0x3l9XVmeO/Tfk9b2XFo47DDA6xeRHu+RtSZPkTyGGw6xRiznLB0dDKRYLU4CCDga/Au5Q5XXqcgnrpRGDYQeQYKJgjMd5rn/C6vVk=
+	t=1786692344; cv=none; b=BNkg7KsFkZGZ0DTPfdIQtMHZzfE7s7UK8s4vLewWoPsOUwVR6SiI3wigSOZsrryBOS1vcUuFDXv+6zAVVqyebe5A6M065twXwoOotMWm8HNoGBQgxWWtY05IalHrXbwmHmr+6Hy1k6zaeCXvHsGlXf3A0ZQEhWO0fyRnAjYeoqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786692287; c=relaxed/simple;
-	bh=rdlUChRX55vO9PpflsrwyY/Uty0XIuzlPAZzfWduU2w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jps2J3C1g9ExvbwY4s+JVfWygmaycrVghqwNQdKI6N78W43vhHFKkg512WbZp45J+p93XhLs5qWW+BJIP1nBXeVoc242q9ozQLmq1/pc7rhFc9zzqqhFqA05/Ms9/9QeKPu346WQ2RsarGMmcdljABUQWo57NBaHYkYECTttsN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NdobK5P7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786692344; c=relaxed/simple;
+	bh=tNYJ2eWxwWvEE362MGFf/Mrb4qNC3D5AtCyhgqAjtb4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SXsZ0J1g/SczUOQcCy7AnqHIkmwBFp98ftAntVtPRJC2kfnE3g3ZdtI805lradbJdNH/InBSMFPj6Tu+daSJonf52kMfbmDYxViW2C4KpR1BEsrL0HUAW1h2AodC1J4/hYl05p360EmSkAVix4BKPdjgETsKfmZFgv+aJhc/oJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhwsSZJx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NdobK5P7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7581F0155B
-	for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 07:24:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhwsSZJx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A561F000E9;
+	Fri, 14 Aug 2026 07:25:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786692285;
-	bh=rdlUChRX55vO9PpflsrwyY/Uty0XIuzlPAZzfWduU2w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NdobK5P7ltwmAODtEn59kDPeamBRluZxJnXO/nVVW+l6uDYRYpOdFpC1Qw4NmYNhd
-	 lRrOvNmFvZznVWctNMIwMF+LwqUWKEBQOpZh7CcfT6aPbL6ytHNBMsqddT3GJhjojm
-	 zwAcHFmsgoCl2aORKVrzGFVEMDl4rkjT2TgD3Y5bhVCLTs+ZBQpXIdasLjuPwBU3Af
-	 Lzka/D50/HRcAcwVAvWN3x129nZIkkJamcngZ0yXeGLRkrjEWcm/C5m5mb87xgl6xJ
-	 fgfXg+Rd4zfrSge6O6pl/r6ptqmZieogAqn2PCAKxN6rJ3kmb73OniseZhETNNYoul
-	 OmUozkBbB2pKg==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5aeb98460c6so530034e87.2
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 00:24:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq/2lC3L9cY0qU8IgaTELQg15cbLxi72ifzgd0tW3ErZY2WeTt78dwoEieht/JFBmN/Lw3FDFVrBhHg@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmqLvxAalRixFyDFLDBNE8ymEhXFnIc7vYEbs8o3YZWoBHXSfn
-	HWzHH/3McGo1ncnf1iTa2Q8kbpQ0q+Vrs2m0a+WfEw/QpvaMkdVPpdAre4OS1cV1Gn+LQ+qvCFx
-	rAf9OnktuR9PiLZehoD4F1dRLquZ6+8U=
-X-Received: by 2002:a05:6512:3b11:b0:5ae:c636:78 with SMTP id
- 2adb3069b0e04-5b459194595mr444450e87.53.1786692283880; Fri, 14 Aug 2026
- 00:24:43 -0700 (PDT)
+	s=k20260515; t=1786692342;
+	bh=Hdl9rrAdXNWCw5d2q0AKYUQBWJKl/0rkGZZe7p4rSzQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lhwsSZJxnx9ISsXprAZbl28KzDibDsmlOm/c0FD19Ul7XyJwEvcxiVg66nsJkXkgP
+	 dt1yleTWqE4S0AFtkCAM5ZCGMfDrGbMgOAsP9GegEB5BDmLwlhlZde301oztBkcdwg
+	 lz5Bj84YX72rXnmqWrV2fl4XEnbZZuwPWtGmcAH9coJ0nnL/ejI91SwxRe1gl1bfgV
+	 sTTZepONsp91rNQVJ0cJmF400Z+PlMSsQDYZ3nrr1/XEMPVkUxjeDC1bvCEuIJKUwx
+	 e0KWBrCb+aDS+Q07IpwUeVsZ6/PrPYXq2INRHHqBaJt5wI7z7wPh6mriAg9isPurNu
+	 kjb5XL1gx0RUQ==
+Date: Fri, 14 Aug 2026 09:25:33 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Stefan Agner <stefan@agner.ch>, Fabio Estevam <festevam@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Francesco Dolcini <francesco@dolcini.it>, 
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Mehmet Fide <mehmet.fide@screeningeagle.com>
+Subject: Re: [PATCH v4 3/4] dt-bindings: arm: fsl: add the Colibri VF50 and
+ VF61 on Iris
+Message-ID: <20260814-slick-brilliant-termite-72c754@quoll>
+References: <20260813161101.2274327-1-mehmet.fide@gmail.com>
+ <20260813161101.2274327-4-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811-apple-m4-initial-devicetrees-v3-0-6bf32d45ad0b@cyberchaos.dev>
- <20260811-apple-m4-initial-devicetrees-v3-9-6bf32d45ad0b@cyberchaos.dev>
-In-Reply-To: <20260811-apple-m4-initial-devicetrees-v3-9-6bf32d45ad0b@cyberchaos.dev>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 14 Aug 2026 09:24:32 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkRs5m1m3Y3vBfXvxn13i-3cMXhcEWq5ScD-xbN9uta5A@mail.gmail.com>
-X-Gm-Features: AcwNN1U4pSEQhXzI6xw99X3FAIiwxI9oO82g146e3gwAfl2evI9yLHdfuJ1SQuA
-Message-ID: <CAD++jLkRs5m1m3Y3vBfXvxn13i-3cMXhcEWq5ScD-xbN9uta5A@mail.gmail.com>
-Subject: Re: [PATCH v3 9/9] arm64: dts: apple: Add minimal t8132 (M4) device trees
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Hector Martin <marcan@marcan.st>, 
-	Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Sasha Finkelstein <k@chaosmail.tech>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-pwm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260813161101.2274327-4-mehmet.fide@gmail.com>
 
-On Tue, Aug 11, 2026 at 9:37=E2=80=AFPM Yureka Lilian <yureka@cyberchaos.de=
-v> wrote:
+On Thu, Aug 13, 2026 at 06:11:00PM +0200, Mehmet Fide wrote:
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+> 
+> The Iris is a small off-the-shelf carrier board for the Colibri
+> family. Extend the evaluation board entries with the compatibles for
+> a Colibri VF50 or VF61 sitting on it.
+> 
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+> ---
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
 
-> Added device trees for the following devices:
-> - apple,j604 - MacBook Pro (14-inch, M4, 2024)
-> - apple,j623 - iMac (24-inch, 2x USB-C, M4, 2024)
-> - apple,j624 - iMac (24-inch, 4x USB-C, M4, 2024)
-> - apple,j713 - MacBook Air (13-inch, M4, 2025)
-> - apple,j715 - MacBook Air (15-inch, M4, 2025)
-> - apple,j773g - Mac mini (M4, 2024)
->
-> The device trees have a minimal set of devices limited to CPU cores,
-> interrupt controller, power states, watchdog, serial, pin controller,
-> i2c and framebuffer.
-> The device trees for the notebooks add a PWM controller for the keyboard
-> LED illumination.
->
-> Using the macOS 26.6 iBoot/firmware, the Mac mini reliably boots on a
-> single core using the stock kernel.
-> Booting with smp requires avoiding the wfi and wfit instructions
-> in the idle loop and `delay()` respectively, since those instructions
-> cause a loss of architectural state on the secondary cores, and even
-> then boot is unreliable.
->
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+<form letter>
+This is an automated instruction, just in case, because many review
+tags are being ignored. If you know the process, just skip it entirely
+(please do not feel offended by me posting it here - no bad intentions
+intended, no patronizing, I just want to avoid wasted efforts). If you
+do not know the process, here is a short explanation:
 
-Yours,
-Linus Walleij
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions of patchset, under or above your Signed-off-by tag, unless
+patch changed significantly (e.g. new properties added to the DT
+bindings). Tag is "received", when provided in a message replied to you
+on the mailing list. Tools like b4 can help here ('b4 trailers -u ...').
+However, there's no need to repost patches *only* to add the tags. The
+upstream maintainer will do that for tags received on the version they
+apply.
+
+https://elixir.bootlin.com/linux/v6.15/source/Documentation/process/submitting-patches.rst#L591
+</form letter>
+
+Best regards,
+Krzysztof
+
