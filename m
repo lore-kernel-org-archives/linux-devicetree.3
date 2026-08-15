@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58292868B4;
-	Sat, 15 Aug 2026 01:58:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5A834A76F;
+	Sat, 15 Aug 2026 01:58:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786759081; cv=none; b=C8gbxiIhyvSjrGq322pV34gUPzM3Pp6fQc4cROUKolDRxm8/dDt+a02mY1q3E8vpomCT3Q/L+UmqUNAc0hLG4RIiMYub+EU8LvPvY15+gos8MxEMNcLnxbYmARo/FVRblt8pLJfAPuT+bMrozaw2Q92XRMj3XYl+23zTuuPr6W4=
+	t=1786759084; cv=none; b=GnkLMQOShSyW97+ArFl2t7Gb0jwPNbsyCSF3jLFhjfrJq0Egpqu8P6NfzY6U1gqvbppVXmISKNSpE5h3YtJd9oqS0wZzgDueom9uGQ2oNHcbQRN4VvPMGQ3u46ARgCAmHBO27SaNESQae3hlRtdbJ0NcfhmJtY2wHEq5JZgTars=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786759081; c=relaxed/simple;
-	bh=itN1arvTPlPh2nR8v/siBreFw80nWKZu6R5ZpIOSx3I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tOmgRe4HrMhoJJUJB5BjOLRm3ZW6HMIKyCVbPRqsyQZ7NTO1sag78VAEykkZ8eXeH1maxiu5QK7xqMnRhhaPWBesCciAno3loeKaL9AMKQxiTX6+zbXWPvDocqQuk2qEie4CpI3ntXNT8gF78W9GFNdvFg7d9L/7GfvpwCodJLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y1ZnTeLF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786759084; c=relaxed/simple;
+	bh=Lu1ciDr3UGN9nlNsYTXuFJTd6Yl9FiERRJ8UOk1Z1Ac=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jfHRcpy75RLBOsV8pfdf5V8cDyojsiqqd33waBwPXc7RVVi/OG9BH8nippbVURRAS6dysqXFgJCyVJ7yktTZHB1rbT8f35vjnhNcWjQwnBvg4lG2r4/9eYOSs3zpyaxO16HZcSkGpyYGO4IK9nYz8gSZZsArfTsyZrcAUTJo1ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QT+X+iQG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y1ZnTeLF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FBA1F000E9;
-	Sat, 15 Aug 2026 01:57:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QT+X+iQG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DD31F00A3A;
+	Sat, 15 Aug 2026 01:58:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786759080;
-	bh=rx1u2vR9HpIVmw5IjJJbTK6HYVGFK1DvmadtnCk63NI=;
-	h=From:To:Cc:Subject:Date;
-	b=Y1ZnTeLFgA3QtO+GxscAANY2o3OpcXW4mZIY+kueO923p4v+VIT92LwsTUVijS5r8
-	 YIomW2R3I1qRWGPiSQFnBz+Vqh6trsYhblcsKxLW5yfOC4Eu35JWik1E7ueQLObdDl
-	 FnfpSn8qb+9EIBBF9JzQQwsl3hm1UuWluODrTuGDxKGr4O+8Aiz/JJncpU1JLsgR0W
-	 mxuELNGB9QKFEe2/hlkxD1tHeycbFLivweTZmkiIoqGgDxbeI1P0meri81Z+aqTfeN
-	 d61sJKa6Yg+CdQY2g7OXppekm5VXwYuvqulRKUyTa4mkcYddS4+moTdA/i54qc7T01
-	 +nSl2USH8pjWA==
+	s=k20260515; t=1786759082;
+	bh=5lmLAL2bcDbv13JwDq0IXXt8TpckG5QbWoFG1VJqhLU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QT+X+iQGOjZLCxyyTvYYweZ3FPVC5OsQ/aVMDn6T/vYXRLaqhK9b9nWy888RmQrvE
+	 ksu6/oLqGnd1bEPP7aWxfkfI1tFTR2YqvAOugdfmHj0d9uemJO46LRyf/NRRG0Dlel
+	 1ukJAMVfSVmnMw5h2YGdp6NK9QwPYf5c0ckAGiGbmsdhC9GFlp0+3h9WWoqsZUKAPu
+	 T8wv6pl7VaNzmAIEk2UvQ2x0QBIE6E5HO+yeunnIS63rMZ8DPHvz1mrVsna99MeKIW
+	 3Epp2oaMTKwlLm+JNJ0F2di1/XME1zU2tOxfmo+o1OsoF87h+9OIxtjl2RLjX6clx5
+	 teYTQMx/8Gk5A==
 From: Guo Ren <guoren@kernel.org>
 To: robh@kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -34,10 +35,12 @@ Cc: devicetree@vger.kernel.org,
 	robh+dt@kernel.org,
 	conor.dooley@microchip.com,
 	krzk@kernel.org
-Subject: [PATCH 0/2] dt-bindings: Add Xuantie Semiconductor Co., Ltd.
-Date: Sat, 15 Aug 2026 01:57:20 +0000
-Message-ID: <20260815015722.1736831-1-guoren@kernel.org>
+Subject: [PATCH 1/2] dt-bindings: vendor-prefixes: Add Xuantie Semiconductor
+Date: Sat, 15 Aug 2026 01:57:21 +0000
+Message-ID: <20260815015722.1736831-2-guoren@kernel.org>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260815015722.1736831-1-guoren@kernel.org>
+References: <20260815015722.1736831-1-guoren@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,29 +51,34 @@ Content-Transfer-Encoding: 8bit
 
 From: "GUO Ren (XuanTie)" <guoren@kernel.org>
 
-The RISC-V CPU bindings currently describe the XuanTie C906, C908,
-C910 and C920 processors using the historical thead vendor prefix.
-
-Add xuantie as the vendor prefix for Shanghai Xuantie Semiconductor
-Technology Co., Ltd., and add corresponding xuantie,* compatible
-strings for these processors.
-
-The existing thead,* compatible strings are retained to preserve the
-Device Tree ABI and compatibility with existing device trees.
+Add the xuantie vendor prefix for Shanghai Xuantie Semiconductor
+Technology Co., Ltd., which provides the XuanTie processor IP.
 
 The vendor information is available from the Xuantie declaration
-page [1].
+pagei [1].
 
-[1] https://www.xrvm.com/declaration
+[1]: https://www.xrvm.com/declaration
 
-GUO Ren (XuanTie) (2):
-  dt-bindings: vendor-prefixes: Add Xuantie Semiconductor
-  dt-bindings: riscv: Add Xuantie C906/C908/C910/C920 compatibles
-
- Documentation/devicetree/bindings/riscv/cpus.yaml      | 4 ++++
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: devicetree <devicetree@vger.kernel.org>
+Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+---
  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 2 files changed, 6 insertions(+)
+ 1 file changed, 2 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 396044f368e7..89391cb467d5 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1905,6 +1905,8 @@ patternProperties:
+     description: Xilinx
+   "^xnano,.*":
+     description: Xnano
++  "^xuantie,.*":
++    description: Shanghai Xuantie Semiconductor Technology Co., Ltd.
+   "^xunlong,.*":
+     description: Shenzhen Xunlong Software CO.,Limited
+   "^xylon,.*":
 -- 
 2.43.0
 
