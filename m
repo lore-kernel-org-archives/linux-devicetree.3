@@ -1,137 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179C51B652E
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF842AEF5
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:34:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786800842; cv=none; b=bJYdjUpRwA2koa2KSu2ZiNrOBQLUY50W7QEkos/co5OKd+nKZ9LGo/w8bGT1omO8ThoqwWW+ad7+J4Tc3xV9/JgLCkey3il70CIZr4oUsa6xlpKyx638VOLbpXpeDx2pMPpdqOP4vam0C46DYITey4XFPieYvLlTp9NRDl/OYBY=
+	t=1786800883; cv=none; b=tE9/j/0EMqivIdozYkSlUb6MoTmeYzMpwJ+NHwpX4zhjW81wZJUPN0ZSrsAWeT2+Hrxd2fMRs6rvoJxmaZ1Qk17D2T7/jxpC19UdMLVyWAOsAMKhMdsG/OgfKbvn3eJie2GDtfXdjvTRzaJhliEfaZD9RZRPs2LTSm+L5vS2pv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786800842; c=relaxed/simple;
-	bh=vObI5RIDdwS5X+zFE7HhVBI6tNMVCJH9ycVj+iH2xYw=;
+	s=arc-20240116; t=1786800883; c=relaxed/simple;
+	bh=Dc25uHRR3BGRjUk4NAR8DnWVO2iUstLlR1mzhZJ9nG0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=V0QjNXdQDxMwpVDfrmbEh/mp5ALTMIV11huD/SpuEAHlheIrjakzQygE+M57HEodPWjWze2QclsMbJTjSrlD2Ar8lzmDmpyYPrRfpXSitOTpFK/f7SEWNq9XZBk4lBK/UWCfuGgsNbTAMy6INcb7j3DCcSYmBDnjbAIkxWm4vL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqR81mWX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pTmcqaDYgh7f0cFCLfOFMxFxb+/G9NhmyFeZxZhT7A7K3nKDJHXW1kNaf6GSRyzuYpri81e6DTQ/i8EXWXCwmMbwWzvHh6VgAg6qWbeZCs1Y6jTl6lr7COHdrUOBBXpMDbt+eQSnGE+puG5WaXzsTeHNpSiGdodB0Ecs6ox/5LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PYmbvmb+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqR81mWX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF2B1F000E9;
-	Sat, 15 Aug 2026 13:34:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PYmbvmb+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369171F000E9;
+	Sat, 15 Aug 2026 13:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786800840;
-	bh=EdnXtvI11B6mTOLHJgzEOnhJLFB662Jj/4lSIknyzVU=;
+	s=k20260515; t=1786800881;
+	bh=eoVrl+YJsPm2G7od1hCUmGOHbDnJ1h1AtjguamArfi4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XqR81mWX3rI950zsODuyDlX+ZRMxuwmr0TKDmp3CO80+Kny135QX7eKsdMLZAiEg2
-	 KaqVkbDWiMCWlIPgJxNYxXkoH3lsBQNv0LMvSAXhQ9lmttsapW16aB7aFHqY+4RgY/
-	 E/CYAx3tbDxzISWLWkRcudq4zHhXneNPvZQ6yjN38cL3aJJQMOIMJw/WFWlPNdkgHK
-	 193myilYg+zmeUW2z9GV6wGUpA/D1vGfAZaXg9p55QHqTcz/q7ounAhyeEwimPCK4L
-	 lmW38L9eanlpN2wz7/PL+H+alVSNwkM6ogbYWroKWnzpPw7WdmToP+Q+HFYa137OC1
-	 20oAiBCDaYwiA==
+	b=PYmbvmb+Lbp9rDjcZfrUgh3ZfM3fz/ibPEj2waDrQshphqmjIC+4P+Q/+hrolKxvX
+	 u+1rZePchgq/dxybEucFWmhAsBhpcXIdLAfLqXfm40vyke9SnDZKUEXdr44e7eho97
+	 W29oUlm+c52j78ZZXqasAbZptJOE8pUJkr7P/EIFHz0WyZ7Cy0eFJvSrtMvxWfB1RP
+	 tdy95XObuA3bk/5+cjJUbHAQSHw/yla4xTw6uWyrtb8oxojJvhzJnPnYmkY9bvkNC5
+	 2q27uR4Abx0Kd2meMJCGbbJwfMGPPeLuuIqV2X8UhqMd2uocrPsIH7pUkurWseYQsz
+	 5okoMKROc2MtA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/8] remoteproc: qcom: sysmon: Suppress notify between
- cluster siblings
+Subject: Re: [PATCH 6/8] remoteproc: qcom: pas: Sequence HPASS ADSP cluster
+ boot root-first
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
 Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260815132541.1575121-4-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260815132541.1575121-7-shengchao.guo@oss.qualcomm.com>
 References: <20260815132541.1575121-1-shengchao.guo@oss.qualcomm.com>
- <20260815132541.1575121-4-shengchao.guo@oss.qualcomm.com>
+ <20260815132541.1575121-7-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 13:33:59 +0000
-Message-Id: <20260815133400.5BF2B1F000E9@smtp.kernel.org>
+Date: Sat, 15 Aug 2026 13:34:40 +0000
+Message-Id: <20260815133441.369171F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch's fix =
-for the QMI timeout is incomplete. The patch adds a cluster-based suppressi=
-on mechanism in `sysmon_notify()` to prevent QMI timeouts caused by peer SS=
-R notifications between remote processors in the same cluster. However, it =
-fails to add the same suppression check in the state synchronization loop i=
-nside `sysmon_start()`. When a remote processor powers up, `sysmon_start()`=
- iterates over all already running instances and directly calls `ssctl_send=
-_event()` (or `sysmon_send_event()`). If a sibling in the same cluster is a=
-lready running, the newly starting processor will explicitly receive a peer=
- notification about its sibling. This will trigger the exact same unhandled=
- QMI message and timeout the patch intended to fix, making the timeout pers=
-ist depending on the boot order of cluster members.
+- [High] Accessing `root->state` outside `cluster->lock` without holding an=
+ `rproc` device reference causes a Use-After-Free if the root device is unb=
+ound concurrently.
+- [High] Missing state check after `wait_for_completion_timeout()` complete=
+ly breaks boot sequencing, allowing dependent members to cold boot before t=
+he root.
+- [Medium] Concurrent execution of `reinit_completion()` and `wait_for_comp=
+letion_timeout()` causes a data race on `cluster->root_booted`.
 --
 
---- Patch [3]: [PATCH 3/8] remoteproc: qcom: sysmon: Suppress notify betwee=
-n cluster siblings ---
-commit 8023059af35265ed9a7ebd6a255bd4e8dfa00c5b
+--- Patch [6]: [PATCH 6/8] remoteproc: qcom: pas: Sequence HPASS ADSP clust=
+er boot root-first ---
+commit 7abf00410ddb06041e837e4d053d61bb3ef43922
 Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-remoteproc: qcom: sysmon: Suppress notify between cluster siblings
+remoteproc: qcom: pas: Sequence HPASS ADSP cluster boot root-first
 
-Firmware on clustered remote processors (e.g. Nord's HPASS ADSP0/1/2)
-cannot handle the SSCTL peer-shutdown notification sysmon sends
-whenever a sibling in the same cluster starts or stops, and the QMI
-request instead times out.
+This commit gates dependent member boots on the cluster root having started.
+It introduces a wait mechanism using a completion to handle racing dependent
+member restarts with the root's start and stop paths.
 
-> diff --git a/drivers/remoteproc/qcom_sysmon.c b/drivers/remoteproc/qcom_s=
-ysmon.c
-> index 61e1038328e83..5d4443ef3bc18 100644
-> --- a/drivers/remoteproc/qcom_sysmon.c
-> +++ b/drivers/remoteproc/qcom_sysmon.c
-
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> index dc6e7d601a9bd..ef38a1929f56b 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
 [ ... ]
-
-> @@ -500,7 +502,8 @@ static int sysmon_start(struct rproc_subdev *subdev)
->  	struct qcom_sysmon *target;
->  	struct sysmon_event event =3D {
->  		.subsys_name =3D sysmon->name,
-> -		.ssr_event =3D SSCTL_SSR_EVENT_AFTER_POWERUP
-> +		.ssr_event =3D SSCTL_SSR_EVENT_AFTER_POWERUP,
-> +		.cluster =3D sysmon->rproc->cluster,
->  	};
+> @@ -267,6 +283,51 @@ static void qcom_pas_cluster_exit(struct qcom_pas *p=
+as)
+>  	pas->cluster =3D NULL;
+>  }
 > =20
->  	reinit_completion(&sysmon->ssctl_comp);
-
+> +/**
+> + * qcom_pas_cluster_wait_for_root() - gate a dependent member's boot on =
+its root
+> + * @pas:	the non-root cluster member being started
+[ ... ]
+> +static int qcom_pas_cluster_wait_for_root(struct qcom_pas *pas)
+> +{
+> +	struct qcom_pas_cluster *cluster =3D pas->cluster;
+> +	struct rproc *root;
+> +
+> +	/*
+> +	 * The root's PAS instance is enabled in DT (checked in
+> +	 * qcom_pas_cluster_init()) but has not necessarily bound yet, and may
+> +	 * have unbound again. Without it there is nothing to sequence this
+> +	 * member's boot against.
+> +	 *
+> +	 * Note that nothing refcounts members across unbind, so a root freed
+> +	 * under a concurrent sibling boot remains unhandled.
+> +	 */
+> +	mutex_lock(&cluster->lock);
+> +	root =3D cluster->root ? cluster->root->rproc : NULL;
+> +	mutex_unlock(&cluster->lock);
+> +
+> +	if (!root) {
+> +		dev_err(pas->dev, "cluster root not bound\n");
+> +		return -ENODEV;
+> +	}
+> +
 [Severity: High]
-This is a pre-existing issue, but does the patch leave the QMI timeout
-unresolved during power-up?
+Is there a risk of a use-after-free here if the root device is unbound
+concurrently?=20
 
-When the second processor in a cluster starts, sysmon_start() iterates over
-all running instances in sysmon_list and directly sends them events:
+Since the cluster->lock is dropped above and no reference is taken on
+the rproc device (e.g., via get_device(&root->dev)), could root be freed via
+devres before we evaluate root->state?
 
-drivers/remoteproc/qcom_sysmon.c:sysmon_start() {
-    ...
-	list_for_each_entry(target, &sysmon_list, node) {
-		mutex_lock(&target->state_lock);
-		if (target =3D=3D sysmon || target->state !=3D SSCTL_SSR_EVENT_AFTER_POWE=
-RUP) {
-			mutex_unlock(&target->state_lock);
-			continue;
-		}
+> +	if (root->state =3D=3D RPROC_RUNNING || root->state =3D=3D RPROC_ATTACH=
+ED)
+> +		return 0;
+> +
+[Severity: Medium]
+Could this wait_for_completion_timeout() race with the reinit_completion()
+called in qcom_pas_stop()?=20
 
-		event.subsys_name =3D target->name;
-		event.ssr_event =3D target->state;
+In qcom_pas_stop():
 
-		if (sysmon->ssctl_version =3D=3D 2)
-			ssctl_send_event(sysmon, &event);
-		else if (sysmon->ept)
-			sysmon_send_event(sysmon, &event);
-		mutex_unlock(&target->state_lock);
+	if (pas->cluster && pas->is_cluster_root) {
+		mutex_lock(&pas->cluster->lock);
+		reinit_completion(&pas->cluster->root_booted);
+		mutex_unlock(&pas->cluster->lock);
 	}
-    ...
-}
 
-Because this manual synchronization loop bypasses sysmon_notify() and
-directly calls ssctl_send_event() or sysmon_send_event(), it misses the
-new cluster sibling suppression logic.
+Since the wait happens outside the cluster->lock but reinit_completion()
+modifies the completion directly, does this result in a data race on
+cluster->root_booted?
 
-If a sibling in the same cluster is already running, will the newly starting
-processor explicitly receive a peer notification about its sibling and
-trigger the exact same unhandled QMI message and timeout this patch intends
-to fix?
+> +	if (!wait_for_completion_timeout(&cluster->root_booted,
+> +					 QCOM_PAS_CLUSTER_ROOT_BOOT_TIMEOUT)) {
+> +		dev_err(pas->dev, "cluster root not started\n");
+> +		return -ENODEV;
+> +	}
+> +
+[Severity: High]
+The commit message mentions that the dependent member "falls back to failing
+on the root's state" when it observes a stale completion.=20
+
+Since cluster->root_booted is initialized as signaled during probe via
+complete_all(), wait_for_completion_timeout() will immediately return succe=
+ss
+here on a cold boot.
+
+Are we missing the fallback check to re-evaluate root->state before returni=
+ng
+0? Without it, dependent members might successfully bypass the wait and
+cold boot before the root.
+
+> +	return 0;
+> +}
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260815132541.1575=
-121-1-shengchao.guo@oss.qualcomm.com?part=3D3
+121-1-shengchao.guo@oss.qualcomm.com?part=3D6
