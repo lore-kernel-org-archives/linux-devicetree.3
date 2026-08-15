@@ -1,72 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D7E15C14F;
-	Sat, 15 Aug 2026 01:57:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58292868B4;
+	Sat, 15 Aug 2026 01:58:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786759059; cv=none; b=iJbQEAl83fDBOLlaZNkujEMa7IQLKRhL5ft6aLox5NfQMyjBhsQIZXDCi4fGK64ykirguXnJVPL7rrCJl2LuuF7HWvwz7+168RXHeF/GoS6WM2un1xonVWKVsBvhgcbRleQvS5myihwTvWb9yXCQMfSvl95Wk8kxk/YLHuEX+Wk=
+	t=1786759081; cv=none; b=C8gbxiIhyvSjrGq322pV34gUPzM3Pp6fQc4cROUKolDRxm8/dDt+a02mY1q3E8vpomCT3Q/L+UmqUNAc0hLG4RIiMYub+EU8LvPvY15+gos8MxEMNcLnxbYmARo/FVRblt8pLJfAPuT+bMrozaw2Q92XRMj3XYl+23zTuuPr6W4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786759059; c=relaxed/simple;
-	bh=2k21oP3uc3CpSpDf6M9NnnLHW6BVjcb1UHkbnQKiIUM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hBFPZiq3oCAPlYnRMpYB0b5Ch3VdxX0bTSPZrH4E0r5scOPAPer/E6oom0bs12Bw8Jcjv1Kd1Cj9vTPfJBun8TcmjkdvT0PLK7B3AaZfUXabgYEIXEw7FGUtcZY87hhydzHOXXHMv8aI4K2MY8EtURASG0VjEk2+cyhNB30wdpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzZFlhvF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786759081; c=relaxed/simple;
+	bh=itN1arvTPlPh2nR8v/siBreFw80nWKZu6R5ZpIOSx3I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tOmgRe4HrMhoJJUJB5BjOLRm3ZW6HMIKyCVbPRqsyQZ7NTO1sag78VAEykkZ8eXeH1maxiu5QK7xqMnRhhaPWBesCciAno3loeKaL9AMKQxiTX6+zbXWPvDocqQuk2qEie4CpI3ntXNT8gF78W9GFNdvFg7d9L/7GfvpwCodJLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y1ZnTeLF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzZFlhvF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36CD61F000E9;
-	Sat, 15 Aug 2026 01:57:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y1ZnTeLF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FBA1F000E9;
+	Sat, 15 Aug 2026 01:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786759058;
-	bh=9zVksnQyuPy07Sp7sNksTJnIRmmkQHtYXS8UklOtV60=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lzZFlhvFFzT7JNr11cvMu4yCeFnhSny1TroFsX2oiTWNjfDTiOEZTqJqGWdEGU9rl
-	 bby36qoqoQ7Dw1aAMu2RPox6lSE6bOg/yzO+JvRmbGCoafKNJ0Fj0SXVsjJQ1pW2eF
-	 m+nubQelGmT9gTU8c4s7PXn4h/8J9HBYXoEa19sEbQ4tmPqm+TkVJAVkGC5gihMOLY
-	 VpNX9kFcIFqTWesxMGNL/WOKYDO8/Inbh1NhPtTa210nFttRUEfbP4joyQT4vCQFFM
-	 wBDXl5J0nQsvaYB/47BTntXz7YNNTk/l4XwRL6pVNnbapp3t8tN3Oy3UGaUvTV9lKO
-	 GuH0WGA90Z54g==
-Date: Sat, 15 Aug 2026 02:57:17 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, Daniel Thompson
- <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Pavel Machek
- <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold
- <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- mfd@lists.linux.dev, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v6 08/14] mfd: lm3533: Convert to use OF bindings
-Message-ID: <20260815025717.05a1bbfd@jic23-huawei>
-In-Reply-To: <20260811191132.GA1072730@google.com>
-References: <20260731113632.158440-1-clamor95@gmail.com>
-	<20260731113632.158440-9-clamor95@gmail.com>
-	<20260811191132.GA1072730@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1786759080;
+	bh=rx1u2vR9HpIVmw5IjJJbTK6HYVGFK1DvmadtnCk63NI=;
+	h=From:To:Cc:Subject:Date;
+	b=Y1ZnTeLFgA3QtO+GxscAANY2o3OpcXW4mZIY+kueO923p4v+VIT92LwsTUVijS5r8
+	 YIomW2R3I1qRWGPiSQFnBz+Vqh6trsYhblcsKxLW5yfOC4Eu35JWik1E7ueQLObdDl
+	 FnfpSn8qb+9EIBBF9JzQQwsl3hm1UuWluODrTuGDxKGr4O+8Aiz/JJncpU1JLsgR0W
+	 mxuELNGB9QKFEe2/hlkxD1tHeycbFLivweTZmkiIoqGgDxbeI1P0meri81Z+aqTfeN
+	 d61sJKa6Yg+CdQY2g7OXppekm5VXwYuvqulRKUyTa4mkcYddS4+moTdA/i54qc7T01
+	 +nSl2USH8pjWA==
+From: Guo Ren <guoren@kernel.org>
+To: robh@kernel.org
+Cc: devicetree@vger.kernel.org,
+	guoren@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	robh+dt@kernel.org,
+	conor.dooley@microchip.com,
+	krzk@kernel.org
+Subject: [PATCH 0/2] dt-bindings: Add Xuantie Semiconductor Co., Ltd.
+Date: Sat, 15 Aug 2026 01:57:20 +0000
+Message-ID: <20260815015722.1736831-1-guoren@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 11 Aug 2026 20:11:32 +0100
-Lee Jones <lee@kernel.org> wrote:
+From: "GUO Ren (XuanTie)" <guoren@kernel.org>
 
-> Jonathan,
-> 
-> IIO ack please, mate.
+The RISC-V CPU bindings currently describe the XuanTie C906, C908,
+C910 and C920 processors using the historical thead vendor prefix.
 
-Oops. Not sure why I failed to notice the IIO parts in these other patches.
+Add xuantie as the vendor prefix for Shanghai Xuantie Semiconductor
+Technology Co., Ltd., and add corresponding xuantie,* compatible
+strings for these processors.
 
-Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> #for-iio
+The existing thead,* compatible strings are retained to preserve the
+Device Tree ABI and compatibility with existing device trees.
 
-Thanks for the poke!
+The vendor information is available from the Xuantie declaration
+page [1].
 
-Jonathan
+[1] https://www.xrvm.com/declaration
+
+GUO Ren (XuanTie) (2):
+  dt-bindings: vendor-prefixes: Add Xuantie Semiconductor
+  dt-bindings: riscv: Add Xuantie C906/C908/C910/C920 compatibles
+
+ Documentation/devicetree/bindings/riscv/cpus.yaml      | 4 ++++
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 2 files changed, 6 insertions(+)
+
+-- 
+2.43.0
 
