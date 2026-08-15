@@ -1,37 +1,37 @@
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1D43BB9EB;
-	Sat, 15 Aug 2026 09:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC00B37E5F3;
+	Sat, 15 Aug 2026 09:14:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786785292; cv=none; b=tnkW/PDWkT4vV5lvth/VAtNuaRrtBgJItrQua01FAADs07XRJdkdY+2izpm+utA2x7/t/IzwNk0dQCUvMiod8J/ylPptrEl8MlzwSnh6upQO09qiekhnKSuXkC9+rv/I4+x1XbFkEnJHDzKwEUtNmB9dQ1FDpXF/OyZB1KDmEl0=
+	t=1786785293; cv=none; b=O3hO9rVnbL4bVmOW/Zon7hqEs2ml+Z/dz87CwjPKsmBGT+iYNrb0n7dQXcJZhtihnwrH4AJmtFhmgnIzujlu/wi+aEsSpbvccAvZxGph8V9RoP2jb1GchDY3yMDV6CQUtfcVBfuIAXgszw/Ey12wi8eMSA9NutRjNboMPfGTIL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786785292; c=relaxed/simple;
-	bh=rpnTVB2lvy7vaRGEwYc4n2Ueim6D21MwthwfXOQ60pc=;
+	s=arc-20240116; t=1786785293; c=relaxed/simple;
+	bh=dSApdouRs74AgqrQBX4yQQP2Zh1Ae09ZBK7ma9JanCg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dTgwF3j8Qug/YwGPynzzdxh9Yk1lcNZZU0UaDLL+DCI217abDSaVxMWzB9Mo05q/50rT/u2Ob+Jducid5sInxyUGyAWn0apg7wJTfnOHGVSKMNlF5hSNcU0dbLP71/sUcKhwkbjaB9SW3wqlj8vrxR38dddAXPbV4P5CHaldLzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Hfzo6tyF; arc=none smtp.client-ip=178.21.23.139
+	 MIME-Version; b=TJFbz+1lNDr65WarVo6mEwHsTKJ9crQdfHvYIPcSWl+jtDWdSKKl7hfLbvcf4qNeSKKvC1L2pwBbNofG0ee8l+pkPHPnp/+XpKMPDsGxKXZWQEd0DFJLuh8mkJ/tXvk7TKOaoG1wVySGL1yY11RP/LdbE9eCwt19Vn/uEpQqmpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=dFCKoU8D; arc=none smtp.client-ip=178.21.23.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Hfzo6tyF"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="dFCKoU8D"
 Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id B361588362;
-	Sat, 15 Aug 2026 11:14:44 +0200 (CEST)
+	by disroot.org (Postfix) with ESMTP id DE980882DB;
+	Sat, 15 Aug 2026 11:14:49 +0200 (CEST)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id MecjSrzQRqm6; Sat, 15 Aug 2026 11:14:43 +0200 (CEST)
+ id 64-xFJu9MUjY; Sat, 15 Aug 2026 11:14:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1786785283; bh=rpnTVB2lvy7vaRGEwYc4n2Ueim6D21MwthwfXOQ60pc=;
+	t=1786785289; bh=dSApdouRs74AgqrQBX4yQQP2Zh1Ae09ZBK7ma9JanCg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hfzo6tyFEiG9qHwaPL704zRZjdFDIzzvw1IZ+eJ3XUEjr1onl/zTZt8HuX3Rs32GU
-	 QlYiYou/THgNmckhzjG/7ku0XXEd7m1TFLm/S4jTVOxZjOU3fnTnXU1KcRJpZWye82
-	 dSiKn8xsRzPj6JN/WRPswfhyXDQ16Y6oQRYyrZRz3swYv66azW/v/nQJiyCzyUq7Qf
-	 AX7HSPczSv2JEnTgXOdKFIKG5tgbESu7ZCinr0ls/U2VPiCyAgfyJqL0UrAJ9ZfMsc
-	 7T7AbT86+HTDh6W71gTsq5AuBSeFs5r8tfQTwW9nfa0T/u6eJlYkI8f2hzY4U54is0
-	 +CYJy/0fF5mjA==
+	b=dFCKoU8DbL4a5Bprz4F1PUCe+ZteIm2NW0HGwhqoM6cRmR/chURAkp0/3oyBU1s3q
+	 cm2mlmRYOF6Mz1NJHuipuQb7UyjlPkL6qc4cC6vZisJhm8uhw6XwVeqg5BDZGYWyWH
+	 k3B2RjGdCK66P/lm0HyjoqXUColQtBrukbwezIteFHJtyy+tEEQGq8g+l1+0vZwdxC
+	 MFQv1U9i3vhiiqmZmm1/uhRT5CXrkjxEMmSVyzFpb4GwEwRiq4x/3vSkzF8q5mSQAe
+	 P8OUPz9CdlX+XWqId3O5IEdkPJ4Fl7rpJlmTzv0sTNdITiZuoOhSxp+llAv84UF2B6
+	 36lqX4i93kH0w==
 From: Rustam Adilov <adilov@disroot.org>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -44,10 +44,10 @@ To: Vinod Koul <vkoul@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Rustam Adilov <adilov@disroot.org>,
-	Michael Zavertkin <misha.zavertkin@mail.ru>
-Subject: [PATCH v7 4/6] phy: realtek: usb2: introduce reset controller struct
-Date: Sat, 15 Aug 2026 14:13:38 +0500
-Message-ID: <20260815091340.26910-5-adilov@disroot.org>
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: [PATCH v7 6/6] phy: realtek: Make configs available for MACH_REALTEK_RTL
+Date: Sat, 15 Aug 2026 14:13:40 +0500
+Message-ID: <20260815091340.26910-7-adilov@disroot.org>
 In-Reply-To: <20260815091340.26910-1-adilov@disroot.org>
 References: <20260815091340.26910-1-adilov@disroot.org>
 Precedence: bulk
@@ -58,76 +58,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In RTL9607C, there is so called "IP Enable Controller" which resemble
-reset controller with reset lines and is used for various things like
-USB, PCIE, GMAC and such.
+Add the MACH_REALTEK_RTL to the if statement to make the config
+options available for Realtek RTL SoCs as well.
 
-Introduce the reset_control struct to this driver to handle deasserting
-usb2 phy reset line.
-
-Make use of the function devm_reset_control_get_optional_exclusive()
-function to get the reset controller and since existing RTD SoCs don't
-specify the resets we can have a cleaner code.
-
-Since the vendor usb driver developed by Realtek doesn't assert the reset
-line (or in their case clear the register bit), we can reasonably assume
-reset_control_assert is not needed here.
-
-Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Signed-off-by: Rustam Adilov <adilov@disroot.org>
 ---
- drivers/phy/realtek/phy-rtk-usb2.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/phy/realtek/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
-index 5e483c853f02..2ddad7be7353 100644
---- a/drivers/phy/realtek/phy-rtk-usb2.c
-+++ b/drivers/phy/realtek/phy-rtk-usb2.c
-@@ -17,6 +17,7 @@
- #include <linux/sys_soc.h>
- #include <linux/mfd/syscon.h>
- #include <linux/phy/phy.h>
-+#include <linux/reset.h>
- #include <linux/usb.h>
+diff --git a/drivers/phy/realtek/Kconfig b/drivers/phy/realtek/Kconfig
+index 75ac7e7c31ae..76f9215d8b94 100644
+--- a/drivers/phy/realtek/Kconfig
++++ b/drivers/phy/realtek/Kconfig
+@@ -3,7 +3,7 @@
+ # Phy drivers for Realtek platforms
+ #
  
- /* GUSB2PHYACCn register */
-@@ -128,6 +129,7 @@ struct rtk_phy {
- 	struct phy_cfg *phy_cfg;
- 	int num_phy;
- 	struct phy_parameter *phy_parameter;
-+	struct reset_control *phy_rst;
+-if ARCH_REALTEK || COMPILE_TEST
++if ARCH_REALTEK || MACH_REALTEK_RTL || COMPILE_TEST
  
- 	struct dentry *debug_dir;
- };
-@@ -676,6 +678,15 @@ static int rtk_phy_init(struct phy *phy)
- 	if (!rtk_phy)
- 		return -EINVAL;
+ config PHY_RTK_RTD_USB2PHY
+ 	tristate "Realtek RTD USB2 PHY Transceiver Driver"
+@@ -29,4 +29,4 @@ config PHY_RTK_RTD_USB3PHY
+ 	  DWC3 USB IP. This driver will do the PHY initialization
+ 	  of the parameters.
  
-+	if (rtk_phy->phy_rst) {
-+		ret = reset_control_deassert(rtk_phy->phy_rst);
-+
-+		if (ret)
-+			return ret;
-+
-+		usleep_range(5000, 6000);
-+	}
-+
- 	for (i = 0; i < rtk_phy->num_phy; i++)
- 		ret = do_rtk_phy_init(rtk_phy, i);
- 
-@@ -1055,6 +1066,11 @@ static int rtk_usb2phy_probe(struct platform_device *pdev)
- 
- 	rtk_phy->num_phy = phy_cfg->num_phy;
- 
-+	rtk_phy->phy_rst = devm_reset_control_get_optional_exclusive(dev, NULL);
-+	if (IS_ERR(rtk_phy->phy_rst))
-+		return dev_err_probe(dev, PTR_ERR(rtk_phy->phy_rst),
-+				     "usb2 phy reset is not working\n");
-+
- 	ret = parse_phy_data(rtk_phy);
- 	if (ret)
- 		goto err;
+-endif # ARCH_REALTEK || COMPILE_TEST
++endif # ARCH_REALTEK || MACH_REALTEK_RTL || COMPILE_TEST
 -- 
 2.55.0
 
