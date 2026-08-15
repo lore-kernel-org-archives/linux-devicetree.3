@@ -1,78 +1,78 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0742DF13B
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 08:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C7D30F958
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 08:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786782724; cv=none; b=JR30qajTyCxo+FpSjbBAv2aYJuJ0uhadeoHm+T1zXc1MhyDZStpPHWKjjH3agQHXtdfoY3ZDIJaBqcBkDjHqNxzNAagZS0XNRawKEyj/yAs6mRJnbyJA2eaWaajXkHFRwKjQgvUuOov5Hbn4VekKGBcb5O2uBM2BTtJvwEtygpY=
+	t=1786782814; cv=none; b=dzg7T55joMIP2LGjLjtadfSD9qwPc7JE0ei2a+TXci0EyMd8Wl8OZDONET1kB8LS1T1I0xHUPJo1znb8StD++9ZZnne80CkHOxz9iE03H/77Lfyolj3R4D4KwJ0w1Py9hOCo+C/Qvh26yHHOGt1RmRL6Lp5sovPQit/BhDbTg9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786782724; c=relaxed/simple;
-	bh=ig0Czw6EoJk1SeXGouZnD93LG49YWVcmjNh23KhFKG8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bRdbGRI2mLMydFhh97CSWqQXFM2TxI3CgoRDwCcNSBFFeb+Kt6/1ImomIjwu+1E9oFZ+TzD+s2WjJNbBoaLQDdskr2qMjWN1K+MBZ9Iv/wfCRxWrwXOGWTse9R+QNCnsacAridhajbcd31T+tXyQRpBO3Xg0wX82gvML8akoEOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ezbi7WP1; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1786782814; c=relaxed/simple;
+	bh=O3pMtBEmXEanZNQxxBczcnzItFMFemOxd1WChVtlbXs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T2nk6koW7sqP+IsC8N2Jonuqh7bzNf9TGz64S6WKpo9anXbAB3vLb8tSc9aMH9pY3dpfwMH8fHvSdbED7wEg3JuNJP+7tD63ISBQF39cci4EOSuDa8TBuB9KDubTuqmcu27k5FpCcmynmt4W5p5H8MF3vzDQyAoaoMnqOASypeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o7GLOYrG; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ezbi7WP1"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so17472445e9.1
-        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 01:32:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o7GLOYrG"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4998590d392so18804635e9.0
+        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 01:33:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786782721; x=1787387521; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786782811; x=1787387611; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JmXRmBb374yuyQNwVRXydj5Wcgj3TvsFot0DLbSW/P4=;
-        b=ezbi7WP1C99y+DrBGx3M0jA6VoLTK3P8mIUGr4d7JM+dSO4k0cVtFkBl21OZASJhxU
-         qcZx17Q7cikKzcbDV3nBA20C2k67OMZYhTe/5wramfuU1AGiJCNVXpuE3adYPtFsKGZ+
-         Pd4b8JC2HrVooV3nv9s9gRinJ4EaSz/i0yBVxS5bfBy4dGAuw1s6Vxk1whym35q3EaFT
-         SeD7hSev7L9vt1F2P6/AJ+DKB25x/QTsSd7yRRLTGfrOJBPtR9IGl+sIj2GVu7//3seA
-         m+75QcOThLMbHFDoQc2vhWATGMtmZQZqtgWL9bG27uoPhFGArzH+G3yhJLdt4nQmEgN+
-         2hyw==
+        bh=Yht8Yw3sMnFHO9DzWevf1YnwdQDpdoW5JTYhNzme8ao=;
+        b=o7GLOYrG4rdKLzRf0YdHE0CxYoqT8oc0qd4u173c5a+HNsHVuMpjigjB5exP2YF1T1
+         NdX23WmBUlRtqDF/UDoPHCE9PlWx67P1UpGuLV4RNI9YX9cVPTAzSaw40ZKrdqV+a/qM
+         TcQdSwZeEQ5RjB8OwQfaSAd/oJoYDnOiWLeChvv9p0rlggAVzjxEnErO8+m/5UG05yWT
+         iM7hxlx+LWBSmleQDLzlaQ9xtJJm/q6tLDBVaGUju//Ik2rQJVTnuLN3rYd+qd8ktCMt
+         ZRvImLgCdTZWgCmZz4X6AXAUwawCkeC6V+6WZRoRGOT0bfNMl4i9j3v08bKdovyNyZ8g
+         oyHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786782721; x=1787387521;
+        d=1e100.net; s=20251104; t=1786782811; x=1787387611;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JmXRmBb374yuyQNwVRXydj5Wcgj3TvsFot0DLbSW/P4=;
-        b=BVyq/G+uLSnqvepf/1FFQpHb5md3T5It2AtOuvz6xlURHKeaQ4fq6a1Z6DPZIlznSh
-         UgNnX1DefPKnqYbVQRWd0ZF0L/i7aaW6MFiGW8lUNfx7+wmQOe0XZtJfPwdh46b7Iy0o
-         xFeUFd35hmoAnzN8Ha8uv/3LuVM7BQgyRRTtOn1iLtsVLvSIMq4hd2KGpnuHY2jqAroW
-         xFTer9lzZUV8vzm1APCtQhSBZWbbKrd3WLvCAoVKfm54YZm89OimiysCRgRJyjDJxcXH
-         HiREhGmXMpoLRMBkDA+3XEPJhahCCXPDD8wazz/tX+wcvUk9laI2w5BXl7xnQjcbKpJ8
-         lbzQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrDCsmQmOmGecnWLGYZsKv5bCy+vYURJEegX7BK7RoTifWM+4araofK4s21oCgDCN5Nlex8eGG569bc@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEvahHH8PSQPNwcDEkemzZYK1D1DrdQstedaVhjKm0XWQdaIp6
-	HwSIHuFvk8S6JxNQd3+TCa621nInCXUV4qF7O/1ySk4qjAhzmsZhd3WO
-X-Gm-Gg: AR+sD13uySipKBdw/DQjullHnspzAzjxZfNiIR5EFhmr4vlZO0GWGwf3oSVG/N1IoQ5
-	oYVcXOrPWpMNP/KukU+7LlcHAKxbeOzZ18ee/GRIJOraJ1NgGiZd0Z8MMbun9AVB8pPqQroBBX5
-	GLs+/9tPucWVg26mBrKP+0FmVtXgPCBwMYbWZw3u0EbwAFpG8vB+teailqL1ISJ/FrXSjwkUrHD
-	VmFONDk0xiWsQn/VC6htjxxAD2cu56qDf+6qfoirz2Uqw8MF3WoBDoA/FqVmItgbDh1C7pRcn6b
-	KNWV4mc20oP8nOfPYdpHcCt7MUPZ9WHvbo9J4CmGt8R0XfgamrYtxmlL/jP4HwxtRzEDafX1cNc
-	NhhempaOlJ1goAGRB9TPZbswapeXukD/ztxRtJ+R8eK7rJFxAYljZF0FE4s8npZSUJUexyi5RtT
-	xwfR1JnJmyeJnFBivGwTl0f2Dxvd5HhccTRMLi+/cVKEKiD/otBC6isx/6sTNrAkqpJkCQgHbpa
-	7BXHGe56XdKmNp1vB5Q1/benJuxL7Q=
-X-Received: by 2002:a05:600c:5643:b0:499:77ba:4b6 with SMTP id 5b1f17b1804b1-49987ad988emr113620185e9.9.1786782720567;
-        Sat, 15 Aug 2026 01:32:00 -0700 (PDT)
+        bh=Yht8Yw3sMnFHO9DzWevf1YnwdQDpdoW5JTYhNzme8ao=;
+        b=fCIXW1MqsPBf2Gl6A4sx8Vg8eeA2v7J6cHoQz7cGQon0JYJMa1tEk5spRCvDLykOTP
+         UTN83LwIV6WCQ2zRuBx6UP6u0jksuiWPxOPOnwn0GlVZo+jKhIvCC1MHSqMoPVqnVxOb
+         b+K08833sg8ZPSdyuqM9Pk9It2kys0mrnPFxF50GBabOpzt6DwubU25127mz7wKRLBkQ
+         z1O20zmGMaZRKkbGqukrUUoXwXFbOT5jz2jfU8o+fUMvxuS+rC8mN+3788lx92XgkhJU
+         yovKZylp+P0HcHmgI3nfZD48ljKvMvWugqUeaGM2On263qGDccQB4M/S5bPCvtAEM5Ru
+         qCSQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpeXCY5VDwMVhzqIfAsw1udbrdogCQL5h0bR3grcnIHiJS/JnkUxq/on2PrLZDJt7cf83Ap7VEea/OM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxl3o3nt9dJG1aMQckNaTjbyJ2MIwuNlh3NfA0Zn1OE3B8GfGkS
+	eKYkl0aolFNJFljjR7G/XB921N6c6MZc/gAgwOittQvfxXLLWw5VTfmc
+X-Gm-Gg: AR+sD13izwDv8JF9JP6o6e+Z4+q9CoDbDXYJhJ/NmWxy0oX7ciRuR+5a2IFuYMduVwT
+	nnFz206MNgxnpVQ+2oBzzrNFVR4vt5Ro7B3tu9qeuGz92aUrFWtKycCtHKmw6pSrBsoIMYiGThD
+	3sG/8fu2wsOOMJrHHxFgHAkSgevOKShmgB30uoKPcDt1GRTIwtgD1PCEEKl7yC1/xYKJ7eb8/dp
+	TqT6i9By1uLI8r2OIFigdYP64YadJEaz9D4qmB1bf8kTqUNfGtCVeKeFQf5+IGl/ZeyWPxbu7X3
+	tZrZ/qgQXjWkGVw9E/aouM7OCExh74eXVT59FnpVjycVE0U4Z5suh8asdT5b+qJFs98Q8f5FRo1
+	jjrOo36qZXcPxlUQy+QqSJKpMyr2rCHGUsyuxfFDnQIFn7YqWN8GvL9cGHqZNWU2cLYu1KK1dkS
+	5zV+BfnMzFrBCzp6dPSZPN0d8fH5hLbJPgEWcTbrI7wsdTFw3pGt2KiZo+LJW9HSCV5T6E8xbCE
+	TZ0NU2rwxTobnoTeGT9SZEjqKymrThKejxMq6MOSw==
+X-Received: by 2002:a05:600c:228e:b0:495:4e1d:82df with SMTP id 5b1f17b1804b1-499879774bamr118261605e9.10.1786782811137;
+        Sat, 15 Aug 2026 01:33:31 -0700 (PDT)
 Received: from localhost.localdomain ([82.137.32.242])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49988b1d33asm126774485e9.10.2026.08.15.01.31.59
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4815f2ccc00sm14498418f8f.35.2026.08.15.01.33.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 01:32:00 -0700 (PDT)
+        Sat, 15 Aug 2026 01:33:30 -0700 (PDT)
 From: Eduard Bostina <egbostina@gmail.com>
 To: Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
 	Eduard Bostina <egbostina@gmail.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev,
+	linux-wireless@vger.kernel.org,
 	Rob Herring <robh@kernel.org>
 Cc: daniel.baluta@nxp.com,
 	simona.toaca@nxp.com,
 	goledhruva@gmail.com,
 	m-chawdhry@ti.com
-Subject: [PATCH] dt-bindings: mfd: Convert TPS61050 to DT schema
-Date: Sat, 15 Aug 2026 08:31:45 +0000
-Message-ID: <20260815083145.2145984-1-egbostina@gmail.com>
+Subject: [PATCH] dt-bindings: net: wireless: Convert WL1251 to DT schema
+Date: Sat, 15 Aug 2026 08:33:26 +0000
+Message-ID: <20260815083326.2146602-1-egbostina@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -82,183 +82,194 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the Texas Instruments TPS61050/TPS61052 boost converters bindings
-to DT schema.
+Convert the Texas Instruments WL1251 Wireless LAN Controller bindings to DT
+schema.
+
+During the conversion, the following updates were made:
+- Added the 'clocks' property. It was missing from the txt binding but
+  is used in device trees (omap3-n900.dts).
+- Added 'spi-cpol' and 'spi-cpha'. These were present in the original
+  txt binding's example but missing from its property list.
+- 'vio-supply' and 'spi-max-frequency' are no longer required. The txt
+  binding listed them as required, but they are only applicable when
+  the chip is connected via SPI.
 
 Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 ---
- .../devicetree/bindings/mfd/ti,tps61050.yaml  | 92 +++++++++++++++++++
- .../devicetree/bindings/mfd/tps6105x.txt      | 62 -------------
- 2 files changed, 92 insertions(+), 62 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/mfd/ti,tps61050.yaml
- delete mode 100644 Documentation/devicetree/bindings/mfd/tps6105x.txt
+ .../bindings/net/wireless/ti,wl1251.txt       | 64 -------------
+ .../bindings/net/wireless/ti,wl1251.yaml      | 92 +++++++++++++++++++
+ 2 files changed, 92 insertions(+), 64 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
+ create mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
 
-diff --git a/Documentation/devicetree/bindings/mfd/ti,tps61050.yaml b/Documentation/devicetree/bindings/mfd/ti,tps61050.yaml
+diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
+deleted file mode 100644
+index 88fd28d15eac..000000000000
+--- a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
++++ /dev/null
+@@ -1,64 +0,0 @@
+-* Texas Instruments wl1251 wireless lan controller
+-
+-The wl1251 chip can be connected via SPI or via SDIO. This
+-document describes the binding for the SPI connected chip.
+-
+-Required properties:
+-- compatible :        Should be "ti,wl1251"
+-- reg :               Chip select address of device
+-- spi-max-frequency : Maximum SPI clocking speed of device in Hz
+-- interrupts :        Should contain interrupt line
+-- vio-supply :        phandle to regulator providing VIO
+-
+-Optional properties:
+-- ti,wl1251-has-eeprom : boolean, the wl1251 has an eeprom connected, which
+-                         provides configuration data (calibration, MAC, ...)
+-- ti,power-gpio :	 GPIO connected to chip's PMEN pin if operated in
+-			 SPI mode
+-- Please consult Documentation/devicetree/bindings/spi/spi-bus.txt
+-  for optional SPI connection related properties,
+-
+-Examples:
+-
+-&spi1 {
+-	wl1251@0 {
+-		compatible = "ti,wl1251";
+-
+-		reg = <0>;
+-		spi-max-frequency = <48000000>;
+-		spi-cpol;
+-		spi-cpha;
+-
+-		interrupt-parent = <&gpio2>;
+-		interrupts = <10 IRQ_TYPE_NONE>; /* gpio line 42 */
+-
+-		vio-supply = <&vio>;
+-		ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>; /* 87 */
+-	};
+-};
+-
+-&mmc3 {
+-	vmmc-supply = <&wlan_en>;
+-
+-	bus-width = <4>;
+-	non-removable;
+-	ti,non-removable;
+-	cap-power-off-card;
+-
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&mmc3_pins>;
+-
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-
+-	wlan: wifi@1 {
+-		compatible = "ti,wl1251";
+-
+-		reg = <1>;
+-
+-		interrupt-parent = <&gpio1>;
+-		interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;	/* GPIO_21 */
+-
+-		ti,wl1251-has-eeprom;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
 new file mode 100644
-index 000000000000..974ef78d6e26
+index 000000000000..1f46f1235035
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/ti,tps61050.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
 @@ -0,0 +1,92 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/mfd/ti,tps61050.yaml#
++$id: http://devicetree.org/schemas/net/wireless/ti,wl1251.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Texas Instruments TPS61050/TPS61052 Boost Converter
++title: Texas Instruments WL1251 Wireless LAN Controller
 +
 +maintainers:
 +  - Eduard Bostina <egbostina@gmail.com>
 +
-+description:
-+  The TP61050/TPS61052 is a high-power "white LED driver". The device
-+  provides LED, GPIO and regulator functionalities.
-+
 +properties:
 +  compatible:
-+    enum:
-+      - ti,tps61050
-+      - ti,tps61052
++    const: ti,wl1251
 +
 +  reg:
 +    maxItems: 1
 +
-+  regulator:
-+    type: object
-+    $ref: /schemas/regulator/regulator.yaml#
-+    description: Puts the chip in regulator mode.
-+    unevaluatedProperties: false
++  interrupts:
++    maxItems: 1
 +
-+  led:
-+    type: object
-+    $ref: /schemas/leds/common.yaml#
-+    description: Puts the chip in LED mode.
-+    unevaluatedProperties: false
++  vio-supply:
++    description:
++      Phandle to the regulator providing VIO. Required when connected via SPI.
++
++  ti,power-gpio:
++    maxItems: 1
++    description:
++      GPIO connected to chip's PMEN pin if operated in SPI mode.
++
++  ti,wl1251-has-eeprom:
++    type: boolean
++    description:
++      The wl1251 has an EEPROM connected, which provides configuration
++      data (calibration, MAC, ...).
++
++  clocks:
++    maxItems: 1
++
++  spi-max-frequency: true
++  spi-cpol: true
++  spi-cpha: true
 +
 +required:
 +  - compatible
 +  - reg
++  - interrupts
 +
 +allOf:
-+  - not:
-+      required:
-+        - regulator
-+        - led
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
 +
-+additionalProperties: false
++unevaluatedProperties: false
 +
 +examples:
 +  - |
-+    i2c {
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
++    spi1 {
 +        #address-cells = <1>;
 +        #size-cells = <0>;
-+
-+        tps61052@33 {
-+            compatible = "ti,tps61052";
-+            reg = <0x33>;
++        wl1251@0 {
++            compatible = "ti,wl1251";
++            reg = <0>;
++            spi-max-frequency = <48000000>;
++            spi-cpol;
++            spi-cpha;
++            interrupt-parent = <&gpio2>;
++            interrupts = <10 IRQ_TYPE_NONE>;
++            vio-supply = <&vio>;
++            ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>;
 +        };
 +    };
-+
 +  - |
-+    i2c {
++    #include <dt-bindings/interrupt-controller/irq.h>
++    mmc3 {
++        vmmc-supply = <&wlan_en>;
++        bus-width = <4>;
++        non-removable;
++        ti,non-removable;
++        cap-power-off-card;
++        pinctrl-names = "default";
++        pinctrl-0 = <&mmc3_pins>;
 +        #address-cells = <1>;
 +        #size-cells = <0>;
-+
-+        tps61052@33 {
-+            compatible = "ti,tps61052";
-+            reg = <0x33>;
-+
-+            regulator {
-+                regulator-min-microvolt = <5000000>;
-+                regulator-max-microvolt = <5000000>;
-+                regulator-always-on;
-+            };
++        wifi@1 {
++            compatible = "ti,wl1251";
++            reg = <1>;
++            interrupt-parent = <&gpio1>;
++            interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
++            ti,wl1251-has-eeprom;
 +        };
 +    };
-+
-+  - |
-+    #include <dt-bindings/leds/common.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        tps61052@33 {
-+            compatible = "ti,tps61052";
-+            reg = <0x33>;
-+
-+            led {
-+                color = <LED_COLOR_ID_WHITE>;
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/mfd/tps6105x.txt b/Documentation/devicetree/bindings/mfd/tps6105x.txt
-deleted file mode 100644
-index dc448a9d5b4d..000000000000
---- a/Documentation/devicetree/bindings/mfd/tps6105x.txt
-+++ /dev/null
-@@ -1,62 +0,0 @@
--* Device tree bindings for TI TPS61050/61052 Boost Converters
--
--The TP61050/TPS61052 is a high-power "white LED driver". The
--device provides LED, GPIO and regulator functionalities.
--
--Required properties:
--- compatible:		"ti,tps61050" or "ti,tps61052"
--- reg:			Specifies the I2C slave address
--
--Optional sub-node:
--
--This subnode selects the chip's operational mode.
--There can be at most one single available subnode.
--
--- regulator: presence of this sub-node puts the chip in regulator mode.
--	see ../regulator/regulator.yaml
--
--- led: presence of this sub-node puts the chip in led mode.
--	Optional properties:
--	- function : see ../leds/common.txt
--	- color    : see ../leds/common.txt
--	- label    : see ../leds/common.txt
--			(deprecated)
--
--Example (GPIO operation only):
--
--i2c0 {
--	tps61052@33 {
--		compatible = "ti,tps61052";
--		reg = <0x33>;
--	};
--};
--
--Example (GPIO + regulator operation):
--
--i2c0 {
--	tps61052@33 {
--		compatible = "ti,tps61052";
--		reg = <0x33>;
--
--		regulator {
--			regulator-min-microvolt = <5000000>;
--			regulator-max-microvolt = <5000000>;
--			regulator-always-on;
--		};
--	};
--};
--
--Example (GPIO + led operation):
--
--#include <dt-bindings/leds/common.h>
--
--i2c0 {
--	tps61052@33 {
--		compatible = "ti,tps61052";
--		reg = <0x33>;
--
--		led {
--			color = <LED_COLOR_ID_WHITE>;
--		};
--	};
--};
 -- 
 2.43.0
 
