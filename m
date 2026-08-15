@@ -1,204 +1,142 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC099383998;
-	Sat, 15 Aug 2026 09:14:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF5A1B3925;
+	Sat, 15 Aug 2026 09:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786785293; cv=none; b=KymE53lGl6jukYdxBXlzAHinB/JNl+B0rtgIQNuucXxLY0++r0QXEh9NWJ97LvNwVeiiGwpO4TY3aWtYI0Fmr3OqPDWZs3s98yYH406r6XWmFa5i2+pmyEzMLmOKKZiJ/3figspYiTkBZVtXzZebMUfrMezW60DYD9/dGCb8CaY=
+	t=1786785574; cv=none; b=hTQUNEvqTQvjUjfnib0t8tL/PEY8QbYuhgQoR1Zw5hsIDzNnURTOsGO6DpRT8xc/yyzKjNt2wLiouOzznyPm1Xrqx7+CIlZ32vn2OvxWkARXTgZRAf//M0uzkMtymtqFytjyUsZI50OqzrW0+ms4Tnst4Gl59pMJ2Bb/rWSFAO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786785293; c=relaxed/simple;
-	bh=iTMFW9PtcXtthHHYIKyXUPqjK5gtUDESdCp0WUlX6Q4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IsIHZRUKaL4ar4B0AgPo3Tg/hMmocgjTuqTdp+JcO9wbCX4XMX+z05uJ4fy9G+VgE2zEbCFfEZBRmm994hskYo/UI4uIOQUSOu26lN9gk07G6J8SQj/+dgHnmjfA/96A6ehYI8eqZbyJWO9nWHYougZHvXE5AV+HyqEopyyPPn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=LWY/NZrx; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1786785574; c=relaxed/simple;
+	bh=qcS0nkxivq9w8KtgWHFZabGWuDwrcomxpwmc909Nx5M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CWPRiRixKgwo/x/9i/cD9YmHdzsbOBmUyOGDANQ40DNjl9rp4/3osgC/WpJBfUPDRTPx01/KjNb/KKEaZSFCb0OKM9W2ANqR5JtdNZrOR7WBEyvfrWiWfwIM709gpcbd9EY6lpiRmU5IOzK+ghASjiXGOk/ZiOQN73XQ5Qhmdcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBAHtmjQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="LWY/NZrx"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 5AA9A881CC;
-	Sat, 15 Aug 2026 11:14:50 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id r1S2K92VLyO6; Sat, 15 Aug 2026 11:14:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1786785286; bh=iTMFW9PtcXtthHHYIKyXUPqjK5gtUDESdCp0WUlX6Q4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LWY/NZrxuEuMwc4xc5Q4xjZlZG8Mi6MZLDWmcj6s4zSiV0jxlCftuFaf0Cz6BSscW
-	 7aPSyKjiQBwhWul2jbY/cv8iJlqKN1zDMpaB2VsXqHuUq0GzoiAu2JlDss+evIxrNM
-	 d23oDfqtAxbl+0afhphAs6OmUcZ7yjESlGYmyPzs5e+Ywk1visxdfx0KR68woBx5jj
-	 PVd+BF8vesBfpGEH/FTjV+SvX9BafrN8ddSnjA1nrCQwqzPl5pMf1VLXZY4v7G6x6L
-	 ICwKqluD/jJLIP8jyE0Z3DkN7ziICytWrhJoT2cIvBRikYjQ+WoTeOmv4Hx4sBc0QQ
-	 sDayj/k861oRw==
-From: Rustam Adilov <adilov@disroot.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stanley Chang <stanley_chang@realtek.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>,
-	Michael Zavertkin <misha.zavertkin@mail.ru>
-Subject: [PATCH v7 5/6] phy: realtek: usb2: add support for RTL9607C USB2 PHY
-Date: Sat, 15 Aug 2026 14:13:39 +0500
-Message-ID: <20260815091340.26910-6-adilov@disroot.org>
-In-Reply-To: <20260815091340.26910-1-adilov@disroot.org>
-References: <20260815091340.26910-1-adilov@disroot.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBAHtmjQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA5C1F000E9;
+	Sat, 15 Aug 2026 09:19:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786785572;
+	bh=j1s65DkP4wlhLXjmAoKerVkA6aihvJGm0/9D4kgKGt4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PBAHtmjQchGtNVc6q/EVM6ZqWPCtDIFip8OnWxaiQ0ddTkxshAr1weFbLodiSQ9In
+	 HzQWwQD9C8OXLtOCFB3Wnv5UiVULk3No999tXj4DcCxzlv2GbUHdrT9gdVvbXBUWvQ
+	 3EuHiTJfoh7xjF/HDXhOrWn+GstgMTGQZzyBmciaARZicPuTO8DMvCcY1cs+JiYUe9
+	 hzxWiKJD0WVtIdFId4/pUJwj23ri5v/Ci9HlK/upkp5qhy2AVloWsBDbHSVkmMC0x+
+	 0XX+n8vEU4f1/K15wMl9Zklbr8/HxAJ7TM2xepGYYcxFxPFa0dTo5VcZALbt/ssZ8f
+	 rLlfr8NY6BM/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next 2/2] net: fec: support receive flushing via
+ fsl,rx-flush-queues
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260814090906.2225075-3-alexander.sverdlin@siemens.com>
+References: <20260814090906.2225075-1-alexander.sverdlin@siemens.com>
+ <20260814090906.2225075-3-alexander.sverdlin@siemens.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 15 Aug 2026 09:19:31 +0000
+Message-Id: <20260815091932.1DA5C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for the usb2 phy of RTL9607C series based SoCs.
-Add the macros and phy config struct for rtl9607.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The driver fails to clear bootloader-configured RX flush settings =
+when `fsl,rx-flush-queues` is not specified, potentially inheriting a vulne=
+rable hardware state.
+- [High] The newly introduced `FEC_QUIRK_HAS_MULTI_RX_FLUSH` collides with =
+the existing `FEC_QUIRK_HAS_MDIO_C45` bitmask, defeating the ERR050395 erra=
+tum safety check.
+--
 
-RTL9607C requires to clear a "force host disconnect" bit in the
-specific register (which is at an offset from reg_wrap_vstatus)
-before proceeding with phy parameter writes. Since it belongs into
-the vstatus register region, it requires the use of added read and
-write helper functions.
+--- Patch [2]: [PATCH net-next 2/2] net: fec: support receive flushing via =
+fsl,rx-flush-queues ---
+commit ccf669baa787206c1aada126a00677e049b4714b
+Author: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-Add the bool variable to the driver data struct and hide this whole
-procedure under the if statement that checks this new variable.
+net: fec: support receive flushing via fsl,rx-flush-queues
 
-Add the appropriate big endian read and write functions for rtl9607
-and assign them to its rtl9607_phy_reg_desc struct.
+This commit adds support for flushing frames stuck at the head of the RX FI=
+FO
+via the FEC_QOS_SCHEME register. It parses the fsl,rx-flush-queues device t=
+ree
+property and ensures erratum ERR050395 is respected by restricting multi-qu=
+eue
+flushes to hardware that advertises support.
 
-Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-Signed-off-by: Rustam Adilov <adilov@disroot.org>
----
- drivers/phy/realtek/phy-rtk-usb2.c | 66 ++++++++++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
+> diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/=
+freescale/fec.h
+> index 7176803146f3d..4af3ae286895f 100644
+> --- a/drivers/net/ethernet/freescale/fec.h
+> +++ b/drivers/net/ethernet/freescale/fec.h
+[ ... ]
+> @@ -499,6 +504,12 @@ struct bufdesc_ex {
+>  /* Jumbo Frame support */
+>  #define FEC_QUIRK_JUMBO_FRAME		BIT(25)
+> =20
+> +/* Receive flushing (QOS Scheme register RX_FLUSHn) may be enabled on mo=
+re than
+> + * one RX queue at a time. Parts without this quirk are subject to errat=
+um
+> + * ERR050395 and must limit RX flushing to a single queue.
+> + */
+> +#define FEC_QUIRK_HAS_MULTI_RX_FLUSH	BIT(24)
 
-diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
-index 2ddad7be7353..990ceca37ef8 100644
---- a/drivers/phy/realtek/phy-rtk-usb2.c
-+++ b/drivers/phy/realtek/phy-rtk-usb2.c
-@@ -26,6 +26,12 @@
- #define PHY_VCTRL_SHIFT 8
- #define PHY_REG_DATA_MASK 0xff
- 
-+#define PHY_9607_VSTS_BUSY BIT(17)
-+#define PHY_9607_NEW_REG_REQ BIT(13)
-+
-+#define PHY_9607_FORCE_DISCONNECT_REG 0x10
-+#define PHY_9607_FORCE_DISCONNECT_BIT BIT(5)
-+
- #define GET_LOW_NIBBLE(addr) ((addr) & 0x0f)
- #define GET_HIGH_NIBBLE(addr) (((addr) & 0xf0) >> 4)
- 
-@@ -107,6 +113,7 @@ struct phy_cfg {
- 	bool use_default_parameter;
- 	bool is_double_sensitivity_mode;
- 	const struct phy_reg_desc *reg_desc;
-+	bool force_host_disconnect;
- };
- 
- struct phy_parameter {
-@@ -144,6 +151,16 @@ static void rtk_usb2phy_write(u32 val, void __iomem *reg)
- 	writel(val, reg);
- }
- 
-+static u32 rtk_usb2phy_read_be(void __iomem *reg)
-+{
-+	return ioread32be(reg);
-+}
-+
-+static void rtk_usb2phy_write_be(u32 val, void __iomem *reg)
-+{
-+	iowrite32be(val, reg);
-+}
-+
- /* mapping 0xE0 to 0 ... 0xE7 to 7, 0xF0 to 8 ,,, 0xF7 to 15 */
- static inline int page_addr_to_array_index(u8 addr)
- {
-@@ -600,6 +617,23 @@ static int do_rtk_phy_init(struct rtk_phy *rtk_phy, int index)
- 		goto do_toggle;
- 	}
- 
-+	if (phy_cfg->force_host_disconnect) {
-+		const struct phy_reg_desc *reg_desc = phy_reg->desc;
-+		void __iomem *vstatus = phy_reg->reg_wrap_vstatus;
-+		u32 temp;
-+
-+		temp = reg_desc->read(vstatus + PHY_9607_FORCE_DISCONNECT_REG);
-+
-+		/* disable force-host-disconnect */
-+		temp &= ~PHY_9607_FORCE_DISCONNECT_BIT;
-+
-+		reg_desc->write(temp, vstatus + PHY_9607_FORCE_DISCONNECT_REG);
-+		temp = reg_desc->read(vstatus + PHY_9607_FORCE_DISCONNECT_REG);
-+
-+		/* allow IP to startup */
-+		usleep_range(10000, 11000);
-+	}
-+
- 	/* Set page 0 */
- 	phy_data_page = phy_cfg->page0;
- 	rtk_phy_set_page(phy_reg, 0);
-@@ -1109,6 +1143,14 @@ static const struct phy_reg_desc rtd_phy_reg_desc = {
- 	.write = rtk_usb2phy_write,
- };
- 
-+static const struct phy_reg_desc rtl9607_phy_reg_desc = {
-+	.vstatus_offset = 0xc,
-+	.vstatus_busy = PHY_9607_VSTS_BUSY,
-+	.new_reg_req = PHY_9607_NEW_REG_REQ,
-+	.read = rtk_usb2phy_read_be,
-+	.write = rtk_usb2phy_write_be,
-+};
-+
- static const struct phy_cfg rtd1295_phy_cfg = {
- 	.page0_size = MAX_USB_PHY_PAGE0_DATA_SIZE,
- 	.page0 = { [0] = {0xe0, 0x90},
-@@ -1342,6 +1384,29 @@ static const struct phy_cfg rtd1315e_phy_cfg = {
- 	.reg_desc = &rtd_phy_reg_desc,
- };
- 
-+static const struct phy_cfg rtl9607_phy_cfg = {
-+	.page0_size = MAX_USB_PHY_PAGE0_DATA_SIZE,
-+	.page0 = { [0] = {0xe0, 0x95},
-+		   [4] = {0xe4, 0x6a},
-+		  [12] = {0xf3, 0x31}, },
-+	.page1_size = MAX_USB_PHY_PAGE1_DATA_SIZE,
-+	.page1 = { [0] = {0xe0, 0x26}, },
-+	.page2_size = MAX_USB_PHY_PAGE2_DATA_SIZE,
-+	.page2 = { [7] = {0xe7, 0x33}, },
-+	.num_phy = 1,
-+	.check_efuse_version = CHECK_EFUSE_V2,
-+	.efuse_dc_driving_rate = EFUS_USB_DC_CAL_RATE,
-+	.dc_driving_mask = 0x1f,
-+	.efuse_dc_disconnect_rate = EFUS_USB_DC_DIS_RATE,
-+	.dc_disconnect_mask = 0xf,
-+	.usb_dc_disconnect_at_page0 = true,
-+	.do_toggle = true,
-+	.driving_updated_for_dev_dis = 0x8,
-+	.is_double_sensitivity_mode = true,
-+	.reg_desc = &rtl9607_phy_reg_desc,
-+	.force_host_disconnect = true,
-+};
-+
- static const struct of_device_id usbphy_rtk_dt_match[] = {
- 	{ .compatible = "realtek,rtd1295-usb2phy", .data = &rtd1295_phy_cfg },
- 	{ .compatible = "realtek,rtd1312c-usb2phy", .data = &rtd1312c_phy_cfg },
-@@ -1352,6 +1417,7 @@ static const struct of_device_id usbphy_rtk_dt_match[] = {
- 	{ .compatible = "realtek,rtd1395-usb2phy-2port", .data = &rtd1395_phy_cfg_2port },
- 	{ .compatible = "realtek,rtd1619-usb2phy", .data = &rtd1619_phy_cfg },
- 	{ .compatible = "realtek,rtd1619b-usb2phy", .data = &rtd1619b_phy_cfg },
-+	{ .compatible = "realtek,rtl9607-usb2phy", .data = &rtl9607_phy_cfg },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, usbphy_rtk_dt_match);
--- 
-2.55.0
+[Severity: High]
+Does this new quirk collide with an existing one?
 
+It appears FEC_QUIRK_HAS_MDIO_C45 is already defined as BIT(24) in this
+header file (though outside the context of this patch).
+
+Because of this collision, controllers with MDIO C45 support will mistakenly
+evaluate as having the multi-rx-flush quirk, completely bypassing the errat=
+um
+safety check added in fec_probe() and allowing lock-ups on vulnerable
+hardware.
+
+> diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethe=
+rnet/freescale/fec_main.c
+> index ced4dbf8cd90f..a4fe8423630b5 100644
+> --- a/drivers/net/ethernet/freescale/fec_main.c
+> +++ b/drivers/net/ethernet/freescale/fec_main.c
+[ ... ]
+> @@ -1090,6 +1090,15 @@ static void fec_enet_enable_ring(struct net_device=
+ *ndev)
+>  			       fep->hwp + FEC_RCMR(i));
+>  	}
+> =20
+> +	/* Enable receive flushing for the selected queues */
+> +	if (fep->rx_flush_mask) {
+> +		u32 val =3D readl(fep->hwp + FEC_QOS_SCHEME);
+> +
+> +		val &=3D ~QOS_RX_FLUSH_MASK;
+> +		val |=3D fep->rx_flush_mask;
+> +		writel(val, fep->hwp + FEC_QOS_SCHEME);
+> +	}
+
+[Severity: High]
+Can this leave vulnerable bootloader configurations active if the device tr=
+ee
+omits the fsl,rx-flush-queues property?
+
+If fep->rx_flush_mask is 0, this register update is skipped entirely.
+Meanwhile, controllers with FEC_QUIRK_HAS_MULTI_QUEUES skip the hardware
+reset in fec_ctrl_reset().
+
+If a bootloader (or prior kernel via kexec) enabled RX flushing on multiple
+queues, and the current device tree doesn't specify the property, the old
+configuration will persist. This could inherit a dangerous hardware state
+and trigger the ERR050395 RX path lock-up.
+
+Should the FEC_QOS_SCHEME register always be updated to clear the mask if
+fep->rx_flush_mask is 0?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814090906.2225=
+075-1-alexander.sverdlin@siemens.com?part=3D2
