@@ -1,176 +1,288 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3A53AFAEA
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 09:14:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786785284; cv=pass; b=sEDE65Zi11lqwBmjK+t56lNBo9+OY5L0fBt2dspN4uyYrGwjfPpCcs1VDDr3xee6J1/TcRQvGwSF0iYs4w3TtuhPoKG3GFYJ4iiFDkgImcd4FSWPksUEjizlcBZECpVtnP6bWKnpLC1ES6JFVKgMwP8tmBzULlzLyIR46jas6qg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786785284; c=relaxed/simple;
-	bh=5fQncidyqju5XwIRjWaEWUVmeKeo8nb3CtmIXxuvC0k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TNGUB0opQ3llLi05m8f+bBrWKUoBYd5s2zBIStZ/ed4f+cwXUTR2sh+hHQnOA1d46h8xQhNrNZpBOJ2UzfNRsS3XnhaESIo3CqwhPKj/nRx7BvJW0m7mUKU81v4mLUIUNWKIGtN7X1fphozYKlp+ShAhyyhFzEoQy7i4+fc9zYI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hDUXxDK6; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5ED3B52FF;
+	Sat, 15 Aug 2026 09:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786785285; cv=none; b=g46UQ9Pv0XZZYK7S849orSdAvqeSR7WIoQTrxh9gdEKW7Q0tQKPILI6F/NsQCrHgR0y+IfIPfRlBW5ZbuVFiLS6r9z3xt3ZfrXOEf9A7dgZITKmQGdlgDL+SegaibjvKq9vJxUeL9jW3fsyU/dY5SfVaf2rBPmPaS5fMSE5Go70=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786785285; c=relaxed/simple;
+	bh=ftguCxpMbqswlMtPaAr05z4e0h43CRs5eW3ROo1Rx98=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tdKnpZkgdctsf29MnM+yoN5S21f1uSphqPaEeoRS+U6HRGfrLYKfMgZasHwY1sKcmMUqpvyZFlEbIEdhfsXWT1s4sWjsibVvm68JcoGWN0DTtprnQV7v+/PQJl/ksWkvNFHR7jMyl0cXWvlFQ+C6gqd+SgwTBPfOzVtV47ZOwAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=fEA1VMcd; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hDUXxDK6"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso2387227a12.0
-        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 02:14:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786785281; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FoBxRRmSf0fE4ScmklDqB3a6rQ/ry8Gjvkn2wAHI/AS//ajWG/hb38xmXd1FnXtkY2
-         uUppNCVI2WOUFApR1s4U4F99Z2DLLSr7T+rk8kARtQC8+kP7/gLRs5D9DDlqQhu2GtWG
-         9suWqNxCV8HBV6kgMKoCEYBp65EKqSUHEn32+mxhXsP+aziGv1myv/g1Q6s7+9l7UgPm
-         Lv9CwwExpC1gS1pcH0MEd0EIN2yRx0iymuT3TJmmmPsBeMpLhyMfg3nSrGZ7ixTqO5eC
-         XICZbLT9xynXBP/rKg0Kj+gxFF+qDJZvITgReP3idJh58eRNlgNLXjtgqQQXq+uOXQNa
-         MR+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=l1AHP1yiadUPKvA53vmM4QSUOpatBxef1dyJnSggtJU=;
-        fh=2W0Ap0j8ZPdraPmHNiuQ1VQrSV3frHwjk20YcE+aGgo=;
-        b=iLEIIhkApXWdZCIgi/XPtcRxtd8YfVnG8upvSjalJTt+xKUS6hm9SqTNttv5//VtUE
-         hqIENvaJ1ypiVDc6UwsOHSJP+q1uDrTAdc0GL9zpQx1/WjwEhkAK9N/JhC7zGB7mcifb
-         QCEbW/N+HbHu7q+bSmNHyscazGkAriF1qBisv9qyjPFtbVwRK30SBcLHtnHZGY/g7HAN
-         9o488Obg+5USaDuH7P2qU24JoNRQLadlZ/+quHTA/8MqH0/nVY8tbsF8r6q7QN0QG85e
-         6qHK5FkpMSL9SXQeDIwlmUxJnk0DhWzoJ03lanFVNjGYsRlwWbnNM853Ytu7ZfNkbJhm
-         wcnA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786785281; x=1787390081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l1AHP1yiadUPKvA53vmM4QSUOpatBxef1dyJnSggtJU=;
-        b=hDUXxDK6PZuGgrKK0TowOFXMOcunkp2meq3XN+hsTXHz4HidSz4t4ZcRyw00Nkg5HR
-         XzhGbrm6OrAL6zNmKgzYgihKjMKfidamb3rYfqGgFgtmGqxHrPFt7nd73n2YpCekhbPY
-         1Of1QZ0lLeyJN8rqBfLcG/X2R3xZontgrQM8RVX/RIR+dFBA34I2cyBVBL7p3/F81BG5
-         BQIpBM4Yph/ZAXJYR1O4CyWuHjnFtlmHwFEsjD0i1x03a/4pFw+2h3rbocvi3agCq2Ri
-         tjaktN7z5rh4cI1SX29gfBWsTXa6kuO5BZHXjF0kSx0yOZDuFBA8teVlkqJFrfV9/quj
-         /3VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786785281; x=1787390081;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l1AHP1yiadUPKvA53vmM4QSUOpatBxef1dyJnSggtJU=;
-        b=cj9p+HV7G/KLkpQlTNC/LLf+ULRL/WRepFVdTXi9z3xhHIFS45Vb7U5uCbVuGnpSXt
-         TjVo5mv2Ys7m0XLx1hOWzVkMZVePZpPVbkJ7WEZm3HnCwuGyDQ/qCgbByWXzmdre6Tzx
-         l2PK/lIp6V0ES2jd0lA5lN5kd9zjSVp8chWsCkjsn5ULWVo2AOOSMqmQSLwsgyWVxGj5
-         fSU7XiWG4MpvoMC3rFAbT3FEoxRilTCIGSxkOa1wfSOiQhXmSEyFHMPsp90Yr7qMaPL4
-         KgyQz8iyMhynQp9/DkB5HNWcJAgTxEw1jM6DlyENycczAeQWn9x7wAMJmECLSOYcM170
-         5HVA==
-X-Gm-Message-State: AOJu0Yw7RSppYr8Owfe8zbMGcjOARwFBfXGqLDn++srSSwgOnOOVqg7X
-	twIOVdT9301Lso+ZcwkOGWS5Qo7gATM9nEMIEh5+n/1trkLc1cDDN7kFBOSgeoDvVLF5+OJmG8P
-	Jw3tKt4ZgZjcd4Uzh2SSqAWNYxD3qAcc=
-X-Gm-Gg: AR+sD10952iSciOarJAStZXbub27VuEvDGBGGG3cbuwcljWzDJLickru9CWgG4eEJby
-	oHgWi5qnbFI6zin7de2RFj20M32FyyRDJSnbAw/WVyxcxRenh6e6FVPnczN6LA8WhWJda/xmhfE
-	eKbAzoEfNTKxGMMdakPq7iEL/N6QQKg+bVLBVrw8r206B02o+s0j7XZ30j9dDIKv4QhLRNOJVbg
-	tYxmGomZy/iHFqqGd8F7rEcRpXOc5JLLCI8NyNcbEPnbqvNCE6MlglQwQepe2mSGZixsKmNIpGF
-	3OA9f1vtBS7YZiG9FBR89TFIWuXMKBu8dOHwbkuBquYFw25FSgORUajuymbK8twiT6gnVcpdupC
-	Ruo00T2LGsh43
-X-Received: by 2002:a05:6402:249c:b0:6a3:8586:9b73 with SMTP id
- 4fb4d7f45d1cf-6a38a926287mr5303643a12.6.1786785281054; Sat, 15 Aug 2026
- 02:14:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="fEA1VMcd"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id B746D88363;
+	Sat, 15 Aug 2026 11:14:35 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id WHNjcn3bikdF; Sat, 15 Aug 2026 11:14:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1786785274; bh=ftguCxpMbqswlMtPaAr05z4e0h43CRs5eW3ROo1Rx98=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fEA1VMcd7RuNFJ2+UqbKAEnCVhr1ZHJp5EMmHeGHcTxHngXqDCk3RlSyRCuu83wEH
+	 ds77pk2QPNRl5mdUJ85DPDgQTXyXwNOju1HdMUh1VYt49Td0MzNSO1hNkWnn4DOxHy
+	 duCPHSH2Yz+i1xL+tnPNh0pupm4NO7kaC88x0AzjXQSjFPReKHflNjxGUdzHFBIljm
+	 G++oyRa+GdsA0W/aD+M0zghSjsp4he/rCvCo91LplsqNzIsXoGakVOPv0x62w78TUW
+	 Z4XDr+IrjgfKrXfWmzsBRgYndaqCi7+Fk3TLEshSiYb3sQc2hPcIbgIfBCLshSCXwF
+	 VQlXWcwpylqOw==
+From: Rustam Adilov <adilov@disroot.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanley Chang <stanley_chang@realtek.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>,
+	Michael Zavertkin <misha.zavertkin@mail.ru>
+Subject: [PATCH v7 1/6] phy: realtek: usb2: introduce phy_reg_desc struct to the driver
+Date: Sat, 15 Aug 2026 14:13:35 +0500
+Message-ID: <20260815091340.26910-2-adilov@disroot.org>
+In-Reply-To: <20260815091340.26910-1-adilov@disroot.org>
+References: <20260815091340.26910-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815083451.2147129-1-egbostina@gmail.com> <20260815084635.BECD91F000E9@smtp.kernel.org>
-In-Reply-To: <20260815084635.BECD91F000E9@smtp.kernel.org>
-From: Eduard Bostina <egbostina@gmail.com>
-Date: Sat, 15 Aug 2026 12:14:30 +0300
-X-Gm-Features: AcwNN1XLq_7Rvilq510EdyjugR4FFUzRoIg_f3AqTgOwGlF-ckiD4eTzrM4zuSY
-Message-ID: <CAEFOc61s9761y+7zcuWmNUeRuOWika=uhAhOay8ufL7vVhNk8w@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: mfd: Convert TI TWL6040 to DT schema
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, 
-	robh@kernel.org, lee@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 15, 2026 at 11:46=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] The YAML schema defines incorrect property names for the vibra=
- default voltages, mismatching the driver's requirements and breaking schem=
-a validation.
-> --
->
-> --- Patch [1]: [PATCH] dt-bindings: mfd: Convert TI TWL6040 to DT schema =
+In RTL9607C SoC, there are a few differences in usb2 phy compared
+to existing RTD SoCs, like vstatus register is at certain offset
+from the base, busy bit and new_reg_req bit are at different bits
+of the register.
+
+To avoid duplicating these variables across phy cfg and driver data,
+create a per-SoC struct that would hold them and with that add the
+default rtd_phy_reg_desc to which all RTD SoCs driver data will
+point towards.
+
+Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+Signed-off-by: Rustam Adilov <adilov@disroot.org>
 ---
-> commit c57af8c690b680b78b9119a5988e020149e24c1e
-> Author: Eduard Bostina <egbostina@gmail.com>
->
-> dt-bindings: mfd: Convert TI TWL6040 to DT schema
->
-> Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
-> schema.
->
-> > diff --git a/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml b/Do=
-cumentation/devicetree/bindings/mfd/ti,twl6040.yaml
-> > new file mode 100644
-> > index 0000000000000..a93835aa91535
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
->
-> [ ... ]
->
-> > +      ti,vibrmotor-res:
-> > +        $ref: /schemas/types.yaml#/definitions/uint32
-> > +        description: Resistance parameter for right motor
-> > +      vddvibl_uV:
-> > +        $ref: /schemas/types.yaml#/definitions/uint32
-> > +        description: vddvibl default voltage if it needs to be changed
-> > +      vddvibr_uV:
-> > +        $ref: /schemas/types.yaml#/definitions/uint32
-> > +        description: vddvibr default voltage if it needs to be changed
->
-> [Severity: Medium]
-> Does this incorrectly define the property names for the vibra default vol=
-tages?
->
-> The twl6040-vibra driver actually expects these properties to be hyphenat=
-ed
-> and have a "ti," prefix. For example, in drivers/input/misc/twl6040-vibra=
-.c:
->
-> twl6040_vibra_probe() {
->     ...
->     of_property_read_u32(twl6040_core_node, "ti,vddvibl-uV", &vddvibl_uV)=
-;
->     of_property_read_u32(twl6040_core_node, "ti,vddvibr-uV", &vddvibr_uV)=
-;
->     ...
-> }
->
-> Since the vibra object sets "additionalProperties: false", won't valid de=
-vice
-> trees using "ti,vddvibl-uV" fail schema validation?
->
-> Conversely, if a device tree uses "vddvibl_uV" to satisfy this schema, wo=
-n't
-> it be silently ignored by the driver at runtime?
->
-> > +
-> > +    required:
-> > +      - ti,vibldrv-res
-> > +      - ti,vibrdrv-res
-> > +      - ti,viblmotor-res
-> > +      - ti,vibrmotor-res
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260815083451.21=
-47129-1-egbostina@gmail.com?part=3D1
+ drivers/phy/realtek/phy-rtk-usb2.c | 59 ++++++++++++++++++++++--------
+ 1 file changed, 44 insertions(+), 15 deletions(-)
 
-No in-tree device tree uses these two optional properties, so
-dtbs_check never caught them, and I carried the names over from the
-old txt binding.
-I'll fix them in v2.
+diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
+index 248550ef98ca..e8d0f0119ec0 100644
+--- a/drivers/phy/realtek/phy-rtk-usb2.c
++++ b/drivers/phy/realtek/phy-rtk-usb2.c
+@@ -60,10 +60,17 @@
+ #define DEFAULT_DC_DISCONNECTION_VALUE (0x6)
+ #define HS_CLK_SELECT BIT(6)
+ 
++struct phy_reg_desc {
++	int vstatus_offset;
++	u32 vstatus_busy;
++	u32 new_reg_req;
++};
++
+ struct phy_reg {
+ 	void __iomem *reg_wrap_vstatus;
+ 	void __iomem *reg_gusb2phyacc0;
+ 	int vstatus_index;
++	const struct phy_reg_desc *desc;
+ };
+ 
+ struct phy_data {
+@@ -96,6 +103,7 @@ struct phy_cfg {
+ 	bool do_toggle_driving;
+ 	bool use_default_parameter;
+ 	bool is_double_sensitivity_mode;
++	const struct phy_reg_desc *reg_desc;
+ };
+ 
+ struct phy_parameter {
+@@ -156,27 +164,28 @@ static inline int utmi_wait_register(void __iomem *reg, u32 mask, u32 result)
+ static char rtk_phy_read(struct phy_reg *phy_reg, char addr)
+ {
+ 	void __iomem *reg_gusb2phyacc0 = phy_reg->reg_gusb2phyacc0;
++	const struct phy_reg_desc *reg_desc = phy_reg->desc;
+ 	unsigned int val;
+ 	int ret = 0;
+ 
+ 	addr -= OFFEST_PHY_READ;
+ 
+ 	/* polling until VBusy == 0 */
+-	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
++	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
+ 	if (ret)
+ 		return (char)ret;
+ 
+-	/* VCtrl = low nibble of addr, and set PHY_NEW_REG_REQ */
+-	val = PHY_NEW_REG_REQ | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
++	/* VCtrl = low nibble of addr, and set reg_desc->new_reg_req */
++	val = reg_desc->new_reg_req | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
+ 	writel(val, reg_gusb2phyacc0);
+-	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
++	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
+ 	if (ret)
+ 		return (char)ret;
+ 
+-	/* VCtrl = high nibble of addr, and set PHY_NEW_REG_REQ */
+-	val = PHY_NEW_REG_REQ | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
++	/* VCtrl = high nibble of addr, and set reg_desc->new_reg_req */
++	val = reg_desc->new_reg_req | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
+ 	writel(val, reg_gusb2phyacc0);
+-	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
++	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
+ 	if (ret)
+ 		return (char)ret;
+ 
+@@ -190,29 +199,31 @@ static int rtk_phy_write(struct phy_reg *phy_reg, char addr, char data)
+ 	unsigned int val;
+ 	void __iomem *reg_wrap_vstatus = phy_reg->reg_wrap_vstatus;
+ 	void __iomem *reg_gusb2phyacc0 = phy_reg->reg_gusb2phyacc0;
++	const struct phy_reg_desc *reg_desc = phy_reg->desc;
+ 	int shift_bits = phy_reg->vstatus_index * 8;
+ 	int ret = 0;
+ 
+ 	/* write data to VStatusOut2 (data output to phy) */
+-	writel((u32)data << shift_bits, reg_wrap_vstatus);
++	writel((u32)data << shift_bits,
++	       reg_wrap_vstatus + reg_desc->vstatus_offset);
+ 
+-	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
++	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
+ 	if (ret)
+ 		return ret;
+ 
+-	/* VCtrl = low nibble of addr, set PHY_NEW_REG_REQ */
+-	val = PHY_NEW_REG_REQ | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
++	/* VCtrl = low nibble of addr, set reg_desc->new_reg_req */
++	val = reg_desc->new_reg_req | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
+ 
+ 	writel(val, reg_gusb2phyacc0);
+-	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
++	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
+ 	if (ret)
+ 		return ret;
+ 
+-	/* VCtrl = high nibble of addr, set PHY_NEW_REG_REQ */
+-	val = PHY_NEW_REG_REQ | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
++	/* VCtrl = high nibble of addr, set reg_desc->new_reg_req */
++	val = reg_desc->new_reg_req | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
+ 
+ 	writel(val, reg_gusb2phyacc0);
+-	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
++	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -957,6 +968,7 @@ static int get_phy_data_by_efuse(struct rtk_phy *rtk_phy,
+ 
+ static int parse_phy_data(struct rtk_phy *rtk_phy)
+ {
++	struct phy_cfg *phy_cfg = rtk_phy->phy_cfg;
+ 	struct device *dev = rtk_phy->dev;
+ 	struct device_node *np = dev->of_node;
+ 	struct phy_parameter *phy_parameter;
+@@ -974,6 +986,8 @@ static int parse_phy_data(struct rtk_phy *rtk_phy)
+ 		phy_parameter->phy_reg.reg_wrap_vstatus = of_iomap(np, 0);
+ 		phy_parameter->phy_reg.reg_gusb2phyacc0 = of_iomap(np, 1) + index;
+ 		phy_parameter->phy_reg.vstatus_index = index;
++		phy_parameter->phy_reg.desc = phy_cfg->reg_desc;
++
+ 
+ 		if (of_property_read_bool(np, "realtek,inverse-hstx-sync-clock"))
+ 			phy_parameter->inverse_hstx_sync_clock = true;
+@@ -1060,6 +1074,12 @@ static void rtk_usb2phy_remove(struct platform_device *pdev)
+ 	remove_debug_files(rtk_phy);
+ }
+ 
++static const struct phy_reg_desc rtd_phy_reg_desc = {
++	.vstatus_offset = 0,
++	.vstatus_busy = PHY_VSTS_BUSY,
++	.new_reg_req = PHY_NEW_REG_REQ,
++};
++
+ static const struct phy_cfg rtd1295_phy_cfg = {
+ 	.page0_size = MAX_USB_PHY_PAGE0_DATA_SIZE,
+ 	.page0 = { [0] = {0xe0, 0x90},
+@@ -1085,6 +1105,7 @@ static const struct phy_cfg rtd1295_phy_cfg = {
+ 	.driving_updated_for_dev_dis = 0xf,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = false,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct phy_cfg rtd1395_phy_cfg = {
+@@ -1109,6 +1130,7 @@ static const struct phy_cfg rtd1395_phy_cfg = {
+ 	.driving_updated_for_dev_dis = 0xf,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = false,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct phy_cfg rtd1395_phy_cfg_2port = {
+@@ -1133,6 +1155,7 @@ static const struct phy_cfg rtd1395_phy_cfg_2port = {
+ 	.driving_updated_for_dev_dis = 0xf,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = false,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct phy_cfg rtd1619_phy_cfg = {
+@@ -1155,6 +1178,7 @@ static const struct phy_cfg rtd1619_phy_cfg = {
+ 	.driving_updated_for_dev_dis = 0xf,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = false,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct phy_cfg rtd1319_phy_cfg = {
+@@ -1181,6 +1205,7 @@ static const struct phy_cfg rtd1319_phy_cfg = {
+ 	.driving_updated_for_dev_dis = 0xf,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = true,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct phy_cfg rtd1312c_phy_cfg = {
+@@ -1206,6 +1231,7 @@ static const struct phy_cfg rtd1312c_phy_cfg = {
+ 	.driving_updated_for_dev_dis = 0xf,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = true,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct phy_cfg rtd1619b_phy_cfg = {
+@@ -1231,6 +1257,7 @@ static const struct phy_cfg rtd1619b_phy_cfg = {
+ 	.driving_updated_for_dev_dis = 0x8,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = true,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct phy_cfg rtd1319d_phy_cfg = {
+@@ -1256,6 +1283,7 @@ static const struct phy_cfg rtd1319d_phy_cfg = {
+ 	.driving_updated_for_dev_dis = 0x8,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = true,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct phy_cfg rtd1315e_phy_cfg = {
+@@ -1282,6 +1310,7 @@ static const struct phy_cfg rtd1315e_phy_cfg = {
+ 	.driving_updated_for_dev_dis = 0x8,
+ 	.use_default_parameter = false,
+ 	.is_double_sensitivity_mode = true,
++	.reg_desc = &rtd_phy_reg_desc,
+ };
+ 
+ static const struct of_device_id usbphy_rtk_dt_match[] = {
+-- 
+2.55.0
+
