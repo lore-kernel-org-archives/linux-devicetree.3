@@ -1,140 +1,110 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C125F24CEEA
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 18:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3C8D2D8370;
+	Sat, 15 Aug 2026 18:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786818645; cv=none; b=Yr4+bServ0K3vCFmjwiJCdPkij2V///TaUOYqQsM5w5AZT3yTjLDiS4lECyRmWBfGSYFihErd3qWP2W6YSsqF8MPXDu13Zxx9EJJm6XvqdzeWtk6RdSv56TgGroXC6qR+R9aIaTFz9Mv8uYyRJ9lTUH8nGhASbXC7WSLYMPeue4=
+	t=1786819004; cv=none; b=pxs68stTp4ml8lFmhmL7NJoutgaq7opJPgwuk43xp7LWHz+H3gQFypKnoQ+hSU92pyy/AM0KKgASewTIZsElRDJ8HWAYKm6mqDK/pYhm0GMYFKdBpS4KtDRO6wFQi9h7xWEWBmDQOUitKD9s1FyDICoVbLVnLH3TXWuX0orfhAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786818645; c=relaxed/simple;
-	bh=kZTfO3uBKI57NTDJR2ykmTrRfYE0b0gP3rPTwHiWlDg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=RsAOyMXFT1UR9p1Puk1Mw9YkdZo+IrxHBrBPaRbkQKA3zfbrzG0xNnv9OOiu/IBxMYjSmDPpx1XafvAzYtiMpoIKjO0AD9WQAckgSZobeyn44lHcHrqafQTYh8mJ/YMFXdJD9I21XrVPH4RDXY/nE5FO71A3NI2e7MgucLjKXRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QUMcL5WN; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786819004; c=relaxed/simple;
+	bh=9vZoBgzFE2THNFE8s+a0rg1bPJg4MV54NAwQFcIi1xY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FnFTmuYxJnJ5mreeelEluU5ri3u/9ODGQ7f69jXaXw0cfHTc5Aox3hOrt/0rYNIEwPtJ5YJn84WP7/2fc2QiXPshNFei2vuPb+D2D6rQdJKwY2a+IXrmqcws5+X/MfyCAmzlnK4FPTWg+yxqV1r+AGrPr4eIj/lfjeapFzEXGJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UEGZPlCo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QUMcL5WN"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a082b3671fso2768291a12.3
-        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 11:30:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786818642; x=1787423442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bX0B/tvx/xNY4Z8oanBlKNjZDRWTCp9mIncsBbd3D3s=;
-        b=QUMcL5WNZ97vXsab3wHFE9ktnGN5ocPotQL03Lov80XfdxfQfkSGgzTAgXtIVNqxJ9
-         vvNf/Nf0t5YPAdQbeE4n74iJjrTM1bMw7P6sX+0rznkVcAz2/2pMMr5LI/+VHr4rmllf
-         Fb50UADBBG+fqAUpv93RECRm7ju86fML9PLtmYhj0DBW4i7j2J11aq8fuW4t2nlnLz4W
-         gPHlyWzoHvYHE3tgm0Tp5jnkpr4hTiFvxOexnDcTKUHZtdPvbjbchh5iyu0JTuMxtqq8
-         57rpzb3j5uwHTQTnkUtyeUwKh0NYWXjzt4YHLPAOqxmpPpyyQKfgxD6gZvXApAcmoyRT
-         Q+CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786818642; x=1787423442;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bX0B/tvx/xNY4Z8oanBlKNjZDRWTCp9mIncsBbd3D3s=;
-        b=C9nKg9PKbwFyVOjK/E8ZTFc1e/Of7V4MFVWbpdFgxzZRQ34IfkyHHXoh/u0Cl1zeIu
-         TKUlAKtLZkGuSCKBGehQXw9SWJ4Aa8MlaCA70Fy8RCUIy5h2QmuLcoWR6I0asuehhboC
-         qByf1qG7v2hvk3/CEi9EnykI2GAJCrJQfEsijmqPGYx9q6+GPO4LSfVb6kNcGKPPOd0w
-         gIINbVMzYfSvZfEnMA8kykhiIuHYBc7VOEnkfq76jv66GXEpqRhCgqoOIsmaDTMK2Doz
-         Gd5bO+JVGfQlXGCnGg1IaW0nXKp+yNUSAOQvruyQpgnrkodrRWzkKYD2HuDMQXvWOvzd
-         xuRA==
-X-Forwarded-Encrypted: i=1; AHgh+RrOhlUQfJENw1b3oDUW4vmluE7j9p0pf0kRwECi2UKxZpRkFgLamh7wWXNSItJPKqMEscwRi6AtejFx@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzxh1M/nr8p5eEYV/vtE6spX3TYCNml3KHOEQra1keuUR0RZvDy
-	9oPBVgG0/fKDwf79Vhb63OiR/nrYNa5HA28mdHpK6uA4SCqrHyvnKyog
-X-Gm-Gg: AR+sD11bEY5K3Uh5Bd8jFTHQlkpD9zVqRtFUP043RDeiHC7DvzYP4hrOSY2yhCDMdI2
-	iURBMDgiw7b3/Pnqc4ZSCnlt03FoCDyvMpBF54X9d40hdtZobeyG4AhcTh1z6fK1aZ/RZqiye0L
-	1KnzIM5fboz34ekA/TYsbIkUnA897k4WRmYSdi0HHgQGjE3ZS7KyKjO48NTQPeg8bpKv3TmLSYl
-	gC0pRxVJP+Xs/G9gGnzrnE/Tf9yAD0hTKJ34Dr0xLCXnUQ/OOnpZykeNaQAsLen/xT2sPL7mXJA
-	rH/kHykaKo/mBN3NOjlhGormw9wLZ/3KarKqPOmgfkWP4Tpd69XXIbpFgT820sDQKKWxvPmGFyj
-	jyi6QP3+ct15g8NeFudrRUAMvPGL78rxE/5b2k0bJoXPwrUWEsJJPkh0IAPzvPiNWsyH/JRPonw
-	jIXH0mS71oz2uk9elIPPcbvMaqB+OLyWQ7rO83xLlWlO8Tb7dNkH0p8bNAQmgXWPHNAntdgDYqk
-	kZv1eFlVg8IBXVJn/H5YMfEnAQbWr9g58pqB0rTQQ==
-X-Received: by 2002:a05:6402:504f:b0:6a3:6943:d64f with SMTP id 4fb4d7f45d1cf-6a38a8bef76mr5798579a12.2.1786818640952;
-        Sat, 15 Aug 2026 11:30:40 -0700 (PDT)
-Received: from ?IPV6:2a00:1fa0:28f:426f:2aa1:8f7:f8a6:4f89? ([2a00:1fa0:28f:426f:2aa1:8f7:f8a6:4f89])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a38d7698d8sm2205357a12.14.2026.08.15.11.30.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 15 Aug 2026 11:30:39 -0700 (PDT)
-Message-ID: <592ff228-2887-4ff9-b110-9f3c0e73a02a@gmail.com>
-Date: Sat, 15 Aug 2026 21:30:35 +0300
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UEGZPlCo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4E3DC1596;
+	Sat, 15 Aug 2026 11:36:38 -0700 (PDT)
+Received: from pluto.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 939FA3F632;
+	Sat, 15 Aug 2026 11:36:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1786819002; bh=9vZoBgzFE2THNFE8s+a0rg1bPJg4MV54NAwQFcIi1xY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UEGZPlCoCKCqvbT1Jt6Bc0WI7dOJY7ASe2S+z+3gRQKgVMtVLG2T98HWxmd+S+ndm
+	 UTn468/3w6VkBOORnhLzN9sVxpx92IJPP0vUyOjlrHfO1AmBJp03sT4NeIti7UL0MC
+	 QX75EpIj6wcN5qISrlkb2hgkqm+yflzw735FPHcI=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jic23@kernel.org,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v9 04/24] dt-bindings: firmware: arm,scmi: Add support for telemetry protocol
+Date: Sat, 15 Aug 2026 19:35:32 +0100
+Message-ID: <20260815183552.3250194-5-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260815183552.3250194-1-cristian.marussi@arm.com>
+References: <20260815183552.3250194-1-cristian.marussi@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 03/10] net: ethernet: ravb: Simplify gPTP
- start and stop
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "DavidS. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Vadim Fedorenko
- <vadim.fedorenko@linux.dev>, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260811160200.2049987-1-niklas.soderlund+renesas@ragnatech.se>
- <20260811160200.2049987-4-niklas.soderlund+renesas@ragnatech.se>
-Content-Language: en-US
-From: Sergey Shtylyov <sergei.shtylyov@gmail.com>
-In-Reply-To: <20260811160200.2049987-4-niklas.soderlund+renesas@ragnatech.se>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 8/11/26 7:01 PM, Niklas Söderlund wrote:
+Add new SCMI v4.0 Telemetry protocol bindings definitions.
 
-> For devices that do not support the gPTP clock in config mode the
-> somewhat oddly named flag gptp is set, compared to devices that do
-> support the gPTP clock in config and operation mode where the flag
-> ccc_gac is set instead. The two flags are mutually exclusive.
-> 
-> For the gptp-flag devices (Gen2) the clock is tied to the AVB-DMAC, when
-> it is stopped so is the gPTP clock. For ccc_gac-flag devices (Gen3) the
-> gPTP clock is available whenever the ndev is open.
-> 
-> Prepare to add Gen4 support which will add a third way by cleaning the
-> Gen2 and Gen3 cases up a bit.
-> 
-> Fold the gptp-flag start and stop calls into ravb_dmac_init() and
-> ravb_stop_dma(), which start and stop the AVB-DMAC. There are no
-> functional change as all call sites to the construct:
-> 
->     if (info->gptp)
->         ravb_ptp_init(ndev, priv->pdev);
-> 
-> are always just after a call to into ravb_dmac_init() and all call sites
-> to the construct:
-> 
->     if (info->gptp)
->         ravb_ptp_stop(ndev);
-> 
-> are always directly followed by a call to ravb_stop_dma().
-> 
-> There are two special cases where the calling construct covers both the
-> gptp-flag and info->ccc_gac devices, one for start and one for stop. The
-> condition that it is preceded by a call to ravb_dmac_init(), or followed
-> by a call to ravb_stop_dma() are however true for them too. Reworked the
-> two special cases to drop the check of info->gptp.
-> 
-> The end result is that the gPTP clock will be started or stopped for the
-> gptp-flag devices in tandem with the AVB-DMAC, while the info->ccc_gac
-> devices will be controlled, as before, when the ndev is opened or
-> closed.
-> 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+---
+v3 --> v4
+ - changed protocol number to lowercase 1b
+ - fixed misplaced block for protocol 0x1b
 
-[...]
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+---
+ Documentation/devicetree/bindings/firmware/arm,scmi.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-MBR, Sergey
+diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+index d06cca9273c4..be733f8d60a0 100644
+--- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
++++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+@@ -324,6 +324,14 @@ properties:
+     required:
+       - reg
+ 
++  protocol@1b:
++    $ref: '#/$defs/protocol-node'
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        const: 0x1b
++
+ unevaluatedProperties: false
+ 
+ $defs:
+-- 
+2.54.0
 
