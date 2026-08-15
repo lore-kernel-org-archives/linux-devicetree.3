@@ -1,82 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284C241D100
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:26:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0359E41D216
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786800372; cv=none; b=ZmN4ps1Dv+R91myJsSGb9kONzV/+gvITNs4wzIwJ8hRHWytdl+c5bfBsXkU6kuOlES0UxnwKq7uUEniEaPFmpMxG4FD0LoeeC7H8aSJo8mN5ja/nchmSu075zv7fc2cHGm5GnUvkReVibDRtdS0b8E1vwqyGjwAvq4cyJ0XBWRU=
+	t=1786800376; cv=none; b=DLtDc/XK77FtOaVRxj5HgKSHsDP9et7pmUPWIhLlgJBIXy+Ji5teaZgevY2gxq7UVmqzGfv/RLW3B1yeiLs+zPL3uudDKh0k+n+z9DUHw/SY7aOZNw3tHubkgld6WGJEGky8VEMB3Yhx6ovi4ektZAg/kvXKgde5v6QEdOFoPEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786800372; c=relaxed/simple;
-	bh=y7ar12FG8BENdZ3ityGYZ36lZ87KzzyCCpI/by79cdA=;
+	s=arc-20240116; t=1786800376; c=relaxed/simple;
+	bh=V0xJ5rGoDj5iR1dMadfapVH8RgSP9jryHFE8W+hoDXE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PnnODtNqPt3vFK8cuu5UnKM8rB2CLgsLbqdMGX6oqBs0fIXz+/IjptQZLB7J0//VhVhn2BtZWG8jtVWe2/Szrp0LAlFAYJneTcTjicVUl99m2khkFO04YNig+IoX6dkbYOwfQYcO3bM9W9oKYiu9D7K/yaj58J2qfQOPyLnb89M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MkteGfss; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y8Sh98gr; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=fU9UUoaRjLkFrd803KDj/aVlp8Wrm070rNa08Uq5nBtQSO4Z75kTGBUqvij0328CZjIPBFR87olchkHRGM3pLP0IAwuyGqTKfSaIGUSJlGrz/2apl+nxpT5p5WR2jblXcR+pYSxNWs2TxPI/Ekemy0xJBCjpIEmfNYhfg9dOPco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Dob8upJI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bW2M26/M; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MkteGfss";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y8Sh98gr"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67FDMb1Z219430
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:26:10 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dob8upJI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bW2M26/M"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67FDMPeW1713225
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:26:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=zOFtAZ+E2b5
-	BkVLywK82W0fnJDTIl5z2YkSwRx/DLF0=; b=MkteGfssnE62uvp8ajwUd7R2Una
-	Bm3gGBTlVPrQYjGaKyMgrapFRb02w8mNtSSM3oHrCh1ChhbPtXSXbiWZdcZ3WPrj
-	uF+cDDqOGGFNDj5exIZVcSMEvYPdRihk2gK66+3IvvP/JqHBWwqslj9uVOrTGhdR
-	A7tBSQB1h/kammS/if/330DL5ZWbdWpkqUdwt4nudHTKg31G82lor7NgMKZBWZC7
-	T85/9oumqaL1XASNl9J9CNI04LEkzNn+bOshrbqWY5zx2b8wDxHuKJMcx0KjnuuP
-	WoeOSUQM8Mc3C6BKunRtAOhESeyWUaFveiFi55N1RvOAJV5ehVHafgBSzrw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2hd7rvrf-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=yR1lFmAjTJo
+	UnDiSDduEbpWfWkdC6wgUbDXk1v75sWU=; b=Dob8upJI1SVnHglxdW3XAWBnKQ3
+	RUSIpoe/icMPvoc6zCUk3tfLVwNmcaZrDWeiydOaycmO+N6sKGn5qgDnGn5Skn2/
+	71oUFLgvM5mHZFU/0mJeWu/rDZBdV/rm9/H//9I3Lvoj2fwDEgTqjMEW6k8wVKrY
+	P2hqjA9/xlDJsb6KsD18uYKs2gf8xH0L+dfmkw1l4UOi0Kb1e4fVAe2Y01LuV/Ah
+	+chIg5fbgv5QXvdZ8GguroN3a2DDe1PeAD3ndLgANSnMoOGkt3eWgptayWD6gXxt
+	JODvwTfkZg9+UDkiZKqMHb418EF3P2QfP/5kjNELjy42xBo3fz1nyjHQDFw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2ghf900f-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:26:10 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb5cc1e139bso1381063a12.3
-        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 06:26:10 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:26:14 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3931cd2e4cbso2335879a91.2
+        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 06:26:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786800370; x=1787405170; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1786800373; x=1787405173; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zOFtAZ+E2b5BkVLywK82W0fnJDTIl5z2YkSwRx/DLF0=;
-        b=Y8Sh98gr6GpnPw6OhwyY89CgIgs9X9/S0utDaeoRBDQjr4DV44zoXmlJ22ZASyTg0y
-         uClt3c3srJn7llFlYmPnyWu4LUCEwC9Bncks2FIX/2X4KVjuE3j2RY6zQcuyLq9+AM2N
-         jbcQcD+0pfLTDZB0ewLoadfss4v836aT1K91cdlSdnzRvpcepAQq4xlHrPqRI8TA1/Ed
-         gotzV/fHh1oO78K4GW9FltlJRQOuizlwkPIJ5wQ55sRV1qf1AErHOmBn0hCK//3TnYLr
-         5gSAhI70osx7NZ+q31y/IPnkOsviIlwFD6Ciii+bvdiRByXTRSWSmUT4TggyOgqQzg1H
-         gwPw==
+        bh=yR1lFmAjTJoUnDiSDduEbpWfWkdC6wgUbDXk1v75sWU=;
+        b=bW2M26/Msw8xwVA2y7HBA1yoED8CfeRT/UTEHkT4QEOFCz1YocH6WQgI9vHaPTznNR
+         XNAVqz0sJBmW165JdmIzfHBPcNaWLu32BMUOJxUT7frueFRrAA1isfchfzDqDAEj6Mlh
+         myRf6hVRIBpENaaNsAlakUYEIS78dG+w+EYOZfQuxCjfKfXPIjVf43FOkATkNh9bmdYy
+         6q9ebjpktoiBPzojveVP++vXg2CIaNaAP3RK8R7S52dfVCnsFzHSGVwqeoF/MYMk2oxj
+         vbtYxWpecP9oni/ocvnYZmalVHuBOCCeGnfXFR2HAjEJe1WIUXzUwWTeMDhnwu914QpQ
+         ts6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786800370; x=1787405170;
+        d=1e100.net; s=20251104; t=1786800373; x=1787405173;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zOFtAZ+E2b5BkVLywK82W0fnJDTIl5z2YkSwRx/DLF0=;
-        b=cfz+aD/LR9L39ktMZ6z3Z0fgxFeaaffcVwmIxLDHb3zmLVRsRmgMQ4N8R+8yuoWZl5
-         VD/jaGo1XMIPO9UIq7dTyaFUEy0GierfwkkoAlTbBh9j+zioEQMCmwC2j2JS9QOYxy1d
-         HDx0HIIjrhNxl7TADCe1Fu6U9bTbwrk1DiNvToTZ64dqdZScnGX0SRFVtuXvsqzpqbcw
-         EbWB64CNVEWc4aWoB4ytX6S4eUxCr5SrbwE5biQvGFS214jhtiNre50b7twgplqCX2ij
-         de+Z/WJWl8eTenZUHjgQQ355WLRvEkRcZHpErW+OuImvRUKprQ2pcyBREyHLoBImo80L
-         c0nw==
-X-Forwarded-Encrypted: i=1; AHgh+RoxZpX+ChsEYWftOGJP2ZCaIRufuJqcwPE92w9uMKxEpPun9fGaGgV+onVKgXvJb0FkOKboc8Ve9Kug@vger.kernel.org
-X-Gm-Message-State: AOJu0YxktZRIcDSaMURjMHzM3FF5RkLfPOqaIMnz8NlVaJoBnzT7pXob
-	JNI/Vf2XlHR1wjU8+39XbDsJFCQkPWGjFYfNNLAHwJTWmR4WXvKxeaSiXat8pCFJQxWakaPkw0J
-	aOwlPOGnEoBWr9Kz6xbXoSsbOEE4BxYZmkmcNzYRtPDgRmJbBU1Wve21adOkKpG4H
-X-Gm-Gg: AR+sD13H++gHIz7FVyuUDSCtN5coeyu2BDwAczZyw87Hhjg4Xp8KlDHXHv+ZVT7JO6l
-	8/0arJVyvm9lwtZQO1nipDPXsIeRGG77kaIxiLPsbJNjRkBEIswr9O8vHwjgXKuruSdaXAmoZOe
-	eQN5uPnXdFIuQzuacQpoQOBIdodC7tQPDRzQ0uRJTfTOLBQZX07KGrTYnTgLW9j8YmQWnO3xbhD
-	YOgKIXwuSfZelHPNfyDNgRyxmznKF+pb16N1cg5Fih/zAoOCY6wjAQ7uXxWC7Ot2HkYcQawGIeN
-	uV4V4KoftU828hg+CCxMo/+7pWytOFARyA5cTDVYgU4A8U29UP0qTB4yjiJ/Hk5HZSdUIJdmCG5
-	jdIqqrkXQGocPO208bFywyTI3zY7tIFK3jnrM35gmskfP3lpxIhQvyooqlr1J
-X-Received: by 2002:a17:90b:1806:b0:381:26f:8f05 with SMTP id 98e67ed59e1d1-3933bd0f310mr14071505a91.3.1786800369595;
-        Sat, 15 Aug 2026 06:26:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:1806:b0:381:26f:8f05 with SMTP id 98e67ed59e1d1-3933bd0f310mr14071440a91.3.1786800369057;
-        Sat, 15 Aug 2026 06:26:09 -0700 (PDT)
+        bh=yR1lFmAjTJoUnDiSDduEbpWfWkdC6wgUbDXk1v75sWU=;
+        b=cofhXEj6RGLPJ8Qkc4+I1VZ//1SyMnVrebt+MqnDnAsdK3hYuXzC8wJtt+jmIMgc/D
+         ladKBAfe7wM44azqDjtGx/dZyaE0NT7c0LBjnFXuvrDu91Sb9/6dVt2y8S/1RYN4Z64z
+         LfofMMLkyH3bXRZqqsXA0TKtC88NOlYSc1qVFhgJy3yM2ghe7xsua40XrHlCrITpkjXE
+         V5bSORuiv52tANvOlYl97eQZfOVgCBXypYfxpRWC7LbB4/IS6YG7TJ5mi3E2eWMAYJel
+         yylb8SB9e8TqnmE8C5xMuV9bcN7//a62Q04onqKcocW5TSxR3WgMLDuMh2I5OJMHhsvG
+         1HaA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/TaZZ4HHgXnCneXTrxE8l4DZOp2A5V0mG6XrvT1MOUnkFfPoVgyEmhEk8HzZIZv31VRsyDo2vjfQt@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8cbL3V7NUDfMiFsurjazaBj8Z3d4bobjrz48UzBqDIywBHhVW
+	fAVTyxthZ29XVQqYO9NTtTjVAUPljdpWbmX7zj/m/CCcTOcFMRaTelsXpCpgW9neP7zPZdJ8Gk7
+	EaJ+y53yCRb5mIBMIquMFAfyuFGKDBCK0NtAIMOwUIkXcBxgxFD2ywy7Oe8TZ/omB
+X-Gm-Gg: AR+sD11Kg6c1b0i0fB1uRw4Ry1vKuurHnlbTQAmVfkuqE/OXE0VIKtHOErKQ22BD5t+
+	ABQQYhvIDlDTUThKntTCIhgbBcchBChTfSR/cDru3QL02xReEqFxkx0/5vG/a/LdD87eDH1gMF6
+	Z6RQoYPruNbgzt6JzELdsMOm247iO2PdDpJUvTaMpeWbHE/RwcDVXiQFAhAUOpzL0eT6qOiE/V+
+	ateojLweIxk+6W/owvw2uBt0UInygRrk21qa9JLI2vGOHBvuhAatzkg96dnI4wpnnbhFbxrOHk7
+	wshkjoXXZHglWwbPK8kBYQX42hi5oUQZhLtw6eN40Nr15Gyd5CGmxhDxyg4+3CR5uGtEgkH1gdw
+	88cuTw5X3a20p486eh4h9jkIlcggju58zEk0B/W7027kPgBuqEqcp4ccpO2gL
+X-Received: by 2002:a17:90b:3889:b0:381:11eb:d78e with SMTP id 98e67ed59e1d1-3933b8ace11mr13189666a91.14.1786800373317;
+        Sat, 15 Aug 2026 06:26:13 -0700 (PDT)
+X-Received: by 2002:a17:90b:3889:b0:381:11eb:d78e with SMTP id 98e67ed59e1d1-3933b8ace11mr13189639a91.14.1786800372740;
+        Sat, 15 Aug 2026 06:26:12 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141386a039asm19313374c88.0.2026.08.15.06.26.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141386a039asm19313374c88.0.2026.08.15.06.26.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 06:26:08 -0700 (PDT)
+        Sat, 15 Aug 2026 06:26:12 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>
 Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
@@ -88,9 +88,9 @@ Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
         linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH 5/8] remoteproc: qcom: pas: Track HPASS ADSP cluster membership
-Date: Sat, 15 Aug 2026 21:25:38 +0800
-Message-ID: <20260815132541.1575121-6-shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 6/8] remoteproc: qcom: pas: Sequence HPASS ADSP cluster boot root-first
+Date: Sat, 15 Aug 2026 21:25:39 +0800
+Message-ID: <20260815132541.1575121-7-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260815132541.1575121-1-shengchao.guo@oss.qualcomm.com>
 References: <20260815132541.1575121-1-shengchao.guo@oss.qualcomm.com>
@@ -101,257 +101,192 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE1MDA5NiBTYWx0ZWRfX9Mn38mK4v1K0
- 4vR2mpDXjDMsdWoJyJ+JI7no2aCFBzGga4UCfGxga4fjJW5wDSa52+AXbhaTSNtDepxJz5EFodz
- rPG85fD2lz5PcPk6xj400+suxS083TLf/1nUe7GGsZJ4+RkdlV6G1W16C2A1S+kPCIpDASvSY21
- CQqklw+SbOzI1PxySSjXVwfgX/muttXLGrlDWSpdcuD4MWV2Odinh8/BRaI3gC6Kmy5cZ2/ycW9
- 6zOvtOFSp1NbqFCvzFLh1IH97ZmeUJb9eFl9dfMy00FdBoGsyeTGQkD5+KY0shWJr925aYMh4m/
- PE7gMIcE27KReHUnBvdPUTkr+CMXLvOjrRImhGWlupBb1TnAOQWfj/GPGqnewAPMma7g6SBNwK3
- IufT3sv3GC1nCtOUa512MMafMnHp1caC22LpBXWKGDXacRYoeStmh7wMCPfxWtaALOiqaj3Ct2J
- YdUlVlimgNZcZ8HlSmA==
-X-Proofpoint-GUID: -iiFFEvYaVhvgzyjRIGr6CrYa8o1d2tp
-X-Authority-Analysis: v=2.4 cv=Ja2Ma0KV c=1 sm=1 tr=0 ts=6a8068f2 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+X-Authority-Analysis: v=2.4 cv=OZ6oyBTY c=1 sm=1 tr=0 ts=6a8068f6 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=tpIsOtObft-OYHULcT0A:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: -iiFFEvYaVhvgzyjRIGr6CrYa8o1d2tp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE1MDA5NiBTYWx0ZWRfX2xGHFXxgIbrr
- 5is6RarCb5kV4R1aaJPGRp3NdKLSqp9n9ZlUwzhSNmZn7ITTFKIGLmAABZGds7qHSi2eM/tEtk7
- XhIraCBU5+gS6ww6zKY0wnbuEmvcllg=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=NQtoXHyzFVGnf705VfcA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: mdF7woJaJ8bVTk3L5tJeV84fYpWB_lYd
+X-Proofpoint-ORIG-GUID: mdF7woJaJ8bVTk3L5tJeV84fYpWB_lYd
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE1MDA5NiBTYWx0ZWRfX9DMo7BBqrE3w
+ ma28fKuxUYUqCcufF/4P3g9GD2W643tXy5v7dXWs3k1aG9n9eJzQllfZ2kq/bRmPMU1zsilDiip
+ YaSxpBC4vAO5x+kKNePL6KT2/Kx0gB8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE1MDA5NiBTYWx0ZWRfX7n6ch4zHPX06
+ fHQul3Z9GKizqeHbsTTMob7u479oGQtcflEkUwbJg0uOza6Q5bGY/0Y0pcslp01XLCkZ+hS4TzG
+ JjNTXQvmg3LwMGrSYMIXvY2phzXKs9yRlRa8+iWoHH+LQG/ikihgitbQUpSpZBZDIhw3BQzNfTw
+ 4+IXEwonUX4xc208UJOeXVysU18zV5tRm77EYX9a3Z3m46nvabjMWFmaiDnopyFj/RgFnSDvTtn
+ fr3n7e0Sjz+FAA/fHrFisv5Yn5UAO43EqB8F4oj/AnoOsV5dowLrn/GAcYOk/1dtW9orU0OdZXx
+ OghxErnNw0Eyx9W6iApAL9tiBg0QW6iWjxyzcpN9SEhEDxoG97bF8+0qYLV1SZlt+x3jVImXxaP
+ nq117M3U31Hd290hYup6UubyRZltu27J9gmANDTAHhH0n7HBYYAiWK967mJwIAbODY5E7CTZbHp
+ hFK3FVwadnz8VRaCUPw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-15_04,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 adultscore=0
- bulkscore=0 impostorscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608150096
+ adultscore=0 clxscore=1015 malwarescore=0 suspectscore=0 spamscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608150096
 
-On Nord, ADSP0/1/2 share HPASS-domain resources (PLLs, AG_NOC, RSCp,
-CESTA, THROTTLE, QTMR) owned by ADSP0, and their firmware cannot
-tolerate one member being started or stopped independently of the
-others. Modeling that requires each PAS instance to know which other
-instances it is grouped with.
+The cluster root owns the HPASS resources shared with its siblings and
+initializes them as part of its own boot, so ADSP1/ADSP2 can only cold
+boot once ADSP0 is up. Booting a dependent member first leaves it
+without the clocks, resets and NoC configuration it needs.
 
-Add a small registry of clusters, keyed by the device_node every member's
-"qcom,cluster-root" phandle points at, and join it at probe. Membership
-is answerable from the node being probed alone: every member carries the
-property, and the one referencing itself is the root, so there is no need
-to search the device tree for nodes referencing a given instance.
+Gate a dependent member's qcom_pas_start() on the root having started.
+The root being enabled in DT does not imply it has already bound, as
+probe order between the two is not guaranteed, so fail the boot if the
+root has not bound rather than dereferencing it. If the root has bound
+but is not running yet, wait briefly on a completion the root signals
+from its own qcom_pas_start(), so that a member racing the root through
+a restart does not fail outright.
 
-A dependent member is rejected at probe if its root is disabled in DT,
-since its boot could never be sequenced after a root that will not bind.
-
-Publish the cluster in rproc->cluster, which is all sysmon and
-glink_ssr need to stop notifying siblings of each other's SSR events.
-The cluster is left only after rproc_del() has stopped this member, so
-that the suppression is still in effect for that stop, and is unwound on
-every probe error path, since a member freed while still linked into the
-cluster would be walked by its siblings.
-
-Instances without "qcom,cluster-root" are completely unaffected:
-qcom_pas.cluster stays NULL for them.
+The completion starts out signaled, since a member may be attached to
+already-running firmware at probe, and is only cleared once the root
+actually goes down. A dependent member's boot racing the root's stop can
+therefore still observe a stale completion, in which case it falls back
+to failing on the root's state.
 
 Assisted-by: LLM
 Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
- drivers/remoteproc/qcom_q6v5_pas.c | 152 +++++++++++++++++++++++++++++
- 1 file changed, 152 insertions(+)
+ drivers/remoteproc/qcom_q6v5_pas.c | 76 ++++++++++++++++++++++++++++++
+ 1 file changed, 76 insertions(+)
 
 diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 8cff0684fe2f..c8e4230bcf2c 100644
+index c8e4230bcf2c..8231f811c568 100644
 --- a/drivers/remoteproc/qcom_q6v5_pas.c
 +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -66,6 +66,8 @@ struct qcom_pas_data {
- 	bool needs_tzmem;
+@@ -138,6 +138,7 @@ struct qcom_pas {
+  * @lock:	protects @members and @root
+  * @members:	list of struct qcom_pas, linked via cluster_node
+  * @root:	the member whose "qcom,cluster-root" points at itself
++ * @root_booted: signaled once @root has started, cleared when it goes down
+  * @refcount:	number of members currently attached to this cluster
+  *
+  * PAS instances whose "qcom,cluster-root" phandle points at the same node
+@@ -150,10 +151,18 @@ struct qcom_pas_cluster {
+ 	struct mutex lock;
+ 	struct list_head members;
+ 	struct qcom_pas *root;
++	struct completion root_booted;
+ 
+ 	int refcount;
  };
  
-+struct qcom_pas_cluster;
-+
- struct qcom_pas {
- 	struct device *dev;
- 	struct rproc *rproc;
-@@ -123,8 +125,148 @@ struct qcom_pas {
- 
- 	struct qcom_pas_context *pas_ctx;
- 	struct qcom_pas_context *dtb_pas_ctx;
-+
-+	struct qcom_pas_cluster *cluster;
-+	struct list_head cluster_node;
-+	bool is_cluster_root;
-+};
-+
-+/**
-+ * struct qcom_pas_cluster - state shared by clustered PAS instances
-+ * @node:	device_node of the cluster root, the key into the global list
-+ * @list:	linkage in qcom_pas_cluster_list
-+ * @lock:	protects @members and @root
-+ * @members:	list of struct qcom_pas, linked via cluster_node
-+ * @root:	the member whose "qcom,cluster-root" points at itself
-+ * @refcount:	number of members currently attached to this cluster
-+ *
-+ * PAS instances whose "qcom,cluster-root" phandle points at the same node
-+ * share one of these.
++/*
++ * How long a dependent member waits for its root to finish booting before
++ * giving up, e.g. when it is racing the root through the crash-restart
++ * cascade.
 + */
-+struct qcom_pas_cluster {
-+	struct device_node *node;
-+	struct list_head list;
++#define QCOM_PAS_CLUSTER_ROOT_BOOT_TIMEOUT	(1 * HZ)
 +
-+	struct mutex lock;
-+	struct list_head members;
-+	struct qcom_pas *root;
-+
-+	int refcount;
- };
+ static LIST_HEAD(qcom_pas_cluster_list);
+ static DEFINE_MUTEX(qcom_pas_cluster_list_lock);
  
-+static LIST_HEAD(qcom_pas_cluster_list);
-+static DEFINE_MUTEX(qcom_pas_cluster_list_lock);
-+
-+static struct qcom_pas_cluster *qcom_pas_cluster_get(struct device_node *node)
-+{
-+	struct qcom_pas_cluster *cluster;
-+
-+	mutex_lock(&qcom_pas_cluster_list_lock);
-+
-+	list_for_each_entry(cluster, &qcom_pas_cluster_list, list) {
-+		if (cluster->node == node) {
-+			cluster->refcount++;
-+			goto out;
-+		}
-+	}
-+
-+	cluster = kzalloc(sizeof(*cluster), GFP_KERNEL);
-+	if (!cluster)
-+		goto out;
-+
-+	cluster->node = of_node_get(node);
-+	mutex_init(&cluster->lock);
-+	INIT_LIST_HEAD(&cluster->members);
-+	cluster->refcount = 1;
-+	list_add_tail(&cluster->list, &qcom_pas_cluster_list);
-+
-+out:
-+	mutex_unlock(&qcom_pas_cluster_list_lock);
-+	return cluster;
-+}
-+
-+static void qcom_pas_cluster_put(struct qcom_pas_cluster *cluster)
-+{
-+	mutex_lock(&qcom_pas_cluster_list_lock);
-+	if (--cluster->refcount == 0) {
-+		list_del(&cluster->list);
-+		mutex_unlock(&qcom_pas_cluster_list_lock);
-+		of_node_put(cluster->node);
-+		kfree(cluster);
-+		return;
-+	}
-+	mutex_unlock(&qcom_pas_cluster_list_lock);
-+}
-+
+@@ -177,6 +186,13 @@ static struct qcom_pas_cluster *qcom_pas_cluster_get(struct device_node *node)
+ 	cluster->node = of_node_get(node);
+ 	mutex_init(&cluster->lock);
+ 	INIT_LIST_HEAD(&cluster->members);
++	init_completion(&cluster->root_booted);
++	/*
++	 * Cluster members may be attached to already-running firmware at
++	 * probe, so the root is presumed up until its own qcom_pas_stop()
++	 * reinit_completion()s this the first time it actually goes down.
++	 */
++	complete_all(&cluster->root_booted);
+ 	cluster->refcount = 1;
+ 	list_add_tail(&cluster->list, &qcom_pas_cluster_list);
+ 
+@@ -267,6 +283,51 @@ static void qcom_pas_cluster_exit(struct qcom_pas *pas)
+ 	pas->cluster = NULL;
+ }
+ 
 +/**
-+ * qcom_pas_cluster_init() - join the cluster referenced by @np, if any
-+ * @pas:	PAS instance being probed
-+ * @np:		of_node of @pas's platform device
++ * qcom_pas_cluster_wait_for_root() - gate a dependent member's boot on its root
++ * @pas:	the non-root cluster member being started
 + *
-+ * Devices without a "qcom,cluster-root" property are not part of a cluster;
-+ * @pas->cluster is left NULL and this is a no-op (e.g. cdsp0-3). Cluster
-+ * members all carry the property, the root included, whose phandle points
-+ * back at itself.
++ * The cluster root owns the resources its siblings need, and initializes them
++ * as part of its own boot, so a dependent member can only be started once the
++ * root is up.
 + *
-+ * Return: 0 on success, negative errno on failure.
++ * Return: 0 if the root is up, negative errno otherwise.
 + */
-+static int qcom_pas_cluster_init(struct qcom_pas *pas, struct device_node *np)
++static int qcom_pas_cluster_wait_for_root(struct qcom_pas *pas)
 +{
-+	struct device_node *root_node;
-+	bool is_root;
-+
-+	root_node = of_parse_phandle(np, "qcom,cluster-root", 0);
-+	if (!root_node)
-+		return 0;
-+
-+	is_root = root_node == np;
++	struct qcom_pas_cluster *cluster = pas->cluster;
++	struct rproc *root;
 +
 +	/*
-+	 * A non-root member is useless without its root: it can never be
-+	 * booted, since its boot has to be sequenced after the root's. Reject
-+	 * it here rather than at first boot, so that a DT enabling a dependent
-+	 * DSP but not the one owning the shared resources fails loudly and
-+	 * early.
++	 * The root's PAS instance is enabled in DT (checked in
++	 * qcom_pas_cluster_init()) but has not necessarily bound yet, and may
++	 * have unbound again. Without it there is nothing to sequence this
++	 * member's boot against.
++	 *
++	 * Note that nothing refcounts members across unbind, so a root freed
++	 * under a concurrent sibling boot remains unhandled.
 +	 */
-+	if (!is_root && !of_device_is_available(root_node)) {
-+		dev_err(pas->dev, "cluster root %pOF is not enabled\n", root_node);
-+		of_node_put(root_node);
++	mutex_lock(&cluster->lock);
++	root = cluster->root ? cluster->root->rproc : NULL;
++	mutex_unlock(&cluster->lock);
++
++	if (!root) {
++		dev_err(pas->dev, "cluster root not bound\n");
 +		return -ENODEV;
 +	}
 +
-+	pas->cluster = qcom_pas_cluster_get(root_node);
-+	of_node_put(root_node);
-+	if (!pas->cluster)
-+		return -ENOMEM;
++	if (root->state == RPROC_RUNNING || root->state == RPROC_ATTACHED)
++		return 0;
 +
-+	pas->is_cluster_root = is_root;
-+
-+	mutex_lock(&pas->cluster->lock);
-+	list_add_tail(&pas->cluster_node, &pas->cluster->members);
-+	if (is_root)
-+		pas->cluster->root = pas;
-+	mutex_unlock(&pas->cluster->lock);
++	if (!wait_for_completion_timeout(&cluster->root_booted,
++					 QCOM_PAS_CLUSTER_ROOT_BOOT_TIMEOUT)) {
++		dev_err(pas->dev, "cluster root not started\n");
++		return -ENODEV;
++	}
 +
 +	return 0;
-+}
-+
-+static void qcom_pas_cluster_exit(struct qcom_pas *pas)
-+{
-+	struct qcom_pas_cluster *cluster = pas->cluster;
-+
-+	if (!cluster)
-+		return;
-+
-+	mutex_lock(&cluster->lock);
-+	list_del(&pas->cluster_node);
-+	if (cluster->root == pas)
-+		cluster->root = NULL;
-+	mutex_unlock(&cluster->lock);
-+
-+	qcom_pas_cluster_put(cluster);
-+	pas->cluster = NULL;
 +}
 +
  static void qcom_pas_segment_dump(struct rproc *rproc,
  				  struct rproc_dump_segment *segment,
  				  void *dest, size_t offset, size_t size)
-@@ -862,6 +1004,12 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 	pas = rproc->priv;
- 	pas->dev = &pdev->dev;
- 	pas->rproc = rproc;
-+
-+	ret = qcom_pas_cluster_init(pas, pdev->dev.of_node);
-+	if (ret)
-+		return ret;
-+	rproc->cluster = pas->cluster;
-+
- 	pas->minidump_id = desc->minidump_id;
- 	pas->pas_id = desc->pas_id;
- 	pas->lite_pas_id = desc->lite_pas_id;
-@@ -951,6 +1099,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 	qcom_pas_unassign_memory_region(pas);
- free_rproc:
- 	device_init_wakeup(pas->dev, false);
-+	qcom_pas_cluster_exit(pas);
+@@ -424,6 +485,12 @@ static int qcom_pas_start(struct rproc *rproc)
+ 	struct qcom_pas *pas = rproc->priv;
+ 	int ret;
  
- 	return ret;
- }
-@@ -964,6 +1113,9 @@ static void qcom_pas_remove(struct platform_device *pdev)
- 
- 	rproc_del(pas->rproc);
- 
-+	pas->rproc->cluster = NULL;
-+	qcom_pas_cluster_exit(pas);
++	if (pas->cluster && !pas->is_cluster_root) {
++		ret = qcom_pas_cluster_wait_for_root(pas);
++		if (ret)
++			return ret;
++	}
 +
- 	qcom_q6v5_deinit(&pas->q6v5);
- 	qcom_pas_unassign_memory_region(pas);
- 	qcom_remove_glink_subdev(pas->rproc, &pas->glink_subdev);
+ 	ret = qcom_q6v5_prepare(&pas->q6v5);
+ 	if (ret)
+ 		return ret;
+@@ -494,6 +561,9 @@ static int qcom_pas_start(struct rproc *rproc)
+ 	if (pas->dtb_pas_id)
+ 		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+ 
++	if (pas->cluster && pas->is_cluster_root)
++		complete_all(&pas->cluster->root_booted);
++
+ 	/* firmware is used to pass reference from qcom_pas_start(), drop it now */
+ 	pas->firmware = NULL;
+ 
+@@ -549,6 +619,12 @@ static int qcom_pas_stop(struct rproc *rproc)
+ 	int handover;
+ 	int ret;
+ 
++	if (pas->cluster && pas->is_cluster_root) {
++		mutex_lock(&pas->cluster->lock);
++		reinit_completion(&pas->cluster->root_booted);
++		mutex_unlock(&pas->cluster->lock);
++	}
++
+ 	ret = qcom_q6v5_request_stop(&pas->q6v5, pas->sysmon);
+ 	if (ret == -ETIMEDOUT)
+ 		dev_err(pas->dev, "timed out on wait\n");
 -- 
 2.43.0
 
