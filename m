@@ -1,111 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911551F1304;
-	Sat, 15 Aug 2026 08:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAE7360EDC;
+	Sat, 15 Aug 2026 09:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786783597; cv=none; b=IrnK8rEw4vb+Z83iqdyFim7bqyx2Qlhkp+A55fItQz+Yiyf3TdGvOcB+JHwzT+vPV7mZgsJ34XVx5sYCsMstHACLDtLAQBibhFJQBP5/SpHPVlZgdDjSdrQzmZROdzYKGZURiVQvJRI3qgIq/T0A7pGoDCPZxdxsQ0YW0vTGo1A=
+	t=1786785281; cv=none; b=a3XQ9OfY8YUiWwijHT1bGY5L/Mj6PrL8yXmII1DZOHrrw5r6HaOSof589c4+GnzWWi/m/mJtKNk/TSx1kkAdUtavQ/iOw+bCBdrReCZ1Aptg9kljM0qVxhdA+DhGbQBXSNhwFVoCZKdWbNCtcDINezF8nzSxoHTalVFda9Ulj/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786783597; c=relaxed/simple;
-	bh=wUNPBXsvILGDPO4Jv66cWXuuoHlGplnDeqfLipvbsaQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=teIpB5kqtrltDopB4YGWOmJFQ1wgxXKshDCSdNdkYbYyyyDmFCcoKped97kstb+W9o+kTWci3mo56/0FwTWaMLBgda4qJ+MXxM7aakVYNSZttEjxnvyMBWru6Rl08EoHXXvpmX1em7r9YDkk1M46q3/UZU/QETMV6dwhFiWTHpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5WZGNhy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786785281; c=relaxed/simple;
+	bh=qi/gWHzJoMLT99wi33nSAx6f8CFgp+JnA4bNs+DMJnI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K2erXlZ0cNpm6yoD8sXXp2pzCbFErfly1jmNhUmz/uZ1l4Fg+IcaZjO86cshegYEyUQY2hFAVYUQyw97wkFCrB5AwtulmR5BI0hPTHzI1DZprj9dRyuQh7hPEaT6JOXZ9Lfli6KMFCwlYk7fe5maTl/8ZEl/pE4DtchDJ5oo8io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=HqPL07JX; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5WZGNhy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BECD91F000E9;
-	Sat, 15 Aug 2026 08:46:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786783596;
-	bh=pPMNvL26/CUMdrQgK+CaMXY0qkxc35ZY57Fer2DszYU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J5WZGNhyQ9eiFQBlCrrI4p6rgWmQoKqZ8dyIry6bZ6Ypu6d3C9vAija9dj0CteSSh
-	 2XZojJoOE9NuY81vF0wZFo7PDqp7v1+kHygi8OgUySYxDxpEiVA8KCxot1tGMxEPY0
-	 ZZ9yUJsvCtWxIFCXI/mw+PkSTyFWjkPNVr+DdbgoXQJt00mmWWARhOkxNxjss9KGWh
-	 zvF1TYfp6cXUTMpZtArX490GTPbuBw356tr0mszmD4eSDxyr2b5YbFzoRETbJ4vR7Q
-	 BVfunES56G+WSQYB7JNaumiSWL4mBFZVOU5AmbXAS/aywGVdGDVutJ4n7gmFBry/fX
-	 JXIttBvkjPrHQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: mfd: Convert TI TWL6040 to DT schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Eduard Bostina" <egbostina@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, robh@kernel.org, lee@kernel.org
-In-Reply-To: <20260815083451.2147129-1-egbostina@gmail.com>
-References: <20260815083451.2147129-1-egbostina@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 08:46:35 +0000
-Message-Id: <20260815084635.BECD91F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="HqPL07JX"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id EF183882CA;
+	Sat, 15 Aug 2026 11:14:37 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id PQPWE5oCTmlF; Sat, 15 Aug 2026 11:14:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1786785277; bh=qi/gWHzJoMLT99wi33nSAx6f8CFgp+JnA4bNs+DMJnI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HqPL07JXkgTVdLEbAbaoVMgadjSik1hqNNfBhN5LsZgqc+bDz7X3V14Gc8a2BbEPX
+	 ADGLxP7yOTodzKVGWxASzl7ZZ30nwh2wU8LYSV5EgZXdfWJAYQUtf/+YnmE7ugt/wS
+	 xqpDIwbu7HPGFAf4kN99Q3+UdJekGEAn8czamdJ4Rq2NGyttrdkwtADcnBPF7f38ix
+	 BOnM6lsbe+2sO5loluo1NvB6Do1dauYN4VnOHs2WFDx83T8gz0k0mxJjueLG7hhe/x
+	 ObW6nl+liSWQFxsmLDVzyzOQhgHTr2YSg1e2mHfl1t66ZlQkcOHVZeVoE1LItJZqGT
+	 NTzvSv3YSd1pg==
+From: Rustam Adilov <adilov@disroot.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanley Chang <stanley_chang@realtek.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>,
+	Michael Zavertkin <misha.zavertkin@mail.ru>
+Subject: [PATCH v7 2/6] phy: realtek: usb2: introduce read and write functions to phy_reg_desc struct
+Date: Sat, 15 Aug 2026 14:13:36 +0500
+Message-ID: <20260815091340.26910-3-adilov@disroot.org>
+In-Reply-To: <20260815091340.26910-1-adilov@disroot.org>
+References: <20260815091340.26910-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The YAML schema defines incorrect property names for the vibra d=
-efault voltages, mismatching the driver's requirements and breaking schema =
-validation.
---
+RTL9607C is a big endian SoC with little endian USB host controller but
+vstatus register is from big endian memory region and thus existing
+writel doesn't work. It needs either __raw_writel or iowrite32be
+instead.
 
---- Patch [1]: [PATCH] dt-bindings: mfd: Convert TI TWL6040 to DT schema ---
-commit c57af8c690b680b78b9119a5988e020149e24c1e
-Author: Eduard Bostina <egbostina@gmail.com>
+To handle this situation, introduce read and write function to the
+phy_reg_desc struct and add a default variation that is going to be
+ponted by the existing rtd_phy_reg_desc.
 
-dt-bindings: mfd: Convert TI TWL6040 to DT schema
+Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+Signed-off-by: Rustam Adilov <adilov@disroot.org>
+---
+ drivers/phy/realtek/phy-rtk-usb2.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
-schema.
+diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
+index e8d0f0119ec0..5e483c853f02 100644
+--- a/drivers/phy/realtek/phy-rtk-usb2.c
++++ b/drivers/phy/realtek/phy-rtk-usb2.c
+@@ -64,6 +64,8 @@ struct phy_reg_desc {
+ 	int vstatus_offset;
+ 	u32 vstatus_busy;
+ 	u32 new_reg_req;
++	u32 (*read)(void __iomem *reg);
++	void (*write)(u32 val, void __iomem *reg);
+ };
+ 
+ struct phy_reg {
+@@ -130,6 +132,16 @@ struct rtk_phy {
+ 	struct dentry *debug_dir;
+ };
+ 
++static u32 rtk_usb2phy_read(void __iomem *reg)
++{
++	return readl(reg);
++}
++
++static void rtk_usb2phy_write(u32 val, void __iomem *reg)
++{
++	writel(val, reg);
++}
++
+ /* mapping 0xE0 to 0 ... 0xE7 to 7, 0xF0 to 8 ,,, 0xF7 to 15 */
+ static inline int page_addr_to_array_index(u8 addr)
+ {
+@@ -204,8 +216,8 @@ static int rtk_phy_write(struct phy_reg *phy_reg, char addr, char data)
+ 	int ret = 0;
+ 
+ 	/* write data to VStatusOut2 (data output to phy) */
+-	writel((u32)data << shift_bits,
+-	       reg_wrap_vstatus + reg_desc->vstatus_offset);
++	reg_desc->write((u32)data << shift_bits,
++		       reg_wrap_vstatus + reg_desc->vstatus_offset);
+ 
+ 	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
+ 	if (ret)
+@@ -988,7 +1000,6 @@ static int parse_phy_data(struct rtk_phy *rtk_phy)
+ 		phy_parameter->phy_reg.vstatus_index = index;
+ 		phy_parameter->phy_reg.desc = phy_cfg->reg_desc;
+ 
+-
+ 		if (of_property_read_bool(np, "realtek,inverse-hstx-sync-clock"))
+ 			phy_parameter->inverse_hstx_sync_clock = true;
+ 		else
+@@ -1078,6 +1089,8 @@ static const struct phy_reg_desc rtd_phy_reg_desc = {
+ 	.vstatus_offset = 0,
+ 	.vstatus_busy = PHY_VSTS_BUSY,
+ 	.new_reg_req = PHY_NEW_REG_REQ,
++	.read = rtk_usb2phy_read,
++	.write = rtk_usb2phy_write,
+ };
+ 
+ static const struct phy_cfg rtd1295_phy_cfg = {
+-- 
+2.55.0
 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml b/Docu=
-mentation/devicetree/bindings/mfd/ti,twl6040.yaml
-> new file mode 100644
-> index 0000000000000..a93835aa91535
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
-
-[ ... ]
-
-> +      ti,vibrmotor-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for right motor
-> +      vddvibl_uV:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: vddvibl default voltage if it needs to be changed
-> +      vddvibr_uV:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: vddvibr default voltage if it needs to be changed
-
-[Severity: Medium]
-Does this incorrectly define the property names for the vibra default volta=
-ges?
-
-The twl6040-vibra driver actually expects these properties to be hyphenated
-and have a "ti," prefix. For example, in drivers/input/misc/twl6040-vibra.c:
-
-twl6040_vibra_probe() {
-    ...
-    of_property_read_u32(twl6040_core_node, "ti,vddvibl-uV", &vddvibl_uV);
-    of_property_read_u32(twl6040_core_node, "ti,vddvibr-uV", &vddvibr_uV);
-    ...
-}
-
-Since the vibra object sets "additionalProperties: false", won't valid devi=
-ce
-trees using "ti,vddvibl-uV" fail schema validation?
-
-Conversely, if a device tree uses "vddvibl_uV" to satisfy this schema, won't
-it be silently ignored by the driver at runtime?
-
-> +
-> +    required:
-> +      - ti,vibldrv-res
-> +      - ti,vibrdrv-res
-> +      - ti,viblmotor-res
-> +      - ti,vibrmotor-res
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260815083451.2147=
-129-1-egbostina@gmail.com?part=3D1
