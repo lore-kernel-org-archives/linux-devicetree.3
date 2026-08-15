@@ -1,71 +1,71 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECA62BD0B
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 00:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BBA23BD1B
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 00:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786754920; cv=none; b=S4HyPsm5hIpvX6zrflvItEOYdTxj/K5ZHoxnQqjh5GD9D41fl7c1+2Bo0H/GI8CoI1ZQ3RA7IlR1/TatrUaZ/5I5Zh8LQ4HNvIfRxnG4RZ5TWGHyvaOQQdkr0JtK6v2ldJZN+IurF0eKUDDtKudMLJPUI0bBQrA3PchXeSAAd/Y=
+	t=1786754921; cv=none; b=MoDiU/uKhJ0L2v5Hq1nqQVnY6Vbr/0HOmE2qPmUnubHA8+h/AtQO0cMICkGa4jt33OVDXAPmtHFf2o0swBquKAt3Zto2QFaYZxKa+VGLlmnPLnrQqxAKpBe9Xi+Ah1ZudVM05w9NVtCha4IRIYZfWVXm7gqjtrzCUXw1ehTnMhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786754920; c=relaxed/simple;
-	bh=1tIKif3P5fdyg5CZ8dhfBg/gndunLfBUaB/WNclV6oE=;
+	s=arc-20240116; t=1786754921; c=relaxed/simple;
+	bh=w+LhzNyKmZfjHXx/GmE0qF8XZ+mdBicKEri2vAY7vLw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OEmTQQy+5TGzWUObwI63F3LiQsoTZprCexHzDiOyiX/Bt2e9SppIHGxsOxzJLTN5h4VUxZcSpBhyfyy4NRbzh5UwA+E7pWfhuu1Qml2r8w5z/Pj8DIoe1r9+LK4XaAAZXFmJq7z5n9H9P7PQVXZI2aha0IMFtyJYUOE+P9TI3qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VcIA+0S4; arc=none smtp.client-ip=209.85.161.49
+	 In-Reply-To:To:Cc; b=huJh6Gnucf2XHu+NfJweeM86wrNbsd7tAf+XNnsR4yls/1CfIEFZxziGRMj9tf0DKopJPoeU7AFmlBOPv+l2hj8wMwq10QPgB1tgKAlvGEZYPV9P/qd6voEsuXNFb4YUYRmO4IWJGYJL1Px8SxkWw7yABQyVkCSek4uokUuonQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsz8WpbE; arc=none smtp.client-ip=209.85.161.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VcIA+0S4"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6b04c0b9159so1003169eaf.3
-        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 17:48:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsz8WpbE"
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6b04c0b9159so1003185eaf.3
+        for <devicetree@vger.kernel.org>; Fri, 14 Aug 2026 17:48:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786754917; x=1787359717; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786754918; x=1787359718; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RGeTM77wWZWsSK2KW0+uwZ5W8XboIGpTuNX+ISzK3/o=;
-        b=VcIA+0S409nLOpbs+s3rsUeG/RKoilqxO0u7L8CL+hvZu4oTHVUkCvI/qnEQ2ufzIx
-         GtuhUpVGbzRsQ4daaZcu0z+GlidHTX1OKnMH4uFSFJHwJFhFwvGgSyNC4fIbK1eyfwk6
-         Unzn7Hv/Hx12NXp1Ii7gn2JdeRZvY/7oUq1Lbw/O+r2gWYbAuaUdrKUZhS5AYnFT49Uf
-         0nVM/OV0u2WxXeh6HDuOGVb2JNKJ9+vfl+nQXnD1HOvRs81qC9h8Ko8de+GN3zGUtXkW
-         W7ZFUyG5eQKWY+vz3EM3Ewx3A4CwS1clq1LNUTcY8vEbTzFVhrF5bQq/a7z9ybOMvP02
-         hPjg==
+        bh=1EURhxKL3TrXjvLpoGsii38tCfdVB5DjMF9c8u1cOGE=;
+        b=lsz8WpbEhzobrbX7mhkCfYVjv0YK8l6+OSMvm18jsjL751XgawbmCx56/NbSVwJY0M
+         yH6+pEKO8VTA+o6KLTAIhQwz4wdP8Y6bSKnpNwNu471mv2uxC37fDcWgYLLWiG/eJkn+
+         Xp8/YT7eW6lV/nLLWR3oxvc2WBauAPjyP4G2tAkozVWE7pZT5DEd3SgPgou89oC2JC1L
+         TDq9YipQqcjwqk1RqEDHm5YZFEU9tb1vAaL6IKPrj6ciFmMEJjoiNcbfx54/cG0/HkTG
+         xczwnpuo9HoVvxl+OlCfGMdnMIgTh76ZHunU41Kf0s4TZ9Bhqi7Ec2Fgx4Jbklau6qak
+         jR5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786754917; x=1787359717;
+        d=1e100.net; s=20251104; t=1786754918; x=1787359718;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RGeTM77wWZWsSK2KW0+uwZ5W8XboIGpTuNX+ISzK3/o=;
-        b=JhaOxi7SeUsBL06wlkRT7xBVAgiJh6j4PGCpNJmOkhgPAnz766rtpG8xwcq5/98crW
-         jk22VqClrS4vo1p1gQbT0XygOe5btY5jnmdyPnqqTJJjh7OkXE/EIvhPlUZ/eXha43CS
-         E9hlcrHGfBGrKta/dAAw/8UE005ynG6DOUbDPMPpYabQ4e35R0TVs+xuNs4KKV4BKxz/
-         3KDqB2/MLGc9/NYXRuwbQ4HRCz8BE07Cc8XKAgMrgZcn2ryWDy7FDOBID58FHz8bY+6a
-         F4ncOAwCnVHCmsa5RvowYXnhW+u3GZQPMiG/MzCCDvtefV1h3tGtbxxtpmHr2lKVnAfX
-         6Trg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpw812iG2yl0FcYnseXqS//tC6Mp8C1U10QSSPk8OogJ6jd2uRasiuU+zJvZXNIRzXnDYRt8nUji/UQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxajMV2m0HoWLS85oY3wI5qh7TXYMbuKQ/necAxEZCWvnRtzXQy
-	38CjZObg3FD5Lv/F5/GmmpMpq1YAsYulvxAz1pw76efEEgxvBU/JCuRZ
-X-Gm-Gg: AR+sD11Qm5oaf2H/OMqaVx7FAmhg20XCH9GHFKh2LfvsSxF4vlM58y6Z0nC3cVIP7+d
-	KBJ8YM0RLZ6Z5toNvUFsN/brAsCdg1xYBTHrfXy7Y0nZsMOU5zjD6M1WYgQpYSXdilGK7TMjS91
-	70eq+5wI9/WBpHuKXbcmsHy8377GCCQgXLLje88OSd0+ANayqjE71O4HQEqmk524p1WkB3E+4Q2
-	K/nMoDOK5ORoRgJEeTLFDfGgjrClHvE4Nn/TAuzDMwnyzIBcTiJBoPkvXUPaXJMEaLBx4uait04
-	qayY+Bflcp7mE4Me5/4blmFCcwt38eTlj6TGXVKxW7a8e43ijDVQiAfLxSZUPD6xt6TZdRoNFVg
-	arIL5X1GjBQLXOx4P3YWwVQeG66TAv4Zo3VN6DynMlEHdEYTr2uQ7D76KZAZFvDOV0keJL8uPph
-	0PyJkrHFnwXftyYkKJxJf1lc+g1L7x5b81tExtA3diQWjEigsoFbZaNkE0kbUhjtzrcu6Lliu6Q
-	z7bPPug40IG3VLPdp4I7eHX1QVTj1muyS2xyHBBAcbOne+ESXeWZ0z4/BiHsxiuFADWFvARj7tI
-	p0rXQM1YHjKi2lbh474+4U6iLUBaLX5MCysl3tuH3aUQUYg67NM7e93wNgit8XBkohkXiBpoJcT
-	qurf51LiqJHKLXNBm
-X-Received: by 2002:a05:6820:905:b0:6a3:f597:7552 with SMTP id 006d021491bc7-6b0d7408188mr8771074eaf.35.1786754917253;
-        Fri, 14 Aug 2026 17:48:37 -0700 (PDT)
+        bh=1EURhxKL3TrXjvLpoGsii38tCfdVB5DjMF9c8u1cOGE=;
+        b=dkypC8f7xipd6iVCCyJ69gMa6ta6CaldWlenqbhrA1zHeVE+I4e1CwUeHhLyFYmSXz
+         Ocxm7aZN85b8dX2wAN4ivP6Al2A0MNBqsn026SNcOM9SeInhnHQrUw2jI9eMdVLqbpan
+         2XXS4GpaU4ZzOjYSfxJw3aQnozMtNJN7+mfGKskfmYMNHVqF1TThRSx2KZUUS2zxc9kk
+         /v3SqpN6Y06OBpN1J3kNjIMdjDTY8CLApGMcDEkQEZd9hncO8edpJL/GMFPk76MQxu2A
+         TPZElIMIJ60bZeNmjoc/ag8mjKNIpyo108mzqSC5XRbjn8sI9g7nDLewdyrPFQF9HsPn
+         VuxQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp68Q3q4JNQVzPOWFPyCRDd7pvbuxw7SoI8ou8VxfTO+z+SabcVgB6bGUaaZneJXS3BSoB8L33SPyVu@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNrSk0z3SR912FcTJsZSGh+FdZFANCK5HX9D0ZAl5FyOxAp3IM
+	emVQacYhdeHia6pLgaWPzi4rXEazjCf/PN4DFzqhZqWcrYS6tiHQm7bI
+X-Gm-Gg: AR+sD11GLvZTNSxO0u40XxWxSizBsJNQ9QvgmMC6zJv+ak3jGxOE1tEw0qnN90epXtm
+	p78XmLQVPfdv88BdiunQtYMv9Wwu4tt5t4ssiOO+k9RmYbAmOONNzX9fplY6oB4vD2fugf2ETut
+	gdICC2VU9oMQ8+mauNWVP2pZoT4rTas5aSCkRSFrwZmsiXMLyXlXNbsdJ9IIHi9Q76JcLsGnQz0
+	RwKiSzCcAATBCNh/KULFQNv6TBxIo3khZlbBbAtY7dmoaEa8MpZi3Dd4V7UxUA3Q5t5W7n+4DTq
+	r/8vF2RxAanbychUTKCvmtjTqr2G6qc02CbkhIqbjHl0RIY61/6HBfYGGXCbjs3ChqmXaqbYwfj
+	fBvV4hd0e9DmpjHRgkacIdqU87+DjJdBm3wEGW4Y3mU5oWANsM6Qqqjb/D8o0R+RO+RhS3e+qnj
+	NDbRVgcEl4f4sV1m/w2a7u10eS6UaaKvL0zTMof4nLx+I2zMOhrcIlmd86pKW/NWJLcgbE8MhMR
+	kEFJEJA1BGtAbaN/n5m36CORdFQIOd1UAmdAw4FnBTjM0xU9ddRYJy7LQd6Pkp5KaH7b5z52mRj
+	XJYYYD6bUIah5fXRL96nCq0jtmKHFUQ+Q2gRdC6s4Rf2MEYuphIUjrwKAaXRmbobWGq10bu0REH
+	mwiX91fFTiAn5Jcum
+X-Received: by 2002:a05:6820:4b07:b0:6b0:abaa:bd3 with SMTP id 006d021491bc7-6b0d614726cmr8530774eaf.9.1786754918519;
+        Fri, 14 Aug 2026 17:48:38 -0700 (PDT)
 Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b0d9574d7csm3240730eaf.2.2026.08.14.17.48.36
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b0d9574d7csm3240730eaf.2.2026.08.14.17.48.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 17:48:36 -0700 (PDT)
+        Fri, 14 Aug 2026 17:48:37 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 14 Aug 2026 18:46:15 -0600
-Subject: [PATCH net-next 1/3] driver core: factor sync-state-only link
- cleanup
+Date: Fri, 14 Aug 2026 18:46:16 -0600
+Subject: [PATCH net-next 2/3] of: property: link PHY package suppliers to
+ member PHYs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260814-submit-phy-package-fwdevlink-v1-v1-1-2319844f057a@gmail.com>
+Message-Id: <20260814-submit-phy-package-fwdevlink-v1-v1-2-2319844f057a@gmail.com>
 References: <20260814-submit-phy-package-fwdevlink-v1-v1-0-2319844f057a@gmail.com>
 In-Reply-To: <20260814-submit-phy-package-fwdevlink-v1-v1-0-2319844f057a@gmail.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
@@ -89,144 +89,50 @@ Cc: Christian Marangi <ansuelsmth@gmail.com>, devicetree@vger.kernel.org,
  netdev@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-device_links_driver_bound() drops managed sync-state-only links after a
-consumer successfully probes, then re-evaluates each affected supplier
-for a sync_state() callback.
+Ethernet PHY package nodes describe shared resources for their member
+PHYs, but are not populated as struct devices. fw_devlink consequently
+represents the package dependencies with proxy links to the closest
+ancestor device.
 
-Frameworks which populate child devices below a driverless device need
-to complete the same lifecycle step, but cannot rely on a successful
-driver probe to trigger it.
+The MDIO bus is a class device without a driver, so such a proxy can
+remain available indefinitely and prevent a supplier from receiving its
+sync_state() callback even after every PHY has probed.
 
-Factor the existing cleanup into a lock-held helper and reuse it from
-device_links_driver_bound(). Add a public locking wrapper so frameworks
-which populate children below driverless devices can retire temporary
-fw_devlink proxy links without affecting real dependency or runtime-PM
-links.
+Treat every enabled member PHY as a consumer of the common package
+suppliers. The links can then be converted to links for the real PHY
+devices and retired through their normal driver lifecycle.
 
+Fixes: 385ef48f4686 ("net: phy: add support for scanning PHY in PHY packages nodes")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/base/core.c    | 74 ++++++++++++++++++++++++++++++++++++++------------
- include/linux/device.h |  1 +
- 2 files changed, 58 insertions(+), 17 deletions(-)
+ drivers/of/property.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 4d026682944f..627fcfa274f0 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -1305,6 +1305,57 @@ static void device_link_drop_managed(struct device_link *link)
- 	kref_put(&link->kref, __device_link_del);
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 72cf12907de0..f29ba818ecbc 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1272,6 +1272,20 @@ static void of_link_to_phandle(struct device_node *con_np,
+ 		tmp_np = of_get_next_parent(tmp_np);
+ 	}
+ 
++	/*
++	 * An Ethernet PHY package node describes resources shared by its member
++	 * PHYs, but is not populated as a struct device. Link every enabled
++	 * member PHY to those suppliers so fw_devlink can use the real consumer
++	 * devices instead of leaving a proxy link on the MDIO bus indefinitely.
++	 */
++	if (of_node_name_eq(con_np, "ethernet-phy-package")) {
++		for_each_available_child_of_node_scoped(con_np, child)
++			fwnode_link_add(of_fwnode_handle(child),
++					of_fwnode_handle(sup_np), flags);
++
++		return;
++	}
++
+ 	fwnode_link_add(of_fwnode_handle(con_np), of_fwnode_handle(sup_np), flags);
  }
  
-+/* Caller must hold the device links write lock. */
-+static void __device_links_drop_sync_state_only(struct device *dev,
-+						struct list_head *sync_list)
-+{
-+	struct device_link *link, *ln;
-+
-+	list_for_each_entry_safe(link, ln, &dev->links.suppliers, c_node) {
-+		struct device *supplier;
-+
-+		if (!device_link_test(link, DL_FLAG_MANAGED) ||
-+		    !device_link_test(link, DL_FLAG_SYNC_STATE_ONLY))
-+			continue;
-+
-+		/*
-+		 * DL_FLAG_SYNC_STATE_ONLY excludes all other managed link flags,
-+		 * so it is safe to drop the managed link completely.
-+		 */
-+		supplier = link->supplier;
-+		device_link_drop_managed(link);
-+
-+		if (defer_sync_state_count)
-+			__device_links_supplier_defer_sync(supplier);
-+		else
-+			__device_links_queue_sync_state(supplier, sync_list);
-+	}
-+}
-+
-+/**
-+ * device_links_drop_sync_state_only - Drop managed sync-state-only links
-+ * @dev: Consumer device whose proxy links should be dropped
-+ *
-+ * Frameworks which populate child devices below a driverless device can call
-+ * this after adding all of the children. The children will have acquired their
-+ * own links by then, so the temporary links which only prevent suppliers from
-+ * receiving sync_state() callbacks are no longer needed.
-+ *
-+ * Re-evaluate each affected supplier for a sync_state() callback after its
-+ * link is dropped.
-+ */
-+void device_links_drop_sync_state_only(struct device *dev)
-+{
-+	LIST_HEAD(sync_list);
-+
-+	device_links_write_lock();
-+	__device_links_drop_sync_state_only(dev, &sync_list);
-+	device_links_write_unlock();
-+
-+	device_links_flush_sync_list(&sync_list, NULL);
-+}
-+EXPORT_SYMBOL_GPL(device_links_drop_sync_state_only);
-+
- static ssize_t waiting_for_supplier_show(struct device *dev,
- 					 const struct device_attribute *attr,
- 					 char *buf)
-@@ -1418,6 +1469,8 @@ void device_links_driver_bound(struct device *dev)
- 	else
- 		__device_links_queue_sync_state(dev, &sync_list);
- 
-+	__device_links_drop_sync_state_only(dev, &sync_list);
-+
- 	list_for_each_entry_safe(link, ln, &dev->links.suppliers, c_node) {
- 		struct device *supplier;
- 
-@@ -1425,17 +1478,10 @@ void device_links_driver_bound(struct device *dev)
- 			continue;
- 
- 		supplier = link->supplier;
--		if (device_link_test(link, DL_FLAG_SYNC_STATE_ONLY)) {
--			/*
--			 * When DL_FLAG_SYNC_STATE_ONLY is set, it means no
--			 * other DL_MANAGED_LINK_FLAGS have been set. So, it's
--			 * save to drop the managed link completely.
--			 */
--			device_link_drop_managed(link);
--		} else if (dev_is_best_effort(dev) &&
--			   device_link_test(link, DL_FLAG_INFERRED) &&
--			   link->status != DL_STATE_CONSUMER_PROBE &&
--			   !dev_can_match(link->supplier)) {
-+		if (dev_is_best_effort(dev) &&
-+		    device_link_test(link, DL_FLAG_INFERRED) &&
-+		    link->status != DL_STATE_CONSUMER_PROBE &&
-+		    !dev_can_match(link->supplier)) {
- 			/*
- 			 * When dev_is_best_effort() is true, we ignore device
- 			 * links to suppliers that don't have a driver.  If the
-@@ -1449,12 +1495,6 @@ void device_links_driver_bound(struct device *dev)
- 			WRITE_ONCE(link->status, DL_STATE_ACTIVE);
- 		}
- 
--		/*
--		 * This needs to be done even for the deleted
--		 * DL_FLAG_SYNC_STATE_ONLY device link in case it was the last
--		 * device link that was preventing the supplier from getting a
--		 * sync_state() call.
--		 */
- 		if (defer_sync_state_count)
- 			__device_links_supplier_defer_sync(supplier);
- 		else
-diff --git a/include/linux/device.h b/include/linux/device.h
-index aee79fd6b32b..8afb9f2b0d82 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -1381,6 +1381,7 @@ struct device_link *device_link_add(struct device *consumer,
- 				    struct device *supplier, u32 flags);
- void device_link_del(struct device_link *link);
- void device_link_remove(void *consumer, struct device *supplier);
-+void device_links_drop_sync_state_only(struct device *dev);
- void device_links_supplier_sync_state_pause(void);
- void device_links_supplier_sync_state_resume(void);
- void device_link_wait_removal(void);
 
 -- 
 2.53.0
