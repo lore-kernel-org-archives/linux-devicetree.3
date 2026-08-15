@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF96A257845
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:35:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BA824A05D
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 13:36:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786800903; cv=none; b=B/4KwVlwpgQIOGs8bjpcYlNgJyWsWyXcPU0vGOcE4jGkMH9FaFVjmZSiBDAwGZ0oLttpEYFnwmw91E93HOlhxt7UGEZ6iAt3aUAUzpqW2/f2OPdFJr62jEjhj1A1pSqRHhdJUsKAb4KDwJ7zU9jeLOoJDPNH5kKcF4/HL09WjuU=
+	t=1786801017; cv=none; b=NNwIsx2gsVL3wArn+q+g0YFYFOUK8bEdf8DsW4R5r32Ou/mhvWZ5NSNnti9zTvcKWvyBszc/ojZhRpLoG6ncMCW7GM5p3nmokM/ZcfASxpuR9SsYamQths6d56SrpiQ/uXEDBEo51vyTYJSCdIHKnBcbu6mWz3rjiOzf66LD8IY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786800903; c=relaxed/simple;
-	bh=8TIOmoBNYiIiHh0SrdHTS+dl17ZOPZatz16HCj85Guk=;
+	s=arc-20240116; t=1786801017; c=relaxed/simple;
+	bh=MgTZciCU0PC54mh8kz+UWnQG5x3EYOu+qUolCRHI+7I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F0uGFRATRTrHXhZdygBL0/wPCZOyZ7GOd/xNUK4ZQ1UrNiNhgcxpqt0GWHDEZp7XdRHuQO9myZ0U7paM+5Gvx3TSjMyKCdbhEYPAszuMjMsR9Zca6kVaaX+cTSKMZLMR/J3V3WDUvx1WGkzW/SnZ90KwufPY0eCu4dE6++NWXa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwdHnkKN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lUm0qmFf+X1EDgLyjpPsMlS7AwkP0JMUiPZZnvsQWPjdegZqFGd5NzYBqLQMlk0CUAem3uJOVKiX3qrcyn4JUfMovDqi3GHN9p7bXRqFhIfRmAccZc3slQDr7DHB4jwFTaJIAo1MvueZzRJr4H1N+t3DMObk2b5gWUVJrBMCo6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g8pHORhI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwdHnkKN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B411F000E9;
-	Sat, 15 Aug 2026 13:35:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g8pHORhI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11D001F000E9;
+	Sat, 15 Aug 2026 13:36:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786800902;
-	bh=Je2xKv0omRVJ9fVNYBhSAaizVZ1J8cVV/gDDHuHdgJ4=;
+	s=k20260515; t=1786801015;
+	bh=ZMw8INUTQMuMcdjbOvMmRGwvymO7NQQ0mqQ96E7oXtA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NwdHnkKNiIBh7nlD/WdHI1U6YiNSqtuXRhV1Mv9Gutw0rRhUqu8PfA35hhAmV4moG
-	 um4k31jrdrGy3JO6ERsi3wiU9Bm7l1jrhbKrajTRpHqzeEKIntDTbAp3N+YuNC7Bq+
-	 jgl5/u4SEimueFxeS8wVAxeVYu38NMNxouVsOBF7Y7P39MWX1aYP04vgzzp1RhzqEA
-	 Qy3TRxlaPApBDR/9GivnpW8V1arAJy+X4d2gPMJIF51KOGpYmyGdp6n9Tcn+iIDtNG
-	 ajtEgCq7GHNKRqyDi/aBHRWjzXBk/sq2EMd6oEmtv+0Bj2HiAT4Jgq9rkWriJG5Yyo
-	 hHrSOrdyXsQ/A==
+	b=g8pHORhIptCs3eZrcoSlo+HwuBM244YwbCSfV5WOP8h+Ws5VVZLv1dpGREfXU2m9/
+	 GCDedlOlBqm2FSOGOR6htwDl3SQBn8GT6oFWdF+OgwnxyjxkThgLjblOmsypvfYbb1
+	 Z4S5tEbRugjA5fyMVGJOKBnplOprG0PY6kIO2ENX+X+hSj9k29kcNkEAYuqSLHADYB
+	 sQ+8X/QPGa6tR7Tigk1h2xpGfJispx3dDKXygZA2Pfgw/j0rRe0JWv+XA/SzwK2OMN
+	 ReuCntKbt1hFFCwAUew2GzlC6cUBlvXzuGEF6Nzhtg+TZFAmmnsCOFPDUQYs06ooDV
+	 mCz1YO3+EP2cw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/8] dt-bindings: remoteproc: qcom,nord-pas: Add
- qcom,cluster-root property
+Subject: Re: [PATCH 4/8] rpmsg: qcom_glink_ssr: Suppress cleanup notify
+ between cluster siblings
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260815132541.1575121-2-shengchao.guo@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260815132541.1575121-5-shengchao.guo@oss.qualcomm.com>
 References: <20260815132541.1575121-1-shengchao.guo@oss.qualcomm.com>
- <20260815132541.1575121-2-shengchao.guo@oss.qualcomm.com>
+ <20260815132541.1575121-5-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 13:35:01 +0000
-Message-Id: <20260815133501.F3B411F000E9@smtp.kernel.org>
+Date: Sat, 15 Aug 2026 13:36:54 +0000
+Message-Id: <20260815133655.11D001F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,63 +47,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The `qcom,cluster-root` property is strictly required for ADSP c=
-luster members but is omitted from the `required` schema list, and the exam=
-ple is not updated.
+- [High] Type confusion and out-of-bounds read when `qcom_glink_ept_cluster=
+()` downcasts a generic `rpmsg_endpoint` without checking its transport bac=
+kend.
 --
 
---- Patch [1]: [PATCH 1/8] dt-bindings: remoteproc: qcom,nord-pas: Add qcom=
-,cluster-root property ---
-commit fca9b39c4393ef8848adae4c6b55bac6904bfd95
+--- Patch [4]: [PATCH 4/8] rpmsg: qcom_glink_ssr: Suppress cleanup notify b=
+etween cluster siblings ---
+commit c10027dd4bbd2c7fac42077955228324a4275d43
 Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-dt-bindings: remoteproc: qcom,nord-pas: Add qcom,cluster-root property
+rpmsg: qcom_glink_ssr: Suppress cleanup notify between cluster siblings
 
-Document the qcom,cluster-root phandle property used to describe HPASS's
-ADSP0/1/2 cluster relationship. Every member of a cluster carries the
-property, including the instance owning the shared resources, which
-references itself; instances referencing the same node form one cluster
-that boots in order and is torn down as a single unit.
+This commit passes the remote processor's cluster identifier down to the
+GLINK edges and uses it to skip sending cleanup broadcast messages to other
+members of the same cluster during start/stop events.
 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.y=
-aml b/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
+> diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink=
+_native.c
+> index d9d4468e4cbdf..a15d7e6a52423 100644
+> --- a/drivers/rpmsg/qcom_glink_native.c
+> +++ b/drivers/rpmsg/qcom_glink_native.c
 [ ... ]
-> @@ -101,6 +116,8 @@ allOf:
->          compatible:
->            enum:
->              - qcom,nord-adsp-pas
-> +            - qcom,nord-adsp1-pas
-> +            - qcom,nord-adsp2-pas
->      then:
->        properties:
->          power-domains:
+> @@ -1940,6 +1944,20 @@ struct qcom_glink *qcom_glink_native_probe(struct =
+device *dev,
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_glink_native_probe);
+> =20
+> +/**
+> + * qcom_glink_ept_cluster() - cluster identifier of an endpoint's edge
+> + * @ept:	endpoint to query
+> + *
+> + * Return: the opaque cluster identifier of the remote processor @ept ta=
+lks to,
+> + * or NULL if it is not part of a cluster.
+> + */
+> +void *qcom_glink_ept_cluster(struct rpmsg_endpoint *ept)
+> +{
+> +	struct glink_channel *channel =3D to_glink_channel(ept);
+> +
+> +	return channel->glink->cluster;
+> +}
 
-[Severity: Medium]
-Since qcom,cluster-root is strictly required for ADSP cluster members,
-should it be added to the required list in this conditional block?
+[Severity: High]
+Does this downcast assume that the endpoint is always backed by the GLINK
+transport without verifying it?
 
-If an ADSP node is created without the property, it will silently pass
-make dt_binding_check. At runtime, a missing qcom,cluster-root property can
-cause the DSP driver to fail to establish the cluster relationship,
-potentially hanging the boot process of ADSP1/ADSP2.
+If a remote processor on a different bus (such as virtio_rpmsg_bus) sends a
+Name Service announcement for a channel named glink_ssr, the rpmsg core
+could probe the qcom_glink_ssr_driver and store a non-GLINK endpoint.
 
-Additionally, the existing example node at the end of the file lacks the
-qcom,cluster-root property:
+Later, when a remoteproc stops, qcom_glink_ssr_notifier_call() would pass
+this non-GLINK endpoint to qcom_glink_ept_cluster():
 
-Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml:
-examples:
-  - |
-    ...
-    remoteproc@4c00000 {
-        compatible =3D "qcom,nord-adsp-pas";
-        reg =3D <0x04c00000 0x10000>;
-    ...
+qcom_glink_ssr_notifier_call()
+  cluster =3D qcom_glink_ept_cluster(ssr->ept);
 
-Could the example be updated to include a self-referencing
-qcom,cluster-root property to conform to this new requirement?
+Could this blind cast to struct glink_channel and subsequent dereference
+of channel->glink->cluster cause a kernel panic or out-of-bounds read?
+
+> diff --git a/drivers/rpmsg/qcom_glink_ssr.c b/drivers/rpmsg/qcom_glink_ss=
+r.c
+> index e71d3716c55c5..74c671a19af03 100644
+> --- a/drivers/rpmsg/qcom_glink_ssr.c
+> +++ b/drivers/rpmsg/qcom_glink_ssr.c
+[ ... ]
+> @@ -100,18 +120,24 @@ static int qcom_glink_ssr_notifier_call(struct noti=
+fier_block *nb,
+>  					void *data)
+>  {
+>  	struct glink_ssr *ssr =3D container_of(nb, struct glink_ssr, nb);
+> +	struct glink_ssr_notify_data *notify_data =3D data;
+>  	struct do_cleanup_msg msg;
+> -	char *ssr_name =3D data;
+> +	void *cluster;
+>  	int ret;
+> =20
+> +	/* Cluster siblings' firmware can't handle peer SSR notify; skip it */
+> +	cluster =3D qcom_glink_ept_cluster(ssr->ept);
+> +	if (cluster && cluster =3D=3D notify_data->cluster)
+> +		return NOTIFY_DONE;
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260815132541.1575=
-121-1-shengchao.guo@oss.qualcomm.com?part=3D1
+121-1-shengchao.guo@oss.qualcomm.com?part=3D4
