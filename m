@@ -1,84 +1,269 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7973B47D0;
-	Sat, 15 Aug 2026 06:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16647223DCE
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 07:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786776773; cv=none; b=hQSxPhHow3sn+FbmSPowllk9aQlDo53IcGK6mjEhixyWa0euzwe72uMfLqXn5/BmT200DB/NQKOQnMkAVeXgAEc8SIuRl8xcS/t7z+hPoI/JELcXDsqt5kRvdBjzJXKtHqaWHGUJ0VMT63GiShFr/RK8GrrTBQlSouaeWIok1qY=
+	t=1786780109; cv=none; b=unByPxRyyqIRCV7iOlp5kKCWLlKjYO6NFHSryvLMwk3myz8J9dyVG2d3CAkmiHr9xQKtIv5cYTypgznuYQ+wXzp4cpQWJTO/8VCZ0DqvikqveUK+7kdBaHAmM7v0V4gVbEvDlXp5e0GqEc/hANNyjOFkv91+9dTguSa8T20tg5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786776773; c=relaxed/simple;
-	bh=V5ekeGm3gZXioCGpp9BDcZOU97NAdz/a0OhwPto4mO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uyAQb+Dv5GkoiLz6iLwpLNxe1FX6peltgKXQCQ/S/alHNSS7ruJx9ssnmWgXMJPE5q0iab2HYCHSAZWNBPmAKz7j97p4DjqhCIA4+b+d2JykU27MOXd12jatV6Jyxb5qTJcRkE0pM7HmVBHU9vr7+BrnQ8B+yByQH0gXFQWtE5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G82hCjGq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786780109; c=relaxed/simple;
+	bh=OE/EaKm9mUhgWVUKXL8BasIrYws6tS8WDyPptYHAFSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K4tKJr9WqxtVqR4tzx6inVagK+QgNsVrGwJBK5kq+33aJJgk93gKqhOejZuiZ+GeP7jzMV+AaCwl1P7zfJwcyZ7nPZIL/753OwM5fDG2MS38nwX2+xfp35Y9jxNPVygK0vngChM292yf0U2j+vuSBJ4r3WU8bdvzOd/Qeq/KkkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CDQokXPP; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G82hCjGq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C401F000E9;
-	Sat, 15 Aug 2026 06:52:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786776757;
-	bh=SOO4PTBjIrBj1DLwftmnetVO7a1uDaMSF8dYKtQH0zQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G82hCjGqOgxpxNBebL1MWeSdMBlWcWVqL6adEDg7CdG8GxfnpFKa0Q4r5rJSOQoDI
-	 tfCV/pIkdlTK+zPm2hJeVxOlFAtH59aX78g+x6rUELzzlXjKHUxPXBMOI+zf/CxPcw
-	 5C7iYHM4wKtugqDLvkWCvYLok8HC9ZAE7RSqFVpOVsd3DvFnPyJHLjQoG12b9Am1HY
-	 YVAbcS6owau8a4cLSz5+nVR2PfcAZwa2u5MCRNvQgHGB+P4Ju1gCEeGyIovRCWbchk
-	 GEIhhZM8nErP1gs4ipZ+s4Lx/n6/bDmF/VFW+WPlrjCnuxAR2ukGYZp9+UmLELA05V
-	 RahRwOSEPQNbw==
-Date: Sat, 15 Aug 2026 08:52:26 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
-	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	Kevin Xie <kevin.xie@starfivetech.com>, Aksh Garg <a-garg7@ti.com>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>, 
-	Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Subject: Re: [PATCH v10 3/5] PCI: tegra: Add Tegra264 support
-Message-ID: <ajpntb2f62mpevhofuv2mdpgsktzp6gwcvu2euka7qu2n3f7at@fp3q5fowyvgg>
-References: <20260814-tegra264-pcie-v10-0-05d08c592b05@nvidia.com>
- <20260814-tegra264-pcie-v10-3-05d08c592b05@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CDQokXPP"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f96c5b722so1103054f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 00:48:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786780106; x=1787384906; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OYEHZ3sfVEZD5CwCuEkCOIaM8Qg4WJAH1yfaH+AnSOM=;
+        b=CDQokXPPXrr7icDE3XT8I7ixR0tEO+uQMRFKTLIDdx7PURi3R+mCTnqaRwP4cqTmwk
+         /06q7VJTYLsAXVF8DPAZd+wV/jEdSWzekLhjLcB9Vtj5/i3pjXLEmtgPM+GEAJodeSXA
+         AdlDCK1hRjLjG+yNkkRtO9BjOXjN9IJFYsKJWvVFUxeNON6xK5PlIoAM6gY1GgHkW5mD
+         DF4yAXaZMVT3ewYvjFvCMcyVaAtIqnlLyHr30vBR5pFaHcon8pK/SQLGtRZuXpAnD5q/
+         nLR2c/tVYKunhUJisoId3HVMHmy8mOWINrSZsukmGJJdHrSzzBm/W610Vo+CQehah/x6
+         6e1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786780106; x=1787384906;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OYEHZ3sfVEZD5CwCuEkCOIaM8Qg4WJAH1yfaH+AnSOM=;
+        b=f2/FKQWpDZL+HwgF5SQZ4Z8ZWxahXN3kVzySUOEi7LuHLHnVBUcQHVkj11M5KkXIEv
+         JZBHHsOMCE85S/JHRH5CaIU7DmCqTnId8mSDnliN+fwp21ctPKBXXSUBj3y2J/K/YZni
+         n+t80+SjNy6DN19i067icgV/N9s4SE4Y7eBi1Y+OxngYwIlPNUd0RGQ7pE2KHrQhEV0I
+         pMo6dG37+JglG3YGAW7OvrpwpgXjnUHpve+4XeSbBDwBR8ABU+bZbpIVKql+Ol0/6aHG
+         GjKbINCo416idBenXppQ/OBpdRgD2mWTAFENPBw8lkWAHaoc3Dzueqt8/vAHcW8C3VGO
+         ZrJw==
+X-Forwarded-Encrypted: i=1; AHgh+RoFQLTI0m7zdoz8EHz0KE3CJ2O0KLwRz2T8OLtZpt71fcSJaxUlo8+1WH2Nga5tO+uqhFnwysJV9I0n@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHqDDPxcOpYklpNiJQpZvayFKyOBTjz/yZT37NMcKnzV6/8ul5
+	Ili9oeZmxXzzdIn18/fpnF5oGnSdG6sVN82d0cm8Nn6c6hHXDrAQ5foX
+X-Gm-Gg: AR+sD12CD+Opiy+AktBMhtdc6/EopMwW0z3XuNCP74nMzPgCBEDbl1D7pUclRWEqWXa
+	WfCKY4noESQ8Z/GNyvM2Lzr7jZ3dgUH1vGPHVZ2ZOY4HzjXDFcxrFCPpmOuyatzp/ZtIbFp3ZCX
+	qKAFbdRmr5pwCbVJlWIMTsE+bhD4n2/wMJVOijlq1/93b8aIwSt6nbqb3tDEWCsR30cSkaavg5m
+	UMY48s0vp61tEAw/4KWDsOGzzfOxq6ZVUSGlfxxkMCzVn15VAjVPVYq3zXB8GgA8szJ/NmYfxkS
+	IvAXSnuNiDX9G1g50dW0/MCjRLv3TNcOySCmRGwl8CD3SflcRSaEXv+xgIVJBUsimblwD4MD6v/
+	dABVlmAKVvHYJDUAHSe28KujjQj49fA8ETzb/YfP1NVQoVTXT2EhmFsMlSef/cf3K8nzfZ8qZBx
+	bmBY0oxgzDPnPp9h12UJxaC27m1AYaqkHybCHAMpYOZzCFKoK5JDn+R8h8diZ/xZj8NV8jd4LDv
+	vev+nsn9MQeM3yb0gaslylrJKwi1LI=
+X-Received: by 2002:a05:6000:2a0c:b0:47f:77dc:b066 with SMTP id ffacd0b85a97d-481607318acmr13686859f8f.5.1786780106045;
+        Sat, 15 Aug 2026 00:48:26 -0700 (PDT)
+Received: from localhost.localdomain ([82.137.32.242])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4815f2c129dsm14487942f8f.26.2026.08.15.00.48.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2026 00:48:25 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-pwm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: [PATCH v3] dt-bindings: pwm: Convert TI PWM Subsystem to DT schema
+Date: Sat, 15 Aug 2026 07:48:17 +0000
+Message-ID: <20260815074817.2117916-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260814-tegra264-pcie-v10-3-05d08c592b05@nvidia.com>
 
-On Fri, Aug 14, 2026 at 05:38:57PM +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> Add a driver for the PCIe controller found on NVIDIA Tegra264 SoCs. The
-> driver is very small, with its main purpose being to set up the address
-> translation registers and then creating a standard PCI host using ECAM.
-> 
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
+Convert the Texas Instruments SoC PWM Subsystem bindings
+to DT schema.
 
-This s-o-b chain is cobbled.
+During the conversion, the following updates were made:
+- 'counter' node was added to the allowed child nodes
+  list to resolve dtbs_check warnings. Some eqep nodes
+  use 'counter' instead of 'eqep'.
 
-1. If Thierry is the Author, and if Manikanda co-developed the patch, then there
-should be a Co-developed-by tag for Manikanda.
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+Changes in v3:
+- Completed the single example by adding the required 'clocks',
+  'clock-names' and 'interrupts' properties to the ECAP, EQEP and EHRPWM
+  child nodes, so the example passes a full dt_binding_check.
 
-2. If Manikanda is the author of this patch and if Thierry is just sending it
-along, then the authorship belongs to Manikanda.
+Changes in v2:
+- Renamed the file to ti,am33xx-pwmss.yaml to match the base compatible.
+- Required a 'compatible' property in the child nodes.
+- Reduced the binding to a single example and included the PWM child
+  nodes (ECAP, EQEP, EHRPWM) in it.
 
-I've applied this patch based on (1):
-https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/commit/?h=controller/tegra264&id=d56131f7a401841c09b6611402a8d2e795da3a6b
+Link to v2: https://lore.kernel.org/all/20260812094420.1057067-1-egbostina@gmail.com/
+Link to v1: https://lore.kernel.org/all/20260811092208.687731-1-egbostina@gmail.com/
 
-If that is not correct, please let me know, I'll ammend it.
+ .../devicetree/bindings/pwm/pwm-tipwmss.txt   | 58 -------------
+ .../bindings/pwm/ti,am33xx-pwmss.yaml         | 82 +++++++++++++++++++
+ 2 files changed, 82 insertions(+), 58 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml
 
-- Mani
-
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt b/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
+deleted file mode 100644
+index 4633697fbda1..000000000000
+--- a/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
++++ /dev/null
+@@ -1,58 +0,0 @@
+-TI SOC based PWM Subsystem
+-
+-Required properties:
+-- compatible: Must be "ti,<soc>-pwmss".
+-  for am33xx  - compatible = "ti,am33xx-pwmss";
+-  for am4372  - compatible = "ti,am4372-pwmss","ti,am33xx-pwmss";
+-  for dra746 - compatible = "ti,dra746-pwmss", "ti,am33xx-pwmss"
+-
+-- reg: physical base address and size of the registers map.
+-- address-cells: Specify the number of u32 entries needed in child nodes.
+-		  Should set to 1.
+-- size-cells: specify number of u32 entries needed to specify child nodes size
+-		in reg property. Should set to 1.
+-- ranges: describes the address mapping of a memory-mapped bus. Should set to
+-	   physical address map of child's base address, physical address within
+-	   parent's address  space and length of the address map. For am33xx,
+-	   3 set of child register maps present, ECAP register space, EQEP
+-	   register space, EHRPWM register space.
+-
+-Also child nodes should also populated under PWMSS DT node.
+-
+-Example:
+-epwmss0: epwmss@48300000 { /* PWMSS for am33xx */
+-	compatible = "ti,am33xx-pwmss";
+-	reg = <0x48300000 0x10>;
+-	ti,hwmods = "epwmss0";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges = <0x48300100 0x48300100 0x80   /* ECAP */
+-		  0x48300180 0x48300180 0x80   /* EQEP */
+-		  0x48300200 0x48300200 0x80>; /* EHRPWM */
+-
+-	/* child nodes go here */
+-};
+-
+-epwmss0: epwmss@48300000 { /* PWMSS for am4372 */
+-	compatible = "ti,am4372-pwmss","ti,am33xx-pwmss"
+-	reg = <0x48300000 0x10>;
+-	ti,hwmods = "epwmss0";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges = <0x48300100 0x48300100 0x80   /* ECAP */
+-		  0x48300180 0x48300180 0x80   /* EQEP */
+-		  0x48300200 0x48300200 0x80>; /* EHRPWM */
+-
+-	/* child nodes go here */
+-};
+-
+-epwmss0: epwmss@4843e000 { /* PWMSS for DRA7xx */
+-	compatible = "ti,dra746-pwmss", "ti,am33xx-pwmss";
+-	reg = <0x4843e000 0x30>;
+-	ti,hwmods = "epwmss0";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges;
+-
+-	/* child nodes go here */
+-};
+diff --git a/Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml b/Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml
+new file mode 100644
+index 000000000000..89ce6b02b70c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml
+@@ -0,0 +1,82 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/ti,am33xx-pwmss.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments SoC PWM Subsystem
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,am33xx-pwmss
++      - items:
++          - enum:
++              - ti,am4372-pwmss
++              - ti,dra746-pwmss
++          - const: ti,am33xx-pwmss
++
++  reg:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++  ranges: true
++
++patternProperties:
++  "^(ecap|eqep|pwm|counter)@[0-9a-f]+$":
++    type: object
++    description: Child nodes for ECAP, EQEP (counter), and EHRPWM
++    required:
++      - compatible
++
++required:
++  - compatible
++  - reg
++  - "#address-cells"
++  - "#size-cells"
++  - ranges
++
++additionalProperties: false
++
++examples:
++  - |
++    pwm@48300000 {
++        compatible = "ti,am33xx-pwmss";
++        reg = <0x48300000 0x10>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges = <0x48300100 0x48300100 0x80>,   /* ECAP */
++                 <0x48300180 0x48300180 0x80>,   /* EQEP */
++                 <0x48300200 0x48300200 0x80>;   /* EHRPWM */
++
++        pwm@48300100 {
++            compatible = "ti,am3352-ecap";
++            #pwm-cells = <3>;
++            reg = <0x48300100 0x80>;
++            clocks = <&l4ls_gclk>;
++            clock-names = "fck";
++        };
++
++        counter@48300180 {
++            compatible = "ti,am3352-eqep";
++            reg = <0x48300180 0x80>;
++            clocks = <&l4ls_gclk>;
++            interrupts = <79>;
++        };
++
++        pwm@48300200 {
++            compatible = "ti,am3352-ehrpwm";
++            #pwm-cells = <3>;
++            reg = <0x48300200 0x80>;
++            clocks = <&ehrpwm0_tbclk>, <&l4ls_gclk>;
++            clock-names = "tbclk", "fck";
++        };
++    };
 -- 
-மணிவண்ணன் சதாசிவம்
+2.43.0
+
