@@ -1,66 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752BB38D3FC;
-	Sat, 15 Aug 2026 23:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D6E438F94C;
+	Sat, 15 Aug 2026 23:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786835516; cv=none; b=NfZsuXONAfvxIS6wKNcDRn8HN5he9/2so9ESAyG4lZY4cvnFEJI4nek4SkQJufYCTRts8L2LshPdTlszMv1pgxcFKjtW39RU4drr1VWcEQfmBHJcdj4b/vH1TcMuxsslRZGnz9rgedA9Tpv2AnLZKdVOONhV96HVchy4NAFMRxQ=
+	t=1786836414; cv=none; b=PfObik0k5qS8jo5Zm9MbUOxv6dqqFtte8/zDVHZY3Y6pjl40JAEZF8FsbBYlMYyO9pV8MhGMOKz/uRi1UKmButf7GuBlekKygfG5Z8wEA0IhTVOm5siyTgprLeaC/Edf0Mu8SRS7HnBgijrmdVGr6SIhrVwZZ7qWqlnKnpHI+eI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786835516; c=relaxed/simple;
-	bh=HsoL4gM9LiABz6+LERBwb3PkmDsnbjW2IQZh4ValomE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aSJpgPxwg+9lZE8taoqeoWNPmUaiUi/e/2ipDEl+UOgbsNS4974hTrgUSeP0mx+t06WLgLc18PZ6wfoF9UAOAXlaMEcLYoHjbdc5appA9aSINFuayq49n0ISS1XgsQLk0gARmncuKwC45/84javpAG1fGnV5oSn2/6mWJsNPj+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gIkC4NHq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786836414; c=relaxed/simple;
+	bh=9vZoBgzFE2THNFE8s+a0rg1bPJg4MV54NAwQFcIi1xY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c1EqqhFHgP0MFmIdgk6hJnUFXOqgz5Sfn/uB5OipdIbyniYUxc1WWx41fhvN6ZCWUdqXrvAX29NNa7j5DhVXS2ogC5eVhBqWDUFR5Fyq1GzSXOdvVcCTjZ0h5AUeypSznwmDjCUbnB0LGRbB5OrLN6cHZVYfDJSP72WN3HoUwIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ub99Pa9O; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gIkC4NHq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0809F1F000E9;
-	Sat, 15 Aug 2026 23:11:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786835515;
-	bh=HsoL4gM9LiABz6+LERBwb3PkmDsnbjW2IQZh4ValomE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gIkC4NHqP7LI1+VV3ZfHAQBDF3Yl/tLtUgAaK58Q2vem2ZairU81eTUpPcZUqLVhz
-	 sAZVKxh4gSbJ+MLXC5qk6cXWwuD5HXjblqpirgw/g71WhWSrLbx9QA+bjogC7yfro6
-	 jP7Dw1a7AyEZ8XmZhHjoP6qPlwcKpp0xxsWbsqezLWNksGBx69LKbaaJRFVMsSbKXB
-	 TgO5Mfw66nUT2bvxuHPX+qhvsSXern/bc3XmJuVfxZLn6WpJ52bh+UojP1zUSAOXmg
-	 VWY3zmyM64qE+2fNkvOKQzlYCx8Dv+/NuSGzW5kn4l5AiQa2gDINv+CjzyFWr8jCNg
-	 MXhhA7c9GLrfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 7/7] ptp: ocp: Add Time Card V9 I2C
- peripheral topology
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ahmad Byagowi" <ahmadexp@gmail.com>
-Cc: lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org
-In-Reply-To: <1b0ad989c6290a400bd642f9fb2d26d965bc02c8.1786747084.git.ahmadexp@gmail.com>
-References: <cover.1786746757.git.ahmadexp@gmail.com>
- <1b0ad989c6290a400bd642f9fb2d26d965bc02c8.1786747084.git.ahmadexp@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 23:11:54 +0000
-Message-Id: <20260815231155.0809F1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ub99Pa9O"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7656E1596;
+	Sat, 15 Aug 2026 16:26:48 -0700 (PDT)
+Received: from pluto.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B50CB3F673;
+	Sat, 15 Aug 2026 16:26:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1786836412; bh=9vZoBgzFE2THNFE8s+a0rg1bPJg4MV54NAwQFcIi1xY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Ub99Pa9Oj0FEkUHMvEUlToD8KJwdHgvVH4A4jMgyovW8Cg7+elAU9OIyFCmGoBq6y
+	 V9MRBIDyBt7cu/7L1HloYqCSDdcWzZ38w8qjrMm3Dj0487ZaUBsi01CpXTQ8pLVXp+
+	 UF/JITPHBOkNkIVuCsREKHBqFYhvDYd6fK8zdBjw=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jic23@kernel.org,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v10 04/24] dt-bindings: firmware: arm,scmi: Add support for telemetry protocol
+Date: Sun, 16 Aug 2026 00:25:44 +0100
+Message-ID: <20260815232604.3730754-5-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260815232604.3730754-1-cristian.marussi@arm.com>
+References: <20260815232604.3730754-1-cristian.marussi@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-> Time Card V9 boards use the same mux infrastructure with a BME280,
-> a BNO055, and an IS32FL3207 at a different address.
->=20
-> Describe six RGB groups. The first two expose the GNSS1 and GNSS2
-> status LEDs on outputs 0 through 5; the remaining four expose the SMA
-> indicator LEDs on outputs 6 through 17.
->=20
-> Select the profile only when the fixed-width board ID exactly matches
-> TIMECARD-V9 with zero or erased-byte padding. Older revisions share the
-> detectable I2C devices but not the V9 LED wiring.
->=20
-> Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
+Add new SCMI v4.0 Telemetry protocol bindings definitions.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+---
+v3 --> v4
+ - changed protocol number to lowercase 1b
+ - fixed misplaced block for protocol 0x1b
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786746757.gi=
-t.ahmadexp@gmail.com?part=3D7
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+---
+ Documentation/devicetree/bindings/firmware/arm,scmi.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+index d06cca9273c4..be733f8d60a0 100644
+--- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
++++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+@@ -324,6 +324,14 @@ properties:
+     required:
+       - reg
+ 
++  protocol@1b:
++    $ref: '#/$defs/protocol-node'
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        const: 0x1b
++
+ unevaluatedProperties: false
+ 
+ $defs:
+-- 
+2.54.0
 
