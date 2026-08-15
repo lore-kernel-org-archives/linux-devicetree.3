@@ -1,159 +1,70 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A17D377559
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 19:12:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D3CF9C0;
+	Sat, 15 Aug 2026 19:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786821131; cv=none; b=J2x4hB4Rus6ZbW4CaV2FAGYu4Acw2EYxuLeM1gl5/dN8mv5Ig6oZflHNDc7Tp5caWt4Ix4aENLYY3bePyPejaq8rspzV8teM3FMaO6UIOWDVPt70wG7K3actkJkKFr8rlEQvp2DCuffcbxRBbExx44F7ZULVVuJAoV14ZVqG+7o=
+	t=1786822409; cv=none; b=BtPcCHe8tlg0VtnZUNjXePooBzd+IYtXTsrjcZU/ZJI0cK1THUOXCGxgfIm8RKmvCBvFxQIM1ItjvuTyfxiowYM4yEgeCyrC2OH+34Uc78f79Xl/Gmw32O63lRCIsEhJDZDKnto9EBsdHDWIL5O//cjXcU0xsabexuQDR19gvyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786821131; c=relaxed/simple;
-	bh=5RkMUJ1444X2cAUbWcMBKjhTBMhgCS7gOIBcS9lYMPs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=uPc/7kDL4nymeqJ+5woxE8+vSMbVcU+/jgjm5duIdxAd4uwVQ7LurnHPiIPHNORpGKMU3RXm0fGiYk9E6lEnmM1qVjGKnM47zfUzT2WqonyR4jBUCzt/nR0NquQdz4UzWFQwf7fDEncyJX+eQGulNZqtmTL1Nw18NjCFB1jYKSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OGvpzoKv; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786822409; c=relaxed/simple;
+	bh=740ZsBSRNdQ7eVvwayJQa0Hzeh/lzlQt+x328SlZpmQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hGXWHJ10zZEv95CGFPVQKe0WI+18FwSzdIQJhBx+L91gAK5ZKfQ+KlQRw/KF8hLyJDT0HdH0uFv3KXSNvy/y2VOqTzruKfeok88CvCOD8EmXGj3y5eJW/2cEt5DbzZvmMFoJ4JuhW4zmGoTyi68yVLH06/bbS4jfrtUA1k4K1Mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMK+1BJb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OGvpzoKv"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c16794450aeso263586566b.2
-        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 12:12:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786821128; x=1787425928; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=88izO+QaB/O00yTBhu9wQoygITPFWyCSorKc++U3zBY=;
-        b=OGvpzoKvC/8HTbmaFB/nErXD6qnlhk/zmsXYD1OoN7t5w35IW4M0y+EYsAKrhWKfyR
-         ufdqcKHJCBbLpLj1obAkoaZkYYY1zrjg8byCGapnQDz/fViPHjZ8ihPMv2Rl3rk1Urou
-         MWX5hktfymmp3wuZlZXPITJfxQA1nVgtyU2O5Bom3kdZh9kDedUJuFfrdwceIOJSqeTu
-         hzpQE9FPQktvXr2EhyD53G57Kbe3eG6BkXbu5Sm/MjTJo2emI50CU60khHg4ZyHZ4w29
-         NlWfVs+GMpGmmVsoKZO45DrVYz+IuNGsk0HjiL6lrnjbwuF7ZWpdYvvOQZRMWm13Oic4
-         g0sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786821128; x=1787425928;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=88izO+QaB/O00yTBhu9wQoygITPFWyCSorKc++U3zBY=;
-        b=eYXkVLlqwkhunaQOQfOIPnFsYziHKdKdP4ysgPBrRxOBzbCwhC4Cew7SS0fk631LeH
-         N2dEL14kJ/uuxt1fl24LrP1Bqngzc86k1SWd8hvHZswqSwv2sRm4dY2JvUgcNHaOUcFG
-         v3IhQHWaNtN1XCHGpCjs3acBgiWT+6I3dNLp5o99e20h2dL3t7XpZTdUyDqPDYG3Cu/e
-         Hz990NJ6nUCZUEvnV15mir8BQf4m19yK7ur6hLJmi0ajRokMMJnCdbgxhC7fIHCLTqDk
-         5zVHkcatdZQKGVGHWiEbXyUH3sTWxgeDaErP4kJBs6Cx1vgKYcQLSFRSIROVfBoDmLvz
-         kZlQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrEseDrTeNy92mQdyl6LYcFjNolKia22k5tzmqbbLW+44dvKa/B2nL1dSk7l62nUUjEIc5GL72LrTmI@vger.kernel.org
-X-Gm-Message-State: AOJu0YzXMD/7ptBmDvOM9K1RbWWlnxyMgkmV31g8p30omJUBcE+TMPGm
-	RWQ09e2ShLUbxZLg6hdefeVzQRuF7LPDaENljMUKzeVtR9TebAmMrEM4
-X-Gm-Gg: AR+sD13H0xfMK5ebArH5yTQ69UpC6KC5543VBdcirkgR9W9bUxwnRh9hgiViTJ1s1cC
-	VZSUM9Er4X1kHSOS0Q6oLvHI1zQQFsZpO4iHSyXQpbIJK0xhPoQYfKyHIOMEev5CE9PEaubquQz
-	uxGoWtwDNl4uFDnhJgrv09wl1mCb1s+/RHqqVhxh5yK1O90XoXKFrTkpQ6JoDw9pjaLq2LKJuXz
-	/ryuaSAGoiCux5CTWZobTV1wRNlqbqblUBJm56Lc3TwSZBBAkHoOWgbT/vDQ9ovPyXTapWrbxah
-	alhIarj3pv7tDr/bBSuj9dPNGJRz2CXxghiAD+ZVzHeHYXC13tiZ5Q+cKi0mcjNsNdx7TeKYp3D
-	hjn7wevpYXzAvkFYKTsJuYyTimY/wWkG/s7Ktx5P/+BaGPS/GuOSewDYS4yIU6MQHFykQzFDOO7
-	uPzALqw+vuafC4OjreT6lGmpeoJr3V+IJsixlese2ZU9U60sLZIwYynxJ0SJasUGTVJobXZ104w
-	0qCLeywYeALSIX4e5adQj/2ZFOSBElRYVmmy/demw==
-X-Received: by 2002:a17:906:eeca:b0:c1a:5d49:f99d with SMTP id a640c23a62f3a-c2129ab6c24mr672768166b.7.1786821127686;
-        Sat, 15 Aug 2026 12:12:07 -0700 (PDT)
-Received: from ?IPV6:2a00:1fa0:28f:426f:2aa1:8f7:f8a6:4f89? ([2a00:1fa0:28f:426f:2aa1:8f7:f8a6:4f89])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c212339f744sm252129866b.10.2026.08.15.12.12.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 15 Aug 2026 12:12:06 -0700 (PDT)
-Message-ID: <f140a168-0f92-4507-bf07-f5297ad92159@gmail.com>
-Date: Sat, 15 Aug 2026 22:12:03 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMK+1BJb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2221F000E9;
+	Sat, 15 Aug 2026 19:33:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786822408;
+	bh=I5Yh7x8Pt5usGYhUmGQHISP6sbrREFiI1VOt6YxsRrc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DMK+1BJbf6QJ7c1JVjZ+KHzsxjPbmES5wd4rWYBoQvgr0vL+kp4gyjSulX4Ho+fj4
+	 g4BVNLyJLOT4bgXEm4VHb1W+jO1ncbJhbxCXPm0ZzbiFnDD2X7kZezAht7ZFT1esYR
+	 RVuY2A1K/474+/EPpZTSDnayGxJ/HD4HBzt2Kpt7U/UqZlZ5To2tnxufAuXuYCfD5O
+	 fTMLrmobhHAQj++sbsfZDLg184jW2G3gRvNnvw5cA44K4FsRoc7A8VP7J0YUzIQ7Q8
+	 CtuTw8VcamF26u2RDtW8JJMjmBzkuDfH7QVQdT9qwhIpxG/uPkSpQ0ZXFlD9OLmdzm
+	 POtycuOAKyQVw==
+Date: Sat, 15 Aug 2026 20:33:25 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Esben Haabendal <esben@geanix.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger
+ <martink@posteo.de>, Sean Nyekjaer <sean@geanix.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Martin Kepplinger
+ <martin.kepplinger@theobroma-systems.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/6] iio: accel: mma8452: Support interrupt sharing
+Message-ID: <20260815203130.7699cb60@jic23-huawei>
+In-Reply-To: <an7NOEOw8Jn0id0N@ashevche-desk.local>
+References: <20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com>
+	<20260812-mma8452-open-drain-v4-4-bfca15d02b59@geanix.com>
+	<an7NOEOw8Jn0id0N@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 10/10] net: ethernet: ravb: Add gPTP support
- for Gen4
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "DavidS. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Vadim Fedorenko
- <vadim.fedorenko@linux.dev>, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260811160200.2049987-1-niklas.soderlund+renesas@ragnatech.se>
- <20260811160200.2049987-11-niklas.soderlund+renesas@ragnatech.se>
-Content-Language: en-US
-From: Sergey Shtylyov <sergei.shtylyov@gmail.com>
-In-Reply-To: <20260811160200.2049987-11-niklas.soderlund+renesas@ragnatech.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 8/11/26 7:02 PM, Niklas Söderlund wrote:
+On Fri, 14 Aug 2026 11:09:28 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> While driver advertises gPTP support on Gen4 platforms it is in fact
-> completely broken. On R-Car Gen4 devices the RAVB module have no
-> internal gPTP clock as generations before it. Instead it utilizes a
-> system-wide gPTP clock.
+> On Wed, Aug 12, 2026 at 04:30:35PM +0200, Esben Haabendal wrote:
+> > Adding handling of rutnime PM suspension in the interrupt handler allows
+> > sharing interrupt with other devices.
+> > 
+> > Keep in mind that the device by default is using push-pull for the irq pin,
+> > which might require additional hardware design to allow interrupt sharing.  
 > 
-> This change utilizes the refactoring of the RAVB gPTP code to add
-> support for a system-wide clock and stops the Gen4 devices trying to use
-> the non-existing internal gPTP clock.
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 > 
-> To remain backward compatible the ptp-timer property is optional.If not
-> present, or not enabled, the RAVB driver will no longer advertise gPTP
-> support to user-space.
-> 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
-[...]
 
-> diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-> index b4df5cab0e5c..4c8dc02022e2 100644
-> --- a/drivers/net/ethernet/renesas/ravb.h
-> +++ b/drivers/net/ethernet/renesas/ravb.h
-> @@ -249,6 +249,8 @@ enum APSR_BIT {
->  	APSR_RDM	= 0x00002000,
->  	APSR_TDM	= 0x00004000,
->  	APSR_MIISELECT	= 0x01000000,	/* R-Car V4M only */
-> +	APSR_GPTPTIMER_SOURCE = BIT(25), /* Gen4 */
-> +	APSR_GPTPCLOCK	= BIT(29),	/* Gen4 */
-
-   Again, I don't quite like that you switched to using BIT() all of a sudden...
-
-[...]> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> index 12877a8488ed..30170e92d3d7 100644
-> --- a/drivers/net/ethernet/renesas/ravb_main.c
-> +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -2752,6 +2752,59 @@ static const struct ravb_hw_info ravb_gen3_hw_info = {
->  	.magic_pkt = 1,
->  };
->  
-> +static int ravb_gen4_ptp_probe(struct net_device *ndev)
-> +{
-> +	struct ravb_private *priv = netdev_priv(ndev);
-> +
-> +	priv->of_gptp =
-> +		of_parse_phandle(priv->pdev->dev.of_node, "ptp-timer", 0);
-
-   You now have full 100 columns, no need to break that line... :-)
-
-> +	if (!priv->of_gptp)
-> +		return 0;
-> +
-> +	if (!of_device_is_available(priv->of_gptp)) {
-> +		of_node_put(priv->of_gptp);
-> +		priv->of_gptp = NULL;
-> +		return 0;
-
-   This *return* seems superfluous...
-
-> +	}
-> +
-> +	return 0;
-> +}[...]
-
-MBR, Sergey
-
+There are a few sashiko comments on this one. I haven't looked
+at them in detail - so if you think they are wrong feel free to say that!
