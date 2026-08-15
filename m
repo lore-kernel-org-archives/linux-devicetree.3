@@ -1,78 +1,78 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16647223DCE
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 07:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03B8345CCA
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 08:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786780109; cv=none; b=unByPxRyyqIRCV7iOlp5kKCWLlKjYO6NFHSryvLMwk3myz8J9dyVG2d3CAkmiHr9xQKtIv5cYTypgznuYQ+wXzp4cpQWJTO/8VCZ0DqvikqveUK+7kdBaHAmM7v0V4gVbEvDlXp5e0GqEc/hANNyjOFkv91+9dTguSa8T20tg5w=
+	t=1786782594; cv=none; b=WhtQ4SXnp2r4ROsflKZeCc5B3AOmbZOWouAgqBOLJZvJusCug9cAJDIkLywnJ1uK/AevMmp8BpD7/x6FpJKHM///paEWYYjb/wDJrZ+nN0Cbpl8R/sRU5OMfvHCcnTWh3UvScgoiY6GO1dz/ZxkIOOAlUKEE7z0FLKJKRgyrS6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786780109; c=relaxed/simple;
-	bh=OE/EaKm9mUhgWVUKXL8BasIrYws6tS8WDyPptYHAFSA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K4tKJr9WqxtVqR4tzx6inVagK+QgNsVrGwJBK5kq+33aJJgk93gKqhOejZuiZ+GeP7jzMV+AaCwl1P7zfJwcyZ7nPZIL/753OwM5fDG2MS38nwX2+xfp35Y9jxNPVygK0vngChM292yf0U2j+vuSBJ4r3WU8bdvzOd/Qeq/KkkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CDQokXPP; arc=none smtp.client-ip=209.85.221.42
+	s=arc-20240116; t=1786782594; c=relaxed/simple;
+	bh=0L7Ptkn6DjCvng8KPpxxipwT6NrUhFbrYnlc/sh3PXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=smTJtGZ2xEws75K9oCvDpOibQsdz4VSWdgTep/0bocG+O/IGfWKTlYcUjPNaqC69u6gqeuhKkMg8yXBeY/kFiWAJr20goXwYzjc0n+/R1jePSX/QwrbpBXBf5Kg9kJPqOyKOGvHikN6qVwCkYKCxgfFa50e3lTo6YoVfBiu3qjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ee+S7BRO; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CDQokXPP"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f96c5b722so1103054f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 00:48:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ee+S7BRO"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49545ba3d4eso8332225e9.3
+        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 01:29:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786780106; x=1787384906; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786782591; x=1787387391; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OYEHZ3sfVEZD5CwCuEkCOIaM8Qg4WJAH1yfaH+AnSOM=;
-        b=CDQokXPPXrr7icDE3XT8I7ixR0tEO+uQMRFKTLIDdx7PURi3R+mCTnqaRwP4cqTmwk
-         /06q7VJTYLsAXVF8DPAZd+wV/jEdSWzekLhjLcB9Vtj5/i3pjXLEmtgPM+GEAJodeSXA
-         AdlDCK1hRjLjG+yNkkRtO9BjOXjN9IJFYsKJWvVFUxeNON6xK5PlIoAM6gY1GgHkW5mD
-         DF4yAXaZMVT3ewYvjFvCMcyVaAtIqnlLyHr30vBR5pFaHcon8pK/SQLGtRZuXpAnD5q/
-         nLR2c/tVYKunhUJisoId3HVMHmy8mOWINrSZsukmGJJdHrSzzBm/W610Vo+CQehah/x6
-         6e1Q==
+        bh=KLjD1b9ODszXcIuBQvXK2FX3mAT/O94vXUE00JK2RDs=;
+        b=Ee+S7BROiXeilDQcH6hAmTi/fqGignX0BHw82G2Vsl9ReY7J9rgj9qP0hGeD6Y8/pO
+         ghXQ9PRsvHi4lu9iq+EoCn1I+ADWoFo9+bnHajml9VTYBlIfbwfJOKcVgIi/JgE78WzC
+         5I+MTtONdfZTC/Th3pTag8yNxyDQv8M2G1gX3jDW6zcHgL0g6kM/7GpcjnemFdIat3k0
+         C0rZcD5Cs1bw45+DV0NXRxFDqWWuOBgDuRKee+MQgL1oPnouTj41vg/V0oQbszQN73LF
+         FU/B3H0s97HL/1DnAnneyw0UG2bbRyQDVeCQw/dKbh5iGusqsDzCpqxJSlMtHNYrOyZm
+         /g2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786780106; x=1787384906;
+        d=1e100.net; s=20251104; t=1786782591; x=1787387391;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OYEHZ3sfVEZD5CwCuEkCOIaM8Qg4WJAH1yfaH+AnSOM=;
-        b=f2/FKQWpDZL+HwgF5SQZ4Z8ZWxahXN3kVzySUOEi7LuHLHnVBUcQHVkj11M5KkXIEv
-         JZBHHsOMCE85S/JHRH5CaIU7DmCqTnId8mSDnliN+fwp21ctPKBXXSUBj3y2J/K/YZni
-         n+t80+SjNy6DN19i067icgV/N9s4SE4Y7eBi1Y+OxngYwIlPNUd0RGQ7pE2KHrQhEV0I
-         pMo6dG37+JglG3YGAW7OvrpwpgXjnUHpve+4XeSbBDwBR8ABU+bZbpIVKql+Ol0/6aHG
-         GjKbINCo416idBenXppQ/OBpdRgD2mWTAFENPBw8lkWAHaoc3Dzueqt8/vAHcW8C3VGO
-         ZrJw==
-X-Forwarded-Encrypted: i=1; AHgh+RoFQLTI0m7zdoz8EHz0KE3CJ2O0KLwRz2T8OLtZpt71fcSJaxUlo8+1WH2Nga5tO+uqhFnwysJV9I0n@vger.kernel.org
-X-Gm-Message-State: AOJu0YyHqDDPxcOpYklpNiJQpZvayFKyOBTjz/yZT37NMcKnzV6/8ul5
-	Ili9oeZmxXzzdIn18/fpnF5oGnSdG6sVN82d0cm8Nn6c6hHXDrAQ5foX
-X-Gm-Gg: AR+sD12CD+Opiy+AktBMhtdc6/EopMwW0z3XuNCP74nMzPgCBEDbl1D7pUclRWEqWXa
-	WfCKY4noESQ8Z/GNyvM2Lzr7jZ3dgUH1vGPHVZ2ZOY4HzjXDFcxrFCPpmOuyatzp/ZtIbFp3ZCX
-	qKAFbdRmr5pwCbVJlWIMTsE+bhD4n2/wMJVOijlq1/93b8aIwSt6nbqb3tDEWCsR30cSkaavg5m
-	UMY48s0vp61tEAw/4KWDsOGzzfOxq6ZVUSGlfxxkMCzVn15VAjVPVYq3zXB8GgA8szJ/NmYfxkS
-	IvAXSnuNiDX9G1g50dW0/MCjRLv3TNcOySCmRGwl8CD3SflcRSaEXv+xgIVJBUsimblwD4MD6v/
-	dABVlmAKVvHYJDUAHSe28KujjQj49fA8ETzb/YfP1NVQoVTXT2EhmFsMlSef/cf3K8nzfZ8qZBx
-	bmBY0oxgzDPnPp9h12UJxaC27m1AYaqkHybCHAMpYOZzCFKoK5JDn+R8h8diZ/xZj8NV8jd4LDv
-	vev+nsn9MQeM3yb0gaslylrJKwi1LI=
-X-Received: by 2002:a05:6000:2a0c:b0:47f:77dc:b066 with SMTP id ffacd0b85a97d-481607318acmr13686859f8f.5.1786780106045;
-        Sat, 15 Aug 2026 00:48:26 -0700 (PDT)
+        bh=KLjD1b9ODszXcIuBQvXK2FX3mAT/O94vXUE00JK2RDs=;
+        b=C109t6L1HFFF9GPQJD8RYFafjV9lwYXtbkBrI5g5B2mM/dP1EEXlne3IE1Q9tQJfZ8
+         pVmYPTkf/2PBhfIXv5WHlve+4uY55BiP4UC1x/o1Md6S35vJEBRs8MA4UzTZAutGqJdR
+         UGDIQnfYOVrz52CuEWrQXje+xpfWoMZoLJw215wr2tDKab9j3+G1m2ORqdIskf3odKsG
+         Q5HnyKv8KjhLNwiswFB2XPr4YPkYH/WzjsGYByBI46xadsoxwmgpw8k5i9nH01GyRR1Q
+         eRob3lPWg1d4+A3xCSUnxagM087WBWaXMshPBhkUy8qTC7btq5GCjlUg7at9r/S4ymPe
+         3IyA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8OZfs2j2fXkHFKLrvOxw6EnfuDIHKAekAsoA3ZU8wRcbg+t8cmX93QXmFtb0sIQk7NRia7vHYf7V6@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQYg2M9pXAWx+DhGfO81FlKC6fiv4zSiGww4tR64hkDJrCZi8z
+	w6JSOTAUan+eJMX9oiuWf1SlYM2LjPBfo380918Es1pZbO2OkXLX06bq
+X-Gm-Gg: AR+sD13xU+bQUupTC0MZfDFhKhRB+5gdvAQZpOj2EYUId+E790tBoN3GcChyt/IsPsT
+	a+xhGBp2lalT9OHW4SrbhyIMHz5elrtWAk953/F+R81x9jte8Xve0K7AUE48LCsDZkZiywZyU/z
+	UoNqc61nwtodycXNiaiJubTub9Xv7EkA2UMvLN9fsyghb4XBjuppKI0bmm3rQxs0dEFv53fit2H
+	uhnIpk3DtNSz3Q+3RDQ4nGip5GfcOpGr+aWHnyixSmo1X2Mnzm9WBMZark0F1S2cL7R+eaKw6jH
+	tb/9QsLOQgTXk/2k20RIr2fMVpA+YugD4g9D3IragR0RxbwQuVgg8+WOIMR15FJp9eNYYY7zfW9
+	+tjMn4ivAAw6Ll4RQjRBMD6Pb2C/U4FkAMT/Sp0paI1tfUZ7dlhHgmyjJuvlwXv37o4Sss033Hq
+	pdcE2MbNjzXyaJux8RKxNYYKemLOsEDRXwfJOrYfrEDpNjEOGLJcLZ5WpNXF4K0cCzOngHLmzIu
+	mD9KpT6+uf23KP2MU7CeQFX54H4hAA=
+X-Received: by 2002:a05:600c:3788:b0:493:e365:7630 with SMTP id 5b1f17b1804b1-4998798b5afmr114011975e9.14.1786782590880;
+        Sat, 15 Aug 2026 01:29:50 -0700 (PDT)
 Received: from localhost.localdomain ([82.137.32.242])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4815f2c129dsm14487942f8f.26.2026.08.15.00.48.24
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-499899c138dsm99617695e9.8.2026.08.15.01.29.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 00:48:25 -0700 (PDT)
+        Sat, 15 Aug 2026 01:29:50 -0700 (PDT)
 From: Eduard Bostina <egbostina@gmail.com>
 To: Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
 	Eduard Bostina <egbostina@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	linux-pwm@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>
 Cc: daniel.baluta@nxp.com,
 	simona.toaca@nxp.com,
 	goledhruva@gmail.com,
 	m-chawdhry@ti.com
-Subject: [PATCH v3] dt-bindings: pwm: Convert TI PWM Subsystem to DT schema
-Date: Sat, 15 Aug 2026 07:48:17 +0000
-Message-ID: <20260815074817.2117916-1-egbostina@gmail.com>
+Subject: [PATCH] dt-bindings: regulator: Convert TPS65023 to DT schema
+Date: Sat, 15 Aug 2026 08:29:13 +0000
+Message-ID: <20260815082913.2144978-1-egbostina@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -82,188 +82,179 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the Texas Instruments SoC PWM Subsystem bindings
+Convert the Texas Instruments TPS65023 family of PMICs bindings
 to DT schema.
-
-During the conversion, the following updates were made:
-- 'counter' node was added to the allowed child nodes
-  list to resolve dtbs_check warnings. Some eqep nodes
-  use 'counter' instead of 'eqep'.
 
 Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 ---
-Changes in v3:
-- Completed the single example by adding the required 'clocks',
-  'clock-names' and 'interrupts' properties to the ECAP, EQEP and EHRPWM
-  child nodes, so the example passes a full dt_binding_check.
+ .../bindings/regulator/ti,tps65023.yaml       | 90 +++++++++++++++++++
+ .../bindings/regulator/tps65023.txt           | 60 -------------
+ 2 files changed, 90 insertions(+), 60 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/ti,tps65023.yaml
+ delete mode 100644 Documentation/devicetree/bindings/regulator/tps65023.txt
 
-Changes in v2:
-- Renamed the file to ti,am33xx-pwmss.yaml to match the base compatible.
-- Required a 'compatible' property in the child nodes.
-- Reduced the binding to a single example and included the PWM child
-  nodes (ECAP, EQEP, EHRPWM) in it.
-
-Link to v2: https://lore.kernel.org/all/20260812094420.1057067-1-egbostina@gmail.com/
-Link to v1: https://lore.kernel.org/all/20260811092208.687731-1-egbostina@gmail.com/
-
- .../devicetree/bindings/pwm/pwm-tipwmss.txt   | 58 -------------
- .../bindings/pwm/ti,am33xx-pwmss.yaml         | 82 +++++++++++++++++++
- 2 files changed, 82 insertions(+), 58 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
- create mode 100644 Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml
-
-diff --git a/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt b/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
-deleted file mode 100644
-index 4633697fbda1..000000000000
---- a/Documentation/devicetree/bindings/pwm/pwm-tipwmss.txt
-+++ /dev/null
-@@ -1,58 +0,0 @@
--TI SOC based PWM Subsystem
--
--Required properties:
--- compatible: Must be "ti,<soc>-pwmss".
--  for am33xx  - compatible = "ti,am33xx-pwmss";
--  for am4372  - compatible = "ti,am4372-pwmss","ti,am33xx-pwmss";
--  for dra746 - compatible = "ti,dra746-pwmss", "ti,am33xx-pwmss"
--
--- reg: physical base address and size of the registers map.
--- address-cells: Specify the number of u32 entries needed in child nodes.
--		  Should set to 1.
--- size-cells: specify number of u32 entries needed to specify child nodes size
--		in reg property. Should set to 1.
--- ranges: describes the address mapping of a memory-mapped bus. Should set to
--	   physical address map of child's base address, physical address within
--	   parent's address  space and length of the address map. For am33xx,
--	   3 set of child register maps present, ECAP register space, EQEP
--	   register space, EHRPWM register space.
--
--Also child nodes should also populated under PWMSS DT node.
--
--Example:
--epwmss0: epwmss@48300000 { /* PWMSS for am33xx */
--	compatible = "ti,am33xx-pwmss";
--	reg = <0x48300000 0x10>;
--	ti,hwmods = "epwmss0";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges = <0x48300100 0x48300100 0x80   /* ECAP */
--		  0x48300180 0x48300180 0x80   /* EQEP */
--		  0x48300200 0x48300200 0x80>; /* EHRPWM */
--
--	/* child nodes go here */
--};
--
--epwmss0: epwmss@48300000 { /* PWMSS for am4372 */
--	compatible = "ti,am4372-pwmss","ti,am33xx-pwmss"
--	reg = <0x48300000 0x10>;
--	ti,hwmods = "epwmss0";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges = <0x48300100 0x48300100 0x80   /* ECAP */
--		  0x48300180 0x48300180 0x80   /* EQEP */
--		  0x48300200 0x48300200 0x80>; /* EHRPWM */
--
--	/* child nodes go here */
--};
--
--epwmss0: epwmss@4843e000 { /* PWMSS for DRA7xx */
--	compatible = "ti,dra746-pwmss", "ti,am33xx-pwmss";
--	reg = <0x4843e000 0x30>;
--	ti,hwmods = "epwmss0";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges;
--
--	/* child nodes go here */
--};
-diff --git a/Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml b/Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml
+diff --git a/Documentation/devicetree/bindings/regulator/ti,tps65023.yaml b/Documentation/devicetree/bindings/regulator/ti,tps65023.yaml
 new file mode 100644
-index 000000000000..89ce6b02b70c
+index 000000000000..928698595f52
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/ti,am33xx-pwmss.yaml
-@@ -0,0 +1,82 @@
++++ b/Documentation/devicetree/bindings/regulator/ti,tps65023.yaml
+@@ -0,0 +1,90 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/pwm/ti,am33xx-pwmss.yaml#
++$id: http://devicetree.org/schemas/regulator/ti,tps65023.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Texas Instruments SoC PWM Subsystem
++title: Texas Instruments TPS65023 Regulator
 +
 +maintainers:
 +  - Eduard Bostina <egbostina@gmail.com>
 +
 +properties:
 +  compatible:
-+    oneOf:
-+      - const: ti,am33xx-pwmss
-+      - items:
-+          - enum:
-+              - ti,am4372-pwmss
-+              - ti,dra746-pwmss
-+          - const: ti,am33xx-pwmss
++    enum:
++      - ti,tps65020
++      - ti,tps65021
++      - ti,tps65023
 +
 +  reg:
 +    maxItems: 1
 +
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+  ranges: true
-+
-+patternProperties:
-+  "^(ecap|eqep|pwm|counter)@[0-9a-f]+$":
++  regulators:
 +    type: object
-+    description: Child nodes for ECAP, EQEP (counter), and EHRPWM
-+    required:
-+      - compatible
++    description: >
++      List of child nodes that specify the regulator initialization data.
++      Must be named after their hardware counterparts: VDCDC[1-3] and LDO[1-2].
++
++    patternProperties:
++      "^(VDCDC[1-3]|LDO[1-2])$":
++        type: object
++        $ref: regulator.yaml#
++        unevaluatedProperties: false
++
++    additionalProperties: false
 +
 +required:
 +  - compatible
 +  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+  - ranges
++  - regulators
 +
 +additionalProperties: false
 +
 +examples:
 +  - |
-+    pwm@48300000 {
-+        compatible = "ti,am33xx-pwmss";
-+        reg = <0x48300000 0x10>;
++    i2c {
 +        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges = <0x48300100 0x48300100 0x80>,   /* ECAP */
-+                 <0x48300180 0x48300180 0x80>,   /* EQEP */
-+                 <0x48300200 0x48300200 0x80>;   /* EHRPWM */
++        #size-cells = <0>;
 +
-+        pwm@48300100 {
-+            compatible = "ti,am3352-ecap";
-+            #pwm-cells = <3>;
-+            reg = <0x48300100 0x80>;
-+            clocks = <&l4ls_gclk>;
-+            clock-names = "fck";
-+        };
++        tps65023@48 {
++            compatible = "ti,tps65023";
++            reg = <0x48>;
 +
-+        counter@48300180 {
-+            compatible = "ti,am3352-eqep";
-+            reg = <0x48300180 0x80>;
-+            clocks = <&l4ls_gclk>;
-+            interrupts = <79>;
-+        };
++            regulators {
++                VDCDC1 {
++                    regulator-name = "vdd_mpu";
++                    regulator-always-on;
++                    regulator-min-microvolt = <1200000>;
++                    regulator-max-microvolt = <1200000>;
++                };
 +
-+        pwm@48300200 {
-+            compatible = "ti,am3352-ehrpwm";
-+            #pwm-cells = <3>;
-+            reg = <0x48300200 0x80>;
-+            clocks = <&ehrpwm0_tbclk>, <&l4ls_gclk>;
-+            clock-names = "tbclk", "fck";
++                VDCDC2 {
++                    regulator-name = "vdd_core";
++                    regulator-always-on;
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                };
++
++                VDCDC3 {
++                    regulator-name = "vdd_io";
++                    regulator-always-on;
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                LDO1 {
++                    regulator-name = "vdd_usb18";
++                    regulator-always-on;
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                LDO2 {
++                    regulator-name = "vdd_usb33";
++                    regulator-always-on;
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                };
++            };
 +        };
 +    };
+diff --git a/Documentation/devicetree/bindings/regulator/tps65023.txt b/Documentation/devicetree/bindings/regulator/tps65023.txt
+deleted file mode 100644
+index a4714e4da370..000000000000
+--- a/Documentation/devicetree/bindings/regulator/tps65023.txt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-TPS65023 family of regulators
+-
+-Required properties:
+-- compatible: Must be one of the following.
+-	"ti,tps65020",
+-	"ti,tps65021",
+-	"ti,tps65023",
+-- reg: I2C slave address
+-- regulators: list of regulators provided by this controller, must be named
+-  after their hardware counterparts: VDCDC[1-3] and LDO[1-2]
+-- regulators: This is the list of child nodes that specify the regulator
+-  initialization data for defined regulators. The definition for each of
+-  these nodes is defined using the standard binding for regulators found at
+-  Documentation/devicetree/bindings/regulator/regulator.txt.
+-
+-Each regulator is defined using the standard binding for regulators.
+-
+-Example:
+-
+-	tps65023@48 {
+-		compatible = "ti,tps65023";
+-		reg = <0x48>;
+-
+-		regulators {
+-			VDCDC1 {
+-				regulator-name = "vdd_mpu";
+-				regulator-always-on;
+-				regulator-min-microvolt = <1200000>;
+-				regulator-max-microvolt = <1200000>;
+-			};
+-
+-			VDCDC2 {
+-				regulator-name = "vdd_core";
+-				regulator-always-on;
+-				regulator-min-microvolt = <3300000>;
+-				regulator-max-microvolt = <3300000>;
+-			};
+-
+-			VDCDC3 {
+-				regulator-name = "vdd_io";
+-				regulator-always-on;
+-				regulator-min-microvolt = <1800000>;
+-				regulator-max-microvolt = <1800000>;
+-			};
+-
+-			LDO1 {
+-				regulator-name = "vdd_usb18";
+-				regulator-always-on;
+-				regulator-min-microvolt = <1800000>;
+-				regulator-max-microvolt = <1800000>;
+-			};
+-
+-			LDO2 {
+-				regulator-name = "vdd_usb33";
+-				regulator-always-on;
+-				regulator-min-microvolt = <3300000>;
+-				regulator-max-microvolt = <3300000>;
+-			};
+-		};
+-	};
 -- 
 2.43.0
 
