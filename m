@@ -1,154 +1,325 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFE030F958;
-	Sat, 15 Aug 2026 08:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7923837DEBA
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 08:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786782872; cv=none; b=oIRpGLm92wl9o6ZygtDk2r9BgRfqzOAiFAGWKxlRilF0w8yiWkZdn6DWmUxYRyL+6vk/vXrt2jA58mDm98zJW41AW2zt/vkZb/200biduu5mix5+q9CFu3KolRsDMfJG3zTT7tkO9qD6yUn+aKOiPh3YIMBIsiJdBaej6N1foYg=
+	t=1786782900; cv=none; b=QGOlfTwxDgklEMwZgBw0r0e0yotO8L8utL16BkShFU5F7uVFRXAMiOk/eAwKRd75i+4XZyvozBBzRC9eLdhmfYMwfd5Uv7C91ULVhRnZvGYFhs8N1pnksVQtsC1Sc2pcqs8mLxVndA/joXZZardzpH52VRtlTGnAhp4IVldwC6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786782872; c=relaxed/simple;
-	bh=gKJof34KC+wd1b2hMut55TPaTnGyH+YfRJH6ytIadFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jkeHLK+c6yGN6euCcbYVBVCtQTd1zlgsqbi7lrYxZ5K9HCYd9Z06Epz0S0/TyKZxBY7JXMD+0F/sGF0JTPlBy5s54A0GsdUhAz5txpeZGGmWCu2PF7HDylhYzkKTWnmCLgG70VZdJ7vaERsh4dXHmMOiEs0+ylDKVuc3479+jqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GmKYx5DQ; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786782900; c=relaxed/simple;
+	bh=m6g2XUJeHF1PIlSodfI1hjH2eJL9yELjoJ2ytDpo5Fw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sJVKBNXrj2/ZgYXpxDZJeM7AnEUpCoBUPdLw9931R7dTkHO9sg9cCogITD9R0hxjYqPpeR/+VTDs0oCLJPsxJzf8+2vRfFbTdjdTa8PerrNlQ+Y0fC57UsZbAQcf8qIxYHIhL0sEHkvRoA8rHcd3ETouXorAeEA8Ci5+x1V55rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GzijwEgB; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GmKYx5DQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786782870; x=1818318870;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=gKJof34KC+wd1b2hMut55TPaTnGyH+YfRJH6ytIadFw=;
-  b=GmKYx5DQNeaOkN+3kQb4EjoCSIQIiwGc+NkvFKnvfzyR8E6FbCSxK4ao
-   BAtItcpGKz0Ug9R5Zzez8/+53kV9kLFJbdzatuKJFlbA4B0dAk46zhz67
-   bn7DOKg1zqZbVY0qF/4H9EdZXO/2aMIxUwQgCrVvAnOLv24hfrtco3L6J
-   hyV2Xu8y0ro7V+wbctQcxtxF+HbwjQjuptzOhIWk/04hMbYnSnUb049NK
-   6wU2qiBpOKXE/JDa4x0tP+Fc7J2pG96HNgu/ZWeos6aMfKV4VzW13jzCt
-   K5Jt6DPOwYwGcHccuIVWEIWOxwWTH18IjeXj6XF2/FD31aegYE1K/KEvO
-   w==;
-X-CSE-ConnectionGUID: t/bUL5uyR+KMycBrXrAoHg==
-X-CSE-MsgGUID: Y0uokZJnSda4cwQhyLc5Yg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11875"; a="98706090"
-X-IronPort-AV: E=Sophos;i="6.25,224,1779174000"; 
-   d="scan'208";a="98706090"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Aug 2026 01:34:30 -0700
-X-CSE-ConnectionGUID: lFhuD22QTkWGMJWmStLEGw==
-X-CSE-MsgGUID: neTxRVOLSImPvL389ZF98g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,224,1779174000"; 
-   d="scan'208";a="267926708"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.12])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Aug 2026 01:34:27 -0700
-Date: Sat, 15 Aug 2026 11:34:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Long Zhao <longzhao@ambarella.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GzijwEgB"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f703a9e5dso851670f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 01:34:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786782896; x=1787387696; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pzGpX7JiK+m5ce9c9KT1xWR6DUie8OR3CMeaDAX9MSE=;
+        b=GzijwEgBqjXYfr08cSHRQ/7ogHuHmoWkBtt8/DmhbCaMtX7Vgyo3s+Ap1q+z8LDDa+
+         Fho7m/sZoLMyfMmbdqezyCaaJBgnk3yFBdCq/bdPPaoCdb5ueyDG+0j09+CsaFzdO6uM
+         L/q3/7XwdU0yzdLyrhV6nW+OnCv00eM3z4HkaOC6Hz3rMQ9g+ejWLdrqjiVEEDtLH3nu
+         NAwIzWi4CVxpxT4KoEmikR2bIzZ/eYFF9wZXBkf20+XOxwotg0gn2hvS2yVay0Bfp67c
+         7n4tqXxHHYj+pSKV6jHP67Um//g/Silet3ZF5RgIck0BHkCoLCkIxB58ke+O7ZHoxucj
+         LXLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786782896; x=1787387696;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pzGpX7JiK+m5ce9c9KT1xWR6DUie8OR3CMeaDAX9MSE=;
+        b=lJUCrmHaQ+WEXoQaNml/vYhiaW53oTqRvse2g+96aBrMDTja3AYZkFTDXCVbKwQZWW
+         SiBX01QshEMoSDDoymu7NZMBPgCEdSOAUj4QxqQffvZAmEUrAhissf6LTekVtMYFD16e
+         bklkPVq5IeBz0ckzWs07p+O6ZTSKwiK2Bf0jgVrC7EHQrJyRf5b0OvBh0AYnDsEyfBlw
+         g6NN2MRY0zLxjP5YgoBQ6904ha8CXaXmMw6pwhdURpwawuXDS7fu6HxgsQI8sFUTEmN1
+         b4vhHlFahK+kb5bWho152WIf9WGK1MNPrHv0IO8E2nxvehusbni0RJo5HGJTb+mjPemJ
+         LYhQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqpH+gcctwM4AYQ5rHey/Rg3Q3LH/bvgLx0JeCVa9O4AVyWSQgV8MuC8vYYi//G3plA08WxS7CbXGmR@vger.kernel.org
+X-Gm-Message-State: AOJu0YywQCDiUcNZZke9KAliV4ytzQS9CJxi07/25hu0kE8uymGKmdaC
+	064VljQF9oS1GuUAxDMi6NJmOjbxSEFXdSjWFSV1ptwJGr3iIIo+Uajf
+X-Gm-Gg: AR+sD11Nyd6jRUWDErcfRQY77fpvbnRoD1GsYMOz2rL55S/gMhf1NPE3FVAHdhZvAPh
+	OTzH7UhxeXyWgquNhv6FdvWQjlTa6dHUdqOuFknv1aqSmUloB1CiJ7+hyrDMyL+UHULF1yXGBjB
+	6tTmo7+K6vYQl+EyJI6iVDfcOgL/vaxg7HeSafnz8hZxAS1QeQBEiUqEj1p6rfhGO+eV3D/vJt9
+	AfN93NG8RtUu5Ce3ADGtodxeV1c9uSeFECkqEGDqAwa8q3IGntO3AkV22HANqOMsDIJ2gpQjSW1
+	xUucTmLnULixHENndt7G54FRBTcuTyyIhywmdRLxjb13+G+rqq06F4ybDZgVbyexyb/AoTSW6yQ
+	hMGTV/sZ0FmMIxshjTT3VQvMylae4DA2hFe7aA9ZkmVpznoN+ZS2gwO1MR2323dE24CaP+OdHm7
+	1yfu4IX36gSHLE7z1sNsJXrEsv9RN6Itxs60iopIn+RSSaj+zmOghKI1HttbHaJUhYfKz3dYMt9
+	bggUI1j+9XA0NkxSesGEK0BIHDAizo=
+X-Received: by 2002:a5d:5303:0:b0:47f:8802:c182 with SMTP id ffacd0b85a97d-481607a3329mr13321970f8f.29.1786782895668;
+        Sat, 15 Aug 2026 01:34:55 -0700 (PDT)
+Received: from localhost.localdomain ([82.137.32.242])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4815f2005b0sm16295848f8f.8.2026.08.15.01.34.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2026 01:34:55 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [EXT] Re: [PATCH v3 2/2] serial: 8250_dw: add Ambarella CV75
- quirks
-Message-ID: <aoAkkJQ8W_3gsQlx@ashevche-desk.local>
-References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
- <20260813-cv75-v3-c-v3-2-9352b3fd6026@ambarella.com>
- <an7YKyVbe1YDtyL_@ashevche-desk.local>
- <DS0PR19MB7925F03452B896607C0B8F43DADA2@DS0PR19MB7925.namprd19.prod.outlook.com>
- <an8BisPHjhqn4g4d@ashevche-desk.local>
- <DS0PR19MB79251D4A473960EE4BFDC642DADA2@DS0PR19MB7925.namprd19.prod.outlook.com>
- <an8KvvHWX0naH3Xw@ashevche-desk.local>
- <7E774305-3920-4BB7-BA46-E0772D6BED84@ambarella.com>
+	Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	Rob Herring <robh@kernel.org>
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: [PATCH] dt-bindings: mfd: Convert TI TWL6040 to DT schema
+Date: Sat, 15 Aug 2026 08:34:51 +0000
+Message-ID: <20260815083451.2147129-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7E774305-3920-4BB7-BA46-E0772D6BED84@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Aug 14, 2026 at 12:39:12PM +0000, Long Zhao wrote:
+Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
+schema.
 
-> OK, Andy. We will switch to 8250_ambarella.c instead in V4.
+During the conversion, the following updates were made:
+- Changed 'twl6040,audpwron-gpio' to 'ti,audpwron-gpio', which was
+  misnamed in the old txt binding.
+- Made 'gpio-controller', '#gpio-cells', and 'ti,audpwron-gpio' optional
+  because modern platforms do not require them.
 
-You also may consider a quirk in 8250_of.c if it's quite standard OF-enumerated
-8250-compatible device.
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+ .../devicetree/bindings/mfd/ti,twl6040.yaml   | 142 ++++++++++++++++++
+ .../devicetree/bindings/mfd/twl6040.txt       |  67 ---------
+ 2 files changed, 142 insertions(+), 67 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/twl6040.txt
 
-> 在 2026年8月14日，20:34，Andy Shevchenko <andriy.shevchenko@linux.intel.com> 写道：
-> 
-> ﻿On Fri, Aug 14, 2026 at 12:10:34PM +0000, Long Zhao wrote:
-> 
-> > Originally we submitted a dedicated Ambarella UART driver. During review,
-> > Linus pointed out that the register layout is basically 8250-compatible
-> > and suggested reusing the existing 8250 code instead of maintaining a
-> > separate driver. That is how we ended up with the current approach of
-> > binding through 8250_dw plus a small set of Ambarella quirks.
-> 
-> Right, please re-read carefully what he wrote
-> 
-> "This needs to be rewritten using the 8250 library in the kernel
-> under drivers/tty/serial/8250/8250_ambarella.c
-> or similar."
-> 
-> You already confirmed that your IP has nothing to do with the Synopsys. Why is
-> the 8250_dw touched?!
-> 
-> > [1] https://urldefense.com/v3/__https://lore.kernel.org/r/CAD**AjLm6HzEU1TM-c=Vtjv3FJEBecVP7TyxSgq_Q0zF-YwT6NA@mail.gmail.com/__;Kys!!PeEy7nZLVv0!j8LqPRT2bzim1iC2xrU0AW4QUYvJ4oc4JqHIP3DMrOJVI-SdMHNYj2KIirs8ySAtvDwx1-Glz56DsGX6v1vzzCpWOGOb9LYXjg$
-> 
-> > -----Original Message-----
-> > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Sent: Friday, August 14, 2026 19:53
-> > On Fri, Aug 14, 2026 at 09:33:45AM +0000, Long Zhao wrote:
-> >> From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> >> Sent: Friday, August 14, 2026 16:56
-> >> On Thu, Aug 13, 2026 at 06:35:13PM +0800, Long Zhao via B4 Relay wrote:
-> >> 
-> >>> Add CV75 platform data with an ETOI IER mask and skip-set-rate so
-> >>> the DesignWare 8250 driver can drive the Ambarella UART for console use.
-> > 
-> >> Thanks for the review. Agreed the commit message was too brief.
-
-...
-
-> >>> +    /* Keep variant-specific bits in the shadow across subsequent
-> >>> +updates. */
-> >> 
-> >> This says what code is doing. Instead it must say "why?" the code is doing this.
-> >> 
-> >>> +    up->ier |= d->pdata->ier_mask;
-> >>> +    serial_port_out(p, UART_IER, up->ier);
-
-...
-
-> >> In case there is an HW bug, where can we get the errata, please? (For
-> >> a bare minimum add a reference to the Errata document you give to the
-> >> customers.)
-> > 
-> >> This is not a silicon erratum. The Ambarella UART is not Synopsys
-> >> DesignWare IP; it is an Ambarella 8250-compatible UART. We still use
-> >> the snps-dw-apb-uart binding / 8250_dw because the programming model
-> >> matches closely enough, with two quirks (ETOI IER bit and
-> >> SKIP_SET_RATE). I will expand the commit message and rewrite the
-> >> comment to explain why in the next revision.
-> > 
-> > Okay, what does it make to think that 8250_dw is a suitable choice?
-> > What are the features that are repetitive would be if you use a custom
-> > 8250-based driver (using the generic 8250 code)?
-
+diff --git a/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+new file mode 100644
+index 000000000000..a93835aa9153
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+@@ -0,0 +1,142 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/ti,twl6040.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments TWL6040 family audio codec
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++description:
++  The TWL6040s are 8-channel high quality low-power audio codecs providing
++  audio, vibra and GPO functionality on OMAP4+ platforms. They are connected
++  to the host processor via i2c for commands, McPDM for audio data and
++  commands.
++
++properties:
++  compatible:
++    enum:
++      - ti,twl6040
++      - ti,twl6041
++
++  reg:
++    const: 0x4b
++
++  interrupts:
++    maxItems: 1
++
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 1
++
++  "#clock-cells":
++    const: 0
++
++  ti,audpwron-gpio:
++    maxItems: 1
++    description: Power on GPIO line for the twl6040
++
++  vio-supply:
++    description: Regulator for the twl6040 VIO supply
++
++  v2v1-supply:
++    description: Regulator for the twl6040 V2V1 supply
++
++  enable-active-high:
++    type: boolean
++    description: To power on the twl6040 during boot.
++
++  clocks:
++    minItems: 1
++    maxItems: 2
++
++  clock-names:
++    minItems: 1
++    maxItems: 2
++    items:
++      enum:
++        - clk32k
++        - mclk
++
++  vddvibl-supply:
++    description: Regulator for the left vibra motor
++
++  vddvibr-supply:
++    description: Regulator for the right vibra motor
++
++  vibra:
++    type: object
++    additionalProperties: false
++    properties:
++      ti,vibldrv-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for left driver
++      ti,vibrdrv-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for right driver
++      ti,viblmotor-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for left motor
++      ti,vibrmotor-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for right motor
++      vddvibl_uV:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: vddvibl default voltage if it needs to be changed
++      vddvibr_uV:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: vddvibr default voltage if it needs to be changed
++
++    required:
++      - ti,vibldrv-res
++      - ti,vibrdrv-res
++      - ti,viblmotor-res
++      - ti,vibrmotor-res
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - "#clock-cells"
++  - vio-supply
++  - v2v1-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        audio-codec@4b {
++            compatible = "ti,twl6040";
++            reg = <0x4b>;
++            interrupts = <0 119 IRQ_TYPE_LEVEL_HIGH>;
++            interrupt-parent = <&gic>;
++            gpio-controller;
++            #gpio-cells = <1>;
++            #clock-cells = <0>;
++            ti,audpwron-gpio = <&gpio4 31 0>;
++
++            vio-supply = <&v1v8>;
++            v2v1-supply = <&v2v1>;
++            enable-active-high;
++
++            /* regulators for vibra motor */
++            vddvibl-supply = <&vbat>;
++            vddvibr-supply = <&vbat>;
++
++            vibra {
++                ti,vibldrv-res = <8>;
++                ti,vibrdrv-res = <3>;
++                ti,viblmotor-res = <10>;
++                ti,vibrmotor-res = <10>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/mfd/twl6040.txt b/Documentation/devicetree/bindings/mfd/twl6040.txt
+deleted file mode 100644
+index dfd8683ede0c..000000000000
+--- a/Documentation/devicetree/bindings/mfd/twl6040.txt
++++ /dev/null
+@@ -1,67 +0,0 @@
+-Texas Instruments TWL6040 family
+-
+-The TWL6040s are 8-channel high quality low-power audio codecs providing audio,
+-vibra and GPO functionality on OMAP4+ platforms.
+-They are connected to the host processor via i2c for commands, McPDM for audio
+-data and commands.
+-
+-Required properties:
+-- compatible : "ti,twl6040" for twl6040, "ti,twl6041" for twl6041
+-- reg: must be 0x4b for i2c address
+-- interrupts: twl6040 has one interrupt line connecteded to the main SoC
+-- gpio-controller:
+-- #gpio-cells = <1>: twl6040 provides GPO lines.
+-- #clock-cells = <0>; twl6040 is a provider of pdmclk which is used by McPDM
+-- twl6040,audpwron-gpio: Power on GPIO line for the twl6040
+-
+-- vio-supply: Regulator for the twl6040 VIO supply
+-- v2v1-supply: Regulator for the twl6040 V2V1 supply
+-
+-Optional properties, nodes:
+-- enable-active-high: To power on the twl6040 during boot.
+-- clocks: phandle to the clk32k and/or to mclk clock provider
+-- clock-names: Must be "clk32k" for the 32K clock and "mclk" for the MCLK.
+-
+-Vibra functionality
+-Required properties:
+-- vddvibl-supply: Regulator for the left vibra motor
+-- vddvibr-supply: Regulator for the right vibra motor
+-- vibra { }: Configuration section for vibra parameters containing the following
+-	     properties:
+-- ti,vibldrv-res: Resistance parameter for left driver
+-- ti,vibrdrv-res: Resistance parameter for right driver
+-- ti,viblmotor-res: Resistance parameter for left motor
+-- ti,viblmotor-res: Resistance parameter for right motor
+-
+-Optional properties within vibra { } section:
+-- vddvibl_uV: If the vddvibl default voltage need to be changed
+-- vddvibr_uV: If the vddvibr default voltage need to be changed
+-
+-Example:
+-&i2c1 {
+-	twl6040: twl@4b {
+-		compatible = "ti,twl6040";
+-
+-		interrupts = <0 119 4>;
+-		interrupt-parent = <&gic>;
+-		twl6040,audpwron-gpio = <&gpio4 31 0>;
+-
+-		vio-supply = <&v1v8>;
+-		v2v1-supply = <&v2v1>;
+-		enable-active-high;
+-
+-		/* regulators for vibra motor */
+-		vddvibl-supply = <&vbat>;
+-		vddvibr-supply = <&vbat>;
+-
+-		vibra {
+-			/* Vibra driver, motor resistance parameters */
+-			ti,vibldrv-res = <8>;
+-			ti,vibrdrv-res = <3>;
+-			ti,viblmotor-res = <10>;
+-			ti,vibrmotor-res = <10>;
+-		};
+-	};
+-};
+-
+-/include/ "twl6040.dtsi"
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
