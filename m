@@ -1,49 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7A6364933;
-	Sat, 15 Aug 2026 06:17:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14563372EFB;
+	Sat, 15 Aug 2026 06:28:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786774628; cv=none; b=GKgF9iyvhph8uYYMd8gqOLMaDP8hFkC5rlNI1F7K8SlQ4scPCmkQDLp/48I5rNceDAjKu0gyusAdsSceynXM7uLLPoEvjjINBBhv5a/wbJIiI8dTQst1L7oojhJU8LVun7VGVI0ycB2qzLQjy96X8ErGwVB1QM9zVzUE2aN5YZE=
+	t=1786775324; cv=none; b=mbnUqORHMzNZOmTu//cRttYwXPejCsGrYI2+OOYVMlHy0eYduM2nZypiD8XGlJVkJzaiS5XNTZDSD9CvTlGH3SyycII6UUXZh00naxMi1BtOEksRHdE3ue4kWyoTYDTmqOYUK5KEWBe5Kc5hkTPjr+RXD5sLRc3rWnkaGS/aRfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786774628; c=relaxed/simple;
-	bh=SCRZTMpRCMVCX7aT29rm/F9KKLGJBoiVSK93mw3zfMA=;
+	s=arc-20240116; t=1786775324; c=relaxed/simple;
+	bh=ykM0R8PGcwxLNQmc8rZNxl4q0EsFcQM49z2MfXEgG8c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sisA4LrUEdgvcln8i1HO7l4PT8/l7umTnCGnuVyyyqQ1/QSgfN+oBUEgNg7BEpRt2SxUEkiAXdV4KvxppsKZjQOpWZamlegTXgo5IKS17ZBfZ5t1/2A8tksiVGnLB76MY3TGKDYjoNr5rlTgKO6yAXIMNPcMSO1DRRg954zUaC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SE5wWC5p; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CK7QPyWyCm/cHqQkRSFybRbccqG5xBxHmOPN/AM4MvH5kkV2GIeQJcbAZFLjurnpR1rC366Y7CqD1MR70JGCOla+j+19oMNMXzLbhIqc6CGcFt4wvVD9PTA0Hv1RW8L4GlXdt9J4F7R7pEuy08JDY0HqUstWI8qkDVjR6UtBY/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXOOq0fX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SE5wWC5p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8647E1F00A3A;
-	Sat, 15 Aug 2026 06:17:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXOOq0fX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4012C1F00A3A;
+	Sat, 15 Aug 2026 06:28:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786774627;
-	bh=s4yr7wW7VcW+X5agNdwxWKyh0uAOCgvVx8mINLSy3/E=;
+	s=k20260515; t=1786775322;
+	bh=p3Kaea5/4QRfxkV08KgglL3TBfF6yvhEMPHKfExIBhI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SE5wWC5p2USuy46IKzy+mpsQZguFjUu2Eyy6yBy/hgAKSrV93Imm7JqR0TgWkF83r
-	 6+Geh47Ildl9uFYa+jXRJbWlJnjw6lkmWr6FDchOo05gsa6ZYXjMbRTxC4Y/v3sFNB
-	 h8a+L1BuO1dVxTs+GDRo8PnWPCj+bdd2ANV6dofQ//2H6pqdReXuOfSet33RzyBBBb
-	 DYhXngCLtSnpxEVhZujMW5S15DIFByV1Pb3WjnHCBGMS6PxPTzsjP60ZuHFZPQR5vq
-	 hYYReE4mn1gJXxqWJO85+N85jkUkfs9+9PpWzPSUMeEcVg8bkpkbqb4FXOiWTzK2J2
-	 5snhNIgyLZp8w==
-Date: Sat, 15 Aug 2026 08:16:56 +0200
+	b=MXOOq0fXuEq1NM3LiK4D0xeGvzqPoDsUnLQCENrdVs//002shNcoj9BJnsPdZ4Dwu
+	 Wb2wXteFNLrzsklRyYfpOMAHgctCDhKMDY7fvS1knRaty4VxJmcJt6NgKojOYmsq95
+	 izt5rTPQL5+66JwPaqVSEkdsX4RMDy9LQQDQckMmkzgc1WyNDlb2CbOr0HUWDrqNc+
+	 x2tFdLiQnA956TkhpdYQG/HMYnAAjXVO4MJqSulWUpZnsnabZlwNVBzvyg/Jq781Zy
+	 7v9DD2U5eMSXxbygLDrzQhwOvC2FEEz4awEawZXqfW9NjH8CQ8HZ9L3APYS/zJi/nl
+	 HFtCK1AI5yU1w==
+Date: Sat, 15 Aug 2026 08:28:31 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, 
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
 	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ryder Lee <ryder.lee@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Jianjun Wang <jianjun.wang@mediatek.com>, 
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 2/2] PCI: mediatek-gen3: Add 2-lanes mode support for
- Airoha AN7581
-Message-ID: <5qulrgfnwzuo556hxsyg3iweqv6i57ll3chhhb3nxe7lgr6fff@4l3s5rotnpab>
-References: <20260806165334.7328-3-ansuelsmth@gmail.com>
- <20260813170820.GA1143871@bhelgaas>
- <6a7e1b73.e11288f4.1351ae.5625@mx.google.com>
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
+	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Kevin Xie <kevin.xie@starfivetech.com>, Aksh Garg <a-garg7@ti.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v10 2/5] dt-bindings: pci: tegra264: Switch to PCIe root
+ port bindings
+Message-ID: <f2wdbxqudd7kice4fcee4skgwektcftgqvccihi6l47ztwlssg@ufehmcwfwjh7>
+References: <20260814-tegra264-pcie-v10-0-05d08c592b05@nvidia.com>
+ <20260814-tegra264-pcie-v10-2-05d08c592b05@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,42 +53,21 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <6a7e1b73.e11288f4.1351ae.5625@mx.google.com>
+In-Reply-To: <20260814-tegra264-pcie-v10-2-05d08c592b05@nvidia.com>
 
-On Thu, Aug 13, 2026 at 09:30:54PM +0200, Christian Marangi wrote:
-> On Thu, Aug 13, 2026 at 12:08:20PM -0500, Bjorn Helgaas wrote:
-> > On Thu, Aug 06, 2026 at 06:53:32PM +0200, Christian Marangi wrote:
-> > > The Airoha AN7581 SoC supports configuring the first PCIe0 lane to 2-lanes
-> > > mode (x2 link) by bonding it with the second PCIe lane (PCIe1). This is
-> > > done by configuring the PCIe MUX in the SCU register.
-> > > 
-> > > To correctly configure PCIe0 in x2 link, define in DT the following
-> > > additional properties:
-> > > 
-> > >   - additional reg, 'sec-pcie-mac' for the secondary PCIe.
-> > >   - PERSTOUT reset for both main and secondary PCIE0, called 'perstout' and
-> > >     'sec-perstout'
-> > >   - 'airoha,scu' property to correctly configure the SCU register for the
-> > >     PCIe MUX
-> > >   - 'num-lanes' set to '2' to enable PCIe0 in x2 link
-> > > 
-> > > In such configuration the EQ preset are configured to the same values.
-> > > 
-> > > To permit correct configuration of the PCIe link, additional logic is added
-> > > to assert and deassert the PERSTOUT resets. Support of these additional
-> > > reset was introduced in Airoha clk driver with commit
-> > > 6712f48eb3a1 ("clk: en7523: add support for dedicated PCIe PERSTOUT reset")
-> > > and on backporting of this commit also the clk driver change will be
-> > > needed.
-> > 
-> > I don't see 6712f48eb3a1 in upstream or linux-next.  Is this SHA1
-> > going to valid if we merge this for v7.3?
+On Fri, Aug 14, 2026 at 05:38:56PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
 > 
-> I picked that sha1 from the git pull for the staging clk tree.
+> Switch to using the PCIe root port bindings in preparation for using the
+> standard WAKE# handling.
 > 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 
-Ah, I missed it. In this case the SHA should be dropped and maybe we can refer
-the lore link of the patch?
+For some reason, you just keep missing Rob's R-b tag for this patch:
+https://lore.kernel.org/all/178594272722.905042.3804777775947567354.robh@kernel.org
+
+I'll add it while applying, but please ensure that tags are not missed in the
+future.
 
 - Mani
 
