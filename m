@@ -1,116 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDC0301486;
-	Sat, 15 Aug 2026 21:53:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C12F37E5E2
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 21:57:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786830837; cv=none; b=D64gyE6VNTwlc9U8sTk19ACwGLegYjegt4+yfKnjasTi3jGWx/v497UBqlKjgjdZR+4IaPcAbIvZlvxX4Qb6rcKh77wp3stDFNwuFYVNO/KIN18/iIyhCMFMXxLEyb/lO890rMvfLj8UB3raLU/9sOSs6mk75nCfS6URKLR6y9Q=
+	t=1786831062; cv=none; b=rGEnPCkr1Gd2ic+QKVktbrs4aWDi9MEMv/0EsJM0HQXgrenEsXtSFBUmWuiitCZFqMIjyAOtawSjKjclQuK74dBdPc4Bgz4mPMom4yY2tlCRcsWhKIWO8HlKtW8s5lanlqAavq1KpEAdk2hH9oXsyYsv9gvpIaFLNBIwDB52Sh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786830837; c=relaxed/simple;
-	bh=VXmq9K/HRCVD/gkYVmOmNvAEYGioPR9ndL6kBSh4Q1s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dLK9kY56DHP9kDkz7fXPV8ShQb2FUez2gOriKMPOVkc0vQRQjhMrfwEh5RplXvAIAkAnD+8HmOn9G7jYd67fXwwScjzvkJPHJZsAeAOZcZR31NA7tDjtCwaNyOB3ikvgIJKLXlhNrSECNBrigFDvJrW84Qpu5t025P37Z074KFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2YM3pUO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786831062; c=relaxed/simple;
+	bh=ug7QN0DsirlA8pDr/qsj9gDVfCp0syXLRJlQUzEOH0k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=psPlWR5mtxNVJ/YFQm6QbtePncS40K8iczdIP8P5fwj06pMBntwbuCfU1Wh8CxKrQ9aXQRO/PIsfXiUZsthzE9kqHlwnDOQa0P7e0GjODWdZGoJErusDUFL4918b4MEm7aQ2JMJp/upUHcpSWiVYBapwjfvs5/BxX6ECtLc4yKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OYhDVjFw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2YM3pUO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CCFD1F000E9;
-	Sat, 15 Aug 2026 21:53:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OYhDVjFw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0411F000E9;
+	Sat, 15 Aug 2026 21:57:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786830836;
-	bh=Mng5BWniPeM9reYy1Ta8r3Rg3KlW7xeXbQGcgXUrO34=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=P2YM3pUORIKpEYq4xfYIc2GwhcWeDZbxxcP4lsSSZX/EuKfkGIWFksrUm593hpj2V
-	 QQPywa1gnaeYt6zSlInPsAX27cRe8s3RcSoAyIxeR6w8UaWMRtczvz/33lIgHFTDkV
-	 CZWbqITuvZ9Z20aWtrPOtTot/pwF5WNkbuR7C5IPRM1mACFS+UKhF04YIcaSEpkFaj
-	 AsBRHxRNvFa14B/+nZEevp/yHgMvu7ZdmFwijPehZABB8DJ4Ozke5BAzm8GXCwkphl
-	 Ao0gYq+evbHOqdOXx9cBoRRFKCyhJcfkOx4HrsAH7Wmi5hrAY8u2p68T84DqkrKYJ1
-	 F2EvcDDE3s9rw==
-Date: Sat, 15 Aug 2026 22:53:48 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Marius Cristea
- <marius.cristea@microchip.com>, Marcus Folkesson
- <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>, Conor
- Dooley <conor.dooley@microchip.com>, Daire McNamara
- <daire.mcnamara@microchip.com>, Paul Walmsley <pjw@kernel.org>, Palmer
- Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
- Ghiti <alex@ghiti.fr>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, Janani Sunil <jan.sun97@gmail.com>,
- <linux-spi@vger.kernel.org>, Kent Gustavsson <nedo80@gmail.com>,
- <linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v8 3/3] iio: dac: Add AD5529R DAC driver support
-Message-ID: <20260815225348.7a3bef4d@jic23-huawei>
-In-Reply-To: <20260805-ad5529r-driver-v8-3-b41781f5632a@analog.com>
-References: <20260805-ad5529r-driver-v8-0-b41781f5632a@analog.com>
-	<20260805-ad5529r-driver-v8-3-b41781f5632a@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1786831060;
+	bh=WFY9a1hH640Vmk+dQCCAfuq4zGZTljcRG9JrhWoRkeE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OYhDVjFwtYnYSfwnBuO/YX73fEHCNJ27kYequQo+YsSuboyXH7Et4D5+8xOCQ4nra
+	 9vk8IQYFB3zssS4tBSQ+svYtdPOaK9szEqJ9nuztlpd7NdQYcmXJrA4WkSz91RLjzr
+	 KvKl1TcMr72kmS0FlT4SEK05R1fxmuuXU5Iz7Cj/+HoLUpGC3a330I13Cm/tjQPHKq
+	 vcP58q+fXe84apbz/Ov1wBdhmeNOEqpqG2w8o6DO70M7+KRHAq6WBerIwad9PKy7qM
+	 RTEjtxa3SMSoyR3WBD7vxAvNOz/kmJ8V2+5zSYEC2tiHCbjLyMndu/+pS2LlU94FxK
+	 LAU3YpQxj4Fcw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] ARM: dts: ti: keystone-k2l: Remove obsolete
+ ti,davinci-spi-num-cs property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260816-ti-davinci-spi-v1-1-a7f57dfd5262@gmail.com>
+References: <20260816-ti-davinci-spi-v1-0-a7f57dfd5262@gmail.com>
+ <20260816-ti-davinci-spi-v1-1-a7f57dfd5262@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 15 Aug 2026 21:57:39 +0000
+Message-Id: <20260815215740.5D0411F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 5 Aug 2026 09:17:43 +0200
-Janani Sunil <janani.sunil@analog.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Removing `ti,davinci-spi-num-cs` without replacing it with the s=
+tandard `num-cs` property permanently discards the correct hardware capabil=
+ity limits, such as the 5 chip selects for `spi2`.
+--
 
-> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
-> from Analog Devices.
-> 
-> The device communicates over SPI and supports per-channel output range
-> configuration. An optional external 4.096V reference can be used in
-> place of the internal reference.
-> 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> ---
->  MAINTAINERS               |   1 +
->  drivers/iio/dac/Kconfig   |  17 ++
->  drivers/iio/dac/Makefile  |   1 +
->  drivers/iio/dac/ad5529r.c | 530 ++++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 549 insertions(+)
-> 
->
+--- Patch [1]: [PATCH 1/2] ARM: dts: ti: keystone-k2l: Remove obsolete ti,d=
+avinci-spi-num-cs property ---
+commit 09741cd34d52c73b4d50caafab226d5b1bedeba4
+Author: Bhargav Joshi <j.bhargav.u@gmail.com>
 
-...
+ARM: dts: ti: keystone-k2l: Remove obsolete ti,davinci-spi-num-cs property
 
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index 657c68e75542..bb1d59889a2a 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -134,6 +134,23 @@ config AD5449
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called ad5449.
->  
-> +config AD5529R
-> +	tristate "Analog Devices AD5529R High Voltage DAC driver"
-> +	depends on SPI_MASTER
-> +	select REGMAP_SPI
-> +	help
-> +	  Say yes here to build support for Analog Devices AD5529R
-> +	  16-Channel, 12-Bit/16-Bit, 40V High Voltage Precision Digital to Analog
+The commit removes the obsolete ti,davinci-spi-num-cs property from the SPI
+nodes in keystone-k2l.dtsi, as it is not documented or used by the driver.
+The driver relies on the standard num-cs property instead.
 
-Trivial but this wrap is rather random. Please tidy it up to a consistent 80 chars
+> diff --git a/arch/arm/boot/dts/ti/keystone/keystone-k2l.dtsi b/arch/arm/b=
+oot/dts/ti/keystone/keystone-k2l.dtsi
+> index 330b437b667f6..65fdb45e83681 100644
+> --- a/arch/arm/boot/dts/ti/keystone/keystone-k2l.dtsi
+> +++ b/arch/arm/boot/dts/ti/keystone/keystone-k2l.dtsi
+> @@ -400,16 +400,7 @@ mdio: mdio@26200f00 {
+>  		/include/ "keystone-k2l-netcp.dtsi"
+>  };
+> =20
+> -&spi0 {
+> -       ti,davinci-spi-num-cs =3D <5>;
+> -};
+> -
+> -&spi1 {
+> -       ti,davinci-spi-num-cs =3D <3>;
+> -};
+> -
+>  &spi2 {
+> -       ti,davinci-spi-num-cs =3D <5>;
 
-> +	  Converter.
-> +
-> +	  The device features multiple output voltage ranges from -20V to +20V,
-> +	  built-in 4.096V voltage reference, and digital functions including
-> +	  toggle, dither, and ramp modes. Supports both 12-bit and 16-bit
-> +	  resolution variants.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called ad5529r.
-> +
->  config AD5592R_BASE
->  	tristate
+[Severity: Medium]
+Does removing this property instead of converting it to the standard num-cs
+property permanently discard the correct hardware limits?
 
+By removing the property entirely, these nodes will silently inherit the de=
+fault
+num-cs =3D <4> from keystone.dtsi. This discards the intended capabilities
+(5 chip selects for spi0/spi2, 3 for spi1) rather than fixing them. The file
+itself documents SPI2CS4 (the 5th chip select) for spi2 pinmux.
+
+Should these be replaced with num-cs =3D <5> and num-cs =3D <3> respectivel=
+y?
+
+>         /* Pin muxed. Enabled and configured by Bootloader */
+>         status =3D "disabled";
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816-ti-davinci=
+-spi-v1-0-a7f57dfd5262@gmail.com?part=3D1
