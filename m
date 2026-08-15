@@ -1,122 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4062837F337
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 21:58:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F0830B529;
+	Sat, 15 Aug 2026 22:15:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786831123; cv=none; b=D2on1CPgPr1hU/i2SQGj1+H+4izEf0OZ6+F2CQ32T/CYqiyMKFCbkzYz50m3JphOlSHzwHR52f/kqHMeEEubEXQZCT9p5nj8TKcw1WxY+3CYG5ElS1YgfjkwQOCJ4MPHRbVRq9eyNKdJC4lJT8WHnM/NZ1NyJ6bGdMTLYhiLChg=
+	t=1786832119; cv=none; b=oPsMs4h5EB8s+bavnWPZ8kdlQLG/yWi+/C+xWZKmxEoP+OL9QkR7D2IvfitKC0W9O8wRveW32xbhvxLvgH9GC3Jp1u3uTdFJtsSe7vtP//Guj8WHelwzyP+cbjqxy35Nm8AqOzINdvXqvY5iZQFUEDt3StV1w4jiz+EKIpBJYCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786831123; c=relaxed/simple;
-	bh=6auTmC3N/BtQ7+pqIC7HvUbBYsef4Te/Gx6MiDGG9zM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y5UM2CrKl15JFW+lBVKsH9bkB8NoUeUPsX18H/3gP6yiI6rXC227G0FEc2ClF+FLZrhuvZlhTh5U5JmW6P0SqRWGYbLGsB1JrV5Sk1d++GlvQgVSIpdoXB7EwPz4hlBojVOd9OFbFXoU35fvy/yZuPgcJVCruPfNZfH2YZx1sYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FvrvNHff; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786832119; c=relaxed/simple;
+	bh=Ni5cUvVnRzyECvv7n0sjYxZWArVIB4s30bPnMQA3xU0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZOz5tZNvrgxXlhqigQ6P4agC8MpW4c0rTZ1reHCJUOF/rQW2gBcqEzPyRtmp1d+eLwQMOmNImm91oITWqfDWtstFrnQ+Q5CPm/BMLWK5lbozNbEjpL7MVanJpgdhND0epo9AOO9OULkEIhALXl3g8MtL0LOdPLPT5ZpK2RwXZ5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NY949yAk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FvrvNHff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C531F000E9;
-	Sat, 15 Aug 2026 21:58:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NY949yAk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1101F00A3A;
+	Sat, 15 Aug 2026 22:15:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786831121;
-	bh=ercBpKRU1k8T5WxJjIOF5PAgbwi5OhHKFSZt96rBNe4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FvrvNHffTLvw0OHEb/sMjVeIj76j3PddqB8d/GEMhNMdfCsmy1X1kvu8SRifzwJnB
-	 VitjflGCm3AgPaBZtXkpe845fg+vX8S9FoHC8qPQbPWifbFNOCEn2GkGfyyH2Fv9Nl
-	 5cYpdzu7i0/S8PD22q97JhFV+bD/MX609O3lL3xIu2TC+iAdv3uy0lexpI8c3BpcSX
-	 SDcvrfoDpYZWhD1HCujK8sJJDy0gfekd36z85F4fsYzylvR9N4LzcCTHtXrMsHf4dA
-	 akgCcaQDnRjXee1OXaFSXylSjDSUx7DxYWePyh8s246gGq+4yjvXrBZon6Mb5rR+56
-	 GFEufId/5p7dg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: spi: ti,davinci-spi: convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260816-ti-davinci-spi-v1-2-a7f57dfd5262@gmail.com>
-References: <20260816-ti-davinci-spi-v1-0-a7f57dfd5262@gmail.com>
- <20260816-ti-davinci-spi-v1-2-a7f57dfd5262@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 21:58:40 +0000
-Message-Id: <20260815215841.31C531F000E9@smtp.kernel.org>
+	s=k20260515; t=1786832117;
+	bh=kqE1afumisvpdiTkCENJzRQ798Rycw+kpbhIZtpVzvA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NY949yAkMJYcZKqtPZA2Y0FSOaPQ6cHKYKJ5roM02WuCYRAgMVEzvsLuFEdyBbR4G
+	 AoFixWMjJPfDN94oEDDiPLH8fmYcP9Rem/6aWTubcXEs+bQe+m1u/avXtq9g/+9+8r
+	 5UyVK19VkKn8vX3TEZZNu2ff1oK04JEErxh1Q8HasxPFuCqx1OPK+OOQqU6fIfyJiq
+	 2Bi5N96wPyxglrgyd48d5EUuE7Dl1mxVs3ThSYw6kEHitnilkVugR+plCX8ECThc+X
+	 VLADgqZcfGWaXa8mhdaAkAwZ1M19IU4amkBVbgqQpncuVks5Hkc6Q75uiFnEi5MmVn
+	 i0fukNZudRqLg==
+Date: Sat, 15 Aug 2026 23:15:13 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andrei Stancovici <andrei.stancovici@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liam
+ Beguin <liambeguin@gmail.com>, <linux@analog.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/3] iio: adc: ltc2497: add LTC2499 internal
+ temperature channel
+Message-ID: <20260815231513.3a72146a@jic23-huawei>
+In-Reply-To: <20260813160139.70000-3-andrei.stancovici@analog.com>
+References: <20260813160139.70000-1-andrei.stancovici@analog.com>
+	<20260813160139.70000-3-andrei.stancovici@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `num-cs` property is incorrectly capped at a maximum of 6, a=
-rtificially limiting the use of GPIO-based chip selects.
-- [Medium] The converted DT schema incorrectly drops standalone support for=
- `ti,dm6441-spi`, breaking backwards compatibility for DM644x device trees.
---
+On Thu, 13 Aug 2026 19:01:36 +0300
+Andrei Stancovici <andrei.stancovici@analog.com> wrote:
 
---- Patch [2]: [PATCH 2/2] dt-bindings: spi: ti,davinci-spi: convert to DT =
-schema ---
-commit e89abf8864b6f9ee684db27ba9936dcad0c1cd48
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+> The LTC2499 has an internal PTAT (proportional to absolute temperature)
+> sensor that is activated by a second I2C configuration byte (EN2 | IM).
+> Expose it as an IIO_TEMP channel providing raw, scale and offset so the
+> standard IIO formula
+>=20
+> 	T[m=C2=B0C] =3D (raw + offset) * scale
+>=20
+> reconstructs the temperature.
+>=20
+> The PTAT sensor yields the absolute temperature as
+>=20
+> 	T(K) =3D DATAOUT24 * Vref / 1570		(Vref in volts)
+>=20
+> The raw value exported here is sign-extended and normalised to
+> 2^(resolution + 1) =3D=3D 2^25, i.e. raw =3D 2 * DATAOUT24, so on the IIO
+> milli-degree-Celsius convention
+>=20
+> 	scale[m=C2=B0C/LSB] =3D Vref_uV / 3140000
+> 	offset         =3D -273150 * 3140000 / Vref_uV
+>=20
+> The scale and offset are derived from the reference voltage returned by
+> regulator_get_voltage(); its error is propagated as before, so a board
+> that fails to describe vref-supply gets a clear read error instead of a
+> silently wrong temperature. No board-specific reference value is assumed
+> in the driver.
+>=20
+> The single temperature channel is appended as the last entry of the
+> shared channel array and excluded via num_channels for parts without an
+> internal sensor, so the existing LTC2497 channel layout and device name
+> are unchanged.
+>=20
+> The LTC2499 latches its converter configuration from the second command
+> byte and only re-evaluates it when that byte has EN2 set. EN2 | IM
+> selects the internal temperature sensor. Because a single-byte command,
+> or a second byte with EN2 =3D 0, means "keep previous", a one-byte channel
+> select cannot pull the device back out of temperature mode: after a
+> temperature read every subsequent voltage read would keep returning the
+> PTAT result instead of the selected input. Temperature support is
+> therefore only correct if the voltage path also emits a second command
+> byte that re-selects an external input.
+>=20
+> Send two-byte commands for all conversions on parts that have the sensor
+> (has_temp):
+>=20
+> 	temperature:	EN2 | IM
+> 	voltage:	EN2			(IM =3D 0 -> external input)
+>=20
+> The LTC2497 and LTC2496, which lack the second-byte mechanism, keep using
+> the original single-byte channel select and are unchanged.
+>=20
+> Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
+Hi Andrei
 
-dt-bindings: spi: ti,davinci-spi: convert to DT schema
+A question inline on why this needs a DMA safe buffer given i2c
+still bounced everything unless we opt in.
 
-This commit converts the TI DaVinci/Keystone SPI controller binding
-from text format to DT schema. It also creates a separate schema for
-peripheral properties.
+Thanks,
 
-> diff --git a/Documentation/devicetree/bindings/spi/ti,davinci-spi.yaml b/=
-Documentation/devicetree/bindings/spi/ti,davinci-spi.yaml
-> new file mode 100644
-> index 0000000000000..81014e9639097
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spi/ti,davinci-spi.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - enum:
-> +          - ti,da830-spi
-> +          - ti,keystone-spi
-> +      - items:
-> +          - const: ti,keystone-spi
-> +          - const: ti,dm6441-spi
+Jonathan
 
-[Severity: Medium]
-Does this structure accidentally drop support for using ti,dm6441-spi
-as a standalone compatible string?
+> diff --git a/drivers/iio/adc/ltc2497.c b/drivers/iio/adc/ltc2497.c
+> index c1668b5a351e..57a5406977ed 100644
+> --- a/drivers/iio/adc/ltc2497.c
+> +++ b/drivers/iio/adc/ltc2497.c
+> @@ -84,6 +84,40 @@ static int ltc2497_result_and_measure(struct ltc2497co=
+re_driverdata *ddata,
+>  			return 0;
+>  	}
+> =20
+> +	/*
+> +	 * Parts with the internal PTAT sensor (LTC2499) latch their converter
+> +	 * configuration via a second command byte and only re-evaluate it when
+> +	 * that byte has EN2 set; a single byte, or a second byte with EN2 =3D =
+0,
+> +	 * means "keep previous". A one-byte channel select therefore cannot pu=
+ll
+> +	 * the device back out of temperature mode, so a voltage read after a
+> +	 * temperature read would keep returning the PTAT result. Always drive =
+the
+> +	 * second byte with EN2 set on these parts: IM =3D 1 for a temperature =
+read,
+> +	 * EN2 alone (IM =3D 0) to (re)select an external input. FA =3D FB =3D =
+0 keeps
+> +	 * the power-on simultaneous 50/60Hz rejection, whose worst-case
+> +	 * conversion time the driver's wait already covers.
+> +	 *
+> +	 * The two bytes are assembled in the DMA-safe st->data buffer rather t=
+han
+> +	 * on the stack, so the pointer handed to i2c_master_send() stays valid=
+ on
+> +	 * adapters that DMA the transfer (e.g. with CONFIG_VMAP_STACK).
 
-The original text binding documented ti,dm6441-spi as valid on its own,
-and the driver natively matches it. This new schema restricts it to
-only being used as a fallback for ti,keystone-spi, which will cause
-schema validation to fail for existing DM644x device trees.
+I'm confused by this (as is sashiko ;)  You aren't using i2c_master_send_dm=
+asafe()
+so the i2c core will bounce the data anyway.  Generally I2C is too slow to =
+care
+about copying a few bytes so we tend not to use that infrastructure unless
+the copy that would be needed is much bigger.
 
-[ ... ]
-> +  power-domains:
-> +    maxItems: 1
-> +    description:
-> +      Should contain a phandle to a PM domain provider node
-> +      and an args specifier containing the SPI device id
-> +      value.
+In the wider set of devices supported, the ltc2496 uses SPI and there
+we do need something to ensure we have dma safe buffers.
+
+> +	 */
+> +	if (ddata->chip_info->has_temp) {
+> +		if (address =3D=3D LTC2497_TEMP_ADDR) {
+> +			st->data.d8[0] =3D LTC2497_ENABLE | LTC2497_CONFIG_DEFAULT;
+> +			st->data.d8[1] =3D LTC2499_EN2 | LTC2499_IM;
+> +		} else {
+> +			st->data.d8[0] =3D LTC2497_ENABLE | address;
+> +			st->data.d8[1] =3D LTC2499_EN2;
+> +		}
 > +
-> +  num-cs:
-> +    minimum: 1
-> +    maximum: 6
-> +    default: 1
-> +    description:
-> +      Number of chip selects supported by the controller. This
-> +      includes both internal and GPIO chip selects.
-
-[Severity: Medium]
-Should this property be capped at a maximum of 6?
-
-The commit message notes this constraint is based on the maximum
-hardware chip selects available. However, since the description explicitly
-states this includes GPIO chip selects, imposing a rigid hardware maximum
-prevents using an unbounded number of GPIO chip selects.
-
-Device trees using more than 6 total chip selects (such as by defining
-num-cs =3D <8> along with a cs-gpios array) will now fail validation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816-ti-davinci=
--spi-v1-0-a7f57dfd5262@gmail.com?part=3D2
+> +		ret =3D i2c_master_send(st->client, (char *)st->data.d8, 2);
+> +		if (ret < 0) {
+> +			dev_err(&st->client->dev, "i2c transfer failed: %pe\n",
+> +				ERR_PTR(ret));
+> +			return ret;
+> +		}
+> +		return 0;
+> +	}
+> +
