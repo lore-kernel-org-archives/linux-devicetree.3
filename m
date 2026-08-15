@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5A834A76F;
-	Sat, 15 Aug 2026 01:58:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEB43446CE;
+	Sat, 15 Aug 2026 01:58:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786759084; cv=none; b=GnkLMQOShSyW97+ArFl2t7Gb0jwPNbsyCSF3jLFhjfrJq0Egpqu8P6NfzY6U1gqvbppVXmISKNSpE5h3YtJd9oqS0wZzgDueom9uGQ2oNHcbQRN4VvPMGQ3u46ARgCAmHBO27SaNESQae3hlRtdbJ0NcfhmJtY2wHEq5JZgTars=
+	t=1786759088; cv=none; b=u+s7NXP07hxX2kiQbb4tBdT+IyV9/olvVwFgdOxRWmj8l5TmjW7iBnS6OO0vjkY9pOvPwnmaITOwPlcSDGHCqFYKtYlO0Haxf/fOMFiHOek0PbB1Y64Oo/NhjhvhVCAshjXDVCzhTtMwa2qfE3W5X0j2nWXVz390onmS7eucKbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786759084; c=relaxed/simple;
-	bh=Lu1ciDr3UGN9nlNsYTXuFJTd6Yl9FiERRJ8UOk1Z1Ac=;
+	s=arc-20240116; t=1786759088; c=relaxed/simple;
+	bh=rRgRZg6PDtbIVyoKXwDkLYZ5RcerG7kCb9DUPmpwF20=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jfHRcpy75RLBOsV8pfdf5V8cDyojsiqqd33waBwPXc7RVVi/OG9BH8nippbVURRAS6dysqXFgJCyVJ7yktTZHB1rbT8f35vjnhNcWjQwnBvg4lG2r4/9eYOSs3zpyaxO16HZcSkGpyYGO4IK9nYz8gSZZsArfTsyZrcAUTJo1ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QT+X+iQG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fHyB9HREr74mwvPDi2bkwI/IBTpk6wu2Btnl3lODzbHc7h8glwK/QPbrkYRuei32xUZR6j6iujkIj0iBC0jduUibzf29i9InCr3xDZdz7cLJdLPkFsbVYU1Pey4e4ZyJltBuJl1DbztE2GDsLJeu5kBVD25CB4hQjww7jCE1ylk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSBHaE7e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QT+X+iQG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DD31F00A3A;
-	Sat, 15 Aug 2026 01:58:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSBHaE7e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B6481F000E9;
+	Sat, 15 Aug 2026 01:58:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786759082;
-	bh=5lmLAL2bcDbv13JwDq0IXXt8TpckG5QbWoFG1VJqhLU=;
+	s=k20260515; t=1786759085;
+	bh=dgce77xdNfitZfY0amw8Yvco94fWO4s0NDx9JQV8Lxg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QT+X+iQGOjZLCxyyTvYYweZ3FPVC5OsQ/aVMDn6T/vYXRLaqhK9b9nWy888RmQrvE
-	 ksu6/oLqGnd1bEPP7aWxfkfI1tFTR2YqvAOugdfmHj0d9uemJO46LRyf/NRRG0Dlel
-	 1ukJAMVfSVmnMw5h2YGdp6NK9QwPYf5c0ckAGiGbmsdhC9GFlp0+3h9WWoqsZUKAPu
-	 T8wv6pl7VaNzmAIEk2UvQ2x0QBIE6E5HO+yeunnIS63rMZ8DPHvz1mrVsna99MeKIW
-	 3Epp2oaMTKwlLm+JNJ0F2di1/XME1zU2tOxfmo+o1OsoF87h+9OIxtjl2RLjX6clx5
-	 teYTQMx/8Gk5A==
+	b=cSBHaE7eO5Vpz80IyRGuFkOmzCm3THDxQ9yyAEbzahHkpJh5wAEwedG2tlKXuZw15
+	 bZPZTRG+Md+7sGN7zXW7sNRURkpjc6OnevHM2jZTicDuv/ereL5fBmQ3LJfUNCE8Af
+	 rqiawTRg07V2uGyJnei3SqJR81yd8h5gPREeiaRFCyxpPsKy7drB+MC+bLtDyLt70t
+	 aH3aQuA0TVnfp7IdEDDkbtndMqDeavhH4gY1gafp8xC3EZKFqxziCTJOFGhsDnghgg
+	 pjMVAvAjYPWRgHXsDV8GXg9+9b7DLd4qYDAdi9fjrFTPLNtD4SB7+3q5g/mZ5iK9v/
+	 9oTrWcTn78k2g==
 From: Guo Ren <guoren@kernel.org>
 To: robh@kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -35,9 +35,9 @@ Cc: devicetree@vger.kernel.org,
 	robh+dt@kernel.org,
 	conor.dooley@microchip.com,
 	krzk@kernel.org
-Subject: [PATCH 1/2] dt-bindings: vendor-prefixes: Add Xuantie Semiconductor
-Date: Sat, 15 Aug 2026 01:57:21 +0000
-Message-ID: <20260815015722.1736831-2-guoren@kernel.org>
+Subject: [PATCH 2/2] dt-bindings: riscv: Add Xuantie C906/C908/C910/C920 compatibles
+Date: Sat, 15 Aug 2026 01:57:22 +0000
+Message-ID: <20260815015722.1736831-3-guoren@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260815015722.1736831-1-guoren@kernel.org>
 References: <20260815015722.1736831-1-guoren@kernel.org>
@@ -51,34 +51,36 @@ Content-Transfer-Encoding: 8bit
 
 From: "GUO Ren (XuanTie)" <guoren@kernel.org>
 
-Add the xuantie vendor prefix for Shanghai Xuantie Semiconductor
-Technology Co., Ltd., which provides the XuanTie processor IP.
+The RISC-V CPU bindings currently use the historical thead vendor
+prefix for the XuanTie C906, C908, C910 and C920 processors.
 
-The vendor information is available from the Xuantie declaration
-pagei [1].
+Add equivalent compatibles using the newly defined xuantie vendor
+prefix. Keep the existing thead compatibles to preserve compatibility
+with existing device trees.
 
-[1]: https://www.xrvm.com/declaration
-
+Cc: Conor Dooley <conor.dooley@microchip.com>
 Cc: Rob Herring <robh+dt@kernel.org>
 Cc: devicetree <devicetree@vger.kernel.org>
 Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/riscv/cpus.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 396044f368e7..89391cb467d5 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1905,6 +1905,8 @@ patternProperties:
-     description: Xilinx
-   "^xnano,.*":
-     description: Xnano
-+  "^xuantie,.*":
-+    description: Shanghai Xuantie Semiconductor Technology Co., Ltd.
-   "^xunlong,.*":
-     description: Shenzhen Xunlong Software CO.,Limited
-   "^xylon,.*":
+diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
+index 5feeb2203050..5aba1e8ed195 100644
+--- a/Documentation/devicetree/bindings/riscv/cpus.yaml
++++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+@@ -67,6 +67,10 @@ properties:
+               - thead,c908
+               - thead,c910
+               - thead,c920
++              - xuantie,c906
++              - xuantie,c908
++              - xuantie,c910
++              - xuantie,c920
+           - const: riscv
+       - items:
+           - enum:
 -- 
 2.43.0
 
