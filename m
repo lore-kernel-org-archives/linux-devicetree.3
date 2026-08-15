@@ -1,275 +1,154 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C7D30F958
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 08:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFE030F958;
+	Sat, 15 Aug 2026 08:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786782814; cv=none; b=dzg7T55joMIP2LGjLjtadfSD9qwPc7JE0ei2a+TXci0EyMd8Wl8OZDONET1kB8LS1T1I0xHUPJo1znb8StD++9ZZnne80CkHOxz9iE03H/77Lfyolj3R4D4KwJ0w1Py9hOCo+C/Qvh26yHHOGt1RmRL6Lp5sovPQit/BhDbTg9U=
+	t=1786782872; cv=none; b=oIRpGLm92wl9o6ZygtDk2r9BgRfqzOAiFAGWKxlRilF0w8yiWkZdn6DWmUxYRyL+6vk/vXrt2jA58mDm98zJW41AW2zt/vkZb/200biduu5mix5+q9CFu3KolRsDMfJG3zTT7tkO9qD6yUn+aKOiPh3YIMBIsiJdBaej6N1foYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786782814; c=relaxed/simple;
-	bh=O3pMtBEmXEanZNQxxBczcnzItFMFemOxd1WChVtlbXs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T2nk6koW7sqP+IsC8N2Jonuqh7bzNf9TGz64S6WKpo9anXbAB3vLb8tSc9aMH9pY3dpfwMH8fHvSdbED7wEg3JuNJP+7tD63ISBQF39cci4EOSuDa8TBuB9KDubTuqmcu27k5FpCcmynmt4W5p5H8MF3vzDQyAoaoMnqOASypeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o7GLOYrG; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786782872; c=relaxed/simple;
+	bh=gKJof34KC+wd1b2hMut55TPaTnGyH+YfRJH6ytIadFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jkeHLK+c6yGN6euCcbYVBVCtQTd1zlgsqbi7lrYxZ5K9HCYd9Z06Epz0S0/TyKZxBY7JXMD+0F/sGF0JTPlBy5s54A0GsdUhAz5txpeZGGmWCu2PF7HDylhYzkKTWnmCLgG70VZdJ7vaERsh4dXHmMOiEs0+ylDKVuc3479+jqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GmKYx5DQ; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o7GLOYrG"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4998590d392so18804635e9.0
-        for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 01:33:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786782811; x=1787387611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yht8Yw3sMnFHO9DzWevf1YnwdQDpdoW5JTYhNzme8ao=;
-        b=o7GLOYrG4rdKLzRf0YdHE0CxYoqT8oc0qd4u173c5a+HNsHVuMpjigjB5exP2YF1T1
-         NdX23WmBUlRtqDF/UDoPHCE9PlWx67P1UpGuLV4RNI9YX9cVPTAzSaw40ZKrdqV+a/qM
-         TcQdSwZeEQ5RjB8OwQfaSAd/oJoYDnOiWLeChvv9p0rlggAVzjxEnErO8+m/5UG05yWT
-         iM7hxlx+LWBSmleQDLzlaQ9xtJJm/q6tLDBVaGUju//Ik2rQJVTnuLN3rYd+qd8ktCMt
-         ZRvImLgCdTZWgCmZz4X6AXAUwawCkeC6V+6WZRoRGOT0bfNMl4i9j3v08bKdovyNyZ8g
-         oyHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786782811; x=1787387611;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Yht8Yw3sMnFHO9DzWevf1YnwdQDpdoW5JTYhNzme8ao=;
-        b=fCIXW1MqsPBf2Gl6A4sx8Vg8eeA2v7J6cHoQz7cGQon0JYJMa1tEk5spRCvDLykOTP
-         UTN83LwIV6WCQ2zRuBx6UP6u0jksuiWPxOPOnwn0GlVZo+jKhIvCC1MHSqMoPVqnVxOb
-         b+K08833sg8ZPSdyuqM9Pk9It2kys0mrnPFxF50GBabOpzt6DwubU25127mz7wKRLBkQ
-         z1O20zmGMaZRKkbGqukrUUoXwXFbOT5jz2jfU8o+fUMvxuS+rC8mN+3788lx92XgkhJU
-         yovKZylp+P0HcHmgI3nfZD48ljKvMvWugqUeaGM2On263qGDccQB4M/S5bPCvtAEM5Ru
-         qCSQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpeXCY5VDwMVhzqIfAsw1udbrdogCQL5h0bR3grcnIHiJS/JnkUxq/on2PrLZDJt7cf83Ap7VEea/OM@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxl3o3nt9dJG1aMQckNaTjbyJ2MIwuNlh3NfA0Zn1OE3B8GfGkS
-	eKYkl0aolFNJFljjR7G/XB921N6c6MZc/gAgwOittQvfxXLLWw5VTfmc
-X-Gm-Gg: AR+sD13izwDv8JF9JP6o6e+Z4+q9CoDbDXYJhJ/NmWxy0oX7ciRuR+5a2IFuYMduVwT
-	nnFz206MNgxnpVQ+2oBzzrNFVR4vt5Ro7B3tu9qeuGz92aUrFWtKycCtHKmw6pSrBsoIMYiGThD
-	3sG/8fu2wsOOMJrHHxFgHAkSgevOKShmgB30uoKPcDt1GRTIwtgD1PCEEKl7yC1/xYKJ7eb8/dp
-	TqT6i9By1uLI8r2OIFigdYP64YadJEaz9D4qmB1bf8kTqUNfGtCVeKeFQf5+IGl/ZeyWPxbu7X3
-	tZrZ/qgQXjWkGVw9E/aouM7OCExh74eXVT59FnpVjycVE0U4Z5suh8asdT5b+qJFs98Q8f5FRo1
-	jjrOo36qZXcPxlUQy+QqSJKpMyr2rCHGUsyuxfFDnQIFn7YqWN8GvL9cGHqZNWU2cLYu1KK1dkS
-	5zV+BfnMzFrBCzp6dPSZPN0d8fH5hLbJPgEWcTbrI7wsdTFw3pGt2KiZo+LJW9HSCV5T6E8xbCE
-	TZ0NU2rwxTobnoTeGT9SZEjqKymrThKejxMq6MOSw==
-X-Received: by 2002:a05:600c:228e:b0:495:4e1d:82df with SMTP id 5b1f17b1804b1-499879774bamr118261605e9.10.1786782811137;
-        Sat, 15 Aug 2026 01:33:31 -0700 (PDT)
-Received: from localhost.localdomain ([82.137.32.242])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4815f2ccc00sm14498418f8f.35.2026.08.15.01.33.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 01:33:30 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Eduard Bostina <egbostina@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GmKYx5DQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786782870; x=1818318870;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=gKJof34KC+wd1b2hMut55TPaTnGyH+YfRJH6ytIadFw=;
+  b=GmKYx5DQNeaOkN+3kQb4EjoCSIQIiwGc+NkvFKnvfzyR8E6FbCSxK4ao
+   BAtItcpGKz0Ug9R5Zzez8/+53kV9kLFJbdzatuKJFlbA4B0dAk46zhz67
+   bn7DOKg1zqZbVY0qF/4H9EdZXO/2aMIxUwQgCrVvAnOLv24hfrtco3L6J
+   hyV2Xu8y0ro7V+wbctQcxtxF+HbwjQjuptzOhIWk/04hMbYnSnUb049NK
+   6wU2qiBpOKXE/JDa4x0tP+Fc7J2pG96HNgu/ZWeos6aMfKV4VzW13jzCt
+   K5Jt6DPOwYwGcHccuIVWEIWOxwWTH18IjeXj6XF2/FD31aegYE1K/KEvO
+   w==;
+X-CSE-ConnectionGUID: t/bUL5uyR+KMycBrXrAoHg==
+X-CSE-MsgGUID: Y0uokZJnSda4cwQhyLc5Yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11875"; a="98706090"
+X-IronPort-AV: E=Sophos;i="6.25,224,1779174000"; 
+   d="scan'208";a="98706090"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Aug 2026 01:34:30 -0700
+X-CSE-ConnectionGUID: lFhuD22QTkWGMJWmStLEGw==
+X-CSE-MsgGUID: neTxRVOLSImPvL389ZF98g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,224,1779174000"; 
+   d="scan'208";a="267926708"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.12])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Aug 2026 01:34:27 -0700
+Date: Sat, 15 Aug 2026 11:34:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	Rob Herring <robh@kernel.org>
-Cc: daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	goledhruva@gmail.com,
-	m-chawdhry@ti.com
-Subject: [PATCH] dt-bindings: net: wireless: Convert WL1251 to DT schema
-Date: Sat, 15 Aug 2026 08:33:26 +0000
-Message-ID: <20260815083326.2146602-1-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [EXT] Re: [PATCH v3 2/2] serial: 8250_dw: add Ambarella CV75
+ quirks
+Message-ID: <aoAkkJQ8W_3gsQlx@ashevche-desk.local>
+References: <20260813-cv75-v3-c-v3-0-9352b3fd6026@ambarella.com>
+ <20260813-cv75-v3-c-v3-2-9352b3fd6026@ambarella.com>
+ <an7YKyVbe1YDtyL_@ashevche-desk.local>
+ <DS0PR19MB7925F03452B896607C0B8F43DADA2@DS0PR19MB7925.namprd19.prod.outlook.com>
+ <an8BisPHjhqn4g4d@ashevche-desk.local>
+ <DS0PR19MB79251D4A473960EE4BFDC642DADA2@DS0PR19MB7925.namprd19.prod.outlook.com>
+ <an8KvvHWX0naH3Xw@ashevche-desk.local>
+ <7E774305-3920-4BB7-BA46-E0772D6BED84@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <7E774305-3920-4BB7-BA46-E0772D6BED84@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Convert the Texas Instruments WL1251 Wireless LAN Controller bindings to DT
-schema.
+On Fri, Aug 14, 2026 at 12:39:12PM +0000, Long Zhao wrote:
 
-During the conversion, the following updates were made:
-- Added the 'clocks' property. It was missing from the txt binding but
-  is used in device trees (omap3-n900.dts).
-- Added 'spi-cpol' and 'spi-cpha'. These were present in the original
-  txt binding's example but missing from its property list.
-- 'vio-supply' and 'spi-max-frequency' are no longer required. The txt
-  binding listed them as required, but they are only applicable when
-  the chip is connected via SPI.
+> OK, Andy. We will switch to 8250_ambarella.c instead in V4.
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
----
- .../bindings/net/wireless/ti,wl1251.txt       | 64 -------------
- .../bindings/net/wireless/ti,wl1251.yaml      | 92 +++++++++++++++++++
- 2 files changed, 92 insertions(+), 64 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
- create mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
+You also may consider a quirk in 8250_of.c if it's quite standard OF-enumerated
+8250-compatible device.
 
-diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
-deleted file mode 100644
-index 88fd28d15eac..000000000000
---- a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
-+++ /dev/null
-@@ -1,64 +0,0 @@
--* Texas Instruments wl1251 wireless lan controller
--
--The wl1251 chip can be connected via SPI or via SDIO. This
--document describes the binding for the SPI connected chip.
--
--Required properties:
--- compatible :        Should be "ti,wl1251"
--- reg :               Chip select address of device
--- spi-max-frequency : Maximum SPI clocking speed of device in Hz
--- interrupts :        Should contain interrupt line
--- vio-supply :        phandle to regulator providing VIO
--
--Optional properties:
--- ti,wl1251-has-eeprom : boolean, the wl1251 has an eeprom connected, which
--                         provides configuration data (calibration, MAC, ...)
--- ti,power-gpio :	 GPIO connected to chip's PMEN pin if operated in
--			 SPI mode
--- Please consult Documentation/devicetree/bindings/spi/spi-bus.txt
--  for optional SPI connection related properties,
--
--Examples:
--
--&spi1 {
--	wl1251@0 {
--		compatible = "ti,wl1251";
--
--		reg = <0>;
--		spi-max-frequency = <48000000>;
--		spi-cpol;
--		spi-cpha;
--
--		interrupt-parent = <&gpio2>;
--		interrupts = <10 IRQ_TYPE_NONE>; /* gpio line 42 */
--
--		vio-supply = <&vio>;
--		ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>; /* 87 */
--	};
--};
--
--&mmc3 {
--	vmmc-supply = <&wlan_en>;
--
--	bus-width = <4>;
--	non-removable;
--	ti,non-removable;
--	cap-power-off-card;
--
--	pinctrl-names = "default";
--	pinctrl-0 = <&mmc3_pins>;
--
--	#address-cells = <1>;
--	#size-cells = <0>;
--
--	wlan: wifi@1 {
--		compatible = "ti,wl1251";
--
--		reg = <1>;
--
--		interrupt-parent = <&gpio1>;
--		interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;	/* GPIO_21 */
--
--		ti,wl1251-has-eeprom;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
-new file mode 100644
-index 000000000000..1f46f1235035
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
-@@ -0,0 +1,92 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/wireless/ti,wl1251.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments WL1251 Wireless LAN Controller
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: ti,wl1251
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vio-supply:
-+    description:
-+      Phandle to the regulator providing VIO. Required when connected via SPI.
-+
-+  ti,power-gpio:
-+    maxItems: 1
-+    description:
-+      GPIO connected to chip's PMEN pin if operated in SPI mode.
-+
-+  ti,wl1251-has-eeprom:
-+    type: boolean
-+    description:
-+      The wl1251 has an EEPROM connected, which provides configuration
-+      data (calibration, MAC, ...).
-+
-+  clocks:
-+    maxItems: 1
-+
-+  spi-max-frequency: true
-+  spi-cpol: true
-+  spi-cpha: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+    spi1 {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        wl1251@0 {
-+            compatible = "ti,wl1251";
-+            reg = <0>;
-+            spi-max-frequency = <48000000>;
-+            spi-cpol;
-+            spi-cpha;
-+            interrupt-parent = <&gpio2>;
-+            interrupts = <10 IRQ_TYPE_NONE>;
-+            vio-supply = <&vio>;
-+            ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>;
-+        };
-+    };
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    mmc3 {
-+        vmmc-supply = <&wlan_en>;
-+        bus-width = <4>;
-+        non-removable;
-+        ti,non-removable;
-+        cap-power-off-card;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&mmc3_pins>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        wifi@1 {
-+            compatible = "ti,wl1251";
-+            reg = <1>;
-+            interrupt-parent = <&gpio1>;
-+            interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
-+            ti,wl1251-has-eeprom;
-+        };
-+    };
+> 在 2026年8月14日，20:34，Andy Shevchenko <andriy.shevchenko@linux.intel.com> 写道：
+> 
+> ﻿On Fri, Aug 14, 2026 at 12:10:34PM +0000, Long Zhao wrote:
+> 
+> > Originally we submitted a dedicated Ambarella UART driver. During review,
+> > Linus pointed out that the register layout is basically 8250-compatible
+> > and suggested reusing the existing 8250 code instead of maintaining a
+> > separate driver. That is how we ended up with the current approach of
+> > binding through 8250_dw plus a small set of Ambarella quirks.
+> 
+> Right, please re-read carefully what he wrote
+> 
+> "This needs to be rewritten using the 8250 library in the kernel
+> under drivers/tty/serial/8250/8250_ambarella.c
+> or similar."
+> 
+> You already confirmed that your IP has nothing to do with the Synopsys. Why is
+> the 8250_dw touched?!
+> 
+> > [1] https://urldefense.com/v3/__https://lore.kernel.org/r/CAD**AjLm6HzEU1TM-c=Vtjv3FJEBecVP7TyxSgq_Q0zF-YwT6NA@mail.gmail.com/__;Kys!!PeEy7nZLVv0!j8LqPRT2bzim1iC2xrU0AW4QUYvJ4oc4JqHIP3DMrOJVI-SdMHNYj2KIirs8ySAtvDwx1-Glz56DsGX6v1vzzCpWOGOb9LYXjg$
+> 
+> > -----Original Message-----
+> > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Sent: Friday, August 14, 2026 19:53
+> > On Fri, Aug 14, 2026 at 09:33:45AM +0000, Long Zhao wrote:
+> >> From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> >> Sent: Friday, August 14, 2026 16:56
+> >> On Thu, Aug 13, 2026 at 06:35:13PM +0800, Long Zhao via B4 Relay wrote:
+> >> 
+> >>> Add CV75 platform data with an ETOI IER mask and skip-set-rate so
+> >>> the DesignWare 8250 driver can drive the Ambarella UART for console use.
+> > 
+> >> Thanks for the review. Agreed the commit message was too brief.
+
+...
+
+> >>> +    /* Keep variant-specific bits in the shadow across subsequent
+> >>> +updates. */
+> >> 
+> >> This says what code is doing. Instead it must say "why?" the code is doing this.
+> >> 
+> >>> +    up->ier |= d->pdata->ier_mask;
+> >>> +    serial_port_out(p, UART_IER, up->ier);
+
+...
+
+> >> In case there is an HW bug, where can we get the errata, please? (For
+> >> a bare minimum add a reference to the Errata document you give to the
+> >> customers.)
+> > 
+> >> This is not a silicon erratum. The Ambarella UART is not Synopsys
+> >> DesignWare IP; it is an Ambarella 8250-compatible UART. We still use
+> >> the snps-dw-apb-uart binding / 8250_dw because the programming model
+> >> matches closely enough, with two quirks (ETOI IER bit and
+> >> SKIP_SET_RATE). I will expand the commit message and rewrite the
+> >> comment to explain why in the next revision.
+> > 
+> > Okay, what does it make to think that 8250_dw is a suitable choice?
+> > What are the features that are repetitive would be if you use a custom
+> > 8250-based driver (using the generic 8250 code)?
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
