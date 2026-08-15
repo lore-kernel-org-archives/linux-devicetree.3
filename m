@@ -1,204 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010011.outbound.protection.outlook.com [52.101.69.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C19B375F8E
-	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 09:29:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786786195; cv=none; b=nWOmfR+WXmEDZFbvrCx2wERNaIid9AtPPH4WtgymSMin/nOfEVdhadmTrGNzY9lCALNVsu6XzUPV7iPjjcFB5y0dfdcHKIKyo4ld/+TOYs6G1bferjE7Ff8jBlEUcxrYpP3Bf957hQxsIjufDs0Yp7sbTjM6eFDdaV3H6R8exHc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786786195; c=relaxed/simple;
-	bh=Gf4+h5Z8PMXznnzIcNpdG3O88hTKGadpxDTpT6jO4/0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HeyuqsSaA7PQIUcse79lh69wS4gAen/5oxs6EjK3g/vDjofn3LB8GTmkrqKY2mcYNUFeDaFtUIXiA66Ipas9r2cFNRVXkbQ8zKEsREKfVdvYsKUkOpHNhurAjM3U24rp+fBUWGnsKjoI8IfyM73oWscu9ltxVzFrVaq5/vEFXSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDbSp7dt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9771F2EEE9D
+	for <devicetree@vger.kernel.org>; Sat, 15 Aug 2026 09:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786786741; cv=fail; b=BOstbnbTZXTDEZtPbaBtvDJ60OZd7a8sM1REVEeS8tc/boIc5axnBw2TjhtCLPaT3JaCAzTtIXFaNjNkSciP90S22gYweLMxmZG+IGfNyv5E03rUXpN1QETTCQNgu9GtHURvHqUiuFeT6Fs8vUrXctq3SC5L1SlSjLMOr+/B+qI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786786741; c=relaxed/simple;
+	bh=XBL9KwymMy1Tae86iEWCWNtRQLM266RZlMjP0XI5k/w=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=EB51M7ndx6GOZfAe4FoPip7puyD2FuD1EgPFH/vx5UKbm8cu9oHblh7Zf9rI+yZoI84heqQeRQJVqsxo1Dr6u0lhpBVzOXAsmzxvZPRJOCy3dwI0LF7Ilak9v6FVzvPTMviQjh8kEiD/8/T2HGzBhMEwgH8o0pHJX4HXVukIMgI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ehVC1WcB; arc=fail smtp.client-ip=52.101.69.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDbSp7dt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61ED1F000E9;
-	Sat, 15 Aug 2026 09:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786786194;
-	bh=yxcmxBndzvKDGTFViWT6R+/5sUpaWul9J56V9sHIJck=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kDbSp7dtycgOgBWpuG9GwZ0ACsGk0MfRmok2AYXCdC+vcrN28C3TgY0Q2nNvDKSJK
-	 bifxKP6l1+PmOTAPJt6mImEyfBfvH6xv0Ra6ZqwWadjH/cLpFnOGIw3INfE68K/kIA
-	 AYtBb7lnDKFlUGkpliS4A/+8lCdgGk15bsBa+Na1r+y/WRodUGuUXQQIK0fJyu6nqk
-	 sLLcoZi4MZ9uPAL3MUG6V4f2zZZGn57rPcY+UkebmZlEtEhbpa6vF5xA7kD6csdjiW
-	 qXGshdNjVYVR3oPkD+wzvIbfWtMi3ts4kKZYlPskK5tiKodaOsT0KuO0tZleReNcAo
-	 EV4pO6EChB+ow==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/6] phy: realtek: usb2: add support for RTL9607C
- USB2 PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rustam Adilov" <adilov@disroot.org>
-Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260815091340.26910-6-adilov@disroot.org>
-References: <20260815091340.26910-1-adilov@disroot.org>
- <20260815091340.26910-6-adilov@disroot.org>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ehVC1WcB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LytjpLsG5avhLOzFzqf8NrRwVg7cCxepnaCy/gd5v1LakKqasyp3aQ9Aa0CEhpWf39jzk78DJHIFEcR5ALvb8G3ru1KQws10ctpLbYusR7uSIlzdTqSehDLg9poP+VTlfZj2a4YXP+11w/TauKlwH2wBk2OVxFxszGm8/3rraRztNTXnlj7OOwoDdAKPQBJF30JR7aGJZgqopGaORjUJlyrObwtKPgo3ShSdJ72/9Tsk9Q7r2q5nX1E8/UnFj2HwhuZOMuHsRtiPs/Ma9hEq1rWhyGYXTmkNs26adgOtppk532PwD8Yq3yTcQ7nhU8rbNt0+q0tD3obpxxy/2WJtQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RNidvd1WpW8z8fZBInZOciIT/JlrqE0FRRovVzZ7vGk=;
+ b=Wfv85AlkKhSf9kLt0MwMwgRBUSX4QhjsNbyvstkiaSqB+3FXq6Led9Aj8jS3MPTIfOmBfXRBOSZBji4V9ZBnRof+bw+Tg2lW7itbEIi9H0+hAs/UwnlIVM+vDHlGMoADg+lOlsCYQPxQPIHaZ8dmNgiDeSV81b7zI8iYK4FChDVcc7JSiTPgIbIOKUFD2ysCU/4xjY2bO3spuiNrmytiCR806/hC0IOK7aOW/88GcCuUi/O3/FJ1Ufxbs7TCd0KH/WpB6is/ySw7/Q0T/jXD7YEZ+6lzXU01pvmyKxJvc2I/dTt3UgxSRhT7/cMelBsHw5XWb0F3Gm1gyYB58Oe7+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RNidvd1WpW8z8fZBInZOciIT/JlrqE0FRRovVzZ7vGk=;
+ b=ehVC1WcB2x9kgKe1YnJ5cUxRCZ7LbEAlEhUvwmXtbW8a602QFb0TelRnYAYfaNMFwt5Qv2P3woX9MY+9Jhu3g9BKADk2Lpsj9M28SdmPmfFeNvBqC2U86aM7v5AEpOsTQBnbdB1DrfvMy7B32FoUCiPdiLHfPXExTgg5iDXeDmM1Wrzh1yqJtQOMs8AabEVA1FUmKVFokFqRzz3s3t/f+TuThCYQHj0eCC9gdLoNHXBj7/7VcSoLYNXhlULmeJ19f0AX7ReQLn2Xr241jkq75ZNHt65fGBOMto5oy6D9lOZKJe/NBUiz0SJAWTT5jE0ggSjQ1fLojTIg+OALRxVlNw==
+Received: from AM9PR04MB8353.eurprd04.prod.outlook.com (2603:10a6:20b:3ef::22)
+ by DU2PR04MB9082.eurprd04.prod.outlook.com (2603:10a6:10:2f1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Sat, 15 Aug
+ 2026 09:38:52 +0000
+Received: from AM9PR04MB8353.eurprd04.prod.outlook.com
+ ([fe80::46ae:f774:f04c:a1bc]) by AM9PR04MB8353.eurprd04.prod.outlook.com
+ ([fe80::46ae:f774:f04c:a1bc%3]) with mapi id 15.21.0315.014; Sat, 15 Aug 2026
+ 09:38:45 +0000
+From: "Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>
+To: "Frank Li (OSS)" <frank.li@oss.nxp.com>, "sashiko-reviews@lists.linux.dev"
+	<sashiko-reviews@lists.linux.dev>
+CC: "Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>, "Frank.Li@kernel.org"
+	<Frank.Li@kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"robh@kernel.org" <robh@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: RE: [PATCH 03/17] arm64: dts: imx91-11x11-evk: Add pinmux and mark
+ conflicting devices for MQS1
+Thread-Topic: [PATCH 03/17] arm64: dts: imx91-11x11-evk: Add pinmux and mark
+ conflicting devices for MQS1
+Thread-Index: AQHdK71vIer/rbzmokGM2+Gcwvp8JradJmaAgACT4wCAASFd4A==
+Date: Sat, 15 Aug 2026 09:38:44 +0000
+Message-ID:
+ <AM9PR04MB8353A5B45A310B253892A45BE3D92@AM9PR04MB8353.eurprd04.prod.outlook.com>
+References: <20260814072022.4064009-1-chancel.liu@oss.nxp.com>
+ <20260814072022.4064009-4-chancel.liu@oss.nxp.com>
+ <20260814073138.27F5B1F00A3A@smtp.kernel.org> <an9AaDX1EnCDVMRw@SMW015318>
+In-Reply-To: <an9AaDX1EnCDVMRw@SMW015318>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Enabled=True;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_SetDate=2026-08-15T09:36:38.0000000Z;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Name=NXP
+ Public;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_ContentBits=3;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM9PR04MB8353:EE_|DU2PR04MB9082:EE_
+x-ms-office365-filtering-correlation-id: 71b64a80-9797-429e-e206-08defab0ffee
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|19092799006|376014|23010399003|366016|1800799024|38070700021|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ 5FTCAPTnyyJyxBjmm2sQwZFqlQOuw7/R8c0Paf/ioiwYXs89gqCKcV/icoYo7brl/HjvcgZgDMpjI4kpldAJDD5p73MjBgoKhzlig71WXEVZWf2ygUAycWMtUpXhGfNU4ftSx+qEe0c34VwNeFs86H7QXUzA6e+KfPZ5h6LmUjPx4UAVTsR4NHfXqZtD1MqOy3BUEJA07s1vXvezETSK6kwsPwO/RHwu9FaeB/3fFa0uqQO+/6Xy5We4EnMD3SCLL9GRhbw0CC8fl+KXa4AgtL4XethgiQ61SeKxLDwRLHbQDcTiDmWUfgDP9vSRVlu/Qlw0h1hSp+mvQn6urTogl6AqbIJKq1w/ic7JHRTeVbNs1hwKTn+HNjMO3CvRUKWjijqGiLLd60zsOdo+w+KjD+OI2CEQe4kwRa6sMlOmE1re5f8sxgoGcrEbJe67jmHsf1/xWVaKoCpqKtQ2g7MC666fYlZUQ1nEnj6POf2N+cZD6B+m/8Po03SMYXorYE5mmVawIYU2tIyN5G23MCz4/mLQLyrgpJOcj/zIW4jYhzqz8+ueEdIKrlvmF/T9qM22FIsVSIO6z7owMuXUl1REVuvqRMBIc0mNlHHoQ8lOWrBCvyU3YyvRDoovIdUShRUtVgvO9Hf3m0reYAxF1y/wLTwM39erYTYPc2t2yBsAmFE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8353.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(366016)(1800799024)(38070700021)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?1FL4oLIPR1NSIw3B0hgoVhK7BKM4Bmeik84YJj7+qlENmu3cZC60z2GqX6xR?=
+ =?us-ascii?Q?+tkCphwCDzQfxmzdc61zVni0uOc0CT5cw0zmTJwer3nrNxLQOgsuGHXay1EQ?=
+ =?us-ascii?Q?yWGh8Typl83nqUhYvFQTi1ql5JdZ5Ubk04XSi+BzpIjI8XYntWFZIuQqAKV3?=
+ =?us-ascii?Q?Pfohnh/7yjSNrwpImkgj6kuv8IkzZU4s2BUKwjobf3ycXyBFDUsnqTL3/zYs?=
+ =?us-ascii?Q?S/Dfd8JTDGBteZ+fgUIvRTghi2N11aL/XRQoIE8XJ7aCyhpmQL9TuWqpQYet?=
+ =?us-ascii?Q?nA/MrZiq0ixCp4C5xto6KghRYEhvk6JScPEt7Jw6RXngxf1A5fwMx+FJdq8J?=
+ =?us-ascii?Q?5EMfUBIKqqwbRn8u8EOUaP7bg59eR21+hDoL8dk/Fod7VkYMkYVEOHj9WOCv?=
+ =?us-ascii?Q?tS++mcc95Rg4BFq+minyM5/p3pQ206tODXeduvUbRF7P8tAO9mYzOOfJEduE?=
+ =?us-ascii?Q?EJ3GVCZuTpZIw2MR+9V8WsEPNMqeGDonSgBvCqEy4WrJJJrQh7wYfAXQlpor?=
+ =?us-ascii?Q?BAOwAX+tEdAySyJahAOzWa10QaG42PN6f+kFBHpKw2wpXQJ1QHuLTI5DdLCx?=
+ =?us-ascii?Q?zIcEvoYEt83WQhXoT07u9gCX+ojd4lwsj0XdKI35nhdtIVFMLF/5jsOGObkc?=
+ =?us-ascii?Q?NwZsbHUYqrVaYqzslB14KVhdGSdQBjdI6+VUAD8h2Di1578YHKdgFWaPkImt?=
+ =?us-ascii?Q?gmpo/lS+cR7cQXo8Mf7rlAprUrS8ZrqJuPHhLeADjMPwmb9L0ZqqDKQBgyaw?=
+ =?us-ascii?Q?0YUQCUIVzy4FMz85LmvRC8eJfrZMy00ScOvaSgQtXqeGQlXvL0xrJRbDJ43c?=
+ =?us-ascii?Q?8p3NNX7VdiSn12Vi3xbt1/ydlhFzDP0OKqWxta/hL41X0R+oeUxIZQHSd7w1?=
+ =?us-ascii?Q?3iaiqDOLiXw91bpc77XeAGjxjcqULChscYTlocU8bEkjkjjwWmRAQwlfu2FX?=
+ =?us-ascii?Q?aSvzF/XmTS3dcFDis0XeXq24u+dxw7SOQGUr8SGEXJ6areAIrvQdooCujq/l?=
+ =?us-ascii?Q?LG3yThYzVKrH2+uvY702iuSOaL95J/LxO6mwn+z71oT+oPth+3RvIbX2lq91?=
+ =?us-ascii?Q?uAgp+XXOSG5kRY48owpE9ECPC1TwH1G7J8eUGY6323CPwPd5sEOjEoTdCNUa?=
+ =?us-ascii?Q?9zx7hMa9kXep+ZfqmckC0PynDrMZ0XkBu2yTWwgyWCtdZ89QlZlq9JkRXN9O?=
+ =?us-ascii?Q?+Z+NPwMFt0jqrekvwqyCP0j4/W/VEIcN/aC+Lu0aTHo+8sdf45UyEsp03jl7?=
+ =?us-ascii?Q?t/Y4YWM8A2rNCc6KwlEeErE6AvLnWx6ICimF/FXZh5u7cjhELAr9i0TbS/Lt?=
+ =?us-ascii?Q?PoWduDnz2Q+/HVZe9GGEvDV5zO1B27O5XgBRu5Kr7tY7QwSDwUeJg+/VKDFD?=
+ =?us-ascii?Q?u0zQYsPG4u6jKa+Lcy7yMjApsSu4/KhbZEPEItX7MATAHvkRADc2mRdsRwhY?=
+ =?us-ascii?Q?Q9zCuz2PKhUTCtu2vWAsDdPwoPvqKV8ozXBM9hqx1ahzg7uGFp3BWYB2bw61?=
+ =?us-ascii?Q?yXIKkpw1rYwuCnhMHf77n1yE6nEHHP57Nb9Bi+kFb5Nt0JgV87LoHJJmCREL?=
+ =?us-ascii?Q?rlqg9jVaNw1ZXDj853MEsmxKdWAH/MwQaYhy2oxo7rn7rqU63KunE4JAmntb?=
+ =?us-ascii?Q?oZv3yews/bt0D82k3ZjiCRBeJ2Ion59iAAtZqTRDkDkiY86a9G/4j2e4dIVa?=
+ =?us-ascii?Q?7M6etBaNPfA2CaE++wzywMeRJiBWlE+NUd3MZ3StGxmwFdgdSdCz9jXQ7MsN?=
+ =?us-ascii?Q?czLyreCcrA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 15 Aug 2026 09:29:53 +0000
-Message-Id: <20260815092953.E61ED1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8353.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71b64a80-9797-429e-e206-08defab0ffee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Aug 2026 09:38:44.7621
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: x0G02ndykwBEF7BE29cd1j+D7A5lsHUrI6coSUNpDAvwhTfTJDO1jcninZ2RujZGv5EKm5ZpILjT6zRl0oSD6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9082
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+> > Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> > - [Medium] Undocumented modification of the '&sai1' node's clock
+> properties.
+> > --
+> >
+> > --- Patch [3]: [PATCH 03/17] arm64: dts: imx91-11x11-evk: Add pinmux
+> > and mark conflicting devices for MQS1 --- commit
+> > 2ae9b14f843efe8a48368cba7c61c4f11632f83b
+> > Author: Chancel Liu <chancel.liu@nxp.com>
+> > arm64: dts: imx91-11x11-evk: Add pinmux and mark conflicting devices
+> > for MQS1
+> >
+> > This patch adds the MQS1 pinctrl group and labels the conflicting
+> > sound card and micfil devices for the imx91-11x11-evk device tree.
+> > This allows the shared imx9-mqs overlay to disable these conflicting
+> devices.
+> >
+> > > diff --git a/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
+> > > b/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
+> > > index 4d1ada6a3942b..4a3dfafae3773 100644
+> > > --- a/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
+> > > +++ b/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
+> >
+> > [ ... ]
+> >
+> > > @@ -511,10 +511,19 @@ &micfil {
+> > >   status =3D "okay";
+> > >  };
+> > >
+> > > +&mqs1 {
+> > > + pinctrl-names =3D "default";
+> > > + pinctrl-0 =3D <&pinctrl_mqs1>, <&mqs1_fun>; };
+> > > +
+> > >  &sai1 {
+> > >   pinctrl-names =3D "default", "sleep";
+> > >   pinctrl-0 =3D <&pinctrl_sai1>;
+> > >   pinctrl-1 =3D <&pinctrl_sai1_sleep>;
+> > > + clocks =3D <&clk IMX93_CLK_SAI1_IPG>, <&clk IMX93_CLK_DUMMY>,
+> > > +          <&clk IMX93_CLK_SAI1_GATE>, <&clk IMX93_CLK_DUMMY>,
+> > > +          <&clk IMX93_CLK_DUMMY>, <&clk IMX93_CLK_AUDIO_PLL>;
+> > > + clock-names =3D "bus", "mclk0", "mclk1", "mclk2", "mclk3", "pll8k";
+> >
+> > [Severity: Medium]
+> > The commit message mentions adding the MQS1 pinctrl group and labeling
+> > conflicting devices, but doesn't mention modifying the &sai1 node's
+> > clock properties. Is this change to the clocks and clock-names
+> > intentional for this patch, or was it included by mistake?
+> >
+> > If it is intended, could the commit message be updated to explain why
+> > the pll8k clock is being added to the active SAI1 node here?
+>
+> Make sense, please update commit message
+>
+> Frank
 
-New issues:
-- [Medium] The rtl9607_phy_cfg structure omits the .check_efuse flag, causi=
-ng eFuse parameters to be ignored.
-- [Medium] The page0 register configuration stores address 0xf3 at the wron=
-g index, corrupting debugfs output.
+To provide the MQS MCLK source, SAI1 clock assignments are needed.
+I will add commit message to describe it.
 
-Pre-existing issues:
-- [High] Unchecked return value from of_iomap() leads to a NULL pointer der=
-eference.
-- [High] Pointer arithmetic on void __iomem * causes unaligned device regis=
-ter accesses.
-- [High] Signed char integer promotion corrupts register writes on architec=
-tures with signed chars (e.g., MIPS).
-- [High] Silent failure when do_rtk_phy_init() fails for multi-port SoCs.
---
+Regards,
+Chancel Liu
 
---- Patch [5]: [PATCH v7 5/6] phy: realtek: usb2: add support for RTL9607C =
-USB2 PHY ---
-commit 6a5b4e2235314d4730ccd147be12148b19afc984
-Author: Rustam Adilov <adilov@disroot.org>
+> >
+> > >   assigned-clocks =3D <&clk IMX93_CLK_SAI1>;
+> > >   assigned-clock-parents =3D <&clk IMX93_CLK_AUDIO_PLL>;
+> > >   assigned-clock-rates =3D <12288000>;
+> >
+> > --
+> > Sashiko AI review *
+> > https://sashiko.dev/#/patchset/20260814072022.4064009-1-chancel.liu@os
+> > s.nxp.com?part=3D3
 
-    phy: realtek: usb2: add support for RTL9607C USB2 PHY
-   =20
-    Add support for the usb2 phy of RTL9607C series based SoCs.
-    Add the macros and phy config struct for rtl9607.
-
-> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy=
--rtk-usb2.c
-> index 2ddad7be73534..990ceca37ef8a 100644
-> --- a/drivers/phy/realtek/phy-rtk-usb2.c
-> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
-
-[ ... ]
-
-> @@ -1342,6 +1384,29 @@ static const struct phy_cfg rtd1315e_phy_cfg =3D {
->  	.reg_desc =3D &rtd_phy_reg_desc,
->  };
-> =20
-> +static const struct phy_cfg rtl9607_phy_cfg =3D {
-> +	.page0_size =3D MAX_USB_PHY_PAGE0_DATA_SIZE,
-> +	.page0 =3D { [0] =3D {0xe0, 0x95},
-
-[Severity: High]
-This is a pre-existing issue, but does writing 0x95 here corrupt the regist=
-er
-on architectures like MIPS?
-
-rtk_phy_write() takes data as a signed char:
-
-drivers/phy/realtek/phy-rtk-usb2.c:rtk_phy_write() {
-...
-	reg_desc->write((u32)data << shift_bits,
-...
-}
-
-On architectures where char is signed by default, a value of 0x95 is
-interpreted as a negative number (-107). When cast to u32, it undergoes sign
-extension to 0xFFFFFF95, and after shifting, it can clobber the upper bits
-of the shared reg_wrap_vstatus register.
-
-> +		   [4] =3D {0xe4, 0x6a},
-> +		  [12] =3D {0xf3, 0x31}, },
-
-[Severity: Medium]
-Will this map to the correct debugfs output?
-
-Address 0xf3 mathematically maps to array index 11 via the strict mapping
-formula in page_addr_to_array_index(). Because it is placed at index 12
-here, when rtk_usb2_parameter_show() computes the target read address
-dynamically, it will read from 0xf4 and display it alongside the expected
-0xf3 data.
-
-> +	.page1_size =3D MAX_USB_PHY_PAGE1_DATA_SIZE,
-> +	.page1 =3D { [0] =3D {0xe0, 0x26}, },
-> +	.page2_size =3D MAX_USB_PHY_PAGE2_DATA_SIZE,
-> +	.page2 =3D { [7] =3D {0xe7, 0x33}, },
-> +	.num_phy =3D 1,
-> +	.check_efuse_version =3D CHECK_EFUSE_V2,
-
-[Severity: Medium]
-Is the .check_efuse flag missing here?
-
-Without .check_efuse =3D true, the eFuse parameters like check_efuse_version
-and efuse_dc_driving_rate specified in this structure appear to be ignored
-by get_phy_data_by_efuse(), leaving the hardware uncalibrated.
-
-> +	.efuse_dc_driving_rate =3D EFUS_USB_DC_CAL_RATE,
-> +	.dc_driving_mask =3D 0x1f,
-> +	.efuse_dc_disconnect_rate =3D EFUS_USB_DC_DIS_RATE,
-> +	.dc_disconnect_mask =3D 0xf,
-> +	.usb_dc_disconnect_at_page0 =3D true,
-> +	.do_toggle =3D true,
-> +	.driving_updated_for_dev_dis =3D 0x8,
-> +	.is_double_sensitivity_mode =3D true,
-> +	.reg_desc =3D &rtl9607_phy_reg_desc,
-> +	.force_host_disconnect =3D true,
-> +};
-> +
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but looking at the existing
-parse_phy_data() function:
-
-drivers/phy/realtek/phy-rtk-usb2.c:parse_phy_data() {
-...
-	phy_parameter->phy_reg.reg_wrap_vstatus =3D of_iomap(np, 0);
-...
-}
-
-Does this code dereference a NULL pointer during device probe if the device
-tree lacks the required reg properties?
-
-The return values from of_iomap() are assigned and subsequently dereferenced
-without any validation.
-
-[Severity: High]
-This is a pre-existing issue, but does adding index to the of_iomap() result
-cause unaligned device register accesses?
-
-Looking at the existing parse_phy_data() function:
-
-drivers/phy/realtek/phy-rtk-usb2.c:parse_phy_data() {
-...
-	phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
-...
-}
-
-Since of_iomap() returns void __iomem *, GCC treats the pointer arithmetic
-as 1-byte elements. For multi-port PHYs where index > 0, this adds exactly
-1 byte to the base address, which will trigger alignment exceptions during
-subsequent 32-bit writel() calls on architectures like ARM64.
-
-[Severity: High]
-This is a pre-existing issue, but does the initialization loop mask errors
-for multi-port SoCs?
-
-Looking at the existing rtk_phy_init() function:
-
-drivers/phy/realtek/phy-rtk-usb2.c:rtk_phy_init() {
-...
-	for (i =3D 0; i < rtk_phy->num_phy; i++)
-		ret =3D do_rtk_phy_init(rtk_phy, i);
-...
-}
-
-If do_rtk_phy_init() fails for any port except the last one, ret is
-overwritten by the result of the subsequent PHY's initialization, silently
-ignoring earlier failures while incorrectly reporting probe success.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260815091340.2691=
-0-1-adilov@disroot.org?part=3D5
+NXP Public
