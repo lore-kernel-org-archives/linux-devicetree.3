@@ -1,114 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250D4282F13
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 07:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4F7189B84
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 08:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786866678; cv=none; b=ir1PtSBxSzpfVG8GM7ODyTnHExzcM2eyN5Q8xwgyCNL5e6QSGz/BQAH06JPdz5yXyqMIcDHzJ/LMg6vrANtINBulNRMzjPaNbI7bBIKyBQ2qzDrYq54Qtk/AmxQyYIB+9UJv6VmqYMCDN113AB5kwVj4u6ZQv2p6uI2+0kiIHkM=
+	t=1786867951; cv=none; b=AA2X4tjH5IqZRabVVj9me4UTTWC3URCuTQx9rMs7YKnnf4tKNzMYpN+d9Ht0YShjUj8xG7qR5tpQ4KY7zOEL5PvqR+hjSL4CZCVR7OOndZB2uMZM5rAvBu9OyOjWeUAKjABFbMMycp1VaU3wQLxI+fwOwDpcfhyvDeVMdQNQEUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786866678; c=relaxed/simple;
-	bh=/uMKMSblCKeiyBfMseSktrBbfrIzVAOY0X1LgH987Ak=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H+F7+hsN0nV+81iRyl3re+hYlfp7qt8GfnutEE0r32zPJesc1lizR3dIsKK9qrLhK2Xx+1XHEY2P5IT22IFtYHj6FRkpQRSuNguX0qCdUOtHdNnCSV70lcGUEvIoXWnOsqm3Ge5uAI5gDJx9BDeJ6JVJGBqyDUAru7dTBa72KOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYIvPDRv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786867951; c=relaxed/simple;
+	bh=kUEfs1GTUSAsCblsYMy5HE6hfhWD4jASj6qcD9GRLHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JZlHDadyxCKV6xorcAb5WorWBFD2fhmsLG3NsCy2muTV3P2PTw126t/8v191WGvi0PQEF8ez9K3l52CQADzZn11m0GUWkDWAJfLFzEOpwBSbpRFRZP55PYIqTFXfzuHarU9n03r0oHzFq+Q1aZMYS99TZaWk9DiH05lT355rMSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XmH6Qkxi; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYIvPDRv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712D31F000E9;
-	Sun, 16 Aug 2026 07:51:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786866676;
-	bh=qVwaIODOGKMU+rvdGXqKyOT3YXDBZCehoFa22lEx/xI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HYIvPDRv4UvTQs7vRRzBcHoUUDGSFnVvNTvslMn5Y2lTgk+cVP9NSSv0MyubbPJDh
-	 Q15UgafBWrWykX+8hX9x5lqX4TIICyQA6TnHOOv8f1A+Uog0eLhGNXaSGN6nep1AnK
-	 Uo89UMJAvuwvTsQ9FemyUU2Y/dej1cxH5omNQEnbuNAO+xQOYqdHNPEY5KyW/WeSGy
-	 X8SHfLnTactyN/2i3fJ5CQYVTy+MwSqnuiavjhvXmy4Zbsg8AiJvnnrobBnCz/ATp3
-	 wDFNFtQvqwupy6421hpxXf1Zczd0IcL276D4G9oVpDPbejNT++/tn3IUV01RIUI509
-	 /mqHDryAGiKRQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] riscv: dts: spacemit: k3: fix IMSIC guest parameters
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Guo Ren" <guoren@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260816074125.2105828-1-guoren@kernel.org>
-References: <20260816074125.2105828-1-guoren@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 07:51:15 +0000
-Message-Id: <20260816075116.712D31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XmH6Qkxi"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cacf197759so34656805ad.2
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 01:12:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786867949; x=1787472749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SoBVT1Z9eZgY9CeoVlJHulg/Kfbf64+fh3GichmsKc0=;
+        b=XmH6Qkxi/0LFYlRje+UYsQQO3/e9g7Ll6zXvbISkoQuFQP5zO0fJFWJZV1dlw/OWFY
+         aDDkAj/70UdCMfZgR4aG89ZXlf7BKBnxQq8OzyBwrZLkQ4WGrwKGyOWIMHBsEjMPO+92
+         NXfZ6jJQecYnv7JRn37mZ2v3q/NY7IaThN6nGniOyXZ9KKRZVipaFDZJIylgWq7ndwif
+         11G1B3jSgYnBZqfzYWEKzjqki66MKRpW288U3JtYBW4dGRWb4cHhj3iAIrSE1vOuRrK6
+         o5MO7+hyvRn6iUZMG8s/XAnKu/dnSYiockImnGLK1yAUsOwlNds7IU8weXD+9gj6hpqZ
+         OSZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786867949; x=1787472749;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SoBVT1Z9eZgY9CeoVlJHulg/Kfbf64+fh3GichmsKc0=;
+        b=WJwkSqjMhRFaDEiqhmUh+/b+o0lFukQQ0Skg5dPE2MVh4f0D5Lr3OLl9ZgJN5hguhe
+         SU0Yaai4gJ7ubXyhSUgXtnQmBXmBJxzBx+5nEF9HoZGpka3vhcX17zZNf+YuWgwtQA/4
+         6nf8EXdWPTPgATA4/5LuqrqpZTa7rdG+xlik66lAsOBhXPs9L1vqo9O3DH79USa14q/z
+         846YHmX3v5scHCUU+ZlByMeICS3L6QIojCE05+G5TYKqOZtr25P6F1arO8cL/e0VzYbX
+         gGb+ywNC9lzVOzBWIkfE0rUUDeSeBxBq9vdhrXrutUEq38XH0smd1ZvoJjp5qnpHAozk
+         JDVg==
+X-Forwarded-Encrypted: i=1; AHgh+RqpWddh5iPa/YXbL9F227G6cV+6z1Q/UlxWePc8JAOllOS7pe5s54o5j7+EeGeFLVVSqf+04A5eCcQL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIR5OPmHyH2ZqL607vhV+xbxRCs1jEsuws698z0eC7TuG4z4Yx
+	VtkR9wMdAxKdUFJt9reSqQDOwzYteUcSxWXgWztHsaWl0QqlTJGWScCa
+X-Gm-Gg: AR+sD13dnoO9jbN7vhx3YoAx70GZeVAPhECj3m8ak5GTtM/k75Su0JoDO4QWa2DtpKE
+	oYkNL9RAUi+2k3kMSV8n3dgBGFQDWJnXPjcJRpb/jncv1zKBn918PrRA99NMeCGgWwaCICtS2R1
+	k8lT6pI3Xyf89JjZnU12ln+E9Dd1HT818ciANC9FZQ2Sj71kcpegHk6KUbEqY2gz+3AiyLIIlig
+	qc8KoJwKgjst3VLAKFN5sgzt9p77nYgp0dwR9qh627mPCzFnZOP9/8TFKM4Gho6mtqnRRzdJEs5
+	jCThqImv4VJo+KP0zQ0f1fcHjL+JEa8inRjaI0syc3H3zKnOPF09ChmkwHwXXgR9fAbMwHt6AaV
+	/eUZRoQW/9DP3rB9fb1f6wHrWyjY+Akn8B4LyqXq8TA1lfOlm5l2dAwH+1O+yiXpE7um/Y0EtGY
+	zEID360GJ5Wa3lW6OMjuUTPv1ZlOX2rrhVNfbJoa+1BTA0umN1oc7OzCTR92iEx+2omug0Q9bsp
+	vCqHoHWUJjK
+X-Received: by 2002:a05:6a20:918c:b0:3c0:b4f8:bbfb with SMTP id adf61e73a8af0-3cc71c61e5dmr18863541637.22.1786867949337;
+        Sun, 16 Aug 2026 01:12:29 -0700 (PDT)
+Received: from localhost.localdomain ([152.58.201.186])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320ea8fe3cdsm23716838eec.28.2026.08.16.01.12.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Aug 2026 01:12:28 -0700 (PDT)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sreeshankar K <sreeshankar0910@gmail.com>
+Subject: [PATCH 0/2] Add Qualcomm SM7250 SoC ID
+Date: Sun, 16 Aug 2026 08:12:11 +0000
+Message-ID: <20260816081213.5495-1-sreeshankar0910@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Reducing `riscv,guest-index-bits` to `<3>` incorrectly caps guest =
-interrupt files and catastrophically breaks the physical MMIO layout for se=
-condary CPUs.
---
+Qualcomm SM7250 SoC is known as lito.
+This patchset add SM7250 SoC ID.
 
---- Patch [1]: [PATCH] riscv: dts: spacemit: k3: fix IMSIC guest parameters=
- ---
-commit bd339af20fe829df6f685236a32dbabad41e337c
-Author: GUO Ren (XuanTie) <guoren@kernel.org>
+Sreeshankar K (2):
+  soc: qcom: socinfo: Add SM7250 SoC ID
+  dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
 
-riscv: dts: spacemit: k3: fix IMSIC guest parameters
+ drivers/soc/qcom/socinfo.c         | 1 +
+ include/dt-bindings/arm/qcom,ids.h | 1 +
+ 2 files changed, 2 insertions(+)
 
-This commit updates the K3 device tree IMSIC guest configurations based on
-the SpacemiT K3 User Manual. It lowers guest-index-bits and num-guest-ids
-for simsic, and removes them entirely for mimsic.
+-- 
+2.43.0
 
-Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 SoC")
-
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k3.dtsi
-> index c3f2dce0969c0..6dce1e3aa2c91 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-
-[ ... ]
-
-> @@ -1246,9 +1246,9 @@ simsic: interrupt-controller@e0400000 {
->  					      <&cpu4_intc 9>, <&cpu5_intc 9>,
->  					      <&cpu6_intc 9>, <&cpu7_intc 9>;
->  			msi-controller;
-> -			riscv,guest-index-bits =3D <6>;
-> +			riscv,guest-index-bits =3D <3>;
-
-[Severity: High]
-Will reducing riscv,guest-index-bits to 3 break the physical MMIO layout
-for secondary CPUs and incorrectly cap the guest interrupt files?
-
-The IMSIC irqchip driver uses riscv,guest-index-bits to determine the
-physical MMIO stride between HARTs (stride =3D BIT(guest-index-bits) * 4096=
-).
-By reducing this from 6 to 3, the calculated stride drops from 256 KB to
-32 KB.
-
-With a 32 KB stride, CPU 1's supervisor IMSIC file is incorrectly calculated
-to be at base + 32 KB. This offset actually hits CPU 0's 8th guest interrupt
-file instead of CPU 1's true supervisor file (at 256 KB).
-
-Additionally, the AIA spec states guest files are indexed 1 to GEILEN. With
-GEILEN=3D8, representing index 8 requires at least 4 bits. Setting
-guest-index-bits =3D 3 mathematically limits the maximum addressable index =
-to
-7 (BIT(3) - 1), truncating the 8th guest file.
-
-The commit message mentions that KVM will dynamically correct this via
-hgeie, but KVM reads nr_guest_files directly from the irqchip driver, which
-enforces the BIT(guest-index-bits) - 1 limit. Is it possible this change
-will cause MSIs and IPIs for secondary CPUs to fail?
-
->  			riscv,hart-index-bits =3D <4>;
-> -			riscv,num-guest-ids =3D <511>;
-> +			riscv,num-guest-ids =3D <63>;
->  			riscv,num-ids =3D <511>;
->  		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816074125.2105=
-828-1-guoren@kernel.org?part=3D1
