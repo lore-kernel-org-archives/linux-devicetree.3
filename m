@@ -1,145 +1,84 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A60E397936
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 19:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9552AF00;
+	Sun, 16 Aug 2026 19:46:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786909335; cv=none; b=COZzq3U6zYRGOwvH8Ca2NXck7+fVnWjZBHZxKBm00yH6TnxIm9jw52Gq/6HEnA1tN+pZl9FF6CoVBllOnMCKF2je3d/bnYol//RYVnu4ZgmEleC3tp4yHijLv7xwLMsjkVLAiryiMWK8lsZF+m3pNq8ZPu4hTQSnBCFieHK57jY=
+	t=1786909573; cv=none; b=o3vSt04Ii+1+DTEzKR0UllXzZIH1E9fIhpO7jwExERhCxhxOCqqy8R4+TNi/cpuSvYDvz4gFVGsufDmDwxz/Ji2/j6fWCZaXlYItymEDq8Xzs6rVsJ6zywcfks1jYUAOuzHmJxqPH10yYGTS6DNoCheLk4ISRSDzDf9OLS4zHOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786909335; c=relaxed/simple;
-	bh=wVdUk0o7gnQOIfexBtZKXRGOa/Fc/zJYyyAIenHMGBM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XXKSqNTalx/xyEsD4tQ9WFOGOUzZ3DKyi1b5GDLi+WVWQguf1+7LSiGKwtE5dfspgsqVsHOe032d6vepbjcmpxaCvVaTir/06TIewyQ/nHRsKxR8hw+0XcP+T0zlkZRutvLqdsZBgheZ3fZNZTURmblL2+optVLniKZIw0m3VXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GnoCnHZU; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786909573; c=relaxed/simple;
+	bh=ydTeLTMSrDd3wLWRAr4wXA7xV96UBCvUG47ynPScBEs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jM9XkaykZrJ4y58+jZNdYxxhsMGseNAc2YOwGOukwOmpmmI/dZ7VSKmiVMMoS3xJ+HceAnk/LVeO020p22eIk/ldQjNvk8LLKggsT+ORSofHWTaPGM34nMobr7C0uLQpauGDQScnGsyUDLldpiDkcSY8+4HTdzx0lAxvIIXB0CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOs8h5Za; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GnoCnHZU"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4954d29264cso13062425e9.2
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:42:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786909331; x=1787514131; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=saCtLctEFieimkjt5839av7kQUg1qO8hSvOYlxjvmVA=;
-        b=GnoCnHZUwF97OkcGVovPFsK0YzptRRwKd7K+Fiugz2EdW9rXcyjEtyTbbBSUCmfwz1
-         XT9qWaT9jV/S2PD1zaS0VQtijkJ3x7LVVvORwnJxut2vAQM6BQ1EqyVVOrkSKT44Ot/A
-         Of/uziNSGUAahZtDSjAU/CR2tdglDLR4jkp4IwbBDP6+zkS+RghNXLeBQFuZQtlgj6gE
-         iakuRhyuq//GDKwcZf6usXKffxLWaBje+HwScs0k+A8LyoTg0KAtAm84tS1wSv+M3Pta
-         HIQD+KWODJ3A6nvRwODSO55tIaNK35bwXCFo+aW43ZwwiMb78+xUdlf6dcOmHSyoCHdN
-         OLeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786909331; x=1787514131;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=saCtLctEFieimkjt5839av7kQUg1qO8hSvOYlxjvmVA=;
-        b=bZYFzgLMDWpd9NnbOCL0OGobwzU9Z61JvNBcFPCHI8qi5+qP0hK285CKh3ReZ4QSOF
-         iGLAIVhyK9380wPRpHtUaSFQ1foCzHy7VvLecx6+3Wdiorx3BSpDeSLYqM+Jo1VRxc1T
-         So4t3fqhtwGmxZ5ovzY/wX1q22O1hMeArFT0YycdqevOkHfV5foJkshtNcUgMPnfollE
-         +VzCMySbePPX3PzLe965sItJMFxQ2FLTflYlKtIhd8ziMa4oBsElqW0oUVg4MWvP8UNf
-         5EpgrA3ygUGJ03GHDljpos9fNkHhPCdifM7C0WAAx4jOKDEAuN18FTqkR4uxXj2R1cBz
-         ZoSg==
-X-Forwarded-Encrypted: i=1; AHgh+RoC3GmA33hNwj8hq/y7iMvsCbOUE/kHaKg3i/VcpIG9ShavIG3hf+/SZGrL5K8+jquM4DpAhnWQYjEh@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkEbwfhzEUYlkbDDJ6Cg5FXPi5KCWqWQGhYsp0PcEh4QrnPZ+d
-	pHIObq94JSEil51PjbT/qtwWG2NDYk7cnxWNNkdUOGW4U6gBzGRWkD8Y
-X-Gm-Gg: AR+sD12maEXa0p/ssTHkxzM+HQByT2pjQd//fVePzyTBmHOeT90ZBsdXdjMKrMJTUD6
-	0c7RGFD/2373oLuc5qbEtu1SSu2RsD9eOIlW+03Zpts6VXVG9K+sQBT/yPRwnBk18EtcUAN2iUn
-	Ox+CVi4+ey3BLMMQ4p3qgtziWDwe4WIdMOodwcOj2TCWaaQ+mVJqsjuhPonRjY0qpwXL3V3nXnU
-	nwHYVSaP255RwBhTY96UVzw7B/2TfY3YAcX90226D6FQiZEZj1lOY1z17vcFVGwyOZ5hIpPTXsJ
-	W25ag/lMYt6Wy+enLuXGGIgTuS59hATOMPWK5obEaFc3jkVpPHhMaPwxfYzreKEv2a45hfTi22w
-	o2DS0enRTsSIQCOUm1to0CUheKvH7c2y2xM1WmWnhngjvS/2K5egQHcgvgoB5gq1k15ZfbpsQ0A
-	NDeae6kk29ozEYqxeH91Fddk+nnZ/Rz4pGjbIrwZatXXnjoI+dFX7sdg==
-X-Received: by 2002:a05:600c:4754:b0:499:7e2b:8e5 with SMTP id 5b1f17b1804b1-4999a2f9ec3mr21366645e9.5.1786909331392;
-        Sun, 16 Aug 2026 12:42:11 -0700 (PDT)
-Received: from olympus.. ([2a0a:ef40:f1b:d401:2e0:4cff:fe68:285])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49996106c6esm100527875e9.5.2026.08.16.12.42.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Aug 2026 12:42:10 -0700 (PDT)
-From: Dawid Olesinski <dawidro@gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Diederik de Haas <diederik@cknow-tech.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Corentin Labbe <clabbe@baylibre.com>,
-	linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Dawid Olesinski <dawidro@gmail.com>
-Subject: [PATCH v3 4/4] arm64: dts: rockchip: Add crypto node to rk3588-base
-Date: Sun, 16 Aug 2026 20:39:47 +0100
-Message-ID: <20260816194112.552100-5-dawidro@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260816194112.552100-1-dawidro@gmail.com>
-References: <20260708175837.1718437-1-dawidro@gmail.com>
- <20260816194112.552100-1-dawidro@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOs8h5Za"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3AE1F000E9;
+	Sun, 16 Aug 2026 19:46:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786909571;
+	bh=m8KwuO3YIIWStRr4n29LMhNSQg5I21ZkYZ9y73+9K+w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TOs8h5ZarTzZy8TNVJ0dCDT+TmLdv9XYoMTYc+U9edK6k8C6OOSqQJz4YNz37iq0r
+	 S2xcYmS1OT+x6rH485w6qU1Y7TwgD6+q+etpP0CY3T/rU2Dmxa6mNYkyWVZFFf0KH/
+	 QDbIBwMmdRYNBAqnXC0eqs9DBtPr1NgjNi9an5yOC4ECwb/xvdyePbhM+OH6TJC6KJ
+	 I+xZrPbYMPc9ktrgrmWy6pgru6grROWrfdc8h0k3zxu52EL8dXELOM56siWY7l+33T
+	 w0EvrH005R5aLMI2Xow0RPHgzt+M1WdBMEcwxbAXmhYndJ9UAuzw9PTp9jlsVzTM6I
+	 hftawInS4pOBw==
+Date: Sun, 16 Aug 2026 20:46:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Olivier
+ Moysan <olivier.moysan@foss.st.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
+ <linux@analog.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <jananisunil.dev@gmail.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v3 09/14] iio: adc: ad7768: Add VCM regulator support
+Message-ID: <20260816204605.28a0a81f@jic23-huawei>
+In-Reply-To: <20260813-ad7768-driver-v3-9-cb554399ad26@analog.com>
+References: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com>
+	<20260813-ad7768-driver-v3-9-cb554399ad26@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add the device tree node for the V2 cryptographic hardware accelerator
-on RK3588.
+On Thu, 13 Aug 2026 15:57:02 +0200
+Janani Sunil <janani.sunil@analog.com> wrote:
 
-On RK3588 the crypto IP sits inside the secure domain controlled by
-SECURECRU, a register bank that is exclusively accessible to the
-TrustZone firmware (TF-A). Linux must therefore obtain its clocks and
-reset line through the ARM SCMI interface provided by the firmware
-rather than mapping the CRU registers directly. Attempting direct MMIO
-access to SECURECRU from the non-secure world triggers an asynchronous
-bus fault.
+> Expose the on-chip common mode voltage output through the regulator
+> framework. Support the three fixed output levels and the
+> supply-dependent AVDD1/2 setting.
+> 
+> Keep the ADC runtime active while VCM is enabled and release the runtime
+> PM reference when the output is disabled.
 
-The interrupt uses the four-cell GICv3 format as required by the RK3588
-GIC node definition (the fourth cell is the CPU affinity/partition
-specifier; 0 means no affinity constraint).
+Why?  Expectation I think is that VCM is used for powering analog
+front ends or simple circuity directly tied up to what we are measuring
+with the ADC.  Feels like it may well want to only be powered up when
+about to sample stuff.
 
-The node is disabled by default; board files that wish to use hardware
-crypto offload must enable it.
+Perhaps that is a problem for a front end device we aren't currently
+describing.  We don't really have a way to do those for backend 
+/ dma grabbed data today as there isn't a consumer interface in the
+same way there is for the software managed buffers path.
 
-Co-developed-by: Corentin Labbe <clabbe@baylibre.com>
-Signed-off-by: Corentin Labbe <clabbe@baylibre.com>
-Signed-off-by: Dawid Olesinski <dawidro@gmail.com>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Quartz64-B,
-NanoPi R5S, NanoPC-T6 LTS
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+> 
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 4fb8888c281c..980c345a5de0 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -2249,6 +2249,17 @@ sdhci: mmc@fe2e0000 {
- 		status = "disabled";
- 	};
- 
-+	crypto: crypto@fe370000 {
-+		compatible = "rockchip,rk3588-crypto", "rockchip,rk3568-crypto";
-+		reg = <0x0 0xfe370000 0x0 0x2000>;
-+		interrupts = <GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&scmi_clk SCMI_CRYPTO_CORE>, <&scmi_clk SCMI_ACLK_SECURE_NS>,
-+			 <&scmi_clk SCMI_HCLK_SECURE_NS>;
-+		clock-names = "core", "aclk", "hclk";
-+		resets = <&scmi_reset SCMI_SRST_CRYPTO_CORE>;
-+		reset-names = "core";
-+	};
-+
- 	rng@fe378000 {
- 		compatible = "rockchip,rk3588-rng";
- 		reg = <0x0 0xfe378000 0x0 0x200>;
--- 
-2.47.3
+
 
