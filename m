@@ -1,203 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A844B0481
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 13:42:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C393A5E7A;
+	Sun, 16 Aug 2026 13:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786887723; cv=none; b=jUVUSw4WXOXcC1W9qySZtEuyrn4ayYrVhHw1n9J75+7d3Z8zkEvT0pOieXigTKXNDcVwz2YDaEIlZ82rXlo4z9R4kj2d1WLSaDvaQ9mMzHJBCZy0Vf70MXEE0o1eHZFH6wc/JWKNj+l2UmpIJqTbSCckBzPdtNnC/6HEBhoppQQ=
+	t=1786888117; cv=none; b=Kh+dhJAiHmnPgfOEdsxasJYJOY8+aGfXvvtp3GsCMNLwjTT4CZtlGb3nRuIy40P4cOIt3/Q+6RL/3TvDksjZVb8wIzv42Esy36/tI9k4Zlg5YdB4LQKCpl52zvejO4/EsLEVsVXLaMd3jq2MEY7y9Dy+5jkKauP7bRrYlmjcM9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786887723; c=relaxed/simple;
-	bh=Xd7GrjwSxxC9kKR65ENEQjI4HhpZ+tyzfVGD3IXnX00=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pF7tS0iEIALABhwm1/I5QDeqVVUaLTOzEIVdkoXT8KPTCsyA7DPhyl9HeDYbTDxIX2kKWYumo6RMDpcg4vLHl2lDMklb6v/55f/HfUJ8Tu8jaJTQwRxQLbmjInopkbklPuTz2WmTNIME4HHjqf1EYet/au0qbTG6sbwioKX7aak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kQAbE3mj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786888117; c=relaxed/simple;
+	bh=7w/B1xjAdx/UC3LU3fU7GioiGC1vTo7lgWHD3wg9EUI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=m2VJtxouMgLkqqGFNFpB083iOJ41p+oDlCb1CS3Baay3wd/FBTX8YhuJMiTXQ7y5pZEFipYyhEg9UsY7WmmST72FZ3oDSuypZDFhqklwUY+WlUGq1hy/EEK1PakeNBxx9XCwiKvBXP834oSQBgIl8+EejhXqhJ8jDiluVMrDhKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3k18j1/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kQAbE3mj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1111F000E9;
-	Sun, 16 Aug 2026 13:42:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786887721;
-	bh=WX/OTTJBB0u3Oie+p4iivrXqWl6IfmroQ8p3ukELRk4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kQAbE3mjVY8ZqctZncjtaBg1kpyG3B8nYnCC+fz1IIXKy3iK/kFXps6k8NA/E9kMU
-	 y95DgOab1OdMe98EX2XNN4fRHdIrN8SL5y9H3pf8ocIwvFTf9hJiAnLvb1NVV11SAb
-	 exz/eEb7D6TZ+zq1H9n/FdDVABdIsi5UovMpimDkd9uVskOTlt2ARFTAyPCpHu/CK+
-	 ln5TzjU0W+120E8YnfIC8ieC3uvAZxcis5USuEo1T920aaFleiy4UdhTZ+3BU3en8L
-	 kuWFuN2Q4t9k8pcTXldtsX1r7vkXF15FYFIZzflXIYAAjLmqP+NXInKrlCbP9YrMXL
-	 +TvWtUzHpqKHw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] arm64: dts: qcom: Add SM7250 base dts file
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sreeshankar K" <sreeshankar0910@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260816133231.10875-2-sreeshankar0910@gmail.com>
-References: <20260816133231.10875-1-sreeshankar0910@gmail.com>
- <20260816133231.10875-2-sreeshankar0910@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 13:42:00 +0000
-Message-Id: <20260816134201.4F1111F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3k18j1/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B16F1C2BCF7;
+	Sun, 16 Aug 2026 13:48:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786888116;
+	bh=7w/B1xjAdx/UC3LU3fU7GioiGC1vTo7lgWHD3wg9EUI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=F3k18j1/IjWZwqC1HZUCN8G20nhzwtAw3hAZqO2D/dBoaDeOOnAC4wHxbotrOJj88
+	 GANSzK4ZneyLqB4YsHuQgRzN0WVCZzJnLRsYATFCDmCpKyZx4QpwNkLA3a0zm1kniY
+	 R2yUfqz4g2YhMD+jxpw9XpfQbnI4hSsN6NLjkhtaRJ0bRwK5Jiq7BfEP2yBOAE4/Io
+	 /DzbNEqDPZGqeJpk54YKetSWjFgMGLdRWYxjXVvRXLptqJyAIdpujLcMZOfjDI4z43
+	 GVHPGmUnk3wObs8ARA9+c8/dmeHKW+qsbxlf9mRVSEOFuYm0xYgrs3wL9icLNF3Uia
+	 DrtlPn2eh0N9w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8867EC5B572;
+	Sun, 16 Aug 2026 13:48:36 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Sun, 16 Aug 2026 16:48:30 +0300
+Subject: [PATCH 1/2] dt-bindings: pinctrl: qcom: Add MSM8952 pinctrl
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260816-msm8952-pinctrl-v1-1-a7272bcd2187@mainlining.org>
+References: <20260816-msm8952-pinctrl-v1-0-a7272bcd2187@mainlining.org>
+In-Reply-To: <20260816-msm8952-pinctrl-v1-0-a7272bcd2187@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786888114; l=6507;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=2qm3ODzfSZtqD8kFUh1x1Z7la0BunukuZdtiPjANce8=;
+ b=OipONPjKwh8PZYcu/eyeITFBOclj8j8YR/ri8Hd9yeKJ5YQ6hM8j3PycfWKRYC5ncwtDj7HYB
+ EshRWZ3UVjzAKMGIzVMkS2vCkJgbD0h+idvRTQXT/ysImKl/SQ5VgPR
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The `timer@17c20000` node incorrectly configures `#address-cells` =
-and `#size-cells`, leading to broken memory mappings.
-- [High] The `spmi@c440000` bus node incorrectly sets `#address-cells` and =
-`#size-cells`, breaking SPMI device enumeration.
-- [Medium] Missing mandatory properties `cache-level` and `cache-unified` i=
-n L2 and L3 cache nodes.
-- [Medium] The CPU topology `cpu-map` is entirely missing, breaking cluster=
--awareness and Energy Aware Scheduling.
-- [Low] The SPMI node name `qcom,spmi@c440000` violates the standard generi=
-c node naming requirements.
-- [Low] The memory-mapped `tcsr_mutex` is placed at the root of the device =
-tree rather than within the `soc` simple-bus node.
---
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
---- Patch [1]: [PATCH 1/5] arm64: dts: qcom: Add SM7250 base dts file ---
-commit 0271d54882ba31c5bab214b6f9e5a7997f5a44fd
-Author: Sreeshankar K <sreeshankar0910@gmail.com>
+Add device tree bindings documentation for Qualcomm MSM8952
+pinctrl driver.
 
-arm64: dts: qcom: Add SM7250 base dts file
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ .../bindings/pinctrl/qcom,msm8952-pinctrl.yaml     | 155 +++++++++++++++++++++
+ 1 file changed, 155 insertions(+)
 
-This patch adds the base devicetree file for the Qualcomm SM7250 SoC and the
-corresponding SM7250 MTP platform. It configures basic nodes like CPU, PSCI,
-and serial console required for booting.
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,msm8952-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,msm8952-pinctrl.yaml
+new file mode 100644
+index 000000000000..c4ba5169fbaf
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,msm8952-pinctrl.yaml
+@@ -0,0 +1,155 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/qcom,msm8952-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm MSM8952 TLMM pin controller
++
++maintainers:
++  - Muzaffer Kadir <muzafferkadir@mainlining.org>
++
++description:
++  Top Level Mode Multiplexer pin controller in Qualcomm MSM8952 SoC.
++
++properties:
++  compatible:
++    const: qcom,msm8952-pinctrl
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  gpio-reserved-ranges:
++    minItems: 1
++    maxItems: 61
++
++  gpio-line-names:
++    maxItems: 134
++
++patternProperties:
++  "-state$":
++    oneOf:
++      - $ref: "#/$defs/qcom-msm8952-tlmm-state"
++      - patternProperties:
++          "-pins$":
++            $ref: "#/$defs/qcom-msm8952-tlmm-state"
++        additionalProperties: false
++
++$defs:
++  qcom-msm8952-tlmm-state:
++    type: object
++    description:
++      Pinctrl node's client devices use subnodes for desired pin configuration.
++      Client device subnodes use below standard properties.
++    $ref: qcom,tlmm-common.yaml#/$defs/qcom-tlmm-state
++    unevaluatedProperties: false
++
++    properties:
++      pins:
++        description:
++          List of gpio pins affected by the properties specified in this
++          subnode.
++        items:
++          oneOf:
++            - pattern: "^gpio([0-9]|[1-9][0-9]|1[0-2][0-9]|13[0-3])$"
++            - enum: [ qdsd_clk, qdsd_cmd, qdsd_data0, qdsd_data1, qdsd_data2,
++                      qdsd_data3, sdc1_clk, sdc1_cmd, sdc1_data, sdc1_rclk,
++                      sdc2_clk, sdc2_cmd, sdc2_data ]
++        minItems: 1
++        maxItems: 36
++
++      function:
++        description:
++          Specify the alternative function to be configured for the specified
++          pins.
++
++        enum: [ gpio, blsp_uart1, mipi_dsi0, blsp_spi1, smb_int,
++                adsp_ext, blsp_i2c1, prng_rosc, qdss_cti_trig_out_b0, rcm_marker2,
++                qdss_cti_trig_out_a1, blsp_spi2, blsp_uart2, ldo_update, qdss_tracedata_b,
++                pbs1, pwr_modem_enabled_b, blsp_i2c3, gcc_gp2_clk_b, atest_combodac_to_gpio_native,
++                ldo_en, blsp_i2c2, gcc_gp1_clk_b, atest_gpsadc_dtest0_native, blsp_spi3,
++                blsp_uart3, sec_mi2s, pbs0, gcc_gp3_clk_b, blsp_spi4,
++                blsp_uart4, pbs2, pwr_nav_enabled_b, codec_mad, pwr_crypto_enabled_b,
++                blsp_i2c4, nfc_disable, blsp_spi5, blsp_uart5, qdss_traceclk_a,
++                atest_bbrx1, nfc_irq, qdss_tracectl_b, qdss_cti_trig_in_b0, blsp_i2c6,
++                qdss_traceclk_b, atest_wlan0, m_voc, qdss_cti_trig_in_a0, atest_bbrx0,
++                blsp_i2c5, qdss_tracectl_a, atest_gpsadc_dtest1_native, qdss_tracedata_a, blsp_spi6,
++                blsp_uart6, atest_wlan1, mdp_vsync, pri_mi2s_mclk_a, sec_mi2s_mclk_a,
++                cam_mclk, cci_i2c, pwr_modem_enabled_a, flash_strobe, cci_timer0,
++                cci_timer1, cam1_standby, pwr_nav_enabled_a, cam1_rst, pwr_crypto_enabled_a,
++                cam2_standby, cam2_rst, webcam_standby, cci_async, webcam_rst,
++                rcm_marker1, sd_write, qdss_cti_trig_out_a0, accel_int, gcc_gp1_clk_a,
++                alsp_int, gcc_gp2_clk_a, mag_int, gcc_gp3_clk_a, gyro_int,
++                pressure_int, fp_gpio, blsp6_spi, fp_int, qdss_cti_trig_in_b1,
++                uim_batt, qdss_cti_trig_out_b1, uim1_data, uim1_clk, uim1_reset,
++                uim1_present, uim2_data, uim2_clk, uim2_reset, uim2_present,
++                uim3_data, usb_fs, uim3_clk, uim3_reset, uim3_present,
++                us_euro, atest_char3, dbg_out, bimc_dte0, ts_resout,
++                ts_sample, sec_mi2s_mclk_b, pri_mi2s, sdcard_det, atest_char1,
++                ebi_cdc, audio_reset, atest_char0, cdc_pdm0, pri_mi2s_mclk_b,
++                lpass_slimbus, lpass_slimbus0, lpass_slimbus1, codec_int1,
++                codec_int2, wcss_bt, atest_char2, ebi_ch0, wcss_wlan2,
++                wcss_wlan1, wcss_wlan0, wcss_wlan, wcss_fm, ext_lpass,
++                key_volp, key_snapshot, key_focus, gcc_tlmm, key_home,
++                dmic0_clk, dmic0_data, backlight_en, qdss_cti_trig_in_a1, lcd_en,
++                blsp_spi7, blsp_uart7, pri_mi2s_ws, usbc_irq, wsa_io,
++                blsp_i2c7, uim3_ldo, blsp_spi8, blsp_uart8, wsa_irq,
++                blsp_i2c8, gcc_plltest, nav_pps_in_a, pa_indicator,
++                nav_pps_in_b, nav_pps, modem_tsync, nav_tsync, ssbi_wtr1,
++                gsm1_tx, gsm0_tx, atest_char, atest_tsens, bimc_dte1 ]
++
++    required:
++      - pins
++
++allOf:
++  - $ref: /schemas/pinctrl/qcom,tlmm-common.yaml#
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    msmgpio: pinctrl@1000000 {
++        compatible = "qcom,msm8952-pinctrl";
++        reg = <0x01000000 0x300000>;
++        interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
++        gpio-controller;
++        gpio-ranges = <&msmgpio 0 0 134>;
++        #gpio-cells = <2>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++
++        blsp1-uart2-sleep-state {
++            pins = "gpio4", "gpio5";
++            function = "gpio";
++
++            drive-strength = <2>;
++            bias-pull-down;
++        };
++
++        spi1-default-state {
++            spi-pins {
++                pins = "gpio0", "gpio1", "gpio3";
++                function = "blsp_spi1";
++
++                drive-strength = <12>;
++                bias-disable;
++            };
++
++            cs-pins {
++                pins = "gpio2";
++                function = "blsp_spi1";
++
++                drive-strength = <2>;
++                bias-disable;
++            };
++        };
++    };
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7250.dtsi b/arch/arm64/boot/dts/q=
-com/sm7250.dtsi
-> new file mode 100644
-> index 0000000000000..66b3705461f1e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7250.dtsi
-[ ... ]
-> +	cpus {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <0>;
-> +
-> +		CPU0: cpu@0 {
+-- 
+2.54.0
 
-[Severity: Medium]
-Is a cpu-map node missing here?
 
-Without a cpu-map to define the physical and logical clusters, the kernel
-will treat all cores as a single flat cluster. This degrades scheduling
-decisions and prevents Energy Aware Scheduling from functioning on this
-big.LITTLE SoC.
-
-> +			device_type =3D "cpu";
-> +			compatible =3D "qcom,kryo475";
-> +			reg =3D <0x0 0x0>;
-> +			enable-method =3D "psci";
-> +			next-level-cache =3D <&L2_0>;
-> +			L2_0: l2-cache {
-> +				compatible =3D "cache";
-> +				next-level-cache =3D <&L3_0>;
-> +				L3_0: l3-cache {
-> +					compatible =3D "cache";
-> +				};
-> +			};
-
-[Severity: Medium]
-Should these cache nodes include the cache-level and cache-unified properti=
-es?
-
-Without these mandatory properties, the kernel cache topology parser cannot
-accurately identify or expose the cache layout to userspace via sysfs,
-which prevents userspace applications from optimizing workloads based on
-cache topology.
-
-[ ... ]
-> +	firmware {
-> +		scm: scm {
-> +			compatible =3D "qcom,scm-sm7250", "qcom,scm";
-> +			#reset-cells =3D <1>;
-> +		};
-> +	};
-> +
-> +	tcsr_mutex: hwlock@1f40000 {
-> +		compatible =3D "qcom,tcsr-mutex";
-> +		reg =3D <0x0 0x01f40000 0x0 0x40000>;
-> +		#hwlock-cells =3D <1>;
-> +	};
-
-[Severity: Low]
-Should this memory-mapped peripheral be instantiated as a child of the soc
-simple-bus node instead of the root node?
-
-Placing it at the root bypasses the address translation layers (ranges,
-dma-ranges) established by the soc node and misrepresents the hardware
-bus hierarchy.
-
-[ ... ]
-> +		pdc: interrupt-controller@b220000 {
-[ ... ]
-> +		};
-> +
-> +		spmi: qcom,spmi@c440000 {
-
-[Severity: Low]
-Does this node name violate the standard generic node naming conventions?
-
-The node name should ideally be generic, such as spmi@c440000. Including
-the vendor prefix (qcom,) in the node name typically results in dtbs_check
-validation errors against the spmi-pmic-arb schema.
-
-> +			compatible =3D "qcom,spmi-pmic-arb";
-> +			reg =3D <0x0 0x0c440000 0x0 0x0001100>,
-> +			      <0x0 0x0c600000 0x0 0x2000000>,
-> +			      <0x0 0x0e600000 0x0 0x0100000>,
-> +			      <0x0 0x0e700000 0x0 0x00a0000>,
-> +			      <0x0 0x0c40a000 0x0 0x0026000>;
-> +			reg-names =3D "core", "chnls", "obsrvr", "intr", "cnfg";
-> +			interrupt-names =3D "periph_irq";
-> +			interrupts-extended =3D <&pdc 1 IRQ_TYPE_LEVEL_HIGH>;
-> +			qcom,ee =3D <0>;
-> +			qcom,channel =3D <0>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-
-[Severity: High]
-Are these address and size cells correct for an SPMI bus?
-
-The SPMI bus bindings require #address-cells =3D <2> (for the 8-bit slave ID
-and 16-bit register offset) and #size-cells =3D <0>. Using <1> and <1> will
-cause parsing of any child PMIC nodes to fail, breaking PMIC enumeration
-and disabling dependent power domains.
-
-[ ... ]
-> +		timer@17c20000 {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-> +			ranges;
-> +			compatible =3D "arm,armv7-timer-mem";
-> +			reg =3D <0x0 0x17c20000 0x0 0x1000>;
-> +			clock-frequency =3D <19200000>;
-> +
-> +			frame@17c21000 {
-> +				frame-number =3D <0>;
-> +				interrupts =3D <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
-> +					     <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-> +				reg =3D <0x0 0x17c21000 0x0 0x1000>,
-> +				      <0x0 0x17c22000 0x0 0x1000>;
-
-[Severity: High]
-Will this configuration correctly parse the 64-bit addresses in the child
-nodes?
-
-The child frame nodes use 4 cells for their reg properties (e.g.,
-<0x0 0x17c21000 0x0 0x1000>). Because this parent node sets #address-cells
-and #size-cells to 1, the dt-parser will incorrectly split this single
-64-bit region into distinct, erroneous memory regions. Attempting to map a
-region starting at physical address 0x0 with a size of 0x17c21000 can lead
-to a kernel panic during boot.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816133231.1087=
-5-1-sreeshankar0910@gmail.com?part=3D1
