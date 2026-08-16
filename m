@@ -1,37 +1,38 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B67209F43
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 14:06:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E2E209F43
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 14:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786889167; cv=none; b=F8wb/LJI1rdEOrm/kfQ931Iz9IN3cC2mfSdUewvMwmXSJNPwBOsn7NpgBlcTC5pChGFNx3aiPe5BAlFOfEn2iOMskcuRxdRdyYyvG8bALI9++HnhLMXr5N/T1YuSgzUUfyhmmzL90U3TqiTYsd8imOVI0ZtD0nuFbhLmysShrEw=
+	t=1786889169; cv=none; b=mucw2uiSScgBqmwJlwD1tJBEsVAbIjMdgtbT0PBz8NTm1zyzIgeRznk5YARWx2PA7Nwj59xMxU9XylQITnM8wSZQGmJZzZ3hl7VHiG/Q6+WrMVkcbTPHcnc+pEiBy1ZbGK60WSuMz+b3+6xYzI248OvG5ymUxDLk72OPi9hDuec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786889167; c=relaxed/simple;
-	bh=nuaMYYTQqhqKJlPaF30SikTyAbBlUrVsMa8qr5TuWQw=;
+	s=arc-20240116; t=1786889169; c=relaxed/simple;
+	bh=3hhlZ1Fi0jWDKXWe3uonqCke0ZqoqeBiOykrMppuuAc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dHFeUlr1cPXoHCWvViCPnQ2Xv1rPh/lQF+1s5jS/vGQeKrSbmCWigKWyKWgSSGUq9Yv9dVmz4K7v9fskA/OplbGm6nAg8YSBPq2u/+gYuCH1JOmCj8PzhrtIenUhljM7QqYC7WpRDQzR/aKRelZtdCIZkuG3zBq5xGwMRmDpHhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=EUeKhmBH; arc=none smtp.client-ip=213.97.179.56
+	 In-Reply-To:To:Cc; b=EOH8NVbWvDIvOXQvco2JpAVOdX1OIXfl/5yUJaPfD2+TI0oyEMMRLmzbucprvpEiP8jIlZhgpTHw5E3tVIL7gu+ZY7GoJWPMiTKys+2jg7BMETERzlGz559oW67JWhSsTD3Ta75nz6sTp+1lrwdNaAqJnkHNGQqceexhNMkyuO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=i4toc+fx; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="EUeKhmBH"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="i4toc+fx"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
 	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=ySmnWO3XBpCyGmRmqJ/3VJ0DyjSd0CyWUVKuIAJPxQA=; b=EUeKhmBHdTI3GQh50iJI+1DD3x
-	FdmxLfejc5u1j+gVHq/KAQHeboTMFJLyU9guKoAM+ztORGP5cgvfOGilTWuZ0c8vAlwz5rqKJZPtY
-	3wlYcACMf9od3SHZKIB0cS6xIKLFwDXy0MirLeAqczBYd/o2Abuo514iePwYds1jL2fZzOvS21SbK
-	700ZCbP5kvWhcZPI2o/kCkAFJUaT/vVyBrvQQ80Cd8VdZUJJRSTzht3ui2TyvmR4i3Xu9YB4Kyl05
-	U5cZG5F2jfEtlTvfR8pJ/9hRevYphjN10rxSP59UF7FmuQp9qfxBzVWbPyjZ3EYpq1CZd6RX6EZ9w
-	Dl/5pwCQ==;
+	bh=XEfY0WKHFZWFlZvlZ6DrZDRwUYw98lksOKl8DK8DS7g=; b=i4toc+fx9Wv8ZMHV08VulARQHd
+	dJM7x4oLgQAA++Zld588tuG2du+Yt3r6zXPH/BP8cLh2TKl9dNf5qdrGtoBiaJr4wWr2wa9Dpspk0
+	2UT0rnUINOrJHu6aVLu41gSMJWCSsIcTojFkZrlMTRXeerlamby4tCHxnOfK0mEhvTLTlXScxAYXy
+	U4FOZkQ+aWyM9KHxYVr5hs0uzAiD6ECJrh/mst8iHEePM1L4+SHHAE34Gz/eUgDPno9kXmlUL9KP6
+	JvVUPveurGpwsWc3zb35kK3b3xFPTAbxK1Vrp/+quVlsDWV3XQhQ7NeZ0rYWSvOR+ITVJ3G7oYwI4
+	AwCgoNPA==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wvbUp-002tuI-9v; Sun, 16 Aug 2026 16:05:55 +0200
+	id 1wvbUu-002tuI-I2; Sun, 16 Aug 2026 16:06:00 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 16 Aug 2026 11:05:40 -0300
-Subject: [PATCH 1/4] drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
+Date: Sun, 16 Aug 2026 11:05:41 -0300
+Subject: [PATCH 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
+ reset line
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260816-vc4-reset-control-v1-1-896444373716@igalia.com>
+Message-Id: <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
 References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
 In-Reply-To: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -57,65 +58,45 @@ Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1958; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=nuaMYYTQqhqKJlPaF30SikTyAbBlUrVsMa8qr5TuWQw=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqgcO4xQgyy+Sd0RwL+2JuA7vOYeeRX5MzP8osz
- 8qfiCfLgReJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoHDuAAKCRA/8w6Kdoj6
- qiG3B/4k2ZV0kbJKQ8+DXSOrcbsRJl4t7l9wsGcIFFXPrnUG0pjHTTFB3E/cGDy55tvX60jAQC7
- nWuCPpgxp5DLpAJyFLS4sKh3mIpDtUanp8FFtL1SnGukXNC/piw+7zqMq6zFAz9kSTEXIPOXxxq
- UDCuPO6CA+UISwThAOMYYgMWPC0JQMK8YyvlUki+Re/lbsWzGro5zUj7xYlIyX6ngOg7hJNWrRb
- cPDnoX78Cr94Rfald1BVdB/64M7i2CncxJvFG8YIN42N6Fq14Qp/RPWP5gI4AMOKrY+r3IZARtW
- Rm5izgR4NhxHpfWRXgc57zTZG8oTX42qYwyB8adaKgdBdhET
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1041; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=3hhlZ1Fi0jWDKXWe3uonqCke0ZqoqeBiOykrMppuuAc=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqgcO4hSm7N0GRYiFkdoVyEWuLx4nSx1hqieNg0
+ UyQXw099RmJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoHDuAAKCRA/8w6Kdoj6
+ qhk5CAClAo9OtDmH5mNxDVvKPWpRHNCkQ0lMXBgWANZksoO8zvDPtAib5FEnw8Vb36POjk6kPQ2
+ hUFmupFYf/52evpXdxi9Z7kfRaRyMvpsNTUEucujZwIbK2mdh1chXO0AX+S+tJbCROGA6U8+2W3
+ hL0PHOtUKd4ejGPuawbbSLgq6XC9xGcceoioFd8mGf69fP1BaB81k5m6f2VZeoeGemRwQ9+Qr3v
+ JJrPSDXKI66is2LnjCj4erhvRB7KU/QfcrsotKwkvImniwh/gIdG+O+24RqX1Y13QXLrI5zC3ym
+ dwP7JpEhKWhFv7Qe0UFS7AxtuSLN3fkz9tq9BQ47skHmXJ0C
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-"brcm,vc4-v3d" is the compatible string V3D support originally shipped
-with in commit d3f5168a0810 ("drm/vc4: Bind and initialize the V3D
-engine."). Commit 90d7116061f8 ("drm/vc4: Recognize a more specific
-compatible string for V3D.") added "brcm,bcm2835-v3d" in v4.6 and kept
-the original one around, because the Raspberry Pi firmware was shipping
-device trees that used it.
+The BCM2835 PM block has exposed a reset line for the V3D block since
+commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
+under a new binding."), which allows the GPU to be reset without
+power-cycling its domain. Document it so that the vc4 driver can use it to
+recover from a GPU hang.
 
-That string was never part of the binding: the documentation added in
-commit 4653f22e9ab0 ("dt-bindings: Add binding docs for V3D.") describes
-only "brcm,bcm2835-v3d", and no upstream device tree has ever used
-"brcm,vc4-v3d": the first in-tree V3D node, from commit 49ac67e0c39c
-("ARM: bcm2835: Add VC4 to the device tree."), already carried the
-specific name. The firmware device trees the compatible was kept for
-predate v4.6, released in 2016.
-
-Drop it from both match tables.
+Keep the property optional, as existing device trees do not describe it.
 
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_drv.c | 1 -
- drivers/gpu/drm/vc4/vc4_v3d.c | 1 -
- 2 files changed, 2 deletions(-)
+ Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index 616caf9d9915..eb859c65a453 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -279,7 +279,6 @@ static const struct of_device_id vc4_dma_range_matches[] = {
- 	{ .compatible = "brcm,bcm2835-hvs" },
- 	{ .compatible = "brcm,bcm2835-v3d" },
- 	{ .compatible = "brcm,cygnus-v3d" },
--	{ .compatible = "brcm,vc4-v3d" },
- 	{}
- };
+diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
+index c55a8217de25..1063e686647c 100644
+--- a/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
++++ b/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
+@@ -27,6 +27,9 @@ properties:
+   power-domains:
+     maxItems: 1
  
-diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-index d31b906cb8e7..379ab77243ad 100644
---- a/drivers/gpu/drm/vc4/vc4_v3d.c
-+++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-@@ -531,7 +531,6 @@ static void vc4_v3d_dev_remove(struct platform_device *pdev)
- const struct of_device_id vc4_v3d_dt_match[] = {
- 	{ .compatible = "brcm,bcm2835-v3d" },
- 	{ .compatible = "brcm,cygnus-v3d" },
--	{ .compatible = "brcm,vc4-v3d" },
- 	{}
- };
- 
++  resets:
++    maxItems: 1
++
+ required:
+   - compatible
+   - reg
 
 -- 
 2.55.0
