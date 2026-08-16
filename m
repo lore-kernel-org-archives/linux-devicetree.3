@@ -1,82 +1,82 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBF321ABC9
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE962248B3
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786884930; cv=none; b=jaa3wrtOR0OebbFVRowxFcCOk3UgnILBeuwF/R84PQpNrf6PE4AKDmswtNn8kX1SNjweNNjEbJ+3GqvErNt/UB2RCmiPq//yVIo1opU/JwUW6kekBh4IlgCQ3Oq33t9fbNGRNK6X1147hDD0zG7aKxMMyDk0FPIUwyObdPRcjZs=
+	t=1786884933; cv=none; b=c6Otbt6PPmFmpje8vNIuzzTLptXBN47MWwggjBEHt1n8qdAbfpLnVau8fzraaeklZsB0GkEZTYty9gZw6Xc72cnk9QpV/Y/vCw3Lkv3Alx73HjQxensiyBjNfEh2ipp7V+cJ+kccZAkRrsW22jZUxcYQx70NqmXVGFH5GNWZ68U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786884930; c=relaxed/simple;
-	bh=XGTNJbVHXH6mUPiyUU0DAB6T5yTIUEHQNdPB5gy4Zxw=;
+	s=arc-20240116; t=1786884933; c=relaxed/simple;
+	bh=gsg21OR/hoxtdFYhtUBcUpC5bz3X5ywHu9xrO9slTe8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vBV5hf0mzTGSlxLxThzwZHvp9Qc9kAShi+JEviXZeVg45DRcyVYjfmYvPAhfOFliWrE2a0kEpEs2WoDFaX1pquSr/mKjvjTMNFES/HjEK2ube8ey5EW42AkFzOszCI9i+QWBuSa2+FhZH3HU/0fht2LeQeQCVbt0saijftGe2X4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q+afq60I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OvEdLpo2; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=ET7HFGMoI2BRYY8LCY9X+1VDsZp3Zt1aygrrbuA1B3IM49aQeGwdl+rQkIstDCcA7Y7hqh5XLyjpzMXkmHjOp/XXPvYg7gqa6r1WSdVEvCHrq3SKewCthc3rafkz6Fr5JOz4y13q2p2776G56oBsXR8WV/KyNxJOLgbP6CFUtNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SnKzQcho; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ea8Pvfje; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q+afq60I";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OvEdLpo2"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67GCHscw3449348
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:55:23 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SnKzQcho";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ea8Pvfje"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67GAgDHS3765257
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:55:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=sb4wpHG3R7L
-	lSnSdg5GdtzhojuQali/WgEpyJwumqJo=; b=Q+afq60Irrqdh5YZ/3ZnAzAGWmJ
-	aCd5bvCAhKkmWekFPhW370G62MVG3Cqofu0VkS4uGRSpWlCCQ06xe7QjuFP5SB3d
-	TmWajteNZ6a2H84bzzj/+Jwh4INm62mmRJb/+LYYohwEUCnS+J5tgbT45N0BZ0Ly
-	88t9ZGD1oiQMrEUediczOSVdflmiTx+LBRpSDqdRunMtz2qQnW0ZYOSpmPR6Dyj7
-	gx8g8RHTcS79KuK89apw7O2C/yckVLLStF44BaNRNfaGkoOjwizqq6VmhdbbmFgQ
-	O4omPCdXKOiP7MZQqnUk9m6ZrvpCHKR1nPtx4diP4el5T1G4QRU/LPRXiuA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2ghekgjj-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=zBGRaEJAQRs
+	nbMtd/JgkXPRhp91d80n5JouRnn0psjQ=; b=SnKzQchols8laPb9E4p/eElO9Dp
+	q1FgnfDD+zLKoueEDXLxWcA4dQVFik8WGLd5+GU2wyBKkoMKdig46WbSTs2Ug3Mh
+	kmC8yPHDVvGQ6KrLN0gUvdkb0+LwAMbNpS++sro6/hrgzioiDtuGNUbcDyDQLAgI
+	BN2b8XQ6kM+j51vL8N3ccOMg/xdFECfvIrhhsTK7VUJonnsJVpqMGLCVnqyNODo1
+	q7kqfldIO3PmBajm17bQvg/E2KDBTgzmemwry1WnAV1U2xZ8Q1ulgDChhyM6WZ9H
+	bVWTpIAhqjAumVxdvKQVShHLcbkkG7/QwQHyZFxdwAzlGJGmhzTmjcRMl0Q==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g2ghwkddb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:55:22 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c856470fe9fso1585588a12.2
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 05:55:22 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:55:30 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca8aee88725so3803703a12.3
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 05:55:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786884922; x=1787489722; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1786884930; x=1787489730; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sb4wpHG3R7LlSnSdg5GdtzhojuQali/WgEpyJwumqJo=;
-        b=OvEdLpo2iaBiLvv9QCFFHrCLT2FohDxP6UV+5FvgZ0Z1JmslMx3nvloN9NSSRwbGGC
-         UdvN2E2gm6Jb0dR718/9eVDxRTqlfjgbfbpcTIvIHMp6x50JiSNn2OLiNKtNyPVoKzJE
-         X5nfJgPfEn0ioBYREQ1eJoUUeEhUw+uY3A6PQh5XvksYwPJ4iphWjRMx0s7NCuU7RPut
-         DZpY+OrSyXpOFgXvArUferkWb7gMumH15s53OFkCEQlXxU/9DV2ILUohA/g81GbEhKpH
-         NiyvJvMizJyqRSv3MfZzOmx8t0wVQOWbbI30n8+NITHJOG5kwBQZgGVeIymfuttR43ch
-         eFiQ==
+        bh=zBGRaEJAQRsnbMtd/JgkXPRhp91d80n5JouRnn0psjQ=;
+        b=Ea8PvfjeVmHi/cYEj2qL3u3zWpE8aFQv07LBjfDUXXaCNvheSH8EB8wvejJc97r4cG
+         k5LEvRK3drQqjv8rETwCaKxGwK6VfCnSYBZGaGfYHkxHD1aMKEi3YO2N/LJqe4mQEnLD
+         60wi5BzZ645uHuVa/hUt0b7jwtO+CK4Bk6PHKFxBd+VZEyKi7ZPPeXtl2mLSgRV5f52X
+         ts7SpHlIti/ajnsDOidNnL/c89Vy4qUmAOUgaD8U5nhwNRSZ4tE+HQlH84WUr9xgHfHG
+         DdfH/ONa4OaQxy7Uf3rGlM31C/m0aXu/7+p3T1sjNHcSZ2busqrCWVMGHn+EZbnNziVp
+         x+8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786884922; x=1787489722;
+        d=1e100.net; s=20251104; t=1786884930; x=1787489730;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sb4wpHG3R7LlSnSdg5GdtzhojuQali/WgEpyJwumqJo=;
-        b=s1KtYk49l7+ph42xrAVeskToyiRVlHd8hKv2RvowONm0xB8YqMbfhhWtlE91zEBizo
-         QYYlmyQVuyEsbTBKs4a0aaiaGx0O9Qkhv7wSEQgnI7wNCsR6nqSixIRrp8X1yQgRUJUW
-         vPStfj4TSaWXk2YR1aq+IF3zSgPFWv/OivD7LXEnQ27B79/2I8qjeao9w91+gAoVGxw8
-         RuqsEDBVLPBL2p18nloh+1yIgtuh94xU2FdmnjKn+YzlxZ2LBw4o/xPgcWWruiSLdqcp
-         mHMj0aZhmvsnHIJM3F5PbcOil+WP22szqf2O4DVgeZgWyj2FQoZ5WmPFOGRQnzZj2OPg
-         /8TQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9ol/1I5PCAb/17PlA2YHty1Up9Vj/2vx7JkvA+zchZuBcxyixg7ddhXOmokhBGrZCwCkzTniizBAh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFS87j9tWTJeRsOSsnVyeRYMOHR2WL/zPrjCoFCABMjp+OSKth
-	aGqHsJsFhz+JaePv0P00VdymRUZZJuO325VuV+0m+F8LAQIBcAQYoM5D2IJ41AnRZQYEPVMT3Zv
-	qiIrFWC/elgKeVc55zFYnwVGFvhi9gIBxLIStl+teexxHTDSjco7th0+/eiTXqLoY
-X-Gm-Gg: AR+sD13X0SFBAlyA4zYL8BEalEJx/DDInVP2fY7zfvm34TNBhxgsyWwKJaw8zBdKelh
-	7DT4Ta8q2uPIhf4KVtO0R2mSRiuHWV5qkCm4Pai1vjdoQ0P1mRfGKu8LuEReZo73db8PN8HEvNK
-	JYBIBFONKQiIXfkpDCTEtVukPuVDcPBrNcBrgQYz09WHBxIbe5ZX1cYHcoW4zQFnK6qXPiuoW0F
-	DlBe6cFSZ6xHFIVZ9rA2s+oXckTwVbs6UFV6KOn5CyspYd2zMcjla7YTRTy1v9jFwCO75qZ4IG0
-	xR2UJkvpOtnRO+9H4cyVr/nYhhU5m3BRW2RhoEcyFRbB/r8q56PJUYfocVyMYCG3MwKHSsXXrby
-	X4NXEAf9zDJIyvpKN4SbtDiow3l5iuVhbYJ/+23qW2eiDGgIV09TaOVH6mkym
-X-Received: by 2002:a05:6300:6d8e:20b0:3cc:841d:bb26 with SMTP id adf61e73a8af0-3cc841dbbedmr10012342637.15.1786884921235;
-        Sun, 16 Aug 2026 05:55:21 -0700 (PDT)
-X-Received: by 2002:a05:6300:6d8e:20b0:3cc:841d:bb26 with SMTP id adf61e73a8af0-3cc841dbbedmr10012315637.15.1786884920465;
-        Sun, 16 Aug 2026 05:55:20 -0700 (PDT)
+        bh=zBGRaEJAQRsnbMtd/JgkXPRhp91d80n5JouRnn0psjQ=;
+        b=WYzeFVA97aKd5Rlwu9690Ky3924F5ki3vyE/XaBlVmA02+/Su+1fwSSLxpQfWk7xrc
+         RQuqoX9bqWM1YcyfVAzD17JV57sRkEZtsCZNSMONgS1S70Tfddu/oBcyST5CdC0KRbZj
+         MHTYE2kSzkPf7MCa40DnT6MDzyRtAXkktDwHhcu5XpMLgeQYRgV1eaVEktrmg16JVy5N
+         hToO9elZhqcrhggAevnsXrkq0iAoR6Fp+3RqUY+sD6UnXWgsPfr83a6unTFDBaQr0bxy
+         lLs6x0Fr1lrSrDTQH4fnfFJ5pVhFqN3/laZ9jkgROfovNoY+BRx+IkYt/Bx/itNGc3bc
+         h7HA==
+X-Forwarded-Encrypted: i=1; AHgh+RpRMzqHvU7y9XONR8m7W5fhxcDNSQsTZd2FM8K88LMGukhd352uMpf3TNQ0iVY8CxPheAA/ncoE/YJP@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuiJDXfjU/i3TtyOSg//DN/pDGD3wgYMBqsust40kxVmrnV7Pi
+	KFxY9M3q5vCV1mJEcdWbKAgePXHT/S4OhgguwFv23gT4gMFpE+fX+sPz7i5eStjM4uqWKQH2tD6
+	O5WZnpwVdevLyQnJlKx/WSMz9DqL4raMnQo/h5V/Ow06ikq+b3mft+MhQ5qao4k+a
+X-Gm-Gg: AR+sD12sYsJAKfPs1EpXWtSGmM5prEqKeWX1sx/Q9IqmMuxepA3R3F9P8SEGcFi4uvB
+	FvldPAdK8kvpAl69+bVCYIWiPiKwIgviB9LmbZgMZv79h95pn5i3az6aNghxM5I7vE8lUjUES85
+	z0g5W47vj8M4BiZAY+HEHybL0keQ2dUhz6KBL9kpjpSloAxbg/O6UuMc92gGGx2DUe3uptRPEwV
+	7/3g0co631JTvwNKkxItFuzKtNb7x29WnIQukbDOUF/2WH69ELtOg1pvec+64l6vc/G4sdeC13J
+	8w7qYTpGg4K5MwomUQMB3qNMkrCrBxW787R7H0cEf2dItq9yrltwPOVgKIw6HFENPA6HX4w6stS
+	dVRPC59HPWcRDvZrj0No/QsR01VFC5WE6ILZPfiDo9fNlZ6OKl5YtKrrcdhMT
+X-Received: by 2002:a05:6a21:3295:b0:3cc:6d6e:288b with SMTP id adf61e73a8af0-3cc71d1e826mr18754164637.23.1786884929831;
+        Sun, 16 Aug 2026 05:55:29 -0700 (PDT)
+X-Received: by 2002:a05:6a21:3295:b0:3cc:6d6e:288b with SMTP id adf61e73a8af0-3cc71d1e826mr18754137637.23.1786884929349;
+        Sun, 16 Aug 2026 05:55:29 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141388bd5a7sm40072703c88.15.2026.08.16.05.55.16
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141388bd5a7sm40072703c88.15.2026.08.16.05.55.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Aug 2026 05:55:20 -0700 (PDT)
+        Sun, 16 Aug 2026 05:55:29 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>
 Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -89,12 +89,11 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
         devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v11 3/6] arm64: dts: qcom: Add device tree for Nord Embedded variant
-Date: Sun, 16 Aug 2026 20:54:10 +0800
-Message-ID: <20260816125413.1635150-4-shengchao.guo@oss.qualcomm.com>
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v11 5/6] arm64: dts: qcom: Add device tree for Nord Ride board
+Date: Sun, 16 Aug 2026 20:54:12 +0800
+Message-ID: <20260816125413.1635150-6-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260816125413.1635150-1-shengchao.guo@oss.qualcomm.com>
 References: <20260816125413.1635150-1-shengchao.guo@oss.qualcomm.com>
@@ -105,1779 +104,308 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=EKc2FVZC c=1 sm=1 tr=0 ts=6a81b33a cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+X-Proofpoint-ORIG-GUID: daozwz760yz4ers3sPcA17QMPnAfJSXs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE2MDEwMSBTYWx0ZWRfX0zyw+sf+jk5Q
+ gf0B/5VtWdq2vbkUOgIvdfg1T3cqJV57227i9ehjdH/8nIY5Zrb6GjcwH9g1567MYH8caK5l2F7
+ YQ+6t4p6+xTQJ6GHZRNP8o2OaiUmsIqE+ZCfQeouweCo57zf8s6wot6tz/zZbSuns4EuvEprVZH
+ jDXTBik5kBXTrCkpsxEQs2z4xoQ4QBGLag9QCAEKKZT8KE5A2aD3wfZuyEPi+O8kQo1rEQncVA6
+ DI4ISLanImVZV5dNVI2k/WyDWsHDKGWfp7vglitz6EpdCfv4yzklopHSDUstJQHeA4+qbfwcgYl
+ RginsFfVmOuw7Vta/qzV6oKwbHYHpk64WzAR3idTdrMEiAQI1orPCkaKvu9nQLWo9Ry99OOCHqo
+ 7lRJxHjLIamhtEIEX04qiv5rUGY+9hWNc0uS7l0uZ0lvuZdbhYtkkz7aeJZeBLWz314MpnBapXN
+ jE6Dby/pYHNgct9zUAw==
+X-Proofpoint-GUID: daozwz760yz4ers3sPcA17QMPnAfJSXs
+X-Authority-Analysis: v=2.4 cv=DdknbPtW c=1 sm=1 tr=0 ts=6a81b342 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=M_pxE5vcLJVX-WqgpTUA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE2MDEwMSBTYWx0ZWRfX6zM+dxg2zHI5
- q6pWtlS5bsaNPAfV6bs6qHcwTfbKuT7IXFn0yom6Q5a3gosIhibJIizU9kgU7gv6OBe4Ncp7UxM
- Z3X8BrLm+znRsVQywRry7KXUeUTM6E0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE2MDEwMSBTYWx0ZWRfX/VaW+Q63F5UI
- 2R+0D85wXDSThaXYfF6Ll/dDBeAmC7MVSMe6XjAkmexFS18JtKHk6RfRp5wqkUp2MYTLZWlAfOg
- z7J+dTFpJhL1EcfxypKtTJNOOtCrxcJfomoYAEHUz0yE1IUROTzrMcZUs8bSRsbW9lnvGHvtmZy
- COxpETUKZljauSDZ8x3sWUe9NSIGcZtl+woU+P4d9lYURil9mT0ylqVUkLa3LOea9v/1lo7CqeA
- bozFgbY4zKlbIYAMx9N0AStf6TD9iVDSgCtrdX9bm/q1ri2NiSkZK3H/JDR78ae+lw8L7m5pKty
- dINqVDjLfnB03xYDp1Bs9IMfXPDfmMUn6DklaLCAJNnhwDRhCDqJR/aflPI+ElSzYuOmmrOweRJ
- nLDLqYbHrOC9El0tW3Gx+zIWY9KqOMvUc6HiRED1UF2rqBSiqg5MK3ozhyF8nv2KBodrcGCeKCp
- 9iqMvw+ciBcCZje41pQ==
-X-Proofpoint-GUID: yQgvuOWDkqA0T4m7rp-Jw6U9UygeFXaI
-X-Proofpoint-ORIG-GUID: yQgvuOWDkqA0T4m7rp-Jw6U9UygeFXaI
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=2Hjw6vQzkyH4OD-tzjAA:9 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE2MDEwMSBTYWx0ZWRfXzefTgcM2GbIn
+ 43XSN0Zrh18wYeWwRd/eEU+hMEtwKZ8T4eUCXav5GOyt2ffwhEVqTl6+nbGMZK5j1qwg7hVNjZ4
+ 4x+j1uRvamyVAX8vXRdljrr4Fs2PJkc=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-16_03,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- malwarescore=0 adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608160101
+ malwarescore=0 clxscore=1015 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608160101
 
-Unlike the GearVM variant, Nord Embedded variant has platform resources
-(clocks, regulators, powerdomains, pins, etc.) directly controlled by
-the operating system. Add a separate dtsi file extending the existing
-top-level nord.dtsi with nodes representing these peripherals as well as
-describing how they are wired up with the already defined components.
+From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 
-Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Add initial device tree for the Qualcomm SA8797P Ride reference board,
+which is built on Nord GearVM variant.
+
+ - Configure UART15 as the primary console and UART4 as the secondary
+   serial port
+ - Enable UFS storage support
+ - Define thermal zones for PMIC dies, UFS, and two SDRAM sensors,
+   all sourced from SCMI sensor protocol on channel 23
+
+Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Tested-by: Yadu M G <yadu.mg@oss.qualcomm.com>
 Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 1726 +++++++++++++++++++
- 1 file changed, 1726 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+ arch/arm64/boot/dts/qcom/Makefile      |   1 +
+ arch/arm64/boot/dts/qcom/nord-ride.dts | 236 +++++++++++++++++++++++++
+ 2 files changed, 237 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-ride.dts
 
-diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 1c86e7e98f55..d05920a0d5eb 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -160,6 +160,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-lilac.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-maple.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-poplar.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-xiaomi-sagit.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= nord-ride.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk.dtb
+ 
+ purwa-iot-evk-el2-dtbs	:= purwa-iot-evk.dtb x1-el2.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/nord-ride.dts b/arch/arm64/boot/dts/qcom/nord-ride.dts
 new file mode 100644
-index 000000000000..faaf36dc8d31
+index 000000000000..4a762e4ce62a
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-@@ -0,0 +1,1726 @@
++++ b/arch/arm64/boot/dts/qcom/nord-ride.dts
+@@ -0,0 +1,236 @@
 +// SPDX-License-Identifier: BSD-3-Clause
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#include <dt-bindings/clock/qcom,nord-gcc.h>
-+#include <dt-bindings/clock/qcom,nord-negcc.h>
-+#include <dt-bindings/clock/qcom,nord-nwgcc.h>
-+#include <dt-bindings/clock/qcom,nord-segcc.h>
-+#include <dt-bindings/clock/qcom,nord-tcsrcc.h>
-+#include <dt-bindings/clock/qcom,rpmh.h>
-+#include <dt-bindings/interconnect/qcom,icc.h>
-+#include <dt-bindings/interconnect/qcom,nord-rpmh.h>
-+#include <dt-bindings/power/qcom-rpmpd.h>
-+#include <dt-bindings/soc/qcom,rpmh-rsc.h>
++/dts-v1/;
 +
-+#include "nord.dtsi"
++#include "nord-gearvm.dtsi"
 +
 +/ {
-+	clk_virt: interconnect-clk-virt {
-+		compatible = "qcom,nord-clk-virt";
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
++	model = "Qualcomm Technologies, Inc. SA8797P Ride";
++	compatible = "qcom,sa8797p-ride", "qcom,nord";
++
++	aliases {
++		serial0 = &uart15;
++		serial1 = &uart4;
 +	};
 +
-+	mc_virt: interconnect-mc-virt {
-+		compatible = "qcom,nord-mc-virt";
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	clocks {
++		xo_board_clk: xo-board-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <38400000>;
++			#clock-cells = <0>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
++		};
 +	};
 +};
 +
-+&crypto {
-+	interconnects = <&aggre1_noc_tile MASTER_CRYPTO_CORE0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "memory";
-+
++&scmi3 {
 +	status = "okay";
 +};
 +
-+&i2c0 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c0_default>;
-+	pinctrl-names = "default";
++&scmi11 {
++	status = "okay";
 +};
 +
-+&i2c1 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S1_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c1_default>;
-+	pinctrl-names = "default";
++&scmi23 {
++	status = "okay";
 +};
 +
-+&i2c2 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S2_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c2_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c3 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S3_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c3_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c4 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c4_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c5 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c5_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c7 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c7_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c8 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S1_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c8_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c9 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S2_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c9_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c10 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S3_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c10_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c11 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c11_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c12 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c12_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c13 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S6_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c13_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c14 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c14_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c16 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S2_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c16_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c17 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S3_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c17_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c18 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c18_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c19 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c19_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&i2c20 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S6_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_i2c20_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&qupv3_0 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_M_AHB_CLK>,
-+		 <&segcc SE_GCC_QUPV3_WRAP0_S_AHB_CLK>;
-+	clock-names = "m-ahb", "s-ahb";
-+};
-+
-+&qupv3_1 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_M_AHB_CLK>,
-+		 <&segcc SE_GCC_QUPV3_WRAP1_S_AHB_CLK>;
-+	clock-names = "m-ahb", "s-ahb";
-+};
-+
-+&qupv3_2 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_M_AHB_CLK>,
-+		 <&negcc NE_GCC_QUPV3_WRAP2_S_AHB_CLK>;
-+	clock-names = "m-ahb",
-+		      "s-ahb";
-+};
-+
-+&spi0 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi0_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi1 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S1_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi1_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi2 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S2_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi2_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi3 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S3_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi3_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi4 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi4_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi5 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_0 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi5_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi7 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi7_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi8 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S1_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi8_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi11 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi11_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi12 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi12_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi13 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S6_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre2_noc_tile MASTER_QUP_1 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi13_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi14 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi14_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi16 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S2_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi16_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi17 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S3_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi17_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi18 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi18_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi19 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi19_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&spi20 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S6_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&aggre1_noc_tile MASTER_QUP_2 QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config", "qup-memory";
-+	pinctrl-0 = <&qup_spi20_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&soc {
-+	gcc: clock-controller@100000 {
-+		compatible = "qcom,nord-gcc";
-+		reg = <0x0 0x00100000 0x0 0x1f4200>;
-+		clocks = <&bi_tcxo_div2>,
-+			 <&sleep_clk>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
-+	cnoc_main: interconnect@1500000 {
-+		compatible = "qcom,nord-cnoc-main";
-+		reg = <0x0 0x01500000 0x0 0x1d200>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	config_noc: interconnect@1600000 {
-+		compatible = "qcom,nord-cnoc-cfg";
-+		reg = <0x0 0x01600000 0x0 0xd200>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	system_noc: interconnect@1680000 {
-+		compatible = "qcom,nord-system-noc";
-+		reg = <0x0 0x01680000 0x0 0x1c080>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	aggre2_noc_tile: interconnect@16c0000 {
-+		compatible = "qcom,nord-aggre2-noc-tile";
-+		reg = <0x0 0x016c0000 0x0 0x1b400>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	aggre1_noc: interconnect@16e0000 {
-+		compatible = "qcom,nord-aggre1-noc";
-+		reg = <0x0 0x016e0000 0x0 0x1c400>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	aggre2_noc: interconnect@1700000 {
-+		compatible = "qcom,nord-aggre2-noc";
-+		reg = <0x0 0x01700000 0x0 0x1b400>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+		clocks = <&rpmhcc RPMH_IPA_CLK>;
-+	};
-+
-+	aggre1_noc_tile: interconnect@1720000 {
-+		compatible = "qcom,nord-aggre1-noc-tile";
-+		reg = <0x0 0x01720000 0x0 0x23400>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+		clocks = <&negcc NE_GCC_AGGRE_NOC_USB2_AXI_CLK>,
-+			 <&negcc NE_GCC_AGGRE_NOC_USB3_PRIM_AXI_CLK>,
-+			 <&negcc NE_GCC_AGGRE_NOC_USB3_SEC_AXI_CLK>,
-+			 <&negcc NE_GCC_AGGRE_NOC_UFS_PHY_AXI_CLK>;
-+	};
-+
-+	mmss_noc: interconnect@1780000 {
-+		compatible = "qcom,nord-mmss-noc";
-+		reg = <0x0 0x01780000 0x0 0x72800>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	pcie_cfg: interconnect@1ba0000 {
-+		compatible = "qcom,nord-pcie-cfg";
-+		reg = <0x0 0x01ba0000 0x0 0x7200>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	pcie_data_outbound: interconnect@1bc0000 {
-+		compatible = "qcom,nord-pcie-data-outbound";
-+		reg = <0x0 0x01bc0000 0x0 0x17000>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	pcie_data_inbound: interconnect@1c00000 {
-+		compatible = "qcom,nord-pcie-data-inbound";
-+		reg = <0x0 0x01c00000 0x0 0x4b080>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	ufs_mem_phy: phy@1d40000 {
-+		compatible = "qcom,nord-qmp-ufs-phy",
-+			     "qcom,sm8650-qmp-ufs-phy";
-+		reg = <0x0 0x01d40000 0x0 0x2000>;
-+
-+		clocks = <&rpmhcc RPMH_CXO_CLK>,
-+			 <&negcc NE_GCC_UFS_PHY_PHY_AUX_CLK>,
-+			 <&tcsrcc TCSR_UFS_CLKREF_EN>;
-+		clock-names = "ref",
-+			      "ref_aux",
-+			      "qref";
-+
-+		resets = <&ufs_mem_hc 0>;
-+		reset-names = "ufsphy";
-+
-+		power-domains = <&negcc NE_GCC_UFS_MEM_PHY_GDSC>;
-+		#clock-cells = <1>;
-+		#phy-cells = <0>;
-+
-+		status = "disabled";
-+	};
-+
-+	ice: crypto@1d48000 {
-+		compatible = "qcom,nord-inline-crypto-engine",
-+			     "qcom,inline-crypto-engine";
-+		reg = <0x0 0x01d48000 0x0 0x18000>;
-+		clocks = <&negcc NE_GCC_UFS_PHY_ICE_CORE_CLK>,
-+			 <&negcc NE_GCC_UFS_PHY_AHB_CLK>;
-+		clock-names = "core",
-+			      "iface";
-+		power-domains = <&negcc NE_GCC_UFS_PHY_GDSC>;
-+	};
-+
-+	hscnoc: interconnect@2000000 {
-+		compatible = "qcom,nord-hscnoc";
-+		reg = <0x0 0x02000000 0x0 0xb22000>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	hpass_ag_noc: interconnect@5fc0000 {
-+		compatible = "qcom,nord-hpass-ag-noc";
-+		reg = <0x0  0x05fc0000 0x0 0x37080>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	negcc: clock-controller@8900000 {
-+		compatible = "qcom,nord-negcc";
-+		reg = <0x0 0x08900000 0x0 0xf4200>;
-+		clocks = <&bi_tcxo_div2>,
-+			 <&sleep_clk>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>,
-+			 <0>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
-+	segcc: clock-controller@8a00000 {
-+		compatible = "qcom,nord-segcc";
-+		reg = <0x0 0x08a00000 0x0 0xf4200>;
-+		clocks = <&bi_tcxo_div2>,
-+			 <&sleep_clk>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
-+	nwgcc: clock-controller@8b00000 {
-+		compatible = "qcom,nord-nwgcc";
-+		reg = <0x0 0x08b00000 0x0 0xf4200>;
-+		clocks = <&bi_tcxo_div2>,
-+			 <&sleep_clk>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		#power-domain-cells = <1>;
-+	};
-+
-+	tcsrcc: clock-controller@f1d9000 {
-+		compatible = "qcom,nord-tcsrcc",
-+			     "syscon";
-+		reg = <0x0 0x0f1d9000 0x0 0xf00c>;
-+		clocks = <&rpmhcc RPMH_CXO_CLK>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+	};
-+
-+	apps_rsc: rsc@18900000 {
-+		compatible = "qcom,rpmh-rsc";
-+		reg = <0x0 0x18900000 0x0 0x10000>,
-+		      <0x0 0x18910000 0x0 0x10000>,
-+		      <0x0 0x18920000 0x0 0x10000>;
-+		reg-names = "drv-0",
-+			    "drv-1",
-+			    "drv-2";
-+		interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 29 IRQ_TYPE_LEVEL_HIGH>;
-+		qcom,tcs-offset = <0xd00>;
-+		qcom,drv-id = <2>;
-+		qcom,tcs-config = <ACTIVE_TCS 3>,
-+				  <SLEEP_TCS 2>,
-+				  <WAKE_TCS 2>,
-+				  <CONTROL_TCS 0>;
-+		label = "apps_rsc";
-+		power-domains = <&system_pd>;
-+
-+		apps_bcm_voter: bcm-voter {
-+			compatible = "qcom,bcm-voter";
-+		};
-+
-+		rpmhcc: clock-controller {
-+			compatible = "qcom,nord-rpmh-clk";
-+			clocks = <&xo_board>;
-+			clock-names = "xo";
-+			#clock-cells = <1>;
-+		};
-+
-+		rpmhpd: power-controller {
-+			compatible = "qcom,nord-rpmhpd";
-+			#power-domain-cells = <1>;
-+			operating-points-v2 = <&rpmhpd_opp_table>;
-+
-+			rpmhpd_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				rpmhpd_opp_ret: opp-0 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_RETENTION>;
-+				};
-+
-+				rpmhpd_opp_min_svs: opp-1 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-+				};
-+
-+				rpmhpd_opp_low_svs: opp-2 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+				};
-+
-+				rpmhpd_opp_svs: opp-3 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+				};
-+
-+				rpmhpd_opp_svs_l1: opp-4 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+				};
-+
-+				rpmhpd_opp_nom: opp-5 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+				};
-+
-+				rpmhpd_opp_nom_l1: opp-6 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+				};
-+
-+				rpmhpd_opp_nom_l2: opp-7 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L2>;
-+				};
-+
-+				rpmhpd_opp_turbo: opp-8 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+				};
-+
-+				rpmhpd_opp_turbo_l1: opp-9 {
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+				};
++&thermal_zones {
++	pmic_kobra_thermal: pmic-a-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 3>;
++
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
 +			};
 +		};
 +	};
 +
-+	nsp_data_noc_0: interconnect@1f200000 {
-+		compatible = "qcom,nord-nsp-data-noc-0";
-+		reg = <0x0 0x1f200000 0x0 0x2a200>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
++	pmic_kai_0_thermal: pmic-e-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 4>;
 +
-+	nsp_data_noc_1: interconnect@1f600000 {
-+		compatible = "qcom,nord-nsp-data-noc-1";
-+		reg = <0x0 0x1f600000 0x0 0x2a200>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	nsp_data_noc_2: interconnect@1fa00000 {
-+		compatible = "qcom,nord-nsp-data-noc-2";
-+		reg = <0x0 0x1fa00000 0x0 0x2a200>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+
-+	nsp_data_noc_3: interconnect@1fe00000 {
-+		compatible = "qcom,nord-nsp-data-noc-3";
-+		reg = <0x0 0x1fe00000 0x0 0x2a200>;
-+		#interconnect-cells = <2>;
-+		qcom,bcm-voters = <&apps_bcm_voter>;
-+	};
-+};
-+
-+&tlmm {
-+	qup_i2c0_default: qup-i2c0-default-state {
-+		pins = "gpio111", "gpio112";
-+		function = "qup0_se0";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c1_default: qup-i2c1-default-state {
-+		pins = "gpio111", "gpio112";
-+		function = "qup0_se1";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c2_default: qup-i2c2-default-state {
-+		pins = "gpio113", "gpio114";
-+		function = "qup0_se2";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c3_default: qup-i2c3-default-state {
-+		pins = "gpio115", "gpio116";
-+		function = "qup0_se3";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c4_default: qup-i2c4-default-state {
-+		pins = "gpio117", "gpio118";
-+		function = "qup0_se4";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c5_default: qup-i2c5-default-state {
-+		pins = "gpio121", "gpio122";
-+		function = "qup0_se5";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c7_default: qup-i2c7-default-state {
-+		pins = "gpio123", "gpio124";
-+		function = "qup1_se0";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c8_default: qup-i2c8-default-state {
-+		pins = "gpio125", "gpio126";
-+		function = "qup1_se1";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c9_default: qup-i2c9-default-state {
-+		pins = "gpio127", "gpio128";
-+		function = "qup1_se2";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c10_default: qup-i2c10-default-state {
-+		pins = "gpio129", "gpio130";
-+		function = "qup1_se3";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c11_default: qup-i2c11-default-state {
-+		pins = "gpio131", "gpio132";
-+		function = "qup1_se4";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c12_default: qup-i2c12-default-state {
-+		pins = "gpio133", "gpio134";
-+		function = "qup1_se5";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c13_default: qup-i2c13-default-state {
-+		pins = "gpio137", "gpio138";
-+		function = "qup1_se6";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c14_default: qup-i2c14-default-state {
-+		pins = "gpio139", "gpio140";
-+		function = "qup2_se0";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c16_default: qup-i2c16-default-state {
-+		pins = "gpio145", "gpio146";
-+		function = "qup2_se2";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c17_default: qup-i2c17-default-state {
-+		pins = "gpio150", "gpio151";
-+		function = "qup2_se3";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c18_default: qup-i2c18-default-state {
-+		pins = "gpio154", "gpio155";
-+		function = "qup2_se4";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c19_default: qup-i2c19-default-state {
-+		pins = "gpio156", "gpio157";
-+		function = "qup2_se5";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_i2c20_default: qup-i2c20-default-state {
-+		pins = "gpio158", "gpio159";
-+		function = "qup2_se6";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	qup_spi0_default: qup-spi0-default-state {
-+		data-pins {
-+			pins = "gpio109", "gpio111", "gpio112";
-+			function = "qup0_se0";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		cs-pins {
-+			pins = "gpio110";
-+			function = "qup0_se0";
-+			drive-strength = <2>;
-+			bias-disable;
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +		};
 +	};
 +
-+	qup_spi1_default: qup-spi1-default-state {
-+		data-pins {
-+			pins = "gpio109", "gpio111", "gpio112";
-+			function = "qup0_se1";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_1_thermal: pmic-f-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 5>;
 +
-+		cs-pins {
-+			pins = "gpio110";
-+			function = "qup0_se1";
-+			drive-strength = <2>;
-+			bias-disable;
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +		};
 +	};
 +
-+	qup_spi2_default: qup-spi2-default-state {
-+		data-pins {
-+			pins = "gpio113", "gpio114", "gpio115";
-+			function = "qup0_se2";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_2_thermal: pmic-g-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 6>;
 +
-+		cs-pins {
-+			pins = "gpio116";
-+			function = "qup0_se2";
-+			drive-strength = <2>;
-+			bias-disable;
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +		};
 +	};
 +
-+	qup_spi3_default: qup-spi3-default-state {
-+		data-pins {
-+			pins = "gpio113", "gpio115", "gpio116";
-+			function = "qup0_se3";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_3_thermal: pmic-h-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 7>;
 +
-+		cs-pins {
-+			pins = "gpio114";
-+			function = "qup0_se3";
-+			drive-strength = <2>;
-+			bias-disable;
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +		};
 +	};
 +
-+	qup_spi4_default: qup-spi4-default-state {
-+		data-pins {
-+			pins = "gpio117", "gpio118", "gpio119";
-+			function = "qup0_se4";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_4_thermal: pmic-i-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 8>;
 +
-+		cs-pins {
-+			pins = "gpio120";
-+			function = "qup0_se4";
-+			drive-strength = <2>;
-+			bias-disable;
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +		};
 +	};
 +
-+	qup_spi5_default: qup-spi5-default-state {
-+		data-pins {
-+			pins = "gpio109", "gpio121", "gpio122";
-+			function = "qup0_se5";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_5_thermal: pmic-j-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 9>;
 +
-+		cs-pins {
-+			pins = "gpio110";
-+			function = "qup0_se5";
-+			drive-strength = <2>;
-+			bias-disable;
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +		};
 +	};
 +
-+	qup_spi7_default: qup-spi7-default-state {
-+		data-pins {
-+			pins = "gpio123", "gpio124", "gpio125";
-+			function = "qup1_se0";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_6_thermal: pmic-k-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 10>;
 +
-+		cs-pins {
-+			pins = "gpio126";
-+			function = "qup1_se0";
-+			drive-strength = <2>;
-+			bias-disable;
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +		};
 +	};
 +
-+	qup_spi8_default: qup-spi8-default-state {
-+		data-pins {
-+			pins = "gpio123", "gpio125", "gpio126";
-+			function = "qup1_se1";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_7_thermal: pmic-l-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 11>;
 +
-+		cs-pins {
-+			pins = "gpio124";
-+			function = "qup1_se1";
-+			drive-strength = <2>;
-+			bias-disable;
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +		};
 +	};
 +
-+	qup_spi11_default: qup-spi11-default-state {
-+		data-pins {
-+			pins = "gpio131", "gpio132", "gpio137";
-+			function = "qup1_se4";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_ufs_thermal: ufs-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 0>;
 +
-+		cs-pins {
-+			pins = "gpio138";
-+			function = "qup1_se4";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +
-+	qup_spi12_default: qup-spi12-default-state {
-+		data-pins {
-+			pins = "gpio133", "gpio134", "gpio135";
-+			function = "qup1_se5";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		cs-pins {
-+			pins = "gpio136";
-+			function = "qup1_se5";
-+			drive-strength = <2>;
-+			bias-disable;
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
 +		};
 +	};
 +
-+	qup_spi13_default: qup-spi13-default-state {
-+		data-pins {
-+			pins = "gpio131", "gpio137", "gpio138";
-+			function = "qup1_se6";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_sdram0_thermal: sdram0-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 1>;
 +
-+		cs-pins {
-+			pins = "gpio132";
-+			function = "qup1_se6";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +
-+	qup_spi14_default: qup-spi14-default-state {
-+		data-pins {
-+			pins = "gpio139", "gpio140", "gpio141";
-+			function = "qup2_se0";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		cs-pins {
-+			pins = "gpio142";
-+			function = "qup2_se0";
-+			drive-strength = <2>;
-+			bias-disable;
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
 +		};
 +	};
 +
-+	qup_spi16_default: qup-spi16-default-state {
-+		data-pins {
-+			pins = "gpio145", "gpio146", "gpio147";
-+			function = "qup2_se2";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
++	pmic_kai_sdram1_thermal: sdram1-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 2>;
 +
-+		cs-pins {
-+			pins = "gpio148";
-+			function = "qup2_se2";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
 +
-+	qup_spi17_default: qup-spi17-default-state {
-+		data-pins {
-+			pins = "gpio150", "gpio151", "gpio152";
-+			function = "qup2_se3";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		cs-pins {
-+			pins = "gpio153";
-+			function = "qup2_se3";
-+			drive-strength = <2>;
-+			bias-disable;
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
 +		};
 +	};
-+
-+	qup_spi18_default: qup-spi18-default-state {
-+		data-pins {
-+			pins = "gpio143", "gpio154", "gpio155";
-+			function = "qup2_se4";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		cs-pins {
-+			pins = "gpio144";
-+			function = "qup2_se4";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
-+	qup_spi19_default: qup-spi19-default-state {
-+		data-pins {
-+			pins = "gpio156", "gpio157", "gpio158";
-+			function = "qup2_se5";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		cs-pins {
-+			pins = "gpio159";
-+			function = "qup2_se5";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
-+	qup_spi20_default: qup-spi20-default-state {
-+		data-pins {
-+			pins = "gpio156", "gpio158", "gpio159";
-+			function = "qup2_se6";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		cs-pins {
-+			pins = "gpio157";
-+			function = "qup2_se6";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
-+	qup_uart0_default: qup-uart0-default-state {
-+		pins = "gpio109", "gpio110";
-+		function = "qup0_se0";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart1_default: qup-uart1-default-state {
-+		pins = "gpio109", "gpio110";
-+		function = "qup0_se1";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart2_default: qup-uart2-default-state {
-+		pins = "gpio115", "gpio116";
-+		function = "qup0_se2";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart3_default: qup-uart3-default-state {
-+		pins = "gpio113", "gpio114";
-+		function = "qup0_se3";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart4_default: qup-uart4-default-state {
-+		pins = "gpio119", "gpio120";
-+		function = "qup0_se4";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart5_default: qup-uart5-default-state {
-+		pins = "gpio109", "gpio110";
-+		function = "qup0_se5";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart7_default: qup-uart7-default-state {
-+		pins = "gpio125", "gpio126";
-+		function = "qup1_se0";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart8_default: qup-uart8-default-state {
-+		pins = "gpio123", "gpio124";
-+		function = "qup1_se1";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart9_default: qup-uart9-default-state {
-+		pins = "gpio127", "gpio128";
-+		function = "qup1_se2";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart10_default: qup-uart10-default-state {
-+		pins = "gpio129", "gpio130";
-+		function = "qup1_se3";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart11_default: qup-uart11-default-state {
-+		pins = "gpio137", "gpio138";
-+		function = "qup1_se4";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart12_default: qup-uart12-default-state {
-+		pins = "gpio135", "gpio136";
-+		function = "qup1_se5";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart13_default: qup-uart13-default-state {
-+		pins = "gpio131", "gpio132";
-+		function = "qup1_se6";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart14_default: qup-uart14-default-state {
-+		pins = "gpio141", "gpio142";
-+		function = "qup2_se0";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart15_default: qup-uart15-default-state {
-+		pins = "gpio143", "gpio144";
-+		function = "qup2_se1";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart16_default: qup-uart16-default-state {
-+		pins = "gpio147", "gpio148";
-+		function = "qup2_se2";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart17_default: qup-uart17-default-state {
-+		pins = "gpio150", "gpio151", "gpio152", "gpio153";
-+		function = "qup2_se3";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart18_default: qup-uart18-default-state {
-+		pins = "gpio143", "gpio144";
-+		function = "qup2_se4";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart19_default: qup-uart19-default-state {
-+		pins = "gpio158", "gpio159";
-+		function = "qup2_se5";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	qup_uart20_default: qup-uart20-default-state {
-+		pins = "gpio156", "gpio157";
-+		function = "qup2_se6";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+};
-+
-+&uart0 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart0_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart1 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S1_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart1_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart2 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S2_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart2_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart3 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S3_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart3_default>;
-+	pinctrl-names = "default";
 +};
 +
 +&uart4 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart4_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart5 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_0 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart5_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart7 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart7_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart8 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S1_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart8_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart9 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S2_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart9_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart10 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S3_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart10_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart11 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart11_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart12 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart12_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart13 {
-+	clocks = <&segcc SE_GCC_QUPV3_WRAP1_S6_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_1 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart13_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart14 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S0_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart14_default>;
-+	pinctrl-names = "default";
++	status = "okay";
 +};
 +
 +&uart15 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S1_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart15_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart16 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S2_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart16_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart17 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S3_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart17_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart18 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S4_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart18_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart19 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S5_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart19_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&uart20 {
-+	clocks = <&negcc NE_GCC_QUPV3_WRAP2_S6_CLK>;
-+	clock-names = "se";
-+	interconnects = <&clk_virt MASTER_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS
-+			 &clk_virt SLAVE_QUP_CORE_2 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+			 &config_noc SLAVE_QUP_2 QCOM_ICC_TAG_ALWAYS>;
-+	interconnect-names = "qup-core", "qup-config";
-+	pinctrl-0 = <&qup_uart20_default>;
-+	pinctrl-names = "default";
++	status = "okay";
 +};
 +
 +&ufs_mem_hc {
-+	clocks = <&negcc NE_GCC_UFS_PHY_AXI_CLK>,
-+		 <&negcc NE_GCC_AGGRE_NOC_UFS_PHY_AXI_CLK>,
-+		 <&negcc NE_GCC_UFS_PHY_AHB_CLK>,
-+		 <&negcc NE_GCC_UFS_PHY_UNIPRO_CORE_CLK>,
-+		 <&tcsrcc TCSR_UFS_CLKREF_EN>,
-+		 <&negcc NE_GCC_UFS_PHY_TX_SYMBOL_0_CLK>,
-+		 <&negcc NE_GCC_UFS_PHY_RX_SYMBOL_0_CLK>,
-+		 <&negcc NE_GCC_UFS_PHY_RX_SYMBOL_1_CLK>;
-+	clock-names = "core_clk",
-+		      "bus_aggr_clk",
-+		      "iface_clk",
-+		      "core_clk_unipro",
-+		      "ref_clk",
-+		      "tx_lane0_sync_clk",
-+		      "rx_lane0_sync_clk",
-+		      "rx_lane1_sync_clk";
-+
-+	resets = <&negcc NE_GCC_UFS_PHY_BCR>;
-+	reset-names = "rst";
-+
-+	interconnects = <&aggre1_noc_tile MASTER_UFS_MEM QCOM_ICC_TAG_ALWAYS
-+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+			 &config_noc SLAVE_UFS_MEM_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
-+	interconnect-names = "ufs-ddr",
-+			     "cpu-ufs";
-+
-+	phys = <&ufs_mem_phy>;
-+	phy-names = "ufsphy";
-+
-+	power-domains = <&negcc NE_GCC_UFS_PHY_GDSC>;
-+	operating-points-v2 = <&ufs_opp_table>;
-+	required-opps = <&rpmhpd_opp_nom>;
-+	qcom,ice = <&ice>;
-+	#reset-cells = <1>;
-+
-+	ufs_opp_table: opp-table {
-+		compatible = "operating-points-v2";
-+
-+		opp-100000000 {
-+			opp-hz = /bits/ 64 <100000000>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <100000000>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>;
-+			required-opps = <&rpmhpd_opp_low_svs>;
-+		};
-+
-+		opp-201500000 {
-+			opp-hz = /bits/ 64 <201500000>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <201500000>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>;
-+			required-opps = <&rpmhpd_opp_svs>;
-+		};
-+
-+		opp-403000000 {
-+			opp-hz = /bits/ 64 <403000000>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <403000000>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>,
-+				 /bits/ 64 <0>;
-+			required-opps = <&rpmhpd_opp_nom>;
-+		};
-+	};
++	status = "okay";
 +};
 -- 
 2.43.0
