@@ -1,36 +1,36 @@
 Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0743DDB0A;
-	Sun, 16 Aug 2026 10:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA743DDAE3;
+	Sun, 16 Aug 2026 10:26:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786876004; cv=none; b=KUdlFH6Kn8+IGEpFyCaYfG0rEYFtHugu4rBv+DA9RbpsdIYYqYPfu1yx04U93F9fojof61G1WralDwLqNrKjQSLd/F5f+y87xXNmh4mf6H6Ldq0DNTlRMwW7tKsQu/4fqUXBeIhRk2OTqLVikau8bfgpLSiRlAvFamrJKw0jUKI=
+	t=1786876006; cv=none; b=qedkaro4UQy1AUjhW+OVBM54WsOPmKZJ6GBzyuVcD5/kc+ZWiglvxarPwN8620k1fI3viU9exFzh0ol/f3VJ8R/pGMHMv8evvmr8I6f8W1zntcTzTvN2s/n+QpQBzsv7fQc+oNVQ11M8amSAO5yo/6twCtjaQelgjE+2xWhhWz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786876004; c=relaxed/simple;
-	bh=XC8UjN7V7OAUYnYp8DhiPaqOWzgm6qjWeGjtme4Eml4=;
+	s=arc-20240116; t=1786876006; c=relaxed/simple;
+	bh=2bwsVS73ftdNFM2Okf+JM1I40RefIS4dKh7P1t9yANY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rv2JUJKXSPemYcvmMV0rrhnCuX9wdhVDMT7xNmj1P5xs+f0Dp+Iq4pILHCikneW8mNn70LAtphEPlBaTBFxVrEf49KM7FT07jzer3bMOKJy10uCUClr6d1JpboZjiNvtIe/NTUllGDTrgeN9zLDIpyJPvzoJ8S8npo88RHQOH1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=SC+32rN5; arc=none smtp.client-ip=77.81.229.115
+	 In-Reply-To:To:Cc; b=guJ4qmMN130iglQSoBVo5JI+JIGrvvvLUY7Xp+4Wx369SvNEC/HZKNkmPzMrfhb75Gv46bdmWTue/Go8Hoclzgx8fT8Ln0pxSnQOTfkGjfrvoBm0W8PCTrnNuqsSywI+26U6sAa2cS64pYShNnXNgQQlYwG/4KOjagz70hpj9tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=KzG8iQX+; arc=none smtp.client-ip=77.81.229.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="SC+32rN5"
-Received: by chaosmail.tech (Postfix) id D51151C889D;
-	Sun, 16 Aug 2026 10:26:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="KzG8iQX+"
+Received: by chaosmail.tech (Postfix) id 1E7A51C9BD1;
+	Sun, 16 Aug 2026 10:26:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1786875994;
+	s=mail; t=1786875996;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4eceDsqSjj99vq4YSGbw8Dy4bNzTm+W6fU1EurOD8rs=;
-	b=SC+32rN5GKvVb687Fu9WV3MQctxPvciRGURnGtHdm9LsaiuNtWpHNykGvxW8ET0y4510o2
-	Luxjd3XwTTJrxNqwfn0TynJDDwG/OEcdAVofmbrX1iupAUrsDaQhVlS7dscECr0tT35bvw
-	AUWI8SJGubX4fpZgVjwL0vaEghGENWQ=
+	bh=i1ZT8E0+Pm5VDx4LcOMCqD5baN3Oe5eOsk0bsRrW/zs=;
+	b=KzG8iQX+SVbKzZt+WwjP8qe8IDGu/eLylonpUggN1rMTuferaYfK86fEmPZcl1mTKGhpCV
+	8zXWbag96iuLkQ4LguAT/2NU9PbjDmi5qJPEJOZvmYsoJExaYJaOUTCy/cyBXzot5xzmZk
+	TSbg9Delt93C3GHHIP10fq6H3eaxRJY=
 From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Sun, 16 Aug 2026 12:26:21 +0200
-Subject: [PATCH v6 1/6] dt-bindings: spmi: apple,spmi: Add t603x and t8122
+Date: Sun, 16 Aug 2026 12:26:24 +0200
+Subject: [PATCH v6 4/6] spmi: apple: Implement remaining commands
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,7 +39,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260816-t603x-spmi-v6-1-c5ab87aa447b@chaosmail.tech>
+Message-Id: <20260816-t603x-spmi-v6-4-c5ab87aa447b@chaosmail.tech>
 References: <20260816-t603x-spmi-v6-0-c5ab87aa447b@chaosmail.tech>
 In-Reply-To: <20260816-t603x-spmi-v6-0-c5ab87aa447b@chaosmail.tech>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -48,63 +48,212 @@ To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Sasha Finkelstein <k@chaosmail.tech>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786875992; l=1492;
+ Sasha Finkelstein <k@chaosmail.tech>, Alba Mendez <me@alba.sh>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786875992; l=6582;
  i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=XC8UjN7V7OAUYnYp8DhiPaqOWzgm6qjWeGjtme4Eml4=;
- b=gMN83pbQJwN7jI0NDIGxDCW9Xk4nBpZ12mn9btMD1WHRTBVK8iEfVvAgUQBmoRF8tlwfKNBlp
- NLODqqll2EWC506huD72WYI2zuQWUE1/Ml9Og3EDrqR0ZIeGK+Ciz67
+ bh=RH6K223nJdTsq2zsNyub+vrfUTvair8i/u/7LCuGT1E=;
+ b=fHS5gBQkGhI4VP4QrU1g5TCbBPHO9aVKVDKDHm+GLz8OnByJjfcLyROd5mJ6dnrqo7LoTjflw
+ N9Pg0SkJOKFBpylO1Z2OT0j7hxLrc5CkX58tSuema7FDUWJs9AccnZc
 X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
  pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Add t603x and t8122 compatibles, interrupt support, and support for
-SPMI controllers that are not always-on.
+From: Alba Mendez <me@alba.sh>
 
-Keeping the "interrupt-controller" property as optional, as taking the
-j514c as an example, we only need this functionality on 3 out of 10
-SPMI controllers present on this SoC.
+Add support for zero write and power management commands.
 
-Reviewed-by: Janne Grunau <j@jannau.net>
+Signed-off-by: Alba Mendez <me@alba.sh>
 Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
- Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/spmi/spmi-apple-controller.c | 116 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------
+ 1 file changed, 69 insertions(+), 47 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-index 3e5b14bc8c31..fceed47b2cd1 100644
---- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-+++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-@@ -20,8 +20,11 @@ properties:
-       - items:
-           - enum:
-               - apple,t6020-spmi
-+              - apple,t6030-spmi
-+              - apple,t6031-spmi
-               - apple,t8012-spmi
-               - apple,t8015-spmi
-+              - apple,t8122-spmi
-           - const: apple,t8103-spmi
-       - items:
-           - enum:
-@@ -34,6 +37,18 @@ properties:
-   reg:
-     maxItems: 1
+diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
+index b1c127cf5f44..9843dc871d6c 100644
+--- a/drivers/spmi/spmi-apple-controller.c
++++ b/drivers/spmi/spmi-apple-controller.c
+@@ -46,9 +46,9 @@ struct apple_spmi {
+ 	readl_poll_timeout((spmi)->regs + (reg), (val), (cond), \
+ 			   REG_POLL_INTERVAL_US, REG_POLL_TIMEOUT_US)
  
-+  interrupts:
-+    maxItems: 1
-+    description: Optional, operates in polled mode if not present
+-static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 saddr, size_t len)
++static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 param)
+ {
+-	return opc | sid << 8 | saddr << 16 | (len - 1) | (1 << 15);
++	return opc | sid << 8 | (u32)param << 16 | (1 << 15);
+ }
+ 
+ /* Wait for Rx FIFO to have something */
+@@ -69,14 +69,13 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
+ 	return 0;
+ }
+ 
+-static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+-			 u16 saddr, u8 *buf, size_t len)
++static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u16 param,
++			const u8 *buf_wr, size_t len_wr, u8 *buf_rd, size_t len_rd)
+ {
+ 	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
+-	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
++	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, param);
+ 	u32 reply, rsp;
+-	size_t len_read = 0;
+-	u8 i;
++	size_t i = 0, j;
+ 	int ret;
+ 
+ 	if (spmi->prev_fail) {
+@@ -86,6 +85,14 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+ 
+ 	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+ 
++	while (i < len_wr) {
++		j = min_t(size_t, sizeof(spmi_cmd), len_wr - i);
++		spmi_cmd = 0;
++		memcpy(&spmi_cmd, buf_wr + i, j);
++		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
++		i += j;
++	}
 +
-+  interrupt-controller: true
-+
-+  "#interrupt-cells":
-+    const: 2
-+
-+  power-domains:
-+    maxItems: 1
-+
- required:
-   - compatible
-   - reg
+ 	ret = apple_spmi_wait_rx_not_empty(ctrl);
+ 	if (ret)
+ 		return ret;
+@@ -93,7 +100,8 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+ 	reply = readl(spmi->regs + SPMI_RSP_REG);
+ 
+ 	/* Read SPMI data reply */
+-	while (len_read < len) {
++	i = 0;
++	while (i < len_rd) {
+ 		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
+ 			spmi->prev_fail = true;
+ 			dev_err_ratelimited(&ctrl->dev,
+@@ -101,11 +109,9 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+ 			return -EIO;
+ 		}
+ 		rsp = readl(spmi->regs + SPMI_RSP_REG);
+-		i = 0;
+-		while ((len_read < len) && (i < 4)) {
+-			buf[len_read++] = ((0xff << (8 * i)) & rsp) >> (8 * i);
+-			i += 1;
+-		}
++		j = min_t(size_t, sizeof(spmi_cmd), len_rd - i);
++		memcpy(buf_rd + i, &rsp, j);
++		i += j;
+ 	}
+ 
+ 	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
+@@ -113,54 +119,69 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+ 		spmi->prev_fail = true;
+ 	}
+ 
+-	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len) - 1)) {
++	if (!len_rd && !FIELD_GET(SPMI_REPLY_ACK, reply)) {
++		dev_err(&ctrl->dev, "command not acknowledged\n");
++		return -EIO;
++	}
++	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len_rd) - 1)) {
+ 		dev_err(&ctrl->dev, "some frames failed parity check\n");
+ 		return -EIO;
+ 	}
+ 	return 0;
+ }
+ 
+-static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+-			  u16 saddr, const u8 *buf, size_t len)
++/* Send a raw command with 1..16 input data frames */
++static int spmi_raw_cmd_input(struct spmi_controller *ctrl, u8 opc, u8 sid,
++			 u16 param, u8 *buf, size_t len)
+ {
+-	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
+-	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
+-	u32 reply;
+-	size_t i = 0, j;
+-	int ret;
+-
+-	if (spmi->prev_fail) {
+-		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
+-		spmi->prev_fail = false;
+-	}
+-
+-	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
++	return spmi_raw_cmd(ctrl, opc, sid, param, NULL, 0, buf, len);
++}
+ 
+-	while (i < len) {
+-		j = 0;
+-		spmi_cmd = 0;
+-		while ((j < 4) & (i < len))
+-			spmi_cmd |= buf[i++] << (j++ * 8);
++/* Send a raw command with (optional) body and an input ACK */
++static int spmi_raw_cmd_ack(struct spmi_controller *ctrl, u8 opc, u8 sid,
++			  u16 param, const u8 *buf, size_t len)
++{
++	return spmi_raw_cmd(ctrl, opc, sid, param, buf, len, NULL, 0);
++}
+ 
+-		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
++static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
++			 u16 saddr, u8 *buf, size_t len)
++{
++	switch (opc) {
++	case SPMI_CMD_EXT_READ:
++	case SPMI_CMD_EXT_READL:
++		return spmi_raw_cmd_input(ctrl, opc | (len - 1), sid, saddr, buf, len);
++	case SPMI_CMD_READ:
++		return spmi_raw_cmd_input(ctrl, opc | saddr, sid, saddr, buf, len);
+ 	}
++	return -EINVAL;
++}
+ 
+-	ret = apple_spmi_wait_rx_not_empty(ctrl);
+-	if (ret)
+-		return ret;
+-
+-	reply = readl(spmi->regs + SPMI_RSP_REG);
+-
+-	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
+-		dev_warn(&ctrl->dev, "FIFO has extra data\n");
+-		spmi->prev_fail = true;
++static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
++			  u16 saddr, const u8 *buf, size_t len)
++{
++	switch (opc) {
++	case SPMI_CMD_WRITE:
++		return spmi_raw_cmd_ack(ctrl, opc | saddr, sid, buf[0] << 8 | saddr, NULL, 0);
++	case SPMI_CMD_ZERO_WRITE:
++		return spmi_raw_cmd_ack(ctrl, opc | buf[0], sid, buf[0] << 8 | saddr, NULL, 0);
++	case SPMI_CMD_EXT_WRITE:
++	case SPMI_CMD_EXT_WRITEL:
++		return spmi_raw_cmd_ack(ctrl, opc | (len - 1), sid, saddr, buf, len);
+ 	}
++	return -EINVAL;
++}
+ 
+-	if (!FIELD_GET(SPMI_REPLY_ACK, reply)) {
+-		dev_err(&ctrl->dev, "command not acknowledged\n");
+-		return -EIO;
++static int spmi_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid)
++{
++	switch (opc) {
++	case SPMI_CMD_RESET:
++	case SPMI_CMD_SLEEP:
++	case SPMI_CMD_SHUTDOWN:
++	case SPMI_CMD_WAKEUP:
++		return spmi_raw_cmd_ack(ctrl, opc, sid, 0, NULL, 0);
+ 	}
+-	return 0;
++	return -EINVAL;
+ }
+ 
+ static int apple_spmi_probe(struct platform_device *pdev)
+@@ -183,6 +204,7 @@ static int apple_spmi_probe(struct platform_device *pdev)
+ 
+ 	ctrl->read_cmd = spmi_read_cmd;
+ 	ctrl->write_cmd = spmi_write_cmd;
++	ctrl->cmd = spmi_cmd;
+ 
+ 	ret = devm_spmi_controller_add(&pdev->dev, ctrl);
+ 	if (ret)
 
 -- 
 2.55.0
