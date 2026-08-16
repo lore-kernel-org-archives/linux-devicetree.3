@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14BE2D5925
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 10:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66042BCF7F
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 10:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786876581; cv=none; b=t5NPY+aLvdoCz/tQdM0afwROMCW0ieip4D9o+j9DtIMdJ0Fv/vbzZ2Xka8jfV2RbN7ng3Bz3LReS7we2BeX7xN6/SiCzV5hWIqIAjf9N6YFwP3jKBnI3/IHU0YxHQabHMD4Pa/n/tLb9fRpvI72EB2/hiQsgVEkdW/GQ7ai73H4=
+	t=1786876629; cv=none; b=GU9fdMuwGaXL80RVED1V6KKUhHUxgkJ2KxWxOSdUjnYzy6idTKpE3UxTInHqlddnFiJIXSU2/fCz/dfaq0WvfDYwmf3p7lsefwfflN1YBbE9slFsQab48BrusraPqexqXYynpVyQ9JduoOhAOM5mg3xUdSQs5BgoDTBshLduiFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786876581; c=relaxed/simple;
-	bh=pGHrH7fZM+7nTIS//Pd2/WEOo1kXJkpHq8jtQgkSGVM=;
+	s=arc-20240116; t=1786876629; c=relaxed/simple;
+	bh=VNrQPRtgY+E1Q0fcH/cSOzFSGI147bxzFHttI1VGXbw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RJQoIGJs2KMZKij5lnItOYZW4d9+ugnZbeDin3//hjayG5K2lt5h8n7wQVR3rdMHJYupOtohTZTEzZ6o2QEU7yLqBSQ9B3KkXGyG22eoG5S4KvWChHzYnjXMGxu7XFcCJzdpOcvXxdCAtQ+49S0lf6GCfizH4u0h5O05YIQruNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R+D3x2hA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hzf9HJqH5ZbTmqQsguVngnFVyKAXgR7YIyHfEAgaCaEayTq3gv8d59yMHAF6sABOYYv2sK3Pd2KjL/1qXz19seNgIFycr3QdSS05qIQ3USmTbAe6go7+xL2sZCh8VKpf5Hz5Zj8Bclk8SfURMjs+DHE3IXVikBnAzxsMI9QJJhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/d8LkZ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+D3x2hA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 699C21F000E9;
-	Sun, 16 Aug 2026 10:36:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/d8LkZ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9F61F000E9;
+	Sun, 16 Aug 2026 10:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786876580;
-	bh=th3VLXC96fllnmNsbk/qT4AtK0lO3LZDEy8bqgnUJVI=;
+	s=k20260515; t=1786876628;
+	bh=kc0/exVpO7R2snY+KR4Q4NycJH5CezG3JO0wSpu+KoE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R+D3x2hALBbzcir4seW16sswSevlEyUDkiHDj5dVsNcRiwPom08irwHe7+MeFak2F
-	 tjkmqr63iiVeoUvf7lqR5HOUJOZMDA8UnHCe0JfVK4OyKj7l2kr2eLrUyZXfjZ7Gek
-	 jg066EwweIjY8Q6bInjDLnZlxfpuVaSKavc0AI6zdb3Wh+QpQZfW5022IQOIioYO04
-	 AMSOtVYJ1EK5SQh0St0DJhe3mjEMZec1CGbXzUCNaREvur33m11egj3q1bNVMxYYk7
-	 RtaJOO1ZwhXj5yT5Z4tLICE7c+bjkJN8X72NAI5Qj1jPOCAH+6ho68kHSTNayVijvj
-	 9AD+cQgspppPg==
+	b=Z/d8LkZ1li2TbEoocDQuUC7d0C6thmj2NXrLIv7VX2SKSZARirlS0U6Bswh1G8hVF
+	 lmh+HnhwOSSxRy0nTgkLGoVH8E1Iw9AtWnE81Ci96hqo6mFXq+VjW6CxGd/zLbh4WR
+	 gevIUDrekzMRzsU3SiVsbjoL9lb++adRGJytuNuMwVkw1N6XazDpdpokXS557zm1Gp
+	 byyds+X6jS9Obr1SdBucdzdUzhvMaHsBMdtpVVBZdpBaaaMr2MWwbvFMXMH4hcBubm
+	 57Pqft4/LEcLGVIzgNkgtE9aUaOkXNXelcXkonuaK3ZFV1JeyjOEKk1BgbNx+UbFaO
+	 CiBt7r9t5ZeAA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/6] spmi: apple: Implement remaining commands
+Subject: Re: [PATCH v6 3/6] spmi: apple: check transaction status
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260816-t603x-spmi-v6-4-c5ab87aa447b@chaosmail.tech>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260816-t603x-spmi-v6-3-c5ab87aa447b@chaosmail.tech>
 References: <20260816-t603x-spmi-v6-0-c5ab87aa447b@chaosmail.tech>
- <20260816-t603x-spmi-v6-4-c5ab87aa447b@chaosmail.tech>
+ <20260816-t603x-spmi-v6-3-c5ab87aa447b@chaosmail.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 10:36:19 +0000
-Message-Id: <20260816103620.699C21F000E9@smtp.kernel.org>
+Date: Sun, 16 Aug 2026 10:37:07 +0000
+Message-Id: <20260816103708.1A9F61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,84 +46,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Usage of `memcpy()` with `readl()`/`writel()` for FIFO data transf=
-er introduces an endianness bug on big-endian architectures.
+
+Pre-existing issues:
+- [High] Missing concurrency protection for shared hardware controller regi=
+sters.
 --
 
---- Patch [4]: [PATCH v6 4/6] spmi: apple: Implement remaining commands ---
-commit 44a0f7f784234d8f3fc75ad0bec2d3f544e9850c
+--- Patch [3]: [PATCH v6 3/6] spmi: apple: check transaction status ---
+commit 7a35e38337e2fbd8de6bb123e810dc5312c6e28b
 Author: Alba Mendez <me@alba.sh>
+spmi: apple: check transaction status
 
-spmi: apple: Implement remaining commands
-
-This commit adds support for zero write and power management commands to
-the Apple SPMI controller driver. It also consolidates the read and write
-paths into a single spmi_raw_cmd() function.
+Check for parity errors and missing command ACKs.
 
 > diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-app=
 le-controller.c
-> index b1c127cf5f441..9843dc871d6c7 100644
+> index 15721cb41d5c8..b1c127cf5f441 100644
 > --- a/drivers/spmi/spmi-apple-controller.c
 > +++ b/drivers/spmi/spmi-apple-controller.c
-[ ... ]
-> @@ -86,6 +85,14 @@ static int spmi_read_cmd(struct spmi_controller *ctrl,=
- u8 opc, u8 sid,
-> =20
->  	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-> =20
-> +	while (i < len_wr) {
-> +		j =3D min_t(size_t, sizeof(spmi_cmd), len_wr - i);
-> +		spmi_cmd =3D 0;
-> +		memcpy(&spmi_cmd, buf_wr + i, j);
-> +		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-> +		i +=3D j;
-> +	}
-> +
-
-[Severity: High]
-Does the use of memcpy() with writel() corrupt the outgoing payload byte
-order on big-endian CPUs?
-
-The previous code used bitwise shifts which are endian-agnostic. By switchi=
-ng
-to memcpy(), the bytes from buf_wr are written sequentially into the host
-memory layout of spmi_cmd.
-
-On big-endian systems, the first byte of buf_wr will be placed in the most
-significant byte of spmi_cmd. When writel() applies its endian conversion
-via cpu_to_le32(), does this result in the device receiving the bytes in
-reverse order?
 
 [ ... ]
-> @@ -101,11 +109,9 @@ static int spmi_read_cmd(struct spmi_controller *ctr=
-l, u8 opc, u8 sid,
->  			return -EIO;
->  		}
->  		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
-> -		i =3D 0;
-> -		while ((len_read < len) && (i < 4)) {
-> -			buf[len_read++] =3D ((0xff << (8 * i)) & rsp) >> (8 * i);
-> -			i +=3D 1;
-> -		}
-> +		j =3D min_t(size_t, sizeof(spmi_cmd), len_rd - i);
-> +		memcpy(buf_rd + i, &rsp, j);
-> +		i +=3D j;
->  	}
+
+> @@ -66,7 +74,7 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, =
+u8 opc, u8 sid,
+>  {
+>  	struct apple_spmi *spmi =3D spmi_controller_get_drvdata(ctrl);
+>  	u32 spmi_cmd =3D apple_spmi_pack_cmd(opc, sid, saddr, len);
+> -	u32 rsp;
+> +	u32 reply, rsp;
+>  	size_t len_read =3D 0;
+>  	u8 i;
+>  	int ret;
 
 [Severity: High]
-Similarly, does the use of memcpy() with a u32 value returned from readl()
-corrupt the incoming payload byte order on big-endian CPUs?
+This isn't a bug introduced by this patch, but is it possible for multiple
+kernel threads to execute spmi_read_cmd() or spmi_write_cmd() concurrently
+without locking?
 
-readl() applies le32_to_cpu() to the value read from the register. On big-e=
-ndian
-systems, the least significant byte of the original little-endian register =
-will
-end up at the highest memory address of the local rsp variable.
+If different threads communicate with multiple PMIC endpoints on the same S=
+PMI
+bus, it appears concurrent operations might invoke these functions
+simultaneously. The core SPMI subsystem does not serialize transactions acr=
+oss
+different slaves.
 
-Does memcpy() then copy these bytes into buf_rd in the reverse of their int=
-ended
-order?
+In both functions, the driver writes to SPMI_CMD_REG and then enters a poll=
+ing
+wait without holding any locks. For example, in spmi_read_cmd():
+
+	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+
+	ret =3D apple_spmi_wait_rx_not_empty(ctrl);
+
+Could this unprotected wait window allow interleaved accesses to corrupt the
+shared command, status, and response registers? Is a mutex or spinlock
+required here to protect the active transaction state from concurrent PMIC
+transactions?
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816-t603x-spmi=
--v6-0-c5ab87aa447b@chaosmail.tech?part=3D4
+-v6-0-c5ab87aa447b@chaosmail.tech?part=3D3
