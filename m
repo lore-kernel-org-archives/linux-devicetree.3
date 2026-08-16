@@ -1,156 +1,118 @@
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [71.19.156.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E5C1EE7B7;
-	Sun, 16 Aug 2026 04:56:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.19.156.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0A718BC3B;
+	Sun, 16 Aug 2026 07:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786856208; cv=none; b=b86HGRnM9wsbITOCitQfgBgOh79LlcTdrTQahbgh6k+aWjP1QqNDqWOL4S3J2qwHzi/JR7pzHkrpnCWmuBfu2olaEWy6lwJzktv7COLX2g80eQQCJki7KNsSusOUwGNQFmns+ikAI/wcln60mK5twqAk3ghNqNMkH90EGhoWegk=
+	t=1786866100; cv=none; b=lgO6z0a4XM2wlZfg716+hALH9bd5AKuRAKVbrzm87vFL+n0rxvRyVQucErVuZkkI/oR0Jb9CBb26mOpN3PaR7yF50MBvDJhz46DFh2wtUZG2xVhVETG7vUMWKURZKXsPLpYDVVmj1qHUEj3L+0nG/QfKO0ZcHVxoH6qu2EBq6t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786856208; c=relaxed/simple;
-	bh=9FBVam8b8LSsssuQccOa6a7z83cGvpAyTw53BxOvGuM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EC/K50mcodAI97sGCmrRtasWmwovVlOjcU9jklzlPr3wvcyLHj0ZTOkwudE1vClRD/6qUD5ELG0WIT1+hQX25bi/m7BchkjslNCU/iWnhQmUzu7xab9jlPdzbKRFjWkCJRWL60EcgXHi9IWfncUOqNyxMwQ6h6YwTwO+CmcjgzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bewilderbeest.net; spf=pass smtp.mailfrom=bewilderbeest.net; dkim=pass (1024-bit key) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.b=ZjlFHuJf; arc=none smtp.client-ip=71.19.156.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bewilderbeest.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bewilderbeest.net
+	s=arc-20240116; t=1786866100; c=relaxed/simple;
+	bh=wN7iSMMaGhsQeofzb6qK7Tgl4wGdSW3AGantVN8g2ag=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MIPtczinvpLnDjqCWT49hQlqrgV4bLGMmk6aeNz5ovabMGWej4XNPAM8vqD+Fc559DRFouN1yJjeUt9czl1Kkbdf6ySPW6RtSnBXncaOwhTW3oz3V+9J07iYzuhPd9Gq3gNrDwp8yLZETYoMjg0tQY4E/hZ591ntRkxPevwhav0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNdO0ZGS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.b="ZjlFHuJf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
-	s=thorn; t=1786855758;
-	bh=SH81kaqs40gwxAAYK6f8GxK6WGlHqHpk/2gAgBEj770=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZjlFHuJfDQ2TepIAgft9Ee5sOxZappA4HKrXF7EdXh3p9oLlcHa/3wCqhUbm0axp/
-	 O4zVHjBiwlxDsfGeBcS942tSyzKkeYydyunzRWbvhaKirGR8ItDJWyXWkha3HLRxvu
-	 siEXmClJO9dDm6J51BZHy47IaDiKrGIXZgMFcCvY=
-Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:71d1:5c00::171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id CF3CF4C;
-	Sat, 15 Aug 2026 21:49:17 -0700 (PDT)
-Date: Sat, 15 Aug 2026 21:49:16 -0700
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Tan Siewert <tan@siewert.io>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] ARM: dts: aspeed: add asrock x470d4u bmc
-Message-ID: <8b7dcb07-2dfd-425f-8ff3-06114e45c676@hatter.bewilderbeest.net>
-References: <20260812-ts-x470d4u-v3-0-c8e266f1663b@siewert.io>
- <20260812-ts-x470d4u-v3-2-c8e266f1663b@siewert.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNdO0ZGS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3361F000E9;
+	Sun, 16 Aug 2026 07:41:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786866099;
+	bh=Mga7YU8olL03rKcmeXwf1ZVpiLVR3P7uFAukeYH2nEk=;
+	h=From:To:Cc:Subject:Date;
+	b=bNdO0ZGS0NB+KiJgyB8kBORkitZ40RFSin9smRe2M47kyLoAAKGwAUvdwjoq5YeLm
+	 qfovbYfmIz4aR43xPXaGFHUh5dU7AK+Sbg7WI1PfFH+vXwXSrfAUPc1NbWiFISGzin
+	 Da2m6B6Rt6mHb/HCw5istgPFOfObDzdjZzdtM5SF6r5oK9JM8ogE9i0cf3ypwIcis4
+	 iDSohKpYL/l5HNoyRq2xKgsP7hWRAo7at5BTNgJH6UAhMp7bdplpXvM9MPN+LlOreO
+	 DHEc4vZZRB+SVGmdUb8La8+QfQqffrPm1oiXmiTmMDU0cK0wePgT9JBqtt58smQbAt
+	 mOG7LRpXjhhYw==
+From: Guo Ren <guoren@kernel.org>
+To: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: dlan@kernel.org,
+	devicetree@vger.kernel.org,
+	spacemit@lists.linux.dev,
+	"GUO Ren (XuanTie)" <guoren@kernel.org>,
+	stable@vger.kernel.org,
+	Guodong Xu <docular.xu@gmail.com>
+Subject: [PATCH] riscv: dts: spacemit: k3: fix IMSIC guest parameters
+Date: Sun, 16 Aug 2026 07:41:25 +0000
+Message-ID: <20260816074125.2105828-1-guoren@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260812-ts-x470d4u-v3-2-c8e266f1663b@siewert.io>
+Content-Transfer-Encoding: 8bit
 
-Hi Tan,
+From: "GUO Ren (XuanTie)" <guoren@kernel.org>
 
-Looks good overall to me, just a couple small notes below...
+The initial K3 device tree used generic/placeholder values for the
+IMSIC guest configuration:
 
-On Wed, Aug 12, 2026 at 01:28:27PM PDT, Tan Siewert wrote:
->The ASRock Rack X470D4U X470D4U is a single-socket X470-based microATX
->motherboard for Ryzen processors with an AST2500 BMC and either 32MB or
->64MB SPI flash.
->
->This mainboard exists in three known "flavors" which only differ in the
->used host NIC, the BMC SPI size and some parts that may be un-populated.
->
->To allow the use of the full SPI flash, add two trees, one of which has
->the 32M layout with the base config, and a 64M tree that includes the
->base tree.
->
->Signed-off-by: Tan Siewert <tan@siewert.io>
->---
-> arch/arm/boot/dts/aspeed/Makefile                  |   2 +
-> .../aspeed/aspeed-bmc-asrock-x470d4u-data64.dts    |  15 +
-> .../boot/dts/aspeed/aspeed-bmc-asrock-x470d4u.dts  | 381 +++++++++++++++++++++
-> 3 files changed, 398 insertions(+)
->
->diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
->index 6b68671f9379..e27d33e85fb2 100644
->--- a/arch/arm/boot/dts/aspeed/Makefile
->+++ b/arch/arm/boot/dts/aspeed/Makefile
->@@ -15,6 +15,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
-> 	aspeed-bmc-asrock-paul-ipmi-card.dtb \
-> 	aspeed-bmc-asrock-romed8hm3.dtb \
-> 	aspeed-bmc-asrock-spc621d8hm3.dtb \
->+	aspeed-bmc-asrock-x470d4u.dtb \
->+	aspeed-bmc-asrock-x470d4u-data64.dtb \
-> 	aspeed-bmc-asrock-x570d4u.dtb \
-> 	aspeed-bmc-asus-kommando-ipmi-card.dtb \
-> 	aspeed-bmc-asus-x4tf.dtb \
->diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x470d4u-data64.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x470d4u-data64.dts
->new file mode 100644
->index 000000000000..6f11aeab087c
->--- /dev/null
->+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x470d4u-data64.dts
->@@ -0,0 +1,15 @@
->+// SPDX-License-Identifier: GPL-2.0+
->+
->+#include "aspeed-bmc-asrock-x470d4u.dts"
->+
->+/ {
->+	compatible = "asrock,x470d4u-data64-bmc", "aspeed,ast2500";
->+	model = "Asrock Rack X470D4U-series BMC (64MB store)";
+  riscv,guest-index-bits = <6>;
+  riscv,num-guest-ids    = <511>;
 
-Nit: for consistency with how they spell it, and (at least *most* of) 
-the other aspeed-bmc-asrock-*.dts files, I'd suggest "ASRock" instead of 
-"Asrock".  (And IMO s/store/flash/ would be a touch clearer.)
+According to the SpacemiT K3 User Manual [1] these values are
+incorrect for the X100 cores:
 
-Also, looks like the other nearby DTS files pretty consistently have 
-compatible & model in the opposite order, so matching that might be nice 
-too.
+ - Hypervisor Extension: RVH 1.0, GEILEN = 8
+ - Advanced Interrupt Architecture (AIA):
+    - M-mode MSI: 512
+    - S-mode MSI: 512
+    - VS-mode MSI: 64
 
->+};
->+
->+&fmc {
->+	flash@0 {
->+		/delete-node/partitions;
->+#include "openbmc-flash-layout-64.dtsi"
->+	};
->+};
->diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x470d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x470d4u.dts
->new file mode 100644
->index 000000000000..80fb2b7c1e0c
->--- /dev/null
->+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x470d4u.dts
+Therefore:
 
-<snip>
+- S-mode IMSIC (simsic) only needs guest-index-bits = 3 (to cover
+  GEILEN = 8) and num-guest-ids = 63.
+- M-mode IMSIC (mimsic) does not implement guest interrupt files at
+  all, so the guest-related properties must be omitted.
 
->+
->+	fan@3 {
->+		/* FAN4 (6-pin) */
->+		reg = <0x03>;
->+		aspeed,fan-tach-ch = /bits/ 8 <0x03 0x0b>;
->+	};
->+
->+	fan@4 {
->+		/* FAN5 (6-pin) */
->+		reg = <0x04>;
->+		aspeed,fan-tach-ch = /bits/ 8 <0x04 0x0d>;
->+	};
->+
->+	fan@5 {
->+		/* FAN6 (6-pin) */
->+		reg = <0x05>;
->+		aspeed,fan-tach-ch = /bits/ 8 <0x05 0x0e>;
->+	};
->+};
+Although the KVM AIA driver will re-detect the actual number of guest
+interrupt files via hgeie and correct guest-index-bits at runtime, the
+device tree should still describe the correct hardware parameters.
 
-Just to confirm, skipping channel 0xc here is intentional I assume?  
-(Most other related platforms have them contiguously numbered, but not 
-all, so another slight oddity wouldn't be too shocking.)
+Update the device tree to match the silicon.
 
+[1] https://www.spacemit.com/community/document/info?lang=en&nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/08_cpu.md
 
-Thanks,
-Zev
+Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 SoC")
+Cc: stable@vger.kernel.org
+Cc: Guodong Xu <docular.xu@gmail.com>
+Cc: Yixun Lan <dlan@kernel.org>
+Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+---
+ arch/riscv/boot/dts/spacemit/k3.dtsi | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 19fc9b49668e..4120eb0c4083 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -1127,9 +1127,9 @@ simsic: interrupt-controller@e0400000 {
+ 					      <&cpu4_intc 9>, <&cpu5_intc 9>,
+ 					      <&cpu6_intc 9>, <&cpu7_intc 9>;
+ 			msi-controller;
+-			riscv,guest-index-bits = <6>;
++			riscv,guest-index-bits = <3>;
+ 			riscv,hart-index-bits = <4>;
+-			riscv,num-guest-ids = <511>;
++			riscv,num-guest-ids = <63>;
+ 			riscv,num-ids = <511>;
+ 		};
+ 
+@@ -1168,9 +1168,7 @@ mimsic: interrupt-controller@f1000000 {
+ 					      <&cpu4_intc 11>, <&cpu5_intc 11>,
+ 					      <&cpu6_intc 11>, <&cpu7_intc 11>;
+ 			msi-controller;
+-			riscv,guest-index-bits = <6>;
+ 			riscv,hart-index-bits = <4>;
+-			riscv,num-guest-ids = <511>;
+ 			riscv,num-ids = <511>;
+ 			status = "reserved";
+ 		};
+-- 
+2.43.0
 
