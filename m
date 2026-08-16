@@ -1,148 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389B01F2B88
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 13:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BEA3A872D
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 14:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786888731; cv=none; b=TXxi/3hHJ0B1i29VViLUXk1/v82EI/Y/AHvqGYoIbNQlKglu+1vMUCsF+3yU7E9RRqlgf8Z3SQz5jQ2O40EhKPYyWDWHzT6rUULfk8CDtEujyqQdvJJXlkO16G7CrdbyKMO9KDtW6DqfExobyWcTumsBDFPDzQHFCzs07V8d8hQ=
+	t=1786889166; cv=none; b=NKZCTPExtHSTEmIuUVXEpN9DLux9DHr7fxFp1c4FqOhMoc0GiuozGxyvUJ//ZQIK3ctCdrNFokmPj6CJ6YCwNIujbcOafy2ah7kzCmnoSSfdjSxdvAI9fDj1OKCDTpKLXOrdV36FaQvSUcp+vXQSmWJIgT/ukAjst0IC7RmFMD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786888731; c=relaxed/simple;
-	bh=XRaM0HsN5gEL590SzG4FKa4qCk7XTIXVzBPW+Y2Qha8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=miRuNZwdjqTsSbIz9Y7AzeM6hun1lO2/EY7BzqPKMjmNEGocRvP79wEoTHvZo/IvPmkkjpL7YAzmUdEaFaqowntkCfHt7j38UQKCOUoK1jtlL9tjbS1EjH+H0sN3MG0AQSMW/TEddoX8XA/wJRLMwOJJ6C1nxRSu4BE+pKw4Lr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LuJKZ1Oh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786889166; c=relaxed/simple;
+	bh=fCR0DhMM/c4JoZx1VI8ywyO79TCxSceFBK4cwUgoVk0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jwQcK9MVDA8GCdn8Z66bAaOsQS+9oxabYmDpwDIHDyfsgLp6tdpav7wcTHNZktuznoKDTG7bw1UdF+SNv+5KWLve7ILV08gRnF0AzAgk6QcByCR24rd9cyixj6x9u5hfJBvLKJw7VulxUkcnG3+3D+oUIVFyIHBN8OTs6/XvpQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=hdeUW5Ek; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LuJKZ1Oh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784FB1F000E9;
-	Sun, 16 Aug 2026 13:58:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786888729;
-	bh=0rEiAVgrd+pV1Kad7lGMkfaXPfaH49nIvWIbU+boBNw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LuJKZ1OhURodKw6OwFc1ET0QCWbKM3c6NiX3JfOSYWZNUaKofGzipkkpdHApbbqfS
-	 JleseqSm7fhi52xCC2nPOcCTLhA2v4e6qkO6/c2jzxxfqkrjap2/YP5See+a6DBVcf
-	 ngpEPvoHRhlj95OjgnWV6fJ/c0fM4BPv35m3S327RrD7K2aihlOmLcwN8NP57WMgXX
-	 9ZNIzY8uEAV2wBInXJdlOxlNnEzXPRAvV23vhPvQ3jSSChhduqY/1Bqz2m7QneiBrA
-	 ZAT1TeV+VB5GkWdg9csPDyyGIaGfyrhrv8MYY3TaBKpV6+gxJ9ggiyY7oR4/K+i7k4
-	 y8Da0E/Zqf8ug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260816-msm8952-pinctrl-v1-2-a7272bcd2187@mainlining.org>
-References: <20260816-msm8952-pinctrl-v1-0-a7272bcd2187@mainlining.org>
- <20260816-msm8952-pinctrl-v1-2-a7272bcd2187@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 13:58:49 +0000
-Message-Id: <20260816135849.784FB1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="hdeUW5Ek"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:From:Reply-To;
+	bh=6U+o+LtByJrl528SG+t8HUNDNoQonun4hjUClgQ20+A=; b=hdeUW5EkSbGSgYO3JiAViGaGrC
+	BNGthEErlBOewtNFYcBGxwo8QZLFy8dU0+XCH8WEVAOsFACT0N4D8xTA+Oe5xd8m5jCHGSC8ry/6u
+	IDnSKTSm38ph4M7xqC6hm4yKywduZb5UIIGMZJ7ezGzY7GVAW+bLEBrpJlv5/QdlVm6CindxRrWck
+	a62amdxfglGpESQhOlSuWPW89lyLyGEcVbv7IXPeQDkgExEGgZA6yWegjCuqW7KesYyoq+DgqdYqh
+	SQzgxkdXmFmTma3krC2gnA6K8xBZ7jtBSh8R/z0jQ7vr6Js4e+0CI0SaLZJdDxVP12W7vxRxGnghH
+	t6eFaHfA==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wvbUj-002tuI-O1; Sun, 16 Aug 2026 16:05:50 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/4] drm/vc4: Reset the V3D block through the reset
+ controller
+Date: Sun, 16 Aug 2026 11:05:39 -0300
+Message-Id: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQpAQBRG4VfRXbvFkPAqsmDmxy3N6I6k5N1Nl
+ t/inIciVBCpzx5SXBIl+IQyz8huk1/B4pLJFKYp2tLwZWtWRJxsgz817GydWyrM7dSho9QdikX
+ u/zmM7/sBVsH7F2MAAAA=
+X-Change-ID: 20260812-vc4-reset-control-cddf3eb8a9e9
+To: Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2340; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=fCR0DhMM/c4JoZx1VI8ywyO79TCxSceFBK4cwUgoVk0=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqgcO4kEdNiHpKBu/9hcn2xxZAN+OUwb/oj6Ase
+ 5eS9azUrwyJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaoHDuAAKCRA/8w6Kdoj6
+ qpNSB/41kda5XFtrP1Y7QQRulv5vHOaUp+qWemo/JFfnlmpCmF8MPtaqIzatSvXrtvJwIkoty0U
+ z3LPRMIrEL1WUFZz7PUcFon6XP2LVeciB2ODQoUCXAW7NdV/O4hYgjyuOBgQIRZthAcCxlYAzhT
+ lIyqwQA4jGAPJit422r/YQ5VaceaL5Bqjt/4Sj+bSw1YKoWFmtFOjsHo12o10hKJYzsLKr4L74e
+ FXaiA0+QMv9t4IN0LPs3K7qGztzTMxO/67+ILY+8jdsp+2CGGeyjlJDcLk+FyVRuJBQ3ey39cg7
+ lyf2ryMNUG3WCJWDj4ld0xZucAgdNed47yi0TFGOCCnkaMkS
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] Mismatch between pin group function lists (`*_groups`) and `PING=
-ROUP` definitions.
-- [Low] The Kconfig symbol PINCTRL_MSM8952 lacks `depends on ARM64 || COMPI=
-LE_TEST`.
-- [Low] The macro expansion for `MSM_PIN_FUNCTION(NA)` relies on an undecla=
-red `NA_groups` array.
---
+vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
+zero so that the V3D power domain goes down, and then taking it again.
+Forcing the count to zero only works if the driver knows exactly how many
+references it holds, which is why vc4 unconventionaly wraps every
+pm_runtime_get_sync() call in a private refcount and mutex, making the
+code cumbersome.
 
---- Patch [2]: [PATCH 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver -=
---
-commit 58f7f872112151d63645301862bbc088eef619bb
-Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
-pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
+The BCM2835 PM block has exposed a reset line for the V3D block since
+commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
+under a new binding."), added for exactly this reason, but vc4 never
+picked it up. This series switches vc4 over to it and drops the private
+refcount, leaving vc4_v3d_pm_get/put() as plain runtime PM wrappers.
 
-This commit adds the pinctrl, pinmux, pinconf, and gpiolib driver for
-the Qualcomm TLMM block found on the Qualcomm MSM8952 platform.
+The reset line is optional, so device trees that do not describe one keep
+working: they get the driver-side recovery in vc4_irq_reset() while the
+hardware is left untouched. Of the two in-tree platforms,
 
-> diff --git a/drivers/pinctrl/qcom/Kconfig.msm b/drivers/pinctrl/qcom/Kcon=
-fig.msm
-> index 9409e678ec6dc..8b631e641e161 100644
-> --- a/drivers/pinctrl/qcom/Kconfig.msm
-> +++ b/drivers/pinctrl/qcom/Kconfig.msm
-> @@ -222,6 +222,12 @@ config PINCTRL_MSM8917
->  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
->  	  Qualcomm TLMM block found on the Qualcomm MSM8917, MSM8937 platform.
-> =20
-> +config PINCTRL_MSM8952
-> +	tristate "Qualcomm 8952 pin controller driver"
+  1. BCM2835 gains the property in PATCH 4.
+  2. Cygnus has no V3D power domain to begin with, so the power-cycle
+     only ever gated its clock there.
 
-[Severity: Low]
-Should this Kconfig entry include a dependency on ARM64 || COMPILE_TEST?
+PATCH 1 is an independent cleanup. "brcm,vc4-v3d" was never documented
+and was never used by any in-tree device tree, so it is a candidate for
+removal on its own. It can be dropped from the series if it turns out
+to be contentious.
 
-Omitting it might expose the driver to build systems for unsupported
-architectures.
+This series was tested on the Raspberry Pi 3B and 3B+.
 
-> +	help
-> +	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-> +	  Qualcomm TLMM block found on the Qualcomm MSM8952 platform.
-> +
+Best regards,
+- Maíra
 
-[ ... ]
+---
+Maíra Canal (4):
+      drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
+      dt-bindings: display: bcm2835-v3d: Add an optional reset line
+      drm/vc4: Use the reset controller to recover from a GPU hang
+      ARM: dts: bcm2835: Add the V3D reset line
 
-> diff --git a/drivers/pinctrl/qcom/pinctrl-msm8952.c b/drivers/pinctrl/qco=
-m/pinctrl-msm8952.c
-> new file mode 100644
-> index 0000000000000..b21d035fc5042
-> --- /dev/null
-> +++ b/drivers/pinctrl/qcom/pinctrl-msm8952.c
+ .../bindings/display/brcm,bcm2835-v3d.yaml         |  3 ++
+ arch/arm/boot/dts/broadcom/bcm2835-common.dtsi     |  1 +
+ drivers/gpu/drm/vc4/vc4_drv.c                      |  1 -
+ drivers/gpu/drm/vc4/vc4_drv.h                      | 13 ++++---
+ drivers/gpu/drm/vc4/vc4_gem.c                      | 40 +++++++++++++---------
+ drivers/gpu/drm/vc4/vc4_irq.c                      |  7 ++--
+ drivers/gpu/drm/vc4/vc4_v3d.c                      | 37 +++++++-------------
+ 7 files changed, 51 insertions(+), 51 deletions(-)
+---
+base-commit: 09b47186a4164f3aaa3591313f80794443117342
+change-id: 20260812-vc4-reset-control-cddf3eb8a9e9
 
-[ ... ]
-
-> +static const char *const qdss_tracedata_b_groups[] =3D {
-> +	"gpio8",  "gpio9",  "gpio12", "gpio13", "gpio23", "gpio42",
-> +	"gpio43", "gpio44", "gpio45", "gpio46", "gpio47", "gpio66",
-> +	"gpio86", "gpio87", "gpio88", "gpio92",
-> +};
-
-[Severity: Medium]
-Are some of these GPIOs disconnected from the actual PINGROUP function
-assignments?
-
-If a device tree requests a function listed in a group array like this one
-but the function is not supported by the actual PINGROUP definition, could
-msm_pinmux_set_mux() fail to find the function, trigger a WARN_ON, and fail
-with -EINVAL?
-
-[ ... ]
-
-> +static const char *const atest_combodac_to_gpio_native_groups[] =3D {
-> +	"gpio4",  "gpio12", "gpio13", "gpio20", "gpio21", "gpio28",  "gpio29",
-> +	"gpio30", "gpio39", "gpio40", "gpio41", "gpio42", "gpio43",  "gpio44",
-> +	"gpio45", "gpio46", "gpio47", "gpio48", "gpio67", "gpio115",
-> +};
-
-[Severity: Medium]
-Similarly, is there a mismatch between this function list and the PINGROUP
-definitions?
-
-[ ... ]
-
-> +static const struct pinfunction msm8952_functions[] =3D {
-
-[ ... ]
-
-> +	MSM_PIN_FUNCTION(atest_char),
-> +	MSM_PIN_FUNCTION(atest_tsens),
-> +	MSM_PIN_FUNCTION(bimc_dte1),
-> +	MSM_PIN_FUNCTION(NA),
-
-[Severity: Low]
-Will this fail to compile?
-
-The macro expansion for MSM_PIN_FUNCTION(NA) appears to rely on an NA_groups
-array, which does not seem to be declared anywhere in the file.
-
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816-msm8952-pi=
-nctrl-v1-0-a7272bcd2187@mainlining.org?part=3D2
