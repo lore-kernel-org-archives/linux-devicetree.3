@@ -1,64 +1,64 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A150C199FAB
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 13:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EFC212554
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 13:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786886234; cv=none; b=E/0oFGrRDCjswoX64rR1Le4ee9yq7HMd3jJlxmZFGPXB7zV+4GvzZcTiONUbA74dXeAux5Y/aVtgys57Gex4EZVJS+FEnRXLt7a/dKBhF77OaINvhyzay9/eUfviSQ3ti8bivbYjEcUh4or5F3V5pTQzoxt6F/KIv11uELAYGeQ=
+	t=1786886240; cv=none; b=rEdDcd01wj+3uc8xMhR/p+2Y/X6u+ipObRjXmwTuZckxE3xZXsHBRWt8WBluCJPbXXBxOQSjY/K8Eoz0EDfCk1WKitf5pqooIq8c5GCUl2WvRmZ7ijuzJOcHAh1rrOde5NGvmgkQJ75kEpKbW/F5FOazX4oLdX8dSi/9ieveppA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786886234; c=relaxed/simple;
-	bh=99pJRjLsjgQp97RPaeWEZ1YZegnfkzqsNfQJNAJNwP4=;
+	s=arc-20240116; t=1786886240; c=relaxed/simple;
+	bh=9lh6SnLl8V0+6EkqXPMHz3NbVXtbKUgYWv5JtTJxcyA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ExRNtRp9h91v+ZaQ/f3V4PCejFMFi0EDRR90CEvpBwwbpMNv4gSerm5jH3HRrP+DOpeuYh8fjLB2uE4b9We12wpDXyTNhabn+CuBxyUpTHo+ilKxHeuN65IFndmGxLR1BUGqz768emVR3SlFtmp4a2hbgUOCHEHmwQK746aRJPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KYuRae4V; arc=none smtp.client-ip=209.85.216.43
+	 MIME-Version; b=LEVTS9hf/zsEfcluYmixvgH+M6zyrX/HU2jYk5vWYNa3DFgGjw+1j/476b3YVfac1Jne1EZJzbZVpJHrv/HNLCJwztaxr78H8TgJljHXeGQG4kbEZSxnLvYUOkDeWf9OfU9N3GZHVg3Oxg1BQLbEcEMlvYDPQeBuStJC9+e1N9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bmOz/1gV; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KYuRae4V"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-384930ca5e2so2768169a91.3
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 06:17:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bmOz/1gV"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-381b831d535so3799485a91.0
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 06:17:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786886233; x=1787491033; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786886239; x=1787491039; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iXCkXj9IgKaAKQ31oXzwXtt5dbLLTdIsAYd130AoDV0=;
-        b=KYuRae4V1hS2NQ3vslM+2DLILO2YsIPFIbL2zuD024L9znztmMabFC10WnbLvVGXb0
-         oIbUPi8cqNjq+J1Q3Z5kyFklouipYBErhCDexHZqrLSBFD+NjWq2hKStVZDg+OPdW+mg
-         SPKTIwvm4c1dxehRez6RiGZ4qkDQiM7nTyxlbDTb9T3P8qyv6Ip8iVUYq2VL/WcWDQ33
-         03ACjxX2giU3d6ty0066Sf+yBs/1sFGhKI0tWmM2yim1YPQRvu8mdMQomqsEL2Ao1B+9
-         jxaeCtLZQupkF41W/pmTxnRB4kQJtAXsySiS3MxHfNO5A6eik5Bz37K1L8fE2eWWtTKU
-         Ewog==
+        bh=8ovohQRp3uO6IS6H5dgbCzXT2FrwL8JP6NNpNzDBnNU=;
+        b=bmOz/1gVcR6ERdXCY4tLCk57ymrS/g98sSiUme3dKv+xQ5sMgoC/EzH4emwO29XxLV
+         a36aD09e4/340bdouXhd1ezxag3hdM5p98qZ+6ZTW2Uxp84iliI34IiOG+dXRCFx2mk1
+         OiHz43SoEe8B0kZv2sreYJa14qGujKnGqmz8slCKbHNeDDlSi3LmB/mOb+RGJQ/tShxy
+         nvO336O4BWx+/lx29a8yNAW6CVzon8n5lcsC0mFwL5DwYY5Bim5TNJaHm6bM2PIN0hZn
+         hsWHkT5nsIfNzzAXXUoWL4xmRMpES1mj0Z4WywuTuKZoyBsq0XYV60YXcN87xhR7CWm7
+         xVSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786886233; x=1787491033;
+        d=1e100.net; s=20251104; t=1786886239; x=1787491039;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iXCkXj9IgKaAKQ31oXzwXtt5dbLLTdIsAYd130AoDV0=;
-        b=VkxpSmT9hOVt1M0ouR6U88i6BrcoDmLdKEKlx6i0Bm1IZATaRcZKGeNuOZjnL26rbu
-         CnT4DSFGZ0eYt2D6IKtuJDMdIr8ZW61/9sEspbQa/qtwKLKZgU8nVlc616XNszGg2vRx
-         H+pWOCF1kBGcXnC3cmdfnHmSkHiIOdAflu1BIvxsmhpMZom3GD9AiSqUl6ljnWbjlVEa
-         tWYnhe4/Sk82UeYdiv04P1nZdAZ6up1Sezyn04SptBWywWfES4OqhlnsDrCo/33hxqY2
-         qHqKSqvZ0NjKs7QYdc9gK/jhL3vST9Is597orpYXz7EM+JXMfKZwuYtD15hG7Ma6eDys
-         XX4g==
-X-Forwarded-Encrypted: i=1; AHgh+RqUdWtzXqcl8mOuc4u6e8Dh83vQoAUBHWwz4nHZ0rXYQIEZqxipKKYUcZljAqWhe/Ex46/uMtSAhKIi@vger.kernel.org
-X-Gm-Message-State: AOJu0YzqO7uR9fn2GMtdw0offFK9UV7fLgiSwvwDYwAqMhpcy89ot3A6
-	kilhbWBeHSjPUCMM9Fa3mbg4KVmuzzm1l+UBgOGUWFZKFR8OFNErzml/8H4Urw==
-X-Gm-Gg: AR+sD13Ajr7uIKY3PWzQF1Z7K+4XVUqxoJr6AYlloBWq/xsTi8Eg3goIHJJKEd1Yj+u
-	3TcQPKzRffXxTx2iT4C9oo4CwYnTOswnNU2b3uNO+VQqv9WaZxuSZgq888fFTRL2z1B4PjTSsKV
-	mACSUGWO8nYlds6uISGetZ9dj+WHg+4yuJkQH2aBvmT3mjbDHJXaxcvQMGcFt7c5lvdJaZc/vDN
-	BO/mPnESzcBL/F/HeUb9x10QQmbFlZSVq9Wnr7JCLO89lqtQxYXUgJj53alts8Uz/rbTre3+ah/
-	VN0Hl3wuE4M/XrWWpHE1Is2aJIGa3KyDJqzWYnxVFWi9/1NLRunH8hO0Q2ROu84YdVuBob1saUp
-	xIQPcqv3ULQT4hdgDOYdXhcyQIRKJgNMmasdaV/sTtm+jmxy/1pHkMCQk77eBq/ABQ5DxJWza+O
-	0XlnbpOjPNhleJEJUlN4LLR7UhAtp14euu/+X0irEFw0weW0ZnCUNeW+nHK2i+bpBSX+CYnu4NF
-	IWhhJg7OfHe
-X-Received: by 2002:a17:90b:4f84:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-3933bd186f4mr19782001a91.4.1786886232899;
-        Sun, 16 Aug 2026 06:17:12 -0700 (PDT)
+        bh=8ovohQRp3uO6IS6H5dgbCzXT2FrwL8JP6NNpNzDBnNU=;
+        b=jqyhbV9vHSQMZJqcJjfKvl0nQpSV+BT35xH9mLhzRsTgMYfTnWHHfu3ShXmbb4ZP7Y
+         D53fREtXM3TIRwegA0g1RSDb466YZWfwAJXj7yGRLNNWP88h/boRxsLmpWgANhp7Hcw8
+         nTDNeupmOZwQe1tshgfXasFL/Ma/GOak0e3Iq5t6mm5m0NbTChJ1RzO6ciq4QsbadwpE
+         QP41FAiQCI1ykXyt+3ssEdE1gZzbP4GvScChk8sU+ZJkAeJo1x2sbfXb9PgCK+/Ffyyn
+         WQSG68vxAUxIZWg6Qdz8gvXtX0UFyKBmQ0H9dObRQaOQt+NEl6FIkxxZW3dYsTXwJ1RZ
+         Y3mg==
+X-Forwarded-Encrypted: i=1; AHgh+RrGvzlX1+ZkGfO2XnRSPPgv1KGq3AZuDX+75+sFgZQmiN5onsn6lnRdb1/yfxlelnU8qp3RiRU5BabP@vger.kernel.org
+X-Gm-Message-State: AOJu0YzgwhoYc1JnCKTbIRx+m9DPXHGu1PMqFxHW6WOt3sc6PPmE+Aj4
+	1goE/HQ1xfdQ6unoYM7EuCEu6luLg1NMHw7J/NpjFgU8dpJDGf1KJRQC
+X-Gm-Gg: AR+sD13jD6Xs0XUTeTQTYt/NlVqVSq4PwJX+RhKFyicfQcCMgwq6XiKNDCe9SgAFLe0
+	pS9oBN//YX6hjBG8910xFwL2FB69HvlKQknFyyVtmwsAiaAnQzgdEPJe+fL1HXCT1sdV4nzW/l4
+	l0YGu+sOiPx+MsyX58SRNgjSknIk6/9UducoxU0QEiW2MWLZJdu4/dF5iVp6Ridc9v3BDQZLKMD
+	3n05YxUJe8pW0xYmjRZ1IGSDSEeyJopeXKq+VMjw0qknO+0fUcbIt0LtprHRW21QhYI8P041ltJ
+	CPH4uwWBTLk34GpmeLJTeEewFJ8QBjZ8NMTVfXIwryra38+qDFVfCCaJar//bd8Wh0QCZ1poYsj
+	ihbfm0BUOmUStvofbRrubLsGiKtR2QjG5KwzCQiTuohxnho5E1cgZMioalAGsUA5wJMJfI7wKFD
+	DT/XmJ8EH6DRF53qelJ4j7/twbvaeIsRJqXEOnrtHmc5h6wW7PV9zILfYSjNJoBxEkIAI9t5q0O
+	9sP4c87rYk0
+X-Received: by 2002:a17:90b:3f50:b0:38e:6f90:eabd with SMTP id 98e67ed59e1d1-3933b7213c9mr19862401a91.5.1786886238756;
+        Sun, 16 Aug 2026 06:17:18 -0700 (PDT)
 Received: from localhost.localdomain ([157.51.221.131])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1413887e3e7sm29235330c88.9.2026.08.16.06.17.07
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1413887e3e7sm29235330c88.9.2026.08.16.06.17.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Aug 2026 06:17:12 -0700 (PDT)
+        Sun, 16 Aug 2026 06:17:18 -0700 (PDT)
 From: Sreeshankar K <sreeshankar0910@gmail.com>
 To: andersson@kernel.org,
 	mturquette@baylibre.com,
@@ -73,9 +73,9 @@ Cc: bmasney@redhat.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Sreeshankar K <sreeshankar0910@gmail.com>
-Subject: [PATCH 1/2] clk: qcom: rpmh: Add SM7250 rpmh clocks
-Date: Sun, 16 Aug 2026 13:16:44 +0000
-Message-ID: <20260816131646.10551-2-sreeshankar0910@gmail.com>
+Subject: [PATCH 2/2] dt-bindings: clock: qcom,rpmhcc: Document RPMHCC bindings for SM7250
+Date: Sun, 16 Aug 2026 13:16:45 +0000
+Message-ID: <20260816131646.10551-3-sreeshankar0910@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260816131646.10551-1-sreeshankar0910@gmail.com>
 References: <20260816131646.10551-1-sreeshankar0910@gmail.com>
@@ -87,55 +87,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the RPMH clocks present in SM7250 SoC.
+Document RPMHCC bindings for clock rpmh driver on Qualcomm SM7250 SoC.
 
 Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
 ---
- drivers/clk/qcom/clk-rpmh.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clk/qcom/clk-rpmh.c b/drivers/clk/qcom/clk-rpmh.c
-index 6367b2a5a..f4cafa274 100644
---- a/drivers/clk/qcom/clk-rpmh.c
-+++ b/drivers/clk/qcom/clk-rpmh.c
-@@ -1011,6 +1011,29 @@ static const struct clk_rpmh_desc clk_rpmh_hawi = {
- 	.num_clks = ARRAY_SIZE(hawi_rpmh_clocks),
- };
- 
-+static struct clk_hw *sm7250_rpmh_clocks[] = {
-+	[RPMH_CXO_CLK]		= &clk_rpmh_bi_tcxo_div2.hw,
-+	[RPMH_CXO_CLK_A]	= &clk_rpmh_bi_tcxo_div2_ao.hw,
-+	[RPMH_LN_BB_CLK2]	= &clk_rpmh_ln_bb_clk2_a2.hw,
-+	[RPMH_LN_BB_CLK2_A]	= &clk_rpmh_ln_bb_clk2_a2_ao.hw,
-+	[RPMH_LN_BB_CLK3]	= &clk_rpmh_ln_bb_clk3_a2.hw,
-+	[RPMH_LN_BB_CLK3_A]	= &clk_rpmh_ln_bb_clk3_a2_ao.hw,
-+	[RPMH_RF_CLK1]		= &clk_rpmh_rf_clk1_d.hw,
-+	[RPMH_RF_CLK1_A]	= &clk_rpmh_rf_clk1_d_ao.hw,
-+	[RPMH_RF_CLK2]		= &clk_rpmh_rf_clk2_d.hw,
-+	[RPMH_RF_CLK2_A]	= &clk_rpmh_rf_clk2_d_ao.hw,
-+	[RPMH_RF_CLK3]		= &clk_rpmh_rf_clk3_d.hw,
-+	[RPMH_RF_CLK3_A]	= &clk_rpmh_rf_clk3_d_ao.hw,
-+	[RPMH_RF_CLK4]		= &clk_rpmh_rf_clk4_d.hw,
-+	[RPMH_RF_CLK4_A]	= &clk_rpmh_rf_clk4_d_ao.hw,
-+	[RPMH_IPA_CLK]		= &clk_rpmh_ipa.hw,
-+};
-+
-+static const struct clk_rpmh_desc clk_rpmh_sm7250 = {
-+	.clks = sm7250_rpmh_clocks,
-+	.num_clks = ARRAY_SIZE(sm7250_rpmh_clocks),
-+};
-+
- static struct clk_hw *of_clk_rpmh_hw_get(struct of_phandle_args *clkspec,
- 					 void *data)
- {
-@@ -1120,6 +1143,7 @@ static const struct of_device_id clk_rpmh_match_table[] = {
- 	{ .compatible = "qcom,sdx75-rpmh-clk",  .data = &clk_rpmh_sdx75},
- 	{ .compatible = "qcom,sm4450-rpmh-clk", .data = &clk_rpmh_sm4450},
- 	{ .compatible = "qcom,sm6350-rpmh-clk", .data = &clk_rpmh_sm6350},
-+	{ .compatible = "qcom,sm7250-rpmh-clk", .data = &clk_rpmh_sm7250},
- 	{ .compatible = "qcom,sm8150-rpmh-clk", .data = &clk_rpmh_sm8150},
- 	{ .compatible = "qcom,sm8250-rpmh-clk", .data = &clk_rpmh_sm8250},
- 	{ .compatible = "qcom,sm8350-rpmh-clk", .data = &clk_rpmh_sm8350},
+diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
+index d344b3386..df9e37f90 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
+@@ -38,6 +38,7 @@ properties:
+       - qcom,sdx75-rpmh-clk
+       - qcom,sm4450-rpmh-clk
+       - qcom,sm6350-rpmh-clk
++      - qcom,sm7250-rpmh-clk
+       - qcom,sm8150-rpmh-clk
+       - qcom,sm8250-rpmh-clk
+       - qcom,sm8350-rpmh-clk
 -- 
 2.43.0
 
