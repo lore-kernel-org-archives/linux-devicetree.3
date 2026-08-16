@@ -1,220 +1,121 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F0D1E5714
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 16:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527E53264D5
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 16:18:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786896054; cv=none; b=YyU7vietbSL/IKZF4mTMLkQrA/RysyfzIAmZQMAAqkdPmy5sqh5R7THeVQTvkD4V95e1ba1/g/xZkAHXvJ56qlcP5JfxIaV8BU5kQJg53tK8+GWt+Hhk3AwW6u+pi57Qi/e67HeUH2hLsHq4GXNo8+FxcbV4YvURDTcW1eNhcxQ=
+	t=1786897106; cv=none; b=LFFdB2RH6m8A92aAab0mmzZVWZehgKGDft5JIQgJH36usXj31HS1stMo1s2uMq8n+nRQfGztth8e9mTYgRwW8FLyK2G/vlxEOnuOimLu7m98YYIVbS1Ujbz72Ef7ezyIN/W5bxsrGPDF4ncWzZYHL4B2XjeMVeIKuJyLrlu088k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786896054; c=relaxed/simple;
-	bh=5mIqHEDSAbVA9cPjCk8gWbfzC8c+xOZxPsT7VO9k1N4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ewoU2PLWeJZLSdLS2jLVaJ3XiAByph13qsM6ceuMntdT889G4yTCH/oU/cm1VNABf9Oy3FWlOM4mugVS8Gp/xsqQg/S0m84ohZ1iRhakdlv96z39CskCIJ5jViDHqZCoO8nZcp5DjHrNQw3jdWcEJM9TPxwuRBFboKgDN0tQngE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g8+vjuuT; arc=none smtp.client-ip=209.85.214.174
+	s=arc-20240116; t=1786897106; c=relaxed/simple;
+	bh=m4D3uG1yxZU27uoHhenULzJWFMswDjF6+99jhg7rkvg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gdFCzrSezSAAGYC/vVaNiXtuCnxKcPQEUuZJO8bG0vZ+GDFVTESEVFOJ2q9cnxUZuXFBmcLYvPuvajG35ZP5tQcPzLlYm4ij8HgN+h5/s382N2v2I+l1YDYse0xIpS65lS3TDy9LeKLmmNdmdd7fKc/QHMOaEIHEbQqOwEJSP78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rZ7Kv6ab; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g8+vjuuT"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cf50c6f235so31529035ad.0
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 09:00:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rZ7Kv6ab"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ceaf8a1265so39616965ad.2
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 09:18:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786896052; x=1787500852; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wkirOfVRfO6V0utP9IJiT/V6RJ481m8i7Trlbe9HF58=;
-        b=g8+vjuuTLB0zddHL6yctESRpDEzfa5C0jsHkQz+t6Wt44tEWrLtNgVPns7tNMD2QgA
-         q8eiBtE7Nd59YkCMhk27pbNdFh2QT8q3mBJz5wrRewD7qVPaU7CX3XcqgJsQmXHi3od0
-         R3ttsI9NKR7bL+FwcugelgGBxPL9Np4uBzO+z/czJIVY3fW5suiOrNN0DDvPYiTv9NCv
-         cHJP/BCxdRDHoZl1hn+QBC2EcHWNpXnZlm9DqjnUUb4CNMMEz8GA3AcKFfu5jOlHVM5R
-         PEGe2Bsu0ZtVdQcpRIQ7a+8nIikkJm4Txl4CX4QcV/V5Bb0VDwlf5ZTbTRBKVcNO9kmZ
-         eS8g==
+        d=gmail.com; s=20251104; t=1786897105; x=1787501905; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ol8hwDPzI85A+yMe6OB7GvosChQst72myTI3oKPR5Iw=;
+        b=rZ7Kv6abMaP7Gqm64LgAywsp0VsQfJbSmkD6Oo8u28aiU4I5nUoQhZ5IG0anqtgNrB
+         TRPgJZCAgPm0peClP04M4zAaToJDJtOA/aHMN2JqdXNVAONNae9ygwN7u5EUPiP80zFw
+         5yqobuF/6YRNgkBjAKkvX/DuwpWFTB28PTg90nlYGpSd7X8kI3D5QsA77B+qEYa4w9Zn
+         E8xw/wZWyCjBfIjcTOpsEY4l+fzLfNK9xY+DYb4TzyYrtA4jfqCnIQPOe5xN9J3JM2uz
+         UOWMV/xGY1PmiS8fLtsdClQ5Nl9xGwSghJOL/7wTbk21tXVou7hAK4V39HjdQi6z7Auw
+         XlQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786896052; x=1787500852;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786897105; x=1787501905;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wkirOfVRfO6V0utP9IJiT/V6RJ481m8i7Trlbe9HF58=;
-        b=Z9GzXhi9wIr0pP5+C4x4La+UDMiIGJ3hqSWS597Cmdq0oaw9xPAtNnuK5esNAglSWJ
-         9D847pwvKfw/aJVFf/JY2NbdiV/lJap0OHOp3fQPbzQ3c1HF1T5gYYf7zLNytl/rGi2J
-         EZCjMG6UHGD3zB0cc/0txEt4Hcc73uFiRxX+gtDKjro4s/A+gFT0hPpaN6CmlvQu00eL
-         GNb+KMQsnNvV7ulWqKQATou403AMIJ6TCzFwab9J0t/Gj+YtKsXzSnMGXhEg+okF1Pet
-         Py8AjEVnLfeFW3YrbGMLLGquD2dQ1I4WOoEWsJHFSOTZZPsM8odL22tYqJ4jhyWjrtxy
-         8QqA==
-X-Forwarded-Encrypted: i=1; AHgh+RposTJUrJUrYyRc1IA1kBccWB3YaHv7fpkzVblWzZUGV5keSaOoj6UuMQPxuVBDfkr3qVeItrOvQACA@vger.kernel.org
-X-Gm-Message-State: AOJu0YwoD2/wf2ADhSZF7OqSkLwr+Ro1D0dLr549U4iFX+Jsl/9hHp0S
-	m+eaPreuIEvn4lOQsKZLI1pvRySUi2F6XsPGbcT7i98bCpt5pBdENrDN
-X-Gm-Gg: AR+sD12PwOrph4wFm01CxrE2nTbXwf05ERJH5zf3Z/6ZvImSY3IhcaUqmjA7uV2nrd8
-	b+0Z4hNaG0Hqfbg6erJ6SkV54tiCXmL6E0Q/nz4ku2rDpuGhLZBsXS1h8Kq/ZexKZ3/RHs/VcnL
-	72dwhFwv3kc78rduA8mMLqg+6xFLZx5VKmQKf6uUm87QHcIZWpBz0ZQPd7QqkV4TzeLbJkGMKPm
-	ARU/wseKP2RoJj3GAP9puvJsEYPeLvHdyszFZaK6vYiJ4vP6uwB5sFfbDpHeBFMBCoB5ypeC/Co
-	NoZmc6Xw2U61ThNIBRCM/kObFaNLDEjQxoTE5sFZIELm8y5FJLfAgWAqmCNAdl5d1zVCd2Wlrv6
-	9KXOOPjcmGcfxTHBzvxjn0ier9Rq4ndb9/zMFL9H3DziH4nZ0gxtMnI1z9IxL1e/zmANT1kUtLf
-	5pSAB4cHHeXpoJAvehrjSbDzflx/y93hBrDokUkpw2b29JkBb2F3Kwbl04YM2pryfkYaVlUGpOe
-	BXjeEWF962mMLh9WW5CIKaAJARpcosEHd3wDUE=
-X-Received: by 2002:a17:902:e78f:b0:2cf:8131:75f4 with SMTP id d9443c01a7336-2d3b0c93b91mr210811775ad.11.1786896036704;
-        Sun, 16 Aug 2026 09:00:36 -0700 (PDT)
-Received: from ?IPV6:2406:7400:56:e503:403c:f88f:3e17:55ae? ([2406:7400:56:e503:403c:f88f:3e17:55ae])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d3ae7a32bbsm26462705ad.26.2026.08.16.09.00.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 16 Aug 2026 09:00:36 -0700 (PDT)
-Message-ID: <031e1ccd-c4d6-4dfe-8920-fa7b0e5deb7a@gmail.com>
-Date: Sun, 16 Aug 2026 21:30:24 +0530
+        bh=ol8hwDPzI85A+yMe6OB7GvosChQst72myTI3oKPR5Iw=;
+        b=TNgtJ7h8dANVeYpo/Ej6rdZeePR7P7F0+aGJAWLWOhaIfBqA8F5DJlw2Srtr/vS4R3
+         19fRKggeeTEEyfXoAZuMyOL+Kb7kncmRiy6irVpQRrHmf0nyz0mS7nhGnZLBECvXtFAu
+         scadbt3bs8Gq8AqG6MwuCvXwOkyUtxOfXSm6yQ0hKQc1UVNNujnuKGGqst+cXjxGmorB
+         Ya89rjA5Y9vjjYuU6nNfhkf8YH3yYDU9+xmxLDgstp4Ya9GtN1VOJotmiu5lOJL3aUZu
+         znBIWYFEMgZ1B+HXkrAJEDnR44N0Lnw1OB00mG1FmhoRjbSVoWzU3qYiN6TSETwH44hu
+         lKTQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoDlNraqiPwuYLMIrUgKX86Ij3H2IzyJ12GxIt7+T70q9AodD0LJZTz2IzyrBGwIsCvXzOlEqrXgjZ+@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzy1IiPdIkr939Oo2w2WmJ9vkiAbpQxafe0GCwYWO96/noEAYj1
+	mapxkNWqjsgSDeJMAUqMYOuupeRHHYAc2pHW9ZDZMfk1BjxiKpBXScfh
+X-Gm-Gg: AR+sD11JQbW1mvNaRAWCXRC5Ij5TwCDwFqJWkudOYjh8Upc0YLGMfRhDT99vhldi+d9
+	DwTEnsN6s8EzChcO6IPfD7YNLDfzG/tTuor3N3aC/uIHjV2Bkasr1ouA2B8+4ImmOi4TwrOYgdQ
+	PpyFY0ig4xDrMyQfKSlMQ9S7nOtARkIcPsYYcE60M/4e7oxqxlzjUvc0k8I7vLK4X8fIp766BeR
+	b2bXKl4ra88g+Hhv1inCeSnpGGKbGbAYWT3YmfJJAtrUpSZkePdSZaAygSoWKCPVSm+Yj635Lu4
+	aoVuHuHfYaINOeVWCjRRmugehdzRWFfznRn6t+kvPjxBdAErv1oHR2AYWMunnfrtFqMPd05ifrF
+	o/rcH6rDEcrc+OADoImNh+q2EptwszjL5HerAJizAqiGA5uQwxyQ0UjZlVEstMys6YVvlOUGj0Q
+	y3NXyhF6CA3PfjRCWAWxFq6v4O+y3ZBxf6IFV9+OFeoR/ugqYM0Xw4uDCH5yPRxslmzk6UuqNij
+	9OJiZy0dFU2
+X-Received: by 2002:a05:6a21:e8b:b0:3cb:eb06:ce09 with SMTP id adf61e73a8af0-3cc71de3b98mr21322781637.25.1786897104544;
+        Sun, 16 Aug 2026 09:18:24 -0700 (PDT)
+Received: from localhost.localdomain ([157.51.221.131])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320d5bd9679sm28969988eec.3.2026.08.16.09.18.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Aug 2026 09:18:23 -0700 (PDT)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	tglx@kernel.org
+Cc: lpieralisi@kernel.org,
+	robimarko@gmail.com,
+	linux@gurudas.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	Sreeshankar K <sreeshankar0910@gmail.com>
+Subject: [PATCH v2 0/5] Add SM7250 base dts file
+Date: Sun, 16 Aug 2026 16:18:03 +0000
+Message-ID: <20260816161808.12419-1-sreeshankar0910@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: mfd: Convert TI TWL6040 to DT schema
-To: Eduard Bostina <egbostina@gmail.com>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
- mfd@lists.linux.dev, Rob Herring <robh@kernel.org>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, m-chawdhry@ti.com
-References: <20260816092847.2522994-1-egbostina@gmail.com>
-Content-Language: en-US
-From: Dhruva G <goledhruva@gmail.com>
-In-Reply-To: <20260816092847.2522994-1-egbostina@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Eduard,
+Qualcomm SM7250 is known as lito.
 
-On 16-08-2026 14:58, Eduard Bostina wrote:
-> Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
-> schema.
-> 
-> During the conversion, the following updates were made:
-> - Changed 'twl6040,audpwron-gpio' to 'ti,audpwron-gpio', which was
->   misnamed in the old txt binding.
-> - Made 'gpio-controller', '#gpio-cells', and 'ti,audpwron-gpio' optional
->   because modern platforms do not require them.
-> - Renamed the vibra 'vddvibl_uV'/'vddvibr_uV' properties to
->   'ti,vddvibl-uV'/'ti,vddvibr-uV', the names actually read by the
->   twl6040-vibra driver.
-> 
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-> ---
-> Changes in v2:
-> - Renamed the vibra 'vddvibl_uV'/'vddvibr_uV' properties to 
->   'ti,vddvibl-uV'/'ti,vddvibr-uV', the names actually read by the
->   twl6040-vibra driver.
-> 
-> Link to v1: https://lore.kernel.org/all/20260815083451.2147129-1-egbostina@gmail.com/
-> 
->  .../devicetree/bindings/mfd/ti,twl6040.yaml   | 142 ++++++++++++++++++
->  .../devicetree/bindings/mfd/twl6040.txt       |  67 ---------
->  2 files changed, 142 insertions(+), 67 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
->  delete mode 100644 Documentation/devicetree/bindings/mfd/twl6040.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
-> new file mode 100644
-[..snip..]
-> +
-> +  vddvibl-supply:
-> +    description: Regulator for the left vibra motor
-> +
-> +  vddvibr-supply:
-> +    description: Regulator for the right vibra motor
-> +
-> +  vibra:
-> +    type: object
-> +    additionalProperties: false
-> +    properties:
-> +      ti,vibldrv-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for left driver
-> +      ti,vibrdrv-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for right driver
-> +      ti,viblmotor-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for left motor
-> +      ti,vibrmotor-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for right motor
-> +      ti,vddvibl-uV:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: vddvibl default voltage if it needs to be changed
-> +      ti,vddvibr-uV:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: vddvibr default voltage if it needs to be changed
-> +
-> +    required:
-> +      - ti,vibldrv-res
-> +      - ti,vibrdrv-res
-> +      - ti,viblmotor-res
-> +      - ti,vibrmotor-res
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - "#clock-cells"
-> +  - vio-supply
-> +  - v2v1-supply
+This patchset add base devicetree file for SM7250 SoC and
+SM7250 MTP platform. This file adds the basic nodes like cpu,
+psci and other required configuration for booting up to the
+serial console.
 
-I think the vibra supplies need to be conditionally required when the vibra child is present. 
-twl6040_has_vibra() uses the presence of this child to instantiate twl6040-vibra, whose probe
-then unconditionally gets both vddvibl and vddvibr.
+v2 - Fixes/Changes:
+#1 [Fix] The `timer@17c20000` node incorrectly configures `#address-cells` and `#size-cells`, leading to broken memory mappings.
+#2 [Fix] The `spmi@c440000` bus node incorrectly sets `#address-cells` and `#size-cells`, breaking SPMI device enumeration.
+#3 [Fix] Missing mandatory properties `cache-level` and `cache-unified` in L2 and L3 cache nodes.
+#4 [Fix] The CPU topology `cpu-map` is entirely missing, breaking cluster-awareness and Energy Aware Scheduling.
+#5 [Fix] The SPMI node name `qcom,spmi@c440000` violates the standard generic node naming requirements.
+#6 [Fix] The memory-mapped `tcsr_mutex` is placed at the root of the device tree rather than within the `soc` simple-bus node.
 
-Would something like this make sense?
+Sreeshankar K (5):
+  arm64: dts: qcom: Add SM7250 base dts file
+  dt-bindings: arm: cpus: Document Kryo 475 CPUs
+  dt-bindings: arm: qcom: Document SM7250 SoC and boards
+  dt-bindings: firmware: qcom,scm: Document SM7250 SCM
+  dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
 
-allOf:
-  - if:
-      required:
-        - vibra
-    then:
-      required:
-        - vddvibl-supply
-        - vddvibr-supply
+ .../devicetree/bindings/arm/cpus.yaml         |   1 +
+ .../devicetree/bindings/arm/qcom.yaml         |   6 +
+ .../bindings/firmware/qcom,scm.yaml           |   1 +
+ .../interrupt-controller/qcom,pdc.yaml        |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ arch/arm64/boot/dts/qcom/sm7250-mtp.dts       |  30 ++
+ arch/arm64/boot/dts/qcom/sm7250.dtsi          | 499 ++++++++++++++++++
+ 7 files changed, 539 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7250-mtp.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7250.dtsi
 
-This would still allow TWL6040 users without vibra, while retaining the dependency for users which enable it.
+-- 
+2.43.0
 
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        audio-codec@4b {
-> +            compatible = "ti,twl6040";
-> +            reg = <0x4b>;
-> +            interrupts = <0 119 IRQ_TYPE_LEVEL_HIGH>;
-> +            interrupt-parent = <&gic>;
-> +            gpio-controller;
-> +            #gpio-cells = <1>;
-> +            #clock-cells = <0>;
-> +            ti,audpwron-gpio = <&gpio4 31 0>;
-> +
-> +            vio-supply = <&v1v8>;
-> +            v2v1-supply = <&v2v1>;
-> +            enable-active-high;
-> +
-> +            /* regulators for vibra motor */
-> +            vddvibl-supply = <&vbat>;
-> +            vddvibr-supply = <&vbat>;
-> +
-> +            vibra {
-> +                ti,vibldrv-res = <8>;
-> +                ti,vibrdrv-res = <3>;
-> +                ti,viblmotor-res = <10>;
-> +                ti,vibrmotor-res = <10>;
-> +            };
-> +        };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/mfd/twl6040.txt b/Documentation/devicetree/bindings/mfd/twl6040.txt
-> deleted file mode 100644
-
-[..snip..]
