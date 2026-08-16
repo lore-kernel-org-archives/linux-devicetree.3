@@ -1,111 +1,161 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3C93264E2
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 16:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A18A1F936
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 16:33:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786897135; cv=none; b=qE+sN3g0hC50Ju5xMCeXKLUkfnf7UsnVrbPIITDpPVTsZ8vfGL4CQOGQYNuBUsaXNoJmNgeJntoOvFBQ+5WxGdRPDraLgJnVxLOlPIhzO395Hio9xpLe4r9dQ1McJvQbChj6lDVeZPUE/cjtkY2Rh15EoNmaEHs6wmN2+guU7E0=
+	t=1786898015; cv=none; b=fDmElKGx9fo87zbRrRBo8GxQiuopeRTLsFf3NDZ7IUDb9KI9FhwUd7uCt66nDQuvHKccgEMp9gwS0x06LlmhVepJhXiO3jGbb2bZFxyP/V6H5V3LLOzSwo7XBrLfaD2/mhEvenzJ/NWNl2hyg3MypW54L60ytBapRR1VyTQ6BI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786897135; c=relaxed/simple;
-	bh=S4gVIUWwuoALYuzwzRm82WuAYzYN5KLWtNbqZ/oM/+w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t0tI3aUo5fvcDvkJjyM3d095R43nDgAnKOZy0G0eIqycpg8gHKkt29elPYAm1Ux8goZQSGWo7KC4nmkCCqMnohmW9bdNJkOJG/3prgncgY3dKWp4yUijbzcO1hgbWRJwltyA1kMSCA9Ai+BsAspbQiDgYjruJm6IWRy3JfB+6Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ImuhsS/M; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786898015; c=relaxed/simple;
+	bh=aLmCTTokoBQWTHnnQIVsPOPPMBvtHbO/XqplkOYS4Jo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OgkotIw56j4JyHwJXuZOlpq11d7fkfwZx4IrN8Ui/MSajPbIIT6Lb0THXQ5j9DJTIOlEhg/lJ1Rr+3bjUXRzleH2nhRbtwb9MSQwupDNLkEyacV7/TfcsRlkx1vmwp2x4JjT2hj40D+/5VVxAs/cKvDkZYjok4T2cf5ebbZvMLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtWuaRJa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ImuhsS/M"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cbee846deecso2828644a12.1
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 09:18:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786897133; x=1787501933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g3FdfDbvToHSgtTrj8YFlW83QqqTfihaw6vnLz7PZc8=;
-        b=ImuhsS/Mwk/Yz1rLEMcy0Cp6IBxKn9BWUjFvjfUPrRYCrystTH9RguigxB/8Z5GYHi
-         vRg8ao5g2okxXtNK7Fi3hpcHJ5mpT/0nBW9JRdBQALxG+Cx0mNbIzDUIB4U033gOJJj1
-         PyDDerYtutuPTx0J3v/I8z6tyK8EsvGcU1/I/gdbr29M7v0u5OPbRmzH34+xAjY5NguW
-         zH8CLbRMpsvl6rQ2xfoUK5c32HZ2R0EE7VNqDcurvbRaUtgvNDAq/RjJExk80Vh8lOKM
-         4hX5moN4cM8ycu2z9525wVOe2NhCpm+V8PQjXyfTqR1xjAt0ws/oG+BQRXyu005yn6xR
-         cXww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786897133; x=1787501933;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g3FdfDbvToHSgtTrj8YFlW83QqqTfihaw6vnLz7PZc8=;
-        b=VGJ7EIMHbGYHOQUUobOLdkmPNRfKs0MRUGUuSo8047diJ+coE8ZDyf2/ahTEZz4bf1
-         9m77Cco1T8650wIMzn50P5eKz4cm3WRWNW4OErha36IE+qfqOmIqzS1qtG/dM25s83nF
-         Il9oQAGlHWg0TyM6tuxlE36l0o04nMulZbYXmDxC1y8E2w+Mf1ThfF3TOus5W4uqhILC
-         aybr7/gNfl5SLcNDyWArrmoynQ2nI1kyhtbgHS8aeAeeMWqWIzaPgNlJvuxBsS2tLMo4
-         6OHxI2IGAlNbNIbhLF/4gfouPds445MteZ3wIFx+fZn/SD9+wM2SJSgAEqHLOn9ZTK+O
-         NsSg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr7dkrM8hjLeXVw/vPyJvz1g2p0KrZKzN9SexGFKuoF1of1aRXJ2hhdZsDyuatLyr0GdVpi3d11k+xf@vger.kernel.org
-X-Gm-Message-State: AOJu0YyM9P+zivTKICDitEDWJr2x/htsIZxKJPzrA3t5hDd5IRzUCZHE
-	ZDFtGDoccD4Dx5OCOmrvoFPbasmwjbMV21R+6oCth+fs4MNTfyvQkqZP
-X-Gm-Gg: AR+sD12cKqf0BFh/v9xusaqUyBoAaKtdW2IKGR5jRxbOIt9Dm8gp1IZzkY45RKVdnnq
-	c4IIa8UAaSMHZLcLYV3W8rti7ZWXhCG3KWgppmX4M3mr2khkgnMN3PGDA6Kg4YKo/i3d3MHgrhm
-	roADTkyjNJtU4pgEcMvEYvE3pAXDADmAPR1i9BbNrntqR/R5Fgx5L9mDF4NtLYNhiTRTs8ZNBtl
-	0QcSHNsjg58u7I48vVe7rxoEfDjr5+o0d3jc3U/2nU3QQduV6h8gvYNE7rkMEQc4dxgTWRktuQ8
-	ZrmV/rJ8rvKKQtTYjrs8iFZJlHhvLXlmEZBfzBf3OlZJjyls+O869v7SQTiEcd8E3+2Iu6+I+Wa
-	7aDf4udmJypMshSYo+4dLYmFkeot3iUPu+J5+y4AeO9pD+X1eoXT5IxuvnRXnxXXODRxlD/jMZI
-	5v6ivXGhxjoeDQS26z7wEGtCOCp/zCtYMMruBLF/4pJ8We9PUHzz6Ir5p1R9mQTEqaFRjTpUKKF
-	3wlzXwpMGHIPSgFoWuKse8=
-X-Received: by 2002:a05:6a20:d52f:b0:3c3:859b:9178 with SMTP id adf61e73a8af0-3cc71d82711mr24321365637.34.1786897133174;
-        Sun, 16 Aug 2026 09:18:53 -0700 (PDT)
-Received: from localhost.localdomain ([157.51.221.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320d5bd9679sm28969988eec.3.2026.08.16.09.18.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Aug 2026 09:18:52 -0700 (PDT)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	tglx@kernel.org
-Cc: lpieralisi@kernel.org,
-	robimarko@gmail.com,
-	linux@gurudas.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>
-Subject: [PATCH v2 5/5] dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
-Date: Sun, 16 Aug 2026 16:18:08 +0000
-Message-ID: <20260816161808.12419-6-sreeshankar0910@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260816161808.12419-1-sreeshankar0910@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtWuaRJa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 954231F000E9;
+	Sun, 16 Aug 2026 16:33:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786898013;
+	bh=LVVeSLCybKHcDzTSqp+T8m009ppBAIs7wbVyURoJ91Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VtWuaRJafiZ4KdODygceJO62ntfRDjXPfwA+GP59Xlyvju0zeWL8MrAUssf/jHq7+
+	 I/e6NupV5AK6N5C7alYBZavgeAmh52o8NQzbE0RjHbVZnQP8WU/3oOo2Hq+s+E/8TM
+	 ++bUEZ3WKWKkN0S7oXR6NlrN0Y7Fm4DC4OIF1hDXDbZx9GR9Y4vtJ8VHZ/CrO0nFoC
+	 o0Aydm0sYEcgs6TOAuDgECrNEBCkxyDG8IK4tdrWADrO0tDjiewK1r5q+Os3lvhzUv
+	 HeiJdm1tS1zYG7ljO2WqBAZQZGxLvptyBNmL7RN4yHkstSLZ8ykGDgWXb1TeLagnoB
+	 JFlelDq6ElLEA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/5] arm64: dts: qcom: Add SM7250 base dts file
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sreeshankar K" <sreeshankar0910@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260816161808.12419-2-sreeshankar0910@gmail.com>
 References: <20260816161808.12419-1-sreeshankar0910@gmail.com>
+ <20260816161808.12419-2-sreeshankar0910@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 16 Aug 2026 16:33:33 +0000
+Message-Id: <20260816163333.954231F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Document the PDC block on the SM7250 SoC.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The `cpu-map` cluster definitions use non-zero starting indices (`=
+core6`, `core7`), breaking Linux topology parsing.
+- [High] Mismatched QUPv3 wrapper addresses and clocks.
+- [Low] Missing devicetree bindings header for the clock controller.
+- [Low] Invalid GIC_CPU_MASK_SIMPLE usage in GICv3 interrupt specifier.
+--
 
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
----
- .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
- 1 file changed, 1 insertion(+)
+--- Patch [1]: [PATCH v2 1/5] arm64: dts: qcom: Add SM7250 base dts file ---
+commit f9be33ec0cc19ce8ffedcebd3293f880830f4c83
+Author: Sreeshankar K <sreeshankar0910@gmail.com>
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-index 8162a49d4..c30b88589 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-@@ -50,6 +50,7 @@ properties:
-           - qcom,sdx75-pdc
-           - qcom,sm4450-pdc
-           - qcom,sm6350-pdc
-+          - qcom,sm7250-pdc
-           - qcom,sm8150-pdc
-           - qcom,sm8250-pdc
-           - qcom,sm8350-pdc
--- 
-2.43.0
+arm64: dts: qcom: Add SM7250 base dts file
 
+Add devicetree file for SM7250 SoC and SM7250 MTP platform.
+This file adds the basic nodes like cpu, psci and other required
+configuration for booting up to the serial console.
+
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm7250.dtsi
+> @@ -0,0 +1,499 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2020, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2026, Sreeshankar K <sreeshankar0910@gmail.com>
+> + */
+> +
+> +#include <dt-bindings/clock/qcom,rpmh.h>
+> +#include <dt-bindings/clock/qcom,gcc-sm7250.h>
+
+[Severity: Low]
+Does this file exist in the source tree? A missing devicetree bindings
+header will cause a preprocessor error during compilation and break the
+build.
+
+[ ... ]
+
+> +		cpu-map {
+> +			cluster0 {
+> +				core0 {
+> +					cpu =3D <&cpu0>;
+> +				};
+[ ... ]
+> +			};
+> +
+> +			cluster1 {
+> +				core6 {
+> +					cpu =3D <&cpu6>;
+> +				};
+> +			};
+> +
+> +			cluster2 {
+> +				core7 {
+> +					cpu =3D <&cpu7>;
+> +				};
+> +			};
+> +		};
+
+[Severity: High]
+Will this topology be parsed correctly by the kernel?=20
+
+Looking at parse_cluster() in drivers/base/arch_topology.c, the kernel
+iterates over cluster cores looking for child nodes named core%d
+starting strictly at index 0. Because cluster1 and cluster2 start at
+core6 and core7, it seems the parser will fail to find core0, break
+out of the loop instantly, and completely ignore the remaining cores
+which will degrade scheduling behavior and performance.
+
+[ ... ]
+
+> +		qupv3_id_1: geniqup@9c0000 {
+> +			compatible =3D "qcom,geni-se-qup";
+> +			reg =3D <0x0 0x009c0000 0x0 0x6000>;
+> +			clock-names =3D "m-ahb", "s-ahb";
+> +			clocks =3D <&gcc GCC_QUPV3_WRAP_1_M_AHB_CLK>,
+> +				 <&gcc GCC_QUPV3_WRAP_1_S_AHB_CLK>;
+
+[Severity: High]
+Are these clocks correct for this QUP base address?=20
+
+The base address 0x9c0000 physically corresponds to QUP0, but the clocks
+requested here belong to QUP1 (GCC_QUPV3_WRAP_1_M_AHB_CLK). During
+driver initialization, won't the driver enable QUP1 clocks and then
+attempt to read or write registers belonging to QUP0, triggering a
+synchronous external abort and kernel panic due to accessing an
+unclocked AMBA peripheral?
+
+[ ... ]
+
+> +	timer {
+> +		compatible =3D "arm,armv8-timer";
+> +		interrupts =3D <GIC_PPI 1
+> +				(GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 2
+> +				(GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
+
+[Severity: Low]
+Does this comply with the GICv3 devicetree bindings?
+
+The schema for arm,gic-v3.yaml requires the third cell of a GICv3
+interrupt specifier to only contain trigger type and level flags in
+bits [3:0]. GIC_CPU_MASK_SIMPLE is a GICv2 legacy macro that sets
+bits [15:8], which causes dtbs_check validation failures.
+
+> +			     <GIC_PPI 3
+> +				(GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 0
+> +				(GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>;
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816161808.1241=
+9-1-sreeshankar0910@gmail.com?part=3D1
