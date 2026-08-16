@@ -1,111 +1,203 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C5A23EA97
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 13:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A844B0481
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 13:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786887197; cv=none; b=YZeN3KAieNasE1MM2AuoBkK74gI5bwcizzkPZSub6pk5/d+Z0qVdwhCHbdDd9/59HtJyFmxXZglqbB/7KpVO46u0U3eJjqUFg9/2SJVH/MyjyRCdCQmMIfOBHng2AabRdePsYDMkSlET0nOKui7AFLwH7TheAHUnEwhi6bR3Mp0=
+	t=1786887723; cv=none; b=jUVUSw4WXOXcC1W9qySZtEuyrn4ayYrVhHw1n9J75+7d3Z8zkEvT0pOieXigTKXNDcVwz2YDaEIlZ82rXlo4z9R4kj2d1WLSaDvaQ9mMzHJBCZy0Vf70MXEE0o1eHZFH6wc/JWKNj+l2UmpIJqTbSCckBzPdtNnC/6HEBhoppQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786887197; c=relaxed/simple;
-	bh=S4gVIUWwuoALYuzwzRm82WuAYzYN5KLWtNbqZ/oM/+w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=juaGpQDRSkPRMGevvuFmimcd/NEgUG0AS/C06iBKBGcZszs/hhXdRvNJFeGUS7f0VAbC5pATSWQpVRMmdcqeYPltpzJ/X98rU1peqN90CxNUGe+WqqqFvwAVewGqMcpgYlO7M5SyuvMYOyEA9Y4DgWzqiNxuRZy/9pMdCI1Bp7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mcaeb9n3; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786887723; c=relaxed/simple;
+	bh=Xd7GrjwSxxC9kKR65ENEQjI4HhpZ+tyzfVGD3IXnX00=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pF7tS0iEIALABhwm1/I5QDeqVVUaLTOzEIVdkoXT8KPTCsyA7DPhyl9HeDYbTDxIX2kKWYumo6RMDpcg4vLHl2lDMklb6v/55f/HfUJ8Tu8jaJTQwRxQLbmjInopkbklPuTz2WmTNIME4HHjqf1EYet/au0qbTG6sbwioKX7aak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kQAbE3mj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mcaeb9n3"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3900e39d935so2354834a91.0
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 06:33:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786887195; x=1787491995; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g3FdfDbvToHSgtTrj8YFlW83QqqTfihaw6vnLz7PZc8=;
-        b=mcaeb9n3+xo2MEk+eCnuoBR1gdDiPi8BQdDPwhWLePJAdiAJ+LWgQf3FBhP5Denitw
-         CSeU0xcuC9wreGQj8kkC0htSDNxW9pdJfpOgcVYSyiacuLSmzEOmGFIbg/PoizlXEUTF
-         gUQj7K435ko+STLV+bGVBTKWGhADQERyAJh04R1hGgjsdhjDBa+fAhw2VPnxBS9dDT4G
-         CuxL46xSXnINPCNMNpmzQvJ+BTqlmiU2Cm+kDSCv3cuZQongkdLgmcrXLX+baabBhe9W
-         X7BnJHCGu/co789GG39Oi19Et9kzmEEBwLVWDz9nJdz+ilwomWxxNNKSqtls9gsIxQHl
-         xdAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786887195; x=1787491995;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g3FdfDbvToHSgtTrj8YFlW83QqqTfihaw6vnLz7PZc8=;
-        b=dTGk0hHL6AQcNVCXXwsETPaTO32xICYcZQbaCHdnIAU6VZ9gCWrzQ0OcjrDauZemur
-         9JJtfscpIVtXjpFU0C5Bp8DiQyCilPPrDbpn2fV/bpwUBpDmzw73mSzj6K1Iw0rbiEdX
-         llg9/VtFkG49IWUhkHKTDHrwk15XM/ln8cg3kdNskLL/ewW5p0aNz8jPSH3HwoXohjfF
-         R/Xxs+DXaXChnsotBxtFOrrUbItEZuhNA+Gdw8HpnoBeB2NUiayA1auR/pgojf+usX7q
-         jjiUGLEXblOkPBcYhE4MAxcDgqAxLfSJBllBvyBkt/zG298PaWPMb8/mc9fGe8kB3JrE
-         BTQQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roa9P+uQVSna4icxBX0rfr0NRJSwWy6rrGAUSOqKqsoANI7r/FrAWIZcndhCHQHMsKnRnfwa37X9kBD@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHx+2O2J2iyycAfC1JfhFGatWEx4zU8KHvWYcAj2pL7GxOxQQ5
-	hU3v5DHVAioYniZsouIwQanPz6Z4VhM4dTzmmb5gxNzrII56LMsB+tYf
-X-Gm-Gg: AR+sD11ZD39R1XOMkbufKWMS/wiHcC7hhHGjq6eXUizurWOKdqd8GpfGN7y3jSoL9uF
-	UiJVQ9PGSDIhtYQmRLW3lDIMxMHYHg1tQIw1a+6yXpL+Vacb8zeqheSSPr/0v1knKM3njDenzwx
-	Cs0ZGqPjEhG5arcj3jp45uWu+d5+nC2samykfcdCP6hp/fwDpesOrLQ+Hito+ON1capba9gNEjr
-	fJmFVaGc84WaSUT1Gy6wUGGgVaFLlxKTvcvbvOgmfUkOj8z3OvvkBOQANthQU9fu3kWt8jp1JKv
-	IxZnEMpyKkNntIv847tzDwv0YFVCPVgdTUSYDyMIoqGE06ItlldHHz+TdMIUlS1x2nCsqs//JT6
-	+jxRY88i2T18D6BO9J36ny7Ctk886CWHqMMZvFrQyXUL39ybg+tL5Znf73hoF1nv4c7RbE5fpnq
-	1e+QocWTRqKeyrQQvVC8AD9EhwlPjfZYyDI7/MjgLwFaiWJmZJ+RLeVVKEIIONWFIYAheO24Xkw
-	BLdnQpoqH3u
-X-Received: by 2002:a17:90b:53cf:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-3933bd204d0mr20550705a91.3.1786887194858;
-        Sun, 16 Aug 2026 06:33:14 -0700 (PDT)
-Received: from localhost.localdomain ([157.51.221.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320ea804233sm23599064eec.26.2026.08.16.06.33.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Aug 2026 06:33:14 -0700 (PDT)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	tglx@kernel.org
-Cc: lpieralisi@kernel.org,
-	robimarko@gmail.com,
-	linux@gurudas.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>
-Subject: [PATCH 5/5] dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
-Date: Sun, 16 Aug 2026 13:32:31 +0000
-Message-ID: <20260816133231.10875-6-sreeshankar0910@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260816133231.10875-1-sreeshankar0910@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kQAbE3mj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1111F000E9;
+	Sun, 16 Aug 2026 13:42:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786887721;
+	bh=WX/OTTJBB0u3Oie+p4iivrXqWl6IfmroQ8p3ukELRk4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kQAbE3mjVY8ZqctZncjtaBg1kpyG3B8nYnCC+fz1IIXKy3iK/kFXps6k8NA/E9kMU
+	 y95DgOab1OdMe98EX2XNN4fRHdIrN8SL5y9H3pf8ocIwvFTf9hJiAnLvb1NVV11SAb
+	 exz/eEb7D6TZ+zq1H9n/FdDVABdIsi5UovMpimDkd9uVskOTlt2ARFTAyPCpHu/CK+
+	 ln5TzjU0W+120E8YnfIC8ieC3uvAZxcis5USuEo1T920aaFleiy4UdhTZ+3BU3en8L
+	 kuWFuN2Q4t9k8pcTXldtsX1r7vkXF15FYFIZzflXIYAAjLmqP+NXInKrlCbP9YrMXL
+	 +TvWtUzHpqKHw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/5] arm64: dts: qcom: Add SM7250 base dts file
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sreeshankar K" <sreeshankar0910@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260816133231.10875-2-sreeshankar0910@gmail.com>
 References: <20260816133231.10875-1-sreeshankar0910@gmail.com>
+ <20260816133231.10875-2-sreeshankar0910@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 16 Aug 2026 13:42:00 +0000
+Message-Id: <20260816134201.4F1111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Document the PDC block on the SM7250 SoC.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] The `timer@17c20000` node incorrectly configures `#address-cells` =
+and `#size-cells`, leading to broken memory mappings.
+- [High] The `spmi@c440000` bus node incorrectly sets `#address-cells` and =
+`#size-cells`, breaking SPMI device enumeration.
+- [Medium] Missing mandatory properties `cache-level` and `cache-unified` i=
+n L2 and L3 cache nodes.
+- [Medium] The CPU topology `cpu-map` is entirely missing, breaking cluster=
+-awareness and Energy Aware Scheduling.
+- [Low] The SPMI node name `qcom,spmi@c440000` violates the standard generi=
+c node naming requirements.
+- [Low] The memory-mapped `tcsr_mutex` is placed at the root of the device =
+tree rather than within the `soc` simple-bus node.
+--
 
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
----
- .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
- 1 file changed, 1 insertion(+)
+--- Patch [1]: [PATCH 1/5] arm64: dts: qcom: Add SM7250 base dts file ---
+commit 0271d54882ba31c5bab214b6f9e5a7997f5a44fd
+Author: Sreeshankar K <sreeshankar0910@gmail.com>
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-index 8162a49d4..c30b88589 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-@@ -50,6 +50,7 @@ properties:
-           - qcom,sdx75-pdc
-           - qcom,sm4450-pdc
-           - qcom,sm6350-pdc
-+          - qcom,sm7250-pdc
-           - qcom,sm8150-pdc
-           - qcom,sm8250-pdc
-           - qcom,sm8350-pdc
--- 
-2.43.0
+arm64: dts: qcom: Add SM7250 base dts file
 
+This patch adds the base devicetree file for the Qualcomm SM7250 SoC and the
+corresponding SM7250 MTP platform. It configures basic nodes like CPU, PSCI,
+and serial console required for booting.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm7250.dtsi b/arch/arm64/boot/dts/q=
+com/sm7250.dtsi
+> new file mode 100644
+> index 0000000000000..66b3705461f1e
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm7250.dtsi
+[ ... ]
+> +	cpus {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <0>;
+> +
+> +		CPU0: cpu@0 {
+
+[Severity: Medium]
+Is a cpu-map node missing here?
+
+Without a cpu-map to define the physical and logical clusters, the kernel
+will treat all cores as a single flat cluster. This degrades scheduling
+decisions and prevents Energy Aware Scheduling from functioning on this
+big.LITTLE SoC.
+
+> +			device_type =3D "cpu";
+> +			compatible =3D "qcom,kryo475";
+> +			reg =3D <0x0 0x0>;
+> +			enable-method =3D "psci";
+> +			next-level-cache =3D <&L2_0>;
+> +			L2_0: l2-cache {
+> +				compatible =3D "cache";
+> +				next-level-cache =3D <&L3_0>;
+> +				L3_0: l3-cache {
+> +					compatible =3D "cache";
+> +				};
+> +			};
+
+[Severity: Medium]
+Should these cache nodes include the cache-level and cache-unified properti=
+es?
+
+Without these mandatory properties, the kernel cache topology parser cannot
+accurately identify or expose the cache layout to userspace via sysfs,
+which prevents userspace applications from optimizing workloads based on
+cache topology.
+
+[ ... ]
+> +	firmware {
+> +		scm: scm {
+> +			compatible =3D "qcom,scm-sm7250", "qcom,scm";
+> +			#reset-cells =3D <1>;
+> +		};
+> +	};
+> +
+> +	tcsr_mutex: hwlock@1f40000 {
+> +		compatible =3D "qcom,tcsr-mutex";
+> +		reg =3D <0x0 0x01f40000 0x0 0x40000>;
+> +		#hwlock-cells =3D <1>;
+> +	};
+
+[Severity: Low]
+Should this memory-mapped peripheral be instantiated as a child of the soc
+simple-bus node instead of the root node?
+
+Placing it at the root bypasses the address translation layers (ranges,
+dma-ranges) established by the soc node and misrepresents the hardware
+bus hierarchy.
+
+[ ... ]
+> +		pdc: interrupt-controller@b220000 {
+[ ... ]
+> +		};
+> +
+> +		spmi: qcom,spmi@c440000 {
+
+[Severity: Low]
+Does this node name violate the standard generic node naming conventions?
+
+The node name should ideally be generic, such as spmi@c440000. Including
+the vendor prefix (qcom,) in the node name typically results in dtbs_check
+validation errors against the spmi-pmic-arb schema.
+
+> +			compatible =3D "qcom,spmi-pmic-arb";
+> +			reg =3D <0x0 0x0c440000 0x0 0x0001100>,
+> +			      <0x0 0x0c600000 0x0 0x2000000>,
+> +			      <0x0 0x0e600000 0x0 0x0100000>,
+> +			      <0x0 0x0e700000 0x0 0x00a0000>,
+> +			      <0x0 0x0c40a000 0x0 0x0026000>;
+> +			reg-names =3D "core", "chnls", "obsrvr", "intr", "cnfg";
+> +			interrupt-names =3D "periph_irq";
+> +			interrupts-extended =3D <&pdc 1 IRQ_TYPE_LEVEL_HIGH>;
+> +			qcom,ee =3D <0>;
+> +			qcom,channel =3D <0>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+
+[Severity: High]
+Are these address and size cells correct for an SPMI bus?
+
+The SPMI bus bindings require #address-cells =3D <2> (for the 8-bit slave ID
+and 16-bit register offset) and #size-cells =3D <0>. Using <1> and <1> will
+cause parsing of any child PMIC nodes to fail, breaking PMIC enumeration
+and disabling dependent power domains.
+
+[ ... ]
+> +		timer@17c20000 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +			ranges;
+> +			compatible =3D "arm,armv7-timer-mem";
+> +			reg =3D <0x0 0x17c20000 0x0 0x1000>;
+> +			clock-frequency =3D <19200000>;
+> +
+> +			frame@17c21000 {
+> +				frame-number =3D <0>;
+> +				interrupts =3D <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
+> +					     <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
+> +				reg =3D <0x0 0x17c21000 0x0 0x1000>,
+> +				      <0x0 0x17c22000 0x0 0x1000>;
+
+[Severity: High]
+Will this configuration correctly parse the 64-bit addresses in the child
+nodes?
+
+The child frame nodes use 4 cells for their reg properties (e.g.,
+<0x0 0x17c21000 0x0 0x1000>). Because this parent node sets #address-cells
+and #size-cells to 1, the dt-parser will incorrectly split this single
+64-bit region into distinct, erroneous memory regions. Attempting to map a
+region starting at physical address 0x0 with a size of 0x17c21000 can lead
+to a kernel panic during boot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816133231.1087=
+5-1-sreeshankar0910@gmail.com?part=3D1
