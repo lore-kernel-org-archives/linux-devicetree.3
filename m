@@ -1,64 +1,64 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691423CB2DC
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 19:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0283C942E
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 19:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786909182; cv=none; b=Nzb8GiBadQScI+4cEuh6xWSCt5wT8JwzdzbHfnCv7z4RWVsy7czGNYNMDNlNg/junET+XamE0s09Zt11hOsJlbxLVYa4EowgDdCQfJf93Cv3QwHp1KpDsI42ZC0FSLHX7DqfUfzmyuAuluYSQPEKP/EhWF54gCdLvUMJTTCSOdk=
+	t=1786909188; cv=none; b=KsURgwZoAExqJof0XpzuRUg61OnhGc80MRpyvsnL7yf0tb/eLm6OO/rQVpCBJ2ryPo+61BOrFtWLorkfvPjOlqTg/PQgpiHVrDxwUlfDF2T+p+dUj9DnR+6refBTFRpfyzwb/+3pEZz+Cf2MW+gsGFkqImyOUpsInu36hJ3OsrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786909182; c=relaxed/simple;
-	bh=3pCFJIQOEu9d96vXOMLd4lwrCzD6ScI84FNbite1h+0=;
+	s=arc-20240116; t=1786909188; c=relaxed/simple;
+	bh=eEcN1HXPyBaQGvYWryjFTWu7HvxXkOWR9Ns4Hw2kwNk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j1M3qDTN9DSdAiMVQZlbfy+ElRAtUGiG0+KKkdlP0bul/fteaOOPATQOdjfBBmHbHwgORaJa3zrqGVVatuD6PIVjYBXSyfX0qm/zcFa+AJugx9KkStTsDdKXcxPPHnjf6boQPErCSEELHRu+cGwxhMVLmTC/MpUOaMvoIMqrRd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F2/42HVG; arc=none smtp.client-ip=209.85.216.52
+	 MIME-Version; b=qIP8dTkzcb8HOdecercncs2FtWmIWigO4oHgbl3s0V7FtYyfcwm185iZmG9efN3RbRJithZY884O9vX5ykjwNeYmtr2dBZ17O0AemQ/fcHDuQYvjX8nFJ8F5OXEVCE7SrRnTeoHEJRarDS8ImXBiuuU4rh75FtfQmAuq4oDyjVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h++h8zO1; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F2/42HVG"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38f0f132f56so3033931a91.0
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:39:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h++h8zO1"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cc61541f8cso46044595ad.0
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:39:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786909180; x=1787513980; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786909183; x=1787513983; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WZYHIFroVmV+7VlNpb25EE1plVrmMIM2jzBfwjtS3Q8=;
-        b=F2/42HVG00p7KPzqIMw+5VUcOh9JIOHYFGQGzE/SLIxmn0lc1By+vRvtvPy58rDtF7
-         sPV1Cenu/aNq7HMBgJDlus7sSYXAvBdmhcvYfXrMcMILRamkCWunREcvTNpF0CZmRf1Y
-         O6EpCwWiGsrtP04+Yfz5WlBi/4l8J9Ayk0sD5tIR8NFdOFI+kLVbieR8beqg6iLFwQOg
-         mbkipcPuoF5q6ykqtO7rClAyZLXY+fOfVGDb7PYq8dPLZtNxWdi9YHigc5YBsIQaC/9E
-         5BInzyss/CpRWOj08UGK/0RICyddCc5mL0y6mkwu58e6N0eAxpX4/OsdynJk2M3mrpW0
-         gb/A==
+        bh=Fr1adCZarShVnf0lDmjhW7xvO8QbtTma3JXt+bfZWsA=;
+        b=h++h8zO1PAMGT9xJauZYAnQm/R/lW0KlpcHe13MXu0ptLo7150EaI/RhbDXEnqtw7H
+         VhI0K0GOhanbNLI9K3H/TaafxWaDEQE3WSgcxzaxadBjVxYCyqf8e3LMpTlx1FQw9N+C
+         x0ECms3zX5wGO1WiBXp+U/lDtZJYhba5mW8E60OYz1d57jBr1jDtGjP+4kl9rGdMTIri
+         yPqetHejaIw3jGJBPrGdI09e4nRucxFQUuQRqSRvrMu/ZTMCmYWI7HEXQlqmbifwcBJf
+         LiV0gWXt3M+4uQDL6n4zN8//fGchCbeKzWBswog7TUrLyPIVWc9hI+eXASq0YfsicZID
+         eZwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786909180; x=1787513980;
+        d=1e100.net; s=20251104; t=1786909183; x=1787513983;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WZYHIFroVmV+7VlNpb25EE1plVrmMIM2jzBfwjtS3Q8=;
-        b=Gl6ExEFKG1wDXWEvLmgbR4Y7xKNqg9d6ZZnHNCvtmHThvbBwO/UNmF6LgLHnHGwlTr
-         IxikNyJgF7LkQWbMh3Yuhw90qw64YCet7Wk39kP9A+gzCKbuQb4wh4/oB0QtbQ6RwAfk
-         dD0HdYamM0qxLM53/pEoaYWqDDUr5jqx7JO8hpC5iir4y7gIleNrWv54UA6A3Ot5JRx+
-         pJOlJOWiA+RrJDn7r+0LXMEG8M9saJWzCYiXgmspl8sDoD5FyeFm4qU3KuvHNqILwecO
-         Yc0FLRwLrRxG5vvF2LaUwWfJB1XZ9rxwds2XV5dBAI9dmj3xGF6oR/ShASxq/5XiZa5M
-         v/9w==
-X-Forwarded-Encrypted: i=1; AHgh+RrM9vyH4bWFwF6g1wjrp122C2GC6Uq4xFUgEpSZYNBzWD29kIhvH03ez1ajYyEpheNFzjQP3GykQwN0@vger.kernel.org
-X-Gm-Message-State: AOJu0Yza2JY13KPNPZudIChnQ5fxmhcLkfRvGG5k5FstmkNbT8JPx2MV
-	Sn+R4HMz6JaPqYdWLYIZ/AcuCZ75M13N4wklKcr30ZXgN1PNmx8LAapzLKT83w==
-X-Gm-Gg: AR+sD12gQuC4FP7uOx1BBPK0poRa4FJ8WznUR0MlgQG+hCeA+O5vPHt1XeIQeiRKyPG
-	mv1wzDrn3VM1cELRwgAzhRUTw64CJiBoI1fZR1m6Jf+WiskqfAVKtUxxPmzG6LA3nwF3xaqAEr8
-	WQnAxy+dOnQkfU//X5zc4mpeFJqindghNGP0D8EhJsocz5GB+NbcBQuOqF1HhwrJOFIfBsc0ubd
-	zXhAWMDCgn6Gogc1Zt7wj8mThg/xmlmeE/846YIm28CMZTEFuHxSxZUJki86H8g8MYON3miS/0h
-	qKKxnpdw5gxIupRLiHl/Cm3Fbwa6mjZTNeCwKbXMZ+E8TtCdVjLA6VcDNdlpEAX2p1IZ+evFxnF
-	FOuV9hdTRZxeT96tMVlIE4JZeq07THSWfCVHh+m5rbf3VhSshfse/S5piEYc1qCo2WJdNMnqYsb
-	3887+LQFUph8sXhuISHuF1o7fosQ2xB1Z8HMm9/vQtgPGyxGvheuJ8Whg0ciD7mBXvfDLl+Z3aH
-	aCpRcP0wE12kC+dTbujr7i4
-X-Received: by 2002:a17:90b:1d01:b0:38e:7f22:f674 with SMTP id 98e67ed59e1d1-3933b09e9e2mr14971429a91.11.1786909179611;
-        Sun, 16 Aug 2026 12:39:39 -0700 (PDT)
+        bh=Fr1adCZarShVnf0lDmjhW7xvO8QbtTma3JXt+bfZWsA=;
+        b=mePz//9w5axD02WEgZ4uSZqHv1A2YJj0I7LqDCj0H0nYoMXQ/v1APAPQB/E1qtAUAP
+         HCL3yvMUqcDV4QQude579vXtOw+qtBlyyS3Ri5m5EQUVLvbktfVW/+LpgZ1ndhqPAULC
+         yKj/cB2miUEBaG1deGEJIEEjsYZEPrXmMOGHQmnZM1+XF5fiMNsF9nqajcxd9EWh0Psh
+         bnz0YZ0y9wH4gUgm7l3dGUm5iFdyfN4lHI536Q3NiyCF0/PPvmrctlXq8bOXXi+0h2gT
+         3JyxxUDDR4O/yieu71YHaOMS//bDOW8mgCJagkS4v5a++JHgjOmdTaab0bgXTeYnY3N8
+         P7pg==
+X-Forwarded-Encrypted: i=1; AHgh+RqcpKiBc3Ia7McEmhrYXMnHMfesta/1RiD2W/IYwqhc67qwYWj9DmVR2EJGnwdcg+fiMF9pil5jQ6AP@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7JNOeiHwm/mTB34KDsv4XnDoQBX2GqOPbOPTQIpHsXj7GWt43
+	W/wKNSkzBVT23VsXRl3bvzveF3VdEI3ablbM7HUP+aeIw1n2y8rHB2gN
+X-Gm-Gg: AR+sD11a8b3ZTGWH/6NId4MEIybh24Lc/IjSx5WniwoZycQmi9NedXdS9/bU1rPE8z6
+	F3QWjjI0ycIZTFKQaCXHzMP/ls6FGiLpHPkMt6IxfqFtvP9QSNsXB1C/ryEiXWffffHk7e9UvPQ
+	Uxjie/+1yutrWLRLuL9+cuioY5gG2A2FGh82bljxj2uXuOukLW7A1gygOCpFUYlJILsMGve0B7h
+	BxtR9kKC17/ca5yvo0cRIG4J0F4nN+pMM0GXDbSMHM4u/ac5bDQL9IQfn4TlsipovYhc5UYkpkf
+	1FDNivzwTeDT3o3TR5tb9gr2bVxHTzVLrQQ7xi7UgqrkkNoor1++MPFHkpzL3tzX+4jmoDB+Da1
+	14WnUrSIGtLFYJBbvPYeWgbamvdhcWSYoqTLsb5CTd3tHv7s5MlOrvmqXgwzwr2z3Vei1lgssOn
+	hnBUNF2nUvi4tii9rNh/lkDx+ycuLy+HHPX31JpVfAhENKEh6y+/pVcsWjRq670B89p2fIyWb17
+	BVgyMNd8jKYng==
+X-Received: by 2002:a17:90a:d610:b0:38e:c232:9d2c with SMTP id 98e67ed59e1d1-3933af03952mr15499145a91.2.1786909182974;
+        Sun, 16 Aug 2026 12:39:42 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:d30::4cf:1a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39531e10d9fsm2244065a91.3.2026.08.16.12.39.36
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39531e10d9fsm2244065a91.3.2026.08.16.12.39.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Aug 2026 12:39:39 -0700 (PDT)
+        Sun, 16 Aug 2026 12:39:42 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -73,9 +73,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v10 1/4] net: dsa: motorcomm: Move to subdirectory
-Date: Mon, 17 Aug 2026 03:38:56 +0800
-Message-ID: <20260816193905.218112-2-mmyangfl@gmail.com>
+Subject: [PATCH net-next v10 2/4] net: dsa: motorcomm: Split SMI module
+Date: Mon, 17 Aug 2026 03:38:57 +0800
+Message-ID: <20260816193905.218112-3-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260816193905.218112-1-mmyangfl@gmail.com>
 References: <20260816193905.218112-1-mmyangfl@gmail.com>
@@ -87,124 +87,529 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-yt921x is already the longest single-file DSA driver, so it's time to
-split it into parts.
+SMI operations are going to be used across different modules. Minor
+changes are applied to fix build errors.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- MAINTAINERS                                    |  2 +-
- drivers/net/dsa/Kconfig                        | 10 ++--------
- drivers/net/dsa/Makefile                       |  2 +-
- drivers/net/dsa/motorcomm/Kconfig              |  8 ++++++++
- drivers/net/dsa/motorcomm/Makefile             |  3 +++
- drivers/net/dsa/{yt921x.c => motorcomm/chip.c} |  2 +-
- drivers/net/dsa/{yt921x.h => motorcomm/chip.h} |  0
- 7 files changed, 16 insertions(+), 11 deletions(-)
- create mode 100644 drivers/net/dsa/motorcomm/Kconfig
- create mode 100644 drivers/net/dsa/motorcomm/Makefile
- rename drivers/net/dsa/{yt921x.c => motorcomm/chip.c} (99%)
- rename drivers/net/dsa/{yt921x.h => motorcomm/chip.h} (100%)
+ drivers/net/dsa/motorcomm/Makefile |   1 +
+ drivers/net/dsa/motorcomm/chip.c   | 207 +----------------------------
+ drivers/net/dsa/motorcomm/smi.c    | 157 ++++++++++++++++++++++
+ drivers/net/dsa/motorcomm/smi.h    |  92 +++++++++++++
+ 4 files changed, 251 insertions(+), 206 deletions(-)
+ create mode 100644 drivers/net/dsa/motorcomm/smi.c
+ create mode 100644 drivers/net/dsa/motorcomm/smi.h
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 991460050da7..55cc5ac0e86f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18256,7 +18256,7 @@ M:	David Yang <mmyangfl@gmail.com>
- L:	netdev@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml
--F:	drivers/net/dsa/yt921x.*
-+F:	drivers/net/dsa/motorcomm/
- F:	net/dsa/tag_yt921x.c
- 
- MOXA SMARTIO/INDUSTIO/INTELLIO SERIAL CARD
-diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-index 4ab567c5bbaf..98e9bbe47de7 100644
---- a/drivers/net/dsa/Kconfig
-+++ b/drivers/net/dsa/Kconfig
-@@ -72,6 +72,8 @@ config NET_DSA_MV88E6060
- 
- source "drivers/net/dsa/microchip/Kconfig"
- 
-+source "drivers/net/dsa/motorcomm/Kconfig"
-+
- source "drivers/net/dsa/mv88e6xxx/Kconfig"
- 
- source "drivers/net/dsa/mxl862xx/Kconfig"
-@@ -158,12 +160,4 @@ config NET_DSA_VITESSE_VSC73XX_PLATFORM
- 	  This enables support for the Vitesse VSC7385, VSC7388, VSC7395
- 	  and VSC7398 SparX integrated ethernet switches, connected over
- 	  a CPU-attached address bus and work in memory-mapped I/O mode.
--
--config NET_DSA_YT921X
--	tristate "Motorcomm YT9215 ethernet switch chip support"
--	select NET_DSA_TAG_YT921X
--	select NET_IEEE8021Q_HELPERS if DCB
--	help
--	  This enables support for the Motorcomm YT9215 ethernet switch
--	  chip.
- endmenu
-diff --git a/drivers/net/dsa/Makefile b/drivers/net/dsa/Makefile
-index d2975badffc0..138225baa4d5 100644
---- a/drivers/net/dsa/Makefile
-+++ b/drivers/net/dsa/Makefile
-@@ -14,11 +14,11 @@ obj-$(CONFIG_NET_DSA_SMSC_LAN9303_MDIO) += lan9303_mdio.o
- obj-$(CONFIG_NET_DSA_VITESSE_VSC73XX) += vitesse-vsc73xx-core.o
- obj-$(CONFIG_NET_DSA_VITESSE_VSC73XX_PLATFORM) += vitesse-vsc73xx-platform.o
- obj-$(CONFIG_NET_DSA_VITESSE_VSC73XX_SPI) += vitesse-vsc73xx-spi.o
--obj-$(CONFIG_NET_DSA_YT921X) += yt921x.o
- obj-y				+= b53/
- obj-y				+= hirschmann/
- obj-y				+= lantiq/
- obj-y				+= microchip/
-+obj-y				+= motorcomm/
- obj-y				+= mv88e6xxx/
- obj-y				+= mxl862xx/
- obj-y				+= netc/
-diff --git a/drivers/net/dsa/motorcomm/Kconfig b/drivers/net/dsa/motorcomm/Kconfig
-new file mode 100644
-index 000000000000..1fddd386f866
---- /dev/null
-+++ b/drivers/net/dsa/motorcomm/Kconfig
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: ISC
-+config NET_DSA_YT921X
-+	tristate "Motorcomm YT9215 ethernet switch chip support"
-+	select NET_DSA_TAG_YT921X
-+	select NET_IEEE8021Q_HELPERS if DCB
-+	help
-+	  This enables support for the Motorcomm YT9215 ethernet switch
-+	  chip.
 diff --git a/drivers/net/dsa/motorcomm/Makefile b/drivers/net/dsa/motorcomm/Makefile
-new file mode 100644
-index 000000000000..afd03be9fa35
---- /dev/null
+index afd03be9fa35..6cea5313a444 100644
+--- a/drivers/net/dsa/motorcomm/Makefile
 +++ b/drivers/net/dsa/motorcomm/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: ISC
-+obj-$(CONFIG_NET_DSA_YT921X) += yt921x.o
-+yt921x-objs := chip.o
-diff --git a/drivers/net/dsa/yt921x.c b/drivers/net/dsa/motorcomm/chip.c
-similarity index 99%
-rename from drivers/net/dsa/yt921x.c
-rename to drivers/net/dsa/motorcomm/chip.c
-index 159b16606f6c..f070732845eb 100644
---- a/drivers/net/dsa/yt921x.c
+@@ -1,3 +1,4 @@
+ # SPDX-License-Identifier: ISC
+ obj-$(CONFIG_NET_DSA_YT921X) += yt921x.o
+ yt921x-objs := chip.o
++yt921x-objs += smi.o
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index f070732845eb..6dee25b6754a 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
 +++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -26,7 +26,7 @@
- #include <net/ieee8021q.h>
+@@ -13,7 +13,6 @@
+ #include <linux/if_bridge.h>
+ #include <linux/if_hsr.h>
+ #include <linux/if_vlan.h>
+-#include <linux/iopoll.h>
+ #include <linux/mdio.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+@@ -27,6 +26,7 @@
  #include <net/pkt_cls.h>
  
--#include "yt921x.h"
-+#include "chip.h"
+ #include "chip.h"
++#include "smi.h"
  
  struct yt921x_mib_desc {
  	unsigned int size;
-diff --git a/drivers/net/dsa/yt921x.h b/drivers/net/dsa/motorcomm/chip.h
-similarity index 100%
-rename from drivers/net/dsa/yt921x.h
-rename to drivers/net/dsa/motorcomm/chip.h
+@@ -155,9 +155,6 @@ static const struct yt921x_info yt921x_infos[] = {
+ 
+ #define YT921X_VID_UNWARE	4095
+ 
+-#define YT921X_POLL_SLEEP_US	10000
+-#define YT921X_POLL_TIMEOUT_US	100000
+-
+ /* The interval should be small enough to avoid overflow of 32bit MIBs.
+  *
+  * Until we can read MIBs from stats64 call directly (i.e. sleep
+@@ -196,208 +193,6 @@ static u32 ethaddr_lo2_to_u32(const unsigned char *addr)
+ 	return (addr[4] << 8) | addr[5];
+ }
+ 
+-static int yt921x_reg_read(struct yt921x_priv *priv, u32 reg, u32 *valp)
+-{
+-	WARN_ON(!mutex_is_locked(&priv->reg_lock));
+-
+-	return priv->reg_ops->read(priv->reg_ctx, reg, valp);
+-}
+-
+-static int yt921x_reg_write(struct yt921x_priv *priv, u32 reg, u32 val)
+-{
+-	WARN_ON(!mutex_is_locked(&priv->reg_lock));
+-
+-	return priv->reg_ops->write(priv->reg_ctx, reg, val);
+-}
+-
+-static int
+-yt921x_reg_wait(struct yt921x_priv *priv, u32 reg, u32 mask, u32 *valp)
+-{
+-	u32 val;
+-	int res;
+-	int ret;
+-
+-	ret = read_poll_timeout(yt921x_reg_read, res,
+-				res || (val & mask) == *valp,
+-				YT921X_POLL_SLEEP_US, YT921X_POLL_TIMEOUT_US,
+-				false, priv, reg, &val);
+-	if (ret)
+-		return ret;
+-	if (res)
+-		return res;
+-
+-	*valp = val;
+-	return 0;
+-}
+-
+-static int
+-yt921x_reg_update_bits(struct yt921x_priv *priv, u32 reg, u32 mask, u32 val)
+-{
+-	int res;
+-	u32 v;
+-	u32 u;
+-
+-	res = yt921x_reg_read(priv, reg, &v);
+-	if (res)
+-		return res;
+-
+-	u = v;
+-	u &= ~mask;
+-	u |= val;
+-	if (u == v)
+-		return 0;
+-
+-	return yt921x_reg_write(priv, reg, u);
+-}
+-
+-static int yt921x_reg_set_bits(struct yt921x_priv *priv, u32 reg, u32 mask)
+-{
+-	return yt921x_reg_update_bits(priv, reg, 0, mask);
+-}
+-
+-static int yt921x_reg_clear_bits(struct yt921x_priv *priv, u32 reg, u32 mask)
+-{
+-	return yt921x_reg_update_bits(priv, reg, mask, 0);
+-}
+-
+-static int
+-yt921x_reg_toggle_bits(struct yt921x_priv *priv, u32 reg, u32 mask, bool set)
+-{
+-	return yt921x_reg_update_bits(priv, reg, mask, !set ? 0 : mask);
+-}
+-
+-/* Some multi-word registers, like VLANn_CTRL, should be treated as a single
+- * long register. More specifically, writes to parts of its words won't become
+- * visible, until the last word is written.
+- *
+- * Here we require full read and write operations over these registers to
+- * eliminate potential issues, although partial reads/writes are also possible.
+- */
+-
+-static void update_ctrls_unaligned(u32 *lo, u32 *hi, u64 mask, u64 val)
+-{
+-	*lo &= ~lower_32_bits(mask);
+-	*hi &= ~upper_32_bits(mask);
+-	*lo |= lower_32_bits(val);
+-	*hi |= upper_32_bits(val);
+-}
+-
+-static int
+-yt921x_regs_read(struct yt921x_priv *priv, u32 reg, u32 *vals,
+-		 unsigned int num_regs)
+-{
+-	int res;
+-
+-	for (unsigned int i = 0; i < num_regs; i++) {
+-		res = yt921x_reg_read(priv, reg + 4 * i, &vals[i]);
+-		if (res)
+-			return res;
+-	}
+-
+-	return 0;
+-}
+-
+-static int
+-yt921x_regs_write(struct yt921x_priv *priv, u32 reg, const u32 *vals,
+-		  unsigned int num_regs)
+-{
+-	int res;
+-
+-	for (unsigned int i = 0; i < num_regs; i++) {
+-		res = yt921x_reg_write(priv, reg + 4 * i, vals[i]);
+-		if (res)
+-			return res;
+-	}
+-
+-	return 0;
+-}
+-
+-static int
+-yt921x_regs_update_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks,
+-			const u32 *vals, unsigned int num_regs)
+-{
+-	bool changed = false;
+-	u32 vs[4];
+-	int res;
+-
+-	BUILD_BUG_ON(num_regs > ARRAY_SIZE(vs));
+-
+-	res = yt921x_regs_read(priv, reg, vs, num_regs);
+-	if (res)
+-		return res;
+-
+-	for (unsigned int i = 0; i < num_regs; i++) {
+-		u32 u = vs[i];
+-
+-		u &= ~masks[i];
+-		u |= vals[i];
+-		if (u != vs[i])
+-			changed = true;
+-
+-		vs[i] = u;
+-	}
+-
+-	if (!changed)
+-		return 0;
+-
+-	return yt921x_regs_write(priv, reg, vs, num_regs);
+-}
+-
+-static int
+-yt921x_regs_clear_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks,
+-		       unsigned int num_regs)
+-{
+-	bool changed = false;
+-	u32 vs[4];
+-	int res;
+-
+-	BUILD_BUG_ON(num_regs > ARRAY_SIZE(vs));
+-
+-	res = yt921x_regs_read(priv, reg, vs, num_regs);
+-	if (res)
+-		return res;
+-
+-	for (unsigned int i = 0; i < num_regs; i++) {
+-		u32 u = vs[i];
+-
+-		u &= ~masks[i];
+-		if (u != vs[i])
+-			changed = true;
+-
+-		vs[i] = u;
+-	}
+-
+-	if (!changed)
+-		return 0;
+-
+-	return yt921x_regs_write(priv, reg, vs, num_regs);
+-}
+-
+-static int
+-yt921x_reg64_write(struct yt921x_priv *priv, u32 reg, const u32 *vals)
+-{
+-	return yt921x_regs_write(priv, reg, vals, 2);
+-}
+-
+-static int
+-yt921x_reg64_update_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks,
+-			 const u32 *vals)
+-{
+-	return yt921x_regs_update_bits(priv, reg, masks, vals, 2);
+-}
+-
+-static int
+-yt921x_reg64_clear_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks)
+-{
+-	return yt921x_regs_clear_bits(priv, reg, masks, 2);
+-}
+-
+-static int
+-yt921x_reg96_write(struct yt921x_priv *priv, u32 reg, const u32 *vals)
+-{
+-	return yt921x_regs_write(priv, reg, vals, 3);
+-}
+-
+ static int yt921x_reg_mdio_read(void *context, u32 reg, u32 *valp)
+ {
+ 	struct yt921x_reg_mdio *mdio = context;
+diff --git a/drivers/net/dsa/motorcomm/smi.c b/drivers/net/dsa/motorcomm/smi.c
+new file mode 100644
+index 000000000000..164c25ef494a
+--- /dev/null
++++ b/drivers/net/dsa/motorcomm/smi.c
+@@ -0,0 +1,157 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2026 David Yang
++ */
++
++#include <linux/iopoll.h>
++
++#include "chip.h"
++#include "smi.h"
++
++#define YT921X_POLL_SLEEP_US	10000
++#define YT921X_POLL_TIMEOUT_US	100000
++
++int yt921x_reg_read(struct yt921x_priv *priv, u32 reg, u32 *valp)
++{
++	WARN_ON(!mutex_is_locked(&priv->reg_lock));
++
++	return priv->reg_ops->read(priv->reg_ctx, reg, valp);
++}
++
++int yt921x_reg_write(struct yt921x_priv *priv, u32 reg, u32 val)
++{
++	WARN_ON(!mutex_is_locked(&priv->reg_lock));
++
++	return priv->reg_ops->write(priv->reg_ctx, reg, val);
++}
++
++int yt921x_reg_wait(struct yt921x_priv *priv, u32 reg, u32 mask, u32 *valp)
++{
++	u32 val;
++	int res;
++	int ret;
++
++	ret = read_poll_timeout(yt921x_reg_read, res,
++				res || (val & mask) == *valp,
++				YT921X_POLL_SLEEP_US, YT921X_POLL_TIMEOUT_US,
++				false, priv, reg, &val);
++	if (ret)
++		return ret;
++	if (res)
++		return res;
++
++	*valp = val;
++	return 0;
++}
++
++int yt921x_reg_update_bits(struct yt921x_priv *priv, u32 reg, u32 mask, u32 val)
++{
++	int res;
++	u32 v;
++	u32 u;
++
++	res = yt921x_reg_read(priv, reg, &v);
++	if (res)
++		return res;
++
++	u = v;
++	u &= ~mask;
++	u |= val;
++	if (u == v)
++		return 0;
++
++	return yt921x_reg_write(priv, reg, u);
++}
++
++int
++yt921x_regs_read(struct yt921x_priv *priv, u32 reg, u32 *vals,
++		 unsigned int num_regs)
++{
++	int res;
++
++	for (unsigned int i = 0; i < num_regs; i++) {
++		res = yt921x_reg_read(priv, reg + 4 * i, &vals[i]);
++		if (res)
++			return res;
++	}
++
++	return 0;
++}
++
++int
++yt921x_regs_write(struct yt921x_priv *priv, u32 reg, const u32 *vals,
++		  unsigned int num_regs)
++{
++	int res;
++
++	for (unsigned int i = 0; i < num_regs; i++) {
++		res = yt921x_reg_write(priv, reg + 4 * i, vals[i]);
++		if (res)
++			return res;
++	}
++
++	return 0;
++}
++
++int
++yt921x_regs_update_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks,
++			const u32 *vals, unsigned int num_regs)
++{
++	bool changed = false;
++	u32 vs[4];
++	int res;
++
++	if (WARN_ON_ONCE(num_regs > ARRAY_SIZE(vs)))
++		return -EINVAL;
++
++	res = yt921x_regs_read(priv, reg, vs, num_regs);
++	if (res)
++		return res;
++
++	for (unsigned int i = 0; i < num_regs; i++) {
++		u32 u = vs[i];
++
++		u &= ~masks[i];
++		u |= vals[i];
++		if (u != vs[i])
++			changed = true;
++
++		vs[i] = u;
++	}
++
++	if (!changed)
++		return 0;
++
++	return yt921x_regs_write(priv, reg, vs, num_regs);
++}
++
++int
++yt921x_regs_clear_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks,
++		       unsigned int num_regs)
++{
++	bool changed = false;
++	u32 vs[4];
++	int res;
++
++	if (WARN_ON_ONCE(num_regs > ARRAY_SIZE(vs)))
++		return -EINVAL;
++
++	res = yt921x_regs_read(priv, reg, vs, num_regs);
++	if (res)
++		return res;
++
++	for (unsigned int i = 0; i < num_regs; i++) {
++		u32 u = vs[i];
++
++		u &= ~masks[i];
++		if (u != vs[i])
++			changed = true;
++
++		vs[i] = u;
++	}
++
++	if (!changed)
++		return 0;
++
++	return yt921x_regs_write(priv, reg, vs, num_regs);
++}
+diff --git a/drivers/net/dsa/motorcomm/smi.h b/drivers/net/dsa/motorcomm/smi.h
+new file mode 100644
+index 000000000000..2995e91f3b3d
+--- /dev/null
++++ b/drivers/net/dsa/motorcomm/smi.h
+@@ -0,0 +1,92 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (c) 2026 David Yang
++ */
++
++#ifndef _YT_SMI_H
++#define _YT_SMI_H
++
++#include <linux/types.h>
++#include <linux/wordpart.h>
++
++struct yt921x_priv;
++
++int yt921x_reg_read(struct yt921x_priv *priv, u32 reg, u32 *valp);
++int yt921x_reg_write(struct yt921x_priv *priv, u32 reg, u32 val);
++int yt921x_reg_wait(struct yt921x_priv *priv, u32 reg, u32 mask, u32 *valp);
++int yt921x_reg_update_bits(struct yt921x_priv *priv, u32 reg, u32 mask,
++			   u32 val);
++
++static inline int
++yt921x_reg_set_bits(struct yt921x_priv *priv, u32 reg, u32 mask)
++{
++	return yt921x_reg_update_bits(priv, reg, 0, mask);
++}
++
++static inline int
++yt921x_reg_clear_bits(struct yt921x_priv *priv, u32 reg, u32 mask)
++{
++	return yt921x_reg_update_bits(priv, reg, mask, 0);
++}
++
++static inline int
++yt921x_reg_toggle_bits(struct yt921x_priv *priv, u32 reg, u32 mask, bool set)
++{
++	return yt921x_reg_update_bits(priv, reg, mask, !set ? 0 : mask);
++}
++
++/* Some multi-word registers, like VLANn_CTRL, should be treated as a single
++ * long register. More specifically, writes to parts of its words won't become
++ * visible, until the last word is written.
++ *
++ * Here we require full read and write operations over these registers to
++ * eliminate potential issues, although partial reads/writes are also possible.
++ */
++
++static inline void update_ctrls_unaligned(u32 *lo, u32 *hi, u64 mask, u64 val)
++{
++	*lo &= ~lower_32_bits(mask);
++	*hi &= ~upper_32_bits(mask);
++	*lo |= lower_32_bits(val);
++	*hi |= upper_32_bits(val);
++}
++
++/* yt921x_regs_*() are exported for linkage only. Do not use them directly. Use
++ * yt921x_reg64_*() or yt921x_reg96_*() instead.
++ */
++
++int yt921x_regs_read(struct yt921x_priv *priv, u32 reg, u32 *vals,
++		     unsigned int num_regs);
++int yt921x_regs_write(struct yt921x_priv *priv, u32 reg, const u32 *vals,
++		      unsigned int num_regs);
++int yt921x_regs_update_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks,
++			    const u32 *vals, unsigned int num_regs);
++int yt921x_regs_clear_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks,
++			   unsigned int num_regs);
++
++static inline int
++yt921x_reg64_write(struct yt921x_priv *priv, u32 reg, const u32 *vals)
++{
++	return yt921x_regs_write(priv, reg, vals, 2);
++}
++
++static inline int
++yt921x_reg64_update_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks,
++			 const u32 *vals)
++{
++	return yt921x_regs_update_bits(priv, reg, masks, vals, 2);
++}
++
++static inline int
++yt921x_reg64_clear_bits(struct yt921x_priv *priv, u32 reg, const u32 *masks)
++{
++	return yt921x_regs_clear_bits(priv, reg, masks, 2);
++}
++
++static inline int
++yt921x_reg96_write(struct yt921x_priv *priv, u32 reg, const u32 *vals)
++{
++	return yt921x_regs_write(priv, reg, vals, 3);
++}
++
++#endif
 -- 
 2.53.0
 
