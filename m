@@ -1,152 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70837371D1F;
-	Sun, 16 Aug 2026 20:04:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEB52BDC0F
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 20:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786910662; cv=none; b=gcGiW3rhgbgkXWQElQgMtLO891lcwch41MVFVWl9CEKrdekf9CEySAw+p9QcsT/WdBnYGC9QJx/ITSa6+/IUleGkxxQ6hZzmFjPlRNKapAQQBZTqud7o64o5dWebKQJP57gM+OibvTO77bHXG/25+1UEHEdKeXJOfERI4FywXg4=
+	t=1786911686; cv=none; b=oEnIq+t0AXZMNuIZgICpIHRPczLKyH6mmhOqoZqJa8bu+dngkxITDRvPvLx/avJk9Y4zXyJ4VPhexYUi9oIuQz3w1vb09Pqk+X3H5AlsF+NZoIRTHVDT4lSGjir4XcdToLEyzYVBj9Gzl+uIofJYtBlij8FnZ7MC3vRSqsVvrm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786910662; c=relaxed/simple;
-	bh=PG7cebm9cQkxk40ZX9sHX3YuAagFzKNjegdXGevJGHM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FlyifdHzQlg9kowKkqg1pH3+Teov4QWrfnUGGKFYtaQnbhGcSIY7L9kIs2bEcOiMl2tuIhAWOqrWzBtJhiDxo8hCEwhgWfP8CD4cka+uJWSK5M4su5L0WHPApH4WysD21PkrVGH4qYrLyPePnCYETRTBY4SStsSeppVgpS8nA6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ipvXQ6IQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786911686; c=relaxed/simple;
+	bh=4+53fBzDETyMiH8A9+xfqGRx3poaX3lFjDfjxPdtdeQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ucXSYuxGS5KTY0wy53RAlApeHXsQkZ2n8UBToe6ik2dBLGQN1ubaw3VbqXKpUrBOsGIV6P7oLSac1mlkgv3DLuFS7FqDERxcJoWu5nUrRcIDHR3vObnwqWC8Mv0NbMfpQnwb8LsSkfELX8fKSCaxqDdEDks13BrJ24OYmFPbTs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=mNViS2r/; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ipvXQ6IQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534CD1F000E9;
-	Sun, 16 Aug 2026 20:04:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786910660;
-	bh=0Q+In85KJcx2q9yxNMIL3sT8YnPE2GKRoiwmStkQcPQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ipvXQ6IQh+JW23GdsFHHX3LneRHRtIEFO8Xs3ByKgJjFgAk+zUKdMrzR5AcBgDnUw
-	 sRKblBLwtcz06ZWwId5nsuWd9vNMF8oykvugaC/EWarfj7qxxecPfA/hu6oxvFWQtU
-	 IaMcNXTAfOCRCQieSJUpgMXhx3RWnnCVGOk0hhX+V5OJz91lIWbpM30xo/MeeOYjFq
-	 XOTBHFdSnUhD+IECzNjiME2rDJVnGuySKQj9G3aA/xFqB35ewvoL13ycwSnwHhijtH
-	 HZbv3UDs7LD8CQ0gDxw5rShtC0bY2qbnHmACrJ0SgC2rV4HhtS4QvuicMwtRFXvHtc
-	 GTNdcJfz3utfA==
-Date: Sun, 16 Aug 2026 21:04:14 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim
- Akhtar <alim.akhtar@samsung.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] Add Sharp GP2AP070S Proximity Driver and enable
- it in Galaxy J6 (j6lte)
-Message-ID: <20260816210414.6ce52946@jic23-huawei>
-In-Reply-To: <20260807-gp2ap070s-v4-0-74f6a67b6272@disroot.org>
-References: <20260807-gp2ap070s-v4-0-74f6a67b6272@disroot.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="mNViS2r/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1786911663; x=1787516463; i=wahrenst@gmx.net;
+	bh=8q4r+CxV8T2OpfAJrQVLivtJ+lvy7BRdyIs5z6tntkE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=mNViS2r/HfI3F6H9gNpBH6CSXafG4ZbHwI0jRX05Muzo1rFs877RFeSMsioRwo9d
+	 ZFTdIydVo31iRC7/wIe4ZT8D2se0AyDacNYTfVQGcT2beOyEVa5m1co3WAz5BwukX
+	 ime6BINJKyxQudMhRLAZyfX0w6Y725cWF2vcgptMEsPb5eKhlYKk5suE+uJU5PKGh
+	 M3ojUkrN5wXbyYAjQYiTZT2B6Mq3BLketk0cBSxHLOy2FlQFXhC2GRk70DFVPf2Zc
+	 /QVgoihkN4JrWBUpY7vkdC9GMHY0v+n1jbSZWQJlfvyyycCOsWDuOC8nW+D4rW/Ab
+	 QqcNGu8RSkNGZXKOjA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MQe5u-1xIIi90Rao-00Uj1H; Sun, 16
+ Aug 2026 22:21:03 +0200
+Message-ID: <1c0138d9-ed43-4d4b-80eb-6757491e9a98@gmx.net>
+Date: Sun, 16 Aug 2026 22:20:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
+ reset line
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+ <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
+Content-Language: en-US
+From: Stefan Wahren <wahrenst@gmx.net>
+Autocrypt: addr=wahrenst@gmx.net; keydata=
+ xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
+ IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
+ NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
+ JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
+ TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
+ f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
+ V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
+ aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
+In-Reply-To: <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:oA7RNTxRz0mixa+lfc6Ds+lN57ss1KUthwZjJapdjMfZibzsfjw
+ MyN9oEbgaj6BX+Up1h83yG5N0qa8oXKav/DlCiC88HHhwQfsqbYPDki0cfhITGLXhDuNnKR
+ 3U5SyrTqxxKydgsAobXJm66rmtoKnLH1UFcDLTMztgKaX+Z8ount41AhFpVbvGfWvdj6ubK
+ g4/68EdghvodiYxOCOasQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:rJQwaVJJZMg=;YBjxDy7GoLcf/c/sqfTRi3GKEuU
+ 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
 
-On Fri, 07 Aug 2026 01:18:40 +0530
-Kaustabh Chakraborty <kauschluss@disroot.org> wrote:
+Hi Ma=C3=ADra,
 
-> Sharp GP2AP070S is a promixity sensor (NOT an ambient light sensor) in
-> mobile devices. This sensor chip is found in mobile devices, including
-> (but perhaps not limited to) Samsung Galaxy J6 (codename: j6lte).
-> 
-> To the best of my knowledge, there's no public documentation available
-> for this device. [1] is a downstream kernel implementation, which has
-> been the single source for developing this driver. Some bits have also
-> been stolen from existing GP2AP* drivers available in iio/light.
-> 
-> The last patch in this series touches the device tree sources to add the
-> light sensor node in j6lte. This needs to be accepted into next only
-> when the former patches are in next.
-> 
-> [1] https://github.com/Exynos7870/android_kernel_samsung_universal7870/blob/lineage-16.0/drivers/sensors/gp2ap070s.c
-> 
-> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
-Make sure to take a look at sashiko feedback.
-https://sashiko.dev/#/patchset/20260807-gp2ap070s-v4-0-74f6a67b6272%40disroot.org
+Am 16.08.26 um 16:05 schrieb Ma=C3=ADra Canal:
+> The BCM2835 PM block has exposed a reset line for the V3D block since
+> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domain=
+s
+> under a new binding."), which allows the GPU to be reset without
+> power-cycling its domain. Document it so that the vc4 driver can use it =
+to
+> recover from a GPU hang.
+not sure the last sentence is necessary for a DT binding. Except of this:
 
-regcache flat is very rarely the write option.  maple is fine for even small
-sets of registers and avoids some pitfalls (I'm not sure the exact issue
-sashiko is calling out is real - I haven't checked)
-
-The timestamp skid thing isn't important (though it is correct) so
-I'd ignore that one. However it's point that you might as well
-do the work in a non threaded interrupt is valid given the simplicity.
-
-
-Calling regmap_reinit_cache() seems illogical even if not wrong
-on a teardown that is about to wipe out the regmap.
-
-I didn't look at the dtsi comments.
-
-
-
+Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
+>
+> Keep the property optional, as existing device trees do not describe it.
+>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
 > ---
-> Changes in v4:
-> - Clarify non-mandatory vled-supply commit message (Krzysztof Kozlowski)
-> - Simplify driver probe return paths (David Lechner)
-> - Rephrase fsleep() usage to use unit macros (David Lechner)
-> - Use regmap_reinit_cache() instead of regcache_mark_dirty() (David Lechner)
-> - Use regmap_assign_bits() instead on branch on regmap_{set,clear}_bits()
->   (David Lechner)
-> - Drop redundant explicit cast to u16 (David Lechner)
-> - Replace (1 << 16) with macrofied BIT(16) (David Lechner)
-> - Add max_register to regmap config (David Lechner)
-> - Add upper byte register for proximity distance volatile registers (Sashiko)
-> - Return 0 instead of IIO_VAL_INT in iio config write calls (Sashiko)
-> - Add REGCACHE_FLAT to regmap (Sashiko)
-> - Link to v3: https://patch.msgid.link/20260731-gp2ap070s-v3-0-d1f5cecf9fe7@disroot.org
-> 
-> Changes in v3:
-> - Revoke stale patches sent erroneously, v2 changelog applies
-> - Link to v2: https://patch.msgid.link/20260731-gp2ap070s-v2-0-1bdfee07d5ea@disroot.org
-> 
-> Changes in v2:
-> - Reshuffle and add missing header inclusions (Joshua Crofts)
-> - Add missing regulators in driver and dt-schema
->   (Joshua Crofts, Jonathan Cameron)
-> - Rename and rearrange register addresses, masks and values (Jonathan Cameron)
-> - Use regmap_get_device() for carrying dev pointer (Jonathan Cameron)
-> - Use FIELD_GET() instead of !! (Jonathan Cameron)
-> - Drop unused i2c_set_clientdata() (Jonathan Cameron)
-> - Use fsleep() instead of usleep_range() (Jonathan Cameron)
-> - Check if proximity-near-level is available before reading its value
->   (Jonathan Cameron)
-> - Drop redundant dev_err_probe() from devm_request_threaded_irq()
->   (Joshua Crofts)
-> - Use mutex guards for guarding concurrent read/write calls (Sashiko)
-> - Add reset chip action on removal (Sashiko)
-> - Ensure input value in iio_write_event_value() is 16-bit (Sashiko)
-> - Use regmap_bulk_*() instead of regmap_raw_*() (Jonathan Cameron)
-> - Hint volatile registers for regmap (Jonathan Cameron)
-> - Link to v1: https://patch.msgid.link/20260723-gp2ap070s-v1-0-b8ca3a4c10dd@disroot.org
-> 
-> ---
-> Kaustabh Chakraborty (3):
->       dt-bindings: iio: proximity: add Sharp GP2AP070S proximity sensor
->       iio: proximity: add driver for Sharp GP2AP070S proximity sensor
->       arm64: dts: exynos7870-j6lte: add Sharp GP2AP070S proximity sensor
-> 
->  .../bindings/iio/proximity/sharp,gp2ap070s.yaml    |  60 +++
->  arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts    |  55 ++-
->  drivers/iio/proximity/Kconfig                      |  11 +
->  drivers/iio/proximity/Makefile                     |   1 +
->  drivers/iio/proximity/gp2ap070s.c                  | 491 +++++++++++++++++++++
->  5 files changed, 616 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
-> change-id: 20260723-gp2ap070s-f7e0120970a5
-> 
-> Best regards,
-> --  
-> Kaustabh Chakraborty <kauschluss@disroot.org>
-> 
+>   Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml | 3 ++=
++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.=
+yaml b/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
+> index c55a8217de25..1063e686647c 100644
+> --- a/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
+> +++ b/Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml
+> @@ -27,6 +27,9 @@ properties:
+>     power-domains:
+>       maxItems: 1
+>  =20
+> +  resets:
+> +    maxItems: 1
+> +
+>   required:
+>     - compatible
+>     - reg
+>
 
