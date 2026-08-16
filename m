@@ -1,380 +1,237 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258023DB335
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 22:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AF93E49D3
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 22:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786918782; cv=none; b=Euh86ZEE5lB1cz+73QRNRPDrz3i89dNsnPLQ39uxxEhwU/AWEJ/OCyd2aQ3jqBs1ZleinDPL+Cu/NppUdmHvGlynHJwB79YPurpHe6P89XSSL6is3tnTpM7ONejrf+/1QMPyJkY0/ixlprYnSeLmIDb/djXHQTJRaE+shf+QOsM=
+	t=1786921045; cv=none; b=mWi8iaqNwCfRWmRGjL3sSZRC3JXM5wckcnBsBFFMaHYkar9CiPvDEpBRJJP04+XgHJ8z9K7afC2gGPaYh7QVaKF9qKaoVsqVbpCOMcVkQezXfTgwlyoMF4SL3X2b4JSTCBbH/Hd/AQIR6F4medcqH8l/Xjgt0SWlojiAZmnlITc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786918782; c=relaxed/simple;
-	bh=3Bt9nlgsAriBXt5uBu37A2zq2lRMuC/47PGVbwsHKyE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QXvKR1FkQOoy26GmIXLZDUo9S8upMW4rRTXwjwWYfwpT8jlAdf2nnDPI/9W+4N0rS95YFHue/aNa5hg5kP//YWQ+20XJ5vXKO/kkLB2KZTN7fOMNBXXgr/jjUV6aynPtTewcdpSA5Mq7GqlSHw3gwQC9ZMqCxBvAt8J9Lp8TpBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6UB2xaM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786921045; c=relaxed/simple;
+	bh=cEYU4iS4uVn6kH7ueYlRIWvXLHt1bwl0zgCO9UOFecY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Fht8x8AcEy+ZKIxWKBr1tudW1dvmFJb5aIAeLOCxi4kuqADXriSf5wmy3y24l3mT4hM5PTcAxt9vTd9+LoVAeulbCLdkHw+O562lTv5ke0iTJ+6Xso69BLrWimVSrrZRBy0TnEMaZiHLAU3zWVCVPrYk5BThWZ9mMGVQCvBZSNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H1EuMAwR; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6UB2xaM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806F11F00A3A;
-	Sun, 16 Aug 2026 22:19:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786918780;
-	bh=k5eHwPdXnQPekvQg3mZmHfdNMaMrS4CpmuvFWQdZoRc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z6UB2xaMst4uQxMT8wiE+m7YNY2XbSK2Q+hWAKA5ZjS9K7z9/kVG6b8hQkOabqa0h
-	 7JfAhRAqG509lrSNw6ZpGu4T/kJbb939qiuztM2xi+HpRCiWtkwvp5mPgnW9PB5ctv
-	 U9EBuDjGTprqaQBG+HR/0t65bM4bD5v3jp5cZbhilEdAdBmXQfx2jEqySWx1Ft0rwe
-	 UCQplhJOaH9Vxm91BUgwxg3aunn30uh2aW7KFhWfQG92vuyHwqpdb2Zl4eMiPIP7Kj
-	 QpS3ao6vNRbLc9mA3p0M0KTbcHzGPIa7Z6fHwK0QG9Ifgd5RPiibCpUbOuxa5dGYrQ
-	 zPkj1OjvGGy/A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 3/3] dpll: add SiTime SiT9531x DPLL clock
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ali Rouhi" <arouhi@sitime.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260815221919.64226-4-arouhi@sitime.com>
-References: <20260815221919.64226-1-arouhi@sitime.com>
- <20260815221919.64226-4-arouhi@sitime.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 22:19:40 +0000
-Message-Id: <20260816221940.806F11F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H1EuMAwR"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cbe4592c193so122436a12.3
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 15:57:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786921043; x=1787525843; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7BVnqT9cdJk1FHwC8eirIGC4FVtbY9zESyd/XT9rDyw=;
+        b=H1EuMAwRF8x/1JqPFH18ihCB31guN7Pg69DEBiYVv+ts1I8EYF9XmMnrnymDYPawhm
+         uWAH3xeZUeq0B3CJN4KOgWuDeVDOQEnFF469bPFqYLfkFhi18nRrdwNCQv7s6/sebuRW
+         cd/vuOMdK5EFeB3SptgX1Ixfsu/2h1cSPMGada4LVzTmd8ywlJmwm4PFccwBmCPe5nX0
+         3/PuRmDVJrm77Q69OGjp8m2pnCzfZVGHcdK5lmQmLSlKK1yO1Owk2xMULVV+brAe2PZm
+         yJ5TMIaccIQ9fMeBWK5iwf/Q8UNGXiXciiq1HP7M3Iq1XWXV2BXW5Z0SasMWdUDPuQud
+         O/iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786921043; x=1787525843;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=7BVnqT9cdJk1FHwC8eirIGC4FVtbY9zESyd/XT9rDyw=;
+        b=MRgf3xM+NgcRmT/8BvOsiShkRY/CJM2GwW7KtDKv6876PghI5R0pU7IVevSAdLG0Sm
+         HxQJZfW2ZVu1FpzyBryuAxEbnbNrh/KKrh0gr6CdHBMdf+jLD1Nv0oKjpSE/I0DuGOqp
+         LL9SKWW/BaZ3QB/fXuUcAx5pTOcMjzEQ88MLrd4q+3zODdsZWAcw26z68fJqk5zvuqJb
+         eQUUTGWHSKZ9WNmbu7OiSzYVwPVfiZrWlKdwlMwZ9o51s4mctI8q+f5hUzbHer6/jqI/
+         jBxRk6nBloXHguQOyWb0R1IEbd2CrCHsCynHTMJZEcQ6GYI729BdF/2trGWbs9VUf2d9
+         9V4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrY2Q+dy2wpCnnk0reAj12Tv6BQJ6Jt2B2ytk3QejA3ckWcGw6h8hV9wqVMeCl4Gv1flLyWsiDbMtoj@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhE8c9sguk2P78PpjZ04MNsw2Z7WN2125RhwyBTMy7pK6ZTe5C
+	zfJylJp8SpiV6G7sWb1ghDmWXSNN47CXztpxYKNgC5L8itqu6h8q3lHA
+X-Gm-Gg: AR+sD11AQBs2CQoCH95QqDVlUTdSuBrHtiQKzzUhcUNTJbS4qaa3jTXPnRW0fpn5B1p
+	KX3rwMaTnZyj0QFU+oJKx6vEDrkg31YKzmwlwoEANqWYDFKPNi6saP67BJraUDnZX1np8MQkPAD
+	n3yxVnbaLVNNGxWHuH5ZRtJOXG6kjBAdF2KOsScof1vqTnPvAG7zZgH0tIdRjlm2/V0XS3+zgCQ
+	eoQaI84D1JZVJKQhqpaH3gx3Rcf+Qnab+VainLF9DLvaNJaIHpWEYDsMBYnfwTV/xBOkw3aJ8Tm
+	5Xk7gh/dVZbXq2EWiJ0Ra1fiFHLBkH+Y66tU5zlNXE65kSJQBxg8g+M4UjHCXrN0AAVAFYSopVN
+	lW4UVODPIqK/NaU3x4MoKssjmVI0vZQTaAmPM2GWsJom3hdlMK2XDQPaZLGcSLRItKQdPZl9Vos
+	asUspitHzFEIKQuVa+dv8TipJmq9Ng9dAftXCBHHkEagmGUS8VhlggONSmXT+EMJI96OXovGOLC
+	w==
+X-Received: by 2002:a05:6a21:6e83:b0:3bf:a638:4384 with SMTP id adf61e73a8af0-3cc71e71511mr16191711637.2.1786921043437;
+        Sun, 16 Aug 2026 15:57:23 -0700 (PDT)
+Received: from [10.112.173.252] ([2409:40c2:504e:1c5e:cbdf:b953:2369:869e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1413887ee65sm32434305c88.10.2026.08.16.15.57.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Aug 2026 15:57:22 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Mon, 17 Aug 2026 04:27:03 +0530
+Subject: [PATCH] dt-bindings: net: ti,davinci-emac: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260817-ti-davinci-emac-v1-1-022678d966e9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MOwqAMBBF0a3I1A74w6hbEYswPnUKoyQigmTvB
+ stT3PtSgFcEGrKXPG4NeriEMs9INutWsM7JVBVVW3Sl4Ut5trc6UcZuhQ2kNwvENjUoVafHos9
+ /HKcYPz8YmcphAAAA
+X-Change-ID: 20260817-ti-davinci-emac-7ec97feca43e
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786921031; l=4111;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=cEYU4iS4uVn6kH7ueYlRIWvXLHt1bwl0zgCO9UOFecY=;
+ b=jTzWA8nCmkndg0CfEp4E4/qYhQcCxVAc0BHYIcokwRZCrnryl6Noy19cFunlfKx3PjuUXjNfl
+ YSJt1S73YYUBkiY9YY0yJZkKB/ZKDNJgPhrhhjHqMF7TbxH0pKThy5b
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Unconditional insertion of DISCONNECTED pins into the hardware pri=
-ority table.
-- [High] Disconnecting INTSYNC as the last source fails to stop it from bei=
-ng tracked.
-- [Medium] INTSYNC destination state reporting ignores the hardware priorit=
-y table.
-- [Medium] The INTSYNC destination pin incorrectly accepts DPLL_PIN_STATE_C=
-ONNECTED without enforcing it.
-- [Medium] Input and INTSYNC destination pin states report CONNECTED and hi=
-de SELECTABLE pins during free-run mode.
-- [Low] Input pins falsely advertise phase adjustment capabilities by provi=
-ding phase_adjust_get and configuring a phase_range.
-- [Low] Undefined macro `kzalloc_obj` used for memory allocation.
---
+Convert Texas Instruments DaVinci EMAC binding from text to DT schema.
 
---- Patch [3]: [PATCH net-next v7 3/3] dpll: add SiTime SiT9531x DPLL clock=
- driver ---
-commit 5e338b25e73b0731bfca9ec0093c0c9753e2503c
-Author: Ali Rouhi <arouhi@sitime.com>
+Changes from the original binding:
+- Add clocks, clock-names, syscon, power-domains, and ti,hwmods
+  properties that are used in existing DTS files but were undocumented.
+- Disallow syscon and clock-names for ti,davinci-dm6467-emac since they
+  are not applicable to that SoC.
+- Allow 1-2 reg entries (DM816 uses two).
+- Make clocks a required property as driver probe fails without it.
+- Mark ti,hwmods as deprecated.
 
-dpll: add SiTime SiT9531x DPLL clock driver
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/net/ti,davinci-emac.yaml   | 113 +++++++++++++++++++++
+ 1 file changed, 113 insertions(+)
 
-This commit adds a DPLL subsystem driver for the SiTime SiT95316 and
-SiT95317 clock generators. It provides support for lock monitoring,
-input priority management, frequency offset measurement, and output
-phase adjustment using the device's I2C interface and NVM.
+diff --git a/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
+new file mode 100644
+index 000000000000..cb1394f6f2d4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
+@@ -0,0 +1,113 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/ti,davinci-emac.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI DaVinci EMAC Ethernet Controller
++
++maintainers:
++  - Tony Lindgren <tony@atomide.com>
++
++properties:
++  compatible:
++    enum:
++      - ti,davinci-dm6467-emac
++      - ti,am3517-emac
++      - ti,dm816-emac
++
++  reg:
++    minItems: 1
++    maxItems: 2
++
++  interrupts:
++    items:
++      - description: Receive Threshold
++      - description: Receive
++      - description: Transmit
++      - description: Miscellaneous
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: ick
++
++  ti,davinci-ctrl-reg-offset:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: offset to control register
++
++  ti,davinci-ctrl-mod-reg-offset:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: offset to control module register
++
++  ti,davinci-ctrl-ram-offset:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: offset to control module ram
++
++  ti,davinci-ctrl-ram-size:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: size of control module ram
++
++  ti,davinci-rmii-en:
++    $ref: /schemas/types.yaml#/definitions/uint8
++    description: Set to 1 to enable RMII (Reduced MII) mode.
++
++  ti,davinci-no-bd-ram:
++    type: boolean
++    description:
++      Indicates that the EMAC does not have on-chip buffer descriptor RAM.
++
++  syscon:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to a syscon node providing access to the System Control
++      Module (SCM) registers. Used on AM3517 and DM816x to read
++      factory-programmed MAC addresses from eFuse registers.
++
++  ti,hwmods:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: TI hwmod name
++    deprecated: true
++
++  power-domains:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - ti,davinci-ctrl-reg-offset
++  - ti,davinci-ctrl-mod-reg-offset
++  - ti,davinci-ctrl-ram-offset
++  - ti,davinci-ctrl-ram-size
++  - clocks
++
++allOf:
++  - $ref: ethernet-controller.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,davinci-dm6467-emac
++    then:
++      properties:
++        syscon: false
++        clock-names: false
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ethernet@220000 {
++        compatible = "ti,davinci-dm6467-emac";
++        reg = <0x220000 0x4000>;
++        ti,davinci-ctrl-reg-offset = <0x3000>;
++        ti,davinci-ctrl-mod-reg-offset = <0x2000>;
++        ti,davinci-ctrl-ram-offset = <0>;
++        ti,davinci-ctrl-ram-size = <0x2000>;
++        local-mac-address = [ 00 00 00 00 00 00 ];
++        interrupts = <33>, <34>, <35>, <36>;
++        clocks = <&psc1 5>;
++        power-domains = <&psc1 5>;
++    };
 
-> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> new file mode 100644
-> index 0000000000000..cd283922e7ffa
-> --- /dev/null
-> +++ b/drivers/dpll/sit9531x/core.c
-[ ... ]
-> @@ -782,31 +782,31 @@ int sit9531x_input_prio_set(struct sit9531x_dev *si=
-tdev, u8 pll_idx,
->  int sit9531x_input_prio_remove(struct sit9531x_dev *sitdev, u8 pll_idx,
->  			       u8 input_idx)
->  {
->  	u8 srcs[SIT9531X_PRIO_MAX_SLOTS];
->  	u8 kept[SIT9531X_PRIO_MAX_SLOTS];
->  	u8 slot, count =3D 0;
->  	bool found =3D false;
->  	int rc;
-> =20
->  	lockdep_assert_held(&sitdev->multiop_lock);
-> =20
->  	if (pll_idx >=3D SIT9531X_NUM_PLLS)
->  		return -EINVAL;
-> =20
->  	rc =3D sit9531x_prio_table_read(sitdev, pll_idx, srcs);
->  	if (rc)
->  		return rc;
-> =20
->  	for (slot =3D 0; slot < SIT9531X_PRIO_MAX_SLOTS; slot++) {
->  		if (srcs[slot] =3D=3D input_idx)
->  			found =3D true;
->  		else
->  			kept[count++] =3D srcs[slot];
->  	}
-> =20
->  	if (!found || count =3D=3D 0)
->  		return 0;
+---
+base-commit: fd923b32d7614047c8b2acecae3915ec94f7afab
+change-id: 20260817-ti-davinci-emac-7ec97feca43e
 
-[Severity: High]
-If userspace requests to disconnect the INTSYNC pin when it is the only
-source in the priority table, the count becomes 0 and this function
-aborts without modifying the table.
+Best regards,
+-- 
+Bhargav
 
-Since the INTSYNC net lacks a physical buffer that can be disabled, does
-this leave the hardware actively tracking the INTSYNC reference when it was
-commanded to disconnect?
-
-[ ... ]
-> @@ -2526,17 +2526,17 @@ void sit9531x_dev_stop(struct sit9531x_dev *sitde=
-v)
->  }
-> =20
->  static struct sit9531x_dpll_pin *
->  sit9531x_dpll_pin_alloc(struct sit9531x_dpll *sitdpll,
->  			enum dpll_pin_direction dir, u8 id)
->  {
->  	struct sit9531x_dpll_pin *pin;
-> =20
->  	pin =3D kzalloc_obj(*pin, GFP_KERNEL);
-
-[Severity: Low]
-Does this macro exist in the kernel headers?
-
-The use of kzalloc_obj appears to be an undefined identifier that will cause
-a build failure here, and in a few other allocation sites throughout the
-driver (such as sit9531x_dpll_alloc and sit9531x_pin_props_get).
-
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> new file mode 100644
-> index 0000000000000..e258beceffdd4
-> --- /dev/null
-> +++ b/drivers/dpll/sit9531x/dpll.c
-[ ... ]
-> @@ -258,35 +258,35 @@ sit9531x_dpll_input_pin_state_on_dpll_get(const str=
-uct dpll_pin *pin,
->  					  void *pin_priv,
->  					  const struct dpll_device *dpll,
->  					  void *dpll_priv,
->  					  enum dpll_pin_state *state,
->  					  struct netlink_ext_ack *extack)
->  {
->  	struct sit9531x_dpll_pin *dpin =3D pin_priv;
->  	struct sit9531x_dpll *sitdpll =3D dpll_priv;
->  	struct sit9531x_dev *sitdev =3D sitdpll->dev;
->  	const struct sit9531x_chan *chan;
->  	const struct sit9531x_ref *ref;
-> =20
->  	chan =3D sit9531x_chan_state_get(sitdev, sitdpll->id);
->  	ref =3D sit9531x_ref_state_get(sitdev, dpin->id);
-> =20
->  	mutex_lock(&sitdev->multiop_lock);
-> =20
->  	/*
->  	 * Report CONNECTED only when the PLL is genuinely locked to this
->  	 * input.  chan->locked already excludes a PLL the configuration
->  	 * leaves unused, which would otherwise claim its default source as
->  	 * connected right after probe; the inner loop has to be locked as
->  	 * well before the reference can be called connected.
->  	 */
->  	if (chan->locked && !chan->inner_lol &&
->  	    chan->selected_ref =3D=3D dpin->id)
->  		*state =3D DPLL_PIN_STATE_CONNECTED;
->  	/*
->  	 * Selectable means this DPLL may choose the input, so it has to be
->  	 * in this DPLL's priority table -- ref->enabled only says the
->  	 * receiver is powered, which is shared by every DPLL fed from the
->  	 * same lane.  Signal quality is reported through the pin's own
->  	 * attributes rather than by demoting the state, so a lane that is
->  	 * routed here but momentarily in LOS stays selectable.
->  	 */
->  	else if (!chan->mode && (ref->pll_mask & BIT(sitdpll->id)))
->  		*state =3D DPLL_PIN_STATE_SELECTABLE;
-
-[Severity: Medium]
-When the PLL is in free-run mode (outer loop disabled), the state getters
-can still see chan->locked as true if the outer loss-of-lock bit is clear.
-
-Without verifying !chan->mode here, won't this incorrectly report the pin
-as connected while the PLL is actually freely running and ignoring the
-reference?
-
-Additionally, because the subsequent branch for the selectable state requir=
-es
-!chan->mode, are other eligible pins erroneously reported as disconnected
-instead of selectable during free-run mode?
-
-[ ... ]
-> @@ -433,26 +433,26 @@ static int
->  sit9531x_dpll_input_pin_prio_set(const struct dpll_pin *pin, void *pin_p=
-riv,
->  				 const struct dpll_device *dpll, void *dpll_priv,
->  				 u32 prio, struct netlink_ext_ack *extack)
->  {
->  	struct sit9531x_dpll_pin *dpin =3D pin_priv;
->  	struct sit9531x_dpll *sitdpll =3D dpll_priv;
->  	struct sit9531x_dev *sitdev =3D sitdpll->dev;
->  	int rc;
-> =20
->  	if (dpin->dir !=3D DPLL_PIN_DIRECTION_INPUT) {
->  		NL_SET_ERR_MSG(extack, "Priority applies only to input pins");
->  		return -EINVAL;
->  	}
-> =20
->  	if (prio >=3D SIT9531X_PRIO_MAX_SLOTS) {
->  		NL_SET_ERR_MSG(extack, "Priority out of range (0-10)");
->  		return -EINVAL;
->  	}
-> =20
->  	mutex_lock(&sitdev->multiop_lock);
->  	rc =3D sit9531x_input_prio_set(sitdev, sitdpll->id,
->  				     sit9531x_input_hw_src(dpin->id),
->  				     (u8)prio);
->  	mutex_unlock(&sitdev->multiop_lock);
-
-[Severity: High]
-This logic updates the priority table unconditionally.
-
-If a pin is currently in the disconnected state, will inserting it into the
-hardware priority table cause the PLL to start tracking it automatically if
-higher-priority sources fail?
-
-[ ... ]
-> @@ -585,18 +585,18 @@ static int
->  sit9531x_dpll_input_pin_phase_offset_get(const struct dpll_pin *pin,
->  					 void *pin_priv,
->  					 const struct dpll_device *dpll,
->  					 void *dpll_priv, s64 *phase_offset,
->  					 struct netlink_ext_ack *extack)
->  {
->  [ ... ]
->  static const struct dpll_pin_ops sit9531x_dpll_input_pin_ops =3D {
->  	.direction_get		=3D sit9531x_dpll_input_pin_direction_get,
->  	.frequency_get		=3D sit9531x_dpll_input_pin_frequency_get,
->  	.state_on_dpll_get	=3D sit9531x_dpll_input_pin_state_on_dpll_get,
->  	.state_on_dpll_set	=3D sit9531x_dpll_input_pin_state_on_dpll_set,
->  	.prio_get		=3D sit9531x_dpll_input_pin_prio_get,
->  	.prio_set		=3D sit9531x_dpll_input_pin_prio_set,
->  	.phase_adjust_get	=3D sit9531x_dpll_input_pin_phase_adjust_get,
->  	.phase_offset_get	=3D sit9531x_dpll_input_pin_phase_offset_get,
-
-[Severity: Low]
-Is it intentional to advertise phase adjustment on input pins?
-
-Phase adjustment appears to be an output-only feature in this driver, and
-the lack of a phase_adjust_set callback means setting the adjustment
-is not supported for inputs.
-
-[ ... ]
-> @@ -744,22 +744,22 @@ sit9531x_dpll_intsync_src_state_on_dpll_set(const s=
-truct dpll_pin *pin,
->  static int
->  sit9531x_dpll_intsync_dst_state_on_dpll_get(const struct dpll_pin *pin,
->  					    void *pin_priv,
->  					    const struct dpll_device *dpll,
->  					    void *dpll_priv,
->  					    enum dpll_pin_state *state,
->  					    struct netlink_ext_ack *extack)
->  {
->  	struct sit9531x_dpll *sitdpll =3D dpll_priv;
->  	struct sit9531x_dev *sitdev =3D sitdpll->dev;
->  	const struct sit9531x_chan *chan;
-> =20
->  	chan =3D sit9531x_chan_state_get(sitdev, sitdpll->id);
-> =20
->  	mutex_lock(&sitdev->multiop_lock);
->  	if (sitdev->intsync_src =3D=3D sitdpll->id)
->  		*state =3D DPLL_PIN_STATE_DISCONNECTED;
->  	else if (chan->locked && !chan->inner_lol &&
->  		 chan->selected_ref =3D=3D SIT9531X_INTSYNC_PIN_ID)
->  		*state =3D DPLL_PIN_STATE_CONNECTED;
->  	else if (!chan->mode && sitdev->intsync_src >=3D 0)
->  		*state =3D DPLL_PIN_STATE_SELECTABLE;
-
-[Severity: Medium]
-This unconditionally reports the INTSYNC pin as selectable as long as
-another PLL is driving INTSYNC and this PLL is in automatic mode.
-
-If userspace previously set the INTSYNC pin to a disconnected state (removi=
-ng
-it from the priority table), shouldn't this reflect the disconnected state
-rather than bypassing the priority table check?
-
->  	else
->  		*state =3D DPLL_PIN_STATE_DISCONNECTED;
->  	mutex_unlock(&sitdev->multiop_lock);
-> =20
->  	return 0;
->  }
-> =20
->  /*
->   * sit9531x_dpll_intsync_dst_state_on_dpll_set - lock a PLL to INTSYNC
->   *
->   *   CONNECTED/SELECTABLE -> add INTSYNC to this PLL's priority table
->   *   DISCONNECTED         -> drop INTSYNC from this PLL's priority table
->   *
->   * INTSYNC is an internal net with no physical receiver, so only the
->   * per-PLL priority table is touched; the source pin controls generation.
->   */
->  static int
->  sit9531x_dpll_intsync_dst_state_on_dpll_set(const struct dpll_pin *pin,
->  					    void *pin_priv,
->  					    const struct dpll_device *dpll,
->  					    void *dpll_priv,
->  					    enum dpll_pin_state state,
->  					    struct netlink_ext_ack *extack)
->  {
->  	struct sit9531x_dpll *sitdpll =3D dpll_priv;
->  	struct sit9531x_dev *sitdev =3D sitdpll->dev;
->  	u8 hw_src =3D sit9531x_input_hw_src(SIT9531X_INTSYNC_PIN_ID);
->  	int rc;
-> =20
->  	mutex_lock(&sitdev->multiop_lock);
-> =20
->  	switch (state) {
->  	case DPLL_PIN_STATE_DISCONNECTED:
->  		rc =3D sit9531x_input_prio_remove(sitdev, sitdpll->id, hw_src);
->  		break;
->  	case DPLL_PIN_STATE_SELECTABLE:
->  	case DPLL_PIN_STATE_CONNECTED:
->  		if (sitdev->intsync_src =3D=3D sitdpll->id) {
->  			NL_SET_ERR_MSG(extack,
->  				       "PLL cannot lock to the INTSYNC it drives");
->  			rc =3D -EINVAL;
->  			break;
->  		}
->  		rc =3D sit9531x_input_prio_add(sitdev, sitdpll->id, hw_src);
->  		break;
-
-[Severity: Medium]
-Is it correct to handle DPLL_PIN_STATE_CONNECTED identically to
-DPLL_PIN_STATE_SELECTABLE here?
-
-For physical inputs, the driver explicitly rejects connected states because
-the device selects references by priority. Accepting it here silently leaves
-the hardware in automatic selection mode, mismatched with the userspace
-request for an exclusive connection.
-
-> diff --git a/drivers/dpll/sit9531x/prop.c b/drivers/dpll/sit9531x/prop.c
-> new file mode 100644
-> index 0000000000000..8a0105c8c6472
-> --- /dev/null
-> +++ b/drivers/dpll/sit9531x/prop.c
-[ ... ]
-> @@ -245,15 +245,15 @@ sit9531x_pin_props_get(struct sit9531x_dev *sitdev,
->  		props->dpll_props.type =3D DPLL_PIN_TYPE_GNSS;
->  		props->dpll_props.capabilities =3D
->  			DPLL_PIN_CAPABILITIES_STATE_CAN_CHANGE;
->  		curr_freq =3D sitdev->out[index].freq;
->  	}
-> =20
->  	/* Allow phase-adjust over +/-1 ms window.  The subsystem rejects
->  	 * pin_set(phase-adjust, X) when X falls outside [min, max], so
->  	 * leaving these at 0 silently blocks every netlink call.  1 ms is
->  	 * well beyond the DCO dynamic range but costs nothing.
->  	 */
->  	props->dpll_props.phase_range.min =3D -1000000000; /* -1 ms in ps */
->  	props->dpll_props.phase_range.max =3D  1000000000; /* +1 ms in ps */
-
-[Severity: Low]
-This unconditionally configures phase range limits for all pins, including
-inputs. Since inputs do not support phase adjustment, should these limits
-be restricted to output pins?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260815221919.6422=
-6-1-arouhi@sitime.com?part=3D3
