@@ -1,164 +1,107 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE681AA8
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 12:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F89C4369A;
+	Sun, 16 Aug 2026 12:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786884640; cv=none; b=kyONQzDkuriiL5dZhXkBaxB1wl8eZNCk2s2bbg+3spe8WN3+EwQNPXmoheRqR0OKBbGphDXANv6ELx7OgxSHjtSTjai0NCQ3Cht03CjNgwSOK0cwl3Y9sYmCVq/lEMFnzOnT18wiY9glKdJD98lF+WWT/qhudjmHFUCRlGktR9E=
+	t=1786884654; cv=none; b=NadQQozLoBxNL0VdPdmRrDGANn4JyMgDPxkOhWZMz823Ddi6IZHhS55CPKOP1Iw4XWN/fFq7sBXPiEEXCmHqoY9W4eCsK8EJg1x6pwlPcFOmIKez3HiyBrkdsg8G1fS+vvGxCgKu5FVseTRsCTi1+pGOtAVeGCqZec+BpLSc9io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786884640; c=relaxed/simple;
-	bh=/zJcq1dpAtnbiCH/k6eDkSCdhLNff6qFJqqgWbso61M=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=R6RoeKNoxmyAweRlwMSYZ1aa2fG98FlWnJVyAy/Vxapzk3jndh/AaU8aF2HH9h+wi5S37J+02JcTaxBxmkDhNuK7XrdLm++qWTZJIkYpajEgHq+4fLi8wX8okYqM0/uCVNcxsN/ofptP3UagY12tBSybi2RPQDZsx0/uyfGy63M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47db714766aso2092872f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 05:50:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786884637; x=1787489437;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sPrcGGvEf1e6P4d7hpsNvKZqUN+qMke5YpauuSzuEx4=;
-        b=pVAaWCng22ZFuQr78p0ofnqAAsVybVZpWh8JrYactxOF/ptAy5+tEZ+c6U5X5b5Z4H
-         ikfp88P/8b3Y8OrqfibrC/MBuFSZJgLHf+7t8ULzvhGdVaMbqs9c1xFjJP+Z6+F7Kuer
-         PZXGUNrDwN5P3ULCuTZ3JC5XATQfPgEgFouNMmovEq9F201vEdu/FgYD508FZjCPSzO6
-         cEc6oAAHGQIWCr/Dik3g/xVzquN80G/h1z4UR6MYbHW0WdsGPC3VIyIbDfw/w55KLrJs
-         e+V6Uf2NdfUIou5QaP/w6OJT8OXgkgBdtBpNP4AOcttuJOBnrQv9V6aQNQ5e0GvmqfOM
-         qvOQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5XQ1fRDdGeIo+gKtWI3e7spF1l7SzkRZJq882xKM9DHi0WuRjGoOkuJjULB9TK19CTI6T5Dw/SLlH@vger.kernel.org
-X-Gm-Message-State: AOJu0YzB3kHjMI8+aXe4fq/BpqskrweneaLGLBT5gAbhX14kUYL495ck
-	h7ksgRQ57BaMJ7gdI1u7nDRQc0KfzJOXaKMsuAnFjZ1ux6BMa4EqlR+/
-X-Gm-Gg: AR+sD11nsI0e4/VLo7vrQGmeB9G+Z74EbQ1sZzE+ITafQ40MW8K0ClemQtmi4rqkWrY
-	KHNp05JsulFrnqMOV16pffWhDWsAjHtxvdoXt5zDeFA4sQ7iB6Vdj1dzKAZGXoQjUAJdgjYGIye
-	7qQ7N8Ig5cobQNzDUgM5J+j7F533aszAg36mSgi4/5GGwasljEeDaHcwB/X06dDNT63/eI8mNVY
-	YmJltac/3N5iJ6/5sDIQ8PzjeEBc9u2pKP82jiVroyPXoeWlZMMooqcpmiicf3NPAfnn25eQ4gM
-	p9Aa8cDGN8wsH8jrq/ZCWxfgLzRtkxYg63w/lPQRZi4pZXizS/oR3clz/iudO75JOxFG43JDnZd
-	qCK0ati2g6NrRP+gEdY0JfP7EF5T/vxQk66kU/Btwig0+YJ04GUR5fvnIDzL9wdCrKtaaixRxb/
-	Kj8UK63mBKYv6k5xN05JcDmc0160wnvIxaPDW/as5BsDtSTcFMJV64Vw1uW1f4TO7UNaxckBkn2
-	5Qyq6Lm3VAaTGKHIsjBr5nsNBG7cg4cHdGxU9io5gcg2V5FI1IXwk85IfJWrsKXWLM5AChBZBrK
-	2aY=
-X-Received: by 2002:a05:6000:184c:b0:481:314b:b041 with SMTP id ffacd0b85a97d-4816075f4f5mr30224247f8f.7.1786884636404;
-        Sun, 16 Aug 2026 05:50:36 -0700 (PDT)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4815f219e12sm22222287f8f.10.2026.08.16.05.50.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 16 Aug 2026 05:50:34 -0700 (PDT)
-Message-ID: <abc25cfd-0c7d-4719-b6af-9034c87e9f88@reactivated.net>
-Date: Sun, 16 Aug 2026 13:50:32 +0100
+	s=arc-20240116; t=1786884654; c=relaxed/simple;
+	bh=vLOs8/Cq1hY4p3GUBLBBD+0bp3Z46zJBwR56Gx9TMjs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=ckSAy+/3spwO/xg2VPsmjkapOvitt4Oxym5uUD65U/ikW43pdSS5Y3XgUhgApnpIqMdUSTpTsX/3eXBHrTJaIkxpD6jmWLAMUdxI4T4ljEXijYMsKioOHZBy1nx/iPD2XRjDjM5xffx1beXhCj5jjT9wg6nZfQhEibnG9GD+E4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jBMk5qmf; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jBMk5qmf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=vLOs8/Cq1hY4p3GUBLBBD+0bp3Z46zJBwR56Gx9TMjs=; b=j
+	BMk5qmfKwRIXscCZbmHieCZOk6SXtO+r/9McydOhsctfTSANtbPUBq77zGaSZmid
+	eUiAxNv1DxN2jHphc0FPSu+WqIIaU7YVbGN7mpPGDYXjEbwo0QGCYsqgrb9bUIYj
+	6SCql/6pvtTlcIHwBpI/h+o4ozX59uh2WwjtIOdPXo=
+Received: from andyshrk$163.com ( [61.154.14.86] ) by
+ ajax-webmail-wmsvr-40-100 (Coremail) ; Sun, 16 Aug 2026 20:49:01 +0800
+ (CST)
+Date: Sun, 16 Aug 2026 20:49:01 +0800 (CST)
+From: "Andy Yan" <andyshrk@163.com>
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: "Sandy Huang" <hjc@rock-chips.com>,
+	=?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+	"Andy Yan" <andy.yan@rock-chips.com>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+	"Maxime Ripard" <mripard@kernel.org>,
+	"Thomas Zimmermann" <tzimmermann@suse.de>,
+	"Andrzej Hajda" <andrzej.hajda@intel.com>,
+	"Neil Armstrong" <neil.armstrong@linaro.org>,
+	"Robert Foss" <rfoss@kernel.org>,
+	"Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+	"Jonas Karlman" <jonas@kwiboo.se>,
+	"Jernej Skrabec" <jernej.skrabec@gmail.com>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"David Airlie" <airlied@gmail.com>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
+	"Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+	"Philipp Zabel" <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+	"Dmitry Baryshkov" <lumag@kernel.org>, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	"Alexey Charkov" <alchark@flipper.net>,
+	linux-rockchip@lists.infradead.org,
+	"Damon Ding" <damon.ding@rock-chips.com>,
+	Sashiko <sashiko-bot@kernel.org>, kernel@collabora.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re:[PATCH v11 05/21] drm/bridge: synopsys: dw-dp: Add missing mutex
+ cleanups on module removal
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-5-0d508505f383@collabora.com>
+References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-5-0d508505f383@collabora.com>
+X-NTES-SC: AL_Qu2TBPSTu00v5yWRZOkfmUgWjuw/WsG1v/Ul1YBSP556jCrp6yoHelRJMXX9zsmrEg+xlzSHfCNT0M9dRK11eZMXpuotpAjslLbAL7XqfVDlCw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
-From: Daniel Drake <dan@reactivated.net>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Robin Murphy <robin.murphy@arm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- nick.hollinghurst@raspberrypi.com
-References: <20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net>
- <20260727-bcm2712-iommu-submit-v2-4-0247b5c03de8@reactivated.net>
- <3e7ba95b-51e7-48e4-aea5-f86db1739ac2@arm.com> <amlE8rEgryPqrUZd@ziepe.ca>
- <d6bb859e-c1e7-428e-b765-7b471e1ce005@reactivated.net>
-Content-Language: en-US
-In-Reply-To: <d6bb859e-c1e7-428e-b765-7b471e1ce005@reactivated.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Message-ID: <4b076889.1900.1a00a9e4c9f.Coremail.andyshrk@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZCgvCgD310G9sYFqmMcyAA--.24943W
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbC7R2W9GqBsb16fwAA3w
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On 31/07/2026 21:22, Daniel Drake wrote:
-> The aperture could be placed anywhere, but the key idea in the current 
-> driver structure is that we deliberately place it above physical memory, 
-> so that we can have the bypass window operational for all regular 
-> physical addresses, meaning that iommu-unaware devices can operate as 
-> normal.
-> 
-> Each of the 3-4 IOMMUs has around 5 devices hardwired into it. When the 
-> IOMMU is switched on (effectively via setting CTRL_OPERATING_FLAGS), 
-> *all* of the hardwired devices are subject to the IOMMU operation, 
-> uniformly. There is no gating where you can have one of the devices in 
-> standard passthrough mode and the rest using the IOMMU. Also there is no 
-> Stream ID in the transactions, there is no way to configure per-device 
-> page tables.
-> 
-> Among the devices hardwired to the IOMMUs we might have:
->   - Devices already set up by the firmware and relying on regular access
->     to physical memory
->   - Devices that don't require large contiguous DMA allocations and would
->     prefer not to have the translation overhead of the iommu
->   - Devices that handle scatter-gather natively and prefer not to have
->     the translation overhead of the iommu
->   - & devices that want to use the IOMMU :) so that they can work with
->     large contiguous allocations which are actually scattered in
->     underlying physical memory
-> 
-> So we have multiple needs to tend to, which is why the driver currently 
-> sets up the bypass in the regular address space (serving the first 3 
-> above), and the IOMMU aperture in a high, unused part of the address 
-> space (for the devices that do want to take advantage of the IOMMU).
-> 
-> Are those good enough reasons to set up the driver in this way? Or are 
-> there other approaches to consider?
-
-Reading the thread again I'm sensing that it would be preferred to go 
-with a more conventional IOMMU setup, rather than trying to cover all of 
-the above in a single configuration.
-
-For the next revision I am thinking:
-  1. Paging domain has the aperture at address 0, without bypass/identity
-     region i.e. some degree of memory protection is present
-  2. Identity domain is complete iommu bypass (as-is)
-
-This allows the system admin to choose between the iommu benefits (and 
-associated minor overhead) OR the non-iommu bypass mode. That choice 
-would apply to all of the devices hardwired to the iommu in question -- 
-we wouldn't attempt to support mixing identity and paging approaches at 
-the same time as was originally proposed.
-
-Regarding devices set up by the firmware that require ongoing access to 
-RAM, of which the display controller is probably the only case, we can 
-use the existing mechanism that allows the firmware to communicate such 
-requirements.
-
-The iommu driver will do:
-	.get_resv_regions = iommu_dma_get_resv_regions,
-
-Then on the DT side, I would ask Raspberry Pi to provide a firmware 
-adjustment in future versions. It already dynamically programs the 
-framebuffer as a memreserve property, a hole in the memory map and as a 
-simple-framebuffer node. We would need this additionally programmed as 
-reserved-memory:
-
-  reserved-memory {
-	fw_fb: framebuffer@3f800000 {
-		reg = <0x0 0x3f800000 0x0 0x800000>;
-		iommu-addresses = <&vc4 0x0 0x3f800000 0x0 0x800000>;
-	};
-  }
-
-and also a link back from vc4:
-
-	vc4: gpu {
-		memory-region = <&fw_fb>;
-	};
-
-This will cause the iommu driver to set up the initial page tables with 
-the above memory region as an identity mapping. This is done before 
-paging mode is activated, so once the iommu is actually switched on, the 
-display controller will enjoy uninterrupted access to that framebuffer.
-
-Let me know if anything sounds off!
-
-Daniel
-
+CkhlbGxvIFNlYmFzdGlhbiwKCkF0IDIwMjYtMDgtMDcgMDE6MDI6MTEsICJTZWJhc3RpYW4gUmVp
+Y2hlbCIgPHNlYmFzdGlhbi5yZWljaGVsQGNvbGxhYm9yYS5jb20+IHdyb3RlOgo+VGhlIGRyaXZl
+ciBpcyBjdXJyZW50bHkgbWlzc2luZyB0byBmdWxseSBjbGVhbiB1cCBhZnRlciBpdHNlbGYuIEVu
+c3VyZQo+dGhhdCB0aGUgbXV0ZXggaXMgY2xlYW5lZCB1cC4KPgo+Rml4ZXM6IDg2ZWVjYzNhOWMy
+ZSAoImRybS9icmlkZ2U6IHN5bm9wc3lzOiBBZGQgRFcgRFBUWCBDb250cm9sbGVyIHN1cHBvcnQg
+bGlicmFyeSIpCj5SZXBvcnRlZC1ieTogU2FzaGlrbyA8c2FzaGlrby1ib3RAa2VybmVsLm9yZz4K
+PlNpZ25lZC1vZmYtYnk6IFNlYmFzdGlhbiBSZWljaGVsIDxzZWJhc3RpYW4ucmVpY2hlbEBjb2xs
+YWJvcmEuY29tPgoKICAgUmV2aWV3ZWQtYnk6IEFuZHkgWWFuIDxhbmR5LnlhbkByb2NrLWNoaXBz
+LmNvbT4KPi0tLQo+IGRyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctZHAuYyB8IDUg
+KysrKy0KPiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4K
+PmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWRwLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWRwLmMKPmluZGV4IDUyZTNiMzcyNTlh
+Ni4uYjE4NTY0MThmNDQxIDEwMDY0NAo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5v
+cHN5cy9kdy1kcC5jCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWRw
+LmMKPkBAIC0yMDQwLDEwICsyMDQwLDEzIEBAIHN0cnVjdCBkd19kcCAqZHdfZHBfcHJvYmUoc3Ry
+dWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwgY29uc3Qgc3RydWN0IGR3X2RwX3BsYXRfCj4gCWRw
+LT5waXhlbF9tb2RlID0gcGxhdF9kYXRhLT5waXhlbF9tb2RlOwo+IAlkcC0+cGxhdF9kYXRhLm1h
+eF9saW5rX3JhdGUgPSBwbGF0X2RhdGEtPm1heF9saW5rX3JhdGU7Cj4gCj4tCW11dGV4X2luaXQo
+JmRwLT5pcnFfbG9jayk7Cj4gCUlOSVRfV09SSygmZHAtPmhwZF93b3JrLCBkd19kcF9ocGRfd29y
+ayk7Cj4gCWluaXRfY29tcGxldGlvbigmZHAtPmNvbXBsZXRlKTsKPiAKPisJcmV0ID0gZGV2bV9t
+dXRleF9pbml0KGRldiwgJmRwLT5pcnFfbG9jayk7Cj4rCWlmIChyZXQpCj4rCQlyZXR1cm4gRVJS
+X1BUUihyZXQpOwo+Kwo+IAlyZXMgPSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVzb3VyY2UocGRl
+diwgMCk7Cj4gCWlmIChJU19FUlIocmVzKSkKPiAJCXJldHVybiBFUlJfQ0FTVChyZXMpOwo+Cj4t
+LSAKPjIuNTMuMAo+Cj4KPl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCj5MaW51eC1yb2NrY2hpcCBtYWlsaW5nIGxpc3QKPkxpbnV4LXJvY2tjaGlwQGxpc3Rz
+LmluZnJhZGVhZC5vcmcKPmh0dHA6Ly9saXN0cy5pbmZyYWRlYWQub3JnL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtcm9ja2NoaXAK
