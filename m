@@ -1,215 +1,174 @@
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CCA30C16F
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 08:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D75732B135;
+	Sun, 16 Aug 2026 09:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786870769; cv=pass; b=jroCkLMRA9h7Z8AjCwlg1AWuIwwwulcXuCRg0sdQCCJqG+9+ZqoppxwrBQFqRoNjH6EzT12ChauYEZCxi7fN4r95rI+HVMKETRQJjm3iyqSE+B+oZDn64Gzq4RPXF+OGPgVpfKzEkapLnjS0S0osSDdAVJdrbrPsG2XgbfTXj1Q=
+	t=1786870909; cv=pass; b=HLiReuo1NJuz4knNXLm/dsx8bAKPHY+owL0wL2uOE2/2M4qDTM/JyHPySLTNkh/HmJgcMTu+mvAJznEpsJy0sLeLax7HG9HMmIw56J5ly31Lk5+lRUpdNWOgAMIgQJ4hbu1YPHj00FkEigoNPdfb/G2BS20u7PKQO8SzaXW7ra4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786870769; c=relaxed/simple;
-	bh=MrRkNVXSVcfDkm0x1IqVS/OiN0O0+RNhnY8dYOfvfZ8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MMGqahG0UUylg01MypBIxdj2PzDeGigTQ+BnILWp5E3NdzXoNTasiWGhWkZMGJ0c9R8VLihFEEk4Uxc2cj8z+gQQkg3FfOpde+TSBJCi9pF4XNCHfQBDedSaCPHPUZI0h6oKumwCStPeHnoHTx0zOjcxJkmBik3YqJaYuxU8c6k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ik8cqEDm; arc=pass smtp.client-ip=209.85.217.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786870909; c=relaxed/simple;
+	bh=Sj+LPkX87LuEdq1n2vLAbsQj7LhMcMzKl7u9lwxpqvE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=Xh+xVin9bPMeGyj/ewP25n94Tv7DBpJQDqeEp/JlISLf4g60VRHqIv/FElrqO1Jp8sci7lQtougIrJqudPOUhBkr93Tg6CxbjwsweuVWlZ8tR+yVWyybHTiXxRGf1mRqpu71kX75jzGnDdQnW4oqyK6ke3uQ0inrMvAPh2Y5wd4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=jM0Lzegw; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ik8cqEDm"
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7377dde7bc6so2270675137.0
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 01:59:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786870766; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nnDPphkgCWTSDvm4Y80okI5Qriq8Gh40PExlSbtI3PHkfxCCVUkrSzROXrwbl/imr5
-         7V8pqV/j4PAvxyMNzue3ZHau2JBVpkgSZyj+6yqvURFwQKLWivAbF5HM6do/82/68uOV
-         YblsbhvebW8LtVb3ThP2qyzyjiMdxFvFUsXMI2aEWKz4t9oR0IqdpaJEqs/1+ByDPWeJ
-         YnKZFgNryg83aQpEPlTWtEt78Yi0X7dGDIfaPAefsCKuOhEeaU+gWJiBYS5H9rexHuI0
-         sgpFh/ogCzNrMBNbOroHmI3fUkbqF/A2lNCR1CLf2sMYSyGjQvQmP1os017EgvOlm4fH
-         Cv3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1LmQ4nt2XjP2OgxPqtP/sT+nzVt0sYBaB8O2AA9vv9A=;
-        fh=YG2JSFytOj8RNguYDi2KmpaLONpN54/D/l3aUv8cov4=;
-        b=V+L1bRQlB6oLDI/fYGy35Cv+E2N9z2tq3lBibUESruecUqSh/NBDEGpCFsiId/szI3
-         6hwNWnkb3azRZJLpjLY7RGawaYcD/4izaBJp/dssuVnySeIGNhD14XSA9onFqaL2q/qG
-         JGkD2Dy4vBebKRL8q5U+CrV2mNb8rPU1Zn3FDmtyS+nPULIHg7w8yAmODQgVfOaJ0/nh
-         lghNWkrpzaUUMC+WEcryTpyKyyjn4YAvDXOCOMynQZcKJBV/qJcAaVJEtVyXgGoq0ZZ6
-         VkEMSnSXesUpSNBDzeiXhShkhZmz5Dnevo6WquQ9wxpPcJKXiHQnSYXzbsh7ZvAhL3xW
-         xAoQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786870766; x=1787475566; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1LmQ4nt2XjP2OgxPqtP/sT+nzVt0sYBaB8O2AA9vv9A=;
-        b=Ik8cqEDmdgUqfjohdx0q/g7YAf3AtzikgalaiZ4HZS/EenYixYrNUxzMe2Q6mqxgg7
-         2+vugnwKOvEXjpOLv0l4Pwl7pP2aignd/Xl+xO6XnHEt6Ozi11tqyq2TiKNYCE5pI2hK
-         CNqcptFe6hsCoDf9E0FiO3YXoL3iDN3smR6ngeTHiudR6TpGXkMaB5ZX2CwIHbFnn+Oj
-         mfgLv/kOpN0VlX1A1Vbcm/P8wjpw8TOqP4P8C1CPkyAGUcCuNVx2+SWQkQpYLggUU7DF
-         LkC/Elzv7NC0p01rVwIpTcnHRgTF78t8PYYVO2hNBnu8JuD6aMGucmx13UBq+2wY4B61
-         1I4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786870766; x=1787475566;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1LmQ4nt2XjP2OgxPqtP/sT+nzVt0sYBaB8O2AA9vv9A=;
-        b=TTkAai+7uDyblFUx6AkDO7hqwzfjkQYE2z1SmGa5ZqMiPRZthIVMxo0F8V9d7XSEMP
-         njNuY2QSgO1FoYJyqnc2tNTn2GC+pgUb4bBKHhTDnyqsJCGvzTbW5Ad8GFQFTFeVaW5S
-         RAPBCUl+5yvZmUfZEwBU6lzqFYOsp4NTdeDyBrytDk7+cTFbTOe7owMCKgs8/4hAF8OP
-         gVTaQGBZKeqR/sm8kkDtjxhfr+2HgZuJArQ6cXMwLE4LFiAK3PuXQceJsMpoL1b82J8C
-         TbHXM33gVNV9E0a7WF5rCZq5PI9RPG3AHAgMDQptnLSW4YUCqg6JdsvEqGpqL/hlfzMW
-         DwKw==
-X-Forwarded-Encrypted: i=1; AHgh+RrY+RMOOdEDuIBxD5ECxadL4O1jgOZEVX9v9sDr5pIbOi/g8wqKqrLVZEUiqL2astoHdx1hTJWqOKLN@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrgTQu8MoYT3XO8dAORMyH8utQIhPPsJwv6YvWavBo68t+j+cs
-	027iNTgxbKT5Cau9fv8q6Xx8QmFDgc8DMouyb3LDi30qaWvHtphuoNyor/6LoZXyhbTBXjvnmD4
-	uSHbKqNNoZ609+Z7WBzxxY+3GGjr/lBg=
-X-Gm-Gg: AR+sD11DrK/yrjGXVvlHwA5RV9xH4iLLQN3D6juBMAbCGbn+Mphc2v6PK0NX5lm32/H
-	gKJLaPzMUfXLOKHKU0VhsaeODaKIZk6LVELQXOKpW7Vpx3gR0ljl1l3pXqAEt164QNpFzm60BmH
-	0yJ0Ee9vRtZzSamezqBlige0iQVTfwI44M7iKZReB29mDecf5Ut7epZB7y7OAl4uW69jnBnJfu6
-	dgP/XJXSm/GBAnjWUtkFvsRSrByO1OuSOaPgp+ITHUDXSWOf80ShyJS5oPhWGzKzHz5d+Fgfbcx
-	OM1rkqX9S0FcoGFQoCPgSrRJ1ZNMlQWqHUfgyqb9I9sCFdaj6+W33nDrusXa9Phf5FWZ0/wPC2A
-	=
-X-Received: by 2002:a05:6102:3943:b0:760:330:312f with SMTP id
- ada2fe7eead31-76dd3bc43d6mr2139074137.15.1786870765925; Sun, 16 Aug 2026
- 01:59:25 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="jM0Lzegw"
+ARC-Seal: i=1; a=rsa-sha256; t=1786870889; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=XLfLL1N+AnqzFwXg586xF8QAQR/Mn+TYzYl/q93grOfvO/GI6BT9ZNIw/JWKrz3qvs8fk5kZZlm0lZTVrhatTAm843g+BWIU3O26IKoGBg+EsZFNXh8iOPdbfxFVDNiL9Yv7+rtJWpaI4rq42rsOXtkqeSyaSMK2pKzieFIbDTE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1786870889; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uC0rrKBJiyK6GKrZ7oOkFU15ENgVC1tzNfFlEDiLMFo=; 
+	b=VT5G0Kxy5ieuaptmWnpawbmpfuqkIPj66/JDgmVGL9F1E2XFNiQ9Ahni+YdBLdTVzmp1zyfBNX0F9xVjUS+Z5olYHk9DuaUTYmOQnN9sjc3aZUjz8itTXCvrwpY/FrGGMd7PMmPhLDwFMQ06qWTVrZm5uj6AwL/gqs50aCSMsVQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786870889;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Reply-To;
+	bh=uC0rrKBJiyK6GKrZ7oOkFU15ENgVC1tzNfFlEDiLMFo=;
+	b=jM0Lzegw6T4kcPJphd+ovvczrq7jLss4jh8upiRgtX6Dd8O8+kmInqknR1xOPjD4
+	g8C2Dw4qXMMmzqr0NL0+HFBwpuXoknuIpjo8mlt6gpsWHOlAgEJrAD2JbnI/H7bH7mx
+	AAewMjbMHQi1iJhyh9EMYZCgIm8ydAT8UpXxzF1I=
+Received: by mx.zohomail.com with SMTPS id 1786870887237223.54892824363822;
+	Sun, 16 Aug 2026 02:01:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260630042229.277799-1-mitltlatltl@gmail.com>
- <35f13ab2-cdba-426f-bf4b-36f53ce1d4bb@oss.qualcomm.com> <CAH2e8h7p-i3epbxD6Ks-ru2OP+qY6nYXA+Fm+Luexo3cZ2Eucw@mail.gmail.com>
- <cbfb770e-0e27-4254-a3c0-6011e8eb37ec@oss.qualcomm.com> <CAH2e8h4ABRuOTe8Qu-iPEk-i6r-Le3bzmwFSEG_c7YmBu1LjCw@mail.gmail.com>
- <250311af-0860-4a76-9799-c01608b87293@oss.qualcomm.com> <CAH2e8h65xgLnqusTMw1QnAMSmf__YK0PsWY-w0D=32US1d9L2A@mail.gmail.com>
- <75b423b3-d721-4bff-8d42-603cb5679364@oss.qualcomm.com>
-In-Reply-To: <75b423b3-d721-4bff-8d42-603cb5679364@oss.qualcomm.com>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Sun, 16 Aug 2026 16:57:36 +0800
-X-Gm-Features: AcwNN1X3_AoqGZg6lT9YwRS-zp_xWQ_uWAXtkWj--hAmpkIidjFcYHLYoqMRULM
-Message-ID: <CAH2e8h60opbaRGjZ_GhY=vboHEBpYUAEcO4SQ0-oTxoRXG3j8w@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp-huawei-gaokun3: Add dsi panel
- DT node
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 16 Aug 2026 17:01:16 +0800
+Message-Id: <DKQ8V08O8TKD.QHLCPR9W40HE@pigmoral.tech>
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Guo Ren" <guoren@kernel.org>, <linux-riscv@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Cc: <dlan@kernel.org>, <devicetree@vger.kernel.org>,
+ <spacemit@lists.linux.dev>, <stable@vger.kernel.org>, "Guodong Xu"
+ <docular.xu@gmail.com>, "linux-riscv"
+ <linux-riscv-bounces@lists.infradead.org>
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: fix IMSIC guest parameters
+X-Mailer: aerc 0.21.0
+References: <20260816074125.2105828-1-guoren@kernel.org>
+In-Reply-To: <20260816074125.2105828-1-guoren@kernel.org>
+X-ZohoMailClient: External
 
-On Wed, Jul 1, 2026 at 7:45=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
+Hi Guo,
+
+On Sun Aug 16, 2026 at 3:41 PM CST, Guo Ren wrote:
+> From: "GUO Ren (XuanTie)" <guoren@kernel.org>
 >
-> On 6/30/26 12:41 PM, Pengyu Luo wrote:
-> > On Tue, Jun 30, 2026 at 6:34=E2=80=AFPM Konrad Dybcio
-> > <konrad.dybcio@oss.qualcomm.com> wrote:
-> >>
-> >> On 6/30/26 12:30 PM, Pengyu Luo wrote:
-> >>> On Tue, Jun 30, 2026 at 6:29=E2=80=AFPM Konrad Dybcio
-> >>> <konrad.dybcio@oss.qualcomm.com> wrote:
-> >>>>
-> >>>> On 6/30/26 11:28 AM, Pengyu Luo wrote:
-> >>>>> On Tue, Jun 30, 2026 at 5:18=E2=80=AFPM Konrad Dybcio
-> >>>>> <konrad.dybcio@oss.qualcomm.com> wrote:
-> >>>>>>
-> >>>>>> On 6/30/26 6:22 AM, Pengyu Luo wrote:
-> >>>>>>> DSI panel driver have been added for a while, so add the DT node =
-to
-> >>>>>>> enable it. vdd{a,s}-supply for dsi, dsi_phy are blank since the D=
-SDT
-> >>>>>>> describes the wrong, no impact after manual disabling these wrong
-> >>>>>>> supplies.
-> >>>>>>>
-> >>>>>>> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> >>>>>>> ---
-> >>>>>>
-> >>>>>> [...]
-> >>>>>>
-> >>>>>>> +&mdss0_dsi0 {
-> >>>>>>> +     /* real vdda is unknown */
-> >>>>>>> +
-> >>>>>>
-> >>>>>> L3B: DSI core 1.2 V (both?)
-> >>>>>> L6B: DSI0/1 PLL and core 0.9 V
-> >>>>>>
-> >>>>>
-> >>>>> Yes, that is what I saw in the DSDT, however, I can disable them
-> >>>>> safely (hack the regulator driver to add a sysfs to handle these
-> >>>>> regulators), the panel works well.
-> >>>>
-> >>>> L3B additionally powers CSIPHY2/3, EDP0/1, REFGEN (probably why it
-> >>>> ends up being on), UFSPHY and USB1_PHY
-> >>>>
-> >>>> L6B additionally powers the same components, minus refgen and USB
-> >>>>
-> >>>
-> >>> No, I confirmed they are totally disabled, since there is a way to ch=
-eck it now.
-> >>> https://lore.kernel.org/linux-arm-msm/20260420-read-rpmh-v3-v4-0-70c1=
-52e6c958@oss.qualcomm.com/
-> >>
-> >> This presents you with the status of the votes casted by HLOS, not
-> >> the actual hardware state
-> >>
-> >
-> > If so, non-HLOS will vote on some critical regulators to keep them on,
-> > IIRC, once I disabled L9D, system reseted immediately.
+> The initial K3 device tree used generic/placeholder values for the
+> IMSIC guest configuration:
 >
-> NHLOS will generally ensure that the hardware that it needs is
-> powered. This does not extend to hardware that *you* may want to
-> access in Linux (or which was left online by UEFI), which I suspect
-> was the case here
+>   riscv,guest-index-bits =3D <6>;
+>   riscv,num-guest-ids    =3D <511>;
 >
-> >> To get the latter, you'd have to dump the SPMI registers
-> >>
-> > I will appreciate it if you provide more information.
+> According to the SpacemiT K3 User Manual [1] these values are
+> incorrect for the X100 cores:
 >
-> Take a look at drivers/regulator/qcom_spmi-regulator.c, you can get
-> the actual live value of the enable register and the voltage selector
-> for each regulator
+>  - Hypervisor Extension: RVH 1.0, GEILEN =3D 8
+>  - Advanced Interrupt Architecture (AIA):
+>     - M-mode MSI: 512
+>     - S-mode MSI: 512
+>     - VS-mode MSI: 64
 >
+> Therefore:
+>
+> - S-mode IMSIC (simsic) only needs guest-index-bits =3D 3 (to cover
+>   GEILEN =3D 8) and num-guest-ids =3D 63.
+> - M-mode IMSIC (mimsic) does not implement guest interrupt files at
+>   all, so the guest-related properties must be omitted.
+>
+> Although the KVM AIA driver will re-detect the actual number of guest
+> interrupt files via hgeie and correct guest-index-bits at runtime, the
+> device tree should still describe the correct hardware parameters.
+>
+> Update the device tree to match the silicon.
+>
+> [1] https://www.spacemit.com/community/document/info?lang=3Den&nodepath=
+=3Dhardware/key_stone/k3/k3_docs/k3_usermanual/08_cpu.md
+>
+> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 So=
+C")
+> Cc: stable@vger.kernel.org
+> Cc: Guodong Xu <docular.xu@gmail.com>
+> Cc: Yixun Lan <dlan@kernel.org>
+> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+> ---
+>  arch/riscv/boot/dts/spacemit/k3.dtsi | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
+pacemit/k3.dtsi
+> index 19fc9b49668e..4120eb0c4083 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> @@ -1127,9 +1127,9 @@ simsic: interrupt-controller@e0400000 {
+>  					      <&cpu4_intc 9>, <&cpu5_intc 9>,
+>  					      <&cpu6_intc 9>, <&cpu7_intc 9>;
+>  			msi-controller;
+> -			riscv,guest-index-bits =3D <6>;
+> +			riscv,guest-index-bits =3D <3>;
 
-Hi, Konrad. The real case seems to be as you said. After disabling l3b
-and l6b via rpmh,
+According to the IMSIC DT binding, riscv,guest-index-bits describes
+the number of guest-index bits in the MSI target address, not the
+number of guest interrupt files actually implemented by a hart.
 
-# cat /sys/kernel/debug/regmap/0-01/registers | grep -E 'c[1-9a]46:'
-c146: 80
-c246: 00
-c346: 80 # l3b en
-c446: 80
-c546: 00
-c646: 80 # l6b en
-c746: 00
-c846: 80
-c946: 00
-ca46: 80
+On K3, the per-hart IMSIC stride is 0x40000 bytes (0x200000 / 8).
+Therefore, riscv,guest-index-bits should remain 6, which satisfies the
+per-hart stride formula specified by the AIA specification:
 
-Could you please have a check if this node is available for
-sc8280xp?(I want to write 0 to 0xc346 and 0x0646 to ensure the ldo
-disabling will  turn off the display.) This is copied from sm8350, if
-the fuse register is 0x7820a8 for sc8280xp as well, then it is fused
-as disabled.
+  2^(guest-index-bits + 12) =3D 2^(6 + 12) =3D 0x40000 bytes
 
-        spmi_debug_bus: qcom,spmi-debug@6b12000 {
-                compatible =3D "qcom,spmi-pmic-arb-debug";
-                reg =3D <0 0x06b12000 0 0x60>, <0 0x7820a8 0 0x4>;
-                reg-names =3D "core", "fuse";
-                clocks =3D <&aoss_qmp>;
-                clock-names =3D "core_clk";
-                qcom,fuse-disable-bit =3D <24>;
-                #address-cells =3D <2>;
-                #size-cells =3D <0>;
-                status =3D "okay";
-        }
+KVM already handles the difference between the address space and the
+actual number of guest interrupt files. It reads HGEIE to find the
+actual number of guest interrupt files and uses the smaller value:
 
-Best wishes,
-Pengyu
+  /*
+   * Number of usable per-HART HGEI lines should be minimum of
+   * per-HART IMSIC guest files and number of bits in HGEIE.
+   */
+  if (lc)
+          hgctrl->nr_hgei =3D
+                  min((ulong)hgctrl->nr_hgei, lc->nr_guest_files);
 
+I also tested this on K3. HGEIE returned 0xfe after writing all ones,
+so the driver gets fls_long(0xfe) - 1 =3D 7 usable guest interrupt files.
 
-> Konrad
+>  			riscv,hart-index-bits =3D <4>;
+> -			riscv,num-guest-ids =3D <511>;
+> +			riscv,num-guest-ids =3D <63>;
+
+This change looks good to me.
+
+>  			riscv,num-ids =3D <511>;
+>  		};
+> =20
+> @@ -1168,9 +1168,7 @@ mimsic: interrupt-controller@f1000000 {
+>  					      <&cpu4_intc 11>, <&cpu5_intc 11>,
+>  					      <&cpu6_intc 11>, <&cpu7_intc 11>;
+>  			msi-controller;
+> -			riscv,guest-index-bits =3D <6>;
+>  			riscv,hart-index-bits =3D <4>;
+> -			riscv,num-guest-ids =3D <511>;
+>  			riscv,num-ids =3D <511>;
+>  			status =3D "reserved";
+>  		};
+
+For the mimsic part, I already sent a related fix earlier:
+https://lore.kernel.org/linux-riscv/20260729-k3-mimsic-fix-v1-1-368c0aec04b=
+9@pigmoral.tech/
+
+If you would like, you can pick that patch and combine the two changes
+into a v2, as Yixun suggested.
+
+--=20
+Best regards,
+Junhui Liu
