@@ -1,105 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E03E3A6B6F;
-	Sun, 16 Aug 2026 21:42:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BDD23EA97
+	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 21:46:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786916578; cv=none; b=qDGrUDDrsxho3m/JoVUmEqTirty/sh7hbu5zMNPyKzN/p4HMGXKXlp6At+JLjl9kDhLwsigZ8oUptP26TyIElgsshLngWSgkNtMl0dtCQ7ZZ/ARTpYsY1BUV60O7AJ1rxaShT4ik/R7nxgv6P2eOuWYlt5hcR67h55eKAUK2ZiY=
+	t=1786916801; cv=none; b=Xa55lv8N8UtV/bXbpv0jiR+9pNrWz9ujGogZur/og9pHXl+uji3ywckHaVsm517MaORKtoyCtCspDhEcGJcv+sPgTvjZUl9bXyibJKvKKNxe/a+nNm9ko5b3NEzdV66ANpcgC1B5VHzlRnczAfOvViVVS8BE7NTnhANvHBN0RrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786916578; c=relaxed/simple;
-	bh=g9NI6/t7U+majt69fXXl84uenC/USov2u0/+6235jwc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BIjO0qYMyyfnksQFU1fzohi3mQyXkX2qKZGU2LvSDdDko0+2yC1GGiWUZ6K3ZM4F1ida6MlXmAUL9Vq5CNH3vDSetFKHuwBfvDXuCR0gOQHxf/cnYjFPq9/hNnhz2A+63oWSEtSOCR7NYntCQj0Fef9G3WeWiUqUrSlccb0DHew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DXv84bmw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786916801; c=relaxed/simple;
+	bh=CV4uOETHhhb03EOryVR3FhReJ5AGTOB2c4vkxupZRYQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OR5L/VdCVcQqkYO54rfhBHpVXXyz3uQ4d4SK2GUZGE7RYJhAQMrue39jyGA56TKXmUcGjWSAdZxI8Wbqi/GvcbCdpvp1d9nxiOXfT/fWEMvpJ4Aa8dgBqiz7zxOEw5URsMjpOJF1Y98iuv2DtL+k83iNZfJA+khiZPOEUMwnipk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvSeApKp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DXv84bmw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7E61F000E9;
-	Sun, 16 Aug 2026 21:42:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvSeApKp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1B11F000E9;
+	Sun, 16 Aug 2026 21:46:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786916577;
-	bh=f5hGjvaBq/EkvqZaFRseehrMV+lFdJc0juaWPYutyxA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DXv84bmw5gzsqlfJrYiiIUMS1SwMzkL1EtSTWVvaFfZfNUG0sZn0QZYEqRjzUcKJX
-	 4Ue5c3ANyFcvd3Ct7llKZegAb3Mx9wogO9E0LF62GCRDCXAIoiSXFC9oTNuioEmflB
-	 OfAqU0qmq2qRNcJHEBhmF15H1TXBSFE2lNvI+lfXy4muLqOGFZmZcpNNg++8n+g9OG
-	 pTHlPzalRc0EQDYdnFdhUr9y7xEq1hrqi+L1Gveq60en3gg9Q1kfmRxEVohmtDl5vS
-	 VXVFnpUTTePjvS8hN9iZnpd3DDUYZQBFqiJ1J7k5QnIQsC80qztgWSnXVpRpkEdrQZ
-	 Iy4YrjwQb99yQ==
-Date: Sun, 16 Aug 2026 22:42:52 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kurt Borja <kuurtb@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 6/9] iio: adc: ti-ads1262: support excitation
- currents
-Message-ID: <20260816224252.0c449ee0@jic23-huawei>
-In-Reply-To: <20260807-ads126x-v3-6-f89925d72792@gmail.com>
-References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
-	<20260807-ads126x-v3-6-f89925d72792@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1786916799;
+	bh=N1yPng0hDUiR0SYCoB7hfu/loI16gFAg/z2Zkiq8RGY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jvSeApKpdgr/B1x+f2KQwFW9XHMjsFNjDyFvrgRJRu9iKqalnp2pqb0niE8SmUwfq
+	 AZjAgXGxMvTkftThE4ig4AVSFxxR6Mjq+ktBAC3vDrfqE4ljtXjYqCAlAblbLF8XXI
+	 M0UJf8bsJSXXw/qHUTXjTNG8+xpGCMr8Lggii7GfAMBmjkKWmYURi3ifQvqRB9Rx/9
+	 Ul3Mo0GOvv+2dayOS4PnREPbFRY+5U1TJNXG0OhwMcz3fA1RyGj+xeEU4dNoXYEQ78
+	 njlxhFjFOmoG1u7goB65acegX/BaAFopJ4o8opqmvbrwEzw4dne3T2e0SifLxTcb8s
+	 obHirD03SNHZg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/9] dt-bindings: usb: generic-ehci: Document
+ access-controllers property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: olteanv@gmail.com, robh@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260816213849.1044073-4-marex@nabladev.com>
+References: <20260816213849.1044073-1-marex@nabladev.com>
+ <20260816213849.1044073-4-marex@nabladev.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 16 Aug 2026 21:46:38 +0000
+Message-Id: <20260816214639.4A1B11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 07 Aug 2026 22:58:28 -0500
-Kurt Borja <kuurtb@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The patch adds the `access-controllers` property to `generic-ehc=
+i.yaml` but fails to update the companion `generic-ohci.yaml` binding schem=
+a.
+--
 
-> Support the two IDAC excitation current sources. Each channel can route
-> its IDAC1/IDAC2 outputs to a pin via the "excitation-channels" property
-> and select a magnitude via "excitation-current-nanoamp".
-> 
-> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
-> ---
->  drivers/iio/adc/ti-ads1262.c | 101 +++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 98 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-> index e2659941e1af..d5464b4f2bfb 100644
-> --- a/drivers/iio/adc/ti-ads1262.c
-> +++ b/drivers/iio/adc/ti-ads1262.c
+--- Patch [3]: [PATCH v2 3/9] dt-bindings: usb: generic-ehci: Document acce=
+ss-controllers property ---
+commit 53582485218bdac0220f3acaf5124a6d9549f7b3
+Author: Marek Vasut <marex@nabladev.com>
 
-> @@ -277,6 +282,25 @@ static const char * const ads1262_ref_sources_neg[] = {
->  	NULL
->  };
->  
-> +static const u32 ads1262_idac_mags_nA[] = {
-> +	0, 50000, 100000, 250000, 500000, 750000, 1000000, 1500000, 2000000,
-Where we have long arrays like this a useful convention is to break them into a power
-of 2 elements and provide a comment that says /* 0..7 */ etc
-just to make it easier to count.
+dt-bindings: usb: generic-ehci: Document access-controllers property
 
-> +	2500000, 3000000
-> +};
+This commit updates the generic EHCI device tree binding to document the
+access-controllers property for controllers that require access checks.
+
+> diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Do=
+cumentation/devicetree/bindings/usb/generic-ehci.yaml
+> index 55a5aa7d7a54e..602241887d995 100644
+> --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+> +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+> @@ -80,6 +80,9 @@ properties:
+>      minItems: 1
+>      maxItems: 2
+> =20
+> +  access-controllers:
+> +    maxItems: 1
 > +
-> +static int ads1262_find_one(const int *array, size_t num_elements, int val)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < num_elements; i++) {
-> +		if (val == array[i])
-> +			break;
 
-Assuming this doesn't change later, an early return on match makes life simpler.
-			return i;
+[Severity: Medium]
+Should Documentation/devicetree/bindings/usb/generic-ohci.yaml also be
+updated symmetrically?
 
-> +	}
+When access-controllers are configured for the companion OHCI controller
+in the device tree (such as on STMicroelectronics SoCs where EHCI and OHCI
+operate as firewalled companions), wouldn't the dt_binding_check validation
+fail since generic-ohci.yaml enforces unevaluatedProperties: false?
 
-	return -EINVAL;
-
-> +	if (i == num_elements)
-> +		return -EINVAL;
-> +
-> +	return i;
-> +}
-> +
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816213849.1044=
+073-1-marex@nabladev.com?part=3D3
