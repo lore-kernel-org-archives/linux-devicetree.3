@@ -1,123 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F331146D5A
-	for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 00:48:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37F5146D5A;
+	Sun, 16 Aug 2026 00:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786841324; cv=none; b=Dj/ketTrDlKbRDd65fxp+O0ZHxHmKSkwtRXrS9ymapfzZuMRpMh6DKP0aNvcyVekJ9f7mOGJSGsP7cFzAjBe2OX4aqMoR89vDwXoorKTA1PVRxatLGoNmc3+U8HBZjum7VhfFgC2vCk6mZ/3Z3daXQvklIizz09ZFQoKlRBDBog=
+	t=1786841405; cv=none; b=tTIBjnpSXjyhv6EZXP9UiT70UrDtr2rzOK4Pg5pEa1WzGPqAq6vC1GzXx4UcN9xhiELZaWoQYweDj1c/lNFv4fAowdJdCbo2urUsLsd5vlsbmLES0sJg6LuJdfZ2oRIedGrEmlUhcTg8IxusxvBpEwk1g32/xUpxA3U3xQ5KjxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786841324; c=relaxed/simple;
-	bh=XgY6LXjAqwzIh/Ck3QAlz2QHhQzKMfyKPtgyVitpdeg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FIyXGy3lWD+6v0q2YH6QtwItnIc3Csd4jQugpoo0cvjBHvVh9Ht8DfdRPq6y9flBASXlL8FsenLrjSz5oNuWcu/iam2V5gupe+/RcDt0pPCdoGgULnFCEyKr6PhOjI3HLtWJPwVVJUyfldHgMscSq6S4Ha74ZNyosgswpLW8qhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFsHySfM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786841405; c=relaxed/simple;
+	bh=/qAvPMTMjyOZE7kV6Lmo9XjB5d8BapgHnr0awEjQikc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U5KrAY1vShjrhlqNwjmZgl/HqZZpdy0RNCt0J8Whl9bko9o9+rRusbkEHc4DPH7XYf2LkSYBVuUcpij8ALBcd2YfL8GWGxGWAIEE2CRfwQ1o6JoNR+Y+boTo+kZmB0FaEfj+3MqIQmk+FnvZtUcgwGKU2ZElULmhFfMU6VrLrL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dm/iZx7P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFsHySfM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C44F01F000E9;
-	Sun, 16 Aug 2026 00:48:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dm/iZx7P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EBDB1F000E9;
+	Sun, 16 Aug 2026 00:50:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786841323;
-	bh=17BZoAw9/Wn+XdMbG0jMpyJC9+S6S1oSF/Z/mkHYv7k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hFsHySfMQs7Ik3Rs5opTarjt4x91xK1D6n/E66H7uf9LSM1zAnPpoThv9pWN9eTGW
-	 ViyITYmM5EU71dSnJj5lIDWF1g+Io8tWNhBkvms+CiWeZU1xWYEBO/lbZ7DeRM7Qxx
-	 HpI3iMFFSmR2LLC33h0sAg6TB0oRybrKk1bCq7fo4gqOVmR12r46zTXT7EcC76Vq5e
-	 crTdk3xA44CiYMCiccq8k9ic3rwBVOa2tlg0sMFewUytCFvwrLZlkhTtfke0L+Lris
-	 I+iS2wZ8s/LfD9wbY87Z0d2x4gi/sRUWrw/EO0VIw6TKW+LfR/uAAtBUYyfYOA9iX4
-	 3kPYsvIXD1cZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 2/3] of: property: link PHY package suppliers
- to member PHYs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260814-submit-phy-package-fwdevlink-v1-v1-2-2319844f057a@gmail.com>
-References: <20260814-submit-phy-package-fwdevlink-v1-v1-0-2319844f057a@gmail.com>
- <20260814-submit-phy-package-fwdevlink-v1-v1-2-2319844f057a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 00:48:42 +0000
-Message-Id: <20260816004842.C44F01F000E9@smtp.kernel.org>
+	s=k20260515; t=1786841403;
+	bh=wX25VOtp0mTKk/k7vLCdTA2N1UptvhRSJw8Sejqx3Q4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Dm/iZx7P39EOQOx3dMNDwy/E6CJy8NXIad8C0rdG/STtqAvE89BkeAGS6d1Znf3Dc
+	 SmgGHRJsMWnZqWgNVo4HF3iIBLvEVC11vtbLX4DmFjxB/1n2jfLxBeAKIRpCrheYXi
+	 8YGa32afQV5vnRH4jBWYdWCqYvD1vGmBjC3JCXVGRhQO2OM7fi9HBKvgUJvF2ON+KO
+	 Ov5lD6IQCcyVWHBDdiilOsTwOOSoEX0oRCKoW169Pbrfhul0efLkPsDMgjzJR/N6A7
+	 Xsm098RekrJI+mMtvLJEdh9h/PeflMx+nxz1FSi9Ea3/w3nVjmc8Cbnrpl9ZgzCvJF
+	 JmqoUjU2HxygA==
+Date: Sun, 16 Aug 2026 01:49:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>, Marcelo Schmitt
+ <marcelo.schmitt@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, linux@analog.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] iio: accel: adxl367: add support for INT2
+ interrupt pin
+Message-ID: <20260816014959.18034ff6@jic23-huawei>
+In-Reply-To: <178671050969.21598.13163934753300429850.b4-review@b4>
+References: <20260813081452.4289-1-antoniu.miclaus@analog.com>
+	<20260813081452.4289-4-antoniu.miclaus@analog.com>
+	<178671050969.21598.13163934753300429850.b4-review@b4>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Fri, 14 Aug 2026 13:28:29 +0100
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-Pre-existing issues:
-- [High] A malformed devicetree (e.g., placing a `remote-endpoint` property=
- on a node without parents) causes `of_graph_get_port_parent()` to return N=
-ULL. This NULL pointer is passed as `con_np` to `of_link_to_phandle()`, whi=
-ch forwards it unmodified to `fwnode_link_add()` and eventually `__fwnode_l=
-ink_add()`, leading to a kernel panic when dereferenced.
---
+> On Thu, 13 Aug 2026 11:14:52 +0300, Antoniu Miclaus <antoniu.miclaus@anal=
+og.com> wrote:
+> > diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
+> > index 8c3de11a10a3..df385740b17b 100644
+> > --- a/drivers/iio/accel/adxl367.c
+> > +++ b/drivers/iio/accel/adxl367.c
+> > @@ -1426,6 +1430,31 @@ static int adxl367_setup(struct adxl367_state *s=
+t)
+> >  	return adxl367_set_measure_en(st, true);
+> >  }
+> > =20
+> > +static int adxl367_set_int_map_reg(struct adxl367_state *st)
+> > +{
+> > +	int irq;
+> > +
+> > +	irq =3D fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
+> > +	if (irq =3D=3D -EPROBE_DEFER)
+> > +		return irq;
+> > +	if (irq > 0) {
+> > +		st->int_map_reg =3D ADXL367_REG_INT1_MAP;
+> > +		return 0; =20
+>=20
+> sashiko point is sensible but I guess both INT ouputs are pretty much
+> the same? So even even if there's a mismatch against spi/i2c I guess
+> it is not problematic?
 
---- Patch [2]: [PATCH net-next 2/3] of: property: link PHY package supplier=
-s to member PHYs ---
-commit 4b95d666e97ce94700e97701480015a01fd0a0f5
-Author: James Hilliard <james.hilliard1@gmail.com>
+Sashiko has spotted a real problem here, be it one that won't
+pass the binding restrictions which require INT1 to be first
+if it is present at all.  Anyhow we should be checking for a dts
+that provides bother interrupts but ordered as INT2 INT1 then
+the i2c and spi layers will give us the irq associated with
+the first element (so INT2) but the code here will see that
+there is an INT1 and route the interrupts there.  Hence the miss.
 
-of: property: link PHY package suppliers to member PHYs
+If you are looking up interrupts by name you should use the
+interrupt number retrieved.=20
 
-This commit links Ethernet PHY package suppliers directly to their
-member PHYs. This prevents proxy links on the MDIO bus from persisting
-indefinitely and blocking suppliers from receiving sync_state callbacks.
+return irq from adxl367_set_int_map_reg() on success then
 
-> diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 72cf12907de03..f29ba818ecbc1 100644
-> --- a/drivers/of/property.c
-> +++ b/drivers/of/property.c
-[ ... ]
-> @@ -1272,6 +1272,20 @@ static void of_link_to_phandle(struct device_node =
-*con_np,
->  		tmp_np =3D of_get_next_parent(tmp_np);
->  	}
-> =20
-> +	/*
-> +	 * An Ethernet PHY package node describes resources shared by its member
-> +	 * PHYs, but is not populated as a struct device. Link every enabled
-> +	 * member PHY to those suppliers so fw_devlink can use the real consumer
-> +	 * devices instead of leaving a proxy link on the MDIO bus indefinitely.
-> +	 */
-> +	if (of_node_name_eq(con_np, "ethernet-phy-package")) {
-> +		for_each_available_child_of_node_scoped(con_np, child)
-> +			fwnode_link_add(of_fwnode_handle(child),
-> +					of_fwnode_handle(sup_np), flags);
-> +
-> +		return;
-> +	}
-> +
->  	fwnode_link_add(of_fwnode_handle(con_np), of_fwnode_handle(sup_np), fla=
-gs);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is it possible for con_np to
-be NULL here?
+	ret =3D adxl367_set_int_map_reg(st);
+	if (ret < 0)
+		return dev_err_probe(st->dev, ret, "Failed to get interrupt\n");
 
-If a malformed devicetree contains a remote-endpoint property on a node
-without parents, of_graph_get_port_parent() can return NULL. When fw_devlink
-parses this via of_link_property(), it passes this NULL pointer as con_np to
-of_link_to_phandle().
+	irq =3D ret;
+	ret =3D devm_request_threaded_irq(st->dev, irq, NULL,
+					adxl367_irq_handler, IRQF_ONESHOT,
+					indio_dev->name, indio_dev);
+	if (ret)
+		return dev_err_probe(st->dev, ret, "Failed to request irq\n");
 
-The NULL con_np is then forwarded unmodified to fwnode_link_add(), which
-eventually reaches __fwnode_link_add() and dereferences the NULL consumer
-pointer without validation:
+Or pass it as a pointer so that adxl367_set_int_map_reg() can modify it
+on matching by name.=20
 
-drivers/base/core.c:__fwnode_link_add() {
-    ...
-    list_add(&link->c_hook, &con->suppliers);
-    ...
-}
+Could argue that we should never see this but I think it's easy to harden
+against, so why not.
 
-Should there be a check to ensure con_np is valid before attempting to
-create the link?
+Hmm. On a wide awake day I think I'd have spotted this, but not sure I woul=
+d have
+today!
 
->  }
+Jonathan
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260814-submit-phy=
--package-fwdevlink-v1-v1-0-2319844f057a@gmail.com?part=3D2
+>=20
+> - Nuno S=C3=A1
+>=20
+
