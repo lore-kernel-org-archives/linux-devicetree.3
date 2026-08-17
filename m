@@ -1,291 +1,89 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AB93BFACE
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 23:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDEC32B112;
+	Mon, 17 Aug 2026 23:49:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787009475; cv=none; b=OWN0DysFJLtE738XABdZGvm7e0nOM7bIgn3pIIuiUQLjUVI86PnTh/58jKlVyuUqRK38Vq+dNULGhtXh5aw68VknxofIdNLQUmglpgfFw2wKSMumPFQnV0Gx55dzH1k7pdvIL+4SlI+wZ6l5GUXvy9iw+c97fZiq/VAzQf6X/b8=
+	t=1787010561; cv=none; b=Dghy2PdH5cRyf4Oex6PyZP9oW+oSFLzWv2JCjfh6zdIBQO1rmK/IKC1r8ylvzJ9PWHUytEVLb+GJlwcllkF/jfMbCmhXevtTwiWmPwY7MzKth9lltXAkieOCShA5TaCHcuwjmnJGc16nAfcLDf7EShnluKfiMTZRhfBeIz1hof0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787009475; c=relaxed/simple;
-	bh=uxK4uK6F58gTD92q55TDAH7Y7hEu5efuQOkVRXatT2k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gPtaU4sai1Fm0r//fBGJyjLOIPsSKdIZ+8iWCVbgOppwZFLcSoznt0cnyn54tZlcuzErWBs6OOLVpGUpzT7rX41NjJfbBBkvgCDe2Dv7DMgKdtWJtjMhq9GNybhr+kmZ8MucJagTfbAVEx4nIPnCI3hFzyAZMu++9NYYlH29gLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQsudWQA; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787010561; c=relaxed/simple;
+	bh=XVUABZf153A17QGNoeDkuHuA9QkNwJGoq4M/QwrWvVo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eUE0qo5osIGlYTIFf5knrIyG7njA7ZYsYFTeHTBlBgZJIKbFfm801XWiSeN9T4rUmT5tS+LSKbmHUOnJ5HEdHukSFNaIYnBTnGwB5h4T5L0YqdaWAMQdkB4KPKpODFlzF4IDzgtlP+n48P23Zk6v1EXP0PnV37/wzaQljKWAn4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dAYiy5D8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQsudWQA"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d319b84213so30705ad.1
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 16:31:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787009473; x=1787614273; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=J21DS3wvKij2HOkZeCKqT2PDcAqZEa8RshPhJtL9/fQ=;
-        b=ZQsudWQAVp+hFl086pg3I45XxZierlzSN36czisI8EgIyvGbaZ0of2l1VK1alN1ygy
-         yFNvKxsUCdBBNGOT8W0BaomV+bL3rR3NboXcqouSKVb2q18+XAeA6evdoGzZccNa/xVK
-         k3OBh4/dCjGYRxfM99waO41qakP68SzeXDp6me3jJQZCBaojb7Fcbb82VzBAN4HRpoct
-         mlUbTxXmqd5FV/kb8IjmnKONevtPqV10KxOSCRZIJqoTzYotOjKbn4p1WGazEKcZ0HHI
-         dHDEzQesVDbZ87/cKpwrIYX8GNzNpW/cPnM3tKNcI7G/+R3qfl7SPu3zxScDZ7yNbljH
-         ShMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787009473; x=1787614273;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=J21DS3wvKij2HOkZeCKqT2PDcAqZEa8RshPhJtL9/fQ=;
-        b=VP4m7AWFwOR+2ODEzdu8RMwzrz7cBiF6JecemrT1NK1fOz2xvDzQbyVA9pfE4upJHu
-         IURMtd818QrUQ2+iaXNZml+5KTXCqdP8qMK53zk4oYLcbTQtFt/0SRuh7lx5OpFC3e6v
-         ZwtM3vLUKMdoZ6VNyTPL58glQuZqgwYjcf3ViJCcbYy/ZaRBJADrm5RF8aGWTG3GVuh4
-         z/xtkRBx6OfNCU+Zs7rHR4maD4CzevxxAYKefd2nN2TV2bxiXAhQUa9RdGvFAD0XOPZe
-         7mm6UzG65Z3eMs7uiuZdP+hraYVENvxy50/SFCyEP24bTMadVAd+3ULB9KM4fbjyH8Y5
-         CsnQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoWzZMx1EjwkKA1UuD6BbYCp4pjHMjy6QCAkOMt/XED73D91EYPGQW3k7sezifmONirNLHcCoJHXd+V@vger.kernel.org
-X-Gm-Message-State: AOJu0YyB5sx+6zXgupkaf1MlQU6+Y4Teei2lN4zmKAjOsoxGkHEQ9LXC
-	MRVRkFm8r1wrHqXN444HuPYu47KIrF8xa4SfxgsJzyFfhvNNEFaVmmOx
-X-Gm-Gg: AR+sD13yWoUnpEn3sUSgZaWdL+/6Cl7Olwy5pL44IBYDlJ9mNGazYNtjGI719x/zD09
-	an6ST6sO5rEmylwS0S3uR2Y0YxaAb650gBpFbYFE0w4BSAuNR52Q+cO7hryYrlVtUP58b4+i45L
-	/BskKbJlo/Lr7onGcZjAoSBczfXhXt8rxi5g4xH2nn5BR3LbYHyz7vDkhMcGQMEaJZDvewt9p9Z
-	mz1qpo7RDgOnMsJEMLEefdriFiiKjgOvltnDUF7B5NhsU3oFDMPJaKwtCIq6Qxq9zexSM0E51bL
-	xtA7/P/EUtZglPJqFqDCwjShFY/xRHxQGmhg75/g/G/kb8waS/HatVjUyO3hvZHGawMFVu+AbYg
-	SqjnXFhk43p6NF+523M7gCMYY15VOq14jcULQ8zuKoIpMljTsF5lK08BBkzuHbMg5I7d7nOBEZB
-	bSUD/OCFGww0bHIZOPIvVw+LGX4L7fdRksRGgRd69KxLwVt2tOjfo4SQ6xaaDjgAVn7rL6AlMp
-X-Received: by 2002:a17:902:f651:b0:2d0:2741:f31b with SMTP id d9443c01a7336-2d3b0edea85mr238361375ad.4.1787009473318;
-        Mon, 17 Aug 2026 16:31:13 -0700 (PDT)
-Received: from [10.112.173.252] ([2409:40c2:5059:ff4:37a1:58ab:e26e:9a52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-326798c566asm10838796eec.11.2026.08.17.16.31.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 16:31:12 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 18 Aug 2026 05:00:59 +0530
-Subject: [PATCH v2] dt-bindings: net: ti,davinci-emac: Convert to DT schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dAYiy5D8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B33E1F000E9;
+	Mon, 17 Aug 2026 23:49:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787010559;
+	bh=3KmOAWkkq6vNgl04oOZllB37mH/rLBzXgbWryVTtjlQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dAYiy5D8oQ1o03PHJOVtpLgpVlEMXd8Kg8yAEXZPPF4UNTO9FqcnqQjvpvm+HzH2O
+	 1m4dGzd+6jUpoI80MgMQc+ipMDIbbWHxOeJor9uqonsMJZjcgXyri8PjVW7+Y4iMtw
+	 iPMnF69GZ9096HaZx7Wj5vAFltNj++la24IZvwKyLow2Xsd5FeYEsEv4SFpf6Fk53I
+	 jlBI301SVZBSHLq8+lRIz+UaPt3jcIWNP5FoAy7gJgOJSlAeUGtUHIrWDzmDzhVUYa
+	 aLrHDW28CtSg+681kz4AoNvz0VUWiHo98lQRqBb/Y2EYYJ+CGNrSxNC0YmjQcmrETk
+	 vjXyBSeuvQZhw==
+Date: Mon, 17 Aug 2026 16:49:18 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-usb@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>,
+	Yao Zi <ziyao@disroot.org>
+Subject: Re: [PATCH 03/12] riscv: dts: thead: add device tree node for MISC
+ clock controller
+Message-ID: <aoOd_i_QtCywStEz@thelio>
+References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
+ <20260507081710.4090814-4-zhengxingda@iscas.ac.cn>
+ <aiehUzl-qZeZDjXP@thelio>
+ <67790d90737c13127100510020262d6921810e34.camel@icenowy.me>
+ <aievq4dae3GHHq0c@thelio>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-ti-davinci-emac-v2-1-805736d99e65@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ7CIBBFr9LM2jGABlpX3sN0QWDaTiLUQEM0D
- XcXu3f5XvLf3yFTYspw63ZIVDjzGhuoUwdusXEmZN8YlFBa9NLgxuht4egYKViHhtxgJnL2eiF
- oq1eiid9H8TE2Xjhva/ocB0X+7P9WkShRKKVN7wetabjPwfLz7NYAY631C8heLLmuAAAA
-X-Change-ID: 20260817-ti-davinci-emac-7ec97feca43e
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787009465; l=6210;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=uxK4uK6F58gTD92q55TDAH7Y7hEu5efuQOkVRXatT2k=;
- b=xhZaF1bucfdR0LI41YZmA0hIEsgsGH0+vUAVdeAmb2u6g9ACziuFu7g8s/vmyWbEwF+rh6/l7
- mPcg387n0vEA43ryOGTWJKvGM+1TnKt2ID4/yoaHUkXiBKVQawxQFLM
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aievq4dae3GHHq0c@thelio>
 
-Convert Texas Instruments DaVinci EMAC binding from text to DT schema.
+On Mon, Jun 08, 2026 at 11:16:11PM -0700, Drew Fustini wrote:
+> On Tue, Jun 09, 2026 at 01:35:11PM +0800, Icenowy Zheng wrote:
+> > 在 2026-06-08一的 22:14 -0700，Drew Fustini写道：
+> > > On Thu, May 07, 2026 at 04:17:01PM +0800, Icenowy Zheng wrote:
+> > > > The MISC_SUBSYS clock controller on TH1520 SoC is a clock
+> > > > controller
+> > > > mainly controlling USB-related clocks (which isn't utilized yet)
+> > > > and
+> > > > MMC/SD controllers' AHB bus clocks.
+> > > > 
+> > > > Add the device tree node for it along with the missing bus clock
+> > > > references for MMC/SD controllers.
+> > > 
+> > > Is there a functional reason to modify the mmc nodes in this series?
+> > 
+> > When the clock isn't referenced, Linux will disable it unless
+> > `clk_ignore_unused` parameter is passed.
+> 
+> Ah ok, thanks for explaining.
+> 
+> Drew
 
-Changes from the original binding:
-- Add clocks, clock-names, syscon, power-domains, and ti,hwmods
-  properties that are used in existing DTS files but were undocumented.
-- Disallow syscon and clock-names for ti,davinci-dm6467-emac since they
-  are not applicable to that SoC.
-- Allow 1-2 reg entries (DM816 uses two).
-- Make clocks a required property as driver probe fails without it.
-- Mark ti,hwmods as deprecated.
-
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v2:
-- Remove original text binding that was left in v1
-- Link to v1: https://lore.kernel.org/r/20260817-ti-davinci-emac-v1-1-022678d966e9@gmail.com
----
- .../devicetree/bindings/net/davinci_emac.txt       |  44 --------
- .../devicetree/bindings/net/ti,davinci-emac.yaml   | 113 +++++++++++++++++++++
- 2 files changed, 113 insertions(+), 44 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/net/davinci_emac.txt b/Documentation/devicetree/bindings/net/davinci_emac.txt
-deleted file mode 100644
-index 5e3579e72e2d..000000000000
---- a/Documentation/devicetree/bindings/net/davinci_emac.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--* Texas Instruments Davinci EMAC
--
--This file provides information, what the device node
--for the davinci_emac interface contains.
--
--Required properties:
--- compatible: "ti,davinci-dm6467-emac", "ti,am3517-emac" or
--  "ti,dm816-emac"
--- reg: Offset and length of the register set for the device
--- ti,davinci-ctrl-reg-offset: offset to control register
--- ti,davinci-ctrl-mod-reg-offset: offset to control module register
--- ti,davinci-ctrl-ram-offset: offset to control module ram
--- ti,davinci-ctrl-ram-size: size of control module ram
--- interrupts: interrupt mapping for the davinci emac interrupts sources:
--              4 sources: <Receive Threshold Interrupt
--			  Receive Interrupt
--			  Transmit Interrupt
--			  Miscellaneous Interrupt>
--
--Optional properties:
--- phy-handle: See ethernet.txt file in the same directory.
--              If absent, davinci_emac driver defaults to 100/FULL.
--- ti,davinci-rmii-en: 1 byte, 1 means use RMII
--- ti,davinci-no-bd-ram: boolean, does EMAC have BD RAM?
--
--The MAC address will be determined using the optional properties
--defined in ethernet.txt.
--
--Example (enbw_cmc board):
--	eth0: emac@1e20000 {
--		compatible = "ti,davinci-dm6467-emac";
--		reg = <0x220000 0x4000>;
--		ti,davinci-ctrl-reg-offset = <0x3000>;
--		ti,davinci-ctrl-mod-reg-offset = <0x2000>;
--		ti,davinci-ctrl-ram-offset = <0>;
--		ti,davinci-ctrl-ram-size = <0x2000>;
--		local-mac-address = [ 00 00 00 00 00 00 ];
--		interrupts = <33
--				34
--				35
--				36
--				>;
--		interrupt-parent = <&intc>;
--	};
-diff --git a/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
-new file mode 100644
-index 000000000000..cb1394f6f2d4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
-@@ -0,0 +1,113 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/ti,davinci-emac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI DaVinci EMAC Ethernet Controller
-+
-+maintainers:
-+  - Tony Lindgren <tony@atomide.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,davinci-dm6467-emac
-+      - ti,am3517-emac
-+      - ti,dm816-emac
-+
-+  reg:
-+    minItems: 1
-+    maxItems: 2
-+
-+  interrupts:
-+    items:
-+      - description: Receive Threshold
-+      - description: Receive
-+      - description: Transmit
-+      - description: Miscellaneous
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: ick
-+
-+  ti,davinci-ctrl-reg-offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: offset to control register
-+
-+  ti,davinci-ctrl-mod-reg-offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: offset to control module register
-+
-+  ti,davinci-ctrl-ram-offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: offset to control module ram
-+
-+  ti,davinci-ctrl-ram-size:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: size of control module ram
-+
-+  ti,davinci-rmii-en:
-+    $ref: /schemas/types.yaml#/definitions/uint8
-+    description: Set to 1 to enable RMII (Reduced MII) mode.
-+
-+  ti,davinci-no-bd-ram:
-+    type: boolean
-+    description:
-+      Indicates that the EMAC does not have on-chip buffer descriptor RAM.
-+
-+  syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to a syscon node providing access to the System Control
-+      Module (SCM) registers. Used on AM3517 and DM816x to read
-+      factory-programmed MAC addresses from eFuse registers.
-+
-+  ti,hwmods:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: TI hwmod name
-+    deprecated: true
-+
-+  power-domains:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - ti,davinci-ctrl-reg-offset
-+  - ti,davinci-ctrl-mod-reg-offset
-+  - ti,davinci-ctrl-ram-offset
-+  - ti,davinci-ctrl-ram-size
-+  - clocks
-+
-+allOf:
-+  - $ref: ethernet-controller.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,davinci-dm6467-emac
-+    then:
-+      properties:
-+        syscon: false
-+        clock-names: false
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    ethernet@220000 {
-+        compatible = "ti,davinci-dm6467-emac";
-+        reg = <0x220000 0x4000>;
-+        ti,davinci-ctrl-reg-offset = <0x3000>;
-+        ti,davinci-ctrl-mod-reg-offset = <0x2000>;
-+        ti,davinci-ctrl-ram-offset = <0>;
-+        ti,davinci-ctrl-ram-size = <0x2000>;
-+        local-mac-address = [ 00 00 00 00 00 00 ];
-+        interrupts = <33>, <34>, <35>, <36>;
-+        clocks = <&psc1 5>;
-+        power-domains = <&psc1 5>;
-+    };
-
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260817-ti-davinci-emac-7ec97feca43e
-
-Best regards,
--- 
-Bhargav
-
+Reviewed-by: Drew Fustini <fustini@kernel.org>
