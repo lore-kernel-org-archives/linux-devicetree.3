@@ -1,146 +1,186 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82A230566F;
-	Mon, 17 Aug 2026 04:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786940712; cv=pass; b=D1/ACbBojr6tkHJF4kBW7ok1l96KwlsP6EHQmujxYzITXgb0SO8itfgYNkrJqqgn62vYc03WJU5L1t/JGOUjpBMazQABRHLkeY+cBQGyHX3B6ed4K99nv0T70h4Y3hwOQhDBuAHyOR9/ornrNYVIrer5WpYfnXJgQXEf3vJ+5Kg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786940712; c=relaxed/simple;
-	bh=tj/YUrP0Y20IM9wcPZHGiH136Mn0RSuTkslJFuKAkY8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Eb3/1G0bX2J8DKHF+3VmDZJ4Ofe1ewkELu1LM2b7Ra2BO749n+D1pLE3aBrX3xY6knZRTH5d7I0xix+D9F5YRP8uiIXlcG1WRDS302QOqG/CZlNm426obnXAv1yedJ7/D/eH66jPCu/F2WEXsWMNGFwRQwDK4DzT/ItaMqQ0TnY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=HT7ksXPE; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8753E3115AF
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786943250; cv=none; b=eIBio5CTrnJsqFIhucWXhJ7unw9pTyc8/4h3U+7fzc6oUaBZtekELxO4cCz0qtKTOiV1gL2zb57m8eI4btc2Z5IQOomifOR46cbAIlD47PmGJkD5isbguaNPeMt9mcq8RiNYTTfU3zvEMvKJpQNDuH98Wcd/mJgl2OeQctMrdVA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786943250; c=relaxed/simple;
+	bh=CZsGDR7Jj3sc7V6hHrZSAF+wL1e/VqLtBl0pEZfNlJY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dUHQH6zTtvgSg45JsjxUxaM0brSthpccj33LPhVZMlv9+09254NNZT3QODxDbChsv72/S+Uh8sLbhRMrRIhPuVn0/gNlMPZDHU0gfWCkJL7pH7WBZ96z610mZmSaBEvcxndc8LFVoBbwHOhcGC6sfTTo3+uMKqdYQG4Xvz4zWkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9zvdPVc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="HT7ksXPE"
-ARC-Seal: i=1; a=rsa-sha256; t=1786940677; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=KzI1Y4GT+H6j9FEFK0hC47a08RldjqCxo5u3mTr9qqfKlDZVmoOyUfrXICQG2NwgpZ8FE+Ubh+4UDRciq9CJeHPkxgDzNKgqBl/Yc7CnKd5BKlAw4d8eyYUrBtYaF88x0PBTj8ufzJawkNoFIx2YqR47wv0jdVR13M5opHN3mhk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786940677; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ZSlZwiisO+mhc+1mZ7YoDuogysbfOwIRDw36DrAX+ww=; 
-	b=Aj1FAqPjgK//aBsflzglzkpsIq1CFmmkhwPTMRpw8QY3komjD3d3hIFDz+1EsBOYfH43VRJlBf9SdcMhp3oZJbu88LJtuRVSJKCyJH4uxcb9TCDkt82Exeu41HlBHQTR8YovOzeK73oE61S/5rHI8AKlD9pRVkfAOu1DIjGsbW8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786940677;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=ZSlZwiisO+mhc+1mZ7YoDuogysbfOwIRDw36DrAX+ww=;
-	b=HT7ksXPEC2RKhnKUehEHLxm7khUfsKuBuVPRjd073C8/12ktpJHyDz4j/gGZbo+E
-	xPufyVRRYjkXwSygr+EjDBIKq7Cneonu+it5XdiRURMqzCd00KOV1RUnr0Q+8Rr9hAq
-	SDqkRDksgLZ0Au33T6acXvJzZnKPLb64VCWYYOk8XPr4MFvfBrrbD1bj4ZyxrFrYsIb
-	JhW/c+XIqKuZdn0SOuq4cjJYIPxfaLpY055c118UZ/XMuDkgTyVeQBYwoqlY3dyPNhE
-	FM0owtXUDG+0pC1nV9lQrAKteqTvnCOwyctLIoky65KZgPjh8kJvDOP9Tmep2u/Szpn
-	HErGxyxb/g==
-Received: by mx.zohomail.com with SMTPS id 1786940674891707.3346436865633;
-	Sun, 16 Aug 2026 21:24:34 -0700 (PDT)
-Message-ID: <3f0268a19aab46d602dffc9e14fc6683af7a20cd.camel@icenowy.me>
-Subject: Re: [PATCH 02/12] clk: thead: th1520-ap: add support for MISC
- subsys clocks
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, Michael Turquette
-	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring	
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  Paul Walmsley	 <pjw@kernel.org>, Palmer
- Dabbelt <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre
- Ghiti <alex@ghiti.fr>, Jisheng Zhang	 <jszhang@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, 	linux-riscv@lists.infradead.org,
- linux-clk@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-gpio@vger.kernel.org,
- linux-phy@lists.infradead.org, 	linux-usb@vger.kernel.org, Han Gao
- <rabenda.cn@gmail.com>, Yao Zi	 <ziyao@disroot.org>
-Date: Mon, 17 Aug 2026 12:24:26 +0800
-In-Reply-To: <aoH9cvTC8vD4NYpB@x1>
-References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
-	 <20260507081710.4090814-3-zhengxingda@iscas.ac.cn>
-	 <aier9XppLeCkJydw@thelio>
-	 <93b867c1b7f5526cc25cb04f838432cd752f5981.camel@icenowy.me>
-	 <aievi0s-3SO8hV6a@thelio> <aijpEqzJ7fM7rGMH@thelio> <aoH9cvTC8vD4NYpB@x1>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9zvdPVc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE771F00ACA
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:07:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786943249;
+	bh=yS38VDvjxIHvJQQePFE/uve25YqUcMbvKDjYh88GLeY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=M9zvdPVc5p3HxjAc7XDyEsBr37odzVTSWEJT0oHPHoifoMRlpVYSqmIUWyAnj62g3
+	 qspdCmXnyg/HuEkBdM+Uc2ZXDfVwVnZ3mNKArVHEO4qVgStfPP8GsWMisfZi1PDXqX
+	 v6vCmOAox13wGPZfDn7sKJPibcbpPug4/T6s7L9OEhpkjUl03q1HDzmz3TckRh6dIg
+	 bbPBB4ARW7NeehEy2SJ8ryIRGZ65cocBEvdkcMh19nB801AoUAgcZaho0N4BzKif0M
+	 ro5LKtHB2SPkwtGFf4aoadIcq+MFeiK0BLPC4FSy/dO7rwhRNs+qqwYsrlZccauGy8
+	 cQXotCctOl+IA==
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15e592da74so404938866b.1
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 22:07:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoncHLVxdf6BJvTmvpHkeQHRU25rFNIkjNj7oK9ACY0eW9hTTytKLaAtUIHv9t5AGd9OsVd58A3AB4v@vger.kernel.org
+X-Gm-Message-State: AOJu0YwtftqH8XcE/TKyB/1POL9hdy+2rjEKGBbITLztTE3NcR1n0Lxx
+	jBOltKd4cy4xdW3+Ko0Tieip9P7cFt28Hs5p60InMSjarZAag9ZZZ1BbIsuD1QNiUtJb1E+iF5N
+	hsiSZ0nGua1CfqHhMsqSnVyXPdXoQtEg=
+X-Received: by 2002:a17:907:3ea0:b0:c20:af9d:454a with SMTP id
+ a640c23a62f3a-c216bbc2660mr283350466b.16.1786943248103; Sun, 16 Aug 2026
+ 22:07:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+References: <20260816-submit-phy-package-fwdevlink-v1-v2-0-23e55dd59fad@gmail.com>
+In-Reply-To: <20260816-submit-phy-package-fwdevlink-v1-v2-0-23e55dd59fad@gmail.com>
+From: Saravana Kannan <saravanak@kernel.org>
+Date: Sun, 16 Aug 2026 22:07:16 -0700
+X-Gmail-Original-Message-ID: <CACRMN=eWk8OTgAQio2COZnpL3EP+Bb4k6iF+ypX_Z0s2pmsUUA@mail.gmail.com>
+X-Gm-Features: AcwNN1UZfpzsKhPz-t7ewM8k9bTtKAZVHDHfDBwqkJA6wsgvrBMdMaJInNki1J4
+Message-ID: <CACRMN=eWk8OTgAQio2COZnpL3EP+Bb4k6iF+ypX_Z0s2pmsUUA@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 0/4] of: mdio: fix fw_devlink for Ethernet PHY packages
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Christian Marangi <ansuelsmth@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-=E5=9C=A8 2026-08-16=E6=97=A5=E7=9A=84 11:12 -0700=EF=BC=8CDrew Fustini=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Tue, Jun 09, 2026 at 09:33:22PM -0700, Drew Fustini wrote:
-> > On Mon, Jun 08, 2026 at 11:15:39PM -0700, Drew Fustini wrote:
-> > > On Tue, Jun 09, 2026 at 02:01:43PM +0800, Icenowy Zheng wrote:
-> > > > =E5=9C=A8 2026-06-08=E4=B8=80=E7=9A=84 23:00 -0700=EF=BC=8CDrew Fus=
-tini=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > On Thu, May 07, 2026 at 04:17:00PM +0800, Icenowy Zheng
-> > > > > wrote:
-> > > > > > The TH1520 SoC contains a MISC_SUBSYS clock controller,
-> > > > > > which
-> > > > > > allows
-> > > > > > controlling of USB related clocks and MMC/SD controller AHB
-> > > > > > bus
-> > > > > > clocks.
-> > > > > >=20
-> > > > > > Add support for this clock controller, in order to enable
-> > > > > > USB
-> > > > > > support.
-> > > > > >=20
-> > > > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > > > ---
-> > > > > > =C2=A0drivers/clk/thead/clk-th1520-ap.c | 64
-> > > > > > +++++++++++++++++++++++++++++++
-> > > > > > =C2=A01 file changed, 64 insertions(+)
-> > > > > >=20
-> > > > > > diff --git a/drivers/clk/thead/clk-th1520-ap.c
-> > > > > > b/drivers/clk/thead/clk-th1520-ap.c
-> > > > > > index 3a6847f1c950f..24f785f0b329a 100644
-> > > > > > --- a/drivers/clk/thead/clk-th1520-ap.c
-> > > > > > +++ b/drivers/clk/thead/clk-th1520-ap.c
-> > > > > [...]
-> > > > > > @@ -1609,6 +1663,12 @@ static int th1520_clk_probe(struct
-> > > > > > platform_device *pdev)
-> > > > > > =C2=A0			return ret;
-> > > > > > =C2=A0	}
-> > > > > > =C2=A0
-> > > > > > +	if (plat_data =3D=3D &th1520_ap_platdata) {
-> > > > > > +		ret =3D devm_clk_hw_register(dev,
-> > > > > > &usb_suspend_div_clk.hw);
-> > > > > > +		if (ret)
-> > > > > > +			return ret;
-> > > > > > +	}
-> > > > >=20
-> > > > > Should usb_suspend_div_clk.hw instead be registered under
-> > > > > 'if (plat_data =3D=3D &th1520_ap_platdata)'?
-> > > >=20
-> > > > Do you mean misc_platdata?
-> > > >=20
-> > > > Yes, this is an copy-n-paste error that deserves a fix.
-> > >=20
-> > > Hah, yes, I also had a typo :)
-> >=20
-> > Assuming that gets fixed in the next rev:
-> >=20
-> > Reviewed-by: Drew Fusini <fustini@kernel.org>
->=20
-> I will fixup the typo and apply to thead-clk-for-next once 7.3-rc1 is
-> released.
+Hi James,
 
-BTW I think the binding patch should go through your tree too.
+Thanks for the patch set.
 
-Thanks,
-Icenowy
+On Sun, Aug 16, 2026 at 5:00=E2=80=AFPM James Hilliard
+<james.hilliard1@gmail.com> wrote:
+>
+> Ethernet PHY package nodes describe resources shared by their member
+> PHYs, but the package node is a container rather than a struct device.
+> fw_devlink therefore represents those dependencies with temporary
+> sync-state-only links from the closest existing ancestor device to each
+> supplier.
+>
+> For OF MDIO, that ancestor is the MDIO bus class device. The bus is
 
->=20
-> Thanks,
-> Drew
+This is not a unique problem, but not too common. This is exactly why
+__fw_devlink_pickup_dangling_consumers() has:
+
+// Email comment: This picks up class devices intentionally
+if (fwnode->dev && fwnode->dev->bus)
+    return;
+
+And not:
+
+// Email comment: This would have not picked up links from class devices.
+if (fwnode->dev)
+    return;
+
+We can have cases of class devices being consumer devices and
+preventing sync_state() and also cases of class devices being supplier
+devices and preventing consumer device probes.
+
+The right fix is to have class devices properly update the device link
+states of MANAGED device links similar to bus devices being probed.
+So, a class device being added should start off with dl_dev_state is
+DL_DEV_PROBING, and if the device_add() finishes without issues, move
+the dl_dev_state to DL_DEV_DRIVER_BOUND. Similar changes for class
+device removal, start off as DL_DEV_UNBINDING, and end up in
+DL_DEV_NO_DRIVER.
+
+This has been in my todo list for way too long (see previous LPC
+talks). So, I'd be happy to review it if someone wants to take a stab
+at it. I have a clear design and corner cases in my head and it just
+needs to get converted to code and I've been swamped.
+
+You just need to create equivalent functions to
+device_links_driver_bound() and call it at the end of device_add() for
+class devices. Or something along those lines.
+
+> driverless, so its proxy links never reach the usual driver-bound
+> cleanup. They can remain after all member PHYs have probed and
+> indefinitely prevent suppliers from receiving sync_state().
+>
+> Before fixing the proxy-link lifecycle, skip supplier links when a bindin=
+g
+> cannot resolve its consumer node. This prevents malformed graph descripti=
+ons
+> from passing a NULL consumer to the fwnode-link core.
+>
+> Fix both parts of the lifecycle. First, factor the sync-state-only
+> cleanup already performed by device_links_driver_bound() and expose it
+> to frameworks which populate children below driverless devices.
+
+This should be fixed at the driver core level. No need to fix it one
+framework at a time.
+
+-Saravana
+
+> Next,
+> treat each enabled member PHY as a consumer of suppliers referenced by
+> its package node. Finally, call the cleanup helper after successful OF
+> MDIO population. The real links from each member PHY retain dependency
+> and runtime-PM ordering.
+>
+> This was found while validating an X-Powers AC300 package whose input
+> clock is supplied by PWM. Before the fix, the PWM driver reported that
+> sync_state() was pending due to stmmac-0 even after the PHY had probed.
+>
+> The complete fix was tested on an Allwinner H616 board with an X-Powers
+> AC300 PHY package. All five real supplier links targeted the member PHY,
+> and no proxy link remained on the driverless MDIO bus. The PWM supplier
+> reached state_synced while continuing to generate the PHY clock. The PHY
+> negotiated a 100 Mbps full-duplex link, 8 MiB was transferred in each
+> direction, and 100 consecutive pings completed without loss.
+>
+> Validation completed with:
+>
+>   - arm64 defconfig object builds of driver core, OF property and OF MDIO
+>     with W=3D1;
+>   - strict per-patch checkpatch checks; and
+>   - the H616/AC300 hardware test described above.
+>
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+> Changes in v2:
+> - Add a preparatory guard for malformed graph consumers (reported by Sash=
+iko)
+> - Rebase on net-next/main
+> - Link to v1: https://patch.msgid.link/20260814-submit-phy-package-fwdevl=
+ink-v1-v1-0-2319844f057a@gmail.com
+>
+> ---
+> James Hilliard (4):
+>       of: property: skip links without a consumer node
+>       driver core: factor sync-state-only link cleanup
+>       of: property: link PHY package suppliers to member PHYs
+>       net: mdio: release fw_devlink proxies after population
+>
+>  drivers/base/core.c        | 74 +++++++++++++++++++++++++++++++++++-----=
+------
+>  drivers/net/mdio/of_mdio.c |  5 +++-
+>  drivers/of/property.c      | 18 ++++++++++-
+>  include/linux/device.h     |  1 +
+>  4 files changed, 79 insertions(+), 19 deletions(-)
+> ---
+> base-commit: e6a5d573d24cd375e09d24f136523cb3cc85c9d3
+> change-id: 20260814-submit-phy-package-fwdevlink-v1-76a8f9efe539
+>
+> Best regards,
+> --
+> James Hilliard <james.hilliard1@gmail.com>
+>
