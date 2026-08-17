@@ -1,158 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E8D3B2FFC
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 10:35:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8A13C3C07;
+	Mon, 17 Aug 2026 10:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786962902; cv=none; b=m1cTn+kikuAysJwHe3hegIxtf7Iropa0m1+Z/EFsPba7KUDspv4TRMzGYvb52OaqMw13uVM8QhCHcETWFgGaKfQrJrWwcZU4Uh9pOU4SGhngHp7QQjkBLVnVzzkAtNa1Fd0XBtPqULQ/dtpqvCtQk9LCP48rw0prpygqDyKXxNU=
+	t=1786963033; cv=none; b=HRffFtOj74kQbI2oQh4OQXVNB3eMSKP9pePiRGxh/Oi/elOBgkwNvwCRvHSi0o+aEiK+oCj0uEJSLtpFCffovTOb9HF4AipWMh8D9n70yuiohSMIlZjGb3ttNgq5RQYZ6EKXncCu9xtLH3YanDkN1Hy7uCMN4xWdx7gaXfHDReo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786962902; c=relaxed/simple;
-	bh=UMQgFGJ9PmCYaM+Wym02fA6KY5uW/MhKdqphBO8RPo0=;
+	s=arc-20240116; t=1786963033; c=relaxed/simple;
+	bh=zbM4CPPd67pGM0y65qpZihfEffw+EIuSqHKs9JCxwT0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NceaEIf8ncdirIB2JIRME3H5/AGGBx4U4R1kYs6AO3EIQaI4z9KmEVNTwctH7LW67gJsIwqU3ei+kPztvII2hHehcnumxPijfYUDsEFIN74golilJj2HeCDUU4Cxg439p6JrOhC3yR0O7fkfpZdUsBolEr8xUPiapOKyuxeWCHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dm7xEGf8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=c3e4iHGInP3hCvI8lh4ptdhZvZtqEtS3wmroc+jXEMjOsVmTyT48m3co1Eg7K9ymbOF5U/pcDntaSlsWM4CkObpiPj5c0D7zO+6CmL063xDnNGvwW1exCI1curd6FyrOAej0Z+4DCYWnj9bek3mTFhjfMAAHNEkO94x0cl1jKac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuWYatru; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dm7xEGf8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B4E1F000E9;
-	Mon, 17 Aug 2026 10:35:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuWYatru"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943D81F000E9;
+	Mon, 17 Aug 2026 10:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786962901;
-	bh=DPpwiJVuoxhKtWtZsq29RRMNJHZMl68KBgMpI+wnHJI=;
+	s=k20260515; t=1786963031;
+	bh=d8Mb8/JbidvvMhvqd8j3liKZ8Iu5OhT4F8l2lpVp31U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dm7xEGf8zVcNkaw8ftBSvyEO0wHakrKdg0Q2/XWXnjDRuv0ZB7IhuvSTlSPOD+r6D
-	 vnvkP+ClzrbN+aygezeCdyXNu+LJ11q0erHygGGUZz62dkgV9+zYroBSR56VzJdlqV
-	 m870soGtycrD2JuhOHqo3KYBkAsPKqc9bBnOEuyGCc3jytW5/kqiesQHZKPDlzJ8fI
-	 2yzjhimmJUYy1djWN9jyAm41sYI7XDFvc5kwqbPTcLg2sUT9SIthweY5lrFJax0eFE
-	 RX38OklaSDdFmVRR4u/Em+LU7JrAb3QDM0iQpRpcGsQkPKv/XoKPS0S0n3CK3PnUGi
-	 HDgDiTHtm0c9w==
+	b=HuWYatruE3dS6rrpZp1hDOoXSje1FlasuyHVOK/IIryijjPBlh1ou4OouKN2NIjuy
+	 0oiIVFBkvYIXzaXht+ty3vAAgTwbDJaPl8KDEWcfQXuLpT1pOGX+Wzfh0zUIZqsw1a
+	 NRCbbIMzhrktbwtIJnD2g43VdTFpNx71hoTYfS6GgQiOJVHEPNk2cnne7oXy+ZBukJ
+	 Sl2N2KiT4iPeBzVfce5RcbMeGWyeLDmHjHM38igqT0vFnH3gyIjcRZXUTqe0t7RZEC
+	 4Gw/B97PwW4+AO0WqAWgMWzNnio/FcOvAfERdoccCHnpAbCvbOENGkcQkhpGh/BgPa
+	 UBiKe7bt4XKdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: exynos: Add initial support for Samsung
- Galaxy Watch FE
+Subject: Re: [PATCH 2/3] clk: samsung: clk-pll: Add support for pll_309
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Aiden Isik" <aidenisik@member.fsf.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org>
-References: <20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org>
- <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org>
+Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260817-for-next-lucky7-clock-v1-2-032e4b229c76@member.fsf.org>
+References: <20260817-for-next-lucky7-clock-v1-0-032e4b229c76@member.fsf.org>
+ <20260817-for-next-lucky7-clock-v1-2-032e4b229c76@member.fsf.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 10:35:00 +0000
-Message-Id: <20260817103500.B4B4E1F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 10:37:11 +0000
+Message-Id: <20260817103711.943D81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Unaligned `no-map` simple-framebuffer region causes memory attribu=
-te aliasing.
-- [Medium] Invalid usage of `reserved-memory` for memory-mapped devices and=
- regions outside system RAM.
-- [Low] Missing unit address in the `misc-rmem` device tree node.
-- [Low] Mathematical error in memory calculation in commit message and comm=
-ents.
+- [High] Logic Error / Out-of-bounds Read when rate_table is empty
+- [Medium] Single-Responsibility Violation: Undocumented architectural refa=
+ctoring
 --
 
---- Patch [2]: [PATCH 2/2] arm64: dts: exynos: Add initial support for Sams=
-ung Galaxy Watch FE ---
-commit 6f30a8a96fda7068a12749f38925083c1838f92d
+--- Patch [2]: [PATCH 2/3] clk: samsung: clk-pll: Add support for pll_309 -=
+--
+commit d62df56ff2e6bf73437e6e25e1335b3fb4571268
 Author: Aiden Isik <aidenisik@member.fsf.org>
 
-arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
+clk: samsung: clk-pll: Add support for pll_309
 
-This commit adds initial device tree support for the Samsung Galaxy Watch F=
-E,
-including bootloader framebuffer and memory definitions.
-
-> Only the lowest 490MiB and highest 512MiB of memory are used for now.
-> The 488MiB between the addresses of 0x9ea00000 and 0xbe680000 is excluded
-
-[Severity: Low]
-This isn't a bug, but the math in the commit message seems slightly off.
-
-0xbe680000 - 0x9ea00000 is 0x1fc80000, which is 508.5 MiB, not 488 MiB.
-
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts b/arch/arm6=
-4/boot/dts/exynos/exynos5515-lucky7.dts
-> index 0000000000000..f91ea7e44cf86
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
-> @@ -0,0 +1,106 @@
-[ ... ]
-> +	memory@80000000 {
-> +		/*
-> +		 * Use the lowest 490MiB and highest 512MiB of memory.
-> +		 * The 488MiB between the addresses of 0x9ea00000 and
-
-[Severity: Low]
-This isn't a bug, but similarly to the commit message, the calculated memory
-size here is 508.5 MiB, not 488 MiB.
-
-> +		 * 0xbe680000 is currently unused due to any memory accesses
-> +		 * in several ranges between those addresses causing the core
-> +		 * performing the accesses to stall.
-> +		 */
-> +		reg =3D <0x0 0x80000000 0x1ea00000>,
-[ ... ]
-> +	reserved-memory {
-> +		ranges;
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <1>;
-> +
-> +		framebuffer@9e0cf000 {
-> +			reg =3D <0x0 0x9e0cf000 (396 * 396 * 4)>;
-> +			no-map;
-> +		};
-
-[Severity: High]
-Does this unaligned size combined with no-map cause memory attribute aliasi=
+This commit adds support for the pll_309 used in the Exynos5515 SoC, defini=
 ng
-on arm64?
+the PLL characteristics which are handled similarly to pll_531x.
 
-The region has an unaligned size of 0x99240 (627264 bytes). The no-map
-property drops this exact byte range from the kernel's linear map, leaving =
-the
-remainder of the page (0x9e168240-0x9e169000) to be mapped as Normal Cachea=
-ble
-memory.
-
-When the simple-framebuffer driver calls ioremap_wc(), it maps the entire p=
-age
-at 0x9e168000 as Write-Combine (Normal Non-Cacheable), creating an attribute
-alias.
-
-> +
-> +		misc-rmem {
-> +			/*
-> +			 * Some of these regions belong to memory-mapped
-> +			 * devices, and will be assigned to drivers as support
-> +			 * is added.
-> +			 *
-> +			 * Other regions belong to the TrustZone firmware
-> +			 * and should never be touched.
-> +			 */
-> +			reg =3D <0x0 0x87000000 0x200000>,
+> diff --git a/drivers/clk/samsung/clk-pll.c b/drivers/clk/samsung/clk-pll.c
+> index e74552846ba34..8b1474aeaf0c8 100644
+> --- a/drivers/clk/samsung/clk-pll.c
+> +++ b/drivers/clk/samsung/clk-pll.c
+> @@ -1593,32 +1593,35 @@ static void __init _samsung_clk_register_pll(stru=
+ct samsung_clk_provider *ctx,
+>  {
+>  	struct samsung_clk_pll *pll;
+>  	struct clk_init_data init;
+> -	unsigned int len =3D 0;
+> -	int ret;
+> +	int ret, len;
+> =20
+> -	if (pll_clk->rate_table) {
+> -		/* find count of rates in rate_table */
+> -		while (pll_clk->rate_table[len].rate !=3D 0)
+> -			len++;
+> -	}
+> -
+> -	pll =3D kzalloc_flex(*pll, rate_table, len);
+> +	pll =3D kzalloc_obj(*pll);
 
 [Severity: Medium]
-Is it valid to use reserved-memory for memory-mapped devices and regions
-outside system RAM?
+This isn't a bug, but the commit message only mentions adding support for t=
+he
+new pll_309 type, while this code changes the allocation semantics of the
+rate_table across the entire driver, switching from a flexible array member
+to a separate pointer allocation.=20
 
-The Devicetree specification dictates that reserved-memory regions MUST be
-contained within a defined /memory node. The misc-rmem node includes
-addresses (e.g., 0xa0000000, 0xb0000000) that fall within the
-0x9ea00000-0xc0000000 range explicitly omitted from the /memory node.
+Could this architectural refactoring be split into a separate patch or
+documented in the commit message?
 
-Additionally, since these are MMIO regions, shouldn't they be described as
-device nodes on a bus rather than reserved RAM?
+[ ... ]
 
-[Severity: Low]
-This isn't a bug, but this node is missing the unit address @87000000
-to match the first reg entry, which will generate a unit_address_vs_reg dtc
-compiler warning.
+> @@ -1637,7 +1640,7 @@ static void __init _samsung_clk_register_pll(struct=
+ samsung_clk_provider *ctx,
+>  	case pll_a9fracm:
+>  		pll->enable_offs =3D PLL35XX_ENABLE_SHIFT;
+>  		pll->lock_offs =3D PLL35XX_LOCK_STAT_SHIFT;
+> -		if (!pll->rate_count)
+> +		if (!pll->rate_table)
+
+[Severity: High]
+If a clock is registered with an empty rate table containing only the zero
+terminator, kmemdup_array() is called with a count of 0 earlier in this
+function and returns ZERO_SIZE_PTR rather than NULL.
+
+Since ZERO_SIZE_PTR is not NULL, this check evaluates to false, which
+incorrectly assigns the full operations instead of the safe min_ops fallbac=
+k.
+
+If samsung_pll_determine_rate() is subsequently called, it skips its loop
+because rate_count is 0, and attempts to access rate_table[-1]:
+
+samsung_pll_determine_rate() {
+    ...
+    req->rate =3D rate_table[i - 1].rate;
+}
+
+Since rate_table is ZERO_SIZE_PTR, will this result in an out-of-bounds
+memory read?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next-l=
-ucky7-v1-0-42ffb2b71ba2@member.fsf.org?part=3D2
+ucky7-clock-v1-0-032e4b229c76@member.fsf.org?part=3D2
