@@ -1,169 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BA430FC26
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0281FE44A
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786943844; cv=none; b=A+n+qdeABj9VrTJKRyYkDH3Kny+JtV8ykaofLkkD2qEoV48WS2Fwna20RgnoCW2piYy8DEhgl/y+Cv0zB2DTTaaFYjpA5NByvP9bVUmIobHbdfCf8FURcV5AP802rNIJGILkOoJBoU1K3GygQvOS/Siu7vg847vl7/vG+aPCb78=
+	t=1786943998; cv=none; b=c25/nWFvGKPA1W/wijJhCq/F5GR2KWF7wynlaay6dmyp5Xtw8JKRq7xd1eIS9cnKbG3LPKLXebs82Iv9BvvsY1ZbWaBBqcBbmQCtXwOKu///UPoX+nVzBzVpBiFNHQcVWkavxnM+KaRV63hw48lH15xkfhswOqU39t2apHXaU9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786943844; c=relaxed/simple;
-	bh=d42/+Pww/12ox/O/LWwTiCYkgjGPcycRXDc7F6MpcyA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GsNE4H2ns4z55Lxp8VRGsqfCcL8DrzPeNl6upt+R885nkIZXtm/538m8qQz3fKHoFQ/RGFz2RVjM78HU55SlfV+Ui3H8gHTmptFsNEYG93YCFFphLcchTLdCUZriCzVr3adwDnXHfOWeIWF44gcIbOzHsLcn84glZ4AUxgNweXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eFDVy3RD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786943998; c=relaxed/simple;
+	bh=32S7wLkq5+tLQBpm2lcEviLkDWVo0Khy4ibvJq8FX7g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OYASIWiAPINcMW0gFO0QtO9fhq0ZFz0L0yvDThKZ5pk6e1mWxexFz9xOv59CrF7uJNfLkLM006DkHGEOUonKhrAu8OuwjbDwuW0YzmbTDmouhUMjSAX+WgGBSrheKAJODh8NH5efP51f0Sl5+9cq++Uk35K7nphTKFNf24yzsq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at; spf=pass smtp.mailfrom=sigma-star.at; dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b=d1P8ne3m; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigma-star.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eFDVy3RD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F7741F00A3D
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:17:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786943841;
-	bh=BTdDl9mGi1K6PeXIdK1AsuL9aFR1Cv2yCvx2rmDIl7w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eFDVy3RDxbCJM/aYCnCnPvbZeEbGDdrXqHJTPuDyvRcw8XOJ/RDX2neC5FQWYW+rr
-	 0f9VazQbx5BdMayZpiyBiemP79aeK41wTBfHdCHwo9WObCB8zdeh7xOn4k9KGi+xf7
-	 SY2ycZTqM8EIcltf3JsnetnmRy8rQFQP1l8ly1ItIeDpkpxNUOQdQf6sub/uocB50a
-	 pxebmRiYp0NcyI70y5jps/TvUn6YYukt8ztH5Q+MIu84QbUfU0dOpFQVm6XNs+rYI7
-	 OWiPxPEVL4bYTPnCksnQ0iMap4iH5zbrN3DIw5kbUx0IZbQ617LB3U02TP/p9tsBex
-	 U5lMWj/tWhuQQ==
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a386a34603so52978a12.1
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 22:17:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RooZL7hn7DNUJflXmT0N4NjEufdDsIrKXk0nTYu+BeH2Z3IdWClE9JzJ8fooMM0pWTrRmC0um5vpko0@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLb0ipQVvhWnhyy9zg1beiU3Fhp+h9gz738Zlj8PYCec72pgNl
-	OhD/snJMSn045jxolTVIGQJP5GwTSlP/oTdY7sv/VIqLkOorveNg5BLxP15uvDq/ne0/Jzdd6d8
-	tShwg0LnIKQvPJ5Wa3cRUrNXR5QNynWc=
-X-Received: by 2002:a05:6402:1cc7:b0:698:4501:3a8e with SMTP id
- 4fb4d7f45d1cf-6a38af1daadmr6397998a12.9.1786943840111; Sun, 16 Aug 2026
- 22:17:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b="d1P8ne3m"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4954a32cf1eso14513525e9.3
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 22:19:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sigma-star.at; s=google; t=1786943993; x=1787548793; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sOAzM3F+gJS+8ekXWLBSmACUEeC2z+0rXqaknxPGi6s=;
+        b=d1P8ne3mmIr/eZfpNRJzMjatk76pNn4ddUo3uVDsa6khKPhu6AsYKtiITfy7kAF8aD
+         mQxkg1I+/fHd8ecrfCPUYxa5p63droHpndgLLEiNhIbVovOcSut6qS1y5PbTGWHKAHxl
+         4lnTk2gmnQyKLq9oZ4Nyu+aRGiQStuZKoKetBD+/3AW94q+ukOSg2Ub9VMEHvTxEN+Q7
+         o8Z+vtaWm/DPIU8ZG2UYGKlv3MeT4LFQADF0WfXBpEg8ukIIOs8ixHBQNU4+xQIftMl0
+         lRmAP7uAU1tLW/06oTy5zC6EL7F/ZFzw+tnQ+QUxisp1rMHxvuru8gt5jw7FmcgLQJwV
+         rKTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786943993; x=1787548793;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sOAzM3F+gJS+8ekXWLBSmACUEeC2z+0rXqaknxPGi6s=;
+        b=SmmXhcOWFJ4zZnGXQr4ytx6zVN9+Wwdg+Cu4b+lxnCZloSueKuVf9c3j5iKfXrvU4d
+         d92hkTpiEkM7tjg502QoIElYyre+eJJwrDNIVUtrmvCrBnvsTNoySaQJlUpxMim9Rv6f
+         Nmjfx1BFvT66ImDQZc/R/2k4lfmMBFlveCT1RAQMhXVPsjlICyam9awabDMLsxb8zJOZ
+         2uAb/0FAMOxCZDl5oSug8dj7ToRFLguAbDHx0w6OEZYPnVa7gNfrGEB9bYZJmVOdM8NJ
+         9sXgI4FIMj6zdLfiRxfoQVJAtvzCwj84YmvKozyH0DsBwtrVWw7KU97SKGprI/TFYac9
+         gxVA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpp3J6E7sY2yHQbp8ExqrPjuJvgyU1iNBqhoXNcQ+77dHPhxpccRrgRhzolj4c8Tzl8MOr3qaaARpEG@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBrAoeKQjGK8ub3mDwuOV0k+xPhF8/cx/WjU9TrEi8JUij0kMs
+	DokfLYvnb83zu0peJZzklkTU1Pk2yfVkA7dAauuLSZiFjx3HVlFGOuLJB/bPiV8Z78I=
+X-Gm-Gg: AR+sD13y20hQDz1IqLd2eGwOKnP2izEbIx1RZi76Iw+az77Ijxg11Zifs5ksGUwHK5r
+	DMc/25c+Cx6htmqGYYLXHZf17eSnY6dgjFDlPBV7c/z28Q9xpwk9b+Zp70C1GimLUe0Rq4Ll7VQ
+	ykWxlR895KGG7a1kVFl15B3Wm0utLsE0iEHpJhnmv6CpMtjKN8INEpyXk9IZkAuxUzSGHDvWGd1
+	7PiFFAOjBS4EYyi3DgWkBX+ZAGbvpe/Dni7xJg5akZxW5z+6TkWlYx7BHI3ayzoY9OtxnAlyd/6
+	8/igVc7pcHS1psRFIwUC+Cf3ADZg7hAroDWQMhHWoLuwZykK5pEYjKlrs8rCHM7tr3ODyi/aUnB
+	gffIEsu99+jzx1mC1DXj7x2/AIcEr9v4rhMBvPADCx7VfM6OiiMihDjElXnMjGk9E0VxMTVN9O4
+	CMHpz9lT3hceO0XD0iZVpluK+75WUqCz9tiB/AzpA2nDPfTYA5EfQGkDqB0Mke/QfY+kW0Q1FBc
+	dsPdr9sgEg=
+X-Received: by 2002:a05:600c:4924:b0:495:503f:cf9a with SMTP id 5b1f17b1804b1-49987971a6amr210142505e9.9.1786943993346;
+        Sun, 16 Aug 2026 22:19:53 -0700 (PDT)
+Received: from [10.115.255.165] ([82.150.214.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a3b51asm836378f8f.11.2026.08.16.22.19.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 16 Aug 2026 22:19:53 -0700 (PDT)
+Message-ID: <3c11637c-8e81-44b2-8692-a5c7940ab7c2@sigma-star.at>
+Date: Mon, 17 Aug 2026 07:19:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
-In-Reply-To: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
-From: Saravana Kannan <saravanak@kernel.org>
-Date: Sun, 16 Aug 2026 22:17:08 -0700
-X-Gmail-Original-Message-ID: <CACRMN=cXSy0ZYH78sQ88QKkwYtbE768kh=KzRhkYYCO4SX2m-Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UWVqBdFIAWK6GrswyzFK9ILDIU3DKpAjWy0YIJOSXr8xMcH5Q8BBP4ZnQ
-Message-ID: <CACRMN=cXSy0ZYH78sQ88QKkwYtbE768kh=KzRhkYYCO4SX2m-Q@mail.gmail.com>
-Subject: Re: [PATCH v3] of: property: add i2c-parent to fw_devlink supplier bindings
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>, sashiko@lists.linux.dev
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: phy: ti,phy-usb3: Add aspcie
+ reference clock setting
+To: Rob Herring <robh@kernel.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, johan@kernel.org, rogerq@ti.com,
+ Julian.FRIEDRICH@frequentis.com, upstream+omap@sigma-star.at
+References: <20260806091112.164695-1-david.oberhollenzer@sigma-star.at>
+ <20260806091112.164695-2-david.oberhollenzer@sigma-star.at>
+ <20260812022031.GA554483-robh@kernel.org>
+Content-Language: en-US
+From: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+In-Reply-To: <20260812022031.GA554483-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 15, 2026 at 8:33=E2=80=AFPM Abdurrahman Hussain
-<abdurrahman@nexthop.ai> wrote:
->
-> Platform-device i2c muxes (i2c-mux-reg, i2c-mux-gpio, ...) reference
-> the bus they multiplex with an i2c-parent phandle and hold a reference
-> on that adapter from probe until remove. Unlike muxes that are clients
-> on the parent bus, they live outside the adapter's device hierarchy,
-> so nothing orders their teardown against it: if the adapter's device
-> is unbound first =E2=80=94 e.g. while reverting a device-tree overlay who=
-se
-> changeset attached the mux nodes before the controller nodes =E2=80=94
-> i2c_del_adapter() blocks forever in
-> wait_for_completion(&adap->dev_released), waiting for a reference that
-> is only dropped later in the same teardown sequence.
->
-> Teach fw_devlink about i2c-parent so the core creates the
-> corresponding device links: consumers are unbound before the parent
-> adapter's device, and probe ordering no longer needs -EPROBE_DEFER.
->
-> A plain DEFINE_SIMPLE_PROP() cannot be used because the property has
-> two incompatible layouts: the i2c mux bindings hold a list of bare
-> phandles (i2c-demux-pinctrl takes several), while toshiba,tc9563 holds
-> a single phandle followed by an i2c slave-address cell. The two forms
-> are indistinguishable in the flattened tree, and a 0-cell parse of the
-> tc9563 form would read the slave address as a phandle, linking the
-> consumer to whatever node happens to carry that phandle value. Use a
-> custom parser that only takes entry 0 for toshiba,tc9563 nodes.
->
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> ---
-> Changes in v3:
-> - Fix the tc9563 compatible check: match "pci1179,0623" (the actual
->   binding compatible) instead of "toshiba,tc9563", which never matched
->   and let the bare-phandle parser misread the i2c slave-address cell as
->   a phandle (Sashiko AI review)
-> - Link to v2: https://patch.msgid.link/20260815-b4-of-property-add-i2c-pa=
-rent-v2-1-239c6da9e097@nexthop.ai
->
-> Changes in v2:
-> - Use a custom parser instead of DEFINE_SIMPLE_PROP: toshiba,tc9563 puts
->   an i2c slave-address cell after the phandle, which a 0-cell parse
->   would misread as a phandle (Sashiko AI review, Rob). Kept the full
+Hi,
 
-A bit of a tangent, is this a bug in Sashiko bot?
-It just dropped me from the reply in the v1 patch set. Any idea why?
+On 8/12/26 4:20 AM, Rob Herring wrote:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: ti,phy-pipe3-pcie
+>> +    then:
+>> +      properties:
+>> +        ti,syscon-acspcie-tx-rx: true
+> 
+> This has no effect. Invert the if and move the else here.
+> 
 
--Saravana
+Before I send another version of this patch set, are you really
+sure about this?
 
->   phandle-list parse for other users since i2c-demux-pinctrl takes
->   several parents; only tc9563 is limited to entry 0
-> - Move the Signed-off-by into the commit message proper; v1 had it below
->   the '---' cutter line where it would be dropped on apply
-> - Link to v1: https://patch.msgid.link/20260813-b4-of-property-add-i2c-pa=
-rent-v1-1-a2487e920ce1@nexthop.ai
->
-> To: Rob Herring <robh@kernel.org>
-> To: Saravana Kannan <saravanak@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  drivers/of/property.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->
-> diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 72cf12907de0..9bf3bc0a5f38 100644
-> --- a/drivers/of/property.c
-> +++ b/drivers/of/property.c
-> @@ -1471,6 +1471,22 @@ static struct device_node *parse_gpio_compat(struc=
-t device_node *np,
->         return sup_args.np;
->  }
->
-> +static struct device_node *parse_i2c_parent(struct device_node *np,
-> +                                           const char *prop_name, int in=
-dex)
-> +{
-> +       if (strcmp(prop_name, "i2c-parent"))
-> +               return NULL;
-> +
-> +       /* tc9563 (pci1179,0623) is <phandle addr>; every other user is b=
-are phandles */
-> +       if (of_device_is_compatible(np, "pci1179,0623")) {
-> +               if (index)
-> +                       return NULL;
-> +               return of_parse_phandle(np, prop_name, 0);
-> +       }
-> +
-> +       return of_parse_phandle(np, prop_name, index);
-> +}
-> +
->  static struct device_node *parse_interrupts(struct device_node *np,
->                                             const char *prop_name, int in=
-dex)
->  {
-> @@ -1562,6 +1578,7 @@ static const struct supplier_bindings of_supplier_b=
-indings[] =3D {
->         { .parse_prop =3D parse_resets, },
->         { .parse_prop =3D parse_leds, },
->         { .parse_prop =3D parse_backlight, },
-> +       { .parse_prop =3D parse_i2c_parent, },
->         { .parse_prop =3D parse_panel, },
->         { .parse_prop =3D parse_msi_parent, },
->         { .parse_prop =3D parse_pses, },
->
-> ---
-> base-commit: d58772d8520c7ef247c4b95c9bd76d3a25da9ff5
-> change-id: 20260813-b4-of-property-add-i2c-parent-168c6d7f1934
->
-> Best regards,
-> --
-> Abdurrahman Hussain <abdurrahman@nexthop.ai>
->
+Not only did I copy that entire block from the one directly above,
+(the one that is supposed to only allow syscon-pllreset compatible
+is set to ti,phy-pipe3-sata), I actually tested this by running
+make dt_binding_check.
+
+If I intentionally break the example by setting a wrong compatible
+string, I get a "False schema does not allow" type message, same
+as when I use the syscon-pllreset property with the wrong compat
+string.
+
+Is the existing check broken too? Is there something different
+supposed to happen?
+
+Greetings,
+
+David
+
