@@ -1,138 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E80C3246ED
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:07:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BA430FC26
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:17:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786943273; cv=none; b=MJafVRPnQ8Qes0ytZGV6oYDIQETjkJHZ+HwAb67MpBvu97KscwRlL9laAICrreyRvgiDLKrMDXDg67suZX667Iw0bSTxIaoPOY8jLoEeP4ecO0fpQB2y1H5Fjk6Snk2M8K06huIJCr0n7QK5Qu6feyp+WLbR45K2aNpy7iF1myg=
+	t=1786943844; cv=none; b=A+n+qdeABj9VrTJKRyYkDH3Kny+JtV8ykaofLkkD2qEoV48WS2Fwna20RgnoCW2piYy8DEhgl/y+Cv0zB2DTTaaFYjpA5NByvP9bVUmIobHbdfCf8FURcV5AP802rNIJGILkOoJBoU1K3GygQvOS/Siu7vg847vl7/vG+aPCb78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786943273; c=relaxed/simple;
-	bh=dPsF7Xioqbe5fhKxW0MfomQ1+z5/xpPeeyvux+IR1Mc=;
+	s=arc-20240116; t=1786943844; c=relaxed/simple;
+	bh=d42/+Pww/12ox/O/LWwTiCYkgjGPcycRXDc7F6MpcyA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AhEbeDlo690OJj1IP0lzjLbmng0H7LIO6Wdv4sKxMHE7fAmUa4lSAoySYJtY5Zf5DRJRY1JsJL5vl5vlTj6H/7rKvX6XHH/nupMmOaZy8Yxb6USJpS/KzlyM6mctbRXkhCTUIxhicxRdt5EJJlST2U+rReLTzTEl3pdob0tGc0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GT4zDEDz; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=GsNE4H2ns4z55Lxp8VRGsqfCcL8DrzPeNl6upt+R885nkIZXtm/538m8qQz3fKHoFQ/RGFz2RVjM78HU55SlfV+Ui3H8gHTmptFsNEYG93YCFFphLcchTLdCUZriCzVr3adwDnXHfOWeIWF44gcIbOzHsLcn84glZ4AUxgNweXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eFDVy3RD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GT4zDEDz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E865E1F0155A
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:07:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eFDVy3RD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F7741F00A3D
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:17:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786943271;
-	bh=CHRP4WWAlhnlIcngLxDf76+lEj0u2TNpiNX33keCcBU=;
+	s=k20260515; t=1786943841;
+	bh=BTdDl9mGi1K6PeXIdK1AsuL9aFR1Cv2yCvx2rmDIl7w=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GT4zDEDzS49pxkVS++aYPzKQsT8Lw43dh7yC/vX/7yccfZORo52w4xxrDi7FcENIm
-	 N7HFli1Sky06U4n82gtJCI2ZkKWyskW163FlVluYkuuYpIu3q0IlkFnhNEVr2n863h
-	 XRsa1dR2Y4gY9NO9NTHGj+KXz6oQ0Wop02LXZI3x83qx+tQ5Lv3Ag6ENnTu1HPJf6e
-	 7pqvaIxmt0WQm0qAz6kE1hpzF3Zd43TzYATDPKQ4IROU5sfnyitWiNMOWH3EoRw7Qg
-	 nEoCbhCEXQeylCPfSHr6knxSn7Zg0/ZvCZN6mP3f6hvtiV9DGXTGxaE1Bwqn7RCjOl
-	 NVeLaPhc0u41A==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a17c04563fso4255828a12.3
-        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 22:07:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr6zxtwekG8nODc7MhBUc2n8xhilPySAfbZn00AllvN1hXNErScR8PHre/42MKEueKrjxRVIwLMZyt9@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkKncQNJcGsI7ko3ZSeB5grtnTDmAMmn2vTzmrbVLBgjG84fRT
-	7TY6qukSUPAQRzJ0kqQ7hsnu9RzDRcjFzJ7nXaQgI72zkWh2D/dTNmizv8lv0/pE/4rMgeeaOjv
-	muv5hWQ1Pe6NoUCs5z46lHpgL8Sn88iw=
-X-Received: by 2002:a05:6402:4345:b0:6a1:29ca:681e with SMTP id
- 4fb4d7f45d1cf-6a38a927f6dmr9252296a12.7.1786943270802; Sun, 16 Aug 2026
- 22:07:50 -0700 (PDT)
+	b=eFDVy3RDxbCJM/aYCnCnPvbZeEbGDdrXqHJTPuDyvRcw8XOJ/RDX2neC5FQWYW+rr
+	 0f9VazQbx5BdMayZpiyBiemP79aeK41wTBfHdCHwo9WObCB8zdeh7xOn4k9KGi+xf7
+	 SY2ycZTqM8EIcltf3JsnetnmRy8rQFQP1l8ly1ItIeDpkpxNUOQdQf6sub/uocB50a
+	 pxebmRiYp0NcyI70y5jps/TvUn6YYukt8ztH5Q+MIu84QbUfU0dOpFQVm6XNs+rYI7
+	 OWiPxPEVL4bYTPnCksnQ0iMap4iH5zbrN3DIw5kbUx0IZbQ617LB3U02TP/p9tsBex
+	 U5lMWj/tWhuQQ==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a386a34603so52978a12.1
+        for <devicetree@vger.kernel.org>; Sun, 16 Aug 2026 22:17:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RooZL7hn7DNUJflXmT0N4NjEufdDsIrKXk0nTYu+BeH2Z3IdWClE9JzJ8fooMM0pWTrRmC0um5vpko0@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLb0ipQVvhWnhyy9zg1beiU3Fhp+h9gz738Zlj8PYCec72pgNl
+	OhD/snJMSn045jxolTVIGQJP5GwTSlP/oTdY7sv/VIqLkOorveNg5BLxP15uvDq/ne0/Jzdd6d8
+	tShwg0LnIKQvPJ5Wa3cRUrNXR5QNynWc=
+X-Received: by 2002:a05:6402:1cc7:b0:698:4501:3a8e with SMTP id
+ 4fb4d7f45d1cf-6a38af1daadmr6397998a12.9.1786943840111; Sun, 16 Aug 2026
+ 22:17:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260816-submit-phy-package-fwdevlink-v1-v2-0-23e55dd59fad@gmail.com>
- <20260816-submit-phy-package-fwdevlink-v1-v2-3-23e55dd59fad@gmail.com>
-In-Reply-To: <20260816-submit-phy-package-fwdevlink-v1-v2-3-23e55dd59fad@gmail.com>
+References: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
+In-Reply-To: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
 From: Saravana Kannan <saravanak@kernel.org>
-Date: Sun, 16 Aug 2026 22:07:38 -0700
-X-Gmail-Original-Message-ID: <CACRMN=f2RYJbgTdBvb6R4EZ2vGzux6ALfoB_Td2HBp-0k4LEAw@mail.gmail.com>
-X-Gm-Features: AcwNN1UJ5Vyf0Luntl1LV1hQIf97qhuC4K-SYL3G9ab3BtcopvWi0iTczMQ4KaM
-Message-ID: <CACRMN=f2RYJbgTdBvb6R4EZ2vGzux6ALfoB_Td2HBp-0k4LEAw@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 3/4] of: property: link PHY package suppliers
- to member PHYs
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Christian Marangi <ansuelsmth@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, netdev@vger.kernel.org
+Date: Sun, 16 Aug 2026 22:17:08 -0700
+X-Gmail-Original-Message-ID: <CACRMN=cXSy0ZYH78sQ88QKkwYtbE768kh=KzRhkYYCO4SX2m-Q@mail.gmail.com>
+X-Gm-Features: AcwNN1UWVqBdFIAWK6GrswyzFK9ILDIU3DKpAjWy0YIJOSXr8xMcH5Q8BBP4ZnQ
+Message-ID: <CACRMN=cXSy0ZYH78sQ88QKkwYtbE768kh=KzRhkYYCO4SX2m-Q@mail.gmail.com>
+Subject: Re: [PATCH v3] of: property: add i2c-parent to fw_devlink supplier bindings
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>, sashiko@lists.linux.dev
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 16, 2026 at 5:00=E2=80=AFPM James Hilliard
-<james.hilliard1@gmail.com> wrote:
+On Sat, Aug 15, 2026 at 8:33=E2=80=AFPM Abdurrahman Hussain
+<abdurrahman@nexthop.ai> wrote:
 >
-> Ethernet PHY package nodes describe shared resources for their member
-> PHYs, but are not populated as struct devices. fw_devlink consequently
-> represents the package dependencies with proxy links to the closest
-> ancestor device.
+> Platform-device i2c muxes (i2c-mux-reg, i2c-mux-gpio, ...) reference
+> the bus they multiplex with an i2c-parent phandle and hold a reference
+> on that adapter from probe until remove. Unlike muxes that are clients
+> on the parent bus, they live outside the adapter's device hierarchy,
+> so nothing orders their teardown against it: if the adapter's device
+> is unbound first =E2=80=94 e.g. while reverting a device-tree overlay who=
+se
+> changeset attached the mux nodes before the controller nodes =E2=80=94
+> i2c_del_adapter() blocks forever in
+> wait_for_completion(&adap->dev_released), waiting for a reference that
+> is only dropped later in the same teardown sequence.
 >
-> The MDIO bus is a class device without a driver, so such a proxy can
-> remain available indefinitely and prevent a supplier from receiving its
-> sync_state() callback even after every PHY has probed.
+> Teach fw_devlink about i2c-parent so the core creates the
+> corresponding device links: consumers are unbound before the parent
+> adapter's device, and probe ordering no longer needs -EPROBE_DEFER.
 >
-> Treat every enabled member PHY as a consumer of the common package
-> suppliers. The links can then be converted to links for the real PHY
-> devices and retired through their normal driver lifecycle.
+> A plain DEFINE_SIMPLE_PROP() cannot be used because the property has
+> two incompatible layouts: the i2c mux bindings hold a list of bare
+> phandles (i2c-demux-pinctrl takes several), while toshiba,tc9563 holds
+> a single phandle followed by an i2c slave-address cell. The two forms
+> are indistinguishable in the flattened tree, and a 0-cell parse of the
+> tc9563 form would read the slave address as a phandle, linking the
+> consumer to whatever node happens to carry that phandle value. Use a
+> custom parser that only takes entry 0 for toshiba,tc9563 nodes.
 >
-> Fixes: 385ef48f4686 ("net: phy: add support for scanning PHY in PHY packa=
-ges nodes")
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 > ---
->  drivers/of/property.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
+> Changes in v3:
+> - Fix the tc9563 compatible check: match "pci1179,0623" (the actual
+>   binding compatible) instead of "toshiba,tc9563", which never matched
+>   and let the bare-phandle parser misread the i2c slave-address cell as
+>   a phandle (Sashiko AI review)
+> - Link to v2: https://patch.msgid.link/20260815-b4-of-property-add-i2c-pa=
+rent-v2-1-239c6da9e097@nexthop.ai
+>
+> Changes in v2:
+> - Use a custom parser instead of DEFINE_SIMPLE_PROP: toshiba,tc9563 puts
+>   an i2c slave-address cell after the phandle, which a 0-cell parse
+>   would misread as a phandle (Sashiko AI review, Rob). Kept the full
+
+A bit of a tangent, is this a bug in Sashiko bot?
+It just dropped me from the reply in the v1 patch set. Any idea why?
+
+-Saravana
+
+>   phandle-list parse for other users since i2c-demux-pinctrl takes
+>   several parents; only tc9563 is limited to entry 0
+> - Move the Signed-off-by into the commit message proper; v1 had it below
+>   the '---' cutter line where it would be dropped on apply
+> - Link to v1: https://patch.msgid.link/20260813-b4-of-property-add-i2c-pa=
+rent-v1-1-a2487e920ce1@nexthop.ai
+>
+> To: Rob Herring <robh@kernel.org>
+> To: Saravana Kannan <saravanak@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  drivers/of/property.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
 >
 > diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 38c0c7dc428a..d59bcb1f29de 100644
+> index 72cf12907de0..9bf3bc0a5f38 100644
 > --- a/drivers/of/property.c
 > +++ b/drivers/of/property.c
-> @@ -1272,6 +1272,20 @@ static void of_link_to_phandle(struct device_node =
-*con_np,
->                 tmp_np =3D of_get_next_parent(tmp_np);
->         }
->
-> +       /*
-> +        * An Ethernet PHY package node describes resources shared by its=
- member
-> +        * PHYs, but is not populated as a struct device. Link every enab=
-led
-> +        * member PHY to those suppliers so fw_devlink can use the real c=
-onsumer
-> +        * devices instead of leaving a proxy link on the MDIO bus indefi=
-nitely.
-> +        */
-> +       if (of_node_name_eq(con_np, "ethernet-phy-package")) {
-> +               for_each_available_child_of_node_scoped(con_np, child)
-> +                       fwnode_link_add(of_fwnode_handle(child),
-> +                                       of_fwnode_handle(sup_np), flags);
-> +
-> +               return;
-> +       }
-> +
-
-The design philosophy behind fwnode links is that it's purely a
-parsing optimization. It doesn't care how this is later converted into
-device links. If one DT node points to another, then there'll be a
-fwnode link between those two. Whether the node gets converted to a
-struct device or not and how that should be handles should be outside
-of the fwnode links code. So, please solve this elsewhere.
-
-Without digging too deep into the code, this feels more like something
-that should be solved at the MDIO or phy layer.
-
-Thanks,
-Saravana
-
-
->         fwnode_link_add(of_fwnode_handle(con_np), of_fwnode_handle(sup_np=
-), flags);
+> @@ -1471,6 +1471,22 @@ static struct device_node *parse_gpio_compat(struc=
+t device_node *np,
+>         return sup_args.np;
 >  }
 >
+> +static struct device_node *parse_i2c_parent(struct device_node *np,
+> +                                           const char *prop_name, int in=
+dex)
+> +{
+> +       if (strcmp(prop_name, "i2c-parent"))
+> +               return NULL;
+> +
+> +       /* tc9563 (pci1179,0623) is <phandle addr>; every other user is b=
+are phandles */
+> +       if (of_device_is_compatible(np, "pci1179,0623")) {
+> +               if (index)
+> +                       return NULL;
+> +               return of_parse_phandle(np, prop_name, 0);
+> +       }
+> +
+> +       return of_parse_phandle(np, prop_name, index);
+> +}
+> +
+>  static struct device_node *parse_interrupts(struct device_node *np,
+>                                             const char *prop_name, int in=
+dex)
+>  {
+> @@ -1562,6 +1578,7 @@ static const struct supplier_bindings of_supplier_b=
+indings[] =3D {
+>         { .parse_prop =3D parse_resets, },
+>         { .parse_prop =3D parse_leds, },
+>         { .parse_prop =3D parse_backlight, },
+> +       { .parse_prop =3D parse_i2c_parent, },
+>         { .parse_prop =3D parse_panel, },
+>         { .parse_prop =3D parse_msi_parent, },
+>         { .parse_prop =3D parse_pses, },
 >
+> ---
+> base-commit: d58772d8520c7ef247c4b95c9bd76d3a25da9ff5
+> change-id: 20260813-b4-of-property-add-i2c-parent-168c6d7f1934
+>
+> Best regards,
 > --
-> 2.53.0
+> Abdurrahman Hussain <abdurrahman@nexthop.ai>
 >
