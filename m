@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6358D3A8759;
-	Mon, 17 Aug 2026 06:11:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BD123B62B;
+	Mon, 17 Aug 2026 06:15:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786947061; cv=none; b=BFdS69mzJrxi7CN4vgZFXnkSfbfALpaTXsjQ8gJMRwmxbi+RUhRVfLV4OGHBDKavD/DuYoVXtHDbJBvNPdx1InD53HzphIpAm5dOlOdFxQ94PhPja+HuFuZrFAzZZZ4SMzZwG7JWUVYN6anoF2xH+6YRfsA1nhF4uzHu5ZbISXE=
+	t=1786947338; cv=none; b=nds6WK69ZdpWl3bNgup2wgRdT14rbzVNp56OQJq6tMLywKUd/4OJh2ultMXUGMUBjaChlyh/kbwz9GA71suVxE1vBahzz5uV0uTvVF+521YcGjh+CdUa/Hfk38BllL92hLU1c5/XNr7776ShOZj26G6tnukaFBHnRc7wuU/I17Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786947061; c=relaxed/simple;
-	bh=RFr+ppkssmnETfT7siESaTy6Vx2AnIDJJ7Zyidz1M0E=;
+	s=arc-20240116; t=1786947338; c=relaxed/simple;
+	bh=dniztghqxWrsBJ3HXWGGjNvfQV1KNt/hI+0EPXHknu4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F8WVYC+cUwoulTYSvZNo9SmWlRS75EzVjNY/lN+WOmFZipNQPxNa0Quwi7wiE1BnWSr6m4M7CzGVan7TDRWzHdlE9foobGtuQAv4WWm0JFeqEKBSTcqkiX78D+N/mjJUljIpVAqYXUOk9U+NRNzDD4qmWGGmQ1jIV1xDoXjsrrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SNFAvQzr; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=FgVtj7NdFRpMybXroQ2Qkd9oejl97pkHlK0jo/6n78kuDc5M34VdGmP04YSYvnbLbR8NiY+6dSAxY4hwaHWbKygoKbFTGBf9Ojlx04DQWmu6nQI//UhsCHuwK1moHg+5Bb3LU21Ta3g6zPGmqdTH+G3aKnBkAOQpu1XrIVCDt/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXMMIRAt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SNFAvQzr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE6461F00A3A;
-	Mon, 17 Aug 2026 06:10:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXMMIRAt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6C91F000E9;
+	Mon, 17 Aug 2026 06:15:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786947060;
-	bh=ctWJ07w53y3JNOCN27ZJ+Le3b+u4cruyFyzNSPXv3sQ=;
+	s=k20260515; t=1786947336;
+	bh=yxqMYxX+6FjJ2DObPdiWgbtfYlxcE0IgifVuu8s+giY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SNFAvQzrTTvrPeqiu4d8ebmjG5dlDEF2qAiWfX/Uc0SQa0dxpp4dZUI37bZucXYD6
-	 H1th0ll7pCmTk+QMiWhxSMIe3JAjsL8cq57TpyquF338ZMFhP/oz5T/WsJZi0jT7tk
-	 Se4nWdTu3/0LGwsOoBQqo+4ZTbyrmrspcgrsh+rSbZtp6Cyf48ufNrsO1KGIorb3bF
-	 zDy5gkCAaDo9a0HFXvnMiSQZkCDzvq2xZSXflLZQE8+CUZH5c4OKc1AHuEn1E0mzr3
-	 cxpoapAf8oQrp0GAjmT1g8FBJhcFHNC98kskR78KzN3mRt7kXOOJ+wijyXzcGw2Rmt
-	 uVbh+bNrQJC2Q==
-Message-ID: <39a28db9-5ed3-427f-aae4-a08ee41c32c9@kernel.org>
-Date: Mon, 17 Aug 2026 08:10:56 +0200
+	b=dXMMIRAtnuqKigMrpd0tSDpuvIB4O6G2LLt5kwlBuShc3hzBpNTggh0N0lQ1r5uS/
+	 jE1mp/0zqZwt3DRxzb01IYXSIuSAUgBqoIeVuz88hc2ROW8OIdY/M0XbdVKRF5h/yO
+	 +wzRu3rZllezrxgGUgMN4P6rLpKRPaah+bT9H0HjeNYWTak9+P+tum7YgYTseGGVsp
+	 5dSOYDuLSo9MGQg/ikwNbaRTHIL7Js3dEEpe4TJziOHKuHx1fZAOMwGove8x1Ga9Io
+	 zDaYL7w9K7hepQHitmrpN63ekm6QkdIIzu/UwwznBHgvK7K8C58+67Yo6pAxVl9PHU
+	 1Ykobtia2vcZA==
+Message-ID: <1ef02f41-a8a7-4dcc-873a-c6bd30a1ffec@kernel.org>
+Date: Mon, 17 Aug 2026 08:15:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: riscv: Add Xuantie C906/C908/C910/C920
- compatibles
-To: Guo Ren <guoren@kernel.org>, robh@kernel.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, robh+dt@kernel.org,
- conor.dooley@microchip.com
-References: <20260815015722.1736831-1-guoren@kernel.org>
- <20260815015722.1736831-3-guoren@kernel.org>
+Subject: Re: [PATCH 2/2] misc: tc9564: introduce base PCI driver
+To: Alex Elder <elder@riscstar.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
+ gregkh@linuxfoundation.org, bhelgaas@google.com, daniel@riscstar.com,
+ mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
+ devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260813222943.1655453-1-elder@riscstar.com>
+ <20260813222943.1655453-3-elder@riscstar.com>
+ <20260814-rainbow-alchemical-gaur-9fd8de@quoll>
+ <d00b4b0f-5958-4c7d-9f80-7fb283ef90e6@riscstar.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,26 +91,33 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260815015722.1736831-3-guoren@kernel.org>
+In-Reply-To: <d00b4b0f-5958-4c7d-9f80-7fb283ef90e6@riscstar.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15/08/2026 03:57, Guo Ren wrote:
-> From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+On 14/08/2026 18:55, Alex Elder wrote:
+> On 8/14/26 2:03 AM, Krzysztof Kozlowski wrote:
+>> On Thu, Aug 13, 2026 at 05:29:42PM -0500, Alex Elder wrote:
+>>> +static struct pci_driver tc9564_function_driver = {
+>>> +	.name		= DRIVER_NAME,
+>>> +	.id_table	= tc9564_function_id_table,
+>>> +	.probe		= tc9564_function_probe,
+>>> +	.remove		= tc9564_function_remove,
+>>> +	.driver		= {
+>>> +		.name		= DRIVER_NAME,
+>>> +		.owner		= THIS_MODULE,
+>>
+>> You just copied some old driver. Why do you need this?
 > 
-> The RISC-V CPU bindings currently use the historical thead vendor
-> prefix for the XuanTie C906, C908, C910 and C920 processors.
+> What do you mean I "just copied some old driver"?
 > 
-> Add equivalent compatibles using the newly defined xuantie vendor
-> prefix. Keep the existing thead compatibles to preserve compatibility
-> with existing device trees.
+> I do now see that a PCI driver doesn't need to set it,
+> because pci_register_driver() sets it automatically.
+> 
+> I will remove that in the next version.
 
-No, you already received feedback - you were on Cc, you replied, you got
-answers.
-
-https://lore.kernel.org/all/20251121-able-terrestrial-spaniel-90c3cf@kuoka/
-
-NAK
+Old driver because we removed it 13 years ago from all drivers and only
+a few left-overs were still hanging around.
 
 Best regards,
 Krzysztof
