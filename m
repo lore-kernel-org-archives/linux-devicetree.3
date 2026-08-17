@@ -1,206 +1,188 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010008.outbound.protection.outlook.com [52.101.69.8])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF693451A6
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 20:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786996976; cv=fail; b=hbwxS0aLXSGD2wFCxNVAiuzq9urnYlAr6oCzAddpULKCI1yi6Wrm8Drd+LpOJKyqIJH/HBkUwrw3/ut0UNcjEY40cNHohKE+MdQl5uP4+03kxNVpyJP8FkSZMY3gROm0im/NL6lmQ65yFw7p4hO2orjiQBPVgHobr37+/0pnQfQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786996976; c=relaxed/simple;
-	bh=6hgrpQncP0optPk46tGwajloWjQ7RbfTffV47StQb2Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=utaxKw1LKk1eZumqRZ87YWQ8/40Fn14G8Bt6/cj1NR4/7DmtX36ohmPZIUv6pMGHafxqk2z80Bm1VqPxjLhDbTixkLSbxmw6l6QP7+OGhocpCLjtkeuGsRr8uIiHo+Uu/EMlLIkYu1l+j831y6Y4gMsf2IL7YgSDFwG1V7HQrrs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Rj2uxVrd reason="signature verification failed"; arc=fail smtp.client-ip=52.101.69.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A111441626;
+	Mon, 17 Aug 2026 20:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786997125; cv=none; b=KehlmE+bUWhflzj6u9v5J9RTh0kN6lHdRwbCuWCY0hY6NyQMQrCpq26+sQEIbBlLDyBrgqSg0NEzLh364Za+LaQDa6RVIJrymTxU86fDbVRQ8bJtls78fOOi690Sd76auGZ1IYqczbkytOR7NPcH+I7emNIBPSE5lte1dcAEoCA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786997125; c=relaxed/simple;
+	bh=DAtbEGRdZstxOapXS02ws98SEPjjOQ6uLuUqDWHlK8A=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ay1rX6o3TZ7rB4H5pocxMsg2eGVjG6ECgYXyZ/wrF9X6N7MdJFX4LatojUwEhDzH1SlXqClfQlJBcIzr6e0JfL9SedjKCVaB8K9P/53i049XlzHdKA8f1Yr1tjnFouAnnTy3X3bCT14VZ3Ow6dbaKGJ0p8TDlyUG3WUXbWaKAUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=I63cFKe1; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Rj2uxVrd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lGL+/jLxrWzoLlvpBrwIOUZ9eBHu5te0Mo08cGajZ/PBzlgJ9ONkGb4QKFV9bX+2cK3wdmHXpu0yIFdssdFFZxOnnCT+sbS1h1GKXaB0SxOeopV2OSqUeK5pQ8lQmJBEjAtS+HMrKCUVymcOT/hobsFzExqfM58pRC7ePQa0h3jb+/tyOfTTrCBGxS7dnquhYExI2VNRILZDH5UyegFm3tLfwREuZb3hg4YkpdHxiSgyRkhd7s+91hlNYSyiQeVCmD0mX0M5LolqPybVu8+Br2lPFLm49LoCYTMPkojSIti0BKlaEQt0ZY59A42v7FUrJJ3devxECQ8JFEcmDECMng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GPZh3Sn4uA95xngzuJ1QCd//2bc6zIt0Y9ldeB9Np7A=;
- b=vVZ5fkDq3HYez5GgfjYGu9IuFJM+nRYsidMnN2m+PDCL6U+UfZVrm7hcOZgXQt5Hb312VbEIihRYRGJG7YRzUE69tuQs03eJvAtnfKwTJFOAPCYGY1RvptlzdiRVVqoS/EpWdESlC+HiMu08hlBtg1o/yIocOChaOuSdFvnmmgj+CEBWPlp1XhZlevOIzxGe72CskqKdttfV0G2DQTHX8ClTLbBSDeSpfiBqc3x236ieLOXdtAFu3fZ89Bs7KzireJW9s7vP51aph73fx/2JqbcERy3rMYY6dKkubFdpWmZrmzlatWXEYWP+9uaJExTaGbfrKkZK0pmk5uaTIRi2Og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GPZh3Sn4uA95xngzuJ1QCd//2bc6zIt0Y9ldeB9Np7A=;
- b=Rj2uxVrduw06pSONa7KTX7KLV1u/8I1x6qNRhhc8MnasfVXSwA2jMkQyZSU4PnVK8F6X9e6JkOJ+wCEjqlhc6xk7M4ivOOIfQJ3NyjruTwuPbSvFnTWL1zMjQTcbkmcroNxgpWyJlZplQw+0uwJEOUQ8KpifXAcWwbi4Rsl5M0jHFtOfEoDcjDOBJfKkVajimV2WvwH3WTISFycHp9S95Y6hYb5JFbOFVUcYoP6OAzv/VmGO/rq1cSecb3O+77J3lEN3HNnCWySAqqHSakjd8HBXv0RotdAK6Cw1iMXXAxAtfA3LEHuzaqvWY7TFXcWDnJ9+ZNIDVvcpHdRmkLtmNg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU2PR04MB8759.eurprd04.prod.outlook.com (2603:10a6:10:2e2::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 20:02:51 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 20:02:51 +0000
-Date: Mon, 17 Aug 2026 16:02:44 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Lakshay Piplani <lakshay.piplani@nxp.com>, devicetree@vger.kernel.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, robh@kernel.org,
-	Frank.Li@kernel.org, conor+dt@kernel.org,
-	linux-i3c@lists.infradead.org
-Subject: Re: [PATCH v15 1/8] i3c: master: Add APIs for I3C hub support
-Message-ID: <aoNo5Frq1ypam1XE@lizhi-Precision-Tower-5810>
-References: <20260817103844.2142802-1-lakshay.piplani@nxp.com>
- <20260817103844.2142802-2-lakshay.piplani@nxp.com>
- <20260817105058.71ADB1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260817105058.71ADB1F000E9@smtp.kernel.org>
-X-ClientProxiedBy: PH8PR02CA0015.namprd02.prod.outlook.com
- (2603:10b6:510:2d0::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="I63cFKe1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1786997116; x=1787601916;
+	i=markus.stockhausen@gmx.de;
+	bh=DAtbEGRdZstxOapXS02ws98SEPjjOQ6uLuUqDWHlK8A=;
+	h=X-UI-Sender-Class:From:To:Cc:References:In-Reply-To:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=I63cFKe1yHaa94wOHLwOqiGOKyVMBk8vkKLiBMjKvGlEEX4FLUIB4TEJFFz8C1l1
+	 AFIEcfe/EWQM/arZFOnu5DKone4Zw76KudPhbgUPN7Q0bvQE9KJnB3h/PsICc5VmB
+	 GTIOMdaMFgZEGs2Yn3I+o5I9auIDDLPhnunmKx//p1s5yXt2gjAqbyZvgLfPRnQf7
+	 31KAF6z9F52fDQXgKOsG4nz2tCIZk+DEFT8PyGJBctH+ueHOEabdtCe83T2+Oe6pj
+	 qJ0/qnSg3KxI/uFs+c85vhXM8rkpz4LDeel7ePEb1oybjRJsfCHBAqyR6BD8MEmcr
+	 FnbVF2m5BEf+BKXVqQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M4JmT-1wvmSz1b1t-00GWr4; Mon, 17
+ Aug 2026 22:05:16 +0200
+From: "Markus Stockhausen" <markus.stockhausen@gmx.de>
+To: "'Andrew Lunn'" <andrew@lunn.ch>
+Cc: <hkallweit1@gmail.com>,
+	<linux@armlinux.org.uk>,
+	<davem@davemloft.net>,
+	<edumazet@google.com>,
+	<kuba@kernel.org>,
+	<pabeni@redhat.com>,
+	<netdev@vger.kernel.org>,
+	<chris.packham@alliedtelesis.co.nz>,
+	<daniel@makrotopia.org>,
+	<robh@kernel.org>,
+	<krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>,
+	<devicetree@vger.kernel.org>
+References: <20260817162632.1208891-1-markus.stockhausen@gmx.de> <20260817162632.1208891-11-markus.stockhausen@gmx.de> <cf8bdf97-64f9-4120-bdeb-c5a91a274490@lunn.ch> <070901dd2e6d$f5b70c30$e1252490$@gmx.de> <0a125ab4-2453-4d32-b158-8bdaaca16674@lunn.ch>
+In-Reply-To: <0a125ab4-2453-4d32-b158-8bdaaca16674@lunn.ch>
+Subject: AW: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open up C22 and C45 space in parallel
+Date: Mon, 17 Aug 2026 22:05:10 +0200
+Message-ID: <089001dd2e83$b8957920$29c06b60$@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB8759:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e48a9d3-9083-4636-f47a-08defc9a84bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|376014|1800799024|366016|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	rTj+FAmFGcu7ATAbi5L54A6RcPeGfy8I3LlrctqlQduZ6n9ZPLkZNyjf5YiRL4YocwObhJHSxGgFYua85EDNylvoufbzYKE6x1kboLgjPHw2IsRrYODD7vWz5nq7wX/lSaqw5+yyJwkySjbsoA36eS63cwAHZbMc8V4Ciqv9HObLbQv2tNWXQ14M3sSrup4UJrc7VZRD2slCdL6UrAxaJhx6fsHRjlGaFN1fZ2kK4MiEF+V4+4YyzuyD+qvdN4Iw2Yz28WIeh/avwcCkLvSuJriyW9M051acUBrW8eKPYoFOyUhv/kut5kV9QH8jY0taAUhjcSJPCDwPsCMPBbpi4TKI5liDyJkDdhdd1kOYRLMs1U8rG+M8EaauFBxv7psTGZWPrho+Dx2yrsxeIJatvJXaQ6u38kbqE76NOyupx8Ar7r9zvy2ITkd8o4Lm9XV+dbZxZsPwTOhpQKlPV5srHBXgtLuxqrs0NLeMAK612975z0Vb/Ei/26JXQ25sE42zKe0booUsIRuz0MJbDShDT8Uxu4ZDx3Jv2V+gVIbpz01u+hf3I6xNre0+9U9U5aD1rKWY/w2jTokTTs7u2eYCHfLO9plXXhLc/KBbIvT8/pc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(1800799024)(366016)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?a/S6bnTQms9dEJc9gvOB5TKBLYx7X9R9LWDKvZ9x3t9fCOOCrhARBeEXXS?=
- =?iso-8859-1?Q?s4Ps8JhKJtHxhG7axQJLaaGAekLhPoo39pGgf8WVdNUY3hjJe8iLXITVQH?=
- =?iso-8859-1?Q?I6v4gcMNqB//80QXbr/4aV+UfhfJXjwBmQyVjaaMUR6hjmL0bcRRQgAlxV?=
- =?iso-8859-1?Q?uyGlJij8Zx6iYBF12hDhozOKC3H5AwOKRd+xPsYWX6/MXTR3Ko17dOz4f3?=
- =?iso-8859-1?Q?c9e4Etcoaebny8LupyErR+T2rxHheuhC3v5tOoS/+Vtin48rJgA2mWWUi0?=
- =?iso-8859-1?Q?h5L0CYb0pjurscZXmPlH8946FaYet5xHBT0QHpR/veAjC+Bs4kMUQ/5HQX?=
- =?iso-8859-1?Q?FNoRxG0QB2jFlzJVbp9AnnhbDlc4eb+E7umIarumUl9TEXkkUpTEYcFEki?=
- =?iso-8859-1?Q?3Ir1MqD+UOApu2VhtuyuUgVLR7YjuEz3/MwjKLdId3aSLj8D0NRdoGYND1?=
- =?iso-8859-1?Q?wuKI5jHX4NxMmNkLY+/xWuGBdPBGtxog8IpCHHWUB+9rryAglg14v4tyoX?=
- =?iso-8859-1?Q?CupKp2afva+KlRgXHobHj51fphfkRcScnov0OAZ20ZSJeNgYuW6nJDUu5E?=
- =?iso-8859-1?Q?UFMnfhgherj6iV2tl0MzftNbeSbskYxgHYOwfM0z4sfejjdd/FI5y8VblQ?=
- =?iso-8859-1?Q?Pkqsfcex68Sgb2JGXs+hvhulICcgnWWBzpk8WA0tN5g/23Jy3z00ZZzhF8?=
- =?iso-8859-1?Q?/VBSM++Xg/kVsf8R9swODXeTBuYUToGnV6fh5WOUKZPCy7Vb+wnbKEa8X1?=
- =?iso-8859-1?Q?H1++L8xTCQAoEuVyRNIPzt3+A+kyeSFwplNzTuXzNATaeX5NvOGDSIWGmK?=
- =?iso-8859-1?Q?36LpDGlNkpMyk+AZVRDHH/JJXNkvAY6gtpXVI+bv93HuB8PnSl9OlcbGb9?=
- =?iso-8859-1?Q?yNIUeTsWJP4iF9NfCdTHtQI8VvrcGFKOhqsKhiK3mhLvHI7MbGM98YWMoR?=
- =?iso-8859-1?Q?CyXjU+ftC7yLDTkgn59uC64P/8Tb4Wi9Mb2iduixOeY9yZ+0U2mpngbXHI?=
- =?iso-8859-1?Q?4iRaqblR9A2CQ+juC92xrOAwIdlQRx2+C8GZ0YkggMBbTrdlTUQCapZBPC?=
- =?iso-8859-1?Q?5EPNgi1/forGRPQWW4sevDiGnzCCsWUFcoSqLukhbYBj33cFoqDKeTkZcG?=
- =?iso-8859-1?Q?xukKhcNY7iYhCw0mSpb5bvMbK6OGFKKwK5TWENyGIlNelc9K6lSyZUjHcN?=
- =?iso-8859-1?Q?zuJjpJctoGf9NBKbMBenq7fyI3C4+c3ON/adqoOmVp3/1QCmkv30Pm63jb?=
- =?iso-8859-1?Q?f/MZo7iKS0rtjA9oIrxJPniGLF5OS3EZQaOEJ4eS33OVRxUruZZBXX9tgs?=
- =?iso-8859-1?Q?Qvjxdfi1k4uZmjNtKZKmIMuQmje4LpQnEfla0/Hv5bb7fFhkOCeESznMAO?=
- =?iso-8859-1?Q?taFS0B1ti1DsAL8Uugc/SWE0fA1r+Wm9gJGjhRlwDoqT3toM8qlFhqNhFa?=
- =?iso-8859-1?Q?nnCB8GI7RgTft1cg+sWxeoyT6BPgEyDfh3Z6NQenYnleIxeYh5EFlHyKvy?=
- =?iso-8859-1?Q?Qzpc42f2WGz16zyG01xXmmvcR7V5fZAjCAfKIgzPaIc9Nzb+ae4kKKb7Ju?=
- =?iso-8859-1?Q?rX87BVu4qjxGNoqIKW7GeH9v44TxvEjhfk5cdxjDC8mP/TlnYE2d3gUeb3?=
- =?iso-8859-1?Q?A2aOPsAnnBts5RV2GL4hQ3R9r2R4pH80fR0iklFDHBrPJxj7PrvqmAq6v0?=
- =?iso-8859-1?Q?XoDx7YoMRFkM/wUSbZlg1sbgdoc4LQ9+fbBR2JOab8Rp+9+oRebsD0EYfi?=
- =?iso-8859-1?Q?d2QWZfuMGZPcQnAFydHj37cr41dJKax0ZGYD0T30lhbDNICq7GuIyI95sR?=
- =?iso-8859-1?Q?3SG5v8z+8g6U4dXi9JCjKawHmsoFmyyt/rcZL6GWO5MnlDqSdoh/?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e48a9d3-9083-4636-f47a-08defc9a84bf
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 20:02:51.7302
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gH9N8tVTNZBmP/Pg1y1XnDbLqojZ6RjZd5FCO6muMv6w+7C/ATOH9nZoHY6jG+aeKGjADYePItxNHCCwl3QUwYHgW4J07dtMUeTaqt0jvlGv6pr9/x2OQXugGxxfYvNM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8759
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKGRKDnP2yh8sOJ5M24BwCNtDMK1QH1jg89AffL5+ICqsGtjAEuNNjXtRJImYA=
+Content-Language: de
+X-Provags-ID: V03:K1:Iw/9nv8VYd/W8nj+l49bTjwi9HFzMp2ddB0LxKVdTSYaQ7OQ4HU
+ mL8Blctzgp/TAdhTnKdZLdP7NG5DUxSLUjaBZJ9nScNXgQ0edqbKx2HwgQv+4tKjZStUEQM
+ hnloE51BtCl/Lmn9ItEDKTY/NB7N3y20xAjA/qoAMmp81mzuUgDFVYrCFDTD5MdxuiiTxxn
+ FebSUxWK51bLXh+S0qs+w==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:F+4JvPQfvXs=;XCWYkgnwcvb8f0FeFD2PcX03YQx
+ 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
 
-On Mon, Aug 17, 2026 at 10:50:58AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> Von: Andrew Lunn <andrew@lunn.ch>=20
+> Gesendet: Montag, 17. August 2026 21:35
+> An: Markus Stockhausen <markus.stockhausen@gmx.de>
+> Betreff: Re: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open
+up C22 and C45 space in parallel
+> ...
 >
-> New issues:
-> - [Medium] The commit message claims to add helpers for attaching and detaching I3C devices, but the implementation is completely missing.
-
-Please update commit message
-
-Frank
-
->
-> Pre-existing issues:
-> - [High] Accidental removal of ID 0 from `i3c_bus_idr` when `i3c_bus_init()` fails.
-> --
->
-> --- Patch [1]: [PATCH v15 1/8] i3c: master: Add APIs for I3C hub support ---
-> commit 14f349144e98c1c3eedcaa4123a53bf24704569f
-> Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
->
-> i3c: master: Add APIs for I3C hub support
->
-> This commit adds helpers to prepare for I3C hub support. It exposes
-> address slot management and CCC command interfaces, and allows registering
-> virtual masters with an explicit firmware node.
->
-> > Add helpers for attaching and detaching I3C devices and CCC helpers
-> > to check CCC support and send CCC commands, address slot helpers to
-> > query and update I3C bus address slot state, registering virtual
->
-> [Severity: Medium]
-> The commit message claims to add helpers for attaching and detaching I3C
-> devices, but the implementation is completely missing from the patch.
->
-> The changelog indicates that the attach and detach helpers were dropped in
-> v15. Should the commit message be updated to reflect this change?
->
-> > diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> > index f1be38a640ca1..03fb41f0786c5 100644
-> > --- a/drivers/i3c/master.c
-> > +++ b/drivers/i3c/master.c
->
-> [ ... ]
->
-> > @@ -3352,6 +3427,39 @@ int i3c_master_register(struct i3c_master_controller *master,
+> > > And I really think you need to block C45 over C22, since we know it
+> > > will go horribly wrong.
+> >=20
+> > as per your guidance I Included that as patch 3 of this v14 series
+> >=20
 > >
-> >  	return ret;
-> >  }
-> > +EXPORT_SYMBOL_GPL(i3c_master_register_fwnode);
+https://lore.kernel.org/netdev/20260817162632.1208891-4-markus.stockhausen=
+@g
+> > mx.de/T/#u
 >
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does the error handling in
-> i3c_master_register_fwnode() corrupt the global IDR state?
+> Ah, great.
 >
-> If i3c_bus_init() fails at idr_alloc() (e.g., due to duplicate alias in DT),
-> it returns an error while leaving i3cbus->id as 0:
->
-> drivers/i3c/master.c:i3c_bus_init() {
->     ...
->     ret = idr_alloc(&i3c_bus_idr, i3cbus, start, end, GFP_KERNEL);
->     if (ret < 0)
->         return ret;
->     ...
-> }
->
-> Taking the goto err_put_dev path then calls put_device(&master->dev), which
-> eventually triggers i3c_masterdev_release():
->
-> drivers/i3c/master.c:i3c_masterdev_release() {
->     ...
->     i3c_bus_cleanup(bus);
->     ...
-> }
->
-> This calls idr_remove(&i3c_bus_idr, i3cbus->id). Because i3cbus->id is still 0,
-> doesn't this accidentally remove the valid bus 0 from the IDR tree?
->
-> This could lead to duplicate sysfs names ('i3c-0') and crashes during
-> device_add() for a new bus.
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260817103844.2142802-1-lakshay.piplani@nxp.com?part=1
+> Have you seen these fire? I would expect EEE, on a PHY discovered via
+> C22, to trigger these.
+
+All downstream 1G PHY drivers for that platform use dedicated=20
+read_mmd/write_mmd callbacks that run __mdiobus_c45_read/write().
+So no warnings during bootup.
+
+ Markus
+
