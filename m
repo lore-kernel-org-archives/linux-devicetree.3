@@ -1,64 +1,64 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC303C9EE8
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 08:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647E03CFF5C
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 08:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786954862; cv=none; b=uCy0oekeep82VDe+1r+08k4uNIe/Y4kWozjBRT6UU6gWLpjJHMdJ1CGQ8z6zFfvCp+CQlTtwa8aH7QvafGjgaIj4+U6GtW4OtfQbp72vkTueaYB8TWCp8lKo8DYkjBiRZEPsJ586uUBit7fs1ItrWHKYUzzMOjFg0bmOk7i4JsM=
+	t=1786954863; cv=none; b=EQAsCqMoVH5n+8VlJqQ1KAcDOJb+21wjQbpaY2FaaLlshknSvksScaq+iXnupjjW8DrYdAaCTEQDzaayu6PqOPVaW1ZY2nVBCCcaCkSkt8Rw6y6tuoNKBT4KiWvl23eTDt+/jj7DyUdLPZeiSb9uhUOS6tel6WYYaibCJIlHm8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786954862; c=relaxed/simple;
-	bh=QFgNYbC5iGgbyr7HDWbqxazTnqPm94Iv99RuR51kLAo=;
+	s=arc-20240116; t=1786954863; c=relaxed/simple;
+	bh=6DeTG1xa/Ln65H62/4x+LMvP9NB1O1vI5av2V+UqGgc=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gNPlXzPHq0KvNOBtQm8O5/LryFz6Seg+UjvhNHR68Y4gU9o9bEbtSO95Bz59sLYFwNUldvv4eHo+127G9Ec6gmiGJsTcliwqEhHEjgn/EtBBlB0WLoDBkAj1HHLzQQMQoTv0Bp8AgC/e364qgx1LNWaQOhSVNFNx/TzR3zSnfoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hik27C2P; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=tU/+Wly0kquk5JTNHEgZvL5khGXUrYa5g2eI50ZpYgenumkcrXhYlHr4o15HVSjSNk4UWNEsLK7Cab1YWlO+w2c2nObueC4qkqIS0PbnZnWg0l79x/mzt27Cgex/zRdv2SLQqXu+2Yu9Ww5qEaxt36WeC/KYwhqai4QGGh1bpa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1ZWt3Rb; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hik27C2P"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495590dde14so38483005e9.0
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 01:20:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1ZWt3Rb"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-480033bdcf4so1787241f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 01:21:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786954858; x=1787559658; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786954859; x=1787559659; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=pzi8GymOZsAzDRFxhnMcMsHjxOXoqegqJCBPzRg9+sM=;
-        b=hik27C2PaFV92pmWgNH2vq2WiUXsWv1uNAUAN2a3lhttZsmyBEFXWzzCyZ3oWiVbNh
-         uUfeCzPVF2818dq/eceyNqls9lCG/zM7QLGFaFWqmmMzHuTByvLTeZ/tCfYDYWo8vCyP
-         J4llsfCZyVIM7JkhOTFHuZjX9MQMNlolpv0aNHrlBIGfQQZfOilHe5CabrLxCnTP7YNv
-         /QWYJHI8Yxljj8ZvKblrJ+PbCMjyMtBp+Ma1uZsFeMcIXNN3evHLtXQjY/F780xUjrmV
-         RoRytLtVhXHu9sp2Zqd5LAaH0/SXlxCv+E34WPytdXZMNbQEOI8cai/mLMJDWRypYsLU
-         TGuA==
+        bh=M9T+8NIUGYBAR6mlNIug3Q6VvqG8vRRPcgCMH1v4erc=;
+        b=h1ZWt3RbtEKmpSoQHBc0SpnqJu31W1F4G9yQyZ7KJ1TlT71RGr/BQFh/qGvJw9GZIf
+         FnW8gFOXMEoBr0G3RFp31a8TrPGOe/ZmgWO1G903tc4FmNF11Z5ypZasE0laqHRNk0W7
+         HHwn3h7RrusD3ZKk4H5GAGJrAG2KJg5nvKsUMxt9m4Y1mDPpK5oDTpxbAIIlnBtacQoi
+         9xIcxQfXbZ4jlUuC0n8aN8bWEWW8eghzpJX1F8td2v6BvF7R8QdBTo+0190EdmcKfix5
+         M35omAURQkxfVAQbYll93IVVvvuXhRRMStlN0y4bvBWgKtNMCcaeVlxLZrboF2BACDAY
+         zW4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786954858; x=1787559658;
+        d=1e100.net; s=20251104; t=1786954859; x=1787559659;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=pzi8GymOZsAzDRFxhnMcMsHjxOXoqegqJCBPzRg9+sM=;
-        b=bAJKvwvgAwTi4klT7vvgu0Tr0/PXbNubn9P/1v65uwDnm9TaC9bzY/nAqZgf1pAXrt
-         7KipepHHbDOcljOQNcN0f8LHb8+Urq2Uj6pi32HNwAxXv3S6qCUn9PZoVYIxq5Ba1AZQ
-         aMhXY+vuUt2GtOAUXH4bx5FHTfjfCL97CpWbydWqZdGkbg4QfKUjkBMRDOMOhdsIzjIu
-         NxD6Ofth+Y+q+xyaCh2O8u9egDIOXwn2S6HFn2/Ttf4f7uqfQG8aLCTFdzI+v5dIbi+I
-         c0rl1THEc3/78+sY/drK8rgyvycWxIqtD2j8Z6ATwDBMF+WEwmhaKWpCtzj2Z84EgbhJ
-         1jQA==
-X-Forwarded-Encrypted: i=1; AHgh+RrX2Dgu4KFe4iHXLTwBe2wnPpqIKm96VU7aPiApQp5oKvde3KNCI1YoQsXbHUOePVVSqBedTgxjKTp7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyw8OpRA3wg7kQKlNA5suGt+BOiIFw7aRIxi835Say9W+ubwjmd
-	Uj04y96rmF2BDYTTLqNcSpL2s7p/6fecErI6w3fwbBPPn60G3q/Fv5Qc
-X-Gm-Gg: AR+sD13anukaOZlMOMvWN9ecU258z4CCAkLsNc+rjVYE1fD6H7KqDEUIskH0UQr0nir
-	wXVP6hO3E65hoTCUI3hDw/HEolrqr05xfCYZFj0fwPuDClrS+QZfNbqIu+zbfTj1Qd+f0ZghFv5
-	sMvqK8nYP4JBVW3s9vjK93xS9gV4omm5el+bGLAYz1VSgttG45g+tkBh54mnqHtBNJ+p/1rUWw1
-	IPN0uLcZ8WYvngSTNGm83b0sM5hfhh0pVBiYNeFl6T0cddoO0nT3Zuley77LRnRGxN9POgNhmrk
-	SOwh8FPsqk9nCK47y/ai5bRmNbYUT4XOviKVBdcu9gv7oEO8y7ad5M4pdwBlh0TyqVMndOV//La
-	MSmJuim5BLkypDv/WThx1dq+fAw5/LDxcfrIi6gGj096QgSwHM06lZJv91N4ZE6pwy0beWZzBJN
-	c6DCqx+pesajkT3DV7CIZH+jAIWP503CCHp6Jlbmfz148BGhlpXDNzkm4wYpp/s01blt+wA5/cf
-	nDVLzJUlGFScBgShcyeX5pehiBhBOKQA+Dm1cAftExkhol912zxAzHY
-X-Received: by 2002:a05:600c:34ca:b0:499:7f38:d77 with SMTP id 5b1f17b1804b1-49988cab011mr368103075e9.6.1786954857528;
-        Mon, 17 Aug 2026 01:20:57 -0700 (PDT)
+        bh=M9T+8NIUGYBAR6mlNIug3Q6VvqG8vRRPcgCMH1v4erc=;
+        b=rb0x261PzogOd1l9f9jLPOxsZn9R1bD7csSbGA3skGF8EfPvhl+hmSqwMf6b5NSi9U
+         tD5vVGxqgz0M4K2/64AT5wUfLHn6Oy7xMOiKROBwDDcLJpSKKfr8WUZz0WRmA5Kc9jXm
+         4efjQWvKkNteYtZF5gzQMy7Q5zBywjJDRQQsKVSqpwLkusH8VGUSXO4oOESO09diW3a6
+         RhbXlUurG2BmNJwKmFpwrWJaf32xtSa2VEpuTLNqARGtHh0B1a7mvfk/Xt7KZ0qf3L1p
+         G+qTmraGzyNvLvsUhQ4JA4cjCbA62/dc9NvhVQVr7Fme/rDaZ9acf+HFZPLzOyrAoono
+         5Uaw==
+X-Forwarded-Encrypted: i=1; AHgh+RpzqDtWqJwMTYHCOJC5THDQd8ODtMI1zc8bwHFzHMzHH5/zNNHPJm/iCfn6ysKwGxocO/gWhOWvleCM@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKv11NUU19QZXeYxOcdmJiZyQiiCVxAsEVXpQ5m/YzphB+YdQw
+	rX6Ssq3osCJehH7MPIQVs+sBiy3fQB2am+h2MK8U+c8uEsEVoa+3G/mn
+X-Gm-Gg: AR+sD10kphaHgkKXXgkgFAiyboLkRCI9SOLr3mw3jYGx+QKeNfDx0t7ihZ4LUYi6t/e
+	W6eL0yt7Jcz9lzohpLTrugMZTJg/wLmIB98K/6dx4DHw6J4Vq/Pd+oFhAgs4p6YYlPO/Z4vfjSf
+	gwp2yhMDSr8gz4GzWUOLA2C+JVxP8/l/LF/jXgGb0i7ob2VnDMESVIPD/RG9UGgQUqS9uHYek6g
+	Lr1IDnXA2W17qzhderR+ImEBW1Zlm6cM4Cjy4RFiR3RK2iBvIE/geO0xQDAumWDGR84J49ZRqiz
+	W9VLaupazt/HpzWpHItswkxRIj9RP+wsQqAnsevpl1OEFT5IE08kw+hlQOOz6mAyJANC13o5y4x
+	KNuWmnZbGQbuJKXcJLGL+Ro3wuf5l/yS8fwhXe2/K/wvQUY7CVr5fKZYso9PEROPOreiaRZHkax
+	uu+OgfNd6lEcT2ODo1yeZnWJD85Ocd7PRgCbu+j3gh0PZnx6eW3rLvf/mRfByv775dAhdMZZWno
+	o/iC3SKIEqp2H5IdRUDdWTnqnACFVP5RepCahuL8t6/PAUvZzEAqEQxdITmVWUgEm0=
+X-Received: by 2002:a05:600c:4f52:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-4998793dafcmr362760695e9.7.1786954859332;
+        Mon, 17 Aug 2026 01:20:59 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-79-40-190-175.business.telecomitalia.it. [79.40.190.175])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4999d078517sm19684195e9.5.2026.08.17.01.20.55
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4999d078517sm19684195e9.5.2026.08.17.01.20.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 01:20:57 -0700 (PDT)
+        Mon, 17 Aug 2026 01:20:58 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Christian Marangi <ansuelsmth@gmail.com>,
 	Lee Jones <lee@kernel.org>,
@@ -84,9 +84,9 @@ To: Christian Marangi <ansuelsmth@gmail.com>,
 	mfd@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v20 07/10] MAINTAINERS: add myself as maintainer for Airoha AN8855 Switch
-Date: Mon, 17 Aug 2026 10:20:29 +0200
-Message-ID: <20260817082034.20326-9-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v20 08/10] net: dsa: mt7530: move MDIO bus locking into regmap
+Date: Mon, 17 Aug 2026 10:20:30 +0200
+Message-ID: <20260817082034.20326-10-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260817082034.20326-1-ansuelsmth@gmail.com>
 References: <20260817082034.20326-1-ansuelsmth@gmail.com>
@@ -98,41 +98,229 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add myself as maintainer for AN8855 DSA driver and all the related
-subdriver (mfd, mdio, phy, nvmem)
+From: Daniel Golle <daniel@makrotopia.org>
 
+The switch register regmap was created with .disable_locking = true,
+relying on callers to manually lock the MDIO bus. Move the locking
+into the regmap using .lock/.unlock callbacks, matching the PCS
+regmaps that already do this. This allows any code path reaching the
+regmap to be automatically protected.
+
+With regmap handling bus locking, the manual mt7530_mutex_lock/unlock
+wrappers in mt7530_write(), _mt7530_read(), mt7530_rmw() and
+mt7530_port_change_mtu() become redundant and are removed.
+
+The MT7531 indirect PHY access functions need serialization of their
+multi-step register sequences, but no longer need to hold bus->mdio_lock
+across the whole operation. Switch them to reg_mutex.
+
+core_write()/core_rmw() are the only remaining callers of
+mt7530_mutex_lock(). They access TRGMII core PHY registers via the
+clause 22 MMD indirect protocol -- a separate register space that
+bypasses regmap and needs manual bus->mdio_lock protection.
+
+Generated using the following semantic patch:
+
+// Remove mt7530_mutex_lock/unlock around single regmap-based calls.
+@@
+expression priv, reg, val;
+@@
+ {
+-	mt7530_mutex_lock(priv);
+-
+ 	mt7530_mii_write(priv, reg, val);
+-
+-	mt7530_mutex_unlock(priv);
+ }
+
+@@
+expression priv, reg, mask, set;
+@@
+ {
+-	mt7530_mutex_lock(priv);
+-
+ 	regmap_update_bits(priv->regmap, reg, mask, set);
+-
+-	mt7530_mutex_unlock(priv);
+ }
+
+@@
+expression p;
+identifier val;
+@@
+ {
+-	u32 val;
+-	mt7530_mutex_lock(p->priv);
+-	val = mt7530_mii_read(p->priv, p->reg);
+-	mt7530_mutex_unlock(p->priv);
+-	return val;
++	return mt7530_mii_read(p->priv, p->reg);
+ }
+
+@@
+expression priv;
+@@
+-	mt7530_mutex_lock(priv);
+ 	val = mt7530_mii_read(priv, MT7530_GMACCR);
+ 	...
+ 	mt7530_mii_write(priv, MT7530_GMACCR, val);
+-	mt7530_mutex_unlock(priv);
+
+@@
+expression priv, port;
+@@
+ 	INIT_MT7530_DUMMY_POLL(&p, priv, MT7531_PHY_IAC);
+-	mt7530_mutex_lock(priv);
++	mutex_lock(&priv->reg_mutex);
+
+@@
+expression priv;
+@@
+ out:
+-	mt7530_mutex_unlock(priv);
++	mutex_unlock(&priv->reg_mutex);
+
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- MAINTAINERS | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/net/dsa/mt7530-mdio.c |  9 ++++++---
+ drivers/net/dsa/mt7530.c      | 36 ++++++-----------------------------
+ 2 files changed, 12 insertions(+), 33 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e0e7fae5b92f..d9338fd2f19c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -760,6 +760,22 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
- F:	drivers/net/ethernet/airoha/
+diff --git a/drivers/net/dsa/mt7530-mdio.c b/drivers/net/dsa/mt7530-mdio.c
+index 784dd58a7158..422f785d2143 100644
+--- a/drivers/net/dsa/mt7530-mdio.c
++++ b/drivers/net/dsa/mt7530-mdio.c
+@@ -148,12 +148,14 @@ static const struct regmap_config regmap_config = {
+ 	.val_bits = 32,
+ 	.reg_stride = 4,
+ 	.max_register = MT7530_CREV,
+-	.disable_locking = true,
++	.lock = mt7530_mdio_regmap_lock,
++	.unlock = mt7530_mdio_regmap_unlock,
+ };
  
-+AIROHA AN8855 DSA DRIVER
-+M:	Christian Marangi <ansuelsmth@gmail.com>
-+L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
-+L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
-+F:	Documentation/devicetree/bindings/net/airoha,an8855-phy.yaml
-+F:	Documentation/devicetree/bindings/net/dsa/airoha,an8855-switch.yaml
-+F:	Documentation/devicetree/bindings/nvmem/airoha,an8855-efuse.yaml
-+F:	drivers/mfd/airoha-an8855.c
-+F:	drivers/net/dsa/an8855.c
-+F:	drivers/net/dsa/an8855.h
-+F:	drivers/net/phy/air_an8855.c
-+F:	drivers/nvmem/an8855-efuse.c
-+
- AIROHA PCIE PHY DRIVER
- M:	Lorenzo Bianconi <lorenzo@kernel.org>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ static int
+ mt7530_probe(struct mdio_device *mdiodev)
+ {
++	struct regmap_config rc = regmap_config;
+ 	struct mt7530_priv *priv;
+ 	struct device_node *dn;
+ 	int ret;
+@@ -207,8 +209,9 @@ mt7530_probe(struct mdio_device *mdiodev)
+ 			return PTR_ERR(priv->io_pwr);
+ 	}
+ 
+-	priv->regmap = devm_regmap_init(priv->dev, &mt7530_regmap_bus, priv,
+-					&regmap_config);
++	rc.lock_arg = &priv->bus->mdio_lock;
++	priv->regmap = devm_regmap_init(priv->dev, &mt7530_regmap_bus,
++					priv, &rc);
+ 	if (IS_ERR(priv->regmap))
+ 		return PTR_ERR(priv->regmap);
+ 
+diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+index 2b7be091c056..d01772cfe3a2 100644
+--- a/drivers/net/dsa/mt7530.c
++++ b/drivers/net/dsa/mt7530.c
+@@ -188,29 +188,13 @@ mt7530_mii_read(struct mt7530_priv *priv, u32 reg)
+ static int
+ mt7530_write(struct mt7530_priv *priv, u32 reg, u32 val)
+ {
+-	int ret;
+-
+-	mt7530_mutex_lock(priv);
+-
+-	ret = mt7530_mii_write(priv, reg, val);
+-
+-	mt7530_mutex_unlock(priv);
+-
+-	return ret;
++	return mt7530_mii_write(priv, reg, val);
+ }
+ 
+ static u32
+ _mt7530_read(struct mt7530_dummy_poll *p)
+ {
+-	u32 val;
+-
+-	mt7530_mutex_lock(p->priv);
+-
+-	val = mt7530_mii_read(p->priv, p->reg);
+-
+-	mt7530_mutex_unlock(p->priv);
+-
+-	return val;
++	return mt7530_mii_read(p->priv, p->reg);
+ }
+ 
+ static u32
+@@ -226,11 +210,7 @@ static void
+ mt7530_rmw(struct mt7530_priv *priv, u32 reg,
+ 	   u32 mask, u32 set)
+ {
+-	mt7530_mutex_lock(priv);
+-
+ 	regmap_update_bits(priv->regmap, reg, mask, set);
+-
+-	mt7530_mutex_unlock(priv);
+ }
+ 
+ static void
+@@ -597,7 +577,7 @@ mt7531_ind_c45_phy_read(struct mt7530_priv *priv, int port, int devad,
+ 
+ 	ret = val & MT7531_MDIO_RW_DATA_MASK;
+ out:
+-	mt7530_mutex_unlock(priv);
++	mutex_unlock(&priv->reg_mutex);
+ 
+ 	return ret;
+ }
+@@ -645,7 +625,7 @@ mt7531_ind_c45_phy_write(struct mt7530_priv *priv, int port, int devad,
+ 	}
+ 
+ out:
+-	mt7530_mutex_unlock(priv);
++	mutex_unlock(&priv->reg_mutex);
+ 
+ 	return ret;
+ }
+@@ -681,7 +661,7 @@ mt7531_ind_c22_phy_read(struct mt7530_priv *priv, int port, int regnum)
+ 
+ 	ret = val & MT7531_MDIO_RW_DATA_MASK;
+ out:
+-	mt7530_mutex_unlock(priv);
++	mutex_unlock(&priv->reg_mutex);
+ 
+ 	return ret;
+ }
+@@ -717,7 +697,7 @@ mt7531_ind_c22_phy_write(struct mt7530_priv *priv, int port, int regnum,
+ 	}
+ 
+ out:
+-	mt7530_mutex_unlock(priv);
++	mutex_unlock(&priv->reg_mutex);
+ 
+ 	return ret;
+ }
+@@ -1452,8 +1432,6 @@ mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+ 	if (!dsa_is_cpu_port(ds, port))
+ 		return 0;
+ 
+-	mt7530_mutex_lock(priv);
+-
+ 	val = mt7530_mii_read(priv, MT7530_GMACCR);
+ 	val &= ~MAX_RX_PKT_LEN_MASK;
+ 
+@@ -1473,8 +1451,6 @@ mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+ 
+ 	mt7530_mii_write(priv, MT7530_GMACCR, val);
+ 
+-	mt7530_mutex_unlock(priv);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
