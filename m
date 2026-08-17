@@ -1,162 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67142F8E8B;
-	Mon, 17 Aug 2026 11:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAFE3F926B
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786964923; cv=none; b=hnWY/J6dWUo4V9CIU4ekCxBEY4TK8dmVrC8yciFg5OJEFst+5dp4mBo03JYmXDOzmXwrKaXpU+n8OBi+NUqudmHwyBX8/Aror/n6JEhxtaV0D2o1zuZizgnnoNl9DibGM1FH7YFHorwxV0IuB0ED6h9+nLKmDCWcNstXXgu48aY=
+	t=1786964951; cv=none; b=gZj/7IY3YRytYwMoMPGsez2a8SmOTZS6mYINce3Gn7chGrm59ZmMpxPKjIj4Ne6s/PWVWLHdXzW7VAnRjRIkri6vGauVdrmr3KsMZ3HqYcbxGSQ7nwnEHMeF1p084BFLf4Iq3mEmOKWFKg8EEIqcWDS1IzjxI+S9J6LnQrsQMeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786964923; c=relaxed/simple;
-	bh=vwCGTN+H+HxYlDSe2lcUM5EUUdvAdFDWJvUJG6XVhtw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gC05TARK4YV9q0NPrPbAqQFX6ZyEPU+noLqo19JVBWSPk1NVPeaDsSB5br3GHq/mpUM1w3kVPPNGrDQMBxcyMo7YfXntIj6F/h7i9yyu4z4zMc9eKWPgUIeyGHN4pBE+wWP9qECZPojllonWHB7eMosTdf8TNBPT1Mlq6wtDq2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTPpgCcT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786964951; c=relaxed/simple;
+	bh=zPCnKvUY679S6FYWHPC8KfDz/9Shx5+soSEn5mxDyxE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jLS4KUr3uDz1QkWfslX4Ww1mSV4cz3Pk+Fea2Z3Kpl5JDJ0KVjXbiDXB1mU/2/z3UrZiJIiHu9EE8bhdR2tYvrI9CsEC1bZdgfhjazq9uM8l1e/33P+ic8kbb5VnEoocoq0BpqUdiwq467V57zQxcS/lt4PtUScZYWA1dEsi3wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=e4hJc5ua; arc=none smtp.client-ip=85.9.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTPpgCcT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3351F000E9;
-	Mon, 17 Aug 2026 11:08:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786964922;
-	bh=0y26Wpre5yaAEuVApWp4Bu7RnkBwqWCmzR80TLAJgcc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MTPpgCcTspfTXpe/FG+9OsO4gazM7dbf7BMsS811cHIDAEOstvTyT1sPxjVmWPoVk
-	 JoSjGVy4iGRiWvVCgYjkRIAv4g0wiG9M4Tvqhoxm89Sye1eXRLYaUn8n7cAh6oPQbP
-	 JbAIbF8peNPUTuwv6mHyFNPttT9372m2DNmK27WrOVY2eZDRvJR0rzhABDuJujTmHb
-	 VvvnU9bNiLbV594x6TrLtwL4xHB98Ks9w7+XmVrQrMYfcewGtfX4K5rPspHC+GqhXc
-	 CTELHXk2JclXw89lFmYtRzlTSq9e238wnTtj4sPksX99ONwXikYxmoOZiJjlcUllOn
-	 sNss5FmQNhh+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 5/6] clk: scmi: Introduce common header for SCMI
- clock interface
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260817-clk-v11-v11-5-36e9bc701b11@nxp.com>
-References: <20260817-clk-v11-v11-0-36e9bc701b11@nxp.com>
- <20260817-clk-v11-v11-5-36e9bc701b11@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 11:08:41 +0000
-Message-Id: <20260817110842.3D3351F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="e4hJc5ua"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1786964933; x=1787224133;
+	bh=yGze0ymZYgExAxN/K4WSJodaDn1EV8mUaPA6esUxvqs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=e4hJc5uaHCNZyoKMDroam7FzgEMXepWWYotk+LGIa7Y4JuiEBxGJsqeSpBuaMZ22D
+	 /CJWbEuItZIzyCzEMPVzfwm3w7+b5c5+yrP6uhM4rxRaDtgJdI8uiY1B9CSMtsBWGR
+	 Xw2qPWYhc7dGUaX7D9ZDlo16LKlhzt8bqGQYITQIPxt3nRqcoC6Qan6M0Vqz+lR9/t
+	 tO/qMjdCFVHpR0jqGXE0ZDWE0yqlYtPvRLA/ZfNZ/pj48i55Xu1kGDJqdjuslKcQ6/
+	 dIREMQuqDqTModVWxOOWyiu7zdWN5pe1qXUqSxdd08CogaSSMuHgMD2cgS0qOY90zr
+	 Gt1Nw/8LzIO6w==
+Date: Mon, 17 Aug 2026 11:08:48 +0000
+To: sashiko-reviews@lists.linux.dev
+From: Aiden Isik <aidenisik@protonmail.com>
+Cc: Aiden Isik <aidenisik@member.fsf.org>, conor+dt@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
+Message-ID: <Pv3LDXcGtYeb0JiJVOS82nc-ncrhiXght8Q87Z9yrqKw0zLqkMiF05AdaUtvS7BLt6P4CK6XOiaj4IA7uq0bFqkHKtS96mkPeCxMvgtvRNc=@protonmail.com>
+In-Reply-To: <20260817103354.BB64F1F000E9@smtp.kernel.org>
+References: <20260817-for-next-lucky7-watchdog-v1-0-a14370e20b92@member.fsf.org> <20260817-for-next-lucky7-watchdog-v1-2-a14370e20b92@member.fsf.org> <20260817103354.BB64F1F000E9@smtp.kernel.org>
+Feedback-ID: 46524699:user:proton
+X-Pm-Message-ID: b6cfe360eccfd6718e12a25ae94a2c4a8726c356
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] Architecture / Unsafe Global State Exposure
-- [Low] Compilation Error / Missing Include
-- [Low] Header Incompleteness / Missing Includes
-- [Low] Linker Error / Missing Export
---
 
---- Patch [5]: [PATCH v11 5/6] clk: scmi: Introduce common header for SCMI =
-clock interface ---
-commit 543bf2610f13161874461756bcae09693a9e083b
-Author: Peng Fan <peng.fan@nxp.com>
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+> - [High] The `drv_data_exynos5515` variant declares `QUIRK_HAS_PMU_AUTO_D=
+ISABLE` but fails to initialize `.disable_reg`, causing unintentional write=
+s to PMU offset 0x0000.
+> - [High] The `drv_data_exynos5515` variant uses an 'INT_EN' register for =
+masking watchdog reset, but omits the `.mask_reset_inv =3D true` flag, inve=
+rting the WDT reset mask logic.
+> - [Medium] Incorrect use of an Exynos Auto v920 register macro (`EXYNOSAU=
+TOV920_CLUSTER0_NONCPU_INT_EN`) in an Exynos 5515 variant.
+> --
+>=20
+> --- Patch [2]: [PATCH 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt comp=
+atible data ---
+> commit dcaab4881777bc5f5ce1a532adad7c17046164a8
+> Author: Aiden Isik <aidenisik@member.fsf.org>
+>=20
+> watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
+>=20
+> This commit adds driver data and a compatible string for the Exynos5515
+> SoC's watchdog timer.
+>=20
+> > diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_=
+wdt.c
+> > index e31f93db05096..7299dfdb0c099 100644
+> > --- a/drivers/watchdog/s3c2410_wdt.c
+> > +++ b/drivers/watchdog/s3c2410_wdt.c
+>=20
+> [ ... ]
+>=20
+> > @@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv_data_e=
+xynos5420 =3D {
+> >  =09=09  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
+> >  };
+> >
+> > +static const struct s3c2410_wdt_variant drv_data_exynos5515 =3D {
+> > +=09.mask_reset_reg =3D EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
+>=20
+> [Severity: Medium]
+> Is this intentionally using an Exynos Auto v920 register macro for an
+> Exynos 5515 variant, or could this be a copy-paste error?
+>=20
 
-clk: scmi: Introduce common header for SCMI clock interface
+This is intentional.
 
-Added a new header file 'clk-scmi.h' to define common structures and
-interfaces for the SCMI clock driver. This header will also be used by
-OEM-specific extensions to ensure consistency and reusability.
+> [Severity: High]
+> Since this variant uses an INT_EN register for masking the reset, should
+> the .mask_reset_inv =3D true flag be set here?
+>=20
+> Without the inversion flag, the bitwise masking logic in
+> s3c2410wdt_mask_wdt_reset() evaluates to (mask ^ false). For INT_EN
+> registers, this typically writes 1 when intending to mask the reset, and =
+0
+> when intending to unmask it, effectively inverting the logic.
+>=20
+> > +=09.mask_bit =3D 2,
+> > +=09.rst_stat_reg =3D EXYNOS5_RST_STAT_REG_OFFSET,
+> > +=09.rst_stat_bit =3D 24,
+> > +=09.quirks =3D QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
+> > +=09=09  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE | \
+> > +=09=09  QUIRK_HAS_DBGACK_BIT,
+> > +};
+>=20
 
-> diff --git a/drivers/clk/clk-scmi.c b/drivers/clk/clk-scmi.c
-> index 7c562559ad8bb..d88e78cc9a12e 100644
-> --- a/drivers/clk/clk-scmi.c
-> +++ b/drivers/clk/clk-scmi.c
-> @@ -13,32 +13,7 @@
->  #include <linux/module.h>
->  #include <linux/scmi_protocol.h>
+Possibly, will wait for maintainer input.
 
-[Severity: Low]
-Is an #include "clk-scmi.h" missing here?
+> [Severity: High]
+> Will this cause unintentional writes to offset 0x0000 of the PMU regmap?
+>=20
+> This variant declares QUIRK_HAS_PMU_AUTO_DISABLE but omits .disable_reg.
+> Since struct fields default to zero, when s3c2410wdt_enable() checks for
+> this quirk and calls s3c2410wdt_disable_wdt_reset() during driver probe:
+>=20
+> s3c2410wdt_disable_wdt_reset()
+>     regmap_update_bits(wdt->pmureg, wdt->drv_data->disable_reg, mask_val,=
+ val);
+>=20
+> regmap_update_bits() will blindly write to offset 0x0000.
+>=20
+> [ ... ]
+>=20
+> --
 
-Since struct scmi_clk and to_scmi_clk were moved to the new header, they wi=
-ll
-be undefined in this file without the include. For example, in
-scmi_clk_recalc_rate(), struct scmi_clk *clk =3D to_scmi_clk(hw); will trig=
-ger a
-compilation error.
+Again, will wait for maintainer input.
 
-> =20
-> -#define NOT_ATOMIC	false
-> -#define ATOMIC		true
-
-[ ... ]
-
-> -
-> -#define to_scmi_clk(clk) container_of(clk, struct scmi_clk, hw)
-> +const struct scmi_clk_proto_ops *scmi_proto_clk_ops;
-
-[Severity: Low]
-If this global variable is meant to be shared via extern for OEM modules, d=
-oes
-it need EXPORT_SYMBOL_GPL(scmi_proto_clk_ops)?
-
-Without it, external modules will likely encounter linker errors when they
-attempt to use it.
-
-[Severity: Medium]
-Could this global state exposure lead to a NULL pointer dereference?
-
-The pointer is populated asynchronously during probe in scmi_clocks_probe():
-
-	scmi_proto_clk_ops =3D
-		handle->devm_protocol_get(sdev, SCMI_PROTOCOL_CLOCK, &ph);
-
-If an external OEM module loads and accesses scmi_proto_clk_ops before the
-main driver completes probe, it could dereference a NULL pointer.
-
-> diff --git a/drivers/clk/clk-scmi.h b/drivers/clk/clk-scmi.h
-> new file mode 100644
-> index 0000000000000..6ef6adc77c836
-> --- /dev/null
-> +++ b/drivers/clk/clk-scmi.h
-> @@ -0,0 +1,40 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + *  Copyright 2025 NXP
-> + */
-> +
-> +#ifndef __SCMI_CLK_H
-> +#define __SCMI_CLK_H
-> +
-> +#include <linux/bits.h>
-> +#include <linux/scmi_protocol.h>
-> +#include <linux/types.h>
-> +
-
-[ ... ]
-
-> +
-> +struct scmi_clk {
-> +	u32 id;
-> +	struct device *dev;
-> +	struct clk_hw hw;
-
-[Severity: Low]
-Should this header include <linux/clk-provider.h>?
-
-It embeds struct clk_hw hw by value, which requires the full definition of =
-the
-struct. Any external source file including clk-scmi.h that hasn't previously
-included <linux/clk-provider.h> will fail to compile.
-
-> +	const struct scmi_clock_info *info;
-> +	const struct scmi_protocol_handle *ph;
-> +	struct clk_parent_data *parent_data;
-> +};
-> +
-> +#define to_scmi_clk(clk) container_of(clk, struct scmi_clk, hw)
-> +
-> +extern const struct scmi_clk_proto_ops *scmi_proto_clk_ops;
-> +
-> +#endif
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-clk-v11-v1=
-1-0-36e9bc701b11@nxp.com?part=3D5
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next=
+-lucky7-watchdog-v1-0-a14370e20b92@member.fsf.org?part=3D2
+> 
