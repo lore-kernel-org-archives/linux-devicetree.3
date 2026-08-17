@@ -1,65 +1,65 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513203AC0DE
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:51:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3653AEF34
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787003508; cv=none; b=nxkEu7WiQgPDy1PbgH+T/bemaZx+fIdytYo3O9w+VVZsN2xOkeLmeiZ7FnXW+6Cda8cbE2o7LYIg9kNVgZzTEjt7MyFG+BJDYSa+6sQzHX+5FffnKu/uTLEyPihfurNvu6XsUNTbwXK2dSepNbOulJqu+js+/AQUMNMzOarjn5U=
+	t=1787003512; cv=none; b=fHgzIRCzUa5CiidIXyh8cTWTKgtNAcfAQZ7Ur25XUXlhrm09qFh9jRm9AY9KgJJmCYn7vuvd7IYz8PYDeQpVpl9IPMEXc6L3tsIwvmPa7EoXrOWkPVYWnltNml7sSkvA3ZdvVEQb1R97bklo33rIKYJyZzqKH+oglOqq9aHkSes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787003508; c=relaxed/simple;
-	bh=z8axV1g+W9pfE2wDh23MA7BMV9/Ih6BX4Zd+Copaa7k=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=upPRP5d4/D4XqLdnJ98B23A+Q5HFkYYGGXgKBOAoQTTc4AKN+DTGlGhctRwfgBA6BvId6bkL94Kfhk/hbkCH3X+sopYnp3HvP/MgcV9xuDTSp4j+7oIyN0x1OZ+dxbI+bobb3asQWGSd34nRzqEA7iIGVHm+Lo0gmlGGgy7i3gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jwPb9UW1; arc=none smtp.client-ip=209.85.221.42
+	s=arc-20240116; t=1787003512; c=relaxed/simple;
+	bh=lU9U9QN38XnK6YnkDIm68oTkp1mphR/YDOaEW77OJAg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=TafP3NuC6m7HyOYefXxedkp5ZluKmZCWbLHvCWY9Sjm559vsFyR7V9xK02rXa2iTzWZ+E7SvB2Af6BnxSbeKbePeD4fwdN3GWmkro5glG9npd3S+S0bAS+S3gvYhQ/GNwKtMPaP7M0WW675cVjhkFoMcvjjxBHfFoqyEpf70Q8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NdYZVhHM; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jwPb9UW1"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f7027ca11so2410985f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 14:51:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NdYZVhHM"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4980dc26022so39668565e9.1
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 14:51:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787003505; x=1787608305; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
+        d=gmail.com; s=20251104; t=1787003507; x=1787608307; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-type:content-transfer-encoding:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=z8axV1g+W9pfE2wDh23MA7BMV9/Ih6BX4Zd+Copaa7k=;
-        b=jwPb9UW1SX52Fv1b9fs63kDA8krQUwh3qpouH7m8doSy/473WwSy7BJNXDBj0DL1SM
-         9WBypivTcJoZeWWAJx0d0/CyFRiAmqgWuPf2i5KqQsnjoDvDALp3TBiQFHtlMPmh2gUN
-         /yZ+hTIvbZUP1+PBu1Y6Ag+PcN5AZgajdI9hwIT6TTugdvH8V46JTqQhklsIfMTwYdwR
-         HHwscat7OX6KsfaMWb0Y1hf3i3rWEc89JbJ50if6xaRUrVGMBXxz2LNO80T2g1+mWgxa
-         izvwW5U9hz47WNLCX7IyI9PlrQjqdjcxNqO7krs84/UiGx/z2WYlqQj7hN6ItvCdF2m0
-         oGQQ==
+        bh=lU9U9QN38XnK6YnkDIm68oTkp1mphR/YDOaEW77OJAg=;
+        b=NdYZVhHM0eGlzUVk7YFW5/55rQXlJ5Mb/NMIa54FTJCrQcPAHIh+JYFyeySqV+KsMX
+         fkyPUuwxNEDNBBM/CAEs/gGu+rcNH0QRAWUpBq16rVnn4EqNTB0oJOlLhApqCXygKXyI
+         RbMHWOzwK9YiMeVasx3Ud4WB6NdiYvoQC+iawDL8z5r9SB1/D6CI2DMq3KPCX0O1VxB3
+         M2/Kul8BgUAMQkWXleA4iSpaGkKkEvaIdbKg9fdc4JsvahDhXt+BNkGUQ3V4Lnn0biUp
+         izWy3/sR66sMVrMVVO6SV62er4P7974SKehel0wn37II24tpzgroTgGlk9s+4laYMrtn
+         sc0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787003505; x=1787608305;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
+        d=1e100.net; s=20251104; t=1787003507; x=1787608307;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=z8axV1g+W9pfE2wDh23MA7BMV9/Ih6BX4Zd+Copaa7k=;
-        b=ByFbGM+JuwjmhnflMw/LzfVGZsh9BMonHWHERDQAzt765cRmXaXW1cLeF4xMzc5rri
-         6oV386vXvm8uxx1G+7ZLLFp4t0+CGyOjnxqOg7YyRK3bDW0dWs/h8ffmyXmQp77V/DUS
-         wSVE/RBmNyLRJ47+8lSEabftkiV2EvMJ3gDzhoERzetm47xGIqlHwsGetEE9MVKKOTK5
-         PK0KJrCNo4Pz+8nSn93u3gbRhW+wSYfv7K9EufKR7cdRNgCl/hpnVKhKcoJcLsQf1Vrl
-         e51q6vFVbQmGNZFO1kP3TSXIUC39Csh2MbQmwo32gyltSSkZuUJmIH6cCdwCaGXrJ2nB
-         GMAA==
-X-Forwarded-Encrypted: i=1; AHgh+RrPp7Vd0MwpVd1mv3ukv8zeQwS2vpiIVmOvioKGvWMhKqIx+kB9GgEWFjN+cDQrh47oknzYSCCVy+iC@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSSrzMpTIt3iyP+pmssHDvBJv7xaTozlC8aJgynQkWBYj6zDFi
-	N8jzmWkr7DBXcZzpZq69p3RD7R9j8hTS8AluF1saSsHBTq0wNdkaNriCkGSZPXk3
-X-Gm-Gg: AR+sD12wQpW1BkCplr2v6ksgtVfkza8r81+1+DJioU1OBfGX8PyLZZMWwZcF9moGiaf
-	7ITFODN0bRBZGMEj+nP4ZR8RW6f6/T5St/s2yXRLiNK18nBuPdjPL61x8bJlucVXR6xiXUekp7s
-	OoliMTrxFF4yqJ/UkQUrE6EVobx+OTXLLPiIB9Vh35+5csHcq9XUlh1JbwW8VdjAFHA7/GEoiaW
-	rl4vUshT1W2dS4Hv66JLbUjtN/QoA+mfYBlwOmf7z0wicG9QPIEs1WFvugN/vUxTT6Q33cSrAYx
-	S1gcCcQ0eUSIz4bxSvHDI5Jh6saG7PQcC0zRkuq/VTivm9042XFdugjeoGNqj+uUIIPDPG+tv44
-	tGwiAEES6uhsizV29/Wm674P2JDj9UwT67RDP+4EJ3shiQFAeHOzZ3fNWl2m8LQfwUY6LzaJgAZ
-	Y22GW5ZL1eALqoj15F3lWNn5sM2inZUxARyKNB5PhbQm8cZ0Og4a27FYSwuuOWazVRy6q2Pixmw
-	1Maoly2zNVd3WHb6FqhZeTLO8VuanH/6J5WMvzfXMSlgcSPdDWbrZ8=
-X-Received: by 2002:a5d:51d0:0:b0:47f:f4b9:88b7 with SMTP id ffacd0b85a97d-48160723e00mr37583370f8f.1.1787003505347;
-        Mon, 17 Aug 2026 14:51:45 -0700 (PDT)
+        bh=lU9U9QN38XnK6YnkDIm68oTkp1mphR/YDOaEW77OJAg=;
+        b=ADZUVmt0p+zL7UVcngZ1zaFPZHh8dyivCGMBa9KM62D3yU1rYPYG/VQV0AZkDJ/lXN
+         b2QzyygNKUSap7n8ny0pnNu6qQsY6wSdTWgIMxwhiUNdZj7JDbkeC//dadxfYQyBv+4F
+         0bIop6Rcczx2up4s9grM3waxx9dG1vd2vt0s9VLrdks9jaYBjA863Kw5it+j5y8jxDQU
+         m3RFMFKS/BFs6+dTBnnER+I0cxwvWLplKUgD6sBe6E4MbGpvKOJWVNBB7Fex2RfawxEW
+         +HqHupS7mV9uokxMmF7UPZWSA9xppQ18zWEBhitkbwNae1bwwbzwiAZJaJjaa9F0qUET
+         Zd1w==
+X-Forwarded-Encrypted: i=1; AHgh+RoENKNOxxl2X0h4rKkoGE85y4w8Mp2pISBmk3YxeLxs0j2pfaN1tzSm2Rf2I1qSCfjyb63jTBdntxGG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuvX5Echm1xtj5ev48ReZIwK9++cXQbH7K/bdDlLt81Jwy1K+B
+	CfbrgN4dU0Q/PuBPzcIQxrz6ReTbqA3WTx98ONSNyvj/KXrfNBsZr5XB
+X-Gm-Gg: AR+sD11fElX/rrS21q5PGpEZbRcvg0jpbbcG62XnKIG5EjvKIM4FQVyDmOy4apQK3Qo
+	j2DiYZJSjym2R9n7NbIGfgvMx01eGMTYyBYtLYTjCRCxZVvO5E04pRvA3Mgy50Tt93W42j5VgLH
+	/J53wgvnknVFwUuywAIN6UVU+9U4GKgahbnfjhKoTMbpJvciU0FlDu3CfB9Nh02NITViCxVsPlT
+	rpMf43HE1qCOyXkNranfmgJ49bDV8Gmx+9RDLZiNh+hg/Vr1z7TYxXzBLAJw2Y8mgm3E8fo7Wbq
+	JD27HatEziykvHDAk3mirvWh7E8yNS4OykXdUrtOy/Sr3es+kJUUzl6FG7mGDm5evb7BgtQ8tmv
+	Yql+gKOZRXe6VTs38LUcNZrc+UPSPEunxkynYevnD2fHfGJw/jbn/tH9z8lEyM2bq+ek6mUMYAz
+	0qo4Nx146Sgwn0tnJA8AObXYvNxrENgLqyyQIcXIuWxvHaBk+PJPlg4tdTbM7mYh8V9FJ0XuSeE
+	veCHqrpv3+smoKP5CcXVyL1rBZZrTK4sfIHUaX/EhTJL6tC3LMl2acMsJjgiuZbcw==
+X-Received: by 2002:a05:600c:3b1d:b0:499:79b9:e226 with SMTP id 5b1f17b1804b1-49988057986mr422726375e9.0.1787003507537;
+        Mon, 17 Aug 2026 14:51:47 -0700 (PDT)
 Received: from localhost (178.43.142.119.ipv4.supernova.orange.pl. [178.43.142.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5b783c6sm7267823f8f.31.2026.08.17.14.51.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4998777caebsm301129065e9.0.2026.08.17.14.51.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 14:51:43 -0700 (PDT)
+        Mon, 17 Aug 2026 14:51:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,8 +68,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 17 Aug 2026 23:37:34 +0200
-Message-Id: <DKRJKMECRUTC.125CT60ZV5WKN@gmail.com>
+Date: Mon, 17 Aug 2026 23:39:13 +0200
+Message-Id: <DKRJLVL3NMYG.2J2QX2YKJJHKW@gmail.com>
+Subject: Re: [PATCH v15 15/22] media: i2c: add Maxim GMSL2/3 deserializer
+ framework
 From: "Artur Andrzejczak" <andrzejczak.artur@gmail.com>
 To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>, "Tomi Valkeinen"
  <tomi.valkeinen+renesas@ideasonboard.com>, "Mauro Carvalho Chehab"
@@ -84,21 +86,56 @@ Cc: <mitrutzceclan@gmail.com>, <linux-media@vger.kernel.org>,
  =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
  "Martin Hecht" <Martin.Hecht@avnet.eu>, "Andrian Suciu"
  <Adrian.Suciu@analog.com>, "Cosmin Tanislav" <demonsingur@gmail.com>
-Subject: Re: [PATCH v15 14/22] media: i2c: add Maxim GMSL2/3 serializer
- framework
 X-Mailer: aerc 0.21.0
 References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
- <20260807-gmsl2-3_serdes-v15-14-7212e9e5156a@analog.com>
-In-Reply-To: <20260807-gmsl2-3_serdes-v15-14-7212e9e5156a@analog.com>
+ <20260807-gmsl2-3_serdes-v15-15-7212e9e5156a@analog.com>
+In-Reply-To: <20260807-gmsl2-3_serdes-v15-15-7212e9e5156a@analog.com>
 
 On Fri Aug 7, 2026 at 3:02 PM CEST, Dumitru Ceclan wrote:
 > [...]
 
-Inside the err_revert_mode path of max_ser_update_pipe(),
-max_ser_set_pipe_mode(priv, pipe, &pipe->mode) is called with pipe->mode
-itself, meaning that the equality check at the top of
-max_ser_set_pipe_mode() makes the revert a no-op, yet the hardware keeps
-the new mode. Am I reading that right?
+hweight_long(des->info->versions) >=3D 1 is true for any driver that
+declares a version, so the check makes .set_link_version mandatory for
+every chip driver. The "Multiple version" message suggests "> 1" was
+intended. Both error messages also name .select_link_version(), which
+does not exist.
+
+An automated review already flagged the unguarded .select_links() call
+in max_des_init_link_ser_xlate(). The same unguarded call is in
+max_des_ser_attach_addr() (out_select_links) and max_des_i2c_atr_init().
+Only max_des_i2c_mux_select() checks the op before calling it. The
+">=3D 1" check is what currently requires every driver to provide the op,
+so changing it to "> 1" alone would expose those call sites to a
+single-version driver without .select_links.
+
+In max_des_parse_src_dt_endpoint(): "Unsupported bus-type %u on port %u"
+is printed with (pad, bus_type). The arguments seem swapped.
+
+Doubled 10/12-bpp is handled at the PHY level via alt_mem_map10/12 in
+max_des_get_phy_mode(), but the pipe-level dbl10/dbl12 (the
+BPP10DBL/BPP12DBL bits the chip drivers write) are never set by the
+core. Only dbl8 is. Is this on purpose, or should
+max_des_get_pipe_mode() set dbl10/dbl12 as well? If it is intentional,
+isn't the dbl10/dbl12 handling in the chip drivers unused?
+
+The version loop in max_des_ser_attach_addr() sets RX_RATE using
+set_link_version() and seems to rely on the select_links() call inside
+max_des_init_link_ser_xlate() doing RESET_ONESHOT to latch it, as the
+multi-link paths do. But max9296a_select_links() returns early for
+num_links =3D=3D 1, before the reset. max96714_des_info declares both 3G an=
+d
+6G speeds, so on MAX96714 the fallback iteration writes a new rate with
+no oneshot reset after it. The fallback rate would then not take effect,
+and a 3G-only serializer may fail to attach, or attach with the wrong
+version stored. How is the new rate meant to take effect in that case?
+
+Also in the same loop, if no version bit is inside [min, max], the loop
+ends with ret =3D=3D 0, and the code after it marks ser_xlate.en =3D true w=
+ith
+version =3D min - 1 and no serializer attached. Not reachable with the
+current chip infos, but an info with an empty versions mask might hit it
+(an empty mask also passes the probe check above, since
+hweight_long(0) =3D=3D 0). Initializing ret to -ENOENT could solve it.
 
 Kind Regards,
 Artur Andrzejczak
