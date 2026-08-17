@@ -1,360 +1,172 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DE4450401;
-	Mon, 17 Aug 2026 16:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B3644D011
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 16:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786984041; cv=none; b=B1vTmKSrzkN8wkgz/0BMjU4Tec517fpf+crfyMA/cfCkWAAbh+nwZjslRv/o9fjuODAAMfPIShsiMmIljvxIpImeGU+LAacyyyJlhZ23ywmTXzayWldnqNiKWn5ioH1Sh4PvjBl7KKOWghEf7iUeG1AFJMQUE46FYsCtM9QptzQ=
+	t=1786984091; cv=none; b=mhs25jIdHl7X+P42qyXi3/rSHgddpHx7LKreblGuP1JVyP+UfmQSfsXxZxmLjM3mUdBSmvPUEb9Ykc/IhjJDYaeh35HRgY7Uz+JXxSe/cifV1wzIYNzS6dTQihU1gxOKYVxVQmq0afX98woTmavVhUfwtWDG5248oVThO9eD5Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786984041; c=relaxed/simple;
-	bh=KlApjxw+M+B6l/S23HEinDHUcia3Fy9ixRDKnIrNwaI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G3jg0TZGdJNPwomU72VSZGnJrtPFEot7m098pSS/+OuDBXMwuITF5bjtHJi1UM0/jyJ05YY1CSH/qKpxrXS+rF9ZZ9kzbl6JQDi5DMu26O4BRucNS5Nl/Sh3s/m0oIQqkVtFvjzNoDun2/j0hUux3PowQ39ErL18omQpWOiKAj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=kDWRZ2QG; arc=none smtp.client-ip=212.227.15.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1786984091; c=relaxed/simple;
+	bh=L4aQgT8fXeqPiOdTgjkC0lOKyX+YyiVCgNjOLpBrcQg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dgpVhpjyNGpvhhZxYUWF7Y7LG3DJPSkZrL2IyN6VNCvWcVC90FHHPOe2cRXDEcuJ/ziXLG3faAgZ5zYdE8NOZMPvd5XSPwzkBiuaUyUF6dHdXhZEN4vFHupIlfT3Zc1zyCIWUVRrGRYBOegWksVUvVt/0+uTqjaaggODLLf16Cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsE1bvza; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="kDWRZ2QG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1786984010; x=1787588810;
-	i=markus.stockhausen@gmx.de;
-	bh=4KS//c55pNeZsvQG2bp0ZXTfNAwn7Hf9cq3ocJD+e3U=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=kDWRZ2QGiqeSTIe6M7eNQ6o3yNeBAQcla1CHvJDc561JXPkhra05rI5iPtSJ0SgM
-	 xL0Ap7KOyl/WuK+GjOj5fw19uj1d/ULzbyMXtjgQq27NX17OhzSAPGU17Ju9DH7M+
-	 ro6xFZFre3yIVAUBUq+z2gRXD+AO9RyzukEPEb8vNVM4pDu94cNMgqV2pEgXCAFK9
-	 04Ah/DplPtJMt5Upcx7Wz+5GmMSmdOyLMNExkxcD9Zx/uKNtFHJ8ob+hOLbPTVuej
-	 hhjTmug9Pqn3iI8cWc/MG/HK0C89srGpWj3djFy0C3RemHEz9sSj5XoEs92cTZNz1
-	 HAD2DKn90OwHWuN/CQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mt79P-1wgXml0cXp-00x0on; Mon, 17
- Aug 2026 18:26:50 +0200
-From: Markus Stockhausen <markus.stockhausen@gmx.de>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	daniel@makrotopia.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
-Subject: [PATCH net-next v14 04/13] net: phy: add phy_detach_internal() helper
-Date: Mon, 17 Aug 2026 18:26:23 +0200
-Message-ID: <20260817162632.1208891-5-markus.stockhausen@gmx.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817162632.1208891-1-markus.stockhausen@gmx.de>
-References: <20260817162632.1208891-1-markus.stockhausen@gmx.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsE1bvza"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379681F000E9;
+	Mon, 17 Aug 2026 16:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786984088;
+	bh=rkQK4JrZ6iw4CExt8/XNPAiEtUlvNHZmiGV6tHnoAYI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XsE1bvzaYZu9/vmmFkLs2I+5icBR6EzaQODpN8L5RqEBJ6CihUKqQdS3O+GRPUqVU
+	 +q5V/XZKXCmG2pRo4YfJMkx0bnWN5X6LjcrPF0tzmFxuLqPF98ew/jRUhz/WopuiQC
+	 /chlXrlbPLdd0fwH3YG3nQp+H3w6xX6Um7FkrLBjC9MnUztNynqCjoJcj8jqjd9QVG
+	 R6dn8kBz9oXMyMUKapSGOBekDt+YXJqPyL8wkSAPIbI/qKxedfOPIkYHE5ZlX4ds2B
+	 GMVxL9/wA5GIMgZid9hCKDTaatuKjJqsa2wwVoGco5ELKdKmpTgC7oKHEmdZH35v7y
+	 Hm0jJ5BiutqkQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
+ target activity
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-2-94d1eff3175f@oss.qualcomm.com>
+References: <20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-0-94d1eff3175f@oss.qualcomm.com>
+ <20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-2-94d1eff3175f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 16:28:07 +0000
+Message-Id: <20260817162808.379681F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ydxYz8SKuYvNAcbQO2gzMwnvDliUoW36ifD/4k8XA/A7n+2sCKl
- GVCFI9zePnPNleCun0kyOywZyyzHjkEiEcFOGCoUgm2tpe0ZW6ShKSdsS+JCpAp76fVS+m+
- +zNRnCy53C2l4KlIPlmGGWsarzRIl719JFRv354MThMWnT6S0Qi0h2U9kAsMlqtB2LfXGjc
- O1VQOoSvmpHLejoI6Pujw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:sMiQpP15+qs=;dstG+R/EbDHF04LH4LxVMlQcc2f
- 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
 
-For the upcoming MDIO bus notification enhancements the PHY detach path
-needs to inform the bus about these actions. Until now phy_detach() is
-called normally but also in the phy_direct_attch() cleanup parts. So in
-the future there must be a clear indication if a notification is needed
-(normal path) or not (cleanup path).
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The driver incorrectly swallows errors from `devm_gpiod_get_index_=
+optional()`, breaking deferred probing (-EPROBE_DEFER).
+- [High] The target ready GPIO is completely ignored when the SPI controlle=
+r operates in GPI DMA mode (`GENI_GPI_DMA`).
+- [High] A race condition between hardware initiation and GPIO assertion ca=
+n leave the ready GPIO permanently stuck high.
+--
 
-Carve out the phy_detach() code into a new helper phy_detach_internal()
-and make phy_detach() a short stub that calls the new helper.
+--- Patch [2]: [PATCH v2 2/2] spi: qcom-geni: Use GPIO to notify master of =
+SPI target activity ---
+commit d3635e8d846f952a724421a12c51192475a16e09
+Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
 
-Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-=2D--
- drivers/net/phy/phy_device.c | 165 ++++++++++++++++++-----------------
- 1 file changed, 85 insertions(+), 80 deletions(-)
+spi: qcom-geni: Use GPIO to notify master of SPI target activity
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 94b2e85e00a3..835d71306b4d 100644
-=2D-- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1734,6 +1734,91 @@ static bool phy_drv_supports_irq(const struct phy_d=
-river *phydrv)
- 	return phydrv->config_intr && phydrv->handle_interrupt;
- }
-=20
-+static void phy_detach_internal(struct phy_device *phydev)
-+{
-+	struct net_device *dev =3D phydev->attached_dev;
-+	struct module *ndev_owner =3D NULL;
-+	struct mii_bus *bus;
-+
-+	if (phydev->devlink) {
-+		device_link_del(phydev->devlink);
-+		phydev->devlink =3D NULL;
-+	}
-+
-+	if (phydev->sysfs_links) {
-+		if (dev)
-+			sysfs_remove_link(&dev->dev.kobj, "phydev");
-+		sysfs_remove_link(&phydev->mdio.dev.kobj, "attached_dev");
-+	}
-+
-+	if (!phydev->attached_dev)
-+		sysfs_remove_file(&phydev->mdio.dev.kobj,
-+				  &dev_attr_phy_standalone.attr);
-+
-+	phy_suspend(phydev);
-+	if (dev) {
-+		struct hwtstamp_provider *hwprov;
-+
-+		/* hwprov may technically be protected by ops lock but
-+		 * not for devices with a phydev, see phy_link_topo_add_phy()
-+		 */
-+		hwprov =3D rtnl_dereference(dev->hwprov);
-+		/* Disable timestamp if it is the one selected */
-+		if (hwprov && hwprov->phydev =3D=3D phydev) {
-+			rcu_assign_pointer(dev->hwprov, NULL);
-+			kfree_rcu(hwprov, rcu_head);
-+		}
-+
-+		phydev->attached_dev->phydev =3D NULL;
-+		phydev->attached_dev =3D NULL;
-+		phy_link_topo_del_phy(dev, phydev);
-+	}
-+
-+	phydev->phy_link_change =3D NULL;
-+	phydev->phylink =3D NULL;
-+
-+	if (phydev->mdio.dev.driver)
-+		module_put(phydev->mdio.dev.driver->owner);
-+
-+	/* If the device had no specific driver before (i.e. - it
-+	 * was using the generic driver), we unbind the device
-+	 * from the generic driver so that there's a chance a
-+	 * real driver could be loaded
-+	 */
-+	if (phydev->is_genphy_driven) {
-+		device_release_driver(&phydev->mdio.dev);
-+		phydev->is_genphy_driven =3D 0;
-+	}
-+
-+	/* Assert the reset signal */
-+	phy_device_reset(phydev, 1);
-+
-+	/*
-+	 * The phydev might go away on the put_device() below, so avoid
-+	 * a use-after-free bug by reading the underlying bus first.
-+	 */
-+	bus =3D phydev->mdio.bus;
-+
-+	put_device(&phydev->mdio.dev);
-+	if (dev)
-+		ndev_owner =3D dev->dev.parent->driver->owner;
-+	if (ndev_owner !=3D bus->owner)
-+		module_put(bus->owner);
-+}
-+
-+/**
-+ * phy_detach - detach a PHY device from its network device
-+ * @phydev: target phy_device struct
-+ *
-+ * This detaches the phy device from its network device and the phy
-+ * driver, and drops the reference count taken in phy_attach_direct().
-+ */
-+void phy_detach(struct phy_device *phydev)
-+{
-+	phy_detach_internal(phydev);
-+}
-+EXPORT_SYMBOL(phy_detach);
-+
- /**
-  * phy_attach_direct - attach a network device to a given PHY device poin=
-ter
-  * @dev: network device to attach
-@@ -1906,86 +1991,6 @@ int phy_attach_direct(struct net_device *dev, struc=
-t phy_device *phydev,
- }
- EXPORT_SYMBOL(phy_attach_direct);
-=20
--/**
-- * phy_detach - detach a PHY device from its network device
-- * @phydev: target phy_device struct
-- *
-- * This detaches the phy device from its network device and the phy
-- * driver, and drops the reference count taken in phy_attach_direct().
-- */
--void phy_detach(struct phy_device *phydev)
--{
--	struct net_device *dev =3D phydev->attached_dev;
--	struct module *ndev_owner =3D NULL;
--	struct mii_bus *bus;
--
--	if (phydev->devlink) {
--		device_link_del(phydev->devlink);
--		phydev->devlink =3D NULL;
--	}
--
--	if (phydev->sysfs_links) {
--		if (dev)
--			sysfs_remove_link(&dev->dev.kobj, "phydev");
--		sysfs_remove_link(&phydev->mdio.dev.kobj, "attached_dev");
--	}
--
--	if (!phydev->attached_dev)
--		sysfs_remove_file(&phydev->mdio.dev.kobj,
--				  &dev_attr_phy_standalone.attr);
--
--	phy_suspend(phydev);
--	if (dev) {
--		struct hwtstamp_provider *hwprov;
--
--		/* hwprov may technically be protected by ops lock but
--		 * not for devices with a phydev, see phy_link_topo_add_phy()
--		 */
--		hwprov =3D rtnl_dereference(dev->hwprov);
--		/* Disable timestamp if it is the one selected */
--		if (hwprov && hwprov->phydev =3D=3D phydev) {
--			rcu_assign_pointer(dev->hwprov, NULL);
--			kfree_rcu(hwprov, rcu_head);
--		}
--
--		phydev->attached_dev->phydev =3D NULL;
--		phydev->attached_dev =3D NULL;
--		phy_link_topo_del_phy(dev, phydev);
--	}
--
--	phydev->phy_link_change =3D NULL;
--	phydev->phylink =3D NULL;
--
--	if (phydev->mdio.dev.driver)
--		module_put(phydev->mdio.dev.driver->owner);
--
--	/* If the device had no specific driver before (i.e. - it
--	 * was using the generic driver), we unbind the device
--	 * from the generic driver so that there's a chance a
--	 * real driver could be loaded
--	 */
--	if (phydev->is_genphy_driven) {
--		device_release_driver(&phydev->mdio.dev);
--		phydev->is_genphy_driven =3D 0;
--	}
--
--	/* Assert the reset signal */
--	phy_device_reset(phydev, 1);
--
--	/*
--	 * The phydev might go away on the put_device() below, so avoid
--	 * a use-after-free bug by reading the underlying bus first.
--	 */
--	bus =3D phydev->mdio.bus;
--
--	put_device(&phydev->mdio.dev);
--	if (dev)
--		ndev_owner =3D dev->dev.parent->driver->owner;
--	if (ndev_owner !=3D bus->owner)
--		module_put(bus->owner);
--}
--EXPORT_SYMBOL(phy_detach);
--
- int phy_suspend(struct phy_device *phydev)
- {
- 	struct net_device *netdev =3D phydev->attached_dev;
-=2D-=20
-2.55.0
+When operating in SPI target mode, the GENI controller relies on an
+external GPIO to notify the SPI master about the target's active state.
 
+Add support for an optional ready GPIO that is asserted when a target
+transfer begins and deasserted when the transfer completes, is aborted,
+or hits a timeout. This allows the target to explicitly signal its
+availability to the master and ensures the GPIO is released in all error
+and completion paths, preventing the master from observing a stale or
+incorrect target-ready indication.
+
+> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
+> index 6c57f8309a3b2..bbe040383d530 100644
+> --- a/drivers/spi/spi-geni-qcom.c
+> +++ b/drivers/spi/spi-geni-qcom.c
+[ ... ]
+> @@ -938,8 +943,12 @@ static int spi_geni_transfer_one(struct spi_controll=
+er *spi,
+>  	if (mas->cur_xfer_mode =3D=3D GENI_SE_FIFO || mas->cur_xfer_mode =3D=3D=
+ GENI_SE_DMA) {
+>  		ret =3D setup_se_xfer(xfer, mas, slv->mode, spi);
+>  		/* SPI framework expects +ve ret code to wait for transfer complete */
+> -		if (!ret)
+> +		if (!ret) {
+> +			if (spi->target && mas->target_gpio)
+> +				gpiod_set_value(mas->target_gpio, 1);
+
+[Severity: High]
+Is there a race condition here between hardware initiation and GPIO asserti=
+on
+that could leave the ready GPIO permanently stuck high?
+
+When setup_se_xfer() arms the hardware and drops the spinlock:
+
+drivers/spi/spi-geni-qcom.c:setup_se_xfer() {
+    ...
+    spin_unlock_irq(&mas->lock);
+    return ret;
+}
+
+If the SPI master immediately sends clocks, the hardware can complete the
+transfer and trigger geni_spi_isr() on another CPU before we assert the GPIO
+here. The ISR finalizes the transfer and deasserts the GPIO to 0.
+
+Afterwards, this code resumes and unconditionally asserts the GPIO to 1,
+overriding the completed state.
+
+>  			ret =3D 1;
+> +		}
+> +
+>  		return ret;
+>  	}
+>  	return setup_gsi_xfer(xfer, mas, slv, spi);
+
+[Severity: High]
+Does this bypass the GPIO assertion logic when the SPI controller operates =
+in
+GPI DMA mode (GENI_GPI_DMA)?
+
+The GPIO assertion logic appears to be restricted to SE DMA and FIFO paths,
+skipping the GPI DMA fallback path completely.
+
+Furthermore, is the GPIO deassertion also missing in the GPI DMA completion
+handler?
+
+drivers/spi/spi-geni-qcom.c:spi_gsi_callback_result() {
+    ...
+    if (!result->residue) {
+        spi->cur_msg->status =3D 0;
+        dev_dbg(&spi->dev, "DMA txn completed\n");
+    }
+    ...
+}
+
+[ ... ]
+> @@ -1131,8 +1144,16 @@ static int spi_geni_probe(struct platform_device *=
+pdev)
+>  	init_completion(&mas->rx_reset_done);
+>  	spin_lock_init(&mas->lock);
+> =20
+> -	if (spi->target)
+> +	if (spi->target) {
+>  		spi->target_abort =3D spi_geni_target_abort;
+> +		mas->target_gpio =3D devm_gpiod_get_index_optional(dev, "ready", 0,
+> +								 GPIOD_OUT_LOW);
+> +		if (IS_ERR(mas->target_gpio)) {
+> +			dev_err(dev, "Failed to request GPIO: %ld\n",
+> +				PTR_ERR(mas->target_gpio));
+> +			mas->target_gpio =3D NULL;
+
+[Severity: High]
+Does this incorrectly swallow errors from devm_gpiod_get_index_optional(),
+breaking deferred probing (-EPROBE_DEFER)?
+
+If the GPIO provider probes after the SPI controller,
+devm_gpiod_get_index_optional() will return -EPROBE_DEFER, but this catches
+the error, logs it, and sets the pointer to NULL instead of propagating the
+error to allow retrying later.
+
+> +		}
+> +	}
+> =20
+>  	pm_runtime_use_autosuspend(&pdev->dev);
+>  	pm_runtime_set_autosuspend_delay(&pdev->dev, 250);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-use_gpio_t=
+o_notify_master_of_spi_target_activity-v2-0-94d1eff3175f@oss.qualcomm.com?p=
+art=3D2
