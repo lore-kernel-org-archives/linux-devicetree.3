@@ -1,120 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E7C3E63B0
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 19:39:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B6B9F3E63B0
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 19:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786995600; cv=none; b=BEA5e+kUEINMCLLG7ISolcs+2fGgyPmcSfC9SFya4cIAu7aKHikK/k15dpzKQaQ3fL7Mc7r4+Xg0bezZ+kXYZhvyVV0qQqmmelL4X4LlL0pLCQsZo7LrEhzlnNNUB5TfnIJoLnwL1TZBQgqvh6FJmH3WH6yZ4oyFJYjbQpO2juY=
+	t=1786995634; cv=none; b=AlFAl+wnunYEm9BUPnOKfu5C5DHe+o9tudIUskgB94igEzstfNgMfTiy/8IyqhpaVuytLtfmNPhmK5r2r+edtZsY5y4zrvNHJEu56cxrTgI+OOFJ2q67sDAkqNvfrWPD/w7BmVFYxOnb3e82QJhcWHwznbgZzB440rJSKtoAlWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786995600; c=relaxed/simple;
-	bh=zZ4hYJe87nz/rCzbp8PxTBM6sLDrfoaj1vRD3/L8Emw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aU0WG49iZl7/iM86Hr9m4ryUOn++pAQ3lThNPVOp1pXvcNj+T7Vv+QC/ca9Ni+sLU4UV7Mks3D9XAwbQg7PGuoIuqmBOhOGJrViv9iwBiNWuIJACcTXn2mScB54SztYbv9vpGvwoiVKX7/vUshmwPQ3RQvF6JSOC3MSSr+9yLFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gsiL/E6c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786995634; c=relaxed/simple;
+	bh=J3MdS4PH0Su/2ookildlSnvG/LcVZKRvW1iJ6HnLlBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bz1gdDF7Tusz/A12/TiCNLVAEs4vGmqJwwkNEx+5HvXy8qTAhbyaYEOpmHWIPf/e+12BTyxmgHZnQWql8ZRYP79d8hCA8inRRpw2crVM2d9NLU+Ya7+4gH03KEwJqT3JikxOpyS2aoCkp7HK/jGgaVf4cLSXt4vKrO74ue1IUks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NYjfRp2M; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gsiL/E6c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06111F000E9;
-	Mon, 17 Aug 2026 19:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786995599;
-	bh=tfofchdZvnUpacIIGFv0iVI4o4/ifXM0HTqkS1Wrb48=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gsiL/E6c6OFCyJVERfPHPo81+JS3HyBc3f/rH2j7C+bHMwLl5f8HNqBhInVKfz57g
-	 ILSKv8ep08Wwqq9KsSQ6D+yGb+wyvkht4jQkH7MsnprWfaE6TZ90mc8N6CRrEwmVCm
-	 x35vnigOr+6rHmTzo+Iv9q9iGoLXBxKXGTN9a/qSRpL3Z9l014Eb4v+jItktsaC2E6
-	 3JC3Z93mz7GN7K86yl1hUgX8t0Oq1k9MjZeyXsymmNO194oIp/T0jKAFGi7E21Adp5
-	 sK6qHd5jobrHeV4SaE4T26v7+nbrTpl0DtusPx/IYGaYY9bNiM9Rug+snf29u9QQey
-	 otgALxvC2pgZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v10 3/4] net: dsa: motorcomm: Add LED support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Yang" <mmyangfl@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260816193905.218112-4-mmyangfl@gmail.com>
-References: <20260816193905.218112-1-mmyangfl@gmail.com>
- <20260816193905.218112-4-mmyangfl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 19:39:58 +0000
-Message-Id: <20260817193958.E06111F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NYjfRp2M"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1BE101688
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 12:40:27 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C62A73F673
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 12:40:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1786995631; bh=J3MdS4PH0Su/2ookildlSnvG/LcVZKRvW1iJ6HnLlBQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NYjfRp2M1Fu+FJBIBh2+pH1LZNCEkdwFWItMfooWBmB9S+Wzp3Qn6fBSoQaDCdWkz
+	 hJ7fkQgvFFMbTdgvD7+zIX1Una8eby2/iuJQ+rzpjAnYSLpFth8eU/xcQv8kdYRtZr
+	 mW09rqMrrtwsSOfd3oKEeUDEi4esNRQ4Bq9V2Bi4=
+Date: Mon, 17 Aug 2026 20:40:23 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: arm: corstone1000-a320: Fix GIC
+ redistributor region size
+Message-ID: <aoNjpw8p6tUw8b0v@e142607>
+References: <20260817185607.1756124-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260817185607.1756124-1-robh@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Unconditional kernel panic during probe due to pointer arithme=
-tic on NULL net_device pointers in yt921x_cled_hw_control_get_device().
---
+On Mon, Aug 17, 2026 at 01:56:07PM -0500, Rob Herring (Arm) wrote:
+> The Arm Corstone1000-A320 has a GICv4 which means the redistributor
+> region should be 4x256KB rather than 512KB. This issue didn't become
+> apparent as SMP was disabled as a work-around in early versions of the
+> FVP.
+> 
+> Fixes: 87599f1843d3 ("arm64: dts: arm/corstone1000: Add corstone-1000-a320")
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
---- Patch [3]: [PATCH net-next v10 3/4] net: dsa: motorcomm: Add LED suppor=
-t ---
-commit 25a5fb03fc03b52bd3ea80525b1fd57bd6de812d
-Author: David Yang <mmyangfl@gmail.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-net: dsa: motorcomm: Add LED support
+Best regards,
+Liviu
 
-This commit adds support for controlling the LEDs attached to the
-Motorcomm YT9215 switch chips via the standard LEDs subsystem. It
-currently supports parallel mode and strict 1:1 mapping.
+> ---
+>  arch/arm64/boot/dts/arm/corstone1000-a320.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi b/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
+> index f0937914350c..f895a024fc92 100644
+> --- a/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
+> +++ b/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
+> @@ -73,7 +73,7 @@ gic: interrupt-controller@1c000000 {
+>  		#size-cells = <1>;
+>  		interrupt-controller;
+>  		reg = <0x1c000000 0x10000>,
+> -		      <0x1c040000 0x80000>;
+> +		      <0x1c040000 0x100000>;
+>  		interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
+>  	};
+>  
+> -- 
+> 2.53.0
+> 
 
-> diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm=
-/leds.c
-> new file mode 100644
-> index 0000000000000..e7ef0ef80a266
-> --- /dev/null
-> +++ b/drivers/net/dsa/motorcomm/leds.c
-
-[ ... ]
-
-> +static struct device * __maybe_unused
-> +yt921x_cled_hw_control_get_device(struct led_classdev *led_cdev)
-> +{
-> +	struct yt921x_led *led =3D to_yt921x_led(led_cdev);
-> +	struct yt921x_port *pp =3D to_yt921x_port(led);
-> +	struct yt921x_priv *priv =3D to_yt921x_priv(pp);
-> +	struct dsa_port *dp;
-> +
-> +	dp =3D dsa_to_port(&priv->ds, pp->index);
-> +	if (!dp)
-> +		return NULL;
-> +
-> +	if (dsa_port_is_user(dp))
-> +		return &dp->user->dev;
-> +	if (dsa_port_is_cpu(dp))
-> +		return &dp->conduit->dev;
-
-[Severity: Critical]
-Could this cause a kernel panic during probe if dp->user or dp->conduit is
-NULL?
-
-When the hw_control_trigger is set to netdev during driver setup, the LED
-core immediately activates the netdev trigger, which in turn calls
-yt921x_cled_hw_control_get_device().
-
-At this point during probe, the user ports are not fully instantiated yet,
-meaning dp->user is NULL. Unconditionally returning &dp->user->dev performs
-pointer arithmetic on the NULL pointer, yielding a non-zero invalid pointer
-because dev is located at an offset within struct net_device.
-
-The netdev trigger core evaluates this pointer as true and calls to_net_dev=
-()
-on it, which subtracts the offset and yields exactly NULL. It then attempts
-to dereference the network device name, crashing the kernel.
-
-Does this need an explicit check to verify dp->user and dp->conduit are val=
-id
-pointers before accessing their dev members?
-
-> +
-> +	return NULL;
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816193905.2181=
-12-1-mmyangfl@gmail.com?part=3D3
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
