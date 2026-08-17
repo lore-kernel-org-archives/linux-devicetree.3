@@ -1,64 +1,64 @@
 Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471583AE1AD
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 09:27:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459843DDB15
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 09:28:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786958868; cv=none; b=Pp4qji8NzZ7XSAGF7VNWy6jJXxRk2ORJ7SN25vNAnX2VXsK5xpB5unHH9lsvfN7f6TRkz7cIH0m+JvUJRdxVd1lY6fGepPyQW9U/+jRDbgXyB3dq/iScsPy7Hkn210C2suu1+WxtJRrz2OEuFc3t198g6ZToyq6uX+ViltUo2pU=
+	t=1786958900; cv=none; b=n0ZDi9qnoZ83aafgKnXx0g7HEBcqu1QS+VyWW5P1X27S6AAczz2mk3KVZkSSGcZgnqcwGFsI18XOpjtoTkzuKTqyKchn2unZR/TEMcH/zW2EGcoHfPP4Kd36wLqyTGLgFsnTM5QuapZ5f4z23pzIWIrzxp820gqfCObaNZdj4xQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786958868; c=relaxed/simple;
-	bh=4VODi8yUWp6VotkEng+Eoi15pTbHzrJrCQiI2m+Wxhk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W8I2McFHTiwqbRjSRdqZzNTJFrOia4e6i+UayOfR1XW08F2o42ECjGlM3cQwgzImRgZORXPYlSfii69wWtieqD+akWWFXuFx+oQeCHYKu3snPcF1PWThrPUGdZnLPqSrJmB3Cf6qPsHU820N3usQHFJfkgBoct8+9XQbs7R+6Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com; dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b=XWi8qjwy; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1786958900; c=relaxed/simple;
+	bh=I77vCqt69BN/M4jLKGyd0p8wE+Nm/qGxZFR5eG8yqSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VIVgAkmTkE68lYjtVu55S8QG6tSL7RiXme+cOfEjNKzPzN3whxRZFFjfXqVodZ8WStkcJE8t4HlXKz3VdNFdDo9DeanWYiU3n2bGTVsfpmuUMySCVtrmtXhJFA6dDNGp10RH7lJN3H1yozvvqQQssl5An6mGYjUZATF/VXFEW9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com; dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b=bkQHMA3D; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b="XWi8qjwy"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cf50c6f235so38259315ad.0
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 02:27:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b="bkQHMA3D"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cf6d65d8a7so41313575ad.0
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 02:28:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=synaptics-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1786958866; x=1787563666; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MqILGGIWyBqTfUPjY9fDVNDQq53KOhgiPASwm5nWtNY=;
-        b=XWi8qjwyps0lDkUqIPhgEjm69T0dw5pcpNd3e2wQPgaitxpRdCkzmfskBK8AJMfGQp
-         UfgPECct6+bRn98vw65yiZrQbSKOc0+e7/z0tT9cCF9tt8M00CKY8XeNhavYS4840WyR
-         /mIadDq05BVMpCZ35oug88g4Zoi+GaQ0DKBDHsBIfcs0+Uve1+csOUSv00WVcMlMR0JW
-         Z9Fk9DRop7+eAw6YAV+YiCKxlXyJihBMKOeoKls84LlBU/pLI53mq2vP+LgU4BTEiVxf
-         jYVeI9xvmOHSWDjZKgVfAETVztgdIOQYZvWM0oHFJTv2AJ0pKG2Hk36eQttgfMT6XL5p
-         V/Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786958866; x=1787563666;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=synaptics-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1786958879; x=1787563679; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MqILGGIWyBqTfUPjY9fDVNDQq53KOhgiPASwm5nWtNY=;
-        b=WXvfvlO1db7VW7gkMQhGGbH8LExRh2oYgIsRK791LxNQL4J2AfFInuEjpTCat9Ypz3
-         u40eSyASn6JqrJsV4SlLGZjgZcDB6l4u3eeEOSRfNvSz2y3XgcklKSNxgR30gv5emjRw
-         nJeReoDeXE8L4J5IVLPsfEDof4IHQg5Ywkj8ctVD3XCp/KE7vsDJ084UOcHTWBVxKtYc
-         KJQCVtruhYGJ/D6p3kBgMmHspKwd7WXNREG0G+NE8P49Md6Sqb2rOnsaexhU+14F/Hy0
-         GYGwg59XMrXzjnQW0qzmCUGYjSfMmbbpoIdAD7/f5zsQIIFFanmKxJk0OyZhqO4m4Vi4
-         Ivaw==
-X-Forwarded-Encrypted: i=1; AHgh+RrAkfMWRYIKpwTrm/SrsPiTcs8Q27QZq1MK3gMnTeuIpqszGc7SNafUbFhQUVd9vBOq6tNUG6R2pkhj@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCriaEwXp4vOAmJWu3qhRBakXqpb8SIrh9Q8c5H0WKklcbEx87
-	ciNurN/nnn7sziSj8xlwKIeVke2L3ejvQCtwo9TkwH2YyxZXljC6d4KTKbGPWUAXJtfZ/l1wjyB
-	/Dwg=
-X-Gm-Gg: AR+sD12J4fX6W6B2yMTEuLI59KVrPtofS3N8mVBT0dFekjYzWhQYYhlMVUAs5QVvDiD
-	RQzhmhyIgo7S3YvsNf5Zs4ttEIkovFT+mevHvg/0nAR2/vvj1xjWhsi9PcipTKfDiAn4ZnPYLEq
-	cX1+7m5t9/T8Wz21E1eGtXJA4TkJlAWG1oYH25Vw2aHpy1E4DxWbBvvu5W+DRNVws85aWr8lG5B
-	k8dk8ubuCl05xZfNdlDZq1GvbaHMvtulBI0zrg+Ku0kzdbbEaGf3cq68pnCpZzq4cHQYnhxmk/V
-	vVxvSaIGRPOCGys2wnwrdDa8skjQCAfgZP1nAZoEITAtEI5q3gEFOq68xE6Soo48yRg5U+sfJ1x
-	K8klmtMgReseCZpPKt/QevYKjePg0FaLMy3F4M7iLePCw+cF54tt2FfWV66xlQQborH3nd9tz0X
-	3AUB4HFLuz7FSTjkMkPHbzRdx31sudHnYU/495GB7F7AQcqlERmYjXDh2fTA6P8xxLOIX3IWHUf
-	I5irZ/7T0nQjDTSQZfPOjNAx2t4p8ZMxPr4dsU1P0txvexu8vQJI2Ikn2LJ8eCeC7r/wKTLeobK
-	2g==
-X-Received: by 2002:a17:902:e78f:b0:2cf:8131:75f4 with SMTP id d9443c01a7336-2d3b0c93b91mr258543235ad.11.1786958866521;
-        Mon, 17 Aug 2026 02:27:46 -0700 (PDT)
+        bh=beWULb3CcEPzF1OvJZ87lJuQr51Mznb8fDkBwd4EFYY=;
+        b=bkQHMA3DAzsl4nIJk2aVl16w5wXn7AH/OVcHiPJ/l0xm88vJIrBQbVlWrT12f/UniJ
+         +eMcAb+zcwBCZ8rw59EJrbAZkEHvt9ov+wqbVXpJRiV+GadqR/D39HqssaiPaVkbGAUB
+         QCXsT0LkYvMCtuk5QnL5i2bju4oSTpatECENFUWHcl8Rv7PTJ83eOkXEKiwW/mopj8zb
+         qbIJfkcUxKM5HfHlU7wqCTxpqDNJN9/YwyYmHXP83CITOCBPyJ+Px7k4c2HwECyhJutW
+         xSkTpFJ2kixpATuYIC+E1srIS4jaB5wxyBJEq3kCk7VdkmKIy36XKQPY8HfqMeQIRw4d
+         7mfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786958879; x=1787563679;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=beWULb3CcEPzF1OvJZ87lJuQr51Mznb8fDkBwd4EFYY=;
+        b=MouYEqjWYaf6nmPDmDNTnTEnj2JNEjAGGOOeVNGF+/3hyGzfpKWPSEQo5/iD5Kppuh
+         WGmYicUUZY3o9ejQeuuLiYZIdhj05t+XbEgBbtlI0DqFrJrB8Ge0jax3moMjF0ixt7zu
+         ypZryCLTPHnv+Wpy8m3HfrckPi3+4wBxFdHP3SEiun32UDXhJeb4NE3JYpL1m6UOYFcl
+         9Rnxa7mrV8NtVwBTLmInVTSF5n6JK6PS4AQvQOaTgzeYd5SJQsE1MjQ/l2E/Uc8SRXUi
+         XjzPRbBfCp1hx/Mipts3qGFfz/hlt9P5FTVPOsbbIb7wcgPpAfNKFpqaVb5O5tqsAYCy
+         xGSg==
+X-Forwarded-Encrypted: i=1; AHgh+RqMM6nwGDKQ1CabuBtGfiWpn4jnc2hwiy/h4jZ2Sc2qmGAHZQxfdFVgdMpz9qIOKqojAQLBCxRrGmm9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1ApFhvMx3AVw7zZ6xx3C0JiuuLxu77ekcCumlJcJsxC1XcIX4
+	gy1qf6dRL3BEn6Qd+8LxKsVxZTtcCfW1Gq2Ddea0Vf68ecUQJktsBUzSExlS9b1ayQ==
+X-Gm-Gg: AR+sD13wW02fRfHIl061dj0pSmqSQUJty+U+yNg4crkQKsImxuC/FV45Rhw+V8Z1UEX
+	B3u0qAx4YW6gAx3soitDC1r0zWhZpkwtMIvGR/91gbgfviwiTKaVtT4qEFp+tbk+6l1wtw+ZiqQ
+	jcw7GrZTVQsHuhnkHPa+/tLZnUPiaPFVcPdSEcky3z9cGk1NuYPCyTVCCrx2qLY7NaYv0GHHqy5
+	5BjVuYTUJTTdxruGzQTlOxrwLzZcBzi2fo7/0+qkwdl2o8pXuvkbZ2S2xqzmJ/fEYtvaooOj7Md
+	ES1Vt4lQC17AfTsg+J4r2W2CrqEylC4s2GWsFdi6JQZLaAOx6Gim2DizbxkkzyWxcIYTcqF1qOt
+	6j4XOhPXmoWqBiZuLMBCmRcIAhhy8JmPUl88n3uhhEHp3ZuzS1qQkAHzboMYCVak+qrGzYVX1US
+	nrVDtfm9jk8lAvrsE6eAuK0+9sKPu2E7RAWsPyoMN8zMDDLkgMfKl1NDikGsXjXhkjr6uHce6l8
+	upJCS5CBvGnrM2bIpiVff779gVBBB/rdBAQkuoba8hMygSV6V6uFfKTjKwZzbcX6w==
+X-Received: by 2002:a17:902:e543:b0:2c8:1c05:16aa with SMTP id d9443c01a7336-2d3b0cbe5b0mr245366715ad.19.1786958878937;
+        Mon, 17 Aug 2026 02:27:58 -0700 (PDT)
 Received: from TPE-build-server-2.synaptics-inc.local (59-124-75-166.hinet-ip.hinet.net. [59.124.75.166])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb499e12sm2962455ad.8.2026.08.17.02.27.43
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb499e12sm2962455ad.8.2026.08.17.02.27.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 02:27:46 -0700 (PDT)
+        Mon, 17 Aug 2026 02:27:58 -0700 (PDT)
 From: kaihsin <kaihsin.chung@synaptics.corp-partner.google.com>
 X-Google-Original-From: kaihsin <kaihsin.chung@synaptics.com>
 To: linux-bluetooth@vger.kernel.org
@@ -71,10 +71,12 @@ Cc: marcel@holtmann.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	kaihsin <kaihsin.chung@synaptics.com>
-Subject: [PATCH 0/2] Bluetooth: add Synaptics BCM4384 support
-Date: Mon, 17 Aug 2026 17:27:21 +0800
-Message-ID: <20260817092723.637956-1-kaihsin.chung@synaptics.com>
+Subject: [PATCH 1/2] dt-bindings: net: bluetooth: add BCM4384
+Date: Mon, 17 Aug 2026 17:27:22 +0800
+Message-ID: <20260817092723.637956-2-kaihsin.chung@synaptics.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260817092723.637956-1-kaihsin.chung@synaptics.com>
+References: <20260817092723.637956-1-kaihsin.chung@synaptics.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,23 +85,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the Synaptics BCM4384 Bluetooth controller.
+Add the brcm,bcm4384-bt compatible string to support the
+Synaptics BCM4384 Bluetooth controller.
 
-The first patch adds the BCM4384 Device Tree compatible string.
-The second patch adds the controller support to the Broadcom
-Bluetooth driver.
+Signed-off-by: kaihsin <kaihsin.chung@synaptics.com>
+---
+ .../devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml        | 1 +
+ 1 file changed, 1 insertion(+)
 
-kaihsin (2):
-  dt-bindings: net: bluetooth: add BCM4384
-  Bluetooth: btbcm: Add Synaptics 4384 chip support Add support for the
-    Synaptics 4384 Bluetooth controller by adding the corresponding chip
-    IDs.
-
- .../devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml   | 1 +
- drivers/bluetooth/btbcm.c                                   | 6 +++++-
- drivers/bluetooth/hci_bcm.c                                 | 1 +
- 3 files changed, 7 insertions(+), 1 deletion(-)
-
+diff --git a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
+index 95501e858e6f..612d21123aaa 100644
+--- a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
++++ b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml
+@@ -31,6 +31,7 @@ properties:
+           - brcm,bcm43540-bt
+           - brcm,bcm4335a0
+           - brcm,bcm4349-bt
++          - brcm,bcm4384-bt
+           - cypress,cyw4373a0-bt
+           - infineon,cyw55572-bt
+ 
 -- 
 2.43.0
 
