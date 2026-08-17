@@ -1,82 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD538190462;
-	Mon, 17 Aug 2026 20:47:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194843EAC75;
+	Mon, 17 Aug 2026 20:50:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786999650; cv=none; b=nnAfeXbq9AGYUI978bxZM9AdnBCMwjS0izEZosNXq+/y9GABorBBrCtDF1m5ahTjvwZu+f2shhHcDlnEmx5rSW++1vtTAdGfvSYqprYhtaG0MYUEPhyiz+xsnNAi1zkc5Pfq6FFA9L5p1JiP4y8eU7z+mlloXDEwzClMHLf7xHM=
+	t=1786999860; cv=none; b=ERnSt4NSjUuHIkMvU08bLQOWGpojtsRTl8sAOmEt8k+R2bVjX+g8wc2fHXODfUYcGLa9QNzA/YuBmaEuMv82r+0xYLhQ59q6BIRQFQ1pBJ+yc9JqvfowrZ6GmcMK+/jvyor6Jg3lkmXTFs2J1UQmhzgKx4/7Em74Wx61KSk7BF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786999650; c=relaxed/simple;
-	bh=wmSs3CCifD0QB0lPTo8IT3YQIqPTm8qL1DRJOY126R0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pZlKKVXF4vnHF/o8tNiLPHOblge6MhzYZJshdx8NXTN0YpPaCHS4mepbKB40k8u4tVMCwSgiwsoMFrlTNvH3BMbkoojgbKjqm3u8e+aiU467OiHbie8CRjA2QDlvq9ifNvhfn8pHvaRfr4j/8ADQvZ3hPRIXAh2RucVJRUoiuAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FL0z2pUn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786999860; c=relaxed/simple;
+	bh=8163CUvTbwqb+wT62T+KBd1LsuAuEbBfjKlIK6uBUwE=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=t5A1OV1gaeY58brem3ZUyR4B4NG7MDdg5+X0DoBAlvNyAEsoWYqJPAbXID1sG/knQX9LuO2zkcS3iSXiirWeRSuaorcIk8zBDN/BdEH1M7MOTAReFvcSdldtNgltT5h9/zMIf3n6UxPVKwDin3tIWvztYlKM5+AjzxW/FGswuEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJuSTA1G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FL0z2pUn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910901F000E9;
-	Mon, 17 Aug 2026 20:47:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJuSTA1G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B461F000E9;
+	Mon, 17 Aug 2026 20:50:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786999649;
-	bh=111cZwE+fIsihcrOn87KAVC+gmNsgNFaiu9bx9gzA6c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FL0z2pUnciX4/Rv9iwWhFcb2vERfUR1zoJ8VQv1oWRemL7hekh9TWUinYS67I7TqN
-	 RlQRH3t/1/0njxFN0sL0e0S56NAmnj6JwcipGbfE5sv9zWwxQyWA0SH/mEbb4fuqmh
-	 7Xz1AHU6cYORwQULXlq+2x8bMt0eo3YqTDPn7I19Ajg+DgwB19B0L8E3TbP3m2szIH
-	 1l7+129bQJNtPWJGJOUinh9MHY2jp0u6cX5f/wp2ubcd0jT63meYaz6iz/efakqDRU
-	 +/Dxc38W25cd6Jy2JNSTQGv3kZbaXagWuC2ThDnwjwBBo7eDIrgdhs6+AFkrcsfBuj
-	 7j7a6isGz0/0Q==
-Date: Mon, 17 Aug 2026 13:47:27 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Lorenzo Bianconi
- <lorenzo@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>, Nathan
- Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-Subject: Re: [PATCH v14 00/12] net: pcs: Introduce support for fwnode PCS
-Message-ID: <20260817134727.1f76d6dd@kernel.org>
-In-Reply-To: <20260813083536.970196-1-ansuelsmth@gmail.com>
-References: <20260813083536.970196-1-ansuelsmth@gmail.com>
+	s=k20260515; t=1786999858;
+	bh=Z4bGUQm5gPA38BptgqGQJlpgeb5NbVanbJTmaji8B+I=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=NJuSTA1GP7H7EspackGcTRxhEGsLVCUASZcYYaHn6wWiYtGyeIn6M30qfpstmFsMJ
+	 UfQJGU4QEChXfwRWVPmZkmQUINtDCp4Vl9Q9r2ASzb6AhYIe0VKAW4qw4v5ZaufJjy
+	 Ho6l6O9QviBr0y2/Xgn0tyHFqEJpX0hBQWQM5rugACG7PdfeiS9pNcP3gFDu8uUUlG
+	 ysmGbFGhzQUjqmnDOhPHwYIs0KkTgSFnB5XMLRRFXyDXzg4ZEYI9SR7TX9rm6Yy5Y1
+	 SdIpssvQ9jf/JDCKsQdOrAsQ9Hopo52u8oA9FNO991JXuuYiDPYBuL4bJY/xUwguoo
+	 3oHuGlr78JDJA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198503926265;
+	Mon, 17 Aug 2026 20:50:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCHv2] MAINTAINERS: update entry for socfpga dwmac and
+ gmii/sgmii
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178699981063.1732278.16029098609531352169.git-patchwork-notify@kernel.org>
+Date: Mon, 17 Aug 2026 20:50:10 +0000
+References: <20260813005536.2068392-1-dinguyen@kernel.org>
+In-Reply-To: <20260813005536.2068392-1-dinguyen@kernel.org>
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
 
-On Thu, 13 Aug 2026 10:35:05 +0200 Christian Marangi wrote:
-> This series introduce a most awaited feature that is correctly
-> provide PCS with fwnode without having to use specific export symbol
-> and additional handling of PCS in phylink.
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 12 Aug 2026 19:55:36 -0500 you wrote:
+> Matthew Gerlach is no longer at Altera, so remove his entry as a
+> maintainer for the SoCFPGA DWMAC ethernet glue layer and the GMII/SGMII
+> dt-bindings files.
 > 
-> At times there were 2 different implementation (this and the one
-> from Sean) but Sean agreed that this can be picked and used in favor
-> of his implementation as long as his case with race condition is
-> correctly handled.
+> Maxime Chevallier has volunteered to maintain the dt-bindings YAML files
+> as well.
+> 
+> [...]
 
-Coccicheck says:
+Here is the summary with links:
+  - [PATCHv2] MAINTAINERS: update entry for socfpga dwmac and gmii/sgmii
+    https://git.kernel.org/netdev/net-next/c/bda1d74b41da
 
-  drivers/net/phy/phylink.c:1039:31-34:
-    ERROR: invalid reference to the index variable of the iterator on line 1028
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-  drivers/net/phy/phylink.c:1364:26-29:
-    ERROR: invalid reference to the index variable of the iterator on line 1346
 
-  drivers/net/phy/phylink.c:582:7-10:
-    ERROR: invalid reference to the index variable of the iterator on line 569
-
-I vaguely recall that you're supposed to make a copy of the pointer,
-not just add a "found" boolean. Dunno if it ever happened but Linus
-was trying to make the list iterators override the pointer on exit.
