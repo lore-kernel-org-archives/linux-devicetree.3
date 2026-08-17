@@ -1,157 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F263AC0DE;
-	Mon, 17 Aug 2026 21:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F243B38A4
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787003648; cv=none; b=j/DjzB86if1ubVf4e9h2WYETJMIrT4k+lcWLAfRjun53NCq7tt86q9O8EzJ5B/X3XWVo8XddD/TV1PyH5wpMX4azUYuAsumqjyMz1ARelaixKH92oQq7WIu/7uM45WVoGGNfuymJB2P+gaQEMiYCRx3qB0icaN7/+4PVsOAY1bM=
+	t=1787003718; cv=none; b=diRxGxpndFoGVyGml5HL55v4WP+SZYihvTtd2ZLI4ZkAYCVlBiI+TQsvuGYVfSfZdYPmEqtyyFqYoN5357LCmjEljMGnYMdbnyTdgPSlCH65/cU6wyKspzagLAQM1JQcS+Xk2RDM4xc3jazgaWagfU9IKpjbjiaX/H5puqvMVEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787003648; c=relaxed/simple;
-	bh=qT8JrrVncQQov/umD/LD7zDYZfQ5VcOxlPetELGYJ7I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dUuViq/LS9tjPbtqQ2luVttYFRrlIYA9WcQ8qrP44KQ5soHxlJwZMkl6ocz8lGOMZrJodCJTQoucFb1cSgkHhke2/npMMV7GqchosFCi78vpQBtyaPHO0+/a5hH4L3BoBarrWZ3IHWVEbL7kzIDeC7LQqSQRP8pTbuh+fVkKC0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JFN6++1X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787003718; c=relaxed/simple;
+	bh=8EMlG6R/cw7SoID55yTqFGHDLwMbLeW2jwmeF10chJk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GCQgnn6zWz5Hp72qB5DWIBJOZIcRYvxCEXqE5EWVYtDfvYcHAnDNt7qzOqUUDyJqlD/OG4fW0ojjBeRghtkBf6KFiEZUcE4A1bXZ9S0BX2sGiQShLOoCO6gA0jDf8vXV9qd2ZHdRyQQMu1oFtirrJyrsRo6vlZiXTgFlM2tMJBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aT9ygKin; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JFN6++1X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC3F1F000E9;
-	Mon, 17 Aug 2026 21:54:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787003645;
-	bh=CWt4jK6RvOuPsdEwJA2WUw/FmL3gYdLpe/qBfCgPbvU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JFN6++1XwQ9cYVyfYKRBdaFvWItN+iGE+mXrA6y5D9XpColOFzN890iRZTa1ngmFv
-	 XwCSCraD7TOKp7afWLdAeRCibyKKORuc0QbYDY2n9+5lDvcVNt6uzYTKFjd4iCSkam
-	 +ckzi5uEptvXT/M6/lQ8WTiR9FCJk1+nnOMf34Tpgjj5g6aO14wpoUMoNmKv2c1cpU
-	 mJSPKajLWzoCRQSEXAAFbPnVzHh6L93KLi6i2eQOwn9tke/rKDt9bcNgU0J8fzBcXx
-	 PQVWXKentxYfiCqwXJOULssHtl/U95MkHoIlIE/ybC2bXEfzHhoBOC4/tBu1X9BHnt
-	 1+ZCpaigY4Cvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/7] dt-bindings: usb: ti,am33xx-usb: Convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: dmaengine@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, Frank.Li@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20260818-ti-am33-usb-v1-6-69ac5f92df45@gmail.com>
-References: <20260818-ti-am33-usb-v1-0-69ac5f92df45@gmail.com>
- <20260818-ti-am33-usb-v1-6-69ac5f92df45@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 21:54:04 +0000
-Message-Id: <20260817215405.5BC3F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aT9ygKin"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so37016285e9.3
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 14:55:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787003712; x=1787608512; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kyG2XouO94IC0oaowF4bLz5IBlinDO6829l+v8pLt/w=;
+        b=aT9ygKinfbupuOkba5NnnDu4BX//6ohQZvyC9xHRRn0tmb+i8x9xELPhiEmrIbrXGK
+         tmGLskE7iqURrOEDT0FYpo5nS4zVzel108GdcAvpXiuajMEnmrOG02KKcMmdtPRyPCh8
+         waG3abe+VKfwI+L10I+K9Ki5q8Yj5QsoYdIN6pzsSde5qWOt4ajOnaQlAyJhTFC1UTmc
+         klJ+l6BxMPpai26FKYN2swj+4EOVPV8LhCOQGggGRGIjhTJtcwROOFWQ3jnWDWUbZjIY
+         +en6OlRZpskdEBeMScmop3kP9fOHh/6bov9/rdPgRj1t2tJZ3rUDWecITELvJn9UzZQ7
+         RpWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787003712; x=1787608512;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kyG2XouO94IC0oaowF4bLz5IBlinDO6829l+v8pLt/w=;
+        b=UHewXifHaqd2VCX/92198AHZyk9shHqCbaRiy0axJi4Pxg+XOyk7j/+ViWgxv4jcps
+         UuGjoChYeKnBByPE/i+ERI92VoQ/EcE7mh5luAriqnmbVMgRwgfv9th9OEcKyB8E9K85
+         Fo1T/mCvQWQ84Nb8TewMvoWkDJmIrt6Glzee9s7NRlO4IOBFbHrXZSay21bXEcVW9frX
+         KbrilF3zvVeW4gXG9s8UYOp2gS7TzXprIsPxvd9FS4GoL7ujs32k2OPqM84TlOgG6fQE
+         /2/DD6JZyCOtLf7qYxl/74BHQcx+zFl43t0mI7rdTuy1ulSvy1YsLFpHCeijUsYRTsLI
+         BZEw==
+X-Forwarded-Encrypted: i=1; AHgh+RoI5vT19tgmzuvytkisSDpQUfOIcLAFLXDign6Im10iBTI/RARc8VERJR899eVEMczwaW7zkTCqugNY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxp4gYsq6oVhSq+0X5lNd7Zg9ZcNd3O0tNsfwlbnXjoZ09IkXwU
+	osZ6KhevqxixqDXH2SzsyyzV59w40bP0d/f8V3HyfRuyf+qvqxmAZ37t
+X-Gm-Gg: AR+sD12e6Qp5G31LnWowmSwBihXTXxA54ol0avOXnvlnHOlJXfu/ttY0hyMmMqdLroW
+	fjNf16/FscDtbn/kMFWJ1RRDQGZJFgc7Ye63FDyttKVKb/wVDV3fIoGhvN+ToWLQC8g+OcMhxpY
+	CmeTxGIMP0fAIIbdMhwTR9FwLjDStoIKvRYs3Hp0HJZ6W7QGDna/pFhnsAwcQ3be5ItV/alZbVK
+	l35WJz/quVoaxg7nbXRd4v/g4mUU0A93mThhtb55wmnBD6SFpoBnNEBj5kI+LS6SV+iaTHHmgKw
+	QipSGqA0we5aeYgUx7le3SRIeZUgB4DnGI1NzUd6clQgdG0bygIAsg3rc8sefMhphNoB7nfg4lr
+	DboDJ6wD+LsnbHPp32jYhQS0nhUA2yrqYwqJrKre4PbwzP/sXr07WG2SZY9bBjX7RdKO20bRNMn
+	ULFlbR3AmIpN9euUhM36bQeCGO98EvQ9p7KROIb9b5M5J1Sb85VwUzLsmPuEOHGg9jbjKG7a82r
+	G4KFQMfeERUDbC8lVW6VIllpTMxt+0PnuttyfupbsX4qeTWTtgFF+hDoodkl1S03D9NN1hDi6DL
+	oe7KpMG/bg==
+X-Received: by 2002:a05:600c:b99:b0:496:c379:b2a1 with SMTP id 5b1f17b1804b1-49987929903mr398757195e9.2.1787003712299;
+        Mon, 17 Aug 2026 14:55:12 -0700 (PDT)
+Received: from localhost.localdomain (85-118-76-205.mtel.net. [85.118.76.205])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49987b2a176sm309622525e9.4.2026.08.17.14.55.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 14:55:11 -0700 (PDT)
+From: Georgi Valkov <gvalkov@gmail.com>
+To: briannorris@chromium.org,
+	johannes@sipsolutions.net,
+	andrew@lunn.ch,
+	krzk+dt@kernel.org
+Cc: francesco@dolcini.it,
+	johannes.berg@intel.com,
+	kees@kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	wenst@chromium.org,
+	rafael.beims@toradex.com,
+	avraham.stern@intel.com,
+	error27@gmail.com,
+	s.kerkmann@pengutronix.de,
+	gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	chunfan.chen@gmail.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	stable@vger.kernel.org,
+	gvalkov@gmail.com
+Subject: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
+Date: Tue, 18 Aug 2026 00:54:26 +0300
+Message-ID: <20260817215428.84740-1-gvalkov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
+References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The schema explicitly marks `ti,hwmods` as deprecated but simult=
-aneously mandates it in the `required` array, creating an inescapable valid=
-ation conflict.
-- [Medium] Unresolved phandle references (`&ctrl_mod` and `&usb0_phy`) in t=
-he binding example will cause a fatal dtc compilation error.
---
+WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+from the mwifiex ROM, which conflicts with the platform regulatory
+configuration on units sold outside the US market. For example:
+- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
 
---- Patch [6]: [PATCH 6/7] dt-bindings: usb: ti,am33xx-usb: Convert to DT s=
-chema ---
-commit e8e58c2d48bc9c752ca62d3c7e0ea6fd5cff0b12
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+When the system boots, it detects a conflict between the user selected
+region and the radios, e.g. BG FR US, and applies extreme restrictions,
+preventing use of 5 GHz and DFS channels. This also affects phy0.
 
-dt-bindings: usb: ti,am33xx-usb: Convert to DT schema
-   =20
-Convert the TI AM33xx USB Wrapper text binding to DT schema.
-Changes during conversion:
-- Drop the USB control module from child nodes, as it physically resides
-  within the System Control Module address space, not the USB wrapper.
-- Allow standard phy@[0-9a-f]+$ child node names alongside the legacy
-  usb-phy@[0-9a-f]+$.
-- Mark the legacy ti,hwmods property as deprecated.
-- Document required #address-cells, #size-cells, and ranges property
-  missing from text binding.
+Add a device-tree flag, which allows affected platforms to ignore
+an incorrect regulatory hint from ROM, so userspace can set the
+correct platform regulatory domain.
 
-> diff --git a/Documentation/devicetree/bindings/usb/ti,am33xx-usb.yaml b/D=
-ocumentation/devicetree/bindings/usb/ti,am33xx-usb.yaml
-> new file mode 100644
-> index 0000000000000..889190431c9a0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/ti,am33xx-usb.yaml
-> @@ -0,0 +1,104 @@
+[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+[2] https://github.com/openwrt/openwrt/issues/9956
 
-[ ... ]
+Cc: stable@vger.kernel.org
+Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+---
+v5:
+1. description: remove tag Tested-on
+2. add #address-cells = <1>, #size-cells = <0> to fix a warning:
+arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts:183.3-13:
+Warning (reg_format): /soc/internal-regs/sdhci@d8000/wifi@1:reg:
+property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
 
-> +  ti,hwmods:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: Name of the hwmod associated with the USB module.
-> +    const: usb_otg_hs
-> +    deprecated: true
+3. description: add info about testing
 
-[ ... ]
+v4:
+1. Add binding documentation for flag marvell,ignore-regulatory-hint
+2. Add dt for sd8897 and move the flag there, I used sample from docs
+3. Use device_property_read_bool in the driver
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - ranges
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - ti,hwmods
+v3:
+I implemented and tested a better approach with no board specific code:
+1. check for a device-tree flag in mwifiex_register_cfg80211in()
+  !of_property_read_bool(of_root, "marvell,ignore-regulatory-hint")
+2. add this flag to the root device tree of each affected board
+Currently this affects only armada-385-linksys-rango.dts,
+because Linux has no dts for venom. OpenWrt will take care of that.
+This approach is more flexible and scalable, because the flag can
+also be used in other drivers, e.g. mwlwifi (not part of Linux).
 
-[Severity: Medium]
-Will this cause a validation conflict? The schema explicitly marks ti,hwmods
-as deprecated but simultaneously mandates it in the required array.
+v2:
+Replace the compatible device names, which are currently only available on
+OpenWrt with board names which are available on both Linux and OpenWrt.
 
-Any device tree validating against this schema will emit warnings or errors:
-omitting the property violates the required list, while including it trigge=
-rs
-the deprecated warning. This prevents the creation of cleanly validating
-device trees.
+ .../devicetree/bindings/net/wireless/marvell,sd8787.yaml    | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-[ ... ]
+diff --git a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+index 930b700b73d0..5f235cb9f3e5 100644
+--- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+@@ -59,6 +59,12 @@ properties:
+     description: Calibration data for sub-band 3 in the 5GHz band.
+     maxItems: 502
+ 
++  marvell,ignore-regulatory-hint:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      Ignore an incorrect regulatory hint from ROM,
++      so userspace can set the correct regulatory domain.
++
+   marvell,wakeup-pin:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description:
+-- 
+2.55.0
 
-> +examples:
-> +  - |
-> +    usb@47400000 {
-> +        compatible =3D "ti,am33xx-usb";
-
-[ ... ]
-
-> +        usb-phy@47401300 {
-> +            compatible =3D "ti,am335x-usb-phy";
-> +            reg =3D <0x47401300 0x100>;
-> +            reg-names =3D "phy";
-> +            ti,ctrl_mod =3D <&ctrl_mod>;
-
-[Severity: Medium]
-Does this reference an undefined label? The ctrl_mod label was dropped duri=
-ng
-the conversion. Referencing it here will cause dtc to fail with a Reference
-to non-existent node or label error during make dt_binding_check.
-
-> +            #phy-cells =3D <0>;
-> +        };
-> +
-> +        usb@47401000 {
-> +            compatible =3D "ti,musb-am33xx";
-> +            reg =3D <0x47401400 0x400>,
-> +                  <0x47401000 0x200>;
-> +            reg-names =3D "mc", "control";
-> +            interrupts =3D <18>;
-> +            interrupt-names =3D "mc";
-> +            dr_mode =3D "otg";
-> +            mentor,multipoint =3D <1>;
-> +            mentor,num-eps =3D <16>;
-> +            mentor,ram-bits =3D <12>;
-> +            mentor,power =3D <500>;
-> +            phys =3D <&usb0_phy>;
-
-[Severity: Medium]
-Similarly, does this reference the undefined label usb0_phy? The label was
-removed from the example, which will also result in a dtc compilation error
-when building the example.
-
-> +        };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-ti-am33-us=
-b-v1-0-69ac5f92df45@gmail.com?part=3D6
