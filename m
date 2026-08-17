@@ -1,118 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24430.protonmail.ch (mail-24430.protonmail.ch [109.224.244.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5723B5E10;
-	Mon, 17 Aug 2026 11:04:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22FD3F9F2E
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786964670; cv=none; b=BSfFwgvaRk5YqVkCYOyRrr3sQOqBW/gSGVH8zRIprdU7JlepPL3QacVnQhOPmXMTSbBkrHbwWWA2PYv9NskKFq/cXTmN1wbch+XeWTqyovmI76dtACcIedneUpAp3Uqm8Zs9F2TKmMQqyWg7KBgI0JvfV8FADy/ABGY3Hh62Fxk=
+	t=1786964682; cv=none; b=Aji35iEv+edRBCUZS47zqpw3MjCIulhTvFfXi+S/KGYyIbepkSL2Jqik6Ua1p/DtZPvnrErD8mvBb85dIdABFBWvbF/+854Ttsr8wCqHZb8pANKtLFc5gNYc/oFg53q+mREbtpF9aWWhIQ1MQuct4rQQ57+0S0Vdf5/hRWYUW24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786964670; c=relaxed/simple;
-	bh=irnNjx3e0FOtVcEMGfJisVf7ott3iX8fYmQin2kc7K4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m0bbO6vrERRXF8o4A4U8ZmUk8EJ7KXebpNUXJ/pgmGEZJMtfc4orY3oVEIgGcwa4HqSWwnqC1qR8xPzs5ka5LiBZl6qSCWVe4QWK2RP/pIfP7F39wInqmuGf/j0QJJSANp3YdSG30u93W+fTpJLm24uBoWR/aqOw/dRSsY6JRG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FjOqVBOA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786964682; c=relaxed/simple;
+	bh=Ez6CJkLRZapDhmqptmdL64vQEJlsrQ27lJYXeQmlBog=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ttkw4hYMJGLkOFeyKRrrAd/yZJfj1xJhbfwl8Ldjk6nBsNgrfDTLgY11IJqLtPXRsJ+Zu71iMQw4ttwE1d6q30kJ02GZqln7DX9ZQY/fl6TZEnaNL3vGe2CGHsWgkDncft7LXSqx0M5XqB8UQ8QGB0MMo9c3O74iT0iyxDZmPXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=HYdPLwoC; arc=none smtp.client-ip=109.224.244.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FjOqVBOA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6B41F000E9;
-	Mon, 17 Aug 2026 11:04:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786964669;
-	bh=2DcuPFieXGNfzuXh0N9JAegpBPETZZgMSk47QAwYqSg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FjOqVBOAlNeYU6mq7tIeRiz1QfO0+oc7ZCwxdc40hZ9sGwWTMkIV9Bbedk1gmGi5L
-	 26udl5+OdTInJtR8H+TYn/IeS1r1L6Mh0yOAdeGCDpoGwGHyVLJYE0R72hmyIS1tRB
-	 bZyFymJ6F5I9PwsMDWeIlG73sK+O7XsLJOq0rJr68e4uCSR12M/211Jm57h+NHoYgX
-	 W91st/SQXKv6rSp4UlbIgiUIPu5HXM3FzHyXmyGyn9vZ7trC7Inq5ot01s8HwawPvh
-	 lJ+e6J2xRh680+4Jb8gla5pDgSrjKXExqF6sk+T+kbyyvi8dwz3o4lBbIy55Saeefp
-	 xrdatx7QZ3lMQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/6] clk: Introduce clk_hw_set_spread_spectrum
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260817-clk-v11-v11-2-36e9bc701b11@nxp.com>
-References: <20260817-clk-v11-v11-0-36e9bc701b11@nxp.com>
- <20260817-clk-v11-v11-2-36e9bc701b11@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 11:04:28 +0000
-Message-Id: <20260817110428.BC6B41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="HYdPLwoC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1786964671; x=1787223871;
+	bh=Ez6CJkLRZapDhmqptmdL64vQEJlsrQ27lJYXeQmlBog=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=HYdPLwoCMpOD+75uRqtJFoYD7Jf/QtQ3fSfwj/H11URk7dCZq6V30uiuZeGYb7QDk
+	 hlizkmGCbHJ1ZZ37M2I4ZX4dYhLHdwsXRiKWzcz1HcAtNvbDUz+1XEr6PGhZqs0LhF
+	 Z1QRCetKkv1hy2m8YeVBSuD7dE70NUiFQVU3+Izi8NwmlBWs94I9icusjyxtyaOVWQ
+	 tAEvtAFLjxTaHXahTHwmqq/1qhefyHBDRvQ9mCGx3jzMqgJC4y7vj01dDGGgGaVzxI
+	 e+bVQu7mbmJ4DfeGAJa9/3V9B/rnnqpCG2VTWPSGrb/j1/+/Y49dCIPMaZYvCzKn2M
+	 ZT/KFQtMkGy9Q==
+Date: Mon, 17 Aug 2026 11:04:25 +0000
+To: sashiko-reviews@lists.linux.dev
+From: Aiden Isik <aidenisik@protonmail.com>
+Cc: Aiden Isik <aidenisik@member.fsf.org>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
+Message-ID: <Aeip4sn1qJXjJcWtTvoE6B3ai2lPSWPhHALK2IIAWAAVKw3N0sRECwlEB_AAfLAwXEs7HzWgH0j2Meo3NoaYjDbDFbUd4eJ8r9Jb4IRmNc8=@protonmail.com>
+In-Reply-To: <20260817103500.B4B4E1F000E9@smtp.kernel.org>
+References: <20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org> <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org> <20260817103500.B4B4E1F000E9@smtp.kernel.org>
+Feedback-ID: 46524699:user:proton
+X-Pm-Message-ID: 79ed821e28fff77a00226fd963d9bfa33d4cd91e
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The clock's PM domain is unconditionally resumed before checking=
- if the `set_spread_spectrum` callback is supported, causing an unnecessary=
- hardware wakeup.
---
+> Thank you for your contribution! Sashiko AI review found 4 potential issu=
+e(s) to consider:
+> - [High] Unaligned `no-map` simple-framebuffer region causes memory attri=
+bute aliasing.
+> - [Medium] Invalid usage of `reserved-memory` for memory-mapped devices a=
+nd regions outside system RAM.
+> - [Low] Missing unit address in the `misc-rmem` device tree node.
+> - [Low] Mathematical error in memory calculation in commit message and co=
+mments.
+> --
+>
+> --- Patch [2]: [PATCH 2/2] arm64: dts: exynos: Add initial support for Sa=
+msung Galaxy Watch FE ---
+> commit 6f30a8a96fda7068a12749f38925083c1838f92d
+> Author: Aiden Isik <aidenisik@member.fsf.org>
+>
+> arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
+>
+> This commit adds initial device tree support for the Samsung Galaxy Watch=
+ FE,
+> including bootloader framebuffer and memory definitions.
+>
+> > Only the lowest 490MiB and highest 512MiB of memory are used for now.
+> > The 488MiB between the addresses of 0x9ea00000 and 0xbe680000 is exclud=
+ed
+>
+> [Severity: Low]
+> This isn't a bug, but the math in the commit message seems slightly off.
+>
+> 0xbe680000 - 0x9ea00000 is 0x1fc80000, which is 508.5 MiB, not 488 MiB.
 
---- Patch [2]: [PATCH v11 2/6] clk: Introduce clk_hw_set_spread_spectrum ---
-commit f5617081c24679334412209893c7d5c3a6321d1f
-Author: Peng Fan <peng.fan@nxp.com>
+Will fix in v2.
 
-clk: Introduce clk_hw_set_spread_spectrum
+>
+> > diff --git a/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts b/arch/ar=
+m64/boot/dts/exynos/exynos5515-lucky7.dts
+> > index 0000000000000..f91ea7e44cf86
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
+> > @@ -0,0 +1,106 @@
+> [ ... ]
+> > +=09memory@80000000 {
+> > +=09=09/*
+> > +=09=09 * Use the lowest 490MiB and highest 512MiB of memory.
+> > +=09=09 * The 488MiB between the addresses of 0x9ea00000 and
+>
+> [Severity: Low]
+> This isn't a bug, but similarly to the commit message, the calculated mem=
+ory
+> size here is 508.5 MiB, not 488 MiB.
 
-This commit introduces the clk_hw_set_spread_spectrum API to allow clock
-drivers to configure spread spectrum features. It adds a set_spread_spectrum
-callback to clk_ops for hardware-specific implementations.
+Will fix in v2.
 
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index 048adfa86a5d0..8c78621cde253 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
+>
+> > +=09=09 * 0xbe680000 is currently unused due to any memory accesses
+> > +=09=09 * in several ranges between those addresses causing the core
+> > +=09=09 * performing the accesses to stall.
+> > +=09=09 */
+> > +=09=09reg =3D <0x0 0x80000000 0x1ea00000>,
+> [ ... ]
+> > +=09reserved-memory {
+> > +=09=09ranges;
+> > +=09=09#address-cells =3D <2>;
+> > +=09=09#size-cells =3D <1>;
+> > +
+> > +=09=09framebuffer@9e0cf000 {
+> > +=09=09=09reg =3D <0x0 0x9e0cf000 (396 * 396 * 4)>;
+> > +=09=09=09no-map;
+> > +=09=09};
+>
+> [Severity: High]
+> Does this unaligned size combined with no-map cause memory attribute alia=
+sing
+> on arm64?
+>
+> The region has an unaligned size of 0x99240 (627264 bytes). The no-map
+> property drops this exact byte range from the kernel's linear map, leavin=
+g the
+> remainder of the page (0x9e168240-0x9e169000) to be mapped as Normal Cach=
+eable
+> memory.
+>
+> When the simple-framebuffer driver calls ioremap_wc(), it maps the entire=
+ page
+> at 0x9e168000 as Write-Combine (Normal Non-Cacheable), creating an attrib=
+ute
+> alias.
 
-[ ... ]
+Possibly an issue? I haven't seen any other Exynos device trees do anything=
+ differently so I'll wait for a maintainer to weigh in.
 
-> @@ -2774,6 +2774,33 @@ int clk_set_max_rate(struct clk *clk, unsigned lon=
-g rate)
->  }
->  EXPORT_SYMBOL_GPL(clk_set_max_rate);
-> =20
-> +int clk_hw_set_spread_spectrum(struct clk_hw *hw, const struct clk_sprea=
-d_spectrum *ss_conf)
-> +{
-> +	struct clk_core *core;
-> +	int ret;
-> +
-> +	if (!hw)
-> +		return 0;
-> +
-> +	core =3D hw->core;
-> +
-> +	clk_prepare_lock();
-> +
-> +	ret =3D clk_pm_runtime_get(core);
-> +	if (ret)
-> +		goto fail;
-> +
-> +	if (core->ops->set_spread_spectrum)
-> +		ret =3D core->ops->set_spread_spectrum(hw, ss_conf);
+>
+> > +
+> > +=09=09misc-rmem {
+> > +=09=09=09/*
+> > +=09=09=09 * Some of these regions belong to memory-mapped
+> > +=09=09=09 * devices, and will be assigned to drivers as support
+> > +=09=09=09 * is added.
+> > +=09=09=09 *
+> > +=09=09=09 * Other regions belong to the TrustZone firmware
+> > +=09=09=09 * and should never be touched.
+> > +=09=09=09 */
+> > +=09=09=09reg =3D <0x0 0x87000000 0x200000>,
+>
+> [Severity: Medium]
+> Is it valid to use reserved-memory for memory-mapped devices and regions
+> outside system RAM?
+>
+> The Devicetree specification dictates that reserved-memory regions MUST b=
+e
+> contained within a defined /memory node. The misc-rmem node includes
+> addresses (e.g., 0xa0000000, 0xb0000000) that fall within the
+> 0x9ea00000-0xc0000000 range explicitly omitted from the /memory node.
+>
+> Additionally, since these are MMIO regions, shouldn't they be described a=
+s
+> device nodes on a bus rather than reserved RAM?
+>
 
-[Severity: Medium]
-Is it necessary to wake up the device via PM runtime before verifying that
-the set_spread_spectrum callback is supported? Waking up the device might
-involve slow hardware communication or powering up a PM domain.
+These addresses *are* part of RAM. It is just a temporarily disabled region=
+.
 
-Also, if the callback is not populated, ret will remain 0 from the
-successful clk_pm_runtime_get call. Does this mean the function will return
-success when it actually failed to set the spread spectrum, instead of
-returning an error like -EOPNOTSUPP?
+> [Severity: Low]
+> This isn't a bug, but this node is missing the unit address @87000000
+> to match the first reg entry, which will generate a unit_address_vs_reg d=
+tc
+> compiler warning.
+>
 
-> +
-> +	clk_pm_runtime_put(core);
-> +
-> +fail:
-> +	clk_prepare_unlock();
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(clk_hw_set_spread_spectrum);
-> +
+Will wait for a maintainer to weigh in on this one too, but I'll likely fix=
+ it in v2.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-clk-v11-v1=
-1-0-36e9bc701b11@nxp.com?part=3D2
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next=
+-lucky7-v1-0-42ffb2b71ba2@member.fsf.org?part=3D2
+>
+
+Kind regards,
+- Aiden Isik
