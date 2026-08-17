@@ -1,114 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821BA3E1713
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 09:42:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F2C3BE620;
+	Mon, 17 Aug 2026 09:46:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786959749; cv=none; b=l4lnt0mb6/FKpO8B2s/Jllhn1f+axb/pt07TC3YcpEeXRlxiSgESXzW4b9B0FYuOse8KZKq9Xh04cydWNWUOjvse3ySCtT7hHsa5a1Q7M6hcBJQ8jPpSXsqQqBhGNDQxIQFhDp1mGyeC3eX5DiiNw1eIrtFtfRS2sImo9U5lLec=
+	t=1786960021; cv=none; b=JQ3FOe7WncEcK61/P/W2pblhYZbL4PlDHjog8728jpj+ebFXfzg6rCrHUEAsKMWuudxa/ujzHZF13KS74XLL4aZ/IXTWoY8Pgt2Diu4FXih3QQHZAYiR82FWZ4emJ33MwhOImOkEVZQ1g41Fe5Rx+S5Wsx6+QYu7R4BR00rku6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786959749; c=relaxed/simple;
-	bh=S1eCs92YLR4kRFQMArkSrZFpkpS3SsaOFHsjyPjE9uY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uq6dJPZSrzYKoaIHcsLMKSbdJIcKt6q2JXLClDKaTcTuJbg1djxPHZRAlZVgwyZZS5okg2MzSm7/6hOqbY4xCtwHTFAX7sZ7dmNJsxOSFaVWugTzmAtkqpdPkQFswG9DulPwWPvMdI9yCwhZ9h6FLHHoyy6C2IjAuq7+4BdKeRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvSKYBoA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786960021; c=relaxed/simple;
+	bh=RKlBklNLnh1ZVjxUS7d2PKQy11HJakptQR6mkTbaNOc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ekpKNjw1jUkrpGViGvYDKGiXX4UtS6z5wMiS7y8ULsmuFHf4ot9CbdeYHnE9Kgulb/MuGIe552ci/QuFidCE7sqLUkVRo+xWOPehmSj0wZj6Y+TgBXFawZxihp909/HDp7Kxg24QKU6VqJW2swW8y2o7DIIZVrK2bAHYlbi/Oy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFMVVi+u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvSKYBoA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE2E1F00AC4
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 09:42:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFMVVi+u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731331F000E9;
+	Mon, 17 Aug 2026 09:46:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786959742;
-	bh=Og3F1hcoSP1i8Wy5Bb7spoMaCLZVZhlg3PjenB8r8mE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DvSKYBoAIPbl8XdRq0rqT3WZLjZo32J+rUfdbCqEumrc3tdVAFJUIR9vG/grZZqV2
-	 GSLYw9jzBABLJ1iTMwLbciOOCwTrcvAoDX194P1W4XSxXenMSbD+Kdv6kE+xgQk2Yr
-	 npRTES8efJTH8jL0EgQtlRcNv8Il3fJBiRqQVcvW3CuL6FitAbFOZPx451AzMbb9xh
-	 tm4UKPHzZgco28cUjXdDLRZ4Mo7b/IUHH0G8x/hNtM/ZSPkh5Wmk5mijuUa0hF78iu
-	 XthYhvKU8C2nkBqqK5JwhRE9YiRj86bVvwqWUYqNSk5Dd/Z30R10eH9xgDkwCtef6k
-	 /ec1IGO5hNo9w==
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so30242005e9.3
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 02:42:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpnQanUsl1nJwfl7zOrPj/XhGqkmNWtTOcunhu6AYUX6YS+q/z2gMSZsxc6nzcCGQFMZ4qH4B8Xzcqa@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUPKLIJYgHNJJK0DZ+zYCRs0riYZkSOekFUFJaip8kiVbOsDR2
-	alqbJZpzBMKGAjMavfHWx8QfDXuB5CSG3JUOSvY1olb3kJxWJYSqQ4bbFGk3Vg7ExfWLM2l4Pgo
-	qw3XG/W3Fw2onOU2xEcoT/Vy2/eu/v3Q=
-X-Received: by 2002:a05:600c:1f91:b0:492:4e09:9fc1 with SMTP id
- 5b1f17b1804b1-4998797d111mr316890445e9.15.1786959740872; Mon, 17 Aug 2026
- 02:42:20 -0700 (PDT)
+	s=k20260515; t=1786960015;
+	bh=QB42Q74WKWHddDWR6/3ij0bZPGx0hcDAtRyHp5pE474=;
+	h=From:Date:Subject:To:Cc;
+	b=mFMVVi+umgQ5Cj0V640rjq/HVP24v7/DnC09mchZVYsD5ASaMWU5OZQJWePbgsfKP
+	 T21rgn3mEQ3B/4ZBnPB6y0d8SlJZ5wYghvUn4wEZLR4VUS6dQjLwI4aKVJA0mjOChL
+	 Es6TMlDJI2C49O3eXW6pjDB211cxI8NZ88ZHR1ZC6z6zSh6OzC/gkQ92CrMstK8Wz4
+	 UPVoZ5aNZDzh9ozeSjQjO4MdSlTvvGlsl5048lCubDQ7uBiqfUOeFu8ZSKiYigVJqx
+	 U16mh9QW9ccAecdLr5oAoooiYOs3/xPOlKoC5aCoao/P6Tb1e2Xy05SYMojkDLIY5O
+	 JAsZjMUay4icw==
+From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+Date: Mon, 17 Aug 2026 09:46:39 +0000
+Subject: [PATCH v2] dt-bindings: vendor-prefixes: Add Xuantie Semiconductor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815015722.1736831-1-guoren@kernel.org> <20260815015722.1736831-2-guoren@kernel.org>
- <bf81034d-7768-40f3-b078-e17ea3a2e665@kernel.org>
-In-Reply-To: <bf81034d-7768-40f3-b078-e17ea3a2e665@kernel.org>
-From: Guo Ren <guoren@kernel.org>
-Date: Mon, 17 Aug 2026 17:42:08 +0800
-X-Gmail-Original-Message-ID: <CAJF2gTQGbQ7bUM-itiZhqaPM0-6oy_oV6FrNKfFTgvAV4_YW5A@mail.gmail.com>
-X-Gm-Features: AcwNN1U6BH2Dol8M_EReGO3UVP-nQniw1ADupoEfkT0J1wn_e9IOna_-n001IC4
-Message-ID: <CAJF2gTQGbQ7bUM-itiZhqaPM0-6oy_oV6FrNKfFTgvAV4_YW5A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: vendor-prefixes: Add Xuantie Semiconductor
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, robh+dt@kernel.org, 
-	conor.dooley@microchip.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260817-xt_vendor_v2-v2-1-8d4eed65a533@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAH7YgmoC/03MywqDMBCF4VeRWTeSjGikq76HFLFx1PSSlEkMg
+ vju1XbT5Q/nfCsEYksBztkKTMkG690eeMrATJ0bSdh+b0CJlayVFktsE7nec5tQGKNRdYORPSH
+ slzfTYJcv11x/HebbnUw8jGMxsH+JODF1/2wpVakRc6WLqi6UUGKcPZO7PIgdPXPPI2zbB2Yv8
+ bKtAAAA
+X-Change-ID: 20260817-xt_vendor_v2-cc721afc0de2
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "GUO Ren (XuanTie)" <guoren@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Mon, Aug 17, 2026 at 2:08=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 15/08/2026 03:57, Guo Ren wrote:
-> > From: "GUO Ren (XuanTie)" <guoren@kernel.org>
-> >
-> > Add the xuantie vendor prefix for Shanghai Xuantie Semiconductor
-> > Technology Co., Ltd., which provides the XuanTie processor IP.
-> >
-> > The vendor information is available from the Xuantie declaration
-> > pagei [1].
-> >
-> > [1]: https://www.xrvm.com/declaration
-> >
-> > Cc: Rob Herring <robh+dt@kernel.org>
-> > Cc: devicetree <devicetree@vger.kernel.org>
->
-> Please drop the autogenerated scripts/get_maintainer.pl CC-entries from
-> commit msg. There is no single need to store automated output of
-> get_maintainers.pl in the git log. It can be easily re-created at any
-> given time, thus its presence in the git history is redundant and
-> obfuscates the log.
+Add the xuantie vendor prefix for Shanghai Xuantie Semiconductor
+Technology Co., Ltd., which provides the XuanTie processor IP.
 
-Thanks for pointing that out; I would drop the autogenerated
-scripts/get_maintainer.pl CC entries.
+Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
+---
+Add xuantie as the vendor prefix for Shanghai Xuantie Semiconductor
+Technology Co., Ltd.
 
->
-> If you need it for your own patch management purposes, keep it under the
-> --- separator.
->
->
-> > Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
-> > ---
-> >  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->
-> Anyway odd cc-list.
->
-> Please use scripts/get_maintainers.pl to get a list of necessary people
-> and lists to CC (and consider --no-git-fallback argument, so you will
-> not CC people just because they made one commit years ago). It might
-> happen, that command when run on an older kernel, gives you outdated
-> entries. Therefore please be sure you base your patches on recent Linux
-> kernel.
->
-> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-> people, so fix your workflow. Tools might also fail if you work on some
-> ancient tree (don't, instead use mainline) or work on fork of kernel
-> (don't, instead use mainline). Just use b4 and everything should be
-> fine, although remember about `b4 prep --auto-to-cc` if you added new
-> patches to the patchset.
-Okay, I'll try that.
+The vendor information is available from the Xuantie declaration
+page [1].
 
---
-Best Regards
- Guo Ren
+[1] https://www.xrvm.com/declaration
+
+Changelog
+V2:
+ - Remove "Add Xuantie C906/C908/C910/C920 compatibles"
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 396044f368e7..89391cb467d5 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1905,6 +1905,8 @@ patternProperties:
+     description: Xilinx
+   "^xnano,.*":
+     description: Xnano
++  "^xuantie,.*":
++    description: Shanghai Xuantie Semiconductor Technology Co., Ltd.
+   "^xunlong,.*":
+     description: Shenzhen Xunlong Software CO.,Limited
+   "^xylon,.*":
+
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260817-xt_vendor_v2-cc721afc0de2
+
+Best regards,
+--  
+GUO Ren (XuanTie) <guoren@kernel.org>
+
