@@ -1,305 +1,188 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011027.outbound.protection.outlook.com [52.101.65.27])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4200A2236E8
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 20:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786997853; cv=fail; b=GNOtv3mlCCiTmQojUZMl/Q5s/FLZ0qFc4IaUthev/b9yqPK4wrhUkhWicvCE6YLAplFb304dg1GRHVIhdFi56dXUXA4dTgKUbdFJ/bcCF/RAcqotuYUSf6fUV69iMBiQ5teAFggF3+yhDO4/oWkeImSQ4U6cEKbvQP2oSdATn7g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786997853; c=relaxed/simple;
-	bh=JCf1U2bKND/oRUaWfRtazR18k0wc5Ns5m57T1T8+CtM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=IpFKZAzprZNJua+9OIUW8JadT+CQd2oS0+RKPUBs/Zjst0cvDjLeb+WvTrZqs0XcPb3+9z/WEM19JgpKTrODnyvq+pIoxUWPYGH9CMKxPkoa4KHiWRVgHjDsf2cOk9hqTjld/VB6x3l8WsU2mi/F2mQjVIC9xlDxbU1qvWnc8+k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=FcI5UmUx reason="signature verification failed"; arc=fail smtp.client-ip=52.101.65.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503AA3BBFD8;
+	Mon, 17 Aug 2026 20:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786998357; cv=none; b=ukLZDzeXyT+wZzzXn2QvGV4bCFeBdQkBKrg2iS1EaOJtrAxnH9wvY6AySKqnqnzWlKDj4N29/oh6SM84uDZgaYmOsOACw2l2CIBXjjmokeP6kCwI/aQaWvNcMNSeggwFjskI9jaIprPjANAhnX18SsauwvbYQ48qk+pg5ZoWXmw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786998357; c=relaxed/simple;
+	bh=AVnx3DAdj6Cyi14fjjQHWQ/swKlwcYzl1ibk0O3fgG0=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=L2LxeiQ2/bRcGHikKexBW6ExwLpc9bJSJL5K3U7eaF/al9rSFh6lWKCjCz9XklRYXeVbGoF6lFrqWLpikZE33de5Mf6egkloDkd5zwYRZIXugUzgidtTr3/wj5F7ymbqKzToHviBVEh7cIzpQsmxvTa1Il+4DPPzo1c7wZsPozA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=TR3jQDmK; arc=none smtp.client-ip=212.227.17.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="FcI5UmUx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NaWchOMFXgLhOGmx9s6Nq/5xC5qw7rvlNoWyQP4h2VvSCHJQ26iE2Hv3Tafd6wNEDnDnB3IzQS79fADrZCiJyfF2FPUPVdbvCLRfrRu2JuvZyD0QlwBu28FUFFZWbo381gOFmoIrqvjZBmiGYFAVvTWSUiqjWfQL7SYiJ4Ay+u1bsI6n5SzKVxby6eSsD45lbgHtBKzTQWwqs5+ELvxix4bti0bWnAtjXpcKgd+/4xhy11GUW0e1QU4T/p9xoZdqzTJi2+u5M+ocok/3hY0z6MoPTZSjqN+dpTTyLbFjsjPB9MSOnHu6ud96RQPvOR/jfgx/AlkaRcVdlciZsFGigA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qizrSn7P7fQ38oD+OaKVpRqmxyX5owNnKQSTBXsIoy4=;
- b=rNQABzjeRKJc7vEafv5Xfh4qM2NnW6Q9BNGjbocPVspmltyVR8ZyxoNrt6Rhkke0I+8LZNLPsYpk8NAo1sM318PWgKiNGjaZT1XvpsAHBTpaXPap2+FsNGnwZYKnZeROIKTb2EfOifHzC9+1p79BXD1eQ3DGxaGjeAI85oT/k8BQf5T9H4F9mwpeHJRNHEPVMV3X2QSh0qPCVoDTO71SVjvVOWQZw4mpCT3ZLaIhBVWdXfoyBdqmsbG6b5aZYaSlyzXK2tlKKzq557vz9Z7ALjGtYzqNDB5eRgbunXpCBYqcPWbI8eDjx9EYGq2kRBEDeF9w/9xZqEJfnl7rAv3n0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qizrSn7P7fQ38oD+OaKVpRqmxyX5owNnKQSTBXsIoy4=;
- b=FcI5UmUxoKivTkv52q839au6s2MWSLdD+AM7s7MiqrkiDE7BbXBFbc2RPwHHG/89rEBjuhMhUI43TSYm4XC3JoDe5TsacxooHQYTY0FHSG8lPm8cE9RPYqeRowPGmNvrp6QrRq0AAlTEIGAVKDkCxnJxDgEDXf2TCqphoh13VlDgfyiRqt0JOSxu2NOTy7/SRx3ysOQF6Hm9bj2q6m4umWgsgDXjciBJeJHS51sMZGuN57J0vZgJeRauLcSkCTqJoTqfRE05CNOUIxe76hQgyqUOMr/0nD1RWXk9dXfe9U0HPoy4Cw57Zn3MvZc6iXMjbugDUs4rx2n9F+Cqytuoxg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA4PR04MB7519.eurprd04.prod.outlook.com (2603:10a6:102:f3::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 20:17:27 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 20:17:27 +0000
-Date: Mon, 17 Aug 2026 16:17:18 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Lakshay Piplani <lakshay.piplani@nxp.com>,
-	linux-i3c@lists.infradead.org, conor+dt@kernel.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org
-Subject: Re: [PATCH v15 6/8] i3c: hub: Add support for the I3C interface in
- the I3C hub
-Message-ID: <aoNsTqe2PxxakLon@lizhi-Precision-Tower-5810>
-References: <20260817103844.2142802-1-lakshay.piplani@nxp.com>
- <20260817103844.2142802-7-lakshay.piplani@nxp.com>
- <20260817105340.4517D1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260817105340.4517D1F000E9@smtp.kernel.org>
-X-ClientProxiedBy: PH7P220CA0172.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:33b::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="TR3jQDmK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1786998352; x=1787603152;
+	i=markus.stockhausen@gmx.de;
+	bh=3XGkZOhwZAJdcT9ht8yn4Pv3NFHopPeAvBI13iiCrjc=;
+	h=X-UI-Sender-Class:From:To:Cc:References:In-Reply-To:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=TR3jQDmKiJygepIolZPfTdA91FaUkZ/AuiowUVXoJPay2qMJLQgmay7OCPVg7NoW
+	 HBKmSMZfFsFz1iXOa8zJ3f9UbW51A/daHjP3GW0JBy3qVUvVn/0vPYqxkzSHwG/b1
+	 4GIhl9Kg2448pyWTdr1cT4ak8eaE5qCSrmRb7PP5czGSB3amWgV/A02bp7p3saCHy
+	 FzDFCR34aPpLA+TCS0+GK6a7iMS38jpKlnBvuU4KpgYzK0qsML/31eMPKqqYcBgWB
+	 07qMraswvG0jUVdBcYG79MosUb/V5DuVxWxImIOKP61hyaQw+N33NpSdyZeBa3rly
+	 jdr0N0IXp72VL8pkvw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MBm1U-1x87873A8i-004giJ; Mon, 17
+ Aug 2026 22:25:51 +0200
+From: "Markus Stockhausen" <markus.stockhausen@gmx.de>
+To: "'Andrew Lunn'" <andrew@lunn.ch>
+Cc: <hkallweit1@gmail.com>,
+	<linux@armlinux.org.uk>,
+	<davem@davemloft.net>,
+	<edumazet@google.com>,
+	<kuba@kernel.org>,
+	<pabeni@redhat.com>,
+	<netdev@vger.kernel.org>,
+	<chris.packham@alliedtelesis.co.nz>,
+	<daniel@makrotopia.org>,
+	<robh@kernel.org>,
+	<krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>,
+	<devicetree@vger.kernel.org>
+References: <20260817162632.1208891-1-markus.stockhausen@gmx.de> <20260817162632.1208891-11-markus.stockhausen@gmx.de> <cf8bdf97-64f9-4120-bdeb-c5a91a274490@lunn.ch> <070901dd2e6d$f5b70c30$e1252490$@gmx.de> <0a125ab4-2453-4d32-b158-8bdaaca16674@lunn.ch> <089001dd2e83$b8957920$29c06b60$@gmx.de> <2fd17092-753a-4a80-bdf4-72801eca8d0a@lunn.ch>
+In-Reply-To: <2fd17092-753a-4a80-bdf4-72801eca8d0a@lunn.ch>
+Subject: AW: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open up C22 and C45 space in parallel
+Date: Mon, 17 Aug 2026 22:25:47 +0200
+Message-ID: <08e501dd2e86$98e9fdf0$cabdf9d0$@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA4PR04MB7519:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0156718-7d1f-468b-4132-08defc9c8ed3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|23010399003|366016|10067099003|56012099006|11063799006|4143699003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Mg3kWw9Cg7oWJehdSiVGEzliJ6xxeUj20MYKOdn9xVSE+20MDbi28YhSPuqBNCFA+i8FU+p/TcvuhHmPYUiibSv7C5HPCEvduBLn8vDogVyJ/oo4eLHY6pyQN4GT8ttTYvzAW/St8FD00gFaBJaSlIiBL8TB52RZqJWkrzd4Rk+VCNjbIJ8C4G50EoboH01FHB9Jo55lHYwBENiTRMbtnJZGjWj7GcdpCzOoHtIHABXcN/rLVF9tO5sMgLyWIzDbMPbZbVSec55SfKPahy/vDm8uiC1u73DJWD1vpv6JjrEqAbpN4Z2Tgg0Fk4zB4UD3U8G3CaV8vte2b28vmL555Yq0KdEXqldXvh/scvVAvHSKK9WeIyYrox3k7AyBVPuG63FEhq0lt0ExNiiuytdySodbE6Oil5cznmaqVCsLpo+gNMGAnlSGt6yGOTEfiG29y7TvcGb4m6XpNGG2JOH0IkvAhQCgLsQMpi8vdpgjBJRMxZ7WnN/Hr7zXN56MGgH0fg5u0K3AhT5AKR7jejPWudsSswnGeWHZmbhKUR9HvwJ0g9vft9sztbVptMQTA/Vxs56kMFa7LtwU8Dr8DsHD1KN9h6ai2W561L2JlPsik4c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?NyorQpb4BM5qVbKUk8drDQeonoTzDFHrM2coFOvuE3uHLgN2hKme0FeMoD?=
- =?iso-8859-1?Q?8Q+JE/Ts4w9iYo8+n79HqGBEshG3t4A1q1y9iS0FrbLdXr7iH9FkwSu3wC?=
- =?iso-8859-1?Q?AaWXy+Hxo6LCHPiAwpcDmU4f4m1HKAmvuhywTEVUx22f//mEjeOL71dSri?=
- =?iso-8859-1?Q?3j4grb4NvXt9DXAk+RW8/baohnAlIaiQfzfh2tU5ubHP//DdwjgYbyqhPd?=
- =?iso-8859-1?Q?e5LMvIA9HJZOmM/8f8y6kpiQwjl3MKO3Hnq1WN9oYkpx9LUUssOUDXCAoz?=
- =?iso-8859-1?Q?Xt/N2/XW86TD/5e/EUYGaAHg48SZTu+vdraV2JOWrH1/+LGrNM0lbJ5WED?=
- =?iso-8859-1?Q?o/1gXBn61RQq5R64oa1AMoKbNe07HoBipUmkvr4Fkpbb2uiAaSPFq+Y1GW?=
- =?iso-8859-1?Q?JggPjMNvezZPBQZRnbCZzZsM6KgWEkOLAGzwVU+zCmVALodZ5EwPxRbnsD?=
- =?iso-8859-1?Q?3Paiwmz8Ciq0/j5cgrRWwyq20poLphj6js6WV/7UoR0mIu03+zxHoNJT4A?=
- =?iso-8859-1?Q?Zsfrn/SWgQaAp24MVF7h1wt8xD+C/syPdEMPGX0b9hTwENBGHvk2qa8Ler?=
- =?iso-8859-1?Q?yjr0/htBKVSfSC0IXnmyPeURhBVY6BbZcgqkQfL4clWkBM+lW2AONVZfKS?=
- =?iso-8859-1?Q?o1hU5hB7TiNe2VRy7CqnWfSLM7Nh3x8PCR+rr0E0wlsFsDWg/DlnkuZdKk?=
- =?iso-8859-1?Q?mgEBrMZFTe4HUwLzq/DLItP5aotbxOgw8NyoeT6t0IoCsCTmk9HAvTZZ+u?=
- =?iso-8859-1?Q?7f7st1C4V8PNyyQE3QwJDeGk2THNXszQsBtqJ24cJcCeTflzf5zmKGyOZk?=
- =?iso-8859-1?Q?/vYDZ2s99iQeSg+nXf1rYavhvgjfu3Ke15KpdS+/bCHZkVixt+NGqBeC+4?=
- =?iso-8859-1?Q?kD3INqXSA5qB0WfZPQf1cDqC1nQnCLw7tFXdGbKcBS4Gq4fvNYqGyIinP7?=
- =?iso-8859-1?Q?EHUSezJ3EM3R7RBB/Wat1SlD7iRyK4gXWfBby66PlvCoHQoKInCVIAx6jG?=
- =?iso-8859-1?Q?oTommjFpagha3ZcgOoOjBRnjWpX0AyO8t7RwgXhQ9spSAbfRmoHTt4dU9j?=
- =?iso-8859-1?Q?37ecIhdmZJ6Jcc89qRCVHj0ZAUgjF/MrEm6TAzdTBzEKSRsNFWEvDPsMVl?=
- =?iso-8859-1?Q?xKuMZcsYTPYcMXddiED+s4nL5H9wDfeqPcmdjTCZEv6z93+mBA6AZsng8p?=
- =?iso-8859-1?Q?jMwiRY9mXF/eYKk30Bm5QblkCpU/QxNYkB6Nl5j3W9UGTVpWloOu4OrLiR?=
- =?iso-8859-1?Q?DUJdxWy2aE+epJ0gpebxHwjDkGC/BoRu4Qf2KEgDO3p6Z0XJyfMEIt/MBh?=
- =?iso-8859-1?Q?CkuEQPpjx30Sedpx5l/PR3K7PRJMabC1GFzU8x9LxZ6QSEOTZxRKku7cP3?=
- =?iso-8859-1?Q?fyq2V/yQyqMl1jHM/252w3ruI+2XNtSn73nO9UbNvLyumVm40GqfuAOEdh?=
- =?iso-8859-1?Q?+DgLq8egKGPpLJ7jgJzOm6ZD08ivRpopZdH+TXKisW4lcOh1CHwjtiI1nl?=
- =?iso-8859-1?Q?0zvqg+wBaFEL5/3Es711YH6/V+sHwI1vZF1px75RBgRD3xLzDli3swB1wN?=
- =?iso-8859-1?Q?23O8CvYz6osZvu6+H7oKWZCxYf2782Wkoex8vX44ItH9SxSsDXv+qSMy8O?=
- =?iso-8859-1?Q?PjeEu1UtgLXBpt8l1DKgu/mwxgPgo5d9rhizdI0xB1ikMIdrAosMG+UgCa?=
- =?iso-8859-1?Q?zmYU2JFMrlV4Sx1Tao+EQbcctmEu3c88MVVTNvx/wm1c2U39eh0PpqL5fD?=
- =?iso-8859-1?Q?S9Q0IojTfWYIWxUFxJayFi1JsMntY+kGdKKVIC8hQKUU2K0P1CYme7/V1z?=
- =?iso-8859-1?Q?GHYHDiAp8xRQRulTEDtut29ui5j2+qw9Ap9aorsm9t1dIAOg6CS6?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0156718-7d1f-468b-4132-08defc9c8ed3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 20:17:27.6536
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C51KkK2yKQLnC+bCUDWUxZhKgWAlgVqLBZCMM2pa1P1dQJYoEtzjTTPh5hYBTZUb4wvJ4feLmU4R/YeaxlV+L1XS4sLRASO10vz4u6OnSusK0yBRkyFX4u+Gk5d/5Mov
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7519
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKGRKDnP2yh8sOJ5M24BwCNtDMK1QH1jg89AffL5+ICqsGtjAEuNNjXAY0ikhsA+OoE97T+Hlmw
+Content-Language: de
+X-Provags-ID: V03:K1:pZOsp5jWNWfypoMBolOBp9WFTPiclxJhLtXlYZiNJHscU2Gs6Ha
+ P18BNMyY4tPkYzG1MbZwKjZwqUMo1Q2SbT6AzgOoEU917xkV14kQVegXaxT4R25AO8BAoZJ
+ dznB66y8MGpRMsYkzobTL2KfrNVkvzQ5YhRUyXHc27mB62qsug0qC7Qe7kEolXRqVqkV46P
+ j0mEsJ/J97kYE40bWkP+g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:sQg4QtYVXe8=;vNb9fUCS9wonrVo/whPr/Al15k2
+ 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
 
-On Mon, Aug 17, 2026 at 10:53:39AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] Delegating DAA to the parent controller incorrectly instantiates downstream devices on the parent bus instead of the virtual bus.
-> - [High] Address reservation incorrectly skips assigned addresses that differ from the static address, risking dynamic address collisions.
-> - [High] Freeing hub device data while IBI is active leaves dangling pointers in the parent controller.
-> - [Medium] Non-atomic overwrite of `parent_desc.info` causes data race with asynchronous IBI handlers.
-> - [Medium] Nested acquisition of identical lock class triggers lockdep recursive locking warning.
-> --
+> Von: Andrew Lunn <andrew@lunn.ch>=20
+> Gesendet: Montag, 17. August 2026 22:11
+> An: Markus Stockhausen <markus.stockhausen@gmx.de>
+> Betreff: Re: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open
+up C22 and C45 space in parallel
 >
-> --- Patch [6]: [PATCH v15 6/8] i3c: hub: Add support for the I3C interface in the I3C hub ---
-> commit b929a913a5f82c8ea68936fda262a420d33a7ea4
-> Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+> > All downstream 1G PHY drivers for that platform use dedicated=20
+> > read_mmd/write_mmd callbacks that run __mdiobus_c45_read/write().
+> > So no warnings during bootup.
 >
-> i3c: hub: Add support for the I3C interface in the I3C hub
+> O.K.
 >
-> Add virtual I3C bus support for the hub and provide interface to enable
-> or disable downstream ports.
->
-> > diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
-> > new file mode 100644
-> > index 0000000000000..04726393004b7
-> > --- /dev/null
-> > +++ b/drivers/i3c/hub.c
-> > @@ -0,0 +1,675 @@
->
-> [ ... ]
->
-> > +static int i3c_hub_attach_i3c_dev(struct i3c_dev_desc *dev)
-> > +{
-> [ ... ]
-> > +	data->parent_desc.common.master = parent;
-> > +	data->parent_desc.info = dev->info;
-> > +
-> > +	i3c_bus_maintenance_lock(&parent->bus);
->
-> [Severity: Medium]
-> Will this trigger a lockdep warning for recursive locking?
->
-> The core I3C subsystem already holds the virtual controller's bus lock when
-> invoking operations like attach_i3c_dev or enable_ibi. Since all I3C bus
-> locks are initialized with the same lockdep class, acquiring the parent's
-> bus lock here looks like it might require subclass nesting annotations.
->
-> > +	ret = i3c_master_attach_i3c_dev_controller(&data->parent_desc);
+> In Mainline, please think about how you make that work. Are these PHYs
+> also used with MDIO busses which have working C45 over C22? And no
+> C45?
 
-beside check other sashiko report.
+Until now we never encountered any of these PHYs in scope=20
+(RTL8218x octa port) outside of the Realtek RTL83xx/RTL93xx=20
+ecosystem.
 
-need use i3c_master_attach_i3c_dev_controller_locked() if require caller
-hold lock
+Independent from that upstream "Generic FE-GE Realtek PHY"
+uses the same unconditional C45 access  - regardeless of the bus=20
+feature set.
 
-Frank
+Makrus
 
-> > +	i3c_bus_maintenance_unlock(&parent->bus);
-> > +	if (ret) {
->
-> [ ... ]
->
-> > +static int i3c_hub_reattach_i3c_dev(struct i3c_dev_desc *dev,
-> > +				    u8 old_dyn_addr)
-> > +{
-> [ ... ]
-> > +	/* Re-sync device information after the address change. */
-> > +	data->parent_desc.info = dev->info;
->
-> [Severity: Medium]
-> Is it safe to perform a non-atomic update of this structure without holding
-> the parent controller's bus lock or the hub routing lock?
->
-> If the device has an active IBI, could the physical parent controller's
-> asynchronous IBI interrupt handler concurrently read this descriptor and
-> see corrupted or torn state?
->
-> > +
-> > +	i3c_bus_maintenance_lock(&parent->bus);
-> > +	ret = i3c_master_reattach_i3c_dev_controller(&data->parent_desc,
->
-> [ ... ]
->
-> > +static void i3c_hub_detach_i3c_dev(struct i3c_dev_desc *dev)
-> > +{
-> [ ... ]
-> > +	/*
-> > +	 * The generic IBI lifecycle must be released before detaching the
-> > +	 * physical controller state.
-> > +	 */
-> > +	WARN_ON(data->parent_desc.ibi);
-> > +
-> > +	if (parent) {
-> > +		i3c_bus_maintenance_lock(&parent->bus);
-> > +		i3c_master_detach_i3c_dev_controller(&data->parent_desc);
-> > +		i3c_bus_maintenance_unlock(&parent->bus);
-> > +	}
-> > +
-> > +	i3c_dev_set_master_data(dev, NULL);
-> > +	mutex_destroy(&data->parent_desc.ibi_lock);
-> > +	kfree(data);
->
-> [Severity: High]
-> If data->parent_desc.ibi is non-NULL (triggering the warning), does
-> proceeding to kfree(data) create a use-after-free?
->
-> Because i3c_master_detach_i3c_dev_controller() does not automatically flush
-> or free the generic IBI workqueue resources, lingering asynchronous IBI work
-> items queued on the parent controller might dereference data->parent_desc
-> after it is freed.
->
-> Should the active IBI resources be explicitly flushed and released before
-> freeing this memory?
->
-> > +}
->
-> [ ... ]
->
-> > +static int i3c_hub_do_daa(struct i3c_hub *hub,
-> > +			  struct i3c_master_controller *controller)
-> > +{
-> [ ... ]
-> > +	/*
-> > +	 * Downstream devices reachable through hub target-port routes share the
-> > +	 * parent controller's I3C address space. The hub gates access to a
-> > +	 * target-port network, but it does not create an independent dynamic
-> > +	 * address domain per virtual bus.
-> > +	 *
-> > +	 * Run DAA on the parent controller so dynamic addresses remain unique
-> > +	 * across all downstream devices, even when they are behind different
-> > +	 * target ports.
-> > +	 */
-> > +	ret = i3c_master_do_daa(parent);
->
-> [Severity: High]
-> Does calling i3c_master_do_daa() on the parent controller cause newly
-> discovered downstream devices to be instantiated on the parent bus rather
-> than the virtual hub bus?
->
-> If they are bound to the parent controller, won't subsequent client transfers
-> go directly to parent->ops->i3c_xfers, entirely bypassing
-> i3c_hub_master_priv_xfers() and hitting the closed hub port?
->
-> > +	i3c_hub_disable_port(controller);
-> > +	mutex_unlock(&hub->lock);
-> > +
-> > +	return ret;
-> > +}
->
-> [ ... ]
->
-> > +int i3c_hub_reserve_parent_addrslots_from_dt(struct i3c_hub_controller *hubc,
-> > +					     struct device_node *node)
-> > +{
-> [ ... ]
-> > +		ret = of_property_read_u32(child, "assigned-address", &assigned_addr);
-> > +		if (ret)
-> > +			continue;
-> > +
-> > +		static_addr = reg[0];
-> > +
-> > +		if (!static_addr || !assigned_addr)
-> > +			continue;
-> > +
-> > +		if (static_addr != assigned_addr)
-> > +			continue;
->
-> [Severity: High]
-> Why do we skip reserving the assigned address if it differs from the static
-> address?
->
-> If static_addr != assigned_addr (for example, expecting assignment via
-> SETDASA or SETNEWDA), this leaves the assigned address marked as free on
-> the parent bus. Could this allow the parent controller to accidentally
-> allocate this assigned address to another device during ENTDAA, causing a
-> collision?
->
-> > +
-> > +		i3c_bus_maintenance_lock(&parent->bus);
->
-> [ ... ]
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260817103844.2142802-1-lakshay.piplani@nxp.com?part=6
+
+
