@@ -1,50 +1,50 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0EC40B392
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:41:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4770C3BBFD2
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:41:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786966887; cv=none; b=g4o5Qqvqf2rgsOM/f3tDOyAS7KaclSxexU5DyHkVEpVizqzA5n03unCWdbbhX8U79TfdRNtNy440F1pmRRX8/kPHSVtdUiHrND/ggnTgOH2hFYlVXDMzVYA3nmHyTffc62UgOkR/mrJiVNZuXTzhGKGbHDTNKP6TIUp/uK7mIR8=
+	t=1786966891; cv=none; b=CRQCRoPZiIRa/kJ8FzzNl004Ub4XocVwNSjR+6M+Yu/D4Nx7tQ8cFsHoc4w/csBjluo4zrl/dEC3iOov4IjQr2Veh/I9mclWxuLpLLNgEwFhsXB1QHYOI1hqbE8d2/ZCIr7OK1iutHxidLOgdD2hFSsOHUKhEaSZFk3lkBZs30A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786966887; c=relaxed/simple;
-	bh=iF8KpoytzvpnqLwM+WPDFZesluui1b680ixY9h/BEKs=;
+	s=arc-20240116; t=1786966891; c=relaxed/simple;
+	bh=oTsFEHigKZDagVoAOr5IwLFtvYBBWBCaIx6vNhGa6+8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YcY37MrqburO8W7y+1frhNO/HGOF6UfgcScMonA6XQMBjV3USKYSShEb9VhcFqvkYAdm45F9tQg8+UJjCjaqbMbrtVWXyYB9eeffDx4Nb8gXjqA059AeQXtYLupzG+JY4iwv9owBKNrrD8zoJsgVmlfONJVVG1RpiGOusA6tncE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h6kUJmlr; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:To:Cc; b=El8zH66wrPGK3YnkrEK3JIK+q/fOqGaOM0iduDFGZO0dXr+mb5JhSB+M5/ITuYlD6536R4u7X4HFs1pH3OrmYjjXHP3WZl0yME8++N4DzPVOFPvfuTS70RnztGUvubJM5SZDoq2Mp3pSuwy6+flNkydXgZJW1Ya1R2aG8WxrJ1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AxiY6s5e; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h6kUJmlr"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AxiY6s5e"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786966885;
+	s=mimecast20190719; t=1786966889;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=yF5hSMmrhAchBrFi1aBwQrM8p8lTLNxn2Y/Hj6Zq5sA=;
-	b=h6kUJmlr7fOm7WMPXIX7qvw3BALvnRjY2YoR3boPKsHMdNQdQTlbDqS9QYZP66iFoas5Dl
-	ijPNlh7WM9iZ1ssW6JfL3TASZFHEUh/N4oupD5em7fRmsFvTNVySpDLvaupFrBN1wNOgb5
-	LKSAscoCnxq4zjNGm2IX+utXIt0ccOY=
+	bh=eye+Imc/4M3S1qY3eqjb5bqUcZ4zH/Id72nS2Qv+iaA=;
+	b=AxiY6s5e5InVVzNuhDP5yA35ITTabsT3xE475Wpd+eJIpXkekkaAR/lcXof8OGp+Ybb7I9
+	N4XrljfQlii9HZN3l+fm+3Y61Ur2PIip+Ug65mw0zmnmHkux3/To+Fm4ShhS6Nu6Gi8PM1
+	bCpwO0U0xZGQeSX9tJpI7zOWjA4DvYQ=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-549-AcEoYBedOZm0vnA0TqXCCA-1; Mon,
- 17 Aug 2026 07:41:09 -0400
-X-MC-Unique: AcEoYBedOZm0vnA0TqXCCA-1
-X-Mimecast-MFC-AGG-ID: AcEoYBedOZm0vnA0TqXCCA_1786966866
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-145-NV6esz-kNvSZhbgo-XL6oQ-1; Mon,
+ 17 Aug 2026 07:41:26 -0400
+X-MC-Unique: NV6esz-kNvSZhbgo-XL6oQ-1
+X-Mimecast-MFC-AGG-ID: NV6esz-kNvSZhbgo-XL6oQ_1786966883
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2A7DF1800471;
-	Mon, 17 Aug 2026 11:41:06 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6222018001DE;
+	Mon, 17 Aug 2026 11:41:23 +0000 (UTC)
 Received: from [192.168.1.153] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 52B69422;
-	Mon, 17 Aug 2026 11:41:01 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3F601422;
+	Mon, 17 Aug 2026 11:41:18 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 17 Aug 2026 13:40:47 +0200
-Subject: [PATCH 2/5] rust: drm: add connector abstraction
+Date: Mon, 17 Aug 2026 13:40:50 +0200
+Subject: [PATCH 5/5] rust: drm: add KUnit tests for panel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,7 +53,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-drm_panel_bindings-v1-2-1f974508a31c@redhat.com>
+Message-Id: <20260817-drm_panel_bindings-v1-5-1f974508a31c@redhat.com>
 References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
 In-Reply-To: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
@@ -71,91 +71,145 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
 Cc: devicetree@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  Albert Esteve <aesteve@redhat.com>, mripard@kernel.org
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786966849; l=2548;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786966849; l=4048;
  i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=iF8KpoytzvpnqLwM+WPDFZesluui1b680ixY9h/BEKs=;
- b=3yFrkKa4o8rqbjEkeGSkXfrl1LovnqUzx3mw+hXpd+psOy8Bh6nBQuEewpstRcMUwhbafMc2i
- 0hvL9nzn65LCnTCZvI6rGEcY5VlFbAOeqhlZ+rP99E3KZ2maq6NhzXs
+ bh=oTsFEHigKZDagVoAOr5IwLFtvYBBWBCaIx6vNhGa6+8=;
+ b=6QwxHfNOkF/90Z13R5XUwzf52g9t5Ni068MYbGJL53bg9fbDgOYsTTjn3hXH5mBfps9ZKPqmb
+ /2hmNzKs8CTBesR2zwdbQqUwz1eeXDavHMnJRjf4n8IR+assQYCtN9x
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Add DRM Connector abstraction wrapping `struct drm_connector`.
-Used by the DRM panel abstractions added in the following patch.
-Since it is merely used as a raw pointer and managed internally in
-the panel's C functions, the Connector does not need to expose
-anything else for now.
+Add a test module to verify basic data type conversions
+and layout. The tests covers:
+
+- PanelOrientation and ConnectorType: TryFrom conversion for valid
+  values and also out-of-range invalid inputs.
+- PanelContainer: layout invariants (offset, alignment, size) on which
+  Panel::new relies on for memory access.
+
+Tests are gated on CONFIG_RUST_DRM_PANEL_KUNIT_TEST.
 
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- rust/bindings/bindings_helper.h |  1 +
- rust/kernel/drm/connector.rs    | 33 +++++++++++++++++++++++++++++++++
- rust/kernel/drm/mod.rs          |  1 +
- 3 files changed, 35 insertions(+)
+ rust/kernel/Kconfig.test | 10 ++++++
+ rust/kernel/drm/panel.rs | 87 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 97 insertions(+)
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 1124785e210b3..7f3030ac0feb6 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -30,6 +30,7 @@
+diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
+index e6a5c7a795f0f..397b916dca0d4 100644
+--- a/rust/kernel/Kconfig.test
++++ b/rust/kernel/Kconfig.test
+@@ -83,4 +83,14 @@ config RUST_BITFIELD_KUNIT_TEST
  
- #include <linux/acpi.h>
- #include <linux/gpu_buddy.h>
-+#include <drm/drm_connector.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-diff --git a/rust/kernel/drm/connector.rs b/rust/kernel/drm/connector.rs
-new file mode 100644
-index 0000000000000..b3b36644375dd
---- /dev/null
-+++ b/rust/kernel/drm/connector.rs
-@@ -0,0 +1,33 @@
-+// SPDX-License-Identifier: GPL-2.0
+ 	  If unsure, say N.
+ 
++config RUST_DRM_PANEL_KUNIT_TEST
++	bool "KUnit tests for Rust panel API" if !KUNIT_ALL_TESTS
++	default KUNIT_ALL_TESTS
++	help
++	  This option enables KUnit tests for the Rust panel API.
++	  These are only for development and testing, not for regular
++	  kernel use cases.
 +
-+//! DRM connector abstractions.
-+//!
-+//! C header: [`include/drm/drm_connector.h`](srctree/include/drm/drm_connector.h)
++	  If unsure, say N.
 +
-+use crate::{bindings, types::Opaque};
+ endif
+diff --git a/rust/kernel/drm/panel.rs b/rust/kernel/drm/panel.rs
+index 8f87774e06ed7..3da203c39edd6 100644
+--- a/rust/kernel/drm/panel.rs
++++ b/rust/kernel/drm/panel.rs
+@@ -595,3 +595,90 @@ pub(crate) const fn build() -> &'static bindings::drm_panel_funcs {
+         &Self::VTABLE
+     }
+ }
 +
-+/// A DRM connector (`struct drm_connector`).
-+///
-+/// # Invariants
-+///
-+/// The inner pointer is always a valid, non-null pointer to a `struct drm_connector`.
-+#[repr(transparent)]
-+pub struct Connector(Opaque<bindings::drm_connector>);
++#[cfg(CONFIG_RUST_DRM_PANEL_KUNIT_TEST)]
++#[macros::kunit_tests(rust_kernel_drm_panel)]
++mod tests {
++    use super::*;
++    use core::mem::{align_of, offset_of, size_of, ManuallyDrop, MaybeUninit};
 +
-+impl Connector {
-+    /// Creates a reference to a [`Connector`] from a raw pointer.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `ptr` must be a valid, non-null pointer to a `struct drm_connector` that
-+    /// remains valid for at least the lifetime `'a`.
-+    pub unsafe fn from_raw<'a>(ptr: *mut bindings::drm_connector) -> &'a Self {
-+        // SAFETY: Caller guarantees `ptr` is valid and lives for `'a`.
-+        unsafe { &*ptr.cast() }
++    struct TestData {
++        _ptr: *const u8,
++        _byte: u8,
 +    }
 +
-+    /// Returns the raw pointer to the underlying `struct drm_connector`.
-+    pub fn as_raw(&self) -> *mut bindings::drm_connector {
-+        self.0.get()
++    #[test]
++    fn panel_orientation() {
++        // Test valid values.
++        assert!(matches!(
++            PanelOrientation::try_from(-1),
++            Ok(PanelOrientation::Unknown)
++        ));
++        assert!(matches!(
++            PanelOrientation::try_from(0),
++            Ok(PanelOrientation::Normal)
++        ));
++        assert!(matches!(
++            PanelOrientation::try_from(1),
++            Ok(PanelOrientation::BottomUp)
++        ));
++        assert!(matches!(
++            PanelOrientation::try_from(2),
++            Ok(PanelOrientation::LeftUp)
++        ));
++        assert!(matches!(
++            PanelOrientation::try_from(3),
++            Ok(PanelOrientation::RightUp)
++        ));
++
++        // Test invalid values.
++        assert!(PanelOrientation::try_from(4).is_err());
++        assert!(PanelOrientation::try_from(-2).is_err());
++    }
++
++    #[test]
++    fn connector_type() {
++        // Test valid values.
++        assert!(matches!(
++            ConnectorType::try_from(0),
++            Ok(ConnectorType::Unknown)
++        ));
++        assert!(matches!(
++            ConnectorType::try_from(10),
++            Ok(ConnectorType::DisplayPort)
++        ));
++        assert!(matches!(
++            ConnectorType::try_from(14),
++            Ok(ConnectorType::eDP)
++        ));
++        assert!(matches!(
++            ConnectorType::try_from(16),
++            Ok(ConnectorType::DSI)
++        ));
++        assert!(matches!(
++            ConnectorType::try_from(20),
++            Ok(ConnectorType::USB)
++        ));
++
++        // Test invalid values.
++        assert!(ConnectorType::try_from(21).is_err());
++    }
++
++    #[test]
++    fn panel_container_layout() {
++        assert_eq!(offset_of!(PanelContainer<TestData>, data), 0);
++
++        assert_eq!(size_of::<ManuallyDrop<TestData>>(), size_of::<TestData>());
++
++        let panel_offset = offset_of!(PanelContainer<TestData>, panel);
++        assert_eq!(
++            panel_offset % align_of::<MaybeUninit<bindings::drm_panel>>(),
++            0
++        );
++
++        assert!(
++            size_of::<PanelContainer<TestData>>()
++                >= panel_offset + size_of::<bindings::drm_panel>()
++        );
 +    }
 +}
-diff --git a/rust/kernel/drm/mod.rs b/rust/kernel/drm/mod.rs
-index a66e7166f66b5..672ea8728e1c3 100644
---- a/rust/kernel/drm/mod.rs
-+++ b/rust/kernel/drm/mod.rs
-@@ -2,6 +2,7 @@
- 
- //! DRM subsystem abstractions.
- 
-+pub mod connector;
- pub mod device;
- pub mod driver;
- pub mod file;
 
 -- 
 2.55.0
