@@ -1,103 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2423B47F5
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 06:52:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276043B0ADB;
+	Mon, 17 Aug 2026 07:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786949544; cv=none; b=fVGZvqsuC23pEluUb7ZTfNjZkR380FyCkvD7qkYvQWhE3yxBmZuVgYYpxB58oa3gFRCHndranMjRwz/mFInHUZn0WmvQgll8J1DX3iCvHRIpHFRB+lvFT0lH43lWpfouOSDGvoMDbB4Riacv8xu/jtldOWk8tEJLTyQzGwWceQY=
+	t=1786950015; cv=none; b=D03M2FWyaqubKBLitJIDnnBNoPz8lnznZh23i4nbEROQExvpkuSPQ6iHkWyfXpz8zuoC8QT0oXKl3T4oqQ83ICCAfbb0JobHZWwqAW1+YqC4Oj599hlSZdKTlAGKIkL42+QOgIVz6a48yoYfX+UQ0e+t4vQVcuzgX1VZvpjelmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786949544; c=relaxed/simple;
-	bh=vTO+rfEkptSzfLsJPDMQ05aHVau17M8ROGf3dvgsAgw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k9biP0HljLDEdCLmJs/xIiq8r4pGRj+8r3pkYHaaLyG6ZWqEEZkepulL/7cbvQHt4COo4xtXxJhPRJoYQIhqMz2WRD3Bf/aKmEWoD7cEQYsln0rulFqosoNX9b01lBSZPocI751BgPBu/qC56hrX69QLwEEgIrNtLIkikwwsVv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6zNprCU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786950015; c=relaxed/simple;
+	bh=WcIwkuuIli0DzdxzuxE8u6k9nw6hopwTqA6UCL6GOQM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hSiejG5T/DYDKjjLfEEL1EhiRee5kfdcwQ9GWLGNBqluaJVQDiPwKWi5p1REEyflYgVt41cKXjRi3ooMIKgLf7v0+OxLa6iPsQaU8dElrG2jEgwC+1i+761n/sjtFESVt8tI5yv4juHQNpQQ3b5exzUxq+eM4v1GHxnO9bI62fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ntkh+860; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6zNprCU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EA3E1F000E9;
-	Mon, 17 Aug 2026 06:52:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ntkh+860"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B411F000E9;
+	Mon, 17 Aug 2026 07:00:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786949542;
-	bh=Wid784yFdgt2CRw+qSv/cgrHQgZBY8yySLLeFIb+vLo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N6zNprCU7zDyIQfypo0WMjMmILBkBFUFSG+2Sb/JPKO1ipxE7ykKw1FLskR3MAmDS
-	 vnyCQ3pqU9D+heMNlGRGml4RqwdSDvxGlCjCatDrLJRul0RR/iaGVKTFK54O5ZEuvu
-	 HLvLpInqWtPcDY26tZXvBViG5oUx7iWToUK05nIgveShJTThJakSQmHDpfGU49A4RT
-	 ugmInnxFUAug9NOWkO2QqZyaA0ukIQZTUTOu1KdpR0Qh9rzQi/ZYjg8wnL0NFR4Son
-	 KQkA9D2xUj+RS7JCAAYkt1f9Iivv6dqNeDzOF0hxsbjZ7MczhZuPj+Al+Xz60er5gi
-	 Ut1F5SKSmkN7w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] iio: dac: ad3530r: add support for
- AD5710R/AD5711R
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kim Seer Paller" <kimseer.paller@analog.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260817-iio-ad5710r-upstream-v3-4-3a4bf7b9c78b@analog.com>
-References: <20260817-iio-ad5710r-upstream-v3-0-3a4bf7b9c78b@analog.com>
- <20260817-iio-ad5710r-upstream-v3-4-3a4bf7b9c78b@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 06:52:22 +0000
-Message-Id: <20260817065222.9EA3E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1786950013;
+	bh=W0Mi9bUNtPO+CJJgczTsGSqnp1P24sokh/3X+v65g+E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ntkh+860Nk7dcOLhNdisBMPbKsPY+jbKCuRjNLS+vKI/HsQ+mg2QqdVC/Rx0Mj5Vx
+	 ZSmZ0Ty+/116deaYB7PdTS+AJ5Fj31d3yQLzd/btU88s6MH7WDq6wMYcnn18zNM3us
+	 QJI2oQuT6JvqgRAs3DckpAy+CUraMrG6Qoq2xuhWbD691z+80/2gyCVTJmawod4vmQ
+	 mCM9JWso0ThievXtLf1Cjp7TFna5mM2m6mp+Ia7cpnxzS7JfhhZhw6f3oVuUiL7h3q
+	 xQ/v92cKk/GrEObaDBVA06WqbByxazx35IvKxp3rnBCw8fYlCheqUwYfJNoOt2i4ST
+	 umBvcbjpoaG2A==
+Date: Mon, 17 Aug 2026 09:00:06 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
+ Gen5 DWC3 xHCI USB controller
+Message-ID: <20260817-uakari-of-mysterious-nirvana-a1d0da@quoll>
+References: <20260811051016.1655887-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260811051016.1655887-1-marek.vasut+renesas@mailbox.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Read-only `powerdown_mode` enum is exposed as writable in sysfs, re=
-turning -EINVAL on write.
---
-
---- Patch [4]: [PATCH v3 4/4] iio: dac: ad3530r: add support for AD5710R/AD=
-5711R ---
-commit 4d59cde2891949f47bb58dbf8c77908db02a7285
-Author: Kim Seer Paller <kimseer.paller@analog.com>
-
-iio: dac: ad3530r: add support for AD5710R/AD5711R
-
-Adds support for the AD5710R/AD5711R 8-channel configurable IDAC/VDAC parts.
-Each channel is configured as voltage or current output from its DT node,
-with the powerdown mode derived from the channel's configured type.
-
-> diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
-> --- a/drivers/iio/dac/ad3530r.c
-> +++ b/drivers/iio/dac/ad3530r.c
-[ ... ]
-> @@ -419,6 +511,17 @@ static const struct iio_chan_spec_ext_info ad3532r_e=
-xt_info[] =3D {
->  	{ }
->  };
-> =20
-> +static const struct iio_chan_spec_ext_info ad5710r_ext_info[] =3D {
-> +	{
-> +		.name =3D "powerdown",
-> +		.shared =3D IIO_SEPARATE,
-> +		.read =3D ad5710r_get_dac_powerdown,
-> +		.write =3D ad5710r_set_dac_powerdown,
-> +	},
-> +	IIO_ENUM("powerdown_mode", IIO_SEPARATE, &ad5710r_powerdown_mode_enum),
-
-[Severity: Low]
-The commit message mentions that the powerdown mode is read-only. Does using
-the IIO_ENUM macro here inadvertently make the sysfs attribute writable?
-
-The IIO_ENUM macro automatically populates both the .read and .write
-callbacks (iio_enum_read and iio_enum_write). Since
-ad5710r_powerdown_mode_enum lacks a .set callback, any writes from userspace
-will safely fail and return -EINVAL.
-
-Should this be manually defined as an iio_chan_spec_ext_info struct without
-a .write callback to ensure the sysfs attribute is correctly exposed as
-read-only?
-
-> +	{ }
-> +};
+On Tue, Aug 11, 2026 at 07:09:33AM +0200, Marek Vasut wrote:
+> The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
+> controller with glue logic wrapper around them. Document the glue
+> logic and DWC3 controller.
+> 
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> Cc: linux-usb@vger.kernel.org
+> ---
+> V2: Rework to use flat bindings for generic plat driver
+> V3: - Support one or two PHYs to correctly describe the hardware
+>     - Make maximum-speed optional
+> ---
+>  .../bindings/usb/renesas,rcar-gen5-dwc3.yaml  | 81 +++++++++++++++++++
+>  1 file changed, 81 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+> new file mode 100644
+> index 0000000000000..37944a7d5be04
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+> @@ -0,0 +1,81 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/renesas,rcar-gen5-dwc3.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-[ ... ]
+> +title: Renesas R-Car Gen5 DWC3 xHCI USB controller
+> +
+> +maintainers:
+> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: renesas,r8a78000-dwc3
+> +      - const: renesas,rcar-gen5-dwc3
+> +
+> +  reg:
+> +    maxItems: 2
+> +
+> +  reg-names:
+> +    items:
+> +      - const: dwc3
+> +      - const: glue
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  dr_mode:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-iio-ad5710=
-r-upstream-v3-0-3a4bf7b9c78b@analog.com?part=3D4
+We don't accept properties with underscores, unless this is coming from
+existing schema but I do not see snps,dwc referenced in the binding.
+
+> +    enum: [ host, otg, peripheral ]
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  maximum-speed:
+
+Again, where is the property defined?
+
+> +    enum: [ super-speed-plus, super-speed, high-speed ]
+> +
+> +  phys:
+> +    minItems: 1
+> +    maxItems: 2
+
+Why is this flexible?
+
+> +
+> +  phy-names:
+> +    minItems: 1
+> +    items:
+> +      - const: usb2-phy
+
+phy is redundant. Are you implementing completely new bindings which
+have nothing in common with all others?
+
+Best regards,
+Krzysztof
+
