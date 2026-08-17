@@ -1,267 +1,206 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012001.outbound.protection.outlook.com [52.101.66.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389EA3E49EA;
-	Mon, 17 Aug 2026 10:58:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.1
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786964321; cv=fail; b=nVKthOF3ub2xlz2AdTZxRTR8vsrTRSuyur9M0yd999DOdWovOi30b96i7sFLx4a737mLMlYArhIXvuliafNqRT+JcXkcHLBM3MpnvNfHbmvg0KYDYOQbM8d9+c7Dh+wfFeid1srbGsN+STN6/0Cm3lnOQGGQizci3ax6emHfSYw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786964321; c=relaxed/simple;
-	bh=d2bTA3vd2WxUZLZI1XCA5UdpX5shJY7JOKgX9lG/CLc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=jjeVA1/FGH3QitV+mUw7Wf1zKDVI6xNBd/G+9jby8C8WyOTKuYp3pUndUTShJLr7Pb9RWSkWACJTTHYGTZXFOozD6CAXZBe/aoPkyn/vZYCBmzEzAG46T7mCA3zJabgINsKG8uQvSKjDuZeAAIBWBdRqvC4/f80EsknQo0aiCUI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dCxQRM11 reason="signature verification failed"; arc=fail smtp.client-ip=52.101.66.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C2B245005
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786964612; cv=none; b=Cu5ZrXQeZYqlQfmWOvTqDITCAKOukk/rQ7d4zFJb3H6kGHNO2DF4Lbqb/ktJT6qo0M+fNnErANMQxTu5teAhtCVPhFCEhzpjgyGpdQ8F4BEiw+1NrnhHQIwKVIINZZeQDIdBlCK2aoIsdwqQLljR4Mj6qYVahNk8f9k3jyAEr0U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786964612; c=relaxed/simple;
+	bh=suZfBo0+h+lEinP3UPlOlZXIwfGGYyAEiCu+0L3JEGw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=eo//gcZhvG8zj1/X/RlXxIFuVXpeJodGO0d8rPAoOpmOToSVi0UClHLO6EfLAdG9PJKPDsvLCXgSP8aPYeYbP1rTb7yHioud0NGVHHPzn7S0VmRsv8E2sTD2st8MycAwuWdQAnQtcvhdOdURAOQ5S9Zbj7LxdT7s3doPKf9CARg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mZXn22bf; arc=none smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dCxQRM11"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c9iPiaLVBxZYdtV8kzJTSIRhxiXJACECWWIcU7N5A3+le2OPFZBQ8uy50tJFUItXAELZXcTCg8u813Tjh7sIpTZWTo4EwWerX+iSOusXehNOGnoI+pIixR+gjVHMc1EwV4ag8Guk4JZR4tNpqQklVLetSq/yXM1rJNa2IvqdUhXmS1zvtauUQWQRwkDoZPnU09lzWZY9QuLTi0pTxLqUl0Dfsj8mwYWL4/qq9jrDIYiga/owmYExj3NekMEtV+r6S0GHdAhFxaqJAAz88QSsV7qNUWa6rzxNS+c0NqeQuPd5epBcCprUM3Rp1FNn6y01CeDi8JvenM/b5ky3tvGD4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2uPzW6FyN9VgjoiGvyrSd38vQSaNDQyR4PpxQ1zkTvo=;
- b=ichS07RZaN2OSL5Z/iIJRSACQWBBpGpSbkIAuLxWlvVhZnbaRXZFe430vinciAkuIa4Se+GNxtMIgajr1dBxFDC7NByt1vVKC2DemyDNERqbQArq/grUE9nahnFfEATc+T/N4XqQzUsT5KNMlW/hM29Vj2Np3MJQs60afb3mjwGNjQzo1SOBvfhq/ka/eGr6XJyivVwqb9KL9/EzNG20ClW0VzAyisZmdDTEitdVoCRqwqQUrlNpCP3EilJYOCvQhdr9Kah69ijKGjJrh50fJ5usYBSn9VIIv65tlOmeL8mTWgcGbDKZlh335prdxtwn0IANAGsQR+MFDInjWgSrhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2uPzW6FyN9VgjoiGvyrSd38vQSaNDQyR4PpxQ1zkTvo=;
- b=dCxQRM11PV8PSNtunR42bPWEJ0C2zpSn6HuppTyrUh2ie6L3TXg4AmALOfs3+kLqvmP3VqGiYmDXtTS7XycdL6lR6z3NGUwcv1yIlaqn5Lhu3UOWTL/AriXprkyI0Fbjz4Ti4Vlh/6tXBlDOWJlcP4D8MZExrn/u+dQiP0OzddFZrCMbcYvyxsJ9+4alfpiRFNhfjmACgxvrrsIAYPyfEhQrWIjsZ4a2LYFIXtSr1eGzPKC/vOFwytkmFgWoDNevEoTS0qYFosdG0yNJac/7iDgFGiXNdLFMwizUqN4dNkeASNjeI/79a+mtDfHJsyzH08uhHOsDEr6Xn0+oBAhPsQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM7PR04MB6949.eurprd04.prod.outlook.com (2603:10a6:20b:102::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 10:58:34 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 10:58:34 +0000
-Date: Mon, 17 Aug 2026 19:02:32 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
-	Brian Masney <bmasney@redhat.com>, Peng Fan <peng.fan@nxp.com>,
-	robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: Re: [PATCH v10 6/6] clk: scmi: Add i.MX95 OEM extension support for
- SCMI clock driver
-Message-ID: <aoLqSA3XOMJnJL4o@shlinux89>
-References: <20260612-clk-v10-v10-6-eb92484eda38@nxp.com>
- <20260612085812.AA15D1F000E9@smtp.kernel.org>
- <178672426822.5897.11563790103554525148@lazor>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178672426822.5897.11563790103554525148@lazor>
-X-ClientProxiedBy: SI2P153CA0022.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::8)
- To AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mZXn22bf"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a0a4a8d251so4089069a12.1
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 04:03:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786964609; x=1787569409; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:subject:from:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QMpSx30Kp01tyA9cA0s6xV9Jsh7jLN7uH1MhPtoZ3m4=;
+        b=mZXn22bfLMwSzIf73G5OcXWdgg98bwBu+G6PzQO+TCcxQmDlNzGCJOf94V3xHHBaX3
+         OyMVshlaZkaFwOpW5BjIkGCj80RcUjClPDXw1REjYyrzETABldXxKVrOoBGi0ht5T1Ec
+         vcybk3c+AACGh77I7wuP3VNZx+2MLzi8mJ9pPSCPZc1tfyJBLegPSzeyHt/eBULBw/2s
+         BTgfZPJExzQNuu6UEBe3mATlHTxs6GUXGsYb6/VZSLdYVVh2Yd42RF92jnydlhowmkn9
+         Ytn0r5vdpZLUsE3iT75H/VZdQRiOGSIZhnhJQm45dyEL1aTrjxZhvXQk0fu6C327pTY1
+         evnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786964609; x=1787569409;
+        h=in-reply-to:references:cc:subject:from:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QMpSx30Kp01tyA9cA0s6xV9Jsh7jLN7uH1MhPtoZ3m4=;
+        b=SQWcq4PbfErNqzKKiTPsgwGvvo1jnru+yvy+u6JmInsUEH6+vwhUYG7XVyB+vLv9a4
+         RFxycVfEy2OtTU+VShdgc7IBe/qQGKtaFSBVudY90LlDwNhFJw0YciGYLt8/0IzmsAoo
+         h7h8M8knQ7H/aEG9tnqdnPHlHwOnS0yFXGwb3cl4FPCKFhf2RWnonFiLW8kCUFWRcuEi
+         +FEHVpT+WOhuee8gVyb7N93sGbiyifVYjY1ic/53Kkgi3Oyp/wWazPo8RUo0yeG+/mVy
+         /VtdP88AXHnlnBn8ayIXFcqedftSzPgqcQsI8z81Ku3v0XmApFg4issEH86Z1vz2rIGn
+         c5LQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpd1DDIE/l1okvVol849une8ot+Xh2bkcyLGPAgLGK5tqujvDZOOJ6StM5hUAPHX93Yo550GD0AEG79@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlfTAxrKIYFNjxPcolcN1err8lwXSsne5zrm7DXMHLKKkkPnS/
+	Tq21SfRvSwR/UODb2Q8Mrf4FxBdF6W31jJQdeytmU8RDtNJw6nol2m8c
+X-Gm-Gg: AR+sD11TrQQs5hlAREhYtlc06me+PgfEui45lW9aeEnFN+0rLAhmL/XfwrFeYRTs/dm
+	5wWkJRY8h324E9Tmee7U+Fad15rJ0PhYPSCO1bVFshadWKES5kd+0FBO6bTriW3oV0sX3yv5nom
+	3wAtNt3U8oipZaj44OV/cbabenmG1YDtIi9TthgxER1XPQ+PN+1u4wuhdH+qsEtpxmZb9q7T3Yc
+	OJWMa8kXMn535A9jmkGXY57QpssD3TqB81s9Cj2mQT0SOZcMJbJi2vFr97mdqs1qDsbsd7f4Ixa
+	KA+GNxfBKjj0N2pTai1Drm+DaHKLjiuURDW4aUQaPNp/N1RvLWEWBmd2Orag2Oxb0MFhve6VDij
+	i7jEQ9d6WOeO7HvntmFjvpdm4SLGW4Sj6ncak8Wxf2+OSDABUdImudH4jNmQY4zH9YIslubGccF
+	/lo1IMqWEm/tzRI2AynE9r6t5ZHu/85hAvQz0ZW/XBscZDSbdbC9Cy0/jXgeXP33hn8K3T6ov1p
+	O8=
+X-Received: by 2002:a17:907:a4b:b0:c20:23f8:99a5 with SMTP id a640c23a62f3a-c212a0f32bcmr1095328266b.15.1786964608636;
+        Mon, 17 Aug 2026 04:03:28 -0700 (PDT)
+Received: from localhost ([2001:4bb8:17a:e1ae:4021:4903:88de:847e])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185b977a3sm6849866b.45.2026.08.17.04.03.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Aug 2026 04:03:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM7PR04MB6949:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f40cc27-458a-4880-e471-08defc4e7b36
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|1800799024|366016|23010399003|6133799003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	gAyCcFVAyTgpoRJdet8FwTjbT0eXYWwmQ35PkQgE/ZE4LE//fX3OzJQ+A29I+rZF8Q0vtIiQPpqRIpViByk0hb+gl7iZhEk8G1h+6InrjhJADqK9QpA5SGdRcBVzR84zoDQPnlNQvSLoc/aFrvjK/NyKoxOqlFaLS+rEgNd88gNyKcfwtWqCqFf2TU4n6Rm09w8w9Tih21laEipKx7JJyg+Ekny5ElwvPUUOVoxMhhaXn9R9XeK8KZkcpegwUOz/D2AsYD0mIGeCsctM3TXR1z2HrnKjwnorJeOcHqqCEKlIPEwNf6blLFgQvy65gN2Fa34Z/r9Q4wbLMOJbYtR8TRYNaCLMrzgiS1VczE+jTW0wes4SdNtjFUbXkdzjK8ADD0TZpP7tz4+ryrqpCCBAi9Ijc34PlKCmCWe1UBxr9qvFIWHaKHymR586kjbACdiwJVq3V6ihIulgaB0SaRkdp4OjMqCBV10zoEia8AosrP0Zy5M8/VKDv6SCMZg5YZHShv/6JC//81qMFJ77g/ibhJmSa5iqqI/THrCYEAhgde2jnMX9od8kenKn6rLQKFRXRtlUDge9CdLzi3E7DM+j6cRS7hpMAbOLca6eqa6V1RM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(366016)(23010399003)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?2LXh+RngDAJm1iL+iEdYAEIqCCHp1TMLPuyt9VWgCRHC+r+fKSi3/WoXU2?=
- =?iso-8859-1?Q?PsEfCZ/Gx2LpOHHH/1bNcHylOBVRxBlf7KSqBhU99ZQyWvAs9FoRQ/wTba?=
- =?iso-8859-1?Q?p7nekmA094D7eAQ6Z7vv+gt67bRvBNg5JREyQ/B92uRPzaeYfDJuJgxLNf?=
- =?iso-8859-1?Q?2xVqkU4dBiTe+kAuYzZE7/lhDT2mGMlcUnfvBViGbuiPa/OMjsShC8O1fT?=
- =?iso-8859-1?Q?jtkl6rkIC3EYihtvAY+O3d/lLAfg2U/dRzKdhoDFQE5RMcLKM32MQFemI0?=
- =?iso-8859-1?Q?JWB8epmmNVanT9GHXkpJ3+VGncRsh2O0ZTl7H4IBxcDywJ/yQczPjItV3D?=
- =?iso-8859-1?Q?MGmo84e5GlXCdeMO4yHMdZ10ADfVmoIkz+AtM6BWYF35VXj5ni7l9jaH67?=
- =?iso-8859-1?Q?VWHtMIZBHe3eQeGeZbeUzK8pyW7hweI6E+tCG+OUDPI8uqRsie4PGN2I70?=
- =?iso-8859-1?Q?GXmM+VKp7GXpMSfWKKVgSeb/J6FY2RUQaGSeVWNVj1ZgTPaY43OmuLma+q?=
- =?iso-8859-1?Q?v48vAi9jOqgBST0czhhVmseFM8i6O8fbMmzbW4n4cYge5ICoyltpzZI5rB?=
- =?iso-8859-1?Q?cVwEd0kVkamG5fQGcz598/OXblDCOwImyByR/PWHPkSoW4Vd9G7MOeFdsF?=
- =?iso-8859-1?Q?+PtfoXStr7hp23o6mkUqB+AXufnpVjCnr3h2G9hdZstJi/oN5CCBzuGtWu?=
- =?iso-8859-1?Q?9L/f/PS7HNXnrjy3YKEWOwHRjhKepHYczYKgz5PjMUVZD65iC3SywTxHhb?=
- =?iso-8859-1?Q?pXKvgy4/cJEb9q8rM/eAZj1OhEHq/xRD2S7r2P0t6q5hQ72wDT/MPKVW+a?=
- =?iso-8859-1?Q?7Wyv5makJvmHI5c6NyZNY21ghjPrlVrC6sg+OfONwI4QQMFDVEkVBqDusY?=
- =?iso-8859-1?Q?hwTFVLk1jhNfIVfqANcN4ISoz5pmV2Zplgobw0bsW7uxG/CP/R03gGSgeN?=
- =?iso-8859-1?Q?cAwdd6inSzoaOW/icR/FIHeWEBQTv8lg66ZQb91KdVHpITu+F2jWy2dpu6?=
- =?iso-8859-1?Q?OdfCVzVmeyf4EuVLb/WQejWpjxonptfdmagdXfmyAKnccgdLBRqIHDvoNj?=
- =?iso-8859-1?Q?RzS2IpzAyScAGHu53Yv1dBfX05Q4QApNW4bS71BmOHRm4wyPQIIAn/7hVz?=
- =?iso-8859-1?Q?Rk0KUYVjwaaQ8fC+/czU7JlMzCvamuWqG1TuEoo1aWscqRhVvAyAJa1tbt?=
- =?iso-8859-1?Q?zqKlglZzrCv7Gmp+6jZcxpi8ekgP3eohzrZpeoFzuTNo0TQaiTmChDXYDG?=
- =?iso-8859-1?Q?6ECWn2FGUZVx1ERLGmc4LNfu7FT0oZDApN2qjIfpfAktSZ+WTE1AFlAgih?=
- =?iso-8859-1?Q?2hSm8xg0zhrToL/zMCujk84JHj6WlTpSsP6gAZU/IP6AUEbsL9e9MdDIGZ?=
- =?iso-8859-1?Q?ym+W1X5YanBcx4wVQSuQ0ljawMzsJqYvCGllN3OGAPQIH9/8+c0wu9kHk1?=
- =?iso-8859-1?Q?XWrS2M95CoidxB/vcCXrrP2QybXNixFgKNzI43qCac9TKjyo1tO2frfO2M?=
- =?iso-8859-1?Q?uh9984glttJcpTeCSIn6dBn2pKFE8b1TplAKobBG54wFLCqLlpJpAnfIU3?=
- =?iso-8859-1?Q?ghi2K2f3AqFB38kxHFDdkuMnTxIYYRJ5zh3ab1McRGjM5w4wiWfZwM2Q/S?=
- =?iso-8859-1?Q?xmTuEjb4zNrSLTmeQOVjkZpF50qlvgpurWoOnEAInAbvPWpiBGViqm5kbE?=
- =?iso-8859-1?Q?RR7GB6unh+cc600qS6bklj/wjXrMNDXSgEkQs78T8VctnmHXtBXFsGMw2V?=
- =?iso-8859-1?Q?EFP8si6LyuDui+zI4/dOuJQySgk5yZ3DAba6hWbEAHDR6xQQnPvCyFNTIe?=
- =?iso-8859-1?Q?42m1/S/zE7wcajo0HECAFx23+BhiBNN/lX1dGVO3dFlQKGNPDotP?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f40cc27-458a-4880-e471-08defc4e7b36
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 10:58:34.1136
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +yMZDDCYZwltcGnA4a3W4stpW60ixJlkWUmq0tN98pIZy+ba8nXzbNmyJsO5rum1u5Bs9iFXasOu0jZOl++3BgmUrWPx/vXhjwNhBaw9djLrokMR1dTAmW0c5A2L7bHn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6949
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 17 Aug 2026 13:03:25 +0200
+Message-Id: <DKR632XXE5OO.3BSQIKQFHHW8G@gmail.com>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Subject: Re: [PATCH v6 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Cc: "Lars-Peter Clausen" <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com>
+ <20260812-veml6031x00-v6-2-7eef6e4ce290@gmail.com>
+ <20260813020429.54031688@jic23-huawei>
+In-Reply-To: <20260813020429.54031688@jic23-huawei>
 
-Hi Stephen,
-
-On Fri, Aug 14, 2026 at 09:17:48AM -0700, Stephen Boyd wrote:
->+Brian and Peng
+On Thu Aug 13, 2026 at 3:04 AM CEST, Jonathan Cameron wrote:
+...
 >
->It doesn't link for allmodconfig build
-
-My bad.
-
-I just posted v11 to address the allmodconfig build issue, very minor changes:
--obj-$(CONFIG_COMMON_CLK_SCMI)           += clk-scmi.o
-+scmi-clk-y                             := clk-scmi.o clk-scmi-oem.o
-+obj-$(CONFIG_COMMON_CLK_SCMI)           += scmi-clk.o
-
-no more changes in v11.
-
-Thanks,
-Peng
-
+>> +static int veml6031x00_probe(struct i2c_client *i2c)
+>> +{
+>> +	struct device *dev =3D &i2c->dev;
+>> +	struct veml6031x00_data *data;
+>> +	struct iio_dev *iio;
+>> +	int ret;
+>> +
+>> +	iio =3D devm_iio_device_alloc(dev, sizeof(*data));
+>> +	if (!iio)
+>> +		return -ENOMEM;
+>> +
+>> +	data =3D iio_priv(iio);
+>> +	i2c_set_clientdata(i2c, iio);
+>> +
+>> +	data->chip =3D i2c_get_match_data(i2c);
+>> +	if (!data->chip)
+>> +		return dev_err_probe(dev, -EINVAL, "Failed to get chip data\n");
+>> +
+>> +	data->regmap =3D devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config)=
+;
+>> +	if (IS_ERR(data->regmap))
+>> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+>> +				     "Failed to set regmap\n");
+>> +
+>> +	iio->name =3D data->chip->name;
+>> +	iio->channels =3D veml6031x00_channels;
+>> +	iio->num_channels =3D ARRAY_SIZE(veml6031x00_channels);
+>> +	iio->modes =3D INDIO_DIRECT_MODE;
+>> +	iio->info =3D &veml6031x00_info;
+>> +
+>> +	ret =3D devm_mutex_init(dev, &data->scale_lock);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret =3D veml6031x00_regfield_init(data);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to init regfield\n");
+>> +
+>> +	ret =3D devm_regulator_get_enable(dev, "vdd");
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
+>> +
+>> +	/* The device starts in power down mode by default */
+>> +	ret =3D veml6031x00_set_power(data, true);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to power on the device\n");
+>> +
+>> +	ret =3D devm_add_action_or_reset(dev, veml6031x00_als_shutdown_action,=
+ data);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to add shutdown action\n");
+>> +
+>> +	pm_runtime_set_autosuspend_delay(dev, 2000);
+>> +	pm_runtime_use_autosuspend(dev);
+>> +	ret =3D devm_pm_runtime_set_active_enabled(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+>> +
+>> +	pm_runtime_get_noresume(dev);
+>> +
+>> +	ret =3D veml6031x00_validate_part_id(data);
+>> +	if (ret)
+>> +		goto err_pm_put;
+>> +
+>> +	ret =3D veml6031x00_hw_init(iio);
+>> +	if (ret)
+>> +		goto err_pm_put;
+>> +
+>> +	pm_runtime_put_autosuspend(dev);
 >
->Quoting sashiko-bot@kernel.org (2026-06-12 01:58:12)
->> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
->> 
->> New issues:
->> - [High] The driver fails to link when compiled as a module (`CONFIG_COMMON_CLK_SCMI=m`) because `clk-scmi.c` and `clk-scmi-oem.c` are built as separate modules without exporting their shared symbols.
->> - [High] Incorrect unit conversion for spread spectrum percentage causes valid spread values to be truncated to 0.
->> 
->> Pre-existing issues:
->> - [High] Missing bounds check on SCMI firmware-provided parent clock index leads to heap out-of-bounds read and wild pointer dereference.
->> --
->> 
->> commit 02412e4d55042034939e6eece844d1bd4d62d5e9
->> Author: Peng Fan <peng.fan@nxp.com>
->> 
->> clk: scmi: Add i.MX95 OEM extension support for SCMI clock driver
->> 
->> Introduces clk-scmi-oem.c to support vendor-specific OEM extensions for the
->> SCMI clock driver. This enables querying OEM-specific features and setting
->> spread spectrum configurations.
->> 
->> > diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
->> > index 6a726331b6c9e..c2ae700ec0f2a 100644
->> > --- a/drivers/clk/Makefile
->> > +++ b/drivers/clk/Makefile
->> > @@ -98,7 +98,7 @@ obj-$(CONFIG_COMMON_CLK_RP1)            += clk-rp1.o
->> >  obj-$(CONFIG_COMMON_CLK_RPMI)                += clk-rpmi.o
->> >  obj-$(CONFIG_COMMON_CLK_HI655X)              += clk-hi655x.o
->> >  obj-$(CONFIG_COMMON_CLK_S2MPS11)     += clk-s2mps11.o
->> > -obj-$(CONFIG_COMMON_CLK_SCMI)           += clk-scmi.o
->> > +obj-$(CONFIG_COMMON_CLK_SCMI)           += clk-scmi.o clk-scmi-oem.o
->> 
->> [Severity: High]
->> Will this fail to link when compiled as a module (CONFIG_COMMON_CLK_SCMI=m)?
->> 
->> It looks like Kbuild will treat clk-scmi.o and clk-scmi-oem.o as separate
->> kernel modules rather than linking them into a single composite module.
->> Since neither file exports their shared symbols (like scmi_proto_clk_ops
->> or scmi_clk_oem_init), won't this result in undefined reference errors?
->> 
->> Should this use a composite module definition instead?
->> 
->> scmi-clk-y := clk-scmi.o clk-scmi-oem.o
->> obj-$(CONFIG_COMMON_CLK_SCMI) += scmi-clk.o
->> 
->> [ ... ]
->> 
->> > diff --git a/drivers/clk/clk-scmi-oem.c b/drivers/clk/clk-scmi-oem.c
->> > new file mode 100644
->> > index 0000000000000..be11d359b4ec3
->> > --- /dev/null
->> > +++ b/drivers/clk/clk-scmi-oem.c
->> 
->> [ ... ]
->> 
->> > +static int
->> > +scmi_clk_imx_set_spread_spectrum(struct clk_hw *hw,
->> > +                              const struct clk_spread_spectrum *ss_conf)
->> > +{
->> > +     struct scmi_clk *clk = to_scmi_clk(hw);
->> > +     int ret;
->> > +     u32 val;
->> > +
->> > +     /*
->> > +      * extConfigValue[7:0]   - spread percentage (%)
->> > +      * extConfigValue[23:8]  - Modulation Frequency
->> > +      * extConfigValue[24]    - Enable/Disable
->> > +      * extConfigValue[31:25] - Reserved
->> > +      */
->> > +     val = FIELD_PREP(SCMI_CLOCK_IMX_SS_PERCENTAGE_MASK, ss_conf->spread_bp / 10000);
->> 
->> [Severity: High]
->> Does this integer division by 10000 inadvertently truncate valid spread
->> spectrum values to 0?
->> 
->> Since ss_conf->spread_bp is in basis points (where 100 basis points equals
->> 1%), and standard configurations usually range from 50 to 500 basis points
->> (0.5% to 5%), dividing by 10000 will always result in zero. Could this
->> divide by 100 instead to correctly convert basis points to a percentage?
->> 
->> [ ... ]
->> 
->> > diff --git a/drivers/clk/clk-scmi.c b/drivers/clk/clk-scmi.c
->> > index d88e78cc9a12e..2dd50c5b4ea8f 100644
->> > --- a/drivers/clk/clk-scmi.c
->> > +++ b/drivers/clk/clk-scmi.c
->> 
->> [ ... ]
->> 
->> > @@ -406,7 +419,7 @@ static int scmi_clocks_probe(struct scmi_device *sdev)
->> >                * to avoid sharing the devm_ allocated clk_ops between multiple
->> >                * SCMI clk driver instances.
->> >                */
->> > -             scmi_ops = scmi_clk_ops_select(sclk, transport_is_atomic,
->> > +             scmi_ops = scmi_clk_ops_select(sdev, sclk, transport_is_atomic,
->> >                                              atomic_threshold_us,
->> >                                              scmi_clk_ops_db,
->> >                                              ARRAY_SIZE(scmi_clk_ops_db));
->> 
->> [Severity: High]
->> This is a pre-existing issue, but is it possible for the SCMI firmware to
->> trigger an out-of-bounds read right after this ops setup?
->> 
->> Looking at scmi_clocks_probe(), it uses the parent index provided by the
->> SCMI firmware to directly access the dynamically allocated hws array:
->> 
->> drivers/clk/clk-scmi.c:scmi_clocks_probe() {
->>     ...
->>         for (int i = 0; i < sclk->info->num_parents; i++) {
->>                 sclk->parent_data[i].index = sclk->info->parents[i];
->>                 sclk->parent_data[i].hw = hws[sclk->info->parents[i]];
->>     ...
->> }
->> 
->> If the firmware provides an index greater than or equal to the total clock
->> count, won't this result in an out-of-bounds read on the heap, potentially
->> dereferencing a wild pointer? Should this index be verified against count
->> first?
->> 
->> -- 
->> Sashiko AI review · https://sashiko.dev/#/patchset/20260612-clk-v10-v10-0-eb92484eda38@nxp.com?part=6
+> This and the get_noresume() above smell like they are probably here to en=
+sure
+> a 1->0 transition for the runtime pm reference count and hence kick off t=
+he timer
+> for autosuspend.   That shouldn't be necessary as there is code in the dr=
+iver
+> core to try a suspend. Look for pm_request_idle() calls in drivers/base/d=
+d.c
 >
+> Note that we've had sashiko give what we have concluded in the past are f=
+alse
+> positives on this dance being required.
+> Given you have device to hand, just probe it and check if it suspends.
 >
+> I haven't quite had the nerve to yet post a series removing this dance fr=
+om
+> drivers I can't test!
+>
+
+I tested that mechanism with several devices of this family, and it
+worked consistently. I will remove the calls to pm_runtime_get_noresume()
+and pm_runtime_put_autosuspend(), and with that all the goto jumps in the
+probe function. I still believe that they are absolutely fine when
+combined with devm_*() calls, but there is now a better reason to
+remove them.
+
+I may have some more IIO devices to validate it with different hardware,
+but that's an experiment that will have to wait for a while... Anyway,
+right now this dance is suboptimal but harmless, isn't it?
+
+>> +
+>> +	ret =3D devm_iio_device_register(dev, iio);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to register iio device\n");
+>> +
+>> +	return 0;
+>> +
+>> +err_pm_put:
+>> +	pm_runtime_put_noidle(dev);
+>> +	return ret;
+>> +}
+
+Best regards,
+Javier
