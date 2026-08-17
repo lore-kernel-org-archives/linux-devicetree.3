@@ -1,232 +1,159 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86474334CC
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 13:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786972874; cv=pass; b=iXBp7CPNgLbEXjRTutNdCujl+nY12i4By2dyS8C5yLgadGtQQn2V5mWrIri7sd33C0916T2gRXVSIZpfRLFx5vfpuFyProwVV5m3a1Tdx+T135zzPEKddLduecLbTv/tZkUezNnAkog7Dgi9iqHKRJVNzr8paj4JjNXEWKdtnKg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786972874; c=relaxed/simple;
-	bh=LBQ3aCrYIe56Bdog+4hPW3SU+28zBQdKbKIRZvwWrKs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q7lG5hTHVHtA9Ms84yUrUSTsqJDcLdd87+LM9MoVAyNfliBKMM6SdsbN/HEuT6L/BtM+KmZdg6ArEGKAe+PtXlVS5W4QqjFtZUxQMm2yb2dPDiJQRjekskes9KFdvTAsrsasD7zW9m2sngGe6sy6o67tEy1ZANOHrBxoOnBo6tE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HrUzhFhF; arc=pass smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B5B436BCB
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 13:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786972917; cv=none; b=IQU5/pJ4T2zhMFKJ81u3QtNL+if0re6eSgpq3km6XQtKd2zOOmEgEtSZwEp9N81QJl7wB0jaSP2AByalEEGfN2VJiiuQ1vsMd592Lgxzg5fkjJ8090FYRweuDMLohn9w8NmpEovWn90EDTpBuSka20D1g5ifs5DQMoKP8mqHzdE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786972917; c=relaxed/simple;
+	bh=NDGPWt+D2ZXDyHyMBO6JKFeHYSXg9EA5515WHJ+RyIM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SIdrsQHaF+gKL8heKxWJbZgyD87YhS+k8zknSsQe3d1qm6beS/C30N80odpFBQkjblNFLa7pNnit1h7pu6UQQ3WxHJ1lkKBM05kILeuzv2hFPCWmAWEH5fTbpI1VzK7Sn04Vej7Z//6UUdOnCvWoo3Dq5xIaTa6Ku4gVZrjFqwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ilduPxHA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EJ0jrZII; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HrUzhFhF"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b013084dc2so2555654e87.0
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 06:21:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786972871; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Nw0mMCuQLHnt+Ex+oZ9p/xfEVDxA84HMvpvfJfjOYVp7TT1lYTTtTSUDKW88VtL+nc
-         bkSLywfZxlelQyz7hjQUbVnBN53eBIZFmDc0wOI9GlRV5aU7Nz1Auo//v4wPYbdW1Nmr
-         cseGzQ8JQzzjgCISRoGHp20xYuw73wTskALO3IBRT7rtZnDxhFYHkNbtjckTA0ZKTf0T
-         XUkclAFF15xPcLJTMqGrQVk9jYXAsWgbVWOI3qShIHd8Bozn6hBuBZfVXDMBEnUhSEAV
-         tn1jGkcTK/v4hMqFjIXt9MeG0K6raTHPrqfVz1j+0/HfTreu9y2nvFYbSwT3j3cSGPA0
-         ldtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=d2cyI6mzx6oJKUliXKmfq6Ny/sEmn4X6lt43pxzRGug=;
-        fh=w1C4L63sjnN9NzZg/0cCBATVksmj/l4mEtKIsYiz4Wk=;
-        b=WOdKRFMS00s+3btyNWt0rBVOK+ZHQaM1OKhLsrLqi+rusBMA48/J/Np/AiUi+cQuVT
-         tHiPsVCBw1Vs9CC154vkEGUDgg7O8PqbalTm1m1OctfEAu9bg0CDdcty+E7Guo3OWW18
-         KOKCPP3f0SKNYPW3xSLSkeQkVF+RfYDPjllHNOwbKwvAajR3n8qXLV4kESj8+IZZmTIu
-         13f+w/bJ1t3gQmnMVwKBd+7xSwXVKkHi0n4Vo6la5CXpzAID/dUoi4+vc6L34CJ9NP+l
-         qm0UDU4b+ecoMFeE7oTGAW2SozSxauu9NYfJ+kgTjROHIfQ4Xfn1NEvCLSBB3Euz+SRI
-         ko9w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ilduPxHA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EJ0jrZII"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67HD5kgc3454577
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 13:21:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gzIWZwyHiva5dFFB1nsZ7LRuFC2QV7+W8VsetgL6odA=; b=ilduPxHA0sBskZxW
+	F72jyL5bIcSb5+4/z+0L7B/VrXJicmILlzbC6JdOK0E7qHK5yAPBSau8eYsJA4DI
+	rpFbzunOHevAcun0cqaS1ZqfL6yeDkz/MoM/J4feC3TQEBmdA9BxXcCRmcg68JU8
+	mpIh5pr5/AnbvwClxq7h+OA76TpRFXe7AesWUliQEIwLb5feV8eIQNNigEVZ8ivZ
+	uexvATzARclHEnZPExaRrmhZubBBR34AWW26tG/p8WxEsRN5ai28/1j2nLa8Zy5g
+	H+5HC+SmJg2N33E53LcDZB1WoRMFHTxFNtwqjrTgGYf2UbvwQnl7xQaL0i3Ndu5J
+	B2YXHA==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3y7krya8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 13:21:54 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-73a1cf1638fso63215137.1
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 06:21:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786972871; x=1787577671; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1786972914; x=1787577714; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d2cyI6mzx6oJKUliXKmfq6Ny/sEmn4X6lt43pxzRGug=;
-        b=HrUzhFhFnW1fEEAQDVwR/2+nnrKWdBR9NT4TJUnpzC5A7TOgZIzpzy00Tyw6bXaIGw
-         kEdkOiOhNYgKjbIlCKUdykgUqlsF3MSYW38DmcM+bIM1w61iy5zdeXgIL/0sTHr7FUDu
-         yMQTwAIbRR8HSNMjIkufAGs4/7PZ6e315RPgoA3c2kK8pdIQngt7SNsJqzQhRjikEmFO
-         eRfx/pdAncAwFd9LMyBMpqQOEpWF/gfGU1Lg/r0UBtjR4G3aKLzwflix1vJaPft0KmVl
-         sweMICeeOYEA2obx/PU10j9vle125kf9wfHMgVWd6dwxYIdcQqX/a3paALcbYNOAX1NH
-         I15A==
+        bh=gzIWZwyHiva5dFFB1nsZ7LRuFC2QV7+W8VsetgL6odA=;
+        b=EJ0jrZIIGohJ+19y5ZCvaCQh4N1xlig/rimrvXM1I6HylAmQ+xNbAfvuzc7SLtnvsP
+         oVnageqgtr7D1rbFQsS9HEedlBxTV1GJMgsLlPm5mGFDvIueMUOIakwjE0v8kCBKoYWl
+         Bdd2z81Af/u9MiV7animnlqZmF5Dv+/gBLFwtUoiINJNqH1B0ktVI0k6UTu9r2OZMnSK
+         4dexwIgV60cE9nQg8Smw2xHduIorXH+1yHGN5F9abhogdYuHqu8BxeLFIsZ2J5bcQBMA
+         XybFZX2w1S++rFNxW9AlFrDIRdXbw3MojBhEU4ghGeEGUxkJsSCUTWKEJvRiZ+n5TeRy
+         gejw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786972871; x=1787577671;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=d2cyI6mzx6oJKUliXKmfq6Ny/sEmn4X6lt43pxzRGug=;
-        b=bKXqGXHslUbzmhRGCr8KzZP5l3JcCnTYWCBw+vNifoLoc/TG/Y63JiLhDY+C8Xj0vI
-         BROnCTREsl2rnIGyXajARBq5dRgYHjFud2pEA5PuvDYpLFBarErPcjxbpUb3JVj4nYe9
-         lPjXZR1C7/c6gG/3E5xYnrn7tIBgLa3uwBoHuoOuCGYTAbeAUhs17xi/2NiXdqwH2CWB
-         YAnWJYC0RG1Bi8x/PhYO+F/Dt61TwQtL+tEdYtXtICKDg3i+VGl4YOHvnHqNRBVS976f
-         TK2uPO14hJE+5mo6ef5QxAzHx8aD/8SrqQn+7567bINa7PXoTmQQGOophmQOnrCQecHx
-         Ywlg==
-X-Forwarded-Encrypted: i=1; AHgh+RrtOpC532CafpUFvq1I6WnT6ETCLkWcLitvOQi5tQIuD/8T4iRMTMDapPYWm4kA3wAyNgVrjnbJCwJn@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmL6oQ8gxbgcm97RB2PHtuuIBbZ3i1M61hSkW2MEvrZv2eGWXy
-	vk6Ct8jeAJNCEcnhpXeuKVgRMtDgXCQezqwcCCm5vNBTtq0G3qfLM7c9cJCi657n6/0QINI3z08
-	uJFKiIc2noD8KE2lJhPR0MP6q0jAF25Q=
-X-Gm-Gg: AR+sD12rIjIcntFUlZ0ecdjFr6ClJlF0/51O0SE07MOtsA7nPJ583MEAEnJYodHyUt3
-	q2u6VfTquKg8jkDJ5kNz3+vwYJkH8tWVdRgF9up1EMGv9PXelIeOSmcfXVR+dQx48cYXW3nry7g
-	vBqtfGF77A8XnhOsLjf14KKDS92WGv43zZihyJ5hNY9I7vqTcw4j/q+o+afzlbznYaSwJaWJVGr
-	eiShAF6e+vyNjx3DKs65D4pAIAD2QhHIQ0sukghkdelCDWIarOCHftcj+6QE6bITk9UNGPsGAwg
-	uJsQ3vBbJakdEIJ03JIeQ1RFYhbc76qac+DttApGNVRM5K82nGKm3vDZTDDB65j2EaCzfXH1qVH
-	+BdBO9RL/iiAMf5tgeMVipr8K
-X-Received: by 2002:a05:6512:3d0d:b0:5b4:51b5:6081 with SMTP id
- 2adb3069b0e04-5b45915d407mr3952421e87.18.1786972870527; Mon, 17 Aug 2026
- 06:21:10 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786972914; x=1787577714;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gzIWZwyHiva5dFFB1nsZ7LRuFC2QV7+W8VsetgL6odA=;
+        b=Zt5iq5ZgfkDaanbJoFHz4ObHavVCWDQcoP1/SX32WKwjhDj+z8X2CJQb5+rRgw1emL
+         dn0Rly1CmqNkxvWG9Bnu+xBZrU3UZXxvkwUqvIYcAjIbVKJowibsNhbA2MYW/+XkRoUK
+         UKxpV3mN+sVgiqmuJXRniG+VT4BsaP6iSAVcNC0nqIwcRRfRBNFcyRxPMcxozQpy2tSn
+         Af/89oJKvlS3lrWPub9KgOVqZ+tBADPhktAVxKdNkM0EXzGrqwGzKeTIvKYPmBhGjXdk
+         H2jgTGxNb8VBMS/2OA1sU+IqKTof/gebOrjXL8ajMQFeIiy0vx/wqALAHnUV6pcJd1r5
+         WvJw==
+X-Forwarded-Encrypted: i=1; AHgh+RpxTNjUnEBpRxAWq1Aje4I16/WiMKR6QkLhTlQPZE8RJoiEo9hP+N3GJdb6AeIzQDdLPYl0tMSL4rzG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfWDrZup148PyECpvdW3um46lIPTO2o8P14RSKM68XO/X9VYC3
+	qyQy05u5vFXQk75IjhxVTs6keWQzTQ7xW6YQixekDpx02y6qMrMdxV5czs4tGc6NqCgkVMu+oP7
+	F/FVoQuKlznyxzkGjzcxeIhoX48DFmKta6QjG1QlV5zOHQzBMEyaCH/F1gZnRlqyF
+X-Gm-Gg: AR+sD10SzyFPp+tBq8XEWCNvcbw2zsQAioWOElGLT3jAnpY7aFWx0KsqW6kJXD00zri
+	mdXv4XfS8CVD4qXGMmjwE6KSVAQdFWqQSesXSIcPH5E1oyUAoYT6MlTA7h+zyuzmd9H8xcEtjvA
+	AeumdxR6I3ONjUsrWnqeOM5PuXhWY09lcmEc+Jg3z1HygcsYrXdxjUPa0Wp4OuXSobfU0mx86WA
+	S1gsjykEX+EjRCM3i3/m+etlWHGd6mAnlhjixF9SrYAgOrmdXAnP3SXdgM6OVU/b3y4tyVFLJyI
+	8TLzbjv7ijyctAflzOu33h4irGy5045YNhdHmzAWrpVmfMkbvnNPGWWbLHEFjsbjhCMVU0ONcQ7
+	fph2UzbQk/g29fxf4EBpfDQqh
+X-Received: by 2002:a05:6102:946:b0:738:133f:8d60 with SMTP id ada2fe7eead31-76f2a3d9574mr1610874137.1.1786972913717;
+        Mon, 17 Aug 2026 06:21:53 -0700 (PDT)
+X-Received: by 2002:a05:6102:946:b0:738:133f:8d60 with SMTP id ada2fe7eead31-76f2a3d9574mr1610848137.1.1786972913305;
+        Mon, 17 Aug 2026 06:21:53 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185b99f78sm28129966b.50.2026.08.17.06.21.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Aug 2026 06:21:52 -0700 (PDT)
+Message-ID: <97d391b2-4d8e-4141-a139-a41eeed7c6bc@oss.qualcomm.com>
+Date: Mon, 17 Aug 2026 15:21:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <anoYr9H4KojJv-aZ@google.com> <20260814125025.90522-1-gvalkov@gmail.com>
- <20260817-hairy-serval-of-refinement-49039a@quoll> <CADOrJmb3uJPpYR481rB-CnL0A9B_5PQ683XP+Gdis47uihqMBw@mail.gmail.com>
- <9b3b6f29-35a8-4b79-a002-bd0aac5dbee4@kernel.org>
-In-Reply-To: <9b3b6f29-35a8-4b79-a002-bd0aac5dbee4@kernel.org>
-From: George Valkov <gvalkov@gmail.com>
-Date: Mon, 17 Aug 2026 16:20:58 +0300
-X-Gm-Features: AcwNN1X6U-ZMoqh7Cxmw1TZJAety3Im5k5ja-jQ-2gFEkWXaK2yQc5cFAuGj_B4
-Message-ID: <CADOrJmZRBQb9u9oi2m=4iJuKDLVi6HNjOoSurRwE5QKPB_LetA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
-	francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org, 
-	miriam.rachel.korenblit@intel.com, wenst@chromium.org, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
-	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
-	sebastian.hesselbarth@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, Frank.Li@nxp.com, chunfan.chen@gmail.com, 
-	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/15] interconnect: qcom: Add Kuno interconnect
+ provider driver
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>
+Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-gpio@vger.kernel.org
+References: <20260814-kuno-soc-support-v2-0-3079794f0f73@oss.qualcomm.com>
+ <20260814-kuno-soc-support-v2-7-3079794f0f73@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260814-kuno-soc-support-v2-7-3079794f0f73@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Av180O1VnX-8BoEQq805XTyzQLyBjgAX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDEwMiBTYWx0ZWRfX4SPAJvscJ01d
+ UYcxLBVti+piG8n+c7xJy2nIAYa1E6PD9f3x/ri8hm5QQnzGoFTNK+R8BCzls/PNQz41DF4ampq
+ RlubprKXK4s6xi5BdgxM6EcKqN4KJeI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDEwMiBTYWx0ZWRfX/zRSKKudPx/Q
+ XOxpQN8vUmekr/QdxIVnRl/ZfOBQlInWOCuSWMuIXk2pAlCoz+HUtxlWsFTDW3wAoPTKOuySexJ
+ pNEurgz1dQqZw7naqnBkSQQ/z8bwCjW8yBFnTFQh2d04kTlxz3QXGmf0YJAJecGwCBbya8tr/Gl
+ 4OT0d0X6iTHCGpjf7Rb7Ju4y30aUM1Z7z16790ZUUXbw2zckflcAv4JmgoqBNx28gJ9279Rtmih
+ k1viAXx8p2N44M9Wn35WqqkIcwg7ODZtkn9JhtrA41QUoELAThl+l/nuJ8ypx4Szj+Acku+gVAp
+ p408lEYaVjRF1PIJJVkiTSCN6AhKmsjoD8OsZP5bMENnWzYHOcIiZ6gh+BtDKzlqUrk384QyH9W
+ 94o++YXkY6clYN0AuQAJIwt0GtLGjSkwS8gK5NeXen27ErMO9JvFngnd+8atxTse+z/oYt2ARHN
+ TQya4TJKtWTJb8VoSHA==
+X-Authority-Analysis: v=2.4 cv=HYEkiCE8 c=1 sm=1 tr=0 ts=6a830af2 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=pe0felBmJweB1gBNqhwA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-ORIG-GUID: Av180O1VnX-8BoEQq805XTyzQLyBjgAX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_01,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0 malwarescore=0
+ spamscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170102
 
-On Mon, 17 Aug 2026 at 14:07, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 17/08/2026 12:43, George Valkov wrote:
-> > On Mon, 17 Aug 2026 at 11:54, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >>
-> >> On Fri, Aug 14, 2026 at 03:50:23PM +0300, Georgi Valkov wrote:
-> >>> WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-> >>> from the mwifiex ROM, which conflicts with the platform regulatory
-> >>> configuration on units sold outside the US market. For example:
-> >>> - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-> >>> - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-> >>> - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
-> >>
-> >> v1 as reply to v3 in big thread. How tools can parse that?
-> >
-> > Hello Krzysztof,
-> > I apologise, I forgot to add the v4 tag to the subject.
-> > I have documented the changes between each revision.
-> > I saw my mistake after sending the mail. But I wasn't sure
-> > what to do? I will make sure to add v5 to my next revision.
-> >
-> >> Does b4 diff work?
-> >>
-> >> b4 diff '20260814125025.90522-1-gvalkov@gmail.com'
-> >
-> > What is b4?
->
-> Tool used by maintainers and contributors to handle/send patches. See
-> korg docs (or just google "What is b4 Linux kernel").
+On 8/14/26 9:31 AM, Hardeep Sharma wrote:
+> Add the interconnect provider driver for the Qualcomm Kuno SoC to
+> enable bus bandwidth voting on the platform. This includes the
+> aggre-noc and cnoc-main NoC instances with their associated BCM
+> nodes.
+> 
+> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+> ---
 
-Thanks!
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-
-> >>> When the system boots, it detects a conflict between the user selected
-> >>> region and the radios, e.g. BG FR US, and applies extreme restrictions,
-> >>> preventing use of 5 GHz and DFS channels. This also affects phy0.
-> >>>
-> >>> Add a device-tree flag, which allows affected platforms to ignore
-> >>> an incorrect regulatory hint from ROM, so userspace can set the
-> >>> correct platform regulatory domain.
-> >>>
-> >>> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-> >>> [2] https://github.com/openwrt/openwrt/issues/9956
-> >>>
-> >>> Tested-on: WRT3200ACM, OpenWrt
-> >>
-> >> Not a valid tag, drop.
-> >
-> > I believe the tag is helpful because it describes that my changes
-> > have been tested on a certain device and platform. It's a common
-> > practice in OpenWrt contributions. My last two accepted patches
-> > have this tag. Should I still remove it?
->
-> Drop the tag everywhere and instead on the patches which were possible
-> to be tested mention how did you test it.
-
-ok
-
-
-> >> And you cannot even do that, otherwise explain me
-> >> how did your device execute THIS (exactly THIS) code?
-> >
-> > I am not used to your terminology and this gets me completely confused.
-> > You have not quoted any particular code change, so I'm not sure what
-> > you are referring to. Here is a summary of the patch series:
->
-> Tested means executing or parsing or using the code on the device under
-> test. How can you execute/parse/use this code on the device?
-
-Test procedure:
-Compile, FLASH and run OpenWrt firmware for WRT3200ACM.
-This compiles the Linux kernel along with all dts files and drivers.
-
-1. Before the fix
-Notice how each radio has its own country:
-iw reg get
-https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-
-If the user sets their correct country code, e.g. BG, then global
-will be set to BG. This conflicts with FR from phy0 and phy1.
-And also conflicts with phy2 which reports US.
-Result: the main radio phy0 does not start.
-
-2. With the fix applied
-iw reg get
-phy2 does not appear in the list, so there is no conflict with the US
-region. I can address phy0 and phy1 later in another PR. They need
-a similar device-tree flag in the board file. The actual driver is not part
-of Linux. So I'm not sure if there is any place to add documentation?
-Result: phy0 and phy2 work. 5 GHz and DFS work.
-
-I also used this test code to confirm that the flag is set:
-mwifiex_dbg(adapter, ERROR,
-            "[%s][%pfwP] ignore-regulatory-hint %u ++\n",
-            dev_name(adapter->dev), dev_fwnode(adapter->dev),
-            device_property_read_bool(adapter->dev,
-                                      "marvell,ignore-regulatory-hint"));
-
-[   19.927595] mwifiex_sdio mmc0:0001:1:
-[mmc0:0001:1][wifi@1] ignore-regulatory-hint 1 ++
-
-
-> > Patch 1 documents a new flag: marvell,ignore-regulatory-hint.
-> > Patch 2 adds a device-tree node with the radio and the flag.
-> > Patch 3 skips the regulatory_hint() call when the flag is set.
->
-> I can read your patchsets and above does not proof how can you test binding.
-
-Ah, you mean how I tested if the device-tree changes are valid?
-I have almost no experience with dts. I ran this command before
-sending v4, and I think it seems fine. Here's a link to the output:
-make dt_binding_check
-https://httpstorm.com/share/.openwrt/test/2026-08-17_mwifiex/dt_binding_check-01.txt
-
-I have not inspected the output from rebuilding the kernel yet:
-make target/linux/{clean,compile} -j 1 V=s
-https://httpstorm.com/share/.openwrt/test/2026-08-17_mwifiex/linux-01.txt
-
-Sashiko AI said that #address-cells and #size-cells are missing,
-so I am currently looking for a way to find the correct values.
-The radio works without them, but I should address all issues,
-before sending v5. Please write a list of tests I should run!
-How can I confirm the values are correct?
-
-Thanks for your help!
-Georgi Valkov
+Konrad
