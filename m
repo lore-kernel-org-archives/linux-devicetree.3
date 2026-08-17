@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A679543711C
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 13:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66B8420495;
+	Mon, 17 Aug 2026 13:25:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786973098; cv=none; b=iHSULjqAR1mVVdwTugrsbnU/LyOlOEha5e9KPPxICrm5Z4/pqWB1tcBY/NVCdzI/W7dSkgM4MhsnHtaWmz/zsoZCPgqg1du3v/AtLyq4c0Pr/zR2M8veV1ohdxDS9LEgHEQ2oUiqaaIImaOGqgj6kuVHvhY6CJcf2HwS1EhE0uQ=
+	t=1786973113; cv=none; b=SoaSvyK1IXIwsfWjn1umaKrnYvdg0SDICm4Sch6xYxEOojleFi/TRPX5w2F7V1zQ+Qso12m5/FyMdD7DVcomfY+0npLjASWybxQld/Bw7RWrv15vQAYTKeyc7CyZx6vtyVTXiRHc6qxh9kRMlIrZNqoOeXlKq5KaN+pmp8fdWlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786973098; c=relaxed/simple;
-	bh=F1GSXwfyenJO1Pubr31ZUbjndWp9oS4SeHv8I9RZGlk=;
+	s=arc-20240116; t=1786973113; c=relaxed/simple;
+	bh=KLKeQEu8rXiwO5XrKVW4YX0KnqktTvlGl+6Z2GtkTjU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o98lWpzWbqm92oPA/tPNDM1McO5bOgufG47rdSeoxXzahdRO0ldbInxGWj66CIZpkQTvKBCOVUtyr1+SfGCaPy9OXp+zXtvQLbTTYu+BLzN28nNhvJHC94/c8KWnOaMwLR/7VZrtAPH5cEv+J7zSmMRlNsIEpi4ao8K3zpoleic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iA87aj+Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZOb2+AbS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=aBbaO9GPst0LXqENAUOGSkkYLQCSw+INANPR15Z7oiFXdI4K8188n1XvWergn8+84BKX9K0CHsD5fGJ4R6CajwmaonFhSQiBMMFakNZESkVwRX3V1z9/FWp8XxRIFLOF3/xf7scwB5aqPAoCzAO5LsARtjRQPQTzNj2EtU49uzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FiE3BpkG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iA87aj+Z";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZOb2+AbS"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67HD6FKs1193821
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 13:24:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oTrEpzlfCsrOhTTbV+g8x/HCYMbW2tO/XdIXG1JFb2o=; b=iA87aj+Z9SmKi8be
-	luOzuB6NnY9KfUCiUofqNM0EyXl+NG2Tiej+CVCma3IAxAdFwTpVtRxaQJ0c9JF8
-	WAQ6SylQLt2BXfX8Z8/avmXtOPgz4WaquOX3tNzvy5yyQ2uj37DsxZip/6TvoiFx
-	MgEW7f8sQkPF235TI+A4kG/Fhm5dYEAtfP0ZpP30Y0PKU3OqHOa/u+yK4rnTJOKc
-	4tEIMNeykXFVa4tjCGmaT1E/pcbGoMvLsdvFy2OMSeUyFuSq0IJ2aWExG9JiWZsB
-	hkXk+l8FOq85mXyGNHAOzsqK/GT0P4sTB+fiAGJ3KoPnyMQN98T6c0UdlSFBw6Px
-	dm4TdA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3wke1ex9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 13:24:55 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c07313be5so4187681cf.2
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 06:24:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786973095; x=1787577895; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oTrEpzlfCsrOhTTbV+g8x/HCYMbW2tO/XdIXG1JFb2o=;
-        b=ZOb2+AbSSQ+ctrKgQZ4NUieE0sf7x7lVgGxroo9pAkVyuo7kWrFIHgtYtHMt1ZiTNp
-         28xLfhuVIgOPg5o5CQMGySVYlnf45o92h/Kwky9CrMegryHpl/bYR7SJZksn9cSJ5Mrj
-         4eBObol0uPBSl1vh2sCLoRbY84VPbopS4gA/Thm+naW17kOB8Che9C5mtu1g95UdcvlR
-         YvGV7ar0hwTk4Wo3s8Wo4atd2RgM+sZ8x3YZJkuQmH/49G+Ddu+14Hmi9tioXGhh2uzF
-         bzuSRyGl52homB8e4/FsVzBFfFWSj2/gJga2zzd+mJx2KZW1pAl3AvuSgsaSA53FnO5M
-         GQJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786973095; x=1787577895;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oTrEpzlfCsrOhTTbV+g8x/HCYMbW2tO/XdIXG1JFb2o=;
-        b=BNwIbAnV0ajcfPvjP4x2SmrJ1lIqm81jO1sWP5DIJxDnoHIxP68Iy+tafKHMRB0Wzf
-         67u1FB/8TkLfRW5gRPb9FCQ5/fb45DEepwLSIE5WQX1+xrN1bboZbPAtBtMJgVctUqTW
-         JTEIXNdqbw5h1rqQ/WVNuHHulyQ2uOVYi0teIwklAo0x7pKjiSyKkoYY9W4jebk1Cj0G
-         P+WJd6UXYVGln9wl5N9x9qw/hKb/xtORk3LDgczDTn7LNsVV2q00BCLzg89VkE2ywkKN
-         yxr+bysRMxsnwLXl2dFqKy887rMnEBPnare8ykWT+1s4nKVUM2TtZ4LmywsbM7A+2lQ/
-         66lA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2DcuodJYOoJoe89YGlSSF5o5CuIYDpjXvn10kkPRgnCI2VBlWZxPm+3WtK9YtrvGMsXaVp5QVMIoA@vger.kernel.org
-X-Gm-Message-State: AOJu0YyqxmRAlnEYXzLM1ObR9E102f7SdOFZL52lbC/xa7EH/WJRBhK9
-	VjnyEOLYrTaPmdbO2HBZkKWN7FcJ1uhHEufRM+LNDFvFDK7VxkruyGs26TOJ7Af37iJgBA0HwrS
-	wWMPwCV7qoqcpoAbsqdCjayFGf7Ou0fQmuf6po/1q6BCM0X9Olz/fbKMW3bnffox/
-X-Gm-Gg: AR+sD11UJzbH+0gBfhv3LP419pRZC55A9TDy02WjzLkr9J66npZBPc8tkIMRp6375tM
-	pKutyexNfUPMmYT45OMzBtHyaY3xKPFBBlyyVEUuHQXjL4m3qxhG6fzITM/19jhHhQifL90b2Rf
-	ph9WGD+1vhUg35hQDEZxVzmkLr/+lAK5ffE07k4aTiFD3plbDKnjBpvgvX9RQcQJ0nYxG7BE9ZN
-	l9gg/+N756TnjcU8k0SfUdRgkcl/5jgvWXXNA5Roj7CaL+M8N/O39swxZRPHTzw6Q0dWv4Z6zdj
-	+PpzRUWCcdtOj6nNuNwph2dbdIqomvTYfalLaBvp1nrxrpoP8Lxv2Bcx7+UGzU2YV0Z/T9qgRe4
-	TB7ipvrkw9I7AA99jFX1sNPO3
-X-Received: by 2002:a05:622a:1a86:b0:52d:9db2:7924 with SMTP id d75a77b69052e-52d9db28d13mr103953531cf.1.1786973090891;
-        Mon, 17 Aug 2026 06:24:50 -0700 (PDT)
-X-Received: by 2002:a05:622a:1a86:b0:52d:9db2:7924 with SMTP id d75a77b69052e-52d9db28d13mr103953141cf.1.1786973090323;
-        Mon, 17 Aug 2026 06:24:50 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185bc66a7sm26799466b.59.2026.08.17.06.24.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Aug 2026 06:24:49 -0700 (PDT)
-Message-ID: <b88c7884-f86b-460d-9880-8dbc23798b02@oss.qualcomm.com>
-Date: Mon, 17 Aug 2026 15:24:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FiE3BpkG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5C71F00A3D;
+	Mon, 17 Aug 2026 13:25:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786973110;
+	bh=vRJ5wN5BP9Vexmqogl8NhDRj+dNiWoiVFS9/SULJCiw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FiE3BpkGG3X5ylo52BGzSOchbeETup+HJnY/NfEibmxFLcAtX6sg9hA6x0vlh0aPw
+	 HBU/Mkg4EvBYCh/0DNkl2HGXD2o2eDfPi00sr14tIGnzXn3UAmmL7jfgm3pVqLIRir
+	 GxH8/P5OsO/IJLxLQ83B6qeFNxfQIrqRAGCY98eudLsoTkvjajWTtbAh37ciOIVz47
+	 ip9BQw7z9bpIwQkUZajdx/IR5kOLdeRuIzNU5oRcNDp/0Gw8Nkjs1JL2Bc+16wQt5E
+	 lwQGW9Tz8wYYdSURXILJmK8FcH4ZQYzTMtXm9tqabXWXp6IX62ORBJthY4EcrIWkc2
+	 MHXJmMaAKSLIQ==
+Message-ID: <2f264b09-98e9-4260-b413-97a494ba789f@kernel.org>
+Date: Mon, 17 Aug 2026 15:24:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,77 +35,202 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/15] pinctrl: qcom: Add Kuno pinctrl driver
-To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org
-References: <20260814-kuno-soc-support-v2-0-3079794f0f73@oss.qualcomm.com>
- <20260814-kuno-soc-support-v2-9-3079794f0f73@oss.qualcomm.com>
+Subject: Re: [PATCH 1/3] dt-bindings: net: wireless: add flag
+ marvell,ignore-regulatory-hint
+To: George Valkov <gvalkov@gmail.com>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
+ francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org,
+ miriam.rachel.korenblit@intel.com, wenst@chromium.org,
+ rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com,
+ s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Frank.Li@nxp.com, chunfan.chen@gmail.com,
+ linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ stable@vger.kernel.org
+References: <anoYr9H4KojJv-aZ@google.com>
+ <20260814125025.90522-1-gvalkov@gmail.com>
+ <20260817-hairy-serval-of-refinement-49039a@quoll>
+ <CADOrJmb3uJPpYR481rB-CnL0A9B_5PQ683XP+Gdis47uihqMBw@mail.gmail.com>
+ <9b3b6f29-35a8-4b79-a002-bd0aac5dbee4@kernel.org>
+ <CADOrJmZRBQb9u9oi2m=4iJuKDLVi6HNjOoSurRwE5QKPB_LetA@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260814-kuno-soc-support-v2-9-3079794f0f73@oss.qualcomm.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CADOrJmZRBQb9u9oi2m=4iJuKDLVi6HNjOoSurRwE5QKPB_LetA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDEwMiBTYWx0ZWRfX6D5JIgQ1p7il
- pLX18lYrc2XOwp3qxntkPRF0oe0nadPrxUhHkRZZEmMc42CaFj5XoOqQf3gROby+gKLW+Oik9fV
- 2OTwBuLDNJMNtk8A+P3uGVvuYJcRwABPokvN3SUmbaFXhwG+MWYwWRDKgsraqbrPvrOmdwvGdLB
- WPxk8jFpZVo+dxSJtQxdLf+uyoIM8GERtk6o5hfZp7ep3pOB324QQWsKeWV36AIV6SlHJs1hQ7r
- 1VnDQP/SrhH3/rasSZLzkKnR0rnifqeA0UP2GB4fIXrf/mvFmvIC7ptNLFUk6YUbfLSfKSs1VLd
- D717cWWyWkG/jGBhb3EZwZSd30AOqUVRqn0bw8dkhQn1hV47dx5Ti82ze5hqRHtcyIqiXVdKJ+X
- ZlcJuP4lT/Z8YxdL0bQqtDeNCLFXqspGz7oa1DtcXYGlnLBWprasBFnOXn4tlIel2KO/gYdb/PG
- NM/5wlIs/BXrPEhZ9mg==
-X-Authority-Analysis: v=2.4 cv=QetWeMbv c=1 sm=1 tr=0 ts=6a830ba7 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=4tAzDn1lkwtfZF03VZIA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: b1tnbMhYQgx5R6p26t6sxSPL5FinbsF0
-X-Proofpoint-GUID: b1tnbMhYQgx5R6p26t6sxSPL5FinbsF0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDEwMiBTYWx0ZWRfXxwQq1XzVaXqA
- v3bhc2qgvsGHnul9OqhZw4REqrjYVacoACNGqkafm10F6NNYx0Cj9Rse2jVyIpDlAqMVy2Ty6en
- Y61Eb40IbQQMMTgyUEdaZC2xLbKdUqg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_01,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015
- impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170102
 
-On 8/14/26 9:31 AM, Hardeep Sharma wrote:
-> Add the TLMM pinctrl driver for the Qualcomm Kuno platform, supporting
-> 110 GPIOs and their pin multiplexing, pin configuration and gpiolib
-> interface through the common pinctrl-msm driver.
+On 17/08/2026 15:20, George Valkov wrote:
+> On Mon, 17 Aug 2026 at 14:07, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 17/08/2026 12:43, George Valkov wrote:
+>>> On Mon, 17 Aug 2026 at 11:54, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>
+>>>> On Fri, Aug 14, 2026 at 03:50:23PM +0300, Georgi Valkov wrote:
+>>>>> WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+>>>>> from the mwifiex ROM, which conflicts with the platform regulatory
+>>>>> configuration on units sold outside the US market. For example:
+>>>>> - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+>>>>> - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+>>>>> - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
+>>>>
+>>>> v1 as reply to v3 in big thread. How tools can parse that?
+>>>
+>>> Hello Krzysztof,
+>>> I apologise, I forgot to add the v4 tag to the subject.
+>>> I have documented the changes between each revision.
+>>> I saw my mistake after sending the mail. But I wasn't sure
+>>> what to do? I will make sure to add v5 to my next revision.
+>>>
+>>>> Does b4 diff work?
+>>>>
+>>>> b4 diff '20260814125025.90522-1-gvalkov@gmail.com'
+>>>
+>>> What is b4?
+>>
+>> Tool used by maintainers and contributors to handle/send patches. See
+>> korg docs (or just google "What is b4 Linux kernel").
 > 
-> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-> ---
+> Thanks!
+> 
+> 
+>>>>> When the system boots, it detects a conflict between the user selected
+>>>>> region and the radios, e.g. BG FR US, and applies extreme restrictions,
+>>>>> preventing use of 5 GHz and DFS channels. This also affects phy0.
+>>>>>
+>>>>> Add a device-tree flag, which allows affected platforms to ignore
+>>>>> an incorrect regulatory hint from ROM, so userspace can set the
+>>>>> correct platform regulatory domain.
+>>>>>
+>>>>> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+>>>>> [2] https://github.com/openwrt/openwrt/issues/9956
+>>>>>
+>>>>> Tested-on: WRT3200ACM, OpenWrt
+>>>>
+>>>> Not a valid tag, drop.
+>>>
+>>> I believe the tag is helpful because it describes that my changes
+>>> have been tested on a certain device and platform. It's a common
+>>> practice in OpenWrt contributions. My last two accepted patches
+>>> have this tag. Should I still remove it?
+>>
+>> Drop the tag everywhere and instead on the patches which were possible
+>> to be tested mention how did you test it.
+> 
+> ok
+> 
+> 
+>>>> And you cannot even do that, otherwise explain me
+>>>> how did your device execute THIS (exactly THIS) code?
+>>>
+>>> I am not used to your terminology and this gets me completely confused.
+>>> You have not quoted any particular code change, so I'm not sure what
+>>> you are referring to. Here is a summary of the patch series:
+>>
+>> Tested means executing or parsing or using the code on the device under
+>> test. How can you execute/parse/use this code on the device?
+> 
+> Test procedure:
+> Compile, FLASH and run OpenWrt firmware for WRT3200ACM.
+> This compiles the Linux kernel along with all dts files and drivers.
+> 
+> 1. Before the fix
+> Notice how each radio has its own country:
+> iw reg get
+> https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+> 
+> If the user sets their correct country code, e.g. BG, then global
+> will be set to BG. This conflicts with FR from phy0 and phy1.
+> And also conflicts with phy2 which reports US.
+> Result: the main radio phy0 does not start.
+> 
+> 2. With the fix applied
+> iw reg get
+> phy2 does not appear in the list, so there is no conflict with the US
+> region. I can address phy0 and phy1 later in another PR. They need
+> a similar device-tree flag in the board file. The actual driver is not part
+> of Linux. So I'm not sure if there is any place to add documentation?
+> Result: phy0 and phy2 work. 5 GHz and DFS work.
+> 
+> I also used this test code to confirm that the flag is set:
+> mwifiex_dbg(adapter, ERROR,
+>             "[%s][%pfwP] ignore-regulatory-hint %u ++\n",
+>             dev_name(adapter->dev), dev_fwnode(adapter->dev),
+>             device_property_read_bool(adapter->dev,
+>                                       "marvell,ignore-regulatory-hint"));
+> 
+> [   19.927595] mwifiex_sdio mmc0:0001:1:
+> [mmc0:0001:1][wifi@1] ignore-regulatory-hint 1 ++
 
-[...]
+You are not responding to the actual problem.
 
-> +	[65] = PINGROUP(65, qup0_se1, qdss_cti_trig1, qdss_cti_trig1, NA, NA, NA, NA, NA, NA),
-> +	[66] = PINGROUP(66, qup0_se1, qdss_cti_trig1, qdss_cti_trig1, NA, NA, NA, NA, NA, NA),
+In very simple words, like one or two sentences, explain me how this
+YAML file affected `iw reg get`?
 
-Function3 can't be selected because of repeating names
 
-In qdss_cti_trig1_groups, you have qdss_cti_trig1 specified twice.
-Perhaps there was a longer name that got truncated?
+> 
+> 
+>>> Patch 1 documents a new flag: marvell,ignore-regulatory-hint.
+>>> Patch 2 adds a device-tree node with the radio and the flag.
+>>> Patch 3 skips the regulatory_hint() call when the flag is set.
+>>
+>> I can read your patchsets and above does not proof how can you test binding.
+> 
+> Ah, you mean how I tested if the device-tree changes are valid?
+> I have almost no experience with dts. I ran this command before
+> sending v4, and I think it seems fine. Here's a link to the output:
+> make dt_binding_check
+> https://httpstorm.com/share/.openwrt/test/2026-08-17_mwifiex/dt_binding_check-01.txt
 
-Konrad
+This is a make process, so build stage. Nothing related to testing on DUT.
+
+Building kernel (and running standard tools) is not testing, so I repeat
+- do not introduce "tested" statements to commits which is impossible to
+test by the definition of "tested" in Linux kernel. We discuss all this
+in this very specific patch, not some other patches.
+
+Best regards,
+Krzysztof
