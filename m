@@ -1,111 +1,120 @@
-Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656743B42D8
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 19:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E7C3E63B0
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 19:39:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786995418; cv=none; b=l9P1bruJ/4Ob1ZPvDfyoxAiMCed6WkgvXeEe4QCUGXtJAA2HXBl2F6D9b74fEOGus3QwH+U/X3uhFJY1N642fBYKEERS2WBsUL4PDcD+yWJLO9G5SZMnsT/pmxeT1OoN+bh3FIH1eKwgwIY5B3pwn2QYi4rye8zHFy2ASqY6AZM=
+	t=1786995600; cv=none; b=BEA5e+kUEINMCLLG7ISolcs+2fGgyPmcSfC9SFya4cIAu7aKHikK/k15dpzKQaQ3fL7Mc7r4+Xg0bezZ+kXYZhvyVV0qQqmmelL4X4LlL0pLCQsZo7LrEhzlnNNUB5TfnIJoLnwL1TZBQgqvh6FJmH3WH6yZ4oyFJYjbQpO2juY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786995418; c=relaxed/simple;
-	bh=U7VYwvIQkZMBWneU7P8B0jGhfr9ChgYFzuNuv+2yxgg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=laH+e21Zv8XAR01N/E88uN9ZQD3RNlmGIFrT5PL/8HX8pep1Y6ifjS+LQmrEr0GHk1rh/KQVmcUYG+JUzkroh0SsgSpMPY03+4p898MQKhJ/3Aur+oGcRDxffT2j8XuUID5ywkQhwm6CsoJ5CxTObLzQFGy3A0JMI9AHAdb8UpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PxVfihRx; arc=none smtp.client-ip=91.218.175.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786995600; c=relaxed/simple;
+	bh=zZ4hYJe87nz/rCzbp8PxTBM6sLDrfoaj1vRD3/L8Emw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aU0WG49iZl7/iM86Hr9m4ryUOn++pAQ3lThNPVOp1pXvcNj+T7Vv+QC/ca9Ni+sLU4UV7Mks3D9XAwbQg7PGuoIuqmBOhOGJrViv9iwBiNWuIJACcTXn2mScB54SztYbv9vpGvwoiVKX7/vUshmwPQ3RQvF6JSOC3MSSr+9yLFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gsiL/E6c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PxVfihRx"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=U7VYwvIQkZMBWneU7P8B0jGhfr9ChgYFzuNuv+2yxgg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1786995413; v=1; x=1787600213;
- b=PxVfihRxGLi9KiOi3fNIR7guK16N6vzxnQ2T/tHzhddtspgaC+ZDkjqaBcL2ZCteQVFaplkO
- wdq26yeO0L1VeB+9E8Ip9I4jO5W1/LsvxuG9xYOY1AbTCLpEA+ZnYbNGLsq2+lEPoia1eNjI3aO
- qzuS4wdIYJdhLTw0kx2GotEM=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: from castle.c.googlers.com (35.227.148.244)
-	by mta11.migadu.com with ESMTPS id 12343935c173ffb3;
-	Mon, 17 Aug 2026 19:36:53 +0000
-X-Migadu-Flow: FLOW_OUT
-From: Roman Gushchin <roman.gushchin@linux.dev>
-To: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>,  Abdurrahman Hussain
- <abdurrahman@nexthop.ai>,  sashiko@lists.linux.dev,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] of: property: add i2c-parent to fw_devlink supplier
- bindings
-In-Reply-To: <20260817145906.GB579285-robh@kernel.org> (Rob Herring's message
-	of "Mon, 17 Aug 2026 09:59:06 -0500")
-References: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
-	<CACRMN=cXSy0ZYH78sQ88QKkwYtbE768kh=KzRhkYYCO4SX2m-Q@mail.gmail.com>
-	<20260817145906.GB579285-robh@kernel.org>
-User-Agent: mu4e 1.12.15; emacs 30.2
-Date: Mon, 17 Aug 2026 19:36:46 +0000
-Message-ID: <7ia4tsosfsj5.fsf@castle.c.googlers.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gsiL/E6c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06111F000E9;
+	Mon, 17 Aug 2026 19:39:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786995599;
+	bh=tfofchdZvnUpacIIGFv0iVI4o4/ifXM0HTqkS1Wrb48=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gsiL/E6c6OFCyJVERfPHPo81+JS3HyBc3f/rH2j7C+bHMwLl5f8HNqBhInVKfz57g
+	 ILSKv8ep08Wwqq9KsSQ6D+yGb+wyvkht4jQkH7MsnprWfaE6TZ90mc8N6CRrEwmVCm
+	 x35vnigOr+6rHmTzo+Iv9q9iGoLXBxKXGTN9a/qSRpL3Z9l014Eb4v+jItktsaC2E6
+	 3JC3Z93mz7GN7K86yl1hUgX8t0Oq1k9MjZeyXsymmNO194oIp/T0jKAFGi7E21Adp5
+	 sK6qHd5jobrHeV4SaE4T26v7+nbrTpl0DtusPx/IYGaYY9bNiM9Rug+snf29u9QQey
+	 otgALxvC2pgZw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v10 3/4] net: dsa: motorcomm: Add LED support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Yang" <mmyangfl@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260816193905.218112-4-mmyangfl@gmail.com>
+References: <20260816193905.218112-1-mmyangfl@gmail.com>
+ <20260816193905.218112-4-mmyangfl@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 19:39:58 +0000
+Message-Id: <20260817193958.E06111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Rob Herring <robh@kernel.org> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Unconditional kernel panic during probe due to pointer arithme=
+tic on NULL net_device pointers in yt921x_cled_hw_control_get_device().
+--
 
-> On Sun, Aug 16, 2026 at 10:17:08PM -0700, Saravana Kannan wrote:
->> On Sat, Aug 15, 2026 at 8:33=E2=80=AFPM Abdurrahman Hussain
->> <abdurrahman@nexthop.ai> wrote:
->> >
->> > Platform-device i2c muxes (i2c-mux-reg, i2c-mux-gpio, ...) reference
->> > the bus they multiplex with an i2c-parent phandle and hold a reference
->> > on that adapter from probe until remove. Unlike muxes that are clients
->> > on the parent bus, they live outside the adapter's device hierarchy,
->> > so nothing orders their teardown against it: if the adapter's device
->> > is unbound first =E2=80=94 e.g. while reverting a device-tree overlay =
-whose
->> > changeset attached the mux nodes before the controller nodes =E2=80=94
->> > i2c_del_adapter() blocks forever in
->> > wait_for_completion(&adap->dev_released), waiting for a reference that
->> > is only dropped later in the same teardown sequence.
->> >
->> > Teach fw_devlink about i2c-parent so the core creates the
->> > corresponding device links: consumers are unbound before the parent
->> > adapter's device, and probe ordering no longer needs -EPROBE_DEFER.
->> >
->> > A plain DEFINE_SIMPLE_PROP() cannot be used because the property has
->> > two incompatible layouts: the i2c mux bindings hold a list of bare
->> > phandles (i2c-demux-pinctrl takes several), while toshiba,tc9563 holds
->> > a single phandle followed by an i2c slave-address cell. The two forms
->> > are indistinguishable in the flattened tree, and a 0-cell parse of the
->> > tc9563 form would read the slave address as a phandle, linking the
->> > consumer to whatever node happens to carry that phandle value. Use a
->> > custom parser that only takes entry 0 for toshiba,tc9563 nodes.
->> >
->> > Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
->> > ---
->> > Changes in v3:
->> > - Fix the tc9563 compatible check: match "pci1179,0623" (the actual
->> >   binding compatible) instead of "toshiba,tc9563", which never matched
->> >   and let the bare-phandle parser misread the i2c slave-address cell as
->> >   a phandle (Sashiko AI review)
->> > - Link to v2: https://patch.msgid.link/20260815-b4-of-property-add-i2c=
--parent-v2-1-239c6da9e097@nexthop.ai
->> >
->> > Changes in v2:
->> > - Use a custom parser instead of DEFINE_SIMPLE_PROP: toshiba,tc9563 pu=
-ts
->> >   an i2c slave-address cell after the phandle, which a 0-cell parse
->> >   would misread as a phandle (Sashiko AI review, Rob). Kept the full
->>=20
->> A bit of a tangent, is this a bug in Sashiko bot?
->> It just dropped me from the reply in the v1 patch set. Any idea why?
+--- Patch [3]: [PATCH net-next v10 3/4] net: dsa: motorcomm: Add LED suppor=
+t ---
+commit 25a5fb03fc03b52bd3ea80525b1fd57bd6de812d
+Author: David Yang <mmyangfl@gmail.com>
 
-Hm, can you, please, clarify, what do you mean?
-https://sashiko.dev/#/patchset/20260813-b4-of-property-add-i2c-parent-v1-1-=
-a2487e920ce1%40nexthop.ai
-has your email in to according to the email policy.
+net: dsa: motorcomm: Add LED support
 
-Thanks!
+This commit adds support for controlling the LEDs attached to the
+Motorcomm YT9215 switch chips via the standard LEDs subsystem. It
+currently supports parallel mode and strict 1:1 mapping.
+
+> diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm=
+/leds.c
+> new file mode 100644
+> index 0000000000000..e7ef0ef80a266
+> --- /dev/null
+> +++ b/drivers/net/dsa/motorcomm/leds.c
+
+[ ... ]
+
+> +static struct device * __maybe_unused
+> +yt921x_cled_hw_control_get_device(struct led_classdev *led_cdev)
+> +{
+> +	struct yt921x_led *led =3D to_yt921x_led(led_cdev);
+> +	struct yt921x_port *pp =3D to_yt921x_port(led);
+> +	struct yt921x_priv *priv =3D to_yt921x_priv(pp);
+> +	struct dsa_port *dp;
+> +
+> +	dp =3D dsa_to_port(&priv->ds, pp->index);
+> +	if (!dp)
+> +		return NULL;
+> +
+> +	if (dsa_port_is_user(dp))
+> +		return &dp->user->dev;
+> +	if (dsa_port_is_cpu(dp))
+> +		return &dp->conduit->dev;
+
+[Severity: Critical]
+Could this cause a kernel panic during probe if dp->user or dp->conduit is
+NULL?
+
+When the hw_control_trigger is set to netdev during driver setup, the LED
+core immediately activates the netdev trigger, which in turn calls
+yt921x_cled_hw_control_get_device().
+
+At this point during probe, the user ports are not fully instantiated yet,
+meaning dp->user is NULL. Unconditionally returning &dp->user->dev performs
+pointer arithmetic on the NULL pointer, yielding a non-zero invalid pointer
+because dev is located at an offset within struct net_device.
+
+The netdev trigger core evaluates this pointer as true and calls to_net_dev=
+()
+on it, which subtracts the offset and yields exactly NULL. It then attempts
+to dereference the network device name, crashing the kernel.
+
+Does this need an explicit check to verify dp->user and dp->conduit are val=
+id
+pointers before accessing their dev members?
+
+> +
+> +	return NULL;
+> +}
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816193905.2181=
+12-1-mmyangfl@gmail.com?part=3D3
