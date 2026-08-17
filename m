@@ -1,107 +1,65 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87FC43BDDE;
-	Mon, 17 Aug 2026 16:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0ED43B3DA;
+	Mon, 17 Aug 2026 16:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786983792; cv=none; b=fa66uLQk5+6d5Tu+arZyM7antv6rLVHGz54FqrQD47gXx5AYVYd2Cg5hLMAkw54QimaZVaPB2eRanmbYRHS/15uUgnLa6IQ+jRIELIjJ3+9sWCU4T+Uk3JufbTygGldPydq8W+AT3aSDd+ij9XHlaAaKnAUfJTFPvYZyKhW5vRY=
+	t=1786983824; cv=none; b=fSFxbQi9RPRq5S3RTIcCFUqYq9K2UW/CBY6KYTum51o46m3oLKA+T9ztnlv13MuL4fPASyRZNykkmYQ7hmNZxXdGwNmHBPhlKz0iPdOWZQ/zMINFGz9xObf/+42PPL8T5uF+kluhnqJ5jMBWPKjwTelCtqH3IYIpQCFREg/wZQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786983792; c=relaxed/simple;
-	bh=W2rwiI0p1PvB/EiVI5SngxFzf3q1kEaDT6oNx8aga5E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=newCrub6pnxk1/sbwwJDPIMCbzxyNqt/qNJZ626+1OW3KetjSZOgfbqU63AW8GDCtefFxn8fQrp/rBg+o6VrRlzxfXeD+ptdeVRYD0PlCyoRjKM+XimjQzCBx8yp9ZO6DTmyUH1RarVDf/N2tH2/r5lYXBMDliWh6HqFttLrzS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A1B6A2006B4;
-	Mon, 17 Aug 2026 18:23:03 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1ww075-001z6I-1m;
-	Mon, 17 Aug 2026 18:23:03 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 35B3B584E00;
-	Mon, 17 Aug 2026 16:23:03 +0000 (UTC)
-Date: Mon, 17 Aug 2026 18:23:03 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: kernel@pengutronix.de, Vincent Mailhol <mailhol@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, linux-can@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Heiko Stuebner <heiko.stuebner@cherry.de>, 
-	Quentin Schulz <quentin.schulz@cherry.de>
-Subject: Re: [PATCH v6 0/4] can: rockchip: add RK3588 CAN support
-Message-ID: <20260817-guillemot-of-premium-saturation-6b893d-mkl@pengutronix.de>
-References: <tencent_7BAA0052C402BFFD26291A64198084E39107@qq.com>
+	s=arc-20240116; t=1786983824; c=relaxed/simple;
+	bh=kdoo7HMgQkzM88+nw+IRwLJDx6RcAP8HtEJpvthbWYk=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=enlxqsDu1KuGObiUqlwVNiM7So3vHGn6aJpGrCrwhnr/fcOeZWCPVKh7FzZIPsBTrEx/n5cgu0O476hSF5mvXFb4ND6Ba3nNF2F2/SmTURXOd7eUMEtRA2tD46vdF6j0Mi2OypwDIr+OkX4fcFz5pWLncS5yDJifKudx7/QZEag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YF0rK5Ue; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YF0rK5Ue"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BB01F000E9;
+	Mon, 17 Aug 2026 16:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786983821;
+	bh=c2p6Il6DuYsITTwntrntjk9VLtEif8koPUy3z5YOPPc=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date;
+	b=YF0rK5UeaxD37TSxLBruB+UIZSG79cBpXrhKHLKdAC/jyK6YPMSaXLE9wPh52iqG4
+	 bS87SOlgr8HDZ/2f6W17eSJ1Wag2fGKVdQCKowJoQVeSkx5+RYHrh1bnzh5Ekix5Cz
+	 b0WwZU3xqXEuBx1pWI4bRZKFPs7Y8Ej9mIZXWX+n5d0LK8uuwsP5PIQoYx33nB0cVw
+	 s67wuOoHkf4KDYAH8rai8TR8w3XRGS54ZTCn5RoW3O7gbhkHxpuP+S3DRmiKlPWb44
+	 vDPTCgaZs+JpSyJ04MAaapZwSBiqEnfDP3NMidhEeQJEPkLLcvw7YMuiwzasPPf/2/
+	 1ZENNGyShqFCw==
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ma3cqweawtb2547h"
-Content-Disposition: inline
-In-Reply-To: <tencent_7BAA0052C402BFFD26291A64198084E39107@qq.com>
-
-
---ma3cqweawtb2547h
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 0/4] can: rockchip: add RK3588 CAN support
-MIME-Version: 1.0
+In-Reply-To: <aoLqSA3XOMJnJL4o@shlinux89>
+References: <20260612-clk-v10-v10-6-eb92484eda38@nxp.com> <20260612085812.AA15D1F000E9@smtp.kernel.org> <178672426822.5897.11563790103554525148@lazor> <aoLqSA3XOMJnJL4o@shlinux89>
+Subject: Re: [PATCH v10 6/6] clk: scmi: Add i.MX95 OEM extension support for SCMI clock driver
+From: Stephen Boyd <sboyd@kernel.org>
+Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, Brian Masney <bmasney+clk@redhat.com>, Peng Fan <peng.fan@nxp.com>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+To: Peng Fan <peng.fan@oss.nxp.com>
+Date: Mon, 17 Aug 2026 09:23:39 -0700
+Message-ID: <178698381923.5030.9178300925075210422@lazor>
+User-Agent: alot/0.12
 
-On 30.07.2026 22:34:01, Cunhao Lu wrote:
-> Add support for the RK3588 CAN controller.
->
-> RK3588 integrates three CAN-FD controllers that are closely related to
-> the existing Rockchip CAN-FD IP already supported in the kernel. The
-> RK3588 variant is not fully compatible with RK3568v2 because the RX
-> FIFO count register field has a different layout.
->
-> This series therefore:
->
-> - extends the existing Rockchip CAN-FD binding with the
->   rockchip,rk3588-canfd compatible
-> - adds a dedicated RK3588 match entry and devtype in the driver
+Quoting Peng Fan (2026-08-17 04:02:32)
+> Hi Stephen,
+>=20
+> On Fri, Aug 14, 2026 at 09:17:48AM -0700, Stephen Boyd wrote:
+> >+Brian and Peng
+> >
+> >It doesn't link for allmodconfig build
+>=20
+> My bad.
+>=20
+> I just posted v11 to address the allmodconfig build issue, very minor cha=
+nges:
+> -obj-$(CONFIG_COMMON_CLK_SCMI)           +=3D clk-scmi.o
+> +scmi-clk-y                             :=3D clk-scmi.o clk-scmi-oem.o
+> +obj-$(CONFIG_COMMON_CLK_SCMI)           +=3D scmi-clk.o
+>=20
 
-I'll take the first 2 patches.
-
-> - describes the three CAN controller nodes in rk3588-base.dtsi
-> - enables CAN on the RK3588 Tiger Haikou board
-
-The DT changes should probably go via the rockchip tree.
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---ma3cqweawtb2547h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaoM1ZAAKCRDMOmT6rpmt
-0izZAP4x4ZKMEz+dpfqacmemKCSyinUbnvUl0Sg46rKIkBXK8QD+PQDTtFldoneP
-iYloyriCSVEzhFRqYdTN9pM8op98WwU=
-=3CzL
------END PGP SIGNATURE-----
-
---ma3cqweawtb2547h--
+Ok. Brian already picked this up in a PR that he sent me so I'll squash
+this in.
