@@ -1,159 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDD5368D55
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:24:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3451C3BE643
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:29:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787001854; cv=none; b=Pz2rzLnT0j+etVJZqeeot0MoLbjTGzjKEZw60UvVb906ZA6fMhHJsrrk0SNZPlNTJQQg2blw1q1sufssgIPHEbhoDOEmGEQOFsJr7eVVeMTbM2EfIMqUlITTvOhVoLA9ymjXJ5VEUSLH0TWyei7ovHlsfn9UCr5JCTFdJu91biU=
+	t=1787002167; cv=none; b=RNA2ECR5RYSiMDgWjmFyApJIQ78rBkvjQpQjUkdSHiKF+F2nMfG+zMFDD+6p2i8sBxf5/JlgkNIQ9OG8O+vC2tylxKFkAJirJGWen0wxK0bJUJE4s3hay9hwK082Bi1eASPAWi6vw+Wfs7ZMewEk2zaCISfg3ZGypDSFiOw/75Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787001854; c=relaxed/simple;
-	bh=0f7RYQGh2Ej7+nC+fFaz010WZLVfPN8Qk+Gt22qHNLY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mlk1Vd78PeAjfsH4+aQF2LaQRvsRKwKw6J1atUx6dlGr8pGKIMSj7yYFuQcqj7oQ7tHrvKbxG/7xe/mY8nabCrfFHVWD0PA7iMLrueA0Y7MHaIeCOX4BITems/ldxalukcKUjhdZXhDP7RD84qqAZakzwkTYAxZxJ7QSXG3ELv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KO5e4yzR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787002167; c=relaxed/simple;
+	bh=RRjYjO9utSwXFNiNlGy5THKzfGm+sRKB/dDa4OjFrtU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IOYxihe+1+Om2Dk2bnEfmfyLhKBU3oWCM9bOW7qgUUiDZTPdwbJh1AN4P3f499xRduOimKFEwhCt/Pm5Fd3zdofIjXqHDNTgLiAkv4QY22Z2Hky5Ghmmkw3Wy/d9v9J1+qeQb3Y4/fxYduS/82hh90eRxsPiWErk2GLvZLRJaVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hoqc8OOb; arc=none smtp.client-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KO5e4yzR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473E01F000E9;
-	Mon, 17 Aug 2026 21:24:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787001852;
-	bh=J5r2xFwf1BrGuJ3bePoE4bsSAAXIKP3aslC2HTj7/xY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KO5e4yzR0je2VP/+RyzufNf0VeP07WzKJIooJKILsfdd4E3yej+eFebs8CWc3gFzY
-	 TSd5H05Xi0q7A2x6B9/OxD0azcqJwyb3mVeKRp/JlmTuMnTkw+jO+PpuaDhziNoNTO
-	 q2Pt5xMa8ubhu7sjUZjGxogjDJdJ//y7JjTPRn4lT9frTuvas6B/KL7aK3ZinQyszh
-	 BXb1amahboTrD2oc8+JdCuJkuC59hPc2XTwFoSsrAjDYy/kWeKXVkbFV5I6wP56T+a
-	 8yH5DsQeM3shnh0qoM7nEfJQo1XeluI4GIOKyBggTgcMIDyn+LJBp4EDLeHWzKPR90
-	 aGbNtcn7fL2bQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/6] iio: dac: ad5504: Align headers with IWYU
- principle
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taha Ed-Dafili" <0rayn.dev@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260817211118.21833-3-0rayn.dev@gmail.com>
-References: <20260817211118.21833-1-0rayn.dev@gmail.com>
- <20260817211118.21833-3-0rayn.dev@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 21:24:11 +0000
-Message-Id: <20260817212412.473E01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hoqc8OOb"
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-74dce749cc5so575865137.3
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 14:29:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787002165; x=1787606965; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XiXCkGd4+m7MSxEiROxY/FH+NnJuFc43Sy6i9qtL4cg=;
+        b=hoqc8OObrTRSktIYGRswLh0Swr69w45sBeEdhTkukpOlKpgtQ4fdxDJ8hUrmqSETN8
+         IncKlBoEIHuLFU4DSq3OslZd7rfGnS1/3hCPFQ01PQN1JS/0vCo2NstXnilIBd5gmnPh
+         82mBywHYBAXdzouZ7+SgsD4Ul0jrxJa8cGXqSSBrGjeE+oNORWwEuH3Mr89LSAFtU7wC
+         RbK7UABLQpl4PM7WLObkfUKI0ohB54vyi1E+cGVv4tYPXGvFVYrYpNobw8wHq6sgdPqI
+         LWr9B9PlowBWo3WMkclbd/MzcRBDNbV6ILlelT29CZzLoeBvJoy5emknEP/GA8L+Ovb/
+         fxxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787002165; x=1787606965;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XiXCkGd4+m7MSxEiROxY/FH+NnJuFc43Sy6i9qtL4cg=;
+        b=aSlglA65nVqE/k7MAmOCz02F4Tar1DJCMxrKG7pCj/8FMFevJbTdzC1QutR1nyHCLt
+         MD+pdw+LQprq06Ir1xngGc1mxujblSoxuojkgM56U0wRI9gYfeAZax6G8+OlRZ+9nmnD
+         XJMX2ae0/NNz7p/DaVENQOZF0IbEcMQZrbB9Dc14xgS48oBJyHagORarcoMR4Z/JtZzn
+         XjDgFsG+T0KT+V0e5tb260XmDRRGZEVQvSzdqgpFjwUdJxqzzDsbtO2bgb2Ws/bfE9Ia
+         chq5rYEqHyFYt7EyRyzAUUxep0Rf/Xu5f4c7UNqWgJEYS7kTfFhraLHQUV+sy4Kl/Gas
+         rlog==
+X-Forwarded-Encrypted: i=1; AHgh+RquE6Cl5pdAJ3fdv/5h/Zx68Vw9NF0YOGigXisauf0D6Vddei4S3+l5X0qg/ZimudI31sAGfXAJ5TwX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3WoHwUckqrTglGwmzDU/IUp5uMdmzP265Up6pcN8xgVEutFCv
+	sOBVnV/tSs3cEtPWTIZXdBMySEgkyLS8KWGcl0IP59pckNKz2FPABTOJ
+X-Gm-Gg: AR+sD10nnyxgbUIGNqa22kwxpHYwK1j6znE6Uhw/bwZb0kIbR0J0GQcInu1a3N172b2
+	+1oQngzrVYuC/lB5Ps1Sl3JtOi0n6fFQU7l+p3343+WLUX6Qv2ZOKozxSsrH10f/7cwW1OxIVTQ
+	CGZSRx9/geJVurGx4TNXKTA6b+Itt5VocvHSVLefHEMumO7RQDm29171sYe29AXF3Rjp525JL28
+	pMnwKQer+bAz3ETWlSRLs78HkSnrXrrQwhCey/luiigb9R3uUh3GQoOOPHTy+S++qtRQrDGL4MG
+	/8iu1k4eHRwRODcCj59oYOuzG6oJ6TQmi1nWsce4kgEZcIkp7DgzQbglQgOmxOMSm7o+m7MBr/L
+	AdTp7da4tGzOc+1gQhepantVT69UQSiRqQ96idWYDWE0lpz/KBv37tMQctdyMESHgl+O/sRfPEx
+	ONUjnkgN5PwD/ZRHNcJotp2Nrp+otKg4xg6yt5vUj0HvD5pTwpDacAMo/QMMbNE/a3z7G8Zv63e
+	m3btMuTd87seDmcTpB0UIm6xxcJ5qwWgmLad814XVkrDRr1d7pb+qTDvpDQqaSzz02nzDkd
+X-Received: by 2002:a05:6102:6898:b0:738:1fcb:f276 with SMTP id ada2fe7eead31-7747c0b68c9mr783524137.1.1787002165013;
+        Mon, 17 Aug 2026 14:29:25 -0700 (PDT)
+Received: from ?IPV6:2804:14d:4c64:82a2:de83:b808:5922:82d? ([2804:14d:4c64:82a2:de83:b808:5922:82d])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c5c78eef7asm1683621e0c.16.2026.08.17.14.29.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Aug 2026 14:29:24 -0700 (PDT)
+Message-ID: <9f0a6334-f40c-4e19-928f-57b709bbcea9@gmail.com>
+Date: Mon, 17 Aug 2026 18:29:17 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: proximity: move LIDAR-Lite v2
+ out of trivial-devices
+To: Matt Ranostay <matt@ranostay.sg>, Jonathan Cameron <jic23@kernel.org>
+Cc: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mranostay@gmail.com, ~lkcamp/patches@lists.sr.ht,
+ linux-kernel-mentees@lists.linux.dev, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260810192131.153495-1-rodrigo.gobbi.7@gmail.com>
+ <20260810192131.153495-2-rodrigo.gobbi.7@gmail.com>
+ <20260812053450.2e14b074@jic23-huawei>
+ <F_gQH7S7C_a2e4gmKfLMZwNzMQ2lvOoBcv-tqJsuNGsWYdJdV-KhzKRPTqo1JS4yGoBK6bn4lscAS3et1Uxm-obr7Tjw3hzePjHOllpSlc4=@ranostay.sg>
+Content-Language: en-US
+From: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>
+In-Reply-To: <F_gQH7S7C_a2e4gmKfLMZwNzMQ2lvOoBcv-tqJsuNGsWYdJdV-KhzKRPTqo1JS4yGoBK6bn4lscAS3et1Uxm-obr7Tjw3hzePjHOllpSlc4=@ranostay.sg>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On 8/12/26 07:11, Matt Ranostay wrote:
 
-New issues:
-- [Low] API Contract Violation (IWYU) and commit message mismatch: improper=
- removal of `<linux/device.h>`.
+>> >
+>> > diff --git a/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml b/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml
+>> > new file mode 100644
+>> > index 000000000000..e19c8d166b81
+>> > --- /dev/null
+>> > +++ b/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml
+>> > @@ -0,0 +1,64 @@
+>> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> > +%YAML 1.2
+>> > +---
+>> > +$id: http://devicetree.org/schemas/iio/proximity/pulsedlight,lidar-lite-v2.yaml#
+>> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> > +
+>> > +title: Pulsedlight LIDAR-Lite v2 range-finding sensor
+>> > +
+>> > +maintainers:
+>> > +  - Matt Ranostay <mranostay@gmail.com>
+> 
+> I really don't use my gmail address anymore. Would be ideal if it was changed matt@ranostay.sg 
+> Other than that don't have any issues.
+> 
+> Thanks,
+> 
+> Matt
 
-Pre-existing issues:
-- [High] Potential NULL pointer dereference of `pdata` during probe when th=
-e `vcc` regulator is missing.
-- [High] Missing locking leads to race conditions and SPI DMA buffer corrup=
-tion across concurrent sysfs accesses.
---
+Thanks Matt, I will send a v6 fixing the e-mail. Since you're fine with it, would you
+mind sending a formal Reviewed-by/Acked-by?
 
---- Patch [2]: [PATCH v4 2/6] iio: dac: ad5504: Align headers with IWYU pri=
-nciple ---
-commit 90816be5685af9f86bca164af4343c7bef759b65
-Author: Taha Ed-Dafili <0rayn.dev@gmail.com>
+> 
+> 
+>> I'll need an Ack or Reviewed-by from Matt for this. If Matt either doesn't
+>> reply for a while, or isn't happy to take on this much fuller binding,
+>> is it something you'd consider putting yourself down for?
+>> 
+>> Otherwise LGTM
+>> 
+>> Thanks,
+>> 
+>> Jonathan
 
-iio: dac: ad5504: Align headers with IWYU principle
-
-This commit updates header inclusions in the ad5504 driver to align with
-the Include What You Use (IWYU) principle. It removes several unused
-headers, replaces others with more specific ones, and sorts them
-alphabetically.
-
->     - Add <linux/array_size.h> for ARRAY_SIZE().
->     - Add <linux/kstrtox.h> for string to integer conversions.
->     - Replaced <linux/device.h> with <linux/dev_printk.h>
-
-[Severity: Low]
-This isn't a bug, but this description might be inaccurate since
-<linux/device.h> is still required for dev_get_platdata().
-
->=20
->     Signed-off-by: Taha Ed-Dafili <0rayn.dev@gmail.com>
->=20
-> ---
->  drivers/iio/dac/ad5504.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/iio/dac/ad5504.c b/drivers/iio/dac/ad5504.c
-> index 5e586185d8579..1793af0781dc7 100644
-> --- a/drivers/iio/dac/ad5504.c
-> +++ b/drivers/iio/dac/ad5504.c
-> @@ -5,22 +5,26 @@
->   * Copyright 2011 Analog Devices Inc.
->   */
-> =20
-> -#include <linux/bitops.h>
-> -#include <linux/device.h>
-
-[Severity: Low]
-Does this removal violate the IWYU principle? The file directly calls
-dev_get_platdata() and uses struct device in ad5504_probe(), which both
-rely on <linux/device.h> being included.
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but could this oops if the device is
-instantiated via DeviceTree without a "vcc" regulator?
-
-If dev_get_platdata() returns NULL and the regulator is missing,
-devm_regulator_get_enable_read_voltage() returns -ENODEV, leading to:
-
-drivers/iio/dac/ad5504.c:ad5504_probe() {
-...
-	if (ret =3D=3D -ENODEV) {
-		if (pdata->vref_mv)
-			st->vref_mv =3D pdata->vref_mv;
-...
-}
-
-Should we verify pdata is not NULL before dereferencing it here?
-
-[Severity: High]
-This is a pre-existing issue, but could concurrent sysfs accesses corrupt
-the SPI DMA buffer or the powerdown mask?
-
-If two threads concurrently access sysfs endpoints (like
-out_voltageX_powerdown or in_voltageX_raw), they can enter
-ad5504_spi_write() without any locking. Since st->data is shared among
-all SPI transactions to satisfy DMA alignment, could concurrent writes
-overwrite st->data and corrupt the SPI payload?
-
-drivers/iio/dac/ad5504.c:ad5504_spi_write() {
-...
-	st->data[0] =3D cpu_to_be16(AD5504_CMD_WRITE | AD5504_ADDR(addr) |
-			      (val & AD5504_RES_MASK));
-
-	return spi_write(st->spi, &st->data[0], 2);
-}
-
-Similarly, st->pwr_down_mask appears to be subject to an unprotected
-read-modify-write:
-
-drivers/iio/dac/ad5504.c:ad5504_write_dac_powerdown() {
-...
-	if (pwr_down)
-		st->pwr_down_mask &=3D ~(1 << chan->channel);
-	else
-		st->pwr_down_mask |=3D (1 << chan->channel);
-...
-}
-
-Does this state need a mutex to prevent race conditions during concurrent
-accesses?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817211118.2183=
-3-1-0rayn.dev@gmail.com?part=3D2
+I'm happy to be added as a second maintainer for this binding,
+(I can add myself at v6) but I'd rather defer to Matt as the
+primary one for now.
+Thanks!
+Rodrigo.
