@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27A5282F34;
-	Mon, 17 Aug 2026 07:13:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1613B6BE5;
+	Mon, 17 Aug 2026 07:14:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786950803; cv=none; b=OOsxBkO60C5FUH26KC9RB8WfBvjESzPejipDT5ftvcjFwbd212yw40uoL08wZtFmrlf6eDez6XL3S+ZZScLg1wIhJx4dMlyP4NjfhgWkY435T/HqZf908fakkCefclmL+bbczbBi5nIACq/J5oy2hsmMaLQCrdZMx0piSgKu6do=
+	t=1786950877; cv=none; b=U3GgASXq0LvD9eeGKpCSP05pj7Tg8BD5JLn2AXKvrx0/ThkEoZDUpg6TN32xelVZYiBCvLgQowQGmkxxklAqBplDxCJC8kEILTpzdG3IOk/CR34Qk/eMVBhpAt6QR0B+xu41IAHcf1IDB+1Wzqi9PkpL5QTFiiDRxNPmrSq/tkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786950803; c=relaxed/simple;
-	bh=CuDMSjILBooHAbswi6D25Is5mfpufM6t6pZic0QGP5Y=;
+	s=arc-20240116; t=1786950877; c=relaxed/simple;
+	bh=gxGDmeOkZ0HnJhur9LF2jVe2zCI261IoW4oFNSIjYj4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lBj4un8LNpVCnT5IpjUYFGbajIKoWe5NTv+meOKBpsoSaZbVqVCe10qA4V1g4UjS+y6Y8Icck9owKQEgfjpp9GbO4Ve/Sc22dkR1fUmTpDU0YjK3vGWldXNdIMlbAG0+kE23BjGuceEb8vQVNvlAwcbnOvP+ZwfMYf8ZrytcWVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nchVkzt7; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=CAKU1cG+I4ynzzHcOQlsudt4R9G9hF0IZkqfu5V2HjrPepq7m8qQeYjUMDW1eEBImAhldDzEk0dJFkXpk2LbQe3wtfofglNmi3tH/Zhau0MW5t0Eyt1ZDw6O6gE55X8hcbS26egisjbB6T3Nhlk4q6ZTWtO9Hn0gbFXoUXOZkyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V3eUpBo8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nchVkzt7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA241F000E9;
-	Mon, 17 Aug 2026 07:13:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V3eUpBo8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2B81F000E9;
+	Mon, 17 Aug 2026 07:14:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786950801;
-	bh=H/t2thtyqCv2kiESP+whdnlUNHP7f/OGlGkn1NUoBMU=;
+	s=k20260515; t=1786950876;
+	bh=b37qnOV5jQofOum0xCCNd6XbBcFztRKpbMZcf5i53xM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nchVkzt7VQ3uuhao50qAbHHI8oC82cb3b8qn/5/dpb3/K3TG5mjm/Hb7MzLDkORzd
-	 8M3ijT5Y9AjGf+kI9cHIu7BgYguWUEK7/JU5YuO4fJ4yWmHAkBhsMbAtHY3U2p1LcU
-	 +GCoYY+bbzYKwGTTgtJ9zRlCyK5XSb4B2DvEmr/QamUb64WvUi5/ICqGbCP0houBEu
-	 b9dPs0rpp3sRrd5SrHD4FE0RXI4blvfQyiMB6A3N2kUZA0VcyQ1X1qi38hBaSo7hdD
-	 TV5TfbC9MclWep5Expl7DbrbcCzbZNsyjCB0mnhwI+6bx8txTuhQuUx+HtM0uqNRyG
-	 gNkMf/wQZY50g==
-Message-ID: <c8fea13c-5b67-4ef5-beff-b10f3b3772e2@kernel.org>
-Date: Mon, 17 Aug 2026 09:13:15 +0200
+	b=V3eUpBo81k92oNY2hbDUJ7iCs4QuK6ao9MqUaCn0AYBsq8QkW1VyTdfVoTYttBsNp
+	 sQF64R+6v4DfAKDLz+qG+DnoabQfH/efUJwii3ISqQmDfsfAd6qUYBSj3IcSWzc18S
+	 A80DdqnwWSuXTJfLmcpeH8NkvajnbJEanSx/JZnoGTZHBlCl286pqKqJeMmFDVPW3N
+	 NZ7R8xgzIznrJ1AN8VOD9rhxyaBqGAr4MSrp8J88mAgZzPoW/KwTBC0p9O0W0lPUFj
+	 fDFnP2IWEZuvEenkZGDd2t3FCtiaguGMVII3HxaADPvbICS9IHsAEp4l84IE1JFv17
+	 uhIUm6/krd5sg==
+Message-ID: <7582d1f4-7ff6-4061-96f9-9714ee681140@kernel.org>
+Date: Mon, 17 Aug 2026 09:14:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
- Gen5 DWC3 xHCI USB controller
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-usb@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260811051016.1655887-1-marek.vasut+renesas@mailbox.org>
- <20260817-uakari-of-mysterious-nirvana-a1d0da@quoll>
- <CAMuHMdXU0Z_VP7H3=KX1g7wowG1ZDi__nDgWRmquYxhLHKvd7A@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260814-cv75-v4-b-v4-0-ef2e83ec0eac@ambarella.com>
+ <20260814-cv75-v4-b-v4-1-ef2e83ec0eac@ambarella.com>
+ <20260817-perfect-berserk-sunfish-ef2d5f@quoll>
+ <DS0PR19MB7925EFC4D705CAD8DBD1C300DAA72@DS0PR19MB7925.namprd19.prod.outlook.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,33 +94,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAMuHMdXU0Z_VP7H3=KX1g7wowG1ZDi__nDgWRmquYxhLHKvd7A@mail.gmail.com>
+In-Reply-To: <DS0PR19MB7925EFC4D705CAD8DBD1C300DAA72@DS0PR19MB7925.namprd19.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17/08/2026 09:06, Geert Uytterhoeven wrote:
-> On Mon, 17 Aug 2026 at 09:01, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->> On Tue, Aug 11, 2026 at 07:09:33AM +0200, Marek Vasut wrote:
->>> The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
->>> controller with glue logic wrapper around them. Document the glue
->>> logic and DWC3 controller.
->>>
->>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On 17/08/2026 09:05, Long Zhao wrote:
 > 
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
-> 
->>> +  dr_mode:
->>
->> We don't accept properties with underscores, unless this is coming from
->> existing schema but I do not see snps,dwc referenced in the binding.
->>
->>> +    enum: [ host, otg, peripheral ]
-> 
-> Probably this should just reference usb/usb-drd.yaml instead of
-> defining it itselves.
-If this is DWC, why isn't it referencing snps,dwc-common?
+> **********************************************************************
+> This email and attachments contain Ambarella Proprietary and/or Confidential Information and is intended solely for the use of the individual(s) to whom it is addressed. Any unauthorized review, use, disclosure, distribute, copy, or print is prohibited. If you are not an intended recipient, please contact the sender by reply email and destroy all copies of the original message. Thank you.
 
+You have been told already to fix this. Previous review also received
+this confidential disclaimer. I drop patches from you from my queue, as
+requested.
 
 Best regards,
 Krzysztof
