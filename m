@@ -1,76 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A08417BDB
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 12:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786970864; cv=none; b=to85mMtS/qTR/Fu6cQcBAQGxq8fXvl4tRMooWzBrB6f+AbqYW/UszFgjrfs8oAA1s2n1BEruD6ODXXic1Z5x91WC9MhSEWhQHQn+6s8nOEnYqdDBn6WXchPSAVPaQwFw1qsgkd+vNfkioTu+IA7zznD0Dn65MznErj9tWum69b4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786970864; c=relaxed/simple;
-	bh=s2rtvtJ2Zs9ODTrVmfKyg1A8xTc7f0ak9hMBiy4pt9c=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B853DD530
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 12:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786971086; cv=pass; b=TiSpm15cHy34owK0kITE1UTzloOmK87vskgPDiM66Q3Epa3zjt0wUy1tr9Ma4zzwk+XFXIYhjVTIOIplntN2w1RWYqKyE9QyUw9qAzkwjMlqlxUeXP0mkNr8j8yMkC8g1L6MfjrBdDWblxoW6CUW3KhcPz4OKo+Diezx6ZcsLas=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786971086; c=relaxed/simple;
+	bh=tyz9EcqboelxA3psXnq/gGKah+H4IaeTuowTMl/uuqM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ev8EFNabfNax1ZYXlxjeB6SwxB6irZsUSH4RneMeBmB6xbhL2gRC16yMWrZptUrkmp45i07dmVd7xeFouiCg+XtvwRJAOWgAUrrCpwNbrFVf5FW4JAUQnExTGXCWuQyqK9vlhzlHddiVo7+IWqsWEg/AghQ//7nrdrZ+WuQNplI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BiZSDBoq; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=KmAVg5cM2i//OX6a33BOsDCEzHitnxG4QhtenyGR4FJ6T2UnXzHrndFtfbt2QiGJ6xHy9cPwc1Rf+Bpae6s67ymEgBoB8qK3Kskf6CoPU/70w0RZMpcV37g5JnIcaI3yAEyqO6dDbsKwY6XM6q6cLv560281iCQb7anEiYNWMuM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RVamGXzG; arc=pass smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BiZSDBoq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D42CA1F00ACA
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 12:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786970859;
-	bh=s2rtvtJ2Zs9ODTrVmfKyg1A8xTc7f0ak9hMBiy4pt9c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BiZSDBoqm50354ZHKghBlcI8JMQ2hn3R6ga801/4k0I3WDxbUeVeAHZwMEofi5Xuh
-	 5h/Q3jmQwqcpEAD6BD5OIItDrKhJ1Q6DmiZf47P/7vLgoUhv0wcz8mzUVR5hBIQVwO
-	 ub61g8dBLBiGJEFxgQc5KvL7f32lJfRAnIU8pKlhGF+kIL6XfYji+x7Ji/jHLJwIH1
-	 kbSujBQvmS1TiR3ZehEbj/DO811uih6cTFK+JdTRn/Mury2107xwu+yCmzcfssf3qv
-	 9Auja6/u8fRKziSOY9a2gjEyPuHP18z/BOt5zAYBvR9HU69Ja0cA2FrgElTgVz5nQJ
-	 qadraS1M6p2bQ==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aeb2bc82ccso3833951e87.2
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:47:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp7S+/bQdBgwBl51z2YNgab0EN8gxDYqPOxJ+sMQp8TFsT5ZjzSx1TxLWWzRugHOl4w/5nRlfHHGUk4@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOWuapP/a90h0R84N3V3f//2SAZ8+KLXRP6XWQ1KjA5wdTUPGu
-	ovuKYyTVflFUMO83MChQ8+assDqmQ425QauEhCHfMbjZ4aGx9/XgP2mARl8+qb7h/xVvVdDLwhN
-	D9An16HwB6x2D/Y24M7l/7bMtkyMmzuU=
-X-Received: by 2002:a05:6512:3c8e:b0:5b2:a339:b3fe with SMTP id
- 2adb3069b0e04-5b459142a64mr4331005e87.39.1786970858605; Mon, 17 Aug 2026
- 05:47:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RVamGXzG"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-81e8c68c0cdso2061017b3.2
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 05:51:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786971084; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iOyAmMiD8dOvPQQg7c+M0kU0fqOClX7mqe1+z1vwvlSXGlVe8NY7rughiBleNoaoTx
+         i+/NFYeTLjxynTsgpSnl6FXoX5VoGDLDwyS4ifhb9R9z6KhFSeBLMG1Nrw9Z0TdUqEX8
+         tY+eiqorW4fup5ctGP9ii6frGkvzdjxPi10GCWRsP75I1xGjclGGFlNkhvXluJQf4mof
+         mzJSCoayT8h5mPvhlPTbE1DPzjfbJudFDLcwA9ygLlqumZrSuTkHp4vNmCVkd8Ve9LFL
+         fxj503kjkyNLKGQpZZZfuRL8JPfkE78Tyyu4Q0yrB7Bz9MSFF/R9K8qDFL9makxD0al7
+         uzew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
+        fh=epW61VrrvI3LUaaDgroSO3c876fE5iA/2fnhHgv0d1E=;
+        b=BWvOxaG9qt2jcdibckmpHmlHmWImb0S34e+VEJq50RPJdLo14D9D5h7d+pIpiTX+Yj
+         fd19UJ4OXAQFeSWLW0YVmtMK8Du8kz5Sbcu0z5ahjXZVcgegr+Vo2RJS5c/ebFrJnNfv
+         V80sEJBd+ShNMejiNf8NcGqxB7psOBMzxqqMTxXr1LcnvVFYyaDrsCBLXijqems3J2GS
+         ObIGZPk99VDWKfGewtyRJU1Ow0KLW9R0cykCqReu8kYIzaPvRmq4H9IeJc+XSRZc7/TM
+         Y24M1K6QEjQdds6aJYs7XiiysO8IWV9StQMTVhEZaKIi8hO5oiHHMNmGtsxtzHn15mQa
+         LoDg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786971084; x=1787575884; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
+        b=RVamGXzGTBQe4nUqxk8JcQV4dzF6Iuqg/A3aq93CT0XlWqjrArO3RG8bkShRxiADXI
+         Xb+2O1a8cRVVG4X1aJq+3g1Gdr0X3iAAKaOuf0v9lVGUPpoWMXkG06LucFFwDFGIwOkB
+         mbxiuwiqk4k9EZOCzrFB/yfduyd76b47u5OVt/kZzHjJldOKqiNoiY1UaHyTvrte3E61
+         5hQMZaP/rgZ/DHgQdBgxhlADB1tiX18zRXeFQG2Mql1W1WC6HYgzQWBbtaHNmLsoN59y
+         UiDVq0caD8ofvF/l2YIpB7oHIvfxVDFjm/4PCiOewO8Bk3sTxPloM6HX1eLIJas6qDKK
+         bEtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786971084; x=1787575884;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IsoFeL55aXnoSLzM6IlQSU+HvX9Cmm12pl1T+E59Rcg=;
+        b=EKv4xcya3NpT75Mlj8+oyV8K7TfqhcRS/6JJ0VqDYvf9e0cm96muX9NteSm/Ibo8jN
+         8kUnDvhXpVPKl1yscAIrChEo/4+9ATNBSSt8VGHUbDkI4Jz7+Ee69CYeIJC3cc/37uCY
+         oBiwdHckMUddd/+wWTvkg9G1feHzzR0S7WPqktRdC4AZQXRW2ZRy5yl+rMQGk07Hpdt5
+         kH0RjK/2xv8epOt7i+IzwySXkexjYOBJbd8x1tpd22PW3JeL3c1POEIIEYYz8a+rErSw
+         VEtZnTPgbEb5GGhmvlHRti3aS4JLWwKFJKWjZDFPNVgK5FPccTcpGOgpIhfhoBATXxDW
+         zvuA==
+X-Forwarded-Encrypted: i=1; AHgh+RpAJKKJGWk+zCxo1eX7+7Qpi0FTNxyapE1qqk4DfTXL2DlH4bFqtwCG2eqq+aOgZJopHh1sdpWn8kT9@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMA69k1QFvlzlwyIKXtf5mKDhCLUrz+RjukKNcb0VZDVSNiWhj
+	9JrJXe/BjhEsenik70T80Jio9q4jleEdh3Y4mPcQx32YrpzR+FFOQFnfDojM9uqAcffJt5oxzES
+	T7y+Gl/I502kEbnskVPiA74jCLXepapw=
+X-Gm-Gg: AR+sD12cbhSqnoVPOg97gucWzghE4QxnxcfhiaAw8bB3n+DXMysQB+FrmEQ1UDYZZg6
+	GvAzynssJn+1EaG/5uOj5upK08pkl73pnlAnaa0EbMYtfaeeO8IgRXnWaqxHDr6W6+9vCRCNaKS
+	1JdKBHjmFVlREs8RQHI8afB/QXv5nH5HwZs14ewbRxq/N1kOGKT0by748vIJzDRihjBBTpd9iUb
+	IcsX9NglBjDIFz4i7zxJ+jw6ygqYBTMXdKd72/A6L0Qki26Yyz4Gu6hmLOZvMRWrevEzlq55Rgn
+	yJ0QZiRNfsIzyg1EewgsSJwjYNa9PAk/lLIDOVvptFBoNYe1KubvAwDd/RMi2gMBjOmlzuVstYD
+	9ySE=
+X-Received: by 2002:a05:690c:b0f:b0:80d:5c71:d08c with SMTP id
+ 00721157ae682-8371308c88amr90606897b3.3.1786971083604; Mon, 17 Aug 2026
+ 05:51:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260814-cv75-v4-b-v4-0-ef2e83ec0eac@ambarella.com>
- <20260814-cv75-v4-b-v4-3-ef2e83ec0eac@ambarella.com> <20260814063535.C6FDC1F000E9@smtp.kernel.org>
-In-Reply-To: <20260814063535.C6FDC1F000E9@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 17 Aug 2026 14:47:25 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=i=3CoEmzna=TQ5PK_SzvpEQvCd2kfH-LQyiX_JOjp-Q@mail.gmail.com>
-X-Gm-Features: AcwNN1Ub3MluVCSOtBXCMVwsBr9zE_eh0QVKAIufPV1Seikt9XJrXsHt6q9kkN0
-Message-ID: <CAD++jL=i=3CoEmzna=TQ5PK_SzvpEQvCd2kfH-LQyiX_JOjp-Q@mail.gmail.com>
-Subject: Re: [PATCH v4 3/4] gpio: pl061: add Ambarella CV75 register layout variant
-To: sashiko-reviews@lists.linux.dev
-Cc: Long Zhao <longzhao@ambarella.com>, robh@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org
+References: <20260817113603.1436067-1-gahing@gahingwoo.com> <20260817113603.1436067-4-gahing@gahingwoo.com>
+In-Reply-To: <20260817113603.1436067-4-gahing@gahingwoo.com>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Mon, 17 Aug 2026 14:51:12 +0200
+X-Gm-Features: AcwNN1W5X2wGC2Q1I1TaTBqzvN2kUY3psEQZvOBiX0NX6cHaLHwnhi2fG-mcjGs
+Message-ID: <CAEWPSH4VAR5VTJUW4PdJczrtueQzPzzo6og8PzWaupwd-t=BFQ@mail.gmail.com>
+Subject: Re: [PATCH v8 03/12] accel/rocket: factor the completion tail out of
+ the IRQ handler
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, 
+	robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de, 
+	ogabbay@kernel.org, zhangqing@rock-chips.com, chaoyi.chen@rock-chips.com, 
+	diederik@cknow-tech.com, alchark@flipper.net, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 14, 2026 at 8:35=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+Hi Jiaxing,
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] Global replacement of strictly ordered MMIO accessors with relax=
-ed variants strips required memory barriers, risking device synchronization=
- and IRQ storms.
+You asked for a look at this one, so I checked it as a no functional
+change refactor rather than only reading it. It holds.
 
-I think this can be safely ignored.
+I reconstructed the three source states from the posted diffs and built
+the before and after with the driver's own kernel flags for arm64.
+rocket_job_handle_irq() is static and inlines into
+rocket_job_irq_handler_thread(); at -O2 both states emit the same calls
+and the same stack frame, and differ only in which side of the branch
+the rocket_job_hw_submit() call is laid out on.
 
-> - [High] Unconditional clearing of the Alternate Function Select (`afsel`=
-) register in probe forces all pins to GPIO mode, breaking bootloader-confi=
-gured peripherals.
+The load bearing sentence in your message is the early return, and that
+checks out too. At -O1 the pre-3/12 code emits mutex_unlock twice, once
+on the path straight after rocket_job_hw_submit() and once at the guard
+exit. That is the scoped_guard cleanup firing on the early return. After
+3/12 there is one, because the return leaves the helper and all three
+paths converge on the guard exit. Both versions unlock exactly once on
+every path.
 
-You might want to look into this.
+"Nothing follows it" also holds through the rest of the series, not only
+here. 10/12 is the only later patch that touches rocket_job.c, and its
+two hunks are the defines at the top and the PC_TASK_CON write inside
+rocket_job_hw_submit(). Nothing is added after the scoped_guard in the
+handler anywhere in v8.
 
-Yours,
-Linus Walleij
+While reconstructing the base I checked where the series sits.
+drivers/accel/rocket/rocket_job.c in next-20260814 hashes to 3141f210f,
+which is exactly 1/12's pre-image, and applying 1, 2 and 3 in order
+reproduces 5f0f9682e, d484a3a6f and 0bb11c718 byte for byte. So these
+three apply to an unmodified linux-next rocket_job.c and need neither
+the RK3576 patches nor my clocks-by-name patch. Tomeu, that is meant as
+information in case you want to pick them up independently, not as a
+request for a re-cut.
+
+Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
+
+Regards,
+Igor
+
+
+On Mon, Aug 17, 2026 at 1:36=E2=80=AFPM Jiaxing Hu <gahing@gahingwoo.com> w=
+rote:
+>
+> rocket_job_handle_irq() stops the block and then either starts the job's
+> next task or retires the job. The second half is a step of its own and
+> reads better with a name, now that taking the register writes under
+> job_lock has moved it a level deeper inside the scoped guard.
+>
+> Move it to rocket_job_next_locked(). The early return that used to leave
+> the handler now leaves the helper, which is the same thing here: the
+> scoped guard drops job_lock either way and nothing follows it.
+>
+> Doing it as its own patch keeps the locking fix at the head of the
+> series minimal, so a bisect that stops before this one gets that fix and
+> nothing else. There is one caller, and no functional change.
+>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  drivers/accel/rocket/rocket_job.c | 31 ++++++++++++++++++++-----------
+>  1 file changed, 20 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index d484a3a6f..0bb11c718 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -341,6 +341,25 @@ static struct dma_fence *rocket_job_run(struct drm_s=
+ched_job *sched_job)
+>         return ERR_PTR(ret);
+>  }
+>
+> +/* Start the job's next task, or retire it. Caller holds job_lock. */
+> +static void rocket_job_next_locked(struct rocket_core *core)
+> +{
+> +       lockdep_assert_held(&core->job_lock);
+> +
+> +       if (!core->in_flight_job)
+> +               return;
+> +
+> +       if (core->in_flight_job->next_task_idx < core->in_flight_job->tas=
+k_count) {
+> +               rocket_job_hw_submit(core, core->in_flight_job);
+> +               return;
+> +       }
+> +
+> +       iommu_detach_group(NULL, iommu_group_get(core->dev));
+> +       dma_fence_signal(core->in_flight_job->done_fence);
+> +       pm_runtime_put_autosuspend(core->dev);
+> +       core->in_flight_job =3D NULL;
+> +}
+> +
+>  static void rocket_job_handle_irq(struct rocket_core *core)
+>  {
+>         pm_runtime_mark_last_busy(core->dev);
+> @@ -354,17 +373,7 @@ static void rocket_job_handle_irq(struct rocket_core=
+ *core)
+>                 rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+>                 rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+>
+> -               if (core->in_flight_job) {
+> -                       if (core->in_flight_job->next_task_idx < core->in=
+_flight_job->task_count) {
+> -                               rocket_job_hw_submit(core, core->in_fligh=
+t_job);
+> -                               return;
+> -                       }
+> -
+> -                       iommu_detach_group(NULL, iommu_group_get(core->de=
+v));
+> -                       dma_fence_signal(core->in_flight_job->done_fence)=
+;
+> -                       pm_runtime_put_autosuspend(core->dev);
+> -                       core->in_flight_job =3D NULL;
+> -               }
+> +               rocket_job_next_locked(core);
+>         }
+>  }
+>
+> --
+> 2.43.0
+>
