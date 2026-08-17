@@ -1,153 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-241.mta1.migadu.com [95.215.58.241])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0BF3AFCFD;
-	Mon, 17 Aug 2026 08:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B065A3C0605
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 08:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.241
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786954153; cv=none; b=N+JW1J9N/eADIa/Bqkhs/TnZURZTksMsKQEV3d3nMS1E7fdpxSQloAPexI6slN+sWK5MT2CgX5szpzNsF52xKoEBwG+SFawbaYqaRPX1LXccJrig/gun10LPvVOLf7p6TqJLJUJpgd9J0F3npH0+u+Tie/VBzb3/1zQRyHdTBqE=
+	t=1786954516; cv=none; b=iV8NBvrpDnKxk9/JOIUo9E4qhRr7TK97KkdctDGaFB7qEZWt6fbBBdJISRTbcO67bM8RsAvNcv/FUpyjQDCnguYtyo222kK4up/bul/JsOZ4axMdJQlHltZuMhgM1s1kvqWD3jFhbsa8PyehLLy+70V3/4GyVjVpy+5TE8AUGcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786954153; c=relaxed/simple;
-	bh=C60FLdtQBj+tDL7hkAVsYd2X95idF0Jphgms4i1/JXQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CPbLr4JZoDYxmWmS4oryb0JcvO2TwrWxfUKuG2Cg9ETSALaGdH+po+ae3lnVadwsjLvLDi/A/6jmuBJj7xCptU5eIUY5jrjkKrnwQqsWjBEs2PWeP09XJZauwUxrJc42a4TKxyYzW5brIf76KLj4q0Sd1yrvLr1HPV1Ap8er54I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YV9R2xEi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786954516; c=relaxed/simple;
+	bh=C0O0F0T5Khr4i9evrKR9qQ1b3ukNc51FfJbV+j3oy3Q=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=sgfCr+PpF50enoXxuDmkKpILp1TfOXvhddmfMXYl9qeacyfoejV7tMsLtPROu4X5w/qk7vFKdVeB9EqvxBTu8/2l2Y3sztD81YLeqjvk4Jlx5NNPWDtfNQ61eoWGhS1cgYpGi0XCb/xxOgrcNxct1lu9pzMBJnYzHYBzz9Nv0rU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=hhVhQJO6; arc=none smtp.client-ip=95.215.58.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YV9R2xEi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D631F000E9;
-	Mon, 17 Aug 2026 08:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786954151;
-	bh=HtKqPVA6NvNcDQrkO35/EUcQzSDazN81PV3pgoIIPNc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YV9R2xEif3pWbDLfBUC9Y4yKNFvAcZOgCkb0F4h8k1pt3AZuhKNM7c5/hEd1q8nFD
-	 z1Ci1LoHfsSQDjqNpKgt26+59VJPBqsrsmAiHeBRPI6lYL03eF8ExgkPqIEaovtE3L
-	 pzC2m84HKVspGsHwirxyiEhFozD278ketVgDnI7uTv9cpBfmH66qbbwHqp+ncONh+R
-	 AfRGgoJ++J4Wx40mVUwXZ4MJTMBNGJD2FwRwvNGXuN/C0e8/L4bJ9QFDceJEAqm+E/
-	 WYb9dFCa5LfDe/6D5i//FAxazJw8fP3+SElhsCuif5kb8o7BNs9Cy9CZCjQ8UxRowx
-	 FItG4ZJN32WEg==
-Message-ID: <cc70291b-a945-4a2c-9483-9160cc88e50e@kernel.org>
-Date: Mon, 17 Aug 2026 10:09:02 +0200
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="hhVhQJO6"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=C0O0F0T5Khr4i9evrKR9qQ1b3ukNc51FfJbV+j3oy3Q=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1786954510; v=1; x=1787559310;
+ b=hhVhQJO6LkgnZbGnPrn8ZOEQmZ7vWhS+ZVrfUmUxrqh+qv0Lrw3p1WOmQTwfA3WY2wTf5SBI
+ 0tDB9rb2tHUdFs9DxdaIjJJiMseOo/TUH43zMy4zDmw1i8uKCuhHLYknSM1JWHe94JQi4ZJRJOl
+ y7DSQa1EYuOWLuLa5i3Yz4UuPqb4mxRmshbPhrWy2sBSremdXLazCLaAGqrt1wul74Ls8UgjAtQ
+ FJ4oOXzu1Jy8RBfSiUyvZ2ZovLXnBlMoKdC6erXOqhkS5UNWGDOJMEIg1TMH8bEd6GJ/N3O0lsO
+ 95LPnVzzotiEKHIhkkGTkzVOYwfef25S4fEIDjh5vtdNg==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: from localhost (92.254.112.55)
+	by smtp.migadu.com with ESMTPS id 54f7be6b0ec37d4f;
+	Mon, 17 Aug 2026 08:15:00 +0000
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: clock: Add GCC clock bindings for SM7250
-To: Sreeshankar K <sreeshankar0910@gmail.com>, andersson@kernel.org,
- mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: bmasney@redhat.com, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260816090719.892-1-sreeshankar0910@gmail.com>
- <20260816090719.892-3-sreeshankar0910@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260816090719.892-3-sreeshankar0910@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 17 Aug 2026 10:14:58 +0200
+Message-Id: <DKR2I3X521F8.J6H7KW07GDD0@cknow-tech.com>
+Subject: Re: [PATCH v3 1/4] dt-bindings: crypto: rockchip: Add RK356x/RK3588
+ crypto engine binding
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Dawid Olesinski" <dawidro@gmail.com>, "Herbert Xu"
+ <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
+Cc: "Diederik de Haas" <diederik@cknow-tech.com>, "Eric Biggers"
+ <ebiggers@kernel.org>, "Sebastian Reichel"
+ <sebastian.reichel@collabora.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Conor Dooley" <conor+dt@kernel.org>, "Corentin
+ Labbe" <clabbe@baylibre.com>, <linux-crypto@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260708175837.1718437-1-dawidro@gmail.com>
+ <20260816194112.552100-1-dawidro@gmail.com>
+ <20260816194112.552100-2-dawidro@gmail.com>
+In-Reply-To: <20260816194112.552100-2-dawidro@gmail.com>
 
-On 16/08/2026 11:07, Sreeshankar K wrote:
-> Add device tree bindings for global clock controller on SM7250 SoC.
-> 
-> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+Hi Dawid,
 
-Please start using b4. Does this work:
+On Sun Aug 16, 2026 at 9:39 PM CEST, Dawid Olesinski wrote:
+> Add a YAML device tree binding for the Rockchip second-generation (V2)
+> cryptographic hardware accelerator present on the RK3568 and RK3588 SoCs.
+>
+> The IP block exposes AES-ECB, AES-CBC, AES-XTS block ciphers, SHA-1,
+> SHA-224, SHA-256, SHA-384, SHA-512, MD5, and SM3 hash algorithms, each
+> with a hardware DMA engine controlled via linked-list descriptors.
+>
+> The binding covers two compatible strings:
+>
+>   - rockchip,rk3568-crypto: clocks and resets are driven directly by the
+>     non-secure CRU (accessible to Linux at EL1).
+>   - rockchip,rk3588-crypto: clocks and resets live in SECURECRU, a
+>     register bank sandboxed to TrustZone. Linux must request them through
+>     the ARM SCMI firmware interface (scmi_clk / scmi_reset), as direct
+>     MMIO access to SECURECRU from EL1 triggers a bus fault.
+>
+> Co-developed-by: Corentin Labbe <clabbe@baylibre.com>
+> Signed-off-by: Corentin Labbe <clabbe@baylibre.com>
+> Signed-off-by: Dawid Olesinski <dawidro@gmail.com>
+> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Quartz64-B,
+> NanoPi R5S, NanoPC-T6 LTS
 
-b4 diff '<20260816090719.892-3-sreeshankar0910@gmail.com>'
+AFAIK these lines should not have a line break, ie must be on one line.
 
-? No.
-
-
+Cheers,
+  Diederik
 
 > ---
->  .../bindings/clock/qcom,gcc-sm7250.yaml       |  60 +++++++
->  include/dt-bindings/clock/qcom,gcc-sm7250.h   | 163 ++++++++++++++++++
->  2 files changed, 223 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/qcom,gcc-sm7250.yaml
->  create mode 100644 include/dt-bindings/clock/qcom,gcc-sm7250.h
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-sm7250.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-sm7250.yaml
+>  .../crypto/rockchip,rk3588-crypto.yaml        | 83 +++++++++++++++++++
+>  MAINTAINERS                                   |  2 +
+>  2 files changed, 85 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/crypto/rockchip,rk3=
+588-crypto.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/crypto/rockchip,rk3588-cry=
+pto.yaml b/Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.=
+yaml
 > new file mode 100644
-> index 000000000..822df7dc1
+> index 000000000000..32d241c19453
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-sm7250.yaml
-> @@ -0,0 +1,60 @@
+> +++ b/Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.yam=
+l
+> @@ -0,0 +1,83 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/clock/qcom,gcc-sm7250.yaml#
+> +$id: http://devicetree.org/schemas/crypto/rockchip,rk3588-crypto.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Qualcomm Global Clock & Reset Controller on SM7250
+> +title: Rockchip cryptographic offloader
 > +
 > +maintainers:
-> +  - Bjorn Andersson <andersson@kernel.org>
-> +  - Sreeshankar K <sreeshankar0910@gmail.com>
-> +
-> +description: |
-> +  Qualcomm global clock control module provides the clocks, resets and power
-> +  domains on SM7250.
-> +
-> +  See also: include/dt-bindings/clock/qcom,gcc-sm7250.h
+> +  - Heiko Stuebner <heiko@sntech.de>
+> +  - Corentin Labbe <clabbe@baylibre.com>
+> +  - Dawid Olesinski <dawidro@gmail.com>
 > +
 > +properties:
 > +  compatible:
-> +    const: qcom,gcc-sm7250
+> +    oneOf:
+> +      - const: rockchip,rk3568-crypto
+> +      - items:
+> +          - enum:
+> +              - rockchip,rk3588-crypto
+> +          - const: rockchip,rk3568-crypto
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
 > +
 > +  clocks:
 > +    items:
-> +      - description: Board XO source
-> +      - description: Board active XO source
-> +      - description: Sleep clock source
+> +      - description: Core clock for the crypto IP internal logic
+> +      - description: AXI interconnect clock interface
+> +      - description: AHB interface clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: aclk
+> +      - const: hclk
+> +
+> +  resets:
+> +    minItems: 1
+> +    maxItems: 3
+> +
+> +  reset-names:
+> +    minItems: 1
+> +    items:
+> +      - const: core
+> +      - const: aclk
+> +      - const: hclk
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
+> +    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
+> +
+> +    bus {
+> +      #address-cells =3D <2>;
+> +      #size-cells =3D <2>;
+> +
+> +      crypto@fe370000 {
+> +        compatible =3D "rockchip,rk3588-crypto", "rockchip,rk3568-crypto=
+";
+> +        reg =3D <0x0 0xfe370000 0x0 0x2000>;
+> +        interrupts =3D <GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH 0>;
+> +        clocks =3D <&scmi_clk SCMI_CRYPTO_CORE>, <&scmi_clk SCMI_ACLK_SE=
+CURE_NS>,
+> +                 <&scmi_clk SCMI_HCLK_SECURE_NS>;
+> +        clock-names =3D "core", "aclk", "hclk";
+> +        resets =3D <&scmi_reset SCMI_SRST_CRYPTO_CORE>;
+> +        reset-names =3D "core";
+> +      };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c8d4b913f26c..50b77a750db3 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23131,9 +23131,11 @@ F:	drivers/media/platform/rockchip/rkcif/
+> =20
+>  ROCKCHIP CRYPTO DRIVERS
+>  M:	Corentin Labbe <clabbe@baylibre.com>
+> +M:	Dawid Olesinski <dawidro@gmail.com>
+>  L:	linux-crypto@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/crypto/rockchip,rk3288-crypto.yaml
+> +F:	Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.yaml
+>  F:	drivers/crypto/rockchip/
+> =20
+>  ROCKCHIP I2S TDM DRIVER
 
-Why this cannot go to sm7150 or sm6375 files?
 
-Best regards,
-Krzysztof
