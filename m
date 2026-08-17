@@ -1,113 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76A63F4DC3;
-	Mon, 17 Aug 2026 11:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3A43FA5C7
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:12:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786965021; cv=none; b=h2Ca66sX6b1o+ZGTLmxRqHQXILKgQYW6iH07ybHKedUqlmBdnuBMHJhPiqZ+VHe8MI52nQPa8UH2vhk4SSG8UTu3wL4IKeKSC0K914iUSRdPbQJd0KpiALW1kCxwE6e5pQ9a7hTNkEOaCJ+h9eDB6g03m8DlnD4zSCcNIxBHFGM=
+	t=1786965162; cv=none; b=SZJ8VLO2QpTrwV7F7m8S18utfUx4lzVv9AAVMZ3ZPMWDwShgyHJSeua/XgNEcwSX4RbmHSRRACpTxzOsFlvNhABR7BI8Bvbxnb4RbA07hLRpPoVzareJdR/EUm4ZNA4Mm/IJNb/5lsVm7+s+EUZet6q5mBcFY70/Ubmo55ew4u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786965021; c=relaxed/simple;
-	bh=cYZtabfWi7/ZDayXMrdc/ae//cy9n87ERVKyNzBe2Ps=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XvEpVHCpuB4lYV9yLt8MJ4UQBe9QTyMi30i4bGjV3Hm33uJHvtnmYL8SvOcR9J90R1fNEUWyEcmL8R8+UVdphziy6hf/c5OxEoBYIBWsAIEWaQ2/y733F3ceRt9SGWS1qlBJwTD0RfHzygw9yCF8cPOP1PrqkLJCuE3VC//4xh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=La2eQUl4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786965162; c=relaxed/simple;
+	bh=5xei31jWfbCvjJWYAWxdOGjoutWr7qVmV319yL89d4k=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rjacIrgeGhOIjL3gwqPYOaaN4Rlpsr/kxdAQbmiWl5r//6rkMXDQRZtNdxYSrVIQXMeBxajfrjUCdHO9dsSGIGyk5xjTz5jkt6IdIhqBZ7jYCEsXRXHsbclzLB4j1SvwmEWq5KbqVQJ6M6x71QmSZEi7f7Nvo1JBLf6PmIGbQAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=IVZO/xFD; arc=none smtp.client-ip=85.9.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="La2eQUl4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622851F000E9;
-	Mon, 17 Aug 2026 11:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786965020;
-	bh=dSeP13pLOt0UEaC0vv4QKQHllgx6b6/h0P1GwZl/yt8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=La2eQUl4N7Q0Yhhht8ZGuQViek1nzUkVTDEQSlfFatl9XBkecyp0Wi46AV9yCw5AI
-	 Ja2C9I3f/J2fwlKfs9oSk+Ly+NkORgsUs4gfWoeCticGhhAgLvZIg5y0GJYnkklzT4
-	 V4qdEY9i2ONulOmVRKbET0QhzFEvlkdeW86Rk8cVilgYX6P1qQTlErKvSlnL3ugxok
-	 fjp/Iaf4vMtvsMCTCZxLWM2Yb+83MpSQJdpCYywFyVva5p1NakmNzMMXBUBXPLiEF8
-	 d/tVXvyBJEB1tyzskmj2G+xfKOG34/L6An+genrgQobdxR0SN7kMMRwoVi596oX70M
-	 z4adU6xDzjtyw==
-Message-ID: <d592c554-5e43-48f8-a1bf-5dc6c6525c27@kernel.org>
-Date: Mon, 17 Aug 2026 13:10:13 +0200
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="IVZO/xFD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1786965149; x=1787224349;
+	bh=E5G9u9fUe0iGm+rUuoOsMW1cZLD8NY482SDhJ2sWIns=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=IVZO/xFDha57j4U7Zjb5cuJXWObIccJIyLCVLqDSXKoW5xGP6VRL+SKzXMkDYe4Qt
+	 xbCLjrMf/iEafIf2fWHxtL/VGk+ITFqzc5XZl0sSdTJH12S/1V/Ympw4f2EaEHgBY0
+	 m3prP3VeK0r6O/4xoPwsYI+S0U7bLkRka6QIu4p+1NYufdEdiQNN4f70PRr5v9El8A
+	 22fhOgwIkt/Fc9v3Np63ibUxVAQuHcnoaf9pnlB0x+LNl3+qHyRoOxmNfca09R/WJj
+	 1hDkhWm3cZNewkgwd3OT9UmpnDZ3qi+8nk/cFi8hwUJXvZP6OWHijMwH11ppa8cOAn
+	 lOPCNdT314b0w==
+Date: Mon, 17 Aug 2026 11:12:25 +0000
+To: sashiko-reviews@lists.linux.dev
+From: Aiden Isik <aidenisik@protonmail.com>
+Cc: Aiden Isik <aidenisik@member.fsf.org>, robh@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH 3/3] clk: samsung: Introduce Exynos5515 clock driver
+Message-ID: <BdKoBOnRuIhrT7tN4m3VwHkPBE8h5rTX4ZSgs3xnFjtnEw-xyS-LtWmX1r6efxBmC7b7JWlSkp49_8gsJTrFXja-3au5EusJ443xPQuFTLE=@protonmail.com>
+In-Reply-To: <20260817102753.AD2711F00A3A@smtp.kernel.org>
+References: <20260817-for-next-lucky7-clock-v1-0-032e4b229c76@member.fsf.org> <20260817-for-next-lucky7-clock-v1-3-032e4b229c76@member.fsf.org> <20260817102753.AD2711F00A3A@smtp.kernel.org>
+Feedback-ID: 46524699:user:proton
+X-Pm-Message-ID: 5c2396f84eec43ac44cd52c30b8f10b0ecebfb2a
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Add
- exynos5515 compatible
-To: aidenisik@member.fsf.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Aiden Isik <aidenisik+git@member.fsf.org>
-References: <20260817-for-next-lucky7-chipid-v1-0-eb2908705c0d@member.fsf.org>
- <20260817-for-next-lucky7-chipid-v1-1-eb2908705c0d@member.fsf.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260817-for-next-lucky7-chipid-v1-1-eb2908705c0d@member.fsf.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 17/08/2026 12:11, Aiden Isik via B4 Relay wrote:
-> From: Aiden Isik <aidenisik@member.fsf.org>
-> 
-> Add "samsung,exynos5515-chipid" compatible string to binding document.
-> Use the "samsung,exynos850-chipid" compatible, as it is the same on that
-> SoC as exynos5515.
 
-I do not see how you use "samsung,exynos850-chipid", probably you meant
-that devices are compatible? Just say that you add Exynos5515 ChipID
-fully compatible with foo bar (no differences in registers) instead of
-repeating the diff.
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+> - [High] Clock Tree Misconfiguration / Unintended Clock Bypass in CMU_PER=
+I
+> - [High] Incorrect Mux Parent Clock Order in CMU_FSYS User MUXes
+> - [Medium] Missing Initialization and State Preservation for EXYNOS5515_M=
+EMCLK_OFFSET
+> --
+>=20
+> --- Patch [3]: [PATCH 3/3] clk: samsung: Introduce Exynos5515 clock drive=
+r ---
+> commit 30844f6e4b1e1ae616f216fdbd770df29393e674
+> Author: Aiden Isik <aidenisik@member.fsf.org>
+>=20
+> clk: samsung: Introduce Exynos5515 clock driver
+>=20
+> CMU_TOP is the top level clock management unit which contains PLLs,
+> muxes, dividers and gates that feed the other clock management units.
+> CMU_PERI provides clocks for USI blocks and their children, PWM, MCT,
+> and watchdog timers. CMU_FSYS provides clocks for MMC, USB, GPIO, etc.
+>=20
+> > diff --git a/drivers/clk/samsung/clk-exynos5515.c b/drivers/clk/samsung=
+/clk-exynos5515.c
+> > new file mode 100644
+> > index 0000000000000..f989a13f1a574
+> > --- /dev/null
+> > +++ b/drivers/clk/samsung/clk-exynos5515.c
+> > @@ -0,0 +1,1485 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+>=20
+> [ ... ]
+>=20
+> > +static const unsigned long drcg_sysreg[] __initconst =3D {
+> > +=09EXYNOS5515_DRCG_EN_OFFSET,
+> > +};
+>=20
+> [Severity: Medium]
+> Is it intended that EXYNOS5515_MEMCLK_OFFSET is missing from the drcg_sys=
+reg
+> array? Without this offset, the memory clock gating state won't be saved =
+or
+> restored across power management suspend/resume cycles.
+>=20
+> > +
+> > +static const struct samsung_cmu_info top_cmu_info __initconst =3D {
+>=20
+> [ ... ]
+>=20
+> > +=09.gate_dbg_offset=09=3D EXYNOS5515_GATE_DBG_OFFSET,
+> > +=09.option_offset=09=09=3D CMU_CMU_TOP_CONTROLLER_OPTION,
+> > +=09.drcg_offset=09=09=3D EXYNOS5515_DRCG_EN_OFFSET,
+> > +};
+>=20
 
-s/exynos5515/Exynos5515/, in every commit msg
+This is intentional, downstream only has this on a few blocks and
+these are not amongst those blocks. Will see if a maintainer agrees.
 
-Best regards,
-Krzysztof
+> [Severity: Medium]
+> Will this break the dynamic root clock gating initialization? The
+> .memclk_offset =3D EXYNOS5515_MEMCLK_OFFSET assignment seems to be missin=
+g
+> here, which might prevent samsung_en_dyn_root_clk_gating() from enabling =
+the
+> memory clock gate correctly.
+>=20
+
+See above.
+
+> [ ... ]
+>=20
+> > +/* Parent clock list for CMU_PERI muxes */
+> > +PNAME(mout_pll_peri_bus_user_p)=09=09=3D { "oscclk",
+> > +=09=09=09=09=09    "mout_cmu_peri_bus" };
+> > +
+> > +PNAME(mout_pll_peri_ip_user_p)=09=09=3D { "oscclk",
+> > +=09=09=09=09=09    "mout_cmu_peri_ip" };
+>=20
+> [Severity: High]
+> Does this correctly route the clocks from CMU_TOP? Referencing the
+> intermediate mout_cmu_peri_* clocks here instead of the final
+> dout_cmu_peri_* dividers appears to bypass the hardware gates and divider=
+s
+> defined in CMU_TOP. Could this lead to incorrect clock rate calculations =
+and
+> resource leaks if the CMU_TOP blocks fail to gate when PERI clocks are
+> disabled?
+
+Unsure, but this is how downstream does it.
+
+>=20
+> [ ... ]
+>=20
+> > +/* Parent clock list for CMU_FSYS muxes */
+> > +PNAME(mout_pll_fsys_bus_user_p)=09=09=3D { "dout_cmu_fsys_bus",
+> > +=09=09=09=09=09    "oscclk" };
+> > +
+> > +/* Parent clock list for CMU_FSYS muxes: for MMC */
+> > +PNAME(mout_pll_fsys_mmc_card_user_p)=09=3D { "dout_cmu_fsys_mmc_card",
+> > +=09=09=09=09=09    "oscclk" };
+> > +
+> > +PNAME(mout_pll_fsys_mmc_embd_user_p)=09=3D { "dout_cmu_fsys_mmc_embd",
+> > +=09=09=09=09=09    "oscclk" };
+> > +
+> > +/* Parent clock list for CMU_FSYS muxes: for USB */
+> > +PNAME(mout_pll_fsys_usb20drd_user_p)=09=3D { "dout_cmu_fsys_usb20drd",
+> > +=09=09=09=09=09    "oscclk" };
+>=20
+> [Severity: High]
+> Is the parent clock order inverted in these MUXes? User MUX arrays like t=
+hose
+> in CMU_PERI map oscclk to hardware value 0 and the bus clock to 1. Since =
+the
+> clock framework uses the array index for the register value, placing oscc=
+lk
+> at index 1 here will write 0 when requesting the high-speed bus clock,
+> inadvertently selecting the 26MHz oscclk instead. Could this cause
+> performance degradation and hardware instability?
+>=20
+
+Possibly, I thought the ordering was just cosmetic and for the
+kernel's informational purposes. HWACG seems to mask the problem
+if there is one but will still fix in v2.
+
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next=
+-lucky7-clock-v1-0-032e4b229c76@member.fsf.org?part=3D3
+>=20
+
+Kind regards,
+- Aiden Isik
