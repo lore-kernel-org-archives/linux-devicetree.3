@@ -1,216 +1,121 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4770C3BBFD2
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46373A8FE1
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786966891; cv=none; b=CRQCRoPZiIRa/kJ8FzzNl004Ub4XocVwNSjR+6M+Yu/D4Nx7tQ8cFsHoc4w/csBjluo4zrl/dEC3iOov4IjQr2Veh/I9mclWxuLpLLNgEwFhsXB1QHYOI1hqbE8d2/ZCIr7OK1iutHxidLOgdD2hFSsOHUKhEaSZFk3lkBZs30A=
+	t=1786967222; cv=none; b=XnX1KcZsfMod/DVvSAxIRbftltiDgbH/e8Uzz28SZmYOmV4/aZNF0iT1ZCJY4OHFn5DOyEvjlQjUAGjWUC1hxnLGD9Mkz2gjzs/svtDif3ykG/sTxA7zKAXObqbfqXfVUEFKrYAdur6+tBuux4dMyUJM9Jq9a40Y/N/5HfN49dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786966891; c=relaxed/simple;
-	bh=oTsFEHigKZDagVoAOr5IwLFtvYBBWBCaIx6vNhGa6+8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=El8zH66wrPGK3YnkrEK3JIK+q/fOqGaOM0iduDFGZO0dXr+mb5JhSB+M5/ITuYlD6536R4u7X4HFs1pH3OrmYjjXHP3WZl0yME8++N4DzPVOFPvfuTS70RnztGUvubJM5SZDoq2Mp3pSuwy6+flNkydXgZJW1Ya1R2aG8WxrJ1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AxiY6s5e; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1786967222; c=relaxed/simple;
+	bh=x7SUlNn+sYrLvDBwM3011lJAriD5IDtE8cIN0SaasQ0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hdUlWWCqZdcB/bPY4Brn4DWgEBk3HKFA5ubqTRotG78/WdR7nIsuDETQjm3AR7UzIs6rWQ4Ts530BQO9csPwQbbymLMJQdidm1Rre/dLWtAWolmRNltkPJtcZLLsCpjDl72HSgLzVFHlXGkJXF+7JGH4+E2TyWpsoVt6EqwBvao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kzfqnUzM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AxiY6s5e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786966889;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eye+Imc/4M3S1qY3eqjb5bqUcZ4zH/Id72nS2Qv+iaA=;
-	b=AxiY6s5e5InVVzNuhDP5yA35ITTabsT3xE475Wpd+eJIpXkekkaAR/lcXof8OGp+Ybb7I9
-	N4XrljfQlii9HZN3l+fm+3Y61Ur2PIip+Ug65mw0zmnmHkux3/To+Fm4ShhS6Nu6Gi8PM1
-	bCpwO0U0xZGQeSX9tJpI7zOWjA4DvYQ=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-145-NV6esz-kNvSZhbgo-XL6oQ-1; Mon,
- 17 Aug 2026 07:41:26 -0400
-X-MC-Unique: NV6esz-kNvSZhbgo-XL6oQ-1
-X-Mimecast-MFC-AGG-ID: NV6esz-kNvSZhbgo-XL6oQ_1786966883
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6222018001DE;
-	Mon, 17 Aug 2026 11:41:23 +0000 (UTC)
-Received: from [192.168.1.153] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3F601422;
-	Mon, 17 Aug 2026 11:41:18 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 17 Aug 2026 13:40:50 +0200
-Subject: [PATCH 5/5] rust: drm: add KUnit tests for panel
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kzfqnUzM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014081F000E9;
+	Mon, 17 Aug 2026 11:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786967220;
+	bh=8gOrGIJS8qBK794BPrHagXX/EF34XXrveZ5B8bezYNI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kzfqnUzM9EW6aSYJ2slOUYv6u9xrAwKdMm0Qq1+d0MXAPhV1JrZwtDk74m4MRu3Cw
+	 FEZyG/hubVPcdKDTotwAvY6RPn5qOPTsu8mrd2g0gghaxT6ehvty0hgGW97+VhpAhP
+	 IAMnl9F/hluaw2UaD6ywoyPhap0LU8YrFJ33zkpEOXmw91eGjn7KylKpcH6dDrnhNc
+	 wUWK57UEGOa1zWxKhYWFazSx6DiGo8gN5am+SfJ2Kv2iGAXJT7JIhtzougBenxN/Wt
+	 lqFRqalFNn7XIR8h7ZN1ELrfXC0UBctrEAxNZ915eaufWvRXNXiTq6pAQkVyUQOsy6
+	 PjEKQWXPXr8bw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] rust: drm: add connector abstraction
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Albert Esteve" <aesteve@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260817-drm_panel_bindings-v1-2-1f974508a31c@redhat.com>
+References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
+ <20260817-drm_panel_bindings-v1-2-1f974508a31c@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 11:46:59 +0000
+Message-Id: <20260817114700.014081F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-drm_panel_bindings-v1-5-1f974508a31c@redhat.com>
-References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
-In-Reply-To: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: devicetree@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Albert Esteve <aesteve@redhat.com>, mripard@kernel.org
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786966849; l=4048;
- i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=oTsFEHigKZDagVoAOr5IwLFtvYBBWBCaIx6vNhGa6+8=;
- b=6QwxHfNOkF/90Z13R5XUwzf52g9t5Ni068MYbGJL53bg9fbDgOYsTTjn3hXH5mBfps9ZKPqmb
- /2hmNzKs8CTBesR2zwdbQqUwz1eeXDavHMnJRjf4n8IR+assQYCtN9x
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Add a test module to verify basic data type conversions
-and layout. The tests covers:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] The `Connector` struct's `# Invariants` documentation incorrectly r=
+eferences an 'inner pointer', whereas the struct is a transparent wrapper a=
+round an `Opaque` type.
+- [Low] The forwarding methods `from_raw` and `as_raw` in the `Connector` a=
+bstraction lack the required `#[inline]` attribute.
+--
 
-- PanelOrientation and ConnectorType: TryFrom conversion for valid
-  values and also out-of-range invalid inputs.
-- PanelContainer: layout invariants (offset, alignment, size) on which
-  Panel::new relies on for memory access.
+--- Patch [2]: [PATCH 2/5] rust: drm: add connector abstraction ---
+commit 3b78dba370077b309a3e8fb4bdf3afb4e77c1754
+Author: Albert Esteve <aesteve@redhat.com>
 
-Tests are gated on CONFIG_RUST_DRM_PANEL_KUNIT_TEST.
+rust: drm: add connector abstraction
 
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- rust/kernel/Kconfig.test | 10 ++++++
- rust/kernel/drm/panel.rs | 87 ++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 97 insertions(+)
+Add DRM Connector abstraction wrapping struct drm_connector.
+Used by the DRM panel abstractions added in the following patch.
 
-diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-index e6a5c7a795f0f..397b916dca0d4 100644
---- a/rust/kernel/Kconfig.test
-+++ b/rust/kernel/Kconfig.test
-@@ -83,4 +83,14 @@ config RUST_BITFIELD_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config RUST_DRM_PANEL_KUNIT_TEST
-+	bool "KUnit tests for Rust panel API" if !KUNIT_ALL_TESTS
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This option enables KUnit tests for the Rust panel API.
-+	  These are only for development and testing, not for regular
-+	  kernel use cases.
-+
-+	  If unsure, say N.
-+
- endif
-diff --git a/rust/kernel/drm/panel.rs b/rust/kernel/drm/panel.rs
-index 8f87774e06ed7..3da203c39edd6 100644
---- a/rust/kernel/drm/panel.rs
-+++ b/rust/kernel/drm/panel.rs
-@@ -595,3 +595,90 @@ pub(crate) const fn build() -> &'static bindings::drm_panel_funcs {
-         &Self::VTABLE
-     }
- }
-+
-+#[cfg(CONFIG_RUST_DRM_PANEL_KUNIT_TEST)]
-+#[macros::kunit_tests(rust_kernel_drm_panel)]
-+mod tests {
-+    use super::*;
-+    use core::mem::{align_of, offset_of, size_of, ManuallyDrop, MaybeUninit};
-+
-+    struct TestData {
-+        _ptr: *const u8,
-+        _byte: u8,
-+    }
-+
-+    #[test]
-+    fn panel_orientation() {
-+        // Test valid values.
-+        assert!(matches!(
-+            PanelOrientation::try_from(-1),
-+            Ok(PanelOrientation::Unknown)
-+        ));
-+        assert!(matches!(
-+            PanelOrientation::try_from(0),
-+            Ok(PanelOrientation::Normal)
-+        ));
-+        assert!(matches!(
-+            PanelOrientation::try_from(1),
-+            Ok(PanelOrientation::BottomUp)
-+        ));
-+        assert!(matches!(
-+            PanelOrientation::try_from(2),
-+            Ok(PanelOrientation::LeftUp)
-+        ));
-+        assert!(matches!(
-+            PanelOrientation::try_from(3),
-+            Ok(PanelOrientation::RightUp)
-+        ));
-+
-+        // Test invalid values.
-+        assert!(PanelOrientation::try_from(4).is_err());
-+        assert!(PanelOrientation::try_from(-2).is_err());
-+    }
-+
-+    #[test]
-+    fn connector_type() {
-+        // Test valid values.
-+        assert!(matches!(
-+            ConnectorType::try_from(0),
-+            Ok(ConnectorType::Unknown)
-+        ));
-+        assert!(matches!(
-+            ConnectorType::try_from(10),
-+            Ok(ConnectorType::DisplayPort)
-+        ));
-+        assert!(matches!(
-+            ConnectorType::try_from(14),
-+            Ok(ConnectorType::eDP)
-+        ));
-+        assert!(matches!(
-+            ConnectorType::try_from(16),
-+            Ok(ConnectorType::DSI)
-+        ));
-+        assert!(matches!(
-+            ConnectorType::try_from(20),
-+            Ok(ConnectorType::USB)
-+        ));
-+
-+        // Test invalid values.
-+        assert!(ConnectorType::try_from(21).is_err());
-+    }
-+
-+    #[test]
-+    fn panel_container_layout() {
-+        assert_eq!(offset_of!(PanelContainer<TestData>, data), 0);
-+
-+        assert_eq!(size_of::<ManuallyDrop<TestData>>(), size_of::<TestData>());
-+
-+        let panel_offset = offset_of!(PanelContainer<TestData>, panel);
-+        assert_eq!(
-+            panel_offset % align_of::<MaybeUninit<bindings::drm_panel>>(),
-+            0
-+        );
-+
-+        assert!(
-+            size_of::<PanelContainer<TestData>>()
-+                >= panel_offset + size_of::<bindings::drm_panel>()
-+        );
-+    }
-+}
+> diff --git a/rust/kernel/drm/connector.rs b/rust/kernel/drm/connector.rs
+> new file mode 100644
+> index 0000000000000..b3b36644375dd
+> --- /dev/null
+> +++ b/rust/kernel/drm/connector.rs
+> @@ -0,0 +1,33 @@
+[ ... ]
+> +/// A DRM connector (`struct drm_connector`).
+> +///
+> +/// # Invariants
+> +///
+> +/// The inner pointer is always a valid, non-null pointer to a `struct d=
+rm_connector`.
+> +#[repr(transparent)]
+> +pub struct Connector(Opaque<bindings::drm_connector>);
 
--- 
-2.55.0
+[Severity: Low]
+this isn't a bug, but the invariant documentation references an "inner poin=
+ter".
+Since the struct directly wraps an Opaque type rather than holding a pointer
+itself, should this be updated to reflect that?
 
+> +
+> +impl Connector {
+> +    /// Creates a reference to a [`Connector`] from a raw pointer.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `ptr` must be a valid, non-null pointer to a `struct drm_connect=
+or` that
+> +    /// remains valid for at least the lifetime `'a`.
+> +    pub unsafe fn from_raw<'a>(ptr: *mut bindings::drm_connector) -> &'a=
+ Self {
+
+[Severity: Low]
+this isn't a bug, but as a small forwarding function for an abstraction, sh=
+ould
+this method be annotated with #[inline]?
+
+> +        // SAFETY: Caller guarantees `ptr` is valid and lives for `'a`.
+> +        unsafe { &*ptr.cast() }
+> +    }
+> +
+> +    /// Returns the raw pointer to the underlying `struct drm_connector`.
+> +    pub fn as_raw(&self) -> *mut bindings::drm_connector {
+
+[Severity: Low]
+this isn't a bug, but should this method also be annotated with #[inline]
+since it merely forwards to the underlying binding call?
+
+> +        self.0.get()
+> +    }
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-drm_panel_=
+bindings-v1-0-1f974508a31c@redhat.com?part=3D2
