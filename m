@@ -1,116 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8E23B5E10;
-	Mon, 17 Aug 2026 11:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8153FADFA
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786964696; cv=none; b=B6zjY2kmbsPiIkKQP3We8oLZujHZdG2rZ4NNbI5ff2yk/+60sWYzuRNmkuiZaGjYcBpuaTKTzdJ2dUHavzfYpjqhSzF04po05tQNn1BM3qpU/XRiz7l6dGv04WaT5jbAKSllNnfdlegyviaelPi0mnAjWP1GBk9CfEVBouvi5nE=
+	t=1786964766; cv=none; b=hq0dwgS/w9w4jvL/HNMb6I5sI8PCQ5KoEvT7QeH6TNV35KWmpScfXe8eHGmw+Ktutaf9+CfT5YZLj5kx8+cDd+GpRvNfuY5hhJQLp2FLipcA7AlCQ5iqfgAx0TvttmXq5JxSe67mcBmEA5uJ8V2SGVt+ctEkjMHkt0UKqS8GfM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786964696; c=relaxed/simple;
-	bh=x5Vc/65XluMcy176OiRpHBt1ibmYRPVHynXinNNIi0Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Xnfh1vQKhDPpZqoX5buT9G3mCH0bsByXGQJhqrhA8jQcaTINP7TJW41Zdm+C4DicWgIpE5dUpu+U+WtrqvikQTBo9RE8MFoHRn85PzXHkjeC/Y9HIgD7F0+VY7B/rk7I52DmkoJO5CEXCfpxPCb+fyf/xZ2KTI3INn51RDVScmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YThC6QkH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786964766; c=relaxed/simple;
+	bh=HWTrrRVLqcGXX4ANkmejO09hwO7EQ8/1dnaLQCRzUgQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V7fsmFm1RbozBJvxdm6dvuJB1Xlf8saU4FAp5Sq1+J1xco0qMn24cZElNTCXA+lzeeYY3g755OVcFJcQdOk1EO5+YLWmtddo5FOkNAmOTFtdHRPRSAPUz3bOVQxFu8yaE/r1nT9Viw9Br0tSH/YpUoIc1tkBOLdjikkcYT+BApQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=snN5+GpF; arc=none smtp.client-ip=185.70.43.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YThC6QkH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB231F000E9;
-	Mon, 17 Aug 2026 11:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786964695;
-	bh=SY+Yvyaj/8lKQlAb4+1UQiZ+9T4Yy7OtmJfGvDxBB1w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YThC6QkHMh23bSC7nwBNU7HqyXTM7a0Mq/mQ3ISKLrvh8/zzZODLDDG/6xL+MAFM2
-	 mqpVXUeDNatHlION42GBnYG4YiopuobWEerSXCzMeH3GhO7yv4MbZXOxqklZDp/dBm
-	 PMvuSY72OPuklc2pHpg403LROymfK5lUgJ/k59g2IySYo2RzR/zieCM2OSuPml8AJl
-	 c+UKYXkvME9PJ9gJP+IZ9eB6MwwfuoGM6vtr5eGSe1GHHpajQ3keQHDUXHbhrkxFdp
-	 Cw+OFaf8tkx3dRp9UHRKqr08ESvcs4M+fkWg1B/MUvGwYGp0nRZ15WcMVAao0HcgSP
-	 w0T3ntus5Uc/g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 3/6] clk: conf: Support assigned-clock-sscs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260817-clk-v11-v11-3-36e9bc701b11@nxp.com>
-References: <20260817-clk-v11-v11-0-36e9bc701b11@nxp.com>
- <20260817-clk-v11-v11-3-36e9bc701b11@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 11:04:54 +0000
-Message-Id: <20260817110454.9EB231F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="snN5+GpF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1786964754; x=1787223954;
+	bh=xxVLMcthIF037nc98hyaoTk1HD9DpMu50mlc7ba6Hzs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=snN5+GpFMTihMBRiOLpzhSjWugjTesBY+HktMLXmIxwDvdzTn2Np6l9OrgWJ5ugL6
+	 Mkn3sTOfAckPTJQ2litAkshE6XURFG0pJEix6P0McO22NXJEjmybC13jjOKNrRlEuz
+	 rg0NMZlV+KdTXYtfLquK//2qh4ZZx9DHu6uH2bKJo213qsLpd8WYT18lDYPeBOHTwi
+	 tg9Jn/xQtHtfJZhWbR6997wU9fdt8Gcctkcs/3YmYOFJ0hCy4txWr/S5xhx13VhRx+
+	 B8I9TdhzMrjRiYgd2mBHjsSeZd09A2HwCEzxbUF2myewC0HUdFfvpTiaS4kYcHnF5k
+	 xbeH8n8+Yf8Zw==
+Date: Mon, 17 Aug 2026 11:05:49 +0000
+To: sashiko-reviews@lists.linux.dev
+From: Aiden Isik <aidenisik@protonmail.com>
+Cc: Aiden Isik <aidenisik@member.fsf.org>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Add exynos5515 compatible
+Message-ID: <q3RgGWf-H5CYBBgwq-lceGTslnlwVzflgM6OEqjvyPfQH4xtyqes97znQnJ3kCGK9VUALqj0-sx7IVE-WVy_MvWxmDk6ywsXZotJwn7jhfY=@protonmail.com>
+In-Reply-To: <20260817101658.75BE71F000E9@smtp.kernel.org>
+References: <20260817-for-next-lucky7-chipid-v1-0-eb2908705c0d@member.fsf.org> <20260817-for-next-lucky7-chipid-v1-1-eb2908705c0d@member.fsf.org> <20260817101658.75BE71F000E9@smtp.kernel.org>
+Feedback-ID: 46524699:user:proton
+X-Pm-Message-ID: 9713a5f8b78ab84d33eef7158e63b399161a56c7
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Directly casting an array of `struct clk_spread_spectrum` to `(u=
-32 *)` to read device tree properties tightly couples the compiler's memory=
- layout to the DT array format, risking silent failures or memory corruptio=
-n if the struct changes.
---
 
---- Patch [3]: [PATCH v11 3/6] clk: conf: Support assigned-clock-sscs ---
-commit 9d153d59c6542e9110cebb9af6e487275c2559ca
-Author: Peng Fan <peng.fan@nxp.com>
 
-clk: conf: Support assigned-clock-sscs
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Incomplete support for Exynos 5515 causes driver probe failure
+> --
+>=20
+> --- Patch [1]: [PATCH 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Ad=
+d exynos5515 compatible ---
+> commit 5ce6d6fa94d63e1a87277e33f24686ff951995c4
+> Author: Aiden Isik <aidenisik@member.fsf.org>
+>=20
+> dt-bindings: hwinfo: samsung,exynos-chipid: Add exynos5515 compatible
+>=20
+> This commit adds the samsung,exynos5515-chipid compatible string to the
+> exynos-chipid device tree binding. It specifies that it should use the
+> samsung,exynos850-chipid compatible string as a fallback.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-ch=
+ipid.yaml b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.=
+yaml
+> > index b9cdfe52b62ff..619faf33214bd 100644
+> > --- a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.ya=
+ml
+> > +++ b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.ya=
+ml
+> > @@ -25,6 +25,7 @@ properties:
+> >        - items:
+> >            - enum:
+> >                - samsung,exynos2200-chipid
+> > +              - samsung,exynos5515-chipid
+>=20
+> [Severity: Medium]
+> Will this compatible string cause a probe failure on Exynos 5515 hardware=
+?
+>=20
+> Because this binding uses the samsung,exynos850-chipid fallback, the
+> exynos-chipid driver will attempt to probe on Exynos 5515 hardware.
+> However, if the Exynos 5515 product ID is not added to the soc_ids array
+> in drivers/soc/samsung/exynos-chipid.c, exynos_product_id_to_name() will
+> return NULL:
+>=20
+> drivers/soc/samsung/exynos-chipid.c:exynos_chipid_probe() {
+>     ...
+>     soc_dev_attr->soc_id =3D exynos_product_id_to_name(soc_info.product_i=
+d);
+>     if (!soc_dev_attr->soc_id)
+>         return dev_err_probe(dev, -ENODEV, "Unknown SoC\n");
+>     ...
+> }
+>=20
+> Does the driver need a companion patch to add the Exynos 5515 product ID
+> so that it can successfully probe rather than returning -ENODEV?
+>=20
+> >                - samsung,exynos7885-chipid
+> >                - samsung,exynos8895-chipid
+> >                - samsung,exynos9610-chipid
+>=20
+> --
 
-Parse the Spread Spectrum Configuration (SSC) from the device tree and
-configure them before using the clock. Each SSC configuration consists
-of three u32 elements.
+The Exynos5515 device tree also uses samsung,exynos850 chipid, just like ev=
+ery other 850-compatible-chipid device tree.
 
-> diff --git a/drivers/clk/clk-conf.c b/drivers/clk/clk-conf.c
-> index 303a0bb26e54a..550b8ae375a2c 100644
-> --- a/drivers/clk/clk-conf.c
-> +++ b/drivers/clk/clk-conf.c
-> @@ -155,6 +155,78 @@ static int __set_clk_rates(struct device_node *node,=
- bool clk_supplier)
->  	return 0;
->  }
-> =20
-> +static int __set_clk_spread_spectrum(struct device_node *node, bool clk_=
-supplier)
-> +{
-> +	u32 elem_size =3D sizeof(struct clk_spread_spectrum);
-> +	struct clk_spread_spectrum *sscs;
-> +	struct of_phandle_args clkspec;
-> +	int rc, count, index;
-> +	struct clk *clk;
-> +
-> +	/* modfreq, spreadPercent, modmethod */
-> +	count =3D of_property_count_elems_of_size(node, "assigned-clock-sscs", =
-elem_size);
-> +	if (count <=3D 0)
-> +		return 0;
-> +
-> +	sscs =3D kcalloc(count, elem_size, GFP_KERNEL);
-> +	if (!sscs)
-> +		return -ENOMEM;
-> +
-> +	rc =3D of_property_read_u32_array(node, "assigned-clock-sscs", (u32 *)s=
-scs,
-> +					count * 3);
-
-[Severity: Medium]
-Could this direct cast to (u32 *) be problematic if the memory layout of
-struct clk_spread_spectrum changes in the future?
-
-Directly casting the array of structs to a primitive type array tightly
-couples the device tree reading logic to the compiler's memory layout.
-
-If a new field is added or padding is introduced to the structure,
-of_property_count_elems_of_size() would miscalculate the count, and the
-sequential read would cause misaligned struct access across the entire arra=
-y.
-
-> +	if (rc)
-> +		goto free_sscs;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-clk-v11-v1=
-1-0-36e9bc701b11@nxp.com?part=3D3
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next=
+-lucky7-chipid-v1-0-eb2908705c0d@member.fsf.org?part=3D1
+> 
