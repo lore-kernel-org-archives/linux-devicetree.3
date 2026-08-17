@@ -1,104 +1,124 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C9146AA61;
-	Mon, 17 Aug 2026 17:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9371C1A6839
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 17:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786987248; cv=none; b=CWqO/d2BJjgdrhf9D1dh+xPHS7doxMnoeck82o7Tj55a8lxcRXAITaZdseHZeOLbXhEsmneSANBBUAPKkDQmGTBBqXYRLclX9KuKg6vr7oWWa58jaob+TP52mF5eTBejvWlIGvS4tXsJpnal/tl7rLYcApIbH0ZAC7gV1I3AmNI=
+	t=1786987287; cv=none; b=BJjRXdjk+ascXhFT1mLIACoFl9DDK0/Own9MkUrR9jTS2gSaZz8Wodgze9YSirQLA3V8FOWcjxS1zFNyNQc/ITiT6Txj1y8iBiYgVANrJc69IjVF/vcJhoGfYurOaQ3lboneyNB8p7cD0nY9l8LwfSLaLzBYDR1A7IDXpKKvarY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786987248; c=relaxed/simple;
-	bh=aD1+TxIcp78KfszYueEmzVsPlop8UEkQflASuNmtvRA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fJRSNd51PeCiCp46gFpfTeZDleBvbOpZGzg30dqMbozY+57c/pWLhq/Vdn9FKZwF95It4a6cxF9QsCy+j0CVPRJdDj/B9m4Cmq/OmN+ySCQegCTMrzLw0brMxC3rKhouODbmnBVV+Jk6727AcKJDOR5cbZwHEl1Qv5Em/fusR0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=zth6WM3Y; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1786987287; c=relaxed/simple;
+	bh=7G7YBFDfqN1RT8LY3VPTNedhWFtMw99p5CFQi76fwco=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CCAW97uGi62fLe1sI5tt530RwecMJXW5hfhyaKaHKdkbE7W/SemTL7U1oCRJVkiWqq9z2tx+9F/k2fJxM2Oq9UGpXURy38me4EdcoWBKjFV+79w9FhUOkzpTSel8/0HeBf82VOdNGv7fmZgRMx1L/4/rTfv+CW2Gj3JjZK0qBsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vago+MCR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="zth6WM3Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1786987244; x=1787246444;
-	bh=xweKzoAR9wLr7rzqBzvxfCqFwEihx3bUT7MsiLoLTp4=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=zth6WM3Y1MVhE5Y0KWPrNsNC/19sTBGlkZe/3ugnmBDrEsnK+GQ8nhW6V9C2imbdv
-	 UAdUaLGwwfwt7/Cx2HrU7Z7rujuFzIH6zFqTI06CmT1xOVpUIGyLXJEBFuC2ui8usL
-	 0+YAeX7fC736IuXfJCsROkEaVx+otEs0KGdQJcBHvD9W5A1l6sIz92ex/vjG8b28eo
-	 c8a+wrKPFxJ1f0XoOa5MrLQ7yYtiKMNXVHjVhQFoFaRipHYuQNp4Rsu7pG0EKE8n3t
-	 nwR7jfetKDigNXzL/6bNZvycdD+bU5uASlwGTbmhjjNYx7W3KgiKCOXEP0wSfJru3W
-	 H8OtNMeV0b+yA==
-X-Pm-Submission-Id: 4hP03H2RDwz1DDs5
-From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 17 Aug 2026 19:20:25 +0200
-Subject: [PATCH v5 3/6] iio: accel: mma8452: Only apply trigger type when
- not set by firmware
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vago+MCR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7EE01F000E9;
+	Mon, 17 Aug 2026 17:21:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786987286;
+	bh=R7Lllp4vVJ8fqvHwsgQuPrBPFRIPGg+6oa9PXQzwbYI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Vago+MCRlggEwf2jcvARLKxdi5CvF191RxYumnH105J2CsgZP4CPXHC4KPLkTcQum
+	 bhkqU7fADaDoknZSZFAODvQDPKGngUHOs8GQ1b0/gar1bjyVTHii0DMhSm6o9Yi7hQ
+	 HJmSahgUF7vDY5jzOS9f+pRvuOm5BPGBNIpvkO2s+q/g81cX/m0d2qVhrKwWk/9EyQ
+	 c88pPKxbXxDCdBU86l03N9QYjFfA1Ofj+w9xfgDUxiB0tklqGf6keYBMxQitCRaRXK
+	 eBc7m9ZVbY5B4/1lbSd28jyFV4HRjRaky0OqA4LikUAA06V+eDFoXiD5g4xn24nz4R
+	 YlvvJWyOuyyNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 7/8] iio: light: ltr501: Fix sorting order of device
+ arrays
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260817-liteon-ltr329-v5-7-6f71ab2b0588@geanix.com>
+References: <20260817-liteon-ltr329-v5-0-6f71ab2b0588@geanix.com>
+ <20260817-liteon-ltr329-v5-7-6f71ab2b0588@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 17:21:25 +0000
+Message-Id: <20260817172125.E7EE01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-mma8452-open-drain-v5-3-e34e872d7d57@geanix.com>
-References: <20260817-mma8452-open-drain-v5-0-e34e872d7d57@geanix.com>
-In-Reply-To: <20260817-mma8452-open-drain-v5-0-e34e872d7d57@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
- Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
-Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786987234; l=1389;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=aD1+TxIcp78KfszYueEmzVsPlop8UEkQflASuNmtvRA=;
- b=1MEEgwx3e5yZWDMXxikYEMBrwnExohPuHe4MpbJ6nx6kJEiYLCgBOMl3qRL9Sqb72s1WjjRgK
- /SHaTdCr1+yCnzf7wum9C/oLquQqGuLxZSXuPhucKXb7G4e+YhEWmis
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-Instead of unconditionally overriding the trigger type, it is better to
-only apply a default when no trigger type is set by firmware. This should
-be reasonably backward compatible, and should only potentially cause
-problems if systems exist where firmware specifies an incorrect trigger
-type. With a bit of luck, there are no such systems.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/iio/accel/mma8452.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Pre-existing issues:
+- [High] regmap_bulk_read and regmap_bulk_write are called with pointers to=
+ 32-bit integers, causing uninitialized memory reads and broken writes on b=
+ig-endian architectures.
+--
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index f645a5c6fd1c..1fb43c5b0b72 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -1683,9 +1683,16 @@ static int mma8452_probe(struct i2c_client *client)
- 		goto trigger_cleanup;
- 
- 	if (client->irq) {
-+		unsigned long irq_flags;
-+
-+		irq_flags = irq_get_trigger_type(client->irq);
-+		if (irq_flags == IRQ_TYPE_NONE) {
-+			dev_info(dev, "invalid irq type, setting default active low\n");
-+			irq_flags = IRQF_TRIGGER_LOW;
-+		}
-+		irq_flags |= IRQF_ONESHOT;
- 		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
--					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
--					   client->name, indio_dev);
-+					   irq_flags, client->name, indio_dev);
- 		if (ret)
- 			goto buffer_cleanup;
- 	}
+--- Patch [7]: [PATCH v5 7/8] iio: light: ltr501: Fix sorting order of devi=
+ce arrays ---
+commit f69f1a2e0acaf6c0331bd3c3b614102addd48332
+Author: Esben Haabendal <esben@geanix.com>
 
--- 
-2.55.0
+iio: light: ltr501: Fix sorting order of device arrays
 
+This commit reorders the device array initializations in the ltr501 driver
+to use alphanumerical sort order. This helps keep the elements in sync
+across different tables and reduces merge conflicts.
+
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 51ab387f24a32..d9b68da2452ba 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but does ltr501_read_thresh() leak uninitiali=
+zed
+kernel stack memory to userspace on big-endian systems?
+
+drivers/iio/light/ltr501.c:ltr501_read_thresh() {
+	...
+	int ret, thresh_data;
+
+	switch (chan->type) {
+	case IIO_INTENSITY:
+		switch (dir) {
+		case IIO_EV_DIR_RISING:
+			ret =3D regmap_bulk_read(data->regmap,
+					       LTR501_ALS_THRESH_UP,
+					       &thresh_data, 2);
+			if (ret < 0)
+				return ret;
+			*val =3D thresh_data & LTR501_ALS_THRESH_MASK;
+	...
+}
+
+Because regmap_bulk_read() reads only 2 bytes into the 32-bit int thresh_da=
+ta,
+the lower 16 bits remain uninitialized stack garbage on big-endian systems.
+Masking with LTR501_ALS_THRESH_MASK then discards the valid device data and
+exposes the uninitialized memory to userspace via the IIO sysfs interface.
+
+Similarly, could ltr501_write_thresh() also be writing 0 instead of the tar=
+get
+threshold on big-endian architectures?
+
+drivers/iio/light/ltr501.c:ltr501_write_thresh() {
+	...
+		case IIO_EV_DIR_RISING:
+			mutex_lock(&data->lock_als);
+			ret =3D regmap_bulk_write(data->regmap,
+						LTR501_ALS_THRESH_UP,
+						&val, 2);
+			mutex_unlock(&data->lock_als);
+			return ret;
+	...
+}
+
+Writing 2 bytes from a 32-bit int on big-endian systems writes the top
+2 bytes, which are likely 0, rather than the actual threshold value.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-liteon-ltr=
+329-v5-0-6f71ab2b0588@geanix.com?part=3D7
