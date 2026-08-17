@@ -1,255 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7333B42D7;
-	Mon, 17 Aug 2026 07:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27A5282F34;
+	Mon, 17 Aug 2026 07:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786950740; cv=none; b=NM0WMtmldXVH+2mP+9lkxOsOfM6oVjC6PdmzRd+9eCoP0iGqy3HoLbGQFYVnlejuaVDYLLL424joJDtf0WYDhLbJjDvwEDUdaCWAhgJk58aYEc21U3tNB6cEUku8ctPfR2e0xP5KzlrgQWgC96a/pMqKzCNp6+prNF3XnJb+CLU=
+	t=1786950803; cv=none; b=OOsxBkO60C5FUH26KC9RB8WfBvjESzPejipDT5ftvcjFwbd212yw40uoL08wZtFmrlf6eDez6XL3S+ZZScLg1wIhJx4dMlyP4NjfhgWkY435T/HqZf908fakkCefclmL+bbczbBi5nIACq/J5oy2hsmMaLQCrdZMx0piSgKu6do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786950740; c=relaxed/simple;
-	bh=aBZ1EFUyFJ6GTj4WNko3xlWYc+8GP2Kd+tMsF69ipKA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ckrbgC+inzbMe8Os2ImusG8Xe4y5qKBbeqyW3dj26Aci1FyUBwb3NTT9pSmgaFISxvpgECTnQaQvUZfYpJRmfHNUmTfYMu7WaITdC6MUzIfRUrpvHjG3Xn1FgUNtegJ9MRVu3PsWPa6G+dJhUQvlEoYLC0RCQsdTtNc/iebrpeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ixUV/d2x; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786950803; c=relaxed/simple;
+	bh=CuDMSjILBooHAbswi6D25Is5mfpufM6t6pZic0QGP5Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lBj4un8LNpVCnT5IpjUYFGbajIKoWe5NTv+meOKBpsoSaZbVqVCe10qA4V1g4UjS+y6Y8Icck9owKQEgfjpp9GbO4Ve/Sc22dkR1fUmTpDU0YjK3vGWldXNdIMlbAG0+kE23BjGuceEb8vQVNvlAwcbnOvP+ZwfMYf8ZrytcWVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nchVkzt7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ixUV/d2x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786950738; x=1818486738;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aBZ1EFUyFJ6GTj4WNko3xlWYc+8GP2Kd+tMsF69ipKA=;
-  b=ixUV/d2xgnfD/7ageDo8P/8aUUVLUHWfD5fEnQ7LCn0qPunf8XpzyXk4
-   V1BlzWs0c+PrdUG7rtBPCmOL8eW7rU+HHpR0HcbJczZN96UM8Eyfd9wIb
-   OY09Rsm/rjgFZQsJ0lwFGBQrv0i/F9rG4N32hKHeS3FVd1Y6ThfvUSl5G
-   DPdcZL8QpchFKvmruSI/Ct5bS3fqqYIyZ1TqNgSPVtIwant1p/chS2lFz
-   3oUuGzfZ9MEYKNOu9jA7E9lN+/lueYdX0Q+Xy8ubKIIhbQDoOUhNLSPtL
-   wIv14ePdJaCbHQWKqLYypAS+OwcgMCO0PqZ0v1jwB0z3uU23BVaHRePFC
-   A==;
-X-CSE-ConnectionGUID: R+HlkNg/QCqYeMxYLwfsrw==
-X-CSE-MsgGUID: f35SOh17Q1aLnLbX3z/99g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="91234126"
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
-   d="scan'208";a="91234126"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 00:12:17 -0700
-X-CSE-ConnectionGUID: 9EyRyIBdQNiyuCo+CL3vBg==
-X-CSE-MsgGUID: eYxy3WEGRLKpHa/dML7pgw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
-   d="scan'208";a="294754512"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 00:12:15 -0700
-Date: Mon, 17 Aug 2026 10:12:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kyle Hsieh <kylehsieh1995@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] iio: adc: ti-ads112c04: Add support for TI
- ADS112C04
-Message-ID: <aoK0TKBFZOM6A-c9@ashevche-desk.local>
-References: <20260813-ti-ads112c04-driver-v5-0-79dff9e249cd@gmail.com>
- <20260813-ti-ads112c04-driver-v5-2-79dff9e249cd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nchVkzt7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA241F000E9;
+	Mon, 17 Aug 2026 07:13:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786950801;
+	bh=H/t2thtyqCv2kiESP+whdnlUNHP7f/OGlGkn1NUoBMU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nchVkzt7VQ3uuhao50qAbHHI8oC82cb3b8qn/5/dpb3/K3TG5mjm/Hb7MzLDkORzd
+	 8M3ijT5Y9AjGf+kI9cHIu7BgYguWUEK7/JU5YuO4fJ4yWmHAkBhsMbAtHY3U2p1LcU
+	 +GCoYY+bbzYKwGTTgtJ9zRlCyK5XSb4B2DvEmr/QamUb64WvUi5/ICqGbCP0houBEu
+	 b9dPs0rpp3sRrd5SrHD4FE0RXI4blvfQyiMB6A3N2kUZA0VcyQ1X1qi38hBaSo7hdD
+	 TV5TfbC9MclWep5Expl7DbrbcCzbZNsyjCB0mnhwI+6bx8txTuhQuUx+HtM0uqNRyG
+	 gNkMf/wQZY50g==
+Message-ID: <c8fea13c-5b67-4ef5-beff-b10f3b3772e2@kernel.org>
+Date: Mon, 17 Aug 2026 09:13:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813-ti-ads112c04-driver-v5-2-79dff9e249cd@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
+ Gen5 DWC3 xHCI USB controller
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-usb@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260811051016.1655887-1-marek.vasut+renesas@mailbox.org>
+ <20260817-uakari-of-mysterious-nirvana-a1d0da@quoll>
+ <CAMuHMdXU0Z_VP7H3=KX1g7wowG1ZDi__nDgWRmquYxhLHKvd7A@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAMuHMdXU0Z_VP7H3=KX1g7wowG1ZDi__nDgWRmquYxhLHKvd7A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 13, 2026 at 11:06:03AM +0800, Kyle Hsieh wrote:
-> Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
-> delta-sigma ADCs.
+On 17/08/2026 09:06, Geert Uytterhoeven wrote:
+> On Mon, 17 Aug 2026 at 09:01, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>> On Tue, Aug 11, 2026 at 07:09:33AM +0200, Marek Vasut wrote:
+>>> The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
+>>> controller with glue logic wrapper around them. Document the glue
+>>> logic and DWC3 controller.
+>>>
+>>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > 
-> The driver implements:
-> - Single-shot conversions using the IIO raw read interface.
-> - Dynamic parsing of single-ended and differential channels from
->   device tree child nodes.
-> - Hardware interrupt support via the DRDY pin, falling back to
->   software polling if no IRQ is provided.
-> - Per-channel reference source selection (internal 2.048V, external
->   REFP/REFN, or AVDD) via the reference-sources device tree property.
->   refn-supply is not yet supported.
-> - Hardware reset via the reset controller framework, falling back to
->   the RESET command when no reset controller is present.
-
-...
-
-> +static int ads112c04_wait_for_data(struct ads112c04_state *st)
-> +{
-> +	int ret, err;
-> +	u8 val;
-> +
-> +	if (st->client->irq > 0) {
-> +		/* Timeout is 100ms (slowest data rate is 20 SPS) */
-> +		if (!wait_for_completion_timeout(&st->completion, msecs_to_jiffies(100)))
-> +			return -ETIMEDOUT;
-> +
-> +		return 0;
-> +	}
-> +
-> +	ret = read_poll_timeout(ads112c04_read_reg, err,
-> +				(err < 0 || (val & ADS112C04_CONF2_DRDY)),
-
-Better to split logically, also the outer parentheses are redundant.
-
-	ret = read_poll_timeout(ads112c04_read_reg,
-				err, err < 0 || (val & ADS112C04_CONF2_DRDY),
-
-> +				1 * USEC_PER_MSEC, 100 * USEC_PER_MSEC, false,
-> +				st->client, ADS112C04_REG_CONFIG2, &val);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	return ret;
-> +}
-
-...
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		switch (st->vref_source[idx]) {
-> +		case ADS112C04_VREF_SOURCE_EXTERNAL:
-> +			*val = st->ext_ref_mV;
-> +			break;
-> +		case ADS112C04_VREF_SOURCE_AVDD:
-> +			*val = st->avdd_mV;
-> +			break;
-> +		default:
-> +			*val = ADS112C04_INT_REF_mV;
-> +			break;
-> +		}
-> +		*val2 = 15;
-
-Seems like this being used in one of the above functions already. Perhaps you
-want a defined constant? (I haven't checked if that 15 and this one are
-semantically related, though.)
-
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-
-...
-
-With
-
-	const char *sp = "single-channel", *dp = "diff-channels";
-
-The below...
-
-> +		if (fwnode_property_present(child, "single-channel")) {
-> +			ret = fwnode_property_read_u32(child, "single-channel", &channel);
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "failed to read single-channel property\n");
-> +
-> +			if (channel > 3)
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "single-channel must be 0-3\n");
-> +
-> +			spec->channel = channel;
-> +			spec->address = ADS112C04_CONF0_MUX_AIN_SINGLE_BASE + channel;
-> +		} else if (fwnode_property_present(child, "diff-channels")) {
-> +			ret = fwnode_property_read_u32_array(child, "diff-channels",
-> +							     pair, ARRAY_SIZE(pair));
-
-+ array_size.h
-
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "failed to read diff-channels property\n");
-> +
-> +			if (pair[0] > 3 || pair[1] > 3)
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "diff-channels must be 0-3\n");
-> +
-> +			spec->channel = pair[0];
-> +			spec->channel2 = pair[1];
-> +			spec->differential = 1;
-> +
-> +			if (ads112c04_diff_mux[pair[0]][pair[1]] < 0)
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "invalid diff-channels combination\n");
-> +
-> +			spec->address = ads112c04_diff_mux[pair[0]][pair[1]];
-> +		} else {
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "channel node must have single-channel or diff-channels\n");
-> +		}
-
-...can be written as
-
-		if (fwnode_property_present(child, sp)) {
-			ret = fwnode_property_read_u32(child, sp, &channel);
-			if (ret)
-				return dev_err_probe(dev, ret, "failed to read %s property\n", sp);
-
-			if (channel > 3)
-				return dev_err_probe(dev, -EINVAL, "%s must be 0-3\n", sp);
-
-			spec->channel = channel;
-			spec->address = ADS112C04_CONF0_MUX_AIN_SINGLE_BASE + channel;
-		} else if (fwnode_property_present(child, dp)) {
-			ret = fwnode_property_read_u32_array(child, dp, pair, ARRAY_SIZE(pair));
-			if (ret)
-				return dev_err_probe(dev, ret, "failed to read %s property\n", dp);
-
-			if (pair[0] > 3 || pair[1] > 3)
-				return dev_err_probe(dev, -EINVAL, "%s must be 0-3\n", dp);
-
-			spec->channel = pair[0];
-			spec->channel2 = pair[1];
-			spec->differential = 1;
-
-			if (ads112c04_diff_mux[pair[0]][pair[1]] < 0)
-				return dev_err_probe(dev, -EINVAL, "invalid %s combination\n", dp);
-
-			spec->address = ads112c04_diff_mux[pair[0]][pair[1]];
-		} else {
-			return dev_err_probe(dev, -EINVAL,
-					     "channel node must have %s or %s\n", sp, dp);
-		}
-
-(but it also makes sense to check with bloat-o-meter to see how much code is
- added and how much data space is saved).
-
-...
-
-> +	/* Datasheet: POR releases ~500us after supplies are stable */
-> +	fsleep(500);
-> +
-> +	reset = devm_reset_control_get_optional_exclusive(dev, NULL);
-> +	if (IS_ERR(reset))
-> +		return dev_err_probe(dev, PTR_ERR(reset), "failed to get reset\n");
-> +
-> +	if (reset) {
-> +		ret = reset_control_reset(reset);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to reset device\n");
-> +	} else {
-> +		ret = ads112c04_write_cmd(client, ADS112C04_CMD_RESET);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-Also a comment here?
-
-> +	fsleep(1 * USEC_PER_MSEC);
-
--- 
-With Best Regards,
-Andy Shevchenko
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+> 
+>>> +  dr_mode:
+>>
+>> We don't accept properties with underscores, unless this is coming from
+>> existing schema but I do not see snps,dwc referenced in the binding.
+>>
+>>> +    enum: [ host, otg, peripheral ]
+> 
+> Probably this should just reference usb/usb-drd.yaml instead of
+> defining it itselves.
+If this is DWC, why isn't it referencing snps,dwc-common?
 
 
+Best regards,
+Krzysztof
