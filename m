@@ -1,98 +1,124 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1253AFD16
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 10:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A13E3B42FE;
+	Mon, 17 Aug 2026 10:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786962792; cv=none; b=ULZKB0Oj8EAM47n+2gDtAeEOjGK4ULr+JE6hqpFHMk5yN6aRUWdUWlX7iEt9RgfmXfhwwk/suNwFoVmx2xAQhFghGfJrSUnHgoKz+oCKG5/0RSxVT0DZAIx0K1Hh+jXVL+u1xOXXep2mh/widBmVfhJvaoj2SyWowKkMuFx5ziU=
+	t=1786962836; cv=none; b=Gwcvpme0Dzw85fMgJ4d6TlvmC+5qamcUKqPmAHdYu9CFb2DAG9unwX0EXhwfjH2BK5Kw7+bNeSFmTnh+IJ/0TvFxaNBx60uRMGwTJ9MEfie0OLRGadFgwZr7GVOSX0o2GOdtevk57nN9kYIG21UdSGOEfROTFR77rddkMoCvh70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786962792; c=relaxed/simple;
-	bh=3rNfovr5pupfVULO6YYnsFxMI5Lw1eUwZXiNstFY2Uc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tLMO1Hh0HaxFM75jCEsMdv2T8N1TRMsA16XKOcIRt+uxw99Jvquv0kvPx2L4niyMy6xwJ+wFzsNNVWNMbCfzBYk8pAlCtK6rKBbDlkJUkBST+caeolRdiy/1eSpCP+PPUrMd/+quv/H9gfPLjvqGb17k77rt0c0bKB/gbS4pVnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Y/j/QQkl; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1786962836; c=relaxed/simple;
+	bh=VxFnHyf+IwaWeGaerXm4MvCoawlmUUDKLcThoZ4Oq/M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=U4TmRnggcMGu2sIVAcimqzw56o9is74ASbbAgONjJMFvAAFe8Cn8ubWGXW7vM7M16fmv5urKxKzeRg9jp/Mk0K/R+AF8F1imhFGdAT+3sv99wcrFheb77SSwgcXkoFVYAdRNHtD/wuHxrKcqi3lSjokcwkcKfQSlFhJgxuEUTQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMkMjp6Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Y/j/QQkl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=ilNVJ5Md0l9XhX
-	m/UHssEnmTTeO9Le/v9Ji+rHHM2Z0=; b=Y/j/QQkly8rA4rGmRuVEHDhvqBckpt
-	Lew3JgOurhpte03u8fkHtJokbCn5mfPC9rqcwxdB5s5jPE742R2Qyi0ntcuXAFhY
-	9306xTCORE044THo0VMEpTbHPc9CFzLl5n2Xi5WOA6vY1/Rw2YLVRahhDakLi3sP
-	cW7cKI+wt5F/YbpZogYwU6HCOO0PHlVqcfVH7+NBectogP44is0KVlUMiER+X/72
-	jDIM2UoPWdDvEadguitSvsTGIse0mHqn+l7QSOGPsxMt5mGEOdQZUunLAQEBG9FF
-	2Ayf3ZKhOTZ3PoGDV/pBq5BE+Y7PmrP9pa/ldBi16VaBeIHIi/0JsDwg==
-Received: (qmail 3424423 invoked from network); 17 Aug 2026 12:33:06 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Aug 2026 12:33:06 +0200
-X-UD-Smtp-Session: l3s3148p1@mw0fsjtZsugujnve
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v3] ARM: dts: renesas: r9a06g032-rzn1d400-eb: enable GPIOs on CN12
-Date: Mon, 17 Aug 2026 12:30:28 +0200
-Message-ID: <20260817103255.49565-2-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMkMjp6Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB64F1F000E9;
+	Mon, 17 Aug 2026 10:33:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786962835;
+	bh=7TlM06sAb4WjxZZCeTjHrnETa6FNG1wvd8/cAqEW3QM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FMkMjp6QiczlWgFdfIURdEgMDIeS4rxYYll6BGG7iNjc/JpbGKw4qGDTeEYDQzqxw
+	 8VeO250gK8491im88/v6y3adYQbR7hgj4okBpMr0taNdfLVRYyf6zhlvWiWOBIJeFb
+	 PG66SYnITBv4PARFXI9SXGkss4oqAgXcMxw3+R0aFGvjiHzAJR+tR6FmU2iBjrex7I
+	 QyfW9qNGASh35u0Vk68I5BLbX9Y0rEjQ9XECQDmRglN4tb0XCx0zfwF1YZaWOJGlgU
+	 vjNxEg5aU6KELHxHnL4vuPde50VbRjM+F0Mv5g94nbToQn5Rd204wjffetdp7b70N0
+	 ZwJI1g1lclTdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
+ compatible data
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aiden Isik" <aidenisik@member.fsf.org>
+Cc: conor+dt@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260817-for-next-lucky7-watchdog-v1-2-a14370e20b92@member.fsf.org>
+References: <20260817-for-next-lucky7-watchdog-v1-0-a14370e20b92@member.fsf.org>
+ <20260817-for-next-lucky7-watchdog-v1-2-a14370e20b92@member.fsf.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 10:33:54 +0000
+Message-Id: <20260817103354.BB64F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-CN12 offers some GPIOs independently of switch settings. Add the nodes.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `drv_data_exynos5515` variant declares `QUIRK_HAS_PMU_AUTO_DIS=
+ABLE` but fails to initialize `.disable_reg`, causing unintentional writes =
+to PMU offset 0x0000.
+- [High] The `drv_data_exynos5515` variant uses an 'INT_EN' register for ma=
+sking watchdog reset, but omits the `.mask_reset_inv =3D true` flag, invert=
+ing the WDT reset mask logic.
+- [Medium] Incorrect use of an Exynos Auto v920 register macro (`EXYNOSAUTO=
+V920_CLUSTER0_NONCPU_INT_EN`) in an Exynos 5515 variant.
+--
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
+--- Patch [2]: [PATCH 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compat=
+ible data ---
+commit dcaab4881777bc5f5ce1a532adad7c17046164a8
+Author: Aiden Isik <aidenisik@member.fsf.org>
 
-Changes since v2:
-* dropped patch 1 because Geert already queued it
-* renamed pin node to 'cn12'
-* rely on default pin-bias and drive-strength
+watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
 
- .../arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+This commit adds driver data and a compatible string for the Exynos5515
+SoC's watchdog timer.
 
-diff --git a/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts b/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
-index 303b5926d8d1..eb7295504715 100644
---- a/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
-+++ b/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
-@@ -53,6 +53,11 @@ led@1 {
- 	};
- };
- 
-+&gpio2b {
-+	pinctrl-0 = <&pins_cn12>;
-+	pinctrl-names = "default";
-+};
-+
- &i2c2 {
- 	/* Sensors are different across revisions. All are LM75B compatible */
- 	sensor@49 {
-@@ -81,6 +86,15 @@ &pci_usb {
- };
- 
- &pinctrl {
-+	pins_cn12: pins-cn12 {
-+		pinmux = <RZN1_PINMUX(164, RZN1_FUNC_GPIO)>,
-+			 <RZN1_PINMUX(165, RZN1_FUNC_GPIO)>,
-+			 <RZN1_PINMUX(166, RZN1_FUNC_GPIO)>,
-+			 <RZN1_PINMUX(167, RZN1_FUNC_GPIO)>,
-+			 <RZN1_PINMUX(168, RZN1_FUNC_GPIO)>,
-+			 <RZN1_PINMUX(169, RZN1_FUNC_GPIO)>;
-+	};
-+
- 	pins_eth0: pins-eth0 {
- 		pinmux = <RZN1_PINMUX(0, RZN1_FUNC_CLK_ETH_MII_RGMII_RMII)>,
- 			 <RZN1_PINMUX(1, RZN1_FUNC_CLK_ETH_MII_RGMII_RMII)>,
--- 
-2.47.3
+> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wd=
+t.c
+> index e31f93db05096..7299dfdb0c099 100644
+> --- a/drivers/watchdog/s3c2410_wdt.c
+> +++ b/drivers/watchdog/s3c2410_wdt.c
 
+[ ... ]
+
+> @@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv_data_exy=
+nos5420 =3D {
+>  		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
+>  };
+> =20
+> +static const struct s3c2410_wdt_variant drv_data_exynos5515 =3D {
+> +	.mask_reset_reg =3D EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
+
+[Severity: Medium]
+Is this intentionally using an Exynos Auto v920 register macro for an
+Exynos 5515 variant, or could this be a copy-paste error?
+
+[Severity: High]
+Since this variant uses an INT_EN register for masking the reset, should
+the .mask_reset_inv =3D true flag be set here?
+
+Without the inversion flag, the bitwise masking logic in
+s3c2410wdt_mask_wdt_reset() evaluates to (mask ^ false). For INT_EN
+registers, this typically writes 1 when intending to mask the reset, and 0
+when intending to unmask it, effectively inverting the logic.
+
+> +	.mask_bit =3D 2,
+> +	.rst_stat_reg =3D EXYNOS5_RST_STAT_REG_OFFSET,
+> +	.rst_stat_bit =3D 24,
+> +	.quirks =3D QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
+> +		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE | \
+> +		  QUIRK_HAS_DBGACK_BIT,
+> +};
+
+[Severity: High]
+Will this cause unintentional writes to offset 0x0000 of the PMU regmap?
+
+This variant declares QUIRK_HAS_PMU_AUTO_DISABLE but omits .disable_reg.
+Since struct fields default to zero, when s3c2410wdt_enable() checks for
+this quirk and calls s3c2410wdt_disable_wdt_reset() during driver probe:
+
+s3c2410wdt_disable_wdt_reset()
+    regmap_update_bits(wdt->pmureg, wdt->drv_data->disable_reg, mask_val, v=
+al);
+
+regmap_update_bits() will blindly write to offset 0x0000.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next-l=
+ucky7-watchdog-v1-0-a14370e20b92@member.fsf.org?part=3D2
