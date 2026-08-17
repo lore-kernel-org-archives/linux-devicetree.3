@@ -1,89 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B334B04AF
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 20:34:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD538190462;
+	Mon, 17 Aug 2026 20:47:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786998876; cv=none; b=FAeOAXA7EEcJ2Y0Je/ZG3D0BoQD+mmh0BIGC+9Ps9CQ5dG4v8qn9l8CWtbJXW7RwQOSIxRVV4D409Gh6n/E3YL3KLH6Dyba9c4xhLDBhhbmDNjIJ0QMwzRIsOlwZVzAR43ncCEiJgFULQ9pkn5nwmRe2zx7whFbfnT+H9QRZ9kk=
+	t=1786999650; cv=none; b=nnAfeXbq9AGYUI978bxZM9AdnBCMwjS0izEZosNXq+/y9GABorBBrCtDF1m5ahTjvwZu+f2shhHcDlnEmx5rSW++1vtTAdGfvSYqprYhtaG0MYUEPhyiz+xsnNAi1zkc5Pfq6FFA9L5p1JiP4y8eU7z+mlloXDEwzClMHLf7xHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786998876; c=relaxed/simple;
-	bh=UxAEYKesjKOYxvzdaF+Ryvlpd22NgqlLNvWUfKIUjYs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YAOsov9naEh27x/5jkYWwG5hvGA7Q1opML50aGg/FqY3CABtwAnP92e+ZvVd0Y7hMQfR3OBC0a9Fl95v1nHjAOSy2qZkbx+AW/jrY0eXFuTdJhgIWkS5sKR4W4hLe1dM4ItYPZieO5jF68vrVam+rS1OpPMPHDDQiDU98BBBf5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMw59CKp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786999650; c=relaxed/simple;
+	bh=wmSs3CCifD0QB0lPTo8IT3YQIqPTm8qL1DRJOY126R0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pZlKKVXF4vnHF/o8tNiLPHOblge6MhzYZJshdx8NXTN0YpPaCHS4mepbKB40k8u4tVMCwSgiwsoMFrlTNvH3BMbkoojgbKjqm3u8e+aiU467OiHbie8CRjA2QDlvq9ifNvhfn8pHvaRfr4j/8ADQvZ3hPRIXAh2RucVJRUoiuAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FL0z2pUn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMw59CKp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF8A1F000E9;
-	Mon, 17 Aug 2026 20:34:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FL0z2pUn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910901F000E9;
+	Mon, 17 Aug 2026 20:47:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786998874;
-	bh=7lA3sg9Ze5Hg1p9KNTE2Wkxzq7TpBw3xISkEF/MJsew=;
-	h=From:Date:Subject:To:Cc;
-	b=UMw59CKpg6oLomoZj9QSbzg3q4Z+FROT8CjN0hS773aDFHCKG/936vJLX1t2zWcQB
-	 ZqdvBK3Z5lOM9uKdTYZl3AwuK1gelGw5Ml7TfoCwpfzxz6JcARzz2Xd7QaSDaOqFYs
-	 9ZKYD+VPKbcRpC6bUs7cHvgdRwUCLrr37rvE5YdjaTzTf3B7uLal+3JPjz+le8Pkhq
-	 qPmDnqMbsQ2XHVH9/lLEfpstoZXrfz7GLOMXF0+Db9r673GwgJiIdIuORy1mO0ZEAN
-	 qbviu0rEE5koDYP9aTWkl9kPZ9RPDQDQISNI8wCsQEN7+I22QNRVrUuDM4FubXelnd
-	 NEeXMqwhgYHnw==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 17 Aug 2026 22:34:31 +0200
-Subject: [PATCH] ARM: dts: ux500: Make panel regulators have unique names
+	s=k20260515; t=1786999649;
+	bh=111cZwE+fIsihcrOn87KAVC+gmNsgNFaiu9bx9gzA6c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FL0z2pUnciX4/Rv9iwWhFcb2vERfUR1zoJ8VQv1oWRemL7hekh9TWUinYS67I7TqN
+	 RlQRH3t/1/0njxFN0sL0e0S56NAmnj6JwcipGbfE5sv9zWwxQyWA0SH/mEbb4fuqmh
+	 7Xz1AHU6cYORwQULXlq+2x8bMt0eo3YqTDPn7I19Ajg+DgwB19B0L8E3TbP3m2szIH
+	 1l7+129bQJNtPWJGJOUinh9MHY2jp0u6cX5f/wp2ubcd0jT63meYaz6iz/efakqDRU
+	 +/Dxc38W25cd6Jy2JNSTQGv3kZbaXagWuC2ThDnwjwBBo7eDIrgdhs6+AFkrcsfBuj
+	 7j7a6isGz0/0Q==
+Date: Mon, 17 Aug 2026 13:47:27 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Lorenzo Bianconi
+ <lorenzo@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>, Nathan
+ Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH v14 00/12] net: pcs: Introduce support for fwnode PCS
+Message-ID: <20260817134727.1f76d6dd@kernel.org>
+In-Reply-To: <20260813083536.970196-1-ansuelsmth@gmail.com>
+References: <20260813083536.970196-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-ux500-dts-fixes-v1-1-24379c6c2495@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3LQQqAIBBA0avErBsww6iuEi1Mx5pNhVMhSHdPW
- j4+P4NQZBIYqwyRHhY+9oKmrsBtdl8J2ReDVrpTfdPhnYxS6C/BwIkEnR/aYPXih95Auc5Ifyj
- TNL/vB9r52O1hAAAA
-X-Change-ID: 20260816-ux500-dts-fixes-cd93fa2bd985
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.14.3
 
-U-Boot is not happy about regulators with the same name though
-Linux can deal with it. Make the names unique, it's more elegant.
+On Thu, 13 Aug 2026 10:35:05 +0200 Christian Marangi wrote:
+> This series introduce a most awaited feature that is correctly
+> provide PCS with fwnode without having to use specific export symbol
+> and additional handling of PCS in phylink.
+> 
+> At times there were 2 different implementation (this and the one
+> from Sean) but Sean agreed that this can be picked and used in favor
+> of his implementation as long as his case with race condition is
+> correctly handled.
 
-Link: https://lore.kernel.org/u-boot/20260817-ux500-external-sdcard-v2-8-ca9a110bd9c6@kernel.org/
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- arch/arm/boot/dts/st/ste-ux500-samsung-golden.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Coccicheck says:
 
-diff --git a/arch/arm/boot/dts/st/ste-ux500-samsung-golden.dts b/arch/arm/boot/dts/st/ste-ux500-samsung-golden.dts
-index f736888474e7..d4f364ec8685 100644
---- a/arch/arm/boot/dts/st/ste-ux500-samsung-golden.dts
-+++ b/arch/arm/boot/dts/st/ste-ux500-samsung-golden.dts
-@@ -510,7 +510,7 @@ wl_reg_on: regulator-wl-reg-on {
- 	panel_reg_1v8: regulator-panel-1v8 {
- 		compatible = "regulator-fixed";
- 
--		regulator-name = "panel-fixed-supply";
-+		regulator-name = "panel-fixed-supply-1v8";
- 		regulator-min-microvolt = <1800000>;
- 		regulator-max-microvolt = <1800000>;
- 		/* GPIO219 */
-@@ -527,7 +527,7 @@ panel_reg_1v8: regulator-panel-1v8 {
- 	panel_reg_3v0: regulator-panel-3v0 {
- 		compatible = "regulator-fixed";
- 
--		regulator-name = "panel-fixed-supply";
-+		regulator-name = "panel-fixed-supply-3v0";
- 		regulator-min-microvolt = <3000000>;
- 		regulator-max-microvolt = <3000000>;
- 		/* GPIO219 */
+  drivers/net/phy/phylink.c:1039:31-34:
+    ERROR: invalid reference to the index variable of the iterator on line 1028
 
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260816-ux500-dts-fixes-cd93fa2bd985
+  drivers/net/phy/phylink.c:1364:26-29:
+    ERROR: invalid reference to the index variable of the iterator on line 1346
 
-Best regards,
--- 
-Linus Walleij <linusw@kernel.org>
+  drivers/net/phy/phylink.c:582:7-10:
+    ERROR: invalid reference to the index variable of the iterator on line 569
 
+I vaguely recall that you're supposed to make a copy of the pointer,
+not just add a "found" boolean. Dunno if it ever happened but Linus
+was trying to make the list iterators override the pointer on exit.
