@@ -1,179 +1,104 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682883E5EFF
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 10:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDC13B42EB;
+	Mon, 17 Aug 2026 10:11:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786961415; cv=none; b=u0iVwaMEuKGYEv1OFOUw0y0rWHEBhx3IILhqE0YipgSoaEoOr80bLkRvIL65c0D+SFG7+Zqr8t6BP++VWgk6+JK5LLEg3tgFIy33u+583+hPnBMprf03CIteiBWbMD7r7KDYvvPvRpqntMpwXjnN3FEBmr0TWm28RjvBLse/k/s=
+	t=1786961513; cv=none; b=FjyQiyePeATlVEVlsE/mFDKM0ilnmGhv2tL79mziTz5/pJjnXP/7HoeB9bLKPgONV2+CreQ+V+jU8xfUZoKQZOj2PNSkSr2qjIHSjFYEHAKfvsm5eXCs0PmI351RQfe3GwsT+1iXqQiZR6+yP7k6EExFGcWdghvqdG4FUlMkIYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786961415; c=relaxed/simple;
-	bh=PXKornFVwrBcU2Lga6F6qWmZ3Mfa8hGxhZhpGMlEL6k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pAfSTQvsXdzkGz/D71qLya9QhqmWYwr6u7ny16YFLM2ufU0iBtPdU1k01w1YhuOf0ig7LpZ+YEcKsXYA2Xy59kD3AQX3ltql6auOis8kY/vZ2q0d6b8bhxX0nbgtEjZfCe6JHjQ2X0ngB/8tXzclr9orIAqoKfwRs/PWpmh/lZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H+7jE7qN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y36TAQ6R; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786961513; c=relaxed/simple;
+	bh=4BT3wReVud7paq/C8AM2mroK6B+4UOxeIb3XhjRWBcU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sOmTs/ohmvB3sg+BR+CCbk8WIJbJdX2+H7/EuU3uEzz3LDpqpoJk43eKFZt5iDanbayuPM3AE9yqleK6DxuZv5QsW9zoJogNBVxaKsYGNbD7hZsd8YvFbeLlx6TYwxhfGV8XLh2rmLcj4EC7H2SnYpv+Xgn17DnGK4UTz+ipa8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qo3M9Shs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H+7jE7qN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y36TAQ6R"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67H9ddA32990901
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 10:10:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ex/ykygugk0kc4LSuslqcCHUuqM9PPf6/YICWJevc5A=; b=H+7jE7qNxbcsi0y7
-	3XYo0EshCKE5N4M/jOYHJIKE3CYfav7/FIsbWBJD29HcQ2NUz6/hpEIZbkvLJwSv
-	x8wy4dOEYt3mGqweWCM5dOeORY6m04MtFgQjfaUo3lJcHpn2IRNIZqYnI53S6xGL
-	wuCWswD27tECYgjt9/RgKLMyLp0+1OQoO21Fdj1H4bJnpARyuqRVV9bgYmwWtVK7
-	+uWV0wDf2LVox2o4ZzjtncRToMrmogHO/1SG9K/OG+ifgdTjx9KZwzsrZhmS1d41
-	GozqwoKgk5ECTTgVmgSMctB559wBES6Ox4MpiVE+QlDqOvXrwPhkhEI4my3D3X2x
-	AVw22A==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3y7kr982-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 10:10:12 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51bfa45b280so8224501cf.3
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 03:10:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786961411; x=1787566211; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ex/ykygugk0kc4LSuslqcCHUuqM9PPf6/YICWJevc5A=;
-        b=Y36TAQ6RAl2p27dY9TFSLCMm5fe7s6RZ7u/yoYNLcxs2kg93Yo5kE8l4yi1RfkiOVj
-         LX10p29OwMd/yrxp+NtXZxYVlXdUPmq2ZDG9OgEplBmRZcRrqtkq7Hp5KgA75sXXLrtX
-         ++4xhem+u6mKPh6V3w4i1N70lccFkK1tMPcUGcG6x3Oz8jbUdblQDFHzdVL8d6hVl8gM
-         actm0B4kIvkAm/3Q8Vl0isaiRCz4E/a8hlAtMh57XGWfLbyZpi/UeLLcpSsDAH9pfAI7
-         al+h60w9O1c18rIupI4lI+quRbw792d/Wuq2riYxgWFlG2E50dV3Sf82MsPPEDfamvsn
-         YxTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786961411; x=1787566211;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ex/ykygugk0kc4LSuslqcCHUuqM9PPf6/YICWJevc5A=;
-        b=apAcmfmmGFz/e3HB4OMuazIlz8lUFFq3c74kWEwcxBaFkxY9ArE0kaiWq0Mno8aPDd
-         1Q32pqvq2F+npRTHpuny/Qm5r9mK/d3jGmnbI+Rm39x93BCM95oCveJDg0cESm0tNUHd
-         gnHm2+4QE7TJeXwPgPyIo6epBXQJH78DFA+973YvsRrvsnuK4peFu/Qg9S6vPT8kgw5Q
-         T+khUvsGsTcHkHqz1haO65XexVml6f91enDohiwHP01eS/vpiy8VW8QSCw3JVAqJ22i8
-         mL9DTrc64VJ0DHa4J7Ab33lxfyBRQtY/hIVx6hU197LDHWnFNuaE+DjzNipo69m3FRqX
-         6DZg==
-X-Forwarded-Encrypted: i=1; AHgh+RqD+Shc167Z3BJj4I+nlvTLjyteS0RKMzCojEwaEFwPJmL+s71T+csNTbyJPNiJ9Z9REe+gPnswh6gd@vger.kernel.org
-X-Gm-Message-State: AOJu0YxMJdQAW1LyIM3ksPo8tK5AtNf3Yve/RUQx95DLA/1eW/hzo2gG
-	TBLutU7Kb8PvyF0/QtBnxYdRqs3bczmTn/N0+ZfinqE+mBDDlvtiiv/a2li0VIrFEdWI1PwlbJ6
-	CRIRrr5myGyppTj9lHIEwSNVHo4X8NnP/818t7+/yGTHJrkSyOmloZB6q9QDLcYz4
-X-Gm-Gg: AR+sD10BgBeyP5+tSDq9hEmXLkBq5TZ8tbXxUsvUudH0UDl7aGJmwt4m+SfmVEgguM7
-	a/Eg+6ruPQ+V8odjZdR70seKSUr9JBuhP3Ehw+p83U+qSe7nr4lLzYNWI2L6qnCqz3Ggp4diLnr
-	OqAbVsVHrOr+71+8dDoWO4Ve5m0WQGxSikVgttblVK5Easf8x0teLMGrSLLeXhykKKrwpyR7tiM
-	+6vuv8M7OKXuSIBbNZ2YCc9GFYNWLXZcahEnnWJ/Bb/pPIy5L1yt3iaSIFneLY1zWW/pHiVHn20
-	x2bLbc7mwEOVzV9H8fLhz+VLxwh0UqJkXMsSiNuJn8fbTB9cZjW3rqmMAXo3ghiPf0pEYVf08dG
-	QM87RdCgl5fqYpHW8pEqm2guM
-X-Received: by 2002:a05:622a:607:b0:51b:eab3:4ef1 with SMTP id d75a77b69052e-52d85492841mr174087481cf.4.1786961411614;
-        Mon, 17 Aug 2026 03:10:11 -0700 (PDT)
-X-Received: by 2002:a05:622a:607:b0:51b:eab3:4ef1 with SMTP id d75a77b69052e-52d85492841mr174087061cf.4.1786961411210;
-        Mon, 17 Aug 2026 03:10:11 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185b73be8sm1529566b.35.2026.08.17.03.10.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Aug 2026 03:10:10 -0700 (PDT)
-Message-ID: <3df2f139-bc7a-403f-bece-7e820b202bd1@oss.qualcomm.com>
-Date: Mon, 17 Aug 2026 12:10:06 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qo3M9Shs"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2439DC4AF0B;
+	Mon, 17 Aug 2026 10:11:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786961513;
+	bh=4BT3wReVud7paq/C8AM2mroK6B+4UOxeIb3XhjRWBcU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=qo3M9ShsjTqWnHo0rmC2ac0d7qMrZwQyCqolAMmhBFUBHJuBZTMayzr+YwiXRuAqQ
+	 uyAk+8hHWmwsCXXyB8OSV0ZvL32ZFs8SIyDHkgBvr4gz+LkIjFBZileKKmocSgpLLz
+	 RNQGAfacn4Vcc3Eb2hWBMZD/2JSqwokpOCSK8zKMsvFDxUDPdfhWezYCPm1wig4V/N
+	 fBtqeea6Eb54e59E8GktOMep9ztNVWerMEh2Gngj+YET3Qc44HWiH0Nq22dwDTnAIJ
+	 XKc6byiJe+F1zRaY0KGd99rAnFZZwaRBPxAB6iyQ6qlOmU5gBxohh5a523TI3wkIc2
+	 4ftbiDStqvDpg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF7AFC5DF66;
+	Mon, 17 Aug 2026 10:11:52 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Mon, 17 Aug 2026 11:11:45 +0100
+Subject: [PATCH 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Add
+ exynos5515 compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] clk: qcom: gcc-glymur: Tie the CX power domain to
- controller
-To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Maulik Shah <maulik.shah@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Brian Masney <bmasney@redhat.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Qiang Yu <qiang.yu@oss.qualcomm.com>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>
-References: <20260715-glymur-fix-gcc-cx-scaling-v3-0-72eb5adad156@oss.qualcomm.com>
- <9a3b9b76-abb0-47a5-ada6-cd0a576b0782@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <9a3b9b76-abb0-47a5-ada6-cd0a576b0782@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ld9AkEx-saLhSE29_QKOkGVABVlrY58Z
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDA3NSBTYWx0ZWRfX7hS1VAgLa+qL
- g4v2dgWIdA2mbHev1rpuOB0ApVXYe4+1KMw2nswm2ZH5N6Yv//Bytpt1HQWfhEgTbgb05ymQNLF
- HcS/2/455IV/JN+IP5eZr7+7X8rNn6M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDA3NSBTYWx0ZWRfXyFlx3NJRH7Vt
- 9xpj7ND1lfCf5yqsPy9ArMrxw8Bx3dOVYA/wVM4iNKxwkwBIaJos/01v7ai9iHnFemoXk6Kki6Y
- kx3zp05IJuBsWLT1kXOIFNh3/fUwY0e6DhhXmgCybtSYKDZLwevTa11W3QP1vzEhGkXrPmMw3rv
- kD8SY74khcLiRM78WNyGCEQAiQZ3yuqd1ZLbrA6LO3d2e+XrKJORH/olz2mec6K9l0qftGtyFyV
- aUGgNWl6tcFgC7S5RMZbo4dIaLL7MX9xgvGDavU48nFxfGxSBN7aaaS0rStGGJwbWvwj2ZjvO/1
- ti3/HfLR/i75Ap2TxWfN2k6d0Eks1Dcsy80Ui+sT+L/EVR6tOt+Rz5ewYR883HYoShKCmT+IRzL
- 5NEqv9yBDqCOwuy7uR9ZGAL5U6Oz77a0Ihv88lnCF3KrNezY4GWrj7cwArP7Gx25Secxjcfjyvj
- s6/1kVpLBzG6TeGP3TA==
-X-Authority-Analysis: v=2.4 cv=HYEkiCE8 c=1 sm=1 tr=0 ts=6a82de04 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tezwY-nLf034Pw0hkCEA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: ld9AkEx-saLhSE29_QKOkGVABVlrY58Z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-16_06,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0 malwarescore=0
- spamscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170075
+Message-Id: <20260817-for-next-lucky7-chipid-v1-1-eb2908705c0d@member.fsf.org>
+References: <20260817-for-next-lucky7-chipid-v1-0-eb2908705c0d@member.fsf.org>
+In-Reply-To: <20260817-for-next-lucky7-chipid-v1-0-eb2908705c0d@member.fsf.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aiden Isik <aidenisik+git@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=988;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=hUaCkbXQ1RBFtTTvTYjy4eDCVoUbzRmKtjuVRA9mUXM=;
+ b=owEBbQKS/ZANAwAIAUknAbLEetfrAcsmYgBqgt5jkx/YJfij00M3AsajFuiiQufxxlNIUhO5B
+ 2rogze8zYOJAjMEAAEIAB0WIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCaoLeYwAKCRBJJwGyxHrX
+ 6yxQD/9adPT9ewJaf9AkH/g44DwUGM2J5G3jZvfUYpOKlwE5WLJkZM6/TEGquCQWv2+E8oUva35
+ sXNRq/rIWbH83P1kdbqyXjwjJO86Aum8y7X8nAvKzUsTNxYWVRfgXdXKLV+e7oOOYHVYhmshnIV
+ MIXYYs5l8upc/b0sGSNai4/A6Rn0NNwz0dI6j3ryUVuIDUi3JpZAihohBgP2xDzhhFcBGiGZDen
+ wNjXEObLkUZQKigmtrWeLKimlM86U07wvU2sKMbuOQEi7ganK9xLBDDqy5v5gQHNVa98HpVqF+h
+ 6q8UOX8kcpbI8LHJucFM4DjMr86G/9CuzcBqagPvNbSDvl/yavcVr4v0mbjZRkW9yNiS7oeBTi5
+ hhhgHqPnWyLl0fKI+9Jw7eDbm+9LdvFwI2i91V6nOo8Vy/KCrheoh0PMjiqZ12FqKaVSQnXbkgy
+ 5BfdbH6fvCXxvcTnPz5P6Zi6VfgN8hLTGCrE5E8W+Iy7FzFwfy135cPrJn9ki/JqF9MbXpDNh6X
+ kRJ5qHhKXlw4GldST5EsEjkdwF6sGa0vcA/tv+BxA1zkiJZ4yH0LFpwLBh49xcPD2y8T32Xfy6L
+ fIAOt+XgRPzIfLJ/1Z6iuMEYV/rm/ZiLi17HdVH9YcHhOTtbXQEkgIyOEXAVmDAi9enueEcnZEH
+ H9US7yyj+77mlPg==
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
 
-On 8/14/26 8:30 AM, Pankaj Patil wrote:
-> On 7/15/2026 6:59 PM, Abel Vesa wrote:
->> The suggestion of having the CX power domain tied up to the GCC
->> controller started here:
->>
->> https://lore.kernel.org/lkml/fe210f0b-692b-4c45-afc4-fc2bc5e57854@oss.qualcomm.com/
->>
->> and then, for Glymur, it has been brought up here as well:
->>
->> https://lore.kernel.org/all/0248dc51-1036-426c-b1de-dbc71696e2c1@oss.qualcomm.com/
->>
->> These plus a discussion off-list led to this patchset being done.
->>
-> 
-> This series prevents cx collapse during suspend on recent linux-next tag: next-20260806
-> Reproducible on latest tag next-20260813 as well
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-Yes and the ""fix"" is to disable the GPU nodes because the custom
-runtime pm dance done in the gxclkctl driver keeps a vote online
+Add "samsung,exynos5515-chipid" compatible string to binding document.
+Use the "samsung,exynos850-chipid" compatible, as it is the same on that
+SoC as exynos5515.
 
-That should be fixed instead
+Signed-off-by: Aiden Isik <aidenisik+git@member.fsf.org>
+---
+ Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-FWIW ath12k is causing some issues for me in this regard too..
+diff --git a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
+index b9cdfe52b62f..619faf33214b 100644
+--- a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
++++ b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
+@@ -25,6 +25,7 @@ properties:
+       - items:
+           - enum:
+               - samsung,exynos2200-chipid
++              - samsung,exynos5515-chipid
+               - samsung,exynos7885-chipid
+               - samsung,exynos8895-chipid
+               - samsung,exynos9610-chipid
 
-Konrad
+-- 
+2.54.0
+
+
