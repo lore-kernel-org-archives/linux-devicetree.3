@@ -1,138 +1,113 @@
-Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAFE3F926B
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76A63F4DC3;
+	Mon, 17 Aug 2026 11:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786964951; cv=none; b=gZj/7IY3YRytYwMoMPGsez2a8SmOTZS6mYINce3Gn7chGrm59ZmMpxPKjIj4Ne6s/PWVWLHdXzW7VAnRjRIkri6vGauVdrmr3KsMZ3HqYcbxGSQ7nwnEHMeF1p084BFLf4Iq3mEmOKWFKg8EEIqcWDS1IzjxI+S9J6LnQrsQMeE=
+	t=1786965021; cv=none; b=h2Ca66sX6b1o+ZGTLmxRqHQXILKgQYW6iH07ybHKedUqlmBdnuBMHJhPiqZ+VHe8MI52nQPa8UH2vhk4SSG8UTu3wL4IKeKSC0K914iUSRdPbQJd0KpiALW1kCxwE6e5pQ9a7hTNkEOaCJ+h9eDB6g03m8DlnD4zSCcNIxBHFGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786964951; c=relaxed/simple;
-	bh=zPCnKvUY679S6FYWHPC8KfDz/9Shx5+soSEn5mxDyxE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jLS4KUr3uDz1QkWfslX4Ww1mSV4cz3Pk+Fea2Z3Kpl5JDJ0KVjXbiDXB1mU/2/z3UrZiJIiHu9EE8bhdR2tYvrI9CsEC1bZdgfhjazq9uM8l1e/33P+ic8kbb5VnEoocoq0BpqUdiwq467V57zQxcS/lt4PtUScZYWA1dEsi3wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=e4hJc5ua; arc=none smtp.client-ip=85.9.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1786965021; c=relaxed/simple;
+	bh=cYZtabfWi7/ZDayXMrdc/ae//cy9n87ERVKyNzBe2Ps=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XvEpVHCpuB4lYV9yLt8MJ4UQBe9QTyMi30i4bGjV3Hm33uJHvtnmYL8SvOcR9J90R1fNEUWyEcmL8R8+UVdphziy6hf/c5OxEoBYIBWsAIEWaQ2/y733F3ceRt9SGWS1qlBJwTD0RfHzygw9yCF8cPOP1PrqkLJCuE3VC//4xh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=La2eQUl4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="e4hJc5ua"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1786964933; x=1787224133;
-	bh=yGze0ymZYgExAxN/K4WSJodaDn1EV8mUaPA6esUxvqs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=e4hJc5uaHCNZyoKMDroam7FzgEMXepWWYotk+LGIa7Y4JuiEBxGJsqeSpBuaMZ22D
-	 /CJWbEuItZIzyCzEMPVzfwm3w7+b5c5+yrP6uhM4rxRaDtgJdI8uiY1B9CSMtsBWGR
-	 Xw2qPWYhc7dGUaX7D9ZDlo16LKlhzt8bqGQYITQIPxt3nRqcoC6Qan6M0Vqz+lR9/t
-	 tO/qMjdCFVHpR0jqGXE0ZDWE0yqlYtPvRLA/ZfNZ/pj48i55Xu1kGDJqdjuslKcQ6/
-	 dIREMQuqDqTModVWxOOWyiu7zdWN5pe1qXUqSxdd08CogaSSMuHgMD2cgS0qOY90zr
-	 Gt1Nw/8LzIO6w==
-Date: Mon, 17 Aug 2026 11:08:48 +0000
-To: sashiko-reviews@lists.linux.dev
-From: Aiden Isik <aidenisik@protonmail.com>
-Cc: Aiden Isik <aidenisik@member.fsf.org>, conor+dt@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
-Message-ID: <Pv3LDXcGtYeb0JiJVOS82nc-ncrhiXght8Q87Z9yrqKw0zLqkMiF05AdaUtvS7BLt6P4CK6XOiaj4IA7uq0bFqkHKtS96mkPeCxMvgtvRNc=@protonmail.com>
-In-Reply-To: <20260817103354.BB64F1F000E9@smtp.kernel.org>
-References: <20260817-for-next-lucky7-watchdog-v1-0-a14370e20b92@member.fsf.org> <20260817-for-next-lucky7-watchdog-v1-2-a14370e20b92@member.fsf.org> <20260817103354.BB64F1F000E9@smtp.kernel.org>
-Feedback-ID: 46524699:user:proton
-X-Pm-Message-ID: b6cfe360eccfd6718e12a25ae94a2c4a8726c356
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="La2eQUl4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622851F000E9;
+	Mon, 17 Aug 2026 11:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786965020;
+	bh=dSeP13pLOt0UEaC0vv4QKQHllgx6b6/h0P1GwZl/yt8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=La2eQUl4N7Q0Yhhht8ZGuQViek1nzUkVTDEQSlfFatl9XBkecyp0Wi46AV9yCw5AI
+	 Ja2C9I3f/J2fwlKfs9oSk+Ly+NkORgsUs4gfWoeCticGhhAgLvZIg5y0GJYnkklzT4
+	 V4qdEY9i2ONulOmVRKbET0QhzFEvlkdeW86Rk8cVilgYX6P1qQTlErKvSlnL3ugxok
+	 fjp/Iaf4vMtvsMCTCZxLWM2Yb+83MpSQJdpCYywFyVva5p1NakmNzMMXBUBXPLiEF8
+	 d/tVXvyBJEB1tyzskmj2G+xfKOG34/L6An+genrgQobdxR0SN7kMMRwoVi596oX70M
+	 z4adU6xDzjtyw==
+Message-ID: <d592c554-5e43-48f8-a1bf-5dc6c6525c27@kernel.org>
+Date: Mon, 17 Aug 2026 13:10:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Add
+ exynos5515 compatible
+To: aidenisik@member.fsf.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Aiden Isik <aidenisik+git@member.fsf.org>
+References: <20260817-for-next-lucky7-chipid-v1-0-eb2908705c0d@member.fsf.org>
+ <20260817-for-next-lucky7-chipid-v1-1-eb2908705c0d@member.fsf.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260817-for-next-lucky7-chipid-v1-1-eb2908705c0d@member.fsf.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
-> - [High] The `drv_data_exynos5515` variant declares `QUIRK_HAS_PMU_AUTO_D=
-ISABLE` but fails to initialize `.disable_reg`, causing unintentional write=
-s to PMU offset 0x0000.
-> - [High] The `drv_data_exynos5515` variant uses an 'INT_EN' register for =
-masking watchdog reset, but omits the `.mask_reset_inv =3D true` flag, inve=
-rting the WDT reset mask logic.
-> - [Medium] Incorrect use of an Exynos Auto v920 register macro (`EXYNOSAU=
-TOV920_CLUSTER0_NONCPU_INT_EN`) in an Exynos 5515 variant.
-> --
->=20
-> --- Patch [2]: [PATCH 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt comp=
-atible data ---
-> commit dcaab4881777bc5f5ce1a532adad7c17046164a8
-> Author: Aiden Isik <aidenisik@member.fsf.org>
->=20
-> watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
->=20
-> This commit adds driver data and a compatible string for the Exynos5515
-> SoC's watchdog timer.
->=20
-> > diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_=
-wdt.c
-> > index e31f93db05096..7299dfdb0c099 100644
-> > --- a/drivers/watchdog/s3c2410_wdt.c
-> > +++ b/drivers/watchdog/s3c2410_wdt.c
->=20
-> [ ... ]
->=20
-> > @@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv_data_e=
-xynos5420 =3D {
-> >  =09=09  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
-> >  };
-> >
-> > +static const struct s3c2410_wdt_variant drv_data_exynos5515 =3D {
-> > +=09.mask_reset_reg =3D EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
->=20
-> [Severity: Medium]
-> Is this intentionally using an Exynos Auto v920 register macro for an
-> Exynos 5515 variant, or could this be a copy-paste error?
->=20
-
-This is intentional.
-
-> [Severity: High]
-> Since this variant uses an INT_EN register for masking the reset, should
-> the .mask_reset_inv =3D true flag be set here?
->=20
-> Without the inversion flag, the bitwise masking logic in
-> s3c2410wdt_mask_wdt_reset() evaluates to (mask ^ false). For INT_EN
-> registers, this typically writes 1 when intending to mask the reset, and =
-0
-> when intending to unmask it, effectively inverting the logic.
->=20
-> > +=09.mask_bit =3D 2,
-> > +=09.rst_stat_reg =3D EXYNOS5_RST_STAT_REG_OFFSET,
-> > +=09.rst_stat_bit =3D 24,
-> > +=09.quirks =3D QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
-> > +=09=09  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE | \
-> > +=09=09  QUIRK_HAS_DBGACK_BIT,
-> > +};
->=20
-
-Possibly, will wait for maintainer input.
-
-> [Severity: High]
-> Will this cause unintentional writes to offset 0x0000 of the PMU regmap?
->=20
-> This variant declares QUIRK_HAS_PMU_AUTO_DISABLE but omits .disable_reg.
-> Since struct fields default to zero, when s3c2410wdt_enable() checks for
-> this quirk and calls s3c2410wdt_disable_wdt_reset() during driver probe:
->=20
-> s3c2410wdt_disable_wdt_reset()
->     regmap_update_bits(wdt->pmureg, wdt->drv_data->disable_reg, mask_val,=
- val);
->=20
-> regmap_update_bits() will blindly write to offset 0x0000.
->=20
-> [ ... ]
->=20
-> --
-
-Again, will wait for maintainer input.
-
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next=
--lucky7-watchdog-v1-0-a14370e20b92@member.fsf.org?part=3D2
+On 17/08/2026 12:11, Aiden Isik via B4 Relay wrote:
+> From: Aiden Isik <aidenisik@member.fsf.org>
 > 
+> Add "samsung,exynos5515-chipid" compatible string to binding document.
+> Use the "samsung,exynos850-chipid" compatible, as it is the same on that
+> SoC as exynos5515.
+
+I do not see how you use "samsung,exynos850-chipid", probably you meant
+that devices are compatible? Just say that you add Exynos5515 ChipID
+fully compatible with foo bar (no differences in registers) instead of
+repeating the diff.
+
+s/exynos5515/Exynos5515/, in every commit msg
+
+Best regards,
+Krzysztof
