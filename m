@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2316E3B6C1D;
-	Mon, 17 Aug 2026 07:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911BA2F8E9E;
+	Mon, 17 Aug 2026 07:17:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786950975; cv=none; b=fqAxIL7xjBrG82DFvgYXu3XG+T5UjJ1kncm4iDM4IvR4dyDyMm14OFKwTvt6VFXoarm+StTNEeq7s+qTPIul7k2i1dYe6L4tCzx7vFqG9RWFQ/zcMwzIwSNC6mAFQ+QLZYlQKPndy3bDJUQJNhqcPULi0nY32imAU5v3WlYDgDA=
+	t=1786951026; cv=none; b=gYQgo5CZ5Cr+lPWme7EQOawYAzd638pUfNXl4ykLr6gS4+Wdn4mIdCvfcXbExcQXECqXKehrqiDbQ0H1pGATmmqaHAq1cxm9CyfRPCXC2Kk6Mz/wvXYEpWeWn4osmn7IG5DR6INri/K/TuQ4GuYUod7CN3rNQYbkgqXEkEtFG7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786950975; c=relaxed/simple;
-	bh=kMKlIBl3NAuuM6jvx30dD/Hizd+fyHJnLS0PwEyzfBo=;
+	s=arc-20240116; t=1786951026; c=relaxed/simple;
+	bh=nP+IKbE8ADaaxIAZ9M3+vMTaX8zxkTFaI9UHKUWzbOQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IIH/zBYcPyUUEp15AZNuF3ltBItSUlcrNt1H9EUQS3VktJcK/05vc2zWiby8ofTLMJ78ko7nryWWWrsIRWZq7Ymy9gyp5yj7m2jFC7OWbdAF8YanRPW0x8+qEWFL0McUxkkgcxmdJM9DINqY++jp9HQwNL7W0s8M840CCzypDCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ls9iI2r+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=c8pq27LqVnsaiVrXxqi6+PqCneI52pVc7JjqudmNZzov6Vv/VUjoPWPIyTLbYxbqFERd3BpTgQqF6dVGMQQ64fh97utRd1jVAJLdArzaa5HB6Up5SkYaYac+HVMz8ZpkOY+vx4yC+gUnGH+OLwj8qSPlrKfttPg1i2SPZrhY3Os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcPIl2uh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ls9iI2r+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA681F000E9;
-	Mon, 17 Aug 2026 07:16:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcPIl2uh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E6B1F000E9;
+	Mon, 17 Aug 2026 07:16:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786950972;
-	bh=kMKlIBl3NAuuM6jvx30dD/Hizd+fyHJnLS0PwEyzfBo=;
+	s=k20260515; t=1786951025;
+	bh=nHaiYM/y/snjrD+pBdi2eiWOhp1MMx3lZzj8PlHwRPw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ls9iI2r+IlBlLw9a/a2pq380+4Uj4p8CPg37Pz3IGZq7RfdNs64ygbmNAoFmBPYZQ
-	 XCupHoFDg7lHseSajml1GcWDUKKp53Ug/1m/d4VR2KXi0EnaQu6tJnA8z1OMyC8jua
-	 ncy8dUte2S9BS/+u3r99QD8JIW6Ne649nZpSqlJakA38BclnVUN55lVUrfkFcAUfkm
-	 gtEELzBCzyBaFe4YKFlAgVwc7AcBN/D/7zZ/xWaMgZYoq4Xoub9qIYsH2veCwMJ7Do
-	 Dfd+C4Rvovr72/qUTDNsH9uraVuRBIa/um8PE01cWRDUPzspnQhOoz2NGfeIllKLnt
-	 5hWhphvCtM8Wg==
-Date: Mon, 17 Aug 2026 09:16:03 +0200
+	b=dcPIl2uhgtsnkT79J9hFbkIy7Mwr63n7Und+fNsaJpQpPcO/OnUn/GA64X6FzwknS
+	 r0TubGF/Wi7V1cB/Q7S0glps0hlBdTd08JwkZ3tLgZ7LQuMbqf+IP5Xh92wfROU3Xc
+	 cKTOxuuT7MEns7rO3QJ1H0xtOQJjoq/H5QFZb9v91YqX7q8xVUvHX7IQDD6s9UkzHs
+	 2kMzCcR2EfN/sJQXl4shY/+mMRbt7IfpDsm2e23eJzOaadhzzgzK5OnGP/LjsdDZl7
+	 hGaOUkxr5o4tyeirOAeBw++yZc7k/E7d2uNeejBlaHCuHIjm5nmP8C+lMKEzjEu2dx
+	 pHHxhlLvbxHmQ==
+Date: Mon, 17 Aug 2026 09:16:56 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
 Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -36,11 +36,11 @@ Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
 	Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
 	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
 	openipmi-developer@lists.sourceforge.net, jammy_huang@aspeedtech.com
-Subject: Re: [PATCH v2 1/2] dt-bindings: mfd: aspeed-lpc: Document lpcN alias
- for multi-instance SoCs
-Message-ID: <20260817-icy-peridot-mouse-ad50f6@quoll>
+Subject: Re: [PATCH v2 2/2] ipmi: kcs_bmc_aspeed: Support multiple LPC
+ controller instances
+Message-ID: <20260817-hissing-beaver-of-potency-994d0f@quoll>
 References: <20260813-upstream_kcs_multiple_lpc-v2-0-775b1db3fe95@aspeedtech.com>
- <20260813-upstream_kcs_multiple_lpc-v2-1-775b1db3fe95@aspeedtech.com>
+ <20260813-upstream_kcs_multiple_lpc-v2-2-775b1db3fe95@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,21 +49,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260813-upstream_kcs_multiple_lpc-v2-1-775b1db3fe95@aspeedtech.com>
+In-Reply-To: <20260813-upstream_kcs_multiple_lpc-v2-2-775b1db3fe95@aspeedtech.com>
 
-On Thu, Aug 13, 2026 at 02:42:31PM +0800, Yu-Che Hsieh wrote:
-> Some SoCs (e.g. AST2700) expose more than one physical LPC controller
-> instance. Downstream devices such as KCS channels need a stable,
-
-We do not care about downstream devices.
-
-> globally-unique index derived from which LPC controller instance they
-> belong to, so document the "lpcN" alias convention on the LPC
-
-New aliases are generally not accepted and if your reason is
-"downstream", then answer is simple:
+On Thu, Aug 13, 2026 at 02:42:32PM +0800, Yu-Che Hsieh wrote:
+> @@ -526,6 +528,17 @@ static int aspeed_kcs_of_get_channel(struct platform_device *pdev)
+>  	return -EINVAL;
+>  }
+>  
+> +static int aspeed_kcs_of_get_bank(struct device_node *lpc_np)
+> +{
+> +	int id;
+> +
+> +	id = of_alias_get_id(lpc_np, "lpc");
 
 NAK
+
+You do not get custom aliases.
 
 Best regards,
 Krzysztof
