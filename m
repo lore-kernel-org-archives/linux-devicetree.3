@@ -1,65 +1,65 @@
 Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47733AE1A2
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:51:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B983AD50B
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:51:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787003514; cv=none; b=sQTRYOw/P6JCSBjvzbexekzq/lCFKQZBjYRCZLE03gnOXfavKkuS+k9hB32a4LJbaQ8FLZkoq2PkvG7uK3oEKLUsO/9CczWHrouHvjAvoheG0PB9k/SLrwyMZfyGUZqbR1dIERZuTu7okUfIc2Av3/K1Wzxh5PAW3V5WB14UiRA=
+	t=1787003515; cv=none; b=LCljeInBz+hwD12wQoRz3f0Ub7VFgdSVCMBirLjJn+o/hTP8/tv89JyytwrIvpYnmt0hAhuZPyK1h20x2I1TPSEo+9R1SSOKR4H2QEXnKaL8sEKcg2GaTo0kdhP5U5qgkIesK/yjpYgatjg1fsgk4JJfDKw6zQao0kytbiNdSfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787003514; c=relaxed/simple;
-	bh=x4sjN/AKaWAGZmeBH2ZUcp2UwC2KUwkjlW+z2W2URIo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=B25r6i/3qN8OmRMnsFk8PXVoH4UN1v994yygK8hilMk0GJ6La8zgIW2QnLxCSCqIUU8S71PzPJHtSpmmkAQCVPGkUwUnPN8itdLiVpZcfqS37YddJf0cs34IFrgR/6FggGYlmGFtZCBlDId90DNu3TNPCebc6NgZnwbIDP+TO4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DxSIKrC7; arc=none smtp.client-ip=209.85.221.52
+	s=arc-20240116; t=1787003515; c=relaxed/simple;
+	bh=xJUnUoMS0efqPdEWh6VyFBSW/fIK2d8cOEcdE1MOroo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=Cnl1X9F1kKGqCZxsgh2fcokrTmv27HbgSvhmrKbw2IInaRomO835GhVm2Hiu2lw4URRxJi+GPJaHUCNO9GUBViQDNrNfjm6jf7U8wltPNcu+8C9bDaTMtIgdV7OCtVXK96FlKrlhG5Ha4T4k+tQmntQZ01lfjWlL+/1unxadVQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WbSDnMZS; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DxSIKrC7"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-481412f1828so1321176f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 14:51:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WbSDnMZS"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-472326ca506so2745243f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 14:51:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787003510; x=1787608310; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
+        d=gmail.com; s=20251104; t=1787003511; x=1787608311; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-type:content-transfer-encoding:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=x4sjN/AKaWAGZmeBH2ZUcp2UwC2KUwkjlW+z2W2URIo=;
-        b=DxSIKrC7OWT3udCwLzo/m2GVuYeCbwUYybIylo9o6YoqXHWKkXjrfpFISGiRNRcRhF
-         MXl/TXCXX6uIP9zhKxECeMscMv4s9ylHyjQ3N+YDkYh1v7n0Id1WvQjXUjosRpWaczSL
-         NFaR8yNAP9SS0AVlBFLtC2WdwcOM+mbBsU/dQ0sVURxWIzaHIiLNiRL9FKM3MsvcppAc
-         X6CkKjoMQUQZ+fS2Thu6Y6soCClxqrDp/g7NQmqq7rLFgbqIp7q2sZwR2ZBiWggOchpK
-         YgnhHBpdYcpZwkBSX9TXRK2Gl6Pd4JqPbnfmazmB0tsq/igNKCWRb9oEPZCIgFoX3Ylt
-         QRVA==
+        bh=xJUnUoMS0efqPdEWh6VyFBSW/fIK2d8cOEcdE1MOroo=;
+        b=WbSDnMZSky9cLeBu8dcHfx4VZ/2z6prlUwVz9VcVvZjsBX0LKxCCX5zigxAaaN1XMU
+         IKaoMTbTJh4NrRtz343X6HYGpAwP1u4qx2WxqESBZ1sjFP7vhl8vQ0r6XHQSoFCZY5hb
+         cKxENCMAy1xe/0wF6Nxf7jxPU19Bgo2sOUTXDbOPjRZXJqTpV5650wH56BEaZ2bGd/Ci
+         RmrASZsr4rBQQlMc23LPmjsSdN6mQnbw03bCIJaKt7NmD1GPeuznoLXsxSNngeCLbFT6
+         PLF0i5ENACrHUiKbV7vTBOg6DgHQ9dTWmL9DSQ45pOG30TOgIefcXqhiNt2MR//WpYe3
+         h6+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787003510; x=1787608310;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
+        d=1e100.net; s=20251104; t=1787003511; x=1787608311;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=x4sjN/AKaWAGZmeBH2ZUcp2UwC2KUwkjlW+z2W2URIo=;
-        b=RNAnLQfbaAtAeYxtG8M/2RGSAiboAXaTMLe4AI9goyW7MNNjI9wPD/52gRru1Xy/Nz
-         ZVssYe0Q0ezSJ94zPTH8yd9K3bJD4ZXsooJnlQAdjSuMJIz9WsqZMsbQCNVUSrn1my1N
-         ZUUFx2qRe7nyW2QMNm3UwKID6ToeGL+nXjbdSS+Y+HNb2tVViCoqf9SIm3+1TR2tBerx
-         Ie23PisSSyFB5kb96GnrLVn9WyT3vnsJAKmT+vQMSUT7L6rKp+OwUQkr2U30OaBeC+sQ
-         NBWbVRYi2ESKH4/k5AH1g4NT/H1y6T/VILge2LoOPzAnyeL0lg/IxLw0rZ6JLrBs21e2
-         8oBw==
-X-Forwarded-Encrypted: i=1; AHgh+RrVNdwvwOMjgJIv592iaq7KL4jDW344iJU1BlcTT9D6KzDatcVAWqilawzW0git1ZKnHhK97Cl0o6bi@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSSoybXuZp6sdCViUr9QXxi+hYn03jlOjE/4p4UTkR8Wx0hiFF
-	Mzl79Sr9OJ/NIRIDZbJnqaG10yOke5BhiNL4/fLYXVuJlPLvxqW2mYmD
-X-Gm-Gg: AR+sD123Vrq9rPtIVwBcRqgjmSdhSLSTr15lWrtjplZTGoayk1umQ3B6zd2ygAOfIKy
-	9Asr5zndFrr+Zth0qPRxMT0N3c8h3Wrexy3cPyaVkuvlOVQna9QjkRcBq82fXwYDMauMYUiA5U0
-	lx/plUspvoCfn9BfFf8irwUNqOFPq/Akb4wnGcN28wDcNypQ0hBejJuWQJvasW+4IsQA/yNCzpw
-	QHzPaBFGczo3Zeu10ergfi5wZQ2vBLm05uIS8Gs++K+AiRc1f8/tl4muvitx9Ec7ixiDPsCh8Jj
-	Zob8r1resNIcp9i0fBBt9vEDmrZgTbsyEUYwoc/XvPlky4ZIqx8bZlPO+FsbHtipSqshjygLiPD
-	ompfsrce1XOzdkbPEu/SDu8ChbqcIYgzHionWmLzdPKvnu6vQXBc2xSk3xxU8fp/Gqx8TJIEbH+
-	ZMjvO2LM5Oe472BpLe4WXG6SaKExrRM/qpKsd33XfrBIOOgSBRXxRrfxD5givDL3Q1E9s4R5jvK
-	6zq1uSQp8xVVJR/jIsKz97dNlN3Fk6SNfyy4zBE3+MkM0kfdZABSAMjS65nv92egg==
-X-Received: by 2002:a05:600c:4e87:b0:499:80ce:827b with SMTP id 5b1f17b1804b1-4998793867bmr392242985e9.4.1787003509504;
-        Mon, 17 Aug 2026 14:51:49 -0700 (PDT)
+        bh=xJUnUoMS0efqPdEWh6VyFBSW/fIK2d8cOEcdE1MOroo=;
+        b=eNvWAXtMOmRIWppqdrPIuOU/qRBqA0eMx6cZc+4sk1zQHMR0gEEwtu3+rTdS9VpuTb
+         1qXibWTD8SIj3vpjSS41UqWLV2+0jrcGVMLtPLHrA3ftjSFye10KcTw71di1DgMpHl7m
+         SaZz1DV/kdZN+4wpPY6QyVQAYIh16qcAYI0rqaQvVD4L8qpZSl4BGR3+74O8q8yUPZRI
+         bb5RlPrcm2Kxx16fYYfjqJWXXV7OvNjC7EBj2aU01C5WC4WNY8ytzTIX7wQJzH+4Amco
+         /hfe4Ku8SaylBBTlDo+EKqVSldbGNFvDBOtUwLvRJWlJo4K/ihORuDOmlnIni9Os1KIi
+         JjVw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0eT5f8MZhVHow6QGK8hwjbdkuxWDJTKlVFa9zVpwL8OhKTXDmHJjNOXWectSOab0oBJ3tznQEBIs4@vger.kernel.org
+X-Gm-Message-State: AOJu0YyE/PH/CYbKRjiRaAVYd1N3aRinU+GsDVFx91Vva7xqpmSCJMmg
+	oSMjgZIGpCRVK5km/B9poS6YlOnhd1L8wdKf9VPaOyqCqLlLi0ejuV6q
+X-Gm-Gg: AR+sD13W7znfReaP4Ez4bZBHmuHeBFxYGHJDisC3gsayFdLZJTiivwCxjiV0zMZoRQq
+	nQR5Q5+JxsmBMl8h8KCBubwA4g0LU6D4LSL8sXI3AK3/54z+9dSukFpG4nVf4J23TjWbvs6jWqU
+	DCM9+ZsAUHu3fYhIQnhzSxxeT39eO5QwWNYQOnIPCJuSqa+u5DJrlREF4ImmI0dzWUUXaO5Z137
+	3e3NvCH7E4FNnu8YkjKvo8CkVFn3rNGPqwfANDYH6bo4GIRvKpdQRciaQHFVCzipz5f31zIHCid
+	0kzUaHB+hMbjgyPLUgN8Zgp08taWlBWXHJfT6pkH74rqDCZr/vv5MFtHxVhHOJTh8SGvP08v0gu
+	7UW28f6stao99TFxUJ8lD/04tP4i1pjjQHGYVmczpOmSX46rRFhoncf5s75/KN2SPrKnXXNv+sF
+	AY8VcdYo6NmkFGX7NkQbMgQ++oyHdXAzOloLlZgviMrRZqmenDD9g2rCcSOLqi5tccn0XkxHuWm
+	zDZd6JX1skkeTS62ILqU67oIGFIpNcJ2OrLjNAP1VZvxhhUvvYA/dg=
+X-Received: by 2002:a05:6000:4201:b0:47f:e760:e5b9 with SMTP id ffacd0b85a97d-482a903c1c1mr4995812f8f.18.1787003511415;
+        Mon, 17 Aug 2026 14:51:51 -0700 (PDT)
 Received: from localhost (178.43.142.119.ipv4.supernova.orange.pl. [178.43.142.119])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49987b2a176sm309465955e9.4.2026.08.17.14.51.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a3b51asm6988840f8f.11.2026.08.17.14.51.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 14:51:49 -0700 (PDT)
+        Mon, 17 Aug 2026 14:51:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,8 +68,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 17 Aug 2026 23:39:55 +0200
-Message-Id: <DKRJMF592GX4.2ZR8HRZLIXWP8@gmail.com>
+Date: Mon, 17 Aug 2026 23:40:26 +0200
+Message-Id: <DKRJMT8IZSXS.2GKM3OUHXHTK7@gmail.com>
+Subject: Re: [PATCH v15 18/22] media: i2c: maxim-serdes: add MAX9296A driver
 From: "Artur Andrzejczak" <andrzejczak.artur@gmail.com>
 To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>, "Tomi Valkeinen"
  <tomi.valkeinen+renesas@ideasonboard.com>, "Mauro Carvalho Chehab"
@@ -83,23 +84,30 @@ Cc: <mitrutzceclan@gmail.com>, <linux-media@vger.kernel.org>,
  <linux-staging@lists.linux.dev>, <linux-gpio@vger.kernel.org>,
  =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
  "Martin Hecht" <Martin.Hecht@avnet.eu>, "Andrian Suciu"
- <Adrian.Suciu@analog.com>, "Cosmin Tanislav" <demonsingur@gmail.com>, "Cory
- Keitz" <ckeitz@amazon.com>
-Subject: Re: [PATCH v15 17/22] media: i2c: maxim-serdes: add MAX96724 driver
+ <Adrian.Suciu@analog.com>, "Cosmin Tanislav" <demonsingur@gmail.com>
 X-Mailer: aerc 0.21.0
 References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
- <20260807-gmsl2-3_serdes-v15-17-7212e9e5156a@analog.com>
-In-Reply-To: <20260807-gmsl2-3_serdes-v15-17-7212e9e5156a@analog.com>
+ <20260807-gmsl2-3_serdes-v15-18-7212e9e5156a@analog.com>
+In-Reply-To: <20260807-gmsl2-3_serdes-v15-18-7212e9e5156a@analog.com>
 
 On Fri Aug 7, 2026 at 3:02 PM CEST, Dumitru Ceclan wrote:
 > [...]
 
-max96724_select_links() sleeps 60 ms after RESET_ONESHOT and never
-checks link lock status. Would it be possible to poll a lock bit
-instead? The max96714 driver removed in patch 22 reads such a bit
-(MAX96714_LINK_LOCK_BIT) in its log_status callback. Polling would also
-let a dead link fail here with a straightforward message, instead of the
-failure surfacing later as a timeout from max_ser_wait_for_multiple().
+max9296a_set_tpg_clk() writes MAX9296A_VPRBS(0). The comment states TPG
+data always lands on pipe 0, but don't pipe_hw_ids start at 1 on
+MAX96714/96714F/96716A/96792A, with hw pipe 0 never mapped?
+max9626a_log_pipe_status() already reads VPRBS through
+max9296a_pipe_id(). Should this write use the accessor too? Also, is the
+"max9626a" in that function name a typo? The file header and
+MODULE_DESCRIPTION say "Quad GMSL2 Deserializer", but isn't this a
+dual-link chip?
+
+As in patch 17: could the 200 ms sleep in max9296a_select_links() poll
+link lock status instead?
+
+max9296a_init_phy() enables D-PHY deskew when dpll_freq > 1.5 GHz
+without checking for C-PHY (max96724.c gates this on !is_cphy). This
+might affect MAX96716A/96792A.
 
 Kind Regards,
 Artur Andrzejczak
