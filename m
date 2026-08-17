@@ -1,33 +1,33 @@
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BAE442377;
-	Mon, 17 Aug 2026 16:41:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F1229AAFA;
+	Mon, 17 Aug 2026 16:46:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786984887; cv=none; b=F3cyupJVrlq7TA5reM67NF4zqAHGXrNDIqWC6tdfBGacVHr1o+eYHktRuFlKuYjRZCBc+MhuYiFEqnV4Zof2rjFHjLknrVlQQ2QRtuC51hXEtfj0ANHAgfIxMEU/LaqkAwBRiQr26GOizt79bMETT2HaVqfWfw9/y6axGjxSqnA=
+	t=1786985220; cv=none; b=fPqbLgjp9nyA2H/5bFVZRmL8uBs2PrD+eJ48kj3IrRNCHi3lXbKZe2cVBfGjpBlv/ivbPi3IVqkVAN1s0IlPPjLKHFAYc20GNVSdip64lSxnwxq3lpjfYWpFUdmL8YfrZfoj7RulXNqI/KhJbclD5A8sOdQv1y25E9mk62A3fIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786984887; c=relaxed/simple;
-	bh=YefWs10omkpXFntnRM+AJiT+L3apLCmMwLdYEEVQ6G4=;
+	s=arc-20240116; t=1786985220; c=relaxed/simple;
+	bh=HngfY1VU8dZNKiHh0Xn/2MSJgN9n3sblgKJ86KNP40s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ndSSS20uYeW40lZhkGvBHgx69LHOU8PKIHvIFeXqMqkNPY8ccqDyIisuLmPIEEIUVW4u7ffsBahP2rYi/wtvifmav8qsL9TL2LgKjdTZFsmWpNvJndQCSYBW/qSBTL/PNFXibTUCSfA1/paNgIYIUHSoQKBnselXUyjSz1gRec8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zikAsAJr; arc=none smtp.client-ip=156.67.10.101
+	 Content-Type:Content-Disposition:In-Reply-To; b=MER89WbVuUbAOm8QhtAgkifPAC3UgWhFv4eib/CyB55wS6016cLmS+XJwGe6xzy0GACg7NG9yXnFJ8pLqhAM2hu8DcH7DVdxP+m3AV8JZ5+NP043J/AZSWnYw0kdBMmS3uXfoKgV6Q1U5vZXn7eABx3oFz3frgp25IkgqGFFiK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=mUxVZ0w4; arc=none smtp.client-ip=156.67.10.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zikAsAJr"
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="mUxVZ0w4"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
 	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
 	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=LaKbhxdXvX8tknig+YsLj2T2XA3CrangdxPpcV3Aans=; b=zikAsAJrvLBdpQn5FdD8udPg6D
-	TugwlwJu+3rcLRYouSVnhVLcaR6rUH+hRz8QNKe6UZcQL53TJW07XntDYagqjVVAOUwZNlq0ilogW
-	hLhQRSYMVs7VN2dRq+TXy+SwQiKjvftEDoBkkI5E6vnyX7MyDrALUd9Cwj0KTJ5cyw+4=;
+	bh=5s0FsgPQk3fwJVPrDPYGq5MumSuUS3Z/KZj9arse6Hg=; b=mUxVZ0w4ZhlaeuMH0tsClbVr5U
+	449d/POQFhmjWcLU46KiMB30DQXuIfcRvRYhil3ZwhRdJUSdkXMkP6YtK8JgVCNYeMR4oq3S3vAJm
+	kR1Tap65deLD8PU+cKBgNBZr0ulclYtuL9ltjPbRWDm3F1OmY7wAnoPsRKlKzxKd6zmI=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
 	(envelope-from <andrew@lunn.ch>)
-	id 1ww0OS-000LDX-Ce; Mon, 17 Aug 2026 18:41:00 +0200
-Date: Mon, 17 Aug 2026 18:41:00 +0200
+	id 1ww0Tz-000LG4-Jv; Mon, 17 Aug 2026 18:46:43 +0200
+Date: Mon, 17 Aug 2026 18:46:43 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Markus Stockhausen <markus.stockhausen@gmx.de>
 Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
@@ -35,11 +35,11 @@ Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
 	netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
 	daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
 	conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v14 04/13] net: phy: add phy_detach_internal()
- helper
-Message-ID: <5d3ecdd9-3721-4710-a1c8-e48a2a020799@lunn.ch>
+Subject: Re: [PATCH net-next v14 05/13] net: phy: add
+ (*notify_phy_attach/detach)() hooks to struct mii_bus
+Message-ID: <20e0e158-c8fc-4a51-878d-a1c57e0c892e@lunn.ch>
 References: <20260817162632.1208891-1-markus.stockhausen@gmx.de>
- <20260817162632.1208891-5-markus.stockhausen@gmx.de>
+ <20260817162632.1208891-6-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,36 +48,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260817162632.1208891-5-markus.stockhausen@gmx.de>
+In-Reply-To: <20260817162632.1208891-6-markus.stockhausen@gmx.de>
 
-On Mon, Aug 17, 2026 at 06:26:23PM +0200, Markus Stockhausen wrote:
-> For the upcoming MDIO bus notification enhancements the PHY detach path
-> needs to inform the bus about these actions. Until now phy_detach() is
-> called normally but also in the phy_direct_attch() cleanup parts. So in
-> the future there must be a clear indication if a notification is needed
-> (normal path) or not (cleanup path).
-> 
-> Carve out the phy_detach() code into a new helper phy_detach_internal()
-> and make phy_detach() a short stub that calls the new helper.
-> 
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-> ---
->  drivers/net/phy/phy_device.c | 165 ++++++++++++++++++-----------------
->  1 file changed, 85 insertions(+), 80 deletions(-)
-> 
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 94b2e85e00a3..835d71306b4d 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -1734,6 +1734,91 @@ static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
->  	return phydrv->config_intr && phydrv->handle_interrupt;
->  }
+>  error:
+> -	/* phy_detach() does all of the cleanup below */
+> -	phy_detach(phydev);
+> +	/* cleanup without bus notification */
+> +	phy_detach_internal(phydev, false);
+>  	return err;
 
-It would be good to copy the kerneldoc as well, since what that
-describes is actually performed here.
+This looses the "does all of the cleanup below".
 
+This code is unusual. You normally don't call the mirror function in
+the error path. So i think it would be good to keep the comment.
 
     Andrew
-
----
-pw-bot: cr
