@@ -1,32 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0ED43B3DA;
-	Mon, 17 Aug 2026 16:23:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF53E438013;
+	Mon, 17 Aug 2026 16:25:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786983824; cv=none; b=fSFxbQi9RPRq5S3RTIcCFUqYq9K2UW/CBY6KYTum51o46m3oLKA+T9ztnlv13MuL4fPASyRZNykkmYQ7hmNZxXdGwNmHBPhlKz0iPdOWZQ/zMINFGz9xObf/+42PPL8T5uF+kluhnqJ5jMBWPKjwTelCtqH3IYIpQCFREg/wZQA=
+	t=1786983927; cv=none; b=IDYeYGLIoUTjSPdnAHGXtRsexAjOJouOct74tYwcnLOpKFDbfhdRyUZ1Lk3Vj1zBeEI3PkBW1NHGcg+kT2wPMAJ43buFsM0hVmZ/1UGeejFCaiXn6jA7ytIa/zdmhzrXynl3d8HUbBcO8347SF7+4jP+yI0d+93MpFuxwAO8/4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786983824; c=relaxed/simple;
-	bh=kdoo7HMgQkzM88+nw+IRwLJDx6RcAP8HtEJpvthbWYk=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=enlxqsDu1KuGObiUqlwVNiM7So3vHGn6aJpGrCrwhnr/fcOeZWCPVKh7FzZIPsBTrEx/n5cgu0O476hSF5mvXFb4ND6Ba3nNF2F2/SmTURXOd7eUMEtRA2tD46vdF6j0Mi2OypwDIr+OkX4fcFz5pWLncS5yDJifKudx7/QZEag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YF0rK5Ue; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786983927; c=relaxed/simple;
+	bh=kwoXrp8C+hruNmgyiPm4UUSVNFsKcKB8oPebQhmaEjI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hCyPvMqi2+BSxyrJM6/tuwMNGFm9d3+9tBz1sAM9BDN2Uw/MNUY5x8mezbXn1pfYtXwCtSNbCr/FrjNFlR27BN5tkyWIjp6gMFZBhfuKAtoYhjdgHuV1ts+fauG6VGPp1xidqxTmlgTZGyubuVXeiFPfMP4uUdsLtSbWixtrL6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=AYFPdpef; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YF0rK5Ue"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BB01F000E9;
-	Mon, 17 Aug 2026 16:23:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786983821;
-	bh=c2p6Il6DuYsITTwntrntjk9VLtEif8koPUy3z5YOPPc=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date;
-	b=YF0rK5UeaxD37TSxLBruB+UIZSG79cBpXrhKHLKdAC/jyK6YPMSaXLE9wPh52iqG4
-	 bS87SOlgr8HDZ/2f6W17eSJ1Wag2fGKVdQCKowJoQVeSkx5+RYHrh1bnzh5Ekix5Cz
-	 b0WwZU3xqXEuBx1pWI4bRZKFPs7Y8Ej9mIZXWX+n5d0LK8uuwsP5PIQoYx33nB0cVw
-	 s67wuOoHkf4KDYAH8rai8TR8w3XRGS54ZTCn5RoW3O7gbhkHxpuP+S3DRmiKlPWb44
-	 vDPTCgaZs+JpSyJ04MAaapZwSBiqEnfDP3NMidhEeQJEPkLLcvw7YMuiwzasPPf/2/
-	 1ZENNGyShqFCw==
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="AYFPdpef"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=itpN6ATWZzDI6Gf6iahFT31A2k/lQeZZFl4EfK17TNQ=; b=AYFPdpefVLE763eFsrJfYx22tO
+	4KsmLt40V3mczAZnJV//laYr/5Djz88BSJNiThqm01+FoW5aaVex2wIvTfYao+UgMlWsIsWMeMOTy
+	CC0wKFXxE/l/i8nSi4l862JXjOnc0F/edk8ShneewT8MdwNnoqvLJ+xrCNBogA3MTt8VYCNe+yePg
+	O9jLvtg+6cfb17mJ3slNFscQzK+MEHXTj2LHX1JTrhtCTpYsmEmXEoj/qHIs0UhPpyIZ+5ur0jFSM
+	gcmHfwvd1C8YeNIAw/dwl55BNk6qq/sSq6x/7ZUCVCQGQyN9sf6R/yAvdxQv1ZEtxlm7NW3stGjRx
+	/s24wrcg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Cunhao Lu <1579567540@qq.com>, Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: kernel@pengutronix.de, Vincent Mailhol <mailhol@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-can@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Heiko Stuebner <heiko.stuebner@cherry.de>,
+ Quentin Schulz <quentin.schulz@cherry.de>
+Subject: Re: [PATCH v6 0/4] can: rockchip: add RK3588 CAN support
+Date: Mon, 17 Aug 2026 18:25:02 +0200
+Message-ID: <6011470.tIAgqjz4sF@diego>
+In-Reply-To:
+ <20260817-guillemot-of-premium-saturation-6b893d-mkl@pengutronix.de>
+References:
+ <tencent_7BAA0052C402BFFD26291A64198084E39107@qq.com>
+ <20260817-guillemot-of-premium-saturation-6b893d-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -34,32 +50,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <aoLqSA3XOMJnJL4o@shlinux89>
-References: <20260612-clk-v10-v10-6-eb92484eda38@nxp.com> <20260612085812.AA15D1F000E9@smtp.kernel.org> <178672426822.5897.11563790103554525148@lazor> <aoLqSA3XOMJnJL4o@shlinux89>
-Subject: Re: [PATCH v10 6/6] clk: scmi: Add i.MX95 OEM extension support for SCMI clock driver
-From: Stephen Boyd <sboyd@kernel.org>
-Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, Brian Masney <bmasney+clk@redhat.com>, Peng Fan <peng.fan@nxp.com>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-To: Peng Fan <peng.fan@oss.nxp.com>
-Date: Mon, 17 Aug 2026 09:23:39 -0700
-Message-ID: <178698381923.5030.9178300925075210422@lazor>
-User-Agent: alot/0.12
+Content-Type: text/plain; charset="utf-8"
 
-Quoting Peng Fan (2026-08-17 04:02:32)
-> Hi Stephen,
->=20
-> On Fri, Aug 14, 2026 at 09:17:48AM -0700, Stephen Boyd wrote:
-> >+Brian and Peng
+Am Montag, 17. August 2026, 18:23:03 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Marc Kleine-Budde:
+> On 30.07.2026 22:34:01, Cunhao Lu wrote:
+> > Add support for the RK3588 CAN controller.
 > >
-> >It doesn't link for allmodconfig build
+> > RK3588 integrates three CAN-FD controllers that are closely related to
+> > the existing Rockchip CAN-FD IP already supported in the kernel. The
+> > RK3588 variant is not fully compatible with RK3568v2 because the RX
+> > FIFO count register field has a different layout.
+> >
+> > This series therefore:
+> >
+> > - extends the existing Rockchip CAN-FD binding with the
+> >   rockchip,rk3588-canfd compatible
+> > - adds a dedicated RK3588 match entry and devtype in the driver
 >=20
-> My bad.
+> I'll take the first 2 patches.
 >=20
-> I just posted v11 to address the allmodconfig build issue, very minor cha=
-nges:
-> -obj-$(CONFIG_COMMON_CLK_SCMI)           +=3D clk-scmi.o
-> +scmi-clk-y                             :=3D clk-scmi.o clk-scmi-oem.o
-> +obj-$(CONFIG_COMMON_CLK_SCMI)           +=3D scmi-clk.o
+> > - describes the three CAN controller nodes in rk3588-base.dtsi
+> > - enables CAN on the RK3588 Tiger Haikou board
 >=20
+> The DT changes should probably go via the rockchip tree.
 
-Ok. Brian already picked this up in a PR that he sent me so I'll squash
-this in.
+yep :-) .
+
+I'll pick those up after the merge-window.
+
+
+Heiko
+
+
