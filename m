@@ -1,143 +1,207 @@
-Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A984B0497;
-	Mon, 17 Aug 2026 11:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209BD4B0497
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:49:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786967274; cv=none; b=h7tvKsMrXVzChiX0xRsAQ64/1j57lIPPkQDWsKkQsKapJBrxkadpXbb5LaNb8nXkP0AqIpzhCXRrnUSiRwmslPQJlWp3HIfU+Nbca7aCJ3nHPpz/GyKd/xHwZ5u6d7jLvzE+MLS1PDhKTaYp9duzcycz+8Cke6V8PkRGPDBSvb8=
+	t=1786967400; cv=none; b=tmIPUlaZ6J0dtWsbL1Q4QZ9hgxdWkyHaybicZgRHmzAbO21J9dIKN7jMju/vzfxPev+IbL7Via6iigwtG43Gr11Dgm0cW96Oc7AaZqdwUns2dXOY7d2gIb/L8SG+7YGonru3BVJkHyl8tR2Brk7MGFG5+N5q3S1ZUpL4hxPy6rE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786967274; c=relaxed/simple;
-	bh=VQk+NKX2QLLmpu+AnKTBzGZpFZgEXg3SbSlRnkYbJQY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q8FaJC+W76GzRasgAJFkxSTc//zBL4+MHwWrdOK26NIqfecMeCUDC2x2G1LI+esGdR5RtmPRhdm/dufCr/074qdVht18Iwh47NMYSJZ3TuDvjAUcSBKLsss2amJnWu3E44W4xuXEHOGpq9yDVxFu2KAzOAdhrpegeDpic7bcAVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=nINoI/uM; arc=none smtp.client-ip=79.135.106.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1786967400; c=relaxed/simple;
+	bh=EgyVTjd+GUjx63h/prrK5SwG1FEFoQYr9S8oZBwOpuU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eUBgEMbjwSgV/EmilWkvVs9QiOEKfvZCiWi5ToVwpNDzYZWiYAZ4YELpKWfe0ZRo5tVoP7gyRCmegSIsgYqPsX5s3EgGROpI1OS1jmKkUIm/uW3WGSfwf/deq3bZwPnFJntHd6iRRkjgSBbYAeGsIqtjO0iYKzZTWZekZ4JX+cY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8RXhOZ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="nINoI/uM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1786967263; x=1787226463;
-	bh=ZRu1RYNKFVEiUGNH9uQ6dlTqTZqU/qO7+ZFglPoqZe0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=nINoI/uMqd+TrP/KKlwOtvJgDa0TodCbL/TAXPhZ1t6peKfSYl2JOmOzj4R2qnJBC
-	 NCTlHj9UW8tSEYLuyFXJYjrRWCeO7FbNzX5gpVkFUJVv0tIcJhzqClsscICPx3yFXR
-	 0Lmj7bXv3FeFwU1Bgeboi857a8V7YnFl0pTN36IyCwR6pdGdBztqOqZJqMrIC9UlTR
-	 75bacJU2uc48lcbubsWjDjstO7XgGgnjLoEharMrLSrLchYIfWQnSuqKNlaJDxAL84
-	 RzBqzKmtc8f7Ai/yLhO35rD7sML2yiD/EysJQcoOZrqv4toJTK4cM5unP+GyyOcA6D
-	 bXGP3Voquo1qw==
-Date: Mon, 17 Aug 2026 11:47:40 +0000
-To: sashiko-reviews@lists.linux.dev
-From: Aiden Isik <aidenisik@protonmail.com>
-Cc: Aiden Isik <aidenisik@member.fsf.org>, linux-clk@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/3] clk: samsung: clk-pll: Add support for pll_309
-Message-ID: <ubD1iFupOIubgrcjfABhlLsSRSjHBgzA5ZmyURWTM9xviGIM0OlLeXehsukZEY9cXqAgwJt_BI2xspZ5BIlCBPROAWUyyReaTWWSL7g08gI=@protonmail.com>
-In-Reply-To: <20260817103711.943D81F000E9@smtp.kernel.org>
-References: <20260817-for-next-lucky7-clock-v1-0-032e4b229c76@member.fsf.org> <20260817-for-next-lucky7-clock-v1-2-032e4b229c76@member.fsf.org> <20260817103711.943D81F000E9@smtp.kernel.org>
-Feedback-ID: 46524699:user:proton
-X-Pm-Message-ID: 805fa40c58baa6408f869d226858baad95d120ff
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8RXhOZ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073AB1F000E9;
+	Mon, 17 Aug 2026 11:49:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786967398;
+	bh=guW2WBDboj42EK2iN0ZP3oPlaBQsI+4oj5DNVjnNpGE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l8RXhOZ4c6I+ymq+OcGpuw4BPMvWUAg2ST0/ZHO9PyRi4ZlroO+kzGbTMZd/4g22O
+	 Be3hfoCu6SwmejcBtSpIzDnDjnrxbFZ9YQZvYEm40s45cOsKytNirDK7NUC0sTt+0X
+	 yBE5qgTPW/ccdyKv/XE9AuvBi/drlh4l+s1s+tv1Ys0Ex4SHgfQDkSNHJBMMpUTbwo
+	 y0WT5LPvj4e5XOhvxlMiA7nqM0qtZ/E8J6TYQ44H3zbKAB1RdOGmoE0kk57is2LZqC
+	 OmBjuQxk9lY29nmCd13c0Hl+wEp8OEcKvmzLUoOsd9mJx0zQqwtX0tl6LsuDEJKTyU
+	 vNcApIOsfQ4dQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/5] rust: of: add Node type
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Albert Esteve" <aesteve@redhat.com>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260817-drm_panel_bindings-v1-1-1f974508a31c@redhat.com>
+References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
+ <20260817-drm_panel_bindings-v1-1-1f974508a31c@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 11:49:57 +0000
+Message-Id: <20260817114958.073AB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] Logic Error / Out-of-bounds Read when rate_table is empty
-> - [Medium] Single-Responsibility Violation: Undocumented architectural re=
-factoring
-> --
->=20
-> --- Patch [2]: [PATCH 2/3] clk: samsung: clk-pll: Add support for pll_309=
- ---
-> commit d62df56ff2e6bf73437e6e25e1335b3fb4571268
-> Author: Aiden Isik <aidenisik@member.fsf.org>
->=20
-> clk: samsung: clk-pll: Add support for pll_309
->=20
-> This commit adds support for the pll_309 used in the Exynos5515 SoC, defi=
-ning
-> the PLL characteristics which are handled similarly to pll_531x.
->=20
-> > diff --git a/drivers/clk/samsung/clk-pll.c b/drivers/clk/samsung/clk-pl=
-l.c
-> > index e74552846ba34..8b1474aeaf0c8 100644
-> > --- a/drivers/clk/samsung/clk-pll.c
-> > +++ b/drivers/clk/samsung/clk-pll.c
-> > @@ -1593,32 +1593,35 @@ static void __init _samsung_clk_register_pll(st=
-ruct samsung_clk_provider *ctx,
-> >  {
-> >  =09struct samsung_clk_pll *pll;
-> >  =09struct clk_init_data init;
-> > -=09unsigned int len =3D 0;
-> > -=09int ret;
-> > +=09int ret, len;
-> >
-> > -=09if (pll_clk->rate_table) {
-> > -=09=09/* find count of rates in rate_table */
-> > -=09=09while (pll_clk->rate_table[len].rate !=3D 0)
-> > -=09=09=09len++;
-> > -=09}
-> > -
-> > -=09pll =3D kzalloc_flex(*pll, rate_table, len);
-> > +=09pll =3D kzalloc_obj(*pll);
->=20
-> [Severity: Medium]
-> This isn't a bug, but the commit message only mentions adding support for=
- the
-> new pll_309 type, while this code changes the allocation semantics of the
-> rate_table across the entire driver, switching from a flexible array memb=
-er
-> to a separate pointer allocation.
->=20
-> Could this architectural refactoring be split into a separate patch or
-> documented in the commit message?
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Medium] The `# Safety` section of `Node::from_raw` fails to enforce a po=
+sitive reference count, and the function is missing the mandatory `// INVAR=
+IANT:` comment.
+- [Medium] The `Node` type lacks explicit `Send` and `Sync` trait implement=
+ations.
+- [Low] Missing `#[inline]` annotations on small forwarding abstraction fun=
+ctions.
+- [Low] Violation of the kernel vertical import style.
+- [Low] `Node` is incorrectly documented as wrapping a pointer.
+--
 
-This was a mistake caused when updating patches against next.
-Will fix in v2.
+--- Patch [1]: [PATCH 1/5] rust: of: add Node type ---
+commit 61d64a4023f5c5b35bf62557893fca7718f72090
+Author: Albert Esteve <aesteve@redhat.com>
 
->=20
-> [ ... ]
->=20
-> > @@ -1637,7 +1640,7 @@ static void __init _samsung_clk_register_pll(stru=
-ct samsung_clk_provider *ctx,
-> >  =09case pll_a9fracm:
-> >  =09=09pll->enable_offs =3D PLL35XX_ENABLE_SHIFT;
-> >  =09=09pll->lock_offs =3D PLL35XX_LOCK_STAT_SHIFT;
-> > -=09=09if (!pll->rate_count)
-> > +=09=09if (!pll->rate_table)
->=20
-> [Severity: High]
-> If a clock is registered with an empty rate table containing only the zer=
-o
-> terminator, kmemdup_array() is called with a count of 0 earlier in this
-> function and returns ZERO_SIZE_PTR rather than NULL.
->=20
-> Since ZERO_SIZE_PTR is not NULL, this check evaluates to false, which
-> incorrectly assigns the full operations instead of the safe min_ops fallb=
-ack.
->=20
-> If samsung_pll_determine_rate() is subsequently called, it skips its loop
-> because rate_count is 0, and attempts to access rate_table[-1]:
->=20
-> samsung_pll_determine_rate() {
->     ...
->     req->rate =3D rate_table[i - 1].rate;
-> }
->=20
-> Since rate_table is ZERO_SIZE_PTR, will this result in an out-of-bounds
-> memory read?
->=20
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next=
--lucky7-clock-v1-0-032e4b229c76@member.fsf.org?part=3D2
->=20
+rust: of: add Node type
 
-Kind regards,
-- Aiden Isik
+This commit introduces a Rust abstraction for the device tree node type. It
+wraps the device_node struct and implements the AlwaysRefCounted trait,
+allowing safe ownership and reference counting of device tree nodes in Rust.
+It also adds C helpers to access the reference counting functions.
+
+> Node wraps device_node type pointer and implements
+> AlwaysRefCounted, allowing owned references to device
+> tree nodes to be held.
+
+[Severity: Low]
+This isn't a bug, but could this description cause confusion?=20
+
+The commit message and the invariants section state that Node wraps a=20
+pointer, but the struct actually wraps Opaque<bindings::device_node>. This=
+=20
+represents the struct itself rather than a pointer to it, which might confu=
+se=20
+whether it is meant to be passed by value or strictly by reference.
+
+> diff --git a/rust/kernel/of.rs b/rust/kernel/of.rs
+> index 58b20c367f993..e75ab81cfe1f7 100644
+> --- a/rust/kernel/of.rs
+> +++ b/rust/kernel/of.rs
+> @@ -6,7 +6,10 @@
+>      bindings,
+>      device_id::{RawDeviceId, RawDeviceIdIndex},
+>      prelude::*,
+> +    sync::aref::AlwaysRefCounted,
+> +    types::Opaque,
+>  };
+> +use core::ptr::NonNull;
+
+[Severity: Low]
+This isn't a bug, but does this import ordering follow the kernel vertical=
+=20
+import style?=20
+
+Standard library imports like core::ptr::NonNull are typically placed befor=
+e=20
+the crate imports and separated by a blank line.
+
+> +
+> +/// A device tree node (struct device_node).
+> +///
+> +/// # Invariants
+> +///
+> +/// The inner pointer is always a valid, non-null pointer to a struct de=
+vice_node
+> +/// with a positive reference count.
+> +#[repr(transparent)]
+> +pub struct Node(Opaque<bindings::device_node>);
+
+[Severity: Medium]
+Are we missing explicit Send and Sync trait implementations for Node?
+
+Since Node wraps Opaque<bindings::device_node>, it defaults to not=20
+implementing Send and Sync. Device Tree nodes use thread-safe atomic refere=
+nce=20
+counting and are safe to share across threads. Without explicit Send and Sy=
+nc=20
+implementations, ARef<Node> cannot be passed across thread boundaries or us=
+ed=20
+in concurrent driver structures.
+
+> +impl Node {
+> +    /// Creates a reference from a raw pointer.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// ptr must be a valid, non-null struct device_node pointer that re=
+mains
+> +    /// valid for the lifetime 'a.
+> +    pub unsafe fn from_raw<'a>(ptr: *const bindings::device_node) -> &'a=
+ Self {
+
+[Severity: Medium]
+Should the safety documentation for from_raw require that the pointer has a
+positive reference count?
+
+The type invariant for Node strictly requires a positive reference count, b=
+ut=20
+the safety preconditions here omit this requirement. A caller could pass a=
+=20
+valid but zero-refcount pointer, complying with the safety contract but=20
+violating the type invariant. If this is later converted to an owned ARef,=
+=20
+inc_ref will call of_node_get on a node with a zero refcount.
+
+[Severity: Low]
+This isn't a bug, but are we missing the #[inline] annotation on this small=
+=20
+forwarding abstraction function?
+
+> +        // SAFETY: Caller guarantees ptr is valid and lives for 'a.
+> +        unsafe { &*ptr.cast() }
+> +    }
+
+[Severity: Medium]
+Are we missing the mandatory // INVARIANT: comment here when casting to the=
+=20
+struct, as required by the Rust subsystem guidelines?
+
+> +
+> +    /// Returns the raw pointer to the underlying struct device_node.
+> +    pub fn as_raw(&self) -> *const bindings::device_node {
+> +        self.0.get() as _
+> +    }
+> +}
+
+[Severity: Low]
+This isn't a bug, but should this small getter function be annotated with=20
+#[inline]?
+
+> +// SAFETY: By the type invariants, this type is always refcounted.
+> +unsafe impl AlwaysRefCounted for Node {
+> +    fn inc_ref(&self) {
+
+[Severity: Low]
+This isn't a bug, but should this forwarding abstraction method be annotate=
+d=20
+with #[inline]?
+
+> +        // SAFETY: The type invariant guarantees the pointer is valid.
+> +        unsafe { bindings::of_node_get(self.as_raw().cast_mut()) };
+> +    }
+> +
+> +    unsafe fn dec_ref(obj: NonNull<Self>) {
+
+[Severity: Low]
+This isn't a bug, but should this forwarding abstraction method be annotate=
+d=20
+with #[inline]?
+
+> +        // SAFETY: The safety requirements guarantee that the refcount i=
+s non-zero.
+> +        unsafe { bindings::of_node_put(obj.cast().as_ptr()) };
+> +    }
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-drm_panel_=
+bindings-v1-0-1f974508a31c@redhat.com?part=3D1
