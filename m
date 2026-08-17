@@ -1,259 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EB13B2FFC
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E605C3E00B3
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 11:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786967597; cv=none; b=jfDfpuUKWDhvJIqkR3UUf8olEXfg/t/J7aAo8jwoCc3pq0bXN/PxwpjEw84igpv3161H0IC7NWQPuej1HM6yKLcgvICfT/E+SR2kF5e2yLVw7+jqJZusE9FwVX55Y49pb9ofeOVc4eYElEVL5FRyEyFu3RXQidusZWnkCFkXdrI=
+	t=1786967777; cv=none; b=MnF6HnR4VTy4eLjqZBp2dgVZC4dtiXM6nr5VFUmoUDlAKCdrqT8Db0V1gjZh4PrLFTaSIbgir87g/+qqRDLes0Wmn+rKEPx10EDkIihTuQ4VCTBEOjwXMxm0BzKkhKRSkiHyWvuxSfrQvO6RDAQ1hlZtgxxlJuzAug49Zl1CgPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786967597; c=relaxed/simple;
-	bh=jJZKRiE8Wq/g0nWrc0kwz8nRuABDYtNk97o89QnoVgg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dVI003q8aUbFE9vTuoWdi4c1OvgTF2OOnxRJT8OrICfREVAYfEZe9CWeH69BdXcG0ODuPhbT+npeopWsKJOdt9nAeh1aYGohhjmoqo6jaPbhu0O1Q5UKRDoNS9gVe6P8cfVhmnxTheldZobZjm/DC/dK2w/oSBEO1h30vkywr6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJP/Jf+j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786967777; c=relaxed/simple;
+	bh=Gez6xpQwq1YHIFskoCdlyQnVU+aHTgdUkmXSskLEISo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NA1ZSi8sLAYEjgkKGYvK/FERyx1IM9eCLTA0uxJ2eRhPIBZh1N7sy5HE38ZgMJhK7/UlBwKCxO6vfGNX3QykjboqRCBM8jHX8q4Qzc3daGrQW69PODdWS3e4pNbVfQAje4Q5qEEyyZnme7l57KPBqKgja6LNQAYpX4Q71VwWe5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oy/2MAjy; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJP/Jf+j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3951F000E9;
-	Mon, 17 Aug 2026 11:53:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786967596;
-	bh=oXwCi74vhX8XCR1asdMFQyXeo0u/PZQn7r1sg63fA8c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CJP/Jf+j/7yIoDjdSGrrFT2SDCkr1dyNoVfDKBvSZS3o3lHYAfYrgFm0NS5gGWQtH
-	 qlY19xxqC3+9Smuj7Uct+mJQqZ3eQlAzQQ9OM0A4mcHR8PA8skP90aS8aKemSdMM6T
-	 XYHFdD5wMJUt4p9i0iPtopdFeMO0RtihWFL4dKAe78qQcNBt16j2oIptLUrWnWUNBF
-	 z7qPZ+i1jLGHRqFYFYDtrL7UM4fY+rlTaIiJ6dozWXWf+toKyvQlyHl6VUgvJ0YsQb
-	 hjgTI6Cw9uA2RtI5EsfTB2SSCe3x2FFSDP/yiup680hilw5gcZadwZ03afinG71bIu
-	 cWlXQS0DWkDeA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] rust: drm: add panel producer abstractions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Albert Esteve" <aesteve@redhat.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, ojeda@kernel.org
-In-Reply-To: <20260817-drm_panel_bindings-v1-4-1f974508a31c@redhat.com>
-References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
- <20260817-drm_panel_bindings-v1-4-1f974508a31c@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 11:53:15 +0000
-Message-Id: <20260817115315.CD3951F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oy/2MAjy"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so30813525e9.1
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 04:56:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786967774; x=1787572574; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tV4PQbMLFFgyHeT+5vlbh1R9csfOU7q00rfgp5Wi+ME=;
+        b=Oy/2MAjyBS1fIFnMsU1QEeYuwM58oBlquAEJpeNzBbJJYYbi8krhekwtw9SehZ0AVC
+         oFmI2F+RlJt1irfvI/oZ4MNp13dLM0srSZEGHA/3erlAaZ++VPWcwIDFTKwyxjR+7G5q
+         0bsA2Nig0t0ypgU6bcerIPhzGXHQ73+rQTg+fAedbRc1ck7E9gvlvWkNZICNC/1Z+fss
+         jxdyPN+NCU0tFj9cKoMLLDcWsrTarG1/UgzH+35rExhTcgBrYV5JHcyf1LSd7mVHq+aN
+         WPiZ5AD9yWk3IRyjZH8e92g+e6t5XL6vo0DH/hDAdgUsy+q+W2fK4ZBE9q81Wh1PdOex
+         8/Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786967774; x=1787572574;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tV4PQbMLFFgyHeT+5vlbh1R9csfOU7q00rfgp5Wi+ME=;
+        b=RjZ/1LGMGZ33XpFcIx3NQJfxg/ciREbAqx3ykCYdrypG7J3+gH8ZMNheHDHGkgp8Co
+         U2c2Q3h2CGlfKXpskScAWcVTHqMWp4GnUkk7/QZYYzmKYSMd0w35VIo9c95wmi5zRKOF
+         wol3nXCjvi1KWQk88GxLzT1VCD9VON1lAsMscg5vl2STrgOtxzrNIuwKvAk5DJmNp4U5
+         PMeO/cMBHAHoyWcE+yMK1t8RH2px5SefAvPFs1MkWOSJeyd6OHgijkgRLjDj+8kQ6aNg
+         Xw1Moq+2DvVOlqovOnSgAsHtlI7zdVbPsweJ0gBvgq0XubbjyWOKymp5grq0SxuluUY9
+         /ORA==
+X-Forwarded-Encrypted: i=1; AHgh+RqUr6JI99olNowmtvuA1DS+vs0qwdyHuAiFOjoaEAVhPUW12wnxH4imXPW0sB/4tndSmpYHLf1gUm0G@vger.kernel.org
+X-Gm-Message-State: AOJu0YwgowhEjNtZ9+bwDWHAxSevpx/fXyiGq54TM8dsF4QyR85d0bYq
+	MOmF/1JNozb6JSbqSLfkEgQ/Z0nd2Xa5aDIqbfu/dDKta7stRXCSiGnI
+X-Gm-Gg: AR+sD12kGSMvx54DdrWjiIaRDlC2I40iBk7X9WglqWV3a5aphinQAe5q6FfwKIhu3HZ
+	qXzIEuloCucVvRTfAFRyv7EDgASYjg6n2JkxGVx0uUGHQqvMli/OvPQHmLKwZxkFcAb7ASKHXBQ
+	3T5VOLtpqINIJT4iB0pXAqdAFl6BF0tqcuu+MgGM/vl6nMRBO6bUF2qiKGPkYb9d5KwURgZzVxf
+	gS1o3/U2uB4cNV70znbwdsUOFadzN4z8OFT/Oh38uWlz4hKeAp5qJfR7tS4CdhY4CpGg5Ka8M8Q
+	9XVJLvp6jxrZpB+c2G+5IVvKCrqZDh0GGR6QO8zaXfBEiBSjvoc6ARjjQNUjaLWIj0oygaNa+wq
+	6IquC3OB2wL1QeyFrcJVjGjNtU74iGMchLzpiYG11fDqn20E/1dipdAaglUNiUqIRAZSKn0lDUr
+	tjiEGrspwEDpDFdE+7/7y8HENOMd1juHR1m0ZuoQ0gYA9WFCCRZ1lx5HeaPic0ysysFCV5NWFoc
+	pKrtg6gkMDif/WkOCYvmmtumlvBxjmIVfZ6wDzcUDu5f1Cmm+LsgJTeLuaYL1eaxbi8GuTgj4Sh
+	5ZsxUThDgoUEk82Zq6uEEtjH2vIxek7wx2Lh/otqI63pRR+R6NorRyTmo8EVPHdTE743sW87Plk
+	Bu+6DkahMDf+CxMfxRphHjBPAI8yJbHP4yyNRnnmlk91p+xAndcdJoLZvSILGRWA3GR17LQ==
+X-Received: by 2002:a05:600c:3b1d:b0:499:87b6:f3c0 with SMTP id 5b1f17b1804b1-4998807e4c9mr371138435e9.14.1786967773981;
+        Mon, 17 Aug 2026 04:56:13 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4998777a4bdsm203726505e9.0.2026.08.17.04.56.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 04:56:13 -0700 (PDT)
+Date: Mon, 17 Aug 2026 13:56:10 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Petar Stepanovic <pstepanovic@axiado.com>, Akhila Kavi
+ <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, Jonathan
+ Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Harshit Shah
+ <hshah@axiado.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] iio: adc: add Axiado SARADC driver
+Message-ID: <20260817135610.00000c0c@gmail.com>
+In-Reply-To: <anoYDi-bt-t6ZeeD@ashevche-desk.local>
+References: <20260810-axiado-ax3000-ax3005-saradc-v5-0-bb0df3ecedaa@axiado.com>
+	<20260810-axiado-ax3000-ax3005-saradc-v5-2-bb0df3ecedaa@axiado.com>
+	<anoYDi-bt-t6ZeeD@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Mon, 10 Aug 2026 21:27:26 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-New issues:
-- [Critical] `Panel::new` steals the devres-owned reference count initializ=
-ed by `__devm_drm_panel_alloc`, leading to a double-free on device unbind o=
-r drop.
-- [Critical] The destructor of the driver data `T` is tied to device unbind=
- via devres, rather than the panel's actual reference count, creating a spl=
-it-lifetime Use-After-Free.
-- [High] Missing `Send`, `Sync`, and `'static` bounds on the driver data ty=
-pe `T` in `Panel::new` allows data races and Use-After-Free via non-thread-=
-safe or short-lived types.
+> 
+> > +	soc_data = device_get_match_data(dev);
+> > +	if (!soc_data)
+> > +		return dev_err_probe(dev, -EINVAL, "failed to get match data\n");  
+> 
+> -ENODATA
 
-Pre-existing issues:
-- [Critical] `Panel::from_of_node` improperly converts the result of `of_dr=
-m_find_panel` into an `ARef<Panel>` without incrementing the refcount, caus=
-ing a premature free.
---
+Hmmm, I always thought it should be -ENODEV. (`grep -Rb5a5 "device_get_match_data"
+drivers/iio/` confirms this, but maybe it's just wrong to begin with, a few
+instances even have checks missing).
 
---- Patch [4]: [PATCH 4/5] rust: drm: add panel producer abstractions ---
-commit 0e243089bb12e5256a62894a39811280cadcb027
-Author: Albert Esteve <aesteve@redhat.com>
-Subject: rust: drm: add panel producer abstractions
-
-This commit adds abstractions for DRM panel drivers, introducing the
-PanelFuncs trait and PanelContainer struct. It provides devres-managed
-allocation via __devm_drm_panel_alloc and ties the lifetime of the=20
-data to the device.
-
-> diff --git a/rust/kernel/drm/panel.rs b/rust/kernel/drm/panel.rs
-> index fd21cc2236685..8f87774e06ed7 100644
-> --- a/rust/kernel/drm/panel.rs
-> +++ b/rust/kernel/drm/panel.rs
-
-[ ... ]
-
-> @@ -139,6 +143,66 @@ pub fn from_of_node(node: &of::Node) -> Result<ARef<=
-Self>> {
->          // `of_drm_find_panel` returns a kref-incremented reference.
->          Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(panel).cast())=
- })
->      }
-
-[Severity: Critical]
-This is a pre-existing issue, but does of_drm_find_panel actually increment
-the reference count?
-
-Looking at the C implementation, of_drm_find_panel iterates over the global
-panel_list and returns the pointer without calling kref_get or
-drm_panel_get. If we consume the pointer directly with ARef::from_raw(),
-dropping the ARef will decrement the refcount. Could this drop the refcount
-to zero and prematurely free the panel while the provider driver's devres
-still owns it?
-
-> +
-> +    /// Allocates and initialises a device-managed panel.
-> +    ///
-> +    /// `data` is embedded in the same allocation as the `drm_panel` and=
- its
-> +    /// destructor is called automatically when `dev` is unbound.
-> +    ///
-> +    /// Use [`Registration::register`] to add the panel to the global re=
-gistry
-> +    /// once it is ready to be used by display drivers.
-> +    pub fn new<T: PanelFuncs>(
-> +        dev: &Device,
-> +        data: T,
-> +        connector_type: ConnectorType,
-> +    ) -> Result<ARef<Self>> {
-
-[Severity: High]
-Does T need Send, Sync, and 'static bounds here?
-
-Since Panel::new takes ownership of T and stores it in a heap allocation
-accessed by the concurrent C DRM subsystem, safe Rust code could provide a
-non-thread-safe type (like one containing Cell or Rc) or a short-lived
-reference. Would this allow data races or use-after-free when the C DRM
-core concurrently invokes vtable callbacks?
-
-> +        // SAFETY: `dev` is valid by its type invariants; `PanelFuncsVTa=
-ble::build()`
-> +        // returns a valid, static `drm_panel_funcs` pointer.
-> +        let container =3D error::from_err_ptr(unsafe {
-> +            bindings::__devm_drm_panel_alloc(
-> +                dev.as_raw(),
-> +                core::mem::size_of::<PanelContainer<T>>(),
-> +                core::mem::offset_of!(PanelContainer<T>, panel),
-> +                PanelFuncsVTable::<T>::build(),
-> +                connector_type as i32,
-> +            )
-> +        })? as *mut PanelContainer<T>;
-> +
-> +        // SAFETY: `container` is a valid pointer to uninitialized memor=
-y.
-> +        unsafe {
-> +            core::ptr::write(
-> +                core::ptr::addr_of_mut!((*container).data),
-> +                ManuallyDrop::new(data),
-> +            )
-> +        };
-> +
-> +        // SAFETY:
-> +        // - `dev.as_raw()` is a pointer to a valid and bound device.
-> +        // - `container.cast()` is a valid pointer to the initialized `P=
-anelContainer<T>`.
-> +        error::to_result(unsafe {
-> +            // `devm_add_action_or_reset` calls `drop_panel_data` on fai=
-lure, so `data`
-> +            // is dropped even if this registration fails.
-> +            // Registering after `__devm_drm_panel_alloc` ensures devres=
- LIFO order:
-> +            // `drop_panel_data` runs before `kfree(container)`.
-> +            bindings::devm_add_action_or_reset(
-> +                dev.as_raw(),
-> +                Some(drop_panel_data::<T>),
-> +                container.cast(),
-> +            )
-
-[Severity: Critical]
-Is it safe to tie the destruction of T to device unbind rather than the
-panel's reference count?
-
-Since the panel is reference-counted and exposed as an ARef<Panel>, consumer
-drivers could keep the panel alive after the provider device unbinds. When
-unbind occurs, drop_panel_data will destroy T. If a consumer later calls
-a panel method like get_modes, the C code will invoke the Rust vtable
-callbacks which operate on the dropped T, potentially leading to a
-use-after-free.
-
-> +        })?;
-> +
-> +        // SAFETY: `__devm_drm_panel_alloc` was successful, hence `conta=
-iner` is
-> +        // valid and the `drm_panel` at this offset is initialised.
-> +        let raw =3D unsafe {
-> +            (container as *mut u8)
-> +                .add(core::mem::offset_of!(PanelContainer<T>, panel))
-> +                .cast::<bindings::drm_panel>()
-> +        };
-> +
-> +        // SAFETY: `__devm_drm_panel_alloc` was successful, hence `raw` =
-is valid
-> +        // and the refcount is non-zero.
-> +        Ok(unsafe { ARef::from_raw(NonNull::new_unchecked(raw).cast()) })
-
-[Severity: Critical]
-Does ARef::from_raw steal the devres-owned reference count here?
-
-__devm_drm_panel_alloc initializes the panel's refcount to 1 and immediately
-registers a devres action (drm_panel_put_void) that owns this reference.
-Wrapping the raw pointer directly with ARef::from_raw without incrementing
-the refcount means both ARef and devres think they own the same refcount.
-
-When the ARef is dropped, won't it free the panel via __drm_panel_free,
-causing a double-free later when device unbind triggers the devres action?
-
-> +    }
->  }
-
-[ ... ]
-
-> +/// Operations implemented by a DRM panel driver.
-> +///
-> +/// Implement this trait to provide a DRM panel driver and its callbacks=
-. Use
-> +/// [`Panel::new`] to allocate the panel, passing the driver data as `T`.
-> +///
-> +/// C header: [`include/drm/drm_panel.h`](srctree/include/drm/drm_panel.=
-h)
-> +#[vtable]
-> +pub trait PanelFuncs {
-
-[Severity: High]
-Should this trait require Send, Sync, and 'static supertraits?
-
-Similar to the missing bounds in Panel::new(), without these supertraits,
-types implementing PanelFuncs might contain thread-unsafe primitives
-or short-lived references, which could cause data races or use-after-free
-when accessed concurrently by the DRM subsystem.
-
-> +    /// Turn on panel and perform set up.
-
-[ ... ]
-
-> +// Devres action: run T's destructor before `kfree(container)`.
-> +//
-> +// # Safety
-> +//
-> +// `ptr` must be the base of a live `PanelContainer<T>` whose `data` fie=
-ld was
-> +// initialised by `Panel::new` and has not yet been dropped.
-> +unsafe extern "C" fn drop_panel_data<T>(ptr: *mut core::ffi::c_void) {
-> +    // SAFETY: Caller guarantees `ptr` is the base of a live `PanelConta=
-iner<T>`
-> +    // with an initialised `data` field. `data` is at offset 0, so `ptr =
-as *mut T`
-> +    // is valid.
-> +    unsafe { core::ptr::drop_in_place(ptr as *mut T) };
-
-[Severity: Critical]
-Does this execute the destructor while the container might still be alive?
-
-If a consumer driver still holds an ARef<Panel>, the container's reference
-count is non-zero. Since drop_panel_data is called unconditionally on
-device unbind, won't drop_in_place destroy T while it could still be
-accessed via the panel's vtable callbacks?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-drm_panel_=
-bindings-v1-0-1f974508a31c@redhat.com?part=3D4
+-- 
+Kind regards,
+Joshua Crofts
