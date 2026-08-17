@@ -1,129 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8A13C3C07;
-	Mon, 17 Aug 2026 10:37:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E723E49C3
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 10:38:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786963033; cv=none; b=HRffFtOj74kQbI2oQh4OQXVNB3eMSKP9pePiRGxh/Oi/elOBgkwNvwCRvHSi0o+aEiK+oCj0uEJSLtpFCffovTOb9HF4AipWMh8D9n70yuiohSMIlZjGb3ttNgq5RQYZ6EKXncCu9xtLH3YanDkN1Hy7uCMN4xWdx7gaXfHDReo=
+	t=1786963089; cv=none; b=LyYz4OeJzPReqDhe8VsIKr0zw9VK7uQXNW/7kV83aOL7dMjvPB7dSTJ+4PP6I4JZsVLAWefYMJwJHqyxVScnuWH1xu08I2/i5ExUi35GxY2OruF2rl8lM/TSsxvGO/k4CgNoKea9T8nGcncOOQiW+hUMuuSwKKV6na9hH4Dkex8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786963033; c=relaxed/simple;
-	bh=zbM4CPPd67pGM0y65qpZihfEffw+EIuSqHKs9JCxwT0=;
+	s=arc-20240116; t=1786963089; c=relaxed/simple;
+	bh=GavKxTPHeujEqe+HEnLmgvChsNdnTxE3FQV2HDxahZg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c3e4iHGInP3hCvI8lh4ptdhZvZtqEtS3wmroc+jXEMjOsVmTyT48m3co1Eg7K9ymbOF5U/pcDntaSlsWM4CkObpiPj5c0D7zO+6CmL063xDnNGvwW1exCI1curd6FyrOAej0Z+4DCYWnj9bek3mTFhjfMAAHNEkO94x0cl1jKac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuWYatru; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NwADehS82CS2VqrwhOyqYJ7nE63e8Km9xeXtyrLAHSzMxWBhVASrAiIJzzQoH+K71S0aWgEyWcWZtWVCqfq+6Dlksg0I7tqKdgjEXCYSWh10XHR41DxXE/2aRXy7iZuuWDYNi5cIu8DUijTqsgyLbr66x/Tl7/wgpsBG/+fuy90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UudKDtHJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuWYatru"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943D81F000E9;
-	Mon, 17 Aug 2026 10:37:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UudKDtHJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788801F000E9;
+	Mon, 17 Aug 2026 10:38:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786963031;
-	bh=d8Mb8/JbidvvMhvqd8j3liKZ8Iu5OhT4F8l2lpVp31U=;
+	s=k20260515; t=1786963087;
+	bh=4pdRN810uyDedpwGEo+LFWLpz4CjZRdIdqGZYKldFKE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HuWYatruE3dS6rrpZp1hDOoXSje1FlasuyHVOK/IIryijjPBlh1ou4OouKN2NIjuy
-	 0oiIVFBkvYIXzaXht+ty3vAAgTwbDJaPl8KDEWcfQXuLpT1pOGX+Wzfh0zUIZqsw1a
-	 NRCbbIMzhrktbwtIJnD2g43VdTFpNx71hoTYfS6GgQiOJVHEPNk2cnne7oXy+ZBukJ
-	 Sl2N2KiT4iPeBzVfce5RcbMeGWyeLDmHjHM38igqT0vFnH3gyIjcRZXUTqe0t7RZEC
-	 4Gw/B97PwW4+AO0WqAWgMWzNnio/FcOvAfERdoccCHnpAbCvbOENGkcQkhpGh/BgPa
-	 UBiKe7bt4XKdQ==
+	b=UudKDtHJTVvgQAX7hEV1ektMMHlzd7qv5ztfTLq+CQ1mOOAotgw7VAvvvNCGby93+
+	 JCDMc+z6sEUxbcPlr2X7gTvwC8f2Btmx4D45gz6akg6azKMeA83rdpJ9Nt4+sv0na4
+	 G5SQ1AxzGVgepHQ8USvy5fBIQlgbygXz6vsvFQ2SSmEgL0V1jNZby60vdOhsme5suQ
+	 iyYvSgHPTlH9iazSGq56100BbuY7CSX+jNLFxsAFAu9U/YCjDkR9eAe37590oX/W+Q
+	 6gqJi7L1UficSGtzsmLLxQNBx5D6XDp5Y8uNGuT6syh5IGKTLM6S8G4KbV8ke5mZOg
+	 NzGkH4VOLF3LA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] clk: samsung: clk-pll: Add support for pll_309
+Subject: Re: [PATCH 1/2] arm64: dts: exynos: Add initial support for
+ Exynos5515 SoC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Aiden Isik" <aidenisik@member.fsf.org>
-Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260817-for-next-lucky7-clock-v1-2-032e4b229c76@member.fsf.org>
-References: <20260817-for-next-lucky7-clock-v1-0-032e4b229c76@member.fsf.org>
- <20260817-for-next-lucky7-clock-v1-2-032e4b229c76@member.fsf.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260817-for-next-lucky7-v1-1-42ffb2b71ba2@member.fsf.org>
+References: <20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org>
+ <20260817-for-next-lucky7-v1-1-42ffb2b71ba2@member.fsf.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 10:37:11 +0000
-Message-Id: <20260817103711.943D81F000E9@smtp.kernel.org>
+Date: Mon, 17 Aug 2026 10:38:07 +0000
+Message-Id: <20260817103807.788801F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Logic Error / Out-of-bounds Read when rate_table is empty
-- [Medium] Single-Responsibility Violation: Undocumented architectural refa=
-ctoring
+- [Medium] The GIC-400 node lacks the VGIC maintenance interrupt property.
+- [Medium] GIC CPU interface (GICC) memory region is incorrectly sized at 0=
+x1000, which breaks VGIC support.
+- [Low] Node unit-addresses for `cpu1` and `gic` do not match their `reg` p=
+roperties.
+- [Low] Redundant and deprecated custom function IDs are provided for PSCI =
+1.0.
+- [Low] Missing dt-bindings clock header `samsung,exynos5515-cmu.h`.
 --
 
---- Patch [2]: [PATCH 2/3] clk: samsung: clk-pll: Add support for pll_309 -=
---
-commit d62df56ff2e6bf73437e6e25e1335b3fb4571268
+--- Patch [1]: [PATCH 1/2] arm64: dts: exynos: Add initial support for Exyn=
+os5515 SoC ---
+commit e8b991884f3a3fd45bff9e8dcdd76dcc3db06db9
 Author: Aiden Isik <aidenisik@member.fsf.org>
 
-clk: samsung: clk-pll: Add support for pll_309
+arm64: dts: exynos: Add initial support for Exynos5515 SoC
 
-This commit adds support for the pll_309 used in the Exynos5515 SoC, defini=
-ng
-the PLL characteristics which are handled similarly to pll_531x.
+The patch adds initial device tree support for the Exynos5515 SoC, used in
+Samsung Galaxy Watch models. It adds CPUs, generic timer, watchdog, and
+various clock management units.
 
-> diff --git a/drivers/clk/samsung/clk-pll.c b/drivers/clk/samsung/clk-pll.c
-> index e74552846ba34..8b1474aeaf0c8 100644
-> --- a/drivers/clk/samsung/clk-pll.c
-> +++ b/drivers/clk/samsung/clk-pll.c
-> @@ -1593,32 +1593,35 @@ static void __init _samsung_clk_register_pll(stru=
-ct samsung_clk_provider *ctx,
->  {
->  	struct samsung_clk_pll *pll;
->  	struct clk_init_data init;
-> -	unsigned int len =3D 0;
-> -	int ret;
-> +	int ret, len;
-> =20
-> -	if (pll_clk->rate_table) {
-> -		/* find count of rates in rate_table */
-> -		while (pll_clk->rate_table[len].rate !=3D 0)
-> -			len++;
-> -	}
-> -
-> -	pll =3D kzalloc_flex(*pll, rate_table, len);
-> +	pll =3D kzalloc_obj(*pll);
+> diff --git a/arch/arm64/boot/dts/exynos/exynos5515.dtsi b/arch/arm64/boot=
+/dts/exynos/exynos5515.dtsi
+> new file mode 100644
+> index 0000000000000..5584c1a3aaf4f
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/exynos/exynos5515.dtsi
+> @@ -0,0 +1,186 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Samsung Exynos 5515 SoC device tree source
+> + *
+> + * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
+> + */
+> +
+> +#include <dt-bindings/clock/samsung,exynos5515-cmu.h>
+
+[Severity: Low]
+Is this header file missing? It appears it was not added in this patch or
+earlier in the series, which will cause the device tree compilation to fail.
+
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +/ {
+[ ... ]
+> +		cpu1: cpu@1 {
+> +			compatible =3D "arm,cortex-a55";
+> +			reg =3D <0x100>;
+
+[Severity: Low]
+Does the unit-address for cpu1 match the reg property? The device tree
+specification requires the unit-address to match the first address in the
+reg property, so should this be cpu@100?
+
+> +			device_type =3D "cpu";
+> +			enable-method =3D "psci";
+> +		};
+> +	};
+[ ... ]
+> +	psci {
+> +		compatible =3D "arm,psci-1.0";
+> +		cpu_off =3D <0x84000002>;
+> +		cpu_on =3D <0xc4000003>;
+> +		cpu_suspend =3D <0xc4000001>;
+
+[Severity: Low]
+Are these custom function IDs necessary? Since compatible =3D "arm,psci-1.0"
+is used, the kernel relies on standard architecturally mandated function
+IDs, and explicitly defining cpu_off, cpu_on, and cpu_suspend will be ignor=
+ed.
+
+> +		method =3D "smc";
+> +	};
+[ ... ]
+> +		gic: interrupt-controller@15600000 {
+
+[Severity: Low]
+Does the unit-address for the gic node match its reg property? The first
+address in the reg block is 0x15601000, so should the node be named
+interrupt-controller@15601000?
 
 [Severity: Medium]
-This isn't a bug, but the commit message only mentions adding support for t=
-he
-new pll_309 type, while this code changes the allocation semantics of the
-rate_table across the entire driver, switching from a flexible array member
-to a separate pointer allocation.=20
+Is the interrupts property for the VGIC maintenance interrupt missing from
+the gic device node? Without it, KVM virtualization cannot properly handle
+virtual interrupt maintenance.
 
-Could this architectural refactoring be split into a separate patch or
-documented in the commit message?
+> +			compatible =3D "arm,gic-400";
+> +			reg =3D <0x15601000 0x1000>,
+> +			      <0x15602000 0x1000>,
 
-[ ... ]
+[Severity: Medium]
+Is the GICC memory region incorrectly sized at 0x1000? KVM VGIC
+initialization requires access to the GICC_DIR register at offset 0x1000 in
+the GICC region for EOI mode 1, so should this size be at least 0x2000?
 
-> @@ -1637,7 +1640,7 @@ static void __init _samsung_clk_register_pll(struct=
- samsung_clk_provider *ctx,
->  	case pll_a9fracm:
->  		pll->enable_offs =3D PLL35XX_ENABLE_SHIFT;
->  		pll->lock_offs =3D PLL35XX_LOCK_STAT_SHIFT;
-> -		if (!pll->rate_count)
-> +		if (!pll->rate_table)
-
-[Severity: High]
-If a clock is registered with an empty rate table containing only the zero
-terminator, kmemdup_array() is called with a count of 0 earlier in this
-function and returns ZERO_SIZE_PTR rather than NULL.
-
-Since ZERO_SIZE_PTR is not NULL, this check evaluates to false, which
-incorrectly assigns the full operations instead of the safe min_ops fallbac=
-k.
-
-If samsung_pll_determine_rate() is subsequently called, it skips its loop
-because rate_count is 0, and attempts to access rate_table[-1]:
-
-samsung_pll_determine_rate() {
-    ...
-    req->rate =3D rate_table[i - 1].rate;
-}
-
-Since rate_table is ZERO_SIZE_PTR, will this result in an out-of-bounds
-memory read?
+> +			      <0x15604000 0x2000>,
+> +			      <0x15606000 0x2000>;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next-l=
-ucky7-clock-v1-0-032e4b229c76@member.fsf.org?part=3D2
+ucky7-v1-0-42ffb2b71ba2@member.fsf.org?part=3D1
