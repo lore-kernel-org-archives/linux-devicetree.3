@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42C03B6BEB;
-	Mon, 17 Aug 2026 07:42:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BAB3B6BEB;
+	Mon, 17 Aug 2026 07:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786952560; cv=none; b=H0bsP6QfE9oo1Z6DvO82YjFOw2Qn7ie8PeZjeYhMTja3EV5xmHZhtp+6I2HARjgOnEG1+9Mk5zA71vOQPtuRCGiVLQFQNTccM2lPqM8CB1nWf2FRWX/vq7LJ22GCtUlrhUFu+N0j+ueEmW3ihBDNv1nB1RZldrZvtIFsudJdDHo=
+	t=1786952655; cv=none; b=u8JyYn4Sig/JgWz/iJ399hotkWqb+IDL0SVpGV146zq4IauuGPzbWjrlyZzfzpLSJ0ghBlOLKm5WfFyzS64m7OFNaPfopmmuhi7KhOebhh/fN2ywbqi112eOBQ/ygMFEnPGOYFcwndB2jjiKChVz+xE+0srYG1UsiHGErCXy6ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786952560; c=relaxed/simple;
-	bh=byqE+02g/4UCtnCZebe7aWfevoFQwvy0pDMshcd2zbw=;
+	s=arc-20240116; t=1786952655; c=relaxed/simple;
+	bh=l/jYvcf8rCTB/Nef5iMkr2YCab1jQY66Gy+BytBsQKY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J46fM19Ojx97poB9C8Aa98ut9s7F2PBN7vL7OGRnzreTD3yjA2rUCKl/nsHGCLP4FP42LZ+JvX6h8PZ+3y1k1LbnrTJ5e7R6MwdDM3SsaF+gz3eivU0hNvQBE2eZWynd3khtP/3MVhyeXv3yrfQiFEsqOk2P/jF7DF2DPJ7Xj6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/dr3avs; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=a3ujhzFG4M1CbUy31U1dAXb26FZt2ucz3jSRJCyRxF3Ovk4KfbsYfZpZntLXyFd0sp+OFCqdDF68q/6ofZeyUaF4nTTG/kjc+C1oDoKU3bfGXhLr+ZAI/YukRwZ+WxWS/mMp3WQ2rtyP2xZ+hHkMP+9QtsBm30VItz9ERoFCcpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AzRYm+Sa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/dr3avs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B381F000E9;
-	Mon, 17 Aug 2026 07:42:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AzRYm+Sa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01031F00A3A;
+	Mon, 17 Aug 2026 07:44:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786952558;
-	bh=qT2yF0faTkPR5ST2LgRX7fG1uocE5gd79N8AzmJ0fhs=;
+	s=k20260515; t=1786952653;
+	bh=3IbxIvkXSdGUmIdqZNdFr0n8OgHN4CpP2gFX1ad04a4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D/dr3avspgTLyOXH3DNYNYYFRTZr97wbzFT0314TKUmqNdoNFX+chhYdkqg/htvqA
-	 nJrSYrw4l9oFPX2ukSJrUct+yQMCKOBgDFr65Eck2EbBvMT989WTl7aZrl50D2P6jW
-	 QXmF5f0f2BdsVdf0XaqpHqLcahBJPgcO034wM63bqQBt5dwxBKInHjnNCtCeilGPbs
-	 eqaa3PIBq1U+LH11E+328Q3+kBARwanGIrqipuTi4nXsVyCjJzHYIfC8yrqhd3/cvp
-	 Dn8wzfxHp19mTWNYTT2TqzlavbHxUMfU55YDVOtm3ql0wwmiCg317jLor3tHpVIvQi
-	 iTMLAytSmj0NQ==
-Date: Mon, 17 Aug 2026 09:42:30 +0200
+	b=AzRYm+SajlUWLlqli7WPH1kxUntEOtGCykc2Rv2E3n59KVZdyjZ/h8mVOTZB4/V5m
+	 aBn9J4I8wlNbCBSstuoFWt/vd2T6OFJrpYjw+kuSc9q91L/evRBoz5SMuPS2NaGaqo
+	 NZSj+454j4CIY/RJ1NLpDw64O960cU40/QRyOgC8sR1V2Rq9qu958MNWKAsRUm2Ve8
+	 s6RNiPtMYVNkHgJGJKZPXs+BROr47mR14qwC2iYflSoLZhkDo5IBfwYWMuN9WRqKWN
+	 ZwVBy48gaqRFu72lWBQiDRCliqx0Z9zrQTb5ZliuTx57NxhRY9WUIen68b2vGfyocP
+	 UgG6AeS5b9ngQ==
+Date: Mon, 17 Aug 2026 09:44:06 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Conor Dooley <conor+dt@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Document 10" Raspberry
- Pi Touch Display 2
-Message-ID: <20260817-whimsical-fictional-dove-89b3d6@quoll>
-References: <20260809200107.842945-1-marek.vasut+renesas@mailbox.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: MyungJoo Ham <myungjoo.ham@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: devfreq: Document support for Airoha
+ Subsystem devfreq
+Message-ID: <20260817-warping-crafty-hyrax-fabb6a@quoll>
+References: <20260810143057.651478-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,65 +46,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260809200107.842945-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260810143057.651478-1-ansuelsmth@gmail.com>
 
-On Sun, Aug 09, 2026 at 09:58:50PM +0200, Marek Vasut wrote:
-> Document the 10" Raspberry Pi Touch Display 2 MIPI-DSI TFT LCD panel.
-> The panel is based on the Ilitek ILI79600A controller.
+On Mon, Aug 10, 2026 at 04:30:54PM +0200, Christian Marangi wrote:
+> Airoha SoC contains multiple subsystem that are scaled to a
+> specific OPP taking the CPU clock as reference. Such sybsystem
+> can enter idle or performance state based on the system load
+> and power consumption conditions.
 > 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Jessica Zhang <jesszhan0024@gmail.com>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: devicetree@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  .../display/panel/ilitek,ili79600a.yaml       | 65 +++++++++++++++++++
->  1 file changed, 65 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml
+> Example of such subsystem are GSW (Gigabit Switch), NPU (Custom
+> Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
 > 
-> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml
+> Document all the required property and provide examples for the various
+> subsystem OPP + devfreq nodes.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/devfreq/airoha,devfreq.yaml      | 114 ++++++++++++++++++
+
+devfreq is Linux subsystem. How is the device actually called?
+
+>  1 file changed, 114 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,devfreq.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/devfreq/airoha,devfreq.yaml b/Documentation/devicetree/bindings/devfreq/airoha,devfreq.yaml
 > new file mode 100644
-> index 0000000000000..0a3baffef293e
+> index 000000000000..2f84486cb209
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +++ b/Documentation/devicetree/bindings/devfreq/airoha,devfreq.yaml
+> @@ -0,0 +1,114 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/display/panel/ilitek,ili79600a.yaml#
+> +$id: http://devicetree.org/schemas/devfreq/airoha,devfreq.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Ilitek ILI79600A based MIPI-DSI panels
+> +title: Airoha SoC Subsystem Devfreq
+
+Here as well
+
 > +
 > +maintainers:
-> +  - Dave Stevenson <dave.stevenson@raspberrypi.com>
-> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+> +  - Christian Marangi <ansuelsmth@gmail.com>
 > +
-> +allOf:
-> +  - $ref: panel-common.yaml#
+> +description:
+> +  Airoha SoC contains multiple subsystem that are scaled to a
+> +  specific OPP taking the CPU clock as reference. Such sybsystem
+> +  can enter idle or performance state based on the system load
+> +  and power consumption conditions.
+> +
+> +  Example of such subsystem are GSW (Gigabit Switch), NPU (Custom
+> +  Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
 > +
 > +properties:
 > +  compatible:
-> +    items:
-> +      - enum:
-> +          - raspberrypi,dsi-10inch
-> +      - const: ilitek,ili79600a
+> +    const: airoha,devfreq
 
-Binding looks exactly like boe,tv101wum-nl6, so either properties are
-copy-pasted without checking in datasheet or this does not need new
-binding file.
-
+And a generic compatible... We do not take bindings for Linux drivers.
 
 Best regards,
 Krzysztof
