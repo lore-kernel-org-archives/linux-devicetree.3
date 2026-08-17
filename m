@@ -1,87 +1,53 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07836442FA1
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 15:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B123441041;
+	Mon, 17 Aug 2026 15:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786979754; cv=none; b=RxMFlywV5aCc2oRoj9z2n+4jMLyWUe1E9W20dI9N3wP6bNXefdjgUusBxaGzgCEy8EqtqzMad+fwF/4PYh9UpXliz0NI7Me9sdTdTTpNkh0GteJEzSOkQfaiIZ7Bc9ZV2KITR8BYO/LDDFi5xzONzLLujOCOYk48C7UWkgG/kDM=
+	t=1786979899; cv=none; b=E3Z0PEPGHnEx5e1nOjm9sSlKwsXy8ioODDYgstJhqh7TnUs9JatBC4+MpbXaYDWhWQ/PhSq/YmQVhcY4h4yt25gQscFi+ASlZnJlww7Q+Z0bhAefKF9K+vL+Lyx7wNn2qbOXbsqGMVWhD+9cxRLqMOh4oXTws4DHaHL/mgWR7C8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786979754; c=relaxed/simple;
-	bh=/9zL4j7bvEzNHZe+2GnRD64ks0ouO6ge/iHUhPBHSpY=;
+	s=arc-20240116; t=1786979899; c=relaxed/simple;
+	bh=k8uyASQlHNa79v+VL5tW/1TnW9ZTnAMKpHwaaVzbE2o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O17LmfllVPPv4LQfrd4kwONXYZ35jfw2xlxUJzUvbH/7MQMwa1DcTl8fcSaIkfdqHMNu9OU9xZZbxnLpVbQA9Cbb8htQWZ3q2RdyMMq03jKBXIFADAZJ6pVsprnFI46GGOM33ih2O3haWPE3RroE7Gx1kNekVzNDebzWdQKkw/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=nURkaZkS; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=oU1sh9feYVRY0N+ffPbPvThHC7gWdUf/2GelJlJ3AWKtaLjnMOUfnP0LzJlo+OuT5hTwISLt2P7iwI9H4UdAxS5ScUz7+vVapHJmZhRuy+NOhfSbYyOOsy7CrZCcHqAAEwwMK+2kJhZBjItmKYu9RbdnWbjHICpzFofbW0FNFVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=apMn5jXX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="nURkaZkS"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e5b048375so179215685a.1
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 08:15:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1786979752; x=1787584552; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LkIXCvEaOBZrdi7ChK3r5JFweXwKUKZFGDYp1HFtFrY=;
-        b=nURkaZkSS1bFk0F9xKIrydT+A4Tbczk/jA4xGpqFU4pBJoP+aZ/Skuc1oMLRGSGl9r
-         WO0OCIEPs5emafGVagWsIGAbiNCLo2cD1/eMeFIfqB8+t4q/zD/TDCoqsli6ywNXD7jk
-         Y52TD7Gj5oOWKx70Rb/gd3KPYsGMVa5CvRyBZCrCOes71OqXN30YMfzRB/abf0M6fp0o
-         RHAAh9MmrqRaY6+gNTqPp2RwexWzHoe5pzaLKR10S7s4rMlr+OwlMWDIEQTYtyNMIH5p
-         WdjfJ4csOa+UWGleBQRIlc/r+l79t4gZDgnlScbxETCUATW9YHfV9bP5SHTRagD8YyFG
-         m3+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786979752; x=1787584552;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LkIXCvEaOBZrdi7ChK3r5JFweXwKUKZFGDYp1HFtFrY=;
-        b=r+POXcBnzArJuhjQfKfQyIY9ojVGzn0VvIiNiywXy4CQf5SiqbFnXlhnaquyS5SyPg
-         WPku6ZhUf8pBUXZbpqiHtEmawM3plj/hHMspieKzDb2hmcfrsh3zGQN8tHTvEoFbbJwI
-         oMAIjv1lxndN/nw4TdWfqaq3Q32TKjiPJnZCTw1/ihxt2ZY3Pcb6tIAF7HZbDC4tTUIW
-         XSbsUYKu6ZzV3C2fiyCJlPfNfdIM6uqsTSdTiBAzLM2ZkL4zW9ss+mGhMCinZ5xdIAQz
-         F79nUIGyFQgeYU1Ktv91xCWs+z3W6G1NWrJ+Paql2u3c7Mye9yxQ8bjjXFDC8kkKTlLL
-         U7ww==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+dtWhCmvEqt18yDOFKKC7eJ9NPd/Lsc3Fs2KnEeBfvKsWUVfI01Udg2iVKDv9GofUDcdSuqFHyAjR@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywrv1H8EycgyOmdO+5AplxzM9MtJDMsyedDLnjor+F5V6fHc2VX
-	r8qxc5YpMRxF1aw19mt+RnmfpP1FEVEhpeFXkjvK9QvXt8qkXCeDF3oPEvk6pj9KuT0=
-X-Gm-Gg: AR+sD11tehBAwHI1zcKtYVPNPCQDddHzIlYjGdlozzH9m1tgUXCD1aOkLkc6/E4IKor
-	MK1wm/76kwQ0G9eDsuYM+zD+MfXOanz97YxbPA1u3C8SAflFMC4cT7zx7huU4FwCnd4qE8Qhkcm
-	UM9ftGmCgA/4WEToUiZEvgTgvDZSzYpsI+g+pH1O7pzpLQHv6nUnDcrUs449PUY0cYAARfRMQvb
-	SMCKTUSXBhJUg4dH8iwpgWh5oaRbpgT2bJKzDdHLv/+JYibJ9i1LjtfhCLJ6s81FbxkCVfa6WUt
-	CrtSwdPgiE62qhj6m+/8mcQYDtJcmU3ykfYzxFIicgsfP1F40pgSzwp5//d7v3CpbH09Puo6F1s
-	duNN9Hq68O1L6vOUp4DI/PJJZ5vBOhzFuBbISGKlW8RS5/JtAyk63Rhg6C6ySIn8Ff3wn7LE89j
-	6gqZ8TKCENu7N9BkXpeTBnboS8mXM9/uUmXHaHYIx4EIK0BKyyxqJWFpHd6hT3Mb/tHlgetQx+K
-	TwrnpYjwLQ14UwVPS/7uSx+PSNGgCesFoA00RDLPbVW
-X-Received: by 2002:a05:620a:f06:b0:92e:7d53:8e8d with SMTP id af79cd13be357-93704b7d4dfmr142017785a.27.1786979751821;
-        Mon, 17 Aug 2026 08:15:51 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-937033d2ccdsm67050085a.30.2026.08.17.08.15.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 08:15:51 -0700 (PDT)
-Date: Mon, 17 Aug 2026 11:15:49 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Rob Herring <robh@kernel.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Mike Rapoport <rppt@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Alexander Graf <graf@amazon.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
-	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Baoquan He <baoquan.he@linux.dev>, 
-	x86@kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kexec@lists.infradead.org, linux-mm@kvack.org, linux-efi@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arch@vger.kernel.org
-Subject: Re: [PATCH 0/4] kho: rename "scratch" to "bootmem"
-Message-ID: <aoMlXHFTvcpwOv8W@gourry-fedora-PF4VCD3F>
-References: <20260811162642.3504565-1-pratyush@kernel.org>
- <aoMdJ7hpr1GonLz8@gourry-fedora-PF4VCD3F>
- <20260817145231.GA579285-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="apMn5jXX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCF001F00A3A;
+	Mon, 17 Aug 2026 15:18:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786979898;
+	bh=GlBDrNemJGOZ2p7bCdTXX5Uz/rOAfEi0mhDIUCyeYy0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=apMn5jXX5/5bVQmMmSf8J2E2IyvNObdJ8YR4tYPhgJGp4TA+QX/JFblQLu94OKs3p
+	 xOsq+Y5ozUgeEuq/3jMdc7oaNu1id3OssgoU7k+dHGdKLtMpzt+x5v3fPCZ+LkpXgi
+	 WdoOnA5HV+c93h40qvIlAeKXEAnDR3v3lAe+DOrD/LbzxNqy9byGIz9tzievzTAX8n
+	 7AAy81jwMu5zWiF2ylTA0kUsvTpq7ivAOuMkpYXpvplgeHBbtoj0ChTwobB6r/6A6a
+	 o2Svz3CvLT4bb/AlDEhmHp9PUXvjeFf1m1sTmjkpB70QYMLjWHwYADsVILc8VzZ3bn
+	 KjP/as4ReuMfA==
+Date: Mon, 17 Aug 2026 10:18:15 -0500
+From: Rob Herring <robh@kernel.org>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Saravana Kannan <saravanak@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	devicetree@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	mripard@kernel.org
+Subject: Re: [PATCH 1/5] rust: of: add Node type
+Message-ID: <20260817151815.GA757484-robh@kernel.org>
+References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
+ <20260817-drm_panel_bindings-v1-1-1f974508a31c@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,20 +56,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260817145231.GA579285-robh@kernel.org>
+In-Reply-To: <20260817-drm_panel_bindings-v1-1-1f974508a31c@redhat.com>
 
-On Mon, Aug 17, 2026 at 09:52:31AM -0500, Rob Herring wrote:
-> On Mon, Aug 17, 2026 at 10:42:00AM -0400, Gregory Price wrote:
-> > 
-> > Is there a non-verbiage reason to justify these changes?  Living with
-> > "scratch" seems better than potentially breaking folks.
+On Mon, Aug 17, 2026 at 01:40:46PM +0200, Albert Esteve wrote:
+> Add a Rust abstraction for `struct device_node`, the device
+> tree node type.
 > 
-> I don't think these are the first breaking changes. And if the changes 
-> are fine, then that means more breaking changes are fine, too. So why is 
-> this upstream at all until the design is settled?
-> 
+> `Node` wraps `device_node` type pointer and implements
+> `AlwaysRefCounted`, allowing owned references to device
+> tree nodes to be held. To do so, add C helpers to make
+> them always accesible from Rust bindings, independently
+> from the configuration.
 
-Surely we should not break deployments for the sake of renaming
-something that is very arguably already aptly named?
+struct device_node being refcounted is a kconfig option 
+(CONFIG_OF_DYNAMIC). What happens when that is disabled?
 
-~Gregory
+> This abstraction is needed for subsequent patches, in particular
+> for creating drm_panel instances from a `const struct device_node`
+> pointer argument.
+
+My intent is to make struct device_node opaque. We may never get there 
+with C code, but please make sure Rust is that way from the start.
+
+Rob
