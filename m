@@ -1,45 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FFB39A807;
-	Mon, 17 Aug 2026 15:38:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB10028BAB9;
+	Mon, 17 Aug 2026 15:42:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786981125; cv=none; b=TxkrVfgF8yCOdW0rBhZupIQ0CfI0SP7vaxXOT2QAfg52VKO/CZYZP6OfVKkD9EEHH8Utkk5MSZGnEmUzCx4o1akIY7706GXwnu5t3sg5q3HKWq1jPJuSBDTEmOGPGrHaBcs/165Ds7JNBlr56NEz3IsPPCIPOBAMWxh2jkJCm/g=
+	t=1786981351; cv=none; b=Cqu3wa1E++0MtPeTc+5GDJRdkHl/OXtC+gDoqiWvEja11NCHz8jmuD9/Lp/y3x8vwEvvqlWDX5OsF6F4xNj60jCE2VxmSSfPe1UkRhllKITS8ScCF5HNwhxco99tFPBhMppucoCsekc/otM/XTVv09AoYFsXk35wzo/OziGIPfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786981125; c=relaxed/simple;
-	bh=yBMi91dBD+AvK7Q8kwcMYptVT5sh4MlwOiUU7JIszhA=;
+	s=arc-20240116; t=1786981351; c=relaxed/simple;
+	bh=jDlSk8u2kol9t1hUHH0EVIijN2hs3ZcPPoaDGEvtCRI=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qZcUA681XW9vrzwtHNXryE8JzZmRHr6lWU9vyakWqK711phkxjIQn/vhGO3+80uH4psB/XV0igh33c4HD32/DaugWhels0DDRGrHBMeqi8/zTVeK4AdfWbRApbBpUpvn9FNshIRc+Q/hP86VlOYlinCt9J+HGVXttFG9+kyi3Bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cs1GQ4lh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XWBDAcU3+lgWeaHQ9cHETIyO9sy/d5ZGln4kcQ5HZXbqYirINzSvdEwjU5NeUrRtlIBnAxUxUog2mT9XC7CPdXMnLGouA+IUp83Ciz9LXLKW0L4eaKH8t03h82tyilYXz74Pd4FSc7ppjHlQRu/aojjS8RvIzDvsnLwdzQSshNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLOPrDNw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cs1GQ4lh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3131F000E9;
-	Mon, 17 Aug 2026 15:38:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLOPrDNw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3801F000E9;
+	Mon, 17 Aug 2026 15:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786981124;
-	bh=4DmfPql4Th1/vGMYBr32DIZj6vWMe6ET+S2DBK064HU=;
+	s=k20260515; t=1786981350;
+	bh=g6Ezqa2dO/9Dmog89bWC65voOH1LK7nETEJo4JkXH5I=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Cs1GQ4lhenmtLERGetrlLm8k7B7iCtyZCHfMgAdMXMfkB3Os/bImTxpKNa10jBohw
-	 s/OTAwSFCcsRi/tha4PZGLrlAkZ3tx3nsAIGFxwZNMdakiXMk/zns7cPsnZOWgjk9R
-	 NMflDRPkx6t+B9zz479DHK60b+uA3jknk8Krl/73Cc1DWRqlrr66Ymo0YZ1ljBGDM/
-	 pHl/dOsm12cPJH2rqOLYvujCLys0nwVXYnapK6/c7w6BCB16yP+hBm70by4NsDTODU
-	 fppVzzPAosh6D/K0dgCQ2Hyk5IeakDk0LqHo6AuZrnO76N6HsKyXGTikvZiEockVuX
-	 a5Pi14xUCxUIQ==
-Date: Mon, 17 Aug 2026 08:38:43 -0700
+	b=NLOPrDNwAKy7N7zNCpj6yObRFmmM3rz0rjWFoasL4DTAnV5u3J43xmVBZ3AYoN6Cf
+	 IJc8XciHN2zsdxVgaWvWpkNqmKtveIy5I4WbN6pl76un0tl/NanWSta6ofN1yjUJGD
+	 iblDnWEdPaXs5dx4nhcFjQCFpGHMXFSZMOW0grxJDlStA8zZosIdqogV3yugPnyRrr
+	 2QgYnM+hxWSj9D9Z5fEwjy5Yt4EePlABLothAheGRotdJTchS2wJDMli4Rq/jUHJcF
+	 Dl9DFp6N1e26RzfsmCo45pNojSqEz6mt+V7CxKPLzF7yO02m+e1TNWB5Sp+/sIX1c9
+	 bp5d56b8s2NDA==
+Date: Mon, 17 Aug 2026 08:42:29 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: netdev@vger.kernel.org, dinguyen@kernel.org,
- maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 1/2] net: stmmac: dwmac-socfpga: Enable
- multi-IRQ when per-queue IRQs present
-Message-ID: <20260817083843.219a0f45@kernel.org>
-In-Reply-To: <20260817074221.27459-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References: <20260817074221.27459-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-	<20260817074221.27459-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Cc: dinguyen@kernel.org, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robh@kernel.org, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5 4/4] net: stmmac: dwmac-socfpga: Add support
+ for Agilex5 TSN GMAC with FPGA converter
+Message-ID: <20260817084229.56655607@kernel.org>
+In-Reply-To: <20260817030213.6769-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
+References: <20260817030213.6769-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+	<20260817030213.6769-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,9 +50,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 17 Aug 2026 00:42:20 -0700
+On Sun, 16 Aug 2026 20:02:13 -0700
 muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
-> Subject: [PATCH net-next 1/2] net: stmmac: dwmac-socfpga: Enable multi-IRQ when per-queue IRQs present
+> Subject: [PATCH net-next v5 4/4] net: stmmac: dwmac-socfpga: Add support for Agilex5 TSN GMAC with FPGA converter
 
 ## Form letter - net-next-closed
 
@@ -71,3 +72,4 @@ See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#develop
 -- 
 pw-bot: defer
 pv-bot: closed
+
