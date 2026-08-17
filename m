@@ -1,85 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674B33ABD99
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 15:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9F142EEDD
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 15:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786979358; cv=none; b=qtr/EVOH1nfMRIaFizc+51N6Je+ryeapdlzeHTPbl0rDPjv2UiqoHkKnzPC9DFomXyPVWRTA3PNkU9I80PJForoxlCX2JpePknW/QlLX9nFPiZphzZiwsUEb/5JEd2EA7Cdc5db9WueYPuqdM9U40s7um9fQWvvIdTKHD6tGPfA=
+	t=1786979360; cv=none; b=AmKfu3FWfenS1P73N05KqqdD9TMoWmC/nCDw5OC0mh8aeJpVEHMer+7N5m7OhlEg1w+fBs03YCMmGg+Q/UOOr++dKvISaIml8iAcjnzGS0CvBnr6Tdl2UrLK3djjK96m7rMI//lF7YIiw+ppmJrtvSmwJdHydCMoWP50Ul4yjZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786979358; c=relaxed/simple;
-	bh=806xV2L1oHUsTPDAJAUBQMr4mAXXg51e6OdEFZEM+CU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NIaa7Twh1ldA8yYUitxcTYCPBnzDnPYZy4PWkYROoYJV0JJG4AgSv3GRvpNeuU/h+ga41jIwFeUWWprokE729MgrNWN5SgO7L0ptjsclZOep/opl17q62sSSxMQTnDO3dSeC7yAhfEi/Lp401FeCXD4Q0uSYQ7IR9PsUBa8aLME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B7xvuOJ6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PlYUtVsX; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1786979360; c=relaxed/simple;
+	bh=W2p1gqkX4AQ8Th8f33I8eROJT74xXZVBij/fNQ25/NQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pRk0eymYjmAi3N/ikqSYVvgHxYeVERGXnK/l3a0LuYHeebsmNhrHNPXk0YY8IEv9LD7kr0cHZqlJycUgm3M+NNIum7AHWneL2Gq1yw8Bgp6TQKn7ZB4UEuOOUfh4bHmtRSRjmaAwt/CosTXxOVm4kJfG1zkyqCoaHmTc8PJKhg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KP/dYHWU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vg933Yyb; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B7xvuOJ6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PlYUtVsX"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67HD5ius1510848
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 15:09:15 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KP/dYHWU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vg933Yyb"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67HD6Dbb1193726
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 15:09:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=/8l3A7Nui29KNu7qqqM1/u
-	6wVlfzshkbGHvb5dP7nB4=; b=B7xvuOJ6ojaRdophz37vn0ttM690TxJ2Y4hDoG
-	M5kojxMauoNM+7zw0xEh2W9tbf4Q7/vLhoYKhG3utH0Rcakw6/HC/sD51W4+VWUg
-	SAjyhOiB+V3Dud5Eq6+5b9kzdmDf7wKaHDHh5JcPl2q36A6OORoCXKO++49aNhmy
-	acUdfeu6cN4UMkU43pKH4rG1G8VlF1wtdYQXuVaE3lrd8EnHOy6828nv4uIicJ3G
-	Mm+eB+QLEKg75hIR7Un80SDVTW0vOtvV4t3+Q57zv0hXyxV5gGe8vKT1SWU5p/iQ
-	xFiX+tJjytn4+Qan6VpJgiTManYvlO2IW0ZtbXlpfk9tSLOA==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Kjs0JpkjceaOXlcdB95wR46vNOivhHcjPSAD9oYP1aw=; b=KP/dYHWUjbxiPlM4
+	CUmlGsaMssJKPghsvUj53+0yMcLKUP2beZV1stc09LTxMBkOXcT4fVqoPaVTmy6/
+	Y9NQekE2aWv11tkWFa7pVBtBmzm1+j3iKqoMLLVIjCxQGAoujsa1kFTp2K2+Dk98
+	Neucu5ybxJbNBJk3Xq84PB/oto6Ch5c7gkiV0s/PwgVfE7AHenu+iS93uhQywSS5
+	Ml9XtSn2zLaREe5SKMiRQQSn3ZE/euZr8I37JFHCGDionQqLDXm+Mr5vwUm5m9JP
+	tD0ZCBpFGcyG7T/Bmqr+ZIUKvsAfjtJBAHXHaMdWzWCz9spOx5Bpo4WnrZsR8J1V
+	admU9w==
 Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3x30hpvn-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g3wke1wfm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 15:09:15 +0000 (GMT)
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66c70f78c75so7211765d50.1
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 08:09:14 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 15:09:16 +0000 (GMT)
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66c70cfe719so5417864d50.0
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 08:09:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786979354; x=1787584154; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/8l3A7Nui29KNu7qqqM1/u6wVlfzshkbGHvb5dP7nB4=;
-        b=PlYUtVsXKj2uBdVjOnxvdlRE8ieo0ShtDKKr3qd+DVyyv1+Od5z5nD1upXyhqwiTEm
-         eSkFukli0splKwpvzU2i0LA5irxpN+sUruxr81bL5t30SBaKsYXz6mPMRsb4GowRHKXO
-         Ck8h9CTwMqwPdXgA1FZxbmMnOUfm8dW0Yl0U1NTTWEn589EgbMipQQmTmHw5zS7TI/l3
-         lg17wGxrwjO00IgdftX61Vgs/IyqkKebTktJp17aZDtO/loEeiqFeWoHP1IRot7CSgH8
-         BpjbPkVKESvq3rJfQP4uZrxbs55LnBpop4EGstIRXdNZ3NaDAEfmqyQ/BAS+fjwJCUQq
-         OC+Q==
+        d=oss.qualcomm.com; s=google; t=1786979356; x=1787584156; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kjs0JpkjceaOXlcdB95wR46vNOivhHcjPSAD9oYP1aw=;
+        b=Vg933YybH5vgb+ISGKDYn7RtwvI52U1MVn2vgQRkcyBuG55yyyWzaNvKRySVuBpe9F
+         WRiBeqIFiUourhjyP8FFu84pZZMpFLEYdBFp3bJrYgudcsRlfTGdk3y6/aoCB5MTxvII
+         xJEVOhjWo8mjo8EwUN+RS+zFHZf6mdj79xC69IrW8zXRFqIKOjYqd1Tp6g4iY0kwgd3c
+         Ok7iDtmBSL1mu6ISG4kC3gmWyExahJwtwXzf4BySvhlX04Ac+eJT7dt6/durFXn6tdFi
+         6xsRr0ANgNBbYoiuYC3MChX1m2PWF0qoh58OgcSvugSgFsw6TtN/eAtuhbuNt2AWjdM7
+         +vww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786979354; x=1787584154;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/8l3A7Nui29KNu7qqqM1/u6wVlfzshkbGHvb5dP7nB4=;
-        b=CRXJzM5wut/WQ+0lxETpxqK26w2gqU5EfGLdU6LcatoZ9Mr7+Hp8KaqiK3luL7Sqy4
-         GOqWGGYM+XBTPP7aJ2V0QjCL4KZ+Dt0SNYu0c4f/P+o6mu8U82zNEI6k/a3qNq62ciNr
-         8MUiczSd50AWSqegm5zdwYnNCeHPvvFricyElL5sUKmfs8+X+O/c31q3b+qIzKPOJ8bf
-         TmCSBeLY+y+cvXTvaTbpiOkfVxuXABUi6Mwc/puEfJrSvHgnN4EULVwk3fzCSzDhGGhe
-         QE4IwwatSQGnn45vrXddrOPcvFqu/XjPCs6svFcdBfmHM6laiWA9gtPOQb34gGyHsTSf
-         i7bA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpqn0Uy5Xn+VAQDyoFB57DnQ5Z+sVthZz/gCJm5AK7+OJbJ39OoU+ghI6e9kOw9DW82sP0ynsGEwuUO@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfmKpwjqQN+Xgv9HIs/D7yCH5xj4Jkm0lyCqVGrtmAGSBTXXcB
-	+5vQkqYW/MOx1T+lrl2JNSF6d9JNW7tiegFmgkzlZBPIdnJ7H9h5RqtrfdUZ5DUmlNPNtxigcHY
-	Yb8EoKmIgM43sq5BI4Z9hqJuwAH5yCKLbjc8334Qdlub8Ah3leIv7iPd2IB/K4E/K
-X-Gm-Gg: AR+sD12VJzOKsdw2WpZZdoz/KgRMO9UoT1icso6PwTo1eZxwgegiBZIG3pavfxA6SVW
-	e+cFcjhBRV+2/QJJqYYCv+BIrONJaQr6YVKaCAxwX3ovxYVRc+Rc/orOJr8MO0r5LSckorHYLqH
-	8ux0rYI0thXeY/qDhi8X2730Y1sJiyRoGRUjlvplePlwYtOd77sErxnF+kfd/cbIamkwLX5iv76
-	axn+ucbKFTSwfbHCpNUNhbhSBaUW5wEXV8OpBzBea6uFkUvGSSnKltKnyuDT+iXSj0t1Gaz6Anf
-	1mwFaze51Cle0EIAC8eAKEQ4xJBYPdy9mkkpeyJpETC5Dcl5XWgX3CJm+GlSV9LkMgs967SyDBa
-	mkNtl2dxphwJFBhwUwPKbWtjUzcRAOLCfTxSIINWRbV66lAv4TA==
-X-Received: by 2002:a53:c4d1:0:b0:66c:4efb:6518 with SMTP id 956f58d0204a3-66c72baf01cmr7065289d50.21.1786979354018;
-        Mon, 17 Aug 2026 08:09:14 -0700 (PDT)
-X-Received: by 2002:a53:c4d1:0:b0:66c:4efb:6518 with SMTP id 956f58d0204a3-66c72baf01cmr7065264d50.21.1786979353302;
-        Mon, 17 Aug 2026 08:09:13 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786979356; x=1787584156;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kjs0JpkjceaOXlcdB95wR46vNOivhHcjPSAD9oYP1aw=;
+        b=AkTgX5NNsurEqJed/e5+tZGxp/13p7ZqAJtGUYCm3/RzIxDBNTCvV6+LTgGmvA9vvh
+         yGlC6MglGGeW+EKDcGAwt+S9Z3ZjVb6my/bKzP6AJpWNbzH0tHtGfbZh3o/cETZRIO57
+         hNxDTPXtTPodTWMGet7SB90oOxxMLH9goR+bKDw97KDMWR+PFGfUEngJFX8D3Ns8JaU4
+         yqle5UvOORc3F/6gF5eaUIkBn8gKuR0F6hfEBmxiHQW4jkw1Om/ldtSW1O7WLAFGkX+Q
+         736IjdU0/5fMG1JAKoOt9Bd9+lpJFI4JEYqS33Mjr6wbq+yXQ4g2dqCZmFId1uyx9X12
+         TAYQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpejOx0a7S6vzqh9lEJu2nB0FQ1qz0vpjViNbwv7idShhrEZ2iDinKKJPtP2y7Sbz4prOk7gAgPABsY@vger.kernel.org
+X-Gm-Message-State: AOJu0YxwqOXr3svLxP4Zb6N7p0VvUcS8+PxGZMPcRgz0nrRwITJVxZ5J
+	lZQ4JLFympWVg6O8Ixj7MLSrCNh8fryCu+mCYQAvBi/2leypYWGqBIF2D1gc4OWehjMammrKUPZ
+	tLMIUrjHXIKnNot+lEYJbkjPYgfixA+MFpBJK5qEm7o9HotuKJTcmK+EX4hrPUg9H
+X-Gm-Gg: AR+sD1042Z4dXy1ONLaABEqAdySWCmyKD/zdGgmyud2KpheCfdFjY/SDNXaid6KZlE4
+	gVALHDKJtUR5VwPe1qJN35sbG+3jvQ2GBf289/GUBv6I9IjhXGDedAfcQJRkkSXpowHrkciIItB
+	l6tnWzCiFL6talmD4kdCV43RxsvPg1PCWo0fJFmn27YVEX2oDxxs9EvOJ8SYIxQputoJeJppNrn
+	MSPqRV9JZjLot6We/GhS3LrqRcW2iEYF+avmBWP1MFnoNpgNuDNcG2BKh+tI5RdkZJu0CYjULg0
+	XKGfG+sX7jiu634WT+F3FhLoiC9CYgTL4Xl/xuSt2yh1gOhhue4Wy+Yg94yS1MYKcUljNev+gzO
+	ptYHOJmLQV+oI1ud7ou9ZLrddiBOv4EKSLQt19swoquUlRXhq+w==
+X-Received: by 2002:a05:690e:1244:b0:66c:4b0c:3cad with SMTP id 956f58d0204a3-66c72e9edd0mr8210315d50.53.1786979355935;
+        Mon, 17 Aug 2026 08:09:15 -0700 (PDT)
+X-Received: by 2002:a05:690e:1244:b0:66c:4b0c:3cad with SMTP id 956f58d0204a3-66c72e9edd0mr8210296d50.53.1786979355549;
+        Mon, 17 Aug 2026 08:09:15 -0700 (PDT)
 Received: from agents-mac-mini.lan ([2600:1700:b450:a0df:2c9c:bdd5:b705:b119])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66cb3d377bbsm938108d50.0.2026.08.17.08.09.11
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66cb3d377bbsm938108d50.0.2026.08.17.08.09.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 08:09:12 -0700 (PDT)
+        Mon, 17 Aug 2026 08:09:14 -0700 (PDT)
 From: Jason Pettit <jason.pettit@oss.qualcomm.com>
-Subject: [PATCH v4 0/3] X2 Elite HP EliteBook X G2q support
-Date: Mon, 17 Aug 2026 08:09:08 -0700
-Message-Id: <20260817-glymur-send-v4-0-3fb89cec703e@oss.qualcomm.com>
+Date: Mon, 17 Aug 2026 08:09:09 -0700
+Subject: [PATCH v4 1/3] dt-bindings: arm: qcom: Add HP EliteBook X G2q 14
+ AI
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,13 +91,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABUkg2oC/3XQwW6DMAwG4Fepcl6qxAkEqmnae0w7BMdpMxVoC
- aChindfgE1bte0SyZLz+bdvLFIXKLLD7sY6GkMMbZMK/bBjeLLNkXhwqWYgIBe5LPnxPNVDxyM
- 1jkupcgdaWQmCpR+Xjnx4X7WX162OQ/VG2C/EZ0dH1yGN6bc2VtlIHNu6Dn0aq42xplBG28ygK
- kRZSQPWKYFItnJWF6gN5gtVU4x2zXfYPa7xDMiveJfTlNDG81FyyQ0WpSizDDCj5zbG/XWw52X
- mPj1PbIl6CrFvu2m9wyjXZNvKIO5WTp7gHrUF9E4Kg7+8lRvhJ5HdE5AIIUqRKdDeV/4fQn0T6
- RD3hEoEOEkpAilblH8Q8zx/ACXEr9neAQAA
-X-Change-ID: 20260619-glymur-send-1136d243a120
+Message-Id: <20260817-glymur-send-v4-1-3fb89cec703e@oss.qualcomm.com>
+References: <20260817-glymur-send-v4-0-3fb89cec703e@oss.qualcomm.com>
+In-Reply-To: <20260817-glymur-send-v4-0-3fb89cec703e@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -107,126 +106,57 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
         Ananthu C V <ananthu.cv@oss.qualcomm.com>,
         Jason Pettit <jason.pettit@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDExNiBTYWx0ZWRfX1t5T+VtVtBn/
- F+e+TgDnBB0xsEL2xA135Ik2ob/UCSnD78OocxtMwtzNnJdCyrWXLLCFthV3fgyj4zMgYzntT87
- 6AuMnzLzWJJIgynHM+LwKgEN4l8ec5ofllvtoNv2JHy3BlEbXuO13vozDGALF2qXVA+Igzr9plp
- XwBhzeJo3F5XNubTeXZhG0SxAfl+dnHC5dztqLnSc9MFkstelvlyk6Cw5JtxC6yl7z1/PAAxmue
- QSTC36Qflq0BPysDeNTIHgChGvYjBrpO42nmOZp9LJ5CE/+utKp1Zef5U6gR48g1o7brhIolJOc
- c0639MLTwdSAUxH3v3diePYNMpYARhhT5gtQJ9ruCTmjkvlA9cWPT26g+KWh+4NeCoCpT54c/LP
- zTtczUPhP9iZX34RhNupTWMxM7jQgwEmNdQA8mEzhMWNXb7CYvl4uZkKTChK8ZgES4f2eAn2FDT
- xTZ3tYMYo5GIXpgCwzw==
-X-Proofpoint-GUID: MrOfx6R5whxvqLaQlcT-tW4n2VLoz-xc
-X-Proofpoint-ORIG-GUID: MrOfx6R5whxvqLaQlcT-tW4n2VLoz-xc
-X-Authority-Analysis: v=2.4 cv=Y9/IdBeN c=1 sm=1 tr=0 ts=6a83241b cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE3MDExNiBTYWx0ZWRfX6EIuhjdR1Zpw
+ mLXdNMk+N51ZkJ4ick4FxthwVeRRZGhp/SgIrEVq/ZXxEDUsGv4PDrE3TxRW0VcL1i/IM6OcNNY
+ KusAfUu3xOgnDNd5rQcGs5cqzwgxcIT2q8hX9InHHHHGKZQ4m5H3qvLRN9ejgzw9i+30/IYpsMe
+ RWJHMETBBBbqaQiHTBo7yK2K3wOy+BB9j8I8uOSlnwrZ9lPVQHIJuNrXSNwOYcIbvUvMs0JJpUc
+ G4lv58WrxK6k5pmR1TXxPfXMjZ2mk2Mv87uOwQ0nFylX3q82R70o74VxylGA7txD6h7HXGoHH/O
+ F3XlM914cfa/0qOWy6oawraksLdBUyE4OA04sucpL+43UOMQtR4fWfqYABdwdepPRLKUay09XZA
+ L1orj5B4vpuk0nDAdj8mpwmav3QIfK/btFZfJkgvXhEfC4VQE7aq6bRpSkwyLEerkxOzlRVYuFQ
+ w4TbqRsUS9ywaYDhLHA==
+X-Authority-Analysis: v=2.4 cv=QetWeMbv c=1 sm=1 tr=0 ts=6a83241c cx=c_pps
  a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=AisufbmASPP-vp6uVsUA:9 a=QEXdDO2ut3YA:10
- a=nd2WpGr1bMy9NW-iytEl:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDExNiBTYWx0ZWRfX1NvN2DiMP1DD
- 8Rub8c4uAP72TZIPPOw3TwiqWzFfJ56E3mUpHEUaVf3GyMPUd7cSNbL8JKu7O8RwjxqucBFT7m9
- w0K1vrMUir/osRGCSeuzGaKBAdP0EB4=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=FzA6eXefDna1RhwR9dEA:9 a=QEXdDO2ut3YA:10 a=nd2WpGr1bMy9NW-iytEl:22
+X-Proofpoint-ORIG-GUID: p1XDbzAM_H0LBWfhYe1rBpfCcym2_pmT
+X-Proofpoint-GUID: p1XDbzAM_H0LBWfhYe1rBpfCcym2_pmT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE3MDExNiBTYWx0ZWRfXzQINYzF92SOq
+ fo2T+aKXOOU7YIY/+vkR3G7ingMeiWb1NNkcGY846n4Kq8xQUxqHZmA+xVtm9tSjuo+SGKuil4t
+ R03b1IKh4jOoA07OMu/E5sULGOao4uE=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-17_01,2026-08-12_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- clxscore=1015 bulkscore=0 malwarescore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608170116
+ priorityscore=1501 malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608170116
 
-This series adds initial device-tree support for the HP EliteBook X G2q
-14" Next Gen AI PC (product SKU C4JG0AV, board 8E91), a Snapdragon X2
-Elite (Glymur) laptop.
+The HP EliteBook X G2q 14 AI is a Snapdragon X2 Elite (Glymur) laptop.
+Document its top-level "hp,elitebook-x-g2q" compatible.
 
-The board was brought up and validated on real hardware. The electrical
-description (PMIC rails, PHY supplies, the HDMI bridge wiring) was
-verified against the live unit rather than copied from a Glymur CRD.
-
-Working on this laptop with this series applied:
-
-  - Internal eDP panel (samsung,atna33xc20)
-  - 2x USB Type-C with DisplayPort alt-mode and USB
-  - Chassis HDMI output
-  - Chassis USB-A host port
-  - Fingerprint reader
-  - NVMe SSD on PCIe5
-  - Wi-Fi, Bluetooth
-  - Keyboard, touchpad, touchscreen, lid switch
-  - Adreno GPU and GMU (Freedreno GL on Mesa)
-  - Audio playback and capture
-  - Real-time clock
-  - Compute DSP (cDSP)
-
-This patch series builds upon the recent work of Qualcomm engineers to
-enable another Glymur-based laptop.
-
-Like its peer submissions, the camera support is missing today.
-
-The audio, GPU and SoCCP series this board previously depended on have
-since merged. The one remaining dependency is the Glymur combo-PHY
-configuration patch (prerequisite message-id below). Until it lands, the
-board patch trips the expected "Label or path ... not found" dtc error on
-the DP PHY node.
-
-SCMI on this configuration needs CONFIG_QCOM_CPUCP_MBOX built in (=y).
-
-The bindings patch is independent and can be reviewed/applied on its own.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Jason Pettit <jason.pettit@oss.qualcomm.com>
 ---
-Changes in v4:
-- Rebased onto next-20260814. The Glymur combo-PHY configuration patch
-  remains the one declared prerequisite.
-- Fix the touchpad interrupt. TPAD_INT_N is GPIO 3, not GPIO 66.
-- Describe only the microphones this board has. GPIO 200 and GPIO 201, the
-  second DMIC clock/data pair, are not connected and are removed in v4.
-- Addressed comments received on v3 as reflected in the next two items.
-- Use the firmware names from the vendor package (qcadsp8480.mbn,
-  adsp_dtbs.elf, qccdsp8480.mbn, cdsp_dtbs.elf)
-- Drop the smb2370_l_e2 status override; SMB2370_2 is already disabled by
-  "arm64: dts: qcom: smb2370: Disable SMB2370_2 by default".
-- Link to v3: https://patch.msgid.link/20260809-glymur-send-v3-0-2d1ed10e3a89@oss.qualcomm.com
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v3:
-- Rebased onto next-20260807; the audio, GPU and SoCCP prerequisites have
-  merged, leaving only the combo-PHY configuration patch.
-- Added the TCSR reference-generator supplies (vdda-qref*/vdda-refgen*) and
-  the vreg_l1f_e1_0p88 LDO they reference.
-- Set dr_mode = "host" on usb_hs; glymur.dtsi dropped it from that node.
-- Reworded the usb_2 and smb2370_l override comments.
-- Link to v2: https://patch.msgid.link/20260625-glymur-send-v2-0-00905324ffbf@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ff8a35df7862..d141872c2b28 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -87,6 +87,7 @@ properties:
+       - items:
+           - enum:
+               - asus,zenbook-a16-ux3607oa
++              - hp,elitebook-x-g2q
+               - qcom,glymur-crd
+           - const: qcom,glymur
+ 
 
-Changes in v2:
-- Enable the PMIC RTC (qcom,no-alarm + qcom,uefi-rtc-info)
-- Add the SMB2370 eUSB2 repeaters on usb_0/usb_1
-- Enable the compute DSP (remoteproc_cdsp / fastrpc)
-- Addressed comments from reviewers on v1
-- Link to v1: https://lore.kernel.org/linux-arm-msm/20260620-glymur-send-v1-0-fc4a2cfd107c@oss.qualcomm.com
-
----
-Jason Pettit (3):
-      dt-bindings: arm: qcom: Add HP EliteBook X G2q 14 AI
-      arm64: dts: qcom: Add HP EliteBook X G2q 14 AI
-      firmware: qcom: scm: Allow QSEECOM on HP EliteBook X G2q 14 AI
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
- arch/arm64/boot/dts/qcom/Makefile                  |    1 +
- .../boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts    | 1032 ++++++++++++++++++++
- drivers/firmware/qcom/qcom_scm.c                   |    1 +
- 4 files changed, 1035 insertions(+)
----
-base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
-change-id: 20260619-glymur-send-1136d243a120
-prerequisite-message-id: <20260721-glymur-phy-conf-v1-1-7c8909552c5e@oss.qualcomm.com>
-prerequisite-patch-id: eb10b682f1419fa6bbb45943afca62a8250cb68b
-
-Best regards,
---  
-Jason Pettit <jason.pettit@oss.qualcomm.com>
+-- 
+2.50.1
 
