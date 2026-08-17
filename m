@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965903B531D;
-	Mon, 17 Aug 2026 08:03:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FB93B42E5;
+	Mon, 17 Aug 2026 08:06:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786953825; cv=none; b=I32WtPZ0uD3zNvwlzn6LtiU49LGt5dxPI5Z9juaOvC4pa9cjogMZ32Jr+WeO5+DsSMbq0gBFMCYP02eKNaOgG6ribpjkI6laAgYbhs9LMYn8A/oCujfOqZOHf3x96cFlSoSqE+CV4kOf2JeI9Xp7jV48Raj//wnXkptyJ3vO1Cc=
+	t=1786953983; cv=none; b=pwru0nX2XGVrWhFzFZXlref+i6x8wHm1ShIH9/7uAIstW28vAPVYSpTCSKNLLCajx3uYlFx17e0jvYmA+yss76fRQwU3UsauWZ4CTQU3aqyZx2idoQo3OFHYjKnr8dUR8ZShx9+J7xu0Kcwcwxhh0uGuvIRYnLElFEDZblSneAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786953825; c=relaxed/simple;
-	bh=Co15JEAoG0TdMAMuI2Kdcqm9pJ61ToddV0WmNDun050=;
+	s=arc-20240116; t=1786953983; c=relaxed/simple;
+	bh=PJBZa9Ar7PB74wb3r+/IeUiY69wP0eOEGCX6nCQTcMA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JulbpZJNefhSnE7B3gHEtbn7HbuVissFojQ3jgQUlDJfjK1CkhU7H4E6hxyHbZL2soN4mbkQD3DGmLMZrVnFuqOFvbVGo7ASWBbjYQ1WkH8NjSxAgWnsKjbQvgkolBKD5NZpw/eQt4DBcjXXRJsZmVU57N5ZyCxDyXupcDz8UVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sx4GTrkl; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Dd5ewMbaJXI7w3M5qItuP0NOXQocurxt8wKKdC0shC/qPOOdFpTXiYhKmvSP2wCBIzlfPLTLXIm0GvDDV0a9cgvC7YZ2woBQaNzkvN7vUJsHzgQakGM7etAGkm2eWIxcxknTH3KuE+DJmD1XZ9EKb/sDWkto5VWtDMoolsW2sCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKXDZllY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sx4GTrkl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7C51F000E9;
-	Mon, 17 Aug 2026 08:03:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKXDZllY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC1C1F000E9;
+	Mon, 17 Aug 2026 08:06:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786953823;
-	bh=vy6Ak6ZKjdCbzrz25tSaaIdAMPNEaA24DpO6bYl0WZ0=;
+	s=k20260515; t=1786953982;
+	bh=PJBZa9Ar7PB74wb3r+/IeUiY69wP0eOEGCX6nCQTcMA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Sx4GTrkloKjH3/+qUGFJop6SREYFLmmjNNhfeMkPrj3NUY8uOi5WFk2NA+dK2V0tR
-	 QN+BIoY7AhLiDqJHSEjkmyxFheqJaB2gYjOJNjgsoNyZbAwCY2H/lm410AxxQ6x8v0
-	 yqcOLDObKiHIWKzeWilmYWPCjodZK/H1clVEaja2hVVeACXyKlayGAoPOvoZHncgeL
-	 VeTDFbzYpzHzWrcoVenBRaX/4Iq/xNXB+ZqF499CdWMLVTVdUKcBGzScHXvqNOp3FP
-	 i/dgwnf5mgPSf5/ATDj6cxFt6MRodoefKXp5xJVFBhwL3qji8nqRaZVTADJ19qEU2s
-	 Q4NCBnPmJmn4w==
-Message-ID: <dde597fc-57c2-4039-88c4-7e1cd52305e6@kernel.org>
-Date: Mon, 17 Aug 2026 10:03:36 +0200
+	b=aKXDZllYyu5mXDsHXOTKfRmkG4N2tKATO1EqfzmRzwMFU6pvRuxG20HqNKPVXROh3
+	 N9naP52cdUOAJpc3TP1N0oQID7XHaok3sHFP0fumKfmNyrb2PaJ8yV1ttBhimAlBDe
+	 E6Wfsh7YyvYd8B+h40wMjye+kLvriU5PwOb39pd4y7+pNO829XC1ArKDoZlOn6HTyW
+	 iq6hiTnEGfp8UGqrDNdoGKH9T6t/t97RViIx5jWhKLSO0BpdOFy7GNTUP4qGabctkb
+	 IhiS6ii/TJyYiijAaBUCnkpq8z5ay3Aep5pmMez7/OqIKTm4O/d6JGvc7kV/rmf65V
+	 5+FCAgAQVIZBQ==
+Message-ID: <df92d111-7258-4803-b012-87f517b8bf9d@kernel.org>
+Date: Mon, 17 Aug 2026 10:06:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
-To: Sreeshankar K <sreeshankar0910@gmail.com>, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260817073755.2087-1-sreeshankar0910@gmail.com>
- <20260817073755.2087-2-sreeshankar0910@gmail.com>
+Subject: Re: [PATCH v2 1/5] arm64: dts: qcom: Add SM7250 base dts file
+To: Sreeshankar K <sreeshankar0910@gmail.com>, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, tglx@kernel.org
+Cc: lpieralisi@kernel.org, robimarko@gmail.com, linux@gurudas.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260816161808.12419-1-sreeshankar0910@gmail.com>
+ <20260816161808.12419-2-sreeshankar0910@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,21 +89,19 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260817073755.2087-2-sreeshankar0910@gmail.com>
+In-Reply-To: <20260816161808.12419-2-sreeshankar0910@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17/08/2026 09:37, Sreeshankar K wrote:
-> Add the ID for the Qualcomm SM7250 SoC.
-> 
-> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+On 16/08/2026 18:18, Sreeshankar K wrote:
+> Add devicetree file for SM7250 SoC and SM7250 MTP platform.
 
-Please organize your patches correctly: everything targeting the same
-subsystem with exactly the same concept/goal/intention should be one
-patchset, not 5 simultaneously sent patchsets.
+How did you get an MTP? AFAIK, MTPs are available only via official
+distribution channels to partners.
 
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I am asking because if you do not have MTP, I see no point in taking DTS
+for it. I would even say that if only you have MTP, it is still not
+really useful DTS, because no one else has (except Qualcomm).
 
 Best regards,
 Krzysztof
