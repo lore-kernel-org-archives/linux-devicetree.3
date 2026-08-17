@@ -1,66 +1,86 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D7443BDB8;
-	Mon, 17 Aug 2026 14:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4DD3B101C
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 14:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786977178; cv=none; b=nEXi8wbsCg43Uc9/LIsVBmGZy5IWmFlyBsNc3v0Y3qRaw2PJn4mubg3omTchZgsRfZ+aTfeHUAfM8JCN5A43rkLXY/BfAs7uGj/4il1H8t/dKZgAHwyRLq/rbqVKidzOUyQgHJ/2HlgS6r+tDIlAogMsEZnILJJJ/kzV2cgLsV0=
+	t=1786977726; cv=none; b=kAlot6gpiuCowht5xNlT9wAdtI95cpKqX0fezet1AKLrKtgvz+NcCPfE8aJgyIk4iffDRJo0B0xnjUe8YLEw4plJQEqJlpAC0JiKnpxgKtHH5+Vhgtn7Xupk1GGe0iYx8MdcQzwhkpb2L09Ija8wgg0S+XS9hk9fF1tFp3VaKjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786977178; c=relaxed/simple;
-	bh=2YIr79g3S4FDHM/+DGKApCNIbS3UwBIwS1d05Hrdxuc=;
+	s=arc-20240116; t=1786977726; c=relaxed/simple;
+	bh=4LT/LIRjRHMnkDcg+Tj8gGxQchYEIeHSdbQ4U3jZKDQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bq9JDkA3BGop3o5dlxvDqbUiNAgFfLY78qkAe+4HnkoFNko+h7RF4S5VnxGqKmTyRvlGnguWp5gy9Piz9ScBXrakHnxLhbx5n/24juUXmnq/8lryXQXoUCnT9DB+D+KEWG9u4R1iyuQu5vHFQ7R3k2SS7QWJksPmqV04VEFj/GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EVKJI2J3; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wzy2RnAI6eN3/kk7mv5reIjV7SaiRxrsg85LR/gvWj6p5kp9IxK0nZ3oc3MgvNnO8vejqdvX4RZs0DO2g/dyhYD1IW4YGyMInONEK9f8Vuo93Q8kdHOlcAD4a6hVan559PUPgfOxzTOxOreB8GEGBaY3K5mhIfoRUNzzuYJdUdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=RQYoB544; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EVKJI2J3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786977177; x=1818513177;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2YIr79g3S4FDHM/+DGKApCNIbS3UwBIwS1d05Hrdxuc=;
-  b=EVKJI2J351as/8ifmNMuqsQmjFdP15RRgzd/Jqvc178yfIO/eKZrHMb5
-   qcrJLPnY/FaaoVhl23jshZjXT3OOfhOvX5YCjH3JfixAPYcNBWbvoyo+6
-   MGRwSw6ACSOwUbJFKt6LgsWGR/iMdpdEKqrM7V4JRe22Ex5OjBELytzQn
-   XsyyjdqTa1vrZGix01b0yYPUd3dkXpS4nGUg7n8YUGBkEdAwOJM60yciW
-   +1REVvhlBep+CQzDdcL2WNzqpzBBHqn//UyNvdSDRJHOiIPAvBgm1sqL6
-   dQthTylSza++mfQFjceeEJ0KCOqqHu7AAb0ThaDGrYsnL5/g+zGnFXwK7
-   w==;
-X-CSE-ConnectionGUID: GBo+eGxYR72yQHB8l3Xq0w==
-X-CSE-MsgGUID: z5lW8bzKSRWKqwGRA7WhaA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="87663710"
-X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
-   d="scan'208";a="87663710"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 07:31:29 -0700
-X-CSE-ConnectionGUID: d4ZpDT88Tr6JIje2pfFcnw==
-X-CSE-MsgGUID: uoNp9Q5pS+KwH5COa1Gjtg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
-   d="scan'208";a="289736751"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 07:31:24 -0700
-Date: Mon, 17 Aug 2026 17:31:22 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] iio: dac: ad3530r: add support for AD5710R/AD5711R
-Message-ID: <aoMbOhHJQOKyXyg0@ashevche-desk.local>
-References: <20260817-iio-ad5710r-upstream-v3-0-3a4bf7b9c78b@analog.com>
- <20260817-iio-ad5710r-upstream-v3-4-3a4bf7b9c78b@analog.com>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="RQYoB544"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-92edb12cdf2so281074685a.3
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 07:42:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1786977723; x=1787582523; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BCd/GM+SB+20nc87cPYs8vSFqEi5EzWcz9k0G1zmxpg=;
+        b=RQYoB544a7KEGXjKAhS9P9piIOWlFMFM7c3DhTf3yjJDxJEn7ZET8T8fyPQljSvj1/
+         0B4HfglIlx7uCNdZXKXYXlIXFzzQ80xWrKMcgeBzFIiD/MpK08U3MpD+AvtLKMQj3G/i
+         GAWk5XaZh7Rbvx4O3+tsMzRO9y6Yjk2X8KD0nmqYZGyhgsQcqaMuw2lhWhINwlK86OKT
+         kOZxZg8cCeESC1+ejj57tezmjxvsUyKQsjdVV0DQ1514h6P+Ep2iNsZ/f7n3hixU6A+d
+         BtSjKCTMUfDFMSM/Xug8v5RWM+hefFFYUjj+dJWnAt8E3Q97nwe1UXfjkAnhtxTJvB1y
+         62uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786977723; x=1787582523;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BCd/GM+SB+20nc87cPYs8vSFqEi5EzWcz9k0G1zmxpg=;
+        b=BTkjIakShaMmy7ZbQPLPp9CYxAUpJRqWxHSyhAuCaRtZzc/wFE9xPCK1OaL5ZYjmsb
+         jALhFQLQVQi3kBcKsptBnUSN7kReNFS9zd/Kt6uQkuko1CSD8h4Zp1M0V/9Aeb05lMbk
+         GtNDzAvQDbadlI4Uh8gnaaGOBQmt2Qhbug5pjqvmPD7idnWBzaz/Nn4YeNICSkuIVyvv
+         226aUXbwSkMchp7jsYV9WaI0hKyHUSoD/raeZGKhIJQEjmh/B7g/+LaI2r+lxJGkOsc1
+         Bdn/oXfzw7bxeUsiU+q4A4pgLiwh/yiC9Bzs3l0r2J1k89idnuszIDIuaV8aSrhMD0U2
+         FL7A==
+X-Forwarded-Encrypted: i=1; AHgh+RodY3BZUe4uQcEFs6cKEM4XI7ZzgqSc/45LRlOXNw1TvWoJdCV55vS2VQBDQyhTAe8Z6Dpn0qmnqf1T@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJxk8ZCmfGChYJ9dLkO9TAlYIGPYWRWgMpACKn3gEKR+yOuR04
+	+UF+/TtXpZJpwVPq2XABOkAv3NP+obAnnHLzqul2zjKkWfClSqmu2p8zwlb8wpaFjhM=
+X-Gm-Gg: AR+sD120rztfwO4IKUWp2UUwjz0iLXxA3wyUEh67DiwMbmDb3f7RaW/TQKh2sMEbVlz
+	a3TQwl3XQY2p2n5kZHCgKUEJ3uS3EX5m+psPep6aGutdY/CI3Nf5S5rhG9IHEsboYLvLYRpJCIz
+	p/35RwZ8ej/84sOckQqVTvUHCtmbfh/Rs23t8z64VONT2Y/pJOSkAHbiP5EB4pp6IZx3vObLk51
+	PLFbHmZZmmDkbNG9zHxHCsAxHy165iriePEktWWAeYy/Ash/Bkizw69/8p5kmu64S9ljoHOfPUT
+	/i2dBaYCy2I9i1fjxw56dkS0JFxR5VyLXBppaMykLKC4FGQJcxjAngL+sjpk0mb+DL37ndvoy67
+	pWAgh1BzFhsPAHXGxugO9WZd3cJp5MJTe3OLeMDEFwr9gyIFTrTTGR4C25aMAAVMTbPFr5dXrEs
+	AvpCbIhy9e7pX5oLdUuJhBGUspdluIC3rXzSqHq6R9aMsvqOaZbxk1ysIvpEKEsJAXasfCbVGU9
+	DJBRDwF4dw+Cso8XrYiYYdb8GBVbtAct4O4euxxeh97
+X-Received: by 2002:a05:620a:2682:b0:92e:e695:d622 with SMTP id af79cd13be357-936d22ea6bfmr2612870085a.28.1786977723026;
+        Mon, 17 Aug 2026 07:42:03 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-937010c3785sm100435385a.2.2026.08.17.07.42.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 07:42:02 -0700 (PDT)
+Date: Mon, 17 Aug 2026 10:42:00 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Alexander Graf <graf@amazon.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Baoquan He <baoquan.he@linux.dev>, x86@kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	linux-mm@kvack.org, linux-efi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arch@vger.kernel.org
+Subject: Re: [PATCH 0/4] kho: rename "scratch" to "bootmem"
+Message-ID: <aoMdJ7hpr1GonLz8@gourry-fedora-PF4VCD3F>
+References: <20260811162642.3504565-1-pratyush@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,129 +89,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260817-iio-ad5710r-upstream-v3-4-3a4bf7b9c78b@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260811162642.3504565-1-pratyush@kernel.org>
 
-On Mon, Aug 17, 2026 at 02:37:14PM +0800, Kim Seer Paller wrote:
-> Add support for the AD5710R/AD5711R, 8-channel 16-/12-bit configurable
-> IDAC/VDAC parts. They share the AD3530R register map and access model,
-> so fold them into this driver.
+On Tue, Aug 11, 2026 at 06:26:36PM +0200, Pratyush Yadav wrote:
+> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 > 
-> Each channel is configured as voltage or current output from its DT
-> channel@N node via adi,ch-func, building the iio_chan_spec dynamically.
-> Voltage channels enable VMODE_EN and report the reference-derived scale,
-> current channels report the 50 mA internal Iref scale. The powerdown
-> mode is read-only and derived from the channel's configured type.
+> The term "KHO scratch" is vague and overloaded. It does not accurately
+> describe what the memory is for. This was discussed previously at [0].
+> The conclusion was to rename "KHO scratch" to "KHO bootmem", since this
+> is memory passed by the previous kernel for early boot allocations.
+> 
 
-...
+This seems like a lot of churn to just rename some stuff, especially for
+a term "scratch" which is very much understood to mean "temporary
+working memory region" in common computing parlance.
 
-> +static int ad5710r_get_powerdown_mode(struct iio_dev *indio_dev,
-> +				      const struct iio_chan_spec *chan)
-> +{
-> +	struct ad3530r_state *st = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	ret = regmap_test_bits(st->regmap, AD5710R_CHN_VMODE_EN,
-> +			       AD5710R_CHN_VMODE_EN_BIT(chan->channel));
-> +	if (ret < 0)
-> +		return ret;
+The boot param name change would also cause breakage for existing
+systems that update and depend on the scratch parameter.
 
-> +	return !ret;
+Is there a non-verbiage reason to justify these changes?  Living with
+"scratch" seems better than potentially breaking folks.
 
-I think this '!' requires for a comment.
-	/* Negate the returned value as 0 represents ..., and 1 ... */
-
-> +}
-
-...
-
-> +static int ad3530r_parse_channel_cfg(struct iio_dev *indio_dev)
-> +{
-> +	struct ad3530r_state *st = iio_priv(indio_dev);
-> +	struct device *dev = regmap_get_device(st->regmap);
-> +	struct iio_chan_spec *channels;
-> +	unsigned int num_chan, i;
-> +	int ret;
-> +	u32 reg;
-> +
-> +	num_chan = device_get_child_node_count(dev);
-> +	if (!num_chan)
-> +		return dev_err_probe(dev, -ENODEV, "No channels configured\n");
-
-Optionally this can be -ENOENT, as we usually return in other APIs for
-count == 0. (-ENODEV semantically seems also okay, but I just shared
-an additional info for making a decision.)
-
-> +	channels = devm_kcalloc(dev, num_chan, sizeof(*channels), GFP_KERNEL);
-> +	if (!channels)
-> +		return -ENOMEM;
-> +
-> +	i = 0;
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		unsigned int mode_reg, mode_mask, ch_func;
-> +		enum iio_chan_type chan_type;
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to read reg property of %pfwP\n",
-> +					     child);
-> +
-> +		if (reg >= st->chip_info->num_channels)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "reg out of range in %pfwP\n",
-> +					     child);
-> +
-> +		ret = fwnode_property_read_u32(child, "adi,ch-func", &ch_func);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Missing adi,ch-func property for %pfwP\n",
-> +					     child);
-> +
-> +		switch (ch_func) {
-> +		case CH_FUNC_VOLTAGE_OUTPUT:
-> +			ret = regmap_set_bits(st->regmap, AD5710R_CHN_VMODE_EN,
-> +					      AD5710R_CHN_VMODE_EN_BIT(reg));
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "Failed to set voltage output for %pfwP\n",
-> +						     child);
-> +
-> +			chan_type = IIO_VOLTAGE;
-> +			break;
-> +		case CH_FUNC_CURRENT_OUTPUT:
-> +			chan_type = IIO_CURRENT;
-> +			break;
-> +		default:
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "Invalid adi,ch-func %u for %pfwP\n",
-> +					     ch_func, child);
-> +		}
-> +
-> +		channels[i] = ad5710r_channels[reg];
-> +		channels[i].type = chan_type;
-> +		i++;
-> +
-> +		ad5710r_get_op_mode_reg(reg, &mode_reg, &mode_mask);
-> +
-> +		/* Enable the channel in normal operation mode */
-> +		ret = regmap_update_bits(st->regmap, mode_reg, mode_mask,
-> +					 field_prep(mode_mask, AD3530R_NORMAL_OP));
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to set normal operating mode for %pfwP\n",
-> +					     child);
-> +	}
-> +
-> +	indio_dev->channels = channels;
-> +	indio_dev->num_channels = num_chan;
-> +
-> +	return 0;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+~Gregory
 
