@@ -1,108 +1,255 @@
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4549B3B4407
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 07:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7333B42D7;
+	Mon, 17 Aug 2026 07:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786950387; cv=none; b=B/MzY8Rky+4rf+1JdUgBaIhqLZ9SByPElWWM2OORg3kaGaw4WBcuhuOBWtdLvrC2/AiGyUA+3zJ9x6Cn/T6DDvCuZqRWEua9lB0S0WvW5T0N4tc+YkTuQ9E+3pq6nKtNvtey1UJ0sNddDqbf1juzj8vQj5ryTfrrdFSquF3Mu48=
+	t=1786950740; cv=none; b=NM0WMtmldXVH+2mP+9lkxOsOfM6oVjC6PdmzRd+9eCoP0iGqy3HoLbGQFYVnlejuaVDYLLL424joJDtf0WYDhLbJjDvwEDUdaCWAhgJk58aYEc21U3tNB6cEUku8ctPfR2e0xP5KzlrgQWgC96a/pMqKzCNp6+prNF3XnJb+CLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786950387; c=relaxed/simple;
-	bh=fbgeOiEO9EGT2c+GeyD/KoGXlrNibomcWQO6vEICVc4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PqGvyhhxMvW89FRpDDR+vj9u8/xWOaDaTCUCMYb4fGiwC/bKER0218Z0ic3ZE2+JInAF6LOgnzbLJ/dvsQHa7fw/+HijdU01XI9kt5RTCiPZIBscN2XKCrGmxmAleeEFWJxFNzYfGYZ7Dlajwq6YQhHug2WRVwKka+HVuqOXbH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-97bf8f6a31eso594063241.1
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 00:06:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786950384; x=1787555184;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kzZAObXBTvlF5qEmNlbVBhJCzf1NZELy+LTZ2/1S03Y=;
-        b=eGfWFqji5ywBTj15MqVa1ibUJslvDw38LBmUECiPuvJEzjxUPsD0tepPz0hfu37w4z
-         enER6wBH/HMYt50UtOr6Du7efMy1yXHJBrB7KWwdg+eo4HxujDo/sFctnMs27zbdPlf6
-         wffQH6pvBMazSdHYaG23JYsvoH3FjyuBfFRQ0Mh8aBjO9vPMdetz3ZEIp+5jfyDe7pxp
-         1KEsSSNvMQ8+zU5alapSN7uuUq+E0LgjwhiJ9LswfmVPhOo+7tFtaLWnBHWfJzZ6ai5V
-         ZkFg0WdhUvSVM3QMOFPQFwAAXlMAcaH2+C56n8iXbZOGhZ0ylMTshDUxuH8KInEnhZff
-         oC3g==
-X-Forwarded-Encrypted: i=1; AHgh+RramDKzDHvJG87++G2EUCHUvFoRYIF5Cy6ZGGYg/PUFZXcPX8PbEILZC2b5Y6vmPhtIymxhy5Rhg4Nl@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzgm1S7ydLNuc9XnA9PDXPk7fMelANdVBiwn/819QqP7R3til9Q
-	F1YKdv9Ki1ko6lsnNogwK886dg2Jz+yJh0r0pLRYREt18uvnB9QL0flQ1CvxqF3d
-X-Gm-Gg: AR+sD12u/SdSFstQtBlZJZ1c4ICI/OLvZWT+8YpcIwkzon8Fcp7RyMmdgJXtCLSOqHw
-	Q0Jpnmv0sGm6ztHH903dZV2KJzgzxI3EYkW6paoj2DDO04NFMBDnedGIgWShbH76gIHbRibSS5t
-	LtsZ7g7FTDePHqziNMD8thk41axQhkGMqtkDpjaiC1hC04xpuSgBfM4wcGDzMa7sKv/ZBLCAFEi
-	4w6UyElAy3DrQ6kfAL2CBEs9uy2wBYLR5TT+62sJ85O7zPkBRr1o0Fhj5/5w5pAfateV/qbZHcH
-	ZKpFbvkF9ZjjaBRWA7x4ExbaruVKfYe06ZWEW8UHXOvMRl5IvoAzhVjmkpeBJ88yYcNW/782K2C
-	G7WCvzb/BqFzcTz+M14juJREQpcO6WCng96Y/NzeqGmx0J5QH73wMWoOl/SxXS9tG6ITiU/0FDX
-	oWFMBcStFDWoZGJP8Wb+jFXD+T3EHrVbLU0pN/yah8s+YCewig/PENbC08zf1UBgqB3qsKxBZ0d
-	UP3BCqUfWt1q5F1cdFDq43sMqSS2g==
-X-Received: by 2002:a05:6102:83c9:b0:773:756:6695 with SMTP id ada2fe7eead31-77307567295mr422224137.2.1786950384125;
-        Mon, 17 Aug 2026 00:06:24 -0700 (PDT)
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com. [209.85.221.170])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-773c508ab92sm327330137.7.2026.08.17.00.06.22
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Aug 2026 00:06:23 -0700 (PDT)
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5bfaa014978so1147014e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 00:06:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Ro8KymHFKw6LmEKCAfXvZ0CylW1rvYXVqn7sAr/aWNUK1yjZpnvCeyGM6bp5zBwtaarElfGn0XH02hs@vger.kernel.org
-X-Received: by 2002:a05:6122:3d4c:b0:5c0:fb8d:9993 with SMTP id
- 71dfb90a1353d-5c591984b16mr3773578e0c.0.1786950382154; Mon, 17 Aug 2026
- 00:06:22 -0700 (PDT)
+	s=arc-20240116; t=1786950740; c=relaxed/simple;
+	bh=aBZ1EFUyFJ6GTj4WNko3xlWYc+8GP2Kd+tMsF69ipKA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ckrbgC+inzbMe8Os2ImusG8Xe4y5qKBbeqyW3dj26Aci1FyUBwb3NTT9pSmgaFISxvpgECTnQaQvUZfYpJRmfHNUmTfYMu7WaITdC6MUzIfRUrpvHjG3Xn1FgUNtegJ9MRVu3PsWPa6G+dJhUQvlEoYLC0RCQsdTtNc/iebrpeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ixUV/d2x; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ixUV/d2x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786950738; x=1818486738;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=aBZ1EFUyFJ6GTj4WNko3xlWYc+8GP2Kd+tMsF69ipKA=;
+  b=ixUV/d2xgnfD/7ageDo8P/8aUUVLUHWfD5fEnQ7LCn0qPunf8XpzyXk4
+   V1BlzWs0c+PrdUG7rtBPCmOL8eW7rU+HHpR0HcbJczZN96UM8Eyfd9wIb
+   OY09Rsm/rjgFZQsJ0lwFGBQrv0i/F9rG4N32hKHeS3FVd1Y6ThfvUSl5G
+   DPdcZL8QpchFKvmruSI/Ct5bS3fqqYIyZ1TqNgSPVtIwant1p/chS2lFz
+   3oUuGzfZ9MEYKNOu9jA7E9lN+/lueYdX0Q+Xy8ubKIIhbQDoOUhNLSPtL
+   wIv14ePdJaCbHQWKqLYypAS+OwcgMCO0PqZ0v1jwB0z3uU23BVaHRePFC
+   A==;
+X-CSE-ConnectionGUID: R+HlkNg/QCqYeMxYLwfsrw==
+X-CSE-MsgGUID: f35SOh17Q1aLnLbX3z/99g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="91234126"
+X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
+   d="scan'208";a="91234126"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 00:12:17 -0700
+X-CSE-ConnectionGUID: 9EyRyIBdQNiyuCo+CL3vBg==
+X-CSE-MsgGUID: eYxy3WEGRLKpHa/dML7pgw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
+   d="scan'208";a="294754512"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 00:12:15 -0700
+Date: Mon, 17 Aug 2026 10:12:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kyle Hsieh <kylehsieh1995@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] iio: adc: ti-ads112c04: Add support for TI
+ ADS112C04
+Message-ID: <aoK0TKBFZOM6A-c9@ashevche-desk.local>
+References: <20260813-ti-ads112c04-driver-v5-0-79dff9e249cd@gmail.com>
+ <20260813-ti-ads112c04-driver-v5-2-79dff9e249cd@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811051016.1655887-1-marek.vasut+renesas@mailbox.org> <20260817-uakari-of-mysterious-nirvana-a1d0da@quoll>
-In-Reply-To: <20260817-uakari-of-mysterious-nirvana-a1d0da@quoll>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 17 Aug 2026 09:06:10 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXU0Z_VP7H3=KX1g7wowG1ZDi__nDgWRmquYxhLHKvd7A@mail.gmail.com>
-X-Gm-Features: AcwNN1VnMyJzYsnp7zPKVxOcOJLiN424gLCFqLRF4e6JW2UrjUiX7AMCPRyQHkI
-Message-ID: <CAMuHMdXU0Z_VP7H3=KX1g7wowG1ZDi__nDgWRmquYxhLHKvd7A@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
- Gen5 DWC3 xHCI USB controller
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-usb@vger.kernel.org, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813-ti-ads112c04-driver-v5-2-79dff9e249cd@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 17 Aug 2026 at 09:01, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On Tue, Aug 11, 2026 at 07:09:33AM +0200, Marek Vasut wrote:
-> > The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
-> > controller with glue logic wrapper around them. Document the glue
-> > logic and DWC3 controller.
-> >
-> > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Thu, Aug 13, 2026 at 11:06:03AM +0800, Kyle Hsieh wrote:
+> Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
+> delta-sigma ADCs.
+> 
+> The driver implements:
+> - Single-shot conversions using the IIO raw read interface.
+> - Dynamic parsing of single-ended and differential channels from
+>   device tree child nodes.
+> - Hardware interrupt support via the DRDY pin, falling back to
+>   software polling if no IRQ is provided.
+> - Per-channel reference source selection (internal 2.048V, external
+>   REFP/REFN, or AVDD) via the reference-sources device tree property.
+>   refn-supply is not yet supported.
+> - Hardware reset via the reset controller framework, falling back to
+>   the RESET command when no reset controller is present.
 
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+...
 
-> > +  dr_mode:
->
-> We don't accept properties with underscores, unless this is coming from
-> existing schema but I do not see snps,dwc referenced in the binding.
->
-> > +    enum: [ host, otg, peripheral ]
+> +static int ads112c04_wait_for_data(struct ads112c04_state *st)
+> +{
+> +	int ret, err;
+> +	u8 val;
+> +
+> +	if (st->client->irq > 0) {
+> +		/* Timeout is 100ms (slowest data rate is 20 SPS) */
+> +		if (!wait_for_completion_timeout(&st->completion, msecs_to_jiffies(100)))
+> +			return -ETIMEDOUT;
+> +
+> +		return 0;
+> +	}
+> +
+> +	ret = read_poll_timeout(ads112c04_read_reg, err,
+> +				(err < 0 || (val & ADS112C04_CONF2_DRDY)),
 
-Probably this should just reference usb/usb-drd.yaml instead of
-defining it itselves.
+Better to split logically, also the outer parentheses are redundant.
 
-Gr{oetje,eeting}s,
+	ret = read_poll_timeout(ads112c04_read_reg,
+				err, err < 0 || (val & ADS112C04_CONF2_DRDY),
 
-                        Geert
+> +				1 * USEC_PER_MSEC, 100 * USEC_PER_MSEC, false,
+> +				st->client, ADS112C04_REG_CONFIG2, &val);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	return ret;
+> +}
+
+...
+
+> +	case IIO_CHAN_INFO_SCALE:
+> +		switch (st->vref_source[idx]) {
+> +		case ADS112C04_VREF_SOURCE_EXTERNAL:
+> +			*val = st->ext_ref_mV;
+> +			break;
+> +		case ADS112C04_VREF_SOURCE_AVDD:
+> +			*val = st->avdd_mV;
+> +			break;
+> +		default:
+> +			*val = ADS112C04_INT_REF_mV;
+> +			break;
+> +		}
+> +		*val2 = 15;
+
+Seems like this being used in one of the above functions already. Perhaps you
+want a defined constant? (I haven't checked if that 15 and this one are
+semantically related, though.)
+
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+
+...
+
+With
+
+	const char *sp = "single-channel", *dp = "diff-channels";
+
+The below...
+
+> +		if (fwnode_property_present(child, "single-channel")) {
+> +			ret = fwnode_property_read_u32(child, "single-channel", &channel);
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read single-channel property\n");
+> +
+> +			if (channel > 3)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "single-channel must be 0-3\n");
+> +
+> +			spec->channel = channel;
+> +			spec->address = ADS112C04_CONF0_MUX_AIN_SINGLE_BASE + channel;
+> +		} else if (fwnode_property_present(child, "diff-channels")) {
+> +			ret = fwnode_property_read_u32_array(child, "diff-channels",
+> +							     pair, ARRAY_SIZE(pair));
+
++ array_size.h
+
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read diff-channels property\n");
+> +
+> +			if (pair[0] > 3 || pair[1] > 3)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "diff-channels must be 0-3\n");
+> +
+> +			spec->channel = pair[0];
+> +			spec->channel2 = pair[1];
+> +			spec->differential = 1;
+> +
+> +			if (ads112c04_diff_mux[pair[0]][pair[1]] < 0)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "invalid diff-channels combination\n");
+> +
+> +			spec->address = ads112c04_diff_mux[pair[0]][pair[1]];
+> +		} else {
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "channel node must have single-channel or diff-channels\n");
+> +		}
+
+...can be written as
+
+		if (fwnode_property_present(child, sp)) {
+			ret = fwnode_property_read_u32(child, sp, &channel);
+			if (ret)
+				return dev_err_probe(dev, ret, "failed to read %s property\n", sp);
+
+			if (channel > 3)
+				return dev_err_probe(dev, -EINVAL, "%s must be 0-3\n", sp);
+
+			spec->channel = channel;
+			spec->address = ADS112C04_CONF0_MUX_AIN_SINGLE_BASE + channel;
+		} else if (fwnode_property_present(child, dp)) {
+			ret = fwnode_property_read_u32_array(child, dp, pair, ARRAY_SIZE(pair));
+			if (ret)
+				return dev_err_probe(dev, ret, "failed to read %s property\n", dp);
+
+			if (pair[0] > 3 || pair[1] > 3)
+				return dev_err_probe(dev, -EINVAL, "%s must be 0-3\n", dp);
+
+			spec->channel = pair[0];
+			spec->channel2 = pair[1];
+			spec->differential = 1;
+
+			if (ads112c04_diff_mux[pair[0]][pair[1]] < 0)
+				return dev_err_probe(dev, -EINVAL, "invalid %s combination\n", dp);
+
+			spec->address = ads112c04_diff_mux[pair[0]][pair[1]];
+		} else {
+			return dev_err_probe(dev, -EINVAL,
+					     "channel node must have %s or %s\n", sp, dp);
+		}
+
+(but it also makes sense to check with bloat-o-meter to see how much code is
+ added and how much data space is saved).
+
+...
+
+> +	/* Datasheet: POR releases ~500us after supplies are stable */
+> +	fsleep(500);
+> +
+> +	reset = devm_reset_control_get_optional_exclusive(dev, NULL);
+> +	if (IS_ERR(reset))
+> +		return dev_err_probe(dev, PTR_ERR(reset), "failed to get reset\n");
+> +
+> +	if (reset) {
+> +		ret = reset_control_reset(reset);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "failed to reset device\n");
+> +	} else {
+> +		ret = ads112c04_write_cmd(client, ADS112C04_CMD_RESET);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+
+Also a comment here?
+
+> +	fsleep(1 * USEC_PER_MSEC);
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+With Best Regards,
+Andy Shevchenko
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
