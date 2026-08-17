@@ -1,308 +1,91 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB443ACA6A
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D8B3AAF73
+	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 21:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787003355; cv=none; b=JmtDGAcW4g0BYOmCiYqAv9Lkqj0KrxvZuM5ksgLyto2YbiIWmXe2Uk4iw6ssbLOzjNCX6kJjxPSSrtpPiJqRxQuVNNovEkXh2duXsBZ9n0W8w3Lk+EyRU9QjHPu3HVd0IVQH6TcpD26gQhoeqTqITMQGa0iaLdEb0eGm001JhQc=
+	t=1787003488; cv=none; b=SWV/hjEzMwi17RO9jBJPMQChU6WMhTh5LjT2r3pHBpX24yrKBJpxoe3Z2dutVV4icz7/lUZnyePy3fmT15dLf//XQY3VQSpFRrHBl1P4JX8p839rA4ZEquzUyTCSLGYq8h386/r8JVvfEjMB06Dxu+SEOQxg585I/hTN1oj1i0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787003355; c=relaxed/simple;
-	bh=ExC1AV2gtMJSKMPZKdYscruJxgrxKcI9UQBd1QnnFaU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eALju5mUUiKBRGgbfMpnGhFqTBQhbpdnJ0g+uKE7rwcQKEGBNV+we7/KPaGzWWVya5B74Qyu+IExctjcKA2BDmNLfV4pYG+q20r2RLu+OHw1/04/tawofv63ztN35sAOABnlDsqvuvhKtM+P/mZwBxbxEIv7EHYRPz36IwODJmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZqhBw97c; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787003488; c=relaxed/simple;
+	bh=DVwyjrAr8kMS22z9H59apCoMBawHC57fwOl2reBodiU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p5/iuJJmpia2BgHOA0gZllFZhf9upXN6D2VT5SL/fvuaQiQCQu5NWOsAel2DjIaQWrecbketFpFiqNtq1IJOotLYk5Sb9eRKgerDDizYOVyG2WgCXMJgzwD7/OL+v3E0eIhBKmwxyNelgrxaUEjhnoeElU8jz2Ndhj4Bui3QMIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Mc6NLGmk; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZqhBw97c"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cbe41618110so244388a12.2
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 14:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787003353; x=1787608153; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+G9INpV1JzdGArVnG3ONEDuNklD+1EBL8YVEgjDjB8I=;
-        b=ZqhBw97cBwycrHPt4BGp/tFCNLSk1t54QK8Bs/dYMyoePBoOx4NfLl95+Mojm5hVIJ
-         6sGcKBDRIpIh3uAj338xiucz9cXINAGscHEyjN/zRRT/V8CPd4cD+958MXdhzI5BR1xH
-         G3ZM3qzJcRUlJ6bGmHkzuWzLekH/7VUWsHoVnWuwx88h2cZy+W9zql8nhjv/BoAwg0X0
-         CzSv8IHSiJQVSMiTXM3ICbyZ4q5sNum5A8bjERtjyDF3XMwXDr3Wo3Cjh1bgY0mNcPB/
-         tKGBzWrL0HzOBqHWZF5N9qSqhjUi0cU3YWHixGXDTgpWZ4mbXGUVb9/BYMBbt0FIPTV+
-         uwHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787003353; x=1787608153;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+G9INpV1JzdGArVnG3ONEDuNklD+1EBL8YVEgjDjB8I=;
-        b=NfkHLUGy/onkfuLhbWzjD7mLMGATFiGPTjPlBxqAUk7JUnzI4CRWyxJtCezwThB9WR
-         8yxvKaDYND48gz8Na+Fn5yRBkSs9zqPGjapmjWqXOj7IpG0vVRaPE0q2pZTjTBY9OO6q
-         nOcTGd2a5TGkdk9i8S0YrQCKlSLo1jLxTOQ9WpJA5s3CFpE5IQm0Ylk4K6gCdt9bab1b
-         AmtxR9Kk+esUT42OWPmwM6uFR3kvPC4YOs7nb3aOzcJ10kwPsh66d+XksCtK8AWoY2sE
-         7ztFR83tZIvLVUx+llsDuWTmhYz1RoCq9zMCumdGSLh9qDRgcPoQpnPU4gxZoe/vsA+u
-         qEDg==
-X-Forwarded-Encrypted: i=1; AHgh+RqPWcCcgikY/na9pGxCjqk7Rz/rxT1cRI4JBmzxmQYKTvnQKCoRnx0TxcFSEzh/+bHJFyc7A0AIRPZ7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxu3vY/kY6YoJyiIV80c3kjh4oZKFrzOZDBK/+cw4pDP5FHgsI1
-	iYL8H8pydagOjj29q5Qhlux3RANzNJUT3ztyYAHOCOUbi0HzBcEeIQi5
-X-Gm-Gg: AR+sD10okT5mylal8WGGF1Bon6dK+EmzbbMpMJM4G1RmkFvNwe9o2xRxolcs/UGmuC1
-	qR3C8OCk+0AYgIbXr8U46zMgVvgK122oyzOpYXcyfUjMYsT7TYXSSOSmvzyzM7y+V3mdVLAwhrG
-	0BdHghuwXaNnIF0TSWAnDfAkEJG+5hO7h1+KbSfTnfP0NgBP5dmx2K7bhHbXcwYm6oLxnIo9QjO
-	RetEpZRytoiviGogu0ocfikv57clBBk2Ff2iBstDWIR+/8gR9yn6BdHPv5HLt5Bx7w8glXLBY0R
-	cDpySMFzbfXW2f5k7/ea4CONSWqBFeojhu2yrgmNnxQxHLQNAQtcZ0+nk8aQ8+BiqjvNJeD3ZZv
-	j6VHgC6I4Q8Z5FoJdKkRQdC2cB8HPngJ7/5s+eMVKw4qwGDOh0aXrzza8KYEuBY/u3Cx4DCAw0v
-	2CuZnASdrhfapILk84XhRstxF850FabEuNkNDxMiW3kDQB3hpPbxhkYIxqPgAamAJj2zgvsHxZ8
-	g==
-X-Received: by 2002:a17:903:3c63:b0:2ca:ecf6:9115 with SMTP id d9443c01a7336-2d3b0c57980mr238021985ad.2.1787003353382;
-        Mon, 17 Aug 2026 14:49:13 -0700 (PDT)
-Received: from [10.112.173.252] ([2409:40c2:5053:3384:1c8f:aa2d:e07e:6d3d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3267c388e3csm10153024eec.21.2026.08.17.14.48.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 14:49:12 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 18 Aug 2026 03:16:37 +0530
-Subject: [PATCH 7/7] dt-bindings: usb: ti,da830-musb: Convert to DT schema
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Mc6NLGmk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=DVwy
+	jrAr8kMS22z9H59apCoMBawHC57fwOl2reBodiU=; b=Mc6NLGmkKLK9ifZxn4u3
+	vgh/Bk/96voSrfNMdZqDKI2LIOsfczjY4eqgFIrN2O61rsp2vwpLDXZ0Zt7uYqtP
+	dWUbIb+GZI+NQ6CrnOBn/oUJGwjzdAzvyKaDWikzbgyQya/9VhhtrS/RMJ/Gghq3
+	KpBldcnVSB2oSiUHiOTg2CNXwoElGXYPMAt2PuXP9QmDifhVBqYhn6+waLKrYqSu
+	CwIF9ui6C23jJ9arx3edmUr9Kg4ZhpNchbUtRM+04F8TO7da+mHkCbz7F3RkTJxJ
+	n5loHGQgk071IIup8mbBlff3JQ97EBVBujSTO+euYugH/Ua98e6vun++04ZJf8hb
+	6g==
+Received: (qmail 3577802 invoked from network); 17 Aug 2026 23:51:20 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Aug 2026 23:51:20 +0200
+X-UD-Smtp-Session: l3s3148p1@CJqnK0VZ3rQujnve
+Date: Mon, 17 Aug 2026 23:51:20 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>,
+	mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+	mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com,
+	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
+	linux-can@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v3 0/8] can: rcar_canfd: Add support for Renesas RZ/G3S
+Message-ID: <aoOCWBAKV4lBwLPh@shikoro>
+References: <20260714173315.1981708-1-claudiu.beznea+renesas@tuxon.dev>
+ <7533fcaa-c676-48f4-924e-bba9195d4871@tuxon.dev>
+ <20260817-tricky-monkey-of-admiration-3caebf-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-ti-am33-usb-v1-7-69ac5f92df45@gmail.com>
-References: <20260818-ti-am33-usb-v1-0-69ac5f92df45@gmail.com>
-In-Reply-To: <20260818-ti-am33-usb-v1-0-69ac5f92df45@gmail.com>
-To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrzej Siewior <bigeasy@linutronix.de>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Ravi B <ravibabu@ti.com>, Kumar Gupta <ajay.gupta@ti.com>, 
- Sergei Shtylyov <sshtylyov@ru.mvista.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-omap@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787003201; l=5185;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=ExC1AV2gtMJSKMPZKdYscruJxgrxKcI9UQBd1QnnFaU=;
- b=dvxbJeNDLdyKd/EJ2RV/+vW65rTnYEZRoC6Gt3kFS8z0n5v2jRb/XcN7QbSIiuPH76dQg8Jye
- zcSsXDJ9eLQAckmZ3hoo9GrU6sXfETKNCd2APr5gbEs1CQ6N3X8Csys
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZiDiiahQjpJkCpVB"
+Content-Disposition: inline
+In-Reply-To: <20260817-tricky-monkey-of-admiration-3caebf-mkl@pengutronix.de>
 
-Convert the TI DA8xx/OMAP-L1x MUSB text bindings to DT schema. Since
-DA8xx MUSB node acts as a parent bus for the CPPI41 DMA controller add
-required #address-cells, #size-cells, and ranges properties.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../devicetree/bindings/usb/da8xx-usb.txt          |  69 -------------
- .../devicetree/bindings/usb/ti,da830-musb.yaml     | 111 +++++++++++++++++++++
- 2 files changed, 111 insertions(+), 69 deletions(-)
+--ZiDiiahQjpJkCpVB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/Documentation/devicetree/bindings/usb/da8xx-usb.txt b/Documentation/devicetree/bindings/usb/da8xx-usb.txt
-deleted file mode 100644
-index 00320d92d3bb..000000000000
---- a/Documentation/devicetree/bindings/usb/da8xx-usb.txt
-+++ /dev/null
-@@ -1,69 +0,0 @@
--TI DA8xx MUSB
--~~~~~~~~~~~~~
--For DA8xx/OMAP-L1x/AM17xx/AM18xx platforms.
--
--Required properties:
--~~~~~~~~~~~~~~~~~~~~
-- - compatible : Should be set to "ti,da830-musb".
--
-- - reg: Offset and length of the USB controller register set.
--
-- - interrupts: The USB interrupt number.
--
-- - interrupt-names: Should be set to "mc".
--
-- - dr_mode: The USB operation mode. Should be one of "host", "peripheral" or "otg".
--
-- - phys: Phandle for the PHY device
--
-- - phy-names: Should be "usb-phy"
--
-- - dmas: specifies the dma channels
--
-- - dma-names: specifies the names of the channels. Use "rxN" for receive
--   and "txN" for transmit endpoints. N specifies the endpoint number.
--
--Optional properties:
--~~~~~~~~~~~~~~~~~~~~
-- - vbus-supply: Phandle to a regulator providing the USB bus power.
--
--Example:
--	usb_phy: usb-phy {
--		compatible = "ti,da830-usb-phy";
--		#phy-cells = <0>;
--	};
--	usb0: usb@200000 {
--		compatible = "ti,da830-musb";
--		reg = <0x00200000 0x1000>;
--		ranges;
--		#address-cells = <1>;
--		#size-cells = <1>;
--		interrupts = <58>;
--		interrupt-names = "mc";
--
--		dr_mode = "host";
--		vbus-supply = <&usb_vbus>;
--		phys = <&usb_phy 0>;
--		phy-names = "usb-phy";
--
--		dmas = <&cppi41dma 0 0 &cppi41dma 1 0
--			&cppi41dma 2 0 &cppi41dma 3 0
--			&cppi41dma 0 1 &cppi41dma 1 1
--			&cppi41dma 2 1 &cppi41dma 3 1>;
--		dma-names =
--			"rx1", "rx2", "rx3", "rx4",
--			"tx1", "tx2", "tx3", "tx4";
--
--
--		cppi41dma: dma-controller@201000 {
--			compatible = "ti,da830-cppi41";
--			reg =  <0x201000 0x1000
--				0x202000 0x1000
--				0x204000 0x4000>;
--			reg-names = "controller", "scheduler", "queuemgr";
--			interrupts = <58>;
--			#dma-cells = <2>;
--			dma-channels = <4>;
--		};
--
--	};
-diff --git a/Documentation/devicetree/bindings/usb/ti,da830-musb.yaml b/Documentation/devicetree/bindings/usb/ti,da830-musb.yaml
-new file mode 100644
-index 000000000000..c54bdfb4d1ad
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/ti,da830-musb.yaml
-@@ -0,0 +1,111 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/ti,da830-musb.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI DA8xx MUSB
-+
-+maintainers:
-+  - Sergei Shtylyov <sshtylyov@ru.mvista.com>
-+
-+allOf:
-+  - $ref: /schemas/usb/usb-drd.yaml#
-+
-+properties:
-+  compatible:
-+    const: ti,da830-musb
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    const: mc
-+
-+  phys:
-+    maxItems: 1
-+
-+  phy-names:
-+    const: usb-phy
-+
-+  dmas:
-+    minItems: 1
-+    maxItems: 8
-+
-+  dma-names:
-+    minItems: 1
-+    maxItems: 8
-+
-+  vbus-supply:
-+    description: Phandle to a regulator providing the USB bus power.
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-ranges: true
-+
-+  ranges: true
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+patternProperties:
-+  "^dma-controller@[0-9a-f]+$":
-+    $ref: /schemas/dma/ti/ti,cppi41.yaml#
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+  - phys
-+  - phy-names
-+  - ranges
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    usb@200000 {
-+        compatible = "ti,da830-musb";
-+        reg = <0x00200000 0x1000>;
-+        ranges;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        interrupts = <58>;
-+        interrupt-names = "mc";
-+
-+        dr_mode = "host";
-+        vbus-supply = <&usb_vbus>;
-+        phys = <&usb_phy 0>;
-+        phy-names = "usb-phy";
-+
-+        clocks = <&psc1 1>;
-+        clock-ranges;
-+
-+        dmas = <&cppi41dma 0 0>, <&cppi41dma 1 0>,
-+               <&cppi41dma 2 0>, <&cppi41dma 3 0>,
-+               <&cppi41dma 0 1>, <&cppi41dma 1 1>,
-+               <&cppi41dma 2 1>, <&cppi41dma 3 1>;
-+        dma-names = "rx1", "rx2", "rx3", "rx4",
-+                    "tx1", "tx2", "tx3", "tx4";
-+
-+        dma-controller@201000 {
-+            compatible = "ti,da830-cppi41";
-+            reg = <0x201000 0x1000>,
-+                  <0x202000 0x1000>,
-+                  <0x204000 0x4000>;
-+            reg-names = "controller", "scheduler", "queuemgr";
-+            interrupts = <58>;
-+            #dma-cells = <2>;
-+            dma-channels = <4>;
-+        };
-+    };
+> Who takes the DT changes?
 
--- 
-2.55.0
+Geert.
 
+
+--ZiDiiahQjpJkCpVB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqDglMACgkQFA3kzBSg
+KbZL9A/9HxBzH39Da9KzxPRUXkpQbLNxJsQk18QqE33bmTc5rfeI194Wp2lDXboh
+apgJG+8WD3h3skKgWaREy6m+Q60nEy7IG26SwxbjCyxBClll82JuJJ4Ip55G6Zmf
+J+yPUFK864n65p1UQnM1WWjJ3cczBOH49S4UDNohbqR6kHeNmmWYM8VGaQlwfu5p
+ei9MQONg1uz77+tJ0DUovzxegagKPM0jrqxpV093lCS+s1psP6Ubn2gWlj3rThJ1
+li0mMAwbYjtrWrMEKgTHlASdYqwNOq0zo73hPev+1fdJVHWr4s90eC+nGMo4+pEj
+Zns3Z/9bZzIofB879AXK/6X6KraWzu6A/2DkGp4wgBImAFdwe7Fo3CUxW8bdVyyX
+Uhesx+xK5PojcLbgpGCBQPiZ4Z9ZtWSrstffC/H7QrJv4TzPVeUHqoRTqHEju3nw
+l5VTcClcuCgCzdqkcPDaa7Qwbl/qsbPzhaqQz73HcrlTv4IyXbYjR2gQJkRc/pF6
+SB+LsMPxh9JPgAInvWe4YHqjJgYajKcfpbufhNfFksN7CD+EBk4FBI/I5VZSvRCW
+odhx1ld5w+uQCBm/MIZeNqadi3LEefnfa60xfkUO7SHjb6Q1/cCQVDs3vrT5ucD5
+BXQVclLfD2agTP2pTBv2E4+oV15DlyWJNA7tu3TLdP/0xQR4mB8=
+=VPZU
+-----END PGP SIGNATURE-----
+
+--ZiDiiahQjpJkCpVB--
