@@ -1,50 +1,51 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B563BF689;
-	Mon, 17 Aug 2026 14:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C1B153BE9;
+	Mon, 17 Aug 2026 14:21:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786976338; cv=none; b=Xy35UW5tn6MuWVnDPag81Bp4acpEZ3vdm9vakvMM65/OjNSTHp8iBg6xbxEgtZEgs3VVOrKXGD0F6mjqLYZcIpeTwSDaAoZVnYYOEVezDOJEkep1hKs9pBLBOxnyn8q/ZekXKnyUcDbZCJlCDwIU3p5gLTd06GWwD4SA9Rd4+94=
+	t=1786976470; cv=none; b=LvYVA6ejFf/HnTS1oX0ItLGeffwg9Uflv+9Zun76Nk3zLJfypFnMXoyxWAsapw47sBZZ5x4/UhhVD920G3wO01zJU5K4642O37kO5CzNLH+gfbqBM4pQPHxuzyMWO2rMQUl9+fal2UTufCh1iIg+41gkpgBymqKswz6PZDCXQA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786976338; c=relaxed/simple;
-	bh=B9UwcCJ+EYOh/iZpIkt6JPdaA7PRb8qfLBUTpGkhZxg=;
+	s=arc-20240116; t=1786976470; c=relaxed/simple;
+	bh=c6RArJ3pLovuoEN7rKQ9hN6NGpOX2uKschttglV4SWA=;
 	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SVUdnCqemuMoE7G6h7c83jvvh8/o/b19H8diwG75AFZv4eewPlBahAstzAwTfQVHK4sVl9jdpcU3rncQo/9tE/znK86i3Zz64boEVMnbe54v884OBSx0bXGME5RITAsQl6s56jKCzPyuAFPBpnHBCdV21fz5z1jlQv/qbGq+uu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=tdauFioE; arc=none smtp.client-ip=68.232.153.233
+	 Content-Type:MIME-Version; b=e75TNjqr12RjyFXImK/WwnCYKhJCEKKRZ2JF23ZkZT9vSrDuaSM++EU7PyxpVuLsLN5I+Kqw+s4h8EWBiRyQZ9ZnmTuJtchDI+6D439EFl+Fr7n25B7Ynw1zLAHO2iHDRrYiHMVOmxM989V54zdaCfeCg7w3FNFDsnsOpmAVpBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ktvomPyi; arc=none smtp.client-ip=68.232.154.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="tdauFioE"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ktvomPyi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1786976337; x=1818512337;
+  t=1786976468; x=1818512468;
   h=message-id:subject:from:to:cc:date:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=B9UwcCJ+EYOh/iZpIkt6JPdaA7PRb8qfLBUTpGkhZxg=;
-  b=tdauFioEwZqx6DkaAH1XU03j/VbnNHt2BPK3EDrXaV1QMjpATaO0B3+W
-   h9aybuZ/CR74QKTyEO/xiiYBrvjZBz4cdeCK2k/VRDOno9ym6ecBYlZwU
-   N7MbgyfrjYahhRSfevb3herg77BKII2ZlsvMRoubE0t1wLPsPwgco0X8v
-   sS3aCZe0NTygTjMktsXEiqSBeVxDXj1DDxZsUnAqgyyV/z8ZXUmH7aoBS
-   KxTobj8r9DaHOQCbQ832jyBmWFLzN46yVFqAM3dCRGcWzhdTEV8mYABFC
-   yeQ8UpKKEQhZQ+uTu95uj+At0FWeO/QzpoO9lrxQ6/pZK1tnq20zZS6dF
-   w==;
-X-CSE-ConnectionGUID: 9ukn+/d7SNa9u8AGaj1s8w==
-X-CSE-MsgGUID: ++lwQDbyTKGsY243ZTJCEg==
+  bh=c6RArJ3pLovuoEN7rKQ9hN6NGpOX2uKschttglV4SWA=;
+  b=ktvomPyi0SIRk+sQBAj4+SLuBf31Ws0pNIQeGfLgBQefN/fyvffgApgp
+   hhVqQYomhwJR/uPul5IG24LJGUqfxU5tDszoZJaTZmuEXyZfRFrVH0F/l
+   EVYHPA/4qclh1KHCNzScaiuevw9aR9qLLAiwgXjC3auzEp7DLmTazvZlM
+   a/LDo+9CRr3+I0B08/eEmMfxAx55PJCOY1wS75SHYyOjmyUedR/ARNEOQ
+   XM+hf1FXfUilqHIBqP87htzGRSHr9Rxt5pZRUzvZnYC8Gg7ffyXSDWRuH
+   I+rrY1d8S7dL1/2VxoHb9002Sye637LYET6gp+e4BUIPskc0Ubdf8jjex
+   g==;
+X-CSE-ConnectionGUID: vX42fI8+ToqV1Q70wvvSeQ==
+X-CSE-MsgGUID: kkFpLuHOTq2FmDJ20CtFzw==
 X-IronPort-AV: E=Sophos;i="6.25,229,1779174000"; 
-   d="scan'208";a="62248563"
+   d="scan'208";a="62555468"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 17 Aug 2026 07:18:56 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 07:21:08 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 17 Aug 2026 07:18:55 -0700
+ 15.2.2562.45; Mon, 17 Aug 2026 07:21:07 -0700
 Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Mon, 17 Aug 2026 07:18:52 -0700
-Message-ID: <5e49cafe5a59227607564be2605f786ebe67999b.camel@microchip.com>
-Subject: Re: [PATCH net-next v11 1/9] net: dsa: add tag driver for LAN9645X
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 17 Aug 2026 07:21:04 -0700
+Message-ID: <dc119def49738f5ecce9adf2f27d40374ff9045d.camel@microchip.com>
+Subject: Re: [PATCH net-next v11 2/9] dt-bindings: net: lan9645x: add
+ LAN9645X switch bindings
 From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
 To: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
  Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
@@ -56,10 +57,10 @@ To: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
 	Daniel Machon <daniel.machon@microchip.com>
 CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
 	<devicetree@vger.kernel.org>
-Date: Mon, 17 Aug 2026 16:18:51 +0200
-In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-1-007ebc983a0a@microchip.com>
+Date: Mon, 17 Aug 2026 16:21:03 +0200
+In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-2-007ebc983a0a@microchip.com>
 References: <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
-	 <20260805-dsa_lan9645x_switch_driver_base-v11-1-007ebc983a0a@microchip.com>
+	 <20260805-dsa_lan9645x_switch_driver_base-v11-2-007ebc983a0a@microchip.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.44.4-0ubuntu2.1 
@@ -72,379 +73,224 @@ MIME-Version: 1.0
 
 This is my reply to:
 https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260805-dsa_lan9645x_s=
-witch_driver_base-v11-0-007ebc983a0a%40microchip.com?part=3D1
+witch_driver_base-v11-0-007ebc983a0a%40microchip.com?part=3D2
 
-> --- Patch [1]: [PATCH net-next v11 1/9] net: dsa: add tag driver for LAN9=
-645X ---
-> commit 16799f4195f9118fdca9d3ba803a3d4d2e6a9414
+> --- Patch [2]: [PATCH net-next v11 2/9] dt-bindings: net: lan9645x: add L=
+AN9645X switch bindings ---
+> commit 1b95e77c1cab7610f3d242846549a69514641335
 > Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@micro=
 chip.com>
 >
-> net: dsa: add tag driver for LAN9645X
+> dt-bindings: net: lan9645x: add LAN9645X switch bindings
 >
-> This adds a DSA tag driver for the LAN9645x family used with a front port
-> as CPU port (NPI mode), with a long prefix on extraction and no prefix on
-> injection.  A new header exports the 28 byte internal frame header (IFH)
-> field table, and the tagger encodes/decodes it in lan9645x_xmit() and
-> lan9645x_rcv().
+> This adds a new DSA binding for the Microchip LAN9645x switch family,
+> using the smallest SKU (microchip,lan96455s-switch) as the fallback
+> compatible, and adds the file to the existing MAINTAINERS entry.
 >
-> A few questions below.
->
-> > diff --git a/include/linux/dsa/lan9645x.h b/include/linux/dsa/lan9645x.=
-h
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,lan964=
+55s-switch.yaml
+b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml
 > > new file mode 100644
-> > index 0000000000000..9896fab649c4d
+> > index 0000000000000..043fb48922b41
 > > --- /dev/null
-> > +++ b/include/linux/dsa/lan9645x.h
-> > @@ -0,0 +1,144 @@
+> > +++ b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-swi=
+tch.yaml
+> > @@ -0,0 +1,111 @@
 >
 > [ ... ]
 >
-> > +#define LAN9645X_IFH_TAG_TYPE_C	0
-> > +#define LAN9645X_IFH_TAG_TYPE_S	1
-> > +#define LAN9645X_IFH_LEN_U32		7
-> > +#define LAN9645X_IFH_LEN		(LAN9645X_IFH_LEN_U32 * sizeof(u32))
-> > +#define LAN9645X_IFH_BITS		(LAN9645X_IFH_LEN * BITS_PER_BYTE)
-> > +#define LAN9645X_SHORT_PREFIX_LEN	4
-> > +#define LAN9645X_LONG_PREFIX_LEN	16
-> > +#define LAN9645X_TOTAL_TAG_LEN (LAN9645X_LONG_PREFIX_LEN + LAN9645X_IF=
-H_LEN)
+> > +  ethernet-ports:
+> > +    type: object
+> > +    patternProperties:
+> > +      "^ethernet-port@[0-8]$":
+>
+> Discovered by: opus-5 =C2=B7 Missed by: sonnet-5, sashiko-gemini =C2=B7 C=
+onfirmed by: sonnet-5
+> Are the constraints under this pattern actually reachable for all legal
+> port node names?
+>
+> The top-level $ref pulls in dsa.yaml#/$defs/ethernet-ports, which accepts=
+:
+>
+>   patternProperties:
+>     "^(ethernet-)?ports$":
+>       patternProperties:
+>         "^(ethernet-)?port@[0-9a-f]+$":
+>           description: Ethernet switch ports
+>           $ref: dsa-port.yaml#
+>           unevaluatedProperties: false
+>
+> So both port@N and ethernet-port@N are valid spellings, and indices are
+> not limited to 0-8. The local ethernet-ports object here has no
+> additionalProperties or unevaluatedProperties of its own, so children who=
+se
+> names do not match "^ethernet-port@[0-8]$" are simply not checked against
+> the local constraints.
+>
+> That means these two both pass dt_binding_check:
+>
+>   ethernet-ports {
+>       port@7 {
+>           phy-mode =3D "rgmii";
+>           rx-internal-delay-ps =3D <500>;   /* const: 2000 not applied */
+>       };
+>   };
+>
+>   ethernet-ports {
+>       ethernet-port@9 {                   /* index > 8 not rejected */
+>           reg =3D <9>;
+>       };
+>   };
+>
+> Would using the "^(ethernet-)?port@[0-8]$" spelling here, as
+> Documentation/devicetree/bindings/net/dsa/vitesse,vsc73xx.yaml does with
+> "^(ethernet-)?port@6$", make the new per-port constraints effective?
+>
+
+Yes, I will update the regex.
+
+> > +        type: object
+> > +        description: Ethernet switch ports
 > > +
-> > +#define IFH_INJ_TIMESTAMP		192
-> > +#define IFH_BYPASS			191
-> > +#define IFH_MASQ			190
-> > +#define IFH_TIMESTAMP			186
-> > +#define IFH_TIMESTAMP_NS		194
-> > +#define IFH_TIMESTAMP_SUBNS		186
-> > +#define IFH_MASQ_PORT			186
-> > +#define IFH_RCT_INJ			185
-> > +#define IFH_LEN				171
->
-> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
-> Can this IFH_LEN definition clash with the existing ones?  There are alre=
-ady
-> two in-tree macros with that name and a different meaning:
->
-> drivers/net/ethernet/microchip/lan966x/lan966x_ifh.h:
->     #define IFH_LEN                      7
->     #define IFH_LEN_BYTES                (IFH_LEN * sizeof(u32))
->
-> drivers/net/ethernet/microchip/sparx5/sparx5_main.h:
->     #define IFH_LEN                9 /* 36 bytes */
->
-> Both are u32 word counts for the IFH of sibling chips in the same family,
-> while here IFH_LEN is the bit position 171 of the length field.  A
-> translation unit that includes this header plus either of those gets a
-> redefinition warning, or silently expands 7 or 9 where bit 171 was meant.
->
-> The same header also exports LAN9645X_IFH_LEN (28 bytes), so two macros
-> differing only by prefix carry unrelated quantities.  The length/format a=
-nd
-> tag type macros already got the LAN9645X_ prefix - would it make sense to
-> prefix the whole field table exported from include/linux/dsa/ as well?
->
-
-I will rename LAN9645X_IFH_LEN to LAN9645X_IFH_LEN_BYTES and move the field
-table to tag_lan9645x.c.
-
-> > +#define IFH_WRDMODE			169
-> > +#define IFH_RTAGD			167
-> > +#define IFH_CUTTHRU			166
->
-> [ ... ]
->
-> > +#define IFH_RTE_INB_UPDATE		148
-> > +#define IFH_POP_CNT			146
-> > +#define IFH_ETYPE_OFS			144
-> > +#define IFH_SRCPORT			140
->
-> [ ... ]
->
-> > +#define IFH_INJ_TIMESTAMP_SZ		32
-> > +#define IFH_BYPASS_SZ			1
-> > +#define IFH_MASQ_SZ			1
-> > +#define IFH_TIMESTAMP_SZ		38
->
-> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
-> Is IFH_TIMESTAMP usable with the accessors added by this patch?  Both
-> lan9645x_ifh_set() and lan9645x_ifh_get() carry:
->
->     BUILD_BUG_ON_MSG(length > 32, "IFH field size wider than 32.");
->
-> and pass the value through u32, so a consumer calling
->
->     lan9645x_ifh_get(ifh, IFH_TIMESTAMP, IFH_TIMESTAMP_SZ)
->
-> fails to build.  The usable split already exists as IFH_TIMESTAMP_NS (30
-> bits) plus IFH_TIMESTAMP_SUBNS (8 bits), so should the 38 bit alias be
-> dropped or annotated?
->
-> Related, the table mixes the injection and extraction layouts without
-> marking which is which: IFH_TIMESTAMP, IFH_TIMESTAMP_SUBNS and
-> IFH_MASQ_PORT all start at bit 186, and IFH_INJ_TIMESTAMP (32 bits at 192=
-)
-> overlaps IFH_BYPASS and IFH_MASQ.  Only the .c file mentions that "There
-> are two field layouts, one for extraction and one for injection".  Could
-> the header note the direction per field?
-
-I will remove IFH_TIMESTAMP and just keep the NS/SUBNS subfield split, and
-annotate each field with whether it is used in the injection, extraction or=
- both
-headers.
-
->
-> > +#define IFH_TIMESTAMP_NS_SZ		30
-> > +#define IFH_TIMESTAMP_SUBNS_SZ		8
->
-> [ ... ]
->
-> > diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
-> > new file mode 100644
-> > index 0000000000000..6a33216c7792f
-> > --- /dev/null
-> > +++ b/net/dsa/tag_lan9645x.c
-> > @@ -0,0 +1,317 @@
->
-> [ ... ]
->
-> > +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
-> > +				     struct net_device *ndev)
-> > +{
->
-> [ ... ]
->
-> > +	lan9645x_ifh_set(ifh, 1, IFH_BYPASS, IFH_BYPASS_SZ);
-> > +	lan9645x_ifh_set(ifh, ds->num_ports, IFH_SRCPORT, IFH_SRCPORT_SZ);
-> > +	lan9645x_ifh_set(ifh, tag_type, IFH_TAG_TYPE, IFH_TAG_TYPE_SZ);
-> > +	lan9645x_ifh_set(ifh, vlan_tci, IFH_TCI, IFH_TCI_SZ);
-> > +	lan9645x_ifh_set(ifh, qos_class, IFH_QOS_CLASS, IFH_QOS_CLASS_SZ);
-> > +	lan9645x_ifh_set(ifh, BIT(dp->index), IFH_DSTS, IFH_DSTS_SZ);
->
-> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
-> This isn't a bug today, but should the destination set use
-> dsa_xmit_port_mask() instead of open-coding BIT(dp->index)?
->
-> net/dsa/tag.h:dsa_xmit_port_mask() is BIT(dp->index) plus the HSR
-> duplication fan-out:
->
->     unsigned long mask =3D BIT(dp->index);
->
->     if (IS_ENABLED(CONFIG_HSR) &&
->         unlikely(dev->features & NETIF_F_HW_HSR_DUP)) {
->             struct net_device *hsr_dev =3D dp->hsr_dev;
->             struct dsa_port *other_dp;
->
->             dsa_hsr_foreach_port(other_dp, dp->ds, hsr_dev)
->                     mask |=3D BIT(other_dp->index);
->     }
->
-> tag_ocelot.c writes the same IFH DSTS concept through the helper:
->
->     ocelot_ifh_set_dest(injection, dsa_xmit_port_mask(skb, netdev));
->
-> and net/dsa/dsa.c documents the contract as "Helpers for switches without
-> specific HSR offloads, but which can implement NETIF_F_HW_HSR_DUP because
-> their tagger uses dsa_xmit_port_mask()".  I checked the companion switch
-> driver in this series and it implements no HSR offload, so there is no
-> functional effect right now; a later HSR/PRP offload would however
-> duplicate to a single port only, since the partner bit never reaches IFH
-> DSTS.
->
-
-I think this would be a bug on this chip, for HSR/PRP v1. When multiple
-ports are set in the IFH_DSTS mask, each port receives a byte-identical cop=
-y. But
-HSR/PRP v1 require the 2 duplicates differ in a bit (lan_id) in the tag whi=
-ch
-tells from which port the frame egresses. Typically 0 for port A and 1 for
-port B.
-
-This chip is also capable of offloading several HSR and PRP features such a=
-s
-duplication and duplicate discard. When I implement the callbacks I plan on
-using those capabilities.
-
+> > +        $ref: dsa-port.yaml#
+> > +        unevaluatedProperties: false
 > > +
-> > +	return skb;
-> > +}
+> > +        properties:
+> > +          rx-internal-delay-ps:
+> > +            const: 2000
 > > +
-> > +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
-> > +				    struct net_device *ndev)
-> > +{
+> > +          tx-internal-delay-ps:
+> > +            const: 2000
 >
-> [ ... ]
+> Discovered by: opus-5, sashiko-gemini =C2=B7 Missed by: sonnet-5 =C2=B7 C=
+onfirmed by: sonnet-5
+> Should these two properties be guarded by an rgmii phy-mode conditional?
 >
-> > +	popcnt =3D lan9645x_ifh_get(ifh, IFH_POP_CNT, IFH_POP_CNT_SZ);
-> > +	etype_ofs =3D lan9645x_ifh_get(ifh, IFH_ETYPE_OFS, IFH_ETYPE_OFS_SZ);
-> > +	src_port =3D lan9645x_ifh_get(ifh, IFH_SRCPORT, IFH_SRCPORT_SZ);
+> As written they are declared for every port index 0-8 with no phy-mode
+> condition, and since they live in the same schema object that carries
+> unevaluatedProperties: false, they count as evaluated for any phy-mode.
+> This passes validation:
 >
-> [ ... ]
+>   ethernet-port@0 {
+>       reg =3D <0>;
+>       phy-mode =3D "gmii";
+>       rx-internal-delay-ps =3D <2000>;
+>   };
 >
-> > +	if (popcnt =3D=3D 0 && etype_ofs =3D=3D 0)
-> > +		ifh_gap_len =3D 2 * VLAN_HLEN;
-> > +	else if (popcnt =3D=3D 3)
-> > +		ifh_gap_len =3D VLAN_HLEN;
+> Per the driver, only ports 7 and 8 have RGMII pins
+> (lan9645x_phylink_get_caps(): 0..4 GMII/cuphy, 5..6 SerDes, 7..8 RGMII),
+> and only lan9645x_rgmii_dll_config() programs the delay lines, with
+> RGMII_IDX(port) defined for ports 4/7/8 only. On a gmii port the value is
+> stored in p->rx_internal_delay by lan9645x_port_setup() and then never
+> used, with no diagnostic.
 >
-> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
-> Which extraction encodings does this cover?  IFH_POP_CNT and IFH_ETYPE_OF=
-S
-> are 2 bits each, so there are 16 combinations, and only two of them get a
-> non-zero gap here.  Everything else, including popcnt =3D=3D 1, popcnt =
-=3D=3D 2 and
-> (popcnt =3D=3D 0, etype_ofs =3D=3D 1), falls through to the initialiser
-> ifh_gap_len =3D 0.
+> The existing pattern is a conditional, see
+> Documentation/devicetree/bindings/net/dsa/vitesse,vsc73xx.yaml:
 >
-> The mapping also looks internally inconsistent: on one port an untagged
-> frame (popcnt =3D=3D 0, etype_ofs =3D=3D 0) gets an 8 byte gap, while a
-> single-tagged frame on the same port (popcnt =3D=3D 0, etype_ofs =3D=3D 1=
-) gets a 0
-> byte gap.  That is an 8 byte difference for one 4 byte tag.  The two
-> handled values do differ by exactly one tag, which suggests the real
-> discriminator is the number of tags left in the delivered frame
-> (ETYPE_OFS) rather than the two POP_CNT comparisons.  Could the full
-> datasheet mapping be spelled out here?
+>   "^(ethernet-)?port@6$":
+>     allOf:
+>       - if:
+>           properties:
+>             phy-mode:
+>               contains:
+>                 enum:
+>                   - rgmii
+>         then:
+>           properties:
+>             rx-internal-delay-ps: ...
 >
-> The companion switch driver added later in this series programs a pop cou=
-nt
-> of 1 on every VLAN-aware port:
->
-> drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c:
->         val |=3D ANA_VLAN_CFG_VLAN_AWARE_ENA_SET(1) |
->                ANA_VLAN_CFG_VLAN_POP_CNT_SET(1);
->
-> so POP_CNT =3D=3D 1 seems to be an expected extraction encoding that land=
-s in
-> the zero-gap default.
->
+> Documentation/devicetree/bindings/net/ethernet-controller.yaml also defin=
+es
+> these properties only inside an rgmii* phy-mode conditional.
 
-No the current logic covers all cases properly. The values encoded in the f=
-ields
-are not intuitive. On a vlan aware port ifh.pop_cnt will not be 1 for insta=
-nce.
+Yes, I will a conditional here.
 
-This is how the calculation goes:
-
-DMAC_DT =3D (ifh.pop_cnt =3D=3D 0 && ifh.etype_ofs =3D=3D 0) ? 4 : ifh.pop_=
-cnt
-DMAC_OFFSET =3D TAG_SIZE + 4*(DMAC_DT - 2)
-
-With tag pushing disabled we have either
-
-popcnt=3D0 and etype_ofs=3D0     =3D> 2x pop
-popcnt=3D3 and etype_ofs=3D*     =3D> 1x pop
-popcnt=3D2 and etype_ofs=3D*     =3D> no pop
-
-The remaining combinations indicate a push and will not occur.
-
-I will include this in a comment, and add WARN_ON_ONCE and a bailout for th=
-e
-impossible combinations.
-
-> > +
-> > +	skb_pull(skb, LAN9645X_IFH_LEN);
-> > +
-> > +	if (unlikely(!pskb_may_pull(skb, ifh_gap_len + ETH_HLEN))) {
-> > +		kfree_skb(skb);
-> > +		return NULL;
-> > +	}
-> > +
-> > +	skb_pull(skb, ifh_gap_len);
-> > +	skb_reset_mac_header(skb);
-> > +	skb_set_network_header(skb, ETH_HLEN);
-> > +	skb_reset_mac_len(skb);
 >
-> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
-> Following on from the gap computation above: if ifh_gap_len is smaller th=
-an
-> the real gap, do these calls describe a header the hardware did not put
-> there, so that eth_type_trans() in dsa_switch_rcv() derives a protocol fr=
-om
-> leftover tag bytes?  And if it is larger, are up to 8 bytes of the real
-> DMAC pushed back into the headroom and lost?
+> Separately, ethernet-controller.yaml states:
+>
+>   A value of 2000ps, i.e 2ns, and a phy-mode of "rgmii" will not be
+>   accepted by Reviewers
+>
+> which is the combination this binding mandates with const: 2000 and shows
+> in the example below. Is a phy-mode of "rgmii" together with a 2000 ps
+> internal delay intended here, rather than one of the rgmii-rxid /
+> rgmii-txid / rgmii-id modes?
+
+I think ethernet-controller.yaml talks about the situation where there is a=
+ PHY
+present. The intent here is a mac to mac connection. I was specifically
+instructed to model it like this, and not do use rgmii-*id as a way to
+communicate delay programming of the MAC. It is also clear from
+Documentation/networking/phy.rst
+that this is the right way to model mac to mac.
+
 >
 > > +
-> > +	/* Reset skb->data past the actual ethernet header. */
-> > +	skb_pull(skb, ETH_HLEN);
+> > +$ref: dsa.yaml#/$defs/ethernet-ports
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - ethernet-ports
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    ethernet-switch@4000 {
+> > +        compatible =3D "microchip,lan96459f-switch", "microchip,lan964=
+55s-switch";
+> > +        reg =3D <0x4000 0x244>;
+> > +
+> > +        ethernet-ports {
+> > +            #address-cells =3D <1>;
+> > +            #size-cells =3D <0>;
+> > +
+> > +            ethernet-port@0 {
+> > +                reg =3D <0>;
+> > +                phy-mode =3D "gmii";
+> > +                phy-handle =3D <&cuphy0>;
+> > +            };
 >
 > [ ... ]
->
-> > +	skb_postpull_rcsum(skb,
-> > +			   skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_len,
-> > +			   LAN9645X_TOTAL_TAG_LEN + ifh_gap_len);
->
-> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
-> The same ifh_gap_len is reused as the checksum fixup length here.  Can a
-> wrong gap corrupt skb->csum on a CHECKSUM_COMPLETE conduit, since the
-> subtracted byte range then does not match the bytes the conduit actually
-> summed?
 >
 > > +
-> > +	skb->dev =3D dsa_conduit_find_user(ndev, 0, src_port);
-> > +	if (WARN_ON_ONCE(!skb->dev)) {
-> > +		/* This should never happen since we have disabled reflection
-> > +		 * back to the CPU.
-> > +		 */
-> > +		kfree_skb(skb);
-> > +		return NULL;
-> > +	}
+> > +            ethernet-port@7 {
+> > +                reg =3D <7>;
+> > +                phy-mode =3D "rgmii";
+> > +                ethernet =3D <&cpu_host_port>;
+> > +                rx-internal-delay-ps =3D <2000>;
+> > +                tx-internal-delay-ps =3D <2000>;
+> > +
+> > +                fixed-link {
+> > +                    speed =3D <1000>;
+> > +                    full-duplex;
+> > +                    pause;
+> > +                };
+> > +            };
+> > +        };
+> > +    };
+> > +...
+> > +
+>       ^^^
 >
-> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
-> Is this WARN_ON_ONCE() reachable from frame data?  src_port comes straigh=
-t
-> out of the received IFH:
->
->     src_port =3D lan9645x_ifh_get(ifh, IFH_SRCPORT, IFH_SRCPORT_SZ);
->
-> That is a 4 bit field, so any value 0..15 can arrive, and
-> dsa_conduit_find_user() returns NULL for every index that is not a
-> registered user port.  Candidates for such an index are the NPI port inde=
-x
-> itself (registered as DSA_PORT_TYPE_CPU), physical ports left unused by t=
-he
-> device tree, and masqueraded source ports from a frame injected on the ba=
-re
-> conduit, which the hardware parses as a bare IFH because no injection
-> prefix is configured.  With panic_on_warn=3D1 that becomes a panic from t=
-he
-> receive path.
->
-> The comment relies on reflection being disabled, but the guard in the
-> companion driver only covers src_port equal to the CPU port module:
->
-> drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c:
->     /* Make sure frames with src_port=3D<CPU port module> are not reflect=
-ed
->      * back via the NPI port. ... The *_CPU_KILL_ENA flags above only hav=
-e an
->      * effect when a frame is output due to a CPU forwarding decision suc=
-h as
->      * trapping or cpu copy.
->      */
->     lan_rmw(0, BIT(port), lan9645x,
->             ANA_PGID(PGID_SRC + lan9645x->num_phys_ports));
->
-> The tagger for the same hardware family deliberately drops silently here:
->
-> net/dsa/tag_ocelot.c:ocelot_rcv()
->     skb->dev =3D dsa_conduit_find_user(netdev, 0, src_port);
->     if (!skb->dev) {
->             /* The switch will reflect back some frames sent through
->              * sockets opened on the bare DSA conduit. ... So don't print=
- any
->              * error message here (ignore and drop those frames).
->              */
->             kfree_skb(skb);
->             return NULL;
->     }
->
-> The kfree_skb() and return NULL here are already right - would dropping t=
-he
-> WARN_ON_ONCE() be preferable?
->
+> Discovered by: opus-5 =C2=B7 Missed by: sonnet-5, sashiko-gemini =C2=B7 C=
+onfirmed by: sonnet-5
+> This isn't a bug, but there is a blank line after the end-of-document
+> marker at the end of the file, which git diff --check reports as "new bla=
+nk
+> line at EOF". The other bindings in this directory end with "..." and
+> nothing after it.
 
-I think it is right that a carefully constructed frame on a raw socket for =
-the
-conduit, could be reflected. I will remove the WARN_ON_ONCE().
+I will remove this.
 
-> [ ... ]
+>
+> Cross-instance finding from sashiko-gemini
+(008974e58f4042f8866239fc681c104931d4e9cd342a5b5be37f42504a115cf0):
+> Discovered by: sashiko-gemini, opus-5 =C2=B7 Missed by: sonnet-5 =C2=B7 C=
+onfirmed by: opus-5
+> The schema lacks an `mdio` node definition while setting `unevaluatedProp=
+erties: false` at the root,
+which inadvertently prevents instantiation of the integrated PHYs reference=
+d in the example.
 
