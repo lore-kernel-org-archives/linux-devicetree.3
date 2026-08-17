@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1313C0619;
-	Mon, 17 Aug 2026 08:06:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAB13BED42;
+	Mon, 17 Aug 2026 08:07:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786954010; cv=none; b=GPzwO1mGvipWjgseP5dGvwF0NsRh2f64xFOpO1ZG8PigIoslMQAGrBO3kwbMtoIfTNR5Fu4M8vYKK4smJVNyTgfZqfMfuYm6XfiM5rZKxcOExS+T1tK+EJx46Bn43vlHtWXBRf5eUx5tdqP46cDSrbnef7BrYh6aapbB5e9ivGI=
+	t=1786954030; cv=none; b=X+kArAH8G7dJYbieKFydU5wCwbDs3ZeaEuvGaLlajmprCXyceGzX4fZE2NkJMxfO+qdX3pOlRJ434cbouo/iU5i2pyPuEyp7OE1dSymvF8fukQ/FkHk2L4HLAwO4ddiOmh45L7ve1KZC+mWrRyWLW6Sg2hOy+0bCI7P8jqSdOB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786954010; c=relaxed/simple;
-	bh=G3INwFLf3PJUMpQiw+cGBgrCDCIM5NvGN4aMkS7P56w=;
+	s=arc-20240116; t=1786954030; c=relaxed/simple;
+	bh=/rfOhUSlzNp+5KVDS8Ft6HBjeb9DR7CEVRu+3pT/FGA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bNehLt7J5PWRuEElbDqT0+yjNEui2MHW/g1dxwbcovHsxEVz4hsG6uUS/UzKL+XDEYoIFmRLuOIufmy7wSxGZD6yRoV4kmQNYJyFsP/yBOMkdIJjXisiU5IJvtDDCXQoMe4ko8QAXJ4WdXu+ob0hVL5tEw17FctvVrdxhzPHps4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkyK+GuF; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=YqMcy7fm7qv1Keud2/91N7mHQXMn+rn2l0K/2DxgIOfquwp8Ad8cy4lC5EiYi0YQcNzI1RUILPrQDREf6NzjmgJa7JPR49rnkLs36Nd0C8mHER12n4aiTcOlfO7mCrRjmn3CgIKs3xpYhtS9uSZpV2VeF3jsqrsHzvM0sX1LFos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHeWV/xT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkyK+GuF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BD21F00A3F;
-	Mon, 17 Aug 2026 08:06:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHeWV/xT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF8B1F000E9;
+	Mon, 17 Aug 2026 08:07:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786954008;
-	bh=sJF46lfr16ka93Qg8hkMaLu9qTMWC3yXRCMotcWCJ3U=;
+	s=k20260515; t=1786954028;
+	bh=SbJjztUJQOM08wZ6uKmuLnVHIlFbcEoVMz6+j7JiEIE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dkyK+GuF/8JFFSJZpZZJapN4kV7Q3VDfBRahGtZBbeRj6PpTYlFkBngKLuCPiszrG
-	 qvCwifvzjFtXNRiZvBVAe19TQyFvxYYVNTo6UF+N+8h5Zc+s/OmsvT+3TxurBuArFx
-	 JQ/vycEEfRs1Wzt72K4WebDDRodj9DNEYjRW4iOxIur5pTvHoB+SO/o8wLYzHTnXF7
-	 05MaEadiEdiEFEtqEmrzoD+HQs+iW+QfCVv91PQAKMhoqItXPqLC0/GqVLZKUaWOfE
-	 WaQDwBxAuQEwZREim2fkarby+YBWw4tBvEBCECDnTt64C1GDiORAyyBY0R44WHareq
-	 Hm6xDcDm1yAwA==
-Message-ID: <e5f36741-ecb5-49d4-84b8-e97778589215@kernel.org>
-Date: Mon, 17 Aug 2026 10:06:41 +0200
+	b=GHeWV/xTsBCO4fi4VVA+3qobMVraNgJUWmylWtfIhQicU0vWb/gruvPaUveWUfCIL
+	 VSRY2M1BWs8daL6KK890VsbiZ5WUwSCKeR/BDR3Z4CZ5PdFMh2M7B2GJNqEipdxfjr
+	 4zfjbNUTEm6kD5nH6ormvzhrfme2igF3xeTDkICC90yVJu9hZIJ7MAca+51w4zu9bl
+	 hu6gn3ZF0T4EvEOz6tSdw8HGwCshDTfl9HrUwdnu1jPa/USgUrpj6M+gFMJ6/ro4hG
+	 6puKLeKqNqW+Brmq/vOS52SNoMZEfKR0jMg/gDyhcjLMbgFEbd14f8f7TPBKh/KcJd
+	 Mr8lunjUZ8csg==
+Message-ID: <a90868d4-1411-42bf-b42e-f517541187ae@kernel.org>
+Date: Mon, 17 Aug 2026 10:07:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] dt-bindings: arm: qcom: Document SM7250 SoC and
- boards
+Subject: Re: [PATCH v2 5/5] dt-bindings: interrupt-controller: qcom,pdc:
+ Document SM7250 PDC
 To: Sreeshankar K <sreeshankar0910@gmail.com>, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
  konradybcio@kernel.org, tglx@kernel.org
@@ -44,7 +44,7 @@ Cc: lpieralisi@kernel.org, robimarko@gmail.com, linux@gurudas.dev,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org
 References: <20260816161808.12419-1-sreeshankar0910@gmail.com>
- <20260816161808.12419-4-sreeshankar0910@gmail.com>
+ <20260816161808.12419-6-sreeshankar0910@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,45 +90,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260816161808.12419-4-sreeshankar0910@gmail.com>
+In-Reply-To: <20260816161808.12419-6-sreeshankar0910@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16/08/2026 18:18, Sreeshankar K wrote:
-> Document the Qualcomm SM7250 SoC binding and the MTP board.
+> Document the PDC block on the SM7250 SoC.
 > 
 > Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
 > ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
-
-Where is the SoC ID?
-
+>  .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index 50cc18a6e..481041700 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -1050,6 +1050,11 @@ properties:
->                - fairphone,fp4
->            - const: qcom,sm7225
->  
-> +      - items:
-> +          - enum:
-> +              - qcom,sm7250-mtp
-> +          - const: qcom,sm7250
-> +
->        - items:
->            - enum:
->                - motorola,dubai
-> @@ -1306,6 +1311,7 @@ allOf:
->                - qcom,sm6350
->                - qcom,sm7125
->                - qcom,sm7225
-> +              - qcom,sm7250
 
-No, list cannot grow.
-
+Please organize the patch documenting the compatible (DT bindings)
+before the patch using that compatible.
+See also:
+https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
 
 Best regards,
 Krzysztof
