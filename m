@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAB13BED42;
-	Mon, 17 Aug 2026 08:07:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0BF3AFCFD;
+	Mon, 17 Aug 2026 08:09:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786954030; cv=none; b=X+kArAH8G7dJYbieKFydU5wCwbDs3ZeaEuvGaLlajmprCXyceGzX4fZE2NkJMxfO+qdX3pOlRJ434cbouo/iU5i2pyPuEyp7OE1dSymvF8fukQ/FkHk2L4HLAwO4ddiOmh45L7ve1KZC+mWrRyWLW6Sg2hOy+0bCI7P8jqSdOB8=
+	t=1786954153; cv=none; b=N+JW1J9N/eADIa/Bqkhs/TnZURZTksMsKQEV3d3nMS1E7fdpxSQloAPexI6slN+sWK5MT2CgX5szpzNsF52xKoEBwG+SFawbaYqaRPX1LXccJrig/gun10LPvVOLf7p6TqJLJUJpgd9J0F3npH0+u+Tie/VBzb3/1zQRyHdTBqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786954030; c=relaxed/simple;
-	bh=/rfOhUSlzNp+5KVDS8Ft6HBjeb9DR7CEVRu+3pT/FGA=;
+	s=arc-20240116; t=1786954153; c=relaxed/simple;
+	bh=C60FLdtQBj+tDL7hkAVsYd2X95idF0Jphgms4i1/JXQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YqMcy7fm7qv1Keud2/91N7mHQXMn+rn2l0K/2DxgIOfquwp8Ad8cy4lC5EiYi0YQcNzI1RUILPrQDREf6NzjmgJa7JPR49rnkLs36Nd0C8mHER12n4aiTcOlfO7mCrRjmn3CgIKs3xpYhtS9uSZpV2VeF3jsqrsHzvM0sX1LFos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHeWV/xT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=CPbLr4JZoDYxmWmS4oryb0JcvO2TwrWxfUKuG2Cg9ETSALaGdH+po+ae3lnVadwsjLvLDi/A/6jmuBJj7xCptU5eIUY5jrjkKrnwQqsWjBEs2PWeP09XJZauwUxrJc42a4TKxyYzW5brIf76KLj4q0Sd1yrvLr1HPV1Ap8er54I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YV9R2xEi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHeWV/xT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF8B1F000E9;
-	Mon, 17 Aug 2026 08:07:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YV9R2xEi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D631F000E9;
+	Mon, 17 Aug 2026 08:09:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786954028;
-	bh=SbJjztUJQOM08wZ6uKmuLnVHIlFbcEoVMz6+j7JiEIE=;
+	s=k20260515; t=1786954151;
+	bh=HtKqPVA6NvNcDQrkO35/EUcQzSDazN81PV3pgoIIPNc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GHeWV/xTsBCO4fi4VVA+3qobMVraNgJUWmylWtfIhQicU0vWb/gruvPaUveWUfCIL
-	 VSRY2M1BWs8daL6KK890VsbiZ5WUwSCKeR/BDR3Z4CZ5PdFMh2M7B2GJNqEipdxfjr
-	 4zfjbNUTEm6kD5nH6ormvzhrfme2igF3xeTDkICC90yVJu9hZIJ7MAca+51w4zu9bl
-	 hu6gn3ZF0T4EvEOz6tSdw8HGwCshDTfl9HrUwdnu1jPa/USgUrpj6M+gFMJ6/ro4hG
-	 6puKLeKqNqW+Brmq/vOS52SNoMZEfKR0jMg/gDyhcjLMbgFEbd14f8f7TPBKh/KcJd
-	 Mr8lunjUZ8csg==
-Message-ID: <a90868d4-1411-42bf-b42e-f517541187ae@kernel.org>
-Date: Mon, 17 Aug 2026 10:07:02 +0200
+	b=YV9R2xEif3pWbDLfBUC9Y4yKNFvAcZOgCkb0F4h8k1pt3AZuhKNM7c5/hEd1q8nFD
+	 z1Ci1LoHfsSQDjqNpKgt26+59VJPBqsrsmAiHeBRPI6lYL03eF8ExgkPqIEaovtE3L
+	 pzC2m84HKVspGsHwirxyiEhFozD278ketVgDnI7uTv9cpBfmH66qbbwHqp+ncONh+R
+	 AfRGgoJ++J4Wx40mVUwXZ4MJTMBNGJD2FwRwvNGXuN/C0e8/L4bJ9QFDceJEAqm+E/
+	 WYb9dFCa5LfDe/6D5i//FAxazJw8fP3+SElhsCuif5kb8o7BNs9Cy9CZCjQ8UxRowx
+	 FItG4ZJN32WEg==
+Message-ID: <cc70291b-a945-4a2c-9483-9160cc88e50e@kernel.org>
+Date: Mon, 17 Aug 2026 10:09:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] dt-bindings: interrupt-controller: qcom,pdc:
- Document SM7250 PDC
-To: Sreeshankar K <sreeshankar0910@gmail.com>, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, tglx@kernel.org
-Cc: lpieralisi@kernel.org, robimarko@gmail.com, linux@gurudas.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20260816161808.12419-1-sreeshankar0910@gmail.com>
- <20260816161808.12419-6-sreeshankar0910@gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: clock: Add GCC clock bindings for SM7250
+To: Sreeshankar K <sreeshankar0910@gmail.com>, andersson@kernel.org,
+ mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: bmasney@redhat.com, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260816090719.892-1-sreeshankar0910@gmail.com>
+ <20260816090719.892-3-sreeshankar0910@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,23 +89,65 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260816161808.12419-6-sreeshankar0910@gmail.com>
+In-Reply-To: <20260816090719.892-3-sreeshankar0910@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/08/2026 18:18, Sreeshankar K wrote:
-> Document the PDC block on the SM7250 SoC.
+On 16/08/2026 11:07, Sreeshankar K wrote:
+> Add device tree bindings for global clock controller on SM7250 SoC.
 > 
 > Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-> ---
->  .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
->  1 file changed, 1 insertion(+)
-> 
 
-Please organize the patch documenting the compatible (DT bindings)
-before the patch using that compatible.
-See also:
-https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
+Please start using b4. Does this work:
+
+b4 diff '<20260816090719.892-3-sreeshankar0910@gmail.com>'
+
+? No.
+
+
+
+> ---
+>  .../bindings/clock/qcom,gcc-sm7250.yaml       |  60 +++++++
+>  include/dt-bindings/clock/qcom,gcc-sm7250.h   | 163 ++++++++++++++++++
+>  2 files changed, 223 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/qcom,gcc-sm7250.yaml
+>  create mode 100644 include/dt-bindings/clock/qcom,gcc-sm7250.h
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-sm7250.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-sm7250.yaml
+> new file mode 100644
+> index 000000000..822df7dc1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-sm7250.yaml
+> @@ -0,0 +1,60 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/qcom,gcc-sm7250.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Global Clock & Reset Controller on SM7250
+> +
+> +maintainers:
+> +  - Bjorn Andersson <andersson@kernel.org>
+> +  - Sreeshankar K <sreeshankar0910@gmail.com>
+> +
+> +description: |
+> +  Qualcomm global clock control module provides the clocks, resets and power
+> +  domains on SM7250.
+> +
+> +  See also: include/dt-bindings/clock/qcom,gcc-sm7250.h
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,gcc-sm7250
+> +
+> +  clocks:
+> +    items:
+> +      - description: Board XO source
+> +      - description: Board active XO source
+> +      - description: Sleep clock source
+
+Why this cannot go to sm7150 or sm6375 files?
 
 Best regards,
 Krzysztof
