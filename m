@@ -1,102 +1,449 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E563E49EA
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 10:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CC93E1693;
+	Mon, 17 Aug 2026 10:17:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786961820; cv=none; b=Y2r+1lLfY/xX9u+7DfUgzU+yvCHoI3zR6b6v2b7eWNWH+lKbalwX8KwksZEgXM27D5qrNUBPYW2soGvbd6duPAaNK5KQgV4aCwMgO9zM8+u2gRQu341+lsaBAQYTWEYMesKW5y7h+cKK8ui5/shiMD2slfpeg1aGgczMvhIIs3A=
+	t=1786961837; cv=none; b=UpfsjSqcAU485kZqb1Zu/nc7hgRRndongdn8lpUcHBRYuCGsR57B1meD/PEwQEegc523hbDnXaj+3o6zrX/wd2pEUBPEpIw97AlXSq1OjlVwsWtuvVupOn2br7qJS64OeMIzA7m5MGuSHmM1WFNtZq1uHQGukVcJm7VEYA9BP/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786961820; c=relaxed/simple;
-	bh=n5RwzXImVqCXrmF39olJE4DBBaOOg/lyePmNQMLZDi4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tQSHLJUCPInlqJLZYpmnwTYuEwmpTgX9oVvMj/xWkJGiZXwPRjDACRYgkDBS9n3dzjE3AI97Exe3t/wABQAFkycQ+pA0Yxnsjz36w4m4RMjHGMxbLC9VtCtDJX/f9q0AODilxcS8GjdNw0w+aq/YOuvLohOM9njRPEW7Vw6+BOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iwbsdTE9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786961837; c=relaxed/simple;
+	bh=pL8eiLq2Yg8qA0hE3iAxsAGxVWoUlb8FCDho/Z+HBNE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=g3ygzJzB2pEesgg2mKywcqPaqsBdGMYo4QGchMsvfjODQD2iVXd9L8MBWJz+fjLCD2yoHFTehY8HBAG5p95vGfSLsIQMhsoee+EjMw4Xj7auWCNzDDFpgZVICV9JhnW7yHO4+Nn/P6x/JDmQLk9RFr8rPO8m0CccAaxmEoLdaPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dARXl+ZV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iwbsdTE9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75BE71F000E9;
-	Mon, 17 Aug 2026 10:16:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786961818;
-	bh=cWPfn1LeEdyOE8egTwM82m0r8n/K74UsxiF+2DK1lXg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iwbsdTE9Z1dlRr5eT8uNDc+XuhyKGhsM6TAgMAZx4aBoPQSc872EySHoGpXakUxRK
-	 zBYfjQ+34FxkwLnIi808halpGQlz1DVy8rKIKmTgBymxHDLutWPJozsTOUMn37NbWk
-	 YWXCdGdHcAhSkXD6oTadYn7P8kr/Zh68649OomDd5mEDU88vE22luNopd3vxKvSY8u
-	 dvnKfJ4YLTREBLgPo/phM6IuHGLIJGBrS0uJNm8gEo/3j96qiXfzdYCGoRlHPXnj/T
-	 W1FBBWCmOzwf0iybxMTJl+iQdbWCtLV2TPhT5ZtBYQ4l8v6LvydSZHXg8DG05QwiVb
-	 RskQu81fx1K3A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Add
- exynos5515 compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aiden Isik" <aidenisik@member.fsf.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260817-for-next-lucky7-chipid-v1-1-eb2908705c0d@member.fsf.org>
-References: <20260817-for-next-lucky7-chipid-v1-0-eb2908705c0d@member.fsf.org>
- <20260817-for-next-lucky7-chipid-v1-1-eb2908705c0d@member.fsf.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 10:16:57 +0000
-Message-Id: <20260817101658.75BE71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dARXl+ZV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5C802C2BCB3;
+	Mon, 17 Aug 2026 10:17:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786961837;
+	bh=pL8eiLq2Yg8qA0hE3iAxsAGxVWoUlb8FCDho/Z+HBNE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=dARXl+ZVQOU4X5Ays76ZZWLnFYLnLFqBLNHj/AFQrlZWdQaM+BH4qI3nbUcoKvpF9
+	 O8FW5IrKlLDcS/QyQ/TPzmq41e68AH1NME2xvX92BjU7ZUz0hPiDu0U2Fynj1W24VX
+	 5S+ip9FY74JFxX3mU93wR+pYdqtAm0cUmVn11tmOA+wcjoZUeHOWmIreMojOOM/ZzV
+	 iGwKIi2golub/dnnrryIT+szQiv9+nt+HM4sDoGNb666FNiV5Ojd8zVJIDPwQbIxSS
+	 HwHtbPqshJ0HfmsPO6Wtyi/K5xiPXdYDNyBoLXTlpbZ4CO6hDIKVjvZ1vUbiNYZuFa
+	 YqLNQCsCROIdQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36A90C5B572;
+	Mon, 17 Aug 2026 10:17:17 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Mon, 17 Aug 2026 11:17:05 +0100
+Subject: [PATCH 1/3] dt-bindings: clock: Add Exynos5515 SoC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260817-for-next-lucky7-clock-v1-1-032e4b229c76@member.fsf.org>
+References: <20260817-for-next-lucky7-clock-v1-0-032e4b229c76@member.fsf.org>
+In-Reply-To: <20260817-for-next-lucky7-clock-v1-0-032e4b229c76@member.fsf.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ Aiden Isik <aidenisik+git@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11867;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=zp92EWNMuete9BIa2YliCsD7F39tX7k09rQq3Mlgph8=;
+ b=owEBbQKS/ZANAwAIAUknAbLEetfrAcsmYgBqgt+nJLlbn5sqmM+EOxt7QC+Jyf1AWxifbkDvY
+ XTxTtIVLEiJAjMEAAEIAB0WIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCaoLfpwAKCRBJJwGyxHrX
+ 66glEAC4xVPm7jOm/zJJN/6dE+0HT4XXZjbEb2SOj/G2E3K0U2AIlmNA6adSRFQFwBklWcZUumi
+ hVL6GqN7iEJhj7+jEXJHVtyo2xwmVDEUIt1/p4CfGXyR07O4GNXqXGUn10k5RbgZasRu/PO5S8r
+ PhkxVvk4Hz0PhYjt+WmTwSA68GwUHrcFAmvU4Q/G8ED7ZoitigwJEPgXKgNB/mnD2OuG7UTzit5
+ osTS7J39wpFnm4IFCMS44urSyAuyZRSfVzn4hqDNhxplqGeWWLYkN3/8nv/K3S20eewIrsbEh63
+ NLTBFOHgV8DAb9wo1xgcha60WbaOzl319E2MBvQbRKAfBT+gLu6bca3rtxm94982yVPmtdkI0M3
+ mw7vHuA+T/Dajgu06J5qGggBDPkccAvtPXmticuLix4IEOk3reDxLyjicUIaty53q++7B1waQ+I
+ Q/kR7bvLalyYva1LXBgL+zlacFSFg8cYAA3kuNCNaFbuUTfGHCFxbiR6luAT8tgSUENDC3aXNI9
+ 28oQnaYUMBVBgtWVSmO2Z3QWnGex3EwQKaW/ev1I05bReSnMzZhM9g1yFmXKf44iE3yTlV5iTzV
+ Esg3K+NEH91cHcbAcbl9jmAjYHuI/ZLSeiW/XqJ34pwQVm5+NvaSSDOVWSGQhA7VWsCaxHiFDm2
+ X0MsW6pfoEHZEkQ==
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incomplete support for Exynos 5515 causes driver probe failure
---
+From: Aiden Isik <aidenisik@member.fsf.org>
 
---- Patch [1]: [PATCH 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Add =
-exynos5515 compatible ---
-commit 5ce6d6fa94d63e1a87277e33f24686ff951995c4
-Author: Aiden Isik <aidenisik@member.fsf.org>
+Add devicetree documentation for the Exynos5515 SoC's CMUs.
 
-dt-bindings: hwinfo: samsung,exynos-chipid: Add exynos5515 compatible
+Add device tree bindings for the following CMUs:
+- CMU_TOP
+- CMU_PERI
+- CMU_FSYS
 
-This commit adds the samsung,exynos5515-chipid compatible string to the
-exynos-chipid device tree binding. It specifies that it should use the
-samsung,exynos850-chipid compatible string as a fallback.
+Signed-off-by: Aiden Isik <aidenisik+git@member.fsf.org>
+---
+ .../bindings/clock/samsung,exynos5515-cmu.yaml     | 145 ++++++++++++++++
+ include/dt-bindings/clock/samsung,exynos5515-cmu.h | 191 +++++++++++++++++++++
+ 2 files changed, 336 insertions(+)
 
-> diff --git a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chip=
-id.yaml b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.ya=
-ml
-> index b9cdfe52b62ff..619faf33214bd 100644
-> --- a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
-> +++ b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
-> @@ -25,6 +25,7 @@ properties:
->        - items:
->            - enum:
->                - samsung,exynos2200-chipid
-> +              - samsung,exynos5515-chipid
+diff --git a/Documentation/devicetree/bindings/clock/samsung,exynos5515-cmu.yaml b/Documentation/devicetree/bindings/clock/samsung,exynos5515-cmu.yaml
+new file mode 100644
+index 000000000000..1be8962cda1c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/samsung,exynos5515-cmu.yaml
+@@ -0,0 +1,145 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/samsung,exynos5515-cmu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung Exynos5515 SoC clock controller
++
++maintainers:
++  - Aiden Isik <aidenisik+git@member.fsf.org>
++  - Chanwoo Choi <cw00.choi@samsung.com>
++  - Krzysztof Kozlowski <krzk@kernel.org>
++
++description: |
++  Exynos5515 clock controller is comprised of several CMU units, generating
++  clocks for different domains. Those CMU units are modeled as separate device
++  tree nodes, and might depend on each other. The root clock in that root tree
++  is an external clock: OSCCLK (26 MHz). This external clock must be defined
++  as a fixed-rate clock in dts.
++
++  CMU_TOP is a top-level CMU, where all base clocks are prepared using PLLs and
++  dividers; all other clocks of function blocks (other CMUs) are usually
++  derived from CMU_TOP.
++
++  Each clock is assigned an identifier and client nodes can use this identifier
++  to specify the clock which they consume. All clocks available for usage
++  in clock consumer nodes are defined as preprocessor macros in
++  'include/dt-bindings/clock/samsung,exynos5515-cmu.h' header.
++
++properties:
++  compatible:
++    enum:
++      - samsung,exynos5515-cmu-fsys
++      - samsung,exynos5515-cmu-peri
++      - samsung,exynos5515-cmu-top
++
++  clocks:
++    minItems: 1
++    maxItems: 5
++
++  clock-names:
++    minItems: 1
++    maxItems: 5
++
++  "#clock-cells":
++    const: 1
++
++  reg:
++    maxItems: 1
++
++  samsung,sysreg:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to system registers interface.
++
++required:
++  - compatible
++  - clocks
++  - clock-names
++  - "#clock-cells"
++  - reg
++  - samsung,sysreg
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - samsung,exynos5515-cmu-fsys
++
++    then:
++      properties:
++        clocks:
++          items:
++            - description: External reference clock (26MHz)
++            - description: CMU_FSYS BUS clock (from CMU_TOP)
++            - description: CMU_FSYS MMC card clock (from CMU_TOP)
++            - description: CMU_FSYS MMC embedded clock (from CMU_TOP)
++            - description: CMU_FSYS USB20DRD clock (from CMU_TOP)
++
++        clock-names:
++          items:
++            - const: oscclk
++            - const: bus
++            - const: mmc_card
++            - const: mmc_embd
++            - const: usb20drd
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - samsung,exynos5515-cmu-peri
++
++    then:
++      properties:
++        clocks:
++          items:
++            - description: External reference clock (26MHz)
++            - description: CMU_PERI BUS clock (from CMU_TOP)
++            - description: CMU_PERI IP clock (from CMU_TOP)
++            - description: CMU_PERI UART clock (from CMU_TOP)
++
++        clock-names:
++          items:
++            - const: oscclk
++            - const: bus
++            - const: ip
++            - const: uart
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: samsung,exynos5515-cmu-top
++
++    then:
++      properties:
++        clocks:
++          items:
++            - description: External reference clock (26 MHz)
++
++        clock-names:
++          items:
++            - const: oscclk
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/samsung,exynos5515-cmu.h>
++
++    cmu_top: clock-controller@15410000 {
++        compatible = "samsung,exynos5515-cmu-top";
++        reg = <0x15410000 0x10000>;
++        #clock-cells = <1>;
++
++        clocks = <&oscclk>;
++        clock-names = "oscclk";
++        samsung,sysreg = <&sysreg_top>;
++    };
++
++...
+diff --git a/include/dt-bindings/clock/samsung,exynos5515-cmu.h b/include/dt-bindings/clock/samsung,exynos5515-cmu.h
+new file mode 100644
+index 000000000000..2877d3681b55
+--- /dev/null
++++ b/include/dt-bindings/clock/samsung,exynos5515-cmu.h
+@@ -0,0 +1,191 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
++ * Author: Aiden Isik <aidenisik+git@member.fsf.org>
++ *
++ * Device Tree binding constants for Exynos5515 clock controller.
++ */
++
++#ifndef _DT_BINDINGS_CLOCK_EXYNOS5515_H
++#define _DT_BINDINGS_CLOCK_EXYNOS5515_H
++
++/* CMU_TOP */
++#define CLK_FOUT_AUD_PLL			1
++#define CLK_FOUT_SHARED0_PLL			2
++#define CLK_FOUT_SHARED1_PLL			3
++
++#define CLK_MOUT_CMU_APM_BUS			4
++#define CLK_MOUT_CMU_CORE_BUS			5
++#define CLK_MOUT_CMU_CORE_SSS			6
++#define CLK_MOUT_CMU_CPUCL0_BUSP		7
++#define CLK_MOUT_CMU_CPUCL0_CPU			8
++#define CLK_MOUT_CMU_CPUCL0_DBG			9
++#define CLK_MOUT_CMU_DPU_AUDIF			10
++#define CLK_MOUT_CMU_DPU_AUD_BUS		11
++#define CLK_MOUT_CMU_DPU_AUD_CPU		12
++#define CLK_MOUT_CMU_DPU_BUS			13
++#define CLK_MOUT_CMU_FSYS_BUS			14
++#define CLK_MOUT_CMU_FSYS_MMC_CARD		15
++#define CLK_MOUT_CMU_FSYS_MMC_EMBD		16
++#define CLK_MOUT_CMU_FSYS_USB20DRD		17
++#define CLK_MOUT_CMU_G3D_BUS			18
++#define CLK_MOUT_CMU_MFC_BUS			19
++#define CLK_MOUT_CMU_MIF_BUSP			20
++#define CLK_MOUT_CMU_MIF_SWITCH			21
++#define CLK_MOUT_CMU_MODEM_SHARED1		22
++#define CLK_MOUT_CMU_PERI_BUS			23
++#define CLK_MOUT_CMU_PERI_IP			24
++#define CLK_MOUT_CMU_PERI_UART			25
++#define CLK_MOUT_CMU_CMUREF			26
++
++#define CLK_DOUT_AP2CP_SHARED0_PLL		27
++#define CLK_DOUT_AP2CP_SHARED1_PLL		28
++#define CLK_DOUT_AP2CP_SHARED2_PLL		29
++#define CLK_DOUT_CMU_APM_BUS			30
++#define CLK_DOUT_CMU_CMU_BOOST			31
++#define CLK_DOUT_CMU_CORE_BUS			32
++#define CLK_DOUT_CMU_CORE_SSS			33
++#define CLK_DOUT_CMU_CPUCL0_BUSP		34
++#define CLK_DOUT_CMU_CPUCL0_CPU			35
++#define CLK_DOUT_CMU_CPUCL0_DBG			36
++#define CLK_DOUT_CMU_DPU_AUDIF			37
++#define CLK_DOUT_CMU_DPU_AUD_BUS		38
++#define CLK_DOUT_CMU_DPU_AUD_CPU		39
++#define CLK_DOUT_CMU_DPU_BUS			40
++#define CLK_DOUT_CMU_FSYS_BUS			41
++#define CLK_DOUT_CMU_FSYS_MMC_CARD		42
++#define CLK_DOUT_CMU_FSYS_MMC_EMBD		43
++#define CLK_DOUT_CMU_FSYS_USB20DRD		44
++#define CLK_DOUT_CMU_G3D_BUS			45
++#define CLK_DOUT_CMU_MFC_BUS			46
++#define CLK_DOUT_CMU_MIF_BUSP			47
++#define CLK_DOUT_CMU_PERI_BUS			48
++#define CLK_DOUT_CMU_PERI_IP			49
++#define CLK_DOUT_CMU_PERI_UART			50
++#define CLK_DOUT_CMU_CMUREF			51
++
++#define CLK_DOUT_SHARED0_DIV2			52
++#define CLK_DOUT_SHARED0_DIV3			53
++#define CLK_DOUT_SHARED0_DIV4			54
++#define CLK_DOUT_SHARED1_DIV2			55
++#define CLK_DOUT_SHARED1_DIV3			56
++#define CLK_DOUT_SHARED1_DIV4			57
++#define CLK_DOUT_AUD_DIV2			58
++#define CLK_DOUT_AUD_DIV3			59
++#define CLK_DOUT_AUD_DIV4			60
++
++#define CLK_GOUT_CMU_MIF_SWITCH			61
++#define CLK_GOUT_CMU_APM_BUS			62
++#define CLK_GOUT_CMU_CORE_BUS			63
++#define CLK_GOUT_CMU_CORE_SSS			64
++#define CLK_GOUT_CMU_CPUCL0_BUSP		65
++#define CLK_GOUT_CMU_CPUCL0_CPU			66
++#define CLK_GOUT_CMU_CPUCL0_DBG			67
++#define CLK_GOUT_CMU_DPU_AUDIF			68
++#define CLK_GOUT_CMU_DPU_AUD_BUS		69
++#define CLK_GOUT_CMU_DPU_AUD_CPU		70
++#define CLK_GOUT_CMU_DPU_BUS			71
++#define CLK_GOUT_CMU_FSYS_BUS			72
++#define CLK_GOUT_CMU_FSYS_MMC_CARD		73
++#define CLK_GOUT_CMU_FSYS_MMC_EMBD		74
++#define CLK_GOUT_CMU_FSYS_USB20DRD		75
++#define CLK_GOUT_CMU_G3D_BUS			76
++#define CLK_GOUT_CMU_MFC_BUS			77
++#define CLK_GOUT_CMU_MIF_BUSP			78
++#define CLK_GOUT_CMU_MODEM_SHARED0		79
++#define CLK_GOUT_CMU_MODEM_SHARED1		80
++#define CLK_GOUT_CMU_MODEM_SHARED2		81
++#define CLK_GOUT_CMU_PERI_BUS			82
++#define CLK_GOUT_CMU_PERI_IP			83
++#define CLK_GOUT_CMU_PERI_UART			84
++
++/* CMU_PERI */
++#define CLK_MOUT_PLL_PERI_BUS_USER		1
++#define CLK_MOUT_PLL_PERI_IP_USER		2
++#define CLK_MOUT_PLL_PERI_UART_USER		3
++#define CLK_MOUT_PERI_SPI			4
++#define CLK_MOUT_PERI_USI00_USI			5
++
++#define CLK_DOUT_PERI_OTP			6
++
++#define CLK_DOUT_PERI_I2C_0			7
++#define CLK_DOUT_PERI_I2C_1			8
++#define CLK_DOUT_PERI_I2C_2			9
++#define CLK_DOUT_PERI_I2C_3			10
++#define CLK_DOUT_PERI_SPI			11
++#define CLK_DOUT_PERI_USI00_I2C			12
++#define CLK_DOUT_PERI_USI00_USI			13
++
++#define CLK_GOUT_PERI_BUSIF_TMU_PCLK		14
++#define CLK_GOUT_PERI_D_TZPC_PCLK		15
++#define CLK_GOUT_PERI_GPIO_PCLK			16
++#define CLK_GOUT_PERI_I2C_0_IPCLK		17
++#define CLK_GOUT_PERI_I2C_0_PCLK		18
++#define CLK_GOUT_PERI_I2C_1_IPCLK		19
++#define CLK_GOUT_PERI_I2C_1_PCLK		20
++#define CLK_GOUT_PERI_I2C_2_IPCLK		21
++#define CLK_GOUT_PERI_I2C_2_PCLK		22
++#define CLK_GOUT_PERI_I2C_3_IPCLK		23
++#define CLK_GOUT_PERI_I2C_3_PCLK		24
++#define CLK_GOUT_PERI_MCT_PCLK			25
++#define CLK_GOUT_PERI_OTP_OSCCLK		26
++#define CLK_GOUT_PERI_OTP_PCLK			27
++#define CLK_GOUT_PERI_CMU_PCLK			28
++#define CLK_GOUT_PERI_PWM_MOTOR_PCLK		29
++#define CLK_GOUT_PERI_BUS_CLK			30
++#define CLK_GOUT_PERI_I2C_0_CLK			31
++#define CLK_GOUT_PERI_I2C_1_CLK			32
++#define CLK_GOUT_PERI_I2C_2_CLK			33
++#define CLK_GOUT_PERI_I2C_3_CLK			34
++#define CLK_GOUT_PERI_OSCCLK			35
++#define CLK_GOUT_PERI_SPI_CLK			36
++#define CLK_GOUT_PERI_UART_CLK			37
++#define CLK_GOUT_PERI_USI00_I2C_CLK		38
++#define CLK_GOUT_PERI_USI00_USI_CLK		39
++#define CLK_GOUT_PERI_SLH_AXI_MI_P_CLK		40
++#define CLK_GOUT_PERI_SYSREG_PCLK		41
++#define CLK_GOUT_PERI_USI00_I2C_IPCLK		42
++#define CLK_GOUT_PERI_USI00_I2C_PCLK		43
++#define CLK_GOUT_PERI_USI00_USI_IPCLK		44
++#define CLK_GOUT_PERI_USI00_USI_PCLK		45
++#define CLK_GOUT_PERI_USI_SPI_IPCLK		46
++#define CLK_GOUT_PERI_USI_SPI_PCLK		47
++#define CLK_GOUT_PERI_USI_UART_IPCLK		48
++#define CLK_GOUT_PERI_USI_UART_PCLK		49
++#define CLK_GOUT_PERI_WDT0_PCLK			50
++#define CLK_GOUT_PERI_WDT1_PCLK			51
++#define CLK_GOUT_PERI_I2C_0			52
++#define CLK_GOUT_PERI_I2C_1			53
++#define CLK_GOUT_PERI_I2C_2			54
++#define CLK_GOUT_PERI_I2C_3			55
++#define CLK_GOUT_PERI_USI00_I2C			56
++
++/* CMU_FSYS */
++#define CLK_MOUT_PLL_FSYS_BUS_USER		1
++#define CLK_MOUT_PLL_FSYS_MMC_CARD_USER		2
++#define CLK_MOUT_PLL_FSYS_MMC_EMBD_USER		3
++#define CLK_MOUT_PLL_FSYS_USB20DRD_USER		4
++
++#define CLK_GOUT_FSYS_CMU_PCLK			5
++#define CLK_GOUT_FSYS_MMC_CARD_SDCLKIN		6
++#define CLK_GOUT_FSYS_MMC_EMBD_SDCLKIN		7
++#define CLK_GOUT_FSYS_OSCCLK			8
++#define CLK_GOUT_FSYS_USB20DRD_REFCLK		9
++#define CLK_GOUT_FSYS_USB20DRD_PHY_REFCLK	10
++#define CLK_GOUT_FSYS_D_TZPC_PCLK		11
++#define CLK_GOUT_FSYS_GPIO_PCLK			12
++#define CLK_GOUT_FSYS_MMC_CARD_ACLK		13
++#define CLK_GOUT_FSYS_MMC_EMBD_ACLK		14
++#define CLK_GOUT_FSYS_PPMU_ACLK			15
++#define CLK_GOUT_FSYS_PPMU_PCLK			16
++#define CLK_GOUT_FSYS_BUS_CLK			17
++#define CLK_GOUT_FSYS_SLH_AXI_MI_P_CLK		18
++#define CLK_GOUT_FSYS_SLH_AXI_SI_D_CLK		19
++#define CLK_GOUT_FSYS_SYSREG_PCLK		20
++#define CLK_GOUT_FSYS_USB20DRD_ACLK_PHYCTRL	21
++#define CLK_GOUT_FSYS_USB20DRD_BUS_CLK_EARLY	22
++#define CLK_GOUT_FSYS_US_64TO128_ACLK		23
++#define CLK_GOUT_FSYS_XIU_D_ACLK		24
++#define CLK_GOUT_FSYS_XIU_P_ACLK		25
++
++#endif /* _DT_BINDINGS_CLOCK_EXYNOS5515_H */
 
-[Severity: Medium]
-Will this compatible string cause a probe failure on Exynos 5515 hardware?
+-- 
+2.54.0
 
-Because this binding uses the samsung,exynos850-chipid fallback, the
-exynos-chipid driver will attempt to probe on Exynos 5515 hardware.
-However, if the Exynos 5515 product ID is not added to the soc_ids array
-in drivers/soc/samsung/exynos-chipid.c, exynos_product_id_to_name() will
-return NULL:
 
-drivers/soc/samsung/exynos-chipid.c:exynos_chipid_probe() {
-    ...
-    soc_dev_attr->soc_id =3D exynos_product_id_to_name(soc_info.product_id);
-    if (!soc_dev_attr->soc_id)
-        return dev_err_probe(dev, -ENODEV, "Unknown SoC\n");
-    ...
-}
-
-Does the driver need a companion patch to add the Exynos 5515 product ID
-so that it can successfully probe rather than returning -ENODEV?
-
->                - samsung,exynos7885-chipid
->                - samsung,exynos8895-chipid
->                - samsung,exynos9610-chipid
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next-l=
-ucky7-chipid-v1-0-eb2908705c0d@member.fsf.org?part=3D1
