@@ -1,172 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B3644D011
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 16:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840D341A781;
+	Mon, 17 Aug 2026 16:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786984091; cv=none; b=mhs25jIdHl7X+P42qyXi3/rSHgddpHx7LKreblGuP1JVyP+UfmQSfsXxZxmLjM3mUdBSmvPUEb9Ykc/IhjJDYaeh35HRgY7Uz+JXxSe/cifV1wzIYNzS6dTQihU1gxOKYVxVQmq0afX98woTmavVhUfwtWDG5248oVThO9eD5Fo=
+	t=1786984362; cv=none; b=OR3eqCFOtBN76eOU/6V2lAE8apPQKEKMA36/GHY4R1uokr2zla4/I6quiN0z9YzD//fh23NREMWSEZYYrpmYHYTNNkpbOHPwX2hPqUEW6X9x/83DI2FMcHijizOEV2Of+7o1ZfH/FqU67pA/vsHVEEMRcjWS/2Gh5eZAfbzNQQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786984091; c=relaxed/simple;
-	bh=L4aQgT8fXeqPiOdTgjkC0lOKyX+YyiVCgNjOLpBrcQg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dgpVhpjyNGpvhhZxYUWF7Y7LG3DJPSkZrL2IyN6VNCvWcVC90FHHPOe2cRXDEcuJ/ziXLG3faAgZ5zYdE8NOZMPvd5XSPwzkBiuaUyUF6dHdXhZEN4vFHupIlfT3Zc1zyCIWUVRrGRYBOegWksVUvVt/0+uTqjaaggODLLf16Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsE1bvza; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786984362; c=relaxed/simple;
+	bh=/u2cY6Mo5HjnuACB3/cD+dA/lX50pfqOek+SyLCHjSs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zg3uOqW67gQs3PTYX90o8y8CvnVaefGiHEJeerQsuc0j1wG8LXjjcHPi2enirCkK3k/68HpnLBVQ1QURAE1jZNWgyCYFERuE7uXNiSraSxEjvibW9sx0OPEE6X3gLTO7EjQamMuq1mQ698YuUyqFiiisNCziyDN28X3EIeQpwEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lcsUnRFv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsE1bvza"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379681F000E9;
-	Mon, 17 Aug 2026 16:28:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lcsUnRFv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963041F000E9;
+	Mon, 17 Aug 2026 16:32:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786984088;
-	bh=rkQK4JrZ6iw4CExt8/XNPAiEtUlvNHZmiGV6tHnoAYI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XsE1bvzaYZu9/vmmFkLs2I+5icBR6EzaQODpN8L5RqEBJ6CihUKqQdS3O+GRPUqVU
-	 +q5V/XZKXCmG2pRo4YfJMkx0bnWN5X6LjcrPF0tzmFxuLqPF98ew/jRUhz/WopuiQC
-	 /chlXrlbPLdd0fwH3YG3nQp+H3w6xX6Um7FkrLBjC9MnUztNynqCjoJcj8jqjd9QVG
-	 R6dn8kBz9oXMyMUKapSGOBekDt+YXJqPyL8wkSAPIbI/qKxedfOPIkYHE5ZlX4ds2B
-	 GMVxL9/wA5GIMgZid9hCKDTaatuKjJqsa2wwVoGco5ELKdKmpTgC7oKHEmdZH35v7y
-	 Hm0jJ5BiutqkQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
- target activity
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-2-94d1eff3175f@oss.qualcomm.com>
+	s=k20260515; t=1786984361;
+	bh=/u2cY6Mo5HjnuACB3/cD+dA/lX50pfqOek+SyLCHjSs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lcsUnRFvv2HGHOJ3bl1R1cgXh8HpqT6sEKzcLoMBDic07slvmjH4nz+2yufdzAlk1
+	 jHoSqpAt/AEZddlIuu+NCQ30bskKJrXa4cfRPR7np8sOI0aXH72p2HMsTgT06q+8Hk
+	 GqFYLjv5WCfE4VqdF3Ikbtt9BqebH1LFbaU0j9xENBBQddoGa6p0MXPTTBkag2QQ87
+	 VST5FhnZq6tCAUc4Npn6NuXKlQdtA6ZIObOb5nLnmH/S55pxnAVYYu+3hm1DKlvIia
+	 IgvF7Aw5KFVPl5dUXMXcmyuK1m/1EiPmd4ubB7O4iShG+nowb9BUWDaNQTcF3gsjgU
+	 iVmFaWzZi/5Jg==
+Date: Mon, 17 Aug 2026 17:32:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: konrad.dybcio@oss.qualcomm.com, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	chandana.chiluveru@oss.qualcomm.com,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: spi: qcom-geni: Document ready-gpios
+ property
+Message-ID: <5631fd5c-731e-42a8-b9b2-1078dd0878a4@sirena.org.uk>
 References: <20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-0-94d1eff3175f@oss.qualcomm.com>
- <20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-2-94d1eff3175f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 16:28:07 +0000
-Message-Id: <20260817162808.379681F000E9@smtp.kernel.org>
+ <20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-1-94d1eff3175f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="asvrOmYDzxj+tFQm"
+Content-Disposition: inline
+In-Reply-To: <20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-1-94d1eff3175f@oss.qualcomm.com>
+X-Cookie: Obey all traffic laws.
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The driver incorrectly swallows errors from `devm_gpiod_get_index_=
-optional()`, breaking deferred probing (-EPROBE_DEFER).
-- [High] The target ready GPIO is completely ignored when the SPI controlle=
-r operates in GPI DMA mode (`GENI_GPI_DMA`).
-- [High] A race condition between hardware initiation and GPIO assertion ca=
-n leave the ready GPIO permanently stuck high.
---
 
---- Patch [2]: [PATCH v2 2/2] spi: qcom-geni: Use GPIO to notify master of =
-SPI target activity ---
-commit d3635e8d846f952a724421a12c51192475a16e09
-Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
+--asvrOmYDzxj+tFQm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-spi: qcom-geni: Use GPIO to notify master of SPI target activity
+On Mon, Aug 17, 2026 at 09:46:52PM +0530, Praveen Talari wrote:
+> When operating in SPI target (slave) mode, the GENI SPI controller can
+> use an external GPIO to notify the SPI master about the target's
+> active state.
 
-When operating in SPI target mode, the GENI controller relies on an
-external GPIO to notify the SPI master about the target's active state.
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-Add support for an optional ready GPIO that is asserted when a target
-transfer begins and deasserted when the transfer completes, is aborted,
-or hits a timeout. This allows the target to explicitly signal its
-availability to the master and ensures the GPIO is released in all error
-and completion paths, preventing the master from observing a stale or
-incorrect target-ready indication.
+--asvrOmYDzxj+tFQm
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index 6c57f8309a3b2..bbe040383d530 100644
-> --- a/drivers/spi/spi-geni-qcom.c
-> +++ b/drivers/spi/spi-geni-qcom.c
-[ ... ]
-> @@ -938,8 +943,12 @@ static int spi_geni_transfer_one(struct spi_controll=
-er *spi,
->  	if (mas->cur_xfer_mode =3D=3D GENI_SE_FIFO || mas->cur_xfer_mode =3D=3D=
- GENI_SE_DMA) {
->  		ret =3D setup_se_xfer(xfer, mas, slv->mode, spi);
->  		/* SPI framework expects +ve ret code to wait for transfer complete */
-> -		if (!ret)
-> +		if (!ret) {
-> +			if (spi->target && mas->target_gpio)
-> +				gpiod_set_value(mas->target_gpio, 1);
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Is there a race condition here between hardware initiation and GPIO asserti=
-on
-that could leave the ready GPIO permanently stuck high?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqDN6MACgkQJNaLcl1U
+h9DWjwf/R3SvQ5k3tGY/bS+UU6mYylClSoTYLd8XmP2vo0otIMtBRH/rmXKMxcb9
+odM/R4qHfweQYhmsDZ0K+TpRourI/7t7+sy/cd3YC5LyBHir8mgIafSxLchnZXZx
+CQi2pcj6sAHejZ03dgZA5CSM1baIas+rGLPYHDJspLNOwRdQ33TRFkOwsuF+O6fx
+nZZQnrMgzTvDaaw07ehnQJRL/YuoCpY6W3Mb/VSs7SfBOVFBCSBwkkwVFbWHlCe/
+EIE3wRyW+Dg8Miz70updOdIs2wav72vNEOXCEGbpKqmyPZpVHyYO57MMSUvIUddj
+MHua1FgctLapzrVn5LjpNeNDqa/Fnw==
+=BlvX
+-----END PGP SIGNATURE-----
 
-When setup_se_xfer() arms the hardware and drops the spinlock:
-
-drivers/spi/spi-geni-qcom.c:setup_se_xfer() {
-    ...
-    spin_unlock_irq(&mas->lock);
-    return ret;
-}
-
-If the SPI master immediately sends clocks, the hardware can complete the
-transfer and trigger geni_spi_isr() on another CPU before we assert the GPIO
-here. The ISR finalizes the transfer and deasserts the GPIO to 0.
-
-Afterwards, this code resumes and unconditionally asserts the GPIO to 1,
-overriding the completed state.
-
->  			ret =3D 1;
-> +		}
-> +
->  		return ret;
->  	}
->  	return setup_gsi_xfer(xfer, mas, slv, spi);
-
-[Severity: High]
-Does this bypass the GPIO assertion logic when the SPI controller operates =
-in
-GPI DMA mode (GENI_GPI_DMA)?
-
-The GPIO assertion logic appears to be restricted to SE DMA and FIFO paths,
-skipping the GPI DMA fallback path completely.
-
-Furthermore, is the GPIO deassertion also missing in the GPI DMA completion
-handler?
-
-drivers/spi/spi-geni-qcom.c:spi_gsi_callback_result() {
-    ...
-    if (!result->residue) {
-        spi->cur_msg->status =3D 0;
-        dev_dbg(&spi->dev, "DMA txn completed\n");
-    }
-    ...
-}
-
-[ ... ]
-> @@ -1131,8 +1144,16 @@ static int spi_geni_probe(struct platform_device *=
-pdev)
->  	init_completion(&mas->rx_reset_done);
->  	spin_lock_init(&mas->lock);
-> =20
-> -	if (spi->target)
-> +	if (spi->target) {
->  		spi->target_abort =3D spi_geni_target_abort;
-> +		mas->target_gpio =3D devm_gpiod_get_index_optional(dev, "ready", 0,
-> +								 GPIOD_OUT_LOW);
-> +		if (IS_ERR(mas->target_gpio)) {
-> +			dev_err(dev, "Failed to request GPIO: %ld\n",
-> +				PTR_ERR(mas->target_gpio));
-> +			mas->target_gpio =3D NULL;
-
-[Severity: High]
-Does this incorrectly swallow errors from devm_gpiod_get_index_optional(),
-breaking deferred probing (-EPROBE_DEFER)?
-
-If the GPIO provider probes after the SPI controller,
-devm_gpiod_get_index_optional() will return -EPROBE_DEFER, but this catches
-the error, logs it, and sets the pointer to NULL instead of propagating the
-error to allow retrying later.
-
-> +		}
-> +	}
-> =20
->  	pm_runtime_use_autosuspend(&pdev->dev);
->  	pm_runtime_set_autosuspend_delay(&pdev->dev, 250);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-use_gpio_t=
-o_notify_master_of_spi_target_activity-v2-0-94d1eff3175f@oss.qualcomm.com?p=
-art=3D2
+--asvrOmYDzxj+tFQm--
