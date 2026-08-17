@@ -1,150 +1,299 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E723E49C3
-	for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 10:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFEA3E6DEC;
+	Mon, 17 Aug 2026 10:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786963089; cv=none; b=LyYz4OeJzPReqDhe8VsIKr0zw9VK7uQXNW/7kV83aOL7dMjvPB7dSTJ+4PP6I4JZsVLAWefYMJwJHqyxVScnuWH1xu08I2/i5ExUi35GxY2OruF2rl8lM/TSsxvGO/k4CgNoKea9T8nGcncOOQiW+hUMuuSwKKV6na9hH4Dkex8=
+	t=1786963139; cv=none; b=T+vhss+ic+qgVSU+6aLqAfuloxrm+rrJEYrD8l3jmR2HTMmQt/YHTNlzL05SOYNB1xdwQegtTUkHAJRgHmbgOIYyc+O20UEjQ/Gpo5SXnX40p+KR0cNcjObD7StJ1ufttQBkaREjX089DtGgOPOqG3Uhy2TN7uCAKB9BjPlaLJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786963089; c=relaxed/simple;
-	bh=GavKxTPHeujEqe+HEnLmgvChsNdnTxE3FQV2HDxahZg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NwADehS82CS2VqrwhOyqYJ7nE63e8Km9xeXtyrLAHSzMxWBhVASrAiIJzzQoH+K71S0aWgEyWcWZtWVCqfq+6Dlksg0I7tqKdgjEXCYSWh10XHR41DxXE/2aRXy7iZuuWDYNi5cIu8DUijTqsgyLbr66x/Tl7/wgpsBG/+fuy90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UudKDtHJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UudKDtHJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788801F000E9;
-	Mon, 17 Aug 2026 10:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786963087;
-	bh=4pdRN810uyDedpwGEo+LFWLpz4CjZRdIdqGZYKldFKE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UudKDtHJTVvgQAX7hEV1ektMMHlzd7qv5ztfTLq+CQ1mOOAotgw7VAvvvNCGby93+
-	 JCDMc+z6sEUxbcPlr2X7gTvwC8f2Btmx4D45gz6akg6azKMeA83rdpJ9Nt4+sv0na4
-	 G5SQ1AxzGVgepHQ8USvy5fBIQlgbygXz6vsvFQ2SSmEgL0V1jNZby60vdOhsme5suQ
-	 iyYvSgHPTlH9iazSGq56100BbuY7CSX+jNLFxsAFAu9U/YCjDkR9eAe37590oX/W+Q
-	 6gqJi7L1UficSGtzsmLLxQNBx5D6XDp5Y8uNGuT6syh5IGKTLM6S8G4KbV8ke5mZOg
-	 NzGkH4VOLF3LA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: exynos: Add initial support for
- Exynos5515 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aiden Isik" <aidenisik@member.fsf.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260817-for-next-lucky7-v1-1-42ffb2b71ba2@member.fsf.org>
-References: <20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org>
- <20260817-for-next-lucky7-v1-1-42ffb2b71ba2@member.fsf.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 10:38:07 +0000
-Message-Id: <20260817103807.788801F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1786963139; c=relaxed/simple;
+	bh=2LyDZ6eez6izkCKjw40JmLQlCcvuEObIz007x9cZ72w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T/d1ALOJ6NbO/UwcucExVOTPeUrcdxvr6y/Rj8150rsuFjuYgIJl1b5mMQcZk3+quF1Yw/72jtcSqjPT4hZpTbjb47/QlrElKGAlKDgyrkK5ybu17eJd1pbMAiqEooL9LntHD55VuS2bgkXVYtRxEdrsOylkdzkosnOmtBDHCM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 37222200108;
+	Mon, 17 Aug 2026 12:38:50 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id CB2A22000FD;
+	Mon, 17 Aug 2026 12:38:49 +0200 (CEST)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 7921818000BF;
+	Mon, 17 Aug 2026 18:38:48 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	broonie@kernel.org,
+	lee@kernel.org,
+	Frank.Li@nxp.com,
+	lgirdwood@gmail.com
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	aman.kumarpandey@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: [PATCH v15 0/8] Add support for NXP P3H2x4x I3C hub driver
+Date: Mon, 17 Aug 2026 16:08:36 +0530
+Message-Id: <20260817103844.2142802-1-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Medium] The GIC-400 node lacks the VGIC maintenance interrupt property.
-- [Medium] GIC CPU interface (GICC) memory region is incorrectly sized at 0=
-x1000, which breaks VGIC support.
-- [Low] Node unit-addresses for `cpu1` and `gic` do not match their `reg` p=
-roperties.
-- [Low] Redundant and deprecated custom function IDs are provided for PSCI =
-1.0.
-- [Low] Missing dt-bindings clock header `samsung,exynos5515-cmu.h`.
---
+This series adds support for the NXP P3H2x4x family of multi-port I3C
+hub devices, including their on-die regulators and downstream I3C/SMBus
+target ports
 
---- Patch [1]: [PATCH 1/2] arm64: dts: exynos: Add initial support for Exyn=
-os5515 SoC ---
-commit e8b991884f3a3fd45bff9e8dcdd76dcc3db06db9
-Author: Aiden Isik <aidenisik@member.fsf.org>
+The series introduces:
+- Core I3C master enhancements required for hub support
+- Generic I3C hub framework
+- MFD driver with regulator and I3C hub child drivers for the P3H2x4x I3C hub
 
-arm64: dts: exynos: Add initial support for Exynos5515 SoC
+The dependency order within the series is:
 
-The patch adds initial device tree support for the Exynos5515 SoC, used in
-Samsung Galaxy Watch models. It adds CPUs, generic timer, watchdog, and
-various clock management units.
+- Patches 1 and 2 provide the I3C core helpers required by the generic
+  I3C hub framework
+- Patch 3 provides the P3H2x4x Device Tree binding
+- Patch 4 provides the MFD parent required by both the regulator and
+  P3H2x4x I3C hub child drivers
+- Patch 5 provides the regulator child driver and depends on patch 4
+- Patch 6 provides the generic I3C hub framework and depends on the
+  I3C core changes in patches 1 and 2
+- Patch 7 provides the P3H2x4x I3C hub child driver and depends on
+  patches 4 and 6
+- Patch 8 extends the P3H2x4x hub driver with SMBus slave mode support
+  and depends on patch 7
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5515.dtsi b/arch/arm64/boot=
-/dts/exynos/exynos5515.dtsi
-> new file mode 100644
-> index 0000000000000..5584c1a3aaf4f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos5515.dtsi
-> @@ -0,0 +1,186 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Samsung Exynos 5515 SoC device tree source
-> + *
-> + * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
-> + */
-> +
-> +#include <dt-bindings/clock/samsung,exynos5515-cmu.h>
+Changes in v15:
+- Replace the direct attach and detach APIs with controller-only helpers
+  that do not modify address-slot state, device lists or generic IBI
+  lifecycle state
+- Add controller-only helpers for device attach, reattach and detach,
+  and for requesting, freeing, enabling, disabling and recycling IBI
+  resources
+- Rework the generic hub architecture to keep downstream logical device
+  descriptors associated with their virtual controllers
+- Add a permanent parent-facing descriptor for each downstream device
+  and use it for operations handled by the physical parent controller
+- Remove temporary descriptor reparenting and temporary hub dynamic
+  address replacement from downstream transfer paths
+- Forward downstream private transfers and the complete IBI lifecycle,
+  including IBI slot recycling, through the parent-facing descriptor
+  with appropriate parent-bus locking
+- Add binding and MFD support for the P3H2440, P3H2441, P3H2840 and
+  P3H2841 variants
+- Fix the target-port reg schema and update the binding examples to use
+  SMBus target-port nodes
+- Read the device capability register to determine whether the device
+  provides four or eight target ports
+- Configure and register only the target ports implemented by the
+  selected device variant
+- Preserve the MFD parent's driver data and store the hub context in the
+  shared MFD structure for use by IBI callbacks
+- Validate target-port types and indices while ignoring non-target-port
+  children, such as the regulators node, during Device Tree parsing
+- Correct the SMBus transfer timeout calculation for 400 kHz operation
+- Use I2C adapter quirks to enforce the maximum supported read and write
+  payload lengths
+- Publish callback-visible SMBus adapter state before adapter
+  registration and roll it back if registration fails
+- Rework SMBus slave registration and unregistration to use the shared
+  protected-register lock and update software state only after the
+  corresponding hardware operation succeeds
+- Update the MFD source description to identify the device as an NXP
+  P3H2x4x multi-port I3C hub instead of referring to it as an "MFD
+  device driver"
+- Link to v14: https://lore.kernel.org/linux-i3c/20260714092053.2461482-1-lakshay.piplani@nxp.com/T/#u
 
-[Severity: Low]
-Is this header file missing? It appears it was not added in this patch or
-earlier in the series, which will cause the device tree compilation to fail.
+Changes in v14:
+- Add i3c_master_register_fwnode() for virtual I3C masters and use it instead of temporarily changing
+  parent dev->of_node
+- Add runtime PM handling in i3c_master_send_ccc_cmd()
+- Export i3c_bus_maintenance_lock()/unlock() and use them in hub paths
+- Fix IBI request/free cleanup to handle forwarded callbacks that clear dev->ibi, and destroy the
+  allocated IBI workqueue on request failure
+- Add a shared MFD protected_reg_lock and use it for protected register accesses across P3H2X4X
+  child drivers
+- Rework regulator protected-register handling to restore the original protection state after
+  each operation
+- Serialize hub route selection around DAA, CCC, private transfer and IBI paths
+- Hold the parent maintenance lock across temporary hub address reattach, transfer and address
+  restore
+- Fix SMBus polling interval calculation
+- Clean up already registered SMBus adapters on adapter allocation or registration failure
+- Fix SMBus slave receive status handling by clearing receive flags on error paths, using FIELD_GET()
+  and explicitly clearing overflow status
+- Link to v13: https://lore.kernel.org/linux-i3c/20260701065755.2067793-1-lakshay.piplani@nxp.com/T/#u
 
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +/ {
-[ ... ]
-> +		cpu1: cpu@1 {
-> +			compatible =3D "arm,cortex-a55";
-> +			reg =3D <0x100>;
+Changes in v13:
+- Fix I3C master address management in direct attach/detach paths by using i3c_master_get_i3c_addrs()
+  adding rollback on failure, skipping master self attach/detach, and properly releasing addresses to
+  avoid stale state and use-after-free issues.
+- Export and document address slot helper APIs for I3C hub support.
+- Reserve parent bus address slots for downstream devices with identical static and assigned addresses
+  by parsing target-port DT nodes prior to virtual controller registration, preventing DAA conflicts.
+- Keep broadcast RSTDAA blocked with added documentation, and clarify intentional no-op callbacks
+  and pending TODOs (e.g., IBI slot recycle).
+- Rework SMBus transaction handling to use polling instead of fixed delays
+  avoiding premature reads and data corruption.
+- Fix DT handling issues by preventing duplicate target-port node leaks and restoring dev->of_node
+  after temporary modification.
+- Improve resource management using devm-based cleanup for DT nodes, IBI setup, adapter unregister
+  and register relock paths.
+- Make IBI setup optional and robust to avoid probe failures on unsupported platforms, with proper cleanup.
+- Fix SMBus slave receive path by improving buffer handling, event delivery, and handling of unregistered ports.
+- Strengthen concurrency handling with proper locking around shared state.
+- Link to v12: https://lore.kernel.org/linux-i3c/20260617110355.1591844-1-lakshay.piplani@nxp.com/T/#u
 
-[Severity: Low]
-Does the unit-address for cpu1 match the reg property? The device tree
-specification requires the unit-address to match the first address in the
-reg property, so should this be cpu@100?
+Changes in v12:
+- Rebased on i3c/next
+- Dropped patches 1/9 and 2/9 from v11 as they are already applied
+- Add address check in i3c_master_direct_detach_i3c_dev_locked() to skip
+  detach for unaddressed devices
+- Drop redundant depends on I3C from config I3C_HUB
+- Return -EOPNOTSUPP for unsupported I2C transfers in the generic hub ops
+- Correct default pull-up and drive-strength values
+- Add devm cleanup for the IBI request/enable path
+- Remove dead code and simplify cleanup by relying on devm-managed resources
+- Fix SMBus slave client NULL handling and unregister cleanup
+- Link to v11: https://lore.kernel.org/linux-i3c/20260612111816.3688240-1-lakshay.piplani@nxp.com/T/#u
 
-> +			device_type =3D "cpu";
-> +			enable-method =3D "psci";
-> +		};
-> +	};
-[ ... ]
-> +	psci {
-> +		compatible =3D "arm,psci-1.0";
-> +		cpu_off =3D <0x84000002>;
-> +		cpu_on =3D <0xc4000003>;
-> +		cpu_suspend =3D <0xc4000001>;
+Changes in v11:
+- Convert i3c_master_supports_ccc_cmd() to return bool and align
+  semantics with CCC support checks used by the I3C core
+- Use MFD_CELL_NAME() for child device registration
+- Rename driver names to follow subsystem conventions:
+     - Use '-' instead of '_' in driver names
+     - Drop the "_drv" suffix from driver names
+- Fix virtual hub address reattach handling and parent bus locking
+- Fix IBI request and cleanup error paths
+- Improve SMBus slave mode payload validation and parsing
+- Link to v10: https://lore.kernel.org/linux-i3c/20260525064209.2263045-1-lakshay.piplani@nxp.com/T/#u
 
-[Severity: Low]
-Are these custom function IDs necessary? Since compatible =3D "arm,psci-1.0"
-is used, the kernel relies on standard architecturally mandated function
-IDs, and explicitly defining cpu_off, cpu_on, and cpu_suspend will be ignor=
-ed.
+Changes in v10:
+- Rename i3c_master_reattach_i3c_dev() to *_locked to reflect required
+  bus locking
+- Rename i3c_master_direct_attach_i3c_dev() and i3c_master_direct_detach_i3c_dev()
+  to *_locked, as these APIs must be called with the bus lock held for write
+- Drop redundant is_p3h2x4x_in_i3c flag from p3h2840.h
+- Remove unnecessary ibi_lock handling in request/enable/disable/free
+  IBI APIs
+- Remove redundant parent pointer from struct i3c_hub and derive upstream
+  master from hub_dev
+- Split SMBus target/slave mode support, including IBI and MCTP receive handling,
+  into a separate patch
+- Link to v9: https://lore.kernel.org/linux-i3c/20260420105222.1562243-1-lakshay.piplani@nxp.com/T/#u
 
-> +		method =3D "smc";
-> +	};
-[ ... ]
-> +		gic: interrupt-controller@15600000 {
+Changes in v9:
+- Renamed macros to follow consistent uppercase naming conventions
+- Made REGMAP selects in the P3H2X4X MFD Kconfig conditional, to avoid I3C/I2C dependency issues
+- Referenced i3c.yaml and i2c-controller.yaml for child bus nodes
+- Dropped unnecessary #address-cells and #size-cells from child nodes
+- Added CONFIG_I2C_SLAVE guards where necessary to avoid build errors when I2C slave support is disabled
+- Link to v8: https://lore.kernel.org/linux-i3c/20260323062737.886728-1-lakshay.piplani@nxp.com/T/#u
 
-[Severity: Low]
-Does the unit-address for the gic node match its reg property? The first
-address in the reg block is 0x15601000, so should the node be named
-interrupt-controller@15601000?
+Changes in v8:
+- Add compatible in i3c example
+- Link to v7: https://lore.kernel.org/linux-i3c/20260319112441.3888957-1-lakshay.piplani@nxp.com/T/#u
 
-[Severity: Medium]
-Is the interrupts property for the VGIC maintenance interrupt missing from
-the gic device node? Without it, KVM virtualization cannot properly handle
-virtual interrupt maintenance.
+Changes in v7:
+- Fix kernel-doc warnings across I3C core and hub code
+- Rework DT binding schema and examples to pass dt_binding_check
+- Update MFD Kconfig to use I3C_OR_I2C
+- Convert CONFIG_I3C_HUB to tristate
+- Remove unnecessary CONFIG_I2C_SLAVE guards
+- Replace custom helpers with find_closest()
+- Use devm_regulator_get_enable_optional()
+- Link to v6: https://lore.kernel.org/linux-i3c/64c5070c-aa9e-427a-933e-91e168f0510c@kernel.org/T/#u
 
-> +			compatible =3D "arm,gic-400";
-> +			reg =3D <0x15601000 0x1000>,
-> +			      <0x15602000 0x1000>,
+Changes in v6:
+- Update DT binding with vendor-prefixed properties
+- Add generic I3C hub support
+- Remove generic code from P3H2x4x driver
+- Link to v5: https://lore.kernel.org/linux-i3c/20260206120121.856471-1-aman.kumarpandey@nxp.com/T/#u
 
-[Severity: Medium]
-Is the GICC memory region incorrectly sized at 0x1000? KVM VGIC
-initialization requires access to the GICC_DIR register at offset 0x1000 in
-the GICC region for EOI mode 1, so should this size be at least 0x2000?
+Changes in v5:
+- Update supply naming and descriptions
+- Improve MFD Kconfig/Makefile ordering
+- Link to v4: https://lore.kernel.org/linux-i3c/20260113114529.1692213-2-aman.kumarpandey@nxp.com/T/#u
 
-> +			      <0x15604000 0x2000>,
-> +			      <0x15606000 0x2000>;
+Changes in v4:
+- Split driver into MFD, regulator and I3C hub parts
+- Update I3C master for hub support
+- Fix DT binding issues
+- Link to v3: https://lore.kernel.org/linux-i3c/20250811-bittern-of-abstract-prestige-aaeda9@kuoka/T/#u
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-for-next-l=
-ucky7-v1-0-42ffb2b71ba2@member.fsf.org?part=3D1
+Changes in v3:
+- Add MFD support for hub and regulators
+- Add regulator integration
+- Link to v2: https://lore.kernel.org/linux-i3c/17145d2f-5d07-4939-8381-74e27cde303c@kernel.org/T/#u
+
+Changes in v2:
+- Fix DT binding warnings
+- Refine DT parsing logic
+- Link to v1: https://lore.kernel.org/linux-i3c/822d6dca-b2c6-4439-ade5-219620ebc435@kernel.org/T/#u
+
+Aman Kumar Pandey (5):
+  i3c: master: Add APIs for I3C hub support
+  dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
+  mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub and on-die regulator
+  regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x
+    i3c hub
+  i3c: hub: p3h2x4x: Add support for NXP P3H2x4x I3C hub functionality
+
+Lakshay Piplani (3):
+  i3c: master: Add controller-only device operation helpers
+  i3c: hub: Add support for the I3C interface in the I3C hub
+  i3c: hub: p3h2x4x: Add SMBus slave mode support
+
+ .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 297 ++++++++
+ MAINTAINERS                                   |  15 +
+ drivers/i3c/Kconfig                           |  15 +
+ drivers/i3c/Makefile                          |   2 +
+ drivers/i3c/hub.c                             | 675 ++++++++++++++++++
+ drivers/i3c/hub/Kconfig                       |  11 +
+ drivers/i3c/hub/Makefile                      |   4 +
+ drivers/i3c/hub/p3h2840_i3c_hub.h             | 350 +++++++++
+ drivers/i3c/hub/p3h2840_i3c_hub_common.c      | 428 +++++++++++
+ drivers/i3c/hub/p3h2840_i3c_hub_i3c.c         | 165 +++++
+ drivers/i3c/hub/p3h2840_i3c_hub_smbus.c       | 623 ++++++++++++++++
+ drivers/i3c/internals.h                       |  14 +
+ drivers/i3c/master.c                          | 383 ++++++++--
+ drivers/mfd/Kconfig                           |  13 +
+ drivers/mfd/Makefile                          |   1 +
+ drivers/mfd/p3h2840.c                         | 168 +++++
+ drivers/regulator/Kconfig                     |  10 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/p3h2840_i3c_hub_regulator.c | 284 ++++++++
+ include/linux/i3c/device.h                    |   2 +
+ include/linux/i3c/hub.h                       |  92 +++
+ include/linux/i3c/master.h                    |  17 +
+ include/linux/mfd/p3h2840.h                   |  41 ++
+ 23 files changed, 3558 insertions(+), 53 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+ create mode 100644 drivers/i3c/hub.c
+ create mode 100644 drivers/i3c/hub/Kconfig
+ create mode 100644 drivers/i3c/hub/Makefile
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub.h
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_common.c
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_i3c.c
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
+ create mode 100644 drivers/mfd/p3h2840.c
+ create mode 100644 drivers/regulator/p3h2840_i3c_hub_regulator.c
+ create mode 100644 include/linux/i3c/hub.h
+ create mode 100644 include/linux/mfd/p3h2840.h
+
+-- 
+2.25.1
+
