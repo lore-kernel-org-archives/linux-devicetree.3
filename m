@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FB93B42E5;
-	Mon, 17 Aug 2026 08:06:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1313C0619;
+	Mon, 17 Aug 2026 08:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786953983; cv=none; b=pwru0nX2XGVrWhFzFZXlref+i6x8wHm1ShIH9/7uAIstW28vAPVYSpTCSKNLLCajx3uYlFx17e0jvYmA+yss76fRQwU3UsauWZ4CTQU3aqyZx2idoQo3OFHYjKnr8dUR8ZShx9+J7xu0Kcwcwxhh0uGuvIRYnLElFEDZblSneAc=
+	t=1786954010; cv=none; b=GPzwO1mGvipWjgseP5dGvwF0NsRh2f64xFOpO1ZG8PigIoslMQAGrBO3kwbMtoIfTNR5Fu4M8vYKK4smJVNyTgfZqfMfuYm6XfiM5rZKxcOExS+T1tK+EJx46Bn43vlHtWXBRf5eUx5tdqP46cDSrbnef7BrYh6aapbB5e9ivGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786953983; c=relaxed/simple;
-	bh=PJBZa9Ar7PB74wb3r+/IeUiY69wP0eOEGCX6nCQTcMA=;
+	s=arc-20240116; t=1786954010; c=relaxed/simple;
+	bh=G3INwFLf3PJUMpQiw+cGBgrCDCIM5NvGN4aMkS7P56w=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dd5ewMbaJXI7w3M5qItuP0NOXQocurxt8wKKdC0shC/qPOOdFpTXiYhKmvSP2wCBIzlfPLTLXIm0GvDDV0a9cgvC7YZ2woBQaNzkvN7vUJsHzgQakGM7etAGkm2eWIxcxknTH3KuE+DJmD1XZ9EKb/sDWkto5VWtDMoolsW2sCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKXDZllY; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=bNehLt7J5PWRuEElbDqT0+yjNEui2MHW/g1dxwbcovHsxEVz4hsG6uUS/UzKL+XDEYoIFmRLuOIufmy7wSxGZD6yRoV4kmQNYJyFsP/yBOMkdIJjXisiU5IJvtDDCXQoMe4ko8QAXJ4WdXu+ob0hVL5tEw17FctvVrdxhzPHps4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkyK+GuF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKXDZllY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC1C1F000E9;
-	Mon, 17 Aug 2026 08:06:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkyK+GuF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BD21F00A3F;
+	Mon, 17 Aug 2026 08:06:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786953982;
-	bh=PJBZa9Ar7PB74wb3r+/IeUiY69wP0eOEGCX6nCQTcMA=;
+	s=k20260515; t=1786954008;
+	bh=sJF46lfr16ka93Qg8hkMaLu9qTMWC3yXRCMotcWCJ3U=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aKXDZllYyu5mXDsHXOTKfRmkG4N2tKATO1EqfzmRzwMFU6pvRuxG20HqNKPVXROh3
-	 N9naP52cdUOAJpc3TP1N0oQID7XHaok3sHFP0fumKfmNyrb2PaJ8yV1ttBhimAlBDe
-	 E6Wfsh7YyvYd8B+h40wMjye+kLvriU5PwOb39pd4y7+pNO829XC1ArKDoZlOn6HTyW
-	 iq6hiTnEGfp8UGqrDNdoGKH9T6t/t97RViIx5jWhKLSO0BpdOFy7GNTUP4qGabctkb
-	 IhiS6ii/TJyYiijAaBUCnkpq8z5ay3Aep5pmMez7/OqIKTm4O/d6JGvc7kV/rmf65V
-	 5+FCAgAQVIZBQ==
-Message-ID: <df92d111-7258-4803-b012-87f517b8bf9d@kernel.org>
-Date: Mon, 17 Aug 2026 10:06:15 +0200
+	b=dkyK+GuF/8JFFSJZpZZJapN4kV7Q3VDfBRahGtZBbeRj6PpTYlFkBngKLuCPiszrG
+	 qvCwifvzjFtXNRiZvBVAe19TQyFvxYYVNTo6UF+N+8h5Zc+s/OmsvT+3TxurBuArFx
+	 JQ/vycEEfRs1Wzt72K4WebDDRodj9DNEYjRW4iOxIur5pTvHoB+SO/o8wLYzHTnXF7
+	 05MaEadiEdiEFEtqEmrzoD+HQs+iW+QfCVv91PQAKMhoqItXPqLC0/GqVLZKUaWOfE
+	 WaQDwBxAuQEwZREim2fkarby+YBWw4tBvEBCECDnTt64C1GDiORAyyBY0R44WHareq
+	 Hm6xDcDm1yAwA==
+Message-ID: <e5f36741-ecb5-49d4-84b8-e97778589215@kernel.org>
+Date: Mon, 17 Aug 2026 10:06:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +35,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] arm64: dts: qcom: Add SM7250 base dts file
+Subject: Re: [PATCH v2 3/5] dt-bindings: arm: qcom: Document SM7250 SoC and
+ boards
 To: Sreeshankar K <sreeshankar0910@gmail.com>, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
  konradybcio@kernel.org, tglx@kernel.org
@@ -43,7 +44,7 @@ Cc: lpieralisi@kernel.org, robimarko@gmail.com, linux@gurudas.dev,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org
 References: <20260816161808.12419-1-sreeshankar0910@gmail.com>
- <20260816161808.12419-2-sreeshankar0910@gmail.com>
+ <20260816161808.12419-4-sreeshankar0910@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,19 +90,45 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260816161808.12419-2-sreeshankar0910@gmail.com>
+In-Reply-To: <20260816161808.12419-4-sreeshankar0910@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16/08/2026 18:18, Sreeshankar K wrote:
-> Add devicetree file for SM7250 SoC and SM7250 MTP platform.
+> Document the Qualcomm SM7250 SoC binding and the MTP board.
+> 
+> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-How did you get an MTP? AFAIK, MTPs are available only via official
-distribution channels to partners.
+Where is the SoC ID?
 
-I am asking because if you do not have MTP, I see no point in taking DTS
-for it. I would even say that if only you have MTP, it is still not
-really useful DTS, because no one else has (except Qualcomm).
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index 50cc18a6e..481041700 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -1050,6 +1050,11 @@ properties:
+>                - fairphone,fp4
+>            - const: qcom,sm7225
+>  
+> +      - items:
+> +          - enum:
+> +              - qcom,sm7250-mtp
+> +          - const: qcom,sm7250
+> +
+>        - items:
+>            - enum:
+>                - motorola,dubai
+> @@ -1306,6 +1311,7 @@ allOf:
+>                - qcom,sm6350
+>                - qcom,sm7125
+>                - qcom,sm7225
+> +              - qcom,sm7250
+
+No, list cannot grow.
+
 
 Best regards,
 Krzysztof
