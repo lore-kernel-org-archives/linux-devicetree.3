@@ -1,94 +1,95 @@
-Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AEE343D86
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 19:32:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDEE343D86;
+	Tue, 18 Aug 2026 19:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787081556; cv=none; b=TUSU8Z3IfaDMOywIn23dN8z7WSak20mQT6lOTh74ZLUzIzzTWjc4LDGlAwXiba/mOlLlOkEKT3UYQr1djKRzb/B9ZZLM5El4qIBv5dnsetHyOTY2leebPMm4bd1D+mfyBFC8Dsg7++YKHRLyjG5PRaMXGK/SnIcq9uhImP2mdnU=
+	t=1787081565; cv=none; b=VnkwHKalmnT6toEJewoa3MsUBnoR8VMcCYKoONUJ+0T4AqFk2ZIsrnyrXSDCJ23l5qRK4KaFdEd473I1ytymGBoXuHQLpzkE4DqazFvbzz5gkuSWZM5utre2iWl9oC9LAFniwwFrdvrZU/ZRN2kcRcvF8jBq85Bj/trrI3dvDSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787081556; c=relaxed/simple;
-	bh=xJfJAteg4axihJ933Ft5/qt/NUmEeAVu/W3zUFO/zR8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C3tQKCxY9DphlDifsguAkqJG+udM5SfNAqzxYOvqxZSimR0Rxk2YKq8rXrLHQT4pxMdRCkZ4H11ZHSSeXxcsG2oEgT6NYAMA09uGGk0N1RTgDQNvGGsOc2PIuWq3sIT7BGNHQKEC1CGtCCy/uDF9842sWl3aOIpiDb9x67Ttcos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=i5sISaL0; arc=none smtp.client-ip=185.70.43.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1787081565; c=relaxed/simple;
+	bh=l7FPGLHNHY3uXYd+JLdgkQ19Osu+EoRn3cY8/qQpA7k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hk3tuviGxbEq1rIWiQyaoJ4MEDgZcXi5bAYJsWUlfNZRTqoYLwtgIdjl351xUqI2GzIrdRFBvqhmVIG7gKe4lcnUZQIoBqQZhVqAzQhQNQeJuPhfU9LISVkOH2FdOeXz7l0gnYP27oNyQ7lQhUyFOw09mxbZVO7u6HM7hqQyvZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=26eqeVtj; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="i5sISaL0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1787081546; x=1787340746;
-	bh=gHf37RNTlIwCVXI/bxIQxrItLpYx40Ze+VZ4Rny/ItA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=i5sISaL0JAVEPmOPUEdLkx9kpW1BfnLw5BURnTKsR6ihZVlN8e+23hqEDePTj8Pnk
-	 8OCCJyXQkcn5aN6y+L6B7b1Mu+nupdqWEMChnhoDbeVU7gJ8l/6dtCvE5KQZvwL0pa
-	 AFT28LGFJL2QmsFyF3G5YkXF/PSplW9XE5Kur4WTKrJjcPZEPX1bN5MmeY3ksIgg1o
-	 mwFfO1eLvqkA40Gpp3z6qu3OGSSH+l9PAutPJ7Fn3KcEKyQ050Wz0ASonF51vBcOII
-	 l2KzmpHsrgZN7ZIGFYrHIk6hO6QEeFaV8v1sQ/jvh+0Th2KdiuAN86ZtymcvQ9Y3Ho
-	 rUobmiPd5hAXg==
-Date: Tue, 18 Aug 2026 19:32:20 +0000
-To: Guenter Roeck <linux@roeck-us.net>
-From: Aiden Isik <aidenisik@protonmail.com>
-Cc: sashiko-reviews@lists.linux.dev, Aiden Isik <aidenisik@member.fsf.org>, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
-Message-ID: <MvMjoAjL-_p1bx0Hkz3LV5jIs_HCsdxe7agP0T68PVra0YpfiQpAP7DEkimB7y5HUZ6hbCYM1W713QZKI2E8AEwxIwPXHsX297CSck7_r64=@protonmail.com>
-In-Reply-To: <e634117e-57be-4c74-973d-3b13cbcaa640@roeck-us.net>
-References: <20260818-for-next-lucky7-watchdog-v2-0-6743f479a47f@member.fsf.org> <20260818-for-next-lucky7-watchdog-v2-2-6743f479a47f@member.fsf.org> <20260818155332.9E0DD1F000E9@smtp.kernel.org> <8919c7f3-2dcb-4666-91e0-a91edc378c28@roeck-us.net> <M_lNzXuQ5wi3MVyFU1JstH_dxQWKDdPGje5yyVFO9lvJsz1H4USWNtew1040JtG4p17UrpWTWoohByvy_x7Nc5dvBh0LuONKNmPZPNMImdg=@protonmail.com> <e634117e-57be-4c74-973d-3b13cbcaa640@roeck-us.net>
-Feedback-ID: 46524699:user:proton
-X-Pm-Message-ID: c095483f18f53041e481961d09f656e5727353d6
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="26eqeVtj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=SG5VRjtPte6L9aJew4sPyVsnyomeyDOe/aSpZtCLGcM=; b=26eqeVtjz0wFX9cdB4ehc0LYkg
+	meZxdZOYXQDI9NTVGr1JG8dTZXwlvRgUKPQx6dMCuO4NVSzJqAC8cJIgn6xlJcaPRxJLxsEGikYsc
+	8Rfx+fXhjnqkeRy/Wg8ll4z7pvip4ZKBAULWVKAcDtSTVNugj0mHY8e62lLXj9qHNM50=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wwPXl-000WBc-7V; Tue, 18 Aug 2026 21:32:17 +0200
+Date: Tue, 18 Aug 2026 21:32:17 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Markus Stockhausen <markus.stockhausen@gmx.de>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
+	daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open up
+ C22 and C45 space in parallel
+Message-ID: <789b5b28-e9af-4b8b-a674-6aafe8a16478@lunn.ch>
+References: <20260817162632.1208891-1-markus.stockhausen@gmx.de>
+ <20260817162632.1208891-11-markus.stockhausen@gmx.de>
+ <cf8bdf97-64f9-4120-bdeb-c5a91a274490@lunn.ch>
+ <070901dd2e6d$f5b70c30$e1252490$@gmx.de>
+ <0a125ab4-2453-4d32-b158-8bdaaca16674@lunn.ch>
+ <089001dd2e83$b8957920$29c06b60$@gmx.de>
+ <2fd17092-753a-4a80-bdf4-72801eca8d0a@lunn.ch>
+ <08e501dd2e86$98e9fdf0$cabdf9d0$@gmx.de>
+ <ecc68c5f-02cb-4249-9f09-f161cc97a989@lunn.ch>
+ <073901dd2f39$4e234ac0$ea69e040$@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <073901dd2f39$4e234ac0$ea69e040$@gmx.de>
 
-Hi Guenter,
+On Tue, Aug 18, 2026 at 07:44:58PM +0200, Markus Stockhausen wrote:
+> > Von: Andrew Lunn <andrew@lunn.ch> 
+> > Gesendet: Montag, 17. August 2026 22:32
+> > An: Markus Stockhausen <markus.stockhausen@gmx.de>
+> > Betreff: Re: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open
+> up C22 and C45 space in parallel
+> > ...
+> > > Until now we never encountered any of these PHYs in scope 
+> > > (RTL8218x octa port) outside of the Realtek RTL83xx/RTL93xx 
+> > > ecosystem.
+> > 
+> > Is the ID in registers 2 and 2 specific to the RTL83xx/RTL93xx ?  That
+> > would make thinks simple.
+> 
+> There is no difference in the ID registers of the RTL8218 that
+> is attached to RTL83xx/RTL93xx or to possible other SOCs.
+> The RTL8218 series has a lot in common with the lower port
+> designs (e.g. RTL8211). They are driven by dual QSGMII and
+> can be attached to any non Realtek SOC.
+> 
+> If upstream rtlgen_read_mmd() is not the proper way then
+> I must think about it. But that needs to wait a bit ...
 
-> On 8/18/26 10:56, Aiden Isik wrote:
-> > Hi Guenter,
-> >
-> >> Aiden,
-> >>
-> >> On 8/18/26 08:53, sashiko-bot@kernel.org wrote:
-> >>> Thank you for your contribution! Sashiko AI review found 2 potential =
-issue(s) to consider:
-> >>> - [High] The `drv_data_exynos5515` variant includes `QUIRK_HAS_PMU_AU=
-TO_DISABLE` but fails to define `.disable_reg`, resulting in PMU register c=
-orruption at offset 0x0.
-> >>> - [High] The `drv_data_exynos5515` variant uses an INT_EN register fo=
-r masking but fails to set `.mask_reset_inv =3D true`, inverting the watchd=
-og masking logic.
-> >>> --
-> >>>
-> >> Please either address or explain why those are non-issues.
-> >>
-> >
-> > For the 'disable_reg' issue Sashiko flagged, downstream says this:
-> >
-> >> /* PMU registers are changed.
-> >>   * MASK_RESET register was replaced by CLUSTERx_NONCPU_INT_TYPE regis=
-ter.
-> >>   * DISABLE register was removed and its value was always fixed by 0.
-> >>   */
-> >
-> > Which is why I omitted disable_reg. It no longer exists.
-> >
->
-> What is "downstream" ? I do not see this comment in the patch, not
-> in linux-next as of next-20260817.
+I _think_ this becomes an issue when you have working C45 over C22,
+but no C45. I can think of two solutions:
 
-Samsung's Linux kernel fork for Exynos5515. I host a mirror of it at
-https://github.com/Aiden-Isik/linux-android-lucky7.
+1. rtlgen_read_mmd() pokes around in the bus to find out if C45 is
+supported, and if not, do C45 over C22.
 
->
-> Guenter
->
->
+2. When dealing with this horribly broken hardware polling, you trap
+read/writes to C45 over C22 and emulate them using C45. That at least
+keeps the workaround where it belongs, in the broken MDIO bus driver,
+rather than the PHY driver.
 
-Kind regards,
-- Aiden Isik
+	Andrew
