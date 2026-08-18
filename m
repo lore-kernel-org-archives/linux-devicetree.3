@@ -1,141 +1,152 @@
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B428E37AA74
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 21:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CFF1D95A3;
+	Tue, 18 Aug 2026 21:43:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787089016; cv=pass; b=n788P24+G2B5d6XbbScRbnYzRmoKyfivdZ6lNf74SojA/LD6i44Shb0IQYpoK6AHSMWZf+q3oWqCzS7gUhOp0twJj2BP6nlSWAjAObzK1z4kyKWJWn0Vbh8SX3iE7Ognf+Avh7PAD5+D8hJmD3xp9Lt9uk5l3oRSUzvUEQI2Rxo=
+	t=1787089423; cv=pass; b=CANXh5C/sGqGMGKTBfTrA4Eh+NfajVZSMORLBfyMUjXRnmsGGywWth4V6teN6FCzTtxo15JLyBqaOftiTqolWnpJkG2T9gezSJ1G8Ulo3xmOqjJPeyy47ZTeTTsDbxxf2EVQBIIqYIn6ls0BCzuwea1uldso8OO1LwivwlKcP8I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787089016; c=relaxed/simple;
-	bh=AMUsfXmsN0KUu46E37mETANlAYAnT51+WK05Bfuu0ns=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eIkSdwNEgf7a2k0on6VkRinb8wFoAZ5s5lKE/4i45M7W+PzSlHrLn+38F7dfu1WC4OejGdAgGKmf6g1FuMWg80WnJePXWFcZLA3/y8HhYXHmYcRIqrAiKwh5+rIvMnq53SbU3U7P4P2BDoij+vwi+ZgfOn+91mABP0FDeLQqSAQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EfKJivyY; arc=pass smtp.client-ip=209.85.217.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787089423; c=relaxed/simple;
+	bh=WHgLKUTzy+ajlOdMI/QUguwowgxNejsORdVHNAejODI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uaHRBbxZQl9d4Kw2bkxDhgmBmKY8QsTzr5nM6QmLtXUDkRKx8V2W+8W3Kw38kgrOBNeQx4SPJKgzjmpSPk/YY66K7+AJQgPi7VJE6E+Pnkc32beuRGzOdhhqDKdEY7lMtuvdUWNpNSKWc4F613vDnu3BAhP9cmBECPTnJ42y8ug=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=EATAvhGj; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EfKJivyY"
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-758caf52714so130791137.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 14:36:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787089013; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i5hiPOvY46zSl0aH/YKZMQT/+iiTyanSDE872NGecomC+8vvUDXKkQhrXx8V66ng9O
-         Tn0Emt5ccd0iPZBeV3cOq/4f69ulIy4Qz6Kt9hCNMIHcZJqaoj8LUynXsrvuStk2iKC3
-         7pAvQ+wcJ29ngAiP5NdqHlwIUJYnWIzpn5/SHoEshU2eD7J4fxF7NpWRprHXetCbkFwB
-         Eq2SPqn/Ys2US33ctQJmS9wVbzM309TENPTctZ6QcFL86T7K5tvM18CZ1XvZIh5YgcQC
-         wNNyUfnFdmHXB/5lVpX6Zj4JkRffqccZb8w4HLAol4bzRPs68hiAdnxK48T/PGzYugoL
-         m0qQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AMUsfXmsN0KUu46E37mETANlAYAnT51+WK05Bfuu0ns=;
-        fh=zeXTy8dhzI4Q0OF3LliW0l3QGegdIYlCsAN60QlfTJo=;
-        b=SfGMvYJsTaBmICgUVABQiXptEwkvIhH2EqbFVNsiYkZuWDpSPR/CWH/dNV9McLPBbr
-         UuZaTeeroWbJ/hzQNsp79Bhm3WXzFekBn/mEsFvK59A2s5Jc2S0uHGKvBwxfAtRzHZSU
-         H7jrAM3c4RFP1cDVGcx1hu7sXwD5NUN7w6AuB83IXAdSAyHS9gPLX1+w11kwLpu0Tvn5
-         1qvvNOcHiGyHmiDKQt0LuIlZJpeTcw1LaP/8yk2gWHX/aEPzCEf+axeDeXOJ44y/nICm
-         DTN6UK96H2yuju3rXV3ZazHhOvHmnhGoOsIy/sq7Nzl5u7iamFqbpsW42WFpShGnx9+X
-         pY5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787089013; x=1787693813; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AMUsfXmsN0KUu46E37mETANlAYAnT51+WK05Bfuu0ns=;
-        b=EfKJivyY3Zsxyw3NllYkg2PF9zayhDDLARkVvR4uSf9RSc7ixt6ZxlN9boKTDJaxnP
-         1YG+EIxNIt6kLWZ3Xz4p/5umB1MA43ySl/0qOlDbMR/ehTct6Yg0ct4HQofUmLZLlQgF
-         NnSx09CX3dfDmxYlFKPKWFPbf5H8Gww4iJ3MCnXWrYOYS0rJJOtsSonGsxKciNDgzrEA
-         xOa4I1VkhiLRDwD66O0SP5BwwnVYPfZWk9NGFA4+HbjclwdpifFJG0My4wHpwEizJaOL
-         /F6Y/lqL+5il+WlOHzdPWKfYVB5h0UOVZ8eTRknB6JVLCvUOfknsqCcyXyclnWmXVZcQ
-         TVKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787089013; x=1787693813;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AMUsfXmsN0KUu46E37mETANlAYAnT51+WK05Bfuu0ns=;
-        b=XYwQj7/AJPCgWaBVOF8JyRsVbUxiJ5YunESKHBEui85JTeg/azsjlYcmLB1mtm/vPI
-         XP7T3gwu06cA5plDqhrBDile9tz39UioJa6DTPznpQOLxqrFYjx9Qwx23bR77Qksg15d
-         JEm+yD7TZkttuncnMeXXmkSml+sRvSPm/VakQNfuUZrT6IJKonV8/lfSA2Ho6QU4kpQM
-         /OnQhsh6WKtyhqvI/rrqssx0zp2WFShQsWBL6yHIysQjRpLNJgzLxjubaGEwmsI/kVMu
-         A3VY20zxbvYgrNQc3lo5ElJEEHB5HbEblZUJcXF+FKXdc5O9p16Md0lMbTseDYpmzp18
-         Xtlw==
-X-Forwarded-Encrypted: i=1; AHgh+RpYOUoOWDTwfK1cEK/xME0QtfDUBKbPX8iW41yd1oxNI/uj30I19ZZdG5bgtb+l/Gvr7n6keHptBGdG@vger.kernel.org
-X-Gm-Message-State: AOJu0YySfsc94Mjj7nk64Z33aJ/PUQ7QJuSS2Tt3tlEELMmmX9c8n5pL
-	Yib0RBfku7jmyV+KAOO/Ft4D2V+vH5sKC5tEjszAjo7r/I+do2a8GMuiIQWEWKU/2/5EcuxNKpM
-	nJ9J6T72OntDWZzjafOZLd4E5C6Sb3B0=
-X-Gm-Gg: AR+sD121eUDkdLl1xSR/ZHhUx7dCp6Lx2WK+LpY1IFmwndXg99wrWfD5D14tvGk7Xow
-	W/GeB2NMd7K+Epak28YOzYs8sNpeiSZcBRenGgpO7wX5Ia9/yopz2sK6iKsRPYQk0F0QCRcllBF
-	mWd6Sea7QF7+Aa8coQrreRUgB7MZuXez2S50TNksexnYLwIlp6c2JFVC9YX1BZxk4TJ5DygJ+mo
-	TglLxJk35+BVEOJoNle0h/JmHYdwqzt6LL1M+SXX6PRXl61sAd3fYBgM1NKFbB048uC65xiCR4T
-	2XLxF3Z38ZGbJOduT3NTdlmyV3LiufT3TalUj7kW6AKFdhQu9e/O2WGYK1Q/7K6df2AezrbT+4T
-	q3EqlOJxk+zBWSyv1ruumhWoWH/TpUojyAVn3xKS9f36u2336GAgr5N8RhBKR79GyVml1Eu/lhH
-	M7g0cdZlcYJIJWBvsYRXQQV26DiV/52I4jv5ub
-X-Received: by 2002:a05:6102:3fa6:b0:6cb:d562:b96a with SMTP id
- ada2fe7eead31-777b89f4818mr417941137.14.1787089013591; Tue, 18 Aug 2026
- 14:36:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="EATAvhGj"
+ARC-Seal: i=1; a=rsa-sha256; t=1787089379; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=R1G8loKEMmQgzBe9C8b6zMyzqfX1/4AwdWB/Sed7saPCbbb5AJ1w2bfRjaOxkT0k1TBvEcc2oEmyUyTsNMdI8Phm2NcIAh7ypJgfYcj82MG1VlDgfkS91sGe6+JPRbqnuWuVj8eJT3tUYgIhltGYMeCM9UvQFdlGGJCfMkqvhaA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787089379; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=DpmVj5c9FDXQSwuSsbxK1L8of1AmrLOJ/cZ+cQrHX54=; 
+	b=WmKuFoJbFK0zNMA+rIz0rvuCYT5grWtdUpzoLpsjOlcBjadqk9DuahFhWJU3JSJY7WisfrbNn8aDKtTSyB/C3qjU1M8Svhih2Rz43dO43PXbShJQGrdTOsbcYis/IBNfY2RUJgJ0JRNwki/oWUBgVLZBKmBW6DTMYSOjLFNImpY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787089379;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=DpmVj5c9FDXQSwuSsbxK1L8of1AmrLOJ/cZ+cQrHX54=;
+	b=EATAvhGjB0BxlGsm+l29SdEaUqqx/UzPjLLQYionr+lI6JBS518mBhoqoQDUlDpH
+	uoijmrTaLxXjR0zjXhhAM7w8DcArp/97HlffwENaSaj5bTGeCddzxwAP8Rg0Ox22vnj
+	kdk3f7mNSWckQ2aigReGzhXzXeuUr2LYsg4Wjxr8=
+Received: by mx.zohomail.com with SMTPS id 178708937710788.45877915239339;
+	Tue, 18 Aug 2026 14:42:57 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 030B6182034; Tue, 18 Aug 2026 23:42:51 +0200 (CEST)
+Date: Tue, 18 Aug 2026 23:42:50 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Yubing Zhang <yubing.zhang@rock-chips.com>, 
+	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
+	devicetree@vger.kernel.org, linux-usb@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+	William Wu <william.wu@rock-chips.com>
+Subject: Re: [PATCH v14 00/38] phy: rockchip: usbdp: Clean up the mess
+Message-ID: <aoTMQtpYYw8O-3cj@venus>
+References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
+ <h54c2hrcsv3zjzzgojzf5sjmu3vtpobz6rwloam5kp7mwqqn3n@bqjnlellvnz6>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260703152215.192859-1-richard.genoud@bootlin.com>
- <20260703152215.192859-3-richard.genoud@bootlin.com> <aoQibj7sCd6o8W6h@monoceros>
- <CADvTj4r=uBJyJdmK3T+jD_Nitg2NBs7fZgtE5p6wt9zwWgj6DQ@mail.gmail.com> <aoTMMAGbWelnjJTo@monoceros>
-In-Reply-To: <aoTMMAGbWelnjJTo@monoceros>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 18 Aug 2026 15:36:42 -0600
-X-Gm-Features: AcwNN1WNCOQhs7S_JPB6wAilK0gfWlIi5mTrdxNK2MAHoPVv5VHOpQRIxBhuAGs
-Message-ID: <CADvTj4ovVmY-TN7u_yj6me88qNEzr_0xbuC9DerPguFGdgOEBA@mail.gmail.com>
-Subject: Re: [PATCH v7 2/4] pwm: sun8i: Add H616 PWM support
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Richard Genoud <richard.genoud@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Paul Kocialkowski <paulk@sys-base.io>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>, bigunclemax@gmail.com, 
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lb64huk2f3isbo5n"
+Content-Disposition: inline
+In-Reply-To: <h54c2hrcsv3zjzzgojzf5sjmu3vtpobz6rwloam5kp7mwqqn3n@bqjnlellvnz6>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/287.68.66
+X-ZohoMailClient: External
+
+
+--lb64huk2f3isbo5n
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v14 00/38] phy: rockchip: usbdp: Clean up the mess
+MIME-Version: 1.0
 
-On Tue, Aug 18, 2026 at 3:26=E2=80=AFPM Uwe Kleine-K=C3=B6nig <ukleinek@ker=
-nel.org> wrote:
->
-> Hello,
->
-> On Tue, Aug 18, 2026 at 08:12:43AM -0600, James Hilliard wrote:
-> > On Tue, Aug 18, 2026 at 5:00=E2=80=AFAM Uwe Kleine-K=C3=B6nig <ukleinek=
-@kernel.org> wrote:
-> > > I didn't look at Sashiko's feedback
-> > > (https://lore.kernel.org/all/20260703153337.B5AFF1F000E9@smtp.kernel.=
-org)
-> > > but I would expect that not all 9 high-severity issues identified are
-> > > slop. Please look through these for the next revision.
-> >
-> > I sent a v8 that should have fixed all the sashiko issues along with a
-> > bunch of other issues:
-> > https://lore.kernel.org/all/20260804-h616-pwm-v8-v8-0-db37ab8624ae@gmai=
-l.com/T/
->
-> Damn, I missed that because my usual check for newer revisions is using
-> the sender as key (because subjects occasionally change). You didn't
-> write about your patch series being coordinated with Richard, I hope it
-> is.
+Hello Mani,
 
-Richard was working on this for the same project/board.
+On Tue, Aug 18, 2026 at 11:27:07AM +0200, Manivannan Sadhasivam wrote:
+> On Thu, Aug 13, 2026 at 10:51:43PM +0200, Sebastian Reichel wrote:
+> > This series does a major overhaul of the Rockchip USBDP driver. The
+> > initial main goal was to add USB-C DP AltMode support to the RK3576
+> > and RK3588 and this series still prepares the PHY driver for exactly
+> > that. But in addition to that I uncovered a huge amount of issues,
+> > that are fixed along the way. Some of the more interesting ones are:
+> >=20
+> >  * Currently the driver might trigger a fatal SError on USB-C hotplug,
+> >    since re-initializing the PHY stops the clocks going to DWC3. If
+> >    the DWC3 driver tries to access its registers at the same time the
+> >    system will crash.
+> >  * The DWC3 hardware can get into a buggy state when the PHY is
+> >    disabled, which results in the PHY not coming up properly again.
+> >  * Swithcing the USB-C connector orientation during hotplug breaks
+> >    USB3 speed, as the PHY is not being re-initialized.
+> >  * The code always enables DP mode when USB-C is involved.
+> >  * The driver has some locking issues uncovered by Sashiko.
+> >=20
+> > In addition to these bigger ones, Sashiko also found a bunch of
+> > minor problems, which are mostly harmless, but were fixed while
+> > going at it.
+>=20
+> 38 patches for a single series is too much to review. Please
+> consider splitting it up into multiple series not exceeding ~10
+> patches per series. Thanks!
 
-> Just looking at your changelog I think most of my manual feedback still
-> needs addressing. Can you (or Richard?) please go through my feedback
-> and address the things still relevant for your v8 please?
+So let me summarize:
 
-From what I could tell most of the v7 review is either already fixed or
-inapplicable to the v8. Probably it needs to be reviewed separately.
+ - Vinod wants Sashiko feedback to be acted upon
+ - linux-phy does not want series with dependencies ( [0] )
+ - You don't want series with more than ~10 patches
+ - Generally fixes should be at the start of a series
+
+This tremendously slows down any real work. The first series would
+just be Sashiko fixes without *any* of the work I originally wanted
+to do (DP AltMode). I would have to wait for it to land before
+working on the next bits as there are massive code conflicts with
+the same file being heavily modified. This simply does not scale,
+especially when considering that there are more dependencies on this
+series.
+
+[0] https://lore.kernel.org/linux-phy/20260330233532.ulnqiqrogezswht2@skbuf/
+
+Greetings,
+
+-- Sebastian
+
+--lb64huk2f3isbo5n
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqE0dMACgkQ2O7X88g7
++pp1WA/9Ehn7r1EMjla99QJRa2MMoOYd+t/cIFPVNbsUDA6t9qfCwIGxmOawRoog
+uUDXe/RqRp5xObb+2jSPMuvb3jelMPX+1357dxVoYaqsmrvPG6jSEjjBFtf4z++7
+62Ws1nWgH0YR1XO45vFBsrNCNv3ELThj/FALxPQmU0pZ/x/7bizhTQtx3PEHW104
+kT+171AqELAfbpfUMM7lYcHHIy8D4hSy0Ah66RFTNpWl1obZCUCFL1B0zuDANnMJ
+CAjqkPtwoJPpVaKRlY2h1YB5JREpQNfJCUl4XVPZ5Tuia+BOF5mvegHPXhU1F+ZT
+lasrChZQHYnkJNOl7EDgMaYpKnc3bJbxagtA1Q3IbqdRZA3jm8GrWH6dLhq9Pdr6
+kFsnhDJo5omh7AskYgm1uZ6ZL6ve/d+BUYS5Bkku8SJNbAb8eLqR20ntn45rDBIH
+29NMHJ9OQ8DKzJ7dxW3x19A6RuLTCHsVd6cQgTqMbgkVgrQehq4ivCMBuPwrpBZO
+fglWS7cNZGv+KYDnEJo9K2KrUOtyHfOYAjdbsOwQEyntf0QxDNtMoQ89LzIyJM7m
+nUsBRW1ZxNJ3NvHrC+580iDz5c+F0yTRwv7LeUNcwcp8SF9+hBEme+EQL4Vid9lH
+TrH9qhoHr/d7ZyZOOtQ4a3vRzVbBN4+cmrWofzpBfmyI7XtjNKU=
+=cryx
+-----END PGP SIGNATURE-----
+
+--lb64huk2f3isbo5n--
