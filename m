@@ -1,60 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7AA44AB80;
-	Tue, 18 Aug 2026 10:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50812D77F7
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 10:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787049317; cv=none; b=hVpbPyfS1RTGMXcgx9jziY49KQq4NRgj5wS3f5RiPcAzFIn4WFDZUjKcF9SBISZHy35EjIfHPj/mpgAmQo2EHSjwWW05zmNSISleJkW07j6L6LDpRQevCtGO8LWtx/CajCAbFq+B0Z6W1kpp3J0IJa7leKILNP3w45GpEBQdl6A=
+	t=1787049360; cv=none; b=pvlZqQHl6/bMnD9UP/AGIBvjs/sreKrZs6CujwVlGcYnHhVjO8gUU7fvV1TFOwJXbnh9dMgyWYCdCuACwwG0m3knUsSRcKMuOTxs6B84Va4VIUvYrwWMlR6P7F6+P3btlXPJlULAbB63y5r+T1ctUVcOfNSKlbXTSdB0aKdpk0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787049317; c=relaxed/simple;
-	bh=MIASSTkA70ZHW8I6wen7XhjmbLDmA5ubM+T80MlNnJ4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qqtAw4GoJ0ykgWkNW2vT49dIKZ0tJ33Q2QbEJxp/nqk8HgvZtnPgJzsGjQG3oA8Mb17BGufxOtKBM7Lfl8Jref4kNeRwjTACYhA9XzsJqUBk8CHTPaliGSKe9d7GUPG4CdQwfkTKa1Pjf0TagTMP8FSPfo/Y0THzyNSCJV/Fnfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G27fLp3U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787049360; c=relaxed/simple;
+	bh=oUayNO0BSPL302K+wt4Oepp+n2LLlkol/iRm2Rc+1QM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UoMELopeddaYznyXr2VvzMqgdTovjUzpVAmCyX/rF4DO5s4IGORG8oTERdNQZp7KkhVN2p0wTlvhR5F40/JLNSNOA5j5/5NUvPcs/dZU5hl38wWShmloC0WeCuH2UX7M4+ExDlO8GRlCmiTbZkgzQU97/7+8YJXEdEsJ0FvsCWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=ZNUthQ1a; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G27fLp3U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA6B1F000E9;
-	Tue, 18 Aug 2026 10:35:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787049316;
-	bh=MIASSTkA70ZHW8I6wen7XhjmbLDmA5ubM+T80MlNnJ4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G27fLp3UY9rqD9xlsKmIR3wj70plRBuJKQ2B3NPTIJ2Ya7XAynF9dfgPtAZBBPmE6
-	 XAGGGV4xvD9AzXImlR3A/u9libjhjZin03lGKgkIyIFPl56rty9ylX08MWpde38Xbt
-	 VSH1hAeky8LpZVnJemeSwCyCt0MNqF5GyumiexCHY+9ZvmDU8WJa4IokmD4LDO3ndo
-	 9+ntZ+QURCTK40bxGm7mwRMaFAtlUF+4LVv9G2eB6+FAPzE7qQo0CasAY5V9Sso+cT
-	 pTwgU2dcifh+VcmuqsjMr05ZKI82z0xbmw65teXFK10wxpSNeTQK5fmPVMdZh000sR
-	 sa7E/aaKAdjsg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 01/12] dt-bindings: arm: add Ambarella CV75 platforms
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: mfd@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, lee@kernel.org
-In-Reply-To: <20260818-cv75-v5-v5-1-7bbb12f0360f@ambarella.com>
-References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
- <20260818-cv75-v5-v5-1-7bbb12f0360f@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 10:35:15 +0000
-Message-Id: <20260818103515.CEA6B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="ZNUthQ1a"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=06KvyJDsWfX1sCzC5b2kL3swopYadMJBrscw4udw5tE=; b=ZNUthQ1al5CuRZNllVdLE7mtBV
+	+/sdOMl3kxwugwFMfBr2su4xJY+q6jGAidmetV1rc1cvUnQWr29Y5XFrgiREERYWvUOQlIIhtQQ6Y
+	6R4yfWt07FggaEjp34D4mOhmxkVMJGIVYl9fQwmD6ugNePQXHyBBJ5elphi4GQRRWHO1lpWCdk/Hw
+	6MHkP8a6c4ROWwBFInPaHtZ9zNyuwum/AtrO8UgwS4xCbWvqJeEzPVPWaiBzSZyJ5R6oeqlYWZWi6
+	kEFvMgxcBTjMW+fLcd4z3dumKKjIrRfo9DvVKHAD77aOB7ekMKKAM35ptsrU/xr284E31a9dZRCHn
+	prxyxJUg==;
+Received: from [179.105.94.163] (helo=[192.168.0.6])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1wwHAZ-005ZNJ-55; Tue, 18 Aug 2026 12:35:47 +0200
+Message-ID: <3ab273be-e811-45e4-adf1-75532c840bc8@igalia.com>
+Date: Tue, 18 Aug 2026 07:35:39 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
+ reset line
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+ <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
+ <20260818-idealistic-chivalrous-sawfish-08ddae@quoll>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260818-idealistic-chivalrous-sawfish-08ddae@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> From: Long Zhao <longzhao@ambarella.com>
->=20
-> Add the Ambarella vendor prefix and CV75 EVK board compatible for the
-> initial SoC bring-up.
->=20
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+Hi Krzysztof,
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On 18/08/26 06:05, Krzysztof Kozlowski wrote:
+> On Sun, Aug 16, 2026 at 11:05:41AM -0300, Maíra Canal wrote:
+>> The BCM2835 PM block has exposed a reset line for the V3D block since
+>> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
+> 
+> This is a reset provider driver, so not really relevant here. Driver
+> commit would be relevant if it was about consumer who implemented
+> undocumented ABI. I suggest to drop reference to driver and instead
+> describe the hardware.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-cv75-v5-v5=
--0-7bbb12f0360f@ambarella.com?part=3D1
+Ack.
+
+> 
+>> under a new binding."), which allows the GPU to be reset without
+>> power-cycling its domain. Document it so that the vc4 driver can use it to
+>> recover from a GPU hang.
+> 
+> Does every device have it? Cygnus as well?
+
+I'm not familiar to the Cygnus hardware, only Raspberry Pi, so I'd
+appreciate if one of the folks from Broadcom could help us with this
+information.
+
+However, just like the power domain, I added this property as optional
+to accommodate the fact that the current Cygnus DT doesn't expose any
+power domain or reset controller.
+
+Best regards,
+- Maíra
+
+> 
+> Best regards,
+> Krzysztof
+> 
 
