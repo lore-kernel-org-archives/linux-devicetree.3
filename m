@@ -1,170 +1,190 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8E6344036
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 14:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D15344036;
+	Tue, 18 Aug 2026 14:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787063418; cv=none; b=js7lG/FPC13tVVghONaXOHpqWd8YFchYBzGpdRs2y7t8tRSFh1TOBmouHsUG+wWKa8Hr0FaFpdpVHCmB42iaU+jrMFBTPT16c1vvOUDVFQ3i6HRGv9t3/Z5W7fAUm6cTXEkJbj+NQCj5u34jyaAhQjAU5F7i6dC4YAP3SP71zkg=
+	t=1787063435; cv=none; b=FVUGfBxzaRCutp9ywi84hP/oKJgoZFZTWSUImYDiSo7w7LS0M1EVOb2g+g57hFBDrhHqE3LXM8+R+lrG3ugRoeC2Bv7A7QRyxEtMu0JJVbIuwHwe7ML4rKRWfWDWEnRXo79mp+24VzRQVvOtUCkd62G/RIvEoSzDwvWUrHvMfvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787063418; c=relaxed/simple;
-	bh=2zGPgT53nMyKtGN4bplmgmbVd+Cg1WvfyXIJuEqowq8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=J6D6nJ6Yu1CZ7HTRsZze2V8F6A3du65E2VuAvxhmGjizHcZSn/RSaWF2EPvCFQiB8hQhUna+QnCJ4b5kjsi0JUozki3Emem+xgB5up1RlbjeQQ0kStX9zfOyJ8L+jqlzfgA5NeCYCRV8QB7JSQEG3a/JeE/HuPOwekS0hVHH0pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nYoyPS+Z; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787063435; c=relaxed/simple;
+	bh=fO/MiFbu4zSk/lgoEdvFya3ZQKWOZs1K++KiLGbjg1M=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ex9/Fm38Dxd0fqNw2dqd6q7rGjl2yLD5W0bEOa0k6IvPjXNcT4J9lBzzu1E2vwISlpC/An3nmvgbe//B2OMRBY2oo7hndnAaneeSaHwXNypPIr4kshgBS75AfQ5EMriw7XQXJdZT7wzf1DYtH99ucsTqF4tV5RVadbW6W2Gro8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=dgmIKbP/; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nYoyPS+Z"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbe41618110so303340a12.2
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 07:30:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787063416; x=1787668216; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Shib2rntu2e/Z5UR8HQqW2K03GJsazba3W0OpgQm6G4=;
-        b=nYoyPS+ZMPPvddDFZE8AG33Q+GktB9s4k8cTI4i3nqoa81DTZPRP+sA4Yy17Sb4olC
-         k7/tuVZOV1YEhnxwKVGdAcgT6wrvuoBocG25AFto7CKMEFdInSbjtDLKghlkOJQqetpG
-         4NwbmzajPVH45HpJMRgOwrfH1AHyxRXSXSZFLRBbp3BRqrsyV5hJ2tj0IXjF2TWnZwup
-         CBsYEHIn4WtJvpYFwRrDplNz3WnqajPaakG1itnhVEOEQI8EbKmG0SgxEl7WMceUELzF
-         NrP5sOyrUedVkVnvWS1A/X4EF6LqZt9zHPbhrjFWOnMBcIpVtVXXgKgqjm6cQn9iQhDK
-         u2AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787063416; x=1787668216;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Shib2rntu2e/Z5UR8HQqW2K03GJsazba3W0OpgQm6G4=;
-        b=PDDwo4LbHGAQ72Woo3GBSr42hrW8YpmiokSyTOj7gazzmQ5XotQwvpEHQNfUElTqwQ
-         esRf+JHckT2OUl4/g3lEnKs1sjPnICw9SzfUqeXH+6HJAO1PtbQ5eOA9J2pd758ioAuz
-         0rdhPACjl8H4W6z7es2w+305HBQCO76IzMubJJ9sxGxy4GH+S3dPuYpmzLbgkkvjhUED
-         VWgm+JSlKNPp6ibuQmCKg2E7V9BnyM+GXD4nv5CqkOVgd9GocFMZuy6VfdwaQFRff8X8
-         peSVUIr6ry1xtOqH/26T4O1L9CM6dQTIBf8LW4ulL1Wuaq9vNrnO5EvNHpay/1JapljC
-         xk+A==
-X-Forwarded-Encrypted: i=1; AHgh+RrMCz+NuMfyQFhIZQge4j9xFCJ1MOnMeHnvgWIygx34XqoeT/m9rttRxgvDeJj0CkUnnj9iY3iOed3H@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPJRBmtmpSrextX53mIcnRAufaJFH1eJ7HBQsWPEWEMsv/XH0V
-	ZejDQUm/Bc1BKcbym89S6DE7EEXfsZj6TnOLA9OEoBacF6NzbYjMvueR
-X-Gm-Gg: AR+sD111ayUVb0iMZfw4AsuV7rBxBDtVzHH37QuJObScR9ADM1EiN6DyiwwxXBPTpew
-	MKpYI83tY4Ue6j1+zTGm7apuNNpmBHro3ItUbmT8dyb1WczpjFANCilcz9TcaRR45TItuWMn6HJ
-	R7kL3hsoGT++VaO9pfHaaJ4jJR9aCDI0WKLtPxTq2t+KTriNBX5fersgb+U4bef1scF3tX8IS4X
-	sYlIwgd9phyvEStidBlmyqdsS7sodo7/HStL5YVicZUjk/SeF6S3QJBUD0tEZv0WsNMleyGljux
-	zmVs4b5kY4lwwTWf/Ya5UDMKUcl9zNAZdWUQHZnmTeqTCXLfFhfjLEiqbsNDlw/xU1Z3BPExc+7
-	Vu8i3HFbnUgwdCB5i9/o9NFm41CVB/PKaChHdLrNtUuwzk6oZUZg1fou6MZeOynmRNqpGYzDANA
-	s75zGBrgt6L7ZX34fogvobWTiA7MibFm1mzyroe/OIrU2jUpTATyLH6v4Xf76JcekNbpERAGB9
-X-Received: by 2002:a17:903:3847:b0:2cc:f4d4:29a0 with SMTP id d9443c01a7336-2d3b0c9938cmr295090215ad.3.1787063416121;
-        Tue, 18 Aug 2026 07:30:16 -0700 (PDT)
-Received: from [10.90.163.252] ([2409:40c2:501a:6e15:dc3f:c23f:e55e:d03d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327b43d488dsm9043527eec.29.2026.08.18.07.29.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 07:30:15 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 18 Aug 2026 19:58:45 +0530
-Subject: [PATCH v2 3/7] ARM: dts: ti: am335x: Fix redundant interrupts
- property in USB nodes
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="dgmIKbP/"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IDuGAn3121330;
+	Tue, 18 Aug 2026 10:29:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=/rmFhWS8vQ5cZ3A4X9ZGRZ6Cxsp
+	5+ds/tmqDScuEvaY=; b=dgmIKbP/CS56fAFEoZx3mYxRveafED2slc6MhDQkIzE
+	A1W9KJEPkG11U10UNWpJG+x9tmuK/pNndTrYsPlYQ29ZbTy54oCcYFl1E+7xo+C2
+	i7gzj6k145fojTD+s9n3In2rHtJbNM/yWRf6E4uOqEMjvbzpW5l84ITQcWbhGHb7
+	viz3zzjb8ESI/OrPe0x3xZPIRsg95Trbv9OY9f8yDhjUBzEChhA87qWoccdCKUED
+	PsXxAhUIlVutzefvMas2ZKZ2vK14U5yGzUm/VhR1WaA2o90rvL4ONRMrgCdh9CAO
+	SDrEWHaUC3AMZVeBIqPOB9I0fZohV6v/Ft/8/1gHBtQ==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4g4nr21aj1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 10:29:53 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 67IETqnu035908
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 18 Aug 2026 10:29:52 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 18 Aug 2026 10:29:51 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 18 Aug 2026 10:29:51 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 18 Aug 2026 10:29:51 -0400
+Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.190])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 67IETZOu015349;
+	Tue, 18 Aug 2026 10:29:37 -0400
+From: Stefan Popa <stefan.popa@analog.com>
+To: <linux-iio@vger.kernel.org>
+CC: <jic23@kernel.org>, <lars@metafoo.de>, <Michael.Hennerich@analog.com>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <andy@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
+        <siratul.islam@linux.dev>, <u.kleine-koenig@baylibre.com>,
+        <linux@roeck-us.net>, <joshua.crofts1@gmail.com>,
+        <ciprian.hegbeli@analog.com>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Stefan Popa <stefan.popa@analog.com>
+Subject: [PATCH v7 0/2] iio: adc: add MAX40080 current-sense amplifier driver
+Date: Tue, 18 Aug 2026 17:29:26 +0300
+Message-ID: <20260818142928.8244-1-stefan.popa@analog.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-ti-am33-usb-v2-3-66fd44d66824@gmail.com>
-References: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
-In-Reply-To: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
-To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrzej Siewior <bigeasy@linutronix.de>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Ravi B <ravibabu@ti.com>, Kumar Gupta <ajay.gupta@ti.com>, 
- Sergei Shtylyov <sshtylyov@ru.mvista.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-omap@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787063337; l=2514;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=2zGPgT53nMyKtGN4bplmgmbVd+Cg1WvfyXIJuEqowq8=;
- b=U44CBfLq+mbjkIIztglKnpvX2Szjq/KUNnCaHfRupVE20B/nuOBZ8VDQDiniFFo7nOR6ojcl5
- a0qkQIOtaOKCZggjOaSYj5Lei+aZaYsAaMkpyryBk3CoRhEFxzruH3X
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDEwNyBTYWx0ZWRfX4A9FudJF9LIo
+ 78kOJjidl/wNDTVo7Pj11IowVraWQJRzpFYiKRWbXlXFWHrDnrHexpbfFQWPC7WSfU26GIttaGB
+ TCpu5rFvd32OKoSbHY8CVoBh1M/3C0jbNUHBIaE+TtS//8VljZIiHeA4Trujm1TJ3CJIbYBaPhg
+ IFflg9Kds/6E1q4Ijas12RtJJsqcYO1DH4EDfwhIa1U2ED/uf/S3UxI4Whn1zVp8JfhH8y8dvzz
+ Kjnb+sb4cuR50QQusu8CW663FN/0E/h0b4DZCw/qebw0KNkvO+cujyeXF+qBB31pdLwdqXoIpIS
+ NtVq11T7wDUto8ZmM9lac+2GF7b0IHBpHkRedC2lZSMs8Xj+8ykli+3xzsxt1Dh5OwM+CJOP+hO
+ Q24WVdN+kDuWv7RNJzgtJoninqKW/h3o5QmOQfBH6IhamS5ad+eDseJBXHo3Rcun5pFlKPlwa7v
+ Vl5Lw3Yy5RSFf9IE0pg==
+X-Proofpoint-GUID: eV-QQRg7uSx_ikoHf4eFJYdP6R0USGdR
+X-Authority-Analysis: v=2.4 cv=B7CJFutM c=1 sm=1 tr=0 ts=6a846c61 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=Z0pTeXoby7EwIRygza74:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
+ a=YosFZmRKdi6gkAz3PX0A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDEwNyBTYWx0ZWRfXxodcGJcwkrnM
+ oXkacXlIE5BZvloKfBa6aRHY1rjxEoT5CbOPAs7lmEs+xaJno82Wc2BbFMtSN5fHM8ruGT86hfp
+ CMq4R3wYJf4rA1uM7ILS9PHYsQ5Xc+yVyiSV9ZhOWcg9z557tcoJ
+X-Proofpoint-ORIG-GUID: eV-QQRg7uSx_ikoHf4eFJYdP6R0USGdR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-18_02,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 clxscore=1011 priorityscore=1501
+ impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180107
 
-The am33xx.dtsi defines a single interrupts property for the MUSB nodes.
-Several board-level files override the usb0 node to use
-interrupts-extended instead to include vbus interrupt.
+This series adds support for the MAX40080, a bidirectional current-sense
+amplifier with an integrated 12-bit ADC.
 
-Since both interrupts and interrupts-extended cannot be used
-simultaneously, Add /delete-property/ interrupts to the overriding
-nodes to resolve the schema warnings.
+The driver is placed in IIO rather than hwmon because:
+  - IIO's scale/raw model naturally exposes the selectable gain ranges and
+    lets userspace apply the correct scale per range.
+  - Buffered capture support is planned for a follow-up series -- each
+    conversion returns a matched current+voltage pair, which maps cleanly
+    to IIO's buffered/triggered model.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi   | 1 +
- arch/arm/boot/dts/ti/omap/am335x-boneblue.dts       | 1 +
- arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts  | 1 +
- arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts | 1 +
- 4 files changed, 4 insertions(+)
+Changes since v6:
+  - Add types.h include (Andy).
+  - Remove dead code: i2c_smbus_read_i2c_block_data can't return partial
+    reads, so remove the ret != sizeof(buf) check (David).
+  - Remove dead code: iv variable initialization not needed as
+    max40080_read_iv always writes to *iv before returning (David).
 
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi b/arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi
-index 1d83fc116b66..c436edd98e10 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi
-@@ -197,6 +197,7 @@ &uart0 {
- 
- &usb0 {
- 	dr_mode = "peripheral";
-+	/delete-property/ interrupts;
- 	interrupts-extended = <&intc 18 &tps 0>;
- 	interrupt-names = "mc", "vbus";
- };
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-boneblue.dts b/arch/arm/boot/dts/ti/omap/am335x-boneblue.dts
-index d430f0bef165..7da2fb782ab2 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-boneblue.dts
-+++ b/arch/arm/boot/dts/ti/omap/am335x-boneblue.dts
-@@ -304,6 +304,7 @@ &uart5 {
- 
- &usb0 {
- 	dr_mode = "peripheral";
-+	/delete-property/ interrupts;
- 	interrupts-extended = <&intc 18 &tps 0>;
- 	interrupt-names = "mc", "vbus";
- };
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts b/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
-index d21118cdb6c2..6bf388c4abbf 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
-+++ b/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
-@@ -35,6 +35,7 @@ v3v3: regulator-v3v3 {
- };
- 
- &usb0 {
-+	/delete-property/ interrupts;
- 	interrupts-extended = <&intc 18>;
- 	interrupt-names = "mc";
- };
-diff --git a/arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts b/arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts
-index 23caaaabf351..068ea23bbc0c 100644
---- a/arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts
-+++ b/arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts
-@@ -376,6 +376,7 @@ &uart0 {
- 
- &usb0 {
- 	dr_mode = "peripheral";
-+	/delete-property/ interrupts;
- 	interrupts-extended = <&intc 18 &tps 0>;
- 	interrupt-names = "mc", "vbus";
- };
+Changes since v5:
+  - Fix datasheet URL format in binding -- use stable link without /en/
+    path component (Jonathan, Siratul).
+  - Use 'adi' compatible prefix instead of 'maxim' -- MAX40080 is an ADI
+    product (Conor).
+  - Split MAINTAINERS into binding and driver patches (Siratul).
+  - Add datasheet link in driver header comment (Siratul).
+  - Fix comment style: capital first letter + period (Siratul).
+  - Fix register defines: add register name prefix (CFG_, FIFO_CFG_, IV_)
+    and use designated initializers for csa_gain array (Jonathan).
+  - Define MAX40080_ADC_RES_BITS and use BIT() for shift (Jonathan).
+  - Use lowercase 'mV' in defines (Siratul).
+  - Use C99 loop variable declarations (Siratul).
+  - Remove braces from single-statement if blocks (Siratul).
+  - Declaration and initialization in same statement (Siratul).
+  - Use IIO_VAL_FRACTIONAL_LOG2 for voltage scale (Jonathan).
+  - Remove unused i2c_set_clientdata call (Jonathan).
+  - Use defines instead of magic numbers for range default (Jonathan).
 
--- 
-2.55.0
+Changes since v4:
+  - Initialize tmp = 0 in max40080_read_iv() before read_poll_timeout to
+    avoid using potentially uninitialized value in the condition check
+    (Sashiko, Jonathan).
+  - Simplify max40080_get_oversampling_ratio() to use cached value instead
+    of reading from the device (Jonathan).
+  - Remove DMA-safe buffer from struct -- I2C layer already bounces data
+    internally for i2c_smbus_* calls (Jonathan).
+  - Make shunt-resistor-micro-ohms required in DT binding. The default
+    1 Ohm was arbitrary and rarely correct for real hardware (Jonathan).
+  - Remove PM ops entirely. Having only resume without suspend was flagged
+    as "papering over" possible power loss issues (Jonathan).
+  - Remove the {} scope around propname, declare it at function top (Andy).
+  - Remove mod_devicetable.h include -- i2c.h provides necessary types
+    (Jonathan).
+
+Changes since v3:
+  - Removed all regmap usage -- regmap doesn't support SMBus PEC or Quick
+    Command, both required by this device (Nuno).
+  - Fixed locking: max40080_update_bits() now takes the lock internally,
+    and callers update cached state after the call returns (Nuno).
+  - Consistent comment style: capital first letter + period (Andy).
+  - Use propname variable to deduplicate "shunt-resistor-micro-ohms" (Andy).
+  - Return IIO_VAL_* inline instead of break + return pattern (Nuno).
+
+Changes since v2:
+  - Added shunt-resistor-micro-ohms DT property with default value.
+  - Use single-shot mode with SMBus Quick Command trigger for correlated
+    current/voltage reads.
+  - Precompute current scale per range at probe time.
+
+Link: https://lore.kernel.org/linux-iio/20260730131738.822405-1-stefan.popa@analog.com/ [v6]
+Link: https://lore.kernel.org/linux-iio/20260723065036.2683075-1-stefan.popa@analog.com/ [v5]
+Link: https://lore.kernel.org/linux-iio/20260717123852.1140893-1-stefan.popa@analog.com/ [v4]
+Link: https://lore.kernel.org/linux-iio/20260715063652.368501-1-stefan.popa@analog.com/ [v3]
+Link: https://lore.kernel.org/linux-iio/20260713120226.90303-1-stefan.popa@analog.com/ [v2]
+Link: https://lore.kernel.org/linux-iio/20260703102941.1141341-1-stefan.popa@analog.com/ [v1]
+
+Stefan Popa (2):
+  dt-bindings: iio: adc: add adi,max40080
+  iio: adc: add MAX40080 current-sense amplifier driver
+
+ .../bindings/iio/adc/adi,max40080.yaml        |  65 ++
+ MAINTAINERS                                   |   9 +
+ drivers/iio/adc/Kconfig                       |  11 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/max40080.c                    | 572 ++++++++++++++++++
+ 5 files changed, 658 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
+ create mode 100644 drivers/iio/adc/max40080.c
+
+--
+2.53.0
 
