@@ -1,106 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6CBEED8
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 15:13:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958173FE64A;
+	Tue, 18 Aug 2026 15:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787066014; cv=none; b=sJ6uAl7J2gqttcH0mn32zirwrG50AWEfdziPfv5s8hDulVk7O4APM339cQ1RqDWCzKfYpMHgI/nvxPL7w5NXhmiXWEnqhr2EJwdiwdjJGN9z1rLPxgLMJl3tdtbDWaqHIcxE3Ugqo6Bbqvk7/aO2U3xkeG9pHJ+P67U5uUHIA5I=
+	t=1787066042; cv=none; b=V/JG1oH3uQxhs1S8MbNUg3X6iNb8xIEOEqOJr+9pUp2CPtyrO6Tut1CTaB6LEg8CLTAJH1N1LpkEI48VcP172FYs9PXPL5tw0GE0eykf1gzUo520QRXhUwLEOlAVm7Zq14wpvH9855Jyfzh0BhuLPqDYkjImNDRV1o6Byh+8TfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787066014; c=relaxed/simple;
-	bh=8b2Iwb8tv1h5+pC5nxEK2sQBcz28Miwyh5uuPfO4Ujw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NDQ87jTbH6lM2aNYCFgv6/wJrd8rkvia7g23l3i3mILd/Nh5XtveGCv4E4TaV7Q22DBIEFSoeT3tQMuZEyBd22eQ4ZX8WaH4/93oaVqKLPwLZn1X8kheKcv1tnyGtv17J5vMj3PVJ2sJmvCHOu73b4RRG6jc52b4ebhzv6Ypl2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfy48k8T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787066042; c=relaxed/simple;
+	bh=6MmH+kpC76+6fesPMfqkmar7ORlBB2GbNHsGo8g3f2U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rq9cLhLNzZTo6pVwbz57g46Ihe/aaU0LlX/8lphyPfFccRYkKEqxLBM2lurlMzWot+eR4GHsoQ+EDQwi9jiDWalv5+VncUbAjnwperxzjdRbvp3r0CCbh6qzSkUjwWtTT6Qm2woxWA0/ZP3NVXNfkCxO5J7T8woSwhCXa2P1MSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/yy6X+s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfy48k8T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8C891F000E9;
-	Tue, 18 Aug 2026 15:13:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/yy6X+s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4467E1F000E9;
+	Tue, 18 Aug 2026 15:13:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787066013;
-	bh=hYWPIKJ/MBMGhvrH9EYtG4KllVWA9gJ9sxf2dd+vCIg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dfy48k8Tc4/6rh+bmT5+7/NhIv/BlAZO20AepqvQf41I4EgSyj4WYwH8TNolaMVpc
-	 6mJRHn9RfkuHVeOvvIUFjjbee/S0X7mjFZVpnZnm5muK8ESqPkzEysgX3+1y219+6u
-	 xneFbsjYN/nEYVlBPPtR55r9xkX+vV6tK7njpwRSRajvyeNI733WUTF/A42/T1Ufyu
-	 +V1QEgsaW9eV3Uh+XjqqOnHlAaJKDs/I/36qca1ljAQx6imx5CQ4cMi4IC5ZJNVUYv
-	 N8s4CvaVFBfeRbZxigvejgrM7eA2RW3YMOYRhHhw68ppVLhtXBM6p/TElaF1+BUBXN
-	 B+qzocBthuxPQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Add
- Exynos5515 compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aiden Isik" <aidenisik@member.fsf.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260818-for-next-lucky7-chipid-v2-1-28ae49f5c349@member.fsf.org>
-References: <20260818-for-next-lucky7-chipid-v2-0-28ae49f5c349@member.fsf.org>
- <20260818-for-next-lucky7-chipid-v2-1-28ae49f5c349@member.fsf.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 15:13:32 +0000
-Message-Id: <20260818151332.A8C891F000E9@smtp.kernel.org>
+	s=k20260515; t=1787066030;
+	bh=QGrdUN8bDCKbvdAa910OPuj85w1SIvc9ELdb4zlGywg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C/yy6X+sWmFj7TXxqP9dFP6G7oEPmTfl4KmedNMr3Ft7COIunCTjja9LfvBEUkt2N
+	 pu1A4q5/DJSsgTsZDT2KifBihaFAneqwE7VpAba/lTCh1A5hinHrg9RrKyO55VVmQS
+	 7f3olDkexReljgvP/EHhc1qfy4z4eOdgforYxtUAPD2dkOoCKJPdnX7UP2ecFbiIBX
+	 UYRbSLbYlNQMP4XB5jlNWRt8VcX3xJtWpMiOi4mukza424GjsZu8DEOLK41Nz/xN0i
+	 oh96azYLco4JD7YV/e58unvWtCoOniJLrXmWUdbDZKvlhdRIdx14ux3EiloJlyUoJY
+	 WWVUqeGiOXWQQ==
+Date: Tue, 18 Aug 2026 10:13:49 -0500
+From: Rob Herring <robh@kernel.org>
+To: "Chiam, Evon" <evon.chiam@altera.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Lothar Rubusch <l.rubusch@gmail.com>,
+	Ng Tze Yee <tzeyee.ng@altera.com>,
+	Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
+	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+	Brian Masney <bmasney@redhat.com>, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: arm: altera: fix Agilex72 compatible
+ vendor prefix
+Message-ID: <20260818151349.GB1775252-robh@kernel.org>
+References: <cover.1786006669.git.evon.chiam@altera.com>
+ <b467b990e5290a2eccaedff826968a50fb51100a.1786006669.git.evon.chiam@altera.com>
+ <20260812024937.GA616612-robh@kernel.org>
+ <b027b8cf-a97b-4670-a57c-1585feccb21e@altera.com>
+ <20260814173551.GC1981719-robh@kernel.org>
+ <00e9e61c-e96b-47d2-b560-9a362c872a50@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <00e9e61c-e96b-47d2-b560-9a362c872a50@altera.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch adds the `samsung,exynos5515-chipid` compatible string=
- with a fallback to `samsung,exynos850-chipid`, but omits the necessary dri=
-ver update to support the new SoC. The `exynos-chipid` driver enforces a st=
-rict hardware whitelist based on the product ID and will return `-ENODEV` d=
-uring probe when it encounters the unknown Exynos 5515 ID, rendering the fa=
-llback useless.
---
+On Tue, Aug 18, 2026 at 04:19:22PM +0800, Chiam, Evon wrote:
+> 
+> 
+> On 15/8/2026 1:35 am, Rob Herring wrote:
+> > On Fri, Aug 14, 2026 at 04:18:59PM +0800, Chiam, Evon wrote:
+> > > 
+> > > 
+> > > On 12/8/2026 10:49 am, Rob Herring wrote:
+> > > > On Thu, Aug 06, 2026 at 05:25:01PM +0800, evon.chiam@altera.com wrote:
+> > > > > From: "Chiam, Evon" <evon.chiam@altera.com>
+> > > > > 
+> > > > > Altera has separated from Intel. Update the Agilex72 SoC and board
+> > > > > compatible strings to use the Altera vendor prefix instead of intel.
+> > > > 
+> > > > Sorry, without better reasoning, you are stuck with them as sashiko
+> > > > pointed out.
+> > > > 
+> > > Sashiko’s comment on the DTS still using the intel compatible strings was
+> > > based on reviewing patch 1/5 alone. Patch 4/5 moves the Agilex72 DT from
+> > > arch/arm64/boot/dts/intel/ to arch/arm64/boot/dts/altera/ and updates the
+> > > compatible strings to altr. With both patches applied, the bindings and DTS
+> > > remain consistent.
+> > > 
+> > > Would you prefer that I combine the patches 1/5 and 4/5 into a single patch
+> > > so the binding and DTS updates land together?
+> > 
+> > Moving the dts directory is fine (though that is really up to SoC
+> > maintainers). Changing compatible strings is not. It is not about the
+> > patch split. It is an ABI. There are exceptions though. Generally that
+> > is if there is no one with the h/w or the current .dts is so incomplete
+> > that anyone using the h/w will need to update their DTB anyways.
+> > 
+> > Rob
+> 
+> Thanks for clarifying.
+> 
+> To provide some context, Agilex72 DTS is still at an early
+> stage of development, and most people do not have access to the
+> hardware yet. Anyone using the current DTS would need to update their
+> DTB, so changing the compatible strings at this stage should
+> not cause ABI issues.
 
---- Patch [1]: [PATCH v2 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: A=
-dd Exynos5515 compatible ---
-commit c6d7dc985bd68c7bd5ad1ca061556d7ae1c7ee31
-Author: Aiden Isik <aidenisik@member.fsf.org>
-Subject: dt-bindings: hwinfo: samsung,exynos-chipid: Add Exynos5515 compati=
-ble
+This information needs to go in the commit msg.
 
-This commit adds the samsung,exynos5515-chipid compatible string to the
-exynos-chipid device tree bindings documentation.
-
-> diff --git a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chip=
-id.yaml b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.ya=
-ml
-> index b9cdfe52b62ff..619faf33214bd 100644
-> --- a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
-> +++ b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
-> @@ -25,6 +25,7 @@ properties:
->        - items:
->            - enum:
->                - samsung,exynos2200-chipid
-> +              - samsung,exynos5515-chipid
-
-[Severity: Medium]
-Will this compatible string actually allow the driver to probe on Exynos 55=
-15
-hardware?
-
-Even with a fallback to samsung,exynos850-chipid, the exynos-chipid driver
-enforces a strict hardware whitelist based on the product ID:
-
-drivers/soc/samsung/exynos-chipid.c:exynos_chipid_probe() {
-    ...
-    soc_dev_attr->soc_id =3D exynos_product_id_to_name(soc_info.product_id);
-    if (!soc_dev_attr->soc_id)
-        return dev_err_probe(dev, -ENODEV, "Unknown SoC\n");
-    ...
-}
-
-Does this require a corresponding driver update to add the Exynos 5515 prod=
-uct
-ID to the whitelist so the probe does not fail with -ENODEV?
-
->                - samsung,exynos7885-chipid
->                - samsung,exynos8895-chipid
->                - samsung,exynos9610-chipid
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-for-next-l=
-ucky7-chipid-v2-0-28ae49f5c349@member.fsf.org?part=3D1
+Rob
