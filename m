@@ -1,152 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFF147F2E1;
-	Tue, 18 Aug 2026 16:38:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D39647DD55
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:42:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787071100; cv=none; b=h9mXNgI28slE0YuP5Soa8Fd+qF7KXGRSG4DMk/qnTq1jmDytpcXtpYALseYc1hdaXvvaIlS0g8LR1SBFcpdBcn7jknRKshMM94XuV6nE3jSgZ2qqPvktQn9Z2eIxCJoqnqPmkWpYeYyU8uPjHCtJtZLk+3UheF0Sq9xSw6VE8nQ=
+	t=1787071374; cv=none; b=UtFXEGOFN1THCegtMx3CAedMNkFG/Vt4EmgLv/xzKhA0nNEa2iR15IknLdZbxJcJpFXVJ5YIRKPMfhjldepdugf9NUUATca8PA08dkP/XMLedXSClRq4zh9dsjuNgeSMy3NOjkrlXqut6L961YXJ8REEl0VKjn5Gq15q4T3WAdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787071100; c=relaxed/simple;
-	bh=Pir/9iu4vrrOZSRmeQ9oxLSlxsN/3ktKzgfRYMC9ug4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HGAJIC0F82vze4E/DUz+n1lmT/LIkFjkkhppAHEu/qqDv4ZMTUeqFfXrVbeMnPQ9gfGdjZE14GOI1EB7gAnnL5tgXC22BpAo4KtUmrJS2LIPfluyiY21Agi25gJxGNmeJMNpTrte+LAiAmhTm6l8lyYLN0PCysCXxlU02KU4mBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZRwzbr/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787071374; c=relaxed/simple;
+	bh=vdHXjon9Sh6Y1CDovfPe7eqt4JkunVYfJEkHNJKJAss=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nvolbFjxXLH1A3bMcoSaWe2N1HlZUSXe0IE3MART2/tU34jTd+SBu8oCGc0fX+SbxOzrJUCHJHRhF+wW3TUE3RQSkC/sJfwMr1FrxlN1y9eXpFPZfXUrMAvkaP89TyMc4KQ+mu/vl6P4p5E2hJYy9cN/80aIFgWupgYcVWjACsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rdq/I0/C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZRwzbr/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1B71F000E9;
-	Tue, 18 Aug 2026 16:38:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rdq/I0/C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADCF31F000E9;
+	Tue, 18 Aug 2026 16:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787071098;
-	bh=z1NUCSnANL+DoYXEy1Eg4Lj1F5LfC/BGvmV+DHJkSbc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dZRwzbr/C3Yj2NoyC8oIZdZmX8VZvuCiCz8IQo4RIUhAoEIeXzf7LOgtD3OmASlOo
-	 Oa4N5ZNlwKEXDfPM695kObIif6Y6KwT8KnF50sQ1qxxpk8Nr9s6XTezPd991DT9wsk
-	 G1kcpQnLqCj7wcIyXJx+7Y82WKL6bhgDWdKLO2au9W0E2FJIRvilidTLNM9fbaWLjq
-	 XqN2wDrqpeu0AdciE6cUdkzbxSkz1igrDM3amLjpgPfQlqopLrXGP4OQ7KH/XKvAzv
-	 xpnV6jAn1ktLF1V0D3Dgw3hj+1bVO9zHxKnnnSEiFiEm+PQe9qK7QKsrlT+o2t/0TS
-	 wL9zXbYoK5fNA==
-Date: Tue, 18 Aug 2026 17:38:09 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: <linux-iio@vger.kernel.org>, <lars@metafoo.de>,
- <Michael.Hennerich@analog.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <andy@kernel.org>, <dlechner@baylibre.com>,
- <nuno.sa@analog.com>, <siratul.islam@linux.dev>,
- <u.kleine-koenig@baylibre.com>, <linux@roeck-us.net>,
- <joshua.crofts1@gmail.com>, <ciprian.hegbeli@analog.com>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <20260818173809.76a05ac4@jic23-huawei>
-In-Reply-To: <20260818142928.8244-3-stefan.popa@analog.com>
-References: <20260818142928.8244-1-stefan.popa@analog.com>
-	<20260818142928.8244-3-stefan.popa@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1787071369;
+	bh=igN8MvIpI44umRS/0dWbNPJSPuviwFn5LnynMybEqtI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Rdq/I0/CYa0NYt1L8JTyPU0KtwhYG0xk4VjTWWmBPehVmXqVG6CIy6B4KUqXLLeM0
+	 nxR4udXrues2QI7mngBaaNDYbEWSisFHD1vIzZIoNHg1Di37vPsIWXSypIICK3p1Ga
+	 n7G9v1gYxq0WaxvHTzrNG1sAxAkMdkxCiICgifwQ1TXLrorLtzdykmjnQmnz8A3Wqu
+	 Y6qKTtpovr80fWI2be0m7CgReyIOesEIpb5RfYf7h4Zh9WuWxpZCCRL3SIJSpb68Id
+	 /9/Eh9PWEHmyfn+TsSn/tOY6x9slIOD9Zlxo8GYUQZqzFxyIZCM0CDVMh9plK1PAaZ
+	 PtX2j8yIEGsZA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
+References: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 16:42:49 +0000
+Message-Id: <20260818164249.ADCF31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 18 Aug 2026 17:29:28 +0300
-Stefan Popa <stefan.popa@analog.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Binding Schema Violation: `additionalProperties: type: object` is a=
+n anti-pattern for allowing generic child nodes.
+--
 
-> The MAX40080 is a bidirectional current-sense amplifier with an
-> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-> voltage across an external shunt resistor and the input bus voltage,
-> storing the results in an internal FIFO.
-> 
-> Add a direct-mode IIO driver exposing the current and voltage channels
-> with raw, scale and hardware-gain attributes, a configurable
-> oversampling (digital averaging) ratio, and PEC-protected register
-> access. The current scale is derived from the shunt resistor value
-> described in the device tree.
-> 
-> The driver operates in single-measurement mode: each raw read triggers
-> an on-demand conversion via SMBus Quick Command and returns a matched
-> current/voltage pair. This avoids the latency and complexity of the
-> continuous FIFO mode while ensuring each read reflects the current
-> state. The two selectable current-sense ranges are exposed through
-> scale/scale_available.
-> 
-> Continuous FIFO buffering, threshold events and the alert interrupt are
-> intentionally left out of this initial submission and may be added
-> later.
-https://sashiko.dev/#/patchset/20260818142928.8244-1-stefan.popa%40analog.com
+--- Patch [1]: [PATCH] dt-bindings: bus: ti,omap-ocp2scp: Convert to DT sch=
+ema ---
+commit 1199d265b1ac5f3fa059bb1936e3713c5ea7ac99
+Author: Bhargav Joshi <j.bhargav.u@gmail.com>
 
-The copy being optimized out is likely complier optimization so I think
-sashiko is correct that you need READ_ONCE() (and probably the WRITE_ONCE()
-as well)
+dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
 
-> 
-> Co-developed-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-> Signed-off-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
-Otherwise, just trivial stuff from me.  Andy caught a lot more than me!
+This commit converts the ti,omap-ocp2scp bridge device tree bindings to
+dt-schema. It updates required properties, marks ti,hwmods as deprecated,
+and sets additionalProperties to type: object to represent various child
+phy devices.
 
-Given this seems to be coming to a point where it is ready to be applied
-(hopefully v8) feel free to send a new version out in a day or two rather
-than waiting a week.
-
-Thanks
-
-Jonathan
-
-> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-> index 7cc8f9a12f763..9245a337dd935 100644
-> --- a/drivers/iio/adc/Makefile
-> +++ b/drivers/iio/adc/Makefile
-> @@ -166,3 +166,4 @@ obj-$(CONFIG_VIPERBOARD_ADC) += viperboard_adc.o
->  obj-$(CONFIG_XILINX_AMS) += xilinx-ams.o
->  xilinx-xadc-y := xilinx-xadc-core.o xilinx-xadc-events.o
->  obj-$(CONFIG_XILINX_XADC) += xilinx-xadc.o
-> +obj-$(CONFIG_MAX40080) += max40080.o
-> diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
+> diff --git a/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml b=
+/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
 > new file mode 100644
-> index 0000000000000..4b397bcd145b2
+> index 0000000000000..a8852185144dc
 > --- /dev/null
-> +++ b/drivers/iio/adc/max40080.c
-
-> +/*
-> + * Configure the device from the cached state. The device powers up in standby
-> + * with PEC enabled (CFG POR = 0x0060), so PEC is kept enabled throughout.
-> + */
-> +static int max40080_init(struct max40080_state *st)
-> +{
-> +	u16 fifo_cfg, cfg;
-> +	int ret, filter;
+> +++ b/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
+[ ... ]
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ti,am437x-ocp2scp
+> +    then:
+> +      properties:
+> +        reg: false
+> +    else:
+> +      required:
+> +        - reg
 > +
-> +	filter = max40080_oversampling_to_filter(st->oversampling_ratio);
-> +	if (filter < 0)
-> +		return filter;
-> +
-> +	/*
-> +	 * Put the device in standby before (re)configuring the FIFO: the FIFO
-> +	 * configuration register can only be written while the device is not
-> +	 * converting.
-> +	 */
-> +	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_STDBY) |
-> +	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1);
-> +
+> +additionalProperties:
+> +  type: object
 
-As below.
+[Severity: Low]
+Is it intentional to use type: object for additionalProperties instead of
+patternProperties?
 
-> +	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
-> +	if (ret)
-> +		return ret;
+Relying on additionalProperties: type: object requires non-injected propert=
+ies
+to evaluate as objects rather than scalar or array values, which violates
+json-schema semantics for standard properties.
+
+Should this instead use patternProperties to explicitly match generic child
+node names (e.g., "^[a-zA-Z0-9,\-_.]+(@[0-9a-fA-F]+)?$": type: object)
+combined with additionalProperties: false?
+
 > +
-> +	/* Store a matched current+voltage pair per conversion. */
-> +	fifo_cfg = FIELD_PREP(MAX40080_FIFO_CFG_STORE_IV_MSK, MAX40080_FIFO_CFG_STORE_IV);
-> +
+> +examples:
+> +  - |
 
-Where you have pairs like this of setting local and using it, drop the blank line.
-We want those to be visually closely coupled.
-
-> +	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_FIFO_CFG,
-> +					fifo_cfg);
-> +	if (ret)
-> +		return ret;
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-ti-ocp2scp=
+-v1-1-9d2885011cda@gmail.com?part=3D1
