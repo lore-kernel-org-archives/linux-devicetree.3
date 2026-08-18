@@ -1,224 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB850440A33
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3637843B6D2;
+	Tue, 18 Aug 2026 09:27:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045233; cv=none; b=QFjnSlJIku0v+lEuqjasgsDhK8UVP+6nslPK/HkmpW6CvjoosG9fmgEkDyst/Qzj1U0zzSgZA20nve1sOSD7ln63SARFEUnYDIYJIn4+ObWxMOwNMbD/4KFqbECT0Gh57lvdVh6oygEggB07JpuMjqT/V16HYDnajBEMufKlyTs=
+	t=1787045242; cv=none; b=dzxQpIDcZilsPW1cMTbwUz79Czlt6espslnnoCvTZZQhcpcz/ke32L2VWLuZf0uG3xgtVNHEG4lGir+Q57HWZQVCxuuybIjzKbygk4gg8uxwBpjyOtye4UvWwW3fWQJVvbFIGyNA8spR8ayvV/1Phz/RC0E5HQmzOpWmyYluefc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045233; c=relaxed/simple;
-	bh=HOzaqn7FWoU3uqnSOyQBd4TPMxWPjZbi9HMAsVsni3o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L+Bes4lga8kNf7SxAHFES9Rr3liIewQI9ouHXb+HNCEsTMpXphrrN2/J/SFpQOtozuHbhCMrP3o2KC1m/Qstbwo4nudjOgmNFs3CdJdNLhWCXf0tr0IQe0oEGxxxG4PamtnKq6weQ5wC1KMLCc+2r8fRiw32l3BBBRkfki6rRz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=edAcXKQj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cip6frNv; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787045242; c=relaxed/simple;
+	bh=Hm5iA7rQ9wRf10t9wWTq1D1NjE/GsevP4mmq3wlK4Go=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H2jw6DB+5sQzv2HO88CrcEFAWr7zN0AEyA/tdMwfdh2kuks0yMl+C25YdcAAoALS6Z8KeGH4CdrodZFVwfTx4QxYesURXbae5MNygcwnpU7PBfbjPW/JnGR/bQn4fBR1ZVqWwrFTgNyGxy5Mb20rbVyhuBJDXx7asatF4M/avBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXKhSwse; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="edAcXKQj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cip6frNv"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BNUH3703608
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:27:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wAv7FEBc74k6otJNq9YtrT7LHKiphv7DSNne9Vn5z3M=; b=edAcXKQj7CErUlUW
-	cH9Jy9zQiEG7I4PY9wgxjjNmqeVCXEi7vfRzTTyGNwm7nn2ink/PdvGgpsUzpMcI
-	hx4rCDonlcICcju3bdVn8zguJhFs1HHg24zhbWEVgjgY2kDoIMJ4eL33PI6tFPd+
-	bWmr5hkkQMEAlTMNYfDHhiV7BP1dQqFx+ao5YHL5Q8C7dhsBwELTNSU9OZOr+0is
-	zaDpRI6/6PPNGsB3uv69e7mI7P/3gQfP5B67BrTG/7RRp9epfwevgQR4HmarJ99z
-	e9+DWyqAJp+k5QShAFOMkaFON+VK2BP8O35duiE44pSw6nTqMIo0cng5fpeXXZ3s
-	3eaGHg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4ebpsqc4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:27:10 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-930b81c13b0so32257185a.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:27:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787045230; x=1787650030; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wAv7FEBc74k6otJNq9YtrT7LHKiphv7DSNne9Vn5z3M=;
-        b=Cip6frNvHvYWkZypSNX5Q9FrEebv4VigEQCgaAtWPnn/Wl+5bSH8fVJ6dsNAfZF9Dl
-         wKeI6bmnorxaMUPjzxDBmv2B1T5TAazsb2RbSw8Sozt51BRf14UI/d/ZUryrpwGCaa/F
-         Y1a8M9t51/CXykTCeE6GDphoP2nDdq+PK6iwsDir3/eBqbtb3SexRJ3e1lL6wH/CGIAP
-         duuAtTnvtkgj0+2lj7JRB+50xQQdQY25WFQDXUQQ01H3gz5lFYtsmlmwIUXZnSQ021At
-         YoKM01DCh2+P7iuu6UZn69mnixLbh4DJ4sIFiaRQogc3AK+chVr88WNfY7cr6Fj20QA6
-         1DVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787045230; x=1787650030;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wAv7FEBc74k6otJNq9YtrT7LHKiphv7DSNne9Vn5z3M=;
-        b=jr5UFaRE5s2/sHdxq4f0UMSABYLITEPJNBIWhnT095vhjMMII7Oksh+V1QXANKnCCW
-         AeP9OaejUmnOWfx0C83I2bzAgyzaU4wx/J1eJgh2yARkM+mQyPiB9Tbpqlam7ksnfwsf
-         Iqpm1evmH70R0MjXlMzHu0756hoUOmE2Zvg7T3RF3Qzv/dy/kykbpRBJdSd6vSZ8N/em
-         ApJiCPIEEce/6wFq2H7FU9oEFNh9SS00fxwCZzvGZMI/ffSByZ1eYq/LdoO3VTFY/G8o
-         FTXVKsY/JH6W/+lgilYDzxLY0dYF8wiN7UX8be2dez34YC2JxkI1PWI+z0CJX7P7ZKn0
-         4HAQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrj/h37yvWCfZixxMzkkrwcIsGgqrrl/OvwU0i6tuEAiUGc2IrUa6e3dI9bea9MpaIoJFWURcX1SnEN@vger.kernel.org
-X-Gm-Message-State: AOJu0YyP5YEQpuTZLfELSQiURCYCGPFRSIC48GLWJWfWKuwCBnvb9Vz6
-	+ezj/N7fOIB/xytIkq8hmzt1VocG8cXVH3l+Jzhrt0HZPmccprDFJTwtcNTlvH0qpJEVOm1NqXn
-	gzoSZUvqXsKnBJox9em/xps3Pl5WcGcf0GWVP+aMwUyBkwNOXPydX4nuturv8KOQg
-X-Gm-Gg: AR+sD12zds2/7+wElH673GjhozvEjsqIqOzWCg6md45DgvmdhfHHWhiUY3NHFnCIuwd
-	XHGp8CwqDqXHQjWf7fkte+KFP34MW1bl8k6tmzgJDLLc/xE6DxbejTf0ezLiJjc1izwEKC3jLmJ
-	OTcQ0RZpjqXAl+wfTpGOZ/LXwuha1b8cK5jdKxBxgqSH4LP8o/576UEMWUwup6qtjGQU56hsa6N
-	Vx1E4Psnyu7JRP44FRompNBfUT4H1d5SgNJ+LVHR93xOYaAlhiCbN/2Mh3mqV2YWztdyaoSWxUp
-	39uraOTxQ/k4rbmczJk7OQysv9lpO0K0uKGB/usvoCoDUQl4351CjDa3YtJ9xZ40HD2Nw73LKL3
-	+g/3KU3EpG/8sAar7K/Qm7aCW
-X-Received: by 2002:a05:620a:800f:b0:936:5ad0:fdae with SMTP id af79cd13be357-936d23c8621mr2510698985a.4.1787045230047;
-        Tue, 18 Aug 2026 02:27:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:800f:b0:936:5ad0:fdae with SMTP id af79cd13be357-936d23c8621mr2510695985a.4.1787045229545;
-        Tue, 18 Aug 2026 02:27:09 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185b73db1sm125126366b.40.2026.08.18.02.27.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 02:27:08 -0700 (PDT)
-Message-ID: <8f05bf47-183f-4586-8ed2-eb2277f15c98@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 11:27:06 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXKhSwse"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807891F00A3D;
+	Tue, 18 Aug 2026 09:27:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787045240;
+	bh=pCAeP45dNHcS3g9M4gwt3hWaJQOzRtTIoJ9n13+qIfo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FXKhSwse5JpUIXXbguePgh5Q4+Wjri1Bk6ZOg8YeaYZemFTg1obCHqVZG2uPbI1Ea
+	 zi6eiRfzz5dqkwzZpjf4gRxD5f5DD4tKT/8aBvA4zmkDWwV/BbCO6tOlMONcexyKou
+	 g0AfU95Db6jL5E0+9H2sBm2hLkTjUPYtCpN2td0tzyqpLwNaB1ECxjqkGFQ5mWelvw
+	 Xn4jH5f6IvgGaQt51GRfoklu1XNSBevKtjELBHLNMiK0+s0c8cIBJ83EHhbHk6IPpk
+	 RVz8GwpdEeLJfzDAaR/JqoUfwUQwZRHwbqldpRS7P93yPKEivpwLdNxzy9R/QKCC+L
+	 oll2GRe8z2ltQ==
+Date: Tue, 18 Aug 2026 11:27:07 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Yubing Zhang <yubing.zhang@rock-chips.com>, 
+	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
+	devicetree@vger.kernel.org, linux-usb@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+	William Wu <william.wu@rock-chips.com>
+Subject: Re: [PATCH v14 00/38] phy: rockchip: usbdp: Clean up the mess
+Message-ID: <h54c2hrcsv3zjzzgojzf5sjmu3vtpobz6rwloam5kp7mwqqn3n@bqjnlellvnz6>
+References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
-To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260809-dipper-v1-0-eb4d501e85df@ixit.cz>
- <20260809-dipper-v1-2-eb4d501e85df@ixit.cz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260809-dipper-v1-2-eb4d501e85df@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: EaawJtJQ37ZrCGm6WfXwtwovkEE9QiFb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA2OSBTYWx0ZWRfX/qmJviXIbJ78
- RvPPksLZkCrpXz+IdPxKZbR96jQKlub1ggTGZy7x192XTKVXa55MDaBaIyahI/3FkQY5KWf8f1x
- Vm9ND8HFqBcUPanQan+w0xDuGHRXL+ogZbf5k4d2diSqmTZlGGXAJQpwXNT2x+FVXlMJcIuKriP
- B7ZMKzuPHE52WhuxHpCCShs8vV+jY5AeRgtpdKoOzrn+8dNKlosJ/kCUuAmgmbciv7rXLBwX6dk
- 90pKYFAx3ma+qCYqLvkb65V8jiBLDkj9RBeUfk3qQlsXjae4JF1qiDHoyrfnrIdRu6awhm+jypv
- vyVfJPySWlmJ8acZ3cv8WdResmsqFwTNCHVXPBjavk+dKnrxeHzYYYleaV3ONgphRyR3ml9ua74
- aa2dh6L6ZwyQvj+J1kwLYVAAUubUGu95nlcztlspiX4HIjZ98yb/ujYhAdEOnh+zA3/uUtrHoxO
- NrP+HH/OHtC/ttY83Bg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA2OSBTYWx0ZWRfX7keTsjlVDrgV
- rfaee1Sy9PoHKgkeZE77liCJzdBZSJ4ddTxQJeaOAYblfA+QBsaLZmGEeOQIRUVp9j8NTRBr0RX
- Z9Nz0qTe0mQRikX/0jqQxX8PZ3mIM4M=
-X-Authority-Analysis: v=2.4 cv=FsU1OWrq c=1 sm=1 tr=0 ts=6a84256e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=B_xDH1FeeQEyQcU7W4IA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: EaawJtJQ37ZrCGm6WfXwtwovkEE9QiFb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 malwarescore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180069
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
 
-On 8/9/26 6:48 PM, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+On Thu, Aug 13, 2026 at 10:51:43PM +0200, Sebastian Reichel wrote:
+> This series does a major overhaul of the Rockchip USBDP driver. The
+> initial main goal was to add USB-C DP AltMode support to the RK3576
+> and RK3588 and this series still prepares the PHY driver for exactly
+> that. But in addition to that I uncovered a huge amount of issues,
+> that are fixed along the way. Some of the more interesting ones are:
 > 
-> Initial submission for one member of the prime Xiaomi Mi 8 family.
-> Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
-> Known differences are battery capacity and fingerprint sensor placement.
-> This submission includes basic abstraction for other developers to be
-> able easily extend it to support other variants.
+>  * Currently the driver might trigger a fatal SError on USB-C hotplug,
+>    since re-initializing the PHY stops the clocks going to DWC3. If
+>    the DWC3 driver tries to access its registers at the same time the
+>    system will crash.
+>  * The DWC3 hardware can get into a buggy state when the PHY is
+>    disabled, which results in the PHY not coming up properly again.
+>  * Swithcing the USB-C connector orientation during hotplug breaks
+>    USB3 speed, as the PHY is not being re-initialized.
+>  * The code always enables DP mode when USB-C is involved.
+>  * The driver has some locking issues uncovered by Sashiko.
+> 
+> In addition to these bigger ones, Sashiko also found a bunch of
+> minor problems, which are mostly harmless, but were fixed while
+> going at it.
+> 
 
-I had one of those. IIRC the Pro had a 3d IR scanner (vide face id)
-whereas the base one had a normal IR cam
+38 patches for a single series is too much to review. Please consider splitting
+it up into multiple series not exceeding ~10 patches per series. Thanks!
 
-[...]
+- Mani
 
-> +	reserved-memory {
-> +		adsp_mem: memory@8c500000 {
-
-adsp@ etc. and drop labels where unused
-
-[...]
-
-> +		linux,cma {
-> +			compatible = "shared-dma-pool";
-> +			alloc-ranges = <0 0x00000000 0 0xffffffff>;
-> +			reusable;
-> +			alignment = <0 0x400000>;
-> +			size = <0 0x2c00000>;
-> +			linux,cma-default;
-> +		};
-
-Is this necessary?
-
-> +	};
-> +
-> +	vph_pwr: regulator-vph-pwr {
-
-This is out of order
-
-[...]
-
-
-> +&adsp_pas {
-> +	firmware-name = "qcom/sdm845/Xiaomi/dipper/adsp.mbn";
-
-Would you know whether the FWs are common across the SKUs?
-
-And more importantly, regulator settings? FWIW it's easiest to compare
-compiled DTBs (or even better, ones pulled from sysfs on a running
-system)
-
-[...]
-
-> +&tlmm {
-> +	gpio-reserved-ranges = < 0 4>, /* SPI (Goodix Fingerprint) */
-
-odd space after <
-
-> +			       <81 4>; /* SPI (Synaptics Fingerprint) */
-
-No NFC eSE reservation?
-
-[...]
-
-> +&usb_1_dwc3 {
-> +	/* Until we have Type C hooked up we'll force this as peripheral. */
-
-Should be fairly trivial on 845, no?
-
-> +	dr_mode = "peripheral";
-> +
-> +	maximum-speed = "high-speed";
-> +	phys = <&usb_1_hsphy>;
-> +	phy-names = "usb2-phy";
-
-No SS?
-
-[...]
-
-> +	bluetooth {
-> +		compatible = "qcom,wcn3990-bt";
-> +
-> +		/*
-> +		 * This path is relative to the qca/
-> +		 * subdir under lib/firmware.
-> +		 */
-
-Let's drop this comment, not very useful
-
-Konrad
+-- 
+மணிவண்ணன் சதாசிவம்
