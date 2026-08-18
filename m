@@ -1,114 +1,106 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A888345FFB0
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 15:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6CBEED8
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 15:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787065850; cv=none; b=B+5Q1bFoHmVUYYOwjdq1uY3P7appMSwVCA18xmKwKj3MZ7Y3JejPAw7sZcG7JQZBMWf8uJZI9gNhBFUzhUGRBMzsZm6J//mtU1N72g4zPG9COn+R6OhrOeJolhz+c+lajon4AoNzy8QW5uogxQqTraxUPRhZyuY+Zaiynpcna18=
+	t=1787066014; cv=none; b=sJ6uAl7J2gqttcH0mn32zirwrG50AWEfdziPfv5s8hDulVk7O4APM339cQ1RqDWCzKfYpMHgI/nvxPL7w5NXhmiXWEnqhr2EJwdiwdjJGN9z1rLPxgLMJl3tdtbDWaqHIcxE3Ugqo6Bbqvk7/aO2U3xkeG9pHJ+P67U5uUHIA5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787065850; c=relaxed/simple;
-	bh=+7pHwsnV4lHrk8bBeQ822eoOERyjkAcl90hyw9Ad1Eo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dq69kRjpVkb6i7gOH1atkQ7KglNYwDZqeVSz49K0pz48hXuiANtHXVkxgnVF+nudTCXh1NbEeKs8bjBzlJs6t4RyPTwQ7iHje3coQlzpBk5rOM/WLcZUi8a9GlGOI4wAUu/2lNIfH1zOM4nOOuIWRkNnIw7qhUIwO4PgHTz5Nz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WH/J7bt2; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787066014; c=relaxed/simple;
+	bh=8b2Iwb8tv1h5+pC5nxEK2sQBcz28Miwyh5uuPfO4Ujw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NDQ87jTbH6lM2aNYCFgv6/wJrd8rkvia7g23l3i3mILd/Nh5XtveGCv4E4TaV7Q22DBIEFSoeT3tQMuZEyBd22eQ4ZX8WaH4/93oaVqKLPwLZn1X8kheKcv1tnyGtv17J5vMj3PVJ2sJmvCHOu73b4RRG6jc52b4ebhzv6Ypl2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfy48k8T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WH/J7bt2"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c20ce3c118aso210653666b.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:10:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787065845; x=1787670645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XJ2AQS/8vCTGcQEdQTct21p9QgOdd8opq2N9gve7b/s=;
-        b=WH/J7bt2wH+HBMoxP887XG7EtzPN3XLvEbs5iinkE4w01sz3/q2sDXMyA//RtJBGjD
-         9sW4NknHMTSDBrGY9m5KM4MoagEF7cHSQh6Jk/ybrogiLMqf2LDXqFePMXRUTQpG9jVT
-         Di8n1tz7KW4Z62qS4jLpAvbClMMbB78dYOYkO9WaPgWhMJf1PbdRX7KIobVmy4lhiR8Y
-         KdUq4fPLqnyC84Dcwia8KjhLbeT+ONgFZphs7eHXNJZcjJoqf/o4AWIaj41Ao4yf0ma6
-         TJpMilqQM0aGm/B0LZrplh5CPSd5NlSiAhp6qyOIu85t5CHBd0MR0EaeRJ5cmUQyKD9N
-         gbkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787065845; x=1787670645;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XJ2AQS/8vCTGcQEdQTct21p9QgOdd8opq2N9gve7b/s=;
-        b=PwgC+1677viGytP8JNJbE5d/RKdkZx7RvaEqHg7Pk4NOAx+hglkx34gN6vMP75N3Vb
-         BzjCALGhT0z85Li330TDreXCmj900ZIwLjrk+zR7nhqjuUfJRJt+ZYLKjhhdga7u6N3O
-         2x+AsF1rRQnT+34nf31rnag9z1WDtp1M29mSThxW/PClVcLsFwofN+7qhGxZKFM1Alp/
-         3o5jaKil6fLMPSs7DLxRvcAWP9KB+XOJ+vbpnSsUOdtzeUcAqFnFUPB1eGu84Qcosfbu
-         mRvMxxCHZrzvwkeChnOmbVke02Ipv2sYDQKFq/PudC1pa8tjNjuzho4uFyc+dxJgoFO4
-         uYag==
-X-Forwarded-Encrypted: i=1; AHgh+Rpp59gy5tc2woUXeFICBAdKwtRUY+4y6C4FXTBOmqXx6S/j07g0FXa4UyIltNjHZxnDqhi+ZBSSyvBC@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLiixmhMpvk5iBlFka2Hq5sWon6201b2/A//d6VnLCCFogfT5e
-	hLu1BIZhhy3bUKvCP3YFEcFc5lTb/bv7DfzBm4+kC/1cJYltSrbxYnnV
-X-Gm-Gg: AR+sD12ogfvmsoVmXjSlE+HfelvNmqaqoSdRfWnKAu7yaUSEG+shPMUu0GZtx/cSRy4
-	Io61Tvckkg6radxJJmQ+b2hWnKzOnolrdSj3HENZvijJLlpUuvePQU4QnEQmf9N2z7GME3TwfNR
-	V9lLAx5QJxYHX6rLFmzgrV51RAhzKvXJNTk7AGbUgVdoB1rg9vMqEjWdeDDpIq9CfYQUPnzg927
-	2q02ujn2Sekry5FmcEYkGl+n//SEAdaVwgbzlAqRX7d6wkpGpZLPviDv+uOmEPo6JwNBLrayTS4
-	+4S+Mx/QYBmgy2/IS/Cf0FATaMlbI2n/eC92rPX83LPt0tBNdNTYkmZ0/TtES21zIXcv7TFR65v
-	dgX/YVoVNQ8th1KcMFt/7FspqHet3kDyDDKBYzjrefgAD3kkrqr5uR9sueNNqpf2XyllmufD5zV
-	5Xkg2yT09X/Gh8UvTUs3MxK8XwuwgGI2KSBKKrnc+kkCIIv96cPy8D/3873F8imdTG1HkevFuWT
-	iC7C9ZcoQxjCDdKT7BlnkxDFQEXLoEKuA==
-X-Received: by 2002:a17:907:6d1e:b0:c20:f85f:e7c6 with SMTP id a640c23a62f3a-c218b0b63a1mr487444866b.8.1787065845137;
-        Tue, 18 Aug 2026 08:10:45 -0700 (PDT)
-Received: from workstation (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c217fe69cf4sm205772266b.3.2026.08.18.08.10.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 08:10:44 -0700 (PDT)
-From: "user.email" <zstaseg@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Stanislav Zaikin <zstaseg@gmail.com>
-Subject: [PATCH v2 3/3] arm64: dts: qcom: sm7325-xiaomi-taoyao: switch to device-specific pmic-glink compatible
-Date: Tue, 18 Aug 2026 17:10:39 +0200
-Message-ID: <20260818151039.409767-4-zstaseg@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260818151039.409767-1-zstaseg@gmail.com>
-References: <20260818151039.409767-1-zstaseg@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfy48k8T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8C891F000E9;
+	Tue, 18 Aug 2026 15:13:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787066013;
+	bh=hYWPIKJ/MBMGhvrH9EYtG4KllVWA9gJ9sxf2dd+vCIg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dfy48k8Tc4/6rh+bmT5+7/NhIv/BlAZO20AepqvQf41I4EgSyj4WYwH8TNolaMVpc
+	 6mJRHn9RfkuHVeOvvIUFjjbee/S0X7mjFZVpnZnm5muK8ESqPkzEysgX3+1y219+6u
+	 xneFbsjYN/nEYVlBPPtR55r9xkX+vV6tK7njpwRSRajvyeNI733WUTF/A42/T1Ufyu
+	 +V1QEgsaW9eV3Uh+XjqqOnHlAaJKDs/I/36qca1ljAQx6imx5CQ4cMi4IC5ZJNVUYv
+	 N8s4CvaVFBfeRbZxigvejgrM7eA2RW3YMOYRhHhw68ppVLhtXBM6p/TElaF1+BUBXN
+	 B+qzocBthuxPQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: Add
+ Exynos5515 compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aiden Isik" <aidenisik@member.fsf.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260818-for-next-lucky7-chipid-v2-1-28ae49f5c349@member.fsf.org>
+References: <20260818-for-next-lucky7-chipid-v2-0-28ae49f5c349@member.fsf.org>
+ <20260818-for-next-lucky7-chipid-v2-1-28ae49f5c349@member.fsf.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 15:13:32 +0000
+Message-Id: <20260818151332.A8C891F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Stanislav Zaikin <zstaseg@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The patch adds the `samsung,exynos5515-chipid` compatible string=
+ with a fallback to `samsung,exynos850-chipid`, but omits the necessary dri=
+ver update to support the new SoC. The `exynos-chipid` driver enforces a st=
+rict hardware whitelist based on the product ID and will return `-ENODEV` d=
+uring probe when it encounters the unknown Exynos 5515 ID, rendering the fa=
+llback useless.
+--
 
-Switch taoyao to its own compatible so qcom_battmgr can select the
-taoyao-specific property mapping added in the previous patch.
+--- Patch [1]: [PATCH v2 1/2] dt-bindings: hwinfo: samsung,exynos-chipid: A=
+dd Exynos5515 compatible ---
+commit c6d7dc985bd68c7bd5ad1ca061556d7ae1c7ee31
+Author: Aiden Isik <aidenisik@member.fsf.org>
+Subject: dt-bindings: hwinfo: samsung,exynos-chipid: Add Exynos5515 compati=
+ble
 
-Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
----
- arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+This commit adds the samsung,exynos5515-chipid compatible string to the
+exynos-chipid device tree bindings documentation.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-index 6f8bc65bb99b..6621cb40e710 100644
---- a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-@@ -72,7 +72,8 @@ key-volume-up {
- 	};
- 
- 	pmic-glink {
--		compatible = "qcom,sm7325-pmic-glink",
-+		compatible = "xiaomi,taoyao-pmic-glink",
-+			     "qcom,sm7325-pmic-glink",
- 			     "qcom,qcm6490-pmic-glink",
- 			     "qcom,pmic-glink";
- 
--- 
-2.53.0
+> diff --git a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chip=
+id.yaml b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.ya=
+ml
+> index b9cdfe52b62ff..619faf33214bd 100644
+> --- a/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
+> +++ b/Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml
+> @@ -25,6 +25,7 @@ properties:
+>        - items:
+>            - enum:
+>                - samsung,exynos2200-chipid
+> +              - samsung,exynos5515-chipid
 
+[Severity: Medium]
+Will this compatible string actually allow the driver to probe on Exynos 55=
+15
+hardware?
+
+Even with a fallback to samsung,exynos850-chipid, the exynos-chipid driver
+enforces a strict hardware whitelist based on the product ID:
+
+drivers/soc/samsung/exynos-chipid.c:exynos_chipid_probe() {
+    ...
+    soc_dev_attr->soc_id =3D exynos_product_id_to_name(soc_info.product_id);
+    if (!soc_dev_attr->soc_id)
+        return dev_err_probe(dev, -ENODEV, "Unknown SoC\n");
+    ...
+}
+
+Does this require a corresponding driver update to add the Exynos 5515 prod=
+uct
+ID to the whitelist so the probe does not fail with -ENODEV?
+
+>                - samsung,exynos7885-chipid
+>                - samsung,exynos8895-chipid
+>                - samsung,exynos9610-chipid
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-for-next-l=
+ucky7-chipid-v2-0-28ae49f5c349@member.fsf.org?part=3D1
