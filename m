@@ -1,63 +1,63 @@
-Received: from mail-pz2-f0.google.com (mail-pz2-f0.google.com [74.125.228.0])
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7DC448B98
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157AC4477F1
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:24:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045079; cv=none; b=OvRscU6BmxJcrtWzAqBc5q7nE1y/hmFLwVHFx5onWYCG/H3Wph7Knd0xWVlaM21rp796DHm6XLpNGkG4ofEHt98qRqR/26C78gnoSru4yiyB59tieavjvVxSQOjtPdTy7iid3104wzDWMQLDH635G8kERinCytQSnPFLpS/K500=
+	t=1787045084; cv=none; b=tYbaKvju6jCCwLWUlUw2iz4Cfk/G7m2p8hV0X9HHaMA5ttlUHcttcOdplgTXaHZDDaV4Ed/jkDOLsEiNt809zYK97p17rLIzlXENjAvEIY1ytJfmThIA6gHPGLe0Zk8VasiObuMFAyhEN36KgGzKxJUPH7UWhjAEJhpTt1a0Gpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045079; c=relaxed/simple;
-	bh=6o3jag8MYPkjyjui0T+mJJonk+syY88nEjjzZbh4dYA=;
+	s=arc-20240116; t=1787045084; c=relaxed/simple;
+	bh=HFaffslyAq00MYKaOo8bzVRYd+um+ZFrtT7zrTOOu9U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tRcj0dhsz+G0gDceBmo2kbS1XKkv2/NpzWwuOTvvxrXKCAKqW5ga2ZBnXTDA9b/HJ5c1tkGIcnHctkNJPGIHhfUjgWPQEY96ogPnbQqtofq2uHvSfH0XP7qId60rE64w+qpL0v5Qzz0yBfnWTSsKLMFB1PKyUdu8c7QbPx8gIIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jXvLdx3Y; arc=none smtp.client-ip=74.125.228.0
+	 MIME-Version; b=rZe7/OVlTC8k05L3JiVz1Dp6PeedHlQsQz7ByAN90987EWUn2Nj69iKDJoHLKcP22lxkiIYeS9+OPUfdgyVohEEJEoILyjm4XkNi+a8qy3PIAHlX5Kbcvm2PhPdIv0ZkMqgnsmrQZP1FOms98FSsSpIKcaVYprhVtlY+aIhb7ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BIrbF8lR; arc=none smtp.client-ip=74.125.227.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jXvLdx3Y"
-Received: by mail-pz2-f0.google.com with SMTP id 41be03b00d2f7-ca7fcfe1669so1641509a12.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:24:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BIrbF8lR"
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d0344e1ce9so26009205ad.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:24:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787045078; x=1787649878; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787045082; x=1787649882; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xWMBqkj73rVQAMFA4LqK7WvxQ0Lo75WvfMJxyxluc60=;
-        b=jXvLdx3Ygy3gGuZct/hiTQ/9F1MI3uDnGLb2UTvVw4Y0uC369O3rggyVlp8z770ckZ
-         tITK6ThRpO3u5SHA23aItcyvgnUzH0qyCJc/HBfjErOxOkTPQ691almA3LIwUp+RDyny
-         X1ZMNfIAV72JdwxqFsbp4ltfxldSK29HxRVIX4OxZJtZugwJCEjft58qUB8clMTI0LM+
-         SnEUE6cxaScqxBHKQn5UWD06bIp106oa7oKNnt1hOd2cyvGwQkoD3gzsz1BVGUX7Zsqc
-         sNJeIe2d3Z1eW+q1BcUw0SnpQ9wrS1XrRi/CIi4GKVpUPUnlXXyqtfXUkUC5JvIiIlxZ
-         jW0Q==
+        bh=vgrzyPwZN4L7nqoNRJuB9G+jUytRArcpJTaiildA9bE=;
+        b=BIrbF8lRamH1grc8/bNpXeeYnlJxpNeszUbFqHRk6JcRHV3S20AbFK5H0DqlY7QR3H
+         3vAFXf8WgRLUdPT4j1ZAPdufbilFhXm5/JCCRy5Rc6l+KytIycWC7/Pu07uKUlPJXkRx
+         wJvpGf5OqIKGd0vrSN8hOJei7IvL4DXsssvJtoDxe6CssxffK9HflGzBxn5sVIJYx9bI
+         yQnr0wWISMvg39bEPcAI/yp/amQ9Plh5KosgvBPZpYjHQjrc34R2k7LWYJckOqH9xTE7
+         dsRg/cErCZBfhRZUeg+RdAZrBIs4djaUcw1pb42rYeykvNRxmnp9f/Nk/bzk+zEcXFLt
+         ubjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787045078; x=1787649878;
+        d=1e100.net; s=20251104; t=1787045082; x=1787649882;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xWMBqkj73rVQAMFA4LqK7WvxQ0Lo75WvfMJxyxluc60=;
-        b=lrJxIkaE1jHE9xxE6+USpWuNcUOvpzrvzmSnWNs1sG/cG0VfESglBXWJKuKFnJIzkk
-         GzNMxJfda2DjNodLCu9Nu7LpmJ93X3ge3O5KlOyJUFU/kDE86U+cYSlTjE4LEf3goIwr
-         z5sAu1kfpyq7SuO6WMAJg61dKcaHYyj2RuUXOR2ZKesCIWMtawHNlbtxlyaHrFBkdwGC
-         gOU24kCF6GJ9xUNaFCORhQmSdxMJ4uBN2JQAvpDY73qDbXdlJsIjnjwhULbywLsBwSQf
-         r4KzBLecRgBG8a+E4+rmYpp6B/qQcQmB/PJdcwclTHTfXXMwZVULlgLI/ljzAIAC1uRK
-         gsTg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2hRzBszMAlRPqSeLTL8QNE+vrCJrveR4U0mdRmjSf/hv3LyVdAg/srCgF47Wi8hKc9pKRkuAsSOy4@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8UbSoFQuNrQvesiduZPlDd+Irw9PQGRF4qxBDbpOd9Y7506Tk
-	t3PoiOh6i4iFBxxw1X2k63hyGXT3zbxM2pxUMvdQukUg0eAU2pqv6qCc
-X-Gm-Gg: AR+sD12tbxF2iIPTFAzvZLwDHpe7gMZtbI+u5PupJFp8yRasKpSQE6SxdNcG1Z9aBoJ
-	jbNY0kodUKWuzd3wiFXo0E0IZC9jSNOullBxa4Tnqyfm+qY6r6VZ9njiwYOvKozJqz6Kn05d/im
-	Hcr4W9kl9qx8NQR5tH8021ql+qHV46RUDZ6M1rieTnsJfqWnknE4K5wWgANylBs3fDDhVIEJ+Eb
-	Qn1asSodufvj+DAETbuFVLErlm8+MCi2Dlhw9D7+oxNnL2+xIVqax/9CD5oOyfHZOUGFssbZ7zX
-	jqcJOL4ZSyEaz7o93hMgyPdXDLWspAyTzXpB9MKkeWgVFep9xP+qWDW/QyU8QAX7Kqe99IgwUWa
-	K9fJ51DZo+oGdnxNkqzFrpPwxaUc+pBTlsHYXgTlvFDZZel7C+UDWiG5wb9AJNqoMKP3AWLzBgG
-	mkvt2J9cRHssS2u/RXT1AFt/rEf5HqxNDk8KJ6ZvC8MlrKcxo5T7Ft3eTiZqRXCQTBpww0hnKd
-X-Received: by 2002:a05:6a00:1149:b0:847:7ffd:ce35 with SMTP id d2e1a72fcca58-851b87eaa83mr7838506b3a.8.1787045077737;
-        Tue, 18 Aug 2026 02:24:37 -0700 (PDT)
+        bh=vgrzyPwZN4L7nqoNRJuB9G+jUytRArcpJTaiildA9bE=;
+        b=G5B/+sNzGiaPgC5z+HKeDS88aOotmpo+CJHP1A9Kb7RRyUw3qOFMuHw1SDqeTmxfWd
+         ZTLToC/+hSvScRQ8keNHyqG6IO06/0Q20XSRBAsvaD9izPNVw7JyrZq8oqIeFaSUNIXX
+         U7iK+SL8P+gTSJhNLx5qjXCOs6QDBYLf3G0tKvWAEVzi6QvD+ZkMgMEnrqwwy2fsixjx
+         CbitUDxXqsJ0WgoSiApx7OppO3Byd1uyuoIUgDg8VNzSntFJGI5M6o06zR8NjDuKi1Lt
+         p8LpK9lTdX1uWJOZ7ImpYWOp2EnztrAQx4Llg/SFUZLR2l9wgzxTKE4DY2HQz8x6s5St
+         1ibA==
+X-Forwarded-Encrypted: i=1; AHgh+RrxaaVd9muA2B6yv/R8BfiYKo+9N3XYqId7j70GuXu13sqfde5hrmDSHKsxEOmxqxyN/dJ+lgFV2Mya@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxb4MVbIjcgwDftPZkAeQQ8Zp4VV2o7HO+y7tjsGbcBkQ1Tu7AB
+	VZ14yw0iZNWBx+OxWJ/jz63hzuJeZ+Rqfi44zLnYkASboBCquf9+KxHY
+X-Gm-Gg: AR+sD11UK0tzv1Mt2YTMhGRCK7Badtkn1638pYIDq5FR0Q8jhVsR0smyKVPBoQrrA0R
+	2WlzdEojaTXjrn020bNgNMOvpE30tayi9mU1VC8DQfDMbPIYA16vD9SoXmf+d3NIyAQlzeOtH3b
+	QP6zPU6GG4jQX2wM2aTEiJ91n1dD7o479eA4yv1wchrz1ESElqjwrl2ilOX1CXtrdki2O/gw2SC
+	2AuuinsYE8wpnj0m9azpj07gXBwsRkZZbmC4chAn9tJO4mfq9JmDeXFJZ8KUEEyQef19ranBSUq
+	cyfYV4B69Ll8bS9SJbF5L7bVnt7HhGj4Q3P9HHwPFDkCYH2elviokxBu5mVPDW4eruM+TCJ4oq+
+	0Dta2XjSUsQjWqsGIWT1cGiV3DKwLym00aOsWbM6RsQzLqB9PcTRCJxjZHN68MK7DLsx5R0WrX2
+	/JPRBUvQlTN1bynYQ3nwhfI+34uBoiDt6+XagromDXUf+IdjZA8JEeQLItaKeqXjObj2ad9Ied
+X-Received: by 2002:a05:6a20:4321:b0:398:7ed3:a001 with SMTP id adf61e73a8af0-3cc71af5f13mr34124324637.2.1787045082245;
+        Tue, 18 Aug 2026 02:24:42 -0700 (PDT)
 Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc13c036c50sm1855975a12.26.2026.08.18.02.24.33
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc13c036c50sm1855975a12.26.2026.08.18.02.24.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 02:24:37 -0700 (PDT)
+        Tue, 18 Aug 2026 02:24:41 -0700 (PDT)
 From: Wandun Chen <chenwandun1@gmail.com>
 To: robh@kernel.org,
 	saravanak@kernel.org,
@@ -67,9 +67,9 @@ To: robh@kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
 Cc: akpm@linux-foundation.org
-Subject: [PATCH v2 2/5] of: reserved_mem: reject static regions overlapping no-map memory
-Date: Tue, 18 Aug 2026 17:24:17 +0800
-Message-ID: <20260818092420.2859026-3-chenwandun1@gmail.com>
+Subject: [PATCH v2 3/5] of: reserved_mem: reject statically placed regions overlapping existing reservations
+Date: Tue, 18 Aug 2026 17:24:18 +0800
+Message-ID: <20260818092420.2859026-4-chenwandun1@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818092420.2859026-1-chenwandun1@gmail.com>
 References: <20260818092420.2859026-1-chenwandun1@gmail.com>
@@ -83,76 +83,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Wandun Chen <chenwandun@lixiang.com>
 
-Static no-map reserved-memory regions are marked in memblock.memory rather
-than memblock.reserved. So the reservation overlap check does not reject
-a static region that overlaps existing no-map memory.
+memblock_reserve() permits overlapping reservations, so a statically
+placed region whose 'reg' overlaps an existing one is accepted. When
+initialization of a statically placed reserved-memory region
+overlapping an existing reservation fails, memblock_phys_free()
+returns the overlap to the buddy allocator, corrupting that memory.
 
-Both regions can then be initialized and hand the same physical memory to
-different reserved-memory drivers. So reject a static region that overlaps
-existing no-map memory.
+Reject the overlap up front. Dynamically allocated regions are
+unaffected, as they are allocated from free memory and so cannot
+overlap an existing reservation.
 
 Sashiko found this issue in [1].
 
-Fixes: 86588296acbf ("fdt: Properly handle "no-map" field in the memory region")
+Fixes: d0b8ed47e83a ("of: reserved_mem: fix reserve memory leak")
 Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Link: https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kernel.org [1]
+Link: https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org [1]
 ---
- drivers/of/of_reserved_mem.c |  3 ++-
- include/linux/memblock.h     |  1 +
- mm/memblock.c                | 14 ++++++++++++++
- 3 files changed, 17 insertions(+), 1 deletion(-)
+ drivers/of/of_reserved_mem.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index c6e73d710ee1..9fb2e4c29443 100644
+index 9fb2e4c29443..767ef702392e 100644
 --- a/drivers/of/of_reserved_mem.c
 +++ b/drivers/of/of_reserved_mem.c
-@@ -152,7 +152,8 @@ static int __init early_init_dt_reserve_memory(phys_addr_t base,
- 		 * if the region isn't memory as it won't be mapped.
- 		 */
- 		if (memblock_overlaps_region(&memblock.memory, base, size) &&
--		    memblock_is_region_reserved(base, size))
-+		    (memblock_is_region_reserved(base, size) ||
-+		     memblock_overlaps_nomap(base, size)))
- 			return -EBUSY;
+@@ -158,6 +158,11 @@ static int __init early_init_dt_reserve_memory(phys_addr_t base,
  
  		return memblock_mark_nomap(base, size);
-diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-index d62db9e776cf..27d68fbb3157 100644
---- a/include/linux/memblock.h
-+++ b/include/linux/memblock.h
-@@ -148,6 +148,7 @@ int memblock_physmem_add(phys_addr_t base, phys_addr_t size);
- void memblock_trim_memory(phys_addr_t align);
- unsigned long memblock_addrs_overlap(phys_addr_t base1, phys_addr_t size1,
- 				     phys_addr_t base2, phys_addr_t size2);
-+bool memblock_overlaps_nomap(phys_addr_t base, phys_addr_t size);
- bool memblock_overlaps_region(struct memblock_type *type,
- 			      phys_addr_t base, phys_addr_t size);
- bool memblock_validate_numa_coverage(unsigned long threshold_bytes);
-diff --git a/mm/memblock.c b/mm/memblock.c
-index 9ce86349a29f..4cabfe365ac4 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -202,6 +202,20 @@ memblock_addrs_overlap(phys_addr_t base1, phys_addr_t size1, phys_addr_t base2,
- 	return ((base1 < (base2 + size2)) && (base2 < (base1 + size1)));
+ 	}
++
++	if (memblock_is_region_reserved(base, size) ||
++	    memblock_overlaps_nomap(base, size))
++		return -EBUSY;
++
+ 	return memblock_reserve(base, size);
  }
  
-+bool __init memblock_overlaps_nomap(phys_addr_t base, phys_addr_t size)
-+{
-+	struct memblock_region *region;
-+
-+	memblock_cap_size(base, &size);
-+	for_each_mem_region(region) {
-+		if (memblock_is_nomap(region) &&
-+		    memblock_addrs_overlap(base, size, region->base, region->size))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- bool __init_memblock memblock_overlaps_region(struct memblock_type *type,
- 					phys_addr_t base, phys_addr_t size)
- {
 -- 
 2.43.0
 
