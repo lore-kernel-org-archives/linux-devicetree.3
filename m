@@ -1,111 +1,134 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E701C3F0C
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 01:06:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89D735200A
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 01:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787015204; cv=none; b=UY6WH/h/LCynPOhXaXdJpKyBzGk3Vr6XAzj91YWDS/uVwxJjHcuL5XUa0qn90uzfAczuCVxRwF7EaZbClFtM6poB0P0t14RJCRaZd5kayYxOOT3ecdIkUQop98hkIFDsMlF6b2tVceUOcqAGKHkWvMZqioiwClZu3VC6wq8bzy0=
+	t=1787015974; cv=none; b=IgzoTY9lD8Q1gA2WpaLS2F5oR/Y/WoUepkwOSnmJCjDSEYMcqlNGyq/ClpW3Q/mI2oEe5s9OHlwQGp02nVmMs7q/ywwzrajMiVAMAJR2BAlleNLILwPXdYHHM44mkxoJ5HcwWCM0ozsNcmA8bsGAKuGOl270eRNTji6vz9VcMxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787015204; c=relaxed/simple;
-	bh=eSPFm40DT82J9f9OZEaNKoqzMUgt02iaejJx5gfUYWM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hceS5GN2uy3e1PGiOdTojP9RIAZU5lDn8JzRrdqznqcpHQoOIXQZKnKhZiEDSpWAxbT7gwwC1f131YDdjNBKweOfIql3d0E+TlLod4OTUz9OFiuvclkviBsr751NKfueeTGaRynNkutSd9EonviTs1+DrQoLnP0PT8gUD2yVNl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ArWaCT2g; arc=none smtp.client-ip=209.85.221.180
+	s=arc-20240116; t=1787015974; c=relaxed/simple;
+	bh=+9DJbzpZ8tW/cGE2nLGaoIX39pZZfgkjdnpyQdZ4tGc=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version:
+	 In-Reply-To:References; b=rXfbbG/WLW4l13mjXErYakg4w3kPklng++ZBa24wyszNJGh8GBf9XigA7sLXaFI2TXFv2xrt9xIa5eWO428gutEB4YvSroLRmAWB/xwyrdVK3Rfu55SRRRBwxQ7A9acwXHX6CpeuskIhb5cw6uSX+a+HpFAyn05MYk6HJ0/5srI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mTzqZCI0; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ArWaCT2g"
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5c2c0df0b45so1485716e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 18:06:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mTzqZCI0"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso515417b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 18:19:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787015202; x=1787620002; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S0NWw8TWJUBoUoRaTT3xU902CIURU9VCpckKgBzcPno=;
-        b=ArWaCT2gCpZ1uOzJNI9yxUy2XsfLMBF1WQYCRT25DnT4Kdv+1PF3+pi8oB4v+cqNW0
-         9M1s6boW/XotDHrS/cdjACswsZRr3/JMp8nHgeeZT6rZPdsxo+qmUHfX7l13OFaOlZxY
-         MYBzxawj/nP07BI8uw6+J8H708ODe89/WGII9TuIq8O0dOzbqVvPuZi74wZGn2kZw0Dv
-         NTKRKy6ebcGZ24jfmtXqWKkyOflnLyjbFCB/IKGQ5wZIOdNRfNnQRPMvtn92NUrLO9NX
-         uTyMsT7fyadpVl7QVE5PO+Ha8wfcznEekC/KBtHRKe1EF3qjvGIr8qITqSVc5fee4LaS
-         MA7g==
+        d=gmail.com; s=20251104; t=1787015972; x=1787620772; darn=vger.kernel.org;
+        h=references:in-reply-to:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mfkLuSdmwN1ckqZLOyJ0ADFIrM3kNuRenkgg7slseYo=;
+        b=mTzqZCI0lnS5FLE6knMU4CnAcDt6Ef40mWfNla2lhEfzskQNG7x6rTY+VgjYe/M4v1
+         q+LLlTdrX0fwaPbsecTCWViGhARnC00XDq4qCe8wn2mOcx8BFqJgLmEOmaWn1eJ0jGPT
+         tEwvJ7/qHt50Zjn7ZvzGDrVuckqMqgq7x7jsnUDE+HdOhvPwsZ3ph3Nq/mu4SkkZ3kMr
+         CWLc9tmBvT1GwGfbEcWuUncTPjpr2XnS5LwT5sdY/KWImts5H9wIRNS0NDZCbZ13tfDU
+         /93Twzq7RWnCwZq/0NorDWR9aQ+pjxwEaKxH1lT70+YIS9DPvQ2U0Prx3CbwAkB9OoH5
+         f+1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787015202; x=1787620002;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=S0NWw8TWJUBoUoRaTT3xU902CIURU9VCpckKgBzcPno=;
-        b=rA4fFEp52o2wZlOXSDvz6K9KqYYzq1yIzmEAqXQMZj0kAoCzTMAdwPJdLjEkzbbVyc
-         GFGlhIuu33yvn4iebkBNAeg7Ad56QV3te1h/K+g7NjD8xY4Blx02If72FWaRboT5Jhpo
-         n20Dy5BNJVpIkk7ofdjmqwE/UtJj81eWi+gLT9edhb4xiHRcX69hJryizyrN03SXqgqh
-         Y1WjC+EHs/WBYvshq0yW4B7SQ2+kfwPRnK+TYzU3QqWdnWmm1FnBLuB7BpLJPUx5Belh
-         8fai7PXPtPRRQsyOYzrZDml45Uz3Plpe42h8PCJh/mGiNwiVbmnkK+6IDcMoemvAIb9T
-         YchA==
-X-Forwarded-Encrypted: i=1; AHgh+RoxcubxqX/soqBtlBT9ND7lLg1tfsAv7567JNc2Odq8kp0YIWgfiabKDG+f9PJK9xeXOErrdrnMAb2A@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNgHI3e7DLVqcPGv3MSYBzEur4dyoXlX6WjdcNjhZwF9PKfWDQ
-	K8dVgcwnNuhil1o0wMmOQLEh+NunBLblRMEEGiVKRUnaAy4DyUUPAhUC
-X-Gm-Gg: AR+sD13i9mYYicg/YBvzp1bJqmsLuq+UIOvKqI8ygjVmt3UJ+MJVADoWAV6TrXH9Alv
-	IrPxZFWMvoo0wpiEWVGaJpmIvx9v8a3QnfYHqnXANZXZw2kWZn3HhhuaT7nSV/vVBqy4wIO3DUn
-	iOdb+vv+D+Dljn/ltmzulrX1d7RJNAK7+9hYDh9DDwiwPvIpO9+StzFKAik437u1VpfjcgFqnb8
-	ljX8w4vmwTRXBRY9hOt+uEolY3I+WE3X2xQhWV5hcQbxpYd6d99WdDxfcolQk074pRG+Gny9V/3
-	aliHUfliA3Athi1nXdyIPFW0cfbE09caJrZGRsERlGKMZL6waLwSmU9KAEXEVJ8wD1k44hFZaGJ
-	mqEDTMtrPKGaX+cYZ3n0BT5wH7urHNC4McWcBfYUd7lXJg/0TFg5lIRWsn/l2KxeFMdkLZTc96e
-	81OT6Juejjdt2EwQ9eUECW/OIZcON05ymvNP3E0AzQJ68OCu1pqgDflngGO/UfqaJC9KNG
-X-Received: by 2002:a05:6122:50d:b0:573:a779:62cf with SMTP id 71dfb90a1353d-5c5ce7ed595mr1017290e0c.7.1787015201662;
-        Mon, 17 Aug 2026 18:06:41 -0700 (PDT)
-Received: from localhost ([2804:30c:97d:e800:9454:1179:18df:ab33])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c5c7684cb7sm2331580e0c.8.2026.08.17.18.06.39
+        d=1e100.net; s=20251104; t=1787015972; x=1787620772;
+        h=references:in-reply-to:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mfkLuSdmwN1ckqZLOyJ0ADFIrM3kNuRenkgg7slseYo=;
+        b=CP2bnDZFORwrBaHkZ15ozTX9n0VWmgBFQ6CaE6uRzUwkomoASLvM/ebGf05IxP8bzC
+         zCXp//SjTGKwxTSBuj22ar0+t5tIEPcv+LwsJ1a1nb3Bkdc+Jm/m09xcIoesVZPERE9W
+         LSnsfG6JJKRMEG0GMt6GMjuG7RW4rHVZhj+Xc6h/yeBLGtxqfMolx+rOdHQR1NBY4ZZ/
+         SRTqqT+VSLnTztpuvOIo2IOePr6ycPK1QPWUWmgAKTbLjlD0rC6fX+WlTBXHeGLgL3As
+         4jKpzXDgmTP1pQ/sDfOvWQOGmXsBYvNYqpuulfcB8m8yJgIjph6nAxqxW0h07cB0JngY
+         U/qA==
+X-Forwarded-Encrypted: i=1; AHgh+RpYvHbQkjTuATPrY2nTGJOjS7Ky691xCcr+t25u6iO4DUq6OYlYmuibOi80OGBqI/Wn3bd9WTM5D+dF@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYd7ocKG3OxomS3tMtJfZ0mMPf6wXoBFURHreE6pChK69yugRS
+	7Y6Tgs00zGpfMoESKafnpoavuB8arLFNNt+4b7MveZuDtESZ2oc9P6Xc
+X-Gm-Gg: AR+sD12WwoGuflL8qDZB9DBTLSkto58u7abVpb2yXvUl6UcvLVPBwJfTNq+jcj5prZE
+	OuYSLngtXWY7KiuClRWX4SlsUuFi2iZv6+nSmZtoULJiPOWfEG2goIquTsI3biKUxfSmF+/XPgo
+	6KkdszB9x9nM9IXksoZkVnDcuUw06N54oXeQ0q4L9TikHSPrWuHdb8uwbPD57glTFfsqHCd6LUK
+	0iRKC23tOA58EvJA/27cIMmYnevdydkAjen769vUeb2iuWZriWDPvTzDROWHT6qmbduuG9wsBiW
+	toYKENL48tNSFYLDLYh0dFhWoOANq0WCjTgd0CvRr9AfS8jdSdRQtjzXjviR9qDg3jzd8TgUUiN
+	3HAuFbIaIVYM9T25q7d+xozlyntOlPuy6guHLeiu/46JMlml/aewZOCOcy4aaGXR3AJVdZHBOCx
+	MXerb9JsIqYjvarBOsXMTriD6zFgVqzFxQNiYn6+ntTKcxjRQoHBK1jA==
+X-Received: by 2002:a05:6a00:ba8e:b0:848:52bf:4296 with SMTP id d2e1a72fcca58-851bc3ccf5fmr2527196b3a.15.1787015972070;
+        Mon, 17 Aug 2026 18:19:32 -0700 (PDT)
+Received: from [127.0.1.1] ([47.253.114.73])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851b3d1099esm1196713b3a.0.2026.08.17.18.19.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 18:06:40 -0700 (PDT)
-Date: Mon, 17 Aug 2026 22:07:19 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: =?iso-8859-1?Q?Nicol=E1s?= Antinori <nico.antinori.7@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev
-Subject: Re: [PATCH v3 2/2] iio: humidity: am2315: add support for am2320
-Message-ID: <aoOwR6JMOYPCn4PW@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1786725567.git.nico.antinori.7@gmail.com>
- <83c8a41607ed07285a84dba8ed10a954226076b4.1786725567.git.nico.antinori.7@gmail.com>
+        Mon, 17 Aug 2026 18:19:31 -0700 (PDT)
+From: Wayen Yan <win847@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, netdev@vger.kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v20 04/10] mfd: an8855: Add support for Airoha AN8855 Switch
+Date: Tue, 18 Aug 2026 09:19:25 +0800
+Message-ID: <178701596581.1096543.14003915779643840966@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <83c8a41607ed07285a84dba8ed10a954226076b4.1786725567.git.nico.antinori.7@gmail.com>
+In-Reply-To: <20260817082034.20326-6-ansuelsmth@gmail.com>
+References: <20260817082034.20326-1-ansuelsmth@gmail.com> <20260817082034.20326-6-ansuelsmth@gmail.com>
 
-On 08/14, Nicolás Antinori wrote:
-> The AM2320 is fully compatible with the AM2315 sensor in terms of I2C
-> communication protocol and measurement conversions.
-> 
-> Add the "am2320" entry to the i2c_device_id table and create
-> of_device_id table.
-> 
-> Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
-> ---
-Some optional suggestions for the commit message:
+Hi Christian,
 
-The AM2320 design is fully compatible with AM2315 in terms of I2C
-communication protocol and measurement conversions.
+I noticed a possible MDIO bus locking issue in
+an8855_core_probe().
 
-Add the "am2320" entry to the i2c_device_id table and register a
-of_device_id table to match against devices declared in device tree.
+The helper an8855_mii_set_page() is declared as:
 
+static int an8855_mii_set_page(struct an8855_core_priv *priv,
+                               u8 addr, u8 page)
+        __must_hold(&priv->bus->mdio_lock)
 
-I see nothing else to improve besides what Andy already mentioned.
-With those sorted out,
-Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+and uses __mdiobus_write(). The latter requires the caller to hold
+bus->mdio_lock and checks this with lockdep_assert_held_once().
+
+The other callers of an8855_mii_set_page() correctly hold the MDIO bus
+lock, for example:
+
+        mutex_lock_nested(&bus->mdio_lock, MDIO_MUTEX_NESTED);
+        ret = an8855_mii_set_page(priv, addr, page);
+        ...
+        mutex_unlock(&bus->mdio_lock);
+
+However, an8855_core_probe() calls the same helper directly:
+
+        ret = an8855_mii_set_page(priv, priv->switch_addr,
+                                  AN8855_PHY_PAGE_STANDARD);
+
+The MDIO device probe path does not hold bus->mdio_lock around the
+driver's probe callback. Therefore this call can trigger the lockdep
+assertion, and the MDIO page-select write is not protected by the MDIO
+bus lock against concurrent accesses to the same bus.
+
+Could this be changed to take the bus lock around the call, for example:
+
+        mutex_lock(&priv->bus->mdio_lock);
+        ret = an8855_mii_set_page(priv, priv->switch_addr,
+                                  AN8855_PHY_PAGE_STANDARD);
+        mutex_unlock(&priv->bus->mdio_lock);
+        if (ret)
+                return ret;
+
+Alternatively, if there is a reason why the probe path is serialized by
+another mechanism, it would be useful to document that assumption and
+annotate the call accordingly.
+
+I don't think changing an8855_mii_set_page() to use mdiobus_write() would
+be appropriate, since the helper is also called by paths that already
+hold mdio_lock; that could result in recursive locking. Keeping the
+helper as an unlocked MDIO primitive with an explicit locking contract
+seems reasonable, but the probe caller appears to need the missing lock.
+
+This is a discussion and fix suggestion rather than a request to redesign
+the series. Please let me know if I am missing an existing serialization
+guarantee in the MDIO device probe path.
+
+Thanks,
+Wayen
+
