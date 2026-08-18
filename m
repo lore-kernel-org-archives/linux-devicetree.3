@@ -1,251 +1,239 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AE6399889
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:24:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D16D39A7EF;
+	Tue, 18 Aug 2026 08:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787041450; cv=none; b=kF8aataZIjfa27V6OyjR5+O6h2IOr08UkhG8veA/1RroaZNAi4Ar3mAgVEpPXZI4KNIL03nlFmDR7P7TmavNtcq91BdD0pUmfniY4eVC3TFIDkjNcuhpuOzbFqawRtKTUx5E/ypkRDUl76k6W9A6ZqWcVvNbjHzKm3akXhwl8yA=
+	t=1787041451; cv=none; b=mutfJbrpXfgUp+RZkYzn+PH9rTjmfsbNkYs7Gy+kDcaCfaMtaKkVYM9IB3WpXpXyRfDxs8eGDN0SGG9QyD4PVmlVHeMA7BQzh2trny5Fitr+j9cZ3+iUkt2aWP1H4BWlhIPuteEgekcUVkmo8wKxI20dffayamKfwHGjyCvN6E4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787041450; c=relaxed/simple;
-	bh=KxbAGh5SU6k5l2sO62QsBL+VFCKYdVS2YtROuaHoBh4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cJkZR8wsdv67fZuWXSYyzynCSKDkbOkg9ljWT/QJc01SecYfSHb0hXSaQoCQR+aj5SMYWrdSssiTSymZBhyMHwgwoXqSFdg5YoMB/5QYS/T2R/TJNxKrSrM/LUuXe+cBIzXdtw0a+0ye6jq5KGuYcPoh1xOHiQ2KYoV9hoWd4PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LK7Mjtiq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787041451; c=relaxed/simple;
+	bh=lqZQxcbwluNGpJ1XgEVpD6pz/r8zeddw3hjBpHIJZTM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SLUt5oorTJqzN5vaJI10Yq9XNKI+ULFLw8S3KuiubwCulIeuK1+G+iCbCmNlbGa6hli8DILX08vVIl/0nNcZV+XPet6jcOyH1bJIPjhRHWdxq+7o9SooY+cruzZ5nFlePMvtV6e2pnqL1QYnuOktXELKwrizIWTFCD768bx4b2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BbalZwD4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LK7Mjtiq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9311F000E9;
-	Tue, 18 Aug 2026 08:24:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BbalZwD4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23F991F00A3E;
+	Tue, 18 Aug 2026 08:24:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787041448;
-	bh=xsxgb6Tfefw0GelnJsKe5SAhIdG3g4QgqPwDdniHK/U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LK7Mjtiq4jQfEHYpA5M2FBtW6Me00pZqGxTCH9l2JrjX1PlVfTriUsqgM2MjjKCeV
-	 MkjBLx7pFEMq1+PxO5b82weiUi8EAuwToY1vl2SjnsWsyquir6AbRjYi6v3eyHn4Fj
-	 TO7da3zbaoeehjc7Et2+Qn/MQUNHGxOIST0LoMpHWkNXrdrPs475VvT7oM6hqfIZOm
-	 rFevZIgPj4m3B8rYoHIbBJ8SlAYeDlBDZ2Pn40H1z2+di52EoQj83HzfD4uN34mXyN
-	 ia4Rb6lLsHeLyNa2JrjroQQ3KMFMJiHzvtlQMyHfV+x5VywbwaQ/cTc0lQPglauiTT
-	 NXAYdzx2tuAkg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/6] drm/ssd130x: Add SSD135X_FAMILY and SSD1351
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amit Barzilai" <amit.barzilai22@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260818080626.30430-7-amit.barzilai22@gmail.com>
-References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
- <20260818080626.30430-7-amit.barzilai22@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 08:24:07 +0000
-Message-Id: <20260818082408.4E9311F000E9@smtp.kernel.org>
+	s=k20260515; t=1787041450;
+	bh=OfHeIcxWWdTnEuZTttxc/WTa5O0fO8FR/FpFaq3hOQk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BbalZwD4G3hI1I1Td5/AGuHj/eA5rR5wa3Z0CQnfIALRpu7I+B9KR5XCiG6FkVV5G
+	 gj9zkVkOkDpOBNo2Inb1YOVI9JI+E2buWOxHeAnoYZWMphnkaFAMP96UKFJV/cNBYB
+	 UQno/InpDua917Y+BxT52nd+TCcCnrXdfi/LlWMtvFX1boSgh9HXaTggQVei3LuF3m
+	 zztVhlr4wcF42qPJyv7iF5i4P/gUZgLpl4a4O1i9Vj0TSpgCj3vhG8lzmTBcGUuQXJ
+	 a8yzuDbER7AnB5E1O3Lz8pqTi9Mi/V008KAgFviwTOfDL4s8V4m4IJZatfnQ+7NDpd
+	 6+AssL6O5X6Kg==
+Message-ID: <55153a0a-1cab-49f4-9a54-951aa9c40be1@kernel.org>
+Date: Tue, 18 Aug 2026 10:23:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] dt-bindings: clock: altr,agilex72-clkmgr: add
+ Agilex72 clock manager binding
+To: evon.chiam@altera.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: Lothar Rubusch <l.rubusch@gmail.com>, Ng Tze Yee <tzeyee.ng@altera.com>,
+ Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
+ Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+ Brian Masney <bmasney@redhat.com>, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1786006669.git.evon.chiam@altera.com>
+ <39f067c31125b43d9d4ee92cd02828e894de3f45.1786006669.git.evon.chiam@altera.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <39f067c31125b43d9d4ee92cd02828e894de3f45.1786006669.git.evon.chiam@altera.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On 06/08/2026 11:25, evon.chiam@altera.com wrote:
+> From: "Chiam, Evon" <evon.chiam@altera.com>
+> 
+> Add binding and clock ID header for Altera SoCFPGA Agilex72 clock manager.
 
-Pre-existing issues:
-- [High] `ssd133x_primary_plane_atomic_check` fails to call `drm_format_con=
-v_state_reserve()`, forcing the subsequent atomic update phase to perform d=
-ynamic memory allocation with `GFP_KERNEL` in an atomic context.
-- [High] Sleeping functions (e.g., mutexes, slow bus I/O) are called from P=
-lane and Encoder atomic callbacks, violating DRM atomic context requirement=
-s.
-- [High] Concurrent execution of sysfs backlight updates and DRM plane upda=
-tes causes command stream corruption.
---
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
 
---- Patch [6]: [PATCH v4 6/6] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 s=
-upport ---
-commit 0d606a373153c3406138083714dbc3321e2a839d
-Author: Amit Barzilai <amit.barzilai22@gmail.com>
+A nit, subject: drop second/last, redundant "binding". The "dt-bindings"
+prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+> 
+> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
 
-This commit introduces support for the Solomon SSD1351 RGB OLED controller
-by adding a new SSD135X_FAMILY. It provides family-specific callbacks for
-plane updates, disable paths, encoder enable paths, and backlight
-management while accommodating the SSD1351's unique init sequence and
-Write RAM command protocol.
 
-> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
-ssd130x.c
-> index 61187a630a0d5..af1f8e21f159a 100644
-> --- a/drivers/gpu/drm/solomon/ssd130x.c
-> +++ b/drivers/gpu/drm/solomon/ssd130x.c
-
-[ ... ]
-
-> @@ -863,6 +968,44 @@ static int ssd133x_update_rect(struct ssd130x_device=
- *ssd130x,
->  	return ret;
->  }
-> =20
-> +static int ssd135x_update_rect(struct ssd130x_device *ssd130x,
-> +			       struct drm_rect *rect, u8 *data_array,
-> +			       unsigned int pitch)
-> +{
-> +	unsigned int x =3D rect->x1;
-> +	unsigned int y =3D rect->y1;
-> +	unsigned int columns =3D drm_rect_width(rect);
-> +	unsigned int rows =3D drm_rect_height(rect);
-> +	int ret;
-> +
-> +	/*
-> +	 * The pixel layout is the same as for the ssd133x family: one 65k
-> +	 * color (RGB565) pixel per Segment, sent Segment by Segment when the
-> +	 * (default) horizontal address increment mode is used.
-> +	 *
-> +	 * But unlike the ssd133x family, which starts accepting pixel data as
-> +	 * soon as the address window has been programmed, the ssd135x family
-> +	 * needs an explicit Write RAM command before the data is written.
-> +	 */
-> +
-> +	/* Set column start and end */
-> +	ret =3D ssd130x_write_cmd(ssd130x, 3, SSD135X_SET_COL_RANGE, x, x + col=
-umns - 1);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Set row start and end */
-> +	ret =3D ssd130x_write_cmd(ssd130x, 3, SSD135X_SET_ROW_RANGE, y, y + row=
-s - 1);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D ssd130x_write_cmd(ssd130x, 1, SSD135X_WRITE_RAM);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Write out update in one go since horizontal addressing mode is used =
-*/
-> +	return ssd130x_write_data(ssd130x, data_array, pitch * rows);
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but is this command sequence vulnerable to
-concurrent access?
-
-In ssd135x_update_rect(), a multi-step hardware programming sequence is
-sent (column range, row range, Write RAM) followed by a bulk pixel data
-transfer. There appears to be no driver-level lock synchronizing this
-sequence.
-
-If an unprivileged user concurrently writes to the sysfs backlight node, it
-triggers ssd135x_update_bl(), sending a contrast command over the same bus.
-If the contrast command interleaves after SSD135X_WRITE_RAM but before the
-pixel data, could the OLED controller abort Write RAM mode and corrupt the
-display output?
-
-[ ... ]
-
-> @@ -1245,6 +1427,45 @@ static void ssd133x_primary_plane_atomic_update(st=
-ruct drm_plane *plane,
->  	drm_dev_exit(idx);
->  }
-> =20
-> +static void ssd135x_primary_plane_atomic_update(struct drm_plane *plane,
-> +						struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
-ate(state, plane);
-> +	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
-ne_state(plane_state);
-> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
-te, plane_state->crtc);
-> +	struct ssd130x_crtc_state *ssd130x_crtc_state =3D  to_ssd130x_crtc_stat=
-e(crtc_state);
-> +	struct drm_framebuffer *fb =3D plane_state->fb;
-> +	struct drm_atomic_helper_damage_iter iter;
-> +	struct drm_device *drm =3D plane->dev;
-> +	struct drm_rect dst_clip;
-> +	struct drm_rect damage;
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(drm, &idx))
-> +		return;
-> +
-> +	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE))
-> +		goto out_drm_dev_exit;
-
-[Severity: High]
-This is a pre-existing issue, but does this code sleep in an atomic
-context?
-
-The DRM subsystem guidelines specify that plane atomic update callbacks
-execute in an atomic context where sleeping is forbidden. However,
-ssd135x_primary_plane_atomic_update() calls drm_gem_fb_begin_cpu_access(),
-which acquires a sleeping dma_resv ww_mutex lock.
-
-Can this lead to kernel warnings or system hangs during display updates?
 
 > +
-> +	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, plane_state);
-> +	drm_atomic_for_each_plane_damage(&iter, &damage) {
-> +		dst_clip =3D plane_state->dst;
+> +examples:
+> +  - |
+> +    /* External reference clocks supplied to the clock manager */
+> +    clocks {
+> +      cb_intosc_div2_clk: cb-intosc-div2-clk {
+> +        #clock-cells = <0>;
+> +        compatible = "fixed-clock";
+> +        clock-frequency = <0>;
+> +      };
 > +
-> +		if (!drm_rect_intersect(&dst_clip, &damage))
-> +			continue;
+> +      /* cb-intosc divided by 2, then by 5 (total divide-by-10) */
+> +      cb_intosc_div10_clk: cb-intosc-div10-clk {
+> +        #clock-cells = <0>;
+> +        compatible = "fixed-factor-clock";
+> +        clocks = <&cb_intosc_div2_clk>;
+> +        clock-mult = <1>;
+> +        clock-div = <5>;
+> +      };
 > +
-> +		ssd135x_fb_blit_rect(fb, &shadow_plane_state->data[0], &dst_clip,
-> +				     ssd130x_crtc_state->data_array,
-> +				     &shadow_plane_state->fmtcnv_state);
-> +	}
-
-[Severity: High]
-This is a pre-existing issue, but does this format conversion trigger a
-GFP_KERNEL allocation in an atomic context?
-
-Since ssd133x_primary_plane_atomic_check() (which is reused for this family)
-does not call drm_format_conv_state_reserve() to pre-allocate memory, the
-format conversion state is unallocated. When ssd135x_fb_blit_rect() is call=
-ed
-during the atomic update phase:
-
-ssd135x_fb_blit_rect()
-  drm_fb_xrgb8888_to_rgb565be()
-    drm_fb_xfrm()
-
-The underlying drm_fb_xfrm() function sees an unallocated state buffer and
-dynamically allocates it using the GFP_KERNEL flag.
-
-Could this cause sleeping in an atomic context and trigger kernel panics?
-
-[ ... ]
-
-> @@ -1626,6 +1881,31 @@ static void ssd133x_encoder_atomic_enable(struct d=
-rm_encoder *encoder,
->  	ssd130x_power_off(ssd130x);
->  }
-> =20
-> +static void ssd135x_encoder_atomic_enable(struct drm_encoder *encoder,
-> +					  struct drm_atomic_commit *state)
-> +{
-> +	struct drm_device *drm =3D encoder->dev;
-> +	struct ssd130x_device *ssd130x =3D drm_to_ssd130x(drm);
-> +	int ret;
+> +      f2s_free_clk: f2s-free-clk {
+> +        #clock-cells = <0>;
+> +        compatible = "fixed-clock";
+> +        clock-frequency = <0>;
+> +      };
 > +
-> +	ret =3D ssd130x_power_on(ssd130x);
+> +      osc1: osc1 {
+> +        #clock-cells = <0>;
+> +        compatible = "fixed-clock";
+> +        clock-frequency = <0>;
+> +      };
+> +    };
 
-[Severity: High]
-This is a pre-existing issue, but does this power-on sequence sleep during
-an atomic enable callback?
+None of above are relevant. Drop.
 
-Similar to the plane update callback, encoder atomic enable callbacks
-execute in an atomic context. However, ssd135x_encoder_atomic_enable()
-calls ssd130x_power_on(), which takes a mutex via regulator_enable(). It
-also calls backlight_enable() which takes the backlight update_lock mutex,
-and performs slow bus writes via ssd135x_init().
+> +
+> +    clkmgr: clock-controller@915c000 {
+> +      compatible = "altr,agilex72-clkmgr";
+> +      reg = <0x915c000 0x1000>,
+> +            <0x915e000 0x1000>,
+> +            <0x915f000 0x1000>,
+> +            <0x9160000 0x1000>;
+> +      reg-names = "clkmgr", "gppll0", "gppll1", "gppll2";
+> +      #clock-cells = <1>;
+> +    };
 
-Are these sleeping operations safe here, or could they cause system
-instability?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818080626.3043=
-0-1-amit.barzilai22@gmail.com?part=3D6
+...
+
+> +#define AGILEX72_COMP0_CLK             36
+> +#define AGILEX72_CORE2_CLK             37
+> +#define AGILEX72_CORE3_CLK             38
+> +#define AGILEX72_MPU_CLK               39
+> +#define AGILEX72_CCU_CLK               40
+> +#define AGILEX72_APU_SYS_FREE_CLK      41
+> +#define AGILEX72_HSP_SYS_FREE_CLK      42
+> +#define AGILEX72_HSP_MAIN_FREE_CLK     43
+> +#define AGILEX72_HSP_MAIN_CLK          44
+> +#define AGILEX72_HSP_MP_CLK            45
+> +#define AGILEX72_HSP_SP_CLK            46
+> +#define AGILEX72_USB2OTG_HCLK          47
+> +#define AGILEX72_LSP_SYS_FREE_CLK      48
+> +#define AGILEX72_LSP_MAIN_FREE_CLK     49
+> +#define AGILEX72_LSP_MAIN_CLK          50
+> +#define AGILEX72_LSP_MP_CLK            51
+> +#define AGILEX72_LSP_SP_CLK            52
+> +#define AGILEX72_SPIM_0_CLK            53
+> +#define AGILEX72_SPIM_1_CLK            54
+> +#define AGILEX72_SPIS_0_CLK            55
+> +#define AGILEX72_SPIS_1_CLK            56
+> +#define AGILEX72_DMA_0_CORE_CLK        57
+> +#define AGILEX72_DMA_0_HS_CLK          58
+> +#define AGILEX72_DMA_1_CORE_CLK        59
+> +#define AGILEX72_DMA_1_HS_CLK          60
+> +#define AGILEX72_I3C_0_CORE_CLK        61
+> +#define AGILEX72_I3C_1_CORE_CLK        62
+> +#define AGILEX72_I2C_0_PCLK            63
+> +#define AGILEX72_I2C_1_PCLK            64
+> +#define AGILEX72_I2C_EMAC0_PCLK        65
+> +#define AGILEX72_I2C_EMAC1_PCLK        66
+> +#define AGILEX72_I2C_EMAC2_PCLK        67
+> +#define AGILEX72_UART_0_PCLK           68
+> +#define AGILEX72_UART_1_PCLK           69
+> +#define AGILEX72_UART_2_PCLK           70
+> +#define AGILEX72_SPTIMER_0_PCLK        71
+> +#define AGILEX72_SPTIMER_1_PCLK        72
+> +#define AGILEX72_CS_AT_CLK             73
+> +#define AGILEX72_CS_PDBG_CLK           74
+> +#define AGILEX72_CS_TRACE_CLK          75
+> +#define AGILEX72_EMACA_DIV_CLK         76
+> +#define AGILEX72_EMACB_DIV_CLK         77
+> +#define AGILEX72_EMAC0_CLK             78
+> +#define AGILEX72_EMAC1_CLK             79
+> +#define AGILEX72_EMAC2_CLK             80
+> +#define AGILEX72_EMAC_PTP_CLK          81
+> +#define AGILEX72_GPIO_DB_CLK           82
+> +#define AGILEX72_USB31_SUSPEND_CLK     83
+> +#define AGILEX72_USB31_BUS_CLK_EARLY   84
+> +#define AGILEX72_S2F_USER0_CLK         85
+> +#define AGILEX72_S2F_USER1_CLK         86
+> +#define AGILEX72_XSPI_PCLK             87
+> +#define AGILEX72_XSPI_CLK              88
+> +#define AGILEX72_XSPI_PHY_CLK          89
+> +#define AGILEX72_SDMMC0_SDPHY_REG_CLK  90
+> +#define AGILEX72_SDMMC1_SDPHY_REG_CLK  91
+> +#define AGILEX72_SDMMC0_SDMCLK         92
+> +#define AGILEX72_SDMMC1_SDMCLK         93
+> +#define AGILEX72_SDMMC0_PHY_CLK        94
+> +#define AGILEX72_SDMMC1_PHY_CLK        95
+> +#define AGILEX72_USB31_REF_CLK         96
+
+> +#define AGILEX72_NUM_CLKS              97
+
+No, not a binding. Drop
+
+> +
+> +#endif  /* __DT_BINDINGS_ALTR_AGILEX72_CLKMGR_H */
+
+
+Best regards,
+Krzysztof
