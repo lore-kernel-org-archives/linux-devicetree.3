@@ -1,173 +1,182 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011002.outbound.protection.outlook.com [40.107.130.2])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651D5391E78
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787042737; cv=fail; b=laSgdhZ/ov7PskMAA+Yf1ZyfqagWoKXhhlxqolukS/fHH0lyib1T9vT9aVH8Wr+6EKx/2JZzLTGTaaUwCi4nJcynlWM0VJU6GjfDtOPJHh6KaZ/q/h4po62RWLyTmOKjLYlAPmS1LC0ZFVtfON6eeYpMivC86uvJQdUiPinpD3k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787042737; c=relaxed/simple;
-	bh=ppty9dG+MTMURI0DnVs7Y6uOpGSdTl01zzNul7/7wuc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ptldDgohCSJRz7esXmCJfzk+YZc9e0n7oDV/KO/BN3WqiLVJvrD/0AskFVfo2QitUhDpiWC/W9oUm9FuXXOewgMpKqKZqEL22TJNSUdlQBhyE3j2s8He5zCL9zewifTFb4CTwscNOaiK2GCm+uRGQYmm2CkfdqBIuAYvAgd/2Q4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=n7V8dCdi; arc=fail smtp.client-ip=40.107.130.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B898843B6F2;
+	Tue, 18 Aug 2026 08:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787042836; cv=none; b=pnm0oRccYlzEOyohFT6vaZwd87EyHdUP/omAAsMfAwFIke7v/txr7EQT0XYZVrtRIsq0s8GoltuUizb5SEPaWF5MdecoJ6cRWcDKO4ZuiNRIMtlT/cVXWpFh8chR8OQqUl5q1bbj1BsXJ9SlEAiVqeH0SnhgbHmT+8DeZUfenQM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787042836; c=relaxed/simple;
+	bh=qzmrHDq9gKwBtG8E4LViOyEL/NmVMbxTaKNmUk5bwYw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=jX9+ui3EXqGXNHIkqIf+gypFUVpa5lfzMzQ52+3fr0gAomVS+WJ2ZNfqDUJEVNqmRuOpCxxycSquEM1ESNVRIJwA4gFZgV5zhLgOgtgG1mT0Pspk65OSmvovPwkthz3QOoUis3CWd8GGDCoxWUuEJJOHvCz7uiXIgtXMljCkR/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZbkYcOa5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="n7V8dCdi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s1UdoRoP9D8nq/sjPN/KmhyvKu0WRO4lr6XOd2QROKII1IQ1bbnPxZ53nAlqcCZftrR0U/8221ldj3GdG6bNP6t2mX5Ivm/9YB3KK2kVEdF1UM5jzkxUBlHYuwiIiIMF3Yb9bGcLB53/xO8ZCpI/8BlxPX+kC23I60WsdYcwU2m3iGLUNUYsSEHZcAV3L4r/0u+Mc18k0JIxYbqGxEBR+z7qb42Wk6mQFQdYO3x+5o0GeSmwJzh0VJdFPbAo9m4xHl3IGWgYFu2rixgnjwxSqpSwwURLjNKVXPCZukiuItjX0dv5qtbeTHYYLodczLXfUsTCwgCrqGVUtgSTWkvL/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hGp0vC5WzVwCTOZ2plzVyiTDQVmlBAERoL/kYCkrAkc=;
- b=Mz9tiBu5KYgFeKabXlC31h/4J5tiq4zUIAchtyrFyYkw0Q78dPNv4XhQb58VqewAgPu3Owkr+FtNEM0timEKNqyDm6AnUH8001PYOAPTDDzjOoxnkHpZndixfkZrP4+84fbB6xkCOUm6gA18CJaO1SKa7CrGyjmlSeHItHg9+SA+kD0iI0J3VeesxTfsgDo9H753+7Nqsp3WpgTbfoCPqluK1sT+IvZ7OHeP3kO+3jGBPugfARNlbFyQy1Wt1s/+z/I2zXpvjT1BIo8FfEYTAZd1VBs92DlwWJbJ08LidI58enHf/Y5vpX9Uuwx4yp3FP3qV8aH80zi2VuDJFMDf3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hGp0vC5WzVwCTOZ2plzVyiTDQVmlBAERoL/kYCkrAkc=;
- b=n7V8dCdig8XEmGjwOBtC2IKB6a1/6BOOLsMWgHDfrFkgpPH7kqGpDayITxMNwMZHQsRweG0qaqoMJcQfDHIyzB4j7AKdxchk7G7T34eLM8EADM0hDp5VPH8n4NFXtH6Adp/fukQ8g8ZKBdner9KD7LsDBHJbdAKvWHRb40G0razxKsjeVCYk8EkR0KMXcsbVooeCdXI6hto5LvD4RKvovPAqdchEQbGkhzBPvMcoL7qbV7bw5kfLR+Az/TQWSXHkWSt9aq7UCG09/zC6zpA7QOL+74OtvLHrgv4JoBUcqBlCFTCVPKFxDQ7QPUVB1MrymPK+gdxkL9A1VrkkUpv9MA==
-Received: from GV2PR04MB12271.eurprd04.prod.outlook.com (2603:10a6:150:32a::5)
- by DBBPR04MB7562.eurprd04.prod.outlook.com (2603:10a6:10:1f6::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
- 2026 08:45:27 +0000
-Received: from GV2PR04MB12271.eurprd04.prod.outlook.com
- ([fe80::3b38:4ed4:2164:c035]) by GV2PR04MB12271.eurprd04.prod.outlook.com
- ([fe80::3b38:4ed4:2164:c035%5]) with mapi id 15.21.0339.007; Tue, 18 Aug 2026
- 08:45:27 +0000
-From: "Pankaj Gupta (OSS)" <pankaj.gupta@oss.nxp.com>
-To: "Frank Li (OSS)" <frank.li@oss.nxp.com>, "sashiko-reviews@lists.linux.dev"
-	<sashiko-reviews@lists.linux.dev>
-CC: "Pankaj Gupta (OSS)" <pankaj.gupta@oss.nxp.com>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "Frank.Li@kernel.org" <Frank.Li@kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>
-Subject: RE: [PATCH v36 3/7] firmware: imx: add driver for NXP EdgeLock
- Enclave
-Thread-Topic: [PATCH v36 3/7] firmware: imx: add driver for NXP EdgeLock
- Enclave
-Thread-Index: AQHdLu3qjbFmlKSDBkGczVC1tbloFg==
-Date: Tue, 18 Aug 2026 08:45:26 +0000
-Message-ID:
- <GV2PR04MB12271D7E7AAD64AE668A673CC95A62@GV2PR04MB12271.eurprd04.prod.outlook.com>
-References: <20260817-imx-se-if-v36-0-45c42847bfd8@oss.nxp.com>
- <20260817-imx-se-if-v36-3-45c42847bfd8@oss.nxp.com>
- <20260817084817.DB1BE1F000E9@smtp.kernel.org> <aoNVs-TtpfQmR0Au@SMW015318>
-In-Reply-To: <aoNVs-TtpfQmR0Au@SMW015318>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Enabled=True;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SetDate=2026-08-18T08:40:51.0000000Z;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Name=NXP
- Confidential;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_ContentBits=3;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB12271:EE_|DBBPR04MB7562:EE_
-x-ms-office365-filtering-correlation-id: 8539d0b7-ea21-431d-3631-08defd050d25
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|1800799024|23010399003|366016|376014|5023799004|11063799006|10067099003|4143699003|56012099006|38070700021|6133799003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- 6YdGW363clDZX5RpUHB5JxX3kmL/I29rsLn2p0t41TqoXEYPYb4dbgTnlDd8KJRFJRPRYV23Y6Sc94ZtrLTQKc13pTV+M9DWNNmlQXTPyDijAKzT0t0RrTpcq0C0E9rcoaiE8xxT3UslcfMm5TEKZF465APcu33VfMGlKshSLQVk9E8qGmHr4HP/Xan43QljkN4RwH5EOk6lzR0oqV+16sHsmoLvVsYzemq3N8x/qJfyplYofabT+3pAxCH3psc4qhh341xYUUfwmknPg9EXydcpg9jrqrF9QWlctDE7CU7XGp2nxmvPyTQpXGR8F+9uBtN+X3hJKFjKKrnr+z2mbukzYrhi/gS3sKHVPETdBz/wmxtXg2tbKvuYGmXWp1BBi9epjgP0BDBaiMFPD0s2rkfTTqr3/OvLwGo+nqcs4kXyXtJdD+49PVURA3zFa3wSIUDrjrkhIqPsZk+eTZ+Oc7tKxAD295cb+AIHXXlc3mWJgSj4J31yAcYsJs7rnj1uUBDzIgKWBuZQbMlSKbvIC/ujPQ47Dfdbb+yqWP/ZRldPrgP5otz9452PUrUQfyftMMZ6V5A8Y22cbWCExa4TIxLYO5dUT909H+hoVuQ+0sSpYhSljpkaxkcEUeZf3PRekOeigPic0n6sG/KQpVvlTScmfcWun8Hr0EeuNboETwY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12271.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(366016)(376014)(5023799004)(11063799006)(10067099003)(4143699003)(56012099006)(38070700021)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Ge7SR6OWrqHBYI6nOVbxo2Jyscbdf4+3UMySf2JPzEGnbYjNK+ST+EZAXYTj?=
- =?us-ascii?Q?XNZDrwv9MKEMLjrrT1VUACwPCGdOEn4eeiiUfi3ls1m843/tBAfbTJoP2+it?=
- =?us-ascii?Q?GK4qcE6dxST5Z/6YMc5Qv+0jc17qdIVRW7GV/xOL37R6EH4SA3Q1nLNL+LHn?=
- =?us-ascii?Q?VcvB+eK4B0e7tRYcS1G52AXSbP4FqvGf92/LYdvvB1EsP7/ZSKVjb3Kcd4St?=
- =?us-ascii?Q?neLxIn1A9gittkBF78dgMk0S2fRKAajz0D5ceNhGfSDCf+a8tIdXkaosNF/r?=
- =?us-ascii?Q?cQmuhw8j5TpgyxqESp6WGVmlTFmEUoW0M0wy8De0GyOYARtwx45OkALyj265?=
- =?us-ascii?Q?0CbQm8FH9Vu0nQ4o/mt0HcQV0phEjFlbYfjUjQ/+ULmfLPMR6sVC01LMedAF?=
- =?us-ascii?Q?VmBdSQUEJc+BtkTQ1YY0+2QPZj/OhQEu2kiuveOxcO7dKw0K48ztxgAvH53x?=
- =?us-ascii?Q?mHa4S6V+VfJCDHmVotUDdwoXrytYRwCDoInRwk4aaSi6/zlMZPZjxYHPI+Bg?=
- =?us-ascii?Q?260j4ovlMiQkg3Dh7NZOT4aKj9ZRQ9JUHp5t0P2ia+jrxW+bd5AFenrtNHEB?=
- =?us-ascii?Q?XsoOTlaCWyLeiRob7MtOsHsLAA5n+P2DIf9TpCm74n8iMwaRkD3aQ9Ngq96N?=
- =?us-ascii?Q?NrVxrwtrLbnvtxQKlGEsA7aM9P0P/BYjzjTKfdD3XaM+zQOw8GkOgvqiyAQU?=
- =?us-ascii?Q?szXyubTZLsDLPQqdWkiF+XkQZLY5534mqnhiRPpxOYAB0ZvY4J3ZNfMMF7lX?=
- =?us-ascii?Q?GsiVtpWm5kyrjq5mwQWTib4Mup9XWLdff0SQzODA9xM6Hd3KME8WAnruQI7A?=
- =?us-ascii?Q?U4brzaIzAPLumGVVKHyv/boo90cYUbHX/ttVKqtTUMXhBLAg6BHkRVp2ODTQ?=
- =?us-ascii?Q?Ah2yWtA0wZZW0CKloToOBMDVBEsBtcwV+dcvgtKFrerdLGOp4qkNYLtKOIvP?=
- =?us-ascii?Q?PoYWAO04WJgYijEg55I92lj1F/ZtBePBmaOIpp8A8aangafivECN4BQZMuwW?=
- =?us-ascii?Q?TSfD610PWm21QhW++j4ODcGPN+PoRaA3q1kgWXoFbw5tXFoJIaeDHwHi24r/?=
- =?us-ascii?Q?CDtTpv7ncDxUycipUx5ljI7UXU6Ff6GEnuu8ciY3HaMlLCo98WIFoCpxRRYh?=
- =?us-ascii?Q?jW9U7c8bp92WlR5ljct8G9BDFfADj3VodbP1+cGPgR/P+ON895U74LV43Ywl?=
- =?us-ascii?Q?pvVWzyEvZhxjQO6DwK9c9UQXxYzjzM4YvTy3mg3JuOz0AyBw6nAmEi3i4eQg?=
- =?us-ascii?Q?894+/JRUsQQxzb/LfoIRwR2gKyUwtU7182NsgFtIsF+kihSvQ25lalnUePb9?=
- =?us-ascii?Q?46i4ofjAE/M3Qipn8AIhGa7qoyJjFy24QT+POBuVzO+BrcCOnQqcSwF6q+xu?=
- =?us-ascii?Q?Qr3dBRlBDKN+WkF88vnq/ZReo1L65neOrqTmcU4V3m5fe7VelRbvBU2jj5bU?=
- =?us-ascii?Q?VCRpKkY6HAWiQE8SipeIHKzcCJnmygP2Pm2fMGe905ML/1FgGQYH0E0x03iJ?=
- =?us-ascii?Q?jbqmTFPj6VcPN+eYt7GAWUMBXNPsfskNq394G/9uFvrUdduvVsFSa1EjbvC7?=
- =?us-ascii?Q?xBZUYXuI5ePUfw8w6RT3DQojjUDvuNXp5rYbRhdYzfsu0MSErFL6hitie1xG?=
- =?us-ascii?Q?MlQGb8KqfQuxeuoqV9evwazFfCjxhbQFWr+FJn+WRu75zUZrzc9CxRXEw6xt?=
- =?us-ascii?Q?vcO7uEfJOT5hxb2ADZ16RBF15o0f5vV3p0h7x+HqB6b4YZjnVv/Wu1Hq7KRi?=
- =?us-ascii?Q?clKRjPQaRg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZbkYcOa5"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BF5l747627;
+	Tue, 18 Aug 2026 08:47:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=5ouo3eP4Nwd
+	R9V90XmQZmlFUIo7unktWuZVWtmyvDTU=; b=ZbkYcOa5Zy6cTTiOCNweJfzbdKf
+	GC3eTHGe991sFbODwzcWncLSlIIu53tIgKJVxjx5re+CjvizftNU5mnw3VSVEY5t
+	YKrZY4cqfXQ+bYp81JdP+gdY0qESwgi5dFdlOG/no1GvMNqedN0P1hsT049fGeSK
+	CRkIZZsrQWCYGplLpMwmAFSL0jv6SvvK7gnX6v/Q+eYC/YOPTDOUroyxjcaef/NI
+	CpvfOJuF5fGZGggpz+9euDr8L+JwhioVgLq7ru/YO7766Y3ZrTHgswunO0yGQVUs
+	WH2Tl2FbKiarUsRrJkAhQpc2R3QgYHwfmR4eERN/LZ3Twwd/+DBJv6oaZew==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g48q0tt79-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 08:47:03 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67I8kxQi000891;
+	Tue, 18 Aug 2026 08:46:59 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4g2h6jq1g6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 08:46:59 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67I8kxnP000865;
+	Tue, 18 Aug 2026 08:46:59 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 67I8kwNW000860
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 08:46:59 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id 1ACD8641; Tue, 18 Aug 2026 14:16:58 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2 4/4] ASoC: qcom: sc8280xp: Fix TDM hw_params error handling
+Date: Tue, 18 Aug 2026 14:16:55 +0530
+Message-Id: <20260818084655.3240284-5-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260818084655.3240284-1-prasad.kumpatla@oss.qualcomm.com>
+References: <20260818084655.3240284-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12271.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8539d0b7-ea21-431d-3631-08defd050d25
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2026 08:45:26.9939
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dcFg4xF++rBlRlsXc9nnuqZrQMTMYgfxORJDxfhTtvGH7BOO1uo9ztM60n2I371VQnG4jBdeMZRFhn3IpN76Pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7562
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA2NCBTYWx0ZWRfX9c5bdhonxsGo
+ mNDWmnKjsObK7L7HZu1NT03pdZObz4ZdIviJcRL1EblsNdQkU3P+80oGj0C0wlSvMjR4HmTbcjR
+ S3sxb0fxR3nzItCy1iEsdA6MCtRma3A=
+X-Authority-Analysis: v=2.4 cv=VuITxe2n c=1 sm=1 tr=0 ts=6a841c07 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=__KbwfSMYZr-9KUfyosA:9 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: jEyYjZOqFI3dsvJsgcDnRLpH-QYOA1BH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA2NCBTYWx0ZWRfXxacXEN4OWZId
+ u2mErA986U2/QaFvs3uaDdpR2DMW28Nyj/NK18xi9ki27TseHIEZA7lQJsewYoPrc5BdS0F5sfx
+ bgiyl6J2a7SFlDndgouwjuMRNmyVuvROFZE/73z/KBaoxzl48F1EZ55cAYvSAXi6jirzQ7vWWFQ
+ gNkZX2icbE6ZhrGcX1fEud8/5aIoP9x+gPPLC2VRxhsyKm9XGgSdSeFXSj203hfy7IOl3OSxHTF
+ QDbaFLhnllxSVSySBn1tPEPSGZGZv724lHKVOSxCUvNFVOBY4TQCLFyKT2Jy5QQj0RTaJbc+zWW
+ 6NTFBtva2QN+vhaTjgtpwwttiYFzsftZbhd+gqt0AAUIDzISNntJNU7taJ1CjbIyJvbciL4ID9X
+ d0mtSlRX0AqHd6F5kFtaQa+bJBV1py96uieLi9dnnIFb9zBK+sXLC7wOfPC8GoL7aabYIkPQrnv
+ BnDj8eRjxHZZv2YR/xQ==
+X-Proofpoint-ORIG-GUID: jEyYjZOqFI3dsvJsgcDnRLpH-QYOA1BH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 spamscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180064
 
-> > > +void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg) {
-> > [ ... ]
-> > > + } else if (header->tag =3D=3D priv->if_defs->rsp_tag) {
-> > [ ... ]
-> > > +         se_clbk_hdl->rx_msg_sz =3D min(rx_msg_sz, exp_rx_msg_sz);
-> > > +         memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
-> >
-> > [Severity: High]
-> > If the mailbox controller driver passes a pointer to a small local
-> > buffer on the IRQ stack for msg, but the untrusted firmware-provided
-> > header->size specifies a large size, does this memcpy() read
-> > out-of-bounds past the msg pointer capacity?
->
-> Please check this also
->
-> Frank
->
+Treat -ENOENT from TDM slot parsing as the optional "configuration not
+present" case and continue to propagate real configuration errors.
 
-Not an issue.
-rx_msg_sz is derived from the firmware-provided header->size field.
-It is safe to use as the source length for the memcpy() calls below
-because the MU mailbox driver (imx-mailbox.c) already validates that
-header->size does not exceed the capacity of its own fixed-size
-priv->msg buffer (sizeof(imx_sc_rpc_msg_max) =3D 124 bytes for
-i.MX8/i.MX93, sizeof(imx_s4_rpc_msg_max) =3D 1020 bytes for S4
-variants).  If firmware reports an oversized length the mailbox driver
-returns -EINVAL and never invokes this callback, so rx_msg_sz here is
-always <=3D the capacity of the msg pointer.  The min() / min_t() calls
-below additionally clamp the copy to the destination buffer size.
+Also ignore -ENOTSUPP from optional DAI format and codec sysclk
+callbacks, apply codec_dai_fmt to codec DAIs on TDM links, and use a
+signed bclk_freq variable so errors from snd_soc_tdm_params_to_bclk()
+are handled correctly.
 
->
-> > --
-> > Sashiko AI review *
-> > https://sashiko.dev/#/patchset/20260817-imx-se-if-v36-0-
-> 45c42847bfd8@o
-> > ss.nxp.com?part=3D3
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com
+Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+---
+ sound/soc/qcom/sc8280xp.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-NXP Confidential
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index 1322601659d4..4d48e1012cd4 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -115,33 +115,42 @@ static int sc8280xp_tdm_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_dai *codec_dai;
+ 	struct qcom_snd_tdm_slot_cfg cpu_cfg;
+ 	struct qcom_snd_tdm_slot_cfg codec_cfg;
+-	unsigned int bclk_freq;
++	int bclk_freq;
+ 	int ret;
+ 	int i;
+ 
+ 	ret = qcom_snd_get_dai_tdm_slots(rtd, &cpu_cfg, &codec_cfg);
+ 	if (ret)
+-		return ret == -EINVAL ? 0 : ret;
++		return ret == -ENOENT ? 0 : ret;
+ 
+ 	if (!cpu_cfg.slots)
+ 		return 0;
+ 
+ 	ret = snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
+-	if (ret)
++	if (ret && ret != -ENOTSUPP)
+ 		return ret;
+ 
++	if (data->priv->codec_dai_fmt) {
++		for_each_rtd_codec_dais(rtd, i, codec_dai) {
++			ret = snd_soc_dai_set_fmt(codec_dai,
++						  data->priv->codec_dai_fmt);
++			if (ret && ret != -ENOTSUPP)
++				return ret;
++		}
++	}
++
+ 	ret = qcom_snd_apply_dai_tdm_slots_cfg(rtd, &cpu_cfg, &codec_cfg);
+ 	if (ret)
+ 		return ret;
+ 
+ 	bclk_freq = snd_soc_tdm_params_to_bclk(params, cpu_cfg.slot_width, cpu_cfg.slots, 1);
+-	if (!bclk_freq)
++	if (bclk_freq <= 0)
+ 		return -EINVAL;
+ 
+ 	if (data->priv->mi2s_bclk_enable) {
+ 		ret = snd_soc_dai_set_sysclk(cpu_dai, LPAIF_MI2S_BCLK, bclk_freq,
+ 					     SND_SOC_CLOCK_IN);
+-		if (ret) {
++		if (ret && ret != -ENOTSUPP) {
+ 			dev_err(rtd->dev, "%s: failed to set cpu sysclk: %d\n",
+ 				__func__, ret);
+ 			return ret;
+@@ -152,7 +161,7 @@ static int sc8280xp_tdm_hw_params(struct snd_pcm_substream *substream,
+ 		for_each_rtd_codec_dais(rtd, i, codec_dai) {
+ 			ret = snd_soc_dai_set_sysclk(codec_dai, 0, bclk_freq,
+ 						     SND_SOC_CLOCK_IN);
+-			if (ret) {
++			if (ret && ret != -ENOTSUPP) {
+ 				dev_err(rtd->dev, "%s: failed to set codec sysclk on %s: %d\n",
+ 					__func__, codec_dai->name, ret);
+ 				return ret;
+-- 
+2.34.1
+
