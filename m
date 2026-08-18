@@ -1,49 +1,49 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2007422541;
-	Tue, 18 Aug 2026 08:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1DD41DE0B;
+	Tue, 18 Aug 2026 08:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787042227; cv=none; b=kom2SSE1V1lrziJ9xUkmH9TQdP9g9dxFQvTOC0PCtQjmt5jFsIXen2T06QybRNOe67if0vbJm3LOlw8a4zVm1qrFjnL0wn0+b0HMQ6/eXLHNp5w8y0epwskWeJRTUJD3JmkovRztXD/jDMJdg2HWS+YVOoEKjH429fNIN1l2Pp4=
+	t=1787042277; cv=none; b=HcePQnQufaC2oikLiYo8yAf/QxwhZ2Eg15gek+UUDPjwu7Gz+r5Yi3tkbUp2lkRj5rcbzRG7djyxjor7I0K5cBX1ivbh5ZmaaCgKAr9MZkN2B34JPu9qo1jjM5eGhRxdJbhCsL2bNn4z3PxapJI4g9bu+zuQ17HBnhRkghV6ZX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787042227; c=relaxed/simple;
-	bh=4b7I6huqeATBrGSn+Z3OSgkdRFOhUFuXxaN24NMCxmQ=;
+	s=arc-20240116; t=1787042277; c=relaxed/simple;
+	bh=G6sf36lxpjs+UKAI9HoAQBgocUntJgL3ULkaxxLNTpY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r4I95eApHKsF0sGTqIOif/cWntQ2c21VZLTlCBZh0lMtU1nGFWwyAxpgByv5n3PcmV4wm4MeNyHAPoAM2QOhIPPfUSneU1f3zrX8uQE/JTVe19wQU9v7/m693/PaXaRzF92L9U40YKqoj3aA0DumTJozNXm3tLBiDZSRDk37+pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mSjBpHDa; arc=none smtp.client-ip=192.198.163.13
+	 Content-Type:Content-Disposition:In-Reply-To; b=rW3IpyYHNa95A0OI5zkIHZcSB1NJZ/swl3wA4PH2rxaEmD+T2RHzvXPd8RIFS2vhhqzVombc7FodRI5q/8p0yl+PyYUO0RsUnr8u3ipGSf2aXiw9gReCcOHbWASXDlssLJ+arkaOLZyx55uVK1R6NJcKCadTR91Lzpiz8OvHMS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P8R29f8l; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mSjBpHDa"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P8R29f8l"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787042226; x=1818578226;
+  t=1787042276; x=1818578276;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=4b7I6huqeATBrGSn+Z3OSgkdRFOhUFuXxaN24NMCxmQ=;
-  b=mSjBpHDaNpWfg7ytaUDHfbAgDaEFXLRJQW5TNiUQBuzCZtocWYDU2b3G
-   27JnWYjOstCSMkz8neGegx50fNrHvffGPA21wttNHjpmAu2UtYeXrwLcB
-   xdKt+7jXWOlhdwshe+Dsl8weSwJ1vu1Q9xSKxxzfOOrfvHEzUS2pLATLn
-   b0puTsJc5KUL06IOlU6+yP6VvhtJP2vnPmpMQMN4NmlbLdYxyVRNwHVj4
-   eJRodsLRfGa6b6639t954ejcHPyMAxeErxZ8rWaPHgd6yiwTD1985Hemx
-   Cd44egVCuUIS5vcPuuY80YPNx/JUEMQ8Zv6G5TU7MWvdffZzgShnJUouK
-   g==;
-X-CSE-ConnectionGUID: zM74EtbWSkiJeIQilaiqYg==
-X-CSE-MsgGUID: 8AUlBVkLT/6ecHAdqmlLxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="90040430"
+  bh=G6sf36lxpjs+UKAI9HoAQBgocUntJgL3ULkaxxLNTpY=;
+  b=P8R29f8lJ+gnyUvE3DJE5ME0zh8xf3bTSThchrPfTPcgN2jv26Vb0iv+
+   wRLV0sSZG/CUDgtht2q4tJf18rPoI5byL89QQ2IpN1bRCCFnsh10k4K8D
+   8OtkSCBzGPTeo4ygJEOWcRu4JJpn/9oev39blHGaRyb+lAdNUdeqZ6a5r
+   fmdg9dcM6ShzSoMIeHjPeOxVCqzqk2O2B2E0UeCgZMG4oOXsB/sSZ7GXp
+   fnaIupz/jYS+sZq0hRM1KtdMWiq7aUtQwn8pwSjfWpSxX5s1F4gOe4RWP
+   6upWqEkuQiS0o70vS3rX86NvyKBa/+tahejgewykb/eDIr4lO6iCqPa+M
+   w==;
+X-CSE-ConnectionGUID: jQobfd4rReGK3itASbSFRg==
+X-CSE-MsgGUID: qXk8T+oZQjK7VhRqFxhCZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="98195442"
 X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="90040430"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:37:05 -0700
-X-CSE-ConnectionGUID: dbiVEkfwSVqyGrHS2NSAng==
-X-CSE-MsgGUID: 2MyR2/xpRr24LqqdGdKAHQ==
+   d="scan'208";a="98195442"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:37:55 -0700
+X-CSE-ConnectionGUID: iB9MBv7oQICw7Sjos0KUeA==
+X-CSE-MsgGUID: G2b5iq79Sziakvn9sXovbA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="269007555"
+   d="scan'208";a="289974521"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:37:01 -0700
-Date: Tue, 18 Aug 2026 11:36:58 +0300
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:37:52 -0700
+Date: Tue, 18 Aug 2026 11:37:50 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Amit Barzilai <amit.barzilai22@gmail.com>
 Cc: Javier Martinez Canillas <javierm@redhat.com>,
@@ -57,11 +57,11 @@ Cc: Javier Martinez Canillas <javierm@redhat.com>,
 	Fabio Piparo <holofermes@gmail.com>,
 	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/6] drm/ssd130x: Change SSD133X color format to
- RGB565 from RGB332
-Message-ID: <aoQZqnbqoiOw6MKt@ashevche-desk.local>
+Subject: Re: [PATCH v4 3/6] drm/ssd130x: Constify ssd130x_write_data()
+ 'values' parameter
+Message-ID: <aoQZ3u_RoLHviJo2@ashevche-desk.local>
 References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
- <20260818080626.30430-3-amit.barzilai22@gmail.com>
+ <20260818080626.30430-4-amit.barzilai22@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,40 +70,16 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260818080626.30430-3-amit.barzilai22@gmail.com>
+In-Reply-To: <20260818080626.30430-4-amit.barzilai22@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Aug 18, 2026 at 11:06:22AM +0300, Amit Barzilai wrote:
-> SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
-> Switch the SSD133X data path to RGB565.
+On Tue, Aug 18, 2026 at 11:06:23AM +0300, Amit Barzilai wrote:
+> At no point does ssd130x_write_data() change the bytes it receives via
+> the 'values' parameter. Constify the parameter so const-qualified
+> buffers pass through without casting away const.
 
-> +	/*
-> +	 * Horizontal address increment, normal SA,SB,SC (e.g. RGB) sub-pixel
-> +	 * order, COM split odd even and 65k (RGB565) color depth.
-> +	 */
-> +	u8 remap = SSD133X_SET_REMAP_COM_SPLIT |
-> +		   FIELD_PREP(SSD133X_SET_REMAP_COLOR_DEPTH_MASK, SSD133X_COLOR_DEPTH_65K);
->  	const u8 cmds[] = {
->  		2, SSD133X_SET_MASTER_CURRENT, 0x06,
->  		3, SSD133X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
->  		3, SSD133X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
-> -		/*
-> -		 * Horizontal Address Increment
-> -		 * Normal order SA,SB,SC (e.g. RGB)
-> -		 * COM Split Odd Even
-> -		 * 256 color format
-> -		 */
-> -		2, SSD13XX_SET_SEG_REMAP, 0x20,
-> +		2, SSD13XX_SET_SEG_REMAP, remap,
-
-Strictly speaking this is now initialisation of const object by non-const value
-(yes, since it's a simple integer  there is nothing in between to modify it,
- but still...).
-
->  		2, SSD133X_SET_DISPLAY_START, 0x00,
->  		2, SSD133X_SET_DISPLAY_OFFSET, 0x00,
->  		1, SSD133X_SET_DISPLAY_NORMAL,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
 -- 
 With Best Regards,
