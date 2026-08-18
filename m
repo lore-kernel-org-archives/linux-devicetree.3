@@ -1,106 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D39647DD55
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3685D47D46D
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:43:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787071374; cv=none; b=UtFXEGOFN1THCegtMx3CAedMNkFG/Vt4EmgLv/xzKhA0nNEa2iR15IknLdZbxJcJpFXVJ5YIRKPMfhjldepdugf9NUUATca8PA08dkP/XMLedXSClRq4zh9dsjuNgeSMy3NOjkrlXqut6L961YXJ8REEl0VKjn5Gq15q4T3WAdU=
+	t=1787071409; cv=none; b=UmM/IEibo3vGSMpS44u0+18JTmPuqYjsXIY1+fVXT5h1N2SUF80xNAXJKqxOi9yclbKR3wtckrlitrh5sG+uhMfC2IEySv0eISyLNoIqTiHjLcZ3sloFA+ZG7K6UAMNr+Mi2zQfwJWsK641OddvY77EmvKtnnbR6D1DGtnqCAVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787071374; c=relaxed/simple;
-	bh=vdHXjon9Sh6Y1CDovfPe7eqt4JkunVYfJEkHNJKJAss=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nvolbFjxXLH1A3bMcoSaWe2N1HlZUSXe0IE3MART2/tU34jTd+SBu8oCGc0fX+SbxOzrJUCHJHRhF+wW3TUE3RQSkC/sJfwMr1FrxlN1y9eXpFPZfXUrMAvkaP89TyMc4KQ+mu/vl6P4p5E2hJYy9cN/80aIFgWupgYcVWjACsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rdq/I0/C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787071409; c=relaxed/simple;
+	bh=K+QUy4zLmlv4+MaVDHnBLu+gH/Gcy3fxKtNBfHWbBA8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aYZw71BZHpaDaXioG68H78CkvzT4Cyxdmf5Uz3K0Gm3sbznFJpjHHOZLiJdh/cZvEFYBkvRGOezoY6fda//1ViTb83MTlPK9hKY5hLDX/jtcn/JFlMeCQdEt2AF9q0D7h8Xhj/kceySizlyBbNyoviVz0GnQPzKDHUDxGzeZ8ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A9EbPXO1; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rdq/I0/C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADCF31F000E9;
-	Tue, 18 Aug 2026 16:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787071369;
-	bh=igN8MvIpI44umRS/0dWbNPJSPuviwFn5LnynMybEqtI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rdq/I0/CYa0NYt1L8JTyPU0KtwhYG0xk4VjTWWmBPehVmXqVG6CIy6B4KUqXLLeM0
-	 nxR4udXrues2QI7mngBaaNDYbEWSisFHD1vIzZIoNHg1Di37vPsIWXSypIICK3p1Ga
-	 n7G9v1gYxq0WaxvHTzrNG1sAxAkMdkxCiICgifwQ1TXLrorLtzdykmjnQmnz8A3Wqu
-	 Y6qKTtpovr80fWI2be0m7CgReyIOesEIpb5RfYf7h4Zh9WuWxpZCCRL3SIJSpb68Id
-	 /9/Eh9PWEHmyfn+TsSn/tOY6x9slIOD9Zlxo8GYUQZqzFxyIZCM0CDVMh9plK1PAaZ
-	 PtX2j8yIEGsZA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
-References: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 16:42:49 +0000
-Message-Id: <20260818164249.ADCF31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A9EbPXO1"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so136323b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:43:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787071407; x=1787676207; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6RTooZUiv9NtYPBqi5Uj7Uh2pUea9ucaOoXpNtgOCTw=;
+        b=A9EbPXO1ApjFrzE60rfXTYWX/lt4OA+9biDGASkShdcYuPToMmry5pfswW7DOl8B8k
+         azeyR2+lQOggWTdQA1DgCooyTQg8ejZEpwO3sH16ZmDMMJVBm33mKiZttqjazvIKUXON
+         vVueLZWIl0TOiKWSTDUhMkApfok2dzVkO0S3OXOdPy02B4zj9/Z0jk3SPudN1uual3LI
+         RprQ9cO+XV7AhZ96Vu20GtS3O3LFNwCtJs8UutsvXVxHHkgtFZdB5miv/6QcW+gkGPUd
+         zzvyNydfhXNOdxG0aFelXrgDo2IKguUy3hfyqyR17GrA9RYZP/ALH0ELDHEsvZVsVkNY
+         0n8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787071407; x=1787676207;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6RTooZUiv9NtYPBqi5Uj7Uh2pUea9ucaOoXpNtgOCTw=;
+        b=VFZtnU40AYYSHLlaPng0MrPY36WWXwRB5zzIhzHbGzbazMkIFaposaa8AFTx5DuPia
+         QHond3f/CN6vRuxgiZipWhJu/6fgI/n8eIX5Ty6RUvIpL9XVZQKbw+4VyAg8812E3BLN
+         gEH73pld5DmeVtLxn7vjlp5h51n05LQM/ySWhFhJtYjbnNF/fAKzaSg/XoDxItBVgwPm
+         ISXjlWBaFhCj5XM1kz6mMzzy5F/vGyY+IHmG8Ydmwl/FVYoQz/4NwvKYFabipwidQvRX
+         pryka+eGaKOxLwMg5yUc4A4Ux5Yx1L7zrct39PRtr5/PdfLuDGQY3RyidICXfsA3Y0Vh
+         N5gw==
+X-Gm-Message-State: AOJu0YwRHAwAgd5zrjWEvmoK3FR63h0dw4to6SS9hdynlRKsK5XD97M5
+	eGPh+9N5xjDVzXFSd5F2yeqVI0XD7y2z/wuXAF24zTndXHxytSVdXEVxqGzH6Q==
+X-Gm-Gg: AR+sD12Uk+itnnPgcL+Ls8QP3ui+T/Vb5EShxZvt3fg9H/Nqa2jzb0DO0HVKWUFtTnu
+	+Y77VCfE0VJggfqKELxa5fBNAx9rPErnbjQfT2YhHNhkoHTI7zT+s/4S0ZviaLIgu5mVt9j1McM
+	1HZtumH1DpGAL1con2Z8T5wI+uPTLauXfTDFEqJ8yediRO9HAIKQPVJgh26cFpvSlzCeBJdyCOR
+	lqjr8o+JtrsLCi9/hic88lMM/DJZon/SuSAYrkYCv3xFQNk7PQotKwCmQ+lEEsoPPL43wH0weDh
+	qpSwvZn6g4fI3jnbng9KvZZqTF2rwVnNZPmwmhoav/lb77adZFTkFhlrlIsEl7rug4TYfN1A581
+	2/COkD3jHMqXQ6rpUotNvVD44RVYM5kAfqY/CfUes6A85pZQHD7hQSMzWKOdxCdwVzsxRzvcccD
+	GBRQ1/qpYNnBpJok16yiUfW9oJl477dDkhTFFiBxaJDs43ROf9HLbUDHoCOVzxZjz7Iz9wsab0K
+	tvXRFlOUr+7G/z1XTyUcEcwq6lIcVY36ZcKZw==
+X-Received: by 2002:a05:6a00:1c9e:b0:845:c694:5c3d with SMTP id d2e1a72fcca58-84fddfbf1c0mr37409469b3a.1.1787071407292;
+        Tue, 18 Aug 2026 09:43:27 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851b401ddd9sm2069801b3a.3.2026.08.18.09.43.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 09:43:26 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <8919c7f3-2dcb-4666-91e0-a91edc378c28@roeck-us.net>
+Date: Tue, 18 Aug 2026 09:43:25 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
+ compatible data
+To: sashiko-reviews@lists.linux.dev, Aiden Isik <aidenisik@member.fsf.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ linux-watchdog@vger.kernel.org
+References: <20260818-for-next-lucky7-watchdog-v2-0-6743f479a47f@member.fsf.org>
+ <20260818-for-next-lucky7-watchdog-v2-2-6743f479a47f@member.fsf.org>
+ <20260818155332.9E0DD1F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260818155332.9E0DD1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Binding Schema Violation: `additionalProperties: type: object` is a=
-n anti-pattern for allowing generic child nodes.
---
+Aiden,
 
---- Patch [1]: [PATCH] dt-bindings: bus: ti,omap-ocp2scp: Convert to DT sch=
-ema ---
-commit 1199d265b1ac5f3fa059bb1936e3713c5ea7ac99
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+On 8/18/26 08:53, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] The `drv_data_exynos5515` variant includes `QUIRK_HAS_PMU_AUTO_DISABLE` but fails to define `.disable_reg`, resulting in PMU register corruption at offset 0x0.
+> - [High] The `drv_data_exynos5515` variant uses an INT_EN register for masking but fails to set `.mask_reset_inv = true`, inverting the watchdog masking logic.
+> --
+> 
+Please either address or explain why those are non-issues.
 
-dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
+Guenter
 
-This commit converts the ti,omap-ocp2scp bridge device tree bindings to
-dt-schema. It updates required properties, marks ti,hwmods as deprecated,
-and sets additionalProperties to type: object to represent various child
-phy devices.
+> --- Patch [2]: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data ---
+> commit fd223d0c16451bec63089d85a77c3b012b8f28ed
+> Author: Aiden Isik <aidenisik@member.fsf.org>
+> 
+> watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
+>      
+> Add driver data for the Exynos5515 SoC's watchdog timer.
+> 
+>> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
+>> index e31f93db05096..7299dfdb0c099 100644
+>> --- a/drivers/watchdog/s3c2410_wdt.c
+>> +++ b/drivers/watchdog/s3c2410_wdt.c
+>> @@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv_data_exynos5420 = {
+>>   		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
+>>   };
+>>   
+>> +static const struct s3c2410_wdt_variant drv_data_exynos5515 = {
+>> +	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
+> 
+> [Severity: High]
+> This variant uses an INT_EN register for masking but omits .mask_reset_inv.
+> Could this cause the watchdog masking logic to be inverted?
+> 
+> Looking at s3c2410wdt_mask_wdt_reset(), the logic evaluates to false when
+> unmasking if .mask_reset_inv is not set to true:
+> 
+> s3c2410wdt_mask_wdt_reset() {
+> 	...
+> 	const bool val_inv = wdt->drv_data->mask_reset_inv;
+> 	const u32 val = (mask ^ val_inv) ? mask_val : 0;
+> 	...
+> 	ret = regmap_update_bits(wdt->pmureg, wdt->drv_data->mask_reset_reg,
+> 				 mask_val, val);
+> 
+> Does this mean it will write a 0 when unmasking, disabling the reset output
+> instead of enabling it?
+> 
+>> +	.mask_bit = 2,
+>> +	.rst_stat_reg = EXYNOS5_RST_STAT_REG_OFFSET,
+>> +	.rst_stat_bit = 24,
+>> +	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
+>> +		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE | \
+> 
+> [Severity: High]
+> Since QUIRK_HAS_PMU_AUTO_DISABLE is set but .disable_reg is omitted, will
+> .disable_reg default to 0x0?
+> 
+> During initialization and suspend, s3c2410wdt_disable_wdt_reset() applies
+> updates to wdt->drv_data->disable_reg:
+> 
+> s3c2410wdt_disable_wdt_reset() {
+> 	...
+> 	ret = regmap_update_bits(wdt->pmureg, wdt->drv_data->disable_reg,
+> 				 mask_val, val);
+> 
+> Could this unintentionally corrupt bit 2 at PMU offset 0x0?
+> 
+>> +		  QUIRK_HAS_DBGACK_BIT,
+>> +};
+>> +
+> 
+> [ ... ]
+> 
 
-> diff --git a/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml b=
-/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
-> new file mode 100644
-> index 0000000000000..a8852185144dc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
-[ ... ]
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,am437x-ocp2scp
-> +    then:
-> +      properties:
-> +        reg: false
-> +    else:
-> +      required:
-> +        - reg
-> +
-> +additionalProperties:
-> +  type: object
-
-[Severity: Low]
-Is it intentional to use type: object for additionalProperties instead of
-patternProperties?
-
-Relying on additionalProperties: type: object requires non-injected propert=
-ies
-to evaluate as objects rather than scalar or array values, which violates
-json-schema semantics for standard properties.
-
-Should this instead use patternProperties to explicitly match generic child
-node names (e.g., "^[a-zA-Z0-9,\-_.]+(@[0-9a-fA-F]+)?$": type: object)
-combined with additionalProperties: false?
-
-> +
-> +examples:
-> +  - |
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-ti-ocp2scp=
--v1-1-9d2885011cda@gmail.com?part=3D1
