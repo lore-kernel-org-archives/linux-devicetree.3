@@ -1,108 +1,60 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE8B4582EA
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 10:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7AA44AB80;
+	Tue, 18 Aug 2026 10:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787049139; cv=none; b=oYs3N9hr2k/hDyaMcOFQeTgM9xdb2QlhPqKmSy/exbZw80y0UyZT52oEg40GrOqcwWn56FmzKalCWU7Zaa8i7MkCxXNjUyLwzIpDpmBVfByOSeJLmT/4j7GtqaYkxmVP3eWcHgba8S94lf9Mya2RN6jg6EfiRknAjodIrzyviac=
+	t=1787049317; cv=none; b=hVpbPyfS1RTGMXcgx9jziY49KQq4NRgj5wS3f5RiPcAzFIn4WFDZUjKcF9SBISZHy35EjIfHPj/mpgAmQo2EHSjwWW05zmNSISleJkW07j6L6LDpRQevCtGO8LWtx/CajCAbFq+B0Z6W1kpp3J0IJa7leKILNP3w45GpEBQdl6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787049139; c=relaxed/simple;
-	bh=iCMwaiKjJ/HQ5DMSxuJBQtPPEs4GiOmijbIq44KHZSc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pNXEbb0c2+K0xtjpy75Z5PWa/n3zoTmh3MdvQ48NA3HDVhrX11f2CNP/l0r0NXMl5xS32yR9oOesGzO0WHMnQ7MMNVTalx0ngboPPCSV4pUXjs2h32Lgi9pTREAeIL5MckHh4H6XNXRqHPCbCp6en0DudeaZHdlTStqZDc3zYsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=l1xnfDMh; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1787049317; c=relaxed/simple;
+	bh=MIASSTkA70ZHW8I6wen7XhjmbLDmA5ubM+T80MlNnJ4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qqtAw4GoJ0ykgWkNW2vT49dIKZ0tJ33Q2QbEJxp/nqk8HgvZtnPgJzsGjQG3oA8Mb17BGufxOtKBM7Lfl8Jref4kNeRwjTACYhA9XzsJqUBk8CHTPaliGSKe9d7GUPG4CdQwfkTKa1Pjf0TagTMP8FSPfo/Y0THzyNSCJV/Fnfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G27fLp3U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="l1xnfDMh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=iCMw
-	aiKjJ/HQ5DMSxuJBQtPPEs4GiOmijbIq44KHZSc=; b=l1xnfDMhAE67Mh/bRnGm
-	d5QOpnoZfh2czD6Qdi8DW738urA/2afllIbSDF72KlDw+7VFG686Ld14icnDOrYs
-	ZPt/hRJzzsM/AwNmxHH+lDQ4Ju3c+49Ew+9FQlzDABXfD5glKGq8g3CXmNwMTliR
-	j/FB0ymQxGL8SZa+Qh0Co1D4susuPzJcWGFixR09p/aGexrw/hqXeRbvOsc1y0ec
-	S5opKUtyRNG40g7ulq+5LBTh6o2GRuKfTfnvt4vL8jK5mLK6Vi9D4UfgqagBXeV+
-	NNoicRR3uZb1n60DcFgReI9yi040OFbJaKTP2sAju4fQf11aWez9nkk2KdyxQMVQ
-	eg==
-Received: (qmail 3759104 invoked from network); 18 Aug 2026 12:32:14 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 18 Aug 2026 12:32:14 +0200
-X-UD-Smtp-Session: l3s3148p1@GR7dzE9ZZMkujnuP
-Date: Tue, 18 Aug 2026 12:32:14 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v3 06/12] rtc: rzn1: Fix alarm range check truncation on
- 32-bit systems
-Message-ID: <aoQ0roC0n_mr3YjP@ninjato>
-References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260706175138.12587-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G27fLp3U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA6B1F000E9;
+	Tue, 18 Aug 2026 10:35:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787049316;
+	bh=MIASSTkA70ZHW8I6wen7XhjmbLDmA5ubM+T80MlNnJ4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G27fLp3UY9rqD9xlsKmIR3wj70plRBuJKQ2B3NPTIJ2Ya7XAynF9dfgPtAZBBPmE6
+	 XAGGGV4xvD9AzXImlR3A/u9libjhjZin03lGKgkIyIFPl56rty9ylX08MWpde38Xbt
+	 VSH1hAeky8LpZVnJemeSwCyCt0MNqF5GyumiexCHY+9ZvmDU8WJa4IokmD4LDO3ndo
+	 9+ntZ+QURCTK40bxGm7mwRMaFAtlUF+4LVv9G2eB6+FAPzE7qQo0CasAY5V9Sso+cT
+	 pTwgU2dcifh+VcmuqsjMr05ZKI82z0xbmw65teXFK10wxpSNeTQK5fmPVMdZh000sR
+	 sa7E/aaKAdjsg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 01/12] dt-bindings: arm: add Ambarella CV75 platforms
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Long Zhao" <longzhao@ambarella.com>
+Cc: mfd@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, lee@kernel.org
+In-Reply-To: <20260818-cv75-v5-v5-1-7bbb12f0360f@ambarella.com>
+References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
+ <20260818-cv75-v5-v5-1-7bbb12f0360f@ambarella.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 10:35:15 +0000
+Message-Id: <20260818103515.CEA6B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qBc2Tx3XgOpNPN5E"
-Content-Disposition: inline
-In-Reply-To: <20260706175138.12587-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-
---qBc2Tx3XgOpNPN5E
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Jul 06, 2026 at 06:51:32PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> From: Long Zhao <longzhao@ambarella.com>
 >=20
-> alarm and farest were declared as unsigned long, but
-> rtc_tm_to_time64() returns time64_t (s64). On 32-bit systems where
-> unsigned long is 32 bits, the assignment silently truncates the upper
-> 32 bits of the timestamp.
+> Add the Ambarella vendor prefix and CV75 EVK board compatible for the
+> initial SoC bring-up.
 >=20
-> Fix by declaring alarm and farest as time64_t and replacing
-> time_after() with a direct signed comparison, which is correct for
-> time64_t values that will never realistically overflow.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Sashiko has reviewed this patch and found no issues. It looks great!
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-cv75-v5-v5=
+-0-7bbb12f0360f@ambarella.com?part=3D1
 
---qBc2Tx3XgOpNPN5E
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqENK4ACgkQFA3kzBSg
-Kba16Q//UTO3o0EGiNEeLNBEgajaGR2ujmGMYbCx/dxLIejrn/mvjOwwcOP0BqkF
-GzmF/R09RPuZzkmA8L4frDUWEe0oh+6EU+bcsJxB3QUXN4dHJoyc6c/Aq6fPA1y+
-kCI2OKtuyAd/Kj+VT4M4utZIjayVWbGiEONBSuNBixV/StK/c2w+HBYz4r3bFBgp
-XCAa7wL7JRESzE053svNbVz10j/e81PafUtzVimUF8C9/1gEpr0m95XAOEFsmVqB
-b4Do3v/igUG9sU/t2ejudo0Z6OaPLfJHccOHeYOSMbZCFOpg86xgZNQIpGmDkXGR
-EpFMjd7DZxboxoNVjcrGuA5Gy4jOAwtWcFfNYG6mhsfDJb5VJB/jQrLeL9bMlrue
-9zSSgPR2wlpF+Ugkbfie2wD9Mr+WsV2Pugmb5uB0IFxjAye/c2qKPGARRPcA4CLw
-aSc8J6hJTI1sCY1NLkcU+jFd4dk3eR//s7L6GM24q0r+yWn1TgyIOU8yaA88gyYl
-8oB1j0lWJPQlUbUI+BStMNd30ZTyueALkLsHdLLLYhvpsJqX5nN6GOO8IpgHSDRJ
-VkRX5B0zqVf/YfzRP4U4GglhnTLvS9i8mhjQ43Sk7hP/QKrUgNQA5pOw9hau0rjM
-yids4VguztXl544I9qwN1oONUiEwC9WrW8algl65QkxxisyxYcg=
-=bK/Z
------END PGP SIGNATURE-----
-
---qBc2Tx3XgOpNPN5E--
