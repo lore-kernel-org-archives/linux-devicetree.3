@@ -1,173 +1,104 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CD63BE16A
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 10:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA1A3C0A00;
+	Tue, 18 Aug 2026 10:36:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787049397; cv=none; b=OTzwCRe8qlRV/b5KbCdn1/bQRqOu8fYuDuvn9Gxpfpdr9GCXtCy0iE5lNBcu2/i0FTfEvJq0HNB5JyhYHEQ7GcKuQHrFr3RJarWceBGF+LX2Qz+kW8QRf/rqu4LZmd59zwKHUn0JzYY4efdYRCFD61gstzjZnCqFVf4OvoCbp+o=
+	t=1787049418; cv=none; b=HUjY9nnR0hy8vDvwH6uWxmPj6GmQ1ghXloLIM+1RAkDSYux8gEDJKVFN7Wd+DDu2a2ihM7pC/jOOs7D26T1GCgMGqea1AoWQ+ZRGqHwJu2xLagwWCHMJbBc+mF9zgn/FTFUq8coPc4w5j+HzYdxxLMtq0g1UVq0vy3jiCUfrgJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787049397; c=relaxed/simple;
-	bh=QpijhyMAv3Q3+zdOyqAiqYmyHOt2KQQJ8C3wNVbmY2c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DhuZj2bsWlup3zqJ6xkYn8xBq7mtqvDkYgbOB4IXYgauVLiEcJhqBFOk7w2i6UGhuIFgPpVc4+qBeBuM991jdE0YPWfnjkhuxpLjix9bajEHnKs4f58XCgnIoRrEQqrpWuTt10wUROOgepHGwmY2ld6Z4KMAhZuqXgPJphvaJb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lNdd7neI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EkdqheB3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787049418; c=relaxed/simple;
+	bh=WqGUzcxwBevyP550/rU1RllWg6pDgMR/P5bygynUXeA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rld8QhEFw3eoe3SX3ZUTAjZ06BvG6wIori5yKjkhaKu+WkXSkcURV1MRVPoeihfWS/YqrrBgUzmhfFOGoEd/vTdI+Q6wm4ILOz3w0J7dD+fV49YapjyEidA1f01Uz+O+ZqoIecj9aegX4Y9hWj1LCBgL9kdVcwBhiydlTbszifA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzmpfKhq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lNdd7neI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EkdqheB3"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IABQmt995794
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 10:36:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fsiLbORmMBDg2q+JZLV1vEms5S+OIScEWzmE5hr8nRQ=; b=lNdd7neIo0X7MKcI
-	wUwkrXo8AeadX3mVXD5D6Y6NRHoxRM5IL0c6sZc61mgrqWnjlfjNroRQTHZEANT3
-	5i1ha4edRzNzCB88j7dZwE+RDyrw53lizpvVbqFeriiX5bAbqGAdMH/8wVEVMyiI
-	eCW/OZqQ8D8w+5ch1nE0N2hQNT82CLYNBetTHOq9nlz6MCHif1oELpmaXpGF7ePN
-	8igCrwyeQY11IEMvnT0MYBioW9FOUweFjHkEIOuldqEtt5euPDWypYof3az22+zE
-	H+e2KU+BK+Gg54E0WL0uB9LL5kGPHzxKG+pqAwlv90GwWAhBWsYAy5zAFjbihMpO
-	dWhZJw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4615kxr9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 10:36:35 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9349ba88188so115405985a.2
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 03:36:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787049395; x=1787654195; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fsiLbORmMBDg2q+JZLV1vEms5S+OIScEWzmE5hr8nRQ=;
-        b=EkdqheB3wZKQBbZl5OEX7S9uJoWWi9vnXLM/rgTnt4D64gQiLgoTZrNLD2+MEFkM8L
-         cIPNSNzivLZnbb/wc8uMzYgVkDENy3psXeyq/4CrEFWc+n+YyKA4CNRfHGfTjnO8yv2f
-         fnZ0Nv0SrUK28qjzi2Wctgg7ozT42FSnRwibVVGw72oxU+SGNL8PSw5kqP/dxBL+cbNV
-         AYJLVGlvkWWa8+s9xhGWZt9fvyJXd5Zs+oGWb6+XwZAOrF2HHw7IsF6FIL4RrUG+it3C
-         lKPVkHYwU0koLPRpFaWuTIOK4vOxMY8RFPv07VWMbJD0YobEFR7t+WKbW+ev/EYp6T4X
-         j2dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787049395; x=1787654195;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fsiLbORmMBDg2q+JZLV1vEms5S+OIScEWzmE5hr8nRQ=;
-        b=DvktqSzRoWcVGbHBdCxYg+FFoE8EVS86yL5mjW+J6M16TXKwMl+4WtvMvX563lXsgu
-         z5bIavKZAVSb0l9/qJyp8+4hCCOcBambb0RCUT4A64TAUqEtSpcpQOBsXH581pqVKlYR
-         8fMMXwrHtcG5WoXL9mxEydxW5NBq6yDwow45uFqLlWhfcmn5jzrTU3JjTYDvrBBiszRK
-         B5sQzn+8x5agxw6cTiRqrhVS8uO5eODHy/VFEXXHqgpbnKbprUaDUGATIF/6/4pocdvW
-         kV/0XTmWuSmDEvUrcAOao1O0oGw1l7MJYffzp4PJgEJptszwNeKkqr5f69Lw1YsxdsXv
-         tZbA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2Fh5khA9SDxVAir59kVM6suM7IRyYY70AsUgYlNR/9/upW7THqe56+W7oCtqYMtzYTYmJt5UtiRnf@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/SaY4fWFqKyTZdVXBgMVt4+PJhcS6GOFIyvz473eOqiycmVyn
-	TdvGWonkIAuLKzqoZfrJyWJ92C6O59jEZi6KFGJgvUlqzsyX6gzyIc/NsF+L5VDIz2XIOMzkiEx
-	ftiK2cOj758snWk4ZYYD2NNB8KwDsu9AoxyjJR3skqLr837XD0ENJiB7Cnk9k4urJ
-X-Gm-Gg: AR+sD10DDizJNpW2lM/PZ/IPUVysL8ndfbvAkHU35l44HZBCh+hCJMNv6r5h1DCvnQi
-	0T4O+nrr7ort9j/2hwlewva7LW54aHqxHH/AP4bFAaeV/bhLNc5BiYXdq6s9t4dx4TlYPLbxuzr
-	8DT1CYwp84Jp9Dbpb9hIOrl7cKUtfcUURo00PCvbqufaDYlOI2dVGW+qB9AbxG7fXkwlyEyFgt9
-	OiVjm0TTyr4FOXkJTwUb3/HYjwbVT4Ww+RIL35GgGh192kg5+WaMPq0vTvrEgqdNZ0kst+EdyuG
-	TxD8MS22BDGUW/2mFKdn7CnSYnzwUKaCJLUh/5aO4N1GYfZFWc0e697e0H05/4h1xBkYS8yH4RT
-	9CelBsEJYcac9lsQPINYtVvUi
-X-Received: by 2002:a05:620a:7083:b0:930:a08c:cf9c with SMTP id af79cd13be357-936d239560dmr2269219985a.2.1787049394890;
-        Tue, 18 Aug 2026 03:36:34 -0700 (PDT)
-X-Received: by 2002:a05:620a:7083:b0:930:a08c:cf9c with SMTP id af79cd13be357-936d239560dmr2269215585a.2.1787049394416;
-        Tue, 18 Aug 2026 03:36:34 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185b9f47bsm130185766b.52.2026.08.18.03.36.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 03:36:33 -0700 (PDT)
-Message-ID: <1e070cab-ad61-4ac4-be94-1ea40f5b6575@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 12:36:30 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzmpfKhq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE76C1F000E9;
+	Tue, 18 Aug 2026 10:36:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787049417;
+	bh=yYgFbISfvXT2AitiMM/8Qn1omp6j78sPt7NLmvhriU8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HzmpfKhqpkbpMHaHN6QKRq6XkwO5zEf4igjU+ZWC/pAifdvW8o+PtAuadCeHEswS7
+	 l1m4EvQftirsvktbT0d/30r+2/S87W8mACjbJmCGaqvxZnxzxiwZ6M4s6hWkk/6Sos
+	 MB2bEed6Av38gpmvuiY6I172JgR0vdTtU5Hd6JOeZxzxjj6dr5J0ysmiICsah+rta6
+	 BzzdtHon364kH6G8ayYNXQOZKnN/28OGebLJpY1O4GPrs4rwJCnpC/i0JidUonXhPG
+	 hJHLz1w4GtV2Ptze6s+rkVasCSM5n+SajwsQojBP40tN1WjoFZ0raOJ7POthYskseu
+	 Aa1shAqAaMtDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 03/12] dt-bindings: clock: add Ambarella CV75 RCT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Long Zhao" <longzhao@ambarella.com>
+Cc: linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org
+In-Reply-To: <20260818-cv75-v5-v5-3-7bbb12f0360f@ambarella.com>
+References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
+ <20260818-cv75-v5-v5-3-7bbb12f0360f@ambarella.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 10:36:56 +0000
+Message-Id: <20260818103656.EE76C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/10] usb: chipidea: msm: support the HSIC asynchronous
- wakeup interrupt
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Xu Yang
- <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Peter Chen <peter.chen@kernel.org>,
-        Pavankumar Kondeti <quic_pkondeti@quicinc.com>,
-        Stephen Boyd <stephen.boyd@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-phy@lists.infradead.org, Greg Kroah-Hartman <gregkh@suse.de>,
-        Peter Chen <peter.chen@nxp.com>
-References: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
- <20260810-msm8974-usb-hsic-v1-5-e5f93ea76ffa@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260810-msm8974-usb-hsic-v1-5-e5f93ea76ffa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 5ps6OO46l4zyxzw-X6YDfWnhX7eh35t_
-X-Proofpoint-ORIG-GUID: 5ps6OO46l4zyxzw-X6YDfWnhX7eh35t_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA3OCBTYWx0ZWRfX6UKND4Z6vztM
- 5xIZUcufdr9+86IGHeWD1k/RcfvyPewAblkg3VFRiT0Z3bSJ43F8KtDOzTIlK2CA8d459PXHMQY
- TOxmPkcIcPfcyCYegjjnTn7c3NTxq7bHSMNhSqua35WVv2HbIvS4/ONyK5LTIs4jsT5TA0xFsbL
- T5QkaGGzpZyDewUJ4fibtd+KukJuNcgUMaSdvWBktfZPzQDMllrIfd8HaVO0hPFXvk7Y3QIUUFJ
- DlPn9RuEwokHOwwC6h1RD4DEg+iIXchvIlfowN42qwLq3/o7XCS4uYZiL8JjURRz8lp4T4dEB5X
- /PhFQFQ66R121XvZE7RdWAMsfn72yF00a+3cb9PfzryNcLoV7c/LbHZnWjr2PEAysS47Asp4Ypz
- l70oEDieiJ9FTJer70ldPcwFVgpyU6CD4WE72et11zeBF6TGblzI+rJQHbjmoJg3hefuHYoBL+H
- 8eXJk5lYSK0BxtozzRA==
-X-Authority-Analysis: v=2.4 cv=Ruf16imK c=1 sm=1 tr=0 ts=6a8435b3 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=85NeIpzETsoQluUi9CYA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA3OCBTYWx0ZWRfX/aX4gpwjgX6Z
- ieyBAHYweonQaZgHRjB8WgCwlzyM+Rfaf/0kF9ORcQrLB1kn6v83XGurB5mmHrgtwhdQkl4OkNN
- ifd1MDPc5TNfAAawrcd6ZEZnAsap9xA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-18_01,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 bulkscore=0 impostorscore=0 malwarescore=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608180078
 
-On 8/10/26 5:42 PM, Dmitry Baryshkov wrote:
-> The HSIC instances of the chipidea controller runtime-suspend with
-> their clocks gated whenever the bus is empty. HSIC has no VBUS-style
-> connect detection: a device (such as an onboard hub coming out of
-> reset) signals a single connect event, and if the controller is
-> suspended at that moment the connect is never noticed and the device
-> never enumerates.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The Device Tree binding intentionally omits `#reset-cells` for a=
+ hardware block that acts as a reset provider, violating the core DT princi=
+ple that bindings must describe hardware rather than software/driver suppor=
+t.
+--
 
-[...]
+--- Patch [3]: [PATCH v5 03/12] dt-bindings: clock: add Ambarella CV75 RCT =
+---
+commit 74b3b598f48fd3b6837b5a870e3274a514495c94
+Author: Long Zhao <longzhao@ambarella.com>
 
-> +	/*
-> +	 * The optional second interrupt is the asynchronous wakeup interrupt
-> +	 * of the HSIC instances: without it a bus connect arriving while the
-> +	 * runtime-suspended controller has its clocks gated is never seen.
-> +	 */
-> +	wake_irq = platform_get_irq_optional(pdev, 1);
-> +	if (wake_irq > 0) {
-> +		device_init_wakeup(&plat_ci->dev, true);
-> +		ret = dev_pm_set_dedicated_wake_irq(&plat_ci->dev, wake_irq);
+dt-bindings: clock: add Ambarella CV75 RCT
 
-devm_pm_set_wake_irq()?
+This commit introduces the Device Tree binding and clock ID header for the
+Ambarella CV75 RCT block. It currently describes only the clock-provider
+functionality, intentionally omitting reset properties.
 
-Konrad
+> This initial binding describes only the clock-provider functionality.
+> Reset-controller support is outside scope of this series, so #reset-cells
+> property is intentionally omitted.
+
+[Severity: Medium]
+Device tree bindings are expected to describe hardware rather than software
+driver support. Because this hardware block acts as a reset provider, should
+#reset-cells be documented and allowed in the schema now?
+
+> diff --git a/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.y=
+aml b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
+> new file mode 100644
+> index 0000000000000..eb5956fc32bc4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - "#clock-cells"
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Because additionalProperties is set to false without defining #reset-cells
+in the schema, any complete device tree node that accurately models the
+hardware's reset capabilities will fail schema validation.
+
+If #reset-cells is later added as a required property when reset support is
+implemented, won't it break backward compatibility with device trees created
+against this initial schema?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-cv75-v5-v5=
+-0-7bbb12f0360f@ambarella.com?part=3D3
