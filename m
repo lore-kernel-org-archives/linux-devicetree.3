@@ -1,123 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A5147A891;
-	Tue, 18 Aug 2026 15:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491C43A1B5;
+	Tue, 18 Aug 2026 15:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787067896; cv=none; b=rS/HmwelddU0lh0UPTKPEV8gvQBzfvbkjucTC4joJFr8H792JlC8eYOhBo4ECgstI12Pq1n71v1TpNZwXAjCNU2/9Ut3j4s0PsFbXevRNXiCz97L6u14w2nCCn8d0/B/eB2C38ZO0y9A+TdF4WE9hlbS+j0O2omIQTzy9+gLh/I=
+	t=1787068050; cv=none; b=MNM2pSZ1fwLgPe+6jR3F29V0sZPT/H7T5pavBOpVDD0P7G81aBf3siuj15P4oHGs4EYwJqZnLiCMikBPCE+Q1xCDig+EJhcTv8CtzGvfyVvnMnKvFG8kE3eA4jdPudXJRQC5TWW/gLmRL4B6Lo+EiOlzqYQcaNVxT23T3ZFVPhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787067896; c=relaxed/simple;
-	bh=B1MSr263hFpzFu1HrE+5wS7gmEE6LU7r7AbgVYf50Ik=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sIb9twGxKbPT+E9pTlQlKfrK4P1WGpsD/dCFZYSwkVtoDCCb8Xa17FzuQCeYWVB8jbgjdz8pmyi3J/L9nLcwxzKHLETZX7pjc+3VBnbPVZnJH8YfphsvcbXOSCX+E06VADMQAS6XVn1QUgtErdnwjShTNpekJYrm2OyU5M4gnZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FJiYx9ax; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787068050; c=relaxed/simple;
+	bh=EXjW3toMX1/nTHWWnWiQ7PVjrkue2q8ciCOLQVsWMdo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SzXS9AmDJR+SrstTqTGPxTLFlAVVbHsaGWpnN9z5cvLjvsrjRUFvCaPuG7HIV52mhiSFtEWhp50xAy9u599rapqgf+AgnA6m0ALayvZqyxRC6sxXb+U8HzHgd+/qjWaHkwAiIwzUBlMQFgE+kWfLo08m0DxpMb25FKwEru6cKPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gg6jBssW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FJiYx9ax"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F2017C2BCFB;
-	Tue, 18 Aug 2026 15:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787067896;
-	bh=B1MSr263hFpzFu1HrE+5wS7gmEE6LU7r7AbgVYf50Ik=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=FJiYx9ax7JRQohDmP1HecCxBoujaPymV6j6txfc8//QfH8MTue28UeFpURHbJBhoO
-	 vtItt1rxcSD8IN3jTjDA3mTbdNoERRRHUinSjFOQLzfiVAh2kVwlmM62/GBnlTdg4y
-	 4k+RlfA1ybm1wiVn4F5pI/2UuGWQRU22eHDeK2wVVBtiYxHmCG30gjjH6vLCY8b9rz
-	 FPnNKyi7MLVTfgGpf1RoNCezPUM8X9x3J4mQVJJ7MRdxROHycKSpyEYWYBrIKM+KNW
-	 pq7LJhpu8SH1ncFj/VEn2Fp8NbQpm5S8CQ681RARgmRqhGKObhzm4VFpiNImI+3FTs
-	 bd9tkO71r2WzA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE5DAC5DF7D;
-	Tue, 18 Aug 2026 15:44:55 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Date: Tue, 18 Aug 2026 16:44:48 +0100
-Subject: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
- compatible data
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gg6jBssW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17901F000E9;
+	Tue, 18 Aug 2026 15:47:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787068048;
+	bh=EXjW3toMX1/nTHWWnWiQ7PVjrkue2q8ciCOLQVsWMdo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gg6jBssWFlRHKCqNUMudWpaUrueIejbhO0/44t+Qn61keX95H24Nc3+1E0uHKN4UP
+	 Ox0gusy1A2Bkvt5tGcN4HVTYz4Zn65BCKE0Gr5GK7P8YJTdLZe9ch/D0yzM6GpGOza
+	 lnKlwYLy9TXtzj9Yw9Qia9cDis9bU9fs2EBQtuKKZPCqqbVNbh6PE5ceP9uVlUn2V8
+	 mDGfFbQNJuC3HA5/gIqr+imSa6p9pDwj9u/bjJm0Bb8lVqbcABIfJFzNyP/+m9dkBk
+	 yERmmwt3vriQ7yfSbneMHDkJCdOsDCfBOkCGsrhPY1kPLsBMnXT4tg2mVr64/g9lEP
+	 pzox52VTSXNdw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 1/2] dt-bindings: PCI: xilinx-versal-cpm: Add PERST#
+ and reset support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Krishna Musham" <sai.krishna.musham@amd.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260818153755.3801111-2-sai.krishna.musham@amd.com>
+References: <20260818153755.3801111-1-sai.krishna.musham@amd.com>
+ <20260818153755.3801111-2-sai.krishna.musham@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 15:47:28 +0000
+Message-Id: <20260818154728.A17901F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-for-next-lucky7-watchdog-v2-2-6743f479a47f@member.fsf.org>
-References: <20260818-for-next-lucky7-watchdog-v2-0-6743f479a47f@member.fsf.org>
-In-Reply-To: <20260818-for-next-lucky7-watchdog-v2-0-6743f479a47f@member.fsf.org>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-watchdog@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1518;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=C5r2bV9nYfxOIJNnwxYrMhWREb+Zhh0VM+xx1N3wI6g=;
- b=owEBbQKS/ZANAwAIAUknAbLEetfrAcsmYgBqhH315BAAGOJEjlp4J5rR3Yo9RyUegV+hrjWJ8
- HG6X6/iKn2JAjMEAAEIAB0WIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCaoR99QAKCRBJJwGyxHrX
- 6ws6EACwRp3RhFcTaoItfWoc9PNEejm0Hh+aNlLnAZWaYaPV87RYE/yjBb6TPPhP2IMq3Mo8+K+
- 5JU4MnoO4FMDdfxQ4NWug+RgSyoTYNo4qr9uh3Rl1qWv+v6BJN7MdoFYxX9g202Ag08B3NlxfyB
- OJmjTq2mfbZ/HHyc6xv0mGC7grqB+OuFHdC3Qt9uAfNXtXpGrSvBI+HPzjrWAm6Gsp96rhg2LQL
- 28CyaCDNu0WcmEmflQNf53tfSDegt/M5RJ18VdVBh7TzxQnORsQsuoWYA2v94/c3DuUfVpH5lhL
- ASm65HXaKN2mPx/ErOTgv1SehFGxBiBR8oopAR5TK/1Nu952gUW0Jcwqo/jP1IGq3injEAShv6h
- 2cX6iwGGt8SU55hTbo7FASV9wkoV0Tn3rs0yn05Wdq6FVfuheaNoNtDYdvMjdEFOQb5AAgliLvK
- GBxhALdW5frgLwTJYJR7UaAGpoI0jf27oPE6NYpTF0UslijiwF56KPSELTIzw0wuESjDuUlMYgr
- QrAdg4Vz63gm9P4RoEz0rU/LvYfT9WaiWOmp/QpahX0jm3Reyc6kT79k6zFjsnp+9aJ92InPPkl
- lon462/vrn+e8ejxaCBUGbixwaFz1EXDh91I/JBKERGyrvyRNwkAJKaBnd4jBAdi+HeYDW2FxB0
- 3W7qQcego3c2eYQ==
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
 
-From: Aiden Isik <aidenisik@member.fsf.org>
+> Add the optional 'resets' property to manage the PCIe IP reset, and the
+> 'reset-gpios' property on the Root Port child node for GPIO-based control
+> of the PCIe RP PERST# signal (assert/deassert). Both are optional to keep
+> backward compatibility with existing device trees.
+>=20
+> Update the examples to show the reset controller and PERST# GPIO wiring.
+>=20
+> Signed-off-by: Sai Krishna Musham <sai.krishna.musham@amd.com>
 
-Add driver data for the Exynos5515 SoC's watchdog timer.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
----
- drivers/watchdog/s3c2410_wdt.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
-index e31f93db0509..7299dfdb0c09 100644
---- a/drivers/watchdog/s3c2410_wdt.c
-+++ b/drivers/watchdog/s3c2410_wdt.c
-@@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv_data_exynos5420 = {
- 		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
- };
- 
-+static const struct s3c2410_wdt_variant drv_data_exynos5515 = {
-+	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
-+	.mask_bit = 2,
-+	.rst_stat_reg = EXYNOS5_RST_STAT_REG_OFFSET,
-+	.rst_stat_bit = 24,
-+	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
-+		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE | \
-+		  QUIRK_HAS_DBGACK_BIT,
-+};
-+
- static const struct s3c2410_wdt_variant drv_data_exynos7 = {
- 	.disable_reg = EXYNOS5_WDT_DISABLE_REG_OFFSET,
- 	.mask_reset_reg = EXYNOS5_WDT_MASK_RESET_REG_OFFSET,
-@@ -379,6 +389,8 @@ static const struct of_device_id s3c2410_wdt_match[] = {
- 	  .data = &drv_data_exynos5250 },
- 	{ .compatible = "samsung,exynos5420-wdt",
- 	  .data = &drv_data_exynos5420 },
-+	{ .compatible = "samsung,exynos5515-wdt",
-+	  .data = &drv_data_exynos5515 },
- 	{ .compatible = "samsung,exynos7-wdt",
- 	  .data = &drv_data_exynos7 },
- 	{ .compatible = "samsung,exynos850-wdt",
-
--- 
-2.54.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818153755.3801=
+111-1-sai.krishna.musham@amd.com?part=3D1
 
