@@ -1,135 +1,119 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0F834DCD2
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 19:26:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787081166; cv=pass; b=isAj0UStTomuxHDRGKbTuTKZf5S1rwK+oT6XFlvsRg89tukConTQZiS3fKbGdr9RKLtxvVR9sRSxxrGgwpVoI2aVNQ0v4uW8p2pTPAyheannkRCVo9flxxyKnfveAxdHJZ9KwouT/8f39O+YzAPxSo/z+FJpFYkxnb+g0q1jksQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787081166; c=relaxed/simple;
-	bh=xD+DTq3vAUF/JATmwOhJZ4DPUbk6IOr1mBsW453i8Qk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RC1ZL/qqWvOvb8quFJHw2kgBh0PURyp5IN7rjFHLD/RvknCmxFjX3Spp2adIROXVSanAM0LG2kugEbsSCHo605jJjyY2nZsQsbFAvDeJJ1zPFNrMkj/cx92mjSeC5dhSgwylL3jLlS7mQGjcd+0UPEaQgCc9jeVNtqQTptvXmqg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZB+r/Pw/; arc=pass smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDA4351C2F;
+	Tue, 18 Aug 2026 19:27:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787081238; cv=none; b=e9Nhw6MI4wQB5ywynTDVe4TLOJeyHP5v32M6FcaJvhaSTJmXKpET5HPF12EEA4TEkaTHNxOnTPJZP+uQOj7QLKIi9ISKESQdT0poaJjMLJJeFShxPbujC8DNwfOiXeOHogTAJm5ZituF2wMYjRbIPmBkhp5hFD8z74v9P6IIsIM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787081238; c=relaxed/simple;
+	bh=CaLthcIaUdd4f+DFXAi91i7trcrQA5J2j/5213a+r/M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NDkdZCAVEsKzlUoFAYzj7kew2czhr/HH7l5DYQWMV6Z34BenlTEHkN8iW+B1Jg5LeVBT1HE1eT4vmWpZ+kU5SgC/e3PMYNbSipgokY0mJ9qlRtST4h7xi0sdmp5PkWPI6V8ww51ErFONiiDHyIHXhGw7SchiOuErkBmmhk/U8Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OeTDtvHf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZB+r/Pw/"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47fde295992so88827f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 12:26:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787081163; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oONPaMGhI6EtYfbncY6YFNoiKl+JMedqDjmaYkTa/+6sKTG5a+fsqClHO5R4iMUJ7F
-         3+95RsA39rc07wW5OAXedC+3iUwWSwFTc8KD0rr92ISot4pdtG/jlg8RA8LWumhLm+vT
-         AJdRSFBj9rWAQYCUthFucYSNUBAmsL448c9uKf+/Tb+qT4ycNY46uhSv2dcF6lYdMEl6
-         M6/KWIo/HsndEpZbARFkO3lm5dLz9Q4dlbNVd9Vs6l8jX3J2PB1kPiJGoeMMIJI9VJd2
-         G6qE75jtHLMzU/3aloxRkwohJGTSdrQgl5GZjeOISp7mW5M+KwEKeb/R7UFFKmRcNerb
-         Dp/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=si7KMVjebKUIdClbZKZkuqtNOVYTxZqvVqmzIewFdCU=;
-        fh=0VSrUe1UW4he4CckdqV/LmEiEQk929oxULUYMQ4oeUo=;
-        b=Hb9Z96OJukGt3bmpWmuc237cTzk7qyLotbSHzUjw/aUqr2evyXgbq8qGqDigjDPiad
-         IFD9zZi3bkDyoZ+02FWqY3m1Iob7FcEQR/K4OSKRxQcOCebbUUZRK3WoZ1fKGD8zknp+
-         elfz68l3dSbYPo+Bji0Y7Mpg4mhiVtlH1HIWxhIaeU2tbScNH8ajN/n4lyODKLmjV0ao
-         wZP4A0qtHyXSC8qANG6qrxCX6IwZNdvi3DzimtqG2rxcZmn/9C0ewRbnF6cV8CG1zulQ
-         k20yJF0zl8PnWFaYsjEZpt0PaAqdxg09thNhkTDJnR5AnaFgY/I/BUWNg4LkKmvReJ0e
-         Ip5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787081163; x=1787685963; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=si7KMVjebKUIdClbZKZkuqtNOVYTxZqvVqmzIewFdCU=;
-        b=ZB+r/Pw/UkVy8Jj9GPs7DrWnXh15rWQNW/Iz7wlrQawJf4W30/1ZgwDvWVdzylKS4s
-         9z5ocxBfC2JnxpiRnxZvGTE6khJb7RpOBsmeUtwVU3EVd39qvqOaIYxoxas5FIVfhRWF
-         kpoWfjMkHMlTjgcYx0WqaryOIdiUmMaiMIvyLKDnPEdJAiZGwdo+NZ0drN7Fk8u0Foo2
-         7CR46I6R4SO4EskWjMaJsrxReIDQXclpqjVViHEND2QEN+MGyXyPwDpYqRh6op0dtVtQ
-         ixwZusHXnILXKOCjZY2JUurhUFC8JbDiDjpbko7yH2dKRF8W+jJ8iLQZHjuEqLq0/Dre
-         IE4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787081163; x=1787685963;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=si7KMVjebKUIdClbZKZkuqtNOVYTxZqvVqmzIewFdCU=;
-        b=m/kzA1lA3im3kqUuNuXdDM09ATyZaE1JuTOOWgZdyglX/CCL7eh1idXNw+ISnOioHK
-         TVYlFYVvEMU+Rk6cOlLyFrVzZ5QKh18n4KUIbq89SWZkCmZ9LO9VkdMMHEd1pnOdbScg
-         NcMmFFOKMYeBua6UKCHeAOPevhwW1hyZioJ2WlUJ5GjhxgOLhxzGPXyosalMcN7grpuo
-         KG0uVD676GQ3FBhDCS9qHjxXK/+g7b959x2S6Vfi5HXZ1r7VB/ykZt8HDJNAoR+Tbuun
-         1DkrL/DTeEVcB+Pl3mbjRuIS5RsRm0IfVBQpCiFGarsvNvwOyJC0tlVFe0lbgorfhOwp
-         FpVA==
-X-Forwarded-Encrypted: i=1; AHgh+RoXm6Yt00zNzeodTEZ4xQ3jYCw7kmhHlzvR2CPTf+kDkbpSrn/iY91Sp/XIkt2kYp6l7kuGmIvuoBUr@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKu5y+Urn08La17D7TUgEzaSMUjeOEdeAB7KXsf9dxC7F/LkD3
-	5MdTtxkD2vrIy/mFTCb7EwWyPJXS9c7ccpW56HYnt2phe/CL1cR8/I6l3u7qDwDmLp9Fz2cqfON
-	fy7BiHSlE+nOJkvqlcmDwgBGcx1zL5Vw=
-X-Gm-Gg: AR+sD11bhhR1bXRAHMAfztX4/sCs1SjEiiE7K4khxmRo/S4EUt3gldYZhZZ1SMiIbD0
-	HZh8VFEzdP1ukj+jGshcZAPeFjJEkXmb/rM5kmWnC1xVWqFF82LSQQLuwZ9y6/oPRs3nU2NZLvg
-	OgkCy9rBjcxFtD/bJD4jOezbEVGOgZc2vLjCvBLqmU71sOzpWGJVkUhTYcyR6jN69qbMjMuYIwb
-	X9EbQUVTdjh+UkF1cWv3etjrSqe89oddcjv4bzXy84xse7iu6w8cyVizxeTzy6GXM0xEbpjiDZH
-	Uu5AhR4JIL/5c6cuP0XIkYTQU3qmxdMjeEPOWvAINFsHCVqa7UWUd3E/5zsRX46miYOcQteoPFE
-	E04h/BV7LduYkCTNVt6jHzRKaZxXJcgN0SK62TN9pEmwWet+ErTKhgOW760HI5Y0=
-X-Received: by 2002:adf:e50c:0:b0:482:a9a4:91e7 with SMTP id
- ffacd0b85a97d-482a9ede2f3mr11527757f8f.15.1787081163046; Tue, 18 Aug 2026
- 12:26:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OeTDtvHf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 890E51F000E9;
+	Tue, 18 Aug 2026 19:27:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787081237;
+	bh=xw1cEj+Ja4tDSH9V8hNNzU55PwJcLp6Fhxkj/sX0VYI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OeTDtvHfwlI0+Bq32NykIz1YxvsWe5plQt6TqO5eVvO3pfKuD6uYH8PAiX5FKGbe6
+	 wDBD92Ckp711to4ov+C+Tbot9SdGswTohxqNfdoCBJSvhu9Ym4GgWzoJKwnAyZHu+v
+	 9+/E9xinfQ/SN1/2OHzm36Tls/r3xdefzFv3MUgKPSNoLgCD+XUDKDMJBp96M/1XSY
+	 Ea3kgpLZcC/qDJpQ4mZsBmPgwKbfwW5ykiH4VVE3Zcdy8z+EK95OdB4D3YFm/sH3LX
+	 LiCUrcOrU/Pu8WbktEl0AdM/40FFG6oB9h54ki3rla9S77nTdcv0UHhCkZz59GmPuR
+	 CR6/XxHtiDjRw==
+Message-ID: <6c8471ad-8d68-42d9-bc61-83968a2e8acd@kernel.org>
+Date: Tue, 18 Aug 2026 21:27:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260706175138.12587-13-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260706180331.3AD811F000E9@smtp.kernel.org> <aoRB8CrV7ECOG33Y@ninjato>
-In-Reply-To: <aoRB8CrV7ECOG33Y@ninjato>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 18 Aug 2026 20:25:34 +0100
-X-Gm-Features: AcwNN1XvqpNfeUIyYJ22liaTzQ5Arj1acbogU-h1r2Q7CoLl1dfoF0q-qvhOhnA
-Message-ID: <CA+V-a8tJAStSKfsESoEE8vUjgnR+P1yKeYKTnpN43+=MtgbCBw@mail.gmail.com>
-Subject: Re: [PATCH v3 12/12] rtc: rzn1: Add support for Renesas RZ/T2H and
- RZ/N2H SoCs
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: sashiko-reviews@lists.linux.dev, linux-rtc@vger.kernel.org, 
-	robh@kernel.org, Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, 
-	conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/12] dt-bindings: mfd: syscon: add Ambarella CV75
+ secure scratchpad
+To: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>,
+ Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, Long Zhao <zl020895@163.com>
+References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
+ <20260818-cv75-v5-v5-2-7bbb12f0360f@ambarella.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260818-cv75-v5-v5-2-7bbb12f0360f@ambarella.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Wolfram,
+On 18/08/2026 12:31, Long Zhao via B4 Relay wrote:
+> From: Long Zhao <longzhao@ambarella.com>
+> 
+> Allow ambarella,cv75-sec-scratchpad as a syscon for the shared secure
+> scratchpad registers on CV75.
+> 
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-Thank you for the review.
+You already received review at v2 which you did not respond to and did
+not implement.
 
-On Tue, Aug 18, 2026 at 12:28=E2=80=AFPM Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
->
->
-> > Should we add match data to this compatible string to identify the vari=
-ant
-> > and explicitly reject probe with -EOPNOTSUPP if the clock configuration
-> > would require the unsupported SUBU mode?
->
-> Correct. Matches also my notes which say that this code
->
-> 445                 if (rate !=3D 32768)
-> 446                         scmp_val =3D RZN1_RTC_CTL0_SLSB_SCMP;
->
-> is wrong when we have a variant which has no SUBU support. Because in
-> that case, we need to enable SCMP even for 32768Hz.
->
-> So, yes, it is needed to mark which variant has SUBU (RZ/N1 only, likely
-> forever) and bail out if no SUBU and no 'xtal'. The above code needs to
-> check SUBU support, too.
->
-Ok I will introduce OF data to handle this.
-
-struct rzn1_rtc_data {
-        bool has_subu;
-};
-
-Cheers,
-Prabhakar
+Best regards,
+Krzysztof
