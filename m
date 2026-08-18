@@ -1,219 +1,159 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF92036B061;
-	Tue, 18 Aug 2026 09:38:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A10E36B061
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:38:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045908; cv=none; b=nYyHQJr1moJ9kTkquiZgfmP9mdNAo1CnexNzcXQksR67Pstiq4tg5kLOsFm3TF4Oe1NdMccbfNlRYqHdw80GsZU1hy2gNr86lFDQjZyjreKIjw38zIFCYM18kn9UbnleSIin6PfpPQR/FUvsEfyA9hbE/wYp5z8l5lvbWcUTZnE=
+	t=1787045916; cv=none; b=syMZEC3iTvdqKQ5tS3utQqI8ssgRcGIpiyt5u4ctqrz0DpuA+ZwTlFqcBCpomFaAy2Myqk7Y+kcSvorUIjlf6iNo3Za/btTDROwKPg6sFAzQeAwKIWtd19HtVvKlNlQ1biB3Wx2i3X4TynssmlqeL0XaGnJaJRmqmG+ly8sRal4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045908; c=relaxed/simple;
-	bh=RmQfg3PjUCkZnzqUhqE/7wclxqioVaYIqLTjTpRu2WI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sooxYLdtMjpYvc21+xBMOUC9j2lMwAhHo63qox7DlCz/Jtl3fI5D21vXQqpwRodJiIglIQBcBbaiCjQY+yn4d9zvZp1+g3HwDu1N+DZ/2zTUe6q+7mWyjyqPv2AAGzcvcahqZyIbd1B9XerqMYwz8JxcoEbIFS09db/dN7V780s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=ZlIojXY5; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1787045916; c=relaxed/simple;
+	bh=ffdaodVRGP9CdHK75lxosLYfxIYIEcyqRWS9Jqacn7A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pqI2UdMB0/UisApDIjYnMycMsHxflqqC13fwoVuLYi29uRkaFZ1bVGMYQaTe610EzPso5Qt64gdUEkmKHTpJtzMQ6hpukMIV1tTLrm+j9qLiqK1ivHahkUC0Q9lrND8ZrGlhPO1if6NSHSy/3sOfF1hk3QMlIgEcDJrI1W1hSdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OP9IXrlN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="ZlIojXY5"
-Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 00B7B53403EB;
-	Tue, 18 Aug 2026 11:38:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1787045904;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QX318SWwSa/mu0rKh+wB1ItXnLgbKSxu2tQxkvWzGZs=;
-	b=ZlIojXY5/A7SrZf7BFhQld1gUJ8e97X0W/Km1UYmjHOKfDjBOUrVLoQyxCtwM2xtfQ6FEQ
-	lMCsrgq0abRtF9BhtZNBKxIAlE8m2p6xMg1jJ40GcefXyc78Wiq8jAYm+n0h/KCNJbTjT3
-	/UdG53fjDdAWTPHGPBIL7GzuXs+LbfU=
-Message-ID: <b8cb7327-1e1b-4a44-ac97-dec9b6c32e9e@ixit.cz>
-Date: Tue, 18 Aug 2026 11:38:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OP9IXrlN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588661F000E9;
+	Tue, 18 Aug 2026 09:38:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787045914;
+	bh=LYWM/vqjVhgqoXaaZlUuskjGXc/aDxT5/B9ctw7NduA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OP9IXrlNlI9GiG5PW+WCD1UIIehXp+oTdrIAqc09lML+qaofbx+cnAvl97IoTNnUj
+	 trIGmo38s69Jdc01f0yhFuMQT9BpYo2jl5c41ZCgQo8JJplMFE3gcD3kIL2HpxfaQe
+	 gXvfcSIC6dsF9AG/MFHKHetCwB+V6uQr69AQb5VaH6Rxgn9dV743SSOtc6he94rltI
+	 AkIaXlbCUXpHHQhjVpge3CG6T5hSx8Q5kdrFSuBbnUXH+ZdGqL+iOOM4aKEMPzxb7z
+	 q9k4/6m1Hns3zHDw9gx4AqDb1Z6duqiRW3bBy/7ei3S4q2MoVxnWcCnPO+DCfshh0Z
+	 TFJToIShBGnAQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/5] of: reserved_mem: release dynamically allocated
+ no-map region on init failure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wandun Chen" <chenwandun1@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260818092420.2859026-5-chenwandun1@gmail.com>
+References: <20260818092420.2859026-1-chenwandun1@gmail.com>
+ <20260818092420.2859026-5-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 09:38:33 +0000
+Message-Id: <20260818093834.588661F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260809-dipper-v1-0-eb4d501e85df@ixit.cz>
- <20260809-dipper-v1-2-eb4d501e85df@ixit.cz>
- <8f05bf47-183f-4586-8ed2-eb2277f15c98@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <8f05bf47-183f-4586-8ed2-eb2277f15c98@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 18/08/2026 11:27, Konrad Dybcio wrote:
-> On 8/9/26 6:48 PM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> Initial submission for one member of the prime Xiaomi Mi 8 family.
->> Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
->> Known differences are battery capacity and fingerprint sensor placement.
->> This submission includes basic abstraction for other developers to be
->> able easily extend it to support other variants.
-> 
-> I had one of those. IIRC the Pro had a 3d IR scanner (vide face id)
-> whereas the base one had a normal IR cam
-> 
-> [...]
-> 
->> +	reserved-memory {
->> +		adsp_mem: memory@8c500000 {
-> 
-> adsp@ etc. and drop labels where unused
-> 
-> [...]
-> 
->> +		linux,cma {
->> +			compatible = "shared-dma-pool";
->> +			alloc-ranges = <0 0x00000000 0 0xffffffff>;
->> +			reusable;
->> +			alignment = <0 0x400000>;
->> +			size = <0 0x2c00000>;
->> +			linux,cma-default;
->> +		};
-> 
-> Is this necessary?
-> 
->> +	};
->> +
->> +	vph_pwr: regulator-vph-pwr {
-> 
-> This is out of order
-> 
-> [...]
-> 
-> 
->> +&adsp_pas {
->> +	firmware-name = "qcom/sdm845/Xiaomi/dipper/adsp.mbn";
-> 
-> Would you know whether the FWs are common across the SKUs?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I don't, I have only one device (the dipper) available.
+Pre-existing issues:
+- [High] `__reserved_mem_alloc_size()` ignores the error return value and c=
+hecks `base =3D=3D 0` for failure, leading to Use-After-Free of reserved me=
+mory regions.
+- [High] Statically allocated reserved memory is unconditionally freed back=
+ to the OS on driver initialization failure, violating the DT specification=
+ and causing memory corruption.
+--
 
-I'll see if I quickly figure out, if not, as no-one else having Mi8 family 
-volunteer to test, I would move it to dipper specific for now and can be moved 
-to common later.
+--- Patch [4]: [PATCH v2 4/5] of: reserved_mem: release dynamically allocat=
+ed no-map region on init failure ---
+commit cf35e3414292da4070c89965dbb1bce8416755e9
+Author: Wandun Chen <chenwandun@lixiang.com>
 
-> 
-> And more importantly, regulator settings? FWIW it's easiest to compare
-> compiled DTBs (or even better, ones pulled from sysfs on a running
-> system)
-> 
-> [...]
-> 
->> +&tlmm {
->> +	gpio-reserved-ranges = < 0 4>, /* SPI (Goodix Fingerprint) */
-> 
-> odd space after <
+of: reserved_mem: release dynamically allocated no-map region on init failu=
+re
 
-I call it alignment, but sure :)>
->> +			       <81 4>; /* SPI (Synaptics Fingerprint) */
-> 
-> No NFC eSE reservation?
+Dynamically reserved-memory regions are added to memblock.reserved by
+memblock_phys_alloc_range() during __reserved_mem_alloc_size(). When a
+reserved-memory region's driver initialization fails,
+fdt_init_reserved_mem_node() cleans up the reservation. For no-map
+regions it only calls memblock_clear_nomap(), leaving the range in
+memblock.reserved and unavailable for normal memory use.
 
-It seems that vendor used different combinations of Goodix / Synaptics across 
-these ranges. Not even depending on the model. Same model can have different 
-wiring, but always honoring position 0:4, 81:4 as far goes my understanding. >
-> [...]
-> 
->> +&usb_1_dwc3 {
->> +	/* Until we have Type C hooked up we'll force this as peripheral. */
-> 
-> Should be fairly trivial on 845, no?
-> 
->> +	dr_mode = "peripheral";
->> +
->> +	maximum-speed = "high-speed";
->> +	phys = <&usb_1_hsphy>;
->> +	phy-names = "usb2-phy";
-> 
-> No SS?
+Fix it by freeing the region on init failure when it was dynamically
+allocated.
 
-Haven't thought about it, for now my goal is upstream basic telnet/ssh + FB. 
-Then display and touch - e.g. minimal u-boot and kernel development features and 
-then bring the rest.
+Sashiko found this issue in [1].
 
-> 
-> [...]
-> 
->> +	bluetooth {
->> +		compatible = "qcom,wcn3990-bt";
->> +
->> +		/*
->> +		 * This path is relative to the qca/
->> +		 * subdir under lib/firmware.
->> +		 */
-> 
-> Let's drop this comment, not very useful
+Link: https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kern=
+el.org [1]
 
-Sure.
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
 
-Then I'll also drop these from whole sdm845 in follow-up commit.
+[ ... ]
 
-I'll address also the rest of the comments in the next version :)
+> @@ -567,7 +568,7 @@ static int __init __reserved_mem_alloc_size(unsigned =
+long node, const char *unam
+>  	}
+> =20
+>  	fdt_fixup_reserved_mem_node(node, base, size);
+> -	fdt_init_reserved_mem_node(node, uname, base, size);
+> +	fdt_init_reserved_mem_node(node, uname, base, size, true);
+> =20
+>  	return 0;
+>  }
 
-Thanks for the review
-David>
-> Konrad
+[Severity: High]
+This is a pre-existing issue, but is it possible for
+__reserved_mem_alloc_size() to ignore the error return value from
+early_init_dt_alloc_reserved_memory_arch() and only check if base is 0 for
+failure?
 
+If early_init_dt_alloc_reserved_memory_arch() fails after setting *res_base
+because memblock_mark_nomap() fails:
+
+early_init_dt_alloc_reserved_memory_arch() {
+        ...
+        *res_base =3D base;
+        if (nomap) {
+                err =3D memblock_mark_nomap(base, size);
+                if (err)
+                        memblock_phys_free(base, size);
+        }
+        ...
+}
+
+The base variable in __reserved_mem_alloc_size() will be non-zero, but the
+memory has already been freed. Since __reserved_mem_alloc_size() only checks
+if base is 0, it passes the error check and registers the freed memory.
+
+Could this result in a use-after-free if the OS hands the memory out to
+other subsystems while it is still mapped or used by the reserved region?
+
+[ ... ]
+
+> @@ -707,7 +710,8 @@ static void __init fdt_init_reserved_mem_node(unsigne=
+d long node, const char *un
+> =20
+>  		if (nomap)
+>  			memblock_clear_nomap(rmem->base, rmem->size);
+> -		else
+> +
+> +		if (dynamic || !nomap)
+>  			memblock_phys_free(rmem->base, rmem->size);
+>  		return;
+>  	} else {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could this logic
+unconditionally free statically allocated memory without the no-map
+property back to the general pool?
+
+If a driver fails to initialize a statically defined reserved memory region,
+and the region does not have the no-map property, it is freed here.
+
+According to the Device Tree specification, if a driver fails to initialize,
+the OS must not use the memory for general purposes unless the reusable
+property is explicitly present.
+
+Will this cause kernel memory corruption if the general buddy allocator
+hands this memory out to unrelated kernel subsystems, but the firmware or a
+coprocessor still expects the region to remain reserved and accesses it?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818092420.2859=
+026-1-chenwandun1@gmail.com?part=3D4
