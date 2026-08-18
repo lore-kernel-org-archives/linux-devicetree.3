@@ -1,126 +1,97 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0979B2749DA;
-	Tue, 18 Aug 2026 14:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204A2175A6C;
+	Tue, 18 Aug 2026 14:18:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787062653; cv=none; b=LZCxZZgnvH7drYwIWvS//Fk/rmiqaHHVYP7L2Pe1NFQaSjyj/h2s/yMGF/+pfymfpRHZ7PrjLFzu4M6GOxpaYx5VaoVBjwzbSv24Mv8iIFiIDQrNDBwpaavDLatdLokmkhKLTsew2zVkorUv43+1U4lA3LRM4vHO9v/AJR+68g8=
+	t=1787062697; cv=none; b=k2Ord1pCR2A61tVFoWYl3nZN8CvY0pfCifBXnK/yyCyC68EQWHj4mpbWFcuky0sXqx6kunY6ROCjEXwwnLD3ZIMPVoAeigD8I/JL9YVCZpgCXp+Di/e/te6y7g6cUQlltgQPWPD7jKToigzyNnGqiDzYbDJxqQQetrFqXsqQ1O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787062653; c=relaxed/simple;
-	bh=lL6H9haiC5nl4nTwOlYGfW3J0UtwnXNdwbQDacHIkxQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S3519LnsmrWvKUDhyCF3jv4pqr4fQH9vudDIHiwoG3zhq1vWmDGwYGjoyeZSeIrGnHQ8gUsWVF8UDxwB4VDzJS4Xnij4LoLBJQ3TvBnfulgskYMKb29pYRF7GomXpdnqWub65PbiLiFmukqIj6jG/4VkxOuF1h03gSb7q7oXGAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=latn6tzY; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787062697; c=relaxed/simple;
+	bh=hn9aaL5Np2ACP5XCRxe2C3j1w0sc3rI8cw0YAsemNrE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MsvMgdrMFaKEGWPzKjN0D9Yg/Egk70DiBTyrkUxPnaFWuMkoJcvYt7u1a6aS92d+AlnyiB6TfQznrt7Feec6hE4dHmyM0DocbIdDNN6Zn0hZQU5FATajrgALC0Ierr+9CFHAdDkVVx2NAtkadVdxeJDFRMm6TLhm/MhbHRmfT10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXaTOLs4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="latn6tzY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787062652; x=1818598652;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lL6H9haiC5nl4nTwOlYGfW3J0UtwnXNdwbQDacHIkxQ=;
-  b=latn6tzY4YGdjKn9PSWR2ZhsdNd55WRitY8QMlYd1qHC73CMjfeRoqgm
-   YTu+6ZARQiBni62lVQfluZ8HRYeQQxyEcJCRRuCfKdVm+JjrKIKsjnLrs
-   /mc11QuLhq706NoPSplwM0qu67Yi3AwhsdEj+3J5H6rVtzdTJrl14VnJC
-   nJvmfEOwrrFSqVDL8HnTgY2w0VAvxv99mhD0PxZ+bw/VQTTBryB7v1YSO
-   JTAPoEehkR+RI/nXA4rTYVVnjp6hOvpIoeNNWQNjhK24ELp8ARFztBsc/
-   ZDvlbDrD/nRKC5oppc26YzA7YWbLCBvI/jU7goCQXStXDzyCvRiWyH/rx
-   Q==;
-X-CSE-ConnectionGUID: CBUH52VLRqe42hjBjIVz1Q==
-X-CSE-MsgGUID: mA9+p5nVQ76aI1P1RBP0iA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="75085553"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="75085553"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 07:17:31 -0700
-X-CSE-ConnectionGUID: Np9P21ywT6uabLZe7WThEw==
-X-CSE-MsgGUID: eW7Qnan3TPiDX4vnKvFvUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="290039624"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 07:17:26 -0700
-Date: Tue, 18 Aug 2026 17:17:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Brian Masney <bmasney@redhat.com>, Lee Jones <lee@kernel.org>,
-	mfd@lists.linux.dev, Long Zhao <zl020895@163.com>
-Subject: Re: [PATCH v5 10/12] serial: 8250: add Ambarella UART driver
-Message-ID: <aoRpc2RK2_X3CdAi@ashevche-desk.local>
-References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
- <20260818-cv75-v5-v5-10-7bbb12f0360f@ambarella.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXaTOLs4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DFDC1F000E9;
+	Tue, 18 Aug 2026 14:18:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787062695;
+	bh=lQ6MrCiZZT+mrxVJ80G2HBuj1g1N4krSlsCJ3uFi1lU=;
+	h=From:Date:Subject:To:Cc;
+	b=PXaTOLs4QP1ETyrbCkYkAqwieCM8YPMFNlGLPwEcBl7Xrr1lMw19LbgeqjzSomGiJ
+	 QWT5b67+V4Y9ADg+HRdHhja6RhW9HTkJzqVswxiMx1o83XatOExC8TvKIo8X2VgZeG
+	 SKViHWCTPZawQFf/CGyNQhtQu4GTGV46MPkjo81E7dL+VJHdIcFsiEqOWQRCwIvL0I
+	 F45EDhyi+pa76mpQdvzWwyhBFDaZij1bmUIxPozq08un9KWuMQlrUAWnWvSj9jcf1m
+	 JF/DLQ4a2a/NfL3wimKzWXt7D1z7d0As92I0ua1oTpXsC54PGCYuAqg8KVlSD0YiVM
+	 dO6bpaMRMt2UA==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Tue, 18 Aug 2026 16:18:10 +0200
+Subject: [PATCH] arm64: dts: qcom: msm8953-flipkart-rimob: Fix panel
+ compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260818-cv75-v5-v5-10-7bbb12f0360f@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260818-topic-more_dt_warn_fixes-v1-1-609d283502cb@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMWwqDMBCF4a3IPBvQUELsVoqEOI52Ck1kJr2Au
+ Pem7ePH4T87KAmTwrnZQejJyjlV9G0DeI1pJcNzNdjOus733pS8MZp7FgpzCa8oKSz8JjUWMXo
+ 3uNNEA9R8E/oNtb6Mf+tjuhGW7x8cxwfkLNCxfAAAAA==
+X-Change-ID: 20260818-topic-more_dt_warn_fixes-2cca86964be9
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787062692; l=1159;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=QQP5idsajnfjQE8/05vaaEFp4cxcOh8wYTXgUqm17G4=;
+ b=GK7A1UAaqYTWosQfxbI0q/Qjlq+GOWSfVu5w/NqZjo33j7Oqp46P2HOPPkO8i3Xjk/X7hLKDf
+ J2VdWyGIDyoAQJLGF2NdxLuQKmyCQY056LbzLsZJlWLBke3RiVxIIus
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Tue, Aug 18, 2026 at 06:31:24PM +0800, Long Zhao via B4 Relay wrote:
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> Add an 8250 platform driver for Ambarella CV75 instead of claiming
-> snps,dw-apb-uart compatibility.
+During the review process, the bindings have changed, but the DT has
+not been updated to match. Fix it to prevent a "compatible too short"
+DT warning.
 
-This is a record from a changelog. There is nothing in the commit message.
-...
+Fixes: a8c0bd4233a9 ("arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-The code seems like an almost blind copy of 8250_dw.c.
+diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+index 978820348fa5..07f9ee868105 100644
+--- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
++++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+@@ -147,7 +147,8 @@ &mdss_dsi0 {
+ 	status = "okay";
+ 
+ 	panel: panel@0 {
+-		compatible = "flipkart,rimob-panel-nt35532-cs";
++		compatible = "flipkart,rimob-panel-nt35532-cs",
++			     "novatek,nt35532";
+ 		reg = <0>;
+ 
+ 		backlight = <&pmi8950_wled>;
 
-> +#define AMBARELLA_UART_USR		0x1f
-> +#define AMBARELLA_UART_USR_BUSY		BIT(0)
+---
+base-commit: e6664f2b33db9b6811eb4cec109f06cb2b4f458d
+change-id: 20260818-topic-more_dt_warn_fixes-2cca86964be9
 
-So, is it Synopsys IP-based design? How this gets into this platform? This
-whole story completely made me lost.
-
-> +#define AMBARELLA_UART_IIR_IID		GENMASK(3, 0)
-> +#define AMBARELLA_UART_IIR_STATUS	GENMASK(5, 0)
-
-
-...
-
-> +	of_property_read_u32(dev->of_node, "reg-shift", &reg_shift);
-> +	of_property_read_u32(dev->of_node, "reg-io-width", &reg_io_width);
-> +	uart.port.regshift = reg_shift;
-
-> +	switch (reg_io_width) {
-> +	case 4:
-> +		uart.port.iotype = UPIO_MEM32;
-> +		uart.port.serial_in = ambarella_serial_in;
-> +		uart.port.serial_out = ambarella_serial_out;
-> +		break;
-> +	default:
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "unsupported reg-io-width %u\n",
-> +				     reg_io_width);
-> +	}
-
-This is handled by uart_read_port_properties().
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
