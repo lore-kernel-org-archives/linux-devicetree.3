@@ -1,156 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389E139EF0A;
-	Tue, 18 Aug 2026 11:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787053530; cv=none; b=BWxsIEl3JfSmKD7MJxXd8j65Lz0yzTmSQaraY2WPSHp+GIgsSa9/QPs1svsuQpF8wNvrR/K5sAftByInFu4/HaAu34UnXAleoUrpscWI4olUA4m2sEzVYdb4Qj0YzgR4A9JfoA7zx4dX9rFS+K5dy9nJLFpGPU/FRzO5JdYS3Lw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787053530; c=relaxed/simple;
-	bh=s7eyw0DmqA3zUUUGIt7VjNRuHBh9vVVRJeqFiRGMg64=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uoWqadnfkrREMIEwnBTK0FVBg6/0fRkFtnJskeqhYJTqJf81E4NQDtH4k0ArxxmyEKUsyO9lkVq2KeplZycVsaVunWtYTP8dd2EY5pqr2xQ2/xZR/kmfIX41a2Fvh/2dE5VphP/exjnt4phDFgfsYviF84HwHrlZXN6lO+xt/+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QmTvrnp9; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CB139EF0A
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787053575; cv=pass; b=C1aS1/6YNjlHcpQTARTU/CRgm3D7Ylk+3dvkSi13onwd8cQFv1ESf+L/7oBw8BBU5EogS6VfLN2VdgM2RzHQ382BWeoeE4GWLuVx7n87vgveWU2ZnZ3jG4+CcPtODc+Rl0Hyd28UWj4vTETUMJVjOQdqhSZ0fGL0dI8ZUqclPLg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787053575; c=relaxed/simple;
+	bh=tvpbU9b8C3/MLm7HMvw//xPuetOAEHclZO0FvFBk8L4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AjfC3UVGFxoxPAjFf5GGYmqxRopT2g5+Pd2IemMM8qY1cB5mFJKSo1qIIvMfjEf2k/SC5s07KGPwzA9OCBJTrSUGJrjOzuYXu91NsEWTyN6DWeTtera3RwERtRk9ya4ioLNiLqgbjXbbpaFPd9xNmKkeTGzUFR2lwKnKj7SvzgM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nVdlCR+2; arc=pass smtp.client-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QmTvrnp9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC4E1F000E9;
-	Tue, 18 Aug 2026 11:45:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787053528;
-	bh=+oxPcNqI3PZAHqM9v3WwprvFy/3gIlcIsJcj85Aon4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QmTvrnp9fL/D0PyKCZ908Xy5MzGvQyXPXvc1fWjWpjgUk+Y3HTZJlGiassc+VefGB
-	 LUFlYBHvFPPAkkrQdvJIq33GAifd6tTbWliGLaEU2EMwagmB3JIetKbVDm/+UbEhXb
-	 HaCq5yaHaTvv2n2P1NHTUgZPGnB1a2evKi7ZbTrgjqH/h+Lo/PS3cMsoJ5yYYIO6jQ
-	 USBJaG8M5N964hkLMyvHL97YcHVbn9IVODSTPKaI0pBDqMt9dyBehWQb7BKm2eeZ1q
-	 jN2o3oSqmUqifTeKZhKj1P9fV2F+HymGYznIpFcp/vTFvhzN7cJ3v3dFLPd6fm+tbH
-	 v15GyEORQR3rw==
-Date: Tue, 18 Aug 2026 13:45:26 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 0/5] rust: drm: add panel bindings
-Message-ID: <20260818-encouraging-lime-kestrel-d0d819@houat>
-References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nVdlCR+2"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8201447e8cdso78951157b3.3
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 04:46:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787053573; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fDIfhdbsbWMVDmkISPSf3SiMcons6a/Zq52xcYRVJffiM2TSzJgDXx0dwjkDYA7rTt
+         9KwIVvvrTse+25LQQ+jQvOahXlSsOZEmrlchREU+dZv1AgAk60Ng4PhtTdlO2t241Zr6
+         F131e4pHBuf6TxNFlFnSRtsAS/U/04NKtTtIMRiWALfKTFGVQzOpeXHA2QjG14QcfZhh
+         3P9/5XcSN/tX6LM1GuR98EMsUSiCqibBL0ClQt+yC9TnKzVDJzVdQ1ZHtGN4t1On9IHG
+         5ofRMXYh27WFknG3vUQfMu6ugJUMzRMPRu3LHyKVEEJ83Aq89v8IBHyuTXQt9EuGSVow
+         vkUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hpxp/zN/k3pa4zTW7PgrgIqgWRxXynXakWrls+B4H2A=;
+        fh=sUJ8gdZWLU/jOkk6aUdz1aL23OrOWljW83j53I6cl3w=;
+        b=aYoIR9USusqi+27guCVuKOnDT3e0Jn197k8WqAYcrXPXCDTFr8O+aZliPyRCe6s6w3
+         pq9DSr4nW4Q9CSSvrkObPfSKKA0MyY4I3ob/ubsgRAMl1U7RhiOV6phcMHAMn86SeUBO
+         eF609rTR7XkFK39KELPLxL4ZEw00HPFH8DN2T8VjqWbsX3cEuJ/zgWikl/J0bPSQDw7B
+         fV4nyHWVRYs2q/HjxKhq/3wUnwwT38tUwwsBlpJHiPdTtBDYzspyoqPWMr0OVSU3Fnxb
+         ehB7Bx6U13XIiVc/V3B4rR4hT1F6bMNktYdt4HwnKSn/Zu+0HKMe9z9xA62/QrtfszUu
+         Nfcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787053573; x=1787658373; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hpxp/zN/k3pa4zTW7PgrgIqgWRxXynXakWrls+B4H2A=;
+        b=nVdlCR+2Q/9sqO4xn4iW38tVxPSTyoaORkacC1ju7Oj+4EFADCSSW+sYLpX1XbHWwb
+         1V4W9Z8QOWKYonAxiRCe4FC2xhG3nAOO5e4l17PoZENwnxc3ChEEFZNxBmpKZF2VRXgX
+         ThXLiFT3bt2l2x01dvoK9HNJOCn+xnmXqHsgj/g6iyciI+rsoyq+UQ8nvr/Y42Ck+IK4
+         9q+cDmzK8PVd2ZMKQmc0UtT6Lpq7WtgTZnKM0lRJm6R3vemyufkpj3YwYn9dZURn7ZBF
+         NML4nL4/ahwI53a0iG/ow0kHQcqTuTum9snzX8OclJFUQhr2gVnBQhk7rAiAyhNGRyGA
+         16+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787053573; x=1787658373;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hpxp/zN/k3pa4zTW7PgrgIqgWRxXynXakWrls+B4H2A=;
+        b=ANBc/qkGO5dPp/o8+MoehL6G6YfxzFh755c+dGRezm3tpOEryura+5cCQJZXDZZM3O
+         pgbSsfgrmCVtCW/uyROtco5O+FHqxStxILL0jZzUNNKlrQMC2hoWpxuwkT1nQqkbfpMl
+         jhj49cLP+dMQdfL/oTMAU9Nsi5cqm8V6f1Pc2uEdEfgvt5V1vkNZwgq76NRhWDIRKM6z
+         OknpOErs5ckFfyw63D3vEyep2p8oZhoR0cYwmILmk4428a6tiaLNLhB2yAhvKm4ih9cM
+         x64+4B33osf1rcOdvj3vc0Hcy5hDWmyCQ8fAskXLzIswXxBeIv9GCt6lwrJMKX24xuuR
+         Gimw==
+X-Forwarded-Encrypted: i=1; AHgh+RrF7ct5wksb1zibK2u+RBuunre9DSl/bcRFA/AuuHeieD7zibhXruT/SIv20G5nuLy1vvgy8xYOHQDH@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrS13Skzc4a5Ui38s2rX0QBLNY7J8Y8PSOhog86mlcHAO2ypr2
+	3iyFfTZ+uBg8NVTtkeejT4gDxqXs2WbzYQqDN6fvyBeRCfumufKsCiffNvqtMUhWuIFSnfBTJyT
+	NDZ6XIsdP06Z3iY70x+7BTNEZAMonvFQ=
+X-Gm-Gg: AR+sD12HZ4nzFAVg3Xf2nCvNJnG1oagkB6YRiMdpGxZAFwhp3zWMi8EucBqYjnVOL2Y
+	DsGOQXQc1FR/8j4CekeHGHJ0ofGUImDCEuOt3UEw0rsrtRjwhKIcaPkLQt8j8zRb6y4NIotD9E4
+	2dNHehX0RAXPM4/qgCQWjMP+DSPwhYAp8O1t0oIeim997ICdNd6lCbAbMUSNee3FwfC/uWvcML8
+	rKzWHRIkymZjjidtml0fHIGNAcTHPdzt2Rz4OEAM2nfxuftKf1z83eVXEqOD1uUwUkCF944d0eu
+	ORWTrYynHR+ZdEwqcZbwdIik9uglpILFmt0NStdAPYTC3p7VrORPZrK83IzAzu2XETB7Qo6VN3J
+	J0ABnvABIP5rt3xbbvW91fCVZLQ44RSSMjZJzL+zbORmftMVR6BHLZv8nkZtZfXrEXx4bN6NIqP
+	nWVJfLQ/+y
+X-Received: by 2002:a05:690c:9991:b0:81f:d505:8ea4 with SMTP id
+ 00721157ae682-83712da9d13mr124393587b3.18.1787053572846; Tue, 18 Aug 2026
+ 04:46:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="ih6zdmnfjowuha6b"
-Content-Disposition: inline
-In-Reply-To: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com>
-
-
---ih6zdmnfjowuha6b
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+References: <20260812132755.32585-1-zajec5@gmail.com>
+In-Reply-To: <20260812132755.32585-1-zajec5@gmail.com>
+From: Jonas Gorski <jonas.gorski@gmail.com>
+Date: Tue, 18 Aug 2026 13:46:01 +0200
+X-Gm-Features: AcwNN1VKHMPAdBOZimFFX4MmmZLiUZP40Jjbh2uMpcUo_B2LLCgJ0plyHTDZ4p8
+Message-ID: <CAOiHx=ne6o8j2jLWB_R57z_9KFwF=ZMw-2JVWDn6QNYs3CTyag@mail.gmail.com>
+Subject: Re: [PATCH V3 1/4 net] net: dsa: b53: deal with Northstar devices
+ using CPU port 5 or 7
+To: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Vladimir Oltean <olteanv@gmail.com>, 
+	netdev@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	bcm-kernel-feedback-list@broadcom.com, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	Semih Baskan <strst.gs@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/5] rust: drm: add panel bindings
-MIME-Version: 1.0
 
 Hi,
 
-On Mon, Aug 17, 2026 at 01:40:45PM +0200, Albert Esteve wrote:
-> This series adds Rust abstractions for the DRM panel subsystem,
-> covering both the consumer and producer sides of the API.
-> This helps closing the gap so that future panel drivers
-> can be written directly in Rust.
->=20
-> Background
-> ----------
-> The DRM panel C API has been progressively hardened over the past
-> year (see [1], [2], and [3]). All panel drivers were fully migrated
-> to kref-based allocation via devm_drm_panel_alloc(). Panel lookup
-> functions (i.e., of_drm_find_panel() and find_panel_by_fwnode())
-> were also updated to acquire a reference before returning.
->=20
-> Note this series depends on [3] being merged in the base
-> tree. Currently it has been only applied to drm-misc-next.
-> The other series mentioned above are already part of the
-> base for the current version of this series.
->=20
-> As a personal note, part of my motivation for creating this series
-> was learning more about Rust in the kernel. I would appreciate
-> feedback on Rust-specific idioms or kernel conventions used here
-> that I may have missed.
->=20
-> What this series does
-> ---------------------
-> Patch 1 adds of::Node, a Rust wrapper for struct device_node
-> implementing AlwaysRefCounted. C helpers are added so that of_node_get()
-> and of_node_put() are reachable from Rust independently of CONFIG_OF_DYNA=
-MIC.
->=20
-> Patch 2 adds drm::Connector, a minimal Rust wrapper for
-> struct drm_connector. Its sole purpose is to provide a typed reference
-> for the get_modes() callback argument; no ownership or refcounting is
-> exposed at this stage.
->=20
-> Patch 3 adds the consumer side of the panel abstraction:
-> - Panel wraps struct drm_panel and implements AlwaysRefCounted via
->   drm_panel_get/put. Consumer lifecycle methods are exposed as safe wrapp=
-ers.
-> - PanelOrientation wraps enum drm_panel_orientation and provides
->   from_of_node() to read the "rotation" device tree property.
-> - Registration manages the panel's presence in the global registry
->   via drm_panel_add/remove, decoupling registry lifetime from
->   reference count lifetime.
->=20
-> Patch 4 adds the producer side:
-> - PanelFuncs is a #[vtable] trait that panel drivers implement to
->   provide their callbacks. All but get_modes are optional.
-> - Panel::new wraps __devm_drm_panel_alloc, returning an ARef<Panel>.
->   Registration with the global registry is kept separate via
->   Registration::register, following the pattern of drm::Device::new.
-> - ConnectorType mirrors the DRM_MODE_CONNECTOR_* defines from
->   include/uapi/drm/drm_mode.h, required by Panel::new to specify the
->   panel's connector type.
->=20
-> Patch 5 adds gated tests, covering data type conversions and layout
-> invariants.
+On Wed, Aug 12, 2026 at 3:28=E2=80=AFPM Rafa=C5=82 Mi=C5=82ecki <zajec5@gma=
+il.com> wrote:
+>
+> From: Rafa=C5=82 Mi=C5=82ecki <rafal@milecki.pl>
+>
+> Northstar devices have 3 CPU ports. Ports 5 and 7 may be used but have
+> their limitations. Warn user when CPU port 8 isn't used and add EAP
+> setup workaround to avoid non-functional standalone ports.
+>
+> Fixes: 4227ea91e265 ("net: dsa: b53: prevent standalone from trying to fo=
+rward to other ports")
+> Cc: Semih Baskan <strst.gs@gmail.com>
+> Signed-off-by: Rafa=C5=82 Mi=C5=82ecki <rafal@milecki.pl>
+> Tested-by: Semih Baskan <strst.gs@gmail.com>
+> ---
+> This fixes a regression so it's a net.git material
+>
+> V2: Print warning on switch setup instead of on actual EAP mode change
+> V3: Proper subject prefix & shorter comments (long one comes with 2/2)
+>
+>  drivers/net/dsa/b53/b53_common.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_c=
+ommon.c
+> index 3f5b9592794d..5fd8362d0430 100644
+> --- a/drivers/net/dsa/b53/b53_common.c
+> +++ b/drivers/net/dsa/b53/b53_common.c
+> @@ -332,6 +332,14 @@ static void b53_set_eap_mode(struct b53_device *dev,=
+ int port, int mode)
+>  {
+>         u64 eap_conf;
+>
+> +       /*
+> +        * On Northstar setting EAP_MODE_SIMPLIFIED with CPU port 5/7 bre=
+aks
 
-So while it's definitely welcome on principle, I wonder if panels would
-be a place to invest in at the moment
+This isn't just northstar, this is any dual IMP capable switch
 
-The series
-https://lore.kernel.org/dri-devel/20260814-drm-bridge-every-panel-v1-0-19cd=
-5277cc8d@bootlin.com/
-is likely to move every consumer to use bridges exclusively.
+> +        * standalone ports, see:
+> +        * https://lore.kernel.org/netdev/ce4d9b7b-aaf6-4796-94fb-8c3d6a1=
+dcd4d@gmail.com/
+> +        */
+> +       if (is5301x(dev) && !dsa_is_cpu_port(dev->ds, B53_CPU_PORT))
+> +               return;
 
-https://lore.kernel.org/ksummit/0fa2fb42-0714-49f7-ba43-22928e1dd488@linaro=
-=2Eorg/
-raised a discussion that the panel API is very limited at the moment
-(while the bridge API isn't, or could be much more easily extended).
+This should be moved below the 5325/5365 check and just
+!dsa_is_cpu_port(dev->ds, B53_CPU_PORT))
 
-This is supposed to be discussed at plumbers, but I seriously think the
-outcome of that discussion would be to just deprecate panels.
+> +
+>         if (is5325(dev) || is5365(dev) || dev->chip_id =3D=3D BCM5389_DEV=
+ICE_ID)
+>                 return;
+>
+> @@ -1281,6 +1289,10 @@ static int b53_setup(struct dsa_switch *ds)
+>         u16 pvid;
+>         int ret;
+>
+> +       /* Discourage users from using port 5 or 7 due to limited feature=
+s */
+> +       if (is5301x(dev) && !dsa_is_cpu_port(dev->ds, B53_CPU_PORT))
 
-Bridges would be a much more long-term-proof investment.
+This should be
 
-Maxime
+if (!is5325(dev) && !is5365(dev) && !dsa_is_cpu_port(dev->ds, B53_CPU_PORT)=
+)
 
---ih6zdmnfjowuha6b
-Content-Type: application/pgp-signature; name="signature.asc"
+dual IMP mode is also supported by external switches (e.g. bcm53115
+and bcm53125), and if for some reason someone would try to use port 5
+only on these you will have the same issues.
 
------BEGIN PGP SIGNATURE-----
+> +               dev_warn(dev->dev, "switch to CPU port 8 to use all switc=
+h features\n");
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaoRFzwAKCRAnX84Zoj2+
-dlGQAYDYIAOqhHx0r6fLK8nL73TpSPjwnj7GDvkvyW8rtyvEnJnwJtKUz3FlzEIu
-QTiiVi0BfjlGkOxjUBXGBY6GrqOPUssitDNX9C7kIp3Sl7Fwv9uKTg40JiFLOHtB
-+22qEwBmsQ==
-=txvi
------END PGP SIGNATURE-----
+I think this warning is too mild; it should be something like
 
---ih6zdmnfjowuha6b--
+"Using port 5 or 7 as CPU port is not a valid configuration and will
+prevent the switch from working properly..\n"
+
+Best regards,
+Jonas
