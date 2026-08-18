@@ -1,98 +1,155 @@
-Received: from mailrelay-egress4.pub.mailoutpod2-cph3.one.com (mailrelay-egress4.pub.mailoutpod2-cph3.one.com [46.30.211.179])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED1F47D920
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 17:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.211.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763B647F777
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 17:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787073914; cv=none; b=OneVW/Ha0dZCIutouiThu/VhYNjBM3g81fYHaSN4erFYLa8KAY3IR1rF1DlwRGtYGSfuvZjtOiqMuIYwi2aD4MaAgoU5h//D6TXjqeAtIDGq7EDuRlKhG2yephLrHAlUElgcCkjnyUL043vKgGztT0BVR5dTjq9P/tNlZIR5aOE=
+	t=1787074717; cv=none; b=uMp2tknxwJGmopk0atDcxC19RpISQoNOzVJv/V1zXxB4zXBHbUhzvyZg9zbl1JGowlKtEhVK49PSGNV0H0u9XBKbPKq7olVofphwnx6t0J7pdVAPRd8j4K4rNPm+VUafklkRa9qtvJJZDchFgMLL8rPHCIl0gGEZBrGl3B/2YvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787073914; c=relaxed/simple;
-	bh=oOMrs2LNOE1k+7MMTZiOkxT3hBV3rnFDhhBTGdvpj+c=;
+	s=arc-20240116; t=1787074717; c=relaxed/simple;
+	bh=G227ozOR6YZGsveigSnSJ/VD7xq2jTvpGPaHrNvHe4s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WR/cXrfMshec2ASQKnuzS5oVeqLvXvWTH2Z5cKB2Oxn8O0m6QEpJkkKAhp2fyftB55UdpcWFL0+bqsSuYE92xVKpAs7nompU40Rjan6Lm1rOY0D/ZK23laIpgTLpwc5zyeu9SX40AbPS0M08mkCEuDtdOmHiUCziZby8VmSqmAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org; spf=none smtp.mailfrom=ravnborg.org; dkim=pass (2048-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b=GcC7QfKH; dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b=/ZQ6mdzo; arc=none smtp.client-ip=46.30.211.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ravnborg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=EprRSCQn6nDMh8djRboIkj2XuMkm0354mjjciosU8tHtMeTVnup68KBRWOxbaRxORsZ4hnwdVCrDIQnB6oxWCRFhwTXOu30kivUzz0u8bTAzhMcA3hLbf7RY0U7b/uc67XfpLqRU32Al2dthVOugeTRik1FCce3zZQFIavSzvEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XAv6iA+M; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gx8Ed3FJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="GcC7QfKH";
-	dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="/ZQ6mdzo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787073901; x=1787678701;
-	d=ravnborg.org; s=rsa1;
-	h=in-reply-to:content-transfer-encoding:content-type:mime-version:references:
-	 message-id:subject:cc:to:from:date:from;
-	bh=oC+wbZ11MiVGNp3BL/DR+8hsY0fcHA1LiiIfSy5DLo8=;
-	b=GcC7QfKHkOUrPSI94TQn+XxlpXbwMsxa7XMYgTO2h0JFyyB3oFha2HiMzUnGi71v4Pa09pPo1Nd3G
-	 6HBZXIuflv6YSpUh9q6DR8RMiDbIPppMvj4KulZYW4Hcugs93zlJoPj+ehka2cCs6tlnb5zmUAe8FG
-	 D01ABKdxFc0TMf3+I1gjjK+/fUmDJpjqVppRHosY8UQ+qhx4WpGYT/H2fCR9QBVcYFA6pOPR2isNwO
-	 NRYlq4/MtFHB15/GHp1eBua/u5Dv7eHHibDQ7GMltxD71tNyZc+bYrmiLlRYZQH7CMpcwIWMcgzVzS
-	 Pzi0M5BL+EWToqwsK0Ayt7hb0Z5pLmg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787073901; x=1787678701;
-	d=ravnborg.org; s=ed1;
-	h=in-reply-to:content-transfer-encoding:content-type:mime-version:references:
-	 message-id:subject:cc:to:from:date:from;
-	bh=oC+wbZ11MiVGNp3BL/DR+8hsY0fcHA1LiiIfSy5DLo8=;
-	b=/ZQ6mdzofkH8/R5vXp9D2JUqmrEU+5zs9RgJTrS0ObUxrYkEYNBKjes79WhtGmK7fIk+HwbVCn9MU
-	 iGJEeMRCA==
-X-HalOne-ID: bd3e7268-9b29-11f1-b934-6b8d581b3111
-Received: from ravnborg.org (unknown [2a00:fd01:81e9:6100:12aa:6509:509d:7116])
-	by mailrelay3.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
-	id bd3e7268-9b29-11f1-b934-6b8d581b3111;
-	Tue, 18 Aug 2026 17:25:01 +0000 (UTC)
-Date: Tue, 18 Aug 2026 19:24:59 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: =?iso-8859-1?Q?M=E0xim?= Pedraza Padilla <maximpedraza@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, Helge Deller <deller@gmx.de>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel@pengutronix.de, Francesco Valla <francesco@valla.it>
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-Message-ID: <20260818172459.GA770905@ravnborg.org>
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
- <am2mvECnCcO9IxuI@monoceros>
- <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
- <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
- <20260810-devout-pig-of-performance-595ccc@houat>
- <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
- <20260812-neon-asp-of-completion-e9349e@houat>
- <CAEUXW=H-o+fqBjH1UQG7=UTm5x1a9Cj++XJM7twvFU4vJC4UrQ@mail.gmail.com>
- <20260814155325.GB516994@ravnborg.org>
- <CAEUXW=Ffs+WKsQrNc3zjwtfAO=FKTf_7jQFovD+yjmD_yJuY2Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XAv6iA+M";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gx8Ed3FJ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IHGx8t1549009
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 17:38:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=OZzXO/L4OGKla/e1sm5ctZ3k
+	8+AOXfY4wGZlOTKQYrI=; b=XAv6iA+M+SfVm+feu4Lkosyyt78zQQaWc5OP/wQO
+	2/TupyxDFYqIIRG0Ouzc8cPr22iPl5BgRfS4JjBM47CdGu5YACi+CfQ7bCLnVhNN
+	6fJKIN3kG0hPeGOB3QXR6agByqHoHksBY/XFtcPGGgxa2QJanY0WoWUb8wzaOPqS
+	PH0LlPHntaNZEPtG/2LgTfqInDKK26yJ0iOT3xeU+FH6UXkU9jNHkzok27QWZ8q4
+	aGlwvQVSAoqJhZvLl20sxBw9TZ+kTN5tZXs3ADIV7aZv+stx0KpMpC2xy8LcUmFi
+	6EcaREQsxf1DE6p5MaLRd7RqlKdNBPPDelFI9nOOJ3JhEA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4uj1g7dg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 17:38:35 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso42487a12.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 10:38:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787074714; x=1787679514; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OZzXO/L4OGKla/e1sm5ctZ3k8+AOXfY4wGZlOTKQYrI=;
+        b=Gx8Ed3FJIL77b1/B7M0ugOPQJUHvG+xmJaLhvqc5/rz4jDef5IIpYupJfsvLJ/xllH
+         3n2AFt1i3ubaM93Z6j/9h9KvY/5oEh3alVzyScpoke5+JDTtNWt8EatTZBNgVnDLl8Ae
+         DrHjLp2j8PjbRhFSdSWp/n2oqfRb3rPPnaj0YYxLKkVG+ISzJnUGCJCm0lD6tC8rc2zx
+         jk8KF1qpx/4bSb4SheFHtRhnbn2S0T1rr8O9kE+ZuToBMKQ7cSSBklaNCU7plE9y8AAg
+         e79fnY5T0/XM6uwdj701f+/qTy8VXjCx7+F9dnCC5FZfTHHLGnZbGW3s+NR3C9obTVS0
+         hPpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787074714; x=1787679514;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OZzXO/L4OGKla/e1sm5ctZ3k8+AOXfY4wGZlOTKQYrI=;
+        b=Prn+IM/sMNBE+uI3Yr5/MSWZ9gsdrEshZH9dMZDHGgB5B4L+6hvH88sb2rdw8Kzip4
+         Ho2XrElZOCHZT9+W7L/2vNZY6ArrT4YLF+n7yhLYf4ahm1yUHKmO7EErmP/hk5LWcRf4
+         2uAfik/axPIuZrzBBRhZlfGkw6FHn0OP2ms4SRCOoRwNzFFBw0Puoh2dXOPBVuJjp274
+         mjm6eV7QKJXPZJDsAnUTMs/QqGkLwpYyT6mI2P9c8M1RDR4i0jcrpgB1b516k3y/0eR5
+         +Qy86FxzxyHS+BY6mW9cvV7EndVuQ7Bxj4A6iBGDQXg6RitzIMGKGTiBPU7BwYqSjY9C
+         bt6A==
+X-Forwarded-Encrypted: i=1; AHgh+RpnDcWprBzVuEaQ+iXVhOJ7Rhdpmqz5xHo+vBvyW6Le3evH845Wfk/J13FB/H3N5NLHaTZSU1HDGXGz@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz64QSezpaCubAtWfujKdOupkN8UK84wgbCXsJxhdBwh/wW1zOq
+	KnqjPiVbIXZoVLRLTQ/p2V6tU3cG3cUPTsCpVNkfNKS/luEJ+JWSgXXXh/iX2auOQtxsbwLq2Z7
+	yTDvZvkY9GvEBmv+MbpAEFkwMY6Ry6AU+vRgfUgjnG3Wbey3SG23tyAXHTqCGZuRC
+X-Gm-Gg: AR+sD12hJTuIfHMwE0yhfMPTfZjxzf9LawRYwAwranhrj5SgqTre8w7UxY6ar27GjCc
+	NiHydE+R6nUXNHXqK+8oRzwyZYwMzYODkE0XEhQRVFlxwefx4FR9+dJOwbZCdNx35VZpO8gVBiI
+	p2vRtHIPe/4QOSp5FwDjAgOau9W/K8PijO6b//bAtjPiBHcKpQOG6Kk47Mi5uFhcCvE+7Y7B2P9
+	F4U9KRlJdyj2Rgfg/HS/oA8wWoofWOifrOJZu0bBzA+z3EO7pllC0nNmdVruoXzQx4WMMXf1EKB
+	IxaKgki8NQN0ibR8A8cRe++DuiNLdUEGnIMaDsjCPcSmdkJLad3uPVleK29vgeOv/qKItQRbygg
+	aCI7c7TOupWPpyQhsLChpl22uTw==
+X-Received: by 2002:a05:6a21:504:b0:3c4:2b8b:e88f with SMTP id adf61e73a8af0-3ccda405880mr16182280637.5.1787074714147;
+        Tue, 18 Aug 2026 10:38:34 -0700 (PDT)
+X-Received: by 2002:a05:6a21:504:b0:3c4:2b8b:e88f with SMTP id adf61e73a8af0-3ccda405880mr16182184637.5.1787074713619;
+        Tue, 18 Aug 2026 10:38:33 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141530793ccsm19640985c88.8.2026.08.18.10.38.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 10:38:33 -0700 (PDT)
+Date: Tue, 18 Aug 2026 23:08:25 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        venkata.valluru@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH v3 1/2] arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD
+ HDMI bridge support
+Message-ID: <aoSYkaFTTlPOKz+w@hu-mdsor-hyd.qualcomm.com>
+References: <20260728-shikra-work-v3-0-e08c322596ac@oss.qualcomm.com>
+ <20260728-shikra-work-v3-1-e08c322596ac@oss.qualcomm.com>
+ <ee479488-9f36-412f-b6d0-725180cc1122@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEUXW=Ffs+WKsQrNc3zjwtfAO=FKTf_7jQFovD+yjmD_yJuY2Q@mail.gmail.com>
+In-Reply-To: <ee479488-9f36-412f-b6d0-725180cc1122@kernel.org>
+X-Proofpoint-GUID: 8BFGn07Gq3fg0o2fKsTt32mj-7iP49sr
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDEzMCBTYWx0ZWRfX2Z3HiWv6bxOU
+ xukyDxAvDzUs5a9qjJE7eH//hcLS8Vq8kTv93efDwOURz0MM2Rwr1BkiLHsY+SSL55KBVtQp2wk
+ 8oTGNrZS2VHW1ONt5x/AekWFb8mWJ3s=
+X-Proofpoint-ORIG-GUID: 8BFGn07Gq3fg0o2fKsTt32mj-7iP49sr
+X-Authority-Analysis: v=2.4 cv=VNLtWdPX c=1 sm=1 tr=0 ts=6a84989b cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=8K9nRV67sesUJCHgNhYA:9 a=CjuIK1q_8ugA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDEzMCBTYWx0ZWRfX4GWe+CUfICaI
+ JLnfpcuh9LGGY4+9JJ+AKVzLYCjYlunLIxQJFK1DLb1EH6A7TQlvPMVFweVmKZlai2BVAMKS5bq
+ ztCZMlevDqdE9RhQJRtFgyGAsmQc8t19TMUflm/qLl+d+N3vaf6wLw+Aml5igepaN3ghbCQoCp/
+ R6x3r3YGi/+x0SxIiHOH7XbMBq/sJLgSf/I4yKoMAt6a6I28BqI1WrIL/CCCy4qpVqa+7EDpI41
+ EPJGmB4glx+VsCtOOXbhJ4D129zMDVdXlwDicwmSHOOPlqUbMS1mM+b3pTEXYxrBeXOk8dcrgUi
+ b2kjML+tYgou30Qedze6Q6dkxf2Ra5RogShj9ycYYox79krCJKE27ygkYhAr8brFsrSuAV4N9Hy
+ 3ujOz0unNFF2U0cgcz6ofuZUbs3RTco38a2nPtt/yBr9v2cZRPBFdgMRRDPgCdVSZwPgIWhzbpy
+ B2jPyCKx1d/p20SSATA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-18_03,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608180130
 
-Hi Màxim.
-
-On Tue, Aug 18, 2026 at 12:48:21AM +0200, Màxim Pedraza Padilla wrote:
-> Hi Sam,
+On Wed, Jul 29, 2026 at 08:19:36AM +0200, Krzysztof Kozlowski wrote:
+> On 28/07/2026 14:00, Mohit Dsor wrote:
+> > Enable the Shikra MDSS display subsystem on the Qualcomm Shikra IQS
+> > EVK board and add the Lontium LT9611UXD DSI-to-HDMI bridge node.
+> > 
+> > The LT9611UXD is connected via I2C (bus 4, address 0x41), powered by
+> > a GPIO-controlled 3.3V regulator (PM8150 GPIO4) and an always-on 1.8V
+> > rail. Reset is on GPIO76 and interrupt on GPIO85.
+> > 
+> > The bridge receives DSI output from MDSS and drives an HDMI-A
+> > connector, with the link wired as: DPU -> DSI0 -> LT9611UXD -> HDMI.
+> > 
+> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+> > ---
 > 
-> Thank you -- that's a useful pointer, and it settles the question of how
-> a splash should be drawn without fbcon: a DRM client at
-> drm_client_setup(), next to drm_log, not a drm_fb_helper hook.
+> Did you ignore here previous review as well, just like you did on
+> LT9611C patchset?
+We will fix all comments here and submit new version once dependent patches are merged. 
 > 
-> Francesco's series is genuinely inspiring work, and it would be very
-> useful to me if it could take a CLUT224 image -- unfortunately it can't.
-> It only accepts an uncompressed 24-bit RGB888 BMP, whereas our logo is
-> paletted, which is what keeps it small: 17 KiB for 800x480 rather than
-> around a megabyte. So as it stands the format doesn't line up with what
-> we carry.
-
-Without looking at it in detail I would assume adding CLUT224 support
-would be doable. Step 1 would be to add a format conversion in
-drm_format_helper and use that. You may also find this useful for other
-purposes.
-
-	Sam
+> Best regards,
+> Krzysztof
