@@ -1,106 +1,148 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B3B37A485
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:19:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C62537A485
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:27:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787051992; cv=none; b=oLcaVbFGX+Dfj0Sp8n6ZolA0xQ9wtFZQt+qWA75Gf8ZWmjdjQwF7pew63ZAAGOiHzzJZCvWVGq6mJxluJVRCKTIbokMkWqR0iMzR5LtVeuFDLO9OKodq63fo7rf+SLgVpPq0VVzPSu0hVBSKOq3Xtnr7ihkaT6SjVQrXIXaMm1I=
+	t=1787052449; cv=none; b=QGHYkia5UGX5FU6bv1Ifm74g1mzMzYVrhEBg3tV09GWRBsbFKFDHzctmnpoKBfGEU7cDsyoPqhRIbBBjgaHulPT/T1+itoFO6Ii+fx4j9SQYcXD9J13ymvDEvZBNXxwulruTuzlqUJRYNLS9aadsyO3NqBIjlcCjd5ATBghnz/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787051992; c=relaxed/simple;
-	bh=fTNtUZQEiPOT3b4pP9/gkgvLGuwH2uqxHjs4RB4Lkyo=;
+	s=arc-20240116; t=1787052449; c=relaxed/simple;
+	bh=1GYpsHv8UX5mbzbIEJoMPzYfbm0qNSMJKqm57K7UISU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=shUMsnoHD0lKSShtfza9eI3bTi3obiEfPq9RTMLtIy6i7LUvFJweV8miJCMdHwTXZd4xFqGYfMI2IAPKcAFOVv8t5ynCe/NCF3QjtmQG/1M1rfOdVNch/1UC5FxpVct6W2KI6Fq0kis6IBPvSk+hqFYm5JuwfwJQjbnll0CCqZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=StnfLAf9; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=M4YU8E++KxbAqHvrer2vrSquxxAJFgaFZ1tgO0txHnwHUx8cg8kyxTMoxl0b/lgcSO+hvfWS/w/dYYdmqgjkpUXpLiyMCGQfez1v8Gn+rsMhgi5IFKky8/4s9Fhy2eMIOIiuKNnnmAHDzrHeFU/61e7ePk94WCQhsw2QFP6n2Sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M/IlP01Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cEIcgB2x; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="StnfLAf9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=fTNt
-	UZQEiPOT3b4pP9/gkgvLGuwH2uqxHjs4RB4Lkyo=; b=StnfLAf9MyBXgh8rk3bv
-	6J+dCbW3iJbEV4yFYgAfhiX9YkMAgZ8BpmggGjUdxtXkJVV8JhmrY/663vqZNILX
-	D8U/zQgkC3oSYP4b9pCbiYd/23UnissdBmAb+/6sTnBnj+EL/UW57HrnaH4oMDnV
-	5qQGz/5vyzcRu/KaSALsRU6U9aBRJU7gPU+cDKWg406S7iYWmpGPc9DKjUE4MuKT
-	5Vgx2f1AuU6DoTgjnm0WfgT7fG+y5U8gsMOmm/pH4JtS8s7AaK31rkebKcM8DqIh
-	FBSYeGhJ+kisS262HS2IKDHHKQkMwk5zny9gAsTgVJuWVQVJKhzAIo0iquMsTZnL
-	iA==
-Received: (qmail 3771599 invoked from network); 18 Aug 2026 13:19:46 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 18 Aug 2026 13:19:46 +0200
-X-UD-Smtp-Session: l3s3148p1@RGrWdlBZaL0ujnuP
-Date: Tue, 18 Aug 2026 13:19:46 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v3 11/12] rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK
- for register access
-Message-ID: <aoQ_0oAR_MGAAA4K@ninjato>
-References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260706175138.12587-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M/IlP01Z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cEIcgB2x"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IABQ7w919309
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:27:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=MnGJcFsPiscDtlVa50dVE0Fk
+	eIL36dVjzA8lZXEnLkE=; b=M/IlP01ZHzsIyEY6wZQ9AFxA0N2MhjHH7ZL/cV/h
+	q190hfzvcipRNNrMOlD9rKgWxCVwxWpLGnTrIfD4By44EzeHSO7W8C6E3X9CvTha
+	j3N5JDt9k6bdLWZFcwlj1CQ4MDmsiLjES4lgyY2zYOyXUNJoYflJk5zHomEclkXR
+	tQSsRtkqWAi9yisiuHKhQNEh8loYekXZQIwVqqxQ4VOr8sRsHnXp3MqYIq08cL1V
+	QXAE+QlyAc0sR8cRL1nDBwNvyuH1uGokG+9zdddRgC7RFndzxQLs2YF5WGFcRl+j
+	sZeQSkR7hTPY92wN+Ibq8YI65o8sy/SQAxCfhCpxMuvKtg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4nb189mp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:27:27 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-930b571432fso97015185a.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 04:27:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787052447; x=1787657247; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MnGJcFsPiscDtlVa50dVE0FkeIL36dVjzA8lZXEnLkE=;
+        b=cEIcgB2xIdy+770Mo+ESod8kQfbuBSVgPpDbwp2y6YY4UvVTcFVC9QDZ71VYP99HDn
+         GTlyVhikAn4vVs1i0gaQx9S3c04fF9ZjGeiL7W44QHmXfNdSRNV7Zo+r0BTADasJ2zHK
+         jtsL30vZU44dSRz3pxWn6yZDse3YGv+V+9FMC4viNNJtviEKFmHOtK+iMDjaRNhvd4Ks
+         zbOLbGMc3oJ/9igf3w1NS81gQLLP2GY633jdQ2JfLAskzH3lffEoiUO8jufYQ3i3e7dQ
+         ros/wswlBWq04Z8Dx2eDq4QdsoPspH4hFH8rVxVsdb4Z+JKi1Ow4d1hH2ENafw2hc9Th
+         sAKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787052447; x=1787657247;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MnGJcFsPiscDtlVa50dVE0FkeIL36dVjzA8lZXEnLkE=;
+        b=NCsnnlhjylCOhHcbFugqhSuot73E0MfucGQBnTzPvj6erVYgAhZg/y7F/ep6U+CBPx
+         2SmeJvLS+0hdXmgX/q5W720QX7F1voqMEEkYnept5+RBBkg3Cfe9m1lMhCIstfj3F/O/
+         V3OZazrFBQVYAuAqec8gh80U8WQHp/kYJYo17XE7dKwFqqezf3km095jyFkr0O4IGnta
+         wq8BmjCa32Q68/xNXV6XhqmsrkcufH92H4JAU4wZ4V9mys9WJ5XPpAqwNTwoLvn8OUEK
+         dk5YaWKwh/zXNV35i3S9x2ZTitII1gOol5DbCy+Yh5m8X7X6KiVn4n2ipO1gKZZZkDpv
+         VT4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrY8d7X2MOW5FObRoAgh1QJ/Af5bsym3HjKQ593dtDrSo8Ph0lTqHi8zcEWJuAGgm65p2RLpPX9ZBoC@vger.kernel.org
+X-Gm-Message-State: AOJu0YzyTyiaRUOrMSoFxsSWCQYVxSpHliqsA6qtQSGTRnM9dAYmK61H
+	3auwN2bAxY78Hx9+PiO6cjdUTQbLH2E6pPALibkONmd87vau/z3t0jcGQ9+lzXRf+xWsaeuL5ry
+	HOPwEdrRB8GHbPNTmmfDscPwWzFTwlmIvXBKQrFQRvIAG1Qw+BkSRWsC11Snc/7XS
+X-Gm-Gg: AR+sD11BWqKU+glTE7ML7Xya/rbU6AHMTs5Eb8fGUvpZwpLTebARks7gvVE0o/TbXTR
+	i9TbzR7N3NhLKpUy1dLRP/AQpJj2aU9mvdG1lF12jfB6LLX+uLZ8zusAMzEaZ8VTqtAuXgfHOfp
+	IkSrRJF8IYlnI89EO88oAgTJRdZ8L/GWw5Rl5Ow7Zyrl8Rw+1EIvxAbBk3lvR4CljW8HGtLWrn6
+	r4PpuXJX+Mf5jwLBEezdlxdsH7vlMxN8yWf9HGL/HOUwFxuArDCd5Uv6FRtoow7hKkwK6kOv6BH
+	E+lBV/dJxWS0lo4f91bUTm1YBTtJxA4Y/3mMMM8U/0kDn2gpWlp3AmHhMGbo8MHLdjkkwxP52Rm
+	XnzZA5gwp3z+NGndGAptU8NKTyn9uCuudFqVCDVmO18YDaiD6zDf2E0QKvcaF/kbrK8qYOiWrni
+	DPLily889BCWfh
+X-Received: by 2002:a05:620a:a2cc:20b0:934:b798:c245 with SMTP id af79cd13be357-9370667ddaamr427162085a.16.1787052446863;
+        Tue, 18 Aug 2026 04:27:26 -0700 (PDT)
+X-Received: by 2002:a05:620a:a2cc:20b0:934:b798:c245 with SMTP id af79cd13be357-9370667ddaamr427158785a.16.1787052446452;
+        Tue, 18 Aug 2026 04:27:26 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a16b0e1f18sm12120781fa.12.2026.08.18.04.27.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 04:27:25 -0700 (PDT)
+Date: Tue, 18 Aug 2026 14:27:23 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Sreeshankar K <sreeshankar0910@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org,
+        konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org,
+        bmasney@redhat.com, lpieralisi@kernel.org, quic_tdas@quicinc.com,
+        danila@mainlining.org, davidwronek@gmail.com, robimarko@gmail.com,
+        linux@gurudas.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-pm@vger.vger.kernel.org
+Subject: Re: [PATCH 02/12] soc: qcom: socinfo: Add SM7250 SoC ID
+Message-ID: <4kerzsphzdl3e3bciiss66uvwodtkh4xhuyfirpdxbh3b7pzmu@ta3mq75jecor>
+References: <20260818080754.4362-1-sreeshankar0910@gmail.com>
+ <20260818080754.4362-3-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VfuCX6VeJgS88s27"
-Content-Disposition: inline
-In-Reply-To: <20260706175138.12587-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-
---VfuCX6VeJgS88s27
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260818080754.4362-3-sreeshankar0910@gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA4NCBTYWx0ZWRfX5XvjjU6PeAg1
+ JMSh8XaqnunBXIDlYfeCrSZKjDfLETzLVMh0VaFuC7MVZLJF2aoqSXh/LNgiSNmMT4BgoThkecW
+ 1UbABwVTnlv/dvE9pnA+D/7uwUqFQH//yYVB3NmWurv/0J180voNvHkgvI2lN3Q9OK0/BKVfSzw
+ UGAmCCjmqv1hycZ28HfZDnGCLHLvyr8hMpzV34EBwl/b7b1pqzflR04bQw+BkiA9M3q/6VcJTV1
+ d1+COwMS6VXUfKHDtusaafpHsXcBNqxi/6bMo1UQVxfPS5Q8Ifp4tt52kGDYO2CqVcGi5JRxJcs
+ 221pq9N+gYG1IalC/vVxUEnkCkFcYrjB+1yEehi93qnwVh25uXByY/AtpdzqfdpTxwgSXx5nNyf
+ sJkVa0nnxUveBMPYSOoVoVYs6OBclCyDFx6cTL/SRIeef9V9EVgwM9EHgfYZTHT3NxycYrWV3Ez
+ ZbuUyooT6imMuMZduxw==
+X-Proofpoint-GUID: n-A7lnGL0mNjdiGp2IKic25UzCM4avlz
+X-Authority-Analysis: v=2.4 cv=Ze4t8MVA c=1 sm=1 tr=0 ts=6a84419f cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=sRjO5Q5YVjkkE11Nc-YA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: n-A7lnGL0mNjdiGp2IKic25UzCM4avlz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA4NCBTYWx0ZWRfXy2DtysK421T/
+ lEmnSmEGfxDYIzhd2ledG+YaJE3pXfz7D7VMKrjeiBb45ODeFCeCUX99wlALYyRCJCo6mYFF1Dg
+ 0K1B4B6EB70wXMKacxcdHDlDBJ7ZkJ8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-18_01,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180084
 
-On Mon, Jul 06, 2026 at 06:51:37PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Replace open-coded shift and mask operations with the bitfield API.
->=20
-> Note that the weekday field is changed from an explicit 0x0f mask to
-> an 8-bit field definition, matching the hardware manual. This does not
-> change behaviour, as valid weekday values cannot exceed 7.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Tue, Aug 18, 2026 at 08:07:44AM +0000, Sreeshankar K wrote:
+> Add SoC ID for Qualcomm SM7250 SoC.
+> 
+> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+> ---
+>  drivers/soc/qcom/socinfo.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-Not a super big fan of such changes, but OK
-
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
---VfuCX6VeJgS88s27
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqEP80ACgkQFA3kzBSg
-Kba36w/+K9qMO/BNax8Y8F60sZ3eHYeHa45rjsSDlyarx26T79qRI95X131sv0rz
-TI7ULov+l3pxdZDqu9c9cJ4VC+J3SmOGZaVmhg7ADoCIgSeE3uCqRzQjT28upi7e
-JF+/CoiZc30LSJHYNJf3ox+pBHe+IFdHXsnenMbzGb8WnUnQ/DfD/iPqTZUiLO7X
-G5udaAwz+cfHz87RHjR/C9mwP+D920UKxEYUPsdDVaQt2izMm5pUG7RMnGLpMufe
-pYm7B0bvlO8rocY24Ivs7AkpwLFeWj3wWfTzAzMa1mJdWpEscrbekT+mHVjiids8
-8BY+ngNmGBNqkbRaVCsONOK8BncgacqMTBOCLyxz09C1xScZxOeTomC3k3wjC/qW
-uzQb3kruElme2Hwb7BVI72RB2r5BPERDiHpJnS50CG6ps66+C5ErALTIJBvlc0oq
-nEccroesYcYdlyyKyoHWFy4SvwmSIYuYUhA6WB3WzxivmdKEE0gZ/OLno+9yUL5g
-+xgupEdmb0Rro7huf6354837khlql+3fhPjXXaknBjJOVcT4ihq50YVe6YYC9nyh
-T9Y6222l/iS3jzCDuMx20ldFT5yK7jl6mpgNwks3WxmPk0GxyicsPEqeQ8Gko0RD
-tfIAeFKa/Hs6CICzKQ/jjhoWFJzX+0eSb4ucTuqlHec5lIP5fno=
-=NR0k
------END PGP SIGNATURE-----
-
---VfuCX6VeJgS88s27--
+-- 
+With best wishes
+Dmitry
