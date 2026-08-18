@@ -1,64 +1,64 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2AF3B3890
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EDB4028D9
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787040412; cv=none; b=ISsSRuMTq0RwaO+GfXuaMjFBpYDkw4z3vp9QbyXBFTU3E8HMpmTShq69VcC+yACBGBjcSV2empmZAzT2OjHWlscxbh1NJeM8ISIJZp0SQ09RlCFhHU5hxcf+ouovHYzsOvMJtRgomdDLZTWy59SDrdni5eY4RSjhS8wHn5V6hnw=
+	t=1787040412; cv=none; b=S7UpZYWCKz88nm/LkhYWsxdqVhEr8X9Ca6isVEzcsnVLrJ8wYfHPM75aGEP7uk8tIZ0djwlqVu4m2W133g9wBbE6FjM5gMAkKgRyM2/QzJmtKUqATGTLO77p1qOOYqp8t6MlmYsQ6soaE4pPqkLpdkLong1o/BgZR7tfAxABRiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787040412; c=relaxed/simple;
-	bh=B9c8jb9rQA3GFHFqTD8wK1YNQ2znwhPRYnqMXhDoVSI=;
+	bh=4yQSsuP73a62lSM8d5JnIUkQGusOmnBrzoODOLgFF/U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l5dr3ZpTRj3c57hNn9YvU7xzPVonvLd7jMVUeV+HizwqYPUBrP45h6A6SfCP2LFdkGcu3VWmUKFj/fDq29u3atIHtR4tubG6sLAETqOeDqUzPLkLlq4VwqdZ/NXeLWRb8LsnWevpu/oXMs+sOVb7YKKtdr9SGpx+ka6UTJg/mbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aIFEYMFe; arc=none smtp.client-ip=209.85.221.47
+	 MIME-Version; b=KXEPWCUrglSmgY7HEeNqeVhSf6nEwO6iZqxTGmdwKdQAAGwuJhnjzLFUd1eGFsQWURbFC5VzEL5RZG7O/6RCrev711XW/ClmqnkhbqcakjuLPJD0E0jEu1otE73FodfHB47nMHrN5otVAwZatCqx6hwKXn2JeFkYwZBWSUbsmrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rglWjo3L; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aIFEYMFe"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47fecbbafdaso1366503f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 01:06:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rglWjo3L"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so35340415e9.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 01:06:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787040407; x=1787645207; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787040409; x=1787645209; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FdfM282bTwDxgzUYhlGJdjRXvx9tdxayiYRVrgHSBtk=;
-        b=aIFEYMFezsTBgoDo+eJMZrG3u/J6yZO5ByAwgY1Q9+XrdayyhnOCRIkcxyBOgoc+GL
-         JiC93ky8awxv2i/CnHgAG9X8W+sZZ+ZoWTTInj0IHX2toAzlNBFe7zncW2MfdryLaRWc
-         ILdwVns2IbMwmlNhDfvD4DRgfsZ/ug/Rh3Z0xsdpW/bEVxISnVjlxW4Qo597cPonMD8U
-         pf0IKimWPJSqvc40T/rzJ0hL+tTPpDaCr1dKrFiBiHYvf6KiXv5CvKi3T4uJbC8J77sk
-         TzdVGY7MAg+G5G7MZ72auJu4li39c03tZF7hr/68IBF2XKvR9q/nnoKa+6YF6Uueemda
-         hgsA==
+        bh=hDobaOMuKjNNpK+xr0rXVpHpoQTLjSO4XFTBJQNN0Ug=;
+        b=rglWjo3L5Zla2G2O6rOvsk+f3oZQANv5b2+YTLEmY0CKFqCeeqwMdhaZIcyOevr+zt
+         jtMPxNmSTsjrAy080kzluZRbsGke7s8JK97yMCRIc5ZoYesNTMlJ4ETMLggxjZe0bkrQ
+         BMvCQa/9ysy1RLOH1Xko+kUovIYuMDJpmWs5eMWlc4+YeVlMfgAfQ+SOJQXC7my6E//S
+         yGMMU0b6C9f6PqaOPOaxJG7GNWHGZKqN5CmYM1maBl4XH844FkDqMdVJAcxbCC5Mqqro
+         vIo2bafqQ0MnuDR9Y3rHfotZ1A/Pn+x/iIQ248ZBX8dPJOmABliR+dvVVqQm/6KIruMz
+         bauA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787040407; x=1787645207;
+        d=1e100.net; s=20251104; t=1787040409; x=1787645209;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FdfM282bTwDxgzUYhlGJdjRXvx9tdxayiYRVrgHSBtk=;
-        b=CmRQoJMQwceEtSE5ZHs0cVzIS/jHwQLsYzqagBIwZyXmJSuHe2Js4Qyu1/lcCZ9euu
-         PmneHV4+UuzyarMkVp47qB6wTBiwfBMauQ3EQaaLg3Zc9500ZMHWmRLc8zkN0TNlcocx
-         DP+DAvmiOteHE36+17xSLowDqT4s0FfbS/HviWtx+nzw5ps2+rmsYtfQaX1wc0QrPbZ6
-         Z/3XjEdkyxT/8SAqLnIH7IrA1PyR/P6KH92iQLeFodyAkYksV1cSwyJLh+2ER3qkfYPm
-         YHVhpWfProAzbwjjjkYasrH+IdD2KwVndNvsuNfQ7Zgny1MQ2D1kxarpa8HzU0QNZeVL
-         z7VQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpGjombSh+JvmIrlCuSWwQQ92opzsumq7olPMmWO4Hb+XGiU1JdkUWTf0H5N+pyJ6zwXbejfUSGwyfs@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAA+vc9jWsV2MpWLhuiaISzhZMQUFCUiyAAF+fXItgKMRl3d6f
-	8Zfj/fUfdehvDDzVPtDR2ZllJZunMYmJDa6l2RFAGaWAUQbuQPfJBROK
-X-Gm-Gg: AR+sD12qIJr5M4hy0N62TqXSSiVhz7nlBDvr3OeX1qetRe9vvfs8nHBf2JM130YwHq7
-	qweAt7J68AxdhrTBLFKz2KAJJsi5UL+lfmsfnQ8UZnLCty4cMWktAfPr72Zc+jFCo2vp/8a5DRu
-	FYLcmh7TBs6J0KA78dIjNcEkFacOsrBfSO5Txtw7/WVelzipkWkTRbHP2v/hUyDjiBjN5Ynf3zz
-	y+Zc2gmuG45umq9FNCu/FL8vMBjkpMoM2iWzxwYiG2HeavK4BQZxrJqnSj1UirxYg8U2ymYcxgC
-	odbUqvhecoAicl9LujVMs1sP/Q3x74oXk3dZhdyfD6DZFH0A+5l/gz2w/8V1gxGvuxeduPKw30Z
-	kxCMlfsp94A51ye125eNZnWE9YgGImG1dZYJzbzYcOGY+puY/H9FGYgiXBa/0e7R37yU6zv8xU8
-	ZZGTB5Md6WG4yJLL7WbPAUSo4uMfud6XD0W9np4E4wNSrwxUSP631+R8ag7gF8pqJ/G/+YFW+s8
-	OU=
-X-Received: by 2002:a05:6000:41f7:b0:482:aa2a:52f6 with SMTP id ffacd0b85a97d-482aa2a5496mr7478849f8f.1.1787040407150;
-        Tue, 18 Aug 2026 01:06:47 -0700 (PDT)
+        bh=hDobaOMuKjNNpK+xr0rXVpHpoQTLjSO4XFTBJQNN0Ug=;
+        b=addewJCRHtYDrsxwEIU/CtVLsk3X1FwjZqkkbEKxdk7Ax2SLCktZg5iWm3CkkTqwjf
+         7LrIlrpqLDblTj775ieLb/Mure68G7TtyqMCT2HyXGaFdMGos8Rc2op3nXp+jGNqz3m6
+         fhL60uO9fC1ca2Xt7mh+AbfJIXNvhsbuKl0YlrTtpsX/CsvYhhubf3Bg3QfT9FB8bQAf
+         R7byiJ+bFF3i/BpQ1ATbsra2VoTB4UVl5rsdVvD4UaZvMXJhtHXq9bm52L+oPTfd+dLX
+         iBhbHYLKZQoE/xZBVX/fR61T3TrK4TvdJxkzuoSLNOd9RIyF0tt+Xz4FWzce33MnPWid
+         /9bw==
+X-Forwarded-Encrypted: i=1; AHgh+RrFh/qlaJRrbt65NNa+pLfMENdYbjQUg4+PUe61wAJjKpHUTbkN6sW/UX/8lZghbirj0GOVsRKohuNL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz55Ffq6PXxuYuyoQFYe+uZmQm6eIc4InLZ9a4pvveUNs+u5yLz
+	6X6yX1Ou2Ob45JZRXfE1O3b3kGsOZxTPFhG0A1HhCnmaqGNcAECVH0M1
+X-Gm-Gg: AR+sD124iM9c1+PSYvfU2EReSqP4cTmDBpTx1OUDSj+1ArdCCijRuNFzehWH0fwqFN8
+	o1VJg2D7ZMh7sfOHysJgw5hHWCz0OEyNTAXi/C6OxolecuZv4oE0Vlg2x1nGLPRVx3T6x8VFnXq
+	7WO4s26a97DDap+hFvN3cNIxsHFoBO94LPIvdmttRe9fyr8uD4O4PGw+StAQTqMy6UztVPK9VP+
+	ubXglTKilOtKNpanjvVoEeGkxqPPi7h/w2MajRGLzFbMYKeEmPS7iUoHmVrNPGYLNv6Mrx0X//g
+	lPrEQ3p8SJeEjK8mlvkW0dYKreHbpJlNtXY7e/rP4Pfyxlh79uAGrD7jlzqlEjdfChgyRPmSyzY
+	ZLafAZfBM5ewf4PpzLA2l5Zor+WYfp6DcrAzFq/J+9VKdYc6DqAkEc9fEO1Ej93zIXmcDQM+GP8
+	Iu2toipM/2BBYJ32JE6ICZTZ5kQc864BMNbVMXPNcy7l4JpdHik451RsLOvP2XtaK04Ulqn6OrY
+	d4=
+X-Received: by 2002:a05:6000:4a01:b0:47f:7b75:9dfe with SMTP id ffacd0b85a97d-482a9109c9bmr10864250f8f.8.1787040409063;
+        Tue, 18 Aug 2026 01:06:49 -0700 (PDT)
 Received: from anthony.local ([2a06:c701:9cc4:c200:33d8:8ea2:e077:ebe1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a3b2e9sm10367223f8f.9.2026.08.18.01.06.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a3b2e9sm10367223f8f.9.2026.08.18.01.06.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 01:06:46 -0700 (PDT)
+        Tue, 18 Aug 2026 01:06:48 -0700 (PDT)
 From: Amit Barzilai <amit.barzilai22@gmail.com>
 To: Javier Martinez Canillas <javierm@redhat.com>,
 	David Airlie <airlied@gmail.com>,
@@ -75,9 +75,9 @@ Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH v4 3/6] drm/ssd130x: Constify ssd130x_write_data() 'values' parameter
-Date: Tue, 18 Aug 2026 11:06:23 +0300
-Message-ID: <20260818080626.30430-4-amit.barzilai22@gmail.com>
+Subject: [PATCH v4 4/6] drm/ssd130x: Replace positional ssd130x_spi_id[] initialization with C99
+Date: Tue, 18 Aug 2026 11:06:24 +0300
+Message-ID: <20260818080626.30430-5-amit.barzilai22@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260818080626.30430-1-amit.barzilai22@gmail.com>
 References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
@@ -89,29 +89,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-At no point does ssd130x_write_data() change the bytes it receives via
-the 'values' parameter. Constify the parameter so const-qualified
-buffers pass through without casting away const.
+ssd130x_spi_id[] is initialized with positional initializers, which
+easily create easy-to-miss bugs when changing the members of the target
+struct (struct spi_device_id in this example).
+
+Change this to C99 initializers to guarantee each member is initialized
+with the correct value.
 
 Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/solomon/ssd130x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/solomon/ssd130x-spi.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index 1110aa63d066..a229d7a87da0 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -252,7 +252,7 @@ static inline struct ssd130x_device *drm_to_ssd130x(struct drm_device *drm)
- /*
-  * Helper to write data (SSD13XX_DATA) to the device.
+diff --git a/drivers/gpu/drm/solomon/ssd130x-spi.c b/drivers/gpu/drm/solomon/ssd130x-spi.c
+index b52f5fd592a1..be50e5aa2c87 100644
+--- a/drivers/gpu/drm/solomon/ssd130x-spi.c
++++ b/drivers/gpu/drm/solomon/ssd130x-spi.c
+@@ -160,17 +160,17 @@ MODULE_DEVICE_TABLE(of, ssd130x_of_match);
   */
--static int ssd130x_write_data(struct ssd130x_device *ssd130x, u8 *values, int count)
-+static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values, int count)
- {
- 	return regmap_bulk_write(ssd130x->regmap, SSD13XX_DATA, values, count);
- }
+ static const struct spi_device_id ssd130x_spi_id[] = {
+ 	/* ssd130x family */
+-	{ "sh1106",  SH1106_ID },
+-	{ "ssd1305", SSD1305_ID },
+-	{ "ssd1306", SSD1306_ID },
+-	{ "ssd1307", SSD1307_ID },
+-	{ "ssd1309", SSD1309_ID },
++	{ .name = "sh1106", .driver_data = SH1106_ID },
++	{ .name = "ssd1305", .driver_data = SSD1305_ID },
++	{ .name = "ssd1306", .driver_data = SSD1306_ID },
++	{ .name = "ssd1307", .driver_data = SSD1307_ID },
++	{ .name = "ssd1309", .driver_data = SSD1309_ID },
+ 	/* ssd132x family */
+-	{ "ssd1322", SSD1322_ID },
+-	{ "ssd1325", SSD1325_ID },
+-	{ "ssd1327", SSD1327_ID },
++	{ .name = "ssd1322", .driver_data = SSD1322_ID },
++	{ .name = "ssd1325", .driver_data = SSD1325_ID },
++	{ .name = "ssd1327", .driver_data = SSD1327_ID },
+ 	/* ssd133x family */
+-	{ "ssd1331", SSD1331_ID },
++	{ .name = "ssd1331", .driver_data = SSD1331_ID },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(spi, ssd130x_spi_id);
 -- 
 2.55.0
 
