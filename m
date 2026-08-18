@@ -1,200 +1,216 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00BE35BDC2
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 03:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF177304BB3
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 03:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787024081; cv=none; b=kYfhSKR6IvHBbL9FAUnWaPnWajdSSrLrpB2hl9t42hFdgzUzQh+Sl3K2cqW0RUzmYDYAit5psxItrF3LMtexGCHcqR2Bi2xdATDSh1Pve846l4SI5LWeHhGn7FndZtuZdQHI8CZ6jWho5L7zRXEoQL4xOJqOceB2Rh7CqYcb0BM=
+	t=1787024664; cv=none; b=e/J8Y5wNBjY17pP0HoP5Ba6VnDLDbOIsK6Ncz0L9xoiuajA69f2f5+FmIh0GdE3bVZmwBTzjKplcY5sSEAqfST9KQOw7gFbNw0UPkwltfXFvRxWtrEhQ1revIIDE26ing+9ZuWcELJc/6qg0shUyQ4IAvw/aTjme/cIprWkipqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787024081; c=relaxed/simple;
-	bh=Rbqz+Z4HDhh9m6jhwiqEfjl0hJhdj5lMBn8br7bWrkI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BkqyMBCnNPG09a+BMkensPoYALBzNScW91R4QGF94ctl3G6GMWh94SYyEmRGe/NiFFrKfYezTVZpVKPmaf6q3xA01rSRUd/A9A/jcA+0RytOwOa9TnZ7DEKRXINs5dbTJ6Vq1AV1Uvt8xMsArgxYzhKWWP9HYcUy4U+Dx0cpuiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OV86uNgt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yc/Jl9DA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787024664; c=relaxed/simple;
+	bh=ljm/Hl01x0VFI/jxss+gzsEebzH9SEEJDd4GCA5jYEs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dWqdzYnE5GEwtZMBRmzBi65gEHV0CJfE/D17wvF/idAYF2AYGLUPKr4gRyhJ23mW2fQ5lljCbfBSxLVAMusdhThgjyOYLjaefZ7v01/noRg6vE/rj9WH1uVz4bRgUdz8yRzTiVXYNmoGwOPk7ZA9Z0qfx24D9O3+ueMOvFU35MA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhT50Gmz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OV86uNgt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yc/Jl9DA"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67HLkY3E3464546
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 03:34:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=mV4bn/E5aJAExPqBnO8XEUhQ
-	tu3TYpO1M/Gy7gbSacA=; b=OV86uNgtn/v/nfjpEyytXetJUUsRMtKqvrOxjc8L
-	Fr/dG1aHpOzR/OoqpWf6GzR8LRPoqMpuULDmmUU0u8VMySd2mVm3OTOIRX2KlAq1
-	OnB+CZElSeSBwxwpkiuVKZ8kVNy/yxh/c1vClY9f/4FtAyQhCbTazGisJ3btLkWT
-	3ax6S6DAc7YVrU1/Ri9ShVLox+mE7zvcxsBVve2w0yI8oHE8q5NtttbANNyRr+eq
-	DqZiFB4bUXDJu6FDnAvKAYVR10ZaCt9mQaRa/oKhcCZqL0GpAjrRGUI090TCRh3d
-	YzmyPjDwkbptOodY3SxTCqRwKp2d1ZIo2kl2kgRoRPpTsQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4611ae1p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 03:34:38 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c0408254aso7640631cf.0
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 20:34:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787024078; x=1787628878; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mV4bn/E5aJAExPqBnO8XEUhQtu3TYpO1M/Gy7gbSacA=;
-        b=Yc/Jl9DArpL4wCvsWfbT0sguPr5rYynUGvM0+mNtfc1+3v8w92lDCt/lixYs3Nl7kb
-         pEFeJsbBCoeGKCojVT0aZNHhbxo9MRXvlhqS1NNw4laLGxnX/E0d1Uc8a/AW6paHm4VZ
-         JSKBoOJ57lpEM3xVwHfwrKm0dJCrIhMbBXbUIrDiUFcFJrccRKEZcp4rI9AG8COUZkjV
-         8UUjCtqPp6BD30rDhTBjt3R3gGsCIIooMU6pgJtqHC3dWCxWl9jHt8gU6zRuq+u4klfs
-         GcTRi3JxfOXM71ZLf9K05gW5UrJTOJpbm+6MuPVMw1AdQ/NWddOeCBKLdsy3nernOJuf
-         0bjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787024078; x=1787628878;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mV4bn/E5aJAExPqBnO8XEUhQtu3TYpO1M/Gy7gbSacA=;
-        b=puv/TJQquMUzzFm7emNUnf9JXnkvGa9GazmSqzHPR5ernc6LDRfq2cpuFm3z9PdvNP
-         NH0tdAfN7c+dVqkkqAXoH/MpUZuaK2hozFI8UqcbFYCj7k1vZJJU6ATADTMIzOOMHOXB
-         zmfbFyV0Dlz8A8TLCkWIhKIqCqHvG8su/83mpxLRDegqmaB/1NsD1dVzqYBGXSYZ579X
-         gfQiCD6OIzL2rSLGG9g06t76s+fxhRmXrJBNUdTTeoEyN77QV9fS6i8SLWclgVSqstQv
-         FdYzIfBZDJXyDautbWnp8o8KgcxdIAz7dH9pZdKr/mkRh+vq4m/QrmoghHfMsZD4rLiX
-         ae1A==
-X-Forwarded-Encrypted: i=1; AHgh+Rpsz7POeOewwt2qh5EGa0GayYxhq4l6x1WtWjU+cMsk6uIGMlX2pMWj5zQVMx4wTR+VdIDFNMsvCass@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcJONhbxWcU7+QnugbdD5gMjpMuIbx1FfmF6rhar8qpyD4ZXFU
-	Dyk6RWWyQzJ/WXr4fxc8U1bDm5bwMTpNJqWbgvaNs0h5YoY5XZhbTuO+YNsl7PxYGb6FKICVu2f
-	FE161IPZlpWtig9LRCZrW29mjPuwkLI41NJOh0zOHhF2DOGf7lWKrcJpAQLyoJmWl
-X-Gm-Gg: AR+sD11nQsIbcrYDAXrmwbIEAWvRB1hP3vZhtbn0boJ4p7rK31KTw9M0BH4T7sfmlBK
-	NvTuoOrr0mHXUa7MbE1sujvDHEz7JJlemjjoir3SvtT906tftC/PuJT+wLkPlxWvOgk/l9iC25L
-	Uf+09NtzdxKE7W4auh79qiOEGYPtf0CBQvg1fOnyIKj33VZSp3uendpm4deoCpV+p+tQYQKA4U8
-	tPdA0NnkwQh5wM6LOCzYJQ4MFczlFZd4ceXONPfAgWj++wM43W9iwr6EMPdULTY8ozWw53WitDC
-	qIH+rjhPTgJ62T6ZHGdi6pFzsXl58I+3MZ426fbGNqF4p3yFJCGxv4JveniknB7XVzdLvDgDU4U
-	bsoiW0gNeX5FhP2xUE+LjMDfzLN9t6u5RRXWCEOc48OHEtREmf3n8ntSio2PIjLzVT5o6M0Mu8B
-	TteVGZY/unu7mb
-X-Received: by 2002:a05:622a:986:b0:52d:3483:ed0a with SMTP id d75a77b69052e-52dbee3fbf7mr41573121cf.18.1787024078112;
-        Mon, 17 Aug 2026 20:34:38 -0700 (PDT)
-X-Received: by 2002:a05:622a:986:b0:52d:3483:ed0a with SMTP id d75a77b69052e-52dbee3fbf7mr41572851cf.18.1787024077687;
-        Mon, 17 Aug 2026 20:34:37 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b46cffeacfsm837664e87.54.2026.08.17.20.34.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 20:34:35 -0700 (PDT)
-Date: Tue, 18 Aug 2026 06:34:33 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: George Moussalem <george.moussalem@outlook.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Praveenkumar I <quic_ipkumar@quicinc.com>,
-        Varadarajan Narayanan <quic_varada@quicinc.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v2 01/14] dt-bindings: phy: Document the Qualcomm IPQ5332
- UNIPHY USB Super-speed PHY
-Message-ID: <gn43qixdtbq5iyfqvzibdtx4lmwpkt2ieahr7oqsxxjfpldb6d@xbxhbdrq4e6b>
-References: <20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com>
- <20260812-ipq5018-usb3-v2-1-8f355d7ff0ef@outlook.com>
- <20260813-alluring-advanced-jackalope-55e5c1@quoll>
- <SN7PR19MB67369ED27F676F6197A0727A9DDB2@SN7PR19MB6736.namprd19.prod.outlook.com>
- <71cfe76b-ea84-47f8-9ff7-945d69efbdcd@kernel.org>
- <34503ae2-9c89-4773-af80-fa7b7439ff23@oss.qualcomm.com>
- <f13b0be6-bc1f-4024-9881-59f522566f64@oss.qualcomm.com>
- <SN7PR19MB6736C6F52894B351836F583D9DA72@SN7PR19MB6736.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhT50Gmz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288381F000E9;
+	Tue, 18 Aug 2026 03:44:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787024662;
+	bh=sOlIs8QFg7thojv2FPFPceyX4HU9nGCOYQLzIztmspQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hhT50GmzUfF/Jzf+EmKlNP3Lg/DpaLOA/36EdOBCKcEvySnxz8ZygrdEwKAHc9Wmu
+	 JYhzua5U3toj+7u9aU3Ox0aKJ09gNr5iHTNh+gNdxKhoGKGPSRTl5V+UuqunDvcI8K
+	 hsiM1xDb3DvKoBCipN4I4IiVlJB3/kTezW5JHvKObDKR3YCmMMaG6yBZREZ9QQ+LCo
+	 w9vtJLTtVxve1wrAlq5CIQ/bgnWPgjiySpF0NzxtNE2iSR8cG9FVn4rdQb8CeA/KBf
+	 iF3I2/v3dGo3+fay5EbcI1ND/y+INWV8uNOEQd+2ZArjwW7p2e/4uZQ97Ws36ITmw1
+	 9U7ECd/1wNPBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] mailbox: add Axiado AX3005 mailbox driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Swark Yang" <syang@axiado.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-2-25e713eccff3@axiado.com>
+References: <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-0-25e713eccff3@axiado.com>
+ <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-2-25e713eccff3@axiado.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 03:44:21 +0000
+Message-Id: <20260818034422.288381F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN7PR19MB6736C6F52894B351836F583D9DA72@SN7PR19MB6736.namprd19.prod.outlook.com>
-X-Proofpoint-GUID: zQ76D2wPaDox7a3jp4cfolbStEfk8Yoz
-X-Proofpoint-ORIG-GUID: zQ76D2wPaDox7a3jp4cfolbStEfk8Yoz
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDAyNCBTYWx0ZWRfX0EXnpn7NQBhb
- ptZPB0FVnFVmICy9iYbLgH2zNspgbR+R63+qT7i2Wq+muERSCts7A7HlcEGRdDJ8n6C/0Op7P0n
- UIHnYqzTvXwRnDuznNNTofOSmvMjn5s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDAyNCBTYWx0ZWRfX5UIGBqBi8qVN
- g3QEHMeP2M2HxL67oc4+Vvbi+62RhcXZd0sizgGfPvoGWXBrA92Q25tnaCf4mOUNWgzs2cpUUkc
- HCeWkEs0GDxMyKIruO626JwW+w7JmsBwerYDFnkl9u/wYL7dEqYu6hPtD/NUMAeIwysYm4lfTkf
- RNhul6y3ks3cI1nrQgKX5ZS3b7ravtqrOWaMocQueAHnZbmJ7hOpYKnjh9PjtuyxWS9miggE8yf
- LP9OxM3iGh5Um8U3mjqx7hZSVNVAyyzVID5prRfJwAPq0w+b2HAG6QjvH43VHOLTtIHDfxHD5KQ
- jWlPjb+0S8MAJA60Q7FB/TcAELtx3iRNgQrmzXF0cqZJVtszkHPEs9DwU0X1SF7TobmyTJ4kb/d
- rnJIELdABGjF2Lh/SyYbyThXFQT2ofV9IIe/fg+M6qrTza+/HFvtkBUBthkanqmZS7hFVuKDHkv
- A/eub9WUYz825RUWy9A==
-X-Authority-Analysis: v=2.4 cv=UslT8ewB c=1 sm=1 tr=0 ts=6a83d2ce cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=vud81D5lyguAdZXVQFMA:9
- a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 suspectscore=0 phishscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180024
 
-On Mon, Aug 17, 2026 at 04:45:27PM +0400, George Moussalem wrote:
-> On 8/17/26 16:38, Konrad Dybcio wrote:
-> > On 8/17/26 2:37 PM, Konrad Dybcio wrote:
-> >> On 8/13/26 12:48 PM, Krzysztof Kozlowski wrote:
-> >>> On 13/08/2026 12:28, George Moussalem wrote:
-> >>>>>> +examples:
-> >>>>>> +  - |
-> >>>>>> +    #include <dt-bindings/clock/qcom,ipq5332-gcc.h>
-> >>>>>> +
-> >>>>>> +    phy@4b0000 {
-> >>>>>> +        compatible = "qcom,ipq5332-uniphy-usb-ss-phy";
-> >>>>>> +        reg = <0x4b0000 0x800>;
-> >>>>>
-> >>>>> That is the same address as PCI PHY, so you have one device, not two.
-> >>>>
-> >>>> yes, AFAIK they're separate PHYs (pcie-28lp vs usb-ss-22ull) sharing the
-> >>>> same MMIO register space in IPQ5332. To enable USB3, the compatible
-> >>>> string, clocks, resets, and related USB3 properties override the PCIe
-> >>>> properties. In IPQ5018, the PHYs have different register address spaces,
-> >>>> hence representing it as a new devicetree node.
-> >>>>
-> >>>
-> >>> Same MMIO space is same device, IMO, especially that you have the same
-> >>> registers (looking at the driver).
-> >>
-> >> It's indeed one device, fittingly named "PCIE+USB COMBO PHY"
-> > 
-> > so the implementation, matching prior art for similar cases should be:
-> > 
-> > - phy node with #phy-cells = <1>
-> > - consumer takes a reference through phys = <&phy FOO_PCIE> or FOO_USB3
-> > - new driver in drivers/phy/qualcomm to coordinate the two modes
-> 
-> Thanks for confirming it's one device. I'm already working on a new
-> version using phy-cells and having the consumer select the phy type.
-> 
-> However: I'm adjusting the existing phy-qcom-uniphy-pcie-28lp.c as
-> that's the driver currently used for PCIe only in both IPQ5018 and IPQ5332.
-> So I'm adjusting it to register 2 PHYs and provide both PCIe and USB
-> functionality. Any objections/concerns?
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The RX thread blindly reads data from the FIFO if the poll loop br=
+eaks early due to an error, leading to hardware underflows and garbage data=
+ delivery.
+- [High] Returning IRQ_NONE after successfully clearing FIFO errors can tri=
+gger the spurious interrupt detector and permanently disable the IRQ.
+- [High] TOCTOU race in RX thread between checking the active flag and dere=
+ferencing the channel client, leading to a NULL pointer dereference.
+- [Medium] The driver uses register I/O accessors (`writel`/`readl`) for FI=
+FO bulk data transfers instead of the mandated stream I/O accessors (`write=
+sl`/`readsl`).
+--
 
-Please keep in mind that the updated driver still must support the old
-DT.
+--- Patch [2]: [PATCH v2 2/2] mailbox: add Axiado AX3005 mailbox driver ---
+commit e614bfa4ee11362f9c00a58fdcc67351b8f3046c
+Author: Swark Yang <syang@axiado.com>
 
-> 
-> > 
-> > Konrad
-> 
-> Best regards,
-> George
+mailbox: add Axiado AX3005 mailbox driver
 
--- 
-With best wishes
-Dmitry
+This commit adds a new mailbox controller driver for the Axiado AX3005 SoC.
+It supports 8 TX and 8 RX channels using separate register regions, with
+TX status via polling and RX via per-channel interrupts.
+
+> diff --git a/drivers/mailbox/axiado-mailbox.c b/drivers/mailbox/axiado-ma=
+ilbox.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/mailbox/axiado-mailbox.c
+
+[ ... ]
+
+> +static int axiado_mbox_send_data(struct mbox_chan *chan, void *data)
+> +{
+
+[ ... ]
+
+> +	for (offset =3D 0; offset + sizeof(u32) <=3D msg_len;
+> +	     offset +=3D sizeof(u32))
+> +		writel(get_unaligned_le32(buf + offset), priv->mbox_reg);
+
+[Severity: Medium]
+Since this loop writes bulk data to a FIFO, should it use the stream I/O
+accessor writesl() instead of writel()?
+
+The io-accessors subsystem guidelines mandate using stream accessors for
+FIFOs to avoid unnecessary per-word memory barriers and redundant endianness
+conversions.
+
+> +
+> +	tail_len =3D msg_len - offset;
+> +	if (tail_len) {
+> +		memcpy(tail, buf + offset, tail_len);
+> +		writel(get_unaligned_le32(tail), priv->mbox_reg);
+> +	}
+> +
+> +	dev_dbg(mb->mbox.dev, "%s: Ch-%u sent\n", __func__, idx);
+> +
+> +	return 0;
+> +}
+> +
+> +static irqreturn_t axiado_rx_thread(int irq, void *dev_id)
+> +{
+> +	struct axiado_channel_data *priv =3D dev_id;
+> +	struct mbox_chan *chan =3D priv->chan;
+> +	struct axiado_mbox *mb =3D dev_get_drvdata(chan->mbox->dev);
+
+[ ... ]
+
+> +	/*
+> +	 * Clear and log/count any pending errors, but don't discard data
+> +	 * on their account alone: a rejected overflow write doesn't
+> +	 * corrupt what was already safely queued ahead of it, so let the
+> +	 * length-based read below decide whether what's here is usable.
+> +	 */
+> +	axiado_mbox_clear_fifo_errors(priv);
+> +
+> +	csr =3D readl(priv->csr_reg);
+> +	if (csr & AXIADO_MBOX_CSR_EMPTY)
+> +		return IRQ_NONE;
+
+[Severity: High]
+If the interrupt was asserted solely due to a hardware error (like an
+underflow), axiado_mbox_clear_fifo_errors() successfully clears the conditi=
+on.
+If the FIFO is empty afterwards, this check returns IRQ_NONE.
+
+Does this risk permanently disabling the IRQ line? Returning IRQ_NONE after
+successfully servicing a hardware event can trigger the core spurious
+interrupt detector.
+
+> +
+> +	/*
+> +	 * The first word contains the total message length in bytes,
+> +	 * including the length word itself.
+> +	 */
+> +	word =3D readl(priv->mbox_reg);
+> +	msg_len =3D word;
+> +	put_unaligned_le32(word, buf);
+> +
+> +	if (msg_len < sizeof(u32) || msg_len > mb->drv_data->msg_size)
+> +		goto invalid_message;
+> +
+> +	num_words =3D DIV_ROUND_UP(msg_len, sizeof(u32));
+> +	remaining =3D num_words - 1;
+> +
+> +	/*
+> +	 * The not-empty interrupt may occur as soon as the first DW enters
+> +	 * the FIFO. Wait until all remaining DWs of this message arrive.
+> +	 */
+> +	if (remaining) {
+> +		ret =3D readl_poll_timeout(priv->csr_reg, csr,
+> +					 (csr & AXIADO_MBOX_CSR_ERRORS) ||
+> +					  FIELD_GET(AXIADO_MBOX_CSR_LEVEL, csr) >=3D
+> +					  remaining,
+
+[Severity: High]
+The poll condition succeeds if AXIADO_MBOX_CSR_ERRORS is set, terminating
+early without verifying the FIFO actually reached the required level.
+
+If the loop exits early due to an error rather than the level check, the co=
+de
+continues to the for-loop below and blindly reads remaining words from the
+FIFO. Will this cause hardware underflows and pass garbage data to the
+mailbox client?
+
+> +					  AXIADO_MBOX_RX_POLL_US,
+> +					  AXIADO_MBOX_RX_TIMEOUT_US);
+> +		if (ret)
+> +			goto incomplete_message;
+> +
+> +		axiado_mbox_clear_fifo_errors(priv);
+> +	}
+> +
+> +	for (i =3D 1; i < num_words; i++) {
+> +		word =3D readl(priv->mbox_reg);
+
+[Severity: Medium]
+Similar to the TX path, does this bulk FIFO read need to use readsl() inste=
+ad
+of readl() to avoid the per-word memory barriers and endianness swaps?
+
+> +		put_unaligned_le32(word, buf + i * sizeof(u32));
+> +	}
+> +
+> +	axiado_mbox_clear_fifo_errors(priv);
+> +
+> +	if (READ_ONCE(priv->active))
+> +		mbox_chan_received_data(chan, priv->rx_buffer);
+
+[Severity: High]
+Can mbox_free_channel() nullify the channel client pointer while this thread
+is preempted?
+
+If a mailbox client frees the channel, mbox_free_channel() clears chan->cl
+under a lock, releases the lock, and calls axiado_mbox_shutdown(). If this
+threaded IRQ handler evaluates READ_ONCE(priv->active) as true just before
+being preempted, the shutdown routine will block in disable_irq().
+
+When this handler resumes, will mbox_chan_received_data() dereference a NULL
+chan->cl pointer?
+
+> +
+> +	return IRQ_HANDLED;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817-upstream-a=
+xiado-ax3005-mailbox-upstream-v2-0-25e713eccff3@axiado.com?part=3D2
