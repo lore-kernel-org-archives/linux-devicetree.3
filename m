@@ -1,107 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0D63AAF65;
-	Tue, 18 Aug 2026 15:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAA53B5850
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 15:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787065628; cv=none; b=kdG/vbaQKNmhT0LYSq0fSAhZ3z63v1k4O0R+LQq+KEIhoGMHhspTIbxVG1BxR35qPKLhe+9awrIC497e5M2OER7D4ZM/ibGO6LUOdD7bVN0M6zE5xLDWsSxnjT0FBrnN+zUn0HoNEWnrlhT6Ls9Ix+hqR+QGYROGyMCdPCb2Fj0=
+	t=1787065766; cv=none; b=SrWlAJOY205sAZ/wEZe4vbw5rEHFsf+dvmF9KcOknvagLtfIGrgZoHZ571RT19DN1t9QlrjbjyNC+9XT+UtnEYUmDBqN6atXl103z9FX22a4jqPUudZ7N6fRrC/Sn2C6h7Oxn26lSqkgiUtYfgqBBuhfOfmRAngdyuqrDzUDbWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787065628; c=relaxed/simple;
-	bh=WvhBurIy8A9u46LETLcI/MhJB6dhjgHJNOfnkpO39yM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OR3q4PaLV0TEwHXSTPWmOWB5Rz9GkfyROteU55oEhV3qMO7gsSSEhccFTcRtIuI6y8KpzgrJnjkpjAxK38sZQldytt6PeASEYUoKDskZlWyFJEEhiw35MOXbsaQLUIVhzQBMZTb+FTQE9XswJP4drLpvCk+UtjzS/NSzh1azS8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ua7GKg/n; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787065766; c=relaxed/simple;
+	bh=XjGaOIjQ/+IIGGxhFw+k+Tln3i2AhkheoPEyCqqCrug=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nRhabBc4Od8vUhVhpVlTwVSf19bnVluxDylR/73gR3Dr8WEX42VSRHBZBRvP7UDroB2GmUytZj428IrbVF9IV/IrWlTqrTb0tuh3VCbUq94C++oGvf4pIulrmayWqrfocKi5SfyYzX5BqM5NwwSJooVEvp9q80GfZeM8PjCi4a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gpcGQEWx; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ua7GKg/n"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F167BC19425;
-	Tue, 18 Aug 2026 15:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787065628;
-	bh=WvhBurIy8A9u46LETLcI/MhJB6dhjgHJNOfnkpO39yM=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=ua7GKg/n78G+6x5wGqpZWztUUBV/90+g6Hn+TSh/UyxK66rCPQbRMiY/AFqVVyxm4
-	 fsDRuc+TBTz5sFux0axgOWdoNqwdT4zGM2WgyPEERm/WNZzFNbhg2qq2EOHyrE6y6N
-	 ykwnTFZk70+XwTSrSAUwFh4XsOZI0F6S/DN2lMytCkIeeIMShJXRfDiTPb+cFX1QC2
-	 D2MEpKcAD89Jl+/7b6ViF8P2aoyrNwZXofno1ytxSeELQc0U4pkM0iqZLxh6ZdRQzg
-	 7KnhZPw+9cfueCLg9U1hLX5LS2psCMjo4DSHDat5roRyuQUdmvxTIdoj1OHlhTjyy6
-	 nytrus6OZPx/w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C32F4C5DF7E;
-	Tue, 18 Aug 2026 15:07:07 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Subject: [PATCH v2 0/2] chipid: samsung: exynos-chipid: Add Exynos5515
- ChipID
-Date: Tue, 18 Aug 2026 16:05:41 +0100
-Message-Id: <20260818-for-next-lucky7-chipid-v2-0-28ae49f5c349@member.fsf.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gpcGQEWx"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2074710751so755809566b.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:09:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787065760; x=1787670560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Azjl3irT73V/koc25uPISYBKISfWZZT+yRNGdczt0Kk=;
+        b=gpcGQEWx0DIri5vx9fOyVxr/ZHf//ax/xWkqmxy0M3GU6AW5LJqAru35z+xRV6VbBD
+         V8MF0SIfRT1CvAJk7CzGGKg/wS2g2Wzhq2k30TVe2hAzKYXYRxjqd7XmVkQPuPOurC1r
+         OquVPqXohx7S2q8OJWhBhj9Lpt4rETlz5cAjvlBdBmJR1Bw9jEzkETYKDd5DRG6oK1Pf
+         7JEiRrpr4PsT10qu8wkNqUHILawhaTuO3Dn91j6TbpbRz11wqhwe8qfbf1comUOlAuB4
+         OK5YJYg4Jp00Po17u4hL/CGVU9vWWahAWPXzUgttrc+K8L6ENLtAqqDckZGXeOB5sKz1
+         MWMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787065760; x=1787670560;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Azjl3irT73V/koc25uPISYBKISfWZZT+yRNGdczt0Kk=;
+        b=C4LKO8ew6EB/Q0Qg3HhSWDeS6EGyih2XnB3qJ0UkGl5oDp8oPkkeqLxpWgegBtQInw
+         qfj6hFdc+Qv6sn1Y3ivw3y9A2+jz3iDlgCy5sdyDiOxXQC7a8BQP6YL0ONdciNyuzGqG
+         r45U+wpHIy4MGPZ8IkRlboucxiduenAsU08kAhOaSAzrWg1DMG3qBrmFAd2ZIp8+LOob
+         GQ/A/7RVn0Lr+4fBXbtWm1t4EkrQoq3vAHqs8265Y7WgAODwOlV/s9bPNm8LlrbrsHkl
+         STGxCoQTndoInaD4tdc3wR/ahplanOAlgr9iqRjQT8D1eZf2YN7T27Mgm8vg+jZG87HK
+         hVnA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1n3qKyUDVr4JiZH2TEVXy4mLZYoKi0d8fIDRRKWcpjjUnvQ0vf7LGoUFPEj2JqvAPoCz1ewPGKFTy@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwCwxmm4ZctHWbz00CuCx7TfurxcdC6xsnVhttCmuFy00Vt0Tt
+	TYxF1kGFlLJTmE5W+Vw5Gxi6QrPgQXP21ISojdy3F/LFBzGhQP10mI3/
+X-Gm-Gg: AR+sD13ZB3ub7iUYgSBZKEFXL14eRTnOWH5YUnIjcksvggeNOXmChyUmifnVOtRnxcA
+	7567bHq1vwzGbEtd04fZmDSkvesjn1TFr6TCTG2TATW5r8+iOeuJFqG1RgqPe+t+MLN7Rr9IA5q
+	xciEK4AtEzONYQ217MwOgClZqMdPyf2WI4a2knoyJWMMg3qEm6R2R9xlgjtgW+OnBuSia5hQhF+
+	kjyW6mJs63S0l4cjaA3hJQgJhBMjDQ/k5xjAp6oRiXBJYCMURpx/J+DhURT4atY1sipwBstt/7z
+	KAO6KCn4e8n6ZZo1cZu4/QfsVkTIY6GOq1f3W394VuIMvPzqvRPQPOnsUL68udkYceJPXjcZJO/
+	OY8Gu09Asa2+NIipcKPaZLT2TAA+VsmtA19RZr/mobdctM6m9Vrjp8hY1wimPUfsyL9PRIwp3CG
+	n9Ct4teT23ufITzkKJZdEptCRjRMUMwk+DXl+lu7jSPKCfhKlpeSi9lp+ytawmPQ3mdjiaB9z1H
+	3DY/VSHoxsVLvlSJPARp4MZfIjM3utzyvwiWPLvfg==
+X-Received: by 2002:a17:907:928c:b0:bf0:b39:dcc8 with SMTP id a640c23a62f3a-c212a1da2bamr1863469766b.26.1787065760375;
+        Tue, 18 Aug 2026 08:09:20 -0700 (PDT)
+Received: from [192.168.255.3] (249-9-142-46.pool.kielnet.net. [46.142.9.249])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c219e360887sm26417666b.61.2026.08.18.08.09.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 08:09:19 -0700 (PDT)
+Message-ID: <9a880656-db90-41ea-bb40-658a878af12f@gmail.com>
+Date: Tue, 18 Aug 2026 17:09:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v14 0/4] net: pse-pd: add Realtek PSE MCU support
+Content-Language: en-US
+To: Jakub Kicinski <kuba@kernel.org>, pabeni@redhat.com
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, daniel@makrotopia.org, bjorn@mork.no,
+ sander@svanheule.net
+References: <20260813222036.873930-1-jelonek.jonas@gmail.com>
+ <178705861416.2079194.11658601794072677702.git-patchwork-notify@kernel.org>
+ <20260818075920.4580f583@kernel.org>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20260818075920.4580f583@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMV0hGoC/3WNyw6CMBBFf4V07ZDSyMsV/2FY2GEKo0JJCwRC+
- HcB49LlSe49ZxWeHJMXt2AVjib2bLsd1CUQ2Dy6moCrnYWSKpFZFIOxDjqaB3iP+FpSwIZ7roA
- Q6ZonmCU6F/u5d2R4PsX38st+1E/C4bAdi4b9YN1ylqfo2P0i6b/IFIEE0iqXWSpjlFXRUqvJh
- cab0LpalNu2fQAyn4+L0wAAAA==
-X-Change-ID: 20260815-for-next-lucky7-chipid-ecce496c86b9
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=966;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=WvhBurIy8A9u46LETLcI/MhJB6dhjgHJNOfnkpO39yM=;
- b=owEBbQKS/ZANAwAIAUknAbLEetfrAcsmYgBqhHUYUQuzBprixPTgcy8Al2eiWPDlLC/auEuGJ
- b7rFNdrS7mJAjMEAAEIAB0WIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCaoR1GAAKCRBJJwGyxHrX
- 68O5D/9JadzwC6VB9ScxAL+6S15RFJRmpF8VOn9qdwnh1WYZ/VKTrD9Muug4e+F9O/nVw36zojo
- 6vo5AtQFlGMkvcJgMVQIPmjvdgq0YvbSkAwwDrmdJjW8U6GgGo04uFo/HbXBgCfqR+0F3srM3b8
- vlDvy9MKBTNkapfZqRINJj9oMp1fxL4Oi3YiFNC4s5Vv/Bjlek56JSmnreByfg+I3vZ2Sqw3L4k
- ioG6UdUdqxO1oAOiXZ++aLIsNdLot68PYvGwK8eYmvn5okRrqlJ7V/lalAqt9CuqgHgebX8+iwq
- yhWAjBsYFGklIxSZzNdY+83NKI7adh1eNTHLVXSSL6K3zfxzxCWAKb5IQM9PNcPEDwlFautb2p9
- EGJ4RY3tkQlR4lq89e0XzsXdKVqR/FYFR+Juy7wYc8iIr6EM3s2z78DS/3++RNkzRSSKYpTSbwX
- fKIS92m6rJrkvaKeUfQy4U2GyHpMzlFLJUlgBahOdlIULWtw71lgx2FZXdh60NV5Qil0Tx7aDP9
- dACgSMQ1ua0uVicja8Nn8t0S+2cqh8uB25btvPiKL7vaIhgiBHziDmnr6XiRSUqNJxTFlg0m92n
- 8OonV5m3McfqvKK17kuRw18g0r3IVV52n0BY22TYPW6hZU/G3abqiC3J++y4pkSU1Ne9kJ6GjXI
- 8qviN7VZfUqd1hQ==
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
 
-Hi there,
+Hi,
 
-This patchset adds support for the Exynos5515 SoC's ChipID to the
-ChipID driver, and documents the samsung,exynos5515-chipid compatible.
+On 18.08.26 16:59, Jakub Kicinski wrote:
+> On Tue, 18 Aug 2026 13:10:14 +0000 patchwork-bot+netdevbpf@kernel.org
+> wrote:
+>>   - [net-next,v14,1/4] dt-bindings: net: pse-pd: add bindings for Realtek PSE MCU
+>>     https://git.kernel.org/netdev/net-next/c/368990e9f6c6
+> Was this reviewed by device tree maintainers?
 
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
----
-Changes in v2:
-- Correct capitalisation of "Exynos5515" in commit messages
-- Reword documentation commit message
-- Link to v1: https://patch.msgid.link/20260817-for-next-lucky7-chipid-v1-0-eb2908705c0d@member.fsf.org
-
----
-Aiden Isik (2):
-      dt-bindings: hwinfo: samsung,exynos-chipid: Add Exynos5515 compatible
-      soc: samsung: exynos-chipid: Add Exynos5515 SoC support
-
- Documentation/devicetree/bindings/hwinfo/samsung,exynos-chipid.yaml | 1 +
- drivers/soc/samsung/exynos-chipid.c                                 | 1 +
- 2 files changed, 2 insertions(+)
----
-base-commit: acde40ba506aae78633e080b5704d33cf4bc13c6
-change-id: 20260815-for-next-lucky7-chipid-ecce496c86b9
-
-Best regards,
---  
-Aiden Isik <aidenisik@member.fsf.org>
+v8 was reviewed by Conor. Since I slightly changed the bindings after
+that (dropped a '-supply' property, added a '-gpios' property), I dropped
+his Reviewed-by again in v9. No major changes but still a change which
+usually requires the trailers to be dropped.
 
 
+Best,
+Jonas
