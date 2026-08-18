@@ -1,96 +1,224 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04CC30B517;
-	Tue, 18 Aug 2026 09:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB850440A33
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045189; cv=none; b=a2fdzBSqL67mkNWVwep+kCxXEX2nrAUDJ/AQWi9y5dJu4hg3EFm0UsZasgOz04oj1lKmpHBLSFUY6C8ET46YbQg5Jey96MAOAo+Z+SmQuFIHp2s6RcQWEqBt0emgm8sD9j/xWK/vAwU7epU/DWhsb7gCmVBS71Dr2u6rMRVUCcA=
+	t=1787045233; cv=none; b=QFjnSlJIku0v+lEuqjasgsDhK8UVP+6nslPK/HkmpW6CvjoosG9fmgEkDyst/Qzj1U0zzSgZA20nve1sOSD7ln63SARFEUnYDIYJIn4+ObWxMOwNMbD/4KFqbECT0Gh57lvdVh6oygEggB07JpuMjqT/V16HYDnajBEMufKlyTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045189; c=relaxed/simple;
-	bh=ZgxiCIjVkREjWSYTy6XYBaGacgOUySLiTR833/Rbh0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gWxNTFoKn7GvkOF491qzMRFRQMMXdclkXsWNVZMZxN1NuVzxIIIFF7TCaOWJiSNuJz4u5SkFMOEix+e6fENWpplhMv3qKnaLquOIMCWnFonEh+XhvgBQ1FcLYQUCFLebwWay/ysjwsyeQJUbm1wtDBig9jiGwd4j37H+YuCAsXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8B3B72010D6;
-	Tue, 18 Aug 2026 11:26:24 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1wwG5Q-0026Gf-1O;
-	Tue, 18 Aug 2026 11:26:24 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 1345F5856A3;
-	Tue, 18 Aug 2026 09:26:24 +0000 (UTC)
-Date: Tue, 18 Aug 2026 11:26:23 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vincent Mailhol <mailhol@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Frank Li <Frank.Li@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Aswath Govindraju <a-govindraju@ti.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-can@vger.kernel.org, linux-phy@lists.infradead.org, 
-	Christoph Stoidner <c.stoidner@phytec.de>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 2/4] dt-bindings: phy: ti, tcan104x-can: Document
- Microchip MCP2542
-Message-ID: <20260818-vivacious-dodo-of-piety-b0a59b-mkl@pengutronix.de>
-References: <20260818091701.6441-1-wahrenst@gmx.net>
- <20260818091701.6441-3-wahrenst@gmx.net>
+	s=arc-20240116; t=1787045233; c=relaxed/simple;
+	bh=HOzaqn7FWoU3uqnSOyQBd4TPMxWPjZbi9HMAsVsni3o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L+Bes4lga8kNf7SxAHFES9Rr3liIewQI9ouHXb+HNCEsTMpXphrrN2/J/SFpQOtozuHbhCMrP3o2KC1m/Qstbwo4nudjOgmNFs3CdJdNLhWCXf0tr0IQe0oEGxxxG4PamtnKq6weQ5wC1KMLCc+2r8fRiw32l3BBBRkfki6rRz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=edAcXKQj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cip6frNv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="edAcXKQj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cip6frNv"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BNUH3703608
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:27:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wAv7FEBc74k6otJNq9YtrT7LHKiphv7DSNne9Vn5z3M=; b=edAcXKQj7CErUlUW
+	cH9Jy9zQiEG7I4PY9wgxjjNmqeVCXEi7vfRzTTyGNwm7nn2ink/PdvGgpsUzpMcI
+	hx4rCDonlcICcju3bdVn8zguJhFs1HHg24zhbWEVgjgY2kDoIMJ4eL33PI6tFPd+
+	bWmr5hkkQMEAlTMNYfDHhiV7BP1dQqFx+ao5YHL5Q8C7dhsBwELTNSU9OZOr+0is
+	zaDpRI6/6PPNGsB3uv69e7mI7P/3gQfP5B67BrTG/7RRp9epfwevgQR4HmarJ99z
+	e9+DWyqAJp+k5QShAFOMkaFON+VK2BP8O35duiE44pSw6nTqMIo0cng5fpeXXZ3s
+	3eaGHg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4ebpsqc4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:27:10 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-930b81c13b0so32257185a.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:27:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787045230; x=1787650030; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wAv7FEBc74k6otJNq9YtrT7LHKiphv7DSNne9Vn5z3M=;
+        b=Cip6frNvHvYWkZypSNX5Q9FrEebv4VigEQCgaAtWPnn/Wl+5bSH8fVJ6dsNAfZF9Dl
+         wKeI6bmnorxaMUPjzxDBmv2B1T5TAazsb2RbSw8Sozt51BRf14UI/d/ZUryrpwGCaa/F
+         Y1a8M9t51/CXykTCeE6GDphoP2nDdq+PK6iwsDir3/eBqbtb3SexRJ3e1lL6wH/CGIAP
+         duuAtTnvtkgj0+2lj7JRB+50xQQdQY25WFQDXUQQ01H3gz5lFYtsmlmwIUXZnSQ021At
+         YoKM01DCh2+P7iuu6UZn69mnixLbh4DJ4sIFiaRQogc3AK+chVr88WNfY7cr6Fj20QA6
+         1DVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787045230; x=1787650030;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wAv7FEBc74k6otJNq9YtrT7LHKiphv7DSNne9Vn5z3M=;
+        b=jr5UFaRE5s2/sHdxq4f0UMSABYLITEPJNBIWhnT095vhjMMII7Oksh+V1QXANKnCCW
+         AeP9OaejUmnOWfx0C83I2bzAgyzaU4wx/J1eJgh2yARkM+mQyPiB9Tbpqlam7ksnfwsf
+         Iqpm1evmH70R0MjXlMzHu0756hoUOmE2Zvg7T3RF3Qzv/dy/kykbpRBJdSd6vSZ8N/em
+         ApJiCPIEEce/6wFq2H7FU9oEFNh9SS00fxwCZzvGZMI/ffSByZ1eYq/LdoO3VTFY/G8o
+         FTXVKsY/JH6W/+lgilYDzxLY0dYF8wiN7UX8be2dez34YC2JxkI1PWI+z0CJX7P7ZKn0
+         4HAQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrj/h37yvWCfZixxMzkkrwcIsGgqrrl/OvwU0i6tuEAiUGc2IrUa6e3dI9bea9MpaIoJFWURcX1SnEN@vger.kernel.org
+X-Gm-Message-State: AOJu0YyP5YEQpuTZLfELSQiURCYCGPFRSIC48GLWJWfWKuwCBnvb9Vz6
+	+ezj/N7fOIB/xytIkq8hmzt1VocG8cXVH3l+Jzhrt0HZPmccprDFJTwtcNTlvH0qpJEVOm1NqXn
+	gzoSZUvqXsKnBJox9em/xps3Pl5WcGcf0GWVP+aMwUyBkwNOXPydX4nuturv8KOQg
+X-Gm-Gg: AR+sD12zds2/7+wElH673GjhozvEjsqIqOzWCg6md45DgvmdhfHHWhiUY3NHFnCIuwd
+	XHGp8CwqDqXHQjWf7fkte+KFP34MW1bl8k6tmzgJDLLc/xE6DxbejTf0ezLiJjc1izwEKC3jLmJ
+	OTcQ0RZpjqXAl+wfTpGOZ/LXwuha1b8cK5jdKxBxgqSH4LP8o/576UEMWUwup6qtjGQU56hsa6N
+	Vx1E4Psnyu7JRP44FRompNBfUT4H1d5SgNJ+LVHR93xOYaAlhiCbN/2Mh3mqV2YWztdyaoSWxUp
+	39uraOTxQ/k4rbmczJk7OQysv9lpO0K0uKGB/usvoCoDUQl4351CjDa3YtJ9xZ40HD2Nw73LKL3
+	+g/3KU3EpG/8sAar7K/Qm7aCW
+X-Received: by 2002:a05:620a:800f:b0:936:5ad0:fdae with SMTP id af79cd13be357-936d23c8621mr2510698985a.4.1787045230047;
+        Tue, 18 Aug 2026 02:27:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:800f:b0:936:5ad0:fdae with SMTP id af79cd13be357-936d23c8621mr2510695985a.4.1787045229545;
+        Tue, 18 Aug 2026 02:27:09 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185b73db1sm125126366b.40.2026.08.18.02.27.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 02:27:08 -0700 (PDT)
+Message-ID: <8f05bf47-183f-4586-8ed2-eb2277f15c98@oss.qualcomm.com>
+Date: Tue, 18 Aug 2026 11:27:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6i7fq3cui44vk3ry"
-Content-Disposition: inline
-In-Reply-To: <20260818091701.6441-3-wahrenst@gmx.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
+To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260809-dipper-v1-0-eb4d501e85df@ixit.cz>
+ <20260809-dipper-v1-2-eb4d501e85df@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260809-dipper-v1-2-eb4d501e85df@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: EaawJtJQ37ZrCGm6WfXwtwovkEE9QiFb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA2OSBTYWx0ZWRfX/qmJviXIbJ78
+ RvPPksLZkCrpXz+IdPxKZbR96jQKlub1ggTGZy7x192XTKVXa55MDaBaIyahI/3FkQY5KWf8f1x
+ Vm9ND8HFqBcUPanQan+w0xDuGHRXL+ogZbf5k4d2diSqmTZlGGXAJQpwXNT2x+FVXlMJcIuKriP
+ B7ZMKzuPHE52WhuxHpCCShs8vV+jY5AeRgtpdKoOzrn+8dNKlosJ/kCUuAmgmbciv7rXLBwX6dk
+ 90pKYFAx3ma+qCYqLvkb65V8jiBLDkj9RBeUfk3qQlsXjae4JF1qiDHoyrfnrIdRu6awhm+jypv
+ vyVfJPySWlmJ8acZ3cv8WdResmsqFwTNCHVXPBjavk+dKnrxeHzYYYleaV3ONgphRyR3ml9ua74
+ aa2dh6L6ZwyQvj+J1kwLYVAAUubUGu95nlcztlspiX4HIjZ98yb/ujYhAdEOnh+zA3/uUtrHoxO
+ NrP+HH/OHtC/ttY83Bg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA2OSBTYWx0ZWRfX7keTsjlVDrgV
+ rfaee1Sy9PoHKgkeZE77liCJzdBZSJ4ddTxQJeaOAYblfA+QBsaLZmGEeOQIRUVp9j8NTRBr0RX
+ Z9Nz0qTe0mQRikX/0jqQxX8PZ3mIM4M=
+X-Authority-Analysis: v=2.4 cv=FsU1OWrq c=1 sm=1 tr=0 ts=6a84256e cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=B_xDH1FeeQEyQcU7W4IA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: EaawJtJQ37ZrCGm6WfXwtwovkEE9QiFb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180069
+
+On 8/9/26 6:48 PM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> Initial submission for one member of the prime Xiaomi Mi 8 family.
+> Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
+> Known differences are battery capacity and fingerprint sensor placement.
+> This submission includes basic abstraction for other developers to be
+> able easily extend it to support other variants.
+
+I had one of those. IIRC the Pro had a 3d IR scanner (vide face id)
+whereas the base one had a normal IR cam
+
+[...]
+
+> +	reserved-memory {
+> +		adsp_mem: memory@8c500000 {
+
+adsp@ etc. and drop labels where unused
+
+[...]
+
+> +		linux,cma {
+> +			compatible = "shared-dma-pool";
+> +			alloc-ranges = <0 0x00000000 0 0xffffffff>;
+> +			reusable;
+> +			alignment = <0 0x400000>;
+> +			size = <0 0x2c00000>;
+> +			linux,cma-default;
+> +		};
+
+Is this necessary?
+
+> +	};
+> +
+> +	vph_pwr: regulator-vph-pwr {
+
+This is out of order
+
+[...]
 
 
---6i7fq3cui44vk3ry
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 2/4] dt-bindings: phy: ti, tcan104x-can: Document
- Microchip MCP2542
-MIME-Version: 1.0
+> +&adsp_pas {
+> +	firmware-name = "qcom/sdm845/Xiaomi/dipper/adsp.mbn";
 
-On 18.08.2026 11:16:59, Stefan Wahren wrote:
-> The Microchip MCP2542 High-speed CAN transceiver with Sleep mode is a
-> pin-compatible alternative for the TI TCAN1042.
+Would you know whether the FWs are common across the SKUs?
 
-If it's compatible with the TCAN1042, why don't you add it with the
-ti,tcan1042 as required fallback?
+And more importantly, regulator settings? FWIW it's easiest to compare
+compiled DTBs (or even better, ones pulled from sysfs on a running
+system)
 
-Marc
+[...]
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+> +&tlmm {
+> +	gpio-reserved-ranges = < 0 4>, /* SPI (Goodix Fingerprint) */
 
---6i7fq3cui44vk3ry
-Content-Type: application/pgp-signature; name="signature.asc"
+odd space after <
 
------BEGIN PGP SIGNATURE-----
+> +			       <81 4>; /* SPI (Synaptics Fingerprint) */
 
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaoQlMQAKCRDMOmT6rpmt
-0slMAP9l7TVeexZCcKdt+RpN+BZvAFifxtKNWE3G0YvngbwCpwD5ATMKyiyaGA6X
-nIUiXcCBKPn+JgKvp8D/hjUI2hlOEQ4=
-=emA7
------END PGP SIGNATURE-----
+No NFC eSE reservation?
 
---6i7fq3cui44vk3ry--
+[...]
+
+> +&usb_1_dwc3 {
+> +	/* Until we have Type C hooked up we'll force this as peripheral. */
+
+Should be fairly trivial on 845, no?
+
+> +	dr_mode = "peripheral";
+> +
+> +	maximum-speed = "high-speed";
+> +	phys = <&usb_1_hsphy>;
+> +	phy-names = "usb2-phy";
+
+No SS?
+
+[...]
+
+> +	bluetooth {
+> +		compatible = "qcom,wcn3990-bt";
+> +
+> +		/*
+> +		 * This path is relative to the qca/
+> +		 * subdir under lib/firmware.
+> +		 */
+
+Let's drop this comment, not very useful
+
+Konrad
