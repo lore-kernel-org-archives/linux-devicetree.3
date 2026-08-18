@@ -1,169 +1,153 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D667F3BF68D
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECDC3BF68D
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787044014; cv=none; b=Vs7wTHlV/j1LZpJdKKtCKxCFmqN7KZkGUnuGleJOO/RUvSLDKezGEPvwNqy4D6JnHkqtb7a70wX6megJaHAkIFZfnb5fa5jJQroDSaTHyeLBlvWATqFlhuks0Wd1ScsgFwr6p/COrE4yVJMJfNoH1CdlaZFhf4YvDzyFKIQtmxg=
+	t=1787044024; cv=none; b=rtsILfIREJUgKBpKRcd9nvwiV/AWYJ9CDp4PAc/mM9AFsBnLbAZoa1DwhSM9tQJW/5HnQmGEn4GNUmQGdELESawzNG/bG8Oy5bQpNjbHmTkXXG3/iIK/jppLRcCfqdJL9WrpSq8v/LC1IZN0kZFuAD8f5KghSS6fonHCJ2VULyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787044014; c=relaxed/simple;
-	bh=z50Dwbp+KUqqg693Z4+fUtNTAtaDy+2EmV7rI7a0Zx0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QuuekpmKijweylXVYuCUkPSIweDLfcpJz7UHps9ljJS3uR4YXLfMkn623fRA1NqucdTfLvD+BRv0Lwx7lLUbXjiz1hyXghLdqPvgIcoeW/+DEFLWSjzeNTYd74Ndjf7maeGYpJOWKL2rMsF8JSgmOlW4RFAGbyGm4MYJ2qIyilU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G345N9gh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jAxvxvit; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787044024; c=relaxed/simple;
+	bh=r+z+CNlV0SQ7wzCvvzFGgEFJQCUfNb+xMjsPV4zaW2g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WC1vr56aTX0Mna0qbNnZcJMnl4sR/VEhDe9yDFrrh96TvZ7VknZM6Qm3M5k6NoB/r6Fy3SXO7A+jNi4HNMtwH3NRy/vSUXmDT2WBDGIKHMMZ1MLkl0WAsE5amqb8YsG4gNSDgWK2wtLrx/j1UALMfEQV+PVgnCwe55HqaUDaJtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+pKhjL3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G345N9gh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jAxvxvit"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BL2p310041
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:06:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	q9xW6coXHENj8pGdnUFBq6uIzAz9ShtjyQGjynV6M8Y=; b=G345N9gh/SFKyB4U
-	SVhrtb9xePJszi1CVrMpyXPWaCMaoHoMJmL0etlaE9gt8oUi83kFV8fZGq50WgeY
-	JhQZsQ4yheYCfcwNibUm/ASYX2MfA06Pmhvwe6Qux3C2fm8js3mo8roxjDpVvUNr
-	MHdDc2NRR3fneCEhJnLehXNCBrZHRIY4M/i3ouvMJfQv0h8bHxOp8HsnyjfVvj6D
-	B65slKFoPSIVlOdY1ls6+6RPPL2pQGKXaHfVhlLluvHrFz4h44ZFahpcs83u6Vzj
-	H1EJdj5jOJG7ewaSjXg6KAO5UCFt4F8cH149SRFVwPpPQrEnXueF8QXf1dW1NPlU
-	bI7RdQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4fba9d7s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:06:52 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e5e21552dso31033985a.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:06:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787044011; x=1787648811; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q9xW6coXHENj8pGdnUFBq6uIzAz9ShtjyQGjynV6M8Y=;
-        b=jAxvxvit/1LC04HerWGJeRAbvnnqPWK8pfHpKj+nq23R0Z27dL5Z28ruxc9n4cMCS4
-         fPAEy+AUP6KpQs/SLgFwV974JNWkCY9048Z/g6RZjJraBpBg8DbtEizlDKDrxsNM/LlU
-         WQKF6S263dtMCh8cYgrPl4t0lcl2JAmguuRAnYHFP1ueUwsK6AJNi9yJN2huqMeFERei
-         ZmQ8txgtnvoLL9B4yTF7iVZPlYBO1cX8Da+MzatCox5tZObRMnkdYq9ABxMwCg7W5e+S
-         IziRmmZNt2X1XymwYO0///F017EJHs2FZZKp0N930ScHDYhRh1CEKr6pMd81Hiz/fxMi
-         Is/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787044011; x=1787648811;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q9xW6coXHENj8pGdnUFBq6uIzAz9ShtjyQGjynV6M8Y=;
-        b=VVxgJ4qzCtVKkq25yQWtGqWRxXn7ysCEH5G7VVNGbv29JVVyz+OL7o9Z0x5C6cym43
-         HWXjOkLvblFtufmzA5BNrylAVjJc0JBClp2wwilOWEQLMnVClL4fcmJHBZSu7uPYR2xN
-         gkTnmquB+NvAavXZ6fW/CXMc3a1GdAzmNHUvDeoMj6ad3ibDA3+1t2O2AKgF7ZC7pH04
-         sOrDwFyvwe6XBnXEEUsgNjvXm3tTbsWrAgC1IllSOWqnxi7i+ll8P+y2HUzoh2nnmnQz
-         +tzqZHEWwMFLrsu3hFub6GUCMOoXT/0UCQgR3hTfb1rMz72Z85r4LyG6L3omTBAkFzQM
-         6Qyw==
-X-Forwarded-Encrypted: i=1; AHgh+RpQaQrVB2ZdtbuurEFCZ0I1vzRokxFaTTcfwJYHR8zg3PJZYoBst9GXxAnRNZ4mS8QOj8s2T8YvAGtI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz20BvV+jzQuFGDOL7JOc8EiotsFzWRVvVNg0h6ge9xxGK0PRvm
-	p6Ax5CZgQi1LRkSrj7c5k9VATq2wu+Guc88JngbrvmQopl2Y8h9LgHvUT4w+i713iuYYKFs0RiO
-	6/FQJH5zE8CXs5NbyvPE/14HVhuq6GzuwYCvlZtVHKpgKDj5jgG5UpnCePre+Eg+2
-X-Gm-Gg: AR+sD10mLTmXdZCUyXy9IeqsIjFDILSrgxvHbnVPUmjliocNjtMWBkI1D2IoCMF9JxD
-	KkVOfsZvsQjWc2Rau/8rn/ZBDl5xeuCxPYyNnw7+fS37MnvQ6/aDu7rWpSR8qh9IWed84PYqKBT
-	W2n8WU0Rc/kHdKVbtsvF2TNP4JvaVfeeRYm3G7EFUU3B3tpGyatANP8lU2WyTuNvsEelJv2uQ6U
-	YbVtUdJq81k3szMWqCYabLM0Vx5b1GFnLlBerd4pMuE2Opbyd2HHHdl4rEtnIF7fVhkTC73ilj5
-	8wH0zcsQY2aQ5cJ+9jFYvl6vemsJQZKdlWsdo68DgHZPPXG6wCWzsMGg1z8vfBuw97sVtmPdyD8
-	331QGBAP+xot060lkwrzdBusz
-X-Received: by 2002:a05:620a:6910:b0:936:2f59:dfe4 with SMTP id af79cd13be357-936d1edd4fdmr2349736985a.0.1787044011044;
-        Tue, 18 Aug 2026 02:06:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:6910:b0:936:2f59:dfe4 with SMTP id af79cd13be357-936d1edd4fdmr2349730885a.0.1787044010319;
-        Tue, 18 Aug 2026 02:06:50 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c217fed68f9sm155764166b.27.2026.08.18.02.06.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 02:06:49 -0700 (PDT)
-Message-ID: <dc555512-3161-4c4b-975a-7ec60a8f1a48@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 11:06:47 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+pKhjL3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0CD1F000E9;
+	Tue, 18 Aug 2026 09:07:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787044020;
+	bh=/FXhqGsFow8hkgcKX9d5xT4CHSbDKSP6v189xA1DUOo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Y+pKhjL3oDps9CmekM8VtCJ1ULT19kG8CfPV7aPmtqCDOHQrkrfQSz2ZbizNml+45
+	 2WfDYKwcePVnkgrQ9ontOYgT5SJ/UODoNIhXsQXBU9nBX6Yy97GtLr+WmMxrmM872C
+	 qFcb8uiIp+VI2MhWD3Cu6TLS/cGErGcJbxkatNvzlO4VWeYbMtDPsWwOE+7VYWk1kQ
+	 WIj579l+2zQRna21BDG4EuNcIzmU2YrWM/btoxfK6TPYKnw5rMQAQOT9OgXVpsoFd5
+	 NMmzl3lN7aS26X9cUMeOhXaojbh6tWU+4DxRjjJpyeUFGB1xEfFEH9oeOF8T0AbW73
+	 pqF+ABNYqe9sA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] ASoC: qcom: qdsp6: Zero-initialize AudioReach
+ module config
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Prasad Kumpatla" <prasad.kumpatla@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260818084655.3240284-3-prasad.kumpatla@oss.qualcomm.com>
+References: <20260818084655.3240284-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260818084655.3240284-3-prasad.kumpatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 09:07:00 +0000
+Message-Id: <20260818090700.9E0CD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/10] ARM: dts: qcom: apq8074-dragonboard: enable the
- USB3 host
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Christian Marangi <ansuelsmth@gmail.com>,
-        Andy Gross
- <agross@codeaurora.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-phy@lists.infradead.org
-References: <20260810-msm8974-usb3-v1-0-1a47e1185524@oss.qualcomm.com>
- <20260810-msm8974-usb3-v1-10-1a47e1185524@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260810-msm8974-usb3-v1-10-1a47e1185524@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA2NiBTYWx0ZWRfX2TYFPFa2P6FF
- KJPFsH7KDX7UYxniNLZdasJEK5bjogfbrQSG+nobxcM3yS1VJByyVdzV4+G5D9/COOt7/jBzVqL
- le4Rp+v3xy8YUiVWrDOIuQWSyjnvvao=
-X-Authority-Analysis: v=2.4 cv=VsITxe2n c=1 sm=1 tr=0 ts=6a8420ac cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=LTL54F7UJFTHhO7zyW4A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: VrAG9JMf67E-mqrV5aBrQNbhoHpfg9mO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA2NiBTYWx0ZWRfXy1ytqhgXYxyC
- IiRJo1p3XOTtfu9nW5svTHEMDRQiIo9k06aud5zsp/3qkX21cNCAgSHXzPD0QpHf/+eGQ6hqDT4
- gfwiEenMzewsd0LxLHTkU7RzuKfYViG3r+ullbZSiL+SFmRXd5n6KPAlzAtIz/WIxvVJHyOQre7
- 2+XrLIMjatxzOyOjuNeYt9kjrK0z0EeF2Uat2AG/LsEm/Lm+iygc6WqdmCTHOVpoYNXj1Hbo3tO
- HMA8Ia1YpsP93gHPlFpLZ8r8488PcBI7CDP+ya39Ajy1SUrxlc3/4+oN/r0r3un2Xum1BnXAB2W
- k4s+a30CdCJy4JU0uRj6qM6eRStO1gfcOgA9MYa6/mc9sHi1mQxwDHh4twFRHLALHbokfVThBEj
- eA5s+gSJX4pkTc9zCiQSyxDGbi2Gzy5jls92QtDl9ljX5AoK3AG791sWpNRnfSNIB2OBI1QRbHM
- 0KVcd0Vv7LPpbuh2zEw==
-X-Proofpoint-GUID: VrAG9JMf67E-mqrV5aBrQNbhoHpfg9mO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1015 bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608180066
 
-On 8/10/26 1:42 PM, Dmitry Baryshkov wrote:
-> The USB3 port of the dragonboard drives the onboard TUSB8040A hub with
-> the AX88179 GbE controller and the PL2775 USB-SATA bridge behind it,
-> but the controller is disabled and nothing describes the devices, so
-> their reset lines float and their supplies are unmanaged.
-> 
-> Enable the DWC3 controller in host mode together with both of its
-> PHYs, and describe the onboard chain as device nodes under the
-> controller: the TUSB8040A hub pair (with the EEPROM-programmed
-> 0451:8041/0451:8043 IDs this board reports), the AX88179 on the DN2
-> port and the PL2775 on the DN0 port, each with its PM8941 reset GPIO,
-> all powered from the always-on 3.3V carrier board rail, modeled as a
-> fixed regulator.
-> 
-> The SuperSpeed PHY is required even for the hub's USB 2.0 half to
-> respond: with the SS PHY left uninitialized the hub connects but never
-> answers enumeration at any speed.
-> 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Pre-existing issues:
+- [High] Missing dma_rmb() between reads of frame_counter and index in q6ap=
+m_dai_pointer().
+- [Medium] Memory leak of dynamically allocated fragment buffers on error p=
+aths.
+--
 
-Konrad
+--- Patch [2]: [PATCH v2 2/4] ASoC: qcom: qdsp6: Zero-initialize AudioReach=
+ module config ---
+commit 8c62450bf2680c8f23f31e1b33efb46a0ed00f8a
+Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+
+ASoC: qcom: qdsp6: Zero-initialize AudioReach module config
+
+q6apm_dai_prepare() and q6apm_dai_compr_set_params() build an AudioReach
+module config on the stack. Initialize the whole config structure so omitted
+fields reliably retain their zero/default meaning.
+
+Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatl=
+a@oss.qualcomm.com
+
+> diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6ap=
+m-dai.c
+> index bf1f872a09f45..033197bdd8705 100644
+> --- a/sound/soc/qcom/qdsp6/q6apm-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+> @@ -216,7 +216,7 @@ static int q6apm_dai_prepare(struct snd_soc_component=
+ *component,
+>  {
+>  	struct snd_pcm_runtime *runtime =3D substream->runtime;
+>  	struct q6apm_dai_rtd *prtd =3D runtime->private_data;
+> -	struct audioreach_module_config cfg;
+> +	struct audioreach_module_config cfg =3D {};
+
+[Severity: Medium]
+This is a pre-existing issue, but while looking at q6apm_dai_prepare() in
+sound/soc/qcom/qdsp6/q6apm-dai.c, could there be a memory leak of the
+dynamically allocated fragment buffers on the error paths?
+
+If a failure occurs during setup, such as q6apm_graph_media_format_pcm()
+returning an error:
+
+	ret =3D q6apm_alloc_fragments(prtd->graph, substream->stream, prtd->phys,
+				(prtd->pcm_size / prtd->periods), prtd->periods);
+...
+	ret =3D q6apm_graph_media_format_pcm(prtd->graph, &cfg);
+	if (ret < 0) {
+		dev_err(dev, "%s: CMD Format block failed\n", __func__);
+		return ret;
+	}
+
+The function returns without setting prtd->state to Q6APM_STREAM_RUNNING.
+
+Later, when ALSA cleans up and calls q6apm_dai_close(), the teardown
+logic skips the cleanup of the buffers because prtd->state is 0:
+
+	if (prtd->state) {
+		/* only stop graph that is started */
+		q6apm_graph_stop(prtd->graph);
+		q6apm_free_fragments(prtd->graph, substream->stream);
+	}
+
+	q6apm_graph_close(prtd->graph);
+
+This frees the graph structure itself, losing the pointers to the buffers
+and permanently leaking the memory.
+
+Should the error paths in q6apm_dai_prepare() clean up the allocated
+fragments, or should q6apm_dai_close() be adjusted to free them even if
+the stream isn't fully running?
+
+>  	struct device *dev =3D component->dev;
+>  	struct q6apm_dai_data *pdata;
+>  	int ret;
+
+[ ... ]
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the changes
+in sound/soc/qcom/qdsp6/q6apm-dai.c, I noticed a potential issue in
+q6apm_dai_pointer(). Are read memory barriers needed in the retry loop
+when reading from shared DMA memory?
+
+q6apm_dai_pointer() contains this loop:
+
+		/* index is valid if frame_counter does not change while reading. */
+		do {
+			fc1 =3D READ_ONCE(prtd->pos_buffer->frame_counter);
+			index =3D READ_ONCE(prtd->pos_buffer->index);
+			fc2 =3D READ_ONCE(prtd->pos_buffer->frame_counter);
+		} while (fc1 !=3D fc2 && --retries);
+
+On weakly-ordered architectures like ARM64, is the CPU permitted to reorder
+these reads from the coherent DMA memory? If index is read before fc1, or
+fc2 is read before index, might the validation fail to detect a concurrent
+update by the DSP, leading to an incorrect hardware pointer snapshot being
+returned?
+
+Would adding dma_rmb() between these reads ensure the correct ordering?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818084655.3240=
+284-1-prasad.kumpatla@oss.qualcomm.com?part=3D2
