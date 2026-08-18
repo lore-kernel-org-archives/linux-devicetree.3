@@ -1,218 +1,171 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46A5367F5E
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 22:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF338367F31
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 22:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787091200; cv=none; b=YnWBsa9/PZNS5o2BvLJSNjmWMC9sVMt+TuAhyeNU0SkFF+TiPckG98B3ejDvovyvftCn2NfK9AkS9DR1hwq2t49cSKPQYBcUguu6ln8PQTisIoObiWNnzYtPIazLjUVGUZnJ7MdoqcgABYQ7oKOPcTrJB9P0t3g0eGUCD265Gks=
+	t=1787092922; cv=none; b=H1xiZN4dt4iSUXuX8ssE1h0vLLBecvfOWanUSGQV/nYIWMHSwTEJ7GxR3YdPKRSGhwuFwY7vvx3SUXJ9jDG1d0zxHfjvCZnFsgN4BVXza2WY5XLiIdQ4M4s0QxKQu4dP8ldGLCfgwSCVGUuwNhkVBt6YDYgu0PZE3cSm7f2X5WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787091200; c=relaxed/simple;
-	bh=IcRGBxPKmByruY+4O0/f4Uf9z2skvWKVFPpiGpCrHJg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rZd1fMXERWkPSG2vfU6RHuklB+UGSoSBbPGsDS8cx/d3feico1MvThGi2edQMe8PwCRDGoUrOi2g4j1FIkd/ROTiQXb4UZJUicu9pxWeOAfYJDofiTNC3J2IQysjkBhSm5S96JZDqAdp1BbPK6YHpvcCmXzXq4tP7ZQJagqa/4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Z0glxvVe; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1787092922; c=relaxed/simple;
+	bh=NTUPCBP65ZWZouPN9n+ceWmfignTvfSu1xDUbhAbOao=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AWQtN0ZIeOM2ZxlEkOwmDGTcJ7wXNJYQGMau4jGu7iYwntCt5973zQVrRZ1C3hgf6uQ6ofuXqCyFs2Q7algxHlwWTNWwoKbXSmSRU6txYjDCs3FJ7nPnoTbUfMMpwtQk/YGx2Sq2G3wAxLMPdVxU2Kf0L1i1kXRplT5H1g1kk8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WYl5F9s1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E2gQZPed; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Z0glxvVe"
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5bf9466412fso300753e0c.1
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 15:13:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WYl5F9s1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E2gQZPed"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67ILbNYX2524821
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 22:41:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=/yRlrnObyZVQZ6C9IVOv5MrA
+	73SMWTeXgv9J+GAmLS4=; b=WYl5F9s1Iumfd4gRKetAhFo+BZBWrMBEvt6pkNPj
+	lW2eGkLQ7lRDLw+DgoXIfThARjvKfFO/PGl+O1j2tfG71UyeRmC8ZdW8T39adBPF
+	8rJ38J1yJOhIph7Xy9DX0glhlOyQWPnSWw+s0uprZQ+8oIH8o3HTI73mwilaUN8/
+	vhSaFBl7TYnUNPS4R72euofbzGQKvtTYBTgqgeEwjacI/HSMBUflpB9T6A3WFDNE
+	IrcXgKEsTs+fWQ4Cdcq6awL1wlQKnjmBf93iXOLfGYdLomD8WO+2POk6uXnWT7eW
+	+sxrP5NIHe0uJSsxRZ4ued7KycnJdde/+N/JIZBy9z5xNg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfk886p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 22:41:59 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92ec3146553so75568385a.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 15:41:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787091196; x=1787695996; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1787092919; x=1787697719; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OAeyHXN0Zof9oCVlItznCba1s0MUdsF9dzRH/tkJGa4=;
-        b=Z0glxvVeD9xq1X9ZGSk3jmI3fTYrUyc5gLqSvH2IKFJYIbwppRuONhGkURFiSZRffp
-         x9LBHnOd/qNvsHiuIySnQJZEIuRBTLQeir45IY+PiPK5SEAm8DdDDTyUiUPdxLPfSmZw
-         POquH7kGCQbwejoyL+yaPEswMPsZKaJOz2M38=
+        bh=/yRlrnObyZVQZ6C9IVOv5MrA73SMWTeXgv9J+GAmLS4=;
+        b=E2gQZPedybRWzUDXnIzWZjxFYQ7b7YDabzDQ4z3N2AkntdFO4xfX51ujVHUUdReSoz
+         Z3AMUY4Hz4ZucGrNUOag9/0yHekxfLuFPBwFzb1xJ2urGa1DmiLURSPFD4F6ORuW6KpG
+         QkyP2Uja04bvFiamE5PgASRhtM5XlN35DxVxU73L9DyVqY4s51T16QWJEYjseX94BYQK
+         Gyx8y0OrT8Bp4lH+FfDJBLjoGuapqljSkvB1E85Ai9Xvfrc32MjVfspd4cR0j6vYwnDq
+         8UAMSmbC2HFec+RdYh/LEx+2ffmGfvAww7zIIBD7VfEhbzguEwBwW4lIBK3d+By1f1r5
+         iKGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787091196; x=1787695996;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787092919; x=1787697719;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OAeyHXN0Zof9oCVlItznCba1s0MUdsF9dzRH/tkJGa4=;
-        b=S8VUywcbpyxECY9Kin2tp3ENtUlfIlewNPmFST2gaAxiy7UZGtcHee3X46tTYcxgfl
-         /hH7ofThgJaHQA6KgeVbGgMpHiVHpp36G5slf35GJzixPU1SRwHm/CJtpcOxanrdXQCo
-         49tH66ZZ9tcTnsbMuV+d+dkuR6nRx0R7rK7/Ghp4CKlYDuwkM4gpK19WCnLuBT3ru9ZV
-         /tPT/AD8BO6Vc481GINeLof7NfjQ+vspU4Q6+UF06IVjoaZi5AmRwvg93pDCtjMbLbq8
-         AfLDPzTlro23CA7bCokkKEzu24AIANC0QznGi4UiJLqgsz/TonJswoh3B7j4a1hvCKLX
-         eecA==
-X-Forwarded-Encrypted: i=1; AHgh+RrHyfUMSevKNSCG0qz9/iufcEAerevShhg9pSLArVb8ROYhO3xp/nNuczrIa9mWaYmDVM8cfp70nE4V@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzqvvn99VqdD/88THGLTgPN3zn1qxzIVMt8mjQLC3yjesDHLYiJ
-	Hcx/vLF2U+7olHtlxFY8zSLkInF8DHI9yYTksmPHxnxq82S5QZ6AUFPTePHWo4y2JClGAr5cIBx
-	93V4=
-X-Gm-Gg: AR+sD10mBnHYXHDptfH84LipwM6+f/zmpopdkFy6HBUr86WiU+KaMz9/cw65EPNtTG4
-	EQz1cZbpm+A6Yjt8lJRGFC4TR9e5gFay24FmArExnXXOLURS148V/GiWpkGiG2uSKp2NndWCJUz
-	T58IDWV4sNYsI7oiRl3+blyQUA8nM+i4TYhlu+iKVD54CtkB7fMDM8sif74kj5/a0fvnujP3YpE
-	CMoSULWO9061ugq995OsTPhMUnZB6tGcZzJoAugGyt6BAnUXyQhxjykBSyUoda5V+VMJ4mLSPOD
-	vDZs1fpx0oyHvOMrHtDsx/pzMOzb4g5NedL/53P1J47sxTyv84r1TM/9iz4DNSepxTNOTYDKHnI
-	LjudZ10k1TK1HIq5wqD9DgSKWCi3NUrmXg4OXPzWqzK5QiK0H5KWS8uNBt3XB6xvBQ3sIPa0QpH
-	0O0isfp8LrIHizfY/Qd94SxAne0vXSyG+LyCm08OKLylZKdBcLIsqg7Ono3/rDn1pET49Rd7vu0
-	eXS80oLYFQqSlWJSpWzCFjUz+E=
-X-Received: by 2002:a05:6122:178f:b0:5bf:8c77:e89a with SMTP id 71dfb90a1353d-5c5e08d9db0mr459228e0c.2.1787091196065;
-        Tue, 18 Aug 2026 15:13:16 -0700 (PDT)
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c5e25e3464sm149141e0c.2.2026.08.18.15.13.13
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 15:13:13 -0700 (PDT)
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-977fca41f52so152851241.1
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 15:13:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqUToDmdey65+C62H/AFWkU2SvVbQPRbRQJsnqZzu6n6vFubvsb3viyxavcg5atb4Og4Lh2aNh0zLvE@vger.kernel.org
-X-Received: by 2002:a05:6102:3f02:b0:772:5acc:b849 with SMTP id
- ada2fe7eead31-777b68d3b50mr613053137.5.1787091192379; Tue, 18 Aug 2026
- 15:13:12 -0700 (PDT)
+        bh=/yRlrnObyZVQZ6C9IVOv5MrA73SMWTeXgv9J+GAmLS4=;
+        b=bxvhZshY/aeLw3pTi34N5FsbqbtpdOXlDBVIrC9QM+uWX+0Zokkk8aVNyDJFPJ4MJy
+         d7iiBXgZXXmbc3lUix2MdsRIEgJUqjFdnbYC7gzNaBZ9Kueyq6yFL7IMTDy+QJnR+2BJ
+         XUgGTOeDU6xVERnW0SL2Zoll7tGctoyl36a/fNMhZrBY8uRrtfewEFEp9I5ZqHqxQ6fm
+         ZcAwY+ucrKlC87Y0ZzaToIAKGOSjQWfJa24VkOlkQVdc3l+s6Ao8rEV5MwBRsA5TBA1b
+         qlJfpRWcOFlLse5JeC/ReQ75Lu1NCb6qYxlRHIFVK/yT0MLpUB3FcdJPm6VNJ7UEeQgv
+         vSpA==
+X-Forwarded-Encrypted: i=1; AHgh+RqJ5ckvoG/XP6E9EVzj73G0XSFsOQnN1Ti9bUeSoqlOuNdluc7lqOm8TIwt3nqzoVi7NSBJkvsgKgag@vger.kernel.org
+X-Gm-Message-State: AOJu0YwpOJgmX8YujdXvJ31ltjERGnCr0F1pfZFM28c+NZShqwmcfyd+
+	Dpv2GDQnHBaM9p7cCOUnCEb5fKi5r+G7Yvsr+cbyaH0VnEFZIxoKIQ7SBdnH2++bVtOF1Jyq/y1
+	N57+NFuiipnBqZ2D+ypbQq0QWR6tA7sHCSvt1c48CTCbeE2xmNGrNlFkfTgf4mnVs
+X-Gm-Gg: AR+sD11YNacMRa0DPqY3fEIPKeCXT3xAiHp3GSqE9HEYm9BFpbdLz5OyUJKFG+6LH1m
+	APWemLOy7oU7gSesIx4mKzr+HQbuxjVqevLWt99UZhaXcYF4Yt1f2Sdxe4RRW3eiIyiekVmL4lv
+	JXoGzmdOppy9sIXlbchJSKrZeBoZsRGMN1yhT3Nrpl2arYvIt962Kbu2dake+aM7YRyPPM5JLdb
+	lY0uz6afJUBWTP7rNKzD9EH2BpB/pRwFPmENVtzHpPNig1u2D0jIaCZ5onlfyjU8STGUws/Fysq
+	t1v3FXMq/f3tiJ+SQnWW44hohfeOtHV1Jqo4Zer0tqcQNd40Ezlx7LXrEGjop9+WWdOxwuj1GTg
+	BlLIFCo4XB9PI7LkHN2NrBx/tyA+VKxqr/HncAzlvoSzL40y88reIrKIqpLjS1nv/la2iXzDny2
+	01jXC5C2OdD+0V
+X-Received: by 2002:a05:620a:4107:b0:92e:9d63:a6f6 with SMTP id af79cd13be357-9371e23b73bmr72753585a.17.1787092919072;
+        Tue, 18 Aug 2026 15:41:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:4107:b0:92e:9d63:a6f6 with SMTP id af79cd13be357-9371e23b73bmr72751885a.17.1787092918639;
+        Tue, 18 Aug 2026 15:41:58 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4788d9288sm30212e87.38.2026.08.18.15.41.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 15:41:56 -0700 (PDT)
+Date: Wed, 19 Aug 2026 01:41:54 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Mansur Alisha Shaik <mansur@codeaurora.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] media: iris: Add dma sync calls for input and
+ output buffers
+Message-ID: <235vlp2bxpqpvgtcqlj3gyh2akclnit4p5lo2boagn4xsgzfeo@qnehnkaye2ru>
+References: <20260818-iris-fixes-dma-pseq-fint-v2-0-8dc8c4b3880e@oss.qualcomm.com>
+ <20260818-iris-fixes-dma-pseq-fint-v2-1-8dc8c4b3880e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
- <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
- <20260724-dancing-skunk-of-novelty-72c1b8@quoll> <CAD=FV=U0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr38p+YwRnC_G6w@mail.gmail.com>
-In-Reply-To: <CAD=FV=U0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr38p+YwRnC_G6w@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 18 Aug 2026 15:13:01 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com>
-X-Gm-Features: AcwNN1X4wWbBuO7BL4eki7ShctQouAC-d3_rSaFZoxuWUTz7v7oqnlkPyiKP63w
-Message-ID: <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for frankel/blazer/mustang
-To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
-	soc@lists.linux.dev, Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
-	Brian Norris <briannorris@google.com>, William McVicker <willmcvicker@google.com>, 
-	kernel-team@android.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818-iris-fixes-dma-pseq-fint-v2-1-8dc8c4b3880e@oss.qualcomm.com>
+X-Proofpoint-GUID: 47ujSi-8XeaOQ5gE0U4ZBr9SQzEjRSa2
+X-Proofpoint-ORIG-GUID: 47ujSi-8XeaOQ5gE0U4ZBr9SQzEjRSa2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDE2NyBTYWx0ZWRfX1D+v1p+rD9EJ
+ JIdiC1+MpJxQSgp7XJ3qDZGLcs5MXaIt0LU1ovvKO4iSaXygZLRLFnY2RvVHU2jNS1t0czE45KO
+ 6nyRJL92GN6HWlgIcIpioEDTKvdeOqujsHIb7ZUCluoV00ifxcrCccwoeaglt+FGTcjm5dq2TLN
+ 3Lde263jnCgEDXjNHHdTN0hCuNmxrwZsAzeKiPJbIDlGJ14S8OzTzDULJzjFYDXOOtWXfHjIFX3
+ hZwmfkHtzNVBgux+Md5WWmd+aTVHgUpgVnPLVoolAW5WbkdHYB264lavFKEqKzNK9DnVSLEFWNz
+ ciEXZWvfosAe5bi/5NTuzW5lRFbIcnn7o3TB92VZbhPFdoaJEPcSW0Fj0doO7Eg5M8rY1fCuwsg
+ XbWpn5mZnCez5/T/VWJdz+9SNz954H3eD7n0IIxD6IaxfSY9WAMgIbDrFkeHiA+g2dzosKOHMtA
+ 1xqbimNQEctjOZT2zoA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDE2NyBTYWx0ZWRfX0mWPeGxeQFWD
+ 0itDZkRjgt9eVJnVSA9482Pi24CQ5cpsyVtpmLeTIbwFPKs5OtPhy2yi3ezWdBibrPMsYW3eYaV
+ 7c/k745IUB2tPjqvmgc11TfJ9Ue2bSo=
+X-Authority-Analysis: v=2.4 cv=fvfsol4f c=1 sm=1 tr=0 ts=6a84dfb7 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=bEbGTSNP0X9rcrhJXtEA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-18_04,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0 lowpriorityscore=0
+ bulkscore=0 spamscore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180167
 
-Hi,
+On Tue, Aug 18, 2026 at 09:24:14PM +0530, Vishnu Reddy wrote:
+> While testing with some higher resolution clips, the venus hardware
+> triggers a fault due to wrong input data being received. Corruption
+> was also observed in the captured output when the client dumped it
+> to a file.
+> 
+> On debugging, found that DMA buffers shared between the CPU and the
+> venus video hardware/controller are not in sync. CPU writes to an input
+> buffer can remain in CPU cache without being visible to the video
+> hardware when it reads the same buffer, so the hardware receives input
+> data that does not match what the CPU wrote. Likewise, on the capture
+> path, data written by the video hardware to the output buffer may not
+> be visible to the CPU, so the client reads stale or partial data,
+> resulting in corruption.
+> 
+> Add dma sync API calls to synchronize the data between the CPU cache
+> and the venus hardware/controller.
+> 
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_buffer.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
 
-On Thu, Jul 30, 2026 at 4:32=E2=80=AFPM Doug Anderson <dianders@chromium.or=
-g> wrote:
->
-> > > +     /*
-> > > +      * The Pixel bootloader considers it a fatal error if it doesn'=
-t find
-> > > +      * a `ufs0` alias so it can add calibration data to the node. U=
-ntil
-> >
-> > Fake node is ok, but alias won't fly because aliases are not allowed fo=
-r
-> > ufs. Well, would work 10 years ago, but this is a device from ~2025 (so
-> > SoC maybe a bit earlier), thus Google already knew that they MUST talk
-> > with upstream open source maintainers before they ship such ABI.
-> >
-> > They did not talk, so you reap what you sow.
-> >
-> > There is no more excuse for a vendor to ignore open source and push
-> > whatever-ABI-they-wish into their product, if they ever want to upstrea=
-m
-> > that product.
-> >
-> > I know it is not your fault, obviously. And I know that not much you ca=
-n
-> > do, so that is not rant towards you nor towards Doug.
-> >
-> > You will have to keep this part of patch out of tree or fix the Pixel
-> > bootloader.
->
-> FWIW, it actually _is_ a rant towards me, since I added the "ufs0" alias.=
- :-P
->
-> When I was originally bringing up Pixel 10 with upstream, the
-> bootloader had a hardcoded path to the UFS node. It looked for it at
-> "/ufs@3c400000". That certainly wasn't going to work. Downstream
-> _still_ hasn't transitioned to having a "soc@0" node to put all the
-> MMIO peripherals under, so the equivalent upstream path would be
-> "/soc@0/ufs@3c400000"
->
-> Now, I certainly could have made the bootloader search both paths, but
-> that seemed bad to me because:
->
-> 1. As I understand it, DT paths aren't ABI. While it feels unlikely
-> upstream would change "/soc@0/ufs@3c400000" to something else, I
-> believe upstream would feel free to and not consider it a "breaking"
-> change. This makes it feel unwise to hardcode the path in the
-> bootloader. In the past, upstream has renamed nodes to clean them up
-> and it wasn't considered a violation of the sanctity of the
-> device-tree ABI.
->
-> 2. If #1 is untrue and we consider DT paths as ABI, it's still a bit
-> awkward. We have one bootloader base that supports multiple SoCs. The
-> unit address differs across SoCs, even though the IP block is nearly
-> the same (bootloader still adds the same type of calibration data to
-> the node). The code I started with had a bunch of #if statements for
-> the paths in various SoC variants, and that went away with the alias.
-> I suppose the bootloader needs to know the UFS base address anyway so
-> I could have probably constructed the node name based on other
-> #defines, but it still was a bit awkward.
->
-> 3. I certainly could have searched the whole device tree for the UFS
-> node by "compatible" string, but the Pixel 10 (and future) UFS
-> controllers aren't upstream yet. We wouldn't be able to land the Pixel
-> 10 device tree without the UFS bindings landed yet and I think we're a
-> bit far away from getting the Pixel 10 UFS bindings landed...
->
-> With all that, the "aliases" seemed like a pretty clean way for the
-> bootloader to find the UFS node. It also matched my understanding of
-> an appropriate use of an "alias".
->
-> Any suggestions for how to resolve this? Do we go back to hardcoding a
-> path in the bootloader and cross our fingers that upstream never
-> cleans up anything that changes the path to the UFS node? Would it
-> really be terrible to allow a "ufs0" alias for this case?
->
-> As a side note, I did "talk" to upstream shortly after adding the
-> "ufs0" node by sending the Pixel 10 patches upstream, but I guess we
-> were so focused on the overlay topic that nobody thought to comment on
-> the "ufs0" node? At the time, I'm fairly certain my resulting device
-> tree files passed schema validation at the time, too...
+Missing Fixes tag
 
-I guess no response / silence =3D=3D my email was so dumb that it wasn't
-worth responding to? Even despite that, we still need to find a way to
-move forward, so popping back here...
-
-I did some digging. As far as I can tell:
-
-* Nothing in the DeviceTree specification 0.4 [1] mentions that
-aliases are deprecated.
-
-* Nothing in the dt-schema repository [2] causes validation to fail
-when you use new aliases and there is no "allowlist" of old aliases
-that are allowed for historical reasons.
-
-* There is a single reference in the kernel "Documentation/devicetree"
-about not using aliases to assign an "instance ID" [3].
-
-Is there some other documentation saying "aliases =3D=3D evil" that I
-missed? Maybe some email thread we're all supposed to have read?
-
-Is the only issue here the fact that the alias ends with a "0" and
-thus implicitly provides an "instance ID"?  Would it be OK if I
-changed my alias name to "ufs-primary" or "ufs-internal" or "ufs-boot"
-or just "ufs"? We're not using the alias to get an instance ID, but
-when I added the alias I followed the pattern of all the other aliases
-and put an number at the end.
-
-I'm happy to attempt to fix our bootloader using whatever scheme
-upstream suggests. I'm trying to "talk to upstream" as requested, but
-for it to work I need upstream to talk back. :-)
-
-[1] https://github.com/devicetree-org/devicetree-specification/releases/tag=
-/v0.4
-[2] https://github.com/devicetree-org/dt-schema.git
-[3] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3D6a57cf210711c068a650bd86acae4a88303dfd5d
+-- 
+With best wishes
+Dmitry
