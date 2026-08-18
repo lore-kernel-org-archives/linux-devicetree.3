@@ -1,224 +1,225 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBB346D2CE
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 12:43:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787057020; cv=pass; b=kuqpI+9S6AigrPwcy6gmMmeuGcR7uTEU1j/nCRW9x4/Y0R9ZGpY932BrViAEVnHqvXqOOIK7qW4kLmw+qSV10cRnvaKZsMTAMYVh2awudj06GQkc8l25/KBy/DvlZGMfCQcpH+VUlxvE7/Xmm9Yi6VDVQI6LJW+fhQTpUoL2YW0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787057020; c=relaxed/simple;
-	bh=KvVSYGZR4H/ph+5AJPdcVXh8oAtFOdEboWyWMQxt8io=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q+bczFt3nzVj3rR7FLIjK3rdHHr7Lr6Cjlp1asZMRXoXvD2w1Bxy8bhQiVNjgWHgJRMnsA4q2o/qMi0h9eE6bWlwqRov8mUusYVqQHlQmrZtYilBdknns+f45D4Ujx3iLSwQOF0hwmCdlHSNcnYmxl0BIoozGgC/p3uZBJzOpyU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M2RqQeKv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fNYfFpBZ; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A258D46EC8D
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 12:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787057636; cv=none; b=VuKP7yVv66mqY7ixzg95nm+lUNZHSwM1iEjLF6NWdJSnrRL21Qk40qxsn0iCfxPsUFt0LDv9ZvT9QrGZ06gmCAFq8+7hWIzTDK/lYKPf/qk5Z82Llvgt2xAHz7ZqzmZc05igc/Ma468T2FYVVdhwYBzfb5t73R8ARh/z3cxN/78=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787057636; c=relaxed/simple;
+	bh=EL3KK8jlLJGv/DFviAz1KFPEh1vXG+ZrypDU0NDk9Lg=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=XicKHy2hRhMogSQCgOmvqE2eJd2N3w8Cr3et1rVFIzNIeke+2OmP+49WcQaUIf0GXWeHp3fEFmA7tFNzdxOrGHwks3fSCyfZD8sFN/6buttIc2hkWgQ9T3X5vK8tAxJHXVp2aUFcdKWaGvsxbWVLsw4tcB9I2Hl9ULRjPEbnvew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=o6OWqhPH; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M2RqQeKv";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fNYfFpBZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787057018;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=J9G3iSxs63cmwbUmYiEX69zc+tabrPwShtlbbS8QAMw=;
-	b=M2RqQeKvA6wPOmv6JTiZRZpVpuHMfdnBskO2iqrlGVvHmy9xjOEWGZn7c2kX6BzEDL7CDs
-	U7TgNUTg5qC+pWDXE+Achb/YYWVClXoN7Dum5VM7bcxfSN79h3RHuTs4T7Wj3Lv+qXbjTH
-	Nb1QJE2vB1hmPqD0yBmSDuW+9leMXB4=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-375-7wqAQbDsOsCfwKag9RkW8g-1; Tue, 18 Aug 2026 08:43:36 -0400
-X-MC-Unique: 7wqAQbDsOsCfwKag9RkW8g-1
-X-Mimecast-MFC-AGG-ID: 7wqAQbDsOsCfwKag9RkW8g_1787057016
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-836c89e6ab0so65428057b3.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 05:43:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787057016; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QgPRwN2mCi+L6O2sY9QU0vO3OzhszuIcLUM2HISbwsiGrfHIE611G006IXpB5Kdnby
-         0TmAt+DDV0rph/gVEXsV4Be+7B9X6gBQogZP1IjopsG4PljjoMCSB0h3ukGl22XlJ7vl
-         /WBKT1T1X2wu3ToTaE2lbY/v9ls9OhGc1Al5fiKUZ1iBWcCVZRlWiP5dEFbLkBOBV3xh
-         +gWdUF5d7zwwI0sCD08LKAQSiSonAQOBhanzaFcAspK1NX0nuCPocr5xEMNauI3PfV8Z
-         /HurIdaY+3Sc3e0kS6HhRDpIH+Jq7NHdJep20/ehAffYIMI3oykfhLBGiY5HBgx+Ialu
-         IA4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=J9G3iSxs63cmwbUmYiEX69zc+tabrPwShtlbbS8QAMw=;
-        fh=Fm/NSmk8Hxu9crfM8TuHOmIYLlNaOrYwmTQU0XbvI+4=;
-        b=WMoQ18h+JgDKnlO3sxGe/BZH0y9CVpZr/Px0Tb4IfpSuGjhyEiZbkT64MFTjJuQU1G
-         PAkvgASFR46v4dxL0inVwGkc878P2mfAdWs6hISWx2/wleDLISHRySO18EVbxcDOfQG/
-         lp3s82zoFxBIQ7lDS6S+DX+lEuCpXq5yxc6Pl7LynY6MUhc/t8mw2GkKzZC/HqXUdlPJ
-         SkjL0r7II2MxlIDvowamg7EIrv4l+WEyzvaDdjfYLeD8D8WP/kx3jJ9WjBzWYeOInkFh
-         vKxIME6enqMT0p/xXKQpbxmwgiTxSEuAhmIhZg0i4GfINfzwQYOJUcpadNc+OoRymkO1
-         7ceA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="o6OWqhPH"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4954f5e8020so24304425e9.2
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 05:53:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787057016; x=1787661816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J9G3iSxs63cmwbUmYiEX69zc+tabrPwShtlbbS8QAMw=;
-        b=fNYfFpBZYu8H5ftkMZ/AC+xb2CJgyYksfh7Hb/UINmRk3U4IKUEVBrrVVngiOHroBs
-         aHKr7afrQHC8wPUg42lTgaGZfyTVwVTx/ssE8fPpmk7cv9bb5hQpe0XPXh9vbpE11IL5
-         o2gJWyINAWygpqWWKR1SeOR+X3YEtg3H0FoaPQQ42lfPKHJSthDqSuCaEJSD87ftMLii
-         HpO+TtQY0TeiswExh2QLgw9Tk12u2ZLVu0N+1k6jkZoajS74/icWgp7HCCWKQbCYyw+J
-         TLk70tKb71Ufowbm5BDMSRkF7hceHU/jd07k8gGGdj984fvy38L7BlokiDvMDclHUjPc
-         Zr/w==
+        d=baylibre.com; s=google; t=1787057629; x=1787662429; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xrJlFSriS8B2b9nn703o+fJtCUBgBFvDtgFvMr5LkkY=;
+        b=o6OWqhPHyYA7nrbWE6O90n6G6Iyo16zRQDQvfNN43Z8ElEKKHwd1kHBeKb8opmYxqx
+         Nh5rFaj3jzU2H8lMRmjw9HoODuQZvv09VzcNV3SZyNHkoMHQcfYsErrIcVaN6IqVS3my
+         iR+PHzi1BavcIkpsM4XmFZI/tteu0g3lDtZwNIA8eBNCusnhz/0KzV26BRb75YGZ+3/C
+         1jqPUGNewO+iYsYNHQTta02fTfm3UEnsbbznCI/biKdg9qoXB9T/2OTvzFxUKcZVfRFM
+         zLsTw1RTZI7RUQj14P4dDqpu+ZdCasR0r1WzxhWtQ8F8rafTzG9AbePcN1vC6X31jNh1
+         zqFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787057016; x=1787661816;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787057629; x=1787662429;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=J9G3iSxs63cmwbUmYiEX69zc+tabrPwShtlbbS8QAMw=;
-        b=F564O2QSqurqrdzFV4svbWnZ6Zuw6rkW8r/gq4t1KRndfDkhFng9NS+jZyKTjPK1z9
-         oFpLxlqVhMBlRjeQqllGziBSHZqcdm+CwrBtilVDNtEVb++6o5o+yJP9HPXTjBv0B4AZ
-         /4CtNuMzFR9lzf6Ixcuz+Q26r3EjoP0MfS7Sg2AIis2x4jzuup/QpkMUi+3gpwc9w7JW
-         ttso8GXKzMzlatTaVGWVcEpu74OGX9LQaYpBKKqUIA3uA9yMz8Vx8uCMUapV9cQBmUhx
-         VBo4s2j+Tlo4CLUHr5us1j9aErTqm5QIBXHVwQbIsA13818RCj239ttiSVeGzLp71E3R
-         QrwA==
-X-Forwarded-Encrypted: i=1; AHgh+RoaQrvXRF++AaV60Ekdmo8CMj6xZnQ9cIS/BsWOZlxmi/td7vInVVX5Im86/r7rgRq1/dXocBMQPS0q@vger.kernel.org
-X-Gm-Message-State: AOJu0YwiG+w2XTvBO5aNFbkhLn2QgXEROEhbodEWsJexv3mnqcggL7Gp
-	nU8sbxqqjRlWXlX1xckd9/+aXK5ndLr3xkDc49tN7EdhE2C2Bg+pOPq03I/7JdmwNOp3IpuvupW
-	OmP0BfNHiYmlP32BhwvRL1PCwhtz8D08PgIpYBVifEo9KkUBCjWfOKg+gGVDll7ruWzX/oFHBj8
-	QiWImM2JBkG9Es1YXa4A2xyvhscjE+GTNxJQvN5Q==
-X-Gm-Gg: AR+sD12GRH0SAEiC+z8SJq78LKhSRC+SiJntwGVXkwziGfhSl0wl1OA7eE7kBf0/nrx
-	k3MikIdVzGO4fYV2AYvDvZCN/gCTlqc18AWg7xANIArAstGz9qiEa0pA4z5/JwnXBNgrKS19bz6
-	LwT0/nIHsEubUKufX2pGuUrb2erqxDWAg+NJ/tLAkw60JEVdUdLch5wQo=
-X-Received: by 2002:a05:690c:6807:b0:81e:45a6:bd5a with SMTP id 00721157ae682-83707af976cmr125335317b3.0.1787057016202;
-        Tue, 18 Aug 2026 05:43:36 -0700 (PDT)
-X-Received: by 2002:a05:690c:6807:b0:81e:45a6:bd5a with SMTP id
- 00721157ae682-83707af976cmr125334917b3.0.1787057015697; Tue, 18 Aug 2026
- 05:43:35 -0700 (PDT)
+        bh=xrJlFSriS8B2b9nn703o+fJtCUBgBFvDtgFvMr5LkkY=;
+        b=WRYDkHjD+BebMlminEulClTURqpB8AIhYWNiKFTyITASuX3egXaHwBLdFeGJQjXK5u
+         qqgCV6oSmSIcJ8FQk8MV91gZHyqW+vgrwiT/zvopnPG8Ugx0Oxs8+DNzk+b1MzuxwIiH
+         UxmIzQH8qg5f1kKy9jH+owflOreootf89SxHUPYoo9afQc0W2xqtD/arxq822cl39FiF
+         +c8iRzX3PH3VIwUhUWzZoIyU1F+J5QP6FCiUjelrtb7mDUsKke/H271NBhcnEVuruiDx
+         ZpamoFRtap3jWa485RLFSvNV+NSl/VgfjsHQ2fcdLDYKPdNmonLt8rXFdE1Ear6asJNI
+         BSCA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpu7QSXpvgGN+30kbWUctNwhqvLqt6jrhZ5f+c0tC/3GZkms+B1rqkU11ICsFVjRa2DtRH//VBnocsY@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJfTPOsREdgZYUs7kWZdIrxqTNTHFYKTexZ+XfgGS2mtkSdaT1
+	FTovBzCI5Lnb5zDzbZAJJ+o5WW4BtvWw+y/CN/Xo5P0DM+jgjHS5larhIcJ5peyPHmY=
+X-Gm-Gg: AR+sD10tZVITNSEqqTLNEKJ/GyKsoGUAo9SKKXJEjK3gaKopoBaVHFk8nkL6qCu9R2V
+	OTQzVSfF1Cjw6UHTWcRU1BAXbxgIZOBjv3uWqMy6kMq3V7OJhe1fRyEg8KkPaHlc98IEeq7sBYO
+	ZeRr7W0zfTw/w7G6bAKpPJ1c8Sh8Bgvz+iVZ5lBuo8x0J7YBGVgReBZqB5ztJ8amvt06jDiOuzP
+	w+uFu3JY5vHGqZSwWHD6pgh6E4yzjePhaOp2SbjSCVS2Uf3KZExAB7ZZfJdWO7cCCS3oSKNb9iT
+	a5pGP+Q5M1TMQFLeeZRRP8SiCZNxRX+6LrYH389y7yK8RiwRoZwyI6m3Hd5LQZZpbz40SEqc0Ey
+	gXLIyjA0HMSn6WlIhSVPTV+BmBj/x9sdVpOkl1mzHKqP/qBgbAwz/syTVTxhC7y4AsvrJ4VT+wb
+	TGGqFWVPE4VMHQuKQBDZjv7LHOBcP9XBQlFSdiHk+03zvjg1B2CS5f9NZMUU8JjALCCUeUQMjOJ
+	turXhlXEYWkzc2cKFGClx8=
+X-Received: by 2002:a05:600c:4fcb:b0:499:5a50:b022 with SMTP id 5b1f17b1804b1-49987928d0cmr559638885e9.3.1787057628879;
+        Tue, 18 Aug 2026 05:53:48 -0700 (PDT)
+Received: from [192.168.5.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49996183b89sm299651425e9.12.2026.08.18.05.53.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 05:53:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817-drm_panel_bindings-v1-0-1f974508a31c@redhat.com> <20260818-encouraging-lime-kestrel-d0d819@houat>
-In-Reply-To: <20260818-encouraging-lime-kestrel-d0d819@houat>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Tue, 18 Aug 2026 14:43:24 +0200
-X-Gm-Features: AcwNN1Xf5TcQWb8-1dGKED6s68kinvfHK33o_OU_E9S6-z4zydpISHNRJ6-TMKU
-Message-ID: <CADSE00JgK-CYnBiCA8aB2tGXG2CqC-zB_Tvz3eU=2ap00th3bw@mail.gmail.com>
-Subject: Re: [PATCH 0/5] rust: drm: add panel bindings
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 2/2] pwm: meson: Add support for Amlogic S7
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org
+In-Reply-To: <20260521-s6-s7-pwm-v3-2-57b073fbafef@amlogic.com>
+References: <20260521-s6-s7-pwm-v3-0-57b073fbafef@amlogic.com>
+ <20260521-s6-s7-pwm-v3-2-57b073fbafef@amlogic.com>
+Date: Tue, 18 Aug 2026 14:53:50 +0200
+Message-Id: <178705763029.1733024.16040030322013834677.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5071; i=amergnat@baylibre.com;
+ h=from:subject:message-id; bh=EL3KK8jlLJGv/DFviAz1KFPEh1vXG+ZrypDU0NDk9Lg=;
+ b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqhFXiSMDykhwqFRJyduNIxl6nWCcthhpZK54QI
+ uixLX9cm7CJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCaoRV4gAKCRArRkmdfjHU
+ RU6KD/929yysdZ0oy7pCYZQi5pEUo3qc1BezyULQNpqFYVX3DhBL2qRZwSH0duBSBHX6wcYgycX
+ l99l9rgeS4epETHlQL/RupF7OQUg4EBRSwqK9OlmGCoeH1riPQn/a26u9eM1ASZv52rXAlnwuhE
+ FVkGD1WwaHId+1+m981ZQt4CW1Lhpm7cuZBWa5MFz9CyJDPPFI8enNNgXAkKLMCg/wB1G+SE8fb
+ HBNtU1bgs/4eYvrWZXR582cxanrPghjFrKwwW679F7SX5RcoOMyNNH9Joud9V/CGozSYZachWqo
+ z7TiauCCUl3QKSWeRifkmXWzlzOub2rG3LWpFk5RrFsPaPOjBO+xzTla0cklgz+dBKl8grJIbzV
+ lGhVYlrqrxWBdP4fVlpH7/oNOraWK1gSa9ZqEa5vtaV4n/XNb9m2wHbwsRCb7JKhW3jmHlAlZZq
+ c5iNwGJrhfDM9X/oFTaff3iUBGK1Qp00l0BEPF/USBmP8xjLTQWAnXYeUpmifG5ZYyWmmyHdH0G
+ 01ulg6mfGWildgEWaIOIZ3qpwWFoGzR03uLn467Towkf8KgcIoWSCpMBf9TN96P4imyabxrbEWl
+ 5DfBXWJ2vu5Z0CPr3HF26gwp2tebeItZSU/x+CONYLwB5GO58NfzvYaL3eY3ZePY7IxNBpEeitM
+ 4o/65qEn7zxOG9Q==
+X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
+ fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
 
-On Tue, Aug 18, 2026 at 1:45=E2=80=AFPM Maxime Ripard <mripard@kernel.org> =
-wrote:
->
-> Hi,
->
-> On Mon, Aug 17, 2026 at 01:40:45PM +0200, Albert Esteve wrote:
-> > This series adds Rust abstractions for the DRM panel subsystem,
-> > covering both the consumer and producer sides of the API.
-> > This helps closing the gap so that future panel drivers
-> > can be written directly in Rust.
-> >
-> > Background
-> > ----------
-> > The DRM panel C API has been progressively hardened over the past
-> > year (see [1], [2], and [3]). All panel drivers were fully migrated
-> > to kref-based allocation via devm_drm_panel_alloc(). Panel lookup
-> > functions (i.e., of_drm_find_panel() and find_panel_by_fwnode())
-> > were also updated to acquire a reference before returning.
-> >
-> > Note this series depends on [3] being merged in the base
-> > tree. Currently it has been only applied to drm-misc-next.
-> > The other series mentioned above are already part of the
-> > base for the current version of this series.
-> >
-> > As a personal note, part of my motivation for creating this series
-> > was learning more about Rust in the kernel. I would appreciate
-> > feedback on Rust-specific idioms or kernel conventions used here
-> > that I may have missed.
-> >
-> > What this series does
-> > ---------------------
-> > Patch 1 adds of::Node, a Rust wrapper for struct device_node
-> > implementing AlwaysRefCounted. C helpers are added so that of_node_get(=
-)
-> > and of_node_put() are reachable from Rust independently of CONFIG_OF_DY=
-NAMIC.
-> >
-> > Patch 2 adds drm::Connector, a minimal Rust wrapper for
-> > struct drm_connector. Its sole purpose is to provide a typed reference
-> > for the get_modes() callback argument; no ownership or refcounting is
-> > exposed at this stage.
-> >
-> > Patch 3 adds the consumer side of the panel abstraction:
-> > - Panel wraps struct drm_panel and implements AlwaysRefCounted via
-> >   drm_panel_get/put. Consumer lifecycle methods are exposed as safe wra=
-ppers.
-> > - PanelOrientation wraps enum drm_panel_orientation and provides
-> >   from_of_node() to read the "rotation" device tree property.
-> > - Registration manages the panel's presence in the global registry
-> >   via drm_panel_add/remove, decoupling registry lifetime from
-> >   reference count lifetime.
-> >
-> > Patch 4 adds the producer side:
-> > - PanelFuncs is a #[vtable] trait that panel drivers implement to
-> >   provide their callbacks. All but get_modes are optional.
-> > - Panel::new wraps __devm_drm_panel_alloc, returning an ARef<Panel>.
-> >   Registration with the global registry is kept separate via
-> >   Registration::register, following the pattern of drm::Device::new.
-> > - ConnectorType mirrors the DRM_MODE_CONNECTOR_* defines from
-> >   include/uapi/drm/drm_mode.h, required by Panel::new to specify the
-> >   panel's connector type.
-> >
-> > Patch 5 adds gated tests, covering data type conversions and layout
-> > invariants.
->
-> So while it's definitely welcome on principle, I wonder if panels would
-> be a place to invest in at the moment
->
-> The series
-> https://lore.kernel.org/dri-devel/20260814-drm-bridge-every-panel-v1-0-19=
-cd5277cc8d@bootlin.com/
-> is likely to move every consumer to use bridges exclusively.
->
-> https://lore.kernel.org/ksummit/0fa2fb42-0714-49f7-ba43-22928e1dd488@lina=
-ro.org/
-> raised a discussion that the panel API is very limited at the moment
-> (while the bridge API isn't, or could be much more easily extended).
+On Thu, 21 May 2026 08:26:59 +0000, Xianwei Zhao <xianwei.zhao@amlogic.com> wrote:
+> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
+> index 8c6bf3d49753..66c41bf036de 100644
+> --- a/drivers/pwm/pwm-meson.c
+> +++ b/drivers/pwm/pwm-meson.c
+> @@ -503,6 +504,18 @@ static void meson_pwm_s4_put_clk(void *data)
+>  	clk_put(clk);
+>  }
+>  
+> +static int meson_pwm_init_channels_s7(struct pwm_chip *chip)
+> +{
+> +	struct device *dev = pwmchip_parent(chip);
+> +	struct meson_pwm *meson = to_meson_pwm(chip);
+> +
+> +	meson->channels[0].clk = devm_clk_get(dev, NULL);
+> +	if (IS_ERR(meson->channels[0].clk))
+> +		return dev_err_probe(dev, PTR_ERR(meson->channels[0].clk),
+> +				     "Failed to get clk\n");
+> +	return 0;
+> +}
 
-Thanks for sharing all the information and links!
+This adds a fourth channels_init callback, and after the series
+pwm_s7_data ends up differing from pwm_s4_data only by .npwm and by this
+function. Would it make sense to share a single init between the two
+instead?
 
->
-> This is supposed to be discussed at plumbers, but I seriously think the
-> outcome of that discussion would be to just deprecate panels.
->
-> Bridges would be a much more long-term-proof investment.
+What blocks reusing meson_pwm_init_channels_s4() as it stands is that it
+needs an indexed clock lookup, and there is no devm variant of clk_get()
+taking an index, hence the of_clk_get() + devm_add_action_or_reset()
+dance. devm_clk_bulk_get_all() (include/linux/clk.h) is however both
+devm-managed and index-based, and of_clk_bulk_get_all() is implemented as
+clks[i].clk = of_clk_get(np, i) (drivers/clk/clk-bulk.c), so it performs
+exactly the lookup the S4 path already does, only with automatic cleanup.
+Something along these lines:
 
-I picked panels because I had recently worked on their refcounting
-improvement efforts. And even though I saw some comments in reviews
-hinting at what you pointed out above, I did not connect the dots.
+ static int meson_pwm_init_channels_per_channel_clk(struct pwm_chip *chip)
+ {
+      struct device *dev = pwmchip_parent(chip);
+      struct meson_pwm *meson = to_meson_pwm(chip);
+      struct clk_bulk_data *clks;
+      unsigned int i;
+      int num;
 
-I will certainly pay attention to the discussion at plumbers. But for
-this series, I'd be happy to drop the panel bindings and switch to
-bridges for the next version.
+      num = devm_clk_bulk_get_all(dev, &clks);
+      if (num < 0)
+              return dev_err_probe(dev, num, "Failed to get clocks\n");
 
-BR,
-Albert
+      if (num != chip->npwm)
+              return dev_err_probe(dev, -EINVAL,
+                                   "expected %u clocks, got %d\n",
+                                   chip->npwm, num);
 
->
-> Maxime
+      for (i = 0; i < chip->npwm; i++)
+              meson->channels[i].clk = clks[i].clk;
 
+      return 0;
+ }
+
+chip->npwm is usable here because devm_pwmchip_alloc() fills it in probe
+before channels_init() runs, so one function covers npwm = 2 and npwm = 1
+with no variant-specific code, and meson_pwm_s4_put_clk() goes away with
+it. A future variant would then only need its .npwm value.
+
+The count check is worth keeping: of_clk_get(np, i) currently fails probe
+with a clear message when the DT node has fewer clocks than expected,
+while devm_clk_bulk_get_all() would simply return fewer clocks and leave
+channels[i].clk NULL. As clk_prepare_enable(NULL) succeeds and
+clk_round_rate(NULL, ...) returns 0, the problem would only surface later
+in .apply() as a confusing "invalid source clock frequency". The check
+just preserves the diagnostic you have today.
+
+There is a similar use of this API, count check included, in
+drivers/pmdomain/amlogic/meson-ee-pwrc.c, in case it is useful as a
+reference.
+
+Since this touches the existing S4 path, it would probably be easier to
+review split up, roughly:
+
+   1. dt-bindings (unchanged, keeps its Reviewed-by tags)
+   2. pwm: meson: make the PWM count driver data -- add .npwm, fill the
+      existing entries, use it in probe, and switch the loop in
+      meson_pwm_init_clocks_meson8b() to chip->npwm. No functional change.
+   3. pwm: meson: get per-channel clocks with devm_clk_bulk_get_all() --
+      convert and rename meson_pwm_init_channels_s4(), drop
+      meson_pwm_s4_put_clk(). No functional change.
+   4. pwm: meson: Add support for Amlogic S7 -- reduced to pwm_s7_data
+      with .npwm = 1 and the of_device_id entry.
+
+That is clearly more work than what you have, so please do push back if
+you think it is not worth it for this series. And if you are keeping a
+separate function on purpose because devm_clk_get() is where you would
+like the driver to head, that is a perfectly good answer too -- I may
+well be missing context here.
+
+> @@ -530,6 +543,7 @@ static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
+>  static const struct meson_pwm_data pwm_meson8b_data = {
+>  	.parent_names = { "xtal", NULL, "fclk_div4", "fclk_div3" },
+>  	.channels_init = meson_pwm_init_channels_meson8b_legacy,
+> +	.npwm = MESON_NUM_PWMS,
+
+I suggest use "2" instead of "MESON_NUM_PWMS"
+
+> @@ -642,7 +672,11 @@ static const struct of_device_id meson_pwm_matches[] = {
+>  		.compatible = "amlogic,meson-s4-pwm",
+>  		.data = &pwm_s4_data
+>  	},
+> -	{},
+> +	{
+> +		.compatible = "amlogic,s7-pwm",
+> +		.data = &pwm_s7_data
+> +	},
+> +	{ }
+
+Small nit: changing the sentinel from "{}," to "{ }" is unrelated to
+adding S7 support. Patches tend to be easier to review when they carry only
+the functional change, so would you mind dropping it, or splitting it into
+its own trivial cleanup?
+
+-- 
+Alexandre Mergnat <amergnat@baylibre.com>
