@@ -1,133 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325E947ACF7
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D809E47D444
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787070450; cv=none; b=liFxfe3Jf1Rm/A5luqIcDLmaH2u5UlPYRHMylMKvI0hndBRfGT+RWD6kTaK9VdAAnYJdBVDUg6dJSYvBN7/u1qQMxOd0kZFEVhrUycJNSyr9IMza3J2BpSGJCu0NN+7Fs6zurrOTD29SjqO4F1iUyQLv0jGaDuUIi/F7gDxz2Sk=
+	t=1787070608; cv=none; b=gWOVEycUW8OaorOSZpLrKqkpWnHGumpvHYiwXSNEIm4E9ynjT8OXiyDKMTsOtgM3WY5oErpNAydoHOlAs/28HHgKL1SF9hJLb4ZOw14DNcjqbo3OFByUFYhv4dd1p0SoyxAsdgr/nNaF+xrz0P4O0k2GZWodDb6KVIUchx8nxOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787070450; c=relaxed/simple;
-	bh=Jjp+6mUGNlrMHPyFLwXFoz5nt+sYNpMEnQmpxWxEatY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gQc3yAa5hLfS6ImOiHvwb+hmsLZN6Tg9+MKhvayUZum28im6rd0ZTo5hJJud4SIS+IorwaxL1TUDHF7AsaM6XuLJlGCM33oMYLg7Vwo+A0RfIEszOHE4quynVb6rl0HuodTcRyK0oWEsd2YS5tMyv4UqhLDHnq918a/fN+FMvis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tc+vqzuV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787070608; c=relaxed/simple;
+	bh=g4k2aXYIo36Ew7H+TbCS3tO4JFkwuDU+c0fAj98kaJA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VzvqAL9E/OuvUvU4ATlTmDiQxybAglOdm1gVUbmtQSbn/IgBxB/KypW9Zs1tTQp1BfPch6vMWLuPlxWOSPntcxr2X6kVLO67/gh2ykR9q5UM8eJIRSCEr0wg1/k07h57rsntzxEJpI0jh30UhazkrRMP3tu/j7OskGMSUt7joDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SaQ7yg6j; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tc+vqzuV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1141F00A3E;
-	Tue, 18 Aug 2026 16:27:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787070449;
-	bh=xeyy0Az7g5+iEOjzyawMBEN8I9CftlyVSidDG/pM6vg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Tc+vqzuV6/QaNrPNuPhnZaGVQT1ZcmbJljnlqg4HcsYQia0PbL3gly+fgAT131ujl
-	 1bNPp9ZsZrJXLnXxZhyoEXMXwhBFlmbAWIkGPAPqMxxTRDT71ObyKZPw6o9q3eJoNI
-	 81UzzvtAquDulp9pgB8Yoqfdh1uqB2Q+i/nO9QTM95udXGKX5ItxF/TBkwnTWdWz7D
-	 np0TWEoq9SPoYeP8Veb4/pQeo+qA4NGGHUo5fwouc44UW2TEhZwXod1VHSZ1dM2Inf
-	 pM4pRcHW+tIJxFbZlE6DRqF8PN5njyje5H3jQX23jZgUGDJe2Scv1TQiayncb46Jof
-	 b66GOxq9vrmZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open up
- C22 and C45 space in parallel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260817162632.1208891-11-markus.stockhausen@gmx.de>
-References: <20260817162632.1208891-1-markus.stockhausen@gmx.de>
- <20260817162632.1208891-11-markus.stockhausen@gmx.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 16:27:28 +0000
-Message-Id: <20260818162728.DA1141F00A3E@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SaQ7yg6j"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-381f03d7be0so15868a91.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:30:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787070606; x=1787675406; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YvzMbI7ll7PZPIXTGV6gvIp3oWnAUf7XykW0gyPpQS4=;
+        b=SaQ7yg6j2UFtOih+VfesyyPuegnxgXN//1NGXl1fPYYjRP/7BazgXFWY017s47+7+f
+         E2t87xnoL3d07zocDpxK+XHpsJmDh1SXnZ/vfRtmjUZYpOKRpTkD/zMkF7vgeuvYnX8K
+         Ar9qTT7MkYpoyRuxFjB38+h8MsIjyQXR1kR2MZ7jwYS7uAXpH+x5LF1iE9g9vZhdwWf+
+         iy+FVlNTnHRyctxzVBfdbupPqeSKj0Arhd4Xdw/DX5asbzJWZ4fpjK5HAjjhC9lBbIoD
+         pn6Nkqp6hMX332Rkt3Dc/S7KAGKpSrSuWZ6xOWRebGgpUCCm2h2iEs8/EEAIvirnOxT0
+         aYUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787070606; x=1787675406;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=YvzMbI7ll7PZPIXTGV6gvIp3oWnAUf7XykW0gyPpQS4=;
+        b=FRdPOIViQsdNVSNI2+BdDzDwoPXwg8VteYGOuUeR9ZQu6VUiLWFH1ZHM67X9QyHFp6
+         7VBFxuBZzI4IXDfaLVteZyAksaPZ2ALDvXdo1aNhMeENjbvZmjqVclwUJXd+oDFz3dB+
+         FFeyPRl+ua1B5Q5PBdFAIYiQHli+qxop3tVMilVYrKi1Lea5iVt2RMbhvLBAywjHv5+v
+         Q2FzplA3QDMAy/tMw0+MVVMIEOciDMA91rg1dBnTRzJGwVACGLnY+QLniXVAwuBJx3ym
+         kc3gufujvvrbDpXcUlNP6csoskbqd+nQHAD6ZAO7QBf3BMi9WZAcV8AXTnzmk4aVFy8C
+         poYQ==
+X-Gm-Message-State: AOJu0YzknzADoH1Vgg+9iGcv+MvbxCdJ+W3jATybC8c0LEs1GScE45+q
+	0shHHbn60TAFcidG2LjPBB31wJOfzaYMrxUOiGnI+NQ9ksxzP5XtYovm
+X-Gm-Gg: AR+sD12oplsahe7rtOcOOw5jSDUgeBkHbMtvIv/SlL81VICPTX/1SPzPp7XWMAHJd+w
+	IKzFzVBzpGY2ikt78z3fsJ4Iccmtf/CpgBFwNAGU0jxRubQa5tiUVpTIYKXbCeyJ4yv5fifhHA8
+	N3jdjooITBN0mko8mjYOUeoCXaq0gqCyqjmP+1ODOhFTdKQBlmKu+1YwYVGZmvNsD24PZjrxbpw
+	VV4Ilw0PaaE6SelptGWCKxSe+c7o/LyWjOc3tjgpMkecwv9ZPpxxUqH43X4VeMfqb0hvuvKLFQd
+	S3P6CYfKwqrXANNqc+nt1UpSWxzx4YjJemimhHXdfB2GZwc9QTrgzVxhJvtbCd2OPtYJ2z71oH+
+	nFVannIT5qJFg7aBYeKGRfL8ag43DKQ21FXcFeSVHL7504GJ9yS3y5lV7cp7QTnlIC/Lz0rK1ak
+	efXbLmm0+9mxJKenhPfFaHTIDI99TQipJYCtPKnMrHvjob32oKDg/ksRHxzLe/YnZhKfK+/OhNc
+	N6Akw==
+X-Received: by 2002:a17:90b:33c2:b0:381:77cd:38ca with SMTP id 98e67ed59e1d1-3933b93d7e1mr24719543a91.4.1787070605952;
+        Tue, 18 Aug 2026 09:30:05 -0700 (PDT)
+Received: from [10.90.163.252] ([2409:40c2:501a:6e15:dc3f:c23f:e55e:d03d])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1415315900csm18371147c88.11.2026.08.18.09.29.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 09:30:05 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Tue, 18 Aug 2026 21:59:49 +0530
+Subject: [PATCH] dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC0ML3ZJM3fzkAqPi5AJdS8NkS3NzU/MkE2MjJaCGgqLUtMwKsGHRsbW
+ 1AF0iTuZcAAAA
+X-Change-ID: 20260818-ti-ocp2scp-91c97757b432
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787070596; l=3975;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=g4k2aXYIo36Ew7H+TbCS3tO4JFkwuDU+c0fAj98kaJA=;
+ b=mJwfFyhMg+o/Fsw6yGOkg6Xs+hEYivYwjW4w6BWXFxJ1vE9pT5ZaF1V7cYeQumqsmv6pdeI/K
+ BfST8/Pt9bCDDIia9pTwXEknpWOXojCl+/9wc6vWIvj/23kTAeqvMM5
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Convert the TI OCP2SCP bridge device tree bindings to DT schema.
+Changes during conversion:
+- Add list #address-cells and #size-cells as required properties.
+- Drop ranges from the required properties as it is omitted in some
+  existing DTS.
+- Mark reg is not required for compatible ti,am437x-ocp2scp, driver skips
+  fetching memory resources for this, existing DTS also omit it.
+- Mark the ti,hwmods property as deprecated.
+- Set additionalProperties to type: object rather than using
+  patternProperties`. Since OCP2SCP acts as a generic bridge/bus, its
+  child nodes represent various PHY devices.
 
-Pre-existing issues:
-- [High] The MDIO read/write functions return `-ENOENT` for unmapped PHY ad=
-dresses and `-ENXIO` on hardware command failure, which improperly aborts t=
-he entire MDIO bus registration.
---
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/bus/omap-ocp2scp.txt       | 29 ---------
+ .../devicetree/bindings/bus/ti,omap-ocp2scp.yaml   | 74 ++++++++++++++++++++++
+ 2 files changed, 74 insertions(+), 29 deletions(-)
 
---- Patch [10]: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open=
- up C22 and C45 space in parallel ---
-commit c559542aa88ff474f3367ec89a5df414f866718f
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+diff --git a/Documentation/devicetree/bindings/bus/omap-ocp2scp.txt b/Documentation/devicetree/bindings/bus/omap-ocp2scp.txt
+deleted file mode 100644
+index 18729f6fe1e5..000000000000
+--- a/Documentation/devicetree/bindings/bus/omap-ocp2scp.txt
++++ /dev/null
+@@ -1,29 +0,0 @@
+-* OMAP OCP2SCP - ocp interface to scp interface
+-
+-properties:
+-- compatible : Should be "ti,am437x-ocp2scp" for AM437x processor
+-	       Should be "ti,omap-ocp2scp" for all others
+-- reg : Address and length of the register set for the device
+-- #address-cells, #size-cells : Must be present if the device has sub-nodes
+-- ranges : the child address space are mapped 1:1 onto the parent address space
+-- ti,hwmods : must be "ocp2scp_usb_phy"
+-
+-Sub-nodes:
+-All the devices connected to ocp2scp are described using sub-node to ocp2scp
+-
+-ocp2scp@4a0ad000 {
+-	compatible = "ti,omap-ocp2scp";
+-	reg = <0x4a0ad000 0x1f>;
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges;
+-	ti,hwmods = "ocp2scp_usb_phy";
+-
+-	subnode1 {
+-	...
+-	};
+-
+-	subnode2 {
+-	...
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml b/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
+new file mode 100644
+index 000000000000..a8852185144d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/bus/ti,omap-ocp2scp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI OMAP OCP to SCP bus bridge
++
++maintainers:
++  - Kishon Vijay Abraham I <kishon@ti.com>
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: ti,am437x-ocp2scp
++          - const: ti,omap-ocp2scp
++      - const: ti,omap-ocp2scp
++
++  reg:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++  ranges: true
++
++  ti,hwmods:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: Name of the hwmod associated with the device.
++    deprecated: true
++
++required:
++  - compatible
++  - "#address-cells"
++  - "#size-cells"
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,am437x-ocp2scp
++    then:
++      properties:
++        reg: false
++    else:
++      required:
++        - reg
++
++additionalProperties:
++  type: object
++
++examples:
++  - |
++    ocp2scp@4a0ad000 {
++        compatible = "ti,omap-ocp2scp";
++        reg = <0x4a0ad000 0x1f>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges;
++
++        phy@80 {
++            compatible = "ti,omap-usb2";
++            reg = <0x80 0x58>;
++            ctrl-module = <&omap_control_usb2phy>;
++            clocks = <&usb_phy_cm_clk32k>;
++            clock-names = "wkupclk";
++            #phy-cells = <0>;
++        };
++    };
 
-net: mdio: realtek-rtl9300: Open up C22 and C45 space in parallel
+---
+base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
+change-id: 20260818-ti-ocp2scp-91c97757b432
 
-This commit enables parallel C22 and C45 access for the Realtek RTL9300 MDIO
-driver. It does this by unconditionally assigning both the C22 and C45 read
-and write bus operations during probe.
+Best regards,
+-- 
+Bhargav
 
-> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
-dio-realtek-rtl9300.c
-> index f3777c61705aa..c417a2e3d613d 100644
-> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
-[ ... ]
-> @@ -683,13 +683,10 @@ static int otto_emdio_probe_one(struct device *dev,=
- struct otto_emdio_priv *priv
->  		return -ENOMEM;
-> =20
->  	bus->name =3D "Realtek Switch MDIO Bus";
-> -	if (priv->smi_bus_is_c45[mdio_bus]) {
-> -		bus->read_c45 =3D otto_emdio_read_c45;
-> -		bus->write_c45 =3D otto_emdio_write_c45;
-> -	} else {
-> -		bus->read =3D otto_emdio_read_c22;
-> -		bus->write =3D otto_emdio_write_c22;
-> -	}
-> +	bus->read_c45 =3D otto_emdio_read_c45;
-> +	bus->write_c45 =3D otto_emdio_write_c45;
-> +	bus->read =3D otto_emdio_read_c22;
-> +	bus->write =3D otto_emdio_write_c22;
-
-[Severity: High]
-This is a pre-existing issue, but does the MDIO read/write implementation
-improperly abort the entire MDIO bus registration when encountering unmapped
-PHY addresses or hardware command failures?
-
-Looking at otto_emdio_phy_to_port(), if a PHY address isn't mapped, it retu=
-rns
--ENOENT:
-
-drivers/net/mdio/mdio-realtek-rtl9300.c:otto_emdio_phy_to_port() {
-    ...
-    for_each_set_bit(i, priv->valid_ports, priv->info->num_ports)
-        if (priv->smi_bus[i] =3D=3D chan->mdio_bus &&
-            priv->smi_addr[i] =3D=3D phy_id)
-            return i;
-
-    return -ENOENT;
-}
-
-Similarly, if a hardware timeout occurs, otto_emdio_run_cmd() returns -ENXI=
-O:
-
-drivers/net/mdio/mdio-realtek-rtl9300.c:otto_emdio_run_cmd() {
-    ...
-    return cmdstate & info->cmd_fail ? -ENXIO : 0;
-}
-
-When the generic PHY subsystem (like get_phy_c22_id) encounters these
-non-standard errors during mdiobus_read(), it transforms them into a fatal
--EIO. Because -EIO is not -ENODEV, __of_mdiobus_register() will immediately
-unregister the bus and exit, preventing the switch and all its network ports
-from initializing.
-
-Could returning -ENODEV instead be safer so that missing PHYs are simply
-skipped instead of failing the entire bus?
-
->  	bus->parent =3D dev;
->  	bus->notify_phy_attach =3D otto_emdio_notify_phy_attach;
->  	bus->notify_phy_detach =3D otto_emdio_notify_phy_detach;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817162632.1208=
-891-1-markus.stockhausen@gmx.de?part=3D10
