@@ -1,69 +1,70 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00651377015
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50833769E7
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787036349; cv=none; b=vD0y5tg5dl4wg4jQYJqxF3FUM4LeEpwx7XiZAIHWy5vNW+hRU0XupaEJXTrrYO+fW7+zyYctZJlG/TKT7VEAF5XNgnQy1QfG/FyrarKgALp/G2LNjKFW9QrSOVRwoKHYQ23hz2zWSC2xBN4COZdEPjv+nN+ZgyzBmzMvK8/5Di4=
+	t=1787036351; cv=none; b=r3Cb2jACGxnD+pQTqI5H+WqWV3vPiCv4X3V3dN8x8EIR8fiD4vOi3/PJrrcFwuMesnPUDeW136H0JuaBmyYS4uzK4Hou938NVc602Y2n2+oxsaoF5BMFPqpOnAnQ0F0RsqYUMBN4P2SYh9C7lDMtnJXZjsDJpt4puJ+rHfQuVGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787036349; c=relaxed/simple;
-	bh=D/pmpT1MHUXbBSsDgHnw4mLi6p3iwlFDCAYqzCrg8no=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=asv9MkWWloYgcXZsACFNi+ASb18R65UD8+Ze/BXKaht+RB8JUJWAMFYc3B9xseX+yK9EhlTzax5YfgJy4iz4onAlsDXX5cIFZ7pJ25igow3BrV8/VVlu/zQYFF5XeT6MCNwUFyu5P+BkskeWM48d/p8kpHCHVKx36775Dzz+0Ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LMqXuTuI; arc=none smtp.client-ip=209.85.210.51
+	s=arc-20240116; t=1787036351; c=relaxed/simple;
+	bh=SLr+JPD8H966PGr8RyYk2O8cefQBW1MdDmP/zvdAFJk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KlQ9JfHH5n2b2FNxd0+VUmvGBQJVOuwOgKftkkVZBvI+nJkw0uKofNkY9cnbegAmi1bUplG5sjVBKQIANef7uUEhqlA3/y+cW1KwExRX8hUuJzZe5GYoDIjwDurvnFMQn/0Vnf8p/p45mnsQiAP1+pg9FoK8SdW70CeOog6rX+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kkSUF887; arc=none smtp.client-ip=209.85.210.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LMqXuTuI"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7e9d7464b71so3119759a34.0
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 23:59:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kkSUF887"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e9ecd7216cso2290968a34.3
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 23:59:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787036341; x=1787641141; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DeMyVaMFOea0yLlM8gVonhIGCBF8ArkQ/Fdvw30KkVU=;
-        b=LMqXuTuIYP2L1kXgtO5Vs15MIDEiz/nNk7wUQcMnvDBdMV6Ujzy80KENsGA8eUcwKy
-         Qh6lfMO1Zp76HOWrkfTEMkpiPz/qpFU8B2H04K2w7wpsMZk0eR6USKkx+NKA7x4SMqAX
-         aSWB6Qk0lD+cbsGD79U0AJCeHQT5+/oEF3TjQM3SbpSqKW4RB9XN2cLcR6mvoG+Hw8zs
-         A60voU5YrbqrsHsXnGwrTa0TAtTelS82KNiaS6Wh/7ycTgQQdkX0YNzxQNYz9kY88j1n
-         imYV2fQhfX8i9pyi3bHXJSHRcavBp+7S/dBT1iO4ddNso+6mKnLEtN2BQRHQ+WUaNMNV
-         chlQ==
+        d=gmail.com; s=20251104; t=1787036344; x=1787641144; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t6S7/HfEeviYM8kMOUgFBBnP6TBKiphaRKUEmhxWElI=;
+        b=kkSUF887ByQz4NXUX4s2grAHVfN7ju+RAeK0yzOPE72JR46kGGHjeHPUvGPNpKHEdo
+         CuUnxht4qJQNKqtyzjZCFBWoIWXdBwP1D2D3zWoLcT/SRRZdpRp/SNszzwphLIQNawES
+         Jsejq/oH6rIfLg9MvsTDHQQ2WRjtgD+CCZRWIcXbIJGgujz8TvSQh4CFoweSiVw8bQaH
+         q6xtFLM7QCPSf+h46B5GGl9/MUaPEDNPzN/Sl7vPWWQQV/PXCFj3rWwynQBJRxAdnpO7
+         05Rgmeg0M2t78jnzDPHSnxuE3TkrgQUoTgIzYC3YdmW7uDhMUHUTrf2GkrGrCmThvrNn
+         eMiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787036341; x=1787641141;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DeMyVaMFOea0yLlM8gVonhIGCBF8ArkQ/Fdvw30KkVU=;
-        b=A0pAVXOB0IJCL8MD9osgEX4WAYk9CO3pVC7L1bvX1uRFW0guw716Ce/cXPbSw+znU8
-         rNp0mSVznhnHH7uAR3r+Cl7SCR4niFM4IrS+7TCOu2tA86vazN+fSOh6piapDPoGBg/E
-         atwQK5IR5+2p/YmYO69k8mbVX93ZsMBEa4L9bUZYYenyYvYibjZw9Bd3Um0CaToDHxMD
-         8pXdDfs1oZ3efyflozg3VS5bR+1lJVeUbdNnQFlwceyjUxleOrXfV2hsvMMVg6fMo/y2
-         jFOBI58WyK8u2wi4pnEktRA1zMoWpVqwvayz/lTmjGx6MIkOhOoAy0kBPajjPoEfGssx
-         pZtg==
-X-Gm-Message-State: AOJu0YzxdiWR+djIEWx8bG/vFvbokfCnuu56hvmF0Kprhw+4f64LN+un
-	ZE6FRa/PVY4SwV+kgNIx1AZI3BKtFIHezbxQCv+1XQrAouecC2nvOWWU
-X-Gm-Gg: AR+sD10shdZ4uPvtVGHngpJlML+0IaUOlZVXj73mh4Mq4pxalouGDlamitmJ/P07AqU
-	laclLVvRA4BhGYIRsYT86AnN6GZaPFbZ1xhoKHArne+lVpOplT20GQvhMJfQjo37VsbuUZ6TqG3
-	REmNU0FWfgSny/rIGcCKsh7SkTS+PIo17FrfKtlBbtQMKsipw/WxjloH6VGMZNm698rwHbKHIv4
-	wNXbT/VqnLbZXf5MTjW3qXTprjZg8syW1pS+N3tF/cC8/fcsuuJ03QvP2SKIe30+Gqx1nN24I8Z
-	BBrzMinmQmXbnAr4cLfOuvX0grUd2z2LdzylhnDskDpHXysqpevSS/LRjRTP2HpTa6KuoP9l7eN
-	55cK8x9+PZfFwqaLM8VHPLJkma7922+uctbg4pnid1mODkL1r9r7lmwj1t3ungJUQPrRzGbvotd
-	ufkLa7kXCCXJWIhphA7KgkUoDGeW4UkABl6vbppCdoo7pGCggGsDuVbWm5eWIcAOsZszn3L7Ofz
-	T3yyv8U86YBE7OJn39yX7twvHSqHWudduzdfbsiOIhiGXnXhC1sB5cMSe502sjCom1SIEIBCRpv
-	ieX18ZgKuR9CiXEth2OTi762MhLIi6h+U/IodT8co4BwqUkX+Tmee2UAhGXpMh6+NFGTJjUhGgC
-	z8j4D2D4Z093XrsQv
-X-Received: by 2002:a05:6830:6996:b0:7eb:89e4:8f5c with SMTP id 46e09a7af769-7f423ec621emr6353519a34.14.1787036341544;
-        Mon, 17 Aug 2026 23:59:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787036344; x=1787641144;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t6S7/HfEeviYM8kMOUgFBBnP6TBKiphaRKUEmhxWElI=;
+        b=r0dEAFVDJ6E1lVj6RNfoR2f8/Molikc4eW2Q7xZgnJIYE50W4bH/Ea5bTQpkEhTjLi
+         QQ9HYP7TAeX1kMupDWnW3/2miiTclC1ydyPu38h5IFL/Shx3TKYcs8JrqXtjuyhWme5l
+         s1ecVtctjAjn3vSLYxNxN/7yhZBXxW/pmqVAKmTU6OVk93igAqHUZoNWUTz+9JaCZMgX
+         xFEl6FPraXz/oo6Ozx15F/jmrwNm3gL4Pcu1I5rhgEIQCAEYo8J3MFZ0b3+DD8e0HHRp
+         8eUoZXtg3l4tP/P2LKcA9r849/43S+IPohnYzKBrP2qrp2Z2Ir7YnttaOK+anMCpF+Yo
+         ISMw==
+X-Gm-Message-State: AOJu0YyUwEjbXetmkBorJD2mA/CEZeUv4gxylyRBiHj/572AoABTZnSH
+	Zh/x5gP6DIHe7F1nLrweuJ5z5JZd4Y9OooyD0hTNdlgBO2g7Fn9UVlE0
+X-Gm-Gg: AR+sD10WPSQUyj8Lu75dIvh+zXxciYVrc1TqxCR1jkjYGUr97aQYAZD9ONXvxvviay6
+	VkSDxleYWS+HfHUiTI1qAgN0PGWkVDOPe4N6OaRiLMVwJLCoElc0VtAVoGArDKa1qvvHWdOPmvr
+	+1Yo5xHDGCA65TWr+fnjlcEbvvwxQrk/1KYzt4i5BHs/kb9X5UywcB3K2cOTyyvNkXu5EjaOvaK
+	GBb2KETRSEC2edQR+9JZ/Df1pzSuPJ2/s9jEfe9CLz256uv3zVzyr2D+r7qpsp2BhqLobEYvkwq
+	nrv0+HWOHDqjOCFCCCzIJkYz9YnSHigJd0V41NRt2Bd+teWLUn1cTSKaLJpWC7lnt2KhvnhN0ra
+	DyrphuoZCI1HqIh4qqxYq59BfXzIt6HcqLweYhgx+SX7+vPUqc92QHJQ0ByZw4AX0MlQeBwFZEL
+	ylPR6YFizCxnJCmZ6UyY/NKTYP/KLqmTWVBUTLXEGfTF+4b56oVWwQgm0k93jA5xc4qAaKE5B/w
+	lqLsuZoseByYnUt2NlXsidZwf3hA0m+EURWpSzOKTFsv/dpExqAKj3+TCw1qORVf95W0IYUJa2E
+	+/W0AjjupyD5jhSZXw1CWOBwiKlRDlYWHbgEhE5o31OJsKhJ0CkxUk+Hqo/Qb7Mu3TBAxx6rv7N
+	wcFXbG5tf8hiA4mXr
+X-Received: by 2002:a05:6830:358e:b0:7d9:f50f:9691 with SMTP id 46e09a7af769-7f3de007b61mr31144874a34.0.1787036344096;
+        Mon, 17 Aug 2026 23:59:04 -0700 (PDT)
 Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f41beef430sm3599463a34.5.2026.08.17.23.59.00
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f41beef430sm3599463a34.5.2026.08.17.23.59.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 23:59:01 -0700 (PDT)
+        Mon, 17 Aug 2026 23:59:03 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH net-next v3 0/4] driver core, net: handle fw_devlink for
- class devices and PHY packages
-Date: Tue, 18 Aug 2026 00:58:56 -0600
-Message-Id: <20260818-submit-phy-package-fwdevlink-v1-v3-0-40a905ea16b6@gmail.com>
+Date: Tue, 18 Aug 2026 00:58:58 -0600
+Subject: [PATCH net-next v3 2/4] net: mdio: link PHY package suppliers to
+ member PHYs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,11 +73,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6tqYUiuDKexgXtZ3KKBRCa4UY7
- m6tG3eazOZn/rw3T+JgQnBknz3JBAEdDjaGYpMR1Up7AYo6ZsIZr1idl9Tdzz16OrYLHaW6ydg
- wDw2hQ3ujIae7StamAQOiaEikjBMYnJPhSCx4amH25PTZRNgVlH8L3t0WnR+mJT0T8nTxtzcOo
- 7zIm7osDRM7ebj0ErutGvpkC/ybV/3m8cQDIbQWjZH6m7eu6wtIR6VdOgEAAA==
-X-Change-ID: 20260814-submit-phy-package-fwdevlink-v1-76a8f9efe539
+Message-Id: <20260818-submit-phy-package-fwdevlink-v1-v3-2-40a905ea16b6@gmail.com>
+References: <20260818-submit-phy-package-fwdevlink-v1-v3-0-40a905ea16b6@gmail.com>
+In-Reply-To: <20260818-submit-phy-package-fwdevlink-v1-v3-0-40a905ea16b6@gmail.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
@@ -96,117 +95,90 @@ Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Managed device links normally advance through probe and removal alongside
-a device driver. Driverless class devices are added directly, so their
-links do not currently receive equivalent transitions. A class supplier
-can leave its consumers dormant, while sync-state-only links from a class
-consumer can indefinitely prevent suppliers from receiving sync_state().
-Removal also does not unbind consumers of a class supplier.
+Ethernet PHY package nodes describe resources shared by their member
+PHYs, but a package node is not instantiated as a device. Its
+firmware-node supplier links therefore cannot become normal device links
+for the PHY members without help from the MDIO layer.
 
-Ethernet PHY packages expose both sides of this problem. A package node
-describes resources shared by member PHYs, but is a container rather than
-a device. fw_devlink preserves that topology and temporarily represents
-those dependencies through the closest device, which for OF MDIO is the
-driverless MDIO bus class device. Its proxy links previously remained
-after the real PHY had probed and kept the package suppliers from reaching
-sync_state().
+When registering an OF-backed PHY whose parent is an
+ethernet-phy-package node, copy the package supplier links onto the
+member's firmware node before the PHY device is added. The ordinary
+fw_devlink path then creates managed links after the PHY device has been
+initialized for link registration and before its driver can probe.
 
-Handle the generic class-device lifecycle in the driver core. Put
-driverless class devices into the probing state while device_add()
-publishes them, complete their incoming and outgoing managed links after
-class interfaces run, and apply the corresponding unbind and cleanup
-transitions during device_del(). This supports class devices as either
-suppliers or consumers and keeps descendant firmware links available for
-devices created later. Keep inferred links to probing and registered class
-suppliers out of no-driver fallback paths, and recognize class-backed
-nodes when refreshing dependencies after firmware-tree overlays.
+Apply this to both ordinary OF discovery and the exported registration
+path for a pre-created PHY device. Leave the package links intact so
+every member, including one registered later, can acquire the same
+dependencies. This preserves probe, unbind and runtime-PM ordering
+without adding PHY-package policy to generic firmware parsing.
 
-Keep generic firmware parsing faithful to the described topology. Add a
-helper through which a subsystem can copy a container node's direct
-supplier links onto the firmware node for a real child device, then use it
-from PHY registration before device_add(). The ordinary fw_devlink path
-consequently creates each managed PHY link at the normal
-device-registration stage.
-
-Finally, defer supplier sync-state callbacks across OF MDIO bus
-registration and child population. This closes the interval between
-completion of the bus class device and installation of the member PHY
-links without adding an MDIO-specific device-link state transition.
-
-This was found while validating an X-Powers AC300 package whose input
-clock is supplied by PWM. Before the fix, the PWM driver reported that
-sync_state() was pending due to stmmac-0 after the PHY had probed.
-
-The complete series was tested on an Allwinner H616 board with an X-Powers
-AC300 PHY package. All five package-derived supplier links targeted the
-member PHY and no proxy link remained on the driverless MDIO bus. The PWM
-supplier reached state_synced while continuing to generate the PHY clock.
-These properties remained true after unbinding and rebinding the MAC, and
-the PHY renegotiated a 100 Mbps full-duplex link. Both before and after
-that lifecycle test, 8 MiB transfers in each direction compared correctly
-and 100 consecutive pings completed without loss.
-
-Validation also included:
-
-  - a full arm64 defconfig Image and modules build with W=1;
-  - KUnit tests for class supplier/consumer transitions, inferred-link
-    preservation, and fwnode supplier copying and device-link conversion;
-    and
-  - strict per-patch checkpatch and whitespace checks.
-
-Assisted-by: Codex:gpt-5.6-sol
+Fixes: 385ef48f4686 ("net: phy: add support for scanning PHY in PHY packages nodes")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v3:
-- Replace the framework-specific proxy cleanup with generic managed-link
-  lifecycle handling for driverless class suppliers and consumers, as
-  suggested by Saravana Kannan
-- Handle registered class consumers during supplier teardown without a
-  no-op driver release or driver-only cleanup warning
-- Derive class handling inside the shared bound helpers and clarify the
-  lifecycle documentation
-- Keep inferred links to probing and registered class suppliers out of
-  no-driver fallback paths and include class nodes in overlay refresh
-- Keep firmware parsing topology-only and let the PHY layer project package
-  suppliers onto member PHYs through a new fwnode-link copy helper, as
-  suggested by Saravana Kannan
-- Defer supplier sync across MDIO bus and OF child population instead of
-  deleting proxy links from the MDIO framework
-- Add driver-core KUnit coverage and device-link lifecycle documentation
-- Drop the unrelated malformed-graph guard because no concrete DT or
-  runtime reproducer was found
-- Rebase on current net-next/main
-- Link to v2: https://patch.msgid.link/20260816-submit-phy-package-fwdevlink-v1-v2-0-23e55dd59fad@gmail.com
-
-Changes in v2:
-- Add a preparatory guard for malformed graph consumers
-  (reported by Sashiko)
-- Rebase on net-next/main
-- Link to v1: https://patch.msgid.link/20260814-submit-phy-package-fwdevlink-v1-v1-0-2319844f057a@gmail.com
 
 ---
-James Hilliard (4):
-      driver core: add fw_devlink supplier-copy helper
-      net: mdio: link PHY package suppliers to member PHYs
-      net: mdio: defer supplier sync during OF population
-      driver core: handle managed links for class devices
-
- Documentation/driver-api/device_link.rst   |  47 ++-
- drivers/base/base.h                        |   2 +
- drivers/base/core.c                        | 332 +++++++++++++++-----
- drivers/base/dd.c                          |  21 +-
- drivers/base/test/Makefile                 |   2 +
- drivers/base/test/device-link-class-test.c | 479 +++++++++++++++++++++++++++++
- drivers/base/test/fwnode-link-test.c       | 207 +++++++++++++
- drivers/net/mdio/of_mdio.c                 |  34 +-
- include/linux/device.h                     |   9 +-
- include/linux/fwnode.h                     |   2 +
- 10 files changed, 1042 insertions(+), 93 deletions(-)
+Changes v2 -> v3:
+  - Move PHY-package handling out of generic OF property parsing and into
+    OF MDIO registration, as suggested by Saravana Kannan
+  - Copy package supplier links before device_add() so the normal
+    fw_devlink path creates real member links at the correct stage
+  - Cover both normal OF discovery and pre-created PHY registration
 ---
-base-commit: 47226bbdef69fc0de815b8f5b81b39673f50bbee
-change-id: 20260814-submit-phy-package-fwdevlink-v1-76a8f9efe539
+ drivers/net/mdio/of_mdio.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+diff --git a/drivers/net/mdio/of_mdio.c b/drivers/net/mdio/of_mdio.c
+index b8d298c04d3f..ff540049b847 100644
+--- a/drivers/net/mdio/of_mdio.c
++++ b/drivers/net/mdio/of_mdio.c
+@@ -10,6 +10,7 @@
+ 
+ #include <linux/device.h>
+ #include <linux/err.h>
++#include <linux/fwnode.h>
+ #include <linux/fwnode_mdio.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+@@ -34,9 +35,26 @@ static int of_get_phy_id(struct device_node *device, u32 *phy_id)
+ 	return fwnode_get_phy_id(of_fwnode_handle(device), phy_id);
+ }
+ 
++static int of_mdiobus_link_phy_package(struct device_node *child)
++{
++	struct device_node *package __free(device_node) = of_get_parent(child);
++
++	if (!package || !of_node_name_eq(package, "ethernet-phy-package"))
++		return 0;
++
++	return fw_devlink_copy_suppliers(of_fwnode_handle(child),
++					 of_fwnode_handle(package));
++}
++
+ int of_mdiobus_phy_device_register(struct mii_bus *mdio, struct phy_device *phy,
+ 				   struct device_node *child, u32 addr)
+ {
++	int ret;
++
++	ret = of_mdiobus_link_phy_package(child);
++	if (ret)
++		return ret;
++
+ 	return fwnode_mdiobus_phy_device_register(mdio, phy,
+ 						  of_fwnode_handle(child),
+ 						  addr);
+@@ -46,6 +64,12 @@ EXPORT_SYMBOL(of_mdiobus_phy_device_register);
+ static int of_mdiobus_register_phy(struct mii_bus *mdio,
+ 				    struct device_node *child, u32 addr)
+ {
++	int ret;
++
++	ret = of_mdiobus_link_phy_package(child);
++	if (ret)
++		return ret;
++
+ 	return fwnode_mdiobus_register_phy(mdio, of_fwnode_handle(child), addr);
+ }
+ 
+
+-- 
+2.53.0
 
