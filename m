@@ -1,190 +1,280 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010070.outbound.protection.outlook.com [52.101.228.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CA337E2E6;
-	Tue, 18 Aug 2026 14:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787063375; cv=fail; b=laiyA/RtK6FBemB4Lss/g+bm/VaJFTgfq49KFV1q2A9jC9kCLL4khY5vCBVBwxc6WlP/UWuERMescH12dDr2jFTdpDOTO6LAoVVzQSBkkuX9hg9FZiTnI9RzN4gEl5+V9u0lmZLTHrr9b8zOiO51UOQjXzGBYgAPwaAyGWHGiRY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787063375; c=relaxed/simple;
-	bh=XleOx4PPF0I+zoltcEOrC+SJUu6a0OEW2ie2KxJMpIU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iXNbLyQFBKEnjFNHGBsEhIFD/OnsqVE3/O+agP3wpDfNDmJN/gd/E/NEBBOJHbNCy14TSpvx+TxIKpwGKUXW25ZyjyAHmN0R7x5+0oOPOimv+99Zcb7Kaf7Rz0cad5ZL+xM/gnN3QCo8L/k5dyl6MkacbXGM8kBcAaKmJjN3J/A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=X06hdTyZ; arc=fail smtp.client-ip=52.101.228.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A554F37CD32
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 14:29:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787063377; cv=none; b=kGCtTN8NhDuhGLb9g942yw55ENZ8WLUuGRwwIUC0nXCe3WAwIXgWEDu86dq0NTcGCcWqQ9OnKrYbOhwkMzz8r2PJOE0HHOQNHH7BzV4yLC9565YFoa0IxfBuzsLWS/PhhHt3afpkOzvW2qvWJpyr/zPAQOSEPTVHbIJ1Lbwetzc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787063377; c=relaxed/simple;
+	bh=GN8OC0qmWePc65/nVwGP+m4XJ9TN93CBwZAGUXRbCQA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HQaKGxySZ2pzjVrJAzfxLgAqmrGz8EahrpM5e1cdQqoihkf+dy771MmvwJY0tCz8KgzgslgKH3rNNGFA/m/vvHkY6nVao/X2m30M4ZXKZ44OO0iaJuIgS0LvSSFN5mzoI5Dkrb5fyuDj3GdQedTVQb2rfr7H9m/SOvspVuxZPXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k5PqPSVL; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="X06hdTyZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FWbWExWUhfk2LcZo67zgGit/hWFwYqosXxkRQdz1bb9GhNSJUO+GZafB6njNLBMNWHNwHMXQuHdhPEcF15ZilVZbhWmklmBnJ0aLc0JeM8hWCWZ1uc4g3IrA/3RBbQqb03JXLgCT5iNx+vrqVk1vSAK8Irik4sFyeXM7H3FR2RjolnXL25dkYW7rtR1XGrhZDdL/oMzFqoEq98tNQKcF0eQ+Qqw+DKdjLx5lk9DXyJ+RV+lvNUterKd9TBRX78+o+L4R+dp9TDir8LKthWijCyhaSKpOLTYnfUrskqZVDS0hqyZNVNsrBY21moCd7W1WTH1ar7+rkhe6IaLoFVRqQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AJEYcGry2DENunjqLdUJp+Y0ZtzLIIZuPB2zch36bHg=;
- b=mpfas+DvNWf4FG7TdBIHg+euU3FkccJTkwXsO0Q+mwp1XgC000E2ToiBIUCsnmkBzIGunoqlb7qT538thn5opkmMdqPGjgZ5hUYpIsBzo0Pa6/g6BzM+y8WLp45oHFcrZZt9auNOhg5vc+Gei1QMWmeljGMrNxiBE0AACJp1SAXb1VdBSZ5cQ7oVayHtxwfQEQfUeivqyAiaa3/wyiNOQ23IY8rFGwvh5ABNF6H61xacbIkDfkEN0kexfg+5j90BK0WJnCvsUOBN4wJQnmQpd/dW6DTQJhMvhcYJ+8/dK7wgyccAjKyDgXIjxj2xAzN7LWU/ynhm3aELfQ8Ie5Bc9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AJEYcGry2DENunjqLdUJp+Y0ZtzLIIZuPB2zch36bHg=;
- b=X06hdTyZsfFDazS6Tt4MYRjfOZSEu57OZuFwyUpTGagtLmNKdQEX4uRQjbHj0+6Za/T+EWzWUuAabe88BUX78fOxyBMvkB7HmuK6PsFgcyHG2AALlnHTyriMZHf/tzA3266hcAjHApOevkbf4D8gGgfSK8R8j0FpdvG5dgo2Dws=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by OS7PR01MB17734.jpnprd01.prod.outlook.com (2603:1096:604:460::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 14:29:31 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0315.016; Tue, 18 Aug 2026
- 14:29:31 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] arm64: dts: renesas: r9a08g046: Add USB2.0 placeholder nodes
-Date: Tue, 18 Aug 2026 16:28:59 +0200
-Message-ID: <aec1fce5558c6c88725fe710a2f9e4b1eb9e8d64.1787062965.git.tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1787062965.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1787062965.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR0P281CA0128.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:97::10) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k5PqPSVL"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d590f4c291so3864935ad.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 07:29:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787063375; x=1787668175; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mwa35nuSoG/2eGYsft3L6cCp2RsoUxnaTuzWFFhRxOA=;
+        b=k5PqPSVLyyYH1xsLakWQzA4rWS4P8582oVCP/+2auRdnIjLAJxPiz5pffEM+sY+Mof
+         l9cTf6RUPK5qHHfLPIofWG64HJo8IuNy6Ex5R1trMgBUi+mgG/eDe+0Yhcv1JqRz2JuT
+         pGKbHvW7CP6RQwK76uHIzWI8IY2oQpYAZcBNaE38MGID+88+vaSx0nUq7YV0Xtx3g42X
+         T7U3ARwcSdvzCXoI/solBUuubKhp3KXqLLp5fdZxoAoG0MmkzzssvlDQs+1ONTEiQWMQ
+         43l8aaW4q4lQUKfiVJNXOP5w9CIDarxDyaMWdrj8PRVi69plaLHk1Pf2dizsam043u7x
+         Ol/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787063375; x=1787668175;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mwa35nuSoG/2eGYsft3L6cCp2RsoUxnaTuzWFFhRxOA=;
+        b=GgKOfXnkuyCHQ3X259bDE0rqljD4RB+2/TDcT1lpQDrwCrji44qj6g8xwX3TAZ268/
+         jSpIA0+QDDCmAgZQXbmrhApgFBENNYmMYzFr8PITwQgLSMnguAOeuhoGX4RW5sfbmvd3
+         jpEqV6AOIPHgzlzC/9QR39gEGpcYpbkQMREXrQrDlYwJO0NSP2Ys9HJrIjm3YjiPRxPq
+         cRlLONEwaqrlyvd8PbLRg1PNkq2TbdlUFMu9ckk7sR1NLBCjIYjqII05Lwag5hgMsfss
+         x0cYFQCXQkXsJUftC8Wojycj7oLkAzJ64J6cWpt3MX53EZHWoWUPgnNjWuY2VFYcG3UV
+         Pzwg==
+X-Forwarded-Encrypted: i=1; AHgh+RpMmfNJ/3rbaYhvpM2ScagVdVnD3HocAzqv6F5eQw8V56jKdZJARazzOpq7IFux4BpRygGDbLMkUYEs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxc4Aw6bXtj3ydNzJsGXXd0vPYFWqOXIPxfWfkr3bmco4AE+3rV
+	khderZud8ppDc5xOExf4lK8hcK7Gggr4PWQ613TA0jl35oPVSd1hlqQY
+X-Gm-Gg: AR+sD12d/6fobZTDSp//xLc+UhU/kzGY1gJ+MdFvJvAU5fLMY5bWiNV7mNB7TLaX9Wi
+	IGY++poCT610yJ02qhA8C0PBivEfnGeZ8uWkWDv4+Ek+lCzIDip85X7I2CrXt8h0BUNmIi86f/9
+	zbtdfN7plBKKBWx8hCoNxO8yqVoRQVvj98aypMEt1iKZ1rt9+ORs/WG/gHtYjYj8QBT7mq7i5Kd
+	FprwPG5dyT7EotTdZlzmxOmXGiikZaIMeQHh/y+FelpdZej4niruW7wQl1vrisJi24U8p+6XYe4
+	c+/Fu5AMcjQMHrf89yBZNU9vuF8j37139af/oFMb1Fvyz4tyDxsOmfploZfJYUS59/7iwinfQbH
+	yod2QmpU1zDVvBU+tSEu8v2cKokUvgx2vWfNTIPLPvcIPymr4JNjzrMnfBXr3YB10qApdqndQJ4
+	9MpLbLgh9y3WrSDvfrPaVZ+8/zrQCeaBu7FojYHei41RrMPzLBwUP2TmInRY6nhtU/qzADDJot
+X-Received: by 2002:a17:903:4585:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2d3b0cd96a6mr307749475ad.4.1787063374733;
+        Tue, 18 Aug 2026 07:29:34 -0700 (PDT)
+Received: from [10.90.163.252] ([2409:40c2:501a:6e15:dc3f:c23f:e55e:d03d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327b43d488dsm9043527eec.29.2026.08.18.07.29.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 07:29:34 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Tue, 18 Aug 2026 19:58:43 +0530
+Subject: [PATCH v2 1/7] dt-bindings: dma: ti,cppi41: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS7PR01MB17734:EE_
-X-MS-Office365-Filtering-Correlation-Id: c649fe61-c750-46a6-bd54-08defd351e38
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|52116014|366016|38350700014|56012099006|10067099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ZlKNodoTGa/eKLrz3VkiszSe0PrMN+w3xKXv67t8W8yK9UDn02T7A5YVHXCM4jBn4jmSrGDr5JrCJevW1vdHpGYVnulfiPSsoqQENkmL2XdsaqJB7iZw4CqfKeiPm+LCueroMDvCrL67SXAYQyHHm8w0omU/vXlYOr9ZqQDAdwVKhB9kyTkUcnbuxcozGXGKmWOX5sfQB+CVhaEQfG6FJzTwuJvqoHo/Btuxfn5N//2EQUA4VfmFZzvUBHLZG3GlDvxL4pl+WpcfICrTDkrXb299uPX3jLtU66H4vO97im6RV4D8A997FBrpvr4WbZPZ8FfEnZrQrjAY38pNc9gN+HrNal9o52GLL+o6xmJhHv+jiOWvKjGjZCUCSIfKSUYGqDcr5oSI4pKz1JhgNeqPHaEUp0BT8NG1aKe1vITKbsdH8oBAxLyEnAgEKKBuxf8MGmln4CxKtTcxK05CzXvmNXBMqg+ZHkQkJXeh74k4x6TWbx9wIdqlqdPf9KoJo4pQeTsvu3T4Lsjeia56ak4jg/Ao+TBTFRJIlTCoEDIvo8peki2wxLQiTzYa67SZDkknFdLd8AU4EK0uA82PmxAPinYp7NOjnf+lRh5cA7IAARtV/uV1jEpcIF1MA9nvgSLgIBrJfIjXwqUYBjR7UPES1Ng6uSuntyouG1JrpLLMrPWChljv0Dz2GEjpf5nZISj2psQn/7K9sgnLBXLPcHX8EXYW96/e2DEbtV70XPwFKws=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(52116014)(366016)(38350700014)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+iTPbZ4j4/5gy2JUBypYJiVP0tHBPYiCo7oNhYwAwgcSrw45QJJUlIvNGf+9?=
- =?us-ascii?Q?i5Rfa+ARtkD/CTo+loo4+NlobuvP/GVNj3AdxXMhb+kaFa4hT5CDGcqtuKAD?=
- =?us-ascii?Q?60P4nhYiVNudeImvha4sD+C9DynbK2jv0dwna2nmSrsmecfZyDnUsR6nCqqo?=
- =?us-ascii?Q?bqaLEf1huXnEZHPl0v9L7CLsbTuufQUsk0EscEYxasK0pKMM4xfTSF35W2mk?=
- =?us-ascii?Q?Ex+LtBtyEJvsSoJM3wi0tt3FgFwYJTQEKbmNQA1vMDc0VcICl+/idtmkBxPZ?=
- =?us-ascii?Q?5+LnKVo9psAnjtcM+RNLOO4lpQpgVijEt8WBaZqlAcQkNCfdxc3ND/9zJQBY?=
- =?us-ascii?Q?7I5Nc5/7N5yMGOXJI75dv9adwxGpfMzJE6YwwBgVWe4riPexwSfxE69kmFCj?=
- =?us-ascii?Q?N1ujRUV5Js96B3EpOE2IsLeltMobqq04Vg6NqsNv0DAwAz6qy6rD775jO1W8?=
- =?us-ascii?Q?e00KmebEMqgkFpF/MbQuGjKR4rNxxTG+5dxBrms+x1UQbyw0tOsckH6JBOHL?=
- =?us-ascii?Q?MEn/jaNd6HlK44QQQaRQXaYHulNeUm6KcyJzOLYIffGgJlkbPycnnESdfKhD?=
- =?us-ascii?Q?aEhp2hTS1TeQ9lQbmmCshXhkIGWDrsk85py1WzCab9+DcA/JyLDZHNFM7lum?=
- =?us-ascii?Q?JG//U0bX8RmaTB8O+dHeBYngWVUe+M8pBuBqRs3g/2/N/0XmUUrkSf3m8lzN?=
- =?us-ascii?Q?AaOlNif9ASSxy/kY6aaf54oIqkQGAQqx5PjvXpsgrL2yRNprPcX7I29HzyKd?=
- =?us-ascii?Q?M2xsIvJHiPq2kO0GD99U7XdHnsWflimsSZuIAtqt6IoxpoET7IbnKWT5J5vS?=
- =?us-ascii?Q?Il7g7sU/4AhORmqISKKzQIdD6vG0bf/hQzbFmgmdm73NTR00T+vqpPqXm9Jl?=
- =?us-ascii?Q?KeVzo01XCdW/LLA84zvZC+kNx1ZjQsBDlQBVViEHVNbrgbYHhfWp5j3AC1G/?=
- =?us-ascii?Q?RhF4tIn61iR1mNE3oMUrRWLu7189YBFoX/cnKcmrvSpJQMF7oGlbJyavf1Z2?=
- =?us-ascii?Q?ZDBhDUO8ha9VuAaRl6qITWNXGEYQhDkhxcs9Hvrw6MdoQZUqjPe0fkAYB+n6?=
- =?us-ascii?Q?OVKo/SyY/X2jWCnHkL/B4y93dM+oG/D10qwvoHv9nu1j/E7YR2pRWYUGr2TF?=
- =?us-ascii?Q?94pfUF4o3T1fSuEHfEgc5WcKTWl99fn/Nis8RqGPqKoOC5inFlQU3Z2E94YO?=
- =?us-ascii?Q?hl7/9Z45bSB0b5q1sc9XUDChqWf2avf9sQQbHBUHIxVIlS4XC9u4F0fcEiCm?=
- =?us-ascii?Q?cK9pyHwC9Cyu6b/gGdt5wz6cdHhVIVXCbVwNnAE1IVCMN8Vqe+Gu/MBsjFrH?=
- =?us-ascii?Q?WeL9lKSrFOoc/aVxUMHUNwkSeDHddyjK5RmugqJEGC0yXK80CoYUb3YlaR5v?=
- =?us-ascii?Q?CIvh9OR1XTAvuGt2Gzf/VcBPR7qxIhSYMqw1/KRz2HonFp+IayGkwqYBiuRr?=
- =?us-ascii?Q?yFxTkumqjAb7FnxuTLv2ZZ6VcP2TTd3+D7A777pq7zCVg0O+XcnZjPyBI4gh?=
- =?us-ascii?Q?/wRB3QKqNbRtyzvX6YCkBTsMN7pF3/K1A7LgqsrRYqlb/j12Ofe1P7yg7z30?=
- =?us-ascii?Q?JjZeR3NfK7SzzXW8A3YZOStKBtVIXYmYv44Dpmy0kjSxCd12VCgnyjlXlYvt?=
- =?us-ascii?Q?jMqp6IGzriK2b7VQ4kUnNx8pXo0hs4Um1Gbwn0ZP4RXSy1JGnu4NLZDOw1Ky?=
- =?us-ascii?Q?J1dNZK52Geila8FAOWMs3nwp/+xWMZTiL8dtbhd3MK45CH4Dk9ZSX6saP52A?=
- =?us-ascii?Q?ocKXZ+V+ez5DV7mY9LMo95hMrwDMc0Px1piUZ7HESlYh4DS9nakE?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c649fe61-c750-46a6-bd54-08defd351e38
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 14:29:31.8473
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zwr7cUoX5pdgoMx5wIdKsBLm3TV4YWmCVnHvaWJhETly3ILblLX5jM6IEenwjuFq9gZgFoo59UwmzgWXmMhM7nUIjk1kodpr7w0RHejFxyA43YW8QmVyI1OS/9W04DNT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB17734
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260818-ti-am33-usb-v2-1-66fd44d66824@gmail.com>
+References: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
+In-Reply-To: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Andrzej Siewior <bigeasy@linutronix.de>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Ravi B <ravibabu@ti.com>, Kumar Gupta <ajay.gupta@ti.com>, 
+ Sergei Shtylyov <sshtylyov@ru.mvista.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-omap@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787063337; l=5446;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=GN8OC0qmWePc65/nVwGP+m4XJ9TN93CBwZAGUXRbCQA=;
+ b=/ICcEratZ3o2rpqEdLfMo+aQDlLKJjcSt5vgcEdD+6hRQzXd+n584IbHXRbjb3nvO6Zd16Afc
+ gyQClNz1JY3AIE+fwrKHNSLQmXV0KSnbXKrPyKXfsHd7uaHpIO+dQOx
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-The USB2.0 wiring on the RZ SMARC Carrier-II board is the same for the
-RZ/G3E and RZ/G3L SoMs, so the nodes belong in the shared
-renesas-smarc2.dtsi. Enabling them there breaks the RZ/G3L SMARC EVK
-build, as the r9a08g046 (RZ/G3L) SoC DTSI describes neither the USB2.0
-host (OHCI/EHCI) nor function (HSUSB) instances:
+Convert TI CPPI 4.1 DMA controller text bindings to DT schema. Add
+ti,am3359-cppi41 and ti,da830-cppi41 into single schema since they share
+the same hardware IP block and driver. Add undocumented #dma-requests
+and power-domains properties to match existing DTS usage.
 
-Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:94.1-7 Label or path ehci0 not found
-Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:99.1-7 Label or path ehci1 not found
-Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:104.1-8 Label or path hsusb0 not found
-Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:114.1-7 Label or path ohci0 not found
-Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:119.1-7 Label or path ohci1 not found
-
-Add minimal placeholder nodes carrying only the reg property.
-The remaining properties will be filled in once USB2.0 support for
-RZ/G3L is complete.
-
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 25 ++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ .../devicetree/bindings/dma/ti/ti,cppi41.yaml      | 109 +++++++++++++++++++++
+ .../devicetree/bindings/usb/am33xx-usb.txt         |  14 ---
+ .../devicetree/bindings/usb/da8xx-usb.txt          |  12 ---
+ 3 files changed, 109 insertions(+), 26 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-index c63a857f0e5b..5951a68c981c 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-@@ -1001,6 +1001,31 @@ queue3 {
- 			};
- 		};
+diff --git a/Documentation/devicetree/bindings/dma/ti/ti,cppi41.yaml b/Documentation/devicetree/bindings/dma/ti/ti,cppi41.yaml
+new file mode 100644
+index 000000000000..a8c28e8ada07
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dma/ti/ti,cppi41.yaml
+@@ -0,0 +1,109 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dma/ti/ti,cppi41.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI CPPI41 DMA Controller
++
++maintainers:
++  - Sebastian Andrzej Siewior <bigeasy@linutronix.de>
++
++properties:
++  compatible:
++    enum:
++      - ti,am3359-cppi41
++      - ti,da830-cppi41
++
++  reg:
++    minItems: 3
++    maxItems: 4
++
++  reg-names:
++    minItems: 3
++    maxItems: 4
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    const: glue
++
++  "#dma-cells":
++    const: 2
++
++  dma-channels:
++    description: Number of DMA channels supported.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  dma-requests:
++    description: Number of DMA requests supported.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  power-domains:
++    maxItems: 1
++
++  "#dma-channels":
++    description: Deprecated, use dma-channels instead.
++    deprecated: true
++
++  "#dma-requests":
++    description: Deprecated, use dma-requests instead.
++    deprecated: true
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - "#dma-cells"
++  - dma-channels
++
++allOf:
++  - $ref: /schemas/dma/dma-controller.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,am3359-cppi41
++    then:
++      properties:
++        reg:
++          minItems: 4
++        reg-names:
++          items:
++            - const: glue
++            - const: controller
++            - const: scheduler
++            - const: queuemgr
++        power-domains: false
++      required:
++        - interrupt-names
++        - interrupts
++        - dma-requests
++    else:
++      properties:
++        reg:
++          maxItems: 3
++        reg-names:
++          items:
++            - const: controller
++            - const: scheduler
++            - const: queuemgr
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    dma-controller@7402000 {
++        compatible = "ti,am3359-cppi41";
++        reg = <0x47400000 0x1000>,
++              <0x47402000 0x1000>,
++              <0x47403000 0x1000>,
++              <0x47404000 0x4000>;
++        reg-names = "glue", "controller", "scheduler", "queuemgr";
++        interrupts = <17>;
++        interrupt-names = "glue";
++        #dma-cells = <2>;
++        dma-channels = <30>;
++        dma-requests = <256>;
++    };
+diff --git a/Documentation/devicetree/bindings/usb/am33xx-usb.txt b/Documentation/devicetree/bindings/usb/am33xx-usb.txt
+index 654ffc62d013..8431de346129 100644
+--- a/Documentation/devicetree/bindings/usb/am33xx-usb.txt
++++ b/Documentation/devicetree/bindings/usb/am33xx-usb.txt
+@@ -51,20 +51,6 @@ USB
+ The controller should have an "usb" alias numbered properly in the alias
+ node.
  
-+		ohci0: usb@11e10000 {
-+			reg = <0 0x11e10000 0 0x100>;
-+			/* placeholder */
-+		};
-+
-+		ohci1: usb@11e90000 {
-+			reg = <0 0x11e90000 0 0x100>;
-+			/* placeholder */
-+		};
-+
-+		ehci0: usb@11e10100 {
-+			reg = <0 0x11e10100 0 0x100>;
-+			/* placeholder */
-+		};
-+
-+		ehci1: usb@11e90100 {
-+			reg = <0 0x11e90100 0 0x100>;
-+			/* placeholder */
-+		};
-+
-+		hsusb0: usb@11e30000 {
-+			reg = <0 0x11e30000 0 0x10000>;
-+			/* placeholder */
-+		};
-+
- 		pcie: pcie@11e40000 {
- 			reg = <0 0x11e40000 0 0x10000>;
- 			ranges = <0x02000000 0 0x30000000 0 0x30000000 0 0x08000000>;
+-DMA
+-~~~
+-- compatible: ti,am3359-cppi41
+-- reg: offset and length of the following register spaces: USBSS, USB
+-  CPPI DMA Controller, USB CPPI DMA Scheduler, USB Queue Manager
+-- reg-names: glue, controller, scheduler, queuemgr
+-- #dma-cells: should be set to 2. The first number represents the
+-  endpoint number (0 … 14 for endpoints 1 … 15 on instance 0 and 15 … 29
+-  for endpoints 1 … 15 on instance 1). The second number is 0 for RX and
+-  1 for TX transfers.
+-- dma-channels: should be set to 30 representing the 15 endpoints for
+-  each USB instance.
+-- #dma-channels: deprecated
+-
+ Example:
+ ~~~~~~~~
+ The following example contains all the nodes as used on am335x-evm:
+diff --git a/Documentation/devicetree/bindings/usb/da8xx-usb.txt b/Documentation/devicetree/bindings/usb/da8xx-usb.txt
+index fb2027a7d80d..00320d92d3bb 100644
+--- a/Documentation/devicetree/bindings/usb/da8xx-usb.txt
++++ b/Documentation/devicetree/bindings/usb/da8xx-usb.txt
+@@ -27,18 +27,6 @@ Optional properties:
+ ~~~~~~~~~~~~~~~~~~~~
+  - vbus-supply: Phandle to a regulator providing the USB bus power.
+ 
+-DMA
+-~~~
+-- compatible: ti,da830-cppi41
+-- reg: offset and length of the following register spaces: CPPI DMA Controller,
+-  CPPI DMA Scheduler, Queue Manager
+-- reg-names: "controller", "scheduler", "queuemgr"
+-- #dma-cells: should be set to 2. The first number represents the
+-  channel number (0 … 3 for endpoints 1 … 4).
+-  The second number is 0 for RX and 1 for TX transfers.
+-- dma-channels: should be set to 4 representing the 4 endpoints.
+-- #dma-channels: deprecated
+-
+ Example:
+ 	usb_phy: usb-phy {
+ 		compatible = "ti,da830-usb-phy";
+
 -- 
-2.54.0
+2.55.0
 
