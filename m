@@ -1,116 +1,131 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9731A4766BB
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 12:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6434756B2
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787057772; cv=none; b=UO1ILY4pekQpeddhKv8m09Rc48KYCg4d9qpynQKvzSWeky4Rci0IqHHz5PN07u3g4pF6dGXFhLPcZFDSNVHfdxHZ7LAjY/dd3jut9U/Lwcqv/yvUy27O38J8lvaVTEEJyZYmzH4VgOxJF41eXe72qMERYH2bRAgD5X+wP/46wdM=
+	t=1787058013; cv=none; b=fLkxHujfRL7ubGu5e1wlgm/leQN8hshqEfD6xMsxMX3RpA52y18BLHK0dwYcet+rhVa6+JOCHBdSiYso4miCS+UOl+Yxgd0WdvnmAijtPGTPf4mXephWgQCbKy68KW3y04iB8QEcOpvauWZptAHyWb8a/BvCqyxyE22jcoQxHXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787057772; c=relaxed/simple;
-	bh=O+uSJ6l/nC8L/Knw7obnre4I+TF6Q0+iDF3z0NVIK84=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=KO4KfwJDzcGyfEAuQjtPtlcAwgBO6RlENuykYglSWFgbAKpIlPzIKodo0EjjYI8nYM2qmD7FMQXO14vNtp5r1WQb/W97MkrSBDS9ID8NabBkvhkoiI/M8T2vazMAVITua6+JRP84yOubnPEt/DdGfiiA/s8Yij+CzmbJGgsAdWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Ar900zU/; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1787058013; c=relaxed/simple;
+	bh=LvNfSK8pg0K/+mDojw7aH+VyzTbWSAq378RBV3TsZO8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ablRS9dke9obsMA5Nq2PhedzDU8uEEGOhucFj4uTS5rW7AakeE6gZFBUvQoiNpiUkZiXjn5PGKmOrMUr3GZPDaWdILhyRYXBmWxk9wxm8+BVfSTDbD9fbAEHZ6RTxVqxooO7UOSfu2X9JQaGsoVjIYLMatt2JZTqAKigfAIgjXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=t2WLE4sO; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Ar900zU/"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so51281395e9.2
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 05:56:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="t2WLE4sO"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-936c02e58dfso293799785a.3
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:00:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787057766; x=1787662566; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XKi7bHvcr4VfrcOT9VHCYlKY9RJwWhe/hZvFzt6Sx4c=;
-        b=Ar900zU/LW0ppyVBZSmOh/J3jppGr0qAcApPoUFWm3+qtsjMtGJjmuNePQ9IOp0qaz
-         VwXIFuj0pK5lQtQavHV4KYuF1Y4x1aLjyxI4wNImIb9Ze9Rxy9xyYy+irCF8urCb91w7
-         c+Ok8Ozbw+0GkEXVtlhii0OOxm/7bWsEy0lzeTfoPckH/7ZzsKdwpGNbAKLd5KHTrBGO
-         RubLQYT8F+mKK4tO3wpkVbfAtH7zQ6lCpKfVWZCkDJDKxGAsTkPTsA/aGoALXh1nJL2a
-         1gpTTScjEW52o7F4GB6h7R3H6Y4KLD8H21uLumDqMa0g3IW6NVHJRFqCiV/3fDaWtFSk
-         jULw==
+        d=gourry.net; s=google; t=1787058000; x=1787662800; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wmgOUbj8BHDXCzIhBSspWfV30kk7RcENm70SlJA8E7U=;
+        b=t2WLE4sOpoenct34gRpdtiZclR9xG30lSngO+niAHYZTDmgzsUo/WsJqcVMjLWypym
+         cvbS0GxKG9XRzUTZPhVCK986KZs2poZE+oJOHrzReebYFZRwU42l7TKvDMg+64dsgEx/
+         16b3JAiOIOWbmtVhDjUOpEJV80Ujr0oTA0a//OcGM04nuUuX9ckXxZD+QuJJbQGa0h9v
+         d2ikHHRxatqfAtckPmvB9Jkxy5T2sjviMlLOiT/H0BcdamcHERMJonH+MiXrukYvpCbS
+         N3h8ou++8cAHdaNSpmXK7r4p0lC71ImcBHoPZUvLbyYfJzNWs/OPxrArhTC6IWwAS7uw
+         0+/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787057766; x=1787662566;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787058000; x=1787662800;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XKi7bHvcr4VfrcOT9VHCYlKY9RJwWhe/hZvFzt6Sx4c=;
-        b=W3qq4Rp6yiFAumckCNDqm2ZrfuxIo2ATr7doVBVjZcwa39CScEXnUQAYD1gKnrG6I8
-         a/g/9AhebG6Z5yzeIVzQ8V0mfNeeEsVMGaeke+CvtH1u4WgGZJ9Um7Nc1JkRmhzGoDRs
-         DD0k5MWs0VqyYD22vz1romCrMd3lk7V7p+WjIsPpTjfsIb8xudZo3Lo/DFVuO0eZ80nG
-         lM6l3XD1R5qA6n6bFbiRVGhx5q7MmQ0OPXL5ln3H6H+l7SZT7sLdUo/6jwHVhkEuPi+4
-         YHFjXlNUAnLJz/fRl7JQTRgH27cYT/oIcIPd6SpE5nT9/AbJJNixn+jIJmYTXsAcWtff
-         LHgA==
-X-Forwarded-Encrypted: i=1; AHgh+RpS64GrWmNWVApB/C1iS9DuZu634dvYS3pDekLBHaGi3+A7XCN5duzgaMTtylMDroEMxE9RH28HDtAu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXbKBulYXw1PmMhu1XmmOh8RB/t3BURJpGVfZfdKg+P8czRgcT
-	ncapnuV7lCSPeZ3rmRggMHH11Hhq++A3d9p+ChuM7LcMjQ0POznhDoMvj1y+QLkTc5g=
-X-Gm-Gg: AR+sD11ZzqFImB9xEb0mdTV6Ao6haCt3vKBAg1eADEJZAqd2BEwXaTTYqX0O3zswklo
-	pgmZAMMQ34CjXZW3Sm3rueJeCUWvw98OpMXf8/GkQMpPiw0RSR/WkN3A+Kyli2EssjrCcIhX3r4
-	2NkDt90BjdY6iozWn1/zG1EMC36a50jvE2R6f5pS4abe4RJ4nHzOgUfv/b3Qx3bHQioRXVoPro3
-	vGjBHYJR74iZ1yaWnOQbMSOJLYfxZGR1w4pgfjSjfnrlViU31nnlGUGXYdkbaTYZN8KZmKpzig/
-	fYL+AdfGETYeWeGyIIBeZIZg1rUvO/pGL2d0CcIf38FGfyrHcsaOel0wK9sXyiAIbu5prdXdJqB
-	+iX7CEsblUXS9oR01zTke99DGWziqwS3u1zXmAS/MkkxE/UtS1lvrA3Lh4KqOiWmjHs9XQTOiUr
-	7q6GGrrgS/bsZrgGWGBlE5ttYn7sOAj+DqBeWYTNE+2c8jAODhOOrwAEqyRhOztn9mcIiXZwIPM
-	SpD0czoAUbMRgK5ZUiwh3M=
-X-Received: by 2002:a05:600c:848d:b0:499:48bb:417e with SMTP id 5b1f17b1804b1-4998933fd6emr506661115e9.2.1787057766181;
-        Tue, 18 Aug 2026 05:56:06 -0700 (PDT)
-Received: from [192.168.5.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4999d0fb85csm174771215e9.11.2026.08.18.05.56.05
+        bh=wmgOUbj8BHDXCzIhBSspWfV30kk7RcENm70SlJA8E7U=;
+        b=By8QiIu0A9ab5iE6lhn8RLIF/BRioIpPH1I1hmU3YwSTLoYt/Bc4zEG5cO7onQcvM3
+         j8159b51aW4sGkpfyiPqLKllBBiolWkWvsmCoC6r+H80be5KT20/4mcE0QkNHWXtjikT
+         DwI3Aecj74v713MSrGgaC7BO+ZVDg8oxFJ5xwJ1vuimnrxh8Qik1aaRf7TLp/G4l7tOs
+         rHTuUoCIglF8FjRWmpL7jJ1KETIJNNDqRbYZvuJPkZT5JNIoW1IFlD+LBZvcnpwc23/V
+         +3ZAoAd5N4p2HuBhAkKhH1nxT0UVBVEQDq6YpTx7vl6DV4ivlULqVahj8/vINPCFDS5d
+         VbFg==
+X-Forwarded-Encrypted: i=1; AHgh+RpQJgmE3DN4Z3YVttb96m//5FjmhjFMOpxZU6h7RcDp5h9MyyocAJnDtqjQKP6MH0dUkN4Dn6+K99mw@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxf1Fwf+YPVO+gJUKESTahw/WYifvPwvgkEAJhr7OvdAfTlXPnT
+	Ru+lbYsdoxuP+puxgbVp43C9bAwNcBaJGvRgw9KRB1Cw5MrugHejMro/Eiv0Qe8Xd9M=
+X-Gm-Gg: AR+sD11+/TDe3HGjZnFTFRmtaKYsJAVvlKp2lv4+dNq4IiTOkqD57hhgwi4mxhbY4v4
+	JabzRqQWtpX+0k4osDcQ/RYZZDNl2f7HI25FXzSBOlWEpEDiOzs6ejCUes647Rz+WrqGA5hwNTM
+	NixFOAaeFfBVNRnEw3tiEBXt4FGtEWqEpt0opkopJeRoOCE/fOrHE3fiunq3i5RWd8UTqpXh+0O
+	ayjWO/Dp4Rk3NBvwB2F01S/XIyhzC9Sz2+KI5icr6Wm4JnEv39iBqX7Vq08w+u57dZkBnzZDbBO
+	TF+Y+jofnrye7RDZQ/Gyjn+Wc+e9gCwkSi2aZPqWasGitG26ZRQ2qZBm0e9AafK6MklwsJnWvYI
+	6qA6quKC8HrFASo3+QGx1JrenKFXOizbJRpbe9lX6Yo8QuJAFajM8USm43JDsEUm9HR8wRnI7lN
+	2poxL//4IE9pBqmC2tzZay9ew+G+8HNluv+dAK1VDgayf17a8DbtoNCSlshfSFMVhXrz9XZK8iY
+	ZDg0M9yM4WLDf1bUxJc6dxl/xa8Cym84MUksAg90yVBlX/o/Urv4Sc=
+X-Received: by 2002:a05:620a:22e9:b0:92e:6637:d98 with SMTP id af79cd13be357-936d2286961mr2640903285a.18.1787058000487;
+        Tue, 18 Aug 2026 06:00:00 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93703432242sm286024285a.46.2026.08.18.05.59.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 05:56:05 -0700 (PDT)
+        Tue, 18 Aug 2026 06:00:00 -0700 (PDT)
+Date: Tue, 18 Aug 2026 08:59:58 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Alexander Graf <graf@amazon.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Baoquan He <baoquan.he@linux.dev>, 
+	x86@kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kexec@lists.infradead.org, linux-mm@kvack.org, linux-efi@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arch@vger.kernel.org
+Subject: Re: [PATCH 0/4] kho: rename "scratch" to "bootmem"
+Message-ID: <aoRV7vF3v8DqGoyv@gourry-fedora-PF4VCD3F>
+References: <20260811162642.3504565-1-pratyush@kernel.org>
+ <aoMdJ7hpr1GonLz8@gourry-fedora-PF4VCD3F>
+ <20260817145231.GA579285-robh@kernel.org>
+ <2vxz4igr1yq8.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 1/2] dt-bindings: pwm: amlogic: Add new bindings for
- S6 S7 S7D
-From: Alexandre Mergnat <amergnat@baylibre.com>
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, Junyi Zhao <junyi.zhao@amlogic.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260521-s6-s7-pwm-v3-1-57b073fbafef@amlogic.com>
-References: <20260521-s6-s7-pwm-v3-0-57b073fbafef@amlogic.com>
- <20260521-s6-s7-pwm-v3-1-57b073fbafef@amlogic.com>
-Date: Tue, 18 Aug 2026 14:56:07 +0200
-Message-Id: <178705776742.1733024.3702017266095180404.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=350; i=amergnat@baylibre.com;
- h=from:subject:message-id; bh=O+uSJ6l/nC8L/Knw7obnre4I+TF6Q0+iDF3z0NVIK84=;
- b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqhFZsDxMqI5GgmdAmlfldDO655rJFQTxUUPF+L
- d8MIqjEDa+JAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCaoRWbAAKCRArRkmdfjHU
- Rev8D/4xOPZLHUSXNhR9N4UAExW6eRzrUxnLfXcz5FmEunI1yUwDmFrVmLEkd41Pw64v3pthjd0
- iJQ8cYZbSy0yN69vhnEpXL0QHSSG9mXNqanBUNUCaCO+UWYu3TaC2305lJdH4WAFuVQAJvHRGfb
- 9P9tFBefF663jGQ044idMqlUX/XYhiggcyPZeckQxpNJ6jTukcTWspEtbDi17EJjKoIQrHlpd2Q
- YsXOXCTNPdOSBNqvm0bwkg7NyNNqg4/6iPUUUZBb6BIA40aoABZyG0AP+IzDTShbYzkTyj+Av3g
- BH6u158isBZyMPTWw2dOh+8J+PSKb6Ems/rCGbd7AdTfn75NevMvDNXLE2KDVY/MDMiiZi/2bOD
- N+5URngivCT7AswNqQNEPLldxpn8tz+ZOSOuzCTcaTNIuqiaERtLBPPE8epIaP7CFoyDfOc3j0f
- 7dERS4NNk2d9aMkiAiPtXdv4JMNSeGbDqdLC9JwfzJ02UbfbUmU0EGWKRQ7/l4JeveRzg4INCw8
- PXhs0QU5TJS99upeIQcH/wCMgaudjAz69F6hz3Pa5bfIVhwNkYZb9JXjWdDXgY6bPhzYg68j6Gc
- WZd2Z6EZd1hI9dlU4gd+7yWvzKlN2d5cNqeu2Q2+BimNmIA8p8zBvUDPxKVRvcnEKRokm9HNQlv
- PiLF74xfWXaTQ0g==
-X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
- fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2vxz4igr1yq8.fsf@kernel.org>
 
-On Thu, 21 May 2026 08:26:58 +0000, Xianwei Zhao <xianwei.zhao@amlogic.com> wrote:
-> Amlogic S7/S7D/S6 different from the previous SoCs, a controller
-> includes one pwm, at the same time, the controller has only one
-> input clock source.
+On Tue, Aug 18, 2026 at 12:58:55PM +0200, Pratyush Yadav wrote:
+> On Mon, Aug 17 2026, Rob Herring wrote:
+> 
+> For patch 3, I am honestly surprised at how large it ended up being. But
+> I am in principle opposed to the idea that we should not do any
+> housekeeping because it might cause "churn". So I think if the end
+> result is better then churn shouldn't stop us.
+>
 
-Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
+Not really concerned about churn itself, just that I didn't fully see
+the value in moving from Scratch to NoPreserve - these things sort of
+read the same to me.  The additional context you've provided is
+reasonable, thank you for helping me understand better.
 
--- 
-Alexandre Mergnat <amergnat@baylibre.com>
+> 
+> I renamed the commandline option because similar things have been done
+> in the past for other options too.
+> 
+> See commit c5bfece2d612 ("nohz: Switch from "extended nohz" to "full
+> nohz" based naming") for example. It renamed "nohz_extended" to
+> "nohz_full" because it is "a bit opaque and vague".
+>
+
+Also not opposed to the rename, just worth the question since it will
+break existing users. I know boot args don't have ABI guarantees, but
+some are used more than others :].
+
+>
+> That said, I am not opposed to keeping backwards compatibility if
+> someone _does_ complain.
+> 
+
+I think you've made the case well enough here, I appreciate the help in
+understanding.
+
+~Gregory
