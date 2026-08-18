@@ -1,232 +1,125 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D809E47D444
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA85437AA9C;
+	Tue, 18 Aug 2026 16:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787070608; cv=none; b=gWOVEycUW8OaorOSZpLrKqkpWnHGumpvHYiwXSNEIm4E9ynjT8OXiyDKMTsOtgM3WY5oErpNAydoHOlAs/28HHgKL1SF9hJLb4ZOw14DNcjqbo3OFByUFYhv4dd1p0SoyxAsdgr/nNaF+xrz0P4O0k2GZWodDb6KVIUchx8nxOE=
+	t=1787070923; cv=none; b=nuwMr+9UzywMzFOvnuHctNSDlChdjZrCJzPJEC8iThMkXiBaRJWtPqpftUY4S2ji3pAgrCq7AlpY3/OnwJQUGhOltFaYNDlJ8mDPTPB+LEE/5pYsHmJqBysRhYTTwelwUvRHwj9v4fJJQuQPlN4IswcqlbrpLypG2h7MarBKbr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787070608; c=relaxed/simple;
-	bh=g4k2aXYIo36Ew7H+TbCS3tO4JFkwuDU+c0fAj98kaJA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VzvqAL9E/OuvUvU4ATlTmDiQxybAglOdm1gVUbmtQSbn/IgBxB/KypW9Zs1tTQp1BfPch6vMWLuPlxWOSPntcxr2X6kVLO67/gh2ykR9q5UM8eJIRSCEr0wg1/k07h57rsntzxEJpI0jh30UhazkrRMP3tu/j7OskGMSUt7joDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SaQ7yg6j; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787070923; c=relaxed/simple;
+	bh=hw10gIrcVssu6A8BkkQ4x2eyGQFgSpSmppcpntZNMu0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=opgAKbBS0EMb1dmDtNxzBqIRq6enQ9ZFiVi9ltd3FbGmWYiuEu1DEG2rw6Dsn4aCW0Xl5gPIIvryvAPl9AQNls+o6m1tN8LrTnHSCFEu/7qnizIdHOc9AJmc7qkEpwrJhO2j5UxQHF6Nhx6Go5kDsnz/WixioQyyvpD+gD90J18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=MnfX7ENv; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SaQ7yg6j"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-381f03d7be0so15868a91.1
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:30:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787070606; x=1787675406; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YvzMbI7ll7PZPIXTGV6gvIp3oWnAUf7XykW0gyPpQS4=;
-        b=SaQ7yg6j2UFtOih+VfesyyPuegnxgXN//1NGXl1fPYYjRP/7BazgXFWY017s47+7+f
-         E2t87xnoL3d07zocDpxK+XHpsJmDh1SXnZ/vfRtmjUZYpOKRpTkD/zMkF7vgeuvYnX8K
-         Ar9qTT7MkYpoyRuxFjB38+h8MsIjyQXR1kR2MZ7jwYS7uAXpH+x5LF1iE9g9vZhdwWf+
-         iy+FVlNTnHRyctxzVBfdbupPqeSKj0Arhd4Xdw/DX5asbzJWZ4fpjK5HAjjhC9lBbIoD
-         pn6Nkqp6hMX332Rkt3Dc/S7KAGKpSrSuWZ6xOWRebGgpUCCm2h2iEs8/EEAIvirnOxT0
-         aYUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787070606; x=1787675406;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=YvzMbI7ll7PZPIXTGV6gvIp3oWnAUf7XykW0gyPpQS4=;
-        b=FRdPOIViQsdNVSNI2+BdDzDwoPXwg8VteYGOuUeR9ZQu6VUiLWFH1ZHM67X9QyHFp6
-         7VBFxuBZzI4IXDfaLVteZyAksaPZ2ALDvXdo1aNhMeENjbvZmjqVclwUJXd+oDFz3dB+
-         FFeyPRl+ua1B5Q5PBdFAIYiQHli+qxop3tVMilVYrKi1Lea5iVt2RMbhvLBAywjHv5+v
-         Q2FzplA3QDMAy/tMw0+MVVMIEOciDMA91rg1dBnTRzJGwVACGLnY+QLniXVAwuBJx3ym
-         kc3gufujvvrbDpXcUlNP6csoskbqd+nQHAD6ZAO7QBf3BMi9WZAcV8AXTnzmk4aVFy8C
-         poYQ==
-X-Gm-Message-State: AOJu0YzknzADoH1Vgg+9iGcv+MvbxCdJ+W3jATybC8c0LEs1GScE45+q
-	0shHHbn60TAFcidG2LjPBB31wJOfzaYMrxUOiGnI+NQ9ksxzP5XtYovm
-X-Gm-Gg: AR+sD12oplsahe7rtOcOOw5jSDUgeBkHbMtvIv/SlL81VICPTX/1SPzPp7XWMAHJd+w
-	IKzFzVBzpGY2ikt78z3fsJ4Iccmtf/CpgBFwNAGU0jxRubQa5tiUVpTIYKXbCeyJ4yv5fifhHA8
-	N3jdjooITBN0mko8mjYOUeoCXaq0gqCyqjmP+1ODOhFTdKQBlmKu+1YwYVGZmvNsD24PZjrxbpw
-	VV4Ilw0PaaE6SelptGWCKxSe+c7o/LyWjOc3tjgpMkecwv9ZPpxxUqH43X4VeMfqb0hvuvKLFQd
-	S3P6CYfKwqrXANNqc+nt1UpSWxzx4YjJemimhHXdfB2GZwc9QTrgzVxhJvtbCd2OPtYJ2z71oH+
-	nFVannIT5qJFg7aBYeKGRfL8ag43DKQ21FXcFeSVHL7504GJ9yS3y5lV7cp7QTnlIC/Lz0rK1ak
-	efXbLmm0+9mxJKenhPfFaHTIDI99TQipJYCtPKnMrHvjob32oKDg/ksRHxzLe/YnZhKfK+/OhNc
-	N6Akw==
-X-Received: by 2002:a17:90b:33c2:b0:381:77cd:38ca with SMTP id 98e67ed59e1d1-3933b93d7e1mr24719543a91.4.1787070605952;
-        Tue, 18 Aug 2026 09:30:05 -0700 (PDT)
-Received: from [10.90.163.252] ([2409:40c2:501a:6e15:dc3f:c23f:e55e:d03d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1415315900csm18371147c88.11.2026.08.18.09.29.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 09:30:05 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 18 Aug 2026 21:59:49 +0530
-Subject: [PATCH] dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="MnfX7ENv"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CD10A11C32A;
+	Tue, 18 Aug 2026 18:35:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787070915;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Q9v8GxHoF0StEQNyJKE2bkpAPrVfKbBQPYDkMVPC55o=;
+	b=MnfX7ENvYLsquDvBDCL9P3OXOr3jnFJr7USPuU2Hs+kf4GAZjcFgqvsnDMgCDxTaOk3UtX
+	VVxDi3GEFP2Hh56dXxIfbqI8z3zhSaWYwzgGN0cbHYyKjXHc9CMhricENuvCHedS75f8Ml
+	IR0LRlF8PXlYTPqkx5nhp5c+4fs5/RJ68E8oBVIRErRx1CeiRRMMOJqPy9UiR8r7vs4Bdd
+	8U/e8LYxcYmTrs5/ynA/h3LkM7GE/EkDz1LhdYVLFqOKVc0TCNSZMfKIITQkSQuPzAtw8K
+	cqSVgVUqLldBb56IFffMOTdPsYlCZs7MqIj5dIKFpW3Erl88H7uOmErly04hwQ==
+Message-ID: <d6064380-2368-4131-8cde-44734f67028f@nabladev.com>
+Date: Tue, 18 Aug 2026 18:35:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/9] arm64: dts: phy: st: usb: Add STM32MP2 USB support
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, linux-usb@vger.kernel.org
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>,
+ Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>,
+ Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260816213849.1044073-1-marex@nabladev.com>
+ <61dc785c-bea1-4674-918d-0f38ea253a29@foss.st.com>
+ <41e7978b-933d-4813-9158-00474f531476@nabladev.com>
+ <6c900e6b-2f50-4ec2-aca4-3093479bba53@foss.st.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <6c900e6b-2f50-4ec2-aca4-3093479bba53@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC0ML3ZJM3fzkAqPi5AJdS8NkS3NzU/MkE2MjJaCGgqLUtMwKsGHRsbW
- 1AF0iTuZcAAAA
-X-Change-ID: 20260818-ti-ocp2scp-91c97757b432
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787070596; l=3975;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=g4k2aXYIo36Ew7H+TbCS3tO4JFkwuDU+c0fAj98kaJA=;
- b=mJwfFyhMg+o/Fsw6yGOkg6Xs+hEYivYwjW4w6BWXFxJ1vE9pT5ZaF1V7cYeQumqsmv6pdeI/K
- BfST8/Pt9bCDDIia9pTwXEknpWOXojCl+/9wc6vWIvj/23kTAeqvMM5
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Convert the TI OCP2SCP bridge device tree bindings to DT schema.
-Changes during conversion:
-- Add list #address-cells and #size-cells as required properties.
-- Drop ranges from the required properties as it is omitted in some
-  existing DTS.
-- Mark reg is not required for compatible ti,am437x-ocp2scp, driver skips
-  fetching memory resources for this, existing DTS also omit it.
-- Mark the ti,hwmods property as deprecated.
-- Set additionalProperties to type: object rather than using
-  patternProperties`. Since OCP2SCP acts as a generic bridge/bus, its
-  child nodes represent various PHY devices.
+On 8/18/26 6:07 PM, Fabrice Gasnier wrote:
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../devicetree/bindings/bus/omap-ocp2scp.txt       | 29 ---------
- .../devicetree/bindings/bus/ti,omap-ocp2scp.yaml   | 74 ++++++++++++++++++++++
- 2 files changed, 74 insertions(+), 29 deletions(-)
+Hello Fabrice,
 
-diff --git a/Documentation/devicetree/bindings/bus/omap-ocp2scp.txt b/Documentation/devicetree/bindings/bus/omap-ocp2scp.txt
-deleted file mode 100644
-index 18729f6fe1e5..000000000000
---- a/Documentation/devicetree/bindings/bus/omap-ocp2scp.txt
-+++ /dev/null
-@@ -1,29 +0,0 @@
--* OMAP OCP2SCP - ocp interface to scp interface
--
--properties:
--- compatible : Should be "ti,am437x-ocp2scp" for AM437x processor
--	       Should be "ti,omap-ocp2scp" for all others
--- reg : Address and length of the register set for the device
--- #address-cells, #size-cells : Must be present if the device has sub-nodes
--- ranges : the child address space are mapped 1:1 onto the parent address space
--- ti,hwmods : must be "ocp2scp_usb_phy"
--
--Sub-nodes:
--All the devices connected to ocp2scp are described using sub-node to ocp2scp
--
--ocp2scp@4a0ad000 {
--	compatible = "ti,omap-ocp2scp";
--	reg = <0x4a0ad000 0x1f>;
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges;
--	ti,hwmods = "ocp2scp_usb_phy";
--
--	subnode1 {
--	...
--	};
--
--	subnode2 {
--	...
--	};
--};
-diff --git a/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml b/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
-new file mode 100644
-index 000000000000..a8852185144d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/bus/ti,omap-ocp2scp.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI OMAP OCP to SCP bus bridge
-+
-+maintainers:
-+  - Kishon Vijay Abraham I <kishon@ti.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: ti,am437x-ocp2scp
-+          - const: ti,omap-ocp2scp
-+      - const: ti,omap-ocp2scp
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+  ranges: true
-+
-+  ti,hwmods:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: Name of the hwmod associated with the device.
-+    deprecated: true
-+
-+required:
-+  - compatible
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,am437x-ocp2scp
-+    then:
-+      properties:
-+        reg: false
-+    else:
-+      required:
-+        - reg
-+
-+additionalProperties:
-+  type: object
-+
-+examples:
-+  - |
-+    ocp2scp@4a0ad000 {
-+        compatible = "ti,omap-ocp2scp";
-+        reg = <0x4a0ad000 0x1f>;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges;
-+
-+        phy@80 {
-+            compatible = "ti,omap-usb2";
-+            reg = <0x80 0x58>;
-+            ctrl-module = <&omap_control_usb2phy>;
-+            clocks = <&usb_phy_cm_clk32k>;
-+            clock-names = "wkupclk";
-+            #phy-cells = <0>;
-+        };
-+    };
+>>> - On coming MP21 (not supported here), there's address translation
+>>> control
+>>
+>> What kind of address translation ? IOMMU ?
+> 
+> This is much more "basic". The controller can address 4G of memory, e.g.
+> it's 32bits. That feature is only for STM32MP21 that can address 4G of
+> DDR which starts at 2G offset. So basically there's a SYSCFG bit
+> (SYSCFG_USBHARCR AREN), that adds a 2G offset so the controller 'DMA'
+> addresses directly the 4G of the DDR (instead of 2G lower memory map,
+> that's not necessarily useful, and 2G of the 4G DDR, requiring swiotlb
+> with perf penalty).
+> 
+> Current downstream glue driver checks the 'dma_range_map', (e.g. DT prop
+> dma-ranges = <0x0 0x0 0x80000000 0x1 0x0>;) that represent this, to
+> enable the syscon bit that adds offset in hardware (so 4G of DDR can be
+> accessed by the controller, without swiotlb).
+> For USBH, there's nothing mode: set it at probe time, based on
+> dma_range_map, restore it after resume from low power.
 
----
-base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
-change-id: 20260818-ti-ocp2scp-91c97757b432
+Maybe the DT syscfg node shouldn't be a plain syscon , but rather there 
+should be an actual driver which binds to the syscfg DT node and 
+configures all these hardware details early on boot ? The USB controller 
+drivers will start only later, when the syscfg configuration is already 
+set in the hardware by this (future) driver, since they depend on the 
+syscfg node and the PHY subnodes. Maybe that is the way to fix the MP21 
+without having USB controller glue ?
 
-Best regards,
--- 
-Bhargav
-
+>>> - Common dedicated interrupt to manage wakeup
+>>
+>> This is EXTI configuration, is it not ?
+>>
+>>> Using generic controller drivers, I don't see how to manage it, without
+>>> describing it in the DT.
+>>>
+>>> For sure, generic ehci/ochi drivers and bindings can/must be used. What
+>>> would be the proper place for this glue to leave ? Why not adding the
+>>> glue driver from the downstream ? That's supposed to address this.
+>>>
+>>> Do you wish I send it upstream, so it can be properly reviewed, amended ?
+>>
+>> I would very much prefer to avoid the glue if that is at all possible.
+>> Thus far, it seems this could be done (interrupts are generic interrupts
+>> managed by EXTI, Vbus detection polarity is likely a PHY thing since
+>> this is managed by SYSCFG anyway) ?
+> 
+> I better see your point, thanks for your explanation.
+> This makes sense! For this part, the approach can be the same on all
+> STM32MP2 SoCs (21/23/25).
+> 
+> Still for STM32MP21 address remapping feature (out of scope here) I
+> think there will be not much choice to keep a minimal glue DT & driver
+> (and parent to generic ehci/ohci). It seems totally out of the PHY
+> driver purpose.
+> Maybe you have some thoughts about this ?
+Please see above.
