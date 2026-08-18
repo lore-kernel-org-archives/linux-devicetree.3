@@ -1,65 +1,38 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7ED47FB18
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 18:00:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E2442885E;
+	Tue, 18 Aug 2026 18:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787076003; cv=none; b=tJrgcS2vJb8ZtNoyQggv2sYFobc4e/i3/9OR7Dz9LwqR9NikQW8aB1g1fxi88fP9bvVtHDLSL7CU88c/cRhhKljq8wqzj+saoM6hmeEMzaEN0y83gz97uj/2QnfszmxLqAPqPf5wO/YEj2Mj8jvVoUcXiHAGBZEH6FiCkLvM2hs=
+	t=1787076210; cv=none; b=ApgMRusvLU3nYv7gMAFDYF7fywHo36+eQB7eCT8OcOLgLrblzEVbgqKyZo7s71JM0/4RZbOL9kZu5J/Bmc8ykwzIsMLCuzGVlnmlGvhGME/bknUwCuPSPq47l0bDH3tqXqu0COnKbfpHf8XzQqYyAzT0u4hEu0D7H1PozkvXxTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787076003; c=relaxed/simple;
-	bh=XeGxqg1KAnPvmIFhlK5QldIE5Ykscd6BBFWDmaQWQPc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FAi0A8Dymhw7oSNMmFxfFp7EJ/GPgmmm+b94Jkm9JqtejNO6O1CJph+wUump82j3HkBsug60v4iQ3gePvQyhD+2KbvVNTb94fUoYr1eKwP31F+5LeQfPvjo4gZ1sk1m8NgGPP7u9Yb1dnYAZThGsYcT68Eo5/4x+A/mlHI0KcaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IaQ6fZn/; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787076210; c=relaxed/simple;
+	bh=NxlBY+QLfLmAZPcARcDdEqlxKsH4KI7HO6myhnvxzaU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QBLAe/a41IRI+2f13ow/Mzou3Xz6ZR9Bumfi3jJIzNVbskTYGD5rOkH53lmmI0iD6Z9GLqgjSMs+xv5CrItNCFdgdIA28y+qWXsdb05UHksEo6982DKBdsn9Mv5zx0dov0erHaA+W4VaHY7WosIe8Cjr5xdNEyrbPzJddQk/XjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d34bXk6K; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IaQ6fZn/"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c8612812170so9956a12.2
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:00:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787076002; x=1787680802; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=v0/exJ+Q7VwMMtXoTnUV/4sCWGdOZUz6V55TWxRe1Q0=;
-        b=IaQ6fZn/IFCfGGt/oEnm4lPpgzwYQATTxt0iOokWCnCjyPxgBAeXzC2oEKRCXW1d2h
-         qAACPpui7ZbbKJ7O1zMnNgEhvbVrpDylD8hnyROghRv3Bsf30y6FbanD8nkEGx9gRp00
-         1b9nZKz32wUWRwsMXu7egVheXzZ5HVNAZWxbvDoO1umsrujOYOtWCmKVl+JYtNcs7pWJ
-         fxPQ4miI3VYrh7N9eCDMUlR03wEOqxyH97epO1akLQpMRBOwNkCkWh6jgkwSRWZH/wrO
-         6NH7aEJwgJyMtr6yDPyL82qJTCtJhHWJbpk1QoFKxPyKDXyMvO141HMkUMXaY569qxFD
-         V/ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787076002; x=1787680802;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=v0/exJ+Q7VwMMtXoTnUV/4sCWGdOZUz6V55TWxRe1Q0=;
-        b=YKBKoLM+BJZ0zolDGgox6VkcsXX1u7iQpUd61VIN9T/rdgwVRsceiaXX59TgDTmlq2
-         T1YHtJZxEBvYr2OeMhOCzLFVnZbPk12MLP1CSsFicYFBIC+l/HUx48La+K6HL9x6vG+T
-         appZoSASIJEVa+nL3GBMMi2DB0RQWtS/s5vOgqktZXBqT0FJmajcJD2myHe4ckIR4dNm
-         eYm/hnyX98NGYR6+cAOwNod+RUdPPMzoWGDVHEsmSE8NAwbG9d572TbWMHxTirEP2R6C
-         wNtTm0AnZW+1D1a6dcLu6bHyO5T+m6n623JBfV/P0wGc1U64EHQ6mWeiAHra3BrtTube
-         SYbA==
-X-Gm-Message-State: AOJu0YzqKCpJvjc/alO4OJWAKEr9A9pyZCbxSw4fSr5NxYu8BQXcutf9
-	aV96vAfZizbzCLtO15FDFdFAxIdutquCceZc4YaEz6ErYP0aRohpczxWQebsXw==
-X-Gm-Gg: AR+sD12y373WZTf6BR2P0T1QIQn6pGAjiorXFJYguMqAM/YRFy+sJP9VvKgXWdYqLr9
-	p6xFRtYD8cPQgR0KNElCx1WwP351g7XJSATOoWupa4tCLBiniesvbF/vzJ5RiOMs4IBeGESwBXp
-	4tPjA5pE7skqnp7TUJbPNYOdjbnpzzt1JyW2N6uuyNG/dSNOl3C2gBKvhnuhlqTWyjXGEX3e5PL
-	lJ9RVtoohjYj93tHVR5qgoG19HSeMUgHwRgPN/fke9Ts8DREi2Of/1jSsOqwzYGwqZ7dfeI1eOa
-	gK5WYUlElZzJEnQjoyZpwEWvASXK5ljceTgWXiNlA81g1qu1N0r24ro8blaa8YY6pUqUsXbeZ6K
-	x074tnkOGK+tv4AEc0/00J+qEyzP3PYdLbcjFZoHm22ntJb6tazlWqG0R9pqWSRcpU+dork2FHX
-	DjePEVrIH3+I4/7E24NP9fTWisGMbWdMpR8ZRyDQYkUvGst247F8Gc/qF1kNeJqcIqp3qvvwYTK
-	3KA7RlTo7I=
-X-Received: by 2002:a17:90b:35c4:b0:38e:91a8:fb85 with SMTP id 98e67ed59e1d1-3933b8c4c87mr26516529a91.3.1787076001569;
-        Tue, 18 Aug 2026 11:00:01 -0700 (PDT)
-Received: from [10.90.163.252] ([2409:40c2:5018:73b0:1ca9:66ac:f2de:44bc])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14152ea340csm17817135c88.0.2026.08.18.10.59.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 11:00:00 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 18 Aug 2026 23:29:51 +0530
-Subject: [PATCH] dt-bindings: arm: ti,omap-mpu: Convert to DT schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d34bXk6K"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 21619C2BCF4;
+	Tue, 18 Aug 2026 18:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787076210;
+	bh=NxlBY+QLfLmAZPcARcDdEqlxKsH4KI7HO6myhnvxzaU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=d34bXk6KwNGdq6rG43dgNtKUqITOpvwpSkVCfOS0II63bZPtuKq4veEB3rxi6NK3J
+	 2FyeyaGkyvPMBld7CJPdx5RQHaxybk44twYEF2X0ByHR9WZV59GJhZxT6PWZbnfrpY
+	 zMZWpBNWskJfw+jW0YB/9kKKfAKM0eEmWboynjmpoK7ESFC4PVs644TIxGDMCG4C9I
+	 /UEc6hG/f0z0/YmpReSKOSi2r2E4M5cDMibDvfM6mzeTRZT2Foi04krskBiYBzHAWQ
+	 Dcoshuyif8GiDeG/onh8k5NCxUWHFzhgmNcQbVDIp6Safnq0pMOZ7QeaBU/bJCd2un
+	 vxsWUgMZjOvWQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA9F1C5DF82;
+	Tue, 18 Aug 2026 18:03:29 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Tue, 18 Aug 2026 19:03:17 +0100
+Subject: [PATCH v3 1/2] dt-bindings: watchdog: samsung-wdt: Add
+ exynos5515-wdt compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,169 +41,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-ti-mpu-v1-1-5b1c71a34669@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBTG8VfRubaykxivIhdsB0cZbUgt7264/
- NX/+wJ4ckwe6iSAo5M9rzZCpgnoqbMjCTbRgBkWmZJK7CyW7RCIKCszGCpzhBhvjga+vqOm/e2
- Pfia9v2u47we+t2l/agAAAA==
-X-Change-ID: 20260818-ti-mpu-22219dfde742
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Benoit Cousson <b-cousson@ti.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787075995; l=4094;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=XeGxqg1KAnPvmIFhlK5QldIE5Ykscd6BBFWDmaQWQPc=;
- b=pK62g2fpBm3Hm6UuEU50s0mV8IelXT1tguuTCjsbX7XtGF7aRVF+Eyzfn7JqZOlojVa3PvIDk
- 513nxpxDId/C0hObWWduEaNZ8ROGTHAUPoylwsgrCffI1pgVtW63wgi
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Message-Id: <20260818-for-next-lucky7-watchdog-v3-1-2912bd122c57@member.fsf.org>
+References: <20260818-for-next-lucky7-watchdog-v3-0-2912bd122c57@member.fsf.org>
+In-Reply-To: <20260818-for-next-lucky7-watchdog-v3-0-2912bd122c57@member.fsf.org>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-watchdog@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2313;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=FomCRWunoZv/FcOKS7xgccqo7tYm7xEPkwn4AZZPbfA=;
+ b=owEBbQKS/ZANAwAIAUknAbLEetfrAcsmYgBqhJ5q6l1KKMnV2P6Cn1UsoP5ufTSgNjAGWZlvj
+ kdMw6exdGqJAjMEAAEIAB0WIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCaoSeagAKCRBJJwGyxHrX
+ 6z0vD/4siUbFB5yUoK3t5gXuJmAWUELGYDCgBLixa04YZ3IswaQCav8Q+HRyPs+OZgKo0jDWkhn
+ cv2lz1y4w0m5sPwMHoAYEINCli+6HtswcLh0+BrYG313/EiVEG1p0bgxoyAjr8a38/rjqwxoxBn
+ p1zZtKVJdmo65fcyKiNP+Dx3cAccWVAnrGC+dosL+J44yZbCeH4HJEZ/i9jEnHz2Pq6eayKrYcj
+ HShAsP9V5Fscoszpq4UmH4MncD7o08zQzWdVjPHqZYkEPGtDiL7xlJWBDVbST13cyNZIld1JF2i
+ tBviRwVewVTmCV0fXTlxAn2lxqqSCXqHRrP5emJExFgfZzYOWTNPTA2+AMEp40wOZsPQlZH2zqj
+ TcJ1NWL6jLsczyorAA093zt4iNVvo1u6idPASS/9fDXnKbypp+gNlqm35SnebCr8Q35rNWBn/uX
+ 48g6kIT9y5bIvLWKZofF/ClgtITvpLFSTgAwvmTebmGXDRkjG5P/3F/xAXNa2tthr+QIwCFGi7W
+ b3E1RCD/wONwoQG+oe66tDtGfqt1hLRqMOLGwquUldPR54B3P1GrO9YqNJy+gwGFJuzDSR8t1sx
+ obx7dI11j+uuHYk6PXq+gz4TNpp+5DNEGyaLvRA5jELVymtFStiJUNinOtoUjWi4bJS94JM0MiY
+ Evvy7h8v1B46gKA==
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
 
-Convert TI OMAP Main Processor Unit MPU text to DT schema.
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-Changes from the original text binding during conversion:
-- Mark ti,hwmods as deprecated, as it is longer needed.
-- The pm-sram property name is kept as-is without a vendor prefix
-  ti,pm-sram to maintain backward compatibility with older device trees
-  and the existing pm33xx driver.
+Add a dt-binding compatible for the Exynos5515 watchdog timer.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+This watchdog requires a syscon phandle, and the cluster index should
+*not* be specified, as that does not make sense on the Exynos5515 SoC
+(due to it only having a single core cluster).
+
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
 ---
- Documentation/devicetree/bindings/arm/omap/mpu.txt | 54 --------------------
- .../devicetree/bindings/arm/ti/ti,omap-mpu.yaml    | 58 ++++++++++++++++++++++
- 2 files changed, 58 insertions(+), 54 deletions(-)
+ .../devicetree/bindings/watchdog/samsung-wdt.yaml  | 23 +++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/omap/mpu.txt b/Documentation/devicetree/bindings/arm/omap/mpu.txt
-deleted file mode 100644
-index e41490e6979c..000000000000
---- a/Documentation/devicetree/bindings/arm/omap/mpu.txt
-+++ /dev/null
-@@ -1,54 +0,0 @@
--* TI - MPU (Main Processor Unit) subsystem
--
--The MPU subsystem contain one or several ARM cores
--depending of the version.
--The MPU contain CPUs, GIC, L2 cache and a local PRCM.
--
--Required properties:
--- compatible : Should be "ti,omap3-mpu" for OMAP3
--               Should be "ti,omap4-mpu" for OMAP4
--	       Should be "ti,omap5-mpu" for OMAP5
--- ti,hwmods: "mpu"
--
--Optional properties:
--- sram:	Phandle to the ocmcram node
--
--am335x and am437x only:
--- pm-sram: Phandles to ocmcram nodes to be used for power management.
--	   First should be type 'protect-exec' for the driver to use to copy
--	   and run PM functions, second should be regular pool to be used for
--	   data region for code. See Documentation/devicetree/bindings/sram/sram.yaml
--	   for more details.
--
--Examples:
--
--- For an OMAP5 SMP system:
--
--mpu {
--    compatible = "ti,omap5-mpu";
--    ti,hwmods = "mpu"
--};
--
--- For an OMAP4 SMP system:
--
--mpu {
--    compatible = "ti,omap4-mpu";
--    ti,hwmods = "mpu";
--};
--
--
--- For an OMAP3 monocore system:
--
--mpu {
--    compatible = "ti,omap3-mpu";
--    ti,hwmods = "mpu";
--};
--
--- For an AM335x system:
--
--mpu {
--	compatible = "ti,omap3-mpu";
--	ti,hwmods = "mpu";
--	pm-sram = <&pm_sram_code
--		   &pm_sram_data>;
--};
-diff --git a/Documentation/devicetree/bindings/arm/ti/ti,omap-mpu.yaml b/Documentation/devicetree/bindings/arm/ti/ti,omap-mpu.yaml
-new file mode 100644
-index 000000000000..abd8c64e8e9f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/ti/ti,omap-mpu.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/ti/ti,omap-mpu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+index 41aee1655b0c..a32c47831577 100644
+--- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+@@ -22,6 +22,7 @@ properties:
+           - samsung,s3c6410-wdt                   # for S3C6410, S5PV210 and Exynos4
+           - samsung,exynos5250-wdt                # for Exynos5250
+           - samsung,exynos5420-wdt                # for Exynos5420
++          - samsung,exynos5515-wdt
+           - samsung,exynos7-wdt                   # for Exynos7
+           - samsung,exynos850-wdt                 # for Exynos850
+           - samsung,exynos990-wdt                 # for Exynos990
+@@ -57,7 +58,7 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
+       Phandle to the PMU system controller node (in case of Exynos5250,
+-      Exynos5420, Exynos7, Exynos850, Exynos990 and gs101).
++      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos990 and gs101).
+ 
+ required:
+   - compatible
+@@ -93,6 +94,26 @@ allOf:
+         - samsung,cluster-index
+         - samsung,syscon-phandle
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - samsung,exynos5515-wdt
++    then:
++      properties:
++        clocks:
++          items:
++            - description: Bus clock, used for register interface
++            - description: Source clock (driving watchdog counter)
++        clock-names:
++          items:
++            - const: watchdog
++            - const: watchdog_src
++        samsung,cluster-index: false
++      required:
++        - samsung,syscon-phandle
 +
-+title: TI MPU (Main Processor Unit) subsystem
-+
-+maintainers:
-+  - Benoit Cousson <b-cousson@ti.com>
-+
-+description:
-+  The MPU subsystem contains one or several ARM cores depending on the version.
-+  The MPU contains CPUs, GIC, L2 cache and a local PRCM.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,omap3-mpu
-+      - ti,omap4-mpu
-+      - ti,omap5-mpu
-+
-+  ti,hwmods:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: Name of the hwmod associated with the MPU
-+    const: mpu
-+    deprecated: true
-+
-+  sram:
-+    description: ocmcram node
-+
-+  pm-sram:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description: ocmcram nodes for power management. For am335x and am437x.
-+    items:
-+      - items:
-+          - description: ocmcram node of type protect-exec for PM functions
-+      - items:
-+          - description: ocmcram node of regular pool to be used for data region
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    mpu {
-+        compatible = "ti,omap5-mpu";
-+        ti,hwmods = "mpu";
-+    };
-+
-+  - |
-+    mpu {
-+        compatible = "ti,omap3-mpu";
-+        ti,hwmods = "mpu";
-+        pm-sram = <&pm_sram_code &pm_sram_data>;
-+    };
+   - if:
+       properties:
+         compatible:
 
----
-base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
-change-id: 20260818-ti-mpu-22219dfde742
-
-Best regards,
 -- 
-Bhargav
+2.54.0
+
 
