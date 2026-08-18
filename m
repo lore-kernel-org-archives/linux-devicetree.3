@@ -1,36 +1,36 @@
 Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059D73B27F3;
-	Tue, 18 Aug 2026 18:33:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9B334DCD6;
+	Tue, 18 Aug 2026 18:33:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787078028; cv=none; b=PmCJZzosWxtnNRopWNFUMYhhrqS4sawYRoii5TexLV9QpugO1Oesrhmfgwm4mtRpbdNS2tWd58IshHU95fU626cc8QaINXXqi5mgvKV9498JYiLCA9FM0+7LBm3tAPNg01RgDiHEi48q4ImNs2kN7/GqLNalBm4HcsEJcfwXPhw=
+	t=1787078028; cv=none; b=K/4GmQWUu1eHRc+FVYGtq8pwyPd+scK9gWubGJ6Yfa6qMvQOxVu1MtqIerTV9HA2Q9IhHsH8fRCTM2rAiKEgu0V5+V0izwaqGuKRHSLBfKS87WJljaaS4j8NPPHpWJsFlovbTCNumLc791ubuej+hzsN5tdDfIyNkT6Qm/afDRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787078028; c=relaxed/simple;
-	bh=2bwsVS73ftdNFM2Okf+JM1I40RefIS4dKh7P1t9yANY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l1Y1y4krQGwH4FY3XWB/8yM4E/6KHDhA343TtiFc0HGHgZ7aCIg5PfMasQ5F6S137W5GGhN8mVBxKXJVLJWp6BcHm74T6XmNVQzxdrH8lBWH8JtzDfyDjvhAoDFd2mXAaBwV+Tfs4nQfNACuFn2pPL2JDVYFQ4RT2q7V7xHiq9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=lO2gi1fe; arc=none smtp.client-ip=77.81.229.115
+	bh=XYuuJYoqS1nc/Ig76LtGuulda0ykgYvfrNiveaUCopc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WmNRouQKSmqAZFsRmp5DUlO8Qytn4p2ktdpyjagno23Twd+64qnVFjQUR7p30R7W2emXzLO0/cO0xVYE2q4NzPs3lXdQNR3ZNrvCyUGrWiHyNOJsyR1TZUkHYiENiOxckUKQGLPLKG6OlpMhYFYV3dwZ5xldggabesCM6m8VMZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=BjqPpz/6; arc=none smtp.client-ip=77.81.229.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="lO2gi1fe"
-Received: by chaosmail.tech (Postfix) id E31A21C975B;
-	Tue, 18 Aug 2026 18:33:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="BjqPpz/6"
+Received: by chaosmail.tech (Postfix) id EAEFA1C867F;
+	Tue, 18 Aug 2026 18:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1787078019;
+	s=mail; t=1787078016;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i1ZT8E0+Pm5VDx4LcOMCqD5baN3Oe5eOsk0bsRrW/zs=;
-	b=lO2gi1feVbDxjaCDGdYA7vB9QPG3bz4/z8C/Jry06Dou5NGxyaxww6Es68qQhCkcxZmfX5
-	zL8VFVtSH9Qjs0kfDB7pLcHJK4CeCcaM6Lwbdd6g9JRbrWTDEPXKNvJOQ78TS6/qq+1taV
-	QJlgWQpUeEIF6jPqrakT6xQwr1ukr7o=
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=d0KEV76OGPegyGNsYSTZTQjWgelTfSg1ZN+k4Kvqo5c=;
+	b=BjqPpz/62ePh60i2uhF7Bm1GB4D8e6JamCSIzJokQBoIjX6ogEGxsZT+Lzhz1ap1odF5Gp
+	QeYkjrvws/Mn9S2AyisJXiy8BvnRz2CPrAFvUIQ7WcZuTP/+bjDBttx/LV15Sip/j5f9Q8
+	vAV/MJ/MbYNjatuCxraKPAI7KFnNL6g=
 From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Tue, 18 Aug 2026 20:32:43 +0200
-Subject: [PATCH v7 4/6] spmi: apple: Implement remaining commands
+Subject: [PATCH v7 0/6] spmi: apple: Additional commands and interrupt
+ support.
+Date: Tue, 18 Aug 2026 20:32:39 +0200
+Message-Id: <20260818-t603x-spmi-v7-0-dafebe6e7739@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,9 +39,12 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-t603x-spmi-v7-4-dafebe6e7739@chaosmail.tech>
-References: <20260818-t603x-spmi-v7-0-dafebe6e7739@chaosmail.tech>
-In-Reply-To: <20260818-t603x-spmi-v7-0-dafebe6e7739@chaosmail.tech>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OTU7DMBAF4KtUXmPksT120hX3QCzGf8SINlUco
+ qIqd8cJCxKR5ZPme/MerMQhx8LOpwcb4pRL7q812KcT8x1d3yPPoWYmhTTCSuSjEerOy+2SudV
+ GCZfACRKsgtsQU76vZa9vv7l8uY/ox6VhuehyGfvhe/02wXJ3WDwBFzwCyTb5IINqXuqWvlwof
+ z6P0XdsaZ/k1jc7L6tPWkVMICI26tCrP98ItfOqeg/WoTChBYJDr7d+v1+vHglkaMmGY49bv9+
+ P1SMqj+RlAmUPvdl4MDtvlv9IrrFEWlv3z8/z/AO5eGeF+wEAAA==
+X-Change-ID: 20260725-t603x-spmi-74630bf1b0a0
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
  Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -49,212 +52,74 @@ To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  Sasha Finkelstein <k@chaosmail.tech>, Alba Mendez <me@alba.sh>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787078015; l=6582;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787078015; l=2295;
  i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=RH6K223nJdTsq2zsNyub+vrfUTvair8i/u/7LCuGT1E=;
- b=ow6P6RMgvDdCMesHlhZj2+yyR1Qmpy21ukE8kGxMMPsTyzPzAbV+xPJo5rySb6pQNyp4QitrP
- 2QChPdzbIlCAsaJ7XcUj/rjYF85ttSB9LTcbTmzMIhU/5gWcT6Gs7W0
+ bh=XYuuJYoqS1nc/Ig76LtGuulda0ykgYvfrNiveaUCopc=;
+ b=IUyGXaIBkBSNCkn9JDGz9G9EaAaD+rH2d+6AzOZkIWyRLomrbq8MTOPyLfl2dusELtkBnePRX
+ Cf5qT0zjpOzDCTFMLvW+8xWiEBoNcKOUBiWZ98mgOontsSPdsAV14nQ
 X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
  pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-From: Alba Mendez <me@alba.sh>
+The SPMI bus has grown additional responsibilities in the M3
+generation, making the current driver insufficient. Add M3 comatibles,
+support for slave-sent interrupts, FIFO interrupts, power management
+commands, parity validation, and fix locking.
 
-Add support for zero write and power management commands.
+To simplify the merge strategy, the device tree entries will be sent
+in a future patch series.
 
-Signed-off-by: Alba Mendez <me@alba.sh>
 Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
- drivers/spmi/spmi-apple-controller.c | 116 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------
- 1 file changed, 69 insertions(+), 47 deletions(-)
+Changes in v7:
+- Require interrupt support on M3+
+- Link to v6: https://patch.msgid.link/20260816-t603x-spmi-v6-0-c5ab87aa447b@chaosmail.tech
 
-diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-index b1c127cf5f44..9843dc871d6c 100644
---- a/drivers/spmi/spmi-apple-controller.c
-+++ b/drivers/spmi/spmi-apple-controller.c
-@@ -46,9 +46,9 @@ struct apple_spmi {
- 	readl_poll_timeout((spmi)->regs + (reg), (val), (cond), \
- 			   REG_POLL_INTERVAL_US, REG_POLL_TIMEOUT_US)
- 
--static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 saddr, size_t len)
-+static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 param)
- {
--	return opc | sid << 8 | saddr << 16 | (len - 1) | (1 << 15);
-+	return opc | sid << 8 | (u32)param << 16 | (1 << 15);
- }
- 
- /* Wait for Rx FIFO to have something */
-@@ -69,14 +69,13 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
- 	return 0;
- }
- 
--static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
--			 u16 saddr, u8 *buf, size_t len)
-+static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u16 param,
-+			const u8 *buf_wr, size_t len_wr, u8 *buf_rd, size_t len_rd)
- {
- 	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
--	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
-+	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, param);
- 	u32 reply, rsp;
--	size_t len_read = 0;
--	u8 i;
-+	size_t i = 0, j;
- 	int ret;
- 
- 	if (spmi->prev_fail) {
-@@ -86,6 +85,14 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 
- 	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
- 
-+	while (i < len_wr) {
-+		j = min_t(size_t, sizeof(spmi_cmd), len_wr - i);
-+		spmi_cmd = 0;
-+		memcpy(&spmi_cmd, buf_wr + i, j);
-+		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-+		i += j;
-+	}
-+
- 	ret = apple_spmi_wait_rx_not_empty(ctrl);
- 	if (ret)
- 		return ret;
-@@ -93,7 +100,8 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 	reply = readl(spmi->regs + SPMI_RSP_REG);
- 
- 	/* Read SPMI data reply */
--	while (len_read < len) {
-+	i = 0;
-+	while (i < len_rd) {
- 		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
- 			spmi->prev_fail = true;
- 			dev_err_ratelimited(&ctrl->dev,
-@@ -101,11 +109,9 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 			return -EIO;
- 		}
- 		rsp = readl(spmi->regs + SPMI_RSP_REG);
--		i = 0;
--		while ((len_read < len) && (i < 4)) {
--			buf[len_read++] = ((0xff << (8 * i)) & rsp) >> (8 * i);
--			i += 1;
--		}
-+		j = min_t(size_t, sizeof(spmi_cmd), len_rd - i);
-+		memcpy(buf_rd + i, &rsp, j);
-+		i += j;
- 	}
- 
- 	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
-@@ -113,54 +119,69 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 		spmi->prev_fail = true;
- 	}
- 
--	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len) - 1)) {
-+	if (!len_rd && !FIELD_GET(SPMI_REPLY_ACK, reply)) {
-+		dev_err(&ctrl->dev, "command not acknowledged\n");
-+		return -EIO;
-+	}
-+	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len_rd) - 1)) {
- 		dev_err(&ctrl->dev, "some frames failed parity check\n");
- 		return -EIO;
- 	}
- 	return 0;
- }
- 
--static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
--			  u16 saddr, const u8 *buf, size_t len)
-+/* Send a raw command with 1..16 input data frames */
-+static int spmi_raw_cmd_input(struct spmi_controller *ctrl, u8 opc, u8 sid,
-+			 u16 param, u8 *buf, size_t len)
- {
--	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
--	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
--	u32 reply;
--	size_t i = 0, j;
--	int ret;
--
--	if (spmi->prev_fail) {
--		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
--		spmi->prev_fail = false;
--	}
--
--	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-+	return spmi_raw_cmd(ctrl, opc, sid, param, NULL, 0, buf, len);
-+}
- 
--	while (i < len) {
--		j = 0;
--		spmi_cmd = 0;
--		while ((j < 4) & (i < len))
--			spmi_cmd |= buf[i++] << (j++ * 8);
-+/* Send a raw command with (optional) body and an input ACK */
-+static int spmi_raw_cmd_ack(struct spmi_controller *ctrl, u8 opc, u8 sid,
-+			  u16 param, const u8 *buf, size_t len)
-+{
-+	return spmi_raw_cmd(ctrl, opc, sid, param, buf, len, NULL, 0);
-+}
- 
--		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-+static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
-+			 u16 saddr, u8 *buf, size_t len)
-+{
-+	switch (opc) {
-+	case SPMI_CMD_EXT_READ:
-+	case SPMI_CMD_EXT_READL:
-+		return spmi_raw_cmd_input(ctrl, opc | (len - 1), sid, saddr, buf, len);
-+	case SPMI_CMD_READ:
-+		return spmi_raw_cmd_input(ctrl, opc | saddr, sid, saddr, buf, len);
- 	}
-+	return -EINVAL;
-+}
- 
--	ret = apple_spmi_wait_rx_not_empty(ctrl);
--	if (ret)
--		return ret;
--
--	reply = readl(spmi->regs + SPMI_RSP_REG);
--
--	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
--		dev_warn(&ctrl->dev, "FIFO has extra data\n");
--		spmi->prev_fail = true;
-+static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
-+			  u16 saddr, const u8 *buf, size_t len)
-+{
-+	switch (opc) {
-+	case SPMI_CMD_WRITE:
-+		return spmi_raw_cmd_ack(ctrl, opc | saddr, sid, buf[0] << 8 | saddr, NULL, 0);
-+	case SPMI_CMD_ZERO_WRITE:
-+		return spmi_raw_cmd_ack(ctrl, opc | buf[0], sid, buf[0] << 8 | saddr, NULL, 0);
-+	case SPMI_CMD_EXT_WRITE:
-+	case SPMI_CMD_EXT_WRITEL:
-+		return spmi_raw_cmd_ack(ctrl, opc | (len - 1), sid, saddr, buf, len);
- 	}
-+	return -EINVAL;
-+}
- 
--	if (!FIELD_GET(SPMI_REPLY_ACK, reply)) {
--		dev_err(&ctrl->dev, "command not acknowledged\n");
--		return -EIO;
-+static int spmi_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid)
-+{
-+	switch (opc) {
-+	case SPMI_CMD_RESET:
-+	case SPMI_CMD_SLEEP:
-+	case SPMI_CMD_SHUTDOWN:
-+	case SPMI_CMD_WAKEUP:
-+		return spmi_raw_cmd_ack(ctrl, opc, sid, 0, NULL, 0);
- 	}
--	return 0;
-+	return -EINVAL;
- }
- 
- static int apple_spmi_probe(struct platform_device *pdev)
-@@ -183,6 +204,7 @@ static int apple_spmi_probe(struct platform_device *pdev)
- 
- 	ctrl->read_cmd = spmi_read_cmd;
- 	ctrl->write_cmd = spmi_write_cmd;
-+	ctrl->cmd = spmi_cmd;
- 
- 	ret = devm_spmi_controller_add(&pdev->dev, ctrl);
- 	if (ret)
+Changes in v6:
+- Fix interrupt controller teardown
+- Link to v5: https://patch.msgid.link/20260808-t603x-spmi-v5-0-553c5ac2f137@chaosmail.tech
 
--- 
-2.55.0
+Changes in v5:
+- Style fixes per review
+- Fix fifo flush
+- Link to v4: https://patch.msgid.link/20260805-t603x-spmi-v4-0-c15a12d9a7d1@chaosmail.tech
+
+Changes in v4:
+- Re-do error recovery.
+- Fix an address calculation mistake
+- Link to v3: https://patch.msgid.link/20260803-t603x-spmi-v3-0-c17b506d91a1@chaosmail.tech
+
+Changes in v3:
+- Rework interrupt support
+- Address review comments
+- Link to v2: https://patch.msgid.link/20260728-t603x-spmi-v2-0-f43e5f10e583@chaosmail.tech
+
+Changes in v2:
+- Change locking to non-interruptible
+- Reorder irq ack
+- Clarify dt binding
+- Some data type cleanups
+- Link to v1: https://patch.msgid.link/20260725-t603x-spmi-v1-0-e1a29fcd2d38@chaosmail.tech
+
+---
+Alba Mendez (5):
+      spmi: apple: Validate FIFO state
+      spmi: apple: check transaction status
+      spmi: apple: Implement remaining commands
+      spmi: apple: lock around FIFOs
+      spmi: apple: Add interrupt functionality
+
+Sasha Finkelstein (1):
+      dt-bindings: spmi: apple,spmi: Add t603x and t8122
+
+ Documentation/devicetree/bindings/spmi/apple,spmi.yaml |  37 +++++++++++-
+ drivers/spmi/Kconfig                                   |   3 +-
+ drivers/spmi/spmi-apple-controller.c                   | 389 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------
+ 3 files changed, 394 insertions(+), 35 deletions(-)
+---
+base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
+change-id: 20260725-t603x-spmi-74630bf1b0a0
+
+Best regards,
+--  
+Sasha Finkelstein <k@chaosmail.tech>
 
