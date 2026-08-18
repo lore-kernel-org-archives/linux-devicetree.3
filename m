@@ -1,278 +1,246 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7E43955FA;
-	Tue, 18 Aug 2026 08:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429EB43F0BF
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787043319; cv=none; b=rBaaTfGhBgJBmpt2V4XNnOyM2Ic/3XT606mH+F9L11DkPiOl0zspvGJGr3EUTrsz2IvHLX3LE9Lk3UX91qb7UyOVktjHWp3JdQcrGRfGUlB+BM/pDw9wicJQJQl/Fy5cUW9dJ7rLYur/GGMRucwLG9RE1ghJGgLpcmrm5AX7HJ4=
+	t=1787043362; cv=none; b=NqMuRjs0TQoeGgYE+aP3he0N0vLOukhYsN6tuOLXtBp9umjsuDmksnaC1AxvHTw6plquUmbWuU1lYCdOEY++6qsZITS8SQQlGzw4lNbdfvXiqPZ01lMLp9TCDLPY4hdWdJyDriFSWXQsUOiLgEtN04T5P1EJl0BINmGCurM1Jg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787043319; c=relaxed/simple;
-	bh=Tn7jI98e+vGuQ3H7rNVXuXEnFAs5nvRGa4IW2cG8LI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GDAV1HeDPhdQecTRUphbcWKPIOvYYfCoZaU9Qu7AzXz81qPC1k9Cf/nnpl1ngAt9VA1gSKOoLL3s6JLsyxbkIgfcj/0fr7/ApA4870Ur/2IN1oWXXnOOaUVfjrvg0kXFh6Ta1xjEGlQTsevKRv8f0VN6Z1rzJLPsk8ZHR+loRyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HJ49Mt2H; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787043362; c=relaxed/simple;
+	bh=jdXUg6ge+CkuqPJatY4gmfdrXLXrsfR5VvZfoquwTog=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aQft6AV12PCsp9lTPuxbJ6+ux4I9ePhpb635qbRP6NTEAFPuaXsPzmItTKFQVsgQRZTL2Lj4OxixrfNJ/T/zM/w6/Cxs4f96tcEo6NKSXg/jtlEcWE2JEKt4+bVWtfngDJHxTt5hClQolewoWvX8ekMzuBuaP+/+OwBWuKBNj5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=llLLalVu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=We/mdQ/K; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HJ49Mt2H"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787043317; x=1818579317;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Tn7jI98e+vGuQ3H7rNVXuXEnFAs5nvRGa4IW2cG8LI4=;
-  b=HJ49Mt2Hoq4jRicmzn/7woj/Ouf0EAxYGDVITaVmsOf/gX8Hp2wa45I1
-   qEBGNG3ujG0K+yF7s4h3xlavAb9fZMgsHyQ/Yv3xQZBWRD0TogK76NPJA
-   ifoh6P5XENvy/kyXOYM3IF+KCOsZ51QcfAellNAIkF0YhZdSPKKBlsjdC
-   xMuW4J2sgYBx1VfSXK8/UdonLmd67LD8K2QF4duTKqhQ3BwZS56n6bMxo
-   k8akmPG6IfJ2zU9O+sKspC/CV2ScaVchEnH+awXHoi+ASrxLiOw3BtSc3
-   3D1M6ubdz8N1rR/md2VTQYwH1WokM2tPBYWpDgg7wY9v2NZZisgUNKf35
-   w==;
-X-CSE-ConnectionGUID: CCji9pBjRwyJt3GzwTkl0w==
-X-CSE-MsgGUID: Csr2xnC1Rv+ZvXUeDcUyKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="90042225"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="90042225"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:55:16 -0700
-X-CSE-ConnectionGUID: aYEWlZpCQ2KCh+LXcGBG8A==
-X-CSE-MsgGUID: dOHrbJSpRMCirl6PWQMqAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="269010338"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:55:12 -0700
-Date: Tue, 18 Aug 2026 11:55:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Piparo <holofermes@gmail.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 6/6] drm/ssd130x: Add SSD135X_FAMILY and SSD1351
- support
-Message-ID: <aoQd7qsojnphARpH@ashevche-desk.local>
-References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
- <20260818080626.30430-7-amit.barzilai22@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="llLLalVu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="We/mdQ/K"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BOdY3991303
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:55:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5XpOqc5E/x3j21BWFeP0v8ytaBSccBnOmabQ+CpqYvE=; b=llLLalVu0NRbDmfe
+	/V10Tdhur2wSfmzs2NdTbXiVbs0u2xWQRvvwMtIm501Xle5gwGHobaaC413KYLJ6
+	zRGO7V2aJqlNsQc2AtMAk5RTICkrKgKpY8T6NDcnlUZ5Au+nhYU2OU+e8C/9KuvI
+	Qgs3iYeFKxYJKAvBGYbSF1zv9TklNA7uKkMufdX9hpBVUQyjs+PUfStWyLwAE1Hg
+	wc7pPm9FkVJsVxeq3LxUIkPkSX6vENOLUjMPanm7x5NHRd+2ruwvToHMtajeWsId
+	0qdmFHM5X/ogKCdY8IgqzV2aRIbAXa7m6h2YIcTTo4lb2bmZjLHvFn9oFF5KpOQ2
+	T9B4fw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4f5pscfg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:55:56 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8ee7cd05e18so718466d6.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 01:55:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787043355; x=1787648155; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5XpOqc5E/x3j21BWFeP0v8ytaBSccBnOmabQ+CpqYvE=;
+        b=We/mdQ/KzJwbg9pfbzAzox2t4ZWCYdp6RyBjsk3G9SwXL43whQAkS4kyBB2jendlhd
+         iN9MIthUlSX8jHOYD2UKCRojK0SEpEppUibEqzK2c+VtRzxRJmZdHO30vUjYw9W0uPn7
+         tSU3TnFNft9xB5L2I0PBfvYaOMxQkoAjKZZKa8i0R+EG0nXukGyc/X7fAo6kd/SOoKZL
+         +Ua79SN0JMlsHttHi6YAU/QgOaQFJDtWHmcFBs1VcwhJ8cmHzhEEqfBiiUJ8ytjMzPXP
+         v6PWQPz59vZx7qefxH5CPHolS4bVLEXiy3FgGBTEUNmRxKeRHGxd4UWV/n9CKgNLZ4bk
+         hH9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787043355; x=1787648155;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5XpOqc5E/x3j21BWFeP0v8ytaBSccBnOmabQ+CpqYvE=;
+        b=eS4L7pABxLJEKEJqp1kJ5HK7EI6ryJ+fndNNuiliPyfm6vV7k+s7zVq6Rb62z3Muin
+         sJlxG4reARRfxPd2VK8UFoiZYZUgC34Y3kZaFD5ylF6Grn83X3y+hjYYgQiWLr6ltsLW
+         KN9hqBRJkaAKHN5HAmThW6xIxYCgKe6VIbXeOzl5ZK1zkGCzZ181WvDDmWBQSjIWgX3b
+         A0x8OpR7uSQUwxNZfqhs8lyc+q+BddCUtAjA9Vj7pPQtMrUwY8MK2aIHpE+U7wem8jri
+         Z26YN+P/EdQdV8TUMnUwopVJPInEC+ESBk2+Wg0EbRUXQml65lddV08nIGtrM1DMuLYK
+         BM8A==
+X-Forwarded-Encrypted: i=1; AHgh+Rqh1TEnJH4ouF2ym6/xX866p4stNXJdWZBGcn9CyxnJX2vFAzEra59fN6V4dSFo3Pv/KbUYg+kHq5YB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2ntsVwSl4hPEf03pYhyaYgEgEzard3C9vTZMjd6Exuc4Gdmxs
+	/wzQyO/q99dqv7zpCXLJpZECvF78I5M8h5LKQLvgP6HGnipRajEsr1q+vK/ln/+iBfYBwaM5gpx
+	jvYczZ7BVl+Y109+z+bP9KGgblNntpIQfNJ9Sv5x+2NUxkPV3LJgl0Fi8lSQ8OvP3
+X-Gm-Gg: AR+sD11vH0fmJaN/9XOpae1/2rhWRaJ40ptZD71gacEfBFKyAERQVDRlGogIunpzKmq
+	EbZTsQRvGTs0dlV9coxOHIIyHgX3Q03EE8gD3G+SAiw9lqnzvyqEMepjBXQSnPXwfI3QPQXHSMx
+	nDjp47RwawngpLLSq0XRLueSV0u8olNaaGMJjtIIxtHr8b1KYtwcy2lnVxU4WRPi3+tRgv067nQ
+	CG3zcObqwhSGZj0IjFkzjayAeVoIR4MlMRg5YcnUJk9PjMgFOY5GP8om4y7bsTZ6NjO/WJp/ENQ
+	8/G7nGWDH75QyKp2RNfRtaGoplFE0I7bM8FQP+P4fONlLYfKw6xWDWXA/2g8gJUOUOpXJcOMo8X
+	Umdf2Nfw0GFd8EaLswSGM64MC
+X-Received: by 2002:ad4:5aa5:0:b0:8f1:507a:ed6c with SMTP id 6a1803df08f44-90a91e84256mr216308766d6.5.1787043354999;
+        Tue, 18 Aug 2026 01:55:54 -0700 (PDT)
+X-Received: by 2002:ad4:5aa5:0:b0:8f1:507a:ed6c with SMTP id 6a1803df08f44-90a91e84256mr216308486d6.5.1787043354537;
+        Tue, 18 Aug 2026 01:55:54 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c217fed68f9sm154596166b.27.2026.08.18.01.55.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 01:55:53 -0700 (PDT)
+Message-ID: <eb7b528a-6d5d-46af-b0d7-410bd9acfc0b@oss.qualcomm.com>
+Date: Tue, 18 Aug 2026 10:55:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260818080626.30430-7-amit.barzilai22@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/10] phy: qcom-ipq806x-usb: add MSM8974 HS PHY support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Christian Marangi <ansuelsmth@gmail.com>,
+        Andy Gross
+ <agross@codeaurora.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-phy@lists.infradead.org
+References: <20260810-msm8974-usb3-v1-0-1a47e1185524@oss.qualcomm.com>
+ <20260810-msm8974-usb3-v1-4-1a47e1185524@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260810-msm8974-usb3-v1-4-1a47e1185524@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=S+/pBosP c=1 sm=1 tr=0 ts=6a841e1c cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=HI9WjpCpug938Zx-P8EA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: C_Yq2PeFy7rLKU-U0ybY4194kT-Nm1Ca
+X-Proofpoint-ORIG-GUID: C_Yq2PeFy7rLKU-U0ybY4194kT-Nm1Ca
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA2NSBTYWx0ZWRfXyRb2o3J6vu/C
+ WOwIncck6abaX23rjdEJFT2wv7DyqGdPPyYUIr7pKugdJDlsYFhtwKnhf+Tg6KqNRGaPeVZzhAP
+ wAT6+TQSn/mEhQYL7DnnaAL+JwIa78R0KigZTh0ApjTSvdSNEYd1XOzD8fB6AM+HQ6tiBV9B7Vq
+ bh+d+PiSogsGjOZMpKGbEF+PnVBEpcwYUgDLL8BA7+iYnUq1mF534xvlW5mR9bAQMLOEjYP4Zp5
+ aCqctwPK0z/Eld+HD3tz+jIQ2FKaoMW0wV9g5LYxLtbndcKrPolzvS8yl9yeBwXdgOS9YzUKOsx
+ U/LsPoby/7Bx4ULVnEWlFawg1MRbzWPTZ9NIWwAJ5xOTjwI4ZRol/kxVkO1wNncJbJvun8Eh6sq
+ BNicFMcmSJzbQecFrPSq6RG85QjwRqPMJgfprOPs5X26oE1S7ic5q7pA+wa6l218c74fLTSPDVt
+ oM+KCHrqavxOBkJikzw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA2NSBTYWx0ZWRfX2L4PsVH3GIMP
+ 23m4nJUwO027DWhUMA84wY1hjefc/jnUS0ZkBYfd2axbxm7TKS+D2gycNeGxxAOcQw9V33jZR4P
+ SX6oN50wDIdgNISnhU/L1VaTW0pS/hg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180065
 
-On Tue, Aug 18, 2026 at 11:06:26AM +0300, Amit Barzilai wrote:
-> The Solomon SSD1351 is a 128x128 RGB color OLED controller. It shares the
-> SSD133X pixel layout: one 65k color (RGB565) pixel per Segment, written as
-> a bulk transfer once a column/row addressing window has been programmed.
-> Add it as a new SSD135X_FAMILY rather than as a separate driver, so that
-> the ssd130x plane, CRTC and encoder infrastructure is reused.
+On 8/10/26 1:42 PM, Dmitry Baryshkov wrote:
+> The MSM8974 DWC3 wrapper embeds the same generation of QSCRATCH
+> controlled Synopsys 28nm HS PHY as IPQ806x, but the driver only knows
+> the IPQ806x variants, so on MSM8974 the controller runs on whatever
+> PHY state the bootloader left behind.
 > 
-> Give the family its own primary plane update and disable, encoder enable
-> and backlight callbacks instead of teaching the ssd133x ones about a second
-> family. Only the callbacks that carry no family specific logic are reused
-> as is: ssd133x_primary_plane_atomic_check(), ssd133x_crtc_atomic_check()
-> and ssd130x_encoder_atomic_disable().
+> Add the qcom,msm8974-usb-phy-hs compatible with its own init
+> sequence: unlike the IPQ806x one, it must not overwrite the whole
+> PHY_CTRL register, as the power-on values of the reference frequency
+> selection straps have to be preserved. Only enable the UTMI clock and
+> the DP/DM MPM clamps, signal VBUS valid towards the link, and disable
+> retention.
 > 
-> The data path differs from the ssd133x family in one respect. The SSD1351
-> only starts accepting pixel data after an explicit Write RAM command
-> (0x5c), while the SSD133X enters data mode as soon as the address window
-> has been programmed. Emit it from ssd135x_update_rect(), which both the
-> damage update and the clear screen paths go through.
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c | 35 +++++++++++++++++++++++++++--
+>  1 file changed, 33 insertions(+), 2 deletions(-)
 > 
-> SSD1351 differs from previous controllers in the command protocol. While
-> the opcode is still sent on the command path, the parameters are sent on
-> the data path. Introduce the cmd_params_are_data flag to struct
-> ssd130x_deviceinfo and let ssd130x_write_cmds() split the buffer in
-> accordance to the device specifications.
-> 
-> The SSD1351 also needs its own init sequence (ssd135x_init). The remap
-> byte is fixed at horizontal address increment, COM split, reversed COM
-> scan direction, BGR sub-pixel order and 65k color depth; rotation is not
-> supported.
-> 
-> Contrast is calibrated per color channel as for the ssd133x family, but
-> the three channels are parameters of a single command (0xc1) instead of
-> one command per channel. Add ssd135x_set_contrast() for that and use it
-> from both the init and the backlight update paths.
-> 
-> The SSD1351 is SPI-only, so only the SPI transport match tables gain an
-> entry; no new config symbol is needed.
-
-...
-
->  static int ssd130x_write_cmds(struct ssd130x_device *ssd130x, const u8 *cmd,
->  			      size_t len)
-
->  	unsigned int i;
->  	int ret;
+> diff --git a/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c b/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
+> index f22c0000479f..21b59d4ca8d2 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
+> @@ -17,6 +17,7 @@
+>  #define HSUSB_PHY_CTRL_REG		(0x10)
 >  
-> +	if (ssd130x->device_info->cmd_params_are_data) {
-> +		if (!len)
-> +			return 0;
+>  /* PHY_CTRL_REG */
+> +#define HSUSB_CLAMP_MPM_DPSE_DMSE_EN_N	BIT(26)
+>  #define HSUSB_CTRL_DMSEHV_CLAMP		BIT(24)
+>  #define HSUSB_CTRL_USB2_SUSPEND		BIT(23)
+>  #define HSUSB_CTRL_UTMI_CLK_EN		BIT(21)
+> @@ -27,9 +28,13 @@
+>  #define HSUSB_CTRL_ID_HV_CLAMP		BIT(9)
+>  #define HSUSB_CTRL_OTGSESSVLD_CLAMP	BIT(8)
+>  #define HSUSB_CTRL_CLAMP_EN		BIT(7)
+> +#define HSUSB_CTRL_CLAMP_MPM_DPSE_DMSE	BIT(26)
+
+leftover?
+
+>  #define HSUSB_CTRL_RETENABLEN		BIT(1)
+>  #define HSUSB_CTRL_POR			BIT(0)
+>  
+> +/* PHY parameter override register (eye diagram tuning) */
+> +#define HSUSB_PARAMETER_OVERRIDE_X_REG	(0x14)
 > +
-> +		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[0]);
-> +		if (ret || len == 1)
-> +			return ret;
+>  /* QSCRATCH_GENERAL_CFG */
+>  #define HSUSB_GCFG_XHCI_REV		BIT(2)
+>  
+> @@ -115,6 +120,8 @@
+>  #define LATCH_SLEEP				40
+>  #define LATCH_TIMEOUT				100
+>  
+> +struct phy_drvdata;
+
+Can you just move the declaration here?
+
 > +
-> +		return ssd130x_write_data(ssd130x, cmd + 1, len - 1);
-> +	}
-> +
->  	for (i = 0; i < len; i++) {
->  		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[i]);
->  		if (ret)
+>  struct usb_phy {
+>  	void __iomem		*base;
+>  	struct device		*dev;
+> @@ -123,11 +130,14 @@ struct usb_phy {
+>  	u32			rx_eq;
+>  	u32			tx_deamp_3_5db;
+>  	u32			mpll;
+> +	const struct phy_drvdata *drvdata;
+>  };
+>  
+>  struct phy_drvdata {
+>  	struct phy_ops	ops;
+>  	u32		clk_rate;
+> +	u32		hs_tune_val;
+> +	u32		fsel;
+>  };
+>  
+>  /**
+> @@ -273,7 +283,8 @@ static int qcom_ipq806x_usb_hs_phy_init(struct phy *phy)
+>  		HSUSB_CTRL_RETENABLEN  | HSUSB_CTRL_COMMONONN |
+>  		HSUSB_CTRL_OTGSESSVLD_CLAMP | HSUSB_CTRL_ID_HV_CLAMP |
+>  		HSUSB_CTRL_UTMI_OTG_VBUS_VALID | HSUSB_CTRL_UTMI_CLK_EN |
+> -		HSUSB_CTRL_CLAMP_EN | 0x70;
+> +		HSUSB_CTRL_CLAMP_EN | HSUSB_CLAMP_MPM_DPSE_DMSE_EN_N |
 
->  	return ssd130x_run_cmd_seq(ssd130x, cmds);
->  }
-
-...
-
-> +static int ssd135x_init(struct ssd130x_device *ssd130x)
-> +{
-> +	/*
-> +	 * Horizontal address increment, COM split, reversed COM scan direction,
-> +	 * BGR sub-pixel order and 65k (RGB565) color depth. Rotation is not
-> +	 * supported, so the remap byte is fixed.
-> +	 */
-> +	u8 remap = SSD135X_SET_REMAP_65K | SSD135X_SET_REMAP_COM_SPLIT |
-> +		   SSD135X_SET_REMAP_COLOR_BGR | SSD135X_SET_REMAP_COM_SCAN;
-
-Same comment about const.
-
-> +	int ret;
-
-Why not placing it after cmds?
-
-> +	const u8 cmds[] = {
-> +		/* Unlock the controller, then the extended command set */
-> +		2, SSD135X_SET_COMMAND_LOCK, 0x12,
-> +		2, SSD135X_SET_COMMAND_LOCK, 0xb1,
-> +		1, SSD13XX_DISPLAY_OFF,
-> +		2, SSD135X_SET_CLOCK_FREQ, 0xf1,
-> +		2, SSD135X_SET_MUX_RATIO, ssd130x->height - 1,
-> +		3, SSD135X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
-> +		3, SSD135X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
-> +		2, SSD135X_SET_DISPLAY_START, 0x00,
-> +		2, SSD135X_SET_DISPLAY_OFFSET, 0x00,
-> +		2, SSD135X_SET_GPIO, 0x00,
-> +		2, SSD135X_SET_FUNCTION, 0x01,
-> +		2, SSD135X_SET_PHASE_LENGTH, 0x32,
-> +		4, SSD135X_SET_VSL, 0xa0, 0xb5, 0x55,
-> +		2, SSD135X_SET_PRECHARGE_VOLTAGE, 0x17,
-> +		2, SSD135X_SET_VCOMH_VOLTAGE, 0x05,
-> +		2, SSD135X_SET_CONTRAST_MASTER, 0x0f,
-> +		2, SSD135X_SET_PRECHARGE2, 0x01,
-> +		1, SSD135X_SET_DISPLAY_NORMAL,
-> +		2, SSD13XX_SET_SEG_REMAP, remap,
-> +		0,
-> +	};
-> +
-> +	ret = ssd130x_run_cmd_seq(ssd130x, cmds);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return ssd135x_set_contrast(ssd130x, ssd130x->contrast);
-> +}
-
-...
-
-> +static void ssd135x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
-> +{
-> +	struct drm_rect screen = DRM_RECT_INIT(0, 0, ssd130x->width, ssd130x->height);
-> +	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB565);
-> +	unsigned int pitch;
-
-> +	if (!fi)
-> +		return;
-
-It's less maintainable than
-
-	const struct drm_format_info *fi;
-	unsigned int pitch;
-
-	fi = drm_format_info(DRM_FORMAT_RGB565);
-	if (!fi)
-		return;
+This will *disable* (_N suffix) the clamp on ipq806x too - is that intended?
 
 
-> +	pitch = drm_format_info_min_pitch(fi, 0, ssd130x->width);
-> +
-> +	memset(data_array, 0, pitch * ssd130x->height);
-> +
-> +	ssd135x_update_rect(ssd130x, &screen, data_array, pitch);
-> +}
+> +		phy_dwc3->drvdata->fsel;
+>  
+>  	/* use core clock if external reference is not present */
+>  	if (!phy_dwc3->xo_clk)
+> @@ -282,9 +293,14 @@ static int qcom_ipq806x_usb_hs_phy_init(struct phy *phy)
+>  	writel(val, phy_dwc3->base + HSUSB_PHY_CTRL_REG);
+>  	usleep_range(2000, 2200);
+>  
+> -	/* Disable (bypass) VBUS and ID filters */
+> +	/* Set XHCI_REV bit (2) to 1 - XHCI version 1.0 */
+>  	writel(HSUSB_GCFG_XHCI_REV, phy_dwc3->base + QSCRATCH_GENERAL_CFG);
+>  
+> +	if (phy_dwc3->drvdata->hs_tune_val)
+> +		usb_phy_write_readback(phy_dwc3, HSUSB_PARAMETER_OVERRIDE_X_REG,
+> +				       0x03ffffff,
 
-...
+GENMASK(25, 0)
 
-> +static int ssd135x_fb_blit_rect(struct drm_framebuffer *fb,
-> +				const struct iosys_map *vmap,
-> +				struct drm_rect *rect, u8 *data_array,
-> +				struct drm_format_conv_state *fmtcnv_state)
-> +{
-> +	struct ssd130x_device *ssd130x = drm_to_ssd130x(fb->dev);
-> +	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB565);
-> +	unsigned int dst_pitch;
-> +	struct iosys_map dst;
-> +
-> +	if (!fi)
-> +		return -EINVAL;
-
-Ditto. The problem is that the current style is tempting for subtle mistakes
-such as defining more variables that may use fi in between.
-
-> +	dst_pitch = drm_format_info_min_pitch(fi, 0, drm_rect_width(rect));
-> +
-> +	iosys_map_set_vaddr(&dst, data_array);
-> +	drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
-> +
-> +	ssd135x_update_rect(ssd130x, rect, data_array, dst_pitch);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static void ssd135x_primary_plane_atomic_disable(struct drm_plane *plane,
-> +						 struct drm_atomic_commit *state)
-> +{
-> +	struct drm_device *drm = plane->dev;
-> +	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
-> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc_state *crtc_state;
-> +	struct ssd130x_crtc_state *ssd130x_crtc_state;
-> +	int idx;
-> +
-> +	if (!plane_state->crtc)
-> +		return;
-
-In the similar way here.
-
-> +	crtc_state = drm_atomic_get_new_crtc_state(state, plane_state->crtc);
-> +	ssd130x_crtc_state = to_ssd130x_crtc_state(crtc_state);
-> +
-> +	if (!drm_dev_enter(drm, &idx))
-> +		return;
-> +
-> +	ssd135x_clear_screen(ssd130x, ssd130x_crtc_state->data_array);
-> +
-> +	drm_dev_exit(idx);
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Konrad
