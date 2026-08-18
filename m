@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7435647D93E
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:27:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325E947ACF7
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:27:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787070450; cv=none; b=Wdvjo/WgSZCCnlLVUlT9MwHuJ2oIYBcO3vPqTLhcQ6UCUP8bRDyi4EVUwHYadu1DFc+57ilF3w+UTHE7lidA/DQQsHAAzOSvLGg/kQE9wyfpbbrfeksa1NOnpDfaG0/NV3MoSY0T8Z5jcGyKSPvwXtnK8xB5WjHgs8N6L9XNAfE=
+	t=1787070450; cv=none; b=liFxfe3Jf1Rm/A5luqIcDLmaH2u5UlPYRHMylMKvI0hndBRfGT+RWD6kTaK9VdAAnYJdBVDUg6dJSYvBN7/u1qQMxOd0kZFEVhrUycJNSyr9IMza3J2BpSGJCu0NN+7Fs6zurrOTD29SjqO4F1iUyQLv0jGaDuUIi/F7gDxz2Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787070450; c=relaxed/simple;
-	bh=jV7GyKDmrbeMj1etY71liW7udXFBC1k0wCKXTJCKms8=;
+	bh=Jjp+6mUGNlrMHPyFLwXFoz5nt+sYNpMEnQmpxWxEatY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=snSk4bdFVv0qcHd9D5dY3MjNTQ6ck6xlQmygK96VDVvcbDc7YuEyuABbQjdFq4kA72ds7q481THn2kVc0JfCYdCkJYOnZDwoyeFJZ9HEiZCv3qWaUjmrwN7z3dchOHoYTrPfFMircuwmBqvHm6oRDAfjHfARbzJjRAcFH98AJYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1wL87x4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gQc3yAa5hLfS6ImOiHvwb+hmsLZN6Tg9+MKhvayUZum28im6rd0ZTo5hJJud4SIS+IorwaxL1TUDHF7AsaM6XuLJlGCM33oMYLg7Vwo+A0RfIEszOHE4quynVb6rl0HuodTcRyK0oWEsd2YS5tMyv4UqhLDHnq918a/fN+FMvis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tc+vqzuV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1wL87x4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA7A41F00A3A;
-	Tue, 18 Aug 2026 16:27:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tc+vqzuV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1141F00A3E;
+	Tue, 18 Aug 2026 16:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787070447;
-	bh=GDTEWR5SUineV6jFCp7EHWpWs/pz3f4xFj9dzOegc68=;
+	s=k20260515; t=1787070449;
+	bh=xeyy0Az7g5+iEOjzyawMBEN8I9CftlyVSidDG/pM6vg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h1wL87x49OTonizdBJ9jOMCMgTQCtaChrJmqY065T2NEF5nHkkn9Kgc0A+OOiz4vC
-	 9pfKby6cVLZa3aMmNOBiDfiuBGW9FM8GSD0QB2DmPOSA/9LIV/YV3DGT9W5r8NroQ1
-	 M6LzfFkTqzul/AXGTbMHORV73p42JDdlZNRjG7uzDfdpFRzS137zL3iHmLaDGbD919
-	 zcZDzXlU2wBcy8YQckvzUxKumYV9APr6whifzmCxCSMqbixzD69xRTsW6IwKDhWCjv
-	 Tip5NQ++SRXbNe9GPRLxHNweujZ7TIK7ztvQKnfDnZITifWQQRly/i481t2HrUirmA
-	 8GoVsAm919s3w==
+	b=Tc+vqzuV6/QaNrPNuPhnZaGVQT1ZcmbJljnlqg4HcsYQia0PbL3gly+fgAT131ujl
+	 1bNPp9ZsZrJXLnXxZhyoEXMXwhBFlmbAWIkGPAPqMxxTRDT71ObyKZPw6o9q3eJoNI
+	 81UzzvtAquDulp9pgB8Yoqfdh1uqB2Q+i/nO9QTM95udXGKX5ItxF/TBkwnTWdWz7D
+	 np0TWEoq9SPoYeP8Veb4/pQeo+qA4NGGHUo5fwouc44UW2TEhZwXod1VHSZ1dM2Inf
+	 pM4pRcHW+tIJxFbZlE6DRqF8PN5njyje5H3jQX23jZgUGDJe2Scv1TQiayncb46Jof
+	 b66GOxq9vrmZw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v14 06/13] net: mdio: realtek-rtl9300: suppress
- sysfs bind/unbind attributes
+Subject: Re: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open up
+ C22 and C45 space in parallel
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260817162632.1208891-7-markus.stockhausen@gmx.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260817162632.1208891-11-markus.stockhausen@gmx.de>
 References: <20260817162632.1208891-1-markus.stockhausen@gmx.de>
- <20260817162632.1208891-7-markus.stockhausen@gmx.de>
+ <20260817162632.1208891-11-markus.stockhausen@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 16:27:27 +0000
-Message-Id: <20260818162727.AA7A41F00A3A@smtp.kernel.org>
+Date: Tue, 18 Aug 2026 16:27:28 +0000
+Message-Id: <20260818162728.DA1141F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,74 +49,85 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] The proposed mitigation (`suppress_bind_attrs =3D true`) only =
-prevents manual sysfs unbinding but leaves the identical Use-After-Free vul=
-nerability unhandled during the probe error path.
+- [High] The MDIO read/write functions return `-ENOENT` for unmapped PHY ad=
+dresses and `-ENXIO` on hardware command failure, which improperly aborts t=
+he entire MDIO bus registration.
 --
 
---- Patch [6]: [PATCH net-next v14 06/13] net: mdio: realtek-rtl9300: suppr=
-ess sysfs bind/unbind attributes ---
-commit e83244316d6929d12214fe1f515d997dd87e2a27
+--- Patch [10]: [PATCH net-next v14 10/13] net: mdio: realtek-rtl9300: Open=
+ up C22 and C45 space in parallel ---
+commit c559542aa88ff474f3367ec89a5df414f866718f
 Author: Markus Stockhausen <markus.stockhausen@gmx.de>
 
-net: mdio: realtek-rtl9300: suppress sysfs bind/unbind attributes
+net: mdio: realtek-rtl9300: Open up C22 and C45 space in parallel
 
-This commit attempts to mitigate a use-after-free issue by setting
-suppress_bind_attrs to true. The driver relies on devm for the central
-controller structure, which can be freed early while MAC drivers still
-hold references to PHY devices on the bus when unbound via sysfs.
+This commit enables parallel C22 and C45 access for the Realtek RTL9300 MDIO
+driver. It does this by unconditionally assigning both the C22 and C45 read
+and write bus operations during probe.
 
 > diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
 dio-realtek-rtl9300.c
-> index 87b91aef9b56e..3360cadfb7f32 100644
+> index f3777c61705aa..c417a2e3d613d 100644
 > --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
 > +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
-> @@ -839,6 +839,7 @@ static struct platform_driver otto_emdio_driver =3D {
->  	.driver =3D {
->  		.name =3D "mdio-rtl9300",
->  		.of_match_table =3D otto_emdio_ids,
-> +		.suppress_bind_attrs =3D true,
+[ ... ]
+> @@ -683,13 +683,10 @@ static int otto_emdio_probe_one(struct device *dev,=
+ struct otto_emdio_priv *priv
+>  		return -ENOMEM;
+> =20
+>  	bus->name =3D "Realtek Switch MDIO Bus";
+> -	if (priv->smi_bus_is_c45[mdio_bus]) {
+> -		bus->read_c45 =3D otto_emdio_read_c45;
+> -		bus->write_c45 =3D otto_emdio_write_c45;
+> -	} else {
+> -		bus->read =3D otto_emdio_read_c22;
+> -		bus->write =3D otto_emdio_write_c22;
+> -	}
+> +	bus->read_c45 =3D otto_emdio_read_c45;
+> +	bus->write_c45 =3D otto_emdio_write_c45;
+> +	bus->read =3D otto_emdio_read_c22;
+> +	bus->write =3D otto_emdio_write_c22;
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does this mitigation fully
-address the load failure scenario mentioned in the commit message?
+[Severity: High]
+This is a pre-existing issue, but does the MDIO read/write implementation
+improperly abort the entire MDIO bus registration when encountering unmapped
+PHY addresses or hardware command failures?
 
-Looking at otto_emdio_probe(), the driver allocates priv via devm_kzalloc()
-and then iterates over child nodes to register an MDIO bus for each:
+Looking at otto_emdio_phy_to_port(), if a PHY address isn't mapped, it retu=
+rns
+-ENOENT:
 
-device_for_each_child_node_scoped(dev, child) {
-        err =3D otto_emdio_probe_one(dev, priv, child);
-        if (err)
-                return err;
+drivers/net/mdio/mdio-realtek-rtl9300.c:otto_emdio_phy_to_port() {
+    ...
+    for_each_set_bit(i, priv->valid_ports, priv->info->num_ports)
+        if (priv->smi_bus[i] =3D=3D chan->mdio_bus &&
+            priv->smi_addr[i] =3D=3D phy_id)
+            return i;
+
+    return -ENOENT;
 }
 
-If a MAC driver concurrently attaches to a PHY on the first successfully
-registered bus, it will hold a reference to the PHY device, keeping the
-mii_bus structure alive.
+Similarly, if a hardware timeout occurs, otto_emdio_run_cmd() returns -ENXI=
+O:
 
-If a subsequent child node fails to probe, otto_emdio_probe() returns an
-error and triggers devres cleanup. Devres unregisters the buses but leaves
-the mii_bus structure allocated due to the elevated reference count. Howeve=
-r,
-devres unconditionally frees the priv block.
-
-If the MAC driver later attempts an MDIO operation, such as calling
-otto_emdio_read_c22(), won't it dereference the freed priv pointer?
-
-static int otto_emdio_read_c22(struct mii_bus *bus, int phy_id, int regnum)
-{
-        struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
-        ...
-        scoped_guard(mutex, &priv->lock)
-                ret =3D priv->info->read_c22(bus, port, regnum, &value);
-        ...
+drivers/net/mdio/mdio-realtek-rtl9300.c:otto_emdio_run_cmd() {
+    ...
+    return cmdstate & info->cmd_fail ? -ENXIO : 0;
 }
 
-Should this probe error path also be addressed?
+When the generic PHY subsystem (like get_phy_c22_id) encounters these
+non-standard errors during mdiobus_read(), it transforms them into a fatal
+-EIO. Because -EIO is not -ENODEV, __of_mdiobus_register() will immediately
+unregister the bus and exit, preventing the switch and all its network ports
+from initializing.
 
->  	},
->  };
+Could returning -ENODEV instead be safer so that missing PHYs are simply
+skipped instead of failing the entire bus?
+
+>  	bus->parent =3D dev;
+>  	bus->notify_phy_attach =3D otto_emdio_notify_phy_attach;
+>  	bus->notify_phy_detach =3D otto_emdio_notify_phy_detach;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817162632.1208=
-891-1-markus.stockhausen@gmx.de?part=3D6
+891-1-markus.stockhausen@gmx.de?part=3D10
