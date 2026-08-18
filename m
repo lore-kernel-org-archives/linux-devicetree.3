@@ -1,33 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8F4359A89;
-	Tue, 18 Aug 2026 19:07:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3284247CA9F
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 19:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787080047; cv=none; b=OeHCfHt0Fe9xciGaZqyUcgX6zJS+qKk+PwbIw1EKDrkI3GQ8HHghTOSe7vjB163n3KVGD+xbruwoDgN1sSmqGtIk+l3St1NAnLjme8/HQEwqMKkoSN9jeK4GY7m/QrKJ6qVJ9VCXvgnXPsMRUIbrnpF26UEwSjGez1qR8L+PIb0=
+	t=1787080070; cv=none; b=eb3CJE1r+jBG/LTawBWucjG3feJupPTN+Nu+KlfYzIEOlw4cXIbL3stP2oC8CyVabT9Lj+9pg0XvEP6B0voZYgo8Qxr2kN1oLti6j2dtlsf+2kyEeSQbUguilG4EQeDuoZXpbzyKaSKsrM0ULASeUVpIpcxvoX64ZDyKHpp0lwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787080047; c=relaxed/simple;
-	bh=oQsN0JDGE+ID28UHRXZtravvONZsfHiP09AINJ4C7YM=;
+	s=arc-20240116; t=1787080070; c=relaxed/simple;
+	bh=+UESlRR/8ib3mSxysgwZsO+cPigBB/bpNY2eOyvRg3A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QaLptskz9nHFvl/E95ah0ABLwrYTDl3A+eQiWOlUmrqKYAvxZRF+BhyXJg90Txm8L1QfUeMwakjtvtqmCNKo+z9vTpwNEmvRQNQLGU2J6qntKQStDiFAU4gEAP50P+bQM1Q+rj3UxrNQnshHuU+ay9Nix1VBnzKdotnAkVJD+FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IcKAFk1A; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=dVqCVJnrNTm7tuWtjsDKZPCx+ycEo0zmUax/VlwOhD2efUWVXBqm2GNULnDlBNTPasORFq7MyPvHtDp2NpLyrNXmRQ9kBCDmoZ1/SeHnKIzMbo+hNbGv+IZCqv+KFVRvWytOXe+BVqX9bZhM9yeASfG8y6l6S2Wd5nWjosP0EHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ORWLhVB2; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IcKAFk1A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C88141F000E9;
-	Tue, 18 Aug 2026 19:07:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787080045;
-	bh=QfhtHHt4kUbNni13r0FOvSWk4317t9VwKtP/rNfP/p4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IcKAFk1AuDKzUEQsW9942PhLfDpvNIfyPqUnBITnE9A5fUjANnRrQrAPnBrq/YanY
-	 HNKgsXveJFugbmFuzDnQYw6nH/bov+lEI9/O1D4W+siL3PidmQRAjRTWMUYpt8ou/B
-	 cI/RONxKOJ5ge0n/oLkurtb15FnLhlAKHZEj6J6r4iGODc5ODOtK2PTQFkJbdVTtMI
-	 UqIRP5EpE6k6x57x+pbkcaGXjf2DM//jSfJWp+aymLd0uGI6YRv5YEkdk8YZ45DZNX
-	 hc48dyIiuS/9ML+GMn79nW7u6aNvcm86TVhsXivZHnxJ8T8bJV3TJxRxxV/pL5V8QJ
-	 uaLvHvQaAFlDA==
-Message-ID: <5b3cac01-075d-4f21-83fa-31cefd76ffe5@kernel.org>
-Date: Tue, 18 Aug 2026 21:07:15 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ORWLhVB2"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so1038209a12.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 12:07:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787080068; x=1787684868; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ho5Ut4zy/7Lfy6I1/eZq6GBEnTONort7hcGZ8vJucpo=;
+        b=ORWLhVB2q/niNkqaKBdo+ZV1cfz67L3yuGkeyADAbPKtEwf+PApETRcE5Q3AXJ33k8
+         bUuRRUFxwHwAqJUWaiLQE1S0vMuwwI/385JBrU4fYuKpsFFzejr9Uy89bepY8nxbkhG6
+         IdNR0BlLbXHfuacn/PmCVt36nZMqlPQSxrwSaiekb0ZaN3g1UeTud0cN91Y0m/WTnArH
+         hX4czYdV9RWv8NUK31F+4a/m4Zdzo00OFwfq+sDkEKY7wfvfhcKrlNwc+wsmJypVKJFR
+         Kx8+i1V65mWsYb3BuOxLX/eJNa0Py40rCAjJcVtEG27t7DQ/At6DyCQ6TBn8llRE+K8F
+         YTPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787080068; x=1787684868;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ho5Ut4zy/7Lfy6I1/eZq6GBEnTONort7hcGZ8vJucpo=;
+        b=jiJKTqb76ECOVizXcKkLneWrkCczLAlvNcDps5MqAZrj453cnrq/Nos4ctYeqYyOJh
+         JNgWLEBKOrt+yGFGMaxMANZcNEke3QLDHtGaL4de3xg3dXPSbJxxuMZxJpHosS2hR1PL
+         Dp+czyw2ItCKdRV24BMTOZF/UFpWDd0plPwc3dfqlAR4X7ZMwfJIdF+UULb0gGqnfI8i
+         mALZmTvgp+jXdQKzin3N3uW9RVvZqhjanRWxQ51BociHYyOB+v4++TIWhbjKooM0NeUL
+         aD3fsEQVYD/PTuWjkzzvnynxCAsmvJnkvmOj4BQnl/JTST8ZOSwpXuPxiWtQfIaha5Tb
+         Qvcg==
+X-Forwarded-Encrypted: i=1; AHgh+RqxpE+oNMTRqIXEbMpPioRFurEzRv5cGT7NcVL4feJ0HpmgwEdjzc8n5VUbGmhy9IJ1RZCr6ed3qj5M@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5VZhuwCrS3dmlybDDlHfVD9onSb4nOUydutgxkWch4e3AyQeq
+	RKaV52ViY4jL7bQ9YEAa9YOlLf7uAUUPSigtNNsRyQcJ8ePX6XTPIiT/
+X-Gm-Gg: AR+sD12mZywwbrOwDWzozvlul1SwVPjSsV9IxyMJgj+IOpJA0KtayVwTPw87Cx35ODQ
+	8RGDzA6OWKljvJnVnrMo+TKvG85bbW8if22spLWFI0/gqbdP+18ToBmBJpDOHkqSDmOPWbY1pEi
+	2a/FxwSWeyae2/bIhgAhuZc/Bc12HfyP/2QES8cf3uEdBHF+4IdF+D/p8OOWLOhT+aqG4bC3YNf
+	ns6LbN9Lj3hSCesy+nRIKuJRBUJam82YMQShY69Z8FNP60fJqNZaADQL5Yg5ClNHzN1QPERiv7P
+	HWptUoC+h595ZMa3c/wdzZdVK4LyAo1sdFn9vfRlLazaNQgKtRQxb1J826Mt9kiIWAcRk0hX6JB
+	arLwAzQjOvwvWparbRdWzkXR+KrotGRHKfn+um23UylPDcY0PThSD+OsBjOsxyNYQxakT85kj0k
+	wjzTwMipQOfiqrrLfvHtZCNFtcRIekIxuvDoSooAIW/KcyAE46dWo6yR8HwD8xzyL1Js9KeV7Z8
+	Wt5PD1P/KzDYptRrB9GodgMlv1nfl5MLean51AO9HgHRQKu
+X-Received: by 2002:a17:90b:37cb:b0:38e:4f31:8412 with SMTP id 98e67ed59e1d1-3955f173613mr8638273a91.11.1787080068218;
+        Tue, 18 Aug 2026 12:07:48 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1415317054dsm17788131c88.12.2026.08.18.12.07.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 12:07:47 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <e634117e-57be-4c74-973d-3b13cbcaa640@roeck-us.net>
+Date: Tue, 18 Aug 2026 12:07:46 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,155 +71,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: sc7280: Add dma-coherent property
- into venus node
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
- <20260801-iris-fixes-dma-pseq-fint-v1-2-aba0cb22f6ab@oss.qualcomm.com>
- <20260813-frisky-augmented-crow-fd5d3d@quoll>
- <4b34e718-0878-25cc-a5bd-0d8858df5133@oss.qualcomm.com>
- <30195e14-0dcb-476d-af0d-f85ee57e2aa5@kernel.org>
- <e287e538-135a-4eb7-1b21-55b475c844e0@oss.qualcomm.com>
- <26a880b2-5f37-43be-ae8b-2c0c27c777a1@kernel.org>
- <c03354d1-843c-af24-0e7b-a4c0cfb8e001@oss.qualcomm.com>
- <ed6c14b1-49b4-44ba-87b1-65b685e6c25c@kernel.org>
- <25b990fc-558d-d64b-1a5d-e593f4c8d649@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
+ compatible data
+To: Aiden Isik <aidenisik@protonmail.com>
+Cc: sashiko-reviews@lists.linux.dev, Aiden Isik <aidenisik@member.fsf.org>,
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ linux-watchdog@vger.kernel.org
+References: <20260818-for-next-lucky7-watchdog-v2-0-6743f479a47f@member.fsf.org>
+ <20260818-for-next-lucky7-watchdog-v2-2-6743f479a47f@member.fsf.org>
+ <20260818155332.9E0DD1F000E9@smtp.kernel.org>
+ <8919c7f3-2dcb-4666-91e0-a91edc378c28@roeck-us.net>
+ <M_lNzXuQ5wi3MVyFU1JstH_dxQWKDdPGje5yyVFO9lvJsz1H4USWNtew1040JtG4p17UrpWTWoohByvy_x7Nc5dvBh0LuONKNmPZPNMImdg=@protonmail.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <25b990fc-558d-d64b-1a5d-e593f4c8d649@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <M_lNzXuQ5wi3MVyFU1JstH_dxQWKDdPGje5yyVFO9lvJsz1H4USWNtew1040JtG4p17UrpWTWoohByvy_x7Nc5dvBh0LuONKNmPZPNMImdg=@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 14/08/2026 12:57, Vishnu Reddy wrote:
+On 8/18/26 10:56, Aiden Isik wrote:
+> Hi Guenter,
 > 
-> On 8/14/2026 3:56 PM, Krzysztof Kozlowski wrote:
->> On 14/08/2026 12:24, Vishnu Reddy wrote:
->>> On 8/14/2026 3:26 PM, Krzysztof Kozlowski wrote:
->>>> On 14/08/2026 11:49, Vishnu Reddy wrote:
->>>>> On 8/14/2026 12:01 PM, Krzysztof Kozlowski wrote:
->>>>>> On 14/08/2026 07:29, Vishnu Reddy wrote:
->>>>>>> On 8/13/2026 2:49 PM, Krzysztof Kozlowski wrote:
->>>>>>>> On Sat, Aug 01, 2026 at 01:07:28PM +0530, Vishnu Reddy wrote:
->>>>>>>>> While testing with some higher resolution clips, the venus hardware
->>>>>>>>> triggers a fault due to wrong input data being received. Corruption
->>>>>>>>> was also observed in the captured output when the client dumped it
->>>>>>>>> to a file.
->>>>>>>>>
->>>>>>>>> On debugging, this was traced to the venus node not declaring
->>>>>>>>> dma-coherent. As a result, DMA buffers shared between the CPU and the
->>>>>>>>> venus video hardware/controller are not guaranteed to be I/O coherent:
->>>>>>>>> CPU writes to an input buffer can remain in CPU caches without being
->>>>>>>>> visible to the video hardware when it reads the same buffer, so the
->>>>>>>>> hardware receives input data that does not match what the CPU wrote.
->>>>>>>>> Likewise, on the capture path, data written by the video hardware to
->>>>>>>>> the output buffer may not be visible to the CPU, so the client reads
->>>>>>>>> stale or partial data, resulting in corruption.
->>>>>>>>>
->>>>>>>>> Add the dma-coherent property to the venus node so that DMA buffers
->>>>>>>>> shared between the CPU and the video hardware and controller remain
->>>>>>>>> coherent.
->>>>>>>>>
->>>>>>>>> Fixes: 37613aee2179 ("arm64: dts: qcom: sc7280: Add venus DT node")
->>>>>>>> Really does not look like a fix. How skipping a cache sync can fix
->>>>>>>> anything exactly?
->>>>>>> dma-coherent tells the kernel that this device DMA path is hardware-coherent,
->>>>>>> so the SMMU maps its buffers as cacheable. That attribute is what causes the
->>>>>>> coherent interconnect to snoop CPU cache lines on every VPU transaction, so
->>>>>>> hardware keeps CPU caches and VPU-visible memory in sync — which is why the
->>>>>>> dma-coherent property lets us skip the unnecessary cache clean/invalidate.
->>>>>> You just repeated what I wrote. What for?
->>>>>>
->>>>>>> If a device doesn't support I/O coherence, its buffers would instead be mapped
->>>>>>> non-cacheable, no snooping would occur, and the driver would need explicit
->>>>>>> dma_sync_*() calls at each transition. Venus on SC7280 does support I/O
->>>>>>> coherence, so dma-coherent describes that existing hardware capability to
->>>>>>> the DMA subsystem.
->>>>>> How does this anyhow explain your commit msg? Are you saying driver is
->>>>>> buggy that it misses sync calls?
->>>>> No, driver is not buggy here. dma-coherent flag is missed in the dt node.
->>>> Again, no... or explain why. Missing dma-coherent is not a fix, but
->>>> rather optimisation, but you claimed it is a fix. Explain why.
->>> Is the dma-coherent flag only for skipping cache sync?
->>> I might be repeating here — it enables the hardware level snoop between CPU
->>> caches and DMA memory. Without dma-coherent, the CPU cache and the memory
->>> which VPU accesses aren't in sync at the hardware level, which is what
->> They are in sync, because driver explicitly MUST sync it.
+>> Aiden,
+>>
+>> On 8/18/26 08:53, sashiko-bot@kernel.org wrote:
+>>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>>> - [High] The `drv_data_exynos5515` variant includes `QUIRK_HAS_PMU_AUTO_DISABLE` but fails to define `.disable_reg`, resulting in PMU register corruption at offset 0x0.
+>>> - [High] The `drv_data_exynos5515` variant uses an INT_EN register for masking but fails to set `.mask_reset_inv = true`, inverting the watchdog masking logic.
+>>> --
+>>>
+>> Please either address or explain why those are non-issues.
+>>
 > 
-> No, currently driver is not calling the dma_sync*() explicitly.
-> It won't be in sync. That's why dma-coherent flag added to keep the
-> CPU cache and DMA memory in sync.
-> Will you suggest to sync from the driver explicitly?
-
-And we are telling you that this is the problem. Already in three or
-four emails.
-
+> For the 'disable_reg' issue Sashiko flagged, downstream says this:
 > 
-> If we call dma_sync*() in driver, will you recommend to add the
-> dma-coherent flag or not in the dt node?
+>> /* PMU registers are changed.
+>>   * MASK_RESET register was replaced by CLUSTERx_NONCPU_INT_TYPE register.
+>>   * DISABLE register was removed and its value was always fixed by 0.
+>>   */
+> 
+> Which is why I omitted disable_reg. It no longer exists.
+> 
 
-I think yes, at least that would be my advice for every typical device
-(and obviously necessity if you use streaming mappings). Your device is
-DMA coherent so this will make dma_sync* operations no-op. Proper usage
-of DMA API also describes the ownership of the memory between device and
-CPU. IOW, lack of dma_sync suggests driver has incorrect or incomplete
-DMA API usage and this should be fixed in the driver, not via DT properties.
+What is "downstream" ? I do not see this comment in the patch, not
+in linux-next as of next-20260817.
 
-Best regards,
-Krzysztof
+Guenter
+
