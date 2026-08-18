@@ -1,101 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625F836A350;
-	Tue, 18 Aug 2026 09:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14E84457C4
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045045; cv=none; b=mL7tbrzHM0Jj3kKhrof9uOuNSz2C9L1gSJWFZ7G9L8wV9xpqJn5apdyEAk/mTv5qLo/sfauie5JncHlD2+/Pu8QE3u3sh8uVoVbTqG7voUt1CFoeGMevwU1DWWhyUgV6TJetE/ViSMl5YQqCY+FZTcQRh2liWFMgVqm7QPT0eCk=
+	t=1787045071; cv=none; b=lFkT8XrE3cRegL+8wwhu1ymXO2WGyrh5agE2Tk6JsmnWBhv0/KV9isBfVEdtPa1eCbryIX6aoNqSaY0kxPiLz1VMOmJ7hLO57TvLiV0Bdb9e3FJlENFm9YCqabZFWxQ6gCc2nj7TkOuCwlxMCqLA5F6bE6hjoa4fSrtZ+sWGyXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045045; c=relaxed/simple;
-	bh=iSTMz5JaelVZw61CADSGAyftHMDXVbZDGl08buTUlrQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G/H5hz3jirelR38OnZ6Fi1jeKhHWwVrJS6mDMJ2sBgQJyo9vZKO1gnK4jcrFXR2yBKneIWtqY9H7IES7x9L4A29Skx+hpj7fy0piOSXCNHkN4Eq6C5GzWMQi14NH/1aC6Eckg2j/v8Kucs54lw2ksuKsVk+uNyIbBnL4kA7bEzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ryw7xRws; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787045071; c=relaxed/simple;
+	bh=XK9oF+spn3Q9EflDQqaeZhgSOFD37Pm50QwK+qYrZ+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hexWWINCmfnsOUH6E59WJaLPYLgX2mm2K9DtfK2miDRIfIaB+WX052yulWtynsZAtBgJM35t2w/GZe77hOGqXC6D3VOcPuW7YX6KlbGvc2v/8AazAlAzIbITeuOjLv65/OVTdax0BJRwrU62nA/0+O5APSpaEg0DDFb1vvbH64A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PfGE9eU0; arc=none smtp.client-ip=74.125.228.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ryw7xRws"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D591F000E9;
-	Tue, 18 Aug 2026 09:24:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787045044;
-	bh=DB4gc021DxXbso9INjf52whfyuI1KE4radMT569Kt3g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ryw7xRwsMSyymz8yAHbZP1MZIQLpezjiTiR+wkVf+C53rN8t+vm75N22jXE8cDPYu
-	 m42BaTlinIEEOgbdaNGd2xLBDJDMKoSeXQWjCGTXouztVmBW56GIrr08Tso/aEzBHI
-	 182bYalEBRBVvL267vmTL+/salqdWwfyeZVPjYZ0gegavSSPf7uKEmLA71maiLqWGv
-	 WipSHkFMVxiWc7n8DozQWzQzCoUG9yq4fjT6jE+IX4EIor5Tk6sY5P/grlmZGSzoQn
-	 ko1rTwAPZSxTDvSfxU90N1QLfSmLQ0zB1QGCSF4giG1OyZolhciIwzyl1zd9DszQrj
-	 fFo4UCr5d+6ew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 2/4] dt-bindings: phy: ti,tcan104x-can: Document
- Microchip MCP2542
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefan Wahren" <wahrenst@gmx.net>
-Cc: "Oliver Hartkopp" <socketcan@hartkopp.net>, "Vincent Mailhol" <mailhol@kernel.org>, Frank.Li@kernel.org, robh@kernel.org, vkoul@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, "Oleksij
- Rempel" <o.rempel@pengutronix.de>, linux-can@vger.kernel.org, neil.armstrong@linaro.org, imx@lists.linux.dev, linux-phy@lists.infradead.org, "Marc
- Kleine-Budde" <mkl@pengutronix.de>, conor+dt@kernel.org
-In-Reply-To: <20260818091701.6441-3-wahrenst@gmx.net>
-References: <20260818091701.6441-1-wahrenst@gmx.net>
- <20260818091701.6441-3-wahrenst@gmx.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 09:24:02 +0000
-Message-Id: <20260818092403.66D591F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PfGE9eU0"
+Received: by mail-pz2-f1.google.com with SMTP id 41be03b00d2f7-c9fe62e0da3so1663711a12.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:24:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787045069; x=1787649869; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A1pbnb70esMHiIG2GjQa1pvwn7zF1O2Mpz4YdOsewSo=;
+        b=PfGE9eU0qLUTeR3yocRlqp1Lp39l1848+4zz/Xn9auDyXy8K7hhuyldv7q8DUeWIFi
+         PCyGlfBUDDHwHGX0hi2Pj+tTWKFwLUk7H/vSTbSJqLgtSHs0DgP/tENMz8FeuRsAjZuU
+         ZgX3yD2vqpmpllPO+SWqWpMzbguc/Fnj7i1Wu7+TbRSW+AxcJOiRuDEb6NFiklGkZWn8
+         mayaRIhEFKzS4pDDgxytHsWP9pYrM6OZ5eg1yE4v+WWergcNWQ0+Rg5OgQlLgKz0hmWH
+         2cFziwZrt/5ZUiEB6SnXvYdjcLgxsnaKBoTUA9PHXNJa+fTIfpVFuvJQ0+X398Bg/sFx
+         GRbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787045069; x=1787649869;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A1pbnb70esMHiIG2GjQa1pvwn7zF1O2Mpz4YdOsewSo=;
+        b=X5KLennab23Zgu+WVvEIEFCOVZhwzbv3CkP0P9FOgBJfM3rpzyOEvtDdGNni+Um9we
+         0iLWDB31KA0/dGzTAXp9YAswYaC+QTt8TgRBf3dO9jEBWOKqExs6aU7UKwQmgq6X+lty
+         vXvxXZUQ413+9EDkhiDLe+wpRxUNDoJ8PozAZOJWwGvZxYZx2VTY166aUypqshAKESdp
+         EGIGWfjfToYI+5opYIdRzTj3qFk5GQCDDmlxV9jIyn8lBEZoV5Vxf/bed0kqqQaJOrph
+         RE2tuhVpfXEI1E+NXkMI3Ga/tDDC5FFsh6uLEKE9dYdd6dGPqpz/wCy3fLDpTOt6wjsZ
+         Nl1g==
+X-Forwarded-Encrypted: i=1; AHgh+Rr7jWO9BsqOLBw990rpxBjT7arBc9KrOThU0vPr5UUsL5cD8cR1iGVVvEVzT04ujOk+hiKWMtJivQHK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzMNYn5lxKTh3NA4j3CjC/YyRU3rpKfKFMkvaoAnq1y54zmPK3
+	OLkp01bX2B2hn+XhY1zy0OidqWzmSt3mnzDnvWO2qbQFW5E/TUmC1Nkv
+X-Gm-Gg: AR+sD13v/wV9eKh/4V9QTRn1mAPzZBHrzeFHKjxN5DET5BBSDSK9wwcSV/MJUpLOD3r
+	DMKUkeRlFhEM8QQcW1nVriUKRmJzVmD39545fRlbCtrzB2gd+1d8k3FojhVfz9PuIIOKvkr4RgL
+	I03o2GIuObzuP2R6k0JlQViq4aU3oDdRX19zh4g1we7ypKDt5/YBIlfnmQggMb2sXQH29uREgvt
+	zgyI7zpnq9YRgk+/BC0yCrmdKC9p0XPTbFL5DuKfJ5M7u26RiCifrcNhhJKDygAJ8APyNwlOofz
+	3jjEPDCyzvdul5GPCqR1/CYkhA2ZwTV4nd67CzhRRDdgnLF9HBe0IS257mf3zw3JhFmxLn8F7A1
+	/Rcj0+tBHhhnspyYZTImOWI4NEMe9zpPJbPpjqWAU9pSGkjCoTE1pXSA+PoWsvGCLaiP+xWhuGO
+	1pcEXme/4Dc60GXDMGPx/S1jza+z2HFO6CiS1ZjmhRa5+DN5uYwdM7JOujv4tXcbSXaSYKemE6
+X-Received: by 2002:a05:6a20:c90b:b0:3c4:2cf9:28ad with SMTP id adf61e73a8af0-3cc71ddfff1mr40412723637.12.1787045068712;
+        Tue, 18 Aug 2026 02:24:28 -0700 (PDT)
+Received: from intel.company.local ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc13c036c50sm1855975a12.26.2026.08.18.02.24.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 02:24:27 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: robh@kernel.org,
+	saravanak@kernel.org,
+	rppt@kernel.org,
+	m.szyprowski@samsung.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Cc: akpm@linux-foundation.org
+Subject: [PATCH v2 0/5] of: reserved_mem: several fixes about reserved memory
+Date: Tue, 18 Aug 2026 17:24:15 +0800
+Message-ID: <20260818092420.2859026-1-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The new compatible string 'microchip,mcp2542' is added as a standa=
-lone enum item in the binding but lacks corresponding support in the CAN tr=
-ansceiver PHY driver.
---
+From: Wandun Chen <chenwandun@lixiang.com>
 
---- Patch [2]: [PATCH RFC 2/4] dt-bindings: phy: ti,tcan104x-can: Document =
-Microchip MCP2542 ---
-commit 43adb87775584a977c1d440864b9e805fba31d0e
-Author: Stefan Wahren <wahrenst@gmx.net>
+This series fixes several error-handling issues in the reserved-memory
+initialization paths.
 
-dt-bindings: phy: ti,tcan104x-can: Document Microchip MCP2542
+Static reserved-memory nodes are reserved during the early DT scan but
+initialized later. The first patch prevents a node whose early
+reservation failed from reaching the late initialization path.
 
-The Microchip MCP2542 High-speed CAN transceiver with Sleep mode is a
-pin-compatible alternative for the TI TCAN1042.
+The following two patches reject overlapping static regions. Without
+these checks, overlapping nodes can be initialized over the same
+physical memory, result in data corrupt.
 
-> diff --git a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml b=
-/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> --- a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> +++ b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> @@ -24,6 +24,7 @@ properties:
->            - const: ti,tcan1046
->            - const: nxp,tja1048
->        - enum:
-> +          - microchip,mcp2542
+The last two patches fix cleanup of no-map regions after driver.
 
-[Severity: High]
-Since the compatible string is added as a standalone enum item, a device tr=
-ee
-node will not have a fallback string. Looking at the CAN transceiver PHY dr=
-iver
-in drivers/phy/phy-can-transceiver.c, the match table lacks this new string:
+Sashiko reported these issues in [1] [2] [3].
 
-static const struct of_device_id can_transceiver_phy_ids[] =3D {
-	{
-		.compatible =3D "ti,tcan1042",
-		.data =3D &tcan1042_drvdata
-	},
+[1] https://sashiko.dev/#/message/20260814090305.4C8741F00A3D%40smtp.kernel.org
+[2] https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kernel.org
+[3] https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org
 
-Does this cause the PHY driver to fail to probe for the new device? If this=
- is
-a pin-compatible alternative for ti,tcan1042, should the binding require a
-fallback compatible string so the existing driver can match it, or does the
-driver need to be updated to support the standalone string?
+v1 --> v2:
+1. Rework failed-node tracking in patch 1: do not track zero-sized nodes,
+   and keep a reserved_mem slot when tracking overflows.
+2. Reject static reserved regions overlapping existing no-map regions.
+3. Keep MEMBLOCK_NOMAP flag for static no-map regions when init failure.
 
->            - ti,tcan1042
->            - ti,tcan1043
+Wandun Chen (5):
+  of: reserved_mem: skip init for regions whose early reservation failed
+  of: reserved_mem: reject static regions overlapping no-map memory
+  of: reserved_mem: reject statically placed regions overlapping
+    existing reservations
+  of: reserved_mem: release dynamically allocated no-map region on init
+    failure
+  of: reserved_mem: retain static no-map memory on init failure
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818091701.6441=
--1-wahrenst@gmx.net?part=3D2
+ drivers/of/of_reserved_mem.c | 87 +++++++++++++++++++++++++++++-------
+ include/linux/memblock.h     |  1 +
+ mm/memblock.c                | 14 ++++++
+ 3 files changed, 85 insertions(+), 17 deletions(-)
+
+-- 
+2.43.0
+
