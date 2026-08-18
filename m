@@ -1,148 +1,167 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093D3447819
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6143C0A18;
+	Tue, 18 Aug 2026 09:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045353; cv=none; b=CyhK63cFvmG5ybhDoPmlRX6b61sgu/wMNVp3AbCZuIIE4jtfQAFUmnfIL1aXafjh+1JR1TiLDzhleRQHkPyGoMHmAVqHyqivthyO7bvvdI6/wAFxWA9+edUtL7SLQyAMbOTG77jgEh0tl9KGvsoLNuqi8xon9VVz4vQ0w9zlPbE=
+	t=1787045510; cv=none; b=bXS6bbJ5IvDSoGifPKVnlZ8TSHRAldbkQr0M6b8EjVCYnfBCsJ4MZu3FqYKZtvY6LO/xiR3ftgZBarRk4N4CT03bzuSMxsZ9e36sSOQVPSUPa183gRlNBHodkzniMWaTs8t8jQDY7trW4iWFU5gf/OS3bnz3QZB5qaC3so+w5lI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045353; c=relaxed/simple;
-	bh=Xbg/Leo9JGEINIj0/0E6vLDK9IWjAmkq/rRuhYHL3f8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cXkUUFfK0zaYqDBP++sFMPQ8UGxS71+XYMp//uestA65Xc9cduLPFTck6T3HrpKuLB70y2auLRIgwsYNBQ//3wLy5t6bJnlT/CABGxt4mMijvrpc2GWhf0sDOUS9qOUn6sGUVN8JSPc7epbZjGtElRSIAbsIOLYnVe6zM7Lr61E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Nd73Ry1q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a2v4Ggcb; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787045510; c=relaxed/simple;
+	bh=O4PfENbvgkJUOnLkwHfdpUsWpgjIC9sTq8qJ32I/HuA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IVUeTF8ZrlxPLWUgyAgFfQBn5BOFU/NLZ2YP7bLoEo8CijPdvDeV/kKGDxK2XtS+d/6jkmWjKB4a6RnX172Tw5X2LrH0o6BWyA1WNUaIN+ymOWvts/7cQFrELk9Pyep5vtSQmpOBY5OYuXIg3oklkTTKi8gFKc+UoNSvjdR3LYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bVP9IDgW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nd73Ry1q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a2v4Ggcb"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BJLn325457
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:29:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Xbg/Leo9JGEINIj0/0E6vLDK9IWjAmkq/rRuhYHL3f8=; b=Nd73Ry1qzGhkKemy
-	JQ8GbMEFS7NX8kt4aXHxqxjYMwrRQcmkWP0Sp/3aTqeQD2Kxq6yM7Ns6GJ84SQBH
-	6RGeMlJeSXuQx7BandcSjh6LiyH5lRNqY48DRNYAYP0pS7/7FghN02p+gnvN2mZ3
-	T6rS5R32oIf8s6NzQUHybRvMzh9LJkyUljVIJS8/jiZuFqjmTwJiem5VelDPqvtI
-	6eaD5xXBqJeqFZKXrC4ozHUjo9CEgKk59hLiwbjPEPJu1H8tBSicORTlRrCR4Q9v
-	h/xZTcAxtvYZ7Nbn8Syo12/gwljg7EtqhJp7VbmUZSR/CQZXKNaTS8ks302NyuxJ
-	Giou3w==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4eqtsma8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:29:10 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfa45b280so859161cf.3
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787045350; x=1787650150; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xbg/Leo9JGEINIj0/0E6vLDK9IWjAmkq/rRuhYHL3f8=;
-        b=a2v4GgcbkUtWxne2a1MN5U6gWn5yM9hDEOzjuvcbLDmDq6MtW3ry2+tBGOe/3OMuoS
-         0Xs3v8amEe9kjL9OY023FQsOBcyQujAOpZ/adVahi0zcAnzrs7abUJX0luQYsZKOnWAn
-         i4nOjrUH7fkwtuQe+PMjzMTyulwCnsp5UpOUW+IApVmRGbHveOgUjz+PdcWVuQb8OP6V
-         4CXC4OkaCMmtgwhaJ8+AyJGnh6pLVTrb/qadYH3OcWO7EKF5Jha0NpqUWgLrcfuXy4mu
-         mNJVmVwR/lpF0rgCsXmDHLIBfy3DEAbGThWSXNRmcC3iaWHcD0YHis42BBSSYd25lWg7
-         9HqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787045350; x=1787650150;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xbg/Leo9JGEINIj0/0E6vLDK9IWjAmkq/rRuhYHL3f8=;
-        b=YHrZoyVYrSyRPs/CHmMQOPDizPRwn8l0k+TPBcoeT3FQB8YgECSI6xYfzfdxV+2dNI
-         B4xyzaba4zM9eqebwVFLUTjQo7uxWPDhxqL4o3N9UxWajJeUS0h47oTgLJXmjF9HaYRG
-         xha67kxqn95JP4P3WP+myMdQSsrEeTDIh9KdDyT0ZzJH0ZRD6VvhP9JLMbpNaLHV6MhS
-         Jo+q5C9kes4FTOdOFpAkDBAr9lbKa3Y0xS5ksT9plt9S/tz9NyvCKzls/f1uE09LIHml
-         ujs9i90p+qQl/qK+05wb7u/p66TCx+Ly+yjk2JmLOEKPlI/DlsJONHbpl9K4KXhxIhP3
-         /H2A==
-X-Forwarded-Encrypted: i=1; AHgh+RpDcNNHLAMIWoBuzhlm3ZLnZPjfLn8VGKNV7osvcCFJ/wM0+RmVJFGzomwCcj0gDo3Cqzc3SsXRLb1Z@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnLS8bHhZbrgd2a6ID1EgKAMLv1rd2PNUUUSjzCSmvvb3Qs/Bh
-	uAlokE2xPorD0gu91gHqCAMo70zbiKS/IPsyMKeQ7TT1gkoRLZh6YsM3vm9IA2lNWGNpDWzBtLE
-	wx76y1T1FsnIalqUiRwnsEi3uNlzo6msFZYr7Jss0fTmfOgQ3DavT/LYNH9b/BC7I
-X-Gm-Gg: AR+sD135RXM0RCSc68IYux4jjzKXOWM4VCFGPQopTNENlG6Ljqaa69EDbjA8deZGaFI
-	hs66AhjxKTE82rs0WW4hyW5imbH7w8F5G8MyEpENIvJHBjAaIB0YduYQiMdakTb4YdU2suTLb6x
-	5hnqGfyIEkEp6ZsWW/kMD7vv/B9As1ynuTZmtVFl03QbXAel/i9UcFUZc5DnZsi6Uemoon8RNHn
-	w7rBSRdnU7+H1WjlnBkBqp1rtkoAOpo6LDMQ6SU3qkrhMviRHjzaCo4sJmNCANg+poGQ0yqkika
-	4P+Ji7K7xezHo6lnB/+2norNT/gGSrb5xe6liNylIR5sPn3rmkbcsLIjoDSIdAG83toKavwUxm5
-	LRzxiuN5/ieognK5V7qX6rPMk
-X-Received: by 2002:a05:622a:c2:b0:50f:b9a6:82ae with SMTP id d75a77b69052e-52d852f49f4mr243806851cf.2.1787045350324;
-        Tue, 18 Aug 2026 02:29:10 -0700 (PDT)
-X-Received: by 2002:a05:622a:c2:b0:50f:b9a6:82ae with SMTP id d75a77b69052e-52d852f49f4mr243806751cf.2.1787045349958;
-        Tue, 18 Aug 2026 02:29:09 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3d8530d3bsm1694606a12.10.2026.08.18.02.29.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 02:29:08 -0700 (PDT)
-Message-ID: <642652c2-af5d-446c-ac1a-8099639c2588@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 11:29:06 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bVP9IDgW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E556C1F000E9;
+	Tue, 18 Aug 2026 09:31:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787045508;
+	bh=/osMCfdFU5SEjl+FL2UCRvm7Kij1P5u1jx3B9DLMi9M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bVP9IDgWirqxwIpjvPxGaqIdVHx+zWYeYaX/54Aaw9rGmnbGsgPmA6p6QssZqbgNA
+	 NyrrW7uwFrBO9Sa5Xf92E3PNVjrs+YFlea7n9fkknA9iZT0f+KKLvMfQa7oQazoYCW
+	 I6pGmzo4sg26bRziwQtYXAecVJN+ht5Eygv9Y3/JKPE9Q7oLm0NAOS8pCWSOV04pyA
+	 uG/G1dncygvLt74/toMGIpgtfWYJsv3LGs684uCsftjT6iXueaw8ljnAKCiVqZydZp
+	 50m9Gnb7ymVVL+bblgv7qSyIJpcK0YulM0pgEotPZXKB88zNlzNVJb4QNFwywj5DL/
+	 q8DRdyQk3n5Tw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 4/4] arm64: dts: freescale: Add chargebyte Charge
+ Control Y
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefan Wahren" <wahrenst@gmx.net>
+Cc: imx@lists.linux.dev, "Oliver Hartkopp" <socketcan@hartkopp.net>, "Oleksij
+ Rempel" <o.rempel@pengutronix.de>, vkoul@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, "Marc
+ Kleine-Budde" <mkl@pengutronix.de>, linux-can@vger.kernel.org, neil.armstrong@linaro.org, "Vincent
+ Mailhol" <mailhol@kernel.org>, robh@kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260818091701.6441-5-wahrenst@gmx.net>
+References: <20260818091701.6441-1-wahrenst@gmx.net>
+ <20260818091701.6441-5-wahrenst@gmx.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 09:31:47 +0000
+Message-Id: <20260818093147.E556C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: glymur: use polling mode for SCMI
- transfers
-To: Jesse Casco <jesse.casco@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sudeep Holla <sudeep.holla@arm.com>,
-        Cristian Marussi <cristian.marussi@arm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260808172211.137577-1-jesse.casco@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260808172211.137577-1-jesse.casco@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA2OSBTYWx0ZWRfX+CZC5R/5aJqe
- S1N5ojAulcvzfduwFHKBGylRJHFu8RcznJKLb68GiuM9Pid3mbrG0bW7GmzSaETTmQtX4d10rx3
- 87cRG08KrewYhAd0a5hpChJN6neZtrs=
-X-Proofpoint-ORIG-GUID: ItMFLxXpho0g5Y1TFcvoNyw81hTZUs1w
-X-Authority-Analysis: v=2.4 cv=UfFhjqSN c=1 sm=1 tr=0 ts=6a8425e6 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=Yvg1zlJodvQbsUTSnWkA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: ItMFLxXpho0g5Y1TFcvoNyw81hTZUs1w
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA2OSBTYWx0ZWRfX8EMfE5kXvrW/
- mhLO8QPdTrXQbIG9IX6YUpQY4lo99wqjsrTLAjYBcqEGZO5hN3xMOZPaapHtJmw5VcROO5P5R89
- kkSCqLTKCY88mdVdsKa4MVh05SS0m2+HLkN8JYEsEv6NsKPecdFBJcgR/Tj9NSFieXXmcKnLx7n
- YX6rOrut0cVh3XJ1PVogbGcFf7TWP/+wZBjZ/7eisK6nZxzXkB/hv4jlvk03z6Zuoqx0PQIRfN0
- J9pW9IdB3nu1b1u+/PBI/IbNR3cpq1Sd/E/o1bIRthXBHaYdIX+hIByUGQTbiX7Ig7nuSmMCynZ
- jIyvOc4wVW7gAn7T+VgUAGIUCm7rqThd6zyczwb72AaDMuFV0ow8WUz/Dm7+YIvmt3yI8s6hsAB
- vz1DGvEJgzYNfKMu1eKv4NMJkOEX7l1Cicp59P8o8nkuAm5Q3EJbNEwYv4vVbjZSPA24RbSgI7S
- eajJkFaF8Ous6F/xYRQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
- spamscore=0 priorityscore=1501 clxscore=1015 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180069
 
-On 8/8/26 7:22 PM, Jesse Casco wrote:
-> On glymur the CPUCP firmware writes correct SCMI replies into the shared
-> memory but never rings the mailbox doorbell for them. Every transfer that
-> waits for the completion interrupt therefore times out, scmi-cpufreq
-> fails to probe with -110, and the machine ends up with no cpufreq at all
-> -- all CPUs pinned at their boot OPP.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] The LAN8651 ethernet device is missing its hardware reset config=
+uration, leaving the `X_nRST_LAN` pin unmanaged.
+- [Medium] The SD card slot power/reset pin (`SD2_nRESET`) is named in `gpi=
+o-line-names` but is not associated with any regulator or reset control.
+- [Low] The GPIO label `X_LAN_nCS` is incorrectly placed at index 0 of `&gp=
+io2`'s `gpio-line-names` array, but the `lan8651` chip select is actually w=
+ired to index 8.
+- [Low] The `ti,leds-polarity` property used in both Ethernet PHY nodes is =
+undocumented, invalid, and will cause `dtbs_check` validation errors.
+--
 
-I'm not seeing this issue, but I heard others hit it, possibly due to some
-timing bug. If you set your kernel config to build all drivers in (i.e.
-change =m to =y), do you still face this?
+--- Patch [4]: [PATCH RFC 4/4] arm64: dts: freescale: Add chargebyte Charge=
+ Control Y ---
+commit a177a5e0acba62156876ea6dc84457789786bfb8
+Author: Stefan Wahren <wahrenst@gmx.net>
 
-Konrad
+arm64: dts: freescale: Add chargebyte Charge Control Y
+
+This commit adds support for the chargebyte Charge Control Y, an EVSE
+for MCS charging stations based on the phyCORE-i.MX 93 ARM SoM. It
+adds the devicetree for the board, including ethernet interfaces, CAN,
+SPI, and SD card configurations.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-charge-control-y.dts b/a=
+rch/arm64/boot/dts/freescale/imx93-charge-control-y.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx93-charge-control-y.dts
+> @@ -0,0 +1,387 @@
+[ ... ]
+> +/* Ethernet 1 PHY */
+> +&ethphy1 {
+> +	ti,leds-polarity =3D <1>; // active-high
+> +};
+
+[Severity: Low]
+Is ti,leds-polarity supported by the devicetree bindings? It does not
+appear to be documented in the schema and might cause dtbs_check validation
+errors.
+
+[ ... ]
+> +&gpio2 {
+> +	gpio-line-names =3D "X_LAN_nCS", "", "", "", "",
+> +			  "", "", "X_LAN_nIRQ", "", "",
+
+[Severity: Low]
+Should the X_LAN_nCS label be placed at index 8 instead of index 0? The
+lpspi3 node below configures the cs-gpios using index 8 on this bank.
+
+[ ... ]
+> +/* MCS Ethernet SPI */
+> +&lpspi3 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_lpspi3>;
+> +	num-cs =3D <1>;
+> +	cs-gpios =3D <&gpio2 8 GPIO_ACTIVE_LOW>;
+> +	status =3D "okay";
+> +
+> +	lan8651: ethernet@0 {
+> +		compatible =3D "microchip,lan8651", "microchip,lan8650";
+> +		reg =3D <0>;
+> +		interrupt-parent =3D <&gpio2>;
+> +		interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
+> +		spi-max-frequency =3D <25000000>;
+> +
+> +		nvmem-cells =3D <&eth2_mac_address 0>;
+> +		nvmem-cell-names =3D "mac-address";
+> +	};
+> +};
+
+[Severity: Medium]
+The pin X_nRST_LAN is labeled in the gpio1 node, but this ethernet node
+doesn't seem to configure a reset mechanism. Does the LAN8651 need a reset
+control or gpio-hog to ensure the pin is driven and not left floating?
+
+[ ... ]
+> +/* Ethernet 2 PHY */
+> +&mdio {
+> +	ethphy2: ethernet-phy@2 {
+> +		reg =3D <2>;
+> +		compatible =3D "ethernet-phy-id2000.a140";
+> +		clocks =3D <&clk IMX93_CLK_ENET_REF_PHY>;
+> +		reset-gpios =3D <&gpio4 13 GPIO_ACTIVE_HIGH>;
+> +		reset-assert-us =3D <30>;
+> +		reset-deassert-us =3D <50000>;
+> +		ti,leds-polarity =3D <1>; // active-high
+> +	};
+> +};
+
+[Severity: Low]
+Similar to the ethernet 1 PHY above, is this ti,leds-polarity property
+supported by the devicetree bindings?
+
+> +
+> +/* SD */
+> +&usdhc2 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_usdhc2_default>, <&pinctrl_usdhc2_cd>;
+> +	cd-gpios =3D <&gpio3 00 GPIO_ACTIVE_LOW>;
+> +	bus-width =3D <4>;
+> +	disable-wp;
+> +	no-sdio;
+> +	no-mmc;
+> +	no-1-8-v;
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+The SD2_nRESET pin is labeled in the gpio3 node, but does this usdhc2 node
+need a vmmc-supply using that pin as a fixed regulator to ensure the SD
+card slot is reliably powered?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818091701.6441=
+-1-wahrenst@gmx.net?part=3D4
