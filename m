@@ -1,33 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EEF446C00;
-	Tue, 18 Aug 2026 09:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF92036B061;
+	Tue, 18 Aug 2026 09:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045898; cv=none; b=r80UZjQqY9RKGC8CvU5pImTscJ2a9HT1cOwyhta8HdWVlnk57vcvtsWaXnEz2X4OBRh9Qwk+h10pE9UB+diyEkvYTEiJDQmhYJ4oHEHv5n2t3iczAg+20XKF+tXA6EzwDWMP+eZ2rCFEd0VB7fqwctgcIVWoro/5YJmYO++iFrI=
+	t=1787045908; cv=none; b=nYyHQJr1moJ9kTkquiZgfmP9mdNAo1CnexNzcXQksR67Pstiq4tg5kLOsFm3TF4Oe1NdMccbfNlRYqHdw80GsZU1hy2gNr86lFDQjZyjreKIjw38zIFCYM18kn9UbnleSIin6PfpPQR/FUvsEfyA9hbE/wYp5z8l5lvbWcUTZnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045898; c=relaxed/simple;
-	bh=EpsO+GPs/5DKFygQcxaS2MM5JEns9eL9hpIG+ZgLDqE=;
+	s=arc-20240116; t=1787045908; c=relaxed/simple;
+	bh=RmQfg3PjUCkZnzqUhqE/7wclxqioVaYIqLTjTpRu2WI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l2x2+U6lNngodgxxUHPnDbPsJAT9K7491huN6NgZVEhVruly85pU67o0GxlLHpKkvScclNNDmg3DXYMiIEL7ZWVdMWdunOmJEVkuj+pMhFBiTTIcOg7dD4Mt2SzZCeEAZSorVYsoqmWBx7xF8jHwzajaK6tBBY5e3iK7TsCtNt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HOY7+AZG; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=sooxYLdtMjpYvc21+xBMOUC9j2lMwAhHo63qox7DlCz/Jtl3fI5D21vXQqpwRodJiIglIQBcBbaiCjQY+yn4d9zvZp1+g3HwDu1N+DZ/2zTUe6q+7mWyjyqPv2AAGzcvcahqZyIbd1B9XerqMYwz8JxcoEbIFS09db/dN7V780s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=ZlIojXY5; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HOY7+AZG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41D01F000E9;
-	Tue, 18 Aug 2026 09:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787045897;
-	bh=EpsO+GPs/5DKFygQcxaS2MM5JEns9eL9hpIG+ZgLDqE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HOY7+AZGqX/eqWvV6bHqKSv/wl7kht2O9a5L372Fo+mmr9G9Ox3A+uZGpWkWVkLQs
-	 2kCY0n5zoCe6vkdjgPg3l8Xs/MHEnl/scbml+dtLrsCET0shfMqRGkhwh3xYqysW5k
-	 lcwLakr5fb+ntXLrhoUB1b1t8BQ/XHUIAq7IKIdvCGNWkruBa2TfpWK6vVT53b0VKE
-	 jEfIzNZXTGjJ2pgit+BY2PZu4mnfVL35Y4EViRmjm1Wz/qivFFECe5dbfB5zMSJHv8
-	 Ryx0dTWUC/E7kH55CZ4e5hNpd9h7d23QrU7cw5J/er3w36A9/ijR4IJBnWDV56MeBH
-	 3+QgtTMIqE1Ug==
-Message-ID: <bdc31f68-a809-48eb-8dfd-64c94ad7ff53@kernel.org>
-Date: Tue, 18 Aug 2026 11:38:11 +0200
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="ZlIojXY5"
+Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 00B7B53403EB;
+	Tue, 18 Aug 2026 11:38:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1787045904;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=QX318SWwSa/mu0rKh+wB1ItXnLgbKSxu2tQxkvWzGZs=;
+	b=ZlIojXY5/A7SrZf7BFhQld1gUJ8e97X0W/Km1UYmjHOKfDjBOUrVLoQyxCtwM2xtfQ6FEQ
+	lMCsrgq0abRtF9BhtZNBKxIAlE8m2p6xMg1jJ40GcefXyc78Wiq8jAYm+n0h/KCNJbTjT3
+	/UdG53fjDdAWTPHGPBIL7GzuXs+LbfU=
+Message-ID: <b8cb7327-1e1b-4a44-ac97-dec9b6c32e9e@ixit.cz>
+Date: Tue, 18 Aug 2026 11:38:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,76 +41,179 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] arm64: dts: qcom: Add UART support for Xiaomi
- Redmi 5A (riva)
-To: Reza Kurniawan <imkyufie@gmail.com>,
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260818093548.27803-2-imkyufie@gmail.com>
- <20260818093548.27803-3-imkyufie@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260818093548.27803-3-imkyufie@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260809-dipper-v1-0-eb4d501e85df@ixit.cz>
+ <20260809-dipper-v1-2-eb4d501e85df@ixit.cz>
+ <8f05bf47-183f-4586-8ed2-eb2277f15c98@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <8f05bf47-183f-4586-8ed2-eb2277f15c98@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 18/08/2026 11:35, Reza Kurniawan wrote:
-> Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+On 18/08/2026 11:27, Konrad Dybcio wrote:
+> On 8/9/26 6:48 PM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Initial submission for one member of the prime Xiaomi Mi 8 family.
+>> Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
+>> Known differences are battery capacity and fingerprint sensor placement.
+>> This submission includes basic abstraction for other developers to be
+>> able easily extend it to support other variants.
+> 
+> I had one of those. IIRC the Pro had a 3d IR scanner (vide face id)
+> whereas the base one had a normal IR cam
+> 
+> [...]
+> 
+>> +	reserved-memory {
+>> +		adsp_mem: memory@8c500000 {
+> 
+> adsp@ etc. and drop labels where unused
+> 
+> [...]
+> 
+>> +		linux,cma {
+>> +			compatible = "shared-dma-pool";
+>> +			alloc-ranges = <0 0x00000000 0 0xffffffff>;
+>> +			reusable;
+>> +			alignment = <0 0x400000>;
+>> +			size = <0 0x2c00000>;
+>> +			linux,cma-default;
+>> +		};
+> 
+> Is this necessary?
+> 
+>> +	};
+>> +
+>> +	vph_pwr: regulator-vph-pwr {
+> 
+> This is out of order
+> 
+> [...]
+> 
+> 
+>> +&adsp_pas {
+>> +	firmware-name = "qcom/sdm845/Xiaomi/dipper/adsp.mbn";
+> 
+> Would you know whether the FWs are common across the SKUs?
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+I don't, I have only one device (the dipper) available.
 
-Commit msg is where you explain why you are doing, what you want to
-achieve, what is the point of this work etc.
+I'll see if I quickly figure out, if not, as no-one else having Mi8 family 
+volunteer to test, I would move it to dipper specific for now and can be moved 
+to common later.
 
-Best regards,
-Krzysztof
+> 
+> And more importantly, regulator settings? FWIW it's easiest to compare
+> compiled DTBs (or even better, ones pulled from sysfs on a running
+> system)
+> 
+> [...]
+> 
+>> +&tlmm {
+>> +	gpio-reserved-ranges = < 0 4>, /* SPI (Goodix Fingerprint) */
+> 
+> odd space after <
+
+I call it alignment, but sure :)>
+>> +			       <81 4>; /* SPI (Synaptics Fingerprint) */
+> 
+> No NFC eSE reservation?
+
+It seems that vendor used different combinations of Goodix / Synaptics across 
+these ranges. Not even depending on the model. Same model can have different 
+wiring, but always honoring position 0:4, 81:4 as far goes my understanding. >
+> [...]
+> 
+>> +&usb_1_dwc3 {
+>> +	/* Until we have Type C hooked up we'll force this as peripheral. */
+> 
+> Should be fairly trivial on 845, no?
+> 
+>> +	dr_mode = "peripheral";
+>> +
+>> +	maximum-speed = "high-speed";
+>> +	phys = <&usb_1_hsphy>;
+>> +	phy-names = "usb2-phy";
+> 
+> No SS?
+
+Haven't thought about it, for now my goal is upstream basic telnet/ssh + FB. 
+Then display and touch - e.g. minimal u-boot and kernel development features and 
+then bring the rest.
+
+> 
+> [...]
+> 
+>> +	bluetooth {
+>> +		compatible = "qcom,wcn3990-bt";
+>> +
+>> +		/*
+>> +		 * This path is relative to the qca/
+>> +		 * subdir under lib/firmware.
+>> +		 */
+> 
+> Let's drop this comment, not very useful
+
+Sure.
+
+Then I'll also drop these from whole sdm845 in follow-up commit.
+
+I'll address also the rest of the comments in the next version :)
+
+Thanks for the review
+David>
+> Konrad
+
