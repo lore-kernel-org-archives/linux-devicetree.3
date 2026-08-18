@@ -1,134 +1,204 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89D735200A
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 01:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60F12EDD58;
+	Tue, 18 Aug 2026 01:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787015974; cv=none; b=IgzoTY9lD8Q1gA2WpaLS2F5oR/Y/WoUepkwOSnmJCjDSEYMcqlNGyq/ClpW3Q/mI2oEe5s9OHlwQGp02nVmMs7q/ywwzrajMiVAMAJR2BAlleNLILwPXdYHHM44mkxoJ5HcwWCM0ozsNcmA8bsGAKuGOl270eRNTji6vz9VcMxc=
+	t=1787016262; cv=none; b=g0H3/GgWRpwwU/AOWs+MPwFVh82xN5lxbfC13wd+RrVd1UellQF3UZZUkgsyMoVhhpAzyUgmbTbhNLwZLMgmAlrZr5DxWuzmOYLNpiD/rTRrDRdjqrvWXIzm2lEOydSYyPJIBycIlj7pu581jhfQIzetLr4PWmu/vMH7kfegbhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787015974; c=relaxed/simple;
-	bh=+9DJbzpZ8tW/cGE2nLGaoIX39pZZfgkjdnpyQdZ4tGc=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version:
-	 In-Reply-To:References; b=rXfbbG/WLW4l13mjXErYakg4w3kPklng++ZBa24wyszNJGh8GBf9XigA7sLXaFI2TXFv2xrt9xIa5eWO428gutEB4YvSroLRmAWB/xwyrdVK3Rfu55SRRRBwxQ7A9acwXHX6CpeuskIhb5cw6uSX+a+HpFAyn05MYk6HJ0/5srI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mTzqZCI0; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787016262; c=relaxed/simple;
+	bh=I/mr6Xnb9Ry80iD3NZjnITjMhapPOE95OMvrGk4Epoc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EknsJLBQrjA54NO7zoBpKRFG6iYDHVpCamTY4GfsgTFMMEQ2N3SrsmZSf8JkIG63itW8WJxpVAfBw85ivkqhdQcoXLIJ5elP3GxFBqTDhKlp6YE3QSEx8CSoJYk3g3akBWDVYOUZGrGpALvKNNTlHljcTmj1RG6+zK+FrSJlJC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GOQFJqBK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mTzqZCI0"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso515417b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 18:19:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787015972; x=1787620772; darn=vger.kernel.org;
-        h=references:in-reply-to:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mfkLuSdmwN1ckqZLOyJ0ADFIrM3kNuRenkgg7slseYo=;
-        b=mTzqZCI0lnS5FLE6knMU4CnAcDt6Ef40mWfNla2lhEfzskQNG7x6rTY+VgjYe/M4v1
-         q+LLlTdrX0fwaPbsecTCWViGhARnC00XDq4qCe8wn2mOcx8BFqJgLmEOmaWn1eJ0jGPT
-         tEwvJ7/qHt50Zjn7ZvzGDrVuckqMqgq7x7jsnUDE+HdOhvPwsZ3ph3Nq/mu4SkkZ3kMr
-         CWLc9tmBvT1GwGfbEcWuUncTPjpr2XnS5LwT5sdY/KWImts5H9wIRNS0NDZCbZ13tfDU
-         /93Twzq7RWnCwZq/0NorDWR9aQ+pjxwEaKxH1lT70+YIS9DPvQ2U0Prx3CbwAkB9OoH5
-         f+1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787015972; x=1787620772;
-        h=references:in-reply-to:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mfkLuSdmwN1ckqZLOyJ0ADFIrM3kNuRenkgg7slseYo=;
-        b=CP2bnDZFORwrBaHkZ15ozTX9n0VWmgBFQ6CaE6uRzUwkomoASLvM/ebGf05IxP8bzC
-         zCXp//SjTGKwxTSBuj22ar0+t5tIEPcv+LwsJ1a1nb3Bkdc+Jm/m09xcIoesVZPERE9W
-         LSnsfG6JJKRMEG0GMt6GMjuG7RW4rHVZhj+Xc6h/yeBLGtxqfMolx+rOdHQR1NBY4ZZ/
-         SRTqqT+VSLnTztpuvOIo2IOePr6ycPK1QPWUWmgAKTbLjlD0rC6fX+WlTBXHeGLgL3As
-         4jKpzXDgmTP1pQ/sDfOvWQOGmXsBYvNYqpuulfcB8m8yJgIjph6nAxqxW0h07cB0JngY
-         U/qA==
-X-Forwarded-Encrypted: i=1; AHgh+RpYvHbQkjTuATPrY2nTGJOjS7Ky691xCcr+t25u6iO4DUq6OYlYmuibOi80OGBqI/Wn3bd9WTM5D+dF@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYd7ocKG3OxomS3tMtJfZ0mMPf6wXoBFURHreE6pChK69yugRS
-	7Y6Tgs00zGpfMoESKafnpoavuB8arLFNNt+4b7MveZuDtESZ2oc9P6Xc
-X-Gm-Gg: AR+sD12WwoGuflL8qDZB9DBTLSkto58u7abVpb2yXvUl6UcvLVPBwJfTNq+jcj5prZE
-	OuYSLngtXWY7KiuClRWX4SlsUuFi2iZv6+nSmZtoULJiPOWfEG2goIquTsI3biKUxfSmF+/XPgo
-	6KkdszB9x9nM9IXksoZkVnDcuUw06N54oXeQ0q4L9TikHSPrWuHdb8uwbPD57glTFfsqHCd6LUK
-	0iRKC23tOA58EvJA/27cIMmYnevdydkAjen769vUeb2iuWZriWDPvTzDROWHT6qmbduuG9wsBiW
-	toYKENL48tNSFYLDLYh0dFhWoOANq0WCjTgd0CvRr9AfS8jdSdRQtjzXjviR9qDg3jzd8TgUUiN
-	3HAuFbIaIVYM9T25q7d+xozlyntOlPuy6guHLeiu/46JMlml/aewZOCOcy4aaGXR3AJVdZHBOCx
-	MXerb9JsIqYjvarBOsXMTriD6zFgVqzFxQNiYn6+ntTKcxjRQoHBK1jA==
-X-Received: by 2002:a05:6a00:ba8e:b0:848:52bf:4296 with SMTP id d2e1a72fcca58-851bc3ccf5fmr2527196b3a.15.1787015972070;
-        Mon, 17 Aug 2026 18:19:32 -0700 (PDT)
-Received: from [127.0.1.1] ([47.253.114.73])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851b3d1099esm1196713b3a.0.2026.08.17.18.19.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 18:19:31 -0700 (PDT)
-From: Wayen Yan <win847@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, netdev@vger.kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v20 04/10] mfd: an8855: Add support for Airoha AN8855 Switch
-Date: Tue, 18 Aug 2026 09:19:25 +0800
-Message-ID: <178701596581.1096543.14003915779643840966@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GOQFJqBK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3EDB1F000E9;
+	Tue, 18 Aug 2026 01:24:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787016258;
+	bh=aNLHpkYafhg2PTCALR2xOtxs2aJBDez3cvEe7f0AVZA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GOQFJqBKpbip1koS0seGYL/6tHEHlP+KQ0eDDsMj3zTf1rLA4KKkwZdLVq2DPEHP1
+	 ScnVdlv4bq45Cw7fAN7rQp4XPjWwFCKhBBV7LlxuGNjQMWgLkFybJEIqAHFH4Ze3tF
+	 Gm/bD6+9dYEN9pyw1nb3P89lHwcGoe3ZigJ8PcDnK3Z+fKstHRWpQoPD8iV9CFk+df
+	 MOzA9AQKGyMaAVTCw1Uwv7dRFsdHX2ulrPuteUmjj5hy2Ida6RvY8kp93x/HMfbg57
+	 3A7FGL36ylkjOqWByGaHV8I/JiSjs2D98PUrCO9pLlfZw3dsXrWBMAPRNegT9+aXAH
+	 Ze6E5bfFXOX0A==
+From: Jakub Kicinski <kuba@kernel.org>
+To: james.hilliard1@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	arnd@arndb.de,
+	jedrzej.jagielski@intel.com,
+	andre.przywara@arm.com,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	maxime.chevallier@bootlin.com,
+	linux-sunxi@lists.linux.dev,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v8 1/2] dt-bindings: net: x-powers: add AC200/AC300 EPHY packages
+Date: Mon, 17 Aug 2026 18:24:16 -0700
+Message-ID: <20260818012416.3826448-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260813-submit-acx00-of-dynamic-v1-v8-1-d2f1c52e87b4@gmail.com>
+References: <20260813-submit-acx00-of-dynamic-v1-v8-1-d2f1c52e87b4@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260817082034.20326-6-ansuelsmth@gmail.com>
-References: <20260817082034.20326-1-ansuelsmth@gmail.com> <20260817082034.20326-6-ansuelsmth@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+dt-bindings: net: x-powers: add AC200/AC300 EPHY packages
 
-I noticed a possible MDIO bus locking issue in
-an8855_core_probe().
+This adds a new binding describing the X-Powers AC200 and AC300 Ethernet
+PHY packages, with separate compatibles for each fixed variant plus an
+ACx00 compatible for boards that can carry either part. It documents the
+package clock, supply, packed NVMEM configuration field and the phandle
+used to reach the AC200 companion IC.
 
-The helper an8855_mii_set_page() is declared as:
+> diff --git a/Documentation/devicetree/bindings/net/x-powers,acx00-ephy-package.yaml b/Documentation/devicetree/bindings/net/x-powers,acx00-ephy-package.yaml
+> new file mode 100644
+> index 0000000000000..afe57bd163dd7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/x-powers,acx00-ephy-package.yaml
+> @@ -0,0 +1,154 @@
 
-static int an8855_mii_set_page(struct an8855_core_priv *priv,
-                               u8 addr, u8 page)
-        __must_hold(&priv->bus->mdio_lock)
+[ ... ]
 
-and uses __mdiobus_write(). The latter requires the caller to hold
-bus->mdio_lock and checks this with lockdep_assert_held_once().
+> +  x-powers,ac200:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the AC200 companion IC providing I2C access to the package
+> +      control registers used to power and configure the Ethernet PHY.
 
-The other callers of an8855_mii_set_page() correctly hold the MDIO bus
-lock, for example:
+[Severity: Low]
+Is there a binding for the node this phandle is supposed to point at?
 
-        mutex_lock_nested(&bus->mdio_lock, MDIO_MUTEX_NESTED);
-        ret = an8855_mii_set_page(priv, addr, page);
-        ...
-        mutex_unlock(&bus->mdio_lock);
+A case-insensitive grep for ac200 under Documentation/devicetree/bindings at
+the end of this series matches only this new file; the x-powers mfd directory
+contains just x-powers,ac100.yaml and x-powers,axp152.yaml. So the
+compatible, bus position (I2C child) and properties of the phandle target
+appear to be undocumented, and any device tree using the ac200 or acx00
+compatibles would carry a node that dtbs_check reports as undocumented.
 
-However, an8855_core_probe() calls the same helper directly:
+The same gap seems to exist on the driver side. ac200_ephy_ctl_create() in
+drivers/net/phy/xpowers/ac200.c resolves the phandle and then needs a bound
+I2C client with a regmap and a clock:
 
-        ret = an8855_mii_set_page(priv, priv->switch_addr,
-                                  AN8855_PHY_PAGE_STANDARD);
+  client = of_find_i2c_device_by_node(ac200_node);
+  ...
+  device_lock(&client->dev);
+  if (device_is_bound(&client->dev))
+          priv->regmap = dev_get_regmap(&client->dev, NULL);
+  device_unlock(&client->dev);
+  if (!priv->regmap) {
+          ret = dev_err_probe(dev, -EPROBE_DEFER, "AC200 driver is not ready\n");
 
-The MDIO device probe path does not hold bus->mdio_lock around the
-driver's probe callback. Therefore this call can trigger the lockdep
-assertion, and the MDIO page-select write is not protected by the MDIO
-bus lock against concurrent accesses to the same bus.
+A grep for ac200 in drivers/mfd returns nothing at the end of this series,
+so is there any in-tree driver that can bind such an I2C device and provide
+that regmap and clock? If not, this path can only ever return -EPROBE_DEFER,
+and the AC200/ACx00 half of the new ABI, including the packed NVMEM bit
+layout consumed only through that path, cannot be exercised or validated by
+a conforming device tree.
 
-Could this be changed to take the bus lock around the call, for example:
+Could the companion IC binding be added (or referenced) alongside this file?
 
-        mutex_lock(&priv->bus->mdio_lock);
-        ret = an8855_mii_set_page(priv, priv->switch_addr,
-                                  AN8855_PHY_PAGE_STANDARD);
-        mutex_unlock(&priv->bus->mdio_lock);
-        if (ret)
-                return ret;
+> +
+> +  x-powers,xmii-rx-clock-inverted:
+> +    type: boolean
+> +    description:
+> +      Invert the xMII receive clock inside the PHY. This is required by some
+> +      SoC integrations, including the Allwinner H6 AC200 connection.
+> +
+> +patternProperties:
+> +  ^ethernet-phy@[a-f0-9]+$:
+> +    $ref: ethernet-phy.yaml#
+> +    properties:
+> +      compatible:
+> +        const: ethernet-phy-id0044.1400
+> +    required:
+> +      - compatible
+> +    unevaluatedProperties: false
 
-Alternatively, if there is a reason why the probe path is serialized by
-another mechanism, it would be useful to document that assumption and
-annotate the call accordingly.
+[Severity: Low]
+This isn't a bug, but should the child node's reg be constrained here too?
 
-I don't think changing an8855_mii_set_page() to use mdiobus_write() would
-be appropriate, since the helper is also called by paths that already
-hold mdio_lock; that could result in recursive locking. Keeping the
-helper as an unlocked MDIO primitive with an explicit locking contract
-seems reasonable, but the probe caller appears to need the missing lock.
+The child schema overrides only compatible, so the link PHY's reg keeps
+ethernet-phy.yaml's 0..31 range. The description in this same file says "The
+package and child use the same base address", and the ac300/acx00
+conditionals below limit the package reg to 7, but neither constraint reaches
+the child. A tree like:
 
-This is a discussion and fix suggestion rather than a request to redesign
-the series. Please let me know if I am missing an existing serialization
-guarantee in the MDIO device probe path.
+  ethernet-phy-package@0 {
+          reg = <0>;
+          ethernet-phy@1f {
+                  reg = <0x1f>;
+          };
+  };
 
-Thanks,
-Wayen
+passes dt_binding_check, as does an AC300 child above address 7.
 
+Nothing is misprogrammed at runtime: acx00_ephy_init_package() in
+drivers/net/phy/xpowers/acx00.c rejects the mismatch before joining the
+package,
+
+  ret = of_property_read_u32(package_node, "reg", &base_addr);
+  if (ret || base_addr != phydev->mdio.addr) {
+          ret = dev_err_probe(dev, -EINVAL,
+                              "package and link PHY addresses differ\n");
+
+and ac300_ephy_ctl_create() in drivers/net/phy/xpowers/ac300.c rejects
+addresses above 7 before any control-range access:
+
+  if (phydev->mdio.addr > FIELD_MAX(AC300_PACKAGE_PHY_ADDR_MASK))
+          return ERR_PTR(dev_err_probe(dev, -EINVAL,
+                                       "link address is outside the package range\n"));
+
+So the only effect is that an invalid tree fails PHY probe instead of failing
+schema validation. Bounding the child reg per variant in the added
+patternProperties block would move that detection to dt_binding_check. Note
+the existing package binding qcom,qca807x.yaml adds no child-address
+constraints either, so the omission matches current convention.
+
+> +
+> +required:
+> +  - compatible
+> +  - vcc-supply
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: x-powers,acx00-ephy-package
+> +    then:
+> +      properties:
+> +        reg:
+> +          maximum: 7
+> +      required:
+> +        - clocks
+> +        - nvmem-cells
+> +        - nvmem-cell-names
+> +        - x-powers,ac200
+
+[ ... ]
+-- 
+pw-bot: cr
