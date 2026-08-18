@@ -1,151 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A8B1E492D;
-	Wed, 19 Aug 2026 04:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7DB2264C0;
+	Wed, 19 Aug 2026 04:53:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787114543; cv=none; b=ro2cbeRLjzJ/rz5tEHD1hOmKsp9Tsi3C5if6Ai3btnwyLSe2AyaoecklZFX3rIYb327lXzpefGOqYldacZXUUfEnfLxBesVuOWWQK1BEMqi/E/K4Eg65N4aRDI5SjI8vLL6c+IVuEwzW2E/BtOGD6uA19ua03gHv+xgG/VjvvqI=
+	t=1787115228; cv=none; b=rct00dT/fTrHHMvz87u7+07ZJCqm86DkmXeVkgxNt9GLP4TMB5yAV7OJO1WM1u2u+f8gXy7NJp94LNykV0bczhf8A+DOjAKDaoVRqLzFdkcvHx134W1L6iQbV9KpWnKCRnu7L9w1RZ7gNv9OQWkoRVojOUb9jDG5J8tqV/OWWSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787114543; c=relaxed/simple;
-	bh=zGAfl6njJ2yv5Zb+YU1vfmsT5kSSXG+UJib3TjnSnSY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eIy8dEgj6I6S26GaSt8xjzYXSoVG0OJxhrljq+qU5+XT2Rksq/XI4zBTGY8b5tzZXX7PApDD8hkt50f2PcXCQAU7F1gcq29irXvx/lA8XlSptVCO4IkjGLirkP88exwOtASXULFIdx5ev3k31DvFstdtfYBgarX+yKYM/nMxLRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W6QC24tk; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787115228; c=relaxed/simple;
+	bh=Gp/KM9mqwbvYL+C35FrB8QMNXqhSFZ3oBFBDcYPTZ2I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u+l5QMtRzqUF3tMK7JP2B0x9QWpHme40OISIgB6CcY/SVe2+a4oM2Z0S9ayoxoYEREjSDZ1m2seXeWmwpRwtPxUB27Qk37ncxAB1PdhK7CrsFl76Y/yaUlBIhNjTvkBjB4oI9bOei5fVkjvFUreaSGm/TtY4UdMBTFNfpmtmvTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=jXLHRfRA; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W6QC24tk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787114540; x=1818650540;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zGAfl6njJ2yv5Zb+YU1vfmsT5kSSXG+UJib3TjnSnSY=;
-  b=W6QC24tkv8JYS5D4Kc++fNhUYKW4dUAUdL+aiOAlvJj2Lx1GilZstb1a
-   Vw8JvlcZwpBfzZmoV3YS38gdlaPAmi8CcOt1WYqKkOfcB/qkQtViHYEAv
-   a67ph1qWDh/98GqzFOHBXpiLbWVDU/UtM4xFstYX6ncy6avZ/2PXXYJxK
-   roGFjquIQabObcvMuOr00hjOetxOxMHX/0cnqxPMyzkjQUvlLfYCdcqUq
-   RK8qV1U5ac+M6qPq0FxRuTce5EF9Z2iQzEvZUy3Mg5YnbaVFNQ+Dik7O3
-   r6VGhJcsRo9oehSr7J9FuNVRDDOLJfC/93xpLLVHVPaHQ0VwfSx3kgyum
-   g==;
-X-CSE-ConnectionGUID: N93NNs54QeCgzkLWtgUcLQ==
-X-CSE-MsgGUID: 6uczi2WzTICLWSoq1JJv1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="86733259"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="86733259"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 21:42:19 -0700
-X-CSE-ConnectionGUID: EO2jpSA9TJuhc7PK6kOYKQ==
-X-CSE-MsgGUID: sdwCRwdiS2+TbcABRr8+UA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="269704719"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.106])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 21:42:16 -0700
-Date: Wed, 19 Aug 2026 07:42:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/4] iio: light: veml6031x00: add support for events
- and trigger
-Message-ID: <aoU0JSmv7FWGW_Ms@ashevche-desk.local>
-References: <20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com>
- <20260818-veml6031x00-v7-4-2b0de0f20edf@gmail.com>
- <aoRltgy0AYZ_Vcum@ashevche-desk.local>
- <DKS790BEXVON.1FP9LQUPNTYDE@gmail.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="jXLHRfRA"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 85362107AE6;
+	Wed, 19 Aug 2026 06:53:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787115213;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=c4xs5RT8u9h6JXPgD+W9cpvSw000rGM/Suoj6WVsp9I=;
+	b=jXLHRfRARDuSTChCOAmU2yG9xCI2B9rFHhA9zXkIa7RGh/vK1f3YZm/uvAIW2fhIV3VT81
+	OlJFZAGXEMkDVVzzXwUlo1GQ8iVEgtohyciKVEwpiBsUxYqORK1RxLfLjOmU9d3Nd/PB4h
+	XJsx97Hb+wBrLqZ6w2BSrRnUgBeUYZ4qX215ZM9bght/2DdOQF+pix4uwzX4K7VgM0+0Kv
+	qNE4NGC+4VP4wYT/0I3pvxo7qGwWfNXRLhpFOXCv4yEyc1Va4IVJ8QkNhGJ7SFQ9NdJODV
+	DivLj/nAEVL2NnYJ2i9RWy+dPFW/bo0ITym7lBZntOxW86lEZXkDc9nEFYlxaA==
+Message-ID: <272be90b-7127-457f-90e9-7160169e2200@nabladev.com>
+Date: Tue, 18 Aug 2026 17:11:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKS790BEXVON.1FP9LQUPNTYDE@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/9] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
+ PHY
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-usb@vger.kernel.org, Pankaj Dev <pankaj.dev@st.com>,
+ Rahul Kumar <rahul.kumar05@st.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260816213849.1044073-1-marex@nabladev.com>
+ <20260816213849.1044073-2-marex@nabladev.com>
+ <20260818-imperious-thankful-perch-dcaa44@quoll>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260818-imperious-thankful-perch-dcaa44@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Aug 18, 2026 at 06:10:51PM +0200, Javier Carrasco wrote:
-> On Tue Aug 18, 2026 at 4:01 PM CEST, Andy Shevchenko wrote:
-
-...
-
-> >> +	ret = pm_runtime_get_if_active(dev);
-> >> +	if (ret <= 0)
-> >
-> > < 0 seems too much to me. If there is disabled runtime PM (and supposedly
-> > device is always on) this prevents from getting events.
+On 8/18/26 10:09 AM, Krzysztof Kozlowski wrote:
+> On Sun, Aug 16, 2026 at 11:37:03PM +0200, Marek Vasut wrote:
+>> From: Pankaj Dev <pankaj.dev@st.com>
+>>
+>> Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
+>> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+>> Two such PHYs in total are present in STM32MP25 SoC, they both are
+>> slightly different, therefore they use different compatible string
+>> to discern them.
+>>
+>> Co-developed-by: Pankaj Dev <pankaj.dev@st.com>
+>> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
 > 
-> I am not sure if I get this. A reference is unconditionally acquired
-> when events are enabled as well as in buffer_preenable, and also in the
-> probe before interrupts are enabled. Runtime PM should be active at this
-> point. If not, the interrupt should not come from the device, even if it
-> was on (e.g. before autosuspend kicks in). But maybe I am missing
->  something?
-
-The device maybe in these states here:
-- powered off (by runtime PM) ret == 0
-- powered on (by some previous activity) ret > 0
-- always on (PM is disabled by user space, for example) ret < 0
-
-Are you telling that the third case is impossible? (Note that autosuspend in
-this case is irrelevant.)
-
-...
-
-> >> +static int veml6031x00_hw_init(struct veml6031x00_data *data)
-> >> +{
-> >> +	struct regmap *map = data->regmap;
-> >> +	struct device *dev = regmap_get_device(map);
-> >
-> >> +	__le16 regval = 0;
-> >
-> > Redundant assignment.
-> 
-> regval is assigned here to write that value in the first instruction
-> (regmap_bulk_write()) after the variable declaration.
-
-I see, then make it clear by splitting assignment.
-
-> >> +	int ret, val;
-> >
-> > Why is 'val' signed?
-
-	regval = 0;
-
-> >> +	ret = regmap_bulk_write(map, VEML6031X00_REG_WL_L, &regval, sizeof(regval));
-> 
-> Here.
-
-> >> +	if (ret)
-> >> +		return dev_err_probe(dev, ret, "Failed to set low threshold\n");
-> >> +
-> >> +	regval = cpu_to_le16(U16_MAX);
-> >> +	ret = regmap_bulk_write(map, VEML6031X00_REG_WH_L, &regval, sizeof(regval));
-> >> +	if (ret)
-> >> +		return dev_err_probe(dev, ret, "Failed to set high threshold\n");
-> >> +
-> >> +	ret = regmap_field_write(data->rf.int_en, 0);
-> >> +	if (ret)
-> >> +		return ret;
-> >> +
-> >> +	ret = regmap_read(map, VEML6031X00_REG_INT, &val);
-> >> +	if (ret)
-> >> +		return dev_err_probe(dev, ret, "Failed to clear interrupts\n");
-> >> +
-> >> +	return 0;
-> >> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> Please run scripts/checkpatch.pl on the patches and fix reported
+> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+> patches and (probably) fix more warnings. Some warnings can be ignored,
+> especially from --strict run, but the code here looks like it needs a
+> fix. Feel free to get in touch if the warning is not clear.
+I think I managed to fix that up in V3, thanks.
