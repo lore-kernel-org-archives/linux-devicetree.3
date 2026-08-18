@@ -1,141 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F7239A7EF;
-	Tue, 18 Aug 2026 09:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3C843B4A3
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:36:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045758; cv=none; b=afIt0wSsgIbmL6s/dm3i66orZav3reHa7PXExvsQ+Yea8JdgJxtgWJZK7p+FwGJo670CIqxsx5iW3FeJOCaiw39yj7zYt5UzhitgQpjVi0UzNjrUhY/wXe1Dd7OgKx/qCMymdzvWoGAjUbfpU5gRthlkt1lrGODmNmbyAsX6Uag=
+	t=1787045784; cv=none; b=b3fbUM4G3AYJbWe0EvTVm59Ujen5PcBb6dJouNogxoIoqXq0xXHikinbRAKbbz84D+aAepeu2Hj6VmjZEUCEfWZjgvNiHZPxXwv/5r4Xc5XYpQTZZXqZHUCkcvFeovtJxUV4QmSrPKSJ+RIko6VRyUdG2tThb1wk0gLyLCoILsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045758; c=relaxed/simple;
-	bh=MziyQlKDhBYELbIy54z1dLSG29a6AsmLDVLh6pAUZhs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s7/mQfuBhs9NtwFQlO/hxfiMXNDsZ714CM9PM8Vsar2Eqq9iiL0B8KkSJud4InIrxX//CdpwuQw8cQqB1d3MCv5WIr3ue61A1hu4C4hBpE63oxiw+kPuOQih+UAU9ck5v4qQQ04yj6S9EErHQgs+zHMK4lRCVjO10JqKvntKJ2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+fUd7nA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787045784; c=relaxed/simple;
+	bh=Mza2HwlLWqQRyQkXb1ziFQlfmfW6uf43YGjIlmV4nwo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OXuGeqYsmINr5Urw9x1o0tx38DFaQ6K41bNohbK3V7xt6f8f19kaNjGxiZefFHHmsjrh11fdLipWPv6YYzFc8WU/h3g91w1gByfPvP8Cfz5KaBzVcMyUmFyPqbP/6DcA56b/3jqW0p/jNmRa2KaNMNfyHEWvDHuu2XB/ZzEioU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cH6/ASkE; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+fUd7nA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0CF1F000E9;
-	Tue, 18 Aug 2026 09:35:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787045757;
-	bh=b4BmVR02USpUiuj8iihPmQKITu4yz0lHFUqx56OCGT0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O+fUd7nAvVseq7h4yoAtcdRhbaGsDiBvieu3cmO2oQxkcFjSmhfVeVJQIEZ/DU/Gf
-	 NB7H3MIpu2jWTh8KNFY/llgzMmJT0WXEQ4erZMS1rUDOnj5CgAwu9FsBREMuznygSF
-	 D364dDAuEUpPsyXNJY19GEt3YuWjiv/t83Ca4Iomgk6XW+ppm6TGjnZaymeYB+aMoe
-	 94Q0Af9N4bY+Q2GISnBg4DnwtJJbIZ5aWbqcihEybD5jKrhuluOrImnTq1p2u1XPpx
-	 m9CCgpFPea4Nx2OUwDjxSAEytJYG8CFbHnoEQ1iVGfyBVX1D1ETsf38E+HzBYDtewu
-	 dKvX+LOXaiMnA==
-Date: Tue, 18 Aug 2026 10:35:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Guodong Xu <docular.xu@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Deepak Gupta <debug@rivosinc.com>,
-	Xu Lu <luxu.kernel@bytedance.com>,
-	Pincheng Wang <pincheng.plct@isrc.iscas.ac.cn>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/3] dt-bindings: riscv: Add Sspesa and Ssplcofi
- extensions
-Message-ID: <20260818-hunger-module-a44d9716010d@spud>
-References: <20260817160222.3313295-1-mayuresh.chitale@oss.qualcomm.com>
- <20260817160222.3313295-2-mayuresh.chitale@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cH6/ASkE"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d5cad1a6baso9418325ad.3
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:36:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787045782; x=1787650582; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OZxmP6J0pu/96mrheFiRTnOOfv+FgP/O5o1U6VRpU/0=;
+        b=cH6/ASkE5hXb64D11/yrovmMEqgipgTw0z8c1Ohhg1qQ02jv15MmstBtspl322Vxfi
+         26Y3Sgr/zVelardZ3Rwif1rAzMwKXbThVZmsA1v0mlVwucR6+BFMAQsR4ybH8eIQYIwa
+         QNwjXo1/4SVRLEjmZLghKzafhSekDdSrglJy4qcff4WdwKYVBmfm8rPnFUxuVg9GvEsP
+         ggDwnFniTJjLf3Q75yhR/Ax/XE4oRF3jv1TGzE3+K7AVbLuiWzylo6/yUodYTnAkhrNw
+         PneBB9mVZpbZOxHQ12XXlHQoxoy1+hXqtyKxa20HxN11m9pMnXP77D9urJOX1YtwlNFe
+         mVcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787045782; x=1787650582;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OZxmP6J0pu/96mrheFiRTnOOfv+FgP/O5o1U6VRpU/0=;
+        b=UeAZ34kj0qyWsfJdOMyjaegNseFZjoYrphvUlIbL0iS8FiQ/PL6OZTnScAvpnkYtbD
+         AwlvLILZ8Zo4MaCU3Mbddx/Fqe9Y2BtuFuwZlb5fkiHYxifBrasnOzkAlVpm4XgHRFe5
+         /glY4UALa/N/Hgb3Vfp1iSp1uJ3JkwCuVDqhqi0McNLocpckIW7VUCOZC/+hKsz8J8nr
+         CUzURWXjPBC2LF+qekf0lYvRRHHYcb++mMbTO502mk6FcikWuBU/xdEd0qnB5qvHDvvn
+         53/WnN0Il2MiJKDdTth+kT+PBG1FSsl8KQWVZjGoFnJhM3L5FnCMkq22mPvbYUSQIIeJ
+         DaBg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/uyQJJZdpB9bkCZuM6tay76YR8KuyDa4VbCrbPdeslZsT50WuT4mxw8yKQIz5S88UIm40p2RvLRNo@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNnjWzuEqtaSbNNner8Svjd7qkxn3aFO01c2rVnOYKcPSZVKSN
+	1EhytkqukwCjl7enl/dPkKTQvAacTquiKfQpWZ0Oi+hRLB9CnOLSNlr99XUnYg==
+X-Gm-Gg: AR+sD12+75hEuQeFG9Qfk90rlosJyjl3VljcF0PApBMvmm0JNlhF1MaHG/Dv05qNNJN
+	gZUIRVb6HxfbFwONDSl4lsjXXK3+TjO9YiJ1y13Po6w970aN7d3b4sp4slEWSkEZz+EEKqSTiES
+	Xh+XcFSlDq3dD6qpNQNyeE+6cDpxMKpgRCVqaEI0rERAs5hbv+rMFna8BE9GITXiUbeAmDyW2y2
+	acJKEEunEFfpp4iTrb2/RwKTRy5a6cg6F0TTBEU8LvJTbC0gDYZwLk+l/kwp3dNbQq76c2zGGxW
+	j92fju+mgFdBSrtSBin5Km6Hsb93eCZqvVNieQAV5jQlzNIH+zD5ZmnfZZzmNchS93eaClkQ7t7
+	w2txrlVp0oXvxu/RSsI5Rc9w8eL9qeOaZZ0WKHKaF6G6QczbZAMJGt6h0xNsPAQl3MfmqhPs0+K
+	WTclIpGQnoJD9WmcPQ3hqArSohA9b9R+yDFnAvirG2Cdytnl8M/c0qM8zsH7E=
+X-Received: by 2002:a17:902:f549:b0:2cf:8131:75e8 with SMTP id d9443c01a7336-2d5c514d875mr89918405ad.13.1787045782195;
+        Tue, 18 Aug 2026 02:36:22 -0700 (PDT)
+Received: from thefoxflat ([125.165.209.166])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb51e0e5sm15171535ad.32.2026.08.18.02.36.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 02:36:21 -0700 (PDT)
+From: Reza Kurniawan <imkyufie@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Reza Kurniawan <imkyufie@gmail.com>
+Subject: [PATCH v3 0/3] arm64: dts: qcom: Refine device support for Xiaomi Redmi 5A
+Date: Tue, 18 Aug 2026 16:35:46 +0700
+Message-ID: <20260818093548.27803-2-imkyufie@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NXk010FMsqIWIm0u"
-Content-Disposition: inline
-In-Reply-To: <20260817160222.3313295-2-mayuresh.chitale@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
---NXk010FMsqIWIm0u
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Changes in v3:
+- Add vcc-supply for vibrator
 
-On Mon, Aug 17, 2026 at 09:32:17PM +0530, Mayuresh Chitale wrote:
-> Document the RISC-V Performance Event Sampling extensions Sspesa
-> (Precise Event Sample Attribution) and Ssplcofi (Precise Local Counter
-> Overflow Interrupt) in the ISA extensions binding.
->=20
-> Add a dependency rule requiring Sspesa to be present whenever Ssplcofi
-> is present.
->=20
-> Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+Changes in v2:
+- Split the patch into multiple patches.
+- Change name in Signed-off-by field.
 
-Why is this series RFC?
+v2: https://lore.kernel.org/r/20260810105337.855546-1-imkyufie@gmail.com
+v1: https://lore.kernel.org/r/20260810062611.735673-2-imkyufie@gmail.com
 
-Cheers,
-Conor.
+Reza Kurniawan (3):
+  arm64: dts: qcom: Add UART support for Xiaomi Redmi 5A (riva)
+  arm64: dts: qcom: Add haptic vibrator support for Xiaomi Redmi 5A
+    (riva)
+  arm64: dts: qcom: Add notification LED support for Xiaomi Redmi 5A
+    (riva)
 
-> ---
->  .../devicetree/bindings/riscv/extensions.yaml | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Do=
-cumentation/devicetree/bindings/riscv/extensions.yaml
-> index 5ffc40d599c0..f316b93754ff 100644
-> --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-> @@ -232,6 +232,18 @@ properties:
->              ratified at commit d70011dde6c2 ("Update to ratified state")
->              of riscv-j-extension.
-> =20
-> +        - const: sspesa
-> +          description: |
-> +            The standard Sspesa supervisor-level extension for precise e=
-vent
-> +            sample attribution, as defined in the RISC-V Performance Eve=
-nt
-> +            Sampling specification.
-> +
-> +        - const: ssplcofi
-> +          description: |
-> +            The standard Ssplcofi supervisor-level extension for precise=
- local
-> +            counter overflow interrupts, as defined in the RISC-V Perfor=
-mance
-> +            Event Sampling specification. Ssplcofi depends on Sspesa.
-> +
->          - const: ssstateen
->            description: |
->              The standard Ssstateen extension for supervisor-mode view of=
- the
-> @@ -934,6 +946,13 @@ properties:
->                  const: smnpm
->              - contains:
->                  const: ssnpm
-> +      # Ssplcofi depends on Sspesa
-> +      - if:
-> +          contains:
-> +            const: ssplcofi
-> +        then:
-> +          contains:
-> +            const: sspesa
->        # Za64rs and Ziccrse depend on Zalrsc or A
->        - if:
->            contains:
-> --=20
-> 2.43.0
->=20
+ .../boot/dts/qcom/msm8917-xiaomi-riva.dts     | 37 +++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
---NXk010FMsqIWIm0u
-Content-Type: application/pgp-signature; name=signature.asc
 
------BEGIN PGP SIGNATURE-----
+base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
+-- 
+2.55.0
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaoQndwAKCRB4tDGHoIJi
-0tlJAP4w5GCA8+uqOuxxYbSrz/hjl8CHq4Te4t/0YaZ8pFJq0gD+Oi6+k8Ou20f5
-YXvedETW9VAPBH9qq7MK++nt5cYEsgc=
-=QFPg
------END PGP SIGNATURE-----
-
---NXk010FMsqIWIm0u--
