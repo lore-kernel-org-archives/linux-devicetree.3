@@ -1,83 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6717D3D0C07;
-	Tue, 18 Aug 2026 18:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787079498; cv=none; b=u4KW9XIRa2pGwIdCfLtrEiu37TgDoe2SGG24FzftvQpQAsM2hPcafbEF0WeBKeLLoCIZDjRVfCYM8hku+VFWEosrRCtDB0V7PqSyUmvaobe4bzTibbYIEhZmr6YLbdG0hqji+h1D5eQzT9/VkTCszwMSxZWPi/D0f64MsL2Xw50=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787079498; c=relaxed/simple;
-	bh=ZlX+z9pUsHDoQD+A2WgqgdQ5xieqmIN1OC0HWPgG6sM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X8TYvhBDTRsyXUbJxP+SxQOWcULWss8A24YBXK7zv3Lt+YLZpz054CUIQMMsemxacR+FEqWTlcEltx9GUfIHCpdyIlS65egckqall7WykmYLrlLDHfMfr8vCwQGflBwswZIU4ifvXO+2ZZ0pSJKO3sCHFHQtBoCXlE0LCa9XX70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNPmA0KJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DE53DDAE9
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 18:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787079531; cv=pass; b=UYr4SpoEgJXzvdVTtM4QmDQ15TfcEZwF+ORL94vscXGciFpQPdu2Un+WN3k6xtnvTyGCqic4I6uG5nXHkh11xxx046dN7ePfMK+oUQ3RBvJ9/rJdEUh0i4l+T4Mv3Zon+4fTPkB1lrGt1RmkfFs7ob7eV5B1LpcV6mh6iEpP27E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787079531; c=relaxed/simple;
+	bh=1964DuSHA7WB48aD9EqBAW5OwZ93A7bA31ghwPLXZLI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ek+buBU3ibzl+aTCHQxeOTzZGbUrnZtXQfmPU6KBx/KVwCjgE5Estw8Me0VLpeyi/kpmAN5JukIbKswEe1J8FGxB4rKP2g3g3ttqpTVjmvarhuBLaRdFUyW17jNLoYZ26JW9SvHuhNdPy1XYiNc4Ug6mT+X+MT6+eYktLRsTxdU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YvEcP6cH; arc=pass smtp.client-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNPmA0KJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35DEA1F000E9;
-	Tue, 18 Aug 2026 18:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787079497;
-	bh=O8Peqt8WT9DHzwVxnRsjnPx1R7Yii5C9/fDHVNMD5OM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mNPmA0KJ5e1sb3umUDgc+4IqrU1UL+fZSsNk/G13SaU+3hP6f8diRPka2DRXpOvyg
-	 UAtxBPME1LgL9MdcbOoOTC0zSxLTS4eSYchw9gsstaNGFXloZKpmpzYdXaD4iKcUdg
-	 EOb4DY9ciHXm4WoTE34miBDG5zk6GNTqep8vksMjBFkJLGG0bT7MQG9V03kjnGQ8X6
-	 XWY0Xf996doD5tXFTMzVUVdq7yp5r6PkcytJmDpWDpVBVvkY+j5aR8//GTn4WyqVuK
-	 A74iy3KISEgZrKulbuPPcuXiyPXddXs09m3ZItzFc2C+Vui8CXDInOSd/dnDDpmqRF
-	 7/0Jx6V+FtLEQ==
-Date: Tue, 18 Aug 2026 11:58:10 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Diederik de Haas <diederik@cknow-tech.com>
-Cc: Dawid Olesinski <dawidro@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Corentin Labbe <clabbe@baylibre.com>, linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] crypto: rockchip: Add RK356x/RK3588 cryptographic
- offloader
-Message-ID: <20260818185810.GA7030@quark>
-References: <20260708175837.1718437-1-dawidro@gmail.com>
- <DKF8V3IHKTL2.1PUA8O5IVIRYC@cknow-tech.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YvEcP6cH"
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-495b27007d0so215691b6e.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:58:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787079529; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qreuevGiP6Wu2aq9NXi6iV5CRL4M9r2TjHUzPbw0eNxujSjci1LkUckoLS5Ew8mq2a
+         m14So5r3aMRc4qFj4PxlBj0zATaG2gkQecLK0MXW32kva13Wujn+oIyx0p57906XYjXR
+         xWDBNA467wPEZWEikjFfzdhdnV7Vq3NHu464ypEbI9lQ/cpflS+9SdoHZatr5K43rjd+
+         Mrf6IUTtY13c7H74re7wDmHMzuqtBeAwbg37i6R3Y2pqJ3LMN7dHgZZRRSRjhuR8OUhT
+         Pw56YSNWj9gIHq+Ox0EGDiR7Zdl9JNZ7lgbLrPya8nxKW8rmjJjXdJYU9/92nnCOPHqb
+         BB/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9BSkI8G8ihTCxIT7mAPP/NBqIKcGAH08sndQ9lGa/eA=;
+        fh=vo7XGEVDQsuVLQ8P5QCuilTyzyxKN0/2cVqBoLNIU9E=;
+        b=YU5vIaveU2dbQi8glGe4cSlo/8/ZPnhK/6ruqTBleRj/BLeuEV6UuFgQxNQMi/HpFs
+         m84JD5550EfnsDaup3EKr28fDlNVO1vjvYsc90yerCgfIzVoRhvOLWIpUWmo2jACpk66
+         rP6HvX+hNYhDXeYhwAZ5ylLShxGtc8U27jgtlwu9/UdSQ6u3FVdua4BgPwkQNxEg1qKg
+         jQxpy9fk109/ginhxV92yvmR3/GKEhRdIiYP14482KiBSxZvImaKMR/hUI3cB0WAqC0x
+         IqzV/8PqQVjofjgI19sgtXkFmXGWKB8Iqc6bEOcW0tBpUIMRg7jNaEhg3h3gn4zro4eO
+         wBSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787079529; x=1787684329; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9BSkI8G8ihTCxIT7mAPP/NBqIKcGAH08sndQ9lGa/eA=;
+        b=YvEcP6cHzHb05mAvOxpv6w9/uYoKEpBJOnFCpGg+2ARVLPfX/dcok4bMqJHoUyKbV+
+         HuhayKXHTnSY+gWK9letNedvLMdOikpGnUKFBC5YbrQtjX9x8hNda61rTd37d3H2r8R0
+         JfZ6c1FtIRiVh+KVqGBsDA/rE42VbxLkeHa8gz/RAw8N321KjK9nUQYDD3YE4XG8e+Wi
+         bUruoIKbS2CVCJwZ3KMS8oNp4+vbzhEgid2nazEu980EtjFLzYVsjKbDssVct3CenGYz
+         1QtoGdIiy3cLMpFuTTkAtpeudPeldcKZPU01s1tKtwFSs3rjj3+FP+oYpV+HzBdS1PBq
+         SFVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787079529; x=1787684329;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9BSkI8G8ihTCxIT7mAPP/NBqIKcGAH08sndQ9lGa/eA=;
+        b=Lcj70KHJlwap9Q5r5Mw2WRaXoMzocR3dAGTlq5k01NeOZoODTcB7SWv3ALHKAl9AI+
+         4aLrciUMuTpKQ8xp2NlHc3TzjekPVrABDEermKMsbXCpadItmsBMBvmHJhnvyDfsrGlk
+         lFRp78bLjnrDvNeHsLOlAmBHr4/H6W0ZPMrHNpJG6Tyf55Qe0viNBtW3UfInhcGtQYCc
+         c8Bl5aWhRjfM+HRpOL0q0nRAi6HLZMtr4vawTa0NKovA9HECKef3It0PAv557LwysmpS
+         EZgJYMO/oW4npv/BHSwUREvTSdSTep4bb+sRZETin5v0jbl3y3Ca684Gdh/4PORmDahp
+         4u1A==
+X-Forwarded-Encrypted: i=1; AHgh+RpHTU9NEvXznh3sGP+GSjWghWm9hvS4n/+VU7zWceXkEyqj/K6VkRBqOQmFyuBa8x+OFCZDmoKN9LMq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5Qx8oSzbEJclT/s0CtrrM7KY6ViGKCzrjsACTezIuOHH50PHm
+	rCtWggKRMbiZrmSUWTlXxgpjDAl4rd9F2DHWp3sGWvaUuv4vlpUH0WMqNHWGG0zSrZsyD9A93xa
+	MWl9zem4BjlqSylrAIDkv+fEISDhC/mQ=
+X-Gm-Gg: AR+sD126DqcJ3hgDKU2GfePJ17QImJ7g07+WDhkmEgEKx8rdKpo3wCQugvCmVJEwcAg
+	xp9BQfRrpW/eyLsuxlNUtwZVGrp+r15LC6OUb7UZn4lgONGjAkmNtPbNY1cdqdg9MVpJNjtboSt
+	tmAXHMEt08ktVEBcrbP5gLehgiAIwQiJ3brntRi1gVQK238ZORsvGcwqzAHfBtq2xyHjU1AwASL
+	8CTzW0noR0pRcHuGbaW6dpDu6g53LnonlcFagcXhQiWwJoR6PAzGhurjptMsrUrLYPce8IBNb3F
+	Jx4TvWdSKXyJ/GSAqoB1h44IWoUNklpbLhcTliUBMNZ+LDszstE1P0nastHXlMnZzcY6CrvTHhs
+	Shw0=
+X-Received: by 2002:a05:6808:1245:b0:4a3:26b5:7c3a with SMTP id
+ 5614622812f47-4b241cf770dmr26917515b6e.15.1787079528776; Tue, 18 Aug 2026
+ 11:58:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKF8V3IHKTL2.1PUA8O5IVIRYC@cknow-tech.com>
+References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
+ <20260818080626.30430-3-amit.barzilai22@gmail.com> <aoQZqnbqoiOw6MKt@ashevche-desk.local>
+In-Reply-To: <aoQZqnbqoiOw6MKt@ashevche-desk.local>
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+Date: Tue, 18 Aug 2026 21:58:37 +0300
+X-Gm-Features: AcwNN1X07bZnaFjODTfP2-I0pIQ46TZIiUc18MtLrsRAuThX19xt2MqlCsToMtw
+Message-ID: <CAOEgbEpLGAiPRTvyogFdDYXdVrMjogFv=R4FFGwnQ4RpCvHCeA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/6] drm/ssd130x: Change SSD133X color format to RGB565
+ from RGB332
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Fabio Piparo <holofermes@gmail.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 03, 2026 at 12:42:03PM +0200, Diederik de Haas wrote:
-> crypto-rk3566-test-no-crypto-module-log.txt:
-> https://paste.sr.ht/~diederik/bb5dbfd59f244a6422b965b30f9796ebbfdb1fcb
-> crypto-rk3566-test-with-crypto-module-log.txt:
-> https://paste.sr.ht/~diederik/ea72297678e19cbbc987de9548f9884382e1d1cc
-> crypto-rk3568-test-no-crypto-module-log.txt:
-> https://paste.sr.ht/~diederik/309e519e6b1c31f4c1c5bcb1ea16cc8569a54830
-> crypto-rk3568-test-with-crypto-module-log.txt:
-> https://paste.sr.ht/~diederik/1e1e938ebbbae75128974fe0a7c240843bce04c8
-> crypto-rk3588-test-no-crypto-module-log.txt:
-> https://paste.sr.ht/~diederik/9a2adc2b2e42131445ce4576589e00ecf51ccb4b
-> crypto-rk3588-test-with-crypto-module-log.txt:
-> https://paste.sr.ht/~diederik/e04c11c8809031ca45662f7d4c227c1ba6162b65
+On Tue, Aug 18, 2026 at 11:37=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+> > +     /*
+> > +      * Horizontal address increment, normal SA,SB,SC (e.g. RGB) sub-p=
+ixel
+> > +      * order, COM split odd even and 65k (RGB565) color depth.
+> > +      */
+> > +     u8 remap =3D SSD133X_SET_REMAP_COM_SPLIT |
+> > +                FIELD_PREP(SSD133X_SET_REMAP_COLOR_DEPTH_MASK, SSD133X=
+_COLOR_DEPTH_65K);
+> >       const u8 cmds[] =3D {
+> >               2, SSD133X_SET_MASTER_CURRENT, 0x06,
+> >               3, SSD133X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
+> >               3, SSD133X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
+> > -             /*
+> > -              * Horizontal Address Increment
+> > -              * Normal order SA,SB,SC (e.g. RGB)
+> > -              * COM Split Odd Even
+> > -              * 256 color format
+> > -              */
+> > -             2, SSD13XX_SET_SEG_REMAP, 0x20,
+> > +             2, SSD13XX_SET_SEG_REMAP, remap,
 
-Thanks for running some benchmarks!
+Fair point, there is no downside to marking a variable that shouldn't chang=
+e as
+const. I'll change it in v5.
 
-Looking at your results for rk3566 for example, SHA-256 on 4096-byte
-blocks is 115 cycles/operation for sha256-lib (i.e. ARMv8 CE) or 3027
-cycles/operation for rk2-sha256.  So the Rockchip driver is 26 times
-slower than simply using the existing well-tested CPU-based code.
-
-Don't you love "accelerators" that make things 26 times slower?
-
-I guess we'll get the usual argument that this driver is really just for
-"testing" or whatever.
-
-- Eric
+Thanks for the speedy reviews.
+--
+Thanks,
+Amit
