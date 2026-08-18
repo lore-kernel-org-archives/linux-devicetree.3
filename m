@@ -1,128 +1,96 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125593D16E4
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 03:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BEC41EB19B;
+	Tue, 18 Aug 2026 04:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787025594; cv=none; b=hSubk/w7kP9esOROHbnCA6YyIly+FiIlEdh/ciaAuV3Zu3HWLq7pELFB3kUxXSsA6V4HiiaMvXCGHUde6FUaOqgQTvA4iKuubZ6d6Rrv+VPfpsWxjLlAcCz1wPXs2Md2z0C6tIYCLtAbASXpvjcH4HcVhB0ZdnzjY5KjQjVU3Zw=
+	t=1787028223; cv=none; b=PU+A5uKDVsgEsMFdi5hiddb5qQWFM3+Y+Nd+JHY62piv2SypecYRB28h5WN4PHtwXIPa9lqNPNPZsixcfGubhBLn4rOe6Mj4I1r2d7jSy+HcohXdFO9KklmRJc1pmx50QOFaMq0fjDB1ATjC/6JfcakSkfsAqytBo8Utcg6EjN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787025594; c=relaxed/simple;
-	bh=cVTG8lZVqP7tC4R+lkdLz1X5btO3fFP6MkuCINexyak=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=m+UbjLn9g4wqKOWNhoaRqvbHdZYO0nn0TnBdaDKalDr/KWfIw/eTOP3MW5P4YTWqMmbeyYHsVQbBqKe3xvdRIy+dr7/Na2PpYPlPYzhG9UC7JbrZv5i0xwnbKm8NyfIAUZmtkqZKPq6x1RvE4NhPeLZMON/PLsoHj53PYeHJa2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Nc0iQO4X; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1787028223; c=relaxed/simple;
+	bh=BeHj4YLG3s5SkoY6KFxjGbwB48Fz5do24Lu4wDXieok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uydUZEL8AfSWnjl6yDiJuozh/KDih/CA4oR5gPAOv/mH9e0S7hMuqOb45a0EXwVENn+mu791h23LnAp0ESqFjg08YAEredyffyZpwuDEX4TNz8uoixufHcN4oS/jGqpVT8MFKw8tRD+rpAshsqDw8wR/k9oIfNSmRXxtHEn/TCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LlpMmhRz; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Nc0iQO4X"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260818035949epoutp0209c00ae3dc9fa7e85963e805201d32b1~Myk5Upmfg2539325393epoutp02U
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 03:59:49 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260818035949epoutp0209c00ae3dc9fa7e85963e805201d32b1~Myk5Upmfg2539325393epoutp02U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1787025589;
-	bh=H2J8nu4Hey8UwWctf5x81wbobgR75wzg5QI2g8k9cZU=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=Nc0iQO4XRZTBEr1C8F63Sl+E62UbVdo8KYySkR6MFrbPVke0tbk56GdvdXEfklsH/
-	 C01WHDKLobFKCq6BC4XddKhZHnnCSnr7mQ7rj0HCw+GAowBfQASYw2L6EFPOtRAAFD
-	 /k4opETaKveiFFpxZ2kHGASy8PxDs/1yVRUmj31E=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20260818035949epcas5p44be5b57e72841931cfbaa3fef7d96f32~Myk41pdgw2027520275epcas5p4e;
-	Tue, 18 Aug 2026 03:59:49 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.94]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4hPGDg5jK6z6B9m5; Tue, 18 Aug
-	2026 03:59:47 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260818035947epcas5p16adfc8c5f942956df7310bf76fc82e86~Myk2tWgjK1737017370epcas5p1j;
-	Tue, 18 Aug 2026 03:59:47 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260818035944epsmtip24102c5d9b3cde735c82d29b9288e0537~Myk0MRq1f1699416994epsmtip2C;
-	Tue, 18 Aug 2026 03:59:44 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: <aidenisik@member.fsf.org>, "'Krzysztof Kozlowski'" <krzk@kernel.org>,
-	"'Sylwester Nawrocki'" <s.nawrocki@samsung.com>, "'Chanwoo Choi'"
-	<cw00.choi@samsung.com>, "'Peter	Griffin'" <peter.griffin@linaro.org>,
-	"'Michael Turquette'" <mturquette@baylibre.com>, "'Stephen Boyd'"
-	<sboyd@kernel.org>, "'Brian Masney'" <bmasney@redhat.com>, "'Rob Herring'"
-	<robh@kernel.org>, "'Conor Dooley'" <conor+dt@kernel.org>, "'Kees Cook'"
-	<kees@kernel.org>, "'Gustavo A. R. Silva'" <gustavoars@kernel.org>
-Cc: <linux-samsung-soc@vger.kernel.org>, <linux-clk@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-hardening@vger.kernel.org>, "'Aiden
- Isik'" <aidenisik+git@member.fsf.org>
-In-Reply-To: <20260817-for-next-lucky7-clock-v1-2-032e4b229c76@member.fsf.org>
-Subject: RE: [PATCH 2/3] clk: samsung: clk-pll: Add support for pll_309
-Date: Tue, 18 Aug 2026 09:29:42 +0530
-Message-ID: <025901dd2ec6$0245bcf0$06d136d0$@samsung.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LlpMmhRz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787028222; x=1818564222;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=BeHj4YLG3s5SkoY6KFxjGbwB48Fz5do24Lu4wDXieok=;
+  b=LlpMmhRzYTaqcQ+zv+w9zhImxoYUlPXUbDgFQxgiwiQUdpPdVyejl/Qj
+   rGfytzfvca+Pekb0ehV3kQGMBQB9Y5+6buTyjUCZb4Z3xSl5kEzGV8OHL
+   SYn4oGgdpSZlHukXNLOOVRfRMp2H+kHhUFpaNWqxx7qjEQiJj5wesM692
+   vHbGlhQKVUBMNIwJI8PAmiwgTPRq9gyVOEUhBJbd/VfBgEIUngcsR+lt8
+   qdempIV3vp5rm+g3RG8Ef9NMEZrRIFrWEGjnkMGNFkyp9N8vrY5b8vrgM
+   RhLTkwdoXs85R1KV1Y/6nlr8kQF8rLBWC9KcoKvnXK9OTrbp+9zc8h/tM
+   g==;
+X-CSE-ConnectionGUID: kIliK5x0T5uZtDgD1Yh5JA==
+X-CSE-MsgGUID: +TMw9IbbRsGCxaWBycs2Rw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="110294940"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="110294940"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 21:43:42 -0700
+X-CSE-ConnectionGUID: lv1TYxJfTA+rJOGgGKQUIg==
+X-CSE-MsgGUID: xnG7vlrNQZWSXbH3ij77Hw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="295040323"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 21:43:38 -0700
+Date: Tue, 18 Aug 2026 07:43:35 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Taha Ed-Dafili <0rayn.dev@gmail.com>
+Cc: jic23@kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+	skhan@linuxfoundation.org, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/6] iio: dac: ad5504: Align headers with IWYU
+ principle
+Message-ID: <aoPi90sc5rhNGW6P@ashevche-desk.local>
+References: <20260817211118.21833-1-0rayn.dev@gmail.com>
+ <20260817211118.21833-3-0rayn.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQHOeIyOJ24EK7guGNA1AUHFAM/4yAG4p0XDAgM/Jlq2orpDUA==
-Content-Language: en-us
-X-CMS-MailID: 20260818035947epcas5p16adfc8c5f942956df7310bf76fc82e86
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260817101721epcas5p228e56fa915717b7a547df144ff801c8c
-References: <20260817-for-next-lucky7-clock-v1-0-032e4b229c76@member.fsf.org>
-	<CGME20260817101721epcas5p228e56fa915717b7a547df144ff801c8c@epcas5p2.samsung.com>
-	<20260817-for-next-lucky7-clock-v1-2-032e4b229c76@member.fsf.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817211118.21833-3-0rayn.dev@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Mon, Aug 17, 2026 at 05:11:11PM -0400, Taha Ed-Dafili wrote:
+> Update the header inclusions to follow the IWYU principle and ensure
+> they are sorted alphabetically:
+> 
+> - Remove <linux/fs.h>, <linux/slab.h>, and <linux/kernel.h> as they
+>   are unused. The driver relies on devm_ managed allocations, so slab
+>   is not required.
+> - Replace <linux/bitops.h> with <linux/bits.h> as only the BIT() and
+>   GENMASK() macros are used.
 
+> - Add <linux/mod_devicetable.h> for struct spi_device_id.
 
-> -----Original Message-----
-> From: Aiden Isik via B4 Relay
-> <devnull+aidenisik.member.fsf.org=40kernel.org>
-> Sent: Monday, August 17, 2026 3:47 PM
-> To: Krzysztof Kozlowski <krzk=40kernel.org>; Sylwester Nawrocki
-> <s.nawrocki=40samsung.com>; Chanwoo Choi <cw00.choi=40samsung.com>;
-> Peter Griffin <peter.griffin=40linaro.org>; Alim Akhtar
-> <alim.akhtar=40samsung.com>; Michael Turquette
-> <mturquette=40baylibre.com>; Stephen Boyd <sboyd=40kernel.org>; Brian
-> Masney <bmasney=40redhat.com>; Rob Herring <robh=40kernel.org>; Conor
-> Dooley <conor+dt=40kernel.org>; Kees Cook <kees=40kernel.org>; Gustavo A.
-> R. Silva <gustavoars=40kernel.org>
-> Cc: linux-samsung-soc=40vger.kernel.org; linux-clk=40vger.kernel.org;
-> devicetree=40vger.kernel.org; linux-arm-kernel=40lists.infradead.org; lin=
-ux-
-> kernel=40vger.kernel.org; linux-hardening=40vger.kernel.org; Aiden Isik
-> <aidenisik+git=40member.fsf.org>
-> Subject: =5BPATCH 2/3=5D clk: samsung: clk-pll: Add support for pll_309
->=20
-> From: Aiden Isik <aidenisik=40member.fsf.org>
->=20
-> pll_309 (referred to in the downstream kernel sources as frd_309_rpll) is=
- one
-> of two PLLs used in the Exynos5515 SoC. It is an integer/fractional PLL w=
-ith an
-> FVCO of 600-2400MHz.
->=20
-> It has the same locktime (500), and kdiv/mdiv/pdiv/sdiv masks and shifts =
-as
-> pll_531x, so it can be handled in exactly the same way.
->=20
-> When defining a PLL, the =22con=22 parameter should be set to the CON3 re=
-gister,
-> like this:
->=20
-> PLL(pll_309, CLK_FOUT_AUD_PLL, =22fout_aud_pll=22, =22oscclk=22,
->     PLL_LOCKTIME_PLL_AUD, PLL_CON3_PLL_AUD, NULL),
->=20
-This patch does more then what is described above; please explain all chang=
-es in the commit.=20
-If needed, split this into common and pll_309 specific changes. Thanks=21
+Not anymore, now spi.h is responsible for that.
 
-Regards,
-Alim
+> - Add <linux/errno.h> and <linux/types.h> for error codes and data types.
+> - Add <asm/byteorder.h> for cpu_to_be16().
+> - Add <linux/array_size.h> for ARRAY_SIZE().
+> - Add <linux/kstrtox.h> for string to integer conversions.
+> - Replaced <linux/device.h> with <linux/dev_printk.h>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
