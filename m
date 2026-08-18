@@ -1,34 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204A2175A6C;
-	Tue, 18 Aug 2026 14:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E102318FC97
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 14:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787062697; cv=none; b=k2Ord1pCR2A61tVFoWYl3nZN8CvY0pfCifBXnK/yyCyC68EQWHj4mpbWFcuky0sXqx6kunY6ROCjEXwwnLD3ZIMPVoAeigD8I/JL9YVCZpgCXp+Di/e/te6y7g6cUQlltgQPWPD7jKToigzyNnGqiDzYbDJxqQQetrFqXsqQ1O8=
+	t=1787063359; cv=none; b=BrIvMBZ+sjYSWylYVoqkjyCatRuIM4vWtw/hq3IrwOascTkM9iA5/RkO6VUxtg/o/w2C70t71oBcEJ3Yo+MzqG4AjvxubuuZga1EdGY83TKhWG8w1yy65PxY3ZRTfxQ2g4hps9kaPbgmo0sOojVejJ0JuFWQdoJgO3ZRCLmQEY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787062697; c=relaxed/simple;
-	bh=hn9aaL5Np2ACP5XCRxe2C3j1w0sc3rI8cw0YAsemNrE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MsvMgdrMFaKEGWPzKjN0D9Yg/Egk70DiBTyrkUxPnaFWuMkoJcvYt7u1a6aS92d+AlnyiB6TfQznrt7Feec6hE4dHmyM0DocbIdDNN6Zn0hZQU5FATajrgALC0Ierr+9CFHAdDkVVx2NAtkadVdxeJDFRMm6TLhm/MhbHRmfT10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXaTOLs4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787063359; c=relaxed/simple;
+	bh=JGfyrv6YsEMW3ySMnbJnC0enIp8myRb40Fox7M1f5A8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Dsi/UlNB2BbGRxp6q7RRKLW2hlMWkz0VWIKdslPPTwXQz1vgcB9voz3tcne9sBvE5iuVbXmNXZA40EZKv06vhlxKALjAH08iIvWuYf2IQfC4EWBWo8dTOyNWIL1gQ2EPKu8a/ikcPdn/O+8GSCqFcb/TSto5xxRrGX/xPWdaEFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jc0QgWIQ; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXaTOLs4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DFDC1F000E9;
-	Tue, 18 Aug 2026 14:18:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787062695;
-	bh=lQ6MrCiZZT+mrxVJ80G2HBuj1g1N4krSlsCJ3uFi1lU=;
-	h=From:Date:Subject:To:Cc;
-	b=PXaTOLs4QP1ETyrbCkYkAqwieCM8YPMFNlGLPwEcBl7Xrr1lMw19LbgeqjzSomGiJ
-	 QWT5b67+V4Y9ADg+HRdHhja6RhW9HTkJzqVswxiMx1o83XatOExC8TvKIo8X2VgZeG
-	 SKViHWCTPZawQFf/CGyNQhtQu4GTGV46MPkjo81E7dL+VJHdIcFsiEqOWQRCwIvL0I
-	 F45EDhyi+pa76mpQdvzWwyhBFDaZij1bmUIxPozq08un9KWuMQlrUAWnWvSj9jcf1m
-	 JF/DLQ4a2a/NfL3wimKzWXt7D1z7d0As92I0ua1oTpXsC54PGCYuAqg8KVlSD0YiVM
-	 dO6bpaMRMt2UA==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Tue, 18 Aug 2026 16:18:10 +0200
-Subject: [PATCH] arm64: dts: qcom: msm8953-flipkart-rimob: Fix panel
- compatible
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jc0QgWIQ"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbe4c537ad6so27099a12.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 07:29:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787063357; x=1787668157; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ODrlCcCoU3q8OoWZI3Z+F20E6MLxBbiDOF0rGC7y2kc=;
+        b=Jc0QgWIQ1qh0dGxyvqNcvcmURorFEdKsFq+o6AL2zUuNr531JGFlcGJFkITbjpHNNS
+         4ZF5k0tvEr217kStjZIS1GbAYGJxUIUfLQHmsKQfhqKgMWHYbhHbaLNq9ZcN9eLANTTJ
+         DRea0GLJ/ucGSSsYaWwu5M5bP6fV8j/iZvLDENnbjO0tJfoh2dGHpQWcw0iBnXD2GR8m
+         MHUsdwXvV2/eSlmV2mj2siOYj81RUOlEaua+7Er8znISt/Ow1rVv0ZM0PDfn+ba9WM2d
+         M6C3YeblQpowXbMG+kZibdElKVzlBUfsVHoTN2wWO1B+H5SGNki0iKCfXeZdIhPnVA5H
+         xgXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787063357; x=1787668157;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ODrlCcCoU3q8OoWZI3Z+F20E6MLxBbiDOF0rGC7y2kc=;
+        b=UCQ/jyFTW/nL0LRfDRLL0ez2+79LL+5VuUyXNum5xSy0M7Y1iBdbhUHs1vYLDdth21
+         yIlvGXl2MhWObVsLx7adKQw4RAViAUeMJWxIeK2MjxfJxQ59UvWVsPwVjrh0sW7EwqjE
+         5YEaP0Ab4BcvYuxziPTSEEX38m/tmv+syeDKyuX7oFxuhNl7tXeft/W6HalfeUlRBfY2
+         dcetAHn6ux9gwn0XrdWR+FRLudBOKBV3vDByppqXGHeO461gIN6MK0RN57IrUPojYX+G
+         oPTDOJVqZJPS0UwOvB4dYIWB1vOz5q5Lu9PXIMXG8bLhf5RCvGX3Bxph+WQ20iLOcW+B
+         DHsA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0+VWYrtC67oyZ9Gjx4CXIb9FhPuljcYM6tB8G+2Sxc9Vs8y7A4iOD0aBXd5cSyVpRAMYizmkURdbg@vger.kernel.org
+X-Gm-Message-State: AOJu0YxUj1NKJV7WB4OTBoiqNkZ+uD0bLo02rhdprJAWNP5hIx66zMOX
+	Yb+7swZizUoB+bcKyo9G6UcT+m7hb29GIFnT6VeanAXCubi/c3LTOxOV
+X-Gm-Gg: AR+sD11oV1mwuP6WrZwpJTtHaTt/QuHzlFmBs3E4cYUw9lw7FlJIQU+WhccOh4J6wHq
+	QaEqyERJtBAMyHy6VsFeiH+XjXTidCWiye1AT111z15UL/hnYNp11YXiZipVsw5LDYvdMhYGukn
+	jcEydBtoGnrSrHEY8TFQ9uHA6ZxUs88VoGVJ0LuANFNjslt+ROuozmWHUGHmcDtXTz+bsjgwRZi
+	fLpBmUsrUi8aC9KKV2Erv3roXuammt5+X83f6nA9eIgKSqHu3bt1yBZbWV7zgXwftGcgQ2KVzmv
+	vpGJn+QfjJ5SAms6QDuBVtChfL5L+uXnXhAfdjXxmCIav6/nUEGwb/9Bx1L7cfQ0qHTTy13uych
+	+acQ3tsdYO3+rFO2hUtjQHQzyFMG9BeHk5qCv9gY7mFQF7EdggYXEW8SQ0eT7S3f9RIUR4QCxyR
+	DQb3OoMQ/eSNhVIhdnocNgdpy+dvRfw2JCns2uZ0gf3Q4NDB3LA+1YVnHk9Pu3vBebivzmPxOU
+X-Received: by 2002:a17:902:850b:b0:2d5:cbd3:8eb1 with SMTP id d9443c01a7336-2d5cbd38f48mr47861085ad.3.1787063357187;
+        Tue, 18 Aug 2026 07:29:17 -0700 (PDT)
+Received: from [10.90.163.252] ([2409:40c2:501a:6e15:dc3f:c23f:e55e:d03d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327b43d488dsm9043527eec.29.2026.08.18.07.28.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 07:29:16 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH v2 0/7] dt-bindings: usb: ti: Convert AM33xx/DA8xx MUSB
+ bindings to DT schema
+Date: Tue, 18 Aug 2026 19:58:42 +0530
+Message-Id: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,61 +70,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-topic-more_dt_warn_fixes-v1-1-609d283502cb@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMWwqDMBCF4a3IPBvQUELsVoqEOI52Ck1kJr2Au
- Pem7ePH4T87KAmTwrnZQejJyjlV9G0DeI1pJcNzNdjOus733pS8MZp7FgpzCa8oKSz8JjUWMXo
- 3uNNEA9R8E/oNtb6Mf+tjuhGW7x8cxwfkLNCxfAAAAA==
-X-Change-ID: 20260818-topic-more_dt_warn_fixes-2cca86964be9
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNyw6CMBBFf4XM2jGlUB6u/A/DopQpjBFqWiAaw
+ r8LGBcuT3LuuQsE8kwBLtECnmYO7IYN5CkC0+mhJeRmY5BCZqKIcxwZdZ8kOIUaU5UWVpLKBVn
+ YFk9Pll9H7VZ9OUz1ncy4J3aj4zA6/z7u5nj3fuXirzzHKDArtVG2lI1N1bXtNT/OxvVQrev6A
+ bHjDQi4AAAA
+X-Change-ID: 20260817-ti-am33-usb-4548f2e570ef
+To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Cristian Cozzolino <cristian_ci@protonmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787062692; l=1159;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=QQP5idsajnfjQE8/05vaaEFp4cxcOh8wYTXgUqm17G4=;
- b=GK7A1UAaqYTWosQfxbI0q/Qjlq+GOWSfVu5w/NqZjo33j7Oqp46P2HOPPkO8i3Xjk/X7hLKDf
- J2VdWyGIDyoAQJLGF2NdxLuQKmyCQY056LbzLsZJlWLBke3RiVxIIus
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Andrzej Siewior <bigeasy@linutronix.de>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Ravi B <ravibabu@ti.com>, Kumar Gupta <ajay.gupta@ti.com>, 
+ Sergei Shtylyov <sshtylyov@ru.mvista.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-omap@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787063337; l=2756;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=JGfyrv6YsEMW3ySMnbJnC0enIp8myRb40Fox7M1f5A8=;
+ b=9giuNSenfwjusCj/dLjQXYCk5quKNspVE/tzT8aHCiTbMgmU5VX0Hd6wozCgezLFxIvzYRC+m
+ ezTX+JHv/U7C/ZWvHRReZiDvw2g5pyp+tdnBTdHyWcA5zP/tKO+xt+a
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This patch series converts the legacy TI AM33xx, DM816, and DA8xx
+USB/MUSB text bindings to modern DT schema.
 
-During the review process, the bindings have changed, but the DT has
-not been updated to match. Fix it to prevent a "compatible too short"
-DT warning.
+The legacy am33xx-usb.txt and da8xx-usb.txt bindings was historically
+structured as a single, monolithic file that documented the entire USB
+subsystem (the wrapper, core MUSB controller, PHY, and control module)
+all together. This series converts that monolithic text binding into
+proper, distinct DT schema files for each hardware component.
 
-Fixes: a8c0bd4233a9 ("arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Patches in this series:
+1. dt-bindings: dma: ti,cppi41: Convert to DT schema
+2. dt-bindings: phy: ti,am335x-usb-phy: Convert to DT schema
+3. ARM: dts: ti: am335x: Fix redundant interrupts property in USB nodes
+4. dt-bindings: usb: ti,musb-am33xx: Convert to DT schema
+5. dt-bindings: usb: ti,am335x-usb-ctrl-module: Convert to DT schema
+6. dt-bindings: usb: ti,am33xx-usb: Convert to DT schema
+7. dt-bindings: usb: ti,da830-musb: Convert to DT schema
+
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-index 978820348fa5..07f9ee868105 100644
---- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-@@ -147,7 +147,8 @@ &mdss_dsi0 {
- 	status = "okay";
- 
- 	panel: panel@0 {
--		compatible = "flipkart,rimob-panel-nt35532-cs";
-+		compatible = "flipkart,rimob-panel-nt35532-cs",
-+			     "novatek,nt35532";
- 		reg = <0>;
- 
- 		backlight = <&pmi8950_wled>;
+Changes in v2:
+- patch 1: add interrupts as required property for am335x-cppi41
+- patch 4,7: add pattern constraint for dma-names
+- patch 6: remove deprecated property ti,hwmods from required
+- Link to v1: https://lore.kernel.org/r/20260818-ti-am33-usb-v1-0-69ac5f92df45@gmail.com
 
 ---
-base-commit: e6664f2b33db9b6811eb4cec109f06cb2b4f458d
-change-id: 20260818-topic-more_dt_warn_fixes-2cca86964be9
+Bhargav Joshi (7):
+      dt-bindings: dma: ti,cppi41: Convert to DT schema
+      dt-bindings: phy: ti,am335x-usb-phy: Convert to DT schema
+      ARM: dts: ti: am335x: Fix redundant interrupts property in USB nodes
+      dt-bindings: usb: ti,musb-am33xx: Convert to DT schema
+      dt-bindings: usb: ti,am335x-usb-ctrl-module: Convert to DT schema
+      dt-bindings: usb: ti,am33xx-usb: Convert to DT schema
+      dt-bindings: usb: ti,da830-musb: Convert to DT schema
+
+ .../devicetree/bindings/dma/ti/ti,cppi41.yaml      | 109 +++++++++++
+ .../devicetree/bindings/phy/ti,am335x-usb-phy.yaml |  49 +++++
+ .../devicetree/bindings/usb/am33xx-usb.txt         | 200 ---------------------
+ .../devicetree/bindings/usb/da8xx-usb.txt          |  81 ---------
+ .../bindings/usb/ti,am335x-usb-ctrl-module.yaml    |  38 ++++
+ .../devicetree/bindings/usb/ti,am33xx-usb.yaml     | 103 +++++++++++
+ .../devicetree/bindings/usb/ti,da830-musb.yaml     | 113 ++++++++++++
+ .../devicetree/bindings/usb/ti,musb-am33xx.yaml    | 113 ++++++++++++
+ arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi  |   1 +
+ arch/arm/boot/dts/ti/omap/am335x-boneblue.dts      |   1 +
+ arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts |   1 +
+ .../arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts |   1 +
+ 12 files changed, 529 insertions(+), 281 deletions(-)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260817-ti-am33-usb-4548f2e570ef
 
 Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+-- 
+Bhargav
 
