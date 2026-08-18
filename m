@@ -1,68 +1,68 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE23238737B
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 14:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8E6344036
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 14:30:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787063398; cv=none; b=VsZ4TTvk7p7jsD0xSyAisp8EujbAAyGRbvHRGdTcE5Ax24dKEN5eYoFs+3nAlzQkBGpPd/N1cbMvWk+nUTz5qqCqIOQ26AAzIS2KQjhAF0ONj+X8tLWpN7pgNj4dnuWE0rZe44Jtt66gWdScigt9YnevzjwxDgQUUgGHeYqGAqY=
+	t=1787063418; cv=none; b=js7lG/FPC13tVVghONaXOHpqWd8YFchYBzGpdRs2y7t8tRSFh1TOBmouHsUG+wWKa8Hr0FaFpdpVHCmB42iaU+jrMFBTPT16c1vvOUDVFQ3i6HRGv9t3/Z5W7fAUm6cTXEkJbj+NQCj5u34jyaAhQjAU5F7i6dC4YAP3SP71zkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787063398; c=relaxed/simple;
-	bh=x82f2rFO1TTjFpVekp+USEIM8EAiJutd+tABMnyaNHw=;
+	s=arc-20240116; t=1787063418; c=relaxed/simple;
+	bh=2zGPgT53nMyKtGN4bplmgmbVd+Cg1WvfyXIJuEqowq8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aPvG7lngRZ8ichSNcY6oO4Tq0MS7J+uQQeyp+WxSk3YSnq7HLzM055NispYxaO3IBBMMI0l+KykpNywjK6e1Ba2PMm0sb92dEGIDaHoxRG3M/znx/tqZc3kM+tbZvCdcNaGVQ5pcLFggOQDp62wmNyvCPLtNDDFlIEIY2gizi7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bI0ZQg1L; arc=none smtp.client-ip=209.85.214.169
+	 In-Reply-To:To:Cc; b=J6D6nJ6Yu1CZ7HTRsZze2V8F6A3du65E2VuAvxhmGjizHcZSn/RSaWF2EPvCFQiB8hQhUna+QnCJ4b5kjsi0JUozki3Emem+xgB5up1RlbjeQQ0kStX9zfOyJ8L+jqlzfgA5NeCYCRV8QB7JSQEG3a/JeE/HuPOwekS0hVHH0pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nYoyPS+Z; arc=none smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bI0ZQg1L"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ceeee8c46bso11292425ad.2
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 07:29:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nYoyPS+Z"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbe41618110so303340a12.2
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 07:30:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787063396; x=1787668196; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787063416; x=1787668216; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AbV7RIHYMEgMD35kCL1q43FBlvr9xDn3Pi9g2Kfmf8I=;
-        b=bI0ZQg1LQ5SeEZaOlzPm9AzZ5T75sshhhzLFD6tShHglSZYq+rXdpfTG80JJ4/Pcum
-         zmPq3ScbI0AjfMucicRPNrwFUS1P+nCSkr4E1uBAeJSUrdc3/CM7Y1Fe2sgVa8whZo2Q
-         WzjqmGcCHDlozg0Xqx7wf/LjMA0yy9wi51y9ws4HMMFwBjzVem1pgawrsY/K7l8NoWoq
-         rqjAcBWQODy9w3Z+VuPiHEFTaOBLe+eR3pwTGtyxOGYtY7hNGZiZvh3lRShu/liEbXn/
-         i04y21Xxq6T/3Ba12Zj/m2xn7FGztkhl9jkUyXcNlFVZRlRCR8lPExB6JV0aBRG7MuCv
-         J6eA==
+        bh=Shib2rntu2e/Z5UR8HQqW2K03GJsazba3W0OpgQm6G4=;
+        b=nYoyPS+ZMPPvddDFZE8AG33Q+GktB9s4k8cTI4i3nqoa81DTZPRP+sA4Yy17Sb4olC
+         k7/tuVZOV1YEhnxwKVGdAcgT6wrvuoBocG25AFto7CKMEFdInSbjtDLKghlkOJQqetpG
+         4NwbmzajPVH45HpJMRgOwrfH1AHyxRXSXSZFLRBbp3BRqrsyV5hJ2tj0IXjF2TWnZwup
+         CBsYEHIn4WtJvpYFwRrDplNz3WnqajPaakG1itnhVEOEQI8EbKmG0SgxEl7WMceUELzF
+         NrP5sOyrUedVkVnvWS1A/X4EF6LqZt9zHPbhrjFWOnMBcIpVtVXXgKgqjm6cQn9iQhDK
+         u2AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787063396; x=1787668196;
+        d=1e100.net; s=20251104; t=1787063416; x=1787668216;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AbV7RIHYMEgMD35kCL1q43FBlvr9xDn3Pi9g2Kfmf8I=;
-        b=aNae1njaQs4ATSnxLiDndOo49yc2EWRxsGM3tGyDTwb6Aq8TSbdr2KKM2Zvxa21LYz
-         ZQnImnvuZMMP2erKkJZcpKabyuGBHxZxevObwJ0l6tJixS/yegBwXvmF1YkMzyyNkDmd
-         kZdHVUiUM7XUHE4Ad+q3NRmp5AoIWSpOXH5jTi7xclWjNgB7HTRUVrMOSsoPwyyRKCJk
-         Un7WkNViFkT5Gb1RE68E7yFGugW2HnvMrk0PpvQp3ZGfiaLfZxJ2DXrmP3YzsvMKnIkM
-         ulNXvkrxQG+fphPnueEsKTY15WnX2lKlCqr3Ghg5M3ygxXQxPuKL4swa4HEUMycnkHlZ
-         a+qQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrIhX9lC8jIoTK6ivoDU+0U/zwwONbDMBHDHK/ej9FifRyHmshxyvAt5o0iYrqgpeM0vTKAfkLXHrmp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2+PEWkm+YDfH/xdzL3ljFLI1TZGaAwdQC+U2lnvOVvodySOGv
-	izi1AbAUzKrPHKIR4HVBQ2ocmv/ajlrXjGqwDE+9nP3MzxZgH6w6tICO
-X-Gm-Gg: AR+sD105ZG8YgvUVsUTcElxJ9LvG8I95CgS207WEaSN3xfq/0Di2l5e9m6wygo0Lzpp
-	SOB1teBE43uNtbsKh86k4FBlgGWqDmIsPzkfuF2OyQouOfMtrtaJonO5U+kCggvZHGH6iL/R27O
-	DBppDK7vaHUxxZ3CegCsp+7taeFOj16zBHtQmkschXhMq7euwbHD3I8LfGYa4FIe9b2wWZ+wgq7
-	IWKp9FiVHyC9BU/LwQ0tLqoij2MBBcVnIApMaMfpNdCnrNGJM7YTxbjMvsTotVYapz12FcEihSI
-	LgpX1e1/7UVqkEGu6nMZjsxo47IsJJX4uif8JyjtvrWhAzd5qlraOUX+8GR4e/R/lzvjMSS5vMo
-	158iFaor27W4fuQbpLUiFSB63mkyDckteUVZgKi11HMkyX8l5WwM2zyirc6TjseQpbAlQOhFqbn
-	Z2sFEy3u2oUKZnIcp6IknJPtphh5KKTePGyh9jAXsAmUddeL6TMwqQYzwxf1UBTZvZl/MdY0QH
-X-Received: by 2002:a17:903:2451:b0:2c9:d298:6c0a with SMTP id d9443c01a7336-2d3b0d7af99mr259247595ad.2.1787063395970;
-        Tue, 18 Aug 2026 07:29:55 -0700 (PDT)
+        bh=Shib2rntu2e/Z5UR8HQqW2K03GJsazba3W0OpgQm6G4=;
+        b=PDDwo4LbHGAQ72Woo3GBSr42hrW8YpmiokSyTOj7gazzmQ5XotQwvpEHQNfUElTqwQ
+         esRf+JHckT2OUl4/g3lEnKs1sjPnICw9SzfUqeXH+6HJAO1PtbQ5eOA9J2pd758ioAuz
+         0rdhPACjl8H4W6z7es2w+305HBQCO76IzMubJJ9sxGxy4GH+S3dPuYpmzLbgkkvjhUED
+         VWgm+JSlKNPp6ibuQmCKg2E7V9BnyM+GXD4nv5CqkOVgd9GocFMZuy6VfdwaQFRff8X8
+         peSVUIr6ry1xtOqH/26T4O1L9CM6dQTIBf8LW4ulL1Wuaq9vNrnO5EvNHpay/1JapljC
+         xk+A==
+X-Forwarded-Encrypted: i=1; AHgh+RrMCz+NuMfyQFhIZQge4j9xFCJ1MOnMeHnvgWIygx34XqoeT/m9rttRxgvDeJj0CkUnnj9iY3iOed3H@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPJRBmtmpSrextX53mIcnRAufaJFH1eJ7HBQsWPEWEMsv/XH0V
+	ZejDQUm/Bc1BKcbym89S6DE7EEXfsZj6TnOLA9OEoBacF6NzbYjMvueR
+X-Gm-Gg: AR+sD111ayUVb0iMZfw4AsuV7rBxBDtVzHH37QuJObScR9ADM1EiN6DyiwwxXBPTpew
+	MKpYI83tY4Ue6j1+zTGm7apuNNpmBHro3ItUbmT8dyb1WczpjFANCilcz9TcaRR45TItuWMn6HJ
+	R7kL3hsoGT++VaO9pfHaaJ4jJR9aCDI0WKLtPxTq2t+KTriNBX5fersgb+U4bef1scF3tX8IS4X
+	sYlIwgd9phyvEStidBlmyqdsS7sodo7/HStL5YVicZUjk/SeF6S3QJBUD0tEZv0WsNMleyGljux
+	zmVs4b5kY4lwwTWf/Ya5UDMKUcl9zNAZdWUQHZnmTeqTCXLfFhfjLEiqbsNDlw/xU1Z3BPExc+7
+	Vu8i3HFbnUgwdCB5i9/o9NFm41CVB/PKaChHdLrNtUuwzk6oZUZg1fou6MZeOynmRNqpGYzDANA
+	s75zGBrgt6L7ZX34fogvobWTiA7MibFm1mzyroe/OIrU2jUpTATyLH6v4Xf76JcekNbpERAGB9
+X-Received: by 2002:a17:903:3847:b0:2cc:f4d4:29a0 with SMTP id d9443c01a7336-2d3b0c9938cmr295090215ad.3.1787063416121;
+        Tue, 18 Aug 2026 07:30:16 -0700 (PDT)
 Received: from [10.90.163.252] ([2409:40c2:501a:6e15:dc3f:c23f:e55e:d03d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327b43d488dsm9043527eec.29.2026.08.18.07.29.35
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327b43d488dsm9043527eec.29.2026.08.18.07.29.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 07:29:55 -0700 (PDT)
+        Tue, 18 Aug 2026 07:30:15 -0700 (PDT)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 18 Aug 2026 19:58:44 +0530
-Subject: [PATCH v2 2/7] dt-bindings: phy: ti,am335x-usb-phy: Convert to DT
- schema
+Date: Tue, 18 Aug 2026 19:58:45 +0530
+Subject: [PATCH v2 3/7] ARM: dts: ti: am335x: Fix redundant interrupts
+ property in USB nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260818-ti-am33-usb-v2-2-66fd44d66824@gmail.com>
+Message-Id: <20260818-ti-am33-usb-v2-3-66fd44d66824@gmail.com>
 References: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
 In-Reply-To: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
 To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
@@ -92,98 +92,78 @@ Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
  goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
  simona.toaca@nxp.com, j.bhargav.u@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787063337; l=2477;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787063337; l=2514;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=x82f2rFO1TTjFpVekp+USEIM8EAiJutd+tABMnyaNHw=;
- b=sEuhDNSAfdBHS5mDJZE37ho8OYAT2uqjvOXGzw1LAuvfii4SuSCLU7ba2h4sAFx31yOczsJ2D
- G/PaEK37gq3Aq50W06wrpN9eRGRBiRUA1FB4xK1Gl2W6MS2H+4a/Ekj
+ bh=2zGPgT53nMyKtGN4bplmgmbVd+Cg1WvfyXIJuEqowq8=;
+ b=U44CBfLq+mbjkIIztglKnpvX2Szjq/KUNnCaHfRupVE20B/nuOBZ8VDQDiniFFo7nOR6ojcl5
+ a0qkQIOtaOKCZggjOaSYj5Lei+aZaYsAaMkpyryBk3CoRhEFxzruH3X
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert the TI AM335x USB PHY text bindings to DT schema.
-Add undocumented vcc-supply property to match existing DTS usage.
+The am33xx.dtsi defines a single interrupts property for the MUSB nodes.
+Several board-level files override the usb0 node to use
+interrupts-extended instead to include vbus interrupt.
+
+Since both interrupts and interrupts-extended cannot be used
+simultaneously, Add /delete-property/ interrupts to the overriding
+nodes to resolve the schema warnings.
 
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- .../devicetree/bindings/phy/ti,am335x-usb-phy.yaml | 49 ++++++++++++++++++++++
- .../devicetree/bindings/usb/am33xx-usb.txt         |  9 ----
- 2 files changed, 49 insertions(+), 9 deletions(-)
+ arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi   | 1 +
+ arch/arm/boot/dts/ti/omap/am335x-boneblue.dts       | 1 +
+ arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts  | 1 +
+ arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts | 1 +
+ 4 files changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/ti,am335x-usb-phy.yaml b/Documentation/devicetree/bindings/phy/ti,am335x-usb-phy.yaml
-new file mode 100644
-index 000000000000..b28cd42ece5e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/ti,am335x-usb-phy.yaml
-@@ -0,0 +1,49 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/ti,am335x-usb-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI AM335x USB PHY
-+
-+maintainers:
-+  - Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-+
-+properties:
-+  compatible:
-+    const: ti,am335x-usb-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  reg-names:
-+    const: phy
-+
-+  ti,ctrl_mod:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: Reference to the reset module node.
-+
-+  "#phy-cells":
-+    const: 0
-+
-+  vcc-supply:
-+    description: Phandle to the regulator that provides power to the PHY.
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - ti,ctrl_mod
-+  - "#phy-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    usb-phy@47401300 {
-+        compatible = "ti,am335x-usb-phy";
-+        reg = <0x47401300 0x100>;
-+        reg-names = "phy";
-+        ti,ctrl_mod = <&ctrl_mod>;
-+        #phy-cells = <0>;
-+    };
-diff --git a/Documentation/devicetree/bindings/usb/am33xx-usb.txt b/Documentation/devicetree/bindings/usb/am33xx-usb.txt
-index 8431de346129..8832843c7d7c 100644
---- a/Documentation/devicetree/bindings/usb/am33xx-usb.txt
-+++ b/Documentation/devicetree/bindings/usb/am33xx-usb.txt
-@@ -17,15 +17,6 @@ Reset module
- - reg-names: "phy_ctrl" for the "USB control registers" and "wakeup" for
-   the USB wake up control register.
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi b/arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi
+index 1d83fc116b66..c436edd98e10 100644
+--- a/arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi
++++ b/arch/arm/boot/dts/ti/omap/am335x-bone-common.dtsi
+@@ -197,6 +197,7 @@ &uart0 {
  
--USB PHY
--~~~~~~~
--compatible: ti,am335x-usb-phy
--reg: offset and length of the "USB PHY" register space
--ti,ctrl_mod: reference to the "reset module" node
--reg-names: phy
--The PHY should have a "phy" alias numbered properly in the alias
--node.
--
- USB
- ~~~
- - compatible: ti,musb-am33xx
+ &usb0 {
+ 	dr_mode = "peripheral";
++	/delete-property/ interrupts;
+ 	interrupts-extended = <&intc 18 &tps 0>;
+ 	interrupt-names = "mc", "vbus";
+ };
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-boneblue.dts b/arch/arm/boot/dts/ti/omap/am335x-boneblue.dts
+index d430f0bef165..7da2fb782ab2 100644
+--- a/arch/arm/boot/dts/ti/omap/am335x-boneblue.dts
++++ b/arch/arm/boot/dts/ti/omap/am335x-boneblue.dts
+@@ -304,6 +304,7 @@ &uart5 {
+ 
+ &usb0 {
+ 	dr_mode = "peripheral";
++	/delete-property/ interrupts;
+ 	interrupts-extended = <&intc 18 &tps 0>;
+ 	interrupt-names = "mc", "vbus";
+ };
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts b/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
+index d21118cdb6c2..6bf388c4abbf 100644
+--- a/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
++++ b/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
+@@ -35,6 +35,7 @@ v3v3: regulator-v3v3 {
+ };
+ 
+ &usb0 {
++	/delete-property/ interrupts;
+ 	interrupts-extended = <&intc 18>;
+ 	interrupt-names = "mc";
+ };
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts b/arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts
+index 23caaaabf351..068ea23bbc0c 100644
+--- a/arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts
++++ b/arch/arm/boot/dts/ti/omap/am335x-osd3358-sm-red.dts
+@@ -376,6 +376,7 @@ &uart0 {
+ 
+ &usb0 {
+ 	dr_mode = "peripheral";
++	/delete-property/ interrupts;
+ 	interrupts-extended = <&intc 18 &tps 0>;
+ 	interrupt-names = "mc", "vbus";
+ };
 
 -- 
 2.55.0
