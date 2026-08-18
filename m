@@ -1,120 +1,218 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013047.outbound.protection.outlook.com [52.101.72.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60E7377A93
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787043865; cv=none; b=K3/pU7XE1bz4n6hCty7QsqMe9CrKXxIAwN/kc6/8u1eAnuyWeQXVbZhBptn21LVdOQN/m8d+19L+cqy37wUxljTE8h0u3KeimezGF7wywtVXFurRvfdefqaVCSdqtnCoqI5f9bcz4X1ZGnWx+wrLRVx0VgtCxyuymbBcO+Nvjc4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787043865; c=relaxed/simple;
-	bh=kZvCKzmguS45AfCxZVg9JU4qPhGTNcY1F1R59el5p3k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b/R96yoZn/EiHEzCNqIfYNzzJTM9wUzi9/9q31/Fau9hHSllTdASrya+kTOSur5JvI594gsZ5T74qGUS+X65d22GS3gJF52aJGUzIU+xIzFqhh+lglvJ13MoYYXsIoQ1Qsd9wKLMW9U4f0Bu167kZ5XCFuwMSH/FguOSaiujgeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=exy62z8p; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5107032ED55
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787043907; cv=fail; b=RRt4ldmhcv5GhtQZInRUCsi8P7nUhC90Lefb/S4WwOFeHvlaDaey+XF9FunKH1sHo5keFZTgvPRkIufiPwhK/FJ6J4JEXZpm+V71PZsjpfQbfDv2cUcS3WyalVFe16ikNJtkAnR3+W9Enj+Pe6IKxCS/WiuJ0o7lm3VLtW+DKJE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787043907; c=relaxed/simple;
+	bh=OYJcuGHXaTH6bunsvdS1IBEm6+5Avs+sTWD8SFOP+e0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=sIR2Lu8UwJAqRv6ALd3XBDfPNKi9sbhYGhWU6nO/XZ7cWr8EigvWfQrVGUVrklglCTZ9Ey+aUmqkMEnqWfh+NK1P5Yy95tYMVoX+jWjnjLP14L2ZIEgPM3cdwg+N+8BAcjfRHyUUoT5Tj1p3m0RS9mucE46/XxUII5QUJptPEd0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=iK85KdzU; arc=fail smtp.client-ip=52.101.72.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="exy62z8p"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso5234255e9.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787043862; x=1787648662; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kZvCKzmguS45AfCxZVg9JU4qPhGTNcY1F1R59el5p3k=;
-        b=exy62z8pWYytuleQnsTkRAEdXtlCPI94poVY3HlN12UgYjkltzaWc7lX5y0Ud+o/H7
-         TTLrqvSCFGsjhqWo1h5TlxxHxoCL6CgyzaMnXVKriJyHyyuA8nhS5KXRk1YPduD3Tnf3
-         BybxSnx8ORk6pZtLpnyi8om7D90R57P8AzTKvj48lmi2M/HZPcy8ddhvULsmGvzTDwAM
-         l8cDqPxawLeyjSGN9nr8Zo1nZJSb+/93iaVRMEj+u8FGbCo8B8U+f66d1VDsy0sWmWDA
-         Z7M96KeTkyZAD7MzEAXk1dA9I3Eb06GaK7diYj+L1DvwtFpm1gj7sKOl4a4ZUnL3MoEh
-         weBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787043862; x=1787648662;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kZvCKzmguS45AfCxZVg9JU4qPhGTNcY1F1R59el5p3k=;
-        b=QQb0gDv2tqxG2P84VL/Rm9hKXXeayjIH2NXx0BoYu/wvYR28Jg/+L2JGgEZzkdsoxE
-         rDLkwFXGrgP+YOcdaBHi7Og6zk//wsS+wc8IwYJGCFwi+4hDRQzL+qjJzZWw9ziLAywN
-         xRH/+oqZ02p+4Up5scFRZGsXhPF4u4E50WDC5YyuAYXucAa5tMspU4XiiZa+iFUip4VR
-         w+a1bFV1RDKOAMYbUlO/zAZ/yrZPbF2vsszJEvahj4uxAfOIW58bMVGuPrp6uYb8PvGM
-         kr/l+VkiObWSolxJ4vTrjhssEeIvpqy4+8y2TI88Ul85lnWBcMQZ/rQ63X59RdAIhhXt
-         oexA==
-X-Forwarded-Encrypted: i=1; AHgh+RoKutkTGR69azvFMmvTLlczv/so6p7U65i45Hl8hySNyDcAqzAgR62NgPbOSffmFaHQz878mqPw/xw9@vger.kernel.org
-X-Gm-Message-State: AOJu0YwomPD9XjvV9BH+0glwtUud28OSwUTw5ecN4ZT5HowbnTbO65As
-	pIj4eZBzf8B+j0JlLhdKOAMf3uC/8tX0aGL6pSEO/oTMo0qvQUomwBY6MMtVy9KSnAY=
-X-Gm-Gg: AR+sD13//gj0y2T1DmQkGIjO442DcpVnZHZ2FFsc/X1AZC03ymq9rZltEnSJX74ODXE
-	GLaX7OaqkCDH0PwbVePhS8OOiXRoqS0VjD+moANJhOpJtJA6e5uRUCLxGxhOfJfXek1HZo0G013
-	++L5A/ZgFd2vk4MQp10IvsHJ1kNaHjLBNgkxkY4TVS4URD784ikmDVVnTi3ACgnjOwcjnkJEPru
-	JZA9+FPBIQ6mzTg/uejqw6Q/G4rDSuxaY62m3ZPvzvOgssqu2ye9KH6vw/ioUdj/DLuAxRwQLgS
-	hls11n7PDSekf7UN5TIpgOHgQ5XWsNv6Tg+/hSSoiHRAcVZRG9qCGlBT8syHOJGr3NcY7MiDv49
-	IxCw3Purt7gnLNtByk8uDxeTL9uLsf0af37u5tRWnV8Q0jKTv7bXLAmkF2JhhqCGILqvc4Ozh61
-	ChpsTZmz4IcIlSAREWd6c9B27BpclQGxiQg1ocxLfDZ498qSGJNXTHG1uvDl/F6/sBg1Mkw1wzn
-	Tk79Uue1UNubdkltOKgSoDjVd4cRhzXdKQwJCMtvgYeIM3EqjYq
-X-Received: by 2002:a05:600c:858e:b0:499:5f81:8ca1 with SMTP id 5b1f17b1804b1-499a08d2c5fmr81326505e9.6.1787043862041;
-        Tue, 18 Aug 2026 02:04:22 -0700 (PDT)
-Received: from localhost (p200300f65f01710416869d85a644e839.dip0.t-ipconnect.de. [2003:f6:5f01:7104:1686:9d85:a644:e839])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-482a5a3158asm10589099f8f.7.2026.08.18.02.04.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 02:04:21 -0700 (PDT)
-Date: Tue, 18 Aug 2026 11:04:20 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Taha Ed-Dafili <0rayn.dev@gmail.com>
-Cc: jic23@kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com, 
-	nuno.sa@analog.com, andy@kernel.org, skhan@linuxfoundation.org, linux@analog.com, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/6] iio: dac: ad5504: Align headers with IWYU
- principle
-Message-ID: <aoQfwxLurO9RgMt9@monoceros>
-References: <20260817211118.21833-1-0rayn.dev@gmail.com>
- <20260817211118.21833-3-0rayn.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="iK85KdzU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xYGZtmBi3QEGNxNkvQWeI9qGx8jVjgNQxuAVe7w0LKB7TvnSa8Y0V3LuMzy0rfBxfDZpGY9VtEUMVybsKLua4Pa1p1bnzWQRDzdl107UmEbb9bKZgZpIpfVelsCx8vM72uID8qlQcVc0jAVQTUY4mR1n6M1jiRL9DekAVIMXOo5BnAeKQBVokQ3GFXbOzK7MwWBYqpGLoEdnypmW9WAjfDTPLP24tPR7zJdmCdC55anjwYpiCKfYcFDV8UrIeKlHhDqcluYQUdHn5wUZIiuuRriHll0n/QCSI+8avsB55Q94PqKsr9Gd0+vQCUiCAp96uWIJ8dB5E7KVBxALaxKNmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U/2ENFBJlbdX9JllqoRhMkmVZjqYS0zPskTSYzOssp8=;
+ b=AvkQYgB4t8lak2SjLSZHEHXhBEde26cwXT763fGI0Xf4n2zGiDy6jmqjNnQGZ2fupCEEfAVKXnEMi7GmyBMzD9WlTcwfaozju5sZgJNYUlE9j6FKQ86tKRo2JIwOANS7deTe14VfTuBNi6AVG4PcVczFkzRA6HcqD83wOC0OFEGQE/LzJ2nkvTuyeRR9gc++TwGDm+1ndwVSfLDAibNAR4zI6y1wQ/EVI69UzQEfEBeZJo5n5vqG2Ap3Zk2l+nzt3a1aMdMdDMRG6OOtwtiuiFagbloIqA1of3TlGFGTe+IBK5XVpO1Tba/MPIBpj1HfQ8cMvxKOvVBrECe0l6izwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U/2ENFBJlbdX9JllqoRhMkmVZjqYS0zPskTSYzOssp8=;
+ b=iK85KdzUkymwGRAfE6MA1GezSgZTJw44r0XyyuSbyxYYxS5dYI3c+2UbCflGaV2dEObASOHEG4OvesLV1TZPT8qC4o8qWOBtTPzLnhNHkih5le5e9vG8DT8rVq7XfcCZZw7uO47K1hZPn87lyXebAYSmbDInF13kpHfHNv35+3rIEo/KlMBEibtjY11VBTzflcV/E720LFvI9AnVmA6/CO8rOItPKwwfeVaA9P8iyNXsi8DhJuFblRa507khQdw+j9vgQT8oWtvZeoRcCZaY7chbVTPLyJdqDAn3GckGiubM3WbJHzdpjUewzkqBUms2t5dTP3wuUrb6DQ0ZY4w/mg==
+Received: from GV2PR04MB12271.eurprd04.prod.outlook.com (2603:10a6:150:32a::5)
+ by VI0PR04MB10854.eurprd04.prod.outlook.com (2603:10a6:800:25f::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
+ 2026 09:04:59 +0000
+Received: from GV2PR04MB12271.eurprd04.prod.outlook.com
+ ([fe80::3b38:4ed4:2164:c035]) by GV2PR04MB12271.eurprd04.prod.outlook.com
+ ([fe80::3b38:4ed4:2164:c035%5]) with mapi id 15.21.0339.007; Tue, 18 Aug 2026
+ 09:04:59 +0000
+From: "Pankaj Gupta (OSS)" <pankaj.gupta@oss.nxp.com>
+To: "Frank Li (OSS)" <frank.li@oss.nxp.com>, "Pankaj Gupta (OSS)"
+	<pankaj.gupta@oss.nxp.com>
+CC: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>,
+	"robh@kernel.org" <robh@kernel.org>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>, "Frank.Li@kernel.org" <Frank.Li@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: RE: [PATCH v36 5/7] firmware: imx: adds miscdev
+Thread-Topic: [PATCH v36 5/7] firmware: imx: adds miscdev
+Thread-Index: AQHdLnKkzSxW1Pvp90KVhk6UdcSNG7aiiP6AgAAJh4CAAO1LQA==
+Date: Tue, 18 Aug 2026 09:04:59 +0000
+Message-ID:
+ <GV2PR04MB122715C58E176CB3BAF1E77AF95A62@GV2PR04MB12271.eurprd04.prod.outlook.com>
+References: <20260817-imx-se-if-v36-0-45c42847bfd8@oss.nxp.com>
+ <20260817-imx-se-if-v36-5-45c42847bfd8@oss.nxp.com>
+ <20260817084938.C2B541F00A3D@smtp.kernel.org>
+ <GV2PR04MB12271867DDFC25782A7B688C595A72@GV2PR04MB12271.eurprd04.prod.outlook.com>
+ <aoNU08NYpe1rK6Bz@SMW015318>
+In-Reply-To: <aoNU08NYpe1rK6Bz@SMW015318>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Enabled=True;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SetDate=2026-08-18T08:46:25.0000000Z;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Name=NXP
+ Confidential;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_ContentBits=3;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR04MB12271:EE_|VI0PR04MB10854:EE_
+x-ms-office365-filtering-correlation-id: 3337dde6-c29e-4446-7ddf-08defd07c7cf
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|19092799006|366016|376014|1800799024|10067099003|56012099006|6133799003|3023799007|11063799006|4143699003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ rtzNN6fs4fx6N+viJ97dn3YU273P4+J+aOMmsFOXrk9RfsvETAL+SF+ietlC0Xu4TN/Hz1TkX3ea5tOBC1fspUej8iSYMlWQ/qCTuVsdUMGj4GYuD2K4gFUpeREXjNgrJOoll/vKXyfTF4g4ajOkiIz2Qr3HfZyKmYddy/Zao+QAjcvKFbgmT4H6bi18NqnnLzAcG43dmnQc/zzoCLjp0+40qgWBG9ng0IioUn+TE3B1gp2hCMKC+BpZ7p3vs94XIl6FdK+g6BDfRh0mDAduexLlQFAj2DFWDS+ZnbR9tCWx8lli/wREtwdV6a5M8EdE6jy9pkh8shaRZ9/lKqn3UDJ4P2lF7MlQLT6tYa/1jNEdOOWrSlbIktHScnXnn53lif4VlZlOP/C4QAT9UkbPndSh7bDWTkKed+FhmlTZGs/i9CTfNLKBtPSWpuMzqxs8hyrFv1ADuxtjlQYmWPBrfkWOo5rH3S+DTasXUXxG1utUNamBpYRpW9rQ0r2DiO2/DjYRAAXUvJ90q6HZFAlrDcVLuIT6Gov4p6ZnAagci8Frln1xH6Ha+fLmOEGJVhTZde31anxuDXVCpZ/AD0r9S5PxaAKm3rr8GoHjv1+Ck9j/BFPZgkme4iimIsrs1lKteeGAdUOqgOsbgLP/ZFr+PiywqJs+FntqMZsZE1pYVCza9Iz4hPUdI6e5hbc/Eg5Prrh+DDLNxVVSg8FJB8QDM/zYnANEqc2SGKfVaG+0wCo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12271.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(376014)(1800799024)(10067099003)(56012099006)(6133799003)(3023799007)(11063799006)(4143699003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?hsYsmHeqYDoeexK1GC7M0NacQ7VqabKSWKb1RoSUXI2TilDRQOyWDcB8Zn38?=
+ =?us-ascii?Q?u7pNP8TbThJcS7TzLluolMJA3t9mqG/G5bbcDqxqqZvmgCn0N0R83IzZzMIa?=
+ =?us-ascii?Q?1a9ZsSLjCwwr6z0lQ9X88wHLBCKczj1cpTkV76DlQAJ+eHp21lcZjZcDdCh0?=
+ =?us-ascii?Q?ljWsLCA+tPYZ9axcKay4O701p1VixuOqFkhU90eKulENKLNFtXG53w4jhTdP?=
+ =?us-ascii?Q?4AOAEO9s09H49qy2s77ITC66MIjWikPr1BEab+nDxxlgemQsSw47fMsg8u82?=
+ =?us-ascii?Q?tt/O/CDYB5Lf9lj6N8T+VXzuuhkR8So0jQAO7Tr5Uvfru7MZ6pUOaqKeixhr?=
+ =?us-ascii?Q?Ri4SKq/LP7sXrlCf6PClSVh/JMnZRrlHLKbhmTs0GFtczWzIfb2ESEzFqXfF?=
+ =?us-ascii?Q?dqyUozUBVfFjYqZgs38zxU/pxwh5howBMDen4sb1MSEOl47IZWjRRgCphwMf?=
+ =?us-ascii?Q?AW/il35O84YgcMjsizYmtjUWCENLBUHmSuGpjXQUQ7iYMAnRUh0LOqhynNZ2?=
+ =?us-ascii?Q?5zHrBqwgGyO3py/4CbXe/kqqe7nQGZxiKh4NbA8zjZ56uDYOEn0l5IZjxSYH?=
+ =?us-ascii?Q?Zogwl/wxoczd+FPX3AKtVtIixL8+PUBQDmui0DRTMrqp8suM4tx3+3X6IiHk?=
+ =?us-ascii?Q?+xs1Y8cR1vqk4Ex2v8LRfGYjgX+P1wOePl15U95AXsCxb3voWBy0i3M2ZpKm?=
+ =?us-ascii?Q?0zFJYM0wTVO8zAMVXVGs3WrIBEBRAd/fT0jLbcpca/V0S+ObY8hJQgYy7+ya?=
+ =?us-ascii?Q?lgTYjQpX2Fenz4IuDR1fZ96s272uAlG4fO6gx+h7FDomLhCtqo7yVX89YOgc?=
+ =?us-ascii?Q?00NGHOH3oamwhxrputQwr7R4QYOrvmt8BIS/NtqQXlL3QNjFhr12FSZYCW1l?=
+ =?us-ascii?Q?rSi5lD67CkkTIb84kXOPMcSpTmTe3aY3I3CbLGTP3BSKzTtQ3gN8DpRm9IIh?=
+ =?us-ascii?Q?CouoFNeq/mLanMOJZLjb22NltzaQfXiGClfN88IqrmbDsR46ZFTDuXgwoFSZ?=
+ =?us-ascii?Q?/5FsFN+dM/KnjraCJQUoN/uiOo+svbfpkxh2/tpVh7Bld3P0omvTuKZQButN?=
+ =?us-ascii?Q?Lao7RGh30GU5++BpLf2LYdh64cso1k2BA9UM7W79nvfxmJuIgmKBfieTG310?=
+ =?us-ascii?Q?a8VNIYlFgNaRSevmQdeGoMUReaz2W7oS7zBlrfzNiqp6aHgK67ra+LYKA4U+?=
+ =?us-ascii?Q?viVAV/seF8QUJKHPnsB6CK/UemzDp864RZPWNgghxxWcHLaaRrighMa0kM5+?=
+ =?us-ascii?Q?kXdBFwbitz8OrV/v+0JdvbPYOVDjeVrxUK3d30M+TaNk1xy7TtX88IVfrOpl?=
+ =?us-ascii?Q?DG2WDa7Ov6XLoIhU+kA1vzArJlqXnibJyilJDa8TaBWOVatVDcfku9AdaJEs?=
+ =?us-ascii?Q?8LgBBhdHI/zwWQ6bH0U+REDw0rJ1Yl6i+GYmzSWq8/KF3NxoyrruRV0MyPtY?=
+ =?us-ascii?Q?EtDDTREYQt4cmnF+yipQM+Sk+YMoBbo+0/6Ftftc2Dx8XMhWsjNuspysCq48?=
+ =?us-ascii?Q?nZScUwJ1aPYzTxRagcq0e4z33GaUJl9qp3s0tHTrUTt0hMSE4YdMXEcTp1j2?=
+ =?us-ascii?Q?wjX1FzrybjnQUkdq7Tw+uhCShw3goTQH1MEqmR0KMvvPxG5BS+L/SXC1LLSe?=
+ =?us-ascii?Q?KvYjFZntO2FsiuxYllaUNl1kxBud/48RzRZeYA3HDib60M1az/z/5hrzQU34?=
+ =?us-ascii?Q?NKgY/CwgU0DnicExbLn5od6vtySgg2GAMkXyv7jP9oDXtSJ8lBlN70DrlNEa?=
+ =?us-ascii?Q?9ZUS/zeznA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6nhyrc5wlzpmw47v"
-Content-Disposition: inline
-In-Reply-To: <20260817211118.21833-3-0rayn.dev@gmail.com>
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12271.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3337dde6-c29e-4446-7ddf-08defd07c7cf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2026 09:04:59.1774
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CXcJZyELj7I6Zy5rBp80d3bfLiAHWt10PJlGTzGR7XsouIUR0oSzb6k5CPYiTp/VA7zsk7lqGqVcHW1dz/Iv3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10854
 
+> > > > --- a/drivers/firmware/imx/ele_common.c
+> > > > +++ b/drivers/firmware/imx/ele_common.c
+> > > > @@ -101,15 +101,15 @@ int se_val_cmd_addrs(struct se_if_device_ctx
+> > > > *dev_ctx, struct se_api_msg *msg,
+> > > >
+> > > >             addr =3D msg->data[f->lsb_idx];
+> > > >             if (f->has_msb)
+> > > >                     addr |=3D (u64)msg->data[f->msb_idx] << 32;
+> > > >
+> > > >             /* Zero marks an absent optional buffer. */
+> > > >             if (!addr)
+> > > >                     continue;
+> > > >
+> > > >             if (addr < base || addr >=3D end)
+> > > >                     return -EACCES;
+> > > >
+> > > >             /*
+> > > >              * When the message also carries this buffer's length,
+> > > > the
+> > > whole
+> > > >              * buffer [addr, addr + len) must fit inside the
+> > > > window, not
+> > > just
+> > >
+> > > [Severity: High]
+> > > Does this code prevent firmware from reading outside the shared
+> > > memory window when the command lacks an explicit buffer size?
+> > >
+> > > For commands like ELE_OEM_AUTH_CONTAINER_REQ that use
+> > > SE_CMD_ADDR_NO_SIZE with no buf_size, only the start address is
+> > > checked against the bounds. If a caller provides a start address at
+> > > the very end of the window (e.g., end - 1), could the firmware read
+> > > the payload out-of-bounds into adjacent physical memory?
+> >
+> > - Not a bug - by design.
+> > - The existing comment explicitly documents the rationale:
+> >    -- this is a read-only input buffer
+> >        --- (firmware copies the container header into its own internal =
+memory
+> for authentication; no DMA write-back through this address).
+> >    -- A rogue caller can at most cause firmware to read within the shar=
+ed-
+> memory window it already owns.
+> > - Output buffers must be fully bounded;
+> > - Input-only buffers are safe with addr-only checks.
+>
+> Why? at lease addr should include payload size?
+>
+> Frank
 
---6nhyrc5wlzpmw47v
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v4 2/6] iio: dac: ad5504: Align headers with IWYU
- principle
-MIME-Version: 1.0
+Payload size is encoded inside the OEM Authentication Container itself.
+For ELE_OEM_AUTH_CONTAINER_REQ, the API only passes the start address of th=
+e container to firmware.
 
-Hello,
+The kernel cannot validate the full container size because determining the =
+actual payload size requires parsing the container header, and that header =
+is interpreted by firmware using information and keys that are not availabl=
+e outside the secure firmware.
 
-On Mon, Aug 17, 2026 at 05:11:11PM -0400, Taha Ed-Dafili wrote:
-> - Add <linux/mod_devicetable.h> for struct spi_device_id.
+Therefore, for this command, only the container start address is validated =
+against the shared-memory region.
+The firmware then reads and processes the container contents as part of the=
+ authentication flow.
 
-no, please rely on linux/spi/spi.h to provide that or use
-<linux/device-id/spi.h> if you insist.
+Also note that this is a read-only input buffer.
+Firmware does not perform any write-back through this address.
+A malicious caller can only provide invalid input data for authentication,
+which would cause the authentication operation to fail.
+It does not provide a mechanism for arbitrary memory corruption or privileg=
+e escalation from the kernel side.
 
-Best regards
-Uwe
+The trust model for this command assumes that the firmware is responsible f=
+or validating and parsing the container format after receiving the start ad=
+dress. Since the container length is not available to the kernel, enforcing=
+ an addr + size check in the driver is not possible for this request type. =
+Any bounds validation based on the authenticated container structure must t=
+herefore be performed by the firmware itself.
 
---6nhyrc5wlzpmw47v
-Content-Type: application/pgp-signature; name="signature.asc"
+Regards
+Pankaj
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqEIBEACgkQj4D7WH0S
-/k6k9gf/XJjMKLmyQ+EipN3dYdshWkNe2VVs1IfCcFB64ghyBySWNq9Dyo925dp9
-R7MaZxMSUVFUBfeAVhyZUqGlFaRdOpiN4+3i/rPEH5v7lODPg6R2vsenlJKsivy4
-sr8bRVqQmm/TTGWqaZJl2MfAjuV0iRF88uAUXHfeIsBNoSobTbr3FPDP9QjV71UM
-BuMqE85miBZOrVvss57R9CufnhRZjgS2FSBVeeKB7XxQjobfDBWcJwbGIQu66wNv
-rgIkYjqwk50S2DquSk5watkvu6u5HKJyQd/bSMjIJOCc0YGmzZGXd+cxYUr7vrAQ
-if6GgpXG3DE3LYSvXgLnCH7yQx/P9w==
-=dEAm
------END PGP SIGNATURE-----
-
---6nhyrc5wlzpmw47v--
+NXP Confidential
