@@ -1,108 +1,129 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED3A2D061C
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 19:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787080331; cv=none; b=ufdQuzIq7NLVigMBpd4VcuXOF2kdLr1HsaJ5Hm0tc88+vPi5SzGdXuTkUWF89iZKCQFMWCJUuK7FZCl/CW9W9JtSOFnmq73fnpexAif6YMGJf2R1CqJIQVmKAG9Q0ADc69mNDBWnweG2QlxKiif9IeC3KkhnuFPGSx7dNPSULW0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787080331; c=relaxed/simple;
-	bh=HO0+RPkmv/54G5SUNBvVRzpPmMsibWjHar2qhfMCDh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SRVg8Cq5+CTszvcvzuzv6bs0xX2ADnIecfWlRaezVXLRLZxGWFfcIh8XJXqK4FYaZkBkP022FakwWgJT6trp8QRUPrRHR5EE/WQSWv3nwfiERA64HPfzqly4Td3zvRPRv4nTJnyFm2gtjuW3mNDuUBwnKI1+t+Enu+pjlY1CdAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4345F34D91F
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 19:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787081160; cv=pass; b=Y3PllxNxo4V6LL5bFflCm5DPCzhNqZprdXVZ34Sh8skxw0f5mLe6XoeE86g+33RU3JPlMGikFIw9/sPxW7Q9hqpKY33GsKBWWlK5JiGiz4BpzRvVtCUU7Yj9V6N5Hdvmjk5Sdj1JSndM9V6BAbAsNsJ5SDFbLm3x2K4EBU9SzQw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787081160; c=relaxed/simple;
+	bh=cIIgdfvOLCmJHlf73CIXlFBeEaUWMa0+els2tooXNfI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jJ0XRp2ltRMewODLRVUqNvdmRBjnEoBdhkB60+xx/FcL29K1xiexdPoske59RwZhTTjMpYzUSzxK/Gd6etcr+EHCro98Bht3qzfnyuitgzUkxfgoZ1t7EMkU8CU7t080GiNjqAzZUdSTbAeVPh9Kwuozpxbb5Ahe/CUXKiZouqo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ivUMtKYC; arc=pass smtp.client-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4954dff6536so1703035e9.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 12:12:10 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ivUMtKYC"
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6b13496112cso215211eaf.2
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 12:25:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787081158; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WHxbsLyWlCYr37UmeYKxbLoKnNgv94OcrISJN1/OAs32IzNtFF7nxPYbJtuNZ0xKGa
+         2D8B5fY78wiQ9Q3lbFfUIaxKoTnt+JA/OGV+o0D/iXqE2iA1f8Hc0aiTRNodSSsdrxZt
+         wNJGlb2fKSG2nmApjhlpKWhCwYQ9SiLbnkI/P/RIeYTjhEUR9RjPCWXn0q1l/MsowP4H
+         +ng2iWlqFJjysKCTXq2OAygOWYQ81KsRzUe9vXo5wK00bM4ByQxrcuLsPcv4XW52mchT
+         sshGYUEnnS1FBak/kCEWiQNbpiDm3biGKZS+qbn7fMA7x76UGMusg2u+xIr+GLOjX1m8
+         5JsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=q4R+heqJ1jW1B9R5mRMe5BfQRFgnqTQc8TRqWj0es9U=;
+        fh=tSkjk7gvsJijC5mkHgLt17ClvNIv0tP5bl6XXeFuk6k=;
+        b=lNusVmsa3m9dxNNFdre34DRmBO9uP/X9GYZnsoTZ20N9Bgz1f7E5GVZ23YcRoYtLe5
+         vOc0lYdBXT8ekCGuCKq+F310fuHrA0urevmJvjKDpqgRKY8XYUgQy/ElwyeQs1h6A6fX
+         rzWsq+at7AcheravXiPqJd/rNz8//qTqESLT2CQtjXIuLNYSeYdDDhk1VYt/YG6GNA8l
+         IxvJW2UEfTi1jYAfnFw3H/GWRzsI2EQ1aUjUZVhRM3dmwkPtkU/IIgQIGVoun6JfIAhg
+         HtK2xdn2cDbTio6ouo3NbAaBT+VG1mxNKSVpX9h3wk4LpBWD+XWIM4qm9wiWSyKTqO3Y
+         0gzw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787081158; x=1787685958; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q4R+heqJ1jW1B9R5mRMe5BfQRFgnqTQc8TRqWj0es9U=;
+        b=ivUMtKYCefYkdoxvv+WAZrV/jtl3jtU00JXrYQ/8Y9KzD6Uy7OKKT8sv0zz2+r0h90
+         UCiPDjaxbtrHgjd+sN31KRdtvBjgAoCnqvNZPBxTHikUeaHSMXyqR9GsXqJY1LUa+Oag
+         2S7digPBaS3YDQVNCPOT3i9dNgOaKuXHFS19QFbgZWZvAqaCwEHG99U2sQRvM7dTxJqb
+         TGxasnkQi7LQSStnR4AsXSiv9JE8Pp8PMUyJoUuSjK58jD6QOao8i51qHxNhgPHPeCew
+         /VJpjwrgxRpbVOTaC48nsSa46js9czeDnMIMPHztEQAUXS4g9O+iodTmaBDnyG9Cew8W
+         K08w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787080328; x=1787685128;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CMPOR156M0mqts600G+VeeVQ2Hm+QQSFhaSBmB76XDc=;
-        b=Ad/h9GfhetZqQ21y9oZQbG7ZUDqXEY+BmobCXU89k/11xK7wTVWhLHU4r+wfkVtX3e
-         dmbhRbqz+RfJWvhwWb3uIlincOxayMmIwOIgUthaopEb8ROoPklb+MlCUmU9uJfJc9fg
-         P2n3Q1GC5Azcwv27f5LijXdNoV2UMO6ILxqLhbihtiCPwqCCIyO9nhS42x/siz72bKfy
-         TiWXbt8gUeWqd983aLhzEvMeYddD/1vE28lKPZsiWqgYAWMYOcqlPhACVTqgMtzk32Md
-         4q/YrqaIs3anocPF35vsXY9XiXqNp2FFwJHdp0oS9zj8il/CUb8X5CEabRQ5gIeFmCzq
-         gIeA==
-X-Forwarded-Encrypted: i=1; AHgh+RoP329ig1Mi2dO29f/KqUCyNfvqX/ta5HP2fqrbiKF9gQSvaI/3EVf1bUIHBTbw3YIwXuS5np8/CZ9m@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzkrs8imBFbA5oXKJqPTb6073s9n3aRdKgKRjOdd1h0x1b91j5G
-	kHu9ud11dTK76P6sax2vNwdpgeYgRvkIkgJY9Wa/xgFBBJ+iZv++9dYG
-X-Gm-Gg: AR+sD133WiI92+dIpS/u4CPYMSO10R7NtsH5q0ziLBgQ/3NqT/pqgyVNN8lF6oFX03i
-	Dz9Yh0Y/4v0KhOiauHYWrvkomFo/C+qiax/CvNFRNQzrS0pfeh23RT4mlKbOUoZ35aCsp9YZ9mJ
-	/SQKJ8AxOY4qDLPINIgAwMIn3fopLnRc6k4Jiu0rr+bqq+scrAnYZ54JDD8UVRsbcgz8QDm9eQ4
-	5JFOPXNrnl6NRn+ix5yiPi6hgrEDX5Kk19Y6jag6qauxsXgJj1mHesvCg8MPtkzGqjjCsYaQUKI
-	cFSDWbOIKldib9k4QBIOy6ajuaZZcpJat6MbpS/ydMPVaD9Ed02oLSPYiLuLhupY1yPF6r3lr0s
-	pKnQ2UGcScTcTHl5ASxlz8mZ3ktPPLgiivdN01yfO2E9WMNAaTsbqABXIts9KprfoJs4jfsYR0L
-	vj8O2GH2YRblcoySGM57IPTRMRs3TfkV7ZkzTo1MXaxEQFMylVrinccC4lPmnxItpGaS+NOgzKM
-	3OUiYbVa9Xrr1ERlkk3vv2Yjzg=
-X-Received: by 2002:a05:600c:5253:b0:499:8ae1:b900 with SMTP id 5b1f17b1804b1-499a8fc25eamr3729925e9.12.1787080328303;
-        Tue, 18 Aug 2026 12:12:08 -0700 (PDT)
-Received: from threads.localdomain ([83.106.158.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5b783c6sm14673154f8f.31.2026.08.18.12.12.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 12:12:07 -0700 (PDT)
-From: Lucas Tanure <tanure@linux.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Xianwei Zhao <xianwei.zhao@amlogic.com>,
-	linux-amlogic@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: amlogic: t7: khadas-vim4: allow the SD card to be power cycled
-Date: Tue, 18 Aug 2026 20:11:59 +0100
-Message-ID: <20260818191159.11523-3-tanure@linux.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260818191159.11523-1-tanure@linux.com>
-References: <20260818191159.11523-1-tanure@linux.com>
+        d=1e100.net; s=20251104; t=1787081158; x=1787685958;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q4R+heqJ1jW1B9R5mRMe5BfQRFgnqTQc8TRqWj0es9U=;
+        b=sZ818eVsMkojmiADpBS+2zA+G4htJLva8IR/tROckKcIraX1P9iJ7q5gr1XzjwgXUT
+         jBRxqfbofVtYJ/dDwcDd5j9BFI653sSjTBzBFOfhQHWEvjfy+O/B1k5W08nVYESqhEih
+         0oriOcqW4XnUSbFWvg/tzrA/JxLHf345HmMIOG3YigI8aoWuJOkKFTANV1BJP20yGMDI
+         bCM0TY/dKAuybQgB+NaEpPZpExNcNnEfduNHiBZzVBM3xpisuVAoIJUzWbXIYvlnej+b
+         lom3TFNgj86m87OVueOzVo57MICHeiSWiQrnnstccHYTPHOl+xHc11rSpatxAoeKPB2b
+         AFCQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoN4Y+FUOs3JYDvOzi3D8CnwCawkadIpX8NrYm06+VFOLJG7LZze++lJJsijaYH1kSb01ig0nX2EhW5@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfYDsGBkWU+z8NRDbPEvf62VGqa5gitttsjjgN7YC1mIJEJpfr
+	MDNQVCbHkJxCP9ywF6xBDXAh+ko8LeEPzDbD0h32KVnhPScW7dUk0l5UCsAvXgmRTl5GxK4jNbA
+	HNwQ6HBrxBmLahkL2iMrOHJB5ZGF4Ejw=
+X-Gm-Gg: AR+sD11rbg2rees8/rc3KqyQ4yiu0GT2/7Ch7ihGOuW925CTyBsjLNgjEbBJRiHpBx8
+	nX656wLTiirWiTVqwjO0+B3e3zqNj9I32P8eM/h+631il+XHeKWUqXvQbsm2riVpDNIxaps5RDj
+	Q3D/jMvKCn1A+K+G/nVP6yNLLbhWCqp/FbireLY3Y0eHIFttlYdDp8ucMLOUdA7HZZTjsa5Q9NJ
+	oLO7GjsAf/2RH/V+JZiuTkNx1dsDBbNZMavS2xqbOb+Gx0gKkNvVzhdiU4fWyC7licjvKtAgLLr
+	YHZCXsCtQiT+JW4ak7ddy6RsO8peBIJxqTJAH4I6rSdfDFWlQeZNqZau9tANZ3yZyTXGp+xtzsl
+	kFFyuKnczoaBd4zQ=
+X-Received: by 2002:a05:6820:1787:b0:6ae:9e00:c8ef with SMTP id
+ 006d021491bc7-6b11dd6581emr9168780eaf.14.1787081158039; Tue, 18 Aug 2026
+ 12:25:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260818080626.30430-1-amit.barzilai22@gmail.com>
+ <20260818080626.30430-5-amit.barzilai22@gmail.com> <aoQalR40NMFSg8zS@ashevche-desk.local>
+In-Reply-To: <aoQalR40NMFSg8zS@ashevche-desk.local>
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+Date: Tue, 18 Aug 2026 22:25:47 +0300
+X-Gm-Features: AUfX_mxSHb-78EKn8JdKVlMLMgR765ctFD8-Qvs1aN8nzyH7_8okoURw2uODcNk
+Message-ID: <CAOEgbEoMOR+WS7TzY5+k6G464uUdp+rHJqvhY+6gRE8nCaT=gQ@mail.gmail.com>
+Subject: Re: [PATCH v4 4/6] drm/ssd130x: Replace positional ssd130x_spi_id[]
+ initialization with C99
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Fabio Piparo <holofermes@gmail.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SD cards start at 3.3V and switch to 1.8V to reach UHS-I speeds. Some
-cards refuse that switch, and the SD specification says the only way
-to recover is to power the card off and start again.
+On Tue, Aug 18, 2026 at 11:41=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
 
-SD_3V3 is marked regulator-always-on, so the supply never goes off,
-the card stays stuck half way through the switch, and the MMC core
-retries forever:
+> >  static const struct spi_device_id ssd130x_spi_id[] =3D {
+> >       /* ssd130x family */
+> > +     { .name =3D "sh1106", .driver_data =3D SH1106_ID },
+>
+> Hmm... Is the comment correct for sh1106?
+>
+> >       /* ssd132x family */
+> >       /* ssd133x family */
+>
+> Overall, what do these comment bring us? Are those families have somethin=
+g in
+> common? Because the driver data is unique for each device, so I assume it=
+'s not
+> that compatible inside even the same families.
+>
+> TL;DR: Perhaps simply drop those comments for once?
 
-  mmc1: error -95 whilst initialising SD card
+Agreed, I'll remove the comments in v5.
 
-Drop regulator-always-on. regulator-boot-on still turns the supply on
-at boot, and a card that refuses the switch now falls back to high
-speed instead of failing to initialise.
-
-Fixes: 8c45bf9ae4ef ("arm64: dts: amlogic: t7: khadas-vim4: Add power regulators")
-Signed-off-by: Lucas Tanure <tanure@linux.com>
-Assisted-by: Claude:claude-fable-5
----
- arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-index 677069e58f30..3f53630e107f 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-@@ -71,7 +71,6 @@ sd_3v3: regulator-sdcard-3v3 {
- 		vin-supply = <&vddao_3v3>;
- 		gpio = <&gpio GPIOD_11 GPIO_ACTIVE_LOW>;
- 		regulator-boot-on;
--		regulator-always-on;
- 	};
- 
- 	sdio_pwrseq: sdio-pwrseq {
--- 
-2.55.0
-
+--=20
+Thanks,
+Amit
