@@ -1,120 +1,66 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11B41C3BFC;
-	Tue, 18 Aug 2026 06:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409A733C19E
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787034646; cv=none; b=oOmaLzKudbkrBSlW3+tImD4Ju6DTn6DE7IZO32yct2MLMmL0RiWm6GgCgTKgWDJsFJkg2svKKcPyZu5nNynWbecM8/ioNuJ6XW8HM/ouuC9Yvi1jCnasUkNCyEXqNZWUTVQwLq87q4T7cl9mPeWJs3TJmorHywyB53d8jzVn9p4=
+	t=1787035644; cv=none; b=iN+60DP10Ex9h+wlkT9OQSKPQ08C5g7w/QFHiz8ErTjuJo0MdFOFO8s9Njhi9tP/+abZ6HyGVuWsW3kgyS11szeOAkAhZSV2sTZZI71Dmi4AdGElzeFrnoENhj3u5OlQDAMT6haQuWKQbvp9Q++Z1pV1optyt147ymfn4KHKnRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787034646; c=relaxed/simple;
-	bh=6jOR4155Y6Y09n6fK1zJtznYL0gERuCjfwtFR/Lq00M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nfsvb1GhEOmHz2KDWo60Uu537PfABfZ8eXKyPFFCwMA7uB2S2V7ESQ/hEMcviPpdYy2KzMG+HLy+jAqLlgVwIEyM1TN3fvSdLHxX93u83g09u0zA0cyqhf6Rh5lffgvJhV6FXBfh/XBMro8PLY3yI1sM0t3RYzTuplVM7oAy2hI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DzW9nYF1; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DzW9nYF1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787034644; x=1818570644;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6jOR4155Y6Y09n6fK1zJtznYL0gERuCjfwtFR/Lq00M=;
-  b=DzW9nYF1BwXYx2W9JO/C21JEPsR6EtXKYqzpIPiIH81wjYo366agb9Gt
-   CYoc/vExiqbKBn00OTzlXBeC3+9oYAuPmStCDU7iVqB1dXrmwZ2pSQCg4
-   mOfcDLBqIFzRQEg/wqwL5elL/YRBY+s4iQS/zLmUqyZvjtsbK9ANN7eqa
-   oEkXj2iBtZ+V0yzBSsA9LdLQvC9RYaS9SVRUkqeI6ZyBcSMtPnkyxJl3E
-   dV3/OGbkBzRJ4oHzx37mnsumDMfAxZZQ7NkOaqQ1ibvTt0xkR40S5y4OT
-   uodMcS/HSeEqWxi04F7bYykUhwg37Z6BHB7FtlCEYu3UvzrWNOyw7Aqgf
-   Q==;
-X-CSE-ConnectionGUID: dXQj5XYzSJCL7tC83z0RTQ==
-X-CSE-MsgGUID: QLxlxXaqSpOsm2Uw2X0QJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87373083"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="87373083"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 23:30:43 -0700
-X-CSE-ConnectionGUID: VF/nDYMARaqC27JhLtgE3w==
-X-CSE-MsgGUID: 2Ce/Rt6lQ8WGGS2kF9BSPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="261851098"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 23:30:39 -0700
-Date: Tue, 18 Aug 2026 09:30:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Taha Ed-Dafili <0rayn.dev@gmail.com>
-Cc: jic23@kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
-	skhan@linuxfoundation.org, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 6/6] iio: dac: ad5504: support scale via
- output-range-microvolt property
-Message-ID: <aoP8DQitMiLOSOor@ashevche-desk.local>
-References: <20260817211118.21833-1-0rayn.dev@gmail.com>
- <20260817211118.21833-7-0rayn.dev@gmail.com>
+	s=arc-20240116; t=1787035644; c=relaxed/simple;
+	bh=NZhF/naB63QrEmzhnIpkXVWDeQROTm5LJeK2bhvwip8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JB2RMIrwx8hWdmvDu3ngaQU9ZDYMJdgbvkYpU5QVlbQ+EcNY4xSnWls/5iZ2tLpSIL6TJ0+mMAwMKntfW8hkVeUFR5eQSVMgQI8WqmE2/vLyIK4QmBXAcH6CabKGcbaGpW1qqlghr3KLkr5jA0xlN48PfiWX0MrXjmS6tBhK6AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0165A1F000E9
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:47:23 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b45f2e5f58so2671599e87.0
+        for <devicetree@vger.kernel.org>; Mon, 17 Aug 2026 23:47:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqKyn07PQnqcEVCaQEk6BKPJ8AGfpo85wM6BnDPn3pCil7IPGiojvukd3Fca12Dt5OvwafHECIuCW6C@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6mZaQBdP+TvPXvICX1ulVTVAHAbkikoV6x/n1Y4dpflqtUAbK
+	5lJnB2P/qnetUXakah6FvctSPWnF8xc/tKT4N6YsG817gghZAY+WmjJst0RikJixYtrMfPS3d2g
+	SVg+zOXuAFpaqae6xujU+SY6sRSGDCfg=
+X-Received: by 2002:a05:6512:2514:b0:5b2:8c97:b50d with SMTP id
+ 2adb3069b0e04-5b4738e3f88mr677711e87.4.1787035638921; Mon, 17 Aug 2026
+ 23:47:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817211118.21833-7-0rayn.dev@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260818014948.996739-1-kaihsin.chung@synaptics.com> <20260818014948.996739-3-kaihsin.chung@synaptics.com>
+In-Reply-To: <20260818014948.996739-3-kaihsin.chung@synaptics.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 18 Aug 2026 08:47:06 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmzy+12y2Ae2z5VoxaYZSKkrsevLfw=xFZNEt9fesfYtg@mail.gmail.com>
+X-Gm-Features: AcwNN1Ve8wmmhaAUbSrm9xegeFjiFxWol-pX6ZM7BHw_4uM2dhs4dQqQLBHfGFs
+Message-ID: <CAD++jLmzy+12y2Ae2z5VoxaYZSKkrsevLfw=xFZNEt9fesfYtg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] Bluetooth: btbcm: Add Synaptics 4384 chip support
+To: Kaihsin Chung <kaihsin.chung@synaptics.corp-partner.google.com>
+Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org, luiz.dentz@gmail.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Kaihsin Chung <kaihsin.chung@synaptics.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 17, 2026 at 05:11:15PM -0400, Taha Ed-Dafili wrote:
-> The AD5504/AD5501 output range (0-30V or 0-60V) is determined by the
-> hardware R_SEL pin and is required to compute IIO_CHAN_INFO_SCALE
-> correctly. Previously the driver derived this solely from the vcc
-> regulator's configured voltage, which conflated the supply voltage
-> with the DAC's actual output range and offered no way to express the
-> range explicitly in firmware.
-> 
-> Add support for the standard 'output-range-microvolt' device property,
-> validating that it specifies one of the two supported ranges (0-30V
-> or 0-60V) and using it to set st->vref_mv directly. When this property
-> is present, the vcc regulator is only enabled (not read) via
-> devm_regulator_get_enable(), since the regulator's actual voltage is
-> no longer the source of truth for the output range.
-> 
-> For backward compatibility with older device trees that predate this
-> property, fall back to reading the vcc regulator's configured voltage
-> via devm_regulator_get_enable_read_voltage() when
-> 'output-range-microvolt' is absent.
-> 
-> Use device_property_present() to explicitly distinguish "property
-> absent" from "property present but malformed", rather than relying on
-> the -EINVAL return from device_property_read_u32_array() as an
-> absence sentinel. That return code is ambiguous: it is also returned
-> when the property exists but the parsed array size does not match the
-> expected length, which would have silently and incorrectly routed a
-> malformed property through the legacy regulator-voltage fallback
-> instead of surfacing a clear validation error.
+On Tue, Aug 18, 2026 at 3:49=E2=80=AFAM Kaihsin Chung
+<kaihsin.chung@synaptics.corp-partner.google.com> wrote:
 
-We do not need a Dostoevsky novel in the commit message. Please, make it
-straight to the point. Don't blindly use AI, you should understand what
-the code is doing. Same comment to all commit messages in the series.
+> Add support for the Synaptics 4384 Bluetooth controller
+> by adding the corresponding chip IDs.
+>
+> Tested on the VIM3 platform. Verified that the controller initializes
+> successfully and that firmware loading and basic Bluetooth operation
+> work as expected.
+>
+> The VIM3 is a Khadas single-board computer that I used as the host
+> platform for testing the BCM4384 Bluetooth controller.
+>
+> Signed-off-by: Kaihsin Chung <kaihsin.chung@synaptics.com>
 
-...
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-> -		st->vref_mv = ret / MILLI;
-
-So, the change from 1000 to MILLI is in the line that is changed again in this
-patch. So, no need to change it earlier. And again, it should be (MICRO / MILLI).
-
-> +			st->vref_mv = range[1] / MILLI;
-
-> +			st->vref_mv = ret / MILLI;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Yours,
+Linus Walleij
