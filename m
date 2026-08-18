@@ -1,63 +1,63 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189074499B1
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0D54483BF
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045787; cv=none; b=SMQ1HUZI6VHZFD8a64odlxwyZ/KIYOEXhHmiNlTuqatKj2gvJhKPgTex3mDk/B0P+nV7tWT6eCnfoILjuIVVvu9ezK+aQJtQJD1Z1rmGfL1Fa1BLCwE8+8P5fKpm8wCSe8468e+hmvQMIL1sRXyrTidzrX3uVJfv0R2Q0U9J7LA=
+	t=1787045790; cv=none; b=ddEzCTKwSaZ3djvXJiQV54wAFn57DG4aNy9oHW+fZs8khxnxoiVvQs2g0NhceWlKqHT+O70skIBH/CHoGbmc0Z3pBtS5V2Jn4bUYNuqcLdrYUkSvQSDH3sNFqX9WqXFEK807zkWzSxtjSaro9kpMTpmfppa1pwcPwDgvqELBKPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045787; c=relaxed/simple;
-	bh=RkuPU+szxSRPLV8KTuj8qDOUbDRUGKXjs8KU3FAuvSY=;
+	s=arc-20240116; t=1787045790; c=relaxed/simple;
+	bh=f9kbmYL2Uk7MHhphThP8wMGL6tHpBIxIl2XjkZBRX5o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rYT+/4esobbtMNJgDo9t7O8SvvXHH31AiviSWQhNjAeU/HZZexSJ78AkxS5e8e+GXYNrnal4xd/WBqtMR0WZXJvct6aK/kN6SnAX+RbNhRLlsS9EA/WsmXrEMnckxqjYGWnVAA6rNANfZhP2AxoxBmici9oi1DGNnfZsIt6r3BQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/6OENRl; arc=none smtp.client-ip=209.85.214.175
+	 MIME-Version; b=KJmRYAnTBOy1EUdpnEerOo2kGJejAWB6b4TeIR/lrFWC6E9N5kQFRA+8f/hZFXcOSBds4uJp94WYSRs5EyGv3vO4nbc3ehqxberJWih3dL7HwAFIlqU8RLp5ZrWjSuO2sjbJDHY8CBZVkg+BAvf8QLSkPrBQQSdI3QcaA1M8zEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i8UJkX9G; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/6OENRl"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cca0c5799eso40830905ad.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:36:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i8UJkX9G"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cacb8416a1so42417505ad.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:36:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787045785; x=1787650585; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787045788; x=1787650588; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=v/6jA0iwEsO1NI5+qHVdBrDXRWsEHwRKhdyQ9tPIjyM=;
-        b=p/6OENRl3NhDtFQu6fszW6tgv4/U7bXL0Cv+4h0hMgjNlCWZtDxhoKfXiI0U9+Hj/k
-         c3p0u0+mAykZ/9RhFCyOh67cnPuiwzpZ3CXpwziwnfMD6k3kldAdqmsOfdy5qOlHzWbJ
-         QOqUDZ4aAzt+a4Tb8ZXd4OjViUUnjP0FAOwZ2FYKrpd9gnsJb1bGwuMrh/d1GFffp24g
-         EieGpYoQJIf5N1WBdkh9McCga1UN7Lp3PDEJIeooTaV+FRYi2b2ESL8kj7zAl/DtF+z7
-         mKjsZTvOd0dTDJVVU44rMkRoQrGiyKm/XxShNz54pamwgcaTrz1VXABhPHZ6lp9QcCC0
-         WktQ==
+        bh=p9jHdwtTMzFefvHCUtcvEE8spdhNp/YZkCDLFi2Jw78=;
+        b=i8UJkX9GVl5t8e/OWVBTGyAhvZKodAWfVdBiIQ9K9AEu6N/PGbb74H6CqzLi8+X4l9
+         X9vpEFf6o9TFtRh0RGqhHWMGNL3qBA0371nBmgBusWOGTPr8Fb0JbxF8Xx8Ha9DrBppy
+         C2GJnJoorhaaIPal0kGkKlLWwecUHM04VsEE4Qvt7zqFnA55Z3+9XneyBQDwZFt0J+G0
+         +v8mdBfsSmQcttIl6H7VR4IkxleQE+1OJ1UJc8NgZteIIK3nxVQec6mw358ObmQrFrPh
+         FMb0ePtDbeqIHkwk9CRvSpV2Efd+inaY24t8jHl0jM/4RcXplBAb0X0faDyVoayDhqjd
+         hcnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787045785; x=1787650585;
+        d=1e100.net; s=20251104; t=1787045788; x=1787650588;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v/6jA0iwEsO1NI5+qHVdBrDXRWsEHwRKhdyQ9tPIjyM=;
-        b=r3IoX7CPFLntlzzxCn3LNSuQ+CckdnxQ2tZYwguzeAYfZ8Ni0yONUUvHz/txyEY/a3
-         ZWeivvFWjGcnSyhGcMtK3oZiTMbwX3n4pUT5onAFC0QraOXDHrLkvk7l712yWzCfiCj6
-         9tCbS59eDeW4QJ0037insQIUFByF1euo+DIp81NW7opv6A+znIuZS3wRJrN3HEh/QRYL
-         pRId/vf71xNr8WnxqS+hrXflRR9HgNJ3lXsEMQsRYKu1porenx1aUYBuq4LoORNVp0Cu
-         Oby3n7xrBhov2V2lAUDf0DO8iDeMp8S77HO3svEnaqJuVorWEFEgkHYO4i/IgsSzm9Dl
-         SWdw==
-X-Forwarded-Encrypted: i=1; AHgh+RoSYTd/heFK7I+V1tWK06O5HvdvbSi5YJfwY+5GTuY9ISl6pTPwL7QSbLSdCzoxzcoumAbApDmS2ywM@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhtI/lRcIdRF8fB0KL9hiihjxj47Bt7aUgLfIEHCLXuaRfHfOd
-	M2QcWT2ynByMc+LKiAoVei8hx+iWhd9z5kTFqS1m1MCUjtEnx7beqEy3
-X-Gm-Gg: AR+sD10T/LDeRM1r+O+xgWHWaLsSG5r2W9TcuNgkQBXvgPziEY1tB8OrrznYpwotA01
-	d9WaogkK4Telwz2NKSfrUC1IYFx5Mat3ttwcWUhJEXFr82FQO9LscG1lLIPBASOyVtJmXOF96Jx
-	9EidnvADdvuuqvEKdkJuXzjs6IvkDIdctrlHwPm86mU9x0+GARwPF6Qi2mMjhFY+9BoUflb46VD
-	jxYcZbmm3Ioy3fo73xhW8XtXvgqguqYtCdFxIgl6bv/ZAnNZBfT1MHAVxes02DWF2M4BjAkQSmb
-	n2J/xj/oO0k+TQ1RhWff8DoDtCTqCamc/1EmmSKic74IwEeWYS4grqu17rOxlBZjTAeT8riRo56
-	VUo09DePh1yuasMEEPwbQr0vXGlRNPAVM9ujET/+irPCcux4IDCG9z0dX67KZN8DrGoFK75VzMI
-	T7uqTL5Vbo1st94GYHMCjW/qbkJmoIlLEyf7zf3ahR4GgW3Abn7PG0AfxSq+c=
-X-Received: by 2002:a17:903:388e:b0:2bf:7b62:a038 with SMTP id d9443c01a7336-2d3b0b3788bmr380549035ad.9.1787045785218;
-        Tue, 18 Aug 2026 02:36:25 -0700 (PDT)
+        bh=p9jHdwtTMzFefvHCUtcvEE8spdhNp/YZkCDLFi2Jw78=;
+        b=ROLKZUl0mQ6eijCXCScC62E5eFCQOiok6P4oXxq+APJEBVEvkaXfV1tn061spidHYS
+         mH9ERyjXoFn5yxJ0IT6VJz+Z+jksIuerFJPKJBlgd29kBQJsxnIyF7yWlbRMqKcotIzc
+         7GJeUl3GfFYRXlsVbnEYmLubFDvbiM+0KyyiIhhyZEBzH/PJwciNxcpHV5PVg0Px2irc
+         bK+TUPygsWAB4NWt7Wl39trHQuiw5eBIxtREPzYU0GyvwZiV2Hif9S96HWChQNQVtrVG
+         OkLWpk8hfYhiRigLFABRtqFZjtCDgpYQCG65GhRWuU6H6kgzKTnXh6Ah7aumpOieLEmd
+         Hy0A==
+X-Forwarded-Encrypted: i=1; AHgh+RosjhpSoT4D9V8A2WNNwCC7QkvEN2zZk7gWHAxDHDZq2Ver4xkbCrDNFOpm8zSUzBhbDQlXjA9V7sTu@vger.kernel.org
+X-Gm-Message-State: AOJu0Yytn3iCbhXy56zhbNylZw57ORhIXfMAxXUvzNN/vIqPu41W7zoh
+	zvXOfFq0y272AeU47oBL87Rm+AFqrUKMrtx66vCiXFb05IkIE1VMiqDt
+X-Gm-Gg: AR+sD10+TyIVzrc01inbyi2laZ9bBajYd94aYclkUt1R9iglRAqUbujSW9dbUZTOt9O
+	wqLTZSAcqrWbBWGAo50u5IEOMf+yDv53rH2bCOp4ImhL6KBBjaOz3dp3r2GGWxXJXRCKjJtHc/K
+	JONR7sauo5wegzG1cTksYPeVdk2Pr+Hqu1915qYjHZM9m5t2MqTFOCUkv9VjS5ipjarvNivzrZ7
+	IBX2k0ttckLcMdHeSPT3ttcJoJ8A6ubXPv0m4XydKMwP5fosUL1KWfKNbuSFJi1ICn3GFQCG+QV
+	mANfo44TXRx2kJDAg/tRSXrSp3aDI2YiB+l2XEq6Cb7KiYtB8RojrWyV7z6MvRBX4X68kVkkArd
+	m0AR5ui2CK1oeZVJ8/VFEvMUFRlbZDJ+ScXnzlBkpeeby67wE9YunuV47E+hOFApPMyfbq2qVHK
+	Pvlk9cix3wUmXqkYSoEi/4ZYvabMSaQ7ag1uLEUw274lGh03t2ZutgzGmSmcn41qxz+wqz/A==
+X-Received: by 2002:a17:903:3c4d:b0:2ca:2079:91cc with SMTP id d9443c01a7336-2d3b0ad30e8mr386313005ad.5.1787045788310;
+        Tue, 18 Aug 2026 02:36:28 -0700 (PDT)
 Received: from thefoxflat ([125.165.209.166])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb51e0e5sm15171535ad.32.2026.08.18.02.36.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb51e0e5sm15171535ad.32.2026.08.18.02.36.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 02:36:24 -0700 (PDT)
+        Tue, 18 Aug 2026 02:36:27 -0700 (PDT)
 From: Reza Kurniawan <imkyufie@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -68,9 +68,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Reza Kurniawan <imkyufie@gmail.com>
-Subject: [PATCH v3 1/3] arm64: dts: qcom: Add UART support for Xiaomi Redmi 5A (riva)
-Date: Tue, 18 Aug 2026 16:35:47 +0700
-Message-ID: <20260818093548.27803-3-imkyufie@gmail.com>
+Subject: [PATCH v3 2/3] arm64: dts: qcom: Add haptic vibrator support for Xiaomi Redmi 5A (riva)
+Date: Tue, 18 Aug 2026 16:35:48 +0700
+Message-ID: <20260818093548.27803-4-imkyufie@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260818093548.27803-2-imkyufie@gmail.com>
 References: <20260818093548.27803-2-imkyufie@gmail.com>
@@ -84,35 +84,29 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+v3:
+- Add vcc-supply for vibrator
+
+ arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-index 4ea4fbdb5..abfaae502 100644
+index abfaae502..a066d9d7a 100644
 --- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
 +++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-@@ -13,6 +13,10 @@ / {
- 
- 	qcom,board-id = <0x1000b 1>, <0x1000b 2>;
- 
-+	chosen {
-+		stdout-path = &blsp1_uart2;
-+	};
-+
- 	battery: battery {
- 		compatible = "simple-battery";
- 		charge-full-design-microamp-hours = <3000000>;
-@@ -25,6 +29,10 @@ battery: battery {
+@@ -27,6 +27,12 @@ battery: battery {
+ 		charge-term-current-microamp = <60000>;
+ 		voltage-min-design-microvolt = <3400000>;
  	};
++
++	vibrator {
++		compatible = "gpio-vibrator";
++		enable-gpios = <&tlmm 97 GPIO_ACTIVE_HIGH>;
++		vcc-supply = <&vph_pwr>;
++	};
  };
  
-+&blsp1_uart2 {
-+	status = "okay";
-+};
-+
- &blsp2_i2c1 {
- 	status = "okay";
- 
+ &blsp1_uart2 {
 -- 
 2.55.0
 
