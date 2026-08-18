@@ -1,226 +1,173 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010008.outbound.protection.outlook.com [52.101.84.8])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63861448391;
-	Tue, 18 Aug 2026 09:48:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787046527; cv=fail; b=lvcQGq4+2lcRH7sj8uxZMrtNZtCVp8DT8V/JA66aorh5kQO30LMU9C6bY5CV61J0sK7D51iad6jTHGqCos64ubDVninYbqk8nTOZvJGOQPtQaaj0nkZvj5SEA8Rk9zCvYU43zOgRD9hldh2Z7+aNYPBitjLxGj3cqKXANmZAPis=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787046527; c=relaxed/simple;
-	bh=E/shANQmU4vttNXNOFfp9ght3L+2Z1ZMQzVdFHEdPUk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=gLjWK9iX0f/7uLtmZxnrPiNyu0K3rRawbEMLUCirOQGzFmUb9AcuPuQq4O/BOz5i875jBuRSf3whcTCeAhPD69pU6xGqj03M8qj1QvYlCA88EQM6kee09jjqeA7+6w/AFLIoeGVuTlraSLwskJjIcYR+8BWdxsCCyDq4OMy7gy0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=I+JYDS2R; arc=fail smtp.client-ip=52.101.84.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54104448CE8
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787046915; cv=none; b=XKocRvXurlxZPzFXuvVQpFgCtxL1hIQH1lDOaDhG04wWvIbFAFIwi5Ukt9tAH1HNCI/uraZLGYCcHhn0am0fkOZjwN3/RJdenXrqwCrcXsNDaUc9ji/a+HlPrHQspokZK4t5J8rKg9w88f7AugsE9n94W1x06opkdNyshoFsEyQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787046915; c=relaxed/simple;
+	bh=OMc49UYmUguEYzyKyIv2wi8A76vXj8J+ya6GNZJJ1g0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KBINPwPS8raR7HIZFEafaXEq++A2+Q7LkpHFJBhGcnfHpAJsHbCwfx2Lh01Ti2YePh+KQMRx3671Q9Wz2DnbERa9s6gTjGm6dpWOevJBR6+zNECCxLzatQ0yxKBThZ5GeAr/XBTzmmyq6pBPkfLEAVylaH9wheUq8ozEw+GUDMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZpjmYld7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=brXCOkOO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="I+JYDS2R"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NvDyoxUaIPUY0n1SE+W8i/spadOZAF5SZ1YnwSKikJU+JWV/ZNvKX5KSLIMw3gP2GBJ0dxtARK9aBviRYVxYwd+vq5wIu4cGj0/WDwwNsEENUFzAqaDKhLDHaXHBh8xjiYqvGbfu3cDi9g+8kgPQVTTHlo30hLEOgKen787oOwunkGjiZ4tb3cjfpjC6L4qJI1+ONY9nHV47MsxQsXkqlIe/LO/3UfJW/vuj7vCifYFuzCUGOFwX6MQgD/BDX114b3tBikhKZOmL/+BK1w6v7kwHPCi2y3Q22s60sE9MlbczhfQJoZHDyXFtn1U0MR6ZKhArGpAVq/g/nnDD4qx/og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YyUCOa6gaorZp0E4Ve9aA2lRJVno3UGUKOZcg1tSx4E=;
- b=hlPWgC3lTQ3Khm0jvo1Qow36fXrzbcXMwkt3bbQ8vIhbCN/JMm8KYU8jqR7eLkIpEBFjLN1+lmxLjWchYUrDsl9/gymJ6DRMpByRj2q9jCSwwfezykjQwxlPX4iQBKMAOww2nQ3AkVZFT4aX+a7W6RQaQBVEM45Yz+hxLhvDOz9G1fmlWWeD9bXwRSRuZenbMkVVr7+zhgTc0pDvuMpFDHPn2f6PqFgIHNhBzZGM8J5+G32a7UN2guBl1R5U2b1HRaEMRaBG7i934O//8+/Uwh5f++lTLh1lrJGo4HkQqJW0s8E81AX8IP6LYUG5ocAAsfZ43Zid+n8e0xNakHjRyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 195.60.68.100) smtp.rcpttodomain=collabora.com smtp.mailfrom=axis.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YyUCOa6gaorZp0E4Ve9aA2lRJVno3UGUKOZcg1tSx4E=;
- b=I+JYDS2RDwk/Cy8b1atJhCcOPCHQBFscOZp/iK0bIrzlHv3yvbUdWBZ9ZVv3RqJCiT1fRfpMGG+OBvImUDxTRzE/YR4iG6XrNCq2JfrLb2+IP2Sh3XGjkTPEua2NB9yvF3BXOHN+vYpj3nTES/M40W/rC8Fq76LsHnDN6IvUy9Q=
-Received: from AM7PR03CA0003.eurprd03.prod.outlook.com (2603:10a6:20b:130::13)
- by AS8PR02MB9888.eurprd02.prod.outlook.com (2603:10a6:20b:618::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
- 2026 09:48:38 +0000
-Received: from AMS1EPF0000008E.eurprd05.prod.outlook.com
- (2603:10a6:20b:130:cafe::7) by AM7PR03CA0003.outlook.office365.com
- (2603:10a6:20b:130::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
- Aug 2026 09:48:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
- smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=axis.com;
-Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
- 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com; pr=C
-Received: from mail.axis.com (195.60.68.100) by
- AMS1EPF0000008E.mail.protection.outlook.com (10.167.242.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Tue, 18 Aug 2026 09:48:38 +0000
-Received: from SE-MAILARCH01W.axis.com (10.20.40.15) by se-mail11w.axis.com
- (10.20.40.11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.39; Tue, 18 Aug
- 2026 11:48:36 +0200
-Received: from se-mail11w.axis.com (10.20.40.11) by SE-MAILARCH01W.axis.com
- (10.20.40.15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Tue, 18 Aug
- 2026 11:48:36 +0200
-Received: from se-intmail02x.se.axis.com (10.4.0.28) by se-mail11w.axis.com
- (10.20.40.11) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Tue, 18 Aug 2026 11:48:36 +0200
-Received: from lap5cd525d1j1.sto.se.axis.com (dh-10-133-4-142.sto.se.axis.com [10.133.4.142])
-	by se-intmail02x.se.axis.com (Postfix) with ESMTP id 6F20B27B3;
-	Tue, 18 Aug 2026 11:48:36 +0200 (CEST)
-Received: by lap5cd525d1j1.sto.se.axis.com (Postfix, from userid 22105)
-	id 56ED8803B10D; Tue, 18 Aug 2026 11:48:36 +0200 (CEST)
-From: Henrik Grimler <henrik.grimler@axis.com>
-Date: Tue, 18 Aug 2026 11:48:22 +0200
-Subject: [PATCH v2 3/3] power: supply: bq27xxx: add support for bq27z746
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZpjmYld7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="brXCOkOO"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I8BJ961270839
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:55:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6JfeiagCGXExL9jPLVYU4oyP0ixfW6Wo8aIWlrLOri0=; b=ZpjmYld7AMP9ZSy7
+	xWnL1sO6gTN3wzp4BAEoeLdFKIacYJZ27ojLid9WHJLUdr5FJr+Itu/HUuLEd6DJ
+	NQLKxhihJv9lYvUmmZq2F16j/GBSsEEI4mjmmkZpcVSD96H3SUsF7BckO/Z8ms4X
+	lE+gG+N7wgJt27udUXq59hrdjJYD4NMuCyeMRf30S5Wiweq4DnIgCAzniup214Mf
+	8LFtG1H5XFFGFebPUnyaXPHk3576+Nutgwx85hLbHwcEMAtPjvVmOY5YmbKIRUl+
+	QBXFt4wWCkEn3KhqNe+Y4G3aHS/9JUHFuf7ouQyUScbjKHNP0TR1cG5MbdN90Jj7
+	r7iJQA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4dcn21ph-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:55:12 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52d35a38fafso3325251cf.3
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:55:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787046911; x=1787651711; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6JfeiagCGXExL9jPLVYU4oyP0ixfW6Wo8aIWlrLOri0=;
+        b=brXCOkOOiD8STcqBUzF6PgizfhoVAyo1zpvEPm2kPPtCccsnvZXCKqDUGmksoCZlxg
+         5Hvh3tiGTIsW0IETn3QJSffBwuoHOskhqij2HrJD+YARxb5UWvKCZLLgKE466Rk0jVDK
+         jWA1RXkczf7lO03lX85WqWf/Q+jwbOH6EqID22Awmfjvdrkb635PP4psNx+og9+LqP7G
+         lYwRm91Ku0H+sfnk9WiWxxr5Ld97RhYbFfA1z97YoslaV0ZMaVRPPqdh96kWBhgvFAe+
+         +s3yfOXHlLMPf7e+c/LERm8k1saTLbtmcp2ezCX9nPtxm1FxvX70+7sApriLZGsGzZiS
+         OPFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787046911; x=1787651711;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6JfeiagCGXExL9jPLVYU4oyP0ixfW6Wo8aIWlrLOri0=;
+        b=SwRZz4JBAZh1BlNAMCH0GCo7Tn9D3bN7gAodtVAgqiqGZW4/1H+ZYI14BRVyqGSjD7
+         QTWpR85Qp9ERmTzfsT2OhCxDaL3kou/BpB5TAIeWB0ZIk8k8EPYrYg7Qq1zW251apOy9
+         cJcoFAUAOu8GChtZSsVhhRu95qG9H9wqzGsTMTUoYN8qWH59gWdoOaR6PvUgXAZNB+1C
+         bmLWYq4e+0i4tuaRgIiZ0qkxkDlHSie6AAM4kADwGD6Wy89DGiOM3R5ioWv5RH6WcLKW
+         RMR8+Oxt/NGitr8IeSaMfXbtAhEZNEtZ4r5L0FcVFdSZny/bZYhw1VL6JqzKwEGL6q8Q
+         FDPA==
+X-Forwarded-Encrypted: i=1; AHgh+RoBkBVQ7i8rurHTkNtKdJdGq+ikVibm7fIbvFeUnVaEHP3venUgZVMHXmeADfNT6NXj+Iz4E8aecvzB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxElyvyxO2h9nhnqPwENtHmaEIOmoBSSezberUhN/Qe9wt6HYKn
+	q3WnHlfg+AqDn0H8qmR5WmlCGRqkeACpU/hQ4vy5HIjns/qU651Xmg+2/I5sWKj9F652C0V+8dR
+	DmvJYBo9u52vxQDtdJku30Du7tSBxF0sxtHyy1Qy8AC0GeW12MPTwdoQo6C5YSRhs
+X-Gm-Gg: AR+sD10JYwjpjWP356qjR/r2rB/d/28aN4RqK3JTDGRhMLV/v9vjAEaATSWzeUvO86v
+	tsuvzfLQsxy9+XPQ/ThEcdV+knpK41uMPbRlSxUAaL3iyRwD3VLJfyzkG5hjotd1dgKj8FnP+AR
+	nZGD0wDQOki/TYqoRfS8nvD1dRVPhNCk2Qy3Uc8ZSUrvTR5QwlSc2vDDnOp7J9yQmj6rw8hQ5aE
+	XXKubSJpOctZWVmXW3VNhJsP71sskE6lUDXbBUCgTJ5UADoPSI3z0TlHkgRuG1663hMeo6EQ41q
+	kQ8+c+ZrDKOJClPAQqdiN+Wg6kck/tQ+NUEtaPXxriaT4TzW/wlNgjJaEnDCSCuIiW96/L/da1c
+	tmEi2vkO++dosmf4XH2n7BWuT
+X-Received: by 2002:ac8:5fd1:0:b0:51b:8543:cbbd with SMTP id d75a77b69052e-52d852d1178mr235156341cf.1.1787046911146;
+        Tue, 18 Aug 2026 02:55:11 -0700 (PDT)
+X-Received: by 2002:ac8:5fd1:0:b0:51b:8543:cbbd with SMTP id d75a77b69052e-52d852d1178mr235156071cf.1.1787046910745;
+        Tue, 18 Aug 2026 02:55:10 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185b9f47bsm126108766b.52.2026.08.18.02.55.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 02:55:09 -0700 (PDT)
+Message-ID: <23470e04-eea2-413d-b055-7451fdfa65e9@oss.qualcomm.com>
+Date: Tue, 18 Aug 2026 11:55:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/10] phy: qcom-usb-hsic: do not run the sleep
+ calibration clock
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Xu Yang
+ <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Peter Chen <peter.chen@kernel.org>,
+        Pavankumar Kondeti <quic_pkondeti@quicinc.com>,
+        Stephen Boyd <stephen.boyd@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+        linux-phy@lists.infradead.org, Greg Kroah-Hartman <gregkh@suse.de>,
+        Peter Chen <peter.chen@nxp.com>
+References: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
+ <20260810-msm8974-usb-hsic-v1-3-e5f93ea76ffa@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260810-msm8974-usb-hsic-v1-3-e5f93ea76ffa@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260818-bq27z746-v2-3-0371e206665f@axis.com>
-References: <20260818-bq27z746-v2-0-0371e206665f@axis.com>
-In-Reply-To: <20260818-bq27z746-v2-0-0371e206665f@axis.com>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, "Andrew F. Davis"
-	<afd@ti.com>, Chris Lapa <chris@lapa.com.au>, Dan Murphy <dmurphy@ti.com>
-CC: <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Sebastian Reichel
-	<sebastian.reichel@collabora.com>, <kernel@axis.com>, Henrik Grimler
-	<henrik.grimler@axis.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3927;
- i=henrik.grimler@axis.com; h=from:subject:message-id;
- bh=E/shANQmU4vttNXNOFfp9ght3L+2Z1ZMQzVdFHEdPUk=;
- b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqhCpwr9of04mugRUW/z+PbY3f2o8YwxTFJFO+I
- WBtq7oikOCJATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCaoQqcAAKCRCwB25JC3Fh
- a/eNB/9xnT5qjK3+zTxHTUfItOXFcNM5baVoGeZGeVixjpQJgwiY3fRPQS0j0Jbwd2ndPBKJHge
- +sfL0JH+bW8R1euncbOHsMPmhPa+3y8Prj30pHMMJCGHn9S69gBAYilJRParufgojg8NwSI7IIZ
- DsHoeJ89rdHNTBrywpptekAhfNNSXwOuI0c82GdWg2Z9pu7L9EprZMiQyzR1KyifJN8W8xHcD2o
- lr3qN9j2LcIxIgdY+HJpz+8r3IZJFVxYH5wn1zPOk2r6Kf8Vd3spUdVbRc6UTPMQsj1R7ZuEI7r
- JVteIev/hNmdowPOG6jXSt1tmULwoac7DaO45qOTuf2tyB1O
-X-Developer-Key: i=henrik.grimler@axis.com; a=openpgp;
- fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF0000008E:EE_|AS8PR02MB9888:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7986a83-67fe-4a16-1a3a-08defd0de103
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|23010399003|376014|1800799024|82310400026|13003099007|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	YxlFj8oeBzdI8VYELNqjbbUsg7/7gEsD0V0Qo4v8Kptg7RN0R5Aoj6Ld9kWHvcy05ctC0SeJdOa11teZfAvDlzH/JkGecT/bjQZPSanCVX5v7WWrCESYyuw/JW3b5et1NaFPhltFG/d6NJEQy8Gq/GjQmmQIX4TkzYr6BZLopXSSUtDHWP4nqbKIJxpcHRue+l/9ms4lWpDrzzWzKlmt8M4hjO2nVGCFRWeesoNgqL2hbEuTRv2xMOJ3r7+CaUllCcn6NCHxKA2AA364OnSkLthPejs+cSGlHMp+59shJ1p56BAjobnZRLfSKmO1a9IslsJUAIfcK6E7v7JYE6Sy3H8bN7AVl3J7jRmLxX5QVpCCh7f+jG+3OkL5txo/AOwRXiCR8gJ/DYDHVlgDLjmj/R3uaWOnZHu4Cjl9gbUCQSWZ4laH81kkFN4FOIWdeM4QATi5FBRaaOzX4mUKtY/PAzHuQXDbXWyeaOnJW4CWEOTtSvUKTnhsorvORll0gkymNg62QE8l1R1wRB/GSWdg7Wrll70FHIs9e8DJucv27lRSIu7iN8BJ1SGSKtc0PjHzgriVPPfpD88hLh8U1d06+TeCFmsUmnyy6xkEZ6d+oW9Emv7SDxDYlkNl8pL1rVkq/JRH6F5V08ltuitk6rC6AJ/JUvcmAFFQtiR7S5tTKbz3Xqrammeq6im1NWKktLr/ptyaDkm62l7+pslR9EWK1g==
-X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sVYBuA9+RozCXQhsRSBzx1V1MeMwTcHg8pREBTzivMdZw7ROC7Bh7OUeghHGXvM7w2lVhNAoogY9joHuWPAR71zL1wYfIrxO//eY9dCs6YIRD/zjXrr64ciVZb6yUIvF87cjgM+Fk+EiUT5jyVr4kUEMtJQlAbZTmDEd0CVieCdrb0Ak0PgYk4QcOcN2xF2ip6nXBtN60QADuvnsIO7fwhXOEulRjUJzrV/3gVrN0TysbR6I/WHafDXudqWjcG5dQ8J68dHzKujLyp3Gt4LkDBkSg/djKlLUazf/bE3l1UINCID6J46bjwKHiSPm/AgURdb9Ms4cQCkL4O0/IYLgnvXUn7yXLK1AQ2aO/RQNJgrKrb947NiDmyH4CwmbsIqKjKxtbQ/Vqk9Fr0uFELXzi6NL2bOGuV2C43AY3vOjX4Yuzwg2gfDgaS4ruu3tF0OU
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 09:48:38.4299
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7986a83-67fe-4a16-1a3a-08defd0de103
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF0000008E.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB9888
+X-Proofpoint-ORIG-GUID: -sckRjutbO627vew0u3h7Qqxdk_vX5Ys
+X-Authority-Analysis: v=2.4 cv=Gs5yPE1C c=1 sm=1 tr=0 ts=6a842c00 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=-c7pCBK0zC3Ie-k0gBAA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: -sckRjutbO627vew0u3h7Qqxdk_vX5Ys
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA3MiBTYWx0ZWRfX3/B4Hq6KoPfy
+ beuEM2WrphQh15wRH77qmHMTGRNBjGvw700zD5woy1EymIhz/4pqi3EY0+WiYtgqSQwwuuhJCku
+ lb+Keh6yazFgHSpr8hVCKPNDE5s4wYumdPLV0QG+lP1aeCzVp3tAxYmrqZk5W5k3WBgaZRKegJo
+ FHYVD67CgNC88ZNHzHLdz6f0JBh4NUWzGKkzk4P2D7IRLyWaeYcR4SF1Gct06lUd+z4SfKvpuL0
+ pyK2B0SzN1P584/nhxsUfJ/HlKleaW7pfqk+tp2gKTKVzVGNbIcVKPddlnWbTFfcqGyl0HSQzES
+ fHXAoGSYk1ugNj0guhMXs+AdSnyEDkadyOUPs2nVqQvMSqS9pa9UY1heKKjVndDVamNFptE3RTY
+ Jyfohy/V8ie1LmNfA9zPAXA7+EB2OaOE+WrA8xtxARj/f/T9cerhAF+4mywG5WnK6gUYCkAd28A
+ lI+NoINpRwdMsS24FXw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA3MiBTYWx0ZWRfX7sM+XfvV/ZoN
+ GlpZ40eprD2MfN7LGI1lNcth/Fo+DJ2+VB0p3xXkHco9SuDM1+Ij+/rn5JWcY8KEFKA/jlatSf6
+ +Hjx0eVb1B3bkUXcRPprVsdhQagFKSw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 clxscore=1015 suspectscore=0
+ phishscore=0 adultscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180072
 
-bq27z746 is similar to bq27z561, but has additional battery protection
-logic. The standard register map is a subset of the one found in
-bq27z561. There are some more differences among the ManufacturerAccess
-registers, but the ManufacturerAccess registers are currently not
-handled by the driver in any way. Therefore use the same regs and
-props for bq27z746 and bq27z561.
+On 8/10/26 5:42 PM, Dmitry Baryshkov wrote:
+> With the cal_sleep (32 kHz IO calibration sleep) clock running, the
+> HSIC PHY engages its sleep calibration: the strobe/data pad
+> calibration converges to different values than with the active
+> calibration alone, HSIC_CFG reports the sleep calibration state, and
+> the port no longer detects a device connect - an onboard HSIC hub
+> signalling its attach after reset is never seen (observed on the
+> APQ8074 Dragonboard against its USB4604 hub, by comparing the ULPI
+> register state against the vendor kernel, which never enables this
+> clock: with cal_sleep enabled ULPI HSIC_CFG reads 0xab and the pad
+> registers 0x0f/0x0d, without it 0xa9 and 0x10/0x10, matching the
+> working vendor configuration).
+> 
+> Stop requesting and enabling the cal_sleep clock.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
----
- drivers/power/supply/bq27xxx_battery.c     | 6 ++++++
- drivers/power/supply/bq27xxx_battery_i2c.c | 2 ++
- include/linux/power/bq27xxx_battery.h      | 1 +
- 3 files changed, 9 insertions(+)
+it seems to be used by the slightly different xhci-hsic driver for 8084 
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index 01c9ec1116fa..5aed8b24119b 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -37,6 +37,7 @@
-  * https://www.ti.com/product/bq27441-g1
-  * https://www.ti.com/product/bq27621-g1
-  * https://www.ti.com/product/bq27z561
-+ * https://www.ti.com/product/bq27z746
-  * https://www.ti.com/product/bq28z610
-  * https://www.ti.com/product/bq34z100-g1
-  * https://www.ti.com/product/bq78z100
-@@ -501,6 +502,7 @@ static u8
- 		[BQ27XXX_REG_AP] = 0x22,
- 		BQ27XXX_DM_REG_ROWS,
- 	},
-+#define bq27z746_regs bq27z561_regs
- 	bq28z610_regs[BQ27XXX_REG_MAX] = {
- 		[BQ27XXX_REG_CTRL] = 0x00,
- 		[BQ27XXX_REG_TEMP] = 0x06,
-@@ -836,6 +838,8 @@ static enum power_supply_property bq27z561_props[] = {
- 	POWER_SUPPLY_PROP_MANUFACTURER,
- };
- 
-+#define bq27z746_props bq27z561_props
-+
- static enum power_supply_property bq28z610_props[] = {
- 	POWER_SUPPLY_PROP_STATUS,
- 	POWER_SUPPLY_PROP_PRESENT,
-@@ -994,6 +998,7 @@ static struct bq27xxx_dm_reg bq27621_dm_regs[] = {
- #endif
- 
- #define bq27z561_dm_regs NULL
-+#define bq27z746_dm_regs NULL
- #define bq28z610_dm_regs NULL
- #define bq34z100_dm_regs NULL
- #define bq78z100_dm_regs NULL
-@@ -1052,6 +1057,7 @@ static struct {
- 	[BQ27441]   = BQ27XXX_DATA(bq27441,   0x80008000, BQ27XXX_O_UTOT | BQ27XXX_O_CFGUP | BQ27XXX_O_RAM),
- 	[BQ27621]   = BQ27XXX_DATA(bq27621,   0x80008000, BQ27XXX_O_UTOT | BQ27XXX_O_CFGUP | BQ27XXX_O_RAM),
- 	[BQ27Z561]  = BQ27XXX_DATA(bq27z561,  0         , BQ27Z561_O_BITS),
-+	[BQ27Z746]  = BQ27XXX_DATA(bq27z746,  0         , BQ27Z561_O_BITS),
- 	[BQ28Z610]  = BQ27XXX_DATA(bq28z610,  0         , BQ27Z561_O_BITS),
- 	[BQ34Z100]  = BQ27XXX_DATA(bq34z100,  0         , BQ27XXX_O_OTDC | BQ27XXX_O_SOC_SI | \
- 							  BQ27XXX_O_HAS_CI | BQ27XXX_O_MUL_CHEM),
-diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
-index c4e7a9521d08..2a6b4534cb28 100644
---- a/drivers/power/supply/bq27xxx_battery_i2c.c
-+++ b/drivers/power/supply/bq27xxx_battery_i2c.c
-@@ -253,6 +253,7 @@ static const struct i2c_device_id bq27xxx_i2c_id_table[] = {
- 	{ .name = "bq27441", .driver_data = BQ27441 },
- 	{ .name = "bq27621", .driver_data = BQ27621 },
- 	{ .name = "bq27z561", .driver_data = BQ27Z561 },
-+	{ .name = "bq27z746", .driver_data = BQ27Z746 },
- 	{ .name = "bq28z610", .driver_data = BQ28Z610 },
- 	{ .name = "bq34z100", .driver_data = BQ34Z100 },
- 	{ .name = "bq78z100", .driver_data = BQ78Z100 },
-@@ -290,6 +291,7 @@ static const struct of_device_id bq27xxx_battery_i2c_of_match_table[] = {
- 	{ .compatible = "ti,bq27441" },
- 	{ .compatible = "ti,bq27621" },
- 	{ .compatible = "ti,bq27z561" },
-+	{ .compatible = "ti,bq27z746" },
- 	{ .compatible = "ti,bq28z610" },
- 	{ .compatible = "ti,bq34z100" },
- 	{ .compatible = "ti,bq78z100" },
-diff --git a/include/linux/power/bq27xxx_battery.h b/include/linux/power/bq27xxx_battery.h
-index d56e1276aafe..0b833c4bb583 100644
---- a/include/linux/power/bq27xxx_battery.h
-+++ b/include/linux/power/bq27xxx_battery.h
-@@ -33,6 +33,7 @@ enum bq27xxx_chip {
- 	BQ27441,
- 	BQ27621,
- 	BQ27Z561,
-+	BQ27Z746,
- 	BQ28Z610,
- 	BQ34Z100,
- 	BQ78Z100,
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
--- 
-2.43.0
-
+Konrad
