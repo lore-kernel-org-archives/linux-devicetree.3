@@ -1,179 +1,278 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5077C3E3DA7
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C543E3DA7
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787052811; cv=none; b=Lr6pR6DdBtGUHA0kifal8QPxGlAPcJpvQNepuj/M+jB1yzl3HkRNjAqrRK/Gm70v1yAO+doJruiAHjnt6A+MefsBlSlnn96LD9iePxTHQyQScPlPIEG8wU9hNKDrusUSUalC6+At4PBUb0bQ3itfm5WQM52EEvJbx7Kl0k824H0=
+	t=1787052875; cv=none; b=bPBvwRWtnu78tNE14E+5dCUek2yrKOF/9yMTaRPGcfZi7UwVc5DA7fgvEoyJOqq6K/OsuqpAmJMt5shfdH+bjnL2NEytMxWwtJadC1OVedi1r1GiDckKMuI6KMbxFUdk1qOinsaFfarV7I65AeTXjtJtYeLCXVz6MegBu4hxFdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787052811; c=relaxed/simple;
-	bh=5dpxBtPjL/1We/b/berArCohSZzNadUZ18yBSPmQdsI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CNjymtWpz6j/KwHSyRrY5KhUuZFqa5WwdXqXhzwfW3tSLVsn5m9EUaAj2eMu82Fj3StzdOqWo/I6foXnEoi1zLc5BnJFLlcvzHkaJKMI/JBg6s4j44OSqcFtAWiLe5hAtrLNagb00nT7nsoXBR9Vp1hVqIYrcoZyEAmJLffezo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RswhHagH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GRTjIDAT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787052875; c=relaxed/simple;
+	bh=BB7xh09Vto0B2N0viOMI+jTuQnN+PMaBHkf34CLK+94=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=b6Gb9YTli64srIKciJ/IJonPf+ZaSrd6I5YOQEpkjP38TVf53/ZyPcvK1dvhSapREAEMHycZBuSiAsXaLOu7JSerbNvF3DWANAAv4BUc9EK3/Y3I+lNA3S/UQ8D/9FPDnSD/59IYnpdxlzXhalUFLRZDNJLqQkosOMEclQ8/CPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DidIgLop; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RswhHagH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GRTjIDAT"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IABbQa1336405
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:33:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	I/0AlltLVAB4v9U8rw8sJFLO7JW+elllAbiTuLyTWcA=; b=RswhHagH44dRKgdW
-	USZ/u5vuvLrWzVtxsT01TpGQdbVoXkGvNn4L3aMuwiUKa/iTy+0nktKR0p02aSkb
-	D/AuoAzmu7+kTxAweAOzxoM6sFbmjTzJPX5oJNADAFVczIJ1LUo/yfc0LpRHiQbK
-	d74fnsEQDMZoiXt5nq+/ndmmzHK18x1aiKqLJmXgN+muobTIfwLw4IofxNDjK0PR
-	Kp9JrhcQshEW8mQiu+c+hDvzzzAU6lSmo9C7CrTX7PgiN9Gp5ox6ir1qiWalYcrr
-	J6OEEiJ9D64EDYtXpZ3Yyz4VptLPhlVdZexl2WUD8u4t96glShXyA4jN1bPne3DT
-	TWRMZg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4fvp1t7h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:33:29 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9006b9c3fb6so8325156d6.2
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 04:33:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DidIgLop"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6983d3dae7aso1430479a12.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 04:34:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787052809; x=1787657609; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I/0AlltLVAB4v9U8rw8sJFLO7JW+elllAbiTuLyTWcA=;
-        b=GRTjIDATbum8a5Y0AcLB/+hZCaqdezn3XrtZISvUBVVRPrstb1FbP3Ysu6hVxbe4sV
-         lNS6Oowj2zGezFi27WWjMqbdacx2OKPC65tkxUQ3U2dvwDSoS9T7pmSvfR6rFzuZcIOw
-         2+PGfHVL0ELdO892gs2+oXwKunFrla8odW+nyxzFHlCtOjbX2e7kWC4S1lQEFHqVjcR0
-         +ofPFMO1OYXe1W6FbL3wX4HlWRZPvI9R4oKxCyo9snB8rnuG/P1agyO3jbGA0LJ5pI9e
-         HWZCtD7vuyRxhkDsy07uLYxq1WkLMrRJPp7gLLFpzbneKEcMs0ZlTBiVv1QKmlbiYxtJ
-         eUqw==
+        d=gmail.com; s=20251104; t=1787052872; x=1787657672; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gBk8AngxtInglLoMeMROmFHKnwyweySXAtqUZxwbpiY=;
+        b=DidIgLopzbXRDMAGgtGf6ZTTfQf4IvcWeH+RdKCl7V5rGBQMcpuBn1acQpVq6WQ8ev
+         hwWn9nfZe45fY48SnZnB2p1gDPG8lcHhbIXukh1gWDCGPfReOCo22aWmxhDqYQnIujtv
+         Ef/JoGNxtw93Nf5feOs5IeAbdaA00rOQH4ceGbDfgXsLZNlDyii5t+sTtJfqVbAgYFqO
+         35nADdC60IO68sjonoi97yBxWBL+Hf14rWzwO9Uf4r5Ls0AT3+QSYAqoKrLWURm7CS7M
+         epL/gah5/9n5k8fs4Vai4fd+vqL60r4amk4mWmma3q/GYyAkcNUzzqQpzfg07w5xBaff
+         V0/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787052809; x=1787657609;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/0AlltLVAB4v9U8rw8sJFLO7JW+elllAbiTuLyTWcA=;
-        b=LdNbG5W/2nKk5gTSWNXDx+SHIInLl41a3+dBVdykwze+GVnXWr/oNCHSJ8QP82j1eL
-         8DztWgaW9xLefpr+0r/vOVWb8u3CcBzbWMNuGGTIAtCpzHZzOjh4IMLLAJX6j7/5NDAV
-         MGkNE4eRQYdnl+eqmZb05a471NCzWmp/jZz44EQXI2WxGoBUdKZ/vbWtdniF8jpsyZEa
-         xpS3PyC4r75tqr1/OyeKGk1UX239LxwJucapasysYVWZj27TNgFBHPWLmCv/nBv0sWZk
-         1HkhUq/+5DUu3nDf2W6rLLFjek7P05ySfsM0Ya8T2I5lW+rhH8WN59FDh5Z7pqjVTqHl
-         ee5w==
-X-Forwarded-Encrypted: i=1; AHgh+RrmM02VsdOzfQY2ZmFCt4eBBzBf0t/WeMkdR3DPsQ4rwGOBZgahcpsL5+bUMac321IVjlGvufYIKkkC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/l48xV/O07lBxoKOC+IPR9bzy32ocVxf7+NCYCOcjh7TS4rb1
-	EiCspOnUcM4wl29ZzL0yTGIU3L0ITJIGZqVjX7g4REKUj0qj7Cx36RqBUuzD1TbWmnr57oWGrQw
-	Dy/CTisdp9raFiZj6CvmvgtSQeUgKOv+WK3r93LnzgQwFUW/Z9lv5VvUIrrd0v+4fN9anFTNu
-X-Gm-Gg: AR+sD12JnQQHFAFdSOfiW8ul/PbFTGUOhvjaUzk7OfO3bMffqkoEXi7Nnstb8ns8ral
-	H2pjo35rEaEc67Qttzm7HN1G5uQ5MiGv1MS8Cnbl5b9msPNa7B8h6yeIXk2ALJKyqaEXJFNlCfC
-	fwFQ6V1dTEv+OXWxvDU/cY9aGPIEKuF8kWnTcGOj0YlsRuWwjFkGjK3nee2qKWBw42vRbKv/Fhl
-	RfxDHPgATiNrNiUB1WMXD9bwNIi0e/zd44ZZD18uJRKU9q8Qn2EMUl/KRauKIEDby7ycU9PeB20
-	uORlyoCPJMF3RRtLlFfWBD4IG2LbFUxHUIzkfOkziYqqUMfeUir3UItBziDQWi1EEuBpIW150jH
-	28RkzSTWbs18WLqVGXFSUKGXk
-X-Received: by 2002:ac8:5a8b:0:b0:51c:845b:ac4 with SMTP id d75a77b69052e-52d8547a9e4mr239522131cf.3.1787052808712;
-        Tue, 18 Aug 2026 04:33:28 -0700 (PDT)
-X-Received: by 2002:ac8:5a8b:0:b0:51c:845b:ac4 with SMTP id d75a77b69052e-52d8547a9e4mr239521671cf.3.1787052808222;
-        Tue, 18 Aug 2026 04:33:28 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3d85a30b7sm1642193a12.30.2026.08.18.04.33.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 04:33:27 -0700 (PDT)
-Message-ID: <c9531134-4986-41f4-9433-ce172e1f88c9@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 13:33:24 +0200
+        d=1e100.net; s=20251104; t=1787052872; x=1787657672;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gBk8AngxtInglLoMeMROmFHKnwyweySXAtqUZxwbpiY=;
+        b=oGc0yPJDeBBxGby+s4/FtCB6EkjCYRbsgECKTRRWCH1J+nMmCByMjTzAVIsnjqYcuX
+         lXp4F9l4vIxmpuQJpEeiYfpvA4o9IedAF/6MegiNDpBjYav53Z0kZz0tTUky/bVenb4T
+         rr3FCIylPXdblVAtsjpBDC9Pc74u5i6Z0TsvVnpSzV9Z1EWb29EdklaVwwoLljBhCrW8
+         pwT+O9q9by/c1oH8HAmCG3Np0MXed42AGGFbyJvbZ+WBXl0MOSAkqu2hCht3C2g3Tz/H
+         2xNElJuoVTh0ZXcrdtGwit87N0CVr8E9hMtV1IdUBDYjrXByS2NbSWo1/A68saNYENfL
+         1Mug==
+X-Forwarded-Encrypted: i=1; AHgh+RqZjXPvd4WkU18rCPLQTQ8h0vetIyrgQuRp1VH+8HWyam6en4H9k/oyoPNgcGIV1lqQ/dPB8tiWXgsI@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZxOSp7Ces7rOLZQixLoV7BbIITJZODaO069EXQGT9AYihfJTw
+	QFUAFrXYwazXmdWQ8Qbd2AUWK5TljN8akCBasnC8TBjYN3t6VHe1HN7P
+X-Gm-Gg: AR+sD11sgQcCg3DPakQBaFm2fFrvd7NwgHfToL2kNAfYFkl/g/PPr9XnFJgxCA3Aer0
+	6egAsyKV5a4ApUfSm17gn6LKH6Pkbv6j0dOD//TLg7/iq+yKvmjhSwSod2gRz8hupS+3WfDGOwL
+	iH9HA27RRF2fcu0cX2hMPIitkLtZ3HYoDDRkcc7EPFui5RJCzveZN8ifPXmRMxmi5BDF7yZG0Ln
+	v1I1cE6kzECLNAYzK8qIHzV85neqoGO1KNkawchSqToQ9PxNmsF8pzzxYeHFerPIjFcfD0DoJ3e
+	k1WM4OV6jMa+Nf0vhjwXXQ5y7yYpHlkVhBL9t8sEFM3iTtXQTsW+IYGsUqPaUJpAbyK1VcpXPzp
+	SsbxToQrftRYNfU6Y+sxGeoj+Lrr7TsrB1Ji7ed/FfJ48Vo8L9z2pvs/cMULH6xS3QVevLK6/Sa
+	SrP7eMD9OiTgdX0Ps3AugGUZPXIGrJrZ0fob3J+QopS59ZtKMX2kboW/3CuX/78aKglyrwaL9S6
+	hoyWw==
+X-Received: by 2002:a05:6938:a08c:10b0:c08:580e:899a with SMTP id a640c23a62f3a-c218dac8137mr211304766b.10.1787052871432;
+        Tue, 18 Aug 2026 04:34:31 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:4bb8:17a:e1ae:f7c9:8a7c:d206:62fa])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2185b73db1sm137901966b.40.2026.08.18.04.34.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 04:34:30 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Subject: [PATCH v7 0/4] iio: light: add support for veml6031x00 ALS series
+Date: Tue, 18 Aug 2026 13:34:25 +0200
+Message-Id: <20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] arm64: dts: qcom: Add Glymur QCB
-To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-        Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260810-glymur-qcb-v2-0-9e6ea7987b9e@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260810-glymur-qcb-v2-0-9e6ea7987b9e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: xoYPDk97GDQ3Eu-R99th9ZtnNqlray0s
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA4NSBTYWx0ZWRfX5ZBu7drzm+95
- mCKr9VNsh8Pp2mt6GSUDoHnMh6vVsxRUyuzeWGU8b2Zt4Urcs+Y3ukQDRhAIvE0QtyJxtu5J6Ov
- gH/2ymPVx5gtmCLvXLi4vhnl+R2tNmZLBn7RJTIHo4Mll3jXpkvrZO8Mg8VhsEI+DcvJrNGEOd1
- IJpP+LORXpoqGv14rzrxNwqtRtlx/e4pDXMXK7cinhUZ6AL5wxuaOZWNVxVI2WNFevZ+qqHJF6O
- yGxrCFXGSiHxKnK1dygvWamiuFJa37/VOsP7F86YNAlrpqcoYGX1z8YwxQzSn8fJ8NwyuIpAi1I
- mPEzV1L5P8/ZALt+WqeIPEi5/CpWnJOtpJRp3+xqE5EnrAICIUhNL7rs65KypRNcC0jenVlDLxm
- ZYylL1NBHlsICLUH1VjLVf4yyMIA2+NCa2sYAagRuVHmgLrKb1z99GrCy8rjGuNJAtMKxgiae4j
- Tyyp+wxsg8zoMwAii8A==
-X-Authority-Analysis: v=2.4 cv=K/IS2SWI c=1 sm=1 tr=0 ts=6a844309 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=U76MQq4rjxy0e2oczCIA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA4NSBTYWx0ZWRfXzDOpActFUcbi
- EyaMAVDavqcPZKZxZ9l9+Ws3BI1VCq7Ydb7n+B1zTkrgMIizZdZG+I9TfFAdIVfyRniigvLcuyC
- 0al4tGJV4f6UoZpFt2BHG7hnwJqLb/E=
-X-Proofpoint-GUID: xoYPDk97GDQ3Eu-R99th9ZtnNqlray0s
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-18_01,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 priorityscore=1501 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608180085
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAEFDhGoC/2XNwW6DMAzG8Vepch6T7SQO7LT3mHYIwWkjlVLBh
+ DpVvPsC2jTSHj9Lv7/vapIxyaTeDnc1ypymNFzycC8HFU7+cpQqdXkrAjKI0FSz9GcGjTeAyvv
+ GsO48sPEqi+soMd222sdn3qc0fQ3j9xafcb3+doiLzowVVMbH6JnaKLF7P/Y+nV/D0Ku1M9OfZ
+ bCoS0urdaCDZ0aPT1bvLJnS6mypQbYMTUutfbRmZzWW1mQrbKKLXRBdP/21/7YGV1q7Wagdx1a
+ zgUfLO4tUWs7WiUQWE4Sawi7L8gOZRA0W0gEAAA==
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
+ Jonathan Cameron <jic23@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787052868; l=8997;
+ i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
+ bh=BB7xh09Vto0B2N0viOMI+jTuQnN+PMaBHkf34CLK+94=;
+ b=HHygKcj0Xyakn8eGTY6loJBQvHrwqiQUsCJSd7gun8WDx150zsTL6pfBwmcc8HyRlhUYqkI5a
+ 7iyBFVTOz1pBQpXvoGI8KKsJUZTWjWssbcI0FZ3y2Im4VwD2oXJeY0L
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-On 8/10/26 3:03 PM, Gopikrishna Garmidi wrote:
-> Add initial support for the Glymur QCB (Qualcomm Compute Board), a board
-> built on Qualcomm's Glymur SoC.
-> 
-> Unlike the CRD's closed enclosure, the QCB is an open form factor, suited
-> for bring-up and power, signal measurement.
-> 
-> The base support boots to shell with rootfs on NVMe.
-> 
-> This series adds the bindings the board relies on before enabling the
-> device tree itself:
-> - Document the qcom,glymur-qcb board compatible.
-> - Document the qcom,glymur-qcb-ec embedded controller compatible.
-> - Allow QSEECOM on the Glymur QCB so efivars and the UEFI-backed RTC work.
-> 
-> Features enabled in the device tree:
-> 1. Board and sleep clocks
-> 2. Volume up/down keys
-> 3. PMIC RPMH regulators (banks 0 - 4) and the NVMe, WWAN and WCN rails
-> 4. PCIe4/5/6 controllers and PHYs
-> 5. WCN7850 WiFi on PCIe4 and Bluetooth on UART14
-> 6. Embedded controller on I2C9
-> 7. ADSP and CDSP remote processors, with a firmware path for SoCCP
-> 8. TCSR refgen and QREF reference supplies
-> 
-> ---
-> Changes in v2:
-> - Add TCSR refgen and QREF reference supplies to the Glymur QCB device tree
-> - Rebase on top of the latest linux-next tag
-> - Picked up Reviewed-by tags
-> - Drop Konrad Dybcio's Reviewed-by tag because the patch has changed
+These ambient light sensors with I2C interface provide two light
+channels (ALS and IR), high/low threshold alarms with configurable
+persistence, and a data ready signal.
 
-The change was minor, so it's not a problem. But I appreciate that you
-chose to be on the safe side!
+The devices covered by this driver have the same resolution, and they
+share most of their functionality. These are the differences between
+them (note that the x belongs to their names, and it is not a wildcard):
 
-Konrad
+ - Device ID: accessible via two 8-bit registers, different values for
+   veml6031x00/veml6031x01 and veml60311x00/veml60311x01.
+ - I2C address: same grouping, 0x29 and 0x10 I2C addresses.
+ - AEC qualification: AEC-Q100 for veml6031x00/veml60311x00 and
+   AEC-Q101 for veml6031x01/veml60311x01.
+
+The alarms and the data ready signals share the interrupt pin, and an
+interrupt status register must be accessed to identify the source. Such
+multiplexing is not new in IIO, and I have followed existing examples
+for it. The persistence setting (own attribute) to trigger the alarms
+uses the pattern that has already been used for the veml6030.
+
+The device configuration is in general documented in the datasheet and
+the application note. There is an exception, though: the activation of
+the "active force" mode that is required for the data ready signal must
+be carried out in two steps even though the affected bits are located in
+the same register: first ALS_AF (active force mode enable) must be set,
+and then ALS_TRIG (active force trigger setting) must be enabled. I have
+added a brief commentary in the code to explain this behavior, which has
+been confirmed by the manufacturer.
+
+The datasheet specifies the scale and integration time for the ALS channel.
+Although both settings also affect the measured IR value, no transfer
+function, accuracy, or calibration is specified for converting the IR
+output into a physical quantity. The IR channel is therefore intended only
+as a qualitative indication of the infrared content of the incident light,
+rather than as a precision measurement channel. Consequently, the driver
+does not expose scale or integration time as IR-channel attributes.
+
+The only functionality that has not been implemented yet is the x0.66
+gain (and its x0.165 counterpart when PD_DIV=1), which makes the gts
+helpers less usable due to the conversions required. It is indeed an
+uncommon gain to use (there are x0.5 and x0.125 gains) with no known
+use-case at the moment that justifies making adjustments to the gts
+helpers or adding artificial conversions to make it work.
+
+This driver has been tested with the four supported devices separately
+as well as in pairs where the I2C addresses don't overlap.
+
+To: Jonathan Cameron <jic23@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
+Changes in v7:
+- [2..4/4] Refactor probe() (extract IIO device initialization, more
+  logical initialization order).
+- [2/4] Drop pm_runtime_get_noresume() and pm_runtime_put_autosuspend()
+  in the probe function and let the core handle it.
+- [2/4] Rephrase unknwon ID info message.
+- [2/4] Rephrase Commit message to make it independent of [3..4/4]
+- [2/4] Trailing comma after last channel in iio_chan_spec.
+- [2/4] Return -ENODATA if i2c_get_match_data() fails.
+- [2/4] Use logical splits and local variables to make lines shorter.
+- [2..4/4] Use regmap_assign_bits() instead of regmap_update_bits() where
+  it makes sense.
+- [4/4] Use pm_runtime_put_sync()
+- [4/4] Explicitly include <linux/lockdep.h> for lockdep_assert_held().
+- [4/4] Use helpers to refactor code without adding goto jumps within
+  scoped guards.
+- [4/4] Drop own trigger assignment.
+- Link to v6: https://lore.kernel.org/r/20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com
+
+Changes in v6:
+- [1/4] Fix dt-binding title.
+- [2/4] Update headers as indicated by Andy and Uwe.
+- [2/4] Macro to get selector from gain registers.
+- [2/4] Use pm_runtime_get_noresume() (no devres).
+- [2/4] Drop <linux/mod_devicetable.h>
+- [2/4] Use regmap_update_bits() to set power state.
+- [3/4] Add scan info for the non-irq variant.
+- [3/4] Fix lock acquisition (direct mode and then scale_lock).
+- [3/4] Zero-initialize scan buffer.
+- [4/4] Store timestamp before calling iio_trigger_poll_nested().
+- [4/4] Move mutex_init and regfield_init before setup_irq().
+- [4/4] Add lockdep_assert_held() to veml6031x00_interrupt().
+- [4/4] Avoid register read if a spurious interrupt arrives when the
+  device is powered down.
+- Link to v5: https://lore.kernel.org/r/20260807-veml6031x00-v5-0-e60876fb3640@gmail.com
+
+Changes in v5:
+- [2/4] Explicit inclusion of some missing used headers.
+- [2/4] Define CONF0 as volatile to account for AF_TRIG (reset by
+  hardware).
+- [2/4] Drop integration time and scale for IR channel.
+- [2/4] Use unsigned int instead of int where no negative values are
+  possible.
+- [2/4] Write a helper to update the gain and use it where needed.
+- [2/4] Move i2c_get_match() closer to the data allocation.
+- [2/4] Move iio dev initialization out of the runtime pm region.
+- [2/4] Lower log level for unknown ID part.
+- [2/4] Redefine gains as _INT_MILLI.
+- [2/4] Drop pointer to the device in the private structure.
+- [2/4] Fix some coding-style issues.
+- [4/4] Add second iio_chan_spec to avoid exposing dead sysfs attributes if no
+  irq is available.
+- [4/4] Refactor goto calls in functions with guard().
+- [3/4] Use IIO_DECLARE_BUFFER_WITH_TS() instead of a custom structure.
+- [4/4] Use format instead of deprecated sign for the scan type.
+- Link to v4: https://lore.kernel.org/r/20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com
+
+Changes in v4:
+- [1/4] Entry in alphabetical order for MAINTAINERS.
+- [2/4] Fix style for device ID tables.
+- [2/4] Add missing header mod_devicetable.h and move iio/sysfs.h to
+  [4/4] for the persistence attribute.
+- [2/4] Move IIO_DEV_ACQUIRE_DIRECT_MODE to [3/4] where buffers are
+  added.
+- [3/4] Use test_bit() to check the active scan mask.
+- [2/4] Add mutex for operations on scattered register fields.
+- [2/4] Add shutdown action after turning the device on.
+- Link to v3: https://lore.kernel.org/r/20260524-veml6031x00-v3-0-29165609b2b5@gmail.com
+
+Changes in v3:
+- Move veml6030 fixes to a separate patch stack.
+- Use C99 initializers for i2c_device_id.
+- Split driver code into multiple patches to ease its review.
+- Rework locking to get rid of atomic increment/decrement ops.
+- Fix error paths in pm_runtime operations.
+- Use IIO_DEV_ACQUIRE_DIRECT_MODE for single read/write ops.
+- Link to v2: https://lore.kernel.org/r/20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com
+
+Changes in v2:
+- Add commit to fix bug in veml6030.c (channel type when pushing
+  events) and remove dead code.
+- Use gts helpers to simplify operations.
+- Drop unused gain_idx.
+- Build INT_MASK as an OR operation of the involved bits.
+- Format arrays to follow the desired standard for IIO.
+- Directly return function result as the last operation within another
+  function instead of 'ret = x; if (ret) return ret; return 0;'.
+- Fix some spacing (double space, tab for alignemnt in info struct).
+- Use sizeof() for __le16 reg instead of 2.
+- Return an error if the part ID could not be read.
+- Spell out sd -> shutdown.
+- Use devm_mutex_init() instead of mutex_init().
+- Avoid using conditional guard, use claim/release instead.
+- Access integration times from the global array to get and set the
+  integration time instead of using a switch.
+- Simplify read of available periods (persistence).
+- Drop IRQF_TRIGGER_FALLING in the threaded irq request.
+- Add regmap ranges.
+- Link to v1: https://lore.kernel.org/r/20241126-veml6031x00-v1-0-4affa62bfefd@gmail.com
+
+---
+Javier Carrasco (4):
+      dt-bindings: iio: light: veml6030: add veml6031x00 ALS series
+      iio: light: add support for veml6031x00 ALS series
+      iio: light: veml6031x00: add support for triggered buffers
+      iio: light: veml6031x00: add support for events and trigger
+
+ .../bindings/iio/light/vishay,veml6030.yaml        |   13 +-
+ MAINTAINERS                                        |    6 +
+ drivers/iio/light/Kconfig                          |   14 +
+ drivers/iio/light/Makefile                         |    1 +
+ drivers/iio/light/veml6031x00.c                    | 1366 ++++++++++++++++++++
+ 5 files changed, 1399 insertions(+), 1 deletion(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20241109-veml6031x00-aa9463da064a
+
+Best regards,
+-- 
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
