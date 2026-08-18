@@ -1,126 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0CE3603C0
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:34:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F7239A7EF;
+	Tue, 18 Aug 2026 09:35:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045693; cv=none; b=qiJ+Njb53/mF+ji8iiVdkF43QkCqw9FVi91lsb7YZjvp4QnOlqyaXx8JZUuTQsHRk/EvGNzHNQ0dVY4Xu31JX/52juWoTe7vs7TYvxI1I1VbqivXsgdW5/AlDixySNMWQR9puuI7uwf++fQo/24JSZWy3Yx/CLnP8Xh17Dkk8es=
+	t=1787045758; cv=none; b=afIt0wSsgIbmL6s/dm3i66orZav3reHa7PXExvsQ+Yea8JdgJxtgWJZK7p+FwGJo670CIqxsx5iW3FeJOCaiw39yj7zYt5UzhitgQpjVi0UzNjrUhY/wXe1Dd7OgKx/qCMymdzvWoGAjUbfpU5gRthlkt1lrGODmNmbyAsX6Uag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045693; c=relaxed/simple;
-	bh=g+qFCTGHKqRltBI5Kg0zGo9NamhCCA0rAH7Hf/tuGBc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eSbyef0ke2GYFYzObhUDMNIxkK20xTAYIolhgw6NXxzIIRqjY6ABVQ1cvI384Exw0YVuetlZmbihAyqNSLUnqKHicluhfLrI1+ux1/vViAeR1Z4JwPchZAyJm4MEaQ91N8iG51KCPAkeplCwXlf0fl+I3qXB6A37GFxRmhxLyyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PhmQMyz9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787045758; c=relaxed/simple;
+	bh=MziyQlKDhBYELbIy54z1dLSG29a6AsmLDVLh6pAUZhs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s7/mQfuBhs9NtwFQlO/hxfiMXNDsZ714CM9PM8Vsar2Eqq9iiL0B8KkSJud4InIrxX//CdpwuQw8cQqB1d3MCv5WIr3ue61A1hu4C4hBpE63oxiw+kPuOQih+UAU9ck5v4qQQ04yj6S9EErHQgs+zHMK4lRCVjO10JqKvntKJ2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+fUd7nA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PhmQMyz9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE0AB1F000E9;
-	Tue, 18 Aug 2026 09:34:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+fUd7nA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0CF1F000E9;
+	Tue, 18 Aug 2026 09:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787045691;
-	bh=ZBJeZK8cbsU2nQDZTDUZ/XRkppWtjoMqtyaTlpIta2Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PhmQMyz9kylboV4dH+xU2q6Zbz+aDYoLVq6/aiSm9W7NIxnlJRSyp8txAmmJxe0xC
-	 8zvSN1sciC9L/0f+aXaY7ub9EtG9yi6axg8RcqLry5EXM0JmDbCDwY9MZMquyP+GBm
-	 j7HFdWqFgiYj/oaINj0vgQ6k/lQNMydDKdr/usiCjeo9rMZJOIsz2KtENLS+2+gllw
-	 rOLfVfCoBOa4UwHKJKy6aWdic1zHruNIUuIcpEkvP5jZetLmaDB+Nxi89UI7M3iggM
-	 yth2eNKy7azRnjLsQRPrtPSzhlsRdX+fEdj2DDSI9nEGqFrdoSTRqun7D2IPAi72P7
-	 SNxr153ApagpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/5] of: reserved_mem: retain static no-map memory on
- init failure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260818092420.2859026-6-chenwandun1@gmail.com>
-References: <20260818092420.2859026-1-chenwandun1@gmail.com>
- <20260818092420.2859026-6-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 09:34:50 +0000
-Message-Id: <20260818093450.AE0AB1F000E9@smtp.kernel.org>
+	s=k20260515; t=1787045757;
+	bh=b4BmVR02USpUiuj8iihPmQKITu4yz0lHFUqx56OCGT0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O+fUd7nAvVseq7h4yoAtcdRhbaGsDiBvieu3cmO2oQxkcFjSmhfVeVJQIEZ/DU/Gf
+	 NB7H3MIpu2jWTh8KNFY/llgzMmJT0WXEQ4erZMS1rUDOnj5CgAwu9FsBREMuznygSF
+	 D364dDAuEUpPsyXNJY19GEt3YuWjiv/t83Ca4Iomgk6XW+ppm6TGjnZaymeYB+aMoe
+	 94Q0Af9N4bY+Q2GISnBg4DnwtJJbIZ5aWbqcihEybD5jKrhuluOrImnTq1p2u1XPpx
+	 m9CCgpFPea4Nx2OUwDjxSAEytJYG8CFbHnoEQ1iVGfyBVX1D1ETsf38E+HzBYDtewu
+	 dKvX+LOXaiMnA==
+Date: Tue, 18 Aug 2026 10:35:51 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Guodong Xu <docular.xu@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Deepak Gupta <debug@rivosinc.com>,
+	Xu Lu <luxu.kernel@bytedance.com>,
+	Pincheng Wang <pincheng.plct@isrc.iscas.ac.cn>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/3] dt-bindings: riscv: Add Sspesa and Ssplcofi
+ extensions
+Message-ID: <20260818-hunger-module-a44d9716010d@spud>
+References: <20260817160222.3313295-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260817160222.3313295-2-mayuresh.chitale@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NXk010FMsqIWIm0u"
+Content-Disposition: inline
+In-Reply-To: <20260817160222.3313295-2-mayuresh.chitale@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+--NXk010FMsqIWIm0u
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Pre-existing issues:
-- [High] In `__reserved_mem_alloc_size`, an allocation error when marking a=
- region as `NOMAP` is ignored, leading to a use-after-free of memblock memo=
-ry.
---
+On Mon, Aug 17, 2026 at 09:32:17PM +0530, Mayuresh Chitale wrote:
+> Document the RISC-V Performance Event Sampling extensions Sspesa
+> (Precise Event Sample Attribution) and Ssplcofi (Precise Local Counter
+> Overflow Interrupt) in the ISA extensions binding.
+>=20
+> Add a dependency rule requiring Sspesa to be present whenever Ssplcofi
+> is present.
+>=20
+> Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 
---- Patch [5]: [PATCH v2 5/5] of: reserved_mem: retain static no-map memory=
- on init failure ---
-commit 35ad8d6e4b86dc63d754a8415950fc7ab54dfce4
-Author: Wandun Chen <chenwandun@lixiang.com>
+Why is this series RFC?
 
-of: reserved_mem: retain static no-map memory on init failure
+Cheers,
+Conor.
 
-Clear MEMBLOCK_NOMAP only for dynamically allocated regions on init failure.
-Static regions are initialized after paging_init() and should retain their
-memory states.
-
-Link: https://sashiko.dev/#/message/20260814090305.4C8741F00A3D%40smtp.kern=
-el.org [1]
-
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index a0df075a9902e..0c5163ce601ea 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -708,7 +708,7 @@ static void __init fdt_init_reserved_mem_node(unsigne=
-d long node, const char *un
->  		pr_info("node %s compatible matching fail\n", rmem->name);
->  		rmem->name =3D NULL;
+> ---
+>  .../devicetree/bindings/riscv/extensions.yaml | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Do=
+cumentation/devicetree/bindings/riscv/extensions.yaml
+> index 5ffc40d599c0..f316b93754ff 100644
+> --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
+> +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
+> @@ -232,6 +232,18 @@ properties:
+>              ratified at commit d70011dde6c2 ("Update to ratified state")
+>              of riscv-j-extension.
 > =20
-> -		if (nomap)
-> +		if (dynamic && nomap)
->  			memblock_clear_nomap(rmem->base, rmem->size);
-> =20
->  		if (dynamic || !nomap)
+> +        - const: sspesa
+> +          description: |
+> +            The standard Sspesa supervisor-level extension for precise e=
+vent
+> +            sample attribution, as defined in the RISC-V Performance Eve=
+nt
+> +            Sampling specification.
+> +
+> +        - const: ssplcofi
+> +          description: |
+> +            The standard Ssplcofi supervisor-level extension for precise=
+ local
+> +            counter overflow interrupts, as defined in the RISC-V Perfor=
+mance
+> +            Event Sampling specification. Ssplcofi depends on Sspesa.
+> +
+>          - const: ssstateen
+>            description: |
+>              The standard Ssstateen extension for supervisor-mode view of=
+ the
+> @@ -934,6 +946,13 @@ properties:
+>                  const: smnpm
+>              - contains:
+>                  const: ssnpm
+> +      # Ssplcofi depends on Sspesa
+> +      - if:
+> +          contains:
+> +            const: ssplcofi
+> +        then:
+> +          contains:
+> +            const: sspesa
+>        # Za64rs and Ziccrse depend on Zalrsc or A
+>        - if:
+>            contains:
+> --=20
+> 2.43.0
+>=20
 
-[Severity: High]
-This is a pre-existing issue, but while looking at reserved memory error
-handling in this file, I noticed a potential memory corruption when dynamic
-allocation fails.
+--NXk010FMsqIWIm0u
+Content-Type: application/pgp-signature; name=signature.asc
 
-In early_init_dt_alloc_reserved_memory_arch(), the base address is assigned
-before the nomap check:
+-----BEGIN PGP SIGNATURE-----
 
-base =3D memblock_phys_alloc_range(size, align, start, end);
-...
-*res_base =3D base;
-if (nomap) {
-        err =3D memblock_mark_nomap(base, size);
-        if (err)
-                memblock_phys_free(base, size);
-}
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaoQndwAKCRB4tDGHoIJi
+0tlJAP4w5GCA8+uqOuxxYbSrz/hjl8CHq4Te4t/0YaZ8pFJq0gD+Oi6+k8Ou20f5
+YXvedETW9VAPBH9qq7MK++nt5cYEsgc=
+=QFPg
+-----END PGP SIGNATURE-----
 
-If memblock_mark_nomap() fails, the memory is freed, but *res_base still
-holds the freed address instead of being cleared.
-
-Then in __reserved_mem_alloc_size(), the code checks the base address inste=
-ad
-of the return value ret:
-
-ret =3D early_init_dt_alloc_reserved_memory_arch(size, align,
-                                               0, 0, nomap, &base);
-if (ret =3D=3D 0)
-        pr_debug("...");
-
-if (base =3D=3D 0) {
-        pr_err("failed to allocate memory...");
-        return -ENOMEM;
-}
-
-Since base contains the freed address instead of 0, does this allow the
-freed memory to be registered and later handed out by the buddy allocator
-while still being incorrectly used as reserved memory?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818092420.2859=
-026-1-chenwandun1@gmail.com?part=3D5
+--NXk010FMsqIWIm0u--
