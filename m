@@ -1,148 +1,176 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593A1283FC4
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8591D242D84
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787060814; cv=none; b=DXYv5nxBVbAvJYn6oUdHPrucbqEAJCNEdbVSmnZrOju2EW6kjmOQIXBJfXhz2FJwOSYX2uCQ6G/7jtNeIlS1tk6tqWFV1S0En3f3qM9MG9gDlmwj1vj423o2EKbilbGclVCcaoaYIAtqEyXOpzasuo+6y9v8qbfwy06vPfECaaU=
+	t=1787060886; cv=none; b=RdUWwkxh4QHdEZU1oW4zlnLKVw84+2hsZe3okR4DNs+jDh+7ctzgEwjiJnauzEKDl4hVtSsizVUlOpxi7rD8wUbZfaoLiUADPHBgqKGzdpSf66A5bfRUIqxGlx8WcKtmvxR0Uxt8xKZW/zDUOyYPvmaMilcAx32izb0al/E3RS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787060814; c=relaxed/simple;
-	bh=dwH9T0yZ/zWlDQOp2E/5CHqLkC1IHz//ocRWg8YITLY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WBoTMujbe3LDk2EYdN1cMspHBDPOVNlNBokVbpx/fPlQYMDj7blSxjIM/MmYMZJ4Vcl9xpYHAsj20P4yfv17mY7r5bDKmPhBJVUNioJV8TXFFF7JH5++rGrscdA8Y+J4pY9DjysefB7ERmbtBkYG0D0t3DdwPlSj7Qm5gDvCljE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y8wvkLjP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d2RGQFHy; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787060886; c=relaxed/simple;
+	bh=isQeRyT2aOh1SxOAsiXN3sccWFpiB6igQzPBhaBOdGY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UuWgYNpnPPXrn8KsmeCOcbWrxKwqN5O2p43TdqnBqSxpJT7ihKaXm62cVRbSY6egL0etYzhmOpwN4DMFgjucpQ7SeQ590Okc+5EQXCjFoBH+ziiaO8qvpoz+08Cv8XouT1DZkWiOVJBN4STC6LZN5BRLk/XJgk1j6dD0crYJSr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOWFT8EZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y8wvkLjP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d2RGQFHy"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IDQVtu1425510
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:46:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yIDFFvak9lqOUUtb1uF7npV8tpUWLLtR7eU8k/ZDjA8=; b=Y8wvkLjPTyOMINZn
-	muDKNwuEMB7pOJAZxwoSh8vTBc+sYXbhbuqGENde5MO2OpYGYeYqZCzq1picKa/h
-	BwoOM2Gxpr6hujKUrhvZJ+RWM2HYXEwrEQvb/+KINQpTIJO+dtSqPt6vGUPbg7oo
-	bI0SdW0tAt/sNH5Mh6hIXupyAP/nQ4Hl/5cfQuglyzxLqd6DNZpIHdz2Rear8za1
-	f9B9QYhhh2FnlWkUqt06FnIIlrXJKJNppeabzAfpU5C8hmy7C0jkB3B/kyQ1iGKP
-	3gWrFReaRT7xjxQthlPeEVv5/eS+9DaxhoK5go0cxHZW4x85/8YPCO9lPdrrIEXE
-	4VUWdg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4prn0f04-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:46:52 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934a8cd3a8bso48339085a.3
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:46:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787060812; x=1787665612; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yIDFFvak9lqOUUtb1uF7npV8tpUWLLtR7eU8k/ZDjA8=;
-        b=d2RGQFHyr9bUAM7hiQkNkjGpoYKt6n5dLiVN5vorRW3bpNVn57Mqxgb6QmYvsipEQI
-         YiZD4KQniHraWFrU1eWHQKuSySL98YiRV3pWRxhrml16snICSM0i7fz6g+P6aFOQ1yap
-         phA762XeS52Td/MwLH1/RHgWPGae+SQDuXolC/sSP4Eo6c3TzfFuo28f9kVx/vLW3j6j
-         v7CX7VtfFyPDt/sfg+d99DsH/7voWFHGmDmd63uoPkvWME9QAZBxeyV5D5vGthH+BAyF
-         gPwCFQayHlb08/B2XZWXyf/7fwdfCWyJGuEk02UOYr2S5ifw2QTUzbLUG6fZY7K2nvpm
-         sD9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787060812; x=1787665612;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yIDFFvak9lqOUUtb1uF7npV8tpUWLLtR7eU8k/ZDjA8=;
-        b=JJm1EOkhQ9gBnuWbg2dRJ1BYVb0wJquF4iLCZvV3ACzv0UNNlkc/wUXJN/j912qOO4
-         t4TRW8ACLVGNelp8IuJPbj/zd0QMouvwQmJRBBWVxDdFgVxMJKYxJ0I7saJYzb+463n6
-         CDnBtvZGtpgg0pTix8LgQ2+GML9WiE8vRs2i46dYYYkSZJSby6eaHRgtYz3UclIeGZaS
-         O4EuBtDffmKl/bgxyF9BEcq9N5E4HkaxR575Ll3p+b6MxcWz93x7LT/cUzHGP6tVkfp0
-         C81VccsmydkKO9A7hTYOpC12XX7doN6gHXG7/kMRg05An/jYdfIKlYYZ40PLNyWqCZSD
-         xqNw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr414L2ssMMtvjPxbzet7tP/l7utQ4wSbsFBVngqefRUl8LpKrKNLsTXZqcJQQ7BdA2ew3XTvg3RYwF@vger.kernel.org
-X-Gm-Message-State: AOJu0YzREjjY2HXOrfW5dFOiw9kNcUjmQeMMcMFWL+zBIxGquuC64Dgk
-	oA4lRXYg5eaBLLbEBRQ48iXEmy6CBMWd+7XB6Pp/2RqPCOlChygR09SAf8ZQxXIp9g/SbOAAS+L
-	Y6eQL8PiHpxi52TNWf/UgD52id82fzv6ho1rxRTUwTK/4km1+BePMkVjKqMcnPPbN
-X-Gm-Gg: AR+sD120Rakec7Hqtd61aWvU7c+PMyvv+En1npAhrBOIgS5vo70mqI+kSUwQKg37GDx
-	pT00Yw5ydYlUXyN73lpLu4jD/URybqz3+Ndu38wa5KvWIvTBVcKHvkjiEJJRF40bwanyBlaj9R8
-	TI5O7w5GeU3NSP1yWhIph276+BP8f7sfnve2rh5sOUZpI8i6HD4VofZIR45UV09rPp8bq6CGKQL
-	D+ktJwytY5oBdpJiXcaivJ4QpD4l1e0m5sVjmJEJqhlKvqZYTERBbGaPYtYehEAzVwK0mE4/rQB
-	gbV6wZs9Pmn7Rsv4+EX5b0VFHpD+uv6k1tPJPyN4yQaHuUTBYn8y6OSwQqMi/o7qx9dp+gqMCkW
-	ex+3KNsJWCku1zcBGQP2/nGgb
-X-Received: by 2002:a05:620a:4049:b0:936:5a34:7a6a with SMTP id af79cd13be357-937071938a9mr489188385a.3.1787060811615;
-        Tue, 18 Aug 2026 06:46:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:4049:b0:936:5a34:7a6a with SMTP id af79cd13be357-937071938a9mr489182685a.3.1787060811024;
-        Tue, 18 Aug 2026 06:46:51 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c217fe6a073sm193887866b.9.2026.08.18.06.46.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 06:46:50 -0700 (PDT)
-Message-ID: <0d915f7c-c49d-419a-84e8-0e96df69f244@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 15:46:48 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOWFT8EZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1601F000E9;
+	Tue, 18 Aug 2026 13:48:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787060885;
+	bh=5lKMtvzEFbNGDn/hLgK8do9cuoi3qr9nP0p2BC4ghHI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IOWFT8EZfZohkYG6KDPQKaLHwPnTDME+OXPbZolJHe7y+g8jTkogyX4vxTPifV1Sl
+	 1RjUWzY3TfSxU3EvoI9gwN9mh4lKxZw+OSL1zeAE6k+Gnw8UmSl9uRtN/LUM2oFURf
+	 KgbEt4sEEhLsWXhN7VCD2B97hy+I1MRwGHOesGEZVvcjwy8526pMCvZWgUw8yMARY7
+	 Yc0czW5gMaWAJysATyo+KvQnis1Nx863QApjmf7jy6+V3tbrVbfxSWdEJ02ETvmCb/
+	 g60rAP9OZASkDJdy/Rq0hUwqU7WT9RhksyvVVwhLOioyxXevgOC+f0brjNWudqyD7l
+	 UCvJYaxwKox1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
+ target activity
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260818-use_gpio_to_notify_master_of_spi_target_activity-v3-2-e1c9e0dabbda@oss.qualcomm.com>
+References: <20260818-use_gpio_to_notify_master_of_spi_target_activity-v3-0-e1c9e0dabbda@oss.qualcomm.com>
+ <20260818-use_gpio_to_notify_master_of_spi_target_activity-v3-2-e1c9e0dabbda@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 13:48:04 +0000
+Message-Id: <20260818134805.2B1601F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: Fix USB interrupts in Glymur DT
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDEwMiBTYWx0ZWRfX9W6ldy6o5u+y
- q4dg0iYH7oypdONKGE0xYOLHnOzzTmPe1kQW4SBOW4xBRnFSXGZMrz6wHhh1JtF3DrcMFWl78Mi
- pKcClXAWhjZcER7kdPWPgIM2Ipn+tS8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDEwMiBTYWx0ZWRfX9dGMTJEk+esa
- Ug7qf5SLIaBJ9KB9SxxpX3YWQYn8rnQqIT4YmcQNls9NrV3NfCnEPOQx5lSR3wNvJjQmS7sndm5
- J2prifUjwsqpYt8FYmOC5gV20llc6hyX/HibnWaEcVNWlaLSzrgceF6iMu/CKVQaG444ZsbkNIu
- tYqiHkDj8Nl24n27ETa1NNzGpS4AFSKGT85vx0bKZo2DB2UWO5Fj3n+QZ9uijynmBP/taSYR1wE
- iUYSpDYMJICXZAgJXC84Dl1ia/KZ9ozdq1QlrKRo4E7/DaltF2Vs6RM9OiV7kz9TNajlgaB0uMn
- GXvXUQsirp6mSdWICsB4opHDqe6RY7amWSD9mB5a3V/hNgc7zelA3ogfS5DR3O6Oo5nEbN/59hl
- 7VORb2AVldini355OzrZPmIDdvFtIwAdpzsx/bWk00ZQiVlQKTHpjbHPigwjf6BTInRxqmjpa6A
- MbSd5OSMpOOIjUsfWRA==
-X-Proofpoint-ORIG-GUID: -fvhTZvD5j63R0cKTK-d8cuj31XeSHmS
-X-Authority-Analysis: v=2.4 cv=HNrz0Itv c=1 sm=1 tr=0 ts=6a84624c cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=WYY4b4XhfrXFhKNFVEUA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: -fvhTZvD5j63R0cKTK-d8cuj31XeSHmS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-18_02,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 malwarescore=0 phishscore=0
- spamscore=0 bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180102
 
-On 8/3/26 6:26 AM, Krishna Kurapati wrote:
-> In Glymur, DRD capable USB Nodes are missing the HS Phy IRQ. Also, fix the
-> pwr_event and hs_phy interrupt numbers in Multiport coontroller node.
-> 
-> While at it, the dp and dm interrupt numbers have been swapped on HS only
-> usb controller. Fix them up.
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Masking of legitimate errors (such as -EPROBE_DEFER) from devm_gpi=
+od_get_index_optional() breaks probe deferral.
+- [High] A race condition between hardware transfer setup and completion ca=
+n leave the target ready GPIO permanently asserted.
+- [High] The target_gpio is manipulated from hard IRQ handlers and under sp=
+inlocks without verifying it is safe for atomic access.
+- [Medium] The target ready GPIO is never asserted or deasserted when the c=
+ontroller operates in GENI_GPI_DMA mode.
+--
 
-Everything checks out with docs
+--- Patch [2]: [PATCH v3 2/2] spi: qcom-geni: Use GPIO to notify master of =
+SPI target activity ---
+commit 53485a3ab9e87d880b4b4561671fdbf7ecc3b9cf
+Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+spi: qcom-geni: Use GPIO to notify master of SPI target activity
 
-Konrad
+This commit adds support for an optional ready GPIO to notify the SPI master
+of target activity. The GPIO is asserted when a transfer begins and deasser=
+ted
+on completion or error.
+
+> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
+> --- a/drivers/spi/spi-geni-qcom.c
+> +++ b/drivers/spi/spi-geni-qcom.c
+
+[ ... ]
+
+> @@ -938,8 +943,12 @@ static int spi_geni_transfer_one(struct spi_controll=
+er *spi,
+>  	if (mas->cur_xfer_mode =3D=3D GENI_SE_FIFO || mas->cur_xfer_mode =3D=3D=
+ GENI_SE_DMA) {
+>  		ret =3D setup_se_xfer(xfer, mas, slv->mode, spi);
+>  		/* SPI framework expects +ve ret code to wait for transfer complete */
+> -		if (!ret)
+> +		if (!ret) {
+> +			if (spi->target && mas->target_gpio)
+> +				gpiod_set_value(mas->target_gpio, 1);
+
+[Severity: High]
+Is it possible for the hardware to complete the transfer and trigger the ISR
+before this GPIO assertion occurs?
+
+Since setup_se_xfer() drops the mas->lock spinlock before returning, a fast
+SPI master or immediate hardware error could trigger the interrupt. If the =
+ISR
+runs first and deasserts the GPIO:
+
+geni_spi_isr()
+    if (mas->cur_xfer) {
+        ...
+        if (spi->target && mas->target_gpio)
+            gpiod_set_value(mas->target_gpio, 0);
+    }
+
+Would this code then unconditionally overwrite the GPIO to 1, leaving it
+permanently asserted and falsely signaling readiness to the master?
+
+> +			ret =3D 1;
+> +		}
+> +
+>  		return ret;
+>  	}
+>  	return setup_gsi_xfer(xfer, mas, slv, spi);
+
+[Severity: Medium]
+Does the target ready GPIO need to be managed when operating in GENI_GPI_DMA
+mode?
+
+If mas->cur_xfer_mode is GENI_GPI_DMA, this path is taken, bypassing the new
+GPIO assertion logic entirely. Could this leave the external SPI master
+waiting indefinitely for the readiness signal?
+
+[ ... ]
+
+> @@ -981,6 +990,8 @@ static irqreturn_t geni_spi_isr(int irq, void *data)
+>  			if (mas->cur_xfer) {
+>  				spi_finalize_current_transfer(spi);
+>  				mas->cur_xfer =3D NULL;
+> +				if (spi->target && mas->target_gpio)
+> +					gpiod_set_value(mas->target_gpio, 0);
+
+[Severity: High]
+Could this cause a scheduling while atomic panic if the GPIO assigned in the
+device tree is behind a sleeping controller, such as an I2C or SPI expander?
+
+The GPIO is requested during probe without checking gpiod_cansleep() to
+explicitly reject sleeping GPIOs, and is being manipulated here directly
+inside a hardirq handler.
+
+[ ... ]
+
+> @@ -1131,8 +1144,16 @@ static int spi_geni_probe(struct platform_device *=
+pdev)
+>  	init_completion(&mas->rx_reset_done);
+>  	spin_lock_init(&mas->lock);
+> =20
+> -	if (spi->target)
+> +	if (spi->target) {
+>  		spi->target_abort =3D spi_geni_target_abort;
+> +		mas->target_gpio =3D devm_gpiod_get_index_optional(dev, "ready", 0,
+> +								 GPIOD_OUT_LOW);
+> +		if (IS_ERR(mas->target_gpio)) {
+> +			dev_err(dev, "Failed to request GPIO: %ld\n",
+> +				PTR_ERR(mas->target_gpio));
+> +			mas->target_gpio =3D NULL;
+> +		}
+
+[Severity: High]
+Does this error handling block probe deferral?
+
+By catching all errors from devm_gpiod_get_index_optional() and replacing t=
+hem
+with NULL, legitimate errors like -EPROBE_DEFER will be masked.
+
+If the GPIO provider has not probed yet, will the SPI controller permanently
+fail to acquire the GPIO for this boot rather than properly deferring?
+
+> +	}
+> =20
+>  	pm_runtime_use_autosuspend(&pdev->dev);
+>  	pm_runtime_set_autosuspend_delay(&pdev->dev, 250);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-use_gpio_t=
+o_notify_master_of_spi_target_activity-v3-0-e1c9e0dabbda@oss.qualcomm.com?p=
+art=3D2
