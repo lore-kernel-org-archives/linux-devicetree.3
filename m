@@ -1,103 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A34B2D77F7;
-	Tue, 18 Aug 2026 10:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C4F44A3E3
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 10:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787049429; cv=none; b=sfM0ezGhtDVT/Ny3CL/bqlMMsMWE+hJ5MoaW1Xu5XXB08x8pV9ysKZ4wSD7n5HGzQhiSqZuoimmQm+4kkJzLdj3QoBXKSiln1eijHObJZNeD7eGzkkqJrjfNybAe5yAa3hiV8a4H8Yh1pDQ5bpHqTcnisJAI9Hxdf01/BpzoQHc=
+	t=1787049456; cv=none; b=HMKcWl1KHEVIInUejGYCFxsoEVydOOGaKnPg8276TwA7qB7XzxrJFfGy9MBF20MiYMA1KV9+6jnWHkEW+6E0PUoOcvrpudj255voicb/zF3zzpUfEEACb6rchztI0sRgpLlSsDppqaZ1RmQ2pPuYqJIXcAcckksMVcL87G/V9w8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787049429; c=relaxed/simple;
-	bh=WiAI87j2Mi7avHNHhUVBY63l7N0iA4OIqp1/+A5ZPc4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=inwwzQFwclpKKauBwlR1EbydFJEDkhFok3gio2Fco64YRT+xq4NmkO2ZciSNrfKEEaNSX6SScgk+eVgGwun2P2ZU92gt4fqEXDC7oOcZ0T/rQ9SIbc4rb4geXEp21mbQuiL3jlh4q0EK2hlwyo8eHFiV1OIF/0xkTWBZa4FknKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfXhYC4K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787049456; c=relaxed/simple;
+	bh=T1wDF/p0ES8WtZ8qIUHGWfhnidw1W9o/Qj0U6+dJ48w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tV0uRXv/sbjbDbqW1gvN8HmrDmY1rx86Xgq+yY2kOCMRku/UwKtlWGsbt0KAWhLwmBU5wU1ZGTYr7nmeWB3TRz5OipAOaB3pEEBolbVVxhSTsYDnI4UTsWNu0F8xrW9rNiFZPCVF+RtezLqL+GnEFrpP00BIFIz8l+ZYQjigaO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=TWq4TZ61; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfXhYC4K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF491F000E9;
-	Tue, 18 Aug 2026 10:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787049428;
-	bh=PS7SkIWRH22Qy3Nitrb0KMsG9A/ZQBWZdYQXYxxZo0Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BfXhYC4KvFMAPJFWMR88Hum69rcDEtoUed3lykY8J1YKgJyQ9t5MYjkoLmslrE5NJ
-	 borij9l8RAUFtyVdirjN4di3HvvzNv9SdtlIwjxUzzTgkEbnWVtvnlAP+NKG7O/smw
-	 72Y8NP4MESjLnD3FiEJqd8gvurQvZSLkjmvlheMdMVxjJeYH3z+/Zw8mGz6fxXQV2c
-	 MOp0nneb5VeNz927sVbj1mJ6ahfl40QWl8Y0LhZgfl4YHvM4tp5rlgkxagSsVbGKYi
-	 Ld27cm+MdwrYlrwwjwZqOR/BCOGbjwrYVbD+iUrysIn8eVOEdOhXqJr+MVjecmvoUB
-	 J4udxtAhYOYGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 02/12] dt-bindings: mfd: syscon: add Ambarella CV75
- secure scratchpad
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: conor+dt@kernel.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260818-cv75-v5-v5-2-7bbb12f0360f@ambarella.com>
-References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
- <20260818-cv75-v5-v5-2-7bbb12f0360f@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 10:37:07 +0000
-Message-Id: <20260818103707.DDF491F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="TWq4TZ61"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=T1wD
+	F/p0ES8WtZ8qIUHGWfhnidw1W9o/Qj0U6+dJ48w=; b=TWq4TZ61/1+jPHwQGLwk
+	RNRp5pIrjQL00nZ2y2o4610lMzGJiw+D9Qk7b1l1TUDbs7/p9OyGZUHs5Arfqe6D
+	MeYAkySUpMk+w5rEPUG85ptROjJPK0i+KwB8EZaT9j9lJM93hY3wGDdaHoFFqmZV
+	VpDAE1Yl+9BxUqosvU5wYX0k3ca6ucvrlsob7+qakwDDT8C5GD2KvZ2PatDFgoVj
+	0plPMvYTnjL4dFPGiypSz7doExgAG8Z0DXGSOqM81igxqzJRMHX56sIOb8THcW77
+	Drnbm2Sq2fvCdE7EhslJcKnvW5coFUKJH01PmTPFVDFwRPOjk5sc067OgghaUYMF
+	pg==
+Received: (qmail 3760792 invoked from network); 18 Aug 2026 12:37:32 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 18 Aug 2026 12:37:32 +0200
+X-UD-Smtp-Session: l3s3148p1@hxbQ309ZjIQujnuP
+Date: Tue, 18 Aug 2026 12:37:32 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 07/12] rtc: rzn1: Replace remove callback with
+ devm_add_action_or_reset()
+Message-ID: <aoQ17OSf5_fGN95X@ninjato>
+References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260706175138.12587-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VExzrXGn0dd0n/c3"
+Content-Disposition: inline
+In-Reply-To: <20260706175138.12587-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The new compatible string `ambarella,cv75-sec-scratchpad` was added=
- to the `properties:compatible` definition but was omitted from the schema'=
-s top-level `select:properties:compatible:contains:enum` list.
---
 
---- Patch [2]: [PATCH v5 02/12] dt-bindings: mfd: syscon: add Ambarella CV7=
-5 secure scratchpad ---
-commit 2e61d4a5b3f63c115582c6eb092f0bbc87c52d87
-Author: Long Zhao <longzhao@ambarella.com>
+--VExzrXGn0dd0n/c3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-dt-bindings: mfd: syscon: add Ambarella CV75 secure scratchpad
+On Mon, Jul 06, 2026 at 06:51:33PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>=20
+> Simplify the driver teardown by registering a managed cleanup action with
+> devm_add_action_or_reset(). This eliminates the explicit probe error path
+> and allows the .remove() callback to be dropped.
+>=20
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-This commit adds the ambarella,cv75-sec-scratchpad compatible string to
-the syscon device tree bindings schema.
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-> diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Document=
-ation/devicetree/bindings/mfd/syscon.yaml
-> index e228670880631..05c7f59aba5de 100644
-> --- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-> @@ -148,6 +148,7 @@ properties:
->                - allwinner,sun50i-a64-system-controller
->                - altr,l3regs
->                - altr,sdr-ctl
-> +              - ambarella,cv75-sec-scratchpad
->                - amd,pensando-elba-syscon
->                - amlogic,meson-mx-assist
->                - amlogic,meson-mx-bootrom
 
-[Severity: Low]
-Does this new compatible string also need to be added to the top-level
-select list?
+--VExzrXGn0dd0n/c3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Looking at Documentation/devicetree/bindings/mfd/syscon.yaml, the schema
-relies on a select list to trigger validation:
+-----BEGIN PGP SIGNATURE-----
 
-select:
-  properties:
-    compatible:
-      contains:
-        enum:
-          - airoha,en7581-pbus-csr
-          ...
-          - altr,sdr-ctl
-          - amd,pensando-elba-syscon
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqENegACgkQFA3kzBSg
+KbYL3xAAnXTTbIMKPiOxjw0K5A/IuoiHNDVE8zRP/VXQyUvXwDldLi9Z7zI0Fupn
+z0DYBOHDD0o93n5MSFTPloHy1AswaBTE5AS2+SXXa93Y4UFwzlm01jerxEt7fPI9
+Ub6Xdbh9nZMZWeU2D1N6v7oxIR9+ItjKVkRtuDaWwCV/+5+VVditTXHSYzajfCt0
+PJYrc4ijnJNk9Zf+ihEh3hEbBr2sgWBhjMdxfeO5TvW55AssxjsmuBGhX36FqxeO
+QFngNYdW6VMCLGQyz1C394cqPEjUlaty7dP03hWQQbSzF0HjJRWPd/U6OfpnsctX
+CoGXh/vW21px1NtWwxGpwxCs2JiqWJWlkHElfOxhUSRJZ6XqTDax9JYOsEoxImaG
+H/E5kn9NKHEhsXmmiNCehqE+mkGbsGa5KUF7IiCpaJT3dhbQ3eZr1h3HFfMIDNZ5
+uUHN0K417SYwElidclNTg/dgTFOIBF5n3S7mzKVmsSlohCF7GWVZuFS74UA69sGX
+mJtpBsh5KDvHoKSKsRrW4nf0yGGvFDyjuTpq9jebrRS6m6oHMn3EQEoasXAzJuDV
+aLGueh8Xccud3bycTPIbzCzov6q7zKEixh6JX0A9IjPpumM9B2uut9uSOZvTOIIG
+VISmDhuwyhrA1SzGq72S32gg8QuwX8m7ul7sDYBKVjDi7i6c4Ls=
+=zkNk
+-----END PGP SIGNATURE-----
 
-Without being added to this list alongside the other compatible strings,
-could device tree nodes using "ambarella,cv75-sec-scratchpad" bypass dtbs_c=
-heck
-validation entirely, allowing invalid device trees to silently pass?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818-cv75-v5-v5=
--0-7bbb12f0360f@ambarella.com?part=3D2
+--VExzrXGn0dd0n/c3--
