@@ -1,65 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A1E1C862D;
-	Tue, 18 Aug 2026 02:07:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB40135A53
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:12:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787018837; cv=none; b=efctVwZvcVwFs5c0FguIQ9iDo23LzTsqy4Q7W//P1iKcpWoU3gKHiMrrgA9FSzyNzucDKBnXNRaTvmRb5b2DVGPv9P4JGKNNYA2kQLJQMwZ2z/4ika1G/RBJWFKf9fsxe0FbvpyIG0AT/mHmU0GTLiLrDuP+Z1MMYyh2MPS7K4s=
+	t=1787019141; cv=none; b=I2NUWwo5sbRLQH0JkGVIYtyTatRejawzFA4z3RGOtHG9btPSOtx5NGhO0uSo3t9ljqN4FCveKIJc2UmZxQtzOUnUeOkYP8LP54UEpvphUbJwM3NtRjOpoEFjsz4JO0WMCSPRHIgLy87uuRQXdEU+Pq9+iYVwkuSJjkSWWJA2P4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787018837; c=relaxed/simple;
-	bh=kXubcTmBYtZ/Am9m2cRMO5VecS4Sbxt0HtinmoMAspU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u8+0fMOePN0Fzg7c8mG+//4Q8E1QTnBZIc56LTPn8jkrSoBb+2bVVosugMrr9oU7nP3kRrFo0NdilHxBFd9MYvcgUxmEweNMC2WV5/EVaMqQqdxRzbwNbNZmzIMeTrIbuijk7w+hVgtKz4KMV/ZbnxBHGXRgrzBW892HJ0eVac8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlzyTsnM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787019141; c=relaxed/simple;
+	bh=ilVxbAEyPCdQeyT159ppq7juBlEw4p6vfYYryqNole0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VnuElrzDdpfxReaOTr/jS/f3lVZOdp4mUYR1kVKWC5c3CE4FSCqCc39uUtisB5eOJU+WHs9FqLdcfVb8JQzLlNDwWo9mD0HN0wpLH7M/fMJBNCAMglUsM7YnzFtdiI3l1OL392FoOE6DYp48ULYqfr5I5p4dgnIH6Z5O3tp7MSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aD7sm3Ml; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlzyTsnM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8171F00A3A;
-	Tue, 18 Aug 2026 02:07:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aD7sm3Ml"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA4A1F000E9;
+	Tue, 18 Aug 2026 02:12:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787018836;
-	bh=4Twm40/J2sIMyzBqukyBfE0U96J7aDjmNtT9OUOe934=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IlzyTsnMemb2V5tgm9Et/RJz5dU0jGPuTuQj7gTlRMPJcqd8VTHTE95RnNxJmaIsf
-	 NIwdbVnPPkLaNwpofTtvtZjn12yioC1OtPQ/wlWhDQLsJReMACM2wI1LaPwHUQ90ff
-	 1tvaNHmY9+B//cCU+lcMtj3mSZYiX+T/xbKNRiiEgfpkDWw/7/Zi5p3Vzd/4873w/w
-	 s9b2VnVKPJP+lVrXPprEFrFjgstT15LcgQLfRNnF0teLBejOZfENc3ks/F3ySR2is5
-	 Kmczu/FnNOo2zqKdpEGj4TFYsFJj7/j/hjn+Z3D3l7Srl1MeLp96yyykN8AIuR1Eu7
-	 GD61ikN+7wdHQ==
-Date: Tue, 18 Aug 2026 03:07:10 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Petar Stepanovic
- <pstepanovic@axiado.com>, Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty
- <pbolisetty@axiado.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] iio: adc: add Axiado SARADC driver
-Message-ID: <20260818030710.146825da@jic23-huawei>
-In-Reply-To: <20260817135920.0000461d@gmail.com>
-References: <20260810-axiado-ax3000-ax3005-saradc-v5-0-bb0df3ecedaa@axiado.com>
-	<20260810-axiado-ax3000-ax3005-saradc-v5-2-bb0df3ecedaa@axiado.com>
-	<anoYDi-bt-t6ZeeD@ashevche-desk.local>
-	<20260817034541.053dac28@jic23-huawei>
-	<20260817135920.0000461d@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1787019140;
+	bh=ilVxbAEyPCdQeyT159ppq7juBlEw4p6vfYYryqNole0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aD7sm3MlsCsZVAYBe5iwRnyU6in82LmCTrmkdfYgYPHJu0L4JzuHqmw2heOCTgya2
+	 XhBoHFqbjvWv8fGg+rIdzXKkRLGGFwowCqTbu1urzj/MPigUjoJ3LevGRxqwuFbllp
+	 J+kfy7HF0Ekh5wDhxo1S0iLZ8AxdEEiMVW9l1fs4XYShKjle3F1+WCFZjKio8YbRbi
+	 wcPPW6Zp0nNzTa8G5an1vyuq4PSkGjBhqS3kXqJ3PapYlhZsShTclkeResfCHPPPfr
+	 FQl/fIWQ/zLXdG5zEYgdrb8hEdPryLjc2tZBdU3JD5ssdZohTlyr30O/Is0/bPlyHx
+	 +tFGAolrCQugA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: drm/bridge: anx7625: Add right justify
+ property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xin Ji" <xji@analogixsemi.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260818020559.961335-1-xji@analogixsemi.com>
+References: <20260818020559.961335-1-xji@analogixsemi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 18 Aug 2026 02:12:19 +0000
+Message-Id: <20260818021219.DCA4A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 17 Aug 2026 13:59:20 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
-> 
-> With the diff Jonathan sent in mind,
-> 
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> 
-Added.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Adding a vendor-specific DT property for audio interface format =
+bypasses standard ASoC DAI format negotiation.
+--
+
+--- Patch [1]: [PATCH 1/2] dt-bindings: drm/bridge: anx7625: Add right just=
+ify property ---
+Please note that due to recitation restrictions, I cannot quote the original
+patch code directly. The review below is provided as a free-form summary of
+the findings.
+
+commit c7f75f4b785470ba45b421324266273f5142da0b
+Author: Xin Ji <xji@analogixsemi.com>
+
+dt-bindings: drm/bridge: anx7625: Add right justify property
+
+This commit adds a new boolean property to the analogix,anx7625 device tree
+bindings. The property controls whether the driver enables the audio right
+justify function for the data stream.
+
+[Severity: Medium]
+Does adding a vendor-specific devicetree property for the audio interface
+format bypass the standard ASoC DAI format negotiation?
+
+The standard hdmi-codec framework already supports right justified formats
+using the existing DAI format structures, which are normally passed dynamic=
+ally
+to the driver's hw_params callback based on standard sound card properties.
+
+Creating a custom property like analogix,audio-right-justify-enable hardcod=
+es
+this configuration statically in the devicetree, which creates a permanent =
+ABI.
+Should this driver instead rely on the standard hdmi-codec API to handle the
+DAI format negotiation rather than introducing a custom vendor property?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818020559.9613=
+35-1-xji@analogixsemi.com?part=3D1
