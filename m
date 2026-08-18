@@ -1,141 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EBB44A3E9;
-	Tue, 18 Aug 2026 18:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7736443FD26
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 18:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787076210; cv=none; b=tDy40sDNpNBOHHL+m5xSY3ZKeaZiug6+aCoMqQdlxr8zPciWsg7UGhBN3UaeTQQxx0ksahrlD5x/y9lkZKn6vSkmvF0baMmP0GydpgRNbpxFgkc/WeyyQ06ZzhmZab+L8JeTLfzbnVQHYaDASupZz9/pf1fdO9KLDN4EQBkS1Q8=
+	t=1787076523; cv=none; b=MnJhyGtMPNXhLdnSDaWa1K86h/fegZnQkO3oIM2bPQOo+o6LZrqw35IJkIMLs6eJ4nUVzErCn4BPjyhiVI4y10p3Q4YGoBlvQCYQJkvXmUS5JqcvKPRT1HzQ81ePrrI8D/wPU1qTEL7up0r+We3bxZ7XX/vBRlzMBlzFG4gx0sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787076210; c=relaxed/simple;
-	bh=8HrdoPzCe8M0K/kkdyBGtCSmfZLfdSCynj06k0MN/yw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=orwZKdz7W4YJOg2hHNOcpY3rXobOgYhLWey+WaQAMk/jXRV74oJCeKBUd/Kd4ADS8/b7V21lX0oboPeDOHKAhrTDWZigi0/DZr9kRZRH8xeIVaQpMbl1Zuyuu0AhJ/N5fdsHinBRU2UuTaqaTS6mPu291FZ0eR07fn53KNjTCgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDrV96yL; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787076523; c=relaxed/simple;
+	bh=ljq6wlcrbG+jNSceqovgztXUVGeO8fWkLNz+62ATjv4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YryPUZ/FSq77iKKIcupPNGGKmitQUXtUh7yUIa2Ixlb1Bthe2P58JhIvuTNOGZqi9W906BdNkq2QRNqjHsaY7q9QXQPyBXKO5CkzfkZ1iiqQ/sCKmWvEUX/nKg/w4egzbh3g8tiCB0TFwNpmLV1I3np3Y1N97uD7JvWQWl3OmUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d+d86JVc; arc=none smtp.client-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDrV96yL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 12606C19425;
-	Tue, 18 Aug 2026 18:03:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787076210;
-	bh=8HrdoPzCe8M0K/kkdyBGtCSmfZLfdSCynj06k0MN/yw=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=bDrV96yLOsjewhV0h5DUWnTFMxM6j0kWlaPI4v966JosL7kdaB2pG7AtWQlgdZFS1
-	 yn4GWsYUfIxzF0ipwI/K0F3JXX61kUl+z0I5CUyqb+AcHDKyaP1VNn7uUj9dg2d78b
-	 UoVmKLnq5ca6wN592PDCj9Ksf7d3mAo4ghmU/mkpacHKboDhdjG1oLR3ak1Dqt2vdi
-	 aHFje6FnKBxam5B/SRRBXZd008L5v5S1Qh+Sv/88tV4XQFNYqT/W2hGdQR0/rct5ki
-	 yMcrhuwRFIjD56FspzF12TZvmC5RTmx7PnkaSVyUV0SreXQAWFl3nPZT6J1Wmr4avX
-	 r2t5rpyx3wzqQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6521C5DF7D;
-	Tue, 18 Aug 2026 18:03:29 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Subject: [PATCH v3 0/2] watchdog: Add Exynos5515 watchdog timer support
-Date: Tue, 18 Aug 2026 19:03:16 +0100
-Message-Id: <20260818-for-next-lucky7-watchdog-v3-0-2912bd122c57@member.fsf.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d+d86JVc"
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5bf83925ddaso71889e0c.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 11:08:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787076520; x=1787681320; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/Q6ZML4PkLQlkM1EJlZ9nhqZzRAkcWVhx1GwB+/mWrQ=;
+        b=d+d86JVccx+H1G4FMonnNGgg4Bc7u9+04sKpwI3vbKVvwZVOIuVWfPxPmHOqKhQa/0
+         RKiP3Is+Az43UdRnSKvXgig4do3imNZ3v+j58SALH708yt4UzvfCjRFj0J5BDKDT8k0i
+         cKhKfk/lXXEOxnFFdVDXu+lHAkx2EOpi10wUp6tdqMUOndQBjf8JZVJBT5gBGkvk0P5C
+         rvbC3HPCuGd0NYx8Y/NRVA+4SNO46iW5KFVAhDd6rPZco4XlsuahlLI14pqoCnvBZZ4w
+         j+Sj0pRf16bJb9ie87bfB65Q846eofBsgOTKH7jq/jNXwkdYwHjq9BRUokm1AtASBWpZ
+         nGrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787076520; x=1787681320;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/Q6ZML4PkLQlkM1EJlZ9nhqZzRAkcWVhx1GwB+/mWrQ=;
+        b=j9auzXrQRHpOvGECEPZlmhG5UbAgTpcbw0RG7vShmnAZaFfgsgBnRijVDIff/MuZ6q
+         1D7YIy3SKL6tX2qWKkAtSpenHAx1lgLvkCEKrc7c9CPa6Xx9RSiV3s4a0XAi7DI5ay3r
+         a0/BV2QUSiAntDO8fvBRbCwQH0BEeBgv1gStV2IaBj/oWmKnUlqdNl7dkn3rqpJ8KZ/4
+         RoxcrYc1ev1uSyBNccrvYgk2nGZeheLDHoazJQc02OrrKGTAc1Wohe75X/UuAahPmxA0
+         iO8lsIOoGKJsise5T3W9J5fygCrHObGjSVEt5HgUSEJLNsmLwr8y5xZzdSeyPJm+rY3i
+         WYXw==
+X-Forwarded-Encrypted: i=1; AHgh+RoXiL8OkEaOgi6yss/SRSJmZCRaNFl0r5SD2GI9lb8b43Z+1umXPwl/2H6kn17BpYpe48Dj/AckZs8z@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRnIcp/uvIq+deVOOdO9LxG/Ad+Mb2B4Ku6VvDB+Xjeg3okbJq
+	YjKSTkg53UeEV72VtM+0l3Pt6UDV72c1b31sKYX/Au0Dj2g9PhaqkZMp
+X-Gm-Gg: AR+sD11YREfQY6fZETXm83z3XYWusJgxn3M5xEkwpI1SkLbBFfDAic/kOIjkGfDhKGK
+	Wpm2D5evK8XyX78UBt6LMh+ZarhkOEyiZTs542d/f4YFeMK/Oaum0PtKYv5VkTVNU1UxLD0AYKk
+	0Tm3C43jXwK49uGmTV06+tPddyYrRHrEX+jQdeBTcN088dYHJECP+1r0AtHg/ljKztil4+qkQyB
+	ryrbesAqU8OdLUAx9onJ21rD1ZkJebj8caInCPTx+pp7YSmvfR8hbPpKR8NYHvB+S9OXWHUJstN
+	BfrBqflLP+U3QwKXcGAawDc0uLaaeNyMiGFSXqVu8ylsj+AmGYwGnDDJzMSz1JPI832sZRT/G68
+	BwvpWxuHFtALFanaT/Ylb0utYRLUN36+/AJYXd6d+7F9/Njxq3580Uty9N2CqE5vlDEuzXDFwO6
+	+9OWxe4eheY1p6voOOSEfHT23vIsA4sqfKTtiIEws4GZk00z5KDgA62z3kqR+u6d1KNWY=
+X-Received: by 2002:a05:6122:3401:b0:5bf:4522:fca7 with SMTP id 71dfb90a1353d-5c591c966b6mr8543926e0c.4.1787076520216;
+        Tue, 18 Aug 2026 11:08:40 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c5c78ea7desm4440166e0c.13.2026.08.18.11.08.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 11:08:39 -0700 (PDT)
+Date: Tue, 18 Aug 2026 15:08:33 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+	festevam@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 6/6] arm64: dts: freescale: imx8mp-verdin: Add Mezzanine
+ with Toradex Display 10.1" LVDS V2
+Message-ID: <juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf>
+References: <20260813133335.1941580-1-leoreis.costa@gmail.com>
+ <20260813133335.1941580-7-leoreis.costa@gmail.com>
+ <an3brO5COdw_F76m@SMW015318>
+ <rglymw6p4c65yoqz3pjn6e6nq7cil2fa7m7dqghshgdpavby7d@kyza3ceavq6z>
+ <an3tiDOUUYLb8PAq@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGSehGoC/32N0Q6CIBhGX6VxHQ4QRbvqPVoXgj9KpTRA0znfP
- bW1tbW6PNv3nTMhD86AR4fdhBz0xhvbLhDvd0jVRVsBNuXCiBGWkowmWFuHWxgCvnXqOgr8KIK
- qS1vhmEktE0pzqila7ncH2gyb+nR+se/kBVRYfeuiNj5YN27tnq67d0b8zvQUE1xQHgsCjMicH
- RtoJLhIex1ZV6G11bNPW/bHxhZbKnisucgLLvSXbZ7nJw9BaFMlAQAA
-X-Change-ID: 20260815-for-next-lucky7-watchdog-32bfb51191f1
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-watchdog@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2292;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=8HrdoPzCe8M0K/kkdyBGtCSmfZLfdSCynj06k0MN/yw=;
- b=owEBbQKS/ZANAwAIAUknAbLEetfrAcsmYgBqhJ5qDXxwECM3vqTnOkqyEwFfgqeEcIY8Lz5Sj
- 56zeQpl9qCJAjMEAAEIAB0WIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCaoSeagAKCRBJJwGyxHrX
- 68wvD/9K1UE+6Xx6yiiz86LOMAbT+nK3nUF/FmuEjTVEGPmFsGz6WBfnSESJynM+wMcaSNXWb+l
- ChR1ItFfgjaQDUvWbfCUOOkW9oa4HWP0fUyavot8vudQKuDLus8VmmBobrEZO+03EWupLL9XYmv
- n+AqpBStCIhoPd5sVk+jux1ygvVr9wc9Va4fHZo/eY/m3Wb0nphLrw2k+zY8AD8vZCC4h8XV3r2
- YLJ5ki91OM+QGc66+XJ7p+oOkIdrxcZbQIwtINxqRB7GNmo6Ln4PDwfPRlOBN4Ds9juSnICJ3oB
- DVdRoY7OGMfQOInzH9SxxRD6SwgF5dwSEXbU6Kp7vi0ojku8wU6JYAtjVd58612lAmuqCv96UKW
- 2nfTbPJFSoip6kjdQLKOaG+2xZlrYJKHNfrzLJ8053QFslU3/GHosv5Oe55m9nrmnafnMvWPHYN
- sLywFDRZS7MaTzTcJIzbFthUI5rqmfr9uuLJLKICA2OujHI1/n22aZ0RezKnfyeaLRfmdrbzEkf
- llMbpgbp/cnwxEOOUwx7kLoI1iGpkVdrO7x4DBi3BsCsC3uNnhPWMU3kwLiHn9/LcT+5VPhKqrf
- ltyG9zTWBdzoknvWDZFud1plPQhCDn8QcsMbZKP6y287LbkNiZQ2embLt7+Z4l/vxTuGbDDmc2E
- 5nY1gdjXB9wKNZA==
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <an3tiDOUUYLb8PAq@SMW015318>
 
-Hi there,
+On Thu, Aug 13, 2026 at 11:15:04AM -0500, Frank Li wrote:
+> On Thu, Aug 13, 2026 at 12:43:29PM -0300, Leonardo Costa wrote:
+> > On Thu, Aug 13, 2026 at 09:58:52AM -0500, Frank Li wrote:
+> > > On Thu, Aug 13, 2026 at 10:33:35AM -0300, Leonardo Costa wrote:
+> > > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > > >
+> > > > Add a device tree overlay enabling the Toradex Capacitive Touch Display
+> > > > 10.1" LVDS V2 on the Verdin Development Board with Verdin iMX8M Plus
+> > > > Mezzanine expansion board. The panel connects via the i.MX8M Plus LCDIF
+> > > > on the Mezzanine LVDS interface (J10). The panel is an Opto Logic
+> > > > SCX1001511GGC49 10.1" WXGA TFT LCD LVDS and the touch input is provided
+> > > > by an ILITEK ILI251x capacitive touch controller.
+> > > >
+> > > > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
+> > > > Link: https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine
+> > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > ---
+> > >
+> > > what's difference with Add Toradex Capacitive Touch Display 10.1" LVDS V2
+> > >
+> > > why not share one dtso?
+> > >
+> > > Frank
+> >
+> > Hi Frank,
+> >
+> > There are two main differences:
+> >
+> > 1. The mezzanine one uses different backlight controll pins, so here we
+> > use the 'backlight-mezzanine' node, instead of the 'backlight' one, used
+> > in the one without the mezzanine.
+> >
+> > 2. The touchscreen GPIO and interrupt pins are also different with the
+> > mezzanine board.
+> 
+> 
+> And there are for imx8mm
+> https://lore.kernel.org/imx/20260724-v1-verdin-imx8mm-dtbos-v2-3-9d7988bd76f6@toradex.com/
+> 
+> https://lore.kernel.org/imx/sr26lfvwasgcosfzcf4ydtwxwjjutlio2yqpgxldatpzjo7e4y@77k7gefnjzvl/
+> 
+> Any ways, it is too late for 7.3, we have enough time for 7.4 to discuss
+> work on optimization solution.
+> 
+> If use nexus connectors, we can share one dtso now if there are not
+> clock settings.
 
-This patchset adds support for the Exynos5515 SoC's watchdog timer
-to the S3C2410 watchdog timer driver.
+Hi Frank,
 
-There is one checkpatch warning for this patchset:
+I tried implementing the nexus connectors in imx8mp-verdin-wifi-dev.dts, and
+modify the Mezzanine overlay for the LVDS V2 display to do an initial test
+(diff with the changes at the end of the email). They worked partially, but it
+introduced an issue where the drivers come up much later. Before, the drivers
+relevant for the display (in this case, LCDIF and the touch controller
+specifically) came up at around ~8s. After introducing the nexus connector they
+come up at around ~20s, after the board has already booted (complete logs at
+https://paste.debian.net/hidden/81acfa7d):
 
-> -------------------------------------------------------------------------
-> Commit 8f4ec3a9b89b ("watchdog: s3c2410_wdt: Add exynos5515-wdt compatibl
-> -------------------------------------------------------------------------
-> WARNING: Avoid unnecessary line continuations
-> #26: FILE: drivers/watchdog/s3c2410_wdt.c:240:
-> +       .quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
+    [   21.008400] input: ILI210x Touchscreen as /devices/platform/soc@0/30800000.bus/30a30000.i2c/i2c-1/1-0041/input/input3
+    [   21.014785] [drm] Initialized imx-lcdif 1.0.0 for 32e90000.display-controller on minor 2
+    [   21.029634] Console: switching to colour frame buffer device 160x50
+    [   21.029823] imx-lcdif 32e90000.display-controller: [drm] fb0: imx-lcdifdrmfb frame buffer device
+    [   21.031376] imx8m-blk-ctrl 32ec0000.blk-ctrl: sync_state() pending due to 32e30000.dwe
 
-Which seems to be erroneous: this line continuation is necessary
-(and is done by every other existing entry).
+Was this behavior observed before? It may have not been noticed, since the
+drivers do come up at some point, and it may not be an issue for other
+interfaces, or they may actually come up earlier in other cases. In our case
+this is important though, since visual feedback from the display is expected
+early.
 
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
----
-Changes in v3:
-- Set reset_mask_inv to true
-- Remove erroneous QUIRK_HAS_PMU_AUTO_DISABLE flag
-- Link to v2: https://patch.msgid.link/20260818-for-next-lucky7-watchdog-v2-0-6743f479a47f@member.fsf.org
+It seems that the drivers are being deferred at boot start by the
+device_links_check_suppliers() function. It runs through the drivers before
+they're initialized and defers them if their suppliers are not available. The
+GPIO and PWM drivers are able to follow the gpio-map and pwm-map properties
+(through the of_parse_phandle_with_args_map() function), but from what I see,
+device_links_check_suppliers() has no such mechanism. It follows the phandle to
+the nexus connector node only, and since there's no compatible driver for it,
+the function defers the consumer drivers used in the overlay.
 
-Changes in v2:
-- Add samsung,cluster-index: false to documentation
-- Remove SoC comment from documentation
-- Correct signed-off-by tag in commits
-- Link to v1: https://patch.msgid.link/20260817-for-next-lucky7-watchdog-v1-0-a14370e20b92@member.fsf.org
+I think this is what is happening mainly because setting the
+fw_devlink=permissive kernel parameter (which sets the DL_FLAG_SYNC_STATE_ONLY
+flag) solved the issue, though I could be misunderstanding something.
 
-To: Wim Van Sebroeck <wim@linux-watchdog.org>
-To: Guenter Roeck <linux@roeck-us.net>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>
-To: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-watchdog@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-samsung-soc@vger.kernel.org
+	int device_links_check_suppliers(struct device *dev)
+	{
+		...
+		list_for_each_entry(link, &dev->links.suppliers, c_node) {
+			...
 
----
-Aiden Isik (2):
-      dt-bindings: watchdog: samsung-wdt: Add exynos5515-wdt compatible
-      watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
+			if (link->status != DL_STATE_AVAILABLE &&
+			    !device_link_test(link, DL_FLAG_SYNC_STATE_ONLY)) {
 
- .../devicetree/bindings/watchdog/samsung-wdt.yaml  | 23 +++++++++++++++++++++-
- drivers/watchdog/s3c2410_wdt.c                     | 12 +++++++++++
- 2 files changed, 34 insertions(+), 1 deletion(-)
----
-base-commit: acde40ba506aae78633e080b5704d33cf4bc13c6
-change-id: 20260815-for-next-lucky7-watchdog-32bfb51191f1
+				...
+				device_links_missing_supplier(dev);
+				ret = dev_err_probe(dev, -EPROBE_DEFER,
+						    "supplier %s not ready\n", dev_name(link->supplier));
+				break;
+			}
+			WRITE_ONCE(link->status, DL_STATE_CONSUMER_PROBE);
+		}
+		...
+	}
 
-Best regards,
---  
-Aiden Isik <aidenisik@member.fsf.org>
+Has this behavior been observed before? Do you know of any work being done that
+addresses this?
 
+See below the changes that I made for this test, relative to my last patch
+(only a draft):
 
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
+index b78322907192..4aa1c407af3f 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
+@@ -21,9 +21,19 @@
+ #include "imx8mp-pinfunc.h"
+ 
+ &{/} {
++	backlight_lvds: backlight-lvds {
++		compatible = "pwm-backlight";
++		brightness-levels = <0 45 63 88 119 158 203 255>;
++		default-brightness-level = <4>;
++		/* Verdin GPIO 4 (SODIMM 212) */
++		enable-gpios = <&lvds_native_connector 1 GPIO_ACTIVE_HIGH>;
++		/* Verdin PWM_2 (SODIMM 16) */
++		pwms = <&lvds_native_connector 0 6666667 0>;
++	};
++
+ 	panel-lvds-native {
+ 		compatible = "optologic,scx1001511ggc49", "panel-lvds";
+-		backlight = <&backlight_mezzanine>;
++		backlight = <&backlight_lvds>;
+ 		data-mapping = "vesa-24";
+ 		power-supply = <&reg_3p3v>;
+ 		height-mm = <136>;
+@@ -53,13 +63,6 @@ panel_lvds_native_in: endpoint {
+ 	};
+ };
+ 
+-&backlight_mezzanine {
+-	/* Verdin PWM_2 (SODIMM 16) */
+-	pwms = <&pwm2 0 6666667 0>;
+-
+-	status = "okay";
+-};
+-
+ /* Verdin I2C_2_DSI */
+ &i2c2 {
+ 	#address-cells = <1>;
+@@ -69,10 +72,10 @@ touchscreen@41 {
+ 		compatible = "ilitek,ili251x";
+ 		reg = <0x41>;
+ 		/* Verdin GPIO_3 (SODIMM 210) */
+-		interrupt-parent = <&gpio1>;
+-		interrupts = <5 IRQ_TYPE_EDGE_RISING>;
++		interrupt-parent = <&lvds_native_connector>;
++		interrupts = <1>;
+ 		/* Verdin GPIO_2 (SODIMM 208) */
+-		reset-gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;
++		reset-gpios = <&lvds_native_connector 0 GPIO_ACTIVE_LOW>;
+ 	};
+ };
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
+index 72a4f846d694..1103da3d34ba 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
+@@ -4,6 +4,28 @@
+  */
+ 
+ / {
++	lvds_native_connector: lvds-mezzanine-connector {
++		// NOTE: Placeholder name, no binding for this yet
++		compatible = "tdx,verdin-lvds-connector";
++
++		#gpio-cells = <2>;
++		gpio-map = <0 0 &gpio1 1 0>, /* Touchscreen reset GPIO */
++			   <1 0 &gpio1 6 0>; /* Backlight Enable GPIO */
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++
++		#pwm-cells = <3>;
++		pwm-map = <0 0 0 &pwm2 0 0 0>; /* Backlight PWM */
++		pwm-map-mask = <0x0 0x0 0x0>;
++		pwm-map-pass-thru = <0x0 0xffffffff 0xffffffff>;
++
++		#address-cells = <0>;
++		#interrupt-cells = <1>;
++		interrupt-map = <0 &gpio1 5 IRQ_TYPE_EDGE_FALLING>, /* Touchscreen interrupt */
++				<1 &gpio1 5 IRQ_TYPE_EDGE_RISING>;
++		interrupt-map-mask = <0xffffffff>;
++	};
++
+ 	native-hdmi-connector {
+ 		compatible = "hdmi-connector";
+ 		label = "X37";
+
+Leonardo
