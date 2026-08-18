@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A10E36B061
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:38:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50ED442386
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:40:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045916; cv=none; b=syMZEC3iTvdqKQ5tS3utQqI8ssgRcGIpiyt5u4ctqrz0DpuA+ZwTlFqcBCpomFaAy2Myqk7Y+kcSvorUIjlf6iNo3Za/btTDROwKPg6sFAzQeAwKIWtd19HtVvKlNlQ1biB3Wx2i3X4TynssmlqeL0XaGnJaJRmqmG+ly8sRal4=
+	t=1787046055; cv=none; b=f3jZqx5ZcLp9uqAy6X/v7Y02JKKDtcEa24WJJVGkL+iESRwHsSA8QuESjKgEg6KBK914QhnF0avaIytmxTJnFoZWJBxoUV4wpXMfb7id7bebTpqzOojqpORltve4+svmAw3cpQIZuIhc3hAL2xItuGZQkdVi7R6BxIFr9TdjDPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045916; c=relaxed/simple;
-	bh=ffdaodVRGP9CdHK75lxosLYfxIYIEcyqRWS9Jqacn7A=;
+	s=arc-20240116; t=1787046055; c=relaxed/simple;
+	bh=CfpLrLVwOfOpecHhzb0xBAXiLsHhMd7vQNrgNBl1Ndk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pqI2UdMB0/UisApDIjYnMycMsHxflqqC13fwoVuLYi29uRkaFZ1bVGMYQaTe610EzPso5Qt64gdUEkmKHTpJtzMQ6hpukMIV1tTLrm+j9qLiqK1ivHahkUC0Q9lrND8ZrGlhPO1if6NSHSy/3sOfF1hk3QMlIgEcDJrI1W1hSdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OP9IXrlN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FLJNRyxYagh06V7tqgC10fknr5N0eaI1W3P89fz+wkCYQMrn+uonzEBhPMtB98s3dEteg4quBjISnynnFnayGeMIzuGYP7pmGxt8jWYpMG1ZsZ135WFw00jk4XWjz/AWwpEC77o4xuDatcgKnZOpFyg0JxZvOzcJyrdycwFT1Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VnZY+VG/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OP9IXrlN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588661F000E9;
-	Tue, 18 Aug 2026 09:38:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VnZY+VG/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50CD11F00A3A;
+	Tue, 18 Aug 2026 09:40:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787045914;
-	bh=LYWM/vqjVhgqoXaaZlUuskjGXc/aDxT5/B9ctw7NduA=;
+	s=k20260515; t=1787046051;
+	bh=8J5QkVNfHFc9ulT/thx/UfNunpJ6i8dhNL5NCSyWxBc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OP9IXrlNlI9GiG5PW+WCD1UIIehXp+oTdrIAqc09lML+qaofbx+cnAvl97IoTNnUj
-	 trIGmo38s69Jdc01f0yhFuMQT9BpYo2jl5c41ZCgQo8JJplMFE3gcD3kIL2HpxfaQe
-	 gXvfcSIC6dsF9AG/MFHKHetCwB+V6uQr69AQb5VaH6Rxgn9dV743SSOtc6he94rltI
-	 AkIaXlbCUXpHHQhjVpge3CG6T5hSx8Q5kdrFSuBbnUXH+ZdGqL+iOOM4aKEMPzxb7z
-	 q9k4/6m1Hns3zHDw9gx4AqDb1Z6duqiRW3bBy/7ei3S4q2MoVxnWcCnPO+DCfshh0Z
-	 TFJToIShBGnAQ==
+	b=VnZY+VG/ZofMdUbioH7CeMhpXZKr7u4Rm/hvt2TFrR24jGdgIbi50vWnnLb6jg0dh
+	 2XhCRh+BMoJ+0xTHvb5A7klQkkmvUSGIKVms0vwPMORNaXUzyGhuwcLvGhuvKrwuS6
+	 3TWI/CgcRMSl0G3INrqMqoioXzvhNc8oOMmYUIbHXRxrGtoKTlsCKQhuWbgsQ7S0Da
+	 dMH3qpKeyjr/FgxBf9vxoS3oFviuP2svfGolmiExPrE2tE8ZWQWbqJIBJ+YOBjLkqt
+	 gw9jRGqU/a3FbQxxzl2258onz4Bs/bWJXo1CXc5lKQzWwPPHzvqvbBXRsKZdGDeWTe
+	 SS+1bfMlUONdw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] of: reserved_mem: release dynamically allocated
- no-map region on init failure
+Subject: Re: [PATCH v2 2/5] of: reserved_mem: reject static regions
+ overlapping no-map memory
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260818092420.2859026-5-chenwandun1@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260818092420.2859026-3-chenwandun1@gmail.com>
 References: <20260818092420.2859026-1-chenwandun1@gmail.com>
- <20260818092420.2859026-5-chenwandun1@gmail.com>
+ <20260818092420.2859026-3-chenwandun1@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 09:38:33 +0000
-Message-Id: <20260818093834.588661F000E9@smtp.kernel.org>
+Date: Tue, 18 Aug 2026 09:40:50 +0000
+Message-Id: <20260818094051.50CD11F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,111 +49,131 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] `__reserved_mem_alloc_size()` ignores the error return value and c=
-hecks `base =3D=3D 0` for failure, leading to Use-After-Free of reserved me=
-mory regions.
-- [High] Statically allocated reserved memory is unconditionally freed back=
- to the OS on driver initialization failure, violating the DT specification=
- and causing memory corruption.
+- [High] The patch provides an incomplete fix for overlapping reservations,=
+ allowing a static `map` region to silently overlap an existing `no-map` re=
+gion.
+- [High] Error handling in `__reserved_mem_alloc_size()` ignores the return=
+ code, leading to a Use-After-Free of physical memory if marking a dynamic =
+`no-map` region fails.
 --
 
---- Patch [4]: [PATCH v2 4/5] of: reserved_mem: release dynamically allocat=
-ed no-map region on init failure ---
-commit cf35e3414292da4070c89965dbb1bce8416755e9
+--- Patch [2]: [PATCH v2 2/5] of: reserved_mem: reject static regions overl=
+apping no-map memory ---
+commit 5bad18fc3e691089fa21e129bf6cd3d6145676c4
 Author: Wandun Chen <chenwandun@lixiang.com>
 
-of: reserved_mem: release dynamically allocated no-map region on init failu=
-re
+of: reserved_mem: reject static regions overlapping no-map memory
 
-Dynamically reserved-memory regions are added to memblock.reserved by
-memblock_phys_alloc_range() during __reserved_mem_alloc_size(). When a
-reserved-memory region's driver initialization fails,
-fdt_init_reserved_mem_node() cleans up the reservation. For no-map
-regions it only calls memblock_clear_nomap(), leaving the range in
-memblock.reserved and unavailable for normal memory use.
+Static no-map reserved-memory regions are marked in memblock.memory rather
+than memblock.reserved. So the reservation overlap check does not reject
+a static region that overlaps existing no-map memory. Both regions can then
+be initialized and hand the same physical memory to different drivers.
+This commit rejects static regions that overlap existing no-map memory.
 
-Fix it by freeing the region on init failure when it was dynamically
-allocated.
-
-Sashiko found this issue in [1].
-
-Link: https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kern=
+Link: https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kern=
 el.org [1]
 
 > diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 491d64d93d707..f25dc0cca2f06 100644
 > --- a/drivers/of/of_reserved_mem.c
 > +++ b/drivers/of/of_reserved_mem.c
-
-[ ... ]
-
-> @@ -567,7 +568,7 @@ static int __init __reserved_mem_alloc_size(unsigned =
-long node, const char *unam
->  	}
+> @@ -152,7 +152,8 @@ static int __init early_init_dt_reserve_memory(phys_a=
+ddr_t base,
+>  		 * if the region isn't memory as it won't be mapped.
+>  		 */
+>  		if (memblock_overlaps_region(&memblock.memory, base, size) &&
+> -		    memblock_is_region_reserved(base, size))
+> +		    (memblock_is_region_reserved(base, size) ||
+> +		     memblock_overlaps_nomap(base, size)))
+>  			return -EBUSY;
 > =20
->  	fdt_fixup_reserved_mem_node(node, base, size);
-> -	fdt_init_reserved_mem_node(node, uname, base, size);
-> +	fdt_init_reserved_mem_node(node, uname, base, size, true);
-> =20
->  	return 0;
->  }
+>  		return memblock_mark_nomap(base, size);
 
 [Severity: High]
-This is a pre-existing issue, but is it possible for
-__reserved_mem_alloc_size() to ignore the error return value from
-early_init_dt_alloc_reserved_memory_arch() and only check if base is 0 for
-failure?
+This isn't a bug introduced by this patch, but since this patch is fixing
+overlap checks, does the !nomap path still allow a static map region to
+silently overlap an existing no-map region?
 
-If early_init_dt_alloc_reserved_memory_arch() fails after setting *res_base
-because memblock_mark_nomap() fails:
+If a Device Tree contains a no-map region followed by a regular map region
+pointing to the same physical address, the no-map region is processed first.
 
-early_init_dt_alloc_reserved_memory_arch() {
+When the map region is processed, nomap is false, so it bypasses the
+overlap check updated here and directly calls memblock_reserve():
+
+    drivers/of/of_reserved_mem.c:early_init_dt_reserve_memory() {
+        if (nomap) {
+            ...
+            return memblock_mark_nomap(base, size);
+        }
+        return memblock_reserve(base, size);
+    }
+
+Since memblock_reserve() adds the region to memblock.reserved without
+checking for MEMBLOCK_NOMAP overlaps in memblock.memory, both regions
+can be initialized. This would hand the same physical memory to different
+reserved-memory drivers.
+
+Should the !nomap path also check for overlaps against existing no-map
+memory?
+
+
+While reviewing the memory allocation paths, I also noticed a pre-existing
+issue in __reserved_mem_alloc_size().
+
+[Severity: High]
+This is a pre-existing issue, but could this error handling cause a
+use-after-free of physical memory if memblock_mark_nomap() fails?
+
+Looking at early_init_dt_alloc_reserved_memory_arch():
+
+    drivers/of/of_reserved_mem.c:early_init_dt_alloc_reserved_memory_arch()=
+ {
         ...
+        base =3D memblock_phys_alloc_range(size, align, start, end);
+        if (!base)
+            return -ENOMEM;
+
         *res_base =3D base;
         if (nomap) {
-                err =3D memblock_mark_nomap(base, size);
-                if (err)
-                        memblock_phys_free(base, size);
+            err =3D memblock_mark_nomap(base, size);
+            if (err)
+                memblock_phys_free(base, size);
         }
         ...
-}
+        return err;
+    }
 
-The base variable in __reserved_mem_alloc_size() will be non-zero, but the
-memory has already been freed. Since __reserved_mem_alloc_size() only checks
-if base is 0, it passes the error check and registers the freed memory.
+If memblock_mark_nomap() fails, it frees the allocated memory and returns
+the error code, but *res_base (the base pointer in the caller) remains
+set to the freed address.
 
-Could this result in a use-after-free if the OS hands the memory out to
-other subsystems while it is still mapped or used by the reserved region?
+In __reserved_mem_alloc_size(), the return code is ignored:
 
-[ ... ]
+    drivers/of/of_reserved_mem.c:__reserved_mem_alloc_size() {
+        ...
+        ret =3D early_init_dt_alloc_reserved_memory_arch(size, align,
+                                                       0, 0, nomap, &base);
+        if (ret =3D=3D 0)
+            pr_debug(...);
 
-> @@ -707,7 +710,8 @@ static void __init fdt_init_reserved_mem_node(unsigne=
-d long node, const char *un
-> =20
->  		if (nomap)
->  			memblock_clear_nomap(rmem->base, rmem->size);
-> -		else
-> +
-> +		if (dynamic || !nomap)
->  			memblock_phys_free(rmem->base, rmem->size);
->  		return;
->  	} else {
+        if (base =3D=3D 0) {
+            pr_err(...);
+            return -ENOMEM;
+        }
 
-[Severity: High]
-This isn't a bug introduced by this patch, but could this logic
-unconditionally free statically allocated memory without the no-map
-property back to the general pool?
+        fdt_init_reserved_mem_node(node, uname, base, size);
+        ...
+    }
 
-If a driver fails to initialize a statically defined reserved memory region,
-and the region does not have the no-map property, it is freed here.
+Because __reserved_mem_alloc_size() ignores ret and only checks
+if (base =3D=3D 0), it will proceed with the freed memory and register it v=
+ia
+fdt_init_reserved_mem_node(). The page allocator will hand this memory to
+regular allocations while a reserved-memory driver also uses it.
 
-According to the Device Tree specification, if a driver fails to initialize,
-the OS must not use the memory for general purposes unless the reusable
-property is explicitly present.
-
-Will this cause kernel memory corruption if the general buddy allocator
-hands this memory out to unrelated kernel subsystems, but the firmware or a
-coprocessor still expects the region to remain reserved and accesses it?
+Should this check be if (ret !=3D 0) or if (base =3D=3D 0 || ret !=3D 0) to
+properly catch allocation failures?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818092420.2859=
-026-1-chenwandun1@gmail.com?part=3D4
+026-1-chenwandun1@gmail.com?part=3D2
