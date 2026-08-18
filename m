@@ -1,205 +1,245 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013071.outbound.protection.outlook.com [52.101.72.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3685D47D46D
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787071409; cv=none; b=UmM/IEibo3vGSMpS44u0+18JTmPuqYjsXIY1+fVXT5h1N2SUF80xNAXJKqxOi9yclbKR3wtckrlitrh5sG+uhMfC2IEySv0eISyLNoIqTiHjLcZ3sloFA+ZG7K6UAMNr+Mi2zQfwJWsK641OddvY77EmvKtnnbR6D1DGtnqCAVw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787071409; c=relaxed/simple;
-	bh=K+QUy4zLmlv4+MaVDHnBLu+gH/Gcy3fxKtNBfHWbBA8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aYZw71BZHpaDaXioG68H78CkvzT4Cyxdmf5Uz3K0Gm3sbznFJpjHHOZLiJdh/cZvEFYBkvRGOezoY6fda//1ViTb83MTlPK9hKY5hLDX/jtcn/JFlMeCQdEt2AF9q0D7h8Xhj/kceySizlyBbNyoviVz0GnQPzKDHUDxGzeZ8ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A9EbPXO1; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994E642903C;
+	Tue, 18 Aug 2026 16:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787071933; cv=fail; b=RuHw2Zx5wgLU6jQ6qejNTa4VKaJPrSitnQTD1R5YALQmyGhJgUx8ZqWwwj1r9ZXj3HPtqRTN8csGCNZDTjZfEphDZ/HsTACh98c0Um4AL61uz1IHNcaNrC2wosJuCXSLGugmXZpsnf/1lWUv/sB9gGy67C9eWmCbya8j6mKaixo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787071933; c=relaxed/simple;
+	bh=5Lx7VQj+B0Cijq6yzzU4TA2qWI+Mwf1DERZXY0FDiqc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=mwLaQ92gjeRwL36mjQq13wBV0NXFR1mmEMmXrNqq/1OMRTsFQzD4/mG1gp0derEep7P1Yi3R6fKRhZ+hAgdfZ1AYmpACmJI9Hcpi4762HivyFpc7ujqMYdzjzjkIKYEoNO93v+g0P5dnWnrAFdS22fk40mWtv5qGl9J42WTqQSc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lyYvcwo7; arc=fail smtp.client-ip=52.101.72.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A9EbPXO1"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so136323b3a.3
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:43:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787071407; x=1787676207; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6RTooZUiv9NtYPBqi5Uj7Uh2pUea9ucaOoXpNtgOCTw=;
-        b=A9EbPXO1ApjFrzE60rfXTYWX/lt4OA+9biDGASkShdcYuPToMmry5pfswW7DOl8B8k
-         azeyR2+lQOggWTdQA1DgCooyTQg8ejZEpwO3sH16ZmDMMJVBm33mKiZttqjazvIKUXON
-         vVueLZWIl0TOiKWSTDUhMkApfok2dzVkO0S3OXOdPy02B4zj9/Z0jk3SPudN1uual3LI
-         RprQ9cO+XV7AhZ96Vu20GtS3O3LFNwCtJs8UutsvXVxHHkgtFZdB5miv/6QcW+gkGPUd
-         zzvyNydfhXNOdxG0aFelXrgDo2IKguUy3hfyqyR17GrA9RYZP/ALH0ELDHEsvZVsVkNY
-         0n8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787071407; x=1787676207;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6RTooZUiv9NtYPBqi5Uj7Uh2pUea9ucaOoXpNtgOCTw=;
-        b=VFZtnU40AYYSHLlaPng0MrPY36WWXwRB5zzIhzHbGzbazMkIFaposaa8AFTx5DuPia
-         QHond3f/CN6vRuxgiZipWhJu/6fgI/n8eIX5Ty6RUvIpL9XVZQKbw+4VyAg8812E3BLN
-         gEH73pld5DmeVtLxn7vjlp5h51n05LQM/ySWhFhJtYjbnNF/fAKzaSg/XoDxItBVgwPm
-         ISXjlWBaFhCj5XM1kz6mMzzy5F/vGyY+IHmG8Ydmwl/FVYoQz/4NwvKYFabipwidQvRX
-         pryka+eGaKOxLwMg5yUc4A4Ux5Yx1L7zrct39PRtr5/PdfLuDGQY3RyidICXfsA3Y0Vh
-         N5gw==
-X-Gm-Message-State: AOJu0YwRHAwAgd5zrjWEvmoK3FR63h0dw4to6SS9hdynlRKsK5XD97M5
-	eGPh+9N5xjDVzXFSd5F2yeqVI0XD7y2z/wuXAF24zTndXHxytSVdXEVxqGzH6Q==
-X-Gm-Gg: AR+sD12Uk+itnnPgcL+Ls8QP3ui+T/Vb5EShxZvt3fg9H/Nqa2jzb0DO0HVKWUFtTnu
-	+Y77VCfE0VJggfqKELxa5fBNAx9rPErnbjQfT2YhHNhkoHTI7zT+s/4S0ZviaLIgu5mVt9j1McM
-	1HZtumH1DpGAL1con2Z8T5wI+uPTLauXfTDFEqJ8yediRO9HAIKQPVJgh26cFpvSlzCeBJdyCOR
-	lqjr8o+JtrsLCi9/hic88lMM/DJZon/SuSAYrkYCv3xFQNk7PQotKwCmQ+lEEsoPPL43wH0weDh
-	qpSwvZn6g4fI3jnbng9KvZZqTF2rwVnNZPmwmhoav/lb77adZFTkFhlrlIsEl7rug4TYfN1A581
-	2/COkD3jHMqXQ6rpUotNvVD44RVYM5kAfqY/CfUes6A85pZQHD7hQSMzWKOdxCdwVzsxRzvcccD
-	GBRQ1/qpYNnBpJok16yiUfW9oJl477dDkhTFFiBxaJDs43ROf9HLbUDHoCOVzxZjz7Iz9wsab0K
-	tvXRFlOUr+7G/z1XTyUcEcwq6lIcVY36ZcKZw==
-X-Received: by 2002:a05:6a00:1c9e:b0:845:c694:5c3d with SMTP id d2e1a72fcca58-84fddfbf1c0mr37409469b3a.1.1787071407292;
-        Tue, 18 Aug 2026 09:43:27 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851b401ddd9sm2069801b3a.3.2026.08.18.09.43.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 09:43:26 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <8919c7f3-2dcb-4666-91e0-a91edc378c28@roeck-us.net>
-Date: Tue, 18 Aug 2026 09:43:25 -0700
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lyYvcwo7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yihH+/EuuZMJI5LizsJYqoT7CXx2n8zetsVrQ4BLfq2aiuCf6emd173zPWt5OGrtk1BMSKF0h/G8olJfvHz8ofwO+9lVeUbf5ZCmTInLq/B775XAS8Z6dPhrzwHUt826RZbMz3kVl/DR9DchwjDTx+37y2BOvnkEPDzWjZh17WRKUUgCRfzc4hkGHMqzN+HNXnph06cBRFWGqL/kSgkLYnK5EwaSfvE7r91KrHBYP3/a4/AH61bzcmI1fiec1PrCi71IWqLc4DeEBo0eLpmdWgCG09XWK1FKLMgI3Y+o5f3IDb4y+fKgRp5tg0pz8zaMPcA7mtJA5JHWlmNGmAN5Jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3ylNCujUUTybgD7uGYmyXO1OcdizBpTGAjfZXZVdgsM=;
+ b=KF06sVm8czUFQXiWrAQr4AAHohtyziwDZpxG+1Isj2iInA0wVEkIxd5dIcFBZhPROSyKg+FJAI1eORiApcfgQIZIVIHQojdRAQcBuyN+gv5PuxolKbm3MrDagMTSG/23KxiEYJ21hV6qFpWWNX+PodixfN8ROQgg6Kctakesrv8KVApTxXZ6jMyEVygIxdk5/sd7mqWqzwBFXvDTCFk5Oz+TmoYbMPz+WwTj3NsHzeupnm3Gtp74FFZIwagMo01QufyvkdSc0KwZsd+VKWhwLFSULnfZvTmWdVNBq5k5FPTkK3Nd8XJbakgozknQqTTh8LFTAB/ScFYJ4adDMwCk0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3ylNCujUUTybgD7uGYmyXO1OcdizBpTGAjfZXZVdgsM=;
+ b=lyYvcwo7DhkAXU0U8rwYvgLp+TimsI5FEdvO8XucfxvadpxftbkmgDgzNEkFKwQ7Lm4ZGl1+xlsaC7WUVKSJl3le+R+2B/TTN3EHcrwPYeQ3xvMSIpu7CT+R263k2S+qcGUR8nMF/KCdzV0kjF0SER4t9A91h8cV3XaXJOpq4nznI5f2xBdhbI5s6REWkrlZ03EypmwiVgU9KjksnxSyHYdOWE+gWbvKPSHbkyjc6eCFhVI0N8vyeI2l3Jdztl6pfg7y+42PTE/d6f1ABWzf2SSdTLHlJeZf5qErTQWwz+ThXnu1VXFR8YdgVHBNDrVFM5QH6PpiCQsbhvhdYIPqsg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB10525.eurprd04.prod.outlook.com (2603:10a6:102:444::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
+ 2026 16:52:07 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0315.016; Tue, 18 Aug 2026
+ 16:52:06 +0000
+Date: Tue, 18 Aug 2026 11:51:58 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Patil, Shubham Sanjay" <shubpati@amd.com>
+Cc: Shubham Patil <shubhamsanjay.patil@amd.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-i3c@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"git (AMD-Xilinx)" <git@amd.com>
+Subject: Re: [PATCH 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <aoSNrlDOLNXg1Xfv@SMW015318>
+References: <20260814115155.3974988-1-shubhamsanjay.patil@amd.com>
+ <20260814115155.3974988-2-shubhamsanjay.patil@amd.com>
+ <an9LVxaZR9p2B7hb@lizhi-Precision-Tower-5810>
+ <c608fce5-872b-43d7-a6cf-f9e49956dd42@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c608fce5-872b-43d7-a6cf-f9e49956dd42@amd.com>
+X-ClientProxiedBy: SN7PR04CA0063.namprd04.prod.outlook.com
+ (2603:10b6:806:121::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
- compatible data
-To: sashiko-reviews@lists.linux.dev, Aiden Isik <aidenisik@member.fsf.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- linux-watchdog@vger.kernel.org
-References: <20260818-for-next-lucky7-watchdog-v2-0-6743f479a47f@member.fsf.org>
- <20260818-for-next-lucky7-watchdog-v2-2-6743f479a47f@member.fsf.org>
- <20260818155332.9E0DD1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260818155332.9E0DD1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10525:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3fa3428a-7c62-4ea5-8524-08defd49095a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|19092799006|23010399003|7416014|376014|56012099006|10067099003|3023799007|22082099003|18002099003|4143699003|11063799006|5023799004|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	H+pM0hSdU/70lL09XYIfape9QkIdQ6W1vutb/eoOSWOWvD1XFu8kSsCmKm7j+NH8cttk8tdOBxnB9v7t8Wgkiii7zNKz1zPXifPhtFAZVSJYeTt+qnmukxBt1l7EBiWw6W1I/UIfgd+yXVJ3AXUDdKhFC6ubqEssk6BL2vTsxQxY1vVqrxpy9uuz1IBUvLdWRycrI/814sChjSxmKVsS1q9qhbgm5HMEp466MQctdNqGriP2nn2UTnbv8Z6eEdfoKGSIcIOd82wanupTTXFkAC1WsOlKAWZxGHsP3wocdG/lcZpY8Z8sNYny4FQfPWd4z6vMkdsrQQAJK88QyudFxE887jnTxK/jGbf5dvQAebxIE2bNDw3ZbzWK5ppvqm2XSROPbPk/YsFCaPCeUqT09Qpwc3hhAbLK/o1OZkTnt92oSyBZ3f0+vjOwT9YJ9hPLAJtIxXkq5ncVluG/iiLJxzsiP47SqmYZfuGQFMTb2wIQ0kAMMC+kNCl2FY26R6FKCpXJgtkeOti/+TPSD72XMgmkkS1GsNYTUq3Fat4UbVmwHc8PNZww/euHDj/HHysWlDP/QquEbMQf4fwWuX8LPPqMLPUeWQaCrRha5oUhje+qxoz53fY2o670i8vnSBVjdVPoVNRcsIOwpUTNk1WmOb1s4F6VNiyE0t4XuOE4mEM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(23010399003)(7416014)(376014)(56012099006)(10067099003)(3023799007)(22082099003)(18002099003)(4143699003)(11063799006)(5023799004)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ojAfU4jqFvJ9Wlp/9hoJEX/kFKwCKB3J2Vnp5EypZR9EFbihQKgwhMM/21pm?=
+ =?us-ascii?Q?4cHBXs4RhNSgpauQprgE9LeIo6cvc8oMW5cMgSVM1G4UCNZ7a/YsE8yv4rqK?=
+ =?us-ascii?Q?JVzaEHfd330COYmKxy6vFvovwZxtxhOStyHQy/ejvsTzi6dkOO7E6vEcszB0?=
+ =?us-ascii?Q?RVdLR0DqHpSXzCOl4voxsO5HYf92KCYW37qlt3KFC+bfio4RnN+hAM+Nje9u?=
+ =?us-ascii?Q?FqrjsSp5YwqSoxHSpj4FT6ZPdMogup90C0rijTTQkGBQW0noXFIKNMgOmijC?=
+ =?us-ascii?Q?L6Eh7VSf1ikzemegiPMCmm0YVqpa3LqEebA5csVRjISa0T7eYDlIisbZFAOD?=
+ =?us-ascii?Q?ZlDnsT/c5Hn1n1E+gt4iv5tFpbGpQdHJcrxya5YwH24pCDV1XdpjMIFTHq+C?=
+ =?us-ascii?Q?vzJlxPsHIXVMY5TyxqPUfSOGNYRlKWKhC8HiJxB0RYGoTZ6rl69cl81L6tDu?=
+ =?us-ascii?Q?75fQNCQ2+ZkrfLiBLaNb/83Mc2NrN4nxtjDv/plDRMI3pH6oBxXZ/1gS0vZO?=
+ =?us-ascii?Q?clYu1qK329lXDpKMSCGvoUjGmWp9jdm5GCERcabKMqXdN2P878IptSqBO3wd?=
+ =?us-ascii?Q?5TYvDVk6g0qlHg7LHokjsoza3NS8ixYZxo4UC2x+KFRz9Zfj8nknbNCMpFFW?=
+ =?us-ascii?Q?/iZkJ+LeUWwBHc5GMtQ/LsvgNP4V2Epf2NQqXc5ORYWUG0fmQeAQaFonXUMO?=
+ =?us-ascii?Q?urbFCfTdvcqXK9HKjpYPDgmmn2GxBhyuyVZSFO6+0EAB5ZiWnU9Ir+Gt7M4Q?=
+ =?us-ascii?Q?OtIPn4X1AwjdzHn1ceSURnnhB09ODod3JtEmci3rnp6RrUKLVtDmwIPMLYLx?=
+ =?us-ascii?Q?n9rZdgqwJTVHqjo9n0ysCrmEt5qy+ZCL6Bqcy6iky1W9dPv+RSiShNCUA95L?=
+ =?us-ascii?Q?vhGf9utPmzTDVOnnqRw9GwnqcgMxf/PBT0nEVr81iqXLudGgoPPc17O9kI0d?=
+ =?us-ascii?Q?BWyfid5OYetjdm6s1IBy0UjzPyuvrRccIgtV6AnDteTGgpGtAUsXru6eQ1cr?=
+ =?us-ascii?Q?V6UvFVr31nIlEzc/vjLaI6YdU3zoA/+Rpbv3yzPtpzLeOTUJ+Jp/bcrw5y/T?=
+ =?us-ascii?Q?BZ0WtTpUh9vm1Jdxrbm5AL7GtOP3BLEUnS8LhHtm+Dcz9F2EjKUairODFq4e?=
+ =?us-ascii?Q?5BoGy3NBayqNdDtWQsNhUfcZvc0Y3t08TI2b06Qmb8tkGhgwQmPdrCKvZLVt?=
+ =?us-ascii?Q?+yACl8BkXpxc/4Z42hBwqpsO6Fdbiku/LLMnTbNu0t0dlRRAf76QJAWd5aVr?=
+ =?us-ascii?Q?D4vrphY7rswK4dIK84R6elCLfMfDPtCd972VG7l5WP5T3B7nbsF9wWUaMlVg?=
+ =?us-ascii?Q?9qFnfIkqP3+p0aeXLfeQwNIXeSnI4qobw1nsovgQtHQdbVqi9Hm/sRYwTjBd?=
+ =?us-ascii?Q?PA7IsIiT3E0d3q44Q4ThNQbGZVC2ZFChBlM8efd6tzjXSSgXt06PahuT891p?=
+ =?us-ascii?Q?zcw9nOydDXzJBGUOJcrNQRSsvLN0v9YJpEQBJ3/VXlaDgpWGBJuVY0+DP5RV?=
+ =?us-ascii?Q?OMJYRwsYnoz0yiMFDjESVHLkXoVoA+0Pqu+G+58lcsW03jwLklGX3Npj3USy?=
+ =?us-ascii?Q?sJMiAuS7vFFvffkfCUqwm+wehx7KYgFOejIFJqAGX7uU/yv20le+Lw0Jn4OQ?=
+ =?us-ascii?Q?5G+V7/7CR4BkZ4Pd/mmNF2UgSBjomxkUXNVAMfkiWNmiEacDZD6y8hLZqtNH?=
+ =?us-ascii?Q?mpbdRXq95nLPMqTt7URVf4l8vlz43/f1eZWKEM2GAWr3587TZ8LBFiQc9WUy?=
+ =?us-ascii?Q?ATbIsPaIgTyv/TYp7EVEBSAo8YWWUxebctesdwXUov2yZHqaEwKc?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fa3428a-7c62-4ea5-8524-08defd49095a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 16:52:06.7501
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lOVZVSYrmNA0aMunDfWWoW6bC7aeZKlkFev+huCTGUsYhKoIsqL4c9qGDaWV1ym51staf/Lz2cUQI2suEHM48qfEdlyETqDSXzO+4jdcK37zH8DSsuqew4LPz6d7h5q6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10525
 
-Aiden,
+On Tue, Aug 18, 2026 at 05:29:19PM +0530, Patil, Shubham Sanjay wrote:
+> [You don't often get email from shubpati@amd.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> Hi Frank,
+>
+> On 8/14/2026 10:37 PM, Frank Li wrote:
+> > [You don't often get email from frank.li@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+> >
+> >
+> > On Fri, Aug 14, 2026 at 05:21:53PM +0530, Shubham Patil wrote:
+> > > In-Band Interrupt and Hot-Join are synthesis-time options of the AXI I3C
+> > > IP. Describe them with two boolean properties.
+> > >
+> > > A Hot-Join request is acknowledged by the IBI machinery, so a hot-join
+> > > capable design is always IBI capable as well. Both events are reported
+> > > through the controller interrupt, which is therefore required whenever
+> > > the capability is present.
+> > >
+> > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+> > > ---
+> > >   .../bindings/i3c/xlnx,axi-i3c-1.0.yaml        | 23 +++++++++++++++++++
+> > >   1 file changed, 23 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > index 2caa245a8656..07e3d0b4d767 100644
+> > > --- a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > +++ b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > @@ -32,13 +32,34 @@ properties:
+> > >     interrupts:
+> > >       maxItems: 1
+> > >
+> > > +  xlnx,ibi-capable:
+> > > +    type: boolean
+> > > +    description:
+> > > +      The IP is synthesized with In-Band Interrupt support. IBIs are reported
+> > > +      through the controller interrupt.
+> > > +
+> > > +  xlnx,hj-capable:
+> > > +    type: boolean
+> > > +    description:
+> > > +      The IP is synthesized with Hot-Join support. A Hot-Join request is
+> > > +      acknowledged by the same machinery as an In-Band Interrupt.
+> > > +
+> >
+> > The compatiblity xlnx,axi-i3c-1.0 already indicates such cap. Do you have
+> > variance. such as
+> >
+> >          one Soc have two instances.
+> >          instance 1  have hj and ibi cap
+> >          instance 2 no hj and ibi cap
+>
+> Yes, exactly that. The AXI I3C core is not a hard block: it is soft IP
+> instantiated in the FPGA fabric, and IBI and Hot-Join are per-instance
+> parameters selected in Vivado when the design is built.
 
-On 8/18/26 08:53, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] The `drv_data_exynos5515` variant includes `QUIRK_HAS_PMU_AUTO_DISABLE` but fails to define `.disable_reg`, resulting in PMU register corruption at offset 0x0.
-> - [High] The `drv_data_exynos5515` variant uses an INT_EN register for masking but fails to set `.mask_reset_inv = true`, inverting the watchdog masking logic.
-> --
-> 
-Please either address or explain why those are non-issues.
 
-Guenter
+I suggest put it i3c.yaml
 
-> --- Patch [2]: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data ---
-> commit fd223d0c16451bec63089d85a77c3b012b8f28ed
-> Author: Aiden Isik <aidenisik@member.fsf.org>
-> 
-> watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
->      
-> Add driver data for the Exynos5515 SoC's watchdog timer.
-> 
->> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
->> index e31f93db05096..7299dfdb0c099 100644
->> --- a/drivers/watchdog/s3c2410_wdt.c
->> +++ b/drivers/watchdog/s3c2410_wdt.c
->> @@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv_data_exynos5420 = {
->>   		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
->>   };
->>   
->> +static const struct s3c2410_wdt_variant drv_data_exynos5515 = {
->> +	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
-> 
-> [Severity: High]
-> This variant uses an INT_EN register for masking but omits .mask_reset_inv.
-> Could this cause the watchdog masking logic to be inverted?
-> 
-> Looking at s3c2410wdt_mask_wdt_reset(), the logic evaluates to false when
-> unmasking if .mask_reset_inv is not set to true:
-> 
-> s3c2410wdt_mask_wdt_reset() {
-> 	...
-> 	const bool val_inv = wdt->drv_data->mask_reset_inv;
-> 	const u32 val = (mask ^ val_inv) ? mask_val : 0;
-> 	...
-> 	ret = regmap_update_bits(wdt->pmureg, wdt->drv_data->mask_reset_reg,
-> 				 mask_val, val);
-> 
-> Does this mean it will write a 0 when unmasking, disabling the reset output
-> instead of enabling it?
-> 
->> +	.mask_bit = 2,
->> +	.rst_stat_reg = EXYNOS5_RST_STAT_REG_OFFSET,
->> +	.rst_stat_bit = 24,
->> +	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
->> +		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE | \
-> 
-> [Severity: High]
-> Since QUIRK_HAS_PMU_AUTO_DISABLE is set but .disable_reg is omitted, will
-> .disable_reg default to 0x0?
-> 
-> During initialization and suspend, s3c2410wdt_disable_wdt_reset() applies
-> updates to wdt->drv_data->disable_reg:
-> 
-> s3c2410wdt_disable_wdt_reset() {
-> 	...
-> 	ret = regmap_update_bits(wdt->pmureg, wdt->drv_data->disable_reg,
-> 				 mask_val, val);
-> 
-> Could this unintentionally corrupt bit 2 at PMU offset 0x0?
-> 
->> +		  QUIRK_HAS_DBGACK_BIT,
->> +};
->> +
-> 
-> [ ... ]
-> 
+capable-ibi:
+  - enum: ["default", "enable", "disable"] to overwrite auto detect from
+hardware for difference instances case. put default here to allow overlay
+dtso to overwrite it since overlay can't delete property.
 
+I suppose not only xlnx have such problems.
+
+Anyways, need dt team to provide suggestions
+
+Frank
+
+
+>
+> >
+> > If new version support HJ and IBI, need use new compatible string.
+>
+> The compatible does track the IP version, and a future AXI I3C v2.0
+> would get its own string. But IBI and Hot-Join are not version
+> differences: they are independent build time options of this same v1.0
+> core, so putting them in the compatible would mean several strings for
+> one IP version, growing combinatorially with every future option.
+>
+> Thanks,
+> Shubham>
+> > Frank
+> >
+> > >   required:
+> > >     - compatible
+> > >     - reg
+> > >     - clocks
+> > >
+> > > +dependencies:
+> > > +  xlnx,hj-capable: ["xlnx,ibi-capable"]
+> > > +
+> > >   allOf:
+> > >     - $ref: i3c.yaml#
+> > > +  - if:
+> > > +      required:
+> > > +        - xlnx,ibi-capable
+> > > +    then:
+> > > +      required:
+> > > +        - interrupts
+> > >
+> > >   unevaluatedProperties: false
+> > >
+> > > @@ -54,5 +75,7 @@ examples:
+> > >           interrupts = <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+> > >           #address-cells = <3>;
+> > >           #size-cells = <0>;
+> > > +        xlnx,ibi-capable;
+> > > +        xlnx,hj-capable;
+> > >       };
+> > >   ...
+> > > --
+> > > 2.34.1
+> > >
+>
