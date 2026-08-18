@@ -1,86 +1,263 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D9547798B;
-	Tue, 18 Aug 2026 14:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F36224B13;
+	Tue, 18 Aug 2026 14:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787061668; cv=none; b=Mbi5iANuqZt66uDxCmWJ3GRRuER4QETP+zNT5DeWVnsHemZcZbRVUMHeOmjMTclirFfTBxcig7SnpTnHsc2CT1E3DD0VHx0DjLNwzHAVFKTxTwxdXhQxIDf+PPJ7WKikt/pIsNiLsZz9qh26CGXL5MC6Hpby8OG64ShyU44eKVM=
+	t=1787061703; cv=none; b=FgypbeIT7HrCySM9WNQ8OsTjNvEfxdPx16nqKIsI4oDf+s0c6ELfGeBquZjxWtP979ode0SXHMfOOP101thNneOqmhBOJTPWKkO8UtguzMuGDvAHJ7x5aoJ3dKyVrwHi1S/wDI+4cEFYuuX0GSiqUQO+eIJUY7GArCfYGseMieM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787061668; c=relaxed/simple;
-	bh=kHqoQyHKTXYCPImww1kP5mykFd0tBgY+F4BS1HTHSjQ=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=ragsqyb4DCZNc1/+J/M431Berb96ppbgRb0pEolDjNXqBZ/MC3qNGhD+hZmvAquHEtTiTwO7bfTTFLNZKoSOXTStiP3UEVQ+zMyQruOJ0Udy0fGJUBqFFqBOCB/DjGENOLKzMLIedOCJ0zy8f6fyP0bwV3oFgusyDNbpnjBhgxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mn9OR13e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787061703; c=relaxed/simple;
+	bh=//PmUf126ej0sjGBWB4w/eOZ2JO+QkS7LpA95oIVS5w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KubyArLfx5j5MsKV8HpqV4lVqTKqLu8fp2jUMH1pGPnobzFyea8GmKPySEwugV0zrra95jRcFX7UoBE3g1P9MOM08GmqDkkNBQJiqsFlZrGHdZV0dtsKKfj6TLE3bTLdw+vGHk+k6ywX8Yo8Cuv3fHVfZ/bJBTr/nH6Nf993BFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mht+iUPf; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mn9OR13e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9B381F000E9;
-	Tue, 18 Aug 2026 14:01:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787061667;
-	bh=uB1QT2C8nr7ifapomJ/U84HM76gxlWvTaHFZe9sk8hw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mn9OR13etJROrDRzkrRY2isT+zSxrXpbc+vxr+20vUSRUz7yGIt8I2r655NTQIOxw
-	 cDhlhJlRfDQsWgv67JAE17v6B/5BsNKOsUyXq/Obl9tVI26F4RVpu8C0rXD3pu6ZkX
-	 9gdTtX8wo0bDQ72Z9NCSvYVjeQUEugV8rR7B1sxAoyXk2sB1jS/9drXZKidgr1Ncld
-	 aqJco192LmD4xh66lbbSsKeH1M36OGesnoq7lk4qnRs2RwhjUpCAjmLyqIEya08GzL
-	 FUvSYQcbvOahxsGPXuDmJDnDD5JT0f0Ch0H4Q8wAW0npKOPecJbhpy4tCb8ASs6QSK
-	 GtEEquvXLRNSA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09283926667;
-	Tue, 18 Aug 2026 14:00:19 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mht+iUPf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787061701; x=1818597701;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=//PmUf126ej0sjGBWB4w/eOZ2JO+QkS7LpA95oIVS5w=;
+  b=mht+iUPfsHT04oG0OFohMorP498MGLVTcN46meQVDXzBnW4d4PmZ1Y//
+   ZrInKwp3zEaTUcc86a6oD/lAWJXpC5Y+SgSEBchWvtzHMO4NnB2o+HNf4
+   iv7SK/DcxdOqkBOpj7K6Rs6im/YP9d3Z29QWUi0J5Vf26EaDj0YPUSD/I
+   9bHludwRdtJUOcNdF6s/UG/IqX3JavFu8iFmxYcer14DioOAqvyTF9Loc
+   B8h2oCN0D8qVuSF9eiXn7ifqsTF1DPtp7oFHsAHAFK+lrIh4IjtTvLRjw
+   DxejsLd8H7fhAPB0Km6Jm8CyyMYf7eTdTqKBUhWmjikzOcYU5pXnd4YcN
+   A==;
+X-CSE-ConnectionGUID: MRNbow4eRay/cRYGvtGbcw==
+X-CSE-MsgGUID: pLXRNYjGT2OYRqVOSADrUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="113096077"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="113096077"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 07:01:35 -0700
+X-CSE-ConnectionGUID: uast6XaVRDaYCv122mCl1Q==
+X-CSE-MsgGUID: gXHY9txrT0CyCKWXLM7GiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="259040484"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 07:01:28 -0700
+Date: Tue, 18 Aug 2026 17:01:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 4/4] iio: light: veml6031x00: add support for events
+ and trigger
+Message-ID: <aoRltgy0AYZ_Vcum@ashevche-desk.local>
+References: <20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com>
+ <20260818-veml6031x00-v7-4-2b0de0f20edf@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v7 0/4] net: dsa: mt7628 embedded switch initial
- support
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178706161843.2100761.1929422486260844993.git-patchwork-notify@kernel.org>
-Date: Tue, 18 Aug 2026 14:00:18 +0000
-References: <20260813190241.789323-1-joey@tinyisr.com>
-In-Reply-To: <20260813190241.789323-1-joey@tinyisr.com>
-To: Joris Vaisvila <joey@tinyisr.com>
-Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com,
- kuba@kernel.org, edumazet@google.com, davem@davemloft.net, olteanv@gmail.com,
- andrew@lunn.ch, devicetree@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, arinc.unal@arinc9.com,
- Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
- daniel@makrotopia.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818-veml6031x00-v7-4-2b0de0f20edf@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Thu, 13 Aug 2026 22:02:37 +0300 you wrote:
-> This patch series adds initial support for the MediaTek MT7628 Embedded
-> Switch.
+On Tue, Aug 18, 2026 at 01:34:29PM +0200, Javier Carrasco wrote:
+> The device provides a shared interrupt line to notify events and
+> data ready.
 > 
-> The driver implements the basic functionality required to operate the
-> switch using DSA. The hardware provides five internal Fast Ethernet user
-> ports and one Gigabit port connected internally to the CPU MAC.
-> 
-> [...]
+> Add support for configurations with and without an interrupt line,
+> providing events and trigger support when an interrupt line is available.
 
-Here is the summary with links:
-  - [net-next,v7,1/4] dt-bindings: net: dsa: add MT7628 ESW
-    https://git.kernel.org/netdev/net-next/c/2873d364f408
-  - [net-next,v7,2/4] net: phy: mediatek: add phy driver for MT7628 built-in Fast Ethernet PHYs
-    https://git.kernel.org/netdev/net-next/c/c9c235775bc4
-  - [net-next,v7,3/4] net: dsa: initial MT7628 tagging driver
-    https://git.kernel.org/netdev/net-next/c/44204fd425af
-  - [net-next,v7,4/4] net: dsa: initial support for MT7628 embedded switch
-    https://git.kernel.org/netdev/net-next/c/15062bb05e16
+...
 
-You are awesome, thank you!
+> +static int veml6031x00_write_period(struct iio_dev *iio, int val)
+> +{
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +
+> +	if (val < 0 || val > 8 || hweight8(val) != 1)
+> +		return -EINVAL;
+> +
+> +	return regmap_field_write(data->rf.pers, ffs(val) - 1);
+
+That ffs() was bothering me all these review rounds. Now I got the idea how to
+improve
+
+	if (val < 0 || val > 8 || !is_power_of_2(val))
+		return -EINVAL;
+
+	return regmap_field_write(data->rf.pers, ilog2(val));
+
+> +}
+
+...
+
+> +static irqreturn_t veml6031x00_irq(int irq, void *private)
+> +{
+> +	struct iio_dev *iio = private;
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +	struct device *dev = regmap_get_device(data->regmap);
+> +	s64 timestamp;
+> +	unsigned int regval;
+> +	int ret;
+> +	bool trigger_poll;
+> +
+> +	ret = pm_runtime_get_if_active(dev);
+> +	if (ret <= 0)
+
+< 0 seems too much to me. If there is disabled runtime PM (and supposedly
+device is always on) this prevents from getting events.
+
+> +		return IRQ_NONE;
+> +
+> +	scoped_guard(mutex, &data->irq_lock) {
+> +		ret = regmap_read(data->regmap, VEML6031X00_REG_INT, &regval);
+> +		if (ret) {
+> +			dev_dbg(dev, "Failed to read interrupt register %d\n", ret);
+> +			pm_runtime_put(dev);
+> +			return IRQ_NONE;
+> +		}
+> +
+> +		if (!(regval & VEML6031X00_INT_MASK)) {
+> +			pm_runtime_put(dev);
+> +			return IRQ_NONE;
+> +		}
+> +
+> +		timestamp = iio_get_time_ns(iio);
+
+> +		if ((regval & (VEML6031X00_INT_TH_H | VEML6031X00_INT_TH_L)) &&
+> +		    data->ev_en) {
+
+With swapped operands it might be easier to follow.
+
+		if (data->ev_en &&
+		    (regval & (VEML6031X00_INT_TH_H | VEML6031X00_INT_TH_L))) {
+
+> +			if (regval & VEML6031X00_INT_TH_H)
+> +				iio_push_event(iio,
+> +					       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0,
+> +								    IIO_EV_TYPE_THRESH,
+> +								    IIO_EV_DIR_RISING),
+> +					       timestamp);
+> +			if (regval & VEML6031X00_INT_TH_L)
+> +				iio_push_event(iio,
+> +					       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0,
+> +								    IIO_EV_TYPE_THRESH,
+> +								    IIO_EV_DIR_FALLING),
+> +					       timestamp);
+> +		}
+> +
+> +		trigger_poll = (regval & VEML6031X00_INT_DRDY) && data->trig_en;
+
+Ditto.
+
+> +	}
+> +
+> +	/*
+> +	 * iio_trigger_poll_nested() must be called with irq_lock released:
+> +	 * it runs trig_handler() synchronously in this thread, which calls
+> +	 * reenable() on completion, and that callback also takes irq_lock.
+> +	 * iio_pollfunc_store_time() is not called for our own trigger, so the
+> +	 * timestamp is stored here.
+> +	 */
+> +	if (trigger_poll) {
+> +		iio->pollfunc->timestamp = timestamp;
+> +		iio_trigger_poll_nested(data->trig);
+> +	}
+
+> +	pm_runtime_put(dev);
+
+With the above this needs to be conditional like
+
+	if (pm_status > 0)
+		pm_runtime_put(dev);
+
+> +	return IRQ_HANDLED;
+> +}
+
+...
+
+> +static int veml6031x00_hw_init(struct veml6031x00_data *data)
+> +{
+> +	struct regmap *map = data->regmap;
+> +	struct device *dev = regmap_get_device(map);
+
+> +	__le16 regval = 0;
+
+Redundant assignment.
+
+> +	int ret, val;
+
+Why is 'val' signed?
+
+> +	ret = regmap_bulk_write(map, VEML6031X00_REG_WL_L, &regval, sizeof(regval));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set low threshold\n");
+> +
+> +	regval = cpu_to_le16(U16_MAX);
+> +	ret = regmap_bulk_write(map, VEML6031X00_REG_WH_L, &regval, sizeof(regval));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set high threshold\n");
+> +
+> +	ret = regmap_field_write(data->rf.int_en, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(map, VEML6031X00_REG_INT, &val);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to clear interrupts\n");
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int veml6031x00_init_iiodev(struct i2c_client *i2c, struct iio_dev *iio)
+> +{
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +	struct device *dev = regmap_get_device(data->regmap);
+> +	int ret;
+> +
+> +	iio->name = data->chip->name;
+> +	iio->modes = INDIO_DIRECT_MODE;
+> +
+> +	if (!i2c->irq) {
+> +		iio->channels = veml6031x00_channels;
+> +		iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
+> +		iio->info = &veml6031x00_info_no_irq;
+> +
+> +		return 0;
+> +	}
+> +
+> +	iio->channels = veml6031x00_channels_irq;
+> +	iio->num_channels = ARRAY_SIZE(veml6031x00_channels_irq);
+> +	iio->info = &veml6031x00_info;
+> +
+> +	ret = veml6031x00_setup_irq(i2c, iio);
+> +	if (ret)
+> +		return ret;
+
+> +	ret = devm_add_action_or_reset(dev, veml6031x00_disable_event_action, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+
+	return devm_add_action_or_reset(...);
+
+> +}
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+With Best Regards,
+Andy Shevchenko
 
 
