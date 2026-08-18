@@ -1,143 +1,92 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEDA3ABD99
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 08:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787041903; cv=pass; b=upzzEWiIMOStPLQmSr7h3YiLjKf0xqJsGalrK4Lsqrp8ILEDBl+Gw4L799kaaG+g+P42fQSIpd7RfrUK+WAwNnb+WV5X4gMUo59+Gl1LEb9w/kmtxnq2sUJLCpXBvxak2rme8ePpZqTMAPFw0wZ8rd5iy3Kkr94WZEovYf2ukhU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787041903; c=relaxed/simple;
-	bh=gjjShqo8syZmwJoo4o5vHo8yhaC51mTKCBR6OWSPlpQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g77c6GQq5kJxl/baY/ByIEREzgj+qGxupmugal9oVWUyBRtxusz/rid9Ctq4o9w7aPZawSjmx+BAtz0TpxLFaprfz3oum9SMlv9SQESI9ECelCkVYBOnNlC7FUYpEcUyYQLWnNnXN8T1ZMY2ZGsnsPEc0hxO983x3wfCUIjNXYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=brFBZ3Hd; arc=pass smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5053B8407;
+	Tue, 18 Aug 2026 08:33:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787041990; cv=none; b=sgtXqEJym3z8oDnZuoRgh2s0tBx1rBlTFe4v3X3JsBaeo9fMbUTrNNDOcoz26gfWiFbkC4ce/t4lyYKkVJc1FjnTIA61jhD6LmElnuPq4ILyVHpvYFLPkP9+yVSlaqIR9PnZzh4oLha0NNkP7XSISI3L6Gy2zJ/AIlXtVT5Gn6o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787041990; c=relaxed/simple;
+	bh=XPEbWap0oVR7Y4vc6jobs3LnzyNKVduFtizSUnop1k0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D0n4CH8G2EkkGuAUYcfrJYTMxz358UK8Uca+SE/S7PmDFPlSZO5P75InMOd2TwmcbrhuQMrhQkhUX1h2K8Tg3M3fIunbjauegYcnoH5F67K9tm+8eY9Vz4cotzuEoax+8lCSrcN4mkgj/11F3d5j/LL76/7I6zQFxyyHwUx33/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fHMXph4j; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="brFBZ3Hd"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66c70f05859so6766071d50.1
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 01:31:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787041898; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BgNIfEByLTEkiSH4c96S/bvA1tJF4QiC5OzTmqfc5VD8RjMWwwhFNpP7OX4WlPUWuc
-         nVBQHFILIveG0Fgur52Ch/AoRFUTzwZBiwfTwZd/m8lSvOzp1QHkPCr+4/m6b9VKeduv
-         /+UpwAm7H9WVGvmZ3lhVanSW4TpJEavqp8d97tkhIJocnyxr9gk6wqXlGcHFrcCue8N1
-         qkQO1guvo1Dp6tJpaUAmlEc7CMVczcFOHT00bjgXRkFeaVsdOIxgMUMytCJAlh6HKraG
-         zOAiUEjW5SFT3UQ4Ezw8LrY6UTcJbsccNS44OR+whW4dFnVqLw5ErsUlZ4IAqseviR1C
-         HkEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dfdTY8Y/98iAgDoWrwX8Ta02qcU1bB1m8ST5vvrqUQA=;
-        fh=LIEOrJ31arJwWr+R1UG/ebKucYTJJ2geAtHwjh0fWM4=;
-        b=TK8FuBrUcqqigdYvSe13RfdM1XXQi4vG3ZLFXhJD+XL7q6d2nOotu0jzHMP1BEZqqp
-         VYioDC7bZiZpbvVGj5avl/Amxzsmxz1tL3MfIrTvvvYc+1G+tbCzXa69wPocDsIpULzt
-         DFTijhpp3ZZcwr2DBh7YoVadJaEDIFPJZvct5nfptAeGxjeYO6Z8BA4KDgLfjCYq2hko
-         NGVja9drWfB0ffaL3ZorLm1Ilm+hnFHkBVIoy76QKz4/Uz1YWPbRGwPPBxRlIMVuyR2a
-         If3yoYkTn0RrpPeCcALqCG5cmPq8K95Cn4T/huFDtMFrfrV128V21AiOxqjHvOWR13VE
-         fHiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787041898; x=1787646698; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dfdTY8Y/98iAgDoWrwX8Ta02qcU1bB1m8ST5vvrqUQA=;
-        b=brFBZ3HdtJf+Q7/wb3gWLaLOVO4Zb3ZOtTzagLPKporBH3xsHaG8deaa7HfvnCRhGo
-         x4E8cqpIUBI3FYyQCkk3fXeQfgrvm6kr073b76J1eGYQ96/XAIKVON32Lz1bCdqbgrXb
-         G63jjTxTs2dxO4n+VNr4vZFRn3r/U9YLxRCK0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787041898; x=1787646698;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dfdTY8Y/98iAgDoWrwX8Ta02qcU1bB1m8ST5vvrqUQA=;
-        b=GUO+kxt/3Rz00AuiP6cZyWWtMOWsF/7/zMWttcfz1pzUwf4mJMMM1+yzOaLR8b4FwY
-         Y/l7zAgGRNo245PSL/WeKRq5qOdUL/qSKRObKo0psgBoLdoVkrAZ0EqH9LvMlK8UgB2Q
-         5IL8rj9/sbJMtzfYV913i0EAauA9Nit0yy5etv3d/8tuKJsGYAFmquzMWAuQua16N0zg
-         Pc7MkFi8TH7Dl1Wn+uTgbrPrhFu+z7jHzofyIVXvi6wB5g0Dji9mpdTQSfTSj8ZkCX0R
-         MG59KgzU2w2cQzhB4naMOYVSDwxtXm071Jb1G1gppxd7bt052FB8fgJ11yJfM5T7WG1+
-         8eew==
-X-Forwarded-Encrypted: i=1; AHgh+RqOzUmoDhrGfB61fedbFQClriwn5i5GMdDcSl4wDuGCPnppmZ+i0xowYCnUOCbgKUcKUCe8nvbhwhZl@vger.kernel.org
-X-Gm-Message-State: AOJu0YxH3KI2XpAFEHcO1Vhg2rutnzc3/raOwgcbgJmsoQsU8QhVq7Lx
-	jgo1u2o67R/i2uD7ivEc5UAamEs/34XwM/mg+Cd+d1L+0Z4Kt/J6VvFw38kLcqjqwZZeRKEHP//
-	N/8za6ubmA4N/xwzX6nCoC5e0bBAJ1tTWkEf0OG/c
-X-Gm-Gg: AR+sD10TuqtkyDRdzQ4q6Rnse9kSZL4CU/TTjs8PC3Ivh+u3M2xBiQZZm2mSl4gaSEH
-	7d1pxxEzyC3Ra/xe6aqfHiLD/mkDopexv58selCe3skineE6NiWGnVkTMStsm9NkDcvYXSdDAtp
-	bANZs7PGJNoAn9nlTsBY1Y0lJ6iRBjdH87GalZ54N4EgEWF5QqmYUH6w99YiJof5LWT+19JGFIm
-	MGN2381TaktZWyFJHLZzR8Tkv4QB+y6nadIQTJuUzs1BMnI+J7GRZb4jqlIYqi7QBiYL67ybEnP
-	Z4LPTRJosrBuG9qz2vbIS5UK61vStkPErD61UZhlYhGG3jNKHXAnaoqPdOYQE8S8IacSHP8Q2A=
-	=
-X-Received: by 2002:a53:c4d1:0:b0:66c:4efb:6518 with SMTP id
- 956f58d0204a3-66c72baf01cmr8580735d50.21.1787041898396; Tue, 18 Aug 2026
- 01:31:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fHMXph4j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787041989; x=1818577989;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XPEbWap0oVR7Y4vc6jobs3LnzyNKVduFtizSUnop1k0=;
+  b=fHMXph4j52RX8nB7UOT7nxtBGjqpnwKEhYojntdLYDAbh3ooeYcdKgsG
+   tvaSAyVwecxjqEKJkfizvdNI54Gj18wZrkKXZ5Pa4g0EY4w9FQMXhOuNu
+   6NQtSviI8ppys93v8KBGwDeCFkvRwdza9II/ehnK3RuQE4QZdowZcG/Rw
+   F6LUq5NjEOU4rwAhY245Bh8a7jwvYIbWy2vLNu4a3+UiPIAWzXqgZ8wwP
+   szTHRIEi7i77gEA/yv/33nmZC3VC9QT6T9HY3NNWhToo0TbHGSEU28ZXX
+   5apw9cuY+V80xYGP89aV8Jsb74hF7arJvyBL8SAC7b9arpprtCO9QRSBg
+   Q==;
+X-CSE-ConnectionGUID: y+RP4d2gS3KY/IaZlDSvaQ==
+X-CSE-MsgGUID: dyj2PbmLRBmgMKxVN0Cy9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="91397728"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="91397728"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:33:08 -0700
+X-CSE-ConnectionGUID: PiXHqqYyT3GIuZqOvEnxcg==
+X-CSE-MsgGUID: rlID4nelQlKAJ1CABWxnag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="261877057"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 01:33:04 -0700
+Date: Tue, 18 Aug 2026 11:33:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Taha Ed-Dafili <0rayn.dev@gmail.com>
+Cc: Michael.Hennerich@analog.com, andy@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, dlechner@baylibre.com, jic23@kernel.org,
+	krzk+dt@kernel.org, lars@metafoo.de, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, nuno.sa@analog.com,
+	robh@kernel.org, skhan@linuxfoundation.org
+Subject: Re: [PATCH v4 6/6] iio: dac: ad5504: support scale via
+ output-range-microvolt property
+Message-ID: <aoQYvbzXtp7FEPNo@ashevche-desk.local>
+References: <aoP8DQitMiLOSOor@ashevche-desk.local>
+ <20260818082347.13382-1-0rayn.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260818020559.961335-1-xji@analogixsemi.com>
-In-Reply-To: <20260818020559.961335-1-xji@analogixsemi.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 18 Aug 2026 16:31:27 +0800
-X-Gm-Features: AcwNN1VGsFRcmxBd0eaQBErQ1j0aAV9aqPfggU0ckpHIe44jjjRliakIjKjafgY
-Message-ID: <CAGXv+5HYKJtC-3Rj9u-9AucAYQiSB4DjR=Z1vv_fRuHobY8Cpg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: drm/bridge: anx7625: Add right justify property
-To: Xin Ji <xji@analogixsemi.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, r.mereu@arduino.cc, 
-	bliang@analogixsemi.com, jhuang@analogixsemi.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818082347.13382-1-0rayn.dev@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Aug 18, 2026 at 10:06=E2=80=AFAM Xin Ji <xji@analogixsemi.com> wrot=
-e:
->
-> Add property "analogix,audio-right-justify-enable" to control
-> anx7625 to enable right justify.
+On Tue, Aug 18, 2026 at 04:23:47AM -0400, Taha Ed-Dafili wrote:
+> On Mon, Aug 18, 2026 at 06:30:00AM +0300, Andy Shevchenko wrote:
 
-No. The standard DAI link format properties ("dai-format" under a
-"dai-link" node) should be used.
+...
+
+> > So, the change from 1000 to MILLI is in the line that is changed
+> > again in this patch. So, no need to change it earlier. And again, it
+> > should be (MICRO / MILLI).
+> 
+> I started the code with a bare / 1000, then replaced it with MILLI
+> thinking it was the more readable form. I wasn't aware of the
+> (MICRO / MILLI) idiom for expressing unit conversions explicitly.
+> Will fix in v5 and drop the intermediate change from patch 5.
+
+Since you want to get a millivolts from microvolts the 1000 is semantically
+(MICRO / MILLI).
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-ChenYu
-
->
-> Signed-off-by: Xin Ji <xji@analogixsemi.com>
-> ---
->  .../devicetree/bindings/display/bridge/analogix,anx7625.yaml  | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,an=
-x7625.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,anx7=
-625.yaml
-> index 6ad466952c02..f1b08c6b4877 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/analogix,anx7625.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,anx7625.y=
-aml
-> @@ -82,6 +82,10 @@ properties:
->      type: boolean
->      description: let the driver enable audio HDMI codec function or not.
->
-> +  analogix,audio-right-justify-enable:
-> +    type: boolean
-> +    description: enable audio data stream right justify.
-> +
->    aux-bus:
->      $ref: /schemas/display/dp-aux-bus.yaml#
->
-> --
-> 2.25.1
->
