@@ -1,234 +1,187 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F6947278D;
-	Tue, 18 Aug 2026 13:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787060000; cv=fail; b=qMWjqpFDO2ZWQVtKYgaGyeUHBE1ic0NtIEkBJKoayh8UmUMQ7BEo9PhtzJrY2lGQJT5Mj4Lxh5P2/lslBUQdFvjeR9XXXzqGxlJ/BGFlXDG3zmTsTBX9uX4uG16PD5PGxdp2QX08kj+LrIEl1Rk1PoMYElYEJOtZcZsKAfdIrOI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787060000; c=relaxed/simple;
-	bh=LfzWlNZTGo9scXcM/fy6Y2K69db+2LMHUdmTiIyjsE0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T2y3YF+tDHbSxaOR/d5lxpV8By5oRVYNjqFtL9r6u/wnfmGxdDJ/XuLLBfE+O1TdB2Bt7vWboUocwGNzT7D8j5nOvlvfObvkGHfI4e49P6NcAE/CH06v7xB8a8jVmNwfQ0iJzT2Dg1CeLSXChtvL3SqaFepiat9vOg1FvPgqawk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=jYr39E6B; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=h542f1j0; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5939B479880
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787060309; cv=none; b=KYyunMey6p+8f6GUPN7R/vcOZ59Nd0GnnCuOK854OiWoPjsuDkM2zjNJ7ZlEhrdQRexOgt4hgn0AJat/AATpqbpk6bKfndReRqiQh7Siqp75xa38fk19BVXohqN2R1sa88VbphPbx1HxzffnxmT5UE/7vXQuDRcFL144E6S0Yvk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787060309; c=relaxed/simple;
+	bh=GkxaKnq/63E0Z7X8FpzUUbG68EV0WqLS6lypFir7120=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BaNDBlxm1GI1cHW5qxdTSSTvaPX2BIyEfooKaqaFSCu2QR0jWHBVLgFBOsZe38TLeKzVVPqzOwWc6YyzYzrzmW1D1/FSkeS6gxqb0kx0YWDw+xLezdA2WS9A6Qzzm/bxjpLAF6jpIHRFhj9vWld5dZGoCXI1g2kGVno5nsIOmds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B94k3TnO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VlCD5LT3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="jYr39E6B";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="h542f1j0"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I610uj1808628;
-	Tue, 18 Aug 2026 08:33:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=TwPzftnznpphE2b7vN3aQ/wOma6xk+YmbBPekZqrGus=; b=
-	jYr39E6B5hxkF75UpXh1ohEWOatvrBbZrfD8WrmRm5TWpsck9X2bc1Wofh4BdqmL
-	SbEjIo/Btq8nF6gxwRj41oT1XWCA/yTtFN9CEtXCS9uPxXu5HW2euuXFvn9nGTHR
-	kVPYqevfjNGQd7zMvHVan84yZ+/KYIzgBv3aawBW+iU6IiHehMlUMdfXCup2eJGh
-	IpKIDq8PMtH3iXVFY9sXrRX73kd6ErpJ0lRq7EauWEFoAyN1BQM0GL8hBNN/1rs5
-	AhG7K6iI9lr9IY1w/LLfSWkbEGz4+Wq19a9iwTlvM7zYK2fCa+qBJdvQYrlvKh0O
-	O2FrW1Ty4BfgeTuicUDWcw==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11021082.outbound.protection.outlook.com [40.107.208.82])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4g2mhev2t7-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 18 Aug 2026 08:33:15 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PHckvJcgUPkKXioScFu+1+JzUyDEdkc8ahsW6dEaovU04pJujqpG9CqIgBe8/XxBMDUN8hvN/LVKGCeNxPVx1ieINxDBak0piAl41naz5mY4OtCH7OUrymi4ZkuLJRWrVzpScvWT8M/8kLuls1Nz1+XWBmV+kO6Dbj88RVN+RiMVIDQh7L9j8Nb70uIk6z1HH1Tp/lPSKHx2ZHwjP/oi2SnHco3lsgZYoMdjC1AyvTKL9GkShmJ5OzIlILh8xJJT82j4D025xO6zYE14R16btYVz2ZJZU2EgZ+tVTceqJRw9R3z5HMezQ5QIUTG/Ajhi3wzCEBlYpTsWrumLlvUvjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TwPzftnznpphE2b7vN3aQ/wOma6xk+YmbBPekZqrGus=;
- b=V7K0DrgzNuMkuRoLoLzMI8X6WNiEVjm0nd33q+x4zlCgiyz/8BZFR+S4jj2SpaE9KnontoHQLJuO+oV3mnf7wjEX50iHuAVBVgWEZ+5VvVpBe7GjyAQKzd/JEbBZ+YIwxNIhk3SOLM61bdK9lpmqfvCn0hfO6GhTFkK8ijQDRhffYlQGlYB+PZZsH0teZfOhDj3eo+6DkGSGFZSWO4zUu7wdDttmHLWFlP/T46ubPv02sFsZk9u4KmQJT6gxWV65/AFoNh2wGcueoTtM49L9NS1Mk31D0pLqh2NlnidBOWuiJsmLAmg7XclJky/+/CHJFAxVgArO7nqVx68YhMOoYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B94k3TnO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VlCD5LT3"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IDQQqD941900
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:38:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=W8MX3BkKHzSUT4q98a2dtC
+	s2yo7vAig8OUxQGH0S0+4=; b=B94k3TnOtZx8mkBWhnHXTPOa0xO5NuvSIfySg/
+	JXhqdfZx1qPRmmZk8rldN5xd9aie6JOLi6/I4HZemE/xQRbdJgPIDtmn2BPgN7W6
+	MjU3LYnYF3vbSqKeqYMlQ1Y8Rv/OWfQQpmtcyz61gVPtmlmqZ55liL0nLUu8QVTg
+	Y9Du5Fl2f0zYSB9rFHEBtWA/rFQ+4pEgeDFSAwrAvlOfuntQFOX0YhDLhtEyzQoT
+	6U1jwrakjXuqedt592mDGdNF0+T7Tb3S/u05gSKr/SSDPlPMFSQbkVUxT/4d60kO
+	AncQP0s5VCcltx9STuWfxAkesIWdMOPE/FbvpUuUVcVRPq3A==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4qxj04ma-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:38:24 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7ee59eeb8c1so2832745a34.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:38:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TwPzftnznpphE2b7vN3aQ/wOma6xk+YmbBPekZqrGus=;
- b=h542f1j0B4WMOXljprKs4QYNBh31u6ke+4CcKBn+iSZCXcgeWkacxNdxE9BvhcmunF6AqqARToVFpfIeuibCzAHf3rMcx1/zm/1tSIsVzA9XhUDi66VQNbRsDJG1yx7dnngBuAVqeiyZY2o4Ilf/7NIkWbDSUhSMybw535q497Y=
-Received: from MW4PR03CA0294.namprd03.prod.outlook.com (2603:10b6:303:b5::29)
- by CH8PR19MB137164.namprd19.prod.outlook.com (2603:10b6:610:31c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 13:33:10 +0000
-Received: from MWH0EPF000C6193.namprd02.prod.outlook.com
- (2603:10b6:303:b5:cafe::e) by MW4PR03CA0294.outlook.office365.com
- (2603:10b6:303:b5::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
- Aug 2026 13:33:10 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- MWH0EPF000C6193.mail.protection.outlook.com (10.167.249.107) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.3
- via Frontend Transport; Tue, 18 Aug 2026 13:33:09 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 1CAC0406542;
-	Tue, 18 Aug 2026 13:33:08 +0000 (UTC)
-Received: from [141.131.136.144] (unknown [141.131.136.144])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 3009882024B;
-	Tue, 18 Aug 2026 13:33:06 +0000 (UTC)
-Message-ID: <e3d9a8fb-cd16-421b-8749-250bf4229b65@opensource.cirrus.com>
-Date: Tue, 18 Aug 2026 08:33:04 -0500
+        d=oss.qualcomm.com; s=google; t=1787060303; x=1787665103; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=W8MX3BkKHzSUT4q98a2dtCs2yo7vAig8OUxQGH0S0+4=;
+        b=VlCD5LT3SB5O3ad0J213jmJ+1ADl64slbBXc00daIQEyJyiXxTMtA94WDf6+knRoAk
+         xjKebJXQX21MszH4oVALDOqn+bH/TCst7lZtkbAVGa2CWlo0V+pfhYPCY1PyUhGBBeRV
+         qdsNHzP+MLhk2qhXIv6GYx6n0Z+QttuCzdPb/2xwCsdXxI6OPGCus+l6V/q9pEQwkgCj
+         M/XSTJpJPL7WihFoYkQsx6HeZ0ZVJ3785p+35aFscqzPFO69IO5LwLuE183gcxxWtenV
+         nHgIc3Y5VIcB43yXAJHK1cg1a+XmWLIJHD3A3bsSW+yReebmq3kFQLm3h+OT0Z3fJVlT
+         FNMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787060303; x=1787665103;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=W8MX3BkKHzSUT4q98a2dtCs2yo7vAig8OUxQGH0S0+4=;
+        b=IjwZgoJJptxi/0mVkWfG3pSP7PTAQQCupo6amCiq9rT3bzW6EFa1qrtSnoJNp/wuno
+         unwvF/cOsEmfosLBSpLvQ144AG3XyPsqUczOy0X/GovIHeSf/BLelZMgcqz7WO3QaF3t
+         Q7BpkbsaCIX+eHWKCup7GToGe1W9v2gR16rjEfyHcO/w4Csded/Xc3iNLrfQaW31tEzk
+         /NgzM2x2Gg067daKbkjPX0IO+GxyGj/E2njDnU+CS7ln2sL6sc4vJo1inGMVQkhOOPSU
+         uCZJd7VpD/3h28qaRguvt682tJOVv6VAHhT+fZrrvANxm1uguiZEPtLXtw1pJcTWfQ13
+         FzJA==
+X-Forwarded-Encrypted: i=1; AHgh+RrHQyciV849TwEe7JUFc3O78I3kn/HFZj3sqxuLP13heSBuQo0kSU3jNZzYGgB20tv7C8t2Zt5Qy/Kl@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxdxr9AFiq2pc6b398ATc/7CmGYFoQkT7twJII9Ap3HaXRMD/mm
+	/Qmb3ByZFjopnvAvUSet/2d6gzRqKfOOtjObtacQx6lM24zY4H26epvaDeQC76D5NX09wNDHT4Q
+	K6U8xZB5JM/IrYioLQDeyJIFk8vvQW+9NDJ/PWzrAaqpIv4o6+qvOqP+tgVQGPQso
+X-Gm-Gg: AR+sD12YQejssPLV1f5u5qus2ogLaK3DDcVdMrdKi8hbcJw4S1V8A+khxY5lITyGuq1
+	rfHRgMTGT90tIk+fwyIzBMG8fGgxcc0gfF5BO9Gj0A1iLA/q+68amVPjwwWbviPUHCPrdZNDHjj
+	5Qz80M2TxElbjIMSEnInPTDI9Se6kcPXq183qrDpDYrae8xHjsZScWRhcmm59uUNoW78JCKUnOq
+	IRmXGCYMEvaJDuXJVxjNTaWkAhGkqbqEzCavTgV/iXOtBkMCzTdnqlNIHjd3ealtVbTneZnLbnO
+	QsjbPoeiWFxZprpWNXbty5TVFY3ipak2tT8SQao/+1V5ARlMZBGL3ypX312/TVds/cFEteOIwC/
+	1MH0xc87nFkq7LX72G45lIRJsZ07RiL7Ynw==
+X-Received: by 2002:a05:6820:160f:b0:6b0:fc2c:bb27 with SMTP id 006d021491bc7-6b0fc2cc496mr15903914eaf.14.1787060303246;
+        Tue, 18 Aug 2026 06:38:23 -0700 (PDT)
+X-Received: by 2002:a05:6820:160f:b0:6b0:fc2c:bb27 with SMTP id 006d021491bc7-6b0fc2cc496mr15903875eaf.14.1787060302666;
+        Tue, 18 Aug 2026 06:38:22 -0700 (PDT)
+Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-45f22aea368sm3232956fac.5.2026.08.18.06.38.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 06:38:22 -0700 (PDT)
+From: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] spi: qcom-geni: Use GPIO to notify master of SPI
+ target activity
+Date: Tue, 18 Aug 2026 19:08:09 +0530
+Message-Id: <20260818-use_gpio_to_notify_master_of_spi_target_activity-v3-0-e1c9e0dabbda@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEFghGoC/53OQW7DIBAF0KtErEtkcIxDV71HVCGCB2ei2jgMR
+ rUi37042XTRTbMZ6Utf8/6dEUQEYu+7O4uQkTCMJdRvO+YuduyBY1cyk5VUVSs1nwlMP2EwKZg
+ xJPSLGSwliCZ4QxOaZGMPyViXMGNaeOOVtBrE4dg2rLydInj8fpCnz2em+XwFlzZna1yQUojLY
+ 1MWW+/JHyv1fz4LXnFXq9rqc9N5pT8C0f422y8XhmFfDttWZPnLEe0LjiyOPnQCvK9F2/g/nHV
+ dfwBs2QOVcQEAAA==
+X-Change-ID: 20260729-use_gpio_to_notify_master_of_spi_target_activity-5f62a9e14875
+To: konrad.dybcio@oss.qualcomm.com, Mark Brown <broonie@kernel.org>,
         Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
-        patches@opensource.cirrus.com, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260814223456.611160-1-rriveram@opensource.cirrus.com>
- <20260817-brawny-smart-dove-85e4a5@quoll>
-Content-Language: en-US
-From: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-In-Reply-To: <20260817-brawny-smart-dove-85e4a5@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6193:EE_|CH8PR19MB137164:EE_
-X-MS-Office365-Filtering-Correlation-Id: d10d2af2-ba9c-40d8-1cac-08defd2d3e89
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|61400799027|18002099003|16102099003|22082099003|56012099006|3023799007|6133799003|11063799006|4143699003|10067099003|4076005;
-X-Microsoft-Antispam-Message-Info:
-	dnJC5mPs0/zAQGuUGIjmTYibwl4WN8J5KNUg4wu63Rky5dB66YWCst4gk92+UL70hP/joJqee6KYPE5gjUSUdVxNx8l2Sn03UBaGvPswXe5RaZXE3+FiXQp6kvhtaWdxbaDS7GdAu+nXGQRR1Lk/b4gG15iXFEsWanjv5OgtxAa0H3C9uNPBbb1UgxCVCEGPCGrz3SXLWEBj2QURXtKcmjwwjeXpa3QfEJYmlds1Z9DOfYqcRp4fs/DltHNXO80DmyfPCP1TMXByCDYypiiWRk5ejewAtyYZlIQ9T/DC2bVe4D4oVIWNxIc/jgmSI+udRXkeKxbLcpxKIdPu+pGozO1Fbblu6KY1XXgGpEqmuu8Cps36yjwBQi4hbwa9l40zsB5W/S0UUkbKp5FUFsiECPqh5SnXx8H/0/d9WlXTUxzzF+fueIWyE2aREcAcSW9Aq6Bn+c1WCsCFgFvHkQq3qlvhUd/rzjmSd6O0FfTedAteO68n5On2vyEtB+0hzN1UdnsHXK5SDy8LYCzGTGZLZRm2spoTnDye5muIbSxkQmCFODoF4rKmIxm7tLO82X8nXd43h6sxt1EyFqcCP/NESUbN/yU7aFH67YKXSISzMo6zbAHFetQ6dO8YIBKqsFWOfbwfnea2j9eUA1PCY1nZsWM3J5Ue9moTupc+I0RuTmdegLDBPP+0LZ8gm1qpjwMzXn4ci4gvTcsuV5XxGAsGurE1nFWwgY3M9N+QGfwmVJfbggT78cqTRk421Z8HBG2C
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(61400799027)(18002099003)(16102099003)(22082099003)(56012099006)(3023799007)(6133799003)(11063799006)(4143699003)(10067099003)(4076005);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	OdxmTwJ9Cx2EVL9fi3EcxUBn9hUrQyOCSwAvGVbvZAql+itc/qSJTr7ALdlspvv8uJ5KsXj2MWPhBT2mmOaSqvhuEZ4mVBehheWfBXsMDA6ZGsX4cLBAZ6/B+FC6bph3UjfYjkkQnub25iRBs2g52rFiPlQ5bM7SUW+FUBz0sJ4j5ci/dc/Swj9BhopZmNMw+D9vcLuj1gc+5jFQ3G9zgXoJQTiDtj1iVSKBtEehGMdszca4u8O6dW8TTxAR6c9R6sJojD0uHMEfcwI2puLVVnIkeetLXolDuA/ZBKNTsXAy29tmq7kH03BEono+wzHqHMIlVHR8VD2DBdKfkHA1nBcjPlqU/9fJO/u6uruBU5wTNDxPHDGpWlC35A/x/QVmiJLMDUhzMRwaL715ZOggwGnBIIsMP0K0TFUi+O5dwC4rpnKImm3zjkD8Yj3J0gTW
-X-Exchange-RoutingPolicyChecked:
-	VBUvqnkX1QC60byA5Etrw2Pk0esR7bbteWTd/inpMZNZbtlsMqfOuZ/W4dL3SJmrvd/YYNFU7JLNBpKK39zvtc4LVQMUN6d6TrS8dItUSbZ9QfVypqpoRU+d//z6KAlDU0zG19EjU+xlM9us8R6Tlupt+YxfET1JxDrpom3QwaNIuyfjLLuj56Q1YkHmqrX1BNcQM7f4iz8WivokM1AAE+nsQugozeBq5Byv0ctrwWOki2PwCvazHMSUxEQ8N883KfLX9vKBrovh3VLUDmrxYrxm3C59KKb1a3crRBCQxqA8vjBjcTgqnt1I9/qetWqhsnd8xn2Gh53tXpKS/DY0sQ==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 13:33:09.4540
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d10d2af2-ba9c-40d8-1cac-08defd2d3e89
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MWH0EPF000C6193.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR19MB137164
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDEwMCBTYWx0ZWRfX8pmk+W5ibCA7
- RKqtxsM4vUbfb3QmDEZ33HWXqEvxmxAK0dMAFpIHxWobJ0S3ZpS0yvDxS+DBh5Rg/LZGLyZBNee
- dDWUdz5VsrIB1/UOb3w6niHhX0NJ/OpQDcv488x5z38BsgfGEy8e3dwX98u7BAP11V6j1L5dQQg
- bOmvMlEEkmddrcoCn0MMwuweZWf1Mni908Zq6DlqSCDla1KoUE8yoGkGc7mpPdMp5K2tU1LEUz5
- 7lLTDoE64p4jNXqKgeArxwyHAsqM9o/YqLSzl0uq0Y440APfq7XiKeewiBCtIoVmdq5giEzOU7q
- HaSyNp735L050m0Iyi67OapYBNWHhSY2d54c8PfA5oHI/q70svwQ/gsSC5E0JGZzktagsESX00y
- jgp2dHSr5f7xwPnVXnbe6XbA6MsOHJlyn1Mlnc/sVTv/2jcrVcNrp2i1RD6TFjy43Dp69xPPrlo
- 5WOL7PMjgyPjZVsl11Q==
-X-Proofpoint-GUID: B1InaiiaTcdxs1qaUlY3_fL0ekLzCULh
-X-Proofpoint-ORIG-GUID: B1InaiiaTcdxs1qaUlY3_fL0ekLzCULh
-X-Authority-Analysis: v=2.4 cv=FLMrAeos c=1 sm=1 tr=0 ts=6a845f1b cx=c_pps
- a=Wfyg2MIdxp6jvjeZNnPfXA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=w1d2syhTAAAA:8 a=gYQhRmEh8N1aiKkJ3fEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDEwMCBTYWx0ZWRfX5zflRp7EdQf5
- YJLXPbSQfvTN0XBCYV6/ab357UL2he+Tm+oVqmb+4XdxmYKhQNVpn2rXuqgPalyCYE5Iw9pdGu4
- Jvi9Ib69zgq7lXPcfgk2HFHb+3ClzNk=
-X-Proofpoint-Spam-Reason: safe
+        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: chandana.chiluveru@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Praveen Talari <praveen.talari@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787060297; l=2028;
+ i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
+ bh=GkxaKnq/63E0Z7X8FpzUUbG68EV0WqLS6lypFir7120=;
+ b=CD6P1SGuExyO2hOc1fOipRkKgGLSrCS7wKtKqUd+r6MaJ+DOaER+Z/hIJwROxvjmWsbgXKXH8
+ qSUV3IkAfV9AL/IlkFIkbHV6juNx5L46B1Cscb0WHbQMtANPdgX/sku
+X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
+ pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDEwMCBTYWx0ZWRfX8XdqbagI/Sdi
+ 1LAWM1pozkFJJr5kNDRxvXYvreT0wp7O24nn4jRtgww5i+qDYQhn+JrgrS3BD19V04VzlrzchXl
+ nsDz1gdZ4IN36BpZljQhfnwPW2vLqgA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDEwMCBTYWx0ZWRfX9WLvfZ8/nay+
+ 6P0CUYVwK37EwZWLsgI2gVAruCHWe1JAablD0EwaERlMeX555NU4XNfdliKELS555FRzQ+RUMJg
+ iRFu5bfaft27PzsISFyb+wu/f7FYKtM9z65cqB6J3MiVWeQTYKVcUKFJ+eluv6eUlmI8SNW3NdL
+ Dnkr/wUwz4Mn0qqZ5Xj8eAQoX9pJog9x/ga8FN5Zin3eYmdOd0qfrktks0TpVZGwDBj7cF1tHby
+ JRIo+NhzdjCDzXe0fVrPpmhfsgll3kvaaqYXrFlwfEzrZM2FSokXAM0WgXIw0scT1SFP/y3VvO/
+ hFDT6Elo8b+Xs4X/4n+eaVog9u6lCgfAcPLJ9FRXcDuSw/6S78ozU24r/5ZhXtT5/xKqiMcJiEM
+ jSO/zbOYpBMTLz8lCuSnJUZIqUnYlLJ98QNxZb9sAigtiWcLh4IbLG7n8bwYKH5wm+o/5Dl4+vI
+ x+Liagllr5D/JwdukZw==
+X-Proofpoint-ORIG-GUID: BnFmlQWVDMnIKNXgJtrFVp0NdYk7DEFD
+X-Proofpoint-GUID: BnFmlQWVDMnIKNXgJtrFVp0NdYk7DEFD
+X-Authority-Analysis: v=2.4 cv=bvB8wkai c=1 sm=1 tr=0 ts=6a846050 cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=DF-2czj9NRJiL_b3NI8A:9 a=QEXdDO2ut3YA:10
+ a=eYe2g0i6gJ5uXG_o6N4q:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-18_02,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180100
 
+When operating in SPI target mode, the GENI controller relies on an
+external GPIO to notify the SPI master about the target's active state.
 
+Add support for an optional device GPIO that is asserted when a target
+transfer begins and deasserted when the transfer completes, is aborted,
+or hits a timeout. This allows the target to explicitly signal its
+availability to the master and ensures the GPIO is released in all error
+and completion paths, preventing the master from observing a stale or
+incorrect target ready indication.
 
-On 8/17/26 2:39 AM, Krzysztof Kozlowski wrote:
-> On Fri, Aug 14, 2026 at 10:34:52PM +0000, Ricardo Rivera-Matos wrote:
->> Introduces support for the multidevice synchronization (SYNC)
->> bus. The properties introduced allow for the configuration
->> of the device's transmitter IDs.
->>
->> Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
->> ---
->>   .../bindings/sound/cirrus,cs35l45.yaml        | 27 +++++++++++++++++++
->>   1 file changed, 27 insertions(+)
-> 
-> Sashiko comments are valid.
+The ready GPIO is intentionally made optional and is requested only
+when target mode is enabled. This preserves existing behaviour for
+systems that do not require the signal and avoids regressions on
+deployed platforms where the GPIO is already controlled from userspace.
+Targets without a ready GPIO continue to operate unchanged by using
+devm_gpiod_get_index_optional().
 
-Sashiko contradicts itself in its own comment.
+Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
+---
+Changes in v3:
+- Rebased on linux-next tip.
+- Link to v2: https://patch.msgid.link/20260817-use_gpio_to_notify_master_of_spi_target_activity-v2-0-94d1eff3175f@oss.qualcomm.com
 
-> In Device Tree design, child nodes usually represent distinct
-> hardware components, sub-devices, buses, or standardized structural elements
-> rather than serving as logical folders to group related configuration
-> properties. 
+Changes in v2:
+- Used ready-gpio instead of target-gpio.
+- Updated commit text.
+- Link to v1: https://patch.msgid.link/20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-0-c363a9b5df69@oss.qualcomm.com
 
-Emphasis on the buses part of the list of things that merit a child 
-node. MDSYNC is a bus.
+---
+Praveen Talari (2):
+      spi: dt-bindings: Document ready-gpios property
+      spi: qcom-geni: Use GPIO to notify master of SPI target activity
 
-Willing to go either way on this, but I do feel it looks a bit tidier 
-and follows the pattern set by the GPIO nodes already in this DT binding.
+ .../bindings/spi/qcom,sa8255p-geni-spi.yaml        |  9 ++++++++
+ .../bindings/spi/qcom,spi-geni-qcom.yaml           |  9 ++++++++
+ drivers/spi/spi-geni-qcom.c                        | 25 ++++++++++++++++++++--
+ 3 files changed, 41 insertions(+), 2 deletions(-)
+---
+base-commit: e6664f2b33db9b6811eb4cec109f06cb2b4f458d
+change-id: 20260729-use_gpio_to_notify_master_of_spi_target_activity-5f62a9e14875
 
-> 
->>
->> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->> index 70f6c62aedca..f64ba8c872b9 100644
->> --- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->> @@ -53,6 +53,29 @@ properties:
->>       maximum: 3
->>       default: 2
->>   
->> +  sync:
->> +    description:
->> +      Multidevice synchronization (SYNC) bus configuration
->> +    type: object
->> +    additionalProperties: false
->> +    properties:
->> +      cirrus,sync-lsw-txid:
->> +        description: |
-> 
-> Do not need '|' unless you need to preserve formatting.
-
-ACK, will fix this in v3.
-
-> 
->> +          Transmitter ID to use for long software (LSW) data packets
->> +          on the SYNC bus.
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        minimum: 0
->> +        maximum: 7
->> +        default: 0
->> +      cirrus,sync-sw-txid:
->> +        description: |
->> +          Transmitter ID to use for short software (SW) data packets
->> +          on the SYNC bus.
-> 
-> What is transmitter ID? Why does it differ per board designs?
-
-Transmitter ID sets the arbitration priority in the event two devices 
-clash when transmitting. Higher priority device gets to transmit and the 
-loser(s) try again later. The winner of the original conflict does not 
-transmit again until the bus idles (all losers have transmitted).
-
-Equal priority by setting identical TX IDs breaks the bus and no one 
-wins in the event of a bus clash (never desirable).
-
-If the transducers are dissimilar, then a system integrator would 
-intentionally want a set of these devices to have a higher priority than 
-the other sets.
-
-> 
-> Best regards,
-> Krzysztof
-> 
+Best regards,
+--  
+Praveen Talari <praveen.talari@oss.qualcomm.com>
 
