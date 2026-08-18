@@ -1,117 +1,103 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A81E3A6F04
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 14:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787065170; cv=pass; b=DnS6XZnLmE08jJAorlGI0BfOFxIxZBqzBT6stY2MCcbT3avh16+Rv1tcx7lrKoWYrcV4MFqkfJYjddKyi0EScyWHXTu7upkFd8u6KUuDfOxDLhCd/aSsvS/VyYGKVX7htgwLV6LOdmXHiUrBR9jPZYCChMeLwrZjwsbwU0By6kk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787065170; c=relaxed/simple;
-	bh=auOWJSI+p4NXA2fRT5Cx8VbH8xiNgNPgiWdRlKFQleQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FEBbzKbXapLVm4ct08WpuFYAJXHItJfUjk38ouc67COYpyuB4+iBfaf8ECQ/w0zMhPIOxq+KND9WJ+K/uZbi+/9HfJII7IS43VNREKB1lPL+T2VKls7yAuUsKLRhxrHZMIOsWuVsS6yrBcBAAK3FC8mPdCjA67umr30ScSmqgks=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G1Ami/y/; arc=pass smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3113AAF6B;
+	Tue, 18 Aug 2026 15:07:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787065628; cv=none; b=Qw6Q2kArp462rhh/aR9BclT1mVdIJsENG7TDCvVpOfzLTZPdAytd77b19mXx6hs6kZ92Upx3bvN8VsVd1m/+mJoMc0k3SGOH0tJ07tEp0T16OxrUa9ZSXjJNunI+7UPWvzLfpMNLtPtWQgj11LXN+ci2DBkJX/0sldmzD8p0y3s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787065628; c=relaxed/simple;
+	bh=r444rkKnnmxJSFdTtlazkLelu/fRcjvBfJQaLoZOfIY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ny0iEDaLiS1kMwXWCeasx6sk8ux928drVzNrcli7oYWjvhV+uEL6zqPy3EutK/ghdTYc1rWRzoGryLtUghgMppE+GqCQa5GtP8XZTqGTHMEVRq8DAmx6DqBVzzuPeAEaWzFnr38A6hr3Sy5LpsQn311mM7j1o7cyOoB6qe+YX4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TF3hFp+k; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G1Ami/y/"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4957eefd361so36716285e9.1
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 07:59:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787065167; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lQbuk1snswDRwXtrLT1X2ZrBRQUlDKd1H9O1zqw9NST5NDx1yUwJBI3aKYaZSUKoF7
-         oMpKqQhJgoJody/vum8oZlcojR1T6LoiFuFegV9eEfoZ6or4Lu+YmZ8IDMlh0mbGtr8D
-         sYBtqXMMF3o2DBck/OLIf7ln3Rxu6CisPHucYcKYSVOCr6LRa/GMqhX42gRaggaIuT6O
-         7irbyxX02FVBuH/urPs/b+aA2tpEy47tTAodp9b67D0sRuMM0X62mlUNcly3JJPbhj3g
-         nHi6zbYcte5PeVPFeMqoxWAVWEzWvFafY5zC6J7l/XQQVBKJ4X50tvRkIYUsl4Y6U4JP
-         7jXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=auOWJSI+p4NXA2fRT5Cx8VbH8xiNgNPgiWdRlKFQleQ=;
-        fh=tvtTzYYgn8D6mcoJruPBoxTXphdf2whyPFY9eGeETFE=;
-        b=gFLRroUkXQeHZGjiZ8bkcM9zfMii0eQjmbBNiJC2c8dlmY05BmWRztEtwGf7esBk8Q
-         ZG+MovyssftCP4jMd1dpsGHH0IQuQhfJGwKBWpvIlzD8tljeP4N5CsUOSA4eq3s3Nh99
-         +WXIplQAk6OEjYPG5lEuC1KLNTNR0dJTAt3FSAr7KZslfDayCOESRsXwHC22fhMzDpbl
-         SlFDNbFNKeghcVm9IhB8mcFU2ASLj2Ki0xNuJ3VusZaB5ML1xBUFUkpOay1D/D+gVG0R
-         1RkLym/iMMTwVBdO+0C2cRqSib+l2KnwuuMwaHaUD9iGSxObWo6ifm4yH3hlBkXZ6Tki
-         0G6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787065167; x=1787669967; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=auOWJSI+p4NXA2fRT5Cx8VbH8xiNgNPgiWdRlKFQleQ=;
-        b=G1Ami/y/Jx+/W4PBUx5WYf3TASiSE5Hlm3gMm4z4O0QCNys9ugGjp78wjeWhQ5+ZMS
-         OZG+3jgKbkVnu0DqACWjqdjHmW+Dgh6dYk/kOz2/OIEYHfvAUs9YZdTNtEPdSAD5cGdK
-         GEM5GS+RzhkQalcvRJB3J1DRetgCGM0uf7YMyN9bmLsNG1mPMhcsc2ebnA3I12CQnT3s
-         zhxrRsQF4aQh1WMfXO6g+ImSTVGbBlvbCqCQ0TPBbdgEbt7wLiG+4vl5Ni7W3kOPjwNw
-         BKfGct+BHOThdekT/EBCQlYZLdrxpYRCpG0WE9uxsG/91mV0QR6TQgauqZqILXrwZTOQ
-         2sHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787065167; x=1787669967;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=auOWJSI+p4NXA2fRT5Cx8VbH8xiNgNPgiWdRlKFQleQ=;
-        b=MJhhu6R0fAd8Awv3lMgQkj+x7uX5kOnF3sbslcmna/3iqJCrb1TYrpTt6ax7PMBaff
-         MooHkWYtZcGJX3uMhhjiNAcDVfX3zThdqUoyxad68W+j40Y1CksdT0xUTEB1w+HQvZCW
-         RtvpD1s6TlBU0nJoTtDPBsgPdmM117bA5eTbUMaCamxF4kSDorshj1L6L05MordgR1BZ
-         e8DBqDxtKf4QTa5rnrdtR31Kp9FRmP9OjXeQ3g49ABOPWrGtkRA+wICAp5mO+9bwkHq3
-         kHMuxbkZnDxMCHVkDwSDBUenwSFjHgDpgDyhyfgXLvWJ+JXBWXy/Gr3giLZw+a/6YTB1
-         Bf3g==
-X-Forwarded-Encrypted: i=1; AHgh+RpHMMBK4UMP0OcUc7Wp5e6cdxvVNcJ2LvHI8SSQAwBRPkCvh+Ep+Rg8LgjjcxCMMKDz2lTKt77xLoGa@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqdvlwpeKOrvF+3SIrt0mLJeSXtF6bqCF+rlccbWBAJ2Rj6Jw/
-	sxFkCmsmunEAZRtQ9d6OPIephzRrOMlv1ea8oBt7ISX7OZhJt0zHcKKEHkIUe8Zgxtq+IC767RL
-	Et6PPLgYB4oQvbawsppZvTZ7lIG41m7o=
-X-Gm-Gg: AR+sD10wALmzVupdndeIWRzh+vZtEbkdIgP9sNzxCHALcxhkC0/LIHiAz/Sf99CDLSg
-	nn/bQGBoaUNgouzlcpeqsIaY07jPskBumYMNYf1u/YvGbC+tLMRcd5EB8SQ887h3W3OmEjRf4pk
-	2AbhdPs57BlM4fRBQRKBt5/t3tbSLcDz3FjwolNQiBwGbYdNmdWn92/Xp7R/m/EISdtOFvHltEJ
-	zx3xYOFtbpFOe29zHvzRZac/hBn4yKYt02YppUELYNHCE/AJQfrvFYCESISdAQma+NqfLMv2/S4
-	gt4mi4+nuwqVSM6KN2aIHPh+cX1AiBh1dAMWerVywykhccVsi5bNlmFSTzg+VNgFzCEoVQZmOAW
-	CuGncNYUOtE/CHHh+0SMMqk2HMl8w03VhChoEDSADlOxAUmnqHrmvhc7//QX4qUo=
-X-Received: by 2002:a05:600c:4ed2:b0:499:8743:77c8 with SMTP id
- 5b1f17b1804b1-49987941ae1mr528130175e9.8.1787065166778; Tue, 18 Aug 2026
- 07:59:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TF3hFp+k"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1CB05C2BCFB;
+	Tue, 18 Aug 2026 15:07:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787065628;
+	bh=r444rkKnnmxJSFdTtlazkLelu/fRcjvBfJQaLoZOfIY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=TF3hFp+kE/pEhUDUvChrYWIEHO6VRV9d0BA9/g5+akCy0B52GAc2vAc8FaEELBKsX
+	 TiICIV5kYJVcw4cEDpQp0ZP81RHy4FtiQD04hnr1UHD/3zA0DdR3/e3I+mSSN6R89V
+	 +OvbTFaHS2EmjQ7eJmy8Q7WH3BcnN8BVFALerXt+fh+lqfuF109U0NjLm1cJPaBF7X
+	 WCInUGu215oype16Z2gjWNnVrdG6MnFILW5YeZHQy4jllVgORwKdt+er1kwArncqCB
+	 S2wZQam3RegZRyycueJnVoN+6NWfxCLQxfc8ywkU4NSj0JWhJX653vadYwlL/5Larf
+	 tUn0BvNdU12Ig==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9F43C5DF81;
+	Tue, 18 Aug 2026 15:07:07 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Tue, 18 Aug 2026 16:05:43 +0100
+Subject: [PATCH v2 2/2] soc: samsung: exynos-chipid: Add Exynos5515 SoC
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260706175138.12587-10-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260706175655.6A31D1F000E9@smtp.kernel.org> <aoQ5INLOtNELfXpH@ninjato>
-In-Reply-To: <aoQ5INLOtNELfXpH@ninjato>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 18 Aug 2026 15:58:59 +0100
-X-Gm-Features: AcwNN1UCOJCIwPDBwZ6xtGRL3Omm13v2RjrLOXY3KVHS5j4fJiEaqJmGRVxTIKw
-Message-ID: <CA+V-a8s_p95DsJDSZeP2Uy6=Nv4KZkKj0unLaojqR+yDZGTLZw@mail.gmail.com>
-Subject: Re: [PATCH v3 09/12] rtc: rzn1: Use temporary variable for struct device
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-rtc@vger.kernel.org, robh@kernel.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260818-for-next-lucky7-chipid-v2-2-28ae49f5c349@member.fsf.org>
+References: <20260818-for-next-lucky7-chipid-v2-0-28ae49f5c349@member.fsf.org>
+In-Reply-To: <20260818-for-next-lucky7-chipid-v2-0-28ae49f5c349@member.fsf.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=767;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=KrAvbTcjPgbEqmHaN4JftTy05Ws77uQwQ2XXbRU1taw=;
+ b=owEBbQKS/ZANAwAIAUknAbLEetfrAcsmYgBqhHUYhckpPyuaAWT392LX/C6uN5uPLPi5/tBVa
+ ktbbqmfOgaJAjMEAAEIAB0WIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCaoR1GAAKCRBJJwGyxHrX
+ 668zD/0RgG3Qiu7GFJKFaVrk7O9inGucMKIg0JATcjQFzegBFbclxxmBKUxIpPIcHKPvSIcDv97
+ 9llDqe9WcvUC9HDMvY5tV9yzqW9ZLesUS718CGo7ltIoJnao54yDxAR+NKfAX4DsDAJ2ZuXzJj/
+ /Fg7sFZNwkPpRdIMGwFThauaXQ1hEB2gEX683A7S3padQcEa5YNEJVSXoDqPUMRpqQ1eCatgvU7
+ 27DRSqo5LeaPS8I53bazB6uKGotJV34+3TkGVpBNUHhsEZKiSYPLFmm7PRXImt3jhJ/ksuF+dpv
+ ANBaXwBWG5jSHqbvQqQ//EZyCYN1D8wbKcRuJDxQPQYiyH/iyXSlhG499ltMdFCT7CWDkJHrggS
+ PK55zp5r9XeVLONpiuvikwk/L5edX7DyqE7am4/QMLWkAVvUnVq9AkUw+q5hJzf2aAHY/KMMWC6
+ jkGDoxqyZMLvhfjytmWaFptJ8tq4BByEPTGryb1dHARJiup+IU1aYRBVwKZrvoofZf2sDSPIBIp
+ T0fhN9pt8ZGgBcWxECthLhiUGdqIkI6FWjbdGy77RNLcfUoYwDLwcmflDbEnfHPsI8PL+DfLIjA
+ w6MqXTBxJmFx2C1ODz63a7E6vKT8J/CVL1tGx+S0+XLiK5FhsGfo/v85m95oD8+EuLrVYS43Mt8
+ bE/zwlwr9lSMjlQ==
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
 
-Hi Wolfram,
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-On Tue, Aug 18, 2026 at 11:51=E2=80=AFAM Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
->
->
-> > Should rzn1_rtc_disable_hardware() use pm_runtime_put_sync() instead to
-> > ensure the suspend completes before runtime PM is disabled?
->
-> Sounds reasonable to me, what do you think?
->
-I haven't seen any issues as such, but I will create a patch for it.
-I've seen patches taken along similar lines.
+Add Exynos5515 information to the soc_ids table.
+The ChipID for Exynos5515 is "0xE5515000".
 
-Cheers,
-Prabhakar
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+---
+ drivers/soc/samsung/exynos-chipid.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/soc/samsung/exynos-chipid.c b/drivers/soc/samsung/exynos-chipid.c
+index 6ef9751e2509..506a0bcdfe30 100644
+--- a/drivers/soc/samsung/exynos-chipid.c
++++ b/drivers/soc/samsung/exynos-chipid.c
+@@ -64,6 +64,7 @@ static const struct exynos_soc_id {
+ 	{ "EXYNOS8890", 0xE8890000 },
+ 	/* Compatible with: samsung,exynos850-chipid */
+ 	{ "EXYNOS2200", 0xE9925000 },
++	{ "EXYNOS5515", 0xE5515000 },
+ 	{ "EXYNOS7885", 0xE7885000 },
+ 	{ "EXYNOS850", 0xE3830000 },
+ 	{ "EXYNOS8895", 0xE8895000 },
+
+-- 
+2.54.0
+
+
