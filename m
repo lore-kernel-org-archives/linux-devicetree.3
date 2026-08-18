@@ -1,61 +1,63 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3C843B4A3
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189074499B1
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 09:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045784; cv=none; b=b3fbUM4G3AYJbWe0EvTVm59Ujen5PcBb6dJouNogxoIoqXq0xXHikinbRAKbbz84D+aAepeu2Hj6VmjZEUCEfWZjgvNiHZPxXwv/5r4Xc5XYpQTZZXqZHUCkcvFeovtJxUV4QmSrPKSJ+RIko6VRyUdG2tThb1wk0gLyLCoILsQ=
+	t=1787045787; cv=none; b=SMQ1HUZI6VHZFD8a64odlxwyZ/KIYOEXhHmiNlTuqatKj2gvJhKPgTex3mDk/B0P+nV7tWT6eCnfoILjuIVVvu9ezK+aQJtQJD1Z1rmGfL1Fa1BLCwE8+8P5fKpm8wCSe8468e+hmvQMIL1sRXyrTidzrX3uVJfv0R2Q0U9J7LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045784; c=relaxed/simple;
-	bh=Mza2HwlLWqQRyQkXb1ziFQlfmfW6uf43YGjIlmV4nwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OXuGeqYsmINr5Urw9x1o0tx38DFaQ6K41bNohbK3V7xt6f8f19kaNjGxiZefFHHmsjrh11fdLipWPv6YYzFc8WU/h3g91w1gByfPvP8Cfz5KaBzVcMyUmFyPqbP/6DcA56b/3jqW0p/jNmRa2KaNMNfyHEWvDHuu2XB/ZzEioU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cH6/ASkE; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1787045787; c=relaxed/simple;
+	bh=RkuPU+szxSRPLV8KTuj8qDOUbDRUGKXjs8KU3FAuvSY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rYT+/4esobbtMNJgDo9t7O8SvvXHH31AiviSWQhNjAeU/HZZexSJ78AkxS5e8e+GXYNrnal4xd/WBqtMR0WZXJvct6aK/kN6SnAX+RbNhRLlsS9EA/WsmXrEMnckxqjYGWnVAA6rNANfZhP2AxoxBmici9oi1DGNnfZsIt6r3BQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/6OENRl; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cH6/ASkE"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d5cad1a6baso9418325ad.3
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:36:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/6OENRl"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cca0c5799eso40830905ad.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 02:36:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787045782; x=1787650582; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OZxmP6J0pu/96mrheFiRTnOOfv+FgP/O5o1U6VRpU/0=;
-        b=cH6/ASkE5hXb64D11/yrovmMEqgipgTw0z8c1Ohhg1qQ02jv15MmstBtspl322Vxfi
-         26Y3Sgr/zVelardZ3Rwif1rAzMwKXbThVZmsA1v0mlVwucR6+BFMAQsR4ybH8eIQYIwa
-         QNwjXo1/4SVRLEjmZLghKzafhSekDdSrglJy4qcff4WdwKYVBmfm8rPnFUxuVg9GvEsP
-         ggDwnFniTJjLf3Q75yhR/Ax/XE4oRF3jv1TGzE3+K7AVbLuiWzylo6/yUodYTnAkhrNw
-         PneBB9mVZpbZOxHQ12XXlHQoxoy1+hXqtyKxa20HxN11m9pMnXP77D9urJOX1YtwlNFe
-         mVcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787045782; x=1787650582;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787045785; x=1787650585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OZxmP6J0pu/96mrheFiRTnOOfv+FgP/O5o1U6VRpU/0=;
-        b=UeAZ34kj0qyWsfJdOMyjaegNseFZjoYrphvUlIbL0iS8FiQ/PL6OZTnScAvpnkYtbD
-         AwlvLILZ8Zo4MaCU3Mbddx/Fqe9Y2BtuFuwZlb5fkiHYxifBrasnOzkAlVpm4XgHRFe5
-         /glY4UALa/N/Hgb3Vfp1iSp1uJ3JkwCuVDqhqi0McNLocpckIW7VUCOZC/+hKsz8J8nr
-         CUzURWXjPBC2LF+qekf0lYvRRHHYcb++mMbTO502mk6FcikWuBU/xdEd0qnB5qvHDvvn
-         53/WnN0Il2MiJKDdTth+kT+PBG1FSsl8KQWVZjGoFnJhM3L5FnCMkq22mPvbYUSQIIeJ
-         DaBg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/uyQJJZdpB9bkCZuM6tay76YR8KuyDa4VbCrbPdeslZsT50WuT4mxw8yKQIz5S88UIm40p2RvLRNo@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNnjWzuEqtaSbNNner8Svjd7qkxn3aFO01c2rVnOYKcPSZVKSN
-	1EhytkqukwCjl7enl/dPkKTQvAacTquiKfQpWZ0Oi+hRLB9CnOLSNlr99XUnYg==
-X-Gm-Gg: AR+sD12+75hEuQeFG9Qfk90rlosJyjl3VljcF0PApBMvmm0JNlhF1MaHG/Dv05qNNJN
-	gZUIRVb6HxfbFwONDSl4lsjXXK3+TjO9YiJ1y13Po6w970aN7d3b4sp4slEWSkEZz+EEKqSTiES
-	Xh+XcFSlDq3dD6qpNQNyeE+6cDpxMKpgRCVqaEI0rERAs5hbv+rMFna8BE9GITXiUbeAmDyW2y2
-	acJKEEunEFfpp4iTrb2/RwKTRy5a6cg6F0TTBEU8LvJTbC0gDYZwLk+l/kwp3dNbQq76c2zGGxW
-	j92fju+mgFdBSrtSBin5Km6Hsb93eCZqvVNieQAV5jQlzNIH+zD5ZmnfZZzmNchS93eaClkQ7t7
-	w2txrlVp0oXvxu/RSsI5Rc9w8eL9qeOaZZ0WKHKaF6G6QczbZAMJGt6h0xNsPAQl3MfmqhPs0+K
-	WTclIpGQnoJD9WmcPQ3hqArSohA9b9R+yDFnAvirG2Cdytnl8M/c0qM8zsH7E=
-X-Received: by 2002:a17:902:f549:b0:2cf:8131:75e8 with SMTP id d9443c01a7336-2d5c514d875mr89918405ad.13.1787045782195;
-        Tue, 18 Aug 2026 02:36:22 -0700 (PDT)
+        bh=v/6jA0iwEsO1NI5+qHVdBrDXRWsEHwRKhdyQ9tPIjyM=;
+        b=p/6OENRl3NhDtFQu6fszW6tgv4/U7bXL0Cv+4h0hMgjNlCWZtDxhoKfXiI0U9+Hj/k
+         c3p0u0+mAykZ/9RhFCyOh67cnPuiwzpZ3CXpwziwnfMD6k3kldAdqmsOfdy5qOlHzWbJ
+         QOqUDZ4aAzt+a4Tb8ZXd4OjViUUnjP0FAOwZ2FYKrpd9gnsJb1bGwuMrh/d1GFffp24g
+         EieGpYoQJIf5N1WBdkh9McCga1UN7Lp3PDEJIeooTaV+FRYi2b2ESL8kj7zAl/DtF+z7
+         mKjsZTvOd0dTDJVVU44rMkRoQrGiyKm/XxShNz54pamwgcaTrz1VXABhPHZ6lp9QcCC0
+         WktQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787045785; x=1787650585;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v/6jA0iwEsO1NI5+qHVdBrDXRWsEHwRKhdyQ9tPIjyM=;
+        b=r3IoX7CPFLntlzzxCn3LNSuQ+CckdnxQ2tZYwguzeAYfZ8Ni0yONUUvHz/txyEY/a3
+         ZWeivvFWjGcnSyhGcMtK3oZiTMbwX3n4pUT5onAFC0QraOXDHrLkvk7l712yWzCfiCj6
+         9tCbS59eDeW4QJ0037insQIUFByF1euo+DIp81NW7opv6A+znIuZS3wRJrN3HEh/QRYL
+         pRId/vf71xNr8WnxqS+hrXflRR9HgNJ3lXsEMQsRYKu1porenx1aUYBuq4LoORNVp0Cu
+         Oby3n7xrBhov2V2lAUDf0DO8iDeMp8S77HO3svEnaqJuVorWEFEgkHYO4i/IgsSzm9Dl
+         SWdw==
+X-Forwarded-Encrypted: i=1; AHgh+RoSYTd/heFK7I+V1tWK06O5HvdvbSi5YJfwY+5GTuY9ISl6pTPwL7QSbLSdCzoxzcoumAbApDmS2ywM@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhtI/lRcIdRF8fB0KL9hiihjxj47Bt7aUgLfIEHCLXuaRfHfOd
+	M2QcWT2ynByMc+LKiAoVei8hx+iWhd9z5kTFqS1m1MCUjtEnx7beqEy3
+X-Gm-Gg: AR+sD10T/LDeRM1r+O+xgWHWaLsSG5r2W9TcuNgkQBXvgPziEY1tB8OrrznYpwotA01
+	d9WaogkK4Telwz2NKSfrUC1IYFx5Mat3ttwcWUhJEXFr82FQO9LscG1lLIPBASOyVtJmXOF96Jx
+	9EidnvADdvuuqvEKdkJuXzjs6IvkDIdctrlHwPm86mU9x0+GARwPF6Qi2mMjhFY+9BoUflb46VD
+	jxYcZbmm3Ioy3fo73xhW8XtXvgqguqYtCdFxIgl6bv/ZAnNZBfT1MHAVxes02DWF2M4BjAkQSmb
+	n2J/xj/oO0k+TQ1RhWff8DoDtCTqCamc/1EmmSKic74IwEeWYS4grqu17rOxlBZjTAeT8riRo56
+	VUo09DePh1yuasMEEPwbQr0vXGlRNPAVM9ujET/+irPCcux4IDCG9z0dX67KZN8DrGoFK75VzMI
+	T7uqTL5Vbo1st94GYHMCjW/qbkJmoIlLEyf7zf3ahR4GgW3Abn7PG0AfxSq+c=
+X-Received: by 2002:a17:903:388e:b0:2bf:7b62:a038 with SMTP id d9443c01a7336-2d3b0b3788bmr380549035ad.9.1787045785218;
+        Tue, 18 Aug 2026 02:36:25 -0700 (PDT)
 Received: from thefoxflat ([125.165.209.166])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb51e0e5sm15171535ad.32.2026.08.18.02.36.19
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d5bb51e0e5sm15171535ad.32.2026.08.18.02.36.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 02:36:21 -0700 (PDT)
+        Tue, 18 Aug 2026 02:36:24 -0700 (PDT)
 From: Reza Kurniawan <imkyufie@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -66,10 +68,12 @@ Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Reza Kurniawan <imkyufie@gmail.com>
-Subject: [PATCH v3 0/3] arm64: dts: qcom: Refine device support for Xiaomi Redmi 5A
-Date: Tue, 18 Aug 2026 16:35:46 +0700
-Message-ID: <20260818093548.27803-2-imkyufie@gmail.com>
+Subject: [PATCH v3 1/3] arm64: dts: qcom: Add UART support for Xiaomi Redmi 5A (riva)
+Date: Tue, 18 Aug 2026 16:35:47 +0700
+Message-ID: <20260818093548.27803-3-imkyufie@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260818093548.27803-2-imkyufie@gmail.com>
+References: <20260818093548.27803-2-imkyufie@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,28 +82,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes in v3:
-- Add vcc-supply for vibrator
+Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Changes in v2:
-- Split the patch into multiple patches.
-- Change name in Signed-off-by field.
-
-v2: https://lore.kernel.org/r/20260810105337.855546-1-imkyufie@gmail.com
-v1: https://lore.kernel.org/r/20260810062611.735673-2-imkyufie@gmail.com
-
-Reza Kurniawan (3):
-  arm64: dts: qcom: Add UART support for Xiaomi Redmi 5A (riva)
-  arm64: dts: qcom: Add haptic vibrator support for Xiaomi Redmi 5A
-    (riva)
-  arm64: dts: qcom: Add notification LED support for Xiaomi Redmi 5A
-    (riva)
-
- .../boot/dts/qcom/msm8917-xiaomi-riva.dts     | 37 +++++++++++++++++++
- 1 file changed, 37 insertions(+)
-
-
-base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
+diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
+index 4ea4fbdb5..abfaae502 100644
+--- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
++++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
+@@ -13,6 +13,10 @@ / {
+ 
+ 	qcom,board-id = <0x1000b 1>, <0x1000b 2>;
+ 
++	chosen {
++		stdout-path = &blsp1_uart2;
++	};
++
+ 	battery: battery {
+ 		compatible = "simple-battery";
+ 		charge-full-design-microamp-hours = <3000000>;
+@@ -25,6 +29,10 @@ battery: battery {
+ 	};
+ };
+ 
++&blsp1_uart2 {
++	status = "okay";
++};
++
+ &blsp2_i2c1 {
+ 	status = "okay";
+ 
 -- 
 2.55.0
 
