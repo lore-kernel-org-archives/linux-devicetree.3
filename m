@@ -1,87 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E676B2DA749
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15A4471D17
+	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787058168; cv=none; b=fxK5m2v/qnFQWSY/2Nc1+i2qvlztHfYuKPaQ2mL0b1hYE90BwVNL81BiNaA3LquV8xRZrHhiIQUrAGortPYae27buAatj7Br2hpl/p475BiMUGc//RmIbpMYXFx2bsxrEWYOxmF+Zx8xFiH+HerJ/j/x5u5kk8+kotvHvwi81to=
+	t=1787058238; cv=none; b=IfLxzG1A+qLMsWna5Y6Nmc5zGL6cjGVYcCpQy7ARyP3rwYV1LFDLiLUXsNLiy5ASs0wrm0kL/gQvnKMCkoRUbwmq3L0/pPrMMLbl6Icig4Ytkg/elFkYmRjC7PUhq+lRhC2Hr/puJB7Nji+vux2++S4WDyTS/3OeYKGhTfwwL/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787058168; c=relaxed/simple;
-	bh=rHI1hDvc2Vp6XEjc9t737k+B0Ytm+7+QTB1UZSJPJt8=;
+	s=arc-20240116; t=1787058238; c=relaxed/simple;
+	bh=6CtZYMYT4XpUFtb1WYTDbjv8lDt8QsA8X9rTqudbuL4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KrmZncTC2yLkiW7v7X7crtJ1fdRejYNxkLrw53Ua37DXIOJ4Okdpvdt5c+AlQalJ0hE1cImxvKXUrnjbVdMmE0Tp3pTiK1xSNFCu/pgpgf9jS1uwpiLzoFxrKKeOpctmv5HTnwTO6Zm68fBSSHK3ISgsqANvfWpLyvcuHZmpkBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mgb4fQGO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XWUpncwh; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=EiNWX6v5KYEcLr2ULAYDLlraANwvHKCklj3iOKJkNu4+hcwhE0meX1dTkF/i9kN0yklA+Xoo/3NAAMIwCWJ+KjrqYyRzwWaWjUA6fL31XB8vHagS37OW7VTxb54MSJdNzvIgVHNilpzue42Wu78YVzJZ60t/OJ22OAs9FxrDvBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A35YIR+2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ohv1np9n; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mgb4fQGO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XWUpncwh"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IABWi0068516
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:02:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cNikD0teKMGEVTly7biL7qUvgCtvS9pd20AXWsYAtEc=; b=Mgb4fQGOg1UtuBKq
-	DcbauUH7WsVw0DjXCmRgWGZbVzz7bZlXs5kbka0EHP53K1kv5XnDFTL1c13bHWfk
-	g+QhGj0BdO3L66KVFHB/+eH90vPrjhPI8uQDUGDlbiB8PGJf4CkwoAcoZvaTgMVn
-	QunMDQ1dvJYGhJ6bBUCv+wBHEhanC6cWyPbAIt2xe9axlUckf7G3/EGJmQ5OHycZ
-	sEt4pcWSoLUB8UeGVjN3ihU6oKyCujzDY+iPpBbKzYEnZkf0H5rP/biEvpeOA4GM
-	92ukX/D08rOl0++knKm7yQsz5Dm91MulmZPYXk7rIQIpaaTu4emqOHuYt8r3KhLq
-	uHt0sA==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4f5pt9gg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 13:02:45 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-756fd28d906so134296137.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:02:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A35YIR+2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ohv1np9n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787058233;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I+uKpz7vxdNODpZByPKeGLjosat28K4nUQ0xLNtgYDM=;
+	b=A35YIR+28BblCYjx3x3XqJVz2bAjRVVkd5b/DegI2yzE6uLc4SzSyXTK72a0PwRr7Vxs/h
+	nEx6snKOGOuEJ8VLYDzyu2EfCH25lFG9s6z4XUkTwURvL1Bq9FTCzQgMbduNf0Cc8YKyOe
+	QF4UEIamVKRF5nCvqJqxD41OHO5+2Z4=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-349-ARK_e1JGMvWcD0y57UEkSg-1; Tue, 18 Aug 2026 09:03:46 -0400
+X-MC-Unique: ARK_e1JGMvWcD0y57UEkSg-1
+X-Mimecast-MFC-AGG-ID: ARK_e1JGMvWcD0y57UEkSg_1787058225
+Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6a14f2e8c47so4798675a12.3
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 06:03:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787058165; x=1787662965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cNikD0teKMGEVTly7biL7qUvgCtvS9pd20AXWsYAtEc=;
-        b=XWUpncwhPsuWG8vHuxRbh0nW9Z3yJ9Yg7PYBpeyeDJBsK59/0Seh2rNycw+TgASFV3
-         wHsHRe41+BSAemOsMKMzahIlYRL9WWa8wM/MqXjxl4KHzUanx9IlNNlWquqnQjrs2Igv
-         pte0fqhdtJIZLh7euZ1q/TxVUJI6AjmmmhY6l8/QubQtR07APp11eYox+V2obWqnWBgt
-         8zC4vlQg1Ubm70CM7A7fBMQyYPuyQFgDIWSTnHq3sUoMUVHY1y9zaiKekg3fKOyCrU0F
-         HFyJeKYcCMoh/c/4hQxeJJObnJajUKjgU5xWpcU3hrP/6PNo+Q/qmnj4Tvf15QKaVhQv
-         C8wA==
+        d=redhat.com; s=google; t=1787058225; x=1787663025; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I+uKpz7vxdNODpZByPKeGLjosat28K4nUQ0xLNtgYDM=;
+        b=Ohv1np9nDTeiGArPJ/V1CQbOkmziALY26iWRG/3qctOJV3pwMyFHmvoAoAGQ1tfp8a
+         MSHIhM7Jii0Fh27t2NH9jV99y40pPNrOAjuKNuGWHBFJXmZK2wmMEMLoXOIvPGaxVKNm
+         IFTwlte5M9xOlWAN5k/XVu8cZTvAkGW4Z7LtpBIyivEbyvHkN1UdKsMy/YKItQwVyqWt
+         Ff8xBtM9xiMq6j2MedGa8Bd+ppVqbPnuXeb1XzbZ3ub3/OOqBQYxV4OHUlKroZYBmkj4
+         9d+g+745h532XPjXKOYowGuN9qo5UTO7WiCqYMZhIuhno1XX+zkYuNB57JBwK1bTZGBN
+         CHpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787058165; x=1787662965;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787058225; x=1787663025;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cNikD0teKMGEVTly7biL7qUvgCtvS9pd20AXWsYAtEc=;
-        b=UxAjYI6DJ420LGgLDouFyh6jeHp3qC+kk1l+6L2xTtbmxbmeDUtgQxVcn+WiKQPNVq
-         UG0X8jl1JIQ8WLDs/7OHPjWH0nvNvnBa7pMkjastlbflBubH4rT71Mp0f8XimYA6fbon
-         PJFGaZ2scGtveTAOc5USzmJi3iOCerJ3u41cttSG8IgefeVcUGB7GX+J03KiAGLitWMm
-         B+ouCmlBxw3AUGo7ZNqezHhr2kDFpiPJ+8ETvwg1MACvzeY/NR4MYWzSmqH0sfjbC0gO
-         TP+h4cJK5elrBv+5cQ5lCDF44x4bbRk8GZgVzIc+lsJA7vT6FBGtu9yNa+ohxT1t1HPa
-         lgQg==
-X-Forwarded-Encrypted: i=1; AHgh+RqrqSbimBAuVdDn/RBZAtS76t2cLHMpEPwRU/2RmBo6h+3SGFGM+mb2b6BfxW/LYCgw/PWL69dXn69o@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4G4ok+Wp+hAIQuWrW888UqYbIOLeZXD3ALTiqqJhsaUIS6NR5
-	3unKOex8aoYzdeknITQSlLSMArTThqvM4V5P+GOK8SgtHLsE0/D/5TsrQc+hjbDSHkWjLe3HCDd
-	boPgL6siy8gQ1huZHGq101nb8FvWp+5STYZpINmmIpGuMcUJwTA9pnGtpyJ89M7GNgJQW0/U2
-X-Gm-Gg: AR+sD13pnexW9GRPDQdDEDY6hGPVc3s/9XnVSYZ599SgK58qDFVUgnnDeWIYTjrSBbb
-	7+MiZiSBcE2/DLcgaM5mpW9abAMAPDIPFxHmro4vU6VOq65BuYfCUvymHyZefjhN7A63BtPOQlm
-	YrRjgCAH+NXGHxOxgHhbIqveZITEMTmaJzcE7NRB17/bsKI08X7UkzvTPCy4jOLlaCO5yT8aK6y
-	3p3yl17VFhhaj/gjO1K2tqUFeW9eWx+H57Yxkp9+TwqqoZ0XwxyaBuY3s++IaVZQBIUCTT8QbIM
-	PJZmuY6GOQt3ITq7EEUFwRUDWvE++x3x1/KigwVwivkgBsRwYgZPbpCNyh5n8Mr35C/5Y0nVAHG
-	GZ767rOqexNufRNOFDHiEW0qo
-X-Received: by 2002:ac5:c888:0:b0:575:dcec:efc1 with SMTP id 71dfb90a1353d-5c591991adbmr1898597e0c.0.1787058164872;
-        Tue, 18 Aug 2026 06:02:44 -0700 (PDT)
-X-Received: by 2002:ac5:c888:0:b0:575:dcec:efc1 with SMTP id 71dfb90a1353d-5c591991adbmr1898567e0c.0.1787058164503;
-        Tue, 18 Aug 2026 06:02:44 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b46d00c8f2sm1201214e87.68.2026.08.18.06.02.40
+        bh=I+uKpz7vxdNODpZByPKeGLjosat28K4nUQ0xLNtgYDM=;
+        b=F64qyaWCFeOpfpoutUzcaDRMbICfbv0u2jfb143h1wiMF3bZmdn+A1dPmxhbzEJLyi
+         epujnYQodp+kkol/xOqsWMGNEi60KA60Vers1joAziSm48hIJM+xgE5TTckQ80+jbdR0
+         M1kGWIYCzgEoV8UsNp0WFKo092Qyr9E49Ecwqw//XApROqrS7fGSyjcaHh9nqDORCKun
+         YLJsdxeB+9cdigf+BI8Vx52II2X1hmGBiigLyzAnd/A4Mzx8waFaX7sZ9v/Jn76/uJiU
+         6LwIheFMNX/Km8/5ajDSn4onqLmjwF5LqGtfR1FQ3U6ESTHfL64kgsIWqDbv5iMsjptn
+         eqRg==
+X-Forwarded-Encrypted: i=1; AHgh+RqVx/iYseW+YqjpPIqbWAdZ/WNmhEFccB6O6NPLvqOvuNbMA4us5DIH/Gv/5J3xXvzFEcFiB5OyQUqV@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/3spOBXIGcCoQJNd+XECgK6c49QsREDiZC4PGQ+GJJqHYxk2R
+	GDo6GaKE/OMeqmCUQTBUuRoJmOkvkj25sShQg85rxqlZoZEo8x4PIRo7qy3ESHAEFB0MaUOTBtH
+	aR0LadMzNdOSb2BdCsu7LP/m/r/8244GR5It/kJ2exvaap6ooDpVw0axNDx4asJk=
+X-Gm-Gg: AR+sD10Wtt54SF7FKL9At0BDkQttc4e7sZHx0/Eged90/gjit+2hQP2oLeXETPeCynP
+	2TrBpGiQ/C54031/KuZVdrWTgfAR2dYJWExFuIvlyknzdqQfnXJqD+gP1gKc16XIc/WEGEXT+Nm
+	czgzcP587rjKlwRUlLGLxKx62yXbrTAEOBg6eq87ikzEw0G/+GzSd9pPAxIXPLbRLxDeSv/Y/0Z
+	SHsrJSC1rPMixvjTd4OpkkLGVduCgpTCNhjiKcOKIpHYZHReAZA1ca2gHAldqj0oIb+0o3NKzmK
+	TPMuihr9QsL04zNF9XCpOzQ+2Gv1EF8HWPZWhwdb9ooRe0mkSNUMZIftlGmXBatqwwNgEwKOBe6
+	j0mSylBrr6UmEeJiSD4/hsbaEj9gg6Rqpee2tNnuXFR70r2DOaTPmcwtqu/RISa3Jw3djCNCXmw
+	Y=
+X-Received: by 2002:a05:6402:913:b0:6a1:44c8:edc4 with SMTP id 4fb4d7f45d1cf-6a38a95be16mr16679744a12.12.1787058224917;
+        Tue, 18 Aug 2026 06:03:44 -0700 (PDT)
+X-Received: by 2002:a05:6402:913:b0:6a1:44c8:edc4 with SMTP id 4fb4d7f45d1cf-6a38a95be16mr16679659a12.12.1787058224457;
+        Tue, 18 Aug 2026 06:03:44 -0700 (PDT)
+Received: from [192.168.188.103] (ip239-44-231-195.pool-bba.aruba.it. [195.231.44.239])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3d8596ce4sm1724287a12.21.2026.08.18.06.03.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 06:02:42 -0700 (PDT)
-Message-ID: <2deee675-e82b-4822-a43d-4264ca8cd512@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 15:02:38 +0200
+        Tue, 18 Aug 2026 06:03:43 -0700 (PDT)
+Message-ID: <b33be768-5337-4f6d-8c58-2f7ee5e521a8@redhat.com>
+Date: Tue, 18 Aug 2026 15:03:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,77 +88,111 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: monaco: add PMIC PON with power key
-To: Milosz Wasilewski <milosz.wasilewski@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260814152610.2039318-1-milosz.wasilewski@oss.qualcomm.com>
+Subject: Re: [PATCH net-next v14 0/4] net: pse-pd: add Realtek PSE MCU support
+To: Jonas Jelonek <jelonek.jonas@gmail.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>,
+ =?UTF-8?Q?Bj=C3=B8rn_Mork?= <bjorn@mork.no>,
+ Sander Vanheule <sander@svanheule.net>
+References: <20260813222036.873930-1-jelonek.jonas@gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260814152610.2039318-1-milosz.wasilewski@oss.qualcomm.com>
+In-Reply-To: <20260813222036.873930-1-jelonek.jonas@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=S+/pBosP c=1 sm=1 tr=0 ts=6a8457f5 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=m06SbfB4c-ITf_5klgAA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-GUID: zK0UUUsuR3IiVjb3e4F6uuqb2NpNob_d
-X-Proofpoint-ORIG-GUID: zK0UUUsuR3IiVjb3e4F6uuqb2NpNob_d
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA5NiBTYWx0ZWRfX3vjHdYAvyAqt
- QSEx3G9kAYYNx8Eh7vXgoVP98RD//hV+opb/blnf4/Hc2Lq2dQGJ6YxxjhzkGARL9+OBtMJCGuS
- TfqR4gnkEVvxkDLDE+4GriMLrmVciA3CcIzzodmEpBSCpKCwhZQMbDXtA5Lnq5YEfVUEPXDBqDg
- 1RbiTV53/n9r8iandM2UjeJH42ONSplwRHk89v2tJ7V2/bNXalejzVTzIFnEwXqTkLXIxVdLNBT
- fn+k8xizbgjlQQeAWvLJhQXwmAx0IPNuGXmU1NWHm4aQcOyAOcXEmDFCmzynzApgVLBvT2/0nMg
- N272bB3pC3xnBaR0fWATjA3GEDejR+ODEuJC/rILM2BrKI45vF8+g1WabP1KKx6+htViwkgYV7y
- 74IOsnPzpvJkoT6GrZtquPdJ5Jka6Z6Y3kM1HWfW8Q48UH9kcLgQWPAgrbBEQRg2pjfbArWS6ZC
- gKWGc0ZMsOlxXUfmn4w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA5NiBTYWx0ZWRfX7TV0I40w7PCy
- xEZwhWLtFIhiiK63noP9c4Gv5lP5671Yo8RnDSk9qcMgcNwNpVLBSPIdDm64/vWFRDqMuo+ycCd
- ClyBcyk1lXc426cqqsCpjZVIkg2hxeM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-18_01,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- clxscore=1015 bulkscore=0 impostorscore=0 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180096
 
-On 8/14/26 5:26 PM, Milosz Wasilewski wrote:
-> Monaco has no PMIC PON node, so the power key is not described at all
-> and there is no pwrkey input device.  More importantly the board then
-> has no power-key wakeup source: the only way out of s2idle is the RTC
-> alarm or one of the PCIe/USB/remoteproc sources, and pressing the power
-> button does nothing.
+On 8/14/26 12:20 AM, Jonas Jelonek wrote:
+> This series adds a PSE-PD driver for the microcontroller (MCU) that
+> fronts the PSE silicon on a range of managed switches, together with its
+> DT binding.
 > 
-> Add the PON node with the power key, modelled on the pmm8654au PON on
-> lemans, which carries the same PMIC: the block lives at 0x1200 and its
-> interrupts are on block 0x12.
+> Hardware model
+> ==============
 > 
-> qcom,pmk8350-pwrkey has wakeup_source_default set, so the driver arms
-> the IRQ as a wakeup source without any additional DT property.
+> These boards do not expose the PSE chips to the host directly. A small
+> microcontroller sits on an I2C/SMBus or UART bus and manages one or more
+> PSE chips behind it; the host CPU only ever talks to that MCU, using a
+> fixed 12-byte request/response protocol with a trailing checksum. The
+> PSE silicon never appears on the bus.
 > 
-> On an IQ-8275-EVK this gives a pmic_pwrkey input device under
-> c440000.spmi:pmic@0:pon@1200, and:
+> Two generations of the protocol exist, both Realtek's: an older one on
+> boards with Broadcom PSE silicon (BCM59111, BCM59121) and a newer one
+> used with Realtek's own PSE silicon (RTL8238B, RTL8239, RTL8239C). They
+> diverge in opcode numbering and a few response layouts; the driver
+> abstracts that behind a per-dialect opcode table and parser hooks,
+> selected by the compatible. The specific PSE chip behind the MCU is
+> detected at runtime and only influences per-chip constants (power scaling
+> and the per-port cap).
 > 
->   # grep pwrkey /sys/kernel/debug/wakeup_sources
->   c440000.spmi:pmic@0:pon@1200:pwrkey
+> The compatibles
+> ===============
 > 
-> "systemctl suspend" followed by a power-key press now resumes the board,
-> where before it stayed in s2idle until an RTC alarm fired.
+> The protocol compatibles name two generations of the Realtek protocol,
+> with the I2C framing folded in:
 > 
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Milosz Wasilewski <milosz.wasilewski@oss.qualcomm.com>
-> ---
+>   realtek,pse-mcu-gen1        gen1, UART
+>   realtek,pse-mcu-gen1-smbus  gen1, I2C/SMBus
+>   realtek,pse-mcu-gen2        gen2, UART
+>   realtek,pse-mcu-gen2-smbus  gen2, I2C/SMBus
+>   realtek,pse-mcu-gen2-i2c    gen2, raw I2C
+> 
+> and each board carries a device-specific compatible that falls back to one
+> of these, e.g.
+> 
+>   compatible = "zyxel,xs1930-12hp-pse", "realtek,pse-mcu-gen2-smbus";
+> 
+> The naming is the part most likely to raise questions, so the reasoning up
+> front (the binding documents it too):
+> 
+>   - The node describes the MCU together with its Realtek firmware, not a
+>     PSE chip and not the microcontroller silicon. The PSE chips sit behind
+>     the MCU, never appear on the bus, and are reported by the MCU and
+>     detected at runtime; the microcontroller itself is a general-purpose
+>     part (GigaDevice, Nuvoton, ...) that varies across boards. What is
+>     fixed and Realtek's is the firmware and its host protocol - hence the
+>     'realtek' prefix.
+> 
+>   - gen1 and gen2 are two generations of that protocol, both Realtek's:
+>     gen1 on older boards fronting Broadcom PSE silicon, gen2 the altered
+>     protocol used once Realtek shipped their own PSE silicon. The
+>     generation is fixed per board and is all the driver needs at DT-parse
+>     time, so the compatible encodes it.
+> 
+>   - On I2C the MCU firmware expects one of two framings - SMBus or raw
+>     I2C - which is a genuine programming-model difference, so it is part
+>     of the compatible ('-smbus' / '-i2c'). A UART attachment carries no
+>     framing suffix; the transport is given structurally by the parent
+>     'serial' node.
+> 
+>   - Each board additionally carries a device-specific compatible that
+>     falls back to the protocol one. The driver only ever binds on the
+>     protocol compatible; the device-specific string keeps the binding
+>     specific and reserves a place for a future per-board quirk without
+>     having to retrofit device trees already deployed in the field.
+> 
+> Testing
+> =======
+> 
+>  - Linksys LGS328MPCv2     (RTL8238B, I2C)
+>  - Zyxel GS1900-10HP A1    (BCM59121, UART)
+>  - Zyxel GS1900-10HP B1    (RTL8238B, UART)
+>  - Zyxel GS1920-24HPv2     (BCM59121, SMBus)
+>  - Zyxel XMG1915-10EP      (RTL8239C, UART)
+>  - Zyxel XS1930-12HP       (RTL8239, SMBus)
+> 
+Please note the the nipa sashiko instance as a few more low prio comments:
 
-There's a parallel effort:
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260813222036.873930-1-jelonek.jonas%40gmail.com
 
-https://lore.kernel.org/linux-arm-msm/20260724-b4-add_pwrkey_and_resin-v6-0-41acc214d93a@oss.qualcomm.com/
+I think it's better to apply the series as-is and follow-up on such points.
 
-Konrad
+Thanks,
+
+Paolo
+
