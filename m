@@ -1,207 +1,246 @@
-Received: from 14.mo584.mail-out.ovh.net (14.mo584.mail-out.ovh.net [46.105.40.29])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C4D48989B
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 16:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.40.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319BC3BE642;
+	Wed, 19 Aug 2026 16:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787156023; cv=none; b=tp2Gv5eklhFyIy3q6dHqqiJ7sbQfaDteE2GHsX6pA4whXkq6TlRVB2fuhhTGd+AY8iWJwBeyCiONdcy46XMYezq9DuaScXYtUveC4ROFtIQ6fNpljZle4ISHPKTUuKt9dCYbjR8qw3mmc09S860i+RKBMth5izPNHsR51PfUN8s=
+	t=1787157270; cv=none; b=gLL+aLErgKfnVofVYrkGtO+IUQ3GnKZnJpoj/TZsOIPkG3AUdbFuoeGOklqegahXwxcTbXvx+Rp0DXUUnqDWkfBV4vabDSPMCh1ytOlQKsj7FlpbXT0unjktCfUoAC/ZQzxKXqBhonkKh8yB4pkRuXCWhaw2qO81oxKJq3G3HAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787156023; c=relaxed/simple;
-	bh=KMLsRVK+EzvJVR5ecRQN+03tOF1++T3dvDYN/+2a29k=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=gMedmYI2zgzhkvD9BkZcCkWKd0wBQwxPIyIA2qx1y0ZDM4/jRFuIibcWE9e+d24C1HWdxrL8fK8syoBWOYi0DN8zjILmmGs5jqgqdGLsM6TiANE7NB7CKDVVJn78NqUdhix8+RvHtmb39xpweeoCvlRWXKIX1GDkZIifTljd3kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net; spf=pass smtp.mailfrom=m-works.net; arc=none smtp.client-ip=46.105.40.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m-works.net
-Received: from director9.ghost.mail-out.ovh.net (unknown [10.110.37.210])
-	by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4hQB3j5gjNz8dRY
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:55:13 +0000 (UTC)
-Received: from ghost-submission-c7b579475-qmpb8 (unknown [10.111.182.117])
-	by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 400A280F90;
-	Wed, 19 Aug 2026 15:55:11 +0000 (UTC)
-Received: from m-works.net ([37.59.142.98])
-	by ghost-submission-c7b579475-qmpb8 with ESMTPSA
-	id U4B0At/RhWpVhQgAnxWi5g
-	(envelope-from <maciej.andrzejewski@m-works.net>); Wed, 19 Aug 2026 15:55:11 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-98R002097c834e-995f-4593-9af9-82024c194b7a,
-                    2A3487578DCF8463843C7ACF55D5B1810B364AD7) smtp.auth=maciej.andrzejewski@m-works.net
-X-OVh-ClientIp:144.125.48.245
-Date: Wed, 19 Aug 2026 17:55:10 +0200
-From: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	broonie@kernel.org, linux-spi@vger.kernel.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	linux-mtd@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, maciej.andrzejewski@m-works.net
-Cc: linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	linux-spi@vger.kernel.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org, Rob Herring <robh@kernel.org>,
+	s=arc-20240116; t=1787157270; c=relaxed/simple;
+	bh=VZ6SU7fgxaBRHIImXTfPMsIVPQEGWCopFsKv7XsAanw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mf1P1Sedu1/yVzxwy4TUF1ApMOM5VO+ZJ7gqgEY1Rxxyj3Kxjq0Ftq03aMZ4p/A9EWyiBtBgsMI+ysJYxoHR5obn9YtLBkivO8sb0Mdtztv1GUpXAAD0ZbBcpa5O1zESm6NxQkfnP9cMnZqquOKnYAnACYp60HGX5FCwEJEdf10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Cf3AHAWe; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Cf3AHAWe"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C08C2119206;
+	Wed, 19 Aug 2026 18:34:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787157261; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=Hr9b/XLqf5ZDJpuwGVa2yy8IR3LSeHLObl789Jl3VYU=;
+	b=Cf3AHAWetSlup9payahjjVWstjoaf0V5y+LS0d0/1GDrDTiK6fMfQ1WTTNmfyWICctNfNE
+	UYiUyAtjL9XYUVtZXX3g6u2qDIQEue7FFN5v8LLJtXfXiW86QYTx3m0kAA368adcByqXgz
+	rAGKiLkMPdTKw6MACXBfE4pkoRPvk8Y3jy8GhP1+xNQnF1KDTbUCV4lztiP4SgvctR2XcP
+	LEerpPZvgynft54h4qD0vGmo7xWHIZQcDK2Z+zIRkeAOps57YW828vHcYuAn0YDj5uLgAh
+	/aKnAuVGcvvTAzJVLjfl13sKK9ffukPTi8/DeP4f3cnk6fSckIHgc/pv2AsCJg==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-usb@vger.kernel.org
+Cc: fabrice.gasnier@foss.st.com,
+	Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-Subject: [PATCH v2] gpiolib: of: Only apply the SPI CS quirk to SPI buses
-Message-ID: <20260819155502.3934837-1-maciej.andrzejewski@m-works.net>
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH 1/4] dt-bindings: usb: Document ST UCPD
+Date: Wed, 19 Aug 2026 18:33:52 +0200
+Message-ID: <20260819163410.119755-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email 2.43.0
-x-ovh-tracer-id: 15123369026046468899
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTF9k21hmIan4VvQbLeAxtSPkFz4BFVv0/ZuuaLGCBw3aLomndbMIiPUspiFHA+W0he0Kw5rPEXi69qs54VJpmnf4gkae0hs0bfChRqU8GicP3HAw5iJ2Q7s0E0PCuyEvIouI0nyeGd8arENzQqanwf7sx9i3YN9w0WgIM3g1t4dZLZCTB7lA49WPF415zT+d1O/3YS3mZWobh1IY2Mu82oC4igEBqk+3HdnswYujpj//kocl16H9Gavk8Jjlcg5EBTGewvQPKzc4Ts1pZE1SmGMkFYEapRiLhe/r3Cq5/NmMEx1CfiEM9tev4Is2NmeSTGKfgoA0ozOGl2vVkZZWimTEAVSb8/ln2A5ItOP6j1vB01BhFZ7Y6CUj2O1F8wyiancEjaKtugmBkEtBUHjDzSnTfLQYACDD5LrNksFoGe5fGZL2twjY/hnJ8QfI98QZHr1LxXcnYTk/NJC/jtuttDlbxIfLZB0iV4srq/JuGNH10TaIBKSPZmoAVqaWNpzRZv5SGs8oi21VlVHjtcXkZkHhFFhwNfpWdwx30x+2FiE3vK3+W5d+Dgon0FqmrFGj604dCdWWsSvIi8eOYcq98gnPR7VlSes8nB7hBLUD/SiDoxXXlvyWR9TW2vAOor1G/1+knhH5dGGM8A0WdQqV8YLjl92YnhL3CnpA4wFDg2yJg
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The legacy SPI chip-select polarity quirk in of_gpio_flags_quirks() is
-keyed on nothing but the property name "cs-gpios". That name is not
-exclusive to SPI: nand-controller.yaml documents the very same property
-for NAND controllers, and rawnand_dt_parse_gpio_cs() requests those
-lines with gpiod_count(dev, "cs"), which gpiolib expands to "cs-gpios".
-A NAND controller therefore has SPI chip-select semantics forced onto
-its chip selects, and any chip node whose first reg cell matches a GPIO
-index is silently flipped to active low. The NAND core requests the
-descriptors GPIOD_OUT_HIGH and drivers assert with a logical 0, so the
-inversion leaves the die permanently deselected.
+Document ST UCPD Type-C block. The UCPD integrates the physical
+layer of the Power Delivery (PD), with CC signaling method, for
+operation with Type-C cables. Vbus and Vconn control is performed
+using an external chip, usually ST TCPP01/TCPP02/TCPP03 or similar.
 
-The example in nand-controller.yaml is itself affected: it pairs a
-native chip select with a GPIO one and gives the second chip a reg of 1,
-which trips the quirk whenever CONFIG_SPI_MASTER is enabled. In-tree the
-collision is real but latent. 36 board trees, all Atmel/Microchip at91,
-give their nand@3 controller a cs-gpios line, and they escape only
-because the sole child of those nodes is a partitions container with no
-reg for the quirk to match against.
-
-Device tree carries no bus type marker, so identify the bus from two
-hints. Properties of an SPI peripheral are namespaced with "spi-"
-(spi-max-frequency, spi-cpol, spi-cs-high and the rest of
-spi-peripheral-props.yaml), whereas a NAND chip node carries only reg,
-nand-* and its partition table. That is a convention rather than a
-guarantee, since compatible and reg are the only properties
-spi-controller.yaml makes mandatory for a peripheral, so let the
-controller settle the remaining cases: spi-controller.yaml constrains
-the controller nodename to ^spi(@.*|-[0-9]+)?$, which makes the name the
-one bus marker every conforming controller has to carry. A peripheral
-that carries nothing but compatible and reg therefore keeps its active
-low default through its parent. Skip the quirk only when neither test
-matches.
-
-Both tests were scored over every board device tree in the kernel,
-expanded with the same cpp and scripts/dtc pipeline the build uses, at
-v7.2-rc7. All 3620 trees under arch/*/boot/dts expand; 503 of them hold
-at least one GPIO chip select that can reach the quirk, 765 such chip
-selects in total. 761 are matched by both tests, and none are matched by
-neither, so no in-tree board changes behaviour.
-
-One needs the property scan on its own: psc@11400 on ac14xx, a
-fsl,mpc5121-psc-spi named after the hardware block rather than the bus,
-whose m25p128@0 child carries spi-max-frequency.
-
-Three need the nodename on its own, all peripherals with no "spi-"
-property of any kind:
-
-  - panel@0 under the spi-gpio controller on rk3566-anbernic-rg503
-  - can@0, an mcp251xfd, under ecspi3 on imx8mn-vhip4-evalboard-v1
-  - spi@1 under ecspi1 on imx53-ppd
-
-The two tests are complementary, so both are needed to keep every
-in-tree board working. A tree that names its controller after the
-hardware block and gives it a peripheral with no "spi-" property would
-still lose the quirk. No in-tree board does, and such a controller is
-already outside the nodename pattern spi-controller.yaml requires.
-
-of_gpio_spi_cs_get_count() in this file identifies SPI controllers with
-of_device_is_compatible() instead, but it only has to name three legacy
-controllers whose bindings are closed. An allow-list here would have to
-name every SPI controller binding in the tree, 71 distinct compatible
-strings among the candidates alone, and grow with every new one.
-
-Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
-Changes in v2:
-- Squashed the two patches into one. The property scan and the nodename
-  test are complementary, so patch 1 alone stopped applying the quirk to
-  the three peripherals that carry no "spi-" property, which would have
-  broken those boards for anyone bisecting through the series. Reported
-  by an automated review of v1.
-- Folded the two helpers into a single of_gpio_is_spi_chipselect().
-- Said outright that a peripheral with nothing but compatible and reg
-  keeps its active low default through the controller nodename.
-- Rebased; drivers/gpio/gpiolib-of.c is unchanged since v7.2-rc7, so the
-  diff itself is the v1 pair verbatim.
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-usb@vger.kernel.org
+---
+ .../bindings/usb/st,stm32mp25-ucpd.yaml       | 154 ++++++++++++++++++
+ 1 file changed, 154 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/st,stm32mp25-ucpd.yaml
 
-v1: https://lore.kernel.org/r/20260810141629.81650-1-maciej.andrzejewski@m-works.net
-
- drivers/gpio/gpiolib-of.c | 31 +++++++++++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
-index 940b566946ce..d73114166f6b 100644
---- a/drivers/gpio/gpiolib-of.c
-+++ b/drivers/gpio/gpiolib-of.c
-@@ -340,6 +340,28 @@ static void of_gpio_set_polarity_by_property(const struct device_node *np,
- 	}
- }
- 
-+/*
-+ * The legacy SPI chip select binding below is keyed on a property name that
-+ * other subsystems reuse for the same purpose, notably NAND controllers (see
-+ * Documentation/devicetree/bindings/mtd/nand-controller.yaml), whose chip
-+ * selects carry no SPI polarity semantics. Device tree has no bus type
-+ * marker, so take two hints. Properties of an SPI peripheral are namespaced
-+ * with "spi-", and a peripheral that declares none is covered by the
-+ * controller, whose nodename spi-controller.yaml constrains to
-+ * ^spi(@.*|-[0-9]+)?$.
-+ */
-+static bool of_gpio_is_spi_chipselect(const struct device_node *np,
-+				      const struct device_node *child)
-+{
-+	struct property *pp;
+diff --git a/Documentation/devicetree/bindings/usb/st,stm32mp25-ucpd.yaml b/Documentation/devicetree/bindings/usb/st,stm32mp25-ucpd.yaml
+new file mode 100644
+index 0000000000000..9b13efdc90597
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/st,stm32mp25-ucpd.yaml
+@@ -0,0 +1,154 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/st,stm32mp25-ucpd.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	for_each_property_of_node(child, pp)
-+		if (str_has_prefix(pp->name, "spi-"))
-+			return true;
++title: STMicroelectronics STM32MP25 UCPD Type-C controller
 +
-+	return of_node_name_prefix(np, "spi");
-+}
++maintainers:
++  - Marek Vasut <marex@nabladev.com>
 +
- static void of_gpio_flags_quirks(const struct device_node *np,
- 				 const char *propname,
- 				 enum of_gpio_flags *flags,
-@@ -374,6 +396,11 @@ static void of_gpio_flags_quirks(const struct device_node *np,
- 			if (ret)
- 				continue;
- 			if (cs == index) {
-+				bool active_high;
++description:
++  The UCPD integrates the physical layer of the Power Delivery (PD),
++  with CC signaling method, for operation with Type-C cables. Vbus
++  and Vconn control is performed using an external chip, usually
++  ST TCPP01/TCPP02/TCPP03 or similar.
 +
-+				if (!of_gpio_is_spi_chipselect(np, child))
-+					break;
++properties:
++  compatible:
++    const: st,stm32mp25-ucpd
 +
- 				/*
- 				 * SPI children have active low chip selects
- 				 * by default. This can be specified negatively
-@@ -386,8 +413,8 @@ static void of_gpio_flags_quirks(const struct device_node *np,
- 				 * conflict and the "spi-cs-high" flag will
- 				 * take precedence.
- 				 */
--				bool active_high = of_property_read_bool(child,
--								"spi-cs-high");
-+				active_high = of_property_read_bool(child,
-+								    "spi-cs-high");
- 				of_gpio_quirk_polarity(child, active_high,
- 						       flags);
- 				break;
-
-base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
++  reg:
++    maxItems: 1
++
++  access-controllers:
++    maxItems: 1
++
++  clocks:
++    minItems: 2
++    maxItems: 2
++
++  clock-names:
++    items:
++      - const: apb
++      - const: ker
++
++  interrupts:
++    maxItems: 1
++
++  nvmem-cells:
++    maxItems: 1
++
++  nvmem-cell-names:
++    const: trim
++
++  power-domains:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  reset-names:
++    const: phy
++
++  vconn-gpios:
++    description: GPIOs used to control CC1 and CC2 Vconn
++
++  vdd33-supply:
++    description: Regulator that supplies the CC lines driver
++
++  connector:
++    type: object
++    $ref: /schemas/connector/usb-connector.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      compatible:
++        const: usb-c-connector
++
++      power-role: true
++
++      typec-power-opmode: true
++
++    required:
++      - compatible
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - nvmem-cells
++  - nvmem-cell-names
++  - power-domains
++  - resets
++  - reset-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
++
++    ucpd: phy@480a0000 {
++        compatible = "st,stm32mp25-ucpd";
++        reg = <0x480a0000 0x1000>;
++        access-controllers = <&rifsc 69>;
++        clocks = <&rcc CK_BUS_USBTC>, <&rcc CK_KER_USBTC>;
++        clock-names = "apb", "ker";
++        interrupts = <46 IRQ_TYPE_LEVEL_HIGH>;
++        nvmem-cells = <&ucpdtrim>;
++        nvmem-cell-names = "trim";
++        power-domains = <&cluster_pd>;
++        resets = <&rcc USBTC_R>;
++        reset-names = "phy";
++
++        vconn-gpios = <&tcpp 0 0>, <&tcpp 1 0>;
++        vdd33-supply = <&scmi_vdd33ucpd>;
++
++        connector {
++            compatible = "usb-c-connector";
++            label = "USB-C";
++            data-role = "dual";
++            power-role = "source";
++            self-powered;
++            vbus-gpios = <&gpioa 10 0>;
++            vbus-supply = <&reg_usbc_vbus>;
++
++            altmodes {
++                displayport {
++                    svid = /bits/ 16 <0xff01>;
++                    vdo = <0xffffffff>;
++                };
++            };
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    usbc0_hs_ep: endpoint {
++                        remote-endpoint = <&usb_drd0_hs_ep>;
++                    };
++                };
++                port@1 {
++                    reg = <1>;
++                    usbc0_ss_ep: endpoint {
++                        remote-endpoint = <&usb_drd0_ss_ep>;
++                    };
++                };
++
++                port@2 {
++                    reg = <2>;
++                    usbc0_sbu_ep: endpoint {
++                        remote-endpoint = <&usb_sbu_ep>;
++                    };
++                };
++            };
++        };
++    };
 -- 
-2.43.0
+2.53.0
 
