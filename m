@@ -1,122 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0EA34AB1D
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787150993; cv=none; b=FQTfo9eOMwYzRJ9+L9aGOcZdKvF6V/dz15leofa7Zqtc+a6F8Cfgv1prkXcj1rPSD+Bu+O0Qtu1CGtJQrqzvRGRTOsQqkI41mkUmWOoBEYEn6GPiVx32sZKNW4JPLUYcxIVz7JJDIxVYehXD4D4VbB76CSekKlQ8eRs5tScN9DA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787150993; c=relaxed/simple;
-	bh=lUHeqQmL7gVdIXIN2cytVerwPQk0FOEak+e9YnKPqVM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WCU39R2I6TMR2C3OEzIVP59w6q9T1C7PQXJlvsq8kNhmKT8k7a0Rdq5t5eqH1FYPTKgxPzF7RltjbiH8D8roGBa/9EcbgdnZHp6qti3wxOu3Ylv59Ja/iXNFMmX8RLoRWLD0IXucow/8Q+8mcK1XjKTFbHXrLOWC/YsNgAlzFNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4ZdgRYk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3366F3515F6
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787151153; cv=pass; b=gM5HKNo9Jq+mnZ6erFJVRaxmV7x6zBRJxtPptTB4iE0CIbsKby3TBA4KLKowUgl5m+hzZSWMgSe3ELz5F/BfAQyxCmUqZ2CZgk1C1PjU8oUjMZ+pg1EoguQ2geBKR6xn6+qBimRDZn8FK2Nlv9B+Oqh53oREBYnMY2McLQrP/oE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787151153; c=relaxed/simple;
+	bh=bQVg3/uZoDN7rhrUQpPWCstb5hJMm7Y7k6wHsUPajZ4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DyiRx88fJXxL5+PCHfVnM6sevLtPGVK4n/df5koVHY5y2KcqSVf+NojZwjvxjRbF9zPO1G7lDhUlN1zPm6v+4SV4qMyOfYbGaJ1WWaeGh9tYe7EGc0RlqbCJEPTNRd3xpFJJEzbWgd8/T9Scgl/fTivrXOhStQYA7flNIy+RuIs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oFn6c5Qg; arc=pass smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4ZdgRYk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633981F00A3A;
-	Wed, 19 Aug 2026 14:49:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787150991;
-	bh=pI6UKdIqtKWx6CrnCrPbUagt8cMwG5heMWjl/0IDcjw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F4ZdgRYk981aRGoYGjeWYNqyTJROfWh1ECNBGlQWi82ZyrIGS5Fr1bGiHH/0FRKOc
-	 MmWeS4L05AvETNOC514JQI3bmbVSQigeD49Wmtf4OYZZuTpZN9B6UXUoGVJwtEXASI
-	 J3UeS/M/F5iyFnwSVLf3hPyYEJJr9VWEPCi7s2CJWrtVHXEcaFmZqmUneS3txCYwzc
-	 J6UjyWgVZkxdYu22laJgS33GzjioimL9+7rBgP7i1N3X/FpzRH5coghPHJXru1CEej
-	 /h2Gs8h2+zO4+C0QH2pjON2izH2CIL5tTimFF9QvtHd09I5Z8lueG0xT5x2iz5mkVI
-	 v+l09Ug5s0jjg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
- selecting the I3C power source
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Claudiu Beznea" <claudiu.beznea@tuxon.dev>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260819143553.2478984-6-claudiu.beznea+renesas@tuxon.dev>
-References: <20260819143553.2478984-1-claudiu.beznea+renesas@tuxon.dev>
- <20260819143553.2478984-6-claudiu.beznea+renesas@tuxon.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 14:49:51 +0000
-Message-Id: <20260819144951.633981F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oFn6c5Qg"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-52b3934af3fso9861441cf.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:52:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787151151; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TAyWXArmWm5Ao4cOG62rB+2nadlTcAeAGqnK9nasJQrc57PQRtZAaEpxxVigAk98tO
+         zcmx97eASV04yQmnbtnFvLL6pCSOBc2F5V54jd3DPrq5+nFl/+V3NLWqEC+0dWL2GQ0S
+         tAummu5x8jF4d9YsyQwjQL2c++qGuFiZE4EP1wYJNdwZjP9pYk8sXosieFWvPCS1VAIZ
+         iztOgyW7q6GYrAm3UEUwKrNNZpEAi0ci5kc68+SDVz3ukEZj12I2ae/hsHdPjNCrvY2/
+         Tx5J8Vj1w3faRDNF6XHwsIEt2MaQH42Cqgdk6o9xnug4MGW0dmqJxeLKKFTujVgqYW3m
+         x7zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+xwbmX7UfgLnx2SwFFhwr5+els4MKcBZYG6MEEMB/6E=;
+        fh=9PPb6BmgX0SfryC1+QiasQ0j5eelFbxFwZQihSdZato=;
+        b=k/2rOmeLNnlFl4X8vU64JBd+XvgsrgAFTR2OOOJRTedSrEk/XXHo/q9JUEBdvjXz0B
+         0qNWL4CdKY/bDyHPMfWpZTbs168meZSNNCHACnXvDV2tgaIVVwrXsC0FrXa6D9EKzwME
+         1AMc74zthJ/mR5Mssx6MdEzu6j2uO5u7Gz/SYiP27ltHbo5nLqDRa3ywkIwiu3lqM6na
+         dEv6wYJF9ccepGCaSc76GrEf+y19oVQg5sPtPHrWHd3PviGfLKiOdppbLruCjrVpP+Bo
+         U1C6Svbt+2E9+8H0y9KngyconX8Fpvm4oDYrkxrwpGm+X3BAL2kuuq4iB+ZWtDjuhEcl
+         jHtg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787151151; x=1787755951; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+xwbmX7UfgLnx2SwFFhwr5+els4MKcBZYG6MEEMB/6E=;
+        b=oFn6c5QgkZ1757/ldjs4nGUVRF13sPVRfP6+EMQfrq4/77Jox9jSr4hQAgkQ5Ny/xB
+         +9/oFbTFFn8PNAK3GNUkyUm7YPV1mi71JHyM86CrJP8V3xXeX9LaHNZQyFf3a/2OlvMo
+         nsAzyEkxs72TuvZmGnsocHY+TY20XuJE7UwoLCk+hsfR6DJxr5dmgEcW328SSSavJqhD
+         FbIeULQrGPKMPKDwzc3cgs35haPFFssA+OYeH7bKw9imEm0SQvDS8GMOkh8u5isl0+A6
+         BdNSOLal7wALcoAjdcwwyHw3JAu4b1/tax9EwphY25sR0VhsJv9EnGfIpWnt9rA31wc9
+         rSfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787151151; x=1787755951;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+xwbmX7UfgLnx2SwFFhwr5+els4MKcBZYG6MEEMB/6E=;
+        b=Kf2bSv8MS+s5lAbxYeoPteHV4iwZxzAXIw7MGwIzNJWDj0D9ZqRlGX2OIkaHP2kUv0
+         Gfzu+l41tqSXunuCvAcny4mXbzHeqB1DgKLvTj+Evrsyy0t42K56kI2DgZTF/bc9+Vub
+         Wu4nKONpy7scG0fh6N439P1KYlMZ8yq3HwVW+QEowg1ycrJSNJTOICZOx/n8BrHRhhug
+         fccIr1/zu5eiSHs/LX+EsrbolipXfKf8T8Soo4w6iW2NIxBfv+AoDtACqtnfKNMLAXhO
+         Wn893YFnMLrra16wqsyPstOZDUTO7CBgJPTk8nvxzLwp2Gdrku/pSGTVGLX8Xgm7mpAG
+         hjYA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpg0JfIPd+fHzLev26TruYFnQbnjA5RS/Fcu3OXHXDjlWF7w3gwbGJMRa9z5oDQSK79moMLsRWGUzfq@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVobdz4YljxOrj9M5LlKOxpKqP0SjV1IZgCGS1WvWJjSn79D/b
+	GUedgzelraTs5RjnfgUO+8kbdresQt11g9IDEq156jWJ3aM+W+PZ336Px/4PmBIelrIRiAlo0UP
+	X8VD7v6Ad79VDXP8pyNN3Y9dmxluwitA=
+X-Gm-Gg: AR+sD11YpAolw7ayrFiGCK/qw5Cej2W1y2czFwLYChyvyNRXec0SHu1Zb514K79Vd8/
+	Ss2Xt9mAPXSet9oF8GRwfygNL2tw7mE4GM2KxrgPF+QS9yXomzIHNu8DBSJHLKVPn8GfM3EPO5n
+	lbNadI2NU8TwTDJRQCZ/gSsF74w/PX0+3rh1MnXwmm3728b9WaXwd3qKsibdi3IHkXAHJV/524z
+	aGaTRHCyqwY/cA2D82p+l5wzszP/GG3+Sp+1ku8NI94etCFd5wCwPJQ+SS2zArbwSU9WFqE7VGx
+	50bBpipxdamCuHi6dV2nadXp2nijQ6kn86VhsxSDBUPFA4Ydf3Vcq67fd1Fx2VOatYm89zIRSd4
+	c7GvRqHKy263uQdwDoW/Gz/idriblSZs0Db/X4YpfuxM1XV6e+dO6OvjUxYg6q/I=
+X-Received: by 2002:ac8:5951:0:b0:51a:8b64:69e2 with SMTP id
+ d75a77b69052e-52dd575a1b6mr40323071cf.7.1787151150885; Wed, 19 Aug 2026
+ 07:52:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260808172211.137577-1-jesse.casco@gmail.com> <642652c2-af5d-446c-ac1a-8099639c2588@oss.qualcomm.com>
+In-Reply-To: <642652c2-af5d-446c-ac1a-8099639c2588@oss.qualcomm.com>
+From: Jesse Casco <jesse.casco@gmail.com>
+Date: Wed, 19 Aug 2026 10:52:19 -0400
+X-Gm-Features: AcwNN1VqYIJRaj6NXPh_Qu65pGrQ0AJQ_-ppLD8p4Fph7-SBSWW4rl5xU6O8o0E
+Message-ID: <CAEaxeoQUZKnCQPG_W0B77gB2VfC__-t7ZxY0mkVsqm1Q9pk6hw@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: use polling mode for SCMI transfers
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sudeep Holla <sudeep.holla@arm.com>, Cristian Marussi <cristian.marussi@arm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Requesting an unsupported 3.3V power source for an I3C pin is si=
-lently accepted and misconfigures the hardware to 1.8V.
---
+Tested. Everything SCMI-related was already =3Dy except the mailbox
+controller itself, qcom_cpucp_mbox, which was =3Dm. Built that in,
+pulled arm,no-completion-irq back out...No CMD timeout, no -110,
+cpufreq comes up fine.  Looks like exactly the timing bug you
+mentioned.
 
---- Patch [5]: [PATCH v5 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support f=
-or selecting the I3C power source ---
-commit 0ea5cf7346d186b66e9a09433c5157725bc0936d
-Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Keeping arm,no-completion-irq for daily use since it doesn't depend on
+build config, but happy to test more if useful.
 
-pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C power sou=
-rce
 
-The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
-pin controller provides a register to select between these two options.
-Update the Renesas RZ/G2L pin controller driver to allow selecting the
-I3C power source on RZ/G3S SoC.
+Jesse
 
-> diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/re=
-nesas/pinctrl-rzg2l.c
-> index bab7bd73a4328..41ca18aeeb0fa 100644
-> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-[ ... ]
-> @@ -463,6 +474,10 @@ struct rzg2l_pinctrl_ps_desc {
-> =20
->  /* Keep the entries with .caps set in the first positions. */
->  static const struct rzg2l_pinctrl_ps_desc available_ps[] =3D {
-> +	/* I3C I/O domain voltage 1.2V */
-> +	RZG2L_PINCTRL_PS_DESC(1200, 1, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
-> +	/* I3C I/O domain voltage 1.8V */
-> +	RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
->  	/* Ethernet I/O domain voltage 2.5V */
->  	RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH=
-1,
->  			      RZG2L_IOLH_IDX_2V5),
->  	/* I/O domain voltage 1.8V */
->  	RZG2L_PINCTRL_PS_DESC(1800, 1, 0, RZG2L_IOLH_IDX_1V8),
->  	/* I/O domain voltage 3.3V */
->  	RZG2L_PINCTRL_PS_DESC(3300, 0, 0, RZG2L_IOLH_IDX_3V3),
->  };
 
-[Severity: Medium]
-If a device tree incorrectly requests a 3.3V power source for an I3C pin,
-will this silently accept the configuration and set the hardware to 1.8V
-instead of returning an error?
+On Tue, Aug 18, 2026 at 5:29=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 8/8/26 7:22 PM, Jesse Casco wrote:
+> > On glymur the CPUCP firmware writes correct SCMI replies into the share=
+d
+> > memory but never rings the mailbox doorbell for them. Every transfer th=
+at
+> > waits for the completion interrupt therefore times out, scmi-cpufreq
+> > fails to probe with -110, and the machine ends up with no cpufreq at al=
+l
+> > -- all CPUs pinned at their boot OPP.
+>
+> I'm not seeing this issue, but I heard others hit it, possibly due to som=
+e
+> timing bug. If you set your kernel config to build all drivers in (i.e.
+> change =3Dm to =3Dy), do you still face this?
+>
+> Konrad
 
-Looking at RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC(), it treats entries
-with .caps =3D=3D 0 as wildcards:
 
-drivers/pinctrl/renesas/pinctrl-rzg2l.c:RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DES=
-C_FUNC() {
-	...
-			if (available_ps[i].caps) {
-				if (available_ps[i].caps & _caps) {
-					desc =3D &available_ps[i];
-					break;
-				}
-			} else {
-				desc =3D &available_ps[i];
-				break;
-			}
-	...
-}
-
-Since the 3.3V entry above has .caps =3D 0, it seems rzg2l_ps_to_desc() wou=
-ld
-match it for an I3C pin requesting 3300mV, returning pwr_reg_val =3D 0, whi=
-ch
-configures the hardware to 1.8V.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819143553.2478=
-984-1-claudiu.beznea+renesas@tuxon.dev?part=3D5
+Jesse Casco
