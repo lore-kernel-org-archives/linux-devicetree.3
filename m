@@ -1,96 +1,122 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F1A2EEE7E
-	for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 23:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130B9285060;
+	Wed, 19 Aug 2026 01:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787096298; cv=none; b=EBrOU62GPSfXVI7sNaz9SfnSLYnrM538xXrv4zWf5eNKdFJ1dQMKNlSgzkHUl/ssp7eLJioebzZwXVpmkPNhZMmHmLWyqc/hfT2/JK+k2eps14Z0WpfdVA8IM9dbj6USZoz5nx/jka4kHAlUC1MM0oP7XzTf0ua6KYnBW9mfFRE=
+	t=1787101472; cv=none; b=LJYrpC2Gygm/hp6Z79FbQr8qxEl6dqq17U60Oj0MVCDVg2Xw2gClTAE1GWCNdJ7vmLUUXFX153wTSvOOG51sp0mqzlucdpGa+gXmc6gMK0J/Pu6PZNhkT7LI90jgvKEPhbUU0eSrhpsI2z6JfMXYSjppnYen2ZzxodhLZ3tdRhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787096298; c=relaxed/simple;
-	bh=JvVGIAW5ni3Xc1kJeyoHi4C0Xeo9QBavCmEIrdZjNk0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E/MNV50aE/x/oYuS9Ppt3Ar390i+PG079VEMT3459rOlaEGA/cVfpOM2sqAoX5Ly/fV8nGvillmVaC8R0K+/dwSTr3O/aCBTSt3nj/PNMWtqL9O2jTzBZw2Y0QGTvPT+TXBamme7FYfWbK2cRFRg2/WryPnBtOzgrP5HkeURA+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GULZNdFi; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787101472; c=relaxed/simple;
+	bh=a58e86nBBNovQnEVRhycGQYE+nENT0BPOQ5uZ4Xrkts=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BXBkQ3xpHX88IWojmP6NGrQDKb7+8pAGfMv4oFvP4aMcc+urQyCuFAiqXodR6j/B/coVgRsxdw6hk/YAZbB+0xI2EOMWu69IyPc5bR9MpI/kBcQWEccnp8/QpGltoKxMYdE0ONM4AF1jGuFW1aFF+2C/bkkYqJdEXHLMdZj1BVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N4LKCqWb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GULZNdFi"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84eb992a881so405914b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 16:38:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787096296; x=1787701096; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PQRDXp2z74RjQBsbJ19hTerd/5ta04pnNNJl+vajzDE=;
-        b=GULZNdFiGSIKs0BywXdM5DR8k686vtGmH/hc1tgAEjr6ICz3GlUG0qaGLoINevP/nV
-         g/mhSsCm0mhH79vCd2pwst80XgHohS3kP8BuCl8SwZUnTvwePgkuAWfICWQqk0bGgNTk
-         HaYjhXcniDLPTe7Yt0aRQDY2t8g0nm9qebqN38PVFO8ZrJXSbh/znADTK2IwsrvCgzPo
-         zslYh4TJU2rMty/AxN1yJbcmg2p9COGIf2kcX7q7pK6DYMS6tkP22Lo1h3IrGb4hasro
-         sPfeZ1QZhpl7/Hf+BuyikMUGL/EwywWKUb64hhl7VGiODgLi9q2SOwoEoO4tX8SuUOur
-         R0Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787096296; x=1787701096;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PQRDXp2z74RjQBsbJ19hTerd/5ta04pnNNJl+vajzDE=;
-        b=WiR3mE6YTWxa54a5wCF6kYDgxKX2WK3BJOnSgeiKkCQe6Up1jHq5GLeyErUlruZr5c
-         40Iry3dWYUhP7tqCPJrrMVzk9q+bLerHIUxBbuFqsN+bg4N56Tp/JqxxTrKYAigC7ZCV
-         7BGaOw8MHUCDT4F/jbYLAlF5bNmk3l33czIer2ygxz22mIs6T1tlWrYmy9KJvQj88fW/
-         noAdh2cmjQ7KB+rRZh6pv3xHHCD36BeDfIXBeDobB64STvmuNCfXuM8UpkedRrRDg4T0
-         e6WFnHb994Sp5KZ6I1x8i21/hhLSacWhMfJN44rm/AGLkZhAkSPqL/4CsJoZPKIbcAVW
-         T6Pg==
-X-Forwarded-Encrypted: i=1; AHgh+RqVhM3OJRx5vm8I8r45MbjA0PlR+EaRu3hlSwSo8F6p7sWMimqcR7+guwXIdraSNvWxvpmYY20X8SXT@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJF2nviNMcLqlJQeV17K75oYQVeR0a85jz0VvaBsGON5AQvkvV
-	ii+O4vB/gsq4wCvhS06isQA0G4i/qvPnyoUOQnOllHlDVawx1n1WpyIQ
-X-Gm-Gg: AR+sD12DWqG+ErchCqwsUDvBZlb6RZeOUe6Vca6hd7qVVURcshhPNw8YAJ8mhyegzgw
-	a409pyQQ0vGPXqHBv0JLYQCHjeEB6az4cYKUyzihmpdZyQXHnbIsNK5m2m/Zu3qJHNUtG+kEgl+
-	q6q+emywyYe1bxz2iWG5EwEmSyV/LyW2tH3BTbjid29Ru5Btdo4yDdeYZnzexWD/2UuWXpIJKLc
-	y6ioBl3u86wF0SMY4V7oe8U2DHhUJBO0mQVCGdjFygVEWdCpK8EZ9kP/BuOPp65iVGqalqy7pWz
-	2ZM4g3zBmRC4xIMaZLePyL+uzKasAtdkKEoPV2pQ7OLIxrse5ZLNEvpha3gl8m6aJCZJjzHE25g
-	CksTG8Bo4xK+5CWprzAh3fX27AYN0Av78KCG0jGei7hdnsdBwMlpExzk420KFpzwoD5V9fOULuj
-	vb1r5YFkGgXspo+mKgLQzfQuCTgIX/5s7QBoDLc1KWS1YVjb3UeBdyR/01iZRS+pCHQHu2ohvaS
-	g==
-X-Received: by 2002:a05:6a20:72a3:b0:3cc:eea9:f757 with SMTP id adf61e73a8af0-3cd011a39famr1020421637.16.1787096296030;
-        Tue, 18 Aug 2026 16:38:16 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf15ff5dsm522227eec.25.2026.08.18.16.38.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Aug 2026 16:38:15 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 18 Aug 2026 16:38:14 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Stoyan Bogdanov <sbogdanov@baylibre.com>
-Cc: jbrunet@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 3/3] hwmon: (pmbus/tps25990): Add TPS1689 support
-Message-ID: <5095200a-51a1-4e68-9e78-36e8165cd29a@roeck-us.net>
-References: <20260817101455.3526260-1-sbogdanov@baylibre.com>
- <20260817101455.3526260-4-sbogdanov@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N4LKCqWb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51EAF1F000E9;
+	Wed, 19 Aug 2026 01:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787101470;
+	bh=GccWG6NlqJnPZlaUDtMAW8yoVn0Vv/jGilm4jtu0/6o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=N4LKCqWbySeQvzjkyPdeMYqfpjFG66TQQIrG42CrV93U6UZi8rLQOfg6GDgzjAodM
+	 8QXho1mPtWunw1Nyvyz8CUX6vyZA7NRgglFogyJ/dIkjHjN8ecLKH0PJUm3CXSD9Za
+	 S8UZvgZBEg8ph/i1ookRyrbXEHwoT3DZqP1nPI7NhC1m5lfFRQdKTRUScSbb7olAD8
+	 6v02Eo4vWLXl3sgqiAgBvY2mwg4nGIIo8+Q1+tF9MZfXwgxbTsSqovxVS/79XB1/n6
+	 KptWObJwOoD1W2nin+Lpye9A6jpC0NAcopEE8ByLDEdOlSD2UBRrTE0v+Hy2Ovai37
+	 T5rJwNhC5hJxA==
+Date: Wed, 19 Aug 2026 02:04:26 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof
+ Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v7 0/4] iio: light: add support for veml6031x00 ALS
+ series
+Message-ID: <20260819020426.1de53bce@jic23-huawei>
+In-Reply-To: <aoRl-7XIianTyKIB@ashevche-desk.local>
+References: <20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com>
+	<aoRl-7XIianTyKIB@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817101455.3526260-4-sbogdanov@baylibre.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 17, 2026 at 01:14:45PM +0300, Stoyan Bogdanov wrote:
-> Extend the existing TPS25990 driver to support the TPS1689 eFuse,
-> as both devices share the same command interface and functionality.
+On Tue, 18 Aug 2026 17:02:35 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+
+> On Tue, Aug 18, 2026 at 01:34:25PM +0200, Javier Carrasco wrote:
+> > These ambient light sensors with I2C interface provide two light
+> > channels (ALS and IR), high/low threshold alarms with configurable
+> > persistence, and a data ready signal.
+> > 
+> > The devices covered by this driver have the same resolution, and they
+> > share most of their functionality. These are the differences between
+> > them (note that the x belongs to their names, and it is not a wildcard):
+> > 
+> >  - Device ID: accessible via two 8-bit registers, different values for
+> >    veml6031x00/veml6031x01 and veml60311x00/veml60311x01.
+> >  - I2C address: same grouping, 0x29 and 0x10 I2C addresses.
+> >  - AEC qualification: AEC-Q100 for veml6031x00/veml60311x00 and
+> >    AEC-Q101 for veml6031x01/veml60311x01.
+> > 
+> > The alarms and the data ready signals share the interrupt pin, and an
+> > interrupt status register must be accessed to identify the source. Such
+> > multiplexing is not new in IIO, and I have followed existing examples
+> > for it. The persistence setting (own attribute) to trigger the alarms
+> > uses the pattern that has already been used for the veml6030.
+> > 
+> > The device configuration is in general documented in the datasheet and
+> > the application note. There is an exception, though: the activation of
+> > the "active force" mode that is required for the data ready signal must
+> > be carried out in two steps even though the affected bits are located in
+> > the same register: first ALS_AF (active force mode enable) must be set,
+> > and then ALS_TRIG (active force trigger setting) must be enabled. I have
+> > added a brief commentary in the code to explain this behavior, which has
+> > been confirmed by the manufacturer.
+> > 
+> > The datasheet specifies the scale and integration time for the ALS channel.
+> > Although both settings also affect the measured IR value, no transfer
+> > function, accuracy, or calibration is specified for converting the IR
+> > output into a physical quantity. The IR channel is therefore intended only
+> > as a qualitative indication of the infrared content of the incident light,
+> > rather than as a precision measurement channel. Consequently, the driver
+> > does not expose scale or integration time as IR-channel attributes.
+> > 
+> > The only functionality that has not been implemented yet is the x0.66
+> > gain (and its x0.165 counterpart when PD_DIV=1), which makes the gts
+> > helpers less usable due to the conversions required. It is indeed an
+> > uncommon gain to use (there are x0.5 and x0.125 gains) with no known
+> > use-case at the moment that justifies making adjustments to the gts
+> > helpers or adding artificial conversions to make it work.
+> > 
+> > This driver has been tested with the four supported devices separately
+> > as well as in pairs where the I2C addresses don't overlap.  
 > 
-> Update the documentation to include TPS1689 support.
+> Reviewed-by: Andy Shevchenko <andy@kernel.org>
+> for all patches, but DT.
 > 
-> Signed-off-by: Stoyan Bogdanov <sbogdanov@baylibre.com>
+> There are minor things that may be addressed later, or in next version if asked
+> for other reasons.
+> 
+Assuming remaining discussion resolves, there is just enough requested
+here that I think a v8 makes sense.  This is particularly because
+of where we are in the cycle and the massive amount of time we have
+as a result.
 
-Queued for 7.4.
+Note I didn't find anything that Andy hadn't already raised.
+Looking nice!
 
-Thanks,
-Guenter
+Jonathan
+
+
