@@ -1,107 +1,160 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2100.outbound.protection.partner.outlook.cn [139.219.17.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C042643E088;
-	Wed, 19 Aug 2026 09:28:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787131709; cv=none; b=MYk2kNDDCerbdkThZ9ayKnZrKI8skNc0S2Tl965OUugxYIdmmgxjongXxjgO+MbHP2N8J0akMzjeVNUAb9eEdP26XEiXghdyLfA4mRYB0sMiF6mDX9MBJyKXC5neJlVTkmH8gcZNiqQEshxn+ApihOHB4GWZSAmEi0HAdyeCiv4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787131709; c=relaxed/simple;
-	bh=zNudpO1wWIBaAVTB5TfdRT6h2O1jEPXOPoL8dbL3MZE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=ag9afMQH4TEZ0L4Hvf8TQ+4bEuFSafyS0FYqjW9++p5G3fAu1pB/hN6GwzPE6IJ6o0Fh9qLL2ka3lLWaGEL/fIhJAlCC1YJPyP2r7V67UWWfCC1yiBvm7r4S842Bi/3LULORh5N3UbCp+r2UHPztGAx+0Q7wwoErI2FtbeXfOLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nD82eXpt; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nD82eXpt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=zNudpO1wWIBaAVTB5TfdRT6h2O1jEPXOPoL8dbL3MZE=; b=n
-	D82eXptP5ALSooxAI5+9giRk1XsljWqScHJpORWVrQ4CEGNCY4TJTyICBbsZ6c8p
-	JkiMdWUc2G6AkmU1El7EcDhIT9ENCBJaQXCbWj0fLbMn11EFxQWXupM3uWv9qwX2
-	JGnKAbRJVhsFgE4//qwn8PFOVJng9mdr5ikHk3ck10=
-Received: from zl020895$163.com ( [180.169.129.163] ) by
- ajax-webmail-wmsvr-40-101 (Coremail) ; Wed, 19 Aug 2026 17:26:51 +0800
- (CST)
-Date: Wed, 19 Aug 2026 17:26:51 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>
-Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Linus Walleij" <linusw@kernel.org>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Brian Masney" <bmasney@redhat.com>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev
-Subject: Re:Re: [PATCH v5 06/12] dt-bindings: serial: add Ambarella CV75
- UART
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <b81a9de7-b5b0-4450-82af-065895a8352c@kernel.org>
-References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
- <20260818-cv75-v5-v5-6-7bbb12f0360f@ambarella.com>
- <b81a9de7-b5b0-4450-82af-065895a8352c@kernel.org>
-X-NTES-SC: AL_Qu2TBf2Yvk4q5yabZelS6DN615F8O5rMxLRDmdYrY+8JiBnj2hsZf1x6Flza4t7CNmLR1GtFoERaHxdqxSK4
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A49442131;
+	Wed, 19 Aug 2026 09:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.100
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787131926; cv=fail; b=glCpRQO9eC3yoVVQv7IobAelXyUokls3znqulj7H9WIVaSafnKS5CsuutYOUx2TTp1OGiTrZ4HD9YWzJ40XXRkCweEObfzmoxvmMZpW8vgYffttislocKSWdh3s1JiVw1hVa50Zx/b5Xf9N9KBJPSl+FvkeQFfyBl2waFXgM+jc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787131926; c=relaxed/simple;
+	bh=pCuJXbt8enrRmqHg/rswlak+UPLYLB1J2rWRgirpmJM=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=GRUmNXaazOQxVXuODVawF/JyIkGl51MzYa4Tc7fyzweouz+LMBus6QVyJTlCTv4poB9+UFNbqHm+GqzfGHEDlcDeAcFfFRBPKZ45d0pjJFcY7p++//RnKq1zw0WAVL98udPXMDVlTfVSy8sWKNPaiX66fBpeomyKf3wY4zJMVo4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cBHSiVIh5GHPRYbcTdDT8gf/jTT0Q0h/FnvT1lPG/nDFOkjBJ666cMLW6oOfDWplKMaq9mSCxg8AUSt/H/tYdEHFB93Xkzs9KxLdFrZDflPZX7LRDXhb2+MrQus+cFYvFTflKuYD1EVG6YxfC+ZbJ3AFHatxdc7NC2D9EgWOwXUPDzs29VZX5C5zdOI/xlwcuWvRf8c92yKmC7E37nkpYobJeWvLtKoXR4WMI4A8vmneFX+W7gLIYyl6lXy/xNEB84CJWCcpCCwNmmBs0wlgw0B/VXVnOU45WmuZaATz9544Z1UzNuOFgQJTj7fzdc+D2ah4kmDEVxkoChMDF5m9ZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bMsPZu9pH8Fp9AFnUAtFLoWHKTMt2/oinM0lC9RFxRY=;
+ b=kbduhUVyljn2Ucz/oQin9GJ4tJ6MjprK1E8yOFT7U3SNcjRjNLIlax9RfsOLKyXwkeTphRrD4GZ0+7ukp/HFkbIT746ZzMMYbxq8kuKeamuRyHjSYRwQh5B+/53CnFPSjXY/IFIW0IbyMbmeeN7UcaJlMbb4zd9ACo14n9KbSLYKhAIstgtrCnT9fU7cVD+jjvjWwiFD5FhUTAa+2ufiRY1vo2fBTYN5R4ncUrkO2LapJ1K4k5GZwbXUiwCynPVLep2M2hYXi1+sc0m7Yxi+iuZ2uCzQJ4r87ZMl5rJNUdi4hvtARa0LT5MYzRBCULJwSiwcGhk1WoFzYIQZX2CiNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1220.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:14::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 19 Aug
+ 2026 09:16:13 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0315.011; Wed, 19 Aug 2026 09:16:13 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 0/2] Add JHB100 Fan-Tach support
+Date: Wed, 19 Aug 2026 02:15:59 -0700
+Message-Id: <20260819091601.41077-1-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SHXPR01CA0015.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1b::24) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <276a15fa.74e4.1a0195849f7.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZSgvCgD3H+zbdoVq3PY0AA--.8244W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxhvPQWqFdtsMfQAA3g
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1220:EE_
+X-MS-Office365-Filtering-Correlation-Id: a80e0893-fbca-4601-d3b1-08defdd28437
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|52116014|23010399003|376014|38350700014|6133799003|10067099003|18002099003|56012099006|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	FxxrWO8E9otGtAMWBolDaQ9t3zME3SX5udnchgahfbrh/10YTOzM0aLqtp3G1lMCA/DZ+SphUWCDSkpu1yNcIM5jt7DAdxIIU66XSgA3S3aTwQyEgAAFLxU94xOD9saiQB8XRPB/hAXCYRleZZcpmqCMWaKNtvb723pe7skGUqbGufVmvGIg2SEBzE0XyPhgGKn5uT/X3DetK4GSNwmlo9nOPEVf0bQMwY7fNYh1GjNOn5VQVBoTe5xq9B6owQ9JJhWwPtBd3l0QmEh0V+SzJyqysqJuFJ6mcwB0LCDyHLHDc3RwrkDddkpAdHY6+Wo4TgrfgzNR1DO9aIf6tvRMwfRcAXHlBYavcAUyGI/V+eewZpEouxDlRWUvM921J1bgaebahwyp633WOoWZat8ayik4/8o13vWvJVlUeBRXExbVtqVnuTJJ8gBNXkwyVpvh/CkUukAWayzCiC+S/3S0+lEcfZUWxHF8sff1QttC3UgT1M7SVopD5gOMVPcXwtRXcmPzrBWdtoWx/OekM7fXkfifVLhneRC7W+8ty+kwsJCF72LKL9RzuOIfUGf3aIoc
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(23010399003)(376014)(38350700014)(6133799003)(10067099003)(18002099003)(56012099006)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XQ4OJFNyEk8zK++qp8nqXFQ0IwlWB5S49hVPF/f5Rm/bJWAZefjePsDqaky3?=
+ =?us-ascii?Q?sXqV7bkzTpQaZbY/iIjwr+BdPsfPSAIMDdlKnunLS4I1FdGoiIwqrb9zqrVt?=
+ =?us-ascii?Q?1Xp+IU0qFZNLG67PakK7EjfTwotrVFBXSp6lkVxXgCUqZIXmi0APPONB5ukI?=
+ =?us-ascii?Q?HbxCFRKJ1V3Xc0izwFH/upW1jLJgrR5d/4zMzl9fORn5aEXkQlzK1LPFogYA?=
+ =?us-ascii?Q?jmHICZq0zFUZLskUVr0zhmdB9BHYFW3NZBFoTy0vzzVXcRlcLyzJHwWArIE8?=
+ =?us-ascii?Q?+KhtQyhKAPsBam/+RGgGbwiltslZBQxROKu1btqZxJKdQv75xo59HHhIXvwj?=
+ =?us-ascii?Q?C6QYB4KL8JHlOfAVt/TOcfQrWlWM0UaWIkIxonczCNa0qIxLkT1JucvYzx+a?=
+ =?us-ascii?Q?235krz2yML9h/g3d2vzvIoogvPDq9J/pIBizyYKJkPixqPWPuC8Vhoet1yhE?=
+ =?us-ascii?Q?TDuW99ePh5iraxkGDt41ud1mdjJlEbAeLT8RWtNf4nSmBzGQryEBJqlrA/cx?=
+ =?us-ascii?Q?kIde9MsZXv8wfVY16n6p/8mITbyBBcAhHrDve4zrICXicGJ4T2ZBTg5u4vEG?=
+ =?us-ascii?Q?epq9r5/2j2W1X6SseIAkGJqmRgtJcqFmmnWTmpo17+NE129aUm9RFrRqBnEI?=
+ =?us-ascii?Q?9zvBI8r14+vpbR+4fh7Sc4zk+2JaR5sYvRYOEy5bSIfPDNfJnY+8yb902bGQ?=
+ =?us-ascii?Q?yCt4KHaO1a4WTzI55jdKVdfTMnaFJy0EjNY+PdaW6qStP8mj3UCZmWMJ5+q4?=
+ =?us-ascii?Q?yNWG01uZeVYvY4sEjCHPOxSvzqbTYjKJIkOX/DITbDNU8wm3vGJzFbaa+QEK?=
+ =?us-ascii?Q?jBqyKbjaMc6krpxFBEL9CXzct6jrUnnIJVoY35fUcu4kCNYnmJD99V8H/yFj?=
+ =?us-ascii?Q?i4l4Zx5r09N9aMNtJHa+f2IzIPKQNx0MpQxIaVcawFg3Sw22S+XBFJXHFYHk?=
+ =?us-ascii?Q?KWwuuheDvJOuRKgm7iSQ3qs5xYpBf5ZaYc+gKGPm5LIUyJ4KkTi7NOnXbWZF?=
+ =?us-ascii?Q?p1UEJjAEdjYctEWOsyNnmEW6qhpT5ZHBwAIJqWoNAzF4HaLninVHrS5nY+sD?=
+ =?us-ascii?Q?OnBV1Nts1OpIZ8lGpGGu9caFctvG1UemChjT2fT6jV6dl2QxFxjVptrVzjOg?=
+ =?us-ascii?Q?BSZ1fFN5OawHKfHdbiJ76fIZo6rN8aq0YTvZ1lYnD7INX9+DLnb+iFkn4pXD?=
+ =?us-ascii?Q?tUFqoZyEW3WMzB7pGWbf+TW/6A219z1M14xvNY7G+yEbHG2G2MphSeINpXd+?=
+ =?us-ascii?Q?3xvDd3N2gV1HGA8Y/wxA4MrtygPL/IcZhr7KjNBlbfgRCsYZnjK2R/8AIODT?=
+ =?us-ascii?Q?gRJrUiCSknT43n/3GT8P+NPGHKGDuaVFCzL7Kmxcbp7KIJys6IhATQzWoLRH?=
+ =?us-ascii?Q?dVLrhXp6DAFizkdB0UydiREweQu9jYtO8/iSRjw8ef13/0sru203iVCXvZHG?=
+ =?us-ascii?Q?qAdyD7ZLN2qqFTz3Y4DxZO8wCvh5IEB1hbRR048DTpvZ7SdlkusmFalZ4Cvs?=
+ =?us-ascii?Q?+TwmhQ0hVR5ltO3t1Hg+Sh2v4FTo8J/+kQF5EOD/H6cM//5KOp09p6ezdMld?=
+ =?us-ascii?Q?6sgQ7z38gWJFbEvz3BBQ3tiHYG6Ceu2DMZ9rfpKWswn5Ri6rw/BNKnpgEwLL?=
+ =?us-ascii?Q?lH+a8tNU0g+qguxLJ0Hb+r+NdRxA/Qspmt6rUfqLUy625sMoZbG6gGd0StU4?=
+ =?us-ascii?Q?+R4kRnZwpFQJTimd0vXt12c2+eiyZdxPRF3A8rprdMMvcq+dtWW4QMmE036n?=
+ =?us-ascii?Q?jxEgSK0AnB63aybjxwJSppg05ySw3LMDRrOPkKsHm9gnAM1ZO51s?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a80e0893-fbca-4601-d3b1-08defdd28437
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 09:16:13.7629
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6+r+/Mf+xUrSDbI5zVRnyGw+/ar9BSD/s5a4swte7M4qo8B6RPsK8Q/coQ3ZCEeGC87a6zvT0B0gRn6nMXbXg45OcdoPEMQRspJtT535Jl2Dc7vab6o/iGYJlPJjZRuD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1220
 
-VGhhbmtzIGZvciB0aGUgcmV2aWV3LgoKSSBkaWQgbm90IGNvcHkgYSBzcGVjaWZpYyBTb0MgVUFS
-VCBiaW5kaW5nLiBJIGZvbGxvd2VkIHRoZSBjb21tb24KODI1MCBPRiBwcm9wZXJ0aWVzIChyZWct
-c2hpZnQgLyByZWctaW8td2lkdGgpLiBJIHdpbGwgZHJvcCB0aGVtIAphbmQgaGFyZGNvZGUgdGhl
-IGFjY2VzcyBpbiB0aGUgZHJpdmVyLgoKQmVzdCByZWdhcmRzLApMb25nIFpoYW8KCkF0IDIwMjYt
-MDgtMTkgMTU6Mzc6MDIsICJLcnp5c3p0b2YgS296bG93c2tpIiA8a3J6a0BrZXJuZWwub3JnPiB3
-cm90ZToKPk9uIDE4LzA4LzIwMjYgMTI6MzEsIExvbmcgWmhhbyB2aWEgQjQgUmVsYXkgd3JvdGU6
-Cj4+IEZyb206IExvbmcgWmhhbyA8bG9uZ3poYW9AYW1iYXJlbGxhLmNvbT4KPj4gCj4+IERvY3Vt
-ZW50IHRoZSBBbWJhcmVsbGEgQ1Y3NSBvbi1jaGlwIFVBUlQgY29udHJvbGxlciBiaW5kaW5nIGZv
-ciBlYXJseQo+PiBjb25zb2xlIGJyaW5nLXVwLiBUaGUgYmluZGluZyByZXF1aXJlcyBhIHNpbmds
-ZSBSQ1QgY2xvY2sgaW5wdXQgYW5kCj4+IGZpeGVkIDMyLWJpdCByZWdpc3RlciBhY2Nlc3Mgdmlh
-IHJlZy1zaGlmdCBhbmQgcmVnLWlvLXdpZHRoLgo+PiAKPj4gU2lnbmVkLW9mZi1ieTogTG9uZyBa
-aGFvIDxsb25nemhhb0BhbWJhcmVsbGEuY29tPgo+PiAtLS0KPj4gIC4uLi9iaW5kaW5ncy9zZXJp
-YWwvYW1iYXJlbGxhLGN2NzUtdWFydC55YW1sICAgICAgIHwgNTYgKysrKysrKysrKysrKysrKysr
-KysrKwo+PiAgMSBmaWxlIGNoYW5nZWQsIDU2IGluc2VydGlvbnMoKykKPj4gCj4+IGRpZmYgLS1n
-aXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc2VyaWFsL2FtYmFyZWxsYSxj
-djc1LXVhcnQueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zZXJpYWwv
-YW1iYXJlbGxhLGN2NzUtdWFydC55YW1sCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4
-IDAwMDAwMDAwMDAwMC4uMjIzYzg0YmY0NjBkCj4+IC0tLSAvZGV2L251bGwKPj4gKysrIGIvRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NlcmlhbC9hbWJhcmVsbGEsY3Y3NS11YXJ0
-LnlhbWwKPj4gQEAgLTAsMCArMSw1NiBAQAo+PiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
-KEdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UpCj4+ICslWUFNTCAxLjIKPj4gKy0tLQo+PiAr
-JGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9zZXJpYWwvYW1iYXJlbGxhLGN2NzUt
-dWFydC55YW1sIwo+PiArJHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21ldGEtc2NoZW1h
-cy9jb3JlLnlhbWwjCj4+ICsKPj4gK3RpdGxlOiBBbWJhcmVsbGEgQ1Y3NSBVQVJUCj4+ICsKPj4g
-K21haW50YWluZXJzOgo+PiArICAtIExvbmcgWmhhbyA8bG9uZ3poYW9AYW1iYXJlbGxhLmNvbT4K
-Pj4gKwo+PiArYWxsT2Y6Cj4+ICsgIC0gJHJlZjogc2VyaWFsLnlhbWwjCj4+ICsKPj4gK3Byb3Bl
-cnRpZXM6Cj4+ICsgIGNvbXBhdGlibGU6Cj4+ICsgICAgY29uc3Q6IGFtYmFyZWxsYSxjdjc1LXVh
-cnQKPj4gKwo+PiArICByZWc6Cj4+ICsgICAgbWF4SXRlbXM6IDEKPj4gKwo+PiArICBpbnRlcnJ1
-cHRzOgo+PiArICAgIG1heEl0ZW1zOiAxCj4+ICsKPj4gKyAgY2xvY2tzOgo+PiArICAgIG1heEl0
-ZW1zOiAxCj4+ICsKPj4gKyAgcmVnLXNoaWZ0Ogo+PiArICAgIGNvbnN0OiAyCj4+ICsKPj4gKyAg
-cmVnLWlvLXdpZHRoOgo+PiArICAgIGNvbnN0OiA0Cj4KPkJvdGggcHJvcGVydGllcyBhcmUgcmVk
-dW5kYW50LiBDb25zdCBwcm9wZXJ0aWVzIGFyZSBwb2ludGxlc3MuIERpZCB5b3UKPnRha2UgYW55
-IGV4aXN0aW5nIGNvZGUgYXMgZXhhbXBsZSBvZiB0aGlzPyBJZiBzbyB3aGljaCwgc28gd2UgY2Fu
-IGZpeCBpdD8KPgo+QmVzdCByZWdhcmRzLAo+S3J6eXN6dG9mCg==
+StarFive Fan-Tach controller can support up to 16 fan tach input.
+The series has been tested on the EVB1 board.
+
+Change since v1:
+PATCH 1:
+- Add explicit minItems/maxItems and range constraints for tach-ch.
+- Switch fan node regex to support hex addresses.
+- Add pulses-per-revolution demo.
+- Rename example node to fan-controller for consistency.
+- Limit the reg property to a maximum value of 15
+- Fix tach-ch example by changing /bits/ 8 <0x0>, <0x8> to
+  /bits/ 8 <0x0 0x8> so both values are parsed as 8-bit cells.
+
+PATCH 2:
+- Added hwmon documentation (starfive-fan-tach.rst)
+- Added HAS_IOMEM dependency in Kconfig
+- Added per-channel pulses-per-revolution DT property (default 2, range 1-4)
+- Added mutex and spinlock for proper concurrency protection
+- Added armed_stall/armed_slow mechanism to prevent spurious interrupts
+- Added retry logic for zero sampling value in rpm read
+- Improved probe sequence: clock enable before reset deassert
+- Added devm action for remove path cleanup
+- Added input validation for write operations
+- Added MODULE_DEVICE_TABLE
+- Added linux-hwmon mailing list to MAINTAINERS
+
+v1: https://lore.kernel.org/all/20260428082337.743546-1-changhuang.liang@starfivetech.com/
+
+Changhuang Liang (2):
+  dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+  hwmon: (starfive-fan-tach) Add fan tach driver for StarFive JHB100
+
+ .../hwmon/starfive,jhb100-fan-tach.yaml       |  93 +++
+ Documentation/hwmon/index.rst                 |   1 +
+ Documentation/hwmon/starfive-fan-tach.rst     |  34 ++
+ MAINTAINERS                                   |   8 +
+ drivers/hwmon/Kconfig                         |  14 +
+ drivers/hwmon/Makefile                        |   1 +
+ drivers/hwmon/starfive-fan-tach.c             | 561 ++++++++++++++++++
+ 7 files changed, 712 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
+ create mode 100644 Documentation/hwmon/starfive-fan-tach.rst
+ create mode 100644 drivers/hwmon/starfive-fan-tach.c
+
+--
+2.25.1
