@@ -1,144 +1,104 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B431A30274D
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 12:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6AA52236EB
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 13:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787144296; cv=none; b=WYFbxZq1A3nDW6Yfv/3J/7qij4N+S956kkB4TZ8K2ogoLcSwR+0jGteU+nI0kwuBw93HUoVA3nnE7h9vHY76dYarlSHpdDzemtyA+T3foJpbCBUieVEhIQF87dLbqfSjwiS9REM6QC27Q9ReJ+RVeGQNDb1RujYepvMTL7f+teM=
+	t=1787144505; cv=none; b=m9UsUDnqRJXZQCwAZVpqive7wNO73XbWhBR+rZa2Vt8IuIootGE/R44rmCMTWGK4L7OiipwZ8fFGd+i9zufLn+apxrJjYR9SKb6EMBHv6P0SaWns9JZb7sjppLZulwreK9/Ra0x3rK0IDAPmABTRtBKmZLmYvHLUim4A3aPY09s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787144296; c=relaxed/simple;
-	bh=d7aswmRc0xnzNBIXchR00wnLcVM6HK9HLZ4NdUignjc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=CwQa2W8kyyqkaIHlfLzSdIeP1Anr8fRVrL6fGlBw152QYC2fO6mfrqZ8YxBTlf0eEHvNyiZXYgf4Ipj+SZP/2Pu7agE6K932RQm7qY3nB1/iptmgNrcCuk+2n+fyHg9PBYoYZ8pvSGphyfFAsVF/w+Go6QhRT27hgxB02+y/gZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HO81+Ho4; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787144505; c=relaxed/simple;
+	bh=wp8TGbisRW8gW+kdJD0RAvTV+2ZP24fjbMV6UB0mk1g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d+GJZ3SCofYXZqX6GmRcWJSgmfbu3dD1W9FmMSzVpBmk4Ng42jnLdMgLNarKn0aAHSWbDwt1FUybtf134cDzKd31ZewtMZNc60RRYVRAQ93EPBgVDok/ibAyR9Pe2dpaCKSX1qdP6S3PZ26wJPmbrHeS15Yom2iziCFr7stCjVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=fIAdq57+; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HO81+Ho4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 163994E412D2;
-	Wed, 19 Aug 2026 12:58:12 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D90695FF42;
-	Wed, 19 Aug 2026 12:58:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8220D11C7107F;
-	Wed, 19 Aug 2026 14:58:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787144291; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=WW43aCP5FG1KxTJ7NUvEkhvGk1ZgGIn4oiSyR3yu9f4=;
-	b=HO81+Ho41SXaFNQhQT/exFjLjxiRrCCFTsfnek9XDklp01ad94V6fjcvehHVsPQ8Vkq24M
-	S5yWbh/D8yZdJEglh/e9Tq6gJJunrpCrwbNjVSaxFDlEjAP2L+lzRZH0aZXsmmq9xyCmtL
-	3/HCJUcntEahTsqgVoddttz7pCDDX5syGa9GC74B3Brb4Jpd3K6+eGNXXk8srchg2ewROn
-	jhOEAl85Hrv+VdY3lPztMZj8oM71Lq/4zUtT+Ash9FRj8XJb+RAVXfok3y/UicIZ+0u79A
-	QMumJaZTZpYR81rWXLgz3G/s9Ke67jcOgAsk/XH9O/CqY8P6nX21tM1EpuHc0w==
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="fIAdq57+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=wp8T
+	GbisRW8gW+kdJD0RAvTV+2ZP24fjbMV6UB0mk1g=; b=fIAdq57+X4ZBpmxtZzEn
+	fDLkyOcc+Zy7BDZDtKwFiI2bOp2j4AmiSMEKywNA9pJwY+gmedx8pe5HHCjndFry
+	jT5jKIV6hEyQXCAI2Nmz8i390/yUs4ym9ein5MTqbzvx64o+2yL+2cUrGPdYDd4y
+	vMicr/U97JIQ3bwf3ZiddZ6vBPomJJIJ+km22VJNIx1nS02r0T395yt+U8njjXiw
+	+vyYZZulQChvv1SU9VD66gAX/inaOGfbDr2JtuULPEJ5emTN9baKzD8/5/YqM+op
+	SUwLcGa1BHREKzkW5Gans1/y2/K0F088NpXncV28+panoP12zU/fY8yzNWq9xavA
+	RQ==
+Received: (qmail 4145528 invoked from network); 19 Aug 2026 15:01:42 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 19 Aug 2026 15:01:42 +0200
+X-UD-Smtp-Session: l3s3148p1@yYQuAWZZjWJtKXGR
+Date: Wed, 19 Aug 2026 15:01:43 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Prabhakar <prabhakar.csengg@gmail.com>, conor+dt@kernel.org,
+	linux-rtc@vger.kernel.org, robh@kernel.org,
+	devicetree@vger.kernel.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH v4 03/15] rtc: rzn1: Fix weekday underflow when alarm
+ crosses month boundary
+Message-ID: <aoWpLvrNGHBPvFY5@shikoro>
+References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819103926.2136712-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819105356.BD7731F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SMyub7+rJAR37Ee9"
+Content-Disposition: inline
+In-Reply-To: <20260819105356.BD7731F000E9@smtp.kernel.org>
+
+
+--SMyub7+rJAR37Ee9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 19 Aug 2026 14:58:02 +0200
-Message-Id: <DKSXRX52W03E.2II5M5DIT6E1C@bootlin.com>
-Cc: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-To: "Damon Ding" <damon.ding@rock-chips.com>,
- <sashiko-reviews@lists.linux.dev>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for
- optional data-lanes mapping
-X-Mailer: aerc 0.22.0
-References: <20260819075238.3007087-1-damon.ding@rock-chips.com>
- <20260819075238.3007087-6-damon.ding@rock-chips.com>
- <20260819080422.816771F000E9@smtp.kernel.org>
- <f0151ee4-f660-43d2-a49d-13ab2ad12dbc@rock-chips.com>
-In-Reply-To: <f0151ee4-f660-43d2-a49d-13ab2ad12dbc@rock-chips.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello,
 
-On Wed Aug 19, 2026 at 10:53 AM CEST, Damon Ding wrote:
-> On 8/19/2026 4:04 PM, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 2 potential iss=
-ue(s) to consider:
->> - [High] Logic error in hardware lane mapping configuration causes inver=
-ted assignments for non-symmetric maps.
->> - [Low] Device Tree endpoint lookup inconsistency when querying lane cou=
-nts versus reading properties.
->> --
->>
->> --- Patch [5]: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for o=
-ptional data-lanes mapping ---
->> commit 1c15eb6132eedc3d606168644e5f97918c8e3651
->> Author: Damon Ding <damon.ding@rock-chips.com>
->>
->> drm/bridge: analogix_dp: Add support for optional data-lanes mapping
->>
->> Parse the optional 'data-lanes' device tree property to support
->> custom physical lane mapping configuration. If no valid configuration
->> is found, fall back to the default lane map automatically.
->>
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drive=
-rs/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> index 039e076d2b8ab..cb06347196cef 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> [ ... ]
->>> @@ -1240,6 +1240,59 @@ static const struct drm_bridge_funcs analogix_dp=
-_bridge_funcs =3D {
->>>   	.detect =3D analogix_dp_bridge_detect,
->>>   };
->>>
->>> +static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *d=
-p)
->>> +{
->> [ ... ]
->>> +	num_lanes =3D drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, =
-1,
->>> +						   video_info->max_lane_count);
->>> +	if (num_lanes < 0)
->>> +		return -EINVAL;
->>> +
->>> +	endpoint =3D of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
->>
->
-> Hi Luca,
->
-> Thanks for taking a look at previous v6 patch series. This Sashiko
-> warning was also present in v6. Sorry for CC'ing you out=E2=80=91of=E2=80=
-=91the=E2=80=91blue
-> without prior heads=E2=80=91up.
->
->> [Severity: Low]
->> Does passing -1 here potentially retrieve a different endpoint from the =
-one
->> validated with reg=3D0 above?
->>
->> If multiple endpoints exist on the DP port and the target endpoint is no=
-t
->> positionally first, could this mismatch result in reading the data-lanes
->> property from the wrong endpoint?
->>
->
-> For Analogix DP, port@1 will only ever have a single endpoint.
-> Multi=E2=80=91output configurations are not supported by the hardware, so
-> passing -1 cannot select a mismatched endpoint. There is no risk of
-> retrieving the 'data=E2=80=91lanes' property from an unintended endpoint.
+> [Severity: High]
+> This is a pre-existing issue, but does this time_after() comparison
+> allow bypassing the 1-week hardware limit on 32-bit systems?
 
-I understand (1, 0) and (1, -1) will always return the same node in the
-real cases, but why doing it? Use the same indices both times and avoid
-future readers scratch their head thinking why it's different and whether
-they might report a different node in a future case. Also, if parsing a
-broken device tree, you may point at two different nodes here. Keep things
-simple, readable and reliable.
+This is fixed later.
 
-Luca
+> [Severity: Medium]
+> This is a pre-existing issue, but what happens if the RZN1_RTC_ALW regist=
+er
+> is uninitialized and wday is 0?
+>=20
+> Calling fls(0) - 1 would evaluate to -1. If the current time is a Saturday
+> (tm_now.tm_wday =3D=3D 6), delta_days evaluates to 0, which bypasses
+> the if (delta_days) block and leaves tm->tm_wday =3D -1.
+>=20
+> Since the core function rtc_valid_tm() does not check tm_wday, would this
+> propagate a bogus alarm date to the caller?
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+This looks worth investigating to me. On RZN1, ALW is default 0.
+
+
+--SMyub7+rJAR37Ee9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqFqTcACgkQFA3kzBSg
+Kbag4RAAsMRHDOpMNLJabJXwBAWJUK2mWCnzfDSIETzpqGyx1frm+t8YpZXjOxIT
+RRKRx+dk539yoAwSv2Bz50yReL8UKMt2orjSx+UpdDhD4npHRX/llRvyITsT9mUj
+p0LwMqTuc3TTXJrWLo0hi5DARDbx5oYlT76urMRIJXNhI4MOt6h/IpC98VD3bZio
+X+wn7nfFCB7dalElBZ/lQsdm8WQliyjfi8HpjPzhQmIsv8D5qIzgh2i20XQB2ydR
+WkA3yUn3/Li/scou0NJjrgUwsHb+O+BsHU6e0P0BDQOXU/L44V98DOqrcw7BM9bQ
+F2jfCMlqxPM9Bu2GjS6k4SWfLjze8uUu1X1zpiqVMZ47w3oCgmVllQsq/+9YfO3z
+Uyq5Uq/lf+hgkMIkftkuVM6rWhyEf0Lanl2jB18N5coqiwQLDcblZBjTgDEwb8yx
+2EChf0IxabWZjXSFUy2skVCdC/qZ0WzvyAgYZOZZRbNBb619ukQSmR1sR+RKVz66
+wPXC4qqAMDAVM/bYJVOdvWyfdwLmQyg3cgE5e1oXhJVDMEsJo8jUXE6xMKk6RWV0
+tqgV0qr+yVgEncnCJQWh0L3cHD2ay5LKnWBcitoPRfxmbLatKQqzo0tNDNGRR5RW
+PTvL9ChDJdz3yuTORyyH39N3IRNwsbxwiaCyXOXQyipQXC7RMo8=
+=xS2V
+-----END PGP SIGNATURE-----
+
+--SMyub7+rJAR37Ee9--
