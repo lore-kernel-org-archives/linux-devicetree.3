@@ -1,153 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED923B71AA;
-	Wed, 19 Aug 2026 22:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DE33E2771
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 22:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787178470; cv=none; b=nTpevXYUkbBxrNOnrJ4k0HRvfSLJdoAy2Xqprjukud7VrJyK+Wt3TLyhCDpwaz4iir9qVhn6lR5/LT77YCXQsfm9WOoaehdp2yD2yzkIvs5o8QWNpnzRZCiz1/+zjBqQSDZO2muD3LhpK4vQgmNMdmFdRZmk233+LeasaQ3GIbg=
+	t=1787178559; cv=none; b=RujXqq4/sCCwYjPDYEGglI4oMKZKEijAkHIYByatHzzbVlQF6VcdzrvpNXdy/q6RAtxEze4HtSxx7Bzk7qjLyxnP4JG8a/JYP6vwpWR96+bm9Q0hStTXEWzHddKaObOw3+qNGp4gL6rItCkrOEYWfYMvLkyG4Y81uJOMR/SYllY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787178470; c=relaxed/simple;
-	bh=FvBO9YGm7n1SWV3FWjHYkp1SoS4imE+JtSbi4ZMf104=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HyGwfIQK2kS2a0Dymi6dGyza66ZAWz+TdKM3RRDmn+lDIKrZ1RfYOfj2tMiEN2SvtetrgV5PpgX8GqUcSMkRRnKpKI/w1aTI1iWJIpOo4DpHNKgGaY6+IgjG6DG3vKcKpVQ+rA4UJnR4MqSHIGZoR3lMvDTPcYiSa1pmKtcU9oQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b7samrrv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787178559; c=relaxed/simple;
+	bh=eVCnRZfdUGhEaaw2yU6XnZfo6LWCG08pzLe8OhjZ3rQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eNZRyCS3XC6ct4ZSyP+HOFg7dEfzxwATFszUMmsYl4tAZ3nq4mShuNw3y7ddY8fEIvH+94XfyQ71GbrUArTduaBlDFT/3lzjjzQsp/Y2eLH7ypikXGUSju81b0r/A4IM0IEuH3jMilzQd9laU/xBaUMBVSx8mWYXNGPY6ymB/ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=n0CAOt6N; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b7samrrv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01B01F000E9;
-	Wed, 19 Aug 2026 22:27:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787178469;
-	bh=9OdACcfgPTkZd7YK7FU/k5S72nnJGJncEXdexZoRws0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b7samrrvRgjSnJO/4KdiIIeHFz0ec6vYHHl5aP9eTCiIalUbfBa2K4RgV1GnIXn+I
-	 ZXgPUJMz8i8Afa/eY9hoA9kTZT5KBMzvOc95XR05jX+h5etNUBRa+QTLdkY1oLgn5B
-	 Cn3r0wsCIMBb9bvDZiMCmozrIy+aFSwAnb8kAjKaoe/sWED64mZoJBT0cjCJYAjaxO
-	 tOQ+txNItelMCyOOWPkKxLD+Iowtex3OQoCyCNftNV4tBuMJib5ctyXszEiawlx422
-	 6gP5qRdhc52oWg/JpNtleWJxSetXFPRAwldJRbo7CN8CJdT0nEhqA3uGfRMCsiKvC4
-	 WSMSOLZsigjRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/3] clk: en7523: generalize register clocks function
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260819221458.30040-3-ansuelsmth@gmail.com>
-References: <20260819221458.30040-1-ansuelsmth@gmail.com>
- <20260819221458.30040-3-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 22:27:48 +0000
-Message-Id: <20260819222748.F01B01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="n0CAOt6N"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 43E2B240103
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 00:29:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1787178556;
+	bh=8Ni0WKTRve59PhC0qUiAxPMcwTPxD/jTYtX/EjsbPbI=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=n0CAOt6NkSwKgwBYIBiS3GnCnfOTe7IOyIpFNBeX0JP0eeZpJM3bWTGmRVieaabhM
+	 yI7GzoJgMwIP/mWbCWoyYm9FViZWJzy5IPBE8LXNYjlkhfUTJ5A/dS99+RbWi+AGZh
+	 Pp1d9R9xHtoADBf9Zo+kLGmS4Cq7qo0six0WMUvFrV1yXOuHRA/Tx4FwDvggl/koPm
+	 o1WNpFisPFuUgJhF7gA4YO1ytDlpBcWhuDkCBrGG/nY8I/FRdPQ+nAuFeAShysIPWg
+	 8tFOw38lw4u4dBSaiDmxvdH8NYf1/zExJ2Qhjfkacsw9aISxOumV3nhbKLoEEm+vaU
+	 JZR1hseKsw1mg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hQLpL5GyDz9rxF;
+	Thu, 20 Aug 2026 00:29:14 +0200 (CEST)
+Message-ID: <63144348d306ae5c5723df553477f90f6f1030b7.camel@posteo.de>
+Subject: Re: [PATCH v5 3/6] rtc: s35390a: Fix alarm not disabling
+From: Markus Probst <markus.probst@posteo.de>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
+ <uwe@kleine-koenig.org>, Andrew Lunn <andrew@lunn.ch>, Gregory Clement
+ <gregory.clement@bootlin.com>, Sebastian Hesselbarth	
+ <sebastian.hesselbarth@gmail.com>, Michael Langer	
+ <michael.brainbug.langer@googlemail.com>, Andrew Morton	
+ <akpm@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 19 Aug 2026 22:29:15 +0000
+In-Reply-To: <2026081922254172956b52@mail.local>
+References: <20260820-rtc_s35390a_int1-v5-0-5eb4ef85c6a9@posteo.de>
+	 <20260820-rtc_s35390a_int1-v5-3-5eb4ef85c6a9@posteo.de>
+	 <2026081922254172956b52@mail.local>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-1/4lpCggRhx0JyaVAfDd"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-New issues:
-- [Medium] Fragile loop boundary logic using `num_clocks - 1` risks out-of-=
-bounds array access.
-
-Pre-existing issues:
-- [High] The PCIe clock gate is registered with an unmanaged API, leading t=
-o a Use-After-Free if probe fails.
-- [High] Missing spinlock in reset controller update leads to data races an=
-d lost writes.
---
-
---- Patch [2]: [PATCH v6 2/3] clk: en7523: generalize register clocks funct=
-ion ---
-commit c89fd9565e1664803408c338e740e001e5bb4ff0
-Author: Christian Marangi <ansuelsmth@gmail.com>
-
-clk: en7523: generalize register clocks function
-
-This commit generalizes the clock registration logic for the EN7581 SoC
-so it can be reused by the upcoming AN7583 SoC. It achieves this by
-moving the base clocks array definition into the soc_data structure.
-
-> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-> index 1ab0e2eca5d32..087ff4568124f 100644
-> --- a/drivers/clk/clk-en7523.c
-> +++ b/drivers/clk/clk-en7523.c
-
-[ ... ]
-
-> @@ -711,12 +712,15 @@ static int en7523_clk_hw_init(struct platform_devic=
-e *pdev,
->  static void en7581_register_clocks(struct device *dev, struct clk_hw_one=
-cell_data *clk_data,
->  				   struct regmap *map, void __iomem *base)
->  {
-> +	const struct en_clk_soc_data *soc_data;
->  	struct clk_hw *hw;
->  	u32 rate;
->  	int i;
-> =20
-> -	for (i =3D 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
-> -		const struct en_clk_desc *desc =3D &en7581_base_clks[i];
-> +	soc_data =3D device_get_match_data(dev);
-> +
-> +	for (i =3D 0; i < soc_data->num_clocks - 1; i++) {
-> +		const struct en_clk_desc *desc =3D &soc_data->base_clks[i];
-
-[Severity: Medium]
-If a future SoC defines a clock provider count (num_clocks) that doesn't
-exactly equal the number of elements in base_clks plus one, could this
-loop iterate past the end of the base_clks array?
-
-It seems this loop derives the base_clks array length from
-soc_data->num_clocks - 1, mathematically conflating the total clock count
-with the base clock array size.
-
-While reviewing this, I noticed a couple of pre-existing issues in the same
-file:
-
-drivers/clk/clk-en7523.c:en7523_register_pcie_clk() {
-    ...
-	cg =3D devm_kzalloc(dev, sizeof(*cg), GFP_KERNEL);
-	if (!cg)
-		return NULL;
-    ...
-	if (clk_hw_register(dev, &cg->hw))
-		return NULL;
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but since the clock gate structure is allocat=
-ed
-using devres, won't it be automatically freed if probe fails?
-
-Because the clock is registered with the non-managed clk_hw_register() API,
-if a downstream operation during probe fails, the driver's probe will return
-an error and trigger devres cleanup. Could this leave a dangling pointer
-inside the Common Clock Framework and lead to a Use-After-Free?
+MIME-Version: 1.0
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
 
-drivers/clk/clk-en7523.c:en7523_reset_update() {
-    ...
-	val =3D readl(addr);
-	if (assert)
-		val |=3D BIT(id % RST_NR_PER_BANK);
-	else
-		val &=3D ~BIT(id % RST_NR_PER_BANK);
-	writel(val, addr);
-    ...
-}
+--=-1/4lpCggRhx0JyaVAfDd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is it safe to perform this
-read-modify-write operation on a shared register without a spinlock?
+On Thu, 2026-08-20 at 00:25 +0200, Alexandre Belloni wrote:
+> On 19/08/2026 22:05:55+0000, Markus Probst wrote:
+> > Implement alarm_irq_enable callback.
+> >=20
+> > Fixes: 542dd33a4925 ("drivers/rtc/rtc-s35390a.c: add wakealarm support =
+for rtc-s35390A rtc chip")
+> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > ---
+> >  drivers/rtc/rtc-s35390a.c | 29 ++++++++++++++++++++++++-----
+> >  1 file changed, 24 insertions(+), 5 deletions(-)
+> >=20
+> > diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+> > index 4cfe7034c516..575bb256eb25 100644
+> > --- a/drivers/rtc/rtc-s35390a.c
+> > +++ b/drivers/rtc/rtc-s35390a.c
+> > @@ -270,6 +270,24 @@ static int s35390a_rtc_read_time(struct device *de=
+v, struct rtc_time *tm)
+> >  	return 0;
+> >  }
+> > =20
+> > +static int s35390a_rtc_alarm_irq_enable(struct device *dev, unsigned i=
+nt enabled)
+> > +{
+> > +	struct s35390a *s35390a =3D dev_get_drvdata(dev);
+> > +	u8 sts;
+> > +	int err;
+> > +
+> > +	if (enabled)
+> > +		sts =3D S35390A_INT2_MODE_ALARM;
+> > +	else
+> > +		sts =3D S35390A_INT2_MODE_NOINTR;
+> > +
+> > +	err =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(st=
+s));
+> > +	if (err < 0)
+> > +		return err;
+> > +
+> > +	return 0;
+> > +}
+>=20
+>=20
+> You can definitively call this from s35390a_rtc_set_alarm instead of
+> duplicating code.
+At this stage yes.
 
-The reset core does not serialize .assert and .deassert operations, so if
-multiple consumer drivers concurrently assert or deassert resets within the
-same 32-bit register bank, it seems this unprotected read-modify-write
-could lead to data races and lost writes.
+With the pinctrl patch, it needs to be considered that the other pin
+might be used as well, so the state needs to be preserved.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819221458.3004=
-0-1-ansuelsmth@gmail.com?part=3D2
+This will be done by reading the S35390A_CMD_STATUS2 register first.
+
+This function will not be called in set_alarm, because this would
+introduce additional read operations, as the current
+S35390A_CMD_STATUS2 reg is already read inside set_alarm.
+
+Thanks
+- Markus Probst
+
+>=20
+> > +
+> >  static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm=
+ *alm)
+> >  {
+> >  	struct i2c_client *client =3D to_i2c_client(dev);
+> > @@ -410,11 +428,12 @@ static int s35390a_rtc_ioctl(struct device *dev, =
+unsigned int cmd,
+> >  }
+> > =20
+> >  static const struct rtc_class_ops s35390a_rtc_ops =3D {
+> > -	.read_time	=3D s35390a_rtc_read_time,
+> > -	.set_time	=3D s35390a_rtc_set_time,
+> > -	.set_alarm	=3D s35390a_rtc_set_alarm,
+> > -	.read_alarm	=3D s35390a_rtc_read_alarm,
+> > -	.ioctl          =3D s35390a_rtc_ioctl,
+> > +	.read_time		=3D s35390a_rtc_read_time,
+> > +	.set_time		=3D s35390a_rtc_set_time,
+> > +	.set_alarm		=3D s35390a_rtc_set_alarm,
+> > +	.read_alarm		=3D s35390a_rtc_read_alarm,
+> > +	.alarm_irq_enable	=3D s35390a_rtc_alarm_irq_enable,
+> > +	.ioctl			=3D s35390a_rtc_ioctl,
+> >  };
+> > =20
+> >  static int s35390a_nvmem_read(void *priv, unsigned int offset, void *v=
+al,
+> >=20
+> > --=20
+> > 2.54.0
+> >=20
+
+--=-1/4lpCggRhx0JyaVAfDd
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqGLjUbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPShlUQALffJ/72tdeDsOjzYA1p
+48AIGvY9/qJxcV+JpHYIVl1+QHRUzB8t/J66OmKwspy2q/LszXvaRyYD2d+Loq9E
+eBHh9fO+xJgRhOw0btUhAtn5cXBGt9hx3h5eVutDCiRYJZaW+gACYHkNjHNUTsft
+7HOtWxd1x/h8cR8jOsazVNPpPxbdk+PdhwIAw0SxCxoCFtjUMJFsWWERHX5HwZsg
+rWwCNW6b9cfFDTaNqxM3LjistbAvM/+AV4r8qnBoKHlzB1JkX/J/v+kGRyvnlYEw
+JR2Q97W2MXLrcae/Fucw0cixmax/vJppyGHZSdP4eUwhs3CWUoqKEWYH2ej0ujBM
+SWAr5A6HZ0upczQ2gRUDIcwX7dt+JEU+0nD2Q82Xpm36A9YruukX2QtBlivU8cB+
+GQfbD4OxO+eQlBr5hegPxObs0Mbeb/5GD9MYcnHeb1DkJ/1GbqXTeAQNvsXmIaMg
+bHZHMfsHb5X9Qqn7bqlglPMVMPx6HMnETd1k5Gf9wF4dcGaHqU2RO0jC38GAYGzm
+lUmO/83Q3q5ZnP601B9zaDOMOHnIx6UhK/gxy8n3AHO83V2xmu6DA5YS1i0DDjWu
+UnasGV0WdbGrAwHjPr50FNIgoTg8lJWYegUrrAf5GoDAVcoCnCZsuwV8mjZRcLWD
+EjLKxioAGZ+OiENl6SktwAm1
+=fwjU
+-----END PGP SIGNATURE-----
+
+--=-1/4lpCggRhx0JyaVAfDd--
