@@ -1,87 +1,124 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D64480326;
-	Wed, 19 Aug 2026 15:45:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20621F8755;
+	Wed, 19 Aug 2026 15:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787154312; cv=none; b=A85cNOBEPaHVT/+J2ibRvc/LFOpdvP+yvQjsRZePfJ9GlLFeRtGzw9J56SD2R4s8cvRPhQaZlI+R7fbPsx90IvPE8QaNnBMCfZ6falhXG9aUX+s1Uyi5qg52IZgKrDCccJeIC0aqF/Xxp9wih5Gnp2eFrkCcjYJX+HkdSB7+GGM=
+	t=1787154499; cv=none; b=UUZRNh7GzMQgyyRQoX16Kd/qfRdZCbNuDkSsco6hIv/vDSLSI8HwbLhb4Xz3jdgoiRp3AZed+cRtk4X/d7mFu8GqvLj164lnw4tCcr4MqHhxjk4rJ0GgrvF/GuePSMPDPloZkhEoJvvzwsO7IWSLClGdYHonmFs57dPe2n1Bb2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787154312; c=relaxed/simple;
-	bh=bCFKEMuDZ6PIZowuuX/q/WWHi4ME0aIDO7xxYV+ZL68=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W/cdSZLSytHuGSa5fLEBnE4KDEYQhTBjYO4F5J4VNEAMM8owMyylYuRWxRNE1ejyhAjxxvZgdjYXsPew7Oymq5fdxChqOpx1tuYIdUGPfebOXRJaLXUxUBIQxJWErBKs2b5nqSIq+IIqYfeo0ObzjZo8HmxR+F6DkFDm5jAyAGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ZguuqLgG; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787154499; c=relaxed/simple;
+	bh=Nns172wxL0Ep4S9FnOGpNap2WkSsjjZKWZktzclPSJM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aZQh7pgHviNsbfAPPNe+MBkU3Qmk074MA4//SnDLxoJpFe9TEGjlbPgCUaEHiDlnEm844DngMARkMtZ1BG5vuIP2BRT7aazI8g/M0ijfHK4bjWYW1l6JuFIAtisue9agRXvaiWZfS20gEsOhtbohoknmwjyMjDQ2v9XBvSO1hww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ti8Q1sow; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ZguuqLgG"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6620911A40D;
-	Wed, 19 Aug 2026 17:44:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787154301;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=jKrds4Vj9VpxWlbeCohHZvmSocW530LXUZIAJ3ynTZw=;
-	b=ZguuqLgG498/pjMsosn7OaBTD9B1+NF5ZsweITOEhJ4AJduSLZ2b3PMnCGUys3m+qOziXb
-	Vya4pIYMGVkAp2d5P1j1R942XY9FmvGh/clUY+zwgepGVFVNh8hLJCCFuFbHxf2sH3c9qu
-	LBo0VDhWdSaU1e+sM0tR6VB+qqrYwK6dSsDwmeaHcYYYnnEu2k5HfbFbXZ3P89LNCVNxfE
-	uVRF7DCqv3g899nR56jDa+gFcJyw/gvcaUJDrvUPgTL0EG9wvW6k6Ts0Wl8DVQaBRLpg8Q
-	Ey1Ny+HxFcVT2ckiCcnpK7xcQAAdoTDKNUqXn8ya3hN0hCR0fmDhUZBmH1nR8g==
-Message-ID: <23091037-bfeb-46ac-b17d-8b86394b119e@nabladev.com>
-Date: Wed, 19 Aug 2026 17:44:56 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ti8Q1sow"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1787154495;
+	bh=Nns172wxL0Ep4S9FnOGpNap2WkSsjjZKWZktzclPSJM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=Ti8Q1sowFKGW/WW92JCUdtPeDrx26VS8yBllFbIxTfXPJ6N0skNpr0k+sCX1tTM5q
+	 7B8y02/R2ySANZAp42NGPjBahBxLOzLwRCNTQgf+71aFZYo0B6JfbVxY0zB3UwFWrY
+	 yidYvI5FmislZoRRlCXAxTqIwtA2en0SvTxaoeho8dq/oRG9v9hiEEYKboQXVz2Tct
+	 nnLguUfTqGv793z3B6xFV6x1OVfwEy1nvm/rw4QJhJmmXiadRWp0vDclF2fnN95jU+
+	 K7kYevFLcmhI1jSmzuuB8df79eLoLMByXMrQoJUu0IDe1wMV7KMb4bwHSedK9dgN5H
+	 maJofJgz6+HSA==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A42D917E025E;
+	Wed, 19 Aug 2026 17:48:13 +0200 (CEST)
+Message-ID: <2816bd84651dcbfd0cd76bbc56e461bd409f9611.camel@collabora.com>
+Subject: Re: [PATCH 5/7] media: verisilicon: Add Rockchip VPU720 JPEG decoder
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>, Benjamin Gaignard	
+ <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab	 <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Ezequiel Garcia	 <ezequiel@vanguardiasur.com.ar>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,  Hans Verkuil
+ <hverkuil@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lucas Sinn	 <lucas.sinn@wolfvision.net>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org
+Date: Wed, 19 Aug 2026 11:48:11 -0400
+In-Reply-To: <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
+References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
+	 <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-gAMZ1BrMIjddsvqywxMw"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] arm64: dts: phy: st: usb: Add STM32MP2 USB support
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, linux-usb@vger.kernel.org
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>,
- Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>,
- Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260816213849.1044073-1-marex@nabladev.com>
- <61dc785c-bea1-4674-918d-0f38ea253a29@foss.st.com>
- <41e7978b-933d-4813-9158-00474f531476@nabladev.com>
- <6c900e6b-2f50-4ec2-aca4-3093479bba53@foss.st.com>
- <d6064380-2368-4131-8cde-44734f67028f@nabladev.com>
- <066ce020-6123-4aed-a069-67c51957173d@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <066ce020-6123-4aed-a069-67c51957173d@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+
+
+--=-gAMZ1BrMIjddsvqywxMw
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Sascha,
+
+Le mercredi 19 ao=C3=BBt 2026 =C3=A0 12:37 +0200, Sascha Hauer a =C3=A9crit=
+=C2=A0:
+> +/* ------------------------------------------------------------------ */
+> +/* Register byte offsets from dec_base=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 */
+> +/* ------------------------------------------------------------------ */
+> +
+> +/* REG0: IP version / product ID */
+> +#define VDPU720_REG_VERSION		0x000
+> +#define VDPU720_PROD_NUM		GENMASK(31, 16)
+> +#define VDPU720_BIT_DEPTH		BIT(8)
+
+Can you share a dump and share these register reset values. Looking at the
+layout, clearly its highly modified, but probably derived from VSI multi-co=
+dec,
+but I'm thinking perhaps we'll learn more from that. Its always nice to jus=
+tify
+when adding more chips that are not strictly VSI designs (or maybe it is) t=
+o the
+hantro dirver.
+
+Nicolas
+
+--=-gAMZ1BrMIjddsvqywxMw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/19/26 5:19 PM, Fabrice Gasnier wrote:
+-----BEGIN PGP SIGNATURE-----
 
-Hello Fabrice,
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoXQPAAKCRDZQZRRKWBy
+9L97AP97ZqUufmP34nj7H6WO1VaHBkcmFPE1w2dWMA2Ud0d53AEAqqCnWF8UEG7K
+NT0DsFxf8TDJvZBbMJ1719B7rBGgGAo=
+=mBFn
+-----END PGP SIGNATURE-----
 
->> Maybe the DT syscfg node shouldn't be a plain syscon , but rather there
->> should be an actual driver which binds to the syscfg DT node and
->> configures all these hardware details early on boot ? The USB controller
->> drivers will start only later, when the syscfg configuration is already
->> set in the hardware by this (future) driver, since they depend on the
->> syscfg node and the PHY subnodes. Maybe that is the way to fix the MP21
->> without having USB controller glue ?
-> 
-> Hello Marek,
-> 
-> Ok, I'll think more about it regarding MP21. Let's continue on current
-> series without any additional glue driver for MP23/25.
-There is really no rush, if you can come up with something for MP21 that 
-does not require the controller glue, that would be real nice.
-
-Thank you for your help !
+--=-gAMZ1BrMIjddsvqywxMw--
