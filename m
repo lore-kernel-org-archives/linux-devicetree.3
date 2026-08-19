@@ -1,64 +1,64 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BC1478E39
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:36:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D9247A0DA
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787150197; cv=none; b=ABgmtlGYV5X1gU+riTOKosVWI3kbXSV8gHUif4n9ZST7dihd9r58F2BzOn+AuJO8e+AlKMvUZSRHQsPSSQ4DIe6maMPuUVKRHv29UIc2MtDsQc0lYijr9OVaHDrfOZ0TY068k26D7UHUJWIC1Ktgvk3/zyzYnxFGvC72Hp3T57s=
+	t=1787150199; cv=none; b=Bl8tdL2UBhGMfDlmTQsE1NpuxkoU6xafJUno2SAp0/c1t59dQ3JSlEzmANBvY+hFQXMXYQzrP0YcnX2ClF/xCuI4lGD+6awR3I+J802o9zI5gsqh1+QdHFjdWA+69HP+do9mmtT9o1lobClk4GpHnujgA6iOxgkESFH6veYRIMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787150197; c=relaxed/simple;
-	bh=X9g9f9zNnjZporS8dI4PYZqzMLpP+8jgApko9JxkNpE=;
+	s=arc-20240116; t=1787150199; c=relaxed/simple;
+	bh=M07D58ZeDaSbPcc6plIUbY7wywtktkQNsgqM0aNezkw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mxGtQHGcC9lEJAM9HB5f4rqUdthqaW8IAYlwUTS15YzgRACn11fx7YuCsg8JOKmiEy+HqKZJyONi3+/8Xl10SEEZgOIoZkO15V8VWn16nXxqi//To1IW52X7x3RWLtVq67boi+TetKpXumOEv6J6Gj9+mGJrrS2/X7RHTpK1a88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=OKebSvQV; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version; b=IUMNMoXE5lUatTZuI1bTpa9lZJPKJpOewjd3PTCYCt3M2ojDnWPe5/90elgme449o8WV5oo0FeAGwaryTMQ92zS0QQrsCsyDrlrFqXIXM1JcdMZJB5Xq/YiTHxOyMofBP0qaJncLJsTjodL2DmE9UaawcXFYXdrzwRr/vD9teWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=JOAM26YD; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="OKebSvQV"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-499b02fc590so174645e9.2
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:36:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="JOAM26YD"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-499b02fc590so174995e9.2
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:36:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1787150193; x=1787754993; darn=vger.kernel.org;
+        d=tuxon.dev; s=google; t=1787150195; x=1787754995; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jpc193AsLHROsaZ79+wDxlRixh2ukohZH538sICJG0I=;
-        b=OKebSvQVLLrUfOCQ5S7mdsokJydN2UJV3f4XG2sllwsZ/bpIAURnjsKfsrK2WDYIZO
-         mk/LC/3jq9FmrxXN6Ai+LBblZzjGsR6xKeJGrb3EJuez4RViMSyuZqPGgC3nszB8hAAa
-         CaGBWKjnWhwhzDAniIsX9aygu2sziyJt6Ji5ZMvJw67eBn7WASv3ZAHQ9JEUa0rScvXY
-         i4l5A2+xhwNk7XKtkb9MkdpfMndun7d6+Woqd/nGgT/1OmHvkt3QDkYKPAm2zqs30fEM
-         8uO5WSpElGvzq1QkRxNdIb4g5gBU2WY92owkJqIJwDnWnHJyCIDpeFxPht3PqWH5NbqW
-         2SPQ==
+        bh=7qGeRWI7SAAtnBtbyXcVwS+NHSXPmqeN6QfrBXzCBrY=;
+        b=JOAM26YDGa/qxc+k9W+oozSCtmLp1ctpVWZk2YmmpWGOuKK4BVpY9h2ko9wIwtWonu
+         05fYPrsn2Ny27duFgL2UH938TgIqkBMo6DPI9sbvKligTwjB6jArv+aadSnhC/xWAKFQ
+         U6aY0SIvdIDwSllPPOCSYwLprWfFi9o6eBVYZLKPALBcZCXcgpss1hdiRovGfcpPq+6e
+         VnVKw16nRDoTpPUcMMA26gZRjPhRvYSQ3oN9lNaB43/rV29v14SfSE351z3RRPBBtaWG
+         SkZ3H1sSqiMEEksvzHOKcheGqqvzACMhnEbM//TQGHp3udcYrWiBGUnZdtM10iGbI7xw
+         nlPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787150193; x=1787754993;
+        d=1e100.net; s=20251104; t=1787150195; x=1787754995;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jpc193AsLHROsaZ79+wDxlRixh2ukohZH538sICJG0I=;
-        b=Wu/9BqWyrDnHijB+Vu2gy+pqCGT612r4XbGy3Q3HiP6qOuOaOtgo2YEZc1qb8STbfk
-         3tMv56TTSfgVXY8OniHbnycoav9Uzjzei0nsvFFEz8QLR1Hb1QNFWD/4OWGcrGUSsg4V
-         3OKsxOVPjXQhIFDyYzki7Hb6M486M3YQrme0jGWsqwJ21k+7d4FZsHasOYoQPgAde/My
-         rjDSZfV3rtUl1IQOUBJCHIE/ceBD5mH6ZtwM3giZyUnaUtImdi0PNW1QEwpwVSjkdS/Z
-         B/4JSsWUXSFIzBAZVCUFXokqGcxY3vohEjUiPaQ2pQKuaixmlHJvJEtFVAPjSi8ebn+y
-         Bp2Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoKWrzH7rLkd+21PW62OGT1lfvBHVozKKDcWPzrwUMS+rnCJ+q4LW4X67+Z6SdR+9hziIJg3TU8uG1u@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeceJ/IpAkeY6mvwvLtzbccavIvM7XGbZb0vlHu8a2YGet4Ltg
-	D649xwFqk7RWrGDRL8CEgYdwjQDallLRyDGZ76trTRNscVlAn2n2BGsQVo9WAIgp6GU=
-X-Gm-Gg: AR+sD10RWv4EWrrVmKFbCodSTIbAtVl3+zeFRV1C2asA4UyGTrSr9r0I+21nal1/6Qr
-	mGKykNgYDmsYCiLqG1HR2/kd437Bu5UWRjX+siwq8lF4+M3W22VLgHQKtk9Z4IxYhvgnQcObi8e
-	crYqEI+yg93UFx+OnDjlih6MLP5VePp5Y+WCiixxhmHRZ9q+gAK+SNASHbnFJL3d1D5lceLMxft
-	ivVA8zLUMScE2y86E8oUyoOnRoopWxJThePQecN51nk62ua2RwXY2KI0RxtvQEOrL3k3bi40uAo
-	fylIAJ6rx3dM6VM3f12bzQr6EjL3Q7FwOvXU6UKd8mIzi3dXP1Hao6N2wFq0keuW3x9dAZDCHNB
-	s5ubCQGFMztl1LOjJ/j4g6If1ihyMTUOJhw9lWIATTrqHXYStbQ+JOt4Wk6RfpiURGuJGQmnmXs
-	M3N32tbCIO363d9lm3OYrKZgXxhFnDX9BCT8xbYizf0yVAuUNJ9h5PnyDuWqfZKIkihcomzfid5
-	Uag/x6fEhf1rRNtrx+xmVJ3wNZiCinsLoCGQWg5e8WQIGHNWQ==
-X-Received: by 2002:a05:600c:a012:b0:499:593b:a15b with SMTP id 5b1f17b1804b1-499aa1431a5mr105639935e9.1.1787150193466;
-        Wed, 19 Aug 2026 07:36:33 -0700 (PDT)
+        bh=7qGeRWI7SAAtnBtbyXcVwS+NHSXPmqeN6QfrBXzCBrY=;
+        b=H46k8mpfmSI+dZkBi+tfFai4wHvY8GGt7jTmROnJVbXfOWBoPdAO/Us9D2z9UgqKkc
+         wT82XWZgXXpE6bZB73k2Ip2VXi4TlkLDir00XBbNU/MSNqv/hrY0iK8/HbygUPbA+NCd
+         HhRiUYifm6b4WPUln3KzAQXqAA4ATu0TzUiEuDEcV25gVWf/EGg1bFtT/CvoIhZ7VpGr
+         f1vfrpRimkGIykuBfHFmtjUBFVCH+Kfn+oLInHK27DJJHMDKTweAg+rZ6qLOzyqmbvd/
+         2NAs6uzslpsQ/1LQKBSYpXvIxs/WTUPK61/XFoZtR5hReT/VyUvLeaXcux6rdq9Euhnm
+         8CTg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3hpyJ9u1dCrECk5oppgb+n4KO42eXZ7133YacBg3EPSmquMLzmrHM4Bz7RhJss0Y1NU7axtfoFCOA@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKLgWTYnWcqCBWrYsH6npBB3ScPF9+rPKgz/Ccna811MFGutW2
+	Oqis2VuIVgwvD253wnd4Y74aX8lcTfYn6kqw7l4bBu0OXSGYad5B5wiaiXPySNyYKtE=
+X-Gm-Gg: AR+sD13euxTgbXXLcZwIv9YayRlQAJybmkyDYz6WmoM9EOAIvA4M0ZWMUCDqCsYNL3E
+	7ObezYZzvF3+MH3Zdkf0h2wshLVy6GzOwFR/IYod8Bw9xQV4wQUcQbJLLSAMWEkvFeuP2JxKYFx
+	ex7OLWHlssZzuEfB6K0QEsvLdqe2Bpbl+ffccGZ9FFhUebVSX0CZKNO342E0+5m9+VSAw7xqbSD
+	MdqKXT8aNkPT5HEXJtREtsWsqABH88beTcON2Lu2Qxo9LiFK+WVAZYClMiJfvhYzKs8UgSPupe8
+	O04VcIDK7Nuoeaa2YXy0HUtEq+A+M69nENcrXUQxxPtFLZHflyBjYMbX4vkGdDTdU5JfLpyNtVX
+	KQ+leWdn3aDDwY5rdK9VR4OjvPcTbHixadn9Ce76fAnZYGiYF0pq9yvnFbxflK1qpIKLd42O4th
+	VlavGTTZdsrOhYF/FAlwaaqYoJdGxDNyRT1eJ8HGb5/KPgSytufpx8zJIz8NyNFWaqwQ0BTHeJs
+	Lc88WML3oVdKqjL0min9E4VT2oXRWUqGOeHMJEmZVgF94Hdbg==
+X-Received: by 2002:a05:600c:3e0f:b0:499:a79a:694d with SMTP id 5b1f17b1804b1-499aa155e7dmr104767165e9.4.1787150195340;
+        Wed, 19 Aug 2026 07:36:35 -0700 (PDT)
 Received: from claudiu-TUXEDO-InfinityBook-Pro-AMD-Gen9.. ([2a02:2f04:6400:1700:e978:dd1f:393f:9962])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9e37284sm32671235e9.4.2026.08.19.07.36.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9e37284sm32671235e9.4.2026.08.19.07.36.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 07:36:32 -0700 (PDT)
+        Wed, 19 Aug 2026 07:36:34 -0700 (PDT)
 From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 X-Google-Original-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
 To: geert+renesas@glider.be,
@@ -73,12 +73,10 @@ Cc: claudiu.beznea@tuxon.dev,
 	linux-gpio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Subject: [PATCH v5 4/5] dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Document the missing I3C power source option
-Date: Wed, 19 Aug 2026 17:35:52 +0300
-Message-ID: <20260819143553.2478984-5-claudiu.beznea+renesas@tuxon.dev>
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: [PATCH v5 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C power source
+Date: Wed, 19 Aug 2026 17:35:53 +0300
+Message-ID: <20260819143553.2478984-6-claudiu.beznea+renesas@tuxon.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260819143553.2478984-1-claudiu.beznea+renesas@tuxon.dev>
 References: <20260819143553.2478984-1-claudiu.beznea+renesas@tuxon.dev>
@@ -92,17 +90,22 @@ Content-Transfer-Encoding: 8bit
 
 From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-The I3C pins on the Renesas RZ/G3S SoC can be powered at either 1.2V or
-1.8V. Document the missing 1.2V power source option.
+The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
+pin controller provides a register to select between these two options.
+Update the Renesas RZ/G2L pin controller driver to allow selecting the
+I3C power source on RZ/G3S SoC.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
 
 Changes in v5:
-- collected tags
+- due to patch 3 from this series:
+-- dropped the definitions for PVDD_I3C_1200, PVDD_I3C_1800
+-- dropped available_i3c_ps[] array and fill everything in available_ps[]
+-- dropped the adjustments from rzg2l_pwr_reg_val_to_ps() and
+   rzg2l_ps_to_pwr_reg_val(), rzg2l_ps_is_supported() and
+   rzg2l_pinctrl_pinconf_set()
+-- dropped the tags
 
 Changes in v4:
 - none
@@ -111,24 +114,138 @@ Changes in v3:
 - collected tags
 
 Changes in v2:
-- collected tags
+- none
 
- .../devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml      | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/renesas/pinctrl-rzg2l.c | 30 +++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml
-index fb1fe1ea759f..32864c9add4a 100644
---- a/Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/renesas,rzg2l-pinctrl.yaml
-@@ -129,7 +129,7 @@ additionalProperties:
-           enum: [ 33, 50, 66, 100 ]
-         power-source:
-           description: I/O voltage in millivolt.
--          enum: [ 1800, 2500, 3300 ]
-+          enum: [ 1200, 1800, 2500, 3300 ]
-         slew-rate: true
-         gpio-hog: true
-         gpios: true
+diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+index 6329742fda94..4866896fff78 100644
+--- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
++++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+@@ -69,6 +69,7 @@
+ #define PIN_CFG_PVDD1833_OTH_AWO_POC	BIT(19) /* known on RZ/G3L only */
+ #define PIN_CFG_PVDD1833_OTH_ISO_POC	BIT(20) /* known on RZ/G3L only */
+ #define PIN_CFG_WDTOVF_N_POC		BIT(21) /* known on RZ/G3L only */
++#define PIN_CFG_IO_VMC_I3C		BIT(22)
+ 
+ #define RZG2L_SINGLE_PIN		BIT_ULL(63)	/* Dedicated pin */
+ #define RZG2L_VARIABLE_CFG		BIT_ULL(62)	/* Variable cfg for port pins */
+@@ -254,6 +255,7 @@ static const struct pin_config_item renesas_rzv2h_conf_items[] = {
+  * @oen: OEN register offset
+  * @qspi: QSPI register offset
+  * @other_poc: OTHER_POC register offset
++ * @i3c_set: I3C_SET register offset
+  */
+ struct rzg2l_register_offsets {
+ 	u16 pwpr;
+@@ -262,6 +264,7 @@ struct rzg2l_register_offsets {
+ 	u16 oen;
+ 	u16 qspi;
+ 	u16 other_poc;
++	u16 i3c_set;
+ };
+ 
+ /**
+@@ -269,6 +272,7 @@ struct rzg2l_register_offsets {
+  * @other_poc_pvdd1833_oth_awo_poc: PVDD1833_OTH_AWO_POC mask
+  * @other_poc_pvdd1833_oth_iso_poc: PVDD1833_OTH_ISO_POC mask
+  * @other_poc_wdtovf_n_poc: WDTOVF_N_POC mask
++ * @i3c_set_poc: I3C_SET_POC mask
+  */
+ struct rzg2l_register_masks {
+ 	union {
+@@ -278,6 +282,11 @@ struct rzg2l_register_masks {
+ 			u8 other_poc_pvdd1833_oth_iso_poc;
+ 			u8 other_poc_wdtovf_n_poc;
+ 		};
++
++		/* RZ/G3S masks */
++		struct {
++			u8 i3c_set_poc;
++		};
+ 	};
+ };
+ 
+@@ -390,6 +399,7 @@ struct rzg2l_pinctrl_pin_settings {
+  * @oen: Output Enable register cache
+  * @other_poc: OTHER_POC register cache
+  * @qspi: QSPI registers cache
++ * @i3c_set: I3C_SET register cache
+  */
+ struct rzg2l_pinctrl_reg_cache {
+ 	u8	*p;
+@@ -408,6 +418,7 @@ struct rzg2l_pinctrl_reg_cache {
+ 	u8	oen;
+ 	u8	other_poc;
+ 	u8	qspi;
++	u8	i3c_set;
+ };
+ 
+ struct rzg2l_pinctrl {
+@@ -463,6 +474,10 @@ struct rzg2l_pinctrl_ps_desc {
+ 
+ /* Keep the entries with .caps set in the first positions. */
+ static const struct rzg2l_pinctrl_ps_desc available_ps[] = {
++	/* I3C I/O domain voltage 1.2V */
++	RZG2L_PINCTRL_PS_DESC(1200, 1, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
++	/* I3C I/O domain voltage 1.8V */
++	RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
+ 	/* Ethernet I/O domain voltage 2.5V */
+ 	RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+ 			      RZG2L_IOLH_IDX_2V5),
+@@ -1158,6 +1173,11 @@ static int rzg2l_caps_to_pwr_reg(const struct rzg2l_register_offsets *regs,
+ 			*mask = masks->other_poc_wdtovf_n_poc;
+ 		return 0;
+ 	}
++	if (caps & PIN_CFG_IO_VMC_I3C) {
++		*offset = regs->i3c_set;
++		*mask = masks->i3c_set_poc;
++		return 0;
++	}
+ 
+ 	return -EINVAL;
+ }
+@@ -2540,6 +2560,8 @@ static const struct rzg2l_dedicated_configs rzg3s_dedicated_pins[] = {
+ 	{ "AUDIO_CLK1", RZG2L_SINGLE_PIN_PACK(0x2, 0, PIN_CFG_IEN) },
+ 	{ "AUDIO_CLK2", RZG2L_SINGLE_PIN_PACK(0x2, 1, PIN_CFG_IEN) },
+ 	{ "WDTOVF_PERROUT#", RZG2L_SINGLE_PIN_PACK(0x6, 0, PIN_CFG_IOLH_A | PIN_CFG_SOFT_PS) },
++	{ "I3C_SDA", RZG2L_SINGLE_PIN_PACK(0x9, 0, (PIN_CFG_IEN | PIN_CFG_IO_VMC_I3C)) },
++	{ "I3C_SCL", RZG2L_SINGLE_PIN_PACK(0x9, 1, (PIN_CFG_IEN | PIN_CFG_IO_VMC_I3C)) },
+ 	{ "SD0_CLK", RZG2L_SINGLE_PIN_PACK(0x10, 0, (PIN_CFG_IOLH_B | PIN_CFG_IO_VMC_SD0)) },
+ 	{ "SD0_CMD", RZG2L_SINGLE_PIN_PACK(0x10, 1, (PIN_CFG_IOLH_B | PIN_CFG_IEN |
+ 						     PIN_CFG_IO_VMC_SD0)) },
+@@ -3759,6 +3781,8 @@ static int rzg2l_pinctrl_suspend_noirq(struct device *dev)
+ 	cache->oen = readb(pctrl->base + pctrl->data->hwcfg->regs.oen);
+ 	if (regs->other_poc)
+ 		cache->other_poc = readb(pctrl->base + regs->other_poc);
++	if (regs->i3c_set)
++		cache->i3c_set = readb(pctrl->base + regs->i3c_set);
+ 
+ 	if (pctrl->syscon) {
+ 		int ret;
+@@ -3801,6 +3825,8 @@ static int rzg2l_pinctrl_resume_noirq(struct device *dev)
+ 		writeb(cache->qspi, pctrl->base + regs->qspi);
+ 	if (regs->other_poc)
+ 		writeb(cache->other_poc, pctrl->base + regs->other_poc);
++	if (regs->i3c_set)
++		writeb(cache->i3c_set, pctrl->base + regs->i3c_set);
+ 
+ 	raw_spin_lock_irqsave(&pctrl->lock, flags);
+ 	rzg2l_oen_write_with_pwpr(pctrl, cache->oen);
+@@ -3913,8 +3939,12 @@ static const struct rzg2l_hwcfg rzg3s_hwcfg = {
+ 		.pwpr = 0x3000,
+ 		.sd_ch = 0x3004,
+ 		.eth_poc = 0x3010,
++		.i3c_set = 0x301c,
+ 		.oen = 0x3018,
+ 	},
++	.masks = {
++		.i3c_set_poc = BIT(2),
++	},
+ 	.iolh_groupa_ua = {
+ 		/* 1v8 power source */
+ 		[RZG2L_IOLH_IDX_1V8] = 2200, 4400, 9000, 10000,
 -- 
 2.43.0
 
