@@ -1,119 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6253D3C81B5;
-	Wed, 19 Aug 2026 07:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D793D566E
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787124538; cv=none; b=JpgyBoNrSp5pQ4nkorx2ylS9o/08HzznbAToe8Dkw2MpImVHowXtFSQKpPjYgixX8GygbVtsznne0baZKOIO4VaJTApmtnntYf52QFKdUQ6TykqYOlcOZIlOvy0k+P5PR8ffPOBiFwArTKkZoOnjEuJU8F5JpnKxtxNb2KKSZE8=
+	t=1787124560; cv=none; b=pk30tBSNr7ozBHAV4m0LAeiUoaKpYryfOAwDnK7nGWDZArsF6s+MkL13UrCQUTd5RwBQyWAWtoeQFTtrEQhg3I3yR2mffYETSpTsHSV2TAi4IuKzzy8WphAWJt+Aj4Yn+a4H0OoSSqTJxlvexC+u8xavtqssxevWb5bdL18SQ/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787124538; c=relaxed/simple;
-	bh=KvPwAk2TY4MSM1WnmG6/LrViwMvQr9kYyXkS6271FQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MjYPJvs2uj2/kzCaQha8BnKOuQyFOF983+/xH8o9ZGuQqUryu/5Dem3FdeCNET1cVOx+hNMay6/WTZeYQKv5fpH3UHSnL4WNeOkr3kghSAUPiYeNtaGfEZaEawVsif5b1tdb36EQqzP5G4w5TTuw+CbsBgo0iHjnwtiYLlYPCqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KicRI9RG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787124560; c=relaxed/simple;
+	bh=Mu+7LLfVGJEa7egrQJ85+es5WpyywoehYqfJDmwmG9c=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=kVn5UpULcDGBrROSBf9jJHzIoc3EPNGHyd2z1PvDTdUm2NGCsUaoTyUYWVFrY3yptXPeufjVaxw0wVBIQq4h0UXBaK7O7x0bIChmsdvP+fpzdggviHcnB+09LCQgwYhp/nVexoTkPFHVV0eVhjuAV56ZdORQfaWhZqyIsYMH/Gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=Bp/jOf1o; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KicRI9RG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02BEF1F000E9;
-	Wed, 19 Aug 2026 07:28:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787124537;
-	bh=+c4hxv5iAZoAl6x2Vsz/LzNf0z4N+7E+7ULYEPv6Crw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KicRI9RGqR/qCu1MkdulTJy84Fb4AkP/xipZO2cpfo3I7e6tfyKokUDLhAh/XBKCw
-	 jj/e9/Z8fAr9XTlSURXYW75ag1DZoU5eHVGKztMlL1JN9XA58o4C0glgmYD7lWKTh/
-	 opmBGNch3Cp/opPlU/bv4dqToYYRnvENSso2o+fjLkPfLP3Mal8vncsCHL27uU4iBI
-	 TfEGx7co+XwL26ILXaFHc1NViD4MQxMG+jkrXHH9NgwwHgggA57W/8opNpJ9Vz6GMj
-	 ZKE8t39AUkdiv4/rXy3r0TyHSbOsvLAwdMxznYw4Wy/zDbBNts5MJwUq2e3r0i59ia
-	 Z1lwBjtNRMVsw==
-Date: Wed, 19 Aug 2026 00:28:54 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Pavankumar Kondeti <quic_pkondeti@quicinc.com>,
-	Stephen Boyd <stephen.boyd@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Peter Chen <peter.chen@nxp.com>
-Subject: Re: [PATCH 08/10] usb: chipidea: host: calibrate the PHY after
- starting the host
-Message-ID: <aoVbNp0J2feQ3ezX@hu-petche-lv.qualcomm.com>
-References: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
- <20260810-msm8974-usb-hsic-v1-8-e5f93ea76ffa@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="Bp/jOf1o"
+Message-ID: <0ca5c247-18b4-4711-83c9-f0fa6570404d@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1787124553;
+	bh=Mu+7LLfVGJEa7egrQJ85+es5WpyywoehYqfJDmwmG9c=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Bp/jOf1oKfFdpCH+Zeh00mSopBGHf2Lkn66R1D49WVY/1pwnLxLS4klyg//FH2iFs
+	 D/bZw5GLQdcpBxJD8UVbO5qIW2o4zAQolSp4zmZUthYoDWmFafdoHQC3jQf466cZFd
+	 q/dHXar5lC5Jr9XeqYYKX/o4v8PckUa1GauWTTSo=
+Date: Wed, 19 Aug 2026 09:29:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810-msm8974-usb-hsic-v1-8-e5f93ea76ffa@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird Beta
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v9 3/6] mfd: khadas-mcu: Add support for VIM4 MCU variant
+To: Lee Jones <lee@kernel.org>, sashiko-reviews@lists.linux.dev
+Cc: neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org,
+ mfd@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
+ <20260805-add-mcu-fan-khadas-vim4-v9-3-75df78710b9e@aliel.fr>
+ <20260805081913.272991F00A3A@smtp.kernel.org>
+ <20260812120007.GO1072730@google.com>
+Content-Language: en-US
+In-Reply-To: <20260812120007.GO1072730@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 26-08-10 18:42:12, Dmitry Baryshkov wrote:
-> Some PHYs need a final programming step after the host controller is
-> up: the Qualcomm HSIC PHY latches the device connect at the moment
-> HSIC mode is engaged, so that write must happen with the root port
-> already running, or an already-connected HSIC device (the strobe/data
-> lines have no hotplug) is never seen. The generic PHY framework
-> provides phy_calibrate() for exactly this kind of post-init fixup and
-> dwc3 already calls it; the chipidea host does not, leaving no place
-> for such PHY work.
+On 8/12/26 2:00 PM, Lee Jones wrote:
+> On Wed, 05 Aug 2026, sashiko-bot@kernel.org wrote:
 > 
-> Call phy_calibrate() once the HCD has been added, next to the existing
-> i.MX HSIC active-event hook which serves the same purpose. PHYs
-> without a calibrate op are unaffected.
+>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+>> - [High] The driver unconditionally fails to probe on generic Khadas MCU boards (VIM1/VIM2/VIM3) due to a NULL pointer check on valid match data.
 > 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Please review, explain or fix the Sashiko review(s).
+> 
+> If this is a set, this request includes the other patches too.
+> 
 
-Acked-by: Peter Chen <peter.chen@kernel.org>
+Yes I will check all those reviews.
 
-Peter
-> ---
->  drivers/usb/chipidea/host.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>> --
+>>
+>> --- Patch [3]: [PATCH v9 3/6] mfd: khadas-mcu: Add support for VIM4 MCU variant ---
+>> commit eab418dac1b5e94bd297b0a14e92e87b2063dc9b
+>> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>
+>> mfd: khadas-mcu: Add support for VIM4 MCU variant
+>>
+>> This patch refactors the probe function to use per-variant values instead of
+>> hardcoded globals. It adds dedicated regmap configuration, fan control register,
+>> and duty-cycle levels for the VIM4 MCU variant. A new compatible string
+>> "khadas,vim4-mcu" is introduced for this new device.
+>>
+>>> diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
+>>> index 0e74efe14f367..4cb305ac915e1 100644
+>>> --- a/drivers/mfd/khadas-mcu.c
+>>> +++ b/drivers/mfd/khadas-mcu.c
+>> [ ... ]
+>>> @@ -75,47 +75,138 @@ static const struct regmap_config khadas_mcu_regmap_config = {
+>> [ ... ]
+>>>  static int khadas_mcu_probe(struct i2c_client *client)
+>>>  {
+>>> +	const struct mfd_cell *cells, *fan_cells;
+>>> +	const struct regmap_config *regmap_cfg;
+>>>  	struct device *dev = &client->dev;
+>>> +	int ncells, nfan_cells, ret;
+>>>  	struct khadas_mcu *ddata;
+>>> -	int ret;
+>>> +	const void *match;
+>>>  
+>>>  	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+>>>  	if (!ddata)
+>>>  		return -ENOMEM;
+>>>  
+>>> +	match = i2c_get_match_data(client);
+>>> +	if (!match)
+>>> +		return -ENODEV;
+>>
+>> [Severity: High]
+>> Does this code inadvertently break the probe for generic Khadas MCU boards
+>> (VIM1/VIM2/VIM3)?
+>>
+>> Because KHADAS_MCU_GENERIC evaluates to 0 in its enum, i2c_get_match_data() will
+>> return a NULL pointer when matching "khadas,mcu" in khadas_mcu_probe() in
+>> drivers/mfd/khadas-mcu.c. This will cause the check here to evaluate to true and
+>> unconditionally abort the probe with -ENODEV.
+>>
+>> [ ... ]
+>>> @@ -123,7 +214,8 @@ static int khadas_mcu_probe(struct i2c_client *client)
+>>>  
+>>>  #ifdef CONFIG_OF
+>>>  static const struct of_device_id khadas_mcu_of_match[] = {
+>>> -	{ .compatible = "khadas,mcu", },
+>>> +	{ .compatible = "khadas,mcu", .data = (void *)KHADAS_MCU_GENERIC },
+>>> +	{ .compatible = "khadas,vim4-mcu", .data = (void *)KHADAS_MCU_VIM4 },
+>>>  	{},
+>>>  };
+>>>  MODULE_DEVICE_TABLE(of, khadas_mcu_of_match);
+>>
+>> -- 
+>> Sashiko AI review · https://sashiko.dev/#/patchset/20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr?part=3
 > 
-> diff --git a/drivers/usb/chipidea/host.c b/drivers/usb/chipidea/host.c
-> index ced6076a8248..62bb2999edb6 100644
-> --- a/drivers/usb/chipidea/host.c
-> +++ b/drivers/usb/chipidea/host.c
-> @@ -15,6 +15,7 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/string_choices.h>
->  #include <linux/pinctrl/consumer.h>
-> +#include <linux/phy/phy.h>
->  
->  #include "../host/ehci.h"
->  
-> @@ -192,6 +193,9 @@ static int host_start(struct ci_hdrc *ci)
->  			(ci->platdata->flags & CI_HDRC_IMX_IS_HSIC))
->  			ci->platdata->notify_event
->  				(ci, CI_HDRC_IMX_HSIC_ACTIVE_EVENT);
-> +
-> +		if (ci->phy)
-> +			phy_calibrate(ci->phy);
->  	}
->  
->  	return ret;
-> 
-> -- 
-> 2.47.3
-> 
+
 
 -- 
-
-Thanks,
-Peter Chen
+Best regards,
+Ronald
