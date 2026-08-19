@@ -1,216 +1,122 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AE52EEE91
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 22:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2529B3DA7D7;
+	Wed, 19 Aug 2026 22:21:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787178058; cv=none; b=pupiiU8RRG+cU8AR7Bd/H5Rj47haboNYss3DlaMEerf7ej3Ehi3YfskrcErC3n4DmsFKxtY7LGilB16Uws+FMIVzrJwPkrEpS2XRldvLBzyaQz0BaPKpsXd2iMQ7a8tvqrK/dpsU5HFYSYkISqi7YUufK6+YpNujei8UYMB+pKs=
+	t=1787178099; cv=none; b=emOEIXaL83LWqMEILZAhzz3YgtqOs3u1ebM0XQwqustBBw4UMtvLOmEOa2hXGHTd0MEDJLUppmT+6MrsxY/c/kKIdH+Uv5TU7VbMpm6kpX2aUxKJjOT0mBYfkZw7ansj8HPnlkQpa3yBI+rjujkhm8YMGnSbP16chtWLWl8Qmn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787178058; c=relaxed/simple;
-	bh=ynAi7sEIWWGF7TW2QZerhgpmS3rJppEBTwVA4qpDCkk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f0rcDdFjQ49zsVJOGRwxeFT6NXiFE1LduJ+G0pCRKhzXQo/tLVcf9DAKeoNabzQLVKLwOVXGIhZ7IYB/2FaSmiy3LI/KGfiv6PVIrBH4nnuUks8aBh2LDRXeriOOQ4hRQrR94T+bmRpX30gC8+pLDmdEtXTQvE3/L0R/R2D3Uws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pN/znz8l; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787178099; c=relaxed/simple;
+	bh=eARO++AoB+mJvW20ahggr2RinWfmmEA4m7HAHI0pHN0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SVsbZnkHn3b3dR+TVOS9Q18nebFZc0skoWU7VyBr6p7+xXFdemIRiwbqt/FyE+NUPzziDV8n/CWCboBJrdIMwwgdJH/M8CjMfU/Q+hlK1LqOMMMLR01hjvq9NSGE1wEtgOREhyxiXVu/usUPpi+SLMozx3fJ+hNra21YPhlgY24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VuTMQ0t3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pN/znz8l"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 97BBC4E412DF;
-	Wed, 19 Aug 2026 22:20:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 501F25FF42;
-	Wed, 19 Aug 2026 22:20:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 26DC711C75BF8;
-	Thu, 20 Aug 2026 00:20:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787178047; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=/B6tPYN5LCOlrm1Ya2eKp2YLySXslAme9Vq9iWjNY+I=;
-	b=pN/znz8lKHXV/fLNj/PjtYdM9DGj/bz3dKhueioERvvYfFpjXdeG/3eczqJaZihqWNsasl
-	yp9p4+pdZNUj27FpapGOXrbxg1ebxiettOkMEagwrVjz6VBqr4BWfvdtUt+zayb+EL5f12
-	bZWOVH9hPVTCiF/Vj3HmyyGHGDPrN8j+kTAp28SE+YvEQU9wchjwHtGl8pLdCfSPvfYPw7
-	CeI8vaXlksUW5wURrrOTHOH8kEMABcoODvJg6ZvG92ZUdzfGyu0wjTm5vUjR5YVWs8NMf9
-	zu8PDWxgPJe6Q3ESqU0MPjXk6pkDjbO+W70j2XuV/TnIKe65gLa9cLWX4s02EQ==
-Date: Thu, 20 Aug 2026 00:20:43 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Michael Langer <michael.brainbug.langer@googlemail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 4/6] rtc: s35390a: force 24-hour mode
-Message-ID: <202608192220436c9c7207@mail.local>
-References: <20260820-rtc_s35390a_int1-v5-0-5eb4ef85c6a9@posteo.de>
- <20260820-rtc_s35390a_int1-v5-4-5eb4ef85c6a9@posteo.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VuTMQ0t3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797DA1F000E9;
+	Wed, 19 Aug 2026 22:21:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787178097;
+	bh=ZB6ijTgeUuq9eNfTn53cUMUX/vsRRYpJirU0Vu65VWc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VuTMQ0t3FCFWTBc4RaGVnjhIGi+WVmzThn4DONDaOwUddlF2CRk5hblk/Tj+P3Vq6
+	 zCbWz25e+10hJUHYSCvw7EoqWUNonchxgSPFaMAAgeUu9lQHrJMZbNdeXimCzd3oCF
+	 /2/7RoHNt1R1EUkx4snKAP2a/0qx+fbgwAwvej22C2Z06GNYtg6bbvJ2ROoL+rkVH7
+	 MXnx10pSDrwHjTQr1qD2GxQZOjMfAH0a7pG7Eyv/Pr76t0uR1R9wm1BxYC10dvfuRE
+	 I/cixXPk0I0xVxtnBHPVfJOdfCDs4EPIMgQbCIYZG/F2mB1A4jRT7wupIP7txmMttr
+	 E6CHhXbLI5caQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/3] dt-bindings: clock: airoha: Document support for
+ AN7583 clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260819221458.30040-2-ansuelsmth@gmail.com>
+References: <20260819221458.30040-1-ansuelsmth@gmail.com>
+ <20260819221458.30040-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 22:21:37 +0000
+Message-Id: <20260819222137.797DA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820-rtc_s35390a_int1-v5-4-5eb4ef85c6a9@posteo.de>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 19/08/2026 22:05:56+0000, Markus Probst wrote:
-> Instead of trying to remember the current 12/24-hour mode, which could
-> result in time corruption if out of sync, we force the use of the 24-hour
-> mode. Set to 24-hour mode if in 12-hour mode on startup and assume
-> 24-hour mode. The 24-hour mode is already forced on reset.
-> 
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  drivers/rtc/rtc-s35390a.c | 67 +++++++++++++++++++++--------------------------
->  1 file changed, 30 insertions(+), 37 deletions(-)
-> 
-> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-> index 575bb256eb25..b34a3f7e8476 100644
-> --- a/drivers/rtc/rtc-s35390a.c
-> +++ b/drivers/rtc/rtc-s35390a.c
-> @@ -64,7 +64,6 @@ MODULE_DEVICE_TABLE(of, s35390a_of_match);
->  
->  struct s35390a {
->  	struct i2c_client *client[8];
-> -	int twentyfourhour;
->  };
->  
->  static int s35390a_set_reg(struct s35390a *s35390a, int reg, u8  *buf, int len)
-> @@ -181,31 +180,6 @@ static int s35390a_disable_test_mode(struct s35390a *s35390a)
->  	return s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, buf, sizeof(buf));
->  }
->  
-> -static char s35390a_hr2reg(struct s35390a *s35390a, int hour)
-> -{
-> -	if (s35390a->twentyfourhour)
-> -		return bin2bcd(hour);
-> -
-> -	if (hour < 12)
-> -		return bin2bcd(hour);
-> -
-> -	return 0x40 | bin2bcd(hour - 12);
-> -}
-> -
-> -static int s35390a_reg2hr(struct s35390a *s35390a, char reg)
-> -{
-> -	unsigned hour;
-> -
-> -	if (s35390a->twentyfourhour)
-> -		return bcd2bin(reg & 0x3f);
-> -
-> -	hour = bcd2bin(reg & 0x3f);
-> -	if (reg & 0x40)
-> -		hour += 12;
-> -
-> -	return hour;
-> -}
-> -
->  static int s35390a_rtc_set_time(struct device *dev, struct rtc_time *tm)
->  {
->  	struct i2c_client *client = to_i2c_client(dev);
-> @@ -225,7 +199,7 @@ static int s35390a_rtc_set_time(struct device *dev, struct rtc_time *tm)
->  	buf[S35390A_BYTE_MONTH] = bin2bcd(tm->tm_mon + 1);
->  	buf[S35390A_BYTE_DAY] = bin2bcd(tm->tm_mday);
->  	buf[S35390A_BYTE_WDAY] = bin2bcd(tm->tm_wday);
-> -	buf[S35390A_BYTE_HOURS] = s35390a_hr2reg(s35390a, tm->tm_hour);
-> +	buf[S35390A_BYTE_HOURS] = bin2bcd(tm->tm_hour);
->  	buf[S35390A_BYTE_MINS] = bin2bcd(tm->tm_min);
->  	buf[S35390A_BYTE_SECS] = bin2bcd(tm->tm_sec);
->  
-> @@ -256,7 +230,7 @@ static int s35390a_rtc_read_time(struct device *dev, struct rtc_time *tm)
->  
->  	tm->tm_sec = bcd2bin(buf[S35390A_BYTE_SECS]);
->  	tm->tm_min = bcd2bin(buf[S35390A_BYTE_MINS]);
-> -	tm->tm_hour = s35390a_reg2hr(s35390a, buf[S35390A_BYTE_HOURS]);
-> +	tm->tm_hour = bcd2bin(buf[S35390A_BYTE_HOURS] & 0x3f);
->  	tm->tm_wday = bcd2bin(buf[S35390A_BYTE_WDAY]);
->  	tm->tm_mday = bcd2bin(buf[S35390A_BYTE_DAY]);
->  	tm->tm_mon = bcd2bin(buf[S35390A_BYTE_MONTH]) - 1;
-> @@ -325,8 +299,7 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
->  	else
->  		buf[S35390A_ALRM_BYTE_WDAY] = 0;
->  
-> -	buf[S35390A_ALRM_BYTE_HOURS] = s35390a_hr2reg(s35390a,
-> -			alm->time.tm_hour) | 0x80;
-> +	buf[S35390A_ALRM_BYTE_HOURS] = bin2bcd(alm->time.tm_hour) | 0x80;
->  	buf[S35390A_ALRM_BYTE_MINS] = bin2bcd(alm->time.tm_min) | 0x80;
->  
->  	if (alm->time.tm_hour >= 12)
-> @@ -381,8 +354,7 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
->  
->  	if (buf[S35390A_ALRM_BYTE_HOURS] & 0x80)
->  		alm->time.tm_hour =
-> -			s35390a_reg2hr(s35390a,
-> -				       buf[S35390A_ALRM_BYTE_HOURS] & ~0x80);
-> +			bcd2bin(buf[S35390A_ALRM_BYTE_HOURS] & 0x3f);
->  
->  	if (buf[S35390A_ALRM_BYTE_MINS] & 0x80)
->  		alm->time.tm_min = bcd2bin(buf[S35390A_ALRM_BYTE_MINS] & ~0x80);
-> @@ -459,7 +431,7 @@ static int s35390a_probe(struct i2c_client *client)
->  	unsigned int i;
->  	struct s35390a *s35390a;
->  	struct rtc_device *rtc;
-> -	u8 buf, status1;
-> +	u8 buf, status1, time[7];
->  	struct device *dev = &client->dev;
->  	struct nvmem_config nvmem_cfg = {
->  		.name = "s35390a_nvram",
-> @@ -503,10 +475,31 @@ static int s35390a_probe(struct i2c_client *client)
->  		return err_read;
->  	}
->  
-> -	if (status1 & S35390A_FLAG_24H)
-> -		s35390a->twentyfourhour = 1;
-> -	else
-> -		s35390a->twentyfourhour = 0;
-> +	if (!(status1 & S35390A_FLAG_24H) && err_read != 1) {
-> +		unsigned int hour;
-> +
-> +		status1 |= S35390A_FLAG_24H;
-> +
-> +		err = s35390a_get_reg(s35390a, S35390A_CMD_TIME1, time, sizeof(time));
-> +		if (err < 0)
-> +			return dev_err_probe(dev, err, "reading 12-hour time failed\n");
-> +
-> +		/* converting to 24-hour time */
-> +		time[S35390A_BYTE_HOURS] = bitrev8(time[S35390A_BYTE_HOURS]);
-> +		hour = bcd2bin(time[S35390A_BYTE_HOURS] & 0x3f);
-> +		if (time[S35390A_BYTE_HOURS] & 0x40)
-> +			hour += 12;
-> +
-> +		time[S35390A_BYTE_HOURS] = bitrev8(bin2bcd(hour));
-> +
-> +		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS1, &status1, sizeof(status1));
-> +		if (err < 0)
-> +			return dev_err_probe(dev, err, "setting 24-hour mode failed\n");
-> +
-> +		err = s35390a_set_reg(s35390a, S35390A_CMD_TIME1, time, sizeof(time));
-> +		if (err < 0)
-> +			return dev_err_probe(dev, err, "setting 24-hour time failed\n");
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-No, don't do this, this will break existing users as your conversion may
-happen after a minute rollover. The only function in which you are
-allowed to change the time registers is set_time. You definitively need
-to be able to read 12H mode time but you are allowed to only support
-writing 24h time.
+Pre-existing issues:
+- [Medium] The device tree binding defines the SCU as a reset provider but =
+omits `#reset-cells` from the `required` properties list.
+--
 
-Also, this is super verbose, adding strings to the kernel makes it
-bloated.
+--- Patch [1]: [PATCH v6 1/3] dt-bindings: clock: airoha: Document support =
+for AN7583 clock ---
+commit d5f1a3bf6c2e7155e5e00666d8f07ae07a173ed5
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-To avoid any desync, simply test for the S35390A_FLAG_24H bit in status
-in s35390a_rtc_read_time as the register is already read anyway.
+dt-bindings: clock: airoha: Document support for AN7583 clock
 
+This commit documents support for the Airoha AN7583 clock, building upon the
+EN7523 clock schema. It introduces a new requirement for airoha,chip-scu and
+adds supplementary bindings for additional clock and reset lines.
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.ya=
+ml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> index eb24a5687639e..edecc635807be 100644
+> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+
+[ ... ]
+
+> @@ -50,12 +51,30 @@ properties:
+>      description: ID of the controller reset line
+>      const: 1
+> =20
+> +  airoha,chip-scu:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: phandle to the Chip SCU providing the registers required
+> +      for configuring the PCIe related clocks and resets.
+> +
+>  required:
+>    - compatible
+>    - reg
+>    - '#clock-cells'
+
+[Severity: Medium]
+This is a pre-existing issue, but since the binding defines the SCU as a re=
+set
+provider and this patch adds dedicated reset definitions, should #reset-cel=
+ls
+be included in this global required list?=20
+
+Without it, device tree nodes using the airoha,an7583-scu compatible string
+(or other variants in this binding) that omit #reset-cells will incorrectly
+pass schema validation, potentially allowing incomplete device trees to cau=
+se
+runtime failures in dependent drivers.
+
+> =20
+>  allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: airoha,an7583-scu
+> +
+> +    then:
+> +      required:
+> +        - airoha,chip-scu
+
+[Severity: Medium]
+This is a pre-existing issue regarding reset providers in this file, but if
+#reset-cells is not meant to be globally required for all compatibles, shou=
+ld
+it be added to this conditional required list specifically for
+airoha,an7583-scu alongside airoha,chip-scu?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819221458.3004=
+0-1-ansuelsmth@gmail.com?part=3D1
