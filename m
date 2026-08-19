@@ -1,150 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3503442364;
-	Wed, 19 Aug 2026 10:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9F918E02A
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787135450; cv=none; b=fkbIZUYyjX6mDW9zjpE58Jhzma/kmzj3tbo/fQTAVwZk3W3m9BxXFnSryDi6M5E0epHDSQ7Hwy3CZbhsKuJmjrgaOek/vqN4wKPyJlXHgJ2r/1xNlB0L4rfsd6uQw3WuJpEwCTZ9jjkANJCDFKCiUVheXQVzHwPasyFKBHXtU50=
+	t=1787135988; cv=none; b=tfBFRJAIc3lr346OxI/2CrP8siZC7PKlrjEbcGPfWgJmuhwt5rcANxsOFOl2aGdAWfCQNU+QSfHGORm2zqDs+ckoUUW0DuOAN0wG7QHUdX9Fhg+70HVwHs/sqOwE5U3nzyQPxaD+OGjoSWVD2mBXltfJaJeHkQwgSTTvo7NS6o4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787135450; c=relaxed/simple;
-	bh=4NJaQWGQG26PIQnoDdbq1+fMi3UqmMN1VFtCN2VCVR0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gBlRXna90AEQKRxVdUbkEibmFJIjH+Eibppto5s83kgXK/AmtKcFrBaIvWzl8izehMxh1ze0ImNXOu1OO6TzAHaznkEU96BAYhcbsE3uMq5xPAXetvrn625R9Wd9gfO/4d8Qr+NRMLdOevmILfyTXlBsi79fnrCY62A+/jvGk4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIapoAuQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787135988; c=relaxed/simple;
+	bh=X/eM8N+ZiWpG1k9EW2SG6VSJGAC5cgZXhhGFpGB3Nqg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hLSbvu4G0ZyCcPK6snfFJDIwATpXH+PxpFPkaFmCTbJpcSYyUghs1LsqCJB8lz3YYa+HJfMGJZbI0x8S1BON692Td/gUn9qOnTJuwuWXoybpYAI2lKzuBoKFNIAYHFSYnxkpO4QN7/u3p9YZAXyS5tlB1l6DvlcVcHR8V9o5soI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PVGbRlAL; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIapoAuQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BBC1F000E9;
-	Wed, 19 Aug 2026 10:30:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787135448;
-	bh=H0b5hz5Jv0MazburOEa18gbJuaqkoNPI7jix/frppps=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JIapoAuQcBlQP4RlxXPZalkolKDN2IYkh04Km55rgUQSqkvrrihZvMcHTPe3Fl/nJ
-	 GLUsf0QTRGMZbPzgD1M4mOlrDzcy1shIuRg10yYQczzj6cJsW9ACkO7GHQqu18AVsU
-	 4FKHAobUodDp0PVBxRrXlKVJDX8sIqGZ/jqSV+RFIzbmxj+RdX2rBIKjUbgfo5Yz61
-	 tfs97HtF9f/zMcPptr9qfqNj6Y/LtZrnT7B6XrFiEseSnRgOFCsZLxlp2a/35+aONg
-	 TPXMPJNmFrR3KnVqryONjhDdZ+7MFhqLRLQP8PNYTioZjhxMD2BWI26DMMc71zqxkt
-	 VJ2Dl141Lis/Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/7] watchdog: mediatek: Add wdt/toprgu resets for
- mt6589
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org
-In-Reply-To: <20260819101853.44681-3-l.scorcia@gmail.com>
-References: <20260819101853.44681-1-l.scorcia@gmail.com>
- <20260819101853.44681-3-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 10:30:48 +0000
-Message-Id: <20260819103048.57BBC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PVGbRlAL"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d53197d8b5so7927005ad.3
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:39:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787135985; x=1787740785; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+wGjeeNszQHWmnGaEh/6lnk77mM0dthBmjem3skz/pc=;
+        b=PVGbRlALISkuZT8EhdD22Z7sLMR7t8x08k4js9oBznxkqEo85H8t39lkVGNFYfmNgq
+         P+xE41x2iS4jgaLtHfP+Y4uNd4MPBQOCrivPsRo/mOD9TqovGr6CQJW/yVfzmlcNtDn8
+         SeozlVOiZXUe5tloSFdOSCPKUiY6WuEhoMFr8mpjoMmD+ImcNxSBUXcTyBNWaor/7UXn
+         6gcTiJ134HbDfvnvSMSkeKnANGDCtQyEYGKbEIwBgRgEVd34ZgpS5zuSWG4ti8SngN52
+         a3nBd7CS994SBORSO12MYIZbtQJ6aX9az0S74cdv4jXMaQStsWnVmvm+vKXIhLF0KYAB
+         CkWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787135985; x=1787740785;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+wGjeeNszQHWmnGaEh/6lnk77mM0dthBmjem3skz/pc=;
+        b=oXFJyRLyQFqD77cQNBUxxT9jXrx9boSjY1KNpid4VfvqbIrnhD4uh5KeAl2ik/YFRc
+         AA4t31Y/kubg/gLEGaRZO4Xlp8f0U/EqaTs1HzOJRJHFIZsDhxr0KT2SqIdyebLDIvAb
+         US8C88rTUZfR+yB1Vkqy5POW8mbdilaO8rVBwhgP5TUn6RsEWqTDE/aQ53Om58e87Y0o
+         p3C3/3ytQa73R3rqsi16WmJcK6LQF6tsdJ8q1zwGdAg53vArteG1XTD7MSOHKyz2FpsW
+         XbBS0g5V0vvOpF3pk9z3XsV93u8AZA++ugpba0V8LuL0Mp/wWohRK3exPJxaiSa3mLQq
+         GTcg==
+X-Forwarded-Encrypted: i=1; AHgh+RpOXQHK7XkdjA1Z1xE1z/5Xk0/J35mxZsKX+5EPFXIzuvBQYnqj3zV7Esg4sPRMU1/Ep36LlIEhIAip@vger.kernel.org
+X-Gm-Message-State: AOJu0YypHlEI/UiuWV9Iyw+tNq/q8PNOzFAqWkVXK+QCmtJMo321wt9F
+	+Fsf5rfYpzKGB9sGmr9S/RGBtjNDRwmYvuDwF7g7APPydWPAC4HzU1U1
+X-Gm-Gg: AR+sD129BEnDds2I1/L0QcCaUkiO3YYJHd54ln8nB4Y3uEFv+jihUacu25XfKPBA6BT
+	lnwxS9/EN0wTYw6qiTLHi61FJjcoG969rL3bBfwFCGH3+XYluzRk3icXaLSZkpYwxTNlxTB6SeA
+	r3zg1kewlM6frmLjBTun4c8T6sbH+xgn3pAiyX3dFFvJItPZ01BqpYImHLxG3amD6h7r5f2nBZX
+	rAAGmVlndQRQs5E+IFP6ar+Ch9r9DfXNWSFy/MgkC/r+oecY2CNUbC8AMSZdYSvxmq77qrrQpof
+	IMdiBPiYE6ajKbkJ2zDArU5QCweidoEi5i7lIaUVVjDpL1xGUWzcw17Z3egFIRamZPNvNDab5L1
+	uEplzuTAIqwaArph9+CTYoZpJQVPY7S8yTrq6hfPZ0kM/aIlb4ZFY7mrxKPswerJOe3WYluAZdZ
+	FdsyMnrKLnQc3SPZGubBZQwcXw1rxFIkU4zD42f1ghJ1eONVwsK3ff1q6UUH7wEvuSNcFG6mqp6
+	AZ+m5Ll0G7kgGhFDFT9s2L2EAh8QTDr08CUCtpJsep0WBNzNpX9jwLM36q363f0o4y1l0fewSrs
+	8E9PuAWUoKR1sxhakdGA
+X-Received: by 2002:a17:903:b4e:b0:2d5:ea01:429d with SMTP id d9443c01a7336-2d60197e7b6mr71176115ad.14.1787135984648;
+        Wed, 19 Aug 2026 03:39:44 -0700 (PDT)
+Received: from iku.example.org ([2401:4900:1c07:efb3:a897:a9b5:e171:c935])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef77fc0sm11169630eec.8.2026.08.19.03.39.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 03:39:44 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v4 00/15] Add RTC support for Renesas RZ/T2H and RZ/N2H SoCs
+Date: Wed, 19 Aug 2026 11:39:11 +0100
+Message-ID: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Pre-existing issues:
-- [High] Watchdog device is registered before its driver data is fully init=
-ialized, allowing userspace to trigger `mtk_wdt_start()` with uninitialized=
- flags.
-- [High] Reset controller is registered before `has_swsysrst_en` is initial=
-ized, causing a race condition where reset operations use incorrect configu=
-rations.
---
+Hi all,
 
---- Patch [2]: [PATCH v4 2/7] watchdog: mediatek: Add wdt/toprgu resets for=
- mt6589 ---
-commit 62a8c76fbad14150f6f3dabaecc0a569e1dfdcb5
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+This series adds support for the RTC IP found on the Renesas RZ/T2H and
+RZ/N2H SoCs.
 
-watchdog: mediatek: Add wdt/toprgu resets for mt6589
+The RTC block is closely related to the RZ/N1 implementation and can
+reuse the existing driver infrastructure when operating in SCMP mode,
+which is required on these SoCs due to their 195.3 kHz RTC input clock.
 
-According to Android sources, mt6589 has 12 reset bits in the
-WDT_SWSYSRST register. Populate toprgu_sw_rst_num to allow toprgu resets
-in device trees of the many compatible devices.
+While the RZ/T2H and RZ/N2H variants do not implement the RTCA0SUBU
+register present on RZ/N1, this register is not accessed by the driver
+in SCMP mode, allowing support to be added with minimal changes.
 
-> diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
-> index 91d110646e16f..f8208fb0f7234 100644
-> --- a/drivers/watchdog/mtk_wdt.c
-> +++ b/drivers/watchdog/mtk_wdt.c
+The RZ/T2H RTC variant also supports a 1 Hz output signal on the
+RTCAT1HZ pin, controlled by the RTCA0CTL1[RTCA01HZE] bit. This bit is
+marked as reserved in the RZ/N1 hardware manual, making RZ/T2H a
+distinct RTC variant despite its overall compatibility with the RZ/N1
+implementation.
 
-[ ... ]
+Patches have been rebased on top of next-20260818.
 
-> @@ -493,7 +498,7 @@ static int mtk_wdt_resume(struct device *dev)
-> =20
->  static const struct of_device_id mtk_wdt_dt_ids[] =3D {
->  	{ .compatible =3D "mediatek,mt2712-wdt", .data =3D &mt2712_data },
-> -	{ .compatible =3D "mediatek,mt6589-wdt" },
-> +	{ .compatible =3D "mediatek,mt6589-wdt", .data =3D &mt6589_data },
+v3->v4:
+- Added Reviewed-by tags from Wolfram.
+- Made use of tm->tm_wday directly instead of recalculating the weekday
+  from the day-of-month.
+- Updated commit message in patch #3
+- Shortened the comment describing the calculation of RTC_PCLK.
+- Updated usleep_range() value to use 2 * rtc->sync_time.
+- Added new patch to gate SUBU register access based on OF match data.
+- Added new patch to make use of pm_runtime_put_sync() in rzn1_rtc_disable_hardware().
+- Added new patch to drop trailing comma from OF match table sentinel.
+- Added OF rzt2h_data for OF data
+- Updated commit message for patch #15
 
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential race
-condition during probe that might affect all watchdog devices here.
+v2->v3:
+- Added new patch to fix weekday underflow when alarm crosses month
+  boundary.
+- Make use of devm_add_action_or_reset() to simplify driver teardown
+  and remove the .remove() callback.
 
-In mtk_wdt_probe(), the watchdog device is registered before its configurat=
-ion
-flags are read:
+v1->v2:
+- Dropped wakeup capability support patch.
+- Dropped header sort patch as it was already fixed upstream.
+- Updated commit message to drop reference about RTCA0TCR register.
+- Added Acked-by and Reviewed-by tags.
+- Updated Kconfig help text to keep it generic and not specific to
+  RZ/N1 SoCs.
+- Initialized rate variable to 32768 to avoid timeout_us of 0.
+- Made use of RZN1_RTC_SUBU_RTCA0FX mask for SUBU register access
+  instead of 0x3F.
 
-        err =3D devm_watchdog_register_device(dev, &mtk_wdt->wdt_dev);
-        if (unlikely(err))
-                return err;
-       =20
-        ...
+v1: https://lore.kernel.org/all/20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
 
-        mtk_wdt->disable_wdt_extrst =3D
-                of_property_read_bool(dev->of_node, "mediatek,disable-extrs=
-t");
+Cheers,
+Prabhakar
 
-        mtk_wdt->reset_by_toprgu =3D
-                of_property_read_bool(dev->of_node, "mediatek,reset-by-topr=
-gu");
+Lad Prabhakar (15):
+  dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and RZ/N2H support
+  rtc: rzn1: Handle EPROBE_DEFER for optional pps interrupt
+  rtc: rzn1: Fix weekday underflow when alarm crosses month boundary
+  rtc: rzn1: Fix malformed MODULE_AUTHOR string
+  rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency to ARCH_RENESAS
+  rtc: rzn1: Fix alarm range check truncation on 32-bit systems
+  rtc: rzn1: Replace remove callback with devm_add_action_or_reset()
+  rtc: rzn1: Use pm_runtime_put_sync() in rzn1_rtc_disable_hardware()
+  rtc: rzn1: Dynamically calculate synchronization delay based on clock
+    rate
+  rtc: rzn1: Use temporary variable for struct device
+  rtc: rzn1: Consistently use dev_err_probe()
+  rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK for register access
+  rtc: rzn1: Add OF match data to gate SUBU register access
+  rtc: rzn1: Drop trailing comma from OF match table sentinel
+  rtc: rzn1: Add support for Renesas RZ/T2H and RZ/N2H SoCs
 
-If userspace (like systemd) opens the device immediately after registration,
-could mtk_wdt_start() run before these flags are initialized?
+ .../bindings/rtc/renesas,rzn1-rtc.yaml        |  35 +++-
+ drivers/rtc/Kconfig                           |   5 +-
+ drivers/rtc/rtc-rzn1.c                        | 175 ++++++++++--------
+ 3 files changed, 129 insertions(+), 86 deletions(-)
 
-Since these flags are written to the WDT_MODE register and not re-applied
-later, could this permanently misconfigure the watchdog for the system upti=
-me
-and cause a hang instead of a reboot upon timeout?
+-- 
+2.43.0
 
-
-[Severity: High]
-This is also a pre-existing issue, but while reviewing the probe path that
-uses the newly assigned device data, I noticed a potential race condition
-with the reset controller.
-
-In mtk_wdt_probe(), the reset controller is registered before the
-has_swsysrst_en flag is initialized:
-
-        wdt_data =3D of_device_get_match_data(dev);
-        if (wdt_data) {
-                err =3D toprgu_register_reset_controller(pdev,
-                                                       wdt_data->toprgu_sw_=
-rst_num);
-                if (err)
-                        return err;
-
-                mtk_wdt->has_swsysrst_en =3D wdt_data->has_swsysrst_en;
-        }
-
-If a consumer device requests and asserts a reset line immediately upon
-registration (e.g. from a concurrent deferred probe), could
-toprgu_reset_update() observe has_swsysrst_en as false before it is
-assigned?
-
-If so, would it skip calling toprgu_reset_sw_en_unlocked() and fail to
-enable software control for the reset bit in WDT_SWSYSRST_EN, leading to a
-probe failure for the consumer device?
-
->  	{ .compatible =3D "mediatek,mt6735-wdt", .data =3D &mt6735_data },
->  	{ .compatible =3D "mediatek,mt6795-wdt", .data =3D &mt6795_data },
->  	{ .compatible =3D "mediatek,mt7986-wdt", .data =3D &mt7986_data },
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819101853.4468=
-1-1-l.scorcia@gmail.com?part=3D2
