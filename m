@@ -1,326 +1,194 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDDF3612FE
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787128918; cv=pass; b=U2TfJY7s9MLodwG7EYt7ltOylGHLAafKm+N4prKRuvO3XizAQsP0Te6z5VmSCctgZ5RUrNvIugpC/nNRTBZ+CuYiqrJSG8X++2FE5NlTfZGqxuWVIZTvmvFEyt11TcD2AcL8RNs/0VngfKcsoLgUAiBU50WGHX5P6aKiUt3luEc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787128918; c=relaxed/simple;
-	bh=3BfFiiwAf1+/kI1Muyq6ShT+hfYrO86ZTzfarrG9ptA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kOjZOgOGlCTDm6tdH4bwJJtjrSCmWPKJSInspkFutTM3WS7MkBgHfZGfZm/R+G7AxNQC8Ykp7/uMWXbULCiIxwx5KVL4kjAODBEmtMV+G7/k7Rr1UcYio2KiDf/5940bK+BNVx2xrBTZBafrxiu91/ilkvLBmjL3/f1KfuRtNAE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vl45wzhD; arc=pass smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0139D4B04BE
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787129086; cv=none; b=F3rUg5FDIJMSZiOr903oL/WspW5WVkfkAJcvuLL/kVIuGlMElejQER4cBwBEtK4HNoLM+rEQDEekjGlvcFC7BW/GfaGFj2oP2nG/GnLESZUcAFqZWBFfgDAFmqNqd/B5KRUvUEzm858POZPRMv8+avkh/eRiXu7qMUqDy31ffs0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787129086; c=relaxed/simple;
+	bh=sd97K6LQlzbVQuCV/CnpqmaoI+hfKWUPMLSOGZkWrNQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HIXQK4eBXoqKM/3iAxjPZG9JmWib/3PyJUGHC3bqIIAHdnxV7DLVbeCKZUkhv1CCnDXLKrj7AF92Ly9ndEoy/jFXrKIL+rKvbKwBLFDk84qFEoW65PNqjRU+Hre6ZFwyCzjhWzCrPTooua9sSqy9JP5Q3slN5MNzyY+lMXvJX1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=pfn5J4H8; arc=none smtp.client-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vl45wzhD"
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5bf959b820cso544268e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 01:41:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787128916; cv=none;
-        d=google.com; s=arc-20260327;
-        b=F+TBwaPkvhJgjzeLzkd+Q6OaadeHztV+vEnYZ8ERt73wh3UVGMOna4ocN2n8ZLOMwI
-         pfAJgWkCqJjhOhoxEiAD67oNHSDK3niCnTy3gv41dorMCsJ9SGcl3Kt3E+AeWUESiJY+
-         Bhnpgszt35+oGs/ZmkVczn0i5OMsu3jyoleGgEAmDU62dlydrIj3Hv91nqoYIRsFndwW
-         ZM2zioVaMJ/hx01rSyfTPbQZmKeecB9z28f2lXYW6Xf8di3yU2+B85vxkifza50GbIOJ
-         vtVBEkdURmiVeNyzw9vR8zxKhSSpr9Tcy8LBMOvb+Y0wara/lxLdZQkim4TsXV1hL+Al
-         ehXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8urY59pjNjHLqA+vvLXnOI8KDExgE9Nk3kW1BcVqWQI=;
-        fh=JK96jJCRfGvOJgKqccAye+RXc0XItuW+5BcKFGE6n5c=;
-        b=bc39oOtEXkSlzBBs8Dp6FN3ipGsm7VtebWasFCI33pKl1n6u6UnT784ae3JuOg47mQ
-         hNZADVLFBGDms0IaGCETeEqzomtEaFPTnj3lqaqwSuJ+RHd6yxO+sOC1++mIQVYUp1Hs
-         6PFnI42g3I8uHBqRSCKhZOdS/exNsDS5UGvnyLa3iZ7NuXMmTNkKVGuN2/CKLq4GoHGU
-         BxVFod4/IHXdsWPS4rxgBjz7wDRC96Z0NhadrQWUi4/AAjvUSeyJwsS5bUi4wSYKwX0K
-         DORUaBUlXqN8lGK6iEAhcCcZpQNGfmeyAxzsmEBUf3D/y/nzUkrAj8q2n9Vh/gfO2YV5
-         EHjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787128916; x=1787733716; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8urY59pjNjHLqA+vvLXnOI8KDExgE9Nk3kW1BcVqWQI=;
-        b=Vl45wzhDfonyKLJeWgrusN5lX8bIa/JVlm9f+lDm3AaAiMzsbnCLWyxPwrn3cE46L+
-         jS49OnTm626AKAU7eC681EUPSaDYMNjAqJvUEqcwbef/szsASQapgU4W+w0UVcEHC2ca
-         snUsyQN474E9DNDE3vOA0BB/217oBVg7O5ilgUnZKE0tfQifK0aQZTDw4DLNRb2JWwPz
-         JUQEdTnXT3lGHxZX4KUtp+j0e4Rpdj2BDav/Va4epp4JT4yDBeK609rsNiN7StdmwefN
-         sPdGr6Bl6r1Jl34i1401zNUDeJ4Intj4U/7yx+CKIHSERM9uZHNNSDL3oAvVTPwhm1dC
-         1GUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787128916; x=1787733716;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8urY59pjNjHLqA+vvLXnOI8KDExgE9Nk3kW1BcVqWQI=;
-        b=sxGMP64RauVKXKIktrE8tB4p6THN95u6eZjN9+nB9WwVd89Cf3Iw5jZx6uPju9HZX7
-         R23QJH+x70RM4pNcYqNQGDLJoiQ2qaW6hZ1P2tEjyEDAx8afBRhLrzeet33OYAC0ZhSy
-         XLYMDOWhFTShfbSwtUDMJH/HXI6aGq7nGQHacDT3BRTWM+Zw0SaG5NPbWggQabo15Jqm
-         Cy9x5VsMSFGlYjR+b/bm9QoBV4tooWeieLdnEwIv1NWjVXOrLAeev7hBnpj5r/teMWmw
-         e1L0/uzjwsNeZPPu6sYXha5duleP2blkn0eUfEfkqYhE3tQB9ir0Sd+aHxWIrQcobnSe
-         STkQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr5I6p/ObAYjfuZjjWYurjOblGv6zbE4mqqx2dQT9yPEkOu5nYCjb8kiKkjfFApDeNEUgXJ/e89nhPq@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQZPfPw8bPCumuSLvqjXSuAVUwj3NCPiSOk2eDrn5dv19njpNn
-	fXqWHzcql/serrlgaDKVFC9+8IbpvKix+ZbcOcumEF0usHn1nvUFIccrPXS3UfgyT3TYNO9SzBO
-	4w4O1voylXN5s4gxV+TgAcBD2/+L0BULbw1PK
-X-Gm-Gg: AR+sD12CztQvCGziqx2gG4WJNyoMgoe8bCayTUx11sEXe4OXArUAASoDy/hBd+7zvwF
-	Q72Piq8ESwDNzcdiDK5iEkm4nlEgWwAqNo37/+/NUdHXpCC0c1IoO8UHXIokHt76CHbrqOHMDue
-	+9mfmPANAY2U6Yd1W90WSGOR8y1/1Id4N52yERtLBTPYuqOuOynw6J6cxbtFx9ZO0PdJA+jyKz1
-	FHYGPc3fMZzbb5ibeasjXogRkN7SKcgwuh91CiL1NjUbj33YUYAkLoaVGDUCZ5BQHNW14RQSteF
-	4SK/cSEX+e2lYcr2c5QAAUbBsqVT3LMfl++z9t7z1K+FKQ==
-X-Received: by 2002:a05:6102:161f:b0:778:86f2:9f26 with SMTP id
- ada2fe7eead31-77886f2a082mr37416137.9.1787128915750; Wed, 19 Aug 2026
- 01:41:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="pfn5J4H8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787129073; x=1787388273;
+	bh=Yhs/KUzvuwpk/qtsf9pNgHwEgS1uh0dEXULoHEIlBM4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=pfn5J4H8yQ8ZmqsBfsO6M4Xt/4tJfjLHcQs58OiPmhqRTSZkB2nkGfNPWFFLkfypS
+	 6y2A+XRFxNPG3d2wVl9cPT7euwnVq9s9ogbG1Q0do57UffwhX3UX4LugEEDgD23eAO
+	 51zIoPpMjeLr2TWw4ZP7ilLuQuSm+htLFbQRpFrp50cHLOkgug8M/XmHN9cqF2gHUs
+	 czwNrxomPwX58AiefaMgOLVvVdJklXtrANSqKgRhiRN2LyxXB7q3+WG1z3VkXYD4Tv
+	 RAmaGFuxeaGMrC8RmImOd+NrShEI7dXGHlkew/tAoQw6BdHxRtbnpIFNCqhhjLhGvC
+	 vNEhfFwxUxd0w==
+X-Pm-Submission-Id: 4hQ0Vl5p6bz2ScX8
+From: Esben Haabendal <esben@geanix.com>
+To: <sashiko-bot@kernel.org>
+Cc: <sashiko-reviews@lists.linux.dev>,  <devicetree@vger.kernel.org>,
+  <robh@kernel.org>,  <conor+dt@kernel.org>
+Subject: Re: [PATCH RESEND v5 4/6] iio: accel: mma8452: Support interrupt
+ sharing
+In-Reply-To: <20260819082547.783CD1F000E9@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Wed, 19 Aug 2026 08:25:47
+	+0000")
+References: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
+	<20260819-mma8452-open-drain-v5-4-d8aa590d7c36@geanix.com>
+	<ZLyemjqlxP-U6rRBNInlQp7sJfLwB7tJI9VWCglK8nFiCOY4u4NidOdROFOLcLNAR4zA0F31qVjeiKNA0XIfBw==@protonmail.internalid>
+	<20260819082547.783CD1F000E9@smtp.kernel.org>
+Date: Wed, 19 Aug 2026 10:44:30 +0200
+Message-ID: <874igq1oup.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813-ti-ads112c04-driver-v5-0-79dff9e249cd@gmail.com>
- <20260813-ti-ads112c04-driver-v5-2-79dff9e249cd@gmail.com> <aoK0TKBFZOM6A-c9@ashevche-desk.local>
-In-Reply-To: <aoK0TKBFZOM6A-c9@ashevche-desk.local>
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Wed, 19 Aug 2026 16:44:57 +0800
-X-Gm-Features: AcwNN1U1qO4YlqvB8O0_hUo3PGFSVQ-Z3F4l0I7bSc9D15VtcM0F22sunImImrQ
-Message-ID: <CAF7HswNz9a86ZooYmSghh8w1c5Y0VitBhOOAasm04-Ln8K4O2Q@mail.gmail.com>
-Subject: Re: [PATCH v5 2/2] iio: adc: ti-ads112c04: Add support for TI ADS112C04
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 17, 2026 at 3:12=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Thu, Aug 13, 2026 at 11:06:03AM +0800, Kyle Hsieh wrote:
-> > Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
-> > delta-sigma ADCs.
-> >
-> > The driver implements:
-> > - Single-shot conversions using the IIO raw read interface.
-> > - Dynamic parsing of single-ended and differential channels from
-> >   device tree child nodes.
-> > - Hardware interrupt support via the DRDY pin, falling back to
-> >   software polling if no IRQ is provided.
-> > - Per-channel reference source selection (internal 2.048V, external
-> >   REFP/REFN, or AVDD) via the reference-sources device tree property.
-> >   refn-supply is not yet supported.
-> > - Hardware reset via the reset controller framework, falling back to
-> >   the RESET command when no reset controller is present.
->
-> ...
->
-> > +static int ads112c04_wait_for_data(struct ads112c04_state *st)
-> > +{
-> > +     int ret, err;
-> > +     u8 val;
-> > +
-> > +     if (st->client->irq > 0) {
-> > +             /* Timeout is 100ms (slowest data rate is 20 SPS) */
-> > +             if (!wait_for_completion_timeout(&st->completion, msecs_t=
-o_jiffies(100)))
-> > +                     return -ETIMEDOUT;
-> > +
-> > +             return 0;
-> > +     }
-> > +
-> > +     ret =3D read_poll_timeout(ads112c04_read_reg, err,
-> > +                             (err < 0 || (val & ADS112C04_CONF2_DRDY))=
-,
->
-> Better to split logically, also the outer parentheses are redundant.
+<sashiko-bot@kernel.org> writes:
 
-Fixed in v6.
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
 >
->         ret =3D read_poll_timeout(ads112c04_read_reg,
->                                 err, err < 0 || (val & ADS112C04_CONF2_DR=
-DY),
+> New issues:
+> - [High] Failed runtime suspend leaves the `suspended` flag set to `true`,
+> causing an unrecoverable PM usage counter leak and a potential interrupt =
+storm.
+> - [Low] Compilation Error: undeclared variable `client` used in `mma8452_=
+runtime_suspend`.
 >
-> > +                             1 * USEC_PER_MSEC, 100 * USEC_PER_MSEC, f=
-alse,
-> > +                             st->client, ADS112C04_REG_CONFIG2, &val);
-> > +     if (err < 0)
-> > +             return err;
-> > +
-> > +     return ret;
-> > +}
+> Pre-existing issues:
+> - [High] Unbalanced `regulator_disable()` calls and I2C writes to a power=
+ed-off device in `mma8452_remove()`.
+> --
 >
-> ...
+> --- Patch [4]: [PATCH RESEND v5 4/6] iio: accel: mma8452: Support interru=
+pt sharing ---
+> commit 79ad9089167d804daaa97086d058cd3a0e2f4199
+> Author: Esben Haabendal <esben@geanix.com>
 >
-> > +     case IIO_CHAN_INFO_SCALE:
-> > +             switch (st->vref_source[idx]) {
-> > +             case ADS112C04_VREF_SOURCE_EXTERNAL:
-> > +                     *val =3D st->ext_ref_mV;
-> > +                     break;
-> > +             case ADS112C04_VREF_SOURCE_AVDD:
-> > +                     *val =3D st->avdd_mV;
-> > +                     break;
-> > +             default:
-> > +                     *val =3D ADS112C04_INT_REF_mV;
-> > +                     break;
-> > +             }
-> > +             *val2 =3D 15;
+> iio: accel: mma8452: Support interrupt sharing
 >
-> Seems like this being used in one of the above functions already. Perhaps=
- you
-> want a defined constant? (I haven't checked if that 15 and this one are
-> semantically related, though.)
+> This commit adds handling of runtime PM suspension in the interrupt handl=
+er
+> to allow sharing interrupts with other devices. It introduces a suspended=
+ flag
+> and uses synchronize_irq() to protect against race conditions during runt=
+ime
+> suspend and device removal.
+>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index 1fb43c5b0b72f..25bb2dd69381e 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+> [ ... ]
+>> @@ -1056,14 +1057,19 @@ static irqreturn_t mma8452_interrupt(int irq, vo=
+id *p)
+>>  	struct iio_dev *indio_dev =3D p;
+>>  	struct mma8452_data *data =3D iio_priv(indio_dev);
+>>  	irqreturn_t ret =3D IRQ_NONE;
+>> +	int pm_status;
+>>  	int src;
+>>
+>> +	pm_status =3D pm_runtime_get_if_active(&data->client->dev);
+>> +	if (pm_status =3D=3D 0 || READ_ONCE(data->suspended))
+>> +		return IRQ_NONE; /* device is powered down or being removed */
+>> +
+>
+> [Severity: High]
+> If mma8452_runtime_suspend() in drivers/iio/accel/mma8452.c fails and
+> leaves data->suspended set to true, can this early return cause a PM
+> usage counter leak and an interrupt storm?
+>
+> If the device is kept in the RPM_ACTIVE state after a suspend failure,
+> pm_runtime_get_if_active() will return 1. Because data->suspended is true,
+> the handler will return IRQ_NONE immediately.
+>
+> This skips pm_runtime_put_autosuspend(), leaking the usage counter. Also,
+> by returning IRQ_NONE on a shared level-triggered IRQ without clearing the
+> hardware interrupt, wouldn't this trigger an interrupt storm?
 
-They are - both come from the 16-bit signed conversion result. Added
-ADS112C04_RESOLUTION_BITS and used RESOLUTION_BITS - 1 in both places.
->
-> > +             return IIO_VAL_FRACTIONAL_LOG2;
->
-> ...
->
-> With
->
->         const char *sp =3D "single-channel", *dp =3D "diff-channels";
->
-> The below...
->
-> > +             if (fwnode_property_present(child, "single-channel")) {
-> > +                     ret =3D fwnode_property_read_u32(child, "single-c=
-hannel", &channel);
-> > +                     if (ret)
-> > +                             return dev_err_probe(dev, ret,
-> > +                                                  "failed to read sing=
-le-channel property\n");
-> > +
-> > +                     if (channel > 3)
-> > +                             return dev_err_probe(dev, -EINVAL,
-> > +                                                  "single-channel must=
- be 0-3\n");
-> > +
-> > +                     spec->channel =3D channel;
-> > +                     spec->address =3D ADS112C04_CONF0_MUX_AIN_SINGLE_=
-BASE + channel;
-> > +             } else if (fwnode_property_present(child, "diff-channels"=
-)) {
-> > +                     ret =3D fwnode_property_read_u32_array(child, "di=
-ff-channels",
-> > +                                                          pair, ARRAY_=
-SIZE(pair));
->
-> + array_size.h
+Yes, I make sure to call pm_runtime_put_autosuspend() when
+pm_runtime_get_active() returns 0 and suspended flag is set.
 
-Added.
+Also, I guess we should not set the suspended flag until after checking
+the return value from mma8452_standby() in mma8452_runtime_suspend().
+
+In case one of the regulator_disable() calls fails, the suspended flag
+will be left set to true. But as the device is in standby, no interrupt
+storm should happen.
+
+> [ ... ]
+>> @@ -1768,12 +1778,15 @@ static int mma8452_runtime_suspend(struct device=
+ *dev)
+>>
+>>  	mutex_lock(&data->lock);
+>>  	ret =3D mma8452_standby(data);
+>> +	WRITE_ONCE(data->suspended, true);
+>>  	mutex_unlock(&data->lock);
+>>  	if (ret < 0) {
+>>  		dev_err(&data->client->dev, "powering off device failed\n");
+>>  		return -EAGAIN;
+>>  	}
 >
-> > +                     if (ret)
-> > +                             return dev_err_probe(dev, ret,
-> > +                                                  "failed to read diff=
--channels property\n");
-> > +
-> > +                     if (pair[0] > 3 || pair[1] > 3)
-> > +                             return dev_err_probe(dev, -EINVAL,
-> > +                                                  "diff-channels must =
-be 0-3\n");
-> > +
-> > +                     spec->channel =3D pair[0];
-> > +                     spec->channel2 =3D pair[1];
-> > +                     spec->differential =3D 1;
-> > +
-> > +                     if (ads112c04_diff_mux[pair[0]][pair[1]] < 0)
-> > +                             return dev_err_probe(dev, -EINVAL,
-> > +                                                  "invalid diff-channe=
-ls combination\n");
-> > +
-> > +                     spec->address =3D ads112c04_diff_mux[pair[0]][pai=
-r[1]];
-> > +             } else {
-> > +                     return dev_err_probe(dev, -EINVAL,
-> > +                                          "channel node must have sing=
-le-channel or diff-channels\n");
-> > +             }
+> [Severity: High]
+> If mma8452_standby() fails, should data->suspended be reverted to false?
 >
-> ...can be written as
+> When returning -EAGAIN on failure in drivers/iio/accel/mma8452.c,
+> leaving data->suspended set to true creates the inconsistent state that
+> breaks mma8452_interrupt() as noted above.
+
+I will move the WRITE_ONCE() to after checking the ret value, so we
+don't leave suspended set to true in this case.
+
+>> +	synchronize_irq(client->irq);
+>> +
 >
->                 if (fwnode_property_present(child, sp)) {
->                         ret =3D fwnode_property_read_u32(child, sp, &chan=
-nel);
->                         if (ret)
->                                 return dev_err_probe(dev, ret, "failed to=
- read %s property\n", sp);
+> [Severity: Low]
+> Does this code compile?
 >
->                         if (channel > 3)
->                                 return dev_err_probe(dev, -EINVAL, "%s mu=
-st be 0-3\n", sp);
+> There is no local variable named client in mma8452_runtime_suspend() in
+> drivers/iio/accel/mma8452.c. The I2C client is available via
+> data->client or to_i2c_client(dev), so using client->irq directly
+> appears to cause a compilation failure.
 >
->                         spec->channel =3D channel;
->                         spec->address =3D ADS112C04_CONF0_MUX_AIN_SINGLE_=
-BASE + channel;
->                 } else if (fwnode_property_present(child, dp)) {
->                         ret =3D fwnode_property_read_u32_array(child, dp,=
- pair, ARRAY_SIZE(pair));
->                         if (ret)
->                                 return dev_err_probe(dev, ret, "failed to=
- read %s property\n", dp);
+> [ ... ]
 >
->                         if (pair[0] > 3 || pair[1] > 3)
->                                 return dev_err_probe(dev, -EINVAL, "%s mu=
-st be 0-3\n", dp);
+> [Severity: High]
+> This is a pre-existing issue, but I noticed a potential problem during
+> device removal in mma8452_remove() in drivers/iio/accel/mma8452.c:
 >
->                         spec->channel =3D pair[0];
->                         spec->channel2 =3D pair[1];
->                         spec->differential =3D 1;
+> drivers/iio/accel/mma8452.c:mma8452_remove() {
+>     ...
+> 	pm_runtime_disable(&client->dev);
+> 	pm_runtime_set_suspended(&client->dev);
+>     ...
+> 	mma8452_standby(iio_priv(indio_dev));
 >
->                         if (ads112c04_diff_mux[pair[0]][pair[1]] < 0)
->                                 return dev_err_probe(dev, -EINVAL, "inval=
-id %s combination\n", dp);
+> 	regulator_disable(data->vddio_reg);
+> 	regulator_disable(data->vdd_reg);
+> }
 >
->                         spec->address =3D ads112c04_diff_mux[pair[0]][pai=
-r[1]];
->                 } else {
->                         return dev_err_probe(dev, -EINVAL,
->                                              "channel node must have %s o=
-r %s\n", sp, dp);
->                 }
->
-> (but it also makes sense to check with bloat-o-meter to see how much code=
+> If the device is already in the RPM_SUSPENDED state when mma8452_remove()=
  is
->  added and how much data space is saved).
+> called, its regulators have already been disabled by
+> mma8452_runtime_suspend().
 >
-
-Applied - it also keeps the error messages in sync with the property
-names automatically.
-> ...
+> Because pm_runtime_disable() does not resume the device, calling
+> regulator_disable() again will underflow the regulator enable count. Could
+> this forcefully disable shared regulators and cause system instability?
 >
-> > +     /* Datasheet: POR releases ~500us after supplies are stable */
-> > +     fsleep(500);
-> > +
-> > +     reset =3D devm_reset_control_get_optional_exclusive(dev, NULL);
-> > +     if (IS_ERR(reset))
-> > +             return dev_err_probe(dev, PTR_ERR(reset), "failed to get =
-reset\n");
-> > +
-> > +     if (reset) {
-> > +             ret =3D reset_control_reset(reset);
-> > +             if (ret)
-> > +                     return dev_err_probe(dev, ret, "failed to reset d=
-evice\n");
-> > +     } else {
-> > +             ret =3D ads112c04_write_cmd(client, ADS112C04_CMD_RESET);
-> > +             if (ret < 0)
-> > +                     return ret;
-> > +     }
+> Additionally, mma8452_standby() performs an I2C write. Is it safe to
+> unconditionally access the hardware when it might be powered off?
 >
-> Also a comment here?
->
-> > +     fsleep(1 * USEC_PER_MSEC);
->
-
-Added.
-
-Thanks,
-Kyle Hsieh
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-mma8452-=
+open-drain-v5-0-d8aa590d7c36@geanix.com?part=3D4
