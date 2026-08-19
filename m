@@ -1,200 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5F53D411B;
-	Wed, 19 Aug 2026 07:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D4C3C3F71;
+	Wed, 19 Aug 2026 07:12:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787123481; cv=none; b=mGf1hJbL6LIS54+woLNBNBsnH5dbuHDmo+GmdNPoBau3rUNJLAQ7RGcHji0EgL3uKHbckcVy/yPFVPuXPOggL9MKG92dybnW/GtizOEbELnX/hrHaVVcWMOmXG08xJ9JUKQ2/LuLlY2RuhV3auS/5mbeU8LpIQVyaEIfrN4OKZo=
+	t=1787123561; cv=none; b=EY/h2iOEsxzrKLerbGvmUe+EZJL31oPTqmYAEeMwfrgItlrZ2H/b7ZCHENQt5wTqmpnmr8lDLrq+D5CxO+mf0pWsqsgkETh/vvM5/jMLTeqzizwUoIksPVWHNkC2PCOReojiZKDKi32FfLTLoWbi2AS5fcnVRIl8shPxrMgUCH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787123481; c=relaxed/simple;
-	bh=s3ceQD9FA64b6OgL8dDpxKekMMjE/+2DmbmXun2IYCk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pMFpMuXjqRsgPGNeR26eyRV4K4zoS18OCUPdL4kKsYyLpEQsv+kdN9sKx0BrW7I3dhiHcQDTjQ4CxtSIeu+FPYarz9EfxLwvpOApG6Xu0n+0ZoTNI6eu66GwhUKBQW1oqVB7VQiMHB55P35xLpPRJEEXRHvduXqU2+IvstEJeCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9eIX+Dw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787123561; c=relaxed/simple;
+	bh=VChCLn53i4Y38qwXNzkSFgaFW2SmgnVT5Z75/zQ/CCU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FKW0frVowDfryeF9jqbLgZDHka99jphoNQLbe67sP+gRAI4ZtQPHuINne2zpu7BEr7LsDZFA84EwFTBJRPqN0KSzul/nG+okpe8QVxTgpjru36vNBCy4zcNyNXq7t5acGywwPZt0Zr2mZnWjdEuxy+l9DqGL7h2ONpidObvMT8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OOPSnbyG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9eIX+Dw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14AA61F000E9;
-	Wed, 19 Aug 2026 07:11:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OOPSnbyG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EC4A1F000E9;
+	Wed, 19 Aug 2026 07:12:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787123479;
-	bh=gIVfZ26yePoP1FZxfSSR/1V2uNhgWipvSDB0rEd4Zu4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c9eIX+Dw0S7HGIhilfE+nXTYO4cQbgM0xGjqDrzAl7fLK9wEjr2qKAjH7kSh/I5CQ
-	 8KrQyqu2JgInyQwaSBHxlT/y/I9YPUUMI7VSmNVt+nGcPPnnU+3JtE0ZTcEAF1Wppg
-	 7Kv03XbKMcaP3oQRd1vqwjxUn6wPb6lH6d+GVb9f433gHPeeFQGBGjHZVM0hKiNL79
-	 GV37rt3lQNR3jyN4kn3qWnlluZQb95kdmqCyKZZjkqykCW7tottV2jopNerVoouLxM
-	 XHqVQqAfuW2YJuyrfHhzZw/9ZmkBMJMeEp7wW9gfSzjHES5pgps7I62Y90MVIQWGZ9
-	 4pyp3HdBOOzhQ==
-Date: Wed, 19 Aug 2026 09:11:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "user.email" <zstaseg@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] power: supply: qcom_battmgr: add Xiaomi taoyao
- support
-Message-ID: <20260819-slick-spotted-chamois-962510@quoll>
-References: <20260818151039.409767-1-zstaseg@gmail.com>
- <20260818151039.409767-3-zstaseg@gmail.com>
+	s=k20260515; t=1787123560;
+	bh=/1hthqGw+tWntMKltHFYi4JIa3pLHApQ1hKqPddxZYk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OOPSnbyGliHrETQzCHjttPl3P8HFqaFE7K+KM2sL59LaDyefXxMP3fJHs1CffZAg9
+	 ikcu58ai5kdZj/XLoNgc7Xk32PS4kQ9C1lZa6J+sbz2zMvX43qn4u93bGKejI/g4yx
+	 2rR7wA7z0H8N8nzENf0uQMQz9fVHNazdp3JvacXMANseGtioKlPSI+gUlu/2dvgZQL
+	 KKYun5fGAOtYyajrO9AmhMPTCB0VDrevhwTgtx8l9zo4FkmYgXCUGDk/RlVTEQVzrR
+	 n6J5AgQAKUApkz3O37ru1cQ1sPmRkW44SPhUGTSJZ/qLvu4IF/l9XEeITGkYD7WYTc
+	 XLJN/sa23Vs7w==
+Message-ID: <faf345ec-980b-418d-abf7-6e3c25d1ef3d@kernel.org>
+Date: Wed, 19 Aug 2026 09:12:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260818151039.409767-3-zstaseg@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] dt-bindings: arm: qcom: Add Maili SoC compatible
+To: Yijie Yang <yijie.yang@oss.qualcomm.com>,
+ Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260819054203.61385-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260819054203.61385-2-prasad.kumpatla@oss.qualcomm.com>
+ <9cb0c647-e1bd-40c8-a1db-7a0f6382aeb5@kernel.org>
+ <1a2f89d8-3c9f-4316-a2ca-e515359b012a@oss.qualcomm.com>
+ <16c0cb87-a25f-4d6b-bb52-24c51aa975d9@kernel.org>
+ <4b3d0df7-083f-4acb-a568-99f1f74c933e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <4b3d0df7-083f-4acb-a568-99f1f74c933e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 18, 2026 at 05:10:38PM +0200, user.email wrote:
-> From: Stanislav Zaikin <zstaseg@gmail.com>
+On 19/08/2026 09:02, Yijie Yang wrote:
 > 
-> The Xiaomi taoyao firmware defines an additional BATT_CONSTANT_CURRENT
-> property (ID 12) between BATT_CHG_CTRL_LIM_MAX and BATT_TEMP, shifting
-> all higher battery property IDs by one.
 > 
-> Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
-> ---
->  drivers/power/supply/qcom_battmgr.c | 86 +++++++++++++++++++++++++++--
->  1 file changed, 82 insertions(+), 4 deletions(-)
+> On 8/19/2026 2:35 PM, Krzysztof Kozlowski wrote:
+>> On 19/08/2026 08:28, Yijie Yang wrote:
+>>>
+>>>
+>>> On 8/19/2026 2:09 PM, Krzysztof Kozlowski wrote:
+>>>> On 19/08/2026 07:42, Prasad Kumpatla wrote:
+>>>>> From: Yijie Yang <yijie.yang@oss.qualcomm.com>
+>>>>>
+>>>>> Add the qcom,maili SoC compatible string to the QCOM SoC bindings.
+>>>>>
+>>>>> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+>>>>> ---
+>>>>>    Documentation/devicetree/bindings/arm/qcom.yaml | 3 +++
+>>>>>    1 file changed, 3 insertions(+)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+>>>>> index ff8a35df7862..00d9a493fe76 100644
+>>>>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+>>>>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+>>>>> @@ -175,6 +175,9 @@ properties:
+>>>>>                  - qcom,kaanapali-qrd
+>>>>>              - const: qcom,kaanapali
+>>>>>    
+>>>>> +      - items:
+>>>>> +          - const: qcom,maili
+>>>>
+>>>> Heh? This cannot go alone.
+>>>
+>>> Keep only the SoC compatible string and exclude the board for now, as
+>>> the latter is not currently used.
+>>> https://lore.kernel.org/all/20260622-brainy-rapid-tody-dd7c3a@quoll/
+>>
+>> No, read my message there - this should be rejected! I even wrote:
+>>
+>> "But if ever this commit is used in argument "oh, compatible without
+>> user was accepted here by Krzysztof, so I can do the same", I will
+>> simply NAK such future contribution without reading the rest."
+>>
+>> So NAK because you did not even bother to read what I already stated!
 > 
-> diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-> index 490137a23d00..390d7c75e36f 100644
-> --- a/drivers/power/supply/qcom_battmgr.c
-> +++ b/drivers/power/supply/qcom_battmgr.c
-> @@ -24,6 +24,7 @@ enum qcom_battmgr_variant {
->  	QCOM_BATTMGR_SM8350,
->  	QCOM_BATTMGR_SM8550,
->  	QCOM_BATTMGR_X1E80100,
-> +	QCOM_BATTMGR_TAOYAO,
+> In patch 2/2, pd-mapper serves as the user. Is there any other reason to 
+> reject this binding?
 
-T < X, do not introduce entries in random order
+I already wrote - this compatible cannot go alone. It makes no sense
+alone. Otherwise explain me what are you expressing here? Because commit
+msg did not help me to understand it - it just repeats the diff, which
+is pointless.
 
->  };
->  
->  #define BATTMGR_BAT_STATUS		0x1
-> @@ -451,16 +452,87 @@ static const u8 sm8350_bat_prop_map[] = {
->  	[POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD] = BATT_CHG_CTRL_END_THR,
->  };
->  
-> +/*
-> + * Xiaomi Taoyao firmware has BATT_CONSTANT_CURRENT (ID 12) inserted
-> + * between BATT_CHG_CTRL_LIM_MAX and BATT_TEMP, shifting all subsequent
-> + * IDs by one.
-> + */
-> +static const u8 taoyao_bat_prop_map[] = {
-> +	[POWER_SUPPLY_PROP_STATUS] = BATT_STATUS,
-> +	[POWER_SUPPLY_PROP_HEALTH] = BATT_HEALTH,
-> +	[POWER_SUPPLY_PROP_PRESENT] = BATT_PRESENT,
-> +	[POWER_SUPPLY_PROP_CHARGE_TYPE] = BATT_CHG_TYPE,
-> +	[POWER_SUPPLY_PROP_CAPACITY] = BATT_CAPACITY,
-> +	[POWER_SUPPLY_PROP_VOLTAGE_OCV] = BATT_VOLT_OCV,
-> +	[POWER_SUPPLY_PROP_VOLTAGE_NOW] = BATT_VOLT_NOW,
-> +	[POWER_SUPPLY_PROP_VOLTAGE_MAX] = BATT_VOLT_MAX,
-> +	[POWER_SUPPLY_PROP_CURRENT_NOW] = BATT_CURR_NOW,
-> +	[POWER_SUPPLY_PROP_TEMP] = BATT_TEMP + 1,
-> +	[POWER_SUPPLY_PROP_TECHNOLOGY] = BATT_TECHNOLOGY + 1,
-> +	[POWER_SUPPLY_PROP_CHARGE_COUNTER] = BATT_CHG_COUNTER + 1,
-> +	[POWER_SUPPLY_PROP_CYCLE_COUNT] = BATT_CYCLE_COUNT + 1,
-> +	[POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN] = BATT_CHG_FULL_DESIGN + 1,
-> +	[POWER_SUPPLY_PROP_CHARGE_FULL] = BATT_CHG_FULL + 1,
-> +	[POWER_SUPPLY_PROP_MODEL_NAME] = BATT_MODEL_NAME + 1,
-> +	[POWER_SUPPLY_PROP_TIME_TO_FULL_AVG] = BATT_TTF_AVG + 1,
-> +	[POWER_SUPPLY_PROP_TIME_TO_EMPTY_AVG] = BATT_TTE_AVG + 1,
-> +	[POWER_SUPPLY_PROP_INTERNAL_RESISTANCE] = BATT_RESISTANCE + 1,
-> +	[POWER_SUPPLY_PROP_STATE_OF_HEALTH] = BATT_SOH,
-> +	[POWER_SUPPLY_PROP_POWER_NOW] = BATT_POWER_NOW + 1,
-> +	[POWER_SUPPLY_PROP_CHARGE_CONTROL_START_THRESHOLD] = BATT_CHG_CTRL_START_THR + 1,
-> +	[POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD] = BATT_CHG_CTRL_END_THR + 1,
-> +};
-> +
-> +/*
-> + * Reverse mapping from Xiaomi Taoyao firmware property IDs to canonical
-> + * kernel property IDs.
-> + */
-> +static const u8 taoyao_to_canonical[] = {
-> +	[BATT_STATUS] = BATT_STATUS,
-> +	[BATT_HEALTH] = BATT_HEALTH,
-> +	[BATT_PRESENT] = BATT_PRESENT,
-> +	[BATT_CHG_TYPE] = BATT_CHG_TYPE,
-> +	[BATT_CAPACITY] = BATT_CAPACITY,
-> +	[BATT_SOH] = BATT_SOH,
-> +	[BATT_VOLT_OCV] = BATT_VOLT_OCV,
-> +	[BATT_VOLT_NOW] = BATT_VOLT_NOW,
-> +	[BATT_VOLT_MAX] = BATT_VOLT_MAX,
-> +	[BATT_CURR_NOW] = BATT_CURR_NOW,
-> +	[BATT_CHG_CTRL_LIM] = BATT_CHG_CTRL_LIM,
-> +	[BATT_CHG_CTRL_LIM_MAX] = BATT_CHG_CTRL_LIM_MAX,
-> +	[BATT_CHG_CTRL_LIM_MAX + 1] = 0xff,	/* BATT_CONSTANT_CURRENT - never requested */
-> +	[BATT_TEMP + 1] = BATT_TEMP,
-> +	[BATT_TECHNOLOGY + 1] = BATT_TECHNOLOGY,
-> +	[BATT_CHG_COUNTER + 1] = BATT_CHG_COUNTER,
-> +	[BATT_CYCLE_COUNT + 1] = BATT_CYCLE_COUNT,
-> +	[BATT_CHG_FULL_DESIGN + 1] = BATT_CHG_FULL_DESIGN,
-> +	[BATT_CHG_FULL + 1] = BATT_CHG_FULL,
-> +	[BATT_MODEL_NAME + 1] = BATT_MODEL_NAME,
-> +	[BATT_TTF_AVG + 1] = BATT_TTF_AVG,
-> +	[BATT_TTE_AVG + 1] = BATT_TTE_AVG,
-> +	[BATT_RESISTANCE + 1] = BATT_RESISTANCE,
-> +	[BATT_POWER_NOW + 1] = BATT_POWER_NOW,
-> +	[BATT_POWER_AVG + 1] = BATT_POWER_AVG,
-> +	[BATT_CHG_CTRL_EN + 1] = BATT_CHG_CTRL_EN,
-> +	[BATT_CHG_CTRL_START_THR + 1] = BATT_CHG_CTRL_START_THR,
-> +	[BATT_CHG_CTRL_END_THR + 1] = BATT_CHG_CTRL_END_THR,
-> +};
-> +
->  static int qcom_battmgr_bat_sm8350_update(struct qcom_battmgr *battmgr,
->  					  enum power_supply_property psp)
->  {
->  	unsigned int prop;
->  	int ret;
->  
-> -	if (psp >= ARRAY_SIZE(sm8350_bat_prop_map))
-> -		return -EINVAL;
-> -
-> -	prop = sm8350_bat_prop_map[psp];
-> +	if (battmgr->variant == QCOM_BATTMGR_TAOYAO) {
-> +		if (psp >= ARRAY_SIZE(taoyao_bat_prop_map))
-> +			return -EINVAL;
-> +		prop = taoyao_bat_prop_map[psp];
-> +	} else {
-> +		if (psp >= ARRAY_SIZE(sm8350_bat_prop_map))
-> +			return -EINVAL;
-> +		prop = sm8350_bat_prop_map[psp];
-> +	}
->  
->  	mutex_lock(&battmgr->lock);
->  	ret = qcom_battmgr_request_property(battmgr, BATTMGR_BAT_PROPERTY_GET, prop, 0);
-> @@ -1381,6 +1453,11 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
->  	switch (opcode) {
->  	case BATTMGR_BAT_PROPERTY_GET:
->  		property = le32_to_cpu(resp->intval.property);
-> +
-> +		if (battmgr->variant == QCOM_BATTMGR_TAOYAO &&
-> +		    property < ARRAY_SIZE(taoyao_to_canonical))
-> +			property = taoyao_to_canonical[property];
+So why are you doing this?
 
-So device is or is not compatible with sm7325? Above code suggests that
-it is not. How does it work when bound by sm7325 compatible?
-
-> +
->  		if (property == BATT_MODEL_NAME) {
->  			if (payload_len != sizeof(resp->strval)) {
->  				dev_warn(battmgr->dev,
-> @@ -1617,6 +1694,7 @@ static const struct of_device_id qcom_battmgr_of_variants[] = {
->  	{ .compatible = "qcom,sc8280xp-pmic-glink", .data = (void *)QCOM_BATTMGR_SC8280XP },
->  	{ .compatible = "qcom,sm8550-pmic-glink", .data = (void *)QCOM_BATTMGR_SM8550 },
->  	{ .compatible = "qcom,x1e80100-pmic-glink", .data = (void *)QCOM_BATTMGR_X1E80100 },
-> +	{ .compatible = "xiaomi,taoyao-pmic-glink", .data = (void *)QCOM_BATTMGR_TAOYAO },
-
-And here as well wrong order
-
->  	/* Unmatched devices falls back to QCOM_BATTMGR_SM8350 */
->  	{}
->  };
-> -- 
-> 2.53.0
-> 
+Best regards,
+Krzysztof
