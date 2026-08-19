@@ -1,162 +1,139 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B50208D0
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329E830F7FF
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787109384; cv=none; b=aeVbZsDt+9LGeSU1JIogJxSLjM++8c59N/Fv5QWB4fyY1YglmKOCC+24buZn6I/BYhCSbu//HRCTefSQdJ4SmjiCwE5+RBXSuVYpLuuz+8FqKSA+/jXaQR1Rj6lgq4yJvBQDhA3yvLzULfm6iY6/8OLFukLSyVwmX3FE47u1dCQ=
+	t=1787109437; cv=none; b=mQ2GubOvl47FQbkJr57HpUArSKZOcVbIFqKp8J+XEP8hfPZL8O5kS1l/5Uc7Nhkj2qPSTw8xaeVsUaaKojGjeSAHu5GiBTkjb2Ry+GmZ2eeHMAvjrLXT2rwuMGTj0MDWP8k/Rjd9Qakh8nNx9qMlwx9JW9Vp9npGJT/n+qBNbkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787109384; c=relaxed/simple;
-	bh=Og/uutWqSXDMpsCRwyQ5y4UVlDXT8nuIVOfBTHEmw6Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dx7PQzqyfj4CUe829G6mFxQ5QhXtNz4OhyYxziacbzBtnBWVyqVRERZ+gBkdX37VF9TkrteX8SNw9VfwJRRkQm6nZx5yXohC1+SmG+sWYOXhbc9R3TwBDqGAZ0ARqffWgGpZqc+H3gGyY64wrJP3Y3c2pNdqUovJHI0wvdp8U/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TpSbOVUG; arc=none smtp.client-ip=74.125.227.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787109437; c=relaxed/simple;
+	bh=joxpSdDRFY5uFv+VzmFzchytVDkJh9auHgbzpaaFc9A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cOzuhaJQvddPx7/aopyvI3dmiH7Q34wa0CddZPrX/TnBHoGrVHcNzjyX8E95Mn3o1TR7w4AxYsxgmDrAmJamGllXyZRV95EBarlTyW3MM7X+9Yx2IRnfo/ow7nXYJbKGxHB0rEDA+zbPc/EMmz4SSLnjjO+M6bDuN6HCi84cWQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MKD10HAi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=baU9/qMZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TpSbOVUG"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-38dc4f9462cso162514a91.0
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 20:16:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MKD10HAi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="baU9/qMZ"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67J2lU6c2669717
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:17:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=hlINreYE20QvbsWRKB9jJ8Pm
+	iH1RXUH6T14QxKnWCfc=; b=MKD10HAij2FTSYD0ZvGUvqWzQe4gp0AuieSRRL4f
+	zOpCwdGVWL9buJcvaq1Dsbr/62HdqQz2INQ3tauntBiKGcEIl4IfAXbDr2y94NCO
+	jt1KGQZT732OqFtd6o/DmNLxnjLET8JfilisLdyWRwMeMcfexw/O14+LSaolgvwP
+	iRaLjExWfrBC2RRMYGWsllqxNmK8I6uuU76aGA9hFd96DUiJXe8pGOgjcVT4W11J
+	Ydq0uXMofF0EjIlCc6/FynF8/6pEsFpAsu8iQD6RXDKUNP4iQtiWuxVjj/dFFO2f
+	Zyltx3vj66IbPeQEcLq5vDJo2KGMhuIADDKAIG7NkXheNA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfkh37t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:17:15 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92efd2ca21aso110069785a.0
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 20:17:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787109381; x=1787714181; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y7sdpc4i3FhZtnK/5yqCR/sO4q2wvmyIj6tyoETyR9k=;
-        b=TpSbOVUGDwrT/6aqb4SqyN2HEL1p7zGEa/GCxeBUrr0qgMNRpaoxFg04UUfzVSEozt
-         5s67SMRJROfJQWkqGRXdYaRBXXY4g2NHNuryglhETWrharm+DCu82ul7cikume8dMzdi
-         MMOfUZASuBr7ENLMvMdVSlh6qjJjbwXShjs2IVjQy547PZ5rvA9GskfEBtSTxXQ5mmQZ
-         y2wYYh42ZntXzXRuucmHcWHUe9/8KUoUfz6gSPDr4CuMzrCbGPdzf9pbQrlNP10EYDxO
-         a9BDBGCYBY620tZrTINbIc3gqwt8YhbeT18S6nYTKCZN5/j//CQRy3joUcWJd3Pz/lQZ
-         JIRA==
+        d=oss.qualcomm.com; s=google; t=1787109434; x=1787714234; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hlINreYE20QvbsWRKB9jJ8PmiH1RXUH6T14QxKnWCfc=;
+        b=baU9/qMZXoSrRgPZxBcqSO6W3k6Ch5wc59p4Ce5RGB2y2HfTA64/a7w0jtSOsCtJ8R
+         yGs2gzgxdHKjLnToqkV3pHF5gBFl3tenXQ9KNEGmgtxh2oFglvMrsYjjJXmvOrd+m+iu
+         9WuxFbQvdPe7heZ60sOZyg6z/YSyJtVTaLXIJrabTRDGST1NgjY3pLMdgviy+9CXE7hs
+         /te68wUV/QosO0zGDLN4ENWixecFEUfruSfH9/CDSk3s1fPiZpUtrp7cHkINr5YBqDGf
+         pB1ZqQVUOdur1jyokDdW2Qxh2jYN67Oq+VWATnPXPxQdsnEwPn7UNG9YF5sXDUzlJE33
+         PtOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787109381; x=1787714181;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y7sdpc4i3FhZtnK/5yqCR/sO4q2wvmyIj6tyoETyR9k=;
-        b=hIBzZPmaNNeH8OuR4dKj0lxKHk2FgjkRmn6snuOGKW/uqFagjOUk2lZvwsexpb2trc
-         xvilVlCDh7X0LTL3LWPSMxfiaQYGnPG9t3BzwHr44Gugb/OmwPUtLF9VAYLZWCJLb1oY
-         gKx1olLqtFLHbtQ2ID5E0PADibWkr5Y6h53GsrvYb/8pT7KlEFqyNN91cnjVNtoZY8SV
-         Xb8HM1eyjI7p4KEisreRF0kswj45i24+G4XRZy6EMeEYiDThHTeXK4a8vUCK8LtynXua
-         UNuTfrfBF9AhgB9CLIhAfKjCjbzMUyXFMtwmgj+ExCQeUn1Fb46wnzb1hWepHDTFpygP
-         v6ZQ==
-X-Gm-Message-State: AOJu0YwgxvMO63zuO9JzLd2ji4E59HZyJ4eX9L9fVDEIXMaQVIT5H3eC
-	g/FZuOl+oLJ/9+M0l/LpNrU5EcZO2ip76weR/Gmue5FXd2VZeP9/ouYY
-X-Gm-Gg: AR+sD13nX0Steu7ceQFY8S8RyH4SYC/OGc1KnhoKWoyAh4xJDWTI3lut/N08GlNVWzN
-	/2ZQA6EQFhetELR4yMNMC52+QvaFyfbvcUex56pt89t23m8iQwmuVWcuBHif4u0H4CTW8HxsBBm
-	3eA9+XlVRN6BI8f2RZa2qiWdMcqY2M4vEfUJAHKM3ClJvXrPNPPBmsEY6bm86bsqcxkWtr+ZzK0
-	QcXry+GA9khuwnIyule9gjG/vnprCxKp0BFquRGjZY5Whgl9RoEU+dX5b7M0NYKX/vMEhQvO1En
-	PiL0MBaQeolYs5fW57EvVUnqPaddsli4QW3cbCMkUAC+Gt/IGYG3OxjSp1vJLIrfr5cOTx5QwpM
-	Blh0NpzmLux768672lE3e4wgzxkpfoQmv75lgCxo/1KxoLyg2sR8CuOu5AG+z+jxLqZcUy/NXZf
-	vprlqX/qacOROVCpX3o8bDhl1R2Htyzcfr3Rxae0wiLMRoeS8OEoQn5Jc+rqXrz8BIP2g=
-X-Received: by 2002:a17:90b:1e53:b0:38f:bbc:6a0f with SMTP id 98e67ed59e1d1-39580ecefbemr2777693a91.1.1787109381266;
-        Tue, 18 Aug 2026 20:16:21 -0700 (PDT)
-Received: from [10.125.112.20] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957f9ad013sm846585a91.7.2026.08.18.20.16.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 20:16:20 -0700 (PDT)
-Message-ID: <71b25c0f-9efd-4d8f-9bca-6d2d267d5ed7@gmail.com>
-Date: Wed, 19 Aug 2026 11:16:16 +0800
+        d=1e100.net; s=20251104; t=1787109434; x=1787714234;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hlINreYE20QvbsWRKB9jJ8PmiH1RXUH6T14QxKnWCfc=;
+        b=A+HKTuxF2kZ1hOA4JMCE3rBDg/ZXcCwEOmC2Oh035RfIPklvXX0rYji1LzVODX5y/I
+         HdcwbCb8KSTN5i+57k2jE9T2Roq4MOUHYpf4OFc7Ma4Pdxu/NU2Kx8JplOr0FrsV3up+
+         XeiEoW3aFPc+6z91+IV50VolxDV8mQ9O9/Uk1k92hj6Ahew+SlbN+0Xi1aLkUd4vRTtN
+         2OqErkA8dtqcZLsLF2zOTKrZPpuqbGRcgo5FjVSrZPK3q3/XX98trTfK32ZHOnV2wG/f
+         3LhUlkIrgn1bgyMK+TLeKREKrbS6e/4bBgxyO5Nab/HZoV7e0qTlYuGEL0keWYyY56Wo
+         Ui4A==
+X-Forwarded-Encrypted: i=1; AHgh+RqOSoSlOCGgbjszJ0UNDOTrvKgVMpeN2swXef73Wpmb5TLHJO32pLWO/bXQlvZLmb/mBI0iYU+ji5+P@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzts1hd7iV3bkxbXSYqJih7e3Ctba8oY/ZNc/W8WN+xvTWVbMF9
+	1Mmv6yU1d22+kRWkDjUOQ63Cci0MKBqP+YMH3KwWbx7Xqua2AnCvxEd3awLPydSSGY1ydAJvsMc
+	IrQivSBRIUvpLVKIEQpjKiWzgI6o0pCYP0CV1MerKoD5n+/21jgVduJ+jjcqX6GfM
+X-Gm-Gg: AR+sD12r15JzPUM+iuL3CFJZmg0OsnPjEX3PE0ojL+71HgbHg9pdt4u4slb3Y48GkT6
+	GNVbT6Dk3EHU3ikW9eRMhsDRu1rcJ6/ABne0AOTfnmfFDdEoDGJK0oYYbr9lLAgd7JhmkrOejTt
+	Mmw/BReLwHgeAlJF2DnlknNrSnM7HxLTRTtoTa8FX60+X35cquVu2TNbJEFTFFvsWKmf2XlEyeY
+	hhsVOg/FhLUShL1eT5dKTPZxJIecmouTCkNB0BdiGMkrUfBTosuFvwjnX1Ga1vzTQSPC+Fe+tH+
+	8Lzv5SjjYKiKz/0Uq2EBlzEx+INaWzxKfWyccjd8qP4Orf9LUbGvcK6kzhzcv0c+Qgi3JjeeCZc
+	gTWKbL8AKJ7eWITw=
+X-Received: by 2002:a05:620a:4084:b0:936:77d7:55a4 with SMTP id af79cd13be357-9371e2451a8mr196564285a.19.1787109434338;
+        Tue, 18 Aug 2026 20:17:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:4084:b0:936:77d7:55a4 with SMTP id af79cd13be357-9371e2451a8mr196558485a.19.1787109433837;
+        Tue, 18 Aug 2026 20:17:13 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa17567asm23713175e9.10.2026.08.18.20.17.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 20:17:12 -0700 (PDT)
+Date: Wed, 19 Aug 2026 06:17:10 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Sreeshankar K <sreeshankar0910@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org,
+        konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org,
+        bmasney@redhat.com, lpieralisi@kernel.org, quic_tdas@quicinc.com,
+        danila@mainlining.org, davidwronek@gmail.com, robimarko@gmail.com,
+        linux@gurudas.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-pm@vger.vger.kernel.org
+Subject: Re: [PATCH 08/12] pmdomain: qcom: rpmhpd: Add RMPh power domains for
+ SM7250
+Message-ID: <qzwjmmrxlg7s7dozxqeadokfpyvwbcdgknddysgewvgbw35od2@cnhnpmur73zm>
+References: <20260818080754.4362-1-sreeshankar0910@gmail.com>
+ <20260818080754.4362-9-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] of: reserved_mem: retain static no-map memory on
- init failure
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260818092420.2859026-1-chenwandun1@gmail.com>
- <20260818092420.2859026-6-chenwandun1@gmail.com>
- <20260818093450.AE0AB1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <20260818093450.AE0AB1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818080754.4362-9-sreeshankar0910@gmail.com>
+X-Authority-Analysis: v=2.4 cv=NoPhtcdJ c=1 sm=1 tr=0 ts=6a85203b cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=wUpz7uCjLrEXi01cjX+DLw==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=e_63XvbMukAsnnsCD6UA:9 a=CjuIK1q_8ugA:10
+ a=Z0LeWUw4VpMA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: UKmdF884l0PA3UusWC7wcIa2SoZrTt55
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDAyMSBTYWx0ZWRfX6oUxoArHWMzX
+ 3rDL+Twlh19HH29d3wNp9jRt4sPJMOkNaMXVhlgCCsmnenizK5z5g2nIQ6eHFqWOFupb2CliOJV
+ j/Az27HtbQNuyFLhhn/u6TP4sobKheA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDAyMSBTYWx0ZWRfX/Pts2dtszipj
+ YP+VkKsYtKx4liz/4Ks7URlhlPDj13mQGWYbR1Rvv4ax1WYyx5eWh/mpkQG7HW8HEjkAF5o1ai7
+ pMg/RGMZTpcxUxdA6hW1bY6NyxPIigcb94JtJHxwA3/0SmQ6gZO8T5Bkn4BN4NPBshiKIL/FkCQ
+ mTIIzLSL7cI41FjOQXWFDFFPZFue5Bg+oIgz6yR5UTcUEpPkNpMeHqIgu6az1m8LmISv522ss/i
+ UrUuio8YlGLB7aceStof2583s6gNtlnSzXBJIvQXG43O7cnYo6SAU8R0/ML9wQcl0rkc8UuysG/
+ dmusl4/U25FtCRVngRDAHyBVVg6Ef3tEDF/rQ4URCYoiWaHh3zzdz3V3xo4/jJgwbCOgacm/3+O
+ R5Bp9YJR8rrRbPSWf7jRt4AITyiJY6Xo0nnZhIdV8bogiqHtj04F1KLnj2iMstdfv4g3gNdKkhM
+ t4UT3WPq2VYZ8PRzBjQ==
+X-Proofpoint-GUID: UKmdF884l0PA3UusWC7wcIa2SoZrTt55
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_01,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501 phishscore=0
+ spamscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190021
 
+On 26-08-18 08:07:50, Sreeshankar K wrote:
+> Add RMPh power domains for SM7250 SoC.
+> 
+> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
 
-
-On 8/18/26 17:34, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] In `__reserved_mem_alloc_size`, an allocation error when marking a region as `NOMAP` is ignored, leading to a use-after-free of memblock memory.
-> --
-> 
-> --- Patch [5]: [PATCH v2 5/5] of: reserved_mem: retain static no-map memory on init failure ---
-> commit 35ad8d6e4b86dc63d754a8415950fc7ab54dfce4
-> Author: Wandun Chen <chenwandun@lixiang.com>
-> 
-> of: reserved_mem: retain static no-map memory on init failure
-> 
-> Clear MEMBLOCK_NOMAP only for dynamically allocated regions on init failure.
-> Static regions are initialized after paging_init() and should retain their
-> memory states.
-> 
-> Link: https://sashiko.dev/#/message/20260814090305.4C8741F00A3D%40smtp.kernel.org [1]
-> 
->> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
->> index a0df075a9902e..0c5163ce601ea 100644
->> --- a/drivers/of/of_reserved_mem.c
->> +++ b/drivers/of/of_reserved_mem.c
->> @@ -708,7 +708,7 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
->>  		pr_info("node %s compatible matching fail\n", rmem->name);
->>  		rmem->name = NULL;
->>  
->> -		if (nomap)
->> +		if (dynamic && nomap)
->>  			memblock_clear_nomap(rmem->base, rmem->size);
->>  
->>  		if (dynamic || !nomap)
-> 
-> [Severity: High]
-> This is a pre-existing issue, but while looking at reserved memory error
-> handling in this file, I noticed a potential memory corruption when dynamic
-> allocation fails.
-> 
-> In early_init_dt_alloc_reserved_memory_arch(), the base address is assigned
-> before the nomap check:
-> 
-> base = memblock_phys_alloc_range(size, align, start, end);
-> ...
-> *res_base = base;
-> if (nomap) {
->         err = memblock_mark_nomap(base, size);
->         if (err)
->                 memblock_phys_free(base, size);
-> }
-> 
-> If memblock_mark_nomap() fails, the memory is freed, but *res_base still
-> holds the freed address instead of being cleared.
-> 
-> Then in __reserved_mem_alloc_size(), the code checks the base address instead
-> of the return value ret:
-> 
-> ret = early_init_dt_alloc_reserved_memory_arch(size, align,
->                                                0, 0, nomap, &base);
-> if (ret == 0)
->         pr_debug("...");
-> 
-> if (base == 0) {
->         pr_err("failed to allocate memory...");
->         return -ENOMEM;
-> }
-
-Repeated questions;
-
-The reason of memblock_mark_nomap fails only can be out of memory, and this would
-trigger panic because memblock is not allowd resize before paging_init.
-
-> 
-> Since base contains the freed address instead of 0, does this allow the
-> freed memory to be registered and later handed out by the buddy allocator
-> while still being incorrectly used as reserved memory?
-> 
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
