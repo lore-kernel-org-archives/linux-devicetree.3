@@ -1,108 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DE147DD44
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED3A2D8796
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787152008; cv=none; b=MG18x1aw9vqvlmBTv5J7azZND2zu9P2r1A9OPjCQL9xZuzov6aZ3YbD/huCErFJ1YEl58J+uqq9pWid/ya6Psqp90nJt0dXIpUg3lug7uAE+8nC0b4/BcyzQltEnvOrYOTVuQF+1lTWQDdr+qKsiwhPcXQo+Gz1tAgX1GZXqCWQ=
+	t=1787152165; cv=none; b=qkZnFbt3swdVrXjaK4Gdv96fLU34UnakxQjdF/lEgYQr/1UKa4gPp5LPQuHvtSxb7eczxuuSrYh+oUscNg1/6KVh/3cjj8fbKTTLKeTIUr11BCbT+Xmdw6JQBProOQfFeQTxyXWuQZijHfQO1t16fQwxhH6ucsXUaEHXuF9ZOZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787152008; c=relaxed/simple;
-	bh=uhZYR64F5Rm2eo9Iq+ivOHQrJ2K1Gfen7bx3xRIJIEI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J8nlWjGY5yGQBMU63wJLAbFh9nz4B1LUnNMnyZyNwhnjeOuy23SjZUUPbR+slH3HjY27um7uYSXUKgkWVDI187c5cTXZvOGjj3JCWKnQHLL7vq7itmkjHZqA3b+sy/lvAcxLNMSS4YMk7WQH0KeLbYSZBWcibKY5BuRKUVgtsO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fW0ygjC3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787152165; c=relaxed/simple;
+	bh=wSE8pRRskqRuantWRq10cRfN3D/Rpt8MDjN7XBFv93g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rlZzHbbG3oYhLQxGA8uu02NxyBQlMMI5URvQv41Nc/MtNB9S4DUvwZPo3spsXakX9WKMn2nQHLGh1qj+DO2uFQNoEcfv9Mv+7c4Kfk2iBiTLtpeXRGR+uIFtQOoPmWXLzLjlpLJKmrvPeniyjSEML9vpdsRgvNPsMPswD73iXYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aDjqaH/Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ROkDpH6M; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fW0ygjC3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4181F000E9;
-	Wed, 19 Aug 2026 15:06:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787152005;
-	bh=Wwx85QgXqIMDMhNvXdso9Bjrbo3Z82hebEh42HVZIRY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fW0ygjC3WFgRH26Xm9nOM0UbQBeAinxD3sWXEVx4aUqKdPSRcRdPJBhusFsqYUzAZ
-	 YEQLNVWlYYgdrA/g3cgqMcDRV8Vgikje5/LcqLytn5ioxRXFA33ZJJWMZeV2IleEFE
-	 oCQ9+l//WbCddPrC6cRbwQmB6AGJ5uAjEZZGV5Hn/IaDyPhy31LyEOJJ3QYNa1geFi
-	 V374lzdlNszSl30VYa7dYZbX6Rz0Cs8y068pQDu6st6YsIsYCbcK8k76o/a8YXURCA
-	 fv3GvMke0r/xlMbM/500Ge0Ah6QaUiuCG0XwW6qej0nlSlwxR7nPCNGyDqj3TWdKeB
-	 uE76Snf2trogA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] iommu: apple-dart: Support specifying the DMA
- aperture in the DT
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janne Grunau" <j@jannau.net>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260819-iommu-apple-dart-aperture-v1-2-252703f381aa@jannau.net>
-References: <20260819-iommu-apple-dart-aperture-v1-0-252703f381aa@jannau.net>
- <20260819-iommu-apple-dart-aperture-v1-2-252703f381aa@jannau.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 15:06:44 +0000
-Message-Id: <20260819150644.DE4181F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aDjqaH/Z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ROkDpH6M"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JF1mpF444709
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:09:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wkhBnVjbM3JY3B0opjjjkl8FAhTrPiMd5ru7dvb/3m4=; b=aDjqaH/Zi7IyEYUn
+	eXHJf5yG0fLQD+Vw0ezLbOhSJOuAbHnGa+J7DgmpQU0JQFx2gaE7o1ItDyfATt/q
+	Z2v3SLcyLIwiQn3XZN2rPY+rQm7TGSmuBa2uyWTmbIDmxKmXyXn0QKzDiAnMQMLZ
+	gJwWadZhshkHOReaugMW6AViCJuqo1Eu6DWKiXjhLrG0hZy42MlHwev/HVipCtT3
+	wt46NC64SDM89ga5vY7CKSrIUrZRFQdIQxAIOH7hy5+MsoI/YQ4FcdHHMxXBx8C6
+	+ylDzL20aTEgIOMb2xSP6uxku6QRvPHxqZdhObarQevIFMHhmxM3mP3Wu4fckkpp
+	vm181w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5es60154-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:09:21 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930a312222dso19767285a.2
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:09:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787152161; x=1787756961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wkhBnVjbM3JY3B0opjjjkl8FAhTrPiMd5ru7dvb/3m4=;
+        b=ROkDpH6Mmj5AkaksgtraAkyP1g41I+Wxa2nmyFyAn4p7ICuiqSxQtDChal4h9v7Co/
+         9rKSOPIuoxHdN1srM0zbtonc+ExtL9nmGOzb/LW9fLQAKU5sYpCR6LgULBsc9V4YB432
+         xp73H0rJPfVeGaqYEv+w3Rxqm7IEb9ujGU1N+GGwRGIwKTm5BgTD37yfbXIDiFJKfFRe
+         xBsArXqQUJJgHZ7ps+qP58KPZi0eRXUdFpy0GBY1clonAW0VlDxc9gDGVttxAhfimo9U
+         ksgD1nWHD/7ocNeJ+XNDlDHwpc/+E09wny7SPtfW7Q0+r9bqq4BhKG3Vv0pslpXUdKm1
+         0jCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787152161; x=1787756961;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wkhBnVjbM3JY3B0opjjjkl8FAhTrPiMd5ru7dvb/3m4=;
+        b=jNxDNNranIS2IqfMRr8CTttX+lOea/BxfGGc2iJtShwNdRtuwiz5Qec9RquZzOW+SY
+         9TItUVsjsK3dgX+PJ3dQ6XtTtfc6A5aMxAfutpvuUKhBy8AJVdUe1KhmxVh93hf+hGWP
+         8wIb49Mez+HQf+LIxhA+u7wC4taUY52Q9X1jtHnV1unah74nlyCPX7ExfaqpSsio0k8f
+         ifNFYwLjNSgFMtp1I1n6jV032bjukFs3JqxDsQOa6de+RsTBEUMICUe9G8QEeqLaTKM6
+         yC1JQad2KpcQriOB6Fdevz/PQMCMk2TDltmKEcfegomJISYCv9VKfVssIA9iZ1SqsvB+
+         ksGQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7YwSGM71jktSA77LnPG1342RylOzvMlNM5B5lnnlwsL8b3OruykgkwmGoB7gAq2TH90NYaA4gT5Ec@vger.kernel.org
+X-Gm-Message-State: AOJu0YzdrbPoiC0s9b631USUeYyIyw6XIkk3xq5DRjbNra+qCeSXDCm+
+	uPScZN9rAC80xyvFRZBl/jmNziA3wcPcGMvIk9n6YKIIRynbeZTBfeXQJKlnq0y4XYHNmCh3Alx
+	k+e2F0T1LWwWQoit8lVOj98jGgX6oC6BVsIexKM2uNUe0k/lvajuratBFfLhJ+VvG
+X-Gm-Gg: AR+sD10eTKBATnZqnmTSCnOKGZrLer6uxxJEITivnP90HScayUtnjaT8Iai9as+bM9s
+	2dlokZM77x4Pj6ptybTQ9uklmZniYlVk9WtfJnQKMC+dtZcPPdDMbQjvTtlMTI6RoTwsXTXecP+
+	OlJ4c9d7KhqIM03AVWS/25HfwqamxXT8FWIIIJtXY6ZXu/6CbXJOt0xq5H1eITPfZUVIrT66qQN
+	rrk24biFSYuPBhL8WchuXsfp3hjXcJrvvzS4mKwVTEGMTGd+9Vlz73XVjLxh4ztAjt7uITw18N2
+	HU0xq1KAvYOINU7z1tpoCYixII2H7RoiI/ViVSIqDpDQofLcsmq8DllAXuKdLdJ58AMzZj3LGRz
+	+4DMwC1KIOW+1XvLphZt4Ou3T
+X-Received: by 2002:a05:620a:284b:b0:936:5ad0:fdae with SMTP id af79cd13be357-9371e7e90f4mr338406685a.4.1787152160989;
+        Wed, 19 Aug 2026 08:09:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:284b:b0:936:5ad0:fdae with SMTP id af79cd13be357-9371e7e90f4mr338401185a.4.1787152160527;
+        Wed, 19 Aug 2026 08:09:20 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c244b6a5277sm21594466b.36.2026.08.19.08.09.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 19 Aug 2026 08:09:19 -0700 (PDT)
+Message-ID: <c71a82ce-b571-449c-bcd7-24f1315e96d4@oss.qualcomm.com>
+Date: Wed, 19 Aug 2026 17:09:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/6] arm64: dts: qcom: Add AYN QCS8550 Common
+To: webgeek1234@gmail.com, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+References: <20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com>
+ <20260727-ayn-qcs8550-v9-3-e3db456e10e5@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260727-ayn-qcs8550-v9-3-e3db456e10e5@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=E5/9Y6dl c=1 sm=1 tr=0 ts=6a85c721 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=ePn0xV2wtYfU2OeEI88A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: rh0vvufLDRpe-OdFHQUxpbI70ovfvnUu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDExOCBTYWx0ZWRfX7jnSHQjIrCWa
+ JgUhzLuBsUHEDvlWe0Bmqb/xYPNvou55+eL/h8eLfNnSktHWLKtyQ3FzeuUAhSfNO3GocthrabA
+ j/MHgsnVY8M/KhYKmYmu7n2X8vtCFmsLVpZdD6OFc42fpV2pkc2dCgx0AmeGx0vSfMvpDf29dE7
+ hHKaYKLOHdHJH6lMkRRTNHx+aFQ54Cf6G1JFbyPveTiNFCwCMXxIqROUQlqJwE15ITAGsM4zLql
+ 8XTc51KXHM7kl7Jw9a5NAUaT8DAAtoRPUcTLdvKl4wLEKxpP/OfuIkhaC9NOWaUaqkCIy/C8KY9
+ ack0V0EPIurkR0Gby2OY5ymm8hEWZBsG3fD26HyPuBXx0StyYnLzdzI2qsFPCXDfCerbuqsgUQD
+ eF9IyzY/dFwE+olkgcZdmsPAesmLAypeV2l/Lz58ePhmhew031E2b1tuNaqLwtfAfy60bbxFb68
+ QZeGl0dY6Agz81gxmtg==
+X-Proofpoint-ORIG-GUID: rh0vvufLDRpe-OdFHQUxpbI70ovfvnUu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDExOCBTYWx0ZWRfX4wRqs6BqPfgA
+ LXMtM0km41Yk7qGnCzo/8qevXbHgCRQEDOOb4isOjhjy7svF9N9KSXTVf6JbqMgPImgrIsVEvZs
+ U+CBQdWTJgg6Zobq4gP5AjZGPNXYkdE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_04,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 adultscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190118
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Undefined behavior via invalid bit shift when parsing a 1-byte DMA =
-window starting at address 0.
---
+On 7/28/26 2:20 AM, Aaron Kling via B4 Relay wrote:
+> From: Teguh Sobirin <teguh@sobir.in>
+> 
+> This contains everything common between the AYN QCS8550 devices. It will
+> be included by device specific dts'.
+> 
+> Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
 
---- Patch [2]: [PATCH 2/2] iommu: apple-dart: Support specifying the DMA ap=
-erture in the DT ---
-commit ce65194c53df34be71115a91f5d6328ad1a90109
-Author: Janne Grunau <j@jannau.net>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-iommu: apple-dart: Support specifying the DMA aperture in the DT
-
-This commit adds support for restricting the DMA aperture via the Device Tr=
-ee
-using the iommus args. Devices can specify the start and end of the aperture
-if the DART device node specifies #iommu-cells =3D <5>.
-
-> diff --git a/drivers/iommu/apple-dart.c b/drivers/iommu/apple-dart.c
-> --- a/drivers/iommu/apple-dart.c
-> +++ b/drivers/iommu/apple-dart.c
-> @@ -590,6 +600,7 @@ static int apple_dart_finalize_domain(struct apple_da=
-rt_domain *dart_domain,
->  {
->  	struct apple_dart *dart =3D cfg->stream_maps[0].dart;
->  	struct io_pgtable_cfg pgtbl_cfg;
-> +	u32 ias =3D min_t(u32, dart->ias, fls64(cfg->dma_max));
->  	int ret =3D 0;
->  	int i, j;
-
-[ ... ]
-
-> @@ -623,10 +634,10 @@ static int apple_dart_finalize_domain(struct apple_=
-dart_domain *dart_domain,
->  		goto done;
->  	}
-> =20
-> +	dart_domain->mask =3D DMA_BIT_MASK(pgtbl_cfg.ias);
-
-[Severity: Low]
-Does this code trigger undefined behavior if a 1-byte DMA window starting at
-address 0 is provided in the device tree?
-
-If a device tree is configured with length =3D 1 and dma_min =3D 0,
-apple_dart_of_xlate() calculates dma_max as 0:
-
-apple_dart_of_xlate()
-    dma_max =3D dma_min + length - 1; /* 0 + 1 - 1 =3D 0 */
-
-This means cfg->dma_max will be 0 here, making fls64(cfg->dma_max) 0,
-and resulting in ias =3D 0.
-
-If ias is 0, this expands to DMA_BIT_MASK(0), which performs an invalid bit
-shift (~0ULL >> 64).
-
-Since size 0 (!length) is explicitly rejected in apple_dart_of_xlate(),
-should size 1 also be handled to avoid this edge case?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-iommu-appl=
-e-dart-aperture-v1-0-252703f381aa@jannau.net?part=3D2
+Konrad
