@@ -1,87 +1,135 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE28471277
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A54744C513
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787140174; cv=none; b=rjn6axHcw0rsDh0QvGiq7Rt+Z1kSvFBep6LMCAUKg1u8h7cK1a6CdB3517j18+xEMxIXNucbJzCy4RiujQgPQTXO40DAb+vHx4pbzdZjcnFoyftOsRfML9oQYUQz1zGBY5Yv/u8huTizZiJH41Pg7GeMqE3gDhv5GQdrVrX4w+g=
+	t=1787140623; cv=none; b=p2BdoVPOeaSl+MbcQ7moOLMd3AeYwS7d8Pd+dqK9qSOf6+57nLE6epMqa2qkiR+ZzHjFmi+GPYJF1DY6+xY7ci5ljgqsYfqe4+3PeXQ3rDfoh1FY5lREjnuK4LoAKCJwVQ0u9wlxp93+fkD743yYNz3kQGvZ0Jc09Iu7xJB+cOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787140174; c=relaxed/simple;
-	bh=mp3beoxhkbk+gFXqCOWIqKRytXNDHA1lmaulcHtmZoU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G51gi96x4q5h3UVG+H1Xhmsj7fm7ddUcd6FCRImfEY1ke5suD6Y5YP4y6kxbfhasrL3Grf9qwcGTi8MV8lWvVfV0iLl3Vm3SNi3SlmbXXAP03GbdTUPNWiBC310Vy4xknGXN3FegbNE5nE2DhrsatcqIFxoNMujsPBgzBhEUt0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qw/Bfitb; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787140623; c=relaxed/simple;
+	bh=DOIClZcHf+ibfx2/byeHUht3sy5hNumJQv+OQtNyHSs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K4qUym30qcKyDVH7+uRiJT7yDdw+aZRy7I+JyivYucKqAhFs4vdO6Ajk7EF0udkCmo1T3g5TSLSpKDfO0OoYDckS6O66LMbb+NcSVwlHottJtOPSPeSRESVZ9ig9Ej3wbdaBj6yaCehmhxMl8WgqqFyQLjqRAlsgaFGds5Tq2tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=US7w6+cc; arc=none smtp.client-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qw/Bfitb"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id AE98B1A1728;
-	Wed, 19 Aug 2026 11:49:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7ABC15FF42;
-	Wed, 19 Aug 2026 11:49:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C01CA11C70046;
-	Wed, 19 Aug 2026 13:49:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787140165; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=0QTNUqsJAjiCWHHvRsXRGxssHN6W4IznQ3AoR+9+su4=;
-	b=qw/BfitbWJs6GoXkR20T1/E+5954ph5WoPE4nHSoBVDSzfjgKOD5LfczViUBB2KZ/aR+fH
-	+GDktVM6klgwWiTMb5sLCRpsKs4ieBtHn6P86Enu+ri/0OmEsrZSbdUyT1UaYKge8K2O5v
-	WYBGkDTmDt3ESmO4o6jZFq6iWT6OB2pZOb0JeI3pmAFOG4ZsAia/seR+ckbqvAHnj4+/mC
-	PQos82BeBUas2k1XezMm7Z6qmHM9c5KleXFeHBfpAIuL+f+3sz70heE0oExOmxCvL5wAR/
-	vyn9Lk2ThN3ZtFE/WDSdJ14XRpXsRr0AZwX2Dq3srhied0bAbsE18RiEcLcrcw==
-Date: Wed, 19 Aug 2026 13:49:23 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] of: teach overlay code to keep /aliases in sync
-Message-ID: <20260819134923.0a67838b@bootlin.com>
-In-Reply-To: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
-References: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="US7w6+cc"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66c711b7f2aso1613482d50.3
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 04:57:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787140620; x=1787745420; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iRrXiWbp5BCMXI1+0yfdqp8zjwVidH0MdyBqKFKUh/E=;
+        b=US7w6+ccpn9zUZxXTO97+vxVGQUVfpLX9xHsBiHW4svpGZ13uMpFPH7KacYcSMEGiz
+         ZMM3flAGXkapC5mzj60NBJpNqWtuhN84vbfcFeccpy9Gx1Q5pcToHxGbpHI7iEHLhBBw
+         Ij+Trp2waHzNkBvrN9p9msJkIjWWEHhOJwCw2akCPSiJ9njnFPHsTX8g667hDtW4xNuR
+         bWQ8t3VkXzFGsyQZiIRgFTlEtRPUGDpku3p4vJTO1H3QDEURi1LZK13AQRkz6o7v7fmy
+         +v3lPiTVI+Te5NEwdPNGc+KDUMVo+xZOoR3SuVYHEbgwJQg4IIyLQqg7bbAvx/ZES44E
+         THaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787140620; x=1787745420;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iRrXiWbp5BCMXI1+0yfdqp8zjwVidH0MdyBqKFKUh/E=;
+        b=IHK6TV+/54l/YXjTbQi6fQvWj5H+wq9c8HDFsq7xeHqPAp2PeIo1+4PWIAus+c862p
+         CeP8uF7pZmMNfn+sE+GfNPrpvXoptVOHGN5VKfOpl2wRLDY+0B2r22fDjfes/SBv2vhC
+         ZWYFBDZaI62TAHrhdLMsI+qgMRevJZb2yQw5nq01wPaC4genryle7a49FcrXInLdif0j
+         M4afVy2Bz09gUlJXx7r+ESWdGqXm3EyH7vNjS20C0+Iw0amzTypPNbN2lDhy+ai9qjhH
+         WqeOhql8wvodD1YnERuMYJ88S/Kb2YSpH88YZ3VqxhVxTxCZ1wJvm4DucJ9kAfEA1VJc
+         pfvA==
+X-Forwarded-Encrypted: i=1; AHgh+RrYZZ6tgsrH+Ib2c/MxRJgMIoR2F+iffAzUV1ZSs3jOtplh7AQ4j0ZbAhufRDyblM59Y94LFEpaMrh2@vger.kernel.org
+X-Gm-Message-State: AFuF++n/jVJaJWnYAGGD0xKoimAHtKjfc5XERis6uq7YCRdgZuRdNWwp
+	lFaxi7rSmMaM3VV4NqAkONWhmQixDf9YiRCkD818fhg61j6tW2SZ2dQx
+X-Gm-Gg: AR+sD11nOLvrr4dj7E7bTPVHOYlyIVElw388vrAY0avVxtTTmG9+0mjgMUNZJXn8fbu
+	AkIEvzwaIBW5Dz811lDzg/71EWXBUze2J9soDE6zEI1kDOXdFhTu0LhrziETadnrQL/E93EBEwr
+	5MyAAP0JDcn8x3U536sBnUSrLm2u87l4ydK2Y1aC+HnjIqc+hBR6j0Jdf8QxlfymrG3aBtQsM99
+	aXNkciAT2Ra65AHu4jxCwus2EJbZYrvOZsY0BgKiNvmXeTSGeQXA9dghHbmXDiUSzLa+aSWEWH8
+	Q11qtMFePDBsKFJQmre1ym0I2zwfhyAIL0qMWdOYeWFJKTj9TXlm9YZIjLxRY7Hr7tMxZ07giHN
+	a1/EEFogqE2sOWPU7ZnU7/1NYUENQKh1zJnX+WtTPmtH27Ul3KrqgQ9tC6EIE/LEHsmAHpYb6Tr
+	0lxflAa7PHLjU3g2qvtbCds7+e9OLP2sCVqAdKo/46wLARGDCjxX0enCxwCx3vc+mQHTs=
+X-Received: by 2002:a05:690e:4807:b0:66c:82b5:7d59 with SMTP id 956f58d0204a3-66ccb5cf30amr1129726d50.12.1787140620402;
+        Wed, 19 Aug 2026 04:57:00 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66ccb1a03c5sm817419d50.20.2026.08.19.04.56.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 04:56:59 -0700 (PDT)
+Date: Wed, 19 Aug 2026 08:56:53 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+	festevam@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 6/6] arm64: dts: freescale: imx8mp-verdin: Add Mezzanine
+ with Toradex Display 10.1" LVDS V2
+Message-ID: <gsihg6tzkrq6gcygquzbjtiqntvoxp67lo6mqntnmbyvyw7s3y@suv4t26pl5eh>
+References: <20260813133335.1941580-1-leoreis.costa@gmail.com>
+ <20260813133335.1941580-7-leoreis.costa@gmail.com>
+ <an3brO5COdw_F76m@SMW015318>
+ <rglymw6p4c65yoqz3pjn6e6nq7cil2fa7m7dqghshgdpavby7d@kyza3ceavq6z>
+ <an3tiDOUUYLb8PAq@SMW015318>
+ <juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf>
+ <aoSqJ7pHEgJ_RZmr@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aoSqJ7pHEgJ_RZmr@SMW015318>
 
-Hi Abdurrahman,
-
-On Tue, 21 Jul 2026 14:36:31 -0700
-Abdurrahman Hussain <abdurrahman@nexthop.ai> wrote:
-
-> /aliases entries added by a device-tree overlay are stored in the live
-> tree but never enter the global aliases_lookup list that of_alias_scan()
-> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
-> aliases declared inside overlays, and any driver that relies on
-> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
-> pinned id and falls back to auto-assignment.
+On Tue, Aug 18, 2026 at 01:53:27PM -0500, Frank Li wrote:
+> On Tue, Aug 18, 2026 at 03:08:33PM -0300, Leonardo Costa wrote:
+> > It seems that the drivers are being deferred at boot start by the
+> > device_links_check_suppliers() function. It runs through the drivers before
+> > they're initialized and defers them if their suppliers are not available. The
+> > GPIO and PWM drivers are able to follow the gpio-map and pwm-map properties
+> > (through the of_parse_phandle_with_args_map() function), but from what I see,
+> > device_links_check_suppliers() has no such mechanism. It follows the phandle to
+> > the nexus connector node only, and since there's no compatible driver for it,
+> > the function defers the consumer drivers used in the overlay.
+> >
+> > I think this is what is happening mainly because setting the
+> > fw_devlink=permissive kernel parameter (which sets the DL_FLAG_SYNC_STATE_ONLY
+> > flag) solved the issue, though I could be misunderstanding something.
+> >
+> > 	int device_links_check_suppliers(struct device *dev)
+> > 	{
+> > 		...
+> > 		list_for_each_entry(link, &dev->links.suppliers, c_node) {
+> > 			...
+> >
+> > 			if (link->status != DL_STATE_AVAILABLE &&
+> > 			    !device_link_test(link, DL_FLAG_SYNC_STATE_ONLY)) {
+> >
+> > 				...
+> > 				device_links_missing_supplier(dev);
+> > 				ret = dev_err_probe(dev, -EPROBE_DEFER,
+> > 						    "supplier %s not ready\n", dev_name(link->supplier));
+> > 				break;
+> > 			}
+> > 			WRITE_ONCE(link->status, DL_STATE_CONSUMER_PROBE);
+> > 		}
+> > 		...
+> > 	}
+> >
+> > Has this behavior been observed before? Do you know of any work being done that
+> > addresses this?
 > 
-> The gap has been public since 2015 [1] and reproduces trivially: apply
-> an overlay that declares e.g. `i2c99 = &foo;`, ask
-> of_alias_get_id(foo, "i2c") -> -ENODEV. Bootlin's ELCE 2025 talk on
-> PCI DT overlays [2] enumerates "i2c muxes" as one of the subsystems
-> broken by dynamic overlays; alias pinning is the underlying cause.
+> Does a dummy container driver (for debug) to proof your analyer?  Let
+> me to find time to debug it.
+> 
+> Frank
 
-Are you sure aliases were mentioned in the talk and were the cause of issues?
+I made a dummy driver matching that compatible string, and yes, it did
+solve the issue.
 
-I've got an issue with i2c muxes but it is not related to aliases.
-
-What made you think about aliases issue?
-
-The issue I have is related to fw_devlink consumer/supplier relationship and
-I have sent a fix [0] with nothing related to aliases.
-
-[0] https://lore.kernel.org/all/20260630103010.413688-1-herve.codina@bootlin.com/
-
-Best regards,
-Hervé
+Leonardo
