@@ -1,97 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A5A37E5F7;
-	Wed, 19 Aug 2026 10:24:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C763FC5D3;
+	Wed, 19 Aug 2026 10:29:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787135043; cv=none; b=IDusQECjxp1r/cdkNVX5dNtZ2sEarISGgnKRof5NMag/s6kf3x5ZYqqAWHUWw7GZNhMQCfvn2BT86Cv92POFppQkFpvrd6r4P455aUSkjCGeqiT3gihQIu4MiAI/UnbiMEvohW1DOQT8ZzNEgaTVS1P0uB2Ms//Zyz9wEZ5lkyo=
+	t=1787135348; cv=none; b=RWPmKZ964NT6RiNZDDuEzAjx6aDdhXlS84Mn1aT8qG3seJNjJDEwIaTZHizubDpoVJRQLafbfj3mgfFr1mCJhqDAySGKE+lsH4R/V8gtzzytv4GRJT7QEZqCwZCSU7rdlkIAtphI/4L2XH2wzWcUmyq01805XOs9bV8aWdVXPqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787135043; c=relaxed/simple;
-	bh=HrdVyTUsugAFtIZAefyMeMmo/CBn92B0hArud1ycK7A=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=CS0uUJG4iYngrZdxh/fW+s9kkCUztcaJvW9VsVxr0TRywE3krdz3wOJ8cNMU+srJsUWJRxIJ2AkJN+nRvnGmOsACVwf2t5yxJfLHStyzb3EbsIlxE2LJWDrACsA1kARonn4y8hnIe3ky0M+GchzXlGvkPfDt9ZYfpyzyZlJrXwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMjBMSyZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787135348; c=relaxed/simple;
+	bh=RQ6GtnhW6Q2nHKojH6ObJaJlGLZGCUs8hN5ryxpKvxk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=msiqUGckbzWVy8PGJ3f6D+PosLG23bBT15E1cw0SFz9F3ELK5G9g0ZvlhABiQc7vnjDejx/xvAm34higLH8WEoyTgYL+YcXVotl9F26aarpR8UaQzZ7t1LdcEftVn9lV7nBeQWXlTTfcQnXGQPOtWfEWSkFt+mBBgPvh2TAwDeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k42nkq1Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMjBMSyZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA011F000E9;
-	Wed, 19 Aug 2026 10:23:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k42nkq1Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5028C1F000E9;
+	Wed, 19 Aug 2026 10:29:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787135041;
-	bh=bw6chI95O4XLTT4J0rXxXwLL8Q6F+qna440e4FnGvWA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=XMjBMSyZ5jDG4znmKtGRrRxVjD12422BnJbp3h5lJtJTxRoKsSJZdJclEiAHTVDCs
-	 ET8jHnV4tfbPByjpte59Y55n++7n6UqGgwncu7YrX25qYPKWuqAnp1VbA5M1HitX0m
-	 DXOL9HMX4Rh9z9aJPZ5RNmMe6UzraA4AE+boX6G/NvPTntva7UB2wXLOKqeAuhLBbI
-	 MtAGD36CTg+1fyUXLMu9BaotfKEKG6J/0XqF3cQc+gngaOqqDvtSWhinLmRyzKLQMj
-	 LD41ZjbcuBK5WOApltRYX3d9ZrUKono7qyq6EuG4c24EAkprORdAv9i34uMYrmcb1h
-	 JMpJj1gbVjIjQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260818084655.3240284-1-prasad.kumpatla@oss.qualcomm.com>
-References: <20260818084655.3240284-1-prasad.kumpatla@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/4] ASoC: qcom: Fix AudioReach TDM review findings
-Message-Id: <178707749832.154835.1280611777044972037.b4-ty@b4>
-Date: Tue, 18 Aug 2026 19:24:58 +0100
+	s=k20260515; t=1787135346;
+	bh=ChixR8/H/LVv6FNfega/tFPJtJ8FPDgf30iYbPAMfwM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k42nkq1ZNZrijNUivz/hfss16pQE4jkEMW0h5FwbcFHJhI0dzhlYGn3fRobdHUVbo
+	 xqUt+uryjaUx+7yG/QniYig0oh8TYAQdGYwja1/SOufPZls749Yi0SNMD+0MDUwoqg
+	 nAxWbUQ9kFkwdnIncFtvUKLFKKA01fIxdjb9Ahdrz19HmR5ZEpXbH4N3zIltO9d/Y8
+	 XWVlaUNL0Qy1qw0GMCeLtApif7+ce12khR59GnM+gvuYVpWx6/pJYmlPIx3oWuDjbZ
+	 4uubmrk0ieO14UtbeBE2WC7GChY2CEh33RrlmuPs0Tglm5m64d4jqbaAYq9RRrK4n7
+	 YKb3AjEcjWzpA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/7] dt-bindings: watchdog: Add compatible for
+ MediaTek mt8167
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org
+In-Reply-To: <20260819101853.44681-5-l.scorcia@gmail.com>
+References: <20260819101853.44681-1-l.scorcia@gmail.com>
+ <20260819101853.44681-5-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 10:29:05 +0000
+Message-Id: <20260819102906.5028C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
 
-On Tue, 18 Aug 2026 14:16:51 +0530, Prasad Kumpatla wrote:
-> ASoC: qcom: Fix AudioReach TDM review findings
-> 
-> Address review findings for the recently merged AudioReach TDM backend
-> support.
-> 
-> The first patch fixes a typo in the newly added QAIF clock ID names by
-> renaming the LAPSS-prefixed identifiers to LPASS and updating all
-> corresponding in-tree users.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Missing `#reset-cells` required property constraint for the `med=
+iatek,mt8167-wdt` reset provider capability.
+- [Medium] Missing `#reset-cells` required property constraint for the `med=
+iatek,mt8167-mmsys` reset provider capability.
+--
 
-Applied to
+--- Patch [4]: [PATCH v4 4/7] dt-bindings: watchdog: Add compatible for Med=
+iaTek mt8167 ---
+commit cda604d8e57545578970aa161f863c629cec7278
+Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+dt-bindings: watchdog: Add compatible for MediaTek mt8167
 
-Thanks!
+This commit adds a dedicated compatible string for the MediaTek mt8167
+watchdog. It also introduces two new header files defining reset IDs for
+the toprgu (watchdog) and mmsys subsystems.
 
-[1/4] dt-bindings: sound: qcom,q6dsp-lpass-ports: Rename QAIF clock IDs
-      https://git.kernel.org/broonie/sound/c/c41ac86802fc
-[2/4] ASoC: qcom: qdsp6: Zero-initialize AudioReach module config
-      https://git.kernel.org/broonie/sound/c/9c9fb79f9769
-[3/4] ASoC: qcom: common: Distinguish missing and invalid TDM slot configuration
-      https://git.kernel.org/broonie/sound/c/0a9e00d5ebdf
-[4/4] ASoC: qcom: sc8280xp: Fix TDM hw_params error handling
-      https://git.kernel.org/broonie/sound/c/8593dc5f052e
+> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
+yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> index 953629cb9558b..f514be8a5851d 100644
+> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> @@ -26,6 +26,7 @@ properties:
+>            - mediatek,mt6795-wdt
+>            - mediatek,mt7986-wdt
+>            - mediatek,mt7988-wdt
+> +          - mediatek,mt8167-wdt
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[Severity: Medium]
+Since this compatible string is being added as a reset provider (indicated =
+by
+the new mediatek,mt8167-wdt.h header), should #reset-cells be added as a
+required property constraint for mediatek,mt8167-wdt?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Without this constraint, device tree nodes using the mediatek,mt8167-wdt
+compatible string could silently pass validation even if they omit
+#reset-cells. This would allow incomplete configurations to escape schema
+verification, leading to downstream driver or probe failures when another n=
+ode
+attempts to reference it as a reset provider.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+[ ... ]
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> diff --git a/include/dt-bindings/reset/mediatek,mt8167-mmsys.h b/include/=
+dt-bindings/reset/mediatek,mt8167-mmsys.h
+> new file mode 100644
+> index 0000000000000..b21f67b3b55c7
+> --- /dev/null
+> +++ b/include/dt-bindings/reset/mediatek,mt8167-mmsys.h
+> @@ -0,0 +1,35 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
+> +#ifndef _DT_BINDINGS_RESET_MEDIATEK_MT8167_MMSYS_H_
 
-Thanks,
-Mark
+[Severity: Medium]
+This new header introduces reset IDs for the mt8167-mmsys hardware, formally
+making it a reset provider.
 
+Does the Documentation/devicetree/bindings/arm/mediatek/mediatek,mmsys.yaml
+schema also need to be updated in this patch to require the #reset-cells
+property for the mediatek,mt8167-mmsys hardware?
+
+If the schema is not updated, a device tree author could attempt to use an
+mt8167 mmsys node as a reset provider but forget to specify #reset-cells,
+which would pass schema validation but fail to provide resets at runtime.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819101853.4468=
+1-1-l.scorcia@gmail.com?part=3D4
