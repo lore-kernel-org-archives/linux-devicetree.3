@@ -1,183 +1,172 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012004.outbound.protection.outlook.com [52.101.66.4])
+Received: from mail-m19731119.qiye.163.com (mail-m19731119.qiye.163.com [220.197.31.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C78F3E834D
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787134163; cv=fail; b=e0U6tEZgStsXHMS8J5rIj7mEyPvmL7NfP37mn5A6hStQh5E9b7Ciwdonh1b8zvZaga/vmfhbYcvoyLWmVh8V3M68mnakFUlRDdMY1zussAbEvJjTi01hbMEyO0J1KHaTsUpM5Djv7EsR+f1wDiUbiJjfo0JH0XgRGL7Nm31yMWo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787134163; c=relaxed/simple;
-	bh=yht/b3j86FmBo/gF8z5RdXieJlheSvv8BUj+O5Y38ng=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=jio0WHtcTwkbhjPbuyhNEiEnKZ4JvDiZNd8euC8bn/7RYI27js8hn/1L2dC7QHkl1JZNCp98eLC1E7RlI1cqi/c+CSTZngBuZQ6+0n0F1WHPza97jJFpYJ3gY/AKInVWs8Jj0S0TSqcViPl8To99FwfF6AKQNTyPJPr0Bq9188k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XM0mIYQ4; arc=fail smtp.client-ip=52.101.66.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC4A376BEF
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.119
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787134188; cv=none; b=luBynhQgfk6eFnvVrKVEJyJcknXIiu9Q/ZMACb6YjpKkdLbOdawek7qJusE8JZdvk2zEAJBbC/m9xsFbt02rD2pw8C97q4KkCoPCdrGJnrix59up5eK4VZlLvQYJkLWPXOXWARISv/J1w+3uptYww63/YBUluS7mugd61MSgnbA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787134188; c=relaxed/simple;
+	bh=+2pari/f+A9InDed14Yk6z4S5bn5gEqmS5rfItbpUjA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qY3KQG8VWt17ybdUnJGyzAsVl2AnwVIi6p+rzlaabpmISFYN4Jm+/Yw0Sc9gsdxcMl2ZE5AyYOzbVsWNy6uH3zvuFTny4kbc/HpOwTtUPuIrUBzKBa8i1OtHPVEOXWTsd9ooj8sbJa6F/X8qoMBmQRL6OXN44eMV0nuCMCFhrbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=bGWaL0kF; arc=none smtp.client-ip=220.197.31.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XM0mIYQ4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mVV26xneBlhvHdTqdviC4+uULDiX+ahbiJgFFBTXSVl1FAnSAHBpS8eZgFlwLyCv7l1M5GjNvgJABNIj5awOL26fawAx7UOmXkLalf7RtNmnHAR1r+JZC6Eklji3BK9PHNzxzD/C0uCwK8QD2HdpQRw6HYBsKBpa5twws0ogiG9bJIXDQ2JFlq9Vgz6VeftFHWuXC6N92POuEE2Tt16NH7gohoAqFSK8vSZVUhYCWdbVw/d/o+Kw6xNUYHTvs6EjWdl5ad8YhjqVbxhr2PRaBYRS4XZIbiWjBy04DccvehZQN5ls+A0Vr1EUISFPBYOcaxqd8ckFwMzUtU7zNgQ/RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dKgNpiCD3GWcNAVJHGey6/G5jSHmxlw8t21Uclvh9wE=;
- b=S4AcDCjcy5t0Qs96kYJ+29YKOeAu+Cxjv94EC5cNkkfyTRASY6ZSnHGg0wtyvr5NKauo69gRRWb4Od5hY3swuCabuQ1PEzD6QFynlDofq+OdpE1t1sEFAIeKXrozBjorYsvfUAVIjuNfl8ddNIjWNdS018jo2TG8l6BboinDxbqoaXtPYx/Gi5+DyPmP4hznaXl+Yrf0i620Rzv+KaV8o4Q9cQbKr+6G3RPE8G+03dOIkJ/liPRLawjcxVJZSD2VNoFXEOgo+VnMp+qiEAJLKj89rzvOAQDJG/QJa5zO4067QoLXOj+tTnkaw/UDDVyOEMK5DqnQ8DjQe/kJjuDqrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dKgNpiCD3GWcNAVJHGey6/G5jSHmxlw8t21Uclvh9wE=;
- b=XM0mIYQ4c6MxtdISSxa5HgSn2eGdftQoYmQGT8y5dCmFARuPd5XPiaf1pd88TwTh46f/wUuDZ6t83bMwA1gsrtMJgF6w2LGzwOcphbWgblgzVxUq843SvEu9/2TnhKUg0lwdMZ2rsXUUv7DXZJ0gCnz6AZda9HA1b4NaqxikzSV6rLO9jbZnrd/2j1aqH+v/u6L80PdLmWGmNgheOFLasoQieaNa+Gr4NQITHGAsD5X+QB7yv4VDs0v4IDmNRrRSjY7KR3L24Z5GbHPNJGsS+uOIILPipvXCPXeDF8eh0TbgZc8ei5E/8XLEBogV0Z6JAn4XzmyZjg8gByFYgOQVsQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM9PR04MB8353.eurprd04.prod.outlook.com (2603:10a6:20b:3ef::22)
- by AS8PR04MB8434.eurprd04.prod.outlook.com (2603:10a6:20b:406::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 10:09:19 +0000
-Received: from AM9PR04MB8353.eurprd04.prod.outlook.com
- ([fe80::46ae:f774:f04c:a1bc]) by AM9PR04MB8353.eurprd04.prod.outlook.com
- ([fe80::46ae:f774:f04c:a1bc%3]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 10:09:19 +0000
-Message-ID: <ca9bade3-d4f3-437c-8507-42f61fd1b72b@oss.nxp.com>
-Date: Wed, 19 Aug 2026 18:09:08 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/17] arm64: dts: imx93-14x14-evk: Add board muxes to
- select between FlexCAN1 and MQS1
-To: sashiko-reviews@lists.linux.dev
-Cc: imx@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260818030211.3141710-1-chancel.liu@oss.nxp.com>
- <20260818030211.3141710-7-chancel.liu@oss.nxp.com>
- <20260818031342.D8E8D1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Chancel Liu <chancel.liu@oss.nxp.com>
-In-Reply-To: <20260818031342.D8E8D1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI1PR02CA0005.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::13) To AM9PR04MB8353.eurprd04.prod.outlook.com
- (2603:10a6:20b:3ef::22)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="bGWaL0kF"
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a8bd8e40;
+	Wed, 19 Aug 2026 16:53:54 +0800 (GMT+08:00)
+Message-ID: <f0151ee4-f660-43d2-a49d-13ab2ad12dbc@rock-chips.com>
+Date: Wed, 19 Aug 2026 16:53:54 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8353:EE_|AS8PR04MB8434:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7075a09e-9c64-45d2-26f6-08defdd9ee95
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|376014|366016|22082099003|18002099003|10067099003|5023799004|11063799006|56012099006|4143699003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	DaG+xGJw8c8kPGfLBszd5fyJFA1kIHWfh+iPQWMTWkxWWSzksUtS97kLtblFgvF6TKjDHcCeDgxFe7esBn9USvHa3XnYWVXjeF3EC9VabTUeoVOTZJ5MfenSQNd7AkmMl6qUV70dQwPbLM3dKNQhNgOnwnguAqV9hLSqHiFUuRUHoLZjQcs0QarE4Bc1dKDXDtMiLyQ2jszz8+W4bwGau6Csssessd3OTrFcCKAR3D0jSyITZakVrXkSL9S21UoLeXZ+7CiN2XkxqoGHq4+Gn6Qxo44V3+AcarCnbUSHHwPYUVE7z5Rj0+eO/dvBlltQrgtu4M1JwKMV19NK91AfLDJWq/GfeEbMcGcTagxxnE+nhUTNWWbV0802uy/O+L9ZIQlMN2ceYVtXLOqjx48y6FDowISo8pjUkIQHFyhdhagOZUyfGdtrHTjV0QRTusZ5AUyulhc+nuokSQezV1uoy6TVy/tkMlprhjHtjnri3U5VOkh4LbZS1NRBM/jNf9B3BxH4sqGWDtPPtPKrQghMHMRkh4Ttqh9LHpYSiO+vBtPnpWIRkNZ6UY8EcKvAjch2S+4IBHz+bwssE7y7bOExeHWN/1qaUxz0QGP/0m7xCqa7ZG+cxHX80OL41iqH9kMT7Ep/aZc78mo4VvQWzq2fD02M3bSGLYN2nUfajQADMAU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8353.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(376014)(366016)(22082099003)(18002099003)(10067099003)(5023799004)(11063799006)(56012099006)(4143699003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?alNNaThCdjVaZlFlbS80Q2VaNU1PbVZkQnVFYXlTdjVuREIrSlJwTk5FczBZ?=
- =?utf-8?B?N3IrMFkrMUFDVEwvWTZ5eHdLNFJma0pIcEFnblk5UHg3TFpXNml2bTRqb0lH?=
- =?utf-8?B?ZHc4TFl5SUdQbFNBbHZNVWFiKy9NYzI1cE9uWUl3NXZ1aW5BWkdaRU9iV1FH?=
- =?utf-8?B?V1Z1Zk1NdVJUNDllN2crOFZHYjR4QkFBWitKcHRieUVIemZaWWtUemtYc3E4?=
- =?utf-8?B?SGpVSlpsVFI0WDBXdzh5ekZUY1JWcnlSRm1abW9WM3pWL2NrSDVVaHhMN3VG?=
- =?utf-8?B?ZXZBbmZWcFl4MUwreUVpanI1SlFjSVFaTnR2WGRTOTdvc1B2OUJyUjU1cktl?=
- =?utf-8?B?bmdIRHBpVTZIQ2x2OVFEb3o2SWJXaU9yU3BGTDVybXowQytYbHpLTlRJTTBn?=
- =?utf-8?B?OXo0aUFOOHAvdE8wdkFabzdscUxtS2QrTm9lV0tYcGQvQVl4U1VOMlBFeGtP?=
- =?utf-8?B?czI3TzdyWW9xVlJBZG00eks2azl5NGltVEZiT2ZVMUhEcWxkdEZFbXViZDBO?=
- =?utf-8?B?c3A5Z2NYNmNyM2Z2YWpFRGdvOUJyYkNpdHB1RzRMeFlsbFl6Ri95b0tRVnQz?=
- =?utf-8?B?KytGdGFTbnN0Z1EycHA1OVVlVWlJS2hncXphNHBzR1h5dHB4cWlHSk1INWdO?=
- =?utf-8?B?RllYMzFnWWg2Z1I0c0VJazdISUdWWHZKRjVBaFpXNHd0K3NITkVDTHV3NjZ6?=
- =?utf-8?B?Q2pObHV3d2RCbVN6SjlvRnREbVNhSDl5eVRrM1RyZlBwR25aeUpLYUZFbjRM?=
- =?utf-8?B?VEFoZG5odDVDV2tlVnJaY2FmQUNQZlVKVjNJMWJKa2VaUVlFaldJcHpPZkZs?=
- =?utf-8?B?dVdXekZyT3Fza3lNSXlDVkZQMVRiMVFZbEdyZ3M3WE1GQnlIZk8zd2dMdjk2?=
- =?utf-8?B?aXFVaXFndXVCcGp6OFhmWW5Qa005MHl4M1dpZ0pJWE13SFRxVytSU2wrQnJU?=
- =?utf-8?B?NXR1aW9wSDYyQmpaZnkzWkFkTlovUU81aVFNNitlZUY4TDJva2pTYzl5aVRJ?=
- =?utf-8?B?SUY2UEJTNm9wKzVtTklHOWV0OGczOHdMZllmbU00bExFT3BDQ2tTdzByamNp?=
- =?utf-8?B?Y0JlOE5Ibi9pNjNkVnFGSVJQTWs0N2hGM1FGWFVWSEYvTDFWOEI1SVY3TnJS?=
- =?utf-8?B?SjhVSzkxRng5WnZPNTNjZytnZ1pvQ1hmdzRob1JwMkRYUDQwcTBvSnVrZ0dx?=
- =?utf-8?B?K0tkYlhHRUlHQ1NZL2h4OGdrekgxQ2V0Y3RKb1JlWVZ0ZFVacDl0S011UjN5?=
- =?utf-8?B?TmYxY3phdDlxdUNPVXR0UU5uMzZOVXgyTXd6NFFRNXlhZ0tOalFqNmpzeEZj?=
- =?utf-8?B?SktkRitkNk1xaEZmNWo2Ry9xOTM1bThidjFrUE9iQ1N2eXorRk1qSXdyOGJq?=
- =?utf-8?B?ZVRaTENqcjlZQVd1anFFY3hXVkdJUi9uQ2pIbkgyQ1VRdldVZTU1QlhQUHJ2?=
- =?utf-8?B?QWxSY2xzTWtnWUZtenZnZWN1RWhjZUZDWDZOTDQ2UTUwQ3FSeVNYeGJWZTVI?=
- =?utf-8?B?NWZuVFZlVnZPRFg1QkdKR3JZcW9sSmxsT2N5MWVUSndGVmt4eTJqa3JhcTlh?=
- =?utf-8?B?TjN5a2NsUFVkd2ppNWZyYU5HVVR1Tm9FYkVwOW43Wm1kQWE0ZTlwL1RnS3Na?=
- =?utf-8?B?a0duUmVTMFgydVd1alVieUswT05sNGxuNC9lOVdHWm1VeVFDYXhLclRiN2dU?=
- =?utf-8?B?Q0tyc2VGN3NsUlkwYTNEcG5yNSt6MVQ1U0VSWWx4QVA5ZUJnL3JuS09VQ0Vv?=
- =?utf-8?B?TlAwdlgwZHdvSlVwNjV5bUdIQ0JZUWlCbURlbU9sVUVzaWhQV0ErOU1uWkFG?=
- =?utf-8?B?NjF4NmUxQ0R0QzlYejZBNnR5QXV3cTZibDV1MVNkZUJwaEFQeW53eWplOE5Q?=
- =?utf-8?B?SVZnMUoyU3BxS29BNTZYeSttUmY2cy82Sjh4WUUvM0trVlphV3B3SjRIMmZo?=
- =?utf-8?B?eU1TRlFZVXljSFdkeTIzcWVER1Y0NDJUZmZ6aFBJTmlOT2g4WGJoUCtLOVh3?=
- =?utf-8?B?Z0JaK1Y3aWZkNDdVSDRPdlY3clVXcHprZW1IeU5IaUtuSHFCUzZLdEY0SFNJ?=
- =?utf-8?B?NXFXMGkxeE1ianZFdUZDQjlRMTI0d3Q0TU8zRWd2c3NqVzVIM2hoNG13eVdG?=
- =?utf-8?B?SlBHOGxVU3hOSHhCenBrZDJUOEdlTDNEQXBFd0plbmJLaThOQ3FDNGZsclJT?=
- =?utf-8?B?aEVlYlF1WDdJa0NIU0VwRGFSS0FKVUFDZ0FzbG1yNWQrcm4xVXZsckZydUEv?=
- =?utf-8?B?YnNWWXd2Z0lKQVR0ZmJhaFUybzlwNG9maU5lWm1KVG9iWmNMbzJQOENYYWtw?=
- =?utf-8?B?RklRamlxbUhqTUJ4MllwSzZsTkc3VnRzUGtzdEFlV3RaL1RBMTYrQT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7075a09e-9c64-45d2-26f6-08defdd9ee95
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8353.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 10:09:19.0105
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y7YRqNgNo/vAEOJdLgMR9PkWr17Az+f1YsAaj/Yi9DFkhAI7nXgoNqrJvTwCcn5yeXbakXiZ6WdYCtllvLSZAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8434
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for optional
+ data-lanes mapping
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
+References: <20260819075238.3007087-1-damon.ding@rock-chips.com>
+ <20260819075238.3007087-6-damon.ding@rock-chips.com>
+ <20260819080422.816771F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260819080422.816771F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0193a1e7403a8kunmaa6dc6ec3320d4
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHxodVhgaGUxNHh9MSUkYHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=bGWaL0kFdv2F1aJCSHo5LblQ8BYGWkRXUq0Xgx+AOA6nhCbje5jnq6LtjPtvynfZaO0GaFjUP9Bj7lj3/rdF0FpeHYSA4224tQmSChQ4ymGoLKlU8Fc2NYHGdDsDT2FBrTMpDz0S5EnWW9IKYOSasuZthQr+u+khrJw7hl2Uq10=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=g/T2s+HEEMdqXQKh9/wTekMXVfvnMcbFNHDnmwWBfis=;
+	h=date:mime-version:subject:message-id:from;
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The amplifier enable GPIO for MQS1 is incorrectly modeled as a multiplexer to hijack the pinctrl subsystem.
+On 8/19/2026 4:04 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Logic error in hardware lane mapping configuration causes inverted assignments for non-symmetric maps.
+> - [Low] Device Tree endpoint lookup inconsistency when querying lane counts versus reading properties.
 > --
 > 
-> --- Patch [6]: [PATCH v2 06/17] arm64: dts: imx93-14x14-evk: Add board muxes to select between FlexCAN1 and MQS1 ---
-> commit cd0b6d22bf4426d5f5510c7f3a258a4b50405fb8
-> Author: Chancel Liu <chancel.liu@nxp.com>
+> --- Patch [5]: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for optional data-lanes mapping ---
+> commit 1c15eb6132eedc3d606168644e5f97918c8e3651
+> Author: Damon Ding <damon.ding@rock-chips.com>
 > 
-> arm64: dts: imx93-14x14-evk: Add board muxes to select between FlexCAN1 and MQS1
+> drm/bridge: analogix_dp: Add support for optional data-lanes mapping
 > 
-> FlexCAN1 has pin conflict with MQS1. Add GPIO-controlled board muxes to
-> route shared signals between FlexCAN1 and MQS1.
+> Parse the optional 'data-lanes' device tree property to support
+> custom physical lane mapping configuration. If no valid configuration
+> is found, fall back to the default lane map automatically.
 > 
->> diff --git a/arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts b/arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts
->> index ec78c03f4788b..6dcfbca65cbd5 100644
->> --- a/arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts
->> +++ b/arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts
->> @@ -37,6 +37,36 @@ chosen {
->>  		stdout-path = &lpuart1;
->>  	};
->>  
+>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>> index 039e076d2b8ab..cb06347196cef 100644
+>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
 > [ ... ]
->> +	mqs1_amp_en_mux: mux-controller-1 {
->> +		compatible = "gpio-mux";
->> +		#mux-control-cells = <0>;
->> +		#mux-state-cells = <1>;
->> +		mux-gpios = <&pcal6524_2 1 GPIO_ACTIVE_HIGH>;
->> +	};
+>> @@ -1240,6 +1240,59 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+>>   	.detect = analogix_dp_bridge_detect,
+>>   };
+>>   
+>> +static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *dp)
+>> +{
+> [ ... ]
+>> +	num_lanes = drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
+>> +						   video_info->max_lane_count);
+>> +	if (num_lanes < 0)
+>> +		return -EINVAL;
+>> +
+>> +	endpoint = of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
 > 
-> [Severity: Medium]
-> Is it appropriate to use the gpio-mux binding to control an amplifier enable
-> pin?
-> 
-> Device Tree generally describes the hardware structure. A hardware multiplexer
-> routes signals between inputs and outputs, whereas an amplifier enable pin is
-> usually a binary control.
-> 
-> Would it be better to model this with an audio-amplifier or regulator-fixed
-> node so that standard power management can dynamically toggle the amplifier
-> during audio playback and suspend, rather than statically evaluating it as a
-> mux state?
->
 
-That's a good point. I will try to model it with an audio-amplifier device.
+Hi Luca,
 
-Regards,
-Chancel Liu
+Thanks for taking a look at previous v6 patch series. This Sashiko 
+warning was also present in v6. Sorry for CC'ing you out‑of‑the‑blue 
+without prior heads‑up.
+
+> [Severity: Low]
+> Does passing -1 here potentially retrieve a different endpoint from the one
+> validated with reg=0 above?
+> 
+> If multiple endpoints exist on the DP port and the target endpoint is not
+> positionally first, could this mismatch result in reading the data-lanes
+> property from the wrong endpoint?
+> 
+
+For Analogix DP, port@1 will only ever have a single endpoint. 
+Multi‑output configurations are not supported by the hardware, so 
+passing -1 cannot select a mismatched endpoint. There is no risk of 
+retrieving the 'data‑lanes' property from an unintended endpoint.
+
+>> +	if (!endpoint)
+>> +		return -EINVAL;
+>> +
+>> +	ret = of_property_read_u32_array(endpoint, "data-lanes", tmp, num_lanes);
+>> +	of_node_put(endpoint);
+> [ ... ]
+>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+>> index ea8401293a23a..c1344a3f013ab 100644
+>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> [ ... ]
+>> @@ -48,16 +48,15 @@ void analogix_dp_stop_video(struct analogix_dp_device *dp)
+>>   	writel(reg, dp->reg_base + ANALOGIX_DP_VIDEO_CTL_1);
+>>   }
+>>   
+>> -void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable)
+>> +void analogix_dp_lane_mapping(struct analogix_dp_device *dp)
+>>   {
+>> +	u32 *lane_map = dp->video_info.lane_map;
+>>   	u32 reg;
+>>   
+>> -	if (enable)
+>> -		reg = LANE3_MAP_LOGIC_LANE_0 | LANE2_MAP_LOGIC_LANE_1 |
+>> -		      LANE1_MAP_LOGIC_LANE_2 | LANE0_MAP_LOGIC_LANE_3;
+>> -	else
+>> -		reg = LANE3_MAP_LOGIC_LANE_3 | LANE2_MAP_LOGIC_LANE_2 |
+>> -		      LANE1_MAP_LOGIC_LANE_1 | LANE0_MAP_LOGIC_LANE_0;
+>> +	reg = lane_map[0] << LANE0_MAP_SHIFT;
+>> +	reg |= lane_map[1] << LANE1_MAP_SHIFT;
+>> +	reg |= lane_map[2] << LANE2_MAP_SHIFT;
+>> +	reg |= lane_map[3] << LANE3_MAP_SHIFT;
+> 
+> [Severity: High]
+> Does this logic incorrectly assign the physical lane value to the logical
+> lane's field?
+> 
+> By shifting the physical lane index (lane_map[i]) into the register field
+> assigned to the logical lane index (LANE<i>_MAP_SHIFT), it appears this
+> inherently applies the inverse of the requested mapping.
+> 
+> While this silently succeeds for symmetric maps (e.g., swapping 0<->3, 1<->2),
+> will it fail for any non-symmetric map (e.g., <1 2 3 0>) by causing physical
+> lanes to carry the wrong logical lanes?
+> 
+> Should the bitwise construction instead be reg |= i << (lane_map[i] * 2)?
+> 
+>>   
+>>   	writel(reg, dp->reg_base + ANALOGIX_DP_LANE_MAP);
+>>   }
+> 
+
+lane_map[] uses index as physical lane, value as logical lane.
+
+This matches training_lane[] / cr_loop[] in struct link_train, whose 
+indexes are physical lanes for DPCD access during link training.
+
+LANE<i>_MAP_SHIFT configures which logical lane is routed onto physical 
+lane i, so current register logic is correct.
+
+Best regards,
+Damon
 
