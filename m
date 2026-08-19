@@ -1,142 +1,169 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6933A44C640
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C86E37DAA9;
+	Wed, 19 Aug 2026 10:20:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787134770; cv=none; b=VFXFMqCnyrVMKxbYXC4Lrds3roT+Fp4DVl2qK9zqo/brfotyxTjKxYFWmbc+LLaBzsama38QkjmnoZ38jK2kzryySIBc/91mbCT6+4SOSM9KE/RIhMsyzwsJOhibxySxdH2h3jKngeA/eIRq1bLlIDc2N+55qDUdkJElMTWOQoA=
+	t=1787134830; cv=none; b=l+DmIqfJXgtVtDmbS6FOuvUZxiy4lD03Fznwy/L/ZLHd5iezjtz55Ox82D7L5wPjULSvKzqmcnEv81VrBVQVrZyDMB7wF2RKVsbPWVmiM0HbkaLuyCcroak25GQIeUKjMJEFtLcyPFIyVELswREOJ4558sSE02e+42P5RkQXe1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787134770; c=relaxed/simple;
-	bh=lV7cn3wHDLCLp1GZjg2LVjd9oT9jGfOPTNvvw0Vnn64=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DCpJNTj4jk5UDl3mYycbYYcQEaZzXvaFVIiWiWvyQKpXi9P2JnfYaUHLLOhnsEgtHDXfiFouAcvhQTyZfkh0xwTD5tAO2gQLDodEhUkqivEPa0I6YXRCvlqpSsygQyo69XgZnp4Ce6bH9xoC4IRWCHXre4ua4ogWCf4aRykpH+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BC3NOlTN; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787134830; c=relaxed/simple;
+	bh=awAToS9HGTXs2KozuAt+YtiCKwWo0nxiLwo/mrpxxcQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EPr0pHYigaqHelCDjPD0Xd+mstEmsmo4lbruMTIAShTUP9LJSAbv5jP96Oo9l7yLk1S15m8LnQUHFn8NVp2JXOkdmgVKKuFhHYXVe/q1uSGTi0e+lINx+EthJ0DY5sR23IhN0ozna6zvFy4VL3XiGWRNF/MvhF9acnlwXxEhA0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pPvMG6EO; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BC3NOlTN"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493b966dd74so5604865e9.3
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:19:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787134767; x=1787739567; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EnZE7wbRFGJKlrtdBKnnD6qNsCW/P/b4SFhiLIR6sD4=;
-        b=BC3NOlTN/NRomvRnd2uMbqLX8Iiij1KQ6L9k8138Wy0XOhupLmGnPYGTKwOILk4qLr
-         hOj53xQN+PtAXG2Vwv/H7A76GIKD67M49oyjjENeJRBGHHQgfeNksQmp8NunacgOK2Rs
-         6RB6AuPtGJjukzUaAmkd3NsRjq/EHa52UxmYD6nD++AF/7hyMyR/tVkVkdstdpURU2bN
-         x9ck7Ld8/1wBO25DHPycyjWqleAf5A1B2DM6b04Kl/Ap56U9SkQ4X2RGEcoRL+bR27nt
-         rqTP3cIE4y58DyPjYn448Z9nlwuNh5zQrugnFpuPuV96+GV5b1C7K3Ku00HEXXO9lfzM
-         Rlag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787134767; x=1787739567;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EnZE7wbRFGJKlrtdBKnnD6qNsCW/P/b4SFhiLIR6sD4=;
-        b=c3l8DR5ca0eaAGGqJ3kbLTGao+MKa34vfAKoBdvyPFmdfpZWkKsXUX8d+0D+EyuGCC
-         6ZRBrMSIlg26W7YsWhmyMnzUdF0HYrSkfqz4/Rm9ZmwSUV3i4OMfuHXvHb5LILK5n73E
-         nEERZQiXIYa5RcSWIB5DRai27QMkTswna2XY5qI6cbzie+T6hMMk1fDt8mie0vcJ7EQk
-         OgSt2XegN+j8xAd3zFpNfA5sopCls7558mUT7nxJSAYyK2I0i5v2DZc51tvUGoqd/Bl6
-         AvNRBruCVksrNsqvUT4JKlQsn78j2QWXl0XugGK7DI55fCKJVmVFfDGiB0G+aijbTPDY
-         WlHQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpnwiuyeYAbStpfHcaa0/UIT1n51jBjfE337OV/cFZiO5CrtSWxNzKPDpAJMZhJLzRooxbtS9dLMzOd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzu5DEsMBPquLZMWujMrY8v4GfSVGMZyaGpKmmlSDDzm0Kl5iPH
-	95T7JYVIEydc7lNAQA69+uhs5dOC8QRBvGxXI8XNOSTPxSAGmSfEMXkY
-X-Gm-Gg: AR+sD11L1N0iFSgNwY5kn3SbJDXPpnLomJ97D+URzP4KnRQP2Y5BfX1/3ovQdUja/My
-	aD3NOzx1OPe/MnTEMQdo2YQ5fDfc9aMvTs6ji9xM90s6VM+EWZS5fTozPY31an3TLArHTIUX6dj
-	bJJbSwWLzH6DWlOfSqsP/5FW5J/GNP96ehKO8XFaR6euCrMfP5Fe77KqUJi8VX7VlJIdOpwwpXq
-	q0EjGNp/3pvYSern1vvaV6wk5gr/xMiPxHdIOY/rdR82OW0EGEBNwKsRdwI4GsWWDZUoVuku47H
-	Qde2Mdz3xntCbEZZgg7q+Hqq1SaM3oyxbebH8F7qPK6VAGykhGNRwAMaNwsIRezX9guTRHIBDf3
-	cIdcm5TNHB6U2peqqVzxwhUw9BwOCOKgU+nC6lYF9GC2UoBcbXexsMOZ/VFOMpd0u5ovjIKe3YW
-	AF4VT5qls4VqTcRbtoczgonzrl+4WoSqUixTGb4UdOZ7Z5swr0u21Vjjtvue8+wnDI
-X-Received: by 2002:a05:600c:1d1a:b0:493:a623:d090 with SMTP id 5b1f17b1804b1-499aa1dde53mr59985075e9.10.1787134766581;
-        Wed, 19 Aug 2026 03:19:26 -0700 (PDT)
-Received: from luca-vm.. ([81.56.18.151])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9b7c987sm27316965e9.1.2026.08.19.03.19.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 03:19:26 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v4 7/7] arm64: dts: mt8167: Properly describe the SoC watchdog and mmsys resets
-Date: Wed, 19 Aug 2026 12:16:28 +0200
-Message-ID: <20260819101853.44681-8-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260819101853.44681-1-l.scorcia@gmail.com>
-References: <20260819101853.44681-1-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pPvMG6EO"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4A9351A1737;
+	Wed, 19 Aug 2026 10:20:25 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0BE3A5FF42;
+	Wed, 19 Aug 2026 10:20:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4859111C755E7;
+	Wed, 19 Aug 2026 12:20:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787134820; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Di5o/870QOvjubcyqWFfxdNWPGnFvk4UYOcojc7xAAM=;
+	b=pPvMG6EOasRjfb5qQ4aT7g7fafsy5J/uVmNUvzDHhZ84CsR3dpTvPFUsgY/1MqLNv8ruGd
+	VS6wfkEkkSDNXdyfGMXFyCkXyKX2lPBPGJj9ZSD7XT8R2NxGY+EF3+/L+8Zk2EkQHzJAvU
+	JVHP8QXoZn7DoTBmWK9VxNM4mPvQpMUhebr9Vvt6AIX4DhcKfAj2S6yUX/cbXG2AsQlzyZ
+	153uuNISqOja2oVRk4jO+fGFMdSqdWaUyjynCK9Ruq9YVQqmxTQRR1scwGtHzNzGB4oqQ1
+	fyw0i6gBI27p4xN9uxCi0x/8Tenx0Jx3esPVACWBUZcC5JGkmXJorMFlNeZDCw==
+Date: Wed, 19 Aug 2026 12:20:15 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: bhelgaas@google.com, robh@kernel.org, daniel@riscstar.com,
+ mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+ linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] PCI: of: introduce of_pci_verify_node()
+Message-ID: <20260819122015.7e05e4dd@bootlin.com>
+In-Reply-To: <20260812172247.276554-5-elder@riscstar.com>
+References: <20260812172247.276554-1-elder@riscstar.com>
+	<20260812172247.276554-5-elder@riscstar.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
-which in turn falls back on mt6589-wdt. However according to the data
-sheet mt8167 toprgu is not really compatible with mt6589 (it has 14 sw
-resets instead of 12, and the reset IDs are different from mt6589).
+Hi Alex,
 
-Use the dedicated mediatek,mt8167-wdt compatible for the watchdog driver,
-as it correctly describes the SoC resets.
+On Wed, 12 Aug 2026 12:22:47 -0500
+Alex Elder <elder@riscstar.com> wrote:
 
-Also add support for mmsys resets by declaring the reset-cells property.
+> Commit 407d1a51921e9 ("PCI: Create device tree node for bridge") linked
+> the PCI enumeration process together with devicetree, creating a devicetree
+> node for discovered PCI bridges.  Its successor commit ae9813db1dc5a ("PCI:
+> Add quirks to generate device tree node for Xilinx Alveo U50") shows how
+> to use a PCI final fixup quirk to also create a devicetree node for a
+> non-bridge PCI device.  These changes allowed devicetree overlays to
+> describe components downstream of a PCI device, by providing a place to
+> attach the overlay.
+> 
+> Note that the dynamic devicetree node is only created if the device didn't
+> already have an assigned node.
+> 
+> Later, commit aa7b4bbcb3a1d ("arm64: dts: qcom: qcs6490-rb3gen2: Add
+> TC9563 PCIe switch node") *pre-defined* devicetree nodes to represent the
+> PCI device nodes that would (also) be discovered via the PCI enumeration
+> process.  The devicetree node in this case is created with the content
+> from the DTS file.  So when a (host) bridge is done being initialized
+> during PCI enumeration, no node is dynamically created (the commits
+> mentioned above do not apply).
+> 
+> Ideally, any pre-defined PCI devicetree node would contain exactly the
+> same information as whatever the dynamic creation process would produce
+> (though it could include more).
+> 
+> However that is not the case for the pre-defined Qualcomm RB3gen2 nodes.
+> And in particular, the endpoint (function) nodes include this property:
+> 
+>     device_type = "pci";
+> 
+> This is simply wrong; that property is meant only for bridge nodes.
+> 
+> Rob Herring requested that a runtime check to be added to spot this
+> specific error, only for non-bridge PCI devices.
+> 
+> (There are many things that could be verified for statically-defined
+> devicetree nodes, but this is all we'll do for now.)
+> 
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+> v2: Verify even if PCI_DYNAMIC_OF_NODES is not defined (Sashiko)
+> 
+>  drivers/pci/bus.c |  1 +
+>  drivers/pci/of.c  | 26 ++++++++++++++++++++++++++
+>  drivers/pci/pci.h |  3 +++
+>  3 files changed, 30 insertions(+)
+> 
+> diff --git a/drivers/pci/bus.c b/drivers/pci/bus.c
+> index 655ed53436d3e..679afbc6d3109 100644
+> --- a/drivers/pci/bus.c
+> +++ b/drivers/pci/bus.c
+> @@ -351,6 +351,7 @@ void pci_bus_add_device(struct pci_dev *dev)
+>  	 * are not assigned yet for some devices.
+>  	 */
+>  	pcibios_bus_add_device(dev);
+> +	of_pci_verify_node(dev);
+>  	pci_fixup_device(pci_fixup_final, dev);
+>  	if (pci_is_bridge(dev))
+>  		of_pci_make_dev_node(dev);
+> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+> index 8b18c4ba845cf..0bbf1a915b7d2 100644
+> --- a/drivers/pci/of.c
+> +++ b/drivers/pci/of.c
+> @@ -1006,3 +1006,29 @@ int of_pci_get_equalization_presets(struct device *dev,
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(of_pci_get_equalization_presets);
+> +
+> +/*
+> + * Check a pre-existing devicetree node for errors.  The PCI enumeration
+> + * process gathered a lot of information about the device, and ideally it
+> + * matches what the devicetree node says.
+> + */
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
----
- arch/arm64/boot/dts/mediatek/mt8167.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Can you switch the kernel doc format [0] or move the comment into the function itself ?
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-index 27cf32d7ae35..cccc487086a1 100644
---- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-@@ -8,6 +8,8 @@
- #include <dt-bindings/clock/mt8167-clk.h>
- #include <dt-bindings/memory/mt8167-larb-port.h>
- #include <dt-bindings/power/mt8167-power.h>
-+#include <dt-bindings/reset/mediatek,mt8167-mmsys.h>
-+#include <dt-bindings/reset/mediatek,mt8167-wdt.h>
- 
- #include "mt8167-pinfunc.h"
- 
-@@ -95,6 +97,13 @@ power-domain@MT8167_POWER_DOMAIN_CONN {
- 			};
- 		};
- 
-+		watchdog: watchdog@10007000 {
-+			compatible = "mediatek,mt8167-wdt";
-+			reg = <0 0x10007000 0 0x1000>;
-+			interrupts = <GIC_SPI 198 IRQ_TYPE_LEVEL_LOW>;
-+			#reset-cells = <1>;
-+		};
-+
- 		pio: pinctrl@1000b000 {
- 			compatible = "mediatek,mt8167-pinctrl";
- 			reg = <0 0x1000b000 0 0x1000>;
-@@ -124,6 +133,7 @@ mmsys: syscon@14000000 {
- 			compatible = "mediatek,mt8167-mmsys", "syscon";
- 			reg = <0 0x14000000 0 0x1000>;
- 			#clock-cells = <1>;
-+			#reset-cells = <1>;
- 		};
- 
- 		larb0: larb@14016000 {
--- 
-2.43.0
+[0] https://elixir.bootlin.com/linux/v7.2/source/Documentation/doc-guide/kernel-doc.rst#L67
 
+> +void of_pci_verify_node(struct pci_dev *pdev)
+> +{
+> +	struct device_node *np = pci_device_to_OF_node(pdev);
+> +
+> +	/* If there's no pre-existing node, there's nothing to check */
+> +	if (!np)
+> +		return;
+> +
+> +	if (pci_is_bridge(pdev))
+> +		return;
+
+The property 'device_type = "pci"' is needed for bridges.
+
+You could check that it is well present in case of bridges.
+
+> +
+> +	/*
+> +	 * Currently we just verify that non-bridges don't contain a
+> +	 * device_type = "pci" property.
+> +	 */
+> +	if (!of_node_is_type(np, "pci"))
+> +		return;
+> +
+> +	dev_err(&pdev->dev, "\"pci\" device_type NOT VALID for PCI endpoint\n");
+> +}
+
+Best regards,
+Hervé
