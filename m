@@ -1,257 +1,141 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC10918E02A
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 17:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787161984; cv=pass; b=QsHYFcEXt5XvEXkDbh6BO62yiiitl79Rxhf5qfwkbxNKy7h3QonfTAX4S5g+FdZ2sh6jzb8wZXL27ewbZg7nVuW2By8bZolU1GsuHu82dxQMuXQ3WNL+6Pad7EO0LzPGX17idA7N/6MPezU09G891ITPHIeeSfx1F4jAHbKBvuI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787161984; c=relaxed/simple;
-	bh=8zQc2kihKmltrWCPlwdMB1xKk2HSQAEcmpgNNDtGHUc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Srxm0pCYupb+PxEx5kDbLQi5vz2rpkBlOdnfGWn0FlRfN3g8sSXIWX9o/fNFuCaRY9ZGAbMKnOco/85Mf+Noq25M5rv6h6AaFvuvNft/T6V565pesppHvyRUuOor6CUcZcr7X29oeQchJPPKmapnL7D8g74qaFhMP0HwK/cdUiU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YXXcfVH3; arc=pass smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B563C4B8D
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 18:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787163338; cv=none; b=Mji7edyBgKMK7VAFL0/eSNlov0H/fKmZbL3gF4d2tuAflHUzhNWqJCgTX+Ssep2Y+VJfRE170vnJu3lYuv1Rt5UdrGpQ7lOhXird3ns6v6XxrO8/hMa+5SjuU0d75ZR4xcmdtQ8GjcZqK2V06gUDmn3PGQh+fwY5LPu3uPX50uY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787163338; c=relaxed/simple;
+	bh=+TsZrEMv9PPisb33yms/nZsKIKo0Ndtx28K5SceGad0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=qeSifyhv19SIclR3EqMu1uhxzCeJwZHbc4KYM7LsHrbVJR7bO3HBEqJyn+/Kq6rU1DppMV+Sx01Aw8TjyLcJH0nYX2Eq5leedkkyMfrVZBod39ZkAqE5ytoKMpGMwnQqOsB6rriU3+DsqBBkUHtpQfRjs2wKSE/VnqhX/mjEMWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=gjmErCg7; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YXXcfVH3"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so12580785e9.0
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:52:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787161978; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rO1gg/KyCAkEILh7nXelSx4GUvbkEGP5smmGJbCK7L53yljhsOvBSU29lPwI866slo
-         VdPTxmAT8hmdvULO3sfsv6Unjn1k9c45ucEwexZjgEtJ8oo2w4hCmAvW/ozWnKMcfHU8
-         oMB1iOB4GiPKGSlIRdZiAystk8ActVXxkfa9HpreMTenqp/toQ1lfI84uj5RUZqng0UK
-         h211eVTgyNjLIz533fReApN1ojw78CDcpjG++i5Ncto+KBWs4rTZAbLcv9kOi3H46Kbc
-         uOoqhU3F80Uivv3A9qTrZU7lTQGCEo1PE8Tsv31z6NW5EAd2Z7XOeO2q2BC+WAW4/UPj
-         gWfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+jgLmRTKFljohDQGU+TCWbzcFi+q3XbPME2RwOajqPI=;
-        fh=53Xc4/eobYf4YnCYZ1SVrFKs5QPl7PCU1rzBO830y30=;
-        b=TE4mHm2CfpgqiTCHgcD+b821IzGb5YT64JEz+achrNSxzduV8N7MFNP2CbajV6nNTa
-         UuCxixL9/iT4eFYUzJT8+8WLTNBjJ1iQpAoPAYzZR5rBDixLotRNKfekhZlGFesijYr7
-         mI13eiLYvXAcDQnXeqBPIFltqzuEuP/TQaIIfdQ4xPvavpBdjgK91Ekmp5CIcJeCyfyB
-         SVSLtkt8XDhM595lEq30/tn0RbraqVc0IBda4BVCPw4IGyGCWUpPgpqKCZ34m9hE0U7L
-         sTAz6QFYUa246ShYGhqh0og+HV5JPcETgWYdoF39E5uelVuyi8E1dVs3qsKm/xt7a1uA
-         5yVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="gjmErCg7"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ceaf8a1265so15795935ad.2
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:15:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787161978; x=1787766778; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+jgLmRTKFljohDQGU+TCWbzcFi+q3XbPME2RwOajqPI=;
-        b=YXXcfVH38vRQHLpMud0sKymlJJxYQpuCZpcwz8M53XaHtgoenBIyqf6stR6Vc/Xdeq
-         uHCAnVmgW0czfJsnX5SLrPqTBpMfX4H9eYSxMWUaznI6ilM1cZNwV0P5ECAdUiNEwfAo
-         7C9FAMgBH8VqvURatVNZ8AcbrRdKWfAot32hQbAal1idqXUMFNfsujkmoShfWuxaUUy3
-         KJnxLCtrwnnkWFyVjlwcA5LXpVTvYgjObBuBKKDQZwtIJyMV3KgSDK299oU7OkF14CFz
-         oogjPIwGfzCqZh5VILY3G6Val4jWXfcB3VkllaV5xxUTGNA3g/4/jt6sNvFrsmBqA9uj
-         UY0g==
+        d=nexthop.ai; s=google; t=1787163337; x=1787768137; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+TsZrEMv9PPisb33yms/nZsKIKo0Ndtx28K5SceGad0=;
+        b=gjmErCg7qI7fTQ8j8A3VvX1j78wGM7iEkg8wtnyBO8IY2NCab7ISpj4Ou5ZvGK+73+
+         i59KDxRwv5ugjB1fm7nXl2uHWO3GB4S2ND6Gi9kGSufjAxZfB3wu/eg0VQ/V2pvMiLf0
+         bx5wkGRRjF+t7DeylIHqwhQ38Y5xfpR/uGCEI0ZsM/63Tde27gNXQjbB8iYjwW1cpNv0
+         PqYnWS8tYQLjXOHadGxpc2JkPt9nXYRU75ekzHMqaIkn8rFAEhoSrVdBqVdglvsjOk+P
+         23Rfe4MBCRsrd4+X3ef27Rm4FJa9bSlk4Tsrz/sNV3h0WRJwbv2HDK9mpH2zxpA0AtUV
+         tsBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787161978; x=1787766778;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787163337; x=1787768137;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+jgLmRTKFljohDQGU+TCWbzcFi+q3XbPME2RwOajqPI=;
-        b=euVzIbMGbsVC1jsoGFrMAaHOlN4MZ9dbC+ppVHsoKo3FTOSfqBovKX+VmWuWt4JR03
-         SVwdLug3nsloAZh3EOXhmlu/F8/1HR2rDfZUyNGV3YYQf88OkHglqgpbvYAntg6TNfxt
-         iVHjV2PQTuY+tupj1HY/3+PuoKqcra4mY5ffP8UNkqylvf8Dm9UsqSDdsVZ8DSQyLkZY
-         MthZ2MY7vTvkligR7h5zk/y0Cc9qS6iHW81EB/33topYPAsa7KHrkM4P/pqFWsBUsqy/
-         VaxF6GBA3f2t/ugRxhsDBvFjyc/+OwLTrxq6scc5/dZ40mszDFk9esGUw4V2PKRcKnq8
-         IhUQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrOo//Vbwxl1sd+dzfysWaCz8IQ4UPwNUnbWdJvbyHe3USd3VC6vkzELZ7UP1deD2kmiA1Ojezp7U5o@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXK1zWC56dwSDblaaljyToo4sg6wsVs8qDlZ01RxNqA2B6C8/R
-	bgfGf6FiU2KHtqNBfVrcFMarZQlLfnultRMvIduIuM8mgiRs6KsY0wQzrGf4uohGZEPncIx+L+l
-	BxHRe+fqLu0EOKQAYL5NWpOOtWmiP3AE=
-X-Gm-Gg: AR+sD13ohyauFGhVHoEaJKGr0XNiADYrOb52FM8fLum7CPAphguVlE+8671aSz3Vott
-	0AxSbJEqN8r4FEB67DBXBTg5lFiOBxlFcsdXEYDS+5Gxh5txrN1N8JLisUEeDYW7XBJEOxi1yn7
-	f8jP6c/+GGYIIsyg9AVP6kpezIT8MZdlNXPuz3LZxKU03x0ZAVKWA9vQnV35XB+ncOEMUXNaIaF
-	qjGHG2WqcgPLJUFHNVHVc3xBmW7nkcOyIiM/BPecNrHI9T29x8YXYgNdnbWChHDwJlOv7X352g8
-	KbTiRiRkexhVX/A3inWlk+wVkIthYtJ7xpfmq2EVEJZ3eLeap54AUmL6W/81c9iwymxO3boFAK/
-	PkBZeJjF6cehOP7lLEoFO8tT6mVXd/QI=
-X-Received: by 2002:a05:600c:3e0c:b0:499:4e47:eaf2 with SMTP id
- 5b1f17b1804b1-499aa1a3e87mr135314645e9.6.1787161977655; Wed, 19 Aug 2026
- 10:52:57 -0700 (PDT)
+        bh=+TsZrEMv9PPisb33yms/nZsKIKo0Ndtx28K5SceGad0=;
+        b=OaJwk+qJc6Gy1CF/Apl4/evNcU+Q5xJbjg6c6Ykn9lcWqpqvzg/Vngc+hGGtD6xbmF
+         AGuC0irvhETyuOppU1jgxAoDhVCeauDLPUMfPcmClv1CqZjrT1MUvgjZwEao5ILm9qjy
+         td05tS6bHgiyw636mXlsi8bM1GFETVxNkxGNp4/BJElL4iDrI0iRP+25rPevXeSBvCsH
+         7/jbgOlUgRCT1sHa/rRMtjamYa2RL+gzmivkZ0RReXcA3ICSkM/kl1S7Yq+psawYx/2k
+         KpVLiPxCN9RdF9jjiAf4lKky/dVa5ZuCX4jMHIQDWXSXt6ohKV5UAHemwyYqkNqoMt05
+         9hhQ==
+X-Forwarded-Encrypted: i=1; AHgh+RplHvxBoB/AvjEMW7X/qGWN1DsWNHM4Wh8I4wOQ21UbpS7gBd3ePcz6UBYKUZdUlwia1WsHEv1WJ+SE@vger.kernel.org
+X-Gm-Message-State: AOJu0YypwJX0VBea9jYmSEHLnU/EI40iB7iECw8Vy/uoHc1rei2Yhq0X
+	d9ovc6/q4g9GLRNNA6azq+R101SLq50kHWLoZjtoEkgXdhYmIeW0TpY9uqHCa7VsoiDlnbCAqzd
+	yIi7PLmc=
+X-Gm-Gg: AR+sD12hHZ74UnOEi2h6KkNrSIa8rxwBbK5gtgG6s2IF72GXZd5vruhLqjP7MBAxVLq
+	W15v8wdMs0TNI5bkKBfKBr1tJYmKK4q2aQl/XXc92cy/+kThPuzHhmCyxzrg18STZ0MwDkqYCbU
+	uTy2i9+jwtkztXq9p/yhKeDHCb7X9ECOPv+sM879eut0lZEgT6nTL5URYaih2zN/3xxuw/m6/qg
+	I2bfY5rib8E3HqV8Wny71BqqRglbsZGpbdS0bBhTnzFQiji/vSpoVuTEy615BYnHyRKDHuS95x+
+	QSX0RiqSk/D8wwm6To3NghF120TlSkaXclcW5WnXh1tS78HtDUVTsfFIxtH5++le7SpMCQZ68vY
+	bvHpfus1SiFpy1RH6oiDERmVLRJivu6IPDD0uyJp40hVIQ1drVZMwEsXizonTpxc+wa7jBYop1K
+	VJ2aMWy9Nc+mZXQdDP+sMR3KeicCZg3kXU98OcsO7uVVbcpa+XGqgh2LcTLukP
+X-Received: by 2002:a05:6a21:6112:b0:3c3:b57b:627d with SMTP id adf61e73a8af0-3cd011b446emr14251391637.12.1787163336516;
+        Wed, 19 Aug 2026 11:15:36 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef3ce17sm13729159eec.1.2026.08.19.11.15.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 19 Aug 2026 11:15:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260615115455.1412098-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260615115455.1412098-6-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdUrD22vs+HyuxSRfgrGqugoNp4wfvet-1tRo2qF_CsFzQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdUrD22vs+HyuxSRfgrGqugoNp4wfvet-1tRo2qF_CsFzQ@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 19 Aug 2026 18:52:31 +0100
-X-Gm-Features: AcwNN1UUFcHAmSBCIsJsPZqcyHnPNsRSgvoydk2Px4kAQ_U7SkTKsV40VGJXBbs
-Message-ID: <CA+V-a8upqydkSDs+aVbYVZS_x-+wr3ZZsSJgOYT-VGkZR6c6Fg@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] arm64: dts: renesas: Add LCDC overlays for RZ/T2H
- and RZ/N2H EVKs with ADV7513
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 19 Aug 2026 11:15:35 -0700
+Message-Id: <DKT4J20H0F84.17L06ULMZXN4A@nexthop.ai>
+Cc: "Rob Herring" <robh@kernel.org>, "Saravana Kannan"
+ <saravanak@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 0/4] of: teach overlay code to keep /aliases in sync
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Herve Codina" <herve.codina@bootlin.com>, "Abdurrahman Hussain"
+ <abdurrahman@nexthop.ai>
+X-Mailer: aerc 0.21.0
+References: <20260721-nh-of-alias-overlay-v3-0-7001028fe2f5@nexthop.ai>
+ <20260819134923.0a67838b@bootlin.com>
+In-Reply-To: <20260819134923.0a67838b@bootlin.com>
 
-Hi Geert,
+On Wed Aug 19, 2026 at 4:49 AM PDT, Herve Codina wrote:
+> Hi Abdurrahman,
+>
+> On Tue, 21 Jul 2026 14:36:31 -0700
+> Abdurrahman Hussain <abdurrahman@nexthop.ai> wrote:
+>
+>> /aliases entries added by a device-tree overlay are stored in the live
+>> tree but never enter the global aliases_lookup list that of_alias_scan()
+>> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
+>> aliases declared inside overlays, and any driver that relies on
+>> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
+>> pinned id and falls back to auto-assignment.
+>>=20
+>> The gap has been public since 2015 [1] and reproduces trivially: apply
+>> an overlay that declares e.g. `i2c99 =3D &foo;`, ask
+>> of_alias_get_id(foo, "i2c") -> -ENODEV. Bootlin's ELCE 2025 talk on
+>> PCI DT overlays [2] enumerates "i2c muxes" as one of the subsystems
+>> broken by dynamic overlays; alias pinning is the underlying cause.
+>
+> Are you sure aliases were mentioned in the talk and were the cause of iss=
+ues?
+>
+> I've got an issue with i2c muxes but it is not related to aliases.
+>
+> What made you think about aliases issue?
+>
+> The issue I have is related to fw_devlink consumer/supplier relationship =
+and
+> I have sent a fix [0] with nothing related to aliases.
+>
+> [0] https://lore.kernel.org/all/20260630103010.413688-1-herve.codina@boot=
+lin.com/
+>
+> Best regards,
+> Herv=C3=A9
 
-Thank you for the review. Sorry for the delayed response.
+Hi Herv=C3=A9,
 
-On Thu, Aug 13, 2026 at 12:56=E2=80=AFPM Geert Uytterhoeven
-<geert@linux-m68k.org> wrote:
->
-> Hi Prabhakar,
->
-> On Mon, 15 Jun 2026 at 13:55, Prabhakar <prabhakar.csengg@gmail.com> wrot=
-e:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Add DT overlay support enabling the DU/LCDC pipeline on the RZ/T2H
-> > (r9a09g077) and RZ/N2H (r9a09g087) evaluation kits when fitted with a
-> > CN15/CN20 ADV7513 HDMI transmitter.
-> >
-> > Move the LED8 and LED9 preprocessor conditionals inside the node
-> > definitions so that the nodes remain present in the base DTS. This
-> > allows the LCDC overlay to reference and disable them when their pins
-> > are reassigned to display functions.
-> >
-> > According to the hardware manual, the LCDC pins should use slew-rate
-> > setting 1 (fast). However, testing on the RZ/T2H and RZ/N2H EVKs with
-> > the ADV7513 HDMI transmitter showed unstable display output with visibl=
-e
-> > screen flicker when configured for fast slew-rate operation. Configure
-> > the LCDC pins with slew-rate setting 0 (slow) instead, which provides
-> > stable display output on the evaluation platforms.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Thanks for your patch!
->
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso
->
-> > +/*
-> > + * RZ/T2H LCDC configuration:
-> > + * ----------------------------------------------------------
-> > + * Function        Pin     SW Setting
-> > + * ----------------------------------------------------------
-> > + * LCDC_DATG0     P11_0, SW6[3]: OFF, SW6[4]: ON, SW6[5]: OFF
-> > + * LCDC_DATB1     P18_0, SW8[3]: OFF, SW8[4]: ON
-> > + * LCDC_DATB2     P18_1, SW8[1]: OFF, SW8[2]: ON
-> > + * HEADER_IRQ8    P22_6, SW2[1]: ON, SW2[2]: OFF
->
-> What is IRQ8 connected to on the display board?
-> It is not described in the .dts[io].
->
-Actually this is connected to pin 28 (INT) of the ADV7513 chip.
+You're right, and thanks for the correction.
 
-> BTW, r9a09g077m44-rzt2h-evk.dts uses a mix of "SWx[y]" and "SWx-y" (and
-> tables), which makes it harder than needed to see which functionality
-> is affected by a given switch.
->
-I'll add a patch to use consistent notation.
+The "alias pinning is the underlying cause" clause was my own inference,
+not something your talk claims =E2=80=94 I shouldn't have written it as if =
+it
+were. I now see the i2c-mux issue you meant is the fw_devlink one you
+fixed separately; conflating it with this series in the cover letter was
+wrong. Apologies.
 
-> > + */
-> > +#include "rzt2h-n2h-evk-du-adv7513.dtsi"
->
-> In case of dynamic overlays, any conflicting pins must be disabled
-> first, so please move this #include to the end of this file.
->
-> > +
-> > +&{/leds/led-4} {
-> > +       /* P18_0 is used for DU function LCDC_DATB1. */
-> > +       status =3D "disabled";
-> > +};
-> > +
-> > +&{/leds/led-5} {
-> > +       /* P18_1 is used for DU function LCDC_DATB2. */
-> > +       status =3D "disabled";
-> > +};
-> > +
-> > +/*
-> > + * Disable SDHI0 as SW2 settings for eMMC/SD card conflict with DU pin
-> > + * settings.
-> > + */
-> > +&sdhi0 {
-> > +       status =3D "disabled";
-> > +};
->
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
->
-> > +/*
-> > + * RZ/N2H LCDC configuration:
-> > + * ----------------------------------------------------------
-> > + * Function        Pin     SW Setting
-> > + * ----------------------------------------------------------
-> > + * LCDC_DATG0     P11_0, DSW12[3]: ON, DSW12[4]: OFF
-> > + * LCDC_DATG3     P14_3, DSW18[5]: OFF, DSW18[6]: ON
->
-> and DSW19[3]: OFF, DSW19[4]: ON?
->
-Ack.
+This series is narrowly about overlay-declared /aliases never entering
+aliases_lookup, so of_alias_get_id() returns -ENODEV and alias-based id
+pinning falls back to auto-assignment. It reproduces with no mux involved
+and doesn't depend on your talk.
 
-> > + * LCDC_DATG6     P14_6, DSW15[8]: ON, DSW15[9]: OFF, DSW15[10]: OFF
-> > + * LCDC_DATB2     P18_1, DSW18[9]: OFF, DSW18[10]: ON
-> > + * I2C_SDA1       P03_3, DSW7[1]: ON, DSW7[2]: OFF
-> > + * I2C_SCL1       P03_4, DSW7[3]: ON, DSW7[4]: OFF
->
-> I2C_SDA1 and I2C_SCL1 are exchanged?
->
-Ack.
+In v4 I'll drop the "underlying cause" clause; I can keep [2] only as
+prior-art context or drop it entirely =E2=80=94 whichever you'd prefer.
 
-> BTW, r9a09g087m44-rzn2h-evk.dts uses a mix of "SWx[y]" and "SWx-y" (and
-> tables), which makes it harder than needed to see which functionality
-> is affected by a given switch.
->
-I'll update it to be consistent.
-
-> > + * ------------------------------------------------
-> > + */
-> > +
-> > +#include "rzt2h-n2h-evk-du-adv7513.dtsi"
->
-> In case of dynamic overlays, any conflicting pins must be disabled
-> first, so please move this #include to the end of this file.
->
-Ok.
-
-> > +
-> > +&{/keys/key-1} {
-> > +       /* P18_2 is used for DU function LCDC_DATB3. */
-> > +       status =3D "disabled";
-> > +};
-> > +
-> > +&{/leds/led-4} {
-> > +       /* P18_1 is used for DU function LCDC_DATB2. */
-> > +       status =3D "disabled";
-> > +};
-> > +
-> > +&{/leds/led-7} {
-> > +       /* P14_3 is used for DU function LCDC_DATG3. */
-> > +       status =3D "disabled";
-> > +};
-> > +
-> > +&{/leds/led-8} {
-> > +       /* P14_6 is used for DU function LCDC_DATG6. */
-> > +       status =3D "disabled";
-> > +};
-> > +
-> > +&i2c0 {
-> > +       status =3D "disabled";
->
-> Needs the same comment as led-8 above?
->
-Ok, I will add a comment for it.
-
-Cheers,
-Prabhakar
+Best regards,
+Abdurrahman
