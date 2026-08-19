@@ -1,169 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F239D3F1AB7
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F126A268690;
+	Wed, 19 Aug 2026 08:26:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787127949; cv=none; b=tuTTyGjqJJmEtOWld4Fp1jVYrZAs+7ZKu6VtDiprxFCHxdHW4erDuBaiGZri9ZzvK5/pRyEwXLprpixEDAYYpZ48Nv4WBWNQc/aPLG3q9o1Lqm4BAklhmBGPOyDQF7/ixyG5kFKHowfW+TF1VD3Eels/QHegoPGZggyumcfKklI=
+	t=1787127999; cv=none; b=M+h3Ek56EEstb9UHOEq23cbRQOiF72fRRZlO4J6Dx8XBq82nRuafJLELzyFBeA4DD0pnpMz0B2vKs1PRSiiGO2Eyywsb2dB93iuKURiBMQogt1xadZawdGI4kijdsfLGdQXNZu3ZOip75hciD4aXka0hDGHvGbRAleL3KB9u5/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787127949; c=relaxed/simple;
-	bh=14i3TjZZiRy/vuJ/TEXDdP+K5kqQtHA7m94zaLlZPmw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lmZeQcLfRqDPGo+fn9yXLEmwwFdtqPmTnQy9prCb9i1rg0jk37JgeOQRqif/P6mtb6Bt6tgVyV3z4uriQk7oWS4cXx5zksOnKIsJitlJtW3xchSCDU2hrtT7jM8imYGv25IMM+/LCqK332BZNOF1OMe4P/GjbHpZpr10VEGe5GA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIhV2PRa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787127999; c=relaxed/simple;
+	bh=bO0ewF/jIRKJTr9iDTrKWMW4tzf/dxjocgc8x+d5how=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=p65mwQzzHxWYYrz8fpeilUBkS53dULTx5f86zZjQ3O4/V7vnc9DY5cXoSmMt3vM13a9L2lfVFiSdwxhDkqS/PkY5RviM7RANm/1d9xfGC3pefC2nSDnwMCygnngf42tqNunbMRb5A0C7jBTduP3tOUUDS71TXBPJH5eXbfqNtGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=ZFZkRNgT; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIhV2PRa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783CD1F000E9;
-	Wed, 19 Aug 2026 08:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787127947;
-	bh=o5+8nHPuD5WNsyFG3Aeog+G71dfEyxHHbWBJsemIPDs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HIhV2PRa4YlCvoAmCmH2Bz3ZBvePRKxqN/y+A31wBgB4vcAkLBxKLoCH6pEhgbB+2
-	 FVqPzZy3J6qmGyRyUqP085ZEyJLmgWlMmajy2W2NeGv7Unnf3gh9E3mLKUtR2PqTUV
-	 Z8ToBGEXrFt2b93GJF3kVt+bvY6LiZYAGorleXdltJr0FxiVQxuNtVrYcy++UKuGbc
-	 NsFAZN/eezJYRELURZ2hRF7sCqCaXDKeqHDAaBbPQIATMJMdK00yIfprGZvCc+lOwn
-	 UWFxMsHKuhFu9jveXabFfim/wyAjm2d1PSo5utHQex/IGowNQpm7pGU0N5ba8AFFFO
-	 I8rqx/dF1RpYw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v5 4/6] iio: accel: mma8452: Support interrupt
- sharing
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260819-mma8452-open-drain-v5-4-d8aa590d7c36@geanix.com>
-References: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
- <20260819-mma8452-open-drain-v5-4-d8aa590d7c36@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 08:25:47 +0000
-Message-Id: <20260819082547.783CD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="ZFZkRNgT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787127995; x=1787387195;
+	bh=DVwi+Qh+lytsk5HukjGP7UMSRtjZj7WP40TTQz79Nzw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ZFZkRNgThxyKLmxLhbcIMv+WsqqsTlYbArGAvBLpIFaY8jTpD7XIiwPJMPD+GOFB4
+	 FlkvwCuWB2nSmdlHFPFoSCKHG822vOxDafYScQiSUAtFW0iF7PfUoPaudUiRpSVs5l
+	 jJ8GPT8XVlmqcsChnYpfp2LupI1f8ROWpO5bClYWC3vuHvd5o/kU+cQUYh9ayNd6kU
+	 n1JD588LpuXDGrMcKQ5m0P2B9cqoHtb6d7hPZAs2vzRnlQZzwxoYNH1t+ZNYhPadoe
+	 ArrxrBZI0RFLe/QV/PgocFXH86GJ+xEnChXJMlK4q8aEPJ6WnLbKmrn832U8uAHgvM
+	 lgrZKwLG6gn/A==
+X-Pm-Submission-Id: 4hQ05y1sQYz2SchF
+From: Esben Haabendal <esben@geanix.com>
+To: "Jonathan Cameron" <jic23@kernel.org>
+Cc: "Lars-Peter Clausen" <lars@metafoo.de>,  "Rob Herring"
+ <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,  "Conor
+ Dooley" <conor+dt@kernel.org>,  "Martin Kepplinger" <martink@posteo.de>,
+  "Sean Nyekjaer" <sean@geanix.com>,  "David Lechner"
+ <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
+  "Andy Shevchenko"
+ <andy@kernel.org>,  "Martin Kepplinger"
+ <martin.kepplinger@theobroma-systems.com>,  <linux-iio@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,  "Joshua
+ Crofts" <joshua.crofts1@gmail.com>,  "Andy Shevchenko"
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v4 2/6] iio: accel: mma8452: Optimize struct mm8452_data
+ member orders
+In-Reply-To: <20260819023233.03d79181@jic23-huawei> (Jonathan Cameron's
+	message of "Wed, 19 Aug 2026 02:32:33 +0100")
+References: <20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com>
+	<20260812-mma8452-open-drain-v4-2-bfca15d02b59@geanix.com>
+	<41zbnT5tdPvKMFjNwqTi18KkdWe7Lyw2tPRSixVZ-8cH1LJwnQRi78CowVB5NP6sD_iVSoTEMBevXuRCaDTpXA==@protonmail.internalid>
+	<20260815051356.4dac350e@jic23-huawei> <87tsosk6zt.fsf@geanix.com>
+	<qXFhLuDWkwGjQMtFJ4aqj9CMDDSMQQBvg29Nt5yY8DTpUfVr_ZMuw9ZbTUzgTPq6waMSQUozZh5Y4UhJiJnQGg==@protonmail.internalid>
+	<20260819023233.03d79181@jic23-huawei>
+Date: Wed, 19 Aug 2026 10:26:28 +0200
+Message-ID: <878q621por.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+"Jonathan Cameron" <jic23@kernel.org> writes:
 
-New issues:
-- [High] Failed runtime suspend leaves the `suspended` flag set to `true`, =
-causing an unrecoverable PM usage counter leak and a potential interrupt st=
-orm.
-- [Low] Compilation Error: undeclared variable `client` used in `mma8452_ru=
-ntime_suspend`.
+> On Mon, 17 Aug 2026 19:10:46 +0200
+> Esben Haabendal <esben@geanix.com> wrote:
+>
+>> "Jonathan Cameron" <jic23@kernel.org> writes:
+>>
+>> > On Wed, 12 Aug 2026 16:30:33 +0200
+>> > Esben Haabendal <esben@geanix.com> wrote:
+>> >
+>> >> Reorder struct mma8452_data members to avoid holes.
+>> > Trivial but sashiko pointed out mm[a]_8452 in the title.
+>> > I'll tidy that up if nothing significant comes up.
+>> >
+>> > Interestingly Sashiko also thinks it found a deadlock.
+>> > Given you are working with this driver if you have time could
+>> > you take a look at that.
+>> >
+>> > https://sashiko.dev/#/patchset/20260812-mma8452-open-drain-v4-0-bfca15d02b59%40geanix.com
+>> >
+>> > I'm rather surprised to see the lock taken in the runtime
+>> > pm suspend callback. It is probably there to close a race
+>> > where the device is being suspended and the sampling
+>> > frequency is being written.  I'm not immediately sure what
+>> > the best way to fix it is. One thing that would work is to
+>> > do pm_runtime_get* to raise the reference counter and stop
+>> > there being any chance of an autosuspend.
+>>
+>> The mma8452_change_config() function is grabbing &data->lock, and is
+>> forcing chip in stand mode while applying change. This needs to be
+>> synchronized with mma8452_runtime_suspend() switching to standby mode,
+>> to avoid a race condition where mma8452_change_config() would end up
+>> undoing the change made by runtime PM, due to it keeping the old state
+>> in is_active local variable. So far it makes sense.
+>>
+>> But I don't see the reason for mma8452_read_raw(IIO_CHAN_INFO_RAW)
+>> grabbing the lock for the call to mma8452_read(). And when
+>> mma8452_trigger_handler() calls mma8452_read() it does so without
+>> data->lock held.
+>>
+>> So maybe we we can simply drop the &data->lock from mma8452_read_raw()?
+>>
+> That does look safe to do to me as well. Everything used is
+> either reference counted (runtime pm in particular) or local variables
+> so there doesn't seem to be any reason to take the lock for it.
 
-Pre-existing issues:
-- [High] Unbalanced `regulator_disable()` calls and I2C writes to a powered=
--off device in `mma8452_remove()`.
---
+I can add a patch with this change if another revision is needed, or
+will send it separately otherwise.
 
---- Patch [4]: [PATCH RESEND v5 4/6] iio: accel: mma8452: Support interrupt=
- sharing ---
-commit 79ad9089167d804daaa97086d058cd3a0e2f4199
-Author: Esben Haabendal <esben@geanix.com>
-
-iio: accel: mma8452: Support interrupt sharing
-
-This commit adds handling of runtime PM suspension in the interrupt handler
-to allow sharing interrupts with other devices. It introduces a suspended f=
-lag
-and uses synchronize_irq() to protect against race conditions during runtime
-suspend and device removal.
-
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index 1fb43c5b0b72f..25bb2dd69381e 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-[ ... ]
-> @@ -1056,14 +1057,19 @@ static irqreturn_t mma8452_interrupt(int irq, voi=
-d *p)
->  	struct iio_dev *indio_dev =3D p;
->  	struct mma8452_data *data =3D iio_priv(indio_dev);
->  	irqreturn_t ret =3D IRQ_NONE;
-> +	int pm_status;
->  	int src;
-> =20
-> +	pm_status =3D pm_runtime_get_if_active(&data->client->dev);
-> +	if (pm_status =3D=3D 0 || READ_ONCE(data->suspended))
-> +		return IRQ_NONE; /* device is powered down or being removed */
-> +
-
-[Severity: High]
-If mma8452_runtime_suspend() in drivers/iio/accel/mma8452.c fails and
-leaves data->suspended set to true, can this early return cause a PM
-usage counter leak and an interrupt storm?
-
-If the device is kept in the RPM_ACTIVE state after a suspend failure,
-pm_runtime_get_if_active() will return 1. Because data->suspended is true,
-the handler will return IRQ_NONE immediately.
-
-This skips pm_runtime_put_autosuspend(), leaking the usage counter. Also,
-by returning IRQ_NONE on a shared level-triggered IRQ without clearing the
-hardware interrupt, wouldn't this trigger an interrupt storm?
-
-[ ... ]
-> @@ -1768,12 +1778,15 @@ static int mma8452_runtime_suspend(struct device =
-*dev)
-> =20
->  	mutex_lock(&data->lock);
->  	ret =3D mma8452_standby(data);
-> +	WRITE_ONCE(data->suspended, true);
->  	mutex_unlock(&data->lock);
->  	if (ret < 0) {
->  		dev_err(&data->client->dev, "powering off device failed\n");
->  		return -EAGAIN;
->  	}
-
-[Severity: High]
-If mma8452_standby() fails, should data->suspended be reverted to false?
-
-When returning -EAGAIN on failure in drivers/iio/accel/mma8452.c,
-leaving data->suspended set to true creates the inconsistent state that
-breaks mma8452_interrupt() as noted above.
-
-> =20
-> +	synchronize_irq(client->irq);
-> +
-
-[Severity: Low]
-Does this code compile?
-
-There is no local variable named client in mma8452_runtime_suspend() in
-drivers/iio/accel/mma8452.c. The I2C client is available via
-data->client or to_i2c_client(dev), so using client->irq directly
-appears to cause a compilation failure.
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential problem during
-device removal in mma8452_remove() in drivers/iio/accel/mma8452.c:
-
-drivers/iio/accel/mma8452.c:mma8452_remove() {
-    ...
-	pm_runtime_disable(&client->dev);
-	pm_runtime_set_suspended(&client->dev);
-    ...
-	mma8452_standby(iio_priv(indio_dev));
-
-	regulator_disable(data->vddio_reg);
-	regulator_disable(data->vdd_reg);
-}
-
-If the device is already in the RPM_SUSPENDED state when mma8452_remove() is
-called, its regulators have already been disabled by
-mma8452_runtime_suspend().
-
-Because pm_runtime_disable() does not resume the device, calling
-regulator_disable() again will underflow the regulator enable count. Could
-this forcefully disable shared regulators and cause system instability?
-
-Additionally, mma8452_standby() performs an I2C write. Is it safe to
-unconditionally access the hardware when it might be powered off?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-mma8452-op=
-en-drain-v5-0-d8aa590d7c36@geanix.com?part=3D4
+/Esben
