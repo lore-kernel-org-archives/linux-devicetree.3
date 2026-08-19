@@ -1,251 +1,155 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F12D3BF67A
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D18A3644A6
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787153056; cv=none; b=dfQr3Z3709H34IDIhfNu79+RPHglsFQKuscDIgPTmVurl/BRm+I0TWC+Nn3G6tf1XktxA8wyuAuHUD0sFMp8wG8TsvO/EEDhm7Oz49CIyhN8LfoJqiI6SkY28C50dafLFRvphhSkVUDeeG2mOeThpAf9A1dYfGKMA6jTdlTwbaY=
+	t=1787153164; cv=none; b=WlIhwrZJcrmZ16ALbLbfDn7uIvJOiV5ifPa5+yhlKMz4EpkMplKcQgyFI9bhept3J5geSADjjSXG5ErJndSpyAP/q6B9aArhADZ8L5WB5BTLe9O+IBRmooD0ODeT7oeLYIXb7VYkuBM8WDcEONpZH1i4cFNFBLmWoH3xXJkSFxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787153056; c=relaxed/simple;
-	bh=9/jWhBT2jB+VS6PkwWqHNhBmY/udCFk3hQDKYhDUS4k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZbRnEFm/ttvoBRL8PpFTOnOb+7UlAmFiMI+23SqbRNJJOe0sX9LlCRFXbk34jsLzXB9nPlZRQ5KsLr8nUOEOkVNj/th0q5JHhJi/h+7Ba+ncrig+jgabhnkurC2ia2vvu384ZndKadfrBQR8a3YxLVeioJS6YcIbOOu6iYHyBHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kBd4DgcL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=INMRZdf1; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1787153164; c=relaxed/simple;
+	bh=subwLL1PfykQlM6iOV+W88yItVDhQBVTOIwwIwhjdIM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AqOoXYz/pcgjckBcSdS2pUqyMpFKDHVdlrF6qRFH/IpHzTxvuirg8+mbQx7BEK+Q5z+TsXUrPohq68GaglS+2sucbEIUbCWozimtiWkq9/2mhmjkoTkyG9traFAgPNXWteVOrWoDHIFe/ne7MuvvjsyxzntogYfGmgHn18OaH50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bciK6+6J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W4SXFQzI; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kBd4DgcL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="INMRZdf1"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JEbnmS068018
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:24:14 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bciK6+6J";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W4SXFQzI"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JF22xq445146
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:26:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=sq10HccuTC0NLQ48P9xPSCZ0k7r7IBtIRmU
-	Gb1WxBbw=; b=kBd4DgcLqPIXQxuQhA1wOezvufZrWuero/z9Zq9TEaEfwYNunby
-	PRs4ffIQjbDU/UNCZ6l2nqpwCZNN41Zhk9FsELVrOtdtOOHdCJiErX1Vz4ktUfCQ
-	nn8oodTP1rl5vBA7E1x/2TngtTyTeqyxKlKnRAI349cLTIkKZHq1JKBeBcg2LbiX
-	7D84CxqhXUM0Sk+JVUgAaDx8qEGZl67p5MsC9lvM6h0iUdpQDPavwKa9m5qJDb/l
-	tgwwPVnfgnZr/gaLaa2WKhfNT+e4YkRS11gOHXfm4IuE3tKwiCuHrRo15vIwBFPz
-	+Ecs9IC/DVlXPZ6jNHZUjFGuujU+v1ZOKiw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5e5d09yd-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PdkEVait3/YZj6W8c3BIEGvLpmGIEpRHNdctIWV0OA0=; b=bciK6+6J6oBbxY0u
+	4xg4RA9fArfL7XHoKFSi3IcQntKVYGwbXt+V3+RRTJi5HfOgyCeFUw/BlyuLMEwJ
+	OzmcQcvYkbIBHWsTDDdyyGx9bGbMzXHmhCMHUM8uGYcIWwuHcdzZCjvAgyuIqgmE
+	Kd4rnHsxWpS1o0wXdkjcJ/V2k58G5irPlA12ri2mkRaToKicivOrAlXoe6/7gZKA
+	X/R9zMjnb/uz58h4tt0YTEEXNNFBqTNJFCcZ5VaGTWabo9+yXXJbOuMwd21iol+l
+	eKyFX5meeX5F7/8p+fEtQEsWtMFCSOQiN+U61Uf5FOeKLKCShTCmHQkk7mg/nke0
+	C7g5kQ==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5es603t9-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:24:14 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38ea32e57e2so2487883a91.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:24:14 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:26:02 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-73a1cf1638fso24010137.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:26:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787153054; x=1787757854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sq10HccuTC0NLQ48P9xPSCZ0k7r7IBtIRmUGb1WxBbw=;
-        b=INMRZdf1KhR2Q0TWbcQixSjE+1FKaiiaGGm+3aSpQKzyAk6hpkGU+m7tdkqHPvwRIC
-         +NLhoBTsRL/KMNlAFHo0gfVbkkvYWetH25GgQCRepACS9odG/U9ZVMZHDxvbrtv0ZHvK
-         VZ1sbycBYsT+7O65+p+kS9zam0v9bsbJ0TuGxpONxFFZkxZfkliN51wokxc5fOhufqou
-         MxZbsAEFCPBOHw9BFjJtYth/fdzfS3hNyREQO4akTD19Cg2xEH3nR8cL4+cpxz3DCY/R
-         kZ7w5jLimNtDd7kHgtQJyiuO0nTWmmEMzte2iCMoytFdy5kW4YgPEhIAZxIetqnUf8h6
-         YTOw==
+        d=oss.qualcomm.com; s=google; t=1787153161; x=1787757961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PdkEVait3/YZj6W8c3BIEGvLpmGIEpRHNdctIWV0OA0=;
+        b=W4SXFQzIIs5/g92S2DFzc1f8MRtfSz596TLGJDZjAQQFB9qU4aJoRrpSIQJrFy4nuS
+         IDKVlcXTDdETv3Z2RdVKfm7Sw5s3ee6zpIZu9xlty9S/uUp92VA3kBm642sxV/wB0P/q
+         4A/zlIx+aL7vn2jJB3bn9kxNKpXmko5NbByP0hBz6ILh9m5sz6M60N6p/NnDGexojQ2c
+         04dcAfD3xfYOQLNy4D9NPirX9BnTCTeTRT24NZuF4dQfA5WFGSO7WcEzr78xiPcPB/GV
+         VhsiE362raA5ongrt8L5mhyAmkutW2KA+AW1D6KoVBze8hLy/CTRFE6t8O7BAxx4tFGT
+         OdjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787153054; x=1787757854;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787153161; x=1787757961;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sq10HccuTC0NLQ48P9xPSCZ0k7r7IBtIRmUGb1WxBbw=;
-        b=PEDrt8ArwiHiW19S3uTTFNePC7WEztja7IUOCgklrlDXdWnaBTUtDkFpyM44zIdGLA
-         IHK1oFu9Y2nEsq6TMskzDpxHv5XNxz/ddksQD3FYWbvS0QxPkjkHY8ur13pEwyhqtVVJ
-         QZNjOVFUcYpZ/sQNp8rqv6XZ2fL+JU3EDwua+CYD3rXFU+S91R66rN76FLnuD+AF/Aua
-         P6PSO32qEaHfj6NYlqcrDVk0DzTBzUADkGRk/hmFPLQ261OWrhBEcVFVIQUsyUSeH2/p
-         STs3Mf11PN9N1zrAQ4dFpFlp8eMMtUQoY/4cguJY8XBMqaiW8qsfeO7h+u6xL+OyvBkB
-         dyzQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqSPCNoByWYJ3E6FZdwkvGVRg3Q13fViER7fCS5xtja8tzlHwlS3IlqtbHU7OQylpxmswAm48mUuYor@vger.kernel.org
-X-Gm-Message-State: AFuF++k9lcpB9NyGJzksd1wu0oIsP+sibIlcgu/Y9mxTvL7ZGF9CbZ4e
-	HjIEnrUEEJyZYXFnVdOMMGOmMkcFBTUeNJ0wlrWl0dn0gHO5bBh4gpN8Q9SNqKgx6tPYnB/EPnz
-	G7UMjNc4SE4Iwe4vvsYAEq9zQyKPeFduqGLFCW4YQzUyBrUD6cDEWbRkgj02Na1w3wf3tY+JAuy
-	E=
-X-Gm-Gg: AR+sD104jRUFMDMmDce679U66mWcEaNPEMgiG0KNh5cRvWXc/6q+0cRRrMsoukaaMmW
-	U9UfGcdVhiU6oDaNSDSjLznHhqCop1i40qfKJM3LrKA8UgXxmVI54UM18hmIoW3+H9DuxQ5eVDo
-	KhYkyMBLI95W0xLuP9uaqa6+hI09xDQFeA4MzfZe9fP/ebB5oF13akZ6hWsy0pswEWc3/ZeTuRM
-	xRXqxo+3j65dhnYcGGZZbozY20ZYUZJo8xnmsBF0XHpdgnZmGf7e6rvu7G+Hs+gswuXi+DtXOhA
-	Ga0sO22vrNw+3ehgbDBDWP5z4Zcvrw5Qp9bZ4YulhMdTCJHK68CZMwSas+3yrWfB8O8owNZ3Hcc
-	PU5TnRPz1rGanBCXR99p9QXoh4nNIuYiYpMzk4JIxqWTL0w09hXIkVIGtbW1k
-X-Received: by 2002:a17:90b:4d0b:b0:38e:2860:253f with SMTP id 98e67ed59e1d1-39581211d6emr9490689a91.12.1787153053635;
-        Wed, 19 Aug 2026 08:24:13 -0700 (PDT)
-X-Received: by 2002:a17:90b:4d0b:b0:38e:2860:253f with SMTP id 98e67ed59e1d1-39581211d6emr9490599a91.12.1787153053114;
-        Wed, 19 Aug 2026 08:24:13 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef77fc0sm15148144eec.8.2026.08.19.08.24.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 08:24:12 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>, stable@vger.kernel.org
-Subject: [PATCH] pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
-Date: Wed, 19 Aug 2026 23:23:56 +0800
-Message-ID: <20260819152356.904023-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        bh=PdkEVait3/YZj6W8c3BIEGvLpmGIEpRHNdctIWV0OA0=;
+        b=Xn9vfMUloJhPE9Zz7a6jI1pF4M0mve9uNAJZ/7T4fAv2bnM/minXwFLqp1genQp98B
+         eb+mKW+1ngf7FQiI2QuNenaUMr4Oj4nzvv76ulQTm1C65tb5QdRTK0nlYA7x0idzm2+x
+         +Y8M8AUiwABg3AoQ05YfWsQweohHu7YCCqZcWugi9LRE7igBLqkdDE08oHXTYvl6gFqK
+         YWXicCcT2XkUmQ0mC1bF+i9MckOfoEUNb+q0+SVP0dDV448o6b23lMAkUDNKajYrnr30
+         A9mOXxa50Kg3eChP66sKvVvd4z6xFpQqbKfzFtRpVG9SRDdx8nlgpXryWbN8SAE2FxSQ
+         5mEA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5FLQwBMB5THo7XsJrJV+GEE3o1/Nke1dyYNQlqK2wn2OPPZ3O8cECt/W7saAVHnkKwfV4q7RxbERS@vger.kernel.org
+X-Gm-Message-State: AOJu0YzibV+T18OJK8H7VtvGvX0waJX2RCrNO0nNcn0mLrknKNY6hj/o
+	hKHtks+L6FM3ay5+5E0MpHKNXiBZmqAFxvoNx34icw70zxqe3jhQMlEJMtS2ZQv3Qe7Ew6eYDH7
+	oWGWV741+fvA+JvVNssU3udbIMZ6EJNROO0FV0zb2LrZ7DLPpg9MUY/SE2KyjKbtR
+X-Gm-Gg: AR+sD11XWWQeYEJd/FNKxsY0Mo4v9qZlQTeESSOWZ4JyyonFEY1E8ppmSy5iX3sig9v
+	fuM2GhAF1qgY6x+1R5TaeKZ7wtRgV1imIY7ngX1ysgNkYfyvrB3aSMYnpzEAB57Vspr3vN1btnj
+	dkJdnCvyvWnPjWWBnJ3aiu/dGKQcK/Q5BP/4fCSjGDv4W/C7X+JQ6P1kCLnnIsZoWaUwAkSmB4f
+	6U5vol3FMFMVVBSunf1qhLl7VTmTpCj5waYF6L3+tKO9jAi89VRbykBw+NkcZPr5maM1Pql9Vgq
+	7IlfSxmQdKAws/boM59t13RfFuYyAHffZPxgCIbNtthWfcwZyW8poc8o+YpcDzVkdvSW7ZWksYL
+	4IWM9X+m/k8cKrBq+LDEbVU2j
+X-Received: by 2002:a05:6102:8516:10b0:778:5579:c65e with SMTP id ada2fe7eead31-7785579c726mr341019137.2.1787153161403;
+        Wed, 19 Aug 2026 08:26:01 -0700 (PDT)
+X-Received: by 2002:a05:6102:8516:10b0:778:5579:c65e with SMTP id ada2fe7eead31-7785579c726mr341004137.2.1787153160999;
+        Wed, 19 Aug 2026 08:26:00 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c243c694c08sm98478666b.34.2026.08.19.08.25.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 19 Aug 2026 08:26:00 -0700 (PDT)
+Message-ID: <cb3424fd-15f6-4ab7-9ff5-d82e42a13bf3@oss.qualcomm.com>
+Date: Wed, 19 Aug 2026 17:25:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDEyMCBTYWx0ZWRfX3kd9XrRfx8lw
- xT+p/71SnVADy7JqNhvJs+jjMiaTs44c3i9+r3/DEGurJzmzmj3Mxnv5zyxtTVaUr4oaexRH3pk
- W+apKJ48OwtHrBIlSlbpmy1TeEuWrSJUGY5vllwpOLqVlYV3qUAz1sGXW4QgEBjmA6WRHOw2zlC
- 845FxCZH2xQ2ij40/75kZKAo5leD0miBTemy8YAoXcOQnzNn+M/AcvQq0T3ZYBoBpm7aCmOgzJw
- ZXb0jSKffT9uHdsv68EUcm2WIIrOd1tQST8ZYiZFaWZpEfZmVsZcU89r1w7B84C+tGSuNUlQt1M
- ORkeRLuLpJ/z3hGXx7frzlpbCBJ/NRKxWRsfuXPRIjkYW/UyybshQVbqt+T4P00Zhc4/1JCFE9e
- kYoAb0ln3E7U39hjhpugVusk3qGhL+EIF7TvKhkkyVtnzuGMS6T0ue1V8Swp857fwVZqO9ly8Jo
- nASe3dlx8y4PbWYEDFg==
-X-Authority-Analysis: v=2.4 cv=cuOrVV4i c=1 sm=1 tr=0 ts=6a85ca9e cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=hkSOFwkIQQlSBzuAjywA:9 a=O8hF6Hzn-FEA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: EJN9sOWPPPUx3k5xGmYyAwdywLCob_C7
-X-Proofpoint-GUID: EJN9sOWPPPUx3k5xGmYyAwdywLCob_C7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDEyMCBTYWx0ZWRfX+W4BUybmzJQt
- P66SOfOEh7Li+imMxkq3oBl2Zo4k2rTow39ioaM2dvFyK8LBSMjBDNZo65dYtpzY3kL8tCitM1u
- MxZahIQh32MwDqADO7h6ZMzHNILVoME=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/16] clk: qcom: gcc-sm8250: Tie the CX power domain to
+ controller
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260819-qcom-tie-cx-to-gcc-v1-0-840034124e73@oss.qualcomm.com>
+ <20260819-qcom-tie-cx-to-gcc-v1-1-840034124e73@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260819-qcom-tie-cx-to-gcc-v1-1-840034124e73@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=E5/9Y6dl c=1 sm=1 tr=0 ts=6a85cb0a cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=9JxFHelw-nvN-s8SXg4A:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: dusmUc-D9TajJLhyNxc2gD_Sg6BzD09L
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDEyMCBTYWx0ZWRfX8zvO2qLjNnC5
+ n8K/qf/Ry8vmfYZvwS3eZoEvMxHAESpUoiWeySG76qNiHUZSFwPYLdysFk2qg/1KxPON5m1ognk
+ RQ5Heo6y8DR6TkA7dmAELBL/hXWt5H3LID2IhjIwpLL/ve8q9g2QHk38VfmDgDgCf8Nbea5MspN
+ UBQSoDGn/L8c6zFttei5aMiO0FaezmXSFkCm+BYek+Y9mRkdJ8bFfCd4MVGkZOmLwGgYKZGXcLd
+ qzFX0aSUbfYcgJTWvNhcpHOpihUbpKWJU4XwD/1rBzzu0J5IspGBFxExr3vSbTYuTDxso9zuQ8w
+ JXFwCRed9u4HeArK+sXWDJeUHX3p4UMhwS3SsxNGxEb9Zrh5D5h77RPr/CEbiWkrTebxayr+UPI
+ RzmmpBziVMWiviGaZb0DyuBadCmLYJjFaRYtkGdHy79krtk8RwSFSxUFAXv1BF+/ZA4bkYg3v/l
+ JYeGG8b2XkGs7dYlYaQ==
+X-Proofpoint-ORIG-GUID: dusmUc-D9TajJLhyNxc2gD_Sg6BzD09L
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDEyMCBTYWx0ZWRfX5qOhoNHCTIa3
+ wI9WRdajkE5Hk5WJ8+Hpixts10G0ifpduZOp0wb9aFqLhJXX99I+6+5uEOBS05lfSTm2n/X4DXA
+ nAb7JNOdpDLzmubrzfcfSV1u4h1YfTg=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-19_04,2026-08-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190120
 
-QUP1 SE2 and SE3 pack all four of their lanes pair-wise onto only two
-pins each: lanes 0/1 (I2C SDA/SCL) at mux value 2 and lanes 2/3 (UART
-TX/RX) at mux value 1, on gpio127/gpio128 and gpio129/gpio130
-respectively.
+On 8/19/26 2:51 PM, Abel Vesa wrote:
+> Enable runtime PM for the controller so the common GCC probe path resumes
+> the attached domain while registering clocks, resets and GDSCs.
+> 
+> This lets GDSC consumers propagate their votes through the GCC provider to
+> the CX parent domain.
 
-Both mux values were named "qup1_se2" (respectively "qup1_se3"), so the
-two distinct lane pairs became indistinguishable. msm_pinmux_set_mux()
-stops at the first entry matching the requested function, which means
-mux value 1 was always selected and the I2C lanes could never be muxed
-out. In practice i2c9 and i2c10 got the UART lanes and did not work,
-while uart9 and uart10 happened to be muxed correctly.
+Not really, this is rather taken care of by the special-cased
+single-power-domain automatic attachment somewhere in the pm core
 
-Give each lane pair its own function, following the _01/_23 naming
-already used for the same hardware arrangement by the shikra, eliza,
-hawi and maili TLMM drivers. Both functions still cover the full pin
-pair, so a single pinctrl state per protocol remains sufficient.
+This on the other hand, will allow the power vote to be lifted if
+all GCC consumers let go of their clk/gdsc votes
 
-Drop gpio129/gpio130 from the SE2 group list, since those pins
-belong to SE3 and were never reachable through the SE2 function.
-
-Also rename QUP1 SE2/SE3 functions in the binding doc accordingly.
-
-While at it, add missing QUP3 SE0 functions qup3_se0_mira and
-qup3_se0_mirb to the binding doc.
-
-Fixes: c24dd0826f06 ("pinctrl: qcom: add the TLMM driver for the Nord platforms")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- .../bindings/pinctrl/qcom,nord-tlmm.yaml      |  5 +--
- drivers/pinctrl/qcom/pinctrl-nord.c           | 34 +++++++++++++------
- 2 files changed, 26 insertions(+), 13 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
-index 4bb511719f31..6b5ec9f49971 100644
---- a/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
-@@ -98,9 +98,10 @@ $defs:
-                 pcie3_clk_req_n, phase_flag, pll_bist_sync, pll_clk_aux,
-                 prng_rosc0, prng_rosc1, pwrbrk_i_n, qdss, qdss_cti, qspi,
-                 qup0_se0, qup0_se1, qup0_se2, qup0_se3, qup0_se4, qup0_se5,
--                qup1_se0, qup1_se1, qup1_se3, qup1_se2, qup1_se4, qup1_se5,
-+                qup1_se0, qup1_se1, qup1_se2_01, qup1_se2_23, qup1_se3_01,
-+                qup1_se3_23, qup1_se4, qup1_se5,
-                 qup1_se6, qup2_se0, qup2_se1, qup2_se2, qup2_se3, qup2_se4,
--                qup2_se5, qup2_se6,
-+                qup2_se5, qup2_se6, qup3_se0_mira, qup3_se0_mirb,
-                 sailss_ospi, sdc4_clk, sdc4_cmd, sdc4_data, smb_alert,
-                 smb_alert_n, smb_clk, smb_dat, tb_trig_sdc4, tmess_prng0,
-                 tmess_prng1, tsc_timer, tsense_pwm, usb0_hs,
-diff --git a/drivers/pinctrl/qcom/pinctrl-nord.c b/drivers/pinctrl/qcom/pinctrl-nord.c
-index 7c21306e77ff..7f37f8e819ba 100644
---- a/drivers/pinctrl/qcom/pinctrl-nord.c
-+++ b/drivers/pinctrl/qcom/pinctrl-nord.c
-@@ -570,8 +570,10 @@ enum nord_functions {
- 	msm_mux_qup0_se5,
- 	msm_mux_qup1_se0,
- 	msm_mux_qup1_se1,
--	msm_mux_qup1_se2,
--	msm_mux_qup1_se3,
-+	msm_mux_qup1_se2_01,
-+	msm_mux_qup1_se2_23,
-+	msm_mux_qup1_se3_01,
-+	msm_mux_qup1_se3_23,
- 	msm_mux_qup1_se4,
- 	msm_mux_qup1_se5,
- 	msm_mux_qup1_se6,
-@@ -1152,11 +1154,19 @@ static const char *const qup1_se1_groups[] = {
- 	"gpio123", "gpio124", "gpio125", "gpio126",
- };
- 
--static const char *const qup1_se2_groups[] = {
--	"gpio127", "gpio128", "gpio129", "gpio130",
-+static const char *const qup1_se2_01_groups[] = {
-+	"gpio127", "gpio128",
- };
- 
--static const char *const qup1_se3_groups[] = {
-+static const char *const qup1_se2_23_groups[] = {
-+	"gpio127", "gpio128",
-+};
-+
-+static const char *const qup1_se3_01_groups[] = {
-+	"gpio129", "gpio130",
-+};
-+
-+static const char *const qup1_se3_23_groups[] = {
- 	"gpio129", "gpio130",
- };
- 
-@@ -1428,8 +1438,10 @@ static const struct pinfunction nord_functions[] = {
- 	MSM_PIN_FUNCTION(qup0_se5),
- 	MSM_PIN_FUNCTION(qup1_se0),
- 	MSM_PIN_FUNCTION(qup1_se1),
--	MSM_PIN_FUNCTION(qup1_se2),
--	MSM_PIN_FUNCTION(qup1_se3),
-+	MSM_PIN_FUNCTION(qup1_se2_01),
-+	MSM_PIN_FUNCTION(qup1_se2_23),
-+	MSM_PIN_FUNCTION(qup1_se3_01),
-+	MSM_PIN_FUNCTION(qup1_se3_23),
- 	MSM_PIN_FUNCTION(qup1_se4),
- 	MSM_PIN_FUNCTION(qup1_se5),
- 	MSM_PIN_FUNCTION(qup1_se6),
-@@ -1633,13 +1645,13 @@ static const struct msm_pingroup nord_groups[] = {
- 			 _, _, _, _, _, _, _),
- 	[126] = PINGROUP(126, qup1_se1, qup1_se0, ccu_i2c_scl, mdp1_vsync_out,
- 			 _, atest_usb20, ddr_pxi, _, _, _, _),
--	[127] = PINGROUP(127, qup1_se2, qup1_se2, _, atest_usb21, ddr_pxi,
-+	[127] = PINGROUP(127, qup1_se2_23, qup1_se2_01, _, atest_usb21, ddr_pxi,
- 			 _, _, _, _, _, _),
--	[128] = PINGROUP(128, qup1_se2, qup1_se2, _, atest_usb20, ddr_pxi,
-+	[128] = PINGROUP(128, qup1_se2_23, qup1_se2_01, _, atest_usb20, ddr_pxi,
- 			 _, _, _, _, _, _),
--	[129] = PINGROUP(129, qup1_se3, qup1_se3, ccu_i2c_sda, mdp1_vsync_out,
-+	[129] = PINGROUP(129, qup1_se3_23, qup1_se3_01, ccu_i2c_sda, mdp1_vsync_out,
- 			 _, atest_usb21, ddr_pxi, _, _, _, _),
--	[130] = PINGROUP(130, qup1_se3, qup1_se3, ccu_i2c_scl, mdp1_vsync_out,
-+	[130] = PINGROUP(130, qup1_se3_23, qup1_se3_01, ccu_i2c_scl, mdp1_vsync_out,
- 			 _, atest_usb20, ddr_pxi, _, _, _, _),
- 	[131] = PINGROUP(131, qup1_se4, qup1_se6, ccu_i2c_sda, mdp1_vsync_out,
- 			 _, atest_usb21, ddr_pxi, _, _, _, _),
--- 
-2.43.0
-
+Konrad
