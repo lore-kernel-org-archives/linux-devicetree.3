@@ -1,99 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF42D1DF736
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 21:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59B6377A92
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 21:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787173629; cv=none; b=QE4yGs1GAwuKbQ8hxv8sptiw9yTEI/vYLiFfBfPRhxdj8lxeWuWRYHScVR/YL6PHVL/XZKDB2hKdcT5hdmRTu/Dg2KvVLVxQ1JTzWZ2RAB0SFvCEkpyYmQpAeX82R7fYhBVPPNbc+kVvH3lr4+/m/dKliJn1Hu/xp4J+pxJjx7k=
+	t=1787173778; cv=none; b=YvcVRDolD2Z1hme1+6jwuAMLxPw1BKjagapwA2q2FRSuOuCZlpJ8y8rYdsiyh5mdFoouLGmMBEKMNzHsYg9mhnwqybP1LGRyOaUCpMC/su9qpCU9rqNIFCZdql5GXXv0L+g0TE/OLwplJJmr9vaeu1rtFAIyQiX4Pwj9/i48oAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787173629; c=relaxed/simple;
-	bh=F670sIl5HZjLzvfSwhQn5yFKHi98WSrqruthhwyKoJA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HYzM75UOaXVTVmuKfVNshIQW5XPmV8qwwwrKJbF7Ku24twWw67S0GQn6p3sRovyk/pWu6OlcrFJESbDbaYSSSAtfsCMjZFqsvP/2HmE9k2MIgx9gVfOOLsnM2YvTFot2ufi7aZPNzVQ72MmFd7iGFoFG6zwqkUuAxL0ioMi/h/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjW55E7m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787173778; c=relaxed/simple;
+	bh=rd5cX7w7fswUkVXvydF+ntM68OwGUPyxL0IlOFTX0Fo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XSefM5YG2RN3PAr0xibylcd373oMSajcWt8ZSKUDNjHSHfhJnYA/iYKJwfYoNrCA9SIX0w5WxnVorDnHavC7TV0XNfdiCzPmy09Bo063b+12rOXLodscG3key5+SZnSoEOyqnO80c/jTWckXu750vWGFcFahIuYhR46IBRPOjDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Zwu0nnaU; arc=none smtp.client-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjW55E7m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48FE11F000E9;
-	Wed, 19 Aug 2026 21:07:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787173628;
-	bh=of3+t46EF97mwJUhsRdbW4TdLlfTZA2jJ26QpWsP2KY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jjW55E7mzV7GXEqdyo8P5Ktw2DCDoPYaZ7pAuxDBzRe93ADHZqARIrOkcuhaxEomC
-	 hGGGHzd0Gr97qqXO8QLo/msVPkiMXrhJoyunS/5d153vbfn3JXTHkiSPxy2Os/PO9x
-	 kpIJ3nVWjPzPZMzxVJWO3Tw7K9D+IffQPxU2mLSWnSDnTOKUFD+aYvRQHvV/nRs5Ui
-	 ru8/T5YIsHqtW0WiqkG7bhXoitNJoCaRm68LzVzncRCmxAl+zQHjzVUMWUW0fPhRmm
-	 UPatKvgVANHilg0UeVp5m7vtwjHjrLaKxQfF6HTGDsHSTC0ynmiZBBVp3HFjCHIaoM
-	 fVRAdSKrC8CbA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: iio: proximity: move LIDAR-Lite v2
- out of trivial-devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Gobbi" <rodrigo.gobbi.7@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260819205751.166030-2-rodrigo.gobbi.7@gmail.com>
-References: <20260819205751.166030-1-rodrigo.gobbi.7@gmail.com>
- <20260819205751.166030-2-rodrigo.gobbi.7@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 21:07:07 +0000
-Message-Id: <20260819210708.48FE11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Zwu0nnaU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1787173765; x=1787432965;
+	bh=OaI/2SFVou5bwt+CK9BjXU79ImauIvELCSE5lrKqiNU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Zwu0nnaU3O5ULOYnSgUqiEFkcRWbGM3Ot6W0ePg8l0jD7F7zWN/4sBqfmfbYuiMet
+	 9NlqjDZSSvFUscYAJdLjwVQKvaFwpiDt0UMVXbkvb/+lAamGG9KlajhPbEufexy/qV
+	 0h4ciu2LdNYAdIgkOgNXeGQg6qNte3LOnP/CQTvdKsO/ck9Okm+ms1kbiMuDivlOPq
+	 rj44SAEjTN/QBPqORRuOiRgV3/+Gsy2p/XItDnNTojOh4QPedVACPlxMvUnhY8ozgZ
+	 J8lsWxQ14oiSiKMrzGYQEFQ/xMiKZCG90aRKmkipNfYtk8fKejaZem1JEDsHcCDbP4
+	 XJ9XymfIWCNFQ==
+Date: Wed, 19 Aug 2026 21:09:19 +0000
+To: oe-linux-nfc@lists.linux.dev
+From: Kristian Brox <isyourbrainfoss@proton.me>
+Cc: david@ixit.cz, krzk+dt@kernel.org, devicetree@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, luca.weiss@fairphone.com, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org
+Subject: [PATCH v2 0/3] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
+Message-ID: <20260819210906.2500789-1-isyourbrainfoss@proton.me>
+In-Reply-To: <20260818205940.1973944-1-isyourbrainfoss@proton.me>
+References: <20260818205940.1973944-1-isyourbrainfoss@proton.me>
+Feedback-ID: 203906395:user:proton
+X-Pm-Message-ID: 6c406f8952cfa46404618812332ab2303f8fe093
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Making `vdd-supply` strictly required breaks schema validation for =
-all existing valid device trees.
---
+This adds NFC on the Fairphone 5 (qcm6490). The board uses an ST21NFCD
+on I2C. That part speaks raw NCI; the current st-nci driver always
+wraps NDLC, so using st,st21nfcb-i2c leaves the adapter unusable.
 
---- Patch [1]: [PATCH v6 1/2] dt-bindings: iio: proximity: move LIDAR-Lite =
-v2 out of trivial-devices ---
-commit a1ef458d9c0cdfc9e29367cfdc33a99254dccf2e
-Author: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>
+The series adds a st,st21nfcd compatible for the raw-NCI path and
+the Fairphone 5 DT node. Boards that already use st21nfcb / st21nfcc
+keep the NDLC path.
 
-dt-bindings: iio: proximity: move LIDAR-Lite v2 out of trivial-devices
+Tested on a Fairphone 5 running postmarketOS, with these changes as
+modules on a 7.1.2 sc7280 kernel:
 
-The PulsedLight LIDAR-Lite v2 is moved out of trivial-devices into a dedica=
-ted
-binding file to document its power-enable, power-supply, and interrupt
-properties.
+- nfctool: Powered: Yes
+- initiator poll / neard: NTAG 215, NDEF URI read OK
 
-> diff --git a/Documentation/devicetree/bindings/iio/proximity/pulsedlight,=
-lidar-lite-v2.yaml b/Documentation/devicetree/bindings/iio/proximity/pulsed=
-light,lidar-lite-v2.yaml
-> new file mode 100644
-> index 0000000000000..491960bb3a0e9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-l=
-ite-v2.yaml
+ese-present and uicc-present follow the public schematic (NFC_SWP1/SWP2:
+SWP_SE to SIM1, SWP_UICC to SIM2). SE/HCE is not tested.
 
-[ ... ]
+CLK_REQ (GPIO 39) is omitted, as on Fairphone 6 NFC. VBAT and VDD_TX sit
+on VPH_PWR and are not modelled. VCC_UICC_IN (L4C) is not modelled;
+UICC SWP is untested.
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
+Changes in v2:
+- Compatible is st,st21nfcd (no -i2c suffix)
+- Sent without PGP/MIME
+- DTS: interrupts-extended and pinctrl for IRQ/reset
+- DTS: ese-present / uicc-present (schematic)
+- DTS: SYS_CLK from LN_BB_CLK2, VPS_IO from L18B
+- Binding: optional clocks and vdd-io-supply
+- Driver: optional clk / vdd-io enable
 
-[Severity: Low]
-Does making vdd-supply strictly required break schema validation for existi=
-ng
-device trees?
+Kristian Brox (3):
+  dt-bindings: net: nfc: add st,st21nfcd
+  nfc: st-nci: add raw NCI path for ST21NFCD
+  arm64: dts: qcom: qcm6490-fairphone-fp5: add ST21NFCD NFC
 
-Since this device was previously validated against trivial-devices.yaml whe=
-re
-this supply was not defined, running make dtbs_check with an older, valid
-device tree containing pulsedlight,lidar-lite-v2 but lacking vdd-supply
-will fail.
+Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
+---
 
-Should this property be optional to maintain backward compatibility with ol=
-der
-device trees?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819205751.1660=
-30-1-rodrigo.gobbi.7@gmail.com?part=3D1
