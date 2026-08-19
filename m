@@ -1,104 +1,86 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6AA52236EB
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 13:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0292EB856;
+	Wed, 19 Aug 2026 13:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787144505; cv=none; b=m9UsUDnqRJXZQCwAZVpqive7wNO73XbWhBR+rZa2Vt8IuIootGE/R44rmCMTWGK4L7OiipwZ8fFGd+i9zufLn+apxrJjYR9SKb6EMBHv6P0SaWns9JZb7sjppLZulwreK9/Ra0x3rK0IDAPmABTRtBKmZLmYvHLUim4A3aPY09s=
+	t=1787144638; cv=none; b=V+R4BaggPxiX4ZQlJB00Dh7leHJpez/1IznalxP/LXsemljioT9LhW0pU0K3AwnV0fDEeGQcVHYVQotjFrtEAzsp1Mf3J42rDKxPVjUteyM4pSFF4CNcwYuw1D7+O3Z0aSmyVHFwULJ05oaTLJWwgh083XM61EAbg+Df+xen4nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787144505; c=relaxed/simple;
-	bh=wp8TGbisRW8gW+kdJD0RAvTV+2ZP24fjbMV6UB0mk1g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d+GJZ3SCofYXZqX6GmRcWJSgmfbu3dD1W9FmMSzVpBmk4Ng42jnLdMgLNarKn0aAHSWbDwt1FUybtf134cDzKd31ZewtMZNc60RRYVRAQ93EPBgVDok/ibAyR9Pe2dpaCKSX1qdP6S3PZ26wJPmbrHeS15Yom2iziCFr7stCjVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=fIAdq57+; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1787144638; c=relaxed/simple;
+	bh=EmtKjy9fKcy47UQKFVz9QnEIa8tPRnJMS1YNzEC33Pc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ScunFCpzlXsWCL2C76dAeuHF1AYQfuKpc+zMCK2ffOiw+Ty0lpiZ4hdEz+qXNPAVjJPhB7B/2axLwpK+oJr/vSaTRqNFX3JeY6FaIG+IY55fs5SytczX5sZzG50jbBVfmV12Dt7Bg8lMJBYplIalTDmq5p7MO7U8G13+d+cmTPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gzl5psVT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="fIAdq57+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=wp8T
-	GbisRW8gW+kdJD0RAvTV+2ZP24fjbMV6UB0mk1g=; b=fIAdq57+X4ZBpmxtZzEn
-	fDLkyOcc+Zy7BDZDtKwFiI2bOp2j4AmiSMEKywNA9pJwY+gmedx8pe5HHCjndFry
-	jT5jKIV6hEyQXCAI2Nmz8i390/yUs4ym9ein5MTqbzvx64o+2yL+2cUrGPdYDd4y
-	vMicr/U97JIQ3bwf3ZiddZ6vBPomJJIJ+km22VJNIx1nS02r0T395yt+U8njjXiw
-	+vyYZZulQChvv1SU9VD66gAX/inaOGfbDr2JtuULPEJ5emTN9baKzD8/5/YqM+op
-	SUwLcGa1BHREKzkW5Gans1/y2/K0F088NpXncV28+panoP12zU/fY8yzNWq9xavA
-	RQ==
-Received: (qmail 4145528 invoked from network); 19 Aug 2026 15:01:42 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 19 Aug 2026 15:01:42 +0200
-X-UD-Smtp-Session: l3s3148p1@yYQuAWZZjWJtKXGR
-Date: Wed, 19 Aug 2026 15:01:43 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Prabhakar <prabhakar.csengg@gmail.com>, conor+dt@kernel.org,
-	linux-rtc@vger.kernel.org, robh@kernel.org,
-	devicetree@vger.kernel.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH v4 03/15] rtc: rzn1: Fix weekday underflow when alarm
- crosses month boundary
-Message-ID: <aoWpLvrNGHBPvFY5@shikoro>
-References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260819103926.2136712-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260819105356.BD7731F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gzl5psVT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3461F000E9;
+	Wed, 19 Aug 2026 13:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787144636;
+	bh=uii8O7KCRN3qZKzj50uvw3P5wxJKVUqhtSkZWmnKAzo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gzl5psVTRfAek3N8h6G9dAinotQqI2UzqbSZZCEm+kRJhX2qgtlkbTHhD01AZz2MT
+	 ssxwkglRpgD0V5zxe4IPdlyML9SNLDHOhptsKwb+ldMaLtzPnMg0jMFZsnE4t65H7P
+	 kKbVfVkPqhePZea17+pgSLP5Hfb0WI8WgW38J6qlO9X5PtTgXnKp/HhEFKsJ2juJtw
+	 mfvvkx+hHMQjHMVXEGvecP2MI7pahkac86FSZqUYeWea0HrZygefH5pdnGI+k7uYat
+	 99AXPFnRxaW1Ua7AZJ/lKMpQFnV/9msPicPW3lnKj4UGHJt5/kc+Gz+aLLs8QJSDlE
+	 4fnN0K4Bi02hw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 12/16] arm64: dts: qcom: sm8550: Add GCC CX power domain
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260819-qcom-tie-cx-to-gcc-v1-12-840034124e73@oss.qualcomm.com>
+References: <20260819-qcom-tie-cx-to-gcc-v1-0-840034124e73@oss.qualcomm.com>
+ <20260819-qcom-tie-cx-to-gcc-v1-12-840034124e73@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 13:03:55 +0000
+Message-Id: <20260819130356.4D3461F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SMyub7+rJAR37Ee9"
-Content-Disposition: inline
-In-Reply-To: <20260819105356.BD7731F000E9@smtp.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Adding `power-domains` to the `qcom,sm8550-gcc` device tree node wi=
+thout updating the corresponding YAML binding causes a `dtbs_check` validat=
+ion warning.
+--
 
---SMyub7+rJAR37Ee9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--- Patch [12]: [PATCH 12/16] arm64: dts: qcom: sm8550: Add GCC CX power do=
+main ---
+commit fbc80a89d2b6530024ab43fff461d5268dfeb3c4
+Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
+arm64: dts: qcom: sm8550: Add GCC CX power domain
 
-> [Severity: High]
-> This is a pre-existing issue, but does this time_after() comparison
-> allow bypassing the 1-week hardware limit on 32-bit systems?
+This commit adds a reference to the RPMh CX power domain for the GCC node
+on SM8550. This ensures that consumer votes propagate properly.
 
-This is fixed later.
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/q=
+com/sm8550.dtsi
+> index 0e701e709235c..7137efb453467 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> @@ -1195,6 +1195,7 @@ gcc: clock-controller@100000 {
+>  				 <&ufs_mem_phy 1>,
+>  				 <&ufs_mem_phy 2>,
+>  				 <&usb_dp_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
+> +			power-domains =3D <&rpmhpd RPMHPD_CX>;
 
-> [Severity: Medium]
-> This is a pre-existing issue, but what happens if the RZN1_RTC_ALW regist=
-er
-> is uninitialized and wday is 0?
->=20
-> Calling fls(0) - 1 would evaluate to -1. If the current time is a Saturday
-> (tm_now.tm_wday =3D=3D 6), delta_days evaluates to 0, which bypasses
-> the if (delta_days) block and leaves tm->tm_wday =3D -1.
->=20
-> Since the core function rtc_valid_tm() does not check tm_wday, would this
-> propagate a bogus alarm date to the caller?
+[Severity: Low]
+Does this change require a corresponding update to the device tree bindings
+YAML schema for qcom,sm8550-gcc?
 
-This looks worth investigating to me. On RZN1, ALW is default 0.
+Adding the power-domains property here without documenting it in the binding
+schema will cause a dtbs_check validation warning.
 
+>  		};
 
---SMyub7+rJAR37Ee9
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqFqTcACgkQFA3kzBSg
-Kbag4RAAsMRHDOpMNLJabJXwBAWJUK2mWCnzfDSIETzpqGyx1frm+t8YpZXjOxIT
-RRKRx+dk539yoAwSv2Bz50yReL8UKMt2orjSx+UpdDhD4npHRX/llRvyITsT9mUj
-p0LwMqTuc3TTXJrWLo0hi5DARDbx5oYlT76urMRIJXNhI4MOt6h/IpC98VD3bZio
-X+wn7nfFCB7dalElBZ/lQsdm8WQliyjfi8HpjPzhQmIsv8D5qIzgh2i20XQB2ydR
-WkA3yUn3/Li/scou0NJjrgUwsHb+O+BsHU6e0P0BDQOXU/L44V98DOqrcw7BM9bQ
-F2jfCMlqxPM9Bu2GjS6k4SWfLjze8uUu1X1zpiqVMZ47w3oCgmVllQsq/+9YfO3z
-Uyq5Uq/lf+hgkMIkftkuVM6rWhyEf0Lanl2jB18N5coqiwQLDcblZBjTgDEwb8yx
-2EChf0IxabWZjXSFUy2skVCdC/qZ0WzvyAgYZOZZRbNBb619ukQSmR1sR+RKVz66
-wPXC4qqAMDAVM/bYJVOdvWyfdwLmQyg3cgE5e1oXhJVDMEsJo8jUXE6xMKk6RWV0
-tqgV0qr+yVgEncnCJQWh0L3cHD2ay5LKnWBcitoPRfxmbLatKQqzo0tNDNGRR5RW
-PTvL9ChDJdz3yuTORyyH39N3IRNwsbxwiaCyXOXQyipQXC7RMo8=
-=xS2V
------END PGP SIGNATURE-----
-
---SMyub7+rJAR37Ee9--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-qcom-tie-c=
+x-to-gcc-v1-0-840034124e73@oss.qualcomm.com?part=3D12
