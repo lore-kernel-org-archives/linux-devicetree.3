@@ -1,88 +1,86 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00199302CD5
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 13:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40F221CC5A;
+	Wed, 19 Aug 2026 13:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787144946; cv=none; b=aR5oSXkHBSzu7u9TfJyLgJnp9PocvjBvrA87RMYN+fr4mlgbnBOVFX8XjA/Q1Sz+h/de/fMyt9nrQ+FDEPkYTyWDbOXG6+08aMTXz3o+lSASIYOdtJMSnFou5gX2XKs4mQV/sNJvOfGHvwRjpwU3XdOGVBrzdvUn61p6B6x8pIU=
+	t=1787144991; cv=none; b=T76F2KWn3wGTTHH8hBcHcB1pSky+KtF17pLWm64epf68pidvZfhOO92cXDYLB3sbzrz77oXf3yIJXn4RyepWLlPgVh+onSLBCtGf0lDRBjJCJlmX/Fl2wgXtOqqg3YBbHal/tdgsQ5t/Rbtb3i8LHGCmyWsgltcthys/HrJhnOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787144946; c=relaxed/simple;
-	bh=9Nbn5o/vBr01BfPoQbRvxsX77v5JAqrSqzMER37fxfs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M9YYj0bazs+/3sRNAIJ+y8gjb0OlwpZwzrneNgDH0+hmVBc0s78z1w8NMVrg1u+PvsX9UgURIKqEXzhhjsK1Y4PWNf6cTgn0wGjpNUuPOo6qcPV+g6dwXW1JGxCtYBQswmxndNDAYHRZl+gFJwn95JHjh2RHNpCD3V/DfVO98V0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=eKMfDVFQ; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1787144991; c=relaxed/simple;
+	bh=CCQ9dWTzF1AlLDCozQokjAEYbztArHMgALLpYJNRbcY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=knjooP2c2SqsKUVCZfplSw7Bs3DrRhRkCn5XcmDDMHcmeUdesXFsqDON7mEe/CEKKCz77aQPY1XxN8M+2pgXWWHDFAYPcteBjntBxjonop6oWq2mwJsEEx7A4aYktwZ0u11ccvKxXItnv+RevAHnwFFb4DxUlBTFwFZlYcvSFcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVyMFUNE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="eKMfDVFQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=9Nbn
-	5o/vBr01BfPoQbRvxsX77v5JAqrSqzMER37fxfs=; b=eKMfDVFQ4RtNu+Ljdmtr
-	lN7rFMsXIRkOqDakzGWLDSJiMZRZ2LMf0fgQCs6JgblM4WXxf0ZJT7VYB5+GNMxj
-	6CVdMFXIn+mZW/GGLKf2FS66JSh+Ze+WeKjwbtNl7NAVYDGXymoWxon0tMn7ERoX
-	tikfb60RR4ozi1L/aj9Z1R37rlSI4WP3ATlZtPpoXrJp1a/W40uZGdicta5BhL2n
-	rJYcI2kFFV2BeeP0CRo32qmi8yDfFmU5Fb3G8z3WI8Efp5p5y0TXUfM7O5R8FJBr
-	fH6BGxdn4EYXho/sGOFPJTIvWuJOKJPAF4zquMPibSIHX4c3UlgybTAFzY9zej62
-	kw==
-Received: (qmail 4148485 invoked from network); 19 Aug 2026 15:09:02 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 19 Aug 2026 15:09:02 +0200
-X-UD-Smtp-Session: l3s3148p1@IGZvG2ZZuFNtKXGR
-Date: Wed, 19 Aug 2026 15:09:01 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Prabhakar <prabhakar.csengg@gmail.com>, conor+dt@kernel.org,
-	robh@kernel.org, devicetree@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH v4 12/15] rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK
- for register access
-Message-ID: <aoWq7VdKlAl_jGQQ@shikoro>
-References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260819103926.2136712-13-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260819104926.DBFC21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVyMFUNE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C80D1F000E9;
+	Wed, 19 Aug 2026 13:09:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787144989;
+	bh=Ep5ki+Lq4Glgx0EBhhDSwPV4IXq+D01t9IQOigvX1dc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VVyMFUNEBWpr1RkIV30sLSX+7GtLKA6zv6DAZOZ8TfxnDxy/JRRxWccoMKtXLvojx
+	 XcmJCNoUG10v6BOhx85TK3/9FxHkuRtgTMucDkbPOrwoWMpmfxzkwE5BI7DILUMz9v
+	 jtryYy5J7TvLQDTEHdHOqSbeylA6z7MtbLfiPrEC8/VlCE/FyiTnChGaPjhrJdf2gP
+	 wDrRqOgZNINHRS/ZgNOeL8QCFJybyVpFKbQkB2T87LaoaI2/4EY7XEzhh9MeVukVxC
+	 QRPt/WxDNCBZhpDreV0gg1gNokYSMoL8Ls/e0gJOLwYutXIxeE47ef2TGYnET9QT4U
+	 TAwViKifUNi4Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 13/16] arm64: dts: qcom: sm8650: Add GCC CX power domain
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260819-qcom-tie-cx-to-gcc-v1-13-840034124e73@oss.qualcomm.com>
+References: <20260819-qcom-tie-cx-to-gcc-v1-0-840034124e73@oss.qualcomm.com>
+ <20260819-qcom-tie-cx-to-gcc-v1-13-840034124e73@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 13:09:48 +0000
+Message-Id: <20260819130949.5C80D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xDYN3QcHvYQLh2t5"
-Content-Disposition: inline
-In-Reply-To: <20260819104926.DBFC21F000E9@smtp.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The DT schema for SM8650 GCC does not define the 'power-domains' pr=
+operty, resulting in a dtbs_check validation failure.
+--
 
---xDYN3QcHvYQLh2t5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--- Patch [13]: [PATCH 13/16] arm64: dts: qcom: sm8650: Add GCC CX power do=
+main ---
+commit 9a61032f8e0b737e1a6fc6895f1ca5a328c9b7d3
+Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
+arm64: dts: qcom: sm8650: Add GCC CX power domain
 
-> Would it make sense to wrap this value with FIELD_PREP() to enforce the
-> compile-time checks and stay consistent with the rest of the patch?
+This commit adds the RPMh CX power-domain reference to the SM8650 GCC
+clock-controller node. This ensures consumers of GCC-provided GDSCs correct=
+ly
+trigger the required CX vote when enabling their local domains.
 
-I don't care, you decide.
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/q=
+com/sm8650.dtsi
+> index b679fd8afb7d5..962797c15abf5 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+> @@ -2019,6 +2019,8 @@ gcc: clock-controller@100000 {
+[ ... ]
+>  				 <&usb_dp_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
+> =20
+> +			power-domains =3D <&rpmhpd RPMHPD_CX>;
 
+[Severity: Low]
+Does this new property require a corresponding update to the DT schema?
 
---xDYN3QcHvYQLh2t5
-Content-Type: application/pgp-signature; name="signature.asc"
+Looking at Documentation/devicetree/bindings/clock/qcom,sm8650-gcc.yaml,
+it uses unevaluatedProperties: false but does not define the power-domains
+property. Will adding this property to the device tree without updating the
+bindings schema cause a validation failure during make dtbs_check?
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqFqu0ACgkQFA3kzBSg
-KbYvNBAAij/txVALS6HMLJAZHs13t3Pmzs6Psr1E5mwiYpS8Qhx/iO2u+LQSo2kb
-vYynQmnYrFZNwa7w8OEP3g3BMAoXKDP5/bmU7y0bMEgxDoQ9vPgieJaxprMTQ5hT
-BafV0JZk+YxMbDb04CN6ioTYrQ7uDQenW+OLS3Lfmh4O+TF615sPOB4p7vadbXdv
-uOfw1nX/VqRTI9uQ/uTeXdNPQ7IdtUSD15NyfaDezawjSj98VXVeKkT1SeaLvgBM
-67Va8LO0W6dcIu65h/6FGz23b+7C5ncuxrH4xQCKaDwzlICxgLkjVSw836fPqnQ+
-XC8qICRy1uAJEPCeIKaZtm+lx2n38RtEL1GzYlQ7zimGfyRa+RybB82LdsWMqf+K
-AQhpnsYv847/FJshoHVCw/4HiZ6mZG8vpY1nLKt0vULccr1aJl4+17Mj2tttDUH1
-/TTk4l4G0Qu6+bmDtTIvfgZp3YXTpjZR08FHtPuBm6sFYNDml+9zuhIxtns/zd6x
-F4/F0iwf1WTkm50G1EaFXxdrW8Pye36E5qvaB6SSOsi83qa67HM/TjyHiBInjzel
-1RqpJyt3ZfBx2Xicw1Oof7NPieC0lImT3hNLmnV7sOl0HbkkDXQ7EkfSyiLAtbLC
-+3UQ3PGATuB4fbEjMD4bzwmWL6Q+IQB2W4EyN38sbxY2frFJp0M=
-=NkSE
------END PGP SIGNATURE-----
-
---xDYN3QcHvYQLh2t5--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-qcom-tie-c=
+x-to-gcc-v1-0-840034124e73@oss.qualcomm.com?part=3D13
