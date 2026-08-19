@@ -1,152 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1774831960A;
-	Wed, 19 Aug 2026 01:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F14F377A82
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 02:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787103387; cv=none; b=l3K4c0DRCtmwsmun5lzcykNnG7ao2P0Aa/Nc3pkjzFn0JNMxZhIzz435nHnlSEOQxjNM/PBU4Zkpt/vXlbuomvU56k/AvAyKix4+JnMCvYPrmGHfmpb2JODCjlkksYe+o6zC1U27mqnHIBz+tq23uw3/WQbpNn5d12wgjfRZ9yQ=
+	t=1787106380; cv=none; b=sZkB3AM1wcemXTmz1B3J0zORNB6RmuO6bOdWNNnnC+/+mQAZQ1vMF3UMe5YHQa/jDY2oOmdLc1upjTSDy8kTJtJ3qsSJFV1NVzxoL0C/1GM1LjVKvKnSGqC8+uWRpwRuXUoClBqHsRTXcmy7dZ/Xfxw9B5Wje9scpoit80e9wAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787103387; c=relaxed/simple;
-	bh=5vxZysQexv9LgA4nI3RL3QEQ1guXTIFRjJ8ss4d+On4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qsi9sxc9tVmkPCe3oQTqzRtZLAvau5zfX1bZTKBBjN0Xibo6B6wRKl7LnuXEWXH5Oa7BT7v5iI5+HGZZ2W+/nz4qvd7kj8VPzRYbEPgN/W49+ny/mA7eKZNwXF81FIRExavDep20Qqh8NUJacQA//j3sT5pL0kMNqcx9JbPPfxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vjl3tmrD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787106380; c=relaxed/simple;
+	bh=qazxamjoH2Xy1KPVpv0kZxqu4RKm+ETWt2t3cZLYUDw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cY02PhhAPOOuk/iL4svch1NMY5yOMbb31sN+cmUljjfG9HtbiGCYme6XXAbB0vieunonExPJ32Uzc83h4v83G7l+U4J93Emi9LphyIhi46QnQDGS6kMakcdyHFw3hWQSlkwFwPligOs+dE2bHjTfKIKDyTMo4pIGwou+9vQWHkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3qX0a09; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vjl3tmrD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C57F1F000E9;
-	Wed, 19 Aug 2026 01:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787103385;
-	bh=XHdQdCXeVVXVa2EQNHiJnnORPSquXXRGu0i2fQPgxYE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Vjl3tmrDAkm1xUHH+sWWOBDGq/0rMQ7kGQJGENec1cj0rQn+42RmyglotWK5YILIk
-	 JCxiP6d6F52a1Mp/Cjbx5a1U+0JucQiQxZVJa4bBiNnk7rmPKM/JWd//W17KTvgyd0
-	 nqA1jwgr6mKDatcEwlrOBGJx7D+Da7jw6kg5RCt/1jgHLFdvNGjKD4U3NayeCgCa28
-	 r0cR7uv1iIImAjtLwVTisRSPqRJABXhXlwuei3rjYyvDYeUnhwJGCKozM/tT8/wm16
-	 aH5kWJaXvRL5gyu7QglRKS+K7W9ZLtVcaf8zok9H5YbSQxhlhWp7yReD2qPcQz1pPu
-	 6J/1lg8iI0d0A==
-Date: Wed, 19 Aug 2026 02:36:20 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, Sean Nyekjaer
- <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v5 0/6] io: accel: mma8452: Allow open drain interrupt
- pin configuration
-Message-ID: <20260819023620.6d996271@jic23-huawei>
-In-Reply-To: <20260817-mma8452-open-drain-v5-0-e34e872d7d57@geanix.com>
-References: <20260817-mma8452-open-drain-v5-0-e34e872d7d57@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3qX0a09"
+Received: by mail-pj2-f11.google.com with SMTP id d9443c01a7336-2ceb5a39c48so1598535ad.1
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 19:26:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787106378; x=1787711178; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T5IxWmYwvN+ZrZRWP0i8YU26WhkfeAXlzQMWL7fTyjI=;
+        b=S3qX0a09vx72Um6RbdAIvXZ9fy8CjuvsivXxV/7dslAFW/K1I+8k9s8cjZW4y9naAr
+         guGvbTyijFe58xWKPKn/8wQmTrQ28yLQd8e1P9j6BlXURK7vFWu+LY1KfljZZHi7dDRr
+         TmpC+wkASz7kxs7c3PZCVc1lkPEz28sL0ZIdFpHJnuLgweZuK3BtwXXon5uzFwVIz/dH
+         9GQcmIkOnnyGLPjFlkBjP95IIThAgROFK3gy6ukQ2AzyHE5hyihoJ1uyirZwgPfJAA7N
+         VIYmJQqwHEXrkH7xq6OI7sXewNTP+Jkr9q651jXYO6zy+aI2bU1FvtWJvLt1kgsqvzAg
+         LCpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787106378; x=1787711178;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T5IxWmYwvN+ZrZRWP0i8YU26WhkfeAXlzQMWL7fTyjI=;
+        b=m6hK+8AGdnhmrHzKclVVE/3Qizv84BqikKRllIX2CHzj4qlTXObBtnITeoUbXLJ0Ns
+         FxF2uDciBsHTD9H/hGH1FAPzGP/lAjY/z4tZlJQcGGpmluoVJhGSaS24rsaY87wbQCPQ
+         Vuww7uLZUYOYqsuiyQKeSC7q+dtpuiDy49/Mhg0W+/QGguj0x1/TFM00K2Pou8GX43Ke
+         awjq8EVeaxTTVxjSJf4jRTCZjd+X3OMlUE6VNeYKtyxQF+JOgXkeUM4eJjzExZILvapo
+         hPmgWga9YsePrHxe6Rj5bop6p/UbtOXi5qsPKDhCQbBRxFlu/efMQn2UppthYigz84Pz
+         OCCg==
+X-Forwarded-Encrypted: i=1; AHgh+RoqjWZFFrfQCIlD1fkYL6+k3Lsf/JxU0vrTyoSxRk2mi3xJZMQs0o5/wPHN4K2QVCTpGl6nmXcJVy7K@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8FEvuQ9+g0YgmE/7/2pmdwKfgSiQ3dh6FWTimL+r3b8573X6p
+	sCpmDd+rcHY/GrAYJOuTTl6X0i/DwuwaYccl+RQjNdwVhF9/rcqF0Xvl
+X-Gm-Gg: AR+sD10Y4tnS7mioxsnPEUdWzfoDDqABdMfldXg8halxxYrc/HQAifuiNBv24gEl0uF
+	4Rbpcni/6x7iuYdGn4xCDOFk6QCrV4eUzsiF+qlvjcqt1ftnDWPYdRppeaf9GLM51bh12FRntgM
+	MAwJ9/AmrqbBOfUzJsj+RPh4/yIRFlH4oK4SoYbQiESSVPRg1W/gVQ+KxlcGMKaEGY9n+0iZLNW
+	5+oD1pN+MbVlfpn5S6v2j237Ug+Re8a3oxxfk/1HkLDm9hy+xyQe+WIZdolW6llxDh4ppVegefY
+	ijkMw0DppwBQ+6JC/1/RgZxFctIhfKiQej+foNcAM7KWLiqnax/0yr0tPlFn4ebrF5tNZzu3XiB
+	cASX2cGUUiqhOP2Hszc6MB4/bKRkhxrQOCEOviGNkE3aDENfijgqCApd3cQjYZuQyBpagihn6/n
+	8goVDM1Pe2gRCp2dUDgxEhw5DSMbccptd3J/vazIiliJfOrzfiiR/mNzpSxAOyqhgQJn0=
+X-Received: by 2002:a17:90a:d60d:b0:392:6638:2e6a with SMTP id 98e67ed59e1d1-3958146f387mr2294894a91.13.1787106377629;
+        Tue, 18 Aug 2026 19:26:17 -0700 (PDT)
+Received: from [10.125.112.20] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957f84ee0asm328627a91.3.2026.08.18.19.26.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 19:26:17 -0700 (PDT)
+Message-ID: <bcf4d827-fbd5-413c-8db1-c62232ce9641@gmail.com>
+Date: Wed, 19 Aug 2026 10:26:12 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] of: reserved_mem: reject static regions
+ overlapping no-map memory
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260818092420.2859026-1-chenwandun1@gmail.com>
+ <20260818092420.2859026-3-chenwandun1@gmail.com>
+ <20260818094051.50CD11F00A3A@smtp.kernel.org>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <20260818094051.50CD11F00A3A@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Mon, 17 Aug 2026 19:20:22 +0200
-Esben Haabendal <esben@geanix.com> wrote:
 
-> Extend the mma8452 driver with support for configuration of the
-> interrupt line in open-drain mode, which is needed for hardware designs
-> where the interrupt line is shared with other chips.
->=20
-> Adding drive-open-drain property to mma8452 device-tree node for such
-> designs to enable switching pin configuration to open-drain mode.
->=20
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
 
-Hi Esben,
+On 8/18/26 17:40, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] The patch provides an incomplete fix for overlapping reservations, allowing a static `map` region to silently overlap an existing `no-map` region.
+> - [High] Error handling in `__reserved_mem_alloc_size()` ignores the return code, leading to a Use-After-Free of physical memory if marking a dynamic `no-map` region fails.
+> --
+> 
+> --- Patch [2]: [PATCH v2 2/5] of: reserved_mem: reject static regions overlapping no-map memory ---
+> commit 5bad18fc3e691089fa21e129bf6cd3d6145676c4
+> Author: Wandun Chen <chenwandun@lixiang.com>
+> 
+> of: reserved_mem: reject static regions overlapping no-map memory
+> 
+> Static no-map reserved-memory regions are marked in memblock.memory rather
+> than memblock.reserved. So the reservation overlap check does not reject
+> a static region that overlaps existing no-map memory. Both regions can then
+> be initialized and hand the same physical memory to different drivers.
+> This commit rejects static regions that overlap existing no-map memory.
+> 
+> Link: https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kernel.org [1]
+> 
+>> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+>> index 491d64d93d707..f25dc0cca2f06 100644
+>> --- a/drivers/of/of_reserved_mem.c
+>> +++ b/drivers/of/of_reserved_mem.c
+>> @@ -152,7 +152,8 @@ static int __init early_init_dt_reserve_memory(phys_addr_t base,
+>>  		 * if the region isn't memory as it won't be mapped.
+>>  		 */
+>>  		if (memblock_overlaps_region(&memblock.memory, base, size) &&
+>> -		    memblock_is_region_reserved(base, size))
+>> +		    (memblock_is_region_reserved(base, size) ||
+>> +		     memblock_overlaps_nomap(base, size)))
+>>  			return -EBUSY;
+>>  
+>>  		return memblock_mark_nomap(base, size);
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but since this patch is fixing
+> overlap checks, does the !nomap path still allow a static map region to
+> silently overlap an existing no-map region?
 
-Seems something throttled your mail. Only 0-3 made it to the list.
-Please resend and mark it [RESEND PATCH ...
-with a brief statement of why in the cover letter.
+patch 03 of this series fixed this issue.
 
-Thanks
+> 
+> If a Device Tree contains a no-map region followed by a regular map region
+> pointing to the same physical address, the no-map region is processed first.
+> 
+> When the map region is processed, nomap is false, so it bypasses the
+> overlap check updated here and directly calls memblock_reserve():
+> 
+>     drivers/of/of_reserved_mem.c:early_init_dt_reserve_memory() {
+>         if (nomap) {
+>             ...
+>             return memblock_mark_nomap(base, size);
+>         }
+>         return memblock_reserve(base, size);
+>     }
+> 
+> Since memblock_reserve() adds the region to memblock.reserved without
+> checking for MEMBLOCK_NOMAP overlaps in memblock.memory, both regions
+> can be initialized. This would hand the same physical memory to different
+> reserved-memory drivers.
+> 
+> Should the !nomap path also check for overlaps against existing no-map
+> memory?
+> 
+> 
+> While reviewing the memory allocation paths, I also noticed a pre-existing
+> issue in __reserved_mem_alloc_size().
+> 
+> [Severity: High]
+> This is a pre-existing issue, but could this error handling cause a
+> use-after-free of physical memory if memblock_mark_nomap() fails?
+> 
+> Looking at early_init_dt_alloc_reserved_memory_arch():
+> 
+>     drivers/of/of_reserved_mem.c:early_init_dt_alloc_reserved_memory_arch() {
+>         ...
+>         base = memblock_phys_alloc_range(size, align, start, end);
+>         if (!base)
+>             return -ENOMEM;
+> 
+>         *res_base = base;
+>         if (nomap) {
+>             err = memblock_mark_nomap(base, size);
+>             if (err)
+>                 memblock_phys_free(base, size);
+>         }
+>         ...
+>         return err;
+>     }
+> 
+> If memblock_mark_nomap() fails, it frees the allocated memory and returns
+> the error code, but *res_base (the base pointer in the caller) remains
+> set to the freed address.
 
-Jonathan
+The reason of memblock_mark_nomap fails only can be out of memory, and this would
+trigger panic because memblock is not allowd resize before paging_init.
 
-> ---
-> Changes in v5:
-> - Squashed dev_err_probe() call to one line.
-> - Fixed typo in patch 2 title.
-> - Added synchronization between runtime suspend and interrupt handler.
-> - Link to v4: https://patch.msgid.link/20260812-mma8452-open-drain-v4-0-b=
-fca15d02b59@geanix.com
->=20
-> Changes in v4:
-> - Fixed interrupt handler to check runtime PM status before trying to
->   access the chip.
-> - Split open-drain support and interrupt sharing into separate patches.
-> - Added new patch to reuse existing struct device * through mma8452_probe=
-()
->   function.
-> - Print warning message when irq type is not set by firmware.
-> - Link to v3: https://patch.msgid.link/20260805-mma8452-open-drain-v3-0-6=
-149f406a409@geanix.com
->=20
-> Changes in v3:
-> - Reordered patches, swapping #2 and #3.
-> - Always add IRQF_SHARED flag.
-> - New patch to change it so IQRF_TRIGGER_LOW flag is only added when no
->   trigger type is set by firmware.
-> - Link to v2: https://patch.msgid.link/20260715-mma8452-open-drain-v2-0-9=
-5be9f5f4795@geanix.com
->=20
-> Changes in v2:
-> - Commit message of patch 2 updated.
-> - Operator precedence bug fixed in flags argument to
->   request_threaded_irq().
-> - Always check return value of mma8452_set_interrupt_pin_mode(), and just
->   check for non-zero value.
-> - Added new patch with optimization of struct mma8452_data ordering.
-> - Link to v1: https://patch.msgid.link/20260715-mma8452-open-drain-v1-0-b=
-1dd2a440c60@geanix.com
->=20
-> To: Jonathan Cameron <jic23@kernel.org>
-> To: Lars-Peter Clausen <lars@metafoo.de>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Martin Kepplinger <martink@posteo.de>
-> To: Sean Nyekjaer <sean@geanix.com>
-> To: David Lechner <dlechner@baylibre.com>
-> To: Nuno S=C3=A1 <nuno.sa@analog.com>
-> To: Andy Shevchenko <andy@kernel.org>
-> To: Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
-> Cc: linux-iio@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
->=20
-> ---
-> Esben Haabendal (6):
->       dt-bindings: iio: accel: mma8452: Add drive-open-drain
->       iio: accel: mma8452: Optimize struct mma8452_data member orders
->       iio: accel: mma8452: Only apply trigger type when not set by firmwa=
-re
->       iio: accel: mma8452: Support interrupt sharing
->       iio: accel: mma8452: Allow open drain interrupt pin configuration
->       iio: accel: mma8452: Reuse existing dev pointer in mma8452_probe()
->=20
->  .../devicetree/bindings/iio/accel/fsl,mma8452.yaml |  6 ++
->  drivers/iio/accel/mma8452.c                        | 98 ++++++++++++++++=
-------
->  2 files changed, 80 insertions(+), 24 deletions(-)
-> ---
-> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-> change-id: 20250401-mma8452-open-drain-81577c41375c
->=20
-> Best regards,
-> -- =20
-> Esben Haabendal <esben@geanix.com>
->=20
+> 
+> In __reserved_mem_alloc_size(), the return code is ignored:
+> 
+>     drivers/of/of_reserved_mem.c:__reserved_mem_alloc_size() {
+>         ...
+>         ret = early_init_dt_alloc_reserved_memory_arch(size, align,
+>                                                        0, 0, nomap, &base);
+>         if (ret == 0)
+>             pr_debug(...);
+> 
+>         if (base == 0) {
+>             pr_err(...);
+>             return -ENOMEM;
+>         }
+> 
+>         fdt_init_reserved_mem_node(node, uname, base, size);
+>         ...
+>     }
+> 
+> Because __reserved_mem_alloc_size() ignores ret and only checks
+> if (base == 0), it will proceed with the freed memory and register it via
+> fdt_init_reserved_mem_node(). The page allocator will hand this memory to
+> regular allocations while a reserved-memory driver also uses it.
+> 
+> Should this check be if (ret != 0) or if (base == 0 || ret != 0) to
+> properly catch allocation failures?
+> 
 
