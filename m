@@ -1,411 +1,177 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682C23CF96B
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 18:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13263CF208
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 18:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787164743; cv=none; b=JStE1Svq/tHHdUL0NI5fLWvrLSFSzZCiiv+iN+kFjsxPas2YaIyV9C7LNK0Ye1nU2v5JBPhnzTi8aiegzSjEzcTe+9rWw4RjXSG3AG3dLUsEXZ9FHdGvtAsCNhSVHo/4qEflNA2TNm0SjO0SqlL3r7otI5hju86I6+0RdcXQYcs=
+	t=1787164750; cv=none; b=Fx8Kw1wXAOUrdpDacZunEdHYhzd7iyfTLxc1PqPzkQZOzgT5fX2gELkKcsKxczg7TNza/yi7Ojb7VxFdNQ9PXnNGjRonHKxCKrKIzeryr8ePElOGw2Wo8PkK6yxu3ZEraO95sSYPbM++Oj55TROI5H2fam+KSjr+xko4Tuj1ayk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787164743; c=relaxed/simple;
-	bh=V2dPCaRU+hd7fSjS8oDY0q0LfBq5U5E8U2B7hmZAJo4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aBM+ZwFxcrOzYh/DH8Ze+2CjZmISBeXm7Mx3yMOcNMRpODb8cInPPvVz/axTUpKFpFjkavvFiDvIF+TYKsr+qIPS5ay/UlqD4NhrJdDQYkpR0yj7RfGDa/HG4XPxDJ9+82IV+vMSwWk2/E5EltHuYinplAShzikpaqR0OwRVH/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SDkMK0vJ; arc=none smtp.client-ip=209.85.215.176
+	s=arc-20240116; t=1787164750; c=relaxed/simple;
+	bh=S/kAfA5WC+LMKoBS1uFyMnrlO7jW1CV42eabY++XOVg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=hjShvRXuP7BRY43i/hwhSVBKOpmSJd2bMCtyF6maURTFXktn3rxa2dMP+ifmHwF+Rn/0LZiVkyDK3m+5pcaG79UjsdiHTdEHj0m0ywUNAii0xjBrF4w+e+Ud04mEBFhnhoYpH4iHHSBZzQxP1GolheBWsg84FSrI8H5zq2Ujfiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IaZTwrCp; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SDkMK0vJ"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca88130e09aso721494a12.3
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:39:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IaZTwrCp"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47fe89fb333so699089f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787164741; x=1787769541; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5ZcTRLAfLTr9e/jEr10T1e+kHbQ9jqkTcrRchtkL5X0=;
-        b=SDkMK0vJZOrI2DqFmOsaKhdSTqbQNSXU+BZo/Q5E4em2PMy6bSG4d5jNRM2pXkIfgR
-         uIYEzE1EIAPV7pfMw5KHgzP9fmnKAKw/HBxQP44rWOIuP/2le/svAecNsG7zkJrlq2lA
-         RF2OwxN99ryit6ZtN0L+7e9Q6gdUcFlnBGedgrslRo23GYYSwFtO1N84/Ti0TzYq8CkU
-         /fDduOEoDmIvEH5Yxas+157DL9b8hUmNkxNGjxwbL+ApG9XPxu68/jUphRFr1dU4KHDh
-         veBG11L/XiGEexO6z7I17wtC9xbJsMgHm7Hk7w4hihHtiDn65cS8Je0Ns4NQlWDjrG/D
-         trgw==
+        d=gmail.com; s=20251104; t=1787164746; x=1787769546; darn=vger.kernel.org;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WPgYwoDyqTp6QfKS6LN6UFIeQkwI9JmbGZkTQLSD5JE=;
+        b=IaZTwrCpAUO/E29pna4j2Kc+PwqKGAU+IP6pXC1/wLJVG0L5qubstX9M/ovNviSjvb
+         eHC2eN98SZD23EUXGWxkL6orNBi7fruIXh5qQ/Aap5Qru41OHC3vj+1eJMTTT3yoeCAm
+         3okWfosn396RLspk45BIsWYKjKLy7KXl9DAwt0AFc/7KxKXx5EA39g1e07VRrl+xQaRh
+         X/2ZJksRSlT/ZIdLlHm1PeGku0OiJhUgZxjFvAInSzlLvi5RBAhl2GdDMNUyKTdjbmbj
+         W2DH5lWSDD5i2VeBF4hxOBAKywC17ZWZ83tV/1NE9ZXJzEoVctEK6exTV96vg1uXFTRb
+         2RoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787164741; x=1787769541;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5ZcTRLAfLTr9e/jEr10T1e+kHbQ9jqkTcrRchtkL5X0=;
-        b=f9z3IPsvw3VIW/GdxqdBJMzx6hU9BQ5a7/CZg3We32OEW6ulDvS3pCzIZz24g+KFjH
-         YlyIX3L85TgwHlbAdlhPAiCzrMoomeJ7eqe/UpZycWIZnjUKTbFYQS+2gNbGFOrl/6Yt
-         MB9VwYK+C0+AF9urM6GDFUHzem+PJ+3WhKmi8HjvhP5uhJjmBX5CF7jApQ5pkEE17EjI
-         4CCOtTOnYmpFAyXTK/Y4VxYmt+qBs3cz3VMqBtA8mFoqeiDC1Wf67sRK2rnCm2K41xdR
-         HUSBoFRUODiz3bePXd4bPnoHf4gPqTAzHNCO2Jn/fhqs0CtXzYgWKG/OQyELDhwjhS7l
-         0WEg==
-X-Forwarded-Encrypted: i=1; AHgh+RoPb3Cx3gCEs7rXKmVRCCNjsx1WRYevDMgsJVf9dGDpWJI65v4ZbxuXnvpCTjsdjIFpb+13LhZkB065@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRr/Z7UA73YL+qaYtZ+e8gmH8WpoYKQmW682xgzMvTfXCf60jc
-	tTwV6uu4+PJ6Am+h0tGar3xUp4W5l/xIvig2+idXoOSK5jpQJWLv0bOW
-X-Gm-Gg: AR+sD10zpdz7z/rcqAMcRtEPx/1e3DU40xTlq5L+YcsDzYEfY33R6h/SVqKQT18k4T8
-	NwgWaXRS24bGMMtKNHct8ezEIQtTXPJwp03aJh4iO9so9nIqb+qlM+iQglkWx6X3R8fOXQJUVUn
-	JvkMGuv7b2a4n9BgH1p3OcUm/s6mucxslkn4jR5JBn8AwCDKBnHpF8PJ6jHP96IW4IHWF5YxO9L
-	QdLBJR+51w7euMqqxzlxNorlSZRT72Xh2wARhiYZGrVsIJK8d5kod9QK6h2H1xTgU6yQOJ8HdT3
-	G7VZIPR239IqbPBdcGwEHvo261LoGMRyjDS5/LbZ2Nf75PXuyHauuTFRZx2Tg4XtJPM5MMKo7UR
-	hfYtiN1iiLtnjaZzTqehxZ+WRYi4ZkKX7mVEkbLd+Fi4hpuUO7XI0lWW6SgL6EzJwTRV9tRzyQn
-	/BNQkJGRcWUxKThUwN71Q6p57ADKJBtQLWNuhmXGwK7RTOz6i+KWXgi5ypTluhW3l8DKhbhCUj8
-	ye/i2YVbu5MS7ZD01b3AMAJcwSWBa0vFpErOG4F7EaggEGnCYQSC6Y4HoQ/0RkQlEp+SYQXPeK8
-	cniRa0epG66HRWa3hy41
-X-Received: by 2002:a05:6a21:398:b0:3cc:3d08:da2b with SMTP id adf61e73a8af0-3cd01295943mr14796519637.15.1787164740457;
-        Wed, 19 Aug 2026 11:39:00 -0700 (PDT)
-Received: from iku.example.org ([2401:4900:1c07:efb3:a897:a9b5:e171:c935])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327cb5a9831sm1759393eec.21.2026.08.19.11.38.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 11:38:59 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v3 2/2] arm64: dts: renesas: Add LCDC overlays for RZ/T2H and RZ/N2H EVKs
-Date: Wed, 19 Aug 2026 19:38:29 +0100
-Message-ID: <20260819183829.3953529-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260819183829.3953529-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260819183829.3953529-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+        d=1e100.net; s=20251104; t=1787164746; x=1787769546;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WPgYwoDyqTp6QfKS6LN6UFIeQkwI9JmbGZkTQLSD5JE=;
+        b=PjviN+hj6B19nwW/ZrzDejxns1/9lY5wfBF3sI74YknLpr9AaYVvsjFqnQIaH2sdKH
+         Ov2tSbVpoXsEz/WTsoXaYspNJW2Ok2M7uw21Krtl2Cj9KDL6XOyHHD013GRh4m3wpmlO
+         aZkPCLZdM+DK3k/u9TZS6GjkvvPbBmZPgf3UiCjwYt4/SzbHAY3GZ5SZ6QQGxDmdUH7d
+         KDbNQKiUq4+mpMZ69VK4ARrdSXJIqTvK/XIhCui7S697fHDx02xzHtueXV+KS3cqI3gE
+         gMp6iqK5sZDPunNPpkpiqIb7k1qVZnKDzIKamzwyFWudIuZBk4iQ5o0N9dteumt3uGON
+         X0+w==
+X-Forwarded-Encrypted: i=1; AHgh+RqbjxO+Z1aDTCz5POsRzrGCIEjQemdsJZHq8WDqbknHc8IZqoAedP428P2gaKEWI+jIekJqI9Fby0YI@vger.kernel.org
+X-Gm-Message-State: AFuF++kR9LCWBVy0qjYQ7QlQ58BYHRVSiV1IY+EgCKcBjBukceU30j6v
+	AjQIOSo9x/ITkmvPsmmvxLJmU0eDV+kogOWY1QWXhf6yMUU8FFiub+vI
+X-Gm-Gg: AR+sD102Png+wYJJqq/d9EHXoenPRRRosVDCRiNqnX7WBYACvrgBx9GEQ2N7gWmqHLd
+	II/IQdHRvcxvA7eF5Vs7ViSiK65Sm5VSZNBkht+JgJV6oYCLMy2EwjY57lLKcm/pbiqmbLZdWns
+	tbU3jjF8Dt1H7RA4EmqGCNjjbHiCVcmg/wqx+EUjoKVEB5uRCbEzT9G24gbCze8Yhi6bPg5x2QP
+	f+SW5w/tdUCp/PAZNibYyzN09BezOBzFpi4mt8wvlIWQMsHa+hQkWnoSWi7Nxc8RopQkl8oxIbz
+	LlMgpyFKctb1nGkifH/3OqRPvo56jSPXV/giev5LrCV2tCFf96PlEPMtspwGUg9Rl/La6Ghe6/G
+	S1+k/I3z1SyrIM6DrhG+ocJ9FQHfY1+zW54RxxJZYc/OHsu9wS20KNfybmlHibWgPsHp40abH6f
+	iukJm6HsvuBoKHzSQ1G/DGIcs5Sw4nDQSKjWh2KoCRnRmEP+X8TU1shG7e2lrzbvlvONCNmtcme
+	yA=
+X-Received: by 2002:a05:6000:1acc:b0:482:abf6:e3ec with SMTP id ffacd0b85a97d-482b2004955mr9751908f8f.21.1787164745998;
+        Wed, 19 Aug 2026 11:39:05 -0700 (PDT)
+Received: from localhost ([2001:4bb8:17a:e1ae:eec4:cc25:791c:5824])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b14b802dsm6340362f8f.17.2026.08.19.11.39.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 19 Aug 2026 11:39:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 19 Aug 2026 20:39:03 +0200
+Message-Id: <DKT510VKO8PN.24FM4NJZ3TWLH@gmail.com>
+Subject: Re: [PATCH v7 0/4] iio: light: add support for veml6031x00 ALS
+ series
+Cc: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>, "Lars-Peter Clausen"
+ <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "David Lechner"
+ <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Krzysztof
+ Kozlowski" <krzk@kernel.org>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Andy Shevchenko"
+ <andriy.shevchenko@intel.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com>
+ <aoRl-7XIianTyKIB@ashevche-desk.local>
+ <20260819020426.1de53bce@jic23-huawei>
+In-Reply-To: <20260819020426.1de53bce@jic23-huawei>
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Wed Aug 19, 2026 at 3:04 AM CEST, Jonathan Cameron wrote:
+> On Tue, 18 Aug 2026 17:02:35 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+>
+>> On Tue, Aug 18, 2026 at 01:34:25PM +0200, Javier Carrasco wrote:
+>> > These ambient light sensors with I2C interface provide two light
+>> > channels (ALS and IR), high/low threshold alarms with configurable
+>> > persistence, and a data ready signal.
+>> >
+>> > The devices covered by this driver have the same resolution, and they
+>> > share most of their functionality. These are the differences between
+>> > them (note that the x belongs to their names, and it is not a wildcard=
+):
+>> >
+>> >  - Device ID: accessible via two 8-bit registers, different values for
+>> >    veml6031x00/veml6031x01 and veml60311x00/veml60311x01.
+>> >  - I2C address: same grouping, 0x29 and 0x10 I2C addresses.
+>> >  - AEC qualification: AEC-Q100 for veml6031x00/veml60311x00 and
+>> >    AEC-Q101 for veml6031x01/veml60311x01.
+>> >
+>> > The alarms and the data ready signals share the interrupt pin, and an
+>> > interrupt status register must be accessed to identify the source. Suc=
+h
+>> > multiplexing is not new in IIO, and I have followed existing examples
+>> > for it. The persistence setting (own attribute) to trigger the alarms
+>> > uses the pattern that has already been used for the veml6030.
+>> >
+>> > The device configuration is in general documented in the datasheet and
+>> > the application note. There is an exception, though: the activation of
+>> > the "active force" mode that is required for the data ready signal mus=
+t
+>> > be carried out in two steps even though the affected bits are located =
+in
+>> > the same register: first ALS_AF (active force mode enable) must be set=
+,
+>> > and then ALS_TRIG (active force trigger setting) must be enabled. I ha=
+ve
+>> > added a brief commentary in the code to explain this behavior, which h=
+as
+>> > been confirmed by the manufacturer.
+>> >
+>> > The datasheet specifies the scale and integration time for the ALS cha=
+nnel.
+>> > Although both settings also affect the measured IR value, no transfer
+>> > function, accuracy, or calibration is specified for converting the IR
+>> > output into a physical quantity. The IR channel is therefore intended =
+only
+>> > as a qualitative indication of the infrared content of the incident li=
+ght,
+>> > rather than as a precision measurement channel. Consequently, the driv=
+er
+>> > does not expose scale or integration time as IR-channel attributes.
+>> >
+>> > The only functionality that has not been implemented yet is the x0.66
+>> > gain (and its x0.165 counterpart when PD_DIV=3D1), which makes the gts
+>> > helpers less usable due to the conversions required. It is indeed an
+>> > uncommon gain to use (there are x0.5 and x0.125 gains) with no known
+>> > use-case at the moment that justifies making adjustments to the gts
+>> > helpers or adding artificial conversions to make it work.
+>> >
+>> > This driver has been tested with the four supported devices separately
+>> > as well as in pairs where the I2C addresses don't overlap.
+>>
+>> Reviewed-by: Andy Shevchenko <andy@kernel.org>
+>> for all patches, but DT.
+>>
+>> There are minor things that may be addressed later, or in next version i=
+f asked
+>> for other reasons.
+>>
+> Assuming remaining discussion resolves, there is just enough requested
+> here that I think a v8 makes sense.  This is particularly because
+> of where we are in the cycle and the massive amount of time we have
+> as a result.
+>
+> Note I didn't find anything that Andy hadn't already raised.
+> Looking nice!
+>
+> Jonathan
 
-Add DT overlay support for enabling the DU/LCDC pipeline on the RZ/T2H
-and RZ/N2H evaluation kits when fitted with an ADV7513 HDMI transmitter
-on CN15/CN20.
+I agree, a v8 makes sense even if there is no extra feedback. Anyway, I
+think I will wait for -rc1 to rebase, make sure that no conflicts arise,
+and send the new version. That should give enough time in case someone
+wants to chime in :)
 
-Share the common ADV7513 and LCDC pin configuration between the two
-overlays. Disable board functions whose pins are reassigned to LCDC,
-including the affected LEDs, SDHI0 on the RZ/T2H EVK, and I2C0 on the
-RZ/N2H EVK.
-
-Move the LED8 and LED9 preprocessor conditionals inside the node
-definitions so that the nodes remain present in the base DTS. This
-allows the LCDC overlays to reference and disable the LEDs when their
-pins are reassigned to display functions.
-
-Configure the LCDC data and clock pins with slew-rate setting 1 as
-recommended by the hardware manual. Use slew-rate setting 0 for the
-HSYNC, VSYNC and DE pins, as testing with the ADV7513 showed unstable
-display output and visible flicker when these synchronization signals
-were configured for fast slew rate.
-
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-v2->v3:
-- Renamed HEADER_IRQ8 to IRQ8
-- Added irq support for the ADV7513 in the overlays
-- Corrected the DIP switch settings for I2C_SDA1/I2C_SCL1
-- Added missing DIP switch settings for LCDC_DATG3
-- MOved the header include at the end
-- Added a comment for i2c0 as to why it is disabled in the overlay
-- Split up the du_pinctrl into a group of pins as only sync/de pins
-  needed to set slew-rate=0, the rest of the pins can use slew-rate=1
-- Updated commit message
-
-v1->v2:
-- Fixed typo in makefile for CONFIG_ARCH_R9A09G087
-- Explicitly disabled the led7 and key-1 in the overlay
-- Dropped comment about DSW5[3]
-- Updated commit message
----
- arch/arm64/boot/dts/renesas/Makefile          |  6 ++
- .../renesas/r9a09g077m44-evk-cn15-lcdc.dtso   | 53 ++++++++++++++
- .../renesas/r9a09g087m44-evk-cn20-lcdc.dtso   | 63 ++++++++++++++++
- .../dts/renesas/r9a09g087m44-rzn2h-evk.dts    | 12 ++--
- .../dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi | 72 +++++++++++++++++++
- 5 files changed, 202 insertions(+), 4 deletions(-)
- create mode 100644 arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso
- create mode 100644 arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
- create mode 100644 arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi
-
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index 8bf155badd11..e4a7d7ab5b0e 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -216,8 +216,14 @@ r9a09g057h48-kakip-pixpaper-dtbs := r9a09g057h48-kakip.dtb r9a09g057h48-kakip-pi
- dtb-$(CONFIG_ARCH_R9A09G057) += r9a09g057h48-kakip-pixpaper.dtb
- 
- dtb-$(CONFIG_ARCH_R9A09G077) += r9a09g077m44-rzt2h-evk.dtb
-+dtb-$(CONFIG_ARCH_R9A09G077) += r9a09g077m44-evk-cn15-lcdc.dtbo
-+r9a09g077m44-rzt2h-evk-cn15-lcdc-dtbs := r9a09g077m44-rzt2h-evk.dtb r9a09g077m44-evk-cn15-lcdc.dtbo
-+dtb-$(CONFIG_ARCH_R9A09G077) += r9a09g077m44-rzt2h-evk-cn15-lcdc.dtb
- 
- dtb-$(CONFIG_ARCH_R9A09G087) += r9a09g087m44-rzn2h-evk.dtb
-+dtb-$(CONFIG_ARCH_R9A09G087) += r9a09g087m44-evk-cn20-lcdc.dtbo
-+r9a09g087m44-rzn2h-evk-cn20-lcdc-dtbs := r9a09g087m44-rzn2h-evk.dtb r9a09g087m44-evk-cn20-lcdc.dtbo
-+dtb-$(CONFIG_ARCH_R9A09G087) += r9a09g087m44-rzn2h-evk-cn20-lcdc.dtb
- 
- dtb-$(CONFIG_ARCH_RCAR_GEN3) += draak-ebisu-panel-aa104xd12.dtbo
- dtb-$(CONFIG_ARCH_RCAR_GEN3) += salvator-panel-aa104xd12.dtbo
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso b/arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso
-new file mode 100644
-index 000000000000..aaddfc1154d5
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r9a09g077m44-evk-cn15-lcdc.dtso
-@@ -0,0 +1,53 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DT overlay for the RZ/T2H EVK with ADV7513 transmitter
-+ * connected to DU enabled.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+#define RZT2H_IRQ8	24
-+
-+/*
-+ * RZ/T2H LCDC configuration:
-+ * ----------------------------------------------------------
-+ * Function        Pin     SW Setting
-+ * ----------------------------------------------------------
-+ * LCDC_DATG0     P11_0, SW6[3]: OFF, SW6[4]: ON, SW6[5]: OFF
-+ * LCDC_DATB1     P18_0, SW8[3]: OFF, SW8[4]: ON
-+ * LCDC_DATB2     P18_1, SW8[1]: OFF, SW8[2]: ON
-+ * IRQ8           P22_6, SW2[1]: ON, SW2[2]: OFF
-+ */
-+
-+&{/leds/led-4} {
-+	/* P18_0 is used for DU function LCDC_DATB1. */
-+	status = "disabled";
-+};
-+
-+&{/leds/led-5} {
-+	/* P18_1 is used for DU function LCDC_DATB2. */
-+	status = "disabled";
-+};
-+
-+/*
-+ * Disable SDHI0 as SW2 settings for eMMC/SD card conflict with DU pin
-+ * settings.
-+ */
-+&sdhi0 {
-+	status = "disabled";
-+};
-+
-+#include "rzt2h-n2h-evk-du-adv7513.dtsi"
-+
-+&adv7513 {
-+	interrupts-extended = <&icu RZT2H_IRQ8 IRQ_TYPE_LEVEL_LOW>;
-+};
-+
-+&adv7513_irq_pins {
-+	pinmux = <RZT2H_PORT_PINMUX(22, 6, 0x0)>; /* IRQ8 */
-+};
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso b/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
-new file mode 100644
-index 000000000000..9c9e4fc80363
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r9a09g087m44-evk-cn20-lcdc.dtso
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DT overlay for the RZ/N2H EVK with ADV7513 transmitter
-+ * connected to DU enabled.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+#define RZN2H_IRQ5	21
-+
-+/*
-+ * RZ/N2H LCDC configuration:
-+ * ----------------------------------------------------------
-+ * Function        Pin     SW Setting
-+ * ----------------------------------------------------------
-+ * LCDC_DATG0     P11_0, DSW12[3]: ON, DSW12[4]: OFF
-+ * LCDC_DATG3     P14_3, DSW18[5]: OFF, DSW18[6]: ON, DSW19[3]: OFF, DSW19[4]: ON
-+ * LCDC_DATG6     P14_6, DSW15[8]: ON, DSW15[9]: OFF, DSW15[10]: OFF
-+ * LCDC_DATB2     P18_1, DSW18[9]: OFF, DSW18[10]: ON
-+ * I2C_SCL1       P03_3, DSW7[1]: ON, DSW7[2]: OFF
-+ * I2C_SDA1       P03_4, DSW7[3]: ON, DSW7[4]: OFF
-+ * ------------------------------------------------
-+ */
-+
-+&{/keys/key-1} {
-+	/* P18_2 is used for DU function LCDC_DATB3. */
-+	status = "disabled";
-+};
-+
-+&{/leds/led-4} {
-+	/* P18_1 is used for DU function LCDC_DATB2. */
-+	status = "disabled";
-+};
-+
-+&{/leds/led-7} {
-+	/* P14_3 is used for DU function LCDC_DATG3. */
-+	status = "disabled";
-+};
-+
-+&{/leds/led-8} {
-+	/* P14_6 is used for DU function LCDC_DATG6. */
-+	status = "disabled";
-+};
-+
-+&i2c0 {
-+	/* P14_6 is used for DU function LCDC_DATG6. */
-+	status = "disabled";
-+};
-+
-+#include "rzt2h-n2h-evk-du-adv7513.dtsi"
-+
-+&adv7513 {
-+	interrupts-extended = <&icu RZN2H_IRQ5 IRQ_TYPE_LEVEL_LOW>;
-+};
-+
-+&adv7513_irq_pins {
-+	pinmux = <RZT2H_PORT_PINMUX(14, 0, 0x0)>; /* IRQ5 */
-+};
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g087m44-rzn2h-evk.dts b/arch/arm64/boot/dts/renesas/r9a09g087m44-rzn2h-evk.dts
-index 76e30a6ecb8b..9d54e7650957 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g087m44-rzn2h-evk.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a09g087m44-rzn2h-evk.dts
-@@ -162,8 +162,8 @@ led-7 {
- 			function-enumerator = <8>;
- 		};
- 
--#if LED8
- 		led-8 {
-+#if LED8
- 			/*
- 			 * USER_LED0
- 			 * DSW15[8]: OFF, DSW15[9]: OFF, DSW15[10]: ON
-@@ -172,11 +172,13 @@ led-8 {
- 			color = <LED_COLOR_ID_GREEN>;
- 			function = LED_FUNCTION_DEBUG;
- 			function-enumerator = <0>;
--		};
-+#else
-+			status = "disabled";
- #endif
-+		};
- 
--#if LED9
- 		led-9 {
-+#if LED9
- 			/*
- 			 * USER_LED1
- 			 * DSW15[5]: OFF, DSW15[6]: ON
-@@ -185,8 +187,10 @@ led-9 {
- 			color = <LED_COLOR_ID_GREEN>;
- 			function = LED_FUNCTION_DEBUG;
- 			function-enumerator = <1>;
--		};
-+#else
-+			status = "disabled";
- #endif
-+		};
- 
- 		led-10 {
- 			/*
-diff --git a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi
-new file mode 100644
-index 000000000000..d0242dc55161
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-du-adv7513.dtsi
-@@ -0,0 +1,72 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DT overlay common parts for the RZ/{T2H/N2H} EVKs with ADV7513
-+ * transmitter connected to DU enabled.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+#include <dt-bindings/pinctrl/renesas,r9a09g077-pinctrl.h>
-+
-+#define ADV7513_PARENT_I2C i2c1
-+#include "rz-smarc-du-adv7513.dtsi"
-+
-+&pinctrl {
-+	du_pins: du-group {
-+		du-data-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(10, 0, 0x28)>, /* LCDC_DATR0 */
-+				 <RZT2H_PORT_PINMUX(10, 1, 0x28)>, /* LCDC_DATR1 */
-+				 <RZT2H_PORT_PINMUX(10, 2, 0x28)>, /* LCDC_DATR2 */
-+				 <RZT2H_PORT_PINMUX(10, 3, 0x28)>, /* LCDC_DATR3 */
-+				 <RZT2H_PORT_PINMUX(10, 4, 0x28)>, /* LCDC_DATR4 */
-+				 <RZT2H_PORT_PINMUX(10, 5, 0x28)>, /* LCDC_DATR5 */
-+				 <RZT2H_PORT_PINMUX(10, 6, 0x28)>, /* LCDC_DATR6 */
-+				 <RZT2H_PORT_PINMUX(10, 7, 0x28)>, /* LCDC_DATR7 */
-+				 <RZT2H_PORT_PINMUX(11, 0, 0x28)>, /* LCDC_DATG0 */
-+				 <RZT2H_PORT_PINMUX(14, 1, 0x28)>, /* LCDC_DATG1 */
-+				 <RZT2H_PORT_PINMUX(14, 2, 0x28)>, /* LCDC_DATG2 */
-+				 <RZT2H_PORT_PINMUX(14, 3, 0x28)>, /* LCDC_DATG3 */
-+				 <RZT2H_PORT_PINMUX(14, 4, 0x28)>, /* LCDC_DATG4 */
-+				 <RZT2H_PORT_PINMUX(14, 5, 0x28)>, /* LCDC_DATG5 */
-+				 <RZT2H_PORT_PINMUX(14, 6, 0x28)>, /* LCDC_DATG6 */
-+				 <RZT2H_PORT_PINMUX(17, 6, 0x28)>, /* LCDC_DATG7 */
-+				 <RZT2H_PORT_PINMUX(17, 7, 0x28)>, /* LCDC_DATB0 */
-+				 <RZT2H_PORT_PINMUX(18, 0, 0x28)>, /* LCDC_DATB1 */
-+				 <RZT2H_PORT_PINMUX(18, 1, 0x28)>, /* LCDC_DATB2 */
-+				 <RZT2H_PORT_PINMUX(18, 2, 0x28)>, /* LCDC_DATB3 */
-+				 <RZT2H_PORT_PINMUX(18, 3, 0x28)>, /* LCDC_DATB4 */
-+				 <RZT2H_PORT_PINMUX(18, 4, 0x28)>, /* LCDC_DATB5 */
-+				 <RZT2H_PORT_PINMUX(18, 5, 0x28)>, /* LCDC_DATB6 */
-+				 <RZT2H_PORT_PINMUX(18, 6, 0x28)>; /* LCDC_DATB7 */
-+			drive-strength-microamp = <11800>;
-+			slew-rate = <1>;
-+		};
-+
-+		du-clk-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(9, 4, 0x28)>; /* LCDC_CLK */
-+			drive-strength-microamp = <11800>;
-+			slew-rate = <1>;
-+		};
-+
-+		du-sync-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(9, 5, 0x28)>, /* LCDC_HSYNC */
-+				 <RZT2H_PORT_PINMUX(9, 6, 0x28)>; /* LCDC_VSYNC */
-+			drive-strength-microamp = <11800>;
-+			slew-rate = <0>;
-+		};
-+
-+		du-de-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(9, 7, 0x28)>; /* LCDC_DE */
-+			drive-strength-microamp = <11800>;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	adv7513_irq_pins: adv7513-irq-pins {
-+	};
-+};
-+
-+&adv7513 {
-+	pinctrl-0 = <&adv7513_irq_pins>;
-+	pinctrl-names = "default";
-+};
--- 
-2.43.0
-
+Best regards,
+Javier
