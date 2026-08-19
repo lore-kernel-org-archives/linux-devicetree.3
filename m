@@ -1,184 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6902D355F57
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:49:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0EA34AB1D
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:49:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787150967; cv=none; b=g+70vtFPguDNuMAgEqg5Bp3Abkr7XfKPVqdEdIo6qKANb95fonOGMymuRAexaenBNFVRbu5KY4aoF4xj08OoJvevU+gECCNdJpv371W0BygJSl4lUB2lWwe8iGShspiVZo6y7HASg9nxtvDlX++wepkXaUBf/di2hPSGtRjcAu8=
+	t=1787150993; cv=none; b=FQTfo9eOMwYzRJ9+L9aGOcZdKvF6V/dz15leofa7Zqtc+a6F8Cfgv1prkXcj1rPSD+Bu+O0Qtu1CGtJQrqzvRGRTOsQqkI41mkUmWOoBEYEn6GPiVx32sZKNW4JPLUYcxIVz7JJDIxVYehXD4D4VbB76CSekKlQ8eRs5tScN9DA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787150967; c=relaxed/simple;
-	bh=IgvOFYM9LxiTQJwXdyY77xaNsE/uPrTV4UJp7BeFSiI=;
+	s=arc-20240116; t=1787150993; c=relaxed/simple;
+	bh=lUHeqQmL7gVdIXIN2cytVerwPQk0FOEak+e9YnKPqVM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zu02YD/y0agczxb2a7hmg2cciDU82uHZC+6qZ8ccSI4bB/OCn7Eya15FXg5JMZIglwwdOWAiG1O2HBlIXJD1j7DFva4EVbliNJgKPpgpHkZeGNjgRJDDz5b8XGfjb4NO/apeRMqjGPRWPCiQv6KPVq3lM0nBQ+5ZSVCd1OaWBbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEQVMB5L; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WCU39R2I6TMR2C3OEzIVP59w6q9T1C7PQXJlvsq8kNhmKT8k7a0Rdq5t5eqH1FYPTKgxPzF7RltjbiH8D8roGBa/9EcbgdnZHp6qti3wxOu3Ylv59Ja/iXNFMmX8RLoRWLD0IXucow/8Q+8mcK1XjKTFbHXrLOWC/YsNgAlzFNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4ZdgRYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEQVMB5L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B38811F000E9;
-	Wed, 19 Aug 2026 14:49:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4ZdgRYk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633981F00A3A;
+	Wed, 19 Aug 2026 14:49:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787150966;
-	bh=upWmjo2oVLtBgjVMzI/6cxvR6YIk3kLlCo5bA4NISdE=;
+	s=k20260515; t=1787150991;
+	bh=pI6UKdIqtKWx6CrnCrPbUagt8cMwG5heMWjl/0IDcjw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BEQVMB5LFxfzMMQit+L/Eefd2LIWT8sS+061iB86V4ki8wWII1WHX40Jl3D03pLXH
-	 o3QtMGy2q2logrIIP1t0n4k3IEWOV+cdoCyNrX0IFbTBPlxm/VqTbtxmkxP56gru/U
-	 b0uo9t3QMDSsAcXsF3VjWPw1IqZIehlEs1nMCB8ssb2Lrqucm4IzY9Zy7CGlJ30sEH
-	 5bh+kg9SIexn+1vvw6LfKbkxRmAeqdrvXdUgQqp1lbAejlQRYlxLK/eG55ve+sVkma
-	 RHcq0QMyjQxhsryhGOLV42s3tiY8hpLgR35MowZV8WIIE4ZA+8P/5WTnrUyELRXZGx
-	 2KnY0jd1piXNg==
+	b=F4ZdgRYk981aRGoYGjeWYNqyTJROfWh1ECNBGlQWi82ZyrIGS5Fr1bGiHH/0FRKOc
+	 MmWeS4L05AvETNOC514JQI3bmbVSQigeD49Wmtf4OYZZuTpZN9B6UXUoGVJwtEXASI
+	 J3UeS/M/F5iyFnwSVLf3hPyYEJJr9VWEPCi7s2CJWrtVHXEcaFmZqmUneS3txCYwzc
+	 J6UjyWgVZkxdYu22laJgS33GzjioimL9+7rBgP7i1N3X/FpzRH5coghPHJXru1CEej
+	 /h2Gs8h2+zO4+C0QH2pjON2izH2CIL5tTimFF9QvtHd09I5Z8lueG0xT5x2iz5mkVI
+	 v+l09Ug5s0jjg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/5] pinctrl: renesas: rzg2l: Unify the power source
- handling
+Subject: Re: [PATCH v5 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
+ selecting the I3C power source
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Claudiu Beznea" <claudiu.beznea@tuxon.dev>
-Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260819143553.2478984-4-claudiu.beznea+renesas@tuxon.dev>
+Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260819143553.2478984-6-claudiu.beznea+renesas@tuxon.dev>
 References: <20260819143553.2478984-1-claudiu.beznea+renesas@tuxon.dev>
- <20260819143553.2478984-4-claudiu.beznea+renesas@tuxon.dev>
+ <20260819143553.2478984-6-claudiu.beznea+renesas@tuxon.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 14:49:25 +0000
-Message-Id: <20260819144925.B38811F000E9@smtp.kernel.org>
+Date: Wed, 19 Aug 2026 14:49:51 +0000
+Message-Id: <20260819144951.633981F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Regression preventing software-configured (`PIN_CFG_SOFT_PS`) pins=
- from using a 2.5V power source.
-- [Medium] Wildcard capability matching in `RZG2L_PINCTRL_PS_DESC_MEMBER_TO=
-_DESC_FUNC` can cause silent hardware misconfiguration.
-- [Low] Macro hygiene violation in `RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FU=
-NC` forces callers to use a specific identifier.
-
-Pre-existing issues:
-- [High] Drive strength hardware register (`IOLH`) is not updated when the =
-pin's power source changes.
+- [Medium] Requesting an unsupported 3.3V power source for an I3C pin is si=
+lently accepted and misconfigures the hardware to 1.8V.
 --
 
---- Patch [3]: [PATCH v5 3/5] pinctrl: renesas: rzg2l: Unify the power sour=
-ce handling ---
-commit 359b67b0750f9cab682964830c50121ec1ab0ad9
+--- Patch [5]: [PATCH v5 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support f=
+or selecting the I3C power source ---
+commit 0ea5cf7346d186b66e9a09433c5157725bc0936d
 Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: pinctrl: renesas: rzg2l: Unify the power source handling
 
-The previous code handled power sources using a mixture of power
-source specific definitions and lookups in the available_ps[] array.
-Unify the power source handling by introducing
-struct rzg2l_pinctrl_ps_desc.
+pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C power sou=
+rce
+
+The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
+pin controller provides a register to select between these two options.
+Update the Renesas RZ/G2L pin controller driver to allow selecting the
+I3C power source on RZ/G3S SoC.
 
 > diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/re=
 nesas/pinctrl-rzg2l.c
-> index 9c935dc475557..bab7bd73a4328 100644
+> index bab7bd73a4328..41ca18aeeb0fa 100644
 > --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
 > +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
 [ ... ]
-> @@ -440,7 +439,65 @@ struct rzg2l_pinctrl {
->  	u32				clone_offset;
->  };
+> @@ -463,6 +474,10 @@ struct rzg2l_pinctrl_ps_desc {
 > =20
-[ ... ]
-> +#define RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC(_name, _desc_member, _=
-caps)	\
-> +static const struct rzg2l_pinctrl_ps_desc *_name(u16 _desc_member, u32 _=
-caps)	\
-> +{										\
-> +	const struct rzg2l_pinctrl_ps_desc *desc =3D NULL;			\
-> +										\
-> +	for (unsigned int i =3D 0; i < ARRAY_SIZE(available_ps); i++) {		\
-> +		if (available_ps[i]._desc_member =3D=3D _desc_member) {		\
-> +			if (available_ps[i].caps) {				\
-> +				if (available_ps[i].caps & caps) {		\
-
-[Severity: Low]
-This isn't a bug, but does this use the wrong variable? The macro takes
-_caps as a parameter, but caps is used here. Will this cause compilation
-failures if callers use a different variable name?
-
-> +					desc =3D &available_ps[i];		\
-> +					break;					\
-> +				} else {					\
-> +					continue;				\
-> +				}						\
-> +			} else {						\
-> +				desc =3D &available_ps[i];			\
-> +				break;						\
+>  /* Keep the entries with .caps set in the first positions. */
+>  static const struct rzg2l_pinctrl_ps_desc available_ps[] =3D {
+> +	/* I3C I/O domain voltage 1.2V */
+> +	RZG2L_PINCTRL_PS_DESC(1200, 1, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
+> +	/* I3C I/O domain voltage 1.8V */
+> +	RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_IO_VMC_I3C, RZG2L_IOLH_IDX_NA),
+>  	/* Ethernet I/O domain voltage 2.5V */
+>  	RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH=
+1,
+>  			      RZG2L_IOLH_IDX_2V5),
+>  	/* I/O domain voltage 1.8V */
+>  	RZG2L_PINCTRL_PS_DESC(1800, 1, 0, RZG2L_IOLH_IDX_1V8),
+>  	/* I/O domain voltage 3.3V */
+>  	RZG2L_PINCTRL_PS_DESC(3300, 0, 0, RZG2L_IOLH_IDX_3V3),
+>  };
 
 [Severity: Medium]
-Does this else block act as a wildcard for capabilities equal to 0? If a
-caller requests an unsupported voltage for a restricted domain (like an
-anticipated I3C domain that does not support 3.3V), will the lookup
-falsely match the generic descriptor and return its register value
-(e.g., 0)? Could this silently misconfigure the hardware to an incorrect
-voltage instead of safely returning -EINVAL?
+If a device tree incorrectly requests a 3.3V power source for an I3C pin,
+will this silently accept the configuration and set the hardware to 1.8V
+instead of returning an error?
 
-> +			}							\
-> +		}								\
-> +	}									\
-> +										\
-> +	return desc;								\
-> +}
-[ ... ]
-> @@ -1797,7 +1839,7 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctrl=
-_dev *pctldev,
-> =20
->  	/* Apply power source. */
->  	if (settings.power_source !=3D pctrl->settings[_pin].power_source) {
-> -		ret =3D rzg2l_ps_is_supported(settings.power_source);
-> +		ret =3D rzg2l_ps_is_supported(settings.power_source, cfg);
->  		if (!ret)
->  			return -EINVAL;
+Looking at RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC(), it treats entries
+with .caps =3D=3D 0 as wildcards:
 
-[Severity: High]
-Does this check inadvertently break pins configured via software
-(PIN_CFG_SOFT_PS) that require a 2.5V power source?
+drivers/pinctrl/renesas/pinctrl-rzg2l.c:RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DES=
+C_FUNC() {
+	...
+			if (available_ps[i].caps) {
+				if (available_ps[i].caps & _caps) {
+					desc =3D &available_ps[i];
+					break;
+				}
+			} else {
+				desc =3D &available_ps[i];
+				break;
+			}
+	...
+}
 
-The only available 2.5V descriptor explicitly requires Ethernet capabilitie=
-s:
-
-    RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH=
-1,
-                          RZG2L_IOLH_IDX_2V5)
-
-Would a PIN_CFG_SOFT_PS pin requesting 2500 fail this capability check and
-be rejected with -EINVAL, breaking backward compatibility?
-
-[ ... ]
-> @@ -1812,7 +1854,10 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctr=
-l_dev *pctldev,
->  		enum rzg2l_iolh_index iolh_idx;
->  		int val;
-> =20
-> -		iolh_idx =3D rzg2l_ps_to_iolh_idx(settings.power_source);
-> +		iolh_idx =3D rzg2l_ps_to_iolh_idx(settings.power_source, cfg);
-> +		if (iolh_idx =3D=3D RZG2L_IOLH_IDX_NA)
-> +			return -EINVAL;
-> +
->  		ret =3D rzg2l_ds_is_supported(pctrl, cfg, iolh_idx,
->  					    settings.drive_strength_ua);
->  		if (!ret)
-
-[Severity: High]
-This is a pre-existing issue, but is the drive strength hardware register
-(IOLH) left out of sync if only the power source changes?
-
-Looking at rzg2l_pinctrl_pinconf_set(), the hardware register update is
-skipped if the requested drive strength has not changed:
-
-    if (settings.drive_strength_ua !=3D pctrl->settings[_pin].drive_strengt=
-h_ua) {
-        ...
-        iolh_idx =3D rzg2l_ps_to_iolh_idx(settings.power_source, cfg);
-
-Because the physical mapping between the IOLH register index and the actual
-microamp output depends heavily on the selected power source, will keeping
-the old IOLH index at a new voltage yield an incorrect drive strength?
+Since the 3.3V entry above has .caps =3D 0, it seems rzg2l_ps_to_desc() wou=
+ld
+match it for an I3C pin requesting 3300mV, returning pwr_reg_val =3D 0, whi=
+ch
+configures the hardware to 1.8V.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819143553.2478=
-984-1-claudiu.beznea+renesas@tuxon.dev?part=3D3
+984-1-claudiu.beznea+renesas@tuxon.dev?part=3D5
