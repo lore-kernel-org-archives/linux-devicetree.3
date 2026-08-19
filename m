@@ -1,170 +1,206 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD50B3A1B5
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 23:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787183207; cv=none; b=JuTxqkecDjvTVUmzECyJqXRDrvW/ur5ig1/jMHDfIQsZassR7pFGwp9g99csCs31wHfmjH8fkKldMkEerB66lmxfG7p5x1fbam9jshY5nGzW7dZbns4JLAz+gYfrykOK1GAuLZqOs9/Shx065fV0VzFGtsQ9/pMrXIgT/WfIsA8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787183207; c=relaxed/simple;
-	bh=bk8X/C1AqkDTikcqiW7Hg2XdCI/waiwQ0VemNKokSJg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B8F233954
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 23:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787183825; cv=pass; b=E2ZZsbc6i1OMOMoUBQb1dGRJt9GH/ry2tqn7FvqQ6EuJDrPowEuttMj8DDuICvaGgTVkwXXXaRxu6k77c+Y7eYxnMWUMIlkCRFxh9sqoU7suir510IpY+xqZULcoUH+hg+XNfMWlLIoohxiI2CxLI9+FZiwL1Zcyi+7tzgkKSo4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787183825; c=relaxed/simple;
+	bh=wgjj8WuiZYUMY2UUr+Q1Kyng/gQMuV8XXaYN9VqOJR0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Uy6kBgVbHVBtJjuDhzH99eVksa5A3gbEpTZ9cAQLJGwdrCoswLBMevUOyjNLt6JyiavuK/tyHPjllr3bBvTsmjs42BAYs9rQCFAVhvS+RWYmkyaiKOrC84XNcg0M8wKgX2arelSCAxLqiXtFNB54yFjFNvSlNz+as33GN0aPNjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YIBXCDt1; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=U1JgRqw5WrfJzNjJawXnAQjStge7GAOhKuX0PbqXwRakPVCDo52jnbUHaS+nesgnTQztvF0H4xEOhZbiOeEj4z10HplkkKDmlgedzRI5yyNdg54IOoCC7fRrul7ecXJYhysJSaDFlrq/K59aGNMUp2OuBwNAWTHO+ERQTWYQGAY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BY4CfjN9; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YIBXCDt1"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-9061a795d76so19535506d6.3
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 16:46:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BY4CfjN9"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso2794025a12.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 16:57:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787183822; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bhF6crVq9WuuE+e+Wd2H1/bErmL6id4YKvSbMOALmSVPblKgV4daz9g0wn7zfLIaAl
+         HrHEqyYfGSGBnGIAPHn0EA3JB0CYwJqTgZSeyZ5QUbx8GgUNnF+ZXvPNdHHqYlUFdqr6
+         dGKH5kQ5RLktr71GHccuwJZmp+D2ZTAnWj2Tkw3TIp4XYlLsDF3qlV9o8iD9OZ81NLX0
+         VjpkMlEKaZFRWjq4QVsDMjBa+d8sWGV7b0OUK/UgbThUKcHHPredvJVkQ/RXeKYQpK+8
+         rpEU75cZxozWx71gDNITn+iwqMD2FiKfWcCZjUFcxuf78nKz/1fIEPwXzvvD8nuQwswK
+         93Zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wgjj8WuiZYUMY2UUr+Q1Kyng/gQMuV8XXaYN9VqOJR0=;
+        fh=o7zLEQNvAleKc8Htf+XzbbM7NiGK5OUefxetVTJsmsg=;
+        b=ahSOiWMYq//DuNdOukfJDItYVOljlJQdHU2k1fzSBRP1TgD+PfFnZDpsJ2aPtBa1Q6
+         cSMC6pyp+0wIKzrsPqkMygvT7gNIg0TCHoaxJKDzubsh3jG5SqLswpfqLoWCvaeXyS9D
+         7+CwUpTlwUVpK7bPwuAdKf+AlQIvVbKEJCcQmcR5aD3F/+lybS8zhhYclngZE40/342B
+         ZSVm9+IVTo90DRDGgQpcl3fmhr7wm9eJsO/ZOEdjdsVjFrLIDmudtmJcNn4QYRvb9jI9
+         Zrxn80n8tiFaje8aUR5S5+i+kqf1k7KcsRw+a8711S+71tUecyuSHpZCZwVzYFdGoPBj
+         r66w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787183205; x=1787788005; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787183822; x=1787788622; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=bk8X/C1AqkDTikcqiW7Hg2XdCI/waiwQ0VemNKokSJg=;
-        b=YIBXCDt1vQJX4yz/4j2KCTL5vPGF8lFFlCeefbJ4faq3xgDcN2B6oNW16jeGopz947
-         E2x5WHQ5/yA6Fht76+m0nXTj1CHbOFnhcfPvG6mmG3kPPmbxwghvAwqM5NZohZBz0odn
-         VPqLLl+vhYTSigir1S7zZiRLzFyk3UuHQ+z4Q=
+        bh=wgjj8WuiZYUMY2UUr+Q1Kyng/gQMuV8XXaYN9VqOJR0=;
+        b=BY4CfjN9CF5mZqYl2ZUGUcplTRwY+eN08P2B1891pxCUQgi61Htc80lVFG8qIg+Lu8
+         VTpUIP0cj0EmEsY5I1XhKZZMSAmz10FBfFAi50ZLPg4Z2sAvMdVUnJIXnytSAnXpcWY/
+         zh1OPntE3zXmvswUWfI4nbNfSeEm/n4YbQG6/Ca3Al6FW3rETRImMWb16Bd2mEkIJhGt
+         jXb4b0q4AnFyEZZjE6+bvYqqHOioAZpedXpRXP9Lghgi1LF1WHeRmmv4+AKMRT/BM4M5
+         P0Du4IyEuJyBDbnByVKsJWlQBKBKHAOrq7lfc08DQWScN5r8uqva3GXYbYqIICbasaew
+         OULA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787183205; x=1787788005;
+        d=1e100.net; s=20251104; t=1787183822; x=1787788622;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bk8X/C1AqkDTikcqiW7Hg2XdCI/waiwQ0VemNKokSJg=;
-        b=ap7c87zZtrRdQD99U02mAOnHSQ99d2pbT1Jidqdu4uhy1HRmj7Hqlp1EN8aTBlyiOx
-         OJmsz0Gwd5k99aq40wjZ6/ZRHz7KnY7o2v0dLAzCpgw1vsqGbvl2pifeXK7J35RfNyjz
-         5qFRpshnf4fvZemg58kzzHzaz1ck/onQWIcJ0BJnyTaDCemtWnfExC4psb6wNuqyYfuX
-         Mx7W3Z3qV2oYUN60zUpfw7eNNpXnTME25MKCTAp9nwNdmDcF/C+zUQhHZfH927S92Bz8
-         L1KTgX5J0VMi0nP3FuQDWYNTLFdKi27pUOmhUGuXRwOE0vpWRlJ5OgoSg4oD/EnqcVbb
-         gsdQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrj9zJPPT6m/nMF1+c86Q4eACeYz+Ttzjk/q5ek9whxfRGLx8JUrpeIvogZTeZ8nS4/FjsSmT9Camsn@vger.kernel.org
-X-Gm-Message-State: AFuF++lrWD0r9k7GLswJDDH+D5QnM7bFZ5mtjJG+GCG4ebweIdMKeCAk
-	Qhyb4cDywPKbcEpsZvonlD4qlMsL31u/k2UXONxSS5Lbcd1GjgQg6M4CHOB0b7ZmLz3+DkWMVSh
-	y9JA=
-X-Gm-Gg: AR+sD13iPNZrKLseWsUcof5PCv7Q5mzYt44B4aVCeEJl1sp2GGYkFABle5YcqNNAAVk
-	SbnPm6U3O0TacX4A34Uujr4YbiZByOsLuJeR+SIBxTH3oYQwh094eMNSkoOkkVXE2z7Hjsb/GdN
-	INdOdp6YySCYz01iFeuXuAVIMkMyUg7K8K6X/ug+6hpyIZyP+fjN0R86gxfhbdLAI5QpCHdb51M
-	VoXuHtbTidp5zIeDA6+kbE4lu3xYPET70KK4JGgIzQs/93r/rqcQ4Kkg0+7Y+DFenRtfiVDLJeS
-	1wYr4aOJcCd7JnRFNkkd5Y2I3GxmkqVyoK+cG05ycqNjN6yvBVDO/gGuOOouvclLZ3mHe+VZRbZ
-	ugNG4+JXGuac7qB46mHnwZ/KuJDCUGMTX/ZiwQGgTE+xt2iOGvvdwvjdcpkbwri8BRoZtsLpRBa
-	kYJ9tNEqUjYCEy7X7jsctrBoP9SHnr/302i5dB4inXtECikF6w3PzSzL+8weGMFhGNVWgZcjl5/
-	UgIDdn9CmPqCHiX6y4VQrUZznV7TUk=
-X-Received: by 2002:a05:6214:4b08:b0:8ec:a010:9af5 with SMTP id 6a1803df08f44-90c5e967c63mr95254066d6.10.1787183204800;
-        Wed, 19 Aug 2026 16:46:44 -0700 (PDT)
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com. [209.85.160.180])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c5f2905d6sm25451996d6.29.2026.08.19.16.46.42
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 16:46:43 -0700 (PDT)
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-52b3934af3fso14304281cf.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 16:46:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq8o6Qifok/pHMNs/n+pv4i0Vuh1+pdXscrZM1eeb8a96sM77dEpzEpR06sCM2I4K7/Wy+v8eJsjfbJ@vger.kernel.org
-X-Received: by 2002:a05:6102:15ab:b0:777:4e3a:8dde with SMTP id
- ada2fe7eead31-777fab9d4a7mr3615810137.11.1787182853246; Wed, 19 Aug 2026
- 16:40:53 -0700 (PDT)
+        bh=wgjj8WuiZYUMY2UUr+Q1Kyng/gQMuV8XXaYN9VqOJR0=;
+        b=dbKI3EShWs3E5S4E59xaXUa6fCeeq3/dh5/B9hJaGWAU4nL7b0qo0a/Ov4EuWMILVv
+         w7+/Ldy934z3ebmtTZv410+pmkCBt5TYOZJsksam1WvaSIhmfgpQi1XRyWYd9bU4RhO2
+         zalKW61Wbf30Llh+gSqK28RdkOkX2M0dcjs2WM+wndfGG2ds2J33SD0L03yqz8zWPBLd
+         SGK8a1OMrCJupRAYQYWFckqz+DHracoQdkcU9sTVG6aWWhpIghR4gaG41ofFWeSkZWT+
+         zYlSLrF+kLkkrX6A3f9NFhIf9GxA/praMiLyAJjVBPQibEyHhlZZwaVP2EQXWW4EasKa
+         7NwQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqSdb1SXM8M5dfxjz47HHJwst0vZAfmydTLURCCHKlEEJTTKE5G7v0FEIHx0gjTnVnFyPrnKYEuKC+N@vger.kernel.org
+X-Gm-Message-State: AFuF++mUTISN8hurbsnFtUW/sgXWrn4dF6mEiqJcFVvOy/Eed/0nt90a
+	P6J5NPgq8ghrFmsx251mq5/IE1ECe7ZNrKlw2rnk0FhvRPXe6jV2enRb3XQeTN8iaprkG5W4Pev
+	PGjbKssexb6+EN/cbvqBsL7HsJ63HwHk=
+X-Gm-Gg: AR+sD109q7VhrMpJ90Dr4XN4pNX4ufp2ugZ94Oe1Wb9LPflWBTpmKHZRwRTNUUcL9L1
+	o5q35iy8SmFx0826mMC8z2TDfc+d0Eunsk/xho1DehRHK/YAgGQykFsLYr32ELa8LaYvpBuSXS+
+	KfFM6IF/hPIeZN13fhUwUPTcAf4APJTjvJVNG76nSnYRFxkR7kYxSQj2bWvYLyoP8X4nYiRlYBv
+	CMxhNuk24IgSyen+JZ6qtyj4Pmh9UDiQK6vHiFqNbEKsbh3kzF/bLau3oYeNee0duGt3OFdwJvQ
+	MEsCqf257pzrRR57IhPbHE8BC6BDc/xrj6mHQs/8GQ==
+X-Received: by 2002:a05:6402:44d3:b0:69a:928:9405 with SMTP id
+ 4fb4d7f45d1cf-6a4032961bemr4544062a12.1.1787183821720; Wed, 19 Aug 2026
+ 16:57:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
- <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
- <20260724-dancing-skunk-of-novelty-72c1b8@quoll> <CAD=FV=U0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr38p+YwRnC_G6w@mail.gmail.com>
- <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com>
- <CAD++jLnQGy_LvRxMjq1s2Hs9Hn4LNTFZ0W17zC1YLs5StwfqMg@mail.gmail.com>
- <CAD=FV=VuVdq_=TQmONJZak84S2c2-2yQ8DS0k_odYsUfg0C+rQ@mail.gmail.com> <CAD++jL=VLzW-4eB=izJwaTJ+6xObk9+AQGTDK6ABdrGX4K3vAg@mail.gmail.com>
-In-Reply-To: <CAD++jL=VLzW-4eB=izJwaTJ+6xObk9+AQGTDK6ABdrGX4K3vAg@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 19 Aug 2026 16:40:40 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VsiQfoGYHw3D2xmV=Jedu+cmqEfrCk0mkKFzsrRCQcTg@mail.gmail.com>
-X-Gm-Features: AcwNN1UHCTu0dpSrOeIjoA8l2gjjfO6Nzx_OO7IAuQCNztYoKMKLEde815SfxYY
-Message-ID: <CAD=FV=VsiQfoGYHw3D2xmV=Jedu+cmqEfrCk0mkKFzsrRCQcTg@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for frankel/blazer/mustang
-To: Linus Walleij <linusw@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
-	soc@lists.linux.dev, Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
-	Brian Norris <briannorris@google.com>, William McVicker <willmcvicker@google.com>, 
-	kernel-team@android.com
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+ <am2mvECnCcO9IxuI@monoceros> <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
+ <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
+ <20260810-devout-pig-of-performance-595ccc@houat> <CAEUXW=GuHypVE5Xre8AQBmkrcUbPQxh03Lq8os=kjcLeGahOgw@mail.gmail.com>
+ <20260812-neon-asp-of-completion-e9349e@houat> <CAEUXW=H-o+fqBjH1UQG7=UTm5x1a9Cj++XJM7twvFU4vJC4UrQ@mail.gmail.com>
+ <20260814155325.GB516994@ravnborg.org> <CAEUXW=Ffs+WKsQrNc3zjwtfAO=FKTf_7jQFovD+yjmD_yJuY2Q@mail.gmail.com>
+ <aoSygH8JSXFrivOA@bywater>
+In-Reply-To: <aoSygH8JSXFrivOA@bywater>
+From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
+Date: Thu, 20 Aug 2026 01:56:48 +0200
+X-Gm-Features: AcwNN1VNx4GsAKqd8z0hu2r6Vk3bBmJ_vBla6bGBHBSguaKITunj7iojs8USPhQ
+Message-ID: <CAEUXW=HHJve+NDwkzhC5sWwqWbBwAAyxLUdp0e1tK4NP2=1Dqw@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+To: Francesco Valla <francesco@valla.it>
+Cc: Sam Ravnborg <sam@ravnborg.org>, Maxime Ripard <mripard@kernel.org>, Helge Deller <deller@gmx.de>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel@pengutronix.de
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Sam, Francesco,
 
-On Wed, Aug 19, 2026 at 4:29=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
-rote:
+Sam -- thanks, and you're right that it's doable. One honest nuance on
+where it would live: CLUT224 isn't a DRM fourcc, it's the kernel logo's
+own container -- a palette plus one index byte per pixel. drm_format_helper
+converts between pixel formats, which is a symmetric operation; turning
+CLUT224 into RGB is a palette decode, not a reformat. It can certainly sit
+there, but it's worth calling it what it is: a decompression step in front
+of the scanout, not a format conversion next to the xrgb8888->rgb565 helper=
+s.
+
+Francesco -- that's exactly the crux, and I think we agree completely. The
+palette expansion is cheap for me only because the image is small and
+low-resolution: one lookup per pixel at 800x480 costs nothing, so I get the
+17 KiB on flash for free at boot. But that's the "low-resolution sweet spot=
+"
+you describe, not the general case -- at a generic resolution the per-pixel
+decode stops being free, and boot time is the whole point. So I don't think
+paletted input belongs in a client whose goal is to stay generic; it's a
+trade that only pays off when the image is deliberately small.
+
+For the case where nothing lights the panel before Linux -- Falcon boot,
+or a handover where the buffer doesn't survive -- I do have to draw, and
+there I'd rather build on your series than start from scratch. I can't use
+it unchanged, since my logo isn't a BMP: it's a small CLUT224 (paletted)
+blob carried in the device tree, so I'd add a source alongside your BGRT
+and firmware-BMP ones that recognises it by a magic and decodes the palette=
+.
+But the client structure, the drm_client_setup() hook, the scanout path --
+that's all your groundwork, and I'd be leaning on it. Thanks for the offer
+to help on a respin, and for the series, which is what made the distinction
+clear to me.
+
+Max
+
+El mar, 18 ago 2026 a las 21:39, Francesco Valla
+(<francesco@valla.it>) escribi=C3=B3:
 >
-> On Wed, Aug 19, 2026 at 7:03=E2=80=AFPM Doug Anderson <dianders@chromium.=
-org> wrote:
+> Hi M=C3=A0xim,
 >
-> > I appreciate your suggestion of having a separate node for calibration
-> > storage. This feels more awkward to me than just giving up and having
-> > the bootloader hardcode all known device-tree paths that the UFS node
-> > might be found at. That being said, if everyone says that this would
-> > be a great solution, I could try prototyping it. The trick would now
-> > be that the Linux UFS driver would need to be able to find this
-> > calibration data, so the Linux UFS driver would either need to be able
-> > to find it at a specific hardcoded device tree path or the Linux UFS
-> > driver would need to search the device tree for a specific
-> > ufs-calibration compatible string.
+> On Tue, Aug 18, 2026 at 12:48:21AM +0200, M=C3=A0xim Pedraza Padilla wrot=
+e:
+> > Hi Sam,
+> >
+> > Thank you -- that's a useful pointer, and it settles the question of ho=
+w
+> > a splash should be drawn without fbcon: a DRM client at
+> > drm_client_setup(), next to drm_log, not a drm_fb_helper hook.
+> >
+> > Francesco's series is genuinely inspiring work, and it would be very
+> > useful to me if it could take a CLUT224 image -- unfortunately it can't=
+.
+> > It only accepts an uncompressed 24-bit RGB888 BMP, whereas our logo is
+> > paletted, which is what keeps it small: 17 KiB for 800x480 rather than
+> > around a megabyte. So as it stands the format doesn't line up with what
+> > we carry.
 >
-> Can't you just put the calibration data as a custom property inside
-> the UFS DT node? Just a long byte array or whatever it is.
-> The driver would certainly know where to find it that way.
-> I don't know who or how it has to be put there during manufacturing
-> or inserted by the boot loader into the node from wherever
-> manufacturing stores it though. (Assuming it's some calibration
-> added at manufacturing, I don't exactly know what it is...)
-> If the actual storage place is in something the OS can read
-> then we could probably use the nvmem to fetch it live?
+> Format concerns are - in addition to lack of time to work on it - what
+> is keeping me from sending a new revision. Any kind of compression would
+> need to be unwinded - probably on a per-pixel basis - making the
+> required CPU time unreasonable for large images (at least if boot time
+> optimization is the ultimate goal - linke in my case).
 >
-> The calibration business and what it is and where it is stored
-> evades me a bit...
-
-The problem we're facing is _finding_ the UFS node in the bootloader.
-
-The device tree for the board is stored / maintained outside of the
-bootloader codebase. It is compiled and stored on the device. The
-bootloader runs, locates the device tree and then wants to make
-changes to it.
-
-The bootloader needs to _find_ the UFS node in the device tree in
-order to make changes to it.
-
-The question is: how does the bootloader find the UFS node?
-
-* Does it hardcode the DT path to the UFS node?
-
-* Does it use an "alias" to find the path to the UFS node?
-
-* Does it search the whole device tree for a certain "compatible"
-string and use that to locate the node?
-
-Hardcoding the path is the easiest thing to do here, but then the
-bootloader will break if the UFS node ever changes. We also know that
-this path will differ for every SoC and is currently different between
-the downstream device trees and the upstream ones (because downstream
-device trees don't have a "soc@0" node). I've also been told that
-device tree paths are not ABI, so hardcoding paths in the bootloader
-seems less ideal.
-
-We could just hardcode the path in the bootloader. If this
-conversation goes nowhere I'll just change it to do that. If paths
-ever break, then I guess we'll just have to get yelled at when folks
-say "Why in the world would you hardcode DT paths in the bootloader?
-That's not ABI!"
-
--Doug
+> Of course, on "low-resolution" displays the size-vs-time tradeoff might
+> be the sweet spot - but the target here was to being as much generic as
+> possible.
+>
+> >
+> > Reading it did make the distinction clearer to me, though. drm_splash
+> > *draws* an image into a fresh buffer, which means a first modeset and t=
+he
+> > blanking that comes with it. What our hardware leaves us with is a
+> > framebuffer U-Boot has already drawn and a CRTC still scanning it out, =
+so
+> > for our case the natural thing is to *adopt* that state rather than
+> > redraw it -- which is what hardware state readout does, with no redraw
+> > and no flicker.
+> >
+> > Where drm_splash is the right tool is the case with no state to adopt -=
+-
+> > Falcon boot, where U-Boot proper never runs, or a handover where the
+> > buffer doesn't survive. I'll follow Francesco's series for that.
+>
+> My typical embedded setup is exactly that one - Falcon boot, a simple
+> boot logic inside the SPL, and possibly no initramfs. I find this to be
+> the most portable solution, as it does not require complex drivers and
+> handover logic in the bootloader.
+>
+> In case you decide to take my series for a re-spin, feel free to ask if
+> something is unclear.
+>
+> > Thanks again -- it helped me draw the line between the two.
+> >
+> > Max
+>
+> Reagrds,
+>
+> Francesco
+>
