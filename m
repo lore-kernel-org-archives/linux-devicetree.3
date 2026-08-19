@@ -1,98 +1,148 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA743AB292;
-	Wed, 19 Aug 2026 13:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37942D6E6C;
+	Wed, 19 Aug 2026 13:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787147296; cv=none; b=j6U+8METcB1XGvZtURYIDvLvV/M203Sv3C/mVQT3dAquRUBsPOrWQ2BSZgIf9B8EH87xQs0DJGlj5RDW9TC5dy5Brdz27Fj8WbhqglGSiAAZFFqCUfs4UgMt5kzgiGn7qsgw+6FJ6Kl8oBGWb2Wurw+U8ZLdjcBxFSZO55Utm6Q=
+	t=1787147349; cv=none; b=tiaWFZI+eQK20elpZ2/pZ36UnqrLLzsF+prVEqmMJdiVITxHOUozoygH57r7H1jsVIknYPsFUfR98F4U3ih0xM9oUPNVy5Dgq19chKuS4vDuw1Bhi4hKLvg/r0CR15yicueWxQj25sp6buTcPV1xRxBYgpfo8Cu+hBSS4jT9Tik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787147296; c=relaxed/simple;
-	bh=3mEfbSoQ5PqFo6MXopYthzuZIsLshO1DrjAkHXLOBBA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BkQZVudBvDwUzimOGy9qosBXGCKC2AT82HRsZa6Gv0N5j6bYKXGOH7Q+4mjjoKdqxTPzzsDq/F7I6V2Px/ndKKtFERWvIdADdnKXgqvOOtjTOA2SgoeYrBnNkosDFtx2J6wZIoGrU82SIxjtJnQ2uLN9XFFTIwPV6LA4vSWpP1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=lyxHHwl0; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1787147349; c=relaxed/simple;
+	bh=Qo1W8qYU8L8LZ7GvSNrPNsNmBCQ6COGvzQHSG3eAuI4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PibeekxvSZKaKuMNq0v29FoJ0BVFbFWHttbd33sytymQVEsfvHfo/v0iQn3wZB638fGbOph8pjVOsCCbji++0MfitF0RV/wOFBTgiXIVrPZAhCN/ieccNpWzSynkjJ1r9wztTovxexKYtsPmFq0QIyllvqjV/nPQ/SRgaUpIE/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMyGGuvn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="lyxHHwl0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=lhuJm5bU8coWF+IIzOxJmec7Ug+YIsKGfOtibniuIro=; b=lyxHHwl0o6jOPCBP+/vlesRMcX
-	gJrFoI/qEtjf9ABnm0xeqWnhXU0o9ZVPgKC1blN8uMjCc78pXLUwcsoNh5C8mFvypXzdgX6kk0h3p
-	9mftZnPy7mupjQOVjyRkTjCPoI47RWp5ZetpZk0NAAUW+t9l3TnvG75Xs1unKxN5wgu0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wwgeB-000c9n-8D; Wed, 19 Aug 2026 15:48:03 +0200
-Date: Wed, 19 Aug 2026 15:48:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Roman Riabenko <roman@riabenko.com>
-Cc: wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
-	andre.przywara@arm.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH] arm64: dts: allwinner: sun50i-a64-olinuxino: Add RX delay
-Message-ID: <e9c26d2a-2426-43b7-8c68-89cc52a2c7cb@lunn.ch>
-References: <20260815005316.28998-1-roman@riabenko.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMyGGuvn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4EE69C19425;
+	Wed, 19 Aug 2026 13:49:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787147349;
+	bh=Qo1W8qYU8L8LZ7GvSNrPNsNmBCQ6COGvzQHSG3eAuI4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=SMyGGuvnCc6rkamsK+FDMr1wsmiD9dNibXlMsujlUoYzpZX15J6Rqu3DsFUznhTis
+	 nESAHqZdnkAZXE5MLzHi4HplvJdDPhjf26qpf2bl87bp7ycqa2ojvyXPd8yt520gUV
+	 mYe4Bl6uq7kCnLU4rPPNUngE8mA8fDfiWSMBVO0HHSdjkDFZHNjCWVQoRag2Czetqq
+	 fSAT7jX5EY5akrum1oQSHarlTEGuddoPnjX7oNHicxwcMJ+wjcmiBWnAKJhRLdPNge
+	 FrUMbhF0lvUkdp/F3QUmBVEwp4fAOcP6ZM54vBp/7R5xNDtIJu3efrpfxgvydqWBBA
+	 KrlfWRHwmCU4Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 283A7C5DF6D;
+	Wed, 19 Aug 2026 13:49:09 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 19 Aug 2026 15:49:05 +0200
+Subject: [PATCH v3] media: dt-bindings: dongwoon,dw9714: Fix example
+ implying 1.8V
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260815005316.28998-1-roman@riabenko.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260819-pp-pro-camera-v3-1-5b669a2ba899@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBAFf4X07JpuQSie/A/jobRF1kRpWmxQw
+ r9L8aAx8TjJm3kTC9aTDWyfTczbSIH62wL5JmO6U7ezBTILM8FFySVHcA6c70Grq/UKFBYGVVv
+ IXBu2OM7blsa1dzy9Odybi9VDiqRFR2Ho/WM9jJh2/9oRgUPVFKbmlZRt3R5opGGrnyyVo/hys
+ f51BSBogeVOGJNLaT7uPM8vVYfb3fYAAAA=
+X-Change-ID: 20260801-pp-pro-camera-a14d1af483cd
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+ =?utf-8?q?Ond=C5=99ej_Jirman?= <megi@xff.cz>, 
+ Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1971; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=wXaWf0FZiUfHyVgUjQSi9vHdfwd5hd8hKQ6POghja+U=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqhbRUmxsSfnnRYEDqMfknoHRKdh0SwjhRtZZlG
+ BFwOmYHASaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaoW0VAAKCRBgAj/E00kg
+ cts/D/9sg86dS3xB86qmIQ3O20aL5UHA9BJBD8xzmXRwFizV4CTmRbIQBWftFo7NQLhqAYXEMus
+ OhTcLfXFJklcofBG3i1A2IO/YdQ78PqhuHT/TJpyuk8AzihU8lnmikjNxWkx90MJNJ1gTlA4SvG
+ S32Lk/jGWOmbR8qoqzbfA4YuYQMCm5hZpZkauKxuh+WZGGKDzVAD8p94z2zBNJEkirE2Fesa13v
+ 1ag3owZYsJ3aZ5V7te6mIFMeu4cTBE1lS3W7ptlUT/JyyrPixr0oVvhmhBFAxCwP72dXhnDBpGD
+ FGm+LFHfX4h5mnbDTYF4VBSGEjaW3gE1ET9Rma+YdI3svPL61EeOqu3PsDCKQzasRBpZ+m/OJES
+ g7THZCzvAGUhZ7RDp589uyiYPFBsyIwsWAUn5lItc9Qa48RBQgHIQTRlAi3Z96PQcnyf3CFW2Ua
+ lU1dI7J6451CnsiCwqeAkFntIvY1uRmPaKOChdJ3FrF7jXPwn9wg9ffs0T9tvkJyvmgd4iCxi6I
+ JYL3lC7wRdMW+qJQGt2Cg4GTUkAdElgRyNzXprBqqpigupqmIBZjmYfJhydAyEgPsoC69wr1E6/
+ 5ogTQaGAJxSB3B9XEmxuQjueKSkmZCYjImutOC4lzapo3SvihNaoBslPSAeIMADor36yh5jfLfS
+ /IcjlZY0OUkwcww==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Sat, Aug 15, 2026 at 03:53:16AM +0300, Roman Riabenko wrote:
-> The Ethernet on Olimex A64-OlinuXino computers requires an RX delay
-> greater than 0. If the value is not set or is 0, packet loss in the
-> downlink direction is severe enough to interfere with downloads and
-> disrupt software installation.
-> 
-> The range of acceptable values is wide. The vendor has been applying
-> 200 ps in its downstream DTs since 2021. This patch matches that
-> common practice.
-> 
-> Signed-off-by: Roman Riabenko <roman@riabenko.com>
-> ---
->  arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts
-> index fd3794678c33..6c8b79c257b9 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts
-> @@ -106,6 +106,7 @@ &emac {
->  	phy-handle = <&ext_rgmii_phy>;
->  	phy-supply = <&reg_dcdc1>;
->  	allwinner,tx-delay-ps = <600>;
-> +	allwinner,rx-delay-ps = <200>;
->  	status = "okay";
->  };
+From: David Heidelberg <david@ixit.cz>
 
-The full node is:
+The datasheet says VDD should be between 2.3 to 4.3V, usually around
+2.8V. Correct to prevent confusion and extend description.
 
-&emac {
-        pinctrl-names = "default";
-        pinctrl-0 = <&rgmii_pins>;
-        phy-mode = "rgmii";
-        phy-handle = <&ext_rgmii_phy>;
-        phy-supply = <&reg_dcdc1>;
-        allwinner,tx-delay-ps = <600>;
-        status = "okay";
-};
+Fixes: 2a96b40f366a ("media: dt-bindings: dongwoon,dw9714: convert to dtschema")
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+The example implies incorrect voltage, fix it.
+---
+Changes in v3:
+- Missed Rob A-b.
+- Link to v2: https://patch.msgid.link/20260819-pp-pro-camera-v2-1-c21652dd388d@ixit.cz
 
-Please take a read of:
+Changes in v2:
+- Dropped the devices fixes, needs HW owners to address issues or
+  document state to be understandable.
+- Link to v1: https://patch.msgid.link/20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz
+---
+ Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+index 66229a3dc05d6..7f5aa098351dc 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+@@ -20,28 +20,28 @@ properties:
+   reg:
+     maxItems: 1
+ 
+   powerdown-gpios:
+     description:
+       XSD pin for shutdown (active low)
+ 
+   vcc-supply:
+-    description: VDD power supply
++    description: VDD power supply (2.3 to 4.3V)
+ 
+ required:
+   - compatible
+   - reg
+ 
+ additionalProperties: false
+ 
+ examples:
+   - |
+     i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+         camera-lens@c {
+             compatible = "dongwoon,dw9714";
+             reg = <0x0c>;
+-            vcc-supply = <&reg_csi_1v8>;
++            vcc-supply = <&reg_vcm_2v8>;
+         };
+     };
 
-phy-mode of "rgmii" is questionable. Does the PCB have extra long
-clock lines?
+---
+base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
+change-id: 20260801-pp-pro-camera-a14d1af483cd
 
-600/200ps is actually very small. It should be around 2000.
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
-	  Andrew
+
