@@ -1,98 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24A3345CA8;
-	Wed, 19 Aug 2026 13:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE6324679C;
+	Wed, 19 Aug 2026 13:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787147780; cv=none; b=Z8+elIj0fGU9b3tvOSB330wICdXS/BoD5Ui44B70ZzH3JyBV8AS2MMcc7/camrL3ikJ/S2LjhwHq0G2JDFySLnXmT4KTRoz/cXOV466wVJ8wq9r6cW7IZlY3RHH2u9SrCvMZNfRQzuOSeJXoqPlACEEDeApTNJ5xL7hg+Y3X8NA=
+	t=1787147801; cv=none; b=na9erFqDX8+MpuI18yQPgqV229yBgqKN6Q4awFH1NP8myxEq49y8ri0QJHt0H2K50IUP0eYx+aWv1/LJxsgubFIM1LEXGbWukzRmHrwP5BOhdsE/j2UUBXdkQtrl1veh8IUJuxqVes/oBlt3PMvzaPBa7+PCQB+GkBW2HGN39+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787147780; c=relaxed/simple;
-	bh=CdFPMdEUtBafCWSNlCxZgg3cgLT9VI+uW20xwVR/JAQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iT2LxyQmEk2CPS/bWQCf3WDb6h/JhHZfYhD9iYUJZBG2+2+ufEkv/22K73xc5OSlX3sEDh0De+wFKFVtwlx1gEdj4W/ea412C5oXL9YcKjBYCJvJFfCHniD27IGB2L82WppGepSdMuRIpTMNK0mbTpykmMHleRunYEf4RX8peXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OhAs1K3n; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787147801; c=relaxed/simple;
+	bh=YeME+ahPfJByvAXzjy8vtCR2alNd2hamLlkLbEjwWUY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SDIMkqrXAl4MLoLgBKtZbekU5dLrRQ83XNvpPIgnFskok77QHztu5E8wz4lRESV1Mqn+InGtsQJCCEKuJlrPkj0U2VBtMb7Huozmx+IaOZZp1re0YYLmEr3JKYlHVpA+WogRKhgZdRelKcNVBPDkjoTnDXs/EbEcQ+USBy149sM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7HhkzSg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OhAs1K3n"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787147778; x=1818683778;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CdFPMdEUtBafCWSNlCxZgg3cgLT9VI+uW20xwVR/JAQ=;
-  b=OhAs1K3n2lSXYqfQwwwRcyoEZUsUwp0BMnpCaxwq5bJcbkcgsKZK0CSp
-   LC9stg8GExc3BAJZ5EdUjF6PcrritiGzSXr9k3U1mfhlWPiaMjx8Sh1tG
-   BZRq2aVPhSASq+Ju0i7m064C7h+0pbP4nsVX7sKyWj7rakyfzn8Ezx0f5
-   giQdRypQxrUXNZ/4TsPCyrhBlyIeFwx/IlIFrsDpxywtXxeUVgtdldG8m
-   D6c6oJitI8jiYyBlQn/MRG43zoG25F4qfu271wSGtUXCqayU3E7o3QiYM
-   RH0x7KijZZOyU7vLrXTAtpcJEGPQIQjt2Yjkz5P/j3paEH8xiwON7ZIfO
-   Q==;
-X-CSE-ConnectionGUID: O2KHbrIVR0WP+e3ZjGJFiw==
-X-CSE-MsgGUID: y+UTB+4xQK+Wi+krBllbFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="98823296"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="98823296"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 06:56:16 -0700
-X-CSE-ConnectionGUID: a+bRP0P8SSaBoMfA4Gsd2g==
-X-CSE-MsgGUID: 5qsL6sLCTYGTZGOnYz5Xzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="264237821"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.106])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 06:56:12 -0700
-Date: Wed, 19 Aug 2026 16:56:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Martin Kepplinger <martink@posteo.de>,
-	Sean Nyekjaer <sean@geanix.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v5 6/6] iio: accel: mma8452: Reuse existing dev
- pointer in mma8452_probe()
-Message-ID: <aoW1-UgGuG_9Z4Fh@ashevche-desk.local>
-References: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
- <20260819-mma8452-open-drain-v5-6-d8aa590d7c36@geanix.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7HhkzSg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E391CC19425;
+	Wed, 19 Aug 2026 13:56:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787147801;
+	bh=YeME+ahPfJByvAXzjy8vtCR2alNd2hamLlkLbEjwWUY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=C7HhkzSgxaInjFENAyTe9ArO1XgI6aSqJCCqOODztEsCuWmcKVnYGFi4V2JL+nHua
+	 EY3F7aQyNzz/ci46RYy1v0ndkHJ4/57R5A9orSd9b1D1OaYcsE9TYeIwsr4tCZ0msm
+	 bOrp8fSsGEGBxVgRlbDCZuZ/Zcsny/6tFxkuUMbzXKNDKs1xlILJkI/Ce4jEbioqYA
+	 MT4XoaWTGNE7AwMwbBmZo6Zc5XelDNBwj2bdAaUI/qPglWEHXR0LtOjmv+9F9fMBAu
+	 q9d7nIdl6a7bAjAS2nsO63EBKzSEAO6uR1s/aMFKZjfshQGLi7Vbp0crqkzE1Hzb/3
+	 9Oixjs18CzhzA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF252C5B572;
+	Wed, 19 Aug 2026 13:56:40 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 19 Aug 2026 15:56:39 +0200
+Subject: [PATCH 1/2] arm64: dts: qcom: sdm845-oneplus: Move touchscreen
+ y-axis to the right place
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819-mma8452-open-drain-v5-6-d8aa590d7c36@geanix.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260819-oneplus-ts-quirk-v1-1-0cdbcea195a2@ixit.cz>
+References: <20260819-oneplus-ts-quirk-v1-0-0cdbcea195a2@ixit.cz>
+In-Reply-To: <20260819-oneplus-ts-quirk-v1-0-0cdbcea195a2@ixit.cz>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marcus Ramberg <marcus@means.no>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1678; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=a26dFcsPpf6CwuMLNOgEu1hKIlbknD00ls5SVdmciH0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqhbYXXkV/2Zya80zeMIArO0EKbodiGcYgeC78/
+ 0SxsvvnQRSJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaoW2FwAKCRBgAj/E00kg
+ coXvD/0V3NLx/uHdrMtUasUnu3nwb7M1koU5+RM41ygBKcHxnMD+9E2dCSaPrOPx7zJC2QjcumE
+ kpeuEvDZSrBpxJPmkVvBapisT/RcgT80wqARKmSCYt+agbSEiSuszlKAWqVkUxK3fgYjXJhMBxm
+ WF8hIU+t1AiQwa3nD9OUVdWq3bQSrVS3D7GYNbRT+XL+HcgQNH5ACc2vCflG5MZ7WYDB585+qR5
+ SHxR+BiPPX4wZRXs+EtIZaBnhurOoPJR8W43qH7lBL5S+CTXI8IW8HyY3I7q/7lXdEJt1Q8SZ1A
+ AhsV+RqnqEHsUGkd6sRcOqKy/q9Cu1sLuCGa/blbXQTCfQX3XokJLjOgkHpJDGN5QC3MiM74WZr
+ s17DoxU39jrxbBvzb4Bw2KfyDUhKcgV9+frAKmUCf9i/ih7TnYnLAGUUle8KH0T4RByG7oMRt+Z
+ /f0liWawjArQTMESk6THnpicWP7bmaeHDUoXAXBr8KvAfg+9kOJVSl2TPKXpENpswaLB2xtSacn
+ zJBt3WrQTGrxjLHRJIzIUvwPXO6w3hBtplN3CYzesFSBIkjY5okshtyjH/EbSv9tuD1DYm2MUjE
+ KkS2UWDQezDhZucJ3a2M72MG+/ahgxfLAYfBL1Fa9eZZm6h18IOPGnOSuAeAib2fQPqnj3RkZDL
+ iBtKEDFydm98Irg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Wed, Aug 19, 2026 at 10:15:33AM +0200, Esben Haabendal wrote:
-> In commit 32a5c04d4575 ("iio: accel: mma8452: Use dev_err_probe()") the
-> struct device * pointer was assigned to local variable dev, so we can just
-> as well reuse that throughout the function for sligthly more readable code.
+From: David Heidelberg <david@ixit.cz>
 
-...
+This value belongs only to enchilada, fajita sets it's own (as the width
+/ y-axis differs).
 
->  	data->chip_info = i2c_get_match_data(client);
->  	if (!data->chip_info)
-> -		return dev_err_probe(&client->dev, -ENODEV,
-> -				     "unknown device model\n");
-> +		return dev_err_probe(dev, -ENODEV, "unknown device model\n");
+No functional change.
 
-I would also move to -ENODATA. This can be done in a separate patch with might
-be unified with the 'dev' use.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 4 ++++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 439779f308e38..fead66d60e58d 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -538,17 +538,16 @@ synaptics-rmi4-i2c@20 {
+ 		rmi4-f01@1 {
+ 			reg = <0x01>;
+ 			syna,nosleep-mode = <1>;
+ 		};
+ 
+ 		rmi4_f12: rmi4-f12@12 {
+ 			reg = <0x12>;
+ 			touchscreen-x-mm = <68>;
+-			touchscreen-y-mm = <144>;
+ 			syna,sensor-type = <1>;
+ 			syna,rezero-wait-ms = <200>;
+ 		};
+ 	};
+ };
+ 
+ &ipa {
+ 	firmware-name = "qcom/sdm845/OnePlus/enchilada/ipa_fws.mbn";
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index 3b30d79706fe7..be346286e19b3 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -90,16 +90,20 @@ led@4 {
+ 
+ 		led@5 {
+ 			reg = <5>;
+ 			color = <LED_COLOR_ID_RED>;
+ 		};
+ 	};
+ };
+ 
++&rmi4_f12 {
++	touchscreen-y-mm = <144>;
++};
++
+ &sound {
+ 	model = "OnePlus 6";
+ 	audio-routing = "RX_BIAS", "MCLK",
+ 			"AMIC2", "MIC BIAS2",
+ 			"AMIC3", "MIC BIAS4",
+ 			"AMIC4", "MIC BIAS1",
+ 			"AMIC5", "MIC BIAS4";
+ };
 
 -- 
-With Best Regards,
-Andy Shevchenko
+2.55.0
 
 
