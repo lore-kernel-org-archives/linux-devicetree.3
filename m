@@ -1,116 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6905F47ACE4;
-	Wed, 19 Aug 2026 15:04:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E368D476CF7;
+	Wed, 19 Aug 2026 15:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787151846; cv=none; b=lC98WfZ94I8TMjfFaNo/VzVTjtXKV16ToONEtRbF7KB5d3Vdj8KEpRhT9kEkkBBG7GztrkFys/Lve05Fc7I+69atJM3HMdLw2C0VHeoZPMveEC5wNqgSUdp3WX9+bvHi45TgE0m+jy/2pMJ7cC3SqsPZBuHPIWrGzV60GbGu7yU=
+	t=1787151942; cv=none; b=jfC2uS2gy8F6TMToExpPWEN3ATd+rwxSR9zhjd4NuHNLFG9JoNSvjicmrCRGBb+w12oNld2zWCaXvuXINH81PCgkLeH8tO6l7+dAl5AAHAECY20jut6BBLxP9CvpDD4JMOkWraTRUdqO6JHExqmKpOojYmVrd3tdUW20k0TgocY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787151846; c=relaxed/simple;
-	bh=7QdD/R2/Ni19ESzuiAq7R+6orA6/0Ys88l7g3rJ+pOI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=muJb+jYGbVRdvphtimCpGBENn2DVWrQXd5a813VAYUQq9ytr55yN5XCkiw8nL8ZiHqziOrd+RFMwqxkkgjEzWwdWvg91chZzZLP3mqZNGPSv37GvBUQPBfKBxT0IwRLTVvhNClhH6t/PdixHrxXL35kiHcfwXeCbARe7cNdebmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DXIa/MV/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787151942; c=relaxed/simple;
+	bh=ZOI+W6oA/uAi32MTH/0/AbBQ8UTI/tV8YYpxIRduY98=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qPtD4ELgI3CEkGqz1fRlfOdCHM6bIot5mqK7BX9DXJ8wj+E3Gy/D2m4zAnbif6Ctj2yk1ptwOzwqmBBkErYEYK/PqLFxHFIFWzxqowqk4AP+kRZtef9pHa0XQIXO/DDriu9g86pEv4THMDJa0OhtEE5a+4QK58knlgfhKAwFmLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ooh4O4nn; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DXIa/MV/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1303E1F000E9;
-	Wed, 19 Aug 2026 15:04:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787151843;
-	bh=tkPA0TI7btUaiTvMRtGoAK4eeT9XTWXseBvKEJHkhjg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DXIa/MV/8w7X5p3gmxz5ubL3XVkgLGYNMNsSZO25o8cH7HE1CCjBiJgZ7KNyXAJON
-	 6kFlgjfltwKGf2QC7jCizelxxoOdK/h+wzahpkBZaA0OvQ9p1dUNu6QnER7XwDpanV
-	 xclDm+28UtLfzTWTQMEqe+0WdQw+fQ1OOoT5kjLM8SEbACVMJO7sAKPAbsN3hMpQPM
-	 vmk8sOl4Rkz6eD//Z2ZgceVRqfsaZCsY6sF40wQafX3mDqd1mGVCSEW5EwZ50wM4qJ
-	 LBQLp1KKJKFXwW9LB9x/p2KjdO5pmZYnsDf7m+XJ0DJvcPIpRINgQ4Cg4x33OxTYdQ
-	 A70KrIwP/8BJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: imx8mp-evk: enable CBTU02043 for USB
- Type-C orientation switch
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260819-imx8m-typec-v1-1-befc92ecb70a@nxp.com>
-References: <20260819-imx8m-typec-v1-0-befc92ecb70a@nxp.com>
- <20260819-imx8m-typec-v1-1-befc92ecb70a@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 15:04:02 +0000
-Message-Id: <20260819150403.1303E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ooh4O4nn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1787151939;
+	bh=ZOI+W6oA/uAi32MTH/0/AbBQ8UTI/tV8YYpxIRduY98=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=ooh4O4nnoS1GXQvarlxiNA7WIlnZgxkLdtnUfrl+ZIw4UZy8ON2JPAULUqn6glymV
+	 TEYU4unh5Cc2IMADNY237oj8DvJF9Hf4tCTVa7vxKQfRINYeqorsHt6krRZH9EU6Fm
+	 s6lHo8w0qteJ9R6d/YaycRc85DID+Z0N/SR23csjhtyO0HfJBKnSpHSKYDjNM5a5LZ
+	 7iszudSMqSvCpRuNpe/leqIEAWFrE/hdO0T0/MuOWy5zh7GlklDoPoHMWTwm0WXpPY
+	 dqkivmrgfcqdmQm4DZ8GhHEtvT4otsHUivKlsBJisFoGpuB5MVHt3le6zX6bL2X8eF
+	 Ie3SXFdLuyg8A==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E329617E0824;
+	Wed, 19 Aug 2026 17:05:36 +0200 (CEST)
+Message-ID: <ea57db621f1267c1cd3079cebed543180d82ed95.camel@collabora.com>
+Subject: Re: [PATCH 1/7] media: verisilicon: Fix the cleanup when a codec
+ ->run() fails
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>, Benjamin Gaignard	
+ <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab	 <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Ezequiel Garcia	 <ezequiel@vanguardiasur.com.ar>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,  Hans Verkuil
+ <hverkuil@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lucas Sinn	 <lucas.sinn@wolfvision.net>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org
+Date: Wed, 19 Aug 2026 11:05:35 -0400
+In-Reply-To: <20260819-rk3588-jpegdec-v1-1-33d74cdf369c@pengutronix.de>
+References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
+	 <20260819-rk3588-jpegdec-v1-1-33d74cdf369c@pengutronix.de>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-jClPjoRyYChhJM6d5vWN"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The GPIO hog for the CBTU02043 XSD pin incorrectly drives the phys=
-ical pin HIGH instead of LOW, placing the switch in shutdown mode.
-- [High] The `pinctrl-names` and `pinctrl-0` properties inside the `gpio-ho=
-g` child node will be silently ignored by the `pinctrl` core.
---
 
---- Patch [1]: [PATCH 1/2] arm64: dts: imx8mp-evk: enable CBTU02043 for USB=
- Type-C orientation switch ---
-commit b6ef05965c4d69ccad672c2aa85487746c77918d
-Author: Peng Fan <peng.fan@nxp.com>
+--=-jClPjoRyYChhJM6d5vWN
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: imx8mp-evk: enable CBTU02043 for USB Type-C orientation switch
+Hi Sascha,
 
-This commit adds a gpio-hog to keep the CBTU02043 crossbar switch always
-enabled by driving its XSD pin low. It also adds a pinctrl group for the
-XSD pin to ensure it is properly multiplexed.
+Le mercredi 19 ao=C3=BBt 2026 =C3=A0 12:37 +0200, Sascha Hauer a =C3=A9crit=
+=C2=A0:
+> =C2=A0	ret =3D start_prepare_run(ctx, &decode_params);
+> =C2=A0	if (ret) {
+> -		hantro_end_prepare_run(ctx);
+> +		hantro_end_prepare_run(ctx, ret);
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/bo=
-ot/dts/freescale/imx8mp-evk.dts
-> index 7bdd641292fb6..dc3baeac5e3d3 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-> @@ -935,6 +935,17 @@ usb3_data_hs: endpoint {
->  	};
->  };
-> =20
-> +&gpio2 {
-> +	cbtu02043-xsd-hog {
-> +		gpio-hog;
-> +		gpios =3D <20 GPIO_ACTIVE_LOW>;
-> +		output-low;
+Since its already in an if (ret) branch, and for code readability, can you =
+use
+hantro_abort_prepare_run(ctx) instead and leave all other sucessful calls a=
+s-is.
 
-[Severity: High]
-Will this actually drive the physical pin HIGH instead of LOW?
+Nicolas
 
-In the gpiolib framework, "output-low" requests a logical 0. Because the
-pin is specified as GPIO_ACTIVE_LOW, gpiod_direction_output_nonotify()
-applies an inversion to the logical 0, resulting in the pad being driven
-to a physical 1 (HIGH level).
+--=-jClPjoRyYChhJM6d5vWN
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Since the commit message notes that XSD must be driven LOW for normal
-operation, should this use "output-high" with GPIO_ACTIVE_LOW, or
-"output-low" with GPIO_ACTIVE_HIGH?
+-----BEGIN PGP SIGNATURE-----
 
-> +		line-name =3D "CBTU02043_XSD";
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_cbtu02043_xsd>;
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoXGPwAKCRDZQZRRKWBy
+9J96AP4pVbuljONCTasFDnqGz3LRJHuAwLr5VErmMrO2wrsqrwEAzhFgMDQ9TSeS
+/dfy+t87UYjwpZwgjpWq+Cp2ewMU1wo=
+=KCQs
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-Will these pinctrl properties be silently ignored by the pinctrl core?
-
-The pinctrl bindings are evaluated by the driver core via
-pinctrl_bind_pins() only for nodes that instantiate an associated
-struct device. A gpio-hog node is parsed manually by gpiolib as a firmware
-subnode and does not instantiate a device.
-
-Does this mean the MX8MP_IOMUXC_SD2_WP__GPIO2_IO20 pin will not be
-multiplexed to its GPIO function, preventing the hog from controlling
-the actual physical line? Should the pinctrl properties be placed in a
-probed device node, like the parent &gpio2 or &iomuxc?
-
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-imx8m-type=
-c-v1-0-befc92ecb70a@nxp.com?part=3D1
+--=-jClPjoRyYChhJM6d5vWN--
