@@ -1,223 +1,239 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011055.outbound.protection.outlook.com [52.101.70.55])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6EE356767;
-	Wed, 19 Aug 2026 13:16:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787145374; cv=fail; b=jYGV9VU637xVIBSCt7DwjF0GgvyBecyeVNF2FtXB+7WmWW30m6fcRffPLTsbMZJ5sbTeCna+wzglK/Qx6iwwa3iywfWqdNxlevIIvN06ApWC+0KeJVEFSZi9q0kfdNy72l0QCpznXZAgekky3mdTrFeV4afh8/6D+Z68l75j/5o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787145374; c=relaxed/simple;
-	bh=oZQvScyA1zqJV4CC6foAQh/CAQe4pGeAga38F8pulH4=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=nFIAq5itE8XDzmcPNvwCsFJIqCqeCEyHA4tMtKrBZBvtPhK3zvks5axaU5BJu3MN1zoCpJ+rzVUpAhiUw2h5Tbih2eB7EXRfKZ45/G/k0RtyeqT/v/BbFkR7T5w4XMGisRvGakw4v2Fth6vkWAQygO5Xg2MvdpZGUpUZR1Jm6vQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PbTCgOww; arc=fail smtp.client-ip=52.101.70.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C28C355048;
+	Wed, 19 Aug 2026 13:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787145399; cv=none; b=Nfi+t55w72Gtu9HjAN209NcSAMlxkTf9HrMh8V82846zEIymUDhsVU4WiWGU9WoUlvDW0wlIThlduZERLZLujWCyEaLvunr75mkagj7lld6Q8h7fPeca9GefBGWqmGM5yXrHqroFiCB6dnF2iaPqUDxM55J/5ibDla9m0JNRb3Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787145399; c=relaxed/simple;
+	bh=kBHPWo97uYwRSQBVWhpYZYcHcJ9umwbJ/0Ds0eO7wXE=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LJV7kMDocSi38QZRL3gtlBEzQmicO76c0ep5EWkxf0igmwbraqQyGaD6gNPrE/uTkIFcU5hdv/dV79tipyWlWvHAARJPAbwci4YwqHj6fjmg2q1WNf+ejmUddRKnq8tWrVF61X8Vlj/lHvLwZKmKAAr1O0e14bwxvYbq3dQOq0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=JCqSjDt3; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PbTCgOww"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IyqrNZoiCbxy+33bhbPRqk42dXn8hAXA+LotJak3F0xolXvuOgn/+mCoyj6RWYjU11uL1zgYIYaMx4JkyhH1DNU6VRxjhTGG5bINeg/doyniKE0xpg15xeOmo5buKc6foIx7Jh9cclbRFkRFYZCWpQdmx9um1g7tbZV0Yg5inTvX3McnFiy5RQfs5mb2iQct4oZk+4F8/7Z5NBW7W1ZYIZ+swur7yCQV4ZFWWM/QyiyPCb1cY52z/6o+I8D27h53QDGUykL41HPXko1DddRjiJ2jRq7SIgkCnVgg5ThrSHs9+UYkAlVrlirRlSvgFz4SjBeyZS8v352SFQFF7wjXNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/T28Dv7KzFFE9nxv/81pMJDpMBM2QOQ+wFzcBBIp92M=;
- b=qQmgjkGLTzEUJDh/4dDWhY2ptekHMDZeYaDa/pxsY2XL9gRX6Qh9cXJqfAt9B2FI32ICtfx8GpD++hEnbe25kKm3TcTetGDI5NH/YOJVjmwDFiwxdDh3znNrc/RX9S9Fl2fF0HVFGeFWT5XZKtq2I4gxIRKeIFYEgw1QE3jXljZnkLaweUGHtykFOUybQzxwCqHB+Nin6sZ2e72Q2J5f1TYYV648QDlZnKKNbNYL5V8R8C+bO0F8lkd6BIfzxQh94AfmJyI51i4JK7W12KPGS39TLK3TJP9xQYwzc0ZRkURODhpGxp52Olp6Zc47oUaRSWOwf+PxK4NXo9L3z2+dgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/T28Dv7KzFFE9nxv/81pMJDpMBM2QOQ+wFzcBBIp92M=;
- b=PbTCgOwwNZEB1ltwNRh9sKqhFlJ5i7qFqNkcnzJG6qYq1ENprtLz0dkax2XqYhzj9kdKIEFu6X1RwNEZIzDB5NltpmADPPxHNNTKg2ySWOs2f99tRYJCBgDFmR2ARkByMjk1b7G4XGLxe7Z4Cw7VFPCjzUCWOINm4HLnz20hnJOIB56P6W+xrPskKGQ8Q18oOb+Sl7ct09Bnqyk9gsNI3nTTuDDJf+u1MLxp4elGSghU1G3xJ4MnvY8xOIafUh3YPLV6gIJ4nEZW8SoWvMOSBVx5IB53cIpj/vziSSD2NPDlibt5ieawUByfPYfTnHKFIbEV8ZRVGHw5wIOF99X2+A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com (2603:10a6:20b:414::15)
- by AS8PR04MB8737.eurprd04.prod.outlook.com (2603:10a6:20b:42a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 13:16:06 +0000
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c]) by AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c%3]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 13:16:06 +0000
-From: pankaj.gupta@oss.nxp.com
-Date: Thu, 20 Aug 2026 00:16:02 +0530
-Subject: [PATCH v38 7/7] arm64: dts: imx8ulp: add reserved memory for
- EdgeLock Enclave
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-imx-se-if-v38-7-5df4a4cff736@nxp.com>
-References: <20260820-imx-se-if-v38-0-5df4a4cff736@nxp.com>
-In-Reply-To: <20260820-imx-se-if-v38-0-5df4a4cff736@nxp.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787165160; l=2461;
- i=pankaj.gupta@nxp.com; s=20260817; h=from:subject:message-id;
- bh=8LTJ7dQk+ZmHVQUVQ7z2QFEU98qQ6ZendsUWTwEehrU=;
- b=a6wYMumxNZ6wPg5bTy1V5Et5qhZiiR9vriA+Qdhe9YsTPIjfIdJo+qpzYCJQU492P66Q0MOV+
- 67oz4BPML5iDv+rC23QfVz5TB1OdRm8rwzdm2ze4VQ7DPa3Xfi0xnQw
-X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
- pk=g4ZgzIWbpXnSxRsoH+l6PWLP78a+Mzpl8e6RQe74d5Y=
-X-ClientProxiedBy: SI1PR02CA0024.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::12) To AM9PR04MB8469.eurprd04.prod.outlook.com
- (2603:10a6:20b:414::15)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="JCqSjDt3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1787145395; x=1818681395;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=kBHPWo97uYwRSQBVWhpYZYcHcJ9umwbJ/0Ds0eO7wXE=;
+  b=JCqSjDt3P7n79EUcArkUdjZWsNZh73VYuug21yWIwBX0AU5RsjB7YUPW
+   75G+eAjgqXsiNxrO3KPHb5JGDt0ipkHF+8c56cqcjPhQlU92tWCiBgWmf
+   LnnUb9EpxVhutz4qp78f6Hv9XNlhfUWTf8WO9/RbrLiDDpA6ODD603Pmi
+   H4eII2nfjwX/FPqW8foamQwwQHbWL/dj0mU1inAxnVJdTgA3vO+YJdaWi
+   0ZL4Wey8WcZmc/lvWhxiGbTkFk4XYN3GTcF3qOCJKZKkwAX88CQgHbBac
+   /IVSkWTwF6vsDnXXpOFdXk9v+/rM4I0xhCD3z/1LGNJn34mTltapciFxh
+   A==;
+X-CSE-ConnectionGUID: nrrKC829SfW3iRargQSIyg==
+X-CSE-MsgGUID: ljfRS7kdTaiT5/L3DCnGRQ==
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
+   d="scan'208";a="62677125"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 06:16:34 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Wed, 19 Aug 2026 06:16:33 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 19 Aug 2026 06:16:30 -0700
+Message-ID: <18fb098e343a49ceb90bcb385f06b14a7c58b736.camel@microchip.com>
+Subject: Re: [PATCH net-next v11 7/9] net: dsa: lan9645x: add mac table
+ integration
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
+ Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Woojung Huh <woojung.huh@microchip.com>, "Russell
+ King" <linux@armlinux.org.uk>, Steen Hegelund <Steen.Hegelund@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>
+CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Date: Wed, 19 Aug 2026 15:16:29 +0200
+In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-7-007ebc983a0a@microchip.com>
+References: <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
+	 <20260805-dsa_lan9645x_switch_driver_base-v11-7-007ebc983a0a@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8469:EE_|AS8PR04MB8737:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba1f2621-c516-4552-ecc0-08defdf406b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|19092799006|10067099003|56012099006|11063799006|921020|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xrrLo6xtgAGZweZfeJBzzQ7GHXq6YnQksPHxkt/4hpRhlpkmEbuFIuMTTBAG6Xgw7M9WkDRB9NyZjPQQfTXjjW+BsuMayUA6GGUxaq5heLBhZy13awVjWpZLHJdnjUF+AebIEa+c5TefsXD2ml9Z8dc2P58yY2Gsw5lgq35vZ9OyDzRRoIURhGlDk80iPk7RlzZifeY1r5QMdh+Mq0FNTr+NTrFKVtg92Wcn4WtovTWeniSyiF2EFyyZ55fVTQRtUz9oWBCEjORuLiZBZXXAA6Bp0o7mjDWlO0gG4P7NeP2XCdhIFiiJ4gjwCM5tqNcGIn55ZApcJdWnEFAAqCH+8+Vw+2OfnGkXThzqFivs0CxYwc1z93uhMAJ6hqDnLQnGHs6oZVpndQfLNkfC4i4fGJwqOPy0TevW462SlzdJMA5V6uzQ0hXq6kCJ7GaerUvEESx5xClH1Vg1Gr9GaAaqXgjSpfit4+AoAicEeQx5gJSFM7dCSLjDo7UvRaMY5vFPDEOecEbvuVaJ3ItTrs0Myyf8pNk8/B7pTmMqVu7EaPugicHgVZ/vZC9lE9TR0EV/Nl+I1tx1pL9Tu/6r5t1FIXYVv+sjIbwF+ozBFNwmwQlhPPNys7+HR5O+Vgy6l8f8Ovumg0RbLo55D4Jo8ETRwrIsEVQveB838/bKdyIf4Sihoq1/XrB+mMB55PsPVpuS1ZS6qmClngi9pLWwAxwAHw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8469.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(19092799006)(10067099003)(56012099006)(11063799006)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SUV2ek9JV1dwT1BWd1k3WkpZS2c0WXpzSHNYZXBmOXUvajRxcVBzdm5YMGZC?=
- =?utf-8?B?aG1RZjl4UXppQlp1ai9QcFpyK1ZsZzhnR0dCTTdUS20rUEhoTTFTY2RhV0lh?=
- =?utf-8?B?SjJ0Vlh3SG5pazNhdzA3RUFQSnhYWjlpaWwzVGQ0VmpWOUZtMTdHZU9MOFJx?=
- =?utf-8?B?THJWcUhUdS96alFreGJ6VVg0VTFsaEVGMVRlQkJuUWtseG5id0hiSnIwOWV3?=
- =?utf-8?B?MDd2VDRZbW5zVjVkMjlDdEVZUTJ2d2YyRDFYcnZTTDMrR29TZFlUR2VDSk9K?=
- =?utf-8?B?d1hNRjZodFYyZk1GR3k0bzdpWHpNbW1QckRDUGZheHEvR3hUSExJckUweTI1?=
- =?utf-8?B?dkVNSGo0T0dLNkN5OVpjKzRWMGoxZWVaMmpzTnc0T1NwendMR1JWSXpxcEdX?=
- =?utf-8?B?M1pRMjBINjBBdGZpenhVclN5aWFjdGY1K1VYUGliNkZ2Y1daVXNKdjVZUXJs?=
- =?utf-8?B?VEVaNGM0SDUxV3F6VmxyZTdpaVo4M3ZhMG5QWEhmY3d1dStJa3l1eUwrTTNy?=
- =?utf-8?B?YVUwcHdCNVRld0VFNzdRTGFwemUvSzR0bFFtRExUejNoVEpzcXQ4T24rbG95?=
- =?utf-8?B?TTRoOGZvcWdzMkN4YkFKZm43NUpHbmNIMU9CUDBrc1Zjajhsckl3Y2V3Zk1m?=
- =?utf-8?B?aFNZeUhYaWtpbkFrWFUvZmVBZFRIMTNCZlNDWDJiN2ZSdkdPRDJ4dTNRc1Jp?=
- =?utf-8?B?NStRMEF4VXpoNHQ2R01MLzVwSXNlYkY2OW90MEhlRXZObE1OdkQvdnBLc1dC?=
- =?utf-8?B?Q0xXWENic0U5VXhscWU2d0cwQTc3R29GWnY2YjJQbThCT3Y5ajNUajlmNXpP?=
- =?utf-8?B?anZ1STg3N2dld2pXVmhHV1RNWlZMOVM3c1hONDg5YlNUR1kwWnVDNnZnb0dj?=
- =?utf-8?B?RWMvdENRbU11RXUxWVBUWlRmeC9BZFZLcTB0S0NtQ2JzbU9TOG1QNEVkT0I0?=
- =?utf-8?B?N0x0My9DWFNCd0wxSjVrbWtTZFlmSDV4WnRnc0pmZjBPaHMxN1lVek4vMkNE?=
- =?utf-8?B?UVpjVk1NNVAzRmlhUE5kdkJqb2l3UURwYytSRmJSUGV5NkhRc0YwZlJNckVZ?=
- =?utf-8?B?NGVyNlZwb1Jra0Z5M28yS3dRUHFEYkthUnFLclp5ZE9CMkgwSmFQcXZiSm1k?=
- =?utf-8?B?MmJPdGdNTTJKei9LUXpkaXBkN0RQUHRTRXllVXo2eXZLS1ArY0cvQ0J4Q1hp?=
- =?utf-8?B?RDJ4aVY1eVVZZzlzMkVHVVJZQVhVUEN0UW81clhlWGlmdkhKZitkRVJybFpN?=
- =?utf-8?B?dXJpRzRWNGttT1plTXl3SE5qQTNJcEJwUHg2UDhoeFZjRkVwWEUwcUM5dDNZ?=
- =?utf-8?B?cU5TWVpTbzlSR2l3cWdJemNpQTc0TGJpZ1pDeHJFaWZGSHpvQTNRall4d1NX?=
- =?utf-8?B?eWYvZ3BLbFBabTNrZzhCV2pVc0RTNEt3a1diQ2MrV01LQUtKTFh0YWhSR2JV?=
- =?utf-8?B?elB2cjZ5dDM0N0ZFWS9URG55Y1AxZUFWWVd5VjAzR3RyV1N3NUllVU9rbzcv?=
- =?utf-8?B?bkZyM3RGcGRnQmpER1JBeHRzcXM3VDB2MFBkYUd6VmNvL3dTd1lIcmFmZWtm?=
- =?utf-8?B?YTM0YWNJK2pXVnZmZ1J2anViUjhXUHZlZGdRRmRsbVkxdGhjMHFrdmFGK29p?=
- =?utf-8?B?Z2o0MW5EYTNVdTBOZzZic0dtZjJyTWY5b3VsL2NqeE1UQVBQdDNIb2c5R1Iy?=
- =?utf-8?B?a21jd3lqelFFcDlwR3NiK2U1SkR1bTkxOUhPbCtzMnBHc2F0bUZ6dHA2eFpY?=
- =?utf-8?B?c3JCZ1NjbURGUGZGeCtGVFB6eEFYNDBVcG43NVlKQTduNDdtcU10Tnh6MTlH?=
- =?utf-8?B?azFPdFZGcFdKVEh4SDZXL0Zla2M2UkcyOHJVR2x0VHBzdEpsOGE5WlRUOFVW?=
- =?utf-8?B?aTFoaGpiSXdMQTFPdlB6ejN6eG04MU54MGp1WE04Zk5UamY0MFdnazRYdHpO?=
- =?utf-8?B?RHFXNjFvTnFpZnFaYll6M1Z4YVRtWCt1WlRKV1YrbmhWTE1LWkVGL1YyaVhV?=
- =?utf-8?B?MjRvaXJxSDBUWko4OXpudU9FMzFhNnp5bml2L3UxUEFSa2lsS2RNOGh6MmZH?=
- =?utf-8?B?V1pPRHlIY1YzSzFyWklmQUhJSXVzSjVvRnJwQ0hEQ09IVHRqQStGQTFRbFhj?=
- =?utf-8?B?QXFuTWcxN2dqZEMvd3k1bG9iU3pIVUhFUG1tb1RUWk4vR1ptbldGWjNBUTY4?=
- =?utf-8?B?b1ozeERUY0hpNThvWStUK00zUnFYRy85MldWOExDQmdiVUorQ3JQM2VEallr?=
- =?utf-8?B?OS81OXN4OCs5SjBNUHkzcHRRcE0rdlhOSGVUWWQ4SlNjZnd6NHZyRzE0dFJt?=
- =?utf-8?B?NVd6Z084bmk5NFkwcUp0bzdhN21rQUxDWGFCelhvWitiSDhpZEcxOWs2M1VU?=
- =?utf-8?Q?Vem7E4onvuvcIUA8bYE5zcOBiTf1W5k0tiNon?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba1f2621-c516-4552-ecc0-08defdf406b7
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8469.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 13:16:06.2268
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9Dv2zFoNvKOBe/rruiHtDI3jtgtrr3CD21DSWRqZ28doKt+rZyt9sILJEe/2YixUh9AqVVaXwUObMWXyf0VrLf1lPLqVEWKbK6yRZI7rXiv/i2ZjyUyOHC8RRVQ6iIVv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8737
 
-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+This is a reply to:
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260805-dsa_lan9645x_s=
+witch_driver_base-v11-0-007ebc983a0a%40microchip.com?part=3D7
 
-Reserve 1MB of DDR for the EdgeLock Enclave. The enclave hardware can only
-access DDR in the 0x80000000 - 0xafffffff window, so constrain the pool to
-that range with alloc-ranges and let the kernel choose the placement rather
-than hardcoding an address.
+> --- Patch [7]: [PATCH net-next v11 7/9] net: dsa: lan9645x: add mac table=
+ integration ---
+> commit c7af50889a34728dc6c99946b25b62bfb26fc31e
+> Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@micro=
+chip.com>
+>
+> net: dsa: lan9645x: add mac table integration
+>
+> This adds a new lan9645x_mac.c unit that drives the ANA MAC table through
+> the ANA_MACACCESS/ANA_MACHDATA/ANA_MACLDATA registers, and wires it up to
+> the DSA .port_fdb_add, .port_fdb_del, .port_fdb_dump and .port_fast_age
+> callbacks. A new mact_lock mutex serializes all MAC table register access=
+,
+> including the aging period updates.
+>
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c
+b/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c
+> > new file mode 100644
+> > index 0000000000000..9d5282754b7a0
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c
+> > @@ -0,0 +1,293 @@
+>
+> [ ... ]
+>
+> > +int lan9645x_mact_flush(struct lan9645x *lan9645x, int port)
+> > +{
+> > +	int err;
+> > +
+> > +	mutex_lock(&lan9645x->mact_lock);
+> > +	/* MAC table entries with dst index matching port are aged on scan. *=
+/
+> > +	lan_wr(ANA_ANAGEFIL_PID_EN_SET(1) |
+> > +	       ANA_ANAGEFIL_PID_VAL_SET(port),
+> > +	       lan9645x, ANA_ANAGEFIL);
+> > +
+> > +	/* Flushing requires two scans. First sets AGE_FLAG=3D1, second remov=
+es
+> > +	 * entries with AGE_FLAG=3D1.
+> > +	 */
+> > +	lan_wr(ANA_MACACCESS_MAC_TABLE_CMD_SET(CMD_AGE),
+> > +	       lan9645x,
+> > +	       ANA_MACACCESS);
+> > +
+> > +	err =3D lan9645x_mac_wait_for_completion(lan9645x, NULL);
+> > +	if (err)
+> > +		goto mact_unlock;
+> > +
+> > +	lan_wr(ANA_MACACCESS_MAC_TABLE_CMD_SET(CMD_AGE),
+> > +	       lan9645x,
+> > +	       ANA_MACACCESS);
+> > +
+> > +	err =3D lan9645x_mac_wait_for_completion(lan9645x, NULL);
+> > +
+> > +mact_unlock:
+> > +	lan_wr(0, lan9645x, ANA_ANAGEFIL);
+> > +	mutex_unlock(&lan9645x->mact_lock);
+> > +	return err;
+> > +}
+>
+> [ ... ]
+>
+> > +		/* Only dynamic entries are surfaced through the user port dump.
+> > +		 * ENTRYTYPE_LOCKED entries are already reported by the bridge
+> > +		 * master's ndo_fdb_dump as NTF_MASTER, so we avoid duplicating
+> > +		 * them as NTF_SELF.
+> > +		 * Entries toward the host (NTF_SELF) have DEST_IDX =3D=3D the CPU
+> > +		 * port module and are filtered out by the DEST_IDX check.
+> > +		 */
+> > +		if (ANA_MACACCESS_DEST_IDX_GET(maca) =3D=3D port &&
+> > +		    type =3D=3D ENTRYTYPE_NORMAL) {
+>
+> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
+> Is the comment in lan9645x_mact_dsa_dump() accurate about what DEST_IDX
+> holds for host entries?
+>
+> lan9645x_fdb_add() programs the destination as PGID_CPU:
+>
+> 	dest =3D dsa_port_is_cpu(dp) ? PGID_CPU : port;
+>
+> 	return lan9645x_mact_learn(lan9645x, dest, addr, vid, ENTRYTYPE_LOCKED);
+>
+> and lan9645x_main.h defines PGID_CPU as (PGID_AGGR - 6), i.e. 58. The CPU
+> port module itself is denoted by lan9645x->num_phys_ports elsewhere in th=
+e
+> driver, for instance ANA_VLAN_CFG(num_phys_ports) in lan9645x_vlan_init()
+> and BIT(num_phys_ports) in the PGID_BC/PGID_CPU masks written by
+> lan9645x_port_cpu_init():
+>
+> 	lan_wr(BIT(lan9645x->num_phys_ports), lan9645x, ANA_PGID(PGID_CPU));
+>
+> So the value stored in DEST_IDX for host entries is the reserved PGID ind=
+ex
+> 58, not the CPU port module index. Nothing misbehaves today, since both 5=
+8
+> and num_phys_ports fail the comparison against a user port index, but wou=
+ld
+> it be clearer to say the entries carry DEST_IDX =3D=3D PGID_CPU? A later =
+change
+> that adds an explicit host-entry test against num_phys_ports based on thi=
+s
+> comment would not match any entry.
 
-Provide this as a shared imx8ulp-firmware.dtsi that also enables the hsm0
-node and wires up its memory-region, so every i.MX8ULP board can bring up
-the enclave with a single include instead of duplicating the reserved
-memory node. Include it from imx8ulp-evk.
+Yes, I will update this comment.
 
-Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8ulp-evk.dts      |  3 ++-
- .../arm64/boot/dts/freescale/imx8ulp-firmware.dtsi | 31 ++++++++++++++++++++++
- 2 files changed, 33 insertions(+), 1 deletion(-)
+>
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > index 3281726284dc2..af158d4461aee 100644
+> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+>
+> [ ... ]
+>
+> > @@ -626,6 +636,75 @@ static int lan9645x_port_vlan_del(struct dsa_switc=
+h *ds, int port,
+> >  	return lan9645x_vlan_port_del_vlan(p, vlan->vid);
+> >  }
+> > =20
+> > +static void lan9645x_port_fast_age(struct dsa_switch *ds, int port)
+> > +{
+> > +	lan9645x_mact_flush(ds->priv, port);
+> > +}
+>
+> Discovered by: opus-5 =C2=B7 Missed by: sashiko-gemini
+> Should lan9645x_port_fast_age() log the dropped error here?
+>
+> lan9645x_mact_flush() returns the result of both
+> lan9645x_mac_wait_for_completion() calls, which yield -ETIMEDOUT when
+> ANA_MACACCESS.MAC_TABLE_CMD does not return to CMD_IDLE within the poll
+> timeout. Since the DSA .port_fast_age op returns void, this callback is t=
+he
+> only place the failure can be observed, and the value is discarded.
+>
+> On a failed flush the ANA_ANAGEFIL filter is cleared and CMD_AGE is not
+> retried, so the port's dynamic entries stay in the MAC table after an STP
+> topology change or bridge leave, with no kernel message. If aging was
+> disabled with a zero ageing time in lan9645x_set_ageing_time()
+> (ANA_AUTOAGE_AGE_PERIOD =3D=3D 0), the stale entries are not aged out lat=
+er
+> either.
+>
+> felix_port_fast_age() handles the same situation for the related IP by
+> reporting it:
+>
+> 	err =3D ocelot_mact_flush(ocelot, port);
+> 	if (err)
+> 		dev_err(ds->dev, "Flushing MAC table on port %d returned %pe\n",
+> 			port, ERR_PTR(err));
+>
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-index 5dea66c1e7aa..885242fd07ce 100644
---- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-@@ -1,11 +1,12 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
- /*
-- * Copyright 2021 NXP
-+ * Copyright 2021, 2025 NXP
-  */
- 
- /dts-v1/;
- 
- #include "imx8ulp.dtsi"
-+#include "imx8ulp-firmware.dtsi"
- 
- / {
- 	model = "NXP i.MX8ULP EVK";
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-new file mode 100644
-index 000000000000..e4bc352f68af
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2025 NXP
-+ *
-+ * Default reserved memory and EdgeLock Enclave (ELE) enablement shared by
-+ * i.MX8ULP boards. Include this from a board dts to bring up the secure
-+ * enclave without having to duplicate the reserved-memory node. The ELE
-+ * hardware can only access DDR in the 0x80000000 - 0xafffffff window, so the
-+ * pool is constrained to that range with alloc-ranges and the kernel is left
-+ * to place the 1 MiB region.
-+ */
-+
-+/ {
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ele_reserved: ele-reserved {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0 0x80000000 0 0x30000000>;
-+			size = <0 0x100000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&hsm0 {
-+	memory-region = <&ele_reserved>;
-+	status = "okay";
-+};
+Sure, I will add an error log here.
 
--- 
-2.43.0
+> > +
+> > +static int lan9645x_fdb_dump(struct dsa_switch *ds, int port,
+> > +			     dsa_fdb_dump_cb_t *cb, void *data)
+> > +{
+> > +	return lan9645x_mact_dsa_dump(ds->priv, port, cb, data);
+> > +}
+>
+> [ ... ]
 
