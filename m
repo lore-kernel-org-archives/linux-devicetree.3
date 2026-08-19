@@ -1,183 +1,172 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAE7330B15
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0C94582E1
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:24:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787138626; cv=none; b=hncvdC4qthhy6HDVqDv7Ews5LDZqjfbzyDYLjNPF3KaFjqkdf7S7fM95NmAgwi2WbdORk9ioYfDX6iLHQmm99tk4FY5TdfR8YeyUAwTAbA0fKvrN70tWLzzYDfstw0JMfRSLGplZFMrrCoa36XrxKPElwczV7GctDqfX1IPp0T0=
+	t=1787138641; cv=none; b=NnR+ohLS1LQ9uhlbNoNu35svsCkUgLp6A41chvhTWEuIOtYH6L2XR4Xt5r/kjbm9QOZeZK6+kETbkx+P1RmCFYEfmooeQtt8iUkXFE0uo/VI53oW6qjaQlUWmFsQhD8ShJ5brNbJHkPQXavY2uHiqDbHv+ly7NOTRAx9ap2t/R0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787138626; c=relaxed/simple;
-	bh=9jYq2QOUqVO0jptGzj/ZGiacKARCDAofE/opIhkiADA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hs1o+sg3njTiCeQEjbAeRgC7JWrgLw83Pj8wsW8NX1I9PXEr5dS2lNjl8h2bYCpY2meGk2TvlJEDEFCMPrqoMSQw4KfAnB30vjFdQYXYGNt0Ov1t2IhZBoZ087A6gbu0JC0/XoSTB1wT+upeuCxz5dLDsGQAUukmnF6aQw03m+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jCLK/Hbg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XANhDWTY; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787138641; c=relaxed/simple;
+	bh=6dUo2k3vEZ+/lTjpzspWLoBprJz1EJkUt09Ed0SBkoM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UWRgb530JC0VvkSosifXAXKHUSRARdetlKZat4Y1PVupPnoriMMH3TFRJK1y/NXPaWeN3DL0CDguGIgmR0GtyIBxHrr/Y2hX0Vi2XkB/63Vlf7KHxr/tcfbDX6KHrY1eaVF+jchwWPczrsiJ3gxBzcLIAekS/3s0IYDYilbAab0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqTtsu0Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jCLK/Hbg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XANhDWTY"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JA7pdV4078045
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:23:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9jYq2QOUqVO0jptGzj/ZGiacKARCDAofE/opIhkiADA=; b=jCLK/HbgkdosKVXY
-	8w0nQREHfGx7bIMDkPKncmyL8DkZVRNLfHr6gbGlXrlOAKjFVIDSLAmQHpUPm1di
-	xe1TB4vuXxukQbZNvYArOLKV8GumWTeka2jfHu0WzTGvLZ0n+5Tbdvya5Qbz+2ww
-	lDZ8GDaaP/Mu+VyZAM91TsdCofPTEq0kaHitF5yCfmIWawQ/gqBzb/ADk+QRzmmN
-	TQ+UkLH71PepT8JU8mtyVFaeDmtx3xBZfabo6aSZmhgFddYRQXk7yqjWgxkdOkeQ
-	Hv2E1lulc6I3saNizbILMQYxY+KqdMeBJ2X+OQYSDlWxvCgr0+UJSDDK2PdIipoY
-	923n0w==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfnavx5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:23:44 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so784212a12.0
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 04:23:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787138623; x=1787743423; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9jYq2QOUqVO0jptGzj/ZGiacKARCDAofE/opIhkiADA=;
-        b=XANhDWTY2URs3Py5hBaqUcKkSQGrtT6lPUzH/RB28a8gVjAwDb0HZtvhIUhHo+vyDf
-         fvm3LR7aTibztL+EyhLrmfGJS77lSdK3x1suVm4CUDS4eTnsnFfAd3dyjwhj2W9SKvnc
-         74zTnyQoqrY1NiP3oYXW/R64KqK41FWx7xOB2aenxdqN65qUwe6AvWZJ0J33nx9NHJUi
-         AQffys8W9oF7qrByTSuTEnVoauDW7X+nfhDqe87klRPxHm6xIbuXBRYY6lcVUkwGaSU7
-         O3d6w64WZOx8DTjqgYMBvGZZX3/a5U/iBdb8TcbwgmHVX7wgjMNdEfDyylv5yG2/MiHd
-         rwdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787138623; x=1787743423;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9jYq2QOUqVO0jptGzj/ZGiacKARCDAofE/opIhkiADA=;
-        b=Sw6f6xPiy6HWrXi5tjj2fEO153prHujw26sSl+cnaK8QppEKFUCH26MpZIBNIX6OXF
-         qcjvCnij+uA/koBWhjW9mmks0oao8GXlFrJ+AT7gPi/VlU6/vz//m1+njjgQqEupV0mN
-         CDO89FTfpyvzqH0reNj9BklwCY4YbZLZc4ZowMcdLwbCssH5ziHS93C6tPuwvhZ3MEXp
-         iBcHb30wKOFUpegtu1P0KK/pWEgkVy6fahEXrkMGG6l/DlyEjLfNRO/2RtAYXkEcGhhu
-         YIG78FfBc74XhAh4hTOQLyOrSF4EK2+4giRnlE1CAFlBx8sfZh7Km37iQ8yHyai3FYzP
-         qKpw==
-X-Forwarded-Encrypted: i=1; AHgh+RpNfoc++VtToNh5Wd4992ezuI+O+PWXYGQtMgXrCzYMiPtPSLBgp0VlgjUlIg7u2D9OQgAKxIVa5G/B@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFNBjbHuVVm6hqmI8w+ggoDX2fpUN7AYFZeTDnvnIFqQGpXEL/
-	yUKxv2O0gOtxSXL1xaX2d3FaPpksytetifoPIuOikZ425VC1jE9bpyyDi7ZuweW0fcvVUnCnXHb
-	sLPywT0FXfWy1XGIAz99xL6iO/Vjg9EdbjVwd3GTChWp9FvOXlMNplrhGNXEtJNyJ
-X-Gm-Gg: AR+sD12XQySNfhrDbMbRdrpvzlRpy034WOlgRMeEtSKvw+Cw7J61BEnc4Y1zeMUzUzQ
-	Lc7tCU4jcI6CKM+yb1XnyPvHnPdpwQe0UjYigVZ1QC7R3mQBLLwZIkCbsMp/xRbEPw6UgiHZPpG
-	VINLTbUl4kkQwK5DxD3fYlgCdHjIq2DNUeVniBVnfv3mkTMnSGsOCZNUYWSGjOiUf0mZqHSkh6v
-	reW0ySgttc6sg8nyTNFg2QR8Ao583oSzsMFvkFHJexPWguo0TDXUuenGpyU9ZL3eMnQheQXn4Se
-	mtQUYLSk8peSmu/glJn/4dkzM7INSeqJo0dEYlS0D7E/FS3+AaTI0UW6nv+eh3e1w1lN2tb1mfI
-	oN7jJU0ZGFv53BF5Zw64swwB7xHdtgljMvQ==
-X-Received: by 2002:a05:6a21:6e88:b0:3bf:a543:e7f5 with SMTP id adf61e73a8af0-3cd016b15bdmr8241858637.3.1787138623065;
-        Wed, 19 Aug 2026 04:23:43 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6e88:b0:3bf:a543:e7f5 with SMTP id adf61e73a8af0-3cd016b15bdmr8241752637.3.1787138622509;
-        Wed, 19 Aug 2026 04:23:42 -0700 (PDT)
-Received: from [10.217.222.20] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf10d497sm10823348eec.14.2026.08.19.04.23.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 04:23:42 -0700 (PDT)
-Message-ID: <b523b910-c645-44b1-9e76-1d25fac16468@oss.qualcomm.com>
-Date: Wed, 19 Aug 2026 16:53:36 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqTtsu0Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C981F000E9;
+	Wed, 19 Aug 2026 11:23:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787138640;
+	bh=oNOto2q9/imcdZs9UEaCXcKcmqsKD63VZVj46urzq0Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lqTtsu0YkSiCPMI9WE4cniW8v4Gi+iIwnXddG4ZPuM+fiu5jP+rZT7o7jZCtUAVrm
+	 Y+qzgsATQTE/sCXBObkw21/YfvN5RLZZ/M6LU2dYqzFh6ZBoDazXx8Bt/GJkP3O4Ls
+	 B+p8IFSfFsQ9z/52RTbfBXsAHrRcQ7S8IMd9JEoIKdABpjNnrcOfjimbZbG53ADnvy
+	 daA3gcIZ7eVZ/GyAhmQQ0jUYgW21H140gzKok8vtybQsUFvI2n5p3GSBOXDmeXv9ua
+	 r/9Y/VilmOmvThYpR1EhsJ2zh0tc0CKByLUjEWS9ZlOVZZJExJmfRfKhnSECjJHM4H
+	 pDX3dxnaZFnzw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/7] media: verisilicon: Fix the cleanup when a codec
+ ->run() fails
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sascha Hauer" <s.hauer@pengutronix.de>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260819-rk3588-jpegdec-v1-1-33d74cdf369c@pengutronix.de>
+References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
+ <20260819-rk3588-jpegdec-v1-1-33d74cdf369c@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 11:23:59 +0000
+Message-Id: <20260819112359.E8C981F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dt-bindings: remoteproc: qcom,shikra-pas: Allow
- bam-dmux subnode
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-References: <20260813-shikra-pas-bam-dmux-binding-v3-1-167a3fb50d21@oss.qualcomm.com>
- <20260814-modest-rose-salmon-7bb60b@quoll>
-Content-Language: en-US
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <20260814-modest-rose-salmon-7bb60b@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=QedWeMbv c=1 sm=1 tr=0 ts=6a859240 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=xR3Y2up12dx3HEdxvAEA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: zTbsYD7So-4PwLM6kLfDk9mSN5SCoJNf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDA4OCBTYWx0ZWRfX51N4Z7Qsbjj9
- uYIcpUv8ikZ8xUpWxElNKhGIgX7SQV56y+8O3u/UsdGY/ihj/WbSajSvP3iRYChfHd8FxA08yGd
- 73+c4ywsBM6l5/iXV9MPS8XU6U+B2So=
-X-Proofpoint-GUID: zTbsYD7So-4PwLM6kLfDk9mSN5SCoJNf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDA4OCBTYWx0ZWRfXybE1Y27h6Iy6
- oXOmrr/DE8e3aD8vgnsRdO9WTwSSXDekMMVD/+JXL2zvZh90DFIXJaU5zysBzv1o0tcVgvJZjD7
- TzX4nMKz4u6mWHhEJsyUVGDI4pglVzWLTmqvloM6ljiB6dF/HkbQ3Vb6avVWC3UPnDNVzfGErKg
- vXRmTuJTtfI9hX0+zN4PZXd6eK8lDe+RswFWtGZorGNzpPljDLNPZGYoXQAJdRnSPqhEFRGxkqo
- HJ0SXNql4enKnjn3KIXDiWnQOl2nM4pojmi0zpy13e3yGrX6aIcW3cZcLutkuWZULAVTIbajelK
- FGAc/STmSZT8+lLNXcnUsd97X5kMnYR/Ywa+33SB+rERTcMO3g3FG8vnv3iynL6wyFa5fOIPYYJ
- 8aeLhRGlBdjDfZ7otVM/Z8K/VUQshlmj4j4P5BfhyedpSMGAQWq4lk7sT+LcOYnDzqBXTzySU8S
- b6gfvl+g4kSubiKRrhw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_03,2026-08-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
- adultscore=0 malwarescore=0 impostorscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190088
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-On 14-08-2026 02:35 pm, Krzysztof Kozlowski wrote:
-> On Thu, Aug 13, 2026 at 04:55:54PM +0530, Vishnu Santhosh wrote:
->> Allow an optional bam-dmux subnode under qcom,shikra-mpss-pas by
->> referencing qcom,bam-dmux.yaml.
-> I still miss the answer why. Last time you said in present tense that
-> this node exists there, which I objected. The answer to my objections is
-> to provide proper reason why you are adding this, why you are doing it.
-> Answer almost never is: repeat what the diff is doing.
->
-> You change something in the bindings because something exists in the
-> hardware and it was missed in initial submission, and you explain the
-> impact of that "missing".
->
-> Best regards,
-> Krzysztof
+Pre-existing issues:
+- [High] Missing calls to `hantro_end_prepare_run(ctx, error)` on early err=
+or paths in multiple codec `->run()` callbacks, leading to permanently inco=
+mplete V4L2 control requests.
+- [High] Missing NULL pointer check for the return value of `vb2_plane_vadd=
+r()` before dereferencing it during JPEG header assembly.
+- [High] Missing synchronization to cancel `vpu->watchdog_work` during devi=
+ce removal, leading to a Use-After-Free.
+- [High] Race condition between late hardware IRQ delivery and `hantro_watc=
+hdog()` execution causes the watchdog of the *next* job to be cancelled and=
+ the next job to be prematurely finished.
+--
 
-Understood. The reason is not that there is already an in-tree DTS that
-fails validation today. Rather, it is driven by the intended Shikra MPSS
-topology.
+--- Patch [1]: [PATCH 1/7] media: verisilicon: Fix the cleanup when a codec=
+ ->run() fails ---
+commit 67d0bec622e69de9d51450bf1c4cea20e9bb249c
+Author: Sascha Hauer <s.hauer@pengutronix.de>
+media: verisilicon: Fix the cleanup when a codec ->run() fails
 
-In the earlier Shikra BAM-DMUX DTS posting, the bam-dmux node was initially
-placed outside the modem remoteproc node. Based on review feedback from
-Stephan [1], it was requested that bam-dmux be moved under the modem remoteproc
-node instead. The rationale was that placing the bam-dmux node at the top level
-makes it impossible for userspace to associate it with a remoteproc instance
-(in this case, the modem). This binding change therefore exists to describe
-the intended Shikra MPSS child-node topology.
+This commit pairs hantro_start_prepare_run() and hantro_end_prepare_run()
+on error paths to ensure V4L2 requests are properly completed. It adds an
+error argument to hantro_end_prepare_run() so the watchdog is only armed
+when the hardware actually starts, preventing unrelated jobs from being
+aborted. Resources are also properly released in device_run() on failure.
 
-The DTS user of this binding has not been merged yet. Its next revision is being
-held until a separate discussion regarding an XPU violation is concluded. Our
-intention is to get the required binding changes merged first so that the DT patch
-can be sent once those discussions are complete.
+Fixes: 892bb6ecead9 ("media: hantro: do a PM resume earlier")
+Fixes: e2da465455ce ("media: hantro: Support VP9 on the G2 core")
+Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
 
-Please let me know if adding the above context to the commit message is what you
-are expecting.
+> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
+dia/platform/verisilicon/hantro_drv.c
+> index 2e81877f640fb..d9936f6979d2c 100644
+> --- a/drivers/media/platform/verisilicon/hantro_drv.c
+> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+[ ... ]
+> @@ -162,6 +179,9 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
+>  	v4l2_ctrl_request_complete(src_buf->vb2_buf.req_obj.req,
+>  				   &ctx->ctrl_handler);
+> =20
+> +	if (error)
+> +		return;
+> +
+>  	/* Kick the watchdog. */
+>  	schedule_delayed_work(&ctx->dev->watchdog_work,
+>  			      msecs_to_jiffies(2000));
 
-[1] https://lore.kernel.org/all/airpBYZ2pRdNaE1v@linaro.org/
+[Severity: High]
+This is a pre-existing issue, but does the device removal process in
+hantro_remove() lack synchronization to cancel vpu->watchdog_work?
 
-Thanks,
-Vishnu
+The driver schedules vpu->watchdog_work when a job starts. If a
+userspace application is streaming and a timeout occurs precisely when
+the device is unbound, the watchdog work might execute after the vpu
+object is freed by devres. This could lead to a use-after-free since
+cancel_delayed_work_sync() is not called during teardown.
 
->
+[Severity: High]
+This isn't a bug introduced by this patch, but can a late hardware IRQ
+delivery cause a race condition with hantro_watchdog()?
+
+If a job times out, hantro_watchdog() resets the hardware and completes
+the job. The M2M framework then schedules the next job and arms its
+watchdog. If the delayed hardware IRQ for the original job fires,
+hantro_irq_done() targets the current context (the new job) and cancels
+its watchdog. Could this cause the IRQ handler to erroneously call
+hantro_job_finish() on the new job while the hardware is still processing
+it, leading to state corruption and premature buffer returns?
+
+> diff --git a/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c b/dr=
+ivers/media/platform/verisilicon/hantro_g1_h264_dec.c
+> index ad5c1a6634f5c..30c2ac32cd0b0 100644
+> --- a/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c
+> +++ b/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c
+[ ... ]
+> @@ -264,7 +264,7 @@ int hantro_g1_h264_dec_run(struct hantro_ctx *ctx)
+>  	set_ref(ctx);
+>  	set_buffers(ctx, src_buf);
+> =20
+> -	hantro_end_prepare_run(ctx);
+> +	hantro_end_prepare_run(ctx, 0);
+
+[Severity: High]
+This is a pre-existing issue, but do the early error paths in codec run
+callbacks bypass hantro_end_prepare_run() after hantro_start_prepare_run()
+is invoked internally?
+
+If context preparation or reference setup fails in hantro_g1_h264_dec_run(),
+hantro_g2_hevc_dec_run(), or hantro_g1_vp8_dec_run(), early returns might
+miss the required call to hantro_end_prepare_run(). This can leave the
+V4L2 control requests incomplete indefinitely, which could lead to a resour=
+ce
+leak and userspace application hang when malformed streams or invalid V4L2
+parameters trigger these paths.
+
+> diff --git a/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c b/dr=
+ivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
+> index 86cc1a07026f0..78f51e92fb2e3 100644
+> --- a/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
+> +++ b/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
+[ ... ]
+> @@ -148,7 +148,7 @@ int hantro_h1_jpeg_enc_run(struct hantro_ctx *ctx)
+>  		| H1_REG_ENC_PIC_INTRA
+>  		| H1_REG_ENC_CTRL_EN_BIT;
+> =20
+> -	hantro_end_prepare_run(ctx);
+> +	hantro_end_prepare_run(ctx, 0);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a missing NULL
+pointer check for the return value of vb2_plane_vaddr() in
+hantro_h1_jpeg_enc_run() before it is dereferenced?
+
+Earlier in this function, vb2_plane_vaddr() assigns the virtual address
+of the destination buffer to jpeg_ctx.buffer. If the buffer mapping fails
+due to an invalid exporter or vmalloc exhaustion, it returns NULL. The
+pointer is then unconditionally passed to hantro_jpeg_header_assemble(),
+which calls memcpy() on it, potentially causing a kernel panic. Should
+there be a check here to safely handle mapping failures?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-rk3588-jpe=
+gdec-v1-0-33d74cdf369c@pengutronix.de?part=3D1
