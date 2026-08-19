@@ -1,79 +1,65 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E99F3A1D14;
-	Wed, 19 Aug 2026 06:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1122D35C1A9;
+	Wed, 19 Aug 2026 06:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787122222; cv=none; b=jGf+f7376vfYtRL7J9ticwfEWvPbIiTAYY1lMnjmHZwUMbu1wC0wIUAsEVPiITuH5g5T1ACnY+avoFHbRdwv4kFGXYAf6qlQbcY1Ud+Av3IaR7bDY8X6t0Ua+q5ArxnFPIFSIyMnG4mTHHwcQFIhJVGdq/WMtiSXhXtHVJSJ05k=
+	t=1787122271; cv=none; b=khwpVIQ5zPIj+Cq2FHtwtnnvt0qFeO3QDo6HNO+yy3YikMQ0KVhpdH6rOl9+cor/1ZtXCJkTVKnHcVxxTYbNEZ4EsCnN2E1EpcXUstv6KpXKXjbclC2NET8Qby8ItwWnWbvunwEOxRuw4uTkahNHhsqptNMBuOEPtkPk+/iHI2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787122222; c=relaxed/simple;
-	bh=izjKXIFxi/rqtVADf2M0sBpedoa8cJQqW1TXF55iZ3A=;
+	s=arc-20240116; t=1787122271; c=relaxed/simple;
+	bh=kJp8TFu+JRNAhAkCPHLWxHH70xVm6+y+izJn/pddPKs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dqla9THKX6A51jJmgiAHWITUYRXSn01tGXVXtnzXyYXIumfbDZ6Wx+2XBUjTO52Oi8cFcEI37JKtCvuSV0t48rjG3yfyC7AeP++x/Ua6U+V9rxlCDwLnx1BxMQfAIXyRYN0a6s0meJTZohciGgQwdM7Q33Jw/FrwlzyN0Lf/tuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mM2knBFF; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=JCSXobA5ljhxjjEeTUhvGtz1wKx2996lrlQcivN6g9mzUgtbllE3oYH1/cBoM1f8dYVndcH9eZ7ylPVxeO+4vfqTUrpJzNF/uDoSqWm5cPpYRyBomRpng2dMGyb3JSBRhWatzrmymqVLEaqmfo0K3Fc0JT0dojekQ2upMLRPdsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G25c7ayu; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mM2knBFF"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G25c7ayu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787122220; x=1818658220;
+  t=1787122270; x=1818658270;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=izjKXIFxi/rqtVADf2M0sBpedoa8cJQqW1TXF55iZ3A=;
-  b=mM2knBFFGFqRysWIHnSptxhOBFC+LXIi80JPCfgkdfkKLIoEYPhmQ7GA
-   6gWqROSJjYy++GloTHxBIgpIKpxkOz0ii+7nY7Uf1c7EdtAEgs8EgGjuy
-   JpeLaiwhmYlMyVEwniPHJI5N49809VZZ//ObLiyKV2fGxHFPrIt/AqOBp
-   LKqmLvcqYTXzaSn/iHok6jMvzJnCydtwQjV/n2QKskde23rJYr7BibVzj
-   UzTekMdd2p/o2vqZ6CR3P4TOl+06D7slcgt7bNQPdCY7Nn6tgxVYIGuFi
-   dc1KKRg06tnsKl/5/nuFzT5LrFSeJHFHDdCc9xfvF2OM0vLhQ+TtHXuM2
-   g==;
-X-CSE-ConnectionGUID: phjZPAoNQD6TRGLD3KInAw==
-X-CSE-MsgGUID: BiFBqsA9SeeqCHfqNJ7V3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="87829334"
+  bh=kJp8TFu+JRNAhAkCPHLWxHH70xVm6+y+izJn/pddPKs=;
+  b=G25c7ayu9T0/1sMSg9Gfs7A/MVY1ntePti2f36OmMejqb4TDm44PMJom
+   rTfikVqiDIMjsIdz45cH5SPSmMXWNiMIaJALH5uLqylEnvnDjzyiogji1
+   uuuaEZKU3NuN642d782i5cTUCiGcspLWv6Ov0kYkNFJE2ESh3/avDqsKv
+   8OTjm8XsmaVMk/r22BSgyA0q8DBjeuMx8XU6ylTBJJNpKw31la6iw5f1h
+   A3WYybo3jD2YLwFmg9YBt4s8MTiX/bGgZDvJuDAsqBxgB33szYQGQ+tP0
+   KXWqvAOA5GXaQvDyDL1Ne851mdZ0lw6YKhG3RNb3q7QzIi+NVImvWGj1M
+   w==;
+X-CSE-ConnectionGUID: wjuBvBvESw+8nnmeYWUF/A==
+X-CSE-MsgGUID: cZClWK/STZ+XVJmx2cX9sw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="87542111"
 X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="87829334"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 23:50:20 -0700
-X-CSE-ConnectionGUID: H1XQ80vSTXqXbOh+BrnsQw==
-X-CSE-MsgGUID: QSkiNZ14S62aTkp1BIOMog==
+   d="scan'208";a="87542111"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 23:51:10 -0700
+X-CSE-ConnectionGUID: DsJl3UMARvCpwnwsDJXk4Q==
+X-CSE-MsgGUID: 7hVlIwkHSOy4ITL5gcAgew==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="268965440"
+   d="scan'208";a="265488694"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.106])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 23:50:14 -0700
-Date: Wed, 19 Aug 2026 09:50:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: longzhao <longzhao@ambarella.com>, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc <soc@lists.linux.dev>,
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	devicetree <devicetree@vger.kernel.org>,
-	linux-clk <linux-clk@vger.kernel.org>,
-	linux-gpio <linux-gpio@vger.kernel.org>,
-	linux-serial <linux-serial@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Brian Masney <bmasney@redhat.com>, Lee Jones <lee@kernel.org>,
-	mfd <mfd@lists.linux.dev>
-Subject: Re: Re: [PATCH v5 10/12] serial: 8250: add Ambarella UART driver
-Message-ID: <aoVSI4xcpRqUZIew@ashevche-desk.local>
-References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
- <20260818-cv75-v5-v5-10-7bbb12f0360f@ambarella.com>
- <aoRpc2RK2_X3CdAi@ashevche-desk.local>
- <162c0385.2c076.1a018b82fa7.Coremail.zl020895@163.com>
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 23:51:05 -0700
+Date: Wed, 19 Aug 2026 09:51:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Stefan Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org,
+	lars@metafoo.de, Michael.Hennerich@analog.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, andy@kernel.org,
+	dlechner@baylibre.com, nuno.sa@analog.com, siratul.islam@linux.dev,
+	u.kleine-koenig@baylibre.com, linux@roeck-us.net,
+	joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Message-ID: <aoVSVy60_U2mNEjv@ashevche-desk.local>
+References: <20260818142928.8244-1-stefan.popa@analog.com>
+ <20260818142928.8244-3-stefan.popa@analog.com>
+ <aoR94S2qknBVQrT3@ashevche-desk.local>
+ <20260818171953.4dd76b83@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,66 +68,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <162c0385.2c076.1a018b82fa7.Coremail.zl020895@163.com>
+In-Reply-To: <20260818171953.4dd76b83@jic23-huawei>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Aug 19, 2026 at 02:31:59PM +0800, zl020895 wrote:
-
-> This is Ambarella 8250-compatible IP, not Synopsys DesignWare. We
-> first tried 8250_dw after Linus asked us to move to the 8250 library;
-> you then told us not to touch 8250_dw and to use 8250_ambarella
-> instead. That is what this patch is.
-> Background:
-> https://lore.kernel.org/r/CAD++jLm6HzEU1TM-c=Vtjv3FJEBecVP7TyxSgq_Q0zF-YwT6NA@mail.gmail.com/
-> https://lore.kernel.org/linux-serial/an8KvvHWX0naH3Xw@ashevche-desk.local/
-> https://lore.kernel.org/linux-serial/7E774305-3920-4BB7-BA46-E0772D6BED84@ambarella.com/
-> I will also switch to uart_read_port_properties() and trim the
-> 8250_dw-derived boilerplate.
-
-But it has layout like Synopsys? Do you have a link to the datasheet?
-
-> ---- Replied Message ----
-> | From | Andy Shevchenko<andriy.shevchenko@linux.intel.com> |
-> | Date | 08/18/2026 22:17 |
-> On Tue, Aug 18, 2026 at 06:31:24PM +0800, Long Zhao via B4 Relay wrote:
-> 
-> > Add an 8250 platform driver for Ambarella CV75 instead of claiming
-> > snps,dw-apb-uart compatibility.
-> 
-> This is a record from a changelog. There is nothing in the commit message.
-> ...
-> 
-> The code seems like an almost blind copy of 8250_dw.c.
-> 
-> > +#define AMBARELLA_UART_USR        0x1f
-> > +#define AMBARELLA_UART_USR_BUSY        BIT(0)
-> 
-> So, is it Synopsys IP-based design? How this gets into this platform? This
-> whole story completely made me lost.
-> 
-> > +#define AMBARELLA_UART_IIR_IID        GENMASK(3, 0)
-> > +#define AMBARELLA_UART_IIR_STATUS    GENMASK(5, 0)
+On Tue, Aug 18, 2026 at 05:19:53PM +0100, Jonathan Cameron wrote:
 
 ...
 
-> > +    of_property_read_u32(dev->of_node, "reg-shift", &reg_shift);
-> > +    of_property_read_u32(dev->of_node, "reg-io-width", &reg_io_width);
-> > +    uart.port.regshift = reg_shift;
+> > > +static const struct iio_chan_spec max40080_channels[] = {
+> > > +	{
+> > > +		.type = IIO_CURRENT,
+> > > +		.indexed = 1,  
+> > 
+> > > +		.channel = 0,  
+> > 
+> > No need
 > 
-> > +    switch (reg_io_width) {
-> > +    case 4:
-> > +        uart.port.iotype = UPIO_MEM32;
-> > +        uart.port.serial_in = ambarella_serial_in;
-> > +        uart.port.serial_out = ambarella_serial_out;
-> > +        break;
-> > +    default:
-> > +        return dev_err_probe(dev, -EINVAL,
-> > +                     "unsupported reg-io-width %u\n",
-> > +                     reg_io_width);
-> > +    }
-> 
-> This is handled by uart_read_port_properties().
+> True, but I'd keep it because it is paired with indexed and looking
+> for both together is common.
+
+No objections then!
+
+> > > +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> > > +				      BIT(IIO_CHAN_INFO_SCALE),
+> > > +		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
+> > > +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
+> > > +		.info_mask_shared_by_all_available =
+> > > +			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
+> > > +	},
+> > > +	{
+> > > +		.type = IIO_VOLTAGE,
+> > > +		.indexed = 1,  
+> > 
+> > > +		.channel = 0,  
+> > 
+> > Same, it's default.
+> > 
+> > > +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> > > +				      BIT(IIO_CHAN_INFO_SCALE),
+> > > +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
+> > > +		.info_mask_shared_by_all_available =
+> > > +			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
+> > > +	},
+> > > +};  
 
 -- 
 With Best Regards,
