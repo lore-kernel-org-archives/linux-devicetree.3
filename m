@@ -1,85 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6A2346A15;
-	Wed, 19 Aug 2026 13:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAD134753A
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 13:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787144718; cv=none; b=K4nEGEdrVHvNp5trZmMhrv3nGL/xQvhrPDRI6pDjUWJ0fCw9Kg/t3XYwybBVNtSz68354QLBIYplc80Ozekxmkgf0yAmQvK8jUy0U6BpT3CQMooZbABKPDVNM4bLB0AfcJ7Jz0JzJD/YWNzM9dVeTeraggoT1yrv+IkxQeKZlQE=
+	t=1787144743; cv=none; b=lAjCItnctCrb3r/GCt2E6OId2UUv09N72xCrlK1ZTu80oKgsqzu4HcUYIHLSNz59X22/+luqLdO8YH8USeY99EIkTl4vPwTo+UGU6yx/hE/zEfWuf8qRLPVve6jdHNib0i1HlzVWQP8MgUFHyY2A2QMI3BqSsduc8EejwRAqYqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787144718; c=relaxed/simple;
-	bh=D0fyqewI4wuBqUmCo3IfCJWSirUatsMIeqm4KGZEQ98=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uls74E2rCQngt+PLRdgg5nfh9UM2qC6y6uECCImZgdgJ4rZRdgRIVbW+DJl+jCRYqeA2RRviB25cDEST7xkIlfpx/H5Zb1ufdJqCcItFzaXEMvMV4up1gWWtHHY8MzQVlwGt1DHAVZQUYkjdvLxmRS+1WJxx/8jKXTSqnNEKyEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpa6BhHB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787144743; c=relaxed/simple;
+	bh=/D1VsP3SQhtNO3OKkceoJC90C2gXHy4rFbqa5Y3NOfU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OMjpFD7HtocYqM32eQ04lTPFWcmaEoRC/aB8AeMapqCoQbIFAxYQQ7Kp+9gsUper8I1uV0WsxqiOs7rgPaCpkc2UpHlk32FElWpDOiCMip1mjzh0BH6j6j55JM/FBwdDXMynVRdcAyR9T9MjSRTIuAJa9NarIH+pOBs8miJjHfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=EQ8nKAJ+; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpa6BhHB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4841F000E9;
-	Wed, 19 Aug 2026 13:05:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787144717;
-	bh=u+4ckv/0i0mqjCui4VZ/PAc4UKlKHp7UmJRXwGk9V6g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fpa6BhHBDZa1+YBbqJNAYfqPhTzIbYZNZLthw/pTso8CYSlZ7LO6xoW73N7PViMPa
-	 ksueMrX5lYGOJxYJ0cNVwpT+ifk5cwtkJLcdwpc6Sx2W+mWHbH8fU/rjt8OSaLzd+I
-	 cT6SBX91CgG8ibN6a1VEctXlXUboV5tzabIcYSUIUjQcjmmWCuvYAbyKY/1ZGCm3KI
-	 8HapmlpeiFDe6eSszACxT8MF6Yl1D/h7c8PgGXFjhqIosyGkPSL2Kve0YybR/0TWQB
-	 TTOPzST8etJbBi7QjGFrpOhCYYjuSzGB6XxJYuJGgpTAhCwjHdLjFBHTW6i/Z/pviz
-	 nz9aY9OOtn0HA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/16] arm64: dts: qcom: sm8350: Add GCC CX power domain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260819-qcom-tie-cx-to-gcc-v1-10-840034124e73@oss.qualcomm.com>
-References: <20260819-qcom-tie-cx-to-gcc-v1-0-840034124e73@oss.qualcomm.com>
- <20260819-qcom-tie-cx-to-gcc-v1-10-840034124e73@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 13:05:16 +0000
-Message-Id: <20260819130517.0E4841F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="EQ8nKAJ+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=/D1V
+	sP3SQhtNO3OKkceoJC90C2gXHy4rFbqa5Y3NOfU=; b=EQ8nKAJ+pMBCew5iUYKS
+	2qh90EPzcGPTxWmCrVY9gpvOr0HpZpQMVZLSImFqpESesxx3RsWLF9U1caB7BK4e
+	ZjCifJ3hHU3bW/hNSVFnZYtbjA7CiQPRmKnbvhMSNwL1ectP5AtRbRj8IIyO3O2X
+	bDJ8DaRtFxzOwgP70CSpLP5PyFfUNZ0WI/JZxx5yVsqQXlTvGWR/vXomv2i2dSKI
+	bLS+LXualDOxZugtfWEcROeOZENQK6GQFLUodxbP0TXJ21F38FoPeoD5Ko41TNNl
+	ABbgHI2ry+V9z0Bw+AiypV16x4libqyfS+LiuOxUnEIORDgv3hhPguCZ4xjMR0tY
+	+A==
+Received: (qmail 4147323 invoked from network); 19 Aug 2026 15:05:39 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 19 Aug 2026 15:05:39 +0200
+X-UD-Smtp-Session: l3s3148p1@q/9ZD2ZZTWltKXGR
+Date: Wed, 19 Aug 2026 15:05:39 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Prabhakar <prabhakar.csengg@gmail.com>, devicetree@vger.kernel.org,
+	linux-rtc@vger.kernel.org, robh@kernel.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v4 06/15] rtc: rzn1: Fix alarm range check truncation on
+ 32-bit systems
+Message-ID: <aoWqIxFRItjNu6uN@shikoro>
+References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819103926.2136712-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819105028.70F3A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VofL5F6kBP0bJeVp"
+Content-Disposition: inline
+In-Reply-To: <20260819105028.70F3A1F00A3A@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `power-domains` property is added to the SM8350 GCC device tree=
- node, but it is not declared in the corresponding device tree binding sche=
-ma (`qcom,gcc-sm8350.yaml`).
---
 
---- Patch [10]: [PATCH 10/16] arm64: dts: qcom: sm8350: Add GCC CX power do=
-main ---
-commit 114b5cd0dea1a6813cd14b2f585ff85d4973d4c9
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+--VofL5F6kBP0bJeVp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-arm64: dts: qcom: sm8350: Add GCC CX power domain
 
-This commit adds the RPMh CX power domain as a reference in the SM8350
-GCC node. This ensures that consumer votes for GCC-provided GDSCs properly
-propagate to the RPMh CX power domain.
+> [Severity: High]
+> This is a pre-existing issue, but can this sequence of register writes
+> trigger a spurious interrupt?
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/q=
-com/sm8350.dtsi
-> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> @@ -699,6 +699,7 @@ gcc: clock-controller@100000 {
->  				 <&ufs_mem_phy 2>,
->  				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
->  				 <0>;
-> +			power-domains =3D <&rpmhpd RPMHPD_CX>;
+I think this is true.
 
-[Severity: Low]
-Does this property addition also need a corresponding update to the device
-tree binding schema in qcom,gcc-sm8350.yaml? Since power-domains is not
-currently declared in that schema, will this cause a validation error when
-running make dtbs_check?
 
->  		};
+--VofL5F6kBP0bJeVp
+Content-Type: application/pgp-signature; name="signature.asc"
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-qcom-tie-c=
-x-to-gcc-v1-0-840034124e73@oss.qualcomm.com?part=3D10
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqFqiIACgkQFA3kzBSg
+KbarCBAArcmhyt0MLfoZ5yb6fj+jCSupu4CHWhCIWhpI6FljbxcMGGDpuUuzMvbn
+yq72MpkbAx4j0u5UYdCsIc4vfoZtsgT2gJwPwLBrLpKk87galelLAzJoQtOAQFIn
+qWcWTkXjACzqfJZkhklsuKu81KEtNm3LaBKI5C/T1D8zSq0zj6rTLx4aoN8B2e5U
+P2rsALa6OTh4eObEIxixuUdOlgOfMlMD9RLZoOsmdsB8PImsw4WmsFHNPXhnxffZ
+3Jyj0bnCM7LroDm6KnREaQVWlCuj2FFppHh+Ku/w9SZKMQn72H9ijvfghYm6ttTv
+6nsQmFtlM6BzKdruddoc123VB7Hzr2M+ngaM2MdBihiaprNsI3rRcQodj5yu0tOF
+KFuS/3p6WxnZ+kmf9XMegGc33TbMwLgKoAweafaz3NE23g4Qpt63tsopltzmr2oE
+5ztQqA5ugj6Zc642DdQhDVAS4FJaKHuS04VHtbO3uaOlXVEcNnUVkZlE5dvGIZyo
+cKl/CQYOOG5RqPgORuyq/8LEfdidCcRK2gzq+7wRCJY6aqpMLq56Dy6ZCYj03EPk
+I4qs3hSrmThwwafxyt3eMxa+qStOJ5QH0WM04QpQrlBaTYBhnaarQj8WtyjkUjHN
+eMgDX27m+JVjtuE7QXdSN3ko6oWN1ysPigMS7AyWEhCjFAFw+9w=
+=IVCf
+-----END PGP SIGNATURE-----
+
+--VofL5F6kBP0bJeVp--
