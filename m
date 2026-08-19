@@ -1,100 +1,151 @@
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864BBA95E;
-	Wed, 19 Aug 2026 03:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A8B1E492D;
+	Wed, 19 Aug 2026 04:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787111755; cv=none; b=mNoZx6BqYRAYhFhdXChQiuQDA5Ps5jvqEHXti8pEzqNXgIdXkv/P4gTcHES9D+I3iVG8CGvLzelyE0O1J5BbPe/cKgiERK+FHMBfS3iQvpgLlFsKeZm6mV+xxgUtqO0FXkc8BJv+hZUcCsK92zYXUpcjxZ9rXQuwYPr6F5+P7nE=
+	t=1787114543; cv=none; b=ro2cbeRLjzJ/rz5tEHD1hOmKsp9Tsi3C5if6Ai3btnwyLSe2AyaoecklZFX3rIYb327lXzpefGOqYldacZXUUfEnfLxBesVuOWWQK1BEMqi/E/K4Eg65N4aRDI5SjI8vLL6c+IVuEwzW2E/BtOGD6uA19ua03gHv+xgG/VjvvqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787111755; c=relaxed/simple;
-	bh=h6Aiiqc6pPTqagFnG9lC2PlRHY4rxsyDkgN/02O3V5I=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=Fot8nVvate3hJzYvGSrKJzwtyQYvhm9xT8mDs44kqulsMEKSzjii9AB+o+KYhFM2quFwMcTIE/yqANenfXlhW8GNnmvOVGH1KkJXjp1RQIZT4EHBk866Z++H4QqdznBW5O78b5o9sH0aEp43R7KNTdqn7aPQ8ERfYEKVEWhRm5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=lIptmsTi; arc=none smtp.client-ip=113.46.200.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1787114543; c=relaxed/simple;
+	bh=zGAfl6njJ2yv5Zb+YU1vfmsT5kSSXG+UJib3TjnSnSY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eIy8dEgj6I6S26GaSt8xjzYXSoVG0OJxhrljq+qU5+XT2Rksq/XI4zBTGY8b5tzZXX7PApDD8hkt50f2PcXCQAU7F1gcq29irXvx/lA8XlSptVCO4IkjGLirkP88exwOtASXULFIdx5ev3k31DvFstdtfYBgarX+yKYM/nMxLRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W6QC24tk; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="lIptmsTi"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=7QTGTr741l6XRWzBqb9sbKXm950kSl13DKxY8KjnctU=;
-	b=lIptmsTiAeWTStmNuwWerMhS/P465QRltX9aCA5VyKE7l0fZ5+WiHOZjLGiJOYZe8PaldThDx
-	/uFbmQfCfDJAz6GconBqPBVo4BHYIjrqFw56vBLjKtFkr+aVnEMzESrYfwPRT6dhZY9jaLX/D8n
-	Z9EQyEraOh85kI0CoCmS9ls=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hPss819kSz1K96b;
-	Wed, 19 Aug 2026 11:45:00 +0800 (CST)
-Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7049140572;
-	Wed, 19 Aug 2026 11:55:41 +0800 (CST)
-Received: from kwepemq100003.china.huawei.com (7.202.195.72) by
- dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Wed, 19 Aug 2026 11:55:41 +0800
-Received: from [10.67.113.213] (10.67.113.213) by
- kwepemq100003.china.huawei.com (7.202.195.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Wed, 19 Aug 2026 11:55:40 +0800
-Message-ID: <6A85293C.2010008@hisilicon.com>
-Date: Wed, 19 Aug 2026 11:55:40 +0800
-From: Wei Xu <xuwei5@hisilicon.com>
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W6QC24tk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787114540; x=1818650540;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zGAfl6njJ2yv5Zb+YU1vfmsT5kSSXG+UJib3TjnSnSY=;
+  b=W6QC24tkv8JYS5D4Kc++fNhUYKW4dUAUdL+aiOAlvJj2Lx1GilZstb1a
+   Vw8JvlcZwpBfzZmoV3YS38gdlaPAmi8CcOt1WYqKkOfcB/qkQtViHYEAv
+   a67ph1qWDh/98GqzFOHBXpiLbWVDU/UtM4xFstYX6ncy6avZ/2PXXYJxK
+   roGFjquIQabObcvMuOr00hjOetxOxMHX/0cnqxPMyzkjQUvlLfYCdcqUq
+   RK8qV1U5ac+M6qPq0FxRuTce5EF9Z2iQzEvZUy3Mg5YnbaVFNQ+Dik7O3
+   r6VGhJcsRo9oehSr7J9FuNVRDDOLJfC/93xpLLVHVPaHQ0VwfSx3kgyum
+   g==;
+X-CSE-ConnectionGUID: N93NNs54QeCgzkLWtgUcLQ==
+X-CSE-MsgGUID: 6uczi2WzTICLWSoq1JJv1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="86733259"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
+   d="scan'208";a="86733259"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 21:42:19 -0700
+X-CSE-ConnectionGUID: EO2jpSA9TJuhc7PK6kOYKQ==
+X-CSE-MsgGUID: sdwCRwdiS2+TbcABRr8+UA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
+   d="scan'208";a="269704719"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.106])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 21:42:16 -0700
+Date: Wed, 19 Aug 2026 07:42:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 4/4] iio: light: veml6031x00: add support for events
+ and trigger
+Message-ID: <aoU0JSmv7FWGW_Ms@ashevche-desk.local>
+References: <20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com>
+ <20260818-veml6031x00-v7-4-2b0de0f20edf@gmail.com>
+ <aoRltgy0AYZ_Vcum@ashevche-desk.local>
+ <DKS790BEXVON.1FP9LQUPNTYDE@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Chenghai Huang <huangchenghai2@huawei.com>, <herbert@gondor.apana.org.au>,
-	<davem@davemloft.net>
-CC: <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
-	<xuwei5@huawei.com>, <prime.zeng@hisilicon.com>, <liulongfang@huawei.com>,
-	<qianweili@huawei.com>, <wangzhou1@hisilicon.com>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, "Rob
- Herring" <robh+dt@kernel.org>
-Subject: Re: [PATCH] crypto: hisilicon/sec - remove SEC crypto block cipher
- accelerator
-References: <20260818083132.1860726-1-huangchenghai2@huawei.com>
-In-Reply-To: <20260818083132.1860726-1-huangchenghai2@huawei.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemq100003.china.huawei.com (7.202.195.72)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKS790BEXVON.1FP9LQUPNTYDE@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Chenghai, 
+On Tue, Aug 18, 2026 at 06:10:51PM +0200, Javier Carrasco wrote:
+> On Tue Aug 18, 2026 at 4:01 PM CEST, Andy Shevchenko wrote:
 
-On 2026/8/18 16:31, Chenghai Huang wrote:
-> The Hisilicon SEC crypto cipher accelerator has been superseded
-> by the newer SEC2 driver (drivers/crypto/hisilicon/sec2/). SEC2
-> provides wider algorithm coverage and is the maintained path forward,
-> and users have migrated to it.
+...
+
+> >> +	ret = pm_runtime_get_if_active(dev);
+> >> +	if (ret <= 0)
+> >
+> > < 0 seems too much to me. If there is disabled runtime PM (and supposedly
+> > device is always on) this prevents from getting events.
 > 
-> The legacy SEC driver has had no active users for some time, and its
-> primary maintainer, Jonathan Cameron, has moved on from Huawei and
-> is no longer in a position to maintain it. With thanks to Jonathan
-> for his contributions to this driver over the years, and with no one
-> left to keep it up to date, remove it from the tree.
-> 
-> This drops the legacy SEC driver together with all of its residual
-> configuration, devicetree binding and board description references:
-> 
->   - drivers/crypto/hisilicon/sec/
->   - CONFIG_CRYPTO_DEV_HISI_SEC Kconfig option
->   - sec/ entry from drivers/crypto/hisilicon/Makefile
->   - Documentation/devicetree/bindings/crypto/hisilicon,hip06-sec.yaml
->   - hisilicon,hip07-sec device nodes and their supporting mbigen_alg /
->     smmu_alg infrastructure from arch/arm64/boot/dts/hisilicon/hip07.dtsi
-> 
-> Signed-off-by: Chenghai Huang <huangchenghai2@huawei.com>
-> ---
->  .../bindings/crypto/hisilicon,hip06-sec.yaml  |  134 --
->  arch/arm64/boot/dts/hisilicon/hip07.dtsi      |  280 ----
+> I am not sure if I get this. A reference is unconditionally acquired
+> when events are enabled as well as in buffer_preenable, and also in the
+> probe before interrupts are enabled. Runtime PM should be active at this
+> point. If not, the interrupt should not come from the device, even if it
+> was on (e.g. before autosuspend kicks in). But maybe I am missing
+>  something?
 
-Since no active users, it is fine to me to drop the dts part as well.
+The device maybe in these states here:
+- powered off (by runtime PM) ret == 0
+- powered on (by some previous activity) ret > 0
+- always on (PM is disabled by user space, for example) ret < 0
 
-Acked-by: Wei Xu <xuwei5@hisilicon.com>
+Are you telling that the third case is impossible? (Note that autosuspend in
+this case is irrelevant.)
 
-Best Regards,
-Wei
+...
+
+> >> +static int veml6031x00_hw_init(struct veml6031x00_data *data)
+> >> +{
+> >> +	struct regmap *map = data->regmap;
+> >> +	struct device *dev = regmap_get_device(map);
+> >
+> >> +	__le16 regval = 0;
+> >
+> > Redundant assignment.
+> 
+> regval is assigned here to write that value in the first instruction
+> (regmap_bulk_write()) after the variable declaration.
+
+I see, then make it clear by splitting assignment.
+
+> >> +	int ret, val;
+> >
+> > Why is 'val' signed?
+
+	regval = 0;
+
+> >> +	ret = regmap_bulk_write(map, VEML6031X00_REG_WL_L, &regval, sizeof(regval));
+> 
+> Here.
+
+> >> +	if (ret)
+> >> +		return dev_err_probe(dev, ret, "Failed to set low threshold\n");
+> >> +
+> >> +	regval = cpu_to_le16(U16_MAX);
+> >> +	ret = regmap_bulk_write(map, VEML6031X00_REG_WH_L, &regval, sizeof(regval));
+> >> +	if (ret)
+> >> +		return dev_err_probe(dev, ret, "Failed to set high threshold\n");
+> >> +
+> >> +	ret = regmap_field_write(data->rf.int_en, 0);
+> >> +	if (ret)
+> >> +		return ret;
+> >> +
+> >> +	ret = regmap_read(map, VEML6031X00_REG_INT, &val);
+> >> +	if (ret)
+> >> +		return dev_err_probe(dev, ret, "Failed to clear interrupts\n");
+> >> +
+> >> +	return 0;
+> >> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
