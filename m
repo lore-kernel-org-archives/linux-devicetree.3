@@ -1,125 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0731039CD01
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:28:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31C939CD01
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:29:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787128139; cv=none; b=K81BWEc96rw634aBMPSJKmCTfd36nEQLYG+4xaey9jeCxgSh0Wpn9m02/r+gZ/5Hv3A7oyqm+3nm+ZFlSEt/nbz2PuYI5ATYaNpN+xK/9CE06JfDVhEBQaBwcT0vFnqQgTI2PD+XqZsPKSmgquAvMw4p8X7rh4cYenLm8ObQ15Y=
+	t=1787128172; cv=none; b=o3d50cDoXvJVDSs98W8IjvI7R7OMiGFUCLFRRxeZdk2nzdcLRjWUvmQetPWPm+Iq7zCO+GR98eykl2XlrRlclLVpskTr5QpqRxnYiMQueMUCKVlyog0tVKEshQ6NTsmZRIUfp34YjYdc+2qaKrkMhPKC446Dkjjm6ln3CUU7nGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787128139; c=relaxed/simple;
-	bh=cwJVuh2Zw3Qt8AXUUok0G3WmGrLxUvlvv8s7D0px7Nc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nP46tSxcu9Rmc9kstzgtl9kjF9Zvo5/AFqVT0TNuLH0/4LwLji+OH8kt0v1/MCrQ3ZsSqRnkSTbXraAHunY6hlv8dzNVVDljZJJPiHqv89imiBND8WIh6xeZBJt8gjwrMjb0kHkK/HChB0Nd2MwyVsSQO+vruDXRA1sKB3FSF7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YD5Dsuw3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787128172; c=relaxed/simple;
+	bh=J+7FIWeFSNlCF/SBGKbIoTF/ML8qePbVtoZtF/oALRU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IhDXv0HG+Ai6Cp3vHTVe5M47ULgECCuYkfYLFAxPHltP/ORXuUYcf4ThgIMk2q4Z2vY16oABSpfY0/lpnkk7Vu/6aRRf+ZQ+5c0c/jJwQHJ/I2u05RIKbVhCDU36+bT2UYJG3ysOqQQZ+SimwK+kKloiI1lAhDSoYK0KJM5D86U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V0JYLuSU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YD5Dsuw3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4101F0155E
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:28:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V0JYLuSU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C391F00A3A;
+	Wed, 19 Aug 2026 08:29:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787128137;
-	bh=cwJVuh2Zw3Qt8AXUUok0G3WmGrLxUvlvv8s7D0px7Nc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YD5Dsuw3BZvBKFtfmW8bkDPQpa0BWqLAY4z28YzLE/INPClagphYH4yg734Xw5Ko6
-	 det6frZZqWBOjKJ4/iAbL+/1wQ1arTcvWOIAj8N735C5q1XfuMnTklpeJTGHxeVASr
-	 5GiIfFdLyHLr7Hm6zlh2kF3hytn4aooz5RgQi/M/ml9DnIdWMG/r7m7jZCCLy+BmjY
-	 Ij8fWK9+1kTbdEvaYSF2MHFmCgbCaKQ+4nmlwKwwZHQPa5XR3EYtFyg4kFul92WsMG
-	 QlTnnKjGno4t6zFhX8ZDmbLDL8PkIeqw5W4bah/IvKxXjNTU9Abhc3lSWgwDoe4OEM
-	 cENYZ4KLAksdA==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b0231a3e86so826614e87.0
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 01:28:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqxcRiQ39eGdfPAWWeQ0XS1zaHAkLv0jFwL3PZ37qon9+zeb6WprAM2KXip/NqmT8/ACXLlxbaWtaZa@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmUxy4+EfVS4Cen5miRXpx4Fn40DVJVMeiJX6K9RIcFXrSJdOl
-	Z9hrJL/maS5Z3nP0bHW0fvGh/BjYwsImq8+i6qtBzRurJKHHX1Wgxuw2eVZZwa6epEHyzEuB11n
-	/bnN/oXNtu/Q14IvX/yQQ2dNI42/GV8g=
-X-Received: by 2002:a05:6512:39c4:b0:5b0:1551:d85c with SMTP id
- 2adb3069b0e04-5b478bcbc81mr873936e87.20.1787128136557; Wed, 19 Aug 2026
- 01:28:56 -0700 (PDT)
+	s=k20260515; t=1787128170;
+	bh=Z86A86oIpvnqzjmaLrdLWONLzoh1VvjRc56fyX5dxrE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=V0JYLuSUKtg0isjkeWxTAzOdIi5IjqIljB1XoyhlItRYnGhAStpbD9NLaGGKmr9dH
+	 pN0r40EeH07GWWqOQ2kSZpUuGEP5UPMS8oqk662G1pVEk+v1b5UiB0IPDWYpC9cEcd
+	 Q+Wj3b5J6o6llQMidtEKJ3BAtNoAzl36L76Tk0BwA2O+8FcLs9q2q6jH0QatTqnwON
+	 DRevEr8e3Yz1vM2GfZjvf7pZ8MuH2vG+y0USkcPzSZOvilbl2oNFPKkzZyhR5A5uxr
+	 9yW5tY8jZTugqbKUExnmCsnaV1Bodxk0DBr3LS8WB1fnsQGqEpA0OqPAchsnoi67tr
+	 XgnCZSCo9OOAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v5 3/6] iio: accel: mma8452: Only apply trigger
+ type when not set by firmware
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260819-mma8452-open-drain-v5-3-d8aa590d7c36@geanix.com>
+References: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
+ <20260819-mma8452-open-drain-v5-3-d8aa590d7c36@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 08:29:30 +0000
+Message-Id: <20260819082930.63C391F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
- <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
- <20260724-dancing-skunk-of-novelty-72c1b8@quoll> <CAD=FV=U0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr38p+YwRnC_G6w@mail.gmail.com>
- <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com>
-In-Reply-To: <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 19 Aug 2026 10:28:42 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnQGy_LvRxMjq1s2Hs9Hn4LNTFZ0W17zC1YLs5StwfqMg@mail.gmail.com>
-X-Gm-Features: AcwNN1Vl05fdJa2xPsl7u4sGvJzUiZZr27GigbzGcGgDC8MP57szGl3gF9DhpKY
-Message-ID: <CAD++jLnQGy_LvRxMjq1s2Hs9Hn4LNTFZ0W17zC1YLs5StwfqMg@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for frankel/blazer/mustang
-To: Doug Anderson <dianders@chromium.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
-	soc@lists.linux.dev, Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
-	Brian Norris <briannorris@google.com>, William McVicker <willmcvicker@google.com>, 
-	kernel-team@android.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Doug,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-note: I know what it is like to be in active product development
-with a product organization with one finger constantly on the
-fast forward button to get products out the door. This creates
-unacceptable stress for engineers trying to at the same time
-establish standards and pass formal and slow reviews.
+New issues:
+- [High] The patch dynamically trusts the firmware's IRQ trigger type but f=
+ails to configure the sensor hardware's interrupt polarity to match, causin=
+g an interrupt storm.
 
-On Wed, Aug 19, 2026 at 12:13=E2=80=AFAM Doug Anderson <dianders@chromium.o=
-rg> wrote:
+Pre-existing issues:
+- [High] I2C register accesses are performed while the device is physically=
+ powered off in PM runtime suspend.
+- [High] Unhandled latched motion events (`INT_FF_MT`) cause an infinite IR=
+Q storm.
+--
 
-> Is there some other documentation saying "aliases =3D=3D evil" that I
-> missed? Maybe some email thread we're all supposed to have read?
+--- Patch [3]: [PATCH RESEND v5 3/6] iio: accel: mma8452: Only apply trigge=
+r type when not set by firmware ---
+commit ad034b1db299a86a70db53d5a2b4a52f2a134eee
+Author: Esben Haabendal <esben@geanix.com>
+iio: accel: mma8452: Only apply trigger type when not set by firmware
 
-Yes, kind of, it was 10 years ago and about MMC aliases for
-selecting a primary device for boot:
-https://lore.kernel.org/lkml/CAD=3DFV=3DXLuPWKjQBMLApRQxk0K30p_TPcztB7g_1DB=
-7iRA9BGRQ@mail.gmail.com/T/
-and you were in the thread, it's not pretty, leaves a bad aftertaste.
-For, I think, reasons stated in my initial paragraph.
+Instead of unconditionally overriding the trigger type, it is better to
+only apply a default when no trigger type is set by firmware. This should
+be reasonably backward compatible.
 
-The takeway is something like "the device enumeration is policy,
-not hardware information, so it should not be encoded into
-the device tree", and that is not an argument about aliases
-per se.
+> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+> index f645a5c6fd1c2..1fb43c5b0b72f 100644
+> --- a/drivers/iio/accel/mma8452.c
+> +++ b/drivers/iio/accel/mma8452.c
+> @@ -1683,9 +1683,16 @@ static int mma8452_probe(struct i2c_client *client)
+>  		goto trigger_cleanup;
+> =20
+>  	if (client->irq) {
+> +		unsigned long irq_flags;
+> +
+> +		irq_flags =3D irq_get_trigger_type(client->irq);
 
-As a result (as I think, I may be wrong) MMC gained a few
-properties such as:
-non-removable;
-no-sd;
-no-mmc;
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Doc=
-umentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+[Severity: High]
+If the firmware specifies an active-high interrupt, will this cause an
+interrupt storm?
 
-These provide a heuristic for which devices to inspect for boot.
-Then on top of that I think people use schemes like EFI for finding
-boot devices. (Or they still live with their quirks...)
+The irq_get_trigger_type function fetches the interrupt polarity from the
+firmware (e.g., active-high) and passes it to request_threaded_irq.
+However, the driver forces the sensor into its power-on default state
+via mma8452_reset, which hardcodes the interrupt pin to active-low.
 
-Now this ufs0 node seems to be about calibration of some sort,
-which is a more hardware adjacent subject. Is there a way to
-add the entity that needs this calibration to the device tree and
-reference the UFS device with a phandle along the lines of:
+Because the driver never writes to CTRL_REG3 to set the IPOL bit
+to active-high to match the requested IRQ type, the sensor's idle-high
+line could be seen as a permanently asserted interrupt.
 
-calibration-storage =3D <&ufs_node>;
+> +		if (irq_flags =3D=3D IRQ_TYPE_NONE) {
+> +			dev_info(dev, "invalid irq type, setting default active low\n");
+> +			irq_flags =3D IRQF_TRIGGER_LOW;
+> +		}
+> +		irq_flags |=3D IRQF_ONESHOT;
+>  		ret =3D request_threaded_irq(client->irq, NULL, mma8452_interrupt,
+> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+> -					   client->name, indio_dev);
+> +					   irq_flags, client->name, indio_dev);
+>  		if (ret)
+>  			goto buffer_cleanup;
+>  	}
 
-?
+[Severity: High]
+This isn't a bug introduced by this patch, but are there I2C register
+accesses occurring while the device is physically powered off?
 
-Even say adding a synthetic modem node if the calibration is
-for a modem is probably going to be more acceptable than an
-alias.
+If userspace attempts to read or write sysfs attributes after the
+autosuspend timeout, the regulators are disabled. Direct calls are
+made without resuming the device:
 
-Yours,
-Linus Walleij
+drivers/iio/accel/mma8452.c:mma8452_read_raw() {
+    ...
+    ret =3D i2c_smbus_read_byte_data(data->client,
+                                   MMA8452_OFF_X + chan->scan_index);
+    ...
+}
+
+A similar pattern happens in __mma8452_write_raw calling
+mma8452_change_config. Any unprivileged userspace read/write to the
+configuration attributes 2 seconds after the last activity will result
+in an I2C NACK (-EREMOTEIO or -ENXIO).
+
+[Severity: High]
+This is a pre-existing issue, but can unhandled latched motion events
+cause an infinite IRQ storm?
+
+For chips that lack the TRANS event (like mma8652), rising-edge motion
+events are mapped to the ff_mt registers. When the latch is explicitly
+enabled for rising events, the hardware will hold the interrupt until
+read:
+
+drivers/iio/accel/mma8452.c:mma8452_write_event_config() {
+    ...
+    val |=3D ev_regs->ev_cfg_ele;
+    ...
+}
+
+When the interrupt fires, the handler evaluates freefall mode and skips
+handling, never reading the MMA8452_FF_MT_SRC register to clear the latch:
+
+drivers/iio/accel/mma8452.c:mma8452_interrupt() {
+    ...
+    if (src & MMA8452_INT_FF_MT) {
+        if (mma8452_freefall_mode_enabled(data)) {
+            ...
+        }
+        ret =3D IRQ_HANDLED;
+    }
+    ...
+}
+
+Remotely triggering a physical motion event after enabling the rising
+threshold via sysfs could permanently lock up the interrupt line.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-mma8452-op=
+en-drain-v5-0-d8aa590d7c36@geanix.com?part=3D3
