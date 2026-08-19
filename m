@@ -1,143 +1,140 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mail-m121162.qiye.163.com (mail-m121162.qiye.163.com [115.236.121.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC9144E652;
-	Wed, 19 Aug 2026 11:15:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2700459AF9;
+	Wed, 19 Aug 2026 11:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.121.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787138123; cv=none; b=qXrI17mAK5LL6WdjOfxxTLItPBEpokXSFzqSLxuVVOo+9klLTVXMWBkho4mJHUhlhLBzoLtpKedTKwkw4nwXy6iXR9tZKFQf13v6koPZ14SDZ5q2YxF8nEYBuT7ELvMIylra2RfflxVHjFxNMMWpWyJM2fHqULyikODECFcvfUE=
+	t=1787138550; cv=none; b=YVIXmd8shMET4OMcWSWAZt1dWf9eHtxtqdq0z1XCnrL5ONhek7mh2B8G6XQCSA7wLhJI+Iqpos2ZzEsP7g45/6rALANYn7Sv30+nxBKJqUzSce2i/ZkW7H8RQwNnbfsUEz6RxdLvmwHa+kAtwfCd+Q17n30ZC1bblnBG+ZC1URU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787138123; c=relaxed/simple;
-	bh=+O0Gd7dYD+ML+lDGGE6X0GreAnrSVB14tNzQ3byWCIc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bojW3iPkbrW6ubE1W/QK48bBcARtS8luNCeUXIcJwt8WU0oPXAePtEGBUsmUZi87IKMEoZh9VGYDUZLrcAsWMOgsr3TXeSAt3ngzyLDSUjmLSzaEsUdZ0WKTe4oEafeRIo5jNx7fnTeEtbLrWXtY/d/c9Wwa0R0BaFSIsixqaDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E226A20044D;
-	Wed, 19 Aug 2026 13:05:17 +0200 (CEST)
-Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <s.hauer@pengutronix.de>)
-	id 1wwe6f-002HRY-2M;
-	Wed, 19 Aug 2026 13:05:17 +0200
-Received: from [::1] (helo=dude02.red.stw.pengutronix.de)
-	by dude02.red.stw.pengutronix.de with esmtp (Exim 4.98.2)
-	(envelope-from <s.hauer@pengutronix.de>)
-	id 1wwe6f-00000004K0O-2O4l;
-	Wed, 19 Aug 2026 13:05:17 +0200
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Subject: [PATCH 0/7] media: verisilicon: Add RK3588 VPU720 JPEG decoder
-Date: Wed, 19 Aug 2026 12:37:29 +0200
-Message-Id: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
+	s=arc-20240116; t=1787138550; c=relaxed/simple;
+	bh=+zdUDQU/aAR22ziuHIY+z+VIEuCnr/IDIRMbHKTqiVk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DKBaGOAN8s+0o/Of83ODzplXIPkTuP3+k/Iwob1oz1eWDUNZCc1ZWPY12sZXQfJgyqrYyLT0OlgXDHMzX7wmtM1exIKUPUtMBZaEeZ5wF52xSTGJClmxDCsRNGvajS43k6k7PHIY4g9LfS/qMu59dhEB6gA8g31tZ9s9k5w3m1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=hpnSVBnI; arc=none smtp.client-ip=115.236.121.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="hpnSVBnI"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a893477b;
+	Wed, 19 Aug 2026 15:52:57 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v7 0/5] Add eDP lane mapping support
+Date: Wed, 19 Aug 2026 15:52:33 +0800
+Message-Id: <20260819075238.3007087-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGqHhWoC/x3MTQqAIBBA4avErBO0P8auEi1CR5sCC4UIxLsnL
- b/FexkSRaYEc5Mh0sOJr1Ch2gbMvgVPgm01dLKbJCot4tmPiOK4yVsyAjUp4waDqBFqdEdy/P7
- DZS3lA/2YKy9gAAAA
-X-Change-ID: 20260819-rk3588-jpegdec-89e1cf4c8898
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
- Hans Verkuil <hverkuil@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lucas Sinn <lucas.sinn@wolfvision.net>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137517; l=3717;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=+O0Gd7dYD+ML+lDGGE6X0GreAnrSVB14tNzQ3byWCIc=;
- b=dG5ZAOPzpg6YY00ZFsztwh+kX27axvdSlRbGYX5WU3XPRC07G+PHESYaoGaxlNuUZCf5Zrgm2
- DSIpuKZXeBhDLKDHZRNvV5mjtnZAZ55V40y8bqFUlVlvt5TOg+z3BP7
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa01902500203a8kunmf3c4117e328b99
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQxpPVksYGUoZTB1JSBhKSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=hpnSVBnIq9OtSVFfsFmtGQAVRTKhOxJW3QIVqp8+r1DRTvElg2PJd6Elsz36URPkkRCN6cNNHTZbEnWgYVa4IDgJm6055AMU8F50Y8tw2Rns42J8DV1YW4do6RgxjnDNpW/YQw13aB1HkJD+evbOxwfp+3cn9Q1/YBECogB+eVQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=VwuvEnIKeKcr7mUpwrsfs39UUTZK2wUaNNPcMc31/as=;
+	h=date:mime-version:subject:message-id:from;
 
-This series adds support for the RK3588 JPEG/MJPEG hardware decoder, the
-VPU720. This series adds it to the hantro driver, along with three fixes
-to the hantro core that came out of the work.
+This series adds configurable eDP physical lane mapping support via
+device tree data-lanes property.
 
-Patches 1-3 are independent of the new decoder and stand on their own. A
-codec ->run() that fails currently leaves an armed watchdog behind that
-later aborts an unrelated job, leaks the pm_runtime reference and the
-clocks, and never completes the control handler object bound to the
-media request, so the request stays queued until userspace closes it.
-Patch 3 makes V4L2_EVENT_EOS subscribable; hantro queues the event in
-three places but no application can ask for it.
+Lane mapping is mainly used for below scenarios:
+1. Correct PCB lane swap and differential line routing crossover
+   without hardware changes;
+2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+3. Support multiple panel hardware variants on the same board
+   by configuring data-lanes in device tree only.
 
-Patches 4-7 add the decoder itself: the binding, the driver, a minimum
-sizeimage for the coded queue, and the DT node.
+The series includes driver implementation and device tree binding
+updates to support custom lane mapping configuration from endpoint
+node, and keeps default linear lane order if no configuration is given.
 
-Unlike the other hantro en/decoders the VPU720 works as a stateful
-decoder - userspace hands it a whole frame and never looks inside the
-bitstream. The driver parses the JPEG header on the CPU, builds the
-quantisation and Huffman tables into a DMA side buffer and programs the
-hardware from there.
+Patch 1: Add endpoint data-lanes property to analogix-dp binding
+Patch 2: Add DRM DP helper API to validate DP lane counts
+Patch 3: Restore mandatory for samsung,link-rate and samsung,lane-count
+         properties
+Patch 4: Add validation for samsung,lane-count property as preparation
+Patch 5: Implement lane mapping in analogix_dp driver
 
-Patch 6 enforces a minimum frame size to the coded queue for the JPEG
-decoder path. This is necessary here as userspace doesn't know how large
-a frame can get, but the decoder needs a full frame to work. In my
-Gstreamer tests Gstreamer came up with buffers that were too small to
-take a full frame at higher resolutions (> 1080p). That is expensive of
-course, 16 MiB for a 4k image.
+Damon Ding (5):
+  dt-bindings: display: bridge: analogix-dp: Add data-lanes support for
+    endpoint
+  drm/dp: Add helper to validate DP lane counts
+  drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+  drm/bridge: analogix_dp: Add validation for samsung,lane-count
+    property
+  drm/bridge: analogix_dp: Add support for optional data-lanes mapping
 
-Tested on a Radxa Rock-5t board
+ .../bindings/display/bridge/analogix,dp.yaml  | 19 +++--
+ .../rockchip/rockchip,analogix-dp.yaml        |  1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    | 70 +++++++++++++++++--
+ .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 ++--
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 ++
+ include/drm/display/drm_dp_helper.h           |  6 ++
+ 7 files changed, 101 insertions(+), 18 deletions(-)
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
-Lucas Sinn (3):
-      media: verisilicon: Add Rockchip VPU720 JPEG decoder
-      media: verisilicon: Enforce a minimum sizeimage for the JPEG decoder
-      arm64: dts: rockchip: rk3588: Add VPU720 JPEG decoder node
 
-Sascha Hauer (4):
-      media: verisilicon: Fix the cleanup when a codec ->run() fails
-      media: verisilicon: Complete the request on the ->run() error paths
-      media: verisilicon: Allow the EOS event to be subscribed
-      media: dt-bindings: Add Rockchip RK3588 VPU720 JPEG decoder
+Changes in v2:
+- Add lane mapping application scenarios in commit message.
+- Remove redundant deprecated property 'data-lanes' for eDP node.
+- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
 
- .../bindings/media/rockchip,rk3588-vpu720.yaml     |  93 ++
- MAINTAINERS                                        |   1 +
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |  25 +
- drivers/media/platform/verisilicon/Makefile        |   1 +
- drivers/media/platform/verisilicon/hantro.h        |  17 +
- drivers/media/platform/verisilicon/hantro_drv.c    |  49 +-
- .../platform/verisilicon/hantro_g1_h264_dec.c      |   6 +-
- .../platform/verisilicon/hantro_g1_mpeg2_dec.c     |   2 +-
- .../media/platform/verisilicon/hantro_g1_vp8_dec.c |   6 +-
- .../platform/verisilicon/hantro_g2_hevc_dec.c      |  11 +-
- .../media/platform/verisilicon/hantro_g2_vp9_dec.c |   4 +-
- .../platform/verisilicon/hantro_h1_jpeg_enc.c      |   2 +-
- drivers/media/platform/verisilicon/hantro_hw.h     |  19 +-
- drivers/media/platform/verisilicon/hantro_v4l2.c   |  69 +-
- .../verisilicon/rockchip_vpu2_hw_h264_dec.c        |   6 +-
- .../verisilicon/rockchip_vpu2_hw_jpeg_enc.c        |   6 +-
- .../verisilicon/rockchip_vpu2_hw_mpeg2_dec.c       |   2 +-
- .../verisilicon/rockchip_vpu2_hw_vp8_dec.c         |   6 +-
- .../verisilicon/rockchip_vpu720_hw_jpeg_dec.c      | 962 +++++++++++++++++++++
- .../platform/verisilicon/rockchip_vpu720_regs.h    | 261 ++++++
- .../verisilicon/rockchip_vpu981_hw_av1_dec.c       |   5 +-
- .../media/platform/verisilicon/rockchip_vpu_hw.c   |  80 ++
- 22 files changed, 1595 insertions(+), 38 deletions(-)
----
-base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
-change-id: 20260819-rk3588-jpegdec-89e1cf4c8898
+Changes in v3:
+- Squash [PATCH v2 2/3] into [PATCH v2 1/3].
+- Add unevaluatedProperties: false to both the port@1 and endpoint
+  nodes.
 
-Best regards,
+Changes in v4:
+- Add validation for samsung,lane-count property as preparation.
+
+Changes in v5:
+- Add DRM DP helper API to validate DP lane counts.
+- Apply DRM DP helper API to check the validity of samsung,lane-count
+  property.
+- Add Acked-by and Reviewed-by tags.
+
+Changes in v6:
+- Add a seperate commit to restore mandatory samsung DP DT properties.
+- Add Reviewed-by tag.
+
+Changes in v7:
+- Add Reviewed-by tag.
+
 -- 
-Sascha Hauer <s.hauer@pengutronix.de>
+2.34.1
 
