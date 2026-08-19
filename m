@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0C94582E1
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:24:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AB2330B15
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 11:24:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787138641; cv=none; b=NnR+ohLS1LQ9uhlbNoNu35svsCkUgLp6A41chvhTWEuIOtYH6L2XR4Xt5r/kjbm9QOZeZK6+kETbkx+P1RmCFYEfmooeQtt8iUkXFE0uo/VI53oW6qjaQlUWmFsQhD8ShJ5brNbJHkPQXavY2uHiqDbHv+ly7NOTRAx9ap2t/R0=
+	t=1787138677; cv=none; b=Vw0ZD2P7aZw4Udcoq/KLhryF+2G/95SI7OxqPmsz8ERvkOx3zysGokZ/ZWJzZiJjylyw2vJ7CPDFLxh1t2eHPubk8YMQgOg5RS420IxFM1zX7KmPlNvT4Ytj+COgSK5tEcN8qYZ7v1mAPOgn4G9WqSpzXKX6pl5Ow5Yy79tbJRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787138641; c=relaxed/simple;
-	bh=6dUo2k3vEZ+/lTjpzspWLoBprJz1EJkUt09Ed0SBkoM=;
+	s=arc-20240116; t=1787138677; c=relaxed/simple;
+	bh=5i0px43+O5vwLopBpX48a7Cz9Cfd6IVI9A1H6Ffje3U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UWRgb530JC0VvkSosifXAXKHUSRARdetlKZat4Y1PVupPnoriMMH3TFRJK1y/NXPaWeN3DL0CDguGIgmR0GtyIBxHrr/Y2hX0Vi2XkB/63Vlf7KHxr/tcfbDX6KHrY1eaVF+jchwWPczrsiJ3gxBzcLIAekS/3s0IYDYilbAab0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqTtsu0Y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tSZ6uP19liV/paeNJ4AzfdNumONk2XAg71t0+uItA7Vi1st5dd1x67w1ljYzWsorKo4/huT+yXN7Ti4Mj8uIb75mZwD8vqWF2/1+eCypYqsAFZlOzuk63zH2eZjfNi1AottkBVc33j7fefv1vzRxZ1aju9nqg4VsOFi8JI2GoE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WL6qTef1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqTtsu0Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C981F000E9;
-	Wed, 19 Aug 2026 11:23:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WL6qTef1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2D111F000E9;
+	Wed, 19 Aug 2026 11:24:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787138640;
-	bh=oNOto2q9/imcdZs9UEaCXcKcmqsKD63VZVj46urzq0Y=;
+	s=k20260515; t=1787138676;
+	bh=xIo1tlE0VxIztwXU+LL+9vWKaY6v0lBwe4NZPfGrVCA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lqTtsu0YkSiCPMI9WE4cniW8v4Gi+iIwnXddG4ZPuM+fiu5jP+rZT7o7jZCtUAVrm
-	 Y+qzgsATQTE/sCXBObkw21/YfvN5RLZZ/M6LU2dYqzFh6ZBoDazXx8Bt/GJkP3O4Ls
-	 B+p8IFSfFsQ9z/52RTbfBXsAHrRcQ7S8IMd9JEoIKdABpjNnrcOfjimbZbG53ADnvy
-	 daA3gcIZ7eVZ/GyAhmQQ0jUYgW21H140gzKok8vtybQsUFvI2n5p3GSBOXDmeXv9ua
-	 r/9Y/VilmOmvThYpR1EhsJ2zh0tc0CKByLUjEWS9ZlOVZZJExJmfRfKhnSECjJHM4H
-	 pDX3dxnaZFnzw==
+	b=WL6qTef1rTBLO0Qf78NPui99Lhoo6RCDoqkm4Xtgg2DRerTYaDHjNqst+0NPD5PNT
+	 i8GXNYjdLpVfvWv/0T3tQ4mW6rylfQ5Al4KM8/haiEX9ILF2T5/gs3Fi9lG/jXBzSR
+	 ke2uMtrgHGNaf6ULCQAcbR3Fugyu2A42LnjXeCz0ZMSMaePv1KYlTFk+6fBtexjZuB
+	 TL95cGRA81q5HVx09xFDw5LY3m3NTJ3Smt6uGiU1S5feyq12IpUll+eFNz/rPVj3cH
+	 WkViaJEMyMrIooGj9GOupx66GfyVvlMpRKIRnxYblvnp3PVm0lEAN2/Jg9urdaf4Na
+	 NQIKqfti04CBw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/7] media: verisilicon: Fix the cleanup when a codec
- ->run() fails
+Subject: Re: [PATCH 5/7] media: verisilicon: Add Rockchip VPU720 JPEG
+ decoder
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sascha Hauer" <s.hauer@pengutronix.de>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260819-rk3588-jpegdec-v1-1-33d74cdf369c@pengutronix.de>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
 References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
- <20260819-rk3588-jpegdec-v1-1-33d74cdf369c@pengutronix.de>
+ <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 11:23:59 +0000
-Message-Id: <20260819112359.E8C981F000E9@smtp.kernel.org>
+Date: Wed, 19 Aug 2026 11:24:35 +0000
+Message-Id: <20260819112435.C2D111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,126 +47,172 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing calls to `hantro_end_prepare_run(ctx, error)` on early err=
-or paths in multiple codec `->run()` callbacks, leading to permanently inco=
-mplete V4L2 control requests.
-- [High] Missing NULL pointer check for the return value of `vb2_plane_vadd=
-r()` before dereferencing it during JPEG header assembly.
-- [High] Missing synchronization to cancel `vpu->watchdog_work` during devi=
-ce removal, leading to a Use-After-Free.
-- [High] Race condition between late hardware IRQ delivery and `hantro_watc=
-hdog()` execution causes the watchdog of the *next* job to be cancelled and=
- the next job to be prematurely finished.
+- [High] DMA API violation and cache coherency bug when filling chroma plan=
+e for grayscale JPEGs.
+- [High] Lockless Read-Modify-Write on VDPU720_REG_INT causes destructive r=
+ace between hardware IRQ and watchdog soft reset.
+- [Medium] Valid JPEG frames are erroneously rejected due to a strict 64-by=
+te tail search for the EOI marker.
+- [Medium] Missing endianness conversions when writing 16-bit table entries=
+ to the DMA side buffer.
 --
 
---- Patch [1]: [PATCH 1/7] media: verisilicon: Fix the cleanup when a codec=
- ->run() fails ---
-commit 67d0bec622e69de9d51450bf1c4cea20e9bb249c
-Author: Sascha Hauer <s.hauer@pengutronix.de>
-media: verisilicon: Fix the cleanup when a codec ->run() fails
+--- Patch [5]: [PATCH 5/7] media: verisilicon: Add Rockchip VPU720 JPEG dec=
+oder ---
+commit 8ca41ed2bd2cec7b6e2c467549362041d9356521
+Author: Lucas Sinn <lucas.sinn@wolfvision.net>
 
-This commit pairs hantro_start_prepare_run() and hantro_end_prepare_run()
-on error paths to ensure V4L2 requests are properly completed. It adds an
-error argument to hantro_end_prepare_run() so the watchdog is only armed
-when the hardware actually starts, preventing unrelated jobs from being
-aborted. Resources are also properly released in device_run() on failure.
+media: verisilicon: Add Rockchip VPU720 JPEG decoder
 
-Fixes: 892bb6ecead9 ("media: hantro: do a PM resume earlier")
-Fixes: e2da465455ce ("media: hantro: Support VP9 on the G2 core")
-Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
+This commit adds support for the Rockchip VPU720 JPEG hardware decoder on
+the RK3588 SoC to the verisilicon hantro driver. It introduces the
+HANTRO_JPEG_DECODER codec and mode, implementing header parsing, Q/H table
+side buffer generation, and handling of VPU720 specific configuration limit=
+s.
 
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index 2e81877f640fb..d9936f6979d2c 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu720_hw_jpeg_d=
+ec.c b/drivers/media/platform/verisilicon/rockchip_vpu720_hw_jpeg_dec.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/media/platform/verisilicon/rockchip_vpu720_hw_jpeg_dec.c
 [ ... ]
-> @@ -162,6 +179,9 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
->  	v4l2_ctrl_request_complete(src_buf->vb2_buf.req_obj.req,
->  				   &ctx->ctrl_handler);
-> =20
-> +	if (error)
-> +		return;
+> +static int vdpu720_write_qtbl(struct hantro_ctx *ctx,
+> +			      const struct v4l2_jpeg_header *hdr)
+> +{
+[ ... ]
+> +		/*
+> +		 * Reorder zigzag =E2=86=92 raster scan.
+> +		 * v4l2_jpeg_zigzag_scan_index[z] =3D raster position of zigzag
+> +		 * element z.  JPEG Q-tables are stored in zigzag order; the
+> +		 * hardware expects them in natural raster (row-major) order.
+> +		 */
+> +		for (i =3D 0; i < VDPU720_QTBL_ENTRIES; i++)
+> +			dst[v4l2_jpeg_zigzag_scan_index[i]] =3D (u16)qtbl[i];
+
+[Severity: Medium]
+Will this write the 16-bit table entries correctly on a Big Endian kernel?
+
+It looks like the Q-table elements are written using native CPU endianness.
+Since the VPU720 hardware expects the DMA buffer to be in Little Endian for=
+mat,
+could this result in decoding failures and visual corruption on Big Endian
+systems? Using explicit endian conversions like cpu_to_le16() might be
+necessary here.
+
+[ ... ]
+> +static int vdpu720_write_htbl(struct hantro_ctx *ctx,
+> +			      const struct v4l2_jpeg_header *hdr)
+> +{
+[ ... ]
+> +		vdpu720_compute_mincode(dc_bits, min_dc, acc_dc);
+> +		vdpu720_compute_mincode(ac_bits, min_ac, acc_ac);
 > +
->  	/* Kick the watchdog. */
->  	schedule_delayed_work(&ctx->dev->watchdog_work,
->  			      msecs_to_jiffies(2000));
+> +		for (i =3D 0; i < 16; i++)
+> +			*p_mincode++ =3D min_dc[i];
 
-[Severity: High]
-This is a pre-existing issue, but does the device removal process in
-hantro_remove() lack synchronization to cancel vpu->watchdog_work?
+[Severity: Medium]
+Similarly, the Huffman mincode table entries appear to be written with
+native CPU endianness. Does this also require cpu_to_le16() for the same
+Little Endian hardware requirement?
 
-The driver schedules vpu->watchdog_work when a job starts. If a
-userspace application is streaming and a timeout occurs precisely when
-the device is unbound, the watchdog work might execute after the vpu
-object is freed by devres. This could lead to a use-after-free since
-cancel_delayed_work_sync() is not called during teardown.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can a late hardware IRQ
-delivery cause a race condition with hantro_watchdog()?
-
-If a job times out, hantro_watchdog() resets the hardware and completes
-the job. The M2M framework then schedules the next job and arms its
-watchdog. If the delayed hardware IRQ for the original job fires,
-hantro_irq_done() targets the current context (the new job) and cancels
-its watchdog. Could this cause the IRQ handler to erroneously call
-hantro_job_finish() on the new job while the hardware is still processing
-it, leading to state corruption and premature buffer returns?
-
-> diff --git a/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c b/dr=
-ivers/media/platform/verisilicon/hantro_g1_h264_dec.c
-> index ad5c1a6634f5c..30c2ac32cd0b0 100644
-> --- a/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c
-> +++ b/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c
 [ ... ]
-> @@ -264,7 +264,7 @@ int hantro_g1_h264_dec_run(struct hantro_ctx *ctx)
->  	set_ref(ctx);
->  	set_buffers(ctx, src_buf);
-> =20
-> -	hantro_end_prepare_run(ctx);
-> +	hantro_end_prepare_run(ctx, 0);
-
-[Severity: High]
-This is a pre-existing issue, but do the early error paths in codec run
-callbacks bypass hantro_end_prepare_run() after hantro_start_prepare_run()
-is invoked internally?
-
-If context preparation or reference setup fails in hantro_g1_h264_dec_run(),
-hantro_g2_hevc_dec_run(), or hantro_g1_vp8_dec_run(), early returns might
-miss the required call to hantro_end_prepare_run(). This can leave the
-V4L2 control requests incomplete indefinitely, which could lead to a resour=
-ce
-leak and userspace application hang when malformed streams or invalid V4L2
-parameters trigger these paths.
-
-> diff --git a/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c b/dr=
-ivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
-> index 86cc1a07026f0..78f51e92fb2e3 100644
-> --- a/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
-> +++ b/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
+> +static int vdpu720_fill_chroma(struct hantro_ctx *ctx,
+> +			       struct vb2_v4l2_buffer *dst_buf)
+> +{
 [ ... ]
-> @@ -148,7 +148,7 @@ int hantro_h1_jpeg_enc_run(struct hantro_ctx *ctx)
->  		| H1_REG_ENC_PIC_INTRA
->  		| H1_REG_ENC_CTRL_EN_BIT;
-> =20
-> -	hantro_end_prepare_run(ctx);
-> +	hantro_end_prepare_run(ctx, 0);
+> +	/* Available because variant->dst_needs_kmap */
+> +	dst_cpu =3D vb2_plane_vaddr(&dst_buf->vb2_buf, 0);
+> +	if (!dst_cpu) {
+> +		dev_err(vpu->dev,
+> +			"JPEG capture buffer has no kernel mapping\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	memset(dst_cpu + y_size, 0x80, size - y_size);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is there a missing NULL
-pointer check for the return value of vb2_plane_vaddr() in
-hantro_h1_jpeg_enc_run() before it is dereferenced?
+Can this memset result in data loss or corruption for the UV plane?
 
-Earlier in this function, vb2_plane_vaddr() assigns the virtual address
-of the destination buffer to jpeg_ctx.buffer. If the buffer mapping fails
-due to an invalid exporter or vmalloc exhaustion, it returns NULL. The
-pointer is then unconditionally passed to hantro_jpeg_header_assemble(),
-which calls memcpy() on it, potentially causing a kernel panic. Should
-there be a check here to safely handle mapping failures?
+This memset modifies the CPU cache for a device-owned DMA buffer. Because it
+is called from rockchip_vpu720_jpeg_dec_run() after the buffer has been
+queued and synced for the device, it dirties the CPU cache without explicit
+cache synchronization.
+
+When the hardware completes its operations and the V4L2 core calls
+dma_sync_sg_for_cpu() with DMA_FROM_DEVICE during DQBUF, the CPU cache is
+unconditionally invalidated. Won't this destroy the CPU's memset writes and
+leave the UV plane with uninitialized memory or stale data if non-coherent
+DMABUFs are used?
+
+[ ... ]
+> +int rockchip_vpu720_jpeg_dec_run(struct hantro_ctx *ctx)
+> +{
+[ ... ]
+> +	tail_len =3D min_t(u32, src_len, sizeof(tail));
+> +	memcpy(tail, src_cpu + src_len - tail_len, tail_len);
+> +
+> +	for (i =3D 0; i + 1 < tail_len; i++)
+> +		if (tail[i] =3D=3D 0xff && tail[i + 1] =3D=3D 0xd9)
+> +			break;
+> +
+> +	if (i + 1 >=3D tail_len) {
+> +		dev_err_ratelimited(vpu->dev,
+> +				    "truncated JPEG, no EOI at the end of the %u byte payload (buffe=
+r too small?)\n",
+> +				    src_len);
+> +		ret =3D -EINVAL;
+> +		goto err;
+> +	}
+
+[Severity: Medium]
+Could this strict 64-byte tail search reject valid padded JPEG frames?
+
+If a userspace application or upstream pipeline pads the JPEG payload
+(for example, with page-aligned or container-aligned chunks) and includes
+the padding in bytesused, the padding might easily exceed 62 bytes.
+
+If the 0xff 0xd9 EOI marker falls outside the strictly checked 64-byte tail
+buffer, it looks like valid frames will be rejected with -EINVAL. Could this
+be made more robust by scanning backwards dynamically or parsing the stream
+length instead?
+
+[ ... ]
+> +static int vdpu720_soft_reset(struct hantro_dev *vpu)
+> +{
+> +	u32 status;
+> +	int ret;
+> +
+> +	/*
+> +	 * If the decoder is idle (DEC_E=3D0), set FORCE_SOFTRESET_VALID
+> +	 * before triggering the soft reset, per downstream BSP behaviour.
+> +	 */
+> +	status =3D vdpu_read(vpu, VDPU720_REG_INT);
+> +	if (!(status & VDPU720_DEC_E))
+> +		vdpu_write(vpu, VDPU720_FORCE_SOFTRST, VDPU720_REG_SYS);
+> +
+> +	vdpu_write(vpu, status | VDPU720_SOFT_RST_EN, VDPU720_REG_INT);
+
+[Severity: High]
+Is there a race condition here between the watchdog soft reset and the
+hardware IRQ?
+
+vdpu720_soft_reset() is executed from the hantro_watchdog() workqueue in
+process context and performs an unprotected Read-Modify-Write (RMW) on
+VDPU720_REG_INT. Concurrently, rockchip_vpu720_irq() can preempt this in
+hardirq context and write to the same register:
+
+rockchip_vpu720_irq() {
+    ...
+    vdpu_write(vpu, clr_mask, VDPU720_REG_INT);
+    ...
+    vdpu_write(vpu, 0, VDPU720_REG_INT);
+}
+
+If an untimely IRQ fires, it could clear VDPU720_SOFT_RST_EN or
+VDPU720_SOFT_RST_RDY midway through the reset sequence. Won't this cause
+readl_relaxed_poll_timeout() to fail and force an unnecessary hard reset,
+or corrupt the hardware state? Should this sequence acquire vpu->irqlock?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-rk3588-jpe=
-gdec-v1-0-33d74cdf369c@pengutronix.de?part=3D1
+gdec-v1-0-33d74cdf369c@pengutronix.de?part=3D5
