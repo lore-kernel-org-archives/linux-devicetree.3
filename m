@@ -1,101 +1,194 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973177.qiye.163.com (mail-m1973177.qiye.163.com [220.197.31.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A08B3D1712
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:23:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAAB331A66
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787127783; cv=none; b=rr76l0ovtn2WnSBQ/jx+irsFi7xjwKmZlvzVitioYSJoDRVIj+VBM/BcTqvG7HWucwC7Ddt0NNtXUWfjPgTBRzuKmGsX5UU3CQK4v+79xvpkohR5FLeBICFfSBQdb3skr15NOgbkVqIzuuwhVbm+ncmYRvpAG2jcA4PVoktH9SM=
+	t=1787127889; cv=none; b=iM5MV1aR7OpvNaCQl3LRn3R4rZ/oKccsmnFkgfavDczT3u+q/OMw7soT+ioqVONdK8nA40WEgHW5HgPf717OpRm0sY3P+8CiXfLTzRpGd2Ba4+HYnnfjYNn5T5lxQy9U56iqOHSGxBxMDP5WbAu4vabORjq1ZEdHYHd1vx3P0uY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787127783; c=relaxed/simple;
-	bh=InVNLkHC4ZARvuE21sm2nFi7LoSlGZM8sBE365B18EE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q5nJVkSOzET/lGt7gJIHxp3nxtqitHrzRpT4p53ckEKid0L6wUoo/TdlfUXjBtuneiA734EJXbWhwSp8+6MaIhLUtSU41oAt4jzikKrO19EGTq+xhR15ijJUleQMZ+dZ0QNG5/wd0GAYK/tbAlC3Tggf4UeE3CRX8W000VigSsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b7SmqnQj; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787127889; c=relaxed/simple;
+	bh=sik0mDVctUT213lnIkGPgaXa1x8PU/t2+yphoT9C5ag=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y2v8OrTcVxXfti2xfrDa0mjJRql1wj2s6vvRVeWlPN+aVFey7hzoNWyO7+2MEa8rJbsEDAlUzovgmqPoJi465/FcJEhHPpeCyoVKYXSuU328lNdGPmdByKwgh/wBZhUmJh32ObX80bCWe3H915psYo6svg23dWHgg4yh5Ht3aJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Wf49tPG8; arc=none smtp.client-ip=220.197.31.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b7SmqnQj"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49800c6a846so6719025e9.3
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 01:23:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787127780; x=1787732580; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=InVNLkHC4ZARvuE21sm2nFi7LoSlGZM8sBE365B18EE=;
-        b=b7SmqnQjFXhQ3lb8GEhSkio9sFBUgyHvJOl2yFK1wRXilA3TsjOkqo+Tw6bmifFllG
-         z3ZoXX4pf2j3KN//CXePKQdEQRbLTOE7hmL01N4kRrvizSEMCvqMKle+b6xjTcpZz3AT
-         aGQwtvVQKTMKMz2Ln7ToqfBAfpNSRoQYha5+ToxhXLsptQn8E0WY54yy6Ofq3qxb8JMu
-         sDaywK06N922UrukC7BJ7mIh6B1D6w0cFVI9t97TrPTT4VG76G1WAacS0zZi+fSrmp3v
-         WcYpllgeQ19TDBfV3H2BBVyYgRDvzQUT6bUUrbyRRyPQVkvumH6+jJilA0Ik+gfTPVsE
-         ktzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787127780; x=1787732580;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=InVNLkHC4ZARvuE21sm2nFi7LoSlGZM8sBE365B18EE=;
-        b=WC9T87UWe1wbdYn8rasqUo7WWh+3R3EXNBXQyw9+0wGp459jpLWmKbkcaLT8SdcbEL
-         my8MhpKUMhD6XtDY69CR/sVgX+TofUTI1LEpYVtQOQOHGhONgh+w5NsG5yPsYz+Nf1/7
-         nSCmaUqw3lllAvW2/ZAtZ4/rV/U7h11Vbo+lxml8laauFytvM/PupydDblPrJgWlk83W
-         A832vG1CscRNJlZqGJgdw9K6jCIzKNs2H4TNKz9eEotUD3oCNMKeMtu3M1ueYr/iW2ro
-         kP+lckukevCI2kkbQczdE7P1Wlwaq67MoCJcBBYCxfHGhyZ0Oi4wNiJcubR1b7m6a1PT
-         nPEg==
-X-Forwarded-Encrypted: i=1; AHgh+RrwVYF7snnl5WfABTUEhOXq7DKbb7aoCc1VdNVidd2LFVaXk9ibIg38eUKo61zS99VlciCnySEKQFuq@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJIzfDqNdeKcPcmS6RDQJzStgFHeqGObUlabrbHwC5Om+6z9iA
-	Bp7SfFy9D2IvnKRzKHByt4pHcpMrr5e0uaQ7l4JHLXf4ObQEkA/ez1xE
-X-Gm-Gg: AR+sD12ebUSS5RdYuP8kAwL91n5qnnQsEBfYA3ySTfC1yCFlk4sSJsPVd9mlu7FR65R
-	RDCNq0ucN4jRW/JhYPBGloORrZpx1pGqGwGMmBTYvOZmLgUtmA6jliflVvCVcVmVAnSdTNZtChk
-	09wsmKUvAGwpYsqBz6A0nMWGKJmB/JXdIXElzj5jq+83HjVBPi7h8cTHM0d06ZfZMsu2UQ9zkNF
-	I6WpRuXfEwJyFhiv+8GDdFNe09suhKhXAMzih3ItiV0y+UI0vWE75hlTiTjvMo2nmLJWIlgKit7
-	fneyqezv8bfUOfDcc9GdgKX0CTom+e0yJJLNvZplxrTlPiOYanffpXuYXWBjELKHja/hzPLJVoc
-	5/54y0Rsnc/scWoKBsRd8LiPKlOyT4rfRb9c91R4Tb2nFDD4XIvw6E68yGtEvBnXaSlTFKAGsoj
-	cSqTb272sxz1pEKjLpk7iULbcJmlC/Ho87GDnuZerFTQhJTHCNUZtY1a88FZWWCGYaKDqFaXH0o
-	56oXda+DtmIU9adKiVudULuYeaSDOk=
-X-Received: by 2002:a05:600c:6990:b0:499:900c:9c69 with SMTP id 5b1f17b1804b1-499aa1ba0acmr51276245e9.9.1787127779675;
-        Wed, 19 Aug 2026 01:22:59 -0700 (PDT)
-Received: from fedora.1337.ma ([197.230.240.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9ded661sm35634895e9.2.2026.08.19.01.22.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 01:22:59 -0700 (PDT)
-From: Taha Ed-Dafili <0rayn.dev@gmail.com>
-To: andriy.shevchenko@intel.com
-Cc: 0rayn.dev@gmail.com,
-	Michael.Hennerich@analog.com,
-	andy@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	krzk+dt@kernel.org,
-	lars@metafoo.de,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux@analog.com,
-	nuno.sa@analog.com,
-	robh@kernel.org,
-	skhan@linuxfoundation.org
-Subject: Re: [PATCH v4 3/6] iio: dac: ad5504: remove legacy platform data support
-Date: Wed, 19 Aug 2026 04:22:21 -0400
-Message-ID: <20260819082221.11227-1-0rayn.dev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <aoPjdqzHrU5j5YWz@ashevche-desk.local>
-References: <aoPjdqzHrU5j5YWz@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Wf49tPG8"
+Received: from [172.16.12.74] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a8a51f76;
+	Wed, 19 Aug 2026 16:19:23 +0800 (GMT+08:00)
+Message-ID: <ba494eae-c17f-4a15-8276-fd5dfb372337@rock-chips.com>
+Date: Wed, 19 Aug 2026 16:19:23 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory samsung
+ DP DT properties
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+ <20260707040613.1992841-4-damon.ding@rock-chips.com>
+ <20260707041711.4F7351F000E9@smtp.kernel.org>
+ <00d3f58e-73bb-41da-a2df-dfeeca644b6f@rock-chips.com>
+ <DKSQUNWA86GP.9NHE4ADGYLQH@bootlin.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <DKSQUNWA86GP.9NHE4ADGYLQH@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa0191a852d03a8kunm2c3020ce32ce50
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGU4YHVZCGBlJHUtMTU
+	9MSR1WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Wf49tPG8AhZEW7l91t2U7ST0bn7Q9Uma0wvhTer+YodE0RYsUe3DaI5jT91B0CDIquudx5ocZAtCaODI9RFFNUxfJE6SNo5z3FSK8txPBySWMw7D2Dd7YIsmdXTSxLjioc9PbXszA7v6LXwcGPJKSZean9Lx/HudYgEFyja85lU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=rX0hKwWy09ECWrrBOzQzIvYBTC+ahCzcZPwzdinB3ts=;
+	h=date:mime-version:subject:message-id:from;
 
-> This breaks the case with dummy regulators as far as I can see.
-> Has this been discussed in the previous rounds?
+Hi Luca,
 
-Yes, David Lechner suggested in v3 to follow the pattern in
-adc/ti-ads7950.c. Patch 3 is an intermediate state. Patch 5 replaces
-this block with ACPI_COMPANION() fork.
+On 8/19/2026 3:32 PM, Luca Ceresoli wrote:
+> Hello Damon,
+> 
+> On Wed Jul 15, 2026 at 10:32 AM CEST, Damon Ding wrote:
+>> On 7/7/2026 12:17 PM, sashiko-bot@kernel.org wrote:
+>>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+>>> - [Critical] Failing probe when deprecated DT properties are missing breaks DT ABI and prevents their deprecation.
+>>> --
+>>>
+>>> --- Patch [3]: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties ---
+>>> commit b573dba50acc6087122ffa4a65680322f4d004f8
+>>> Author: Damon Ding <damon.ding@rock-chips.com>
+>>>
+>>> drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+>>>
+>>> This commit reverts a change that made the samsung,link-rate and
+>>> samsung,lane-count properties optional for Exynos DP. It adds error checking
+>>> to fail the probe early if these properties are missing, aiming to prevent
+>>> link training failures caused by zero values.
+>>>
+>>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>>> index 8cf6b73bceac0..293d8adfe9856 100644
+>>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> [ ... ]
+>>>> @@ -1258,10 +1259,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+>>>>    		 * NOTE: those property parseing code is used for
+>>>>    		 * providing backward compatibility for samsung platform.
+>>>>    		 */
+>>>> -		of_property_read_u32(dp_node, "samsung,link-rate",
+>>>> -				     &video_info->max_link_rate);
+>>>> -		of_property_read_u32(dp_node, "samsung,lane-count",
+>>>> -				     &video_info->max_lane_count);
+>>>> +		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
+>>>> +			return dev_err_probe(dp->dev, -EINVAL,
+>>>> +					     "Failed to get samsung,link-rate\n");
+>>>
+>>> [Severity: Critical]
+>>> Does failing the probe when this property is missing break the DT ABI?
+>>>
+>>> Since samsung,link-rate is a deprecated property, a modern schema-compliant
+>>> Device Tree might intentionally omit it. If a system boots with such a DT,
+>>> this check will fail the probe with -EINVAL and disable the display.
+>>>
+>>> Could the driver instead fall back to hardware maximums or sensible defaults
+>>> when the deprecated property is absent, rather than returning an error?
+>>>
+>>
+>> I'm afraid it's difficult to provide a universal sensible default value
+>> here.
+>>
+>> The samsung,lane-count and samsung,link-rate values vary significantly
+>> across Exynos DP device trees, so a generic fallback to hardware
+>> maximums cannot guarantee stable link training.
+>>
+>> Even though these two properties are marked deprecated, all existing DTS
+>> files in our projects have already populated them completely. Moreover,
+>> the current link training logic relies on these two parameters; omitting
+>> either will directly cause link training failures at runtime.
+>>
+>> Therefore, retaining the mandatory property check in probe is a
+>> reasonable approach for now.
+> 
+> I'm still not convinced we should turn an optional property into mandatory,
+> after having been optional since 2016 (based on the commit in the Fixes:
+> tag).
+> 
+> The sure thing is we cannot break existing devices which upgrade to a new
+> kernel.
+> 
+> Se the question is: if a device is missing one of these properties, or
+> both, what happens? The video_info->max_link_rate and/or
+> video_info->max_lane_count will be zero, correct? And if they are zero, is
+> there even a remote possibility that the device will work somehow, maybe
+> only with some rare low resolution or whatever?
+> 
+> If the answer is "yes, there is a remote possibility that one sich device,
+> with some maybe rare configuration, will work", then no, we cannot make
+> this property mandatory now. There can be devices out there working without
+> these proberties, and they would be broken.
+> 
+> If the answer is "there is no way at all a device can work without one or
+> both properties", with a good explanation based on the code flow and
+> hardware docs, then we can consider this change.
+> 
 
-Best Regards,
-Taha Ed-dafili
+Sorry for the confusion, I just submitted the v7 series which crossed 
+with your reply.
+
+To answer your question: there is no way at all a device can work
+without these properties. Here is the code flow when either
+max_link_rate or max_lane_count is 0 (helped by AI):
+
+   analogix_dp_commit()
+     -> analogix_dp_full_link_train(dp, max_lanes = 0, max_rate = 0)
+
+   analogix_dp_full_link_train(max_lanes, max_rate):
+       // Read sink capabilities via DPCD and sanitize them
+       link_rate   = read_dpcd(DP_MAX_LINK_RATE); // >= 0x06 after fixup
+       lane_count  = read_dpcd(DP_MAX_LANE_COUNT);// >= 1 after fixup
+
+       // Clamp by the limits from DT
+       if (link_rate > max_rate)                // 0x06 > 0, always true
+           link_rate = max_rate;                // link_rate = 0
+       if (lane_count > max_lanes)              // 1 > 0, always true
+           lane_count = max_lanes;              // lane_count = 0
+
+       // Configure TX with the zeroed values
+       set_link_bandwidth(link_rate = 0)
+           // writel() is only executed for bwtype == 0x06/0x0a,
+           // so LINK_BW_SET is never written and stays at reset value;
+           // phy_configure() is called with link_rate = 0.
+
+       set_lane_count(lane_count = 0)
+           // writel(0, ANALOGIX_DP_LANE_COUNT_SET) enables 0 lanes;
+           // phy_configure() is called with lanes = 0.
+
+       // Program sink for link training
+       drm_dp_dpcd_write(DP_LINK_BW_SET, {link_rate = 0, lane_count = 0})
+           // DP spec requires link rate in {0x06, 0x0a, 0x14} and
+           // lane count in {1, 2, 4}. Writing zeros is illegal, so the
+           // sink cannot enter the training state.
+
+       // Training loop
+       for (lane = 0; lane < lane_count /* 0 */; lane++)
+           // loop body never executes; training_lane[] stays
+           // uninitialized and no training register is ever programmed
+
+Since the sanitized sink values are always non-zero (link_rate >= 0x06,
+lane_count >= 1), the clamping with a zero maximum unconditionally
+forces the training parameters to zero. Clock recovery can never be 
+achieved, so link training fails deterministically.
+
+Best regards,
+Damon
+
