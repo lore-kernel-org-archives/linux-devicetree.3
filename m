@@ -1,111 +1,101 @@
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FE9397E91;
-	Wed, 19 Aug 2026 21:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3692248F4B
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 21:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787173796; cv=none; b=DdIPjQPxnU8GcvLOA6FbU3yJSmbBPcI/9FmUWxBoVzXPCLS7lrbTvga0DIxqOxXhpvsCGxKLuJu1A+xAEAoOabCxDScXR4osIZwASJwtQGqPLtSSwtWcXzRWL09HoE639NhWJUQpgJhxJ8biOReQ25tde10H+PMjyizacQG2cLY=
+	t=1787174185; cv=none; b=t+RU7j/CnpuGtv2Pzs/RGOxpuQKMVy4HjHJxxtA5/kU4Z6MaFpXSlH0i9PM/k25mAhAOA0A+Lb12ZrM2Oj5LvKnkv2IypFS+bb0w/gfXghQHmgSO8h0CqBpOGvtX+9+U2GM5O8U+sRPvezPWdh9PJkr1SARRGV3OOGJ98erdVPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787173796; c=relaxed/simple;
-	bh=4T6w3Jq+fsVkSUa/RSMCvPR8LYYuUevIOuXZFa8+0Sg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kDzYvpqV/ypLkteDLv5hUw0BWEZo3YQxGNMczuWVbbmQ7ZNAiOUVWNG90UPF2SHmGJBC7oqBI1R0Pu/Gi5MdLcINyfc8vZt0gx00zb6my2ESPgp6Vn3b0dpYx8IYj7Vrd4YSf62+EUfQ7nxBClHbDhfgVBuOC1kDeLoX3n9/W/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=PC5yk7S9; arc=none smtp.client-ip=185.70.43.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1787174185; c=relaxed/simple;
+	bh=DQKnKfj15t5G/xxNfos2zBkkB/DcPAwgAfXZn2ydPuY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pL3TIStEagne4yrzvOHTOnkrsfm3bPRaTpCw7MPBA3OSUhCjWtoI8JZf7Ioxun+T/UfL9hnLzBDCGt4Z2C9zsMKqt7GZJmGx+9p0131I8DlkZTwtIc7CVj0k+mOvhTNuulpw8Z4C90FCBl7sV9ro32nSx7E+qt67Hf3wrE+kJ+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VFD19w3d; arc=none smtp.client-ip=91.218.175.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="PC5yk7S9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1787173785; x=1787432985;
-	bh=4T6w3Jq+fsVkSUa/RSMCvPR8LYYuUevIOuXZFa8+0Sg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=PC5yk7S9nSOaOwBePWwts3HMvfaKjpaunb44hLrAAsTccsHWD71Q6Jg8xDGELK+DO
-	 L8J2S/SN8Z0O5EeSHuLSPEbS0rlhlkQCFhpeSduhNnq7ybaBHJY1/oS7M5os87jo5V
-	 Lw3Vkp/42C+OXeNofTZufuDMqqWqkOdee2v9/eTkyf7DzV312B0UjSs1huyYH38dZc
-	 SZisS3g9U0xthZciBAjJCqv8UTak55WEgIe8jk6Y1AzHVqyrWRIq9PYkEe5Hn/M6Ge
-	 SPmSyhHWaaCP2pzZjO9yByxGw+SnHJEvRneOdmg30t2Fzvse87KoJxL4e2d0SNiJpd
-	 7LhN0Slou9CLw==
-Date: Wed, 19 Aug 2026 21:09:38 +0000
-To: oe-linux-nfc@lists.linux.dev
-From: Kristian Brox <isyourbrainfoss@proton.me>
-Cc: david@ixit.cz, krzk+dt@kernel.org, devicetree@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, luca.weiss@fairphone.com, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org
-Subject: [PATCH v2 3/3] arm64: dts: qcom: qcm6490-fairphone-fp5: add ST21NFCD NFC
-Message-ID: <20260819210906.2500789-4-isyourbrainfoss@proton.me>
-In-Reply-To: <20260819210906.2500789-1-isyourbrainfoss@proton.me>
-References: <20260818205940.1973944-1-isyourbrainfoss@proton.me> <20260819210906.2500789-1-isyourbrainfoss@proton.me>
-Feedback-ID: 203906395:user:proton
-X-Pm-Message-ID: 78d32f01369695d17cf0d846295c987050d0d41d
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VFD19w3d"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DQKnKfj15t5G/xxNfos2zBkkB/DcPAwgAfXZn2ydPuY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787174180; v=1; x=1787778980;
+ b=VFD19w3dMrTHhJ7cPRPUxoQ+viiJlj6SgOmAaHGJGu9FGa0SycWakakrWmzO9MJQtoftWtS7
+ 5Ko5PlW9qOPPnAdOmeDSWDe/468cF5P93tYGrV529106S3CCPUlSPBDYe7PfdmngS6xYLRW9Vqt
+ rcMzea2b5XRE8ghYMq1wN2so=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: from [192.168.1.24] (109.76.127.113)
+	by smtp.migadu.com with ESMTPS id e914fa40502dc47c;
+	Wed, 19 Aug 2026 21:16:20 +0000
+X-Mizu-Trace-ID: e914fa40502dc47c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6a529684-bd6a-4187-9ed9-bb40f4b98065@linux.dev>
+Date: Wed, 19 Aug 2026 22:16:18 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v7 3/3] dpll: add SiTime SiT9531x DPLL clock
+ driver
+To: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>
+Cc: "arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "cjubran@nvidia.com" <cjubran@nvidia.com>,
+ "Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260815221919.64226-1-arouhi@sitime.com>
+ <20260815221919.64226-4-arouhi@sitime.com>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20260815221919.64226-4-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Enable the ST21NFCD on i2c9 (0x08), IRQ TLMM 41, reset TLMM 38
-active-high. Compatible is st,st21nfcd (raw NCI).
+On 15/08/2026 23:19, Ali Rouhi wrote:
+> Add a DPLL subsystem driver for the SiTime SiT95316 and SiT95317
+> clock generators. These devices provide low-jitter clock outputs
+> commonly used in telecom, networking, and data center timing
+> applications.
+> 
+> The driver exposes all inputs and outputs through the Linux DPLL
+> subsystem, supporting:
+>   - Lock status monitoring via register polling or optional INTRB IRQ
+>   - Input priority management for automatic reference switchover
+>   - Per-output frequency readback from hardware state
+>   - Phase offset measurement via TDC (time-to-digital converter)
+>   - Phase adjustment for fine output alignment
+>   - Embedded sync (esync) pulse control on outputs
+>   - Fractional frequency offset of the selected reference
+>   - Optional reset-gpios for hardware reset
+> 
+> The driver reads all configuration from the device's on-chip NVM
+> at probe time -- no firmware loading is required.
+> 
+> Co-developed-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: Claude:claude-4-opus [chat]
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> ---
+>   MAINTAINERS                    |    7 +
+>   drivers/dpll/Kconfig           |    1 +
+>   drivers/dpll/Makefile          |    1 +
+>   drivers/dpll/sit9531x/Kconfig  |   17 +
+>   drivers/dpll/sit9531x/Makefile |    4 +
+>   drivers/dpll/sit9531x/core.c   | 3111 ++++++++++++++++++++++++++++++++
+>   drivers/dpll/sit9531x/core.h   |  372 ++++
+>   drivers/dpll/sit9531x/dpll.c   | 1232 +++++++++++++
+>   drivers/dpll/sit9531x/dpll.h   |   69 +
+>   drivers/dpll/sit9531x/prop.c   |  397 ++++
+>   drivers/dpll/sit9531x/prop.h   |   39 +
+>   drivers/dpll/sit9531x/regs.h   |  371 ++++
+>   12 files changed, 5621 insertions(+)
 
-SYS_CLK is LN_BB_CLK2. VPS_IO is L18B (vreg_l18b). ese-present and
-uicc-present follow the public schematic (NFC_SWP1/SWP2: SWP_SE to
-SIM1, SWP_UICC to SIM2). Reader path is tested; SE/HCE is not.
-
-Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
----
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm6=
-4/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index 29d6265..394237c 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-@@ -1004,7 +1004,23 @@
- &i2c9 {
- =09status =3D "okay";
-=20
--=09/* ST21NFC NFC @ 28 */
-+=09nfc@8 {
-+=09=09compatible =3D "st,st21nfcd";
-+=09=09reg =3D <0x08>;
-+
-+=09=09interrupts-extended =3D <&tlmm 41 IRQ_TYPE_LEVEL_HIGH>;
-+=09=09reset-gpios =3D <&tlmm 38 GPIO_ACTIVE_HIGH>;
-+
-+=09=09pinctrl-0 =3D <&nfc_int_default>, <&nfc_reset_default>;
-+=09=09pinctrl-names =3D "default";
-+
-+=09=09clocks =3D <&rpmhcc RPMH_LN_BB_CLK2>;
-+=09=09vdd-io-supply =3D <&vreg_l18b>;
-+
-+=09=09ese-present;
-+=09=09uicc-present;
-+=09};
-+
- =09/* VL53L3 ToF @ 29 */
- };
-=20
-@@ -1649,6 +1665,21 @@
- =09=09drive-strength =3D <2>;
- =09=09bias-pull-up;
- =09};
-+
-+=09nfc_int_default: nfc-int-default-state {
-+=09=09pins =3D "gpio41";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-disable;
-+=09};
-+
-+=09nfc_reset_default: nfc-reset-default-state {
-+=09=09pins =3D "gpio38";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-disable;
-+=09=09output-high;
-+=09};
- };
-=20
- &uart5 {
-
+as the new version is need, could you please think of how it can be
+split. reviewing if 5.6k lines of code in one go is quite tough
