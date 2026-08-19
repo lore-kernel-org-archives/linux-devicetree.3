@@ -1,137 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49247.qiye.163.com (mail-m49247.qiye.163.com [45.254.49.247])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5FD3890F1
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:28:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB4F3890F1;
+	Wed, 19 Aug 2026 08:28:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.247
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787128085; cv=none; b=Pqzoizk0tf1dhPCuc0Tkn470ij1TBBp/0O/7wnpc7kIABoBEqXUAKSLiZbo6X06PvBp4ajPVHlzihUTck3WK3ZSzmVwazAYgiBiSjoum8yEBDV2LmYapyuYfZgh/Rx2Wo8+kwcrkxmSqhmcrx1J5yTZ2FrYLdygV1blMa78B6Vo=
+	t=1787128124; cv=none; b=WL5ZVP1b3DaKXLZ01mbE4ySVj0mj7TG7E6xGKWc/15RFTxP5EfvqRpRfLAzAyZWkRxoYe1OuzPDK6kh9ylX9JVkHe9TeYhrfz+MCejGBFjE/6D+pFRzaH3tKIhRV5N30nMApbEKf90Q7G0hO55nUNU2NwY4nBE3hgizijvmrrPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787128085; c=relaxed/simple;
-	bh=hN++/kjn1DcE87NGUmQ6qeRZqph+9qFhO1yeRtSTbU4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T867HAe6L9TjBFtU2JzkEzd7iiATjRh043+rQwajJMsoYwAGGWocMQzPtwbHsSobB8Meogs2ZgSmaamO0MvpC3PTFjjifEP5xRT5lef4XNp0ZRvzBEzVKiOIOJIH3Xyfzm90kQcgUt8UcWRR3Z+5i0un45YLe80qaRj/dVXxTmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ad9LeukB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787128124; c=relaxed/simple;
+	bh=EGc2jTS3oA/w9O5c/npYY+tNjKBHzGb7vkKuG05Wbbc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=X3tlcKQ27g+YYLRKxSMxYsBCz8iiMwmiMjTg+Z1u4jSMh10L16LsyvD3Ny3ZhclQBom8HtLxyX92j8I+Q+i1RVFL4GWEcu19RZHsXOovi/mHrWmyHNwGZGsFtCDRn9+Ud3yVFot0/k6I2YuuxbeE8eZytGlYmyj7PcSkLBOOmBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=HzCKaOW9; arc=none smtp.client-ip=45.254.49.247
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ad9LeukB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A971F000E9;
-	Wed, 19 Aug 2026 08:28:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787128084;
-	bh=Na2OWT+pngk8rHxIi+lOqxxN8CRnQFK0BDckFOwKFG0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ad9LeukB86DYqleaTK7POYt5WIfeWgoxDN0ZLGCOlX3wSaSJOeVRX1Nf+EXh06WPO
-	 b4NrGbz1zLqdCZpSISX+D297+3tjUCtFcXrrMgs+tmqmjBnpW9JIRMYa1b38HV0lcY
-	 jfb3qz6+jbmZkplxpZo9GVebz+CV1H/EvqwBEBD8moX/MaQmAq7N8Ml3QNhVynzGND
-	 S7fo3XvT9o1+ZRm1YrYvG2fMWtrlMTWZccI/U8zmfw0XVPr6239y/gCQ8KxIcQxdrJ
-	 olmWPkvz7fAoerqMkEpUc4DNFu0ebBybKnzLJUZMwHZ0wDptnU+/V59zC4YJo+ll5l
-	 ECoicDP0eweCQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v5 6/6] iio: accel: mma8452: Reuse existing dev
- pointer in mma8452_probe()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260819-mma8452-open-drain-v5-6-d8aa590d7c36@geanix.com>
-References: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
- <20260819-mma8452-open-drain-v5-6-d8aa590d7c36@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 08:28:03 +0000
-Message-Id: <20260819082804.22A971F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="HzCKaOW9"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4a893479b;
+	Wed, 19 Aug 2026 15:53:02 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v7 4/5] drm/bridge: analogix_dp: Add validation for samsung,lane-count property
+Date: Wed, 19 Aug 2026 15:52:37 +0800
+Message-Id: <20260819075238.3007087-5-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260819075238.3007087-1-damon.ding@rock-chips.com>
+References: <20260819075238.3007087-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa01902646003a8kunmf3c4117e328bca
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSR5NVkNDGUhISkhKSEpMHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=HzCKaOW9WVbpPe+w4/1hzHZaG4ieDLwJ6pMO+fx2kpJA/wpP6czM6EbZpbGY0HaqGzRkdjMdMmXkhGyqBYajk4WZV4bnan9DveUsgx/ztdJ0EDE6RwzeLVi9T0qLy8z4yieZQDO3IdlkRXr2KJoKFO5zc7LgY0qZ09tjJj4ChtU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=sufZXYFvhqt99gCkQ0mCK5s0oy3fyCr/7BG8YjyOEgU=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Add validity check for samsung,lane-count to ensure DT-provided
+lane count values are specification-compliant.
 
-New issues:
-- [Low] Compilation Error in mma8452_runtime_suspend() due to undeclared id=
-entifier 'client'.
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-Pre-existing issues:
-- [High] Missing pm_runtime_disable() in mma8452_probe() error paths leads =
-to a guaranteed NULL pointer dereference in the autosuspend callback.
---
+---
 
---- Patch [6]: [PATCH RESEND v5 6/6] iio: accel: mma8452: Reuse existing de=
-v pointer in mma8452_probe() ---
-commit 004c22b83c7e1b63662958bd7b1a838d3015cf83
-Author: Esben Haabendal <esben@geanix.com>
+Changes in v5:
+- Apply DRM DP helper API to check the validity of DP lane count.
 
-iio: accel: mma8452: Reuse existing dev pointer in mma8452_probe()
+Changes in v6:
+- Rebase after the new commit for restoring mandatory properties
+  samsung,link-rate and samsung,lane-count.
 
-In commit 32a5c04d4575 ("iio: accel: mma8452: Use dev_err_probe()") the
-struct device * pointer was assigned to local variable dev, so we can just
-as well reuse that throughout the function for sligthly more readable code.
+Changes in v7:
+- Add Reviewed-by tag.
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index 060a6207e52d0..bf5cb1c4425a3 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index ddb15d6de05f..a74c855936b2 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1274,7 +1274,8 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 			return dev_err_probe(dp->dev, -EINVAL,
+ 					     "Failed to get samsung,link-rate\n");
+ 		video_info->max_link_rate = val;
+-		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
++		if (of_property_read_u32(dp_node, "samsung,lane-count", &val) ||
++		    !drm_dp_lane_count_is_valid(val))
+ 			return dev_err_probe(dp->dev, -EINVAL,
+ 					     "Failed to get samsung,lane-count\n");
+ 		video_info->max_lane_count = val;
+-- 
+2.34.1
 
-[ ... ]
-
-> @@ -1731,14 +1730,13 @@ static int mma8452_probe(struct i2c_client *clien=
-t)
->  			goto buffer_cleanup;
->  	}
-> =20
-> -	ret =3D pm_runtime_set_active(&client->dev);
-> +	ret =3D pm_runtime_set_active(dev);
->  	if (ret < 0)
->  		goto free_irq;
-> =20
-> -	pm_runtime_enable(&client->dev);
-> -	pm_runtime_set_autosuspend_delay(&client->dev,
-> -					 MMA8452_AUTO_SUSPEND_DELAY_MS);
-> -	pm_runtime_use_autosuspend(&client->dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, MMA8452_AUTO_SUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> =20
->  	ret =3D iio_device_register(indio_dev);
->  	if (ret < 0)
-
-[Severity: High]
-This is a pre-existing issue, but if mma8452_probe() fails here, is there a
-missing pm_runtime_disable() in the error paths?
-
-If mma8452_probe() fails after enabling PM runtime (for example, during
-iio_device_register()), it returns an error without disabling PM runtime or
-autosuspend. The driver core cleans up the device and clears its driver data
-via dev_set_drvdata(dev, NULL), and queues an idle notification.
-
-Because PM runtime is still active, this triggers the autosuspend timer.
-When the timer expires, the autosuspend callback executes:
-
-drivers/iio/accel/mma8452.c:mma8452_runtime_suspend() {
-    struct iio_dev *indio_dev =3D i2c_get_clientdata(to_i2c_client(dev));
-    struct mma8452_data *data =3D iio_priv(indio_dev);
-    ...
-}
-
-Does this lead to a reliable NULL pointer dereference when iio_priv()
-dereferences the cleared driver data?
-
-[Severity: Low]
-Also, looking at mma8452_runtime_suspend(), does the module fail to compile
-when CONFIG_PM is enabled due to an undeclared identifier?
-
-The code attempts to call synchronize_irq():
-
-drivers/iio/accel/mma8452.c:mma8452_runtime_suspend() {
-    ...
-    synchronize_irq(client->irq);
-    ...
-}
-
-Since client is not declared in the scope of mma8452_runtime_suspend(),
-should this access data->client->irq instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-mma8452-op=
-en-drain-v5-0-d8aa590d7c36@geanix.com?part=3D6
