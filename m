@@ -1,186 +1,154 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952CF3C13E2;
-	Wed, 19 Aug 2026 17:01:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AEF3AE184
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 17:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787158904; cv=none; b=sAX9d2SnNbLgNiwnUnijkOhwyl4/UvPSnaa3E3jfBdewvdOP/2sLdEXbuyzAC2VV/atSGmrd3EA5ln8SkLp3bCspiNkETTgbFlzAIjkF9H2SOJ2mQtKNj3WZWZH5EIW1wAC0JQM30vafMlLZP7te4QAUg/sbt4KLc/78LqHMjco=
+	t=1787158999; cv=none; b=PpqXzWM7XAPJGqYeZQzwse9rhRt6Vy8ImmF3QO4mIkkUyc0yfqtrqOU82XKHVuwv/NhH+3kINhexw1bxBi62MWMQX/17DRWNOJjTIs3u5EWDGs7O4HbE3b/gFlfqEwuOiaDW99QgSlGIPBA8ivSdWyRXuVlnP0BT0l21PDnYU3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787158904; c=relaxed/simple;
-	bh=s9Nmu3mlDb/iXg6RVxezniVrImHntu3PU2fLC6nVL48=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QsV62oREAROeQ9igiRbKViQuKLfbmjEtfoDMPbpV1w9KxhpUv5FL0hXUqzvPbiNdxbdXzbv2zBZ2k4O7Vv4u4SX62YGBc1tr3snpN5h5NUMvsAT3bQZaUx9ILValqh+JVbkQKvyL1GneH/Qe9vzZSXwNFvYmOHnpvg3sO/z2q3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=qvSF710Z; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	s=arc-20240116; t=1787158999; c=relaxed/simple;
+	bh=+R9oyb/VW7/Bl2doAiWzH+xyTTVjkDuRRnpay6hPZKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bDa9VZfoy4kcGn/ZOfknrExEOL3aialNbmyQdLdIP0TAziIjwFj3dCKVS8xgCz8mKd3bYPSw+60WDuJub21yklzd3/pSKQ9DWG1n94Z+q3niqeuz9R8LQBalOK/JclqinVdk7WXnoyewQsOfLhhVBrHPNwcTmxLeQYXDHscTnp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gdOIotAo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="qvSF710Z"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Content-Type:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=QJLmJKXlE0uHAoUkROK+QmZzPN8vgfWXVTQRcLqVJeE=; b=qvSF710ZuZB6YQM6qKC1AGm68Z
-	y7QRxDzqUxBL4GW669WZ4+sTsCRuRdF+qBkKw8zonGifhp7FgrNwLMnpuP8maO33FUQ6L2hnUzPdy
-	K3xk5mE6vS+sMqOh+FUOnr9ZjvwCIngiAl6UHlJtGaRCuhpkYqRNUbITQE7oCvHnxCu5iv8Tp4Bme
-	RRFlTXajm5q1HYnvYSWmt8cGWvG9ooLwXuhBtiSfGyH+lS55RZCcWbo3pErGDND+Oo4vQZEOp22YL
-	MkK7BFGhGpLHzcmaDZQCnRL8jllMOe6IOlXDCaDEWiTurDRr6cx5fmV2ctwZg4Ikh80U8rwmtig1+
-	HfCtx1kA==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1wwj2c-0000000D4km-3jeK;
-	Wed, 19 Aug 2026 18:21:26 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gdOIotAo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBB461F000E9;
+	Wed, 19 Aug 2026 17:03:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787158997;
+	bh=0gp3VyYOMdGHK42yR9w7EY3RDGcSJHOd19lsKKn2S+o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gdOIotAoNtVOSdgwQhmtNFCSNg7aCpmPjSDk96J0wV6oEXAm37RRoebAJ6CZszI/e
+	 eftl7m5a2l65rNyUC1eAqlesPnsQY0Sh9Rdx/RzI0w1z0N+bpUM8IQtPh83s1Z10rp
+	 +lhmgBmlkmSTrGXH5DtsuMGzqq5xPjBxzTFg8PnH2R+4KmoDCIDGNf12qik705dHMv
+	 tVb2J86MtdiovRbCruIgMCALR1Y0vkQKcqH60w7qLTMHTWWo+QmhLeflE3YW1r1uV8
+	 H4/g3jIdaKD8LXtbGTvDuRpufeqnaGjS7KNA/i4jieboNp9ix7+6f/S0oyh2Lgtjw+
+	 nFp/IoTSJgdyQ==
+Date: Wed, 19 Aug 2026 18:03:12 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Yaxing Guo <guoyaxing@bosc.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
 	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>
-Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
-	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
-Subject: [PATCH v3 2/5] riscv: dts: spacemit: k3: add USB3 B and C controllers for Pico-ITX board
-Date: Wed, 19 Aug 2026 18:15:43 +0200
-Message-ID: <20260819162115.2252812-3-aurelien@aurel32.net>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260819162115.2252812-1-aurelien@aurel32.net>
-References: <20260819162115.2252812-1-aurelien@aurel32.net>
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, inux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, yangyinglu@bosc.ac.cn,
+	yangyinglu <yangyinglu@bosc.cn>
+Subject: Re: [PATCH] dt-bindings: riscv: firmware: Add OpenSBI configuration
+ binding
+Message-ID: <20260819-extent-decrease-0483d66a87af@spud>
+References: <20260819090411.18561-1-guoyaxing@bosc.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="AaeJ4SPdX0PPAsBI"
+Content-Disposition: inline
+In-Reply-To: <20260819090411.18561-1-guoyaxing@bosc.ac.cn>
 
-The SpacemiT K3 has 4 USB3 controllers labelled A to D.
+--AaeJ4SPdX0PPAsBI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On the K3 Pico-ITX board, the controllers B and C are used in USB2 mode
-only respectively for the M.2 B-Key slot and for the RTL8852BE Bluetooth
-controller.
+On Wed, Aug 19, 2026 at 05:04:11PM +0800, Yaxing Guo wrote:
+> From: yangyinglu <yangyinglu@bosc.cn>
+>=20
+> Add a Devicetree binding for OpenSBI configuration data in the
+> chosen node, including the cold-boot-harts property.
+>=20
+> OpenSBI supports describing certain Generic Platform configurations in
+> the device tree passed by the previous boot stage. The OpenSBI source
+> tree documents the `opensbi,config` node and provides the corresponding
+> device tree parsing flow.
+>=20
+> The `/chosen/opensbi-config` node can be used to configure OpenSBI,
+> including the set of harts permitted to perform a cold boot through the
+> `cold-boot-harts` property. OpenSBI parses this node during the boot
+> phase and removes it from the device tree after cold boot.
+>=20
+> Add the Devicetree binding for this OpenSBI configuration node to
+> document the supported `compatible` and `cold-boot-harts` properties.
+>=20
+> Signed-off-by: yangyinglu <yangyinglu@bosc.cn>
+> ---
+>  .../bindings/firmware/opensbi,config.yaml     | 38 +++++++++++++++++++
+>  1 file changed, 38 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/firmware/opensbi,co=
+nfig.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/firmware/opensbi,config.ya=
+ml b/Documentation/devicetree/bindings/firmware/opensbi,config.yaml
+> new file mode 100644
+> index 000000000000..86b1e1e673a8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/firmware/opensbi,config.yaml
+> @@ -0,0 +1,38 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/firmware/opensbi,config.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: OpenSBI Firmware Configuration
+> +
+> +maintainers:
 
-Add the two controller nodes, the two corresponding USB2 PHY nodes, and
-enable them on the K3 Pico-ITX board.
+You probably should've waited for a response to your question about who
+should maintain it before sending, becuase I am not entirely sure this
+software configuration node should be documented or if the maintainers
+of opensbi would want it to be.
 
-Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 18 ++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 64 ++++++++++++++++++++
- 2 files changed, 82 insertions(+)
+Cheers,
+Conor.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index 171bd2f40aa6..e932e464e645 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -323,6 +323,24 @@ &usb2_phy {
- 	status = "okay";
- };
- 
-+&usb3b {
-+	maximum-speed = "high-speed";
-+	status = "okay";
-+};
-+
-+&usb3b_u2phy {
-+	status = "okay";
-+};
-+
-+&usb3c {
-+	maximum-speed = "high-speed";
-+	status = "okay";
-+};
-+
-+&usb3c_u2phy {
-+	status = "okay";
-+};
-+
- &usb3d_u2phy {
- 	status = "okay";
- };
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index 3e24054d2084..f885e2b4207b 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -441,6 +441,70 @@ soc: soc {
- 		dma-noncoherent;
- 		ranges;
- 
-+		usb3b: usb@81400000 {
-+			compatible = "spacemit,k3-dwc3";
-+			reg = <0x0 0x81400000 0x0 0x10000>;
-+			interrupts = <125 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&saplic>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTB_BUS>;
-+			clock-names = "usbdrd30";
-+			resets = <&syscon_apmu RESET_APMU_USB3_B_AHB>,
-+				 <&syscon_apmu RESET_APMU_USB3_B_VCC>,
-+				 <&syscon_apmu RESET_APMU_USB3_B_PHY>;
-+			reset-names = "ahb", "vcc", "phy";
-+			phys = <&usb3b_u2phy>;
-+			phy-names = "usb2-phy";
-+			phy_type = "utmi";
-+			snps,dis_enblslpm_quirk;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis_u3_susphy_quirk;
-+			snps,dis-del-phy-power-chg-quirk;
-+			snps,dis-tx-ipgap-linecheck-quirk;
-+			snps,parkmode-disable-ss-quirk;
-+			dr_mode = "host";
-+			status = "disabled";
-+		};
-+
-+		usb3b_u2phy: phy@81500000 {
-+			compatible = "spacemit,k3-usb2-phy";
-+			reg = <0x0 0x81500000 0x0 0x200>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTB_BUS>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		usb3c: usb@81700000 {
-+			compatible = "spacemit,k3-dwc3";
-+			reg = <0x0 0x81700000 0x0 0x10000>;
-+			interrupts = <148 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&saplic>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTC_BUS>;
-+			clock-names = "usbdrd30";
-+			resets = <&syscon_apmu RESET_APMU_USB3_C_AHB>,
-+				 <&syscon_apmu RESET_APMU_USB3_C_VCC>,
-+				 <&syscon_apmu RESET_APMU_USB3_C_PHY>;
-+			reset-names = "ahb", "vcc", "phy";
-+			phys = <&usb3c_u2phy>;
-+			phy-names = "usb2-phy";
-+			phy_type = "utmi";
-+			snps,dis_enblslpm_quirk;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis_u3_susphy_quirk;
-+			snps,dis-del-phy-power-chg-quirk;
-+			snps,dis-tx-ipgap-linecheck-quirk;
-+			snps,parkmode-disable-ss-quirk;
-+			dr_mode = "host";
-+			status = "disabled";
-+		};
-+
-+		usb3c_u2phy: phy@81800000 {
-+			compatible = "spacemit,k3-usb2-phy";
-+			reg = <0x0 0x81800000 0x0 0x200>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTC_BUS>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		usb3d: usb@81a00000 {
- 			compatible = "spacemit,k3-dwc3";
- 			reg = <0x0 0x81a00000 0x0 0x10000>;
--- 
-2.53.0
+> +
+> +description: |
+> +  OpenSBI configuration data passed in the chosen node.
+> +
+> +properties:
+> +  compatible:
+> +    const: opensbi,config
+> +
+> +  cold-boot-harts:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    description:
+> +      List of hart CPU nodes selected as cold boot harts by OpenSBI.
+> +
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    / {
+> +        chosen {
+> +            opensbi-config {
+> +                compatible =3D "opensbi,config";
+> +                cold-boot-harts =3D <&cpu0>;
+> +            };
+> +        };
+> +    };
+> +...
+> --=20
+> 2.43.0
+>=20
 
+--AaeJ4SPdX0PPAsBI
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaoXh0AAKCRB4tDGHoIJi
+0hAgAP9iZc/Vjyv2t7oMgTJef0tLRpRYzg9LpjDOV4Z2aFzYPQD4zArzLmonHrjO
+81f/gVpfnmIDblnPGBbk/N+hLqSjDA==
+=eeVi
+-----END PGP SIGNATURE-----
+
+--AaeJ4SPdX0PPAsBI--
