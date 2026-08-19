@@ -1,117 +1,94 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D353859EC
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:02:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC15336654C
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787148171; cv=none; b=qugXxYu+3M1oKz2iTgMsDI5e0Z1h6KywmUl3Foly5qXl8pummWI4u8o9J8qJ3+EUuvCU25w3kxoNewkZsa0RixsZOROQNMeJbd2eOQdc/CpGDB99mgVc63lnclyGHwe4hXJISgyPlfza8w/wODSoY7HZnYkSdJ8mOGwC3I8VW/Y=
+	t=1787148222; cv=none; b=RHNcOEret4ZUApaQk6wXu/hNFEo4ayKeTSbNbXANSjSSkKILT12OuzmTwQFPlAZgwWhsxMJxZWuSaE7jc1WXsmwc+kN4X8Y0vTIE4j4teneiBpaXbvHG91K8Qcl0SfT2fjpWDpkwZc0pTMbGeeyatajooRSU96VHYHYAdQhX+hQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787148171; c=relaxed/simple;
-	bh=dlXJOH7EU0a51dAApmdxSA9IP84RNY0Lan2Iu+swRps=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=KDKfy47WBGr0EamtoJAoNbyuy59uxLjMAi9VpvvJMJLucSVzVeQarp8XHIfxTGdmfv3qJC9+EX4Pquudgh8Dy93aTDay8r8UohksW9QAPgiOTzH+BEbEaieMtza8Fyb6H77nuxeY5J8egkJUt6trVAZUggMPb8RHJ1mRcQ2LIA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=I+/PiMJQ; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	s=arc-20240116; t=1787148222; c=relaxed/simple;
+	bh=D3asTxEtMBFQyhJI2W3rfwp/lIw7OjZuoC4o/AqXs80=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cxMAa0+6RDd0bYnaYWYHqeMDPCqcLPqzzGWxNFJxlnaJ1JEBJnQDDWynmCm+m2RXijN8QDUUMalT4O/fiKuL8gqdbfkq+Vuo5AWyH6lbRWEy+RYeI5ub8KcA+8wiOXSGWjnApuM86Iq9Ddubmb11ftm7d8sVhI6n/tC89F9SCIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nxbd/Ixt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="I+/PiMJQ"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso12172235e9.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:02:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1787148168; x=1787752968; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6HUNEom2bL9x12H58ozzx5ab5h2GR4Ct4g1sEt5gJ2k=;
-        b=I+/PiMJQJv0XawfDuNp57y9GkpvVNTMB8xLKF4+LKK8FtXU9E9KcKa5ObGN5gXi9O8
-         mqjnEBtgsLPVludn0DA7UOpO0Xe/xu1a0P6otNZvXocnDW1dIJXtQzQbXEzNUx6+WuaC
-         eT86qngvLPshW7Vh0H3ULeGheFXTuVP+iXQ3lffYfwRkJZ4KTacL+sC6vZSxZeYFJtaS
-         oDTYuIIUMn6QVGw2DJczLwIBfW76N7jhYCsOwI9+HiYXN95lPpZOCMu3Hzou1RqHYyjL
-         7FcaVwnG5qt+JtA+7Uipc5XzMSnkkjfMk2kyyo5a400eu6ceNWoZzlcByLP5khku8Zd3
-         0kwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787148168; x=1787752968;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6HUNEom2bL9x12H58ozzx5ab5h2GR4Ct4g1sEt5gJ2k=;
-        b=qi+9a6TTuCLV365IgSPHA3fT4JguCkGKnJ0/9wFKSpJn7ZDB9OtFmcO0avJEkoEYUD
-         XbvIOyAXh4IQDJChV3yjRR3tiuDfVVkh/87BAPAmnWPtPToUGBE6BR9Al24YJXq2iiHz
-         wzPd7c5cAAxlYd5fHSLfKPBN5z3o84gg2GHzzsn8pY25JH7q2RPGD/xLD089RbkhJX3a
-         OTreGlBxun7vuu/E0FhujPQrlpnFhqNG0cvdAqHBjX6q0n0aScjTGegFl/g0janMYZ4t
-         YKTT2+OBHRuFXpYq5C3GUnPFA/yBfinEnhwDReFWV5xk96SUui5aZ2bPrf0r9wGPLxDv
-         GNBw==
-X-Forwarded-Encrypted: i=1; AHgh+RoULb4nA+SK/QYs3icKUGa/2WyrGlF/2T0nKp2aF7Jje2vDOpsypfyny9qZI8Iar+PngjAEBYnbUUC2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjjZQZfvoLmZ71KAyynzieAwYxu7UHv3bh3Hn0OpE71QOYop2s
-	qcu3hyXkm1ZyugkbVHeCTQ//1Ztok5PNcIFCGLMXgKXwOiVZH1EF/vmjmImcxxjxKrs=
-X-Gm-Gg: AR+sD11KW0UsA5jkIR7x028YSbjxxsSVZpmifep3H5cRzaGTbVThZjs4+/LFVUzmS2+
-	D/SFoQw6ygu3fDFEhgK5Sd10P4EBnd1t5aD61/bjUd565hlvxpnyweLcrMwlX9DBWVlZvMlHJ6e
-	2zo/75EwZZK4ZQz3rOKty1PUDba5nzIRGzeDRU1bWG7D2sgxRFHVYYg5vHjH8yUfeDXuJ845Bnj
-	7if0Qwx7J/mDu6rtEyuA+Es1sApmkhWdp6gdKWfHTvRv5UkZxaJgf6Xj5l/oKrhyBo2TPDQWWDH
-	DqY5oyPnskf5uoA2zsH1elNT3He3ZUMP7I80Kszzth3FKsZ1luuIkwbr5sDHfyDr8wdZRgRsE9+
-	jUyCtg5wfWqzUNII8OkNzcjM/1I7w0xCkofFOBXnW0099ssjFJ/vEp2jtYhsBlCT22wGsLaEqaw
-	BX0owYgtcAFArIQoKB1XQ5XdgVoC9CV/f63IO/v8qnsE3D/ssNHF0qz+DL2mGMIvFVrxyKRydRa
-	nyAly4=
-X-Received: by 2002:a05:600c:4eca:b0:496:c1f3:e8f8 with SMTP id 5b1f17b1804b1-499aa1a7a53mr77553585e9.7.1787148167637;
-        Wed, 19 Aug 2026 07:02:47 -0700 (PDT)
-Received: from [10.0.5.39] ([2a01:599:445:d261:4474:9672:b73d:5481])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa1111a7sm65896975e9.6.2026.08.19.07.02.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 07:02:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nxbd/Ixt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400F71F000E9;
+	Wed, 19 Aug 2026 14:03:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787148221;
+	bh=Ev6HPOkHJXs6htNehars696eH1TMKtM73CSIOZw230Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Nxbd/IxttHaOl2B4vTPNcwIx6wYDcy050oXLTAi5N2mCugUZwnEmIyzNV2w/fIzVA
+	 +NDD1AuzCdcVqnI9D6RTJBAQevG1bAlT8xWp04llnXHYxiu3iytUbXYEOLS8nAd0Np
+	 8JLjWXFnM+g+AwXq7/7SnHZIAQMp0Xf0uYQR0gHWpeLtKAdL8qmfcvmlllT4ANUGBs
+	 ThdnUocmoU+YkacsmUNoi53s8J74gA1qgw9qvrljU0e5euD4tJK3J0HdtlNDdtfvNL
+	 zPiIIPXKxW4jvEyRos67sPWUUel7e1ARgMz+ltSwv5aRfEhXSk27E6X4HhhqNnrv6W
+	 ZLrFCG9BxPkxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: monaco-evk: Describe the PCIe
+ M.2 Key E connector
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wei Deng" <wei.deng@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260819-b4-monaco-evk-m2-v1-v3-3-988145ef65cd@oss.qualcomm.com>
+References: <20260819-b4-monaco-evk-m2-v1-v3-0-988145ef65cd@oss.qualcomm.com>
+ <20260819-b4-monaco-evk-m2-v1-v3-3-988145ef65cd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 14:03:40 +0000
+Message-Id: <20260819140341.400F71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v6 6/6] ARM: dts: aspeed: g6: add aspeed,vuart-over-pci
- prop to vuart3 and 4
-From: Tan Siewert <tan.siewert@9elements.com>
-To: =?utf-8?q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, 
- devicetree@vger.kernel.org, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, Lee Jones <lee@kernel.org>, 
- =?utf-8?q?Gr=C3=A9goire_Layet?= <git@gregoirelayet.com>, 
- Tan Siewert <tan.siewert@9elements.com>, linux-kernel@vger.kernel.org, 
- linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, mfd@lists.linux.dev, andrew@lunn.ch, 
- jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, ninad@linux.ibm.com, 
- anirudhsriniv@gmail.com
-In-Reply-To: <20260818-aspeed-driver-v6-v6-6-fd7cc0b338ea@9elements.com>
-References: <20260818-aspeed-driver-v6-v6-0-fd7cc0b338ea@9elements.com>
- <20260818-aspeed-driver-v6-v6-6-fd7cc0b338ea@9elements.com>
-Date: Wed, 19 Aug 2026 16:02:33 +0200
-Message-Id: <178714815309.32179.8598674853319251320.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787148161; l=396;
- i=tan.siewert@9elements.com; s=20260527; h=from:subject:message-id;
- bh=dlXJOH7EU0a51dAApmdxSA9IP84RNY0Lan2Iu+swRps=;
- b=c/KerOBtBLlU7G268kqzunbiL/W9hE013JTk3ATgEU/VaHaT/LXB+PpH0Ob3QlfkpPx+mFF/z
- EYquBWAhiQTBMj721ke3wRMepR8gy9yQ4WznJiFfSG2PvjnXP2qnlLi
-X-Developer-Key: i=tan.siewert@9elements.com; a=ed25519;
- pk=ORQd/zQf+LsAvJGXP1CjQwVO6t6iEOGq/eGUsmRVTG4=
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Node overrides are not sorted alphabetically.
+--
 
-On 8/18/26 12:29 PM, Grégoire Layet wrote:
-> The VUART 3 and 4 are VUART over PCI.
-> Set this flag to indicate this information.
-> Also set the scu-syscon phandle.
-> 
-> Added lines are compliant with dt-style strict mode
+--- Patch [3]: [PATCH v3 3/4] arm64: dts: qcom: monaco-evk: Describe the PC=
+Ie M.2 Key E connector ---
+commit 208b6f2eef3b23e678fa76e3866767bc52da9a8e
+Author: Wei Deng <wei.deng@oss.qualcomm.com>
 
-nit: no need to add this explanation about dt-style strict mode.
+arm64: dts: qcom: monaco-evk: Describe the PCIe M.2 Key E connector
 
-Other than that, changes are fine.
+The monaco EVK has a PCIe M.2 Mechanical Key E connector to connect
+wireless connectivity cards over PCIe and UART interfaces. Hence,
+describe the connector node and link it with the PCIe 0 Root Port and
+UART2 nodes through graph port/endpoint.
 
-Tan
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk.dts b/arch/arm64/boot/dt=
+s/qcom/monaco-evk.dts
+> index 9d17ef7d2caf1..5930ddb3b4b18 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/monaco-evk.dts
 
--- 
-Tan Siewert <tan.siewert@9elements.com>
+[ ... ]
+
+> @@ -923,3 +971,11 @@ &usb_2_hsphy {
+> =20
+>  	status =3D "okay";
+>  };
+> +
+> +&uart2 {
+> +	status =3D "okay";
+> +};
+> +
+> +&uart2_ep {
+> +	remote-endpoint =3D <&m2_e_uart_ep>;
+> +};
+
+[Severity: Low]
+Are these node overrides out of alphabetical order?
+
+They appear to be appended to the end of the file after &usb_2_hsphy, rather
+than sorted alphabetically alongside the other node overrides.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-b4-monaco-=
+evk-m2-v1-v3-0-988145ef65cd@oss.qualcomm.com?part=3D3
