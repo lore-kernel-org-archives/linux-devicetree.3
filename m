@@ -1,172 +1,171 @@
-Received: from mail-m19731119.qiye.163.com (mail-m19731119.qiye.163.com [220.197.31.119])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC4A376BEF
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD86144A413
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787134188; cv=none; b=luBynhQgfk6eFnvVrKVEJyJcknXIiu9Q/ZMACb6YjpKkdLbOdawek7qJusE8JZdvk2zEAJBbC/m9xsFbt02rD2pw8C97q4KkCoPCdrGJnrix59up5eK4VZlLvQYJkLWPXOXWARISv/J1w+3uptYww63/YBUluS7mugd61MSgnbA=
+	t=1787134750; cv=none; b=Nz3FbzNOcxFedHBewLew6+UyvQ4vHA8ylfG3Kj1sT8h1PbV1cTeYXC99rXie0RmTuogss/dF5EVaI3YrWQNR3Ub4yQekT0Gigw0l8uvQRW3JaJUepmdFyDnhBc/037a2P0XvrEKX/A9aYbcCvpQNB8mbAu+1ERyEhb6IXXhXdv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787134188; c=relaxed/simple;
-	bh=+2pari/f+A9InDed14Yk6z4S5bn5gEqmS5rfItbpUjA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qY3KQG8VWt17ybdUnJGyzAsVl2AnwVIi6p+rzlaabpmISFYN4Jm+/Yw0Sc9gsdxcMl2ZE5AyYOzbVsWNy6uH3zvuFTny4kbc/HpOwTtUPuIrUBzKBa8i1OtHPVEOXWTsd9ooj8sbJa6F/X8qoMBmQRL6OXN44eMV0nuCMCFhrbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=bGWaL0kF; arc=none smtp.client-ip=220.197.31.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1787134750; c=relaxed/simple;
+	bh=mB2k6fkTEX/X6Ehpuqb3lPl4W7hNy0irUOHAB0TtlS0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hc8j0xeEc8/WfkS/f52emd49DwiK0/xOpMmkx44omykIiV74jbhuF+FFfYfcSsQPeOHX98vkr3nP8LP5UGnOKKBhOcPbJeYxvyAmzt4dEH8+IvrJ6VAfiJmBp90fLpwFgx2zFJeGtdxsP/UjiIC7++EgGNSYG0iOlhyDf8vCeOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n9+qK3Wv; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="bGWaL0kF"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4a8bd8e40;
-	Wed, 19 Aug 2026 16:53:54 +0800 (GMT+08:00)
-Message-ID: <f0151ee4-f660-43d2-a49d-13ab2ad12dbc@rock-chips.com>
-Date: Wed, 19 Aug 2026 16:53:54 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n9+qK3Wv"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49557167508so8689125e9.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:19:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787134747; x=1787739547; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Fjy7BDi48DK0VY42L1wkEP3ayVKA14OCO7JVfsirlug=;
+        b=n9+qK3WvpE48yoN8M6rcPiQeQFm0z8BAQhjLhV629vJIQn7N5pN+NtjfUaaZUYkqeV
+         Y3UXw9ic028gMWM4eZQ0sQboWO2Fjuf/SDcRh6u0nFfiw00+chShHS+J/ti4LHvUBuXD
+         14I5Oni8Wu8Jhb7PBPgKuX91m4fRLgIl8cGY7EbWeGoN31/bE7/2moFW6Ct+k/Qm0298
+         emFZEP5WliTpzojynWh2J+4hObIlwCneGqjYf+1VAO8DerO3ZmWC7g7on5JZL4Q3jT9J
+         P1y45AIgV3ib8fLfpRn+3GsvkFOfwsV1NQHbo4Zrycb2pqtN9Ffg5CljfVt7kae+WC91
+         /LeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787134747; x=1787739547;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fjy7BDi48DK0VY42L1wkEP3ayVKA14OCO7JVfsirlug=;
+        b=Y7Chy9yTRt940Qz7nrGH/waHfhPSRCtzSw+3Zll81nD8VKc5G4t4wCzYYqCawbqodw
+         eAbs+bdyIgK5aawKC+tsm7foqzUNqt/0KzmyrhWx2nohL4zqKXNNfzqrK9fAhIamronE
+         g1oCEsH9kWYKlih6mfvUturYQ+VgwYLxgylvGSmaVx71mK4Um19cw+gZVB/y8epSayio
+         OCRHV0MMY+OYFmcWXkPGiUV/hJV5EA5I6llpO+VA4f21HlqXup6nr3LG9pqfos+UgoWa
+         OIyC0zZJpvCilPIpKeWvexJGEYhpEe7b0EwKHx0GRadH0KPJdHqC9hDBUJmBr3KMyzKC
+         OVkg==
+X-Forwarded-Encrypted: i=1; AHgh+RqaU488X1DLT8eJkDj021XGLGU28YPeGMsWvdakEguawTh03m1nJU/jtXfwLdRBaujra5QLg0kY9C/7@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZWEK/EDzxDra+Put8UJlliH5+CKyAhbFJ1eBEUU2vvucaf44u
+	xV4pas6B/6lMC8kKK5gaRrUwfR5UdF0BX4hU1Ak3OA8SQC6a3ngJHEW8
+X-Gm-Gg: AR+sD11YHx6HvjRhrO+zyFMWM1v9zNcbFbguD7Kk5EHNfjCXZao6BMdGia9jLpqLc9M
+	yGx9yaH0Szz0aNRN1RnmJK6QrCZuEyVylgSaq2G6H8JhwxL17B02ZuDDb95f7vaDiDd9iuomKm7
+	tADAMYgawymXvPP/DR4gf7w06eSpf4IS/14ug/KUBVSHYf+bn2Mt1mHQt9iO6nCBsUqN5KUppZ1
+	uppVeAFDauAmPfIX5/aMgwKRby77PPavRM/tpyFsqNePfY+eryUfZdALf/GhVDn+5Oc8TtMlKzI
+	O+v6RBA3U9m8D8sCHdiOCD2h3PF4xZwWLBPwGNSBmEsN7eWK9Lvyg8n1ONd8VBJVhVUugDlhElo
+	HrROoQT8gCCXpjSQHiVqmCKjuvyRFPjbDadI7/rVjGfw2yMUqqW2y0PKZdRlSrC+HGXmqBq63E0
+	Se2lIj8DIa7szeLauov4is//m0V4lu7/7X0mj/8PlRwBtQgw1hnzJmwQ==
+X-Received: by 2002:a05:600c:c493:b0:499:7aa7:eaa7 with SMTP id 5b1f17b1804b1-499aa20c7b1mr56722905e9.15.1787134746695;
+        Wed, 19 Aug 2026 03:19:06 -0700 (PDT)
+Received: from luca-vm.. ([81.56.18.151])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9b7c987sm27316965e9.1.2026.08.19.03.19.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 03:19:06 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v4 0/7] Properly describe mt6589 and mt8167 toprgu resets
+Date: Wed, 19 Aug 2026 12:16:21 +0200
+Message-ID: <20260819101853.44681-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for optional
- data-lanes mapping
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-References: <20260819075238.3007087-1-damon.ding@rock-chips.com>
- <20260819075238.3007087-6-damon.ding@rock-chips.com>
- <20260819080422.816771F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260819080422.816771F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0193a1e7403a8kunmaa6dc6ec3320d4
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHxodVhgaGUxNHh9MSUkYHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=bGWaL0kFdv2F1aJCSHo5LblQ8BYGWkRXUq0Xgx+AOA6nhCbje5jnq6LtjPtvynfZaO0GaFjUP9Bj7lj3/rdF0FpeHYSA4224tQmSChQ4ymGoLKlU8Fc2NYHGdDsDT2FBrTMpDz0S5EnWW9IKYOSasuZthQr+u+khrJw7hl2Uq10=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=g/T2s+HEEMdqXQKh9/wTekMXVfvnMcbFNHDnmwWBfis=;
-	h=date:mime-version:subject:message-id:from;
 
-On 8/19/2026 4:04 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] Logic error in hardware lane mapping configuration causes inverted assignments for non-symmetric maps.
-> - [Low] Device Tree endpoint lookup inconsistency when querying lane counts versus reading properties.
-> --
-> 
-> --- Patch [5]: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for optional data-lanes mapping ---
-> commit 1c15eb6132eedc3d606168644e5f97918c8e3651
-> Author: Damon Ding <damon.ding@rock-chips.com>
-> 
-> drm/bridge: analogix_dp: Add support for optional data-lanes mapping
-> 
-> Parse the optional 'data-lanes' device tree property to support
-> custom physical lane mapping configuration. If no valid configuration
-> is found, fall back to the default lane map automatically.
-> 
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> index 039e076d2b8ab..cb06347196cef 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> [ ... ]
->> @@ -1240,6 +1240,59 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
->>   	.detect = analogix_dp_bridge_detect,
->>   };
->>   
->> +static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *dp)
->> +{
-> [ ... ]
->> +	num_lanes = drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
->> +						   video_info->max_lane_count);
->> +	if (num_lanes < 0)
->> +		return -EINVAL;
->> +
->> +	endpoint = of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
-> 
+Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
+which in turn falls back on mt6589-wdt, which does not support toprgu
+resets yet. This series adds support for mt6589 toprgu resets with bit
+definitions obtained from Android stock sources.
 
-Hi Luca,
+However, according to its data sheet, mt8167 has 14 sw resets instead of
+12, and the reset bits are non-contiguous. This is currently unsupported
+by the mtk-wtd driver, and it caused confusion between reset IDs and reset
+bits in device tree includes.
 
-Thanks for taking a look at previous v6 patch series. This Sashiko 
-warning was also present in v6. Sorry for CC'ing you out‑of‑the‑blue 
-without prior heads‑up.
+Therefore in the first three patches we improve the description of the,
+resets for mt6589 using the definitions obtained from Android sources.
 
-> [Severity: Low]
-> Does passing -1 here potentially retrieve a different endpoint from the one
-> validated with reg=0 above?
-> 
-> If multiple endpoints exist on the DP port and the target endpoint is not
-> positionally first, could this mismatch result in reading the data-lanes
-> property from the wrong endpoint?
-> 
+Then we introduce a dedicated mediatek,mt8167-wdt compatible for the
+watchdog driver that describes correctly this SoC's resets. Also while
+we're touching the bindings reset includes, we add IDs for the MMSYS
+resets.
 
-For Analogix DP, port@1 will only ever have a single endpoint. 
-Multi‑output configurations are not supported by the hardware, so 
-passing -1 cannot select a mismatched endpoint. There is no risk of 
-retrieving the 'data‑lanes' property from an unintended endpoint.
+In the 5th patch we add support for a watchdog reset table to accommodate
+the distinction between device tree reset IDs and the actual bits in the
+registers. Code is inspired by the reset table currently implemented in the
+mmsys driver. There should be no effect on existing sequential wdt resets.
 
->> +	if (!endpoint)
->> +		return -EINVAL;
->> +
->> +	ret = of_property_read_u32_array(endpoint, "data-lanes", tmp, num_lanes);
->> +	of_node_put(endpoint);
-> [ ... ]
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
->> index ea8401293a23a..c1344a3f013ab 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> [ ... ]
->> @@ -48,16 +48,15 @@ void analogix_dp_stop_video(struct analogix_dp_device *dp)
->>   	writel(reg, dp->reg_base + ANALOGIX_DP_VIDEO_CTL_1);
->>   }
->>   
->> -void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable)
->> +void analogix_dp_lane_mapping(struct analogix_dp_device *dp)
->>   {
->> +	u32 *lane_map = dp->video_info.lane_map;
->>   	u32 reg;
->>   
->> -	if (enable)
->> -		reg = LANE3_MAP_LOGIC_LANE_0 | LANE2_MAP_LOGIC_LANE_1 |
->> -		      LANE1_MAP_LOGIC_LANE_2 | LANE0_MAP_LOGIC_LANE_3;
->> -	else
->> -		reg = LANE3_MAP_LOGIC_LANE_3 | LANE2_MAP_LOGIC_LANE_2 |
->> -		      LANE1_MAP_LOGIC_LANE_1 | LANE0_MAP_LOGIC_LANE_0;
->> +	reg = lane_map[0] << LANE0_MAP_SHIFT;
->> +	reg |= lane_map[1] << LANE1_MAP_SHIFT;
->> +	reg |= lane_map[2] << LANE2_MAP_SHIFT;
->> +	reg |= lane_map[3] << LANE3_MAP_SHIFT;
-> 
-> [Severity: High]
-> Does this logic incorrectly assign the physical lane value to the logical
-> lane's field?
-> 
-> By shifting the physical lane index (lane_map[i]) into the register field
-> assigned to the logical lane index (LANE<i>_MAP_SHIFT), it appears this
-> inherently applies the inverse of the requested mapping.
-> 
-> While this silently succeeds for symmetric maps (e.g., swapping 0<->3, 1<->2),
-> will it fail for any non-symmetric map (e.g., <1 2 3 0>) by causing physical
-> lanes to carry the wrong logical lanes?
-> 
-> Should the bitwise construction instead be reg |= i << (lane_map[i] * 2)?
-> 
->>   
->>   	writel(reg, dp->reg_base + ANALOGIX_DP_LANE_MAP);
->>   }
-> 
+In the 6th patch, we define the mmsys reset table for the SoC. According
+to the datasheet, there are 28 mmsys reset bits divided across two
+adjacent registers.
 
-lane_map[] uses index as physical lane, value as logical lane.
+In the last patch we actually enable the watchdog driver for mt8167 by
+adding a node for the mt8167 watchdog referring to the new compatible in
+the SoC dtsi.
 
-This matches training_lane[] / cr_loop[] in struct link_train, whose 
-indexes are physical lanes for DPCD access during link training.
+The series has been tested on a Sony PlayStation Classic Mini and on a
+Lenovo Smart Clock 2.
 
-LANE<i>_MAP_SHIFT configures which logical lane is routed onto physical 
-lane i, so current register logic is correct.
+Changes in v4:
+- Squashed the reset IDs includes together with the bindings change;
+- Added support for a reset table to the mtk-wdt driver. This allows us
+  to decouple reset IDs from device trees from reset bits and lets us
+  describe correctly the non-contiguous reset bits of mt8167;
+- Improved explanations in commit messages.
 
-Best regards,
-Damon
+Changes in v3 [3]:
+- Improved explanations in the commit messages;
+- Added the #reset-cells property to mt6589 watchdog node;
+- Included the mediatek,mt6589-resets.h file in mt6589.dtsi;
+- Included the mediatek,mt8167-resets.h file in mt8167.dtsi;
+- Moved the mmsys reset table from the mt8167-mmsys.h header file to
+  the mmsys driver implementation.
+
+Changes in v2 [2]:
+- Sashiko pointed out correctly a missing entry in the mmsys reset table
+  in the last patch.
+
+Initial version: [1]
+
+[1] https://lore.kernel.org/linux-mediatek/20260717151134.678839-1-l.scorcia@gmail.com/
+[2] https://lore.kernel.org/linux-mediatek/20260717163959.714561-1-l.scorcia@gmail.com/
+
+
+Luca Leonardo Scorcia (7):
+  dt-bindings: reset: Add mt6589 toprgu reset IDs
+  watchdog: mediatek: Add wdt/toprgu resets for mt6589
+  arm: dts: mediatek: mt6589: Enable toprgu reset controller
+  dt-bindings: watchdog: Add compatible for MediaTek mt8167
+  watchdog: mediatek: Add support for mt8167 toprgu/watchdog
+  soc: mediatek: mtk-mmsys: Add resets for mt8167
+  arm64: dts: mt8167: Properly describe the SoC watchdog and mmsys
+    resets
+
+ .../bindings/watchdog/mediatek,mtk-wdt.yaml   |  1 +
+ arch/arm/boot/dts/mediatek/mt6589.dtsi        |  2 +
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      | 10 ++++
+ drivers/soc/mediatek/mt8167-mmsys.h           |  3 ++
+ drivers/soc/mediatek/mtk-mmsys.c              | 38 +++++++++++++
+ drivers/watchdog/mtk_wdt.c                    | 54 +++++++++++++++++--
+ .../dt-bindings/reset/mediatek,mt6589-wdt.h   | 20 +++++++
+ .../dt-bindings/reset/mediatek,mt8167-mmsys.h | 35 ++++++++++++
+ .../dt-bindings/reset/mediatek,mt8167-wdt.h   | 21 ++++++++
+ 9 files changed, 179 insertions(+), 5 deletions(-)
+ create mode 100644 include/dt-bindings/reset/mediatek,mt6589-wdt.h
+ create mode 100644 include/dt-bindings/reset/mediatek,mt8167-mmsys.h
+ create mode 100644 include/dt-bindings/reset/mediatek,mt8167-wdt.h
+
+-- 
+2.43.0
 
