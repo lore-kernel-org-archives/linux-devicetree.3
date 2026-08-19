@@ -1,116 +1,152 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039132D592C
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 19:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701B03B100A
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 19:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787167352; cv=none; b=lO5kmFl0qSpGyFQxYbzmuyCebe2aNWalNc/D659NIUc70X6j+6IQhxi0CDq9z5TjeU4WKGog97edVMQxQxfUL5PrcmtR+oEjecEgGerMYNJsfYaihJwWaQx+3tgwUDFsSEPVKrUyXOnlBl9EODFbNoorKk3VNVrxbaxrruPJkMQ=
+	t=1787168518; cv=none; b=rnquhKcoeUvCiLki9zGo2NeLRwY/4fnChPoofeXkp+94gtyRv+YwGAoCnvgw7rK78NABGDxBmIMyrjR77cz+N3QAskYhTJqat26+mH2Tu7SLh/iagX9KUmRp+28qLOmP41JEhiGXeGPRGEULkF9rSZ71fPxXdzn0ZJ5HF+GzjA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787167352; c=relaxed/simple;
-	bh=+wcYJH7HD0CotFwcUL/xmQ62D2MQdzvewGPIAAxmfLI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EL+MOUfgpzPTrMRF/SD7GKobp0Nb4e2ud/ZEhYTwhAEDkHH2JoOwdsvjNJ6k8Rr1HDqxWQ1HVqlkO86FYHfICEz0oAU5xiJwOCRneMVbM0MZx1tZ6+tVU07zQiWyiPPlMFlhz+0VyFcmrSC8ucRvbs44xaUws53wR6YHYxcueso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+	s=arc-20240116; t=1787168518; c=relaxed/simple;
+	bh=LgB1q6UxSStE6Znlt1iXGT3opxdZpJBfexhJpaFVDJY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=bllOIG/blObJtd0GW9dicTw0xhnP6I4XtkpIwslFD9sxtemK4vNR+eJQxN5Dn7b35SoXmvTm/mTIG56/DEayMtAqdhKjrIIKg07svkgo84JjoMhr3a4km0MudY8oCCncpHquh6DcB0m8+FIenX9HebE4aea9bIQptG/jRsf4Klk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZYSEssDw; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4996f1ee4a4so12311725e9.2
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 12:22:30 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZYSEssDw"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-499acf0fb55so7274275e9.3
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 12:41:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787168515; x=1787773315; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:subject:from:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NXsEvTFlD66FPV8xQ5q49z6ovIp9exG33G5/qekFx78=;
+        b=ZYSEssDwx3Yks7DkleWz0K/hp4ColH9nxRO5XrgddYPwJC800hTJcsiXUKgZQUqKWH
+         G98zyMdBs/ufGgwQNJb3KigBGQ6JFl4bBnhqeskhEd35V3yv2mCHP0G803YvcrkSAq/r
+         4vCGekgjkhmaitbztvAhmZgv7COoj6VXeiaA1R3Tzc3Aon6djwiTZoM03qfcVryxTGhP
+         pFGGQQcEf8y4Z1IcOoLk6Ncg+V4eIT8qiIH+u6E9g6r+gmrdWS15Y2nvK1v7nCntMAV+
+         NetCP2tB0PYGEJD/mYDCIS7eYLYyTnHlmzPj5P6QmX1cJEcCrrRavn8LCeUtaOkjUY70
+         LXCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787167349; x=1787772149;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3SmkFPv7x6SaEPIsRjgJHZz2gnZAicBosl7slQRZeBE=;
-        b=XWsU0SFD2k5C1jddajv4ZbufWtQEfLum1i7OR/rfRDc5MDrz8WYy3+HGD2GhTRnemi
-         1KAEMOlVxtw0u8Eudbj1l4fvodBR0226Bk/nN/V7y05Iu0GwQpe3+5slkYl7fbeVdgpZ
-         LHMKrkJ9aXD8HT/ybeCFtemtWUJsYKVUXjJOUPwbS/poUJwD0P+izOTaWa0G1YSYZURY
-         wAJZaOQnxEsqG4CzmD4IXVPKIX18sKMRWMRWf8eQNfouGf67XQRkScVB2RrWROBvKS9c
-         JKxkxTHxM8RCUd/P5tr8ybU4z0A2ldL7IoJZ9+RCUr0+fG33Uyp1aIEXDPCbCAgunG+R
-         uHpg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro17y+BPt4juPW7MPcyHGOqDovtKiE2bVNMlP4VpFSeetiB3y+i9fCnH9svSH2a4QEZuo80rOb5B1vE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKw0ktk4XW5GjXEQ0Z89vsutZHr7T1ztZxHwcBAInPSB1WpBoT
-	iq7DH4Rhd57VGsrkB5daNlo9TQmLlzgrhPLzR/X9pSBRQupmYLCkRCNT
-X-Gm-Gg: AR+sD10Azsx/2NJJhK9ihXp8ccFGlZ1AhO/OC2fH9/zC18pk/1yJM0C8vm3WNahDJY5
-	Uw9CEV81Cfq0GZcVJw0CutD+HSFNSWSVdXRqhatcgOk/EvvyXbadj80pbUfsH/XoOd0CBJzdfTG
-	ByUvpq9FizNQd0hEL1yr3xnlZp8/aTWZiL9suMFTJMrYJjbobAWbXj2Od80imQS8yKjVx6lXO+n
-	a86bDQ85JwdVrtkb/kXmmHMbCQP0iu32dBf04AF+AgOnatZ4Hpes9I1qbfbewKDzf/75QvKw3O1
-	TQ1SNQuP8rJqaTlFBlSx2UrQ3MdLeiNmCjKcudb1ZUk4XdkvMeVKXEsOmicHxY90QQHvMVEjPb1
-	m9btcsJlfI5r+jPp97yUpcjEVIy75w92nQYN8kP6KGlx4MLZvvFfsB0mYwn6GTzu+KWHf01a2gi
-	PiZGqjae21y90axLuH6u+xzvvrOSTr3zbbQeoAmHVvqqD+8BWzvvQ+MSY2icXO1Uu2yfyPOw4W/
-	gOM7pAlP2ymxabgVlAwzcwpLzEDyYZDXysccSHIh6CHyYW2pDTdEl6O9EOT9qFcu6aoEpi4gFiv
-	yfQ=
-X-Received: by 2002:a05:600c:3e0c:b0:499:4e47:eaf2 with SMTP id 5b1f17b1804b1-499aa1a3e87mr144312755e9.6.1787167349071;
-        Wed, 19 Aug 2026 12:22:29 -0700 (PDT)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa17f202sm75178105e9.13.2026.08.19.12.22.27
+        d=1e100.net; s=20251104; t=1787168515; x=1787773315;
+        h=in-reply-to:references:cc:subject:from:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NXsEvTFlD66FPV8xQ5q49z6ovIp9exG33G5/qekFx78=;
+        b=OjfRNXcy2kt8CyOv8v4sPcNB4l8yNe6gJjmVxwo+cdZ0sOyd/6u/KDDKCU6UQK+l1f
+         Z9xw3me+CeqEmNJmLj/iBb/uelaHHRG9hA2mHsJB6HXFHwKHm5mIQPs0HyBSAAEL1nKz
+         GVXJAD0RajqL38PxBrF8iSAtvotm2dsSDW1D3irN7i8XcQVC6JrkVvUY6zMsmBceFAcs
+         4qM/2ykTiBO7iQ/wrgQZkbj9qg/apV9dG/YtoEcVTPTSjNZUMCcvVBit4QLlNwyHtROI
+         E0ZM42rHFY0DRylnWSDnkl+j7R3numuz9yIYyqT4U+1WX3HqSaGjnZmRnoiiqVB45e8K
+         4X0g==
+X-Forwarded-Encrypted: i=1; AHgh+Rqqaw/3KRVYEPyYJ4rlWGtG+bSwDvIMgDlDXt2P0nm8zPbknkIP/hNIOFQJitlerMgaRLUKHKK3FEaU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4+HwwK1C6m+C+eCEPN2+gL3eslLK32QJkZyh/itE3fGqHxLFH
+	+zfq7WawcVpE5i71a3jvOxsx5nQY6aushhOQP5TQvWmcwUuZ1wE6kvUzbJprKw==
+X-Gm-Gg: AR+sD12usqxcqW/vEmiate7BeKDEZpKQsLH485bvEG7+PYLCR/mSScrMqOxHfuTtDfQ
+	7BJiWfuP/cQcWd1ykhANfO0C5acKhZy37kYoA42wluzbcF8v5nBxiabWeMk5n+y/WYQR6vUQ1H3
+	T7Vp4DZmfXhldsO90H7ZsuIATHoSVRTL71F25seL7lHP5/zo+i4/dLvNf/7sH2IFYeChHwE9+bU
+	+S47asakmK7CGzJp6vCjY2JjhRjjWmiMyIk1uRRH6BHeNPWVDhpiZxf4iXLfGFwHgB5J6FEdoeT
+	pCDYcr3oHsdXkRIRimMvHow1pnUPHhJgeSK3JSXIe5bHxfS8du3pFYNvCHpCqoxWT4W6Mce21ih
+	e0nUDqKT96GIFjA3jG6cAug2fEWn03Hye7i4Ix9YIckmhdCpn1OHzfcnoA4xRZpnG0DdmSfmPua
+	QXdpj7QDMi89sJ6sQwQ33WmDi/KQUt6hEEVdtnkXRrMRfcxh+AKjVW+af2gwgXxQOEnIoqJOpXG
+	2w=
+X-Received: by 2002:a05:600c:470a:b0:499:a4d1:d7d9 with SMTP id 5b1f17b1804b1-499aa1b03c0mr125031515e9.9.1787168515089;
+        Wed, 19 Aug 2026 12:41:55 -0700 (PDT)
+Received: from localhost ([2001:4bb8:17a:e1ae:bb46:a0a7:bc2f:9020])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa0fd728sm118454165e9.3.2026.08.19.12.41.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 12:22:28 -0700 (PDT)
-Message-ID: <45a31ea4-7660-44c6-980e-daec6655629e@reactivated.net>
-Date: Wed, 19 Aug 2026 20:22:26 +0100
+        Wed, 19 Aug 2026 12:41:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
-To: Jim Quinlan <james.quinlan@broadcom.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, florian.fainelli@broadcom.com,
- iommu@lists.linux.dev, jgg@ziepe.ca, joro@8bytes.org, krzk+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com,
- robh@kernel.org, robin.murphy@arm.com, will@kernel.org
-References: <20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net>
- <20260728225727.148778-1-james.quinlan@broadcom.com>
-Content-Language: en-US
-From: Daniel Drake <dan@reactivated.net>
-In-Reply-To: <20260728225727.148778-1-james.quinlan@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 19 Aug 2026 21:41:51 +0200
+Message-Id: <DKT6D3WGKJNT.3C9TI16LYV4IZ@gmail.com>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Subject: Re: [PATCH v7 4/4] iio: light: veml6031x00: add support for events
+ and trigger
+Cc: "Jonathan Cameron" <jic23@kernel.org>, "Lars-Peter Clausen"
+ <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "David Lechner"
+ <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com>
+ <20260818-veml6031x00-v7-4-2b0de0f20edf@gmail.com>
+ <aoRltgy0AYZ_Vcum@ashevche-desk.local>
+ <DKS790BEXVON.1FP9LQUPNTYDE@gmail.com>
+ <aoU0JSmv7FWGW_Ms@ashevche-desk.local>
+ <DKT4WS5CVP2V.2FWDOOOHIL3XS@gmail.com>
+ <aoX78syq62cEs3hi@ashevche-desk.local>
+In-Reply-To: <aoX78syq62cEs3hi@ashevche-desk.local>
 
-On 28/07/2026 23:57, Jim Quinlan wrote:
->> +#define MMMU_CTRL_OPERATING_FLAGS (\
->> +	MMMU_CTRL_CAP_EXCEEDED_ABORT_EN    | \
->> +	MMMU_CTRL_PT_INVALID_ABORT_EN      | \
->> +	MMMU_CTRL_PT_INVALID_EN            | \
->> +	MMMU_CTRL_WRITE_VIOLATION_ABORT_EN | \
->> +	MMMU_CTRL_STATS_ENABLE             | \
->> +	MMMU_CTRL_ENABLE)
-> 
-> Hello,
-> 
-> Why not request the MMU interrupt and use the "INT_EN" version, e.g.
-> MMMU_CTRL_PT_INVALID_INT_EN?  It seems better than "ABORT", as with an
-> interrupt you have a fighting chance of the handler printing out something
-> helpful and shutting down gracefully.
+On Wed Aug 19, 2026 at 8:54 PM CEST, Andy Shevchenko wrote:
+> On Wed, Aug 19, 2026 at 08:33:30PM +0200, Javier Carrasco wrote:
+>> On Wed Aug 19, 2026 at 6:42 AM CEST, Andy Shevchenko wrote:
+>> > On Tue, Aug 18, 2026 at 06:10:51PM +0200, Javier Carrasco wrote:
+>> >> On Tue Aug 18, 2026 at 4:01 PM CEST, Andy Shevchenko wrote:
+>
+> ...
+>
+>> >> >> +	ret =3D pm_runtime_get_if_active(dev);
+>> >> >> +	if (ret <=3D 0)
+>> >> >
+>> >> > < 0 seems too much to me. If there is disabled runtime PM (and supp=
+osedly
+>> >> > device is always on) this prevents from getting events.
+>> >>
+>> >> I am not sure if I get this. A reference is unconditionally acquired
+>> >> when events are enabled as well as in buffer_preenable, and also in t=
+he
+>> >> probe before interrupts are enabled. Runtime PM should be active at t=
+his
+>> >> point. If not, the interrupt should not come from the device, even if=
+ it
+>> >> was on (e.g. before autosuspend kicks in). But maybe I am missing
+>> >>  something?
+>> >
+>> > The device maybe in these states here:
+>> > - powered off (by runtime PM) ret =3D=3D 0
+>> > - powered on (by some previous activity) ret > 0
+>> > - always on (PM is disabled by user space, for example) ret < 0
+>> >
+>> > Are you telling that the third case is impossible? (Note that autosusp=
+end in
+>> > this case is irrelevant.)
+>>
+>> I followed the execution paths and the third case seems to be impossible=
+.
+>
+> Thanks for checking this!
+>
+>> Setting power/control to "on" calls pm_runtime_forbid()[1], which sets
+>> runtime_auto to false and increments the usage counter. Note that it doe=
+s
+>> not update disable_depth, which is the variable that pm_runtime_disable(=
+)
+>> updates and what pm_runtime_get_if_active() checks to return -EINVAL if
+>> runtime PM is disabled. Therefore, pm_runtime_get_if_active() should
+>> return a positive value under this configuration.
+>
+> Would it be possible to have negative value at all from
+> pm_runtime_get_if_active() here?
 
-That could indeed be useful, but the only info I have about this 
-hardware is the RPi kernel's bcm2712-iommu driver which also does not 
-handle this interrupt, so I don't have the required info to set up an 
-interrupt handler.
+That is not possible with pm_runtime_get_if_active() in this case: it is
+just a wrapper around pm_runtime_get_conditional() with ign_usage_count
+set to true, and therefore, the only path that could return a value other
+than -EINVAL, 0, or 1 through the return value of atomic_inc_not_zero()
+cannot be reached.
 
-Could you let me know the interrupt routing details for all of the 
-bcm2712 iommu blocks? e.g. which GIC/L2 IRQ lines they connect to.
->> +	/* Shootdown register deals with 4 pages at a time */
->> +	for (page_group = iova >> (IOMMU_PAGE_SHIFT + 2);
->> +	     page_group <= iova_end >> (IOMMU_PAGE_SHIFT + 2); page_group++) {
->> +		MMU_WR(MMMU_SHOOT_DOWN_OFFSET,
->> +		       MMMU_SHOOT_DOWN_SHOOT + (page_group << 2));
->> +		readl_poll_timeout_atomic(
->> +			mmu->reg_base + MMMU_SHOOT_DOWN_OFFSET, val,
->> +			!(val & MMMU_SHOOT_DOWN_SHOOTING), 0, 1000);
-> 
-> I think it would be prudent to have this function return the
-> readl_poll_timeout_atomic() result and then do a dev_{warn,err}() call once
-> you are out of the containing spinlock.  Also, why 1ms -- seems a long
-> time to have a spinlock.
-
-I'll do that. And yeah, that is way too long. I took some measurements 
-and all 3 of the TLB-related cache flush codepaths take around 100ns on 
-average. So I'm reducing the timeouts to 50usec.
-
-Thanks!
+Best regards,
+Javier
