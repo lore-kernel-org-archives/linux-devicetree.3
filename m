@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F164448384;
-	Wed, 19 Aug 2026 09:46:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93FB43785D;
+	Wed, 19 Aug 2026 09:47:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787132795; cv=none; b=Om/H/JOp3aM0EDlwewGXyLNWQeTWhg/9eoNj1yq2Z72GUH3WC/0/kP6bKrrIsdswi5Tkm0YwrdzyydOIhJZi3e94XgWPS/sNHZxYMogsJnq3gZjboKjaY9qTk4rUfanWlZ0/hZYOH3XewYRUpuEOSEwP6N0rc0hYqnxdeXqLiGo=
+	t=1787132868; cv=none; b=sYIy71hcOXwg3KPXolvpzE+pcdVkPWvsVXKRtO/l1fCLNQ8jyqZguHpek5vFOkKrXnBVrtfQF9Eza8Cz/FRysYcSPctDW8ggl/tmREoCH1U0RojYADYk3lVTuAB3Lcz82EN/ntAB5sADeSmgJ9x4Vp9hEa+yG+DsdL7mMwpmt2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787132795; c=relaxed/simple;
-	bh=mYV3VXLdDr4ogcy6C9Id1v91GUn+6jAiXl+bLe0EwLw=;
+	s=arc-20240116; t=1787132868; c=relaxed/simple;
+	bh=TJqLSmbc9+BQ1OcbbLvGRT4hr+GrfWQLxw9iAFwMfao=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gKoleSm9ylKFDKExtURG0onlGKtENe/X8AFEoLYC/7jMrbjS2o9SvM6n3cKUjWXjeHN1sFJ2xCcQLOxa1uo1NpL+WhTif8PoSfbuxTK2nFtES1k0sKfK2mKGJC1xZRKJG3QdWL5LtyaZwk2U/zNXCzRMhc/RdWs77qUoEnDDVoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZCSjoC4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=IxVFiHKgbRcKgeI3AiMoCT+bK2+nQ06w/ObEk7QJrOFSRLrGhHE74phWX15RujaT49s8bf3gnWcZ6PRPtGAcAFgePTXW1IQp/iUbJuQ7cuty+lFTWG8MjxzLm82Oofxfdua+4L1l4N77SPV0+Lu7vOy2PnZFQm2ZU1HWa0qMlSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cihWGOnT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZCSjoC4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB2481F000E9;
-	Wed, 19 Aug 2026 09:46:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cihWGOnT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9362E1F000E9;
+	Wed, 19 Aug 2026 09:47:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787132793;
-	bh=Q/zOpe2HngJG23s9QAhN8OFYFXMzqOJAL3nJjlP7+wI=;
+	s=k20260515; t=1787132866;
+	bh=IIHfwnppi5WLCcH8yOSOFZSzXTOXiUg1twuLCqhf9Bc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OZCSjoC4XV+BnBOuj6G9GjNJ0myzhg40c5fWKVejHTYg35wWI/9WvzZmwqoszlDV0
-	 IJF5/pUAxcDkEFic86+MC4oDBoWlc2uG+hMwP2DPYo04gIZLoEiikwRBWhiFugjf63
-	 u3s8AtYpkYaMFqBiu+x1fX1REH+Z8KriU9ihPrxvXpDFEK2T/Zz0UeaFAyrbJ3rZVQ
-	 Flt1DeQ8tysjs58EMmIeItskhGBCc+WHpidTT079W4bjv43Bi9TYmEWaOW/PbryMXn
-	 VKxd5NOEkW9LJ1GKGzO2KKwh00Mn35K8BulG0SxvUWUIPTnW7kukeuRHRD29PFl/7i
-	 X6sSGm1rKPkMg==
-Date: Wed, 19 Aug 2026 11:46:30 +0200
+	b=cihWGOnTXHLB0pZEOgi1GWkrzdiCehv4fClMCdPh9e90/yO5GXLnI1+BsXpYkbYK6
+	 DGBPHZ7vYNEoXkxfqaTAE4c1EbW3Zvwcu+CN/oJ1XCelF1knS68vs4oFId0jfyslV4
+	 93Hq2qnLv/6i/frH0+/4HrjojW3Us7w9TePTlrzqX8OVIS2DjZ1t1x+CKPllJtNenD
+	 k+gEiBETfwRcWpmMq7fNQynVgIcHWQwGGohhxtjPEdEGlqzxuSLw6V+dkrt5PhDq1W
+	 FUhPb+YhqVm9VvSPNDcPMPjWZWN8ZYYabp3IVs0k9Lti1X7sb2rhndWBe+lhFADr/l
+	 7zID6FL9I1HNg==
+Date: Wed, 19 Aug 2026 11:47:42 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Swark Yang <syang@axiado.com>
-Cc: Krishnakumar Kesavan <kkesavan@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
-	Karthikeyan Mitran <kmitran@axiado.com>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: mailbox: add Axiado AX3005 mailbox
-Message-ID: <20260819-popular-vanilla-poodle-80c9c7@quoll>
-References: <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-0-25e713eccff3@axiado.com>
- <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-1-25e713eccff3@axiado.com>
+To: Sreeshankar K <sreeshankar0910@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org, 
+	konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, bmasney@redhat.com, 
+	lpieralisi@kernel.org, quic_tdas@quicinc.com, danila@mainlining.org, 
+	davidwronek@gmail.com, robimarko@gmail.com, linux@gurudas.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-pm@vger.vger.kernel.org
+Subject: Re: [PATCH 03/12] dt-bindings: clock: Add GCC clock bindings for
+ SM7250
+Message-ID: <20260819-fortunate-sophisticated-kingfisher-c8cdab@quoll>
+References: <20260818080754.4362-1-sreeshankar0910@gmail.com>
+ <20260818080754.4362-4-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,21 +49,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-1-25e713eccff3@axiado.com>
+In-Reply-To: <20260818080754.4362-4-sreeshankar0910@gmail.com>
 
-On Mon, Aug 17, 2026 at 08:34:07PM -0700, Swark Yang wrote:
-> Add a devicetree binding for the Axiado AX3005 mailbox controller.
-> The controller provides inter-processor communication channels
-> between the host CPU and the coprocessor, with separate TX and RX
-> register regions.
+On Tue, Aug 18, 2026 at 08:07:45AM +0000, Sreeshankar K wrote:
+> Add device tree bindings for global clock controller on SM7250 SoC.
 > 
-> Add the corresponding MAINTAINERS entry covering the binding.
-> 
-> Signed-off-by: Swark Yang <syang@axiado.com>
+> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
 > ---
->  .../bindings/mailbox/axiado,ax3005-mailbox.yaml    | 96 ++++++++++++++++++++++
->  MAINTAINERS                                        |  7 ++
->  2 files changed, 103 insertions(+)
+> Dependencies:
+> This series is based on and depends on the following patch:
+> > [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+> Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com
+>  .../bindings/clock/qcom,sm6375-gcc.yaml       |   4 +-
+>  include/dt-bindings/clock/qcom,sm7250-gcc.h   | 163 ++++++++++++++++++
+>  2 files changed, 166 insertions(+), 1 deletion(-)
+>  create mode 100644 include/dt-bindings/clock/qcom,sm7250-gcc.h
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
