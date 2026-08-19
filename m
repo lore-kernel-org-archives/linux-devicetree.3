@@ -1,328 +1,230 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2093.outbound.protection.partner.outlook.cn [139.219.17.93])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E5645040A;
-	Wed, 19 Aug 2026 12:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.93
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787142587; cv=fail; b=gi3Ap08yCq0h6a9hdL4BmOU4LGoKofXGLyh0tBBBknt+yGshEU1Byhgt6HhOeGOHYWB+nVKdRsAtmzgApx60gjm8XjamXLVJ+ULIg/1fWaHxTPmyJ+4oOjDkiRQ/4Dalaw8B6fY++HVBfNgEQUdLAl4BaaishuRBmPQSPUVKWmk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787142587; c=relaxed/simple;
-	bh=XGIL6H9rUSeZ8YD+ye0c1V8LHSx36RDB4+EZwZCr7RM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=XK+C7smpXGo645+V3stk0OH/do1KJ0IvAhtkTIQaknznmyVc8NmvKi2LH5nZxcjiF5Ya4AJAY6WXil6YRG6hl7vNJwPbU5GGcNZt1iVG/t12j6SMfmfwSoi27WMdUV7g8gcZFwthAbxO2enVehJ9B8oVIVynr4AeYjIq4Co8kmg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-Received: from ZQ4PR01MB1154.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::9) by ZQ0PR01MB1157.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1a::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 19 Aug
- 2026 12:14:35 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mKEs1kdnY2r7pyOM8Vd2BQCMOwI4qO340GGsVFqWzgPo3uG4kxJNAXJI/yHiY1T0vAGho1k3WuHa0JY1cBK58nfxTNYfgPhNooprQVTAhkk5QR/0mFyiuJ8KzQn/ri9DcxWVdgESZevu6h6hgXdfauYQ0zNGO4ZDRPf/y4VRsFbpR6nx4PaNfezNdZjS6B+2kMl1wFWBELcwU5gnRRmd0oAU/7Um0fPsKMsyTRLCdBqIM7lFTiAH23MJnNOaukBRJwycfUbEe3xDKSW7CNm2+MXZ5ci9nqz7yCI52JsR0bRRAW2YSsFh255zqgdFJIyb9u0Fjl2AxWrHZgf5wmOiqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bJhYZaeLBAI6r1UOORQB53hA3cfXohGeiYBc89d/EZE=;
- b=JqyXOjGddw/vdubKMlVKymSS9e2LIhn9zGlYiGTQx4mArjXAd2/ibCJVtpwcr++PzHTzbPfHPrJZgiG7Xtvt7vOBP5fDZsRR7PLzg6f9MgoUi4mPUODPRln8m/+wgs9SWsHaG223nxAhYfpMYW6qo99PAwwOWUZZKUPo/t01VL6/iCtdh/UAJMlLRbvQAcMU4Zxj60q241tX2N3pK1QEaBFxe3PLH3WqkKqOdxvngp3WXm3ydQMKxpx8cZsAYtq9dqOc4A28UMWqNJqCLo3Iklr2m+/oENhrBmZtDS000agKpXSwCgKilebRimLI3cw0xCynCtt6zsriP7ffLkqMbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1154.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Wed, 19 Aug
- 2026 09:29:00 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0315.011; Wed, 19 Aug 2026 09:29:00 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Michael Turquette <mturquette@baylibre.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
-	<bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
-	<kernel@esmil.dk>, Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto
-	<inochiama@gmail.com>, Alexey Charkov <alchark@gmail.com>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>, Keguang Zhang
-	<keguang.zhang@gmail.com>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v4 7/8] soc: starfive: Add socinfo driver for JHB100 SoC
-Thread-Topic: [PATCH v4 7/8] soc: starfive: Add socinfo driver for JHB100 SoC
-Thread-Index:
- AQHdJ6GQ5ts+ksAe6k+ENksiQTa0y7aXdLuAgADirHCAAL8NAIABJ12QgABaIICAAQ8eIIAAkEOAgACNr/CAAM//AIAD6sTAgAKVxICAARWHMA==
-Date: Wed, 19 Aug 2026 09:29:00 +0000
-Message-ID:
- <ZQ4PR01MB12027CF8ADC7A2B39F7FB32CF2A52@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260810-caress-rack-45615c8d9747@spud>
- <ZQ4PR01MB120276A1DA91FAC19C852F14F2DD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260811-populace-afflicted-40a40e0f484c@spud>
- <ZQ4PR01MB1202DDE6C255441E1FC4F916F2DC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260812-snowplow-punctured-28d19616f707@spud>
- <ZQ4PR01MB1202F016AD1F1E699429DDC0F2DB2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260813-presoak-scarily-b6cdecfcb7cc@spud>
- <ZQ4PR01MB1202CD24FCDA9039EDF2C7A0F2DA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260814-reverb-mourner-283116bcc014@spud>
- <ZQ4PR01MB1202BE1034795F1FBCF18076F2A72@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260818-recall-onion-3279fe070ccd@spud>
-In-Reply-To: <20260818-recall-onion-3279fe070ccd@spud>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic:
-	ZQ4PR01MB1202:EE_|ZQ4PR01MB1154:EE_|ZQ0PR01MB1157:EE_
-x-ms-office365-filtering-correlation-id: 52971ebc-9ab0-44c8-8943-08defdd44d17
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|366016|38070700021|22082099003|10067099003|56012099006|4143699003|5023799004|18002099003;
-x-microsoft-antispam-message-info:
- P3fYZYL6vATGSCHfsIF0YuX/34incF+0Y0UlYyW4OMwr3hZarMesX8zeJThE+jI3rQ9jg85kskxqsZZ19vOqG96kfxgfECxSyIgK3PXT2gqq9tFIzOkSB7dVZAQgf4xW/P0nCNYTLb4OGbCZuqwufqUIe1CJvJUqgaH1bb2m8kNy8pddAKqAeaO5mixZWBSYft2Fz3OcYio5rN4BExui4/rsGNb42BGzTIAcEPJUlZye/Y4aeZW3E0GEK/FfYKgcopO1IkswK765Otl1gIROaz0I7EfUDhSe84D2BFwJPrkajYvgOUCGJpp9AMEozZbJ8As+B3Q/i8ZfpMrQghIcrV8BH5yCk9LD6nW3OjYYlZYmOhlubG9Q3aZ0RwWrsyLdjraD/mJDBQ8rkanI7hKimN0iKuCz0t7ekZPpJX4ftpbZOmGS4rzNORYSpmAyneQni9zrY9NLLNyibPsgs1gffQ9j5GCTyESPrc0+eIl4V6Btp6C4S1RcXyGKJ/EiphRAMN6ycaHqUiR/uKIj2Dy/yCiW3vWqSNrZmZbHpbk3cwt6D9a1v1SCZftWIcMV6eU7
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(366016)(38070700021)(22082099003)(10067099003)(56012099006)(4143699003)(5023799004)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?r/sEuCKp+fP540ozPdmJKkk+8I399mPBCNG8mjZWNEfXYKX0ecGhgzoiSqgt?=
- =?us-ascii?Q?4TVH0u75c0ynnNfzfxiPwsiNTFoJCrr/wM5xf2OPx1uQJaaDDNw6xbXXq1hK?=
- =?us-ascii?Q?DhF3v7sNAQz/DCN4QPm/aq97TlqwvJ6f+/zdV5wxVICNH2vAih28Dzw/zg7i?=
- =?us-ascii?Q?JdAne2CmF3AZz37URJRBFmlUSINm4U6sHWf4SSWZuojUhdwnqaQ2ltj56U6h?=
- =?us-ascii?Q?kBOBFWbMQl8bgixqX6t4asldXnKHpOhTjXoAmqPGtELU5Kg2cVL5HazX+n4s?=
- =?us-ascii?Q?sCUW/KtPdBZMxcXgcqp4vz/34CWw5QHj2uAOeCDANkv4N4SBAyOtkfjDmpgS?=
- =?us-ascii?Q?J5jP1kJmCLhNnG+TVFEnmUG2b4E9wdS0b4lovdGz7xBmw3FLqqboEFfGVJnF?=
- =?us-ascii?Q?9dEr1KuZD0p5UeY3imEz1/40vq7xvJXENO7RdK9b2HKeJ6Pym5kXwpOuBVbf?=
- =?us-ascii?Q?9tI+HIyjONcqdjLPMrAXZ2wMhEJTDDoUh8h/XnFSomipRwXB+v1+oYfpTtNq?=
- =?us-ascii?Q?4+3A56QNZct1e98/wa5ZjCNGUWR+bkjjcsm+LQ3j1rtI4TGSsaki9EDQQeNt?=
- =?us-ascii?Q?3iC0RlY1y/oIci2fBQzk+zvz78yiZm01iYlZFw1FFQweW3dl+LY1IfghGKoq?=
- =?us-ascii?Q?f4Zc0WMfybilAYHAskPRWf4PXC0ojZGD1GsHTdiwF50Oasxjvk4FY1CYWQwK?=
- =?us-ascii?Q?HvOUHzoJhJ+LtBt8WjGw2iEF42d0MM+iZ1JICJH91fR19zuog7zuk86R/UDo?=
- =?us-ascii?Q?f7ghkCPt9KRZWzcO/wYmLKi9wJfAHAahSqOYhPde+ehwf/LnWECsYw9LveO1?=
- =?us-ascii?Q?gGie5bZ8OdSefqJqMBpAM0G8sQpVmTPQlmuCwT1emGURgb8HEtj1hoNL5Jzd?=
- =?us-ascii?Q?prL8sOgGoYaC7QrnMpOGaaHluZC48mn69RMLXOBno7ud2yaz1s9uqPybwk3k?=
- =?us-ascii?Q?SZXPlHwtZ+JOmfQU/adWsoweE3a9adi5yhEqv6vpfuKwD9pASqJELyqens3q?=
- =?us-ascii?Q?ZpXf9Ft2tlsORaMwwGWSamuVXlF39lWfZhLiwwhFBBD3RROfRkoWQItvaJ+W?=
- =?us-ascii?Q?oRNNYYbBmVL8WNHaLh8yF5aYlF9y4Pe9ytXH4Kh5v2rwnvz3I2bwvfvq1Aqb?=
- =?us-ascii?Q?9IYXuMmRzSkX4AVu2N2rxWztyyQJiFS3h5+/12N1e9t4PVyy1Jmebbh0HSbr?=
- =?us-ascii?Q?FNWQggHlh2UUdq+PGqiMhBCul8FgJ+s93kpYjoUnbcugwRVix8hnJpR237zF?=
- =?us-ascii?Q?7Xt2JiQYkgjO+RYBgup1ZTi3jUgI2+wYO9pvWDIwQsuPpDq0IhmfvA7HzbkD?=
- =?us-ascii?Q?hNSIskoeEOW8Gj1raQIHYYlmEIexK59t+lvNDYBX/lhcLkP+dfSD9onp7Flq?=
- =?us-ascii?Q?zsOhpo0EIvMUsuTElcQqCZijX0WjULzCE+rf36/sWdQIvCuNALwEzrDjPwuh?=
- =?us-ascii?Q?NHoDFfqaIocqnb7QYmIJQrW8qwlPNy1vnoEsFmSIXK12Ffro9P1fPcA/qFqp?=
- =?us-ascii?Q?OSqAGYIF4+qq39qieE1y9ZfAInGQwlOV5UKZN1phzY+AcV3pl9jX329jCjP5?=
- =?us-ascii?Q?Jg53gaW9F5YEiveL8+U1dPktqntp1gq+k6os7PDUzRGp43+ho2U06VkJe6HE?=
- =?us-ascii?Q?YKag1pRjOEuLOGMTk+komcvZuc+2mhpw5kR8Tp22ul5QT0tbd9g4ImL+RK3H?=
- =?us-ascii?Q?O3AkUip6FXsoVxJz5sv7J+Ad8wGD1HV8YjLrP+RWky8/MqfKxXJw2XLMuoNb?=
- =?us-ascii?Q?lnYbR5hhPzQkMtcOUVNME1ftgeYPlEs=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2FB2DA74C
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 12:38:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787143099; cv=none; b=V2D8dWYP0B3k483P88GtxQhcwDqCUdDuO2BpyLGjhjDpgnZdMBk08oc4Ez7rsxL73FLYQC2h9rXscMN2v9WTUpV2gXtSKfpiBFIb07hFYE2Wrgie108oWhPVV5mBkDOIOr0gIAojiIJos0WMgEvxDnhbOOqbVlFrNzQpP/Q7J4c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787143099; c=relaxed/simple;
+	bh=f5el/+SPE7KLPivlzL5pThHroChTmy0/7kJVG3cYqso=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=iQDbPU9EqJzTPq582WFpr3GxipOMZhJnhyFLFOJACKQ1fFi9GmF0CeLp0Qq7Ggaza7/p289DwAFteXEGI3281z+gp0uD5m0agJ0L5me2q+eYDGnmreriLGyIr8jmUCySIrjZ8EFrdE0R3BcLy307n0SNwbH/1RgpoQ3bWwr0wX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fJfmZAIJ; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fJfmZAIJ"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AC5E71A1741;
+	Wed, 19 Aug 2026 12:38:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 79BE35FF42;
+	Wed, 19 Aug 2026 12:38:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DADCF11C70593;
+	Wed, 19 Aug 2026 14:38:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787143089; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=z48CoSpem9ABmdEj0+zBwC5z6rfDTgDxpiGCa8gzQLY=;
+	b=fJfmZAIJqfBDmQ5y+R+H/OsXOECRKkMfqd4LjjJD2at3c0v4PKknKXW7U/IlNgE4FKVlXY
+	Nr8udvlhB8kixFPWb/f02ZjfXPNuayMRmpSd2qKk5yoAe8Jh8RIfx4aKzG/6ICUwKext8H
+	vnvJDSePfLAHlR0dd9GWVYZ11NQks+Sg3OM3IJ8IUB6VLC8/JXe5SeEuP75Jq2war9H2xd
+	0b9n2VzgqryPE4zwhO3u03wrHe4Jan7zMEzVERIPqWB6e4aL/yRdL42WslBcpuDOs12baL
+	RgBoNJJx5t/vlMFhM1Q+jlAWgGYSKvycBZBJq7c0/wIeQ5d6WI7MDxdzHFj/VQ==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52971ebc-9ab0-44c8-8943-08defdd44d17
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Aug 2026 09:29:00.1288
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: I2TavCtXVnTRc01tAcbODwIuH29A1ygpTUuBYS9ROQy1H3rRED8//KKPkBKN9rsyjhTJ6hq1RO15SMaQsNvUpy+7K65m6IiWR1PVhC7CfgqbphxEUFTvo18e/T/wKOV2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1154
-X-OriginatorOrg: starfivetech.com
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 19 Aug 2026 14:37:59 +0200
+Message-Id: <DKSXCKHFS3T7.2UK43K8F0TUGZ@bootlin.com>
+Cc: <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <robh@kernel.org>
+To: "Damon Ding" <damon.ding@rock-chips.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, <sashiko-reviews@lists.linux.dev>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory
+ samsung DP DT properties
+X-Mailer: aerc 0.22.0
+References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+ <20260707040613.1992841-4-damon.ding@rock-chips.com>
+ <20260707041711.4F7351F000E9@smtp.kernel.org>
+ <00d3f58e-73bb-41da-a2df-dfeeca644b6f@rock-chips.com>
+ <DKSQUNWA86GP.9NHE4ADGYLQH@bootlin.com>
+ <ba494eae-c17f-4a15-8276-fd5dfb372337@rock-chips.com>
+In-Reply-To: <ba494eae-c17f-4a15-8276-fd5dfb372337@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi, Conor
+Hello,
 
-Thanks for the review.
+On Wed Aug 19, 2026 at 10:19 AM CEST, Damon Ding wrote:
+> Hi Luca,
+>
+> On 8/19/2026 3:32 PM, Luca Ceresoli wrote:
+>> Hello Damon,
+>>
+>> On Wed Jul 15, 2026 at 10:32 AM CEST, Damon Ding wrote:
+>>> On 7/7/2026 12:17 PM, sashiko-bot@kernel.org wrote:
+>>>> Thank you for your contribution! Sashiko AI review found 1 potential i=
+ssue(s) to consider:
+>>>> - [Critical] Failing probe when deprecated DT properties are missing b=
+reaks DT ABI and prevents their deprecation.
+>>>> --
+>>>>
+>>>> --- Patch [3]: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandato=
+ry samsung DP DT properties ---
+>>>> commit b573dba50acc6087122ffa4a65680322f4d004f8
+>>>> Author: Damon Ding <damon.ding@rock-chips.com>
+>>>>
+>>>> drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+>>>>
+>>>> This commit reverts a change that made the samsung,link-rate and
+>>>> samsung,lane-count properties optional for Exynos DP. It adds error ch=
+ecking
+>>>> to fail the probe early if these properties are missing, aiming to pre=
+vent
+>>>> link training failures caused by zero values.
+>>>>
+>>>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/dri=
+vers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>>>> index 8cf6b73bceac0..293d8adfe9856 100644
+>>>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>>> [ ... ]
+>>>>> @@ -1258,10 +1259,14 @@ static int analogix_dp_dt_parse_pdata(struct =
+analogix_dp_device *dp)
+>>>>>    		 * NOTE: those property parseing code is used for
+>>>>>    		 * providing backward compatibility for samsung platform.
+>>>>>    		 */
+>>>>> -		of_property_read_u32(dp_node, "samsung,link-rate",
+>>>>> -				     &video_info->max_link_rate);
+>>>>> -		of_property_read_u32(dp_node, "samsung,lane-count",
+>>>>> -				     &video_info->max_lane_count);
+>>>>> +		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
+>>>>> +			return dev_err_probe(dp->dev, -EINVAL,
+>>>>> +					     "Failed to get samsung,link-rate\n");
+>>>>
+>>>> [Severity: Critical]
+>>>> Does failing the probe when this property is missing break the DT ABI?
+>>>>
+>>>> Since samsung,link-rate is a deprecated property, a modern schema-comp=
+liant
+>>>> Device Tree might intentionally omit it. If a system boots with such a=
+ DT,
+>>>> this check will fail the probe with -EINVAL and disable the display.
+>>>>
+>>>> Could the driver instead fall back to hardware maximums or sensible de=
+faults
+>>>> when the deprecated property is absent, rather than returning an error=
+?
+>>>>
+>>>
+>>> I'm afraid it's difficult to provide a universal sensible default value
+>>> here.
+>>>
+>>> The samsung,lane-count and samsung,link-rate values vary significantly
+>>> across Exynos DP device trees, so a generic fallback to hardware
+>>> maximums cannot guarantee stable link training.
+>>>
+>>> Even though these two properties are marked deprecated, all existing DT=
+S
+>>> files in our projects have already populated them completely. Moreover,
+>>> the current link training logic relies on these two parameters; omittin=
+g
+>>> either will directly cause link training failures at runtime.
+>>>
+>>> Therefore, retaining the mandatory property check in probe is a
+>>> reasonable approach for now.
+>>
+>> I'm still not convinced we should turn an optional property into mandato=
+ry,
+>> after having been optional since 2016 (based on the commit in the Fixes:
+>> tag).
+>>
+>> The sure thing is we cannot break existing devices which upgrade to a ne=
+w
+>> kernel.
+>>
+>> Se the question is: if a device is missing one of these properties, or
+>> both, what happens? The video_info->max_link_rate and/or
+>> video_info->max_lane_count will be zero, correct? And if they are zero, =
+is
+>> there even a remote possibility that the device will work somehow, maybe
+>> only with some rare low resolution or whatever?
+>>
+>> If the answer is "yes, there is a remote possibility that one sich devic=
+e,
+>> with some maybe rare configuration, will work", then no, we cannot make
+>> this property mandatory now. There can be devices out there working with=
+out
+>> these proberties, and they would be broken.
+>>
+>> If the answer is "there is no way at all a device can work without one o=
+r
+>> both properties", with a good explanation based on the code flow and
+>> hardware docs, then we can consider this change.
+>>
+>
+> Sorry for the confusion, I just submitted the v7 series which crossed
+> with your reply.
+>
+> To answer your question: there is no way at all a device can work
+> without these properties. Here is the code flow when either
+> max_link_rate or max_lane_count is 0 (helped by AI):
+>
+>    analogix_dp_commit()
+>      -> analogix_dp_full_link_train(dp, max_lanes =3D 0, max_rate =3D 0)
+>
+>    analogix_dp_full_link_train(max_lanes, max_rate):
+>        // Read sink capabilities via DPCD and sanitize them
+>        link_rate   =3D read_dpcd(DP_MAX_LINK_RATE); // >=3D 0x06 after fi=
+xup
+>        lane_count  =3D read_dpcd(DP_MAX_LANE_COUNT);// >=3D 1 after fixup
+>
+>        // Clamp by the limits from DT
+>        if (link_rate > max_rate)                // 0x06 > 0, always true
+>            link_rate =3D max_rate;                // link_rate =3D 0
+>        if (lane_count > max_lanes)              // 1 > 0, always true
+>            lane_count =3D max_lanes;              // lane_count =3D 0
+>
+>        // Configure TX with the zeroed values
+>        set_link_bandwidth(link_rate =3D 0)
+>            // writel() is only executed for bwtype =3D=3D 0x06/0x0a,
+>            // so LINK_BW_SET is never written and stays at reset value;
+>            // phy_configure() is called with link_rate =3D 0.
+>
+>        set_lane_count(lane_count =3D 0)
+>            // writel(0, ANALOGIX_DP_LANE_COUNT_SET) enables 0 lanes;
+>            // phy_configure() is called with lanes =3D 0.
+>
+>        // Program sink for link training
+>        drm_dp_dpcd_write(DP_LINK_BW_SET, {link_rate =3D 0, lane_count =3D=
+ 0})
+>            // DP spec requires link rate in {0x06, 0x0a, 0x14} and
+>            // lane count in {1, 2, 4}. Writing zeros is illegal, so the
+>            // sink cannot enter the training state.
+>
+>        // Training loop
+>        for (lane =3D 0; lane < lane_count /* 0 */; lane++)
+>            // loop body never executes; training_lane[] stays
+>            // uninitialized and no training register is ever programmed
+>
+> Since the sanitized sink values are always non-zero (link_rate >=3D 0x06,
+> lane_count >=3D 1), the clamping with a zero maximum unconditionally
+> forces the training parameters to zero. Clock recovery can never be
+> achieved, so link training fails deterministically.
 
-> On Mon, Aug 17, 2026 at 01:27:08AM +0000, Changhuang Liang wrote:
-> > Hi, Conor
-> >
-> > Thanks for the review.
-> >
-> > > On Fri, Aug 14, 2026 at 01:13:38AM +0000, Changhuang Liang wrote:
-> > > > Hi,Conor
-> > > >
-> > > > Thanks for the review.
-> > > >
-> > > > > On Thu, Aug 13, 2026 at 08:10:12AM +0000, Changhuang Liang wrote:
-> > > > > > Hi ,Conor
-> > > > > >
-> > > > > > Thanks for the review.
-> > > > > >
-> > > > > > > On Wed, Aug 12, 2026 at 10:37:16AM +0000, Changhuang Liang
-> > > wrote:
-> > > > > > > > Hi, Conor
-> > > > > > > >
-> > > > > > > > Thanks for the review.
-> > > > > > > >
-> > > > > > > > > On Tue, Aug 11, 2026 at 05:36:19AM +0000, Changhuang
-> > > > > > > > > Liang
-> > > wrote:
-> > > > > > > > >
-> > > > > > > > > > > On Sat, Aug 08, 2026 at 06:50:53PM -0700, Changhuang
-> > > > > > > > > > > Liang
-> > > > > wrote:
-> > > > > > > > >
-> > > > > > > > > > > > +static int __init starfive_socinfo_init(void) {
-> > > > > > > > > > > > +	struct soc_device_attribute *attrs;
-> > > > > > > > > > > > +	struct soc_device *soc_dev;
-> > > > > > > > > > > > +	const char *machine =3D NULL;
-> > > > > > > > > > > > +	struct device_node *np;
-> > > > > > > > > > > > +	struct regmap *regmap;
-> > > > > > > > > > > > +	char rev_char;
-> > > > > > > > > > > > +	u32 rev_id;
-> > > > > > > > > > > > +	int ret;
-> > > > > > > > > > > > +
-> > > > > > > > > > > > +	np =3D of_find_compatible_node(NULL, NULL,
-> > > > > > > > > > > > +"starfive,jhb100-sys0-syscon");
-> > > > > > > > > > >
-> > > > > > > > > > > Remind me again why this is not just probed as an
-> > > > > > > > > > > mfd cell from the syscon driver?
-> > > > > > > > > > >
-> > > > > > > > > > > (Hint: please put this info in the commit message).
-> > > > > > > > > >
-> > > > > > > > > > The discussion result with Krzysztof at that time is re=
-corded
-> here:
-> > > > > > > > > > https://lore.kernel.org/all/20260405-strong-watchful-m
-> > > > > > > > > > armo
-> > > > > > > > > > t-fd
-> > > > > > > > > > fad6
-> > > > > > > > > > @quo
-> > > > > > > > > > ll/
-> > > > > > > > > >
-> > > > > > > > > > One register should not be treated as a separate device=
- node.
-> > > > > > > > >
-> > > > > > > > > That's a different question. In the case of an mfd cell
-> > > > > > > > > probed from the syscon driver there would be no
-> > > > > > > > > devicetree modifications required compared to what you ha=
-ve
-> now. e.g.
-> > > > > > > > > sg2044-topsys.c
-> > > > > > > >
-> > > > > > > > This seems feasible, and I can introduce this modification
-> > > > > > > > in the next
-> > > > > > > version.
-> > > > > > >
-> > > > > > >
-> > > > > > > In fact, you don't even need the mfd cell, because your
-> > > > > > > driver is going to be in drivers/soc/starfive anyway? You
-> > > > > > > can just bind directly to the
-> > > > > > > sys0 syscon I think.
-> > > > > >
-> > > > > > I suddenly realized that I missed one issue:
-> > > > > > starfive,jhb100-sys0-syscon is already bound to the PLL driver
-> > > > > > by default, I
-> > > > > can't use it to bind another device anymore.
-> > > > > >
-> > > > > > which is why I used
-> > > > > >
-> > > > > > np =3D of_find_compatible_node(NULL, NULL,
-> > > > > > "starfive,jhb100-sys0-syscon");
-> > > > > >
-> > > > > > in jhb100-socinfo.c.
-> > > > > >
-> > > > > > So it seems the MFD cell approach isn't really feasible either?
-> > > > >
-> > > > > You could, in that case, probe the clock driver using the
-> > > > > mfd_cell like sg2044-topsys. What else other than the pll
-> > > > > controls and the soc info register is in this register region?
-> > > >
-> > > > We don't have any other drivers right now in this register region.
-> > >
-> > > I'm not asking about what's got a driver right now though, I am
-> > > wondering what else the registers in this region are for.
-> >
-> > Here are some registers related to debug functionality.
->=20
-> So probably nothing else that linux will ever need?
+Thank you very much for the detailed analysis! To it is enough to
+proceed. I'll review your v7.
 
-Yes.
+Luca
 
->=20
-> > > > So does that mean I can revise it to the format below:
-> > > >
-> > > > static const struct mfd_cell jhb100_sys0_subdev[] =3D {
-> > > > 	{
-> > > > 		.name =3D "jhb100-sys0-pll",
-> > > > 	},
-> > >
-> > > > 	{
-> > > > 		.name =3D "jhb100-socinfo",
-> > >
-> > > Why would this be needed? The driver with the mfd_cell would be the
-> > > same one that provides the soc info, no?
-> >
-> > My understanding is that one driver can only bind to one device, so
-> > the PLL driver and the socinfo driver need these two devices
-> > respectively, and thus cannot share one?
->=20
-> Correct, but I am talking about the socinfo driver being the one that cal=
-ls
-> devm_mfd_add_devices() to create a device for the pll so that in the end
-> there are a total of two drivers, rather than create something identical =
-to
-> sg2044-topsys.c that does nothing other than initialise two mfd cells.
-> May as well consolidate the mfd_cell definition and call to
-> devm_mfd_add_devices() in one file, since it would be in the same directo=
-ry
-> as the socinfo driver anyway.
-
-Okay, I will use this method.
-
->=20
-> >
-> > >
-> > > > 	},
-> > > > };
-> > > >
-> > > > static const struct mfd_cell jhb100_per0_subdev[] =3D {
-> > > > 	{
-> > > > 		.name =3D "jhb100-per0-pll",
-> > >
-> > > Why do these other ones need to be modified?
-> >
-> > I was thinking, since sys0-pll has been adjusted, would it be better to=
- also
-> adjust per0-pll and per1-pll together in a unified way?
->=20
-> I wouldn't complicate them with things that they don't need, so it depend=
-s on
-> if these other syscon regions contain more than just PLLs and if there'll=
- ever
-> be drivers for the other stuff in those regions.
->=20
-> >
-> > >
-> > > > 	},
-> > > > };
-> > > >
-> > > > static const struct mfd_cell jhb100_per1_subdev[] =3D {
-> > > > 	{
-> > > > 		.name =3D "jhb100-per1-pll",
-> > > > 	},
-> > > > };
-> > > >
-> > > > static const struct mfd_cell jhb100_ pcierp _subdev[] =3D {
-> > > > 	{
-> > > > 		.name =3D "jhb100-pcierp-reset",
-> > > > 	},
-> > > > };
-> >
-
-Best Regards,
-Changhuang
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
