@@ -1,125 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9213C3432;
-	Wed, 19 Aug 2026 06:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26D73CC7EB;
+	Wed, 19 Aug 2026 06:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787119877; cv=none; b=HZoxVA8zuIn5OLJwhYV2menDaenjm4ICTuzfEAJoCzIHS8x+ojCEzg8tvL9G1YpJnEewYo9Nx6510+lzpU+I7TSSSk8JzkjFBR+XHipF26BLui97BA8doz1XOlTQzTgOGp5vOocyX9CVGibQLmW7wFzyYPG+1eWPJLxCdC1v2PY=
+	t=1787119895; cv=none; b=DnUv7ElmyHbq7JJXzcCFChBMpDvBqfynH08GpPZJgbqCnBWM3YxBt3tJ0ebEz8R8+v8axzjQwmqdZ6HoWMCVuVUQESY++2EjmpFLODIsWyFgi7lgVQydc/eu1Sym4UsrPzfEzv5zJKwTjmIuFK7EHLoy5jdJBvkUMAKROcT1EkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787119877; c=relaxed/simple;
-	bh=pg1KjDw4F6dQpId4Mc1Wd8x1YNkmEuXU4RC0vvkhs2g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Qtc4ppP8wYrZJoEMkGba0ms/u+xYemip7rM8032CTOGSNoIAI+Le5GBYFLrb4E0TD/UWWR1ftYILzM2mjmETlEX2Na9Xk1oxb4IJ1SFfW4tKTegnWZ7ChbvaMmsfsEOqhOwyb1Ad3tfT1ORxmwdtM9gpH47PnuqDTayGzPGAbEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D1/nJq/J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787119895; c=relaxed/simple;
+	bh=g/tspJdnIjaYPLnhYruDKhmk89UURmZxtfy22fiiEOA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Z9e8N2anQja/dFGLEQ9CBR4Y9YjM65y0L96Ed4CtEObLl8v4CoS7px+fI4h0kWuCxpvkUw0E6BdV+hOM9Qb+hp8eFFSFfiDYVb51g9Tf+MrPgg2zbNuSkcPZkmawPHhl6TeJw+Hsueu1INI5/IRYKhTTxIxTX0o4/F70n/gmmQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z7aXvli4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D1/nJq/J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A4E1F000E9;
-	Wed, 19 Aug 2026 06:11:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787119876;
-	bh=xB9M143zDCvoZXHQB+ollC1aPdCSzjMJbq8yWDJEZ5M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=D1/nJq/J7H+BEAyzDZUUfCZcCJz5PEaNDORbv74kblqT7Qgp8rn26fpE8wXlJeoM/
-	 0VEfyjW45GRdLhGlVeVVpNXsz5EDZ57owZaV8e+zVSB1olx/NRuxjF6dES0vRcWTNh
-	 GTVvzlJY3dsSkfbIKL6Mbmy36FUWoNfjBPd1TVSrxYHHiQjs5/aNLYtmyMb1UWNQOV
-	 RzFy1ByA4guy8+AOA/WSBJcKhM9DoH1yRSZuLVQ5jT59r/dzEU7Vk3b49SB/6pu7FI
-	 pjkKLZTBR4J7F3eH/FLNFGD2Vdvdu/vPInLGMAKi763gqoClD2U+jh3K/JkqrH3zhs
-	 FvkXQd9nvXNlg==
-Message-ID: <ddf88af6-c947-478d-81ab-bff4aa27d2cc@kernel.org>
-Date: Wed, 19 Aug 2026 08:11:10 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z7aXvli4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8F299C2BCF6;
+	Wed, 19 Aug 2026 06:11:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787119895;
+	bh=g/tspJdnIjaYPLnhYruDKhmk89UURmZxtfy22fiiEOA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Z7aXvli440VVUuxmDzs+1etEjFmHWOteSGQbAr8Vo59q/gU/FER5oFBAXDkzoy+Y6
+	 +bzmghilSB3hCypCsCx6+elZVJHv9XpS91XPiHSwzN8Z5eWacsaEDNnPUjadpM31R8
+	 IYgQJPgxdT4bImhfx7R6lkai9hc8fnMSbpV1ulaIZmmQFhOQLO7gqMbkReU7JLwjPB
+	 54brJ25jztFB+OjLK84BwUDJPfUQRF/Qcy1WTshONxGGhs5q8N1ISAQiBWIeHSJiF7
+	 RRKtWDSLV6wNJptq3QpfeV0GQOAQnU27yD/ei5IahSSTPZ454wbVEvylai+cm3GuBi
+	 AAKi70vwKFc7A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68176C5B572;
+	Wed, 19 Aug 2026 06:11:35 +0000 (UTC)
+From: Pankaj Gupta via B4 Relay <devnull+pankaj.gupta.nxp.com@kernel.org>
+Date: Wed, 19 Aug 2026 17:12:07 +0530
+Subject: [PATCH v37 1/7] Documentation/firmware: add imx/se to
+ other_interfaces
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] soc: qcom: pd-mapper: Add support for Maili SoC
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Yijie Yang <yijie.yang@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260819054203.61385-1-prasad.kumpatla@oss.qualcomm.com>
- <20260819054203.61385-3-prasad.kumpatla@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260819054203.61385-3-prasad.kumpatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260819-imx-se-if-v37-1-5ef5de9ff1dc@nxp.com>
+References: <20260819-imx-se-if-v37-0-5ef5de9ff1dc@nxp.com>
+In-Reply-To: <20260819-imx-se-if-v37-0-5ef5de9ff1dc@nxp.com>
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787139727; l=7403;
+ i=pankaj.gupta@nxp.com; s=20260817; h=from:subject:message-id;
+ bh=ZSAmXRvPjYNeGEa/I9hefXFuALx9geFcXzYMsSoJmHQ=;
+ b=HmAB72sDYCAPdc0DS+XnouVoNI/zCni/QErgsquIP7hYokTAc+uXokycnpk7DM09IREe6fLKF
+ xvQBSM5+oyfCVZSp5pHmWbAInvPmGiDUI2wv6vzSW3rbschq6RcTryR
+X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
+ pk=g4ZgzIWbpXnSxRsoH+l6PWLP78a+Mzpl8e6RQe74d5Y=
+X-Endpoint-Received: by B4 Relay for pankaj.gupta@nxp.com/20260817 with
+ auth_id=962
+X-Original-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+Reply-To: pankaj.gupta@nxp.com
 
-On 19/08/2026 07:42, Prasad Kumpatla wrote:
-> Add support for the Qualcomm Maili SoC to the protection
-> domain mapper. Maili shares the same protection domain
-> configuration as Kaanapali, so reuse the existing
-> Kaanapali domain data.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> ---
->  drivers/soc/qcom/qcom_pd_mapper.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/soc/qcom/qcom_pd_mapper.c b/drivers/soc/qcom/qcom_pd_mapper.c
-> index 64ca99d7fad9..3376423d237f 100644
-> --- a/drivers/soc/qcom/qcom_pd_mapper.c
-> +++ b/drivers/soc/qcom/qcom_pd_mapper.c
-> @@ -626,6 +626,7 @@ static const struct of_device_id qcom_pdm_domains[] __maybe_unused = {
->  	{ .compatible = "qcom,hawi", .data = kaanapali_domains, },
->  	{ .compatible = "qcom,kaanapali", .data = kaanapali_domains, },
->  	{ .compatible = "qcom,mahua", .data = glymur_domains, },
-> +	{ .compatible = "qcom,maili", .data = kaanapali_domains, },
+From: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-This patchset makes no sense. Early upstreaming of unreleased SoC does
-not mean you send everything except DTS. You send things earlier to
-speed up merging, but such trivialities targeting Qcom SoC should be
-sent with the SoC DTS. It brings no value to send it earlier.
+Documents i.MX SoC's Service layer and C_DEV driver for selected SoC(s)
+that contains the NXP hardware IP(s) for Secure Enclaves(se) like:
+- NXP EdgeLock Enclave on i.MX93 & i.MX8ULP
 
-Best regards,
-Krzysztof
+Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ .../driver-api/firmware/other_interfaces.rst       | 133 +++++++++++++++++++++
+ 1 file changed, 133 insertions(+)
+
+diff --git a/Documentation/driver-api/firmware/other_interfaces.rst b/Documentation/driver-api/firmware/other_interfaces.rst
+index 06ac89adaafb..6c6fa9a0ba1d 100644
+--- a/Documentation/driver-api/firmware/other_interfaces.rst
++++ b/Documentation/driver-api/firmware/other_interfaces.rst
+@@ -49,3 +49,136 @@ of the requests on to a secure monitor (EL3).
+ 
+ .. kernel-doc:: drivers/firmware/stratix10-svc.c
+    :export:
++
++NXP Secure Enclave Firmware Interface
++=====================================
++
++Introduction
++------------
++The NXP's i.MX HW IP like EdgeLock Enclave, V2X etc., creates an embedded secure
++enclave within the SoC boundary to enable features like:
++
++- Hardware Security Module (HSM)
++- Security Hardware Extension (SHE)
++- Vehicular to Anything (V2X)
++
++Each of the above features is enabled through dedicated NXP H/W IP on the SoC.
++On a single SoC, multiple hardware IP (or can say more than one secure enclave)
++can exist.
++
++NXP SoCs enabled with the such secure enclaves(SEs) IPs are:
++i.MX93, i.MX8ULP
++
++To communicate with one or more co-existing SE(s) on SoC, there is/are dedicated
++messaging units(MU) per SE. Each co-existing SE can have one or multiple exclusive
++MUs, dedicated to itself. None of the MU is shared between two SEs. Communication
++of the MU is realized using the mailbox driver. Each secure enclave can cater to
++multiple clients by virtue of these exclusive MUs. Also, they can distinguish
++transactions originating from these clients based on the MU used and core security
++state. The communication between the clients and secure enclaves is in the form of
++a command/response mechanism. Each client could expose a specific set of secure enclave
++features to the higher layers, based on the commands supported by that client. For
++example, the secure enclave could simultaneously support an OPTEE TA and Linux
++middleware as clients. Each of these clients can expose a specific set of secure
++enclave features based on the command set supported by them.
++
++NXP Secure Enclave(SE) Interface
++--------------------------------
++MU(s) is/are not shared between SE(s). But for an SoC like i.MX95 which has
++multiple SE(s) like HSM, V2X-HSM, V2X-SHE, all the SE(s) and their interfaces 'se-if'
++that is/are dedicated to a particular SE will be enumerated and provisioned using the
++single compatible node("fsl,imx95-se").
++
++Each 'se-if' comprises two layers:
++
++- (C_DEV Layer) User-Space software-access interface.
++- (Service Layer) OS-level software-access interface.
++
++::
++
++   +--------------------------------------------+
++   |            Character Device(C_DEV)         |
++   |                                            |
++   |   +---------+ +---------+     +---------+  |
++   |   | misc #1 | | misc #2 | ... | misc #n |  |
++   |   |  dev    | |  dev    |     | dev     |  |
++   |   +---------+ +---------+     +---------+  |
++   |        +-------------------------+         |
++   |        | Misc. Dev Synchr. Logic |         |
++   |        +-------------------------+         |
++   |                                            |
++   +--------------------------------------------+
++
++   +--------------------------------------------+
++   |               Service Layer                |
++   |                                            |
++   |      +-----------------------------+       |
++   |      | Message Serialization Logic |       |
++   |      +-----------------------------+       |
++   |          +---------------+                 |
++   |          |  imx-mailbox  |                 |
++   |          |   mailbox.c   |                 |
++   |          +---------------+                 |
++   |                                            |
++   +--------------------------------------------+
++
++- service layer:
++  This layer is responsible for ensuring the communication protocol that is defined
++  for communication with firmware.
++
++  FW Communication protocol ensures two things:
++
++  - Serializing the messages to be sent over an MU.
++  - FW can handle one command message at a time.
++
++- c_dev:
++  This layer offers character device contexts, created as '/dev/<se>_mux_chx'.
++  Using these multiple device contexts that are multiplexed over a single MU,
++  userspace application(s) can call fops like write/read to send the command message,
++  and read back the command response message to/from Firmware.
++  fops like read & write use the above defined service layer API(s) to communicate with
++  Firmware.
++
++  Misc-device(/dev/<se>_mux_chn) synchronization protocol::
++
++                                Non-Secure               +   Secure
++                                                         |
++                                                         |
++                +-----------+      +-------------+       |
++                | se_ctrl.c +<---->+imx-mailbox.c|       |
++                |           |      |  mailbox.c  +<-->+------+    +------+
++                +-----+-----+      +-------------+    | MU X +<-->+ ELE |
++                      |                               +------+    +------+
++                      +----------------+                 |
++                      |                |                 |
++                      v                v                 |
++                  logical           logical              |
++                  receiver          waiter               |
++                     +                 +                 |
++                     |                 |                 |
++                     |                 |                 |
++                     |            +----+------+          |
++                     |            |           |          |
++                     |            |           |          |
++              device_ctx     device_ctx     device_ctx   |
++                                                         |
++                User 0        User 1       User Y        |
++                +------+      +------+     +------+      |
++                |misc.c|      |misc.c|     |misc.c|      |
++   kernel space +------+      +------+     +------+      |
++                                                         |
++   +---------------------------------------------------- |
++                    |             |           |          |
++   userspace   /dev/ele_muXch0    |           |          |
++                          /dev/ele_muXch1     |          |
++                                        /dev/ele_muXchY  |
++                                                         |
++
++When a user sends a command to the firmware, it registers its device_ctx
++as waiter of a response from firmware.
++
++Enclave's Firmware owns the storage management over a Linux filesystem.
++For this c_dev provisions a dedicated slave device called "receiver".
++
++.. kernel-doc:: drivers/firmware/imx/se_ctrl.c
++   :export:
+
+-- 
+2.43.0
+
+
