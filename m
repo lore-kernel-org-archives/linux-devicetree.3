@@ -1,161 +1,83 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905863DCD80
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DC03DCD80
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:33:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787124769; cv=none; b=tvWGiGu3vwEg6fADjiJIzjOycVaTZZ/pcYUYwhyFzX1d8BYFG3RL0Jm7y5irToYEgZRgfxi9PHfm9C/H+Rjz3laoxETE/xs6JCo6bEaC2+UDamfqHGtzykdiEvaYbh6azGdJeOzc0OEnN5IhPbCvAmTbgMrQ3QionGFINuKTI84=
+	t=1787124786; cv=none; b=CJTrbEzREaQSZZH0LedE1LM+wz91UChb+fLhheNpxA3JdXp6yKF91lxVq2gc0RhDmi/PhQ7G+/72n4hHclIlzHYSVhbdCNOPZKqQ2m/Xmx/5jys4ds894Br7fMz3eR7eXWtfU8gJv7rAFFIT1IRUR13QVSYILR1Zj6v79XfV29k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787124769; c=relaxed/simple;
-	bh=o/2vI3L7DjU+AGv1ghKW5/EjiUALqhJV4GZBMQXeKpE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=mKcyv2krhNVJON1b0G09QTwEkSrEYUQ+hTztgAEG3PHshmKR/cnifXeI95QJ4/oZmRy+K19Lup2w+oSS2XA1y4PfNBDkHnQkkDl6XsNRUG0v/PChaCgNIlG4hMbrjUekfkRxFHGtgZU3O0+yVpxVMpmTvWUBaJLQ5GrBidpfNKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ov4NkIaB; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787124786; c=relaxed/simple;
+	bh=VkxwTHhpX690h2pXqhYY+zmBovwI3C9WHSBD9ryCt6I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=McIX+TPGaK3oG8IvpsU0p3A8GX1xPMwKgqF6IKrfCd1lWbP54JcmD+xp+ZtCpTRg9yMVa/wddkY8BWMQCPANMqUN4zMglpAg5+NpK5XRyw4R1/cvN850S8tQrjx9bFr8mP1pMtoQQSbiT85YO4COezQaz0NQ6CV51wxomxE7JaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dpOjroIG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ov4NkIaB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id AE7F04E412BA;
-	Wed, 19 Aug 2026 07:32:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8291F5FF42;
-	Wed, 19 Aug 2026 07:32:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E759711C753B7;
-	Wed, 19 Aug 2026 09:32:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787124758; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hQKtUNfu32zyyC3Pj0M51woeAuZ2PTZyG0Xqk5Ab96I=;
-	b=ov4NkIaBPQjK5QOgWFDAaIX+AGemj/mYur8euDyWKpDKQhIgALpJzcC2rY7O47dazgnCq2
-	ldjpBhvTFzT+WKYxCW/IsYATs5b0vLo/ga46XhaR0eg03d7UclrWJ9xT4bhjItk2g+319P
-	zy110nlWGd5ujXMq7EI7iYO92jm4soUdn7pBT5YvMNijLkn+t45QSY1VJ1ya3y1tDeW+Wm
-	tt6SiD/OAH3iX3OqYjnROILLWbdepOpsiHRNrOSHkRhDbKCPEiaKeRY+lwep9KTx2YY7Ts
-	iqSQzMVFSjN5Kt0hpuj5qMezBS4RCPP1840Q2kaSoApEdycxvaml3Piy2wHkhA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dpOjroIG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F86E1F00A3D
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:33:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787124785;
+	bh=VkxwTHhpX690h2pXqhYY+zmBovwI3C9WHSBD9ryCt6I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dpOjroIGI85uGUmiGJs9drYoXJhWNmVi4Uu3qGsw/NyvsqnuNvUgi89N9RNfPYAWP
+	 AEgu6FA3sfYXpsYY+Wr9HXu2c8CUR44guutkanr8ETQ64s6zPs4Fh46HEBjo8TPYvD
+	 jjXR4/BaPP1E02MEgaQLgH9LhmetQeGWQMYLdCcKPn1/lPeuo0vL87iviG8vq5aFMT
+	 7BUbcYev20AFu3U5/liiINcqpf2o06mkh1Gpk22RTGdfBkWjXs6MZ2GSuVFHiDCubn
+	 dJzb1UguVvNUKib86ajaYHZEAOcpz6oxmJS6n2q77Tm19iJyblR4R/XacjfhHp7Blg
+	 IdoWLK+59joQA==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b45f1cd80eso737693e87.2
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 00:33:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqvYOzcG+yzgSOxZxHUOuLpEldS0QjHO8I/8dESbaj/U2GYZ+9gV/KjVUc5v6cCY+pga4ba1vtNnrLx@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy90sZ90Y5RHQPRB6O3I4Ot/NpfmEBdqBIlN7oUmThcpYRuvtWv
+	c5vot5XkH+SxhbRJOvIBffJZr1x0m0b2aq+ALu4zTq5rKLszzcKGaoDQXNlfaJ9nqC9lugOnmjt
+	pVYjXZ6b7KgB+vdKILIZnXyEQf3O4fBQ=
+X-Received: by 2002:a05:6512:3d86:b0:5ae:a702:6528 with SMTP id
+ 2adb3069b0e04-5b478bdc331mr681671e87.26.1787124783764; Wed, 19 Aug 2026
+ 00:33:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com> <20260818-cv75-v5-v5-6-7bbb12f0360f@ambarella.com>
+In-Reply-To: <20260818-cv75-v5-v5-6-7bbb12f0360f@ambarella.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 19 Aug 2026 09:32:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnsyZDBixXMDFUf1+i0ZtYkmzpc+kggn9bx7=8W-gZHSw@mail.gmail.com>
+X-Gm-Features: AcwNN1WedvW-uebjWVm_0ycL6wQEG6qNIR9PZrbwX20kSbc79ar1YheT6gV97uE
+Message-ID: <CAD++jLnsyZDBixXMDFUf1+i0ZtYkmzpc+kggn9bx7=8W-gZHSw@mail.gmail.com>
+Subject: Re: [PATCH v5 06/12] dt-bindings: serial: add Ambarella CV75 UART
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Brian Masney <bmasney@redhat.com>, Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
+	Long Zhao <zl020895@163.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 19 Aug 2026 09:32:29 +0200
-Message-Id: <DKSQUNWA86GP.9NHE4ADGYLQH@bootlin.com>
-Subject: Re: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory
- samsung DP DT properties
-Cc: <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <robh@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-To: "Damon Ding" <damon.ding@rock-chips.com>,
- <sashiko-reviews@lists.linux.dev>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
- <20260707040613.1992841-4-damon.ding@rock-chips.com>
- <20260707041711.4F7351F000E9@smtp.kernel.org>
- <00d3f58e-73bb-41da-a2df-dfeeca644b6f@rock-chips.com>
-In-Reply-To: <00d3f58e-73bb-41da-a2df-dfeeca644b6f@rock-chips.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Damon,
+On Tue, Aug 18, 2026 at 12:32=E2=80=AFPM Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> wrote:
 
-On Wed Jul 15, 2026 at 10:32 AM CEST, Damon Ding wrote:
-> On 7/7/2026 12:17 PM, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 1 potential iss=
-ue(s) to consider:
->> - [Critical] Failing probe when deprecated DT properties are missing bre=
-aks DT ABI and prevents their deprecation.
->> --
->>
->> --- Patch [3]: [PATCH v6 3/5] drm/bridge: analogix_dp: Restore mandatory=
- samsung DP DT properties ---
->> commit b573dba50acc6087122ffa4a65680322f4d004f8
->> Author: Damon Ding <damon.ding@rock-chips.com>
->>
->> drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
->>
->> This commit reverts a change that made the samsung,link-rate and
->> samsung,lane-count properties optional for Exynos DP. It adds error chec=
-king
->> to fail the probe early if these properties are missing, aiming to preve=
-nt
->> link training failures caused by zero values.
->>
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drive=
-rs/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> index 8cf6b73bceac0..293d8adfe9856 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> [ ... ]
->>> @@ -1258,10 +1259,14 @@ static int analogix_dp_dt_parse_pdata(struct an=
-alogix_dp_device *dp)
->>>   		 * NOTE: those property parseing code is used for
->>>   		 * providing backward compatibility for samsung platform.
->>>   		 */
->>> -		of_property_read_u32(dp_node, "samsung,link-rate",
->>> -				     &video_info->max_link_rate);
->>> -		of_property_read_u32(dp_node, "samsung,lane-count",
->>> -				     &video_info->max_lane_count);
->>> +		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
->>> +			return dev_err_probe(dp->dev, -EINVAL,
->>> +					     "Failed to get samsung,link-rate\n");
->>
->> [Severity: Critical]
->> Does failing the probe when this property is missing break the DT ABI?
->>
->> Since samsung,link-rate is a deprecated property, a modern schema-compli=
-ant
->> Device Tree might intentionally omit it. If a system boots with such a D=
-T,
->> this check will fail the probe with -EINVAL and disable the display.
->>
->> Could the driver instead fall back to hardware maximums or sensible defa=
-ults
->> when the deprecated property is absent, rather than returning an error?
->>
+> From: Long Zhao <longzhao@ambarella.com>
 >
-> I'm afraid it's difficult to provide a universal sensible default value
-> here.
+> Document the Ambarella CV75 on-chip UART controller binding for early
+> console bring-up. The binding requires a single RCT clock input and
+> fixed 32-bit register access via reg-shift and reg-io-width.
 >
-> The samsung,lane-count and samsung,link-rate values vary significantly
-> across Exynos DP device trees, so a generic fallback to hardware
-> maximums cannot guarantee stable link training.
->
-> Even though these two properties are marked deprecated, all existing DTS
-> files in our projects have already populated them completely. Moreover,
-> the current link training logic relies on these two parameters; omitting
-> either will directly cause link training failures at runtime.
->
-> Therefore, retaining the mandatory property check in probe is a
-> reasonable approach for now.
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-I'm still not convinced we should turn an optional property into mandatory,
-after having been optional since 2016 (based on the commit in the Fixes:
-tag).
+Looks good to me!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-The sure thing is we cannot break existing devices which upgrade to a new
-kernel.
-
-Se the question is: if a device is missing one of these properties, or
-both, what happens? The video_info->max_link_rate and/or
-video_info->max_lane_count will be zero, correct? And if they are zero, is
-there even a remote possibility that the device will work somehow, maybe
-only with some rare low resolution or whatever?
-
-If the answer is "yes, there is a remote possibility that one sich device,
-with some maybe rare configuration, will work", then no, we cannot make
-this property mandatory now. There can be devices out there working without
-these proberties, and they would be broken.
-
-If the answer is "there is no way at all a device can work without one or
-both properties", with a good explanation based on the code flow and
-hardware docs, then we can consider this change.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Yours,
+Linus Walleij
