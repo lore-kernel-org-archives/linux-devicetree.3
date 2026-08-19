@@ -1,122 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2529B3DA7D7;
-	Wed, 19 Aug 2026 22:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAEC1C01;
+	Wed, 19 Aug 2026 22:25:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787178099; cv=none; b=emOEIXaL83LWqMEILZAhzz3YgtqOs3u1ebM0XQwqustBBw4UMtvLOmEOa2hXGHTd0MEDJLUppmT+6MrsxY/c/kKIdH+Uv5TU7VbMpm6kpX2aUxKJjOT0mBYfkZw7ansj8HPnlkQpa3yBI+rjujkhm8YMGnSbP16chtWLWl8Qmn4=
+	t=1787178353; cv=none; b=LYqk/KIQvPAmJeDcFrGDe7g+Aud4w4RW3vPP2z1AHMYgI+8/J9Slq0KJ7yS218Xd3ETAb7KaY2rZ+mNxn08GKes4LswerBG7NrhaT48+PSBe10U564gdZ15v2QECc1xKHB4aN+D0cV0MRIylyWIuJFhQU/xgfNGZBOnVFQhdU6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787178099; c=relaxed/simple;
-	bh=eARO++AoB+mJvW20ahggr2RinWfmmEA4m7HAHI0pHN0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SVsbZnkHn3b3dR+TVOS9Q18nebFZc0skoWU7VyBr6p7+xXFdemIRiwbqt/FyE+NUPzziDV8n/CWCboBJrdIMwwgdJH/M8CjMfU/Q+hlK1LqOMMMLR01hjvq9NSGE1wEtgOREhyxiXVu/usUPpi+SLMozx3fJ+hNra21YPhlgY24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VuTMQ0t3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787178353; c=relaxed/simple;
+	bh=FcfWrywkDBqGoLU1Yrszmtu1f4x4VGFP2Fp34lnybro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JZoEaWXOEmFKF4Nh/BLDURe3q17UzxGuqoJPEu4aRyStgos+aReJkUd8mFSDPoz2Nb3xlmZHdN20t8eh33H2t1YPQm6an5RLMVb1ewxkP3oKawBm3RQr+fE218uyFlBXPvuo8Ck8EJfNwS4QHIudt5wv/2bzuA4IAGe6LyLIj3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JYbCaxaU; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VuTMQ0t3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797DA1F000E9;
-	Wed, 19 Aug 2026 22:21:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787178097;
-	bh=ZB6ijTgeUuq9eNfTn53cUMUX/vsRRYpJirU0Vu65VWc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VuTMQ0t3FCFWTBc4RaGVnjhIGi+WVmzThn4DONDaOwUddlF2CRk5hblk/Tj+P3Vq6
-	 zCbWz25e+10hJUHYSCvw7EoqWUNonchxgSPFaMAAgeUu9lQHrJMZbNdeXimCzd3oCF
-	 /2/7RoHNt1R1EUkx4snKAP2a/0qx+fbgwAwvej22C2Z06GNYtg6bbvJ2ROoL+rkVH7
-	 MXnx10pSDrwHjTQr1qD2GxQZOjMfAH0a7pG7Eyv/Pr76t0uR1R9wm1BxYC10dvfuRE
-	 I/cixXPk0I0xVxtnBHPVfJOdfCDs4EPIMgQbCIYZG/F2mB1A4jRT7wupIP7txmMttr
-	 E6CHhXbLI5caQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/3] dt-bindings: clock: airoha: Document support for
- AN7583 clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260819221458.30040-2-ansuelsmth@gmail.com>
-References: <20260819221458.30040-1-ansuelsmth@gmail.com>
- <20260819221458.30040-2-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 22:21:37 +0000
-Message-Id: <20260819222137.797DA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JYbCaxaU"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DB8131A174E;
+	Wed, 19 Aug 2026 22:25:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9FDF45FF42;
+	Wed, 19 Aug 2026 22:25:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8F4A711C75BF8;
+	Thu, 20 Aug 2026 00:25:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787178344; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=qUHF/iiwesIbimQHX6jq2u+WabfFlLd7D+fMwnkKIsA=;
+	b=JYbCaxaU3RsAOJeIbw/wpZPp+zf5o1Q32Yfcredac8E06E91juxJ4zuUmiVunBi5poy1E9
+	9CPGhpZ13mrps2B7PuIfs6ujXEZ5hCdZjVf4dYIQ9FnDRIkaPta+abyrAFemliH3NPcOkE
+	9SLuj3bUIRxgm7ner+/CRQbT9zw/G3f/5UPM+NdJSuIX/0+eHju1kMz5ED6njDYcjhTPkE
+	rjAmw3qnAV6Zmne+d/Git/elI6mAGZxYWw1TfTQ6OQ/jvpr3krJmlWyymTpqwAh0SQwzKa
+	XvSlolFeFiDkgnsZiacjpK9/6xEL9XNB68XygzPDx/utRKEECGqLi4pRpQhdoQ==
+Date: Thu, 20 Aug 2026 00:25:41 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Markus Probst <markus.probst@posteo.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Michael Langer <michael.brainbug.langer@googlemail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] rtc: s35390a: Fix alarm not disabling
+Message-ID: <2026081922254172956b52@mail.local>
+References: <20260820-rtc_s35390a_int1-v5-0-5eb4ef85c6a9@posteo.de>
+ <20260820-rtc_s35390a_int1-v5-3-5eb4ef85c6a9@posteo.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820-rtc_s35390a_int1-v5-3-5eb4ef85c6a9@posteo.de>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [Medium] The device tree binding defines the SCU as a reset provider but =
-omits `#reset-cells` from the `required` properties list.
---
-
---- Patch [1]: [PATCH v6 1/3] dt-bindings: clock: airoha: Document support =
-for AN7583 clock ---
-commit d5f1a3bf6c2e7155e5e00666d8f07ae07a173ed5
-Author: Christian Marangi <ansuelsmth@gmail.com>
-
-dt-bindings: clock: airoha: Document support for AN7583 clock
-
-This commit documents support for the Airoha AN7583 clock, building upon the
-EN7523 clock schema. It introduces a new requirement for airoha,chip-scu and
-adds supplementary bindings for additional clock and reset lines.
-
-> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.ya=
-ml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> index eb24a5687639e..edecc635807be 100644
-> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-
-[ ... ]
-
-> @@ -50,12 +51,30 @@ properties:
->      description: ID of the controller reset line
->      const: 1
-> =20
-> +  airoha,chip-scu:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle to the Chip SCU providing the registers required
-> +      for configuring the PCIe related clocks and resets.
+On 19/08/2026 22:05:55+0000, Markus Probst wrote:
+> Implement alarm_irq_enable callback.
+> 
+> Fixes: 542dd33a4925 ("drivers/rtc/rtc-s35390a.c: add wakealarm support for rtc-s35390A rtc chip")
+> Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> ---
+>  drivers/rtc/rtc-s35390a.c | 29 ++++++++++++++++++++++++-----
+>  1 file changed, 24 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+> index 4cfe7034c516..575bb256eb25 100644
+> --- a/drivers/rtc/rtc-s35390a.c
+> +++ b/drivers/rtc/rtc-s35390a.c
+> @@ -270,6 +270,24 @@ static int s35390a_rtc_read_time(struct device *dev, struct rtc_time *tm)
+>  	return 0;
+>  }
+>  
+> +static int s35390a_rtc_alarm_irq_enable(struct device *dev, unsigned int enabled)
+> +{
+> +	struct s35390a *s35390a = dev_get_drvdata(dev);
+> +	u8 sts;
+> +	int err;
 > +
->  required:
->    - compatible
->    - reg
->    - '#clock-cells'
-
-[Severity: Medium]
-This is a pre-existing issue, but since the binding defines the SCU as a re=
-set
-provider and this patch adds dedicated reset definitions, should #reset-cel=
-ls
-be included in this global required list?=20
-
-Without it, device tree nodes using the airoha,an7583-scu compatible string
-(or other variants in this binding) that omit #reset-cells will incorrectly
-pass schema validation, potentially allowing incomplete device trees to cau=
-se
-runtime failures in dependent drivers.
-
-> =20
->  allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: airoha,an7583-scu
+> +	if (enabled)
+> +		sts = S35390A_INT2_MODE_ALARM;
+> +	else
+> +		sts = S35390A_INT2_MODE_NOINTR;
 > +
-> +    then:
-> +      required:
-> +        - airoha,chip-scu
+> +	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
+> +	if (err < 0)
+> +		return err;
+> +
+> +	return 0;
+> +}
 
-[Severity: Medium]
-This is a pre-existing issue regarding reset providers in this file, but if
-#reset-cells is not meant to be globally required for all compatibles, shou=
-ld
-it be added to this conditional required list specifically for
-airoha,an7583-scu alongside airoha,chip-scu?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819221458.3004=
-0-1-ansuelsmth@gmail.com?part=3D1
+You can definitively call this from s35390a_rtc_set_alarm instead of
+duplicating code.
+
+> +
+>  static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
+>  {
+>  	struct i2c_client *client = to_i2c_client(dev);
+> @@ -410,11 +428,12 @@ static int s35390a_rtc_ioctl(struct device *dev, unsigned int cmd,
+>  }
+>  
+>  static const struct rtc_class_ops s35390a_rtc_ops = {
+> -	.read_time	= s35390a_rtc_read_time,
+> -	.set_time	= s35390a_rtc_set_time,
+> -	.set_alarm	= s35390a_rtc_set_alarm,
+> -	.read_alarm	= s35390a_rtc_read_alarm,
+> -	.ioctl          = s35390a_rtc_ioctl,
+> +	.read_time		= s35390a_rtc_read_time,
+> +	.set_time		= s35390a_rtc_set_time,
+> +	.set_alarm		= s35390a_rtc_set_alarm,
+> +	.read_alarm		= s35390a_rtc_read_alarm,
+> +	.alarm_irq_enable	= s35390a_rtc_alarm_irq_enable,
+> +	.ioctl			= s35390a_rtc_ioctl,
+>  };
+>  
+>  static int s35390a_nvmem_read(void *priv, unsigned int offset, void *val,
+> 
+> -- 
+> 2.54.0
+> 
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
