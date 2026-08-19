@@ -1,347 +1,123 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012000.outbound.protection.outlook.com [52.101.48.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E95481652
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 17:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787159890; cv=none; b=N7tclGwa58bgzbQgzTP+hmn2piWy1Xcbqq5P3NXJXuIKoLTzCj+enS7MxXhs7kfAP5egK2A2qeks6NojTCkaUzI6fJGbRVU78gd0iNZ/q3njKBuMbUvvwlFuHPA/eINgjD7JU2BVBD9ylgxsbkBWHF1w19ffSbwjwFpLld6xxik=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787159890; c=relaxed/simple;
-	bh=NzDJxIEnmWSoEW/CSHKna408GEw1PamOuVwZswoR4H8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DTEwPEga2MZjFVr/0LhxeJexcGx7H/GDavVElBs2GnxA46IUexbvdDtt6AaqbPlCgFGwNsABUmNzGjp0ybLQyTqpGrBFaePiFJExIM+Q+kQC0kVET6bfSDqGKCzUOSEXzq+gF4rP/pdj+CEuM7sKtcS4WyVyKAGOfqguXc7QXm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RsSkZDwq; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CE547FAE5;
+	Wed, 19 Aug 2026 17:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787160091; cv=fail; b=cYE9gic6mODQkCQcMDVmoKa0gZQkl3+QN0xHVcJaNXIHkVWnctrjatnNO0PXES27XJPr2n8osCcAqxKkpTzJBkajZEB0fI2ReAFYk6UKUpiR1noeGdvOGw+RPKdR6enIEPU7vjPRq2SfoJgMIe+f+VMNqLUbu644p7JWiEW5Ptw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787160091; c=relaxed/simple;
+	bh=bobRyfHDiQDg/kTG/bYsVq/FdX/gPexEgCkzlVcNK6M=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=X13dmpq34sfmD3V2XGiLV8NneN5ZeAFdJQb/wPMEJ/V+5xiMA4xJQED6Ma2Ke84uKJGdvm9cq/dGfyuhzkv1Pyqmxwy/EVXQm06lGDOiGkGEgXcWrjRcjkMgMVoGoS1UubvLqVowsdRicY+u2pehMX73oI1B3GRtqPmHOb+HoXc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tShjUhMw; arc=fail smtp.client-ip=52.101.48.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RsSkZDwq"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2caea3f742bso18610865ad.0
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:17:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787159871; x=1787764671; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VFRNQn9+IiCFEpwSAiKoW4qdoRMCAiZZVu4dsGCqCeM=;
-        b=RsSkZDwqzw3yGczzFUVb+3Jtb02whf9tbqEh7CakATe7V7IBjaCmLtS74+3Gb56opu
-         sM99/cRhjyyqfdjnPqHjiYeOCFH/PCD9t67F9z5ranKnBcH2PmD9LjoljRw5ZJCbzTs7
-         BztMnb6THylEyZfFxV+3gc6R20a0WE9chiaxoHDGAs1XVEO17+BizD3lR3Fubsh+kokM
-         KGpf3I+YKubjcEqDYTplwh4McPe6IJEbD2jl11rdhrt9ZeBM1mzLyTVcFLy7UiaG/shJ
-         oqacjti6RiF29WKpkQCAUlr7qq/5/Is3qJRpHlHn8czLq1Q7wFhIKaNkAI5NMz2oj0Yr
-         4jIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787159871; x=1787764671;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VFRNQn9+IiCFEpwSAiKoW4qdoRMCAiZZVu4dsGCqCeM=;
-        b=N8i1bBkXUyFayIRD0Q+sD1csnXP31Km+hniPefj8EGZnm1boZ0vdoav47RH1RxVJMc
-         6kwI/3VDzFSUhZyqiB779b+eJYDgIx0jbKVs2Ej8vFPKIYOnCJrgeVbU344UTOdbVjuG
-         sz3V8BadvdPZxa8u4EMJPgUxg+CqL/fBBQeywPivzt2IQTDnPDa6whyvBko2HBzWAuy0
-         fnuZiP6FLWVHK94xICoWOdQZS2ljqY3eqsziamvqvAio5ybCM3Ku2TSMNb32KlPKdjQp
-         fmQQkh/VXV51AGJJuM6PyEZzeKESrGrsvEqGC9SxMWDrqMbqV6zMZg44hr5XkkWmt5cA
-         tAvQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpcgAgST2Z1/WWCH0Huzkt4pQfi+Ton+ujVNXscN3vd+2kEDn1AToLUvVtHu2tVDPi2RmApIoNXB/CQ@vger.kernel.org
-X-Gm-Message-State: AFuF++n8hQVmBoBLS8AARGhuft/+ntvaeE+Clhz9dAIAVtt/R5+w9srO
-	2misYbtRHYfwOrequOxDLl/jFSm9JnraWhLn6SIts7KUgqPwF/RseVFI
-X-Gm-Gg: AR+sD130lBb2MTz/55UMfhTmfFVVqJ//tFq+yuCOKM4tP6DLjTBqVjiZh0AaOV2ogom
-	iStKX7juJV/uJSkb3YkI/gpC3iZMvS4WJEW+VwhThzGtuAEiYUV5UzsZdGb4bSiFOwoVsijdRRv
-	KxqE79cf/Fh53xMyD8MWzYTQX3But0xPOTlRr0Neaj4GYMOGplTHUi2LVhMK3aOSUahLV0Mdlic
-	+cXQvzfUknfDqexq5e5bT7RDqsyHdNiDQ5p+fWQjOBtIeNOorjQNJL5tqk3VSdIdn1fqZKVtuxn
-	f0vXj2EOlVmPbfd0sucq7f9fBvRjafYO1JAfJpRJCB3syltbnthpWuqTbCJH7pP3ux7Z6zlbtj+
-	i1XOsGpooIyxbAGLfx5M5VPvbFOSKxgT0t4DofIDbAN1y5jEFCVcigTPBHsx88lgi6V7Jsz04dH
-	KLmRrz0mljqO+UgGQuba3pS2vgpRBZIEOZhiWPhbP0TkU0eRMLH1iw23Rh+U1PPTEm3g1qbew9O
-	PIyaxfwhuP2PURetYye
-X-Received: by 2002:a17:90a:e188:b0:38e:6d4c:14e6 with SMTP id 98e67ed59e1d1-39580a50d5cmr11805598a91.3.1787159870492;
-        Wed, 19 Aug 2026 10:17:50 -0700 (PDT)
-Received: from buffalo-ssd (M014013071096.v4.enabler.ne.jp. [14.13.71.96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957f4cedeesm1482992a91.0.2026.08.19.10.17.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 10:17:50 -0700 (PDT)
-Date: Thu, 20 Aug 2026 02:17:46 +0900
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v4 0/7] Properly describe mt6589 and mt8167 toprgu resets
-Message-ID: <xqnpukvhtezpqhwjnxbqeddiaqlro4m5yjukpplv5mjfxodlfp@ijaf2trst7p4>
-References: <20260819101853.44681-1-l.scorcia@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tShjUhMw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NfY/WoCI0byZHMCpzFsXqYaXXRQ5dFaCTc6sN2dOUoni+EqV9BYIz9uKY2txeZHLCC942SSnn/WfYhbHbZqxWazIiG62CWFdRxISyCAVmfg7bnX3stqFGKdVBq00b1OMcSZWTYuQ8pc7gQQAspaLwvGF2Ws9YoIUSNytiKMSvRIXqudu4sxBvsLjkafQsACPGlDTI0sCHZHRKDkC4Ub9noNsLZOKM1URstqVE92ncYrqRScZdsECXp2HAor5SYHyEvw2h4qQRr4e9y5DFEjnvNi2SLrO9V/ipAXQugwE6YbszEQ4SaWg658n4xbbyp9pHMc50z8nXJH1tg0IRuMdOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NSl2ebvEvT+9bRoLO8/xSakK4k+221iaQr3p2CNxr4Q=;
+ b=F+FWMyWLojDxBM+BfR81Z7WBFnaVlIEmOocj9kx8brSk57BTh9sj1nn6vu3/F56/eHVF6gySn4ZvVodlqYqvEPyZxRA3+oZBqCxpbaAJJ5f5jvLUBtNAIYWthlqRJpVWi7PUNhmDsQOomRr05ZUOWaVpVuRq6HN7xHhaVQdCmy9rH7EUHBzJQPJbhxw3zYEha0hzNzMejxNnFhNREMteYd/dY2Y1g6GfGJvEuMEW8uk1fNwo7FXstqFUvAfgBET1qCHVeVg73Y1aGyWVOQmpClyOJ/YLqr8BBx4XvOBMf+mISJvVftADlBFW8fOqOr+flziESYv4f7uu7nfj6E9C7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NSl2ebvEvT+9bRoLO8/xSakK4k+221iaQr3p2CNxr4Q=;
+ b=tShjUhMwRvhIoXsvR2QYjm5wON9wUAzGTaK6n8N11yRyJwB1Pny1B8gOT8bsy2qHHkkB7Ka9D2Ywz5n2et/nU1EyWZO2u6Xeu4BC3Ld5G3BPuuEfEjiw3tt1VmWkn01YIxBsf+onllB1FLY1YcqbyvjdpBXhm4KA5i2NOeXxJC0=
+Received: from CH2PR08CA0025.namprd08.prod.outlook.com (2603:10b6:610:5a::35)
+ by PH7PR12MB7188.namprd12.prod.outlook.com (2603:10b6:510:204::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
+ 2026 17:21:10 +0000
+Received: from CH2PEPF0000009B.namprd02.prod.outlook.com
+ (2603:10b6:610:5a:cafe::7e) by CH2PR08CA0025.outlook.office365.com
+ (2603:10b6:610:5a::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Wed,
+ 19 Aug 2026 17:21:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF0000009B.mail.protection.outlook.com (10.167.244.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 17:21:10 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 12:21:08 -0500
+Received: from xhdlc250058.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 19 Aug 2026 12:21:04 -0500
+From: Sai Krishna Musham <sai.krishna.musham@amd.com>
+To: <bhelgaas@google.com>, <lpieralisi@kernel.org>, <kw@linux.com>,
+	<mani@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <cassel@kernel.org>
+CC: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <michal.simek@amd.com>,
+	<bharat.kumar.gogada@amd.com>, <thippeswamy.havalige@amd.com>,
+	<sai.krishna.musham@amd.com>, <pranav.sanwal@amd.com>
+Subject: [PATCH v6 0/2] pci: AMD: Add Versal2 CPM6 PCIe host controller support
+Date: Wed, 19 Aug 2026 22:50:55 +0530
+Message-ID: <20260819172057.3636214-1-sai.krishna.musham@amd.com>
+X-Mailer: git-send-email 2.44.4
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819101853.44681-1-l.scorcia@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009B:EE_|PH7PR12MB7188:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc23c4a5-dd73-4108-4d0d-08defe16432d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|7416014|36860700016|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	pujmOeHb5wHY4iIqdwkZdq2kscm6KckKdUgmWf7AYsyswEcWoVcY7TaqWSfxXg5s644OknDwN6Klfc+N/8bUFrn39u/p8t2bclU2vXCYJsh/YoSVdUjhebQujX7x8YWKMIMOxM5f5ICBxYnyWmz9q4zg4PP5gJji7g8Ctxz34nzwP4XU7/5eyGOep/yRiaSLUTbavp3fDYt4QohSdymo6iRVwkqULGtMclTPUNOTyKkwrNZe3+JHZ+UtxD1gIPAgRU8ZfY8qCWZcvn9o/Nf/jFPpdhN0Sjnh4aShNMziX4Xb2Cs4B1J1og+KrOVoEl4wCNoZw0P3i6FpGQcfxXsZjof8V+TnbeXVRbEba9LnBwRzqJO5ZD5ucwfcQqOZW995BxeV2syr5BG5hejLMPE5aSZSfUInMxu2NJKWit4MZYoR3DGZcc0xLwtedoqEZQH4OCD6RNwjUYDSzkDcu4ou/hSrIEfCzV/jLGuaplBjDv16xvs78j6sSO/IXpsEYaAoYfDyZSV8bPsyvX7NVTgjYDH8XOq2m3nPmBzxeoOFx4vXM3UY/LEN+BPtIWBpY5Ykyh6HlTmaduNQWlJWeSpww8Y0JUfWAZnks2ryoCScmbWYJ4H3BijDPMq/6sviA0jJx+pfCsieGPp+vWJkqSUzpUhA0pwbzDNH2wbvUn/8gczeyEYbKppVOtRKGoJgjpIft5aeVANA9ZNc/m7yxSXKCw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(7416014)(36860700016)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PmX6KkXB9yyiskDfy1Oht+zbvnxKWNJODSDIgoWjdCuZkweQKioey0aJkY9SMx8PNs/Ar4nu1sK0jEoCaawODHgVGwxSPeGX8a3ZiFGrwFZlyMqO6gIB2XtwKgZOvV189HPxJHJRb/FxQwGlinfVnZW17YS1U4YcOb1b56XbqT2G549Q9Tgkc4v/X2Ibytn7GDFAILD2c36q4GmOxCCYoaUBumh7NitU7IG9BoWT987gClBbtvU8u3TpVoAE0ZY5K/IcTk/E+BPStFCyJ/wAVsnnfjqbKtNyfxjOjFHv6rjMvqZ1fNnlfKBRde9YMvSp9WU5e+eRmlo3fRvwW5ChibStWvC4J9bHOTDeRRL4Hq4dX1I34LUNYnBiV47rDEaOo7WW9We6rgslC4nryNjae9tl4Ew3P4CLXBM3V9WSioO9BOIBbQxinWpRmdMu1H9A
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 17:21:10.2392
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc23c4a5-dd73-4108-4d0d-08defe16432d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF0000009B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7188
 
-Hi Luca,
+Add support for the AMD Versal2 CPM6 PCIe host controller to the
+AMD MDB PCIe driver.
 
-On Wed, Aug 19, 2026 at 12:16:21PM +0200, Luca Leonardo Scorcia wrote:
-> Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
-> which in turn falls back on mt6589-wdt, which does not support toprgu
-> resets yet. This series adds support for mt6589 toprgu resets with bit
-> definitions obtained from Android stock sources.
-> 
-> However, according to its data sheet, mt8167 has 14 sw resets instead of
-> 12, and the reset bits are non-contiguous. This is currently unsupported
-> by the mtk-wtd driver, and it caused confusion between reset IDs and reset
-> bits in device tree includes.
-> 
-> Therefore in the first three patches we improve the description of the,
-> resets for mt6589 using the definitions obtained from Android sources.
-> 
-> Then we introduce a dedicated mediatek,mt8167-wdt compatible for the
-> watchdog driver that describes correctly this SoC's resets. Also while
-> we're touching the bindings reset includes, we add IDs for the MMSYS
-> resets.
+Sai Krishna Musham (2):
+  dt-bindings: PCI: amd-mdb: Add CPM6 support
+  PCI: amd-mdb: Add CPM6 host controller support
 
-This is somewhat outside the scope of this series, but adding TOPRGU
-reset support for MT6589 exposes a pre-existing problem with the
-mtk-wdt binding that I think should not go unnoticed.
-
-Until now, using `mediatek,mt6589-wdt` as a fallback compatible for
-other SoCs was mostly harmless, since the driver did not expose the
-TOPRGU reset controller.
-This series changes that by adding reset controller support for MT6589.
-
-According to the MT6589 datasheet, its TOPRGU reset bits are:
-
-  0 infra
-  1 disp (same as mmsys in upstream)
-  2 mfg
-  3 venc
-  4 vdec
-  5 img
-  6 ddrphy
-  7 md
-  8 infra_ao
-  9 md_lite
- 10 apmixed
- 11 pwrap_spictl
-
-These are the reset bits that `mediatek,mt6589-wdt` will provide once
-this series is merged.
-Therefore, for another SoC to use this compatible as a fallback,
-its TOPRGU reset layout needs to be compatible with the above.
-
-At commit bd5f485f3f02, mediatek,mtk-wdt.yaml contains:
-
-      - items:
-          - enum:
-              - mediatek,mt2701-wdt
-              - mediatek,mt6572-wdt
-              - mediatek,mt6582-wdt
-              - mediatek,mt6797-wdt
-              - mediatek,mt7622-wdt
-              - mediatek,mt7623-wdt
-              - mediatek,mt7629-wdt
-              - mediatek,mt8173-wdt
-              - mediatek,mt8188-wdt
-              - mediatek,mt8189-wdt
-              - mediatek,mt8365-wdt
-              - mediatek,mt8516-wdt
-          - const: mediatek,mt6589-wdt
-
-Let's examine the evidence for each of these SoCs.
-
-## MT2701
-
-I could not find enough public information to determine the reset
-layout.
+ .../bindings/pci/amd,versal2-mdb-host.yaml    |  41 +-
+ .../devicetree/bindings/pci/snps,dw-pcie.yaml |   2 +
+ drivers/pci/controller/dwc/pcie-amd-mdb.c     | 367 +++++++++++++++---
+ 3 files changed, 343 insertions(+), 67 deletions(-)
 
 
-## MT6572
-
-A downstream kernel suggests it has the same reset layout as MT6589:
-https://github.com/orangepi-xunlong/OrangePi3G-iot_external/blob/b8a66e9bde91d75a8535dc6342d668efb6ab14ee/mediatek/platform/mt6572/kernel/core/include/mach/mt_wdt.h
-
-However, a report based on actual hardware suggests
-it may have fewer resets than MT6589:
-https://lore.kernel.org/linux-mediatek/W7fWZU3pu6akI_HMTAWPGnnErv60QtTz-LaPb6OtGvU5Bx0Iekl4SxWB6mxBPx8cBo9q9Lg7t8dDzcyfti-5fTirEACcwCLhNAh8e5xoHus=@protonmail.com/
-
-The datasheet is missing the bitfield for WDT_SWRST. 
-
-
-## MT6582
-
-According to the datasheet, the reset bits are:
-
-  0 infra
-  1 mm
-  2 mfg
-  4 vdec
-  5 venc
-  6 ddrphy
-  7 md
-  8 infra_ao
-  9 conn
- 10 apmixed
- 12 conn_mcu
-
-This is clearly not the same reset layout as MT6589.
-
-
-## MT6797
-
-According to the downstream kernel,
-it has additional resets compared to MT6589:
-
-  #define MTK_WDT_SWSYS_RST_C2KSYS_RST    (0x10000)
-  #define MTK_WDT_SWSYS_RST_C2KWDT_RST    (0x20000)
-  #define MTK_WDT_SWSYS_RST_CONMCU_RST    (0x1000)
-
-https://github.com/SHIFTPHONES/android_kernel_shift_mt6797/blob/4c594e5fa5648dd9a8b8ccc5d609bb523f4799b7/drivers/watchdog/mediatek/wdt/mt6797/mt_wdt.h
-
-
-## MT7622
-
-According to the datasheet, the reset bits are:
-
-  0 infra
-  1 ethdma
-  6 ddrphy
-  8 infra_ao
-  9 conn
- 10 apmixed
- 12 conn_mcu
-
-This is not the MT6589 reset layout.
-
-
-## MT7623
-
-According to the datasheet, the reset bits are:
-
-  0 infra
-  1 mm
-  2 mfg
-  3 ethdma
-  4 vdec
-  5 venc_img
-  6 ddrphy
-  7 md
-  8 infra_ao
-  9 conn
- 10 apmixed
- 11 hifsys
- 12 conn_mcu
- 13 bdp_disp
-
-Again, this is not the MT6589 reset layout.
-
-
-## MT7629
-
-I have no evidence either way. 
-
-
-## MT8173
-
-A the downstream kernel claims that MT8173 is compatible
-with MT2701, MT8127 and MT8163:
-https://github.com/bq/aquaris-M10/blob/ab0f5a519edaf314e9b537e448838ec9a4a9a3c8/drivers/watchdog/mediatek/wdt/common/mtk_wdt.c
-
-I don't find this particularly convincing.
-
-MT8163 has 15 reset bits:
-https://github.com/amazon-oss/android_kernel_amazon_mt8163/blob/479f405abf2ee6c0f13688b8cf567cce135924af/include/dt-bindings/reset-controller/mt8163-resets.h
-
-MT8127 appears to have the same reset layout as MT6589:
-https://github.com/amazon-oss/android_kernel_amazon_mt8127/blob/8428ef2958b83fa51edd6de734c069455f00cd8b/arch/arm/mach-mt8127/include/mach/mt_wdt.h
-
-However, I am not sure whether this actually reflects the hardware.
-
-
-## MT8188
-
-This is presumably a typo for MT8189, because there is no explanation
-for using MT8188 in the patch:
-
-
-[PATCH v7 6/9] dt-bindings: watchdog: Support MediaTek MT8189 wdt
-
-modify dt-binding for support mt8189 dts node of wdt
-
-Signed-off-by: Jack Hsu <jh.hsu@mediatek.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Acked-by: Guenter Roeck <linux@roeck-us.net>
-
----
-Changs in v7:
- - update dt-bindings commit msg
-   (use "mt8189" instead of "mt8189 evb board")
-
----
- Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-index ba0bfd73ab62..a05f8155b738 100644
---- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-@@ -41,6 +41,7 @@ properties:
-               - mediatek,mt7623-wdt
-               - mediatek,mt7629-wdt
-               - mediatek,mt8173-wdt
-+              - mediatek,mt8188-wdt
-               - mediatek,mt8365-wdt
-               - mediatek,mt8516-wdt
-           - const: mediatek,mt6589-wdt
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
 -- 
-2.45.2
+2.44.4
 
-
-https://lore.kernel.org/linux-arm-kernel/20251111070031.305281-7-jh.hsu@mediatek.com/
-https://github.com/torvalds/linux/commit/a742d1713c34dff992d1273f614548d214ba1550
-I honestly cannot understand how this passed review.
-
-MT8188 already had a standalone compatible entry before this patch,
-and it is clearly not compatible with MT6589:
-https://github.com/torvalds/linux/blob/bd5f485f3f026225b86573e559af0b7254ef4184/include/dt-bindings/reset/mt8188-resets.h
-
-
-## MT8189
-
-There is no publicly available information about its reset layout:
-https://github.com/external-mirrors/chromiumos-third_party-kernel/blob/a5153266e4c8777fac687e9009a12d32d946514b/drivers/watchdog/mtk_wdt.c#L462
-
-
-## MT8365
-
-I have no evidence to establish compatibility.
-
-
-## MT8516
-
-According to the downstream kernel, its reset layout appears to be
-compatible with MT6589:
-https://android.googlesource.com/platform/hardware/bsp/kernel/mediatek/mt8516-v4.4/+/refs/heads/nougat-iot-release/drivers/watchdog/mediatek/wdt/common/mtk_wdt.h
-
-
-Note that a downstream kernel claiming compatibility does not necessarily
-mean that the SoCs are actually compatible. In my experience, MediaTek's
-downstream kernels contain substantial amounts of copied code between
-different SoCs, so I would not consider such compatibility claims
-sufficient evidence on their own.
-
-Overall, I don't think `mediatek,mt6589-wdt` is an appropriate fallback
-compatible for most of the SoCs currently listed in the binding.
-I realize that fixing all of these bindings is outside the scope of
-this series, but I think this should be addressed rather than leaving
-`mediatek,mt6589-wdt` as a generic fallback.
-
-
-I also noticed that the v3 link is missing from the cover letter:
-[3] https://lore.kernel.org/linux-arm-kernel/20260809160643.33991-1-l.scorcia@gmail.com/
-
-Best regards,
-Akari
