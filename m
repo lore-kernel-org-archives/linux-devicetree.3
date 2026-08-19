@@ -1,120 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793E03AB286
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 13:30:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9747B39FCCA;
+	Wed, 19 Aug 2026 13:30:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787146246; cv=none; b=UcCdi6UUdz5xkkw8AHbebsZVZnwF/ilIiKLOjw9W0ZcdZ9AEXFETyKiNnLj2tXbgzwkcJ2YQMRxEJtAAHCBNKaQ3+t+jMu37tPuhY0xhPNEkFW3zLpJ9F6amp09BNDKHy2KmCEXdfs2a8S9HxeXxnzja0+yJQc9+FG4gqpmwTEQ=
+	t=1787146259; cv=none; b=RABax3mzmeQLngPlqr8BSVKaDSNTAPJZzjCzI37HEW/lzrUMQ9zwg/9PeVNe4WREIQJED5JTCOK0zaGmQkN2ZzrvLXdKNAaA6LcdNxBQrZ+KqYRwdzjmYiS3+gjkRQ9s0FUh6BbmBcrl+VFEo1VY9I80gwxgKOBovAphrYeal68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787146246; c=relaxed/simple;
-	bh=4gSwkan2L6CEisBgarTBd82x+gm9pt9Nh/78UILyg5A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fSp3sBEqSFOorBXMZkzMyQuldBkox3z+dBUEDfrVCbKzw2B2gxX02raqLKU/4YFi6N3BP+5hSAxWBwqWryx+LSYmu6EnId4MjUIkIK4ej/WY8RPnNkaQBWCBsRFODMHtp7NvhPBi1lzSM2gLFp8FvMmy5k/3X9yyuGo45CwCTA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPUasIj9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787146259; c=relaxed/simple;
+	bh=y/jJ5U0R6J7cJczSLfMK3MdiUkuUebU7Efovw4M05P4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JfxJoJ7+vD9/sBWzPIrG9hFQa4+9WY2ydmU8s5BjLMajtwZsW51sdXb8CXL8u/XypN6Zb4foxiFiyFt37juxUAMrsmTgDzIUQKvkI7dqsA8vmDS/dZLRaVz2EGIu6Ww9i8IoA3YslUz+1wTHffWi8Rwvon/sEji++7I2sDv2yNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gpxjezD9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPUasIj9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06BF41F00AC4
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 13:30:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gpxjezD9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0481F00A3A;
+	Wed, 19 Aug 2026 13:30:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787146243;
-	bh=Wy+D+ESTTq/dSV8mhmm+rhMC+Crd5u0rz0n4yla+hGs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aPUasIj9J9ETAKkXY+xz3TK125/aXZYjKzFmuOkfbiiU6/19xiRkGoYKKBAsT8WxR
-	 QBKYCqbs49DV3cgMcXgHT6zGootPM+lszjhmfFD9fcpQYefWkk1lRr56QoIqqH6iEN
-	 rC6xB0mB9mkb1GOgRBaXc5IY5EMSRj8qW60VDICji5wM+RBJQog6XmfZXcVUfrNZVL
-	 tI0TyZHQ+3I+wgbDVL/bPi+wsJQha090rSdqoQfAnpwtw64dUr2Wd12xOYZ93ECvLT
-	 4oLbcbZ+qzeRb0Yb/VtQi4oH7EvFBO6jE2r5JxA6u49vhaerF/9ndVpaKe6aShnILS
-	 GQJEhWHiA5uGg==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b45f1cd80eso1014764e87.2
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 06:30:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoKNjSV1of55PIpKeJ8tsxjEZ3WefDcnJuJSfboM702aq6Lpy1N4sLbrar34X3g04dzKs5EhYMngBF9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxqwuxfli0YE+5IGAvxGgu2emmO2QThCyuh4naaaa9AHywQkrdc
-	WaJ1RhkQr/NctQqv9Xh0iV2J3GgbNpEIC1BxJpqi7gTkJPE2UVRPw8z7wZrKklJAKsYILzooJPn
-	b6farra79VAMvV6lQyIUwCdhhRA6+pOc=
-X-Received: by 2002:a05:6512:6d1:b0:5aa:5ef9:a33 with SMTP id
- 2adb3069b0e04-5b478bdb85fmr1801632e87.25.1787146241774; Wed, 19 Aug 2026
- 06:30:41 -0700 (PDT)
+	s=k20260515; t=1787146255;
+	bh=m4mKzPN+FWk1tWjJ74S3scto91jfZ2ZuFlDYXqOX/4c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gpxjezD9AovAB1sA7Zvo8m+V+2CLDuYXJxln0j5QDvUCfgdwOYWaJyPIz4a+cTnig
+	 9bUMpXer420RW5OGLiCbKYkNCRWAJGWEbokj3+gqLmpStPcLAZ58Rx6lzDj7h4KMQj
+	 +pAcuRbLItXPhiCpfBhLAha+J1/RmENjpFgiSpxsa1ZYnToDxRs2I4Q4MhQtrOfOU3
+	 03RBtOQMbia2WYEYbkYEitmOHquX7Qy0Mc7Rsodfrb8Tk46jkHk15xPP1fXbMZvM2w
+	 nGYqASIGphfki5V4B7URVeLfb/VlJPWeTQdaH6sEsOFuJHPaUMoVQwBJ0oW29a5jkZ
+	 7yWZxxAUUqkQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v38 3/7] firmware: imx: add driver for NXP EdgeLock
+ Enclave
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260820-imx-se-if-v38-3-5df4a4cff736@nxp.com>
+References: <20260820-imx-se-if-v38-0-5df4a4cff736@nxp.com>
+ <20260820-imx-se-if-v38-3-5df4a4cff736@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Aug 2026 13:30:55 +0000
+Message-Id: <20260819133055.9B0481F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
- <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org> <CAPx+jO-ow2vo2wMxERLGse88wLoaR=HLdOWk6Qwv97ZdbE4R5Q@mail.gmail.com>
-In-Reply-To: <CAPx+jO-ow2vo2wMxERLGse88wLoaR=HLdOWk6Qwv97ZdbE4R5Q@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 19 Aug 2026 15:30:29 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnzDmxW_SoJ9H1tS2_r+jd7A7FpLVp37nK=dOEPj=GExA@mail.gmail.com>
-X-Gm-Features: AcwNN1VzmKR08mtjCfHfPMShMvTxNHeVOcLQxu2aSZ4UbCwVZegKiNNfpCmjf24
-Message-ID: <CAD++jLnzDmxW_SoJ9H1tS2_r+jd7A7FpLVp37nK=dOEPj=GExA@mail.gmail.com>
-Subject: Re: [PATCH 10/11] regulator: db8500: Add power domain regulators
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Mark Brown <broonie@kernel.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Lee Jones <lee@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	dmaengine@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 8, 2026 at 5:53=E2=80=AFPM Ulf Hansson <ulf.hansson@oss.qualcom=
-m.com> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] DMA use-after-free on firmware timeout in `ele_get_info()` and dri=
+ver unbind.
+- [Medium] `se_resume()` ignores the failure of `se_restore_imem_state()`, =
+breaking expected power management error handling semantics.
+- [Low] Incorrect iteration bound computation in `ele_debug_dump` leads to =
+reading past the received payload.
+--
 
-> On Thu, Jun 18, 2026 at 7:01=E2=80=AFAM Linus Walleij <linusw@kernel.org>=
- wrote:
-> >
-> > Add a DB8500 regulator driver for the VAPE and VSMPS2 compatibility nod=
-es.
-> >
-> > Back the regulator enable state with the corresponding power domains.
-> >
-> > This is done for off-chip consumers: the corresponding voltage rails ar=
-e
-> > routed out so they are used for powering different peripherals using
-> > these voltages as supplies.
-> >
-> > Assisted-by: Codex:gpt-5-5
-> > Signed-off-by: Linus Walleij <linusw@kernel.org>
-(...)
-> > @@ -673,6 +673,7 @@ db8500-prcmu-regulators {
-> >                                 // DB8500_REGULATOR_VAPE
-> >                                 db8500_vape_reg: db8500_vape {
-> >                                         regulator-always-on;
-> > +                                       power-domains =3D <&pm_domains =
-DOMAIN_VAPE>;
->
-> Hmm, isn't this the other way around? The power-domains node should
-> have a regulator supply?
+--- Patch [3]: [PATCH v38 3/7] firmware: imx: add driver for NXP EdgeLock E=
+nclave ---
+commit b60827d987987a5036c02b256c938fa4f0af210a
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-They probably have that, but that is not what this is about,
-it's the other way around.
+firmware: imx: add driver for NXP EdgeLock Enclave
 
-> We may even consider to skip to model the regulator altogether and
-> make the power domain operate directly on the prcmu instead.
+Add MU-based communication interface for secure enclave on i.MX SoC(s).
+The secure enclave FW communicates with Linux over single or multiple
+dedicated messaging unit(MU) based interface(s).
 
-That is what the series tries to do, as a whole. Sorry if that was unclear.=
-..
+> diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/e=
+le_base_msg.c
+> index 0000000000000..724f6e913ce79 100644
+> --- /dev/null
+> +++ b/drivers/firmware/imx/ele_base_msg.c
 
-What we do in this patch is to deal with the fact that two of the power
-domains, when enabled, also turn on two external power rails outside
-of the SoC.
+[ ... ]
 
-Since external components such as I2C devices cannot really be
-claimed as "being inside a power domain" they take a regulator.
+> +int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
+> +{
 
-This is based on my understanding that power domains is an
-SoC-internal concept only, so there is a clear boundary if something
-outside of the SoC starts to use such an externalized power rail.
+[ ... ]
 
-All this regulator does is to make sure the corresponding power domain
-is enabled when the regulator is enabled.
+> +	ret =3D ele_msg_send_rcv(priv, tx_msg, ELE_GET_INFO_REQ_MSG_SZ, rx_msg,
+> +			       ELE_GET_INFO_RSP_MSG_SZ);
+> +	if (ret < 0) {
+> +		ele_get_info_cleanup(priv, get_info_data, get_info_addr, get_info_len);
 
-I will repost all the patches once v7.3-rc1 is out.
+[Severity: High]
+If an enclave command times out, ele_msg_send_rcv() returns -ETIMEDOUT and
+the error path immediately calls ele_get_info_cleanup(), which frees the DMA
+buffer. If the firmware is still executing and completes the transaction
+later, could it perform a DMA write into physical memory that has been
+reallocated to another subsystem?
 
-Yours,
-Linus Walleij
+> +		return ret;
+> +	}
+
+[ ... ]
+
+> +int ele_debug_dump(struct se_if_priv *priv)
+> +{
+
+[ ... ]
+
+> +		rx_msg->header.size -=3D 2;
+> +
+> +		if (rx_msg->header.size > 2)
+> +			rx_msg->header.size--;
+> +
+> +		for (i =3D 0; i < rx_msg->header.size; i +=3D 2)
+> +			dev_info(priv->dev, "%s%02x_%02x: 0x%08x 0x%08x",
+> +				 FW_DBG_DUMP_FIXED_STR,	msg_ex_cnt, i,
+> +				 rx_msg->data[i + 1], rx_msg->data[i + 2]);
+
+[Severity: Low]
+Does this loop read past the actual message payload length? If the firmware
+returns an odd number of payload words, the remaining size is not even. The
+loop body would execute when exactly 1 word remains but print both
+rx_msg->data[i + 1] and rx_msg->data[i + 2].
+
+> +
+> +		msg_ex_cnt++;
+> +	} while (keep_logging);
+> +
+> +	return ret;
+> +}
+
+> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
+l.c
+> index 0000000000000..53091cc37e7e0 100644
+> --- /dev/null
+> +++ b/drivers/firmware/imx/se_ctrl.c
+
+[ ... ]
+
+> +static void se_if_probe_cleanup(void *plat_dev)
+> +{
+> +	struct platform_device *pdev =3D plat_dev;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct se_if_priv *priv;
+> +
+> +	priv =3D dev_get_drvdata(dev);
+> +	if (!priv)
+> +		return;
+> +
+> +	if (priv->rx_chan)
+> +		mbox_free_channel(priv->rx_chan);
+> +	if (priv->tx_chan)
+> +		mbox_free_channel(priv->tx_chan);
+> +
+> +	/*
+> +	 * Being device managed buffer, no need to free the buffer allocated
+> +	 * in se probe to store encrypted IMEM.
+> +	 */
+> +
+> +	/*
+> +	 * No need to check, if reserved memory is allocated
+> +	 * before calling for its release. Or clearing the
+> +	 * un-set bit.
+> +	 */
+> +	of_reserved_mem_device_release(dev);
+> +
+> +	dev_set_drvdata(dev, NULL);
+> +
+> +	kfree(priv);
+
+[Severity: High]
+Similarly, does this teardown path free device-managed DMA memory without
+waiting for or aborting a potentially busy firmware transaction?
+
+> +}
+
+[ ... ]
+
+> +static int se_resume(struct device *dev)
+> +{
+> +	struct se_if_priv *priv =3D dev_get_drvdata(dev);
+> +	struct se_fw_load_info *load_fw;
+> +	int ret =3D 0;
+> +
+> +	load_fw =3D get_load_fw_instance(priv);
+> +
+> +	if (load_fw->imem_mgmt) {
+> +		ret =3D se_restore_imem_state(priv, &load_fw->imem);
+> +		if (ret)
+> +			dev_warn(dev, "Failure restoring IMEM state[0x%x]", ret);
+> +	}
+> +
+> +	return 0;
+
+[Severity: Medium]
+Should this return the actual error instead of 0? se_restore_imem_state()
+documents that it returns -EIO so the PM subsystem knows the enclave is
+non-functional after resume, but the failure is caught here and 0 is
+unconditionally returned, breaking the expected power management error
+handling semantics.
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820-imx-se-if-=
+v38-0-5df4a4cff736@nxp.com?part=3D3
