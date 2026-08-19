@@ -1,111 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CC73C1D75;
-	Wed, 19 Aug 2026 03:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864BBA95E;
+	Wed, 19 Aug 2026 03:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787110311; cv=none; b=mGeYN2w2joCd67RrMXpsxJ4nQ3SX37n0xCJbNXHHTTpoG/yzwnkpc1ujxUVQ6Zzwz9tFnAv4BsvfDOijzkMBwnPVOnTr2FjZZBe850RIrXuF9uJd9zipuZGp/0H38FnHJ/ykgY8sBYXwFlnKdw7czJSEoE4Fid2iT+7mKyXtpy8=
+	t=1787111755; cv=none; b=mNoZx6BqYRAYhFhdXChQiuQDA5Ps5jvqEHXti8pEzqNXgIdXkv/P4gTcHES9D+I3iVG8CGvLzelyE0O1J5BbPe/cKgiERK+FHMBfS3iQvpgLlFsKeZm6mV+xxgUtqO0FXkc8BJv+hZUcCsK92zYXUpcjxZ9rXQuwYPr6F5+P7nE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787110311; c=relaxed/simple;
-	bh=sf8LYeIeLSV1yNTk1WTwsx3YWCK9LsjsmNZOOY/x6i0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X5u1AzYuk5xB9umW3aWwwh+aOkAY49f0rzkFwWSXoPV3XLylD0PUfwZwCzTCnHJGWMlwIYrcaA80QBXclda20ptU26GyoIQ4fRTGDI8QN+Jg5MINKAa2OxJWZgvmLPr1bZFBAz08tkrHKNutUoA7XLhJB3DV+2D+J68RICepFlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kE6DlpN6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787111755; c=relaxed/simple;
+	bh=h6Aiiqc6pPTqagFnG9lC2PlRHY4rxsyDkgN/02O3V5I=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=Fot8nVvate3hJzYvGSrKJzwtyQYvhm9xT8mDs44kqulsMEKSzjii9AB+o+KYhFM2quFwMcTIE/yqANenfXlhW8GNnmvOVGH1KkJXjp1RQIZT4EHBk866Z++H4QqdznBW5O78b5o9sH0aEp43R7KNTdqn7aPQ8ERfYEKVEWhRm5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=lIptmsTi; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kE6DlpN6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097D61F000E9;
-	Wed, 19 Aug 2026 03:31:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787110309;
-	bh=UalBPFxKWe525mQfd39B3IwwYujzdCNWKW2ZUj1VaBQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kE6DlpN6ORvE9hBR0WEqXrhVrgorQ880nzjV3Z3gYnB8XnlMLNXIFd/g7/GfeA1Sm
-	 gZy+pxK7cgTERy6qykXDEMC4l2+212vdWXco7uEK00f8IQPHWvN9qabtqA7HurZXnc
-	 aD5N4kF0fplnVCpbGnQ9oOHgXrRO5i7KuAhNPXRSvmShoEiktLEaOdkDMT/rKZ7+IZ
-	 9rRm7o0FdW8HbfzqOkzmj5RuqEkDIOWoAqcIBGWnFTyCV+IsCeZcyUnIcPrBk6zx11
-	 GfAh9n4QUNIK2SndUvjiX9RSJccWIZHZ9XJ6Qf5DwH2iXGfjp9pUGK3G2IKaLyp4lT
-	 ickEg6i7LUdbw==
-Date: Wed, 19 Aug 2026 05:31:37 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Yubing Zhang <yubing.zhang@rock-chips.com>, Alexey Charkov <alchark@flipper.net>, 
-	Igor Paunovic <royalnet026@gmail.com>, linux-phy@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kernel@collabora.com, devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, William Wu <william.wu@rock-chips.com>
-Subject: Re: [PATCH v14 00/38] phy: rockchip: usbdp: Clean up the mess
-Message-ID: <kwncmhsrq6sr56rsgf2ng4pc5fvyyqfryp3s2qfskoxunxx7jp@pdq4kedpw4gq>
-References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
- <h54c2hrcsv3zjzzgojzf5sjmu3vtpobz6rwloam5kp7mwqqn3n@bqjnlellvnz6>
- <aoTMQtpYYw8O-3cj@venus>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="lIptmsTi"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=7QTGTr741l6XRWzBqb9sbKXm950kSl13DKxY8KjnctU=;
+	b=lIptmsTiAeWTStmNuwWerMhS/P465QRltX9aCA5VyKE7l0fZ5+WiHOZjLGiJOYZe8PaldThDx
+	/uFbmQfCfDJAz6GconBqPBVo4BHYIjrqFw56vBLjKtFkr+aVnEMzESrYfwPRT6dhZY9jaLX/D8n
+	Z9EQyEraOh85kI0CoCmS9ls=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hPss819kSz1K96b;
+	Wed, 19 Aug 2026 11:45:00 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7049140572;
+	Wed, 19 Aug 2026 11:55:41 +0800 (CST)
+Received: from kwepemq100003.china.huawei.com (7.202.195.72) by
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 19 Aug 2026 11:55:41 +0800
+Received: from [10.67.113.213] (10.67.113.213) by
+ kwepemq100003.china.huawei.com (7.202.195.72) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 19 Aug 2026 11:55:40 +0800
+Message-ID: <6A85293C.2010008@hisilicon.com>
+Date: Wed, 19 Aug 2026 11:55:40 +0800
+From: Wei Xu <xuwei5@hisilicon.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aoTMQtpYYw8O-3cj@venus>
+To: Chenghai Huang <huangchenghai2@huawei.com>, <herbert@gondor.apana.org.au>,
+	<davem@davemloft.net>
+CC: <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<xuwei5@huawei.com>, <prime.zeng@hisilicon.com>, <liulongfang@huawei.com>,
+	<qianweili@huawei.com>, <wangzhou1@hisilicon.com>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, "Rob
+ Herring" <robh+dt@kernel.org>
+Subject: Re: [PATCH] crypto: hisilicon/sec - remove SEC crypto block cipher
+ accelerator
+References: <20260818083132.1860726-1-huangchenghai2@huawei.com>
+In-Reply-To: <20260818083132.1860726-1-huangchenghai2@huawei.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemq100003.china.huawei.com (7.202.195.72)
 
-On Tue, Aug 18, 2026 at 11:42:50PM +0200, Sebastian Reichel wrote:
-> Hello Mani,
+Hi Chenghai, 
+
+On 2026/8/18 16:31, Chenghai Huang wrote:
+> The Hisilicon SEC crypto cipher accelerator has been superseded
+> by the newer SEC2 driver (drivers/crypto/hisilicon/sec2/). SEC2
+> provides wider algorithm coverage and is the maintained path forward,
+> and users have migrated to it.
 > 
-> On Tue, Aug 18, 2026 at 11:27:07AM +0200, Manivannan Sadhasivam wrote:
-> > On Thu, Aug 13, 2026 at 10:51:43PM +0200, Sebastian Reichel wrote:
-> > > This series does a major overhaul of the Rockchip USBDP driver. The
-> > > initial main goal was to add USB-C DP AltMode support to the RK3576
-> > > and RK3588 and this series still prepares the PHY driver for exactly
-> > > that. But in addition to that I uncovered a huge amount of issues,
-> > > that are fixed along the way. Some of the more interesting ones are:
-> > > 
-> > >  * Currently the driver might trigger a fatal SError on USB-C hotplug,
-> > >    since re-initializing the PHY stops the clocks going to DWC3. If
-> > >    the DWC3 driver tries to access its registers at the same time the
-> > >    system will crash.
-> > >  * The DWC3 hardware can get into a buggy state when the PHY is
-> > >    disabled, which results in the PHY not coming up properly again.
-> > >  * Swithcing the USB-C connector orientation during hotplug breaks
-> > >    USB3 speed, as the PHY is not being re-initialized.
-> > >  * The code always enables DP mode when USB-C is involved.
-> > >  * The driver has some locking issues uncovered by Sashiko.
-> > > 
-> > > In addition to these bigger ones, Sashiko also found a bunch of
-> > > minor problems, which are mostly harmless, but were fixed while
-> > > going at it.
-> > 
-> > 38 patches for a single series is too much to review. Please
-> > consider splitting it up into multiple series not exceeding ~10
-> > patches per series. Thanks!
+> The legacy SEC driver has had no active users for some time, and its
+> primary maintainer, Jonathan Cameron, has moved on from Huawei and
+> is no longer in a position to maintain it. With thanks to Jonathan
+> for his contributions to this driver over the years, and with no one
+> left to keep it up to date, remove it from the tree.
 > 
-> So let me summarize:
+> This drops the legacy SEC driver together with all of its residual
+> configuration, devicetree binding and board description references:
 > 
->  - Vinod wants Sashiko feedback to be acted upon
+>   - drivers/crypto/hisilicon/sec/
+>   - CONFIG_CRYPTO_DEV_HISI_SEC Kconfig option
+>   - sec/ entry from drivers/crypto/hisilicon/Makefile
+>   - Documentation/devicetree/bindings/crypto/hisilicon,hip06-sec.yaml
+>   - hisilicon,hip07-sec device nodes and their supporting mbigen_alg /
+>     smmu_alg infrastructure from arch/arm64/boot/dts/hisilicon/hip07.dtsi
+> 
+> Signed-off-by: Chenghai Huang <huangchenghai2@huawei.com>
+> ---
+>  .../bindings/crypto/hisilicon,hip06-sec.yaml  |  134 --
+>  arch/arm64/boot/dts/hisilicon/hip07.dtsi      |  280 ----
 
-This is fine.
+Since no active users, it is fine to me to drop the dts part as well.
 
->  - linux-phy does not want series with dependencies ( [0] )
+Acked-by: Wei Xu <xuwei5@hisilicon.com>
 
-This is not something I expected. I read the reply from Vladimir in [0], and
-he seems to be sharing the limitation of the build tool of linux-phy. But I
-don't think that's a big deal. Every subsystem allows sending dependent series
-as long as the dependency is clearly described in the cover letter and now with
-b4. So I don't see why linux-phy should be different. If you combine all patches
-in one series, it makes it impossible for a human reviewer to review it
-thoroughly.
-
-@vinod: Can you share your view on splitting the series with dependency?
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Best Regards,
+Wei
