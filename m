@@ -1,115 +1,144 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2B83264D9
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 12:57:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B431A30274D
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 12:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787144280; cv=none; b=WC0hx5mhVkr0jnAIhfXCwd9Qk7QMtGwjujsAe7X7aIGKgZrQ+mc/KarCHxlb3kuOE9W4/Y/Tr6MXJ/hBkOJbu+4iGdMv5JdH0imRmfviFgD+M6ZSlGefwIv+MaKtHmbrqonLOK/a9HaPDygsXuLrHxB0tL/JNUqTo51Qj1ZSndk=
+	t=1787144296; cv=none; b=WYFbxZq1A3nDW6Yfv/3J/7qij4N+S956kkB4TZ8K2ogoLcSwR+0jGteU+nI0kwuBw93HUoVA3nnE7h9vHY76dYarlSHpdDzemtyA+T3foJpbCBUieVEhIQF87dLbqfSjwiS9REM6QC27Q9ReJ+RVeGQNDb1RujYepvMTL7f+teM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787144280; c=relaxed/simple;
-	bh=vDwo+C54SuWUO4NiG+y+TLv77E9F6XwxwcQUknLWuQ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KFj2k6PgBprygfJWyT+Elzc3YhSTZxDMgVMxYNeiynbspGTH939sUP4uoGcdc7pLWmcMfOH7Ua+mAxzexmFkpH+ITKXR9E/AQ9bwO2Zm6TtdA2BiqdNM9KqsshEEihgtcOXClFpcFMmloVw1eXnIrd4RG10V4GJsdxY45asL3p4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=SZf4pOJ7; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1787144296; c=relaxed/simple;
+	bh=d7aswmRc0xnzNBIXchR00wnLcVM6HK9HLZ4NdUignjc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=CwQa2W8kyyqkaIHlfLzSdIeP1Anr8fRVrL6fGlBw152QYC2fO6mfrqZ8YxBTlf0eEHvNyiZXYgf4Ipj+SZP/2Pu7agE6K932RQm7qY3nB1/iptmgNrcCuk+2n+fyHg9PBYoYZ8pvSGphyfFAsVF/w+Go6QhRT27hgxB02+y/gZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HO81+Ho4; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="SZf4pOJ7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=vDwo
-	+C54SuWUO4NiG+y+TLv77E9F6XwxwcQUknLWuQ4=; b=SZf4pOJ7e7RGaCuw3k/E
-	P2BHw2lhtM3AeLjqVYpX1dccivn7ps//DY9yniHwYP9MYnd3cTiBLyDi3rab/nDe
-	oytez1+EuLt9sTS9TkmVb0OgP1jxTKq6+f2ZuXmMamv7kSAtnH4lYK0fC0JMEja4
-	1cw5QvluRRsl9eGDCLRZQMyu9p2Do99NFIuF6addgPfzSwHTmd0+SgGBuvM678B0
-	pE4sMbYdubtjIdBW3zZKKf4GNjm6YFHoRaryaM4VuVTb1G5Xqc/TfT5PMl4hGiVV
-	RFnC7/jv4OD6QYvPeD9sqyrHXfAEO88OmJyvg9m7WFJEsBiALxM44RVaWTrqSQyz
-	2w==
-Received: (qmail 4144100 invoked from network); 19 Aug 2026 14:57:46 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 19 Aug 2026 14:57:46 +0200
-X-UD-Smtp-Session: l3s3148p1@HvAp82VZOjBtKbIV
-Date: Wed, 19 Aug 2026 14:57:48 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 03/15] rtc: rzn1: Fix weekday underflow when alarm
- crosses month boundary
-Message-ID: <aoWoTOTbl-ewHeUY@shikoro>
-References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260819103926.2136712-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HO81+Ho4"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 163994E412D2;
+	Wed, 19 Aug 2026 12:58:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D90695FF42;
+	Wed, 19 Aug 2026 12:58:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8220D11C7107F;
+	Wed, 19 Aug 2026 14:58:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787144291; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=WW43aCP5FG1KxTJ7NUvEkhvGk1ZgGIn4oiSyR3yu9f4=;
+	b=HO81+Ho41SXaFNQhQT/exFjLjxiRrCCFTsfnek9XDklp01ad94V6fjcvehHVsPQ8Vkq24M
+	S5yWbh/D8yZdJEglh/e9Tq6gJJunrpCrwbNjVSaxFDlEjAP2L+lzRZH0aZXsmmq9xyCmtL
+	3/HCJUcntEahTsqgVoddttz7pCDDX5syGa9GC74B3Brb4Jpd3K6+eGNXXk8srchg2ewROn
+	jhOEAl85Hrv+VdY3lPztMZj8oM71Lq/4zUtT+Ash9FRj8XJb+RAVXfok3y/UicIZ+0u79A
+	QMumJaZTZpYR81rWXLgz3G/s9Ke67jcOgAsk/XH9O/CqY8P6nX21tM1EpuHc0w==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KqL/t5WDF2qYolTu"
-Content-Disposition: inline
-In-Reply-To: <20260819103926.2136712-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-
---KqL/t5WDF2qYolTu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 19 Aug 2026 14:58:02 +0200
+Message-Id: <DKSXRX52W03E.2II5M5DIT6E1C@bootlin.com>
+Cc: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+To: "Damon Ding" <damon.ding@rock-chips.com>,
+ <sashiko-reviews@lists.linux.dev>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for
+ optional data-lanes mapping
+X-Mailer: aerc 0.22.0
+References: <20260819075238.3007087-1-damon.ding@rock-chips.com>
+ <20260819075238.3007087-6-damon.ding@rock-chips.com>
+ <20260819080422.816771F000E9@smtp.kernel.org>
+ <f0151ee4-f660-43d2-a49d-13ab2ad12dbc@rock-chips.com>
+In-Reply-To: <f0151ee4-f660-43d2-a49d-13ab2ad12dbc@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Aug 19, 2026 at 11:39:14AM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> rzn1_rtc_set_alarm() calculates the alarm weekday from the difference
-> between the alarm day and the current day of the month. When the alarm
-> crosses a month boundary, this difference can become negative. Since
-> days_ahead is unsigned, it underflows and results in an incorrect
-> weekday being programmed into RZN1_RTC_ALW.
->=20
-> The RTC core already provides a fully populated struct rtc_time for
-> the alarm, including the correct tm_wday. Use tm->tm_wday directly
-> instead of recalculating the weekday from the day-of-month.
->=20
-> This avoids the underflow and ensures alarms scheduled across a month
-> boundary use the correct weekday.
->=20
-> Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Hello,
 
-Suggested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+On Wed Aug 19, 2026 at 10:53 AM CEST, Damon Ding wrote:
+> On 8/19/2026 4:04 PM, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 2 potential iss=
+ue(s) to consider:
+>> - [High] Logic error in hardware lane mapping configuration causes inver=
+ted assignments for non-symmetric maps.
+>> - [Low] Device Tree endpoint lookup inconsistency when querying lane cou=
+nts versus reading properties.
+>> --
+>>
+>> --- Patch [5]: [PATCH v7 5/5] drm/bridge: analogix_dp: Add support for o=
+ptional data-lanes mapping ---
+>> commit 1c15eb6132eedc3d606168644e5f97918c8e3651
+>> Author: Damon Ding <damon.ding@rock-chips.com>
+>>
+>> drm/bridge: analogix_dp: Add support for optional data-lanes mapping
+>>
+>> Parse the optional 'data-lanes' device tree property to support
+>> custom physical lane mapping configuration. If no valid configuration
+>> is found, fall back to the default lane map automatically.
+>>
+>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drive=
+rs/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> index 039e076d2b8ab..cb06347196cef 100644
+>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>> [ ... ]
+>>> @@ -1240,6 +1240,59 @@ static const struct drm_bridge_funcs analogix_dp=
+_bridge_funcs =3D {
+>>>   	.detect =3D analogix_dp_bridge_detect,
+>>>   };
+>>>
+>>> +static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *d=
+p)
+>>> +{
+>> [ ... ]
+>>> +	num_lanes =3D drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, =
+1,
+>>> +						   video_info->max_lane_count);
+>>> +	if (num_lanes < 0)
+>>> +		return -EINVAL;
+>>> +
+>>> +	endpoint =3D of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
+>>
+>
+> Hi Luca,
+>
+> Thanks for taking a look at previous v6 patch series. This Sashiko
+> warning was also present in v6. Sorry for CC'ing you out=E2=80=91of=E2=80=
+=91the=E2=80=91blue
+> without prior heads=E2=80=91up.
+>
+>> [Severity: Low]
+>> Does passing -1 here potentially retrieve a different endpoint from the =
+one
+>> validated with reg=3D0 above?
+>>
+>> If multiple endpoints exist on the DP port and the target endpoint is no=
+t
+>> positionally first, could this mismatch result in reading the data-lanes
+>> property from the wrong endpoint?
+>>
+>
+> For Analogix DP, port@1 will only ever have a single endpoint.
+> Multi=E2=80=91output configurations are not supported by the hardware, so
+> passing -1 cannot select a mismatched endpoint. There is no risk of
+> retrieving the 'data=E2=80=91lanes' property from an unintended endpoint.
 
+I understand (1, 0) and (1, -1) will always return the same node in the
+real cases, but why doing it? Use the same indices both times and avoid
+future readers scratch their head thinking why it's different and whether
+they might report a different node in a future case. Also, if parsing a
+broken device tree, you may point at two different nodes here. Keep things
+simple, readable and reliable.
 
---KqL/t5WDF2qYolTu
-Content-Type: application/pgp-signature; name="signature.asc"
+Luca
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqFqEgACgkQFA3kzBSg
-KbZmMhAAocPEAcPVS9Q5+xg5+1T2F0qy5PbXo/vuqmLBIcj68Ms6O3s8ScViXTcB
-tKvNbQ6bn+Vt5/TwYw3zyvmvRwBzAsJxGFDd3fkVQLIGwYWmEYH1ca2BaS7GSu1R
-cTndE8BIf3zq0/f3TGz6MKOL6K8MitPpmmXHrTC+ulC/sPbwAuyBgbjgaqtXQJFe
-0OLudvJTSj3qTv/3V7J8DDliNHI/2IeUlBOB/TYl2uNxUBhmocd330fzdE5KrKXa
-OmWwTK6V0AUILbnhgssYK63KKFIhymTR7CWPj0KDoUPPlPjRbSZJBEJ4tkjkY5bu
-sawFrTz/3UJSecFU9UZzy2g5ZQSMPVHtq8DNCyEWo6b5g64haNIvMkJ3LzJUFsh8
-SQW5RI9EbIymXXfrah5ooAWO6XDpm0YQwoDFua0IVGmON9aiGA5yxAq66Q8AQ2qR
-xy8SR4PjHUD7yJEXIqVrOrvJDC2eLouh8I0M2/kbz99BE2SAnhnWiMP+0dITuaml
-jqv30ZXuuHsgC6ZNwTqH6/N9v/k5zhhcMdg1s9+Yv7dJ4Oqw/f9Lcz4UquCf2elf
-1M7aAyiN7nolcJd4zyehmnyivXwse6mucvd0H0KXZzfXUM5cV8LvEx09MVmthdgi
-wZcHUk97lRfCbwJ943OSwNyk7dael+R9Hzu6TrvpOfzVPW8nYG0=
-=xr9R
------END PGP SIGNATURE-----
-
---KqL/t5WDF2qYolTu--
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
