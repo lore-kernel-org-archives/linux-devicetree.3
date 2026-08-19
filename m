@@ -1,138 +1,150 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3366F3515F6
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787151153; cv=pass; b=gM5HKNo9Jq+mnZ6erFJVRaxmV7x6zBRJxtPptTB4iE0CIbsKby3TBA4KLKowUgl5m+hzZSWMgSe3ELz5F/BfAQyxCmUqZ2CZgk1C1PjU8oUjMZ+pg1EoguQ2geBKR6xn6+qBimRDZn8FK2Nlv9B+Oqh53oREBYnMY2McLQrP/oE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787151153; c=relaxed/simple;
-	bh=bQVg3/uZoDN7rhrUQpPWCstb5hJMm7Y7k6wHsUPajZ4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DyiRx88fJXxL5+PCHfVnM6sevLtPGVK4n/df5koVHY5y2KcqSVf+NojZwjvxjRbF9zPO1G7lDhUlN1zPm6v+4SV4qMyOfYbGaJ1WWaeGh9tYe7EGc0RlqbCJEPTNRd3xpFJJEzbWgd8/T9Scgl/fTivrXOhStQYA7flNIy+RuIs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oFn6c5Qg; arc=pass smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E223F3ADB89;
+	Wed, 19 Aug 2026 14:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787151173; cv=none; b=fS0Ozj//kkBy+kvYSyKj06BO6c1Wm+yBS+Buorz0UByFSGLDm5Sf9PxJU+dNimAbGjivj2ozUK981z7sZ9qqIC8PtLyjxtjvmN7qJU/ArdWeHQuBqyv6qYaCBIsv4KvckDoSYq8Dt2zqdZaaPTyRbWbRQ3v7OFFBEB0fN8S2yKc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787151173; c=relaxed/simple;
+	bh=X1xG4Kti7UIhBCAaxOlNaOaly0r9qV++jQJBZvB4bzY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ew0zMkRXfG1GJ8FDwDPvP7NhJC8dzMLUSwxjSUJoVTKcN3gjEb2A+eWw/h6AFe2cXDLFPD4ouLKJVtE1DEi5P35cbNt7yodTa8lnOEHtZ0uJLdP3cyPTJIJ/RHUhQA7wiN6KX/eTcteAoBWdGO+hXZIM+AkFWvDn+8em6YfHyTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=GZh+AQ7t; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=duVt8ETT; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oFn6c5Qg"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-52b3934af3fso9861441cf.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:52:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787151151; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TAyWXArmWm5Ao4cOG62rB+2nadlTcAeAGqnK9nasJQrc57PQRtZAaEpxxVigAk98tO
-         zcmx97eASV04yQmnbtnFvLL6pCSOBc2F5V54jd3DPrq5+nFl/+V3NLWqEC+0dWL2GQ0S
-         tAummu5x8jF4d9YsyQwjQL2c++qGuFiZE4EP1wYJNdwZjP9pYk8sXosieFWvPCS1VAIZ
-         iztOgyW7q6GYrAm3UEUwKrNNZpEAi0ci5kc68+SDVz3ukEZj12I2ae/hsHdPjNCrvY2/
-         Tx5J8Vj1w3faRDNF6XHwsIEt2MaQH42Cqgdk6o9xnug4MGW0dmqJxeLKKFTujVgqYW3m
-         x7zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+xwbmX7UfgLnx2SwFFhwr5+els4MKcBZYG6MEEMB/6E=;
-        fh=9PPb6BmgX0SfryC1+QiasQ0j5eelFbxFwZQihSdZato=;
-        b=k/2rOmeLNnlFl4X8vU64JBd+XvgsrgAFTR2OOOJRTedSrEk/XXHo/q9JUEBdvjXz0B
-         0qNWL4CdKY/bDyHPMfWpZTbs168meZSNNCHACnXvDV2tgaIVVwrXsC0FrXa6D9EKzwME
-         1AMc74zthJ/mR5Mssx6MdEzu6j2uO5u7Gz/SYiP27ltHbo5nLqDRa3ywkIwiu3lqM6na
-         dEv6wYJF9ccepGCaSc76GrEf+y19oVQg5sPtPHrWHd3PviGfLKiOdppbLruCjrVpP+Bo
-         U1C6Svbt+2E9+8H0y9KngyconX8Fpvm4oDYrkxrwpGm+X3BAL2kuuq4iB+ZWtDjuhEcl
-         jHtg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787151151; x=1787755951; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+xwbmX7UfgLnx2SwFFhwr5+els4MKcBZYG6MEEMB/6E=;
-        b=oFn6c5QgkZ1757/ldjs4nGUVRF13sPVRfP6+EMQfrq4/77Jox9jSr4hQAgkQ5Ny/xB
-         +9/oFbTFFn8PNAK3GNUkyUm7YPV1mi71JHyM86CrJP8V3xXeX9LaHNZQyFf3a/2OlvMo
-         nsAzyEkxs72TuvZmGnsocHY+TY20XuJE7UwoLCk+hsfR6DJxr5dmgEcW328SSSavJqhD
-         FbIeULQrGPKMPKDwzc3cgs35haPFFssA+OYeH7bKw9imEm0SQvDS8GMOkh8u5isl0+A6
-         BdNSOLal7wALcoAjdcwwyHw3JAu4b1/tax9EwphY25sR0VhsJv9EnGfIpWnt9rA31wc9
-         rSfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787151151; x=1787755951;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+xwbmX7UfgLnx2SwFFhwr5+els4MKcBZYG6MEEMB/6E=;
-        b=Kf2bSv8MS+s5lAbxYeoPteHV4iwZxzAXIw7MGwIzNJWDj0D9ZqRlGX2OIkaHP2kUv0
-         Gfzu+l41tqSXunuCvAcny4mXbzHeqB1DgKLvTj+Evrsyy0t42K56kI2DgZTF/bc9+Vub
-         Wu4nKONpy7scG0fh6N439P1KYlMZ8yq3HwVW+QEowg1ycrJSNJTOICZOx/n8BrHRhhug
-         fccIr1/zu5eiSHs/LX+EsrbolipXfKf8T8Soo4w6iW2NIxBfv+AoDtACqtnfKNMLAXhO
-         Wn893YFnMLrra16wqsyPstOZDUTO7CBgJPTk8nvxzLwp2Gdrku/pSGTVGLX8Xgm7mpAG
-         hjYA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpg0JfIPd+fHzLev26TruYFnQbnjA5RS/Fcu3OXHXDjlWF7w3gwbGJMRa9z5oDQSK79moMLsRWGUzfq@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVobdz4YljxOrj9M5LlKOxpKqP0SjV1IZgCGS1WvWJjSn79D/b
-	GUedgzelraTs5RjnfgUO+8kbdresQt11g9IDEq156jWJ3aM+W+PZ336Px/4PmBIelrIRiAlo0UP
-	X8VD7v6Ad79VDXP8pyNN3Y9dmxluwitA=
-X-Gm-Gg: AR+sD11YpAolw7ayrFiGCK/qw5Cej2W1y2czFwLYChyvyNRXec0SHu1Zb514K79Vd8/
-	Ss2Xt9mAPXSet9oF8GRwfygNL2tw7mE4GM2KxrgPF+QS9yXomzIHNu8DBSJHLKVPn8GfM3EPO5n
-	lbNadI2NU8TwTDJRQCZ/gSsF74w/PX0+3rh1MnXwmm3728b9WaXwd3qKsibdi3IHkXAHJV/524z
-	aGaTRHCyqwY/cA2D82p+l5wzszP/GG3+Sp+1ku8NI94etCFd5wCwPJQ+SS2zArbwSU9WFqE7VGx
-	50bBpipxdamCuHi6dV2nadXp2nijQ6kn86VhsxSDBUPFA4Ydf3Vcq67fd1Fx2VOatYm89zIRSd4
-	c7GvRqHKy263uQdwDoW/Gz/idriblSZs0Db/X4YpfuxM1XV6e+dO6OvjUxYg6q/I=
-X-Received: by 2002:ac8:5951:0:b0:51a:8b64:69e2 with SMTP id
- d75a77b69052e-52dd575a1b6mr40323071cf.7.1787151150885; Wed, 19 Aug 2026
- 07:52:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="GZh+AQ7t";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="duVt8ETT"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 13D2A1400162;
+	Wed, 19 Aug 2026 10:52:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 19 Aug 2026 10:52:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1787151171; x=1787237571; bh=+B
+	s+pMSu1VkeOn9n/HUp7Qz2+0g+eALUwogZ0nkvl2o=; b=GZh+AQ7tvllWonwb9x
+	gcNt162S/Lulqm18JmDUmgGl55csWBPbQDhcW9psf0gb9t7EENYdvaOIItOgkE3q
+	/Uku36Lt5TjWi1Yx0vtgb2/97gQi3vYAwcX8twWxIEzbpLlryYiBilNTY+VqpXjI
+	KzdUojz1sb1UKWG8KLVwjBc5/eP3eOjBdeEvROoLo1oDnvqMfJNUmKUd9cO3psue
+	4JXMvYmKNtDEotn4YFxN6PoVL4SktjRW6yZ064FLu02HhyC3wgikfS75CaOQ5Uqb
+	x3+6r/F30Bh+RV/8g+FwgJkpQsJU8CkCGIAoRv/gyqPPfqP2zcPkgommccjtQqYM
+	dNow==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1787151171; x=1787237571; bh=+Bs+pMSu1VkeOn9n/HUp7Qz2+0g+
+	eALUwogZ0nkvl2o=; b=duVt8ETT5ad/Q03hXA5FxQ0HaINaUcYoyASE5hiPAmdj
+	DneflhvgZhz18sauAvc+N10GVKFCY3ntYdAknQBkjD6k12gd/nzMVKpZNo5Jqn7s
+	2zDri/+/tNmswfBMj8PBM9j093VR3Ix6nBjTMvPQsetqITWvv5SRpf3eOQEc9zQa
+	7NKjwt/DO/XXal3xSemyrpODoUn4raR/cL1Qg9Pik6+CwdDcpufIKOyALRhZwhcA
+	hStQQWb1/ETf76TqgtuixnuhSoCPyqU0P2vSd4uGfz+7qDskT2vn700UW8T+RPxT
+	pxnZ4MW0NaSRCtIk2Nh/sjqXTpXOvj/pbRtKGmdAqg==
+X-ME-Sender: <xms:QsOFau4MGlWn5dIP98cHZgHbi7Q0BVxSmFFA6NzhOU0tT0KivxwKwQ>
+    <xme:QsOFavckr0m9tMTs1vZ7kX2Vrw-g1mFBZodnqI72XqUE9MQV-bhZ2ChAVQguXZ9i8
+    AoK5hyxy_ag7nJ0jBcfZDNjAj5IxfHNdtHN5H5yGzHWNCARBwhQiw>
+X-ME-Received: <xmr:QsOFatGxJxuVPiyyz-eknaHpWWVAreedcqPfeAGu94P5TBRCUiH4H-NkvHX93_9Tqzc7OaGO_FzA5tyoG_klJn_Q5_wYm-ErJUIXaw>
+X-ME-Proxy-Cause: dmFkZTE6YB3JNns8bfRytE6dZ1jon8G7xO0nm76xYPMj4e26q+SpmC/dc7fRyZlphoFfhq
+    WUYxLH7X6fyYf15L8HMJUJuKlgexmgRalnAsEvxvUICSMI6A74cmSHfPmgjCnHLZq70Vsb
+    aBNOvSJVs2+kN74AcRrHPRN2/dwRPCA3v0iPPqfwf0DEJWfnAtpNKayf6PVX0DQlEZfLCh
+    i8/aVcpYrKElaDgNcLWEN2EeK6AJAuJ1Aj1eRBu711R3Her2vzzlOZFvCtmvHxDnR9Di+l
+    VtANwnLxh1f1MF/XNVqHWGHZ1/5WR6HIbcVgzaAFOTDKvkEiir164+W59LgJdUmjL/WWb+
+    bOGmBDiicOp0qF66bnEuL7OZVDRBxenI9gGtNBjSy2cscIucn0TRExko9nHLbkwzSbwLJP
+    NlbyMfTfN1wPe3VC7unsULtty4pnqry9uSnb4mMzyR03TAxlGo6KpdQypfFhf4/aFVj8kS
+    Ouav5RjdRFUjtGvy3qDz35fajq3dU1mngMDEYZN45MfjQLnhayvuY/dHz+RcbTFgii+fPa
+    QkFudgitMtfzy8lUAQeE2wrJuex7HMRUcsd0/y2uAgmCMp6gyzVfVXghtpBKYpbc9xX5cc
+    JI5pDMhYWOaPlcgBejpWuS2qUb3Jf1YQ/MkHHZcpdTpPFV+ICDvFDzwXdhww
+X-ME-Proxy: <xmx:QsOFan7bBxiJPm2KHQnSYv_KvXR7ROSRI4CX164nd3Aq0_S9UcguYg>
+    <xmx:QsOFaoswBfs9XbXB5vLxPkBTJxJh7UHcL9lUNSyXJi6TVr05bssFRA>
+    <xmx:QsOFaj_LfLQwt-lL38-96AE1CVyRsMnRUSBtTuZGVJyxwkCFr4kW2g>
+    <xmx:QsOFaqk_zW1pEQKNtsrvS3v0_T6ymoTyibsG2FV5w3vpDGc_6FES3w>
+    <xmx:Q8OFaleh5c8Ke_St7ylE9WQ_FOTzrods3oRjsQ7mMpZM2m0KD3f335wW>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 19 Aug 2026 10:52:49 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Subject: [PATCH 0/2] iommu: apple-dart: device specific DMA aperture
+ support
+Date: Wed, 19 Aug 2026 16:52:26 +0200
+Message-Id: <20260819-iommu-apple-dart-aperture-v1-0-252703f381aa@jannau.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260808172211.137577-1-jesse.casco@gmail.com> <642652c2-af5d-446c-ac1a-8099639c2588@oss.qualcomm.com>
-In-Reply-To: <642652c2-af5d-446c-ac1a-8099639c2588@oss.qualcomm.com>
-From: Jesse Casco <jesse.casco@gmail.com>
-Date: Wed, 19 Aug 2026 10:52:19 -0400
-X-Gm-Features: AcwNN1VqYIJRaj6NXPh_Qu65pGrQ0AJQ_-ppLD8p4Fph7-SBSWW4rl5xU6O8o0E
-Message-ID: <CAEaxeoQUZKnCQPG_W0B77gB2VfC__-t7ZxY0mkVsqm1Q9pk6hw@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: qcom: glymur: use polling mode for SCMI transfers
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sudeep Holla <sudeep.holla@arm.com>, Cristian Marussi <cristian.marussi@arm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MwQqDMBAFf0X23AVjQRt/RXpIk2e7UDVsogjiv
+ xu8zRxmDkpQQaK+OkixSZJlLmIeFfmfm79gCcWpqZu2fhnLskzTyi7GPzg4zQWheVWwf36s950
+ NHQyVPipG2e/38D7PC2XbnKVrAAAA
+X-Change-ID: 20260819-iommu-apple-dart-aperture-c3b9cc79d7e1
+To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>, 
+ Hector Martin <marcan@marcan.st>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2004; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=X1xG4Kti7UIhBCAaxOlNaOaly0r9qV++jQJBZvB4bzY=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqzWw/Yqh7SW3gsLLLzStkRrxbYpoktrLziYudRHTNu13
+ yLj07/gjlIWBjEuBlkxRZYk7ZcdDKtrFGNqH4TBzGFlAhnCwMUpABM5M4nhf/kXs8WCStIlfP6P
+ Wn2LW98o8H05dslMYnK93uVpr+vLSxn+qTJKxB3ddnxnrzPvHcWw1PSco72iezcet1sYEvXfmuM
+ cIwA=
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-Tested. Everything SCMI-related was already =3Dy except the mailbox
-controller itself, qcom_cpucp_mbox, which was =3Dm. Built that in,
-pulled arm,no-completion-irq back out...No CMD timeout, no -110,
-cpufreq comes up fine.  Looks like exactly the timing bug you
-mentioned.
+Apple DARTs are often connected directly to devices that expect only a
+portion of their address space to be used for DMA (for example, because
+other ranges are mapped directly to something else).
 
-Keeping arm,no-completion-irq for daily use since it doesn't depend on
-build config, but happy to test more if useful.
+The USB4 native host controller on M2 Pro/Max/Ultra devices expected to
+be sent by Sven after v7.3-rc1 requires this. In the Asahi downstream
+kernel the display controller and ISP require a specified DMA aperture
+as well.
+The downstream kernel uses a "apple,dma-range" property in the  iommu
+node to specify the aperture. This is not a good way to describe the
+aperture as it is not property of the iommu itself but of its connected
+device. iommu.txt describes this use case as DMA window in its
+"#iommu-cells = <4>" example.
 
+Implement this for DART allowing additionally 5 iommu-cells specifying a
+64-bit aperture start and length. 0x100_0000_0000 is a commonly used
+aperture start and the aperture often spans 36-bit address space.
 
-Jesse
+This range *can* be outside of the DART's IAS. In that case, it is
+assumed that the hardware truncates addresses and the page tables will
+only map the lower bits of the address. However, the specified range
+cannot straddle an IAS boundary (you cannot cover more than IAS worth
+of address space nor wrap).
 
+This corresponds to the vm-base and vm-size properties on the Apple
+device tree side of things.
 
-On Tue, Aug 18, 2026 at 5:29=E2=80=AFAM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 8/8/26 7:22 PM, Jesse Casco wrote:
-> > On glymur the CPUCP firmware writes correct SCMI replies into the share=
-d
-> > memory but never rings the mailbox doorbell for them. Every transfer th=
-at
-> > waits for the completion interrupt therefore times out, scmi-cpufreq
-> > fails to probe with -110, and the machine ends up with no cpufreq at al=
-l
-> > -- all CPUs pinned at their boot OPP.
->
-> I'm not seeing this issue, but I heard others hit it, possibly due to som=
-e
-> timing bug. If you set your kernel config to build all drivers in (i.e.
-> change =3Dm to =3Dy), do you still face this?
->
-> Konrad
+Signed-off-by: Janne Grunau <j@jannau.net>
+---
+Janne Grunau (2):
+      dt-bindings: iommu: dart: Support specifying the DMA aperture
+      iommu: apple-dart: Support specifying the DMA aperture in the DT
 
+ .../devicetree/bindings/iommu/apple,dart.yaml      | 12 +++--
+ drivers/iommu/Kconfig                              |  2 +-
+ drivers/iommu/apple-dart.c                         | 62 ++++++++++++++++++----
+ 3 files changed, 61 insertions(+), 15 deletions(-)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260819-iommu-apple-dart-aperture-c3b9cc79d7e1
 
+Best regards,
+-- 
+Janne Grunau <j@jannau.net>
 
---=20
-Jesse Casco
