@@ -1,173 +1,168 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D272BF002
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7245437C927
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787148052; cv=none; b=d95YhUYczLUG+jiky5b2YMz0DZRZMXFcvk0MdknqQ9r+xgDUkc+lYB0i/HMiZgtKjrFnW9UQ9xU0uZ9SX+T448Wj+UbQYyHzOVn7wdf/Sbo3tzIbiGuMnPevjPe2mhjzrV7j8rN6Q65d/AdWB03tjckp7kZABW2Bs/+E627wWPI=
+	t=1787148170; cv=none; b=DLMeLPVnZxnhHm7lNWb4QzBMMO4ry2c9rhwmdosHzTGh8BURTy3sAYVtIdpNya/Ik4twSjvWMUS0hBvx1rq7vXUPiRR/+fHoLocGO6O0L9F5MkCSh2cx9KH9hXNdO7oTZMUlPHo3dkewlhIqz2fVCiW7MHWARhIoE8h6qGkUYh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787148052; c=relaxed/simple;
-	bh=62e1kUMESzzCwuPSSGbFS0/epS4ablyVxUFHfRq4wfc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rRceP5vUUsrDtYjVO+hz6oiEyWQsCzEjdE6lHIuQ1sVHvQ5dguk3e8/ZAF0k5khIMnasyRJy5sd8csc66s+shjS7PyC6n9ao6JTXTqjzs3u9U4/4wwpSy/YHCfpXjOjSfgrbYGihj3b4I8kQ9xY8DQBbG70AGX2veg6F5SdVwgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RKpRwjQW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dikIMSZX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787148170; c=relaxed/simple;
+	bh=0DLSrAiTsD+9mc3Vb7d5/lW0XmN5KPP+fle4/Gx9vJg=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=pOMhuL3fTRChUrtSeKDaMi+D3yZ7fESoJL7LxF6tAL8l3cyJGobf6VQHCqBe8d1CuehfkKDrt68HBvubxdsS6h/Y1Q2gw4J/rL9A+R3AkO5RrdB3HZdLIcNFR31QPZf7aSCrzCN1vkLZYYZ7XQMd1neFf9nV2nqmZQOoAFWtnHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=DV4zNoAj; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RKpRwjQW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dikIMSZX"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JD0CpM901366
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:00:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nF2NpJFe2HGshGcRjWNfEWmWVrM0+Bh1qZpz0JDv/hg=; b=RKpRwjQWmEDYC1k5
-	hms4mMV3ZkvzUyIf1+wcPVTqDIWwiqp4T9wJVhzHnO/AMcYn97K8TgFKp1RSt7Zg
-	V/S+HaSEbrEJ9S6q9hp8b0bjxeO953rtTJH/S7jNQAGkJJgboCg6BByHR8miTEwW
-	dEd7iSTzbsj/pT22tmZ1S4GWQsT68Q7/94XscwmtiyYxM3R15s4GBlY11xU6J4b0
-	iU946LqKzbzVjGZl0z11VdCrojPPbMTciDsZ6kewgm7ftAQzRSYHAhWjOnb2zUTr
-	jq0oN3hUzXwBUn9dxq7LpWSDh4Gf7KzQZ3m7DKfbCP7uM0CBAfIhVw9K8pa9ThPv
-	h+6Y7g==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfpugbt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:00:50 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-936cf9b6f32so18814885a.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:00:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="DV4zNoAj"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so13738265e9.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:02:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787148049; x=1787752849; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nF2NpJFe2HGshGcRjWNfEWmWVrM0+Bh1qZpz0JDv/hg=;
-        b=dikIMSZX1WiraT0fLjmVAS/wOiaQkC2hbpvCqpnHjeo6OkOduud6rcWafj/o8S5lS/
-         vGX/0aRT+zYFL3W3jOZl0EsCC0RPTuxbm/8HaRR/x17M8GarYBsh8+nCAuSWlCO/Q+tU
-         0yHQB9N5Xso1IxcbAXydT8U9AAkPgXTS2HQ8hKw7+f6enA8CyovSjyEmuZTANvQNOOIB
-         dS/tF6I3A4gdkYFhuRefB5KSpV/jPa8yQXCfXTLbZpipZeBUe0F9X6TnUv9x9YWAgKMS
-         izpH70JwqkUbzABdXfFcAafFSAe0nDyRPhjSL5vyH20/chGpXRnvyvqZR3J5jU4JN6FR
-         aLuw==
+        d=9elements.com; s=google; t=1787148165; x=1787752965; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Co7HS0jVxwA4gYnxXevJyYoop6np3ZD8A3AJ6SheuSI=;
+        b=DV4zNoAjVenIk/c0x5DIwTQE22PSjNs/YlX82tI8scwfTfSuVd905uj1C1GBTWyS8Y
+         WnfvZ0WtqopYuSPuFi3kdMC85rzqCXiJoaYHK3fraXv5sRVsnV3wOXC47ptI7brUjOkb
+         442OvQDpQDQZH6jlP8MFmMewqa7w4CjZa9OqaUhFO5q5zF/e1DuvNjTUbREPIvVau96n
+         4ID+Y+UbXGofbO5BE8jcROlwb3DNylw2oHZUy8J5awdPy0ySDPUDZjkNGit+hO1nGS55
+         kKXc2LQc2cR8Wop33FNK7Enr069rmzIg7d2iw3N0f7h4yhJYgjNhPMuomaUxilVmmbhu
+         cTCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787148049; x=1787752849;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nF2NpJFe2HGshGcRjWNfEWmWVrM0+Bh1qZpz0JDv/hg=;
-        b=euPz8kwkcLTqylWjENoHQZwOJG0iAUnfwwrNEfqriIJ467ymFi7a14uzn6kczytVtw
-         tbDBcdBB8KE/wg1kLw2DTgYWbkxVsN5pY9x+I/A8odHUkfFN4YuH5rcSOvfqh78I/C45
-         I1OrsRy3hEVzbTVwhIKGlYNB9M4pTjwGVPn5jL1rp5ZYSifPqZhOLkgw3nEwUtH6MfW7
-         q3S0XWxmSKkoy8ENjurqzeA3HmRpVspPIvI17qU/gWbAwRhRO/a9L6nzXCcNLAhPpse2
-         uN4/CVgWUNIA8SwaDp/rv05vHBkBHt2waki3ZuQJ5gzgfXcTFR2jeFcszreH0HAm1zIf
-         5Xyg==
-X-Forwarded-Encrypted: i=1; AHgh+RqNYPlZs2dHjhe29paCQM5m/OhysORWyBNx+dTIhIcBBiGqOAoBKsETiUlQgQw60gU6Gai4mSwIEKsj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6+NMLHfDScEPKF+cTCbrLoOHbIUQw8Gp7V/kmCWTnliLsCzoz
-	gRJ1C2oPrTxb6Kmg3GPTRZ4VwedoxOPToJFcCFaNT8m5n5cY4BDwB0uE+qKQNS67mLQ5ngAOPFI
-	GEGYLBDczhSaX42x6/6jaSfOzYba0JKzXEY4tZjPxviGAUouJLhQy4y9wGs8a4F3u
-X-Gm-Gg: AR+sD10FBXO1xSjcgOiQjssDGex7U/OFFOhw9C4xPDjYFFYcKFlKhrt3mkTNcsnSF3T
-	cufQgwcguzRvrphpqOoABgQOvOHUwf2wdv/0/a+bXcIEP4DpB7DJVmi3HeEWwlkHPJzV5e7XvoP
-	zFq+hVw1HL+Cg43ZYtClFWtG+228fJtckb9lYrdehX7FNtAsATCTVRv8p30o95KCv3Emj1IC8tg
-	c3mpFU6feXuJff47F/19ydlfhtfX97znmNAawI3OJSkIFDVNaxF8loDFdkKfOY7IOt6blRctzCM
-	lYUAo3F4BvfmdS0auyuh/vLFJ07EnSRFplWDBbUQc2YTs7RXmg0FSGtBUwUf9goFpXF7/5wGhpJ
-	4woKDzi/fuA==
-X-Received: by 2002:a05:620a:708a:b0:92e:5ef1:9072 with SMTP id af79cd13be357-9371e6a9beemr349781985a.2.1787148048875;
-        Wed, 19 Aug 2026 07:00:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:708a:b0:92e:5ef1:9072 with SMTP id af79cd13be357-9371e6a9beemr349768485a.2.1787148047869;
-        Wed, 19 Aug 2026 07:00:47 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4788e791dsm533593e87.65.2026.08.19.07.00.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 07:00:46 -0700 (PDT)
-Message-ID: <09f10e30-f613-4a22-941c-1db63b190186@oss.qualcomm.com>
-Date: Wed, 19 Aug 2026 16:00:44 +0200
+        d=1e100.net; s=20251104; t=1787148165; x=1787752965;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Co7HS0jVxwA4gYnxXevJyYoop6np3ZD8A3AJ6SheuSI=;
+        b=Z8SF0f38LsJD7NB4P4AgUCJt85sFWHJAtgVtkGyt7T5Ei24SvPUpXLNq1GVNrTY8wv
+         4xn7uxLZIz4g0XrXWbjIwasK7FcSrZvRu+APWX5TUcoN3HxffTHjVBcoyKUJqBuZRTYS
+         h88wZDlKqZ7TsTuhZP6+g0+EU6xfaxrLIdL15LuUGlivySRjTVZiByDYpNO5dFOlSfW0
+         6rPqHxV3LrieOBpAPg9PgLBT+MpKAKourC6ZqaBxRZXFg0G6dqK2keAFs8uUPzykK7JG
+         spnpvhHreXk6RJItQRa3uANZmVuVJY/X1Muki2L7sHmfAE1yX2QrdMnHlHJOTK7FMrZR
+         p2qA==
+X-Forwarded-Encrypted: i=1; AHgh+RpcUP1JN7Do6KuxD7fGLF/40F4ScCyGpAIscDsDymqCNunuUA2FCK0eIYGoLDa/EcQ1x5rIZDvzpjAN@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyx80mz+oDOo0vprmcenPV2Hj6BxXX+ao7vg6XukROJ+umXfZro
+	pOrULjL0AszVrNzNYr4bkS+4T5XdA8rBvDlFe4Afx7/pwOLS5ubflTAoIb4jn1dDkrk=
+X-Gm-Gg: AR+sD10lLzOiCRuw2bU2BlAvpemlyd3h4tG8h42P14jmnhDob+ez7IVpK8ONdsIgSvk
+	6ccSXoHQHC3rHPsC+QkfxGbqB0O8RU65nL5bGDDJMiq0x/7Nfn5fKlpi9eniwkloqoA0Czt4klu
+	8YKMt8BClE3wj3VzZkJrjo2Df/S5l6RW/dSPg06Bxd0nbpABuPXDryRFcmm1GDLPeiiUFKmAvDK
+	MLSnIEad16sYQ8VN5gJ/Imw4I3fBOIYxC1miZv/Pk2cUk1iherlaYXRIf7fcTw5an3YfL6K5msl
+	qCjpLHjBTXOoXb2LPG6AcEGbzwMw6q2AQoeyOjccjBObgvP17pVEkpR0YZN3NF0ml8cLIXdmwGR
+	MGGW0SLzqBj6JNvqmsALqgATSxwlJqI1xw/slucOJlMIg/FSRQ6eHCl7WKgGazMu64iK5gbwKSX
+	Jxbwi5yDpMXrjA45nn6mH+uqC4zKP2NThHxRAWSVExaUM93zBSZHawzHZU8nXukrt8FwLQJh6T9
+	Lpfjco=
+X-Received: by 2002:a05:600c:528b:b0:499:8d9b:832c with SMTP id 5b1f17b1804b1-499aa0e816bmr89871925e9.4.1787148165591;
+        Wed, 19 Aug 2026 07:02:45 -0700 (PDT)
+Received: from [10.0.5.39] ([2a01:599:445:d261:4474:9672:b73d:5481])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa1111a7sm65896975e9.6.2026.08.19.07.02.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 07:02:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
- target activity
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: chandana.chiluveru@oss.qualcomm.com,
-        Krzysztof Kozlowski
- <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260818-use_gpio_to_notify_master_of_spi_target_activity-v3-0-e1c9e0dabbda@oss.qualcomm.com>
- <20260818-use_gpio_to_notify_master_of_spi_target_activity-v3-2-e1c9e0dabbda@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260818-use_gpio_to_notify_master_of_spi_target_activity-v3-2-e1c9e0dabbda@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: xYnVKgsAmkZY8lTQ3nqbBG7fBHIrWyot
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDEwOSBTYWx0ZWRfX4/c6t6tFYgmE
- Qv/s/xzqA8OhUopDvzdu2iGqotmt+fXZ+vlkXAahgZCRdmTJDz37MRlNfLlCbO3OP0JcVnWgrrx
- kP8+DvWxhBx9iYLq7EmbudmWqaIU1iZC2dEwrw3wkjzM9ZFHVVsZiPM54LDqHVrgr7W4HYPbbRv
- JfSC6iGsinZWu398hTk37pZN9wN0VI/zM5iLqe2tva4gI7OUiDU23xJ74KBVNsVhcIPxlAi7Q0C
- Q5nzieSqroKytsRHRlAhgi/yC0FH+v9B+hup3IL/zfolZOEz0zkBCl1Nu/hecLjeZNDvd80Q2qZ
- nqBULNmHKs+ONfVjpCo58LUMlNChqtzEmvdDkWxye7WO6162P89u9cYSoQfceq6r92I9wsXaSNR
- Mrf8M2k/vVA3A5hLGu6hafrJXaaFnPYS5DSiGQTrVcQHnMbNgyXZ/2NYf2EbWnn7rWwdGbF1Uo4
- dODT+Cg/zbHDePha1Sw==
-X-Authority-Analysis: v=2.4 cv=aMrAb79m c=1 sm=1 tr=0 ts=6a85b712 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=OIFkiNoqZ7k2w5cL0_IA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: xYnVKgsAmkZY8lTQ3nqbBG7fBHIrWyot
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDEwOSBTYWx0ZWRfX/Ye1BtVzgNyO
- PtzqB8OtPrJ4ICG4SUEHueEt4lvbiB6cnJYKBgTyVy/+dqzXURwGilCUHcBSh94/Af+IKueb05W
- RyDqD9Pg9kzpAKrWuWCBI824B5fb5qU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_03,2026-08-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 spamscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190109
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v6 4/6] mfd: aspeed-pci-core: add AST2600 PCIe BMC
+ device driver
+From: Tan Siewert <tan.siewert@9elements.com>
+To: =?utf-8?q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>, 
+ yh_chung@aspeedtech.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, 
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Lee Jones <lee@kernel.org>, Tan Siewert <tan.siewert@9elements.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, mfd@lists.linux.dev, andrew@lunn.ch, 
+ jacky_chou@aspeedtech.com, ninad@linux.ibm.com, anirudhsriniv@gmail.com, 
+ =?utf-8?q?Gr=C3=A9goire_Layet?= <git@gregoirelayet.com>
+In-Reply-To: <20260818-aspeed-driver-v6-v6-4-fd7cc0b338ea@9elements.com>
+References: <20260818-aspeed-driver-v6-v6-0-fd7cc0b338ea@9elements.com>
+ <20260818-aspeed-driver-v6-v6-4-fd7cc0b338ea@9elements.com>
+Date: Wed, 19 Aug 2026 16:02:33 +0200
+Message-Id: <178714815308.32179.15619694497271022262.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787148161; l=2564;
+ i=tan.siewert@9elements.com; s=20260527; h=from:subject:message-id;
+ bh=0DLSrAiTsD+9mc3Vb7d5/lW0XmN5KPP+fle4/Gx9vJg=;
+ b=Yv6DuRVXQ2eVIdd6FJVizmL+OmzjHQrDLg4pQ5mdXCZvnzUvsviM6pk+86GADUkAh8FQzylEb
+ nvtlCfTGTCeAPv5Md2UT7KuGRs+InVgjAh4bWM68kaHE79DwTv1qQZ3
+X-Developer-Key: i=tan.siewert@9elements.com; a=ed25519;
+ pk=ORQd/zQf+LsAvJGXP1CjQwVO6t6iEOGq/eGUsmRVTG4=
 
-On 8/18/26 3:38 PM, Praveen Talari wrote:
-> When operating in SPI target mode, the GENI controller relies on an
-> external GPIO to notify the SPI master about the target's active state.
+Hi,
+
+On 8/18/26 12:29 PM, Grégoire Layet wrote:
+> Add support for UART over PCIe between ASPEED AST2600 BMC and
+> host. This is the host-side driver.
 > 
-> Add support for an optional ready GPIO that is asserted when a target
-> transfer begins and deasserted when the transfer completes, is aborted,
-> or hits a timeout. This allows the target to explicitly signal its
-> availability to the master and ensures the GPIO is released in all error
-> and completion paths, preventing the master from observing a stale or
-> incorrect target-ready indication.
+> Based on ASPEED 6.18 Kernel SDK and trimmed down and changed to
+> MFD driver.
+> 
+> The AST2600 has two 8250-compatible register set usable over PCIe.
+> These act as two UARTs. As there is only a FIFO internally between both
+> ends, they are called Virtual UARTs. This patch adds both VUARTs as
+> plat_serial8250_port. This is the core driver in charge of setting up
+> MSI interrupts. It doesn't bind the whole PCIe resource to allow each
+> sub-driver to bind the needed addresses.
+> 
+> This is not added as a PCI 8250 UART device, but as a MFD driver, as this
+> host driver can be expanded upon for IPMI over KCS. It can also be used
+> in the future for custom BMC<->host communication with shared memory and
+> doorbell.
+> 
+> This host module should be the entry point for setting up all features
+> related to an AST2600 present on the PCI bus.
+> 
+> Notes on the implementation:
+> The host can't detect the VUART addresses, so they are forced to
+> 0x3f8 and 0x2f8, as in the initial ASPEED driver.
+> 
+> The MSI vector index of VUART2 has been changed from 15 to 17.
+> The index 15 used in the initial driver was not working.
+> 
+> Tested:
+> Data path in both direction is tested on both VUARTs.
+> 
+> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+> Signed-off-by: aspeedyh <yh_chung@aspeedtech.com>
 
-[...]
+I didn't notice this earlier unfortunately, but this Sign-off is invalid (I don't
+think that "aspeedyh" is a real synonym), see [0] as there was a similar
+discussion. The same applies for the patch "serial: 8250_aspeed_vuart: add VUART
+over PCI" for this series.
 
-> +	if (spi->target && mas->target_gpio)
-> +		gpiod_set_value(mas->target_gpio, 0);
+@yh_chung@aspeedtech.com: What is the name that should be in this sign-off?
 
-FWIW it seems like the gpiod APIs can eat nullptrs
-
-[...]
-
-> @@ -1131,8 +1144,16 @@ static int spi_geni_probe(struct platform_device *pdev)
->  	init_completion(&mas->rx_reset_done);
->  	spin_lock_init(&mas->lock);
+> Signed-off-by: Grégoire Layet <gregoire.layet@9elements.com>
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 15011f5752a9..33a0351819e6 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4011,6 +4011,12 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/crypto/aspeed,*
+>  F:	drivers/crypto/aspeed/
 >  
-> -	if (spi->target)
-> +	if (spi->target) {
->  		spi->target_abort = spi_geni_target_abort;
-> +		mas->target_gpio = devm_gpiod_get_index_optional(dev, "ready", 0,
-> +								 GPIOD_OUT_LOW);
+> +ASPEED PCI BMC DEVICE DRIVER
+> +M:	Grégoire Layet <git@gregoirelayet.com>
+> +M:	Tan Siewert <tan.siewert@9elements.com>
+> +S:	Maintained
+> +F:	drivers/mfd/aspeed-pci-core.c
 
-Is there a reason for the get_index_ variant specifically?
+I think it'd make sense to add the linux-aspeed list as `L` here.
 
-i.e. why not just devm_gpiod_get_optional()?
+Tan
 
-Konrad
+[0] https://lore.kernel.org/all/3f2d964a-4e82-414c-b373-af0d531b0fcd@kernel.org/
+
+-- 
+Tan Siewert <tan.siewert@9elements.com>
