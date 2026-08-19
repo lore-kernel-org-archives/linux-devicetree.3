@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748384483AA;
-	Wed, 19 Aug 2026 09:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625DB37A839;
+	Wed, 19 Aug 2026 09:52:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787133011; cv=none; b=iTDXjDDg9970svqHXYDAKc3YgkEpOEhxdjIr28nYKop8iUpSz2NmxdLkhlRIxRXwky+9e+sG4SAdldzFrzSfNX8uDg3cuoBK9Zhzj9J0b/wyBSyUVka8tQxySfqqV03mW8W247eIdj03VeTCX9uPpvePyJhvC5+uRdgBZdL21ic=
+	t=1787133141; cv=none; b=aDM1QRMm/f9b6o9NVKlIOJ6fqFFFASweYBn2Hxt6EXH3otbXlzrQ4oIZHVs3vESTFdfYQVvOHHnHYjE0m0J9qcAfhZk1RUzCNp3T6RJ/0VCwwUdHasHoH/Oikfc1LXdZv6hIKgjfGgbulI3DNuGiup4ggAsHJ57mVunY03K+3zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787133011; c=relaxed/simple;
-	bh=DpXntPZ3BoP0AVYIxtAazsteJLVEou8wjRJ/bEJj8nI=;
+	s=arc-20240116; t=1787133141; c=relaxed/simple;
+	bh=0Iuwhyf2mtHErp0gsHJMOgTCZUllNcHr3PSGJe29acc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jopmWng5gl7n+swOlixI7UzsHubFSwuYFqANjoRcN3Ds+AAyHijIXPxtk7uyHFDcZwk3CtxlMBSW4a2xALxgQmZT5K3+zM5sAvNwz0XFgsdoofceZaDlrJQ848Cl0qBF9oeojNVqlj5Z2NsEmn7AK6u17Db0nyhFyy4n47uo65I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LZ5zdbTO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rt7eqZCYvd8CyUuJXB1Q4GyyswzxDZsxkjfoPhMpJDN1fALzAzXxO7JqWYzocpEueQNjOmmgUCyGmVwj/531gDeJDlqm8b6TGfweFUob/HACe4hADZTQjYGoKGbbY52lLujjWjPIWJWm7liayT5+uSrD0xOWVLKkyLO430vjOcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fi6F00zQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LZ5zdbTO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B3C61F000E9;
-	Wed, 19 Aug 2026 09:50:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fi6F00zQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F299C1F000E9;
+	Wed, 19 Aug 2026 09:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787133010;
-	bh=eYcOOqJFiHVvU01iJ1udVI3PLSzehz8NHg9BdjS24sc=;
+	s=k20260515; t=1787133139;
+	bh=htmKr8wrzhOuksy0WSYGeTFilrl0ymuvoTGQwdDcFJk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LZ5zdbTOaWBmguz4Bye9JuKnaQ08XYok0ywjAQmcGM30R7dfnTBT6ZvU0vKPiFSiQ
-	 9E2EMpIxNN0O229kmYgCZqXfZIX3sTlFAeIojzchRK3Xsn8Kp9p9/r0M4KFTxC8csQ
-	 /m6Cf2PV/2Qcfrqi07iweXD3t2ADhXn7P2swGtg1e1eLsC2ez+0hq5yOyRQ9gRq0+l
-	 WopU7XJCW12ZshFuwDIcxNr+Il2yhXG8nYUkFhIZRuZxZJMVd1hqXmE+ibwYc+ztvv
-	 Wgoj+p6mCDmWRgJLM+M2GQX4qeemnVPZ6CoX+YVdkw8ZM3mwBCyeok8gspQgosLgSt
-	 zeaEKdbvnx2Rw==
-Date: Wed, 19 Aug 2026 11:50:06 +0200
+	b=Fi6F00zQi+bhkN5m5k+uQ+b+gsurGvwSkEdNhgIRrIBJw/FbkVQ689JV7e+tHpsY8
+	 wnh9WHpwaSAe0UcManfIjxW2q7CZZZiQINw3Bb1MZ6+e6cyIDv92UOwwtMOtVmNw2/
+	 IPf+Q7PxE6LbXHoJcNgeW4YeAWAAHKUWoXep4UUUW5XPLTN/6nyCpkx/hgFVAAnn0J
+	 ayEUHF6wf7ST0g56Q4kwEu23jY1vSHEZcw0BITithCqk2Kmi1jQTAptGoKuLQJdihy
+	 PFnMcaQG+2uc3XvCBXdYXuDro7gEsI5Y8hiCElIJjSiON9PcyGa0WLN+Seu4vyVts9
+	 Fj/ooktBK+OnQ==
+Date: Wed, 19 Aug 2026 11:52:14 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sreeshankar K <sreeshankar0910@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org, 
-	konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, bmasney@redhat.com, 
-	lpieralisi@kernel.org, quic_tdas@quicinc.com, danila@mainlining.org, 
-	davidwronek@gmail.com, robimarko@gmail.com, linux@gurudas.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-pm@vger.vger.kernel.org
-Subject: Re: [PATCH 01/12] dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
-Message-ID: <20260819-statuesque-shrewd-sparrow-deead1@quoll>
-References: <20260818080754.4362-1-sreeshankar0910@gmail.com>
- <20260818080754.4362-2-sreeshankar0910@gmail.com>
+To: Henrik Grimler <henrik.grimler@axis.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, "Andrew F. Davis" <afd@ti.com>, Chris Lapa <chris@lapa.com.au>, 
+	Dan Murphy <dmurphy@ti.com>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	kernel@axis.com
+Subject: Re: [PATCH v2 2/3] dt-bindings: power: bq27xxx: document bq27z746
+Message-ID: <20260819-amiable-outrageous-sturgeon-98e7a7@quoll>
+References: <20260818-bq27z746-v2-0-0371e206665f@axis.com>
+ <20260818-bq27z746-v2-2-0371e206665f@axis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,39 +47,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260818080754.4362-2-sreeshankar0910@gmail.com>
+In-Reply-To: <20260818-bq27z746-v2-2-0371e206665f@axis.com>
 
-On Tue, Aug 18, 2026 at 08:07:43AM +0000, Sreeshankar K wrote:
-> Add the ID for the Qualcomm SM7250 SoC.
+On Tue, Aug 18, 2026 at 11:48:21AM +0200, Henrik Grimler wrote:
+> Add compatible for Texas Instruments bq27z746 fuel gauge, which is
+> similar to its sibling bq27z561. Unlike bq27z561, bq27z746 includes
+> some protection logic and can drive external MOSFETs. The register map
+> is a subset of the one found in bq27z561, with bq27z561 having six
+> extra registers at the end at 0x70 - 0x7A.
 > 
-> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+> Among the ManufacturerAccess registers there are some more differences
+> mainly related to MOSFET control and deep sleep/shipping mode.
+> 
+> Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
 > ---
->  include/dt-bindings/arm/qcom,ids.h | 1 +
+>  Documentation/devicetree/bindings/power/supply/bq27xxx.yaml | 1 +
 >  1 file changed, 1 insertion(+)
 
-I will not be doing work twice. I drop all your patches from DT
-Patchwork now.
 
-<form letter>
-This is a friendly reminder during the review process.
-
-It looks like you received a tag and forgot to add it.
-
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions of patchset, under or above your Signed-off-by tag, unless
-patch changed significantly (e.g. new properties added to the DT
-bindings). Tag is "received", when provided in a message replied to you
-on the mailing list. Tools like b4 can help here. However, there's no
-need to repost patches *only* to add the tags. The upstream maintainer
-will do that for tags received on the version they apply.
-
-Please read:
-https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
-
-If a tag was not added on purpose, please state in the patch changelog
-or cover letter why and what changed.
-</form letter>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
