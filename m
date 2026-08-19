@@ -1,64 +1,64 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB003DA5DB
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 22:15:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C493E3D91
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 22:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787177716; cv=none; b=TcfeJfBLGyPKwG3Yp/yAf+hwKwZSzrJCDYvoTpv7lx8bvkB5y9MaKy/6Mbb5HY3twgc8Rv5hCu0D9A6M2fNje8ilj7XaOsJCOrofg3IhvvGLdz9XGGncLNUgOw6Qs0h0tlkwAYLCxkws/084LG4GhkOODd9OjF9b4p8YCXtaLPA=
+	t=1787177721; cv=none; b=t8ItyEHPzS7cAANeApk8r2LNy5+c+fpktzzGaisJgTOFbc52tD+fn5RSz7gsP3vY5+VJXky54SaaUEuka5NiywwZ9wZQcQABodFbQQfQw5pMYoobDtvSLxve69JPLWjKPz4GCHoRys000harBp9ZEW8TZQb/q1D/VIZNLiDFG0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787177716; c=relaxed/simple;
-	bh=Rv6whItDIcmUGSMIuRgbHjmoSSgoD1ibtk6GYIWC/CA=;
+	s=arc-20240116; t=1787177721; c=relaxed/simple;
+	bh=6Qx6kfMw9tSQYqsPf3PiHLUvAQeX+4N7U0MspCV5iXU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JHe0waVnllYhFws5rlonoSL/ZAslxtuw2CNqpSlKgmhHSjL9BqvmqmVLhYk+f2Jo3Zlt/4zarBulgx+TAJrWg5JBy+qKEXE4FqC7BALao9lgGfFnddZFgXFH2bLkSBLPimF8itvoOIqYs+6jD4nRHVs8RzuRtrdZwKLXCPbsGns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=COU4le52; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=hIjJf98ICFdLJlzDBtsqSpaKoxhsMaUfnegA8sMnBHLOLvW/ke+LEC2AI6/LO0+PEM/bapqXBo0KkS64eetoyP9OeOZ8nSIk22BdRJSQB6l/3qCtcSwoeVFCl9tto+7KzIY4D9mDzNAYWa5VpDD5FGIC90ev3ziMKmlcTYLOHR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V8Ov+1YF; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="COU4le52"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f6609c657so726433f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:15:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V8Ov+1YF"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49954b88fffso15762905e9.0
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:15:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787177713; x=1787782513; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787177715; x=1787782515; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jqWAE3/FZNMZVbcob+bjMAEwhBq6UWoejE3YQhxncXM=;
-        b=COU4le525IY9jZ7ENVJ1TX8NKR+TWfvM118Ge+G66OyTzYo0gUKROwlh5stB6MALRE
-         uXa/ZH0RAqjidOjUYkuPDLeqZez2uz/Kvbjbscui9q3UBMe+SDfTUYfxeOKQfqbGtFwW
-         iNGamoXD44zEf/oLFa+K6mDMqZzspksTHmN4LP5/P9T77SDVaeaF4XoY/m3WhGixfCmo
-         2jzW+Qtyffz0hpRrZJNa8wVL70mL5rm8XqVsJ8EYO3CnriV5187lBemJqCI4yZRn9sqv
-         csD7vMmR7xoYNIfXevEF9tX15+uDtElZp4aYc74tdJrd2SLOC99H1eOdN3UzA1WhqJDu
-         YLFQ==
+        bh=4po/BpuVMmSH7orjF22R2xSAn8xfUnzmnHH811uV0xM=;
+        b=V8Ov+1YFUrAgNpPEmasDNZ2OcKonM3F5bTBIjFdwOXenRibAGdfHIkzKx8qM6Fuz2z
+         M2T7GHNNt8hiqkMmMyyXQ6E3JObBGJeL+wRi6FOLQtZuV8SgU5zCESg76mjAUlTIGqCn
+         6QG92EC2qZk8XZlPWNG/26XZWaY3a91WF0OKGK2fGTSrs9gqhwOy1mOh4H2Vnof6sQmY
+         Vd8DmNDYI5/jC84H4OiJE58kYVvxZ4FxF7132ToNZ29oSd0zRNvCtCw1OkkB+HLw1Wim
+         UpjU0+aliJPkrrVjtoUx1IkFpg//UkaaKokQ9cxadyYqh1DdcABmgJ4ttfMU9Y+TtqsC
+         XLsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787177713; x=1787782513;
+        d=1e100.net; s=20251104; t=1787177715; x=1787782515;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jqWAE3/FZNMZVbcob+bjMAEwhBq6UWoejE3YQhxncXM=;
-        b=imu7+qH4g2kRCEV+iGBN67s8HDoGbJRwi0lUNgpOOhxW7xdvMCPb+PlyMYXABGT4ti
-         rysYVz2wkIqzsneY1CeizX4gwtJ+Xj9uEwy9m6gOvhSiZXbkYQwhHrKNeN95NGPwmuU9
-         gAIwviYgpykljaWweUoC/7jj9YcJGQbQieSVdnh95z4WhlRBWA/UFmD2yeqCyUMEnYKX
-         6mgujeseBbz53soMazLYOlj2KkRJD/YgltCgIt7cMovXuME/XewrBekCBgZpZ1LlXxBK
-         fr1nfXr+nEt9MR84gVoqf690/rw1Ek72Y1EKvW2pyqFomuM9BiD7QOcnmcb228QyYsbs
-         SO6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RomMlmhhEwBjxv+DxfRWrONNgjC5KeXoQLUkK/XbO2sP6BcCT3VUwlxmEiOaiH59uEuQUhwjcYa7ltJ@vger.kernel.org
-X-Gm-Message-State: AFuF++lj29AdpX3QXTLjWALPDbU/whKOWqoa7jewBoD2CJv4QGNopKuI
-	ja3EcC53bpoaa/DeyOiBsyrbnjiVX9qXn2OOsnLtMmuG+5MdkUJeP9Yb
-X-Gm-Gg: AR+sD11YW8LnhT2+tAZJEGHyS2kMj9ht8GLNsOVysh6JpGfLGba18xzuQtbKpBudrKM
-	H0Z5iaSdVjjLXk++XJzmbbcQBgyUpXfx9kKwzTlWNGW2wHl0qOrNgACoFlmLDlaLUjmQkBl4r16
-	VcsnrTYM0rqenRJd9kMPqOBsOwKHWu//H0+MMK87NdbeJ1PQd7+sea/lizZE+uHfWEPEEhRaDIz
-	NPg4ajn0tWRIAabZNEHnspEj7ahLjK2fqLBlFMIyfMHsTvDaf+zT9kgX58iw1UV1Aqz4Sjw4f+1
-	4GIAGIlpDMj8Bk+YNj86ppWby71dNzt5FvXMC83r9L4YUCDzKcaqFDqBy6q4yJSFMj62CBa3SjC
-	/3RW512ZZ8bOsUra4s5pYykZBZcbesM6lWg0jKX/1o0pTPQYv946YmJCcinRVXTSM2QfoYCy6HU
-	HBkqs3LYJNWYK9aFu59fwxx2pvuXpimyZfkrl5Y2StAtgAQu//SLH1jxVDkdCAtU6dI0yTuOjuq
-	KimLeAe80m4bQI1Ej9UJDb9hW64s4TvtUp7x4Pu+7snCiDHHCfaWKMdK169H8ctlQ==
-X-Received: by 2002:a05:6000:4619:b0:47f:5b52:5579 with SMTP id ffacd0b85a97d-482b1fe8a4bmr14796270f8f.18.1787177712697;
-        Wed, 19 Aug 2026 15:15:12 -0700 (PDT)
+        bh=4po/BpuVMmSH7orjF22R2xSAn8xfUnzmnHH811uV0xM=;
+        b=QHwkC/a08bOiubzwwBTk66dCs5eMyqj4y819efnvPleLHgGkbtC+twrXy7RzKJptgI
+         iC5KWeLMCutb9pcZbd0H95XXxvDOhXUWiFrtL+c+gKG4BlxSF8srCSuowDmWu4GK+8XG
+         SIgSkBpmfCmiJyG30XtzhpYqF7LFpIysaeOhASAJYi/CtGfT1bcOU4tKH+8B0Z9Vm7oD
+         lPksArrpbC845Jk7YpHydd+uFIIvx25klNNavkkZLy3kp8UWoXXUnBrlFQ+B/2nLdRXb
+         QBwaxH073Vo8vDAdZWg04KnTl8msRpv030Ris0xQtvhpDtnLkSwGWaYxwL9rQ31DttUt
+         6U3A==
+X-Forwarded-Encrypted: i=1; AHgh+RquBu+bcCA/n5+a4msfRrlWy6WJBmluyw8Fft9bBXtJQYTIkXRYD0GWY/6ZNBPZZDXvETt07zO6TZ1e@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGxeU3PWH+nKXA2K+NeQELBiggH1AFRkn1nMCLuu+ItPJzfR+9
+	Z9Eig7shFPunMKFsXfDziKaHRVvku7T+d/WrdzG4EtJ/Og8OUUxtYfLO
+X-Gm-Gg: AR+sD13LoABQLl5LkVC9692F239Lohj2vhNZriOGYRJvOoc4VjiKCCPnP//fYTPOnhg
+	99Irk3ZrxfkN/4x5MK3hr/H2BnNBwunhujOxsXW/ZfYwCJkS3zyLny1nuruQPtxs2LElmeENAzx
+	5KObgUQ4K608vqT7W92CohIUTi37FnDLy+ZrrSacdx0WSZylSPzN1vHiVYB9U1dMJQHkGAnRRC3
+	wraVxWAgPEhCrrLVgHPzGYeIlOgyLW5PrfxZQAFQmZPMtLi2MGzuPu30P+S5+X24PZpP+QupMll
+	jtZV31LGWnNhvDdxttzrAAT2z6aA19ZAyYqQmnUEEVG17Yzk+bP37na70VZR+tf6nYywX3etVAn
+	ZjX/0csm6m75OGiwdGb3zwmO8N0XdZRhchQJM0aKwYxU38+e/twe6fewefAun+0s/8W00Z7kJif
+	wi0ttFZ0GRzeWrM/MMGh2yyCyzX0Uzms8Gtgu5hSEwUujXVnG3T+vqJNGCmvYU7ZAzL4StWxq82
+	tHa0MCUARyEkgdEU7kG5BDxuQw3/rej7Z3j4CqWPUEXW19idknGLqk=
+X-Received: by 2002:a05:600c:a47:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-499aa14a6ebmr119885875e9.1.1787177714707;
+        Wed, 19 Aug 2026 15:15:14 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-213-45-7-219.pool21345.interbusiness.it. [213.45.7.219])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482b14c46f2sm9732950f8f.29.2026.08.19.15.15.10
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482b14c46f2sm9732950f8f.29.2026.08.19.15.15.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 15:15:11 -0700 (PDT)
+        Wed, 19 Aug 2026 15:15:13 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
@@ -72,9 +72,9 @@ To: Stephen Boyd <sboyd@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v6 2/3] clk: en7523: generalize register clocks function
-Date: Thu, 20 Aug 2026 00:14:55 +0200
-Message-ID: <20260819221458.30040-3-ansuelsmth@gmail.com>
+Subject: [PATCH v6 3/3] clk: en7523: add support for Airoha AN7583 clock
+Date: Thu, 20 Aug 2026 00:14:56 +0200
+Message-ID: <20260819221458.30040-4-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260819221458.30040-1-ansuelsmth@gmail.com>
 References: <20260819221458.30040-1-ansuelsmth@gmail.com>
@@ -86,54 +86,311 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Airoha AN7583 SoC will use the same logic used by Airoha EN7581 SoC to
-register clocks. Generalize it to register clocks defined in soc_data.
+Add support for Airoha AN7583 clock and reset.
 
-Add the clocks definition in EN7581 SoC to support this new implementation.
+Airoha AN7583 SoC have the same register address of EN7581 but implement
+different bits and additional base clocks. Also reset are different with
+the introduction of 2 dedicated MDIO line and drop of some reset lines.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/clk/clk-en7523.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/clk/clk-en7523.c | 241 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 241 insertions(+)
 
 diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-index 5c45aacb6409..924e4f3e36b6 100644
+index 924e4f3e36b6..f57541ecef84 100644
 --- a/drivers/clk/clk-en7523.c
 +++ b/drivers/clk/clk-en7523.c
-@@ -116,6 +116,7 @@ struct en_rst_data {
+@@ -10,6 +10,7 @@
+ #include <linux/regmap.h>
+ #include <linux/reset-controller.h>
+ #include <dt-bindings/clock/en7523-clk.h>
++#include <dt-bindings/reset/airoha,an7583-reset.h>
+ #include <dt-bindings/reset/airoha,en7523-reset.h>
+ #include <dt-bindings/reset/airoha,en7581-reset.h>
+ #include <dt-bindings/clock/econet,en751221-scu.h>
+@@ -135,6 +136,14 @@ static const u32 crypto_base[] = { 540000000, 480000000 };
+ static const u32 emmc7581_base[] = { 200000000, 150000000 };
+ /* EN751221 */
+ static const u32 gsw751221_base[] = { 500000000, 250000000, 400000000, 200000000 };
++/* AN7583 */
++static const u32 gsw7583_base[] = { 540672000, 270336000, 400000000, 200000000 };
++static const u32 emi7583_base[] = { 540672000, 480000000, 400000000, 300000000 };
++static const u32 bus7583_base[] = { 600000000, 540672000, 480000000, 400000000 };
++static const u32 spi7583_base[] = { 400000000, 12500000 };
++static const u32 npu7583_base[] = { 666000000, 800000000, 720000000, 600000000 };
++static const u32 crypto7583_base[] = { 540672000, 400000000 };
++static const u32 emmc7583_base[] = { 150000000, 200000000 };
  
- struct en_clk_soc_data {
- 	u32 num_clocks;
-+	const struct en_clk_desc *base_clks;
- 	const struct clk_ops pcie_ops;
- 	int (*hw_init)(struct platform_device *pdev,
- 		       struct clk_hw_onecell_data *clk_data);
-@@ -714,12 +715,15 @@ static int en7523_clk_hw_init(struct platform_device *pdev,
- static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
- 				   struct regmap *map, void __iomem *base)
- {
-+	const struct en_clk_soc_data *soc_data;
- 	struct clk_hw *hw;
- 	u32 rate;
- 	int i;
- 
--	for (i = 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
--		const struct en_clk_desc *desc = &en7581_base_clks[i];
-+	soc_data = device_get_match_data(dev);
-+
-+	for (i = 0; i < soc_data->num_clocks - 1; i++) {
-+		const struct en_clk_desc *desc = &soc_data->base_clks[i];
- 		u32 val, reg = desc->div_reg ? desc->div_reg : desc->base_reg;
- 		int err;
- 
-@@ -1014,6 +1018,7 @@ static const struct en_clk_soc_data en7523_data = {
+ static const struct en_clk_desc en7523_base_clks[] = {
+ 	{
+@@ -337,6 +346,138 @@ static const struct en_clk_desc en7581_base_clks[] = {
+ 	}
  };
  
- static const struct en_clk_soc_data en7581_data = {
-+	.base_clks = en7581_base_clks,
- 	/* We increment num_clocks by 1 to account for additional PCIe clock */
- 	.num_clocks = ARRAY_SIZE(en7581_base_clks) + 1,
++static const struct en_clk_desc an7583_base_clks[] = {
++	{
++		.id = EN7523_CLK_GSW,
++		.name = "gsw",
++
++		.base_reg = REG_GSW_CLK_DIV_SEL,
++		.base_bits = 2,
++		.base_shift = 8,
++		.base_values = gsw7583_base,
++		.n_base_values = ARRAY_SIZE(gsw7583_base),
++
++		.div_bits = 3,
++		.div_shift = 0,
++		.div_step = 1,
++		.div_offset = 1,
++	}, {
++		.id = EN7523_CLK_EMI,
++		.name = "emi",
++
++		.base_reg = REG_EMI_CLK_DIV_SEL,
++		.base_bits = 2,
++		.base_shift = 8,
++		.base_values = emi7583_base,
++		.n_base_values = ARRAY_SIZE(emi7583_base),
++
++		.div_bits = 3,
++		.div_shift = 0,
++		.div_step = 1,
++		.div_offset = 1,
++	}, {
++		.id = EN7523_CLK_BUS,
++		.name = "bus",
++
++		.base_reg = REG_BUS_CLK_DIV_SEL,
++		.base_bits = 2,
++		.base_shift = 8,
++		.base_values = bus7583_base,
++		.n_base_values = ARRAY_SIZE(bus7583_base),
++
++		.div_bits = 3,
++		.div_shift = 0,
++		.div_step = 1,
++		.div_offset = 1,
++	}, {
++		.id = EN7523_CLK_SLIC,
++		.name = "slic",
++
++		.base_reg = REG_SPI_CLK_FREQ_SEL,
++		.base_bits = 1,
++		.base_shift = 1,
++		.base_values = slic_base,
++		.n_base_values = ARRAY_SIZE(slic_base),
++
++		.div_reg = REG_SPI_CLK_DIV_SEL,
++		.div_bits = 5,
++		.div_shift = 24,
++		.div_val0 = 20,
++		.div_step = 2,
++	}, {
++		.id = EN7523_CLK_SPI,
++		.name = "spi",
++
++		.base_reg = REG_SPI_CLK_FREQ_SEL,
++		.base_bits = 1,
++		.base_shift = 0,
++		.base_values = spi7583_base,
++		.n_base_values = ARRAY_SIZE(spi7583_base),
++
++		.div_reg = REG_SPI_CLK_DIV_SEL,
++		.div_bits = 5,
++		.div_shift = 8,
++		.div_val0 = 40,
++		.div_step = 2,
++	}, {
++		.id = EN7523_CLK_NPU,
++		.name = "npu",
++
++		.base_reg = REG_NPU_CLK_DIV_SEL,
++		.base_bits = 2,
++		.base_shift = 9,
++		.base_values = npu7583_base,
++		.n_base_values = ARRAY_SIZE(npu7583_base),
++
++		.div_bits = 3,
++		.div_shift = 0,
++		.div_step = 1,
++		.div_offset = 1,
++	}, {
++		.id = EN7523_CLK_CRYPTO,
++		.name = "crypto",
++
++		.base_reg = REG_CRYPTO_CLKSRC2,
++		.base_bits = 1,
++		.base_shift = 0,
++		.base_values = crypto7583_base,
++		.n_base_values = ARRAY_SIZE(crypto7583_base),
++	}, {
++		.id = EN7581_CLK_EMMC,
++		.name = "emmc",
++
++		.base_reg = REG_CRYPTO_CLKSRC2,
++		.base_bits = 1,
++		.base_shift = 13,
++		.base_values = emmc7583_base,
++		.n_base_values = ARRAY_SIZE(emmc7583_base),
++	}, {
++		.id = AN7583_CLK_MDIO0,
++		.name = "mdio0",
++
++		.base_reg = REG_CRYPTO_CLKSRC2,
++
++		.base_value = 25000000,
++
++		.div_bits = 4,
++		.div_shift = 15,
++		.div_step = 1,
++		.div_offset = 1,
++	}, {
++		.id = AN7583_CLK_MDIO1,
++		.name = "mdio1",
++
++		.base_reg = REG_CRYPTO_CLKSRC2,
++
++		.base_value = 25000000,
++
++		.div_bits = 4,
++		.div_shift = 19,
++		.div_step = 1,
++		.div_offset = 1,
++	}
++};
++
+ static const u16 en7581_rst_ofs[] = {
+ 	REG_RST_CTRL2,
+ 	REG_RST_CTRL1,
+@@ -512,6 +653,64 @@ static const u16 en751221_rst_map[] = {
+ 	[EN751221_USB_PHY_P1_RST]	= 3 * RST_NR_PER_BANK + 7,
+ };
+ 
++static const u16 an7583_rst_map[] = {
++	/* RST_CTRL2 */
++	[AN7583_XPON_PHY_RST]		= 0,
++	[AN7583_GPON_OLT_RST]		= 1,
++	[AN7583_CPU_TIMER2_RST]		= 2,
++	[AN7583_HSUART_RST]		= 3,
++	[AN7583_UART4_RST]		= 4,
++	[AN7583_UART5_RST]		= 5,
++	[AN7583_I2C2_RST]		= 6,
++	[AN7583_XSI_MAC_RST]		= 7,
++	[AN7583_XSI_PHY_RST]		= 8,
++	[AN7583_NPU_RST]		= 9,
++	[AN7583_TRNG_MSTART_RST]	= 12,
++	[AN7583_DUAL_HSI0_RST]		= 13,
++	[AN7583_DUAL_HSI1_RST]		= 14,
++	[AN7583_DUAL_HSI0_MAC_RST]	= 16,
++	[AN7583_DUAL_HSI1_MAC_RST]	= 17,
++	[AN7583_XPON_XFI_RST]		= 18,
++	[AN7583_WDMA_RST]		= 19,
++	[AN7583_WOE0_RST]		= 20,
++	[AN7583_HSDMA_RST]		= 22,
++	[AN7583_TDMA_RST]		= 24,
++	[AN7583_EMMC_RST]		= 25,
++	[AN7583_SOE_RST]		= 26,
++	[AN7583_XFP_MAC_RST]		= 28,
++	[AN7583_MDIO0_RST]		= 30,
++	[AN7583_MDIO1_RST]		= 31,
++	/* RST_CTRL1 */
++	[AN7583_PCM1_ZSI_ISI_RST]	= RST_NR_PER_BANK + 0,
++	[AN7583_FE_PDMA_RST]		= RST_NR_PER_BANK + 1,
++	[AN7583_FE_QDMA_RST]		= RST_NR_PER_BANK + 2,
++	[AN7583_PCM_SPIWP_RST]		= RST_NR_PER_BANK + 4,
++	[AN7583_CRYPTO_RST]		= RST_NR_PER_BANK + 6,
++	[AN7583_TIMER_RST]		= RST_NR_PER_BANK + 8,
++	[AN7583_PCM1_RST]		= RST_NR_PER_BANK + 11,
++	[AN7583_UART_RST]		= RST_NR_PER_BANK + 12,
++	[AN7583_GPIO_RST]		= RST_NR_PER_BANK + 13,
++	[AN7583_GDMA_RST]		= RST_NR_PER_BANK + 14,
++	[AN7583_I2C_MASTER_RST]		= RST_NR_PER_BANK + 16,
++	[AN7583_PCM2_ZSI_ISI_RST]	= RST_NR_PER_BANK + 17,
++	[AN7583_SFC_RST]		= RST_NR_PER_BANK + 18,
++	[AN7583_UART2_RST]		= RST_NR_PER_BANK + 19,
++	[AN7583_GDMP_RST]		= RST_NR_PER_BANK + 20,
++	[AN7583_FE_RST]			= RST_NR_PER_BANK + 21,
++	[AN7583_USB_HOST_P0_RST]	= RST_NR_PER_BANK + 22,
++	[AN7583_GSW_RST]		= RST_NR_PER_BANK + 23,
++	[AN7583_SFC2_PCM_RST]		= RST_NR_PER_BANK + 25,
++	[AN7583_PCIE0_RST]		= RST_NR_PER_BANK + 26,
++	[AN7583_PCIE1_RST]		= RST_NR_PER_BANK + 27,
++	[AN7583_CPU_TIMER_RST]		= RST_NR_PER_BANK + 28,
++	[AN7583_PCIE_HB_RST]		= RST_NR_PER_BANK + 29,
++	[AN7583_XPON_MAC_RST]		= RST_NR_PER_BANK + 31,
++
++	/* RST_PCIC */
++	[AN7583_PCIC_PERSTOUT0_RST]	= 2 * RST_NR_PER_BANK + 29,
++	[AN7583_PCIC_PERSTOUT1_RST]	= 2 * RST_NR_PER_BANK + 26,
++};
++
+ static int en7581_reset_register(struct device *dev, void __iomem *base,
+ 				 const u16 *rst_map, int nr_resets,
+ 				 const u16 *rst_reg_ofs);
+@@ -885,6 +1084,35 @@ static int en7581_clk_hw_init(struct platform_device *pdev,
+ 				     en7581_rst_ofs);
+ }
+ 
++static int an7583_clk_hw_init(struct platform_device *pdev,
++			      struct clk_hw_onecell_data *clk_data)
++{
++	struct device *dev = &pdev->dev;
++	struct regmap *map;
++	void __iomem *base;
++	u32 val;
++
++	map = syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,chip-scu");
++	if (IS_ERR(map))
++		return PTR_ERR(map);
++
++	base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
++	en7581_register_clocks(dev, clk_data, map, base);
++
++	val = readl(base + REG_RST_CTRL1);
++	val |= REG_PCIE_HB_RST;
++	writel(val, base + REG_RST_CTRL1);
++	val &= ~REG_PCIE_HB_RST;
++	writel(val, base + REG_RST_CTRL1);
++
++	return en7581_reset_register(dev, base, an7583_rst_map,
++				     ARRAY_SIZE(an7583_rst_map),
++				     en7581_rst_ofs);
++}
++
+ static enum en_hir get_hw_id(void __iomem *np_base)
+ {
+ 	u32 val = FIELD_GET(REG_HIR_MASK, readl(np_base + REG_HIR));
+@@ -1029,6 +1257,18 @@ static const struct en_clk_soc_data en7581_data = {
+ 	.hw_init = en7581_clk_hw_init,
+ };
+ 
++static const struct en_clk_soc_data an7583_data = {
++	.base_clks = an7583_base_clks,
++	/* We increment num_clocks by 1 to account for additional PCIe clock */
++	.num_clocks = ARRAY_SIZE(an7583_base_clks) + 1,
++	.pcie_ops = {
++		.is_enabled = en7581_pci_is_enabled,
++		.enable = en7581_pci_enable,
++		.disable = en7581_pci_disable,
++	},
++	.hw_init = an7583_clk_hw_init,
++};
++
+ static const struct en_clk_soc_data en751221_data = {
+ 	.num_clocks = EN751221_MAX_CLKS,
  	.pcie_ops = {
+@@ -1042,6 +1282,7 @@ static const struct en_clk_soc_data en751221_data = {
+ static const struct of_device_id of_match_clk_en7523[] = {
+ 	{ .compatible = "airoha,en7523-scu", .data = &en7523_data },
+ 	{ .compatible = "airoha,en7581-scu", .data = &en7581_data },
++	{ .compatible = "airoha,an7583-scu", .data = &an7583_data },
+ 	{ .compatible = "econet,en751221-scu", .data = &en751221_data },
+ 	{ /* sentinel */ }
+ };
 -- 
 2.53.0
 
