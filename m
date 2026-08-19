@@ -1,63 +1,63 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B071453A55
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6933A44C640
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787134767; cv=none; b=o5VUMDliPzLb9s+nvIa92uduqW/3dQekJ7XTsF+r531Na5neklo3Q0imeCXAwcKosQy2qh/tG7XhCWD9/0qgPTklWlkw9VC49/WXkRD6PSLax9EinpNnOPBP6QuFeZl6q1QCIr1H/eSO5U1HLTS5nCH8dOzdBRcmobKXxHzUs4Y=
+	t=1787134770; cv=none; b=VFXFMqCnyrVMKxbYXC4Lrds3roT+Fp4DVl2qK9zqo/brfotyxTjKxYFWmbc+LLaBzsama38QkjmnoZ38jK2kzryySIBc/91mbCT6+4SOSM9KE/RIhMsyzwsJOhibxySxdH2h3jKngeA/eIRq1bLlIDc2N+55qDUdkJElMTWOQoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787134767; c=relaxed/simple;
-	bh=pzu9DMe7iaDjrWFGbiXICChTmsydaYKLu67VDV5618c=;
+	s=arc-20240116; t=1787134770; c=relaxed/simple;
+	bh=lV7cn3wHDLCLp1GZjg2LVjd9oT9jGfOPTNvvw0Vnn64=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r13cyzYIVJ4jvAaL/n+0QtMxDqOwut4uzUI8NfG5jmf75IPWAUdDDT7R5kYM9m7ljF8BSQOKrPsBUuIr/MQZw6Z4HwV4CiYkEHRYp/eD4IQnESuojMwpeQKL0BgxTRsowF6S5kLv0DgawhFFmdkk2f6kE+70zEfMsxgGI8zyzoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RQzxCgib; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version; b=DCpJNTj4jk5UDl3mYycbYYcQEaZzXvaFVIiWiWvyQKpXi9P2JnfYaUHLLOhnsEgtHDXfiFouAcvhQTyZfkh0xwTD5tAO2gQLDodEhUkqivEPa0I6YXRCvlqpSsygQyo69XgZnp4Ce6bH9xoC4IRWCHXre4ua4ogWCf4aRykpH+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BC3NOlTN; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RQzxCgib"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4998590d392so7811525e9.0
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:19:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BC3NOlTN"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493b966dd74so5604865e9.3
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:19:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787134764; x=1787739564; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787134767; x=1787739567; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ulU8x3Wy8nahtbqcLruGCqTsuJ9c7qAZmMPClxEabE4=;
-        b=RQzxCgibhjaa2JAnPavhOwVM4XKbSq11YvgYOD1DW61XCtRN02xJp3yEq5OQiXuh9K
-         wSTuAkwC4p9sEUiIR8rD+08IRseh8B8WVehTCYPtJ2KZURfkGiZTZ5aP9FeF7M/GVeK8
-         epsBQdoRcqxfDqP8OHKBQV+QJ9plAB6xSK2YM8DBHb0p7h8MxRFI/k2Fck8gMM9PtYll
-         l8YhbEQ8FDmc6lBSxZ9/Z2ABBLZ/8sp27mrKQoR3zJUbisYZo+IQbHlM0ODY/1lX/Sup
-         8+QwFtgGoPIjxKV/pg4aj+M4N4ULQXhrkDcpPJbk0nPmld1FuZmBcBuIDBckqUStGwvF
-         o9qw==
+        bh=EnZE7wbRFGJKlrtdBKnnD6qNsCW/P/b4SFhiLIR6sD4=;
+        b=BC3NOlTN/NRomvRnd2uMbqLX8Iiij1KQ6L9k8138Wy0XOhupLmGnPYGTKwOILk4qLr
+         hOj53xQN+PtAXG2Vwv/H7A76GIKD67M49oyjjENeJRBGHHQgfeNksQmp8NunacgOK2Rs
+         6RB6AuPtGJjukzUaAmkd3NsRjq/EHa52UxmYD6nD++AF/7hyMyR/tVkVkdstdpURU2bN
+         x9ck7Ld8/1wBO25DHPycyjWqleAf5A1B2DM6b04Kl/Ap56U9SkQ4X2RGEcoRL+bR27nt
+         rqTP3cIE4y58DyPjYn448Z9nlwuNh5zQrugnFpuPuV96+GV5b1C7K3Ku00HEXXO9lfzM
+         Rlag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787134764; x=1787739564;
+        d=1e100.net; s=20251104; t=1787134767; x=1787739567;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ulU8x3Wy8nahtbqcLruGCqTsuJ9c7qAZmMPClxEabE4=;
-        b=fDqqc8SH5XKR+pCUjCEjUMnl8M0W0qHP9b+PsmvnpDSGjhVk2FVw5MCjwPHwt7JWdi
-         ippKjJ5lye11n/2DD2Njx0ZuFup3Woka+XI3adgM6eJ8jvRsImGf4/gdW3D7af9gmGoI
-         mm6w+RZI5CfKgJNYjmrfb7o22peaMIL6m1lroe4hTyOz7+W/IEv728gCYZsbeMxS/L7m
-         XSsCo4Rn3oAlAaSsBKLwyY0yHxvQlUdAnHDBR9gfb2LbqXIsjRAKsdcdAZfLomYAZdmh
-         NfOX9f9E9tbirYUfihlG7tTJfaeWG0HYJ8s9X9UGCS3NpzUqCFJKRwGBK1/iIi1lm4FQ
-         edyg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0MIf+HY24bfw2fZA+kjOKEI6GOg+6QvjjHqJDHHgge3XZa0B9zSu3V3kFkgvOTxmPMDX90m5yth2s@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPusUZxInonHBk2+q4il98+L6hmqmczEs3Ul1p2KXn7/zWZIfD
-	IJ/tVQTXDCnW/Ykzt412FMBXwuT09RxyZpZSt7IR+qFGXx0hqlF78fSM
-X-Gm-Gg: AR+sD138idTt2DYYsrjRWvzoQ1nA8YB70s6TJXHzVesEWnsrhyXYlbQmki1fGHPYJeA
-	Ue8ADPRMFymEGHwFX7XNVycsBxVZq4ZIJPmQd/0Wvq5ajPQ0tBjT1Xqh+xsIvB3s/WQf3PTyaqa
-	CbBDynrbiJoa97nIG18JOMtV1Q4MoTDHfhZV4aPitcpaBy6RK7WRph9h5n+GnTLI7TEulbx1aT9
-	rHmm8aD00c3/Ro4bOyhKc7pA0aBRujcOGNiaEcO94qk9KZkyP5nk6b10xW9cdkUC/bw+vnzAN7b
-	FC7GLDxnSu93tD6YhKFJvLAJDeXs5L2Pig0cNsBWX4thmIeEsMc03ghKGDVOd4d9/jj9So3LlZF
-	osYqG5BCIxSIBtYokMcTKYIAskk0Uo6v/sCFpWtspDb6Kx/w1urpxPLYnofA/hS8thqhlEmvNZP
-	fheUD/qV6mBfzNQOgGaJhRD+JX3Q480NlRjXoA1gdQl608bJembSthIQ==
-X-Received: by 2002:a05:600c:8b6e:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-499aa1a8bbcmr65261925e9.7.1787134763824;
-        Wed, 19 Aug 2026 03:19:23 -0700 (PDT)
+        bh=EnZE7wbRFGJKlrtdBKnnD6qNsCW/P/b4SFhiLIR6sD4=;
+        b=c3l8DR5ca0eaAGGqJ3kbLTGao+MKa34vfAKoBdvyPFmdfpZWkKsXUX8d+0D+EyuGCC
+         6ZRBrMSIlg26W7YsWhmyMnzUdF0HYrSkfqz4/Rm9ZmwSUV3i4OMfuHXvHb5LILK5n73E
+         nEERZQiXIYa5RcSWIB5DRai27QMkTswna2XY5qI6cbzie+T6hMMk1fDt8mie0vcJ7EQk
+         OgSt2XegN+j8xAd3zFpNfA5sopCls7558mUT7nxJSAYyK2I0i5v2DZc51tvUGoqd/Bl6
+         AvNRBruCVksrNsqvUT4JKlQsn78j2QWXl0XugGK7DI55fCKJVmVFfDGiB0G+aijbTPDY
+         WlHQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpnwiuyeYAbStpfHcaa0/UIT1n51jBjfE337OV/cFZiO5CrtSWxNzKPDpAJMZhJLzRooxbtS9dLMzOd@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzu5DEsMBPquLZMWujMrY8v4GfSVGMZyaGpKmmlSDDzm0Kl5iPH
+	95T7JYVIEydc7lNAQA69+uhs5dOC8QRBvGxXI8XNOSTPxSAGmSfEMXkY
+X-Gm-Gg: AR+sD11L1N0iFSgNwY5kn3SbJDXPpnLomJ97D+URzP4KnRQP2Y5BfX1/3ovQdUja/My
+	aD3NOzx1OPe/MnTEMQdo2YQ5fDfc9aMvTs6ji9xM90s6VM+EWZS5fTozPY31an3TLArHTIUX6dj
+	bJJbSwWLzH6DWlOfSqsP/5FW5J/GNP96ehKO8XFaR6euCrMfP5Fe77KqUJi8VX7VlJIdOpwwpXq
+	q0EjGNp/3pvYSern1vvaV6wk5gr/xMiPxHdIOY/rdR82OW0EGEBNwKsRdwI4GsWWDZUoVuku47H
+	Qde2Mdz3xntCbEZZgg7q+Hqq1SaM3oyxbebH8F7qPK6VAGykhGNRwAMaNwsIRezX9guTRHIBDf3
+	cIdcm5TNHB6U2peqqVzxwhUw9BwOCOKgU+nC6lYF9GC2UoBcbXexsMOZ/VFOMpd0u5ovjIKe3YW
+	AF4VT5qls4VqTcRbtoczgonzrl+4WoSqUixTGb4UdOZ7Z5swr0u21Vjjtvue8+wnDI
+X-Received: by 2002:a05:600c:1d1a:b0:493:a623:d090 with SMTP id 5b1f17b1804b1-499aa1dde53mr59985075e9.10.1787134766581;
+        Wed, 19 Aug 2026 03:19:26 -0700 (PDT)
 Received: from luca-vm.. ([81.56.18.151])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9b7c987sm27316965e9.1.2026.08.19.03.19.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9b7c987sm27316965e9.1.2026.08.19.03.19.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 03:19:23 -0700 (PDT)
+        Wed, 19 Aug 2026 03:19:26 -0700 (PDT)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
 Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
@@ -73,9 +73,9 @@ Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v4 6/7] soc: mediatek: mtk-mmsys: Add resets for mt8167
-Date: Wed, 19 Aug 2026 12:16:27 +0200
-Message-ID: <20260819101853.44681-7-l.scorcia@gmail.com>
+Subject: [PATCH v4 7/7] arm64: dts: mt8167: Properly describe the SoC watchdog and mmsys resets
+Date: Wed, 19 Aug 2026 12:16:28 +0200
+Message-ID: <20260819101853.44681-8-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260819101853.44681-1-l.scorcia@gmail.com>
 References: <20260819101853.44681-1-l.scorcia@gmail.com>
@@ -87,89 +87,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The mt8167 SoC has 28 mmsys resets, split across two contiguous 32-bits
-registers, MMSYS_SW0_RST_B (0x140) and MMSYS_SW1_RST_B (0x144).
+Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
+which in turn falls back on mt6589-wdt. However according to the data
+sheet mt8167 toprgu is not really compatible with mt6589 (it has 14 sw
+resets instead of 12, and the reset IDs are different from mt6589).
+
+Use the dedicated mediatek,mt8167-wdt compatible for the watchdog driver,
+as it correctly describes the SoC resets.
+
+Also add support for mmsys resets by declaring the reset-cells property.
 
 Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 ---
- drivers/soc/mediatek/mt8167-mmsys.h |  3 +++
- drivers/soc/mediatek/mtk-mmsys.c    | 38 +++++++++++++++++++++++++++++
- 2 files changed, 41 insertions(+)
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/soc/mediatek/mt8167-mmsys.h b/drivers/soc/mediatek/mt8167-mmsys.h
-index 001379373507..5c7cded5cfa4 100644
---- a/drivers/soc/mediatek/mt8167-mmsys.h
-+++ b/drivers/soc/mediatek/mt8167-mmsys.h
-@@ -3,6 +3,9 @@
- #ifndef __SOC_MEDIATEK_MT8167_MMSYS_H
- #define __SOC_MEDIATEK_MT8167_MMSYS_H
- 
-+#define MT8167_MMSYS_SW0_RST_B				0x140
-+#define MT8167_MMSYS_SW1_RST_B				0x144
-+
- #define MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN	0x030
- #define MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN	0x038
- #define MT8167_DISP_REG_CONFIG_DISP_COLOR0_SEL_IN	0x058
-diff --git a/drivers/soc/mediatek/mtk-mmsys.c b/drivers/soc/mediatek/mtk-mmsys.c
-index 2f3e0778bb17..015dc5b86478 100644
---- a/drivers/soc/mediatek/mtk-mmsys.c
-+++ b/drivers/soc/mediatek/mtk-mmsys.c
-@@ -4,6 +4,7 @@
-  * Author: James Liao <jamesjj.liao@mediatek.com>
-  */
- 
+diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+index 27cf32d7ae35..cccc487086a1 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+@@ -8,6 +8,8 @@
+ #include <dt-bindings/clock/mt8167-clk.h>
+ #include <dt-bindings/memory/mt8167-larb-port.h>
+ #include <dt-bindings/power/mt8167-power.h>
 +#include <dt-bindings/reset/mediatek,mt8167-mmsys.h>
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/io.h>
-@@ -53,10 +54,47 @@ static const struct mtk_mmsys_driver_data mt6797_mmsys_driver_data = {
- 	.clk_driver = "clk-mt6797-mm",
- };
++#include <dt-bindings/reset/mediatek,mt8167-wdt.h>
  
-+static const u8 mmsys_mt8167_rst_tb[] = {
-+	[MT8167_MMSYS_SW0_RST_B_SMI_COMMON]	= MMSYS_RST_NR(0, 0),
-+	[MT8167_MMSYS_SW0_RST_B_SMI_LARB0]	= MMSYS_RST_NR(0, 1),
-+	[MT8167_MMSYS_SW0_RST_B_CAM_MDP]	= MMSYS_RST_NR(0, 2),
-+	[MT8167_MMSYS_SW0_RST_B_MDP_RDMA0]	= MMSYS_RST_NR(0, 3),
-+	[MT8167_MMSYS_SW0_RST_B_MDP_RSZ0]	= MMSYS_RST_NR(0, 4),
-+	[MT8167_MMSYS_SW0_RST_B_MDP_RSZ1]	= MMSYS_RST_NR(0, 5),
-+	[MT8167_MMSYS_SW0_RST_B_MDP_TDSHP0]	= MMSYS_RST_NR(0, 6),
-+	[MT8167_MMSYS_SW0_RST_B_MDP_WDMA]	= MMSYS_RST_NR(0, 7),
-+	[MT8167_MMSYS_SW0_RST_B_MDP_WROT0]	= MMSYS_RST_NR(0, 8),
-+	[MT8167_MMSYS_SW0_RST_B_FAKE_ENG]	= MMSYS_RST_NR(0, 9),
-+	[MT8167_MMSYS_SW0_RST_B_MUTEX]		= MMSYS_RST_NR(0, 10),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_OVL0]	= MMSYS_RST_NR(0, 11),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_RDMA0]	= MMSYS_RST_NR(0, 12),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_RDMA1]	= MMSYS_RST_NR(0, 13),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_WDMA0]	= MMSYS_RST_NR(0, 14),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_COLOR]	= MMSYS_RST_NR(0, 15),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_CCORR]	= MMSYS_RST_NR(0, 16),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_AAL]	= MMSYS_RST_NR(0, 17),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_GAMMA]	= MMSYS_RST_NR(0, 18),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_DITHER]	= MMSYS_RST_NR(0, 19),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_UFOE]	= MMSYS_RST_NR(0, 20),
-+	[MT8167_MMSYS_SW0_RST_B_DISP_PWM]	= MMSYS_RST_NR(0, 21),
-+	[MT8167_MMSYS_SW0_RST_B_DSI0]		= MMSYS_RST_NR(0, 22),
-+	[MT8167_MMSYS_SW0_RST_B_DPI0]		= MMSYS_RST_NR(0, 23),
-+	/* bit 24 is SMI_COMMON again according to data sheet */
-+	/* bit 25 is SMI_LARB0 again according to data sheet */
-+	[MT8167_MMSYS_SW0_RST_B_MIPI_TX_CONFIG]	= MMSYS_RST_NR(0, 26),
-+	/* all other bits are not described in data sheet */
-+	[MT8167_MMSYS_SW1_RST_B_LVDS_ENCODER]	= MMSYS_RST_NR(1, 2),
-+	[MT8167_MMSYS_SW1_RST_B_DPI1]		= MMSYS_RST_NR(1, 3),
-+	[MT8167_MMSYS_SW1_RST_B_HDMI]		= MMSYS_RST_NR(1, 4),
-+};
+ #include "mt8167-pinfunc.h"
+ 
+@@ -95,6 +97,13 @@ power-domain@MT8167_POWER_DOMAIN_CONN {
+ 			};
+ 		};
+ 
++		watchdog: watchdog@10007000 {
++			compatible = "mediatek,mt8167-wdt";
++			reg = <0 0x10007000 0 0x1000>;
++			interrupts = <GIC_SPI 198 IRQ_TYPE_LEVEL_LOW>;
++			#reset-cells = <1>;
++		};
 +
- static const struct mtk_mmsys_driver_data mt8167_mmsys_driver_data = {
- 	.clk_driver = "clk-mt8167-mm",
- 	.routes = mt8167_mmsys_routing_table,
- 	.num_routes = ARRAY_SIZE(mt8167_mmsys_routing_table),
-+	.sw0_rst_offset = MT8167_MMSYS_SW0_RST_B,
-+	.rst_tb = mmsys_mt8167_rst_tb,
-+	.num_resets = ARRAY_SIZE(mmsys_mt8167_rst_tb),
- };
+ 		pio: pinctrl@1000b000 {
+ 			compatible = "mediatek,mt8167-pinctrl";
+ 			reg = <0 0x1000b000 0 0x1000>;
+@@ -124,6 +133,7 @@ mmsys: syscon@14000000 {
+ 			compatible = "mediatek,mt8167-mmsys", "syscon";
+ 			reg = <0 0x14000000 0 0x1000>;
+ 			#clock-cells = <1>;
++			#reset-cells = <1>;
+ 		};
  
- static const struct mtk_mmsys_driver_data mt8173_mmsys_driver_data = {
+ 		larb0: larb@14016000 {
 -- 
 2.43.0
 
