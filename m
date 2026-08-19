@@ -1,63 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A462378D71;
-	Wed, 19 Aug 2026 18:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318793D25CC;
+	Wed, 19 Aug 2026 18:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787164873; cv=none; b=OPTdu4rnX+mRYAH84lpopzgCiJKguNH2xXQ+crv4l5sADyLkipIleukPiw9uS5bX/epM97fQGwdcMVxjb3fNWkDkC3s2ok9har+Mu800v0fpF84TmPIFavoZg0WL97gblFF9fbgZ5F3RmvIMo/WJo4s5Vz5xRXzT/13dfQ/DRMc=
+	t=1787165690; cv=none; b=hDvXLICdt+whSRk6dFLEaPa0RGq25MG//w8e7H4Q+BhQYrLlAo3QZ80BGYJM8hlD66Xzd5HA+Cwj3yqIQQCj9HtIXVvxd+c731+GF59/hKKhSo+n0/52mhaY9Z+nN52prT6dkI9kL8xrrGVlho3W/ui1rsPZXD+czeG+/Z4o8dY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787164873; c=relaxed/simple;
-	bh=YrP833I6IMeoJOIv8bZNvh/hczHVhMOALks7A8Eu7kY=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=NLx3WoEKz5H1m0vxgmJ3J1WQus07CdylOaPpSPDuw2ElpS+IArY9Ba36UvTfe5G4c0n9XEwwP0Kl+7BTTqQzn4yGhr8qTwFU4MzYjzCfuYslU426aE9UiRKnrWHq12a/AOJOxkjOLxJZrBy8w1SEJEQJrkRxRUwtt0vemJ2ASko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SSyFG0G5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787165690; c=relaxed/simple;
+	bh=L2HETGloR8xkRUrykD/AGK4iRmBt7ju1G2PpIEsfYFc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ro/vbWX/jaC5uEhuShMZmWmxoJljjyx5XpDJ8r09jQrfcbz4SIkI2Wgp+A7P1mR9r4L+S1iOlbR9SROXeNpT2reSYf83/mchIS5POr340jbOEVJUjsZ630nkGfOsmTsp3SzC0wVSed1OKCtpkQuRfbHWw7DcV70I88LpuUAuCG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BwW5Y3WL; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SSyFG0G5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C961F000E9;
-	Wed, 19 Aug 2026 18:41:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787164872;
-	bh=aBumycG5mbYXlVw3hGOcz20w4MzBEXWTiPt+nxwS74A=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=SSyFG0G5bEZcZTDByA/EZj3TAOTNAcZhFIlVoEJFM81xFazQznr2NxXpKlyL5TTCn
-	 T273GC9tw0m7oVuw5T/iKnAHblMtG5sHIxP952z5szpnaoawbgnOcg/13ZeCFTJuCp
-	 TLqMU5LmyJlMwOW1zgLOiZPfWp7HHzQf+oEh8CsL5p4t1dMI6a58jfn+HE63ZBlOmt
-	 aZcR6f6CS2C3bHZeELxPp0wbtXa33Bo+o5XTXYVJ2eeHEiucuG7pHik//BE2RgHAVv
-	 oMnwqQpPFWgjbfu6pddis51fL48TQs57hPUoNKUkZAnMnfofG3C+sZqt/0LKGAQ15G
-	 nGsHEbAioDzow==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93AF438119FF;
-	Wed, 19 Aug 2026 18:40:24 +0000 (UTC)
-Subject: Re: [GIT PULL] Devicetree updates for v7.3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260817225130.GA2508968-robh@kernel.org>
-References: <20260817225130.GA2508968-robh@kernel.org>
-X-PR-Tracked-List-Id: <devicetree.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20260817225130.GA2508968-robh@kernel.org>
-X-PR-Tracked-Remote: ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-for-7.3
-X-PR-Tracked-Commit-Id: e1c13aed4a1641550e8c9518c96f016e1d52d09b
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: c6cf4441a3a05bb7273ed022f3e56c4fc591da08
-Message-Id: <178716482315.3644485.1426462805615988504.pr-tracker-bot@kernel.org>
-Date: Wed, 19 Aug 2026 18:40:23 +0000
-To: Rob Herring <robh@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BwW5Y3WL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787165688; x=1818701688;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=L2HETGloR8xkRUrykD/AGK4iRmBt7ju1G2PpIEsfYFc=;
+  b=BwW5Y3WLZodUQxDm8XdTqHBc6rvicOzuvImcfpk3qFUuOuyCD530NFNF
+   kvCtk9jEkrwR37WKjZm7qQOWPLegxqpwU1si/X22TVwaBy8jLFPGwRfW4
+   2lhlc9vFas2zhP1HU3GjzKSUPFWicA9z56EDcQUxDmwI1QkJICIo8tQ55
+   PnbE1p3aDAGysY6EMtsKoHdL5UWRnxFJcCFeiHsocaXeFfsIb37vJqgdt
+   Yb9MNmioNQWloTBWzkV439/QqscJYIqYZJdxnGsR50NJB49oZJ1DaLfJm
+   PSFYmyGuxvfMdffdALULwBDIwKSCRVR6ui0i7IO4gyRzumBzLzFmYR6t/
+   A==;
+X-CSE-ConnectionGUID: Z5EY0QIhSwWH/QjbB7XrGQ==
+X-CSE-MsgGUID: f+3Hn1XPR6i0z5gmfuGWUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87899295"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
+   d="scan'208";a="87899295"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 11:54:47 -0700
+X-CSE-ConnectionGUID: r4ngswyoTI2+ZPslZh3lVQ==
+X-CSE-MsgGUID: SY4u6cXNRguFj/u0FNBHpQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
+   d="scan'208";a="259482720"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.106])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 11:54:44 -0700
+Date: Wed, 19 Aug 2026 21:54:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 4/4] iio: light: veml6031x00: add support for events
+ and trigger
+Message-ID: <aoX78syq62cEs3hi@ashevche-desk.local>
+References: <20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com>
+ <20260818-veml6031x00-v7-4-2b0de0f20edf@gmail.com>
+ <aoRltgy0AYZ_Vcum@ashevche-desk.local>
+ <DKS790BEXVON.1FP9LQUPNTYDE@gmail.com>
+ <aoU0JSmv7FWGW_Ms@ashevche-desk.local>
+ <DKT4WS5CVP2V.2FWDOOOHIL3XS@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKT4WS5CVP2V.2FWDOOOHIL3XS@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The pull request you sent on Mon, 17 Aug 2026 17:51:30 -0500:
+On Wed, Aug 19, 2026 at 08:33:30PM +0200, Javier Carrasco wrote:
+> On Wed Aug 19, 2026 at 6:42 AM CEST, Andy Shevchenko wrote:
+> > On Tue, Aug 18, 2026 at 06:10:51PM +0200, Javier Carrasco wrote:
+> >> On Tue Aug 18, 2026 at 4:01 PM CEST, Andy Shevchenko wrote:
 
-> ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-for-7.3
+...
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/c6cf4441a3a05bb7273ed022f3e56c4fc591da08
+> >> >> +	ret = pm_runtime_get_if_active(dev);
+> >> >> +	if (ret <= 0)
+> >> >
+> >> > < 0 seems too much to me. If there is disabled runtime PM (and supposedly
+> >> > device is always on) this prevents from getting events.
+> >>
+> >> I am not sure if I get this. A reference is unconditionally acquired
+> >> when events are enabled as well as in buffer_preenable, and also in the
+> >> probe before interrupts are enabled. Runtime PM should be active at this
+> >> point. If not, the interrupt should not come from the device, even if it
+> >> was on (e.g. before autosuspend kicks in). But maybe I am missing
+> >>  something?
+> >
+> > The device maybe in these states here:
+> > - powered off (by runtime PM) ret == 0
+> > - powered on (by some previous activity) ret > 0
+> > - always on (PM is disabled by user space, for example) ret < 0
+> >
+> > Are you telling that the third case is impossible? (Note that autosuspend in
+> > this case is irrelevant.)
+> 
+> I followed the execution paths and the third case seems to be impossible.
 
-Thank you!
+Thanks for checking this!
+
+> Setting power/control to "on" calls pm_runtime_forbid()[1], which sets
+> runtime_auto to false and increments the usage counter. Note that it does
+> not update disable_depth, which is the variable that pm_runtime_disable()
+> updates and what pm_runtime_get_if_active() checks to return -EINVAL if
+> runtime PM is disabled. Therefore, pm_runtime_get_if_active() should
+> return a positive value under this configuration.
+
+Would it be possible to have negative value at all from
+pm_runtime_get_if_active() here?
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+With Best Regards,
+Andy Shevchenko
+
+
