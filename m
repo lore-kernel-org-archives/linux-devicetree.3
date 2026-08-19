@@ -1,250 +1,138 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B876389E07
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:00:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E07237DAAE
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787108416; cv=none; b=bUVZE+yTshsHXiUjq8EmU5CFHUGnhSPShoq/0NFQ9fQmkc2Z9Pg5kNIa0TuK20+r0Q5GpJz2VTOkjtLD8/z0IXfDJAPiwmOFRJMpAyfRN947SOhrSsiTfrcJUqc99mw9CdfdV6aAVw4boqBi9qtmDH9/LdLD9OEKvoFUAOjOFXA=
+	t=1787108427; cv=none; b=O4etKFLEGC6wqsPIIZlSMOkGjeYirtZJErH0GlgDzmugjN6xiPg7G7rq7t1sQ2ledpOxYe7cZoexBshCSTVdZGJCvSnmH/+JK/EY6hCUEyOpbrUa/hVn+nWAfXqKs+W2nZIpxGRqD/N9vbBCg8Cqk3UyPQeb1/4Nq1M0EN0CtUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787108416; c=relaxed/simple;
-	bh=uoUk/aB5fKHLhryejIsePpRpP1N7d/vNO1dojbDyZ0U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pnpY54p7Af0f/5O8XiU8ZcRvn5EkXM/krjj8ZOxbANUVsH80bQ+UAmaRcc54IwuufRTF6M58iyqNdOsnSOttH5XBssiRZwB9L6SIKdpZXif/6ELRBiL8uxiOe05FP5H9EqLkGN1ZzBSpXQsZ1EXRRB5cmtpcgm49N/UfloXSBcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=noO7aZ9r; arc=none smtp.client-ip=74.125.227.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787108427; c=relaxed/simple;
+	bh=u5zrGWxbdJvOMrTsAW4beCXv0zNPpebDufYXroNLSbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e20a6toeLndoUrodaMp/FAVHLVBITEMo3ns6B8jX7QEKV6ql94oG+z/T1VVVgfZjyW3Zdx87YngL8Urt6wqf3O3iMPmJOKUWOLg8hOid5cgMAuRnknZC3oSPeureCNjYGB520wTplJJShjLrt9wo/WMNlKLAbiQp9hVz/B4RWWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RpWIqx3Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HsLwQBnt; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="noO7aZ9r"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3931e624fd8so334515a91.1
-        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 20:00:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RpWIqx3Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HsLwQBnt"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67J2ldv32735575
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:00:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=RVXkM6h1x8wmxO82Mfxg/gaB
+	JOGGT9mo12ibYmRp7HQ=; b=RpWIqx3QG4Qm9Nc4tYE/jVg6leSuVdVS/DkBasAP
+	mhDSs0yd/m1WY5KE154qWQ4SFlTvwMN6S26BYxWN4m+V699mMgVwFRLpwhIPRcv2
+	WJ9g+rvDSxhTNKCiqLPxjRZ8KFx4v3gxEc3rn5vvTUx7D1RG9A7PORzGuQnhlviu
+	sU5XkzZcVzsMJ3PpA+bCMooVyi/Hlk/0Dwuv6YY0yI6RDmwEsGHC7ypnans+pmIa
+	bMXu0oluu7VJqjHWL4Nb3cQZL4banlN8EqAR8bA1g4fAa3ZG+Js5bBCNusZ6KD3Q
+	j77w+9nM8X28/eL44KId3qCWFGG1YWeqavM4fj/oxzb9qQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yfm8yvq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 03:00:24 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-933023a5980so93596485a.3
+        for <devicetree@vger.kernel.org>; Tue, 18 Aug 2026 20:00:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787108414; x=1787713214; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/s+WgwMhL7g0fvO+KmgpqMPlBiPlJyg+BspueFKHDcE=;
-        b=noO7aZ9rCWmY+ZCJe5XzwAqHaGodq+V1gnGhkj0AyAJfpKf0GWgfl9dVfkVpNKBvbz
-         Hx0nk81Zbyouop3zLHZWyEJz+JdbReG1rSnqes6GX4SFjH54Z6LQESLA01d4rzX7n6/G
-         9MNg7eVDZQKcz1pJrj7Lihqr+qNdEFF2bHgO4LaORyL2T2rGuL7HRv9GUkPF0viTuaGl
-         MCrV+b51fvjjitwYTJqmmK/SZCpUDJ2QNRTlohk97YQ/92erJM2bNlr111skED25Ubsg
-         O/9Z+E9N4PiOVEwiqAwT/rPEctEET6pvG5VA7u4TDr+eI8bJlT1Vm88jNEOvQlr73/Wr
-         hcvg==
+        d=oss.qualcomm.com; s=google; t=1787108424; x=1787713224; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RVXkM6h1x8wmxO82Mfxg/gaBJOGGT9mo12ibYmRp7HQ=;
+        b=HsLwQBntK+8Ey6RL9MnlHi6s+ABtr3ZkchZ851VW9WaKedqLoVC6w5QMWww/PnyAhS
+         +gP7qAUOz4gqBW0MhJqbZvToNMwqIlVu87YBXrbdkyihe/xq10JRjRjXdW8+nlYoXcZ3
+         WwKnKrFEsFN99JaTghArR8kfyrfyhSY1uopEg7VPqEhKFGrv/srRlKylVkIMBu6ruPFo
+         WZYH93PwUx0ixROBErzsK6GQFxOqHkr4/IHW9+pW7Y0vq7GAr/VZKD8eSBRFzKB7r/6n
+         cRu//1JGcsDNeLsc1qncKKkC1GWWmKRy4R1z6PwXn/H06NmTvWoNS3iL1QSK7k5tGvqM
+         T+hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787108414; x=1787713214;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/s+WgwMhL7g0fvO+KmgpqMPlBiPlJyg+BspueFKHDcE=;
-        b=ckIkbVuyiCcwHb58BAERZtTUd+iuNAbbavW2yS3U/xMEEY0yvRM+Z2kXZEcRjZRpov
-         Cz0r5Ebk99BeYxTg4LjvXorvtl+BBW5eJuB3GwFPNa7mYukNMmpRbDLhKEc0EatWQa1/
-         0zWDYFepWNrQwoty+yuu+g+uwpaEvHaTpK95nTnqHvAEXJ+WluyvH2VjYoZOoQiTjoJA
-         XeQ+cdcSQvP+St0r+ZPDGsmh7sOYFpBN2P2qcFRVaF1Why0JlQ6vWLtbFEtaDGz/zSfp
-         eouKiqkuS+nlQk+wr/IS+FGQbDbSOTtJkB3aIq6gN/064/kc/rQe9xhUSOaiBpX0ifl2
-         LjZQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpHSZ81ah70SogjRUmg9MfBOySRPlBv3d/5fqLHFY9nFHBpUKI5JbwTgj+UIeWDSOvHFAe8yWlblXw4@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYTRTMIbZ59S3YC1wNLD8pFc3RfjD7gSp/kEO2rMQk1ocLi+gE
-	RLy0AqyKHJDsXhIcd4tIzQ7qMB3UhZXjHK9aFKYKqFlyqeX9z1hEYPjHhE+PitCD1LlQsQ==
-X-Gm-Gg: AR+sD10dH0xAnxfI3E037vE3D/MOALu0PvNVoYVxFCk9baryRyEt6T3q7Gb11QzqKGx
-	OPMdBHW0qp4hy3caOjrOj/piTVGroK/UUX1L+UcTyqhiDgNaLYWbVySFNnPCpQTthKbd3mVyyiS
-	gAHarLOqdxHDCZM98vrWiBPpU8vSSyHkPNhcBwhhFe3OYR9jqjqYRfA90z7rvyotOdv9C6AZGnN
-	MabXvfKH3wmCY/6DCFALF5z+O3bm65HZ5wiWfvwF3FaD30P3c0KNnpPAjdnC3Y/CfQZnoTQ2E1J
-	K6VD38FQg1mrWrEN6VklTcI8wcbSwKdSEWP/wffXmmAKbe5LDybPlEJUyQMEYG4ArhqKCEO5Zaa
-	zge9xZNrKMzv1/fVf1tXhOwrxd+F2vpteC0eDRvkHACoNyfx7qkwWvWD1GY9UGPJubtqlLqVuQy
-	1ZfBtuN82TYn14OIQnm75/eP1Eherg5mgXRABsCgRjx7g9mokplpovKLcPdmXP/LA3XUY=
-X-Received: by 2002:a17:90b:1cc3:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39580ace560mr2873329a91.6.1787108413350;
-        Tue, 18 Aug 2026 20:00:13 -0700 (PDT)
-Received: from [10.125.112.20] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb17f48sm941929a91.2.2026.08.18.20.00.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 20:00:12 -0700 (PDT)
-Message-ID: <a27cdb1d-6b79-4a04-b9d1-af7d5477ad51@gmail.com>
-Date: Wed, 19 Aug 2026 11:00:08 +0800
+        d=1e100.net; s=20251104; t=1787108424; x=1787713224;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RVXkM6h1x8wmxO82Mfxg/gaBJOGGT9mo12ibYmRp7HQ=;
+        b=QDCN64TMp0Ft/9A1EEQSvGCAl9bhDa9NJzAZcPMBba4lGxK2UETA4bDrsdCdK9Lpo8
+         DFmaXlyNqoMXsvZW/19wm6BfgJIxgkDyY/vZJmBPX8d4llRhEbxpwKPAt5RQMxjZP+uf
+         LCylPhma+M9megtThdohqAudH1CuMQbhC44UFNes0ksEAmgMuWv/pCmzdbsKkGeCb4+d
+         Rl3XVrL4AuoQN+elGIxH3KhfL4SaiTACI4xrfk9DaM8Bnea737oHyAIzzUeJE/Hnmet6
+         +Sa+eGKZ5sWXePyHBEbEo6cyZAnF+T+4MDwTB1dOW3Fn2pm8Fjgh5/4icioy0POHYYYU
+         umqA==
+X-Forwarded-Encrypted: i=1; AHgh+RrMD7MbQ9Tz5xK6ZKIKo/tCAaSFNVPBFoGBn0zMm+qQwlv+mtxuNkENZOsInho5TIZwfHGRzV1tVRIY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwaCazyON3YkY5/aat7FH2hkZ8pr/oA9axVfon5PpXB7mJnAHcX
+	z53w3FdcAG+qf4XHq4DtJOJWAezfYbo7Z/FJSdqHVo0n+Sbc5946OX6xaoWxqRmGsFEXR6oAWeI
+	vnmd5THpTH+D9jl+8HgWpFcRZh0Fg7siQVSdunTueLhZFFpybcoczUUJsUvu13lrG
+X-Gm-Gg: AR+sD13rfoCYIUoMO6LoD/nrlfejnSD6JxbhyyPiEmBiAEt/hxhk/aEWHBMokSUXKNm
+	11OA0NrXgolsE0uazIQ6LR5CZhqiNweMVRxDeENywSdoiYQ+kfURGG/dllHWj4RVMobBdYTekij
+	EZTHc3FmK1ijLsoCLd0svsqY7Do2wdCnltofcjmg1R5XMnBsNmQeyhtEd5spt3nO0aaEDIKoxFd
+	NCiXGQ4F2EPNM2eWpqNSSNN/opVPTesNfYTdBx8LMPV4e6KDJi9ws9ek4jetNBgpvpe82EkUJCv
+	oElB7U8qyVr4SKdwMD5s9nBCqVLF4bdbseKU20jQZ+AuCvYrgpTzmk+Z2NjMGArWF7vyJQT673S
+	5oBN0gOiXV7igiO4=
+X-Received: by 2002:a05:620a:1712:b0:933:a17:c0c4 with SMTP id af79cd13be357-9371e1de2bemr162851085a.9.1787108423490;
+        Tue, 18 Aug 2026 20:00:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:1712:b0:933:a17:c0c4 with SMTP id af79cd13be357-9371e1de2bemr162846485a.9.1787108422812;
+        Tue, 18 Aug 2026 20:00:22 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.240])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b14b7d4asm1797472f8f.21.2026.08.18.20.00.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 20:00:20 -0700 (PDT)
+Date: Wed, 19 Aug 2026 06:00:17 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Sreeshankar K <sreeshankar0910@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org,
+        konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org,
+        bmasney@redhat.com, lpieralisi@kernel.org, quic_tdas@quicinc.com,
+        danila@mainlining.org, davidwronek@gmail.com, robimarko@gmail.com,
+        linux@gurudas.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-pm@vger.vger.kernel.org
+Subject: Re: [PATCH 06/12] clk: qcom: rpmh: Add SM7250 rpmh clocks
+Message-ID: <tq6aojc2etmxyyxo7bdryzm6ayito7l4c2ja36rvt3nb327m2t@imznr5uqbojx>
+References: <20260818080754.4362-1-sreeshankar0910@gmail.com>
+ <20260818080754.4362-7-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] of: reserved_mem: reject statically placed regions
- overlapping existing reservations
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20260818092420.2859026-1-chenwandun1@gmail.com>
- <20260818092420.2859026-4-chenwandun1@gmail.com>
- <20260818094117.8D2471F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <20260818094117.8D2471F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818080754.4362-7-sreeshankar0910@gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDAyMCBTYWx0ZWRfX1vS6UsrGsnjC
+ Wj3G1eIDsFED2iEFHDewevC3QIgZ4QeU6Ig8N4usvCaUZFnU+BSgGJ3im6GXNWIh5bXrl1T4fPD
+ lUXWtKcy43j76VFUYR5WlzYkCZ5hb/NS3uTHaUxgVcWD5NxaYhVwrjjcX4Fj/zgOMmK4Z5h464/
+ i4fvLrsHw0FtEvhompLrP7UC8SsQrOaS4vzhXLqZzgx6KfeIqDKF9iOG5XI3k2UZSiLzR8YXGrT
+ V1v2xIUcJogFVAHLpBB39NqW1K5KTtWoAAVezQvgB8sMI0OB3MyAZzwJZACCLSMwf2Gilte2VSX
+ PgMOnHhLyRScwv2qJDn3AyjxLtcPJrUw3wIh3pYm6KFMACI1uh4xrs9pwgNCZfBh/xsoATAlySt
+ MNsU6gjLxZrwrQwdgosV0eJGHqx0RZfXByCnJnmjhvZX0eU37vlCgPIuR0gwEu119uFsrrof1DL
+ CHvkpEBqoTJmbKA2vAg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDAyMCBTYWx0ZWRfXyhCMgue/UCh/
+ T/o2SupRLpg3jeGOWznS9spVkOf8u0ui5ibHHV+m18MmZCuoIuq2wv4NZ61pCu+cUinKI5dvW6L
+ XXK+P62SqtcvvEH38oCItKuUXPxswCA=
+X-Proofpoint-GUID: Kp8eg0-yKfvfD8nJDaPaxyINeGby7UCA
+X-Proofpoint-ORIG-GUID: Kp8eg0-yKfvfD8nJDaPaxyINeGby7UCA
+X-Authority-Analysis: v=2.4 cv=J+SaKgnS c=1 sm=1 tr=0 ts=6a851c48 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=wUpz7uCjLrEXi01cjX+DLw==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=e_63XvbMukAsnnsCD6UA:9 a=CjuIK1q_8ugA:10
+ a=Z0LeWUw4VpMA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_01,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190020
 
+On 26-08-18 08:07:48, Sreeshankar K wrote:
+> Add the RPMH clocks present in SM7250 SoC.
+> 
+> Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
 
-
-On 8/18/26 17:41, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] Rejecting overlapping memblock reservations up-front breaks platforms where memory is legitimately reserved early (e.g., by EFI or architecture code) and then described by a DT reserved-memory node.
-> - [High] An array overflow in `reserve_failed_nodes` bypasses the failed-node skip logic, leading to memory corruption.
-> 
-> Pre-existing issues:
-> - [Critical] Dynamic allocation of reserved memory regions ignores internal failures, leading to initialization of freed memory.
-> - [High] The patch fails to prevent overlaps with `/memreserve/` entries, leaving the memory corruption bug unfixed for those regions due to execution ordering.
-> - [High] Dynamically allocated `nomap` reserved memory regions are permanently leaked if their initialization fails.
-> --
-> 
-> --- Patch [3]: [PATCH v2 3/5] of: reserved_mem: reject statically placed regions overlapping existing reservations ---
-> commit 1c8f1d8c03461ed83a10e5698047d85d76387f8b
-> Author: Wandun Chen <chenwandun@lixiang.com>
-> 
-> of: reserved_mem: reject statically placed regions overlapping existing reservations
-> 
-> This patch rejects overlapping memblock reservations up front for
-> statically placed regions, preventing them from corrupting memory if
-> initialization fails. Dynamically allocated regions are unaffected.
-> 
-> Link: https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org [1]
-> 
->> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
->> index f25dc0cca2f06..71a879628c4aa 100644
->> --- a/drivers/of/of_reserved_mem.c
->> +++ b/drivers/of/of_reserved_mem.c
->> @@ -158,6 +158,11 @@ static int __init early_init_dt_reserve_memory(phys_addr_t base,
->>  
->>  		return memblock_mark_nomap(base, size);
->>  	}
->> +
->> +	if (memblock_is_region_reserved(base, size) ||
->> +	    memblock_overlaps_nomap(base, size))
->> +		return -EBUSY;
-> 
-> [Severity: High]
-> Will this upfront overlap rejection break platforms where memory is
-> legitimately reserved early by EFI or architecture code, and then described
-> by a device tree reserved-memory node?
-> 
-> If architecture code like efi_init() on ARM64 cleanly reserves memory using
-> memblock_reserve() before fdt_scan_reserved_mem() executes, the new
-> memblock_is_region_reserved() check will evaluate to true and reject the
-> node unconditionally with -EBUSY.
-
-An EFI memory-map entry and a DT reserved-memory node may describe the
-same physical range, but they serve different purposes and do not provide
-an ownership relationship to the kernel. So the kernel cannot safely
-treat an existing memblock reservation belonging to the DT node,
-especially when the node fail to init and release that reservation.
-
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this overlap check miss
-> /memreserve/ entries entirely due to execution ordering?
-> 
-> In early_init_fdt_scan_reserved_mem(), fdt_scan_reserved_mem() executes
-> before the /memreserve/ blocks are iterated and reserved. Because of this,
-> when memblock_is_region_reserved() runs here, the /memreserve/ regions are
-> not yet known.
-> 
-> If a reserved-memory node overlaps a /memreserve/, it bypasses the check.
-> If the node's driver later fails initialization, its error path executes
-> memblock_phys_free(), which will still wrongly free the /memreserve/ memory.
-> 
->> +
->>  	return memblock_reserve(base, size);
->>  }
-> 
-> [Severity: High]
-> Can an array overflow in reserve_failed_nodes bypass the failed-node skip
-> logic?
-> 
-> If the MAX_RESERVED_REGIONS limit is exceeded, record_reserve_failed_node()
-> returns false. The fallback logic in fdt_scan_reserved_mem() then
-> increments count instead of skipping the node:
-> 
-> drivers/of/of_reserved_mem.c:fdt_scan_reserved_mem() {
->     ...
->     else if (should_record_failed_node &&
->              !record_reserve_failed_node(child, uname))
->         count++;
->     ...
-> }
-> 
-> Later, in fdt_scan_reserved_mem_late(), reserved_mem_node_reserve_failed()
-> returns false for this untracked node, passing it to
-> fdt_init_reserved_mem_node().
-> 
-> If initialization fails, the error path frees the memory, potentially
-> corrupting an existing overlapping reservation.
-
-If too many nodes init fail, it will fallback to the current behavior.
-
-> 
-> [Severity: High]
-> This is a pre-existing issue, but do dynamically allocated nomap reserved
-> memory regions permanently leak if their initialization fails?
-> 
-> In early_init_dt_alloc_reserved_memory_arch(), dynamic regions are added to
-> memblock.reserved. If driver initialization fails in
-> fdt_init_reserved_mem_node(), the error path only clears the nomap flag:
-> 
-> drivers/of/of_reserved_mem.c:fdt_init_reserved_mem_node() {
->     ...
->     if (nomap)
->         memblock_clear_nomap(rmem->base, rmem->size);
->     else
->         memblock_phys_free(rmem->base, rmem->size);
->     ...
-> }
-> 
-> This completely omits the memblock_phys_free() call for nomap regions,
-> creating a physical memory leak.
-> 
-patch 04 of this series fixed this issue.
-
-> [Severity: Critical]
-> This isn't a bug introduced by this patch, but does the error handling in
-> __reserved_mem_alloc_size() ignore internal failures and lead to early boot
-> use-after-free issues?
-> 
-> In early_init_dt_alloc_reserved_memory_arch(), the output parameter
-> *res_base is populated before calling memblock_mark_nomap():
-> 
-> drivers/of/of_reserved_mem.c:early_init_dt_alloc_reserved_memory_arch() {
->     *res_base = base;
->     if (nomap) {
->         err = memblock_mark_nomap(base, size);
->         if (err)
->             memblock_phys_free(base, size);
->     }
->     ...
->     return err;
-> }
-
-The reason of memblock_mark_nomap fails only can be out of memory, and this would
-trigger panic because memblock is not allowd resize before paging_init.
-> 
-> If memblock_mark_nomap() fails, it frees the memory but leaves the freed
-> physical address in *res_base.
-> 
-> The caller, __reserved_mem_alloc_size(), ignores the return code and
-> checks the base address instead:
-> 
-> drivers/of/of_reserved_mem.c:__reserved_mem_alloc_size() {
->     ...
->     ret = early_init_dt_alloc_reserved_memory_arch(size, align, 0, 0,
->                                                    nomap, &base);
->     ...
->     if (base == 0) {
->         pr_err("failed to allocate memory...");
->         return -ENOMEM;
->     }
->     ...
-> }
-> 
-> Because base contains the freed address rather than 0, the check passes and
-> the freed memory block is incorrectly passed to fdt_init_reserved_mem_node().
-> 
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
