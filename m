@@ -1,154 +1,192 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A523B95F9
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C5647606F
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787149482; cv=none; b=Pg2h+ySOhECBAFpZs2u/xSNj3gwiTAOJapma63Pw01DaIYKYWt9inP17FGgWyXfNsQrEEj7g1pHh11pckb8WTfM8I8Ly4bjwZKOvjQ9VQJAo9uPqMz/dgZHC7jhBmeAuixMScM3Z+TjCQz3h1HoY6ew3k/M39ckOf2jLLPntH/c=
+	t=1787149703; cv=none; b=eA9OuH7SrO8fB3DDGlwtFr17vaEohQmU1+2hpTpAjVEL9OmkblMIHobwwwR5nrdSBJadFt/Hw1TR+i0RMRlrMJkmxrC1o2R9tXfz2zqvqkmYszjws5B9jC27V1ahwR9v+5OyBTrTGdaSicZT0b+mUZdTRmJUSSqj1xLpcooUuwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787149482; c=relaxed/simple;
-	bh=by5hsC14pplzTKqn0dF8kWhEyEi5Si/jDZEGyYEFLl0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ub/9x5R9G/LRGPTh5xKa6i1g9mOVEusDfrNnDUQxpa6BIwghOzX1tpTwZbUXvL27SXdAHrawsdgCBXtJjoirNe8mcRvM+eOB7mGGQbC9jsoXxk7WBmCvahXM1h1CdRrk3WrvTSW+3IIqmwY1A219gUGSp/Ywh/WKplFewhN2rJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OkixAGCv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fISaT/Vq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787149703; c=relaxed/simple;
+	bh=NdR/r5cs4L7ZRKp84zLL5vTM42zkOs6f/D8Mq7IpFms=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=kB3TopOjPurAeD6zVmWMKkqCDfwfkiQSKy8kMdd7cY/FaQCDjheV6++E8svK8ohwWlWce/iZc7IJ8ZGXyXaH74P01RNB3IZN6Q0SWft16ArajW5KJSdBovCO29hJRc7eGZflFhVDyLxpr3u6zxhVLc/GjrSvtzc1IfJE6Kmrbvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QxLIa+Oi; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OkixAGCv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fISaT/Vq"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JEJYcg027675
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:24:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XtsOjETQ5Ny0zIYiYUrPBSIvRAKOEzvAcJAprxh8wuI=; b=OkixAGCvtWDZsSVv
-	OHu1Blv7QCIrnq2cVAEE4iQONA6hjGqziCF637Js8LcGjWC8g7NLTKoJgNWeSiLb
-	W02AyW6jtU7oqB9Vnwv8PUoHcXxpjGUkmO4Rzu7itwDpKZp2GgpE7WOlLNE2ZXY1
-	n3JY+O6KNnS1jjG2G5oLJdDprHoQ8ho1JOsg2P8LFfW45z+WnrtPoOSDB8Lsby5z
-	EcJfc3Wub+ujHj8gGSfjkwDGp/JjsGtgFI3sXPwB57F10bH7mX3yy2fVxq1sCq5I
-	BebyfaPJvTz6G6TVTfPNBxDgxulaxCXSPVPPNo8+PXvWzHkOLW2BiLQcB6MbkQn1
-	TBaBCg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5e5d00sa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 14:24:40 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93495488976so24362485a.3
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:24:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QxLIa+Oi"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-495437bb891so8557065e9.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 07:28:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787149479; x=1787754279; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XtsOjETQ5Ny0zIYiYUrPBSIvRAKOEzvAcJAprxh8wuI=;
-        b=fISaT/Vq92jhqLNx1EiIF78Xm+7vNvhZUUUtflDxJRn9jXUzTMu46cyIhvivmYnFfD
-         aKkt5OMN15gVXTbS9H2O1qYpNG6M+2h+pbtisKqmZODhZbosEGFcA1P4CNNApdLu4a33
-         50Aqbb5bXvBXkF77G2ozWNMuermOZp/JyKfMrzoUIZABsfgGAIPR9qrkkKZ4jdYEnFDh
-         2miVmO7yTytlHVzKJdcALJCqEzjS1XIAI5+91ka6EeipA2850Y/9pzMYAregDC0OrLMw
-         ZWflX97E+s0BHIuwK4AsmDYtOszxUOvbB0o1v/3n95H2MOH9fcQrF2htkW40SyA+InQs
-         kYnw==
+        d=gmail.com; s=20251104; t=1787149687; x=1787754487; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7un4O3L9YLxIWNurYwHJNMBBiutfCLK9e9so1V1Jlvw=;
+        b=QxLIa+OitKCiehiaW8mxC+S8O9Bk0pLa8p+pHr0hJLiHIUrdvCUDp88yASlfqcV1rl
+         iDACjBiExOwmH3OOSyiszg8ajWnQz7F0aYhZJpe9PrGDFixXOPZUBRrhduN9Sphuhk26
+         BiETZ0eeD28hElYFPhnQ6yocFtdcOHSRbaH4L9iiqiz6gSRxmOo9tmWbKTNQHIyy4y/3
+         ka1FJPYOiOgeGckslYXMo+WNqzNnoBlSaN52ZJc3cImwmMBjobxZ7w3noRdc+awt7SFN
+         f4KR5jVT2gG9M6FlE2HN8lgGRFGhv/qJgWc7/mxn1E2zZpdbqvdYhaoAxVQxCqTl+GoQ
+         46uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787149479; x=1787754279;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XtsOjETQ5Ny0zIYiYUrPBSIvRAKOEzvAcJAprxh8wuI=;
-        b=j7NTH/m4plGUBtSuUC2CmOw9WAP2/b6+IXfT+RT0g8yHWbq4ofnbHLK+tfLRnr+ZF8
-         Yd9hTyDSpEHnZ2+gHNr4RnCilKAbDaErrFolxRZQeXs2bDsaBG6c+W1QpO3Ef+gjzwv6
-         9lzZL4DfwhNMuzEhFaydt5gNjKDsgEj7zHLPsMvz9qtTOfNQYwgTqPkcx894IZoHlqif
-         AfGJr2M4LBH6/XhQ4M6eW2B7mtFInCTBAIlYVRB+Z/o+B1j+sONlqX8A0VOokC8yGnsz
-         F3rqgm5jgYypiCdRdi0CbxNirS5ChSNT3QIEhzS36VKU2JyceajJVs49I/pidtQ7jlwZ
-         nVWQ==
-X-Forwarded-Encrypted: i=1; AHgh+RojpyVNJEka3TAog2wSUODl26yF2zgj07HhLZUSHz+s1V3MGVtQaC6V4mw/w8UY+DAeQedHQTIeDTBh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxR6ikTcgT/jDwoyD/n2XI+HYci4IRRYrcYz2UxntKatLashgmA
-	MsQgLQwSwJIfHMrqLtvAqmfG1nYlf2lzefbn7ZqgGtFlDeaP/mZBwJKgzbpsdov2AtNzMr2+BTo
-	koo52EbTgIfazncmNkx8s1i6MmnkLjMAPBieKLI5/wj6tBLlykxyLI970ye74AGuH
-X-Gm-Gg: AR+sD12DFQD5Z2UAq8pyqFnValTDIBW1+kAEVcV2kKw3YoVnT1WKimxVS7Oc8/T4JQt
-	HFYU71xsfrHzk8M4JxnCGtDvKU5b5IDqBmpBDr7lbqxE3C0evwn2EPHiyGlMWo6npzVOe7vyI3M
-	rWRBe20z8+c2So991xU7Dm6XnmOVeDkOa22VSNd8CYPSPKKweepgPL7hX6OD4m2VW2akO7W6xEv
-	Kmc8cbUx1S+apEZ0FajoTv61BNqe5y3jGu/2eSEZ/9yy9j9Rsw9G9rRyJ/I5KQ1LTTpPDld5UJ+
-	pVT9Y0YdU0KHHeDqglX3fv0TX36gJdq2Y/VRcnjlMqXETUAwyA+w6Ms+3sRAR07uwccRA3FKHtT
-	sTXbyw+Q5qwffuGUE7SwezzbU
-X-Received: by 2002:a05:620a:278c:b0:936:6e2f:a34d with SMTP id af79cd13be357-9371e6bcc32mr337088085a.3.1787149479313;
-        Wed, 19 Aug 2026 07:24:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:278c:b0:936:6e2f:a34d with SMTP id af79cd13be357-9371e6bcc32mr337083485a.3.1787149478778;
-        Wed, 19 Aug 2026 07:24:38 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b47885b280sm579454e87.30.2026.08.19.07.24.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 07:24:37 -0700 (PDT)
-Message-ID: <0303224f-4c2c-46ec-9866-5ea1fd0fb4a3@oss.qualcomm.com>
-Date: Wed, 19 Aug 2026 16:24:35 +0200
+        d=1e100.net; s=20251104; t=1787149687; x=1787754487;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7un4O3L9YLxIWNurYwHJNMBBiutfCLK9e9so1V1Jlvw=;
+        b=eLlsNTBD9/BrXyJ8iDIuA/tRas3+C28Fx0E+AEhQ85n3jl5PLas/Nm/rKRgYCd9vOo
+         wmL1szzNTCu//+4I2FwGjSZc+DPnB9U3ZglLYMMNA3XOoQosjCzwWRHgmfFjdJim+ClV
+         SesPo8Dp6a9OGFJ44ZC9PQ7ajOvUTYlTeecI5FthdWpL+4ZBMWWVdYFxUhDdYBI7Edm+
+         ehJ19jtvLgf8B2o77Yf1RNwIcYOde4rolIxww88DvBzJQTOT6iLl8z0KRMgAiq8NsPal
+         Arp1XxO28GwT+4p91sLe4wjbCMkEidjjai8J0not++JhMMvUG7dMsDRQAxJUQrkWXDWN
+         MPew==
+X-Forwarded-Encrypted: i=1; AHgh+RpRR6cegz7BoQX/il+Fd/ebDsMfVjIb6LvIBreaY+xokwJpnF5flMkazEkkySwxxoU8pxZ+vLcsFQDi@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhU5iH0w3Bb7DECidIzZ3oQUsLZpVdnAUl/eY6I4nsoWjxhEDA
+	zC5vtkuCy89TFGqBgGf7nDgnaFbKaI3xwNUIArxlDJYg2wTXpaPVV2+V
+X-Gm-Gg: AR+sD11zKouQ5fcnY3s8ZO7xY+vm1frebcT5DQ9KqnRXY1Oha3ZE2gHOUmFmBF68l3/
+	rYSQMBf27Ms3asmRWRSunsdUqo48bPxx+OU8qNidQilCCDC/XEejniwCDbK1/wYLm5uSN28SGu8
+	1K42vDiVTTAdXv8+NHJZJQM/1BxrdA6NIWqM/atWmOoSFcM/xS7b3iZv2p4vx4w2ZMhHYl1A0wB
+	xyp0k2wf7KPEk2EugInYnjkKYFq9nyAR7pUI4n1fXxpfifgvJ49163+rH5HpppZj/RFz3Ko8Pgu
+	BcwYRFq283fMS6Nb15Nki88ACBDMJaImMDI8IbFE3pfOT3HxxbnrHEWcS4OkM2xH+FNpjIOI36s
+	ZGNKFd0d7TuUqOJJYZJos49gnXPf1SXy2X1zzDbgVMQlO1Jfj/yGPRSERK2tcKjRVenl2jYxqhe
+	Rr0f3mzGzvqQvn0U1wS0WxNOA7UVWP5BImQX8u8yWF20Tgnk6EaoXghxqYlZlP7ireK4+qPaunt
+	A9rTw29xwjpl8rOjcJLLu0BgUV0AbX04IchM0uk1GBTKPWy7nNjNiQ=
+X-Received: by 2002:a05:600c:8b71:b0:499:5f80:83ac with SMTP id 5b1f17b1804b1-499aa100de8mr89119795e9.7.1787149686732;
+        Wed, 19 Aug 2026 07:28:06 -0700 (PDT)
+Received: from localhost (178.43.142.119.ipv4.supernova.orange.pl. [178.43.142.119])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9ddee1esm39709255e9.2.2026.08.19.07.28.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 07:28:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: monaco-evk: Describe the PCIe M.2
- Key E connector
-To: Wei Deng <wei.deng@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, quic_chezhou@quicinc.com,
-        cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com,
-        jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com,
-        mengshi.wu@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <c547f8c1-7a49-4cdf-b1d9-22f00c6035de@oss.qualcomm.com>
- <20260729023654.3840494-1-wei.deng@oss.qualcomm.com>
- <20260819141353.96467-1-wei.deng@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260819141353.96467-1-wei.deng@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDExMSBTYWx0ZWRfXy3P9oYcxR2Cm
- gOlrunioeNI0pOzBSQu0YGcvv+3N05fwJA94fsnmFRoEuv8Jud27IWUWBlM3sEdMejeOY9H5HXh
- 1PvQWZlsv5X9WauZvelmjl00lvFUgmqrc+u6bwUDZzxeN24BllnVuUq07iIM3/DjrCR3TsMNXCy
- HVPlkVbZBKK93SsFan8wXWNUtWUN9xi2NqxV/+9jr9eOb5YwgzgxYRGzE07rx9jyJ16ZBP+Q+tt
- wbP7UmVdmIDuKx4eQ7Ga2YA9txQph45NpZcSxS6pmuQM6bNgm48QLtB8cchRUVJtTFWub8nunB8
- YScSd0mKdD3C3eY8ATNEVay6Bwga9mXQClRjA7ukax74IeiS0q8lCyrEcId14VdXnaF2z2m7Obm
- clm45jCrpCWXu4m8KRbPrzOKWI8is4gnQwFTPIUAwLqLoms1byoCS7ZC0Oq72XJr4tVutDUsnEf
- 0jbTsbHf+EeOjitHGQQ==
-X-Authority-Analysis: v=2.4 cv=cuOrVV4i c=1 sm=1 tr=0 ts=6a85bca8 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ya91ShjpW29wvZP1Js8A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: RbLZkk6s0IlCVN30TUKRH5CZO2qdg7I8
-X-Proofpoint-GUID: RbLZkk6s0IlCVN30TUKRH5CZO2qdg7I8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDExMSBTYWx0ZWRfX7MU+EfXhhWHx
- cWxeZ92avrQ5CK55Np7ZBXz1f036dfj2hL+eB4qQjKL7qRP+JRAA6ASb84a7GYNvPRPORvuqTfG
- 0aYqiLQuvXy7sBBLBOjRKaYogP6zeJI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_03,2026-08-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190111
+Date: Wed, 19 Aug 2026 16:21:14 +0200
+Message-Id: <DKSZJMQ4KJ2W.1HB8IJEZ9WDFX@gmail.com>
+Cc: <mitrutzceclan@gmail.com>, <linux-media@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-gpio@vger.kernel.org>,
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ "Martin Hecht" <Martin.Hecht@avnet.eu>, "Andrian Suciu"
+ <Adrian.Suciu@analog.com>, "Cosmin Tanislav" <demonsingur@gmail.com>
+Subject: Re: [PATCH v15 16/22] media: i2c: maxim-serdes: add MAX96717 driver
+From: "Artur Andrzejczak" <andrzejczak.artur@gmail.com>
+To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>, "Tomi Valkeinen"
+ <tomi.valkeinen+renesas@ideasonboard.com>, "Mauro Carvalho Chehab"
+ <mchehab@kernel.org>, "Sakari Ailus" <sakari.ailus@linux.intel.com>,
+ "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Julien Massot"
+ <julien.massot@collabora.com>, "Rob Herring" <robh@kernel.org>,
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>
+X-Mailer: aerc 0.21.0
+References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
+ <20260807-gmsl2-3_serdes-v15-16-7212e9e5156a@analog.com>
+In-Reply-To: <20260807-gmsl2-3_serdes-v15-16-7212e9e5156a@analog.com>
 
-On 8/19/26 4:13 PM, Wei Deng wrote:
-> On Wed, 29 Jul 2026 08:06:54 +0530, Wei Deng wrote:
->> Fair point. I will move the port/endpoint anchors to monaco.dtsi in v2.
-> 
-> After testing v2 on qcs8300-ride-sx, BT init broke. qcs8300-ride-sx has a
-> soldered WCN6855 and no M.2 Key E connector, but the pending series [1]
-> uses of_graph_is_present() to detect whether an M.2 connector is present.
-> Since of_graph_is_present() only checks for a 'port' child node, the empty
-> anchors in monaco.dtsi caused hci_qca to incorrectly enter the M.2 pwrseq
-> path on all monaco boards.
-> 
-> v3 moves the port/endpoint nodes back to monaco-evk.dts. Please review.
-> 
-> [1] https://lore.kernel.org/all/20260720-monza-wireless-v5-1-69ec6743543c@oss.qualcomm.com/
+I only went through the clock, pinctrl and CSI-2 lane code, not the
+whole patch.
 
-The series should test of_graph_get_remote_endpoint() instead
+On Fri Aug 7, 2026 at 3:02 PM CEST, Dumitru Ceclan wrote:
+> [...]
+> +	{ "maxim,jitter-compensation", MAX96717_PINCTRL_JITTER_COMPENSATION_EN,=
+ 0 },
 
-Konrad
+The automated review already raised this: maxim,jitter-compensation is a
+boolean in the binding, so the property is present but zero length.
+Reading a zero-length property as a u32 gives -EOVERFLOW.
+pinconf-generic treats only -EINVAL as absent and substitutes the
+default above on any other error, so 0 lands.
+max96717_conf_pin_config_set_one() then takes the arg ? en_val : ~en_val
+branch with arg =3D=3D 0 and clears the bit. That means the property for
+enabling jitter compensation never sets this bit, and nothing else in
+the driver sets it either. Giving it a value does not help, since
+maxim,jitter-compensation =3D <1> is rejected by the schema.
+pinctrl-k210.c uses 1 for its boolean params. Should the default value
+here be 1 as well?
+
+> [...]
+> +	/* Configure a lane count. */
+> +	ret =3D regmap_update_bits(priv->regmap, MAX96717_MIPI_RX1,
+> +				 MAX96717_MIPI_RX1_CTRL_NUM_LANES,
+> +				 FIELD_PREP(MAX96717_MIPI_RX1_CTRL_NUM_LANES,
+> +					    num_data_lanes - 1));
+
+max96717_init_phy() calculates num_data_lanes - 1 without
+checking for zero. The binding requires data-lanes, so this needs a
+non-conforming DT, but the driver removed in patch 21 still rejected it
+with "Invalid data lanes must be 1 to 4". Here num_data_lanes remains 0
+and the write sets 0b11, so the count becomes four, silently.
+max_ser_find_phys_config() compares num_data_lanes against the single
+{ 4 } entry in max96717_phys_configs, so zero passes there too. The
+automated review asked about the upper bound on this line, this is the
+lower one. Shall the range check come back?
+
+> [...]
+> +	val =3D FIELD_PREP(MAX96717_REF_VTG0_REFGEN_PREDEF_FREQ,
+> +			 predef_freq->val);
+> +
+> +	if (predef_freq->is_alt)
+> +		val |=3D MAX96717_REF_VTG0_REFGEN_PREDEF_FREQ_ALT;
+> +	if (!predef_freq->is_rclk)
+> +		val |=3D MAX96717_REF_VTG0_REFGEN_EN;
+> +
+> +	val |=3D MAX96717_REF_VTG0_REFGEN_RST;
+> +
+> +	ret =3D regmap_write(priv->regmap, MAX96717_REF_VTG0, val);
+
+max96717_clk_set_rate() sets REFGEN_PREDEF_FREQ and its ALT bit, but not
+the predefined frequency enable bit. The REF_VTG0 defines stop at
+PREDEF_FREQ. Bit 6 is not part of the composed value, and this is a full
+regmap_write(), so the write clears it. The driver removed in patch 21
+sets REFGEN_PREDEF_EN (BIT(6)) in its own write of that register, with
+the same encodings for the six rates the two tables share. Currently,
+that bit is left 0 on every rate that goes through REFGEN, including the
+24 MHz default programmed at probe. The datasheet has REFGEN_PREDEF_EN
+reset to 1, and describes REF_VTG4/5 as the feedback divider fraction
+used when predefined mode is disabled, which this driver never writes.
+Was that on purpose, or should it be set here too?
+
+> [...]
+> +static int max96717_register_clkout(struct max96717_priv *priv)
+> +{
+> +	struct device *dev =3D &priv->client->dev;
+> +	struct clk_init_data init =3D { .ops =3D &max96717_clk_ops };
+> +	int ret;
+> +
+> +	ret =3D max96717_mux_set_rclkout(priv, MAX96717_RCLK_MFP);
+> +	if (ret)
+> +		return ret;
+
+max96717_register_clkout() routes RCLKOUT to mfp4 and sets that pin to
+the fastest slew rate. It runs after max96717_gpiochip_probe(), which
+calls pinctrl_enable(), so at that time the pin setup from the max96717
+node itself has already been applied. The binding in patch 03 allows
+function =3D "rclkout" on mfp2, so a config that asks for the RCLK there
+gets it, but loses it a few lines later: max96717_mux_set_rclkout()
+clears RCLK_ALT for any group other than mfp2. A slew rate set on mfp4
+is overwritten the same way. Should this leave alone a mux state that
+pinctrl has already selected?
+
+Moreover, the driver names seven slew fields for eleven pins. The
+binding allows slew-rate on every pin, but max96717_get_pin_config_reg()
+returns -EINVAL for it on mfp5, mfp6, mfp9 and mfp10, so a slew-rate
+that passes the schema on one of those four makes pinctrl_select_state()
+fail. Another device pointing its pinctrl-0 at such a node fails to
+probe, since pinctrl_bind_pins() returns -EINVAL. On the max96717 node
+itself it does not: pinctrl_claim_hogs() logs the error and returns 0.
+Either way pinctrl_commit_state() stops at the failing setting, so the
+pin configs after it are never applied. Table 13 in the datasheet lists
+no pin slew for mfp5, mfp6, mfp9 and mfp10, so the driver looks right
+here. Should the binding restrict slew-rate to the seven pins that have
+the field?
+
+Kind Regards,
+Artur Andrzejczak
+
