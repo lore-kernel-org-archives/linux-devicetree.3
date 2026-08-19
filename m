@@ -1,64 +1,64 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC0E3AD529
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:28:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5713A480DD4
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 15:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787153286; cv=none; b=dforDazWghipr71Sic49DJk/9dcacoc6hvw8Wv7kuCIKkLaMI2NYg1eLZeP9XmW2J42anXn9Qy6WJlFWDRVzrWvQaKaZxqPTzKYC5Xvgg91YYS8C0+U32W1af7JWZKdCGJ9AsnjRUqO2z5KVoSgdk8t4qUv6XVCXPMW5BJ+fx+I=
+	t=1787153297; cv=none; b=J6R0zPJ1xfsQp+uAT6lpB8ltODI33h8bTyvtqLj2UQgi/dBIi98wEvAcHblOIyrl7cV1REYmNyEjrScTFdrxkDLj7DpAlnZGQFlMm0p/bzhVuP7DnyQxTUvDSQgF2719l0azVRB7k6+PG57WtTQ9QXT0JqQxT0Qpu/spdQxEQMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787153286; c=relaxed/simple;
-	bh=S4gVIUWwuoALYuzwzRm82WuAYzYN5KLWtNbqZ/oM/+w=;
+	s=arc-20240116; t=1787153297; c=relaxed/simple;
+	bh=u2Yu4YBYm2njILlYS8QED4Q5XuAaD+AtoFT/SlvHqq0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jxN7AG1Ipdv2hzUd9rAjKI/UdMzz5KSPQr3fHE9QTdR/LwTP4k31ThLAWH7spI7a0WIjj+iw+AtKVHgO8ZfOThU7J4T7urfjyFHaes3JlY3/T0yBLyxuBwbg/b0nH1j/26mnaz/eq7efeg6yHFi0lsh1i8naEOkROnlF9bX2I/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ic3uAUKR; arc=none smtp.client-ip=209.85.214.169
+	 MIME-Version; b=fxgbp670oGyJaBDh12HF+R4qBYgku0aof+ERnCb06GpQGMUiSv37AdSiQ14p023KHcyQRVVsk7nz7w2/ZbcbeOJcQJFf7KB77uFb6srmySTyWghvLWmZs4Yk01PVIXmiddWsn7kCAbnHOn3iBaL1agCf527Hyz1Oh9ZOzymFMfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f87GJ0F9; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ic3uAUKR"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d530328efbso10581015ad.0
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:28:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f87GJ0F9"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc61541f8cso110945ad.0
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:28:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787153285; x=1787758085; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787153295; x=1787758095; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g3FdfDbvToHSgtTrj8YFlW83QqqTfihaw6vnLz7PZc8=;
-        b=ic3uAUKRMR9niHcAT2iLwtGfyJlpPhMBCt7Gs13q3RW9jDR8nxArW71ww3ATnwoUQ1
-         eDXZw9kd0N66quWD5Rou44XVSfFlGoDixgKO+3A/nVFDyd6uHm/bcgS8eM2tPkrPQ0JR
-         TXdW4g3qc/VY5buQ91A4rFf4Wvs7H9aK7BDLW8ugQZUSLC4TmW/wXqeNE362k+Nkl543
-         vBcQaVeNo0YPk02QAUU41mH2HyBdkBmJPPTOhOmdd3GkaCw8DZ5aQvVHOm2QYa0O8wtd
-         4tAxPw5nmZDyblPqi78fAEZEpDzQ9KB25TzKOdDeESazo39eKg6WoGFdrspfbzNlidqu
-         j9+A==
+        bh=bEFzlhBjAhuEe8xovPGxxPJuQ8Ojqn67sRBJbsAP39c=;
+        b=f87GJ0F9CgoxS/V3fp0BO2vgvBXL4YUzhJqblmGRG/tFQrfZq6UuqdRPjAvE8LjnfL
+         VmjYP+RKg28MJf+GTTls79ge2iPw6PJc++/RdyAb0LP3RZTPTXQVUYaD/PLNzJMVSzta
+         UOwV08k4VtLwCi6kdAYRgWCPz1mzaHesFGtgHgeIV60IEC0lwX+Ojph2youlTf76kD4c
+         aGlXAUWGmkeXECo85hcyohfDMWOjk6lIxhXs68L8Xbi4/LyaydoOJ7e0goIbMlFRGKoS
+         NYsqyHeU4BNS7Q6iQXeCsoo/LtfTccg0KaH33zq6z6t7GLM2lnX506nXSSxVqMa5+t7M
+         XHnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787153285; x=1787758085;
+        d=1e100.net; s=20251104; t=1787153295; x=1787758095;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g3FdfDbvToHSgtTrj8YFlW83QqqTfihaw6vnLz7PZc8=;
-        b=qahGyiDYuIfWNa0QkcuT49coNYhRUtmRb6HXENUzwa3iRTPcQ/IaOaDX7OkX2fE6SJ
-         g7BuRcnbeVhKJ6ORjW/18gJYtDqGUcGz9Z5UrXeO/w8XWl0qF5WQF0PIf0M1DeehbvMm
-         Tf9vgr1IIyqcedK6yGCikJCPZl4uj56lOEfhwhrsihLNj042/ySOZdI7GfZRwZQI0YEf
-         Yt0411pwm0sEUUUqF789LwL7WKzh/2232jgrrNPaYfGlanRAMlQEB2L3qp7CELM7AGu/
-         2x4Sm82YfNXg9FrCmaNuAJNmTR+6EFKTzj+0jFwW3TKxwJ4mxWIePNORuXd0NWyjAQOV
-         IZbw==
-X-Forwarded-Encrypted: i=1; AHgh+RqeRKv0o5QVt9m0iWnlYLgYRHfqXoVb0GYC7PHMUZFHn+cj3MmhCIFE0yMgL0LlBGBQ3FZk+MlyQf+v@vger.kernel.org
-X-Gm-Message-State: AFuF++n+2zGEXIj52ZsPIi0uBpHjG5NOMSCIhQk1nVyGNUuk61F2QTJt
-	cu3cuLp2bC90d2MUpDrhhDQvY9Qt72vtbC3hVRVVEu0TtuRI2LVMnPSSIkyRwbzfVFs=
-X-Gm-Gg: AR+sD11ZnUdjVPQnYdYnR++KvNR831DoLaYCSn/eLBUtr7WpHNMbnWZaK+o1Kjz6gks
-	0CLKHI6Np81SfsBp4xWL80LlQIXjlj04qY+gs9cNs66u48k1/0KVq2sSKWay4TQ35kbAvFEoc1E
-	rGiP9O+iqpySLs+aUUw1wPBbriWtAxrMO6Bk7NGjKrILp+gID9zKO65a4wZOhuYF4HW6Sa9FprN
-	nuiOm0AYyGcuC+/0ean+4Q1OaHyotA8mOcNCWsYjZ2wlCGKeoBQGAqRqp6zjtUE3U+UpDq0vWl6
-	prFT0qgn9eRoqeLtN+QgSJp6dNg1I+1DCgMpV95VJktA6ViuynA6L2o6okg++gnHkkXThjyVqus
-	DehJjB7DfpA2CLAk6raoDYq2iX0pRu8sovyOuabHHi1dpsHNf8XjKVhGGxGaMiLxSq1LLrchve4
-	C+/l9U397E6MssTpR54OgtQ77dWZqtKriRK1VseH72Mev+H+rC2/DD/HbRMUn7AK3F5/7n9Vai8
-	kNCT4lFS09E7IgABTnINw==
-X-Received: by 2002:a17:903:468d:b0:2cf:afe8:b722 with SMTP id d9443c01a7336-2d601ea52fbmr110193595ad.11.1787153284859;
-        Wed, 19 Aug 2026 08:28:04 -0700 (PDT)
+        bh=bEFzlhBjAhuEe8xovPGxxPJuQ8Ojqn67sRBJbsAP39c=;
+        b=jP4T3db/QjK12ngo9EhYKuFDRm1xt45T4qq07AWt+cfaGHsZ0MhanQkCLB/Vapu6fZ
+         9VfexKH2qc4vGXfkz52lPn9G1w8K0fX18r9FYBgdig5QdR4hBnm1otpx/Fx2oxUWJh+7
+         aws5F9l84My/CE1bQYqMwqaKWzD+x+lGd+41yKByYNupAHpsJQ1CV9Ctuy4FF+ttaXbE
+         5uX9fkmE0uJI6fCFdhKE3kF9N+NbBKuujd0bsqEryGP2reNSTVr3RpEjGD+5eiGInl9Z
+         TGFisEcTMcFfJJROGGt3hWBdiCDh1f5vRnhU6FIP+EqUcpUluoxZBJwVa+rFzov8JoUO
+         F5OA==
+X-Forwarded-Encrypted: i=1; AHgh+RpOp2omx7c/KqDtiUkvLAIXSZSFQpWEVdiuPJUQFIqkV2Gt7JPza2+SgJXL8p0GaMRXh3x2g86e88j1@vger.kernel.org
+X-Gm-Message-State: AFuF++lwmrviqhGhZFXc7B+vJ+XSTZ1LJTMgZgSlSfDV5E0fLJKy/cGp
+	Ppq8E1iuxot7hZso8O/dUZmI0uUrOo+Dsdi0rnHQVSEGG9Gg8vw78W/a
+X-Gm-Gg: AR+sD12FCSnpy5Rax6BlmC8zKjWvcH1G66Yb9z1xEFphGmfuIvuRs7PI6r0xyjZ0zol
+	9aArqnZT9don1NPV4/bUClQxG7beGkGlzyk28MVsw9XwDEcdYgdwdno+szrRjaVgGpqI69+oyUT
+	n98lvVpk3ag8rTHQSN1XjjH8N6ASvGCPMEM8va/hsBfWr+p4o9Ewyk0ORUOBu/EB1MlacdEz6w8
+	gIw02Cw3ZUmBzo7402fc+6m62DE8IygItPvA57qdN0+rGpScEPjwIRigghtiq4RROno8u7C3YXa
+	lC4KiEqmHsTaneLEZN7TZy7k79HM3VR30kJ6y48CupDLmLRoEe2TN9hcdvin+YhHPevOZq1dgEc
+	s62Lo/UoPQuPX6pE3q40oUTLu91fWeYJlQ5WNrMA60KiM40Sj/lIddmF8cBgFUQWITdtliEeOF/
+	qzPgz4QF2S8wdsf7rhwUWe9QieSl54UdH5AoaSFUi5nxPIJ6tbQOJ4PoumGx3GYp4BXbUXbRjph
+	lbH6THRjWE=
+X-Received: by 2002:a17:90b:4a83:b0:380:ce69:2669 with SMTP id 98e67ed59e1d1-3957f8f49c0mr6838442a91.9.1787153294591;
+        Wed, 19 Aug 2026 08:28:14 -0700 (PDT)
 Received: from localhost.localdomain ([152.58.217.90])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf14376asm8232838eec.24.2026.08.19.08.27.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf14376asm8232838eec.24.2026.08.19.08.28.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 08:28:03 -0700 (PDT)
+        Wed, 19 Aug 2026 08:28:14 -0700 (PDT)
 From: Sreeshankar K <sreeshankar0910@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -87,9 +87,9 @@ Cc: bmasney@redhat.com,
 	linux-clk@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	Sreeshankar K <sreeshankar0910@gmail.com>
-Subject: [PATCH v2 11/13] dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
-Date: Wed, 19 Aug 2026 15:25:40 +0000
-Message-ID: <20260819152545.3934-12-sreeshankar0910@gmail.com>
+Subject: [PATCH v2 12/13] dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+Date: Wed, 19 Aug 2026 15:25:41 +0000
+Message-ID: <20260819152545.3934-13-sreeshankar0910@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260819152545.3934-1-sreeshankar0910@gmail.com>
 References: <20260819152545.3934-1-sreeshankar0910@gmail.com>
@@ -101,25 +101,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the PDC block on the SM7250 SoC.
+Document the cpufreq hardware on the SM7250 SoC.
 
 Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
 ---
- .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
+ Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-index 8162a49d4..c30b88589 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
-@@ -50,6 +50,7 @@ properties:
-           - qcom,sdx75-pdc
-           - qcom,sm4450-pdc
-           - qcom,sm6350-pdc
-+          - qcom,sm7250-pdc
-           - qcom,sm8150-pdc
-           - qcom,sm8250-pdc
-           - qcom,sm8350-pdc
+diff --git a/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml b/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
+index 98eb36bff..2dc2c265c 100644
+--- a/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
++++ b/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
+@@ -29,6 +29,7 @@ properties:
+               - qcom,sdm845-cpufreq-hw
+               - qcom,sm6115-cpufreq-hw
+               - qcom,sm6350-cpufreq-hw
++              - qcom,sm7250-cpufreq-hw
+               - qcom,sm8150-cpufreq-hw
+           - const: qcom,cpufreq-hw
+ 
 -- 
 2.43.0
 
