@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04B73CB546;
-	Wed, 19 Aug 2026 06:10:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9213C3432;
+	Wed, 19 Aug 2026 06:11:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787119806; cv=none; b=uz64TqeVhq2MFRQXwJgxpw1LDrQqh9IgKTNX+h8gDefaA45LX5nGab27xWlACFhhVjC3DOIFKpE1LZXZwhuqFsNdNOK7z1SMJ1VB3e8CXfP8IIsXjpkQ+UB5FBgX2JbQkFsBEAStCQR0rjWjWq2YgqqPD9eBoyNYoTZYcUnKncw=
+	t=1787119877; cv=none; b=HZoxVA8zuIn5OLJwhYV2menDaenjm4ICTuzfEAJoCzIHS8x+ojCEzg8tvL9G1YpJnEewYo9Nx6510+lzpU+I7TSSSk8JzkjFBR+XHipF26BLui97BA8doz1XOlTQzTgOGp5vOocyX9CVGibQLmW7wFzyYPG+1eWPJLxCdC1v2PY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787119806; c=relaxed/simple;
-	bh=LpSeiACyJk0FBanGbh9yU4b2Fr2clnXZQLv92JsBwow=;
+	s=arc-20240116; t=1787119877; c=relaxed/simple;
+	bh=pg1KjDw4F6dQpId4Mc1Wd8x1YNkmEuXU4RC0vvkhs2g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OtYbCyeZn9BuF4veVhhnFddQIcf5I4D8MZ1wa8sOd426Oo3KxmMAg+3iTjpSuH2/AVe6JWTcg+0r3YThLHT1J2eRrenQtj0wYM+10fcWcYyRTjXHkpCImZWgOFab+3MX3mZoiuuvgQDQmXJ4gR6717QkZ6FRvzNnGRJG8M1BOrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ur3YcFCh; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Qtc4ppP8wYrZJoEMkGba0ms/u+xYemip7rM8032CTOGSNoIAI+Le5GBYFLrb4E0TD/UWWR1ftYILzM2mjmETlEX2Na9Xk1oxb4IJ1SFfW4tKTegnWZ7ChbvaMmsfsEOqhOwyb1Ad3tfT1ORxmwdtM9gpH47PnuqDTayGzPGAbEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D1/nJq/J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ur3YcFCh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB421F000E9;
-	Wed, 19 Aug 2026 06:10:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D1/nJq/J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A4E1F000E9;
+	Wed, 19 Aug 2026 06:11:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787119804;
-	bh=NErPYYIyyu5UHBVsCrqWHtTe0DChoby1edcQaMIwsc4=;
+	s=k20260515; t=1787119876;
+	bh=xB9M143zDCvoZXHQB+ollC1aPdCSzjMJbq8yWDJEZ5M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ur3YcFChqcp61br2mjz39QbOwd3AkAWX6uplFN3LUx3Pvxkv6l4yECCOjK3S0Lv2f
-	 d2SLwBgx+rB4VwEBs0QJkhVLfmvlaZSd+ftKn1qObrXN6Ob5bjayfk7kXsmNKHeIma
-	 vGcZzmH3FZSfwPjWT2OOT9tfB2DwwFpO+SRRKbQljV0jj7dY8prnFaMMPiL1rryxyA
-	 59mjxnfUhqNgi2nJMqzObPUH8J1UtSiXxOK5UPRFyTUP4HDOWEjkAoow2pr/lPPvlZ
-	 6CgNffm63ipQFKqstqqS2QoIrFZErX50uSGdaG60ru7kW1dpb3qba3zA/6Kl5Oge73
-	 GNfBsRqkVCj0g==
-Message-ID: <9cb0c647-e1bd-40c8-a1db-7a0f6382aeb5@kernel.org>
-Date: Wed, 19 Aug 2026 08:09:57 +0200
+	b=D1/nJq/J7H+BEAyzDZUUfCZcCJz5PEaNDORbv74kblqT7Qgp8rn26fpE8wXlJeoM/
+	 0VEfyjW45GRdLhGlVeVVpNXsz5EDZ57owZaV8e+zVSB1olx/NRuxjF6dES0vRcWTNh
+	 GTVvzlJY3dsSkfbIKL6Mbmy36FUWoNfjBPd1TVSrxYHHiQjs5/aNLYtmyMb1UWNQOV
+	 RzFy1ByA4guy8+AOA/WSBJcKhM9DoH1yRSZuLVQ5jT59r/dzEU7Vk3b49SB/6pu7FI
+	 pjkKLZTBR4J7F3eH/FLNFGD2Vdvdu/vPInLGMAKi763gqoClD2U+jh3K/JkqrH3zhs
+	 FvkXQd9nvXNlg==
+Message-ID: <ddf88af6-c947-478d-81ab-bff4aa27d2cc@kernel.org>
+Date: Wed, 19 Aug 2026 08:11:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] dt-bindings: arm: qcom: Add Maili SoC compatible
+Subject: Re: [PATCH v1 2/2] soc: qcom: pd-mapper: Add support for Maili SoC
 To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Yijie Yang <yijie.yang@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org, Yijie Yang <yijie.yang@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 References: <20260819054203.61385-1-prasad.kumpatla@oss.qualcomm.com>
- <20260819054203.61385-2-prasad.kumpatla@oss.qualcomm.com>
+ <20260819054203.61385-3-prasad.kumpatla@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,32 +90,36 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260819054203.61385-2-prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260819054203.61385-3-prasad.kumpatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 19/08/2026 07:42, Prasad Kumpatla wrote:
-> From: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> Add support for the Qualcomm Maili SoC to the protection
+> domain mapper. Maili shares the same protection domain
+> configuration as Kaanapali, so reuse the existing
+> Kaanapali domain data.
 > 
-> Add the qcom,maili SoC compatible string to the QCOM SoC bindings.
-> 
-> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+>  drivers/soc/qcom/qcom_pd_mapper.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index ff8a35df7862..00d9a493fe76 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -175,6 +175,9 @@ properties:
->                - qcom,kaanapali-qrd
->            - const: qcom,kaanapali
->  
-> +      - items:
-> +          - const: qcom,maili
+> diff --git a/drivers/soc/qcom/qcom_pd_mapper.c b/drivers/soc/qcom/qcom_pd_mapper.c
+> index 64ca99d7fad9..3376423d237f 100644
+> --- a/drivers/soc/qcom/qcom_pd_mapper.c
+> +++ b/drivers/soc/qcom/qcom_pd_mapper.c
+> @@ -626,6 +626,7 @@ static const struct of_device_id qcom_pdm_domains[] __maybe_unused = {
+>  	{ .compatible = "qcom,hawi", .data = kaanapali_domains, },
+>  	{ .compatible = "qcom,kaanapali", .data = kaanapali_domains, },
+>  	{ .compatible = "qcom,mahua", .data = glymur_domains, },
+> +	{ .compatible = "qcom,maili", .data = kaanapali_domains, },
 
-Heh? This cannot go alone.
+This patchset makes no sense. Early upstreaming of unreleased SoC does
+not mean you send everything except DTS. You send things earlier to
+speed up merging, but such trivialities targeting Qcom SoC should be
+sent with the SoC DTS. It brings no value to send it earlier.
 
 Best regards,
 Krzysztof
