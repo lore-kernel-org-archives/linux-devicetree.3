@@ -1,165 +1,237 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31C939CD01
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:29:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A7840DB48
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:29:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787128172; cv=none; b=o3d50cDoXvJVDSs98W8IjvI7R7OMiGFUCLFRRxeZdk2nzdcLRjWUvmQetPWPm+Iq7zCO+GR98eykl2XlrRlclLVpskTr5QpqRxnYiMQueMUCKVlyog0tVKEshQ6NTsmZRIUfp34YjYdc+2qaKrkMhPKC446Dkjjm6ln3CUU7nGk=
+	t=1787128187; cv=none; b=TUIZ/iNrXwdA9Fm+BiHaJhI5qsX5yMnI/hVwqJ6lIqznK5VUQ1RyzTGGvxdK0xH4Bl5lVgzPnFvCoiStb57ZIwmPfJBx980Uk7+qdxByTcnTssO9+kYw1pQjtpk+js/6P900HqMiJpv2FQJlExpCqQ3hz5amfTFlJWtZrS6zL1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787128172; c=relaxed/simple;
-	bh=J+7FIWeFSNlCF/SBGKbIoTF/ML8qePbVtoZtF/oALRU=;
+	s=arc-20240116; t=1787128187; c=relaxed/simple;
+	bh=qJ1QOs0FybaBEOTUcTfHpqUuVJfJJWePhNaDTSUKkAs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IhDXv0HG+Ai6Cp3vHTVe5M47ULgECCuYkfYLFAxPHltP/ORXuUYcf4ThgIMk2q4Z2vY16oABSpfY0/lpnkk7Vu/6aRRf+ZQ+5c0c/jJwQHJ/I2u05RIKbVhCDU36+bT2UYJG3ysOqQQZ+SimwK+kKloiI1lAhDSoYK0KJM5D86U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V0JYLuSU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ckSkJp9JDhmmJkV95RY533L9cwtbYFTJIBud+rpuzaEiIMbDGUM4WXCj4Uendh8Vei3TclhzbIUpZoHRorqP7aCrP81VhvInMpu84JXGA62MEaRsuSTfH6TMJMEdqSebf3v67fvVwn9frOjWWyINHoJ3dBs9MdgFuan30xIRfEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZIMTX9Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V0JYLuSU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C391F00A3A;
-	Wed, 19 Aug 2026 08:29:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZIMTX9Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29CA1F000E9;
+	Wed, 19 Aug 2026 08:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787128170;
-	bh=Z86A86oIpvnqzjmaLrdLWONLzoh1VvjRc56fyX5dxrE=;
+	s=k20260515; t=1787128186;
+	bh=b07dUY+k9kkhD/C+/qlFgoEFWmXKqNj0cnUhuDtBsRI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V0JYLuSUKtg0isjkeWxTAzOdIi5IjqIljB1XoyhlItRYnGhAStpbD9NLaGGKmr9dH
-	 pN0r40EeH07GWWqOQ2kSZpUuGEP5UPMS8oqk662G1pVEk+v1b5UiB0IPDWYpC9cEcd
-	 Q+Wj3b5J6o6llQMidtEKJ3BAtNoAzl36L76Tk0BwA2O+8FcLs9q2q6jH0QatTqnwON
-	 DRevEr8e3Yz1vM2GfZjvf7pZ8MuH2vG+y0USkcPzSZOvilbl2oNFPKkzZyhR5A5uxr
-	 9yW5tY8jZTugqbKUExnmCsnaV1Bodxk0DBr3LS8WB1fnsQGqEpA0OqPAchsnoi67tr
-	 XgnCZSCo9OOAg==
+	b=VZIMTX9QCvIM4D+PROUQZLpzHqDLS0aHYxopzuytr/2Ewn+bCAiEf60TsJ4JvZkc+
+	 Ruh9kIxRuXK650DgcImRb9Ed5zViuitjSMluLQaK6f9hCt9LWCmrIGGPwsyGvAfUzE
+	 X5r5VUUbeD2BidPY7wjtJQweUAZi43lX7D5xgJxiFKcUfHo0Y7a9kwxFV7RILBHc4d
+	 T0/y4RjHQP56XxMtqofnL0PigVZ2r7/kYXfW4YPAMdCXlvuO1mFdKwBa9ke+oIMrWA
+	 1nJrZ1R3g5EAIXl10PiujAThQg2M4JEMfSAzqRS0Tk0qcq4TlTELv9WO+qTPMLz9WE
+	 6RZpsM1Fel4VA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v5 3/6] iio: accel: mma8452: Only apply trigger
- type when not set by firmware
+Subject: Re: [PATCH RESEND v5 5/6] iio: accel: mma8452: Allow open drain
+ interrupt pin configuration
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Esben Haabendal" <esben@geanix.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260819-mma8452-open-drain-v5-3-d8aa590d7c36@geanix.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260819-mma8452-open-drain-v5-5-d8aa590d7c36@geanix.com>
 References: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
- <20260819-mma8452-open-drain-v5-3-d8aa590d7c36@geanix.com>
+ <20260819-mma8452-open-drain-v5-5-d8aa590d7c36@geanix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Aug 2026 08:29:30 +0000
-Message-Id: <20260819082930.63C391F00A3A@smtp.kernel.org>
+Date: Wed, 19 Aug 2026 08:29:45 +0000
+Message-Id: <20260819082945.F29CA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
 
 New issues:
-- [High] The patch dynamically trusts the firmware's IRQ trigger type but f=
-ails to configure the sensor hardware's interrupt polarity to match, causin=
-g an interrupt storm.
+- [High] Hardware interrupt polarity mismatch.
+- [Low] Compilation failure due to undeclared `client` variable in `mma8452=
+_runtime_suspend`.
 
 Pre-existing issues:
-- [High] I2C register accesses are performed while the device is physically=
- powered off in PM runtime suspend.
-- [High] Unhandled latched motion events (`INT_FF_MT`) cause an infinite IR=
-Q storm.
+- [High] Missing restore of critical device configuration registers during =
+PM runtime resume.
+- [High] AB-BA deadlock between driver lock and PM runtime lock.
+- [High] Unpowered I2C access and data race on `ctrl_reg1` in `write_raw`.
+- [High] Early interrupt registration risks NULL pointer dereference.
+- [High] Unbalanced regulator disable and unpowered I2C access during drive=
+r removal.
 --
 
---- Patch [3]: [PATCH RESEND v5 3/6] iio: accel: mma8452: Only apply trigge=
-r type when not set by firmware ---
-commit ad034b1db299a86a70db53d5a2b4a52f2a134eee
+--- Patch [5]: [PATCH RESEND v5 5/6] iio: accel: mma8452: Allow open drain =
+interrupt pin configuration ---
+commit 8b317beed417968ce06b604c39245c855aa368c3
 Author: Esben Haabendal <esben@geanix.com>
-iio: accel: mma8452: Only apply trigger type when not set by firmware
 
-Instead of unconditionally overriding the trigger type, it is better to
-only apply a default when no trigger type is set by firmware. This should
-be reasonably backward compatible.
+iio: accel: mma8452: Allow open drain interrupt pin configuration
+
+This patch adds support for configuring the mma8452 interrupt pin in
+open-drain mode. It reads the "drive-open-drain" device property and sets
+the appropriate bit in CTRL_REG3 during probe and runtime resume.
 
 > diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index f645a5c6fd1c2..1fb43c5b0b72f 100644
+> index 25bb2dd69381e..060a6207e52d0 100644
 > --- a/drivers/iio/accel/mma8452.c
 > +++ b/drivers/iio/accel/mma8452.c
-> @@ -1683,9 +1683,16 @@ static int mma8452_probe(struct i2c_client *client)
->  		goto trigger_cleanup;
+
+[ ... ]
+
+> @@ -648,6 +651,22 @@ static int mma8452_set_power_mode(struct mma8452_dat=
+a *data, u8 mode)
+>  	return mma8452_change_config(data, MMA8452_CTRL_REG2, reg);
+>  }
 > =20
->  	if (client->irq) {
-> +		unsigned long irq_flags;
+> +static int mma8452_set_interrupt_pin_mode(struct mma8452_data *data)
+> +{
+> +	int reg;
 > +
-> +		irq_flags =3D irq_get_trigger_type(client->irq);
+> +	reg =3D i2c_smbus_read_byte_data(data->client, MMA8452_CTRL_REG3);
+> +	if (reg < 0)
+> +		return reg;
+> +
+> +	if (data->open_drain)
+> +		reg |=3D MMA8452_CTRL_REG3_PP_OD;
+> +	else
+> +		reg &=3D ~MMA8452_CTRL_REG3_PP_OD;
+> +
+> +	return i2c_smbus_write_byte_data(data->client, MMA8452_CTRL_REG3, reg);
+> +}
 
 [Severity: High]
-If the firmware specifies an active-high interrupt, will this cause an
-interrupt storm?
+Does this also need to configure the interrupt polarity bit (IPOL) to match
+the requested trigger type?
 
-The irq_get_trigger_type function fetches the interrupt polarity from the
-firmware (e.g., active-high) and passes it to request_threaded_irq.
-However, the driver forces the sensor into its power-on default state
-via mma8452_reset, which hardcodes the interrupt pin to active-low.
+The driver parses the IRQ trigger type from device properties using
+irq_get_trigger_type() and registers the interrupt accordingly, but it
+doesn't seem to program the hardware to match.
 
-Because the driver never writes to CTRL_REG3 to set the IPOL bit
-to active-high to match the requested IRQ type, the sensor's idle-high
-line could be seen as a permanently asserted interrupt.
+Since the hardware defaults to active-low, could this cause missed
+interrupts or interrupt storms on systems that specify an active-high
+trigger?
 
-> +		if (irq_flags =3D=3D IRQ_TYPE_NONE) {
-> +			dev_info(dev, "invalid irq type, setting default active low\n");
-> +			irq_flags =3D IRQF_TRIGGER_LOW;
-> +		}
-> +		irq_flags |=3D IRQF_ONESHOT;
->  		ret =3D request_threaded_irq(client->irq, NULL, mma8452_interrupt,
-> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-> -					   client->name, indio_dev);
-> +					   irq_flags, client->name, indio_dev);
->  		if (ret)
->  			goto buffer_cleanup;
+[ ... ]
+
+> @@ -1677,6 +1696,11 @@ static int mma8452_probe(struct i2c_client *client)
+>  			goto disable_regulators;
 >  	}
+> =20
+> +	data->open_drain =3D device_property_read_bool(dev, "drive-open-drain");
+> +	ret =3D mma8452_set_interrupt_pin_mode(data);
+> +	if (ret)
+> +		goto trigger_cleanup;
+> +
+>  	data->ctrl_reg1 =3D MMA8452_CTRL_ACTIVE |
 
 [Severity: High]
-This isn't a bug introduced by this patch, but are there I2C register
-accesses occurring while the device is physically powered off?
+This is a pre-existing issue, but is it safe to register the interrupt
+before the iio event interfaces are allocated?
 
-If userspace attempts to read or write sysfs attributes after the
-autosuspend timeout, the regulators are disabled. Direct calls are
-made without resuming the device:
+In mma8452_probe(), request_threaded_irq() is called before
+iio_device_register().
 
-drivers/iio/accel/mma8452.c:mma8452_read_raw() {
-    ...
-    ret =3D i2c_smbus_read_byte_data(data->client,
-                                   MMA8452_OFF_X + chan->scan_index);
-    ...
-}
+If the hardware generates an interrupt immediately, the handler calls
+iio_push_event(), which accesses indio_dev->event_interface. Since
+event_interface is only allocated during iio_device_register(), could this
+cause a NULL pointer dereference?
 
-A similar pattern happens in __mma8452_write_raw calling
-mma8452_change_config. Any unprivileged userspace read/write to the
-configuration attributes 2 seconds after the last activity will result
-in an I2C NACK (-EREMOTEIO or -ENXIO).
+[ ... ]
+
+> @@ -1823,6 +1847,10 @@ static int mma8452_runtime_resume(struct device *d=
+ev)
+> =20
+>  	WRITE_ONCE(data->suspended, false);
+> =20
+> +	ret =3D mma8452_set_interrupt_pin_mode(data);
+> +	if (ret)
+> +		goto runtime_resume_failed;
+> +
+>  	ret =3D mma8452_active(data);
 
 [Severity: High]
-This is a pre-existing issue, but can unhandled latched motion events
-cause an infinite IRQ storm?
+This is a pre-existing issue, but does the driver restore all necessary
+hardware configurations during runtime resume?
 
-For chips that lack the TRANS event (like mma8652), rising-edge motion
-events are mapped to the ff_mt registers. When the latch is explicitly
-enabled for rising events, the hardware will hold the interrupt until
-read:
+When regulators are physically disabled during runtime suspend, the hardware
+resets to defaults.
 
-drivers/iio/accel/mma8452.c:mma8452_write_event_config() {
+It appears the resume path only restores CTRL_REG1 and CTRL_REG3, leaving
+configurations set during probe (like MMA8452_DATA_CFG, MMA8452_CTRL_REG4,
+and MMA8452_CTRL_REG5) uninitialized.
+
+Could this result in a permanent loss of critical sensor settings?
+
+[ ... ]
+
+[Severity: Low]
+In mma8452_runtime_suspend(), there appears to be a compilation issue:
+
+drivers/iio/accel/mma8452.c:mma8452_runtime_suspend()
+    synchronize_irq(client->irq);
+
+The 'client' identifier is used here without being declared in this scope.
+Will this cause the driver to fail to compile when CONFIG_PM is enabled?
+
+[Severity: High]
+This is a pre-existing issue, but is there a potential AB-BA deadlock betwe=
+en
+the driver lock and the PM runtime lock?
+
+In mma8452_read_raw(), the driver acquires data->lock and then indirectly
+calls pm_runtime_resume_and_get(), which waits for the device PM state to
+change.
+
+Concurrently, if the PM subsystem is executing mma8452_runtime_suspend(),
+it holds the PM synchronization lock and attempts to acquire data->lock.
+
+Could this lead to a system hang when user-space reads sysfs attributes whi=
+le
+the PM autosuspend worker runs?
+
+[Severity: High]
+This is a pre-existing issue, but is there an unpowered I2C access and data
+race in the raw write path?
+
+drivers/iio/accel/mma8452.c:__mma8452_write_raw()
+    data->ctrl_reg1 &=3D ~MMA8452_CTRL_DR_MASK;
+    data->ctrl_reg1 |=3D i << MMA8452_CTRL_DR_SHIFT;
     ...
-    val |=3D ev_regs->ev_cfg_ele;
-    ...
-}
+    return mma8452_change_config(data, MMA8452_CTRL_REG1, data->ctrl_reg1);
 
-When the interrupt fires, the handler evaluates freefall mode and skips
-handling, never reading the MMA8452_FF_MT_SRC register to clear the latch:
+This modifies data->ctrl_reg1 locklessly and accesses the hardware via
+mma8452_change_config() without ensuring the device is powered on via
+PM runtime.
 
-drivers/iio/accel/mma8452.c:mma8452_interrupt() {
-    ...
-    if (src & MMA8452_INT_FF_MT) {
-        if (mma8452_freefall_mode_enabled(data)) {
-            ...
-        }
-        ret =3D IRQ_HANDLED;
-    }
-    ...
-}
+If the device is runtime suspended, won't the I2C transaction fail?
 
-Remotely triggering a physical motion event after enabling the rising
-threshold via sysfs could permanently lock up the interrupt line.
+Additionally, if a resume occurs concurrently, mma8452_runtime_resume()
+reads data->ctrl_reg1, which seems to create a data race.
+
+[Severity: High]
+This is a pre-existing issue, but are regulators disabled safely during dri=
+ver
+removal?
+
+drivers/iio/accel/mma8452.c:mma8452_remove()
+    mma8452_standby(iio_priv(indio_dev));
+    regulator_disable(data->vddio_reg);
+    regulator_disable(data->vdd_reg);
+
+If the device is already runtime-suspended, pm_runtime_disable() does not
+resume the device.
+
+Calling mma8452_standby() performs I2C writes to a powered-off sensor. Then,
+regulator_disable() is called unconditionally on both regulators, decrement=
+ing
+their use counts below zero.
+
+Could this cause I2C transfer failures and kernel warnings for unbalanced
+regulator usage counts?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-mma8452-op=
-en-drain-v5-0-d8aa590d7c36@geanix.com?part=3D3
+en-drain-v5-0-d8aa590d7c36@geanix.com?part=3D5
