@@ -1,179 +1,347 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BB981AA8
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 17:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E95481652
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 17:17:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787159533; cv=none; b=qJ6RN56JXifdd43h1OyyBGUkIz4owhm9YxRM76xl84tHaUrZ3QFMWv6c/F/ooon8h/j3CG5TR4QGpR1w4KDQC+7mI/6ZgNIk9JZpbDaFEljuQsVt8mxe+4mgYJUjd6yVsZQLEAm9HUG4hrMPA5czCzZlEvMaBHPO7JDhWo/6Sfo=
+	t=1787159890; cv=none; b=N7tclGwa58bgzbQgzTP+hmn2piWy1Xcbqq5P3NXJXuIKoLTzCj+enS7MxXhs7kfAP5egK2A2qeks6NojTCkaUzI6fJGbRVU78gd0iNZ/q3njKBuMbUvvwlFuHPA/eINgjD7JU2BVBD9ylgxsbkBWHF1w19ffSbwjwFpLld6xxik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787159533; c=relaxed/simple;
-	bh=R+X1+pJjWvWvVDlg36MzfNwzU5dUF/DCSQzZsCpt9jQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s5k+YfAmD1BN8zeDEsmbQB4NuXcVR1chVmaXOkvGP8Vrxc3MwXJ/JTzUijHEtNjyEiCrBfA0YYajNwFGL/mipL9ypzZETcyPMq8vgNsd9Yg5/sSYEEJ7VBU8kWdfHC2/LI11nlIVYI22Oh7+kAZ0n41INgXu8jSTyESeNOEfFO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=b1L5yICS; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1787159890; c=relaxed/simple;
+	bh=NzDJxIEnmWSoEW/CSHKna408GEw1PamOuVwZswoR4H8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DTEwPEga2MZjFVr/0LhxeJexcGx7H/GDavVElBs2GnxA46IUexbvdDtt6AaqbPlCgFGwNsABUmNzGjp0ybLQyTqpGrBFaePiFJExIM+Q+kQC0kVET6bfSDqGKCzUOSEXzq+gF4rP/pdj+CEuM7sKtcS4WyVyKAGOfqguXc7QXm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RsSkZDwq; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="b1L5yICS"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso2072332a91.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:12:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RsSkZDwq"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2caea3f742bso18610865ad.0
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:17:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787159532; x=1787764332; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1787159871; x=1787764671; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=oOL0sGbjRAF6LYH92WM9uY0MD9+Nj1oBAHQxCb/Np7E=;
-        b=b1L5yICSYZF8bZsLtqR+NexgG0rXsvP2RtgOyFjw53Wq10dtysm05/IGL2eTnuO2i6
-         /JnEqlCMd9XMsux19EwzzJPq/qVHid+rvja44bpb5AsVJ/3vvC3lFCjOLrEOThfX0+Oe
-         yAbIzu+mX3DcrSrBeEjnfJ0FatLHq2cPV3oNo=
+        bh=VFRNQn9+IiCFEpwSAiKoW4qdoRMCAiZZVu4dsGCqCeM=;
+        b=RsSkZDwqzw3yGczzFUVb+3Jtb02whf9tbqEh7CakATe7V7IBjaCmLtS74+3Gb56opu
+         sM99/cRhjyyqfdjnPqHjiYeOCFH/PCD9t67F9z5ranKnBcH2PmD9LjoljRw5ZJCbzTs7
+         BztMnb6THylEyZfFxV+3gc6R20a0WE9chiaxoHDGAs1XVEO17+BizD3lR3Fubsh+kokM
+         KGpf3I+YKubjcEqDYTplwh4McPe6IJEbD2jl11rdhrt9ZeBM1mzLyTVcFLy7UiaG/shJ
+         oqacjti6RiF29WKpkQCAUlr7qq/5/Is3qJRpHlHn8czLq1Q7wFhIKaNkAI5NMz2oj0Yr
+         4jIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787159532; x=1787764332;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787159871; x=1787764671;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oOL0sGbjRAF6LYH92WM9uY0MD9+Nj1oBAHQxCb/Np7E=;
-        b=I7w5EUjGD5hAE3N+9ztPFOnJQ5DuX3n/zH2rh+6zMmV4Kyl9UufTG1byf7nGUIyYqy
-         cTisfQZuB5ZxSaCa+21qOKHxpZ3MO619bMs9mtF8ZaHDJ3ZIpbnFNKptluWom5uZyuPN
-         rYW1I3W532XVvbwHpAkslewnNcFsF6UDx7Kr+KQD2E6qFDJ6BryJTy9KDh0uRnbfOoHv
-         xEkq1OLIcVv658ZLjrd/eIW5rz39GPaHOCcjvyI+GHaylhW/YadvAhgjtolP4qCYbhrP
-         k+A2A02xF5N7InK4MqyROlcApx68FOppBJgTnkK3jieWQQUCC6gNgakCMRFWk0f5Gybs
-         T05A==
-X-Forwarded-Encrypted: i=1; AHgh+RoMfonuLcAzH0219/CjM9CZluNZwRB4sM8gQvkzXne/dri5YUZKEMlL7qoybWbJURt9KF/ehyPF0c5T@vger.kernel.org
-X-Gm-Message-State: AFuF++nTNbLxxROBwozFHvNhfimdCsZj6it+yUXwoqKX+mVBwIZRTDiW
-	oIJ7lsSH6wpUK/GCeJhVe/DlhZ87HizEL+KwYhXec+aYzAdW2LFUx4DWWVTam7XujHrVdp7FarA
-	QjFc=
-X-Gm-Gg: AR+sD12uq7EGPsokoZlFlF2Nn2vIbTQs5irTZjhwTuRdtFc6xbQTjhONUgdatMStwm4
-	ne7ut9plA0F2r8j1FbRCxJRwNd0TTenl3YI2FT2/ppy8vgPQrfQp6L60WLMIdUE81N59LZe9u9X
-	8Q+HgduYH5vdPNZ8acCbaKtENYiqqmdSb2X+CoxeOhjw/M9nXTtbs6gm80RgDf3bbGVq/LCq/FO
-	mkFLJUh2iJBNWas3WDjL26kn7yVxr+AvOm8QjUBnqiFp3kaOKQw91I/YdnRLtwXuZoTH/f4qY+l
-	eNjjpKZXRq/YjLToFtrc8qTEz23EDw9zxUXoIpLkckR42YpY4h3KYPbLiSSWm270lUKhmglHi7K
-	9IIDALT6Rz+7Oqz/Uri3RR+GzHC61Liy9ZZrZ0p5Fat6zg9kATV/sCwC3C/vlO5EheRqs0BZNJ0
-	X5cg3ws6oaztDc3i/32xmv5HvpoHWxZstMmih4ewsePQq1RE2ST4/VlM85MAE+5FOmBp0nE4xZW
-	yWCfmATNnU0eZdp3kELRsg5kq6lPn4qkxeXHw==
-X-Received: by 2002:a17:90b:5289:b0:38e:70d5:b12d with SMTP id 98e67ed59e1d1-39580aa5d7cmr12686773a91.6.1787159531804;
-        Wed, 19 Aug 2026 10:12:11 -0700 (PDT)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com. [209.85.216.46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb14bbfsm3268720a91.1.2026.08.19.10.12.11
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 10:12:11 -0700 (PDT)
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso1242473a91.3
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 10:12:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RojNXS3wUs4MKSiyQI+mqFHNzDsjoCavS8RmPArYzcDrPoAeiw7NRQUqdQvPgZEk7a4GTOoTPzGzcij@vger.kernel.org
-X-Received: by 2002:a05:6102:191a:b0:778:5579:c662 with SMTP id
- ada2fe7eead31-7785579c755mr1067469137.9.1787159074606; Wed, 19 Aug 2026
- 10:04:34 -0700 (PDT)
+        bh=VFRNQn9+IiCFEpwSAiKoW4qdoRMCAiZZVu4dsGCqCeM=;
+        b=N8i1bBkXUyFayIRD0Q+sD1csnXP31Km+hniPefj8EGZnm1boZ0vdoav47RH1RxVJMc
+         6kwI/3VDzFSUhZyqiB779b+eJYDgIx0jbKVs2Ej8vFPKIYOnCJrgeVbU344UTOdbVjuG
+         sz3V8BadvdPZxa8u4EMJPgUxg+CqL/fBBQeywPivzt2IQTDnPDa6whyvBko2HBzWAuy0
+         fnuZiP6FLWVHK94xICoWOdQZS2ljqY3eqsziamvqvAio5ybCM3Ku2TSMNb32KlPKdjQp
+         fmQQkh/VXV51AGJJuM6PyEZzeKESrGrsvEqGC9SxMWDrqMbqV6zMZg44hr5XkkWmt5cA
+         tAvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpcgAgST2Z1/WWCH0Huzkt4pQfi+Ton+ujVNXscN3vd+2kEDn1AToLUvVtHu2tVDPi2RmApIoNXB/CQ@vger.kernel.org
+X-Gm-Message-State: AFuF++n8hQVmBoBLS8AARGhuft/+ntvaeE+Clhz9dAIAVtt/R5+w9srO
+	2misYbtRHYfwOrequOxDLl/jFSm9JnraWhLn6SIts7KUgqPwF/RseVFI
+X-Gm-Gg: AR+sD130lBb2MTz/55UMfhTmfFVVqJ//tFq+yuCOKM4tP6DLjTBqVjiZh0AaOV2ogom
+	iStKX7juJV/uJSkb3YkI/gpC3iZMvS4WJEW+VwhThzGtuAEiYUV5UzsZdGb4bSiFOwoVsijdRRv
+	KxqE79cf/Fh53xMyD8MWzYTQX3But0xPOTlRr0Neaj4GYMOGplTHUi2LVhMK3aOSUahLV0Mdlic
+	+cXQvzfUknfDqexq5e5bT7RDqsyHdNiDQ5p+fWQjOBtIeNOorjQNJL5tqk3VSdIdn1fqZKVtuxn
+	f0vXj2EOlVmPbfd0sucq7f9fBvRjafYO1JAfJpRJCB3syltbnthpWuqTbCJH7pP3ux7Z6zlbtj+
+	i1XOsGpooIyxbAGLfx5M5VPvbFOSKxgT0t4DofIDbAN1y5jEFCVcigTPBHsx88lgi6V7Jsz04dH
+	KLmRrz0mljqO+UgGQuba3pS2vgpRBZIEOZhiWPhbP0TkU0eRMLH1iw23Rh+U1PPTEm3g1qbew9O
+	PIyaxfwhuP2PURetYye
+X-Received: by 2002:a17:90a:e188:b0:38e:6d4c:14e6 with SMTP id 98e67ed59e1d1-39580a50d5cmr11805598a91.3.1787159870492;
+        Wed, 19 Aug 2026 10:17:50 -0700 (PDT)
+Received: from buffalo-ssd (M014013071096.v4.enabler.ne.jp. [14.13.71.96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957f4cedeesm1482992a91.0.2026.08.19.10.17.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 10:17:50 -0700 (PDT)
+Date: Thu, 20 Aug 2026 02:17:46 +0900
+From: Akari Tsuyukusa <akkun11.open@gmail.com>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v4 0/7] Properly describe mt6589 and mt8167 toprgu resets
+Message-ID: <xqnpukvhtezpqhwjnxbqeddiaqlro4m5yjukpplv5mjfxodlfp@ijaf2trst7p4>
+References: <20260819101853.44681-1-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
- <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
- <20260724-dancing-skunk-of-novelty-72c1b8@quoll> <CAD=FV=U0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr38p+YwRnC_G6w@mail.gmail.com>
- <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com> <c0657108-1958-4c4c-b5f5-0eb24e81b2b4@kernel.org>
-In-Reply-To: <c0657108-1958-4c4c-b5f5-0eb24e81b2b4@kernel.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 19 Aug 2026 10:04:23 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VY4AeAf=TMZfJYRo6C0iSqmL-P0GzxRvZHfnNsf+GnYQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VC5Sr-hmHls4qje9y_sLrQ3mcRyp6W877ec39iaS3jdP4hd--uL8qQ3VU
-Message-ID: <CAD=FV=VY4AeAf=TMZfJYRo6C0iSqmL-P0GzxRvZHfnNsf+GnYQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for frankel/blazer/mustang
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
-	soc@lists.linux.dev, Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
-	Brian Norris <briannorris@google.com>, William McVicker <willmcvicker@google.com>, 
-	kernel-team@android.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260819101853.44681-1-l.scorcia@gmail.com>
 
-Hi,
+Hi Luca,
 
-On Wed, Aug 19, 2026 at 2:02=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> > Is there some other documentation saying "aliases =3D=3D evil" that I
-> > missed? Maybe some email thread we're all supposed to have read?
->
-> A lot of rules are implied by other rules and this one, how Linus stated
-> in other thread, might be implied by no-Linuxisms as you want ordering
-> or stable naming of Linux /dev entries.
->
-> I understand your reason is actually different than above, but your code
-> does not suggest that.
->
-> Anyway, if you wanted to have aliases as ABI, it would have to be
-> documented. You cannot send post-factum DTS and say "we already use it".
-> Every ABI must be documented before usage.
+On Wed, Aug 19, 2026 at 12:16:21PM +0200, Luca Leonardo Scorcia wrote:
+> Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
+> which in turn falls back on mt6589-wdt, which does not support toprgu
+> resets yet. This series adds support for mt6589 toprgu resets with bit
+> definitions obtained from Android stock sources.
+> 
+> However, according to its data sheet, mt8167 has 14 sw resets instead of
+> 12, and the reset bits are non-contiguous. This is currently unsupported
+> by the mtk-wtd driver, and it caused confusion between reset IDs and reset
+> bits in device tree includes.
+> 
+> Therefore in the first three patches we improve the description of the,
+> resets for mt6589 using the definitions obtained from Android sources.
+> 
+> Then we introduce a dedicated mediatek,mt8167-wdt compatible for the
+> watchdog driver that describes correctly this SoC's resets. Also while
+> we're touching the bindings reset includes, we add IDs for the MMSYS
+> resets.
 
-I'm happy to document. Can you please point to how / where I would
-document this? As far as I can tell, no aliases are documented today,
-so this would be the first. If you could give me a hint of where you'd
-expect it, that would probably be better than me guessing.
+This is somewhat outside the scope of this series, but adding TOPRGU
+reset support for MT6589 exposes a pre-existing problem with the
+mtk-wdt binding that I think should not go unnoticed.
 
+Until now, using `mediatek,mt6589-wdt` as a fallback compatible for
+other SoCs was mostly harmless, since the driver did not expose the
+TOPRGU reset controller.
+This series changes that by adding reset controller support for MT6589.
 
-> And this is what my comment was about: "they MUST talk
-> with upstream open source maintainers before they ship such ABI."
->
-> And no, sending such DTS in your v1 is not documenting ABI. Does not coun=
-t.
+According to the MT6589 datasheet, its TOPRGU reset bits are:
 
-Sure, sending a DTS isn't documenting, but it _is_ talking. Discussion
-in responses to patches is where we figure things out. For that to
-work, reviewers need to point out problems and then we need to have a
-continued discussion until we can figure out a solution. When that
-discussion just stops, it's incredibly hard to make progress.
+  0 infra
+  1 disp (same as mmsys in upstream)
+  2 mfg
+  3 venc
+  4 vdec
+  5 img
+  6 ddrphy
+  7 md
+  8 infra_ao
+  9 md_lite
+ 10 apmixed
+ 11 pwrap_spictl
 
+These are the reset bits that `mediatek,mt6589-wdt` will provide once
+this series is merged.
+Therefore, for another SoC to use this compatible as a fallback,
+its TOPRGU reset layout needs to be compatible with the above.
 
-> > thus implicitly provides an "instance ID"?  Would it be OK if I
-> > changed my alias name to "ufs-primary" or "ufs-internal" or "ufs-boot"
-> > or just "ufs"? We're not using the alias to get an instance ID, but
-> > when I added the alias I followed the pattern of all the other aliases
-> > and put an number at the end.
-> >
-> > I'm happy to attempt to fix our bootloader using whatever scheme
-> > upstream suggests. I'm trying to "talk to upstream" as requested, but
-> > for it to work I need upstream to talk back. :-)
->
-> Make your case - what is the purpose of it? Boot device? Then you have
-> "chosen" node for stuff between firmware and OS. There is even a
-> property called "bootsource". If this is not boot device, but some
-> calibration data for ONE given instance of IP, regardless whether you
-> boot from it or not, then I find such case as border-base and not worth
-> implementing, because basically one can come one month later with "I
-> need 1000 aliases because my bootloader is patching up every device
-> node".
+At commit bd5f485f3f02, mediatek,mtk-wdt.yaml contains:
 
-I think I've presened my problem fairly concretely [1]. If you hate
-aliases as a solution, I'd love for you to tell me which solution you
-prefer so the firmware can add calibration data to the DT. To quickly
-summarize options:
+      - items:
+          - enum:
+              - mediatek,mt2701-wdt
+              - mediatek,mt6572-wdt
+              - mediatek,mt6582-wdt
+              - mediatek,mt6797-wdt
+              - mediatek,mt7622-wdt
+              - mediatek,mt7623-wdt
+              - mediatek,mt7629-wdt
+              - mediatek,mt8173-wdt
+              - mediatek,mt8188-wdt
+              - mediatek,mt8189-wdt
+              - mediatek,mt8365-wdt
+              - mediatek,mt8516-wdt
+          - const: mediatek,mt6589-wdt
 
-a) Hardcode the DT path to the UFS node in the bootloader.
+Let's examine the evidence for each of these SoCs.
 
-b) Use some variant of aliases to find the UFS node.
+## MT2701
 
-c) Firmware finds the UFS node by searching the whole device-tree for
-the right "compatible" string.
-
-d) A separate "UFS calibration" node stored somewhere in the DT
-(where?), as proposed by Linus W.
-
-e) Something else?
+I could not find enough public information to determine the reset
+layout.
 
 
-[1] https://lore.kernel.org/all/CAD=3DFV=3DU0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr3=
-8p+YwRnC_G6w@mail.gmail.com/
+## MT6572
+
+A downstream kernel suggests it has the same reset layout as MT6589:
+https://github.com/orangepi-xunlong/OrangePi3G-iot_external/blob/b8a66e9bde91d75a8535dc6342d668efb6ab14ee/mediatek/platform/mt6572/kernel/core/include/mach/mt_wdt.h
+
+However, a report based on actual hardware suggests
+it may have fewer resets than MT6589:
+https://lore.kernel.org/linux-mediatek/W7fWZU3pu6akI_HMTAWPGnnErv60QtTz-LaPb6OtGvU5Bx0Iekl4SxWB6mxBPx8cBo9q9Lg7t8dDzcyfti-5fTirEACcwCLhNAh8e5xoHus=@protonmail.com/
+
+The datasheet is missing the bitfield for WDT_SWRST. 
+
+
+## MT6582
+
+According to the datasheet, the reset bits are:
+
+  0 infra
+  1 mm
+  2 mfg
+  4 vdec
+  5 venc
+  6 ddrphy
+  7 md
+  8 infra_ao
+  9 conn
+ 10 apmixed
+ 12 conn_mcu
+
+This is clearly not the same reset layout as MT6589.
+
+
+## MT6797
+
+According to the downstream kernel,
+it has additional resets compared to MT6589:
+
+  #define MTK_WDT_SWSYS_RST_C2KSYS_RST    (0x10000)
+  #define MTK_WDT_SWSYS_RST_C2KWDT_RST    (0x20000)
+  #define MTK_WDT_SWSYS_RST_CONMCU_RST    (0x1000)
+
+https://github.com/SHIFTPHONES/android_kernel_shift_mt6797/blob/4c594e5fa5648dd9a8b8ccc5d609bb523f4799b7/drivers/watchdog/mediatek/wdt/mt6797/mt_wdt.h
+
+
+## MT7622
+
+According to the datasheet, the reset bits are:
+
+  0 infra
+  1 ethdma
+  6 ddrphy
+  8 infra_ao
+  9 conn
+ 10 apmixed
+ 12 conn_mcu
+
+This is not the MT6589 reset layout.
+
+
+## MT7623
+
+According to the datasheet, the reset bits are:
+
+  0 infra
+  1 mm
+  2 mfg
+  3 ethdma
+  4 vdec
+  5 venc_img
+  6 ddrphy
+  7 md
+  8 infra_ao
+  9 conn
+ 10 apmixed
+ 11 hifsys
+ 12 conn_mcu
+ 13 bdp_disp
+
+Again, this is not the MT6589 reset layout.
+
+
+## MT7629
+
+I have no evidence either way. 
+
+
+## MT8173
+
+A the downstream kernel claims that MT8173 is compatible
+with MT2701, MT8127 and MT8163:
+https://github.com/bq/aquaris-M10/blob/ab0f5a519edaf314e9b537e448838ec9a4a9a3c8/drivers/watchdog/mediatek/wdt/common/mtk_wdt.c
+
+I don't find this particularly convincing.
+
+MT8163 has 15 reset bits:
+https://github.com/amazon-oss/android_kernel_amazon_mt8163/blob/479f405abf2ee6c0f13688b8cf567cce135924af/include/dt-bindings/reset-controller/mt8163-resets.h
+
+MT8127 appears to have the same reset layout as MT6589:
+https://github.com/amazon-oss/android_kernel_amazon_mt8127/blob/8428ef2958b83fa51edd6de734c069455f00cd8b/arch/arm/mach-mt8127/include/mach/mt_wdt.h
+
+However, I am not sure whether this actually reflects the hardware.
+
+
+## MT8188
+
+This is presumably a typo for MT8189, because there is no explanation
+for using MT8188 in the patch:
+
+
+[PATCH v7 6/9] dt-bindings: watchdog: Support MediaTek MT8189 wdt
+
+modify dt-binding for support mt8189 dts node of wdt
+
+Signed-off-by: Jack Hsu <jh.hsu@mediatek.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Guenter Roeck <linux@roeck-us.net>
+
+---
+Changs in v7:
+ - update dt-bindings commit msg
+   (use "mt8189" instead of "mt8189 evb board")
+
+---
+ Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+index ba0bfd73ab62..a05f8155b738 100644
+--- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+@@ -41,6 +41,7 @@ properties:
+               - mediatek,mt7623-wdt
+               - mediatek,mt7629-wdt
+               - mediatek,mt8173-wdt
++              - mediatek,mt8188-wdt
+               - mediatek,mt8365-wdt
+               - mediatek,mt8516-wdt
+           - const: mediatek,mt6589-wdt
+-- 
+2.45.2
+
+
+https://lore.kernel.org/linux-arm-kernel/20251111070031.305281-7-jh.hsu@mediatek.com/
+https://github.com/torvalds/linux/commit/a742d1713c34dff992d1273f614548d214ba1550
+I honestly cannot understand how this passed review.
+
+MT8188 already had a standalone compatible entry before this patch,
+and it is clearly not compatible with MT6589:
+https://github.com/torvalds/linux/blob/bd5f485f3f026225b86573e559af0b7254ef4184/include/dt-bindings/reset/mt8188-resets.h
+
+
+## MT8189
+
+There is no publicly available information about its reset layout:
+https://github.com/external-mirrors/chromiumos-third_party-kernel/blob/a5153266e4c8777fac687e9009a12d32d946514b/drivers/watchdog/mtk_wdt.c#L462
+
+
+## MT8365
+
+I have no evidence to establish compatibility.
+
+
+## MT8516
+
+According to the downstream kernel, its reset layout appears to be
+compatible with MT6589:
+https://android.googlesource.com/platform/hardware/bsp/kernel/mediatek/mt8516-v4.4/+/refs/heads/nougat-iot-release/drivers/watchdog/mediatek/wdt/common/mtk_wdt.h
+
+
+Note that a downstream kernel claiming compatibility does not necessarily
+mean that the SoCs are actually compatible. In my experience, MediaTek's
+downstream kernels contain substantial amounts of copied code between
+different SoCs, so I would not consider such compatibility claims
+sufficient evidence on their own.
+
+Overall, I don't think `mediatek,mt6589-wdt` is an appropriate fallback
+compatible for most of the SoCs currently listed in the binding.
+I realize that fixing all of these bindings is outside the scope of
+this series, but I think this should be addressed rather than leaving
+`mediatek,mt6589-wdt` as a generic fallback.
+
+
+I also noticed that the v3 link is missing from the cover letter:
+[3] https://lore.kernel.org/linux-arm-kernel/20260809160643.33991-1-l.scorcia@gmail.com/
+
+Best regards,
+Akari
