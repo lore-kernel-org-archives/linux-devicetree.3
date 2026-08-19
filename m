@@ -1,98 +1,117 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4906236C9EC
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 20:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE85388E43
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 20:58:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787172607; cv=none; b=C2N4GlWRn7HGbCacGi96Dp2oUOF95t4cCRepCb3vCFiVNN+KW3ZPbuRsSSQjfJ19m6M1fllpVSC8Z8cmgeCQEk6ag2sEciLnY6AI/5qYROjyo4IVTEFY8k/gGRKR6o8unYzUd8DUPS3BAHk4DjUhROViufvLZbGyqLs5ZBrf6AU=
+	t=1787173084; cv=none; b=lojW/Vn3RYrhirql3prkZdh/MJjgKsSR0jE677ZTq+VyuYEjDHnNeey6VAtrPBObGOhoiO/vC++Iwbsgi12td7QIuOiWJW544pClwkJGgTUtxf70dFI8A0/r3Xp/yt+k7VV4PlHiM303A+U5KH3gSlCIyRgAGrrPyaIDn63pmjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787172607; c=relaxed/simple;
-	bh=Te+zNjde8ncPGxnQfN9Ew+2u2ctnkBeEiF85U5k4JHw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=a0cII5UC450mnAPK2MSV8TGheGbOAz/YPJ89MA56p/ai+Y7237YkJIp1zEUHw0PxzLZ5CDXrYPplysGPdFIsam1dELVDtTaCjzdDbKLNtcXmdKObEeWPlcBcdIzEldG4cY3UUx1SYXP8ALB/0B95KBQ1S3zVGuRRwd8LJOlLTQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=dOBeY+AC; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	s=arc-20240116; t=1787173084; c=relaxed/simple;
+	bh=GswaseQEJwvFyginRUF58LUdk6xOa2hQn0m4PSIXJ7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=clIWemwBG+bJDswTKEz+nnelT9o/CiK51Q04nQYQS2qJdRHZ2Q1ejoO83pzHCzJXTAy+ZxH7ancTZfIyIEl20Lc6MzcRFDBAN708hvCnaLBou68/86dHT772YZ2Yx0LEpR3GaCPVNNZLK2MqhXoxQsUXDm2YgIraRD22ulUuJgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lc9mM00y; arc=none smtp.client-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="dOBeY+AC"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso2382635e9.0
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 13:50:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lc9mM00y"
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-74ac3ea9c60so534537137.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 13:58:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1787172602; x=1787777402; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=D8ek9XEABkKYopYQPGgQ0eZy+De8ylYFeVMzcY2nL9Q=;
-        b=dOBeY+ACU/at7nYHgnvR/yJaSsltHbeyME559Qs+U0McFDMMKPbIcRVCTHuxgp7JQW
-         yRigS2/38RFmnvLlrJJwRzX3DJN61R0kAk2Wc9eRjdaZMVWhzJCk7W1UkE69YQ65WIrD
-         WS97uHRIBf9KbxeATEQtnfbeXIvRTcrRfd5FdQdY7MrrL0DlxSH3K28hDanlboXaoFlT
-         9rkCWMHOWgmyua7jCY1cIxdeF9PhG57an+9vsJr49sFEBMwPsS9Zb6QHhqgtb1Z2Llx7
-         kpFxjjHbMslrsN0865nnbg0SnrL5OhKL47vh3bGXcb2bbQW1QorjSrGoCtT86WgeT+gc
-         I3Kw==
+        d=gmail.com; s=20251104; t=1787173081; x=1787777881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I13XleUZppuMvfz8SUkNT1GjWZfu1XqD5Cn5w8LK/IU=;
+        b=lc9mM00yfCS1cWECXPnDuDCqojChl/S2SG9n/VzL7CzY+QepNprsnQ1jTzO7aM4peX
+         +rarSbKJwXf42wJN6+e7jbDvbS3roz+8VnWSBMCfRx8LOwLOo124cwuaq+P4YcpXPPC2
+         hslDN2W2agMcyHKAgFPABRH7ls7wxB7Qdyfg3tyEyoUvD1wHL+IB0k7XMO2MP4adtRqV
+         jwiJo3v2eXKdQkbL5rGjfkzwPlTbvzmdEm4UvElaEz20rl7Ca2GBNf/r4R6oKJKFPicl
+         kHnawJ54AkLGmOq95+uuN9sB6aXFh5bQHA1GcYZQRky028qMDDsfVgxLkVRbYZvGLhxn
+         qEyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787172602; x=1787777402;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D8ek9XEABkKYopYQPGgQ0eZy+De8ylYFeVMzcY2nL9Q=;
-        b=czCP1c8sWCNDr64Fcz/2APM8O8jObpIz6mKcVOrV657IaN/adkqQm+xC8iNmj5al7g
-         MM5LyxVkniRR6CoZWQOmeGuhjgZ6aH6u4XPdXICYfrXlBUFHqze9HiJMbr8R+JCqJnVP
-         98aDfONpIUr4+7AQZQhHCJ2znimGMw9Z8Xgh1LlgzV1X8isokRQdLXkaU6To9XkPcF6t
-         WUTlbv8l6y30mZ+ShvlwqWZ4J6fbwwGZsQ4E03EyEAJyzEoSX6D5OKFWJdi8VgpRFjrh
-         C0m+uSaNPGekf4yrcGa7cbTTUyZLQDCgb6pDd9msNpaFal37b3MR5yGS0bL4Hf0rVqIA
-         mi6g==
-X-Forwarded-Encrypted: i=1; AHgh+RoU0hMCSpX7jvu3bI/tJEhuyv6rwcDD5HqzoZmhUoeE0YHsTSNyz3pLNQvZmoZL41rmjRAXXHes4uSS@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvYswAAdVqSvnXNwJledSkmXZZRijzUnPPvxsfjzuLLhjxLLCN
-	ZtDUquOsRRNaC6D8uABdjMsipjHv0TG+gyn/wGhB+KRy9XPw7hui5XujaA1JhYKHz1A=
-X-Gm-Gg: AR+sD116W4OQ9oqEnQJxLjS60CluVTxxOK42A4dU3e/EShF1gshcJj2yt/I6/XZ7p+N
-	6CLRQKkI27q6seRiGpaIc1VxHrTEEFyQyQ0Hn1LhlqT4nlkHb7522OmO20H7NHnEqGX83WQOnAm
-	MZh3sT7bG9X6t5B5AjHKkIMuVBD+giDkG7KtMrAtVcyGiVips1XhBtoLhKcBqKpJnGPSYorXwCr
-	j9ewOU7iVhTHqZoa8nPM4OmXmuXkyOfgfeKPZTDCI0pWrTGKl2t6gdkXd0Du2r0eS4A1D13OD+k
-	yOpzpYTuqJkuvQ9jO/J/0hgaey+7szA7zIr2Uz0uIZPuIC67Bo1gbzqY8hoUTSqfkjr8f7NeXmE
-	HA8nroNrrpZ0pzU81NcV/BMpmQ4K/HSpZd3Xs+5uM5AP4OnHjzosd6EV4zqA7L/PyHoLS0VV7ra
-	d2i+wolYsiEF/lP4Y5Dwz0rgnUZBHaPUdNAzuOyrP810LNL1CUwseRoFgkIUSeaALuo42eoMCDV
-	0Qrhsi9uzhZM8DMAutSz4vvQvYn/vPK/n36nMLtqCel3U5MqnMLkv/BKMGH
-X-Received: by 2002:a05:600c:c4b8:b0:499:a5cb:b7c0 with SMTP id 5b1f17b1804b1-499b06adfa9mr26301385e9.3.1787172602473;
-        Wed, 19 Aug 2026 13:50:02 -0700 (PDT)
-Received: from [10.0.5.39] (p200300e66714e500bfe47b00fa11e276.dip0.t-ipconnect.de. [2003:e6:6714:e500:bfe4:7b00:fa11:e276])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499affa25acsm24257305e9.4.2026.08.19.13.50.01
+        d=1e100.net; s=20251104; t=1787173081; x=1787777881;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I13XleUZppuMvfz8SUkNT1GjWZfu1XqD5Cn5w8LK/IU=;
+        b=YcmxSa7gFHXo9DOHkRoJb/V5bvX05u2IHZb8QSndOcO96mzkIrxiqATrLXcrnHUO0j
+         LWDow7n/pbq+N0Blg4mnCvzfrAjNbzrd/7yNypGYRGvKqM0SZF3Rr+Wc81dBUNI9ucAL
+         Symr7g0QnWkaDTm6dDQfqhJtCS11pJ7WoNsP9pAomEQnmm9N6AyS1qHh514XEgctFPHc
+         zRrn2xdEIGVLKNvCwI3SpOjiwG/VKLcm758aLzZX8tG82+5/Fja40GB35vW3hN+y6A0u
+         pFKGXqRr2xm3OZEGPt8Fs2zAFD0Y8Tr+toGOmi1WvfSzQdweareKSVHTkpLrS63L4Vkz
+         0/kg==
+X-Forwarded-Encrypted: i=1; AHgh+RrnxuySFQ5fXA7cbtnJKWJntPxobxWBNtajksVWHCO0cxZa9My3akAG3SH79eLnIzYXuy2vnTM4G2Iy@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3rWPdswsztgRUZZSpg5oyK3D1NBa/c2zq+gvqPDbRZPAIMqEg
+	fwbfDuvjaXsf63c6js2i0pdZOqZ8F1B0EhTIt2hDswVwO1QQ6TbgV2nX
+X-Gm-Gg: AR+sD1115oBRQNG7R7Khyep6C/QdcEub9svTZuFsAnnj/jRp6mehue/OXA/KDVLn/vU
+	G/ME1JPJQc1rq9XEYbxzr8D1CYeL0C20MtHF/iLlSIM4ProcbzJYifxFE1jzjLFuZah3yYwjGYK
+	HBIu4PTsz+nMdXa0bY5TY4IykWMohIBY4RPE0zlqC1t54/dfkdqoH2qJ3ZEMH3yyY+gspgiiZDo
+	UK4hX1sLNtoi+RQV90RT34pVgS+mUHjCilsInlv4d/x4ZQjZ+4FW+7/LT29tOFuloSi5LAa5HIQ
+	KT0trsxj5FzVXrMCUA2YgSM+IBUra8xta5XAQxGg1co4wbsSuoD3F7VGokTzFdH/CPk8/zENS5W
+	0B68hVOdoPUZGjZ1sjdNAAAabprRPG2X0fARzmlXtmt7MO0ArlEUpaEH84nt3DGSZFsAvvktzWq
+	RcGmnK+BNI1q5Qz4KVL2kxKGZm4XURESbd+CcyVE9caOqBNWb3eCmnfHJljce4v5fNuQLR2fTBX
+	qZoXEzT5wW5PbDbhWD87kFZZy4IitI6PsXBEGdb0WCn2RGPWYf8evQ=
+X-Received: by 2002:a05:6102:191a:b0:778:5579:c662 with SMTP id ada2fe7eead31-7785579c755mr1511551137.9.1787173081540;
+        Wed, 19 Aug 2026 13:58:01 -0700 (PDT)
+Received: from localhost.localdomain ([2804:14d:4c64:82a2:3443:53b2:2e07:b3bf])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-777ddc844besm3616259137.11.2026.08.19.13.57.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 13:50:02 -0700 (PDT)
+        Wed, 19 Aug 2026 13:58:00 -0700 (PDT)
+From: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>
+To: jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matt@ranostay.sg
+Cc: ~lkcamp/patches@lists.sr.ht,
+	linux-kernel-mentees@lists.linux.dev,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/2] iio: proximity: move LIDAR-Lite out of trivial-devices and add Garmin fallback
+Date: Wed, 19 Aug 2026 17:55:16 -0300
+Message-ID: <20260819205751.166030-1-rodrigo.gobbi.7@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] ARM: dts: aspeed: g6: Add missing uart nodes
-From: Tan Siewert <tan.siewert@9elements.com>
-To: Jammy Huang <jammy_huang@aspeedtech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260723-upstream_g6_dts_uart-v2-1-4951ae6b4ac4@aspeedtech.com>
-References: <20260723-upstream_g6_dts_uart-v2-1-4951ae6b4ac4@aspeedtech.com>
-Date: Wed, 19 Aug 2026 22:49:50 +0200
-Message-Id: <178717259080.130614.3272450084960702654.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787172600; l=223;
- i=tan.siewert@9elements.com; s=20260527; h=from:subject:message-id;
- bh=Te+zNjde8ncPGxnQfN9Ew+2u2ctnkBeEiF85U5k4JHw=;
- b=/uLeucK5jyjnSISmeVUynHbHVwcXGwPgqKGeQfPtZ71BtnVLy1XFSks7yth89NtjvTduqB4Ha
- BtXB21dIBq9DGk/cuow/TXINuPbkdo4h8j30i0RkisjIO33+CQSveE8
-X-Developer-Key: i=tan.siewert@9elements.com; a=ed25519;
- pk=ORQd/zQf+LsAvJGXP1CjQwVO6t6iEOGq/eGUsmRVTG4=
+Content-Transfer-Encoding: 8bit
 
-On Thu, 23 Jul 2026 11:48:34 +0800, Jammy Huang <jammy_huang@aspeedtech.com> wrote:
-> Add nodes for uart10/11/12/13.
+This series moves the LIDAR-Lite v2 binding out of trivial-devices
+into a dedicated schema, documenting the power-enable, power-supply
+and status-output interrupt properties that trivial-devices.yaml has
+no way to express.
 
-Reviewed-by: Tan Siewert <tan.siewert@9elements.com>
+It then adds the Garmin LIDAR-Lite v3 as a fallback compatible in a
+separate patch, since it is pin-compatible with the v2 and already
+matched by the driver, so no driver changes are needed.
+---
+Changelog:
+v6: updated Matt's email; update commit msg from patch 2;
+added myself as a second maintainer as suggested; collected
+Acked-by from Matt (patch 1) and Acked-by/Reviewed-by from Krzysztof;
+v5: https://lore.kernel.org/all/20260810192131.153495-1-rodrigo.gobbi.7@gmail.com/
+v4: https://lore.kernel.org/all/20260714215433.41259-1-rodrigo.gobbi.7@gmail.com/
+v3: https://lore.kernel.org/all/20251102221643.9966-1-rodrigo.gobbi.7@gmail.com/
+v2: https://lore.kernel.org/all/20250801224112.135918-1-rodrigo.gobbi.7@gmail.com/
+v1: https://lore.kernel.org/all/20250701223341.36835-1-rodrigo.gobbi.7@gmail.com/
+---
+Rodrigo Gobbi (2):
+  dt-bindings: iio: proximity: move LIDAR-Lite v2 out of trivial-devices
+  dt-bindings: iio: proximity: document LIDAR-Lite v3 fallback
+    compatible
+
+ .../proximity/pulsedlight,lidar-lite-v2.yaml  | 71 +++++++++++++++++++
+ .../devicetree/bindings/trivial-devices.yaml  |  2 -
+ 2 files changed, 71 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml
 
 -- 
-Tan Siewert <tan.siewert@9elements.com>
+2.48.1
+
