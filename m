@@ -1,194 +1,195 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0139D4B04BE
-	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497103C10AF
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787129086; cv=none; b=F3rUg5FDIJMSZiOr903oL/WspW5WVkfkAJcvuLL/kVIuGlMElejQER4cBwBEtK4HNoLM+rEQDEekjGlvcFC7BW/GfaGFj2oP2nG/GnLESZUcAFqZWBFfgDAFmqNqd/B5KRUvUEzm858POZPRMv8+avkh/eRiXu7qMUqDy31ffs0=
+	t=1787129185; cv=none; b=n4lfV9mD2VVOjhl8nZ6Pc2SDLLCE4wynTsf7bHLv0MPIeTiwB0S++T4kxRUBN9gwtLv/8NcnygpGo938Qkm0kNBdI0jxSyujNppuuOX5Yx79G2vIWxFmZi/eBzhLgYdJfSYJaVHVY3ZtK3bQwfr3FMY9PSQK66gEws/AKPnSfC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787129086; c=relaxed/simple;
-	bh=sd97K6LQlzbVQuCV/CnpqmaoI+hfKWUPMLSOGZkWrNQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=HIXQK4eBXoqKM/3iAxjPZG9JmWib/3PyJUGHC3bqIIAHdnxV7DLVbeCKZUkhv1CCnDXLKrj7AF92Ly9ndEoy/jFXrKIL+rKvbKwBLFDk84qFEoW65PNqjRU+Hre6ZFwyCzjhWzCrPTooua9sSqy9JP5Q3slN5MNzyY+lMXvJX1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=pfn5J4H8; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1787129185; c=relaxed/simple;
+	bh=q8mraRrmgHMVHGomDsnASw+W8JH6cTixoUL3mdpiFQg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e0SC3X7Qpe85YsBG8T+6jT/8AAFok2Iy9ZWCU/Mm9UYqPqnqdhUJjf9F7PXCmrbq1UfLS+qWrQySqaT2qWHtZvAaiSmzeiFzzea+ZjxUn7esYEGXBiSjX4uc/qa9kmpec9vgP/+AKpd800MJPJ+7MNfPILBCgPNm6dn+yidTyU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NZPYXiYb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LkxS57aN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="pfn5J4H8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1787129073; x=1787388273;
-	bh=Yhs/KUzvuwpk/qtsf9pNgHwEgS1uh0dEXULoHEIlBM4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=pfn5J4H8yQ8ZmqsBfsO6M4Xt/4tJfjLHcQs58OiPmhqRTSZkB2nkGfNPWFFLkfypS
-	 6y2A+XRFxNPG3d2wVl9cPT7euwnVq9s9ogbG1Q0do57UffwhX3UX4LugEEDgD23eAO
-	 51zIoPpMjeLr2TWw4ZP7ilLuQuSm+htLFbQRpFrp50cHLOkgug8M/XmHN9cqF2gHUs
-	 czwNrxomPwX58AiefaMgOLVvVdJklXtrANSqKgRhiRN2LyxXB7q3+WG1z3VkXYD4Tv
-	 RAmaGFuxeaGMrC8RmImOd+NrShEI7dXGHlkew/tAoQw6BdHxRtbnpIFNCqhhjLhGvC
-	 vNEhfFwxUxd0w==
-X-Pm-Submission-Id: 4hQ0Vl5p6bz2ScX8
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <devicetree@vger.kernel.org>,
-  <robh@kernel.org>,  <conor+dt@kernel.org>
-Subject: Re: [PATCH RESEND v5 4/6] iio: accel: mma8452: Support interrupt
- sharing
-In-Reply-To: <20260819082547.783CD1F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Wed, 19 Aug 2026 08:25:47
-	+0000")
-References: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
-	<20260819-mma8452-open-drain-v5-4-d8aa590d7c36@geanix.com>
-	<ZLyemjqlxP-U6rRBNInlQp7sJfLwB7tJI9VWCglK8nFiCOY4u4NidOdROFOLcLNAR4zA0F31qVjeiKNA0XIfBw==@protonmail.internalid>
-	<20260819082547.783CD1F000E9@smtp.kernel.org>
-Date: Wed, 19 Aug 2026 10:44:30 +0200
-Message-ID: <874igq1oup.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NZPYXiYb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LkxS57aN"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67J6ZGpv3267888
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:46:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	O3awk090fv+wHLhoaCMsIo8K0iIvej0ArJXTOk47NXs=; b=NZPYXiYbg4ySdN5t
+	zUNpV3HRdqK9Lx9Ko6RuLzoRqVXZzRrKQa8zNx3efGyZEuzTlw2+UIlE4pcm265d
+	18Pd2p0qrI5CD2xzY9YJICvdRtOFLErlGvvYqfF/eqmUZVCNPDv0Tco1kDEAttLy
+	m4ZyMCRlxOTAsSSSq2WH33Gz6fTyaWlEZ5eQtPKfui0U5Su8Bz04t0mJYOUrX9Oj
+	8SBRgcbJ5bL0I5BzjXA1aEOshQ8dHi28jBugpAPkCOAujlLbOdm06gYTByvNwMnt
+	Ee4jlZ/3oYvn5ohUMcZ97FrpOXfK1Dujp6//MKLUszlGRRdukG7eZ3qLrCiFJkWK
+	GlONGA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4yffj6kc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 08:46:21 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51e9d892f0dso2094621cf.2
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 01:46:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787129181; x=1787733981; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O3awk090fv+wHLhoaCMsIo8K0iIvej0ArJXTOk47NXs=;
+        b=LkxS57aNAdY7/khGbNGRC5FDuWNA3ljHEAmip4KrH3tyiD++v7kWKJPYFBXOUZ0NoL
+         vicyoyzss2URzL9h4VyzASv+7hn9/bBj2lUnmg3LIiewujlIinrVrbnzPebVoztJ5jLN
+         g7KnQvFuPO4oUQDY3MdNTB5XJZEJg9P5Q8iHg27qJFr24BlylIMCAYN0nM1mntnkZODE
+         5AlBgH/dz5SoQV5IZ5/mJctUcDRlM02fitUGycycze47sJr2v4/G/t9CQjKU83yyUtRE
+         WiLcMH1h0irK8PfTYzAinnYsOvgIM5yWNr9jo664TnRhKMYBYELJNB+KQskZe6eaxXYI
+         CdhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787129181; x=1787733981;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O3awk090fv+wHLhoaCMsIo8K0iIvej0ArJXTOk47NXs=;
+        b=EcE10ADL5knjQNAnh6Yfdi0W6f0hyUzMMN+wFoowP1RQUSHJ7scUox50QuTuaOwC+L
+         c8slwQXrt06BmMOyzbN34hLjRpktG1npurG26UPqB8hYQJi3iX25k75LGcTe6X5DAV3I
+         I4BZb3FDJSp18c6iCSDiXlU4kvPeBs7vHtCv3mOgmzdhWTlGNAFWXP1AOtnPSfF5IHjx
+         Bw2QPlnTW3vVCP7mzAd1Go7zyR3uu7VQbYY3atOfJGvDioQlPO1jwNrhoROZ1yMijn9e
+         F8qZ/d1vTEEyzVHS1c6PfsCwNsAJhQVDeU8aW1MEAjMyMUn5A/yk2t5xvH9al6AXP1tg
+         mesQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoO2xvXVT++BXJ9dNuLrIEz7ZHC5rpenlQTcH3G2ZuWKUqGTtG1B/0gjQ3p/zmPU9pc482NGZ8+h5jT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3MYx23K+4DRrD9acvyjFWjhNkx5/LnqzLKLWAkBvKR9zZxUye
+	1ls8+PkaW/zNQphFCf92aN6X8sJTa23QT5q8URIQP4fjoiLtrDtxqcPDsHub2Dc5WU7rhoylqt8
+	bfNTh/ApyWwACo1XpvKHDA0XvA0C0LPkggJ0Oo/4rxcO+jb2nVS9sAhhYMn2LZlCp
+X-Gm-Gg: AR+sD10Rd8J3qLFt7+G0j25Uyfu/TfbpFkfJbvSVohOZcUT96QHEW31oLyjSjInyGFj
+	IY/3ceD9CbKp1ek5Paqww9TzxdHDj6LR3KgpwECayexYE5xnZgjXc9I93jbXn3gc9XyfcISGHK/
+	L2BsMFHIf5CFFvvNgQFBc6CofEmuWMNE61laVelGa0FiLp6pTcdj0yVfrf2uAQMxPB/A1ppF2sh
+	bX1xunigQohcBDwjggJpMA8x9NlXCZrL1KThqVB/nwWJ+enUugiOJNspF74CsKQ3yy9MXTX+12m
+	xCW1S3PoyOu7UR2fZfknhx3Y0SLj0/AEodAxjlX4mM9hYbcqXqclhChnIkL/Wy8AtFFOea2gur7
+	vWPocsQwbB6QPnK2E9JQ/+pT5
+X-Received: by 2002:ac8:7f0f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52dd5c958aamr20664791cf.3.1787129181238;
+        Wed, 19 Aug 2026 01:46:21 -0700 (PDT)
+X-Received: by 2002:ac8:7f0f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52dd5c958aamr20664521cf.3.1787129180657;
+        Wed, 19 Aug 2026 01:46:20 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c243c7abd4esm45824666b.18.2026.08.19.01.46.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 19 Aug 2026 01:46:19 -0700 (PDT)
+Message-ID: <917a711e-0626-4066-bcf7-c87468aed933@oss.qualcomm.com>
+Date: Wed, 19 Aug 2026 10:46:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] power: supply: qcom_battmgr: add Xiaomi taoyao
+ support
+To: Stanislav Zaikin <zstaseg@gmail.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org
+References: <20260818151039.409767-1-zstaseg@gmail.com>
+ <20260818151039.409767-3-zstaseg@gmail.com>
+ <20260819-slick-spotted-chamois-962510@quoll>
+ <590e7881-de96-4de4-bb50-1e91439b92ef@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <590e7881-de96-4de4-bb50-1e91439b92ef@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDA2NSBTYWx0ZWRfX6xdKndOOG+a2
+ aRHtKvM5EXv00WNBizApfWw4vmylx8LPPoSQyefZes4beTmDm8YJq24jj7t3ukJmVVA0OcZK5xs
+ SVqxXP7w+4oYkSRH+Ks2YpaMoOfmrR0=
+X-Authority-Analysis: v=2.4 cv=H5PrBeYi c=1 sm=1 tr=0 ts=6a856d5d cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=pGLkceISAAAA:8 a=d2DcZoktuL7L5Z54p5QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: x68w8eOABo55bS3kUnh6HtO1tBIW1u2E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDA2NSBTYWx0ZWRfX0NSEXLZO6jax
+ rXrdSASj9EDCXklunu+6VfQNfqZDc8UDPBp/J6BBhs1mz6KxTRjD4ZvSiX1rYsEYgGWkrSGpRkD
+ voqQKGrivUyETkMOVBKERIz8+dp0oEgi5l/8SFQ+/TKVZcYdSlorKwcHiDxiUEoRe7xhbZFO+cy
+ Z44qwpIGzTqG3iXoKCuBzU3imb+ylrXZmTXB3G0mg1/eQS1mItc2JLf/aHNPZW0oK10r9o0P2/k
+ xx46nyHTSWUT4NcUThbnybJVgWRvygA8d1ME4HjSpKECh6e+xZVOpQjrQ5KEYRf5AfEIeL2NDBO
+ ekYoLtRu97XOoGedh1saQw3K0/UGFWRV3xLU2zXjf/wIbnQWWa0weM/kEriAhyV00jCNw8ZORiH
+ e9LUWqrjJHqWpkQmM7LDq5tkdeXansgUuk4+Mbhv5gYQ5qB3p0FvNAUlrQzTTkYVXGOi8HZiOY4
+ JZMXo5jV16dJ+uLWsYQ==
+X-Proofpoint-GUID: x68w8eOABo55bS3kUnh6HtO1tBIW1u2E
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_02,2026-08-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 impostorscore=0 adultscore=0
+ suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190065
 
-<sashiko-bot@kernel.org> writes:
-
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
->
-> New issues:
-> - [High] Failed runtime suspend leaves the `suspended` flag set to `true`,
-> causing an unrecoverable PM usage counter leak and a potential interrupt =
-storm.
-> - [Low] Compilation Error: undeclared variable `client` used in `mma8452_=
-runtime_suspend`.
->
-> Pre-existing issues:
-> - [High] Unbalanced `regulator_disable()` calls and I2C writes to a power=
-ed-off device in `mma8452_remove()`.
-> --
->
-> --- Patch [4]: [PATCH RESEND v5 4/6] iio: accel: mma8452: Support interru=
-pt sharing ---
-> commit 79ad9089167d804daaa97086d058cd3a0e2f4199
-> Author: Esben Haabendal <esben@geanix.com>
->
-> iio: accel: mma8452: Support interrupt sharing
->
-> This commit adds handling of runtime PM suspension in the interrupt handl=
-er
-> to allow sharing interrupts with other devices. It introduces a suspended=
- flag
-> and uses synchronize_irq() to protect against race conditions during runt=
-ime
-> suspend and device removal.
->
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index 1fb43c5b0b72f..25bb2dd69381e 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
-> [ ... ]
->> @@ -1056,14 +1057,19 @@ static irqreturn_t mma8452_interrupt(int irq, vo=
-id *p)
->>  	struct iio_dev *indio_dev =3D p;
->>  	struct mma8452_data *data =3D iio_priv(indio_dev);
->>  	irqreturn_t ret =3D IRQ_NONE;
->> +	int pm_status;
->>  	int src;
+On 8/19/26 10:37 AM, Stanislav Zaikin wrote:
+> On 8/19/26 9:11 AM, Krzysztof Kozlowski wrote:
+>> On Tue, Aug 18, 2026 at 05:10:38PM +0200, user.email wrote:
+>>> From: Stanislav Zaikin <zstaseg@gmail.com>
+>>>
+>>> The Xiaomi taoyao firmware defines an additional BATT_CONSTANT_CURRENT
+>>> property (ID 12) between BATT_CHG_CTRL_LIM_MAX and BATT_TEMP, shifting
+>>> all higher battery property IDs by one.
+>>>
+>>> Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+>>> ---
+>>>   drivers/power/supply/qcom_battmgr.c | 86 +++++++++++++++++++++++++++--
+>>>   1 file changed, 82 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
+>>> index 490137a23d00..390d7c75e36f 100644
+>>> --- a/drivers/power/supply/qcom_battmgr.c
+>>> +++ b/drivers/power/supply/qcom_battmgr.c
+>>> @@ -24,6 +24,7 @@ enum qcom_battmgr_variant {
+>>>       QCOM_BATTMGR_SM8350,
+>>>       QCOM_BATTMGR_SM8550,
+>>>       QCOM_BATTMGR_X1E80100,
+>>> +    QCOM_BATTMGR_TAOYAO,
 >>
->> +	pm_status =3D pm_runtime_get_if_active(&data->client->dev);
->> +	if (pm_status =3D=3D 0 || READ_ONCE(data->suspended))
->> +		return IRQ_NONE; /* device is powered down or being removed */
->> +
->
-> [Severity: High]
-> If mma8452_runtime_suspend() in drivers/iio/accel/mma8452.c fails and
-> leaves data->suspended set to true, can this early return cause a PM
-> usage counter leak and an interrupt storm?
->
-> If the device is kept in the RPM_ACTIVE state after a suspend failure,
-> pm_runtime_get_if_active() will return 1. Because data->suspended is true,
-> the handler will return IRQ_NONE immediately.
->
-> This skips pm_runtime_put_autosuspend(), leaking the usage counter. Also,
-> by returning IRQ_NONE on a shared level-triggered IRQ without clearing the
-> hardware interrupt, wouldn't this trigger an interrupt storm?
-
-Yes, I make sure to call pm_runtime_put_autosuspend() when
-pm_runtime_get_active() returns 0 and suspended flag is set.
-
-Also, I guess we should not set the suspended flag until after checking
-the return value from mma8452_standby() in mma8452_runtime_suspend().
-
-In case one of the regulator_disable() calls fails, the suspended flag
-will be left set to true. But as the device is in standby, no interrupt
-storm should happen.
-
-> [ ... ]
->> @@ -1768,12 +1778,15 @@ static int mma8452_runtime_suspend(struct device=
- *dev)
+>> T < X, do not introduce entries in random order
+> 
+> Hello Krzysztof,
+> Thank you for the review.
+> 
+> Will fix in v3.
+> 
+>>> @@ -1381,6 +1453,11 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
+>>>       switch (opcode) {
+>>>       case BATTMGR_BAT_PROPERTY_GET:
+>>>           property = le32_to_cpu(resp->intval.property);
+>>> +
+>>> +        if (battmgr->variant == QCOM_BATTMGR_TAOYAO &&
+>>> +            property < ARRAY_SIZE(taoyao_to_canonical))
+>>> +            property = taoyao_to_canonical[property];
 >>
->>  	mutex_lock(&data->lock);
->>  	ret =3D mma8452_standby(data);
->> +	WRITE_ONCE(data->suspended, true);
->>  	mutex_unlock(&data->lock);
->>  	if (ret < 0) {
->>  		dev_err(&data->client->dev, "powering off device failed\n");
->>  		return -EAGAIN;
->>  	}
->
-> [Severity: High]
-> If mma8452_standby() fails, should data->suspended be reverted to false?
->
-> When returning -EAGAIN on failure in drivers/iio/accel/mma8452.c,
-> leaving data->suspended set to true creates the inconsistent state that
-> breaks mma8452_interrupt() as noted above.
+>> So device is or is not compatible with sm7325? Above code suggests that
+>> it is not. How does it work when bound by sm7325 compatible?
+> 
+> The device is sm7325-based and when bound to sm7325-pmic-glink it falls back to QCOM_BATTMGR_SM8350 property map. However, due to shifted property IDs baked into taoyao's firmware the parsing of roughly the 2nd half of properties is broken.
+> 
+> And any userspace process that reads the battery properties via sysfs suffers from 1s timeouts and it basically hangs my DE.
+> 
+> Since this is an RFC: do you think this approach is better than what I described in cover letter? (manually shifting property IDs)
 
-I will move the WRITE_ONCE() to after checking the ret value, so we
-don't leave suspended set to true in this case.
+Krzysztof is trying to say that even though the device is based on the
+7325 SoC, what the kernel today knows as "pmic glink on sm7325" is not
+compatible with the customized firmware on your device, so the fallback
+compatible should be dropped, as it suggests that is the case
 
->> +	synchronize_irq(client->irq);
->> +
->
-> [Severity: Low]
-> Does this code compile?
->
-> There is no local variable named client in mma8452_runtime_suspend() in
-> drivers/iio/accel/mma8452.c. The I2C client is available via
-> data->client or to_i2c_client(dev), so using client->irq directly
-> appears to cause a compilation failure.
->
-> [ ... ]
->
-> [Severity: High]
-> This is a pre-existing issue, but I noticed a potential problem during
-> device removal in mma8452_remove() in drivers/iio/accel/mma8452.c:
->
-> drivers/iio/accel/mma8452.c:mma8452_remove() {
->     ...
-> 	pm_runtime_disable(&client->dev);
-> 	pm_runtime_set_suspended(&client->dev);
->     ...
-> 	mma8452_standby(iio_priv(indio_dev));
->
-> 	regulator_disable(data->vddio_reg);
-> 	regulator_disable(data->vdd_reg);
-> }
->
-> If the device is already in the RPM_SUSPENDED state when mma8452_remove()=
- is
-> called, its regulators have already been disabled by
-> mma8452_runtime_suspend().
->
-> Because pm_runtime_disable() does not resume the device, calling
-> regulator_disable() again will underflow the regulator enable count. Could
-> this forcefully disable shared regulators and cause system instability?
->
-> Additionally, mma8452_standby() performs an I2C write. Is it safe to
-> unconditionally access the hardware when it might be powered off?
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260819-mma8452-=
-open-drain-v5-0-d8aa590d7c36@geanix.com?part=3D4
+Konrad
