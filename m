@@ -1,145 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8504A392C48;
-	Wed, 19 Aug 2026 09:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9926F423EA2
+	for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 09:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787130249; cv=none; b=lm2hJy36SljoH6uHFiVM3VULUltEeRTURvHQQzOm3XWaqhWVOItpMf4WTCgM1TWMlt3ciY79rurmQJGnHohO87/c1DXcGC4EyPO/vEreVCk1VbiuRvB9umSI2RxTq6ESNQI2rUE/sL0o5QEcrSz1FXZVyLqJTGBedM7PFlj/iak=
+	t=1787130275; cv=none; b=bNsD4AlHm3XI9uiqfvaED1dVZ1fjZi4Mp4sOZcOUHdH48MVH+w2XmXEM+wPdXIsD3NfJ8+enozGfl7Rck/bIPN5EkLWDYN+M0q8uT7CJHQwZi/zO5dunHHKqELzwmbYKJOMAsP0Cv8UfNND9lW6MkwnqiO5hEiU6I8nDembSRXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787130249; c=relaxed/simple;
-	bh=mCTYh/NeXGpOs8sonCEKjpLJY+RfF9WVJVogdFmENRw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uBp7SnzINJPOOxD3esU7XAObKHE9LjIm/wKQS+PXjDSsf63I0ZbDUJU35b3Y7CUJqKbv6uvWEMz1S114JupUtWC1jLD1WyylPHoMxw+FTSWZUXEEViovdhldILQrjYTicPCt50dnFhsI8XB1I61OPBDbdBExO8Xx6W2ntWMYpuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DIcN6mIO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787130275; c=relaxed/simple;
+	bh=auF42t5YW6BzcxOSO6933Uys6PkmhXuZNKTrajZn5AA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cllnOwewU2v1L5QHoUNTeLmsA1ns5g1v/YC4k4MnEDtkhKz8B3LBmk+sAcqxi9wRvCvob63bhQtv8bM5XEsZSz643m6rvh125qN3KHigceQIHUCfOzgVs5/vBFfMd5oCgZsaurICRmwXVKgn/O0fdQP59/MzhOhrAlAwBoh+u1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bosc.ac.cn; spf=pass smtp.mailfrom=bosc.ac.cn; dkim=pass (2048-bit key) header.d=bosc.ac.cn header.i=@bosc.ac.cn header.b=GyNDmrZS; arc=none smtp.client-ip=115.124.28.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bosc.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bosc.ac.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DIcN6mIO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898FC1F00A3A;
-	Wed, 19 Aug 2026 09:04:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787130248;
-	bh=hSruocST6qBtK3UjmCA5J802rwy0rpQ8QqnKlVHY8D8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DIcN6mIORdCBLp0hbBjv1h0gHINDW21TbNHl1awOimVjI8Z139wlc2xjKP0IjW1tG
-	 oDmLy85qLRtNu2z3w8drul6WL/Aw+s/Nzx7LHRWyCBGJumA4U0qyvNgAieWIXX/0So
-	 u5zVJKO16KkEEwXsDgxYAOZYnVNPd9IHM3XlSvKZhOICcYGAdFlNWAsJ30SzQ0NPJh
-	 uBfUB54/2rI3msFcoJvsylTSiO1qKGtyH1hLfDG5XgiXQwvrje5Xd2gWcmq2pLVIa0
-	 wks9HmSap8X+ZsvH13YpQ9gdUXiUcawrn4KKBoFADE1BlKB44LpVgvf9b3tRA382nb
-	 fH12HUK04xAKg==
-Message-ID: <3598b276-b2db-4457-bb90-95bb231fa499@kernel.org>
-Date: Wed, 19 Aug 2026 11:04:01 +0200
+	dkim=pass (2048-bit key) header.d=bosc.ac.cn header.i=@bosc.ac.cn header.b="GyNDmrZS"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=bosc.ac.cn; s=default;
+	t=1787130262; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=RTLG4bEHspGF2s893DBaZo0Vm/5PGntK4xYmGupeOBU=;
+	b=GyNDmrZSWaspP5aeYYqMSPdaha+ihTV6oh04ozvWNB29q/YKYpzPETbKRvhtc/Mot8ClaYIcSXmXwBL95NQ23rkZy/0HwsXKEIdi3et3ZnCOlL7LXQj2zrTKy3wTuVgm/dySt8VMposxbfc7lHYF9/Cdw9qnWwmL5HoNbzenjlbnIoOLw15KXFhXclh3MHQt9FmoP543/6C1XhRCEjSrCPETRhcORErMTZgaQQdwYphUSoL7EEROcJzdp+w5R/vymXCjW7TfLHxurt8tiVUUfhLYnrqNUn7M54ZKA6ineDdYzb7cC7E6hTjQjQWqsnOC/weSTRynOSLU3xDwjGPhCQ==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07881055|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0516398-0.00709156-0.941269;FP=8747108671987209650|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=guoyaxing@bosc.ac.cn;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.ir5uWtc_1787130254;
+Received: from guoyaxing..(mailfrom:guoyaxing@bosc.ac.cn fp:SMTPD_---.ir5uWtc_1787130254 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 19 Aug 2026 17:04:21 +0800
+From: Yaxing Guo <guoyaxing@bosc.ac.cn>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org,
+	inux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	yangyinglu@bosc.ac.cn,
+	yangyinglu <yangyinglu@bosc.cn>
+Subject: [PATCH] dt-bindings: riscv: firmware: Add OpenSBI configuration binding
+Date: Wed, 19 Aug 2026 17:04:11 +0800
+Message-ID: <20260819090411.18561-1-guoyaxing@bosc.ac.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] dt-bindings: arm: qcom: Add Maili SoC compatible
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Yijie Yang <yijie.yang@oss.qualcomm.com>,
- Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260819054203.61385-1-prasad.kumpatla@oss.qualcomm.com>
- <20260819054203.61385-2-prasad.kumpatla@oss.qualcomm.com>
- <9cb0c647-e1bd-40c8-a1db-7a0f6382aeb5@kernel.org>
- <1a2f89d8-3c9f-4316-a2ca-e515359b012a@oss.qualcomm.com>
- <16c0cb87-a25f-4d6b-bb52-24c51aa975d9@kernel.org>
- <4b3d0df7-083f-4acb-a568-99f1f74c933e@oss.qualcomm.com>
- <7808f348-6f9f-4fb6-92ce-74aedd6297d7@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <7808f348-6f9f-4fb6-92ce-74aedd6297d7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19/08/2026 10:56, Konrad Dybcio wrote:
-> On 8/19/26 9:02 AM, Yijie Yang wrote:
->>
->>
->> On 8/19/2026 2:35 PM, Krzysztof Kozlowski wrote:
->>> On 19/08/2026 08:28, Yijie Yang wrote:
-> 
-> [...]
-> 
->>>>>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
->>>>>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
->>>>>> @@ -175,6 +175,9 @@ properties:
->>>>>>                  - qcom,kaanapali-qrd
->>>>>>              - const: qcom,kaanapali
->>>>>>    +      - items:
->>>>>> +          - const: qcom,maili
->>>>>
->>>>> Heh? This cannot go alone.
->>>>
->>>> Keep only the SoC compatible string and exclude the board for now, as
->>>> the latter is not currently used.
->>>> https://lore.kernel.org/all/20260622-brainy-rapid-tody-dd7c3a@quoll/
->>>
->>> No, read my message there - this should be rejected! I even wrote:
->>>
->>> "But if ever this commit is used in argument "oh, compatible without
->>> user was accepted here by Krzysztof, so I can do the same", I will
->>> simply NAK such future contribution without reading the rest."
->>>
->>> So NAK because you did not even bother to read what I already stated!
->>
->> In patch 2/2, pd-mapper serves as the user. Is there any other reason to reject this binding?
-> 
-> This defines/allows a top-level compatible of
-> 
-> compatible = "qcom,maili";
-> 
-> which is missing the board part, and that is strictly required.
+From: yangyinglu <yangyinglu@bosc.cn>
 
-Not sure if you are agreeing with me or disagreeing...
+Add a Devicetree binding for OpenSBI configuration data in the
+chosen node, including the cold-boot-harts property.
 
-Best regards,
-Krzysztof
+OpenSBI supports describing certain Generic Platform configurations in
+the device tree passed by the previous boot stage. The OpenSBI source
+tree documents the `opensbi,config` node and provides the corresponding
+device tree parsing flow.
+
+The `/chosen/opensbi-config` node can be used to configure OpenSBI,
+including the set of harts permitted to perform a cold boot through the
+`cold-boot-harts` property. OpenSBI parses this node during the boot
+phase and removes it from the device tree after cold boot.
+
+Add the Devicetree binding for this OpenSBI configuration node to
+document the supported `compatible` and `cold-boot-harts` properties.
+
+Signed-off-by: yangyinglu <yangyinglu@bosc.cn>
+---
+ .../bindings/firmware/opensbi,config.yaml     | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/firmware/opensbi,config.yaml
+
+diff --git a/Documentation/devicetree/bindings/firmware/opensbi,config.yaml b/Documentation/devicetree/bindings/firmware/opensbi,config.yaml
+new file mode 100644
+index 000000000000..86b1e1e673a8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/firmware/opensbi,config.yaml
+@@ -0,0 +1,38 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/firmware/opensbi,config.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OpenSBI Firmware Configuration
++
++maintainers:
++
++description: |
++  OpenSBI configuration data passed in the chosen node.
++
++properties:
++  compatible:
++    const: opensbi,config
++
++  cold-boot-harts:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description:
++      List of hart CPU nodes selected as cold boot harts by OpenSBI.
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    / {
++        chosen {
++            opensbi-config {
++                compatible = "opensbi,config";
++                cold-boot-harts = <&cpu0>;
++            };
++        };
++    };
++...
+-- 
+2.43.0
+
