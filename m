@@ -1,151 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30F63C7DE8
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A833B7B71;
+	Thu, 20 Aug 2026 07:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787210638; cv=none; b=BhFK2OFSrY8urlwWKft8mkfvPYOAFO3VusplUQGS9PfgTuAY8I2u0hn5c4SC21ge1/tA5NmCCCjj3qelgK10p85jN2DaBeO1FwW0XHFnCo+ZvohfXpfkU2KSDm/9NEWdTN/m4cWWnsjZUzv8tbBQfNsAi7foGjVtcmFpLyEpCIc=
+	t=1787210699; cv=none; b=PeelQEHXeGGZJXQLC3Mxazi4XQhWbhVSDgKcKJ3eed+KMthKzC/SHXL4EwULz44YvWSWZKV95HVe+FNlzOGsO8bYqsgbQ0zRxfW/v6HrRvAzGJqE8fAT8BiblnURrTOUJdEneNTLjjxCU9YKgMoX+dX3RLz9dstNHsQbkbo/5Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787210638; c=relaxed/simple;
-	bh=oDkd2uiiuAVJt2go73ZD5CdO/haQ0yzzTlllfIKkkDE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ckw29V7PFl7lubSvFkrzTRq5h2Via9aL1h0ZZKvZuHsa7OGnQALRyxTokJBqKp8c9Y3ljL/94S3Lfe9QRtzC5AWncXJnw73QENuy/OSx/xup0vKYoQIKEscH2AloJahfvQAPWEN9VokY46JBzv2StefKYTuQ2rvCUMqP8Vrf1II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hA6u+fl+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787210699; c=relaxed/simple;
+	bh=6ojVFfMjTCnjMOTDGPKvB379Z9bZz5nrCSTA4eCAJcI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DSTZ6Gyb6qdFdYHkTADA7un/GtT7IKSdCRmHduACeBVR0wOPV3Od/GJtgEXPOcW3c+Azm4hfpufedh9iO28k1eovEA/9fsytUvixi5abNaA8NbrlTluwQOdjUr/LaZOAgPgZiZIMXEaZ5Dil7/RNOWLIrPRxjpYxgdLXDFNFE9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=HUwcTQRN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SHPocS+t; arc=none smtp.client-ip=103.168.172.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hA6u+fl+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1041F00ACA;
-	Thu, 20 Aug 2026 07:23:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787210629;
-	bh=H2blQ9+7Qrkb9cTaW7HFySXDxeFmme7DYyu+lSKfBac=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hA6u+fl+h81ISnY0FeKvUA7j9LAkhd7+Q48fg0epncjYh+b1gsWDjGHV9wCvTpQ2u
-	 flsp0EjzIeLGiNzS0CoPkJeWNAtUT7zCswLdTQGpMXcMgPaFR9wPoEMEkhZ3yk+HsU
-	 CJwULBrrSlikrmZsxJLHaBnlB5/JKikyWTw9rLorgYif43mXWXd+007MOhDEwK+HyI
-	 ASwhU7UaGIWU9ssiz82/W19d2mZ1NGTkKJJaALz1TKP76KVVpZWHS0yBPbkdz3YlzO
-	 XDCnlTUEo7UUcXQHFYYQuIlGArmYslFCXPf1P8vPqv3iNI53TQ2UROLUWfbJCwmd2q
-	 I7iLxGD2EKfPg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/3] iio: dac: Add AD5529R DAC driver support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
-References: <20260820-ad5529r-driver-v9-0-ba62e0b2a816@analog.com>
- <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 07:23:48 +0000
-Message-Id: <20260820072348.BC1041F00ACA@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="HUwcTQRN";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SHPocS+t"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.phl.internal (Postfix) with ESMTP id DD0E21380199;
+	Thu, 20 Aug 2026 03:24:56 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Thu, 20 Aug 2026 03:24:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1787210696; x=
+	1787214296; bh=49U1KQDJobQ6fDU08W7OYFd9CFZwvQ7xn+MpNhh8QuI=; b=H
+	UwcTQRNM6p7Jx8hquSLsKdvi/R/v9Ush02kfEKU+TGTUgINNJ9AlvReisBKuqzV6
+	TFgwl+oDOwJH/Q85M1YAcGnWRfgYvM9SFy2WdxTNVyWC7UYOKieVQpcAYI0/KwWs
+	Rejt0dkLjVNqtX8VqE5Fqvmn5VY4vAvAMSEmv/fneGjrKPH/AWcykx6ZZS7nShO2
+	RclhHzUAc6wTSDpffKHUJXdB8Xhyogay7xfbvWEHZ4HJj0Cqvz0XiruUmcvox8LT
+	ZLWkjpLQAuOp9rU5yz/oXXjIy/8kWq8hkdyuAgRYGjVSkO8B8n/3njYOV+EuuA67
+	+p/AXTv1JdQjNfsyjur6Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1787210696; x=1787214296; bh=4
+	9U1KQDJobQ6fDU08W7OYFd9CFZwvQ7xn+MpNhh8QuI=; b=SHPocS+tDTJTUvds8
+	ZwmUuPr9bJgoQ/GL84vbwEEGVFrOm0KJ4esf7e2u22oO/l9ickb1bG3hZlVio6E5
+	mMvCSnv25HWNQg4EWSxHBtn/mHBUQ3eNHXb4G9OEnu+fD0bzFyQCNAPtUkM/Zhui
+	m8oQcKU60DdlecIYCxscLmkGM+1vjJ7x8jL51c9TWERmSil3v4NRlPb/zGnMtNWP
+	TFOSC3CV5oAfh5epacpy+l6tqzKNVPhWhxHNcAb0fdNy/xFrS+/RVoAG5djcOtA2
+	ZRAMClBGg/DoVwrMCeVyaGngDOuY2npt/+Xg8Qg06+A1pExb2WDu8DtK8+TygiJD
+	bFiDQ==
+X-ME-Sender: <xms:yKuGalDxHVKbVJ-3wzhF8TLyuLI9MCvXo_f3Qa1KQef_vAJv5HQBag>
+    <xme:yKuGahwlxhWiy9uQ1KLqJ3fjIox3idGIOgAFe98Tj6nSzQ9koN3lUtCYZgAoXiGBr
+    eo2wyhkDgSigKRg22kn-QXk4NHEtb34oq_G-AmHx4uUfaaIFveR8S4>
+X-ME-Received: <xmr:yKuGap4407_KQ2pwyPsEyPtv1767oWrIXFWWYI-go-xrQTlXjU6t1Ft6zeEaxfQMlc-pTa_tHQ>
+X-ME-Proxy-Cause: dmFkZTGDoCWsctuhusIgeAdpVJpMrx8/Gl5EazEW/ha9rctVSqmrDDgCYGt723FgkNKrUC
+    7rfEAphm+y6djBhX9OJykBguO5ID7j4sjPNQlPIamDK3YCnSa2/qetO6nE91Ann1X7xTi1
+    4OcRfQSy9+eqdj16xEIiqD/xyjv2PeaD2hj5u/5WxNzvbQs15qw1/mtOAwRYHfx4m241vR
+    VIWWHg7vK9hsOUtanKiVCwIDcdwmbqqLhqzPyXBkXkfRvcG33SJoFCIdeRYwc/5gj77UAQ
+    2hHojGpgsyFPvnTkhRcFSQa83w7eAiEE4m1llM2wPl+JVrN65RZAKCn5rVHKLYnHXcZDcJ
+    bfj4Df1Sc5tbVQQ6lil5wBd7T0EIbossJZeAOm4A/vhLKMmItMKogfypiM7Z4/EsXWjagN
+    QR6eHhqpED0UnTmcC1uylQ9wAd6CVw2xOKdmSqG4MFkiEOHxO7Nu/JeVrioh+j60qCYGXL
+    lPWLvSt26DGr2E90MlpTvTYyfsvTVcO2SUQA/05wtuQXOj/bsqBIo3OvzPzUdkJoEV+3+K
+    5GF9FTaz4Uk1aIYOhyJ6IHWTs3DO0t6tdqBmtQBAJXsqIIkVaqDocJoJnx6dyxSZvumB0+
+    sk8exY44JozEBOOUd76WJGDrj7rirTIWxn76v138dnsYGokyYFPnQsNix9vA
+X-ME-Proxy: <xmx:yKuGaiziWZ769tEqEZ2K0M9D5mbdlSfdc1OhzwGYR3C7XCXvrNA9WA>
+    <xmx:yKuGatfv06XzoCo4MEKYhNSbceE9xU6LNEbf0D4O5fJG0nUCBAiD7Q>
+    <xmx:yKuGanCzHU4MNHv9RJgkl9kcghyozsmoVcaZK6bGonn05ok4_GQBNQ>
+    <xmx:yKuGah5AbUWFQFcUha1P26-nZsbVnc7U3taSHe0o3zBBJojbCtIuXA>
+    <xmx:yKuGaq3NzXr0ppkbsJLacudaqZxwsH51bVEdZ0KIhs2Z_-BDlPv_EStb>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 20 Aug 2026 03:24:53 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: robh@kernel.org
+Cc: krzysztof.kozlowski@oss.qualcomm.com,
+	conor+dt@kernel.org,
+	tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 04/12] dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+Date: Thu, 20 Aug 2026 22:16:35 +1200
+Message-ID: <20260820101635.752920-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <178709455518.1014304.1443906758035976924.robh@kernel.org>
+References: <178709455518.1014304.1443906758035976924.robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The AD5529R Kconfig symbol selects `REGMAP_SPI` but incorrectly de=
-pends on `SPI_MASTER` (a boolean) instead of `SPI` (a tristate), which can =
-cause unmet direct dependency warnings and linker errors.
-- [Medium] The driver enables the `vref` regulator but does not query its v=
-oltage, using hardcoded scaling values that assume a 4.096V reference.
---
+Hi Rob,
 
---- Patch [3]: [PATCH v9 3/3] iio: dac: Add AD5529R DAC driver support ---
-commit 93be93e4756accead91864ac70303ad8ccc9e4da
-Author: Janani Sunil <janani.sunil@analog.com>
+Taking the last paragraph first, since that is the actionable one.
 
-iio: dac: Add AD5529R DAC driver support
+In v9 the dependency will be in the patch itself, as a git note that
+format-patch carries below the ---, rather than only in the cover letter where
+it is now. It says the patch touches only Documentation and applies to
+v7.2 on its own, and that the series it belongs to is based on next-20260814 plus
+Igor Paunovic's "[PATCH v2] accel/rocket: request the core clocks by name",
+which the driver patches need and this one does not.
 
-Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
-from Analog Devices.
+  https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet026@gmail.com/
 
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index 657c68e75542e..6a7109f42f2a3 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -134,6 +134,22 @@ config AD5449
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called ad5449.
-> =20
-> +config AD5529R
-> +	tristate "Analog Devices AD5529R High Voltage DAC driver"
-> +	depends on SPI_MASTER
-> +	select REGMAP_SPI
+I re-ran dt_binding_check after your mail, on the three bindings this series
+touches, with dtschema 2026.6, which is the current release on PyPI,
+and yamllint 1.38.0.
 
-[Severity: High]
-Should this depend on SPI rather than SPI_MASTER?
+  npu/rockchip,rk3588-rknn-core.yaml       clean
+  power/rockchip,power-controller.yaml     clean
+  iommu/rockchip,iommu.yaml                clean
 
-If SPI is built as a module (=3Dm), SPI_MASTER evaluates to y. This allows
-AD5529R to be configured as built-in (=3Dy), which forces REGMAP_SPI to y
-through the select statement.
+None of the three reports in your mail is in a file this patch touches. The
+unresolvable reference is in mfd/qcom,spmi-pmic.yaml, and the refcheckdocs
+hits are in two translations and arch/arm/xen/enlighten.c. I mention it only
+so it is clear I read them rather than assumed, not to argue the bot was
+wrong to print them.
 
-Since REGMAP_SPI depends on SPI, this can produce a Kconfig unmet direct
-dependency warning and cause linker errors for SPI core functions during
-randconfig testing.
+v9 is not posted yet, so please read the note as what it will carry and not as
+done. I am holding it because v8 drew three reviewers within a day of going out
+and I would rather collect the rest of that than reset the thread. Say the word
+if you would prefer the respin now and I will send it.
 
-[ ... ]
-
-> diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
-> new file mode 100644
-> index 0000000000000..6982840232681
-> --- /dev/null
-> +++ b/drivers/iio/dac/ad5529r.c
-
-[ ... ]
-
-> +static int ad5529r_read_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-
-[ ... ]
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		range_idx =3D st->output_range_idx[chan->channel];
-> +
-> +		/*
-> +		 * The datasheet specifies a 4.096 V external reference,
-> +		 * matching the nominal output voltage of the internal
-> +		 * reference.
-> +		 */
-> +		span_mv =3D ad5529r_output_ranges_mV[range_idx][1] -
-> +			  ad5529r_output_ranges_mV[range_idx][0];
-> +		*val =3D span_mv;
-
-[ ... ]
-
-> +static int ad5529r_probe(struct spi_device *spi)
-> +{
-
-[ ... ]
-
-> +	ret =3D devm_regulator_get_enable_optional(dev, "vref");
-
-[Severity: Medium]
-Is it possible to query the actual regulator voltage here rather than using
-devm_regulator_get_enable_optional()?
-
-Since this helper doesn't return the regulator pointer, the driver cannot r=
-ead
-the actually supplied voltage. Looking at ad5529r_read_raw() above, the IIO
-scale is calculated using hardcoded millivolt arrays that assume the extern=
-al
-reference is exactly 4.096V.
-
-If a board provides a different reference voltage, will the IIO scaling
-metadata exposed to userspace be incorrect?
-
-> +	if (ret =3D=3D -ENODEV)
-> +		external_vref =3D false;
-> +	else if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to get and enable vref regulator\n");
-> +	else
-> +		external_vref =3D true;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820-ad5529r-dr=
-iver-v9-0-ba62e0b2a816@analog.com?part=3D3
+Regards,
+Jiaxing
