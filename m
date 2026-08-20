@@ -1,162 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AEAC47141A;
-	Thu, 20 Aug 2026 17:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBB546C82A
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 17:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787248134; cv=none; b=HX4i33EAxEQ0eVi2UpujZg5v0V21sA7lgLZ/c8hW39Zi8dfto3cGB9/QDtywlF1q7C+icDzSXtK94P4AO9oc4dCXj7KpDhr21re9PSWgfXG+wHO/vD+9m9vlrdRrm+QTWoX3mqeQXlNW4PQSjnqcxcXhqctEUC8g2NrWPMLFcG4=
+	t=1787248689; cv=none; b=bPSr+LcAKA8wZX9TzJwk+VLFoy/K18cBvTpl4mknqqOna87sBWgdVuh6/ouZAHqmCKiiAGJEx2FkIuJIK6heTwI1oQwb1WBAU/7Xhm713k8cpv5ghN7URxAEbTndcTesNniR/HCigQyZ193axV2fs12fUWUt1NZf+dIcKRuwHjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787248134; c=relaxed/simple;
-	bh=bkF0Er6K0DEC5+kRmoZ/b1OQ/CZAArh6ooiPcrkxYgM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=McvEWoyXSsnoxtEcVMXV5qvVOS6AiN/z+ua74O5CReShmW+9oMWlcA5VfZ+Bu/KPn0uVsUeDhk1rakQBkRJnXwSKmBnytuU6IOmZ9P39dUW/1TANgRkzZyErVM1sXIrXKSSYLIygMe2xHKF8WiGf3Bhbk+/9rYAcuNJ/n+Y72bU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4gXL6aV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787248689; c=relaxed/simple;
+	bh=dBUILXeDbLgCpqIojDaWLeWOsHEzHE/OpBXGS1CLw2A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=srpsyj5mQGlChzLnGVp0yUUFxIGN09V8ZPRoPKDu2hDUAO3RGExs1Tyo05koI1XetXKM93cs+4zGScSuOXS12y2kJJ9FAGoErdbQ2eiCJYC9fo+J46oDWTMObz39EcPaZCzBHm3RZLDucu4oalp2mAgIiL7CBxgCddWnrfEy3i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JMWb2XN2; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4gXL6aV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB1E61F00A3A;
-	Thu, 20 Aug 2026 17:48:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787248133;
-	bh=fE0bi5TtMpiOAq4j4eYwHl9wS2wY2/zSFdI0/32q62U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M4gXL6aV2XbE2K1/HeNMbv8iPyGvXE7d9RsBSIR/13lUblMNmYnL/oQ9pBhaXetpl
-	 qvcMUndkyV5/cW82nxNFVaxw9tg1pRTmyyKARHMEN9ttR70F7FM5yevtC//eehAL6h
-	 EsIpuXh7gGEPT8oRhcYxaj8nlbvxRgptZpSpbt6X5sliwvKDO/b7d+roqtIMN/HJmy
-	 9CuYtynhH8uCTQeL94d2jtlqeSlb5xh3ovA9XCosHM1GJ4St2vv0hZHAywMOsALANa
-	 xw/5yYKSV+xeDzessskvdCWLzvqvlyFNrI9RceKxNG6Wo6o4hPBEntwur0wJrjlWSA
-	 7oUr+8EgzTpIw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: leds: Add IS32FL3207 controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ahmad Byagowi" <ahmadexp@gmail.com>
-Cc: conor+dt@kernel.org, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-leds@vger.kernel.org
-In-Reply-To: <22d13eb34c85e2c2be8c0ba1b7f3360e7cf9da71.1787247467.git.ahmadexp@gmail.com>
-References: <cover.1787247467.git.ahmadexp@gmail.com>
- <22d13eb34c85e2c2be8c0ba1b7f3360e7cf9da71.1787247467.git.ahmadexp@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 17:48:52 +0000
-Message-Id: <20260820174852.BB1E61F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JMWb2XN2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787248681;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JDjB7NM2e+ReWvVEfnrpGhzlkQza1sURMIB/MgF4wuA=;
+	b=JMWb2XN2kZQkccTklvUI3jRxz7qgej8/wftkssqqmrj3N5HCpiOdVFZV5EgIMEUgdGHh3i
+	+qFu4lvY9zvrKVXG1nsu2Gxrb7FkkIRFvtU6xr89xOBjgtVDWyHemfyvihS1voB2R6SzOX
+	xwffNIYVNU3Mo2tIqeWLxx68D5FYb+8=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-452-I3uzaMH_OgiVAnRGcbX0kA-1; Thu,
+ 20 Aug 2026 13:57:46 -0400
+X-MC-Unique: I3uzaMH_OgiVAnRGcbX0kA-1
+X-Mimecast-MFC-AGG-ID: I3uzaMH_OgiVAnRGcbX0kA_1787248652
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 435B1195608B;
+	Thu, 20 Aug 2026 17:57:32 +0000 (UTC)
+Received: from [100.90.87.156] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CC3253002D26;
+	Thu, 20 Aug 2026 17:57:28 +0000 (UTC)
+Message-ID: <1ab30a5b-6c55-4a3a-8e6d-d94c6a64aa87@redhat.com>
+Date: Thu, 20 Aug 2026 19:57:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v7 3/3] dpll: add SiTime SiT9531x DPLL clock
+ driver
+To: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>
+Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
+ "arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "cjubran@nvidia.com" <cjubran@nvidia.com>,
+ "Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260815221919.64226-1-arouhi@sitime.com>
+ <20260815221919.64226-4-arouhi@sitime.com>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <20260815221919.64226-4-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `minimum: 149` constraint on `led-max-microamp` incorrectly =
-rejects valid, lower-current configurations.
---
+On 8/16/26 12:19 AM, Ali Rouhi wrote:
+> Add a DPLL subsystem driver for the SiTime SiT95316 and SiT95317
+> clock generators. These devices provide low-jitter clock outputs
+> commonly used in telecom, networking, and data center timing
+> applications.
+> 
+> The driver exposes all inputs and outputs through the Linux DPLL
+> subsystem, supporting:
+>   - Lock status monitoring via register polling or optional INTRB IRQ
+>   - Input priority management for automatic reference switchover
+>   - Per-output frequency readback from hardware state
+>   - Phase offset measurement via TDC (time-to-digital converter)
+>   - Phase adjustment for fine output alignment
+>   - Embedded sync (esync) pulse control on outputs
+>   - Fractional frequency offset of the selected reference
+>   - Optional reset-gpios for hardware reset
+> 
+> The driver reads all configuration from the device's on-chip NVM
+> at probe time -- no firmware loading is required.
+> 
+> Co-developed-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: Claude:claude-4-opus [chat]
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> ---
+>   MAINTAINERS                    |    7 +
+>   drivers/dpll/Kconfig           |    1 +
+>   drivers/dpll/Makefile          |    1 +
+>   drivers/dpll/sit9531x/Kconfig  |   17 +
+>   drivers/dpll/sit9531x/Makefile |    4 +
+>   drivers/dpll/sit9531x/core.c   | 3111 ++++++++++++++++++++++++++++++++
+>   drivers/dpll/sit9531x/core.h   |  372 ++++
+>   drivers/dpll/sit9531x/dpll.c   | 1232 +++++++++++++
+>   drivers/dpll/sit9531x/dpll.h   |   69 +
+>   drivers/dpll/sit9531x/prop.c   |  397 ++++
+>   drivers/dpll/sit9531x/prop.h   |   39 +
+>   drivers/dpll/sit9531x/regs.h   |  371 ++++
+>   12 files changed, 5621 insertions(+)
+>   create mode 100644 drivers/dpll/sit9531x/Kconfig
+>   create mode 100644 drivers/dpll/sit9531x/Makefile
+>   create mode 100644 drivers/dpll/sit9531x/core.c
+>   create mode 100644 drivers/dpll/sit9531x/core.h
+>   create mode 100644 drivers/dpll/sit9531x/dpll.c
+>   create mode 100644 drivers/dpll/sit9531x/dpll.h
+>   create mode 100644 drivers/dpll/sit9531x/prop.c
+>   create mode 100644 drivers/dpll/sit9531x/prop.h
+>   create mode 100644 drivers/dpll/sit9531x/regs.h
+> 
+> ...
+> +	/*
+> +	 * Convert to unsigned absolute delay.  Negative phase (advance)
+> +	 * is rendered as T_out - |phase|, modulo the output period.
+> +	 */
+> +	if (phase_ps == 0) {
+> +		abs_ps = 0;
+> +	} else if (phase_ps > 0) {
+> +		abs_ps = (u64)phase_ps;
+> +	} else {
+> +		u64 t_out_ps = div64_u64(1000000000000ULL, freq);
+> +		u64 advance = (u64)(-(s64)phase_ps);
+> +
+> +		if (t_out_ps == 0)
+> +			return -EINVAL;
+> +		advance %= t_out_ps;
+                        ^^^^
+This causes build failure on 32bit systems... You could use something
+like this:
 
---- Patch [1]: [PATCH v6 1/2] dt-bindings: leds: Add IS32FL3207 controller =
----
-commit 4fc20b49cd66c5af5de8db1465fd9c2b64f3c2ad
-Author: Ahmad Byagowi <ahmadexp@gmail.com>
+    div64_u64_rem(advance, t_out_ps, &advance);
 
-dt-bindings: leds: Add IS32FL3207 controller
-
-The IS32FL3207 is an 18-channel constant-current LED controller with
-per-output PWM and current scaling.
-
-> diff --git a/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml =
-b/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+> +		abs_ps = (advance == 0) ? 0 : (t_out_ps - advance);
+> +	}
+> +
+> ...
+> diff --git a/drivers/dpll/sit9531x/regs.h b/drivers/dpll/sit9531x/regs.h
 > new file mode 100644
-> index 0000000000000..32eaf14ca7cf3
+> index 000000000000..5c3dbeefd86b
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
-> @@ -0,0 +1,285 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/issi,is32fl3207.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/drivers/dpll/sit9531x/regs.h
+> @@ -0,0 +1,371 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * SiTime SiT9531x register definitions
+> + *
+> + * Copyright (C) 2026 SiTime Corp.
+> + * Author: Ali Rouhi <arouhi@sitime.com>
+> + * Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> + */
 > +
-> +title: Lumissil IS32FL3207 18-channel LED controller
-
-[ ... ]
-
-> +patternProperties:
-> +  "^led@[0-9a-f]+$":
-> +    type: object
-> +    $ref: common.yaml#
-> +    unevaluatedProperties: false
+> +#ifndef _SIT9531X_REGS_H
+> +#define _SIT9531X_REGS_H
 > +
-> +    properties:
-> +      reg:
-> +        minimum: 0
-> +        maximum: 17
-> +        description: |
-> +          Zero-based LED output number. Values 0 through 17 correspond to
-> +          OUT1 through OUT18.
-> +
-> +      led-max-microamp:
-> +        minimum: 149
-> +        maximum: 38250
+> +/*
+> + * I2C register model:
+> + *   - Page select register at offset 0x01
+> + *   - Each page has 128 registers (0x00-0x7F)
+> + *   - Some pages are paired (e.g. 0x0A/0x1A for PLLA)
+> + */
+> +#define SIT9531X_PAGE_SEL		0xFF
+> +#define SIT9531X_PAGE_SIZE		0x100
+> +#define SIT9531X_NUM_PAGES		32
 
-[Severity: Medium]
-Does this minimum constraint inadvertently reject valid lower-current limits
-for single LEDs?
+The comment at the top of regs.h says the page select register is at
+offset 0x01 and each page has 128 registers (0x00-0x7F) but the code 
+defines it differently (selector at 0xff and page size 256).
 
-When a board designer uses a larger issi,riset-ohms (e.g., 100 kOhm) to
-achieve a lower full-scale current, they may need to limit a specific LED to
-a peak current well below 149 uA (e.g., 50 uA).
+One of them is wrong.
 
-Since the hardware can represent much smaller currents with a large RISET,
-could this prevent developers from enforcing valid safety limits below 149 =
-uA,
-forcing them to over-specify the limit?
+Thanks,
+Ivan
 
-> +        description: |
-> +          Board-safe peak current for this output. The value must not ex=
-ceed
-> +          the full-scale current derived from issi,riset-ohms. The minim=
-um is
-> +          the smallest nonzero current representable at the maximum perm=
-itted
-> +          full-scale current.
-
-[ ... ]
-
-> +  "^multi-led(@[0-9a-f]|-[0-9]+)?$":
-> +    type: object
-> +    $ref: leds-class-multicolor.yaml#
-> +    unevaluatedProperties: false
-
-[ ... ]
-
-> +    patternProperties:
-> +      "^led@[0-9a-f]+$":
-> +        type: object
-> +        $ref: common.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          reg:
-> +            minimum: 0
-> +            maximum: 17
-> +            description: |
-> +              Zero-based LED output number. Values 0 through 17 correspo=
-nd to
-> +              OUT1 through OUT18.
-> +
-> +          led-max-microamp:
-> +            minimum: 149
-> +            maximum: 38250
-
-[Severity: Medium]
-Does this also incorrectly restrict nested LEDs inside multi-led groups from
-having valid maximum current limits below 149 uA?
-
-> +            description: |
-> +              Board-safe peak current for this output. The value must not
-> +              exceed the full-scale current derived from issi,riset-ohms=
-. The
-> +              minimum is the smallest nonzero current representable at t=
-he
-> +              maximum permitted full-scale current.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787247467.gi=
-t.ahmadexp@gmail.com?part=3D1
