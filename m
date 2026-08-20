@@ -1,167 +1,288 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F4C38837A
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFBE3AEF46
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787212072; cv=none; b=sKPganp1pir5X7YLMmFM79GoMjZKNTQWtiqsOjBREXiJE/vLAMuIdY1cMMb4HQlrfEMbl1nTKxtLdJL6G4oWYxmipN/YWXpdJgn2pue/uL0FEQdW3iX9Jtb2bpI9plWFe1C0PnxltrpUHviZZY8WDMnjQg+TkVC70ELqOp9rqYU=
+	t=1787212132; cv=none; b=Hov976Mu/VHoK/gPH0s8aiT40FWVn8VswdMcQrN3f3VUSpFCx44ejS3VBPhi0EsP5wvvo37yfCbJxjNwKdMljHhuitrfpR5ddgQ1g/Ha4nqG7Dka/DCV7reCAGgZmwGP1BujCH96vbuV5u1ajevWJ/tX7MkiT+lGQtdZYDMsD0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787212072; c=relaxed/simple;
-	bh=dyoha8dpk++8RF2C9T4lFV6Pmg1VpR1S32nduflGSsw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PC4PPdBSdhT+ZL+78s62x6+0gmsuf43ms7QHcUYL9rbaU8ziinHVNgFZCphu8kSUzPzxNYTsH9vCzyfHKvO8wmI9/3zb2NJ8vZVVJMcuLdks3XqKhQVHtGTuqM7ZHlCDJ5DEfqiFhLKWaMNY3rYIIzlis/XSzVKyNpeehkHRuqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nRW1Xv8j; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TzhfC6R1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787212132; c=relaxed/simple;
+	bh=h9pKTfnczsD4cZjKAR2QX1Zc8XxKnPvKXhQlAuJMJlU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fKYMoYVwnX4UIDP8/LyYlwJAiHmSM3ya3TRtkkRRsbk5BuwEcX5/Re/kAThy9UX2j6VwlHqwJojU3XIXhNj/HF1JAcE2BlNEJ8WnvOwuWR0mQfIuE3EMXFx694+yDgCGZPo5jqklEaDffSBnIFTsm5WD3Ifk8J8ZVspY0OgV1PM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZnSRf8ec; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nRW1Xv8j";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TzhfC6R1"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67K7LN4n2753363
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:47:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	//kT4S659YrxCLxrC89SElD2a6l456qXua0Jo1L5E2M=; b=nRW1Xv8jqppNtn/z
-	0p+mTcDyP103xwzfRZtPJdozyRYtWQr4z8dUfJDVJRxWBuKv3D2uSV+ElmX1FEOG
-	39xua+7a+Fz/gIjVaEg7eJooDo+vPQkJnDSv4K4PfK/gjjMdryoRYRDBWkX5QwGb
-	Ph84XEVYMn23hdhIzLmKz3qNGkTPSRPJW6p37/UFmwdZQQ29x8x0dL+VSSHAu9Yc
-	z3t9v+DZackWu+TONl3NAsFYQ8kfRRA78TvtQWw2OEzw2HJOlrjzRJKROWtjMA+R
-	niwNVaBgNgH52l8wF1Wi1cMNhgx5feR3yI7OihPzsDn5V9OQDZnIXWcbSl2vLoHW
-	pcZ89Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5w49834k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:47:50 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934979ee9f1so243184285a.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 00:47:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZnSRf8ec"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e041ea211so1924077a91.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 00:48:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787212069; x=1787816869; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=//kT4S659YrxCLxrC89SElD2a6l456qXua0Jo1L5E2M=;
-        b=TzhfC6R1XPtlajIqHLHrSpY8hAlhtG2akUOG75R/JuICv5QBN3Hs3VwGOlCRdufxEL
-         MPo9BTQTBMEZWDBMV2VHuLo8MPeigJzz5d55xB/snUS730KlOMz1bFa6z7d+cx2HGNw5
-         7iI6LKn87GWuJc7J2qSftzfLUmODTB7sDVTG7OpizBwNgSxrZhtyX3fLmHe6sEB/g9pY
-         ynUj1xJloXUNq1BR+GcHThDw48jP/6py6XNDZ9CfZ99jHxdQ4YbdXHuHyc5kQ6sS0CZ+
-         cpaDzsIUHf6Ief8PY65nOi3i/F2ZK7URpYsYyh63/sgWC+LJrgWgspv0P2arFeBTznI9
-         itQg==
+        d=gmail.com; s=20251104; t=1787212129; x=1787816929; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EFmjS2rE3xQzhpMGgomP6wcP30mLCcjV9QqHuEZv2zk=;
+        b=ZnSRf8ecqwCw9ioEWw2L93gf4oz5gbn67R0vKAB4CG8iwP2sdcxIrTTJz9kIXsDgSB
+         617FZzfvTb79ZhS2q0vUm4tOcmFAflLihzrit5XRpFu2Lw1rVCUGKA7BIR4I/uwkHBuk
+         IwutTmIJ6ApnktGbi2VRd7MTDm//0Eh9+2UWOC8weyg65yev+BlvKzItxrhwi+j5Gz0Y
+         hnNo8olInMdlh+1Gr+Y3mee4MGt4/5uUmFuPWZEk+/D+pSephSj+TWCkEUu0zWpnu9r/
+         0itYRtJCkX/5X2vm3A6WXzsl36SQ28UrjGGe6cZTBkL9MLP4uG+Nauc78MjlNIRxwAKB
+         K9XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787212069; x=1787816869;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=//kT4S659YrxCLxrC89SElD2a6l456qXua0Jo1L5E2M=;
-        b=XyqqyHhRAzi0HLiBVzsE8oMF4qzy1eA7DlUWD9vbtYjpK7GrYgk6YIhnBJS23rQy7Z
-         JqiKa5hZ3wxOu9EeF5JgxQA+vosRP06sBPS6OnQvLrPbq+ZkOS6AXwZkl+XkD5GRhaGV
-         n42M/I1tOdYpFF6Tvp22uoVi0kBDj269TrXRTKYD6yOzr/26hk0RL0lstPlERzyNfnLw
-         n+K1kztn8cgNa1K3JxuQ6k3+Vn9yywohyItWz0bDmmeUCm6+p73kLrcUvSwSryNkhsN4
-         0hLiWGw4fgruEKSb6pEW0k6u7URuBznxyQJPxb6TCgvglEMY0dHLxWSEE8FWnAUtP2d3
-         56ew==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0KCCUG8PTlXSpLJ39n0XMcyQJ59SUSwo7fm10jKUZH4usdFCZJCgvImYgW0YpDPkWAGE91v0R6Ig9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyX8ziAB27NrTGBHJNoUBsAPM1eSaMHF5fuiLs7OXPALeF/yUIl
-	lLmOyUfw+JB3DDSc26lQSpdhEje6w14lPniOJmhMDS+S8cuDQeTXFiHWjjXbQiJhEcVcJYre6BM
-	jpBHMgvg/Y8SgwpI9L5W2wDJ9BCRVIFHED92ir1Kf60h4vDFcG3eF8ILvCShsAZNJ
-X-Gm-Gg: AR+sD13jYEQCfxwuweB049LfdPtV11s7Ec+RUmUsbc87s1S7GRQ4BF5xh0ijKwc1z3c
-	DILkB4MNRG+PcNv2o8mj4oGe6kTnOXOOR2lJehT8bSUug9FtnLKY4lk2RN60mqpD5OPpovlllz/
-	JLhzy834WVn4aU0ePDxvQXqUPsDdefnensW+erurOtbhLgH2uKY99uI8CJxsWHeLwEcqZS6nItQ
-	OZ440JdkAICx1DaYYG2U7trEnGEJ/JqJ4F0MmHOm+sPUSgE9SYK3IbPMSI0AzAbiaBrJIzIUcQI
-	PHAa5TpXGfVGN/4AxAr4yVlvE9KZP/0dDb2fVXlTggk1OUdMy9kUcrnn1OmRA6rHey8GsNS/6Ag
-	op76sqiSZerPqg9m7ZonKGOFZBTrj
-X-Received: by 2002:a05:620a:4415:b0:915:5cbd:1d96 with SMTP id af79cd13be357-9371e6ee08bmr938306985a.33.1787212069380;
-        Thu, 20 Aug 2026 00:47:49 -0700 (PDT)
-X-Received: by 2002:a05:620a:4415:b0:915:5cbd:1d96 with SMTP id af79cd13be357-9371e6ee08bmr938304285a.33.1787212068889;
-        Thu, 20 Aug 2026 00:47:48 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499b212fc11sm20514795e9.1.2026.08.20.00.47.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 00:47:48 -0700 (PDT)
-Message-ID: <edb61715-a676-402e-a269-613bede12639@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 09:47:44 +0200
+        d=1e100.net; s=20251104; t=1787212129; x=1787816929;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EFmjS2rE3xQzhpMGgomP6wcP30mLCcjV9QqHuEZv2zk=;
+        b=d9B+4Pk7k+P1sCVW8a9kLRzIe+qv1GwJt8+V3jugSQIoBIE3uJw6V9YRE7Oc9KD+6G
+         siD5ARkP/OMlvCdr7EPI/t5AdHnA2lnHp4inQAHjGkpkb8S145nQ3TiDnevRJi5TXFSO
+         KVwjF1C7l7LhdGDZHWUEjBEYpg3AjG5VpupSft0Oig8ItvuuBDLzF/kfq9cl96FWe/Zb
+         f60SaBjYMP8lWdSuB0FlSzTKbfJTRrl2HvOp6MAqHBGFTlX1hOza54NVXBmtqrUKKS+A
+         Fl6ohgxrtMsXzC1xcE+HaIAhErhgravJdNwNLOyMkkyIsU4h9a5iM+81TX5x6cOXClq5
+         kiiQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rre6JTWAQcO/GNKo9wJUMpfjVPJQjt/pZt3S3ApspNOko10jxhKgls+0SfZxMdzedNhx9hXhl/TL5NA@vger.kernel.org
+X-Gm-Message-State: AFuF++lPRRgVqZmLvFjdSkQQW6DuyJYSLHdYss2qMNilbAzZWpXnzgoH
+	nSxRGDZP1C9mLGGmZmWzDxgoXMOY12ZRvMk2Jxdp6Tar7EkUc/lkQvvQ
+X-Gm-Gg: AR+sD10Ow6bb0oX56LMuWp1p6WKTIP/APRhEhcslxFowAhrBgvQF8JQwg5H91i7Rz1Y
+	34FDzdFMVzhk+uuzfeeD0tELIQeHNRyHsiWIAcyJ7O75Uun148B/uoe5Tl0KBQ4MQm2ORuwWNPK
+	0tLKiliTzvfGcSXacFHDjNv0gETElv6vuurCeQvnjQ5ZIK0txI0pVO157KccggsgTTqG6uAIuht
+	BqKlBHvEFS+OykqkPeBsfps40cNJ4Ns9foaw5tlJEiw15WQPVbL9DcffE51BkCwmTVKVxc1JtY3
+	oQfofRHWFPPZ81Yhf/sUNr3CWOW1wS3FBOiG9JUgjUwsv6LLVIjrkNqdUk2r/F7+JHilCruTqqE
+	oI7JYGxxSaaM1QrA0lFuazjH6CpONl47lUOZ8ySVYGp+7uBiKmyKxjHQ/OIQVNQi/RasOnBGFZF
+	Uszq9uz4WdmZIBVxEyJq8JGEx8C0wogrF6y3c2vr/wdFjGQIOCd0DH2EmcKRVVbUyEbqaMxe1aa
+	N+IJZwnX4jp31SxmBFdxt25s3En
+X-Received: by 2002:a17:90b:4a46:b0:37f:e326:6557 with SMTP id 98e67ed59e1d1-3958083fc60mr19813957a91.4.1787212128780;
+        Thu, 20 Aug 2026 00:48:48 -0700 (PDT)
+Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957f96ca41sm5600419a91.4.2026.08.20.00.48.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 00:48:47 -0700 (PDT)
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Subject: [PATCH v6 0/2] iio: adc: Add support for Texas Instruments
+ ADS112C04
+Date: Thu, 20 Aug 2026 15:51:50 +0800
+Message-Id: <20260820-ti-ads112c04-driver-v6-0-0e8f0aacce9b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/9] Add support for Qualcomm remoteproc subsystem
- cooling
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
-        manaf.pallikunhi@oss.qualcomm.com,
-        Casey Connolly
- <casey.connolly@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "Rafael J. Wysocki"
- <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org
-References: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
- <9eb142ae-9f79-4f7f-91ae-6a49a7103dfd@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <9eb142ae-9f79-4f7f-91ae-6a49a7103dfd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA1NSBTYWx0ZWRfXwEu4nWq86YDZ
- 1CqStcfjkVzhi/+Naa7cE2tjsmLa5bZqeZAv/EX0i7rPlo2szD6OGPtSLl48fgkNsAP0tuE3x0p
- F/3FMDGpqhLqrziHc66tmGgC+kVt18k=
-X-Authority-Analysis: v=2.4 cv=YP+vDxGx c=1 sm=1 tr=0 ts=6a86b126 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=dTLPQwhzsRM4EjPZVQoA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: _1-eyb-B66JvMPu2D0x8aLm8rFsKarCq
-X-Proofpoint-GUID: _1-eyb-B66JvMPu2D0x8aLm8rFsKarCq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA1NSBTYWx0ZWRfXzKpm3/gbVnir
- c0Me9IcU7BfZ+uZHy20GIbjQr/imWRnvKvhzlNHjP18wcqWZQeHNpe8GbeHsaThZiAzuKQKOUw4
- 8KjH6QtlXlrpqY7h+lG7jFkFwwapOzeNHBfDOzfENXCSrsEMv+BgMLvmnOUiFOfltNTot/yyV1Z
- lCLeJucbkW0p5UaVzvt9H4YgYVj5SZmcnkjo206Gh0PqPaVQNKampA1PudE07k6bdZu+NIkRQvf
- xQG43JhULCoEPikG60V1AWolxmclUDIKFBZizTvHlNLvvPKy6tiLzsXm3UzojTntwgK8bDBooTS
- 6csyx6rnR2nZCYAuH1jYG7nHOq409h8azZuy/TWxVLOP4bSFrascpzQlTAm9cRq3dPHVGYERvf6
- jY/FCRH+LwYVQLttOov6Nt/HvU3+uEc8X2gppbbwsbGWt2nhCxUlBpsRzN9Bz0h41mTKvi7epdA
- tHPoN43Q5+6BRUap2xQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 bulkscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 priorityscore=1501 phishscore=0 clxscore=1015
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608200055
+X-B4-Tracking: v=1; b=H4sIABayhmoC/3XQ3WoCMRAF4FeRXDclP7ObxCvfo3iRTSY6UF1JJ
+ FRk371ZoXTR9fIMzDeHubOCmbCw7ebOMlYqNJ5b6D82LBz9+YCcYstMCdULo4BfiftYpFRBAI+
+ ZKmY+oEHrBBirgbXNS8ZEPw/1a9/ykcp1zLfHkSrn6Z9nV70queBgOkwIqAZjd4eTp+/PMJ7Y7
+ FW1MLRcN1QzvB+E7G3QQchnQ/8bVnTrhp57uAS6t8rhqwELQ77pAXMPNAJ8kO2BL0a3NPS60TX
+ DuJiSQwUuxKUxTdMvlekstMYBAAA=
+X-Change-ID: 20260724-ti-ads112c04-driver-be7e89047834
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Kyle Hsieh <kylehsieh1995@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9470;
+ i=kylehsieh1995@gmail.com; h=from:subject:message-id;
+ bh=h9pKTfnczsD4cZjKAR2QX1Zc8XxKnPvKXhQlAuJMJlU=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBqhrIZc5NnwDxYQKGDmZlszgu9/9DwSwSA8pdzj
+ GG8isMgHiKJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCaoayGQAKCRClg0K3CVbE
+ gVyjB/0bWAFR2TlWp8gRNm8217Lb92OYQvw6R2yDGb6EmkfMijGEKCwvBCQGqbtjpjKQS5o/BOK
+ ggG5CMpAPgbCornFagap0MEpcaz71MHjMeDWnIjeUS1lvrVxm5JoM/DUVLHBBpa7DvgGjIOzryt
+ KL+Rwjyo8tN7s5WUXvk2oKLmeEJp/Z42y5BiDCQZu4xAQfq43YpNg59euQyiknWmIOn3/oxMQMN
+ 1OSGedEQMrs0NSA+J2NzFjuCF2bECvZuKsdAvyHiqIJyI9sF0Oe2wrwa8jSpXaolk6tvQAbqKOg
+ r+pNBGZXg4apRGjac986UG/4jMm7+LMs5fZHUSmKcWCbssiZ
+X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
+ fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-On 20/08/2026 08:32, Gaurav Kohli wrote:
-> Hi Bjorn, Mathieu,
-> 
-> Just wanted to kindly check if this series can be picked up.
-> 
-> Patch 1 has Krzysztof's Reviewed-by and Daniel's Acked-by, and the later
-> patches carry the review tags received in previous versions.
-> 
-> Please let me know if you would prefer any changes or a resend.
+This patch series introduces support for the Texas Instruments ADS112C04
+Analog-to-Digital Converters.
 
-What not to do during the merge window? Ping.
+The ADS112C04 (16-bit) is precision, low-power, delta-sigma ADCs with
+an I2C interface. They feature a flexible input multiplexer supporting
+single-ended and differential measurements, a programmable gain amplifier,
+and an internal voltage reference.
 
+Note: While this chip shares similarities with the ADS112C14 (currently 
+being upstreamed by David Lechner), the register maps and feature sets 
+are sufficiently different to warrant a separate driver. However, the
+DT bindings and channel parsing logic have been aligned with the
+ADS112C14 conventions.
+
+This initial submission provides a minimal feature set (single-shot 
+conversions and basic DRDY interrupt) covering current use cases.
+
+Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+---
+Changes in v6:
+- dt-bindings: iio: adc: ti,ads112c04:
+  - Dropped the redundant 'items' wrapper from
+    excitation-current-nanoamp and burn-out-current-nanoamp.
+  - Moved reference-sources' default to the property level.
+  - Kept David's Reviewed-by and Conor's Acked-by: the changes are schema
+    syntax only, with no change to the accepted values or semantics.
+    Happy to drop the tags if either would prefer to re-review.
+
+- iio: adc: ti-ads112c04:
+  - Split the read_poll_timeout() arguments logically and dropped the
+    redundant outer parentheses.
+  - Added ADS112C04_RESOLUTION_BITS and used it for both the
+    sign_extend32() bit index and the scale exponent.
+  - Added the missing <linux/array_size.h> include.
+  - Used local variables for the single-channel/diff-channels property
+    names so the error messages stay in sync.
+  - Added a comment for the post-reset delay.
+- Link to v5: https://lore.kernel.org/r/20260813-ti-ads112c04-driver-v5-0-79dff9e249cd@gmail.com
+
+Changes in v5:
+- Addressed several suggestions from v1-v4 that I had missed in earlier
+  revisions. Apologies for the churn this caused; I went back through
+  all four threads as David asked.
+
+- dt-bindings: iio: adc: ti,ads112c04:
+  - No changes. Picked up David's Reviewed-by and Conor's Acked-by.
+
+- iio: adc: ti-ads112c04:
+  - Made the reference voltage per-channel, following the ADS112C14
+    driver: reference-sources is parsed with
+    fwnode_property_match_property_string() and stored per channel, and
+    the CONFIG1 VREF field is now updated together with the MUX before
+    each conversion. avdd is read with
+    devm_regulator_get_enable_read_voltage() when a channel uses it.
+  - Organised the register field macros indented under their register,
+    and shortened CONFIG to CONF in the field names.
+  - Spelled out all CONFIG0/CONFIG1 fields explicitly with FIELD_PREP()
+    when initialising, rather than relying on implicit zeros.
+  - Moved the internal reference macro to the top of the file with the
+    other defines and renamed it to ADS112C04_INT_REF_mV.
+  - Dropped disable_irq_nosync(); the handler only calls complete(),
+    which is safe in a normal IRQ handler, so a threaded IRQ isn't
+    needed. The bare `0` flags argument is now packed with the
+    other arguments.
+  - Fixed word-read byte ordering by using
+    i2c_smbus_read_word_swapped().
+  - Dropped the has_refp state member; it is passed as a function
+    argument instead.
+  - Added a REVISIT comment on spec->type for when
+    ti,refp-refn-resistor-ohms is implemented.
+  - Reduced the power-on reset delay from 50ms to 500us, per the
+    datasheet.
+  - Replaced the diff-channels if-else chain with a 4x4 lookup table
+    indexed by [AINP][AINN].
+  - Used wait_for_completion_timeout() directly in the if condition,
+    swapped err/ret in ads112c04_wait_for_data(), made the channel
+    index unsigned int with the assignment split out, stopped reusing
+    pair[0] for single-channel, and used ARRAY_SIZE(pair).
+  - Added ADS112C04_MAX_CHANNELS and used it in the bounds check.
+  - Split reference-sources parsing into a helper to keep the call
+    within the line length limit.
+  - Updated the commit message to describe per-channel reference
+    selection; refn-supply remains unsupported.
+  - Switched the hardware reset to the reset controller framework
+    (devm_reset_control_get_optional_exclusive()), which works with the
+    existing reset-gpios property via the reset-gpio driver. The binding
+    is unchanged.
+- Link to v4: https://lore.kernel.org/r/20260811-ti-ads112c04-driver-v4-0-ae704ac17241@gmail.com
+
+Changes in v4:
+- dt-bindings: iio: adc: ti,ads112c04:
+  - Fixed excitation-current-nanoamp to use single-entry list syntax
+    (items: - enum: [...]) instead of combining maxItems: 1 with a
+    mapping-style items, which failed dt_binding_check.
+  - Widened excitation-channels to maximum: 5 to account for IDAC1/
+    IDAC2 also being routable to REFP0/REFN0, and documented the
+    mapping, per David Lechner.
+  - Reduced excitation-current-nanoamp to a single entry, since the
+    two IDAC outputs share one current setting, per David Lechner.
+  - Changed burn-out-current-nanoamp to use `const: 10000`, per David
+    Lechner.
+  - Renamed reference-sources' internal enum value to "internal"
+    (dropped voltage suffix, since there is only one internal
+    reference), per David Lechner.
+
+- iio: adc: ti-ads112c04:
+  - Fixed word-read byte ordering by switching to
+    i2c_smbus_read_word_swapped(), addressing a big-endian data
+    corruption issue flagged by Sashiko AI review.
+  - Masked the DRDY interrupt in the hardirq handler
+    (disable_irq_nosync()) and re-enabled it once the conversion data
+    is read, to avoid an interrupt storm on level-triggered DRDY
+    configurations, without hardcoding the trigger type.
+  - Reworked reference-sources handling in parse_channels(): it is now
+    validated against the actually-selected refp-supply instead of
+    being unconditionally rejected, per David Lechner.
+  - Simplified regulator handling in probe() using
+    devm_regulator_get_enable_read_voltage(), dropping the now-unused
+    vref_reg field, per David Lechner.
+  - Corrected the commit message to no longer claim refn-supply
+    support, since it remains explicitly unsupported in probe().
+- Added a MAINTAINERS entry for the new binding and driver.
+- Link to v3: https://lore.kernel.org/r/20260805-ti-ads112c04-driver-v3-0-49f436829e01@gmail.com
+
+Changes in v3:
+- dt-bindings: iio: adc: ti,ads112c04:
+  - Resolved dt_binding_check errors by removing redundant $ref for
+    standard unit suffixes and fixing YAML array syntax.
+  - Added full hardware capability descriptions (excitation-channels,
+    excitation-current-nanoamp, burn-out-current-nanoamp,
+    reference-sources) as suggested by David Lechner.
+  - Restricted the reg maximum to 11 and updated the regex to
+    ^channel@[0-9a-b]$ to accurately reflect the 12 possible MUX
+    combinations.
+
+- iio: adc: ti-ads112c04:
+  - Transitioned all I2C read/write wrappers to use SMBus APIs
+    (i2c_smbus_read_byte_data, i2c_smbus_read_word_data, etc.) to
+    gracefully handle I2C errors, NACKs, and Repeated Starts, addressing
+    feedback from Joshua Crofts and Jonathan Cameron.
+  - Added forward compatibility checks in probe() and parse_channels()
+    using dev_err_probe() to return -EOPNOTSUPP for unimplemented DT
+    properties.
+  - Reverted devm_request_irq() flags to 0 to let the driver inherit the
+    trigger type strictly from the DT, per Jonathan Cameron's advice.
+  - Reduced the data wait timeout to 100ms, reflecting the chip's slowest
+    data rate of 20 SPS.
+  - Fixed #include alphabetical sorting, grouped <linux/iio/*> headers,
+    and added missing headers.
+  - Fixed variable declaration ordering (reverse xmas tree) and updated
+    variable naming to vref_mV (SI unit exception).
+  - Optimized GPIO reset logic using GPIOD_OUT_HIGH.
+- Link to v2: https://lore.kernel.org/r/20260731-ti-ads112c04-driver-v2-0-aab0168c3c01@gmail.com
+
+Changes in v2:
+- Replaced `vref-supply` with `refp-supply` and `refn-supply` to accurately reflect hardware.
+- Refactored the driver to dynamically parse channel configurations and routing from DT child nodes.
+- Modernized the driver using kernel macros.
+- Handled endianness elegantly.
+- Added hardware reset fallback logic.
+- Inherited IRQ trigger type from device tree instead of hardcoding.
+- Fixed a bug where the MUX software cache could desync from hardware if the I2C write failed.
+- Added strict return value checking for all I2C writes during probe.
+- Updated the `i2c_device_id` array to use C99 named initializers.
+- Link to v1: https://lore.kernel.org/r/20260728-ti-ads112c04-driver-v1-0-475efe4e2b78@gmail.com
+
+---
+Kyle Hsieh (2):
+      dt-bindings: iio: adc: ti,ads112c04: Add binding for ADS112C04
+      iio: adc: ti-ads112c04: Add support for TI ADS112C04
+
+ .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 146 ++++++
+ MAINTAINERS                                        |   7 +
+ drivers/iio/adc/Kconfig                            |  10 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/ti-ads112c04.c                     | 527 +++++++++++++++++++++
+ 5 files changed, 691 insertions(+)
+---
+base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+change-id: 20260724-ti-ads112c04-driver-be7e89047834
 
 Best regards,
-Krzysztof
+-- 
+Kyle Hsieh <kylehsieh1995@gmail.com>
+
