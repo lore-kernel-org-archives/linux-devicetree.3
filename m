@@ -1,128 +1,70 @@
-Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A833B7B71;
-	Thu, 20 Aug 2026 07:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774DE1A262D;
+	Thu, 20 Aug 2026 07:25:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787210699; cv=none; b=PeelQEHXeGGZJXQLC3Mxazi4XQhWbhVSDgKcKJ3eed+KMthKzC/SHXL4EwULz44YvWSWZKV95HVe+FNlzOGsO8bYqsgbQ0zRxfW/v6HrRvAzGJqE8fAT8BiblnURrTOUJdEneNTLjjxCU9YKgMoX+dX3RLz9dstNHsQbkbo/5Ag=
+	t=1787210743; cv=none; b=dEFX0Zc2DsBxbTT28jON8wzCFNJTPemXz4Z2xswSGblusXfbUzTkGXb+qhliE7QLtdh/YTdaMuoFaZfVcsZr9QYW/Kn0CnXit6gLk5hMbmTreXtSkQDCPGUp1P/V0Cp33R0Y6i8kxtdE3pDeGKfoEzVmpmx/tDaGHKjGFojbI4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787210699; c=relaxed/simple;
-	bh=6ojVFfMjTCnjMOTDGPKvB379Z9bZz5nrCSTA4eCAJcI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DSTZ6Gyb6qdFdYHkTADA7un/GtT7IKSdCRmHduACeBVR0wOPV3Od/GJtgEXPOcW3c+Azm4hfpufedh9iO28k1eovEA/9fsytUvixi5abNaA8NbrlTluwQOdjUr/LaZOAgPgZiZIMXEaZ5Dil7/RNOWLIrPRxjpYxgdLXDFNFE9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=HUwcTQRN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SHPocS+t; arc=none smtp.client-ip=103.168.172.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	s=arc-20240116; t=1787210743; c=relaxed/simple;
+	bh=1Cj2Vcgqn5krhfvBamvQXC8qXV3Ha/g6efKHf4VCBXk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I5qlXfWK4buLsxImBkiJt11ya41C6gu/b3Sc0qWQIRCVOQAzk126wZkJAFx23LW2obH68rmZbNN2BMQRgvW2h8CxBzGNA9SwDdX8W8AgBhdxrxObHrEU5whRw9uB3jb33IvJmYFswjAcbnYJpzQdXAWgxpN8QTb3V17agpZSMS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A8g8lb6N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="HUwcTQRN";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SHPocS+t"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.phl.internal (Postfix) with ESMTP id DD0E21380199;
-	Thu, 20 Aug 2026 03:24:56 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Thu, 20 Aug 2026 03:24:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1787210696; x=
-	1787214296; bh=49U1KQDJobQ6fDU08W7OYFd9CFZwvQ7xn+MpNhh8QuI=; b=H
-	UwcTQRNM6p7Jx8hquSLsKdvi/R/v9Ush02kfEKU+TGTUgINNJ9AlvReisBKuqzV6
-	TFgwl+oDOwJH/Q85M1YAcGnWRfgYvM9SFy2WdxTNVyWC7UYOKieVQpcAYI0/KwWs
-	Rejt0dkLjVNqtX8VqE5Fqvmn5VY4vAvAMSEmv/fneGjrKPH/AWcykx6ZZS7nShO2
-	RclhHzUAc6wTSDpffKHUJXdB8Xhyogay7xfbvWEHZ4HJj0Cqvz0XiruUmcvox8LT
-	ZLWkjpLQAuOp9rU5yz/oXXjIy/8kWq8hkdyuAgRYGjVSkO8B8n/3njYOV+EuuA67
-	+p/AXTv1JdQjNfsyjur6Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1787210696; x=1787214296; bh=4
-	9U1KQDJobQ6fDU08W7OYFd9CFZwvQ7xn+MpNhh8QuI=; b=SHPocS+tDTJTUvds8
-	ZwmUuPr9bJgoQ/GL84vbwEEGVFrOm0KJ4esf7e2u22oO/l9ickb1bG3hZlVio6E5
-	mMvCSnv25HWNQg4EWSxHBtn/mHBUQ3eNHXb4G9OEnu+fD0bzFyQCNAPtUkM/Zhui
-	m8oQcKU60DdlecIYCxscLmkGM+1vjJ7x8jL51c9TWERmSil3v4NRlPb/zGnMtNWP
-	TFOSC3CV5oAfh5epacpy+l6tqzKNVPhWhxHNcAb0fdNy/xFrS+/RVoAG5djcOtA2
-	ZRAMClBGg/DoVwrMCeVyaGngDOuY2npt/+Xg8Qg06+A1pExb2WDu8DtK8+TygiJD
-	bFiDQ==
-X-ME-Sender: <xms:yKuGalDxHVKbVJ-3wzhF8TLyuLI9MCvXo_f3Qa1KQef_vAJv5HQBag>
-    <xme:yKuGahwlxhWiy9uQ1KLqJ3fjIox3idGIOgAFe98Tj6nSzQ9koN3lUtCYZgAoXiGBr
-    eo2wyhkDgSigKRg22kn-QXk4NHEtb34oq_G-AmHx4uUfaaIFveR8S4>
-X-ME-Received: <xmr:yKuGap4407_KQ2pwyPsEyPtv1767oWrIXFWWYI-go-xrQTlXjU6t1Ft6zeEaxfQMlc-pTa_tHQ>
-X-ME-Proxy-Cause: dmFkZTGDoCWsctuhusIgeAdpVJpMrx8/Gl5EazEW/ha9rctVSqmrDDgCYGt723FgkNKrUC
-    7rfEAphm+y6djBhX9OJykBguO5ID7j4sjPNQlPIamDK3YCnSa2/qetO6nE91Ann1X7xTi1
-    4OcRfQSy9+eqdj16xEIiqD/xyjv2PeaD2hj5u/5WxNzvbQs15qw1/mtOAwRYHfx4m241vR
-    VIWWHg7vK9hsOUtanKiVCwIDcdwmbqqLhqzPyXBkXkfRvcG33SJoFCIdeRYwc/5gj77UAQ
-    2hHojGpgsyFPvnTkhRcFSQa83w7eAiEE4m1llM2wPl+JVrN65RZAKCn5rVHKLYnHXcZDcJ
-    bfj4Df1Sc5tbVQQ6lil5wBd7T0EIbossJZeAOm4A/vhLKMmItMKogfypiM7Z4/EsXWjagN
-    QR6eHhqpED0UnTmcC1uylQ9wAd6CVw2xOKdmSqG4MFkiEOHxO7Nu/JeVrioh+j60qCYGXL
-    lPWLvSt26DGr2E90MlpTvTYyfsvTVcO2SUQA/05wtuQXOj/bsqBIo3OvzPzUdkJoEV+3+K
-    5GF9FTaz4Uk1aIYOhyJ6IHWTs3DO0t6tdqBmtQBAJXsqIIkVaqDocJoJnx6dyxSZvumB0+
-    sk8exY44JozEBOOUd76WJGDrj7rirTIWxn76v138dnsYGokyYFPnQsNix9vA
-X-ME-Proxy: <xmx:yKuGaiziWZ769tEqEZ2K0M9D5mbdlSfdc1OhzwGYR3C7XCXvrNA9WA>
-    <xmx:yKuGatfv06XzoCo4MEKYhNSbceE9xU6LNEbf0D4O5fJG0nUCBAiD7Q>
-    <xmx:yKuGanCzHU4MNHv9RJgkl9kcghyozsmoVcaZK6bGonn05ok4_GQBNQ>
-    <xmx:yKuGah5AbUWFQFcUha1P26-nZsbVnc7U3taSHe0o3zBBJojbCtIuXA>
-    <xmx:yKuGaq3NzXr0ppkbsJLacudaqZxwsH51bVEdZ0KIhs2Z_-BDlPv_EStb>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 20 Aug 2026 03:24:53 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: robh@kernel.org
-Cc: krzysztof.kozlowski@oss.qualcomm.com,
-	conor+dt@kernel.org,
-	tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A8g8lb6N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E750A1F00A3A;
+	Thu, 20 Aug 2026 07:25:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787210742;
+	bh=0RrODx3V1Px/U/AojeH5jmVTwASzYYtIbWBrlSirhEY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A8g8lb6NMK3qMUbPsHmj3OZgI+IecMWiyT7M+csIZQ50OySFgpqMSptFxiC3hhSxc
+	 p5e1zKBhe3arBFSnS6gm1Qa7uPkGALrG6QKlpRptu5t4/ixp+3Ld29ou+UOirvferl
+	 jFzsQRIIZ09OUBcpKkS/XinDPnINzc+iFt72OlkBH2VTgNYihHLZiOFii6yHek9hhj
+	 5eWWf6dD1F2jkMV5uj66QH8b2hhxdaCPfNu6kV3IkmPXK2s9lv5MhiFMQ9tdx2kppl
+	 msFOh3/ASo48YOIHd/UCewTKQtqstshEIJ/0xNHKXrnGa/TVVmtXwN+8yEVZmdR2c/
+	 K9QNC2Fib7M1A==
+Date: Thu, 20 Aug 2026 09:25:32 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 04/12] dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
-Date: Thu, 20 Aug 2026 22:16:35 +1200
-Message-ID: <20260820101635.752920-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178709455518.1014304.1443906758035976924.robh@kernel.org>
-References: <178709455518.1014304.1443906758035976924.robh@kernel.org>
+Subject: Re: [PATCH v1 2/4] phy: qcom: qmp-pcie: Add qref and refgen
+ regulator vote for QCS8300 and SA8775p PHY
+Message-ID: <oxnts55ylqdejsawsz42m4fc5ajh3jaypu3hkpdld5jmdyjjoa@iigp3bxas2qd>
+References: <20260810112735.1326807-1-ziyue.zhang@oss.qualcomm.com>
+ <20260810112735.1326807-3-ziyue.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260810112735.1326807-3-ziyue.zhang@oss.qualcomm.com>
 
-Hi Rob,
+On Mon, Aug 10, 2026 at 07:27:33PM +0800, Ziyue Zhang wrote:
+> Add a new sa8775p_qmp_phy_vreg_l that includes vdda-phy, vdda-pll,
+> vdda-qref, vdda-refgen and refgen supplies, and use it for QCS8300
+> and SA8775p PCIe PHY configurations. This avoids modifying
+> sm8550_qmp_phy_vreg_l and breaking SM8550 and SM8650.
+> 
 
-Taking the last paragraph first, since that is the actionable one.
+Can you add a small note on why you are now voting for these supplies, what
+issue you encountered? In a nutshell, you need to explain why this change is
+submitted now.
 
-In v9 the dependency will be in the patch itself, as a git note that
-format-patch carries below the ---, rather than only in the cover letter where
-it is now. It says the patch touches only Documentation and applies to
-v7.2 on its own, and that the series it belongs to is based on next-20260814 plus
-Igor Paunovic's "[PATCH v2] accel/rocket: request the core clocks by name",
-which the driver patches need and this one does not.
+- Mani
 
-  https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet026@gmail.com/
-
-I re-ran dt_binding_check after your mail, on the three bindings this series
-touches, with dtschema 2026.6, which is the current release on PyPI,
-and yamllint 1.38.0.
-
-  npu/rockchip,rk3588-rknn-core.yaml       clean
-  power/rockchip,power-controller.yaml     clean
-  iommu/rockchip,iommu.yaml                clean
-
-None of the three reports in your mail is in a file this patch touches. The
-unresolvable reference is in mfd/qcom,spmi-pmic.yaml, and the refcheckdocs
-hits are in two translations and arch/arm/xen/enlighten.c. I mention it only
-so it is clear I read them rather than assumed, not to argue the bot was
-wrong to print them.
-
-v9 is not posted yet, so please read the note as what it will carry and not as
-done. I am holding it because v8 drew three reviewers within a day of going out
-and I would rather collect the rest of that than reset the thread. Say the word
-if you would prefer the respin now and I will send it.
-
-Regards,
-Jiaxing
+-- 
+மணிவண்ணன் சதாசிவம்
