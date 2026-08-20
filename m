@@ -1,63 +1,63 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A01F5419FA6
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 11:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009D14195DD
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 11:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787223849; cv=none; b=Naq0vX17llJhu2CNVAvE1EIi1m/R+oKAl1sZeV4mMLk7qrvWvYVLAxft/OBkeAWDSpoulPzQxDJB+Y7O4ib4BWmaij+hyPz1MmPwuMLmovZ+hA8Du2yNJjRxpazhsgRMnVKKjN33Ju9inPxv9WhrusDK17HtsM1t2gLIFX3I984=
+	t=1787223857; cv=none; b=tYSQkHRTeFnIuayxWa1eBn4Ucd7OstE2IzpGPAj8AxFjZfzJPv8AlLCxHN8msGFEhvKX/RbYfD3CZsUSExIhgK/kyXw0r2viwDFQpoDGJgDyiY1QUG+9Vp8Mrn8yqt+/Tc73lTlq0JxkjBqbzKG8kNNRMK8LY+aCQKDTj0sx/hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787223849; c=relaxed/simple;
-	bh=pWoMjTkbFL8fsd9FdyFU+AP43bbp+tOHOCvu0aAZBrw=;
+	s=arc-20240116; t=1787223857; c=relaxed/simple;
+	bh=N28ryJa3YVWA1Cgupj5pKOjeNOpo+ptWos/yBchcvfk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PDTi2RGkZUs12t6+Muvrn2XbAkSEMZVz00F5f0BvHaLUkADYXnpe098+SeQMoPQbIKlGMvUPfY0dqQ0ijbi3Lp6MXR+x7cRGBYDThtIvuWH5UAxT8VjqiBNjrcqIBS1dSFHo1JUOoAZU2ouTE/Nzoqvb4SpGPynBg2qsC5eF7ZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DWb4q5SF; arc=none smtp.client-ip=209.85.215.179
+	 MIME-Version; b=BToFNSVN/Gz2HDd+mg5V1hoNCHUIXVvqyGIiXlqPi5YB9TQOfqMGI7U8sy7qdOsdh4UI5mawS8qCD/UlKljeGPGiIdpstLlFyLTRPa0ok8uBYWbiTegT4Wx8azTE0KerT/Ph14qSCyhN42B0o4ikuqNpgpKBRvTrxc3LmmYhgqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dam4yxxJ; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DWb4q5SF"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc147d86bebso650706a12.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 04:04:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dam4yxxJ"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c999f162c9aso1292446a12.3
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 04:04:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787223847; x=1787828647; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787223850; x=1787828650; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0hsPh6rJ9k7khbV1rxI1LTREfXN7mQXDJAbaQI7N/w4=;
-        b=DWb4q5SFsUWbQKuYi2MNvuq6IbYaTCP6DGgW2Jz+GsbGwK0LDTojDPpFXgivyGaLgL
-         dRjEJIqN/0TpmoxSqedUKZO9PC90s+P8yLG873fjjn6TgQJIrykW0faEg/8KPiiSuGfm
-         N3yrqQjJmY3sVRZEmAhv+7ia49AlRhYJ+/P3wxv2CiA6lBvuCpPhYMSwP2aDTKsoa+1X
-         hGlNLzFrrnldPcArsetEEltw1r3WU7mhDZSct9fa226tXl33iyAgXZSfHuvuVBPlLqcl
-         A2p2t+vQPU+3KCTgSUeL/0tgrT325dxjl0WtWRD99S7TWX9AuxnBHHbEzkvekSGpTdcD
-         PSbw==
+        bh=QVAB6pL6BfDoa5OsrighnSVQ76D8cSms3sDyrNBqKNk=;
+        b=dam4yxxJst81dgGeaEWMwKBUyxEunncqVwHY6TnKvEu+CBSJEU7YDo1KEY1k8w/Q4N
+         dc8+HPWlWe6Zwk3WTPXDsm5F15VnZOZNi+SlV2nyMSuXI20H8FN/+LMcb5WZQdZKysPr
+         BeK6z6PDRAJ88Iv8U9vJ6xXjjCAAGv6ogW4hvg6Rvgsa2vHusxbnwI/iyiCyFo4wK4OI
+         Ac8dJV3uDo/Irvf+gLWEL/E9KSIYwfG+KaTHD+2Qh9i7YyKU1QIUFqqvSGfb9XpBZcUe
+         CFs9BEalBBOueGLW4+nIwqgBAnw/OMLwLT0eSqjGorhHD3QlUJzV0ePJJ0xH7LDCP4j/
+         auEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787223847; x=1787828647;
+        d=1e100.net; s=20251104; t=1787223850; x=1787828650;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0hsPh6rJ9k7khbV1rxI1LTREfXN7mQXDJAbaQI7N/w4=;
-        b=G1j9yJ9JGwyXCQzMjGkq8gWbrJV4roaLxOL5Mxoxclc0Dyl07qto85wYHsQUUHsBVl
-         yKtS/cIqdSl0Pw2F4ogalh4+9vcsNzh7aeg70DGyk0aB29oBbw7dgbUwBAoFBd1j2tMF
-         tTS+jLGm4L+xDPYp/fYKV2ObHhGbdsixHv1tgtXs7e2717xnup8LCjbXUmMPxU3u9nrS
-         LsorlcLIq6ePbgmtXwphFuC3kCkPJ5Co86W9PxL+LYdk9YUwCJ2OFMyoj98Oo1PV4dY2
-         6ZSaSUe4ot9adnQw7HVhR4I8+MGaxcEiwoG29c8pfq1lxC1e4Poq5ocX2Hy3up2J2bPp
-         X18w==
-X-Forwarded-Encrypted: i=1; AHgh+Rp3mdP+hC78ce9C1WA10JYAGgHnV5c0zQt8utnbD1CFtfPRA4TLT1dfIZU35ySFScuOp78r5X2eBsOd@vger.kernel.org
-X-Gm-Message-State: AFuF++n8eYyWXFZHmoHQWgW+drKQMxhOFab5axsytKprP+0njR+Rz4WN
-	Va+F8ppobGSobMZdaG2QV8kfakKQ294fywIM5THTkYtUN85r4s3ipDF5
-X-Gm-Gg: AR+sD11BhP6Z1emL+3sjYkmNZr1/jxyrGC+NTeqQyCUHi7Jec44ghDP976GQrAMjetD
-	lc7+FtNdZz8TM9w3SOyOvInQPbKlQVI5hxczEXHj+cwvviLE6A7HbScMIy1dhTHCAV8F1YUT0aO
-	RfHp2IYhwcqD2h1gIZ6yibJyBp2V7Z/rjrAQt8sHRNNUS5Zxjb+wzHHTC1WAcsufnncE+HGHBsm
-	2K5fOVjufHNKXN2Di6bj6gcj4FXiuMvBXvgRJqumZi9Kz8znJpnP31neKrlXakhVGhyEtuRYe6c
-	jRZiL+tL6jdImykNnpB+m2ee2uzKRI+PtT5UluNVwihDo9iH39uKEZdPq3ByfxGCnmb1W+y+0Un
-	JXOpkmWzlxhaTV8oblVXjDeSA4cMeMAZ2f6dNkSzZC3mTE/3G6GLsplvbuElIE+/5bhTEsQbJic
-	D0Z4VtGJm+HgmKCUd+wts7swpu1SBficqVg/Pnj6VkVzD4HQeFrt8=
-X-Received: by 2002:a17:90b:2584:b0:38f:de94:bf34 with SMTP id 98e67ed59e1d1-395a074aab8mr6078776a91.10.1787223846856;
-        Thu, 20 Aug 2026 04:04:06 -0700 (PDT)
+        bh=QVAB6pL6BfDoa5OsrighnSVQ76D8cSms3sDyrNBqKNk=;
+        b=j47SOlZVmik/NJ9VvXuimqp9pNYPN3DZkU+yt0Hn7vyuqqYf8Z2pllLGd0ASGlDRKH
+         rJINb6pG9SR9DtWsMS3OaX6CkSHjp1vpdOHkiebtkLNXj9xoFm98Ea7u8Ln8sPJew1Zj
+         0GAyc4lt+S5wR0PEnZmQew0903TgXkvkLSKqxeLbYcJ0RGNn5sKlror16WpsEmvNonx+
+         KK1st4qu8EJ39Ut5zjag1PJUCwaLakwZvDiXqNFr8fUuSR44sfzcsbpWdXrukh1FhveI
+         sGKieuw+QK5s6ROAUp8y09CyRKeOjL+JvsLPw2Ifm47AcfZe3avTCsPBRn7hur1rU41A
+         AIMg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+PF+5s8vdCVXmtM+3Mo+pF0UDbrZzY6Qn68H2FJNJhrEHZQ/QnWiprzllS4lduA5WykKVMLJNhrw7@vger.kernel.org
+X-Gm-Message-State: AFuF++nMfg1f1y2e+xomC25CZGUV39rHUW3LsDMF6iFX9IvuxHUANOEZ
+	YUDHOqzfPgyVHL/XrljOnpcUENjEzJRn2bL8YzKCXia/9ASAaLZYOWBI
+X-Gm-Gg: AR+sD11ArjAs9tIlBKXMGB8m/J6IEQOXaKfRzGBPsoKeWMfOtmxNJbxS6rY4W4sZomV
+	cf8P5jjz1n6UvXrsOrOgl+WqXh/3pnfnLnIRyNr/osScLlJOmHbbYO1+YzqfNIHemYLgV9SX/4k
+	uxlDoZEzfF4BF3Z8OMHEsz94JlMVgrv8ve7iT6cG6Ysl1NdyQZ6+7f1zOGDPC6gPXPQjRBPNZbs
+	4Jf3sQ25DsGOXUlXpu2AHJItCwXFIgAjsVNz16Y4PgDwBHVh6R0HYH/Hd1ERPOTSpyKuGSMPiEj
+	Pc7JaDrvBipPWxIgiTfSr80JItb6fVLvgUrF6hy1RFumPsNVM+DhmAy4kGXkDGcFUzAEMARN8p1
+	nUK2vhSZSHY+MY9X1TvGTlVweYthv1ah6maC9VyD5qVAntGaJOtDu5crx4ua31sz67Ksyjnzs3/
+	5OxZxGwNDARdjC56TiJMnTD8l7aFl/q1k5ddGbgT2eMwZEeXEp6sE=
+X-Received: by 2002:a17:90b:4cc5:b0:37c:6130:7a5b with SMTP id 98e67ed59e1d1-39580ed0a57mr23327925a91.8.1787223850387;
+        Thu, 20 Aug 2026 04:04:10 -0700 (PDT)
 Received: from thefoxflat ([2404:c0:7015:a156:d857:47e6:8c8a:886f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb12145sm6200668a91.4.2026.08.20.04.04.03
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb12145sm6200668a91.4.2026.08.20.04.04.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 04:04:06 -0700 (PDT)
+        Thu, 20 Aug 2026 04:04:09 -0700 (PDT)
 From: Reza Kurniawan <imkyufie@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -68,9 +68,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Reza Kurniawan <imkyufie@gmail.com>
-Subject: [PATCH v4 1/3] arm64: dts: qcom: msm8917-xiaomi-riva: Enable debug UART console
-Date: Thu, 20 Aug 2026 18:03:45 +0700
-Message-ID: <20260820110347.98068-2-imkyufie@gmail.com>
+Subject: [PATCH v4 2/3] arm64: dts: qcom: msm8917-xiaomi-riva: Add GPIO haptic vibrator
+Date: Thu, 20 Aug 2026 18:03:46 +0700
+Message-ID: <20260820110347.98068-3-imkyufie@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260820110347.98068-1-imkyufie@gmail.com>
 References: <20260820110347.98068-1-imkyufie@gmail.com>
@@ -82,11 +82,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Xiaomi Redmi 5A has accessible UART test points on its PCB, they are
-routed to the BLSP1 UART2 port.
+The haptic vibrator in Xiaomi Redmi 5A is controlled through TLMM GPIO
+97 and is directly powered vph_pwr.
 
-Enable the blsp1_uart2 node and configure stdout-path under the chosen
-node to allow outputting kernel logs and facilitate early debugging.
+Define the vibrator node using the "gpio-vibrator" driver.
 
 Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
 ---
@@ -94,35 +93,29 @@ v4:
 - Simplify commit title
 - Add commit description
 
- arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+v3:
+- Add vcc-supply for vibrator
+
+ arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-index 4ea4fbdb5..abfaae502 100644
+index abfaae502..a066d9d7a 100644
 --- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
 +++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-@@ -13,6 +13,10 @@ / {
- 
- 	qcom,board-id = <0x1000b 1>, <0x1000b 2>;
- 
-+	chosen {
-+		stdout-path = &blsp1_uart2;
-+	};
-+
- 	battery: battery {
- 		compatible = "simple-battery";
- 		charge-full-design-microamp-hours = <3000000>;
-@@ -25,6 +29,10 @@ battery: battery {
+@@ -27,6 +27,12 @@ battery: battery {
+ 		charge-term-current-microamp = <60000>;
+ 		voltage-min-design-microvolt = <3400000>;
  	};
++
++	vibrator {
++		compatible = "gpio-vibrator";
++		enable-gpios = <&tlmm 97 GPIO_ACTIVE_HIGH>;
++		vcc-supply = <&vph_pwr>;
++	};
  };
  
-+&blsp1_uart2 {
-+	status = "okay";
-+};
-+
- &blsp2_i2c1 {
- 	status = "okay";
- 
+ &blsp1_uart2 {
 -- 
 2.55.0
 
