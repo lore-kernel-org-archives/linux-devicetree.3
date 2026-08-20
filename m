@@ -1,198 +1,107 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6F8384CE1
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B1038B7DC
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787203521; cv=none; b=GyAhjwXnCnlLmplvorvk1INn4vr/JgJKEagnDqqCJEJI6B//qgtKo2YBvaZzmDVtJXp5tBFAOC1t7tSFmFCwjHw65ZB8wc7cDp6Ia49kJbigm1C8WNq1p/VyOBL1DD5PMvGyvCQnBzklAMGsOQgEnREFuxbLXiloz2Zm/fz4khM=
+	t=1787203644; cv=none; b=QNrZxOudM7zRY4BJTrHSZS07HvAZsiPwIrcMec+Dg+SxJep2VJc3ytEiPbmdQlELUrkFiOZ/jYWxt5Tk68qTV+pkqUX1cQmiSokwAykB7bcm2qf8TdN8dD7cTLcTeKALxHPjF8nJ45IZsWVoe6uTTAszUbbbWObLJuw4TqAF/Ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787203521; c=relaxed/simple;
-	bh=03XE2jy5YXdx2eEWUFRL9mB3C5+BD+He3V3ymcwsAnA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DvEGi6q4FowbR0oHDMahmLTQyoC4KzKaafXer9SVnPXylRDPWTokqrOwEe1+1401VeajFIvXEvg4KhHfvna75aL1P7TcYvPUg1CXW8e3tfJYDExPfuoi3Hj0AcORnw2Y83sLv5XldMDIpZf5+kn976n7GZkT2uHSe7EoCHB9JbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Cj7nvvIQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fm30WuqY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787203644; c=relaxed/simple;
+	bh=6gXyHo8XUCoAKISuXI9bvNfeyPk4rtFSs1k4nKhIhUA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=vCJF58z9i686alJ5M5Dmb+m8Ox5zPGggWQItB23Y9ielC0iLEuwL9xoUSpi7c9bq/lzN7MAOGMm/UuBOFIwNIlYbYwZoedBLq0zxjNAMueJWe4lqMFOFE2qybL2evG2y2HLrNGfrl9dClgBo9dPO/ytnFAwBPMAYdgiRwvOmI+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOEnRnbf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Cj7nvvIQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fm30WuqY"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JL7Y1g938722
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:25:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bsZsZ85fdqpazBfwsRkhB0mMT2Vfto+3/6fl/0xfrzA=; b=Cj7nvvIQj7ckN1WC
-	6VXotkIbDQBaXoCbqs6PhA+Q+VdM6mfwmRqKDWrdhokLhlivF7t+pWqpBQ9ZSv3y
-	HoUgkm9Za39oN0Rkw5MXmI+vlB02BHaAgwCCE8FJW1cuwcZTWpwmepsjm0f/Vxpc
-	qZm4NmCgBkfMEgJIukO1rTtr10TzwnfvMWvrRYYjcSEUzys1teDjzgDKwNVB1dHY
-	88GGuMY/Tm7Ge1i8QBKuEHGduV2PmO9KwjpYJpO5wIvs5DEU7zbO0YteVCA2bbPM
-	d0E2qcsI0K9r2/4XPcaa9emcpiFbebsdr2ihD7w+Cxeq0nGzaJoRS2WLxrohzuMq
-	/ILeMg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5e5d3fdj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:25:19 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84fa3b14ed2so1667677b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 22:25:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787203518; x=1787808318; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bsZsZ85fdqpazBfwsRkhB0mMT2Vfto+3/6fl/0xfrzA=;
-        b=fm30WuqYgbE+nXKKK32EHFCoDBtKP0JtuvslUqHJQREIHswcvNzKc498mVj/HwGb+a
-         tV8BXLN1LsOk8fteSeTcJ1TW0ZP7smO6nnBXapMgY4YB1nh/oLvgoV49U/MSlpPbtIMp
-         /KeKx3rka5W+qtOkgLcB1GrumWdyZFV+GEtge0KsgkNrYlSMV6JT0Z5FqPkgG/6iNpOS
-         T3a/Nt41IEuRHgTJdoIVtHpMwEzuPOGPcDEmFKEHAPve/gqEzkzY2ea8YMRnpoZsR57v
-         /3ryaad3Mi15vJHWHe1Yt5Qhn5ND3XQDczvDtyslM5lGId/TYtjqJstvBKTw6P18QCwr
-         8rgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787203518; x=1787808318;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bsZsZ85fdqpazBfwsRkhB0mMT2Vfto+3/6fl/0xfrzA=;
-        b=oLl0lqD/dBt4BVn0gAgcTfoFwMMW2JqbZmBGJk6IoUEtV4pg3uzY338axp1kCdxrDL
-         QA2RzEwJ1/hzuFVLSliH2dboz+WxVw+ZKzinFMSQ9JHCWlTb9nU56uqIojvKCIxhTsMu
-         C4mwlrgDLG4FJm54ckO6ag6uYsog22iwB/Ql8vLXM1pHTZKf2rdbgM/LY/8vlf7RjXMM
-         oPPjZBYeVARojU6NZLs30zjrtv2vTNoM86bfCQZUiAuOip+oDPYT47tuE4g58uK9k0Th
-         O4DmPl85RTY2U0qbZVWNYNSsC0mLum90PQEf4Gf1L64AlQyM8uz6a3xFtXrQMCfKkVvR
-         t0TA==
-X-Forwarded-Encrypted: i=1; AHgh+RoMECuM8ntIwSY3EO4ojGlS/6oMGoP8hplKa6RaZQJclEXDgvu+CPKQTejeigU2rofj1ijsKdzV8sCb@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTwIFUJQ6Bva22HruHDDxdI1M87Xnr9PI6y8WFIdUUPcFDokHg
-	npDjB4gc6CfhnkOUI9W/uTYcKumv40qpA44LUTM4eocBwyg4kR7l+XxEXCkwfrfVOz+vWiLURL4
-	9/v7c+VB/oeZiCYZmH+uXjUEU+xDc/b3EklxDEcatQh2eXnW1h3+zHP3jTCBfQIhKV2Do40Yd
-X-Gm-Gg: AR+sD10CpRpJC/Fk2BnDT0CPJJJSPzOUf6MwPPnNgA06tJ/i8pNZDiuvSLbYhDo0fuH
-	z970h/7O8p0HRj7HKNq9UD5x9UkbgOGWt248zNxzx0zeTAUBK9J7re5T72R1zaBYtA1mAiepKBb
-	GDj7QGXrBCd0bHbRWPbomfDsED0heY8q1DnTJUhSn4xnFuWKCv3wOswjrN09X+WetCzt8gx+nHB
-	uVDY/cwjrpEDrVpjS65a1Qp3SnyEGJfrhXwPKDIGeuRbbrOKLIcwSnGBHXCX99wtWFginiMQNvR
-	WM5de9qxHFs3gSu+gwG6esJf2X3xP+cNv8gx88AyD9+LtRlsrCOYKck9/orEvGvmAo59GlyqlAd
-	7SOpjeqX03ZoQ/ia1qjIVEB0AwHRtsgGYj35NlqfNizCiNDk4JSbzBrL1r8mhipcU
-X-Received: by 2002:a05:6a00:1412:b0:848:42d0:bc91 with SMTP id d2e1a72fcca58-851d38abc90mr16072107b3a.12.1787203518456;
-        Wed, 19 Aug 2026 22:25:18 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1412:b0:848:42d0:bc91 with SMTP id d2e1a72fcca58-851d38abc90mr16072052b3a.12.1787203517965;
-        Wed, 19 Aug 2026 22:25:17 -0700 (PDT)
-Received: from [10.133.33.27] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d3640a4bsm1273691b3a.42.2026.08.19.22.25.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 22:25:17 -0700 (PDT)
-Message-ID: <25c982a2-da65-4710-9412-e3cec66d2c3f@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 13:25:13 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOEnRnbf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73391F000E9;
+	Thu, 20 Aug 2026 05:27:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787203643;
+	bh=XKSbNfLvTnuUCP7oB4yU0B9TQ7CYBy9wpR5csrSw70M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WOEnRnbfSzFh/JNPPDYw/c6GCeowJx31l+pJMylMINsiJUAFWX9Jq30eAalmB640R
+	 UJQri7E9KzY87xLVkdldtqM1Wryf0eIQFWUjSPgU3nkWx2XCgEsqR6+TAdX6y9i2Q3
+	 Q2JtGiWHVDe2OQvvGF35ecPmE8x4vudqIjugDkVM7Fx89oTHHq1ut7BrDA7ssQiem6
+	 XjWz00QeRPOPoeBiUWNkbFE+LkuGo9IH3PhRLgadv/ZkGK71mGXqf0KPl+MsfsmvF0
+	 acoFuDoFDeGM9g4fZR9+IWSdIKVeWfDKVLLExQllFidYPGJA+Tn1NCks0RvuSufsuI
+	 pRfJif0Xpa1Ag==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 5/5] iio: osf: add UART IIO driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinseob Kim" <kimjinseob88@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260820050608.5440-6-kimjinseob88@gmail.com>
+References: <20260820050608.5440-1-kimjinseob88@gmail.com>
+ <20260820050608.5440-6-kimjinseob88@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Aug 2026 05:27:22 +0000
+Message-Id: <20260820052722.D73391F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: ipq5018: Enable MDIO buses and
- add ethernet PHY
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260814-qcom_ipq5018_mdio_pinctrl-v2-0-ff90d6605d61@oss.qualcomm.com>
- <20260814-qcom_ipq5018_mdio_pinctrl-v2-2-ff90d6605d61@oss.qualcomm.com>
- <ba2cd714-3da5-41ab-ae17-522d84f9d1c4@oss.qualcomm.com>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <ba2cd714-3da5-41ab-ae17-522d84f9d1c4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAzNiBTYWx0ZWRfX9Zb79uT0trkW
- iW9Pjft62w+DVGZPGznXQXQ3LdueKQ7XKWCIcBMfnfjjmYFTR58BC6z1aX5cfVjq1PyFYYWcFyb
- ncEnrkCZ3ntsYybF/Y6h3/Jr/kQantoGPZOFBnRDoQUwGvh1X3lfvfoV3QmOtCrqwH2MajSOaOI
- FPk0vkXpmScEQDRrYpeCsYVqMtW0PE9w2eB3IrMIRvzFBBIt7yx1JocFe53Nft1fZ/g78/c6q0K
- PFXXEsXe3CCufOyV5WsrjeCAqTZXy5xkdHKbQBkfSzQ6TAE3q3p5YU40CL/T9Htsu2PjIVn1uID
- G+9gHpUXWgwD65JRQy7onA1yo2f+tkTgsj7FCTRhSrcQKbZTXQ3Dvcf2b2TH60UhGXcnwOv60XT
- zJ47Z5kBRgboGBD+fSUrcrGXwkUeadXK/J1IKAK+bjs81gBrmNdoeWQkTQVe51l/wjdXO89OYHE
- 4I/5SaYYRa3fJcob5jQ==
-X-Authority-Analysis: v=2.4 cv=cuOrVV4i c=1 sm=1 tr=0 ts=6a868fbf cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=MPq_oieJxT8TesfsIL8A:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-ORIG-GUID: TOU1K02WNzEsOR-Pt29241PLE6vRMJf6
-X-Proofpoint-GUID: TOU1K02WNzEsOR-Pt29241PLE6vRMJf6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAzNiBTYWx0ZWRfX+Ii+vBU2H+FC
- WhgHdZFuSdKrxUTPw05KlZApLBde78wac67BByiO3lfHd4X3jMf5nYs3FB3ySApSFmtlJ2cj4+W
- v4ZMLhgnRcIJ1mLRTeesMQVjFEhuvio=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200036
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Hardware Initialization Order: Regulator enabled before UART is co=
+nfigured, risking loss of initial capability report.
+--
 
+--- Patch [5]: [PATCH v8 5/5] iio: osf: add UART IIO driver ---
+commit 9c6fb720e1ae8c10cafcfaeb63c04248f654050d
+Author: Jinseob Kim <kimjinseob88@gmail.com>
 
-On 8/19/2026 8:42 PM, Konrad Dybcio wrote:
-> On 8/14/26 4:22 PM, Luo Jie wrote:
->> Both the internal (mdio0) and external (mdio1) MDIO buses are present
->> in the SoC dtsi but left disabled at the board level, so the board
->> currently has no way to talk to PHYs on either bus.
->>
->> The RDP432-c2 board uses the SoC-integrated EPHY on mdio0 and an
->> external QCA8081 PHY on mdio1 for its Ethernet connections. Enable
->> mdio0 and mdio1 with a 6.25MHz MDIO clock, and describe the QCA8081
->> PHY at address 0x1c on mdio1.
->>
->> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts | 14 ++++++++++++++
->>  1 file changed, 14 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts b/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
->> index 33eef92b19b1..aed8359b1931 100644
->> --- a/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
->> +++ b/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
->> @@ -30,6 +30,20 @@ &blsp1_uart1 {
->>  	status = "okay";
->>  };
->>  
->> +&mdio0 {
->> +	clock-frequency = <6250000>;
->> +	status = "okay";
-> 
-> If the phy is integrated as part of the SoC, is there a reason to
-> not enable this bus by default for all boards?
-> 
+iio: osf: add UART IIO driver
 
-All IPQ5018 RDP boards use the integrated PHY and have this bus enabled.
-I will move it to the SoC-level DTSI so that the bus is enabled by
-default for all boards.
+This commit adds the Open Sensor Fusion (OSF) UART IIO driver. It handles
+receiving OSF frames over a serdev UART, registers IIO devices based on
+capability reports, and exposes sensor samples via direct reads and buffers.
 
->> +};
->> +
->> +&mdio1 {
->> +	clock-frequency = <6250000>;
->> +	status = "okay";
-> 
-> Nit: a newline before status would be neat
+> diff --git a/drivers/iio/opensensorfusion/osf_serdev.c b/drivers/iio/open=
+sensorfusion/osf_serdev.c
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_serdev.c
 
-I will add the blank line before status in the next revision. Thanks.
+[ ... ]
 
-> 
->> +
->> +	ethernet-phy@1c {
-> 
-> No compatible string and other properties?
+> +static int osf_serdev_probe(struct serdev_device *serdev)
+> +{
 
-No compatible string is required here. This PHY QCA8081 supports both
-Clause 22 and Clause 45 MDIO access, and its PHY ID can be read during
-probe without any PHY-specific initialization. The standard PHY probing
-flow is therefore sufficient with only the reg property.
+[ ... ]
 
-> 
-> Konrad
+> +	serdev_device_set_drvdata(serdev, osf_uart);
+> +	serdev_device_set_client_ops(serdev, &osf_serdev_ops);
+> +
+> +	ret =3D devm_regulator_get_enable(dev, "vcc");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to enable vcc regulator\n");
+> +
+> +	ret =3D serdev_device_open(serdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	baudrate =3D serdev_device_set_baudrate(serdev, OSF_SERDEV_BAUD);
 
+[Severity: High]
+Could this hardware initialization order lead to a race condition where the
+sensor's initial capability report is lost?
+
+Since the vcc regulator is enabled before the serdev UART port is opened
+and its baud rate configured, if the sensor boots quickly and transmits
+its capability report immediately upon power-up, the host UART might not
+be ready to receive it.=20
+
+Because the driver relies on autonomously transmitted capability reports to
+register IIO devices, missing this initial report could leave the driver
+completely non-functional.
+
+Would it be safer to open and configure the serdev UART before enabling
+the regulator?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820050608.5440=
+-1-kimjinseob88@gmail.com?part=3D5
