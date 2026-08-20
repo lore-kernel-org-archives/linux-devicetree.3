@@ -1,78 +1,113 @@
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [71.19.156.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F3730EF63;
-	Thu, 20 Aug 2026 06:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.19.156.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76873B71AA;
+	Thu, 20 Aug 2026 06:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787208991; cv=none; b=ub2lKoSRpgUMKRkn/7LWLqJQ7YI04QsH2f0ufRr792znMchJdNk+vP36wzl7HwAlhqplb5UVkdCUr24LIyQ6MD0lDlQGTOozTqGF7EYB23semiyEf7SaoMqdkJS/zYLrp+HB/ky0NQ0t6bxpGkXgbV5ZndNsu6hgGnmXFab41EY=
+	t=1787209195; cv=none; b=nzPlXK27PgO9SOpBztN9uje6MlNk+CLHC6itP7hGE3/Gu+DdK8XFnhJDB0e2LRexI4k0B/sjBs2IHRdBaA7pPSqWqKM0h185ZLzmvo7ocsYlDENjpPzJFKDobFrV2R/zVRdd9mzIqD2D/juj84W2l9OIC2OUAntQjP00WO4jipk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787208991; c=relaxed/simple;
-	bh=I74YV/Xs1pfjL3V9TczIEk6MvDZlUesCUofNYEE2VhU=;
+	s=arc-20240116; t=1787209195; c=relaxed/simple;
+	bh=XFU63hRXbDc+cDHeczZs791xHD2IK7VshdWjnJvRzbc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pqNu3zYobrDLjXOjU6rGYp0lY7pOHcw9RHdp9kv3TvimqLMuBiu7o8zETsZb9xKDMTNxjOvw95phEVK8a/O+1zotbLVrwSCqCFF1vBbpz3+bGaSTqnIRkGkpBtJ6I2ap8kOEkBoA4HEC3jWsQHuO1tS9Kodfu8NpbQd/mvAlt9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bewilderbeest.net; spf=pass smtp.mailfrom=bewilderbeest.net; dkim=pass (1024-bit key) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.b=HPqWC3k/; arc=none smtp.client-ip=71.19.156.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bewilderbeest.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bewilderbeest.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=tFCbnvICWzBLEc7w8rKR718UzbTH0zlWG51pW3H20fL5LKfIW+vrRMr/kfYNJBXGKNEWOvVlWUy9W+73lRHk4/9ymVq8KC75vuXZeTrpu4avNG9Pe4Le9MZtC9iePmPnC2JMYSrlbicGyAPC+04rW8K/xb8RiCuzMc4XDCycQP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ElcaT5Jl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.b="HPqWC3k/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
-	s=thorn; t=1787208981;
-	bh=I74YV/Xs1pfjL3V9TczIEk6MvDZlUesCUofNYEE2VhU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HPqWC3k/NUJ4eKfZGmfOlQIUzNo1DZ3fzyENBJpQpVyh0bFNQPUqY9nqiazcyQohs
-	 u+b9hnzxRuDqXlLUrUBI0XYImuAFtjNhBO+QBI0xJkjx/XVO/MFsfFV+hpCbdfUohg
-	 Uh5yQ3TTQV0pZz4bMIZh87dIqB/4y/1qN0T1/qaE=
-Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:71d1:5c00::171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 78B814C;
-	Wed, 19 Aug 2026 23:56:21 -0700 (PDT)
-Date: Wed, 19 Aug 2026 23:56:20 -0700
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Tan Siewert <tan@siewert.io>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: ASRock Rack X470D4U BMC support
-Message-ID: <34c111a5-657f-46e2-b963-9876e123f43e@hatter.bewilderbeest.net>
-References: <20260816-ts-x470d4u-v4-0-cd08e78287ec@siewert.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ElcaT5Jl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58FF41F000E9;
+	Thu, 20 Aug 2026 06:59:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787209193;
+	bh=oGn8fOuy8oVvpGY+DXUVnjiYFZUagRhqbSRyQXZKQ98=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ElcaT5JleopP6H8bLbNUl2SPrT6/I/OUzvxFi/dAq3/SoSuRNh6kRY0ACdwKLj4d2
+	 /Nh2vt+GofaizAxgdNIYUElX/3CRvjomp/qJx1dimiyWNsNAPXiSSA+WRbUl8K+1R1
+	 j8hgCnqfnJB9m8kyhv4fV569zi6SzV0akyztaWrUv+p4FQa3P6uRUmO0LfgAjo5Nm9
+	 8G5oJjS0Nm0vJpHNaDPkNWT1wDbXYiXvTvFptlxnuVizg7zCuRtlnde0JVwqei2/dH
+	 SLFtwDWs8NglzRr4vNq3rKXvmZURW3pxLYsNdPEdZvH8rTULBGhVjQAaJ4I8VsuKuq
+	 hOGvRuKo2GqFQ==
+Date: Thu, 20 Aug 2026 08:59:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] dt-bindings: remoteproc: qcom,nord-pas: Add
+ qcom,cluster-root property
+Message-ID: <20260820-controversial-mussel-from-vega-aaba16@quoll>
+References: <20260815132541.1575121-1-shengchao.guo@oss.qualcomm.com>
+ <20260815132541.1575121-2-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260816-ts-x470d4u-v4-0-cd08e78287ec@siewert.io>
+In-Reply-To: <20260815132541.1575121-2-shengchao.guo@oss.qualcomm.com>
 
-On Sun, Aug 16, 2026 at 04:05:48AM PDT, Tan Siewert wrote:
->This series adds support for the BMC of the ASRock Rack X470D4U mainboard,
->which uses an ASPEED AST2500.
->
->The mainboard exists in three known flavors, the "normal" X470D4U, the
->X470D4U2-2T (with 2x10G RJ45) and the X470D4U2/1N1 (an ODM version with
->2x1G RJ45 that is now available in retail). The 1N1 version also has a 64MB
->BMC SPI by default, but they are all swappable.
->
->There are two device trees, one that has all the config and uses a 32MB
->flash layout, and another one called "data64" (similar to facebook-fuji)
->that uses the 64MB flash layout.
->
->Please note that this board has been fully reverse-engineered.
->
->Thanks,
->Tan
->
->Signed-off-by: Tan Siewert <tan@siewert.io>
+On Sat, Aug 15, 2026 at 09:25:34PM +0800, Shawn Guo wrote:
+> Document the qcom,cluster-root phandle property used to describe HPASS's
+> ADSP0/1/2 cluster relationship. Every member of a cluster carries the
+> property, including the instance owning the shared resources, which
+> references itself; instances referencing the same node form one cluster
+> that boots in order and is torn down as a single unit.
+> 
+> The relationship is described with a phandle rather than by containment
+> in a parent node, as ti,k3-r5f-rproc and xlnx,zynqmp-r5fss do, because
+> the hardware does not express it by containment either: the three QDSP6SS
+> blocks are register-independent, with no shared register window for a
+> container node to describe.
+> 
+> Also add the qcom,nord-adsp1-pas and qcom,nord-adsp2-pas compatible
+> strings used by the non-root cluster members.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  .../bindings/remoteproc/qcom,nord-pas.yaml      | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
+> index e90d2953ba69..58d88cb07e52 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
+> @@ -17,6 +17,8 @@ properties:
+>    compatible:
+>      enum:
+>        - qcom,nord-adsp-pas
+> +      - qcom,nord-adsp1-pas
+> +      - qcom,nord-adsp2-pas
+>        - qcom,nord-cdsp0-pas
+>        - qcom,nord-cdsp1-pas
+>        - qcom,nord-cdsp2-pas
+> @@ -89,6 +91,19 @@ properties:
+>      maxItems: 1
+>      description: The names of the state bits used for SMP2P output
+>  
+> +  qcom,cluster-root:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Reference to the Peripheral Authentication Service instance that owns the
+> +      resources shared across this DSP's cluster. HPASS shares clock/reset/NoC
+> +      resources between its ADSP0/1/2 QDSP6 instances, and the owning instance
+> +      (ADSP0) has to boot first to initialize them before ADSP1/ADSP2 can cold
 
-Reviewed-by: Zev Weiss <zev@bewilderbeest.net>
+This feels way too much SW. We design hardware resources in
+owner-independent, meaning each device is the owner. Most of Linux
+frameworks, including listed clock, reset and ICC, support resource
+sharing for multi-owner case.
 
 
-Zev
+If this is not SW related, then I claim that compatible defines whether
+services is owner of the hardware or not.
+
+Also, unresponded Sashiko comments.
+
+Best regards,
+Krzysztof
 
