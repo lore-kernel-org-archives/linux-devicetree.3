@@ -1,206 +1,213 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3A1367B67
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EED829D281
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787202306; cv=none; b=IPqDI3WML4XvUVeqt63lft2R88NhTQJGZI/UgfcEDNk1XWGGqKZR9JzV1hgYFQuHMSQaqxx4ovVQwbJKX4iYH/VbrwQtEZqp4t5TVUKTyCHkRK8IDfG8Yk0Um59R5HO/3qWgyAnV95Rx5gH53TQaQYlfgjqEitKmqKxNZbkkqcA=
+	t=1787202397; cv=none; b=WsblF5drYj8UTY+MlN0CSLAt24etlwNFycGdSV7WBWaPkec35sCjTV1cLks3VPENmaoj4zJpfGg3nT8D4bSb7LnFPi5M0OHm6c3Ry+ZkDQdsEPgW1qeUBIJ4oGIV/OxPbc90EPF/Ri8xTPqB5u8A4zsH3JfkZmzEXNIcubDOiVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787202306; c=relaxed/simple;
-	bh=KRqjEsfgNqcnIJO5eNWaBjRXlRkWEm/1s5nZvcInopE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dQmdlupx6Kji3PHNgvsDGTmlvylzAjDxxmG2X+Dg6jEtJD3ND3am/9D9fQCAYKQl7PHfH0TLrVWhM5SNaVLj6b3p6D0D/rQPnNoicmu5VRU5rXX8AvB+4dyCQP/kH+XPeSio5PRCfkJn+bf0QnTYklhxQv0YmcPwcz4y57p+z+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JKoQ0xk1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HXNF91Tz; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787202397; c=relaxed/simple;
+	bh=8UtX3Dd8gyBxCOoHOjGxAb9XHakiWDFR2Z/SXhpSidA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BryFc5tyKgq8oJCZZxXeDLUYOkOneTqNi9wf4lUgTobR690CUA27ch1c4lUvtlH/vTmSXDJ8S1YK6J3jcPHb/yhCyl14W3iHULk045w0FQItiRf+cfLSyzJXWw2PMzuXvPp3QxX0qQ+hlkeQyCtU8ubQj0plUe0gN/hU9NBU640=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J2bFhZen; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JKoQ0xk1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HXNF91Tz"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JL8eBB1458917
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:05:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6IrmzCdsWW6qEYtX/br6mJGQ2P/8lrI7K1gQFv6y1bs=; b=JKoQ0xk1tCNl2Sz9
-	4XG2Jd5pFNSJ1/NSm8D5K3Rkd3WLtcwbp9/90pR/zIiwrqR6tuvJ70uyI3ztFUux
-	vMoQ5mDLgtRJQJfOwWSilAwIuNT16R8cUQd00mnSBfEGxbmB4ARgpG/YTIe3MDXB
-	9kZ4UG2w/K3dezVMSR0NYf/35kI2sIgTm3djDiSVn5xU4c5oKJWOaOVe5YEMtRsD
-	z/LkqrxqXEQZ8RG4VeyXP0ZjIf9Vx4kJpctvik51VaiVUP9Gsyhvo228QdeAC1K9
-	sC12zNdnEV9N1AOgyJmMEITmjUUcpE9SN0FvDf/JygDvI0CBa+SOwJBI5sOyOUbi
-	kr1fog==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5es4b553-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:05:02 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb4cdf95b5aso2513225a12.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 22:05:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J2bFhZen"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cc7e86e7aeso19754995ad.2
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 22:06:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787202302; x=1787807102; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6IrmzCdsWW6qEYtX/br6mJGQ2P/8lrI7K1gQFv6y1bs=;
-        b=HXNF91Tz/3aIuY/f4xHAV7vKJnCgYQH3eUv2K2G5DOoVj6G+0Mb+PVJXVFI0dvNacZ
-         KVIvu2rIs4v/wClUfpIJwnGPAcY50sAXsSQoBoNKe1HiSGmCXm7Jw+KcpethtqC9Li9D
-         lIUfnUHsI25IPLvXwXkbHdUyM7leBe4Dmsi7fn1pcr2wrBqBPsvORAdZ0oBOrSzXwc79
-         emQkLVBpj2ULkY7JCLSkkiJn0esyKwegP4LH9W3Mpot01mwPa0tS3JSThSnK8OaqDC7p
-         8NRz7TqYeU7egM/Unzd0NMPrO9HstNCn2FWdr6uZOOCxgOoRMdJST/YsL9vCB7YUthj7
-         Z1LQ==
+        d=gmail.com; s=20251104; t=1787202394; x=1787807194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gdg5mjbxDlejn+rt1v5VsfqyiYFBYbUL8d5FdoHC6sE=;
+        b=J2bFhZenrcmN/NvS3CLmPCaQbDZuecpFdZr6q4kZVGq8vGPrNijfayw0EGZAkowCeF
+         znNZP6b6NLV88zgZhwC1U8UZ6PknFOF6IFXVPSkv6Sk+kNx5BTtlV5nF0K+HRFn/xEG5
+         KKyrKMKZZxhNZsoyyKnQHp9+Gy0bQpl6KgJ1Jy3txDkDFydu9lASh50IgTVkUcXk9lNx
+         W3EihkL+raXv/4xFw1p8H4iF4MDSQ1EGdO90tYSKJICcAxWHnoF0C+G8A1pEs0QlEjNl
+         mrpFNoYxlsYfObV2syMM9lPeYXd+GOiDUArdyGrS/HM2kx3/PghUdyHyM2WNDMv0oxJb
+         Q3pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787202302; x=1787807102;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787202394; x=1787807194;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6IrmzCdsWW6qEYtX/br6mJGQ2P/8lrI7K1gQFv6y1bs=;
-        b=bVMo65c4sQFzKmeHjSwbNcKy8ZwJsNwztC1zovBY3unxvsT9NyAh2te+7Eb1XHnFzW
-         6jA7MAOnrjssN7ROOs4+WDGvODMvDmrWaEYGfzxNy+ibkYp8/IIijWERRTqtxHwFt8CQ
-         hWdTQQgU5PVXSanCGQHPNjal5OA60FexZRwPyt1imghz4mh0qeKyMgOm4pgodSXpJy09
-         UHEOlGG8ex39+QZZAm88rG2DpyXQlKY38+H8G09P+UFQFp5T0WWRdRhVFKGrbxvNTo7U
-         3yb5xsOeFlM1MGmvgklhk8Rn0O8FUtBEXpWY4710sTKwjxHYR9G4DAPMxreHhkihANZq
-         yxJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpAacummzym3POKo7qm5BSjYbsXbb5icDurwi00tDjl1+z0NARe9e7h9X9aQp71d0ylAITZ+XCTG/qQ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yweuk3sf3TLZXD4baqYVjtRY/D4Q/V7GKBZzF9YVHKgmsp7Bh8f
-	UGO6vxW7b/2CE/Pr8bEDo11AtpOKDC9KnLdoZWmA4KHM41NYF1SIq06ZjicglRk0C8nNXHLAQFS
-	71UWZF8ZncegJbitB0gCQoPgOK2JJ8EQbBO3faBvF9CdpFbc4K6C5oEnsP44cXzD1
-X-Gm-Gg: AR+sD10s129UygAdW0BUNu8+M09o5ulkvE8a2g1+hr50YgEPMkhSqgeL95QQLmL5v0w
-	5Y6nSrzZuR0xUcC4UOiklfkvYKooWS9VkuVRbYRprNWQI4tty4l4X1i12j4IBr3I6lpWVBhst7c
-	orDsy7c8Nd+ihciDyam+u0Y19Cly0z6d8p8epjsP+tKjaZd8HNmjHrLSAAF8FI9sRZ4+X18Q/Sr
-	tXUWGZoLem5rSyDYw8uNBwzqEnHdWWeseVwJ7FWjfansw0sDmUDRUIwoOtzrOnPD1lqUclCda4E
-	7HKvPY/YBizoDdOl6sC4VoQcY16dOH2/VIkr4evleqvMAIbcNoo2478j99QJk1c/QqIYWNqgcIk
-	QxYY3WiVEAhIdzxfPo6nFG/yARMQpXDN43NLUlGNFvxPL+LuaGUAfyiBzJiq+gJLi8ipoWB/L+g
-	CPmCP4UQsFGvtJmg==
-X-Received: by 2002:a05:6a20:5483:b0:3c3:64cb:9b99 with SMTP id adf61e73a8af0-3cd00e58e33mr18463627637.6.1787202301890;
-        Wed, 19 Aug 2026 22:05:01 -0700 (PDT)
-X-Received: by 2002:a05:6a20:5483:b0:3c3:64cb:9b99 with SMTP id adf61e73a8af0-3cd00e58e33mr18463521637.6.1787202301416;
-        Wed, 19 Aug 2026 22:05:01 -0700 (PDT)
-Received: from [10.149.122.146] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf10b584sm21195675eec.16.2026.08.19.22.04.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 22:05:00 -0700 (PDT)
-Message-ID: <4797ecf4-67f7-4bf5-ac10-baa4a1356ea1@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 10:34:54 +0530
+        bh=gdg5mjbxDlejn+rt1v5VsfqyiYFBYbUL8d5FdoHC6sE=;
+        b=mWBpHM6/Oijn3Aoc9UepU/mLAA1pQ1uyxjT2weX3ahO0w5BT1PQh4tGc3/+NEvRNrD
+         86IfHl+ZaDNsJDNBctFcrxtYZ9wAMXl9MUeP4DEcbVPp3eTZyCPyIRgXYsQbOtTZ4s/6
+         1P3pIr1gKBmDY/i+rBb+QZ2J85h16AaSoRrLjfb1flgikkMwXnXACjZNPRHwuHa6Aos1
+         GRyCbLdxjcowK48Vsv//VlepqFywAugEvKzfHqBlI7sDET1088zwWHMNhXO8K7Pnc33H
+         WPceYL2gRQ6aEjCZNgplKki984iwpQzX98uyiye5WkDAGAWIITY72voWxGmax4UhXVqx
+         GMWg==
+X-Forwarded-Encrypted: i=1; AHgh+RoNlh7ebdUExmUmHnCxMSL00y6U7WSBPTErC1dRts3/39b04eHTlvIe3U1D7Oucxh8ziO8h2Gf9ZW6z@vger.kernel.org
+X-Gm-Message-State: AFuF++n88fQmf54xgWUTnNoLm6ikWOG6J7LtoDRoieYQCTEivN3qYTfd
+	sdK25bn98+vRsu16nVrOTv32GwR+z9uJYcHMFARFW3vh80A1QSu6WNNq
+X-Gm-Gg: AR+sD133ttakiBZU9TqX8o49qmy+BYJLAz94YA2x/uLe2I+3MADfOxYhvYi6uCX6Ghe
+	Wl1op7IRhiClCVRp+FYqPTsqgSaM7AnzgMj4DUquX7ZFHWz8oX3pVjbeI52oiwSfLo/g3eIzUHA
+	+rk2EuFUwRr8ZQ5zgsYv6HuBdRXHT/6bOvhbrUzpOY9cFqfT67FElB4qSFejnQOT6NMBzPS9Wmo
+	/ba3EdatsQE29LolFjKh971j8Mx9u9anqH5xoQD+8oKKrdBb6lyXIfvzBaBcNyUuAJ1i7Zd0gP/
+	lDEexsduNQ48Sjzdzy/ZRuszZE9mD2wFekeERWwgSDBeiaWE6KazdlVbXwC44kZUULm1TEZVdkD
+	M9ODz1Lklw1SjodbG7+O3xQatswRDtbZhCtWDQWRTMnAqdn/kXtj9VEwbGBVXHwzXPJJBZ7Rlo+
+	S4Ofl60hliUu+WFGddi0IPXh4vfBAITeYJj3AFcVaBVnd0c6ipFiLR769ClUM/zYA77/qAayUqa
+	fGhOZy2tsYrgucnHbLWKQZzw5/UpUmAERkKOg2+Xx+Vit1RM4sduJmZzlm6lBHbkj+7fT94tCDm
+X-Received: by 2002:a17:902:cecc:b0:2c8:2808:3ec9 with SMTP id d9443c01a7336-2d601a8ef08mr165271975ad.12.1787202394458;
+        Wed, 19 Aug 2026 22:06:34 -0700 (PDT)
+Received: from DESKTOP-G3E0OSP.localdomain ([112.172.255.242])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d62d58a82dsm2040685ad.18.2026.08.19.22.06.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 22:06:33 -0700 (PDT)
+From: Jinseob Kim <kimjinseob88@gmail.com>
+To: jic23@kernel.org,
+	linux-iio@vger.kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-kernel@vger.kernel.org,
+	rdunlap@infradead.org,
+	joshua.crofts1@gmail.com,
+	u.kleine-koenig@baylibre.com,
+	julianbraha@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	grondon@gmail.com,
+	devicetree@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v8 0/5] iio: add Open Sensor Fusion IIO driver
+Date: Thu, 20 Aug 2026 14:06:03 +0900
+Message-ID: <20260820050608.5440-1-kimjinseob88@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] platform: arm64: qcom-hamoa-ec: Add fan RPM query and
- LUT calibration
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
- <20260728-ec_add_more_commands-v1-4-771abd65ee1a@oss.qualcomm.com>
- <eb8731e2-6cc5-49d1-a746-3c81563094f0@oss.qualcomm.com>
- <96411e0c-f357-40d5-81f8-14523836280e@oss.qualcomm.com>
- <3fa15948-eb8b-4f3e-af90-5b88fcc44d75@oss.qualcomm.com>
- <46f53628-ea22-42e5-8de5-a2a76b6360a8@oss.qualcomm.com>
- <ed3dc2dc-69dd-4b48-a5c6-47ca72cfee05@oss.qualcomm.com>
-Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <ed3dc2dc-69dd-4b48-a5c6-47ca72cfee05@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 2AZuEElqujCOxUpw-7MWWJ3umPRorvoW
-X-Authority-Analysis: v=2.4 cv=PZXPQChd c=1 sm=1 tr=0 ts=6a868aff cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=yyrbUpTaeNQD0MaAboQA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAzNCBTYWx0ZWRfX8VGsrwa7VwOb
- czlLuaVV1sx42aq2KlnE65df80XCpqSGAfQaApKJ5UWeqKc+x/WQtuWBlik/NLVaLUGooYsuSt7
- JHr9keW0U+6+0ifHj1rBZ00A3BpfP2s=
-X-Proofpoint-GUID: 2AZuEElqujCOxUpw-7MWWJ3umPRorvoW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAzNCBTYWx0ZWRfX8/fDu/CiUypJ
- TY4zr5zQTCpTD78g5iG0w4K81+Rs/Oco/77lc33crxuqSc60JhSuQu57rP+xkO+4AsUyNZHZ6t0
- +eWugJRv2HMnzW1E8ayiS+cJbT5GCnnMdcFOAvv0ybSTrLl56uGIQ4VQi6pW7E6u9XsQaB3EX+K
- PM48miXPbn6Fv7dyN+IU0lt29USi2pEtqODfPN5qcQSKFHQOsLSbKRVNbFlBkCiNsVeBHAgUYll
- ex7etyze+pRGxuXXFXLNAAumxSC+7wRni5z2sYXTfY15pjlwWl1mqLNpAyan/X+9+nF6PLyBi9v
- xfREvyVJzfkZ5Dzf3/4Uhmssud5ZSieQu75vX71eOIG7n1qBdAVY3UqXd4sUy7BIJxcqDLflCr0
- UIE2Frf8VGQMHwz/u0BBqtnFeBVLTujTEWc0+XgxxQXh5dNRU3VIW0I4mBmlW0s2l9zx07UK7hn
- otz+0+jlXS8RxbTeTQA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200034
+Content-Transfer-Encoding: 8bit
 
+Open Sensor Fusion (OSF) is a physical sensor board that reports
+measurements over UART.  Add a serdev driver using the generic
+"opensensorfusion,osf" compatible.
 
+The compatible is intentionally independent of a board model or firmware
+revision.  A fixed wire header carries the protocol version, while a
+capability report discovers the available sensors and channels at runtime.
+Supported capabilities are exposed as four IIO devices: accelerometer,
+gyroscope, magnetometer, and temperature.
 
-On 8/19/2026 10:11 PM, Konrad Dybcio wrote:
-> On 7/31/26 8:25 AM, Anvesh Jain P wrote:
->>
->>
->> On 7/30/2026 10:38 PM, Konrad Dybcio wrote:
->>> On 7/30/26 8:35 AM, Anvesh Jain P wrote:
->>>>
->>>>
->>>> On 7/29/2026 4:37 PM, Konrad Dybcio wrote:
->>>>> On 7/28/26 7:44 PM, Anvesh Jain P wrote:
->>>>>> Add the EC command definitions and handler functions for querying fan
->>>>>> RPM and programming per-fan LUTs (lookup tables mapping SoC
->>>>>> temperature to target RPM), and introduce a raw i2c_transfer()-based
->>>>>> transport for the two commands, since their variable-length,
->>>>>> sub-command-addressed payloads don't fit the smbus block-data model
->>>>>> used by the existing commands.
->>>>>>
->>>>>> Fan LUT geometry and temperature breakpoints vary by board, so encode
->>>>>> them in per-compatible qcom_ec_lut_config data selected via
->>>>>> device_get_match_data(). Add configs for the Hamoa CRD, Hamoa/Purwa
->>>>>> IOT EVK, and Glymur CRD ECs; IOT EVK boards share the Hamoa LUT
->>>>>> geometry but are bring-up platforms without a calibrated fan curve,
->>>>>> so skip_lut_set suppresses the LUT-set command on those boards.
-> 
-> [...]
-> 
->> 2a. The EC's LUT storage isn't persistent across reboots, so we'd need
->> to cache max_rpm on the driver side instead to skip recalibration.
->> Initial probe after a fresh boot would still need one calibration pass
->> either way.
-> 
-> Are you saying that without this patch, we could be in a situation where
-> the fan simply wouldn't spin because the LUT would be null on the EC
-> side? Would UEFI not do it for us?
->
+Changes since v7:
 
-The EC has a default LUT from flash, but it is not calibrated properly
-for this specific board's temperature and RPM characteristics. UEFI
-doesn't initialize it either but fan would spin at some unrelated RPM
-settings. Since the Hamoa EC can only store one LUT profile at a time,
-we need to reprogram it on each profile switch to match the current
-board's actual fan behavior.
+  - Separate wire decoding from support policy.  Validate the protocol
+    major and reserved header bytes after frame authentication, and ignore
+    unsupported capability entries without discarding supported entries.
+  - Harden resynchronization: unauthenticated candidates discard one head
+    byte, while authenticated frames consume the complete frame for every
+    handled, ignored, or rejected outcome.
+  - Retain split one-, two-, and three-byte magic prefixes across UART
+    callbacks, and use an opaque callback so the stream parser does not
+    depend on the driver added by patch 5.
+  - Zero-initialize explicitly aligned IIO scans, use
+    iio_push_to_buffers_with_ts(), and simplify the buffered fast path and
+    one-axis versus three-axis handling.
+  - Commit a sensor sample to the direct-read cache only after the
+    registered IIO channel and buffer path accepts it.  A rejected
+    CRC-valid sample therefore cannot change direct RAW state or the last
+    accepted sequence.
+  - Add focused KUnit coverage for accepted, ignored, rejected, and
+    malformed sample paths and protection against invalid-sample cache-slot
+    exhaustion.  Run the same suite against pre-fix ordering as a negative
+    control.
+  - Consolidate MAINTAINERS coverage under
+    F: drivers/iio/opensensorfusion/.
 
->> 2b. cur_state already reports RPM-derived state via the cooling-device
->> ABI. Is it worth also adding PWM hwmon on top of that?
-> 
-> We have to deduce the RPM number, whereas IIUC we can query the PWM
-> state (if not, then there's no point)
-> 
-> Konrad
+Static and build validation completed for the corrected source includes
+git diff --check, scripts/checkpatch.pl --strict with no errors or warnings
+on all five patches, four passing focused KUnit cases, the expected two
+failures when the same tests are run against the pre-fix core, the targeted
+DT binding check with dtschema 2026.6, the IIO documentation build with no
+OSF-specific warnings, clean W=1 GCC and Clang module builds, per-patch
+build checks, and clean-base application with an identical final tree.
 
-We don't have an EC command to read back the PWM state, we can only read
-RPM. So there's no point adding PWM hwmon since we can't query it
-directly from the EC.
+Pre-audit v8 hardware validation used a Raspberry Pi 4 over UART with a
+physical OSF board.  It covered serdev probe and bind, capability
+discovery, direct raw reads, a 66.5-second simultaneous buffered capture of all four IIO
+devices, and unload and reload.  The capture delivered 919 accelerometer
+samples and 918 samples from each of the gyroscope, magnetometer, and
+temperature devices, without a kernel warning, OOPS, or IIO overrun.
+
+A focused post-audit Raspberry Pi regression then exercised the corrected
+ARM64 module in a one-shot tryboot without installing it or changing boot
+artifacts.  Both the first load and reload registered four IIO devices and
+passed direct raw reads.  A 12.0005-second simultaneous buffered capture
+delivered 165 accelerometer, 165 gyroscope, 166 magnetometer, and 166
+temperature records, with no read errors, timestamp regressions, or
+critical dmesg findings.  Unload, reload, and final cleanup passed, and one
+normal reboot restored the stock kernel with the OSF module and devices
+absent.
+
+A validation-only debug build from the pre-audit v8 development source was
+used solely to observe internal parser and DEVICE_STATUS counters.
+All parser error counters stayed at zero, and all 94 DEVICE_STATUS reports had a zero
+dropped-frame count.  The submitted source exposes no debug counter ABI.
+
+This series is based on the IIO testing branch at
+a9fa85254feee2b52b2bb4fbb4920ece47dfd6f8.
+
+Previous revisions:
+
+v1: https://lore.kernel.org/r/20260520072843.3593-1-kimjinseob88@gmail.com
+v2: https://lore.kernel.org/r/20260524085312.15369-1-kimjinseob88@gmail.com
+v3: https://lore.kernel.org/r/20260529121005.1470-1-kimjinseob88@gmail.com
+v4: https://lore.kernel.org/r/20260607234343.22109-1-kimjinseob88@gmail.com
+v5: https://lore.kernel.org/r/20260616072242.3942-1-kimjinseob88@gmail.com
+v6: https://lore.kernel.org/r/20260628191337.937-1-kimjinseob88@gmail.com
+v7: https://lore.kernel.org/r/20260707014525.1015-1-kimjinseob88@gmail.com
+
+Jinseob Kim (5):
+  dt-bindings: iio: add Open Sensor Fusion device
+  Documentation: iio: add Open Sensor Fusion driver overview
+  iio: osf: add protocol decoding
+  iio: osf: add authenticated stream parser
+  iio: osf: add UART IIO driver
+
+ .../bindings/iio/opensensorfusion,osf.yaml    |  52 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ Documentation/iio/index.rst                   |   1 +
+ Documentation/iio/open-sensor-fusion.rst      |  72 +++
+ MAINTAINERS                                   |   8 +
+ drivers/iio/Kconfig                           |   1 +
+ drivers/iio/Makefile                          |   1 +
+ drivers/iio/opensensorfusion/Kconfig          |  27 +
+ drivers/iio/opensensorfusion/Makefile         |   7 +
+ drivers/iio/opensensorfusion/osf_core.c       | 393 ++++++++++++++
+ drivers/iio/opensensorfusion/osf_core.h       |  70 +++
+ drivers/iio/opensensorfusion/osf_core_test.c  | 493 ++++++++++++++++++
+ drivers/iio/opensensorfusion/osf_iio.c        | 304 +++++++++++
+ drivers/iio/opensensorfusion/osf_iio.h        |  22 +
+ drivers/iio/opensensorfusion/osf_protocol.c   | 224 ++++++++
+ drivers/iio/opensensorfusion/osf_protocol.h   | 101 ++++
+ drivers/iio/opensensorfusion/osf_serdev.c     | 124 +++++
+ drivers/iio/opensensorfusion/osf_stream.c     | 231 ++++++++
+ drivers/iio/opensensorfusion/osf_stream.h     |  53 ++
+ 19 files changed, 2186 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+ create mode 100644 Documentation/iio/open-sensor-fusion.rst
+ create mode 100644 drivers/iio/opensensorfusion/Kconfig
+ create mode 100644 drivers/iio/opensensorfusion/Makefile
+ create mode 100644 drivers/iio/opensensorfusion/osf_core.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_core.h
+ create mode 100644 drivers/iio/opensensorfusion/osf_core_test.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_iio.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_iio.h
+ create mode 100644 drivers/iio/opensensorfusion/osf_protocol.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_protocol.h
+ create mode 100644 drivers/iio/opensensorfusion/osf_serdev.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_stream.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_stream.h
 
 -- 
-Best Regards,
-Anvesh
+2.43.0
 
