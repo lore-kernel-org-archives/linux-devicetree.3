@@ -1,297 +1,192 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16A043FD1B
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 12:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11560442FDE;
+	Thu, 20 Aug 2026 12:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787228852; cv=none; b=L7FYpY9IAp1UsACLcdV168Z/tjxFI/twaHl87/dygQzyEfinmaIRVNhosDzDn8qB+BolnoJ4cocEIBEZm9Qf26yBAjoP/XASX+gTGm+6zKb18CtyL5QgW2vigVUFL6hyZqRj9d+67iVUUSAkN9xj9AbICP/RMrMk184HG4uL2Jg=
+	t=1787229447; cv=none; b=i8SkEHoLf6l+3S6+RrKtLdFumhUqB7pez38M5D5Fwo0snsGROkhYCS1HMupc8cCjyl5C+ka8Lmv1oCNS0lqhLFwbdU0oG0fuMbE/eWm0+xD7gWTGfDQuwFr6EW3HHg87AZc0yNU24lshuOyOGL3J+HZaKsdnKWx19wAu+puwhCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787228852; c=relaxed/simple;
-	bh=V4KKdfr8DfRRh3LWQ8yuK8mbPU0WBdm0yMJnzWuIj64=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nt8n+UME2VVSBsczCegwd8SOU0zLU7NRSHDHBndwzTEYvObb1dupWpx5YSuHZjtf2HladdHj/Cc/uCg2NUb/le0g5P+MXDIDKGAtIZAFFvmIipscEk9IZhelU7CQbHgDjdenZHxq2b0amP1h85oKX65myoAWkGtk3/h9EF0zLTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p06fBsBf; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787229447; c=relaxed/simple;
+	bh=Q5hEPdRXiZ8+bSq/ir+iccDb8GEh5bgQP/Hi8v+Q+zs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=p9k+MHzgJyaFAfcYJghjZxf/H9ClIJxQJw6yHbB5BzuRBTOL/N5rBLY7+MWkNOshdm+BpkJzo5J2vbYcSPaUbWL5Rc0MWEOwV6XwtZX0VQiu+OkjvPzif3YfJoZ7GUSVI06JO9lhnKi4OlBu3yAubgFssSOofOrYWdboJg5CINQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mChoXdsy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p06fBsBf"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4954df200ddso17070015e9.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:27:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787228848; x=1787833648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0JuDNoBLL9wGwEY+LStgj97yBD0YrPno/mDC4ibcIpA=;
-        b=p06fBsBfpIth6O8wiSOBY4iM+2DAPrKpwLMriMWEkh5Js8QHKsLE0QHfJErH61ZJUJ
-         sO8GAGVWeLVaIOq9LkfFKB+C2qPZfPYz6Lf9rdIsMC/kUxbfOQTxtmUsPAeBNcpw0SmM
-         YnPZa2ot6wXBgeg6x+8JMA7Zb/w+1Mw1EFXDEMkw2po61ueVdIWXC23THp7pvZ0qQzwk
-         hUgYMSWadl9ztTAltbsAMk9aDLnvQPPyHEywuVuYak44+BlJJnbhW3Q69ikiJNLF1VEV
-         En3krF5s1dyPP6qBFM5eeLZ4Rm8m7Lr5j/kynWVT4o191jwMl7k/JIyNx/Nk6b2TOAsS
-         auRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787228848; x=1787833648;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0JuDNoBLL9wGwEY+LStgj97yBD0YrPno/mDC4ibcIpA=;
-        b=GrmNVnGU40w//Zt7JwSqs1rMd5e2V5xR/dmU4PFCkn0UljxOLO1rC+OO6vW1bPUpQP
-         CLUGHn49CyU78Mp3plOzt6exMZlQvR1QwNJsM98hPqD5BTgRbJowtS+5OIu1hzEQ8qxa
-         aQe2vFoHWOjKbvfjxJx3I6J8WXZSTCaeOikeF9EYkmx0IDNThY/+q0YJSAjsybrKTAkQ
-         bD6r8rKMjzB2jloyd3q/jSfpxzqY9++LF8FwMKfzro4IEb1rRg8W7yiTCTzCGIFlotwQ
-         bTTCgIjOXHm1wEyb0mME9w9R86bKZy3eatH98WA9JKsFTLsCe4Iot+RMa19OLwcsYBtC
-         8O0A==
-X-Forwarded-Encrypted: i=1; AHgh+RrGF+isA8bwV/ehhuulbKZYiPQUdIY9hmfgEIYcJ5xvOBEJB2MgpwLY4AOADSGRLtiY++KIbnu0pqn7@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywqko+9RWdbPRQNNm3NY/9khyECNMrOMMSMSsRycS8tlYI2jM+v
-	WWBXwJ+k1+KgYlfU5rje8ta7URnDiq9TUgsYCEy7uQbiry6Fndmm/4gN
-X-Gm-Gg: AR+sD11y7LCTs6T8KhvnY02GBots5pdDICS7VS5sl9CGVYhlaxRwVHV2mKml5wXGWmB
-	YjtyeGuu/yCPrNQiqbSwolbaJp2MtzrgpQLaZ3L+t87CbIs//NpHFkBP+scAhppniG6ruagT7/3
-	rRiON1NcND7KZs7UUrSTH8rTp7f4sbGKsoAPN1YY2RkKKk39YG/ZqO1hKK6lnhMFP/YGXsJ0elx
-	EcS0IJ8+pz+nFgTRKPLaMszGF93+vVpHuC5bCpOqemNzRf1OL8u/d+81XFO+MDC3U3QSNX8keAi
-	X0/p3B5zX3qqDyvXQ4reDXw3b16Tx0Ptm4HS2QRbI6kk1Ev0cbmRdXrV2AU32utkFQgGU964R+e
-	tvFsd2uOCDdXuFem7G6pN69Q4PUhryQp3MVj8WaJ9cUSqdPdHbf/bOvgkx/Wzw0b7D0fHDWp2Y/
-	ka4A/aFo6eMCLmj5wlV+BE/83wBbEwVW5niPWQubrVlLuSX+WPiiUaTg==
-X-Received: by 2002:a05:600c:5253:b0:499:79b9:e226 with SMTP id 5b1f17b1804b1-499aa109edbmr192185265e9.0.1787228847876;
-        Thu, 20 Aug 2026 05:27:27 -0700 (PDT)
-Received: from luca-vm.. ([81.56.18.151])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499ab2a8b34sm170494645e9.8.2026.08.20.05.27.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 05:27:27 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Val Packett <val@packett.cool>,
-	Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sen Chu <sen.chu@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Macpaul Lin <macpaul.lin@mediatek.com>,
-	Lee Jones <lee@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Julien Massot <julien.massot@collabora.com>,
-	Fabien Parent <parent.f@gmail.com>,
-	Akari Tsuyukusa <akkun11.open@gmail.com>,
-	Chen Zhong <chen.zhong@mediatek.com>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v9 9/9] arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
-Date: Thu, 20 Aug 2026 14:20:07 +0200
-Message-ID: <20260820122242.120039-10-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260820122242.120039-1-l.scorcia@gmail.com>
-References: <20260820122242.120039-1-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mChoXdsy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1B21F00A3A;
+	Thu, 20 Aug 2026 12:37:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787229445;
+	bh=yR5ZzCfs7WyRDLFIsPoy209U8J2FiIeZGQEb96twuxM=;
+	h=From:Date:Subject:To:Cc;
+	b=mChoXdsyaYWxCXMsri5+VJtT/7C9PJKnrlOodKbikDoLaeY0mR+Lgd6sM/xsySxGj
+	 4D7/qPfAM2eSOg3PmCcbJ449YXMTGYX2WGaTXh7RbMIFPtVshUDr3rwcj7qay13Ixt
+	 /VCJXHZvd9XDb5mDypv3bmSVDnfLVM5KrFqJECLROwRalFEdTDMLIwOsyqpg4XyVh3
+	 +i/geFTIKrNtY6BzKHAip2FQpN2BTKS+mLHtNhk214fbvoPrBpRLQ7v9L96hv18uO6
+	 dqSHeQo8pmiuZCFvHabUxPjDdW9mhCmSyn/G4YY7yXDnHbRuCCeGn5sPGRHvVIaNC7
+	 r1hrRvF0edotQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Thu, 20 Aug 2026 14:37:16 +0200
+Subject: [PATCH] arm64: dts: qcom: agatti: Flatten the USB node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260820-topic-agatti_flatten-v1-1-ba9dcab9dc2c@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QoCIRCF4VeRuU7QgZXoVSJC3dEmQkUtFhbff
+ a2uDt/F+XdoVJkaXMQOlT7cOKcJfRLgHzZFkrxOAyo06oxK9lzYSxtt73wPrzmUJDqNizZBO0U
+ wr6VS4O2Xvd7+bm/3JN+/LRjjAI9qXT14AAAA
+X-Change-ID: 20260820-topic-agatti_flatten-2b12516f1b0e
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787229442; l=3741;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=D8K6Cp5Zr+pzkyToLE1cGfMAi0HjgxWIC09yZM00uCM=;
+ b=WOHNOtvTjnpd2ijVcAzZSL8IQ2BXdO0mvQjK85nd2I4WN6AXW0KgT7TDEnCR6oVSzjpX8K/L8
+ gCCOsIzZkHwCj7zOAJ/qEOyIfcou/WLiHCKRZlxFWDnLWjNYSw/vj4O
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-From: Val Packett <val@packett.cool>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Add the dtsi to be included by all boards using the MT6392 PMIC,
-providing support for regulator, keys, pinctrl and RTC.
+Flatten usb controller nodes and update to using latest bindings
+and flattened driver approach.
 
-Import the new file in the shared device tree for the Pumpkin boards.
-
-Signed-off-by: Val Packett <val@packett.cool>
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/mediatek/mt6392.dtsi      | 145 ++++++++++++++++++
- .../boot/dts/mediatek/pumpkin-common.dtsi     |   7 +
- 2 files changed, 152 insertions(+)
- create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
+I tested s2idle sus/res on the Uno Q and it passed without issues that
+popped up on some other platforms.
+---
+ arch/arm64/boot/dts/qcom/agatti.dtsi | 76 ++++++++++++++++++------------------
+ 1 file changed, 37 insertions(+), 39 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt6392.dtsi b/arch/arm64/boot/dts/mediatek/mt6392.dtsi
-new file mode 100644
-index 000000000000..69d63c153d9e
---- /dev/null
-+++ b/arch/arm64/boot/dts/mediatek/mt6392.dtsi
-@@ -0,0 +1,145 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2019 MediaTek Inc.
-+ * Copyright (c) 2024 Val Packett <val@packett.cool>
-+ * Copyright (c) 2026 Luca Leonardo Scorcia <l.scorcia@gmail.com>
-+ */
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/regulator/mediatek,mt6392-regulator.h>
-+
-+&pwrap {
-+	pmic: pmic {
-+		compatible = "mediatek,mt6392", "mediatek,mt6323";
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+
-+		mt6392keys: keys {
-+			compatible = "mediatek,mt6392-keys";
-+
-+			key-power {
-+				linux,keycodes = <KEY_POWER>;
-+				wakeup-source;
-+			};
-+
-+			key-home {
-+				linux,keycodes = <KEY_HOME>;
-+				wakeup-source;
-+			};
-+		};
-+
-+		mt6392pio: pinctrl {
-+			compatible = "mediatek,mt6392-pinctrl";
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		mt6392regulators: regulators {
-+			compatible = "mediatek,mt6392-regulator";
-+
-+			/* Fixed supply defined in the data sheet */
-+			avddldo-supply = <&mt6392_vsys_reg>;
-+
-+			mt6392_vcore_reg: vcore {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vproc_reg: vproc {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vsys_reg: vsys {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vaud28_reg: vaud28 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vxo22_reg: vxo22 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vaud22_reg: vaud22 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vadc18_reg: vadc18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcama_reg: vcama { };
-+			mt6392_vcn35_reg: vcn35 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vio28_reg: vio28 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vusb_reg: vusb {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vmc_reg: vmc {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vmch_reg: vmch {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vemc3v3_reg: vemc3v3 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamaf_reg: vcamaf {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vgp1_reg: vgp1 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vgp2_reg: vgp2 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vefuse_reg: vefuse {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vm25_reg: vm25 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vdig18_reg: vdig18 { };
-+			mt6392_vm_reg: vm {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vio18_reg: vio18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcn18_reg: vcn18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamd_reg: vcamd {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamio_reg: vcamio {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vrtc_reg: vrtc { };
-+		};
-+
-+		mt6392rtc: rtc {
-+			compatible = "mediatek,mt6392-rtc", "mediatek,mt6323-rtc";
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi b/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-index 805fb82138a8..b19d5792bd89 100644
---- a/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-@@ -6,6 +6,8 @@
+diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/qcom/agatti.dtsi
+index 590bd2432d85..e7fed60a59d9 100644
+--- a/arch/arm64/boot/dts/qcom/agatti.dtsi
++++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+@@ -1572,12 +1572,15 @@ &qup_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
+ 			};
+ 		};
  
- #include <dt-bindings/gpio/gpio.h>
- 
-+#include "mt6392.dtsi"
+-		usb: usb@4ef8800 {
+-			compatible = "qcom,qcm2290-dwc3", "qcom,dwc3";
+-			reg = <0x0 0x04ef8800 0x0 0x400>;
+-			interrupts-extended = <&intc GIC_SPI 260 IRQ_TYPE_LEVEL_HIGH>,
++		usb: usb@4e00000 {
++			compatible = "qcom,qcm2290-dwc3", "qcom,snps-dwc3";
++			reg = <0x0 0x04e00000 0x0 0xfc100>;
 +
- / {
- 	aliases {
- 		serial0 = &uart0;
-@@ -160,6 +162,11 @@ &i2c2 {
- 	status = "okay";
- };
++			interrupts-extended = <&intc GIC_SPI 255 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 260 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&mpm 12 IRQ_TYPE_LEVEL_HIGH>;
+-			interrupt-names = "hs_phy_irq",
++			interrupt-names = "dwc_usb3",
++					  "hs_phy_irq",
+ 					  "ss_phy_irq";
  
-+&pmic {
-+	interrupt-parent = <&pio>;
-+	interrupts = <28 IRQ_TYPE_LEVEL_HIGH>;
-+};
+ 			clocks = <&gcc GCC_CFG_NOC_USB3_PRIM_AXI_CLK>,
+@@ -1595,7 +1598,8 @@ usb: usb@4ef8800 {
+ 
+ 			assigned-clocks = <&gcc GCC_USB30_PRIM_MOCK_UTMI_CLK>,
+ 					  <&gcc GCC_USB30_PRIM_MASTER_CLK>;
+-			assigned-clock-rates = <19200000>, <133333333>;
++			assigned-clock-rates = <19200000>,
++					       <133333333>;
+ 
+ 			resets = <&gcc GCC_USB30_PRIM_BCR>;
+ 			power-domains = <&gcc GCC_USB30_PRIM_GDSC>;
+@@ -1606,48 +1610,42 @@ &bimc SLAVE_EBI1 RPM_ALWAYS_TAG>,
+ 					 &config_noc SLAVE_USB3 RPM_ALWAYS_TAG>;
+ 			interconnect-names = "usb-ddr",
+ 					     "apps-usb";
+-			wakeup-source;
+ 
+-			#address-cells = <2>;
+-			#size-cells = <2>;
+-			ranges;
++			iommus = <&apps_smmu 0x120 0x0>;
 +
- &uart0 {
- 	status = "okay";
- };
--- 
-2.43.0
++			phys = <&usb_hsphy>,
++			       <&usb_qmpphy>;
++			phy-names = "usb2-phy",
++				    "usb3-phy";
++
++			snps,hird-threshold = /bits/ 8 <0x10>;
++			snps,parkmode-disable-ss-quirk;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_enblslpm_quirk;
++			snps,has-lpm-erratum;
++			snps,usb3_lpm_capable;
++
++			usb-role-switch;
++			wakeup-source;
+ 
+ 			status = "disabled";
+ 
+-			usb_dwc3: usb@4e00000 {
+-				compatible = "snps,dwc3";
+-				reg = <0x0 0x04e00000 0x0 0xcd00>;
+-				interrupts = <GIC_SPI 255 IRQ_TYPE_LEVEL_HIGH>;
+-				phys = <&usb_hsphy>, <&usb_qmpphy>;
+-				phy-names = "usb2-phy", "usb3-phy";
+-				iommus = <&apps_smmu 0x120 0x0>;
+-				snps,dis_u2_susphy_quirk;
+-				snps,dis_enblslpm_quirk;
+-				snps,has-lpm-erratum;
+-				snps,hird-threshold = /bits/ 8 <0x10>;
+-				snps,usb3_lpm_capable;
+-				snps,parkmode-disable-ss-quirk;
+-				maximum-speed = "super-speed";
+-				dr_mode = "otg";
+-				usb-role-switch;
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
+ 
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
++				port@0 {
++					reg = <0>;
+ 
+-					port@0 {
+-						reg = <0>;
+-
+-						usb_dwc3_hs: endpoint {
+-						};
++					usb_dwc3_hs: endpoint {
+ 					};
++				};
+ 
+-					port@1 {
+-						reg = <1>;
++				port@1 {
++					reg = <1>;
+ 
+-						usb_dwc3_ss: endpoint {
+-							remote-endpoint = <&usb_qmpphy_usb_ss_in>;
+-						};
++					usb_dwc3_ss: endpoint {
++						remote-endpoint = <&usb_qmpphy_usb_ss_in>;
+ 					};
+ 				};
+ 			};
+
+---
+base-commit: 6a746cd265aed59107ebdaa9ce039bb832922969
+change-id: 20260820-topic-agatti_flatten-2b12516f1b0e
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
