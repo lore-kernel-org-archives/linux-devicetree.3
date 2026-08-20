@@ -1,210 +1,231 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013029.outbound.protection.outlook.com [40.107.162.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FBE47669C
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 14:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87EE47043B;
+	Thu, 20 Aug 2026 14:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.29
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787235893; cv=pass; b=SSY0cH18T+A6/mtefCodGm21CIJy4O0oc6gzFqPhAA5zSBXFTaqV8tGohyETzh9yeokGsn2YSpe2MlH3nS2idnYq1ALEUVGC7yy/gI75AZcCQnthSRJCTVXot9/hiFPvoxGkwcMgrFoBmIzwMrS+U1pnRx2MGIblc3ByG3N2Pho=
+	t=1787235945; cv=fail; b=nPsXnvoDlxEV6jjqC8Z+gGANsQFrDVa/SaT+vMWEhfHfkBk8D2Q8IAY9/6j9Mrx6K6reWLi501XPK84tQ3qIl4eb3jbZdAg+FSc47aGPoFn/remdb0Ky467nwcNKN5SDKYULPvly5fATL6esKMm7qmkzwKcdVo5Dxdseu6Xf+TQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787235893; c=relaxed/simple;
-	bh=4ua3cxV8dhkHOIff05LR1Y3qFBHcVH6d6nazxugRB7I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i5bbdduSQYfLU756ksnoD0/zwVkN9xElpjhNW+Qu78BgfswjgglSrbwfF2bEyAbBfG3nXnIl8qn/xKojS9i31q2CBErIfM+wuycCeqsjHUzgeCiKxX0LkdpR0W+AZg7/I7z5jTIFI3mve7bgLrCLZHRpmVQ2UD8X8t3YUMkKiBU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LgJHC9aj; arc=pass smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787235945; c=relaxed/simple;
+	bh=MlnRC/dQ/elCV5gyOfnsNxz2oH47wySIvWqLuTdyvTs=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=IA6M9ye+BFwHJs1iFaIKVZc2IMDvi92DtFYjUlb04xQVcE2ICUmvjiKlpGT8IkHSAk5n1JoQN3X6Zp1pWCW6jrPjSF9GmMXYxl8hN5cDXcVDVu5AFKB7h+sdU257YRYX0FztjrdcJ70U+PCPWHegkz9yT/6fOXuOHYSDKXfcrQo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=cMp5kNgS; arc=fail smtp.client-ip=40.107.162.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LgJHC9aj"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49954b88fffso24274545e9.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:24:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787235890; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W/tmqGoVN2jsrOrIHyLtLLJ/dtvyvKH+4UT/tp4+pPNK/LjkSliaGriV2N5cC7n1di
-         vbutvqbpglmLh46dFM24kMLLeFzhVP46OPNpWQ3rWSKqBLhjKLwthdaobOrDgv8qcDxN
-         KGiWaLm74gfeOvp2Lc/pGnFCH8vC75he6Dnv5WgNk2YO98VBSdfs7t7IfUL85Y8eyj6o
-         IWJ8lJjtbpSJ3d+beotvm7R1qQZXOSJZoRnn/5TQEljsps4ef1mcELXEhC5Mbiw7TnKp
-         tBKdK0zmN+5NcHdJVJV48pd+Vftj6LX8qDyi7f1PyqwvH7Gi2x0JvFBT/52vux/LPT5/
-         wPsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vGtwPp5SElePleI/4XLp2bHhqRVpPgOhFZ40qM1IKko=;
-        fh=OMoSC2ueZkCvPy1rGjTpwZFHdJfNObRSDbscisM6g6w=;
-        b=MYsEnrM+29wCstXE98mRmc8Ob92V59Przi98dFEXRuFdYOTsSSua/2ia0swY1pg0BT
-         5bTAPpuLYSr6zSUSakDoqM0VfkkmGq/a/lYwXdF4aWtryUsIsoOIzKD2FLlYz8I4GOVu
-         eZPMhmwCbifHNRkEFCwvl1bQku388IdTnqV1ITFrHlTMZao2zgaFZN46zV4P581MDMIO
-         5+fWDSXmzT+Y/XEq8V5cJ5Fe9093oUjZsGrZO+lx3EOtRCUVsa5Rwo0Y4Qj1OMt197nY
-         rO4RYhckAGmj5N/77x594Z8rQ9T866kQ9ZYXx+o0UDMmf5AYvMcLipWeuhbX12bNUKp7
-         wkLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787235890; x=1787840690; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vGtwPp5SElePleI/4XLp2bHhqRVpPgOhFZ40qM1IKko=;
-        b=LgJHC9aj52KmTMuxMcUaG13G6DhAzNQIkedGybzGV56eGW4huMGy1TNr07pv7TOFCo
-         yxApEc+jjb6vMBimUS2n5xpfE4H9fFEcHZ2S2dzKXDaByjL4oHV/sTSF1OPxN/T9WsF6
-         5LIfu4he6Lllas4kcu7CiPyoPTsq48J8q0rtkelOgzTP93oX1LzK73Q1jLHEur9rhYP0
-         FcZAqsWXokIJZKB1ytF/rdXgYFXYpBIwIgkYrT8y4OtDplU513IvnMPORLKje2PZkAzX
-         dD7pOf0oGYioJDeDk5tuhKw1ObaUZrLwOKYbglRz8ALK36fz/QSFLyaVswfQ7+SyHSGN
-         uv4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787235890; x=1787840690;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vGtwPp5SElePleI/4XLp2bHhqRVpPgOhFZ40qM1IKko=;
-        b=Ny5X6KMZwCw2uuKSD2pi43OSk9uEhSDJYynjkcDle5VLxa+s566PazeHK9fcNHDVct
-         pltq2l2A53x3jClQ7DImCaUBUxVbRavbVaVdyNM/TKXxvyHeVTNUDJb9f0lD2VcP6eZh
-         m0zj0Z3N6+dCaMN7i7lJ4B0nHS6LzTRDYwCZ63+5BCDa+F0JmENb4CiUKsaiRb10EdqU
-         FqBr2xa2dNz2TGxhQzsctXSpZpcqhkxADCVJZmYTic20Ihn0Q+ONYrq5BcjsR/1J5LgW
-         VxjCxp+X6pQq700ocJZfHpvuVsFRnNOuNoBSNTOwIlSsppabjCjl/JT9ONGA01eCyBmn
-         ZBuQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrGSW0quO3pG2rSbhq1phxopwyzf+jNvMTBN0KvAoTY78PY4mm4SlsL0wCqsv0BEO5gFK91C09f6w6t@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYQ9iyFiIlpyrim/N3e4lgUDSz4N0WKPvLVmES2O/geB5xtgmC
-	Jp/L8bbtPPLsk+PHBjqLfXXK5NrfwLWzKNS5kFTFWKgvmecKkLx3EClF3qlV4q8JD6LKWYcKgjK
-	DidwCAAMVAaeWwPxorlTC6ghIc3wDZvY=
-X-Gm-Gg: AR+sD12fvyMImPU6voUumAAW/WLTlr3FVcwbVChs+oE3d8L694boo8aPdRcS7ElPGmO
-	BC13g48Ir0ymi2X6dUdy28Yiz2p2djnPpZi3ryC8LPB+t4ai1XJPkcztwUDkBjhjEk9IrYxKhV1
-	V03tO99ZUKkI/p8Zmq7QErOfxaLQ2s7OUfh4RfqJbB3OjjwGWNPEWp0funlqoYzKDMZGWyNFeKq
-	ZpCXT1wSjTJvcs02kDuQwnbRMBiotIlvOOHTHL1Cdl09V5ZOL/D0FX/E8XyazYHp6+HrfK1Hjf2
-	xAUzqi9HoReWMSneRFwGTpBRJI6VpP3GFf6lrxm3P1PTAg9/2SvTZiaybw0kYmDbDZczHjqDayb
-	XVhmTXE8578tQvjLmCHR/M/m8NmSbas1qKDiP7p5m
-X-Received: by 2002:a05:600c:3590:b0:493:a966:d5b5 with SMTP id
- 5b1f17b1804b1-499aa14a75bmr231032105e9.2.1787235889336; Thu, 20 Aug 2026
- 07:24:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="cMp5kNgS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Lb6ojGcu/kKbFoq0DO8JUGYpi/5OEoV07P0CZrODjT7j0Q4VXlpyj4OixDKJio33yuotznFX2CVequw/cv23SLeba3tL1mLWF0cfsUuNbB5b0utKa0jIKXDE8Tn4Mp27uzxkOtRxhQPrFNOBThONyXrUFVsFZl2dqsRf8fSQ4zziYYfiWfDQ6sLjGzJhgGoxMBYCUYRMFzj6P4YR1M/GYbpI4HJGqzR2LUgb0HBZFZpsCXccFlKRN+EN6sZzJL82ZyoL2gzvfblzd7tO8r2eb5SEcESRGsNFVWRbYUUxV+how4PIdACqH6WVvdOnDJ1p4qbMGwNYOMSC1DOeyxOa9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZhlWqaDOEHw1xAOpYvwkF+Tj1feSSmX+ry1VZ+KKdEs=;
+ b=tuUx2VdywqKW9RnP3rdK2XteCT9qvD2DPLRIno6+vq/xILOrYtntMJG/TAZ8OBUfXEjYHB732Z9aeDL1cLu7+eo8Jcg34/kSn0s0MQZpcZQGxUMesjMIYcNERY6xaFYrRWP5dd442WOQq9IAGO64CTSAOB0JBdvwcv9Z2hJRRibbB40fJ0p2dEkuegM+aK4utOEmVQkobSFF4VXqFBpHBG408BB3+PcTJJWduJ/8xVIR+7CwxLcQQUIikpgv1rHQEuh2n4FMoEPu2+HThZgXuhdQdelfqoOqrDhd5ZFoe1/ejajJuZo+1T9hdVGm7tbfSi9H2nIOnX3dkTARJpnEwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
+ dkim=pass header.d=est.tech; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZhlWqaDOEHw1xAOpYvwkF+Tj1feSSmX+ry1VZ+KKdEs=;
+ b=cMp5kNgSBJsVqsgSoe/cyXTr+q8m/aqLF4dXzh8bzZMknSAgQqYZwD/NhWLz8VWrA6HqK/zrsQFV55RFMTw9sqbVxV3nV+SAAr/q9NT116HwNZPHNS5/bn7NgH7M5GV5wsz+Bidi2Udqode88fMsO25fxo7f7+TAtpFJ36Nwlq5zgLTBsXwUgGKPLjoN5H7qdncUbzCelJh1yFkd3IPGwo9/tVWgaQ91nmHTOR++ImYX5KPWo9MwzMG+4lrE/AVkD7PkCdkiZ7TuCy11rJJag0DbnxyQ8tcIor3aYv7UIJi657bwE5WgidRKCcd7nI/sv9VCx+2/5SaJKmyj1u1Ucg==
+Received: from AM7P189MB0807.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:115::19)
+ by VI1P189MB2600.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:1cc::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.3; Thu, 20 Aug
+ 2026 14:25:39 +0000
+Received: from AM7P189MB0807.EURP189.PROD.OUTLOOK.COM
+ ([fe80::744:fbdb:56c3:26f5]) by AM7P189MB0807.EURP189.PROD.OUTLOOK.COM
+ ([fe80::744:fbdb:56c3:26f5%6]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
+ 14:25:39 +0000
+From: Kyle Swenson <kyle.swenson@est.tech>
+To: "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
+	"kory.maincent@bootlin.com" <kory.maincent@bootlin.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>
+CC: Kyle Swenson <kyle.swenson@est.tech>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, =?iso-8859-1?Q?Roland_Kov=E1cs?=
+	<roland.kovacs@est.tech>, =?iso-8859-1?Q?David_Nystr=F6m?=
+	<david.nystrom@est.tech>
+Subject: [RFC PATCH net-next v2 0/2] net: pse-pd: Add LTC4266 PSE controller
+ driver
+Thread-Topic: [RFC PATCH net-next v2 0/2] net: pse-pd: Add LTC4266 PSE
+ controller driver
+Thread-Index: AQHdMK/GAoecupEPdUSnby/yYa1CLA==
+Date: Thu, 20 Aug 2026 14:25:39 +0000
+Message-ID: <20260820142429.2285172-1-kyle.swenson@est.tech>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=est.tech;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM7P189MB0807:EE_|VI1P189MB2600:EE_
+x-ms-office365-filtering-correlation-id: ca5b0736-7d27-4983-fcd1-08defec6e894
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|38070700021|921020|10067099003|11063799006|56012099006|18002099003;
+x-microsoft-antispam-message-info:
+ q1veKRrUjJv7b5A0NIcM32U3hged3MOPTcNpKDaSpe05HXtNkXFHeDNcYW5GULSsBLfjvwg3nOBr4+572/Na6bWwDsaoLCap0xKjRO/kNwePguOs+IvfBCrBTH2nCEYB7nJLfEYLmbVpB8rl/kb1VMQdgYWSQ1V6pp8vx6z10aJUQyVf0wb2yJ49udIH7NQXrwduHpSFtH2R+qf2frgjdHung6ZHIrxsKmojyDKiVT1nR3PmNZWUfByZD5BQyKTBeeyBChCgvvOg6KyZ/39hRyTQT7dhgWZBwUa+FetLBwGLVb4x+uBmmT1bdtd4/TLr+c5CDChdC86XclGnR2ICHN8S6tYw3IxBHsjPT5NFQp5c6t7NZRYcZ2sSdnejvOqBfeS3aBbhvVf5D2CycN9REqaVl3Ys3zTNYy6d1JIMQdnD2gR4213EQV98Ux6bDdTozv3pPFssX6u4Wy8zv1nDidTBwfFB1WSJPUXrarROicxlAqGyUKTgzdPQ/A6vUxBDjG1R+ROoBKySVAFFoK7ZfZgwglyMfAsB+BeRxxx/cA3nQh0Wg9vzDxQdAX97ymBM8n1hXoN8tzIIuTUlO8bm+tqStqa3TIaeXS0RKDrKYML0cpAr4K+jcDsO62dykS/CwqMXKTfm1i++G4gUW6H4UuK2dO2V7vF9CkIKxhKg/Gty36Ures4o1K38NZTOV3BV18ViDd5tponmHkiK8da62zvpB8XS/F4dd1tqV/S0QPbQdwXau9UkLxpW3JhU633P
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7P189MB0807.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(38070700021)(921020)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?kkLkIls3oKQEz5WNfZL2NgabJu5Nvn+CaRvdYUVSo8htIAIW7d6LV4pD8y?=
+ =?iso-8859-1?Q?js2Vfyy9caABxBaHQ2VMG/dt6RvAlioERc41UoeNXlxc0BKYlwtxhXHkMR?=
+ =?iso-8859-1?Q?FhaNJDcZsSw4gSL/bT2iPfCehwFodu1BEFbQ5U8RjjuKkRw/ZVdXNcr7HB?=
+ =?iso-8859-1?Q?05odk8EX9Ljs7kqDFfu2ggVpMvC41UDUbv2DMY553i9Q5ggr/ZtoT4M74o?=
+ =?iso-8859-1?Q?Ez06NLwHjhAPkRNieGAYmRjK17wxnybQEJ9wKm2LMHN0rlVSSEXFyZ4qmO?=
+ =?iso-8859-1?Q?30FQayx2eaRjUgv66aVJvmo9g5jI3SlGXoUfQy9Z3IZqJpBYDpQzcraj9i?=
+ =?iso-8859-1?Q?knK6XYXtzDgxi0DRd7Z0psgXtvwiwS/7kc7Ir2flSckFKXoLscc/P4XBxQ?=
+ =?iso-8859-1?Q?3T6AAgJ6vP+HDTl5SL/wz+q1NOgf21HR89xd5K7rt631a2c/kmOZLcen/B?=
+ =?iso-8859-1?Q?A7tOWvSK5Ptu/5czG+M6Yz14TTLeQ/WzLfGrR0z8d7UGjn2LplRtkwZthX?=
+ =?iso-8859-1?Q?bDhxNyCT0zXd5/s+/7FOTuUJzB47S0oK3YZygNm8PLJ5aeS7p6lUvYAv15?=
+ =?iso-8859-1?Q?2Br+XABEOX3bSxVa6NM4WAciHdGdQaz5KIxCnYeK8hNdl78uoVYeoGq3Dt?=
+ =?iso-8859-1?Q?15dL+xOv5Vx408UyUj22wY2WQQTzIVdz87xS/xsbd1vs61Ek+yz3XdnQtZ?=
+ =?iso-8859-1?Q?1GMzc8ovDMWlvh9y31oLKLVnIO+a2JatrJ18spioZ5G8WdrU8Oq/ihbTQy?=
+ =?iso-8859-1?Q?DMPbOwNjyOm71Bakr7Bz7aHjBSFQPwoIVG6/RnhiC5xeszC1knJ3SWK30N?=
+ =?iso-8859-1?Q?dRgZoLBfNFKZ+r4HpXh/lBqVHLKkRZeqvVO7ByHJiXaHMK2cEA+JDV1gBC?=
+ =?iso-8859-1?Q?RV5fy7wo0TcXVEUj8trFdQDUiWO/bkJyxn3nLXNUcfn7U/xYN4HT1dfxrn?=
+ =?iso-8859-1?Q?7bNoQ9UTB1LdZ/v96D9BlpEwOKHLPA+R2Swl3zsm4nAu/EnFCvaetsoLLJ?=
+ =?iso-8859-1?Q?S3GxX7Rawma3Bje7VW5RDdOFbwY2LBCaceAgfLTlKmH4WMtxeozHedXoFG?=
+ =?iso-8859-1?Q?lOVOimn3ejWLhM/9EUwE6cD+pBZEBb2vWMFYAo1D70K2LX5Fxp/k0uJRV1?=
+ =?iso-8859-1?Q?QNTBpk8imk3XPLMVvJPwSO4YIJ41LVuJBRD6Gnxrpuqu2NjVTlzWxN32NZ?=
+ =?iso-8859-1?Q?fYJb/CdTsJo22gAZf+1sQ6Ne8t9+oUm/V/ofGw0buIiGuA01g7EwtTO8PM?=
+ =?iso-8859-1?Q?Snf1mf/Y2VxMkAzInklaSx2pbWxL42gpRly6PT/Bumc6BWMOJuoIPjQabm?=
+ =?iso-8859-1?Q?BXj7jF0rqcquj5TXRWqGsEBn/YqWETjrUPRwB0KrHYXD8qrjwMdBIz2opV?=
+ =?iso-8859-1?Q?B2h3TW5L42VPa8EhK5xlV3Ky5yPY78DXku0FFjLNxsRi0sDyUVnlAQMtGT?=
+ =?iso-8859-1?Q?86qyDy9SBTo8xAnBzjVFV3MNHeNN0kRn6zEYKMXZ2DrfkzLl0+Hm4VtMm4?=
+ =?iso-8859-1?Q?6bqGpbZJLRTT7mQP9Uuf6jO5LxHCkelOOT5/n74aYQmSw8UVn8cc11E8H6?=
+ =?iso-8859-1?Q?ldN72YOoSomvceDLS7kkg4btrEpJpT/LCXZgCOnsf76fDNFy0QQmvkiZWx?=
+ =?iso-8859-1?Q?aRdG/q5nLVlK5381D/53lF765KPH+9b0XKVivjemWACq/AOUfbjRqkiXCw?=
+ =?iso-8859-1?Q?xQ2DQgFA7ccm9QxzVsziAP7x8RULxxG5C48qgRJsC+OpgV/YjzGFyKY64K?=
+ =?iso-8859-1?Q?DfcwZLHs+mR7qx6d+4h8jbDxbArbeKcFVZxilaXJKIU56HkFif+Uj7RUh6?=
+ =?iso-8859-1?Q?15mc0/7cGA=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260819103926.2136712-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260819105356.BD7731F000E9@smtp.kernel.org> <aoWpLvrNGHBPvFY5@shikoro>
-In-Reply-To: <aoWpLvrNGHBPvFY5@shikoro>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 20 Aug 2026 15:24:23 +0100
-X-Gm-Features: AcwNN1XjPbCVWInvwnEJK7fURmifV1Jum9U6XzA0i7unkeraDGkwFi5MdsHj34Y
-Message-ID: <CA+V-a8v23+zevx_xRS-GeHG2yk2k-M2UkPxoC76t-0JewRk9Dw@mail.gmail.com>
-Subject: Re: [PATCH v4 03/15] rtc: rzn1: Fix weekday underflow when alarm
- crosses month boundary
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	linux-rtc@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: est.tech
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM7P189MB0807.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca5b0736-7d27-4983-fcd1-08defec6e894
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2026 14:25:39.2147
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RPWDfbatl6I139XWtjXYKsA2vY+NgAsFhD78D5nNaGCFukdM5eaegHoCgli4T4wLMUUd22Adq7g3UK+KQoLlTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1P189MB2600
 
-On Wed, Aug 19, 2026 at 2:01=E2=80=AFPM Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
->
->
-> > [Severity: High]
-> > This is a pre-existing issue, but does this time_after() comparison
-> > allow bypassing the 1-week hardware limit on 32-bit systems?
->
-> This is fixed later.
->
-> > [Severity: Medium]
-> > This is a pre-existing issue, but what happens if the RZN1_RTC_ALW regi=
-ster
-> > is uninitialized and wday is 0?
-> >
-> > Calling fls(0) - 1 would evaluate to -1. If the current time is a Satur=
-day
-> > (tm_now.tm_wday =3D=3D 6), delta_days evaluates to 0, which bypasses
-> > the if (delta_days) block and leaves tm->tm_wday =3D -1.
-> >
-> > Since the core function rtc_valid_tm() does not check tm_wday, would th=
-is
-> > propagate a bogus alarm date to the caller?
->
-> This looks worth investigating to me. On RZN1, ALW is default 0.
->
-On T2H/N2H too.
+This RFC series intends to continue discussion around the support for
+the LTC4266, an older PSE controller that supports powering Type 1 and
+Type 2 PDs.
 
-I'll create a below patch for it:
-diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index 8c70dbf8c7ec..e0fdb591ba91 100644
---- a/drivers/rtc/rtc-rzn1.c
-+++ b/drivers/rtc/rtc-rzn1.c
-@@ -234,13 +234,24 @@ static int rzn1_rtc_read_alarm(struct device
-*dev, struct rtc_wkalrm *alrm)
-        if (ret)
-                return ret;
+This chip has four individually controllable ports, each with its own
+detection, classification and current-limiting abilities.  The driver
+declares the static power budgeting strategy.
 
-+       ctl1 =3D readl(rtc->base + RZN1_RTC_CTL1);
-+       alrm->enabled =3D !!(ctl1 & (RZN1_RTC_CTL1_ALME | RZN1_RTC_CTL1_1SE=
-));
-+
-        min =3D readl(rtc->base + RZN1_RTC_ALM);
-        hour =3D readl(rtc->base + RZN1_RTC_ALH);
--       wday =3D readl(rtc->base + RZN1_RTC_ALW);
+The LTC4266 only enforces a current limit (I_CUT and I_LIM), not a power
+limit, so an admin power limit has to be turned into a current limit.
+There are two problems that fall out of this I don't feel like I've got
+a great solution to either and would welcome feedback, hence the 2nd RFC
+version.
 
-        tm->tm_sec =3D 0;
-        tm->tm_min =3D bcd2bin(min);
-        tm->tm_hour =3D bcd2bin(hour);
-+
-+       /*
-+        * If wday is zero, no bit is set in RZN1_RTC_ALW. This is the
-+        * register's power-on reset value.
-+        */
-+       wday =3D readl(rtc->base + RZN1_RTC_ALW);
-+       if (!wday)
-+               return 0;
-+
-        delta_days =3D ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
-        tm->tm_wday =3D fls(wday) - 1;
+The first problem is programming the current limit from the
+admin-specified power limit for power limits other than a specific PD
+class.  For this, I replaced the linear regression in the first RFC with
+the minimum port voltage for a Type 2 PSE (50V, from Table 33-11 in the
+IEEE 802.3 spec) to convert power to current.
 
-@@ -249,9 +260,6 @@ static int rzn1_rtc_read_alarm(struct device *dev,
-struct rtc_wkalrm *alrm)
-                rtc_time64_to_tm(alarm, tm);
-        }
+The second problem is that when the admin does something like
 
--       ctl1 =3D readl(rtc->base + RZN1_RTC_CTL1);
--       alrm->enabled =3D !!(ctl1 & (RZN1_RTC_CTL1_ALME | RZN1_RTC_CTL1_1SE=
-));
--
-        return 0;
- }
+    ethtool --set-pse eth1 c33-pse-avail-pw-limit 10000
 
-Logs:
-    On a cold-booted board with no alarm configured, the following was
-    observed before the fix:
+the command fails with:
 
-        root@rzn2h-evk:~# cat /proc/driver/rtc
-        rtc_time        : 00:00:19
-        rtc_date        : 2000-01-01
-        alrm_time       : 00:00:00
-        alrm_date       : 2000-01-07
-        alarm_IRQ       : no
-        alrm_pending    : no
-        update IRQ enabled      : no
-        periodic IRQ enabled    : no
-        periodic IRQ frequency  : 1
-        max user IRQ frequency  : 64
-        24hr            : yes
+    netlink error: Can't calculate the current, PSE voltage read is 0
+    netlink error: Result not representable
 
-    After the fix:
+unless the PSE port has been enabled first, and the PSE has detected and
+classified a PD on that port.  I'm hopeful I'm just missing something I
+can do differently in this driver, but if not I'm open to adjusting
+things at other layers to support this.
 
-        root@rzn2h-evk:~# cat /proc/driver/rtc
-        rtc_time        : 00:00:25
-        rtc_date        : 2000-01-01
-        alrm_time       : 00:00:00
-        alrm_date       : 2000-01-01
-        alarm_IRQ       : no
-        alrm_pending    : no
-        update IRQ enabled      : no
-        periodic IRQ enabled    : no
-        periodic IRQ frequency  : 1
-        max user IRQ frequency  : 64
-        24hr            : yes
+---
+RFC v1 -> RFC v2:
+  - Rebase on net-next/main
+  - Integrate and test with the PSE core's PSE_BUDGET_EVAL_STATIC.
+  - ltc4266: Convert register access to the regmap API (replaces the
+    open-coded read-modify-write helper and its explicit mutex).  Note
+    the explicit mutex is gone because it only protected reading both the
+    high and low bytes of a port's voltage/current.  This isn't actually
+    needed because reading the LSB will latch the MSB until the MSB is
+    read, so I2C transactions between the two reads are benign (Oleksij)
+  - ltc4266: Rename LTC4266_ICUT_RSENSE to LTC4266_ICUT_RSENSE_025_OHM
+    (Oleksij)
+  - ltc4266: Rename the ILIM AF/AT constants to TYPE1/TYPE2 (IEEE 802.3
+    terminology) (Oleksij)
+  - ltc4266: Add kernel-doc to ltc4266_port_set_ilim() citing IEEE Std
+    802.3-2022 Table 33-11 / Eq. (33-6) and the datasheet Table 5
+    sense-resistor dependence (Oleksij)
+  - ltc4266: Use the standard "2-event classification" term (IEEE
+    802.3-2022, Clause 33) instead of the datasheet's "Ping-Pong" name
+    (Oleksij)
+  - ltc4266: Document the ltc4266_port_mode enum
+    (SHUTDOWN/MANUAL/SEMI/AUTO).  The suggestion to treat any OPMD other
+    than SHUTDOWN as ADMIN_STATE_ENABLED didn't really apply since the
+    PSE core added the PSE_BUDGET_EVAL_STRAT_STATIC (Oleksij)
+  - ltc4266: Return 0 from ltc4266_read_iv() rather than -EINVAL when the
+    port is not delivering power, so an "ethtool --show-pse" query is not
+    aborted, and clarify the "delivering power" wording (Oleksij)
+  - ltc4266: Replace the I_CUT (18750, 0x3F, 850) and current/voltage
+    (122070, 61035, 5835) magic numbers with named defines (Oleksij)
+  - dt-bindings: Drop the blank line after "channels:" (Krzysztof)
+  - dt-bindings: Move the channels "description" after
+    "additionalProperties" so the structural keywords stay together
+    (Krzysztof)
+  - dt-bindings: Drop the blank line before "type: object" (Krzysztof)
+  - dt-bindings: Collapse the double blank line before
+    "patternProperties" to one (Krzysztof)
+  - dt-bindings: Use single quotes consistently for
+    '#address-cells'/'#size-cells' (Krzysztof)
+  - dt-bindings: Move "unevaluatedProperties: false" after the top-level
+    "required" block (Krzysztof)
+  - dt-bindings: Drop 'status =3D "okay";' from the example and tidy the
+    surrounding blank lines, including separating the channels and
+    pse-pis nodes (Krzysztof)
+  - dt-bindings: Reword the channels description based on the review in
+    [1] (Kory)
 
+[1] https://lore.kernel.org/netdev/20250517003525.2f6a5005@kmaincent-XPS-13=
+-7390/
+RFC v1: https://lore.kernel.org/netdev/20250603230422.2553046-1-kyle.swenso=
+n@est.tech/
 
-Cheers,
-Prabhakar
+Kyle Swenson (2):
+  dt-bindings: net: pse-pd: Add bindings for LTC4266 PSE Controller
+  net: pse-pd: Add LTC4266 PSE controller driver
+
+ .../bindings/net/pse-pd/lltc,ltc4266.yaml     |  180 +++
+ drivers/net/pse-pd/Kconfig                    |   11 +
+ drivers/net/pse-pd/Makefile                   |    1 +
+ drivers/net/pse-pd/ltc4266.c                  | 1305 +++++++++++++++++
+ 4 files changed, 1497 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/pse-pd/lltc,ltc42=
+66.yaml
+ create mode 100644 drivers/net/pse-pd/ltc4266.c
+
+--=20
+2.55.0
