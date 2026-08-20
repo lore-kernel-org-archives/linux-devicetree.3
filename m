@@ -1,310 +1,564 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B7D400E18
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E79D403AFA
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787218985; cv=none; b=oOdJGh4u94k5Z8Egsc2grqAwX82QRvt9mxa+bDzzNiUzbrlURrZCTb7Mh4D2jULzRgkzAgH73GOkQKbh+btRzdHttzDtuQifJsI1E2xUXa/ApSeV8I7Ulla2VSuig9UVtgLMKOcakqvG3eAMjhp17ZZSPa8S04G23XLgNRHxvGU=
+	t=1787218987; cv=none; b=OSXXpYxyHD0vLg3YdKmK1XY+5zH7LhfDVPWs8+h9Z/yK/TpV08aIBPSdRdXBj5/XVjS7LMQLIt4AUhBVcNeVWhiJTK70RkAnBtINU/AssTG7pe4Xp76H8fYA77BLijEmsV6gVndt8TIy4wT2F1njRKcO9ta2O9pI4/sZmx9Dm98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787218985; c=relaxed/simple;
-	bh=0x3CsPGQoLWlT9+oS19quN4mVeRuNS5Omn5syIjUDWc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TCRkdErQ6R0lnj/bl0U/E1XsegbpHyiJ/ivEAeR8k3du/ErI9Zb1OOfBISx/UUVjG9JVdCdlb2rXrmDSpkSxTQaaSVzSJPuFtkEuvgkVN59StCEINCuQncdHdmvCtzfEs/ar3DTO8w1DqfLYbD6d0ViFbxMxfB211N8yDiiQWI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4bCW62K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787218987; c=relaxed/simple;
+	bh=p8GRB+lkIjw4pSNAEO08MU7+d9FS21qHxjD0llBgBnE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Gtqz+Jk2naI4CUnA24MRFop44eySKlFEgaYaObrWsW2S2IshNpR2NgLAhkasL8z/57aKpA+0AmluAnR9HDtnCtjt4YakfEkzvo0P4iMxJCnI6mnZ+ysU1qrjEtxT0yUZYeVReSgpb1+bEjFFZ2ynFajSTyk4aB2XG02IzyiVSBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TShphs86; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4bCW62K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B44E31F000E9;
-	Thu, 20 Aug 2026 09:42:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787218974;
-	bh=8Uhd8dNOZhc0HcLF+79ADABPuGHZMbduJJiwCaGoUa8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F4bCW62KGMgRh7XNYdz6lnsM2jZXl0UDDBYjmaKF4F7YqX9whf/x59l05TpxASIwp
-	 BGL/a2cxCVygET1PQiEjm5Uwqqwj1VP4BYJGU1Ae+JDYXMrO98JQJ68cvRv1mzJydU
-	 hT31WQePBLNtwgns0ARYqXRzOdklOHu6HyGn+QM46j4MGh5z+zT1gjmuWY/TbHBasK
-	 +ARWxDNgYy4S0fk+CcxE6RJLq2jA8oFrip4Irnvdr5WC+/YBlXci6NqzG0IroRZGdi
-	 ulOjurVJEG7F28rdSaUxO9kyvBpq7+XuaFp47okhlYbt3ah1xIWZyS5uXjPza3Xz0+
-	 3+W/qZFminn0A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/7] rust: kernel: Add greybus abstractions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ayush Singh" <ayush@beagleboard.org>
-Cc: conor+dt@kernel.org, ojeda@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260820-gb-uart-transport-v1-4-282da14ab7b7@beagleboard.org>
-References: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
- <20260820-gb-uart-transport-v1-4-282da14ab7b7@beagleboard.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 09:42:53 +0000
-Message-Id: <20260820094253.B44E31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TShphs86"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47fe89fb333so1030611f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 02:42:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787218966; x=1787823766; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zzGTKiGnkLs/gtMzA+9GsQcS3jJ/KsMyFZATtr8M8Bw=;
+        b=TShphs86jiK/2tc1oBSLpS+5KrXFUDgp0wOnp10WnH77bQFrguC7hCrCCc1o3zLGNP
+         8zAlU9SOMobOqy/SUzkH9LPcJy1+CDhiLtZNjXmo7SHmX3QLxyXg7mBaPdlSN5ilQPwl
+         EOXt6pmR/Zon0VkVlNTWV882H8JhNphtNJ4FQ1DCsxCay0/xjClq/89MhUTOA/8fNljk
+         F3+toqXSJgPrE1MEM6GgZbniSV/oD29vVvwjhsD3C5YI9KserSU4IkUrokMMAkbUM/uF
+         mPNd31rQojTJTGWcb5qy6o5jhJUe/TgBbTB8SKpYC9MEO62xQKUwbzgKoMuwhkq0JB21
+         gDRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787218966; x=1787823766;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zzGTKiGnkLs/gtMzA+9GsQcS3jJ/KsMyFZATtr8M8Bw=;
+        b=B1xm+5EC+QQkc4z43ieva4QnhaaXM9KWBOHOK20T+t9BrDA1TOGFx4YVbDDYMv4XoK
+         MUV7EoNdEtylgoZMln9qYeSXTsj7SPYKhtroZoj8TNcK/rzM5FgCyZ1wNIXa4f3G/Mtk
+         FF0G9+k4WpE5/CZITDZhKUY6jO2TDJFga2sonQmYXRUNYznjqkKueOQ6Yi7pZ8LHOwrx
+         abAYandqlBWfS1h3bpgxQy+hIntcSSxFg0dhkr0yp0pTeOwuDP8Aen9Z4NChMld64MN2
+         1927v6tSGT1mfPSQQOduF0Oh0nCybrH3GLEGKFtTClXGvcLgv6Bp51ChUOIHgVEbdHjr
+         W4EQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr8V80Lqq9KjhkHlPRXs9G+oY0ETU/dLtMDk+ku0Jyt6nPlRbBJFLRPW0zIwne04ExCpYVsGD4sXc7E@vger.kernel.org
+X-Gm-Message-State: AFuF++lR00q+nEHpSstrFpJqN2jRX3U5OQu/gI6tn6RuFB5OvSiymzoH
+	ieHrn0Kx8MCB/Ub2gPppxwh1M4FCY7FAYwCYo8MRxTsz8HRKPXJZ+av2QWxIJ7fl
+X-Gm-Gg: AR+sD11JBgAetWTsf4HiVO7TeuyCZ/Y1ZAsx7MSUdk/goX7QajL506ZbR4K1UFdD6ly
+	Vv3ORAx5tkVjukq5+igJ86pNX08ul9Q8OcEksx9rJMYYJYcc2lcq1hqEgosf/GJHBS/AhbfxD69
+	osSHubd21c7bK6dEgSqtMSgAUsStXWXz/GvOafupssaSjauURWEweRTbv4kh0Go7Nch6h5zYxAI
+	aXG6p3951Df6lrYAlJLDsoPkyaUfgG38dZdm22dsm+QRwRD57XxPXpnlYdM7dO8YAXVvW1R7Et+
+	rFueKylMsU7NkSr3jt0jOSMBIDRmjIOjFk1HcRi3HSP8CfS9Qk9pC42W+QOgAs0Nfn1wRyLQrym
+	9Vi0nX3bK//LXzvfCFFhYsSJOuko+1u+kvBw+V13l+58CHU4w0O88dR5xgU/UKYWlSPZXobCU+g
+	Er7/drS0h2fEb73bG6iOjAnkDABUanal5jLWsHL6H+6ry0n2JyqfeQsoHgTASQ6fkW6cJxKZsG7
+	lud09io3EwVO02XGczTdRYq
+X-Received: by 2002:a5d:6f05:0:b0:47f:80ee:744f with SMTP id ffacd0b85a97d-482b1fec98emr11132149f8f.16.1787218965689;
+        Thu, 20 Aug 2026 02:42:45 -0700 (PDT)
+Received: from [127.0.1.1] (83.31.75.144.ipv4.supernova.orange.pl. [83.31.75.144])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b144173csm11788090f8f.6.2026.08.20.02.42.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 02:42:45 -0700 (PDT)
+From: Adam Skladowski <a39.skl@gmail.com>
+Date: Thu, 20 Aug 2026 11:42:28 +0200
+Subject: [PATCH v2 5/7] arm64: dts: qcom: Add LeEco Le2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260820-next-patches-v2-5-7130d68183d9@gmail.com>
+References: <20260820-next-patches-v2-0-7130d68183d9@gmail.com>
+In-Reply-To: <20260820-next-patches-v2-0-7130d68183d9@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ Adam Skladowski <a39.skl@gmail.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [Critical] `Registration::drop` frees driver private data before calling =
-`gb_hd_del()`, allowing Use-After-Free in concurrent callbacks.
-- [High] Missing and incorrect `Send`/`Sync` bounds on Greybus types break =
-async usage and Rust thread safety.
-- [High] `Message` does not implement `Drop`, allowing drivers to silently =
-leak active operations.
-- [High] `message_cancel` bypasses ownership guarantees, allowing an aliase=
-d `Message` to be constructed by value.
-- [High] The `Registration` API leaks the `gb_host_device` memory and crash=
-es by calling `device_del` on an un-added device on error paths.
-- [High] Safe Rust API allows double-free of gb_operation if a driver compl=
-etes a message and then returns an error.
-- [Medium] `HdDriver::message_send` ignores the provided `gfp_mask`, breaki=
-ng context-aware memory allocation.
-- [Low] Conditional compilation of `greybus` abstraction causes linker erro=
-rs when `CONFIG_GREYBUS=3Dm`.
-- [Low] Missing `// INVARIANT:` comments on struct constructions.
-- [Low] Missing `#[inline]` annotations on abstraction wrappers.
---
+Add a devicetree for the LeEco Le2 smartphone, which is based
+on the Eldarion/MSM8976 SoC.
 
---- Patch [4]: [PATCH 4/7] rust: kernel: Add greybus abstractions ---
-commit a8c7543823c875208896bddcd8e1e440536e1645
-Author: Ayush Singh <ayush@beagleboard.org>
+Supported functionality as of this initial submission:
+* I2C peripherals (Touchscreen,Audio amp, Haptics, Extcon, Led)
+* Power Button, Volume Keys
+* Regulators (PM8950)
+* WLED (PMI8950)
+* Remoteprocs (WCNSS)
+* GPU
 
-rust: kernel: Add greybus abstractions
-   =20
-Add Rust abstractions for the Greybus core, enough to implement a
-Greybus host driver in Rust.
+Device tree also contains supply maps to other subsystems like MDSS
+but due to missing dependencies like panel those are disabled.
 
-> diff --git a/rust/kernel/greybus/hd.rs b/rust/kernel/greybus/hd.rs
-> index 0000000000000..56435074f8dc8
-> --- /dev/null
-> +++ b/rust/kernel/greybus/hd.rs
-[ ... ]
-> +    unsafe extern "C" fn message_send(
-> +        hd: *mut bindings::gb_host_device,
-> +        dest_cport_id: u16,
-> +        msg: *mut bindings::gb_message,
-> +        _gfp_mask: bindings::gfp_t,
-> +    ) -> c_int {
+Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts | 435 ++++++++++++++++++++++++++
+ 2 files changed, 436 insertions(+)
 
-[Severity: Medium]
-Does this ignore the provided _gfp_mask? If it is not passed to the driver
-implementation, safe Rust drivers lack the context to determine whether they
-can sleep (e.g., if they need to allocate memory to queue the message),
-which could lead to might_sleep() panics.
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 11e953657691..1487f2beff3d 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -128,6 +128,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-tissot.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8953-xiaomi-vince.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8956-sony-xperia-loire-kugo.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8956-sony-xperia-loire-suzu.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= msm8976-leeco-s2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8976-longcheer-l9360.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8992-lg-bullhead-rev-10.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8992-lg-bullhead-rev-101.dtb
+diff --git a/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts b/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts
+new file mode 100644
+index 000000000000..acea087168af
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts
+@@ -0,0 +1,435 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (c) 2026 Adam Skladowski <a39skl@gmail.com>
++ */
++
++/dts-v1/;
++
++#include "msm8976.dtsi"
++#include "pm8950.dtsi"
++#include "pm8004.dtsi"
++#include "pmi8950.dtsi"
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/gpio-keys.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/input/linux-event-codes.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/input/ti-drv260x.h>
++
++/ {
++	model = "Leeco Le S2";
++	compatible = "leeco,s2", "qcom,msm8976";
++	chassis-type = "handset";
++
++	gpio_keys {
++		compatible = "gpio-keys";
++
++		pinctrl-0 = <&gpio_key_default>;
++		pinctrl-names = "default";
++
++		key-volume-up {
++			label = "Volume Up";
++			gpios = <&tlmm 113 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++		};
++	};
++
++	reserved-memory {
++		/delete-node/ ext-region@85b00000;
++
++		 ext_region: memory@84a00000 {
++			reg = <0x0 0x84a00000 0x0 0x1900000>;
++			no-map;
++		};
++	};
++
++	vph_pwr: vph-pwr-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vph_pwr";
++		regulator-always-on;
++		regulator-boot-on;
++	};
++};
++
++&adreno_gpu {
++	status = "okay";
++};
++
++&blsp1_i2c4 {
++	status = "okay";
++
++	touchscreen@4b {
++		compatible = "syna,rmi4-i2c";
++		reg = <0x4b>;
++		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
++
++		pinctrl-0 = <&touch_default_state>;
++		pinctrl-names = "default";
++
++		reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
++
++		vdd-supply = <&pm8950_l17>;
++		vio-supply = <&pm8950_l6>;
++
++		syna,reset-delay-ms = <100>;
++		syna,startup-delay-ms = <500>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		rmi4-f01@1 {
++			reg = <0x01>;
++			syna,nosleep-mode = <1>;
++		};
++
++		rmi4-f12@12 {
++			reg = <0x12>;
++			syna,sensor-type = <1>;
++			syna,clip-x-low = <0>;
++			syna,clip-x-high = <1080>;
++			syna,clip-y-low = <0>;
++			syna,clip-y-high = <1920>;
++		};
++	};
++};
++
++&blsp2_i2c2 {
++	status = "okay";
++
++	haptics: haptics@5a {
++		compatible = "ti,drv2604";
++		reg = <0x5a>;
++		enable-gpios = <&tlmm 109 GPIO_ACTIVE_HIGH>;
++		mode = <DRV260X_LRA_MODE>;
++		library-sel = <DRV260X_LIB_LRA>;
++	};
++
++	tiusb320: typec@47 {
++		compatible = "ti,tusb320";
++		reg = <0x47>;
++		interrupts-extended = <&tlmm 21 IRQ_TYPE_EDGE_RISING>;
++
++		pinctrl-0 = <&tusb320_int_active>;
++		pinctrl-names = "default";
++	};
++};
++
++&blsp2_i2c4 {
++	status = "okay";
++
++	led-controller@45 {
++		compatible = "awinic,aw2013";
++		reg = <0x45>;
++		vcc-supply = <&pm8950_l10>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		led@0 {
++			reg = <0>;
++			led-max-microamp = <5000>;
++			function = LED_FUNCTION_INDICATOR;
++			color = <LED_COLOR_ID_RED>;
++		};
++
++		led@1 {
++			reg = <1>;
++			led-max-microamp = <5000>;
++			function = LED_FUNCTION_INDICATOR;
++			color = <LED_COLOR_ID_GREEN>;
++		};
++
++		led@2 {
++			reg = <2>;
++			led-max-microamp = <5000>;
++			function = LED_FUNCTION_INDICATOR;
++			color = <LED_COLOR_ID_BLUE>;
++		};
++	};
++
++	speaker_codec: audio-codec@34 {
++		compatible = "nxp,tfa9890";
++		reg = <0x34>;
++		vddd-supply = <&pm8950_l5>;
++		sound-name-prefix = "Speaker";
++		#sound-dai-cells = <0>;
++	};
++};
++
++&gcc {
++	vdd_gfx-supply = <&pm8004_s5>;
++};
++
++&mdss_dsi0 {
++	vdd-supply = <&pm8950_l17>;
++	vdda-supply = <&pm8950_l1>;
++	vddio-supply = <&pm8950_l6>;
++};
++
++&mdss_dsi0_out {
++	data-lanes = <0 1 2 3>;
++};
++
++&mdss_dsi0_phy {
++	vddio-supply = <&pm8950_l6>;
++};
++
++&otg {
++	extcon = <&tiusb320>;
++};
++
++&pm8004_lsid5 {
++	status = "okay";
++};
++
++&pm8004_spmi_regulators {
++	vdd_s2-supply = <&vph_pwr>;
++	vdd_s5-supply = <&vph_pwr>;
++
++	status = "okay";
++
++	/* Cluster 1 supply */
++	pm8004_s2: s2 {
++		regulator-name = "VDD_APC1";
++		regulator-min-microvolt = <950000>;
++		regulator-max-microvolt = <1165000>;
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	pm8004_s5: s5 {
++		regulator-name = "VDD_GFX";
++		regulator-min-microvolt = <950000>;
++		regulator-max-microvolt = <1165000>;
++		regulator-enable-ramp-delay = <500>;
++		regulator-always-on;
++	};
++};
++
++&pm8950_spmi_regulators {
++	vdd_s5-supply = <&vph_pwr>;
++
++	/* Cluster 0 supply */
++	pm8950_spmi_s5: s5 {
++		regulator-min-microvolt = <950000>;
++		regulator-max-microvolt = <1165000>;
++		regulator-name = "VDD_APC0";
++		regulator-always-on;
++		regulator-boot-on;
++	};
++};
++
++&pmi8950_wled {
++	qcom,current-limit-microamp = <20000>;
++	qcom,enabled-strings = <0 1>;
++	qcom,ovp-millivolt = <29600>;
++};
++
++&rpm_requests {
++	regulators {
++		compatible = "qcom,rpm-pm8950-regulators";
++
++		vdd_s1-supply = <&vph_pwr>;
++		vdd_s2-supply = <&vph_pwr>;
++		vdd_s3-supply = <&vph_pwr>;
++		vdd_s4-supply = <&vph_pwr>;
++		vdd_s6-supply = <&vph_pwr>;
++		vdd_l1_l19-supply = <&pm8950_s3>;
++		vdd_l2_l23-supply = <&pm8950_s3>;
++		vdd_l3-supply = <&pm8950_s3>;
++		vdd_l5_l6_l7_l16-supply = <&pm8950_s4>;
++		vdd_l8_l11_l12_l17_l22-supply = <&vph_pwr>;
++
++		pm8950_s3: s3 {
++			regulator-min-microvolt = <1325000>;
++			regulator-max-microvolt = <1325000>;
++		};
++
++		pm8950_s4: s4 {
++			regulator-min-microvolt = <2050000>;
++			regulator-max-microvolt = <2050000>;
++		};
++
++		pm8950_l1: l1 {
++			regulator-min-microvolt = <1100000>;
++			regulator-max-microvolt = <1300000>;
++		};
++
++		pm8950_l2: l2 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8950_l3: l3 {
++			regulator-min-microvolt = <1000000>;
++			regulator-max-microvolt = <1100000>;
++		};
++
++		pm8950_l5: l5 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l6: l6 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l7: l7 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1900000>;
++		};
++
++		pm8950_l8: l8 {
++			regulator-min-microvolt = <2900000>;
++			regulator-max-microvolt = <2900000>;
++		};
++
++		pm8950_l9: l9 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l10: l10 {
++			regulator-min-microvolt = <2850000>;
++			regulator-max-microvolt = <2850000>;
++		};
++
++		pm8950_l11: l11 {
++		/* TUSB320 power supply */
++			regulator-always-on;
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8950_l12: l12 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8950_l13: l13 {
++			regulator-min-microvolt = <3075000>;
++			regulator-max-microvolt = <3075000>;
++		};
++
++		pm8950_l14: l14 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l15: l15 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3300000>;
++		};
++
++		pm8950_l16: l16 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8950_l17: l17 {
++			regulator-min-microvolt = <2500000>;
++			regulator-max-microvolt = <2900000>;
++		};
++
++		pm8950_l19: l19 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1350000>;
++		};
++
++		pm8950_l22: l22 {
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++		};
++
++		pm8950_l23: l23 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++	};
++};
++
++&sdhc_1 {
++	vmmc-supply = <&pm8950_l8>;
++	vqmmc-supply = <&pm8950_l5>;
++
++	status = "okay";
++};
++
++&tlmm {
++	gpio-reserved-ranges = <0 4>, /* Unknown */
++			       <8 4>; /* Fingerprint SPI */
++
++	disp_reset_n_active: disp-reset-n-active-state {
++		pins = "gpio25";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	disp_reset_n_sleep: disp-reset-n-sleep-state {
++		pins = "gpio25";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	disp_te_default: disp-te-default-state {
++		pins = "gpio24";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	gpio_key_default: gpio-key-default-state {
++		pins = "gpio113";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
++	touch_default_state: touch-default-state {
++		irq-pins {
++			pins = "gpio65";
++			function = "gpio";
++			drive-strength = <8>;
++			bias-pull-up;
++		};
++
++		reset-pins {
++			pins = "gpio64";
++			function = "gpio";
++			drive-strength = <8>;
++			bias-pull-up;
++		};
++	};
++
++	tusb320_int_active: tusb320-int-active-state {
++		pins = "gpio21";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++};
++
++&wcnss {
++	vddpx-supply = <&pm8950_l5>;
++
++	status = "okay";
++};
++
++&wcnss_iris {
++	compatible = "qcom,wcn3680";
++
++	vddxo-supply = <&pm8950_l7>;
++	vddrfa-supply = <&pm8950_l19>;
++	vddpa-supply = <&pm8950_l9>;
++	vdddig-supply = <&pm8950_l5>;
++};
++
++&xo_board {
++	clock-frequency = <19200000>;
++};
++
 
-> +        // SAFETY: `gb_host_device` and `HostDevice` have the same layou=
-t.
-> +        let hd =3D unsafe { Device::<device::CoreInternal<'_>>::from_raw=
-(hd) };
-> +        // SAFETY: `message_send` is only ever called after a successful=
- call to
-> +        // `gb_hd_add`, hence it's guaranteed that `Device::set_drvdata(=
-)` has been called
-> +        // and stored a `Pin<KBox<T>>`.
-> +        let data =3D unsafe { hd.as_ref().drvdata_borrow() };
-> +        // SAFETY: The caller guarantees `msg` is valid for the duration=
- of this call.
-> +        let msg =3D unsafe { Message::from_raw(msg) };
-> +
-> +        match T::message_send(&data, dest_cport_id, msg) {
-> +            Ok(()) =3D> 0,
-> +            Err(e) =3D> e.to_errno(),
-> +        }
-> +    }
+-- 
+2.55.0
 
-[Severity: High]
-Does this safe Rust API allow a double-free of gb_operation?
-
-If a driver completes a message by calling msg.sent() (which drops the
-operation refcount) and then returns Err(e), this wrapper propagates the
-error back to the C core.
-
-The C core will then unconditionally drop the operation refcount again in
-gb_operation_request_send(), resulting in a use-after-free.
-
-> +
-> +    /// # Safety
-> +    ///
-> +    /// `msg` must point at a valid message of a registered host device =
-of this driver.
-> +    unsafe extern "C" fn message_cancel(msg: *mut bindings::gb_message) {
-> +        // SAFETY: The caller guarantees `msg` is valid for the duration=
- of this call.
-> +        let msg =3D unsafe { Message::from_raw(msg) };
-> +
-> +        T::message_cancel(msg);
-> +    }
-
-[Severity: High]
-Does message_cancel bypass ownership guarantees by constructing an aliased
-Message by value?
-
-If the driver had previously received this same gb_message and stashed it
-for asynchronous processing, there are now two owned Message instances
-representing the same underlying C struct. A safe driver could call
-msg.sent() on both, leading to a double-free.
-
-[ ... ]
-> +    pub fn new(
-> +        parent: &device::Device,
-> +        buffer_size_max: usize,
-> +        num_cports: usize,
-> +        data: impl PinInit<T, Error>,
-> +    ) -> Result<Self> {
-[ ... ]
-> +        let res =3D Self {
-> +            ptr: NonNull::new(hd).ok_or(code::ENOMEM)?,
-> +            _data: PhantomData,
-> +        };
-
-[Severity: Low]
-Are we missing an // INVARIANT: comment on this struct construction, as
-required by subsystem/rust.md?
-
-> +
-> +        res.add()?;
-> +
-> +        Ok(res)
-> +    }
-
-[Severity: High]
-If res.add() fails, res is dropped and Registration::drop() is invoked,
-which calls gb_hd_del().
-
-Since gb_hd_add() never succeeded, does calling device_del() via
-gb_hd_del() on an un-added device trigger a kobject crash?
-
-[ ... ]
-> +impl<T> Registration<T> {
-> +    fn add(&self) -> Result<()> {
-
-[Severity: Low]
-Should this small forwarding function have an #[inline] annotation, as per
-the subsystem guidelines?
-
-[ ... ]
-> +impl<T> Drop for Registration<T> {
-> +    fn drop<'a>(&'a mut self) {
-> +        {
-> +            let hd =3D self.as_raw();
-> +            // SAFETY: By the type invariant `hd` points at a valid host=
- device, and
-> +            // `gb_host_device` and `Device` have the same layout.
-> +            let hd_dev =3D unsafe { &*hd.cast::<Device<device::CoreInter=
-nal<'a>>>() };
-> +            // SAFETY: The driver data was set to a `T` in `Registration=
-::new()` and has not been
-> +            // taken since, and this is the only place that takes it.
-> +            let data =3D unsafe { hd_dev.as_ref().drvdata_obtain::<T>() =
-};
-> +            drop(data);
-> +        }
-> +
-> +        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a=
- pointer to a valid
-> +        // `struct gb_host_device`.
-> +        unsafe { bindings::gb_hd_del(self.as_raw()) }
-> +    }
-> +}
-
-[Severity: Critical]
-By destroying the private data T before calling gb_hd_del(), could this lead
-to a use-after-free in concurrent callbacks?
-
-gb_hd_del() is synchronous and flushes active connections. This flushing can
-trigger the C core to send responses via message_send. The message_send
-callback borrows the driver data, which was already freed here.
-
-[Severity: High]
-After removing the device, does Registration::drop() need to call
-gb_hd_put() to release the refcount?
-
-gb_hd_create() returns a device with a refcount of 1. By never calling
-gb_hd_put(), it appears the host device memory is permanently leaked upon
-unregistering.
-
-> +
-> +// SAFETY: The greybus host device API is thread-safe as guaranteed by t=
-he device core, as long as
-> +// gb_hd_del() is guaranteed to only be called once - which is guarantee=
-d by our type not
-> +// having Copy/Clone.
-> +unsafe impl<T> Send for Registration<T> {}
-
-[Severity: High]
-Does this Send implementation require a T: Send bound?
-
-Without it, a safe consumer could create a Registration<T> where T is !Send,
-move it to another thread, and drop it, causing a !Send type to be dropped
-concurrently.
-
-> diff --git a/rust/kernel/greybus/mod.rs b/rust/kernel/greybus/mod.rs
-> index 0000000000000..5dd1941574cf8
-> --- /dev/null
-> +++ b/rust/kernel/greybus/mod.rs
-[ ... ]
-> +/// A Greybus message handed to a host driver for transmission.
-> +///
-> +/// # Invariants
-> +///
-> +/// The shared reference is only ever handed out for the duration of a [=
-`HdDriver`] callback, during
-> +/// which the Greybus core guarantees the message and its buffer stay al=
-ive.
-> +#[repr(transparent)]
-> +pub struct Message(NonNull<bindings::gb_message>);
-
-[Severity: High]
-Is there a reason this struct doesn't implement Send? Without it, safe
-asynchronous drivers cannot queue operations to worker threads.
-
-[Severity: High]
-Does this struct need a Drop implementation to prevent silent resource leak=
-s?
-
-If a driver simply drops the Message struct without calling sent(), the
-underlying C gb_operation is permanently leaked.
-
-> +
-> +impl Message {
-> +    /// # Safety
-> +    ///
-> +    /// `ptr` must be non-null and point at a valid `struct gb_message` =
-which outlives the
-> +    /// returned `Self`.
-> +    #[inline]
-> +    pub(crate) const unsafe fn from_raw(ptr: *mut bindings::gb_message) =
--> Self {
-> +        // SAFETY: The caller guarantees `ptr` is non-null.
-> +        Self(unsafe { NonNull::new_unchecked(ptr) })
-> +    }
-
-[Severity: Low]
-Is this struct construction missing an // INVARIANT: comment, as required
-by the subsystem guidelines?
-
-> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> index 17af6e7969751..6d6378ade24ea 100644
-> --- a/rust/kernel/lib.rs
-> +++ b/rust/kernel/lib.rs
-[ ... ]
-> @@ -77,6 +77,8 @@
->  pub mod fs;
->  #[cfg(CONFIG_GPU_BUDDY =3D "y")]
->  pub mod gpu;
-> +#[cfg(CONFIG_GREYBUS)]
-> +pub mod greybus;
-
-[Severity: Low]
-Does this cause linker errors when CONFIG_GREYBUS is built as a loadable
-module?
-
-When it is configured as =3Dm, the build system still passes
---cfg=3DCONFIG_GREYBUS to rustc. This statically compiles the module into
-vmlinux, leading to undefined references to C symbols like gb_hd_create
-which only exist in the dynamically loadable greybus.ko module.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820-gb-uart-tr=
-ansport-v1-0-282da14ab7b7@beagleboard.org?part=3D4
