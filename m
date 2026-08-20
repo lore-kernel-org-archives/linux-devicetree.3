@@ -1,135 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417E7476CDC;
-	Thu, 20 Aug 2026 14:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787235889; cv=none; b=IVUcioqiHx1lyRRjabF4oC8HxIe/o0XLgCXh8q2bTfpAHBrxwfgAnYRjEZytEAJE3G77CiWvxyyfbttgNBgWPX8NEcyCUrZvOUcs8KrgNkbpXwmXDmQUCrPWCPlaHK11PojdHnayQ9lwk0DrHGgfPFgTo9gzHHzkj/f/qAYQb4A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787235889; c=relaxed/simple;
-	bh=AufvicVxdUHfJgRu2AIkETGMHE+WyIlTQyE3yBYUC60=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nlf//atG6gZVI+RlBOK0FN1+fE8gN3Wl92eTWfLdTd8ciLVgYXz+5ySYtr8h08BavvCXnhe4qHceLl2RvX7+7k46UYGECFMRwzu4p0Wh6Nb/GUaF01oqEXp8lxeglAtywg/aXCxbI6R+myR+Y03o0swiZ36TVTp+sb6s9eOiATM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BsT75KT3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FBE47669C
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 14:24:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787235893; cv=pass; b=SSY0cH18T+A6/mtefCodGm21CIJy4O0oc6gzFqPhAA5zSBXFTaqV8tGohyETzh9yeokGsn2YSpe2MlH3nS2idnYq1ALEUVGC7yy/gI75AZcCQnthSRJCTVXot9/hiFPvoxGkwcMgrFoBmIzwMrS+U1pnRx2MGIblc3ByG3N2Pho=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787235893; c=relaxed/simple;
+	bh=4ua3cxV8dhkHOIff05LR1Y3qFBHcVH6d6nazxugRB7I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i5bbdduSQYfLU756ksnoD0/zwVkN9xElpjhNW+Qu78BgfswjgglSrbwfF2bEyAbBfG3nXnIl8qn/xKojS9i31q2CBErIfM+wuycCeqsjHUzgeCiKxX0LkdpR0W+AZg7/I7z5jTIFI3mve7bgLrCLZHRpmVQ2UD8X8t3YUMkKiBU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LgJHC9aj; arc=pass smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BsT75KT3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5BD1F00A3A;
-	Thu, 20 Aug 2026 14:24:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787235886;
-	bh=xKYz+iyUJ7D8aXLCEzfJSofxHvev8MRiekI3GPvcDKE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BsT75KT3yAbuOFRT07b9yh14rMq66QQt2QPH4ohDl41LGwV3yzqhhZ7WWeHmmY4Q4
-	 +3BN1As6A6EQC9tdXGsEqfSENOja1WbJ5uobg6KlsfldKNXeLEMbScJr2CTstRvZPN
-	 Ed7Sk+Tc/Cwceh/PN0JxXrduzy63rhg/3vQH/Zk6lCUK/ouI0qb6DvK+Ta+lUO0BMu
-	 QY3DAFlcta50eNifGXpniDHYTwn/MchhnZt2ZDFr6oV5H1ZaU9eNqhQ2wChD8kzC03
-	 ij2zRcw+uFGVYXm+tWTTKkQvtQWPfNe/R0RgDCyz+wrbdbAB6G1xzkWn+75Evl0/VO
-	 dYac+KBRanT+g==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 20 Aug 2026 16:24:14 +0200
-Subject: [PATCH v4 5/5] arm64: dts: qcom: hamoa: Extend QMPPHY description
- for USB4
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LgJHC9aj"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49954b88fffso24274545e9.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:24:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787235890; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W/tmqGoVN2jsrOrIHyLtLLJ/dtvyvKH+4UT/tp4+pPNK/LjkSliaGriV2N5cC7n1di
+         vbutvqbpglmLh46dFM24kMLLeFzhVP46OPNpWQ3rWSKqBLhjKLwthdaobOrDgv8qcDxN
+         KGiWaLm74gfeOvp2Lc/pGnFCH8vC75he6Dnv5WgNk2YO98VBSdfs7t7IfUL85Y8eyj6o
+         IWJ8lJjtbpSJ3d+beotvm7R1qQZXOSJZoRnn/5TQEljsps4ef1mcELXEhC5Mbiw7TnKp
+         tBKdK0zmN+5NcHdJVJV48pd+Vftj6LX8qDyi7f1PyqwvH7Gi2x0JvFBT/52vux/LPT5/
+         wPsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vGtwPp5SElePleI/4XLp2bHhqRVpPgOhFZ40qM1IKko=;
+        fh=OMoSC2ueZkCvPy1rGjTpwZFHdJfNObRSDbscisM6g6w=;
+        b=MYsEnrM+29wCstXE98mRmc8Ob92V59Przi98dFEXRuFdYOTsSSua/2ia0swY1pg0BT
+         5bTAPpuLYSr6zSUSakDoqM0VfkkmGq/a/lYwXdF4aWtryUsIsoOIzKD2FLlYz8I4GOVu
+         eZPMhmwCbifHNRkEFCwvl1bQku388IdTnqV1ITFrHlTMZao2zgaFZN46zV4P581MDMIO
+         5+fWDSXmzT+Y/XEq8V5cJ5Fe9093oUjZsGrZO+lx3EOtRCUVsa5Rwo0Y4Qj1OMt197nY
+         rO4RYhckAGmj5N/77x594Z8rQ9T866kQ9ZYXx+o0UDMmf5AYvMcLipWeuhbX12bNUKp7
+         wkLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787235890; x=1787840690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vGtwPp5SElePleI/4XLp2bHhqRVpPgOhFZ40qM1IKko=;
+        b=LgJHC9aj52KmTMuxMcUaG13G6DhAzNQIkedGybzGV56eGW4huMGy1TNr07pv7TOFCo
+         yxApEc+jjb6vMBimUS2n5xpfE4H9fFEcHZ2S2dzKXDaByjL4oHV/sTSF1OPxN/T9WsF6
+         5LIfu4he6Lllas4kcu7CiPyoPTsq48J8q0rtkelOgzTP93oX1LzK73Q1jLHEur9rhYP0
+         FcZAqsWXokIJZKB1ytF/rdXgYFXYpBIwIgkYrT8y4OtDplU513IvnMPORLKje2PZkAzX
+         dD7pOf0oGYioJDeDk5tuhKw1ObaUZrLwOKYbglRz8ALK36fz/QSFLyaVswfQ7+SyHSGN
+         uv4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787235890; x=1787840690;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vGtwPp5SElePleI/4XLp2bHhqRVpPgOhFZ40qM1IKko=;
+        b=Ny5X6KMZwCw2uuKSD2pi43OSk9uEhSDJYynjkcDle5VLxa+s566PazeHK9fcNHDVct
+         pltq2l2A53x3jClQ7DImCaUBUxVbRavbVaVdyNM/TKXxvyHeVTNUDJb9f0lD2VcP6eZh
+         m0zj0Z3N6+dCaMN7i7lJ4B0nHS6LzTRDYwCZ63+5BCDa+F0JmENb4CiUKsaiRb10EdqU
+         FqBr2xa2dNz2TGxhQzsctXSpZpcqhkxADCVJZmYTic20Ihn0Q+ONYrq5BcjsR/1J5LgW
+         VxjCxp+X6pQq700ocJZfHpvuVsFRnNOuNoBSNTOwIlSsppabjCjl/JT9ONGA01eCyBmn
+         ZBuQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrGSW0quO3pG2rSbhq1phxopwyzf+jNvMTBN0KvAoTY78PY4mm4SlsL0wCqsv0BEO5gFK91C09f6w6t@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYQ9iyFiIlpyrim/N3e4lgUDSz4N0WKPvLVmES2O/geB5xtgmC
+	Jp/L8bbtPPLsk+PHBjqLfXXK5NrfwLWzKNS5kFTFWKgvmecKkLx3EClF3qlV4q8JD6LKWYcKgjK
+	DidwCAAMVAaeWwPxorlTC6ghIc3wDZvY=
+X-Gm-Gg: AR+sD12fvyMImPU6voUumAAW/WLTlr3FVcwbVChs+oE3d8L694boo8aPdRcS7ElPGmO
+	BC13g48Ir0ymi2X6dUdy28Yiz2p2djnPpZi3ryC8LPB+t4ai1XJPkcztwUDkBjhjEk9IrYxKhV1
+	V03tO99ZUKkI/p8Zmq7QErOfxaLQ2s7OUfh4RfqJbB3OjjwGWNPEWp0funlqoYzKDMZGWyNFeKq
+	ZpCXT1wSjTJvcs02kDuQwnbRMBiotIlvOOHTHL1Cdl09V5ZOL/D0FX/E8XyazYHp6+HrfK1Hjf2
+	xAUzqi9HoReWMSneRFwGTpBRJI6VpP3GFf6lrxm3P1PTAg9/2SvTZiaybw0kYmDbDZczHjqDayb
+	XVhmTXE8578tQvjLmCHR/M/m8NmSbas1qKDiP7p5m
+X-Received: by 2002:a05:600c:3590:b0:493:a966:d5b5 with SMTP id
+ 5b1f17b1804b1-499aa14a75bmr231032105e9.2.1787235889336; Thu, 20 Aug 2026
+ 07:24:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-topic-usb4phy-v4-5-aec9d2cb31f6@oss.qualcomm.com>
-References: <20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com>
-In-Reply-To: <20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- usb4-upstream@oss.qualcomm.com, 
- Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, 
- Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787235854; l=2242;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=1Y4QL2IvKdhr8co3E6ksVFTcg4K1mp07QkMtVRBoBxw=;
- b=XvRFlREVvYzX0XCiJOxDvZZRPQcU54jNk28jx5xbH2GtZjNmAR97vddjhiIVbtx5l6cXDTV1O
- PzkMbjOuyV4B1SMwcGFhqtp+01eUoJ0UZlwLFJg2NgIL3H/O2h6ACuz
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819103926.2136712-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819105356.BD7731F000E9@smtp.kernel.org> <aoWpLvrNGHBPvFY5@shikoro>
+In-Reply-To: <aoWpLvrNGHBPvFY5@shikoro>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 20 Aug 2026 15:24:23 +0100
+X-Gm-Features: AcwNN1XjPbCVWInvwnEJK7fURmifV1Jum9U6XzA0i7unkeraDGkwFi5MdsHj34Y
+Message-ID: <CA+V-a8v23+zevx_xRS-GeHG2yk2k-M2UkPxoC76t-0JewRk9Dw@mail.gmail.com>
+Subject: Re: [PATCH v4 03/15] rtc: rzn1: Fix weekday underflow when alarm
+ crosses month boundary
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
+	linux-rtc@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Wed, Aug 19, 2026 at 2:01=E2=80=AFPM Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+>
+>
+> > [Severity: High]
+> > This is a pre-existing issue, but does this time_after() comparison
+> > allow bypassing the 1-week hardware limit on 32-bit systems?
+>
+> This is fixed later.
+>
+> > [Severity: Medium]
+> > This is a pre-existing issue, but what happens if the RZN1_RTC_ALW regi=
+ster
+> > is uninitialized and wday is 0?
+> >
+> > Calling fls(0) - 1 would evaluate to -1. If the current time is a Satur=
+day
+> > (tm_now.tm_wday =3D=3D 6), delta_days evaluates to 0, which bypasses
+> > the if (delta_days) block and leaves tm->tm_wday =3D -1.
+> >
+> > Since the core function rtc_valid_tm() does not check tm_wday, would th=
+is
+> > propagate a bogus alarm date to the caller?
+>
+> This looks worth investigating to me. On RZN1, ALW is default 0.
+>
+On T2H/N2H too.
 
-The USB4 part of the QMPPHY requires that one more GCC clock (P2RR2P -
-PHY-to-Router, Router-to-PHY) is enabled for the PHY to initialize
-successfully. Describe that.
+I'll create a below patch for it:
+diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+index 8c70dbf8c7ec..e0fdb591ba91 100644
+--- a/drivers/rtc/rtc-rzn1.c
++++ b/drivers/rtc/rtc-rzn1.c
+@@ -234,13 +234,24 @@ static int rzn1_rtc_read_alarm(struct device
+*dev, struct rtc_wkalrm *alrm)
+        if (ret)
+                return ret;
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/hamoa.dtsi | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
++       ctl1 =3D readl(rtc->base + RZN1_RTC_CTL1);
++       alrm->enabled =3D !!(ctl1 & (RZN1_RTC_CTL1_ALME | RZN1_RTC_CTL1_1SE=
+));
++
+        min =3D readl(rtc->base + RZN1_RTC_ALM);
+        hour =3D readl(rtc->base + RZN1_RTC_ALH);
+-       wday =3D readl(rtc->base + RZN1_RTC_ALW);
 
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 8a96ea1bdb9c..17a7fbaaedc0 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -2833,11 +2833,13 @@ usb_1_ss0_qmpphy: phy@fd5000 {
- 			clocks = <&gcc GCC_USB3_PRIM_PHY_AUX_CLK>,
- 				 <&rpmhcc RPMH_CXO_CLK>,
- 				 <&gcc GCC_USB3_PRIM_PHY_COM_AUX_CLK>,
--				 <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
-+				 <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>,
-+				 <&gcc GCC_USB4_0_PHY_P2RR2P_PIPE_CLK>;
- 			clock-names = "aux",
- 				      "ref",
- 				      "com_aux",
--				      "usb3_pipe";
-+				      "usb3_pipe",
-+				      "p2rr2p_pipe";
- 
- 			power-domains = <&gcc GCC_USB_0_PHY_GDSC>;
- 
-@@ -2904,11 +2906,13 @@ usb_1_ss1_qmpphy: phy@fda000 {
- 			clocks = <&gcc GCC_USB3_SEC_PHY_AUX_CLK>,
- 				 <&tcsr TCSR_USB4_1_CLKREF_EN>,
- 				 <&gcc GCC_USB3_SEC_PHY_COM_AUX_CLK>,
--				 <&gcc GCC_USB3_SEC_PHY_PIPE_CLK>;
-+				 <&gcc GCC_USB3_SEC_PHY_PIPE_CLK>,
-+				 <&gcc GCC_USB4_1_PHY_P2RR2P_PIPE_CLK>;
- 			clock-names = "aux",
- 				      "ref",
- 				      "com_aux",
--				      "usb3_pipe";
-+				      "usb3_pipe",
-+				      "p2rr2p_pipe";
- 
- 			power-domains = <&gcc GCC_USB_1_PHY_GDSC>;
- 
-@@ -2975,11 +2979,13 @@ usb_1_ss2_qmpphy: phy@fdf000 {
- 			clocks = <&gcc GCC_USB3_TERT_PHY_AUX_CLK>,
- 				 <&tcsr TCSR_USB4_2_CLKREF_EN>,
- 				 <&gcc GCC_USB3_TERT_PHY_COM_AUX_CLK>,
--				 <&gcc GCC_USB3_TERT_PHY_PIPE_CLK>;
-+				 <&gcc GCC_USB3_TERT_PHY_PIPE_CLK>,
-+				 <&gcc GCC_USB4_2_PHY_P2RR2P_PIPE_CLK>;
- 			clock-names = "aux",
- 				      "ref",
- 				      "com_aux",
--				      "usb3_pipe";
-+				      "usb3_pipe",
-+				      "p2rr2p_pipe";
- 
- 			power-domains = <&gcc GCC_USB_2_PHY_GDSC>;
- 
+        tm->tm_sec =3D 0;
+        tm->tm_min =3D bcd2bin(min);
+        tm->tm_hour =3D bcd2bin(hour);
++
++       /*
++        * If wday is zero, no bit is set in RZN1_RTC_ALW. This is the
++        * register's power-on reset value.
++        */
++       wday =3D readl(rtc->base + RZN1_RTC_ALW);
++       if (!wday)
++               return 0;
++
+        delta_days =3D ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
+        tm->tm_wday =3D fls(wday) - 1;
 
--- 
-2.55.0
+@@ -249,9 +260,6 @@ static int rzn1_rtc_read_alarm(struct device *dev,
+struct rtc_wkalrm *alrm)
+                rtc_time64_to_tm(alarm, tm);
+        }
 
+-       ctl1 =3D readl(rtc->base + RZN1_RTC_CTL1);
+-       alrm->enabled =3D !!(ctl1 & (RZN1_RTC_CTL1_ALME | RZN1_RTC_CTL1_1SE=
+));
+-
+        return 0;
+ }
+
+Logs:
+    On a cold-booted board with no alarm configured, the following was
+    observed before the fix:
+
+        root@rzn2h-evk:~# cat /proc/driver/rtc
+        rtc_time        : 00:00:19
+        rtc_date        : 2000-01-01
+        alrm_time       : 00:00:00
+        alrm_date       : 2000-01-07
+        alarm_IRQ       : no
+        alrm_pending    : no
+        update IRQ enabled      : no
+        periodic IRQ enabled    : no
+        periodic IRQ frequency  : 1
+        max user IRQ frequency  : 64
+        24hr            : yes
+
+    After the fix:
+
+        root@rzn2h-evk:~# cat /proc/driver/rtc
+        rtc_time        : 00:00:25
+        rtc_date        : 2000-01-01
+        alrm_time       : 00:00:00
+        alrm_date       : 2000-01-01
+        alarm_IRQ       : no
+        alrm_pending    : no
+        update IRQ enabled      : no
+        periodic IRQ enabled    : no
+        periodic IRQ frequency  : 1
+        max user IRQ frequency  : 64
+        24hr            : yes
+
+
+Cheers,
+Prabhakar
