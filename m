@@ -1,67 +1,67 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BC433CE9A
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 17:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671AB47F2F7
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 17:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787246332; cv=none; b=OIwBU5rCKltsT38/AiRrcjvvtKzefHU5eUC479+RZi+3BJarxpUknqUKDuSAsctc8+FV21tlpf5HxcCzMXCg+Ai5iJCgIzYWYiX9bH0cuWRmRojsI1RVfle7ANyRB+168V6fJEUSMIAU2DI3JTHh3VzztIUjZYQeb/eaOHUcBVE=
+	t=1787246335; cv=none; b=DROVk8s0IOG8+wvylNzHttNtXfVN6um1KaeuyG6nZ3+h0pRC8yH7SbHsqrRAUsIh3XHiQP6WGcOX9fIP5fQ1bNlMVWUENZB1tM82mfn5Hxc46zaZ/KL+9+kN136XSJFf8y8+g7DQGJ1K2muHkjxrfyEXkPF5b2A16kcumbUWElA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787246332; c=relaxed/simple;
-	bh=iNJqeMqjI6DJobrOGzMqO8mZoPkJe4sD2dN06To6hCg=;
+	s=arc-20240116; t=1787246335; c=relaxed/simple;
+	bh=sDIQ1vLsYFppGokpUhtjUe6z+MBWd9JK7GkUzlazqsQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NW2wouer7vQS7mSqCXyI6yD8/KCkJzsgYtL6C9xq3dgOCEoFOs5+EcblccD679LbM3oYKN7JcGHY59WmqedolfVqTtJvzBK1vEjO5RyIXBUTTUmyWAfJLc/3tRQsSjd54HGQB+aSeWrfFcpXFMv/CPSlJRYPAsIEAoaHmD6Ep7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=N22PgAYO; arc=none smtp.client-ip=209.85.222.174
+	 In-Reply-To:Content-Type; b=PeqxSGEM5OR3Zmzbo0DBW7lHWXo8QnVNFfU0+imwOQouFsLMVpGxul82aQcGG2frSBdEhdZptIXut1Ds310LwvAMUMmXQaxZA2qhqfTOVFj7JdtgsQMUqETt0dwnlaCDvjTHkfMeHnWhS+HaWGFQqeTseaoLiCxR/l+/0wjE7JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=eB6hJXBq; arc=none smtp.client-ip=209.85.222.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="N22PgAYO"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92ed19f4d60so1354885a.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:18:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="eB6hJXBq"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-936623c6dd3so80896285a.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:18:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1787246329; x=1787851129; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1787246331; x=1787851131; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eCCdoQqiaW1nj8J5UXUMFmTcHTDmPsmHtrU7WPub7gI=;
-        b=N22PgAYO6psqJ0oK842Ey3x81cCZxmIY03IvyLTyHl0J467qLbZW4o28yOnUFap0rF
-         O96VQp/dwch4ZJgbCz91L56nPrvIM5LEWesZEoWHShZO/KJeXwsRiMBQnQ9cLCKKV5MH
-         TH5/M2ly32yl93a2gL9fP4wcq5n5vfOqWtgs0Q7xazJhGhbQmaK7/iP/97XYOX3WHGRE
-         8lAacBSrsK6RGbi+4JsjQGxk4DY8+QtNvASlbZwI/wkiFPUC6sHPhpj6LB35xYhAXqZz
-         GNPb6HmKdYuOGmmI8Ark/y8y2zhiYkIhGRlJdeuhaqBtEjYK28jwi+HP7CIuSNnUTYXG
-         zK0g==
+        bh=IRMpkuU4HK2cX9MBfuMzYQo0OypqY8QmS/84hefJFZU=;
+        b=eB6hJXBqsckOHJuZyi9K64sStQ8nr5UQ91s+Rd0dim6LH9LpMuBETf6fofRz9WQsZB
+         rUZMuDSMX7xHxysqLXdh6pYGlbu/jRPMw8YhKhv/6PPjpg8Huo/+sAyyBEsVPWmtazeh
+         wEBOsc0oHurLJ4wnW7zexk3AnyDzlJk71AEuxp4DEVuJUqg8gNbh1NzH+gGuA9ggd+zs
+         mufBuB4UHmB8BL+IQOLYYFj2+d/rz4P/X430QQ+vTWWGjhrHCbX/1OSGuqZAPWHD9RlY
+         a8wuR2XRX6ybsXy1DvKaj815/anApGc5X2B25/JEnYDhr77sgA4OhxnX1iOD+TFMkfrh
+         MBSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787246329; x=1787851129;
+        d=1e100.net; s=20251104; t=1787246331; x=1787851131;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eCCdoQqiaW1nj8J5UXUMFmTcHTDmPsmHtrU7WPub7gI=;
-        b=DyuzrgPpC3Il6TUWTb4/0xryhIJgPugJVBpqOh0JGlCvofaoTNOwfLQSqT+QnuoQ59
-         gkjivl2lVUTnOTQspEUS5t+L6dCE+BFz2OfnFQE3LAe5nbeHEmLNBCxoY42d9FTFXjC9
-         ZA5zpmoWU2DwZLCe7udY+UgVroe5hmEWnY1cHg3J2ieZbwGKelSPwgQQ7Pu+8jVm1e7b
-         DOONG/USEtjrvDyRX5PH561XMH22+eVhtY6vX9ODLr/uqdPkmE5WJJ5oQlgu+GzV7K/s
-         +V+9KQ01pjw7GphzPrR+rj3QLxY0mZWz9FAWmsTvFdx3o/5EsXsZTjd3gbjEx4zhzULR
-         VcUg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2rVzAqFEzNy0Hrs2F36PisHxrGZS7BheBBWfUaUJox5dyw6w+M6iR3vO7jEy5YANHqx8BIr9I6zDO@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJS9kBZzQqApfm7zGarbJeuUGX6SJA+zw5MptJSivuXYuRjyn6
-	J6QElNuWB/xPDk7XWOMJyvG9Nzd65nANzf5KSZDPfytUXYiFcppvhH04GNLsTg1emuY=
-X-Gm-Gg: AR+sD12RVelnQrgL983yEaqqDCuBN/xcSNS7dxypp9ZFIEPUAHutG0gniXaxdzwEVPw
-	zSDtO7Q7tmbU8bZarKMn+lU1wSwg216tH6DCcsV/su96lO6/QT3/qM2IuSR1xx8qsJ5tSD0pNp3
-	RPS2qn6QSwpvsdN0EUxNk+XCy0qGB8nCj2epKzcfTng4YgemwZYq7VjXIVeaZRfulLsOey1zY7Z
-	RexGGb1+bXHEMOKOzbfHUjrET+QD/CX4sxT876/fvvrbSFKuZjkk/yoHLHzXlalEJEHxly3ToBz
-	xs0ZLEd1ofObfCXpbG8YlatP19JtjdijKzJAsbAlzfRk1S4Bd77KeYH4/2VHisVc8JSasQn45l8
-	Hpjn1l/3qagGfAzzljPSsDLnpv6PibPNsWqoWKhBdEtPAuko7EETt0Lv3jPahgXIddg6UDXoMOm
-	M2xxVgKSaXMvnXhGecnCDSO0vN9u7EmfhyLRqJCk3lgTY5za/MscXOE7UhTpfq4bFfKtxF9TI=
-X-Received: by 2002:a05:620a:294d:b0:936:a184:3cf3 with SMTP id af79cd13be357-9372840f584mr862546985a.10.1787246327788;
-        Thu, 20 Aug 2026 10:18:47 -0700 (PDT)
+        bh=IRMpkuU4HK2cX9MBfuMzYQo0OypqY8QmS/84hefJFZU=;
+        b=sBq+RnOS5R3hvs7PKGWdqlJzGVBTAdOaaFwWtwI6M1tbsoUT+q5WVKMUtPYYBi2BPM
+         RDDPKiTDZTisEA0JbbBDOI03B6H7tE24sf7hFn1Wiv/HqlwDUrzttjccSfmfA7LOL5+w
+         6WGOTQMcUeedZyGwCjAZKXWWeerhA8BBtdl6DCoXtHlfFAFgSmU9t29I78zg/nqLZZmR
+         YblRwhiXU0xoIAO8eycpt+aXpC9LaN5BSqRoiZ9N/8qHJwAlzioS06ZJGglwupPSATm6
+         t1KczevQOU4N6ONJdh4jrd/ts98uRfTjE7U68hctd3RXudprtSEVNhFuM3j2ndsgSRVf
+         TbrA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+jC9NIIpA6mRaBxe55GkiS9eTRkP3kNW2zNtUHLjinGnwe3BdxgpaOnyRsjJZV4acySbNcIaNLz+f@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMCeTsqRCKeHPROxWn/4MIVnXCDtPkcoBjtsHPqduaxKoe9HER
+	uNX0e1R4yb/nJQey87HJBRd2p4QIThMjETaRxetIwQVQEzemHlHSJx/bf2PZLssgAsI=
+X-Gm-Gg: AR+sD11RfxSdICYVEuN2KshJeYH9ov9MLIEnLyFQ5W697uTXZigQoj92FNaazAttSju
+	y73s13AZuNgOHVbTm2r9IEP0Yz072hUmXkRj3bmOK6PfGcrsOzwi3I+IdLQD6F83QA9vxdWj4xc
+	faE/ADLHr9J6N1rf6ewtw9d2YHz0RBfEMLxciInSxoIMsz1CVz94sQNMZ87rZbLGlfYTX6a6XVi
+	PC5GMTw6MARHGo0PWZRYq9d4YzNm7l1E/ueuX8tbLDhdc4mhhuDujDURPJ9l/DaDVEDdlxkhiS1
+	E+r5aRU8ktLV0bsjYXNsN1wVbVQPG05VaqiWj9nPYjgqlt+T/YZbq3/UgMBR+/ffyN486nPKvIk
+	ZtTVKmwAwBLoSBphCZaYEZLAb+Zx9zpg9y61oACOsazFnFiuohrXW6S8rnqyaRwG/xOCk57/0Gk
+	G7GPM+jpf3KcpRbSZEW+EMff060IKeRpiebQIr5KyATjnZ4nQsuBaGrqYpQW6L
+X-Received: by 2002:a05:620a:4887:b0:930:bd6c:9c32 with SMTP id af79cd13be357-9372849f086mr799219985a.12.1787246330439;
+        Thu, 20 Aug 2026 10:18:50 -0700 (PDT)
 Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-937204a91b0sm418891185a.15.2026.08.20.10.18.46
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-937204a91b0sm418891185a.15.2026.08.20.10.18.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 10:18:47 -0700 (PDT)
-Message-ID: <e98e8996-1ae8-47be-8854-55a004530c85@riscstar.com>
-Date: Thu, 20 Aug 2026 12:18:45 -0500
+        Thu, 20 Aug 2026 10:18:49 -0700 (PDT)
+Message-ID: <dc48b8cd-1bec-43d1-bc33-0a71bd2b6c4e@riscstar.com>
+Date: Thu, 20 Aug 2026 12:18:49 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,94 +70,121 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/2] dt-bindings: misc: introduce pci1179,0220.yaml
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: bhelgaas@google.com, conor+dt@kernel.org, linux-pci@vger.kernel.org,
- mohdayaa@qti.qualcomm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
- daniel@riscstar.com, krzk+dt@kernel.org, arnd@arndb.de,
- lbiancon@qti.qualcomm.com
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
+ gregkh@linuxfoundation.org, bhelgaas@google.com, daniel@riscstar.com,
+ mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
+ devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 References: <20260813222943.1655453-1-elder@riscstar.com>
  <20260813222943.1655453-2-elder@riscstar.com>
- <178682676059.2183315.4478974489132403040.robh@kernel.org>
+ <20260814-deft-unnatural-teal-1dbac3@quoll>
+ <8c33e30a-e35e-47d4-a851-c82e18ed7472@riscstar.com>
+ <55991af4-c613-4cde-a121-30f2ff9c8347@kernel.org>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <178682676059.2183315.4478974489132403040.robh@kernel.org>
+In-Reply-To: <55991af4-c613-4cde-a121-30f2ff9c8347@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 8/15/26 3:46 PM, Rob Herring (Arm) wrote:
-> 
-> On Thu, 13 Aug 2026 17:29:41 -0500, Alex Elder wrote:
->> Define the binding for the Toshiba TC9564 PCI endpoint function device.
->> The third downstream PCIe switch port within this chip has an embedded
->> PCIe controller, and that implements two of these PCIe functions.
+On 8/17/26 1:18 AM, Krzysztof Kozlowski wrote:
+> On 14/08/2026 18:55, Alex Elder wrote:
+>> On 8/14/26 2:01 AM, Krzysztof Kozlowski wrote:
+>>> On Thu, Aug 13, 2026 at 05:29:41PM -0500, Alex Elder wrote:
+>>>> Define the binding for the Toshiba TC9564 PCI endpoint function device.
+>>>> The third downstream PCIe switch port within this chip has an embedded
+>>>> PCIe controller, and that implements two of these PCIe functions.
+>>>>
+>>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>>>> ---
+>>>>    .../bindings/misc/pci1179,0220.yaml           | 150 ++++++++++++++++++
+>>>>    MAINTAINERS                                   |   6 +
+>>>>    2 files changed, 156 insertions(+)
+>>>>    create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+>>>>
+>>>
+>>> There are no properties in the binding except standard PCIe ones, so why
+>>> do you need it in DT in the first place? We do not describe PCI devices
+>>> in DT by default, so you are doing something unusual. Commit msg should
+>>> explain that.
 >>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> ---
->>   .../bindings/misc/pci1179,0220.yaml           | 150 ++++++++++++++++++
->>   MAINTAINERS                                   |   6 +
->>   2 files changed, 156 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
->>
+>> Maybe because it's using pci-ep-bus?  I'm not sure I can answer your
+>> question though.
 > 
-> My bot found errors running 'make dt_binding_check' on your patch:
+> What is pcie-ep bus? If a device is a PCI device (so not the host
+> bridge), we do not need to define it in DT except a few cases and this
+> does not look like one.
 
-I don't see these errors, so I'm probably running an old version
-of something?  I'll try to sort it out.  Sorry about that.
+It's a weird case because PCI has its own enumeration method,
+so there should no need to involve devicetree.
+
+Nevertheless the pci-ep-bus model *is* a devicetree thing
+related to PCI, describing devices accessible via PCI BARs.
+   Documentation/devicetree/bindings/pci/pci-ep-bus.yaml
+
+It is used for the LAN966x SoC, however that driver loads
+the devicetree content dynamically using an overlay, and
+its overlay source is found under drivers/misc:
+   drivers/misc/lan966x_pci.c
+   drivers/misc/lan966x_pci.dtso
+
+This use of the LAN966x has no devicetree binding.
+
+The Raspberry Pi RP1 also uses pci-ep-bus.  It, however
+does have a binding:
+   Documentation/devicetree/bindings/misc/pci1de4,1.yaml
+>> An earlier version used auxiliary devices.  This time the PCI device
+>> sort of stands by itself as provider of the endpoint buses that are
+>> used by other devices within the SoC.  There is otherwise no single
+>> driver (e.g., for an Ethernet interface) that is implemented as a
+>> PCI driver to bind with the hardware.  The SoC drivers will all be
+>> platform drivers.
+> 
+> All this is driver explanation, so does not really answer my questions.
+> Whether something is using platform bus or auxiliary devices it
+> absolutely does not matter for the DT. It cannot even matter for DT.
+
+I understand what you're saying, and I do agree with you.
+
+Still, this is a strange case where the devicetree language
+is used to describe devices and properties that are not
+discoverable, using this pci-ep-bus devicetree *technique*.
+
+The core PCI functionality gets discovered in the usual PCI
+way (enumeration).  But this allows additional hardware to
+be described.
+
+
+I think that if the devicetree language is used to describe
+hardware, having a binding to explain what's valid for that
+hardware description makes sense.
+
+
+As I understand it, for the LAN966x, the original use of the
+SoC used an internal processor to run Linux.  So platform
+drivers for the devices within the SoC were created that
+matched with compatible strings, etc.
+
+Then in another mode, LAN966x is used as a PCI add-in card,
+and the pci-ep-bus allowed all of those other drivers to be
+used, unmodified.
+
+
+So anyway, pci-ep-bus is an odd situation.
+
+If the answer is "don't create a binding for this stuff,
+even if it gets defined in the devicetree file" then
+I'll accept that.
+
+But my instinct is that it's good to use a binding to
+describe what the DTS describing the hardware should look
+like (despite it being accessed using what amounts to a
+logical bus).
 
 					-Alex
 
-
-
 > 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): pci-ep-bus@0:compatible: ['simple-bus'] does not contain items matching the given schema
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): pci-ep-bus@0: 'reg' is a required property
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): pci-ep-bus@4:compatible: ['simple-bus'] does not contain items matching the given schema
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): pci-ep-bus@4: 'reg' is a required property
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): ranges: 'oneOf' conditional failed, one must be fixed:
-> 	[[0, 0, 0, 2197815296, 0, 0, 0, 16384], [2, 0, 0, 2197815296, 0, 0, 0, 524288], [4, 0, 0, 2197815296, 0, 0, 0, 2097152]] is not of type 'boolean'
-> 	0 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
-> 	2 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
-> 	4 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): 'device_type' is a required property
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,1 (pci1179,0220): pci-ep-bus@4:compatible: ['simple-bus'] does not contain items matching the given schema
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,1 (pci1179,0220): pci-ep-bus@4: 'reg' is a required property
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,1 (pci1179,0220): ranges: 'oneOf' conditional failed, one must be fixed:
-> 	[[0, 0, 0, 2197815552, 0, 0, 0, 16384], [2, 0, 0, 2197815552, 0, 0, 0, 524288], [4, 0, 0, 2197815552, 0, 0, 0, 2097152]] is not of type 'boolean'
-> 	0 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
-> 	2 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
-> 	4 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,1 (pci1179,0220): 'device_type' is a required property
-> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.kernel.org/project/devicetree/patch/20260813222943.1655453-2-elder@riscstar.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
+> Best regards,
+> Krzysztof
 
