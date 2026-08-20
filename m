@@ -1,91 +1,90 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D93D43B6F0
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 11:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2A1420485
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 11:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787226446; cv=pass; b=onC6GuGNOq1MDqqHWVzv2aw7bnUxH3Ir5iw5oimtYnh9KnVdZyL2fbSAMxr24DrKGI7Fxo+lr2k+g9q+kTB7V6i464ywuBfrK71cN67EtGc+9K+nDyYnjWufm9AWpq+Js76A8Amt6f06juOoiCQT7nSk50ZueO5JY12cr1QxuYQ=
+	t=1787226470; cv=pass; b=Rm6hkoSUo4x9nVwGpAFHz+vO67qFHpjwpaChlxEKA+zWhivmTYmHaEY0zFrupf/EscZBTX/wFtkf5clXxdWNVVhA28+1kLCwFozfDi7eo/23XpYfcM/qzesUR8vpY7hibj5+FgvxvOOc32R703uM/eHZvkDqoY+B5aV+Af9Wfmo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787226446; c=relaxed/simple;
-	bh=tYrk9OYg6hzo8toMmW3s71eJpYFDZEFwW4Kkciy6p98=;
+	s=arc-20240116; t=1787226470; c=relaxed/simple;
+	bh=aXPojM4SS6RjwPonXF5sYz2ri5h0M5wozHxrhUCcUsA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q0kyuuB7h0qjh2czcdLYkwDAw3AckF223qKDzFQO3zjmF873SpDYPSgz97XHHIfHc3aTOTL2VhxA127H/98Mm9V3D6AZEu7zolZ4y+HMuzWfyTS0YAWC6sQU5zZKBeAAQdFAOjIoNHx/PHUlbb+aVL58nvUkAs4YMoy4zp5h0pM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nXw20yO7; arc=pass smtp.client-ip=209.85.218.53
+	 To:Cc:Content-Type; b=l9iS4+euvrfvvuSkGYI/A3ATrW/1ORBMRt1FH/JBvkQvcP6qmN8HrFsuf4OeIbvbOQvPcREFs3D3FpOxw+zCKN9UUqY+rCrhhZzpLLpWCAYCY6cL4wdmT3xmTqPtoIjt0gcukKCdGhzWIuEZjFdZEN7Yo0dbeyV7fBxY3mHqkHk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KemYWj7K; arc=pass smtp.client-ip=209.85.218.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nXw20yO7"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c167aa9500dso303943066b.3
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 04:47:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787226441; cv=none;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KemYWj7K"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c1c52d920b8so316235266b.2
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 04:47:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787226465; cv=none;
         d=google.com; s=arc-20260327;
-        b=Vn4aATslxxavzacM3DniQHJtIYFSJKFJXLhUc/WiOaHhBozghabEquqb2ByxEzuzuw
-         3n4keMfLmzrCe6r8uBtzn1/rXfyflCEZoEyxGFL11LCRR0m5z2BtfvUDtwsb2MYbgBbO
-         dg2SATNGqrvJhBIoTEZ4wsW/H4JXg2mg1gnv+XEPVYjfhxofYeZ+lJV/RZ+zqzvhpVmZ
-         cBthgx74GYBzs3J/ZRq3yMotHnGBNMlI55FsASKyeaOkpXAzYLLT0OZTtaUTtPRMz3pt
-         x6upB5ixJa67WEN+u5jFGC8lTUThfFgEJQT+4pNYBORTxKdoJjjpMHPs1Qi5oOgd11rl
-         niTQ==
+        b=sP/pD0m8ywv3frMDUw+0vUfP/ZB68b0vSO9/+rQkIEqd5T23aa3Lf8oaFhRk94PsLC
+         QMb+23D9U8mLBzbP8SI9eWE/6UaK1aCSH+HwGBZIyam3xt9LZhA5Xm1kuXzl8xUr32Lk
+         b6+LP0La1wU+wuP8ojBL6XMtK5eTKvnPSaQRzC0uGdrqmez3deGxsgZGLgHEotv/L2la
+         iEGHlWVRWyhgJHBaTlJupbKUR0iBIelnlsQhvLifxJMOGCvpEBiLKNgLphK0KoDCm1GV
+         0QsG7SgkJLaVmRfOFjdReYqU8m4hsc9SNp54VBP/RrgxB4uKElNT7Id8Ewj3nfbtlv1e
+         9oKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=bXKBm3AfG3en1bXUPpD4OIjt8IDcThCjJyOOTe6eAbU=;
-        fh=sU2aF06eRPmH+Y/dpG2cr0XwxWqEMboedtoMef9VeOY=;
-        b=dVDP+HcKA3ipKjcTiq6hN0BL/udnOPuyEARjj9nfD1CmhO1qc55baAH94kDzo4z1tV
-         ojdNCsHGh3YJAaubg0fC49/wdBmt9IVcW1xR9tc/YItw1SjNC9QCNX400emQ5YU7kM7J
-         5hUCo66vyd4de9hIJpQ5rEyc774iQYZCiOOEEpek0zPa5pkFjIRBJ7U7HO/r7iqinEn8
-         n/uLUuihMXhbzvicPqGIkOOQfRRwMM1xR/gjkEA5YNOFZYh766YkuPj2Hs4DnkeNW3Bt
-         Mem50GASBULmGx9D5OaXVoFtjpr19zA9hN6Kyc7fPXaOmM90CaCa/chtrV2Rf2j4yjuC
-         E7Bg==;
+        bh=paOojrCaYfkKAM5OrAXgPdy+BI/CSmLloSHESiLn3MQ=;
+        fh=rEX96bYdkoEsjTZ6760XgzJwUnMBHDtAgtnrM9mAIDE=;
+        b=Hq56yZlK7PkdEHhmbxVNw+7NIExHWgX0CLK3ZrHK0YfZg9Lgkywj3CJSLlWDPV1eog
+         p1RblrHo9oUVZqXtpDrY1/8kd3abIv9ntwoWvGeQP89KScJhFrXXjxrQdOgmzTfuZ/RV
+         Oo2BQ62ItApPkksjrsqlZv25V7Vt3kegwEiiDchowNMR5sWvHciPC2GprOBSfrhO6J74
+         lXT1RSBeMHEAtcKYsjj4/FurYVWN3QlKQVeRR92WaU9lyERf3vkJFjsV1y/MxY8J0W49
+         UXSPo/sCRmQ6L2RtYTTsIleE7+b9ER6eBTx6TFwLStMrDNDS+Sgznb34YjMGDFf4+/cB
+         QqyQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787226441; x=1787831241; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1787226465; x=1787831265; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bXKBm3AfG3en1bXUPpD4OIjt8IDcThCjJyOOTe6eAbU=;
-        b=nXw20yO7PXq+Py7mUE4yQAVFpypyJAM/xoO5ohK/kDt6VrCqsYHTFBsVVkYDm7ao76
-         3ecraqYgDHxXw2jTz9DDSxdj8cTafzpQTsejKA+vomeSR0rW0+qdYPRcPfZsvXvZYJfA
-         cYyJsYz5xDpvhZ+9oiR6nXmwdJkmuewDFSJdM=
+        bh=paOojrCaYfkKAM5OrAXgPdy+BI/CSmLloSHESiLn3MQ=;
+        b=KemYWj7KpONmipbbKFiilT7O9fQwIW6FtjoZLxfIlIgslXNIHByLFcokTd0lN+Gb6d
+         gLSyjn8B1huc57L5lPVpXW0DXdQl2vzpHCMI0KGcLQdok2wbs6cNeOsCYIcVVb2CF98Q
+         CW0sDE8kQBWGZuR9I0RI5uXu9UuhJ9F3TXnLo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787226441; x=1787831241;
+        d=1e100.net; s=20251104; t=1787226465; x=1787831265;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=bXKBm3AfG3en1bXUPpD4OIjt8IDcThCjJyOOTe6eAbU=;
-        b=aJ3YZkqbVbhGHX0k/UPhSdx6WFWT8zvURFq23a3Aw3xzSspNPR1C7srruG6nlTR7G0
-         imyncswPoaCWUpyw2ZbMkgX6CnKMC/SI+Ef3Le8heF1YRIV90XjJEnAjzoccjb0WiCQg
-         mccT4CXZBqzoPDfzHX3KkVF1onzkyzzvOO8bmPyttn/q9p+Q5Nk9kFRmLCOslVtAkC0j
-         B136e3g8jCbr5HMPVZIG96Iad4UenuW37qeQ9Hpx2wu9WTN9CaHyECUKkJ1EtptGHRRb
-         VrkLoN3hzWOEzqtkg6F0rn0Q2m7tcRBG2TU6gIhiG9BwVmG6yOiodJ50IVuplEJEvYS/
-         ZAEw==
-X-Forwarded-Encrypted: i=1; AHgh+RqGVh6KarcRyEGpfBN3TtPxYTuZxZHoZxKWyfZBP7NZL1A4N/sLKFaAZ0zC2TctDaPmgYnudyfJ2O2O@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSJrlVw7ufdL5z2hWUU5MMGioT+vALjEKxy6z7JPXtVTAaB7ZJ
-	FB66710Aiq+vmCHX0/EM2JItoPZSYOBoxxdcMGXe7wcd/zcKYiDqvRl0P34gHbnaaKKZn+VN75L
-	DRNAh5Em5FBzGbzzWGFA3JKcLDGQu/KcG+ILGf1Ko
-X-Gm-Gg: AR+sD12keiEyKWMEtqQ/dsPBrssIDbDucYrRc2iXLeQTvYtDqQmAJBIrzcAm22QftwU
-	tB6fnFsRq89nt4vNBuhbuRUJRI+DM2v7+UmD0yEo2+GXJ0trdPbUY2bOh8Zd6rYOYWygADmDTph
-	5tZfdQ9QyfUrmlwePEAMg8mw+88z2bQtezhyDAe9QwBbn0KXp+tyvwNZyoMH1jeztdmsXBLGv5v
-	nYxpflBMKnBIW/MEp+RbB6/F1wk+XJFV4Twuk/KNL8620SzLUlTwE/DY/E+mSSnkqOzF/R3ydzP
-	pHO59ll66hxbR46i75e2Q423SripMP1LyX19PAl0H0U=
-X-Received: by 2002:a17:906:99cd:b0:c21:74ed:4608 with SMTP id
- a640c23a62f3a-c23f9750de3mr814724566b.10.1787226441540; Thu, 20 Aug 2026
- 04:47:21 -0700 (PDT)
+        bh=paOojrCaYfkKAM5OrAXgPdy+BI/CSmLloSHESiLn3MQ=;
+        b=kt/jBnjVDxAOC9NpHwh+12lHjlNIkRaTVByh80QKFfAmkIY0i09FiFh9Uxio6RsOXg
+         OHFqZX+rBZpvwkLkXCbgj1pvFvcjmLmH9srzAea/9Aex5EKU9hHBRQxymuSLGUu59VE8
+         HozxV6nhsbeuDNdQ2sZ6tGoEg35iQUvLV5ca4ajFihEphAGlXVqPFCxz9cYOgYZsj27T
+         UXoJ43ofRrESZDwI4GqsR1FcgnMJA0Pvoe5udyhTCi69cTzlZaTVCLW/Z/cpWySj+zai
+         VoXE2wEP99c97bAyCJXWaW0HHZcjz78z7idrI8bq6x+OVaqOdrObN1+2wCd1nwE0gsgY
+         vEPw==
+X-Forwarded-Encrypted: i=1; AHgh+RqBBHTgVRn4IRXTBXodXApAWQgtsW8hgFEq6skcz486F0eLlE1pnEbCmp7HnW3M8OXdu11jG3tB2G11@vger.kernel.org
+X-Gm-Message-State: AOJu0YyalgsYNdGbtOJVh+0T73LKGw577nbx5ccvudLSPsb2F2K4l75m
+	+T3YdlB117GLYWa8GTxkCld44KI5xeI6v/ubfv0TOLPuGiEexyazXIX2YxBOvJQayQX6tOBheyx
+	54JmfPC7NADCUGaFUWEigvbUl9f7I6U25uGl/a+GC
+X-Gm-Gg: AR+sD12c0B35ocU6BwfvVQxtv1ZiSO32BiEceZJA16I+erUXyRxPA1JA0XHNdzeOWSD
+	ZcQlWOC0QuUy6EAar4+8Gb1I50V2D75/3wtuC/D+McHjYQD3V8pJ7qQFXWyRocYFgXAF321ZdEq
+	A3pCNSPBU4UFGlXC96C1FHA/LP/GrGP/Vj6rU0lqTUkFhpogMXwuStdr9XWSNzXZ47boiIgetPB
+	a+C6xWGZQ4D9xNTam0u/+3Fcfxe9wjXPzICOjxQ8g5IP4K/1ZzBCHxDMaunKSydGHWcRj4Z1X35
+	DqjITDQIRZHOXmHvymrXWjiTN3PNOlZfDoAx36LwVgY=
+X-Received: by 2002:a17:907:84b:b0:c20:1c9d:8d4b with SMTP id
+ a640c23a62f3a-c23f929e232mr710101966b.2.1787226465039; Thu, 20 Aug 2026
+ 04:47:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810121121.210040-1-vlad@zlab.su> <20260810121121.210040-24-vlad@zlab.su>
-In-Reply-To: <20260810121121.210040-24-vlad@zlab.su>
+References: <20260810121121.210040-1-vlad@zlab.su> <20260810121121.210040-7-vlad@zlab.su>
+In-Reply-To: <20260810121121.210040-7-vlad@zlab.su>
 From: Simon Glass <sjg@chromium.org>
-Date: Thu, 20 Aug 2026 05:47:09 -0600
-X-Gm-Features: AcwNN1UCnC12nuoA1x1viqpRcNtcnZpIWhvuLlHFbx5J3DwZqfYkTadrWwnjlvQ
-Message-ID: <CAFLszTiExzcYKBpe5h2SorR5OJEJgRx9x1bSCdwTtw4mN0Fcfw@mail.gmail.com>
-Subject: Re: [PATCH 23/25] ARM: dts: rockchip: add arm,cpu-registers-not-fw-configured
- to RV1106 timer node
+Date: Thu, 20 Aug 2026 05:47:33 -0600
+X-Gm-Features: AcwNN1Wh5n38wXHkJkuB8H7_benVkiW5QlI5gxabpims6DcR7Y_DZnlEoYHYlzw
+Message-ID: <CAFLszTiuH7KcvCKcpE09tTavFEWGNMj+C1Og0T=k5MvEZdB-OQ@mail.gmail.com>
+Subject: Re: [PATCH 06/25] ARM: dts: rockchip: Add Ethernet GMAC node for RV1106
 To: Vladislav Leonov <vlad@zlab.su>
 Cc: linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
 	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -95,45 +94,103 @@ Content-Type: text/plain; charset="UTF-8"
 
 Hi Vladislav,
 
-On Mon, 10 Aug 2026 at 06:16, Vladislav Leonov <vlad@zlab.su> wrote:
+On Mon, 10 Aug 2026 at 06:15, Vladislav Leonov <vlad@zlab.su> wrote:
 >
-> The firmware on RV1106 does not initialize CNTVOFF, so the virtual
-> counter may have a bogus offset relative to the physical one.
->
-> Add the arm,cpu-registers-not-fw-configured property to the arch timer
-> node so the kernel does not trust firmware-configured timer registers
-> and uses the physical timer instead of the virtual one.
+> Rockchip RV1106 has GMAC 10/100 ethernet controller.
 >
 > Signed-off-by: Vladislav Leonov <vlad@zlab.su>
 > ---
 >
->  arch/arm/boot/dts/rockchip/rv1106.dtsi | 1 +
->  1 file changed, 1 insertion(+)
+>  arch/arm/boot/dts/rockchip/rv1106.dtsi | 62 ++++++++++++++++++++++++++
+>  1 file changed, 62 insertions(+)
 >
 > diff --git a/arch/arm/boot/dts/rockchip/rv1106.dtsi b/arch/arm/boot/dts/rockchip/rv1106.dtsi
-> index b31cdb1c19d4..12e87d25c72b 100644
+> index fa5d0d7f4dcb..71dd3dcc386c 100644
 > --- a/arch/arm/boot/dts/rockchip/rv1106.dtsi
 > +++ b/arch/arm/boot/dts/rockchip/rv1106.dtsi
-> @@ -57,6 +57,7 @@ timer {
->                 clock-frequency = <24000000>;
->                 interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>,
->                              <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>;
-> +               arm,cpu-registers-not-fw-configured;
->         };
+> @@ -19,6 +19,7 @@ / {
+>         interrupt-parent = <&gic>;
 >
->         xin24m: oscillator {
+>         aliases {
+> +               ethernet0 = &gmac;
+>                 gpio0 = &gpio0;
+>                 gpio1 = &gpio1;
+>                 gpio2 = &gpio2;
+> @@ -282,6 +283,67 @@ system_sram: sram@ff6c0000 {
+>                         ranges = <0 0xff6c0000 0x40000>;
+>                 };
+>
+> +               gmac: ethernet@ffa80000 {
+> +                       compatible = "rockchip,rv1106-gmac", "snps,dwmac-4.20a";
+> +                       reg = <0xffa80000 0x10000>;
+> +                       interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>,
+> +                                       <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
+> +                       interrupt-names = "macirq", "eth_wake_irq";
+> +                       rockchip,grf = <&grf>;
+> +                       clocks = <&cru CLK_GMAC0_TX_50M_O>, <&cru CLK_GMAC0_REF_50M>,
+> +                               <&cru ACLK_MAC>, <&cru PCLK_MAC>;
+
+Should this have a minItems exception like RK3506 and 3528? As it is
+it fails validation for me as it expects 5 clocks.
+
+> +                       clock-names = "stmmaceth", "clk_mac_ref",
+> +                                       "aclk_mac", "pclk_mac";
+> +                       resets = <&cru SRST_A_MAC>;
+> +                       reset-names = "stmmaceth";
+> +
+> +                       snps,mixed-burst;
+> +                       snps,tso;
+> +
+> +                       snps,axi-config = <&stmmac_axi_setup>;
+> +                       snps,mtl-rx-config = <&mtl_rx_setup>;
+> +                       snps,mtl-tx-config = <&mtl_tx_setup>;
+> +
+> +                       phy-mode = "rmii";
+> +                       clock_in_out = "input";
+> +                       phy-handle = <&rmii_phy>;
+> +
+> +                       status = "disabled";
+> +
+> +                       mdio: mdio {
+> +                               compatible = "snps,dwmac-mdio";
+> +                               #address-cells = <0x1>;
+> +                               #size-cells = <0x0>;
+> +                               rmii_phy: ethernet-phy@2 {
+> +                                       compatible = "ethernet-phy-ieee802.3-c22";
+> +                                       reg = <2>;
+> +                                       clocks = <&cru CLK_MACPHY>;
+> +                                       resets = <&cru SRST_MACPHY>;
+> +                                       phy-is-integrated;
+> +                               };
+> +                       };
+> +
+> +                       stmmac_axi_setup: stmmac-axi-config {
+> +                               snps,wr_osr_lmt = <4>;
+> +                               snps,rd_osr_lmt = <8>;
+> +                               snps,blen = <0 0 0 0 16 8 4>;
+> +                       };
+> +
+> +                       mtl_rx_setup: rx-queues-config {
+> +                               snps,rx-queues-to-use = <1>;
+> +                               queue0 {
+> +                                       status = "okay";
+> +                               };
+> +                       };
+> +
+> +                       mtl_tx_setup: tx-queues-config {
+> +                               snps,tx-queues-to-use = <1>;
+> +                               queue0 {
+> +                                       status = "okay";
+> +                               };
+> +                       };
+> +               };
+> +
+>                 emmc: mmc@ffa90000 {
+>                         compatible = "rockchip,rv1106-dw-mshc", "rockchip,rk3288-dw-mshc";
+>                         reg = <0xffa90000 0x4000>;
 > --
 > 2.47.3
 >
-
-I know I am using different hardware from you, but in case it is
-useful, I just wanted to mention that my boot log says "cp15 timer
-running at 24.00MHz (sec-phys)" both with and without this patch, and
-userspace time seems unchanged either way. I am using a board powered
-by USB and that power is removed on each boot.
-
-I do have a Luckfox Pico Pi now and I will make time soon to add it to
-my lab (lab.deinde.dev).
 
 Regards,
 Simon
