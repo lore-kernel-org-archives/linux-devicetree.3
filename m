@@ -1,132 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EAE471270
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 14:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7360644BC97
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 14:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787235723; cv=none; b=WrEDO264JzRewVx9zgP48SE+s/TrNQBQ7eTquv/yTaUE8Vh8Xdo40+nGLvP1YRV8MrpxYrz+a+PkOUSL2BEc+ABZ/5IxCQd05dabL7gZsdBBj0/Zqty+qHMgn7jlO1n9Sn5PgMqBxRBnbRVPqW6MGMt/YHNer+ClDVqZREDq7Ew=
+	t=1787235829; cv=none; b=ebiKHuX+iOnoYLjTcmJ3uSTs0QgCUVmFamGxUWk1n+C46e3BRGwI7MlkxvgbPZ/mD2JBsz7TrBrTP43pPJWpWx/IMgcyzsYhcAC58wBXlZ7pxgINjwJWOQUlB2UktR0NNGJpoFj4QEohsJWoRxlgAJnKb0F70Gkw1pOzUMN9ajY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787235723; c=relaxed/simple;
-	bh=d4/sLQnBbH8pOi2ijZHkA7qdqOC8Epp0+tTLK6xPWu4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uDfm2RpRBQaB0x6jcxaVCdjSDK/VhwEeM9nB1cx/2KirKHV6cHEZQy92D3BQijNgsaeFruYo9xNpQuSM2KFTomA7i75aWsWhGH4vSUIhtW4n/swZBncLeqW3qFpFdbqCNP92m9JF9wIbtzbsD70tq01onfb36x42xoT/kpsQUhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KT0+BGkG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787235829; c=relaxed/simple;
+	bh=EZipOWOzVyxEwLZC5ozioVkSx5AwVMWapHRN/NSt6mU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R6nDgxsCzZgQm/w6NTRHJXZB+HgoI8Byvsoq7TZ/GvW8tu9TV8rF/7m5eQkLvNLn5oq4Iw6KaeoC1tYYNQNVOIH8o/iMuhVp3nMwUDxMWQxjroPrN6Y0S06usktAsI5ohIg7DJSp3CMoQsILyoMIhUFUq5EIlOuDV6k1WAgWWnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=RCqYz4+w; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KT0+BGkG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97951F000E9;
-	Thu, 20 Aug 2026 14:21:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787235720;
-	bh=P5Bumu6GzRDOlTybl5Eu8IfIQsnv1ZPUs5a7nfwI4WM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KT0+BGkGgpoqEV6c2MuiUB+rYCneVKq6GOY199r+jZjbv1XKn/ZM56uQLkxZtO9n6
-	 w4G9jP/9OHR89LnxaSDyNloMY/LUjyPTpFcxpT6n9Hh1w8FECnnH2QDLWFNJEMXVt1
-	 WrVi8QfpJmwc8MtKrw9QE/bcDKL+r/Q0I/bqjwsV3jdPQMGUHfuZhUGkcOr9/EAcTN
-	 KPWx9uSCOmgB92Q2L+8QMpWLBtCkl2fo0qu/W7mkgc9kgiU4RAnViZ83BZ9m7d8+5f
-	 hJiEagPKdxQLU8CO1yHBFVmGPNRog8LZgts7WGG5/drof/mbqZZwVnUQt+FuIFLUh9
-	 sfN2HIIaY0AZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] dt-bindings: iio: pressure: Add MS5637
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis Adamian" <adamianlouis@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260820141224.23730-4-adamianlouis@gmail.com>
-References: <20260820141224.23730-1-adamianlouis@gmail.com>
- <20260820141224.23730-4-adamianlouis@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 14:21:59 +0000
-Message-Id: <20260820142159.E97951F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="RCqYz4+w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-2eefaa527c;
+ t=1787235827; bh=rbw8xQ6r3piVMAmakyWDIwjPOKwVFsaRkmQ0YOAEGp8=;
+ b=RCqYz4+wiANRTTEiNaSkh7hICgiyVzJ6J2BCpVFkKGSPMZMnkAG9rKw5wSzWOfHd7SljmJ5Vb
+ uqlLbpXtIQFK19dYYonC/ow3HxZ9bxyif0X5fPXahZEyokbwEfiMuA0ktLJiDqnlv2coULZgheJ
+ pRXg3REb+OZRL9mDJ2EQABg=
+X-Forward-Email-ID: 6a870def7f958f0d9fc1b812
+X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
+ smtp.forwardemail.net, 149.28.215.223
+X-Forward-Email-Version: 2.13.16
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Thomas Turner <tturner@lineageos.org>
+To: krzysztof.kozlowski@oss.qualcomm.com
+Cc: semen.protsenko@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	peter.griffin@linaro.org,
+	alim.akhtar@samsung.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Turner <tturner@lineageos.org>
+Subject: [PATCH v2 1/2] dt-bindings: gpu: arm,mali-bifrost: add exynos850-mali compatible
+Date: Thu, 20 Aug 2026 15:23:29 +0100
+Message-ID: <20260820142330.84514-2-tturner@lineageos.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260820142330.84514-1-tturner@lineageos.org>
+References: <GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM>
+ <20260820142330.84514-1-tturner@lineageos.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Making `vdd-supply` an unconditionally required property breaks =
-backward compatibility for existing device trees.
---
+Exynos850 SoC uses the ARM Mali G52 GPU, document its compatible
+string with the appropriate fallback.
 
---- Patch [3]: [PATCH v3 3/5] dt-bindings: iio: pressure: Add MS5637 ---
-commit f37736f8c819b5be2f362b907ebbc2d3373ecbfe
-Author: Louis Adamian <adamianlouis@gmail.com>
+Signed-off-by: Thomas Turner <tturner@lineageos.org>
+---
+ Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-dt-bindings: iio: pressure: Add MS5637
+diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
+index 9db9f84ad964..ece2b637cd41 100644
+--- a/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
++++ b/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
+@@ -34,6 +34,7 @@ properties:
+               - rockchip,rk3562-mali
+               - rockchip,rk3568-mali
+               - rockchip,rk3576-mali
++              - samsung,exynos850-mali
+           - const: arm,mali-bifrost # Mali Bifrost GPU model/revision is fully discoverable
+       - items:
+           - enum:
+-- 
+2.47.3
 
-Create meas,ms5637 devicetree binding and move existing devices from
-trivial-devices.yaml. Explicit compatible strings are added for the
-different sub-variants because each requires different constants for the
-second-order temperature compensation formulas.
-
-> diff --git a/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.y=
-aml b/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.yaml
-> new file mode 100644
-> index 0000000000000..befd81d1907b4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.yaml
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - enum:
-> +          - meas,ms5637-02ba
-> +          - meas,ms5637-30ba
-> +          - meas,ms5803-01ba
-> +          - meas,ms5803-02ba
-> +          - meas,ms5803-05ba
-> +          - meas,ms5803-14ba
-> +          - meas,ms5803-30ba
-> +          - meas,ms5805
-> +          - meas,ms5837-02ba
-> +          - meas,ms5837-30ba
-> +          - meas,ms8607-temppressure
-> +      # These generic compatible strings do not identify the sub-variant=
-s of
-> +      # the part. They are retained so that existing device trees contin=
-ue
-> +      # to bind, and each is treated as the -02BA variant of its family.
-> +      - enum:
-> +          - meas,ms5637
-> +          - meas,ms5803
-> +          - meas,ms5837
-> +        deprecated: true
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply:
-> +    description: Regulator that provides power to the sensor
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-
-[Severity: Medium]
-Will making vdd-supply unconditionally required break backward compatibility
-for existing device trees?
-
-These generic compatible strings (e.g., meas,ms5637, meas,ms5803) were
-previously documented in trivial-devices.yaml. That schema restricts
-properties to a very narrow set and strictly forbids vdd-supply via
-additionalProperties: false.
-
-Consequently, existing valid device trees do not include vdd-supply.
-
-By moving these devices to a new standalone binding and making vdd-supply
-unconditionally required, won't previously valid device trees fail validati=
-on?
-
-Should newly documented properties remain optional, or be conditionally
-required using an if-then block only for the newly added specific compatible
-strings to preserve the DT ABI when extracting devices from
-trivial-devices.yaml?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820141224.2373=
-0-1-adamianlouis@gmail.com?part=3D3
