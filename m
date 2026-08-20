@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41C938E126;
-	Thu, 20 Aug 2026 18:09:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DCE38D402;
+	Thu, 20 Aug 2026 18:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787249359; cv=none; b=CWpyQGipRU6bc0h0FONSiJrX2JMJC4mWMvI4JX4i5L6BX2kv/zUv55cdm1rMqtVsh2/q1l7a/5NZAESBxcEu29y4cq2ejUZKEqWV3ukF37s/ZK8rgTstynPzPGPB1LK3Pl6MozZVu7L91T9My5yMqt2fQNE9QtMM28BN7zfYb/E=
+	t=1787249621; cv=none; b=N4XflxnFfio1hV4cakI5NacKw/M1WYMV1yb3coqiytuB4arK1tfOrD2ha4RE9VFI2lPb4PnkZqWIMzx+NIgDtFLlaBCmt5EYhkhIxXs3zEzR/ljJr6v0aXKE+bJSiFk3j7JKFHLq59zY2+O2odX0e0sIldY2X36ShVJFRFEHRJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787249359; c=relaxed/simple;
-	bh=1qi389nyHDbm12j8DdLckrQcMd8HwswX9FVhJFTM+Oo=;
+	s=arc-20240116; t=1787249621; c=relaxed/simple;
+	bh=ILAlAk/fQng0Ui/pz1uS2DHdyds9RPVGbNZbF2/IuUo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mN7JFwdwuwIW9QlFZpUCU7RZ750ESt3EvVI3sRPVYq4R4MJ0TzanuqqweMM97Zos7RP4M8dNVNtANZVO3y74cntIaf02GuQAOjXekXij8jWzruRunbhH/n+SShPln1L9EpyBIIjLXHal/jixznv/cTZ8z11F1qH0KUMxpD2iwQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VGf+aEC2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bugpHyS/11vb8xEPORTEQWYbAILzppIAqg2A+smZkkVjMsrY9DP637+3vcW4Dw3fahBCDokA3/UnoR84RyIQ1+q0g4aTTgjR7e09zJIRlV9mtlisLaVvqmdMi3fi6e2/03aZ7Wc9dMJRQymyBOTMA/25gw6gYLFR+zc6dCorJ64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZIkjggBi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VGf+aEC2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5870F1F00A3D;
-	Thu, 20 Aug 2026 18:09:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZIkjggBi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E311F000E9;
+	Thu, 20 Aug 2026 18:13:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787249357;
-	bh=FRjpf1Z4QPNzatfneLad243T0oW4CckTgAQ2q+XEl/4=;
+	s=k20260515; t=1787249619;
+	bh=2AUCdM/qgP+/RZltQocOTsJDjsXqlcQ7EGSaSr0M1vY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VGf+aEC2ZuQL3x2CuxReOn0iJloYDEb+B1vZm8i9gwYWHpzJLG3ori+1qU4FkoEy6
-	 4JzriddskRc4oNBnDsvuPTyMn1VOq62CAnCbUpylYAiPbQjpgrzgPqCgafw5cU9T8M
-	 douqxqiOubU0w+dcapldjdZPBTPOPKm3QeBopSIweQ7pmpGLYHH+cIO+bSMiHtEXY7
-	 3VIqbTKY5E5xLmPzZL3t2WiO7XTduPVLdRBubj1MvdfngDc1i3lX+C5tKuxs2uNhOZ
-	 e/bhBH3u9QYjqXdEkjH+xJVsWhmCsJEcSiUd4QFunl73RKitSYe/keGbbnVPmKzaHJ
-	 1hw6KXYut8YDQ==
-Date: Thu, 20 Aug 2026 19:09:13 +0100
+	b=ZIkjggBi4v1q+gWSHr7v4xwRltPAOsIuA6rgScDJZqB5T2pnIfRcHTbYJ0EzAGCgo
+	 ARLSYlejfUaiy5GIGXNFICFoq+SVlwL6vQZdQVrEsIaE8MumNcEKfhDSFY9ElBt2Hq
+	 2Jd8WmZSc2rQ0zOeRITV5jFW3pz+D9gjcP/FqIKpE/hITK41RBDRgnR4yrON0btzA9
+	 mpBev9OW6J4kO57/I5fvl5MQQy26Q15KLbGb8BKpV+Bpqm5pJ/fNCryyJL9MyQAnJ7
+	 7zMCMEMNqXcnvdcsgZ0U473u2975zCu+ahyLwGDNl7FKPTbFd20VA2hCv8Ls9jtkDb
+	 vStuf5xgKhjUg==
+Date: Thu, 20 Aug 2026 19:13:35 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+To: Louis Adamian <adamianlouis@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: usb: Add Cypress cypd6129/cypd6229
- Type-C controller
-Message-ID: <20260820-strength-stylus-bf618dae41c7@spud>
-References: <20260820145036.2035641-1-akash.kumar@oss.qualcomm.com>
- <20260820145036.2035641-2-akash.kumar@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/5] dt-bindings: iio: pressure: Add MS5637
+Message-ID: <20260820-affection-opacity-7f6531562b88@spud>
+References: <20260820141224.23730-1-adamianlouis@gmail.com>
+ <20260820141224.23730-4-adamianlouis@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,169 +47,199 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m8RTELuwTqMYz17/"
+	protocol="application/pgp-signature"; boundary="mH9foQAtx56LUlHg"
 Content-Disposition: inline
-In-Reply-To: <20260820145036.2035641-2-akash.kumar@oss.qualcomm.com>
+In-Reply-To: <20260820141224.23730-4-adamianlouis@gmail.com>
 
---m8RTELuwTqMYz17/
+--mH9foQAtx56LUlHg
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 20, 2026 at 08:17:36PM +0530, Akash Kumar wrote:
-> Add the device-tree binding documentation for the Cypress cypd6129
-> and cypd6229 dual Type-C PD controllers. These are used on Shikra
-> CQM/CQS/IQS platforms to handle usb-role-switch for the USB Type-C
-> ports over an I2C interface, similarly to the existing cypd4226
-> binding.
+On Thu, Aug 20, 2026 at 10:12:18AM -0400, Louis Adamian wrote:
+> Create meas,ms5637 devicetree binding and move existing devices from
+> trivial-devices.yaml. Explicit compatible strings are added for the
+> different sub-variants because each requires different constants for the
+> second-order temperature compensation formulas. Previously, the driver
+> exposed the generic compatibles for the ms5637, MS5803, MS5805
+> and MS5837 families and applied the MS5637-02BA compensation to all of
+> them. To preserve the DT ABI the existing compatibles are retained and
+> mapped to the -02BA variant of each family (ms5637-02ba, ms5803-02ba,
+> ms5837-02ba).
 >=20
-> cypd6229 is a variant of cypd6129 and is described with a
-> "cypress,cypd6129" fallback compatible string.
->=20
-> Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
+> Signed-off-by: Louis Adamian <adamianlouis@gmail.com>
+
+Firstly, please CC everyone on all the mails - or at least all the dt
+maintainers on all mails, so we don't have to go look at the context on
+lore.
+
+Additionally, lore didn't even get your cover letter:
+https://lore.kernel.org/all/20260820141224.23730-1-adamianlouis@gmail.com/
+
+The patch itself seems okay. You could probably have made the
+ms5637-02ba fall back to the ms5637, but that's more a matter of taste I
+think than a technical thing.
+
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+Thanks,
+Conor.
+
 > ---
->  .../bindings/usb/cypress,cypd6129.yaml        | 99 +++++++++++++++++++
->  1 file changed, 99 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/cypress,cypd612=
-9.yaml
+>  .../bindings/iio/pressure/meas,ms5637.yaml    | 93 +++++++++++++++++++
+>  .../devicetree/bindings/trivial-devices.yaml  | 10 --
+>  2 files changed, 93 insertions(+), 10 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/iio/pressure/meas,m=
+s5637.yaml
 >=20
-> diff --git a/Documentation/devicetree/bindings/usb/cypress,cypd6129.yaml =
-b/Documentation/devicetree/bindings/usb/cypress,cypd6129.yaml
+> diff --git a/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.y=
+aml b/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.yaml
 > new file mode 100644
-> index 000000000000..f709f82f2092
+> index 000000000000..befd81d1907b
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/cypress,cypd6129.yaml
-> @@ -0,0 +1,99 @@
+> +++ b/Documentation/devicetree/bindings/iio/pressure/meas,ms5637.yaml
+> @@ -0,0 +1,93 @@
 > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/usb/cypress,cypd6129.yaml#
+> +$id: http://devicetree.org/schemas/iio/pressure/meas,ms5637.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Cypress cypd6129/cypd6229 Type-C Controller
+> +title: Measurement Specialties ms5637 and similar pressure sensors
 > +
 > +maintainers:
-> +  - Akash Kumar <akash.kumar@oss.qualcomm.com>
+> +  - Louis Adamian <adamianlouis@gmail.com>
 > +
 > +description:
-> +  The Cypress cypd6129 and cypd6229 are dual Type-C PD controllers that =
-are
-> +  controlled via an I2C interface.
+> +  Measurement Specialties pressure and temperature sensors. The MS5803
+> +  family supports both I2C and SPI interfaces. All other variants are I2=
+C only.
 > +
 > +properties:
 > +  compatible:
 > +    oneOf:
-> +      - const: cypress,cypd6129
-> +      - items:
-> +          - const: cypress,cypd6229
-> +          - const: cypress,cypd6129
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
+> +      - enum:
+> +          - meas,ms5637-02ba
+> +          - meas,ms5637-30ba
+> +          - meas,ms5803-01ba
+> +          - meas,ms5803-02ba
+> +          - meas,ms5803-05ba
+> +          - meas,ms5803-14ba
+> +          - meas,ms5803-30ba
+> +          - meas,ms5805
+> +          - meas,ms5837-02ba
+> +          - meas,ms5837-30ba
+> +          - meas,ms8607-temppressure
+> +      # These generic compatible strings do not identify the sub-variant=
+s of
+> +      # the part. They are retained so that existing device trees contin=
+ue
+> +      # to bind, and each is treated as the -02BA variant of its family.
+> +      - enum:
+> +          - meas,ms5637
+> +          - meas,ms5803
+> +          - meas,ms5837
+> +        deprecated: true
 > +
 > +  reg:
 > +    maxItems: 1
 > +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  pinctrl-0: true
-> +  pinctrl-1: true
-> +
-> +  pinctrl-names:
-> +    minItems: 1
-> +    items:
-> +      - const: default
-> +      - const: sleep
-> +
-> +patternProperties:
-> +  '^connector@[01]$':
-> +    $ref: /schemas/connector/usb-connector.yaml#
-> +    required:
-> +      - reg
+> +  vdd-supply:
+> +    description: Regulator that provides power to the sensor
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - interrupts
+> +  - vdd-supply
 > +
-> +anyOf:
-> +  - required:
-> +      - connector@0
-> +  - required:
-> +      - connector@1
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - meas,ms5803
+> +              - meas,ms5803-01ba
+> +              - meas,ms5803-02ba
+> +              - meas,ms5803-05ba
+> +              - meas,ms5803-14ba
+> +              - meas,ms5803-30ba
+> +    then:
+> +      $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +      properties:
+> +        spi-max-frequency:
+> +          maximum: 20000000
 > +
-> +additionalProperties: false
+> +unevaluatedProperties: false
 > +
 > +examples:
 > +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
 > +    i2c {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +
-> +      typec@40 {
-> +        compatible =3D "cypress,cypd6129";
-> +        reg =3D <0x40>;
-> +        interrupts-extended =3D <&tlmm 136 IRQ_TYPE_LEVEL_LOW>;
-> +        pinctrl-0 =3D <&usb0_intr_state>;
-> +        pinctrl-names =3D "default";
 > +        #address-cells =3D <1>;
 > +        #size-cells =3D <0>;
 > +
-> +        connector@0 {
-> +          compatible =3D "usb-c-connector";
-> +          reg =3D <0>;
-> +          label =3D "USB-C";
-> +          data-role =3D "dual";
-> +          power-role =3D "dual";
-> +          wakeup-source;
-
-whitespace nitpickery, blank line here
-
-> +          ports {
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-
-and here
-
-> +            port@0 {
-> +              reg =3D <0>;
-
-and here
-
-Otherwise, this seems fine to me. With that,
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
-Cheers,
-Conor.
-
-pw-bot: changes-requested
-
-> +              endpoint {
-> +                remote-endpoint =3D <&usb_role_switch0>;
-> +              };
-> +            };
-> +          };
+> +        pressure@76 {
+> +            compatible =3D "meas,ms5637-02ba";
+> +            reg =3D <0x76>;
+> +            vdd-supply =3D <&vcc_3v3>;
 > +        };
-> +      };
 > +    };
+> +  - |
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        pressure@0 {
+> +            compatible =3D "meas,ms5803-14ba";
+> +            reg =3D <0>;
+> +            vdd-supply =3D <&vcc_3v3>;
+> +            spi-max-frequency =3D <20000000>;
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Doc=
+umentation/devicetree/bindings/trivial-devices.yaml
+> index 435c4baab436..2671040e8802 100644
+> --- a/Documentation/devicetree/bindings/trivial-devices.yaml
+> +++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+> @@ -240,18 +240,8 @@ properties:
+>            - meas,htu21
+>              # Measurement Specialities I2C temperature and humidity sens=
+or
+>            - meas,htu31
+> -            # Measurement Specialities I2C pressure and temperature sens=
+or
+> -          - meas,ms5637
+> -            # Measurement Specialities I2C pressure and temperature sens=
+or
+> -          - meas,ms5803
+> -            # Measurement Specialities I2C pressure and temperature sens=
+or
+> -          - meas,ms5805
+> -            # Measurement Specialities I2C pressure and temperature sens=
+or
+> -          - meas,ms5837
+>              # Measurement Specialities temp and humidity part of ms8607 =
+device
+>            - meas,ms8607-humidity
+> -            # Measurement Specialities temp and pressure part of ms8607 =
+device
+> -          - meas,ms8607-temppressure
+>              # Measurement Specialties temperature sensor
+>            - meas,tsys01
+>              # MEMSIC magnetometer
 > --=20
-> 2.43.0
+> 2.55.0
 >=20
 
---m8RTELuwTqMYz17/
+--mH9foQAtx56LUlHg
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaodCyQAKCRB4tDGHoIJi
-0nHJAQD5e9L4rm14PG/FLac6A7fTUwTnqSGfMZJl0usvj5TtrAD/YEnba9EJK1ql
-DDsUcq7lnK9BRG6E8pU3oAPXmOBIlgk=
-=kld8
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaodDzwAKCRB4tDGHoIJi
+0vGSAQCMCkYvN8Witjjv2FF1iKVX1LBegECqHTH0lemOoU6IHQD/VFWCxfhor4Py
+sR9nUIrTZaBhXBmJV9LDJoct/pw1fQQ=
+=den8
 -----END PGP SIGNATURE-----
 
---m8RTELuwTqMYz17/--
+--mH9foQAtx56LUlHg--
