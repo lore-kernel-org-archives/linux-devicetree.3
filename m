@@ -1,436 +1,163 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51E047F760
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 17:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BC433CE9A
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 17:18:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787246225; cv=none; b=Ek0X2bxGXKFaJr4MOjC13PTgzHfxnEV/RE5eXxuK9N7FufVnZneutdQRrCq7FqOKtpSiyUG5Rg2YkkncyUxnnlclRu50cyfv0GhsKHy9XXbE5Sx4QaLpadlAB9UmTfohkhn8nOYvRpcjHU/7JTdxsXCe8C5Cm39c0ir6tL3dzIE=
+	t=1787246332; cv=none; b=OIwBU5rCKltsT38/AiRrcjvvtKzefHU5eUC479+RZi+3BJarxpUknqUKDuSAsctc8+FV21tlpf5HxcCzMXCg+Ai5iJCgIzYWYiX9bH0cuWRmRojsI1RVfle7ANyRB+168V6fJEUSMIAU2DI3JTHh3VzztIUjZYQeb/eaOHUcBVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787246225; c=relaxed/simple;
-	bh=QDhf9xlRpZAIbo6PqyU6a7ZltdWrZ4rqXY+qCHbn8W0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iWp3EWdp75nh4jmunODFiZ8qbEsIC/9I3Q5u3qO/mY1X1vHVmvNMvQEhGlXl3O4lGOaiZxoGuf5RtVS9DSyLaCFytFf1frEZoQLZIM8cG0qRmUZxJ09bQKYgTPtYoVcUqmnJWMJNDY/KDqzOmTcrWVy65R4yeOtIhyFESFTctZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rOC6hPVb; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787246332; c=relaxed/simple;
+	bh=iNJqeMqjI6DJobrOGzMqO8mZoPkJe4sD2dN06To6hCg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NW2wouer7vQS7mSqCXyI6yD8/KCkJzsgYtL6C9xq3dgOCEoFOs5+EcblccD679LbM3oYKN7JcGHY59WmqedolfVqTtJvzBK1vEjO5RyIXBUTTUmyWAfJLc/3tRQsSjd54HGQB+aSeWrfFcpXFMv/CPSlJRYPAsIEAoaHmD6Ep7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=N22PgAYO; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rOC6hPVb"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-480033bdcf4so96309f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:17:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="N22PgAYO"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92ed19f4d60so1354885a.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:18:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787246220; x=1787851020; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HO6KbWQbGI/vMp2lRvwlniRw9gPqYhEOaGmV0T1TQVc=;
-        b=rOC6hPVbiVCTwxwmwbBfBvuSTcxGrsH96PJTr4+cITREq+sdkTcmSzRmTZqs4o0JIn
-         iiqJuZHvOvb9ooDEH2v4alRaoMbMXtEDXdhS0vltdwEM3hP19q0neuQZc02G7n3NaOzD
-         xRiItNJwTacNsVTtI1rYq+P70T86o7ItGNhfvhjwliUO0OJBk9M2l3xbUjp/rna/Xn3a
-         H8CgL8xkRyioRXM9ax74HUrRle3HNfnobOG9QfR8auWSxviqTb3i3a9KF8IY9Ei+K5UL
-         mdlAaeaRu91VYId5KBp7+kjvEuapEvzo97kCnnekc69B+dnyd+fX5nqMhIhsdc1xHJK4
-         /j2g==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1787246329; x=1787851129; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eCCdoQqiaW1nj8J5UXUMFmTcHTDmPsmHtrU7WPub7gI=;
+        b=N22PgAYO6psqJ0oK842Ey3x81cCZxmIY03IvyLTyHl0J467qLbZW4o28yOnUFap0rF
+         O96VQp/dwch4ZJgbCz91L56nPrvIM5LEWesZEoWHShZO/KJeXwsRiMBQnQ9cLCKKV5MH
+         TH5/M2ly32yl93a2gL9fP4wcq5n5vfOqWtgs0Q7xazJhGhbQmaK7/iP/97XYOX3WHGRE
+         8lAacBSrsK6RGbi+4JsjQGxk4DY8+QtNvASlbZwI/wkiFPUC6sHPhpj6LB35xYhAXqZz
+         GNPb6HmKdYuOGmmI8Ark/y8y2zhiYkIhGRlJdeuhaqBtEjYK28jwi+HP7CIuSNnUTYXG
+         zK0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787246220; x=1787851020;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787246329; x=1787851129;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HO6KbWQbGI/vMp2lRvwlniRw9gPqYhEOaGmV0T1TQVc=;
-        b=kt27zCmLf5DjP5jfU+DNzcPTQ+GCzPGGFWQLjJX7gxT/ewVhRkL3gcCmdE1ph95sig
-         +uwSW2hIrIWXHQ/vsAs3YjTBUSRy64shiC/YiKScrS/ZvHgXPY/3cpvpDxrN128MSr0a
-         R7ChGVncznivrJW6P+ez7yomdW2XQun1xgUUpYVIgWB+aD6P1vBC5dLcu/PT/cL68LIm
-         qBS/86fg86CHJWUY2rbIUz6JwKhj1or0zfYi/H7mDroVdsLVacxtRIEdVDlirQ6c+IG4
-         1DwQR9CpMCmsnPorFQGPQyjZE8BT5xvXdsuUtIgVVZw5PCkQKcDoCDKACHG8ajDt2D1m
-         EAnw==
-X-Forwarded-Encrypted: i=1; AHgh+RqkQ+BNtRISLJ49d6koF9fRyFCCrHSzfb3HGlVEGzTZFwM/MhtbWzWVQ0WuazOd6KRP8I+TiljX43jU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9QwKRqOidvp//85J/rFrkN6akScepuxG68h2QAGyXEnvI89Pa
-	J9eSZNgJVonYhgynERN7gN1aSXQHdGnsxDTs0Fj3xwetY7PtjW6fVqfm
-X-Gm-Gg: AR+sD13XrC436jeMHMtXbHT1mMqXY9ay93A89JttgBL7PhS8piHgPpUtDfGvJEvkrE+
-	nMBa7TOZv62vbnJQ/lVYcC3Z8eCRsjhi+kFGllRDGI89zPXQYjKQd0/Gtz9R5PJLxRn895/xBlc
-	PNDSDy+pXhGA22impyzlQ6XzxnaGPabWertOrBHCEZufRFsC5HjZr1d5nUqmYTcaEApq+EGaBOj
-	Yp8iCt3VZcIoX8WUYlwPsepqjTUhfbSdTgjeC2pJN1/mn9fZFksYzeZPFW3phtQGC9Q9x9BJtuw
-	QLM/9cmfpZm+V0XRJSUdRS/ruWh8wVy6z372Tfl3dcV/1ZmntbDKNW1owIpWapCjXBBFh9TTzLi
-	h+u3pf/zcC/yCL5pGqRF6eWA4yJC/SVwRrgTMG5oYU/k7QCH1epaAEReAnpwEJDyitr/so75zxz
-	DLQpWrytKo9IotHpE64VZ43I0ndIvgyCVCv1bjniipLMLdBW+dtCV9QmRDe/fXnwJn9DWIkXdKe
-	iG6L5I=
-X-Received: by 2002:a05:600c:4744:b0:499:93b3:91ea with SMTP id 5b1f17b1804b1-499b831c0b1mr7314365e9.15.1787246219840;
-        Thu, 20 Aug 2026 10:16:59 -0700 (PDT)
-Received: from biju.lan ([2a00:23c4:a702:d301:eda0:8ef1:e1ab:c2b1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa0fd728sm219313495e9.3.2026.08.20.10.16.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 10:16:59 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Ulf Hansson <ulfh@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v24 00/15] Add Renesas RZ/G3L SD/eMMC support
-Date: Thu, 20 Aug 2026 18:16:30 +0100
-Message-ID: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
+        bh=eCCdoQqiaW1nj8J5UXUMFmTcHTDmPsmHtrU7WPub7gI=;
+        b=DyuzrgPpC3Il6TUWTb4/0xryhIJgPugJVBpqOh0JGlCvofaoTNOwfLQSqT+QnuoQ59
+         gkjivl2lVUTnOTQspEUS5t+L6dCE+BFz2OfnFQE3LAe5nbeHEmLNBCxoY42d9FTFXjC9
+         ZA5zpmoWU2DwZLCe7udY+UgVroe5hmEWnY1cHg3J2ieZbwGKelSPwgQQ7Pu+8jVm1e7b
+         DOONG/USEtjrvDyRX5PH561XMH22+eVhtY6vX9ODLr/uqdPkmE5WJJ5oQlgu+GzV7K/s
+         +V+9KQ01pjw7GphzPrR+rj3QLxY0mZWz9FAWmsTvFdx3o/5EsXsZTjd3gbjEx4zhzULR
+         VcUg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2rVzAqFEzNy0Hrs2F36PisHxrGZS7BheBBWfUaUJox5dyw6w+M6iR3vO7jEy5YANHqx8BIr9I6zDO@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJS9kBZzQqApfm7zGarbJeuUGX6SJA+zw5MptJSivuXYuRjyn6
+	J6QElNuWB/xPDk7XWOMJyvG9Nzd65nANzf5KSZDPfytUXYiFcppvhH04GNLsTg1emuY=
+X-Gm-Gg: AR+sD12RVelnQrgL983yEaqqDCuBN/xcSNS7dxypp9ZFIEPUAHutG0gniXaxdzwEVPw
+	zSDtO7Q7tmbU8bZarKMn+lU1wSwg216tH6DCcsV/su96lO6/QT3/qM2IuSR1xx8qsJ5tSD0pNp3
+	RPS2qn6QSwpvsdN0EUxNk+XCy0qGB8nCj2epKzcfTng4YgemwZYq7VjXIVeaZRfulLsOey1zY7Z
+	RexGGb1+bXHEMOKOzbfHUjrET+QD/CX4sxT876/fvvrbSFKuZjkk/yoHLHzXlalEJEHxly3ToBz
+	xs0ZLEd1ofObfCXpbG8YlatP19JtjdijKzJAsbAlzfRk1S4Bd77KeYH4/2VHisVc8JSasQn45l8
+	Hpjn1l/3qagGfAzzljPSsDLnpv6PibPNsWqoWKhBdEtPAuko7EETt0Lv3jPahgXIddg6UDXoMOm
+	M2xxVgKSaXMvnXhGecnCDSO0vN9u7EmfhyLRqJCk3lgTY5za/MscXOE7UhTpfq4bFfKtxF9TI=
+X-Received: by 2002:a05:620a:294d:b0:936:a184:3cf3 with SMTP id af79cd13be357-9372840f584mr862546985a.10.1787246327788;
+        Thu, 20 Aug 2026 10:18:47 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-937204a91b0sm418891185a.15.2026.08.20.10.18.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 10:18:47 -0700 (PDT)
+Message-ID: <e98e8996-1ae8-47be-8854-55a004530c85@riscstar.com>
+Date: Thu, 20 Aug 2026 12:18:45 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: misc: introduce pci1179,0220.yaml
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: bhelgaas@google.com, conor+dt@kernel.org, linux-pci@vger.kernel.org,
+ mohdayaa@qti.qualcomm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
+ daniel@riscstar.com, krzk+dt@kernel.org, arnd@arndb.de,
+ lbiancon@qti.qualcomm.com
+References: <20260813222943.1655453-1-elder@riscstar.com>
+ <20260813222943.1655453-2-elder@riscstar.com>
+ <178682676059.2183315.4478974489132403040.robh@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <178682676059.2183315.4478974489132403040.robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On 8/15/26 3:46 PM, Rob Herring (Arm) wrote:
+> 
+> On Thu, 13 Aug 2026 17:29:41 -0500, Alex Elder wrote:
+>> Define the binding for the Toshiba TC9564 PCI endpoint function device.
+>> The third downstream PCIe switch port within this chip has an embedded
+>> PCIe controller, and that implements two of these PCIe functions.
+>>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> ---
+>>   .../bindings/misc/pci1179,0220.yaml           | 150 ++++++++++++++++++
+>>   MAINTAINERS                                   |   6 +
+>>   2 files changed, 156 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
 
-Hi All,
+I don't see these errors, so I'm probably running an old version
+of something?  I'll try to sort it out.  Sorry about that.
 
-The Renesas RZ/G3L SoC has:
+					-Alex
 
-Channel 0 supports SD and eMMC (including HS400/HS400ES).
-Channel 1 supports SD and eMMC (except for HS400).
-Channel 2 supports SD.
 
-The SoC supports a maximum frequency of 150 MHz. The SD0 interface does
-not support IOVS and PWEN in the SDHI register (no internal regulator),
-unlike SD1 and SD2. It has an internal divider for all modes except HS400.
-It also has a 2048-bit divider compared to 512 on others. Moreover
-RZ/G3L supports HS400 enhanced strobe mode.
 
-This patch series support all modes. Please see the test logs for
-smarc-rzg3l[1]
-
-This patch series tested on smarc-rz{v2l,g2l,g2lc,g2ul,g3s,g3l,g3e},
-rz{v2h,t2h}-evk and hihope-rz{g2h,g2m,g2n} boards
-
-v23->v24:
- * Added Add SDHI_SD_CLK_CTL_DIV1 macro for handling 1/1 option.
- * Updated commit description for patch#6.
- * Replaced GENMASK(7, 0) with CLK_CTL_DIV_MASK.
- * Replaced magic bits GENMASK(9, 8) and GENMASK(17, 16) with
-   RZG3L_CLK_CTL_DIV9_DIV8 and RZG3L_CLK_CTL_DIV9_DIV8_SRC.
- * Simplified renesas_sdhi_set_tmpport().
- * Replaced GENMASK(15, 0) with RZG3L_SDHI_SCC_HS400MODE1_TMPOUT.
-v22->v23:
- * Added write32hook function for hardware idle synchronization for
-   CTL_SD_CARD_CLK_CTL writes.
- * Changed the data type of max_divider from unsigned int to signed int.
- * Assigned of_data->clk_div_mask in renesas_sdhi_probe().
- * Updated commit description for patch#7.
- * Updated tmio_mmc_reset() to handle 32 bit divider register in RZ/G3L.
-v21->v22:
- * Added HS400 ES mode after fixing inode corruption when eMMC is
-   mounted as rootfs.
- * Updated commit descriptions for patches #4, #5, #6, #7, #9, #12,
-   and #13.
- * Added clk_div_mask to of_default_cfg and of_rcar_gen2_compatible.
- * Added a renesas_sdhi_set_hw_adjustment_delay() call to
-   renesas_sdhi_init_tuning().
- * Added renesas_sdhi_is_internal_divider_enabled() and
-   renesas_sdhi_clk_get_rate() to simplify the clock rate logic.
- * Added `clock &= ~GENMASK(9, 8)` to clear the divider mask bits in
-   the register value.
- * Added a renesas_sdhi_set_tmpport() helper to set delay values.
- * Added a check in renesas_sdhi_is_internal_divider_enabled() to
-   return disabled status when in HS400 mode.
- * renesas_sdhi_reset() now restores data strobe register values
-   after reset.
-v20->v21:
- * Dropped HS400 ES support due to file system corruption, will add this
-   mode later after investigation.
- * Added support for make clock divider mask configurable
- * Added clk_div_mask to RZ/G2L of_data.
- * Added clk_div_mask to RZ/G3L of_data.
- * Restored actual_clk calculation in renesas_sdhi_set_clock().
- * Updated renesas_sdhi_set_clock() for RZ/G3L HS400 clock handling as
-   it supports only single clk divider value and other values are
-   prohibited.
- * Updated commit description for patch#12.
-v19->v20:
- * Replaced the check mmd->clk_mask with mmc_data->clk_mask and moved
-   the code after assignment of variable mmd, this ensures assigning
-   the default values for non-DT platforms and DT platforms with no
-   device data.
- * Replaced the check mmd->max_divider with mmc_data->max_divider and
-   moved the code after assignment of variable mmd, this ensures
-   assigning the default values for non-DT platforms and DT platforms with
-   no device data.
- * Fixed the ordering of resets in suspend/resume paths.
- * Added bitfield.h header file.
- * Reworked on renesas_sdhi_set_clock() to handle the 11-bit divider
-   case and the 32-bit register write.
- * Updated resume() with scoped PM runtime call.
- * SD_CLK_CTRL clk enable turned off before updating SCC_CKSEL_DTSEL
-   register.
-v18->v19:
- * Updated commit description for patch#1,#2,#6,#8,#11 and #12
- * Updated clock and reset description with AXI master and AXI slave
- * Added else condition for reset and reset-names.
- * Renamed aclk->aclkm and reordered the axi clocks similar to resets.
- * Retained the tag got binding patch as the changes are trivial.
- * Fixed the clk_mask for non-DT platforms.
- * Fixed max-divider setting for non-DT platforms.
- * Replaced the magic number '9' with ilog2 function in
-   renesas_sdhi_clk_enable().
- * Dropped divider variable from struct renesas_sdhi.
- * Updated renesas_sdhi_clk_update() to return rate for HS400 mode
-   and non HS400 mode(uses 1/2 internal divider).
- * Updated handling for clk divider.
- * Renamed TMIO_MMC_HWADJ2->TMIO_MMC_HWADJ to make it generic for
-   hardware tuning delays
- * Dropped duplicate SH_MOBILE_SDHI_SCC_TMPPORT2 macro
- * Updated suspend/resume with scoped runtime calls in suspend.
- * Fixed extra space in HS400MODE2 comment block.
- * Updated the comment HS400mode2->HS400MODE2.
- * Dropped the updation of clk handling as it is taken care in
-   previous patches.
- * HS400ES support is enabled based on of_data.
- * Fixed the space in HS400ES comment block.
-
-v17->v18:
- * Collected tag
- * Merged patch #4 and #5 and updated commit description
- * Annotated the empty sentinel entries in the OF match tables with a
-   "Sentinel." comment for clarity.
- * Retained the tag as it is a trivial cleanup.
- * New patches drop struct renesas_sdhi_hw_info, instead using
-   renesas_sdhi_of_data and tmio_mmc_data.
- * Dropped clk, pinctrl, SoC, and board dtsi from this patch series;
-   will send later.
-v1->v17:
- * Collected tag for binding patch.
- * Resending the series as there is an issue with patch threading from
-   patch #14.
-
-[1]
-Logs:
-HS200:(With internal divider)
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc0/ios
-clock:          150000000 Hz
-actual clock:   150000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      3 (8 bits)
-timing spec:    9 (mmc HS200)
-signal voltage: 1 (1.80 V)
-driver type:    1 (driver type A)
-
-SDR104:(With internal divider)
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc1/ios
-clock:          150000000 Hz
-actual clock:   150000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      2 (4 bits)
-timing spec:    6 (sd uhs SDR104)
-signal voltage: 1 (1.80 V)
-driver type:    0 (driver type B)
-
-HS400: (Without internal divider)
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc0/ios
-clock:          150000000 Hz
-actual clock:   150000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      3 (8 bits)
-timing spec:    10 (mmc HS400)
-signal voltage: 1 (1.80 V)
-driver type:    1 (driver type A)
-
-HS400 ES: (Without internal divider)
-root@smarc-rzg3l:~# cat /proc/cmdline
-rw rootwait earlycon root=/dev/mmcblk0p2 net.ifnames=0
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc0/ios
-clock:          150000000 Hz
-actual clock:   150000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      3 (8 bits)
-timing spec:    10 (mmc HS400 enhanced strobe)
-signal voltage: 1 (1.80 V)
-driver type:    1 (driver type A)
-
-s2ram:
-root@smarc-rzg3l:~# echo mem > /sys/power/state
-[   72.838238] PM: suspend entry (deep)
-[   72.864225] Filesystems sync: 0.021 seconds
-[   72.875166] Freezing user space processes
-[   72.883030] Freezing user space processes completed (elapsed 0.003 seconds)
-[   72.890237] OOM killer disabled.
-[   72.893612] Freezing remaining freezable tasks
-[   72.900038] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
-[   72.907677] printk: Suspending console(s) (use no_console_suspend to debug)
-NOTICE:  BL2: v2.10.5(release):2.10.5/rzg3l_1.0.1_rc2
-NOTICE:  BL2: Built : 11:18:41, Jul 15 2026
-INFO:    BL2: Doing platform setup
-INFO:    Configuring TrustZone Controller
-INFO:    Total 3 regions set.
-INFO:    Configuring TrustZone Controller
-INFO:    Total 1 regions set.
-INFO:    Configuring TrustZone Controller
-INFO:    Total 1 regions set.
-INFO:    eMMC boot from partition 1
-INFO:    Loading image id=39 at address 0x44428
-INFO:    emmcdrv_block_len: len: 0x00001000
-INFO:    Load dst=0x44428 src=(p:1)0x260000(4864) len=0x1000(8)
-INFO:    Image id=39 loaded: 0x44428 - 0x45428
-INFO:    DDR: Retention Exit (Rev. 02.05)
-NOTICE:  BL2: SYS_LSI_MODE: 0x12051
-NOTICE:  BL2: SYS_LSI_DEVID: 0x87d9447
-INFO:    BL2: Skip loading image id 3
-INFO:    BL2: Skip loading image id 5
-NOTICE:  BL2: Booting BL31
-INFO:    Entry point address = 0x44000000
-INFO:    SPSR = 0x3cd
-[   72.951851] renesas-gbeth 11c30000.ethernet eth0: Link is Down
-[   72.955613] Disabling non-boot CPUs ...
-[   72.957320] psci: CPU3 killed (polled 4 ms)
-[   72.961085] psci: CPU2 killed (polled 0 ms)
-[   72.964897] psci: CPU1 killed (polled 0 ms)
-[   72.966874] Enabling non-boot CPUs ...
-[   72.967144] Detected VIPT I-cache on CPU1
-[   72.967202] GICv3: CPU1: found redistributor 100 region 0:0x0000000012460000
-[   72.967250] CPU1: Booted secondary processor 0x0000000100 [0x412fd050]
-[   72.968284] CPU1 is up
-[   72.968428] Detected VIPT I-cache on CPU2
-[   72.968462] GICv3: CPU2: found redistributor 200 region 0:0x0000000012480000
-[   72.968493] CPU2: Booted secondary processor 0x0000000200 [0x412fd050]
-[   72.969465] CPU2 is up
-[   72.969633] Detected VIPT I-cache on CPU3
-[   72.969673] GICv3: CPU3: found redistributor 300 region 0:0x00000000124a0000
-[   72.969714] CPU3: Booted secondary processor 0x0000000300 [0x412fd050]
-[   72.970760] CPU3 is up
-[   72.989187] dwmac4: Master AXI performs fixed burst length
-[   72.989231] renesas-gbeth 11c30000.ethernet eth0: No Safety Features support found
-[   72.989275] renesas-gbeth 11c30000.ethernet eth0: IEEE 1588-2008 Advanced Timestamp supported
-[   72.990364] renesas-gbeth 11c30000.ethernet eth0: configuring for phy/rgmii-id link mode
-[   73.005175] dwmac4: Master AXI performs fixed burst length
-[   73.005205] renesas-gbeth 11c40000.ethernet eth1: No Safety Features support found
-[   73.005236] renesas-gbeth 11c40000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-[   73.006314] renesas-gbeth 11c40000.ethernet eth1: configuring for phy/rgmii-id link mode
-[   73.177702] OOM killer enabled.
-[   73.180837] Restarting tasks: Starting
-[   73.186007] Restarting tasks: Done
-[   73.189570] random: crng reseeded on system resumption
-[   73.195001] PM: suspend exit
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc0/ios[   75.705532] renesas-gbeth 11c30000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
-
-clock:          150000000 Hz
-actual clock:   150000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      3 (8 bits)
-timing spec:    10 (mmc HS400 enhanced strobe)
-signal voltage: 1 (1.80 V)
-driver type:    1 (driver type A)
-root@smarc-rzg3l:~#
-
-s2idle:
-root@smarc-rzg3l:~# echo freeze > /sys/power/state
-[   97.634564] PM: suspend entry (s2idle)
-[   97.655343] Filesystems sync: 0.016 seconds
-[   97.662352] Freezing user space processes
-[   97.666531] Freezing user space processes completed (elapsed 0.004 seconds)
-[   97.676132] OOM killer disabled.
-[   97.679743] Freezing remaining freezable tasks
-[   97.687107] Freezing remaining freezable tasks completed (elapsed 0.002 seconds)
-[   97.695071] printk: Suspending console(s) (use no_console_suspend to debug)
-[   97.744129] renesas-gbeth 11c30000.ethernet eth0: Link is Down
-[  100.135760] dwmac4: Master AXI performs fixed burst length
-[  100.135805] renesas-gbeth 11c30000.ethernet eth0: No Safety Features support found
-[  100.135848] renesas-gbeth 11c30000.ethernet eth0: IEEE 1588-2008 Advanced Timestamp supported
-[  100.137950] renesas-gbeth 11c30000.ethernet eth0: configuring for phy/rgmii-id link mode
-[  100.154860] dwmac4: Master AXI performs fixed burst length
-[  100.154890] renesas-gbeth 11c40000.ethernet eth1: No Safety Features support found
-[  100.154919] renesas-gbeth 11c40000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-[  100.154984] renesas-gbeth 11c40000.ethernet eth1: configuring for phy/rgmii-id link mode
-[  100.246688] OOM killer enabled.
-[  100.249851] Restarting tasks: Starting
-[  100.254395] Restarting tasks: Done
-[  100.258012] random: crng reseeded on system resumption
-[  100.263468] PM: suspend exit
-root@smarc-rzg3l:~#
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc0/ios[  102.690106] renesas-gbeth 11c30000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
-
-clock:          150000000 Hz
-actual clock:   150000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      3 (8 bits)
-timing spec:    10 (mmc HS400 enhanced strobe)
-signal voltage: 1 (1.80 V)
-driver type:    1 (driver type A)
-root@smarc-rzg3l:~#
-
-SDIO testing:
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc1/ios
-clock:          100000000 Hz
-actual clock:   100000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      2 (4 bits)
-timing spec:    5 (sd uhs SDR50)
-signal voltage: 1 (1.80 V)
-driver type:    0 (driver type B)
-root@smarc-rzg3l:~#
-root@smarc-rzg3l:~# ping google.com
-PING google.com (142.250.151.139): 56 data bytes
-64 bytes from 142.250.151.139: seq=0 ttl=112 time=7.679 ms
-64 bytes from 142.250.151.139: seq=1 ttl=112 time=12.283 ms
-^C
-google.com ping statistic
-packets transmitted, 2 packets received, 0% packet loss
-round-trip min/avg/max = 7.679/9.981/12.283 ms
-
-Biju Das (15):
-  dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
-  mmc: renesas_sdhi: Clean up whitespace and add OF table sentinels
-  mmc: renesas_sdhi: Add clk_mask field to support flexible clock
-    divider widths
-  mmc: renesas_sdhi: Add max_divider field to support SoC-specific clock
-    ranges
-  mmc: renesas_sdhi: Add SDHI_SD_CLK_CTL_DIV1 macro for 1/1 option
-  mmc: renesas_sdhi: Make clock divider mask configurable
-  mmc: renesas_sdhi: Add tuning delay support for RZ/G2L
-  mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_DIVIDER flag
-  mmc: renesas_sdhi: Add optional axis/axim reset controls
-  mmc: renesas_sdhi: Add write32_hook for CTL_SD_CARD_CLK_CTL register
-    writes
-  mmc: renesas_sdhi: Add RZ/G3L SDHI support
-  mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
-  mmc: renesas_sdhi: Make HS400 OSEL bit configurable per SoC
-  mmc: renesas_sdhi: Add RZ/G3L HS400 support
-  mmc: renesas_sdhi: Add HS400 enhanced strobe support for RZ/G3L
-
- .../devicetree/bindings/mmc/renesas,sdhi.yaml | 108 ++++--
- drivers/mmc/host/renesas_sdhi.h               |  13 +-
- drivers/mmc/host/renesas_sdhi_core.c          | 344 +++++++++++++++---
- drivers/mmc/host/renesas_sdhi_internal_dmac.c |  78 +++-
- drivers/mmc/host/renesas_sdhi_sys_dmac.c      |  16 +-
- drivers/mmc/host/tmio_mmc.h                   |   7 +
- drivers/mmc/host/tmio_mmc_core.c              |  13 +-
- include/linux/platform_data/tmio.h            |  19 +
- 8 files changed, 504 insertions(+), 94 deletions(-)
-
--- 
-2.43.0
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): pci-ep-bus@0:compatible: ['simple-bus'] does not contain items matching the given schema
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): pci-ep-bus@0: 'reg' is a required property
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): pci-ep-bus@4:compatible: ['simple-bus'] does not contain items matching the given schema
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): pci-ep-bus@4: 'reg' is a required property
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): ranges: 'oneOf' conditional failed, one must be fixed:
+> 	[[0, 0, 0, 2197815296, 0, 0, 0, 16384], [2, 0, 0, 2197815296, 0, 0, 0, 524288], [4, 0, 0, 2197815296, 0, 0, 0, 2097152]] is not of type 'boolean'
+> 	0 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
+> 	2 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
+> 	4 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,0 (pci1179,0220): 'device_type' is a required property
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,1 (pci1179,0220): pci-ep-bus@4:compatible: ['simple-bus'] does not contain items matching the given schema
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,1 (pci1179,0220): pci-ep-bus@4: 'reg' is a required property
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,1 (pci1179,0220): ranges: 'oneOf' conditional failed, one must be fixed:
+> 	[[0, 0, 0, 2197815552, 0, 0, 0, 16384], [2, 0, 0, 2197815552, 0, 0, 0, 524288], [4, 0, 0, 2197815552, 0, 0, 0, 2097152]] is not of type 'boolean'
+> 	0 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
+> 	2 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
+> 	4 is not one of [16777216, 33554432, 50331648, 1107296256, 1124073472, 2164260864, 2181038080, 2197815296, 3254779904, 3271557120]
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> Documentation/devicetree/bindings/misc/pci1179,0220.example.dtb: pci@0,1 (pci1179,0220): 'device_type' is a required property
+> 	from schema $id: http://devicetree.org/schemas/pci/pci-bus-common.yaml
+> 
+> doc reference errors (make refcheckdocs):
+> 
+> See https://patchwork.kernel.org/project/devicetree/patch/20260813222943.1655453-2-elder@riscstar.com
+> 
+> The base for the series is generally the latest rc1. A different dependency
+> should be noted in *this* patch.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your schema.
+> 
 
