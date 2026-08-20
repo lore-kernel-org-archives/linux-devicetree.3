@@ -1,241 +1,218 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4239F3BF660
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787212226; cv=pass; b=JOKmTKWmXMPQ6j9hhegemPz32E5zvnS0fFww3LmKAXrHHeejWVS0aQRQPXJvhLUBdy56TKtNmM/olNqxe/F+WZQcKYaVnCR5q2NsYPTGh+tifA4fzkeHgmAn4Y0tVxeqK5gdEeznxxJFhvvq5ubTfHZ2kENNuQ+xCY0Js4a0ffQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787212226; c=relaxed/simple;
-	bh=/xEwob/gybZt/V2Uua4aPALijOLg3lbe/x/lAhgXJ5Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qJZD+9X2Y5EltFd3EoA4mUbev+NwmgzIFPHGQARw9JtVcwPNNKgQbAtCFvaKq92TZnlo4znfpLERZoe29+Uf22GrjmV8n5A+zab8tMF9wkizxAFrZd1qdaADw76nqpr3rnTTJ1sbfruCoxEeTD6a6KHNG4KJU6Ba539Vpmtcovc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X+NozPVT; arc=pass smtp.client-ip=209.85.208.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9378F3C7DF1
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:55:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787212541; cv=none; b=ntyUVFJxsghiyq8Y3YDKRni+5ZdaBnkHmFATfCkAqTlwscAPVcL5FBeu27tH9c2uiFGdgtUlVSECD9w+u2a4t9HtE2Id4ozZqZ65WD+7A95TtsKO7Rsf04I6Adji5kEFDcUgopLkZyzLXGwn4GyHNnekaIiOk7kRZcdwwSjQxMM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787212541; c=relaxed/simple;
+	bh=xmMHX8X58zmAa1SfHePlIZqrcUFk2iMcnCX2kK5gSX8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=scDjDu34DrBP9tjGeGltMItO4ZlwgGv2Ui27NLOmCD8yOpVTe28fFmRv9Q+ZxrqRu6fByvqW2Y3wCSrep+41K+naWYMyh7w8YvYOzIMpOJrCBiTqbzofOxsoyln/fogq8Cj7TTm0TakjBUg8ILUsl02EtPQaxy4EYa0WADy3NTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R9rsnQ8p; arc=none smtp.client-ip=209.85.208.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X+NozPVT"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c86ce9e29so17357911fa.3
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 00:50:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787212223; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r7U78XFiDAfqTpkEKJueV7kagaSd++r7ESmPGZ7U7vGlOev5DgGtket1PqIaK5mhuG
-         sGFAkS9yuYiMFQKuFAtab/2brsVP9VepJlTVmcRaPNWcjUSIBgLmDiue3DgY0OTw5imv
-         pQEvMaXOaf2sXB+9bv3sDZSBtua8NMtPSkjLxdEm8LlWfNuqrwgBEH22T3lN9+2mNkAU
-         JTDxkGZHCer5U9zFVVGb2ZJh8ZnskSFdkMdfJKKb3KGgVjmqAJzKrK+oQlx3GuQOI0Hv
-         2S1/eoRI5D7XRet/nk8eJz7uGd0HO3VoINzWgPgz02iWyjCbvg/HMaf9aeXSS9sn8+kZ
-         PtZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0TAyv372/LEkCsLr0cT5JC02uRbKUvvVi2UV1V38EE0=;
-        fh=QsCURNwg/G63fa1wpk5QDuS0Exq7Y024FXvaqyDwPTI=;
-        b=WbXjoany/j0pJZdwEG7KtABN+5rgMLm8+oDIfKVkKf9phbs/gGtsmdr+lEMdJFU7Of
-         TgLDhkYVCkyMOjZE/iSfXabzX6XTcuVN8Oppx4vvRr5+Uvbeca6uWvNUVlab6QbxlDOL
-         4aM/FHKGsTH1jes2MsK+BZXP+MZAx3ajsWAd5G//S/EG4/18Snu4DSvF23NfpfKUJ+6n
-         RvBZDR7JYsQCmEiAUCibUncwaJ8dLh6X+n2y/jjQxCngkOvhxdYQ3oPbYGsBMs0Ud/Ws
-         xOl0mT4qPuR1DJsbAhb5LWOE2nQFs+TNHPhtdzI+P+NbvQ49OC0810de7MWSRZZd1N0t
-         PDBw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R9rsnQ8p"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a12ffc112cso6936791fa.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 00:55:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787212223; x=1787817023; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0TAyv372/LEkCsLr0cT5JC02uRbKUvvVi2UV1V38EE0=;
-        b=X+NozPVThnjNcOMBrbFHG4dbjIRWL3hwUxoinz/yUAvk5BcVnYnO+RFqmEIg6O4sNZ
-         dV/V0PhANjitd3hWX8YeX6AGcFlG7LkLrs48R8CPDkOeRTqkjCfdNkKg7OFjEzkWabg7
-         bHGcfQSSCOTqSL40ew7j/V7YNa+a2sBjZ54c8qlCHFGDyRJx5lcZ0nj0cZ0qWggeGsk1
-         T1uOqy/xehSxEeA7enyke3rTS5i47u5Mu5oMWZHC0N2c+MWW6LQX4DFW3P5uhdc+4mUL
-         0BoFYC/R5PnkZzHolGT/Swon1fzFDfPoEOt5edA013XiI9L73vWYwbXopEsdCJsG6s5j
-         WFPg==
+        d=gmail.com; s=20251104; t=1787212538; x=1787817338; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=604gPXL7bVZKZDFwmLIC5+XnR8BH2kFYECxuf0yXyaY=;
+        b=R9rsnQ8pBB02TdzgnnD1H2F2WyyZLLLoVqi6S242ekdjmBiq1mknumpKmVm8W3j3qW
+         9YBplpMCzmXrKqJoT8Sk9TuEalTyY2/7kiCS1L6DZt3S1/m6akrKYevX39uIBXSCN7sY
+         x/0mcxEHQmWDkt2QGdtU3wzFcBs2goJ0rXc4j8arzztduv7EMF90e/g2lrYjLHTv9pqi
+         2LZEU5W6FlWAegXC25Ki09UWv+iH3z0z3RcRKocUoiDpW7R16Tl5TmFY29myloeJftKT
+         ZMfk1fo1xIibKzNSab+yFgcbHw3CghMbKWjbo7W10LYxGjAxSXUD5HBCv3ARMcpf9hhg
+         Fsag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787212223; x=1787817023;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0TAyv372/LEkCsLr0cT5JC02uRbKUvvVi2UV1V38EE0=;
-        b=qDj0GPUxAqQr85a79LhEu3zzulWjBalAYGZPqRJaUC9Az1R8YDGE+SKisCJC6MZ6SR
-         TNYwfyLIzF87ll1wmaYsCH8Jlo5JNnl/kEDJ+vQZJTLjzjg11u1xYcTgZYiTgW/GHTSv
-         ADIAzvcth8f1av47sU3tUnOZqxpfAKYZYHBGr+4R1g/xdDmCxCZkCk0UmQcxb66sQndA
-         epJWIHsOMHNsU/ZWdNq5VhUTeE+6R4bnzwivBuWbHn5UGg9jgnn2C5VdVGuI8F1K993N
-         fFetczChxZcGgBZCJGccH5QZFx5bBCCdEziAZkEdIGunfyZLkX562F2lH6j3lCoXEus4
-         YOtw==
-X-Forwarded-Encrypted: i=1; AHgh+RqQmoaNfUEjRdp9clLwC0mykIKrmkhCQ8Jdjail/thImfilT5gNPTdStI7ViHYnMeyyE69U1kFe8lPk@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQfJSlFl216cBFkdPsQ/b2wnR/aB4CISC/5vEhsrSFGYQCKC6w
-	jkkcG38Ls3k803SxB3+uqlnaqjTc9JUU+/ZLTXoE2ZqLBmlBahE6DS8Sj5Fy503lMng1VrXro0g
-	3prmPJqm7raCPpy7SInUKjPM+h1L2kbA=
-X-Gm-Gg: AR+sD12H5FJTxw9Gg1j1a2DyG0P2xRZsfblX80K8XhbOrHS/XxrNUSMhtGvmOKKedZA
-	UJABeriUfj9OdC8PZamvpC/dv00lcAvbb0rXP/Ipw04Ana3Zft9Z1ekryJ5bqn49EIGK3/VLzWb
-	3YJQi/P2pCS5xH0algeHvZ0HC7emFFxr9JaLP+O014PfaDo/6iiAIIe8cjVThkUmPyMSBBx7wjD
-	LNIlYUduE1XK4ZsuAO9hNOVPLmVqCevpRdTYEEpnQdU/jxgEL65rmA5g7VyWm7V/sDDYsA0de0E
-	Q/fvtAvql1mMLMz+l5glAbstR3ZTAdQtW/emlICOZyz8gPukWhsLlG0HLmk4v8Xf51lgHRYCD7N
-	lRnmI9Y/yyjbHYr3wOHEkKvZqPw==
-X-Received: by 2002:a05:651c:199f:b0:3a1:1d3b:67f1 with SMTP id
- 38308e7fff4ca-3a1896d9d67mr21587801fa.7.1787212223022; Thu, 20 Aug 2026
- 00:50:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787212538; x=1787817338;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=604gPXL7bVZKZDFwmLIC5+XnR8BH2kFYECxuf0yXyaY=;
+        b=KYlZ5Z4cDGv862KgeeMeau5FsHKUrn0k/B0XPR1F1BQOC81vTjPSl6PENqy5qF7iow
+         Ui+CNFMyMdNvD/mJqL7aIphkbtXOalzimz7xDa9QYjT0Kulp53CAu5aIBn5Caqv06mlx
+         0SZgric8A8kYFTBnbBIt4yuSHMqBwn0fJ333kP7a2s8vM6ejScspkVoO6qNYT8hDgQ28
+         OwJ2OGZTxeXblPScYRWlC06nkkL4/sOxftRQdOVGaoiN8X08VKzKQURevUyBeGopT7dA
+         kcXWJYY5w8yPwKc98F0GLV6cgFdFcsMLxFCMsAZ3I56YYMyaxF7xP4dZ1V4aQw4jtSVN
+         2tLQ==
+X-Gm-Message-State: AOJu0Yx+TvlvT0pcjBxhgk6Z3zs7SdP4081dk8OHN5tv+/cmO2wqCUEA
+	fHAbZGuZR87l4BPtT2xWxYEA5rWDIMD4xsbqnGhzq74d23PiMkctRdA1
+X-Gm-Gg: AR+sD11kteF6xCqOpkdOmT2bgXwHUID33pF9i9bZ9QK32KsCNIeFcf4YOUdmwJy/EIY
+	qaZt8qyWkvd20/1y//CS5kA1nepXKw25U/I5YWwbZIQmWQ+2A125tf7MMvfdJxZUVkE85gokgpv
+	IytIN8UME5ynR/Y5wB2oqnumOUCmdzyI/ET7/ZcWePFG477xAWDNrfjB5400ps1MEWgvHd8puBp
+	VS+086i47TvNkB6+Ww89dotB2Wz4C7mjLYVBc+INrqWlBkgATezw69Pr0QShc68K0GDqnsQQBTN
+	zKRrfvXCCVhx/2hWRSUm9pxcH9rjiSClOFYW3cxZI+NmPWEX1ZjFMHsH2xTshzk3pJN2v2FCfV2
+	anelMdIsVOBeFCe+LAygiyfWKxTvTIDGXJztoMK2aFkgwXHK2/J07M8Xm/OdOp/zr4t97H5SoQZ
+	JFbR1bSRqFpTo3fKd4riwXHd6FaD04Yl07xC6fn3k4X+eipvz9beVYlcAJ//HCNyPSZmHhz+ra7
+	LBE
+X-Received: by 2002:a2e:a802:0:b0:396:6d94:4a4b with SMTP id 38308e7fff4ca-3a1969f6df8mr8790621fa.10.1787212537455;
+        Thu, 20 Aug 2026 00:55:37 -0700 (PDT)
+Received: from gentoo.sknt.ru ([95.161.221.172])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a189e15d1dsm11757751fa.33.2026.08.20.00.55.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 00:55:36 -0700 (PDT)
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Quentin Freimanis <quentin@q-lab.dev>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>
+Subject: [PATCH v3 0/2] media: i2c: Add onsemi AR0234 camera sensor driver
+Date: Thu, 20 Aug 2026 10:55:22 +0300
+Message-ID: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
- <20260817215428.84740-1-gvalkov@gmail.com> <20260819-generous-nickel-dalmatian-b6bb08@quoll>
- <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
- <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org> <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
- <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org>
-In-Reply-To: <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 20 Aug 2026 10:50:10 +0300
-X-Gm-Features: AcwNN1UED2d-bg9Uini4u4mWy-mvYyG-FuFnU3Li4w7hQPYNR666nZuf3FB7ICo
-Message-ID: <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
-To: Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
-	krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com, 
-	kees@kernel.org, miriam.rachel.korenblit@intel.com, rafael.beims@toradex.com, 
-	avraham.stern@intel.com, error27@gmail.com, s.kerkmann@pengutronix.de, 
-	gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com, robh@kernel.org, 
-	conor+dt@kernel.org, Frank.Li@nxp.com, chunfan.chen@gmail.com, 
-	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, 20 Aug 2026 at 09:53, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 20/08/2026 08:42, Chen-Yu Tsai wrote:
-> > On Wed, Aug 19, 2026 at 8:27=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> >>
-> >> On 19/08/2026 13:42, George Valkov wrote:
-> >>> On Wed, 19 Aug 2026 at 12:42, Krzysztof Kozlowski <krzk@kernel.org> w=
-rote:
-> >>>>
-> >>>> On Tue, Aug 18, 2026 at 12:54:26AM +0300, Georgi Valkov wrote:
-> >>>>>
-> >>>>> diff --git a/Documentation/devicetree/bindings/net/wireless/marvell=
-,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd878=
-7.yaml
-> >>>>> index 930b700b73d0..5f235cb9f3e5 100644
-> >>>>> --- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787=
-.yaml
-> >>>>> +++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787=
-.yaml
-> >>>>> @@ -59,6 +59,12 @@ properties:
-> >>>>>      description: Calibration data for sub-band 3 in the 5GHz band.
-> >>>>>      maxItems: 502
-> >>>>>
-> >>>>> +  marvell,ignore-regulatory-hint:
-> >>>>> +    $ref: /schemas/types.yaml#/definitions/flag
-> >>>>> +    description:
-> >>>>> +      Ignore an incorrect regulatory hint from ROM,
-> >>>>> +      so userspace can set the correct regulatory domain.
-> >>>>> +
-> >>>>
-> >>>> Same comments, so you just ignored entire feedback?
-> >>>
-> >>> Do you mean this feedback? I already replied to it:
-> >>>>> Anyway, property looks like SW choice. You must describe hardware
-> >>>>> instead.
-> >>>>
-> >>>> I am sorry, I do not understand what you want me to do?
-> >>>> Can you please send a diff or a clear description suitable for peopl=
-e
-> >>>> who have way less experience than you?
-> >>>
-> >>>
-> >>>> Again: you need to describe the hardware, in commit msg, in property
-> >>>> name and in description. You cannot tell SW what to do, that's not t=
-he
-> >>>> purpose of bindings.
-> >>>
-> >>> I still don't understand what I should do?
-> >>> Can you please show me an example of the changes you want?
-> >>> Else I'm likely to make a wrong guess and implement it. That obviousl=
-y
-> >>> won't help.
-> >>>
-> >>> The commit message already describes the issue with WRT3200ACM and WR=
-T32x.
-> >>>
-> >>> About the description, do you want me to do something like this?
-> >>>     description:
-> >>>       Ignore an incorrect regulatory hint from ROM,
-> >>>       so userspace can set the correct regulatory domain.
-> >>> +    WRT3200ACM and WRT32x are known to need this.
-> >>>
-> >>> About the property name or flag, do you want me to add a separate fla=
-g
-> >>> for each affected hardware device?
-> >>> - wrt3200acm,ignore-regulatory-hint
-> >>> - wrt3200x,ignore-regulatory-hint
-> >>> - the list may grow if someone decides to add other devices
-> >>> - and the driver will need to support all of them
-> >>> - that doesn't make sense, because it isn't scalable
-> >>
-> >> You need to describe the actual problem in the hardware or firmware, a=
-nd
-> >> then name the property and description accordingly. "Ignore regulatory
-> >> hint" is clear instruction to the OS what it should do - ignore the
-> >> wireless-regdb package/instruction etc.
-> >
-> ChenYu:
-> > You probably have it backwards. The driver is taking the hint from the
-> > hardware ROM, which is fixed and thus wrong once someone carries the
-> > device to a different country. I.e. it is a quirk saying the _hardware_
-> > region should not be used.
+This series adds a driver for the onsemi AR0234 CMOS image sensor.
+The AR0234 is a 1/2.6-inch global-shutter sensor with a 1940x1220
+pixel array, capable of 1920x1200 resolution at up to 120 fps.
+It supports MIPI CSI-2 output with 1 to 4 data lanes, raw Bayer
+(8/10-bit) and monochrome formats, as well as DPCM 10->8 compression.
 
-Almost. I bought the router in Bulgaria and I am in Bulgaria.
-The ROM hint is US. More details below.
+The driver has been tested with 2 and 4 lanes on an ARM64 Rockchip
+RK3588 platform with a 27 MHz external clock. Both 8-bit and 10-bit
+raw Bayer modes are functional.
 
+Notes:
+- 1-lane mode is currently disabled; attempts to use it produced no
+  valid image.
 
-Krzysztof:
-> regulatory-hint for me means usually regdb, but even with your meaning
-> you tell SW what to do - ignore hardware regulatory information.
-> Property should not tell what SW should do with hardware. Property
-> should tell what is happening here in the hardware. In this case: what
-> is the reason behind.
->
-> IOW, why user of a board in country X, where regulatory data says X,
-> should have the correct regulatory data ignored?
+[root@diasom-evb ~]# v4l2-compliance -u 2
+v4l2-compliance 1.28.1, 64 bits, 64-bit time_t
 
-Because users in X buy a board for X and the regulatory data says U.
+Compliance test for device /dev/v4l-subdev2:
 
-Indeed when the ROM regulatory hint is set to US and the driver
-reports this to the OS, the wireless-regdb restrictions for US are
-applied. This would normally be fine, however the third radio in
-WRT3200ACM and WRT32x, reports US on all models including those sold
-in the EU and other non US markets. This creates a conflict with
-radios 0 and 1, which report FR and also with my correct setting: BG.
-With the wireless-regdb restrictions for US, FR and BG applied, radio
-0 refuses to start.
+Driver Info:
+ar0234 9-0018: =================  START STATUS  =================
+ar0234 9-0018: ==================  END STATUS  ==================
+        Driver version   : 7.1.0
+        Capabilities     : 0x00000000
+        Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
 
-Would you approve any of these or suggest a better name for the flag?
-Should ROM be in upper or lower case?
-I omitted 'in-ROM' to keep it short, because the driver check line is
-already longer than 80 characters.
-- marvell,ignore-regulatory-hint (current)
-- marvell,ignore-regulatory-hint-in-ROM
-- marvell,invalid-regulatory-hint-in-ROM
-- marvell,invalid-regulatory-hint
-- marvell,invalid-regulatory-ROM
-- marvell,invalid-reg-hint-in-ROM
+Allow for multiple opens:
+        test second /dev/v4l-subdev2 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
 
-Krzysztof:
-> Do not attach (thread) your patchsets to some other threads (unrelated
-> or older versions). This buries them deep in the mailbox and might
-> interfere with applying entire sets.
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
 
-I used these flags to keep everything in the same conversation:
---thread --in-reply-to
-The documentation states I should always start a new thread for
-multi-patch series. Note taken. Thank you for the links!
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
 
-Kind regards,
-Georgi Valkov
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+        test VIDIOC_QUERYCTRL: OK
+        test VIDIOC_G/S_CTRL: OK
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 20 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test CREATE_BUFS maximum buffers: OK
+        test VIDIOC_REMOVE_BUFS: OK
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+
+Total for device /dev/v4l-subdev2: 45, Succeeded: 45, Failed: 0, Warnings: 0
+
+V1 -> V2:
+- Fixed bugs reported by sashiko-bot:
+  - [Low] The `compatible` property schema contains fatal YAML syntax errors due to missing list hyphens (`-`), resulting in invalid JSON schema constructs that will fail `dt_binding_check`.
+  - [Low] The `data-lanes` schema constraint mathematically allows 3 lanes, which contradicts the explicit 2-or-4 lane hardware requirement described in the binding.
+  - [Critical] Incorrect clamping order in crop selection bounds calculation causes unsigned integer underflow, bypassing bounds checks.
+  - [High] Incorrect validation of `pm_runtime_get_if_active()` allows execution to proceed on negative error codes, leading to a usage counter underflow.
+  - [High] Static hblank lower bounds permit dynamic line length reduction below the absolute hardware minimum.
+  - [High] Potential division by zero during delay calculation if the clock rate is zero.
+  - [Medium] Unlocked V4L2 control helpers are called during initialization without acquiring the control handler lock, triggering a lockdep splat.
+  - [Medium] Mixing goto-based error handling with scope-based `__free()` cleanup in the same function violates API guidelines.
+  - [Medium] Changing the crop height fails to update exposure control limits reliably.
+  - [Medium] The active format state is modified before verifying PLL configuration, leaving state inconsistent on error.
+  - [Medium] Unlocked access to shared format state in `ar0234_get_frame_desc`.
+  - [Low] Using `DIV_ROUND_UP` with a 64-bit numerator causes a link error on 32-bit architectures.
+
+V2 -> V3:
+- Fixed bugs reported by sashiko-bot:
+  - [Low] Standard properties 'orientation' and 'rotation' bypass standard type validation.
+  - [High] Incorrect initialization order of the V4L2 active state and control handler breaks lock sharing, causing lockdep splats, data races, and masking a self-deadlock in `ar0234_set_pad_format()`.
+  - [High] Brittle and restrictive parsing of the 'link-frequencies' device tree property.
+  - [High] Invalid rectangle clamping logic in `ar0234_set_selection()` allows crop width and height to underflow their minimum limits.
+  - [High] Incorrect power-down sequence disables regulators before stopping the external clock.
+  - [Medium] Unchecked return value from `v4l2_subdev_state_get_format()` in `ar0234_get_frame_desc()` may cause a NULL pointer dereference.
+  - [Medium] Unconditional overwrite of the VBLANK control value upon format or crop changes.
+  - [Medium] Missing `media_entity_cleanup()` in the subdevice cleanup routine causes media graph objects to leak upon removal.
+
+Alexander Shiyan (2):
+  dt-bindings: media: i2c: Add onsemi AR0234 image sensor binding
+  media: i2c: Add onsemi AR0234 image sensor driver
+
+ .../bindings/media/i2c/onnn,ar0234.yaml       |  121 ++
+ drivers/media/i2c/Kconfig                     |   12 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/ar0234.c                    | 1294 +++++++++++++++++
+ 4 files changed, 1428 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+ create mode 100644 drivers/media/i2c/ar0234.c
+
+-- 
+2.52.0
+
