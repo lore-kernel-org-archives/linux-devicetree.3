@@ -1,115 +1,165 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2676C2BFC7B
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787209278; cv=pass; b=llkDWnocoQLJjMqM5XJBDR3QfGHC56yR4TQLzsxAZ9+pO+E7DB/f133KzWOCHveOMTqmz/oWRYtVO5C4FL8jppXsX8W8f0+Tv8LGFEMSz8wzXwn7g+uf7Hs1R9SL2FV/AZasOWPVkTlF6sr0cmQYT4mcVPXbguNLxf2KVwJn32w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787209278; c=relaxed/simple;
-	bh=Kty3xb0qI1jeD5aDGQBFMdTDAKANoOtIiofJOjvXrz8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DD43B7B99
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787209474; cv=none; b=aAbPQSDSj/LELhyJhMLlbnxDKeMVh2DOfUKaAqDUnr8dxsoXoRixEZ8y4lcuoSXoTTZQGV37PvzOFVw2KxNGUCLHxkJY8uBQARiqebFSSAqYHo+3H0GzH3VndSIE9hWzUppnnjOK/+hvYgYFLI2mun12HOvKPptdxsce9bJhC2Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787209474; c=relaxed/simple;
+	bh=Cusf2T7B4al32h10rLH42UCGifbkj8cK5s3GiNopXUs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uSZD6vVJgL/eGM0k6pWpCYImltqHNc6dqxkiPOufCK1dLfWwDROIj9WwQr0/0CioYe/VBUMULknzIOthIF13yjUFm4zxn74XbQcQeWOkPCh070Ytprtyx1LDFVEcuTkrjNdc0GbZ9CWnD9CqFEi0FGYs8UGMSPMBM7HKoIUPQbk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r0YL0LrF; arc=pass smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=iBBY9SHNQg+EnJRBw65qnYjcXeQGPRRmI6uRyVaD8VwfOVmcai4DU9TxOLINztuddEkbcDSg7KzjECWgu2J5bsRhMmRmrDWIpDeQgPAjnY236SVlpovgfzvpLRWGwYlpNfpWCVSrQztIc7g0HrWLlz83tpy8EbihYvd6J96tdXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ltu5V+rh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r0YL0LrF"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2055f5a993so200511366b.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 00:01:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787209275; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M8OV12f9oV7r12AwdeHsOBOZEG8dIaFcvqaFCwjewopcbFXOXqh89cUAuRdgKNRx6Z
-         XUC19nN/bXlUTQMjOSZ6DuRqat/fexUwO/xoZG0cJj42PFpa/72ubgrba0rLWoRglsyJ
-         QGjePKgNd0egLfCf7VWyfr3G7sJmb2/r4aTnaa/m7llkSCRJZsLj77EccBOoo5uFIuOJ
-         m55up+Bu9pqEdYO/6oGiaV0Bb25w3FAfGHfOELvmES6fDd3k2zyJ+2OYHgfcxixIJ5QB
-         tTR+lkiUHbSNPbv9KGCgaTLG11jBIaN3xv3iSf1UFO8kJ8Vspd8HHfmVv/oYpqW5Grhx
-         4VCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=AJBG4gSSkw0lXa5DQuNF9zreM4sRStgVFPDhjCBnh9U=;
-        fh=x+QreewciHdWVAYsBb+xSUYkh0Xl4lvqNrDY7cVMHbU=;
-        b=jdKoyxhWJfVVpLI9JDa7xMjF52uIGM72L04ix6BJFx7cn2Kzf5+px6fj9Jb5PvdIkP
-         QypBTq0rbta7S4TK3/H5sN1WIBc58zYD8BfiFFVlEHhjc8S4YmOAVYlFl+IDwVGpN3Bj
-         iyL7AOdaf2n/WWfa6UJ0rYlWuSOgyCPVOYHxmUuFfJL7i6z1iHeWoRG7HJKqyaSq4rDW
-         nert2smf6z9+Pz3valq4BR7Xaeh5eFAVWzh1SjCFp8uWO31NziGKT/liFde9BPnIuDSK
-         DZ5SIQJOP9/HL8u79rBpdTP9jsWrm10C/mEb6kxEtg2qmf2Qp76s+x4NBA3DVLU9mFvs
-         2LCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787209275; x=1787814075; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AJBG4gSSkw0lXa5DQuNF9zreM4sRStgVFPDhjCBnh9U=;
-        b=r0YL0LrFjG14nYVhNtaTpnURy7obNEYKMKjuIuHLwUdooLSh6/K0JfIsbAN4i9dqbp
-         L8nxOCe+j9y8bQwU6Gy4WM+757RrXXqqUpmTErWwEvVSTFRiE4n8CD+cwoYID13Y96XG
-         pvjnTp56b4743esk3kAf3TghyzV0wvSxMqGebUIdsdQ+3N9zqcvqtSQcUOrBv5ouag5t
-         lU/rj2e/r3yj5oZmOkmRfM/VcoOilt4rBJLCzkmX3zUGGKHSN+Ca+/bYLfbIsjUCYffx
-         ZFalhXGIka5JaWRrBiTwN0JgTgmKKvqPF0mVJEDVwnnjn8oSUObJntIHI05EkLG2LNuT
-         WEUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787209275; x=1787814075;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AJBG4gSSkw0lXa5DQuNF9zreM4sRStgVFPDhjCBnh9U=;
-        b=Bbd+nI7M2AVKIPed3oAbL5NcureCsI2mhB+hX1QZ+aqOsTMvGctNcCGUXnFeRHCdP6
-         PkpzJqF9SS6T+DuMjCmnROWq6m5EgCyeiUk0ZMu30QXcXp1XdIW16zOHK8ClXqn3PSeN
-         /Wt0JLL9gV0J/pRWtHjzQLjfB5NNozsFc3pn4hebLsgP6XqxFTmBfRYHcpxmAnPiOCVl
-         ZTJNwNZom9M4QFtWqeVdocknulaznLQXrID0sz7Tgvp83YxZ+H4MR21uI3REKF6qe5Wi
-         AhHMWJQtPs5u6rzfbcZ2ovXHzu6YpyAIBT9hIW8BZlSXeHtA41GNjDrLGMyMb2oq8aO4
-         WEAQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpeH0lu7cG95pAuYz2lyyl/oF38lPDuSFPEBUIhdoF61zSKXmdbDri9JyFIsNyNVBxbRJe4yr4ZLvU9@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWbkuJYbl31I971BUPg32CIVOZZYYc1ldq7pC4zjX/iITqoHT6
-	8IyIsHpkZ+Zx3KR6O24tcLU1fHoCV6jdRft6VvHpLCKvOLu5UlBcLuRCE8EGsvN0Rf/Ncp7XhVa
-	Frv30UtxuN/eJP7Pl/oRCroBDQa7dIZ0=
-X-Gm-Gg: AR+sD127A/Cbq3RMDqV17yziTYjDMobvcV7nTeMVNRGjxwhO8Mq8IIkm7rvNtob6s1e
-	cz1m47KC1pjh3Ms+/DIlr8Bkhu7/qHy/gkY57Z+S6Yv+qpjcC6Z43FqR00u9y9gTpaIfmPsY6v2
-	4cMoBE6YIaW6LT2C3rVaPFX8tTQwaUxjqWvaMeVoBySvpSvJ8ixnq6CC0LjkGz5EMKyKJBpIjOq
-	xV2gi0WSX6/iAKz7/RmUASMapldFcHo2BGZHWAIyvLQNyaxuaHxwX9NzskVaz9+CK1p9+eWWrye
-	4xxa11APra9iiX43mFUQk/XHIoRPvXSJhKhOKJHlf84=
-X-Received: by 2002:a17:906:ee82:b0:c1c:2007:298e with SMTP id
- a640c23a62f3a-c242e38bf8bmr723860066b.24.1787209275106; Thu, 20 Aug 2026
- 00:01:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ltu5V+rh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2819C1F01558
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:04:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787209473;
+	bh=Cusf2T7B4al32h10rLH42UCGifbkj8cK5s3GiNopXUs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ltu5V+rhF+34mxFIWuu5tU/suXKGLd5AhOIPnzPZp9urnSKf9VJ8EIsQW96gIkByQ
+	 jKIHe2Mnzdxyr98U6vZQ09qGUeNds3CD384Hn/JB9Z3F4QmW6lVsNIwq6k+b7vC9FT
+	 267T7HcoTXxb0qGVxv5IsV62Ctx+v2hK46ga9WWie8l1WQrNz9KP3G4SCZyFsuKnYA
+	 cQn8raKsRDRhIaMiDMG6G4KczC1esJDfvkwZn/l0iZe/HIjRXnKwirzM+eZy3NA/xO
+	 YVa86yd4qIGEJbrYtkTlW94CQsKDRIDVtI5kTXDMARcpwuc4k4ND1C2c8SIeVm+uaY
+	 kDZj7EjcX5R7g==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeb98460c6so2193505e87.2
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 00:04:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqL3T9CS8FhLoBcGbHuoYwARC7SFLmuAVCfxysHFYRdXb6v1qfXukwkBt6ZFfc9mgr4WsPems9Oz3eV@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJGEt/YZC5g18PB03FHQkLfV74JWXmWfNutTmGJLH9PSKVoon9
+	42nivn4dJ6ptknkgden0F4aWYTpOH/6q6QW1sGhNgeBGkcI8Xi7UAVF9oFGwih3MewSMhYne2o/
+	QyUiM+46NjJ3LLwn10fAFptged47kjVQ=
+X-Received: by 2002:a05:6512:3f25:b0:5ae:bf45:e3be with SMTP id
+ 2adb3069b0e04-5b478cf5425mr3737000e87.21.1787209471579; Thu, 20 Aug 2026
+ 00:04:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819101853.44681-1-l.scorcia@gmail.com> <20260819101853.44681-4-l.scorcia@gmail.com>
- <h6cxeranayykvjnco5vuaoccuknoiu4yiancmwugouewucb5k5@osmdfzfc5dsh>
-In-Reply-To: <h6cxeranayykvjnco5vuaoccuknoiu4yiancmwugouewucb5k5@osmdfzfc5dsh>
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Date: Thu, 20 Aug 2026 09:01:03 +0200
-X-Gm-Features: AcwNN1XJDhHftqNShtFzkYfbAjGi7imuQVN4JqERVqBvua6db_cDNPHETOvjtjs
-Message-ID: <CAORyz2KMg1-zxSPVCiFCiC4EpVFyR9=Tcowim9vVzv-g7SS35Q@mail.gmail.com>
-Subject: Re: [PATCH v4 3/7] arm: dts: mediatek: mt6589: Enable toprgu reset controller
-To: Akari Tsuyukusa <akkun11.open@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
+References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
+ <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
+ <20260724-dancing-skunk-of-novelty-72c1b8@quoll> <CAD=FV=U0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr38p+YwRnC_G6w@mail.gmail.com>
+ <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com>
+ <CAD++jLnQGy_LvRxMjq1s2Hs9Hn4LNTFZ0W17zC1YLs5StwfqMg@mail.gmail.com>
+ <CAD=FV=VuVdq_=TQmONJZak84S2c2-2yQ8DS0k_odYsUfg0C+rQ@mail.gmail.com>
+ <CAD++jL=VLzW-4eB=izJwaTJ+6xObk9+AQGTDK6ABdrGX4K3vAg@mail.gmail.com> <CAD=FV=VsiQfoGYHw3D2xmV=Jedu+cmqEfrCk0mkKFzsrRCQcTg@mail.gmail.com>
+In-Reply-To: <CAD=FV=VsiQfoGYHw3D2xmV=Jedu+cmqEfrCk0mkKFzsrRCQcTg@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 20 Aug 2026 09:04:19 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkJq0t8sC6_S4LHERbTTiUanKh32QJtdDtUZrXdDEHgMg@mail.gmail.com>
+X-Gm-Features: AcwNN1WqJo48aeez-Evap8v6fI7Rfgzep_6FDf8AekLbZhIutRdP2zHCmPTfiRA
+Message-ID: <CAD++jLkJq0t8sC6_S4LHERbTTiUanKh32QJtdDtUZrXdDEHgMg@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for frankel/blazer/mustang
+To: Doug Anderson <dianders@chromium.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
+	soc@lists.linux.dev, Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
+	Brian Norris <briannorris@google.com>, William McVicker <willmcvicker@google.com>, 
+	kernel-team@android.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Please drop my Signed-off-by from this patch.
+Hi Doug,
 
-Of course, I'll do that in the next iteration of the series.
+On Thu, Aug 20, 2026 at 1:41=E2=80=AFAM Doug Anderson <dianders@chromium.or=
+g> wrote:
 
-> By the way, this header is not used by any part of mt6589.dtsi,
-> so I think this line can simply be dropped.
+> > The calibration business and what it is and where it is stored
+> > evades me a bit...
+>
+> The problem we're facing is _finding_ the UFS node in the bootloader.
+>
+> The device tree for the board is stored / maintained outside of the
+> bootloader codebase. It is compiled and stored on the device. The
+> bootloader runs, locates the device tree and then wants to make
+> changes to it.
+>
+> The bootloader needs to _find_ the UFS node in the device tree in
+> order to make changes to it.
 
-You are right, I will remove it.
+So, thebootloader needs to make changes to the calibration of
+the UFS storage, and it needs to find the right UFS storage
+to calibrate, right. I get that part.
 
-Thank you!
--- 
-Luca Leonardo Scorcia
-l.scorcia@gmail.com
+But this is what boggles my mind. It is actually a pretty
+deep philosophical subject.
+
+A piece of software (the bootloader) want to make changes
+to the calibration of a piece of hardware, which it somehow
+has the calibration for.
+
+This pretty much means that at some point *some* unit
+of software producing that said calibration already had a
+handle on the hardware.
+
+So there is a missing piece of the puzzle here.
+
+This is where the imperialistic ambition of device tree
+kicks in: the piece of software - be that a manufacturing
+run-it-once piece of code - that produced said calibration
+should have *also* used device tree to find the thing it
+was to calibrate. Supposedly looping over all UFS devices
+in the device tree and calibrating them one at a time,
+something like this.
+
+Ideally that piece of software should have updated the
+device tree too, but OK that is intervening with software
+engineering, maybe it does not have the capability to
+do that.
+
+But that piece of software *should* have at least encoded
+some kind of identifier for the thing it calibrated, like a
+unique serial number from the hardware, or in worst case
+at least the device tree node name.
+
+So the information to locate the right node in the device
+tree *should* have been present inside the calibration
+binary blob thingy.
+
+What is controversial with this patch is that an authority
+on the side comes in and says with a device tree property:
+
+"I have a random piece of calibration data and only I know
+which UFS it is for, so I am going to encode that knowledge
+into the device tree as an alias."
+
+The device tree "thinks" that this should already be evident.
+
+The device tree has the underlying assumption that
+everything is using it. The kernel, the boot loader, the
+secure operating environment, the GPU, accelerators...
+also the manufacturing tools.
+
+From the view of the device tree world, a manufacturing
+tool not using device tree is a hack, and if it is a hack
+then the system can put the information in there using
+a hack, and this whole ambition of finding the UFS node
+from the top down is moot. It's like polishing dirt.
+
+Now, I know this way of thinking is oddly bureaucratic
+and imperialistic, but it is in the core essence of how
+device tree was thought out. It wants to be the authoritative
+source of all hardware information, any other source
+is a hack in the view of the device tree.
+
+I don't know if this solves your problem other than saying
+"go with any hack because this takes place in an imperfect
+world", but at least it points out how this kind of problems
+collide with some of the core philosophy of device tree.
+
+Yours,
+Linus Walleij
