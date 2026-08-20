@@ -1,88 +1,69 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6123C306744
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 04:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B71388371
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 04:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787201424; cv=none; b=PkmXlRmw/R0yahW5CbbL/S+AD5r2mNzDCigmqIDgj5bYRC+Pn+bzKBJi+M7w9nzyBZDwGOVod96mQlXZi3DGOFdkfsV5ypEz5RrN6aoKwa4rbQfUTrqyikfFFyke+G55Qls8zRmgpDCwQegimkfEmtWKdWSslfA4anHgzfD2Kug=
+	t=1787201839; cv=none; b=NrMh/EQOTDqd6T9WV4J3INWpOtlvNA4ktNm56p7S4Zg1vgWIHlxvVxprpjSKP5oC/OYmDXZ41TDtZ1u2e7GKEUSe46hSFrwf3vEB31ZEnbL+UfJJMAIIu/fwdHDvsmZFpzDRpjZAbHlMus4SXD2d6334vmRX5Go5BSxai9TRxAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787201424; c=relaxed/simple;
-	bh=3euQFbvNLTsp2NnCKsS0YWj6dpCwksy4ahqqoiLa1rE=;
+	s=arc-20240116; t=1787201839; c=relaxed/simple;
+	bh=qafYtsmai3IkLm2TivW5bxUwxjG5ELXA+P5vfaqBV4s=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ex9YOTwrxOF0rhY8hOWBSXh/9GAAr7UzRBHbz46Schd/+8BkRt49kJqjZj4NHoI63PqLMWWstuY4pczebQq6eAj8g1nN4KmmneYYL4SCVWbf32Un8dbzjJbL01xuk4rEi64I3VJ3FJCP9wsbe7xJEUG6mXV2cBrO+ee6BFk/SN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YH5vNuOv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BukrHzjQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=nX0r21I7TvjdRPAP0CRAy/6q2vPW7gX+YueTCNP8y6O7KUsxzKOFgrmWasG5VrqiEIzUKWbqR+lu5u5p/SL2Mvb+nlv4yKXzY/bg3fNnSN7lspE9RQ5AGxWx7mHesSbFSumMEJ/THkQodbBCbH1Naeo1JJ7gS/Bgyu1akLaVKik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nfE31Fqd; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YH5vNuOv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BukrHzjQ"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JL8H1t231711
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 04:50:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5WprDP7sUyotVrs/inP5w1FMYl+rlQHhGMOztWGLyUw=; b=YH5vNuOv7HxTZlsg
-	cULbAyI9bJ3gpk5llU2ZHCZ5o9qB7TG1md20+Hpgu8GSyrfyQN3vKOAfVTiveTrF
-	w/YpCNAmQ1usZuLE9UUugZvcGQPA7CO5rY93Wp+A7ruK2Iip08NZuRgkAS4l3t+f
-	CBYiHrzdN6kij8l1pRRvFAcXiPEtzLgAHAtSp4GKvb7A0fAWiQ1x+Zz4OqtMVsgJ
-	SaJbAW9Qr0Ezhxc+tQYlfu/3Bz+g/B9le+xsjKk+LhVW/2KITHF8lj4dcnReyP26
-	fr2vZJU2U2HAPc6Z8YrksA0Z3Ms8EjbZ4eBKYulmC6h818izAuBKRUy6fm6GKbKj
-	bfianQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5esau5gh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 04:50:22 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso23608345ad.0
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 21:50:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nfE31Fqd"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cf27856f9cso17307395ad.2
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 21:57:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787201421; x=1787806221; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=gmail.com; s=20251104; t=1787201837; x=1787806637; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5WprDP7sUyotVrs/inP5w1FMYl+rlQHhGMOztWGLyUw=;
-        b=BukrHzjQchGhSsl7uhD32ojnmq1T0UcyhtqaIxbQpbW2nyIAqvrE5q8eiBrW8aWDdm
-         xpwR4rZWAI/Hrpv0d+QvAqGxXwxFZS34WXpmK9UaJ2YjNeUD3HcQIw/+/IfBADfDLBoM
-         JLx7iRO11hjPw8S4CV6u0lHPu0eExmPM+Buu+RvfWDhXUzTSHnUzZB1tQmRXqq4/Cxwu
-         lJBce7AhvaH3obee+JNy8FLbVb0xj77RjTndsckJIjVhZDAJER6Ogz5zSNZ52CrJ6GJt
-         ciyE6IFyDo8VPgbGskqDNcA4aDLxYiY6zG4Aa55MVrxnvErDJYHAUGYn3ZJEIiEbKIsP
-         qtoQ==
+        bh=2KTVeqO5oz0Ec0zuEdP3whSNxqddIwjvBn/fVV7ajYU=;
+        b=nfE31FqddjkR7TMnunZWMWZgEToNEr3sXz01ut+ypUlrz45boqqfVkViSrwd8IQ59C
+         CbVEB9xh0MI4WkXQAAt0OGEU4CIZsao1oiooZp2SS7ZUpTtn9bPGwnojKomw9I+dOiTt
+         GarBW9mqomx8aKcHkiO89HYIIV9WxQt6RBh7JhIuMh5KnGX/b+NXX4WTNsTpUAjTkylM
+         hs05jFBZtGScZmfFk6vt6Peh+z8A+isIbS8YupQiWRTpgEhMki+eGYd9nkoKCwxkn1Ql
+         2bbAq4W0w3y+KdeTfqFa+z2PlUHzRO8sFvLvCkFTtNO9Hu13V0fAYwZ3e0wXAQarqaS+
+         qkqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787201421; x=1787806221;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=1e100.net; s=20251104; t=1787201837; x=1787806637;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5WprDP7sUyotVrs/inP5w1FMYl+rlQHhGMOztWGLyUw=;
-        b=E6tbbcl5iWQxSoe08Xohyr/0dyUNZ5QnoPFA4w1SSjo37plInf2J49V0FVOnP/DUti
-         3Xa09kxpSWMLnlWLRhRLLxiKWiVERr3dtiZDlidue5tsMDbLc9QDYASBUr1paaek7lp/
-         IBIccYre/DXA87h+J1s05J8xIDtDMQTHMhifUnGnDhU9bHNQwUD3yxv7M49Bow7Pp64A
-         9eAnVIsY5eDI2mHAVxpyiRjKIgrnp9xvt7kBzprxtXeBJd6TeUNv5n2M0S1ceIvQhrMA
-         cbSGdDXvWpUmh5oVsDVeXBFDXc98pY5NF+ut3Vbc4ZASi8JFeMFobNS0Uq8l90yNEj33
-         udVw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1kERhQRKGwGQkGd+TfNydDPQKgB+pDmQjrVececYo8zdF9y3xTFIP6DY1zg9czbkLripEABkl7IsP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqCaXlirKLeLJGCfuIlZMqAprn1CyYGZkpFRIn8fntqaPIdqZh
-	gPz0Eo0Wxe+VWNqKrtPahVAqKBjf47Dfy7o2cyIRcEEMFAFUu3K59ZtNzJCHoiO7Xd4soMaKnl+
-	mzcy5KrvzZlnQ9MEQre0Y4qcrnQ7pLnkNEZrWvLJ2EUu5FBND8tabUo4XOQkr6lL7
-X-Gm-Gg: AR+sD11Uvu1gSLDyDb3gp8lH/pEG9sGq1LZKOYvk6Gs1HQH6jBu/EZcDOrDIzliQMwY
-	syT8FuvvF1kfJiKBF+X6k+EU9zEjhlWcFC3MghxtBy3avF/03860rb3nw3HeHQHmKBrRg7zARdo
-	fdphBT2MCWCJsghLcP48rNeGS6jzGoahNf7bKlcUeUOb2hgLG7PbaLtpeCX361w5xT5lk8ySrpP
-	0gXt5uxCXNsEBykgi90KoOnTTa8flSykjMnVAaJVHuwcsTIVrNU+okWWMulX+u6S3Wygqo5JS81
-	aTW2Rv4cHN2QPm0ChnzW3fz1v58bRqSYA6wOEJITTd31NgNrra8F1CU9l8zatOhK7gpa9ZV1S1t
-	BqiUBmipKbN2cGjBDaccmzOW4T9gW7qvtPbVOmBiujrkAppa8E8WXeeLw/vkJxO8/TVWS85cbNf
-	DDw4bD74FFkqd6BA==
-X-Received: by 2002:a17:903:291:b0:2c7:f4bd:91b5 with SMTP id d9443c01a7336-2d5fd3c1973mr194265235ad.0.1787201421039;
-        Wed, 19 Aug 2026 21:50:21 -0700 (PDT)
-X-Received: by 2002:a17:903:291:b0:2c7:f4bd:91b5 with SMTP id d9443c01a7336-2d5fd3c1973mr194264455ad.0.1787201420588;
-        Wed, 19 Aug 2026 21:50:20 -0700 (PDT)
-Received: from [10.149.122.146] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf13f4bdsm12571709eec.20.2026.08.19.21.50.15
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2KTVeqO5oz0Ec0zuEdP3whSNxqddIwjvBn/fVV7ajYU=;
+        b=Ck57oN2gvINYh/rnuc0aQdtk4c36OuwigdD3rG1c1Jk+uVTHnNaKGjEo7QMETE+RTA
+         QZqQgATkVKzAlsDyWixdgKv4GqjQVaffUEjguUdtgGiIwQ9/JAVV5GFYyI8N78fTOZhm
+         hoP3EZ93RwKWljx5f2u4tJDimqIITEyin7M3Q1dWXJPgwyskwmEkPYLijOTi+/Xxu89X
+         KIp7tWziQm9FB9waeAdcty/m0uJ5ZGcAwmm0VZFJHVEqcesTHMSz4byGZx3QEmUhkcvI
+         b3SNs2YEOF8rqLG7W9NiEITogf92GXJoTUErYpTKjrAbUafENzWbLzRl8Dl45F6BqRPg
+         0MxA==
+X-Forwarded-Encrypted: i=1; AHgh+RpqJefz0K0kQIaKpNLmeKjJmP4tTv/REjKA/kmC1d830IQmiL0NuEVAgtimUalOpfUokvTVz2kg+yP9@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHPMJmLwYuT3pIh6Ns8pLkjNJ6e9MTZmNCL4DSJvG8+zJbPYTZ
+	9kswD96rYiYFSicmWXvBeiE4hsiDjdGbiaJ0FsvWaAH5mK+NVuE6PVrT
+X-Gm-Gg: AR+sD10pXuic2Jb320ThfIVYFAurtHwEXzSeEXH/NvEkc8lsxzf66iGra4yzYmECcQs
+	Zv3JliJFWl8X9EP2EXjPvQPhCHam5stQ0afAyBmjLSTGwZbGaFiXD33sXVnCMfeI8+dCCaLFDvM
+	HfX295b0rDH2K/d4x82U3QdgT1kTbczE/DC2mdPvBIwCgqEDn2EMV6O2XnEfBsF1eZiLekOL8lD
+	5HLxjFMK9wsE/e4CBXsWehJ0//p5yEhgfc4eJu824yPeBaNbe/ArbPGrx64xg+xhINC+ycKD2tv
+	r4PmfNpgzab+g6UIAOA90SaYFfzgHrlCbabvZsfnM9Xdq85Y+0nN5Hlvlj3wkzaeqOW2on1vp81
+	4d1o8iWQc9puWLoZiF0vJb4w9u157taT/fBzOVUtSyxTm8AGmax22Y8c0IKJ8IsdMUHlpl0OnOS
+	TM+aEieSCaw+k0Z+eQnn+FUbxWZ8Un/c+80atIAU0r7+Y6UUSAiuiTZ9J38FnElZrcAqw4dGWKD
+	MJxk4dipToDflXAg7c9n2zwzYOhcJmkGbfOXw==
+X-Received: by 2002:a05:6a20:9151:b0:3c4:3112:3b with SMTP id adf61e73a8af0-3cd0137c8e3mr14930707637.18.1787201836838;
+        Wed, 19 Aug 2026 21:57:16 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef77be3sm12179683eec.10.2026.08.19.21.57.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 21:50:19 -0700 (PDT)
-Message-ID: <b6e174b8-be0c-4d7b-9078-75a0ba5a220b@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 10:20:13 +0530
+        Wed, 19 Aug 2026 21:57:16 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <033d3490-9848-436f-a7ad-e6ab73768031@roeck-us.net>
+Date: Wed, 19 Aug 2026 21:57:15 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,92 +71,795 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] dt-bindings: embedded-controller: qcom,hamoa-crd-ec:
- Add qcom,tsens
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
- <20260728-ec_add_more_commands-v1-1-771abd65ee1a@oss.qualcomm.com>
- <a46f1394-f006-4a13-b251-e5e2a0494b89@oss.qualcomm.com>
- <f079642f-87c5-4b85-bba7-f4d25e2be2a4@oss.qualcomm.com>
- <01a90313-8cab-4502-92ed-761834763f8b@oss.qualcomm.com>
- <282e3d1a-17d3-4fe6-8435-ac6241f69eb8@oss.qualcomm.com>
- <1146dacb-ca5d-4ee6-b7df-e731bbcb56fc@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/2] hwmon: (starfive-fan-tach) Add fan tach driver for
+ StarFive JHB100
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260819091601.41077-1-changhuang.liang@starfivetech.com>
+ <20260819091601.41077-3-changhuang.liang@starfivetech.com>
 Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <1146dacb-ca5d-4ee6-b7df-e731bbcb56fc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAzMiBTYWx0ZWRfXxgCC0wX7/CNS
- DIXE0ctpM20M5k3HDqjOxrqD1uaFhE5Pf6TnFjew5lIHk2q6dEKArn5SXl079tpqfoEFtQ25/pC
- VSr0ChCVG67jSGQAj121a3Mf8CNtT1I=
-X-Authority-Analysis: v=2.4 cv=fKcJG5ae c=1 sm=1 tr=0 ts=6a86878e cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=ZTAHBudFxCM7PCH5DQwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: QRMXU1lK5MhnztB46aAEPZ-gRwK_-Jlw
-X-Proofpoint-GUID: QRMXU1lK5MhnztB46aAEPZ-gRwK_-Jlw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAzMiBTYWx0ZWRfX4+4gKi9gUCbS
- PaagmY1nVgvIhC0L0I5mkOxBYylfO/NRqbsE2rktF8jVlh1OhfK8hjFh8g/P++ZnRCbaCLpvhhq
- ZnvodCBSq/VMaypNgro1Dryxh+HaWjPfTw/6cnBGL/lMCU05sHKkwX9gTOBHFuiUbVVCMMLn8Dh
- gMY3BJxRIOOEMmvM+sVPVbuklUnPaxVtRFPjePhvZjIaT7LIbGz3JXcfBy2h0gZRfpLqppJ7Qx1
- 1XmfE7mW5zQ1G3qdynVwNLvjVaZr3LfKPmB7E/vAtmk1Aq4FmlBpm0tO/DL/6oL6CAfog9s/41e
- P6whLVOwhD1N00U06a/YPFjIEHnnz2hsW2LshSkyaPEFqkOqh1CQD9ECX1erhK50f3XwDeBsiq9
- v0hF5RypfRw2ApyWohLu8s4xp5lNP6fZgE09GPNVgdLVAusSpQo0WLVZc+YWO9X80AUpVddqOmP
- OcrBy8l//MQHJ98Ofxw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 impostorscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200032
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260819091601.41077-3-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-
-On 8/19/2026 10:08 PM, Konrad Dybcio wrote:
->>>> Each tsens provider has more physical sensors (16) than the count used
->>>> here. The leading N we take exactly matches the number of sensors
->>>> already wired to board thermal-zones for other purposes (CPU clusters,
->>>> GPU, camera, etc.) on that provider — e.g. on hamoa, tsens2 has 11 such
->>>> zones and tsens3 has 15, matching qcom,tsens = <&tsens2 11>, <&tsens3
->>>> 15>;. The remaining sensor IDs aren't referenced by any thermal-zone on
->>>> this platform, so there's no per-purpose reading to include in the SoC
->>>> Tj average.
->>> What you said is true
->>>
->>> It also doesn't answer the question why that isn't the case
->>>
->>> Konrad
->> What I meant is, the driver looks up a thermal zone for each sensor id,
->> and skips the ones that don't have a zone in DT. Sensor ids past 11/15
->> on this board don't have a zone assigned, so there's nothing to read there.
-> You can keep repeating what you said and I can keep repeating you're not
-> answering the question "why do we only choose to read the data from
-> certain sensors and ignore others"
+On 8/19/26 02:16, Changhuang Liang wrote:
+> Add fan tach driver for StarFive JHB100 SoC.
 > 
-> Konrad
+> The controller supports up to 16 independent fan tachometer inputs and
+> reports fan speed in RPM through the hwmon sysfs interface, along with
+> stall and low-speed alarms.
+> 
+> For this controller, the special clock and reset operation sequence is:
+>    probe: clk_prepare_enable() than reset_control_deassert()
+>    remove: clk_disable_unprepare() than reset_control_assert()
 
-We only read sensors that are physically wired into the board's thermal
-zones, those actually measure relevant parts of the SoC. The rest aren't
-connected to anything, so we are ignoring those. This is what I am
-trying to say.
+s/than/then/
 
+> 
+> Co-developed-by: William Qiu <william.qiu@starfivetech.com>
+> Signed-off-by: William Qiu <william.qiu@starfivetech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>   Documentation/hwmon/index.rst             |   1 +
+>   Documentation/hwmon/starfive-fan-tach.rst |  34 ++
+>   MAINTAINERS                               |   8 +
+>   drivers/hwmon/Kconfig                     |  14 +
+>   drivers/hwmon/Makefile                    |   1 +
+>   drivers/hwmon/starfive-fan-tach.c         | 561 ++++++++++++++++++++++
+>   6 files changed, 619 insertions(+)
+>   create mode 100644 Documentation/hwmon/starfive-fan-tach.rst
+>   create mode 100644 drivers/hwmon/starfive-fan-tach.c
+> 
+> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+> index 29130df44d12..0d64e4cf1051 100644
+> --- a/Documentation/hwmon/index.rst
+> +++ b/Documentation/hwmon/index.rst
+> @@ -253,6 +253,7 @@ Hardware Monitoring Kernel Drivers
+>      smsc47m1
+>      sparx5-temp
+>      spd5118
+> +   starfive-fan-tach
+>      stpddc60
+>      surface_fan
+>      sy7636a-hwmon
+> diff --git a/Documentation/hwmon/starfive-fan-tach.rst b/Documentation/hwmon/starfive-fan-tach.rst
+> new file mode 100644
+> index 000000000000..5ca03b52ad58
+> --- /dev/null
+> +++ b/Documentation/hwmon/starfive-fan-tach.rst
+> @@ -0,0 +1,34 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +Kernel driver starfive-fan-tach
+> +===============================
+> +
+> +Supported chips:
+> +
+> +  * StarFive JHB100
+> +
+> +    Prefix: 'starfive_fan_tach'
+> +
+> +    Addresses scanned: -
+> +
+> +Authors:
+> +      - Changhuang Liang <changhuang.liang@starfivetech.com>
+> +
+> +Description
+> +-----------
+> +
+> +This driver implements support for the fan tachometer controller found on
+> +the StarFive JHB100 SoC. The controller supports up to 16 independent fan
+> +tachometer inputs. Each tachometer channel measures the number of pulses
+> +within a fixed 100 ms window.
+> +
+> +Sysfs entries
+> +-------------
+> +
+> +==================== =======================================================
+> +fan[1-16]_input      Fan speed in RPM (read-only)
+> +fan[1-16]_min        Lower fan speed limit in RPM (read/write)
+> +fan[1-16]_enable     Enable/disable the tachometer channel (read/write)
+> +fan[1-16]_fault      Fan stall indication (read-only)
+> +fan[1-16]_min_alarm  Fan speed below fan[1-16]_min (read-only)
+> +==================== =======================================================
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c545aa121d51..83318d2e3e2e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25897,6 +25897,14 @@ S:	Supported
+>   F:	Documentation/devicetree/bindings/interrupt-controller/starfive,jhb100-intc.yaml
+>   F:	drivers/irqchip/irq-starfive-jhb100-intc.c
+>   
+> +STARFIVE JHB100 FAN-TACH DRIVER
+> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +L:	linux-hwmon@vger.kernel.org
+> +S:	Supported
+> +F:	Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
+> +F:	Documentation/hwmon/starfive-fan-tach.rst
+> +F:	drivers/hwmon/starfive-fan-tach.c
+> +
+>   STATIC BRANCH/CALL
+>   M:	Peter Zijlstra <peterz@infradead.org>
+>   M:	Josh Poimboeuf <jpoimboe@kernel.org>
+> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+> index 5c2d3ff5fce8..2c0000f8e777 100644
+> --- a/drivers/hwmon/Kconfig
+> +++ b/drivers/hwmon/Kconfig
+> @@ -2383,6 +2383,20 @@ config SENSORS_SPD5118_DETECT
+>   
+>   	  If unsure, say Y.
+>   
+> +config SENSORS_STARFIVE_FAN_TACH
+> +	tristate "StarFive Fan-Tach driver"
+> +	depends on ARCH_STARFIVE || COMPILE_TEST
+> +	depends on HAS_IOMEM
+> +	help
+> +	  This driver provides support for the fan tachometer controller
+> +	  found on StarFive SoCs such as the JHB100. The controller supports
+> +	  up to 16 independent fan tachometer inputs and reports fan speed
+> +	  in RPM through the hwmon sysfs interface, along with stall and
+> +	  low-speed alarms.
+> +
+> +	  This driver can also be built as a module. If so, the module
+> +	  will be called starfive-fan-tach.
+> +
+>   config SENSORS_TC74
+>   	tristate "Microchip TC74"
+>   	depends on I2C
+> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+> index 63effc0ab8d1..80b2704b94e5 100644
+> --- a/drivers/hwmon/Makefile
+> +++ b/drivers/hwmon/Makefile
+> @@ -223,6 +223,7 @@ obj-$(CONFIG_SENSORS_SMSC47M1)	+= smsc47m1.o
+>   obj-$(CONFIG_SENSORS_SMSC47M192)+= smsc47m192.o
+>   obj-$(CONFIG_SENSORS_SPARX5)	+= sparx5-temp.o
+>   obj-$(CONFIG_SENSORS_SPD5118)	+= spd5118.o
+> +obj-$(CONFIG_SENSORS_STARFIVE_FAN_TACH)	+= starfive-fan-tach.o
+>   obj-$(CONFIG_SENSORS_STTS751)	+= stts751.o
+>   obj-$(CONFIG_SENSORS_SURFACE_FAN)+= surface_fan.o
+>   obj-$(CONFIG_SENSORS_SURFACE_TEMP)+= surface_temp.o
+> diff --git a/drivers/hwmon/starfive-fan-tach.c b/drivers/hwmon/starfive-fan-tach.c
+> new file mode 100644
+> index 000000000000..1e6399db424d
+> --- /dev/null
+> +++ b/drivers/hwmon/starfive-fan-tach.c
+> @@ -0,0 +1,561 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * FAN-TACH controller driver for StarFive JHB100
+> + *
+> + * Copyright (C) 2018-2026 StarFive Technology Co., Ltd.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/completion.h>
+> +#include <linux/delay.h>
+> +#include <linux/errno.h>
+> +#include <linux/hwmon.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/kernel.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/reset.h>
+> +#include <linux/spinlock.h>
+> +
+> +#define STARFIVE_FAN_TACH_CH			16
+> +
+> +/* Fan-tach register offest */
+> +#define STARFIVE_FAN_TACH_STATUS		0x0c
+> +
+> +#define STARFIVE_FAN_TACH_SPEED(ch)		(((ch) * 0x04) + 0x10)
+> +#define STARFIVE_FAN_TACH_SPEED_VALID		BIT(31)
+> +#define STARFIVE_FAN_TACH_VALUE_MASK		GENMASK(30, 0)
+> +
+> +#define STARFIVE_FAN_TACH_THRESHOLD(ch)		(((ch) * 0x04) + 0x50)
+> +
+> +#define STARFIVE_FAN_TACH_INT_EN		0x90
+> +#define STARFIVE_FAN_TACH_STALL_INT_MASK	GENMASK(15, 0)
+> +#define STARFIVE_FAN_TACH_SLOW_INT_MASK		GENMASK(31, 16)
+> +#define STARFIVE_FAN_TACH_STALL_INT(ch)		BIT(ch)
+> +#define STARFIVE_FAN_TACH_SLOW_INT(ch)		(BIT(ch) << 16)
+> +
+> +#define STARFIVE_FAN_TACH_MEASURE_TIME		0x94
+> +
+> +#define STARFIVE_FAN_TACH_CH_EN			0x98
+> +#define STARFIVE_FAN_TACH_EN(ch)		BIT(ch)
+> +
+> +#define STARFIVE_FAN_DEFAULT_PULSE_PR		2
+> +#define STARFIVE_FAN_DEFAULT_MEASURE_RATIO	10
+> +#define STARFIVE_FAN_DEFAULT_RPM_PAUSE_TIME	(60 * STARFIVE_FAN_DEFAULT_MEASURE_RATIO)
+> +
+> +#define STARFIVE_FAN_TACH_TIMEOUT \
+> +	(USEC_PER_SEC / STARFIVE_FAN_DEFAULT_MEASURE_RATIO)
+> +
+> +#define STARFIVE_FAN_TACH_TIMEOUT_JIFFIES \
+> +	(msecs_to_jiffies(1000) / STARFIVE_FAN_DEFAULT_MEASURE_RATIO)
+> +
+> +#define FAN_ATTRIBUTE_SET \
+> +	(HWMON_F_INPUT | HWMON_F_MIN | HWMON_F_ENABLE | \
+> +	 HWMON_F_FAULT | HWMON_F_MIN_ALARM)
+> +
+> +struct starfive_fan_tach_data {
+> +	struct device *dev;
+> +	/*
+> +	 * Serialises the read-modify-write sequences on CH_EN and INT_EN,
+> +	 * and the arm/disarm window of the fault/min_alarm read paths.
+> +	 */
+> +	struct mutex lock;
 
--- 
-Best Regards,
-Anvesh
+I don't see why this would be needed on top of the hwmon subsystem lock.
+
+> +	void __iomem *regs;
+> +	struct reset_control *rst;
+> +	struct clk *clk;
+> +	bool tach_present[STARFIVE_FAN_TACH_CH];
+> +	unsigned long clk_rate; /* APB clock frequency */
+> +	u8 pulses_per_rev[STARFIVE_FAN_TACH_CH];
+> +	struct completion comp_stall[STARFIVE_FAN_TACH_CH];
+> +	struct completion comp_slow[STARFIVE_FAN_TACH_CH];
+> +	u8 fan_stall[STARFIVE_FAN_TACH_CH];
+> +	u8 fan_slow[STARFIVE_FAN_TACH_CH];
+> +	u32 armed_stall;
+> +	u32 armed_slow;
+> +	/* protects fan_stall[]/fan_slow[]/armed_* and the STATUS register */
+> +	spinlock_t irq_lock;
+> +};
+> +
+> +static void starfive_fan_tach_ch_enable(struct starfive_fan_tach_data *priv, u8 tach_ch,
+> +					bool enable)
+> +{
+> +	if (enable) {
+> +		writel(readl(priv->regs + STARFIVE_FAN_TACH_CH_EN) |
+> +		       STARFIVE_FAN_TACH_EN(tach_ch),
+> +		       priv->regs + STARFIVE_FAN_TACH_CH_EN);
+> +	} else {
+> +		writel(readl(priv->regs + STARFIVE_FAN_TACH_CH_EN) &
+> +		       ~(STARFIVE_FAN_TACH_EN(tach_ch)),
+> +		       priv->regs + STARFIVE_FAN_TACH_CH_EN);
+> +	}
+> +}
+> +
+> +static void starfive_fan_tach_ch_stall_unmask(struct starfive_fan_tach_data *priv, u8 tach_ch,
+> +					      bool unmask)
+> +{
+> +	if (unmask) {
+> +		writel(readl(priv->regs + STARFIVE_FAN_TACH_INT_EN) |
+> +		       STARFIVE_FAN_TACH_STALL_INT(tach_ch),
+> +		       priv->regs + STARFIVE_FAN_TACH_INT_EN);
+> +	} else {
+> +		writel(readl(priv->regs + STARFIVE_FAN_TACH_INT_EN) &
+> +		       ~STARFIVE_FAN_TACH_STALL_INT(tach_ch),
+> +		       priv->regs + STARFIVE_FAN_TACH_INT_EN);
+> +	}
+> +}
+> +
+> +static void starfive_fan_tach_ch_slow_unmask(struct starfive_fan_tach_data *priv, u8 tach_ch,
+> +					     bool unmask)
+> +{
+> +	if (unmask) {
+> +		writel(readl(priv->regs + STARFIVE_FAN_TACH_INT_EN) |
+> +		       STARFIVE_FAN_TACH_SLOW_INT(tach_ch),
+> +		       priv->regs + STARFIVE_FAN_TACH_INT_EN);
+> +	} else {
+> +		writel(readl(priv->regs + STARFIVE_FAN_TACH_INT_EN) &
+> +		       ~STARFIVE_FAN_TACH_SLOW_INT(tach_ch),
+> +		       priv->regs + STARFIVE_FAN_TACH_INT_EN);
+> +	}
+> +}
+> +
+> +static u32 starfive_fan_tach_rpm_to_val(struct starfive_fan_tach_data *priv, u8 tach_ch, u32 rpm)
+> +{
+> +	u64 tach_val;
+> +	u8 ppr;
+> +
+> +	ppr = priv->pulses_per_rev[tach_ch];
+> +
+> +	tach_val = (u64)rpm * ppr;
+> +	tach_val = div_u64(tach_val, STARFIVE_FAN_DEFAULT_RPM_PAUSE_TIME);
+> +
+> +	return min_t(u64, tach_val, STARFIVE_FAN_TACH_VALUE_MASK);
+> +}
+> +
+> +static long starfive_fan_tach_val_to_rpm(struct starfive_fan_tach_data *priv, u8 tach_ch,
+> +					 u32 tach_val)
+> +{
+> +	u64 rpm;
+> +	u8 ppr;
+> +
+> +	ppr = priv->pulses_per_rev[tach_ch];
+> +
+> +	rpm = (u64)tach_val * STARFIVE_FAN_DEFAULT_RPM_PAUSE_TIME;
+> +
+> +	return div_u64(rpm, ppr);
+> +}
+> +
+> +static int starfive_fan_tach_get_rpm(struct starfive_fan_tach_data *priv,
+> +				     u8 tach_ch, long *rpm)
+> +{
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret = readl_poll_timeout(priv->regs + STARFIVE_FAN_TACH_SPEED(tach_ch),
+> +				 val, val & STARFIVE_FAN_TACH_SPEED_VALID,
+> +				 100, STARFIVE_FAN_TACH_TIMEOUT);
+> +	if (ret)
+> +		return -ENODATA;
+> +
+> +	val = FIELD_GET(STARFIVE_FAN_TACH_VALUE_MASK, val);
+> +	if (!val) {
+> +		/* Sampling = 0 may mean no valid capture; wait 1.5 more cycles for valid read. */
+> +		fsleep(STARFIVE_FAN_TACH_TIMEOUT + STARFIVE_FAN_TACH_TIMEOUT / 2);
+> +		ret = readl_poll_timeout(priv->regs + STARFIVE_FAN_TACH_SPEED(tach_ch),
+> +					 val, val & STARFIVE_FAN_TACH_SPEED_VALID,
+> +					 100, STARFIVE_FAN_TACH_TIMEOUT);
+> +		if (ret)
+> +			return -ENODATA;
+> +
+> +		val = FIELD_GET(STARFIVE_FAN_TACH_VALUE_MASK, val);
+> +	}
+> +
+> +	*rpm = starfive_fan_tach_val_to_rpm(priv, tach_ch, val);
+> +
+> +	return 0;
+> +}
+> +
+> +static long starfive_fan_tach_get_rpm_threshold(struct starfive_fan_tach_data *priv,
+> +						u8 tach_ch)
+> +{
+> +	u32 val;
+> +
+> +	val = readl(priv->regs + STARFIVE_FAN_TACH_THRESHOLD(tach_ch));
+> +
+> +	val = FIELD_GET(STARFIVE_FAN_TACH_VALUE_MASK, val);
+> +
+> +	return starfive_fan_tach_val_to_rpm(priv, tach_ch, val);
+> +}
+> +
+> +static void starfive_set_tach_rpm_threshold(struct starfive_fan_tach_data *priv,
+> +					    u8 tach_ch, u32 val)
+> +{
+> +	u32 reg_val;
+> +
+> +	reg_val = starfive_fan_tach_rpm_to_val(priv, tach_ch, val);
+> +	reg_val = clamp_val(reg_val, 1, STARFIVE_FAN_TACH_VALUE_MASK);
+> +
+> +	writel(reg_val, priv->regs + STARFIVE_FAN_TACH_THRESHOLD(tach_ch));
+> +}
+> +
+> +static int starfive_fan_tach_get_ch_en(struct starfive_fan_tach_data *priv,
+> +				       u8 tach_ch)
+
+Why not bool ?
+
+> +{
+> +	u32 enable;
+> +
+> +	enable = readl(priv->regs + STARFIVE_FAN_TACH_CH_EN);
+> +
+> +	return (enable & (1 << tach_ch)) ? 1 : 0;
+
+	return !!(enable & STARFIVE_FAN_TACH_EN(tach_ch));
+
+> +}
+> +
+> +static int starfive_fan_tach_hwmon_read(struct device *dev,
+> +					enum hwmon_sensor_types type, u32 attr,
+> +					int channel, long *val)
+> +{
+> +	struct starfive_fan_tach_data *priv = dev_get_drvdata(dev);
+> +	int ret = 0;
+> +
+> +	switch (attr) {
+> +	case hwmon_fan_fault:
+> +		scoped_guard(mutex, &priv->lock) {
+> +			scoped_guard(spinlock_irqsave, &priv->irq_lock) {
+> +				writel(STARFIVE_FAN_TACH_STALL_INT(channel),
+> +				       priv->regs + STARFIVE_FAN_TACH_STATUS);
+> +				/* clear fan_stall first */
+> +				priv->fan_stall[channel] = 0;
+> +				reinit_completion(&priv->comp_stall[channel]);
+> +				priv->armed_stall |= BIT(channel);
+> +			}
+> +
+> +			starfive_fan_tach_ch_stall_unmask(priv, channel, true);
+> +
+> +			/* Waiting for hardware to measure */
+> +			wait_for_completion_timeout(&priv->comp_stall[channel],
+> +						    2 * STARFIVE_FAN_TACH_TIMEOUT_JIFFIES);
+> +
+> +			starfive_fan_tach_ch_stall_unmask(priv, channel, false);
+> +
+> +			scoped_guard(spinlock_irqsave, &priv->irq_lock) {
+> +				priv->armed_stall &= ~BIT(channel);
+> +				*val = priv->fan_stall[channel];
+> +			}
+> +		}
+> +
+
+I'd really be interested to see how long it takes to read the alarm
+and fault status of all fans. And, yes, Sashiko has a point: the attributes
+are supported to report a sticky status, not something that is calculated
+on the fly. Is this based on some heuristics ? I don't claim to understand
+how fault and min_alarm are calculated. A comment in the code describing
+how this works would be helpful.
+
+> +		break;
+> +	case hwmon_fan_input:
+> +		ret = starfive_fan_tach_get_ch_en(priv, channel);
+> +		if (!ret)
+> +			return -ENODATA;
+
+I don't see why the assignment to ret would add value here.
+
+		if (!starfive_fan_tach_get_ch_en(priv, channel))
+			return -ENODATA;
+
+> +
+> +		ret = starfive_fan_tach_get_rpm(priv, channel, val);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		break;
+> +	case hwmon_fan_min:
+> +		*val = starfive_fan_tach_get_rpm_threshold(priv, channel);
+> +
+> +		break;
+> +	case hwmon_fan_min_alarm:
+> +		scoped_guard(mutex, &priv->lock) {
+> +			scoped_guard(spinlock_irqsave, &priv->irq_lock) {
+> +				writel(STARFIVE_FAN_TACH_SLOW_INT(channel),
+> +				       priv->regs + STARFIVE_FAN_TACH_STATUS);
+> +				/* clear fan_slow first */
+> +				priv->fan_slow[channel] = 0;
+> +				reinit_completion(&priv->comp_slow[channel]);
+> +				priv->armed_slow |= BIT(channel);
+> +			}
+> +
+> +			starfive_fan_tach_ch_slow_unmask(priv, channel, true);
+> +
+> +			/* Waiting for hardware to measure */
+> +			wait_for_completion_timeout(&priv->comp_slow[channel],
+> +						    2 * STARFIVE_FAN_TACH_TIMEOUT_JIFFIES);
+> +
+> +			starfive_fan_tach_ch_slow_unmask(priv, channel, false);
+> +
+> +			scoped_guard(spinlock_irqsave, &priv->irq_lock) {
+> +				priv->armed_slow &= ~BIT(channel);
+> +				*val = priv->fan_slow[channel];
+> +			}
+> +		}
+> +
+> +		break;
+> +	case hwmon_fan_enable:
+> +		*val = starfive_fan_tach_get_ch_en(priv, channel);
+> +
+> +		break;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int starfive_fan_tach_hwmon_write(struct device *dev,
+> +					 enum hwmon_sensor_types type, u32 attr,
+> +					 int channel, long val)
+> +{
+> +	struct starfive_fan_tach_data *priv = dev_get_drvdata(dev);
+> +
+> +	guard(mutex)(&priv->lock);
+> +
+> +	switch (attr) {
+> +	case hwmon_fan_min:
+> +		if (val < 0 || val > U32_MAX)
+> +			return -EINVAL;
+> +
+> +		starfive_set_tach_rpm_threshold(priv, channel, val);
+> +		break;
+> +	case hwmon_fan_enable:
+> +		if (val != 0 && val != 1)
+> +			return -EINVAL;
+> +
+> +		starfive_fan_tach_ch_enable(priv, channel, val);
+> +		break;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static umode_t starfive_fan_tach_dev_is_visible(const void *drvdata,
+> +						enum hwmon_sensor_types type,
+> +						u32 attr, int channel)
+> +{
+> +	const struct starfive_fan_tach_data *priv = drvdata;
+> +
+> +	if (!priv->tach_present[channel])
+> +		return 0;
+> +
+> +	switch (attr) {
+> +	case hwmon_fan_input:
+> +	case hwmon_fan_fault:
+> +	case hwmon_fan_min_alarm:
+> +		return 0444;
+> +	case hwmon_fan_min:
+> +	case hwmon_fan_enable:
+> +		return 0644;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct hwmon_ops starfive_fan_tach_ops = {
+> +	.is_visible = starfive_fan_tach_dev_is_visible,
+> +	.read = starfive_fan_tach_hwmon_read,
+> +	.write = starfive_fan_tach_hwmon_write
+> +};
+> +
+> +static const struct hwmon_channel_info *starfive_fan_tach_info[] = {
+> +	HWMON_CHANNEL_INFO(fan,
+> +			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
+> +			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
+> +			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
+> +			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
+> +			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
+> +			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
+> +			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET,
+> +			   FAN_ATTRIBUTE_SET, FAN_ATTRIBUTE_SET),
+> +	NULL
+> +};
+> +
+> +static const struct hwmon_chip_info starfive_fan_tach_chip_info = {
+> +	.ops = &starfive_fan_tach_ops,
+> +	.info = starfive_fan_tach_info,
+> +};
+> +
+> +static int starfive_fan_tach_create_fan(struct device *dev, struct device_node *child,
+> +					struct starfive_fan_tach_data *priv)
+> +{
+> +	u8 tach_ch[STARFIVE_FAN_TACH_CH];
+> +	int ret, count;
+> +	u32 ppr, index;
+> +
+> +	count = of_property_count_u8_elems(child, "tach-ch");
+> +	if (count < 1 || count > STARFIVE_FAN_TACH_CH)
+> +		return -EINVAL;
+> +
+> +	ret = of_property_read_u8_array(child, "tach-ch", tach_ch, count);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Parse pulses-per-revolution, default to 2 if not specified */
+> +	ppr = STARFIVE_FAN_DEFAULT_PULSE_PR;
+> +	of_property_read_u32(child, "pulses-per-revolution", &ppr);
+> +
+> +	if (!ppr || ppr > 4) {
+> +		dev_err(dev, "Invalid pulses-per-revolution %u, must be 1-4\n", ppr);
+> +		return -EINVAL;
+> +	}
+> +
+> +	for (index = 0; index < count; index++) {
+> +		u8 ch = tach_ch[index];
+> +
+> +		if (ch >= STARFIVE_FAN_TACH_CH) {
+> +			dev_warn(priv->dev, "Invalid tach-ch %d, skipping\n", ch);
+> +			continue;
+
+This should also return an error. Also, this is the only use of priv->dev,
+and priv->dev == dev. priv->dev is therefore unnecessary.
+
+> +		}
+> +
+> +		priv->pulses_per_rev[ch] = ppr;
+
+What is the point of storing the same ppr value separately for each channel ?
+
+> +		priv->tach_present[ch] = true;
+> +		starfive_fan_tach_ch_enable(priv, ch, true);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static irqreturn_t starfive_fan_tach_irq(int irq, void *dev_id)
+> +{
+> +	struct starfive_fan_tach_data *priv = dev_id;
+> +	u32 fan_status;
+> +	int i;
+> +
+> +	guard(spinlock)(&priv->irq_lock);
+> +
+> +	fan_status = readl(priv->regs + STARFIVE_FAN_TACH_STATUS);
+> +	if (!fan_status)
+> +		return IRQ_NONE;
+> +
+> +	writel(fan_status, priv->regs + STARFIVE_FAN_TACH_STATUS);
+> +
+> +	for (i = 0; i < STARFIVE_FAN_TACH_CH; i++) {
+> +		if (!priv->tach_present[i])
+> +			continue;
+> +
+> +		if ((fan_status & STARFIVE_FAN_TACH_STALL_INT(i)) &&
+> +		    (priv->armed_stall & BIT(i))) {
+> +			priv->fan_stall[i] = 1;
+> +			complete(&priv->comp_stall[i]);
+> +		}
+> +
+> +		if ((fan_status & STARFIVE_FAN_TACH_SLOW_INT(i)) &&
+> +		    (priv->armed_slow & BIT(i))) {
+> +			priv->fan_slow[i] = 1;
+> +			complete(&priv->comp_slow[i]);
+> +		}
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void starfive_fan_tach_disable(void *data)
+> +{
+> +	struct starfive_fan_tach_data *priv = data;
+> +
+> +	clk_disable_unprepare(priv->clk);
+> +	reset_control_assert(priv->rst);
+> +}
+> +
+> +static int starfive_fan_tach_probe(struct platform_device *pdev)
+> +{
+> +	struct device *hwmon_dev, *dev = &pdev->dev;
+> +	struct starfive_fan_tach_data *priv;
+> +	int irq;
+> +	int ret;
+> +	u32 i;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->dev = dev;
+> +	spin_lock_init(&priv->irq_lock);
+> +
+> +	for (i = 0; i < STARFIVE_FAN_TACH_CH; i++) {
+> +		init_completion(&priv->comp_stall[i]);
+> +		init_completion(&priv->comp_slow[i]);
+> +	}
+> +
+> +	priv->regs = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(priv->regs))
+> +		return dev_err_probe(dev, PTR_ERR(priv->regs),
+> +				     "Unable to map IO resources\n");
+> +
+> +	priv->clk = devm_clk_get(dev, NULL);
+> +	if (IS_ERR(priv->clk))
+> +		return dev_err_probe(dev, PTR_ERR(priv->clk),
+> +				     "Unable to get fan tach's clock\n");
+> +
+> +	priv->rst = devm_reset_control_get_exclusive(dev, NULL);
+> +	if (IS_ERR(priv->rst))
+> +		return dev_err_probe(dev, PTR_ERR(priv->rst),
+> +				     "Unable to get fan tach's reset\n");
+> +
+> +	ret = clk_prepare_enable(priv->clk);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable clock\n");
+> +
+> +	priv->clk_rate = clk_get_rate(priv->clk);
+> +	if (!priv->clk_rate) {
+> +		clk_disable_unprepare(priv->clk);
+> +		return dev_err_probe(dev, -EINVAL, "Unable to get clock's rate\n");
+> +	}
+> +
+> +	ret = reset_control_deassert(priv->rst);
+> +	if (ret) {
+> +		clk_disable_unprepare(priv->clk);
+> +		return dev_err_probe(dev, ret, "Failed to deassert reset\n");
+> +	}
+> +
+> +	ret = devm_add_action_or_reset(dev, starfive_fan_tach_disable, priv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_mutex_init(dev, &priv->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	writel(STARFIVE_FAN_TACH_STALL_INT_MASK | STARFIVE_FAN_TACH_SLOW_INT_MASK,
+> +	       priv->regs + STARFIVE_FAN_TACH_STATUS);
+> +	writel(priv->clk_rate / STARFIVE_FAN_DEFAULT_MEASURE_RATIO,
+> +	       priv->regs + STARFIVE_FAN_TACH_MEASURE_TIME);
+> +
+> +	for_each_child_of_node_scoped(dev->of_node, child) {
+> +		ret = starfive_fan_tach_create_fan(dev, child, priv);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "Failed to create fan %pOF\n", child);
+> +	}
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return dev_err_probe(dev, irq, "Failed to get IRQ\n");
+> +
+> +	ret = devm_request_irq(dev, irq, starfive_fan_tach_irq, 0, pdev->name, priv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	hwmon_dev = devm_hwmon_device_register_with_info(dev, "starfive_fan_tach",
+> +							 priv, &starfive_fan_tach_chip_info,
+> +							 NULL);
+> +	return PTR_ERR_OR_ZERO(hwmon_dev);
+> +}
+> +
+> +static const struct of_device_id starfive_fan_tach_of_match[] = {
+> +	{ .compatible = "starfive,jhb100-fan-tach", },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, starfive_fan_tach_of_match);
+> +
+> +static struct platform_driver starfive_fan_tach_driver = {
+> +	.probe = starfive_fan_tach_probe,
+> +	.driver	= {
+> +		.name = "starfive-fan-tach",
+> +		.of_match_table = starfive_fan_tach_of_match,
+> +	},
+> +};
+> +
+> +module_platform_driver(starfive_fan_tach_driver);
+> +
+> +MODULE_AUTHOR("William Qiu <william.qiu@starfivetech.com>");
+> +MODULE_AUTHOR("Changhuang Liang <changhuang.liang@starfivetech.com>");
+> +MODULE_DESCRIPTION("StarFive JHB100 Fan Tach device driver");
+> +MODULE_LICENSE("GPL");
 
