@@ -1,137 +1,202 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEF2443E3C
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 12:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559A7445ACD;
+	Thu, 20 Aug 2026 12:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787230094; cv=none; b=YktGlbP2yEWz8iP9oZmEX6T9AHUfdROhXgbhEf6Io74bB1wi0TCDsAQgdmUEVij1UY5fdPVO2myFKNT7XKwrdUFuu1wNpS2w7ME6XdEUk6tq/dMQtsIRUCZCsz/C/8iGvO70v9TIFL18q1s8apUtNqWK6GasyEOpXzoOLDhwDwc=
+	t=1787230172; cv=none; b=nq89w5mZqcSK6b5aHlFnxtU7lOLiaWtH2vRxeSiQ1Vq0Ge3xYLuCxLb7Jmv7mnehsJf6FQsEQXeWHZNCeSndLmum4foJVSkYtqgfsUoNU/Gbi3OPoYKJ7TnKQGm1CROGOPDZmek2tMeLdBB6dcdh6R6ehylNlllmgWnfCWm1AWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787230094; c=relaxed/simple;
-	bh=449Ex3CsleS45P3M4E5SNBEUaD0gKJyWNYaUiEtMSXQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sB1SHqNkzqgNTTdJNrLahblPJ2gYfCfXiQQXnOdmXJUwYTPAc+dpsrnJIoh0yliK1hdNd+KNG50n9CjEJAbou1/gvl7VFSX7OHiH5hP9Z3qrenf2uGrVsrjgF3q9bPFoLkovjYBfKL7lY5VHRm1RzLCFQu1vrqACfDZURLMp1sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EQViquN2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AGxc9bVq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787230172; c=relaxed/simple;
+	bh=xE0p8m++YDXS3YmOmgja7/ReG9oPfXfX/0QnZybqu4Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QgLw2lZ2LH2q1sMdTk0wr9bAuSPFBPoqAcE0lpLTVnI2oyIOyAwCJyxhSmB12bA9NXR2E631ssVWzEKqaoMPCy6VZdCyQQuKihIdIsx3vWUQWCvRidV0RrzTb3CIotXVR2NGQwEaX35057FMtA+6pLoc/Gv5DpEcbG81HWWpOUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dq2FRhbe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EQViquN2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AGxc9bVq"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67KA2nTC2932720
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 12:48:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=d2Rrcr6IN2TrSdxDUmXvgWf0
-	aEeJTdeSxPsPjotviE4=; b=EQViquN2iJCEyWL2poAcVoGeXgOS2wwNuNSVNAPn
-	fyBGMrI/aYVv2QlijTlhS+iMIeMAOGwaiQY4RK5+h6H2aZSFBx/dnyiCvx9skrHC
-	+lsPqgSuIYT0MLk8HCvM19tm+WBwroKHYDQO2mCeTP8SpipGbyLdLk34/rHXPNQO
-	y9lrFanfD+xjCSp4NAso9YfWQitV4kVmk0lmPf7CGGokeG/FyaOJj75qdyauvfh7
-	AXGYIofULsjdWLGo2eXUl+dDUvgBCixWNyKpnbZGOm8nqYN/BaAdjBEqCARdkdGd
-	qA7G3TaX+VIK+sXWPVu9YaBtxokm+CWsMPHXgo/87F5j3w==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5yg0gjus-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 12:48:12 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93494527488so382673785a.3
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 05:48:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787230092; x=1787834892; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d2Rrcr6IN2TrSdxDUmXvgWf0aEeJTdeSxPsPjotviE4=;
-        b=AGxc9bVqIaOfnr1WrF00pYAdEUCFT1oL5RlHM0WjW5bS4YJGQxUIuXwqLd66vk83wr
-         gH5E4PbebfRvWxHz7YbYil2PKjnmT8tStCZbGWivnd3CvBcBnV4MdNP+o30YDmyyC6hv
-         ztvyAu+q6rJ9JBvOHE3xLHkEkvhBgf5v6ni6AS7on5kzNMgerOtqaaquJZYnEWO5mmTL
-         7noNl0U3JKzuumOCQ07JRgAZO5TfX1rmxFnq21SvOeMgzAj9WnlwDZnfClj4RRXbZO4o
-         6ta6O0AEoUjCDfzfzUQ2gHe6nQNZc0/Ln02+ckeeq//E2EUUz+sZV9nREdYa9h+jyrMu
-         1UCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787230092; x=1787834892;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d2Rrcr6IN2TrSdxDUmXvgWf0aEeJTdeSxPsPjotviE4=;
-        b=N2pv3gDaXfdH9tYfj63IkuM0qukMhMM9yejvPwQvRMPpWcoEbmf+ou0T4Ck3Z2mGDE
-         B93v0J2N6JkW+z5VbwGnL3E5BFW5YjXuGswRs36CQOmq+LEFepnjj3Ia8fZ4TcHz8NGy
-         wXJUiH3QeExJrEtQSosO1IsJP51OjGbPpUw3jG0zLDAnQIcU5ttxrwOgKwsoRpmL5oKM
-         G2RAeG2V2C0Jlm7UoCWhWkjC6yYIFdW2wlqMeG/wzm38XyIOZsH9eJo/gk38H57l4phs
-         DxWSSqD1QZs8XNLTnZ1I5jxLfnbMMKBcKzoJulE/Y1zdnkiyOphs9RXVb9N3vtIDf8ZQ
-         tu3Q==
-X-Forwarded-Encrypted: i=1; AHgh+RotMy9vB0x+FH5SZway0ivYU4zjsg0gS+H1/zfNkBixSqc1WoQepzXDPpY0TLlSxjioYLnUXCxBe/0M@vger.kernel.org
-X-Gm-Message-State: AOJu0YylV+yZWL5J90IGMDGc3jE8u/UsCAFNegjfRkYCCfCphxazEszA
-	ZCyUKpPAd/6J9LDSRRsCxaSkIharYtR2dvvDMp2+u6FVTP9reFzcuWSg0YGvLhhIPw5oGtvwAio
-	AVI60v3iMgiVEhgN19B0W2cZCzlAM78l8QyJ/lVpSAT8QMS/3DgiqREBNFDh90Ajx
-X-Gm-Gg: AR+sD10KYvax/r23LhRbepsmkWNPZjoVEp76Z+N5Q73Uu36pFYP6/vsy4rrqWvxKm/K
-	KLKlQoyYKEir94yOXslsjn5rGJ9Djv3YB/udIxuqu9FW253bRtmRhvH3GanHQd5AeQzzSnkl60L
-	t9379DJNdwjhXF80wcDOMbaXD5+KzwgBicipDkqIBqegGAVyXvYydhFLTZ/yYyVoYztbHawCyRE
-	q4pDLjG0noXe8nEUug5upxXSBBMd3Gx6SUZmmdeuJw4kfpR8j2y5cZvkwz0NqZyZSfVUPdl9+sE
-	Yp6Gg+4COhHNlIsgmi9PFbGCe4LIj8Yux3eoBtWDwWeS/WDSGRX+Yea2vonAzBRM59gheftSYHl
-	rKbt0OOvkEkJ1EyI=
-X-Received: by 2002:a05:620a:63c9:b0:934:81ae:6d1b with SMTP id af79cd13be357-9371e6f7247mr1220475485a.22.1787230091094;
-        Thu, 20 Aug 2026 05:48:11 -0700 (PDT)
-X-Received: by 2002:a05:620a:63c9:b0:934:81ae:6d1b with SMTP id af79cd13be357-9371e6f7247mr1220465685a.22.1787230090333;
-        Thu, 20 Aug 2026 05:48:10 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499aa11f832sm136903335e9.7.2026.08.20.05.48.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 05:48:09 -0700 (PDT)
-Date: Thu, 20 Aug 2026 15:48:07 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: agatti: Flatten the USB node
-Message-ID: <xeto7gds4bwj4mcwitoaaxh6u72d2x3rw5evex7uuwle7i7ppy@s7unldat3cth>
-References: <20260820-topic-agatti_flatten-v1-1-ba9dcab9dc2c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dq2FRhbe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78F0C1F00A3D;
+	Thu, 20 Aug 2026 12:49:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787230169;
+	bh=xdx7D143mLod2cAuh4bgbq09JTWMkluu/t4/ZJdPYYY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Dq2FRhbeoGDmpjodvuPBAud5WdkSnEpF/XoEpTEMkPKxHGabim+2IeLKJ8ER8xwYs
+	 EpiPNs4m/VL+z9LX+fh4qdlRd8tHWipyfyY4gh1ZiVUDjj5XbKv3uBCzAnFTTqr61n
+	 fJ3anqSOrpZy6slFxldRKBmKE/Aw39vehV1b+shTS5WfMcHsOhtROFMxFRNFWE74oN
+	 N1xCP9VCoNh38s7PbzXh/ihZa13u+XR7nivc0uAU2H/VeDIpFxMKrf8x9UvQrwjvy/
+	 DlCa5f8hHSrlU0Z3aNM4jWfTAZ1f/Fi9iU30VzKtD1bNR6q/FzovdBjkGPmvSAAt+2
+	 4wvJ3kToSzTPQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 5/9] mfd: mt6397: Add support for MT6392 PMIC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: conor+dt@kernel.org, dmitry.torokhov@gmail.com, mfd@lists.linux.dev, lee@kernel.org, devicetree@vger.kernel.org, linux-input@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260820122242.120039-6-l.scorcia@gmail.com>
+References: <20260820122242.120039-1-l.scorcia@gmail.com>
+ <20260820122242.120039-6-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Aug 2026 12:49:29 +0000
+Message-Id: <20260820124929.78F0C1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820-topic-agatti_flatten-v1-1-ba9dcab9dc2c@oss.qualcomm.com>
-X-Proofpoint-GUID: tGuL0XjJCxGmAavOtHw19Jy7nXYVZpLF
-X-Proofpoint-ORIG-GUID: tGuL0XjJCxGmAavOtHw19Jy7nXYVZpLF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA5NSBTYWx0ZWRfX2Iyb0TJeBS6L
- I2NVYRJv++YhkCSazfXcOUTHGguhWlmilcczYs/nH1D8ylMwYEfdkqonjno2B37XzzBpEGETpxn
- dJHXCIImRcIvXYwBZwDE2XpAva2TEk8X8/XAIpIjlKIq5MehKw2ZJh/9mQiqgRMhwqXSnWNtyiK
- F0+N+Y4B0tNglg1JAoz6xN7uqWSQD6nIZraylgE+Get0ieDNSppzal96fJqPt+xSqFfkujdkA5P
- eb0FnTHtGe58AwrK3AGfD4/CyZIwtv2CyewJeO+ZNvcRFJRyxCr2RXzCorP3UHRZygutWyM5Gwj
- 0b0vHNG/zm85OuHXAoB5c4032WiadNNbtc3F4Uyynr5/MEXMWpx9hGq2QADGjF1HQxqcfAf4PIf
- YZGSG3j3m5cXLspuzQb8Fdqd1IrHMQCcFdkIvom8lssYSF+SyLO8mgf4h/+2T27jQdTbDHm72BZ
- tcC+HIjhUDm8ulr65Ww==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA5NSBTYWx0ZWRfX5QRRWHOV3xw5
- 5b5wjTzF2VlBdiEFBycxFCyZNYPJ+gjInRiogr7was8hM8n62FS9jjbSLqQJvx1kV1/hxNcZGOQ
- SCR9vQkq2TvHdJToQv10W9GhsUWHKP8=
-X-Authority-Analysis: v=2.4 cv=JoXBas4C c=1 sm=1 tr=0 ts=6a86f78c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=wUpz7uCjLrEXi01cjX+DLw==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=XQXjnm9Gq3xsJ3B3hqUA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
- malwarescore=0 phishscore=0 adultscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200095
 
-On 26-08-20 14:37:16, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Flatten usb controller nodes and update to using latest bindings
-> and flattened driver approach.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+New issues:
+- [Low] Driver-specific header files for MT6392 are placed in the global `i=
+nclude/linux/mfd/` directory.
+
+Pre-existing issues:
+- [High] Missing resource teardown for the PM notifier and IRQ domain on de=
+vice unbind and probe error paths, leading to memory leaks and a Use-After-=
+Free crash.
+- [High] The IRQ domain is created with a hardcoded maximum size of 32, tru=
+ncating the IRQ space for chips like MT6328 that require up to 47 IRQs.
+- [High] Race condition on probe failure between irq_domain removal and act=
+ive threaded IRQ handler.
+- [High] The PM notifier modifies hardware IRQ registers without holding th=
+e irqlock mutex, potentially breaking system wakeup functionality.
+--
+
+--- Patch [5]: [PATCH v9 5/9] mfd: mt6397: Add support for MT6392 PMIC ---
+commit b2217cbb3b951021ff7eb4a8b7e1f3c678b7c4bc
+Author: Fabien Parent <parent.f@gmail.com>
+
+mfd: mt6397: Add support for MT6392 PMIC
+
+This commit modifies the MT6397 driver to use identifier matching instead
+of passing core structures in the data field. It also introduces support
+for the MT6392 PMIC, including its regulators, RTC, keys, and pinctrl.
+
+> diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
+> index ccd97d66d7f1c..f683e878543e1 100644
+> --- a/drivers/mfd/mt6397-core.c
+> +++ b/drivers/mfd/mt6397-core.c
+
+[ ... ]
+
+> @@ -278,6 +311,7 @@ static int mt6397_probe(struct platform_device *pdev)
+>  	unsigned int id =3D 0;
+>  	struct mt6397_chip *pmic;
+>  	const struct chip_data *pmic_core;
+> +	int chip_variant;
+> =20
+>  	pmic =3D devm_kzalloc(&pdev->dev, sizeof(*pmic), GFP_KERNEL);
+>  	if (!pmic)
+> @@ -293,9 +327,36 @@ static int mt6397_probe(struct platform_device *pdev)
+>  	if (!pmic->regmap)
+>  		return -ENODEV;
+> =20
+> -	pmic_core =3D of_device_get_match_data(&pdev->dev);
+> -	if (!pmic_core)
+> +	chip_variant =3D (unsigned int)(uintptr_t)device_get_match_data(&pdev->=
+dev);
+> +	switch (chip_variant) {
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but is there a use-after-free race on the
+probe error path?
+
+If devm_mfd_add_devices() fails further down in mt6397_probe(), the error
+path calls irq_domain_remove(pmic->irq_domain) to explicitly free the
+domain memory. However, the devm-managed threaded IRQ handler remains fully
+active until the probe function returns. If an interrupt triggers during th=
+is
+window, could mt6397_irq_thread() call irq_find_mapping() and dereference
+the freed irq_domain pointer?
+
+[Severity: High]
+This is another pre-existing issue, but does the device unbind path leak
+resources and cause a crash?
+
+If devm_mfd_add_devices() fails, or if the driver is unbound, the PM
+notifier registered in mt6397_irq_init() via register_pm_notifier() is
+never explicitly unregistered because mt6397_driver lacks a .remove callbac=
+k.
+Since devres frees the mt6397_chip structure, would a subsequent suspend or
+resume event traverse the global notifier list and dereference this freed
+pointer?
+
+> diff --git a/drivers/mfd/mt6397-irq.c b/drivers/mfd/mt6397-irq.c
+> index 5d2e5459f7444..80ea5b92d232f 100644
+> --- a/drivers/mfd/mt6397-irq.c
+> +++ b/drivers/mfd/mt6397-irq.c
+> @@ -203,6 +205,12 @@ int mt6397_irq_init(struct mt6397_chip *chip)
+>  		chip->int_status[0] =3D MT6397_INT_STATUS0;
+>  		chip->int_status[1] =3D MT6397_INT_STATUS1;
+>  		break;
+> +	case MT6392_CHIP_ID:
+> +		chip->int_con[0] =3D MT6392_INT_CON0;
+> +		chip->int_con[1] =3D MT6392_INT_CON1;
+> +		chip->int_status[0] =3D MT6392_INT_STATUS0;
+> +		chip->int_status[1] =3D MT6392_INT_STATUS1;
+> +		break;
+> =20
+>  	default:
+>  		dev_err(chip->dev, "unsupported chip: 0x%x\n", chip->chip_id);
+
+[Severity: High]
+This is a pre-existing issue, but does the hardcoded domain size cause
+interrupts to be dropped?
+
+Further down in mt6397_irq_init(), the IRQ domain is created unconditionally
+with MT6397_IRQ_NR (which is 32):
+
+    chip->irq_domain =3D irq_domain_create_linear(dev_fwnode(chip->dev),
+                                                MT6397_IRQ_NR,
+                                                &mt6397_irq_domain_ops,
+                                                chip);
+
+Since the MT6328 chip requires up to 47 IRQs, could mt6397_irq_thread()
+fail when calling irq_find_mapping() for interrupts exceeding the allocated
+linear domain size of 32?
+
+[Severity: High]
+This is also a pre-existing issue, but does the PM notifier overwrite
+wake masks without synchronization?
+
+The mt6397_irq_pm_notifier() writes to the hardware interrupt control
+registers to set wake masks during PM_SUSPEND_PREPARE without acquiring
+chip->irqlock:
+
+    case PM_SUSPEND_PREPARE:
+        regmap_write(chip->regmap, chip->int_con[0], chip->wake_mask[0]);
+
+If a child device driver alters an IRQ state during its own suspend phase,
+could the bus unlock callback mt6397_irq_sync_unlock() concurrently write
+chip->irq_masks_cur to the same registers and overwrite the configured
+wake masks?
+
+> diff --git a/include/linux/mfd/mt6392/core.h b/include/linux/mfd/mt6392/c=
+ore.h
+> new file mode 100644
+> index 0000000000000..8777b3abf9292
+> --- /dev/null
+> +++ b/include/linux/mfd/mt6392/core.h
+> @@ -0,0 +1,43 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) 2020 MediaTek Inc.
+> + * Copyright (c) 2026 Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> + * Author: Chen Zhong <chen.zhong@mediatek.com>
+> + */
+> +
+> +#ifndef __MFD_MT6392_CORE_H__
+> +#define __MFD_MT6392_CORE_H__
+
+[Severity: Low]
+Are these driver-specific header files placed correctly? The MFD subsystem
+guidelines state that driver-specific headers should not be placed in the
+global include/linux/mfd/ directory if they are only used by the parent
+and immediate children. Should these instead be kept local to drivers/mfd/?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820122242.1200=
+39-1-l.scorcia@gmail.com?part=3D5
