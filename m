@@ -1,115 +1,217 @@
-Received: from send262.i.mail.ru (send262.i.mail.ru [95.163.59.101])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022140.outbound.protection.outlook.com [52.101.126.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB8F33D506;
-	Thu, 20 Aug 2026 07:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.163.59.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787210081; cv=none; b=o+p4CVNXMwdU2/Xvx3Sbdklg91P1vkqeTie3WQY42mKEcmWL2DGqNLRK9HJcF3c/Jk0/Jd6ehqfk5+WCSviXLrdt9V9An8KtvT7lSXvM7Xq+wSDpPZ2diU8hvKTk+maaR6Hy21mm40E3vJAOQrg+jQVhgJ0B0Q/4FENIZ4qxh3Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787210081; c=relaxed/simple;
-	bh=5exYMJ9xI+g63J4xoW6K9/j1K6iO9k7BMQiFP9P5/o0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JoqCw2rfLF2mCLp1KQ8i87nGbkXs3rx1MXQTRfP77B77rEfvupzfSNunCo3JOD9sbTMOjo6lvqkbB2LbgPpFrAY18rvONCytKgUQ8M6TN5xJmA8zPn5H7WBYj4O6ZGSkIdJI+l978bUG8CiABHLWK3Ca7odtK8CBlZKSlRFNnX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru; spf=pass smtp.mailfrom=mail.ru; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=D2xo6Ppp; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=1+7s82DZ; arc=none smtp.client-ip=95.163.59.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FD53C10A8;
+	Thu, 20 Aug 2026 07:16:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787210210; cv=fail; b=c8+SYAYq1Irz1FeGzl/2oOPaAZItr2XHFqywWc0Vc5OJFJM3pCGqfSMOyXnldVofBIje1jDsgUNsG0HlKGaoXl5MLjo6ocB/N0TLpB/FfQWzLTtSzSsoPyGhhqyS2UtadVode3ZfERZRcv2Dfp6Z31yuHmmJ3V7/9FhgTtF3JfY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787210210; c=relaxed/simple;
+	bh=Dh5p6dsdEmPjsk2SCFStIN5b7GoxVYm2zHm6VGgJ4/Y=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=uaNHEEy+iucnA1oGsjmFSEysNSScHFif40TuRA45A2UTeKvNuKBcRIEYpeB6JCa/AOl9SYa175GrYf8xi3f6QRspcKNXze3tPl5YMvMrD9VaF5BApqaxu49B8Os85qi7LvWjPWdAYELVNKuOeCTHR7LfXE1wIMxmn2lDeIlytHU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=HH+WeleN; arc=fail smtp.client-ip=52.101.126.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="D2xo6Ppp";
-	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="1+7s82DZ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
-	s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive:X-Cloud-Ids;
-	bh=E0vvJPAxMbhZHnYFNDaN2pOoHXfMWSwnBBICu6tVsp8=; t=1787210077; x=1787300077; 
-	b=D2xo6PppFOXjPHhvvEdNG/IsnM+97CXeQA+TOhsBrM7vS32CER5DvSMP40GE+VV6Z6TDSYnWUNJ
-	OXINX6EPa+NvynKYv5aws78EDqFe7QJawkNzT/HCV1J3nykxJUbsPnC3zTBB4H7xAjRg/s0omm1Xr
-	YYUcVdnanBouyxrs6XciDN094jSvkWQJH9w7CGZB6fC5XVozG7+Z0GsHiZ5d1mOyVdMFOiR5uDF30
-	PZi+MEFqcwcTye0HLy/zQSjCbWvyuINakyw9YayRkeQ84Kc8UDryLKPSGGcRlKtR5suwkj9+xu4Yb
-	1pLdgcuxu82LUrXoATUr6+xADXGcymFxutjg==;
-Received: from [10.113.84.122] (port=35818 helo=send242.i.mail.ru)
-	by exim-fallback-cc5d6c65-cpr6x with esmtp (envelope-from <misha.zavertkin@mail.ru>)
-	id 1wwwyw-00000000GhR-1y6l; Thu, 20 Aug 2026 10:14:34 +0300
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
-	s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
-	X-Cloud-Ids:Disposition-Notification-To;
-	bh=E0vvJPAxMbhZHnYFNDaN2pOoHXfMWSwnBBICu6tVsp8=; t=1787210074; x=1787300074; 
-	b=1+7s82DZJ3F8+aqtRONXd+h3iktfCq+4qhO2ze1YGK9ceAFKBWh8a4RN1IBuw0zuzVyefTnIVgz
-	sGmz6lIjecwaCGSE7Ov1FBcg1gF8mWfnLs6m3nn6QEBzwKSNVTFUiLtsXFRlJdY1U63bOTs4J2QhK
-	zec58XHrx8sm/72rEXlYHE9yLnzflaH5heueX+PLDXjqTycLz7ZYxyz4AzH8k+5VHbJ5oXtkdOlIG
-	A8lV7I4v/jWYjxaDS4T9WfaWB0+OYKmuywbAhCIxvcZ2KL8E3bcovlAwZwWVEkKj7nR+vwCbFoodN
-	DsRC/Scj/p1Msx5fwHje+RngHLApUjbZvcng==;
-Received: by exim-smtp-67896c5f6-jvs8p with esmtpa (envelope-from <misha.zavertkin@mail.ru>)
-	id 1wwwyl-00000000CcZ-2nob; Thu, 20 Aug 2026 10:14:24 +0300
-From: misha.zavertkin@mail.ru
-To: linux-gpio@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sander Vanheule <sander@svanheule.net>,
-	Bert Vermeulen <bert@biot.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Zavertkin <misha.zavertkin@mail.ru>
-Subject: [PATCH v3 1/2] dt-bindings: gpio: otto-gpio: Add gpio-ranges
-Date: Thu, 20 Aug 2026 14:14:09 +0700
-Message-ID: <bd1fd3ab47001c303e62d331486779c2be6d6eb3.1787209558.git.misha.zavertkin@mail.ru>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1787209558.git.misha.zavertkin@mail.ru>
-References: <cover.1787209558.git.misha.zavertkin@mail.ru>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="HH+WeleN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X7HT4ihVyto2ppE9nrLyBlBF2wHqBrn1CarrniCEWOhh18gjNnR+ZJ29WyqZrbLKldC9c5swvGUE6YRvpvL9yxudIru+0t8P1Hs4BmU6+D0PfsCCiPYAVmUHs3e1ZGpfrM92WuWTtJ39htYB8jYTszkucS52U41hKuH5mBANgodfjRvYrJEVBWjaWSiVd+z3si7bbSDq0WIRvRe22lc4JUe9VmbvAk9op3HIEP6DC2w0dZX4fL94KfAT4WaH7x5wFx243ptpy0dr1fXzMuWOkz5kZRxZ+3zgbGnU2cxEa+wUEAlgjpUwxk/shrh+tLBDiVe1eU2803innArWj6WFdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZIqsH1g76e9owGbBonrZZzsDN/aYRlRrWA1CAQ0TMqc=;
+ b=MqroaBcGC1E7Y2SfOxk1GB01w/gy+TEWhLQRtG69l5WgIj8cbfYDb5FS4Px75UcuyLWK6HYZzgyau4/zzzW06t5WyFNaWawtD51ceZs9PYfH6eozkty8/gsk0VlUllEDzaMi9f2muIoHcXwhgjYMD4fKt5peUfSORHER5RFPXbPjnQVMHA4+euAZJVZKo71tRqUeGyBwcSzNpQ5ZmKbFJL7h4OTk9A6wOJH+SV670rCSUlOUe4+sjpaVONKl8jugAu+mEzsyT/ezZzPfATxQDJ8Giqumax0RVWW6yVrPeVQhMwg+J0o+TcAfhGjzXyGaOpRozme+4xTb5HEcmVhyWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZIqsH1g76e9owGbBonrZZzsDN/aYRlRrWA1CAQ0TMqc=;
+ b=HH+WeleNhQin4jAsX8eMP9yS+4XGyHeeSWeY9eJj/DlnFRnBjx2UY6kSNGa7KpPiayBxVMQBFx7KyBeTj4WDgFyoxqDAKvLexUnnrJVMY2DN9C+/9pzf/nENiHRqR/4vv0PjOcYE4QNJ0XhylgtMM3B0NzYADawBG4BjynMuNqv2SGOVuwkG71Ew5w/eJtHeVwyK7vJtUHC9Fltnph7bnzXD9+dcDvV9l9z40gqm5qlSR89SnGds8S/vDX+u0f+jqgb/wOeD++uw186bwzsUg2UILcotuBH8fvySkvb8m+ap7iMmHqGXibGHAhr1wcUgQs0sMn7MMTEoDQ6/xdNt1A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+ by OSQPR03MB8484.apcprd03.prod.outlook.com (2603:1096:604:27a::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Thu, 20 Aug
+ 2026 07:16:42 +0000
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4%7]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
+ 07:16:42 +0000
+Message-ID: <d259882a-fdda-4336-bbd7-ff1b8bbaf8af@amlogic.com>
+Date: Thu, 20 Aug 2026 15:16:37 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: thermal: amlogic: Add A9 thermal
+ bindings
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Guillaume La Roque <glaroque@baylibre.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260811-a9-thermal-v2-0-7ddc33b11b9a@amlogic.com>
+ <20260811-a9-thermal-v2-1-7ddc33b11b9a@amlogic.com>
+ <20260813-international-optimal-limpet-dfb06e@quoll>
+ <114b6c15-2975-44dd-8593-2fd23422b254@amlogic.com>
+ <7e4c40b5-e156-48fb-af0c-3c2d9271cb02@kernel.org>
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+In-Reply-To: <7e4c40b5-e156-48fb-af0c-3c2d9271cb02@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SL2P216CA0136.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:1::15) To TYZPR03MB6896.apcprd03.prod.outlook.com
+ (2603:1096:400:289::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailru-Src: smtp
-X-7564579A: 646B95376F6C166E
-X-77F55803: 4F1203BC0FB41BD9E3E322B45F7E28236E967E4D10342F1831ED0651C63AA0BF182A05F53808504035F9B2CD21C99E553DE06ABAFEAF6705A5F8309B76A0D0157678CA4A5D6BD0E9261E30AE1A3D80FE
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7BCC85671EC7A750CEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637FE9EFE935CD7C6AE8638F802B75D45FF914D58D5BE9E6BC1A93B80C6DEB9DEE97C6FB206A91F05B224E99C5DB5050ED92E070BE324C7D3C407C2DCE565509673BB0A4F435E46E6718B35066C979671628AA50765F790063767B9C6E70FBE8DD8389733CBF5DBD5E913377AFFFEAFD269176DF2183F8FC7C058C1844A7A85E7B68941B15DA834481FCF19DD082D7633A0EF3E4896CB9E6436389733CBF5DBD5E9D5E8D9A59859A8B69EAAB76869E07C3ECC7F00164DA146DA6F5DAA56C3B73B237318B6A418E8EAB8D32BA5DBAC0009BE9E8FC8737B5C2249C2DE32F7C1AA431B76E601842F6C81A12EF20D2F80756B5FB606B96278B59C4276E601842F6C81A127C277FBC8AE2E8B1D9A11CA0D2880DE3AA81AA40904B5D99C9F4D5AE37F343AD1F44FA8B9022EA23BBE47FD9DD3FB595F5C1EE8F4F765FC72CEEB2601E22B093A03B725D353964B0B7D0EA88DDEDAC722CA9DD8327EE493B89ED3C7A62817816B0B6A749F1976AFC4224003CC83647689D4C264860C145E
-X-C1DE0DAB: 0D63561A33F958A578FB71A7F4F868415002B1117B3ED696DA594E0A7A27C1F1361FAC1196A180DE823CB91A9FED034534781492E4B8EEADED8273DE7764599AC79554A2A72441328621D336A7BC284946AD531847A6065A535571D14F44ED41
-X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE191716CD42B3DD1D34C77DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D659383C08411FA4C597301310FA0C893EE93B7CA6E14E87E0FC810D46E2D8963A815C8F986DE618A273B8341EE9D5BE9A0AF36F0E3ACD8E64CD2742BFB9947CD2EDBB483AE955F657E352EE4E5D9E54FDA4A7285BF96B6084FC8511FE41C8941D68F571C199C4BE91E79E69A34BD5DD98C9F0A6D2C91ED28CB6
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXMZebaIdHP2ghjoIc/363UZI6Kf1ptIMVd9Ysz+d4RqW+aByBm9u3Zo=
-X-Mailru-Sender: FD65D7C492470CAE6DE451A158873DE6010C1C06DC1B19D0CFE9FA76EDA5B4B75EF75CCBBFDDB42A921FF226787AE004F767ED260C4F5E398B67290C0B8F2C0D0ACA136676B1AD1C82BADC8C81B40964835B6B713A4867D9C77752E0C033A69E3453F38A29522196
-X-Mras: Ok
-X-Mailru-Src: fallback
-X-7564579A: B8F34718100C35BD
-X-77F55803: 6242723A09DB00B491D8917C1B322829C507F2E4FE1A8EB3512C4774CF7C0893049FFFDB7839CE9E9A5E1928F99198410975696522BF96E15F87680FACCC2CEC7B785EAF6A4386E32D2B97EB35E4C36F
-X-7FA49CB5: 0D63561A33F958A5C53825F443F9547A5002B1117B3ED6961E357C5B2FBA6417F60D80CA342864C602ED4CEA229C1FA827C277FBC8AE2E8B54F520D093A0DF28
-X-87b9d050: 1
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+OYcBso8Zm+oliTz8oZwnDrFsY77LZRcHyw5ht0smWrfSeTW5FiI8avd9v29gUBslpEZ9wIMwqVP4jLQVQ+dVm7x9BpDHadBV9RMjI809PraZ5cYNe9pNstCc2mCzyXTKwQ==
-X-Mailru-MI: 20000000020000000000000800
-X-Mras: Ok
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|OSQPR03MB8484:EE_
+X-MS-Office365-Filtering-Correlation-Id: 250a340b-8a70-4f9a-1752-08defe8afbe9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|7416014|23010399003|10067099003|3023799007|56012099006|6133799003|18002099003|22082099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	25Lcq7ITtEaoN2f6dDwuIahPb7QcTSH9hlm8ObXcgNo7jYpTPxw+O9HIaX42Ockh9dDBrUiGzXB7pu3AQzosZvaiOrHqkqKxEnRbhzSRh7AmukjmtbJ7SIuGX91VkbvH/eZ1/3Q4gC3Eklcs6Kko//rxGFT634z/U3xSwaai/fqla1qDCtb6qibmZn2ezI0/g7qK5vYfyLDm0TH0hmRRsTl2p5U37fc5TaBPn7dQ5+JkXbrRQTgS/+Err3v7ao2H6zTtX+qM+CX5PSivL4XW5hcg4EsXlh4lgBhxceWx4XKrVDbUNdAAwS93Grmg9ansC3MN655u84fhjo/Euo2WQGt8I6NvRvNS1NSkW5q7+k/BjKFgfeniciD6RWd159m8MKyhht0jQnHKh+ZECfjPqYR0iCKaUaYcvZqWHbBhi+oMm1MvmpYzmTos+uoznD+gh+zWj325Yqjk52ciTL8hSDMc6+7tGHpjPtO6QNKoXn/RwipN0ZKAVIh5hfBpVPDxIIEipnjgqCDC0+e6N9Cit2VaiQbrx7BLToeqSy/RPa2WX6lM+iLbDgJb42jEu0wQ3rfcF3ukVsGfgVLqnOkRDG+rc33MbEkb1NzwBg+EVnGPWan/1XvpmtJ5qsY0RQgPtvaOjIJuIkd+DAvV0/UOqw0sFfBmRjTCIZ2UJIBgv2U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014)(23010399003)(10067099003)(3023799007)(56012099006)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SFoxR3g4WS90TXZmSHgvYkM4NXEyY052T1RJaVp2WW5lcVFCckM4ZzRXNVhj?=
+ =?utf-8?B?cDdxWnlGelBGRFc1U2Z5VnQvbUkwUWRtcnJTUXpXUHM2bExGVUZsRXFiT28r?=
+ =?utf-8?B?RWZKKys3QXV1V1VtMU5NOHJWcFFxSkdXUjRuMUdWTk9KK0pnV1I4Nmw2NWEz?=
+ =?utf-8?B?NnRkRWtOYVEvVEdXZjA3REhBRTIyM0xLK281dE4rTHE3QWw3MVlEOXRrcVJJ?=
+ =?utf-8?B?REVVQjRJcXRzcUVncjE4VGM4QnU1dmN3SjhZeVpaQjB5bHByU3ZxNUFXbG01?=
+ =?utf-8?B?RnV5SUsrbTYydTdSbXAyTjZHenBDazFvZ0ZxL21IemdQQitYWE5MbmxZK3Y1?=
+ =?utf-8?B?aFpITXlLRU85dVRjZjh1R0hqbUd4R2tYSm5HS1Q0YzRtZlcvbmxSWjJrTHpZ?=
+ =?utf-8?B?TXhubmhVNGU0eHRmMmVYbDh1MVU5VXJkaXRKVjVvbkd2VVJRcUpyRkdvZmxP?=
+ =?utf-8?B?dkIvSytKVlkxQXRzVS9XcnExNk0xZ1pUUXJOK0JFaTB2N0ZMQjBscFJsaXd4?=
+ =?utf-8?B?TWozdUx3VFIrbU10QUYvVUozVmRpeEJLd2F0Y1o2aE9FbU9jYm9UK2k2RkVv?=
+ =?utf-8?B?UXZxcVhOTXlLcTNoUGhZdWthUUVoQTRlZjB6NitKWlgzY0FlSDZZTHZKSU9P?=
+ =?utf-8?B?LzJWYXYweHYrNVE3RU5NNi8wSkhrUTNkRzFHRDVOakJoOU1nc0hHRHhhMktk?=
+ =?utf-8?B?Tmt4Nis4YVR4Vlp4bzBoMHFPSE50TXNrS2t0Y2piVXArUTFUaTd4bmNVVmZz?=
+ =?utf-8?B?dDNxT2J6M0Y2Vlk2bUYvQ2dDa0cwNVl4K3pZYU5uSEV4OE03MWZIaVduL1Fj?=
+ =?utf-8?B?eGdLTkU4UURaSEFWRGVNUUNSUVduNE9rZ2Y3ZHVZRmxUSWRjUVVudWd2QnIw?=
+ =?utf-8?B?OWRNbFhvblV2ak1iMy9qSFk3cS9PbXgwREdHZkVWTlFmR2tSajhFOTdocVRv?=
+ =?utf-8?B?ZndYWWpsYkNGUytKZlJqcGRUQmU5TTJ2OU9JSFZJbVdHOGVoR3VvMFEyN1BC?=
+ =?utf-8?B?Zk9nSVgrMWNUZTNDYWd4RkVvT0QrbTFQL2dITUpCWnpRby9VRUNPRmJkQXBl?=
+ =?utf-8?B?VUZlN0J5RjZxeWYzOHZRMjk1czgxWXk4MlBMVFVMY3JKdTljNkxRM2tBTS9u?=
+ =?utf-8?B?djFMalhoNkY5aEw0YzczV2lvMk54TEpnZjlzOWIzb0xaalZZUDYyR01pWmIr?=
+ =?utf-8?B?RmdVN09wSVdhL0dTSTZ5WndJbWRGQkxMMGIrSThFdVI5eHJpcWdmUU9mS295?=
+ =?utf-8?B?MEZYb2dSUzMySUYwV21PZmVhWlhzTU9Oa0d1SE9WTG52YXkrNU1QL0hnOEhX?=
+ =?utf-8?B?L0VXWmZOZlVwNlV4eWFiTEZaemJCU2praXlONDJ5ZTUwWlFCM2pIU2lzaHBi?=
+ =?utf-8?B?bXJxRFlYeERrU2dZQUJ2Z3dibyt4c2ROVHUwS01IaUtzdDNtN3hhZHg3VlFS?=
+ =?utf-8?B?M25vYzhTMDBvZ3pEa2lPS21YMUtmSllaMDhyOEVXdjk3cU90NVp5TEF5UHc2?=
+ =?utf-8?B?R2NjZk1NUlhOT2RBdDd6MFp5Wi9KeXpqZ3JjZGk1cEd5Ujdmb3N5bFZxRGly?=
+ =?utf-8?B?ZSt1Q1NHNEt1Wlp2TzI2Q0FFVTgvVk9qOXkyYWZEaXZQMEpjbzlTeG5lelpW?=
+ =?utf-8?B?MEpMbWJIY292MzVVYlg3N2tQcXVoTE9xMS9WdTBRejJLdkJTT1FOWkhnOU5a?=
+ =?utf-8?B?SU5Zdm1iNndxM0Y3WGcrdU14S1dOMFNVU2pISlFDT245YlN6VXlUU21VMmhR?=
+ =?utf-8?B?WDNodjF2OVlZcEJZdXE3UjFFZDVISE1HaTJObEdXUEliYnNqV0YzQytGbmxS?=
+ =?utf-8?B?cTVTTlNBQVBWY1E5M3hwWWFpUjhmcVFzUllVY1BDTEI2RzJvUngyWWhjTjZa?=
+ =?utf-8?B?TWFpQkNZYW1DUndQd1RhVi9LN0tUcFJaamkvaGVNUVhLRnZmMlYvMSt3WTJu?=
+ =?utf-8?B?a1NaRFhmMnE3ejZuckF4YXNYUlJJTXZqd0JWR3B4RFZjRFlrcnZuYm9DNDhz?=
+ =?utf-8?B?MDhVQ3o0SmNpUnAyV1ZyYXJqY2ZuYnoyVUJqdmVaT250ME1OVTA1RHhGckRI?=
+ =?utf-8?B?bUZla1lWRk9mMFJXWTQrS3A3Tk9uQkxaZ29jK25iYnlpQUFmWDM5OSsvYTVv?=
+ =?utf-8?B?d2tmOWlDdkxDQ3BMN2U3OSt0cTZBMk13eXhpRU0vWUJzZzJoR2g5M2NLT2h0?=
+ =?utf-8?B?UGM3d2ZvSEpJMktWUG5ZY2xoSDA3amF6L2c2cFhCamVzRmRpdzVoSFFOTDlL?=
+ =?utf-8?B?ZzJXVk4vUTV1VTFUNjkrRndFM00xRGhWb1M0UjBsUnhBNHhhbkllc3d4VTlv?=
+ =?utf-8?B?OHVjWkwzNUp0MXNSOEJUcStYRzlmbW1pVFVlTjZvWk9ybHpIcXk3dz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 250a340b-8a70-4f9a-1752-08defe8afbe9
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 07:16:41.9470
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T0gu+kPQFvwJ9df8eoGCz4hvA3J0ichEL1zZII+PFen/7nyr+nCc+8kQHLOPARWXf8h25Qbj1JX6Vajik+8aV9iKZUcE5YDFGu0QxYELiAQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSQPR03MB8484
 
-Add 'gpio-ranges' optional property to reflect driver changes.
 
-Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
----
- Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml b/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
-index b18f8f0ca0ae..33c25df7b815 100644
---- a/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
-+++ b/Documentation/devicetree/bindings/gpio/realtek,otto-gpio.yaml
-@@ -40,6 +40,8 @@ properties:
- 
-   gpio-controller: true
- 
-+  gpio-ranges: true
-+
-   ngpios:
-     minimum: 1
-     maximum: 32
--- 
-2.54.0
+On 2026/8/20 14:49, Krzysztof Kozlowski wrote:
+> On 20/08/2026 08:38, Xianwei Zhao wrote:
+>> Hi Krzysztof,
+>>      Thanks for your review.
+>>
+>> On 2026/8/13 16:28, Krzysztof Kozlowski wrote:
+>>> On Tue, Aug 11, 2026 at 08:37:43AM +0000, Xianwei Zhao wrote:
+>>>> Document the thermal controller compatibles for the Amlogic A9 SoC.
+>>>>
+>>>> Describe the required "core" and "plck" clocks, add the optional
+>>>> "amlogic,hw-reset-temp" property, and update the schema constraints for
+>>>> A9-specific thermal controllers.
+>>>>
+>>>> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
+>>>> ---
+>>>>    .../bindings/thermal/amlogic,thermal.yaml          | 28 +++++++++++++++++++++-
+>>>>    1 file changed, 27 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+>>>> index 8cfa44dcda58..f73ee66bcc47 100644
+>>>> --- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+>>>> +++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+>>>> @@ -23,6 +23,7 @@ properties:
+>>>>              - const: amlogic,g12a-thermal
+>>>>          - enum:
+>>>>              - amlogic,a1-cpu-thermal
+>>>> +          - amlogic,a9-thermal
+>>>>              - amlogic,t7-thermal
+>>>>
+>>>>      reg:
+>>>> @@ -32,7 +33,13 @@ properties:
+>>>>        maxItems: 1
+>>>>
+>>>>      clocks:
+>>>> -    maxItems: 1
+>>>> +    minItems: 1
+>>>> +    maxItems: 2
+>>>> +
+>>>> +  clock-names:
+>>>> +    items:
+>>>> +      - const: core
+>>>> +      - const: pclk
+>>>>
+>>>>      power-domains:
+>>>>        maxItems: 1
+>>>> @@ -52,6 +59,10 @@ properties:
+>>>>              - description: phandle to the secure monitor
+>>>>              - description: sensor index to get specific calibration data
+>>>>
+>>>> +  amlogic,hw-reset-temp:
+>>>> +    description: The hardware-controlled reset temperature value.
+>>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>> Thermal zones define that, not custom properties.
+>>>
+>> There are some differences here. The thermal zone goes through a
+>> software-controlled process and eventually triggers a restart or
+>> shutdown. There is some time between the temperature reaching the
+>> threshold and the actual restart or shutdown. In contrast, this
+> This feels like Linux problem, not binding? Fix Linux.
+> 
+>> attribute configures a hardware-level protection mechanism that directly
+>> triggers a restart when the temperature reaches the configured threshold.
+>>
+>> If that's the case, do I also get it from Thermal zones?
+> 
+> Thermal zones define your hardware temperature constraints, not custom
+> properties.
+> 
 
+I will remove "amlogic,hw-reset-temp" property.
+
+> 
+> Best regards,
+> Krzysztof
