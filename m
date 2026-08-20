@@ -1,62 +1,62 @@
 Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0D53E168F
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:17:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7573CB54F
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787217439; cv=none; b=Qvze071jtz9wMZ4EOApV699SI8i81CdR02XyzeY4eOSdIRYuzqNdXFmkxpAbtfQDbr4di+6gYL/XnL58MTMMj3ZY7WTwtu+VBJihz+gPVZuO2x1gLEbkhQ48TKSC2DQxuMjb/X1D7Qnohl4XiXxNY/hmhBHYsjz/DbHBtxIEZe8=
+	t=1787217442; cv=none; b=jpA0yTJBrnd4vHsRUaggb6H1E7sf9yjXF+KJm33B19cett06lGxN0/e/N240o4YVF3Qha4xNYim9CTjD8pdZhfn7mz68UGoJNOdE0qiOdUu8qCNzrj7WtbD44XWI51ZBmF7UcSZuZIFKxjRQU/e1/qHoGhen7NfUexxt7T6qKgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787217439; c=relaxed/simple;
-	bh=9IgDtyv6yAMUkWsg7RNaWcItxtFHo8kakpm/KHcWfnA=;
+	s=arc-20240116; t=1787217442; c=relaxed/simple;
+	bh=u9m2WwsAUh5Coh/I3NjhlkfL1KrpsMcmoa+vDwMzK1s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l9cFB4WaVH0tzrIywWB6eVLmn2h/pWWZqeNTG9E4cPsx2K9Hbax5mJpIzBqTSYw3hKBpJwUtW38u09ssWXvJzJiD/HQpoA4vcpWeytLBWVFkekVuSr9tilo58MFxL4HuCL0yPjcbGL/sIlmTyL1Jk70awbDL/d7l1LjPHLtZHhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=ii9ohhI9; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=Nfqa5MYg35VsYdGcUhFxfY0FyPV4FAY2k5NV3G47nq+IXBEafRvlQ6Vsq2Q+uU1t1ONvOYTTjDtr89Y3Rt1eZ9QgOTC0D7J2oXoQgaUGvRRAcf7PuLvsFmioSfO4oIMMqlfVw/cGj6fbdeuiqsawY9s6um6sw7Sktp2WBl2oL+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=PpzT2ciV; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="ii9ohhI9"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-480033bdcf4so1227529f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 02:17:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="PpzT2ciV"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4798bea72f9so1139151f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 02:17:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1787217437; x=1787822237; darn=vger.kernel.org;
+        d=amarulasolutions.com; s=google; t=1787217438; x=1787822238; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fAmctwTyX9ptfNTsOcFrY+BzuI2WSByIHEJFFIRpN/Y=;
-        b=ii9ohhI9dYIKqxMbQo/O858JaY6cYij70c8t7zY2mtHxu4QXxT9oFjB2fv3FuC4wBO
-         JZ4I4EtcfivwdLVzKvLshjv4TqxGXSjt2LekdZgC5YvIqtvZGU7fzzfdeL6R5Z/ga0sR
-         PJkvWEztlnaPmOJfbU7rGQ18NJVuDqGk3loEo=
+        bh=O50jeHT7n6IfAQOe8+U4Hub9w56VMIy6Werwz+99kvc=;
+        b=PpzT2ciVGkQUfaksdl9pXHJyQX3QoQPzJcaNrQwiUfAqcT5lJgsD0nmsmYBnvs51lG
+         9IQVKsPB6bUX99XTNFRxTMD/GenLDDKvs8u+p0oZb22BHCs+UZZrJZPNfc0ZoSQMFpAO
+         sUzFiv72CMphuJbXf15AKwgj8uFG6iV1f0Jk0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787217437; x=1787822237;
+        d=1e100.net; s=20251104; t=1787217438; x=1787822238;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fAmctwTyX9ptfNTsOcFrY+BzuI2WSByIHEJFFIRpN/Y=;
-        b=V7NZnTbVhZ7qbgqQyDSgnj5Om0B5+OQfqDHYBJeNyIxRPJZvrWg0U5G5FN1MpplA6W
-         KKYKexSJ/XqovModwnSRywoZPWZvwfJqp/T2cZTs9hzlIoa0j1DtBeTergneuE0laEKY
-         zrHHN13kQx0B4SKd9FxkIENcMRvD7GRvtyOKdDef/zjN8ZfZ3fwDYUFFMEgRSSPkhTUT
-         wrKi71cAuLDu+B3d07FdO3RFN2lRN9glZ/r5lIjJE5K752C0M278W+kWZ4ODcrJd6vRn
-         U7y4OHXkWvyK6+yJS5SfV1BuBEVu/VP8wCtOIoDZ5TTmlLkovNs3RlYuvIn/8KBGmWvS
-         srHw==
-X-Forwarded-Encrypted: i=1; AHgh+RrEesfcknAqhP+t153z98uR6gCaY7ivBsrUuH4+i6E+AzrXgE4bWmqOQxxGXI3paLuT6iny9jXKhBSp@vger.kernel.org
-X-Gm-Message-State: AFuF++kFstas4ZkCkTlpj9dUoOKLIy7ac9AeMlbP36Pq49s3b6dNrd5W
-	lfj9o/K+Ut/5E5n5CVKmDoKh1NOyis1nsluYJdmgJcUyx3WMH+sb2OCa9hnvACKP780=
-X-Gm-Gg: AR+sD12e3ZnUv5k9LHa7gc9Ur8IPoZGRdhPCgyzUxNXEF/TyOGJHIIEzIzjlbmuUoho
-	kkilw971e3eyblgGGuuxHWS+0SFyNnV6hTDlvkLEIaHraRZJLUPk6Kdwiq4QLI1YeYY9ZH/L7hc
-	WIwq3zO4PNeurWVF+KLCzEeaUjS5VuK1Socy61bNsHSAuUpnJqDnYirhRlQBWi3uyEu5Awss3nN
-	zNyzTVfCLS6lLeCzJZxtuW66Jwzhpqc1QBOLaOf6Cre0IN0WiWgb/+RAFBV8zusuAE/sc4F7ZuO
-	ALUHY4MMb887AqeC8bB+fWLGKveyIR1JVn1I2WptJl2Bysd+GrRqTb7U3eecjCopEZpLkLsZ0Jb
-	Ekvj8diiDY7f0acfEClLY98ay9SHJdI13ckvG+8nfiPBhus198JSDmo3aTh7u3cYWh5Nle5i7z2
-	8OWLEtPihlk+7p9mU6vjfo3HD1KC2mJVEivEeBZxO4+ns5oKyHl+T7AXBxLEiLM+Gu8G5JrlHrk
-	VjmQqgTv+r0lZLs1gGI8Q4UU0OYMW63ea18MpsUueeYl/lK3yzW8jXCojZ2wnxoRDup4D9KziY/
-	fzGVUiT5MFRSAGRxb3JrgDSIhcAwEDgkmHhQ6uQUe2QHZM4WITh1eXVsA+cqAQ==
-X-Received: by 2002:a05:6000:490c:b0:481:56ec:b422 with SMTP id ffacd0b85a97d-482b1eaa195mr20533368f8f.9.1787217436548;
-        Thu, 20 Aug 2026 02:17:16 -0700 (PDT)
+        bh=O50jeHT7n6IfAQOe8+U4Hub9w56VMIy6Werwz+99kvc=;
+        b=BWtODAjXdgovOCgk0BAcabG8aBHlzjhvgV1sW2CDOxjJxfzJNEBBbzSZWWBCrK4vkI
+         3sf/y7ral7iEa19syNYhvEmJLHXNgBVCNMbY6b8uPfH9fW0OIWyGtXTYP7yVEvzxJrhL
+         fphnlqZHwdiWjiVWWmUc4CwUujeT87eh+PJBPfzPiwSYZSDJEVFUYTqW6AkVXQ7zAEHm
+         QBsiF9Gqo3UGc8YmVcfEnVXPyw7IVU7YO1sEIaSv8WgwyLuHlevg+qBzACduG8ODS8AE
+         kaghBdcAhIxlfgxpR2mG3d7v5C9mrhUHMI6uGqw/isdVbhV8+2zv5VN2nqit3nbdJR8b
+         FzRA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro02wJYQzGrCtoDe07jarGJbZPPzA4G9t/aBOgJOVxoCCFf8dU+BlcYjPZH54MtQETL3H/f3oWGiGUY@vger.kernel.org
+X-Gm-Message-State: AFuF++l5vVTOBBCNJsoS652gLwW3G4l2peNehRZtVez55IeHSxsKrvOv
+	DqwxLzlh5xo9h0iSGcOdqSGNRWqQ2S8pugGM8qRV/nVUOE0ovNzJiEZYZIvnozPhOi8=
+X-Gm-Gg: AR+sD13iCujjuda3w+1eCruYXilXACqQ3f8I8QInQRtTQhAkvnFCZHtFU5PaLkfmAzf
+	LSk9KN5PWCkI1mVB8+MikqJCc4qAMgAmuUh2hWv29YURDSEb2r2F5K74LjY6OYmFPtdpjtnkKeS
+	o2MF42e6dm65ZNfcGivlMaOUjmfHiv54TNepkl8D3ANCxsZdmM2+B7UC4mvuRj0/GQoBSWiyYSQ
+	rz91ERU6luUzoB6Weya9XCyM8j0LCi4fhr8BNsyjKPLI0ETBP04oov/BXC5iUpbGvgmVefxgLdP
+	D361/1KZwx2Yg0y+YP0IWs+t7Y8Bd0uYqNFAsgcRuNCWbkZdm+RMnelBlSAwT2NIV1jnpIR42/g
+	s9tQyiiyxh2ee+rC002s6kbleiJBV9/Ua6G7G/bdG+LCTyh60fbTl6Z23xCRhyReAh+Yt7sjIpL
+	0BoqWdZO2TRLCjt5SqSrvZLTmnRJKLVSxQ/hnmzeRIyotC/+cbVQMnTAFsPBpeLo1UT6e2A1n6q
+	N63ZhqU1ucTLsCfvRnqcr4GpDm2bVtr3zxbjKYZoUjxRjFZuWc204oeJQ27N+56FCtc03THMWaA
+	+w7Qgu8SCIg/v47p6zKJVtx3qWkGjwIAflz7rL2pZhaY3VG8HEdqGqKvXlEowg==
+X-Received: by 2002:a5d:5e91:0:b0:47f:7b75:9dfe with SMTP id ffacd0b85a97d-482b1e958ddmr19929009f8f.8.1787217438610;
+        Thu, 20 Aug 2026 02:17:18 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-54-86-139.retail.telecomitalia.it. [79.54.86.139])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b14c3775sm10021606f8f.26.2026.08.20.02.17.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b14c3775sm10021606f8f.26.2026.08.20.02.17.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 02:17:16 -0700 (PDT)
+        Thu, 20 Aug 2026 02:17:18 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
 Cc: alexandre.torgue@foss.st.com,
@@ -72,9 +72,9 @@ Cc: alexandre.torgue@foss.st.com,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH v8 04/16] arm64: dts: st: add SDMMC2 support on stm32mp25
-Date: Thu, 20 Aug 2026 11:12:12 +0200
-Message-ID: <20260820091652.43541-5-dario.binacchi@amarulasolutions.com>
+Subject: [PATCH v8 05/16] arm64: dts: st: add CAN1 support on stm32mp25
+Date: Thu, 20 Aug 2026 11:12:13 +0200
+Message-ID: <20260820091652.43541-6-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260820091652.43541-1-dario.binacchi@amarulasolutions.com>
 References: <20260820091652.43541-1-dario.binacchi@amarulasolutions.com>
@@ -86,47 +86,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SDMMC2 controller supports SD cards, eMMC memories and SDIO devices.
+The controller is compliant with ISO 11898-1: 2015 (CAN protocol
+specification version 2.0 part A, B) and CAN FD protocol specification
+version 1.0.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
 ---
 
-(no changes since v3)
+(no changes since v2)
 
-Changes in v3:
-- Add power-domains property. Suggested by Sashiko.
+Changes in v2:
+- Add resets property to dts CAN node. Suggested by Sashiko.
 
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 16 ++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp253.dtsi | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index ae36d703532c..44938c036e30 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -1668,6 +1668,22 @@ sdmmc1: mmc@48220000 {
- 				status = "disabled";
- 			};
+diff --git a/arch/arm64/boot/dts/st/stm32mp253.dtsi b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+index eeceb086252b..7e82f01fdc10 100644
+--- a/arch/arm64/boot/dts/st/stm32mp253.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+@@ -43,6 +43,22 @@ &optee {
+ };
  
-+			sdmmc2: mmc@48230000 {
-+				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
-+				arm,primecell-periphid = <0x00353180>;
-+				reg = <0x48230000 0x400>, <0x44230800 0x8>;
-+				interrupts = <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_SDMMC2>;
-+				clock-names = "apb_pclk";
-+				resets = <&rcc SDMMC2_R>;
-+				cap-sd-highspeed;
-+				cap-mmc-highspeed;
-+				max-frequency = <120000000>;
-+				access-controllers = <&rifsc 77>;
-+				power-domains = <&CLUSTER_PD>;
-+				status = "disabled";
-+			};
+ &rifsc {
++	m_can1: can@402d0000 {
++		compatible = "bosch,m_can";
++		reg = <0x402d0000 0x400>, <0x40310000 0xd50>;
++		reg-names = "m_can", "message_ram";
++		interrupts = <GIC_SPI 91 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "int0", "int1";
++		clocks = <&rcc CK_BUS_FDCAN>, <&rcc CK_KER_FDCAN>;
++		clock-names = "hclk", "cclk";
++		resets = <&rcc FDCAN_R>;
++		bosch,mram-cfg = <0x0 0 0 32 0 0 2 2>;
++		access-controllers = <&rifsc 56>;
++		power-domains = <&CLUSTER_PD>;
++		status = "disabled";
++	};
 +
- 			ethernet1: ethernet@482c0000 {
- 				compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
- 				reg = <0x482c0000 0x4000>;
+ 	ethernet2: ethernet@482d0000 {
+ 		compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
+ 		reg = <0x482d0000 0x4000>;
 -- 
 2.43.0
 
