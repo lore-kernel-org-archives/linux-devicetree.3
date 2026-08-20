@@ -1,29 +1,29 @@
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B40474241
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 14:05:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E6F474277
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 14:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787234704; cv=none; b=tSaYhDiurW9sjoJsEAZjKlDDLBgA+UvJHrkCh3yzl1bUkq1ekTvohpWtihoEelKZk7mvy+w7vrkb0qUoIhYs+/saI4KgGo8fuUAlM/X7KVK8FTrNDdQv0QsafkNYPYztU9sLCp5dBTXUvr0unKTlKKVvhey3kSFKoRecptPZXwU=
+	t=1787234709; cv=none; b=ZijuoEq3vlrutw0lJ+XEzZBrNBslSQY0zkOWQnVcRkxo8RAMYD9bHwVyj1wPfHPP8H7nJDf6p9XgVWVHaZwmlwQjbppm+cXfuWRhscCEw+fhM8OtPmzkopNT6k1xNy+UxxfmySFqhtraOAzammT/d4WtRnPa6St6pvxgztRGcOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787234704; c=relaxed/simple;
-	bh=EZipOWOzVyxEwLZC5ozioVkSx5AwVMWapHRN/NSt6mU=;
+	s=arc-20240116; t=1787234709; c=relaxed/simple;
+	bh=7h8yYep2buRwZt/qo9zjRGEeg3X+kwoG0/5M+kERJxc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iOVjvbH8+rf0UKhW2F2hx2iZIXQvyDWAB/Np4i8vbdYukDzcgJh7QtkkDKttn5eml1eqoYJNuodeKkX5d6VWjoLKsn5DJWOBKBfeDRkn18Rx8q2pvy8BNxuch9lFjtAkA8zdKnIgqj0HMqqmyHq8MXeUCwnpV2Us5zKN6sXtnA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=YgdDCjPb; arc=none smtp.client-ip=121.127.44.66
+	 MIME-Version; b=LfE1kLsi9CkmkmOrvcxSXsZ/EhHpPZFnMxXocdDxhaPQu5oDonPWhiEx9LXy5I8mT/HX2XaeGGCRAgkB1tVzbAqlEKq9nSBO+eZdSFrpj/prE6PZ/Gd/1e9ZpIXJ67niBBnhOa9WSbNn3iVmCOzq5MouRTQKT/aqJpLHAARixT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=M6aRfH/k; arc=none smtp.client-ip=121.127.44.66
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="YgdDCjPb"
+	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="M6aRfH/k"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-2eefaa527c;
- t=1787234702; bh=rbw8xQ6r3piVMAmakyWDIwjPOKwVFsaRkmQ0YOAEGp8=;
- b=YgdDCjPbkiXFy7zG+sxPT/ybrmfjR4reVrhZA9Ws+ELxOUx3IzX+oGy/kL/Nh9O2ayK/InEb9
- RDTQs5rrMzKaIKmENeGC9iXOrvI8VhesSd8Dpr9Prew35sYvCnTX+wnXtvFcmeMmbCBI/D+RCNu
- 5cmg4fDNiOdfOuXehj6vy9E=
-X-Forward-Email-ID: 6a87098cd69df34e1c493377
+ t=1787234707; bh=pTvmOLf2cnvYtnWCj0T/kHsrS3V5GxEZ8qTiqEwrp6c=;
+ b=M6aRfH/k9T0IjGXFtxCP5h6ln9aYzJvEZC7eOHVsdqinRKN9qHSg+MVeK0ffjNJaQjgdYrM7B
+ sSV3fubU2YEgkT0FFe8/1dnWH7Z6vmoWnizU3HeCXvJmRSucW5Wh7A1yS8ZyGlRQCAyo7x3kAd+
+ aRqr4bNXJdbPEM6bouakq70=
+X-Forward-Email-ID: 6a870992d69df34e1c4933b3
 X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
  smtp.forwardemail.net, 121.127.44.66
 X-Forward-Email-Version: 2.13.16
@@ -43,9 +43,9 @@ Cc: robh@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Turner <tturner@lineageos.org>
-Subject: [PATCH 1/2] dt-bindings: gpu: arm,mali-bifrost: add exynos850-mali compatible
-Date: Thu, 20 Aug 2026 15:04:38 +0100
-Message-ID: <20260820140439.83220-2-tturner@lineageos.org>
+Subject: [PATCH 2/2] arm64: dts: exynos850: Add GPU/Mali Bifrost node
+Date: Thu, 20 Aug 2026 15:04:39 +0100
+Message-ID: <20260820140439.83220-3-tturner@lineageos.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260820140439.83220-1-tturner@lineageos.org>
 References: <20260820110620.1881-1-tturner@lineageos.org>
@@ -58,26 +58,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Exynos850 SoC uses the ARM Mali G52 GPU, document its compatible
-string with the appropriate fallback.
+This can provide basic GPU functionality for the Exynos850 platform.
+Tested on the SM-A217F device. Does not provide support for temperature
+throttling, DVFS, power domains, governor support, boosting and voltage
+control. Once PMIC is properly implemented, support will hopefully
+increase. However the panfrost driver probes, the Mali-G52 GPU
+initializes and the core clock is set-up.
 
 Signed-off-by: Thomas Turner <tturner@lineageos.org>
 ---
- Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/exynos/exynos850.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-index 9db9f84ad964..ece2b637cd41 100644
---- a/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-+++ b/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.yaml
-@@ -34,6 +34,7 @@ properties:
-               - rockchip,rk3562-mali
-               - rockchip,rk3568-mali
-               - rockchip,rk3576-mali
-+              - samsung,exynos850-mali
-           - const: arm,mali-bifrost # Mali Bifrost GPU model/revision is fully discoverable
-       - items:
-           - enum:
+diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+index 3881f573ec08..8ed85c125030 100644
+--- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
++++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+@@ -296,6 +296,18 @@ cmu_g3d: clock-controller@11400000 {
+ 			clock-names = "oscclk", "dout_g3d_switch";
+ 		};
+ 
++		gpu: gpu@11500000 {
++			compatible = "samsung,exynos850-mali", "arm,mali-bifrost";
++			reg = <0x11500000 0x5000>;
++			interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "job", "mmu", "gpu";
++			clocks = <&cmu_g3d CLK_GOUT_G3D_GPU_CLK>;
++			clock-names = "core";
++			status = "disabled";
++		};
++
+ 		cmu_apm: clock-controller@11800000 {
+ 			compatible = "samsung,exynos850-cmu-apm";
+ 			reg = <0x11800000 0x8000>;
 -- 
 2.47.3
 
