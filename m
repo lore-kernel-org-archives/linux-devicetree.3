@@ -1,75 +1,124 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E772D9EFF
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 14:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47654756A7
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 14:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787234770; cv=none; b=mtYio1haVjAFAlWXCpRfjjRzgkbAGrK/KeYe3FF/mdf/eHqvVZR6hpyPY1OD1k0NVaHUjuYnRXfj6T+nAKjiYiiVhqWkP2JtLN+CU5h3skMVSsz8YG6x+222oX3A8gScQqHyNAuGvIHklt2DSMqKkDCApovKZaUxlGhu8XXg724=
+	t=1787235026; cv=none; b=XVpTGUZeB0rcPs6EASfroRUUj88rPmqjpv6FGTr9wyAE2XFpgu0ev32XlEHZQ3iFZTX5qC5BtqrsflV4eMtC12TgKaP5+vlz31Gd+zFceBgm9pqGrg0qbQEy5/nfox9GIcpgZtQOeavWhfThH2B31sDAlUpZt7fkStSIlxb4mvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787234770; c=relaxed/simple;
-	bh=4VcLySiLNrs2HXanq3NZ/9gYTI3Tejy+OvNDIdy0xSc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qvjWHHDZ/WFrDNCTMIf1vsbIBsoiTQzwe9oTS777sJxRDEDK7aY2Y8OMoTEm9jJzETKGXqfFSRYVMJBdVxSa4buCOI1z22/nbT+dGxJl/Dz4b+OZKQeU/3fw8v2xpefcEFXPXqgGgJbcd9EEGmm9iMOZ7QXfzUriKTynUIgRGro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=jEOB9YTn; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
+	s=arc-20240116; t=1787235026; c=relaxed/simple;
+	bh=m1iH+Rb0wRbKdMdZG//oG/mEeXWg3lauJhMPeMkrfXM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dPjhz1GngPTRYd307xyFk4Nyaq2QvUNOCLy8lVZL7xqUEe4dIYSqSTDlktV80oJ6I+ft3m6Q2wdNhSdyDzcQMAiHGHAJ0tHF7X/ZmvkOcRSreax2y+6ghpgClT57milvMG6N9AKiRl3Xt4Ppc63gtsNpNerJY6kZdDTF+hITnuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+0jDr3I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="jEOB9YTn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-2eefaa527c;
- t=1787234768; bh=X1cEzBJvBztMxBKiQQCNaB02Q/HGS+t/XW8M/wtGoQ8=;
- b=jEOB9YTn31nrXW9MHrrVTWLwwZcv/yHiR2X9CVO4AwTh9Sf+FUVISYnrsPFpNa1o9gjQcdJo0
- rHwk+Wm2ayoITmPub8VXV4rb62QSZwoJeO/Mh149LAFSqsESOoY7S/8zzkIpidPkn+yVtp6XcJs
- F363FWGIdzbFzb34otOij0M=
-X-Forward-Email-ID: 6a870985d69df34e1c49334b
-X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
- smtp.forwardemail.net, 149.28.215.223
-X-Forward-Email-Version: 2.13.16
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Thomas Turner <tturner@lineageos.org>
-To: semen.protsenko@linaro.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	peter.griffin@linaro.org,
-	alim.akhtar@samsung.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Turner <tturner@lineageos.org>
-Subject: [PATCH 0/2] Exynos850 GPU support
-Date: Thu, 20 Aug 2026 15:04:37 +0100
-Message-ID: <20260820140439.83220-1-tturner@lineageos.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260820110620.1881-1-tturner@lineageos.org>
-References: <20260820110620.1881-1-tturner@lineageos.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+0jDr3I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53E4C1F000E9;
+	Thu, 20 Aug 2026 14:10:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787235024;
+	bh=a+CmMMv9Z4Q0fBZyfb5J0prYodpTqEsZ2Ssj38rEE+0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=C+0jDr3IbuvSCpb3x1qwLZWATfyjjXZ102wpOgdbjP1uxs+eneLQhC3G13OX6DlV5
+	 PhS0u/f4qz9vUuTL1lSR8JLawIJwAhk1kHnbwR4XGdH2lsu8SbrZHdAkXVy8eHsqLC
+	 +Q1QLwjqBdarJt1Xe865XNDS03SV6oezA+BpiFlOD/LJFi8ohBbTGXjOg1qurOYXap
+	 QKbU2Dy5x4IAiWQWqfQEB4v7JdjlOTmhRB4+xBSPg4onskmASzD+yQxA3PUDDbn6TD
+	 sBkzv471K/jg1aEKD5RWqUrUIIA/XvIzIzIHtqsgcr0gC3EsL3lUuSGAH57+mJqEv5
+	 8kac0hl2jTEhQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] phy: rockchip: phy-rockchip-inno-csidphy: add
+ support for rk3576 variant
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Amin Gattout" <amin.gattout@gmail.com>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, olteanv@gmail.com, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260820-rk3576-dphy-v1-3-70e25e8d5e78@gmail.com>
+References: <20260820-rk3576-dphy-v1-0-70e25e8d5e78@gmail.com>
+ <20260820-rk3576-dphy-v1-3-70e25e8d5e78@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Aug 2026 14:10:23 +0000
+Message-Id: <20260820141024.53E4C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi all,
-This is my first time sending patches to linux so apologies for
-mistakes. This series provides basic GPU support to the Exynos850
-platform, making use of the Mali G52 GPU through the panfrost driver.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Thomas Turner (2):
-  dt-bindings: gpu: arm,mali-bifrost: add exynos850-mali compatible
-  arm64: dts: exynos850: Add GPU/Mali Bifrost node
+Pre-existing issues:
+- [High] The driver acquires exclusive control over the PHY resets but neve=
+r asserts or deasserts them during its lifecycle.
+--
 
- .../devicetree/bindings/gpu/arm,mali-bifrost.yaml    |  1 +
- arch/arm64/boot/dts/exynos/exynos850.dtsi            | 12 ++++++++++++
- 2 files changed, 13 insertions(+)
+--- Patch [3]: [PATCH 3/4] phy: rockchip: phy-rockchip-inno-csidphy: add su=
+pport for rk3576 variant ---
+commit f333cc625c5d500108f905c6acdcb428ada8e7d6
+Author: Amin Gattout <amin.gattout@gmail.com>
 
--- 
-2.47.3
+phy: rockchip: phy-rockchip-inno-csidphy: add support for rk3576 variant
 
+This commit adds support for the RK3576 MIPI CSI-2 DPHY to the existing
+rockchip-inno-csidphy driver. It introduces driver data and register
+definitions for the new variant.
+
+> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/p=
+hy/rockchip/phy-rockchip-inno-csidphy.c
+> index c79fb53d8ee5c..24aefdcd63617 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+
+[ ... ]
+
+> @@ -403,6 +410,17 @@ static const struct dphy_drv_data rk3568_mipidphy_dr=
+v_data =3D {
+>  	.resets_num =3D ARRAY_SIZE(rk3368_reset_names),
+>  };
+> =20
+> +static const struct dphy_drv_data rk3576_mipidphy_drv_data =3D {
+> +	.pwrctl_offset =3D -1,
+> +	.ths_settle_offset =3D RK3568_CSIDPHY_CLK_WR_THS_SETTLE,
+> +	.calib_offset =3D RK3568_CSIDPHY_CLK_CALIB_EN,
+> +	.hsfreq_ranges =3D rk1808_mipidphy_hsfreq_ranges,
+> +	.num_hsfreq_ranges =3D ARRAY_SIZE(rk1808_mipidphy_hsfreq_ranges),
+> +	.grf_regs =3D rk3576_grf_dphy_regs,
+> +	.resets =3D rk3368_reset_names,
+> +	.resets_num =3D ARRAY_SIZE(rk3368_reset_names),
+
+[Severity: High]
+This is a pre-existing issue, but does the driver actually use these resets
+after acquiring them?
+
+Looking at rockchip_inno_csidphy_probe(), the driver acquires exclusive
+control of the resets:
+
+drivers/phy/rockchip/phy-rockchip-inno-csidphy.c:rockchip_inno_csidphy_prob=
+e()
+	ret =3D devm_reset_control_bulk_get_exclusive(dev, priv->resets_num,
+						    priv->resets);
+	if (ret) {
+		dev_err(dev, "failed to get system reset control\n");
+		return ret;
+	}
+
+However, the driver doesn't appear to ever call reset_control_bulk_deassert=
+()=20
+or reset_control_bulk_assert() during its lifecycle (such as in power_on or
+init paths).
+
+Because the driver claims exclusive control, no other subsystem can manage
+these resets. Will the hardware remain permanently in reset and silently fa=
+il
+to operate if it is left asserted by the bootloader or a previous stage?
+
+> +};
+> +
+>  static const struct dphy_drv_data rk3588_mipidphy_drv_data =3D {
+>  	.pwrctl_offset =3D -1,
+>  	.ths_settle_offset =3D RK3568_CSIDPHY_CLK_WR_THS_SETTLE,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820-rk3576-dph=
+y-v1-0-70e25e8d5e78@gmail.com?part=3D3
