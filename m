@@ -1,170 +1,125 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8746A47ACE4
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 16:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787242989; cv=none; b=sQDDD3YkGvwG81SnjHr6EXR6911au3zCQXtGXyC5LIjaDHKNtNyofGmvEELa+UnEVEbzv+pJ3H7GyEiP8JdhWNbeVgbXwwtd/z8VRTXm7l8P4umwsPxXykWm1MnXBvD7sSAo/bscBgjr0pezkOfeQ7cGoCOX06MfBUJeMC99awY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787242989; c=relaxed/simple;
-	bh=ZPSw7X+V/IEriZWmRyFQlVVjNZ2Ep+utpqo1rK6tLT8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=eRuGDpHs/kzxbMKtmokKyhK2Vid/Wu2QIDY/0S7wPz1xWQSyHlHtBWhBpMCvRcQd/lgkM4ZGaBkYADctcwJYqlcMbSEgn/5aeiub2pzmzFAV2E5qOZu9GzuZeccRzixx+wNYlb/Z4lvvQsyags2Cj0SApDyYDxZJW3N8jFKQ9bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=r+HFUaR+; arc=none smtp.client-ip=121.127.44.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C4047D470
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 16:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787243011; cv=pass; b=nZENgPmRLVHH7h4VTiuC/Z9CJm+qb4NqEi6f7kfiVvzweBO1wTh+iAWo8r/sXscwh/dlua4tdp3V57CRdeu708+DPJWAepZoo+gwGCgcF5i6UkjU2c9fgfkXP9bA1CtoUCe4QKZoYKnWgJYSObK3zoAhgZI6xkfXVf7BAytsD/k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787243011; c=relaxed/simple;
+	bh=nM7522pMTSm6ohXpjcirSMLxO2bUSl44i0fllcYRFAk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DoHi53YAHvmia9iICxLzsEXg+vs2XjQZr8CnQmQqS9iLk+0pk+MNosakF7PHobHBM9NoHfzvbMrxW5Ry4wMRWqfU3+k374uOv3peaYk78ETgs/os1yY6cHKeBImhBLz7ViOyHkaSKY2PUYQbsN3wKEP5Q9f2j44BjSqLHdWZDM4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bOlEWY0M; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="r+HFUaR+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
- h=MIME-Version: Content-Transfer-Encoding: Content-Type: In-Reply-To:
- References: Message-ID: Date: Subject: CC: To: From; q=dns/txt;
- s=fe-2eefaa527c; t=1787242986;
- bh=E/i8dlYbOpivZAfL2Q3eP0+7bhwO2MbB3pQXOtcJvmE=;
- b=r+HFUaR+y8Hn+uZl/GR/onlEMSiHsbxKSUarbQk04/IoM14BKlZhYkNVME+9JlM6t1orIOUWw
- Ng4NP1VYOICNNwR0ig1RQhSMpour69CKIi03anyOWuzBuot5ICndlp9AOSM30IF/3lq4VES8wgO
- x6o/2zgzsAJZw0y+5XZ95xc=
-X-Forward-Email-ID: 6a8729e97f958f0d9fc2403d
-X-Forward-Email-Sender: rfc822; thomas_turner@talktalk.net,
- smtp.forwardemail.net, 121.127.44.66
-X-Forward-Email-Version: 2.13.16
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: "thomas_turner@talktalk.net" <tturner@lineageos.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Thomas Turner
-	<tturner@lineageos.org>
-CC: "semen.protsenko@linaro.org" <semen.protsenko@linaro.org>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"peter.griffin@linaro.org" <peter.griffin@linaro.org>,
-	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-samsung-soc@vger.kernel.org"
-	<linux-samsung-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/2] Exynos850 GPU support
-Thread-Topic: [PATCH v2 0/2] Exynos850 GPU support
-Thread-Index: AQHdL9tywkiYFsT4dEim8C++1HK05bam/zgAgAABgwCAAACMeIAAHz2A
-X-MS-Exchange-MessageSentRepresentingType: 1
-Date: Thu, 20 Aug 2026 16:22:59 +0000
-Message-ID:
-	<GVYP280MB12134B4DF9D6CA15C7867CF8A1A42@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM>
-References:
-	<GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM>
- <20260820142330.84514-1-tturner@lineageos.org>
- <88e40f93-ae65-4eb0-827d-9c33c52bad24@oss.qualcomm.com>
- <GVYP280MB1213F9511E062056470AE74AA1A42@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM>
-In-Reply-To:
-	<GVYP280MB1213F9511E062056470AE74AA1A42@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-Exchange-Organization-SCL: -1
-X-MS-TNEF-Correlator:
-X-MS-Exchange-Organization-RecordReviewCfmType: 0
-msip_labels:
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bOlEWY0M"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c15d111ca99so2764666b.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:23:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787243008; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kZuAzm9n2uhsG6da58/oDpAH9uPaZdQFlEK2dhAyhjwwrhMDFNYDKn7KbVdqgT04hb
+         uu/p+9sqX60eMN00aSyoMVro2G57Jd+v8SyZxPJlfucjxR0jtP4nEHTURWF4B4Re/aHD
+         t78P55HhSHK0/5fYhoSwX6by95FkG3/FYsscYrHrNsapQ0gSbpuORVOhd9PxNIdciOw7
+         KyR5AQ6FSADrPF/+LqLU6XRKMOHEDYi5JRxm3GyLzRmROV8lHQzC8BlmfNk+gFMwksCV
+         r7p73nflc9DW0pAEGjKp6UNzBOyTZOgVrsDxjY0khgMzwgwE1gHcsRHw+Lx5O7vd1fhY
+         4K1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=yKhR9WkhIUiBs/DXzAMG9ly3j13B+5WjNx96hhgAatQ=;
+        fh=6fw5CH+5a44ACKJNE4MZZSASwSUhwOGKqpAwbJ1QfeM=;
+        b=lmYzjaBY5FOluuzFIXgVz03aEsNvwtO/HZiJAR2zjffAnhGU1+mfkGJlicfSY/cxs5
+         epXeNtEEol4Juk/3PWBk88yqFdRLgFpTh8jYs/f8PPArHHbLS1dHrRYEnSanfBvdnPYN
+         Fx0KzY06fbXUBmPgNFlRpFZvs3SGrGZrpkDvw0TBRa1ZKwf8nRrGUEx9uLLwsjYJ1mSH
+         sBUZ+2cyITLD0pfjsLCDIFxGQ9pHC8xthFykuDTCSL37d8fMHE+mHDmD2/drFSN61NrK
+         2k/VJ2ZYYVsEMqcAB06EJq62gHqnx6XJByQy6BuyTsaftIYD9YJrPQeduXmM6SSHQeQ/
+         QxUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787243008; x=1787847808; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yKhR9WkhIUiBs/DXzAMG9ly3j13B+5WjNx96hhgAatQ=;
+        b=bOlEWY0Mb292rIMAKTE6vd/2FxvUetWzvZEY63S9Avih8hLO9+PCK5rb0GHwFLtbKH
+         kk6Yyekz7v8JyRhvAMKxxrElNC5posK7Q/kEiwL2lTIIDaq9/a08fizXIo7lDyJrgqP0
+         b5gdhtWHvAoPgZjSNxI+CQ4NsOydysVImcu+u/xsGrEcKrPHk5smpVKqGROCgs7aVEkv
+         yFqwB/fLbbyTtVeP8L4wcLkSq/Ot1NHJjgJ8Y/wFGbCLecv3jNkvmi+gt/rtzxb6/A5F
+         2a6XcFm0RVzDVbzeeb5oq8dNKe2jOt7WD5xzQ7b54KuQM0ddOntBTLtv02t+AFfyfokM
+         Igwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787243008; x=1787847808;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yKhR9WkhIUiBs/DXzAMG9ly3j13B+5WjNx96hhgAatQ=;
+        b=ZWFw9DkDx/gd/7IHDuIROM4LKx1a7qVLD+2J2x50SxMOge/qDzQ5GeeMdWaOLj4MmR
+         4uHAMLVhBA5j50jVf9m//7i96DMFx+4tLraafxaO/n1qgGlSEUDT2jl+1cCivEX1KhRR
+         pg2OW2j93gzQZHNdiBWDgWts6UIYL4eF/EhxAHU0Ql9bDKziPjWdPv0Z4xjKAB1epq8x
+         wXGp9VS2oI4gDtFocXiKl675yO3N21JDG0Q6pmbx1s8gBVfCF6/Jc06e+OfW8enWcJmC
+         ye8dSFng8JJKFuJ7nGN+EEGG+Yh266kQTR3te+EPMn7kiXn5TIBvXJe4gZa2uM/dIgEx
+         aEnQ==
+X-Forwarded-Encrypted: i=1; AHgh+RplHOsEQHI/mMhpHf2nBs5GGWzB3C19oZ5bqjUvqt6JOZc5I8dzjyqgylq2hGiIs/zmh65RbSf/etkR@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWlG0G0y82IbwVqpqT1qU+UnQk/SbwXz/j+lgH45ioMbOkF/xg
+	/XKCdsWIfF1w/r/RISDkvL/zzMjjSoYAlVjDzjT0IvO3xTvERj+RWwOqCbW22qGAeZa1KntcniP
+	ag8P7BWkluPM4YiY7y3j8MWOX+FTa3Qc=
+X-Gm-Gg: AR+sD13RI19cYp6h9oXIsWlrEItx8m2uu69fZWauweLfukOxuPKNFLXrURhLVqPLS2Y
+	8e+QT1wRFS/HCAHkRZ+6wLsq3cP9nsgOlGVrwep8fyD8mRlt/0DI3KPjUIIBgcNpmrBJ9wom9f8
+	WW/rFHA3DUfb3gpIQ498/mi1o1VzeWml0HjDIYfnwHGlKauHEJ+Zl68GvqSfeohwcUDa1PHdCgB
+	h+uztJ9/ZYkIuFm8FgVcAI1HsMl2oBlt4wqObpyhNNOoZ8KxoOW5slGrEPrzSHu43KW6pQqz6pu
+	xRwc8xvgR9gE6r9cv0HvAyuDnVQJ098Q2VHUNXORT1A=
+X-Received: by 2002:a17:907:a647:b0:c12:9b93:61fd with SMTP id
+ a640c23a62f3a-c23e86dd23fmr1141726266b.6.1787243007488; Thu, 20 Aug 2026
+ 09:23:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260820122242.120039-1-l.scorcia@gmail.com> <20260820122242.120039-2-l.scorcia@gmail.com>
+In-Reply-To: <20260820122242.120039-2-l.scorcia@gmail.com>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Thu, 20 Aug 2026 18:23:16 +0200
+X-Gm-Features: AcwNN1WN15gIPFE-wS5GMikP40k9b6tUzSd1TSg8R6uNQUbH06o6RfXy9sJzOY8
+Message-ID: <CAORyz2Lgo=teK89gxm6QBMfREY=_cAFN2TuLUFvwGcYpozkWww@mail.gmail.com>
+Subject: Re: [PATCH v9 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
+To: linux-mediatek@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>, 
+	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
+	Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>, 
+	Julien Massot <julien.massot@collabora.com>, Fabien Parent <parent.f@gmail.com>, 
+	Akari Tsuyukusa <akkun11.open@gmail.com>, Chen Zhong <chen.zhong@mediatek.com>, 
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+> --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> @@ -40,6 +40,10 @@ properties:
+>            - mediatek,mt6397
+> +      - items:
+> +          - enum:
+> +              - mediatek,mt6392
+> +          - const: mediatek,mt6323
+>        - items:
 
-Apologies, I think I am missing the --thread parameter. The command I ran w=
-as
-
-git send-email --in-reply-to=3D'<GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVY=
-P280MB1213.SWEP280.PROD.OUTLOOK.COM>' \
-    --to=3D'etc' \
-    --cc=3D'etc' \
-    v2-000*.patch
-
-
-I want to avoid spamming the mailing list with null information so I would =
-appreciate some guidance on what I am doing wrong. In regards to your comme=
-nt, I left it disabled as I was initially unsure whether the E850-96 Board =
-uses Mali G52, however it seems all exynos850 devices share the same GPU, w=
-ould it be better to have as status=3D"okay"  ?
-
-As for the comments I believe I already responded to them but I am testing =
-this on the Samsung Galaxy A21s and here are some logs I pulled.
-[    0.230437] panfrost 11500000.gpu: clock rate =3D 377000000
-[    0.230863] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x=
-0 status 0x0
-[    0.230945] panfrost 11500000.gpu: features: 00000000,00000df7, issues: =
-00000000,00000400
-[    0.231026] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x0000=
-0000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
-[    0.231137] panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
-[    0.232552] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
-[    0.233172] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
-
-________________________________________
-From: thomas_turner@talktalk.net <thomas_turner@talktalk.net>
-Sent: Thursday, August 20, 2026 7:39 AM
-To: Krzysztof Kozlowski; Thomas Turner
-Cc: semen.protsenko@linaro.org; robh@kernel.org; krzk+dt@kernel.org; conor+=
-dt@kernel.org; peter.griffin@linaro.org; alim.akhtar@samsung.com; linux-arm=
--kernel@lists.infradead.org; linux-samsung-soc@vger.kernel.org; devicetree@=
-vger.kernel.org; linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Exynos850 GPU support
-
-Apologies, I think I am missing the --thread parameter. The command I ran w=
-as
-
-git send-email --in-reply-to=3D'<GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVY=
-P280MB1213.SWEP280.PROD.OUTLOOK.COM>' \
-    --to=3D'etc' \
-    --cc=3D'etc' \
-    v2-000*.patch
-
-
-I want to avoid spamming the mailing list with null information so I would =
-appreciate some guidance on what I am doing wrong. In regards to your comme=
-nt, I left it disabled as I was initially unsure whether the E850-96 Board =
-uses Mali G52, however it seems all exynos850 devices share the same GPU, w=
-ould it be better to have as status=3D"okay"  ?
-
-As for the comments I believe I already responded to them but I am testing =
-this on the Samsung Galaxy A21s and here are some logs I pulled.
-[    0.230437] panfrost 11500000.gpu: clock rate =3D 377000000
-[    0.230863] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x=
-0 status 0x0
-[    0.230945] panfrost 11500000.gpu: features: 00000000,00000df7, issues: =
-00000000,00000400
-[    0.231026] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x0000=
-0000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
-[    0.231137] panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
-[    0.232552] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
-[    0.233172] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
-
-________________________________________
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Sent: Thursday, August 20, 2026 7:28 AM
-To: Thomas Turner; krzysztof.kozlowski@oss.qualcomm.com
-Cc: semen.protsenko@linaro.org; robh@kernel.org; krzk+dt@kernel.org; conor+=
-dt@kernel.org; peter.griffin@linaro.org; alim.akhtar@samsung.com; linux-arm=
--kernel@lists.infradead.org; linux-samsung-soc@vger.kernel.org; devicetree@=
-vger.kernel.org; linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Exynos850 GPU support
-
-On 20/08/2026 16:23, Thomas Turner wrote:
-> Hi all,
-> This is my first time sending patches to linux so apologies for
-> mistakes. This series provides basic GPU support to the Exynos850
-> platform, making use of the Mali G52 GPU through the panfrost driver.
->
-
-Again: slow down.
-
-Why does this appear under empty subject thread?
-
-Best regards,
-Krzysztof
-
+Please disregard this patch/series. Sashiko correctly pointed out that
+it's not necessary and actually wrong to provide a fallback on
+"mediatek,mt6323", which was needed on a previous iteration of the
+series but not in the current one.
+I will mark the series as archived on patchwork and provide a revised
+v10 once completed testing on devices.
+-- 
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
