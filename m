@@ -1,137 +1,318 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42310222580;
-	Thu, 20 Aug 2026 00:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32AC21FF2E
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 01:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787187478; cv=none; b=boezAXzy0MveS0yqKpT2KWOIpNjwxoHzT5lysVt5d5T7wP8V6uftQH8pSomsdMRnjL8ZbWw/hg9OwBEBHUghlm4qEzkiveEwAS5HUhDC+emn77/OdOhWR4UpWPQlF6ABYeNP3dLbj8naWr2stGnZCKQD1XS2BQQcAFE1ysoi/2Y=
+	t=1787188017; cv=none; b=n8z8lJiJPwiXQ4ieTH2uhbu4erJFw6QUI3BDh4RGpk39MdES4OFvhJI76MeJabuUVB41YzRysPm54C/JoXgfHIh1vzNNpJdmvyhMlz+Pmj1QIHDmTVOZpbFitm1uJZv9IBGcAILGK0vGGwLHTTqu4Z59+fD6uR6lAWY2No3P7wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787187478; c=relaxed/simple;
-	bh=iTsBM+zhifhEVy/t0k8fQnDrJ8UkQPci75ZvDiDEHog=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aQwOpwMP+K8RNXqP3eK9GHNPHQXN5hn5WYFpJl5/QNyxIPjccsHjLNnGehkUgmj4rlXLkvWyD59ttXIwn/X/8MtbVhdUYWbyjhLiyWR60atiBr/2Q+Uwt4fJJzc/k2E3EVoaaod3PkhM7ld0NZZa3NH0NTiWEro3Mp94BM/PyMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofqoOZxY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787188017; c=relaxed/simple;
+	bh=Uuvqvm9mfg5T5IQT0LKVnIXEIyZhbPwpS2trFNrBETU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aTJc+jAZ2dPjCj5LkVwHyudsj+ENOkvoiECiXBhRTTlloKsRtg0vAc1StijQ9fnBkvORkRGTKkZTm7PisaI8tTOCndYFV1DvYzMfqc++zJQPGdi3Io+sMC2U12A4SLInUcziXRbaIMWfQxj3rSCANpT1bthn2IZoTjgoYBXA5Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dxsjS1cu; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofqoOZxY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B5F1F000E9;
-	Thu, 20 Aug 2026 00:57:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787187476;
-	bh=kM+T5YFvyzkuB+A5pR6vF4uBLMNV4q+o0hL9s8uGv3Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ofqoOZxYl/yJsfKnHokgkeX/MUBBZ9ajy+sguL3jaYm57T/dsYfO/jueRn7X/FOq5
-	 SrIkwOe41UVGfOptOdPxC/IQXsW0WoCNzRYD7FC+W7jj0hpUmFcNZkYeflEzoLGc8M
-	 pVzSG5U7CedgtouGuc2Hfhnm5Bm5ds3wJ3IpMJk7UpbVLf9jtfLl4UEwP0qwe4KZqB
-	 Q71ZsOSpyhcGtML7e9GnCubdoPNIdJmL/bblzeLRaL5CuQIX78x/Zb6MGtUbMxGOUZ
-	 YLREmwHcQrkSnERdUHld+n2XFK4xv4Xw81u31BpfaKB6N4XFOepfHWZ9+WNNjoklMv
-	 ckdSrAt1d2LFA==
-Date: Thu, 20 Aug 2026 01:57:53 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <jananisunil.dev@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Janani Sunil
- <janani.sunil@analog.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Olivier Moysan
- <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, Linus
- Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: iio: adc: Add AD7768
-Message-ID: <20260820015753.4faee677@jic23-huawei>
-In-Reply-To: <9dd16bb5-7a30-4024-88a7-4a4bf47c35e8@gmail.com>
-References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
-	<20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
-	<36df7c4f-82ea-4ed5-a4f9-3a29c75dc99a@baylibre.com>
-	<9dd16bb5-7a30-4024-88a7-4a4bf47c35e8@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dxsjS1cu"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38deea72eebso1736873a91.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 18:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787188015; x=1787792815; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bgxWYN6UqbEyC1+LxoNwhIkrJ7McHuzDkGEeX5D8eIQ=;
+        b=dxsjS1cuKPIITOldIKV2QdvBeWB7YT6rcLreTbVKZeLjvyIml4QheYC9LV/0ZtY3m0
+         erqksyeil8gKIMpM2RH81gf3It54bLXs9fUpsiCYItm2EJIJ+vp87DlcuWnHZz96iUEa
+         qjDRXjjd37cqcnVNRvZgDWMBUAHupMt1iMTayxWlNd+usIzBC72juTK1A4NOKISuhE+x
+         sR9mglYGSoHWFI2ixpxQwcx49UQqy4dRZ2baPThaUq5LhVhiDn77iOi5yabNKdqO5SXJ
+         1i8zrffUDnYT/r3fc06KP+ysORhXKa+cApo2NHWbpqdI5aLStPM8Yx59TO+Wid/VniSE
+         DEbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787188015; x=1787792815;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bgxWYN6UqbEyC1+LxoNwhIkrJ7McHuzDkGEeX5D8eIQ=;
+        b=WTpNzYW/Lk2wKG8OH7TMq3ceGwAu46xbSe9uf+9sFT8lzm+qXo2WdGhhdfV2Ft61px
+         5APS7IOGOKNdBLAOCgsFoEknwvQJ2Rkif0SZ07Iq+5oO61ENpgF0sfHRKOjUXgDl+Fal
+         21u8Vb+K8uW9mKNU2ncSBCfLwKcb/Paanaj3N/rrByhbE9banwDC/ngWbSDT6SC4m6k9
+         lPAF1hkQES6+DnmpJkpsUNJqPQrvw9hSTax9LfzFZQy8nYPPNLRNcDgcSWnxj0kee34/
+         sHp/Q0mnMcuAPszyUKPt28prjX7fyrLk/PZv9ADsuabyWMHwyEZJk2H3eExoCcPC6hpq
+         pEQA==
+X-Forwarded-Encrypted: i=1; AHgh+RoIbKSEIf5xmFOhwkZWOs5Y6rPEWMIM1DxM4y7xjCtyCNM7BTPL9qdI26xRs5V48sKItBHOV4/80nSd@vger.kernel.org
+X-Gm-Message-State: AFuF++nkCdpPzaj27fGmgmLj0IbIfSEXSemft/23ctFJhdGsnN3wWqdo
+	4E36FeyuHpdNW0D59kH6kl5nNy9KmtINq+GHAUGaBQGXzULaRCsp8aXQdetu6Q==
+X-Gm-Gg: AR+sD11Z1oPWjed6KD7+t9H+aku4MAxN8W/OSguu6qZ7MRh4yFoYbG6Ao6GnBEKmLyb
+	scrAjmFXfDDVBVIeGF2VclyWarwa6IyqFInXrHf4hq6Dfw7nmrI4N+gLnA68vTuhr9Uv972pdRs
+	m5/2F9px4zzetqmo1dClcrUYWkkjRxLla2O9nGiFMXqZBF4+yXhe5NU9IolZ8rel/fCW+1yeD60
+	k+pz0Kzh37ehXE7VRVhEtxYplaqcvZXtE6TLdjUgvU1jx9SG04yXGSNWKJHGVgMKZvZc7EASfQ8
+	4RMGnSqnVplEF3P7BukVqxY/tQOfD45YVplcQhFMWkMKj5ljH1SWX6WVcUfX8+s9MpmV0d1f2DI
+	hVHkK4LJvasXbJtXg+VFPX/gR00OFTVAV7qKM7/VsIfAyoVe736O5K6Rqy0MJ3vDscRK4sUoPQP
+	RW4vpA1XirRaFJN+FX0TKHu7zXOKlulN6j5xHIkOlD2swjUACeWFkVGQ6R0tAOyPzxTbLGVe3rk
+	FL9HJn/1brsFnq/CFrUlo9Obd8ftk3+wIDysQ2dalp9IjM+
+X-Received: by 2002:a17:90b:3c8f:b0:395:4de4:92c8 with SMTP id 98e67ed59e1d1-395810e9626mr17401300a91.15.1787188014899;
+        Wed, 19 Aug 2026 18:06:54 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fbbc017sm4998829a91.15.2026.08.19.18.06.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 19 Aug 2026 18:06:54 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <01a0682b-b7ec-45f0-a19d-df40ed6366a2@roeck-us.net>
+Date: Wed, 19 Aug 2026 18:06:53 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
+ compatible data
+To: Aiden Isik <aidenisik@protonmail.com>
+Cc: sashiko-reviews@lists.linux.dev, Aiden Isik <aidenisik@member.fsf.org>,
+ devicetree@vger.kernel.org, robh@kernel.org, linux-watchdog@vger.kernel.org,
+ conor+dt@kernel.org
+References: <20260818-for-next-lucky7-watchdog-v3-0-2912bd122c57@member.fsf.org>
+ <20260818-for-next-lucky7-watchdog-v3-2-2912bd122c57@member.fsf.org>
+ <20260818181349.894171F000E9@smtp.kernel.org>
+ <k_6CWq_7vPkV72MkyL0wCdcr9ptTffpGOGc6dBLbXjcHBV4DGRzP-35mxO0tdOBaIEhy4BxByYLCh8T5nidgwaMwGcNYD9KCIpxkeF4RRiE=@protonmail.com>
+ <83b5d8e7-9504-41c9-9f24-8fce60641de4@roeck-us.net>
+ <-HoGjao7Mdcx5P3JHoh9WjecLbbXBISKawVeEa59KRfhq7rul5NozHGaISvi0T-ZTp2otj7_b5qqb9tQI5XR0Wvp4UzG7crAekiRTXhiOd4=@protonmail.com>
+ <d8191041-a4bc-4674-ab9e-7fb56ca2b56f@roeck-us.net>
+ <cTie_daC2kaIY2BT6HkyAeivwspRhq3thkrkGDMVdIpF2vF5Vr38HQxPcvKFK6pvWatAFk-CO7XL2uz3OCfDSwI-EOxQqI8hNylXjG1jrQI=@protonmail.com>
+ <XNt95pVriUNFbMMYsr5mnQo9LUABboJjUMboxV5mWYj9FQJb6XGjsGkGRre7eSK4bvCG4oOuTg4YNiujCpX7ZlonVgQSHFBEzpFvZLFTXtw=@protonmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <XNt95pVriUNFbMMYsr5mnQo9LUABboJjUMboxV5mWYj9FQJb6XGjsGkGRre7eSK4bvCG4oOuTg4YNiujCpX7ZlonVgQSHFBEzpFvZLFTXtw=@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 20 Jul 2026 16:00:26 +0200
-Janani Sunil <jananisunil.dev@gmail.com> wrote:
+On 8/19/26 16:36, Aiden Isik wrote:
+> Hi again Guenter,
+> 
+>> Hi Guenter,
+>>
+>>> On 8/18/26 12:35, Aiden Isik wrote:
+>>>> Hi Guenter,
+>>>>
+>>>>> On 8/18/26 11:33, Aiden Isik wrote:
+>>>>>>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+>>>>>>> - [Medium] Missing PMU counter enable configuration for Exynos5515 watchdog.
+>>>>>>> --
+>>>>>>>
+>>>>>>> --- Patch [2]: [PATCH v3 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data ---
+>>>>>>> commit 9ce360e3c933b7447ba5da9ba1b7ae3fee989703
+>>>>>>> Author: Aiden Isik <aidenisik@member.fsf.org>
+>>>>>>>
+>>>>>>> watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
+>>>>>>>
+>>>>>>> This commit adds driver data for the Exynos5515 SoC's watchdog timer.
+>>>>>>>
+>>>>>>>> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
+>>>>>>>> index e31f93db05096..5592f25fe6c83 100644
+>>>>>>>> --- a/drivers/watchdog/s3c2410_wdt.c
+>>>>>>>> +++ b/drivers/watchdog/s3c2410_wdt.c
+>>>>>>>> @@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv_data_exynos5420 = {
+>>>>>>>>     		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
+>>>>>>>>     };
+>>>>>>>>
+>>>>>>>> +static const struct s3c2410_wdt_variant drv_data_exynos5515 = {
+>>>>>>>> +	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
+>>>>>>>> +	.mask_bit = 2,
+>>>>>>>> +	.mask_reset_inv = true,
+>>>>>>>> +	.rst_stat_reg = EXYNOS5_RST_STAT_REG_OFFSET,
+>>>>>>>> +	.rst_stat_bit = 24,
+>>>>>>>> +	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
+>>>>>>>> +		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
+>>>>>>>> +};
+>>>>>>>
+>>>>>>> [Severity: Medium]
+>>>>>>> Does the Exynos5515 PMU require explicit counter enablement like other recent
+>>>>>>> Exynos SoCs?
+>>>>>>>
+>>>>>>> Other variants in this driver (like Exynos850, AutoV920, and GS101) that use
+>>>>>>> the NONCPU_INT_EN PMU registers also pair it with a NONCPU_OUT register and
+>>>>>>> the QUIRK_HAS_PMU_CNT_EN flag to ensure the watchdog counter ticks.
+>>>>>>>
+>>>>>>> If the Exynos5515 hardware works similarly, omitting cnt_en_reg, cnt_en_bit,
+>>>>>>> and QUIRK_HAS_PMU_CNT_EN here might leave the counter disabled and the
+>>>>>>> watchdog silently non-functional. Could you confirm if this variant needs the
+>>>>>>> counter enable logic?
+>>>>>>
+>>>>>> Exynos5515 does not require this.
+>>>>>>
+>>>>>> Downstream on GS101, as an example, has this struct member set:
+>>>>>>
+>>>>>>> pmu_count_en_func
+>>>>>>
+>>>>>> This is not set downstream for Exynos5515, so it is not used for
+>>>>>> Exynos5515.
+>>>>>>
+>>>>>
+>>>>> You keep talking about "downstream". What is that ?
+>>>>
+>>>> By "downstream" I am referring specifically to Samsung's Linux kernel
+>>>> fork for Exynos5515.
+>>>>
+>>>> I host a copy here: https://github.com/Aiden-Isik/linux-android-lucky7
+>>>>
+>>>> Also in this message I refer to Google's GS101 kernel fork, which can
+>>>> be found here:
+>>>> https://github.com/LineageOS/android_kernel_google_gs101
+>>>>
+>>>
+>>> Both are completely irrelevant for the upstream kernel. I am most definitely
+>>> not going to look into that code. If there is anything relevant - such as
+>>> the comment you pointed to earlier - you'll need to provide that as independent
+>>> comment(s), not just refer to some downstream code as explanation. The
+>>> explanation needs to be provided in the _upstream_ kernel code.
+>>>
+>>
+>> There's not really any explanation for it other than "that is the way it is".
+>> Samsung designed the Exynos5515 watchdog timer to not have that quirk,
+>> I read the downstream code and learnt that fact, so we don't enable
+>> that quirk.
+>>
+> 
+> Just in case I am misunderstanding what you are asking for and you want
+> examples of how I know this is correct to be posted on the mailing list,
+> here you go.
+> 
+> Unfortunately Samsung doesn't publish technical specifications for their
+> modern SoCs, so the best documentation we have is their own source code,
+> which doesn't really explain the *why*, but it does explain the *what*
+> and the *how*.
+> 
+> I'll do my best to explain it concisely and how we drive the hardware
+> in the same way upstream:
+> 
+> Google (and/or Samsung since GS101 is Exynos-based) define the struct
+> for the watchdog timer like this:
+> 
+>> static const struct s3c2410_wdt_variant drv_data_gs101_cl0 = {
+>> 	.noncpu_int_en = EXYNOS_CLUSTER0_NONCPU_INT_EN,
+>> 	.noncpu_out = EXYNOS_CLUSTER0_NONCPU_OUT,
+>> 	.mask_bit = 2,
+>> 	.cnt_en_bit = 8,
+>> 	.rst_stat_reg = EXYNOS_RST_STAT_REG_OFFSET,
+>> 	.rst_stat_bit = 0,      /* CLUSTER0 WDTRESET */
+>> 	.pmu_reset_func = s3c2410wdt_noncpu_int_en,
+>> 	.pmu_count_en_func = s3c2410wdt_noncpu_out,
+>> 	.quirks = QUIRK_HAS_PMU_CONFIG | QUIRK_HAS_RST_STAT | QUIRK_HAS_WTCLRINT_REG |
+>> 		  QUIRK_HAS_DBGACK_BIT | QUIRK_HAS_WTMINCNT_REG,
+>> };
+> 
+> Note 'pmu_count_en_func' is set.
+> 
+> Later on in the file, we have this code:
+> 
+>> if (wdt->drv_data->pmu_count_en_func) {
+>> 	ret = wdt->drv_data->pmu_count_en_func(wdt, true);
+>> 	if (ret < 0) {
+>> 		dev_info(wdt->dev, "wdt count enable fail\n");
+>> 		return ret;
+>> 	}
+>> }
+> 
+> Which will call the chosen counter enable function if that field is set,
+> which will, well, enable the counter.
+> 
+> Now, for the struct corresponding to Exynos5515 in the same driver:
+> 
+>> static const struct s3c2410_wdt_variant drv_data_exynos9_v4 = {
+>> 	.noncpu_int_en = EXYNOS_CLUSTER2_NONCPU_INT_EN,
+>> 	.mask_bit = 2,
+>> 	.rst_stat_reg = EXYNOS5_RST_STAT_REG_OFFSET,
+>> 	.rst_stat_bit = 23,	/* CLUSTER2 WDTRESET */
+>> 	.pmu_reset_func = s3c2410wdt_noncpu_int_en,
+>> 	.quirks = QUIRK_HAS_PMU_CONFIG | QUIRK_HAS_RST_STAT | QUIRK_HAS_WTCLRINT_REG |
+>> 		  QUIRK_HAS_DBGACK_BIT | QUIRK_HAS_WTMINCNT_REG,
+> };
+> 
+> We can see that 'pmu_count_en_func' is not set, meaning that code within
+> the if statement shown earlier is not called, and the counter is not manually
+> enabled.
+> 
+> Translating this to upstream, if QUIRK_HAS_PMU_CNT_EN is set as a flag,
+> the following code within the if statement will execute:
+> 
+>> if (wdt->drv_data->quirks & QUIRK_HAS_PMU_CNT_EN) {
+>> 	ret = s3c2410wdt_enable_counter(wdt, en);
+>> 		if (ret < 0)
+>> 			return ret;
+>> 	}
+> 
+> Which as we can see does the same thing and enables the counter.
+> 
+> So, since 'pmu_count_en_func' is enabled on GS101 in the downstream vendor
+> code, the QUIRK_HAS_PMU_CNT_EN flag is set, as the Sashiko AI points out.
+> However, since it is *not* set for Exynos5515, that means Exynos5515 does
+> not require manual counter enablement and that flag should not be set,
+> which is why the AI's concern is wrong.
+> 
+> I also tested this (with the watchdog actually enabled this time), and it
+> behaves as expected.
+> 
 
-> On 7/9/26 17:43, David Lechner wrote:
-> > On 7/9/26 3:50 AM, Janani Sunil wrote:  
-> >> Devicetree Bindings for AD7768-4 (4 channel) and AD7768 (8 channel)
-> >> simultaneous sampling ADC
-> >>
-> >> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> >> ---
-> >>   
-> >>
-> >> +
-> >> +  adi,power-mode:
-> >> +    $ref: /schemas/types.yaml#/definitions/string
-> >> +    enum:
-> >> +      - low
-> >> +      - median
-> >> +      - fast
-> >> +    description:
-> >> +      Power mode selection.  
-> > Unless there are pins that control this, it seems like it should be
-> > left up to the driver to decide how to set this.
-> >
-> > In this case, it looks like the power mode also influences sample rate
-> > which is normally something controlled at runtime.  
-> 
-> Hi David,
-> 
-> The reason we'd like to retain power mode control is that certain ODRs 
-> are supported across all three power modes (low/median/fast), and the 
-> RMS noise and power consumption differ significantly between them at the 
-> same ODR.
-> 
-> The higher the power mode, the better the noise performance, but power 
-> consumption nearly doubles for every ~3 dB improvement in dynamic range. 
-> Silently selecting one power mode in the driver would remove a 
-> meaningful hardware tradeoff from the user.
-> 
-> We'd like to propose the following instead:
-> - Remove adi,power-mode from the DT as suggested.
-> - Expose power mode as a per-device sysfs attribute.
-> - in_voltage<N>_sampling_frequency_available dynamically reflects only 
-> the ODRs valid for the currently selected power mode.
-> 
-> This keeps the DT clean while still giving the user explicit control 
-> over the noise versus power trade off. Would this approach be acceptable?
-> 
+All ok, but you do not explain all this as comment in your patches, you just
+point to downstream code. At least some of that downstream code, if I recall
+your previous feedback correctly, actually _did_ explain at least some of
+this.
 
-The challenge here is simple: How does userspace know what a power mode
-means?  Everyone wants low power and low noise and the trade of between
-the two tends to be invisible.  If we add a control it also becomes
-hard to do a best effort - give them something sensible - control based
-on what they want. Users understand the ability to sample at different max
-frequencies for example. There are ways to do this like always requiring
-'auto' as an option for a power control but they are also rather nasty.
+Example: A comment along the line of "According to <place source here>,
+Exynos5515 PMU does not require explicit counter enablement" would do.
+Sashiko does not know the context. I don't either, and neither does
+anyone else.
 
-Whilst I see that it is reasonably complex to move from 'low / medium / high'
-we need to try really hard to map that to something numeric and well defined.
-I think it came up earlier in the discussion - there is a clearly stated
-set of recommendations for a  mapping from fmod to power mode. I lost
-track of whether we had reasons to not try and build an interface
-around that.  Even though modulator frequency is a little obscure, if it
-is consistently defined across manufacturers and parts and the trade offs
-around how it is chosen are well understood that might be something that
-would make a better ABI?
+So why exactly are you not willing to add such comments ? Please explain.
 
-Jonathan
-
-
-
-
-> Thanks,
-> Jan
-> 
-> 
-> 
+Guenter
 
