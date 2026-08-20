@@ -1,521 +1,137 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044223909BC
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 18:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787251103; cv=none; b=qYGozedNxROyHDAAPQrEC5J5yIEeK6FkJrZYzsA8x8Fc80Fid6dNGYqdobpfjxy/s5BaI3aHNVMBwVXbqKem3r74O8f+qyCKQrHkVLRkCJ3HW0VHy7bFBp541R+DVN9e3IqRs+C3rm/lyr/qIKrwUPEGm/FCTtcPw1o250TPnBE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787251103; c=relaxed/simple;
-	bh=cEF4bRKLrqqiBUyb62B212F6bXgMFPyo3HDQScv7ZBw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EJLqPPOTQJ0cYR3bntoIsMc8V40GVsn/uenL5gHpvY4FJdx1l/QqjkJSPS4N8VuI/mGEDE6tmdatJq+O+mwpCDNQXU9uHld+8ELLfj4V1p3R06u49r4xg0paDxhUNOt0Jc0kDWm66L0JkuyihohwyWtAfTwFUjHIU2DVPxfmgVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lYhddFJj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QEhyYoIL; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888A4396D38
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 18:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787251360; cv=pass; b=FBEQc5NepnSOP8WqAE7edO7Ag192WEVzfnBeP/DmNJcSCjJjVgrmOwVyBmp+1GIFH0cZU17Jx//PD9LDEMR4uk1vZeKIZBqLS/3vILGTF0+pkAAe8M1qCYic6mkBqu29u86ft+llwxrN2JVqTLT9L1XEsHG9vKlTQkhOkpP1MJY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787251360; c=relaxed/simple;
+	bh=60Gy80AqDCDF922FU4MPaATM1vUz9hD66trB84dzQvQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lJapYY8Xe9OypFrvzQQ0WwL9yfcFOaXEkv/95h/OguGYETV28lMcP2C/40KW+t8Nkkl3ti1cNgFWyOafWL1tJQM4VX6zUz7PBV5MuxIgcuYeFm6ECiHg7IjeQ9wozQSXnklTmcqRIDqyGUeVYBMUveV0woD0vHOUA3vzYKq2V+g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MHg0bXf6; arc=pass smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lYhddFJj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QEhyYoIL"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67KIJ8XN572267
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 18:38:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kmzYg3MbcxJTU7gon1FozBvw0txqHCaP3JpjklH/fhg=; b=lYhddFJjckQqcBWt
-	1JhSuihi4y+N+Fh+Ml6JcyO3+ILkOf1Dyt1hwM+QDbon0YINHUjuhgCoL8EOaY39
-	LM1a7xCL4JyGEazHqcIyGa6jvEDtaYqgussMlx6rqLG1oorBw7QAsV5+ClCqDJhT
-	xvPqh1NvVngcWtHQyb5v/phUrzUzOYi3NimM06n5YoLBvtfPQ2LsWOJ/axQuUnFl
-	06RlSxNOem2RBwB/Vy4JpIYzriTS1Yx8KPu8XBdtzlBPUlyUn2XAJp0Kk7YHS3ym
-	d7UOdWE/89rwAcX6ht3B3d5cJItb8qzSY/bI0Y1VuuIQzpz47GZX57JBxKN3z2qr
-	vWNzkg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5xgcam0v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 18:38:21 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9368f2b7b2bso14294085a.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 11:38:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MHg0bXf6"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-499b57cf2f3so862775e9.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 11:42:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787251357; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XNgYczUIXTzofy35gmAQPxyYjOTIKi8K9fbKe/Ch5Xi67bFpKBeGJWLzMM17kNSRjm
+         Qj/Arvxo8YXDf2iHGUvhID4YX6JHySCsB90ohr8xuf1AP/tyTKHvreVUGQ/krL/rjXbv
+         g72ODqe6Z/OxVdzBQt6ksWFnIxeZBMcAW5r12QFf+eBbjJKDRf30Nzu+VSJLlNzLxTie
+         uX5S6iofNsE3noLH6A5OiCqMq17odYKwZ/AoWG2h97Q38Xe8/E4Qn7kqAQS2zuUfk3UJ
+         Q9pKJX25jjWSlwqkP94AsYyZQss6INGxQ7rzrcBB9Jy5mNs62L3uK4nlL9y+gxNNJH8C
+         JykA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vFqOYk3/urySuBJFd4x7IjPcpec6+kX2wN+yqUz6ICg=;
+        fh=DcJ3KOI3/atVcaecxR+D558uK+Mj63QcJHGh5o1hYtE=;
+        b=QcGc5JZFUXLyO4sbejdktaDDDBobRZB1lvuMNIyCCiIejREIhG9dkT6tIZq0meG6bM
+         ESuoj4GtfLQgnCpIwmdPpUdG5lhIpjC90CRcNrTagZCMZOEnR12AFvtcVC4JSR7ZNTFU
+         0MV3A/2+Lfn4Jw3Gig2VHG4EW+86yMi6RRLpHQR/d7wJeRUevYMEO+0D6Ihnn3uOocV9
+         i0hz0vsQbpCTrmqp0q9mSh6KoP0n+MDE+w9ZiNNSE3Sz4/N5wcfYwjdRJzcx3bEKf77I
+         JBjaBiljTlHQD3sGv5ucA6sZ67jnJlDQVzI1i0pr3wUXrhkD5XqCvNyPKg3i1ob+EjZJ
+         UOSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787251100; x=1787855900; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kmzYg3MbcxJTU7gon1FozBvw0txqHCaP3JpjklH/fhg=;
-        b=QEhyYoILMJrNAt71OZrYbBLVMK7EvtkP94SB/f/Ht/ODywqJyyRlgQWIBT7v7pHNXh
-         eoZ8Q/f6KySQBahjQhgDnBilFIfcg44EcEUhNWLFhAaXACZ+9XVy9E5BEmUQEU5poGPh
-         Ajt/ewzRkQ/2RG7LjruZ7lqctHIE3qs11QPwoowtKfhM940oGQqEWSlLNDGgBTOapvh2
-         q3xs93bxQIdFhHT/E1ORGYzW7iQ4QVrH6XZoD9WD2J29auP5DIroVix9Gzp+9mHlYZWN
-         9uHhMZblauI6nX4PBPb1F6kw1mmOtl4LqsEZLe368UpymGyPHITbDlzLh6AoxZaZPpPe
-         dvzQ==
+        d=gmail.com; s=20251104; t=1787251357; x=1787856157; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vFqOYk3/urySuBJFd4x7IjPcpec6+kX2wN+yqUz6ICg=;
+        b=MHg0bXf6ov77SfAhQcjwPP+2cN+kEIUCvFuKF7tA/NqBPaiY2y0gsHF1cO9MU5IzzG
+         1b7i7TpVl9MYWedORqC1ktIen4H6GB3gTehwobXvrBiCMvt398aE1Xelp7btCPP+Us7c
+         gPyRp6KYHIBxzAulqUqTpoNO3yqFSzIQdoLlGSm94El+0IX9l0y72I1fBYYQ2FiFI5U9
+         duiu37kc5vnyUfcnbl0MQiFwoo8JKoqi0Pux5HW21zi1YnViRGbF/dwpUd5nf5O7pvoN
+         w4SIULmfVIxR38OJcg1UtJ5DNDg1XCY83mfrGRSzt3YzU/vmoTi+4AwvAdFKK/j4J90y
+         pZ8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787251100; x=1787855900;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kmzYg3MbcxJTU7gon1FozBvw0txqHCaP3JpjklH/fhg=;
-        b=FzQUGMWgVc4L9kCr/aMIws6yxzDxk/8vInCBDoJJVVS/MUEes8tlXiRh6hDHd0BWgV
-         J4jSTbV49hyzwENGcwXMbxRo2yL6gLWdHokzXL/N35ZnJqoYTjHmECPf94agrwVRoGl0
-         XsY/Dd5z/A1e6qnlg0vjvnzXgYvc/JdriHO2nnvJqZB8auImCi+A/PWxkfzHu6Bb/5//
-         HWj6JP+t2KWGiLddvnHN8Xyla4WEMOM7XAyuQviX2XSNZtMdMzmPMqTiVqYk90BcejCa
-         +cEy/bq+uUoZyOFcmLNobwoFts5xL6+WYjq7Mb8G5Y2RqtCWvcnIK54t7I4HBdUQY3g6
-         ELBA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqy77QzQblIf4QfJlo8NH0Ncz830OvG7XLgh0zTthRVHoc9FmmMjcvOPyreSrFvNpnrpUsiboZw7vBo@vger.kernel.org
-X-Gm-Message-State: AOJu0YwuTTOTulM3fhcfW2L1+qhKHaFBNezxcdWS+9bQuCi4oEjqwUeD
-	Ta+q+mYTliDIDMhKZDBMBFDObTAdeRwYAD83300I61xCbvqvYk7aAFjAW4yL9w02hNy8QuwBv7R
-	0fLKkFMdA54dr3xQniCNhz33Qk6FUKZ+fkQBQlc2N2y2MgyP2HQzPLDIVuKPICGDE
-X-Gm-Gg: AR+sD132bqGLVgEEUIGMXh8QlR09VbeaSC0C7VDTD64dPChLnn7J6qjsreBuUe0xAdZ
-	gSxh5cwYkQ+mv4XArkeMAf5rm5qtuMk1Oif2bUonei0Zx5W9eJwid7KOvhWQCAcUQSp/OM61CX/
-	H27dbFteY0G52FyCHJ46loiXZA8SVj4R3K7XCiwC+iSvI6aTSC/HjdiFLp+AAjc288WvaAXuhjw
-	HWS+VQmecNeeOprZQoh8hFQ6Zay/O259xjtlfxqwhZcPmpf0Z1uD+22bJXaINUaI6ACEvbsr6pD
-	D5a3Jd+0N9W1n/I0wYGuVGLKZCcRa+RBeQCQeKzwwtdeZcVYmAmEwAo+EmJV2JE7x+k3PydNdKY
-	Yey5q5j1DoJZWbg17qX83bzuhRPi6vclS
-X-Received: by 2002:a05:620a:2983:b0:937:260b:4d8c with SMTP id af79cd13be357-937395747cemr6358485a.33.1787251099966;
-        Thu, 20 Aug 2026 11:38:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:2983:b0:937:260b:4d8c with SMTP id af79cd13be357-937395747cemr6353785a.33.1787251099403;
-        Thu, 20 Aug 2026 11:38:19 -0700 (PDT)
-Received: from [192.168.1.73] ([92.247.57.178])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499b90d297esm525945e9.2.2026.08.20.11.38.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 11:38:18 -0700 (PDT)
-Message-ID: <8997090d-1749-42cd-b9ae-b9c42f9e263d@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 21:38:16 +0300
+        d=1e100.net; s=20251104; t=1787251357; x=1787856157;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vFqOYk3/urySuBJFd4x7IjPcpec6+kX2wN+yqUz6ICg=;
+        b=dWuDW7HmQqXIiXol1mwfNeSttirpbp/4tUJXEO2mvVWGbQ9QMZfIucjB/r2JBJO6X8
+         YD20LwqiIoOXY5DpDU+3Md5p/0SEf1H+D4Y5huGcB9ahL58Tgi1CcbjGQSha5IAuzYDh
+         L0V+4M3595qYgS7WSJQEBy2MOOmVe7bcT8XeRCbQsAYzydQ/CfPOyhgU0TnWbxNHnwyi
+         y3qJVajVbSPyaTRyYIvzP6/7zj/Hu+WajKNLprjIR6nw448q964vfuRpSETyhhW1dRcC
+         wDAl3gzUjqgt6Q10sm6WMJ9S03wlSJonFNr4ReuUl/dZiaSR3gdqOxSINyt321Z6FEoq
+         NGEA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrz94d++7vjxT7EnPwTwsloC/7EyyyFIlQtt/dr9APTGdaBUlkTYDNHONgusGBH70NHSsbAaVgFWxKR@vger.kernel.org
+X-Gm-Message-State: AOJu0Yws9/pGjaE9DVHkHXC0G4aCGkX/KBTV+4Sy1qTYjfCTULUhPLtP
+	yKUbfS84iOFfikH3U+g2ptleYQQQXCMq97M9CTFqV1iwaEI8+qV3yVAY6lzW9CUKlJ7AD1sTGGU
+	/0E1brPT0JSY7wFLUIcE9elmU23eFrY4=
+X-Gm-Gg: AR+sD12irNKCrZt+/kJpdqJbbmEu02oPn7BwcevUwfs7Fp8vjy3cyI0hshCV6LDIbq9
+	Artj9aEcFGz+b3CJyK0UYRcoGvVRX/2eqPpKB10uK0/rBKZgtt+Bc1FWvrmW+xuKv0iloPXMmQW
+	JTRWdYjrdrJcTE3tYTbdtVTnPQMoKSAjYzkLuzuATfJEDKSqsXb+cNYMnJ6fZ91CWw8IEBBtUNh
+	t0DeV4aPYLkTjfJ1CAREer594tojxQMHYec1WFZHYWdW1zvU/ApDozwwhRbvEL8PdhIy1neXwuO
+	JCGdrewtXdhJkyxNC/7HmXtsCc7/gfnP1slRYzlOKQWWa1GT73q9yfGamNT6KRjiD57AM0O+9vW
+	I+beEnNFIZrJuYgEfTC2qALIcjBO0ye7I1g06xtHQIlnqQA==
+X-Received: by 2002:a05:600c:a102:b0:499:b81d:f580 with SMTP id
+ 5b1f17b1804b1-499b81df6a4mr20364505e9.2.1787251356632; Thu, 20 Aug 2026
+ 11:42:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org, loic.poulain@linaro.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
- <20260730150524.2659577-3-atanas.filipov@oss.qualcomm.com>
- <vz6a2qugu7kkci3fcdkd236axr3ur33ghrgoopbrz3isueml45@b4frwo4l2hfh>
-Content-Language: en-US
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-In-Reply-To: <vz6a2qugu7kkci3fcdkd236axr3ur33ghrgoopbrz3isueml45@b4frwo4l2hfh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=GPM41ONK c=1 sm=1 tr=0 ts=6a87499d cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=SSmOFEACAAAA:8 a=EUspDBNiAAAA:8 a=hVmRQhEflVXrj2loCmwA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: YIvhEXpiUm-aX1LFSajf63FIfn2BXGKv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDE0MCBTYWx0ZWRfX4+cOzQpBi5kz
- QR9ks6fwf5xrsPagzYC8JkpiYneKj4xbG2eHfvHZ83hBW5nC8t/JO6kA7mxYqhjCd9zOqrDUtxW
- Rb9o+QGchqEVGfjhMKNktj/l0hNhipt3bV4bUEoDi/wEvk1cd63ulznXLfp2MN5w9ts/X22VQxs
- er55LlXcmON2nkkaeriw2eR8RTbCqS/AnsjPXo4E6hjz1P8qmvuV+rWhE9sJfQHVRCoc3HZJZZl
- KtZuo5MD5rRMZP/hv+QxZwv7ze9hMnvuqvv6basfIMH6ln5KSvSYKY51aj9cjb0KQHSeK1vRe5q
- vf45ZFy8f6ws3XDUcTZ2+IY39U+0Xj+L6N2J5z/BviAvyEPskIjKM+EZ/VVlgGD92OhMA/fzfj+
- 0CMe6H8tUjwM1MuEcD3PzYBu5xT3cBmDaYug0ovyde68nnwVgVD1tsvLiuty/OxBs1ncI2tv+UV
- VAnbfQnme1KxghKD9fg==
-X-Proofpoint-GUID: YIvhEXpiUm-aX1LFSajf63FIfn2BXGKv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDE0MCBTYWx0ZWRfX7Z2J7mf7uOpe
- rcqp+V2Q1vOwXonJcgwz4e0TP1m5b5O+srb+7BxrHXchFWrB1pRTPbDPXS+ADMyXtoQKwyN53LP
- fnCVqRLh2GADVb+kytAU9T+CqcWJPAY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-20_01,2026-08-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 spamscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200140
+References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819103926.2136712-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819105028.70F3A1F00A3A@smtp.kernel.org> <aoWqIxFRItjNu6uN@shikoro>
+In-Reply-To: <aoWqIxFRItjNu6uN@shikoro>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 20 Aug 2026 19:42:09 +0100
+X-Gm-Features: AcwNN1V8xZnCN6jYwc1rWmadht_y4_htRRVcU3U6J7W20ZY6lIODI2Uy1wnE-ec
+Message-ID: <CA+V-a8vuA5EnPP8iCsCi2e3HY-qO6iNs=1bP-NnfQMDrrQK0vQ@mail.gmail.com>
+Subject: Re: [PATCH v4 06/15] rtc: rzn1: Fix alarm range check truncation on
+ 32-bit systems
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, robh@kernel.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/30/2026 6:57 PM, Dmitry Baryshkov wrote:
-> On Thu, Jul 30, 2026 at 06:05:23PM +0300, Atanas Filipov wrote:
->> Add a Qualcomm JPEG encoder driver implemented on top of the
->> V4L2 mem2mem framework.
->>
->> The driver wires vb2 queue handling, format negotiation, JPEG header
->> handling, interrupt-driven job completion, and runtime PM/clock/ICC
->> integration for the standalone JPEG encode hardware block.
->>
->> This series targets SM8250 (Kona) platforms.
->>
->> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
->> ---
-> 
->> +static int qcom_jpeg_clk_on(struct qcom_jenc_dev *jenc)
->> +{
->> +	struct dev_pm_opp *opp;
->> +	int rc;
->> +
->> +	rc = clk_bulk_prepare_enable(jenc->num_clks, jenc->clks);
->> +	if (rc)
->> +		return rc;
->> +
->> +	/* setup the OPP according to the calculated optimal frequency */
->> +	opp = dev_pm_opp_find_freq_ceil_indexed(jenc->dev, &jenc->opt_freq, JPEG_OPP_CORE_IDX);
-> 
-> clk_bulk_prepare_enable starts ticking on a certain freq. Why does it
-> happen _before_ setting the performance points (including voltage rails)
-> which those clocks require?
-> 
->> +	if (IS_ERR(opp)) {
->> +		rc = PTR_ERR(opp);
->> +		goto err_clk_disable;
->> +	}
->> +
->> +	rc = dev_pm_opp_set_opp(jenc->dev, opp);
->> +	dev_pm_opp_put(opp);
->> +	if (rc)
->> +		goto err_clk_disable;
->> +
->> +	return 0;
->> +
->> +err_clk_disable:
->> +	clk_bulk_disable_unprepare(jenc->num_clks, jenc->clks);
->> +
->> +	return rc;
->> +}
->> +
->> +static void qcom_jpeg_clk_off(struct qcom_jenc_dev *jenc)
->> +{
->> +	dev_pm_opp_set_opp(jenc->dev, NULL);
->> +	clk_bulk_disable_unprepare(jenc->num_clks, jenc->clks);
->> +	jenc->opt_freq = jenc->max_freq;
->> +}
->> +
-> 
-> [...]
-> 
->> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_hdr.c b/drivers/media/platform/qcom/jpeg/qcom_jenc_hdr.c
->> new file mode 100644
->> index 000000000000..c9959518c64d
->> --- /dev/null
->> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_hdr.c
->> @@ -0,0 +1,331 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#include <linux/errno.h>
->> +#include <linux/string.h>
->> +
->> +#include <media/jpeg.h>
->> +#include <media/v4l2-jpeg.h>
->> +
->> +#include "qcom_jenc_dev.h"
->> +#include "qcom_jenc_hdr.h"
->> +
->> +/*
->> + * The elements defined in this header are specified
->> + * in the ITU-T T.81 / JPEG specification.
->> + *
->> + * https://www.w3.org/Graphics/JPEG/itu-t81.pdf
->> + */
->> +
->> +#define JFIF_HEADER_WIDTH_OFFS		0x07
->> +#define JFIF_HEADER_HEIGHT_OFFS		0x05
-> 
-> And you've ignored feedback here. PLEASE move all standard-related
-> defines and code to the common helpers. Are there any other drivers
-> which construct JPEG files manually? If not, you are lucky and you can
-> just push you code. If they are, find a way to unify the codebase.
-> 
-> At the very least, it would make you split this commit into at least
-> two, making them more readable.
-> 
->> +#define JFIF_APP0_LENGTH_HI		0x00
->> +#define JFIF_APP0_LENGTH_LO		0x10
->> +#define JFIF_IDENT_TERM		0x00
->> +#define JFIF_VERSION_MAJOR		0x01
->> +#define JFIF_VERSION_MINOR		0x01
->> +#define JFIF_DENSITY_HI			0x00
->> +#define JFIF_DENSITY_LO			0x01
->> +#define JFIF_THUMBNAIL_SIZE		0x00
->> +
->> +#define JPEG_SEG_LEN_HI			0x00
->> +#define JPEG_LEN_DQT_LUMA_LO		0x43
->> +#define JPEG_LEN_DQT_CHROMA_LO		0x43
->> +#define JPEG_LEN_SOF0_MONO_LO		0x0b
->> +#define JPEG_LEN_SOF0_COLOR_LO		0x11
->> +#define JPEG_LEN_DHT_MONO_LO		0xd2
->> +#define JPEG_LEN_DHT_COLOR_HI		0x01
->> +#define JPEG_LEN_DHT_COLOR_LO		0xa2
->> +#define JPEG_LEN_SOS_MONO_LO		0x08
->> +#define JPEG_LEN_SOS_COLOR_LO		0x0c
->> +
-> 
-> [...]
-> 
->> +
->> +static inline u32 jpeg_io_read(struct qcom_jenc_dev *jenc, u32 offset)
->> +{
->> +	return readl(jenc->jpeg_base + offset);
->> +}
-> 
-> Ugh.
-> 
->> +
->> +static inline void jpeg_io_write(struct qcom_jenc_dev *jenc, u32 offset, u32 value)
->> +{
->> +	writel(value, jenc->jpeg_base + offset);
->> +}
->> +
->> +/*
->> + * Runtime bitfield helpers (for non-constant masks).
-> 
-> Why are the masks non-constant? They typically are, for register access.
-> Use FIELD_GET and FIELD_PREP.
-> 
->> + *
->> + * Requirements:
->> + *  - mask must be non-zero
->> + *  - mask must be contiguous (e.g. 0x7u << n)
->> + */
->> +
->> +static inline u32 jpeg_bits_get(u32 mask, u32 val)
->> +{
->> +	/* __ffs(0) is undefined; fail-safe on invalid masks. */
->> +	if (WARN_ON_ONCE(!mask))
->> +		return 0;
->> +
->> +	return (val & mask) >> __ffs(mask);
->> +}
->> +
->> +static inline u32 jpeg_bits_set(u32 mask, u32 val)
->> +{
->> +	/* __ffs(0) is undefined; fail-safe on invalid masks. */
->> +	if (WARN_ON_ONCE(!mask))
->> +		return 0;
->> +
->> +	return (val << __ffs(mask)) & mask;
->> +}
->> +
->> +static inline u32 jpeg_rd_bits(struct qcom_jenc_dev *jenc, u32 offs, u32 mask)
->> +{
->> +	u32 reg = jpeg_io_read(jenc, offs);
->> +
->> +	return jpeg_bits_get(mask, reg);
->> +}
->> +
->> +/*
->> + * Read-modify-write (for R/W registers)
->> + */
->> +static inline void jpeg_rw_bits(struct qcom_jenc_dev *jenc, u32 offs, u32 mask, u32 val)
->> +{
->> +	u32 reg = jpeg_io_read(jenc, offs);
->> +
->> +	reg &= ~mask;
->> +	reg |= jpeg_bits_set(mask, val);
->> +
->> +	jpeg_io_write(jenc, offs, reg);
-> 
-> And if you switch to regmap, you'd have gotten a nice function for this
-> too.
-> 
->> +}
->> +
->> +/*
->> + * Write-only variant (for write only registers)
->> + */
->> +static inline void jpeg_wo_bits(struct qcom_jenc_dev *jenc, u32 offs, u32 mask, u32 val)
->> +{
->> +	jpeg_io_write(jenc, offs, jpeg_bits_set(mask, val));
-> 
-> Ugh.
-> 
->> +}
->> +
->> +
-> 
-> [...]
-> 
->> +const struct qcom_jpeg_hw_ops qcom_jpeg_default_ops = {
->> +	.hw_get_cap	= op_jpeg_get_hw_caps,
->> +	.hw_acquire	= op_jpeg_acquire,
->> +	.hw_release	= op_jpeg_release,
->> +	.hw_prepare	= op_jpeg_prepare,
->> +	.get_queue	= op_jpeg_get_buff_queue,
->> +	.queue_setup	= op_jpeg_queue_setup,
->> +	.src_fmt_update	= op_jpeg_src_fmt_update,
->> +	.buf_prepare	= op_jpeg_buffer_prepare,
->> +	.process_exec	= op_jpeg_process_exec,
->> +	.hw_irq_top	= op_jpeg_irq_top,
->> +	.hw_irq_bot	= op_jpeg_irq_bot
-> 
-> Function names should start with qcom_jpeg_
-> 
->> +};
->> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.h b/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.h
->> new file mode 100644
->> index 000000000000..5a64e33a28b0
->> --- /dev/null
->> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.h
->> @@ -0,0 +1,52 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#ifndef QCOM_JENC_OPS_H
->> +#define QCOM_JENC_OPS_H
->> +
->> +#include <linux/device.h>
->> +#include <linux/types.h>
->> +#include <media/videobuf2-core.h>
->> +
->> +#include "qcom_jenc_dev.h"
->> +
->> +/*
->> + * JENC encoder hardware operations.
->> + */
->> +struct qcom_jpeg_hw_ops {
->> +	void (*hw_get_cap)
->> +		(struct qcom_jenc_dev *jenc_dev, u32 *hw_caps);
->> +
->> +	int (*hw_acquire)
->> +		(struct jenc_context *ectx, struct vb2_queue *queue);
->> +
->> +	int (*hw_release)
->> +		(struct jenc_context *ectx, struct vb2_queue *queue);
->> +
->> +	int (*hw_prepare)
->> +		(struct qcom_jenc_dev *jenc);
->> +
->> +	struct qcom_jenc_queue * (*get_queue)
->> +		(struct jenc_context *ectx, enum qcom_enc_qid id);
->> +
->> +	int (*queue_setup)
->> +		(struct jenc_context *ectx, enum qcom_enc_qid id);
->> +
->> +	int (*src_fmt_update)
->> +		(struct jenc_context *ectx, u32 old_fourcc, u32 new_fourcc);
->> +
->> +	int (*buf_prepare)
->> +		(struct jenc_context *ectx, struct vb2_buffer *vb2);
->> +
->> +	int (*process_exec)
->> +		(struct qcom_jenc_dev *jenc, struct jenc_context *ectx, struct vb2_buffer *vb2);
->> +
->> +	irqreturn_t (*hw_irq_top)(int irq_num, void *data);
->> +	irqreturn_t (*hw_irq_bot)(int irq_num, void *data);
-> 
-> How many non-default platforms do you support? Zero?
-> 
-> Drop the call table.
-> 
->> +};
->> +
->> +extern const struct qcom_jpeg_hw_ops qcom_jpeg_default_ops;
->> +
->> +#endif /* QCOM_JENC_OPS_H */
->> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h b/drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h
->> new file mode 100644
->> index 000000000000..ebf69128cc2b
->> --- /dev/null
->> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h
->> @@ -0,0 +1,410 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#ifndef QCOM_JENC_V420_HW_INFO_H
->> +#define QCOM_JENC_V420_HW_INFO_H
->> +
->> +#include "qcom_jenc_defs.h"
->> +
->> +#define JPEG_V420_HW_VER_STEP_POS 0
->> +#define JPEG_V420_HW_VER_STEP_MSK \
->> +	(0xffffu << JPEG_V420_HW_VER_STEP_POS)
-> 
-> No need to define _POS. Use GENMASK to define bitfields.
-> 
->> +
->> +#define JPEG_V420_HW_VER_MINOR_POS 16
->> +#define JPEG_V420_HW_VER_MINOR_MSK \
->> +	(0x0fffu << JPEG_V420_HW_VER_MINOR_POS)
->> +
->> +#define JPEG_V420_HW_VER_MAJOR_POS 28
->> +#define JPEG_V420_HW_VER_MAJOR_MSK \
->> +	(0xfu << JPEG_V420_HW_VER_MAJOR_POS)
->> +
->> +#define JPEG_V420_HW_CAP_ENCODE_MSK BIT_U32(0)
->> +#define JPEG_V420_HW_CAP_DECODE_MSK BIT_U32(1)
->> +
->> +#define JPEG_V420_HW_CAP_UPSCALE_POS 4
->> +#define JPEG_V420_HW_CAP_UPSCALE_MSK \
->> +	(0x7u << JPEG_V420_HW_CAP_UPSCALE_POS)
->> +
->> +#define JPEG_V420_HW_CAP_DOWNSCALE_POS 8
->> +#define JPEG_V420_HW_CAP_DOWNSCALE_MSK \
->> +	(0x7u << JPEG_V420_HW_CAP_DOWNSCALE_POS)
->> +
->> +#define JPEG_V420_RST_CMD_FE_RESET_MSK			BIT_U32(0)
-> 
-> What is wrong with the standard BIT()?
-> 
+Hi Wolfram,
 
-What's wrong with standart BIT_U32() when dealing with 32-bit registers? 
-Or do you simply like requesting meaningless changes?!
+On Wed, Aug 19, 2026 at 2:05=E2=80=AFPM Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+>
+>
+> > [Severity: High]
+> > This is a pre-existing issue, but can this sequence of register writes
+> > trigger a spurious interrupt?
+>
+> I think this is true.
+>
+Agreed, I will add a patch to disable the interrupts before
+programming the ALx registers.
 
->> +#define JPEG_V420_RST_CMD_WE_RESET_MSK			BIT_U32(1)
->> +#define JPEG_V420_RST_CMD_ENCODER_RESET_MSK		BIT_U32(4)
->> +#define JPEG_V420_RST_CMD_DECODER_RESET_MSK		BIT_U32(5)
->> +#define JPEG_V420_RST_CMD_BLOCK_FORMATTER_RST_MSK	BIT_U32(6)
->> +#define JPEG_V420_RST_CMD_SCALE_RESET_MSK		BIT_U32(7)
->> +#define JPEG_V420_RST_CMD_REGISTER_RESET_MSK		BIT_U32(13)
->> +#define JPEG_V420_RST_CMD_MISR_RESET_MSK		BIT_U32(16)
->> +#define JPEG_V420_RST_CMD_CORE_RESET_MSK		BIT_U32(17)
->> +#define JPEG_V420_RST_CMD_JPEG_V420_DOMAIN_RESET_MSK	BIT_U32(29)
->> +#define JPEG_V420_RST_CMD_RESET_BYPASS_MSK		BIT_U32(31)
->> +
-> 
->> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
->> index affec0ab4781..6408d3da29d4 100644
->> --- a/include/uapi/linux/v4l2-controls.h
->> +++ b/include/uapi/linux/v4l2-controls.h
->> @@ -234,6 +234,27 @@ enum v4l2_colorfx {
->>    */
->>   #define V4L2_CID_USER_MALI_C55_BASE		(V4L2_CID_USER_BASE + 0x1230)
->>   
->> +/* Qualcomm JPEG encoder controls */
->> +#define V4L2_CID_USER_QCOM_JENC_BASE		(V4L2_CID_USER_BASE + 0x1240)
-> 
-> Separate these to their own commit, making it easier for others to
-> review uAPI additions. How are these being handled by the other drivers?
-> 
->> +
->> +/*
->> + * V4L2_CID_QCOM_JPEG_PERF_LEVEL_AUTO - enable adaptive performance scaling.
->> + *
->> + * When set to 1 the driver selects the core clock OPP level based on the
->> + * encoded frame resolution and fps target. When set to 0 (default) the
->> + * driver always runs at NOMINAL (highest) OPP level.
->> + */
->> +#define V4L2_CID_QCOM_JPEG_PERF_LEVEL_AUTO	(V4L2_CID_USER_QCOM_JENC_BASE + 0)
->> +
->> +/*
->> + * V4L2_CID_QCOM_JPEG_FPS_TARGET - target encode rate in frames per second.
->> + *
->> + * Used together with V4L2_CID_QCOM_JPEG_PERF_LEVEL_AUTO to select the lowest
->> + * OPP level whose throughput is sufficient for the requested frame rate.
->> + * Has no effect when perf_level_auto is 0. Range: 1-240, default: 30.
-> 
-> I assume 1-240 is only applicable to your driver.
-> 
->> + */
->> +#define V4L2_CID_QCOM_JPEG_FPS_TARGET		(V4L2_CID_USER_QCOM_JENC_BASE + 1)
->> +
->>   /* MPEG-class control IDs */
->>   /* The MPEG controls are applicable to all codec controls
->>    * and the 'MPEG' part of the define is historical */
->> -- 
->> 2.34.1
->>
-> 
+diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+index 44e8db466cb7..09631a3a5134 100644
+--- a/drivers/rtc/rtc-rzn1.c
++++ b/drivers/rtc/rtc-rzn1.c
+@@ -280,6 +280,11 @@ static int rzn1_rtc_set_alarm(struct device *dev,
+struct rtc_wkalrm *alrm)
+        if (alarm > farest)
+                return -ERANGE;
 
++       /* Disable alarm interrupts before reprogramming the alarm. */
++       ret =3D rzn1_rtc_alarm_irq_enable(dev, 0);
++       if (ret)
++               return ret;
++
+        writel(bin2bcd(tm->tm_min), rtc->base + RZN1_RTC_ALM);
+        writel(bin2bcd(tm->tm_hour), rtc->base + RZN1_RTC_ALH);
+        writel(BIT(tm->tm_wday), rtc->base + RZN1_RTC_ALW);
+
+Cheers,
+Prabhakar
