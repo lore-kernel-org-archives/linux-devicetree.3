@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DAD17DFFA
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:38:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5163F9A1A
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:40:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787218736; cv=none; b=q1tNqODKy9Zmd39Fy3HzZdgZ8XLOwnELD0HBcMRGfycpyFrXJstv+yK1rWMfUf5CAaMIAAXQivjXbiZvUXWUueWOjzIAMQoyRzDZBAIH2frjdiWRFTaWqUAIRFuS0Ufw7+4igq4r91Ny4fzPVFi59TZMsv5SGU2jRaZ4TRtm4wc=
+	t=1787218834; cv=none; b=ifIzYZzVe69NSuaiVuuPASisEmoKVNUEywUucbiDa6bltXfltRaLC32Lnu/pIEoW414VY8lXZvrxMtF5UzeBBhNOLcS36KlsgU+5+al6IZuURGI1HuSnx9Z5RCoxWHLqm1bIdlOBLmHsaM5OY9o8AufK/6XNV2UEwz10496qVL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787218736; c=relaxed/simple;
-	bh=gbD5wd7Op0aspgd8wgKkvdIYdbWJlefuooWFJaQiSlU=;
+	s=arc-20240116; t=1787218834; c=relaxed/simple;
+	bh=5WdFALh7CXsqQLAC3RvX/GJ/SzIkD0WZW6ujCBB/dOk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q797eUFzec0P5NAGdJbeQf1lfY2Pn04KGPNsPrauVjndw3nPb8AXjdvfrien61xtccjfGhdZk8i9HtBuDPsnq1T7ljHpS/ckFHa8mjNRfm4AWMBtVivwglvLoSGDUbGnyKUskxDIeZcmKcis8LRlhI4sG/wZc2c+InqtYjemBHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFr1vbmj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EcuHPUpsXBd6iO5uHVh0T8hcNiimoiffvf+jU3zpT8SEylBiAiZHx0k0oQFvYV2ZFztvSy98TyytY0nx6kkduu6eU5dKYDTqcqMdW4CoRzJ62/ABnCL/Z6aV67PLrg9o5grRRObl/QE6Y3njDiVXSdvC9ZSfaJoMQ5GfUaCJbCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6Doplwt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFr1vbmj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F201F000E9;
-	Thu, 20 Aug 2026 09:38:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6Doplwt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6CD81F000E9;
+	Thu, 20 Aug 2026 09:40:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787218731;
-	bh=AzZBt0h/MYFiUsr0SjOrohWFL/UTVeVmsaDTO2auYrE=;
+	s=k20260515; t=1787218827;
+	bh=D5O5v5kdiMBxeAvoq/yBatfwzhujZca4Dn6km+Co3Jc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MFr1vbmjz2HcQSctaLvkYraTvLtJ/ZtRhbY5FQidtArr1Qvqiv0OwTpy3o+M6bz2C
-	 E72uOvFqa2sVJZ6SPN1I0ajRcJJhHYi1HZrXFVaJb8yWnnF+Dw0+GOCu8F2JIc54DG
-	 7qnDbC71CDWjlIoFkUhvLYXO27K5R5x4j46GXgmGaaiAG0bmBwnehlXqojgYqJsryY
-	 7yXhVnSiTfqBmWi60CM4n2co1digkc08J1bT+raOpkX6651GasSlBQ3RHmxIoodIGo
-	 ptFA4FUa9e3oEYYUGabViD4eIqL41LV6Jp5ug38dcMNFHMjzYOv13+TM7zV1ON8Fp0
-	 2UEHpnw9c3KkQ==
+	b=a6DoplwtWc3G3s6FHQNyVe087faGn9ffAfVzUqQx0v0VX2la+pUFqt6o19PZL2Tdq
+	 gQmVya4MPD21Ss2ZFRulpWJiSwxMoUteo42gWikD78md7o+ID6nswzAnJoHp4MQzz0
+	 CMjJqVBU0yYKNZjGW8mFqfaDHgHad92sGfUubzz9WT7BDn8NeBERcCDVknOcjEl88J
+	 4jHHUJXWG4bJA6jLYgnc0fZ1zttGAZCRx6HuvL+lawzTbuDzmCkGbmUNsercKutlfc
+	 B6gyfv6xSDnbnNsSVytRslyBSj5z9C684RWGQsS8B/3RzndRCdj48Q07RJtik3QqSQ
+	 UrHSK49tjuCCA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/7] greybus: Add Rust UART node driver
+Subject: Re: [PATCH 5/7] drivers: greybus: Add software SVC implementation
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ayush Singh" <ayush@beagleboard.org>
-Cc: ojeda@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260820-gb-uart-transport-v1-6-282da14ab7b7@beagleboard.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, ojeda@kernel.org, robh@kernel.org
+In-Reply-To: <20260820-gb-uart-transport-v1-5-282da14ab7b7@beagleboard.org>
 References: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
- <20260820-gb-uart-transport-v1-6-282da14ab7b7@beagleboard.org>
+ <20260820-gb-uart-transport-v1-5-282da14ab7b7@beagleboard.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 09:38:50 +0000
-Message-Id: <20260820093850.C3F201F000E9@smtp.kernel.org>
+Date: Thu, 20 Aug 2026 09:40:26 +0000
+Message-Id: <20260820094026.B6CD81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,211 +46,218 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 8 potential issue(=
 s) to consider:
-- [High] Incorrect extraction of payload leaves part of the CRC in the mess=
-age due to an off-by-one calculation.
-- [High] The transmit CRC is incorrectly computed over the HDLC-escaped byt=
-e stream instead of the raw payload.
-- [High] Unbounded memory allocation in the serial receive path allows an a=
-ttacker to exhaust kernel memory.
-- [High] Allocating memory with `GFP_KERNEL` while holding a spinlock cause=
-s a 'scheduling while atomic' kernel panic.
-- [High] GbNode is registered with the Greybus core in `probe` before the s=
-erdev device is fully initialized, allowing premature and unsafe calls to `=
-write`.
-- [High] `GbNode::write` performs multiple non-atomic `write_all` operation=
-s to the UART without serialization, risking interleaved frames if called c=
-oncurrently.
-- [Medium] Returning early upon a buffer push failure clears the HDLC escap=
-e state prematurely, causing an infinite receive stall.
-- [Low] Rust imports do not follow the kernel vertical import style.
+- [High] Calling `Module::new` with an empty slice panics the kernel.
+- [High] Out-of-bounds bitmap access in `release_operation_id` crashes the =
+kernel.
+- [High] Unconditionally calling `msg.sent(0)` followed by returning an err=
+or causes a double-free of the operation.
+- [High] Initialization error path permanently leaks `GLOBAL_STATE`.
+- [High] InterfaceOps are leaked in Svc::module_insert() if send_request() =
+fails.
+- [High] Incorrect endianness conversions for Greybus SVC constant values b=
+reak big-endian platforms.
+- [Medium] `module_insert` hardcodes `intf_count` to 1, breaking support fo=
+r modules with multiple interfaces.
+- [Low] Copy-paste errors in `gb_softsvc_exports.c` metadata.
 --
 
---- Patch [6]: [PATCH 6/7] greybus: Add Rust UART node driver ---
-commit 763ce224c179bf0f26e68cd794db14b2b9027390
+--- Patch [5]: [PATCH 5/7] drivers: greybus: Add software SVC implementatio=
+n ---
+commit ae94a156cc024cc7dae613127a7c0c6694200c02
 Author: Ayush Singh <ayush@beagleboard.org>
 
-greybus: Add Rust UART node driver
+drivers: greybus: Add software SVC implementation
 
-This commit adds a driver for Greybus nodes attached over a plain serial
-port. The node is registered with the software SVC (gb-softsvc), which
-handles the SVC protocol on behalf of the AP. Greybus messages are carried
-over HDLC framing on the wire.
+A Greybus network requires an SVC (Supervisory Controller) to bring
+interfaces up, assign device IDs and connect CPorts to the AP. This adds
+gb-softsvc, a Rust implementation of the SVC that lives in the kernel
+and registers itself as a Greybus host device.
 
-[ ... ]
-
-> diff --git a/drivers/greybus/gb_uart_node.rs b/drivers/greybus/gb_uart_no=
-de.rs
+> diff --git a/drivers/greybus/gb_softsvc.rs b/drivers/greybus/gb_softsvc.rs
 > new file mode 100644
-> index 0000000000000..1258122467585
+> index 0000000000000..0d125a1a2cc8f
 > --- /dev/null
-> +++ b/drivers/greybus/gb_uart_node.rs
-> @@ -0,0 +1,231 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Greybus UART Node driver
-> +
-> +use kernel::crc_ccitt::crc_ccitt;
-> +use kernel::device::AsBusDevice;
-> +use kernel::device::{Bound, Core};
-> +use kernel::error::code;
-> +use kernel::sync::aref::ARef;
-> +use kernel::sync::{Arc, SpinLock};
-> +use kernel::{new_spinlock, of, prelude::*, serdev};
+> +++ b/drivers/greybus/gb_softsvc.rs
+> @@ -0,0 +1,472 @@
+[ ... ]
+> +const SVC_VERSION_MAJOR: u8 =3D 0;
+> +const SVC_VERSION_MINOR: u8 =3D 1;
+> +const ENDO_ID: u16 =3D u16::from_le(0x4755);
 
-[Severity: Low]
-Do these imports violate the kernel's vertical import guidelines for Rust
-code?
+[Severity: High]
+Are u16::from_le() and u32::from_le() being used correctly here?
+
+Constructor functions like GbSvcHelloRequest::new() expect native-endian
+arguments and internally convert them to little-endian. Applying from_le()
+followed by the internal to_le() cancels out the byte swap on big-endian
+platforms, causing the data to be transmitted in native big-endian format
+instead of the required little-endian.
 
 [ ... ]
-
-> +    fn frame_finish(&self) -> Result<()> {
-> +        if self.rx_buf.len() < 4 {
-> +            return Err(code::EFAULT);
-> +        }
-> +
-> +        let crc =3D crc_ccitt(0xffff, &self.rx_buf);
-> +        if crc !=3D HDLC_EXPECTED_CRC {
-> +            dev_warn!(self.sdev.as_ref(), "CRC failed {}", crc);
-> +            return Ok(());
-> +        }
-> +
-> +        let addr =3D self.rx_buf[0];
-> +        let _ctrl =3D self.rx_buf[1];
-> +        let payload =3D &self.rx_buf[2..self.rx_buf.len() - size_of::<u8=
->()];
+> +    fn new() -> impl PinInit<Self, Error> {
+> +        pin_init!(Self {
+> +            intf_map <- new_mutex!(init_array_from_fn(|_| None)),
+> +            svc_operation_id <- new_spinlock!(IdPool::with_capacity(u16:=
+:MAX.into(), GFP_KERNEL)?)
 
 [Severity: High]
-Does this slice operation incorrectly leave 1 byte of the 2-byte CRC append=
-ed
-to the payload? The CRC is 16-bit, so it appears subtracting size_of::<u8>()
-would retain part of the CRC in the message.
+The ID pool is initialized with a capacity of u16::MAX (65535), making valid
+indices 0 to 65534.  If an untrusted remote endpoint sends a message with
+operation_id =3D 65535, does this pass the out-of-bounds ID directly to
+release_id() in release_operation_id()?
 
 [ ... ]
-
-> +    fn rx(&mut self, data: &[u8]) -> usize {
-> +        for (count, i) in data.iter().enumerate() {
-> +            match *i {
-> +                HDLC_FRAME =3D> {
-> +                    if !self.rx_buf.is_empty() {
-> +                        if let Err(e) =3D self.frame_finish() {
-> +                            dev_warn!(self.sdev.as_ref(), "bad frame: {e=
-:?}\n");
-> +                        }
-> +                    }
-> +
-> +                    self.rx_buf.clear();
-> +                    self.rx_in_esc =3D false;
-> +                }
-> +                HDLC_ESC =3D> self.rx_in_esc =3D true,
-> +                _ =3D> {
-> +                    let c =3D if self.rx_in_esc { *i ^ HDLC_XOR } else {=
- *i };
-> +                    self.rx_in_esc =3D false;
-> +
-> +                    if self.rx_buf.push(c, GFP_KERNEL).is_err() {
+> +    fn release_operation_id(&self, id: u16) {
+> +        let mut ida =3D self.svc_operation_id.lock();
+> +        ida.release_id(id as usize);
+> +    }
+[ ... ]
+> +    fn map_insert(&self, intfs: &[Arc<dyn InterfaceOps>]) -> Result<u8> {
+> +        fn inner(
+> +            intf_map: &[Option<Arc<dyn InterfaceOps>>; INTF_MAP_LEN],
+> +            count: usize,
+> +        ) -> Result<u8> {
+> +            for (id, window) in intf_map.windows(count).enumerate() {
 
 [Severity: High]
-Is there a bounds or MTU capacity check missing here? It looks like a
-malfunctioning or malicious device on the serial port streaming endless
-non-framing bytes could cause the vector to grow infinitely until kernel
-memory is exhausted.
+If a caller passes an empty slice of interfaces to Module::new(), won't
+count be 0? Calling .windows(0) on a slice unconditionally panics in
+Rust, which would crash the kernel.
 
-[Severity: Medium]
-If the buffer push fails and we return early, does this clear the HDLC
-escape state prematurely?
-
-The escape state is mutated right before the error check:
-    self.rx_in_esc =3D false;
-    if self.rx_buf.push(c, GFP_KERNEL).is_err() {
-
-When the serdev core retries passing the failed byte, the escape state
-would already be lost, potentially causing an infinite receive stall.
-
-[Severity: High]
-Is it safe to use GFP_KERNEL here?
-
-GbUartNode::receive() acquires a spinlock using this.rx.try_lock(), which
-disables preemption. It then calls guard.rx(data), which invokes this
-buffer push allocation.
-
-Will allocating memory with GFP_KERNEL while holding a spinlock cause a
-scheduling while atomic kernel panic?
-
-> +                        return count;
-> +                    }
+> +                if window.iter().all(|x| x.is_none()) {
+> +                    return Ok(id as u8);
 > +                }
 > +            }
-> +        }
-
 [ ... ]
+> +    fn module_insert(&self, hd: &hd::Device, intfs: &[Arc<dyn InterfaceO=
+ps>]) -> Result<u8> {
+> +        let intf_id =3D self.map_insert(intfs)?;
+> +        let payload =3D protocols::GbSvcModuleInsertedRequest::new(intf_=
+id, 1, 0);
 
-> +    fn write_all(mut crc: u16, bound: &serdev::Device<Bound>, data: &[u8=
-]) -> Result<u16> {
-> +        for i in data {
-> +            if *i =3D=3D HDLC_ESC || *i =3D=3D HDLC_FRAME {
-> +                let buf =3D &[HDLC_ESC, i ^ HDLC_XOR];
-> +                bound.write_all(buf, 0)?;
-> +                crc =3D crc_ccitt(crc, buf);
+[Severity: Medium]
+Does hardcoding the intf_count to 1 prevent the Greybus core from
+discovering subsequent interfaces when intfs.len() > 1?
+
+> +        self.send_request(hd, protocols::GB_SVC_TYPE_MODULE_INSERTED, pa=
+yload)?;
 
 [Severity: High]
-Is the transmit CRC incorrectly computed over the HDLC-escaped byte stream
-instead of the raw payload?
-
-GbNode::write_all() computes the CRC using crc_ccitt() on the escaped byte
-sequence rather than the original raw byte. Could this result in an invalid
-CRC that gets rejected by standard receivers?
-
-[ ... ]
-
-> +impl gb_softsvc::InterfaceOps for GbNode {
-> +    fn write(&self, data: &[u8], cport: u16) -> Result<()> {
-> +        // SAFETY: `GbNode` only exists while its serdev driver is bound=
-, so the device is in the
-> +        // `Bound` state for the duration of this call.
-> +        let bound: &serdev::Device<Bound> =3D
-> +            unsafe { serdev::Device::from_device(self.sdev.as_ref().as_b=
-ound()) };
-
-[Severity: High]
-Could this unsafe block invalidly assume the serdev device is fully bound
-before probe completes?
-
-GbUartNode::probe() calls Self::init(), which registers the module with
-gb_softsvc. If a write callback is invoked synchronously or asynchronously
-before probe finishes, this assumption might be violated.
+If self.send_request() fails, the function returns an error, but the
+interfaces were already inserted into intf_map via self.map_insert().
+Since Module::new() aborts on this error path, Module::drop will never
+be called to clean up.  Does this permanently leak the slots in intf_map
+and the Arc<dyn InterfaceOps> references?
 
 > +
-> +        let mut crc =3D 0xffff;
-> +
-> +        bound.write_all(&[HDLC_FRAME], 0)?;
-> +
-> +        crc =3D Self::write_all(crc, bound, &[ADDRESS_GREYBUS, 0x03])?;
-> +        crc =3D Self::write_all(crc, bound, &cport.to_le_bytes())?;
-> +        crc =3D Self::write_all(crc, bound, data)?;
-
-[Severity: High]
-Does GbNode::write() perform multiple non-atomic write_all operations to the
-UART without serialization?
-
-Since the Greybus core can send messages concurrently from different threads
-for different CPorts, could interleaving these writes result in corrupted
-HDLC framing and dropped packets on the wire?
-
+> +        Ok(intf_id)
+> +    }
 [ ... ]
-
-> +    fn probe<'bound>(
-> +        sdev: &'bound serdev::Device<Core<'_>>,
-> +        _info: Option<&'bound Self::IdInfo>,
-> +    ) -> impl PinInit<Self, Error> + 'bound {
-> +        dev_dbg!(sdev.as_ref(), "Probe gb_uart_node.\n");
-> +        let rx =3D Self::init(sdev);
+> +    fn dme_peer_get(&self, hd: &hd::Device, hdr: &protocols::GbOperation=
+MsgHdr) {
+> +        let payload =3D protocols::GbSvcDmePeerGetResponse::new(0, u32::=
+from_le(0x0126));
 
 [Severity: High]
-Is GbNode prematurely registered with the Greybus core here?
+This seems to have the same endianness cancellation issue as ENDO_ID when
+used on big-endian architectures.
 
-Calling Self::init() registers the module before the serdev device is
-fully initialized, allowing premature and unsafe calls to GbNode::write().
+> +        self.send_response(hd, hdr, payload);
+> +    }
+[ ... ]
+> +impl hd::HdDriver for GbHdDriver {
+> +    fn message_send(data: &Self, dest_cport_id: u16, msg: greybus::Messa=
+ge) -> Result {
+> +        let res =3D data.message_send_inner(dest_cport_id, &msg);
+> +        msg.sent(0);
+
+[Severity: High]
+If message_send_inner() returns an error, msg.sent(0) will incorrectly
+report success to the Greybus core, causing it to drop its reference to the
+operation structure. When the error is then returned to the caller, it may =
+also
+drop the reference. Could this sequence result in a double-free?
+
+> +
+> +        res
+> +    }
+[ ... ]
+> +impl kernel::Module for GreybusSoftSvc {
+> +    fn init(_module: &'static ThisModule) -> Result<Self> {
+> +        pr_info!("gb_softsvc (init)\n");
+> +
+> +        // SAFETY: This runs once at module init, before anything else c=
+an reach GLOBAL_STATE.
+> +        unsafe { GLOBAL_STATE.init() };
+> +
+> +        let faux =3D faux::Registration::new(c_str!("gb-softsvc"), None)=
+?;
+> +        let svc =3D Arc::pin_init(Svc::new(), GFP_KERNEL)?;
+> +        let data =3D GbHdDriver(svc.clone());
+> +
+> +        let dev =3D faux.as_ref().as_ref();
+> +        let hd =3D hd::Registration::new(dev, GB_OPERATION_SIZE_MAX, CPO=
+RT_ID_MAX + 1, Ok(data))?;
+> +
+> +        let global_state =3D GlobalState::new(svc.clone(), hd.as_ref().i=
+nto());
+> +        let _ =3D GLOBAL_STATE.lock().replace(global_state);
+> +
+> +        svc.send_version(hd.as_ref())?;
+
+[Severity: High]
+If svc.send_version() fails, module initialization is aborted and
+GreybusSoftSvc::drop() will not be called. Does this leave GLOBAL_STATE
+populated, permanently leaking the Arc<Svc> and ARef<hd::Device> references?
+
+> +
+> +        Ok(GreybusSoftSvc {
+> +            _hd: hd,
+> +            _faux: faux,
+> +        })
+> +    }
+> +}
+[ ... ]
+> +    pub fn submit_message(&self, cport: u16, msg: &[u8]) -> Result<()> {
+> +        let intf =3D self
+> +            .gb_hd
+> +            .find_connection_by_intf(self.id, cport)
+
+[Severity: Medium]
+In addition to hardcoding the interface count to 1 earlier, using self.id
+here instead of allowing the caller to specify the interface ID seems to
+prevent routing messages for any interfaces beyond the first one.
+
+> +            .ok_or(code::EINVAL)?;
+> +        self.gb_hd.data_rcvd(intf.hd_cport_id(), msg);
+> +
+> +        Ok(())
+> +    }
+[ ... ]
+> diff --git a/drivers/greybus/gb_softsvc_exports.c b/drivers/greybus/gb_so=
+ftsvc_exports.c
+> new file mode 100644
+> index 0000000000000..38b99c4de6eec
+> --- /dev/null
+> +++ b/drivers/greybus/gb_softsvc_exports.c
+> @@ -0,0 +1,15 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFIL=
+IATES. All rights reserved.
+> +
+> +/*
+> + * Exports Rust symbols from the nova_core crate for use by dependent mo=
+dules.
+
+[Severity: Low]
+Are the references to NVIDIA and the nova_core crate here accidental
+copy-paste errors from another driver?
+
+> + *
+> + * This is a workaround until the build system supports Rust cross-module
+> + * dependencies natively.
+> + */
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820-gb-uart-tr=
-ansport-v1-0-282da14ab7b7@beagleboard.org?part=3D6
+ansport-v1-0-282da14ab7b7@beagleboard.org?part=3D5
