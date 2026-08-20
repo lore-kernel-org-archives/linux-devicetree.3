@@ -1,157 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1BF3BCD0A
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:19:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30F63C7DE8
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 07:23:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787210377; cv=none; b=IQYZRvZxNFy0GpbyumrPBWif0BdGMiOi+lWvYipPIP6s3PqQSFtdjidDq8pzNi8XOl4//zQkQaNRDKliygjX8UPA6oG5yXHoYv6IU0CpBzzVlu+Qo3c3WpsSWUx+Fet0EtFfgxWlsGrNfZnZJr46wLhK/hUDmBy6vdWJFprgruY=
+	t=1787210638; cv=none; b=BhFK2OFSrY8urlwWKft8mkfvPYOAFO3VusplUQGS9PfgTuAY8I2u0hn5c4SC21ge1/tA5NmCCCjj3qelgK10p85jN2DaBeO1FwW0XHFnCo+ZvohfXpfkU2KSDm/9NEWdTN/m4cWWnsjZUzv8tbBQfNsAi7foGjVtcmFpLyEpCIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787210377; c=relaxed/simple;
-	bh=3hR8v8kEt+bWtncXUHAaNnFQAKtTyYBrcn3/bhqK+bY=;
+	s=arc-20240116; t=1787210638; c=relaxed/simple;
+	bh=oDkd2uiiuAVJt2go73ZD5CdO/haQ0yzzTlllfIKkkDE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UeXhwseU/XWdQk16xHIk6TKef817/1/dqYGnwDhNX/2WOplRVhgKQLUSk6KjvqBnwvF1dF2kkPMlbDds35dnDDlyKT+ak2WmepvDua2paqWMpQSEvqndNppmhRZ1/TBII8ntTZlz60E1Qyr1VafdpFhDJPvr3O8xghwosvTTVOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AODhKETU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Ckw29V7PFl7lubSvFkrzTRq5h2Via9aL1h0ZZKvZuHsa7OGnQALRyxTokJBqKp8c9Y3ljL/94S3Lfe9QRtzC5AWncXJnw73QENuy/OSx/xup0vKYoQIKEscH2AloJahfvQAPWEN9VokY46JBzv2StefKYTuQ2rvCUMqP8Vrf1II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hA6u+fl+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AODhKETU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C517D1F00A3A;
-	Thu, 20 Aug 2026 07:19:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hA6u+fl+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1041F00ACA;
+	Thu, 20 Aug 2026 07:23:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787210376;
-	bh=cDfVkkgtjB+KkmIXtDsGDy8FcRce+kZu94Ryq7fVUZY=;
+	s=k20260515; t=1787210629;
+	bh=H2blQ9+7Qrkb9cTaW7HFySXDxeFmme7DYyu+lSKfBac=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AODhKETUXVgkN+AmjsEe3bthTEHZgqGkuzW46HXUtnP4uVjWNjJ1gPvJ0SG7jcAZL
-	 azocl0GZDK64sUghtIhuSCVyPM7vv8fW0oRpGOH/ZmCj9wj/QeHOPKZYlFQHWFoXq+
-	 s9P+erIFXvCC9O0ARbrNLjHDsEKpnb+7AEFEL190KVNL+0hHFRtuOFWnSoRABqnXNk
-	 +AQDIoIi23VvVhxeVfIFPSbJLUApKsJCbBReTpxjHgoUX/0UqWnlBZuo1CtdF6FRlO
-	 yPFBj8+qLDWLxetc7VD9Mp6ba9xq7kldxemuyyzOZn8xVV2FtaWxmnLkQFGP77C0lj
-	 gCSn7p/k5XClA==
+	b=hA6u+fl+h81ISnY0FeKvUA7j9LAkhd7+Q48fg0epncjYh+b1gsWDjGHV9wCvTpQ2u
+	 flsp0EjzIeLGiNzS0CoPkJeWNAtUT7zCswLdTQGpMXcMgPaFR9wPoEMEkhZ3yk+HsU
+	 CJwULBrrSlikrmZsxJLHaBnlB5/JKikyWTw9rLorgYif43mXWXd+007MOhDEwK+HyI
+	 ASwhU7UaGIWU9ssiz82/W19d2mZ1NGTkKJJaALz1TKP76KVVpZWHS0yBPbkdz3YlzO
+	 XDCnlTUEo7UUcXQHFYYQuIlGArmYslFCXPf1P8vPqv3iNI53TQ2UROLUWfbJCwmd2q
+	 I7iLxGD2EKfPg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/3] dt-bindings: iio: dac: Add AD5529R
+Subject: Re: [PATCH v9 3/3] iio: dac: Add AD5529R DAC driver support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260820-ad5529r-driver-v9-2-ba62e0b2a816@analog.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
 References: <20260820-ad5529r-driver-v9-0-ba62e0b2a816@analog.com>
- <20260820-ad5529r-driver-v9-2-ba62e0b2a816@analog.com>
+ <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 07:19:35 +0000
-Message-Id: <20260820071935.C517D1F00A3A@smtp.kernel.org>
+Date: Thu, 20 Aug 2026 07:23:48 +0000
+Message-Id: <20260820072348.BC1041F00ACA@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The `spi-device-addr` property specifies a default value of integer=
- `0`, but it is typed as a `uint32-array` in standard SPI bindings, causing=
- schema validation to fail.
-- [Low] The `default` values for `output-range-microvolt` are incorrectly p=
-laced inside the tuple `items` definition, rendering them ineffective in De=
-vice Tree schemas.
-- [Low] The child node schema uses `additionalProperties: false` alongside =
-a `$ref: dac.yaml` reference, which improperly rejects inherited standard p=
-roperties like `label`.
+- [High] The AD5529R Kconfig symbol selects `REGMAP_SPI` but incorrectly de=
+pends on `SPI_MASTER` (a boolean) instead of `SPI` (a tristate), which can =
+cause unmet direct dependency warnings and linker errors.
+- [Medium] The driver enables the `vref` regulator but does not query its v=
+oltage, using hardcoded scaling values that assume a 4.096V reference.
 --
 
---- Patch [2]: [PATCH v9 2/3] dt-bindings: iio: dac: Add AD5529R ---
-commit 8e1fecbc9f92b4d6893726d1c141e8c978f52489
+--- Patch [3]: [PATCH v9 3/3] iio: dac: Add AD5529R DAC driver support ---
+commit 93be93e4756accead91864ac70303ad8ccc9e4da
 Author: Janani Sunil <janani.sunil@analog.com>
 
-dt-bindings: iio: dac: Add AD5529R
+iio: dac: Add AD5529R DAC driver support
 
-Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
-buffered voltage output digital-to-analog converter (DAC) with an
-integrated precision reference.
+Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
+from Analog Devices.
 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b=
-/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> index 657c68e75542e..6a7109f42f2a3 100644
+> --- a/drivers/iio/dac/Kconfig
+> +++ b/drivers/iio/dac/Kconfig
+> @@ -134,6 +134,22 @@ config AD5449
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called ad5449.
+> =20
+> +config AD5529R
+> +	tristate "Analog Devices AD5529R High Voltage DAC driver"
+> +	depends on SPI_MASTER
+> +	select REGMAP_SPI
+
+[Severity: High]
+Should this depend on SPI rather than SPI_MASTER?
+
+If SPI is built as a module (=3Dm), SPI_MASTER evaluates to y. This allows
+AD5529R to be configured as built-in (=3Dy), which forces REGMAP_SPI to y
+through the select statement.
+
+Since REGMAP_SPI depends on SPI, this can produce a Kconfig unmet direct
+dependency warning and cause linker errors for SPI core functions during
+randconfig testing.
+
+[ ... ]
+
+> diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
 > new file mode 100644
-> index 0000000000000..9c390d460e5ff
+> index 0000000000000..6982840232681
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> +++ b/drivers/iio/dac/ad5529r.c
 
 [ ... ]
 
-> +  spi-device-addr:
-> +    minItems: 1
-> +    maxItems: 4
-> +    items:
-> +      enum: [0, 1, 2, 3]
-> +    default: 0
-
-[Severity: Low]
-Does this default value cause schema validation to fail?
-
-Since this property can contain multiple items, standard SPI bindings
-often type these as a uint32-array. Should the default be formatted
-as an array like default: [0] instead of a scalar integer 0?
-
-> +    description:
-> +      Hardware address of each device, selected by the ID0 and ID1 pins.
-> +      Up to four AD5529R devices can share a single SPI chip select.
+> +static int ad5529r_read_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int *val, int *val2, long mask)
+> +{
 
 [ ... ]
 
-> +  "^channel@([0-9a-f]{1,2})$":
-> +    $ref: dac.yaml
-> +    type: object
-> +    description: Child nodes for individual channel configuration
+> +	case IIO_CHAN_INFO_SCALE:
+> +		range_idx =3D st->output_range_idx[chan->channel];
 > +
-> +    properties:
-> +      reg:
-> +        description:
-> +          Flattened channel number across all AD5529R devices sharing th=
-e chip
-> +          select. Within each 16-channel block, the physical channel num=
-ber is reg % 16.
-> +        minimum: 0
-> +        maximum: 63
-> +
-> +      output-range-microvolt:
-> +        description:
-> +          Output voltage range for this channel as [min, max] in
-> +          microvolts.
-> +        oneOf:
-> +          - items:
-> +              - const: 0
-> +                default: 0
-> +              - enum: [5000000, 10000000, 20000000, 40000000]
-> +                default: 5000000
-
-[Severity: Low]
-Are these default values correctly placed?
-
-Placing the default keyword inside the tuple items definition generally
-renders them ineffective in Device Tree schemas when the property is
-entirely omitted.
-
-Should the default be applied to the property as a whole instead?
-
-> +          - items:
-> +              - const: -5000000
-> +              - const: 5000000
+> +		/*
+> +		 * The datasheet specifies a 4.096 V external reference,
+> +		 * matching the nominal output voltage of the internal
+> +		 * reference.
+> +		 */
+> +		span_mv =3D ad5529r_output_ranges_mV[range_idx][1] -
+> +			  ad5529r_output_ranges_mV[range_idx][0];
+> +		*val =3D span_mv;
 
 [ ... ]
 
-> +    required:
-> +      - reg
-> +
-> +    additionalProperties: false
+> +static int ad5529r_probe(struct spi_device *spi)
+> +{
 
-[Severity: Low]
-Will this additionalProperties: false constraint improperly reject standard
-properties?
+[ ... ]
 
-Since this child node includes a $ref: dac.yaml reference earlier in the
-block, this constraint typically prevents the use of inherited properties
-like label and causes schema validation errors.
+> +	ret =3D devm_regulator_get_enable_optional(dev, "vref");
 
-Should this be unevaluatedProperties: false instead?
+[Severity: Medium]
+Is it possible to query the actual regulator voltage here rather than using
+devm_regulator_get_enable_optional()?
+
+Since this helper doesn't return the regulator pointer, the driver cannot r=
+ead
+the actually supplied voltage. Looking at ad5529r_read_raw() above, the IIO
+scale is calculated using hardcoded millivolt arrays that assume the extern=
+al
+reference is exactly 4.096V.
+
+If a board provides a different reference voltage, will the IIO scaling
+metadata exposed to userspace be incorrect?
+
+> +	if (ret =3D=3D -ENODEV)
+> +		external_vref =3D false;
+> +	else if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get and enable vref regulator\n");
+> +	else
+> +		external_vref =3D true;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820-ad5529r-dr=
-iver-v9-0-ba62e0b2a816@analog.com?part=3D2
+iver-v9-0-ba62e0b2a816@analog.com?part=3D3
