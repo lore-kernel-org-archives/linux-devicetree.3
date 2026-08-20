@@ -1,65 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7B5478846;
-	Thu, 20 Aug 2026 17:03:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB4D4772B1
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 17:12:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787245384; cv=none; b=F0kYgwZYlNPzaZNcpX2ynYmEe6JN3a8g7h0ERChHlVhvUEw7QumVW+/fV1vcTui0wXShkjVttS5WM/kQmrbPEdXb3SJLnLmOaId/BjjTNFfW2FPg4jJRh689q4CHdppjSh8alHLouLleFS//YNNZp9/YslkicmWR9eCRDOxsSmg=
+	t=1787245936; cv=none; b=fEGXXeO1qTDyjnUFEAZMyi0OJNuuof6mPqxI8aNs1KvMtG9LHffvbFmtE6Vd0NCpSYXhuKbEBXg6RGvnhadbzOYSNHVDeR+xBn5OJNir+0zqJIJxCn9IotT134C1aILUVBHaNwcY5qZy1OBLUI8Xxel6CMba2AAfIFtjTLhcmsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787245384; c=relaxed/simple;
-	bh=dBntv5rINKeRHeEMjGgLuGQBnSJBGgN4taF/Z+XayZw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kpHRiSNipUzzCTMnZTvmWIIr29MRXxIV+H1V6F/u5+xYixLQp1+8RXOyg2D6ETlEOV4oZ4kCl5sD3ijNs8gv17SN0WkQntgttPKZmCNrAlKLAZJTex4gg0Bz+fZtsJ6okvo36Vs27Vo46TGbBM1yadkfcRxVn0UEXG3moBE7cN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mDdcEEzf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787245936; c=relaxed/simple;
+	bh=7uAWFTbuwW0A8EhkgTKVElp7s55weZrURiMGD1PGiAo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u37sOs3P4ie4ZrWM9v64+7Uv095oDbgmolrVo9lNmOLzvZ6CgsBl/1PWIBoh42MgMncQh33Dff4CDFBhdtb/s3tnaN6H9dQM5FS/fQld3jrovxMJcN76tCX3Yd4p5OsOFNtmVCJHdEUsjro3ckfiDePNuNBDeiMpGqQEyfDb5J0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVT28wmc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mDdcEEzf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155621F000E9;
-	Thu, 20 Aug 2026 17:03:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVT28wmc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7D01F000E9
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 17:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787245383;
-	bh=dBntv5rINKeRHeEMjGgLuGQBnSJBGgN4taF/Z+XayZw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mDdcEEzf23oTKwdEFitcmdJbuWIGfkTu8BE9xrTL06ntzLvEMSElHBLFY/QXFPxWK
-	 mDwAE4nO6G0dimF6bXkniH8hqvk/PFNPfcWxHJwqzoM6LSYWv+Yfce1D6IVonwWXWk
-	 E1249wHyobCGwgiKIKMlhXy3phVmMmtWz/P953HICjcUVDsLuzeKoDgNgz4nT/UELc
-	 JsWCtCR/zU9tvv5vyFjacW7l3ueA6M5DYBYhkkw5rU3kE1skg4k59qjL2vx2X1q5uv
-	 kIEMELo4SaqSzrT6D0CCjOPRiXHHq+MZA0T4Gke7bSz18RXQsD6XOOtknOYIUhiWEG
-	 XbgNg5/kcplGg==
-Date: Thu, 20 Aug 2026 10:03:02 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ahmad Byagowi <ahmadexp@gmail.com>
-Cc: netdev@vger.kernel.org, Lee Jones <lee@kernel.org>, Pavel Machek
- <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andi Shyti
- <andi.shyti@kernel.org>, Peter Rosin <peda@lysator.liu.se>, Nam Tran
- <trannamatk@gmail.com>, Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Richard Cochran <richardcochran@gmail.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Kees Cook
- <kees@kernel.org>, "Gustavo A . R . Silva" <gustavoars@kernel.org>,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH net-next v5 0/7] ptp: ocp: Add R4006 and V9 I2C
- peripheral support
-Message-ID: <20260820100302.1609c979@kernel.org>
-In-Reply-To: <CAOQiBWM57ZBafMcj9MaegHBuM21313O5PqAAGXdHfvmHxHp48g@mail.gmail.com>
-References: <cover.1786746757.git.ahmadexp@gmail.com>
-	<20260818095654.5357db1d@kernel.org>
-	<CAOQiBWM57ZBafMcj9MaegHBuM21313O5PqAAGXdHfvmHxHp48g@mail.gmail.com>
+	s=k20260515; t=1787245935;
+	bh=7uAWFTbuwW0A8EhkgTKVElp7s55weZrURiMGD1PGiAo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MVT28wmcM9wM5hWl8iFzMzVlTh38P3O1MOanmZiTAtOfOvBx+19gPMrThcQdOlHZq
+	 ekbmnktvtOXmH5aFBGJzDaA1okmoOxhUlgb52iKWvGx7emxwhj+eXuS8Vs0o0nSPm7
+	 nX0me01iZhXyqe72Ke6uJiAH4Kk0ef5wRQmeqrNBxJjrw/sajIbh+B303LPCQZAUQh
+	 3mCii7hO3yEqRBesn1qOiYz6cINLdV7LzqgupWtRRZn9rZEWJGSJpddSWIphbI31/0
+	 CTTI0+L7xbfZl3TBCXXBblA9Ob8TtAE0XODFYq2Caobj7XD0RynifGjxFCQ9tkUK+1
+	 AwXMoA6lKSjRQ==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aec201b582so88041e87.1
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:12:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpAJOEJ4pz+V8FdYZrnvySZSXbWlzLL4BxbAfV4lVV3DhleJy4a2B+hW3vdehPl+Ntkte9I9DMBDjAG@vger.kernel.org
+X-Gm-Message-State: AFuF++kiBaLl0gRsxG9ZdRpD2MQWagB+u4ulTszQ11aslLkGz96VEkzW
+	TpXDjsAmKhhZv3zU4vzL5io84/PIUAMaszEzws9ubPSeKxLztdDl7ewcdpXlrGa8rz30S6eaIk2
+	3S82oeLI0Vloowf4VFRBR7JBAZRzT47g=
+X-Received: by 2002:a05:6512:3d04:b0:5b2:a483:a369 with SMTP id
+ 2adb3069b0e04-5b478bdf42emr4443824e87.21.1787245934265; Thu, 20 Aug 2026
+ 10:12:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <cover.1787209558.git.misha.zavertkin@mail.ru> <adce57b3797cae6f6a3486eb1d21c33be61f14dc.1787209558.git.misha.zavertkin@mail.ru>
+ <20260820073920.909F71F000E9@smtp.kernel.org>
+In-Reply-To: <20260820073920.909F71F000E9@smtp.kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 20 Aug 2026 19:12:01 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkAqUyRPCbmgaP40skfkBkUNQ43WASUGNZ1XNyD2ixAEQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WuBUlfd3QbEGmtGfKCwQOg-yDIGx572NjpXjwL0Wf0ya4wIhX58QcD-Ec
+Message-ID: <CAD++jLkAqUyRPCbmgaP40skfkBkUNQ43WASUGNZ1XNyD2ixAEQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] gpio: realtek-otto: add pinctrl support
+To: sashiko-reviews@lists.linux.dev
+Cc: misha.zavertkin@mail.ru, devicetree@vger.kernel.org, conor+dt@kernel.org, 
+	robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 18 Aug 2026 11:12:35 -0700 Ahmad Byagowi wrote:
-> I should have stated this existing hardware and end-user use case
-> explicitly in the cover letter. I will add it to the next revision.
+On Thu, Aug 20, 2026 at 9:39=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
-You need to send the leds and i2c patches to relevant trees first.
-We won't take them via net-next.
+> - [Critical] Unconditionally enabling GPIO_GENERIC_PINCTRL_BACKEND breaks
+> GPIO direction configuration on SoCs that do not yet have a pinctrl drive=
+r.
+(...)
+> Does setting GPIO_GENERIC_PINCTRL_BACKEND unconditionally break GPIO
+> direction configuration on SoCs lacking a pinctrl driver?
+
+I have adressed this with a separate patch:
+https://lore.kernel.org/linux-gpio/20260820-fix-gpio-mmio-pinctrl-v1-1-62c2=
+d7dd4903@kernel.org/
+
+Sashiko identified the bug but was completely clueless about the solution,
+as it seems to just think everything shoulf be fixed in the drivers instead
+of just fixing it for everyone in the frameworks, sigh roll eyes.
+
+Yours,
+Linus Walleij
