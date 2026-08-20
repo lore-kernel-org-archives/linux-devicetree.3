@@ -1,48 +1,78 @@
-Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEC837C90A
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 15:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDA137C90A
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 15:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787238015; cv=none; b=BxfCKzmoIpYp/CBnI50uXHRljHwmdJOd3No0r9uEowoNyDCogw9dOt6RspqH/eaZUH1NvXP9wAgPs6JJQwsbavTbX0JTZ5CUThkISGdIQSd3loCM1yecJtOXMH2Qm5z8b1hgHYqhBfoSpQe+MVBikvHxqFlCH75MgN/H5GT5UrY=
+	t=1787238167; cv=none; b=HyKQA+9R4F14JYTij7Xcmb/r06vLrRYaGKJD+rs8UV4GUqrAxvsInlRnJMx1hhIKKuafQ5XYqwQ3J/xIPiUqK1Ih3yPqgBko/VGr0d8TBnLqkYxP8BdAVkTGkI9hqdp0yHdLTB5TV0izO0ORel/kXagczMHxklC2PHdHr4U3n5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787238015; c=relaxed/simple;
-	bh=5vIYhEQdk4WuaWZX1t7/eUhpj4hJF1D1x4/NhXcICyk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y8HGy+KinsHc8fhXfTV4Sq3sD4uj1fqgRvarS3hU3HBnVzpjwPtAfmeLO7/wOxOeQBg01PsoE/AVahhox0wxgb0Biukkdkb3xtSf8OzGvKm+ZCcWCo6kr0FnHO0hrgeVII7X04p5T3x7KXIc18DIk2qct+hUHxokpHJnP1JVor0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=IrSShM3i; arc=none smtp.client-ip=185.136.64.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1787238167; c=relaxed/simple;
+	bh=AE25EeEjaWGU1m2oqDoDFrdsS+1c279+IqqNRhxagKI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Giex7dVa7uTaDuCJjZrSzXdCyRTy58sNOG8GC2BmlSt2JtaTV6tLM3OLEQEtcdfRqFbmiDjyWba99GMAghUiG0canmf3SHhReH7Zf7QBVZAdPc/dhyUXwWeWEuFqLbWA0lLGWv+rn1bB+veYd9wuNVx8mrTRRr3hfwA2IetOFEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rjfLgEyr; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="IrSShM3i"
-Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 202608201500001261a47ef30002075a
-        for <devicetree@vger.kernel.org>;
-        Thu, 20 Aug 2026 17:00:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=alessandro.zini@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=nUUcTpLwNwAc6wleFo9//VPjl5RSye7e9Hj9sFJuo7Y=;
- b=IrSShM3ibd/Ut6Wt6uiJSvsTLtgKkZcriu39f7DFGeuJfH/Z/yj+p/C7MM7HvUctrUz3SC
- 3O3gSYiER0pmTnlBtCvQ/BO1zlbz8/fW5ibYyCxLyJ6nSr+HrKEEtG3YsjwM9IK5V7QueJc+
- YyxNSkY/KQjXMVq84A3ur831cscylYwW0P1V/mmgrBvFSxLCHdarpdL0E3MkoevhnySR2MzF
- T4lPni/uAiqAlD44bhKusoKKMau6vQ3enIc1RG6ega83i8v4vFIBKG6J6K67iVZbYwm2eLvr
- Ow5Jn5Dfnk8DNy/Y5GyEOyZ7NaxBlXD0N8ssSvWGDCZ+RoPc4bk/csIQ==;
-From: Alessandro Zini <alessandro.zini@siemens.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rjfLgEyr"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7ee37dc91f5so1287401a34.3
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 08:02:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787238164; x=1787842964; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zUq0HK7LDm2Wlhb8fJRsqKOxAYntKmHEI3XG8JYK3rc=;
+        b=rjfLgEyrid5nnFIeHjikmt85ZV2weWUtlDd3OaoZTrM2ZPRA+dWt6E/SEyB81Ol8S4
+         RKhWpNympE+yaeNdl8RDYAP4artAA79zgl3eeX0Bb4snTXmhHVtP9hVBU/k/c8CQnXMP
+         VyKzFXvmgnwvr5pz4Tms6XCuvBJL97hflIGAdgOFmVkVwpHF1MrSOuCCpEK7gqN0RCkg
+         5bwI5LFvSVEpzFFl+yFvBDUvmqHjFwWm6OGTJ9LgIbEa/tnNwEBY1CDEoRIbCTtTaCMA
+         Azpr3bdvLuOtmJBBzs/QKpr+EOPxY38LwaEPmqxgCYlXPHf5ZDCbtBcVWRJD0U5jxarN
+         xy+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787238164; x=1787842964;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zUq0HK7LDm2Wlhb8fJRsqKOxAYntKmHEI3XG8JYK3rc=;
+        b=IiFEMhJaQYY5O2nt+wK4qsnEVPOjJV4b0jFC8D+DpEu5jE49RJGQf6OexdNyz6Jah3
+         wkdeiFZybgz8mkFTPOZLmSKuReRrSx3F2tjep9+2mfEJeM9xaK2JQ0dBWFAx9WK/c611
+         lvdWOJ+lkXnIwoUHHP6ZRbcEf8thEF4TPl0qHUFv+sfT3kaSoWii9YS6VNWjr7w1iT+m
+         eu5LmD3//cuQ+ZcVcXT3MxnkDMBMTo8Fdv2CyD0JwNS03AEwbQyZrO9XhLh20uUsN6Ji
+         a7gp3gKauGl/6t7vJIWhOUoj8j6GDUAsjQyqDAT8iTgfZolFY1+2kwLMumrP/qCSioiR
+         wMww==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+xer2cPpdzohEKWXsc8g2GKohB9wYwSvKV+ccxcrJWiKyF5V+vnC+hVXb4BFfqPrfyDEMkGf4qmdO@vger.kernel.org
+X-Gm-Message-State: AOJu0YyoXm3sTuBw1Lz586/EVdmsT/rjNgtB9m2QU7iprdQNIOuISLHL
+	zUDq7reR77rQW7wfpOWi7O8N417uftCRmSo0/HOR+LFjSTPtOHkAkWx2
+X-Gm-Gg: AR+sD13YuoVlF6GoWVGEUSt2aTHPbXS296L6xAgAZIo17iwH279ZP7TZLQrFuSos9G8
+	wgWDrMtf8Dh+VQPQZ6oQLU+WyKPSqAVMgwIc5s5jJab61K9w1qJOOoD9ZKZys0Syau5hloevm6Z
+	jcXZ8VbUd02zh8hKafSsY2s/ZgrPZeLbeDRQ/5A1lyl/66qUTt41Q8WyrmOGuzAsODb2A16aGYU
+	C4u7mGD+2JwPnArHYel1t9Z+mOcaQ8BX3ibHRexzaaLyyL72jBnFAyYUNTE6STN8zYcIx9hHR1b
+	nh+zYOSd0lzBJufHwwZyVJMQ8thZrT0jBWfdqCR1g08dyrEKvI9eyKSWla1HBF+oVaKHUrPAy1B
+	FzUjGKy11Jasp/gtdap9Hp8yMgltLnXy6ZiGd6uyyN2Emb5VYunBuORSBw8wMwOwUK3qj4i+IFA
+	0GFL7XA9fxLFjmOmnRXe7eru6J/CocxXqcK4u5LJpC4SXuOxOGoXGQxXLjBJ/92LbupE38Ic/DL
+	Q1sDTAmJ6o=
+X-Received: by 2002:a05:6830:43a1:b0:7eb:9464:ac2e with SMTP id 46e09a7af769-7f43fa11176mr11894586a34.11.1787238164556;
+        Thu, 20 Aug 2026 08:02:44 -0700 (PDT)
+Received: from inhnjlux1020.ls.ege.ds ([2401:4900:c11a:be2a:e6d4:534b:5f9d:7945])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f43fea8a04sm5489816a34.12.2026.08.20.08.02.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 08:02:44 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-leds@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Alessandro Zini <alessandro.zini@siemens.com>
-Subject: [PATCH 2/2] hwmon: (sht4x): Add support for Sensirion STS4x temperature sensors
-Date: Thu, 20 Aug 2026 16:59:46 +0200
-Message-ID: <20260820145946.35468-3-alessandro.zini@siemens.com>
-In-Reply-To: <20260820145946.35468-1-alessandro.zini@siemens.com>
-References: <20260820145946.35468-1-alessandro.zini@siemens.com>
+	Udaya Kiran Challa <challauday369@gmail.com>
+Subject: [PATCH] dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
+Date: Thu, 20 Aug 2026 20:32:23 +0530
+Message-Id: <20260820150223.108374-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,216 +80,256 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-1327013:519-21489:flowmailer
 
-The Sensirion STS4x series is the temperature-only variant of the
-SHT4x family. It shares the same I2C command set, conversion formulas,
-CRC checksum, and timing with the SHT4x, but only returns temperature
-data (3 bytes: 2 data bytes + 1 CRC byte).
+Convert lacie,netxbig-leds devicetree binding from legacy
+text format to DT schema.
 
-Add support for the STS4x series by dynamically adjusting the read
-response length, suppressing humidity channel attributes when probed
-as STS4x, and omitting heater sysfs attributes.
-
-Link: https://sensirion.com/resource/datasheet/sts4x
-Signed-off-by: Alessandro Zini <alessandro.zini@siemens.com>
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
 ---
- Documentation/hwmon/sht4x.rst | 17 +++++++++--
- drivers/hwmon/sht4x.c         | 56 +++++++++++++++++++++++++----------
- 2 files changed, 55 insertions(+), 18 deletions(-)
+ .../bindings/leds/lacie,netxbig-leds.yaml     | 134 ++++++++++++++++++
+ .../devicetree/bindings/leds/leds-netxbig.txt |  92 ------------
+ 2 files changed, 134 insertions(+), 92 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-netxbig.txt
 
-diff --git a/Documentation/hwmon/sht4x.rst b/Documentation/hwmon/sht4x.rst
-index ba094ad0e2816..b9564632a1be2 100644
---- a/Documentation/hwmon/sht4x.rst
-+++ b/Documentation/hwmon/sht4x.rst
-@@ -15,6 +15,16 @@ Supported Chips:
- 
-       English: https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/2_Humidity_Sensors/Datasheets/Sensirion_Humidity_Sensors_SHT4x_Datasheet.pdf
- 
-+  * Sensirion STS4X
+diff --git a/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml b/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+new file mode 100644
+index 000000000000..ffdd47458d24
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+@@ -0,0 +1,134 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/lacie,netxbig-leds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+    Prefix: 'sts4x'
++title: LaCie/Seagate netxbig CPLD LEDs
 +
-+    Addresses scanned: None
++maintainers:
++  - Simon Guinot <simon.guinot@sequanux.org>
 +
-+    Datasheet:
++description: |
++  Binding for the CPLD LEDs (GPIO extension bus) found on some LaCie/Seagate
++  boards (Example: 2Big/5Big Network v2, 2Big NAS).
 +
-+      English: https://sensirion.com/resource/datasheet/sts4x
++properties:
++  compatible:
++    const: lacie,netxbig-leds
 +
- Author: Navin Sankar Velliangiri <navin@linumiz.com>
- 
- 
-@@ -22,9 +32,10 @@ Description
- -----------
- 
- This driver implements support for the Sensirion SHT4x chip, a humidity
--and temperature sensor. Temperature is measured in degree celsius, relative
--humidity is expressed as a percentage. In sysfs interface, all values are
--scaled by 1000, i.e. the value for 31.5 degrees celsius is 31500.
-+and temperature sensor, and the Sensirion STS4x chip, a temperature sensor.
-+Temperature is measured in degree celsius, relative humidity is expressed as a
-+percentage (on SHT4x only). In sysfs interface, all values are scaled by 1000,
-+i.e. the value for 31.5 degrees celsius is 31500.
- 
- Usage Notes
- -----------
-diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
-index 9cace0e8acdab..d2b0d79bb7fe0 100644
---- a/drivers/hwmon/sht4x.c
-+++ b/drivers/hwmon/sht4x.c
-@@ -43,6 +43,7 @@
- #define SHT4X_CRC8_LEN		1
- #define SHT4X_WORD_LEN		2
- #define SHT4X_RESPONSE_LENGTH	6
-+#define STS4X_RESPONSE_LENGTH	3
- #define SHT4X_CRC8_POLYNOMIAL	0x31
- #define SHT4X_CRC8_INIT		0xff
- #define SHT4X_MIN_TEMPERATURE	-45000
-@@ -52,9 +53,15 @@
- 
- DECLARE_CRC8_TABLE(sht4x_crc8_table);
- 
-+enum sht4x_chips {
-+	sht4x,
-+	sts4x,
-+};
++  gpio-ext:
++    description: Phandle for the gpio-ext bus.
++    $ref: /schemas/types.yaml#/definitions/phandle
 +
- /**
-  * struct sht4x_data - All the data required to operate an SHT4X chip
-  * @client: the i2c client associated with the SHT4X
-+ * @chip_id: the chip type (sht4x or sts4x)
-  * @heating_complete: the time that the last heating finished
-  * @data_pending: true if and only if there are measurements to retrieve after heating
-  * @heater_power: the power at which the heater will be started
-@@ -67,6 +74,7 @@ DECLARE_CRC8_TABLE(sht4x_crc8_table);
-  */
- struct sht4x_data {
- 	struct i2c_client	*client;
-+	enum sht4x_chips	chip_id;
- 	unsigned long		heating_complete;	/* in jiffies */
- 	bool			data_pending;
- 	u32			heater_power;	/* in milli-watts */
-@@ -92,6 +100,8 @@ static int sht4x_read_values(struct sht4x_data *data)
- 	u8 crc;
- 	u8 cmd[SHT4X_CMD_LEN] = {SHT4X_CMD_MEASURE_HPM};
- 	u8 raw_data[SHT4X_RESPONSE_LENGTH];
-+	size_t response_length = data->chip_id == sts4x ?
-+				 STS4X_RESPONSE_LENGTH : SHT4X_RESPONSE_LENGTH;
- 	unsigned long curr_jiffies;
- 
- 	curr_jiffies = jiffies;
-@@ -115,15 +125,14 @@ static int sht4x_read_values(struct sht4x_data *data)
- 		usleep_range(SHT4X_MEAS_DELAY_HPM, SHT4X_MEAS_DELAY_HPM + SHT4X_DELAY_EXTRA);
- 	}
- 
--	ret = i2c_master_recv(client, raw_data, SHT4X_RESPONSE_LENGTH);
--	if (ret != SHT4X_RESPONSE_LENGTH) {
-+	ret = i2c_master_recv(client, raw_data, response_length);
-+	if (ret != response_length) {
- 		if (ret >= 0)
- 			ret = -ENODATA;
- 		return ret;
- 	}
- 
- 	t_ticks = raw_data[0] << 8 | raw_data[1];
--	rh_ticks = raw_data[3] << 8 | raw_data[4];
- 
- 	crc = crc8(sht4x_crc8_table, &raw_data[0], SHT4X_WORD_LEN, CRC8_INIT_VALUE);
- 	if (crc != raw_data[2]) {
-@@ -131,14 +140,19 @@ static int sht4x_read_values(struct sht4x_data *data)
- 		return -EIO;
- 	}
- 
--	crc = crc8(sht4x_crc8_table, &raw_data[3], SHT4X_WORD_LEN, CRC8_INIT_VALUE);
--	if (crc != raw_data[5]) {
--		dev_err(&client->dev, "data integrity check failed\n");
--		return -EIO;
-+	data->temperature = ((21875 * (int32_t)t_ticks) >> 13) - 45000;
++  timers:
++    description: |
++      Timer array. Each timer entry is represented by three integers:
++      Mode (gpio-ext bus), delay_on and delay_off.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
 +
-+	if (data->chip_id != sts4x) {
-+		rh_ticks = raw_data[3] << 8 | raw_data[4];
-+		crc = crc8(sht4x_crc8_table, &raw_data[3], SHT4X_WORD_LEN, CRC8_INIT_VALUE);
-+		if (crc != raw_data[5]) {
-+			dev_err(&client->dev, "data integrity check failed\n");
-+			return -EIO;
-+		}
++required:
++  - compatible
++  - gpio-ext
 +
-+		data->humidity = ((15625 * (int32_t)rh_ticks) >> 13) - 6000;
- 	}
- 
--	data->temperature = ((21875 * (int32_t)t_ticks) >> 13) - 45000;
--	data->humidity = ((15625 * (int32_t)rh_ticks) >> 13) - 6000;
- 	data->last_updated = jiffies;
- 	data->valid = true;
- 	return 0;
-@@ -190,9 +204,14 @@ static umode_t sht4x_hwmon_visible(const void *data,
- 				   enum hwmon_sensor_types type,
- 				   u32 attr, int channel)
- {
-+	const struct sht4x_data *chip_data = data;
++additionalProperties:
++  description: Each child node represents a single LED
++  type: object
++  $ref: common.yaml#
++  unevaluatedProperties: false
 +
- 	switch (type) {
- 	case hwmon_temp:
-+		return 0444;
- 	case hwmon_humidity:
-+		if (chip_data->chip_id == sts4x)
-+			return 0;
- 		return 0444;
- 	case hwmon_chip:
- 		return 0644;
-@@ -382,6 +401,7 @@ static const struct hwmon_chip_info sht4x_chip_info = {
- 
- static int sht4x_probe(struct i2c_client *client)
- {
-+	const struct attribute_group **groups = NULL;
- 	struct device *device = &client->dev;
- 	struct device *hwmon_dev;
- 	struct sht4x_data *data;
-@@ -400,11 +420,15 @@ static int sht4x_probe(struct i2c_client *client)
- 	if (!data)
- 		return -ENOMEM;
- 
-+	data->chip_id = (uintptr_t)i2c_get_match_data(client);
- 	data->update_interval = SHT4X_MIN_POLL_INTERVAL;
- 	data->client = client;
--	data->heater_power = 200;
--	data->heater_time = 1000;
--	data->heating_complete = jiffies;
-+	if (data->chip_id != sts4x) {
-+		data->heater_power = 200;
-+		data->heater_time = 1000;
-+		data->heating_complete = jiffies;
-+		groups = sht4x_groups;
-+	}
- 
- 	crc8_populate_msb(sht4x_crc8_table, SHT4X_CRC8_POLYNOMIAL);
- 
-@@ -418,19 +442,21 @@ static int sht4x_probe(struct i2c_client *client)
- 							 client->name,
- 							 data,
- 							 &sht4x_chip_info,
--							 sht4x_groups);
-+							 groups);
- 
- 	return PTR_ERR_OR_ZERO(hwmon_dev);
- }
- 
- static const struct i2c_device_id sht4x_id[] = {
--	{ .name = "sht4x" },
-+	{ .name = "sht4x", .driver_data = sht4x },
-+	{ .name = "sts4x", .driver_data = sts4x },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, sht4x_id);
- 
- static const struct of_device_id sht4x_of_match[] = {
--	{ .compatible = "sensirion,sht4x" },
-+	{ .compatible = "sensirion,sht4x", .data = (void *)sht4x },
-+	{ .compatible = "sensirion,sts40", .data = (void *)sts4x },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, sht4x_of_match);
++  properties:
++    mode-addr:
++      description: Mode register address on gpio-ext bus.
++      $ref: /schemas/types.yaml#/definitions/uint32
++
++    mode-val:
++      description: |
++        Mode to value mapping. Each entry is represented by two integers: a mode and
++        the corresponding value on the gpio-ext bus.
++      $ref: /schemas/types.yaml#/definitions/uint32-array
++
++    bright-addr:
++      description: Brightness register address on gpio-ext bus.
++      $ref: /schemas/types.yaml#/definitions/uint32
++
++    max-brightness:
++      description: Maximum brightness value.
++      $ref: /schemas/types.yaml#/definitions/uint32
++
++  required:
++    - mode-addr
++    - mode-val
++    - bright-addr
++    - max-brightness
++
++examples:
++  - |
++    #include <dt-bindings/leds/leds-netxbig.h>
++
++    netxbig-leds {
++        compatible = "lacie,netxbig-leds";
++
++        gpio-ext = <&netxbig_gpio_ext>;
++
++        timers = <NETXBIG_LED_TIMER1 500 500
++                  NETXBIG_LED_TIMER2 500 1000>;
++
++        blue-power {
++            label = "netxbig:blue:power";
++            mode-addr = <0>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 1
++                        NETXBIG_LED_TIMER1 3
++                        NETXBIG_LED_TIMER2 7>;
++            bright-addr = <1>;
++            max-brightness = <7>;
++        };
++        red-power {
++            label = "netxbig:red:power";
++            mode-addr = <0>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 2
++                        NETXBIG_LED_TIMER1 4>;
++            bright-addr = <1>;
++            max-brightness = <7>;
++        };
++        blue-sata0 {
++            label = "netxbig:blue:sata0";
++            mode-addr = <3>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 7
++                        NETXBIG_LED_SATA 1
++                        NETXBIG_LED_TIMER1 3>;
++            bright-addr = <2>;
++            max-brightness = <7>;
++        };
++        red-sata0 {
++            label = "netxbig:red:sata0";
++            mode-addr = <3>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 2
++                        NETXBIG_LED_TIMER1 4>;
++            bright-addr = <2>;
++            max-brightness = <7>;
++        };
++        blue-sata1 {
++            label = "netxbig:blue:sata1";
++            mode-addr = <4>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 7
++                        NETXBIG_LED_SATA 1
++                        NETXBIG_LED_TIMER1 3>;
++            bright-addr = <2>;
++            max-brightness = <7>;
++        };
++        red-sata1 {
++            label = "netxbig:red:sata1";
++            mode-addr = <4>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 2
++                        NETXBIG_LED_TIMER1 4>;
++            bright-addr = <2>;
++            max-brightness = <7>;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/leds/leds-netxbig.txt b/Documentation/devicetree/bindings/leds/leds-netxbig.txt
+deleted file mode 100644
+index 5ef92a26d768..000000000000
+--- a/Documentation/devicetree/bindings/leds/leds-netxbig.txt
++++ /dev/null
+@@ -1,92 +0,0 @@
+-Binding for the CPLD LEDs (GPIO extension bus) found on some LaCie/Seagate
+-boards (Example: 2Big/5Big Network v2, 2Big NAS).
+-
+-Required properties:
+-- compatible: "lacie,netxbig-leds".
+-- gpio-ext: Phandle for the gpio-ext bus.
+-
+-Optional properties:
+-- timers: Timer array. Each timer entry is represented by three integers:
+-  Mode (gpio-ext bus), delay_on and delay_off.
+-
+-Each LED is represented as a sub-node of the netxbig-leds device.
+-
+-Required sub-node properties:
+-- mode-addr: Mode register address on gpio-ext bus.
+-- mode-val: Mode to value mapping. Each entry is represented by two integers:
+-  A mode and the corresponding value on the gpio-ext bus.
+-- bright-addr: Brightness register address on gpio-ext bus.
+-- max-brightness: Maximum brightness value.
+-
+-Optional sub-node properties:
+-- label: Name for this LED. If omitted, the label is taken from the node name.
+-- linux,default-trigger: Trigger assigned to the LED.
+-
+-Example:
+-
+-netxbig-leds {
+-	compatible = "lacie,netxbig-leds";
+-
+-	gpio-ext = &gpio_ext;
+-
+-	timers = <NETXBIG_LED_TIMER1 500 500
+-		  NETXBIG_LED_TIMER2 500 1000>;
+-
+-	blue-power {
+-		label = "netxbig:blue:power";
+-		mode-addr = <0>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 1
+-			    NETXBIG_LED_TIMER1 3
+-			    NETXBIG_LED_TIMER2 7>;
+-		bright-addr = <1>;
+-		max-brightness = <7>;
+-	};
+-	red-power {
+-		label = "netxbig:red:power";
+-		mode-addr = <0>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 2
+-			    NETXBIG_LED_TIMER1 4>;
+-		bright-addr = <1>;
+-		max-brightness = <7>;
+-	};
+-	blue-sata0 {
+-		label = "netxbig:blue:sata0";
+-		mode-addr = <3>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 7
+-			    NETXBIG_LED_SATA 1
+-			    NETXBIG_LED_TIMER1 3>;
+-		bright-addr = <2>;
+-		max-brightness = <7>;
+-	};
+-	red-sata0 {
+-		label = "netxbig:red:sata0";
+-		mode-addr = <3>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 2
+-			    NETXBIG_LED_TIMER1 4>;
+-		bright-addr = <2>;
+-		max-brightness = <7>;
+-	};
+-	blue-sata1 {
+-		label = "netxbig:blue:sata1";
+-		mode-addr = <4>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 7
+-			    NETXBIG_LED_SATA 1
+-			    NETXBIG_LED_TIMER1 3>;
+-		bright-addr = <2>;
+-		max-brightness = <7>;
+-	};
+-	red-sata1 {
+-		label = "netxbig:red:sata1";
+-		mode-addr = <4>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 2
+-			    NETXBIG_LED_TIMER1 4>;
+-		bright-addr = <2>;
+-		max-brightness = <7>;
+-	};
+-};
 -- 
-2.55.0
+2.34.1
 
