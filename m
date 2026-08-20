@@ -1,179 +1,260 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012008.outbound.protection.outlook.com [52.101.66.8])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A62F3806DC
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 15:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787239490; cv=fail; b=iepyXN0gKMzMN1//1sIFVjXefmniJ36kq9eqVDJ92RPpUSur/27ILnD78SUYVUFbNKiZBfZLkffgo8cPOhuPsR9Mqi/PQyZw3AMrSRrOiCWFPUd2z+pvprdjua3vL0YM/pPcjydiJj+URlxa4CupWRMGTBjPH+qSqkWwmFMDO08=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787239490; c=relaxed/simple;
-	bh=oBasldKKHPmcME4cCasQX9HvKNH6oI4MEq4ogTOcIo0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uDBmn3P2u2+Pd2wcQVYlZ+t6QpMjMYd8zgQNBeikqVolOZn0uMu4jKq1HNIiivv1l/UdlV8RbheJbm9Bj9Rfg2I1UcJ35zSx5CZNJVi3Th6KEgPTMOYEwE3jLUw4CXVJfdFE7ZewTXIq2oy0J7UTiP8x2/mlnvwJX0zeIaRkDh8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Whw6guma reason="signature verification failed"; arc=fail smtp.client-ip=52.101.66.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF45537F31A
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 15:26:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787239571; cv=none; b=l3eRregGLfHkmgiy/vC7VdtiL7XyGlzr2AM08mTEMFxJlT1Gb9/H11QFxuGWdcvKFpCjPvZceDHYgzPOVOITfmcZuNB5AdcLJj1InBff1pANlwvyddIAAxZVvZn0Q1mkGXcITxt8FM11yPN+C7UpmVU80Fm5keZGzgPhQNWQ1Zo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787239571; c=relaxed/simple;
+	bh=G0rceW7w6TAVdtNFD4gqmf2tKvMwU7ZVw8UUnGrP6w8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lzZXaqbSlcwIi/YT0f1Mbk8bcSYeHaA2dmFEisit2k+ne3r4ddAAjzjVNFTSolpNcyhPwgqcljRgcJoBsCgTorhp+gFcw8Hf6U7XF3ypVFo9v6fx5BScYtcU/GUY3N5iJOPgPUrYs4hIpRuHH15Qb8JiRMqmOmmBxheZkAF8sQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qWRLjnEH; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Whw6guma"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ID9h+ZNqcEO8gJnFnjdNMYcAn0moNTfvpkZEuxTplP8cssSVjyRbJOS/t6MPb9qXYrg/mIWYQl2P+FuB9xr41BZ2bnc2P0JLxU6iFJHv3gvN0BeqjoB+EXlwakrpsPWgVcybe31UA7GGTxKmZm9/XQlaMJ5Wu/oSIg+p/tYzZLFJKmDPOBxhb/eJrMxnps9lDyS1Dcc0f0Zz8ccR1jcxGkUHV32jsTbkVaLIQatVT6mwPIjiirZoNF/ydVgjYiuaZb/Ln2xtDx2j4e9nUP21CS4Hvu3pjSJSUeqXnfKqbHhiaN0b3KAeNQKXpxffxPVTnFFrU2b1dfZjqb4osadMUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tg5o0lMvommvt9HxMKTKSvEsGqCDPSl0ET4qPVX4jhc=;
- b=LIopN4gA3b5IeEt/EQ7nMCjPlkbwtYEJ5Rj6aWVKnJi3+xTBPUa0ppOGhHF3igHEBLV53N7YuxxtBQXAgJAWTn4KF7oX8YMzD2AzwDaFARzO3D08BEkRJdAnBnzQvYJxai9LZ57lCVAEUFWzmswXoYNanOsaFuR2Nqq8TCejIR/jVbYgA6EN5ffIqD2vnceOmAQOd7JFtjq0SOi10TNRElT1Y3CjE9E+k4626rIUKbEvrXw+/xZM4ueo7XxI+tIfIapcLJvPr4nUzgRSA4N66oDjmKI3VBOqtaQrKFjJvwRUFzV5vydV5kAHjaln7TYnZXDZxD2IatBer9yK2VnFzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tg5o0lMvommvt9HxMKTKSvEsGqCDPSl0ET4qPVX4jhc=;
- b=Whw6guma5x3ZUMQOdmA5rPUcR9dgiUb6dfJJxQzfPsouSLrYJgiVjMirMa4LVu+8QPHmK+fhaz6XESsZRUKQEK2C5A4dkk8k/sQrNLYlCkCLXG3giS1TwGTid2EH5j+TMJTRQj8fiWgngh/CO/WyYLgmFmg4ONp6IAn83uGbRgGw9W55iB7R/VatuQJtF/SzdjY8HAgwKfoMiRNZxlCGC4BDGayi3LLDtrUJVDerb9op0dzlblGB0fMwgb2qIWJU7GywC3p9vSCQOe/28fpZ4BpyfGUdveERxf+uA4d4tjuFxX/OpouV2+ErmE2StuRlVMhZ6pdWqPzbTS9Je50noQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM8PR04MB7442.eurprd04.prod.outlook.com (2603:10a6:20b:1d8::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Thu, 20 Aug
- 2026 15:24:45 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
- 15:24:45 +0000
-Date: Thu, 20 Aug 2026 10:24:38 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: hongxing.zhu@oss.nxp.com, imx@lists.linux.dev, conor+dt@kernel.org,
-	robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-Subject: Re: [PATCH v1 1/3] arm64: dts: imx95: Avoid 32-bit PCIe window
- System RAM overlap
-Message-ID: <aoccNh6gCfz3Bz-f@SMW015318>
-References: <20260820083620.877251-1-hongxing.zhu@oss.nxp.com>
- <20260820083620.877251-2-hongxing.zhu@oss.nxp.com>
- <20260820084208.5CF311F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260820084208.5CF311F000E9@smtp.kernel.org>
-X-ClientProxiedBy: SA1PR02CA0001.namprd02.prod.outlook.com
- (2603:10b6:806:2cf::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qWRLjnEH"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0323D1A1757;
+	Thu, 20 Aug 2026 15:26:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C83DA602B8;
+	Thu, 20 Aug 2026 15:26:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5D9AC11C76488;
+	Thu, 20 Aug 2026 17:25:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787239560; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=MT5cE37vNNATMSK/0ATPIPek355Lvu0hwGnVbzvXZEc=;
+	b=qWRLjnEHXjBvqPygZo7VeE3craVfVvnakFesBdtkzMMH+jtYTOIln/7LdaxPkJsYiVO3OT
+	29gG2ohut3IepXPCD9JgLK8qfjrrO/JvXp8mNqwj2CKudEgKIgBLacDxGyLFYaJqhw9HYz
+	KLjAtWZ7+xx+YgKyeGJ9q9fh4oMwo//qncLbgNmDA5mCIsgCpOHuMuTH60HgIE850HR8Hm
+	94H/n7IeitBOje4Ye6A0hSlPpYDy6CrINwOrhhw5KGKfg5Kby4Cuphp2HCVop8ZCNxK5L3
+	dRcnW2GYv/hsIeys9ZC23Mk/tlFRkAYzQBH87qmvtDvHN5r2PMrICEZpTVlhEA==
+Date: Thu, 20 Aug 2026 17:25:56 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Markus Probst <markus.probst@posteo.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Michael Langer <michael.brainbug.langer@googlemail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 4/6] rtc: s35390a: force 24-hour mode
+Message-ID: <20260820152556c6da4fce@mail.local>
+References: <20260820-rtc_s35390a_int1-v5-0-5eb4ef85c6a9@posteo.de>
+ <20260820-rtc_s35390a_int1-v5-4-5eb4ef85c6a9@posteo.de>
+ <202608192220436c9c7207@mail.local>
+ <da52511e1257d1a3d01ad78b53eb983162c66003.camel@posteo.de>
+ <20260819232634fd70f621@mail.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7442:EE_
-X-MS-Office365-Filtering-Correlation-Id: af617e13-7d10-4b8c-6ecb-08defecf2a36
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|19092799006|6133799003|4143699003|56012099006|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	D0hsN3yzBGmASJkRW2dglrRyPGk8aigUeA43RaCdklJ1Yr0y5k0IzGISkNargCNKM89Ltqph0D51TOyWTHguxaAcvmlrDnijxGdTFSnLICDHF/whQd75X/GwGExUK/m3V/9Cz6pQX+ra0oj7XGS6arbM5bskJDZIF+BM2iIJxWYAVxKx2V9mT1MWxXfIfh+IloDdpfTvz5lAcrwxzpUFlcZfRnxZqOsDkvkjk5OvTwUj3PRpOwAibKbvA0xUgLfpJ9zM2nS1Qo4wMlQYX3VtAI140KGxuEETwVMgsXlq0L6xIbhZAee+zl9IZZgHp9bxhWGTVXfGXrt3eN0MyCy3RwU44nCfHczVE1AL1w6A4Uo0X3yD6iWqxzFofgnjUrbITGmjxsYxSGMEXZdRTmmdqEWe1MnT5qvttW26/7LcCmK8rqNwASWHBAx5f+r+Bnnipc/0CgJn6bs7U1L869yXPI5dZ0vZvTA3Zi17J7ULmq0SvxU8hvihs3P/EJhnyTcpoWVQ0qasI84rSR71NHl/bDezuer4hTDgEtc+f5NgplL4MAHdZ1pbmHl1JYYrJzkswwTg72DNYU/hGU4f6sIon/vgQzde4QuFBPvXh4scmTQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(19092799006)(6133799003)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?VtpQAMUc7fBvC6QbDCIq9oRogaC5wK2R4Be5ACKdSqNaKYtEMLQeFGEzdU?=
- =?iso-8859-1?Q?/xEZhJKY/aCyjaWUX/aZA94NH4RfpemtcAUfgWdSeCh2ALB8FsX/ohzKJO?=
- =?iso-8859-1?Q?JNvAL4SafwpL+uDhRrSp4bLRZ9jI7w0yOKynQKtbBkTEX8pIIy522AoKiP?=
- =?iso-8859-1?Q?TMnm9EdJPUBGuiJCVK8RS8NAhCsytRb1mpdupxrj42wPTrKFAlz9/POLuG?=
- =?iso-8859-1?Q?KQEhUPXMoSHMwXs7vX6hwoaNp/AvhOKmel4zTBeWmWkEerzGXyqMwho5MJ?=
- =?iso-8859-1?Q?hQaObnkCBl7GtjwZOcaiuhm5ZjelZ8qfVEuxJmf398mFTL8Kt3mDfZ3cfw?=
- =?iso-8859-1?Q?X8sShtRdqgrpMnC2Dj9+mA8kyDi6tgpKsZstX+bzTWGomF10lSe3Vt2py5?=
- =?iso-8859-1?Q?NSZXNIalEBIUkovaxMGLKaznAJhxPloDcaEeaxQM3xufC5OZbkVsMr52tV?=
- =?iso-8859-1?Q?DcmZyj6ADew9UJJtuPAwDwXw8n3ZUcybsMkJUcGVrdvVNQIWaXARsS45u4?=
- =?iso-8859-1?Q?mP652pyoPfggkPqhHQtrL7XHF9Vrzk6FcTvk3qA3yEvGhtr2nqljKVe51+?=
- =?iso-8859-1?Q?tOzyT3VD4NQNk8zdNLbO7UPf5H97pMyEPrf68jAZSVV+RD0zMR8H32v8Cq?=
- =?iso-8859-1?Q?PdQ8t6quJAJRMH/E7B31SHZ4WTL8CJrwk8CR+ddR18SwijV51oNXuR3FKu?=
- =?iso-8859-1?Q?h6fPBuAdpg923WcrNqUOrxLWWGUTxGHnUwFSevD35dPPpi4ulYMGHbcDNV?=
- =?iso-8859-1?Q?JSiHb1vwNybgG/NKJCCA4FP/eWOJCCoRkrAbH5CD2jBg+Bry7PsHfIhcHC?=
- =?iso-8859-1?Q?0vsZhy2oyl+4ItlKrhmGOb0heK9V59hbkT6MicajJ2vSrHaSqvj49RaFET?=
- =?iso-8859-1?Q?wdhrsaHc5wvFAuQJTmjnWXLzw4fAt7sPF506+bLGILItDzWQ3oc53w20P0?=
- =?iso-8859-1?Q?qOOE7ihbxJFqOZmklafi4mle51/J73vHLBTbTHrkiVCyx6lzq+cgXvtc6h?=
- =?iso-8859-1?Q?6XjqBQpC0QRtzpH/RlQctqAy39eUoQ4tpnEpSJSXPKTqk20RpcQaARdgH0?=
- =?iso-8859-1?Q?PZYDGEcE3QU+8TsLX8BmOrGuRvFnjNc6JJCoHavzlaGrBhVvw7cxBksMAa?=
- =?iso-8859-1?Q?rDvBU/MjpnEKoC0iaM5dadTEIeLO80EJVsdaCna5+hzvPzcjhfFKFqll3X?=
- =?iso-8859-1?Q?qcpjnXfjsyOrJEfkMAS+uaeHbxK3hr/TGMcwnJ3u2dNA+uzKlXWsQTuzI6?=
- =?iso-8859-1?Q?qN5TUvEi3xtcAeQ0EU6Dk4leNuXrMsVywJl72VR3rR3lYrdVvtMj71L4sB?=
- =?iso-8859-1?Q?HM3Qvh4m3gvc6lE5//sKPcpUSfX6JiWpQ8ecE1iLC+RFX3JuSkA8pK/I2Q?=
- =?iso-8859-1?Q?K1DktcR1UGv3UXU/qeZ44AZSQoiah9xoZnUcaLI98XMjOKZk2IoKpL1rcZ?=
- =?iso-8859-1?Q?wQ6MFHO5BltRzbCuYnSlw0Nwo9Go9hW7v35IxjZ0UtC/8n0YQxkM3BdIlb?=
- =?iso-8859-1?Q?5Gnv7sX5taGqu6ITgE1t1vWEHahOVjBkvA3QA6E9q750amEDzp9ycTjwrF?=
- =?iso-8859-1?Q?NiwKkcY96JJ/9cMpPRvupc3vY3M9sEwmitnr3/zopxjWL4dXizD2OW1MFP?=
- =?iso-8859-1?Q?8jJrGjTD9FUMGuG9TnDZyN+chFBRO0iB+bJSlieQA8yBmv8QaIUIF4EQNe?=
- =?iso-8859-1?Q?sBhzDwXmwPOLuoI2apb9xpvdLtB7gQMMHhc/rofHp7dICXxUFcQ9+DDAgw?=
- =?iso-8859-1?Q?Q17r/6FV3EYoW9mAe7U4y9bX0gCXb5uBZSVy6KBj28RlnC3m5VaW/RByYx?=
- =?iso-8859-1?Q?/v+01sgCi/WvJIJZ6y81sucwg7XpDyEp3yZYlAdtmqt1wMEKZGn8?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af617e13-7d10-4b8c-6ecb-08defecf2a36
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 15:24:45.5842
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B9kzBXsf8k/93mDTqOM6lqJMUNSNTIHZwtVeFQ/yZWgtCMwi7ZyKzwOIwOf7b0khWLqvUBYNwhiQNqPfv7ow/N+kOxCFGJA3OtvFL+4NjQ4WmZTnphEqeBkaNE2UCSAP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7442
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260819232634fd70f621@mail.local>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Aug 20, 2026 at 08:42:07AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The commit message inaccurately claims to change the 'CPU address', but the patch actually changes the 'PCI address'.
-> --
->
-> --- Patch [1]: [PATCH v1 1/3] arm64: dts: imx95: Avoid 32-bit PCIe window System RAM overlap ---
-> commit 1e55a58df93bb33b1e5b78cb2403b958366907f0
-> Author: Richard Zhu <hongxing.zhu@nxp.com>
->
-> arm64: dts: imx95: Avoid 32-bit PCIe window System RAM overlap
->
-> This commit updates the device tree configuration for the PCIe controllers
-> on the imx95 platform. It adjusts the ranges property to prevent memory
-> window overlaps.
->
-> > Move the PCIe non-prefetchable memory CPU address from 0xe0000000
-> > to 0x10000000 to avoid overlap with DRAM.
->
-> [Severity: Medium]
-> Is this description of the change accurate?
->
-> The device tree ranges property uses the format:
-> <PCI_HI PCI_MID PCI_LO CPU_HI CPU_LO SIZE_HI SIZE_LO>
->
-> > diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> > --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-> > +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> > @@ -1948,7 +1948,7 @@ pcie0: pcie@4c300000 {
-> [ ... ]
-> >  			reg-names = "dbi", "config", "atu", "app";
-> >  			ranges = <0x43000000 0x9 0x00000000 0x9 0x00000000 0x0 0xe0000000>,
-> > -				 <0x82000000 0x0 0xe0000000 0x9 0xe0000000 0x0 0x10000000>,
-> > +				 <0x82000000 0x0 0x10000000 0x9 0xe0000000 0x0 0x10000000>,
->
-> Looking at the modification to pcie0, the CPU (parent) bus address is
-> represented by the 4th and 5th cells (0x9 0xe0000000). These cells remain
-> unchanged in this patch.
->
-> The cell that is updated from 0xe0000000 to 0x10000000 is the 3rd cell,
-> which corresponds to the lower 32 bits of the PCI (child) bus address.
->
-> Could the commit message be clarified to state that the PCI address is
-> being changed, or was the intent to actually update the CPU address in
-> the 5th cell?
+On 20/08/2026 01:26:34+0200, Alexandre Belloni wrote:
+> On 19/08/2026 22:57:13+0000, Markus Probst wrote:
+> > On Thu, 2026-08-20 at 00:20 +0200, Alexandre Belloni wrote:
+> > > On 19/08/2026 22:05:56+0000, Markus Probst wrote:
+> > > > Instead of trying to remember the current 12/24-hour mode, which could
+> > > > result in time corruption if out of sync, we force the use of the 24-hour
+> > > > mode. Set to 24-hour mode if in 12-hour mode on startup and assume
+> > > > 24-hour mode. The 24-hour mode is already forced on reset.
+> > > > 
+> > > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > > > ---
+> > > >  drivers/rtc/rtc-s35390a.c | 67 +++++++++++++++++++++--------------------------
+> > > >  1 file changed, 30 insertions(+), 37 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+> > > > index 575bb256eb25..b34a3f7e8476 100644
+> > > > --- a/drivers/rtc/rtc-s35390a.c
+> > > > +++ b/drivers/rtc/rtc-s35390a.c
+> > > > @@ -64,7 +64,6 @@ MODULE_DEVICE_TABLE(of, s35390a_of_match);
+> > > >  
+> > > >  struct s35390a {
+> > > >  	struct i2c_client *client[8];
+> > > > -	int twentyfourhour;
+> > > >  };
+> > > >  
+> > > >  static int s35390a_set_reg(struct s35390a *s35390a, int reg, u8  *buf, int len)
+> > > > @@ -181,31 +180,6 @@ static int s35390a_disable_test_mode(struct s35390a *s35390a)
+> > > >  	return s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, buf, sizeof(buf));
+> > > >  }
+> > > >  
+> > > > -static char s35390a_hr2reg(struct s35390a *s35390a, int hour)
+> > > > -{
+> > > > -	if (s35390a->twentyfourhour)
+> > > > -		return bin2bcd(hour);
+> > > > -
+> > > > -	if (hour < 12)
+> > > > -		return bin2bcd(hour);
+> > > > -
+> > > > -	return 0x40 | bin2bcd(hour - 12);
+> > > > -}
+> > > > -
+> > > > -static int s35390a_reg2hr(struct s35390a *s35390a, char reg)
+> > > > -{
+> > > > -	unsigned hour;
+> > > > -
+> > > > -	if (s35390a->twentyfourhour)
+> > > > -		return bcd2bin(reg & 0x3f);
+> > > > -
+> > > > -	hour = bcd2bin(reg & 0x3f);
+> > > > -	if (reg & 0x40)
+> > > > -		hour += 12;
+> > > > -
+> > > > -	return hour;
+> > > > -}
+> > > > -
+> > > >  static int s35390a_rtc_set_time(struct device *dev, struct rtc_time *tm)
+> > > >  {
+> > > >  	struct i2c_client *client = to_i2c_client(dev);
+> > > > @@ -225,7 +199,7 @@ static int s35390a_rtc_set_time(struct device *dev, struct rtc_time *tm)
+> > > >  	buf[S35390A_BYTE_MONTH] = bin2bcd(tm->tm_mon + 1);
+> > > >  	buf[S35390A_BYTE_DAY] = bin2bcd(tm->tm_mday);
+> > > >  	buf[S35390A_BYTE_WDAY] = bin2bcd(tm->tm_wday);
+> > > > -	buf[S35390A_BYTE_HOURS] = s35390a_hr2reg(s35390a, tm->tm_hour);
+> > > > +	buf[S35390A_BYTE_HOURS] = bin2bcd(tm->tm_hour);
+> > > >  	buf[S35390A_BYTE_MINS] = bin2bcd(tm->tm_min);
+> > > >  	buf[S35390A_BYTE_SECS] = bin2bcd(tm->tm_sec);
+> > > >  
+> > > > @@ -256,7 +230,7 @@ static int s35390a_rtc_read_time(struct device *dev, struct rtc_time *tm)
+> > > >  
+> > > >  	tm->tm_sec = bcd2bin(buf[S35390A_BYTE_SECS]);
+> > > >  	tm->tm_min = bcd2bin(buf[S35390A_BYTE_MINS]);
+> > > > -	tm->tm_hour = s35390a_reg2hr(s35390a, buf[S35390A_BYTE_HOURS]);
+> > > > +	tm->tm_hour = bcd2bin(buf[S35390A_BYTE_HOURS] & 0x3f);
+> > > >  	tm->tm_wday = bcd2bin(buf[S35390A_BYTE_WDAY]);
+> > > >  	tm->tm_mday = bcd2bin(buf[S35390A_BYTE_DAY]);
+> > > >  	tm->tm_mon = bcd2bin(buf[S35390A_BYTE_MONTH]) - 1;
+> > > > @@ -325,8 +299,7 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
+> > > >  	else
+> > > >  		buf[S35390A_ALRM_BYTE_WDAY] = 0;
+> > > >  
+> > > > -	buf[S35390A_ALRM_BYTE_HOURS] = s35390a_hr2reg(s35390a,
+> > > > -			alm->time.tm_hour) | 0x80;
+> > > > +	buf[S35390A_ALRM_BYTE_HOURS] = bin2bcd(alm->time.tm_hour) | 0x80;
+> > > >  	buf[S35390A_ALRM_BYTE_MINS] = bin2bcd(alm->time.tm_min) | 0x80;
+> > > >  
+> > > >  	if (alm->time.tm_hour >= 12)
+> > > > @@ -381,8 +354,7 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
+> > > >  
+> > > >  	if (buf[S35390A_ALRM_BYTE_HOURS] & 0x80)
+> > > >  		alm->time.tm_hour =
+> > > > -			s35390a_reg2hr(s35390a,
+> > > > -				       buf[S35390A_ALRM_BYTE_HOURS] & ~0x80);
+> > > > +			bcd2bin(buf[S35390A_ALRM_BYTE_HOURS] & 0x3f);
+> > > >  
+> > > >  	if (buf[S35390A_ALRM_BYTE_MINS] & 0x80)
+> > > >  		alm->time.tm_min = bcd2bin(buf[S35390A_ALRM_BYTE_MINS] & ~0x80);
+> > > > @@ -459,7 +431,7 @@ static int s35390a_probe(struct i2c_client *client)
+> > > >  	unsigned int i;
+> > > >  	struct s35390a *s35390a;
+> > > >  	struct rtc_device *rtc;
+> > > > -	u8 buf, status1;
+> > > > +	u8 buf, status1, time[7];
+> > > >  	struct device *dev = &client->dev;
+> > > >  	struct nvmem_config nvmem_cfg = {
+> > > >  		.name = "s35390a_nvram",
+> > > > @@ -503,10 +475,31 @@ static int s35390a_probe(struct i2c_client *client)
+> > > >  		return err_read;
+> > > >  	}
+> > > >  
+> > > > -	if (status1 & S35390A_FLAG_24H)
+> > > > -		s35390a->twentyfourhour = 1;
+> > > > -	else
+> > > > -		s35390a->twentyfourhour = 0;
+> > > > +	if (!(status1 & S35390A_FLAG_24H) && err_read != 1) {
+> > > > +		unsigned int hour;
+> > > > +
+> > > > +		status1 |= S35390A_FLAG_24H;
+> > > > +
+> > > > +		err = s35390a_get_reg(s35390a, S35390A_CMD_TIME1, time, sizeof(time));
+> > > > +		if (err < 0)
+> > > > +			return dev_err_probe(dev, err, "reading 12-hour time failed\n");
+> > > > +
+> > > > +		/* converting to 24-hour time */
+> > > > +		time[S35390A_BYTE_HOURS] = bitrev8(time[S35390A_BYTE_HOURS]);
+> > > > +		hour = bcd2bin(time[S35390A_BYTE_HOURS] & 0x3f);
+> > > > +		if (time[S35390A_BYTE_HOURS] & 0x40)
+> > > > +			hour += 12;
+> > > > +
+> > > > +		time[S35390A_BYTE_HOURS] = bitrev8(bin2bcd(hour));
+> > > > +
+> > > > +		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS1, &status1, sizeof(status1));
+> > > > +		if (err < 0)
+> > > > +			return dev_err_probe(dev, err, "setting 24-hour mode failed\n");
+> > > > +
+> > > > +		err = s35390a_set_reg(s35390a, S35390A_CMD_TIME1, time, sizeof(time));
+> > > > +		if (err < 0)
+> > > > +			return dev_err_probe(dev, err, "setting 24-hour time failed\n");
+> > > 
+> > > No, don't do this, this will break existing users as your conversion may
+> > > happen after a minute rollover. The only function in which you are
+> > > allowed to change the time registers is set_time. You definitively need
+> > > to be able to read 12H mode time but you are allowed to only support
+> > > writing 24h time.
+> > > 
+> > > Also, this is super verbose, adding strings to the kernel makes it
+> > > bloated.
+> > > 
+> > > To avoid any desync, simply test for the S35390A_FLAG_24H bit in status
+> > > in s35390a_rtc_read_time as the register is already read anyway.
+> > > 
+> > I think that would defeat the whole point of the patch, that the rtc is
+> > always in 24-hour mode. If this driver was always used with the rtc, it
+> > already should be in 24-hour mode, as thats the mode this driver does
+> > initialize the rtc.
+> 
+> This assumption may not be true, the RTC may have been initialized by a
+> bootloader or a different system in the factory.
+> 
+> > Your idea would work for the time, but not in combination with alarms.
+> > If the rtc could be in 12-hour mode, then this would need to be
+> > considered in setting and reading alarm. Also setting 24-hour mode
+> > inside set_time would then also require to convert the alarm time.
+> > Effectively making it less maintainable than before.
+> 
+> Note that while setting the time when an alarm has been set is not
+> forbidden, it is never guaranteed to work anyway. I guess something we
+> could do in the core is that whenever the time is set we go over the
+> timerqueue and set the alarm again.
 
-Sashiko is correct, update your commit message, it is not "cpu address"
+Actually this is already what we do so this is not an issue.
 
-it is "PCI bus address", you'd better refer to old sashio thread or
-prevous discuss link.
 
-Frank
+>This would allow to remove the UIE
+> disabling/enabling dance.
+> 
+> > 
+> > Currently s35390a_init does initialize the rtc in 24-hour mode, while
+> > not updating s35390a->twentyfourhour. So some change needs to be made.
+> > Just setting s35390a->twentyfourhour inside s35390a_init might now be
+> > the simplest solution here.
+> 
+> Or maybe simply stop caching the value.
+> 
+> -- 
+> Alexandre Belloni, co-owner and COO, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+> 
 
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260820083620.877251-1-hongxing.zhu@oss.nxp.com?part=1
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
