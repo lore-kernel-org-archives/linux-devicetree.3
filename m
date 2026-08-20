@@ -1,318 +1,160 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32AC21FF2E
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 01:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D11257844
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 01:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787188017; cv=none; b=n8z8lJiJPwiXQ4ieTH2uhbu4erJFw6QUI3BDh4RGpk39MdES4OFvhJI76MeJabuUVB41YzRysPm54C/JoXgfHIh1vzNNpJdmvyhMlz+Pmj1QIHDmTVOZpbFitm1uJZv9IBGcAILGK0vGGwLHTTqu4Z59+fD6uR6lAWY2No3P7wQ=
+	t=1787188531; cv=none; b=jGLrN7T02NC4K/KMQWV4zWzQZGSA00yWqbXU2jIQW4s7Ld/KBJZrJRMWTuGndcIHFYu91mRg7X5k4ffyKmc/sEtGlfeC9wD6fR7vyHJfuXKFjOce1PEJx3Y61R2uAPDGfcBUYzPtxYjtgL/1DKMLARiAfFXxXOcqhDTYVyil3mM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787188017; c=relaxed/simple;
-	bh=Uuvqvm9mfg5T5IQT0LKVnIXEIyZhbPwpS2trFNrBETU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aTJc+jAZ2dPjCj5LkVwHyudsj+ENOkvoiECiXBhRTTlloKsRtg0vAc1StijQ9fnBkvORkRGTKkZTm7PisaI8tTOCndYFV1DvYzMfqc++zJQPGdi3Io+sMC2U12A4SLInUcziXRbaIMWfQxj3rSCANpT1bthn2IZoTjgoYBXA5Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dxsjS1cu; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787188531; c=relaxed/simple;
+	bh=KgpEoJCO3Eql8ygiswoOd4H8Lz4ky8d1ZHRA9p6pq5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kGRLURXemBmeEEZY3eLDvgFFRQ/mylYfuji9bdKa1MkLeeOrXkrRUHdM4kb1LntWiEOHwcuLwXOJ+/tcsJvbKdD7FbuBjDrAoAWAhs2NsE2NdW/GskqpwrmTV5d+F8sGvBQ0924AMRfpYxUWefFYsWtp+UQcB08C7RCBDQtV2o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MeKx6M3q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=We7l0jZu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dxsjS1cu"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38deea72eebso1736873a91.1
-        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 18:06:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MeKx6M3q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="We7l0jZu"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JL7WBM1438610
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 01:15:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=MS9HKp5HNfB/B1jknKQleKYL
+	L0pHPk+xwxCKcprCl8k=; b=MeKx6M3qvHSHWxmCQEEMJUEe08q1oSBR/aAEnlDy
+	6tGwOF6rXdSOmGyUnMuL+CEGSlE1zepnyDUPT0gmGnBC9ncYD9uodcuD+Vg9L9iz
+	TKTThhaDyTdJmJGxEbsJrKKwZHd5oZs213CKsWfElgUkNAhS7qnPAthDzJBdr5bL
+	ssEqv93PHkszioOLbY2r20RheHiWxx1yhLLVrunDyFIS82kyVVD7IkrP3OcCIHnb
+	sMlnPHa21mP82AXczK30qeOoyQRd22pvyDZedZkwpIgQQUWOLD6bxt9+Uu3eMugg
+	LgCy9o4KWLp8l0dMnpHqAaDecVlF3Fzq1BZFiITJ6Ybj8w==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5daa2x15-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 01:15:29 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38fa7b09921so2836202a91.1
+        for <devicetree@vger.kernel.org>; Wed, 19 Aug 2026 18:15:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787188015; x=1787792815; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bgxWYN6UqbEyC1+LxoNwhIkrJ7McHuzDkGEeX5D8eIQ=;
-        b=dxsjS1cuKPIITOldIKV2QdvBeWB7YT6rcLreTbVKZeLjvyIml4QheYC9LV/0ZtY3m0
-         erqksyeil8gKIMpM2RH81gf3It54bLXs9fUpsiCYItm2EJIJ+vp87DlcuWnHZz96iUEa
-         qjDRXjjd37cqcnVNRvZgDWMBUAHupMt1iMTayxWlNd+usIzBC72juTK1A4NOKISuhE+x
-         sR9mglYGSoHWFI2ixpxQwcx49UQqy4dRZ2baPThaUq5LhVhiDn77iOi5yabNKdqO5SXJ
-         1i8zrffUDnYT/r3fc06KP+ysORhXKa+cApo2NHWbpqdI5aLStPM8Yx59TO+Wid/VniSE
-         DEbA==
+        d=oss.qualcomm.com; s=google; t=1787188528; x=1787793328; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MS9HKp5HNfB/B1jknKQleKYLL0pHPk+xwxCKcprCl8k=;
+        b=We7l0jZu1/TNkxK+0BJ867Xd0QIkbIH2NkKOtYlFRCbfCusWJ3ZXx4EVIx2xhm0KY7
+         D5/MKk1uyOMMvxh4MrFuQeWbwUmnWBVPXMqjbIzvhirLiSUWRGcoccE9LIPp4v4/gMSJ
+         iZ7d8XHJrJ7z8yGatgEIxpRBvKKWztOLYE0GqM+s/HQ7tw8dloAuUwhhu8NFhZLwdbU7
+         8kYIIdnUrKI22eo2uiOnBPK4mQSWIq7NieCo1+9gnUsQjJRCT305EL6Unm3FwvznwQ2k
+         DwkWJutomvXn2CVLdMfEq18t+ISIfnpsYK0UZiFbTD/16vFRxn0C7nDpwiar/9q3ktX0
+         9fSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787188015; x=1787792815;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bgxWYN6UqbEyC1+LxoNwhIkrJ7McHuzDkGEeX5D8eIQ=;
-        b=WTpNzYW/Lk2wKG8OH7TMq3ceGwAu46xbSe9uf+9sFT8lzm+qXo2WdGhhdfV2Ft61px
-         5APS7IOGOKNdBLAOCgsFoEknwvQJ2Rkif0SZ07Iq+5oO61ENpgF0sfHRKOjUXgDl+Fal
-         21u8Vb+K8uW9mKNU2ncSBCfLwKcb/Paanaj3N/rrByhbE9banwDC/ngWbSDT6SC4m6k9
-         lPAF1hkQES6+DnmpJkpsUNJqPQrvw9hSTax9LfzFZQy8nYPPNLRNcDgcSWnxj0kee34/
-         sHp/Q0mnMcuAPszyUKPt28prjX7fyrLk/PZv9ADsuabyWMHwyEZJk2H3eExoCcPC6hpq
-         pEQA==
-X-Forwarded-Encrypted: i=1; AHgh+RoIbKSEIf5xmFOhwkZWOs5Y6rPEWMIM1DxM4y7xjCtyCNM7BTPL9qdI26xRs5V48sKItBHOV4/80nSd@vger.kernel.org
-X-Gm-Message-State: AFuF++nkCdpPzaj27fGmgmLj0IbIfSEXSemft/23ctFJhdGsnN3wWqdo
-	4E36FeyuHpdNW0D59kH6kl5nNy9KmtINq+GHAUGaBQGXzULaRCsp8aXQdetu6Q==
-X-Gm-Gg: AR+sD11Z1oPWjed6KD7+t9H+aku4MAxN8W/OSguu6qZ7MRh4yFoYbG6Ao6GnBEKmLyb
-	scrAjmFXfDDVBVIeGF2VclyWarwa6IyqFInXrHf4hq6Dfw7nmrI4N+gLnA68vTuhr9Uv972pdRs
-	m5/2F9px4zzetqmo1dClcrUYWkkjRxLla2O9nGiFMXqZBF4+yXhe5NU9IolZ8rel/fCW+1yeD60
-	k+pz0Kzh37ehXE7VRVhEtxYplaqcvZXtE6TLdjUgvU1jx9SG04yXGSNWKJHGVgMKZvZc7EASfQ8
-	4RMGnSqnVplEF3P7BukVqxY/tQOfD45YVplcQhFMWkMKj5ljH1SWX6WVcUfX8+s9MpmV0d1f2DI
-	hVHkK4LJvasXbJtXg+VFPX/gR00OFTVAV7qKM7/VsIfAyoVe736O5K6Rqy0MJ3vDscRK4sUoPQP
-	RW4vpA1XirRaFJN+FX0TKHu7zXOKlulN6j5xHIkOlD2swjUACeWFkVGQ6R0tAOyPzxTbLGVe3rk
-	FL9HJn/1brsFnq/CFrUlo9Obd8ftk3+wIDysQ2dalp9IjM+
-X-Received: by 2002:a17:90b:3c8f:b0:395:4de4:92c8 with SMTP id 98e67ed59e1d1-395810e9626mr17401300a91.15.1787188014899;
-        Wed, 19 Aug 2026 18:06:54 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fbbc017sm4998829a91.15.2026.08.19.18.06.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 18:06:54 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <01a0682b-b7ec-45f0-a19d-df40ed6366a2@roeck-us.net>
-Date: Wed, 19 Aug 2026 18:06:53 -0700
+        d=1e100.net; s=20251104; t=1787188528; x=1787793328;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MS9HKp5HNfB/B1jknKQleKYLL0pHPk+xwxCKcprCl8k=;
+        b=OKi0BVTJG++5KYkIc6TYZX9ixAioCtipDx1b/rLVx8rth+AHdqrh++426i37xgcFKz
+         zrRmttp/DLAE1ku7QgjXId6T3c/dlL9O2ruytVxfJaYxfJIGdNtmCVhPoxO7DQ85oygT
+         TidKhXLocpBAr9lFWOOgOLf7kQVGsculQ/IqbIjRJSCtMgyR+6xnMnjB5fopdoUdCWN/
+         8cxk/NBRreoHgakGRMWCoCTru+KnKWsYrfy7fxt7WQUAg5jbD79nGKJEIRm68U8dP50B
+         YW9dQG4rKoIAnr5Wd+TX8qJ0HtKTYo55UWIsCmPNjPdNhMPpLFcCUd08OivXRcGXzzse
+         hlFA==
+X-Forwarded-Encrypted: i=1; AHgh+RrZt1THo/bjuTkdWbqCv4aMv8Q6vJ2U5baEK3wGiLWtfXDkI1+awk7a/LVuvLDrFnJs/IEtX138GCOa@vger.kernel.org
+X-Gm-Message-State: AFuF++l7iLbkM8N1bUPTzF/LQs/MnvYQwJwk0sZekD9gyafpgSppN1q3
+	5qb8dHFLE5kxSh5IGfp9W+JjhBKCsfqZjtqatdH6bIyPiK/MKqqJCjhKb38KIUSEBRNmkIKq2PN
+	8cUNdqUlNwx4nejH2vLWh/MkxEFuOuLNNZTMsyLBLqC8ZR430WnOr8BkR1p5A4D7VjlKWvRiDGP
+	0=
+X-Gm-Gg: AR+sD11tPueAdy1W8/jZct0mC2bv0GxDgNpiVPM9y2KVG7EqIv/WJu9ukxGYPcFQOer
+	P+QFbqqUpJAmiMLqEVFyGQqKmpHAjvYQe53nNy//gy14KFgT0xQVulERT8O6uKAKngcGC1JHcsR
+	gZ7vjVIW4DmQXLr5pV9cGE2r2RyciVRqgo9GTjHIipngjWZA4PjDWQshTqfQY0wBS5wHqkaemXh
+	1dMVS6QwxrAuvUAEQs3iVcoe3pwJj9BEwnOSAv9KRCNtwNcArDGpzDkBLvOzMopuNNBJg4ZsSGm
+	oe/55f6jbdYzh3j5mTRTgHEHInEInWHtY3U9haUpoQEgiyELS7oZzHRAeS8F/o4pMNFNwDQseMn
+	nbP/CwtPTCFNyFGBjQPXT4U30RxJ+VZgIco9MgDU4SpU=
+X-Received: by 2002:a17:90b:3bcd:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39580accbebmr16841141a91.5.1787188528316;
+        Wed, 19 Aug 2026 18:15:28 -0700 (PDT)
+X-Received: by 2002:a17:90b:3bcd:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39580accbebmr16841065a91.5.1787188527782;
+        Wed, 19 Aug 2026 18:15:27 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ae5f1ffsm18684875c88.13.2026.08.19.18.15.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Aug 2026 18:15:27 -0700 (PDT)
+Date: Thu, 20 Aug 2026 09:15:21 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair
+ functions
+Message-ID: <aoZVKWTtdCQSSvaH@QCOM-aGQu4IUr3Y>
+References: <20260819152356.904023-1-shengchao.guo@oss.qualcomm.com>
+ <000076bd-b3fd-42dc-bd43-96ee9492a638@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
- compatible data
-To: Aiden Isik <aidenisik@protonmail.com>
-Cc: sashiko-reviews@lists.linux.dev, Aiden Isik <aidenisik@member.fsf.org>,
- devicetree@vger.kernel.org, robh@kernel.org, linux-watchdog@vger.kernel.org,
- conor+dt@kernel.org
-References: <20260818-for-next-lucky7-watchdog-v3-0-2912bd122c57@member.fsf.org>
- <20260818-for-next-lucky7-watchdog-v3-2-2912bd122c57@member.fsf.org>
- <20260818181349.894171F000E9@smtp.kernel.org>
- <k_6CWq_7vPkV72MkyL0wCdcr9ptTffpGOGc6dBLbXjcHBV4DGRzP-35mxO0tdOBaIEhy4BxByYLCh8T5nidgwaMwGcNYD9KCIpxkeF4RRiE=@protonmail.com>
- <83b5d8e7-9504-41c9-9f24-8fce60641de4@roeck-us.net>
- <-HoGjao7Mdcx5P3JHoh9WjecLbbXBISKawVeEa59KRfhq7rul5NozHGaISvi0T-ZTp2otj7_b5qqb9tQI5XR0Wvp4UzG7crAekiRTXhiOd4=@protonmail.com>
- <d8191041-a4bc-4674-ab9e-7fb56ca2b56f@roeck-us.net>
- <cTie_daC2kaIY2BT6HkyAeivwspRhq3thkrkGDMVdIpF2vF5Vr38HQxPcvKFK6pvWatAFk-CO7XL2uz3OCfDSwI-EOxQqI8hNylXjG1jrQI=@protonmail.com>
- <XNt95pVriUNFbMMYsr5mnQo9LUABboJjUMboxV5mWYj9FQJb6XGjsGkGRre7eSK4bvCG4oOuTg4YNiujCpX7ZlonVgQSHFBEzpFvZLFTXtw=@protonmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <XNt95pVriUNFbMMYsr5mnQo9LUABboJjUMboxV5mWYj9FQJb6XGjsGkGRre7eSK4bvCG4oOuTg4YNiujCpX7ZlonVgQSHFBEzpFvZLFTXtw=@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <000076bd-b3fd-42dc-bd43-96ee9492a638@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=fv3sol4f c=1 sm=1 tr=0 ts=6a865531 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=ScvHTCLV6CLG8ETh_pMA:9 a=CjuIK1q_8ugA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: tUyoUp2RzgHva6lCCgbTxcqWY0sRGiHk
+X-Proofpoint-ORIG-GUID: tUyoUp2RzgHva6lCCgbTxcqWY0sRGiHk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAwNiBTYWx0ZWRfX28rXl/Yl0k73
+ AewFp3gJko4ciFpdlul958un3Iu8HiqkQZOQNo3hdKtzJvJPVsc1LupynkT3AAzp4TB/uH3tJjW
+ SBvHp8H4v0Xdx6bTOjqoy6sIDsGup/s=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAwNiBTYWx0ZWRfX18RScVtLnsoO
+ HLKtMZDbhE+9q/8hm4ZTHImsVFG3dr6HAnRXkBzOoIO4okfzdM0a0iRCFDNLZxMHfkFNQXjVmue
+ 1rTOgDE/3FujHeHWs0Nm9/b9MKV3HMkLwYzGvLK5IOGkV55hHpTiKJIvx6DjQgYecN6t2G7NHCE
+ 1KffTBBjoJ2msu3/F7HqyGHttSXQTu3XnTNXnjSn6OhyNO/oVYIMKCzrVFECGNqlSMEgHPnPAf7
+ cg+tJV9LZ5pUI3X8kYsZyJPR+YTKD9HGhaC0qqWgKMWFrS0rYYM6VWKDogtjO+08TjRAqeDGizw
+ S3Dc73m4431m8ZttusPz08+O2oVWhlwRIKVBSdB9xAqyWisfir12jWdcnv1oFwBBTmPDV8OdQ+G
+ J1jN/bLW5eXVRr9/AgFktDeK0VbXXeKK3wHl8b9M6C4kGFNl/AGnjBYyPfmqTUVvovtcMBruYOm
+ IbUCLUgk154x6E7xwwA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
+ impostorscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608200006
 
-On 8/19/26 16:36, Aiden Isik wrote:
-> Hi again Guenter,
+On Wed, Aug 19, 2026 at 05:27:34PM +0200, Konrad Dybcio wrote:
+> On 8/19/26 5:23 PM, Shawn Guo wrote:
+> > QUP1 SE2 and SE3 pack all four of their lanes pair-wise onto only two
+> > pins each: lanes 0/1 (I2C SDA/SCL) at mux value 2 and lanes 2/3 (UART
+> > TX/RX) at mux value 1, on gpio127/gpio128 and gpio129/gpio130
+> > respectively.
 > 
->> Hi Guenter,
->>
->>> On 8/18/26 12:35, Aiden Isik wrote:
->>>> Hi Guenter,
->>>>
->>>>> On 8/18/26 11:33, Aiden Isik wrote:
->>>>>>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->>>>>>> - [Medium] Missing PMU counter enable configuration for Exynos5515 watchdog.
->>>>>>> --
->>>>>>>
->>>>>>> --- Patch [2]: [PATCH v3 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data ---
->>>>>>> commit 9ce360e3c933b7447ba5da9ba1b7ae3fee989703
->>>>>>> Author: Aiden Isik <aidenisik@member.fsf.org>
->>>>>>>
->>>>>>> watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
->>>>>>>
->>>>>>> This commit adds driver data for the Exynos5515 SoC's watchdog timer.
->>>>>>>
->>>>>>>> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
->>>>>>>> index e31f93db05096..5592f25fe6c83 100644
->>>>>>>> --- a/drivers/watchdog/s3c2410_wdt.c
->>>>>>>> +++ b/drivers/watchdog/s3c2410_wdt.c
->>>>>>>> @@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv_data_exynos5420 = {
->>>>>>>>     		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
->>>>>>>>     };
->>>>>>>>
->>>>>>>> +static const struct s3c2410_wdt_variant drv_data_exynos5515 = {
->>>>>>>> +	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
->>>>>>>> +	.mask_bit = 2,
->>>>>>>> +	.mask_reset_inv = true,
->>>>>>>> +	.rst_stat_reg = EXYNOS5_RST_STAT_REG_OFFSET,
->>>>>>>> +	.rst_stat_bit = 24,
->>>>>>>> +	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
->>>>>>>> +		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
->>>>>>>> +};
->>>>>>>
->>>>>>> [Severity: Medium]
->>>>>>> Does the Exynos5515 PMU require explicit counter enablement like other recent
->>>>>>> Exynos SoCs?
->>>>>>>
->>>>>>> Other variants in this driver (like Exynos850, AutoV920, and GS101) that use
->>>>>>> the NONCPU_INT_EN PMU registers also pair it with a NONCPU_OUT register and
->>>>>>> the QUIRK_HAS_PMU_CNT_EN flag to ensure the watchdog counter ticks.
->>>>>>>
->>>>>>> If the Exynos5515 hardware works similarly, omitting cnt_en_reg, cnt_en_bit,
->>>>>>> and QUIRK_HAS_PMU_CNT_EN here might leave the counter disabled and the
->>>>>>> watchdog silently non-functional. Could you confirm if this variant needs the
->>>>>>> counter enable logic?
->>>>>>
->>>>>> Exynos5515 does not require this.
->>>>>>
->>>>>> Downstream on GS101, as an example, has this struct member set:
->>>>>>
->>>>>>> pmu_count_en_func
->>>>>>
->>>>>> This is not set downstream for Exynos5515, so it is not used for
->>>>>> Exynos5515.
->>>>>>
->>>>>
->>>>> You keep talking about "downstream". What is that ?
->>>>
->>>> By "downstream" I am referring specifically to Samsung's Linux kernel
->>>> fork for Exynos5515.
->>>>
->>>> I host a copy here: https://github.com/Aiden-Isik/linux-android-lucky7
->>>>
->>>> Also in this message I refer to Google's GS101 kernel fork, which can
->>>> be found here:
->>>> https://github.com/LineageOS/android_kernel_google_gs101
->>>>
->>>
->>> Both are completely irrelevant for the upstream kernel. I am most definitely
->>> not going to look into that code. If there is anything relevant - such as
->>> the comment you pointed to earlier - you'll need to provide that as independent
->>> comment(s), not just refer to some downstream code as explanation. The
->>> explanation needs to be provided in the _upstream_ kernel code.
->>>
->>
->> There's not really any explanation for it other than "that is the way it is".
->> Samsung designed the Exynos5515 watchdog timer to not have that quirk,
->> I read the downstream code and learnt that fact, so we don't enable
->> that quirk.
->>
+> [...]
 > 
-> Just in case I am misunderstanding what you are asking for and you want
-> examples of how I know this is correct to be posted on the mailing list,
-> here you go.
+> > +	msm_mux_qup1_se2_01,
 > 
-> Unfortunately Samsung doesn't publish technical specifications for their
-> modern SoCs, so the best documentation we have is their own source code,
-> which doesn't really explain the *why*, but it does explain the *what*
-> and the *how*.
-> 
-> I'll do my best to explain it concisely and how we drive the hardware
-> in the same way upstream:
-> 
-> Google (and/or Samsung since GS101 is Exynos-based) define the struct
-> for the watchdog timer like this:
-> 
->> static const struct s3c2410_wdt_variant drv_data_gs101_cl0 = {
->> 	.noncpu_int_en = EXYNOS_CLUSTER0_NONCPU_INT_EN,
->> 	.noncpu_out = EXYNOS_CLUSTER0_NONCPU_OUT,
->> 	.mask_bit = 2,
->> 	.cnt_en_bit = 8,
->> 	.rst_stat_reg = EXYNOS_RST_STAT_REG_OFFSET,
->> 	.rst_stat_bit = 0,      /* CLUSTER0 WDTRESET */
->> 	.pmu_reset_func = s3c2410wdt_noncpu_int_en,
->> 	.pmu_count_en_func = s3c2410wdt_noncpu_out,
->> 	.quirks = QUIRK_HAS_PMU_CONFIG | QUIRK_HAS_RST_STAT | QUIRK_HAS_WTCLRINT_REG |
->> 		  QUIRK_HAS_DBGACK_BIT | QUIRK_HAS_WTMINCNT_REG,
->> };
-> 
-> Note 'pmu_count_en_func' is set.
-> 
-> Later on in the file, we have this code:
-> 
->> if (wdt->drv_data->pmu_count_en_func) {
->> 	ret = wdt->drv_data->pmu_count_en_func(wdt, true);
->> 	if (ret < 0) {
->> 		dev_info(wdt->dev, "wdt count enable fail\n");
->> 		return ret;
->> 	}
->> }
-> 
-> Which will call the chosen counter enable function if that field is set,
-> which will, well, enable the counter.
-> 
-> Now, for the struct corresponding to Exynos5515 in the same driver:
-> 
->> static const struct s3c2410_wdt_variant drv_data_exynos9_v4 = {
->> 	.noncpu_int_en = EXYNOS_CLUSTER2_NONCPU_INT_EN,
->> 	.mask_bit = 2,
->> 	.rst_stat_reg = EXYNOS5_RST_STAT_REG_OFFSET,
->> 	.rst_stat_bit = 23,	/* CLUSTER2 WDTRESET */
->> 	.pmu_reset_func = s3c2410wdt_noncpu_int_en,
->> 	.quirks = QUIRK_HAS_PMU_CONFIG | QUIRK_HAS_RST_STAT | QUIRK_HAS_WTCLRINT_REG |
->> 		  QUIRK_HAS_DBGACK_BIT | QUIRK_HAS_WTMINCNT_REG,
-> };
-> 
-> We can see that 'pmu_count_en_func' is not set, meaning that code within
-> the if statement shown earlier is not called, and the counter is not manually
-> enabled.
-> 
-> Translating this to upstream, if QUIRK_HAS_PMU_CNT_EN is set as a flag,
-> the following code within the if statement will execute:
-> 
->> if (wdt->drv_data->quirks & QUIRK_HAS_PMU_CNT_EN) {
->> 	ret = s3c2410wdt_enable_counter(wdt, en);
->> 		if (ret < 0)
->> 			return ret;
->> 	}
-> 
-> Which as we can see does the same thing and enables the counter.
-> 
-> So, since 'pmu_count_en_func' is enabled on GS101 in the downstream vendor
-> code, the QUIRK_HAS_PMU_CNT_EN flag is set, as the Sashiko AI points out.
-> However, since it is *not* set for Exynos5515, that means Exynos5515 does
-> not require manual counter enablement and that flag should not be set,
-> which is why the AI's concern is wrong.
-> 
-> I also tested this (with the watchdog actually enabled this time), and it
-> behaves as expected.
-> 
+> other drivers where this is necessary stick an 'l' before the
+> lane indices, e.g. se2_l2, let's keep this 
 
-All ok, but you do not explain all this as comment in your patches, you just
-point to downstream code. At least some of that downstream code, if I recall
-your previous feedback correctly, actually _did_ explain at least some of
-this.
+I can see that for single lane function. But for lane-pair function,
+it's not a new thing with nord, and the naming convention seems to be
+without 'l', based on what I see from shikra, eliza, hawi and maili
+drivers.
 
-Example: A comment along the line of "According to <place source here>,
-Exynos5515 PMU does not require explicit counter enablement" would do.
-Sashiko does not know the context. I don't either, and neither does
-anyone else.
+> 
+> The bindings change must be separate
 
-So why exactly are you not willing to add such comments ? Please explain.
+I understand that's mandatory for new feature changes, but for such
+a bug fix where both binding and driver changes are closely coupled,
+it seems more reasonable to not split.
 
-Guenter
-
+Shawn
