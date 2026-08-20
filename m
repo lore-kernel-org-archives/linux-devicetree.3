@@ -1,121 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2A43FADF1;
-	Thu, 20 Aug 2026 09:41:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994CB3E556C
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:41:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787218881; cv=none; b=p6UapnaX60m7A5lYL8lKIpQUQyh+dbyujYotwlFVC3JUlT04KNZlJlUsMi9NGq0lDNkSiDioFBU8Fk3dUEuhfyFNI7WUbz1Ar1VbR9/dRbnatTPstg0RxWGJHlm+zeD3XcrbY18dECToRaDMYRaj3WRP2z41+zW75piZBjr+2WU=
+	t=1787218915; cv=none; b=TaGCX+n9Lk7da91Utn7id9t6HsJY382FENK+9jv2ObH2MOX+Y+z5RtbnGySkiFmW5ZD1M8V09Agw+GK6+o+a7DYunkSqIUHtF4RUzKtddTCZj9vEqh5OK3wESGO3OBOGV86G1SgQtm6Q7S0wnrrI5IQuYmyceLSxtdkyXUMgjAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787218881; c=relaxed/simple;
-	bh=KtqOfJMdX57AQPg1jiIbhUW10Jw9Fc5snOFC0jcEXq0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PySQLRhKfN2oZ3k2dLL+AKnqEsetkQ2CXumAnruPy0oemQRvO4qyMGWJY/A1rx6m+P8p4pWM3DkwEI8E8+nHketWZTdwBG63bC70//jwT6MrGBgj/U1VFuKE9EGvtKLvnT6/OHyebp+UkYbcAbyaZhdKkujBUHRB+VZByDWRk/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdejt58a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787218915; c=relaxed/simple;
+	bh=cd0yJZrl2LQdfyZSczu1/fk95nQwUD3hiT3xn1dCUHc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dRL6hd5QXt8uJqAws09TnWk4gGCe5pwc88nUYBEEl5pZUc001vpfrf+upVp/MEqY3EtVqcG519A+h1IxVNL/TC3U85SMCP+ICH16NWjbr3+u9F68CGICZLRJmPZC7SlAGWGb7S3OMPe2nUS2JBXzoH7rb/W72KxTVIdqD2ykuDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OllQcizO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdejt58a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994FF1F000E9;
-	Thu, 20 Aug 2026 09:41:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OllQcizO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBCEF1F000E9;
+	Thu, 20 Aug 2026 09:41:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787218867;
-	bh=RrOgyHVk+CLpJXialK6Cp3J4c94/5N2oqUIJ9R7WwbE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bdejt58aooXO3XtxPoPp/J3VLAL1LzLsky4uof5dyfBF9AUsbBW6wOY+dIeBVgDtm
-	 Wn6N6TJvC1ce1yIlrAXUgNIyViif/yn2/LAyP7Qxye5cFQxbaZ5zeWV3qxTrss9G2s
-	 xT9Bo9s3X62EFMPaXcrYzynkoQKw+DgUwjoD2tJESso3YArd/NuxhZG5djB2mr36iT
-	 JAs/qKUdRtDQ6JfsHs6bNyEJXc3pmgqRkPvGHFsqXQ8hWU2KdpkONOv3Kx5wHehY4Q
-	 9VPUW+GAu4px8EcKxSOIN5Cye+7+zpxQnTLy7cDITeEdA6rj8068QzJUcPGNjug4XZ
-	 QtfS/Z/PCSmdw==
-Message-ID: <9eb24b64-6530-44b8-8c74-76069059ab3d@kernel.org>
-Date: Thu, 20 Aug 2026 11:41:00 +0200
+	s=k20260515; t=1787218903;
+	bh=rnoPwsiO0CutqKpdDzuDwlk6fuswNzDbKbQe6rC9ZIQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OllQcizOmNIgGe4SYoqWcKfmQ+8SBN5tGPAqF8damy4RCCfm9brWoG93fpND1e1qy
+	 KUj6TVuScy8CpIMG4UiyEbBxaos6Gc4DcWpzVpSX2mdD4oXoAkYt+ANScy385BTcrJ
+	 fpfisiNoA0S4Cg2MD3Ffqmf77Sc8sRgVpkDgJbkK8U4E9LTtfHU+hOegC2CIEr7WBl
+	 123gEK7HG5GrifX60R4fhdEbdBuHWg72SVvUqkqtY9+wBkrer1hVEUq3yrUSCZ15Sv
+	 XPEXD+zNlBB5vgRcww9sL39xz6cJcTpXi5NF9i5G/P61HmIwfsRGdGzxhnaoyLhO9e
+	 17wgqMHncMbHA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/7] greybus: connection: Export gb_connection_get() and
+ gb_connection_put()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ayush Singh" <ayush@beagleboard.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, ojeda@kernel.org
+In-Reply-To: <20260820-gb-uart-transport-v1-1-282da14ab7b7@beagleboard.org>
+References: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
+ <20260820-gb-uart-transport-v1-1-282da14ab7b7@beagleboard.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Aug 2026 09:41:42 +0000
+Message-Id: <20260820094142.BBCEF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: shikra: Enable dTPM on EVK boards
-To: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260820-shikra_dtpm-v2-1-bc6698564ed5@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260820-shikra_dtpm-v2-1-bc6698564ed5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 20/08/2026 11:38, Khalid Faisal Ansari wrote:
-> The Shikra EVK boards (CQM, CQS, IQS) carry an ST33 discrete TPM
-> connected via SPI5. Enable the SPI controller and add the TPM node
-> with the ST33HTPM compatible and a 20 MHz max clock.
-> 
-> This change requires SPI5 to be enabled in shikra-evk.dtsi [1].
-> 
-> [1] https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
-> 
-> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> ---
-> The Shikra EVK boards (CQM, CQS, IQS) have an ST33 discrete TPM (dTPM)
-> connected over SPI5. Enable the SPI controller and add the TPM node for
-> all three board variants.
-> 
-> This series depends on the SPI5 node addition in shikra-evk.dtsi:
->   https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
-> ---
-> Changes in v2:
-> - EDITME: describe what is new in this series revision.
-> - EDITME: use bulletpoints and terse descriptions.
-> - Link to v1: https://lore.kernel.org/r/20260820-shikra_dtpm-v1-1-40d96b8238bb@oss.qualcomm.com
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Exporting `gb_connection_get/put` allows connections to outlive th=
+eir parent objects, causing a Use-After-Free in tracepoints.
+--
 
-No, implement entire feedback.
+--- Patch [1]: [PATCH 1/7] greybus: connection: Export gb_connection_get() =
+and gb_connection_put() ---
+commit d7d6f3dcc2daeb414806a0f2b9dbabd440f8ec1e
+Author: Ayush Singh <ayush@beagleboard.org>
 
-Best regards,
-Krzysztof
+greybus: connection: Export gb_connection_get() and gb_connection_put()
+
+This commit exports gb_connection_get() and gb_connection_put() to allow
+modular drivers to manage connection references. It changes them to non-sta=
+tic
+and adds EXPORT_SYMBOL_GPL declarations.
+
+> diff --git a/drivers/greybus/connection.c b/drivers/greybus/connection.c
+> index bd04485decb3d..f8fda22bc4667 100644
+> --- a/drivers/greybus/connection.c
+> +++ b/drivers/greybus/connection.c
+
+[ ... ]
+
+> -static void gb_connection_get(struct gb_connection *connection)
+> +void gb_connection_get(struct gb_connection *connection)
+>  {
+>  	kref_get(&connection->kref);
+> =20
+>  	trace_gb_connection_get(connection);
+>  }
+> +EXPORT_SYMBOL_GPL(gb_connection_get);
+> =20
+> -static void gb_connection_put(struct gb_connection *connection)
+> +void gb_connection_put(struct gb_connection *connection)
+>  {
+>  	trace_gb_connection_put(connection);
+> =20
+>  	kref_put(&connection->kref, gb_connection_kref_release);
+>  }
+> +EXPORT_SYMBOL_GPL(gb_connection_put);
+
+[Severity: High]
+Does exporting this function introduce a regression where a connection can
+outlive its parent host device or bundle, potentially causing a use-after-f=
+ree
+in the tracepoints?
+
+If an external module caches a connection reference and drops it asynchrono=
+usly
+after the Greybus core has torn down and freed the gb_bundle and
+gb_host_device, calling gb_connection_put() will trigger
+trace_gb_connection_put() and potentially trace_gb_connection_release().
+
+These trace events rely on a shared TP_fast_assign block in
+drivers/greybus/greybus_trace.h that unconditionally dereferences the parent
+objects:
+
+drivers/greybus/greybus_trace.h:gb_connection() {
+    TP_fast_assign(
+        __entry->hd_bus_id =3D connection->hd->bus_id;
+        __entry->bundle_id =3D connection->bundle ?
+                connection->bundle->id : BUNDLE_ID_NONE;
+    ...
+}
+
+If the parent hd or bundle has already been freed, will these tracepoints
+dereference freed memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820-gb-uart-tr=
+ansport-v1-0-282da14ab7b7@beagleboard.org?part=3D1
