@@ -1,158 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023099.outbound.protection.outlook.com [52.101.127.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987C73AFAE6
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 06:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787207900; cv=none; b=sgPCNg+s9EuDhZzWeLIcVKAe97WYqKo0YO4Joyascg1DDxrIVJ4wL8nUYuPOfz0RRW17gjCnpRGWlFwJVKe2aGYnBmeZ4nNTw2c1eXMaBWi9ee1srYuoYsxGy0LRga9K+GOCCjep9YQBq7Cv+1lCvsvrrLza5KzjX6DDDqKwUmE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787207900; c=relaxed/simple;
-	bh=3rhhy+lGGwbANULE7CZ2rrTWzNQcrFGk15xqNP+DjZs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Fz14SXACVjKNr5MHG1EYgXkUD7XKCuGYesitCqXFDFJgtLfLJhmT9VK6qtfd3KEsnw7PbglHNkd2Cc4fW8VAjo7rZMmzJiTg0nq2fWHN0j1SIxEloxi/3hjSZhA2e/Xp5G+N62FsfGXl4VKY2lzTt7ViSCrC7T0Wqh2c9KRq2RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OxGVGW8e; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355AB3B0AC7;
+	Thu, 20 Aug 2026 06:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787207903; cv=fail; b=ippP8lUqZRKpWDNmv+maBWudfMk6QworOIH6E6en7bluJOmpPtnRrv8gkhNrH7AHSRhgB1VDgGQTpnhUhJLKZI/RkkeatM2SHg2Jwbxm+VuJBdg80bz7+s/HPJt58dyDDvdjhw203ECEueeUDlKcAyFx+us2PubsUtQZTv6woh0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787207903; c=relaxed/simple;
+	bh=zZObH7qsiFL7V7bI6b0EmObZxdKQy9xh9PvXZjtWvzk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qkFknXARx+fYVw5MooylvZ4sDJuJkna31loJUVSK4glnyvVQeenjENU3LMHcLRVq9z07l3MI6DNvOK17GHVnvoLDP58eC+x4EQsOK5zH+9Qe4RoBqAp2eowtwux43u5D2QRMOrvJCIqxJkz6fUDoWn1OYyIofCjynsL8dzrQOwc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=p2STbYpt; arc=fail smtp.client-ip=52.101.127.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OxGVGW8e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB781F000E9;
-	Thu, 20 Aug 2026 06:38:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787207899;
-	bh=/5Sq3XiKhspYc4sXRKblRuzDbdb/tsuJ2W2EzPZlYk0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OxGVGW8e+zk8/br3EcQ721Zoel0ERLG7DQ4QrNZGut5bKCqq4dnj6gqxnO3qHwh0F
-	 XQhsc8NLzeWMp55lMW4bRZJ7qBFsAGeLVjAjWm9pIxeSp1k+aolwQEk4pg21AJiC7Y
-	 RhSgPrHn8BTBUkkqEIjWaPWgpoiliI2zghin069Xmv3ifYfErYsCdhtJeYu/8kvsQ4
-	 h1D/OA6C6s6D7Bi0dT/P6jGxpfUAW5Bw2sgDnBgtqahC6JWf+nrHN+OrcX6dsKEPPO
-	 dPlsRC330TahClGaXMelaEtGK6SMUHaK7k+Ifmp1B8rnUS3nWakU6pHaCYXPCfsDxs
-	 b+U+cv8T/OIzA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M codec
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Karl Asseily" <karl@asseily.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260820062626.39218-4-karl@asseily.com>
-References: <20260820062626.39218-1-karl@asseily.com>
- <20260820062626.39218-4-karl@asseily.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 06:38:18 +0000
-Message-Id: <20260820063819.3DB781F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="p2STbYpt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Okr+/rpx6qwMVQGH58rcDrv1A/7ypisljh2PhdSD2X/VpQV/eYZ3SwAOb/m138mQX55OB/iCxKhRRIcMRwjMeql8X3MdaASg+hR7WJk4OIf75VL3ZahRF99AnhnB6BKVC6tAktZCv0rY9pXGOfqzwdofs7lUaVoF1G2L6asRBhnjZDoY97JuD+BQ7Mpt2o/+qBj90E8aO7SFpbrlWTCQJRB/T8rb684co+A47ToHat1vXJcWzBiXjxoLrqNv+gVuWTsnjUCLzo1bmibfckMHvp+Qgl6CiM8zu6ptFPnrnoBSqNKE88Vt4uu31a5l5oHyebTfacRIk3aBtDorDb9pYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iebM4iC9OZyt8TSlwD9R7uM7uw36XWtckaIiJu0BTU8=;
+ b=XukC1QyAGHPNFBKbI5i5iaeii6T+Exdu1ulKIapfyc3OXuSbAuIFN4YUEJoiDZ1vq0v7a6iGGJnijemvofxB9jJUaRnj24+4IX+mYbBCZ6fBAF4YTektRJq5+sMr1iAjdLujsrPPlrxB1I228PzsXCryjjFNDSCh00wDwhPZdRnK9vdsEFoAtV5kKe+8wOQdITtwjHn9OwEAsT5cksm/lzqno/ojAUXFDTYaZL1Qh0XM+1u4FhD+XwygYtFdhUPpA0UmyqQzC+VOQx60f3KhHKRBS0HV6VAiEVLGhuDD5LIaCeML3ZPrSy3h8bNuZbiXsL6qETmcF8rYIwWWI3tbpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iebM4iC9OZyt8TSlwD9R7uM7uw36XWtckaIiJu0BTU8=;
+ b=p2STbYpt5xkKCWmdbhYtTrCwexjmdVfI6/+SjipakJtEx1gBB5zzwZeDBc668yGT8JDjl+2sh9dkfJA2jGyXu3envFkc23Pb/BnziqvaQxzVwZId7GB4OOENh0wC2SJUg74UxrGMEeqmjwfWmrZCjGst0hw7CJ+4JroiNDc7JyA0M36e4shDu+JrAfkBjfufHhCZakmc9mXwDm8v7iAQFdYniIVSIdoZzPIHn9Jds0U65T/inBfscFACm1U3Z646ef8mAws6bN1p187mw7ANes3JvQKkO8h89BN6sZbVawfPoN2HKI+FlZekbd1/vbcMaP6RWoQFfnGwZzEh6ewG5Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+ by SEYPR03MB8456.apcprd03.prod.outlook.com (2603:1096:101:20a::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Thu, 20 Aug
+ 2026 06:38:16 +0000
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4%7]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
+ 06:38:16 +0000
+Message-ID: <114b6c15-2975-44dd-8593-2fd23422b254@amlogic.com>
+Date: Thu, 20 Aug 2026 14:38:11 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: thermal: amlogic: Add A9 thermal
+ bindings
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Guillaume La Roque <glaroque@baylibre.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260811-a9-thermal-v2-0-7ddc33b11b9a@amlogic.com>
+ <20260811-a9-thermal-v2-1-7ddc33b11b9a@amlogic.com>
+ <20260813-international-optimal-limpet-dfb06e@quoll>
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+In-Reply-To: <20260813-international-optimal-limpet-dfb06e@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SE2P216CA0069.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:118::8) To TYZPR03MB6896.apcprd03.prod.outlook.com
+ (2603:1096:400:289::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|SEYPR03MB8456:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed2aa961-a91c-4bf4-7d64-08defe859d9f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|6133799003|22082099003|18002099003|3023799007|11063799006|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	3O8WrXjCOpN7eRWVYR929MbRiSE/aFicypdp9e+jYODQBYld5wObhxPDJeZnrqmVF8n/XvoVkuRRgiPLW2cEg3hOeufGOgKEAmrvDbNVWRUB8xbZefHd7X5OBRSILA95FST5y6tonbNFUgnrTOZOKxMhjDytP61pRcuebRIkBPtFfMyAK11QwBz36/haYZqq0TR7uJvFmshXFEjWUIcnI3fSJ+gT5hVRqOCAHSfjg9N5WYOQ6nz/QCcUkLrSDyfNKXYvfAA9kIYiO5TaF/d+sHSsTHIMlWHkdhLqNvFdspx7y8YBYMLVuMj+K3slqRya7Fq4HFkw6ry2o7f7/swTIjzPv5wCqzp9AFdYmrHpEdG0osYfGVYxFH3rtS3C26jDC0kiNW2R8b0+rZw4C+ETJzic/qFihupwElROQg/BdtRfRgpjcdLj1hb6rwMmnyA+uXX8uU/W0o6xZN7ARHjMv3IeHhsK70MI+26NFhbawCudlSiPzovN5m6vxaHt8zi8FF2zQ7fDBliHDQQfv9iGdhvdBWY+oo7YBAZEgM4Ov2qPlWnoyBZkT24Fhv3AwIDXF2e6mKkujDvRDoaOe//A99bSXrswyn6l5Zp5dpu9XID3eMkHaSm/qYa6JYOCuoAJYqBlGcFq36urSJtetBGfTUZQsEkcPW/BaMqGva0zMi0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RHlnNTVhVFJPNEJuQmRqLzdJTFR2SC96SUZaa1BHTGtDbWlYU0wwenFXSDhR?=
+ =?utf-8?B?TmJSbGZZTlN0Vm9vdmlaUkV2V0kvZnNYYnVPZGg3c2ZuSnl0MVJWTW9LZUE3?=
+ =?utf-8?B?bXpwdm8xYzRWNjRiczQ5ME9qRnZramFXL3NxVkZTa0ppSHhqcHEzaG1CZlIw?=
+ =?utf-8?B?NE5IZlk4dC9PaWxOa09md1Z2bTJyY3A2MXYvMTdBUmw2c1p5NFplTGNuaUZ0?=
+ =?utf-8?B?N084RnJ2WUNYd0VJSUU0WW9uTDBkNjFOeHlyT0QvZk5jbGtaSm1KTGJSSGNj?=
+ =?utf-8?B?NGRLUHdDK1FFeHVtemQ3OGxaRUVyODZOcmxEeDVRbFlyVkNSSXhyeTNFWFIz?=
+ =?utf-8?B?cGZiekNMT2tiZUdteW5sdkh1MittNFBkV0YvalJoM2RZK25aQXUwREZkeWRX?=
+ =?utf-8?B?ZEcwZGpySTF0dVhUcWpRRy9zY2R4SEZhVzMwRm1rQU1VMkloVHAzK291TWZG?=
+ =?utf-8?B?SWpVZUwrdW9HdDJJejZEOWEzT29VMXUrS05RZXY1UFNyOFZybGR2NGJRVGlk?=
+ =?utf-8?B?S0dlTTRzN0U1aFRSQ2tIb21ReXRyN0lHTXRyOGltaUQwdElBVkRrenZ0VnFX?=
+ =?utf-8?B?VktZemtFaGZyLzdDejY5OTltSkJPZkxoYVdaY1RRN01OYXduK1E1Uy95VVRQ?=
+ =?utf-8?B?ZFo3MlVvbzRIMFZRaFpDYi80RGFEcGcxS1A4OWF3ck1MN1RQOHJISitnYVBG?=
+ =?utf-8?B?aDY0RkFoUVM2bFNFcjYyWjF1Umh2K1cveTRsaGQ3aFcrbUx1clI0ajJTTXlv?=
+ =?utf-8?B?SWRkU1ZqbmY5eFVVMHhwenM3Vno4cXUvNXpGRXNwZ3gvdU5vM0kyOGsycnNH?=
+ =?utf-8?B?RHFFQlFHbkRmc1JhL0JoMithQ2ljaGFjbk5JTnZvc1R2d09TdE5wbERmNm91?=
+ =?utf-8?B?T0dZTWMwWHkxUWZlU3g0Mkg1dVRJUDljTVhjZmdBYXhCTzlscTZBZzBDVGJn?=
+ =?utf-8?B?Y3NHVlRjWEZpMjI0TXdCOFJFdXBJUTM5dDhaMmh6elZwRFNwY25wdEhZSURk?=
+ =?utf-8?B?Qm4rZjEveWJLTUNpc1FKRVU5RTNyQ2NSZEZ0d3FpNWU1YWppeEE5dXF0OHU4?=
+ =?utf-8?B?SERkUU5GWnZXQ0hDakc0RWV6S0w3SThKSXNhZkpQY2p0OTZzUC9xVEFxaG9O?=
+ =?utf-8?B?dVlpUnBQNk1CNEhMUlkzeUxOSGJqRUZxVzJGVFdPSEhHM1h2cDZROGF4a3JV?=
+ =?utf-8?B?dHdNcWJVaVhIcGdkLzRjdk1ZVVJnUTRxZ1Z4Y2xGTWhWTnB5bW11UmJJR1Mz?=
+ =?utf-8?B?ZHZsSTd1Tk9YcmN5emVla2dSQTZuRStFcDlmRFpubllkRGRsN0JXOEp6Wmtp?=
+ =?utf-8?B?aUhEcC91b3hDbzVqWEEvMTJBTllzelZDZEVFNGwwMnlXeS9aWXhhcUFMUkQv?=
+ =?utf-8?B?dFg1WDJwYzNXUVlGWDlLaHJSVzc3dzdJKzBhRUhLVjlqbUkyMDZkdWpXVlc3?=
+ =?utf-8?B?akxQWElLUzZteU5vbUJQMWdZNEdIOWR5ZUJqWmlidVNPbndqVXY4RUU5YzBO?=
+ =?utf-8?B?QUk2NDJka3pURlgwSXlWUG9sT29ZY05ScUNqSXdWckZsNXFKanB5a3hYaWJF?=
+ =?utf-8?B?V3Nsa3pqUTFKWTVZcGJRaVdCeUI0Q1Q3NVc2a08xdzdON3FySURPNEdXeHRq?=
+ =?utf-8?B?VnUrUVIxQWVvUE8wMjN1bG5Dd0xQL0hMZ2lJODV3N3ZUVUFPamlJZjhKc1ht?=
+ =?utf-8?B?bVRSYmJBNDJwTXdrL3g2VGpxNTB2YWsycTdVNVdiY0RSSEwwaTArendJQ3Ry?=
+ =?utf-8?B?MW9VS2V6T3R5UTZPdXM1anJtSTdoUS8xa0pRenlQOWhGZG5SZHJ6SjNjNE45?=
+ =?utf-8?B?VEtiNXR6MCszcGNEWVZTeERKQkN1aTVXSldua1gzZHMzZVZaejB0UzJqQ1JS?=
+ =?utf-8?B?MDN3cWgvbEltTFlmOExFNUp6NUtlMmx2VGYrOVh5M2xxQlgrVHVDUGZSOHNX?=
+ =?utf-8?B?UjQ5cGNsZ2FnWG1PeG91WDIyQ2cyc3lteGF0V0hvUkdzUVBDZGtDYk5mcVhu?=
+ =?utf-8?B?UjNESmJhZ1JBMThmcS9mNEMrRkRBMlFFOHRuSDlBMmluUm1ocDB5Y2xVMHU0?=
+ =?utf-8?B?VGd5M29yeG15aVNwcEJDYWFoRjgrbnVFQTYwZElCM0VyUFhOK21EM29FU0ZN?=
+ =?utf-8?B?blVvR0pPajJrRVkrM1J4MTZzdFp4QXBOV3lsMXpuVEloS280VkhEdi8xeDhu?=
+ =?utf-8?B?TlpZZEFnWkxxNjMyL3MrZ29MaDZmbGYvMmt4MjJaOVZyZUdkaC92UFZvb2d6?=
+ =?utf-8?B?NXAvQXdhQW84eUhlbnQ1RGhMNWtQczhtaWFwU1pVbi96MkVDN0xwTjE1QUNs?=
+ =?utf-8?B?MmV6eE1lSTNlaklGLy9BNUFpSW4wVGRtSWRUV2VIOFdWUEdUUHQ5UT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed2aa961-a91c-4bf4-7d64-08defe859d9f
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 06:38:16.3348
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KuS7gwaBBqtnhM/lcBX5dVigghpGjnaU6pAZcQhhJtKYtr8ntnJOpbkOh/gwBnFXds+xC42YH4v9bwpxTC+eloPXWxJNf0f1fkBfjpsR8Qo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB8456
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] es9039_dop_put() corrupts hardware state when toggled mid-stream=
- and races with hw_params().
-- [Medium] 'Clock Fault' status control queries the wrong register offset.
-- [Medium] Probe initialization disables VOLUME_HOLD contrary to its docume=
-nted intent.
---
+Hi Krzysztof,
+    Thanks for your review.
 
---- Patch [3]: [PATCH 3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M co=
-dec driver ---
-commit bc64110211ab9eddd7d7d8ac88b78bebe86562d6
-Author: Karl Asseily <karl@asseily.com>
+On 2026/8/13 16:28, Krzysztof Kozlowski wrote:
+> On Tue, Aug 11, 2026 at 08:37:43AM +0000, Xianwei Zhao wrote:
+>> Document the thermal controller compatibles for the Amlogic A9 SoC.
+>>
+>> Describe the required "core" and "plck" clocks, add the optional
+>> "amlogic,hw-reset-temp" property, and update the schema constraints for
+>> A9-specific thermal controllers.
+>>
+>> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
+>> ---
+>>   .../bindings/thermal/amlogic,thermal.yaml          | 28 +++++++++++++++++++++-
+>>   1 file changed, 27 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+>> index 8cfa44dcda58..f73ee66bcc47 100644
+>> --- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+>> +++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+>> @@ -23,6 +23,7 @@ properties:
+>>             - const: amlogic,g12a-thermal
+>>         - enum:
+>>             - amlogic,a1-cpu-thermal
+>> +          - amlogic,a9-thermal
+>>             - amlogic,t7-thermal
+>>
+>>     reg:
+>> @@ -32,7 +33,13 @@ properties:
+>>       maxItems: 1
+>>
+>>     clocks:
+>> -    maxItems: 1
+>> +    minItems: 1
+>> +    maxItems: 2
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: core
+>> +      - const: pclk
+>>
+>>     power-domains:
+>>       maxItems: 1
+>> @@ -52,6 +59,10 @@ properties:
+>>             - description: phandle to the secure monitor
+>>             - description: sensor index to get specific calibration data
+>>
+>> +  amlogic,hw-reset-temp:
+>> +    description: The hardware-controlled reset temperature value.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+> Thermal zones define that, not custom properties.
+> 
 
-ASoC: es9039q2m: add ESS Technology ES9039Q2M codec driver
+There are some differences here. The thermal zone goes through a 
+software-controlled process and eventually triggers a restart or 
+shutdown. There is some time between the temperature reaching the 
+threshold and the actual restart or shutdown. In contrast, this 
+attribute configures a hardware-level protection mechanism that directly 
+triggers a restart when the temperature reaches the configured threshold.
 
-This commit introduces the ASoC driver for the ESS Technology ES9039Q2M cod=
-ec.=20
-It implements the software control mode over I2C, supporting PCM, DSD, DoP,=
-=20
-and S/PDIF inputs along with an asynchronous sample rate converter.
+If that's the case, do I also get it from Thermal zones?
 
-> diff --git a/sound/soc/codecs/es9039q2m.c b/sound/soc/codecs/es9039q2m.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/sound/soc/codecs/es9039q2m.c
-[ ... ]
-> +static int es9039_dop_put(struct snd_kcontrol *kcontrol,
-> +			  struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *c =3D snd_kcontrol_chip(kcontrol);
-> +	struct es9039q2m_priv *priv =3D snd_soc_component_get_drvdata(c);
-> +	bool on =3D !!ucontrol->value.integer.value[0];
-> +	int ret;
-> +
-> +	if (on =3D=3D priv->dop_auto)
-> +		return 0;
-> +
-> +	priv->dop_auto =3D on;
-> +
-> +	ret =3D regmap_update_bits(priv->regmap, ES9039_INPUT_SEL,
-> +				 ES9039_AUTO_INPUT_SEL,
-> +				 on ? ES9039_AUTO_INPUT_SEL : 0);
+>> +
+>>   required:
+>>     - compatible
+>>     - reg
+>> @@ -73,6 +84,21 @@ allOf:
+>>         required:
+>>           - amlogic,secure-monitor
+>>
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - amlogic,a9-thermal
+> Why is one clock valid as well for the new device?
 
-[Severity: Medium]
-Will toggling this control mid-stream corrupt the hardware state?
+The new device requires two clocks. I will add restrictive conditions 
+accordingly.
 
-If toggled on, it sets ES9039_AUTO_INPUT_SEL here but doesn't update
-ES9039_SYS_MODE to set ES9039_ENABLE_DOP_DECODE, since that was only evalua=
-ted
-in es9039q2m_hw_params() when the stream started.
-
-The commit message notes that selecting DoP without enabling the marker
-decoder leaves the part hunting and causes it to mute. Is there a need to
-synchronize the decoder state in ES9039_SYS_MODE when this control is toggl=
-ed?
-
-[ ... ]
-> +	/* --- status, read-only --- */
-> +	ES9039_STAT("Automute Active CH1", ES9039_AUTOMUTE_READ, BIT(0), 1),
-> +	ES9039_STAT("Automute Active CH2", ES9039_AUTOMUTE_READ, BIT(1), 1),
-> +	ES9039_STAT("DoP Valid", ES9039_INPUT_STREAM_READ,
-> +		    ES9039_RD_DOP_VALID, 1),
-> +	ES9039_STAT("TDM Data Valid", ES9039_INPUT_STREAM_READ,
-> +		    ES9039_RD_TDM_VALID, 1),
-> +	ES9039_STAT("SPDIF Valid", ES9039_INPUT_STREAM_READ,
-> +		    ES9039_RD_SPDIF_VALID, 1),
-> +	ES9039_STAT("Clock Fault", ES9039_IRQ_SOURCES + 1, BIT(7), 1),
-
-[Severity: Medium]
-Is this querying the wrong register offset for the clock fault bit?
-
-ES9039_SRC_BCK_WS_FAIL is defined as BIT(7) of the 16-bit word at
-ES9039_IRQ_SOURCES. By adding 1 to the register address and still using
-BIT(7) as the mask, won't this check bit 15 of the 16-bit word instead of
-bit 7?
-
-[ ... ]
-> +static int es9039q2m_component_probe(struct snd_soc_component *component)
-> +{
-> +	struct es9039q2m_priv *priv =3D snd_soc_component_get_drvdata(component=
-);
-> +	int ret;
-> +
-> +	/*
-> +	 * Come up muted. The volume registers default to 0 dB, and an unmuted
-> +	 * DAC arriving into an already-powered analogue stage is how you get a
-> +	 * thump. ASoC unmutes via mute_stream() when a stream starts.
-> +	 */
-> +	ret =3D regmap_update_bits(priv->regmap, ES9039_DAC_MUTE,
-> +				 ES9039_MUTE_BOTH, ES9039_MUTE_BOTH);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * VOLUME_HOLD makes both channel volumes latch together, so a stereo
-> +	 * change can never momentarily skew the image.
-> +	 */
-> +	ret =3D regmap_update_bits(priv->regmap, ES9039_IIR_SPDIF,
-> +				 ES9039_VOLUME_HOLD, 0);
-
-[Severity: Medium]
-Is this intended to disable the volume hold feature?
-
-The comment explicitly mentions that VOLUME_HOLD makes the channel volumes
-latch together, but passing 0 disables it. Should this pass
-ES9039_VOLUME_HOLD instead of 0 to enable the feature?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820062626.3921=
-8-1-karl@asseily.com?part=3D3
+> 
+> Best regards,
+> Krzysztof
