@@ -1,68 +1,68 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19ED3EE1F8
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83053E5EFB
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787217977; cv=none; b=JTivuRI71hgsb5688CZFPmGPdKudDvayE8sMsSXvkOkYQ3uEjFMdF7dq0wp2e5Gy7mYp9bHWu1eyLZrznXtFv3VMkkrGderbUEPlloFTlzsVB991IUBdGUJL9Kgg9dEu1Xux66qUFl9apVShwULaMZeQdo+TzWrJ0VxcR8dmEEU=
+	t=1787217986; cv=none; b=IAphqAfoLO/FuLj7UFZIJrsfRhh1MAHpdW+xoy7PQKXH0Xj5IM1YsMSB3C9ieFJaZ2C0wqRLa2Nisc7+seVQuu5PnufEwoWfeV8AuDUFljeIVA4q09MUr5HVaqg8IWPKzgBZfiDCUR4Sw4kno6xp3w3NeiEcYa2BG1hm5AIbdKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787217977; c=relaxed/simple;
-	bh=3v8CbSbKdFVV/RjS8CpC/g5rvbPZ6MrtTulOIvBnDLU=;
+	s=arc-20240116; t=1787217986; c=relaxed/simple;
+	bh=6FWZ4CXrC3IC3UxJkblN8Q7DcfXAsxDSRH5/oQe6mig=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=La/DfuIhO4xp0Rr7mf9q26gMKR0HhuHmR8MtLerf2vu//vc8JCz7YYA5PR1ngQS8imcHyvtQjFNvwIQV2OusoWy9f7lJYJ0nkQsw2G2ekcgbzjASWb0nFXWuxMvJQW/IqZy+4K+jhUxywtqR9yzoT8NV7CDzbjXpUh2EbFN+beo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard-org.20251104.gappssmtp.com header.i=@beagleboard-org.20251104.gappssmtp.com header.b=jrE1Au7U; arc=none smtp.client-ip=209.85.210.173
+	 In-Reply-To:To:Cc; b=KFNgLM37pV6FRj5m1+vaRzcmbcAGP6KFVQSX0cDE82pvzoyUkt5sDJxyrwE0U33sur935O08lzbCthZgMBBqwhC3BCjvdWSAysmlqQCAXv3yowpWiGEy5t3/zTqaNXWII2nOU07o1rGdOusBIc5AJuh0X9CzYTokG1Ig+9gkEGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard-org.20251104.gappssmtp.com header.i=@beagleboard-org.20251104.gappssmtp.com header.b=cU4FvBSM; arc=none smtp.client-ip=209.85.216.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=beagleboard-org.20251104.gappssmtp.com header.i=@beagleboard-org.20251104.gappssmtp.com header.b="jrE1Au7U"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84eb992a881so1612135b3a.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 02:26:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=beagleboard-org.20251104.gappssmtp.com header.i=@beagleboard-org.20251104.gappssmtp.com header.b="cU4FvBSM"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3811f512167so2829037a91.3
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 02:26:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard-org.20251104.gappssmtp.com; s=20251104; t=1787217966; x=1787822766; darn=vger.kernel.org;
+        d=beagleboard-org.20251104.gappssmtp.com; s=20251104; t=1787217974; x=1787822774; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xzjBZTtu53iWfTHftmKggPYuL4K3uk7JwnFJe0vNmS0=;
-        b=jrE1Au7UIuqUWYwSAgGzCN8kNsWAcORNfod6US5g6hdgcCi+aBsrKUBGf7X/MMn+sK
-         p4ZSYKYI7WI8SCGxmZrERg8yEFA0htUjH/ElIpuvHP1KKrJGpatjPE2kIRChCTve5kbP
-         YdBk06roHFVQhB7WVOpBup96CKHUUrKcL6hLzDuzhqDO+r3xVSx8H23em+cZbS5Qz1k/
-         TN+IUZl3Qxa5oTIv5J8KCt9m5RebJx9QB/xeWKVMMcio0evTRyhGA06BGRGn8fAQUvHB
-         974/lLy8Hv7BIXywpc17KgCZHrEXBzdKqkhPCjxqlFaII8Ye7dNsnA7HFc1Mjjdljsp2
-         XSyQ==
+        bh=cW0TGNliGRgRHinSfGnJ0XJ0b5NU2E5kFB50csiZw9M=;
+        b=cU4FvBSMrwiBxsXmcYA/92P5EjnRgSqvA3peJrpd4rIc2c/zlpe8SjC1B2uKaeO59C
+         Ah+KLJD2EcH/FMOwhUx/wW2c/ihfmSe0TJHKH8GrzevFrH7nRKFMhzA+f6aLBAg2PAEI
+         cEEOgq5fdYMr6ZKExvaFij3KEPg4p8cdfXM3zX4WBRUN/wW5ayX16hG3LmT8DmWGd7PQ
+         472pPQ9MCgxzEK4tB4pUGkrYqo5ueebh+SyZaINqO1snUR0E3iNMfyMq8IGiN3hIaIUB
+         MJpgSf0SjCa4y6aBp4YfMiD3sxiSRPMVSAgDuLMajJlyuGNEXSLPZZvW1EQQgDyEgvXN
+         kJfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787217966; x=1787822766;
+        d=1e100.net; s=20251104; t=1787217974; x=1787822774;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xzjBZTtu53iWfTHftmKggPYuL4K3uk7JwnFJe0vNmS0=;
-        b=om11Oit03MVvS3pauTtaRsCNfPTIJLrAn1603K9re1iSPTZXTzCV9Ezxc3ra+Oqs4A
-         ZK3tZ14u7HIUGDh7SP7tqxIf9+I0mPMhWyETn6YYJrUIJrKNeK653PW5Z0eQBbbf5h1A
-         YBy6jkDuMrzAPAZRzpmu/Vq/vij1sFI9YfGmAyozuml/MX+T9eYjAVLde7uD7hdA/fX/
-         2U0LKaT7UC9FAexFMWYMBvMGBiFXNGqlsH5UPieKUSWGgRj9Bw0MzW3ajIGW7BrvoXxX
-         kmTD3Z45Si143wjaTwDi5VSCEffj2EjDebU5ZvhlaMzHfSvSOTVvDd/7vCtIr56wXjmx
-         zz/Q==
-X-Forwarded-Encrypted: i=1; AHgh+RryWhdU9x+mEp8ert2jqYnOh58jcC8OHkHHs21UEi8U1ImPgKAgcxThNjRiJX/MGhJvxrOXZTAhy0c8@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCUnyMvgoTfU40tG8N/0RPcfZ0/kf8rBOtAuyfJ3tvjM8FGR23
-	Do4JqUczzEqBnZzkXHcfCH/tzU0UbbP7NrM0VoC3YCGXDShVk8QSMa0sRqQ+XL+DvQ==
-X-Gm-Gg: AR+sD11hp9ODxwE4k5ZJpu70X6OsISaZQy5Cxm7KhjzNRB8L4NDZuAQSiTqEy8/i9M7
-	mJ2w1swafOa8NerJE6KJ4ToXbJVZjUIvUgnLVfZJpvbWYyV5PR6ylaoOgrki1E0ntvHneg04Cst
-	k1gm28GpOQnhLb5JrCsKByChZzXm5SeFnZG6uLjFHoM01MWsDhW2n/BGMNrl4lweyWkyIfiFHIE
-	yVZNyAWQnGWzxBkB72ieaxjoFIJzClaFqcDDO9ubSQsNIJMOIK4kzbwaaXsz6t4IjuAD+TrgZ99
-	EewWNaIbTt6P3ffsP4CsJASVW+KvHldM64VxkDT2SENkv9y32TbbVoA50q7sQWjjcUoGPcUJO4D
-	IdEMDADR2Vq51gfyh80IsFPHJoZyXB24EMidkpVJKZb+eqm8nqpQzk+uKZqUjT4ZjYRUsswzlMC
-	xVhoDsGHjMJqphkDHv5ZCS/V/9wcgt39rH7qtaRv3leoBVJoOcp/8W7W+KVN1FdM48LMa3bBM=
-X-Received: by 2002:a05:6a20:3ca1:b0:3c3:66c5:68d6 with SMTP id adf61e73a8af0-3cd00f77410mr20716026637.9.1787217965814;
-        Thu, 20 Aug 2026 02:26:05 -0700 (PDT)
+        bh=cW0TGNliGRgRHinSfGnJ0XJ0b5NU2E5kFB50csiZw9M=;
+        b=ItwIFFutZjk8CYmwLA2RtmLNZ1DHy2jFZ0ovAProqimUBg3Bxy3w91CXmhPQLic0f3
+         dyRvJItwAjrrK/mO4cZyKyhCvlo3R6D6growG1JRO5nsEE3izAlSDCZ6KAfFtv2eg/mI
+         BSznzqqv+2JXyuV5bzolSZYSR+6eddwEjJM60Ti52lwbXUKUwcUGNi1zfNSN5+bJvrGL
+         mU/45nH5hIzjiasCKHEFHgHzOp9c5cdiO9gQHbg5u5RnyWomtWZoMXgsfdBciDNO/O1Z
+         EDaFsyHoET2S54Mxo/USGn0LOpFw4jycUEQmgdNJ3e2k17sryyqIjyX/psJMdJ84rzLP
+         4w5w==
+X-Forwarded-Encrypted: i=1; AHgh+RpANPxMcM7cOo919ZVKN8YWniQ/UtrHDzJi2MvpW5dUAArjVT//PSh3a5GJ6somgt4Bud8HFg2EF+7D@vger.kernel.org
+X-Gm-Message-State: AFuF++k2UGXYGagBKBxjEDcvNac4xEWlCMxG16ywPqm52FeLUh1GFIZZ
+	f6jn5sPKKIpUMkDa41gn7gv6Lmkg7x/9W9zfdATOP39DdRNlc1Bqi/atTPFSXOvJVQ==
+X-Gm-Gg: AR+sD11vrBNeKWGIbTCzQ8sjmTkht4XJFXCZXz4f28Sgbbm2nvnUnV8IlRLXRE1Fro0
+	65hU4beaRGDxx10jlkgmCCZ3ZH1r0WuJPS/KB0Gk1nhApGx8Ek0TWnC22qywgc3sTKMlWygdO93
+	t6wQIZsLm6oak/Y6I1qoaj1RscliRWWmeObeUo2fStEMLZQdLcBZk9Mwh9RZwdK1MYerLPkU5rr
+	+hUz2HfVzAii6TVvXAyb5919ozVqeONMQKo3HzsECcbDFI+vSNcysiAlRLthxwF5AGY2Si2XZIs
+	Im4aPh4p89h1Q3DtHUGRKeh03iZhsP4+js8RXMHDE65o9a+ehj9DVmDvn6hK1K3+l/dX7v+tBYa
+	Pl7b+zRO9iHxCCXn6Jdb5kSvvNhFhS1rcuHeetB3oLh5z+GuAn8uX67AGSe5tccyJ+qfYtgfY0Z
+	d9lybku+fDzYL33rGXdilrduLQf7v0Ovwk3PMV1/DYgPq2W/tF23BWnfVjbkBOd4aIDC8Mn9g=
+X-Received: by 2002:a17:90b:544f:b0:381:152b:d596 with SMTP id 98e67ed59e1d1-3958108a4b0mr21950129a91.11.1787217974316;
+        Thu, 20 Aug 2026 02:26:14 -0700 (PDT)
 Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ad6060asm25903254c88.6.2026.08.20.02.25.57
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ad6060asm25903254c88.6.2026.08.20.02.26.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 02:26:05 -0700 (PDT)
+        Thu, 20 Aug 2026 02:26:14 -0700 (PDT)
 From: Ayush Singh <ayush@beagleboard.org>
-Date: Thu, 20 Aug 2026 14:55:43 +0530
-Subject: [PATCH 1/7] greybus: connection: Export gb_connection_get() and
- gb_connection_put()
+Date: Thu, 20 Aug 2026 14:55:44 +0530
+Subject: [PATCH 2/7] greybus: connection: Add
+ gb_connection_hd_find_by_intf()
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-gb-uart-transport-v1-1-282da14ab7b7@beagleboard.org>
+Message-Id: <20260820-gb-uart-transport-v1-2-282da14ab7b7@beagleboard.org>
 References: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
 In-Reply-To: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
 To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
@@ -95,79 +95,82 @@ Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
  rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
  devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2142; i=ayush@beagleboard.org;
- h=from:subject:message-id; bh=3v8CbSbKdFVV/RjS8CpC/g5rvbPZ6MrtTulOIvBnDLU=;
- b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBqhsgcsGXsXSPB7SXci9/gMJrvKggOA203vrKBM
- soP+2HaYsqJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCaobIHAAKCRAFzvXHieVa
- dEdiEACWq18kE7iI+UXzmz+hA/pJvhpAA4AaqDxNGkfh/85AAI+4vtEkocPh8pN2lMFEPZY2Wpw
- fcBkT88GupqSEJOqjq603FuN15iH0mpbpIBqHdSZiddqlWT1VcFcIQlLRjs4Wf03n/Axqvvx8HS
- 83fvE7JcXHeo1SOVBAaIgWmS4Gx4vjHT82yLvYVn69M/gmQcy3XHbUDjJqvevjWAUqrS1z7/XTA
- dFh1NHDUC4F0rdv7A7yIFIOXJz9m/6Fj5U2tH77yqH5jL+2Q8duQkQOBIgUOeZ2iHF6GMfQNsmT
- FAbltVef/eV37V7aAlwvdwJkL5P7viP776sUt1pl421yvjdbnH4IuOaKRi81uTltnJPoGIRS6O2
- pTIC3Wu/cnS6x4DIjdmFJou6ThaEIZn80ucHDpB7xCKmBHLl1PifImdKA6VZhJCN8SATJjHGAq5
- 9Yr5dwlrC87firFBxtQYeBqPpucQsWlsb6RBfRi9sp9PGHUwSr28JHqNpChqGXlrJFIOb5TqfN9
- 9bB9w0ErZgTmfhr66sQU7+j4Xtsz+rtXx84s0GKCNymCtnndaznUcnGKCrb119Qpuu3/BdAOFMv
- c04gCdL5nKzj4hVP5SH2Hq6Z85S5q/QP3nU98bycEmOrDGUdslNXNxQMqoPiFPL7ZcDQFTkT5NY
- ca5dS2Jjqof9QNg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2390; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=6FWZ4CXrC3IC3UxJkblN8Q7DcfXAsxDSRH5/oQe6mig=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBqhsgczHXrqaZlvmoyFYXnGxoC8dnp2zg1Ri0jd
+ JgP8jvepayJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCaobIHAAKCRAFzvXHieVa
+ dI9ID/4qUt8idxVlT1iSbVUvHo/2lFcqC+y1DXdyEaW2PdRkza7VruIwciXjiG6N7KtVNGpLeQl
+ b6vfdN4mEm36VdJZVhWMr45v1hTv0eNQbtYGig3CnCO+BMSyLaiZqMZReVY3ATAQpq/m8zWcLny
+ YrFeNSl+mBOQkzDp4G53qBEY1lV6E4DfP7rjWwzTCZ2HyCy8/ilSe70P2EQzQgICTBeX7rXbXU8
+ Rk2O5Y0/wigAbF0Q7HH8xklk6lWzHzzVVI5QowLo80aHy61tpw6T0afD4/PyG9LSCQ/lVI/JpqP
+ TJlGTt/52+ivF3DTUQYgnMqIx3syr9DGvYpuCUTQdWxLYkrMUraYpVaz0GtHDCvhqAEEI6fuKVV
+ APrEsHkAtKB00aLSNeSPRJ/VFKgeJFgEZkPQvCVR6C5QfwBvsrGXGSaEwTxAFqbaqY9a4MvB9XV
+ +E3FLzAs/wFTb9TBxH9pAYgKg6300sYmZTnqjXpswVFcrIVqp1Ulb2Umh1vbCj1QANlzUiYsps1
+ 2+gb5Pc2seYoWTeCt/9mbdyoryj25sKRXDiAl35WPRUiKDcPN2ClifW0y5u0Lo52Pin6vGKRKvP
+ yqwP4m9ZkQZidP3rH4R/GAymLLauTTdZLUgL/J4suT0m1UrRFZu61Zb0I+HYQLYqsaR6Xa7r7kg
+ UbZyAiyUYq3lPKQ==
 X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
  fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-gb_connection_get() and gb_connection_put() are currently private to
-the core. Drivers that hold a connection reference obtained from a
-lookup helper need to be able to drop it, and drivers that cache a
-connection pointer need to be able to take one.
+gb_connection_hd_find() looks up a connection on a host device by its
+host-side CPort id. Callers that only know the remote end of a
+connection (the interface id and the CPort id) have no way to find it.
 
-Make both functions non-static, declare them in the greybus connection
-header, and export them so modular drivers can manage connection
-references. The first user is Rust greybus abstractions, added later in
-this series.
-
-No functional change.
+Add gb_connection_hd_find_by_intf(), which walks the host device's
+connection list and returns a reference-counted pointer to the matching
+connection, or NULL if there is none. The caller is responsible for
+dropping the reference with gb_connection_put(). The first user is
+gb-softsvc driver, added later in this series.
 
 Signed-off-by: Ayush Singh <ayush@beagleboard.org>
 ---
- drivers/greybus/connection.c       | 6 ++++--
- include/linux/greybus/connection.h | 3 +++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ drivers/greybus/connection.c       | 22 ++++++++++++++++++++++
+ include/linux/greybus/connection.h |  3 +++
+ 2 files changed, 25 insertions(+)
 
 diff --git a/drivers/greybus/connection.c b/drivers/greybus/connection.c
-index bd04485decb3..f8fda22bc466 100644
+index f8fda22bc466..262161fa4721 100644
 --- a/drivers/greybus/connection.c
 +++ b/drivers/greybus/connection.c
-@@ -33,19 +33,21 @@ static bool gb_connection_cport_in_use(struct gb_interface *intf, u16 cport_id)
- 	return false;
+@@ -71,6 +71,28 @@ gb_connection_hd_find(struct gb_host_device *hd, u16 cport_id)
+ 	return connection;
  }
  
--static void gb_connection_get(struct gb_connection *connection)
-+void gb_connection_get(struct gb_connection *connection)
- {
- 	kref_get(&connection->kref);
- 
- 	trace_gb_connection_get(connection);
- }
-+EXPORT_SYMBOL_GPL(gb_connection_get);
- 
--static void gb_connection_put(struct gb_connection *connection)
-+void gb_connection_put(struct gb_connection *connection)
- {
- 	trace_gb_connection_put(connection);
- 
- 	kref_put(&connection->kref, gb_connection_kref_release);
- }
-+EXPORT_SYMBOL_GPL(gb_connection_put);
- 
++struct gb_connection *gb_connection_hd_find_by_intf(struct gb_host_device *hd,
++						    u8 intf_id, u16 intf_cport)
++{
++	struct gb_connection *connection;
++	unsigned long flags;
++
++	spin_lock_irqsave(&gb_connections_lock, flags);
++	list_for_each_entry(connection, &hd->connections, hd_links) {
++		if (connection->intf->interface_id == intf_id &&
++		    connection->intf_cport_id == intf_cport) {
++			gb_connection_get(connection);
++			goto found;
++		}
++	}
++	connection = NULL;
++found:
++	spin_unlock_irqrestore(&gb_connections_lock, flags);
++
++	return connection;
++}
++EXPORT_SYMBOL_GPL(gb_connection_hd_find_by_intf);
++
  /*
-  * Returns a reference-counted pointer to the connection if found.
+  * Callback from the host driver to let us know that data has been
+  * received on the bundle.
 diff --git a/include/linux/greybus/connection.h b/include/linux/greybus/connection.h
-index d59b7fc1de3e..b53aad2270d6 100644
+index b53aad2270d6..589721d46015 100644
 --- a/include/linux/greybus/connection.h
 +++ b/include/linux/greybus/connection.h
-@@ -128,4 +128,7 @@ static inline void gb_connection_set_data(struct gb_connection *connection,
- 	connection->private = data;
- }
+@@ -131,4 +131,7 @@ static inline void gb_connection_set_data(struct gb_connection *connection,
+ void gb_connection_get(struct gb_connection *connection);
+ void gb_connection_put(struct gb_connection *connection);
  
-+void gb_connection_get(struct gb_connection *connection);
-+void gb_connection_put(struct gb_connection *connection);
++struct gb_connection *gb_connection_hd_find_by_intf(struct gb_host_device *hd,
++						    u8 intf_id, u16 intf_cport);
 +
  #endif /* __CONNECTION_H */
 
