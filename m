@@ -1,46 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E69A391E7E
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 18:20:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3D3353A8D;
+	Thu, 20 Aug 2026 18:33:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787250050; cv=none; b=jrk19wF0iNDKsmsIJqHWAEQJdsTspcgQgRGL6X0B3xrb/IBHZ9cS1KsNoLHTeAvTbeg5CRUC6rpB0/nCQ9yY3TMDrHBdHNsddXMc3/qqRn6BQc5p/1Eza2kzlxejKVx1tjTH/J/WbEyd4wWmioggR67XbqY1IEP7HbHYjLtEZKg=
+	t=1787250801; cv=none; b=sYM6Pahvj28n6f+N93bedEI1RiSHlaPOGOnek0nQLv0mWZ0S7pO3w4kH7+RzNphxm1ZPYBvpKiv2SfGe279FsGPMeao4CzwevL9n1zyT8vno3epFEye1qiLsp/S855HTmavFt3oPdPffLpfnN/RKn4Yh5zI+35sU/x8IF2yQ7zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787250050; c=relaxed/simple;
-	bh=N/qcENuiSJDFcG1K7+U25wVX6SdLuI/Opej2DRzsH/k=;
+	s=arc-20240116; t=1787250801; c=relaxed/simple;
+	bh=UqB/dwHwXnZfh2VWnULlLZDFBTlJBsIxh4q8ia4I734=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g0k174okcFIfpGdLIC7EyW5a21Lf7FQaP/FBpQ5E2oK/mHHdhXI3WKrnhYpJJFswc+riPm6g6L2F3X9+lrWwr+JgZOAEqcG/XR+CeOITFrRUmPgGsHP3NQZYMk8KHq0q510IFYQGy9v5Rr5UXrXivWyjQlC6lOuwckJZJIb1WJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j5WjCTHj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WINRKXl+Qsp7hE5IGO7kMzv26pPut4A+gbFQJNUilPTcPKnMp4Jscrd6UkGZbBcT/8AiiT4cHUXH0MbzUzE3ekd/HxoQfpilM31zLSDCDnWXmdYAhcCJdan3QhFjUwZwa3ZDTwew9Lv98PiRsmo5MS4rodZEHAvCVENa45dNau4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G63YqMRk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j5WjCTHj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4B91F000E9;
-	Thu, 20 Aug 2026 18:20:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G63YqMRk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498061F00A3D;
+	Thu, 20 Aug 2026 18:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787250048;
-	bh=Dt1ularuwh4GAmniGZXU1TkEHbWNs9aSSgtoCZdHQQA=;
+	s=k20260515; t=1787250799;
+	bh=F2dRrOK0MCAkDIp4fOzdetA+pyw32S3jmLYP2LSLceA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j5WjCTHj2OOop5JTee/9oCrF08yTx4iYKqVa+YvFXGrQXHk48pBpCcWRgD0mu+m1o
-	 7pdvlVtRqV5MXA4tcnPyIGtFiF6j5aC+YhFsHVn6FM9cHPXyUbFy9WEHO++8C43b2p
-	 r5RaLV+ZioRfh6qrAJ6qkbDYJpCuX9Zk3m+DQCytK+vLjV5XdLOjE2vn4Iaz9JwGZT
-	 O+x3goDl04p9J//mxxriKH/CqBuSHet6eQ919vhK3a450/iyJ7EjCi1g1Czad31FHg
-	 AI1W0P62B42o7PPmiEWMnqxLt5y8v6Q1wI6tK0uGhKaBC0m/x5YVl3Ll94v0Two6Pv
-	 84AMNSso17REA==
-Date: Thu, 20 Aug 2026 19:20:44 +0100
+	b=G63YqMRk567nr4M1yDdJ3W23EYScIQs2KKdRE0rYlK58lhQ5DpyHLayaMyJMmRXHQ
+	 UGia96ZnRPcCPP5IEsu4OaonxtfBrQ3T7EugyNSz5PxWYcT1Z7lO6C4gNsiqg5RLAC
+	 SXBjYNc3rWFZdZ1zJw7R99CMDAMOX7fMg74SFNMBoAArSY7RqWBNXlDiDT3+usYvv3
+	 4UB+LEwtBBtmJep/Rxx98BE6mmThlFsSd59ZwZ6QKpIeGUTcWOSpbHYzOQIqXEurNZ
+	 5viu0yUrteUo061aqpEBMemvpYVgCfvHaZM3WeOKhzwxtg50UrO7TYNuWtR9lDtldD
+	 lpuHaN2OJc9CQ==
+Date: Thu, 20 Aug 2026 19:33:12 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Yaxing Guo <guoyaxing@bosc.ac.cn>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org, inux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, yangyinglu@bosc.ac.cn,
-	yangyinglu <yangyinglu@bosc.cn>
-Subject: Re: [PATCH] dt-bindings: riscv: firmware: Add OpenSBI configuration
- binding
-Message-ID: <20260820-mowing-marbling-ff0a0c82804c@spud>
-References: <20260819090411.18561-1-guoyaxing@bosc.ac.cn>
- <20260819-extent-decrease-0483d66a87af@spud>
+To: Ayush Singh <ayush@beagleboard.org>
+Cc: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com,
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 7/7] dt-bindings: beagle: Add BeagleConnect Freedom
+Message-ID: <20260820-anytime-barrel-9a0547910a2c@spud>
+References: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
+ <20260820-gb-uart-transport-v1-7-282da14ab7b7@beagleboard.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,125 +61,110 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NAPYhvb5+gg4INVm"
+	protocol="application/pgp-signature"; boundary="j2SR/aNcWPdTYXYY"
 Content-Disposition: inline
-In-Reply-To: <20260819-extent-decrease-0483d66a87af@spud>
+In-Reply-To: <20260820-gb-uart-transport-v1-7-282da14ab7b7@beagleboard.org>
 
---NAPYhvb5+gg4INVm
+--j2SR/aNcWPdTYXYY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 19, 2026 at 06:03:12PM +0100, Conor Dooley wrote:
-> On Wed, Aug 19, 2026 at 05:04:11PM +0800, Yaxing Guo wrote:
-> > From: yangyinglu <yangyinglu@bosc.cn>
-> >=20
-> > Add a Devicetree binding for OpenSBI configuration data in the
-> > chosen node, including the cold-boot-harts property.
-> >=20
-> > OpenSBI supports describing certain Generic Platform configurations in
-> > the device tree passed by the previous boot stage. The OpenSBI source
-> > tree documents the `opensbi,config` node and provides the corresponding
-> > device tree parsing flow.
-> >=20
-> > The `/chosen/opensbi-config` node can be used to configure OpenSBI,
-> > including the set of harts permitted to perform a cold boot through the
-> > `cold-boot-harts` property. OpenSBI parses this node during the boot
-> > phase and removes it from the device tree after cold boot.
-> >=20
-> > Add the Devicetree binding for this OpenSBI configuration node to
-> > document the supported `compatible` and `cold-boot-harts` properties.
-> >=20
-> > Signed-off-by: yangyinglu <yangyinglu@bosc.cn>
-> > ---
-> >  .../bindings/firmware/opensbi,config.yaml     | 38 +++++++++++++++++++
-> >  1 file changed, 38 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/firmware/opensbi,=
-config.yaml
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/firmware/opensbi,config.=
-yaml b/Documentation/devicetree/bindings/firmware/opensbi,config.yaml
-> > new file mode 100644
-> > index 000000000000..86b1e1e673a8
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/firmware/opensbi,config.yaml
-> > @@ -0,0 +1,38 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/firmware/opensbi,config.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: OpenSBI Firmware Configuration
-> > +
-> > +maintainers:
+On Thu, Aug 20, 2026 at 02:55:49PM +0530, Ayush Singh wrote:
+> Add devicetree bindings for the BeagleBoard.org BeagleConnect Freedom,
+> a wireless-enabled board based on the TI CC1352P7. The board exposes an
+> MCU that can be attached to a host over USB, UART, SPI or I2C, and is
+> described as a child node of the corresponding bus.
 >=20
-> You probably should've waited for a response to your question about who
-> should maintain it before sending, becuase I am not entirely sure this
-> software configuration node should be documented or if the maintainers
-> of opensbi would want it to be.
+> Signed-off-by: Ayush Singh <ayush@beagleboard.org>
+> ---
+>  .../beagle/beagle,beagleconnect-freedom.yaml       | 30 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 31 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/beagle/beagle,beagleconnec=
+t-freedom.yaml b/Documentation/devicetree/bindings/beagle/beagle,beagleconn=
+ect-freedom.yaml
+> new file mode 100644
+> index 000000000000..5a246f81261e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freed=
+om.yaml
+> @@ -0,0 +1,30 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/beagle/beagle,beagleconnect-freedom.y=
+aml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: BeagleBoard.org BeagleConnect Freedom
+> +
+> +description:
+> +  The BeagleBoard.org BeagleConnect Freedom board connected over USB, UA=
+RT, SPI or I2C.
+> +
+> +maintainers:
+> +  - Ayush Singh <ayush@beagleboard.org>
+> +
+> +properties:
+> +  compatible:
+> +    const: beagle,beagleconnect-freedom
 
-And to quote Anup:
-| The opensbi configuration is all under "/chosen" DT node so I am
-| not sure if we should have related bindings under Linux sources.
-|=20
-| Other projects (such as U-boot or Xen) who use "/chosen" DT node
-| also don't have their bindings under Linux sources.
+These compatible only devices always look suspect to me, I feel like
+these things probably at least have an optional regulator if the power
+source for the freedom is provided by the device running linux.
 
-So this is a nack from me on that basis, sorry. Did you have some user
-for this that could change my mind?
+You're also short the required properties for dealing with anything
+other than uart, so spi or i2c. (I assume USB doesn't need devicetree to
+function).
+
+pw-bot: changes-requested
 
 Thanks,
 Conor.
 
+> +
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    serial {
+> +      mcu {
+> +        compatible =3D "beagle,beagleconnect-freedom";
+> +      };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 037a87b74800..49c6dac72748 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -11338,6 +11338,7 @@ GREYBUS UART NODE DRIVERS
+>  M:	Ayush Singh <ayush@beagleboard.com>
+>  L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
+>  S:	Maintained
+> +F:	Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom=
+=2Eyaml
+>  F:	drivers/greybus/gb_uart_node.rs
+> =20
+>  GREYBUS SUBSYSTEM
 >=20
-> Cheers,
-> Conor.
+> --=20
+> 2.55.0
 >=20
-> > +
-> > +description: |
-> > +  OpenSBI configuration data passed in the chosen node.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: opensbi,config
-> > +
-> > +  cold-boot-harts:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> > +    description:
-> > +      List of hart CPU nodes selected as cold boot harts by OpenSBI.
-> > +
-> > +required:
-> > +  - compatible
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    / {
-> > +        chosen {
-> > +            opensbi-config {
-> > +                compatible =3D "opensbi,config";
-> > +                cold-boot-harts =3D <&cpu0>;
-> > +            };
-> > +        };
-> > +    };
-> > +...
-> > --=20
-> > 2.43.0
-> >=20
 
-
-
---NAPYhvb5+gg4INVm
+--j2SR/aNcWPdTYXYY
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaodFewAKCRB4tDGHoIJi
-0rIDAP9KaJzdKUnGV/A5JJJ7EmTMo1fKndvtfhOidaamNZuoFwEA4QEPjPvvPMfi
-Dxa3fwxFgwi+xB0QaJhJKcdI1T+pBAQ=
-=2xDn
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaodIaAAKCRB4tDGHoIJi
+0o4EAQD3MP/GgYlSZSQT6kBtNqBNMlLUCum5/jK7ItWG6lh4QAD/Yyz859M9yNiX
+TGCkKM35r9tRDJyMK2UVSVTiVWQhLg0=
+=nz6B
 -----END PGP SIGNATURE-----
 
---NAPYhvb5+gg4INVm--
+--j2SR/aNcWPdTYXYY--
