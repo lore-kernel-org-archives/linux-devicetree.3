@@ -1,193 +1,289 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E3940D58B
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3363BD228
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787221054; cv=none; b=MJBUqADbflwZYkg5kwu9GM99m1yHAAhA5Gl54viuVgWt+jvBSchj1Gtvg3lFfZAjhyKc94pjLW/1G530pwovt4i9dPFiH4JIXHwoEu2eTirRNmq2jDv4EVIzytEjEsQXO5inbAlzVEKR7wYi2Q2/IgDBXQVST7zWr47mGlEoZsA=
+	t=1787221141; cv=none; b=NUPMxCt7RS4aBxVMbr7GINUVnF1Sa98PMSMJHkKMzbN+LmACmU0dQYpE4sI3JnbkluJ87dNfw1LKSoZcl8Ouk2Ca5YD6Y5HbZcrwlnc/JfdkLzlXsDVc+xMHtqno1DM8vm5ZKvOxeaPASvRqPP62v7wxyZLcNsY/OCpD6gONK1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787221054; c=relaxed/simple;
-	bh=Rt4KCNIC0bk4LE3kNjZBDI9ppI6hU368mOP8+6m3pu0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FK/qG5AbBqKXLoo9JTOkI4CxaYJ9iEe9EbuUxY24sqwTK2SkwquhUux6JEvfPyZAwHkW9E+iTu05u/Q65phgznsEdvoUrjlXspxI32hgpwoT17kphahDUt2Ut2QoRA6cIVSJZEzInZ3aPyZp2X2GJKaEUYwegfMhX1bEdncaTgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MFv5c1Hi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=esdjtWs8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787221141; c=relaxed/simple;
+	bh=ypQhHbVTHOprgtbVHtmQ/UYSIvXiLh8ey5IzfWVbv0o=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cH1T8cDVE6SKxSap8LJn2SNOnzIMQabzy92H5hvE+DhW58fNd2upJ0VQE8e+yP0bnIby5syReqOD0cT7VaYWNg12Z8/hPLSjhjmVdeaCez0rpmpBGi2ZxUHoMDoECo3N2P75tQPZVb3NFiKhtcWJmmtnskXkcj9X0I2CMekYx8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=pFqSPGbG; arc=none smtp.client-ip=185.70.43.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MFv5c1Hi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="esdjtWs8"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67K8PCPZ2465359
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:17:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VZ8bSWEjaxQsf5haBbDFpLTYwqaPZD3nOYIzf6zf4FU=; b=MFv5c1HisMjCcEdY
-	P02LVDO0cNXReYCDtoEh66zz0umjXu6YAhOfS1iHv7HcB/MDQCB4xoWyT0kyvQQH
-	ftVk4OU+7LiTlIUl0PUbJKe3HD/UX9JwYfVnvzvmFabV0ZNakNHuefiFshPCGym/
-	KuZLqViSjyYpj/usGaTpIchsDsUUnFGa4Qo/tveI4237mNDl0riNDP4mR5rXYziw
-	OjF/EXiGeOT8I46bqW6j5XWX+vrENwPT3bJ7RhQA8bNid1tQczoDEZQ2nFJFtt7X
-	CBcJcE18VIBaXzl4Rsw8NJQgvX0xWR8uM7t06luSRuxr4yAFP7fdFviA57h44S7Y
-	DCNTAg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5x29gek5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:17:21 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c9d953b71so742601cf.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 03:17:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787221040; x=1787825840; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VZ8bSWEjaxQsf5haBbDFpLTYwqaPZD3nOYIzf6zf4FU=;
-        b=esdjtWs8ZiBtHoGo/1XzJTxVH/RcLNhIeR/suXgF8eCH0XmUobrQK5zSGisHRXBfsx
-         DGgQT86gk1CVqXHRS6bA3dtQCYFC/FO83z9tlTQp+UcUg0kGEx0oRGavFYwNnwojA4QM
-         RHigFxRBqxFoRHsanlRmciRNrzBFuSk6+nF6nejO5KnuNYzmW0musWbdn8v+/YeUcEu3
-         YtGFYamzf9ZGcZL8dkQMF05BQhBxvxmfIcD1IKOl4CEhRzSUIH1TQV2atobZ3T41h7z2
-         EgJyTaKMYXS+P7ijdaFcyRmSIavpeVPqxrU9h9zwDfHXia2AGd9aPR0ppy4bcs0DCU9H
-         MyNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787221040; x=1787825840;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VZ8bSWEjaxQsf5haBbDFpLTYwqaPZD3nOYIzf6zf4FU=;
-        b=jkJe2hI+0nb6sc2KFHs4i9TGvGsfXxdtA0pB53cXBRwpCbKlPu5JT+OyHqHLoQ3Xkd
-         bKKTNod1thwAc9gl80Mjo7Zc6BlbCa97Eh21prCWAksQkcr47Pt5ndgm+0Olg75xEMJa
-         6DfhQIjZ6CpMCkhkcDmCGdiSoBuGYpHEt+NzYRqFuhypb8CS4m7awbH2yschYgpIvZdx
-         IYRzQrVUfwN54pmyjZbHyHJ8vGcFnszHBh2acT0WaVfA2bNi7GW7dg8/pwnuLQG6q/TG
-         uE/VFUhEw/kU/XVjxwuBF3NocrfsFtByvrd8CrC3DCzGYwq7DlaP/4idNOyD3/tSC9Zs
-         T1Fw==
-X-Forwarded-Encrypted: i=1; AHgh+RoEOZG8KWcKY+TDSdnwiXHJAvjv0jL5P5rGlQvauivR0W7a8xsoVpjVHTH7+VMHT0wWilFPPR6uqADK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxV2i3S7VjvOIrqsUpMblob/6ORitEZf3kmBwsD4P8mAMSW2W33
-	IZUyMFGaMzJpUCJd62FY2FayDVQVTcSiYGZaCHCJSlDH9/5J9WNtjuu13GOyOQWpNApK5Cvxs2D
-	PVrTos6DCwRGVKkUNthvSjwj9ikk1kYXT1X/kZJEHWydRJwGDlTGOC6D5iOo6mUMb
-X-Gm-Gg: AR+sD11WCID9Y9K45n75qM/ctuzcQ/VosajAEq9DkbetIjqLZvUt4ehyW9WS0b9AjNg
-	I37+F3MFrJvfi9aABavPfd++FmMjukhrb1pqMQvwGJKYT6LnvO8HJgZgcCKRwvDZXEKGEI2YEQi
-	iou8fvL8LYTfwIuvvDimf5Ukz4u6/NmdGM/RzWzJzWR5WdCy247QS2dZaGD2+iYH1GjqYU1M14F
-	6x/gWzscpIZyQdjK/lHOkQ1MpXuSyQGKsl/AbLbHr3sZTawumS7E4r/GuXkXPlH8etqLQ3GLKr/
-	fabXolwdDrkEDsStabepc0u09h+e6qbQ1XzyoIQDOjPvuRo7cncx6NAFW/k3VY596xs2aQQCWGj
-	zqRyUF3KD6VomFE7fTsplJ5Zy
-X-Received: by 2002:a05:622a:130f:b0:51b:f40b:2fa2 with SMTP id d75a77b69052e-52dd574ad4bmr78013181cf.1.1787221040237;
-        Thu, 20 Aug 2026 03:17:20 -0700 (PDT)
-X-Received: by 2002:a05:622a:130f:b0:51b:f40b:2fa2 with SMTP id d75a77b69052e-52dd574ad4bmr78013001cf.1.1787221039762;
-        Thu, 20 Aug 2026 03:17:19 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff0c30casm1866261a12.7.2026.08.20.03.17.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 03:17:19 -0700 (PDT)
-Message-ID: <e16a7122-18c3-4bc5-80c5-1cda458fa2c6@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 12:17:16 +0200
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="pFqSPGbG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1787221123; x=1787480323;
+	bh=cAD1H0LhOVgoTCfynNngF4iXHGyiB44K2m2f/TNoWS8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=pFqSPGbGJFOTOwBKPhSIoettKizJfA7lIAxfJnMTWwE/b/RXYcXr3AZAULTIM+13V
+	 tX2+YGCPT1D8usO4bmfMH9jTARPxWrmC2pIUSioDdinnDl6akIc0GafM+pNW5Sijsr
+	 q2hTTjVxlBIFxWuo4M9djsGGvP8PpYvkc1/Q4FHSK7MQz7g4/oS7G3IAiCHgSFTGjD
+	 td3U5aPKnwH88wAXXEVWVxzZjQt1GjS4l8wQTY6+Och1BfK4CyEhSXmDJYy7hmCUkZ
+	 74ftQSzmum4FqdICl7K/1xYDaYPJ8GjQvv7ABOkGxRSfGYxodXuqFw9TMokqw5E9Ko
+	 iOlpFo4cRSkww==
+Date: Thu, 20 Aug 2026 10:18:38 +0000
+To: Guenter Roeck <linux@roeck-us.net>
+From: Aiden Isik <aidenisik@protonmail.com>
+Cc: sashiko-reviews@lists.linux.dev, Aiden Isik <aidenisik@member.fsf.org>, devicetree@vger.kernel.org, robh@kernel.org, linux-watchdog@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
+Message-ID: <s4LZj1kKLrHHKsrkc1s32s4sh7oKzXqEG4hA_W99bG1YTsgnCj-shElNsnI04D-eVsK4Y0tx7ViBSkjy8LZjZmZ8N4D5UEg0bcU16gOXHP0=@protonmail.com>
+In-Reply-To: <01a0682b-b7ec-45f0-a19d-df40ed6366a2@roeck-us.net>
+References: <20260818-for-next-lucky7-watchdog-v3-0-2912bd122c57@member.fsf.org> <20260818-for-next-lucky7-watchdog-v3-2-2912bd122c57@member.fsf.org> <20260818181349.894171F000E9@smtp.kernel.org> <k_6CWq_7vPkV72MkyL0wCdcr9ptTffpGOGc6dBLbXjcHBV4DGRzP-35mxO0tdOBaIEhy4BxByYLCh8T5nidgwaMwGcNYD9KCIpxkeF4RRiE=@protonmail.com> <83b5d8e7-9504-41c9-9f24-8fce60641de4@roeck-us.net> <-HoGjao7Mdcx5P3JHoh9WjecLbbXBISKawVeEa59KRfhq7rul5NozHGaISvi0T-ZTp2otj7_b5qqb9tQI5XR0Wvp4UzG7crAekiRTXhiOd4=@protonmail.com> <d8191041-a4bc-4674-ab9e-7fb56ca2b56f@roeck-us.net> <cTie_daC2kaIY2BT6HkyAeivwspRhq3thkrkGDMVdIpF2vF5Vr38HQxPcvKFK6pvWatAFk-CO7XL2uz3OCfDSwI-EOxQqI8hNylXjG1jrQI=@protonmail.com> <XNt95pVriUNFbMMYsr5mnQo9LUABboJjUMboxV5mWYj9FQJb6XGjsGkGRre7eSK4bvCG4oOuTg4YNiujCpX7ZlonVgQSHFBEzpFvZLFTXtw=@protonmail.com> <01a0682b-b7ec-45f0-a19d-df40ed6366a2@roeck-us.net>
+Feedback-ID: 46524699:user:proton
+X-Pm-Message-ID: 75dd1fe3b66900fa69089a83f0163e7b000f8594
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/7] arm64: dts: qcom: Add Motorola One
-To: Adam Skladowski <a39.skl@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <20260820-next-patches-v2-0-7130d68183d9@gmail.com>
- <20260820-next-patches-v2-3-7130d68183d9@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260820-next-patches-v2-3-7130d68183d9@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Ek9EKQ0YVpDB-6Jxo5eybJ4a2Wwm7VKX
-X-Authority-Analysis: v=2.4 cv=V8BNF+ni c=1 sm=1 tr=0 ts=6a86d431 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=pGLkceISAAAA:8 a=RkJc_Q4fNhrpPokiRjQA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA3NSBTYWx0ZWRfX+8iyyiomwmMF
- ehi98SDS2Z1kdhBNJEj9c6sSy43kOmOkv04P4AUqQt+SAo3jhER/FzpDYevsqY8NzRHiq4LeI6/
- tfOCkMO5oegVzplM0apaSWbtHo0DdlMOY0mr7C7ZTqJuzLHHn6/wtcjYB7YtpuSlT3gbtu5bcCc
- OunQ9S9UVAFSRqFbvPdaiFQ1MrnLv4adFrvCvUzMOlA/ECFs8jY80AsNSaWVJO+jz+RD3WPwOUv
- I35+ljYIuEsPFWinbayWGWjyTh+H41vX3QFxLNPAMyllIY/OZggAQUkkcMvgtYX0FGoDhYT5x9t
- 4/1XgW9q51Ec22CiMYMtzJyrkS+U200/pnJIyD9wABCUX+DyVuFkAfpiDDXv1CW38mD1U1ZrBIF
- 6EM4WizI2ASr05YHY9wxA4Sgb+V97tzlboiy7kwt6ia1BhVLh30YrEoAQQqAKl1j2kz9MuycknJ
- V+0yZnENSPHbdD5Cb2A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA3NSBTYWx0ZWRfX4DYN0Mo0f8tA
- WwY4b2LpSbyxDWehLRrDW/Et9iOLKfCNvq1e3QdXgLc3djVQBIY0X2fpvuOGsDtFvBIZ9n577X3
- 8JxPpNq3Uj0csMoAQ2TTC//VwlM9PEc=
-X-Proofpoint-GUID: Ek9EKQ0YVpDB-6Jxo5eybJ4a2Wwm7VKX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200075
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 8/20/26 11:42 AM, Adam Skladowski wrote:
-> Add a devicetree for the Motorola One smartphone, which is based
-> on the Jacala/MSM8953 SoC.
-> 
-> Supported functionality as of this initial submission:
-> * I2C peripherals (Touchscreen,NFC)
-> * Power Button, Volume Keys
-> * Regulators (PM8953)
-> * Remoteprocs (ADSP, MPSS, WCNSS)
-> * USB
-> 
-> Device tree also contains supply maps to other subsystems like MDSS
-> but due to missing dependencies like panel those are disabled.
-> 
-> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
-> ---
+> On 8/19/26 16:36, Aiden Isik wrote:
+> > Hi again Guenter,
+> >
+> >> Hi Guenter,
+> >>
+> >>> On 8/18/26 12:35, Aiden Isik wrote:
+> >>>> Hi Guenter,
+> >>>>
+> >>>>> On 8/18/26 11:33, Aiden Isik wrote:
+> >>>>>>> Thank you for your contribution! Sashiko AI review found 1 potent=
+ial issue(s) to consider:
+> >>>>>>> - [Medium] Missing PMU counter enable configuration for Exynos551=
+5 watchdog.
+> >>>>>>> --
+> >>>>>>>
+> >>>>>>> --- Patch [2]: [PATCH v3 2/2] watchdog: s3c2410_wdt: Add exynos55=
+15-wdt compatible data ---
+> >>>>>>> commit 9ce360e3c933b7447ba5da9ba1b7ae3fee989703
+> >>>>>>> Author: Aiden Isik <aidenisik@member.fsf.org>
+> >>>>>>>
+> >>>>>>> watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
+> >>>>>>>
+> >>>>>>> This commit adds driver data for the Exynos5515 SoC's watchdog ti=
+mer.
+> >>>>>>>
+> >>>>>>>> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s=
+3c2410_wdt.c
+> >>>>>>>> index e31f93db05096..5592f25fe6c83 100644
+> >>>>>>>> --- a/drivers/watchdog/s3c2410_wdt.c
+> >>>>>>>> +++ b/drivers/watchdog/s3c2410_wdt.c
+> >>>>>>>> @@ -232,6 +232,16 @@ static const struct s3c2410_wdt_variant drv=
+_data_exynos5420 =3D {
+> >>>>>>>>     =09=09  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
+> >>>>>>>>     };
+> >>>>>>>>
+> >>>>>>>> +static const struct s3c2410_wdt_variant drv_data_exynos5515 =3D=
+ {
+> >>>>>>>> +=09.mask_reset_reg =3D EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
+> >>>>>>>> +=09.mask_bit =3D 2,
+> >>>>>>>> +=09.mask_reset_inv =3D true,
+> >>>>>>>> +=09.rst_stat_reg =3D EXYNOS5_RST_STAT_REG_OFFSET,
+> >>>>>>>> +=09.rst_stat_bit =3D 24,
+> >>>>>>>> +=09.quirks =3D QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESE=
+T | \
+> >>>>>>>> +=09=09  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
+> >>>>>>>> +};
+> >>>>>>>
+> >>>>>>> [Severity: Medium]
+> >>>>>>> Does the Exynos5515 PMU require explicit counter enablement like =
+other recent
+> >>>>>>> Exynos SoCs?
+> >>>>>>>
+> >>>>>>> Other variants in this driver (like Exynos850, AutoV920, and GS10=
+1) that use
+> >>>>>>> the NONCPU_INT_EN PMU registers also pair it with a NONCPU_OUT re=
+gister and
+> >>>>>>> the QUIRK_HAS_PMU_CNT_EN flag to ensure the watchdog counter tick=
+s.
+> >>>>>>>
+> >>>>>>> If the Exynos5515 hardware works similarly, omitting cnt_en_reg, =
+cnt_en_bit,
+> >>>>>>> and QUIRK_HAS_PMU_CNT_EN here might leave the counter disabled an=
+d the
+> >>>>>>> watchdog silently non-functional. Could you confirm if this varia=
+nt needs the
+> >>>>>>> counter enable logic?
+> >>>>>>
+> >>>>>> Exynos5515 does not require this.
+> >>>>>>
+> >>>>>> Downstream on GS101, as an example, has this struct member set:
+> >>>>>>
+> >>>>>>> pmu_count_en_func
+> >>>>>>
+> >>>>>> This is not set downstream for Exynos5515, so it is not used for
+> >>>>>> Exynos5515.
+> >>>>>>
+> >>>>>
+> >>>>> You keep talking about "downstream". What is that ?
+> >>>>
+> >>>> By "downstream" I am referring specifically to Samsung's Linux kerne=
+l
+> >>>> fork for Exynos5515.
+> >>>>
+> >>>> I host a copy here: https://github.com/Aiden-Isik/linux-android-luck=
+y7
+> >>>>
+> >>>> Also in this message I refer to Google's GS101 kernel fork, which ca=
+n
+> >>>> be found here:
+> >>>> https://github.com/LineageOS/android_kernel_google_gs101
+> >>>>
+> >>>
+> >>> Both are completely irrelevant for the upstream kernel. I am most def=
+initely
+> >>> not going to look into that code. If there is anything relevant - suc=
+h as
+> >>> the comment you pointed to earlier - you'll need to provide that as i=
+ndependent
+> >>> comment(s), not just refer to some downstream code as explanation. Th=
+e
+> >>> explanation needs to be provided in the _upstream_ kernel code.
+> >>>
+> >>
+> >> There's not really any explanation for it other than "that is the way =
+it is".
+> >> Samsung designed the Exynos5515 watchdog timer to not have that quirk,
+> >> I read the downstream code and learnt that fact, so we don't enable
+> >> that quirk.
+> >>
+> >
+> > Just in case I am misunderstanding what you are asking for and you want
+> > examples of how I know this is correct to be posted on the mailing list=
+,
+> > here you go.
+> >
+> > Unfortunately Samsung doesn't publish technical specifications for thei=
+r
+> > modern SoCs, so the best documentation we have is their own source code=
+,
+> > which doesn't really explain the *why*, but it does explain the *what*
+> > and the *how*.
+> >
+> > I'll do my best to explain it concisely and how we drive the hardware
+> > in the same way upstream:
+> >
+> > Google (and/or Samsung since GS101 is Exynos-based) define the struct
+> > for the watchdog timer like this:
+> >
+> >> static const struct s3c2410_wdt_variant drv_data_gs101_cl0 =3D {
+> >> =09.noncpu_int_en =3D EXYNOS_CLUSTER0_NONCPU_INT_EN,
+> >> =09.noncpu_out =3D EXYNOS_CLUSTER0_NONCPU_OUT,
+> >> =09.mask_bit =3D 2,
+> >> =09.cnt_en_bit =3D 8,
+> >> =09.rst_stat_reg =3D EXYNOS_RST_STAT_REG_OFFSET,
+> >> =09.rst_stat_bit =3D 0,      /* CLUSTER0 WDTRESET */
+> >> =09.pmu_reset_func =3D s3c2410wdt_noncpu_int_en,
+> >> =09.pmu_count_en_func =3D s3c2410wdt_noncpu_out,
+> >> =09.quirks =3D QUIRK_HAS_PMU_CONFIG | QUIRK_HAS_RST_STAT | QUIRK_HAS_W=
+TCLRINT_REG |
+> >> =09=09  QUIRK_HAS_DBGACK_BIT | QUIRK_HAS_WTMINCNT_REG,
+> >> };
+> >
+> > Note 'pmu_count_en_func' is set.
+> >
+> > Later on in the file, we have this code:
+> >
+> >> if (wdt->drv_data->pmu_count_en_func) {
+> >> =09ret =3D wdt->drv_data->pmu_count_en_func(wdt, true);
+> >> =09if (ret < 0) {
+> >> =09=09dev_info(wdt->dev, "wdt count enable fail\n");
+> >> =09=09return ret;
+> >> =09}
+> >> }
+> >
+> > Which will call the chosen counter enable function if that field is set=
+,
+> > which will, well, enable the counter.
+> >
+> > Now, for the struct corresponding to Exynos5515 in the same driver:
+> >
+> >> static const struct s3c2410_wdt_variant drv_data_exynos9_v4 =3D {
+> >> =09.noncpu_int_en =3D EXYNOS_CLUSTER2_NONCPU_INT_EN,
+> >> =09.mask_bit =3D 2,
+> >> =09.rst_stat_reg =3D EXYNOS5_RST_STAT_REG_OFFSET,
+> >> =09.rst_stat_bit =3D 23,=09/* CLUSTER2 WDTRESET */
+> >> =09.pmu_reset_func =3D s3c2410wdt_noncpu_int_en,
+> >> =09.quirks =3D QUIRK_HAS_PMU_CONFIG | QUIRK_HAS_RST_STAT | QUIRK_HAS_W=
+TCLRINT_REG |
+> >> =09=09  QUIRK_HAS_DBGACK_BIT | QUIRK_HAS_WTMINCNT_REG,
+> > };
+> >
+> > We can see that 'pmu_count_en_func' is not set, meaning that code withi=
+n
+> > the if statement shown earlier is not called, and the counter is not ma=
+nually
+> > enabled.
+> >
+> > Translating this to upstream, if QUIRK_HAS_PMU_CNT_EN is set as a flag,
+> > the following code within the if statement will execute:
+> >
+> >> if (wdt->drv_data->quirks & QUIRK_HAS_PMU_CNT_EN) {
+> >> =09ret =3D s3c2410wdt_enable_counter(wdt, en);
+> >> =09=09if (ret < 0)
+> >> =09=09=09return ret;
+> >> =09}
+> >
+> > Which as we can see does the same thing and enables the counter.
+> >
+> > So, since 'pmu_count_en_func' is enabled on GS101 in the downstream ven=
+dor
+> > code, the QUIRK_HAS_PMU_CNT_EN flag is set, as the Sashiko AI points ou=
+t.
+> > However, since it is *not* set for Exynos5515, that means Exynos5515 do=
+es
+> > not require manual counter enablement and that flag should not be set,
+> > which is why the AI's concern is wrong.
+> >
+> > I also tested this (with the watchdog actually enabled this time), and =
+it
+> > behaves as expected.
+> >
+>=20
+> All ok, but you do not explain all this as comment in your patches, you j=
+ust
+> point to downstream code. At least some of that downstream code, if I rec=
+all
+> your previous feedback correctly, actually _did_ explain at least some of
+> this.
 
+For this specific quirk there are no comments whatsoever. That comment I
+sent is one of the only comments in that file.
 
+>=20
+> Example: A comment along the line of "According to <place source here>,
+> Exynos5515 PMU does not require explicit counter enablement" would do.
+> Sashiko does not know the context. I don't either, and neither does
+> anyone else.
+>=20
+> So why exactly are you not willing to add such comments ? Please explain.
 
-[...]
+Initially I did not add a comment before I sent the modifications to
+the mailing list because nothing else seems to have comments justifying
+the flags set or not set.
 
-> +	typec-portc@22 {
-> +		compatible = "fcs,fusb302";
-> +		reg = <0x22>;
-> +		interrupts-extended = <&tlmm 9 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&fusb302_int_default>;
+After you requested an explanation in the code, I thought you wanted
+a full explanation like what I sent above, which would be very unwieldy.
+Which is why I then also sent you that explanation here, because I wasn't
+sure what exactly you were asking for.
 
-nit: outlying sort
+But if it's just a comment like the example you described, I can do that.
+Do you want the source to be "Samsung's downstream code", or a link to
+it?
 
+>=20
+> Guenter
+>=20
+>=20
 
-> +
-> +		usb-role-switch = <&usb3>;
-> +		vbus-supply = <&fusb302_vbus>;
-> +
-> +		connector {
-> +			compatible = "usb-c-connector";
-> +			label = "USB-C";
-> +			power-role = "dual";
-> +			data-role = "dual";
-> +			try-power-role = "sink";
-> +			typec-power-opmode = "default";
-> +			source-pdos = <PDO_FIXED(5000, 500,
-> +						 PDO_FIXED_DUAL_ROLE |
-> +						 PDO_FIXED_DATA_SWAP |
-> +						 PDO_FIXED_USB_COMM)>;
-> +			sink-pdos = <PDO_FIXED(5000, 3000,
-> +					       PDO_FIXED_DUAL_ROLE |
-> +					       PDO_FIXED_DATA_SWAP |
-> +					       PDO_FIXED_USB_COMM)>;
-> +			op-sink-microwatt = <2000000>;
-
-This is inconsistent with the sink-PDOs you defined (5 V 3 A vs 2 W)
-
-Konrad
+Kind regards,
+- Aiden Isik
