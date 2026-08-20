@@ -1,244 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6893D7D97
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 08:11:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0B33DA5DC;
+	Thu, 20 Aug 2026 08:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787213516; cv=none; b=TfQF5IacXZNPzWkvEpaEKBtR41+JMs8l6XPrjr9UNr61x6u94dhDHYrthYhJQbglhd6nKMDNY/wjIY0bsDjIzmR1G/oJOlw+oLOLJET1cHW6543Jvzk7p11PBDEEDpE4c7jGJuxfdvSHU5M/TtKCjHX+rXDpigt/P1omZAKzwvo=
+	t=1787213686; cv=none; b=ZZztFjUKoyZ7H3OCQh7eFufYoQpk2Da76yr61Nb9ALItjRYODw0JikHBjMx4NM3S99auw4EZeYe/c3JznfztSsUaAUBeXfnDE9uttb4hU6nxawjbdwWhmftrT6hn8rIINn6suFQEu8DQLeyfKKUDKhVcST5BzFNFlTtCz0aITYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787213516; c=relaxed/simple;
-	bh=tjoO1++p+sNrTGFctEE6xyP4R89yBM8wUyqyH3xGOck=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CM6te3tqUkzyXgzNxmkpSCbuOwc46ap1JyKGKl7uN9RyEZj08AYskd8d1ynYfCBMd0NcSSGBCI+ObBoyJWc4ggJvhV3VO+fYePaXKZwaNasyoTV2Jixud37c5vaQ/RmAntLgnMDJZ4BZ89rY0pkvLq/jCNvmJfbMfAL3m2pwmCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpBgueUg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787213686; c=relaxed/simple;
+	bh=9tPSuXov7GrM+xx4Zc0tr7mC330cYG8dhCPK9zcbXzU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M7npVvIvIsYMs9kUvpyyCprnSCvZBfJKBVHdk+QWq/fKd9t6Y7bvx31wWJB0MuacCKL/J0EDclznzAjTPaE98db4+cjSazh9BvmHvaOpjhJM29pUPFNhJbpUp8wcTyrMFWhF22+dVR3S4zI1t7omg1syAt07gvI7bxspoaG4+ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFlj5GDQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpBgueUg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953501F000E9;
-	Thu, 20 Aug 2026 08:11:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFlj5GDQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401171F000E9;
+	Thu, 20 Aug 2026 08:14:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787213514;
-	bh=SfSlE1I1yMhxAf31d3J+yymKMvyPDDLSI9OSWl2RDRc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WpBgueUg2y5CrKP8xkZVpomRO4/75A5ds12N4Ar8mcrkIXV1Y12vd7aexxfK4EkS9
-	 pPONHFkCzqTJyT5rXjNUTjNSrvlzddtOiw5ko3xOuxuzPLSRlyXbZ+L6lIGhkZ0WdE
-	 lpvYivKZ/9TZUeL5Xz19cdUFrZJleahlnAJGm0sJXP8B7eHhDbqEgnu+OdjYSjZaBh
-	 nSEDsSrh888Xzz5HZvDtpC6OXaSubbkWI/NoUILScqltao+4Li9Q7FruVsYBk1C0nY
-	 YytiTtNyFKmS/J+ID+yQN29ezWGx9xv1rQrwqIkOwNl3/c6yVKwJE2sgY54T816BVm
-	 K8iNxDokhlE4A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] media: i2c: Add onsemi AR0234 image sensor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexander Shiyan" <eagle.alexander923@gmail.com>
-Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260820075524.2056029-3-eagle.alexander923@gmail.com>
-References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
- <20260820075524.2056029-3-eagle.alexander923@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Aug 2026 08:11:54 +0000
-Message-Id: <20260820081154.953501F000E9@smtp.kernel.org>
+	s=k20260515; t=1787213678;
+	bh=jPi7sm06f+rNS7fquy7GY9UlFStzSoKD+j+fIOo56U8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MFlj5GDQYfTBb96020wGzI27jJge3IEPrS/7HPMaR0/CmZi3UFGBs8FHwqklsQCmc
+	 PeppwrzCQ7gnFgwmpdwvC1U27xaI3U9+PrdZt/34jyOQN7jKBmSQBxrPvII3A3HB5q
+	 /vG15BaR9eKcchddxD+T7eAPszdqKE4g4/mNgiidJFMEivXl6uDsRnybI8VgkNR76o
+	 w7RNQ1jc/GLXs2h56IxlPaczB3rZRHFYI1ekrc3TWU4/7XOxuvWT9t1Q9Am9sYoYTI
+	 HN4RD+P1iCorA6VCP0jCXr12vDrkxSUGTUrxjOwQZqIJDDSYc6Br80ZvElja3gdBRP
+	 PprSprNFgoaEQ==
+Message-ID: <c38cb98e-0746-4b28-b0c9-ce59e8338048@kernel.org>
+Date: Thu, 20 Aug 2026 10:14:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag
+ marvell,ignore-regulatory-hint
+To: George Valkov <gvalkov@gmail.com>, Chen-Yu Tsai <wenst@chromium.org>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
+ krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com,
+ kees@kernel.org, miriam.rachel.korenblit@intel.com,
+ rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com,
+ s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@nxp.com, chunfan.chen@gmail.com,
+ linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ stable@vger.kernel.org
+References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
+ <20260817215428.84740-1-gvalkov@gmail.com>
+ <20260819-generous-nickel-dalmatian-b6bb08@quoll>
+ <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
+ <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org>
+ <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
+ <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org>
+ <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Incorrect initialization order of `v4l2_subdev.state_lock` causes =
-a lock mismatch between the subdev state and control handler, resulting in =
-lockdep splats and data races.
-- [High] Default PLL state is overwritten during probe and does not match t=
-he default active format, leading to streaming failures.
-- [High] `ar0234_enable_streams()` calls the internal setup function `__v4l=
-2_ctrl_handler_setup()` without holding the control handler lock.
-- [Medium] Crop rectangle width, height, and negative coordinates are not p=
-roperly clamped, allowing invalid 0-size crops to be programmed into hardwa=
-re.
-- [Medium] ar0234_set_framing_limits incorrectly modifies HBLANK control ra=
-nge by passing the dynamic minimum as the default instead of the minimum li=
-mit.
-- [Medium] ar0234_get_frame_desc returns without unlocking the active state=
- lock on the error path.
---
+On 20/08/2026 09:50, George Valkov wrote:
+> 
+> 
+> Krzysztof:
+>> regulatory-hint for me means usually regdb, but even with your meaning
+>> you tell SW what to do - ignore hardware regulatory information.
+>> Property should not tell what SW should do with hardware. Property
+>> should tell what is happening here in the hardware. In this case: what
+>> is the reason behind.
+>>
+>> IOW, why user of a board in country X, where regulatory data says X,
+>> should have the correct regulatory data ignored?
+> 
+> Because users in X buy a board for X and the regulatory data says U.
+> 
+> Indeed when the ROM regulatory hint is set to US and the driver
+> reports this to the OS, the wireless-regdb restrictions for US are
+> applied. This would normally be fine, however the third radio in
+> WRT3200ACM and WRT32x, reports US on all models including those sold
+> in the EU and other non US markets. This creates a conflict with
+> radios 0 and 1, which report FR and also with my correct setting: BG.
+> With the wireless-regdb restrictions for US, FR and BG applied, radio
+> 0 refuses to start.
 
---- Patch [2]: [PATCH v3 2/2] media: i2c: Add onsemi AR0234 image sensor dr=
-iver ---
-commit 8532ef0e666030b52590e6a5adfa76a0332b4935
-Author: Alexander Shiyan <eagle.alexander923@gmail.com>
-Subject: media: i2c: Add onsemi AR0234 image sensor driver
+So if you move with your router to US, you would need to change DTB?
+IOW, the DTB is per user? This is obviously wrong... What if one device
+has correct regulatory data written and you ignore it? Why would you
+ignore it? If you decide to ignore correct regulatory data, then you can
+as well ignore it unconditionally and this property is not needed.
 
-This commit introduces a new V4L2 I2C driver for the onsemi AR0234 CMOS
-image sensor. It implements standard subdevice callbacks including pad
-operations, streaming control, and PM runtime support. The sensor supports
-multiple MIPI CSI-2 data lane modes and resolutions.
 
-> diff --git a/drivers/media/i2c/ar0234.c b/drivers/media/i2c/ar0234.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/media/i2c/ar0234.c
-[ ... ]
-> +static void ar0234_set_framing_limits(struct ar0234 *ar0234, u32 width)
-> +{
-> +	int hblank =3D
-> +		max(AR0234_LINE_LENGTH_PCK_MIN * 4 - width, AR0234_HBLANK_MIN);
-> +
-> +	ar0234_update_exposure_limits(ar0234);
-> +
-> +	__v4l2_ctrl_modify_range(ar0234->hblank, AR0234_HBLANK_MIN,
-> +				 AR0234_HBLANK_MAX, 4, hblank);
+> 
+> Would you approve any of these or suggest a better name for the flag?
+> Should ROM be in upper or lower case?
+> I omitted 'in-ROM' to keep it short, because the driver check line is
+> already longer than 80 characters.
+> - marvell,ignore-regulatory-hint (current)
+> - marvell,ignore-regulatory-hint-in-ROM
+> - marvell,invalid-regulatory-hint-in-ROM
+> - marvell,invalid-regulatory-hint
+> - marvell,invalid-regulatory-ROM
+> - marvell,invalid-reg-hint-in-ROM
 
-[Severity: Medium]
-Is the dynamic minimum applied to the correct parameter here?
+The point is that the regulatory hint is NOT INVALID. One device was
+sold in US with US data, so how could it be invalid?
 
-By passing AR0234_HBLANK_MIN as the minimum and the calculated dynamic
-hblank as the default value to __v4l2_ctrl_modify_range(), this could allow
-userspace to set HBLANK below the hardware's minimum line length constraint.
-
-[ ... ]
-> +static int ar0234_set_selection(struct v4l2_subdev *sd,
-> +				struct v4l2_subdev_state *state,
-> +				struct v4l2_subdev_selection *sel)
-> +{
-[ ... ]
-> +	max_top =3D AR0234_PIXEL_ARRAY_TOP + AR0234_PIXEL_ARRAY_HEIGHT -
-> +		  max(rect.height, AR0234_MIN_CROP_HEIGHT);
-> +
-> +	rect.left =3D clamp_t(u32, rect.left, AR0234_PIXEL_ARRAY_LEFT, max_left=
-);
-> +	rect.top =3D clamp_t(u32, rect.top, AR0234_PIXEL_ARRAY_TOP, max_top);
-> +
-> +	/*
-> +	 * Now recalculate width/height as the remaining space. This value
-> +	 * is guaranteed to be >=3D AR0234_MIN_CROP_WIDTH/HEIGHT because we
-> +	 * clamped left/top using the max() of the current size and the min.
-> +	 */
-> +	rect.width =3D min(rect.width, AR0234_PIXEL_ARRAY_LEFT +
-> +			 AR0234_PIXEL_ARRAY_WIDTH - rect.left);
-
-[Severity: Medium]
-Does this code properly bound negative left coordinates?
-
-Since rect.left is clamped using a u32 cast via clamp_t(), a negative
-sel->r.left bypasses the minimum bound and is clamped to max_left instead.
-
-Subsequently, rect.width is bounded by min() but never bounded to a minimum,
-allowing a zero-width crop to be calculated and eventually written to the
-hardware registers.
-
-[ ... ]
-> +static int ar0234_init_state(struct v4l2_subdev *sd,
-> +			     struct v4l2_subdev_state *state)
-> +{
-> +	struct v4l2_subdev_selection sel =3D {
-> +		.target =3D V4L2_SEL_TGT_CROP,
-> +		.which =3D V4L2_SUBDEV_FORMAT_TRY,
-> +		.r.left =3D AR0234_PIXEL_ARRAY_LEFT,
-> +		.r.top =3D AR0234_PIXEL_ARRAY_TOP,
-> +		.r.width =3D AR0234_PIXEL_ARRAY_WIDTH,
-> +		.r.height =3D AR0234_PIXEL_ARRAY_HEIGHT,
-> +	};
-> +	struct v4l2_subdev_format format =3D {
-> +		.which =3D V4L2_SUBDEV_FORMAT_TRY,
-> +		.format =3D {
-> +			.width =3D AR0234_PIXEL_ARRAY_WIDTH,
-> +			.height =3D AR0234_PIXEL_ARRAY_HEIGHT,
-> +		},
-> +	};
-> +
-> +	ar0234_set_selection(sd, state, &sel);
-> +	ar0234_set_pad_format(sd, state, &format);
-
-[Severity: High]
-Does hardcoding V4L2_SUBDEV_FORMAT_TRY prevent the default active state from
-receiving the correct PLL values?
-
-During probe in ar0234_parse_hw_config(), ar0234_calculate_pll() is called
-for all evaluated modes, leaving ar0234->pll globally overwritten with the
-final mode's calculations (10-bpp).=20
-
-Because ar0234_init_state() specifies V4L2_SUBDEV_FORMAT_TRY, it bypasses
-the PLL recalculation that would normally update the active state. If users=
-pace
-starts streaming without explicitly setting a format, the 8-bpp mode might =
-be
-used alongside the leftover 10-bpp PLL configuration, causing a failure.
-
-[ ... ]
-> +static int ar0234_enable_streams(struct v4l2_subdev *sd,
-> +				 struct v4l2_subdev_state *state, u32 pad,
-> +				 u64 streams_mask)
-> +{
-[ ... ]
-> +	cci_write(ar0234->regmap, AR0234_REG_X_ADDR_START, x_addr_start, &ret);
-> +	cci_write(ar0234->regmap, AR0234_REG_Y_ADDR_START, y_addr_start, &ret);
-> +	cci_write(ar0234->regmap, AR0234_REG_X_ADDR_END, x_addr_end, &ret);
-> +	cci_write(ar0234->regmap, AR0234_REG_Y_ADDR_END, y_addr_end, &ret);
-> +
-> +	if (ret)
-> +		goto start_err;
-> +
-> +	ret =3D __v4l2_ctrl_handler_setup(ar0234->sd.ctrl_handler);
-
-[Severity: High]
-Should the control handler lock be held during this setup call?
-
-The __v4l2_ctrl_handler_setup() function is an internal helper that expects
-the caller to hold ctrls.lock. Since the V4L2 core does not hold the
-control handler lock when invoking the enable_streams pad operation,
-calling this directly can cause lockdep splats and data races.
-
-[ ... ]
-> +static int ar0234_get_frame_desc(struct v4l2_subdev *sd, unsigned int pa=
-d,
-> +				 struct v4l2_mbus_frame_desc *fd)
-> +{
-> +	struct ar0234 *ar0234 =3D to_ar0234(sd);
-> +	const struct v4l2_mbus_framefmt *fmt;
-> +	struct v4l2_subdev_state *state;
-> +	const struct ar0234_mode *mode;
-> +	u32 code;
-> +
-> +	state =3D v4l2_subdev_lock_and_get_active_state(&ar0234->sd);
-> +	fmt =3D v4l2_subdev_state_get_format(state, pad);
-> +	if (!fmt)
-> +		return -EINVAL;
-
-[Severity: Medium]
-Can this error path cause a subdevice state deadlock?
-
-The active state lock is acquired via v4l2_subdev_lock_and_get_active_state=
-(),
-but if fmt happens to be NULL, the function returns -EINVAL directly without
-calling v4l2_subdev_unlock_state().
-
-[ ... ]
-> +static int ar0234_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	ret =3D v4l2_subdev_init_finalize(&ar0234->sd);
-> +	if (ret)
-> +		goto err_media;
-> +
-> +	ret =3D ar0234_ctrls_init(ar0234);
-> +	if (ret)
-> +		goto err_media;
-> +
-> +	ar0234->sd.state_lock =3D ar0234->ctrls.lock;
-
-[Severity: High]
-Is the active state lock initialized properly here?
-
-Because v4l2_subdev_init_finalize() is called before sd->state_lock is
-assigned to ar0234->ctrls.lock, the active state ends up allocating and
-using its own internal fallback mutex.=20
-
-Later operations like V4L2 control updates will execute with ctrls.lock
-held but will access the active state which expects its own separate lock to
-be held, causing a lock mismatch and lockdep assertion failures.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820075524.2056=
-029-1-eagle.alexander923@gmail.com?part=3D2
+Best regards,
+Krzysztof
