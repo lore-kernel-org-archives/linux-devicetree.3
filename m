@@ -1,380 +1,247 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011041.outbound.protection.outlook.com [40.93.194.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CEC39B955;
-	Thu, 20 Aug 2026 18:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787252132; cv=none; b=NSzm/GAG9uSkYQmZlMJ09QU/MhUDubC80uLLeKBwVDxLZBcO0K3scfbhKALBoeLhvASGBt6f34pmjNde6wjFCt/sIhpuzdLerRQWeKa/9xcLrArPsmFBTFd9hAbB02Ft9i2PgmXu9iwrDOb2y3zWPsYiijTA7hSNWWdEQoOo2LI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787252132; c=relaxed/simple;
-	bh=bARcoHhkOARU3+rCRXh/BEayCBBRhOETRGzvC4YFei8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p4nDQ6Q5jmmH0mqpv2LiWjWmRFedVQyR6A8SyOvM8XpNZDNyK/yTSKAyqyUaYt/nR7w1MkkNntRpCaTKljTXRg1A+RoBwA4s6NGqME6JWMgjyMhnfsBE9ex6cv6BORe7KBaGdY2JVogGStLicXF3WnqN1RoybeYc+5P0JPa4YMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=da9ZM2sd; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ui8zoqvI; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C362138F230;
+	Thu, 20 Aug 2026 18:57:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787252266; cv=fail; b=mV0LaK6cg5VL0GOHBt/rfqlEIfjDFGqoR30vmc9oTArOTLa3AOFA+8tHlAxfgE7hnJrZE6DRbWN/Xua714ttoIZJvucIFSfv3PuVxuT1FTZClSduNUWpU0+JPYif1er2P3CGm57rxTl9fi5TA9AH2BEw5BVJ69wuX9K+r+PvxqA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787252266; c=relaxed/simple;
+	bh=rA1Rcfrt544covNMpl1oWIGjKDxpF9hgQK35DGfTSUw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KGrqDn0o3lQCiujGVjI3/CGBbjLk59w72I9/yMwAisP+fLwLDO5/yibDU2nSGwwxkmzwozYWHM7pvb3Gh7uRYyfVCGGDqmrD5SMOEnicxoz2ZvxiVn5q75JsJSqADocWXCfTPiyltvPoZ8FbR/ihqTng2Y2TrQBoKvluzDvXDc4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=ksuW8Qoz; arc=fail smtp.client-ip=40.93.194.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="da9ZM2sd";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ui8zoqvI"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hQt1C0FZfzKnDN;
-	Thu, 20 Aug 2026 20:55:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787252127;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ViwVFIEhrY89Z8kNdLylD3Vc5a60p7im31pqMnnbzUM=;
-	b=da9ZM2sdLHCiA6W+TaZom9qonuOitzgU8Dkl6nBWiTp5mKlG3cRPdIPxJxfbjPteXnnEEv
-	CLxqZT1xfpM4znLKWxTXUDf4B8PdasIXzJDFlEDJya5IzfzLL6fKVCCUMog65GeeNP1mP1
-	zBRIjxhjsKf4ZCnYFo0q94QdI1ih7Bu5817q7cijyB3L9duWiqTx5l0hTL4KGTAkR7dFth
-	wBTRqw1/39A24vP+P83CX1pZJvKTNOSQMh1hAXvUkF13vZDNCbjmZ42/9TVH90FPg49lzz
-	6lToyJvPFB19PPk7IVSyDypz6DHOknfji7QaLVCOHQ0GAL22dXj9sZpW7OjIdQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=ui8zoqvI;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787252125;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ViwVFIEhrY89Z8kNdLylD3Vc5a60p7im31pqMnnbzUM=;
-	b=ui8zoqvINvq1z7B87nq/4kvJGM99niLznWWxWCFnKpkiqHTV/s40Gp+p1pMkdQh0TNYiZe
-	pCH9PXidLqSz9heZT8Ggb2ctE+T6lzm472lqHkvSRpHgCPotHxFhT7vH2sx26PiUiW6siw
-	EG3TPMmVI1mPOvZdxWrD3/Ivg9WS8QyjfvsRBjdhSw++244Oy22+b/1eUe5LBLWFBIYEMX
-	SLwSML15879M8ydAkpC9YFYTqbdl5Hlh/sZdPbBZMXzfLae+bWPXCEIgxWRvk5DvSUxkUT
-	M5o22XVrQGK+omUndB/0R+ITck4tIZl5Iulph8Nnd9300gHZkkCgyzQ9fe4Bww==
-To: dri-devel@lists.freedesktop.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	David Airlie <airlied@gmail.com>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Simona Vetter <simona@ffwll.ch>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="ksuW8Qoz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K1H1cL/cI1qPyMi10+UpeCyrMpyUDxiyAdRtQUikCvuNVZs6HdqgohLJg5vbisQGMgiQjAkOvCkcYXc/aqZf4Y82+3rsXfrl7CqsYJMjfHynlakbyqzrlPSi3HA9xkpjPXFd09fE340tncqgRQNV10I/H6lxkLg3l0YlXsbKtKBQCIo143c5hzgsr+pvd1uhpezEl2/JrYeLwgEk8jRvtvTBPfm9zJ+R3ShXD7NssD4x7DFPA98dcCNt8Qa+o0r9rTp+biMB85OmvR78JTh2VrENGaEFg/DrsbTog+tZcuSNQQXrUqUFVo4pxPF5Esju3aiE+bowvkRigR4NtIwtig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5v8+neQRBC5Yc/c1X6jFKpLDmFyxuh+2yw1dNUwk/jc=;
+ b=lfyR7BxppIP070fY67awaUO7gRMllooyZGsYtIiDRm2na3spDHuRo1ImFWD31xYiJ7VAHLARhklFiFhqi3h3N4zAdOMjPHc2t5kNY2/MRFFBMDbmUKgPPw2dec7Oi7/pcafwiG5CAzilySElA8l4vDaZFtN6q1fUbp0UbRpidaSazQYtoqJtm1H+MAHX3Sc5Cz7HATwr4hHSwxUbueLP0BdopECi1cZRYtupIZo57odEChJgTAHb/SN9ebDW8UUmhuk7IXXlDccfe1+kt150yEa95nouQG4seMagIsRQPSuekNvug8dbRsOgQiMRqb7Sjyk3hOv5XIIyd77vmhIC+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5v8+neQRBC5Yc/c1X6jFKpLDmFyxuh+2yw1dNUwk/jc=;
+ b=ksuW8QoznwEMrwl/9VTa+pmTDgwx1Vx96rz6hIAtnlP5XDbFahCsEDrSes73HfIBVOu7577zHq2biR/7vr7gLJn7K1bHJ8ruc5AJyqkqgnVOgqEfhXF0N6xp4M/+Yef7LGjE+aWGfKUdgbFWY3dd5Fr9GDFXAmIZ55Di207s34sxf5jRgtJHvn3GzKyNXXqIUy2rpf+A64mcn2sRaKaNyhsIqUjjW1OwQsSOVCmUc/6Q1/Kr4QuyNfzzX0iv4FXRjkMLBJdyr/KoD+88I0TnVsOBaDpJMqOQA8mQ0LKon32kcG2C2d5cNE2+Qf3MdX1zTl6Ba5qTwl6a3iI8Als1Iw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
+ by CH3PR03MB7364.namprd03.prod.outlook.com (2603:10b6:610:1a8::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Thu, 20 Aug
+ 2026 18:57:36 +0000
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0339.008; Thu, 20 Aug 2026
+ 18:57:36 +0000
+From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+To: linux-mmc@vger.kernel.org
+Cc: ulfh@kernel.org,
+	adrian.hunter@intel.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	p.zabel@pengutronix.de,
 	devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 4/4] drm/panel: ilitek-ili9882t: Add support for Ilitek ILI79600A-based panels
-Date: Thu, 20 Aug 2026 20:54:30 +0200
-Message-ID: <20260820185506.84448-4-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
-References: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
+	Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 2/8] arm64: dts: agilex5: add SD/eMMC host controller
+Date: Thu, 20 Aug 2026 11:57:08 -0700
+Message-Id: <20260820185721.22823-3-tanmay.kathpalia@altera.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20260820185721.22823-1-tanmay.kathpalia@altera.com>
+References: <20260820185721.22823-1-tanmay.kathpalia@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0385.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a1::30) To DM4PR03MB6208.namprd03.prod.outlook.com
+ (2603:10b6:5:39c::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: r35uczkbnz4zqmhy9bmcb7gq5u6cki3a
-X-MBO-RS-ID: 53335b06334ac1995c4
-X-Rspamd-Queue-Id: 4hQt1C0FZfzKnDN
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|CH3PR03MB7364:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7b4e33e-91f6-42a4-2ea9-08defeece67a
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|56012099006|10067099003|11063799006|18002099003|22082099003|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	oF9Y16a5GQrBdDG9I6xRF+sFxsKPR0Jzg+kYTP16fHlKdzTIL6G6XJjWRYLZnu0Um+wjYQihVr/sGyfwptYatu0dhHXVKkPGZrmm1Oqfp2Agujx1gb94Qj+Qk3TqA41ftXT9JcLRAI1l/YrBmCmL208AP/fIPRQFs6KmtP/Bg34x7L0qBykzUxqL6iaNaSDIrjZRgpgcq+T2j69KcSkm4WVklnGO2CgLU56MwMOSOW7QGXq/7j/bZXQSUcb5lAZE8AvQBVa3c1cDFzWy08s06b8D+sF0pI9XHwu6p+tK8UK9QFFhwKonZ7jNlrJSRYce9OhmwjtobTrKeAN2MJWt/I62QnvI/qmNf2OUmH83u7tqJXOkJ2fg72jiGWINyORP6XkuajvYdRwACe8baRe6E7AvcMErBslQbVHJlqUy0yGp972hXVzdxlPb8w5HXZ5dcZVpZ0+kp3kBpChFSinuEdzzMqe8BWEUg1U3wIld7HjfSQ8AjUFLF5y3pV2JUqyTuR8uLH8n+iyFx1uHqZg3u6PzJz/Sg9C3l2SZytnIPVOmhJPMPw3kxktQCsXeljPz66iIR2W+ZoCjfzqvpEeZEZST6p7sutNCoWjsWOlheDTnjPH3QlkOuQ46v+knpJYLgavdb3Umm//sTbxYub+9uUdBpdtk6ouxwEErTv17fRM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?DTVAox/WnfqKU8MgrRhjGLWzdQVGKZmQUkTyhWtjLgVc7My7RGp3J1pXWfcI?=
+ =?us-ascii?Q?mqt0W5Yx7T4OON7eLKGgzb0B+vFg9r0Bk0WLXXKckexbJfGeMNbvJYEOUtCo?=
+ =?us-ascii?Q?UrtE91PeySjnmWcv0o/ECU1YR98lV0IfyYtOuVVQ+kOy2vw4sTVUjyJw/RnU?=
+ =?us-ascii?Q?a3tahx6Zfv/p6IH1FM85BfJ5KYYTrooQQGLcXWIWrW0UMNxy5J9ygrH9XODh?=
+ =?us-ascii?Q?7KXywmGBw5diXdQY3noovWsOy5pHN0WIWgfC+L9QfA+JBWwQ99f6YDjG8rMS?=
+ =?us-ascii?Q?fUQjjJ7YOWijWoa5VQqIWGKroVfqNcz3NNLISomfv0DJQxMgAfDgPxgtjYPC?=
+ =?us-ascii?Q?18uLD3YC0t3eOD9krIe8TgUkpISYBQ7diDoeuQqhzmEKzzNHUuidflAUPp0A?=
+ =?us-ascii?Q?RlpvLndCXLvyfPUWxmYtyPANvf9tVjzWhVjWvqiukxUpkXAukX6RSI2sLAl9?=
+ =?us-ascii?Q?aZ8Q43Z4KVuWvkAwf6lgvfhl0J9+yVlamJvv+t7O5Bw7fG/WaQlCFoNbA5bo?=
+ =?us-ascii?Q?TuKfhCl2AKac9JrWkxqCJbZD9021/dvNYC/bCFc9jY6zdi9UjmB7IYfYWrGH?=
+ =?us-ascii?Q?TcRpYoctwTmaP40sAWXXDO+QP/swmZBXchTG9wIk8UGLNC/7DWbJPdMk9o6B?=
+ =?us-ascii?Q?ZqSxpUgU0wVxpbbvbSf+kmZNkvbnCnRKBU5X6YEp+8TV7fdblSulZ1Mj8EA+?=
+ =?us-ascii?Q?0jvJ5p6B5lGzSkPbFz0ZrWc70cRGb0HOLBvXpHHHrD4cUx4QFY85NwNHRBBg?=
+ =?us-ascii?Q?hldyaYTxLwk93MMhoYC39qJudtnmeA/Ufo/DDo6P8NhTjFBzcDFt6GGmXuwe?=
+ =?us-ascii?Q?Kz8YmGUaQCACZmLGIQFJjQHKqQu3TaOSybdn+OSz0NrkBg1VrGMMBGxpNsLW?=
+ =?us-ascii?Q?tmVfIFlEjks8ltzrIWlmErqwTGTRv6kq7JvdXv0szuhC92GDYx/r7yanw9+E?=
+ =?us-ascii?Q?ftOpJlDgvkwkD4lUeug3bWwj2dkKVmTf7a2G5q9daPQHwbeOBdRo5xd63/UM?=
+ =?us-ascii?Q?252Bbtq3nWYLAKTPzztAAT6u9h3PKiqyAyJ6rBS5f/poDY8oaSkQ0276o6aQ?=
+ =?us-ascii?Q?gzcPj6XDokdtNNgUUsYxvb9JpWutQ80Qnvfe5PFm0uE5lrWmaAr2MOsoCar5?=
+ =?us-ascii?Q?9leCAWk9Oi4X6AhR+S3o3BzGFm+c8+Jn2zbzKB9bWUqXESCIrlDvSLXcxyN7?=
+ =?us-ascii?Q?ZLJ/wDtwUq9wt9QNnuVwEHRTMOowxR7EdcLkLqUNBu+ItGNoR/IJDTIIROs0?=
+ =?us-ascii?Q?HkC0s7HKt3z3gBWLCRPTjXTNgWcwU06NXjkDOkFyaglG0AT+22bL/zR0HRbX?=
+ =?us-ascii?Q?mxbj7mJpvm5TtSB87VyezIq61Sflsd7xyYjp/cklLyGGs0AZTuKO6OV3+VC4?=
+ =?us-ascii?Q?Kb+xJJgyYEd3VJ++dGjiPmjncbUrby9+hMmqYvo1Xi/9BEJxD0vpqlqlCFcs?=
+ =?us-ascii?Q?s6dWPSo1z0JNfRpCm7sqrUFoqMo2th2TSzh5AA5B6Slyv9JLt1G6cIaNdkOs?=
+ =?us-ascii?Q?4XoIxyJHUSzwF2MRKqz6p5rhgFQgNRmxmvehcVhqqHhWPhQSW6jBmNjgzH8Z?=
+ =?us-ascii?Q?vlFE0ogC0EXsKbX+hC4Xm22ZiqRLVNK2AWHa9UUkh1dKuDBFyknCFnrKUOSB?=
+ =?us-ascii?Q?mf8I6cXF09LFcoYl0Ahzcz5IUdih1qvVKzpUPR/eQS4eT14J4CQLyH7pHa9a?=
+ =?us-ascii?Q?d+P5cw2ZwVUytAwtvRqYy1AtpdxztNXePX+EQeN0XESqpRNdC36/oGgKXtZ+?=
+ =?us-ascii?Q?B7Jj5plz26snLDtIS4I3uTrdPoF4sJI=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7b4e33e-91f6-42a4-2ea9-08defeece67a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 18:57:36.6555
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CZn3MP26OxArrtPdzE+AdKty0TIsJQ7OE550eU10sf1G4igz9GcmVKTEjE0wQmMUxPHzgIRCetqKbKxgPMOjmuWecWzaetJTpPRp5egTmlE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR03MB7364
 
-The Ilitek ILI79600A display controller is similar to the ILI9882T and can
-be supported within the existing `panel-ilitek-ili9882t.c` driver.
+The Agilex5 HPS includes a Cadence SD6HC that drives either an SD card
+or eMMC, depending on the SOCDK daughter card. It uses separate SDMCLK
+(CIU) and L4_MP (BIU) clocks, and has three resets for the host
+controller, Combo PHY, and SDMMC OCP bridge.
 
-This patch extends the ILI9882T driver to handle ILI79600A-based panels,
-such as the 10" Raspberry Pi Touch Display 2. The ILI79600A uses a similar
-command sequence and initialization flow, with minor differences in power
-supply configuration and timing.
+On the SOCDK OOBE card the slot is SD-only: fixed 3.3 V card supply and
+a GPIO-selected 3.3 V / 1.8 V I/O supply for UHS-I signalling up to
+SDR104.
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
 ---
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: devicetree@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org
----
-V2: No change
----
- drivers/gpu/drm/panel/panel-ilitek-ili9882t.c | 231 ++++++++++++++++++
- 1 file changed, 231 insertions(+)
+Depends on commit ab45ecfab540 ("dt-bindings: reset: altr: add
+COMBOPHY_RESET for Agilex5"), which is already in mainline via the
+reset tree. It is not yet in mmc/next; apply or merge that commit when
+building/testing this patch on top of mmc/next.
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-index 24e72ad0d29a1..5581100a1f8a5 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-@@ -133,6 +133,207 @@ static const struct drm_dsc_config tianma_il79900a_dsc = {
- 	.flatness_min_qp = 3,
+Depends on commit 10cf797f3f8a ("arm64: dts: socfpga: agilex5: Enable
+the SMMU"), which is already in the SoC DT tree. It is not yet in
+mmc/next; apply or merge that commit when building/testing this patch
+on top of mmc/next, otherwise the SMMU remains disabled.
+
+ .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 25 ++++++++++++++
+ .../boot/dts/intel/socfpga_agilex5_socdk.dts  | 34 ++++++++++++++++++-
+ 2 files changed, 58 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+index b06c6d5d60ee..5ccbd7bf2034 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+@@ -300,6 +300,31 @@ portb: gpio-controller@0 {
+ 			};
+ 		};
+ 
++		/*
++		 * Shared SD/eMMC controller node. On the SOCDK OOBE daughter-card
++		 * this is used for SD card operation; on the SOCDK eMMC daughter-card
++		 * it is configured for eMMC.
++		 */
++		emmc: mmc@10808000 {
++			compatible = "altr,agilex5-sd6hc", "cdns,sd6hc";
++			reg = <0x10808000 0x1000>;
++			/*
++			 * "ciu" (SDMCLK) is listed first so it is selected as the
++			 * primary clock by the SDHCI platform layer; the SD6HC PHY
++			 * timing calculations are derived from this clock rate.
++			 */
++			clocks = <&clkmgr AGILEX5_SDMCLK>, <&clkmgr AGILEX5_L4_MP_CLK>;
++			clock-names = "ciu", "biu";
++			dma-coherent;
++			interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
++			iommus = <&smmu 5>;
++			resets = <&rst SDMMC_RESET>, <&rst COMBOPHY_RESET>,
++				 <&rst SDMMC_OCP_RESET>;
++			reset-names = "sdhc-reset", "combophy", "sdmmc-ocp";
++
++			status = "disabled";
++		};
++
+ 		nand: nand-controller@10b80000 {
+ 			compatible = "cdns,hp-nfc";
+ 			reg = <0x10b80000 0x10000>,
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+index 57d3c5807c65..93222b199038 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+@@ -36,9 +36,37 @@ memory@80000000 {
+ 		/* We expect the bootloader to fill in the reg */
+ 		reg = <0x0 0x80000000 0x0 0x0>;
+ 	};
++
++	vqmmc_io_reg: regulator-1p8v {
++		compatible = "regulator-gpio";
++		gpios = <&portb 3 GPIO_ACTIVE_HIGH>;
++		gpios-states = <0>;
++		regulator-max-microvolt = <3300000>;
++		regulator-min-microvolt = <1800000>;
++		regulator-name = "vqmmc-io";
++		states = <1800000 0x1>,
++			 <3300000 0x0>;
++	};
++
++	vmmc_reg: regulator-fixed-3p3v {
++		compatible = "regulator-fixed";
++		regulator-always-on;
++		regulator-max-microvolt = <3300000>;
++		regulator-min-microvolt = <3300000>;
++		regulator-name = "vcc-sd";
++	};
  };
  
-+static int rpi_10inch_init(struct ili9882t *ili)
-+{
-+	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
+-&gpio0 {
++&emmc {
++	bus-width = <4>;
++	cap-sd-highspeed;
++	disable-wp;
++	max-frequency = <200000000>;
++	no-mmc;
++	sd-uhs-sdr104;
++	vmmc-supply = <&vmmc_reg>;
++	vqmmc-supply = <&vqmmc_io_reg>;
 +
-+	mipi_dsi_usleep_range(&ctx, 5000, 5100);
-+
-+	il79900a_switch_page(&ctx, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x00, 0x42);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x01, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x02, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x03, 0x00);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x04, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x05, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x06, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x07, 0x00);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x08, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x09, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0a, 0x71);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0c, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0e, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0d, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0f, 0x00);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x30, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x31, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x32, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x33, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x34, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x35, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x36, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x37, 0x28);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x38, 0x29);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x39, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3A, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3B, 0x15);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3C, 0x17);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3D, 0x09);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3E, 0x0D);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3F, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x40, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x41, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x42, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x43, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x44, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x45, 0x02);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x48, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x49, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4A, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4B, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4C, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4D, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4E, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4F, 0x28);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x50, 0x29);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x51, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x52, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x53, 0x14);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x54, 0x16);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x55, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x56, 0x0C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x57, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x58, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x59, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5A, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5B, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5C, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5D, 0x02);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x2C, 0xB0);
-+
-+	il79900a_switch_page(&ctx, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x07, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x06, 0xD2);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x53, 0x1F);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5E, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x84, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x29, 0x3A);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x2A, 0x3B);
-+
-+	il79900a_switch_page(&ctx, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x20, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x21, 0x3C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x22, 0xFA);
-+
-+	il79900a_switch_page(&ctx, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x2C);
-+
-+	il79900a_switch_page(&ctx, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x61, 0x8F);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x6D, 0xBB);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5A, 0x7C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x67, 0x7C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x54, 0x92);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x55, 0x92);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x40, 0xD2);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x46, 0x70);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x30, 0x47);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x7A, 0x89);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA4, 0x0B);
-+
-+	il79900a_switch_page(&ctx, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xC0, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xC1, 0x7);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCA, 0x58);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCB, 0x2);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCE, 0x58);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCF, 0x2);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x0);
-+
-+	il79900a_switch_page(&ctx, 0x0b);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x76, 0x55);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x78, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x77, 0x0D);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x79, 0x60);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x7A, 0x10);
-+
-+	il79900a_switch_page(&ctx, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(&ctx,
-+				     0xE0, 0x00, 0x1E, 0x3F,
-+				     0x68, 0x7D, 0x72, 0x86,
-+				     0x89, 0x92, 0x8E, 0xA5,
-+				     0xA8, 0xAA, 0xBD, 0xB8,
-+				     0xBE, 0xC5, 0xD6, 0xCD,
-+				     0xC3, 0xDA, 0xEB, 0xED);
-+	mipi_dsi_dcs_write_seq_multi(&ctx,
-+				     0xE1, 0x00, 0x1E, 0x3F,
-+				     0x68, 0x7D, 0x72, 0x86,
-+				     0x89, 0x92, 0x8E, 0xA5,
-+				     0xA8, 0xAA, 0xBD, 0xB8,
-+				     0xBE, 0xC5, 0xD6, 0xCD,
-+				     0xC3, 0xDA, 0xEB, 0xED);
-+
-+	il79900a_switch_page(&ctx, 0x14);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x85, 0xCC);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x91);
-+
-+	il79900a_switch_page(&ctx, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x11, 0x3);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x12, 0x34);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x1);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x13, 0x4);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x14, 0xBB);
-+
-+	il79900a_switch_page(&ctx, 0x0b);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x94, 0x88);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x95, 0x23);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x96, 0x0B);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x97, 0x0B);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x98, 0xC6);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x99, 0xC6);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA6, 0x47);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA7, 0x77);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA8, 0x5);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA9, 0x5);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xAA, 0xBA);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xAB, 0xBA);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xBD, 0x92);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xBE, 0xE0);
-+
-+	il79900a_switch_page(&ctx, 0x0e);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x14, 0x3);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x12, 0x0);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x13, 0x4);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x11, 0x1);
-+
-+	il79900a_switch_page(&ctx, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x80, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x82, 0x11);
-+	il79900a_switch_page(&ctx, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x82, 0x2C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x85, 0x2C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x2C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x88, 0xEC);
-+	il79900a_switch_page(&ctx, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4, 0x1);
-+	il79900a_switch_page(&ctx, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0C, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3C, 0x80);
-+
-+	il79900a_switch_page(&ctx, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0E, 0x0);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0E, 0x3F);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x0);
-+
-+	il79900a_switch_page(&ctx, 0x00);
-+	mipi_dsi_dcs_set_tear_on_multi(&ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
-+
-+	mipi_dsi_msleep(&ctx, 120);
-+
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+
-+	mipi_dsi_msleep(&ctx, 20);
-+
-+	return ctx.accum_err;
-+};
-+
- static int starry_ili9882t_init(struct ili9882t *ili)
- {
- 	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-@@ -670,6 +871,19 @@ static int ili9882t_enable(struct drm_panel *panel)
- 	return 0;
- }
- 
-+static const struct drm_display_mode rpi_10inch_default_mode = {
-+	.clock = 166666,
-+	.hdisplay = 1200,
-+	.hsync_start = 1200 + 28,
-+	.hsync_end = 1200 + 28 + 10,
-+	.htotal = 1200 + 28 + 10 + 30,
-+	.vdisplay = 1920,
-+	.vsync_start = 1920 + 238,
-+	.vsync_end = 1920 + 238 + 4,
-+	.vtotal = 1920 + 238 + 4 + 28,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
- static const struct drm_display_mode starry_ili9882t_default_mode = {
- 	.clock = 165280,
- 	.hdisplay = 1200,
-@@ -696,6 +910,20 @@ static const struct drm_display_mode tianma_il79900a_default_mode = {
- 	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+ 	status = "okay";
  };
  
-+static const struct panel_desc rpi_10inch_desc = {
-+	.modes = &rpi_10inch_default_mode,
-+	.bpc = 8,
-+	.size = {
-+		.width_mm = 135,
-+		.height_mm = 216,
-+	},
-+	.lanes = 4,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+		      MIPI_DSI_MODE_LPM,
-+	.init = rpi_10inch_init,
+@@ -59,6 +87,10 @@ emac2_phy0: ethernet-phy@0 {
+ 	};
+ };
+ 
++&gpio0 {
++	status = "okay";
 +};
 +
- static const struct panel_desc starry_ili9882t_desc = {
- 	.modes = &starry_ili9882t_default_mode,
- 	.bpc = 8,
-@@ -866,6 +1094,9 @@ static void ili9882t_remove(struct mipi_dsi_device *dsi)
- }
- 
- static const struct of_device_id ili9882t_of_match[] = {
-+	{ .compatible = "raspberrypi,dsi-10inch",
-+	  .data = &rpi_10inch_desc
-+	},
- 	{ .compatible = "starry,ili9882t",
- 	  .data = &starry_ili9882t_desc
- 	},
+ &gpio1 {
+ 	status = "okay";
+ };
 -- 
-2.53.0
+2.43.7
 
