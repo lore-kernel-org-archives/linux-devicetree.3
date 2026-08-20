@@ -1,218 +1,113 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB313F3282
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 09:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787218459; cv=pass; b=Twyeq/OKQ1iHMXtunL3PHXRZEcGoBEyAEq2tviWiNOZOATDWa8c9ZoWMlXRQ3jIrXitxkZamdBW+xFr/Jp8f18L1dwIm+DR+rHGQv/M9of/F8IzVXsCZr4mahAd+FmvT2pkWD2sYtMD3DIZkJwV/PFQJSQ+ZL6up/QQX/nyrG4M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787218459; c=relaxed/simple;
-	bh=nYYBXc76RfdtU54i/yfZoijMWBxoO6zClIQBh+szfn0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QE0CegbYbE6nUXjyWGc3oy4H4ZcIZXcZRmCqXubkyHGaHGEKZvS1RgcjIl9JONl3L8Yz7XZZOwJHnZxRlQ1CDI97uPka0IM0MBzPZ3qCR2QM7ZiR4gtsm4RrS2cjTNG3cUTpQBl+wzxpoYUs08JdHNCvAJGhZWJnw9wnJsnsymE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3kOmxpj; arc=pass smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B843F23D0;
+	Thu, 20 Aug 2026 09:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787218464; cv=none; b=ZkjM+NtHUD5PPCq7zCUrzXhMjbTyzqKocObrj5aGurVxmBSIesvZQp0NnmB69eHJSceEG8FsBb92LSmRkML7DC3VwM64ltfC4XMasZLNv/Zjldct9j0dbw7EIX+6jDcj1kPU3swWZP5yth65bwcB0jNNhJuuhq13eIsdH15gpHI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787218464; c=relaxed/simple;
+	bh=pTAPODmO/9cYBAEvBSlJ8rM3rJ/5okU6IBHThL4N/ME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aT/pfqrnm05Sug/f71VgCMNZ86UaHvE6PHbwZM048gYz9z3fUxZrnUDMSngUOZAZrUp6hHHpWNPI0G/mPj191FDwrPUDKwW2eU4MIIz8I7ohSlk2zmzyJWKqRbb3TSis0xMay2gJmJfX2TzSskBYl/oIP0z4uga709hJLcbjIU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WRNXppjV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3kOmxpj"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a1585728b5so17439441fa.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 02:34:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787218450; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PhyJxnQsbIDwjmK7eQyHk3zHRB3u10yAwd6Qzb4GnCf+/RDintBgGxCA1WzQjvao0o
-         ZPVV7aGEpiuZXNlohfdxwuZApSUonTOd/0tijdvhgCrL1D4lDA8ZynsxUk9FRdoQEXpt
-         b8pu9lbiq4/NDO2gkBX6Yv5B7m8wGQ+8PgOM+apf3zl1x+xLZIXfQJLCWXgRHiFdnh0c
-         DxIDGXIoogkVXjWT7Gav7gkhhpiS+Ru7uayaDVaMpq0N/e7af09ID+fTxUYeV0NaX7c+
-         2jJBL6l0j4DrCrEDAHjQaB9TQj9UFJ2uhVc62301TM/Y+W/gurd7OATnl7w+xLFRymam
-         nffg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=nYYBXc76RfdtU54i/yfZoijMWBxoO6zClIQBh+szfn0=;
-        fh=vsqs1G/TASfZ9QKxva5Ofv4a525Y1p1v8w0Iw6xs0f4=;
-        b=YRKscXkUHEB1+tpahv6i1xJCHjldUeTIlDyNMBuvHSEwf32zphVOjfYbazz9ecdn6v
-         nLwtGZvjgrz1TVDBkOZ0eL5BNsIcpSzSMvQ/3lX/D7ThAYtRduT+8UQpvGakk+32hAao
-         aKzkFg7N+wog/z2D/47VTXNapHXdvwU0MHwQvr+DxT8NuFI9Kk+cpcDg7nOUydt+blyY
-         +9tlCorVs7oLWsB4nJLvm8UpSVST8Lf7IRLbqATPXUYuxk99wd473eaOwEd+P3rTpv9Y
-         d3TgMDljfnQg81ynu+K6vxkvqfhBlYJadp2zWLSf10FMeGjODJDlv5PMYM8mowkNLvYL
-         7Sqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787218450; x=1787823250; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nYYBXc76RfdtU54i/yfZoijMWBxoO6zClIQBh+szfn0=;
-        b=S3kOmxpjr8hALgLJmQEIN0nbQQ1PFcSjlZ2Rjp4qBk6XLRaTayQE2LWy9+usQDn++e
-         qJrw1kOUZe7DE2bwFxzn4IcKlib2GXJyoL8CCS+Gt/8T7SoUQH3Zx0/9fcm5/ENWwB4V
-         stbQrWbSUKCgXiG9mMLyGC7hLJrxG6uH+XZoW7W6XEIpB6KGFVJl3eVhIInzR07pqleo
-         u/0eHDN4tOqdEG/ZXqS78bRvLNDxaK6BoS0xlKxxJNQe8C4yN7BpJMqubz25ea/5VdKr
-         EYFOapSmNxoahpNxkKUkonR0fXpmsvR+Uvb/kANOuLUZYR/7vVAKJd7EsnjTUgIvdaRL
-         RRTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787218450; x=1787823250;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nYYBXc76RfdtU54i/yfZoijMWBxoO6zClIQBh+szfn0=;
-        b=YxTTGNeQpdzvNI2Q3qpTajbiBEag8EC4tvTqMvkK3ber4ksHnTHFDoVJTHldQI3DfP
-         UsNK0jHUC1dyHkjO8tsY8IFT0Np969D+pRk7c1jcAYV+VR6thu7Je0BxUDOGq+/KmHYl
-         35PItNKeBKGlTVEY8hV+jD/ezMhAB4zM4hrajpBMZ/WhzKn4lNtCRE2SOBoKtM0+6VGe
-         XdRTtFp+8TJHMMx3cDdqLk2vw5r85xK8qmrt+f7xqjnCJoch1j/z+j4QfvTy1ZOQ/FT4
-         v8jexG/9KGog5S+bzENJ7zTsL7iLToqOgc5tHTPoID1qhccy2xTss4sb6CoA7hiPOH4J
-         8aLA==
-X-Forwarded-Encrypted: i=1; AHgh+RqBb8MiVUVveT/NET4R4mdAlXMSAzlODj+/HQLEpW6cES5L7TV7Zv+YsAbT5uZkCapWTLsXuN7sFj3C@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzt7sh+kslTbsTT5aoiNkSrJ+4PtytqSjzMY4gr6VOM2zWrBFFR
-	dtQnPzd64F98BIdOU+cazPXGvJsEdOP4k7qFFqn3H87Nt5AwO7xtFhRd26KZG6jGBC/2ZiUPePn
-	Yb6NKPpHv5lcAMoVChmPhCvYwFY3Zb4Y=
-X-Gm-Gg: AR+sD11GtS4sDKMJDoiLdd5QRu3XjxJG/cfAdRvkWuoIh5KqigbrTycc48QN+hI8uXi
-	rYiXwJS1K0X6Es3N7x+qAiaGUq1jRcKUPgwJV0sq2lsWYZIgUWJhynwQQuJDLXCjMp1ecPRH0K5
-	i9NVxJPunn10AqoWhof5LD4lHe+00vtBV2bHyXkMF4V8NNLCYvwoSNVQrIteCyLRF1N26Mzh1wI
-	lPDYUT3bLRngSDPjGn9xXe6ijqoNO4TmkLwndgluaf4QeqGLOMVXTJ/j/3y7yPIMBBxVt1Ro3vX
-	oJ/Gj8e+RoV2Hxc3ki5SQeprK78cbKJeoR2GopCqa4CrdyWVJTAugH4jv9MoqBC8RCJaeWJtDIw
-	nE7MsRdUT+toMktznhe6uGOrbog==
-X-Received: by 2002:a05:651c:2118:b0:39e:a64f:d7a9 with SMTP id
- 38308e7fff4ca-3a189725893mr23369941fa.2.1787218449766; Thu, 20 Aug 2026
- 02:34:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WRNXppjV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237E71F000E9;
+	Thu, 20 Aug 2026 09:34:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787218455;
+	bh=dgkqEkDkIRLJ9HWuOChB5tPMYqfn+vPpTfaAkomhS8Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WRNXppjVo6x7HSsq6uQZ9bfzNjLlAy28a1PXBmLIykYW5bu15TUX+n8zKGVSTIN5y
+	 oo/mUuaX1P536INhIGHStxMnor3uTCYPwx17Itmx4F5BH4olt1NegHbY/cLngSeebf
+	 AWxx7lk1ZWKYirZO36CnyiVisVbIg55wMoQUnDMws9HTBW6RiG2T74e6k7k7z5bIMD
+	 j0C9tNZi/NP0wxmYfXQJ8huDDXKg5wxxDNhF3Oh/zKnLsR5RjPWDxrYOsjYVnQQCbR
+	 O5/q2d0AJ8Bk3PuUgievzb84j4zOglBGyGcTglmYnDdnqDhX4kDQS+o99a4tKBUChM
+	 6l2qCiRPgeikg==
+Message-ID: <93e31d56-e9fc-4dba-8494-423df36c8ccb@kernel.org>
+Date: Thu, 20 Aug 2026 11:34:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
- <20260817215428.84740-1-gvalkov@gmail.com> <20260819-generous-nickel-dalmatian-b6bb08@quoll>
- <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
- <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org> <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
- <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org> <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
- <c38cb98e-0746-4b28-b0c9-ce59e8338048@kernel.org>
-In-Reply-To: <c38cb98e-0746-4b28-b0c9-ce59e8338048@kernel.org>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 20 Aug 2026 12:33:56 +0300
-X-Gm-Features: AcwNN1UdyfRyP4qTovLiX62_oFOyy91L008QCKICpAGE3pTfgFyxj68IsFBTyvc
-Message-ID: <CADOrJmb8CTkjRFp7OjynfQSFm3fHT87wemUM4X5yJjTtS=C7tA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, briannorris@chromium.org, johannes@sipsolutions.net, 
-	andrew@lunn.ch, krzk+dt@kernel.org, francesco@dolcini.it, 
-	johannes.berg@intel.com, kees@kernel.org, miriam.rachel.korenblit@intel.com, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
-	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
-	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
-	Frank.Li@nxp.com, chunfan.chen@gmail.com, 
-	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: dts: qcom: shikra: Unreserve GPIOs 14-17
+ blocking SPI5 access
+To: Xueyao An <xueyao.an@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260820085347.822-1-xueyao.an@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260820085347.822-1-xueyao.an@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 20 Aug 2026 at 11:14, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 20/08/2026 09:50, George Valkov wrote:
-> >
-> >
-> > Krzysztof:
-> >> regulatory-hint for me means usually regdb, but even with your meaning
-> >> you tell SW what to do - ignore hardware regulatory information.
-> >> Property should not tell what SW should do with hardware. Property
-> >> should tell what is happening here in the hardware. In this case: what
-> >> is the reason behind.
-> >>
-> >> IOW, why user of a board in country X, where regulatory data says X,
-> >> should have the correct regulatory data ignored?
-> >
-> > Because users in X buy a board for X and the regulatory data says U.
-> >
-> > Indeed when the ROM regulatory hint is set to US and the driver
-> > reports this to the OS, the wireless-regdb restrictions for US are
-> > applied. This would normally be fine, however the third radio in
-> > WRT3200ACM and WRT32x, reports US on all models including those sold
-> > in the EU and other non US markets. This creates a conflict with
-> > radios 0 and 1, which report FR and also with my correct setting: BG.
-> > With the wireless-regdb restrictions for US, FR and BG applied, radio
-> > 0 refuses to start.
->
-> So if you move with your router to US, you would need to change DTB?
-> IOW, the DTB is per user? This is obviously wrong... What if one device
-> has correct regulatory data written and you ignore it? Why would you
-> ignore it? If you decide to ignore correct regulatory data, then you can
-> as well ignore it unconditionally and this property is not needed.
+On 20/08/2026 10:53, Xueyao An wrote:
+> GPIOs 14-17 were previously reserved in the tlmm gpio-reserved-ranges,
+> preventing Linux from accessing SPI5. Since there is no TZ use case for
+> these pins on Linux, they can be safely unreserved. Removing them from
+> the reserved list across all three Shikra EVK variants (CQM, CQS, IQS)
+> resolves the SPI5 access issue.
+> 
+> Signed-off-by: Xueyao An <xueyao.an@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi | 1 -
+>  arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi | 1 -
+>  2 files changed, 2 deletions(-)
 
-All radios on these devices operate according to their certified
-region. The firmware for all radios is closed source, locked-down and
-there is no API to change any regional settings or affect TX power. By
-design, the regulatory information for this platform is configured
-from the devinfo partition mtd3:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts?h=v7.2#n106
+Why would Linux need to access SPI5 if there is no user of it? Or is
+there, but you skipped it?
 
-cat /dev/mtd3
-admin1_passphrase=[...]
-admin2_passphrase=[...]
-cert_region=EU
-default_passphrase=[...]
-default_ssid=Linksys07770
-deviceType=urn:home-linksys-com:device:Router:1
-devinfo_version=20160121.1
-hw_mac_addr=[...]
-hw_revision=1
-hw_version=48SAM203.0GA
-manufacturer=Linksys, LLC
-manufacturerURL=http://www.linksys.com
-manufacturer_date=2017/12/26
-mfg_data_version=1
-modelDescription=Simultaneous Dual-Band Wireless-AC Gigabit Router
-modelNumber=WRT3200ACM-EU
-serial_number=[...]
-sw_version=v1.0.0
-tc_passphrase=[...]
-tc_ssid=[...]
-uuid_key=[...]
-wps_device_pin=[...]
-
-The intent of these patch series is not to make the radios operate in
-a region other than the one they are certified for, that's obviously
-not possible. As described in the commit description, the goal is to
-allow the platform to use the correct region, which is stored in the
-devinfo partition. The hard-coded region in the ROM of radio 2
-conflicts with the platform region and should be ignored, otherwise
-radio 0 and 2 won't even start. And yes this applies to the case where
-the user bought the device in Europe and has configured their correct
-country.
-
-With routes that allow the region to be changed, a user can move from
-EU to US, set the region to US and use their device.
-This is not the case with this model. The radios refuse region change
-so the user should not use it in other regions.
-For models sold on the US market, all 3 radios report US. The platform
-also enforces the US region from the devinfo partition. Even if we
-ignore the ROM hint from all radios, the platform will still use US. I
-don't see any regression. My changes are carefully scoped to a
-particular device which needs them and do not affect any other
-devices.
-
-> > Would you approve any of these or suggest a better name for the flag?
-> > Should ROM be in upper or lower case?
-> > I omitted 'in-ROM' to keep it short, because the driver check line is
-> > already longer than 80 characters.
-> > - marvell,ignore-regulatory-hint (current)
-> > - marvell,ignore-regulatory-hint-in-ROM
-> > - marvell,invalid-regulatory-hint-in-ROM
-> > - marvell,invalid-regulatory-hint
-> > - marvell,invalid-regulatory-ROM
-> > - marvell,invalid-reg-hint-in-ROM
->
-> The point is that the regulatory hint is NOT INVALID. One device was
-> sold in US with US data, so how could it be invalid?
-
-US devices have no issues, because all radios report US.
-I would love to ask Linksys the same question.
-My router was sold in Bulgaria and radio 3 reports US. Others bought
-it from the UK, DE, etc - same thing. Please allow me some time to
-install a clean firmware and I will post the output from
-iw reg get
-so you can see the incorrect regulatory hint and mix of three regions.
-This will take some time, and I will be left without a working Wi-Fi
-until I recover using UART.
-
-Georgi Valkov
+Best regards,
+Krzysztof
