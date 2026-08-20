@@ -1,296 +1,152 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E2D4119E8
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787221801; cv=pass; b=gVRgYrKl7wyRFJ57dafchXJszXYfcgVYa4dCoO3RoKoXQedgfMK1xnz12IEq6N09YPeebgIOTXxSE1T9yGT0YLKXTrsyUkddPe+/cfNTw86EtIwjHxAAjaWhwjp/7WCLJkpJF7lR1sgYR151feVqrftU2eK84Yj8lDpDducxWbE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787221801; c=relaxed/simple;
-	bh=ilYAz4FnkicbNJ4PjalFroSEFvj7gvAVONxsroYezKw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HREgVLlLQO2+/6lrXnez1Y1Iiju+SAjsOaHKIKyN5wsdIxtaIdf8qmWwJEHDUqVajwhq/FSPy3OAJH996OiCi8DTn7yNvWIQTftLGeOdLXedpf56oeb3D39dPTR7iE/vjGxcc9JK2Y5/bNjkBt/nk1qeT7pt7Hf04tEP4ZHxJIY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dQzrHf77; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71018415B68
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787221803; cv=none; b=vGhUvI8mbzmFTOwTjRGALFqjH/qHalhep7kXYM4qrxUEsUSZF3lOY8jqa5lXD58UkJf0u5aoIH4oHMfQdE123+1SB//p8HDgDQCKu4h+VYr0M6Qbq8DBQz16iPN1966y3Om7QmwNGlMvxPNr6nrx1RLSlWSgkx5p3rMSXbxl1Qo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787221803; c=relaxed/simple;
+	bh=HPv9hQ1X4Qdl0VjYTO2v3OjAX3zC8AUQvrpeQ27AzV0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DEL9XgogbVMINFTBAHVMjazou9wrfPBiQExyzbkNi3spHZkNS4TCuFBFXm6SJ7cKgVf8YAuC1fy/gmfePada2k7tH5rjMMsPvrMQzE+5xaiF1I2Myziszy19QTrQSP9UWEbznvJSQrWGJYXc/EXepnQBcbrSLh0nfj8GEk+rWoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QhWSbK91; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=espK72Pz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dQzrHf77"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39ca300db70so21383591fa.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 03:29:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787221796; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mxrEjcpS/t1a573VJIqc6kcfHaJxwc+WK0Wxz+WdHwgr09tKMw9xnpqCpomPo54DN/
-         nzxRCWKYvaT1587MwIg4glUwENdGqnYAWTTGNFO5CB/cy7q+zPNtvWRmkv2w0OoGuCbC
-         fCOHUeHmKoC2BW+vie1YncIZ883mSac6UcY/UdksVQO4zXQoFsTIgBh02ZmpMp8tCeyy
-         pnmOdGKfRfQfqwA+dyZrIbO4OI0MSn+HBRJzaTDph5GLy5U3LTMSlkt/dlBE+rzwD8rE
-         8FvUlLgzLu67njn50oFpV+p2EtZJb93CRwNaY0mMFFA+2bCvwduf0Tw3rAClK9RvKYgh
-         vSUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=gHTtDnXZCHKa5y8EGgqexs176ovYBZq6I1x2ikTmc/A=;
-        fh=lMMCzCcwxFZ7KMT2esNGIyGpzKmtKZ2TgsjR1ASvxdM=;
-        b=g3JXKyrushzGKwUNElrudle1C0grBWrxgXnp8kMz3UMJBKbCv9OjO4AV7dBiK49ZlX
-         k9nXYs2HXnhx7DyXT1IwldMXvLCwXAgmXUkNRWHm0tUQ1SGSJpdW3PmdNXSogxmf6i58
-         unGLa3IJY+ZcxXABmD0UGeqXaLFdhWdXVVRwqsqt0O8cd4BUBo/4tdUWNT2AvwbpYHUE
-         Ybho8pFeGYaMc2srMZt8n+Qf/N7mutBh0e54lE+i7B/+mZXPhLOYX+X3AlI82OfeZ02d
-         hsBYt7MEfadjWOi2F0SdngwLU6LGjrb3MenfIWJFicnE525vtUrUKRNoPACgfs/C1PTP
-         4BKA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QhWSbK91";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="espK72Pz"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67K8jw5g2529911
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:30:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/WCuVHH77yx2Ca+zk0w7A+/okNpLd6QuqshgFoHUXIE=; b=QhWSbK91Jc3QY0x9
+	dy0u6vz8/qStJ0MzEEXyFP+iBIduKgim/IRnptMcDCkAckhal8Y+zItLYxXhzORU
+	eD2Dy5KnW4R6DO4PZHuyxFz/kkPs0/P1SV4ArmhxOxOaC/ExN72eDBw35XSj4rcn
+	rT40Az0XVOhPi71eVGneCIe/I3ApEHCtLPfnIckaig/O3o4pLT/vMvN2rteUueRx
+	9P5zFVXSPHEzoucJ17ZrTSF2hIdK7uwlTFptQvnX/b10952QIgfyGBXHok1JDIIS
+	D+TOMIPYmu2s0YMalGkmssdj2nzLBG/JX0l0eQccfLXA07dUrNsSloq1VgRKUMHa
+	qwaKXA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5xbv8dca-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 10:30:00 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93102454272so44384785a.1
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 03:30:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787221796; x=1787826596; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1787221800; x=1787826600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gHTtDnXZCHKa5y8EGgqexs176ovYBZq6I1x2ikTmc/A=;
-        b=dQzrHf77UWW74LrS3gqqEkzgy3KecO6UTzP8+fVaq61CJNiv9qHywqmfHwDlMP8CL3
-         D9+4ebWusZKwQqFXVMdk3bfIp9lY8Rar3dsn3UplApmg+67X+9Os9n5v7fmpX3WIU6Ye
-         1t3+hv6o5gK1meQG3peayFDTyHLHWT/idgjN3GSWeqnPqjAMYcOtA0sd59Ow+kuiVCbs
-         f21mjYCGgu3uu6dzjln37hrSoGaEY2duhX7tiomoBhs4GnD7z2vwjhhNXkN76Q8eSUZL
-         ON/pYxL+dP0hcBQ+iAjKglJ04lhXOqLzb7yeYCXwxAhVTfmLEcoJ0JiHJo3JNJfwjw07
-         bUCw==
+        bh=/WCuVHH77yx2Ca+zk0w7A+/okNpLd6QuqshgFoHUXIE=;
+        b=espK72PzZ/rOc/qmmA7otFMZb+iocBCdYnwa+qtaTqppZ7nssNEZS4yMsuBDhvgg2v
+         d4jo8EeE5p2Y6ApthaThWMQltTmZKeG+IFKXnuhttlKudjynFFGFxQFwqHOshMfoI4RS
+         c6GUauIvXRvMCXXKTBUxBa3oJhYTCID7hj+o/7G+amQ35p09dmA3YmbMBMJO+9ufU2aW
+         f1xmPmvjH0feGZoTKklpeci58RF2F/sxzzHhePXWQ0XjzIGbIf1ySwdewMhNiygl5Mv2
+         ASWCD/LIGGmpOOXtASYeNBO2MOo6b26s4PXhZ04Yqi4/Aa/9soKUMLNaYkX3f/ttjkkZ
+         N5fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787221796; x=1787826596;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gHTtDnXZCHKa5y8EGgqexs176ovYBZq6I1x2ikTmc/A=;
-        b=EEOQdcWBgXSeYVczz3U3D3BCtln0uqdlNF7n1nCxv8pd9lSKei1/HFK479XpgPCKds
-         P5OcMyWhyup3lZHy6Zi9NvlMkHZZiTeuLMkZSGcrqKIuTKa/4JHW8Ql/kkEcIw7OQ5bT
-         cLlQsC6p43+QQuM15TzHksfLDMe5i8jmWdo9wawSyTpgqBp/WBAQEo3GldgagnZ8SNpA
-         XK8D0tdwfA09sNgKPSRKzPRQCloJuYK6rO7ElDq1dGXVI2zaq4OXc5CFTOtUkhkt8Nyl
-         AYwQt1tDGfbluyUe1617Go5efHRddNhp5/aqLGcHCW8QCgyKOurWLGYvs8nMOpJMh1fw
-         +PGQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoyPgocXvJH6gwpIeSZdd2VctKE0Ek3qo4XMD2jCqVVTr6Yi0y+zIS191SBIM2yZmrk/LVAycXcCtwX@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWFokGuxZIUwEWypheWeba+Ey6hNCYkVvqmSdFxpjDjmo2kuak
-	xt/VYZ8GDmLBnj1Ul1QCbOefY7pcV3tFsrt0uedlv18scFz8GWtnAtClO1pfpVlSZuyq/EPuft7
-	+yy+iIbzILDlZajaPsUTpDqjpf5U6WvY=
-X-Gm-Gg: AR+sD13G6qySF8s+pEaGtz/rwAd+bAKsmzJPRPrGG1YzASnyz5QxyMT4f9HSFnu3iV8
-	AUR/CyrGZ03s3KKgVu36SctkkAiU+IPDtKpGqP5HTmepanP21uGCkSZOTb9UsPSb/aLKKHYmnf2
-	PcYB0pqc/w8wPMWvHN4DFTzGt71KzAP59eFvZBDlQJkuhLG7ojxTQcMtZ/wDkJG2qkLkbgSMZXA
-	cQiCse74cq0bKpu1LBnAek26xojs9+VkaOwUVsjtrQiuPQWfv+vhoUDuEoF8bhzBjbKCQqSmdJV
-	BJZ5ZLXZawnMKOUs9qADACALSlRacf5BCRDrpue30Dn19eaVxKmcqo8w02i9RaJZ/a2vM/KIVWU
-	W6FgKMsWF1Q0Tbs/BI3eH9AQ=
-X-Received: by 2002:a05:651c:a105:20b0:396:7e66:45ba with SMTP id
- 38308e7fff4ca-3a1899c93d3mr20170021fa.8.1787221795510; Thu, 20 Aug 2026
- 03:29:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787221800; x=1787826600;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/WCuVHH77yx2Ca+zk0w7A+/okNpLd6QuqshgFoHUXIE=;
+        b=ght70rVRsFIORjPzormRxaiVaKpoqmIj03fZJ5zqaIeh+WUA2/4xjdogmlu5PHG7EN
+         6ZEtV3OEetKFbLZmfxyE15mFLD5O2UV2nbGJ5/lkbzRVCDKsN97KSxnQQwaVcAbpe+2M
+         XvwMITt6NvD3pPBwzYw/bZZMwlmJxG7dRqIwTXbCYM3u2L+IUvMoQzUoJ/FC7i+ejnb/
+         H6tKFjVF170FmTc78rJeqvvin/bzRSIZWOn/ubx1GQAENjc1mD357sAwUKM3dbcG30r4
+         oy4OC0Ezzpe22qO0iDYBYMCqb9rp265Fl+f7hCYWzC620TpXOXpvxAhIf7vxnCXqhMM4
+         hx8A==
+X-Forwarded-Encrypted: i=1; AHgh+RqF+zBXsdd/LwkPZIxk6s6xi7ELDP8X8KoLQj4eACe+CnU/ZvCvDV1mnVY8slSD8NSsor6iW7xb5GjQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOPtikLvdBT120yfCOnVHTWf1crjoy2Y4mJ+NTweK9eDzHm54A
+	e9RKfYO4O9M8DxbfAIr8BwTQu+rbCi3xcreY1dsm9pbg0YAQfaft3bOGMkReKjM2A9zLFXfCfvv
+	YqHDJTzrPwtw7/SAEIsLKsQ9i2/+RV8GAobQBnSmp6zLhAX7n/BQLZtIXJ8dhzJ5S
+X-Gm-Gg: AR+sD125l6MhN+9aCUMCE2fYw+NX3TLndh/Zw0RNf72/RjVAc+rTdjPIp1zROSF6DGM
+	1sSYIUBgL121Tfnla1563B0NR1U0dkImuBe1GN0E29JG5gtPa5OGfeZ2KEN1wGSqED42aDREILT
+	Odh6pnIkeUeftWGlouCa4MahYTGjQuw6BnpV+sU88nJ/BPBMf95qLvwRp/aLW4pnljsZniQn8h9
+	Ln4Ucgev+GaKpzjsW1W9326GQatklj7d+v1QtmKHcvnc5WRpctDIxgD0AIsI4OT9A1GqEjZBFU+
+	VNhMoVeLqxOrv+PuPI9XpcvKWnZFgFnXOfR+nifRIb+XJuYQu1+u/UcA3X3BgCq2YsY8ku8swzv
+	0VCEFeZSlwxsZsbnkEhHVINZz
+X-Received: by 2002:a05:620a:640b:b0:930:f930:a09f with SMTP id af79cd13be357-9371e2ff3fbmr757255085a.1.1787221799904;
+        Thu, 20 Aug 2026 03:29:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:640b:b0:930:f930:a09f with SMTP id af79cd13be357-9371e2ff3fbmr757251085a.1.1787221799477;
+        Thu, 20 Aug 2026 03:29:59 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24589e224dsm52452666b.2.2026.08.20.03.29.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 03:29:58 -0700 (PDT)
+Message-ID: <723eb4f0-aa97-42a8-a534-8028aef1ce58@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 12:29:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
- <20260817215428.84740-1-gvalkov@gmail.com> <20260819-generous-nickel-dalmatian-b6bb08@quoll>
- <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
- <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org> <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
- <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org> <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
- <c38cb98e-0746-4b28-b0c9-ce59e8338048@kernel.org> <CADOrJmb8CTkjRFp7OjynfQSFm3fHT87wemUM4X5yJjTtS=C7tA@mail.gmail.com>
-In-Reply-To: <CADOrJmb8CTkjRFp7OjynfQSFm3fHT87wemUM4X5yJjTtS=C7tA@mail.gmail.com>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 20 Aug 2026 13:29:42 +0300
-X-Gm-Features: AcwNN1W--3JEaqfbnjrk9l_aNGSOT-_KL7O3smYd-mfsUY6q4R3owlstmMzx5Og
-Message-ID: <CADOrJmYdg6_BLdgY3yEDkn5ugBDwUNUyArffrCB7GWJkHqQRwA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, briannorris@chromium.org, johannes@sipsolutions.net, 
-	andrew@lunn.ch, krzk+dt@kernel.org, francesco@dolcini.it, 
-	johannes.berg@intel.com, kees@kernel.org, miriam.rachel.korenblit@intel.com, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
-	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
-	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
-	Frank.Li@nxp.com, chunfan.chen@gmail.com, 
-	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/16] clk: qcom: gcc-sm8550: Tie the CX power domain
+ to controller
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260820-qcom-tie-cx-to-gcc-v2-0-e67ea30d8b7b@oss.qualcomm.com>
+ <20260820-qcom-tie-cx-to-gcc-v2-4-e67ea30d8b7b@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260820-qcom-tie-cx-to-gcc-v2-4-e67ea30d8b7b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=AMKAkK6n c=1 sm=1 tr=0 ts=6a86d728 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=8AEooqP_IvclZvvwVwIA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA3NyBTYWx0ZWRfX3++Z4A9Vvs1E
+ txjC1Eq2jBoWpvD9EsPP+TvYkNpOIDS/qUJ6p8EudIniCdiqg/QT/1qmhQXAnwHw/zgUIoTCCM3
+ n9+N4n6cN47HWtwlY8VziX5tXBdU1rtikgzDf00iLa1UV7EJuthOKcl9ZRRLal8kb3cRzAoZC1/
+ D7CPsFKgcxbBMujW2gzcKa3Ih7BDDN+v54J5zQAfAVJ6Uty/vQpmPUNrpSrWjIUMyWZaJ79PcZ6
+ ZTLHMy6jEH6NuNzGTQ3lm9fDmdbnDEE8U3g/jUi8JrePpiAMbLyQ6vJnX4j/VjkgB/VhRLKTY2f
+ kViHtUgV1lV7nsLne26ZyOEKobhOMY2QvxxYgSU2h/DHdB9nL3dY94HfVbo/OEcSzUu9BpoU9IU
+ ISlnojPKFIC1s8wx9IS92uftd2v76UY7278YpW5PrSIGwdVvAb64imbTvnHHCLElIwQ4AZVJya8
+ tQui7cKgDmyB83eyD9Q==
+X-Proofpoint-GUID: Z2ttl-VISuLue6yCEgzdNzwdoBy-uWps
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA3NyBTYWx0ZWRfXzqGJerQ/C0Zv
+ XOfcPiStE8OANGJqK542fTRYSjE7RTjgPuvL2L/YJMUgz2t0czqAN7ZqDl8VjmjlKWFrt7tUJzY
+ 4sdpBJZZyY2xkQaUXEAUUlmOdqUlH7s=
+X-Proofpoint-ORIG-GUID: Z2ttl-VISuLue6yCEgzdNzwdoBy-uWps
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ adultscore=0 suspectscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200077
 
-On Thu, 20 Aug 2026 at 12:33, George Valkov <gvalkov@gmail.com> wrote:
->
-> On Thu, 20 Aug 2026 at 11:14, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >
-> > On 20/08/2026 09:50, George Valkov wrote:
-> > >
-> > >
-> > > Krzysztof:
-> > >> regulatory-hint for me means usually regdb, but even with your meaning
-> > >> you tell SW what to do - ignore hardware regulatory information.
-> > >> Property should not tell what SW should do with hardware. Property
-> > >> should tell what is happening here in the hardware. In this case: what
-> > >> is the reason behind.
-> > >>
-> > >> IOW, why user of a board in country X, where regulatory data says X,
-> > >> should have the correct regulatory data ignored?
-> > >
-> > > Because users in X buy a board for X and the regulatory data says U.
-> > >
-> > > Indeed when the ROM regulatory hint is set to US and the driver
-> > > reports this to the OS, the wireless-regdb restrictions for US are
-> > > applied. This would normally be fine, however the third radio in
-> > > WRT3200ACM and WRT32x, reports US on all models including those sold
-> > > in the EU and other non US markets. This creates a conflict with
-> > > radios 0 and 1, which report FR and also with my correct setting: BG.
-> > > With the wireless-regdb restrictions for US, FR and BG applied, radio
-> > > 0 refuses to start.
-> >
-> > So if you move with your router to US, you would need to change DTB?
-> > IOW, the DTB is per user? This is obviously wrong... What if one device
-> > has correct regulatory data written and you ignore it? Why would you
-> > ignore it? If you decide to ignore correct regulatory data, then you can
-> > as well ignore it unconditionally and this property is not needed.
->
-> All radios on these devices operate according to their certified
-> region. The firmware for all radios is closed source, locked-down and
-> there is no API to change any regional settings or affect TX power. By
-> design, the regulatory information for this platform is configured
-> from the devinfo partition mtd3:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts?h=v7.2#n106
->
-> cat /dev/mtd3
-> admin1_passphrase=[...]
-> admin2_passphrase=[...]
-> cert_region=EU
-> default_passphrase=[...]
-> default_ssid=Linksys07770
-> deviceType=urn:home-linksys-com:device:Router:1
-> devinfo_version=20160121.1
-> hw_mac_addr=[...]
-> hw_revision=1
-> hw_version=48SAM203.0GA
-> manufacturer=Linksys, LLC
-> manufacturerURL=http://www.linksys.com
-> manufacturer_date=2017/12/26
-> mfg_data_version=1
-> modelDescription=Simultaneous Dual-Band Wireless-AC Gigabit Router
-> modelNumber=WRT3200ACM-EU
-> serial_number=[...]
-> sw_version=v1.0.0
-> tc_passphrase=[...]
-> tc_ssid=[...]
-> uuid_key=[...]
-> wps_device_pin=[...]
->
-> The intent of these patch series is not to make the radios operate in
-> a region other than the one they are certified for, that's obviously
-> not possible. As described in the commit description, the goal is to
-> allow the platform to use the correct region, which is stored in the
-> devinfo partition. The hard-coded region in the ROM of radio 2
-> conflicts with the platform region and should be ignored, otherwise
-> radio 0 and 2 won't even start. And yes this applies to the case where
-> the user bought the device in Europe and has configured their correct
-> country.
->
-> With routes that allow the region to be changed, a user can move from
-> EU to US, set the region to US and use their device.
-> This is not the case with this model. The radios refuse region change
-> so the user should not use it in other regions.
-> For models sold on the US market, all 3 radios report US. The platform
-> also enforces the US region from the devinfo partition. Even if we
-> ignore the ROM hint from all radios, the platform will still use US. I
-> don't see any regression. My changes are carefully scoped to a
-> particular device which needs them and do not affect any other
-> devices.
->
-> > > Would you approve any of these or suggest a better name for the flag?
-> > > Should ROM be in upper or lower case?
-> > > I omitted 'in-ROM' to keep it short, because the driver check line is
-> > > already longer than 80 characters.
-> > > - marvell,ignore-regulatory-hint (current)
-> > > - marvell,ignore-regulatory-hint-in-ROM
-> > > - marvell,invalid-regulatory-hint-in-ROM
-> > > - marvell,invalid-regulatory-hint
-> > > - marvell,invalid-regulatory-ROM
-> > > - marvell,invalid-reg-hint-in-ROM
-> >
-> > The point is that the regulatory hint is NOT INVALID. One device was
-> > sold in US with US data, so how could it be invalid?
->
-> US devices have no issues, because all radios report US.
-> I would love to ask Linksys the same question.
-> My router was sold in Bulgaria and radio 3 reports US. Others bought
-> it from the UK, DE, etc - same thing. Please allow me some time to
-> install a clean firmware and I will post the output from
-> iw reg get
-> so you can see the incorrect regulatory hint and mix of three regions.
-> This will take some time, and I will be left without a working Wi-Fi
-> until I recover using UART.
+On 8/20/26 12:07 PM, Abel Vesa wrote:
+> Enable runtime PM for the controller, allowing CX to be powered down
+> once all GCC consumers have released their clocks and GDSCs.
+> 
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
 
-iw reg get
-global
-country 98: DFS-UNSET
-(2400 - 2472 @ 40), (N/A, 20), (N/A)
-(5150 - 5250 @ 100), (N/A, 23), (N/A), NO-OUTDOOR, AUTO-BW
-(5250 - 5350 @ 100), (N/A, 20), (0 ms), NO-OUTDOOR, DFS, AUTO-BW
-(5470 - 5725 @ 160), (N/A, 24), (0 ms), DFS
-(5725 - 5730 @ 5), (N/A, 13), (0 ms), DFS
-(5730 - 5850 @ 80), (N/A, 13), (N/A)
-(5850 - 5875 @ 25), (N/A, 13), (N/A), NO-OUTDOOR, PASSIVE-SCAN
-(5945 - 6425 @ 320), (N/A, 12), (N/A), NO-OUTDOOR, PASSIVE-SCAN
-(57240 - 71000 @ 2160), (N/A, 40), (N/A)
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-phy#2
-country US: DFS-FCC
-(902 - 904 @ 2), (N/A, 30), (N/A)
-(904 - 920 @ 16), (N/A, 30), (N/A)
-(920 - 928 @ 8), (N/A, 30), (N/A)
-(2400 - 2472 @ 40), (N/A, 30), (N/A)
-(5150 - 5250 @ 80), (N/A, 23), (N/A), AUTO-BW
-(5250 - 5350 @ 80), (N/A, 24), (0 ms), DFS, AUTO-BW
-(5470 - 5730 @ 160), (N/A, 24), (0 ms), DFS
-(5730 - 5850 @ 80), (N/A, 30), (N/A), AUTO-BW
-(5850 - 5895 @ 40), (N/A, 27), (N/A), NO-OUTDOOR, AUTO-BW, PASSIVE-SCAN
-(5925 - 7125 @ 320), (N/A, 12), (N/A), NO-OUTDOOR, PASSIVE-SCAN
-(57240 - 71000 @ 2160), (N/A, 40), (N/A)
-
-phy#1
-country FR: DFS-ETSI
-(2400 - 2483 @ 40), (N/A, 20), (N/A)
-(5150 - 5250 @ 80), (N/A, 23), (N/A), NO-OUTDOOR, AUTO-BW
-(5250 - 5350 @ 80), (N/A, 20), (0 ms), NO-OUTDOOR, DFS, AUTO-BW
-(5470 - 5725 @ 160), (N/A, 26), (0 ms), DFS
-(5725 - 5875 @ 80), (N/A, 13), (N/A)
-(5945 - 6425 @ 320), (N/A, 23), (N/A), NO-OUTDOOR
-(57000 - 71000 @ 2160), (N/A, 40), (N/A)
-
-phy#0
-country FR: DFS-ETSI
-(2400 - 2483 @ 40), (N/A, 20), (N/A)
-(5150 - 5250 @ 80), (N/A, 23), (N/A), NO-OUTDOOR, AUTO-BW
-(5250 - 5350 @ 80), (N/A, 20), (0 ms), NO-OUTDOOR, DFS, AUTO-BW
-(5470 - 5725 @ 160), (N/A, 26), (0 ms), DFS
-(5725 - 5875 @ 80), (N/A, 13), (N/A)
-(5945 - 6425 @ 320), (N/A, 23), (N/A), NO-OUTDOOR
-(57000 - 71000 @ 2160), (N/A, 40), (N/A)
-
-global: country 98: DFS-UNSET
-phy#0: country FR: DFS-ETSI
-phy#1: country FR: DFS-ETSI
-phy#2: country US: DFS-FCC
-
-- phy0 does not start
-- phy1 works
-- phy2 works
-
-And my country is set to BG
-# /etc/config/wireless
-config wifi-device 'radio0'
-    option type 'mac80211'
-    option path 'soc/soc:pcie/pci0000:00/0000:00:01.0/0000:01:00.0'
-    option require_mode 'ac'
-    option cell_density '3'
-    option legacy_rates '0'
-    option htmode 'VHT80'
-    option hwmode '11a'
-    option country 'BG'
-    option channel '100'
-    option disabled '0'
-
-Other users report the same:
-https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-
-You can also search: WRT3200ACM DFS, there are endless comments.
-
-Greetings!
-Georgi Valkov
+Konrad
