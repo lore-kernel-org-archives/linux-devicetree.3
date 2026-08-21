@@ -1,141 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A5B448D0E
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 12:36:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AF41922F5
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 12:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787315779; cv=none; b=pYCiw2sbFTXv975eIvCw9BbMB/XGNESohwLNME6Z690NdAak+FwRb8OaKgBWzD0uKEO4RJL9hcDE8hnrJAJp7JRWNektvG/o3R0D+wAF3onS4wHEOYZPFddesyAcPTdq54yunembPylw/MfFEwRdvJVkOIB6aczwymbWL4lR3xQ=
+	t=1787315838; cv=none; b=s4eMHOa17e4QhVgag2qRFqhIWbCnuwkltYgkiN3KMuZ9F1JqZqq61ystNGf2liuXxNJILTOBr5DgmL4znGos2invYaBsXooCKkoQp7QzO64AMT5FSuVORS+Xi45pxSgeH6cjN7NiTJht8JYjiJzh6ShRB95cJKnw0JgLslxwJuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787315779; c=relaxed/simple;
-	bh=mLM6FGzN9PN+9rIWyrpr8ZKkRYMcCve0OQfyNT49n48=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hLLnKlkNJvr+Vb4VmjhTmkRxteqMoWdPL3QNQ2spqOYsyaElvcF+O30BZIKJ5of93zs/wgv32+AO1ULuFIS1aGhjEBD7TKA/F2j9eAzD+VyZKd+BmuNihm4AhuxqRUQD7Ziv+nVGmCbalyH8J9Xdpz8hJRQrb2aMiwJfEtdlGbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0mBOhso; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787315838; c=relaxed/simple;
+	bh=PrDZgKJSfpx6nKGCbhXpOA4dPKRcANDQUxU89FDpCMk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gclBArzYnqoen/apn91akFtvwcgkvUbXbjVoGZwrkUqCK1MXgCbL+3xq2lU34qCur0hrq/OQfEoJKP4zM983yjBBJwxfvKCYhioMf+o5rNyzLnGQ3emXtTJXAyCy2PO/n/pUEQrFRanbqCLHN+XDZ5kuDMC0Fz85gdNOocpipr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=db8EK8wQ; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0mBOhso"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273DE1F000E9;
-	Fri, 21 Aug 2026 12:36:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787315778;
-	bh=xJNzJ+XliiBOCfYhtcK6908cqv+j+MXm5PEnIqP4u9I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T0mBOhsodXsQ4v3qPp2KjCKn3bbgvnrPAkmqfIU7Z0yc74912G9lM00gnmQkG9mua
-	 KGlSrhT1ED9abwo5komvWJz8QDhW/5XYfV19ADxSNCerJH5CcWMwf/Pq6qBdTMo7pg
-	 shGZf6pOQEyVMspM2C9PH00ei09d3HPQesAS0iixMN1iCM+mnFTCdZQ1OMwzA6Na2/
-	 gyE4Fq9RW9HlmPMQFt8FcmdalafNT4mzQ7R1M+vrnraoYGqQQ/+wDAvAzpKREt76zg
-	 S/8FKjC6KoDgy3iZGnwi1AG/nukWxek9zH+hHtrO9Im34vhPoKtKwD1eU9LXa4LHiY
-	 /WhZyZ0qfEe1Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/7] arm64: dts: qcom: Add LeEco Le2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adam Skladowski" <a39.skl@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260821-next-patches-v4-5-7ab02c0d4eb9@gmail.com>
-References: <20260821-next-patches-v4-0-7ab02c0d4eb9@gmail.com>
- <20260821-next-patches-v4-5-7ab02c0d4eb9@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 12:36:17 +0000
-Message-Id: <20260821123618.273DE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="db8EK8wQ"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15d111ca99so111318166b.0
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 05:37:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787315835; x=1787920635; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jLIbMgirXqtcsU6FvNo6N5DXtJvpeFxGtxPN2x+Chyo=;
+        b=db8EK8wQn2CVnbUXZAUXm7mwyCUneQggozOBpIo2iF9G0Dyoln7y440LFKkgod2/Hz
+         1L53km5V0uYRcMbNhqrAacBhmEVp3Iqt+ERumCrNduV1rXv9AKyuTVimebF0cqZBsSvf
+         8XpZfEin5Og9JDLf9B6Ni61ti5NYWnHI2g/brmvStIRdvfZY+peKoc/JDSqLyhBSBJWT
+         FvVIFfGWzvWdwhdcWXLRI/F/A3siVavaZ5u6cnRRQJn2Uw2CMBb0NinytPLr2gVIBVGe
+         05QXpPneN51oDxz3wOq4FuptuUtBvMyWuR+Ty8cKeHOpfDe3/d6XgK2DDYwRnmM0w7C0
+         J7gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787315835; x=1787920635;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jLIbMgirXqtcsU6FvNo6N5DXtJvpeFxGtxPN2x+Chyo=;
+        b=scxaw/2eXFB6O31Ct3VnqzWZfG6nfj3T+0TcbSZQrE1lTVkRFz+5Fz8oONZ5dqH51G
+         W8N0o5PFe5zUUdMbM+Ug4RlQQg5QPIkSaNoFpXQhuLh/8jmVoULDr9dFkBH4QNNAsc7S
+         2Zopp41r/KeNBJWaZsMGBpiO2sph1/1uw4SFTwJBXbL+uQcKmof74TzyXO1kczWi/84v
+         UG3CyimAmjV2yJ0W+2L3xc2H5848UbF738mFvYiKZkdyg7JflEeGYxLbctjG6Oo2kI1J
+         ZvrbbSZAWHgrELb+Wdp37Q/MkbYKItjzu0vTpdOV5OLudtdoEniVtOivq0+6scpDKCOR
+         doWA==
+X-Forwarded-Encrypted: i=1; AHgh+RpZpa0sGApp0af2saRf10iT5YroXBhilOV986ewIm7IQp4BsP33nPAwuI3GEI4GYE/MVoGgTuCI0cwt@vger.kernel.org
+X-Gm-Message-State: AFuF++lld9yByqvM+3kMV+Zn+vJ600YYzXi4jQ3Rm8L8cT49DXtuyqun
+	8f1B+QYiFhTbB4OQNIMD8TIPf7iYSzUMl3ALhVGDsoJCv6gKSFMlsD8Y
+X-Gm-Gg: AR+sD12MGRtjF0gd3DDEJZSXjM/DZ7oiQ241IiYIfFNnetoNw2gTeaQbdTcvxrCsMyk
+	2R42gK8DCYJ9PGLmLUVyWs32IGuDdtjYoFdtl7TBMVCdmnRpj+w939AcceqN8lny7NqnmTnACfD
+	wCmDxYJrhwsplOv9FFFA8uMfWnRYJHwJDT8+kbR1xpUPxe9UFXXPtY0zhzIw8QXf7Z3je/Dqztp
+	EwZleoW/suYUqCy5gDTohsOJpd4bual2rsyT7qlBYf/eixXF9PjD+nKf5OuhrP89e3V17B5LiXo
+	/gS07ta6J/WSPg8TGaDlYVDkakQ3owH6PRqT04TfLtvZIGsXvViiPg+55j9bgH5OTcrq6B4WYVK
+	MczFessXt0bEgxWqHa2WIB6n0PgxhjOlKJvhonAJrFzpYJNB0v4xdFnQYGRzrOTQgkyi30rLFJq
+	iBDrR8+Tv/Uro7B/NXVQ+b997GCIKCtbefcJfT6di/ytjQIwU+EoJvurxacRf8XVgWcSKcz6ARJ
+	m41EzqACt6HzeVKm0uQjnz55yhR8zXWcg==
+X-Received: by 2002:a17:907:3e02:b0:c1f:8145:820c with SMTP id a640c23a62f3a-c246a4aca6amr616460266b.2.1787315834806;
+        Fri, 21 Aug 2026 05:37:14 -0700 (PDT)
+Received: from workstation (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24591e0397sm451194666b.53.2026.08.21.05.37.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Aug 2026 05:37:13 -0700 (PDT)
+From: Stanislav Zaikin <zstaseg@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Stanislav Zaikin <zstaseg@gmail.com>
+Subject: [RFC PATCH v3 0/3] Add Xiaomi 12 Lite 5G (taoyao) battery support
+Date: Fri, 21 Aug 2026 14:37:08 +0200
+Message-ID: <20260821123711.1579539-1-zstaseg@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The `vdd_l9_l10_l13_l14_l15_l18` property in `qcom,rpm-pm8950-regu=
-lators` is missing the mandatory `-supply` suffix.
-- [High] The `&otg` node configures an `extcon` but lacks `status =3D "okay=
-";`, meaning USB will remain disabled.
-- [Low] The Synaptics RMI4 touchscreen `reset-gpios` is incorrectly specifi=
-ed as active-high (`GPIO_ACTIVE_HIGH`), contradicting the hardware's active=
--low requirement.
---
+Xiaomi 12 Lite 5G (taoyao) has an additional property with ID 12 that
+breaks the parsing in qcom_battmgr. Fix that by introducing separate
+maps for lookups properties in both directions.
 
---- Patch [5]: [PATCH v4 5/7] arm64: dts: qcom: Add LeEco Le2 ---
-commit c3c3413469ad8891e9f97013b16ab8831b5677fe
-Author: Adam Skladowski <a39.skl@gmail.com>
+The other approach that I tried is manual shifting properties:
 
-arm64: dts: qcom: Add LeEco Le2
++	if (battmgr->variant == QCOM_BATTMGR_TAOYAO && prop > BATT_CHG_CTRL_LIM_MAX)
++		prop++;
+...
++		if (battmgr->variant == QCOM_BATTMGR_TAOYAO && property > BATT_CHG_CTRL_LIM_MAX + 1)
++			property--;
 
-This patch adds a devicetree for the LeEco Le2 smartphone based on the
-Eldarion/MSM8976 SoC. It includes initial support for I2C peripherals,
-regulators, WLED, remoteprocs, and GPU.
+But I found that more obscure.
 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts b/arch/arm64/b=
-oot/dts/qcom/msm8976-leeco-s2.dts
-> new file mode 100644
-> index 0000000000000..e64335162c34b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts
-[ ... ]
-> +&blsp1_i2c4 {
-> +	status =3D "okay";
-> +
-> +	touchscreen@4b {
-> +		compatible =3D "syna,rmi4-i2c";
-> +		reg =3D <0x4b>;
-> +		interrupts-extended =3D <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +		pinctrl-0 =3D <&touch_default_state>;
-> +		pinctrl-names =3D "default";
-> +
-> +		reset-gpios =3D <&tlmm 64 GPIO_ACTIVE_HIGH>;
+Will be happy to switch if the maintainers prefer this one.
 
-[Severity: Low]
-Is the reset-gpios polarity correct here?=20
+Changes in v3:
+- Fix QCOM_BATTMGR_TAOYAO enum ordering (patch #2)
+- Order in qcom_battmgr_of_variants[] is already right (no change)
+- Revert the qcom,sm7325-pmic-glink SoC fallback (patch #1 and #3)
+- Rephrased commit message (patch #3)
+- Design question from v1/v2 still open: lookup tables vs. inline shift
 
-Looking further down in the patch at touch_default_state, a bias-pull-up is
-defined for this pin. This suggests the inactive state is physically high,
-which would mean the reset should be active-low. While the syna,rmi4-i2c
-driver may ignore this property currently, if driver support is added later,
-the GPIO framework might drive the pin low when de-asserting it, keeping
-the device permanently in reset.
+Changes in v2:
+- Keep the qcom,sm7325-pmic-glink SoC fallback in the compatible chain
+  of the taoyao pmic-glink node (review feedback, patch #1 and #3)
 
-[ ... ]
-> +&mdss_dsi0_phy {
-> +	vddio-supply =3D <&pm8950_l6>;
-> +};
-> +
-> +&otg {
-> +	extcon =3D <&tiusb320>;
-> +};
+Stanislav Zaikin (3):
+  dt-bindings: soc: qcom: add xiaomi,taoyao-pmic-glink compatible
+  power: supply: qcom_battmgr: add Xiaomi taoyao support
+  arm64: dts: qcom: sm7325-xiaomi-taoyao: switch to device-specific
+    pmic-glink compatible
 
-[Severity: High]
-Should this node include a status =3D "okay" property?=20
+ .../bindings/soc/qcom/qcom,pmic-glink.yaml    |  1 +
+ .../boot/dts/qcom/sm7325-xiaomi-taoyao.dts    |  2 +-
+ drivers/power/supply/qcom_battmgr.c           | 86 ++++++++++++++++++-
+ 3 files changed, 84 insertions(+), 5 deletions(-)
 
-Without it, the OTG port will remain in the disabled state defined by the
-base SoC inclusion, which prevents the USB controller driver from probing
-and leaves USB/OTG functionality broken.
+-- 
+2.53.0
 
-[ ... ]
-> +&rpm_requests {
-> +	regulators {
-> +		compatible =3D "qcom,rpm-pm8950-regulators";
-> +
-> +		vdd_s1-supply =3D <&vph_pwr>;
-> +		vdd_s2-supply =3D <&vph_pwr>;
-> +		vdd_s3-supply =3D <&vph_pwr>;
-> +		vdd_s4-supply =3D <&vph_pwr>;
-> +		vdd_s6-supply =3D <&vph_pwr>;
-> +		vdd_l1_l19-supply =3D <&pm8950_s3>;
-> +		vdd_l2_l23-supply =3D <&pm8950_s3>;
-> +		vdd_l3-supply =3D <&pm8950_s3>;
-> +		vdd_l5_l6_l7_l16-supply =3D <&pm8950_s4>;
-> +		vdd_l8_l11_l12_l17_l22-supply =3D <&vph_pwr>;
-> +		vdd_l9_l10_l13_l14_l15_l18 =3D <&vph_pwr>;
-
-[Severity: High]
-Is this property missing the mandatory -supply suffix?
-
-The regulator framework relies on the -supply suffix to establish parent-ch=
-ild
-relationships. Without it, the framework will fail to resolve the parent
-supply, leaving regulators L9, L10, L13, L14, L15, and L18 unmapped.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-next-patch=
-es-v4-0-7ab02c0d4eb9@gmail.com?part=3D5
