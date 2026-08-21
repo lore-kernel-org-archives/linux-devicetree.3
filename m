@@ -1,173 +1,329 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010021.outbound.protection.outlook.com [52.101.84.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07BD43B3EF;
-	Fri, 21 Aug 2026 14:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787323641; cv=fail; b=Z+LJxwgcXCtL0lM0yaNQQIU60I4o16tLQg2BAEmPnfRbMKQxT0u6RrOGL7/7QInVO6x0yINB/tfKVekJaYDr6BxAjrVhmGqDDuoNXS5cuFVmSAHer5RaHmcsNEGvWmV/tkKKssBMd/KH4r8ZIHz/I/G+c+XEUL4h9JbQEMADKdQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787323641; c=relaxed/simple;
-	bh=25z9aYTRpYF7ltPTC6wfrTf6mYIPSFwn5J7qfo4MQ/I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=RY3tGjNV22eJ710GQTxN1CsJwtmvO/hXDVQJsuS/j269kk8m6NegTBZ2eMB4xoPxD1GpWpgk+VGKVgDK2LW9MKoI0SaYrXvcmDB+oorXLieDd6LNUkxbKM4spla6y/MlFHTgjmfWrNu8D0HcUM+2xVi4gUCp0gWJLw2fIBq+HnM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=IfNkxdJy; arc=fail smtp.client-ip=52.101.84.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B59248896
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787323953; cv=none; b=M2jupnrusO1z1b1n+xtlo7RnrVqNGHYcKJp3H2SsHxyUeAKPR2rj1E6JukAe1v1SKD6ZKIuW/xcAATAIOKzoeigT+vOB/7PRfpjw6f/Pl8Lt8Rat7wy9mUhm9eFRMDyeOO9VtAZh+j+BDQMPrLhVGjaNwu3ZwwwsPdS1W/WbgqU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787323953; c=relaxed/simple;
+	bh=UnNEryUPnOdh2SlneKa+2XahCkroT0dcBgWNh1hx6m4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O7Yivgxrf3QTMS6Ao4KMcc7D+ouI6Ib7tfkDIMal6PVsfdh3TEJboov7NxGqWBcDJNiwkktpWgOvtP1X8kt5Fg+fat6APTkHNMOyqFRAsS64MpOgWPZmqokXi/FCoo2gCsYhhpCebScYE/MRil9cUhTIh0XTiSnDpP7Js5Q39c0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPlJAt9A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="IfNkxdJy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OkAd8aqWZ04sq83RjBUtq/UtTUwn05TtcfwbHOZsUZ3CaqPdbvgj/VGk+Q7L+yLe8Ic84Mz5iky9imlfb5Xoqjrw/IK/kXsCJyMw0WOvoBhgqgW0WIgOF70IcuD46t0Fj8+DaEYK9pBx8JH6VShkxqLlW3fF5uLEXqT6f/YSBfCN/9kPHK9Mf7K9U2FaZbni7TT2NkwG2zNLiacnPk2gzc6CN7i+1a0TCMY5dXGCy2Xzx5hUs2VH9cOZMS5gQNzoYpxa3M81m2D5De6AkN845Afv1ITPTpCxwRsyVzK98L6GtQ4sy1BEv8a12W4wkiM7GCEbYH8lOrXl0hKA69gqUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tCz52Besgj8Ebca/xSjgchOhIlTlxbp2YsDCDC/BvnM=;
- b=D9BE/qJwQFgtKg8tuP4JejdwO2XnQkAwdocyjlQxSIhrgtHVpdVKERvN0gjVS3SpmtIoNogOAekRVhZ2WhC2AdsA6TRVZBHhYggtBmATwL3psgsCh+jMWRPTEPDH3s3WnXWE6SO/E9ZN4A2A0S2thH5I0iMxtPSZQm1ikPsF5MFrOUQ5Q5lL82gca8Cr/dZ2xJl/RTz8+sGG22RDoBDae5OErMOViMwLDt+uynWVUanTyfDhZRmF+SZ8BanrsXEIv1l/nDI4/WjjdP4u+/LbnK2MJbmqjazKvhfFXivImUPZRUrnTV+jo3MyX64fRGZBy6ZiYEBcCtLeDmxTFMxcZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tCz52Besgj8Ebca/xSjgchOhIlTlxbp2YsDCDC/BvnM=;
- b=IfNkxdJysIPxODgdedhu01KvGSsLCXn99hx5cEnDP1VKV9xXP+WsapJlf2S1dn5BS0LR/yBvgeRwlYKwfkXfxxg6WsrJvWb1CQ6ZaFUvmXs9YtZGJff4tDIcrtmhMddJS13BaUk/XwETfE3cSohCpLKa5K5uuksVhL2KmSG67qKu0PRGKFfgY3uacCfTRLKL8TDFyuBffTxpBXbEWUfDC/1J6WxgEaXogo3dPdmweGwWEZngUrbK3SHyCbfyEX7yI8dRNf0nj+1Ya87jv3vxPyk1sjDbjUsGkp8rVwDwoFx4mM1TUPFDIy63RTJJSqmO2pKjOaVlQXBX0DJNZlTpzg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB8893.eurprd04.prod.outlook.com (2603:10a6:102:20c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 14:47:14 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.008; Fri, 21 Aug 2026
- 14:47:14 +0000
-Date: Fri, 21 Aug 2026 09:47:04 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: hongxing.zhu@oss.nxp.com
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	frank.li@nxp.com, s.hauer@pengutronix.de, festevam@gmail.com,
-	kernel@pengutronix.de, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux@ew.tq-group.com,
-	Richard Zhu <hongxing.zhu@nxp.com>
-Subject: Re: [PATCH v2 1/3] arm64: dts: imx95: Avoid 32-bit PCIe window
- System RAM overlap
-Message-ID: <aohk6D8ay79lGAtw@SMW015318>
-References: <20260821054334.1277088-1-hongxing.zhu@oss.nxp.com>
- <20260821054334.1277088-2-hongxing.zhu@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821054334.1277088-2-hongxing.zhu@oss.nxp.com>
-X-ClientProxiedBy: PH7P220CA0022.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:326::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPlJAt9A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17051F000E9;
+	Fri, 21 Aug 2026 14:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787323951;
+	bh=/MjDohHyujtDq42Hz5EJEtrF2cungh+3TApdWY4aqmQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TPlJAt9A9oSLiPOdarFiXH17/lv7WxvSQr3P9bhuf1a53JJ31Ko9Q+EbtywYbZ+Yd
+	 okNL4LLrJYa18E2T86ggNdm3aFx1kRWUTfMrwEyJBRpPubG+bBxfnDDRhs7kDIxzN4
+	 Q2mRY/zD9O1p6/WkIUD7WEDGlzLMYvYZOFhNyHzDIU63Exz/p4qqnJrAphMngwTLu9
+	 RBRc68VHlh8yzOGLSqAWA1FS6Psy9+nK9ja90/sGQOQrTGbb6Spbc7NqCRy+MboBku
+	 C2DfhX3DL7V5v8m95mjJBEhK1l0rbnU/5j4JHJJZDKRphGHcWulajrmLtvV4TIsdno
+	 q+YMdBF+4D8Xw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] drm/ch1115: add support for Chipwealth CH1115
+ OLED controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Tmljb2zDoXMgQW50aW5vcmk=?= <nico.antinori.7@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <362d7027fc2b558e4b35a154e7d12489bd88dbeb.1787321297.git.nico.antinori.7@gmail.com>
+References: <cover.1787321297.git.nico.antinori.7@gmail.com>
+ <362d7027fc2b558e4b35a154e7d12489bd88dbeb.1787321297.git.nico.antinori.7@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 14:52:30 +0000
+Message-Id: <20260821145230.B17051F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8893:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77ad642f-4c65-43d5-506e-08deff9316f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|19092799006|22082099003|18002099003|6133799003|56012099006|10067099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	S55lFJAiU3DYrcjDoPEyYBSYACR9ZJFTZ2m2Gik56dqg/YF/KRHTmgQALRFXzEZ75RcbntlXgd8FyxbarCP9oT65pVWE58r1YqZUKjtcn1f/XjEJEy34QVNY1J9sT4xTXOEuRJW90dSYS/V1BJKlQhyNGEPSSAYDNvx8/OTl/vGKDwh/O63L7M8bhX4he7Lv9BdEFaHU6aBq0xSQnSxmmchLsmEJf4H/GcfAGpbCGIOuB34uOAFbJiDv9C+HF0H4Fq02VkcNVjiIPix9QeC4rU5h4GDQ4B6jp+vPBXrGpE8Hi7+G/TN97YBUnDSzng+xTR+Ien6hPIuyhjtKPSQfwdGHLBdiXaPIlUca0w/MYuIVz4TCdI7GGVFqKuxs55OXG38YZbXOHu7N1bKEdZ+Qg1zZJeplRmnJgqLl/fI3Cs9PyW7QXBcC+OjsedvCAEhv+TZMCCaFvkEJZGTWOd/ZaQRBIUAYrdipIZ4XdAEtBy5CfkSlKmKvZRpmnrQ+Cj2DRPOgJDGLADiUXbPcMKUnDZJTSfy4xxjjgMmqQsQC8uhOCfuUi6pu+Blwfm69uV1qMKavXdEZcnhta/kBwpGcA/HjlIlvukBvesT8JalYxkdVxXnWNGlBDIaBU41XmPdkKg8RQl0PsTRJmZQMGG4HLC4COtFAczXVqd+R3xo4ExI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(19092799006)(22082099003)(18002099003)(6133799003)(56012099006)(10067099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kpy1PRRHqPqvl58kEJVkRRLVZhHt1rtt/3sP1n2vn3wPk6QzZziCNLI+hxw3?=
- =?us-ascii?Q?hh3TfAkM9MCO8IsEpqCAvIsK8H+kUBCk9mrw7RMfeIbNFjy1qJ8yA91ZkSB7?=
- =?us-ascii?Q?MonjWP0IXCeyjuzouH1M2nAu3HT42RVF60RdloP6d4lfOIm5VFZk9jEAeAKT?=
- =?us-ascii?Q?KIGLV3uePv8LuUNLxvzegRwmJdbM8DgPix5JO5ObstOByZUF0wk2XuIXMBgK?=
- =?us-ascii?Q?iJaaHy/F51wPYYXbXIm7lDswqrRhRZG0Vq8/7QCy/+2J46/NDHKTb8zEcSll?=
- =?us-ascii?Q?zsYRjWAuSoAgiXv9szHL3B1io5rxVXXvmloa2/S75pnUxk5IP9NLMamEF6iY?=
- =?us-ascii?Q?dCGAZid6xQ071QOpea02gwOatlgyRCOMjZCHTi6nyEE+WJW7rUs2g/HiVRFs?=
- =?us-ascii?Q?rnDJxYiTBJMbOc1UMNENKfGFPqBoqUPBvKaZFZe5N5nDqIDtfaRL3uvkKnlW?=
- =?us-ascii?Q?hIpPUgvoVlAwiBpc0YeQDjYCkJZBQpkrZKw1m8U1ggCv2zr821tUbzk5jATR?=
- =?us-ascii?Q?JIPahchCy/smusUt1PfcS3ALg8m9GgGY3RubvwMtbR5+i8HxvgVIPcEHBNxq?=
- =?us-ascii?Q?82XKvwMEaJSOt4HgxsmAZCqgEEplSWPuf5CU4h9fYQOIUCE+IkijdeMHfGyD?=
- =?us-ascii?Q?YHOGeqho1Q2kUsLXIUt4C26B6deg9+jdtGkNLBZV95CgOUD1rPiBHBI9+4wB?=
- =?us-ascii?Q?SKR7PZR5r5V/2TXWZU0KV4/sL7HpWpVRlNbDTxUpLcCGU4IOfvG9/bueLoxj?=
- =?us-ascii?Q?Ckz5E32xRkVwigmE4XAxLXtBAI4p4t7vCxOoRnqZOamq6PAelAeEwYw4sUSH?=
- =?us-ascii?Q?5J6UqE+fX9fFo24qVyJ/JF/JbJsRwa5CJRYNQFFj5lpIbHHdoPhzqQ5zLPg4?=
- =?us-ascii?Q?SO6fTnJ+VVdAsPRA7s8zPy4803GLaWqAJ7ufsnctiEzuKMpfYmuJDFfJceKF?=
- =?us-ascii?Q?KsZW5kJhlzoT/ncDYl1K9GC47s5ZEfjD8sYpwwltyn996Wcv2MJNDkuRXkIk?=
- =?us-ascii?Q?d9xDFAUVrxwU6G+RMvohd4/GUewllX9LeBw2y1PhYKBqskVQMCW231BLZrmV?=
- =?us-ascii?Q?sLZ15q30ksQbU2EWTJhDJJgcwJFElnV7T7IIwVXhJzj1TOpZi44fHng6VYSD?=
- =?us-ascii?Q?jMgrhYf4L2MIIN2ARG+q1rs3+loFftzcjMWdMBvfgLK0w24JcYNmxSB3Rb86?=
- =?us-ascii?Q?IEixAZnQcR+hx5g+rojZyoc92fEXLKSrG2eC6+3FbPktv/K1HvLkseEgJ5R8?=
- =?us-ascii?Q?MBCFymVk6BL58CbJx00vL96SVfzpxXJ95NJ0uzbrv6uJ9gGBXRdAmi3uXxZj?=
- =?us-ascii?Q?GrsiYMm5W+i2caE1ONSy7xtiI4LzRHEQ417EiGDUW5rOBnYoVj3IbN8YvbBq?=
- =?us-ascii?Q?cc7Hi4QYjrU1NcxPyO7aaUjvH5sOIJwaqA0qV1ERrvyJOBf301EjKhwGj+Ru?=
- =?us-ascii?Q?NyljE9ISdenKyI8FJy5PAmf6fBmakjO1jGfCW3UIxfgGWe+t/79p2kZcwanG?=
- =?us-ascii?Q?4sWEO1kpLZlt1ZZKQd6BznGYNOyw5/FaN+nLOZdORkkBXhWMeuaHcprOM2rv?=
- =?us-ascii?Q?MMb8J740gIOdjiFqCJd1SknNkzSw09FTa1+DGqVwo6yK5JdUbPohSzNbebwy?=
- =?us-ascii?Q?di7aeOIfDW7FWaRFPQ9Ws4KwoK28GeReJhGx7kjtMwmrboCxcgIETKExvH74?=
- =?us-ascii?Q?7zc3vuJIrr1HOJJiZO9iGmGGYTLzn79qNar11tl0Bs5BoBR/fU6i8yt7zZs9?=
- =?us-ascii?Q?mOu6zeR4DupoUn5aFOIS4Q5ujFW+Q4+6zgojeYk5LlbcdLMEUTVQ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77ad642f-4c65-43d5-506e-08deff9316f4
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 14:47:14.6457
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qIu5byX5c9SsLgbhBdORjmgxHTkALB1NFANc74Bom+vyI8n0ss/z5tjsgGYo8w149bZFP0pS7Y7qQTHy5ZHOYLoVxlnW9/IbeLXK5MDljF3zk6lL7t3n6JxdFvJe5WRG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8893
 
-On Fri, Aug 21, 2026 at 01:43:32PM +0800, hongxing.zhu@oss.nxp.com wrote:
-> From: Richard Zhu <hongxing.zhu@nxp.com>
->
-> Move the PCIe non-prefetchable memory PCI bus address from 0xe0000000
-> to 0x10000000 to avoid overlap with DRAM. The 0x10000000 range is
-> reserved and safe to use.
->
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
+(s) to consider:
+- [High] The driver performs I2C transfers, which are sleeping functions, i=
+nside DRM atomic context callbacks.
+- [High] The `hwbuf` allocation size calculation fails to account for row p=
+itch alignment, leading to heap buffer overflows.
+- [High] Missing format conversion state reservation in `atomic_check` caus=
+es a `GFP_KERNEL` allocation in the atomic update path.
+- [High] Missing zero validation for display dimensions can lead to ZERO_SI=
+ZE_PTR dereference.
+- [High] Missing `drm_dev_unplug()` causes `drm_dev_enter()` to fail to pro=
+tect against Use-After-Free of devm-managed resources.
+- [High] Missing `drm_dev_enter()`/`drm_dev_exit()` protection in encoder c=
+allbacks.
+- [High] Improper handling of plane source coordinates causes Out-Of-Bounds=
+ memory accesses.
+- [Medium] Hardware shutdown commands are sent before unregistering the DRM=
+ device, exposing the powered-off device to userspace commits.
+- [Medium] Damage clip X coordinates are not rounded to byte boundaries, ca=
+using the monochrome conversion helper to corrupt the destination buffer.
+- [Medium] `CH1115_CMD_OFFSET` is programmed with a value of 64, which exce=
+eds the valid hardware limit.
+--
 
-If you agree, I put layerscape discussion link at here when apply
+--- Patch [2]: [PATCH v2 2/3] drm/ch1115: add support for Chipwealth CH1115=
+ OLED controller ---
+commit b8a12cbafccb463172c071e5d13f894de430373b
+Author: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
 
-link: https://lore.kernel.org/imx/753fca23-c3eb-45e3-aeac-b7b248fa723a@app.fastmail.com/ [1]
+drm/ch1115: add support for Chipwealth CH1115 OLED controller
 
-Frank
+Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
+Add DRM support for this chip using i2c bus.
 
-> Fixes: dbecf38e60d4e ("arm64: dts: imx95: Correct PCIe outbound address space configuration")
-> Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx95.dtsi | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> index 38fc47024841f..0f03b85aaec17 100644
-> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> @@ -1948,7 +1948,7 @@ pcie0: pcie@4c300000 {
->  			      <0 0x4c340000 0 0x4000>;
->  			reg-names = "dbi", "config", "atu", "app";
->  			ranges = <0x43000000 0x9 0x00000000 0x9 0x00000000 0x0 0xe0000000>,
-> -				 <0x82000000 0x0 0xe0000000 0x9 0xe0000000 0x0 0x10000000>,
-> +				 <0x82000000 0x0 0x10000000 0x9 0xe0000000 0x0 0x10000000>,
->  				 <0x81000000 0x0 0x00000000 0x9 0xf0000000 0x0 0x00100000>;
->  			#address-cells = <3>;
->  			#size-cells = <2>;
-> @@ -2039,7 +2039,7 @@ pcie1: pcie@4c380000 {
->  			      <0 0x4c3c0000 0 0x4000>;
->  			reg-names = "dbi", "config", "atu", "app";
->  			ranges = <0x43000000 0xa 0x00000000 0xa 0x00000000 0x0 0xe0000000>,
-> -				 <0x82000000 0x0 0xe0000000 0xa 0xe0000000 0x0 0x10000000>,
-> +				 <0x82000000 0x0 0x10000000 0xa 0xe0000000 0x0 0x10000000>,
->  				 <0x81000000 0x0 0x00000000 0xa 0xf0000000 0x0 0x00100000>;
->  			#address-cells = <3>;
->  			#size-cells = <2>;
->
-> base-commit: eba4724641990bd9975ca10ababe726b6143f0b6
-> --
-> 2.34.1
->
->
+> diff --git a/drivers/gpu/drm/chipwealth/ch1115-i2c.c b/drivers/gpu/drm/ch=
+ipwealth/ch1115-i2c.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/chipwealth/ch1115-i2c.c
+[ ... ]
+> +static int ch1115_oled_init(struct ch1115_device *ch1115)
+> +{
+[ ... ]
+> +		CH1115_CMD_OFFSET,
+> +		ch1115->flip_vertical
+> +			? ch1115->y_start_offset
+> +			: 64 - ch1115->y_start_offset,
+
+[Severity: Medium]
+Is this offset calculation correct for when flip_vertical is false? If
+y_start_offset is 0, this evaluates to 64. Display offset values for this
+controller type are 6-bit and must be strictly between 0 and 63. Sending 64
+might be out of bounds and could corrupt the internal display state machine.
+
+[ ... ]
+> +static void ch1115_prepare_buffer(struct ch1115_device *ch1115,
+> +				  const struct iosys_map *vmap,
+> +				  struct drm_framebuffer *fb,
+> +				  struct drm_rect *rect,
+> +				  struct drm_format_conv_state *fmtcnv_state)
+> +{
+> +	unsigned int dst_pitch;
+> +	struct iosys_map dst;
+> +
+> +	dst_pitch =3D DIV_ROUND_UP(ch1115->width, 8);
+> +	rect->y1 =3D round_down(rect->y1, CH1115_PAGE_HEIGHT);
+> +	rect->y2 =3D min_t(unsigned int, round_up(rect->y2, CH1115_PAGE_HEIGHT)=
+, ch1115->height);
+> +
+> +	iosys_map_set_vaddr(&dst, ch1115->hwbuf + rect->y1 * dst_pitch + rect->=
+x1 / 8);
+
+[Severity: High]
+Could this calculation result in an out-of-bounds heap memory access? The
+damage rectangles returned by drm_atomic_helper_damage_iter_next are in
+plane source coordinates. If a user sets a non-zero plane source offset or a
+framebuffer larger than the panel, rect->x1 and rect->y1 can exceed the
+panel dimensions, causing the absolute offsets to point outside the hwbuf
+allocation. These coordinates should be translated to the plane's destinati=
+on
+coordinates first.
+
+[Severity: Medium]
+Are we guaranteed that rect->x1 and rect->x2 are aligned to byte boundaries?
+The monochrome conversion helper drm_fb_xrgb8888_to_mono assumes the start
+pixel maps to bit 0. If rect->x1 is not a multiple of 8, converted pixels
+will be shifted improperly in the destination byte, corrupting the image and
+overwriting adjacent pre-existing pixels outside the clip boundary.
+
+> +	drm_fb_xrgb8888_to_mono(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
+> +}
+[ ... ]
+> +static int ch1115_fb_update_rect(struct drm_framebuffer *fb, struct drm_=
+rect *rect)
+> +{
+> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(fb->dev);
+> +	char *row =3D ch1115->row;
+> +	int ret;
+> +
+> +	rect->y1 =3D round_down(rect->y1, CH1115_PAGE_HEIGHT);
+> +	rect->y2 =3D min_t(unsigned int, round_up(rect->y2, CH1115_PAGE_HEIGHT)=
+, ch1115->height);
+> +
+> +	for (int y =3D rect->y1; y < rect->y2; y +=3D CH1115_PAGE_HEIGHT) {
+> +		for (int x =3D rect->x1; x < rect->x2; x++)
+> +			row[x] =3D ch1115_transform_xy(ch1115->hwbuf, x, y, ch1115->bytes_per=
+_row);
+
+[Severity: High]
+Can this index exceed the bounds of the row array? Similar to the hwbuf off=
+set
+above, rect->x1 and rect->x2 can exceed the panel width if the plane source
+coordinates are larger than the display, writing out of bounds into the hea=
+p.
+
+[ ... ]
+> +static int ch1115_primary_plane_helper_atomic_check(struct drm_plane *pl=
+ane,
+> +						    struct drm_atomic_commit *state)
+> +{
+[ ... ]
+> +	return drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_st=
+ate,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   false, false);
+> +}
+
+[Severity: High]
+Should we call drm_format_conv_state_reserve here? Because the driver uses
+drm_fb_xrgb8888_to_mono during the atomic update phase, failing to reserve
+the format conversion state here (where sleeping is allowed) forces a
+GFP_KERNEL allocation inside the non-failable atomic update path.
+
+[ ... ]
+> +static void ch1115_primary_plane_helper_atomic_update(struct drm_plane *=
+plane,
+> +						      struct drm_atomic_commit *state)
+> +{
+[ ... ]
+> +	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, plane_state);
+> +	drm_atomic_for_each_plane_damage(&iter, &damage) {
+> +		ch1115_prepare_buffer(ch1115,
+> +				      &shadow_plane_state->data[0],
+> +				      fb, &damage,
+> +				      &shadow_plane_state->fmtcnv_state);
+
+[Severity: High]
+Does this sequence allocate memory in atomic context? Since
+drm_format_conv_state_reserve is not called in atomic_check, the
+drm_fb_xrgb8888_to_mono helper (invoked by ch1115_prepare_buffer) will atte=
+mpt
+a GFP_KERNEL allocation. This causes a scheduling while atomic panic.
+
+> +
+> +		ch1115_fb_update_rect(fb, &damage);
+
+[Severity: High]
+Can this trigger a sleep while in atomic context? The ch1115_fb_update_rect
+function issues I2C commands. The DRM subsystem strictly forbids sleeping in
+plane atomic update callbacks, but i2c_transfer acquires a mutex and will
+trigger a scheduling while atomic kernel panic.
+
+> +	}
+> +
+> +	drm_dev_exit(idx);
+[ ... ]
+> +static void ch1115_encoder_atomic_enable(struct drm_encoder *encoder,
+> +					 struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *drm =3D encoder->dev;
+> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
+> +
+> +	ch1115_oled_init(ch1115);
+> +
+> +	u8 command =3D CH1115_CMD_ON;
+> +
+> +	ch1115_send_command_list(ch1115, &command, 1);
+
+[Severity: High]
+Is it safe to issue I2C commands directly in the encoder enable callback? T=
+his
+path executes in atomic context where sleeping is prohibited, but
+ch1115_send_command_list triggers an i2c_transfer which can sleep.
+
+[Severity: High]
+Does this hardware access need drm_dev_enter and drm_dev_exit protection?
+Unlike the plane update functions, the encoder enable callback accesses the
+regmap directly without verifying if the device is still plugged in. If an
+atomic commit races with device unplug, this attempts a use-after-free on
+the devm-managed regmap.
+
+> +}
+> +
+> +static void ch1115_encoder_atomic_disable(struct drm_encoder *encoder,
+> +					  struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *drm =3D encoder->dev;
+> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
+> +
+> +	u8 command =3D CH1115_CMD_OFF;
+> +
+> +	ch1115_send_command_list(ch1115, &command, 1);
+
+[Severity: High]
+Does this sleeping function also violate the atomic context constraints? Ju=
+st
+like the enable callback, atomic_disable executes in atomic context and can=
+not
+use i2c_transfer.
+
+[Severity: High]
+Is the regmap access protected here? Similar to the enable callback, this
+requires drm_dev_enter and drm_dev_exit to avoid a use-after-free on device
+unplug.
+
+> +}
+[ ... ]
+> +static int ch1115_parse_dt(struct ch1115_device *ch1115)
+> +{
+[ ... ]
+> +	if (dt.hactive.typ > CH1115_MAX_WIDTH) {
+> +		dev_err(dev, "width=3D%d must be less than %d\n", dt.hactive.typ, CH11=
+15_MAX_WIDTH);
+> +		return -EINVAL;
+> +	}
+> +	if (dt.vactive.typ > CH1115_MAX_HEIGHT) {
+> +		dev_err(dev, "height=3D%d must be less than %d\n", dt.vactive.typ, CH1=
+115_MAX_HEIGHT);
+> +		return -EINVAL;
+> +	}
+
+[Severity: High]
+What happens if the device tree provides 0 for either of these dimensions?
+The parsing validates the upper bounds but missing a check against zero
+would cause the hwbuf and row allocations to request 0 bytes. This returns
+the ZERO_SIZE_PTR (0x10), leading to a kernel panic upon dereference.
+
+[ ... ]
+> +static int ch1115_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	ch1115->hwbuf =3D devm_kzalloc(&client->dev,
+> +				     (ch1115->width * ch1115->height) / 8,
+> +				     GFP_KERNEL);
+
+[Severity: High]
+Can this allocation be smaller than the required buffer size? The size is
+calculated without padding, but ch1115_prepare_buffer converts formats
+using a pitch of DIV_ROUND_UP(width, 8). If width is not a multiple of 8,
+drm_fb_xrgb8888_to_mono will write past the end of the allocation.
+
+[ ... ]
+> +static void ch1115_remove(struct i2c_client *client)
+> +{
+[ ... ]
+> +	ret =3D ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list)=
+);
+> +	if (ret < 0)
+> +		dev_err(&client->dev, "There was an error executing the shutdown comma=
+nds");
+> +
+> +	drm_dev_unregister(&ch1115->dev);
+> +	drm_atomic_helper_shutdown(&ch1115->dev);
+> +}
+
+[Severity: Medium]
+Should drm_dev_unregister be called before turning off the hardware? By
+shutting down the panel while it is still registered, there is a window
+where userspace can perform atomic commits on a powered-off display, which
+could leave the hardware in an inconsistent state.
+
+[Severity: High]
+Will using drm_dev_unregister here instead of drm_dev_unplug cause problems
+for devm allocations? Calling drm_dev_unregister leaves the dev->unplugged
+flag unset. This allows drm_dev_enter to succeed even after the device is
+unbound. Delayed atomic commits could then bypass drm_dev_enter and access
+the freed devm-managed memory.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787321297.gi=
+t.nico.antinori.7@gmail.com?part=3D2
