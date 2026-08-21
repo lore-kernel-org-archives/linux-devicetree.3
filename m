@@ -1,64 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010006.outbound.protection.outlook.com [52.101.69.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE1B4ADD91;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091F84ADD9E;
 	Fri, 21 Aug 2026 14:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787321199; cv=none; b=R4CumlTu8EY/evS36RP47QiVQCqNYtF0Zwjx1YshJFJlTpRTgTutZ+fNLs3n3FFhoMg7F+Nc7b0QbMRrZ7wlL9Ie5hrWI/r6wCdttpZPAorJwmwYiObvAmh2znS/Rzn+N7sFzMoq0halRkfwCcrJRTY46CYNIWpkeC5JrSZK7hw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787321199; c=relaxed/simple;
-	bh=GMm+t7A8DNslifQCySL0RlNmlbqv1NPIjJyXzIEZPE4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Rt8aaOLA/wP59ZDfnvq2JjqMUBfJuxmsmhm+2QjTuoL8jMuhbwVcv3F+uZquN9VX+s7pRT0njOOfXHmtkZhJ6Z4ex1cZBxodQm4Dx49CxMXh0c5J4hz3js6awRQsxaMiD5ep6fLsxMUsa2mCYNBE7XGObrHqdrOYmZWURY5efSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oTm6As/H; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787321200; cv=fail; b=dTiUHXtdbKkpQKKZps+sYnMs+fGlcOR7GW0x9equz2PGeSC9/DLvpDdwnMVTRb2kP6UcUwLEsBz8jdH8xzsKoU4cxGn2IP0R+z/iQtuc0XcjS+fHeol3Wmr9Ittajt2PMtsaz2iiBejDeAJnqnbvw5FZbXK+VaR3si7AfKhKaSU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787321200; c=relaxed/simple;
+	bh=4xZb6SjyFswJD/LvKo249PnHFGbJi8khDUs1q54ieno=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=KdYnO4wek4Uls5fqAGSu1HqlOCHt3ASQrVcEE2F0KMrmPDiTIWsPmbb23LRmWomwL9xTaetRf5cMWZUCKrL7IjNWtb3TUTt+lJToB3taQZ5fEBNX9Fzb8CR+DRObz5gxn7pjSptXrv6sSbtiL3Nlr3tUVIYF2vCJ2wDorFMZCKk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=GwcOcKHl; arc=fail smtp.client-ip=52.101.69.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oTm6As/H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DBF41F00A3A;
-	Fri, 21 Aug 2026 14:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787321198;
-	bh=GMm+t7A8DNslifQCySL0RlNmlbqv1NPIjJyXzIEZPE4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oTm6As/HmgmYHVoxHmVBcQks1Twiw0QOZj25/Y+L9YBX2TLC99njqPxO/quey73pZ
-	 1Cup5ll43SQpPNjo4VmSOh2Go2zhWsSLhh4zC+oYOYKCEq4CGYCszOAr5bMW0EM/tR
-	 eBmTNcrLWEJcO9Oli7LXvCEbHgpjBOp6XzfG6mfKmnI1tGvs7tIJRoQyKQUSc5jh46
-	 8WLfEofD8d5scpD968eTc9BvAXA5HAXlV8EWHD79Wf3vkBnMNySR9YlH0U3vjvXYBV
-	 sX07pFVCzyLVMJJov3S4oMGtZ6iLfSkMQRhnrtzxyJyyVvSFkiWg1GmVDtfFDIQwOg
-	 znr1f5aUNf15A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 14/17] rtc: rzn1: use FIELD_PREP/FIELD_GET and
- GENMASK for register access
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, linux-rtc@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260821135608.275233-15-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260821135608.275233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260821135608.275233-15-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 14:06:37 +0000
-Message-Id: <20260821140638.0DBF41F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="GwcOcKHl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FkOFbjvp3W+EIaodk6DoPdhph/xCsihUrYtzHc+nRJvwvFZwiLOc1C306iW45pJrcFL2IhyqIpNRW0Hn6uIG5+XVDYSwUjeDqG76vQ+vJ4rEeI2SlT1tiQbl6PbqMvXyfUPG3HxLKZjIMrnLLejKZYQOsieJS3OhoCoRDaikQktj6xELYnO9sBORNm+qm+Np/nGWtNpQtniGbFGAdudC/RchX/T47zpVFJ2jVtnSceOrJ8wEcqpKMdZnLjJ3abFaez0boI3b2OhVLWgD1oVepZgDDaHxuxHmurt53JHloTog4mmgnnquuqO9VJlBP9rbVtqa1xcrjxZWsBHFt5JgcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=soc7A5JG3xLoOX2mL+sojnKa62PTGCMFDKCD3rEtp/4=;
+ b=T8pJV8rhHn7d+cBE2wzR2s+fqzKnkWWYBa73wfB963SfY7fnhzLRBbHhxgcsXwCq1ojZSYsSMz0us/mZne0bfV6z2xElWpR4KcpfW32VVRZJLaaGYcfRK2MeUeaASHv1v7RLOeNNJ1uW565sKsgfZurHNNeCJi0Q0TJ1cdF/UGN89taFMa8amfZ1KoXC/bi2FzTbuZacOG6+IVo2liV+84vLzopQE5/MWBp3z9WgNDkEn/0jVJVMg8w7HAPhBOFH4p4rMIl3ecqtb7mmHl6jTFnZKyezO1l4J4dca4ArB1uj3mHU9Oo7xbz70fvHu5d96O5WSvzqvERAFQDqBJzEKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=soc7A5JG3xLoOX2mL+sojnKa62PTGCMFDKCD3rEtp/4=;
+ b=GwcOcKHllh06gQYLJZb0berkvialhgW1D23F4vdH5YAdC04aU4axPwJVwKWaov+If6Etc9MVBZ+PIujrpWyhiYrnH8sQyXrcC9Apygi+6c7EmDd6XkE/YQ28nfpXNYyQEfoCYdMXPLx606EHVJMCtgcHvg5PGivA3nkTLc9Rmmgl4+xsx7OJFgR4zrlwCsAUeUFLTwQzZx8oeps0s9IW7MLyWcCcPie7PWYsHTODgcYmjXHwzGLRNzH3jLrRFZsleO9fcGDCUAtk8zi3bYSjQ+XbNfv836U5KbNkyMSlUsp8hBRkrmTVpRYcdTXXc+mzZoJgUbBVVyRKv+JMmoWrfA==
+Received: from AS4P192CA0027.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5e1::17)
+ by DU0PR10MB5385.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:340::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
+ 2026 14:06:33 +0000
+Received: from AMS0EPF000001AB.eurprd05.prod.outlook.com
+ (2603:10a6:20b:5e1:cafe::85) by AS4P192CA0027.outlook.office365.com
+ (2603:10a6:20b:5e1::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
+ 21 Aug 2026 14:06:33 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AMS0EPF000001AB.mail.protection.outlook.com (10.167.16.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 14:06:33 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 21 Aug
+ 2026 16:11:59 +0200
+Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 21 Aug
+ 2026 16:06:22 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Fri, 21 Aug 2026 16:06:09 +0200
+Subject: [PATCH 1/3] ARM: dts: stm32: fix vdda supply for onboard hub on
+ stm32mp15 DK boards
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260821-usb_fixes_vdda-v1-v1-1-0c213062165f@foss.st.com>
+References: <20260821-usb_fixes_vdda-v1-v1-0-0c213062165f@foss.st.com>
+In-Reply-To: <20260821-usb_fixes_vdda-v1-v1-0-0c213062165f@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Catalin Popescu
+	<catalin.popescu@leica-geosystems.com>
+CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Gabriel Fernandez <gabriel.fernandez@foss.st.com>, Fabrice Gasnier
+	<fabrice.gasnier@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001AB:EE_|DU0PR10MB5385:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b7a5e0e-1e6f-4cb9-a46e-08deff8d67f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	clYwCZHs8fARoISwsbKNWIBKigQEhgj26KidI/V+4YR41OMzQ538Fh5uQquCzw2a7Nzpa+Zhm8hV077//TvQEvArSZKEAuqBneL4wC+RP3cQioXV4UKRkESG4lOX9ZIQsXUoZXIU9K+DCpHfiJMSOb0nPin8vaEVWHp5o8oSAkeEHvsq/Q1Rfv4RKS1pA47q1p6Po+3eBbPYFXlKkqI/sC6tOxUP/FB0PuDr6Ok6Pdt1NSmCHepXkA8hzXvtX74O/rNam8ANk7PGOlinbkFHzPFvVd1MZ7uhC0wARWwV/cDN9sG4V6XQUkNfzxkoSRadi1TlNFZY5fT/Nc9sQgXk0CWoPLRO2M58F/Vp9vQxuYNTn5T8v2ATS1LZuuop4t97UtRxNUWE51XUDPFX4AeK2xS7BDSHhoUpWGp7eAaeQxDzh7/kVyzkIu4uoF7c5/5eHfAwUDI4jJmBSecPhrtDexZNggWbPwjn6guFFxTSRAyHRrW5nlKvbdSmgWGXdAIUliYNJZGGP2aWboVvV07cX/q9KqI9sS3l3eG1MSu6q79NIKrTb497Wzhq1oAUZqjXdj/irdmU7T4RLGkp4MrcP33ZlYln4f6Be3B5zeLpojY+P5HMKP0rHGJjhqHl8M9v8c1WsyLtjyZbWpDM3MSkBVAf5d8PeBgq6qWw/q+h+iGugTOFreek6aZnwSfCkSTPwz+09PBjVfoR9N1GUSm92A==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xz4kE2wm8a6OPnsdKieUpSbpjc/NKgs/djIZAHaqZ/6fGNvM/gM36i4Tb33oGUj2nFa7RfhSMX2YTHURlV15vlAcl5hyDxSqJRA4M1Ahe1lGY/Gv4PFdxdmxZ5kQhbYjlCPj4WwKyd/c2aX+2pjEiBF7XDWFMXtFuZOFLSOZ1nvW7kryd7wHLlhizwVzSwtnQSimx4gUqYGGvoxxiqZZSSWURXQWJsunjQVgZ0uze4xIUZOu6zShqcf35h8tlGvwrPJUij/CsSSgvphYIh4YzLo+90TA7jNl27jCNRBEhNskZOVPU+Km8ezqbgYT0PaC1x6K+aE6/gm9Sp4NCXFaB7jU8uS1HxKl/mrgEnyXfrr0xsvymMhbLHVISuqtQP7Oj3rHxxahE4OeSioDP63dTeZiUtFb4N1xXqnxzGFT10h9z0zBj/S7eaAsdjRXjFs5
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 14:06:33.1717
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b7a5e0e-1e6f-4cb9-a46e-08deff8d67f1
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001AB.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB5385
 
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Replace open-coded shift and mask operations with the bitfield API.
->=20
-> Note that the weekday field is changed from an explicit 0x0f mask to
-> an 8-bit field definition, matching the hardware manual. This does not
-> change behaviour, as valid weekday values cannot exceed 7.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+stm32mp15 DK boards use Microchip USB2514 HUB. Since vdda supply has been
+added, the regulator framework wrongly associates the 'vdda' supply
+dedicated to ADC, so the wrong regulator is referenced.
+Only the 3v3 regulator is used to supply both the digital and the analog
+part of the HUB.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Fixes: 673655f7944f ("usb: misc: onboard_dev: add vdda support for Microchip USB2514")
+Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821135608.2752=
-33-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D14
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
+index 599ea07bdb19..01ac3d7d6d0e 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
+@@ -764,6 +764,7 @@ hub@1 {
+ 		compatible = "usb424,2514";
+ 		reg = <1>;
+ 		vdd-supply = <&v3v3>;
++		vdda-supply = <&v3v3>;
+ 	};
+ };
+ 
+
+-- 
+2.43.0
 
