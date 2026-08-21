@@ -1,291 +1,218 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5261830E0F2
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 20:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1F93BE652
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 20:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787345329; cv=none; b=YMvNnfA4YAflbZlClJaq+1zD2nrWF4e1Uh1lW92rEB1UrBGaL1CqCmnXTcrymVB/lqGXORtQJVIXpXrDhIdTGibDXQf0NAuWciOOif4iisa7UE0aj3BAanCGne7trFhIOEzPmzo3MgwQCTKxVZtdrTQxtl90inmJtv64sH+csW4=
+	t=1787345789; cv=none; b=YQhEnAHrWw4EsFFRrwLC10TjxTN0YLAP60yxUbltyZ6y891nqUw54skR77w1zcYuhbxbIwRBGI0Ms9BVK9pJz8kGVmn/Hb1q2vDbAQpKslm83JkBOjsfTM515BIdK6HXftnBaISbrd69JuUsYicHAL9h0UBCQsThyaaQW8e0BCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787345329; c=relaxed/simple;
-	bh=qHMHjHxt9qOFlhTACZWJ0m273uXcnrod6sFq22eDzR8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MIPdMzUjlCKPRlVzkiCrikUu8hDlT19bATLUBayidNkSPr4p52R2fIFD3ur8qnOYkzfL/miv7gEmSNNPicYnw8iT3LfBKW3SoAL1z7f0o9m8dxfaKirSV3U8XNATiHbYHkLcN1/Qx+FXp7umCFvHpMbickcWWT/3RBIZhvT1um0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SQGzhAmO; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787345789; c=relaxed/simple;
+	bh=QHcf7Cd6bfGjuLOilwm3MmXWrnhSfCzqB/9twTJ16g4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qg702psy364vMkfWxijSyvWrHdjb9gxFtP+tAsLAhrooEnBV12VtCwtM9I7I7hjKNfUUM8eJ9ao4omlKWkXUQJQqmHmlaRZJ5lZXZ3dzdlAa8iX/sABu0Ico+Erj52t71nFEBlGDw3N64CwWFn8yv+zCsGFaSDPEvg06918AosE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3NPcd0O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SQGzhAmO"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ccae46de39so2165545ad.3
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:48:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787345328; x=1787950128; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rojm+k4iSdRVF9a/PxgeHQrw8LlNRUPx5mwRZtxqBPQ=;
-        b=SQGzhAmOf7sX8zH/Ui81NHwQLRGo39Hq+s3dUTncR4//mnaDCJaSzdXC5cG9DGHMPs
-         3gZ5xje9fmCaJrY5qQNfpiYqxQwvqFz3SUlED7/EO6OZX7v1W1auuAteBrOQIpexV+0Q
-         orskXxOYmvTu13IAN6QJ+fuOdQfQ1lDu348VypzABVzxmVFANu66PHJOZwSpauFR1AIj
-         C8b+W3ZKKbt1eJAKKs4ZsutDa4tUYmoTkbWKYNAw/phcbI3DSpJWkz6jsgr9K7Khzm6q
-         H7lEiU0dEBEEk5rU3SXSBYkK121t55Qlz/039z2QZQWLC8Q4HyqRZ6XZ1+lWj1VjCdRC
-         sV7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787345328; x=1787950128;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=rojm+k4iSdRVF9a/PxgeHQrw8LlNRUPx5mwRZtxqBPQ=;
-        b=gXeqoVU5m4OlLQOuH4R8Lw4ZhcgT23NiojZMxUlttl2Nfs7QYnyP1wGQirh7zbmcCo
-         wtytpRhA5/+KbHT2mGzU7PBeo3BOS8UwkwUdZIraMjEC7OMZIpheL1nawOPCF2zyPFmR
-         sSfh+uP9NbHjNknjPYSIiPO35HmLrTCegHEqpfnIfHMiF7s3kUZTrtaql8l3EQhO8NMH
-         Jp/wSgh85O96kjWBBU6golfWETTFX9YtKLrN/zzBcjlYMDKpmKaeRUAAhR0P9gi1Yg51
-         EpnQrZA4w4VHxsy/Diut+YD4k6D39qTDevQfLQLWAJ+q9zcQv4aOZpauxr3ozg2B9VDn
-         2SEg==
-X-Forwarded-Encrypted: i=1; AHgh+RqvrxsWDDJkUH5NTd0v665161RUbjmhHGET1o4RrUF+hS7IA8paifzq3wHMVji6RwLKqN5yJ3826zTR@vger.kernel.org
-X-Gm-Message-State: AFuF++ngCIuDcggIrDcApMzBAXaMEOkFAf91WOtjSCWGAj8dN0IwenI+
-	MitvFeU6blMwzrMhGXsrS6Zt+gVK4NKH50nG+jyItdRR2tOC1lPL2UN3
-X-Gm-Gg: AR+sD110j4e1+S4SY0ZR9na14BdZ3wEhkGl+HQElMhRJBmu0EhzKPd7HLVWj6TThXIm
-	Jcd35EKgFFpb1eWpvry5P8QP70tdj55aI5ObIsSJrsJeHbc8m9ZHJsT3lV+P7UtayAV124tYd+h
-	M7Dt/9Uc0DxLys8OidCC9kSQ4yGQRHxHFTtwMntlbwzPWccCOiAsRsIXSzvVcs4MPF3vWwwQbnn
-	wWKi9tACbnv+aV0K/bm+MIDTWftr8w9QquItnf28nnOvt8czLNL1gcN7wAvKjQm9QqRHM/x8LDa
-	qb9RUtOW39BbDvH/39bjJjLSIMqMAFP6KBvByhonlc+T3qemQTF7btFIrHo0wLfxKf8BTmF47uU
-	oArIOKZSPWImu6Jf3/8RK++SORwRXV0JSbgzsaDIxoaO5M8HNVa5V28gcAH5yzGPFIDOv/pEv1E
-	bbywtInEWnrnrXLzXOQheutDdGB6r7ElO/GFzEpmF8tPLTEIIAsbIVShhQLDtLzN+VmhkZkHUQ
-X-Received: by 2002:a17:902:ce8e:b0:2d3:a50c:5e19 with SMTP id d9443c01a7336-2d64ad815bdmr83509775ad.1.1787345327635;
-        Fri, 21 Aug 2026 13:48:47 -0700 (PDT)
-Received: from [10.90.163.252] ([2409:40c2:5400:571e:d71e:3d6b:f245:8387])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327c3fc6675sm42808199eec.13.2026.08.21.13.48.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 13:48:46 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sat, 22 Aug 2026 02:18:03 +0530
-Subject: [PATCH] dt-bindings: pinctrl: ti,pinctrl-palmas: Convert to DT
- schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3NPcd0O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2E941F000E9;
+	Fri, 21 Aug 2026 20:56:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787345788;
+	bh=WPQyzSGC3n9swf8fNLYO3nL+eDqztdjTvHbLHTF6JLo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c3NPcd0OwI+Npvr0V7tSQu8lX23WXpGv+4E8MO5dwfl+JuUeWJDso19NLfZBhL43V
+	 M353UoJfYXpYGakZqjE6wtgYCl2gvFZ+VbZzf68yFS2PglGmQb7vghKVk5gZbSmikm
+	 fqfvFguXQhkHC+BK4REFZSbXqpl5/jVNwPwMAP5JfK4YeMRS8FYHBWO4m/r3K4qm6h
+	 FOyfQvSadx7JFF30RELNSy+FvGN3L+fYA/4m0EtBFJ+9ZFJpcJcltDlbmhqh1rF+wq
+	 v9uwZVzqX9/kLBd97NfNotNN9J+svoW+0GUD2iBVvrbNcZgtFdI8YgVof4BQb3xy9r
+	 orzmSzSL796aA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] nfc: st-nci: add raw NCI path for ST21NFCD
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kristian Brox" <isyourbrainfoss@proton.me>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260820-fp5-st21nfcd-v3-v3-2-5ee0a7f44d04@proton.me>
+References: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me>
+ <20260820-fp5-st21nfcd-v3-v3-2-5ee0a7f44d04@proton.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 20:56:27 +0000
+Message-Id: <20260821205627.F2E941F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260822-ti-pinctrl-palmas-v1-1-a4d49e7f2dab@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBuo6YfqKtFCdKoBM9GIQLp70
- vJbvJcgchCOMBUJAt8S5XQZdVmA3pXbGMVkA1XUVwMRXoJenL6CRa/soSIydz3TqBrTNpA7H3i
- V53/Oy/t+X6rHvGMAAAA=
-X-Change-ID: 20260822-ti-pinctrl-palmas-ee56e29a3d43
-To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787345318; l=6098;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=qHMHjHxt9qOFlhTACZWJ0m273uXcnrod6sFq22eDzR8=;
- b=j74mL6e9aZUj6abhaSI1AfjNlgDwwilM+qW6klRFeW8ZkeHUbsjPKpcQQjQz2yHprxjVj9hl4
- kFlLWWrwY4QA0m0QZcZ1k9Czuj9c6rTAEypF0La72Oz/UEdvf8Ihwc6
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert TI Palmas pin control text binding to DT schema. The legacy
-binding allowed any subnode name. Restrict them to standard prefixes to
-prevent the validator from accidentally evaluating standard integer
-properties (like phandle) as child nodes.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../bindings/pinctrl/ti,palmas-pinctrl.yaml        | 175 +++++++++++++++++++++
- 1 file changed, 175 insertions(+)
+New issues:
+- [High] The NCI device is registered before the `raw_nci` flag is fully in=
+itialized, allowing userspace to trigger `ndlc_send` with 0 headroom on a n=
+on-raw setup, causing an `skb_under_panic`.
+- [Low] The patch modifies `st_nci_i2c_id_table` to use positional initiali=
+zers instead of named initializers for `struct i2c_device_id`.
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/ti,palmas-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ti,palmas-pinctrl.yaml
-new file mode 100644
-index 000000000000..c07e3a782ef0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/ti,palmas-pinctrl.yaml
-@@ -0,0 +1,175 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/ti,palmas-pinctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI Palmas Pincontrol
-+
-+maintainers:
-+  - Laxman Dewangan <ldewangan@nvidia.com>
-+
-+description:
-+  The pins of Palmas device can be set on different option and provides
-+  the configuration for Pull UP/DOWN, open drain etc.
-+
-+allOf:
-+  - $ref: pinctrl.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,palmas-pinctrl
-+      - ti,tps65913-pinctrl
-+      - ti,tps80036-pinctrl
-+
-+  ti,palmas-enable-dvfs1:
-+    type: boolean
-+    description:
-+      Enable DVFS1. Configure pins for DVFS1 mode.
-+      Selection primary or secondary function associated to I2C2_SCL_SCE,
-+      I2C2_SDA_SDO pin/pad for DVFS1 interface.
-+
-+  ti,palmas-enable-dvfs2:
-+    type: boolean
-+    description:
-+      Enable DVFS2. Configure pins for DVFS2 mode.
-+      Selection primary or secondary function associated to GPADC_START
-+      and SYSEN2 pin/pad for DVFS2 interface.
-+
-+  ti,palmas-override-powerhold:
-+    type: boolean
-+    description:
-+      This is applicable for PMICs for which GPIO7 is configured in POWERHOLD
-+      mode which has higher priority over DEV_ON bit and keeps the PMIC
-+      supplies on even after the DEV_ON bit is turned off. This property enables
-+      driver to over ride the POWERHOLD value to GPIO7 so as to turn off the PMIC
-+      in power off scenarios. So for GPIO7 if ti,palmas-override-powerhold is set
-+      then the GPIO_7 field should never be muxed to anything else.
-+      It should be set to POWERHOLD by default and only in case of
-+      power off scenarios the driver will over ride the mux value.
-+
-+patternProperties:
-+  '^(pinmux|pins?-[a-z0-9-]+)$':
-+    type: object
-+    additionalProperties: false
-+    patternProperties:
-+      '^(pin.*|gpio[0-9]+|vac|powergood|nreswarm|pwrdown|gpadc_start|reset_in|nsleep|enable[12]|int)$':
-+        type: object
-+        allOf:
-+          - $ref: /schemas/pinctrl/pinmux-node.yaml
-+          - $ref: /schemas/pinctrl/pincfg-node.yaml
-+        additionalProperties: false
-+        properties:
-+          pins:
-+            items:
-+              enum:
-+                - gpio0
-+                - gpio1
-+                - gpio2
-+                - gpio3
-+                - gpio4
-+                - gpio5
-+                - gpio6
-+                - gpio7
-+                - gpio8
-+                - gpio9
-+                - gpio10
-+                - gpio11
-+                - gpio12
-+                - gpio13
-+                - gpio14
-+                - gpio15
-+                - vac
-+                - powergood
-+                - nreswarm
-+                - pwrdown
-+                - gpadc_start
-+                - reset_in
-+                - nsleep
-+                - enable1
-+                - enable2
-+                - int
-+
-+          function:
-+            description:
-+              Selects the mux function. There are 4 special functions opt0,
-+              opt1, opt2 and opt3. If any of these functions is selected then
-+              directly pins register will be written with 0, 1, 2 or 3
-+              respectively if it is valid for that pin or list of pins.
-+            enum:
-+              - gpio
-+              - led
-+              - pwm
-+              - regen
-+              - sysen
-+              - clk32kgaudio
-+              - id
-+              - vbus_det
-+              - chrg_det
-+              - vac
-+              - vacok
-+              - powergood
-+              - usb_psel
-+              - msecure
-+              - pwrhold
-+              - int
-+              - nreswarm
-+              - simrsto
-+              - simrsti
-+              - low_vbat
-+              - wireless_chrg1
-+              - rcm
-+              - pwrdown
-+              - gpadc_start
-+              - reset_in
-+              - nsleep
-+              - enable
-+              - opt0
-+              - opt1
-+              - opt2
-+              - opt3
-+
-+          bias-disable: true
-+          bias-pull-up: true
-+          bias-pull-down: true
-+          drive-open-drain: true
-+
-+        required:
-+          - pins
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    pmic {
-+        pinctrl {
-+            compatible = "ti,tps65913-pinctrl";
-+            ti,palmas-enable-dvfs1;
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&palmas_pins_state>;
-+
-+            pinmux {
-+                gpio0 {
-+                    pins = "gpio0";
-+                    function = "id";
-+                    bias-pull-up;
-+                };
-+
-+                vac {
-+                    pins = "vac";
-+                    function = "vacok";
-+                    bias-pull-down;
-+                };
-+
-+                gpio5 {
-+                    pins = "gpio5";
-+                    function = "opt0";
-+                    drive-open-drain = <1>;
-+                };
-+            };
-+        };
-+    };
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but if `devm_request=
+_threaded_irq()` fails during probe, the function returns an error without =
+unregistering or freeing the NCI device, leaving a dangling registered netd=
+ev.
+- [High] This problem wasn't introduced by this patch, but module removal d=
+estroys the NCI device and cancels workqueues while the IRQ handler is stil=
+l active, allowing the handler to access freed memory or reschedule cancell=
+ed work.
+- [High] This problem wasn't introduced by this patch, but received SKBs co=
+ntaining SUPERVISOR frames (like ACK, NACK, WAIT) are never freed in `llt_n=
+dlc_rcv_queue`, causing a permanent memory leak.
+--
 
----
-base-commit: 818bebeb63dd6bf5f4e07e145f6cdbace520a34c
-change-id: 20260822-ti-pinctrl-palmas-ee56e29a3d43
+--- Patch [2]: [PATCH v3 2/3] nfc: st-nci: add raw NCI path for ST21NFCD ---
+commit 5f6ff3e39e1921d843bbd676cd50cbaac4a522d8
+Author: Kristian Brox <isyourbrainfoss@proton.me>
 
-Best regards,
--- 
-Bhargav
+nfc: st-nci: add raw NCI path for ST21NFCD
 
+This commit introduces a raw NCI path for the ST21NFCD. It adds
+configuration properties to bypass NDLC PCB handling, ACK timers, and
+proprietary SET_NFC_MODE commands.
+
+> diff --git a/drivers/nfc/st-nci/i2c.c b/drivers/nfc/st-nci/i2c.c
+> --- a/drivers/nfc/st-nci/i2c.c
+> +++ b/drivers/nfc/st-nci/i2c.c
+
+[ ... ]
+
+> @@ -225,19 +274,31 @@ static int st_nci_i2c_probe(struct i2c_client *clie=
+nt)
+>  		return -ENODEV;
+>  	}
+> =20
+> +	r =3D devm_regulator_get_enable_optional(dev, "vdd-io");
+> +	if (r && r !=3D -ENODEV)
+> +		return dev_err_probe(dev, r, "failed to enable vdd-io\n");
+> +
+> +	r =3D PTR_ERR_OR_ZERO(devm_clk_get_optional_enabled(dev, NULL));
+> +	if (r)
+> +		return dev_err_probe(dev, r, "failed to enable clock\n");
+> +
+>  	phy->se_status.is_ese_present =3D
+>  				device_property_read_bool(dev, "ese-present");
+>  	phy->se_status.is_uicc_present =3D
+>  				device_property_read_bool(dev, "uicc-present");
+> =20
+>  	r =3D ndlc_probe(phy, &i2c_phy_ops, &client->dev,
+> -			ST_NCI_FRAME_HEADROOM, ST_NCI_FRAME_TAILROOM,
+> +			phy->raw_nci ? ST_NCI_RAW_FRAME_HEADROOM :
+> +				       ST_NCI_FRAME_HEADROOM,
+>  			ST_NCI_FRAME_TAILROOM,
+>  			&phy->ndlc, &phy->se_status);
+>  	if (r < 0) {
+>  		nfc_err(&client->dev, "Unable to register ndlc layer\n");
+>  		return r;
+>  	}
+> =20
+> +	phy->ndlc->raw_nci =3D phy->raw_nci;
+
+[Severity: High]
+Could this lead to an skb_under_panic?
+
+Because ndlc_probe() registers the NCI device and exposes it to userspace,
+is it possible for userspace to immediately issue a DEV_UP command before
+phy->ndlc->raw_nci is assigned?
+
+If a packet is queued right away, ndlc_send() might see raw_nci =3D=3D false
+and attempt to push a 1-byte NDLC header into an SKB allocated with
+0 headroom (ST_NCI_RAW_FRAME_HEADROOM), underflowing the SKB.
+
+> +
+>  	phy->irq_active =3D true;
+>  	r =3D devm_request_threaded_irq(&client->dev, client->irq, NULL,
+>  				st_nci_irq_thread_fn,
+> @@ -257,23 +318,25 @@ static void st_nci_i2c_remove(struct i2c_client *cl=
+ient)
+>  	if (r < 0)
+>  		nfc_err(&client->dev, "Unable to register IRQ handler\n");
+> =20
+>  	return r;
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but if devm_request_threaded_irq=
+()
+fails here, does it leave a dangling NCI device?
+
+Since ndlc_probe() already allocated and registered the NCI device with
+the networking core, returning an error without unregistering it leaves the
+netdev active. When devres later frees the phy and ndlc structures, could
+userspace still access the freed interface and trigger a use-after-free pan=
+ic?
+
+>  static void st_nci_i2c_remove(struct i2c_client *client)
+>  {
+>  	struct st_nci_i2c_phy *phy =3D i2c_get_clientdata(client);
+> =20
+>  	ndlc_remove(phy->ndlc);
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but does ndlc_remove() destroy the NCI device
+and cancel workqueues while the IRQ handler is still active?
+
+Since the devres-managed IRQ isn't explicitly disabled or freed here, if an
+interrupt fires concurrently during module removal, could the handler sched=
+ule
+cancelled work or access the already-freed ndlc->ndev, leading to a crash?
+
+>  static const struct i2c_device_id st_nci_i2c_id_table[] =3D {
+> -	{ .name =3D ST_NCI_DRIVER_NAME },
+> -	{ }
+> +	{ ST_NCI_DRIVER_NAME },
+> +	{}
+>  };
+>  MODULE_DEVICE_TABLE(i2c, st_nci_i2c_id_table);
+
+[Severity: Low]
+Is there a reason for removing the named initializer here?
+
+The I2C subsystem guidelines require initialized arrays of type
+struct i2c_device_id to use named initializers.
+
+[ ... ]
+
+> diff --git a/drivers/nfc/st-nci/ndlc.c b/drivers/nfc/st-nci/ndlc.c
+> --- a/drivers/nfc/st-nci/ndlc.c
+> +++ b/drivers/nfc/st-nci/ndlc.c
+
+[ ... ]
+
+> @@ -154,6 +161,10 @@ static void llt_ndlc_rcv_queue(struct llt_ndlc *ndlc)
+>  		pr_debug("rcvQlen=3D%d\n", ndlc->rcv_q.qlen);
+> =20
+>  	while ((skb =3D skb_dequeue(&ndlc->rcv_q)) !=3D NULL) {
+> +		if (ndlc->raw_nci) {
+> +			nci_recv_frame(ndlc->ndev, skb);
+> +			continue;
+> +		}
+>  		pcb =3D skb->data[0];
+>  		skb_pull(skb, 1);
+>  		if ((pcb & PCB_TYPE_MASK) =3D=3D PCB_TYPE_SUPERVISOR) {
+> 			switch (pcb & PCB_SYNC_MASK) {
+> 			case PCB_SYNC_ACK:
+> 				skb =3D skb_dequeue(&ndlc->ack_pending_q);
+> 				kfree_skb(skb);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the PCB_SYNC_ACK path
+leak the received skb?
+
+When a PCB_SYNC_ACK frame is dequeued from ndlc->rcv_q, the skb pointer
+is overwritten by skb_dequeue(&ndlc->ack_pending_q), which is then freed.
+It appears the original received SKB containing the ACK frame is never
+freed, leading to a permanent memory leak during normal hardware communicat=
+ion.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820-fp5-st21nf=
+cd-v3-v3-0-5ee0a7f44d04@proton.me?part=3D2
