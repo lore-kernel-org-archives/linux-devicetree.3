@@ -1,167 +1,254 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11022087.outbound.protection.outlook.com [52.101.48.87])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99765370D71
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 05:31:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787290288; cv=none; b=VAeunue7RbpZp7hJnxuVLkdZW3AIhgmRnIp4N+NUnM6LKgI0rqk44vQUtMXEk0f9U5cSjKFRPoe/mWwx3QOJ4pcea8BhiTIjtXT0pMOQh10LReJ5yjNnrbD+mJI3e4Y1juqIjHu4YVbrmDfwDJHIC4YxBcpyUqwyzrmb+62U7Js=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787290288; c=relaxed/simple;
-	bh=inNrn8G8WFZnnfrNZ9E3BMtQ1vPeRWfBhWs8dXkjO1E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WMhpX0RrWCqBfQoRxD61ZrUw59mXeRY2FAKQRSNy8/+MbPKjeCsTFxN5RWe+LhxK/cOcmkEgvnrfEbx8fQDvSBS35LbiKBmRVz9aje3Q0ai4PdcLlXFpGW0dWeejlVXNLa/Opw8kglVr+ybqOWpEYlrdU34VL03/jrogJpjuHK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard-org.20251104.gappssmtp.com header.i=@beagleboard-org.20251104.gappssmtp.com header.b=VrLMlt3s; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=beagleboard.org
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9531440682C
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 05:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.87
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787290555; cv=fail; b=UKxjvMYYgyS5pt4CPMLIy4KmcxZeNaizCfcDeKgU88AvdVBc2ZUtCLjPCQS3R/P+IKRC/5+E0F2uOIIIuPakP+7WVKyD95j0e5abEAS378GY5MBns8QX5AUutal8a/mMwfic1uaKg5ywzalSD6PD/T562AeNGJOOwiKZ5NaN3qY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787290555; c=relaxed/simple;
+	bh=cfhm7O/3+H5QdX1Ipr/bco8PR7xEXb76C/4c/ihsGZE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=i+kuivdjxHmFP6M+f9iwunsW5QJpDtXLdioW0d7tL9WIbx/l6kKFv1UFuc3/3TQEx/LUqtoPgkO60VWL/wDuI89kPkhzCGkz4CZlUusWVHZNUXpshD0ZTtTM6kOMlQEP9sxrbB7yz2mt3kC+bAmWh9fzJ8BBj9/WcR9mXkcGZwc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=w70SNYE2; arc=fail smtp.client-ip=52.101.48.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=beagleboard-org.20251104.gappssmtp.com header.i=@beagleboard-org.20251104.gappssmtp.com header.b="VrLMlt3s"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84f77cc7302so188752b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 22:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard-org.20251104.gappssmtp.com; s=20251104; t=1787290287; x=1787895087; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y8SxG8MAv8S17KEvq/pF9OP7cYmFId3mpEeGKt4QpjY=;
-        b=VrLMlt3sLhd0V8t78MIHvLsBzc1+t3pDuJTlemBOc+7E7K8NWj10Gf+oE/BlEV+GWx
-         R9NDq2vAXbRLmrqctvdqcbS0ncmlYFjMIZHeIkf1P7LmB1oitsGXWDudbJD5u7aEYf3O
-         IVKhWqSbXWf7w42RG53ALrE4yse7kxEF55ekmd+3nSTDnU97qHfHnq7AgQ5Mzu0ZM+nz
-         7xABt1JxwkcDx51SfMWFY+vQhkkJ5CYvXoLDLpX2EgMHDTDUqT4NnlwPkOnLLRH4gHaj
-         E/4Qp39H0p3DDW45FaxqkT/4Bdi3z6EUfP6nJ6OVDO1FB1ae1C/I+vdwd9QAxZ0VJ3P4
-         Y/3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787290287; x=1787895087;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y8SxG8MAv8S17KEvq/pF9OP7cYmFId3mpEeGKt4QpjY=;
-        b=Ycek6eq8Unj89ApYqUvkCkWeLM1DCHUNsaxWGOwDRluVTyMzIlc+G1QLhUIrghtIk/
-         hQGdZaV26Q5X3Rl/d0IJOYYMBCyNwIQn+jC36JOGtIsababhv1clMqcahgA/ZPoeP52+
-         QHMwNan37eg3bcFo/9b9d8s2NKT5Gh6z/ti2kmSXRQA39TQdCi+y9FVP8QDJs+BpfUuz
-         LsqqSbo2y1YcSGxw/ghvHJV/TSgP3Iu+lXntnXQRUr+lgC04UcZ1qwc8f82B0lmmehMC
-         7kK4glOSILf9JmrbRCF3r7LX901DIM/KYDUrN0HfbdNK56UPi7Sy5GW8as6oc24pWpE0
-         7M/A==
-X-Forwarded-Encrypted: i=1; AHgh+RrhtvucBk9+4aTmvlPdFr/S/emCULHxUagAeiNmUKek06sCqEznVHgAk0bMHmFrs7ptJ3Bah4coZgRk@vger.kernel.org
-X-Gm-Message-State: AFuF++mVFvi8ULqCS5Ni7UdR89dHAILbiAEVI91F+oLTKVOEyOo7x+ab
-	rsLGYdLm3OnsHB/4GKGRep1Y9tSEsKexqhtyKTuukDLnv7opGXD2yRj7PaRqMSF3Ug==
-X-Gm-Gg: AR+sD12HMBjGc2XDuhkVplakuLYOuNptiJIYdMf2yRK3qhaLDPd/LDx+M4js8m9I0+N
-	7XKfcegEthiGYDH1nbQD1gKriiYGYOtsRa2xtBprRh5YSc6W6FXBowBqI7fFwQINCTXJOCnZRiB
-	q5OHCeR6tYuLBNgkPtGAsAnhxxZkULF3UCYfa5oDh6y/O9RyFHT7k9UUXC4A+8u/+k5CCcxuBH2
-	RHPLTGzR8gA9j19B91El3g5Qi/oflzSVjhbE1QuhjORppQh9zsqA4FHR7W9D3DxamzwCg/dbD3o
-	JJpfbztJT50CxAdcPEF+VpEVkiVnVSVOd0F9iCKscBVtKWmVSSq0D0rW75uAGo9Ag1ItakZ8Arx
-	4DHV5bSNc9GbPZV4/UB1OPcKEQQjH9WRCBP4ol9lLTtbcC3WYJxvB5yXs0X2V9h5nCD8oJcuFIh
-	+N7z6BSWT6AnUXuN/Y06+ILx4wjGVJk9W01GvKeHFv9AA0iXiqpPucDAqe8NIF3ckN/N4xG7URr
-	hVS2RXBr+Mmrli4+UeIwG20t9JXlRYZQKnA+N4=
-X-Received: by 2002:a05:6a00:9519:b0:847:9267:2104 with SMTP id d2e1a72fcca58-851f9f48a04mr4829658b3a.12.1787290286849;
-        Thu, 20 Aug 2026 22:31:26 -0700 (PDT)
-Received: from ?IPV6:2405:201:4019:32fc:3c55:6b24:5147:322b? ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d31b01cfsm2388453b3a.0.2026.08.20.22.31.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 22:31:26 -0700 (PDT)
-Message-ID: <f93c5f18-580c-46ce-971f-8e2073485b4b@beagleboard.org>
-Date: Fri, 21 Aug 2026 11:01:16 +0530
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="w70SNYE2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K6juXzXtk8iBXj9hBYFnn9hFcPN2a5CT5sdnC4aINCeYIz3s9t48Mn6n49/sytx4YPaGWw03dhG5RAa1MXKwmBiMZ6ChyzMBOHD6O4X85TLLhTUE1whNR+d0Kge3Z+bTitHAfyQUsB9OujchnSBn3urNcBvRaUWpeQrzB6VkYo/fM85eDum0x1f4wyjVoc1TEX/ZGN9FX4s9r8oFydnwIRvBMh9UD4i8bK22ENmC+8JKoKLWDRyQNbfnL6ooXsIDugQhVg21BD5OumD9dzP3ymfwem4JsVl+C+RB2nsTo25wX3pDoNOwq5bSvgZ2XoNv+L4dfACmZ9ZCKvlgxfoyTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y2BlzcHDRikLeMVyIgMO8b4ImwGFY3+XDrzSJHVOzY4=;
+ b=oxHkM858Kb4lyqXm/ferIsPTj4iPVuCNZFlP4HF0V5vJ5owhdO8QCgGlcXFkL4KLUvCJ4wRVisfwim6Z1GLO40x2PHP34ph8aoHZ3M9E+3m3334n+SdPJg7JR3W/4lB20Cj96Ef2/bkvsiYvmzlOLGcehYurq0vV8RvEeg2Sw+spTbIckVORvMqWpjE5F3Pa6gnOrJRew3JluJlbOHtYVwcmoZHehxe0gYISyltMGwqMmgtEhYxlHTx1xnReMjCXdkyX6OGdU+DLhGyp28uv/uxDZdJY+jp5da7VvAzFuTsLLfZTmjRyj+dPaMbf8cYi0fF+I7uxDmNogVq4VjXodA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y2BlzcHDRikLeMVyIgMO8b4ImwGFY3+XDrzSJHVOzY4=;
+ b=w70SNYE2NG3yGcav3yLahSBp/lfLm5hXctVxfcS3LL1dBqB9stAwJ6ezHLB+ceHrlt1h72bWoKSJU0YcxmLhzPRUHFm04r6piORrL7AXEL4LJ6zZMULyeytNIlM1LbA7lhuqB4uyv4HZjTR+UxZ8FmJwflhjxI6kGCVD11RxkuG9nj/RhFu1hW5RKxqFBx5L+6YaA2M1dLEVcvZItRTteUOH+/kibFxE0+68qIV37RDT0kePI8IxSE1D3yYFWiPtm/QnSAFXa8Ogae32UYtnz80+1N4mffnEukm2hDoqxhLZ860iAD3XfU2h7jtCx4y7+IGbOzabB9/jBwMpWAWT1g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ (2603:10b6:20f:fc04::d8c) by IA0PPFC4D2A1900.namprd18.prod.outlook.com
+ (2603:10b6:20f:fc04::c3e) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 05:35:51 +0000
+Received: from BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ ([fe80::89bc:34fe:3f82:b3f2]) by BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ ([fe80::89bc:34fe:3f82:b3f2%8]) with mapi id 15.21.0339.008; Fri, 21 Aug 2026
+ 05:35:50 +0000
+Message-ID: <7b672462-238a-4b41-b937-c5e28d193b9e@axiado.com>
+Date: Fri, 21 Aug 2026 13:35:45 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mailbox: add Axiado AX3005 mailbox driver
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-0-25e713eccff3@axiado.com>
+ <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-2-25e713eccff3@axiado.com>
+ <20260818034422.288381F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Swark Yang <syang@axiado.com>
+In-Reply-To: <20260818034422.288381F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0008.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:2::20) To BL1PPF1B62FD55C.namprd18.prod.outlook.com
+ (2603:10b6:20f:fc04::d8c)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] dt-bindings: beagle: Add BeagleConnect Freedom
-To: Conor Dooley <conor@kernel.org>
-Cc: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com,
- Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, greybus-dev@lists.linaro.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
- <20260820-gb-uart-transport-v1-7-282da14ab7b7@beagleboard.org>
- <20260820-anytime-barrel-9a0547910a2c@spud>
-Content-Language: en-US
-From: Ayush Singh <ayush@beagleboard.org>
-In-Reply-To: <20260820-anytime-barrel-9a0547910a2c@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PPF1B62FD55C:EE_|IA0PPFC4D2A1900:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36dbb7d9-da29-432b-7335-08deff460f4a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|22082099003|18002099003|56012099006|10067099003|5023799004|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	c6x9MWu5lQbLL+YHn7lIXK1pJf7VVt7jupecD6RAIa3QJetkDSHZei18sKrHOSuaP2C9+Jr9vxffDR/Hr5eTXElJ+kOZD3DWvqe96wdOZk9LNSw5UgJmzYsCdKaRzHo3v90ebV21Q/pwmznLUbAjmR8ZE32zcZnYYZj+94PteG/K+KCDR/7szByklgw+RgUZeFcKEQA1sQT4hTo5u/q4k9RJqT/68hNgH9aupMDLRX/XPNsZZBbrfMthbT2WsPfIsEYHYTLbLUAU7KWB/7ebtil46Ii1nyhzEsTwxWP+K1QBSDCqHB9wZAWQ6VBYdBaMVYoyW+KjXrvetAkBUuGQjQO6CWUmObm6laWInInB1VivD3WrCw0UhGSqi3eV4fDaqqdz+QQ+PNdgK8etJmt91oTxVQYpQ9pWTyBRKe85sl6PwrzMPw1lX4pmuizEkvPmVIfK2giAlXQUPWNMODiEOaHB4a9/6ellwo650Qdb7x9oSFpVyvI/Q2W7Nimj/wdOsbD3FlTSs3HCh/s0gUNioBfyUCWf2N3OImT9sEpsPw2RdBuPSjP2GrQeoX37L4ACIYQtaUhdnvute1FL5fuulqWrDxA/j3oCbnrmYGSNpFeE0fzug3s9N76J8y5YV+0DtsOyT26L1UtezlVyFDwnnv4NJMTBPh9uWjbmX9cYZ5s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PPF1B62FD55C.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(56012099006)(10067099003)(5023799004)(4143699003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TUx1akJ5b0dsN3g5cmZkVUtHRnpNUEgxQnF0UUVxSlA2N1oyTVordW1wQ3Ba?=
+ =?utf-8?B?bVZIMkJpak1RMlV1eS9XRmJDWEVoN3NRc1hlYU5td3VpZ25OeWVzOVJUWk03?=
+ =?utf-8?B?V1R0OXVNT1NrT1BibGNNZENtbFE0NjMzZnZmcWRmUEMvWjBaUEhtdFNULzVW?=
+ =?utf-8?B?VGZOSEkxREN0RUhiVlhOd0NRRVZZdHdyTjNuaStHSFJkVkFrV2RyVWZPbS9T?=
+ =?utf-8?B?Sk10a3JQa3llNTgzUnRRd2FlL2VwelpBL2hjWGhwZGFsakh3WDBDUHNGS2FW?=
+ =?utf-8?B?NGUvcUNBTmJHWkE2OGdzZm1ZTUFrdEhVOHR0b0d4Kys5MkJzYTQySnVJM3N3?=
+ =?utf-8?B?dWN2NlE4UFVSSVFtWS9BSytCTVdqT3M2MlpONVcxL2JnbUZIS2ZiZ05ab09i?=
+ =?utf-8?B?ODQ5ZG9rM0dMTUllaHUrZ3JMekZYMGFvSlMxYW12R3ZUalJHR2NIRXpXUFky?=
+ =?utf-8?B?ZTFZcGh2dnNBOFRJNlQ1WnkwRHphQ1R6L0RHUU1EZE9zT2F0Wk9QSXc5czg2?=
+ =?utf-8?B?bTVEbGNkNFgvYWJiWUgvdTMwZGRDTUphWmQwQnhvN0dFY2hnUE9BVU9XZ2VW?=
+ =?utf-8?B?NDc4VWJnV1UxQUdlRXNsUFhTRWhMdEt2Y21jemZBdzRDRGt6bXVpYWgwSVFr?=
+ =?utf-8?B?Yk9tZW9wSkhCRkdGNXBlcGlSR1MwVHRaZG5PNG9BTGpuSERveWF6UHVncmJl?=
+ =?utf-8?B?MG4vUlBoWWhzbmhXbHU1WjR5aTZ2Qlc1VUN6YmZLVUxnTExTVm03akUvRkFh?=
+ =?utf-8?B?M0UvdnRZTnRyZGIxVUxRMVgza0pWWWlPVENHUGNWVXZqQmgvd2hOcTJ0Tjlj?=
+ =?utf-8?B?ZG9BSURER0UrVzR2eENTUDU2ZXNtck12bEFhZStGempadXM4U1ZEaW5wWndo?=
+ =?utf-8?B?N1dZTG8xQkVyU05mQVg5eHhLUERFTTNab1lBeEd5L3pjNjBMS1AyUnl4MGZQ?=
+ =?utf-8?B?RnFBaUVuUGxESzFNNkdmSWFKSmtXZW91c1FwdUVFRVIxWVMwVzZWQ3E0S3Bt?=
+ =?utf-8?B?NDNqMkorVFJPb1QwU3RDSHhXNGloTFlQSUpIb3Avcm9memVkQjBUSHZ1VVZD?=
+ =?utf-8?B?cjdoNm9kY1lOYTVYSWV1aUMwVGY4MTliTkRmTytSVTMxU0tKZElmQW5oVjlG?=
+ =?utf-8?B?WnNocGN5MytxWlJXVTRtb3g4TFEyZlc2d3lwMy82M013cTdYUWZZd054akVL?=
+ =?utf-8?B?NmRiSElWaC9nVkpKVHVNa1FydlorYkFOR2lMaytqOWRDZThKUmZpMTY4YVQ0?=
+ =?utf-8?B?Sk1TRXZZT1hHZ2hWTE4zbmY5U3ppYTkrQkxUYmp0VCswWFNBRXNzWE5EQWIr?=
+ =?utf-8?B?VkZ4Q0pBbjQyb3ZIamQ0YksyQm4zalpaeUd6c0RmNDR6ZEdQKzJmRUJSdUtw?=
+ =?utf-8?B?R21JQmNZN09LcnNHb1I0RzZsdTA1S0dkS3Brbm9xMnNiSFlBaTZ0dkI2QWts?=
+ =?utf-8?B?NnFHVFlkZm1OS1dPR2ljSDR0Y2VNOENSdEFsbWRJM3dDVlFjdk44OGo4Tkl6?=
+ =?utf-8?B?RlhwVU5BZklFY2NZSGZGbWdGSTVRaWdJUVMxeWRBY1RmdGoycGRCMXJ3NVUy?=
+ =?utf-8?B?d0d1VUoza0ROSWhERWMzMVFFd293SnNRaDFsWlppTUpUNU8xS3ZGeTNHMzlX?=
+ =?utf-8?B?Wjh2RGRjb1dWaXpleWR1NUtUUUs0N29OMUYvcHVlS0JGRUZ2ZnVIYzNXUG5D?=
+ =?utf-8?B?Y2N5RTBvZXg3Q0Frd2RhcTd6bTNiM2lPUldvNWdsOW45VEF4LzR3ckJjY1Ny?=
+ =?utf-8?B?U0pNOUtyMGgrR3VSUTl3c1ZrbmRGYm5aNk0vZCtTZ1BsRXVJTUNXRUc3Rys3?=
+ =?utf-8?B?NDkrMlVmdHZDQUx0alI4UkhqQlh4VkMreGZsc2lkeUM5RTQ0c24xQTdTdUpX?=
+ =?utf-8?B?elZkSlVmdmVRbTd1OU5GTyt5dklxU1ByZ2hMTkhXaVJ4RGRHK1AvYWdHUGJq?=
+ =?utf-8?B?MXlPWm4wUUN5UnRPeVJ3ZHphUWwwNVE2SFVzQ1pHT3dmdDJMK0kvbGtGMGRU?=
+ =?utf-8?B?NjNjMmdsM3EwVnhmY0UzWU5wbTFIZGluNEs2Q0w1QWN0cWFONzFIWlRFVlNF?=
+ =?utf-8?B?REMzSHVXb0Y0TUNvUHBtL0F3UEVoQkhQVlRXY3JNTVdBb0gyb2U4RjFOQncw?=
+ =?utf-8?B?emxqckxjUkJjY2Z1bHRZNnN4RFdpSTlPTjdkRzZwaG1SQ1Y3NVBYQXlmdVZL?=
+ =?utf-8?B?VFkzb1dUVkpyQ3lKQk9jV2ZySkFXNnRnSzFXSXh3bUNuNjlOTUY2b0xEOTNB?=
+ =?utf-8?B?RUVDUE1XaklhbEsrUUJIcjd6SkdGQU9hNG9XMlYycGZUaFdGcTZkR1NXRnRL?=
+ =?utf-8?B?N1BvMTVjS0laVkZLMnpmREpyNXd5VVJKbWJhd0lDSUZlYnNNay9zUT09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36dbb7d9-da29-432b-7335-08deff460f4a
+X-MS-Exchange-CrossTenant-AuthSource: BL1PPF1B62FD55C.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 05:35:50.7652
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XOejYjhwYzJXcp9JPJxKgZHtT5R7Pw9WjRbL+KaaeU2ql268kuCkEVmLffl/d1w//GWlvyLomrLp62Ck8xjEoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFC4D2A1900
 
-On 8/21/26 12:03 AM, Conor Dooley wrote:
+On 8/18/2026 11:44 AM, sashiko-bot@kernel.org wrote:
+> 
+> 
+>> +     for (offset = 0; offset + sizeof(u32) <= msg_len;
+>> +          offset += sizeof(u32))
+>> +             writel(get_unaligned_le32(buf + offset), priv->mbox_reg);
+> 
+> [Severity: Medium]
+> Since this loop writes bulk data to a FIFO, should it use the stream I/O
+> accessor writesl() instead of writel()?
+> 
+> The io-accessors subsystem guidelines mandate using stream accessors for
+> FIFOs to avoid unnecessary per-word memory barriers and redundant endianness
+> conversions.
+> 
 
-> On Thu, Aug 20, 2026 at 02:55:49PM +0530, Ayush Singh wrote:
->> Add devicetree bindings for the BeagleBoard.org BeagleConnect Freedom,
->> a wireless-enabled board based on the TI CC1352P7. The board exposes an
->> MCU that can be attached to a host over USB, UART, SPI or I2C, and is
->> described as a child node of the corresponding bus.
->>
->> Signed-off-by: Ayush Singh <ayush@beagleboard.org>
->> ---
->>   .../beagle/beagle,beagleconnect-freedom.yaml       | 30 ++++++++++++++++++++++
->>   MAINTAINERS                                        |  1 +
->>   2 files changed, 31 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
->> new file mode 100644
->> index 000000000000..5a246f81261e
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
->> @@ -0,0 +1,30 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/beagle/beagle,beagleconnect-freedom.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+The current per-word get_unaligned_le32()/writel() accesses are
+intentional.
+The mailbox message format is little-endian, and the buffer is not
+guaranteed to be naturally aligned. The stream accessors are raw
+transfers and do not provide the same explicit unaligned
+little-endian handling, so replacing the current accesses
+with writesl() is not a direct substitution.
+
+I'll take another look at whether the stream accessors can be used
+without changing those semantics before v3.
+
+>> +     if (csr & AXIADO_MBOX_CSR_EMPTY)
+>> +             return IRQ_NONE;
+> 
+> [Severity: High]
+> If the interrupt was asserted solely due to a hardware error (like an
+> underflow), axiado_mbox_clear_fifo_errors() successfully clears the condition.
+> If the FIFO is empty afterwards, this check returns IRQ_NONE.
+> 
+> Does this risk permanently disabling the IRQ line? Returning IRQ_NONE after
+> successfully servicing a hardware event can trigger the core spurious
+> interrupt detector.
+> 
+
+
+Good point. Whether this case can occur depends on whether the FIFO
+overflow/underflow status can itself assert the RX interrupt, rather
+than the interrupt being driven only by the FIFO not-empty condition.
+
+I'll verify the hardware interrupt semantics and adjust the return
+handling in v3 if an error condition can independently cause the
+interrupt.
+
+>> +     if (remaining) {
+>> +             ret = readl_poll_timeout(priv->csr_reg, csr,
+>> +                                      (csr & AXIADO_MBOX_CSR_ERRORS) ||
+>> +                                       FIELD_GET(AXIADO_MBOX_CSR_LEVEL, csr) >=
+>> +                                       remaining,
+> 
+> [Severity: High]
+> The poll condition succeeds if AXIADO_MBOX_CSR_ERRORS is set, terminating
+> early without verifying the FIFO actually reached the required level.
+> 
+> If the loop exits early due to an error rather than the level check, the code
+> continues to the for-loop below and blindly reads remaining words from the
+> FIFO. Will this cause hardware underflows and pass garbage data to the
+> mailbox client?
+> 
+
+Agreed. If the poll exits because AXIADO_MBOX_CSR_ERRORS is set before
+the FIFO reaches the required level, the subsequent read loop can
+proceed with an incomplete message.
+
+The current code does not distinguish between "the remaining data
+arrived" and "an error was observed while the data was still
+incomplete". I'll fix this in v3 so that the read loop is entered
+only after the required FIFO level has actually been reached, and
+re-test the RX path.
+
+>> +             word = readl(priv->mbox_reg);
+> 
+> [Severity: Medium]
+> Similar to the TX path, does this bulk FIFO read need to use readsl() instead
+> of readl() to avoid the per-word memory barriers and endianness swaps?
+> 
+
+Same consideration as for the TX path above. The current
+readl()/put_unaligned_le32() sequence explicitly handles the
+little-endian message format and a destination buffer that may not
+be naturally aligned, so readsl() is not a direct replacement.
+I'll include this in the stream-accessor review for v3.
+
+>> +             put_unaligned_le32(word, buf + i * sizeof(u32));
+>> +     }
 >> +
->> +title: BeagleBoard.org BeagleConnect Freedom
+>> +     axiado_mbox_clear_fifo_errors(priv);
 >> +
->> +description:
->> +  The BeagleBoard.org BeagleConnect Freedom board connected over USB, UART, SPI or I2C.
->> +
->> +maintainers:
->> +  - Ayush Singh <ayush@beagleboard.org>
->> +
->> +properties:
->> +  compatible:
->> +    const: beagle,beagleconnect-freedom
-> These compatible only devices always look suspect to me, I feel like
-> these things probably at least have an optional regulator if the power
-> source for the freedom is provided by the device running linux.
+>> +     if (READ_ONCE(priv->active))
+>> +             mbox_chan_received_data(chan, priv->rx_buffer);
+> 
+> [Severity: High]
+> Can mbox_free_channel() nullify the channel client pointer while this thread
+> is preempted?
+> 
+> If a mailbox client frees the channel, mbox_free_channel() clears chan->cl
+> under a lock, releases the lock, and calls axiado_mbox_shutdown(). If this
+> threaded IRQ handler evaluates READ_ONCE(priv->active) as true just before
+> being preempted, the shutdown routine will block in disable_irq().
+> 
+> When this handler resumes, will mbox_chan_received_data() dereference a NULL
+> chan->cl pointer?
+> 
 
-Well, the power source can be provided, yes, so will add that. In my 
-testing, I was powering the BeagleConnect Freedom [0] via USB to view logs.
+I don't think this race applies here. mbox_free_channel() invokes the
+controller's ->shutdown() before chan->cl is cleared, rather than
+clearing chan->cl first.
 
+axiado_mbox_shutdown() calls disable_irq(), which waits for any
+in-flight interrupt handler, including the threaded handler, to
+complete. Therefore, any concurrently running axiado_rx_thread() has
+completed by the time shutdown returns, before chan->cl can be cleared.
 
-> You're also short the required properties for dealing with anything
-> other than uart, so spi or i2c. (I assume USB doesn't need devicetree to
-> function).
+Based on this ordering, I don't see a path where chan->cl can become
+NULL while axiado_rx_thread() is still running.
 
-I have only tested with UART at the moment. Is just having 
-`additional_properties: true` sufficient? I think the reg property is 
-the only thing SPI and I2C will require setting here.
-
-
-> pw-bot: changes-requested
->
-> Thanks,
-> Conor.
-
-
-Best Regards,
-
-Ayush Singh
-
-
-[0]: https://www.beagleboard.org/boards/beagleconnect-freedom
-
+Thanks,
+Swark
