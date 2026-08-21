@@ -1,117 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195D23254AE;
-	Fri, 21 Aug 2026 14:10:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334F54BC009
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:13:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787321443; cv=none; b=LxFvwsz24Ab81DRiOE5/vOzdwCuDX79/aGByYEuXwHnPvFU5WxDgpql+jb8aKBagOqYsH9ee0TiO3kV9eDIxhOgKz2Vk3alX7A16j/v9rt0FrUZoubz6DdPtQ1mT2ZxfBsqQESWtXetbH2cHuO/IhE/KPfae3rE/C+RZWnc167M=
+	t=1787321604; cv=none; b=dZxYwmoTWyBXpdYn2DErAIY3iB5kzO9fQSXaRvX49DOylQTRB263Nwsx4QLaIICdJnTHeUy6z03nOlGDZsq8vqNI0MZbZNx2f1WtwqgNklwZb9iAy2bqjIMCchWyYMrJgN72Ti5hFwZEBT+jyTSAyA5x6T2Qv0rgoDjRHZvGMWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787321443; c=relaxed/simple;
-	bh=hofLw2x6F8EOYhtoS3gZM7upWG85KV3BxKmdHhbkVLc=;
+	s=arc-20240116; t=1787321604; c=relaxed/simple;
+	bh=lFRQTiZpXhyoqe7VRjJtZK0foYtWJtEvD6FDAtpImkM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ilZMp95b19E9ooOELDJ5SBHBpy78LJpmV5xSyi2+BEO3jGN8BvE6wUEzqB02DKNZdChMOiODKbOerUTiUOi00pNwFMaraKVBQ0ORk/Z+TwIe30VWTTYhLxinclejUpsgsay/0VUbHfUSuJH2AxRm2plvZ6fdf8/sd3HGh1QDK1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b8ojpd15; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hZ8vEnw1qkK+a0OVBDN64heH2xsztOFeVmhRIebQxTmHpyCnKjoKEKZbbpic3u6rZfHsK+cvjIvhWqP4NV3KMLEjmXTpLIkD3xZ8uOkbJlV+Pu8LDjEG9mP4zH1ehz4k+dNSS/xIG/IFMXm+V/36enfQCUU3Cf5UxCH5xXg4P+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y69oG8rG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b8ojpd15"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A191F000E9;
-	Fri, 21 Aug 2026 14:10:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y69oG8rG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7537E1F000E9;
+	Fri, 21 Aug 2026 14:13:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787321441;
-	bh=MzhgVVZX9i9qT4UOJCGe1rI1bGZSTsjv5P/rX4JoZU8=;
+	s=k20260515; t=1787321603;
+	bh=+iddaUZHdct9kdzL4gdzEBabUlHQkmBZHSgMxA5Ywv0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b8ojpd15+6EDONRUSn4jUVEscrQQZ79VRlvkG3mv57EvD16AV7LoV2teR5U4YVfTP
-	 YFllLPK4iGkUCqEqDCXwDlP8zGLbfIa9UWqfH3A0g4YVMHnpGhy4x1M94vn5yV6TGp
-	 47fcmlH+6BkW9E08odaFddO/enJxPwT20c13hgbrgRaArPxfjucPu17X4TkmzTiMsQ
-	 N2jAANaeaApzTCsrtJ4t0P+W9N5IKLeLXFCeypHF4wiQ9Kya/KBGV0/OSc7JgcoX/p
-	 I+M0sO2Q/WYvT3cuZpZpv1SnFyayNxouV5NJpqg3G2Ro6Tc0gari+EYm+A5J1JPREk
-	 4tx8gBrAaYvjg==
+	b=Y69oG8rG0gAQcS63f/3Jdl4rmxaP46AsUYCdwKqd0fWISjgML43aQD07WZrdTk6Ih
+	 VuZg1Rj1XsoDXuv63Xr+JK7qSDy9WnvAqKAdCHD5EnizEUxsPEQA3kGpFh/Y0FxH3N
+	 61ldgUMj8sKLEemcf7oz0zSHK82v1z2nF6/JSLxVYgXLGcrKYq/pjYu3weFb8HsR6Q
+	 LC8QHHRO3I5PErMU665E3mZISDCuK934p3Xrk0J4yjgOOlQ1lHDXxbrto9n+PTRoAA
+	 HthgjJ7CBxA9ZqwnjPHMODlnwXIiunsKPlx6hvMzVh99d0CQ3JS1xImsjPKmhpq61R
+	 OjDOWzAWxtHOg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 06/17] rtc: rzn1: Disable alarm interrupt before
- reprogramming alarm registers
+Subject: Re: [PATCH v8 16/18] mtd: spinand: negotiate optimal controller
+ operating point before dirmap creation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org
-In-Reply-To: <20260821135608.275233-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260821135608.275233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260821135608.275233-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: "Santhosh Kumar K" <s-k6@ti.com>
+Cc: devicetree@vger.kernel.org, "Pratyush Yadav" <pratyush@kernel.org>, "Michael
+ Walle" <mwalle@kernel.org>, "Richard Weinberger" <richard@nod.at>, conor+dt@kernel.org, "Vignesh
+ Raghavendra" <vigneshr@ti.com>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, robh@kernel.org
+In-Reply-To: <20260821114822.4040338-17-s-k6@ti.com>
+References: <20260821114822.4040338-1-s-k6@ti.com>
+ <20260821114822.4040338-17-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 14:10:40 +0000
-Message-Id: <20260821141041.57A191F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 14:13:21 +0000
+Message-Id: <20260821141322.7537E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Concurrent lockless read and write of `rtc->tm_alarm` and a race w=
-ith delayed IRQ handlers can cause a newly configured alarm to be silently =
-disabled.
+- [High] `spinand_try_ranked_variant()` unconditionally overwrites `spinand=
+->cont_read_possible`, bypassing SPI controller capability constraints.
+- [Medium] Inconsistent tuning error handling in `spinand_optimize_controll=
+er()` prevents ranked fallback when tuning fails.
 --
 
---- Patch [6]: [PATCH v5 06/17] rtc: rzn1: Disable alarm interrupt before r=
-eprogramming alarm registers ---
-commit 6227942d78d91abfb1648a64bce64f0011716b61
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+--- Patch [16]: [PATCH v8 16/18] mtd: spinand: negotiate optimal controller=
+ operating point before dirmap creation ---
+commit 1ac90d4e8f96020586049b7af66688b1ba996146
+Author: Santhosh Kumar K <s-k6@ti.com>
 
-rtc: rzn1: Disable alarm interrupt before reprogramming alarm registers
+mtd: spinand: negotiate optimal controller operating point before dirmap cr=
+eation
 
-This commit updates rzn1_rtc_set_alarm() to disable the alarm interrupt
-before reprogramming the alarm registers. This prevents the interrupt from
-firing while the alarm registers contain a mixture of old and newly written
-values.
+This commit negotiates the optimal SPI controller operating point before
+creating dirmaps. It introduces spinand_optimize_controller() to evaluate
+variants in descending performance order if the initial tuning attempt fail=
+s.
 
-> diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-> index 44e8db466cb78..09631a3a51345 100644
-> --- a/drivers/rtc/rtc-rzn1.c
-> +++ b/drivers/rtc/rtc-rzn1.c
-> @@ -280,6 +280,11 @@ static int rzn1_rtc_set_alarm(struct device *dev, st=
-ruct rtc_wkalrm *alrm)
->  	if (alarm > farest)
->  		return -ERANGE;
-> =20
-> +	/* Disable alarm interrupts before reprogramming the alarm. */
-> +	ret =3D rzn1_rtc_alarm_irq_enable(dev, 0);
-> +	if (ret)
-> +		return ret;
+> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+> index f839438a44ff2..cd353eb8b5374 100644
+> --- a/drivers/mtd/nand/spi/core.c
+> +++ b/drivers/mtd/nand/spi/core.c
+
+[ ... ]
+
+> +static bool spinand_try_ranked_variant(struct spinand_device *spinand,
+> +				       struct spi_mem *mem,
+> +				       enum spinand_bus_interface iface,
+> +				       u32 *tried_mask)
+> +{
+> +	const struct spinand_op_variants *variants =3D spinand->all_read_varian=
+ts;
+> +	struct spinand_mem_ops *templates =3D iface =3D=3D ODTR ?
+> +		&spinand->odtr_op_templates : &spinand->ssdr_op_templates;
+> +	const struct spi_mem_op *best;
+> +	int ret;
 > +
->  	writel(bin2bcd(tm->tm_min), rtc->base + RZN1_RTC_ALM);
->  	writel(bin2bcd(tm->tm_hour), rtc->base + RZN1_RTC_ALH);
->  	writel(BIT(tm->tm_wday), rtc->base + RZN1_RTC_ALW);
+> +	if (!variants)
+> +		return false;
+> +
+> +	while ((best =3D spinand_op_find_best_variant(spinand, variants, iface,
+> +						    *tried_mask, NULL))) {
+> +		*tried_mask |=3D BIT(best - variants->ops);
+> +		spinand->max_read_op =3D *best;
+> +		spinand->max_read_op.max_freq =3D 0;
+> +		spinand->max_write_op.max_freq =3D 0;
+> +		ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
+> +					     &spinand->max_write_op);
+> +		if (ret && ret !=3D -EOPNOTSUPP)
+> +			dev_dbg(&mem->spi->dev, "%s optimization failed: %d\n",
+> +				iface =3D=3D ODTR ? "ODTR" : "SSDR", ret);
+> +		if (!ret && spinand->max_read_op.max_freq) {
+> +			templates->read_cache =3D best;
+> +			if (spinand->all_cont_read_variants) {
+> +				templates->cont_read_cache =3D
+> +					spinand_find_cont_read_variant(spinand, best, iface);
+> +				spinand->cont_read_possible =3D
+> +					!!templates->cont_read_cache;
 
 [Severity: High]
-This is a pre-existing issue, but does this fully protect against a race
-with a delayed IRQ handler?
+Does this unconditionally overwrite spinand->cont_read_possible and bypass =
+the
+controller capability constraints evaluated earlier in
+spinand_cont_read_init()?
 
-If a previous alarm fires and the IRQ handler rzn1_rtc_alarm_irq() is
-delayed on CPU1, and concurrently CPU0 runs rzn1_rtc_set_alarm():
+Forcing continuous read on a SPI controller or ECC engine that does not
+support maintaining chip select assertion across operations could cause the
+controller to prematurely de-assert CS during a read. Could this lead to
+corrupted data when a fallback variant is selected?
 
-CPU0 completes rzn1_rtc_set_alarm(), updating the lockless rtc->tm_alarm
-and re-enabling the alarm by setting ALME in CTL1.
+> +			}
+> +			return true;
+> +		}
+> +	}
+> +	return false;
+> +}
 
-CPU1 then resumes in rzn1_rtc_alarm_irq():
+[ ... ]
 
-	if (rtc->tm_alarm.tm_sec =3D=3D 0)
-		...
-	else
-		set_irq_bits =3D RZN1_RTC_CTL1_1SE;
+> +static void spinand_optimize_controller(struct spinand_device *spinand,
+> +					struct spi_mem *mem)
+> +{
+> +	u32 tried_mask;
+> +	int ret;
+> +
+> +	/* Skip entirely when no post-config target is configured. */
+> +	if (!mem->spi->post_config_max_speed_hz)
+> +		return;
+> +
+> +	spinand_reset_max_freq_ops(spinand, spinand->op_templates);
+> +
+> +	ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
+> +				     &spinand->max_write_op);
+> +	if (ret && ret !=3D -EOPNOTSUPP)
+> +		dev_dbg(&mem->spi->dev, "Controller optimization failed: %d\n",
+> +			ret);
+> +
+> +	/*
+> +	 * Any non-zero return or a set max_freq means we are done (error,
+> +	 * unsupported, or success). Fallback only for the op-specific "skip"
+> +	 * signal: ret =3D=3D 0 with max_freq still 0.
+> +	 */
+> +	if (ret || spinand->max_read_op.max_freq)
+> +		return;
 
-	guard(spinlock)(&rtc->ctl1_access_lock);
+[Severity: Medium]
+Does this explicit early return abort the ranked fallback process if the
+first tuning attempt returns an error (such as -EINVAL)?
 
-	ctl1 =3D readl(rtc->base + RZN1_RTC_CTL1);
-	ctl1 &=3D ~RZN1_RTC_CTL1_ALME;
-	ctl1 |=3D set_irq_bits;
-	writel(ctl1, rtc->base + RZN1_RTC_CTL1);
+In spinand_try_ranked_variant(), tuning errors on subsequent variants allow
+the loop to continue falling back to slower variants. By aborting the fallb=
+ack
+process entirely here on the first error, does it leave the device operating
+in the fastest mode at base frequency without tuning? Could this result in
+unstable transfers and data corruption?
 
-Could CPU1 read the newly updated rtc->tm_alarm locklessly, and then
-unconditionally clear ALME in CTL1? This sequence appears to silently
-disable the newly configured alarm, which could result in missed wakeups.
+> +
+> +	/* SSDR-only devices have no ranked ODTR fallback available. */
+> +	if (spinand->bus_iface =3D=3D SSDR || !spinand->all_read_variants)
+> +		return;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821135608.2752=
-33-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821114822.4040=
+338-1-s-k6@ti.com?part=3D16
