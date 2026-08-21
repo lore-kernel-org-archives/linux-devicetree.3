@@ -1,102 +1,245 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34001320A04;
-	Fri, 21 Aug 2026 13:31:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988A12BE034
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787319075; cv=none; b=JamOxmhkGFCP4QzpX4kr/Vz2HNIvzic6T8jOq1imvnLmbOQF5Aj+BQkZxhiRns4Ww6S9H2S4TP1akipUwHU4+UYXeepT/iHBUxjXX5+fQtv3GwQxuJOVRPLRC9SkPwc5pUOUyK6iNzhGC+mad8T9pPRVuMvxDwfPjJz8SCdGiv8=
+	t=1787319212; cv=none; b=BCPViXZbiUt493IbElxpx/2IIAXbnBU0Moxyqi0+XltbKtuuyCMC0F2rRaOgoPnupjGnc3TWhIdgEHcGQAEsHoPA2h7Ofigi/l+NdL60Aa0naP5W2BArwaHebU9uYqbqXFQ7tzCN9lHJ0qoaE0OHo+hiojzws1TAhBrREq3nqK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787319075; c=relaxed/simple;
-	bh=PZkuqHJlDi2QPVHLhknsnlTMYMxnJFqePAk6ExvybgQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IGuh1o4pKcPJBB4WarC86qLshQeYrVLY6xjbWQm7Dm/TdE7Eh1GXC+BJodwEX97im7uhAETtb+yIW9MnNa8df3IIgnWe4WisFho1pVYO24/ca5xYTkx9b+vF+lOPhN1ZXPQdyaTgbMFQLcxW3+ZVwxfabScDSG9aTn4+gmaRb1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Lx3/DDO+; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787319212; c=relaxed/simple;
+	bh=v8CsjtTlJbH6IhjR3MGLZVoC00//W6iARwlKNgfOB8A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fTe9qfDql4PxTVBpzMtJEqNCuOnBLgzf+czXAyOjt/D60ZSZBGFg47zHUrcs+txftokNSXz323mQOOF9BdLPPwX87hbIIsUEJOiy/i4DU+aSRppG93+bYGhNyzXZVAW1e5msx5cvgiBRVjirl1KwCkk7b3MBM744Kxs5sKgX7uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YEwQdcrh; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KCzN5n83; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Lx3/DDO+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787319074; x=1818855074;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=PZkuqHJlDi2QPVHLhknsnlTMYMxnJFqePAk6ExvybgQ=;
-  b=Lx3/DDO+dw8Uw9/a22WOF6tKBRCKLRTFAdMUn779kyXdCTfEvmbhv5l/
-   x0e5KmwW08IwFqEw2CSp8g0J/5oSu2l/WrVr02EOc8UmzrXXSAHv838lS
-   cK1FPw4Ghc946YH0WhnoCvzMww++mTVLraI+1X9r6PGUpmrwWjfTzL6z3
-   Rp4GFZbZIL70Zya/iJJzF02VyASwy7vasffOK8ISZZddesbi5fHNivwth
-   7GC2M76tUWTM/O2X0MwKxknpUPMDx62Dx65imoz4uVLAnuJ9n2h3G6oIF
-   qZ09d5w9CmePE+n9C9vmomldJ+s/aBqSUEmBDCOhgthlhbJEQPPLnMsvn
-   Q==;
-X-CSE-ConnectionGUID: XqT9XohgQ0SdU5Rdn8POFA==
-X-CSE-MsgGUID: ixUQsyPUQiai7AZZ4Dnf5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="105247820"
-X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="105247820"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 06:31:13 -0700
-X-CSE-ConnectionGUID: oEnTow1zRlib6Op2PGqNQg==
-X-CSE-MsgGUID: XpgNQvKmS8iZWS8YkZD0nQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="260186323"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.241])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 06:31:10 -0700
-Date: Fri, 21 Aug 2026 16:31:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Taha Ed-Dafili <0rayn.dev@gmail.com>
-Cc: jic23@kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
-	skhan@linuxfoundation.org, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 5/6] iio: dac: ad5504: introduce local lock to protect
- state and spi transfers
-Message-ID: <aohTG8UxkmHSUzzh@ashevche-desk.local>
-References: <20260821102452.37407-1-0rayn.dev@gmail.com>
- <20260821102452.37407-6-0rayn.dev@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YEwQdcrh";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KCzN5n83"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787319209;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BOIQuUfiSHZZcuUxPrwxopvOAJS11fpxImd32Q3kdXE=;
+	b=YEwQdcrhJlwzju2cV9ahI46k6GUszCCfdZNzMwOb+60I8cwOTn7ZA8ZTi9yskAuZ7sH3Rf
+	ffYepKMRlsyzgRCwd1IwdVnFn/KOcaR/Ry8tfSM06jMywQ9BazVVBgjX1/XcYSaMYi2StE
+	fSQbsc62wxuR3W0AQ3Pwc2wlu70Vwwg=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-44-nKGBXwm8Ml2w2qBHacdnTA-1; Fri, 21 Aug 2026 09:33:28 -0400
+X-MC-Unique: nKGBXwm8Ml2w2qBHacdnTA-1
+X-Mimecast-MFC-AGG-ID: nKGBXwm8Ml2w2qBHacdnTA_1787319207
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-39f65fc76c9so3875161fa.1
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:33:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787319206; x=1787924006; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BOIQuUfiSHZZcuUxPrwxopvOAJS11fpxImd32Q3kdXE=;
+        b=KCzN5n83v+fNmadDMJ9a9upWLeABNAgO4clhwYw+PpboVn1KqGU8e7JqBktlysUSx0
+         wkMDbHGumQOHtWlXJXNGuTEewZsQX952GJClzeV3J7aoYZWt7pbnMFDqfFYjsSB37sCY
+         SRNJ6c/ieVzjjD4PCpbITHxl0xtS6M5bbOVVTUeOlfRAjQCsM37Q3Tt6pYLoevz2/TMU
+         oqudX0iyVmSHHoFA4V5+96drWpWVjwomlwC2QogzBfCoUXUfvQb5uYIR40hPt1kbSi8n
+         VoIQ6vqqHVnmbTA8Ge2xF9F9OzOH3cCyaEndBvxi8CJUMBWurUp81eWBkAV3cYp3BKAN
+         bopQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787319206; x=1787924006;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BOIQuUfiSHZZcuUxPrwxopvOAJS11fpxImd32Q3kdXE=;
+        b=ki0jXM9rE2frRbPgOhtjcJWrc4hO22lVzAHfCXHaPOG72R4ef/bTQcC3KAJ1ifUN1E
+         /0ppcoVIpzb9khJVBEBLPw9xVgQ2xNtsr46VDmstreh7H27Nu4+YNq5DcfVvSaUuCwsj
+         yhIBfJ0tRwkQOv3I4azH9ASEC2RW80oZun6diWXZDV59yPPVg6F6SPJgfU5i2OsSIvwp
+         Dm8dsoQ94QhIzG1pHc8Yr1K57Z/ty2QpAClJn+bgJirSvkGdjaOtifGROXEx2Ah2S2by
+         8FKVU2yyCvLkt+WxHls4lnun5mexSApIPNGXGhNSmb6eVpe/uMPUoIZKMR5km0xtrrQW
+         QTzg==
+X-Forwarded-Encrypted: i=1; AHgh+RoCI9ejIOlMJa3z9zxZSgXaqq2aJa5ZEiZwe9drHC4VQYDnLdN4hAeTeBmokmh7RpmYzJ2WMpFlLLRZ@vger.kernel.org
+X-Gm-Message-State: AFuF++nq/kevI+cjD9rxs3mTY7TohIdO/9G6szOfG7EmowvzFuixOmKg
+	e9Gg/qkQzYmAiDKzviBZms5WGFnr3s/OUscVQm+yk36fXFNgw9TgKefTGfu8uhzWM6kQ9G1hgTZ
+	Arrc7hHXsmnpGr9qgW/taf7CtB6zddfsI5R0hM4BSt40t1m/mhc+dLkFtlqmciTYG0NYedg==
+X-Gm-Gg: AR+sD13SFURYBs5uzdagX0G9Gmbs/UsscTG1STXjImZjQcxBUOyp54m0JjAW9e726B+
+	3OBK0jjC2c5IjBR78dDjdOAbgwxh+oLBI9svW3uqTtk7cNKWTBLWWMph21u48V0JGSJmWWZ0lIj
+	Kwju3oRyHQxIjvP41y/9iKBo0HBkSrF585mBEgpkEGFpXSA1Xf3Q6qhhMr2dBWwb+iX8lReBPMj
+	eDKudsqRpifD8EioALumrNfdh1h0SdQL4bL6uKWSzNozGWGk2tDjEjDZ2ua3Jw5AaJmA8mtgL51
+	VAzpqa663Z7A6gRaSz1iIm3Y9nIapaB4XwBmCyzf7uPBxt+blYMOdllf4ACUNPw+nZN8e0KX+v4
+	0IFzxv1oTyQt1EERuxwG7Tb51Jl9Z6UI=
+X-Received: by 2002:a2e:bea8:0:b0:3a1:b1e4:419c with SMTP id 38308e7fff4ca-3a1b1e4439dmr14635421fa.10.1787319206445;
+        Fri, 21 Aug 2026 06:33:26 -0700 (PDT)
+X-Received: by 2002:a2e:bea8:0:b0:3a1:b1e4:419c with SMTP id 38308e7fff4ca-3a1b1e4439dmr14635231fa.10.1787319205944;
+        Fri, 21 Aug 2026 06:33:25 -0700 (PDT)
+Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a195cce071sm15521331fa.13.2026.08.21.06.33.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 Aug 2026 06:33:24 -0700 (PDT)
+Message-ID: <7c04997f-eb7e-4670-bd10-85c918c034b9@redhat.com>
+Date: Fri, 21 Aug 2026 16:33:23 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821102452.37407-6-0rayn.dev@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: input: touchscreen: convert sis_i2c to DT
+ schema
+To: =?UTF-8?B?yJh0ZWZhbiBHaGXIm3U=?= <stefanghetu9@gmail.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260821131039.37525-1-stefanghetu9@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+In-Reply-To: <20260821131039.37525-1-stefanghetu9@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 06:24:47AM -0400, Taha Ed-Dafili wrote:
-> The driver lacks locking, exposing concurrent access to the shared DMA
-> SPI buffers, the non-atomic CTRL+NOOP write sequence in powerdown, and
-> the pwr_down_mask/pwr_down_mode state variables.
-> 
-> Introduce a mutex via devm_mutex_init() and guard(mutex) at the IIO
-> callbacks to serialize access. In read_raw() and write_raw(), scope the
-> lock to IIO_CHAN_INFO_RAW only since IIO_CHAN_INFO_SCALE reads vref_mv
-> which is immutable after probe.
+On 8/21/26 16:10, Ștefan Ghețu wrote:
 
-...
+> Convert the SiS 9200 family I2C touchscreen binding from free-form
+> text to DT schema format.
+>
+> While at it, fix the example which referenced a non-existent
+> "irq-gpios" property; the driver looks up "attn" via
+> devm_gpiod_get_optional(), so the correct property is "attn-gpios".
+>
+> Signed-off-by: Ștefan Ghețu <stefanghetu9@gmail.com>
+> ---
 
-> static ssize_t ad5504_write_dac_powerdown(struct iio_dev *indio_dev,
+Thanks, looks good time me!
 
->  	int ret;
->  	struct ad5504_state *st = iio_priv(indio_dev);
->  
-> +	guard(mutex)(&st->lock);
+Reviewed-by: Mika Penttilä <mpenttil@redhat.com>
+
+>  .../input/touchscreen/sis,9200-ts.yaml        | 61 +++++++++++++++++++
+>  .../bindings/input/touchscreen/sis_i2c.txt    | 31 ----------
+>  MAINTAINERS                                   |  2 +-
+>  3 files changed, 62 insertions(+), 32 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
+>
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml b/Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
+> new file mode 100644
+> index 000000000..5c4806348
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
+> @@ -0,0 +1,61 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/touchscreen/sis,9200-ts.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->  	ret = kstrtobool(buf, &pwr_down);
->  	if (ret)
->  		return ret;
-
-This part is not needed to be under the mutex. So, first convert the input,
-then acquire the lock.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> +title: SiS 9200 Family I2C Touchscreen Controller
+> +
+> +maintainers:
+> +  - Mika Penttilä <mpenttil@redhat.com>
+> +
+> +allOf:
+> +  - $ref: touchscreen.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: sis,9200-ts
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  attn-gpios:
+> +    maxItems: 1
+> +    description: GPIO pin used as the attention line
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: GPIO pin used to reset the controller
+> +
+> +  wakeup-source: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        touchscreen@5c {
+> +            compatible = "sis,9200-ts";
+> +            reg = <0x5c>;
+> +            pinctrl-names = "default";
+> +            pinctrl-0 = <&pinctrl_sis>;
+> +            interrupt-parent = <&gpio3>;
+> +            interrupts = <19 IRQ_TYPE_EDGE_FALLING>;
+> +            attn-gpios = <&gpio3 19 GPIO_ACTIVE_LOW>;
+> +            reset-gpios = <&gpio2 30 GPIO_ACTIVE_LOW>;
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt b/Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
+> deleted file mode 100644
+> index 8f5322e01..000000000
+> --- a/Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
+> +++ /dev/null
+> @@ -1,31 +0,0 @@
+> -* SiS I2C Multiple Touch Controller
+> -
+> -Required properties:
+> -- compatible: must be "sis,9200-ts"
+> -- reg: i2c slave address
+> -- interrupts: touch controller interrupt (see interrupt
+> -  binding [0])
+> -
+> -Optional properties:
+> -- pinctrl-names: should be "default" (see pinctrl binding [1]).
+> -- pinctrl-0: a phandle pointing to the pin settings for the
+> -  device (see pinctrl binding [1]).
+> -- attn-gpios: the gpio pin used as attention line
+> -- reset-gpios: the gpio pin used to reset the controller
+> -- wakeup-source: touchscreen can be used as a wakeup source
+> -
+> -[0]: Documentation/devicetree/bindings/interrupt-controller/interrupts.txt
+> -[1]: Documentation/devicetree/bindings/pinctrl/pinctrl-bindings.txt
+> -
+> -Example:
+> -
+> -	sis9255@5c  {
+> -		compatible = "sis,9200-ts";
+> -		reg = <0x5c>;
+> -		pinctrl-names = "default";
+> -		pinctrl-0 = <&pinctrl_sis>;
+> -		interrupt-parent = <&gpio3>;
+> -		interrupts = <19 IRQ_TYPE_EDGE_FALLING>;
+> -		irq-gpios = <&gpio3 19 GPIO_ACTIVE_LOW>;
+> -		reset-gpios = <&gpio2 30 GPIO_ACTIVE_LOW>;
+> -	};
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8014b9f82..88d0cb1d8 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24866,7 +24866,7 @@ SIS I2C TOUCHSCREEN DRIVER
+>  M:	Mika Penttilä <mpenttil@redhat.com>
+>  L:	linux-input@vger.kernel.org
+>  S:	Maintained
+> -F:	Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
+> +F:	Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
+>  F:	drivers/input/touchscreen/sis_i2c.c
+>  
+>  SIS USB2VGA DRIVER
 
