@@ -1,133 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from spam.axera-tech.com (unknown [114.118.28.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C053DDAED;
-	Fri, 21 Aug 2026 09:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A637F3D25A2;
+	Fri, 21 Aug 2026 09:53:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.118.28.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787305630; cv=none; b=TlZE3bnH9toNAkQ3XWYZrF0pSkNfKCCSE12sAAfSacZTNyBKPQB5wHUBTcFKqk5vGlUswQIa6/gtvpOEIEMD4COioYhduNMdzc/7M41DfORIfBznXAQxLof7T1qFCAG40HS0uwXIieT3dKUuHyCt7Umx7oFPTLIsod8MZ+/XCJk=
+	t=1787305992; cv=none; b=Ym8dLirtsNJ3ToJ5CqiILlEdFccRp1X+gxbLsjKzsqlKeSIVjsOY/3VzSIGXYVfg+E5KirVoQIcPu5P2EYNRLvE9fYQIwN4Nnjm+yB4+q5/nmQmjwDJrm/CWA20RRDq7Wn+2r+dOg6r0dpkGhcu3lKqZ2zQ0yXDGuCh7bGaijAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787305630; c=relaxed/simple;
-	bh=t8v2/ogFndfgh8m90+gQPp4REVawnYyCxxkJjTJIox8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JQqbI61dO5pm4+lQshPUkIG23DppzruDdXElAsHY4W/rIs72aqL+5sVR+VdbScewChCfHUkpAl8HVKsP12tufnDWXHM3t3Cju4xgEg0Grq4BsVi+atmVrRAbSTgiSB2LyngXVXnDSxarvHX/fln0VJL75WpU/V2VLEHgfFwaZDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GlCLy6Hv; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GlCLy6Hv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787305625; x=1818841625;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=t8v2/ogFndfgh8m90+gQPp4REVawnYyCxxkJjTJIox8=;
-  b=GlCLy6HvH/L09TDE8dUxKne6kVld2IpAeUx6PYNggY7nLcD7HRdeeuFr
-   DrpLW6jTPy4vniat6jhFr8HCRBlXL5uO6nhsDXDZalX9Eo6RsfpleK5hN
-   BEMMXFgwPPrtB9VvfP9YSw7/4MjUFS0Z4BX1OdaJo18X8bO/tlHQOvTK5
-   7QqGVqvcRiv6kX6FaLr8/zV44X2HYM4dKGIMU6tkgvkHl/zTBajVyaE9p
-   ZU/cKio0N/10Gy1p7rszTi4lQNtUvZKOrGLSNrHt/IFuwG6eDcoBct466
-   ig5ug2/2jGRlIzNM908r74HUWk//ZAy5uc/T1obkD0XtLRadvR7GxQeah
-   g==;
-X-CSE-ConnectionGUID: 0jHhaKYwTYCwNr5d8yq9mg==
-X-CSE-MsgGUID: YjBIosrnTxq1OM7mVbpZDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87621798"
-X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; 
-   d="scan'208";a="87621798"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 02:46:55 -0700
-X-CSE-ConnectionGUID: YY5c0jAQQ7CiuzwVDXO3EQ==
-X-CSE-MsgGUID: ++tW1p51QbGSL2QypOxziw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; 
-   d="scan'208";a="270114138"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.241])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 02:46:49 -0700
-Date: Fri, 21 Aug 2026 12:46:46 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Janani Sunil <janani.sunil@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org,
-	Kent Gustavsson <nedo80@gmail.com>, linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v9 3/3] iio: dac: Add AD5529R DAC driver support
-Message-ID: <aogehm5B7hoqmnKo@ashevche-desk.local>
-References: <20260820-ad5529r-driver-v9-0-ba62e0b2a816@analog.com>
- <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
- <20260821024503.592fabc1@jic23-huawei>
+	s=arc-20240116; t=1787305992; c=relaxed/simple;
+	bh=QS02tvkVmFzXqI3twhl3BKem23lCVglLSY1o44tazxE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=ucqd5DpOkFoVMh5nhPclj8DosAOIamUV/7ZI56S6kJSZrNH/Ntk+KnYq1rAwvrpHC4H1URX48QvTQqMfGtp1efbTvypag7RQLcXP6NUn0Xaq0Lpjp33OEfWKQ7uS/DIeBhC1SK/Dv1GA39EBB9F8SP9v+svmJzW6p/IWlGF4kHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com; spf=pass smtp.mailfrom=axera-tech.com; arc=none smtp.client-ip=114.118.28.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axera-tech.com
+Received: from spam.axera-tech.com (localhost [127.0.0.2] (may be forged))
+	by spam.axera-tech.com with ESMTP id 67L9Vr6S009890;
+	Fri, 21 Aug 2026 17:31:53 +0800 (+08)
+	(envelope-from lenghonglin@axera-tech.com)
+Received: from aixinexchange02.aixin-chip.com ([10.122.86.161])
+	by spam.axera-tech.com with ESMTPS id 67L9USlE009398
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 21 Aug 2026 17:30:33 +0800 (+08)
+	(envelope-from lenghonglin@axera-tech.com)
+Received: from [127.0.1.1] (10.126.103.103) by aixinexchange02.aixin-chip.com
+ (10.122.86.161) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Fri, 21 Aug
+ 2026 17:30:30 +0800
+From: Leng Honglin <lenghonglin@axera-tech.com>
+Date: Fri, 21 Aug 2026 17:30:04 +0800
+Subject: [PATCH 4/6] arm64: defconfig: enable ARCH_AXERA
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821024503.592fabc1@jic23-huawei>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260821-ax650-v1-v1-4-e1b013938e6b@axera-tech.com>
+References: <20260821-ax650-v1-v1-0-e1b013938e6b@axera-tech.com>
+In-Reply-To: <20260821-ax650-v1-v1-0-e1b013938e6b@axera-tech.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Shi Zhicheng
+	<shizhicheng@axera-tech.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will
+ Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Krzysztof Kozlowski
+	<krzk@kernel.org>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>,
+        Linus
+ Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <soc@lists.linux.dev>,
+        Leng Honglin
+	<lenghonglin@axera-tech.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787304625; l=635;
+ i=lenghonglin@axera-tech.com; s=20260818; h=from:subject:message-id;
+ bh=QS02tvkVmFzXqI3twhl3BKem23lCVglLSY1o44tazxE=;
+ b=SexAhsJl62b/yFLRpa16G1JgEyohIPxpiuiVcCMEKBEZo9cSrj68FTWJWqvbFlj9BxqHthhpW
+ 3INefI055lgCR0NnNLvDmEaV6vZ0eJH302iK9zR1ht9GQojFrwO/9lr
+X-Developer-Key: i=lenghonglin@axera-tech.com; a=ed25519;
+ pk=fo0agzxyiwbJZc3VZRLVthobvWCvq0qAViAw4TxhF80=
+X-ClientProxiedBy: aixinexchange02.aixin-chip.com (10.122.86.161) To
+ aixinexchange02.aixin-chip.com (10.122.86.161)
+X-DKIM-Results: [10.122.86.161]; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:spam.axera-tech.com 67L9Vr6S009890
 
-On Fri, Aug 21, 2026 at 02:45:03AM +0100, Jonathan Cameron wrote:
-> On Thu, 20 Aug 2026 09:08:23 +0200
-> Janani Sunil <janani.sunil@analog.com> wrote:
-> 
-> > Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
-> > from Analog Devices.
-> > 
-> > The device communicates over SPI and supports per-channel output range
-> > configuration. An optional external 4.096V reference can be used in
-> > place of the internal reference.
+Enable ARCH_AXERA in the arm64 defconfig.
 
-> Sashiko calls out that dependency should be on CONFIG_SPI.
-> 
-> I didn't check it's reasoning but I believe the conclusion is correct.
-> If that's all that comes up, I can tweak whilst applying.
+Reviewed-by: Shi Zhicheng <shizhicheng@axera-tech.com>
+Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
+---
+ arch/arm64/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-Interestingly we have the following statistics (might be a few cases missing):
-
-$ git grep -n 'depends on.*[[:space:]\(]SPI_MASTER' | wc -l
-156
-$ git grep -n 'depends on.*[[:space:]\(]SPI\([^_]*\)\?$' | wc -l
-299
-
-But reading the Kconfig I tend to agree that what we need is SPI_MASTER.
-SPI might be enabled for SPI_SLAVE only, would it mean we have a usable
-HW on such a configuration / platform?
-
-> Looks good to me, but I'll leave it on list for a little longer
-> as we aren't in a rush and others may well want to review.
-
-...
-
-> > +config AD5529R
-> > +	tristate "Analog Devices AD5529R High Voltage DAC driver"
-> > +	depends on SPI_MASTER
-> 
-> depends on SPI
-> 
-> > +	select REGMAP_SPI
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 654a102cb5bc..a2c2b41f0146 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -40,6 +40,7 @@ CONFIG_ARCH_ALPINE=y
+ CONFIG_ARCH_APPLE=y
+ CONFIG_ARCH_ARTPEC=y
+ CONFIG_ARCH_ASPEED=y
++CONFIG_ARCH_AXERA=y
+ CONFIG_ARCH_AXIADO=y
+ CONFIG_ARCH_BCM=y
+ CONFIG_ARCH_BCM2835=y
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
