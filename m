@@ -1,28 +1,28 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010006.outbound.protection.outlook.com [52.101.69.6])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010039.outbound.protection.outlook.com [52.101.69.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091F84ADD9E;
-	Fri, 21 Aug 2026 14:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1674ADD91;
+	Fri, 21 Aug 2026 14:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.39
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787321200; cv=fail; b=dTiUHXtdbKkpQKKZps+sYnMs+fGlcOR7GW0x9equz2PGeSC9/DLvpDdwnMVTRb2kP6UcUwLEsBz8jdH8xzsKoU4cxGn2IP0R+z/iQtuc0XcjS+fHeol3Wmr9Ittajt2PMtsaz2iiBejDeAJnqnbvw5FZbXK+VaR3si7AfKhKaSU=
+	t=1787321202; cv=fail; b=iNA9vVp2PdBSTSVoP9V7ZRiT4P6Ho17c/ukOmBSj6kJ+s1dY09PYK7dhs+H5ewf7MbISmJWfQD3Mc+SYD9OnEKtTtjtqdmD+2zVlANfrJBaLmXvdA2VtIUnFwsKC0y76ulDiHhQap5QqJRl3G8O4LusRqUne3NVjYG1iWcffWF8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787321200; c=relaxed/simple;
-	bh=4xZb6SjyFswJD/LvKo249PnHFGbJi8khDUs1q54ieno=;
+	s=arc-20240116; t=1787321202; c=relaxed/simple;
+	bh=0OpA37Kl2CivBofGeNGUb6QG9WNRRP0uH5E752H16Zg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=KdYnO4wek4Uls5fqAGSu1HqlOCHt3ASQrVcEE2F0KMrmPDiTIWsPmbb23LRmWomwL9xTaetRf5cMWZUCKrL7IjNWtb3TUTt+lJToB3taQZ5fEBNX9Fzb8CR+DRObz5gxn7pjSptXrv6sSbtiL3Nlr3tUVIYF2vCJ2wDorFMZCKk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=GwcOcKHl; arc=fail smtp.client-ip=52.101.69.6
+	 In-Reply-To:To:CC; b=RWPIorEqWHwddh/xehF1ABIQez1bRPoGkrYV+p+3ce+KyDKY2RD3lLDi3jf5FoM8kR8KD8zuBmLgJuNIW28J+kJYtBl1mTowNEHO7LFaE8S7EbDCpT/68yygFMnH4nteXRNjf/SrxwIsC33UnDTeM3JF25usTqq645eBdDvyuzo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=osnmx+Hd; arc=fail smtp.client-ip=52.101.69.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="GwcOcKHl"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="osnmx+Hd"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FkOFbjvp3W+EIaodk6DoPdhph/xCsihUrYtzHc+nRJvwvFZwiLOc1C306iW45pJrcFL2IhyqIpNRW0Hn6uIG5+XVDYSwUjeDqG76vQ+vJ4rEeI2SlT1tiQbl6PbqMvXyfUPG3HxLKZjIMrnLLejKZYQOsieJS3OhoCoRDaikQktj6xELYnO9sBORNm+qm+Np/nGWtNpQtniGbFGAdudC/RchX/T47zpVFJ2jVtnSceOrJ8wEcqpKMdZnLjJ3abFaez0boI3b2OhVLWgD1oVepZgDDaHxuxHmurt53JHloTog4mmgnnquuqO9VJlBP9rbVtqa1xcrjxZWsBHFt5JgcA==
+ b=Y92hcVnMxnRDlyYCo4559A72ylhO1NmJ4FIeEr50+qgRCP/PEncH1xQeY+X/V60ijRABrEhkjHXRItyuJw5sNQe/aYgBQMNzcnR+fXWWiasGuLEmQFb8M3QJEMhiSkHjqRirS4gBltuEDLGIrU87muBfM2dGNMIIhpKG53UWqWlVhtG5Dz3pif49gT3RBb1bqztMmEhAC3bClRDRbpFx6YeaHAMam2Rkt8XjKj5st9vcqbNT7b09SydzOzcxUgKvebSW3bKKocSzz1832TQfoeWi5/aXSFTjbOT3vrVEY9Vh1l1pdunEHjMaPuyeoIoWtNuIy7pZhxci4fFiWC8kbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=soc7A5JG3xLoOX2mL+sojnKa62PTGCMFDKCD3rEtp/4=;
- b=T8pJV8rhHn7d+cBE2wzR2s+fqzKnkWWYBa73wfB963SfY7fnhzLRBbHhxgcsXwCq1ojZSYsSMz0us/mZne0bfV6z2xElWpR4KcpfW32VVRZJLaaGYcfRK2MeUeaASHv1v7RLOeNNJ1uW565sKsgfZurHNNeCJi0Q0TJ1cdF/UGN89taFMa8amfZ1KoXC/bi2FzTbuZacOG6+IVo2liV+84vLzopQE5/MWBp3z9WgNDkEn/0jVJVMg8w7HAPhBOFH4p4rMIl3ecqtb7mmHl6jTFnZKyezO1l4J4dca4ArB1uj3mHU9Oo7xbz70fvHu5d96O5WSvzqvERAFQDqBJzEKA==
+ bh=PcDUuHIzpA5LChowCsRJya3d7qQYR4H5AYNdkyfZwIU=;
+ b=NsNF/V/E2X51zTZAvElSU3G5jwsWeprIUn9+8o8rWR9onDNYfVDWsXPy8CaiSB4lFCDb4q9P4MJt+Hz4Hc0g5fLHkbrTwoM2Jre0ZPsYZ02FmzXZBVKt/DZp8B39FDZAfoSQc50YJe49/j7EHvd6dWyo225xF+nHUjGu7strwQ+9FFZ/2/OxVUEwT+llyYnVQO9P+MZcjDRSLMI1aS25e9R5mtFV7RhcCzUerNuEnH61weMfhWp3zUA7HuGIK8x4egHwXSpr97hjSoldfykvZ+oFzF6OQEvFezohFae7ZYiZypfgkmU23T8R9yiTIDeLnVPf1OHw94XdkYIrSDDWVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=soc7A5JG3xLoOX2mL+sojnKa62PTGCMFDKCD3rEtp/4=;
- b=GwcOcKHllh06gQYLJZb0berkvialhgW1D23F4vdH5YAdC04aU4axPwJVwKWaov+If6Etc9MVBZ+PIujrpWyhiYrnH8sQyXrcC9Apygi+6c7EmDd6XkE/YQ28nfpXNYyQEfoCYdMXPLx606EHVJMCtgcHvg5PGivA3nkTLc9Rmmgl4+xsx7OJFgR4zrlwCsAUeUFLTwQzZx8oeps0s9IW7MLyWcCcPie7PWYsHTODgcYmjXHwzGLRNzH3jLrRFZsleO9fcGDCUAtk8zi3bYSjQ+XbNfv836U5KbNkyMSlUsp8hBRkrmTVpRYcdTXXc+mzZoJgUbBVVyRKv+JMmoWrfA==
-Received: from AS4P192CA0027.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5e1::17)
- by DU0PR10MB5385.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:340::16) with
+ bh=PcDUuHIzpA5LChowCsRJya3d7qQYR4H5AYNdkyfZwIU=;
+ b=osnmx+HdljLZ9pW4VOE8tBx5IPKtBBrLNNfu6eLLNq162zLInBOwjDfmOX/PRtkZxn89jsvmEtzTTHQuW7u0J9gqJuSIeLy1/hwsRW2Xvxl8n/y5qesD5AzeTx8V2Qupu6DQqSPRtWzq1P4z6oEkxgXM6NZKKXBJRPDuPhKPzmQw9RSnqgwra7wMIMGLPcTgHRT1hmjPyTzG4fxTWSR+mJaJwZldM3qbPME0YGbH/M9G4PxQqkNACbTSXklhZaSN3ezWA1ekA0VMLGvYMKWCu9XpxLLIc7EJZKUSUni1qHxbopi049AqaZBbAUOcdKbvnOULQolvXrRLPtRpSVRYcw==
+Received: from AS4P192CA0026.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5e1::10)
+ by PAWPR10MB6757.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:331::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 14:06:33 +0000
+ 2026 14:06:35 +0000
 Received: from AMS0EPF000001AB.eurprd05.prod.outlook.com
- (2603:10a6:20b:5e1:cafe::85) by AS4P192CA0027.outlook.office365.com
- (2603:10a6:20b:5e1::17) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:20b:5e1:cafe::62) by AS4P192CA0026.outlook.office365.com
+ (2603:10a6:20b:5e1::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 14:06:33 +0000
+ 21 Aug 2026 14:06:35 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -51,19 +51,19 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
 Received: from smtpO365.st.com (164.130.1.59) by
  AMS0EPF000001AB.mail.protection.outlook.com (10.167.16.151) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 14:06:33 +0000
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 14:06:35 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 21 Aug
- 2026 16:11:59 +0200
+ 2026 16:12:00 +0200
 Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 21 Aug
- 2026 16:06:22 +0200
+ 2026 16:06:24 +0200
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Fri, 21 Aug 2026 16:06:09 +0200
-Subject: [PATCH 1/3] ARM: dts: stm32: fix vdda supply for onboard hub on
- stm32mp15 DK boards
+Date: Fri, 21 Aug 2026 16:06:11 +0200
+Subject: [PATCH 3/3] ARM: dts: stm32: fix vdda supply for onboard hub on
+ stm32mp135f-dk
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260821-usb_fixes_vdda-v1-v1-1-0c213062165f@foss.st.com>
+Message-ID: <20260821-usb_fixes_vdda-v1-v1-3-0c213062165f@foss.st.com>
 References: <20260821-usb_fixes_vdda-v1-v1-0-0c213062165f@foss.st.com>
 In-Reply-To: <20260821-usb_fixes_vdda-v1-v1-0-0c213062165f@foss.st.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -89,32 +89,32 @@ X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF000001AB:EE_|DU0PR10MB5385:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b7a5e0e-1e6f-4cb9-a46e-08deff8d67f1
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001AB:EE_|PAWPR10MB6757:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40522574-e86d-4b75-e3de-08deff8d6948
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|82310400026|7416014|36860700016|376014|1800799024|56012099006|10067099003|18002099003|22082099003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	clYwCZHs8fARoISwsbKNWIBKigQEhgj26KidI/V+4YR41OMzQ538Fh5uQquCzw2a7Nzpa+Zhm8hV077//TvQEvArSZKEAuqBneL4wC+RP3cQioXV4UKRkESG4lOX9ZIQsXUoZXIU9K+DCpHfiJMSOb0nPin8vaEVWHp5o8oSAkeEHvsq/Q1Rfv4RKS1pA47q1p6Po+3eBbPYFXlKkqI/sC6tOxUP/FB0PuDr6Ok6Pdt1NSmCHepXkA8hzXvtX74O/rNam8ANk7PGOlinbkFHzPFvVd1MZ7uhC0wARWwV/cDN9sG4V6XQUkNfzxkoSRadi1TlNFZY5fT/Nc9sQgXk0CWoPLRO2M58F/Vp9vQxuYNTn5T8v2ATS1LZuuop4t97UtRxNUWE51XUDPFX4AeK2xS7BDSHhoUpWGp7eAaeQxDzh7/kVyzkIu4uoF7c5/5eHfAwUDI4jJmBSecPhrtDexZNggWbPwjn6guFFxTSRAyHRrW5nlKvbdSmgWGXdAIUliYNJZGGP2aWboVvV07cX/q9KqI9sS3l3eG1MSu6q79NIKrTb497Wzhq1oAUZqjXdj/irdmU7T4RLGkp4MrcP33ZlYln4f6Be3B5zeLpojY+P5HMKP0rHGJjhqHl8M9v8c1WsyLtjyZbWpDM3MSkBVAf5d8PeBgq6qWw/q+h+iGugTOFreek6aZnwSfCkSTPwz+09PBjVfoR9N1GUSm92A==
+	g0OQknNtaKrrmnQRxb981WDQHkzF+f4ZFRiBTelNI/vltNgLRBv2DfDnMO2DyH+Vn6ulCa7ZhWdL7HcSre+NEvDcyUz9JQDTRPNpwMfSQVowLlAN8GFehoFVVOECllJBbh8MyqZ0wqsp95tqyviy/7gWNOYK3MEab4oiK0wZ6jELaP7M+rqVS/Qnrm/hcB8c/NZ28ykcqRfDMSQ9lD/KrnNAagG1N1rQiRtglef4gS18B/ysyaPF63/MgTJkqGNmUeSkgmSvrmlsNKh9IAoH8c2g2PfD38Z0CX1PQdneSW8MRHCZFMv6Y2YdZ58p/Spr0mOaaY4Ui6YrPY/FWJ201URkXvyoy0W8ywFg6n+0L5/K/zIVR7f3aM6EDe0guuNCXvcNv9kmstk4AitBeTOUkYzOd/AXAOjoPq22uUJZ5Wg225mqAjanjzjIsQDjVAOwGtRN3QP5mlyTiJYBrjFk+3m5SSglqjEO4BEx0d2D3rWRADUb66B8vIfa73ZdMahucZybStZ1CHQRJV/36s5gwkofKnybaypIL26IESRjn2DPi1OPnQO5D4y/WILLRAAayvKQPBW09MC0xY+6ooXzmrvp1OJ8w43jL1isj+ht37m1TgdiKzyMwUtb49D5NERVBTkyAe5bYHnMxgVkQj74xFJsM2ZpfPcCQ7hY8ykFYCGF7+o6gPkUMu7TQgNjeX+d7hOAXD2JzYpogC4sgoHtmA==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(7416014)(36860700016)(376014)(1800799024)(56012099006)(10067099003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	xz4kE2wm8a6OPnsdKieUpSbpjc/NKgs/djIZAHaqZ/6fGNvM/gM36i4Tb33oGUj2nFa7RfhSMX2YTHURlV15vlAcl5hyDxSqJRA4M1Ahe1lGY/Gv4PFdxdmxZ5kQhbYjlCPj4WwKyd/c2aX+2pjEiBF7XDWFMXtFuZOFLSOZ1nvW7kryd7wHLlhizwVzSwtnQSimx4gUqYGGvoxxiqZZSSWURXQWJsunjQVgZ0uze4xIUZOu6zShqcf35h8tlGvwrPJUij/CsSSgvphYIh4YzLo+90TA7jNl27jCNRBEhNskZOVPU+Km8ezqbgYT0PaC1x6K+aE6/gm9Sp4NCXFaB7jU8uS1HxKl/mrgEnyXfrr0xsvymMhbLHVISuqtQP7Oj3rHxxahE4OeSioDP63dTeZiUtFb4N1xXqnxzGFT10h9z0zBj/S7eaAsdjRXjFs5
+	9PJ0QQ4cS8SRfyG6Bdv0FDbumiPx9wnxksJfKDEE2cn6XfXRa6zBclLGKdLHDL3mJFSg2F+Y3pJ+V6wagVGQiUB8j7xzpO5Sk1InBsatLU29AQG7F14PACkDNyIRIxNzz4q+ZaxNcx9xFDEdraRgXwBpvr47RB/WKDzWmoCliDj/Rmi7f4WEwVkX1R0gFO+kIVGljh3oKFRCljAd+k9nQ4v9OQ9QCn42CEeCgzboA/Ycy1/cyPdfca38mpj1WMJRVltAq9XcMWMAI6juYlGDhhaUmIPtzz2zzw/DvICMyxHDy73Sf68L+U3vDyqJ+4guCWNADl1VS/lrjXdAfg/ZLQG9T3Z2W/V1yJSJqKmUbbivOMArfIasPxDU8v9SMHpk54RfSwva/nEKBBCOigBpQC3Vz0KFpjASIKBkGEvZlMX91kApf/3bO/iJgbvdIfro
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 14:06:33.1717
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 14:06:35.4120
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b7a5e0e-1e6f-4cb9-a46e-08deff8d67f1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40522574-e86d-4b75-e3de-08deff8d6948
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	AMS0EPF000001AB.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB5385
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR10MB6757
 
-stm32mp15 DK boards use Microchip USB2514 HUB. Since vdda supply has been
+stm32mp135f-dk uses Microchip USB2514 HUB. Since vdda supply has been
 added, the regulator framework wrongly associates the 'vdda' supply
 dedicated to ADC, so the wrong regulator is referenced.
 Only the 3v3 regulator is used to supply both the digital and the analog
@@ -124,18 +124,18 @@ Fixes: 673655f7944f ("usb: misc: onboard_dev: add vdda support for Microchip USB
 Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
- arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi | 1 +
+ arch/arm/boot/dts/st/stm32mp135f-dk.dts | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-index 599ea07bdb19..01ac3d7d6d0e 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-@@ -764,6 +764,7 @@ hub@1 {
+diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+index 6022e73f58af..5528b99ecf50 100644
+--- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
++++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+@@ -628,6 +628,7 @@ hub@1 {
  		compatible = "usb424,2514";
  		reg = <1>;
- 		vdd-supply = <&v3v3>;
-+		vdda-supply = <&v3v3>;
+ 		vdd-supply = <&scmi_v3v3_sw>;
++		vdda-supply = <&scmi_v3v3_sw>;
  	};
  };
  
