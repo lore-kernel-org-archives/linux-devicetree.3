@@ -1,193 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B7C236F8EE
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:19:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814133290D2;
+	Fri, 21 Aug 2026 16:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787329196; cv=none; b=Iv2H74h8qAAMyCJhvCRILzkHUbOe3PRo+Gh6CkqaFgggvDGFCzFgkWWng0RhNR5ZeUkBE3rBWWmW2plX+okbyc2XfamnJHA+64hKmBjWab+cC55QYkz8WuMcOOb39jzkJrQyHeyfgpCbwDEhZraNpTGzVJfhPtLFeYzfCvH2Pc4=
+	t=1787329287; cv=none; b=kEHMxbJYavPUuPgQO0BF4Faf649iukS2oVFXKpuPz18YeupPkGu7+xnIb7uqE2YuFQjVvqMj6s2oZgvw64VivClQdLoEDVz+NtiKTbZMzZUA4H9oVytPxjaPeKrdcrXU7HsJTeR1D7eGgnz9vVyhGFBW5/DeZo8PEEOsVfMCPes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787329196; c=relaxed/simple;
-	bh=yqRYkVkSYDMFAKBOjEY/HA2zIkpVggFt2IpdQF+hDZw=;
+	s=arc-20240116; t=1787329287; c=relaxed/simple;
+	bh=wzCsiyYsJu+TgEpKsOc8sD7LcypFdV4TyZb2hbIm3Lg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U2kXvsoF2yEc2IuxXOJkyEiEloh6hTZ3WqtNoB+Glle08ZB3k11vFdTSjNJ9RH8Ll2JyjqKmmdaskJhLPXioZnxA6CpNP8gIrqjsoP1oIBNSDCoN8vk6zhN5+HhLysvgnwJno8WRdkLSyj19pjLFn8Zt9bqbIh5XfyGW3U2C8Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l6yJGKIj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Ltc20MYKS3593zT7hNZJv4kSmB64VZFPc66OQsCjvf0hkMdSgvSxObgJJ46hhjYPnVn0SrlNnpin8s7kgP539IZvJWaHJjtx2YZZzf0wjLINM3JXyfz1V+C1ttrv9MJRWHzD6DksG4xJIdph4adIdHRZjLFbTVtqs+pveM7mUSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kcrkP1F5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l6yJGKIj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE78B1F000E9;
-	Fri, 21 Aug 2026 16:19:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcrkP1F5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4C6D1F000E9;
+	Fri, 21 Aug 2026 16:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787329195;
-	bh=VBDGQnMJJ5dpyriANm4q48Z8HmBPOmV6xZEb+912qlg=;
+	s=k20260515; t=1787329286;
+	bh=gIjxxZGPTmuC61ihs3lfS9K2kmn/qnGa1FBCfZFJ5tw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l6yJGKIjfUYJYQ2HJg7wtqRolnWxmEO8i40a9RQW3FJtJJWdW0alQawZfzS97z+lm
-	 WDhi4L/4T5JE75hH2BYZM69eDSkbmCSwrn0tufPMdkp/rLHC+5OyYO2wb4ApouIfNa
-	 1OZMDuFfv0J62sashYawvD9PdYus2VuoBGFe5f62hxZ0bXBEYgudj0WR922JW5KVba
-	 f3uCAmkBhxy3+RUxJhx5Zm72OxDLLXUwaCyhJESMso3Vl6Cplnx/ZpXXJ7ROp46iZH
-	 z70XW/3gSLftY6jPR29c6HOBR+n0YNI69YNAiyOdDq5z0eEfWY5UKoXI2gYwWx2fhN
-	 A8tioz4rs15nQ==
+	b=kcrkP1F5wPXw4dOjXhAk5EBo6C+1RF0u33a92ebMd4TQ75yu4/a8oqwin1gXIbtoU
+	 mJG5rlLTgxTZAQmHsHgrnRmtTwGb3lPQJ3frf/UJXo5aS+mKBYyPTezGJGqCFucUuR
+	 rR9KWf6psA7YhCdtayYNihnkba2NbxFk0t8ODBK+k1rs1Uyr+4BCRNcCNszDIRqxu4
+	 vzhDTEEzG7f+FdfZY0H+lR+8soDUbiLNNPAcbBLZ636lZ+1PhgcHl6NCxw4/WDx6xa
+	 fFhobpNr+AGB4MPNS2F70Q81ANnDsvgqextULHOafA1fpWn0lP6UYPJcIx+waEP+LV
+	 oMGrI68NoNo6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] ASoC: cs35l45: Adds support for SYNC bus
+Subject: Re: [PATCH v3 05/15] clk: qcom: clk-rpmh: Add support for Kuno RPMh
+ clocks
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ricardo Rivera-Matos" <rriveram@opensource.cirrus.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260821160946.95258-2-rriveram@opensource.cirrus.com>
-References: <20260821160946.95258-1-rriveram@opensource.cirrus.com>
- <20260821160946.95258-2-rriveram@opensource.cirrus.com>
+To: "Hardeep Sharma" <hardeep.sharma@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260821-kuno-soc-support-v3-5-196e2b306368@oss.qualcomm.com>
+References: <20260821-kuno-soc-support-v3-0-196e2b306368@oss.qualcomm.com>
+ <20260821-kuno-soc-support-v3-5-196e2b306368@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 16:19:54 +0000
-Message-Id: <20260821161954.DE78B1F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 16:21:25 +0000
+Message-Id: <20260821162125.D4C6D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] The `cs35l45_sync_en_put` ALSA control put callback incorrectly re=
-turns 1 when unchanged, ignores regmap errors, and lacks locking.
-- [Medium] Boolean ALSA controls in `cs35l45_sync_controls` are incorrectly=
- named with the suffix ' Enable' instead of ' Switch'.
-
 Pre-existing issues:
-- [High] The `cs35l45_amplifier_mode_put` ALSA control updates the software=
- shadow state (`cs35l45->amplifier_mode`) and performs its precondition che=
-ck outside of the DAPM mutex.
+- [High] Probe function mutates globally shared static state, causing accum=
+ulative corruption on probe retry or unbind/bind.
 --
 
---- Patch [2]: [PATCH v3 2/2] ASoC: cs35l45: Adds support for SYNC bus ---
-commit ba724d28c232323128106bdc26fdc20dca80f285
-Author: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+--- Patch [5]: [PATCH v3 05/15] clk: qcom: clk-rpmh: Add support for Kuno R=
+PMh clocks ---
+commit 6a55939d348aa54a2946c4b7160f00630d3c9710
+Author: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 
-ASoC: cs35l45: Adds support for SYNC bus
-   =20
-Adds support for the multidevice synchronization (SYNC) bus.
-The SYNC bus is an opaque one wire bus that is shared between
-Cirrus devices. Initial support only includes software (SW)
-data packets.
+clk: qcom: clk-rpmh: Add support for Kuno RPMh clocks
 
-> diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
-> index a032bb23b4ac7..559fae09674cc 100644
-> --- a/sound/soc/codecs/cs35l45.c
-> +++ b/sound/soc/codecs/cs35l45.c
+Add the RPMh clock description for the Qualcomm Kuno SoC so the
+qcom,kuno-rpmh-clk compatible can provide the RPMh-managed clocks to
+consumers: the CXO div-2 (and always-on variant), RF clock 1 (and
+always-on variant), the QPIC BCM clock and the IPA clock.
 
-[ ... ]
-
-> @@ -195,6 +196,38 @@ static int cs35l45_activate_ctl(struct snd_soc_compo=
-nent *component,
->  	return 0;
->  }
-> =20
-> +static int cs35l45_sync_en_get(struct snd_kcontrol *kcontrol,
-> +				      struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct cs35l45_private *cs35l45 =3D
-> +			snd_soc_component_get_drvdata(component);
-> +
-> +	ucontrol->value.integer.value[0] =3D cs35l45->sync_en;
-> +
-> +	return 0;
-> +}
-> +
-> +static int cs35l45_sync_en_put(struct snd_kcontrol *kcontrol,
-> +				      struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct cs35l45_private *cs35l45 =3D
-> +			snd_soc_component_get_drvdata(component);
-> +
-> +	if (ucontrol->value.integer.value[0] =3D=3D cs35l45->sync_en)
-> +		return 1;
-
-[Severity: High]
-Does this incorrectly return 1 when the value is unchanged?
-
-The ALSA kcontrol API expects 0 when the value is unchanged, so returning 1
-will cause spurious change events to be broadcast to userspace.
-
-> +
-> +	if ((bool)ucontrol->value.integer.value[0])
-> +		regmap_set_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES2, CS35L45_SYNC_=
-EN_MASK);
-> +	else
-> +		regmap_clear_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES2, CS35L45_SYN=
-C_EN_MASK);
-> +
-> +	cs35l45->sync_en =3D ucontrol->value.integer.value[0];
-> +
-> +	return 1;
-> +}
-
-[Severity: High]
-Is it safe to ignore the return values from regmap_set_bits() and
-regmap_clear_bits() here?=20
-
-If the I/O operation fails, the software shadow state will become
-desynchronized from the actual hardware state.
-
-Also, should this state update be protected by a lock?=20
-
-Concurrent writes via snd_ctl_elem_write() could trigger race conditions si=
-nce
-the state check and update are not atomic.
+> diff --git a/drivers/clk/qcom/clk-rpmh.c b/drivers/clk/qcom/clk-rpmh.c
+> index 6367b2a5a4e08..d8c3a6b12d4a4 100644
+> --- a/drivers/clk/qcom/clk-rpmh.c
+> +++ b/drivers/clk/qcom/clk-rpmh.c
 
 [ ... ]
 
-> @@ -591,6 +624,18 @@ static SOC_ENUM_SINGLE_DECL(amplifier_mode_enum, SND=
-_SOC_NOPM, 0,
->  static DECLARE_TLV_DB_SCALE(amp_gain_tlv, 1000, 300, 0);
->  static const DECLARE_TLV_DB_SCALE(cs35l45_dig_pcm_vol_tlv, -10225, 25, t=
-rue);
+> @@ -943,6 +943,20 @@ static const struct clk_rpmh_desc clk_rpmh_kaanapali=
+ =3D {
+>  	.num_clks =3D ARRAY_SIZE(kaanapali_rpmh_clocks),
+>  };
 > =20
-> +static const struct snd_kcontrol_new cs35l45_sync_controls[] =3D {
-> +	SOC_SINGLE_BOOL_EXT("SYNC Enable", 0, cs35l45_sync_en_get, cs35l45_sync=
-_en_put),
-> +	SOC_SINGLE("SYNC LSW RX Enable", CS35L45_SYNC_TX_RX_ENABLES,
-> +			CS35L45_SYNC_LSW_RX_EN_SHIFT, 1, 0),
-> +	SOC_SINGLE("SYNC LSW TX Enable", CS35L45_SYNC_TX_RX_ENABLES,
-> +			CS35L45_SYNC_LSW_TX_EN_SHIFT, 1, 0),
-> +	SOC_SINGLE("SYNC SW RX Enable", CS35L45_SYNC_TX_RX_ENABLES,
-> +			CS35L45_SYNC_SW_RX_EN_SHIFT, 1, 0),
-> +	SOC_SINGLE("SYNC SW TX Enable", CS35L45_SYNC_TX_RX_ENABLES,
-> +			CS35L45_SYNC_SW_TX_EN_SHIFT, 1, 0),
+> +static struct clk_hw *kuno_rpmh_clocks[] =3D {
+> +	[RPMH_CXO_CLK]		=3D &clk_rpmh_bi_tcxo_div2.hw,
+> +	[RPMH_CXO_CLK_A]	=3D &clk_rpmh_bi_tcxo_div2_ao.hw,
+> +	[RPMH_RF_CLK1]		=3D &clk_rpmh_rf_clk1_a.hw,
+> +	[RPMH_RF_CLK1_A]	=3D &clk_rpmh_rf_clk1_a_ao.hw,
+> +	[RPMH_QPIC_CLK]		=3D &clk_rpmh_qpic_clk.hw,
+> +	[RPMH_IPA_CLK]		=3D &clk_rpmh_ipa.hw,
 > +};
 
-[Severity: Medium]
-Do these boolean controls need to end in " Switch" instead of " Enable"?
+[Severity: High]
+This is a pre-existing issue, but does adding this new clock array expose it
+to state corruption during probe retries or unbind/bind sequences?
 
-ALSA control naming conventions mandate that boolean controls must end in
-" Switch". Standard user-space audio layers (like PulseAudio and PipeWire)
-rely on this to recognize them as toggles rather than exposing them as
-raw integers.
+Looking at clk_rpmh_probe() in drivers/clk/qcom/clk-rpmh.c, if a clock
+resource is missing or if probe fails transitorily and is retried, the
+function mutates the statically allocated array:
+
+drivers/clk/qcom/clk-rpmh.c:clk_rpmh_probe() {
+    ...
+    hw_clks[i] =3D NULL;
+    ...
+    rpmh_clk->res_addr +=3D res_addr;
+    rpmh_clk->dev =3D &pdev->dev;
+    ...
+}
+
+Since kuno_rpmh_clocks is a globally shared static structure, writing NULL =
+here
+permanently erases the clock definition for any future bindings.
+
+Additionally, modifying res_addr accumulates the hardware address on subseq=
+uent
+probe attempts, leading to corrupted register offsets.
+
+Could we avoid mutating these static clock structures by allocating a per-d=
+evice
+copy during probe, or isolating the runtime state from the static clock
+descriptions?
+
+> +
+> +static const struct clk_rpmh_desc clk_rpmh_kuno =3D {
+> +	.clks =3D kuno_rpmh_clocks,
+> +	.num_clks =3D ARRAY_SIZE(kuno_rpmh_clocks),
+> +};
+> +
 
 [ ... ]
 
-While reviewing the ALSA controls, I noticed a pre-existing issue in the
-cs35l45_amplifier_mode_put() function:
-
-sound/soc/codecs/cs35l45.c:cs35l45_amplifier_mode_put() {
-    ...
-    snd_soc_dapm_mutex_unlock(dapm);
-
-    cs35l45->amplifier_mode =3D ucontrol->value.integer.value[0];
-
-    return 1;
-}
-
-[Severity: High]
-This is a pre-existing issue, but does cs35l45_amplifier_mode_put() update
-the software shadow state outside of the DAPM mutex?=20
-
-If two threads execute the put callback concurrently with different target
-modes, thread B could check the condition before thread A completes its
-hardware update. This could lead to the shadow state becoming out of sync
-with the hardware.
-
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821160946.9525=
-8-1-rriveram@opensource.cirrus.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-kuno-soc-s=
+upport-v3-0-196e2b306368@oss.qualcomm.com?part=3D5
